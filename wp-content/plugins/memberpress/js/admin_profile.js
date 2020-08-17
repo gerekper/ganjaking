@@ -24,4 +24,16 @@ jQuery(document).ready(function($) {
       submittedTelInputs[i].value = iti.getNumber();
     }
   });
+
+  // Dynamically set enctype and the encoding of admin profile form
+  $( "form#your-profile" )
+  .attr( "enctype", "multipart/form-data" );
+
+  $(".mepr-replace-file").each(function(){
+    $(this).closest('td').find('.mepr-file-uploader').hide();
+  });
+
+  $('body').on('click', '.mepr-replace-file', function (e) {
+    $(this).closest('td').find('.mepr-file-uploader').toggle();
+  });
 });

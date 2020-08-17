@@ -83,7 +83,7 @@ class MeprRulesCtrl extends MeprCptCtrl {
   public static function get_page_title_code($title) {
     global $current_screen;
 
-    if(empty($title) && $current_screen->post_type == MeprRule::$cpt) {
+    if(empty($title) && isset($current_screen->post_type) && $current_screen->post_type == MeprRule::$cpt) {
       return __('All Content: ', 'memberpress');
     }
     else {
@@ -142,7 +142,9 @@ class MeprRulesCtrl extends MeprCptCtrl {
 
     if(isset($current_post)) {
       if(MeprRule::is_locked($current_post)) {
-        return MeprView::file('/shared/unauthorized_comments');
+        if(MeprHooks::apply_filters('mepr-rule-comments', true)) {
+          return MeprView::file('/shared/unauthorized_comments');
+        }
       }
     }
 

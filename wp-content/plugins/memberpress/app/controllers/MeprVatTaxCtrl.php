@@ -59,6 +59,7 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
     $vat_enabled        = get_option('mepr_vat_enabled');
     $vat_country        = get_option('mepr_vat_country');
     $vat_tax_businesses = get_option('mepr_vat_tax_businesses');
+    $vat_disable_vies_service = get_option('mepr_vat_disable_vies_service');
 
     $countries = $this->get_vat_countries();
 
@@ -87,10 +88,12 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
     $vat_enabled = isset($_POST['mepr_vat_enabled']);
     $vat_country = isset($_POST['mepr_vat_country']) ? sanitize_text_field($_POST['mepr_vat_country']) : '';
     $vat_tax_businesses = isset($_POST['mepr_vat_tax_businesses']);
+    $vat_disable_vies_service = isset($_POST['mepr_vat_disable_vies_service']);
 
     update_option('mepr_vat_enabled', $vat_enabled);
     update_option('mepr_vat_country', $vat_country);
     update_option('mepr_vat_tax_businesses', $vat_tax_businesses);
+    update_option('mepr_vat_disable_vies_service', $vat_disable_vies_service);
   }
 
   public function signup($prd_id) {
@@ -156,9 +159,9 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
       // If we're taxing all businesses then vat tax validation doesn't matter
       if( $customer_type=='consumer' ||
           ( $customer_type=='business' &&
-            ( $vat_country==$country || // ALWAYS tax customer in our country ... even if they have a valid VAT number
+            ( $vat_country==$usr_country || // ALWAYS tax customer in our country ... even if they have a valid VAT number
               $vat_tax_businesses ||
-              !$this->vat_number_is_valid($vat_number, $country) ) ) ) {
+              !$this->vat_number_is_valid($vat_number, $usr_country) ) ) ) {
         $tax_rate = $this->get_rate($tax_rate, $country, $prd_id);
       }
     }
@@ -195,6 +198,9 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
 
   // http://ec.europa.eu/taxation_customs/vies/technicalInformation.html
   private function vies_says_vat_is_valid($vat_number, $country) {
+    if(get_option('mepr_vat_disable_vies_service')) {
+        return true;
+    }
 
     if(extension_loaded('soap')) {
       $client = new SoapClient(

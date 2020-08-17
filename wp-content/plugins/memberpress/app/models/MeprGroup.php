@@ -112,9 +112,25 @@ class MeprGroup extends MeprCptModel {
     update_post_meta($id, self::$alternate_group_url_str, $this->alternate_group_url);
     update_post_meta($id, self::$use_custom_template_str, $this->use_custom_template);
     update_post_meta($id, self::$custom_template_str, $this->custom_template);
+
+    if($this->is_upgrade_path) {
+      $products = $this->products();
+
+      foreach ($products as $product) {
+        if ((bool)$product->simultaneous_subscriptions) {
+          $product->simultaneous_subscriptions = false;
+          $product->save();
+        }
+      }
+    }
   }
 
   //$return_type should be a string containing 'objects', 'ids', or 'titles'
+
+  /**
+   * @param string $return_type
+   * @return MeprProduct[]
+   */
   public function products($return_type = 'objects') {
     global $wpdb;
 

@@ -214,6 +214,19 @@ class MeprCoupon extends MeprCptModel {
       $obj->trial_days = (($obj instanceof MeprProduct) ? $obj->days_in_my_period() : $obj->days_in_this_period());
       $obj->trial_amount = $this->apply_discount($obj->price, true, $obj);
     }
+
+    // Basically, if the subscription does have a trial period
+    // because of a coupon then the trial payment should count as one of the limited cycle payments.
+    if( ($this->discount_mode=='trial-override' || $this->discount_mode=='first-payment') &&
+        $obj instanceof MeprSubscription &&
+        $obj->trial_amount > 0 &&
+        $obj->limit_cycles == 1
+    ) {
+      $product = $obj->product();
+      if(false == $product->trial){
+        $obj->limit_cycles_num = $obj->limit_cycles_num - 1;
+      }
+    }
   }
 
   public static function expire_old_coupons_and_cleanup_db() {

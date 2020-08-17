@@ -2,7 +2,7 @@
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
 class MeprStripeGateway extends MeprBaseRealGateway {
-  const STRIPE_API_VERSION = '2019-08-14';
+  const STRIPE_API_VERSION = '2020-03-02';
 
   /** Used in the view to identify the gateway */
   public function __construct() {
@@ -1377,6 +1377,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       'ajax_url' => admin_url('admin-ajax.php'),
       'ajax_error' => __('An error occurred, please DO NOT submit the form again as you may be double charged. Please contact us for further assistance instead.', 'memberpress'),
       'invalid_response_error' => __('The response from the server was invalid', 'memberpress'),
+      'error_please_try_again' => __('An error occurred, please try again', 'memberpress'),
       'top_error' => sprintf(
         // translators: %1$s: open strong tag, %2$s: close strong tag, %3$s: error message
         esc_html__('%1$sERROR%2$s: %3$s', 'memberpress'),
@@ -1413,6 +1414,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     $payment_method = $this;
     $payment_form_action = 'mepr-stripe-payment-form';
     $txn = new MeprTransaction; //FIXME: This is simply for the action mepr-authorize-net-payment-form
+    $user = MeprUtils::is_user_logged_in() ? MeprUtils::get_currentuserinfo() : null;
 
     if($this->settings->use_stripe_checkout) {
       $this->display_stripe_checkout_form($txn);
@@ -1497,17 +1499,13 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       <form action="" method="post" id="mepr-stripe-payment-form">
         <input type="hidden" name="mepr_process_payment_form" value="Y" />
         <input type="hidden" name="mepr_transaction_id" value="<?php echo $txn->id; ?>" />
-        <input type="hidden" name="card-name" value="<?php echo $user->get_full_name(); ?>" />
         <input type="hidden" name="address_required" value="<?php echo $mepr_options->show_address_fields && $mepr_options->require_address_fields ? 1 : 0 ?>" />
 
-        <?php if($mepr_options->show_address_fields && $mepr_options->require_address_fields): ?>
-          <input type="hidden" name="card-address-1" value="<?php echo get_user_meta($user->ID, 'mepr-address-one', true); ?>" />
-          <input type="hidden" name="card-address-2" value="<?php echo get_user_meta($user->ID, 'mepr-address-two', true); ?>" />
-          <input type="hidden" name="card-city" value="<?php echo get_user_meta($user->ID, 'mepr-address-city', true); ?>" />
-          <input type="hidden" name="card-state" value="<?php echo get_user_meta($user->ID, 'mepr-address-state', true); ?>" />
-          <input type="hidden" name="card-zip" value="<?php echo get_user_meta($user->ID, 'mepr-address-zip', true); ?>" />
-          <input type="hidden" name="card-country" value="<?php echo get_user_meta($user->ID, 'mepr-address-country', true); ?>" />
-        <?php endif; ?>
+        <?php
+          if($user instanceof MeprUser) {
+            MeprView::render("/checkout/MeprStripeGateway/payment_gateway_fields", get_defined_vars());
+          }
+        ?>
 
         <div class="mp-form-row">
           <div class="mp-form-label">
@@ -1652,15 +1650,11 @@ class MeprStripeGateway extends MeprBaseRealGateway {
           <input type="hidden" name="_mepr_nonce" value="<?php echo wp_create_nonce('mepr_process_update_account_form'); ?>" />
           <input type="hidden" name="address_required" value="<?php echo $mepr_options->show_address_fields && $mepr_options->require_address_fields ? 1 : 0 ?>" />
 
-          <?php if($mepr_options->show_address_fields && $mepr_options->require_address_fields): ?>
-            <input type="hidden" name="card-address-1" value="<?php echo get_user_meta($user->ID, 'mepr-address-one', true); ?>" />
-            <input type="hidden" name="card-address-2" value="<?php echo get_user_meta($user->ID, 'mepr-address-two', true); ?>" />
-            <input type="hidden" name="card-city" value="<?php echo get_user_meta($user->ID, 'mepr-address-city', true); ?>" />
-            <input type="hidden" name="card-state" value="<?php echo get_user_meta($user->ID, 'mepr-address-state', true); ?>" />
-            <input type="hidden" name="card-zip" value="<?php echo get_user_meta($user->ID, 'mepr-address-zip', true); ?>" />
-            <input type="hidden" name="card-country" value="<?php echo get_user_meta($user->ID, 'mepr-address-country', true); ?>" />
-          <?php endif; ?>
-
+          <?php
+            if($user instanceof MeprUser) {
+              MeprView::render("/checkout/MeprStripeGateway/payment_gateway_fields", get_defined_vars());
+            }
+          ?>
 
           <div class="mepr_update_account_table">
             <div><strong><?php _e('Update your Credit Card information below', 'memberpress'); ?></strong></div><br/>

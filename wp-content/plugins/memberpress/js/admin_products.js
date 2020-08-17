@@ -402,6 +402,28 @@
         $('span#who_have_purchased-' + id).hide();
       }
     });
+
+    $(window).on("load", function () {
+      var id = $('#purchase_type_dropdown').val();
+      var hide_options_func = function(id) {
+        if(id === 'had') {
+          $('#_mepr_product_who_can_purchase-product_id')
+            .find('option[value=nothing], option[value=subscribed-before], option[value=not-subscribed-before]')
+            .hide();
+        }else {
+          $('#_mepr_product_who_can_purchase-product_id')
+            .find('option[value=nothing], option[value=subscribed-before], option[value=not-subscribed-before]')
+            .show();
+        }
+      };
+      hide_options_func(id);
+
+      $('body').on('change', '#purchase_type_dropdown', function() {
+        var id = $(this).val();
+        hide_options_func(id);
+      });
+    });
+
     //Add a new who can purchase row
     $('a.add-new-who').click(function() {
       var id = Math.floor(Math.random() * 995000) + 5000;

@@ -113,8 +113,8 @@ class MeprTaxJarCtrl extends MeprBaseCtrl {
    */
   public function store_options() {
     update_option( 'mepr_tax_taxjar_enabled', isset( $_POST['mepr_tax_taxjar_enabled'] ) );
-    update_option( 'mepr_tax_taxjar_api_key_live', isset( $_POST['mepr_tax_taxjar_api_key_live'] ) ? sanitize_text_field( $_POST['mepr_tax_taxjar_api_key_live'] ) : '' );
-    update_option( 'mepr_tax_taxjar_api_key_sandbox', isset( $_POST['mepr_tax_taxjar_api_key_sandbox'] ) ? sanitize_text_field( $_POST['mepr_tax_taxjar_api_key_sandbox'] ) : '' );
+    update_option( 'mepr_tax_taxjar_api_key_live', isset( $_POST['mepr_tax_taxjar_api_key_live'] ) ? sanitize_text_field( trim($_POST['mepr_tax_taxjar_api_key_live']) ) : '' );
+    update_option( 'mepr_tax_taxjar_api_key_sandbox', isset( $_POST['mepr_tax_taxjar_api_key_sandbox'] ) ? sanitize_text_field( trim($_POST['mepr_tax_taxjar_api_key_sandbox']) ) : '' );
     update_option( 'mepr_tax_taxjar_enable_sandbox', isset( $_POST['mepr_tax_taxjar_enable_sandbox'] ) ? 1 : '' );
   }
 

@@ -1,0 +1,48 @@
+/* widget area */
+.yith_wcan_placeholder + .spinner {
+    background-position: center;
+    float: left;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.yith_wcan_placeholder table {
+    width: 100%;
+}
+
+.yith_wcan_placeholder th {
+    text-align: left;
+}
+
+.yith_wcan_placeholder td {
+    vertical-align: middle;
+}
+
+p.yit-wcan-display-label,
+p.yit-wcan-display-color,
+p#yit-wcan-style,
+p#yit-wcan-show-count,
+p.yit-wcan-display-tags,
+div.yit-wcan-widget-tag-list {
+    display: none;
+}
+
+div.yit-wcan-widget-tag-list.tags{
+    display: block;
+}
+
+p#yit-wcan-style.yit-wcan-style-color,
+p#yit-wcan-style.yit-wcan-style-multicolor,
+p#yit-wcan-show-count.yit-wcan-show-count-list,
+p#yit-wcan-show-count.yit-wcan-show-count-select,
+p#yit-wcan-show-count.yit-wcan-show-count-categories,
+p#yit-wcan-show-count.yit-wcan-show-count-brands,
+p#yit-wcan-show-count.yit-wcan-show-count-tags{
+    display: block;
+}
+
+label.yith-wcan-reset-table{
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+}

@@ -952,6 +952,71 @@ class MeprTransaction extends MeprBaseMetaModel implements MeprProductInterface,
     $this->apply_tax($subtotal, 2, $subtotal);
   }
 
+
+
+
+  public function load_product_vars($prd, $cpn_code=null, $set_subtotal=false) {
+    $mock_cpn = (object)array('post_title' => null, 'ID' => 0, 'trial' => 0);
+
+    if(empty($cpn_code) || !MeprCoupon::is_valid_coupon_code($cpn_code, $prd->ID)) {
+      $cpn = $mock_cpn;
+    }
+    else {
+      if(!($cpn = MeprCoupon::get_one_from_code($cpn_code))) {
+        $cpn = $mock_cpn;
+      }
+    }
+
+    $this->product_id = $prd->ID;
+    $this->coupon_id = $cpn->ID;
+    $this->period = $prd->period;
+    $this->period_type = $prd->period_type;
+    $this->expire_type = $prd->expire_type;
+    $this->expire_unit = $prd->expire_unit;
+    $this->expire_after = $prd->expire_after;
+    $this->expire_fixed = $prd->expire_fixed;
+    $this->expires_at = $prd->expires_at;
+    $this->trial = $prd->trial;
+    $this->trial_days = $prd->trial ? $prd->trial_days : 0;
+    $this->trial_amount = $prd->trial_amount;
+
+    // If trial only once is set and the member has
+    // already had a trial then get rid of it
+    if($prd->trial_once && $prd->trial_is_expired()) {
+      $this->trial = false;
+      $this->trial_days = 0;
+      $this->trial_amount = 0.00;
+    }
+
+    if($set_subtotal) {
+      $this->set_subtotal($prd->adjusted_price());
+    }
+    else {
+      $this->price = $prd->adjusted_price();
+    }
+
+    // This will only happen with a real coupon
+    if($cpn instanceof MeprCoupon) {
+      $cpn->maybe_apply_trial_override($this);
+
+      // We can't do this above because we don't want to
+      // screw up the price before applying the trial override
+      if($set_subtotal) {
+        $this->set_subtotal($prd->adjusted_price($cpn->post_title));
+      }
+      else {
+        $this->price = $prd->adjusted_price($cpn->post_title);
+      }
+    }
+
+    MeprHooks::do_action('mepr_transaction_applied_product_vars', $this);
+  }
+
+
+
+
+
+
   /** Sets up the transaction total, subtotal and tax based on a gross value.
    * This will never check for tax inclusion because since it's the gross
    *kit doesn't matter (since we already know the gross amount).

@@ -43,6 +43,7 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
         'desc' => '',
         'use_desc' => true,
         'manually_complete' => false,
+        'always_send_welcome' => false,
         'email' => '',
         'sandbox' => false,
         'debug' => false
@@ -114,7 +115,7 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
     $txn->trans_num = 't_' . uniqid();
     $txn->store();
 
-    if(!$this->settings->manually_complete == 'on' && !$this->settings->manually_complete == true) {
+    if(!$this->settings->manually_complete) {
       $txn->status = MeprTransaction::$complete_str;
       $txn->store(); //Need to store here so the event will show as "complete" when firing the hooks
       MeprUtils::send_transaction_receipt_notices($txn);
@@ -122,7 +123,13 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
     }
     else {
       if(!$usr->signup_notice_sent) {
-        MeprUtils::send_notices($txn, null, 'MeprAdminSignupEmail');
+        if($this->settings->always_send_welcome) {
+          MeprUtils::send_notices($txn, 'MeprUserWelcomeEmail', 'MeprAdminSignupEmail');
+        }
+        else {
+          MeprUtils::send_notices($txn, null, 'MeprAdminSignupEmail');
+        }
+
         $usr->signup_notice_sent = true;
         $usr->store();
       }
@@ -227,7 +234,7 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
     $txn->trans_num = 't_' . uniqid();
     $txn->store();
 
-    if(!$this->settings->manually_complete == 'on' && !$this->settings->manually_complete == true) {
+    if(!$this->settings->manually_complete) {
       $txn->status = MeprTransaction::$complete_str;
       $txn->store(); //Need to store here so the event will show as "complete" when firing the hooks
       MeprUtils::send_transaction_receipt_notices($txn);
@@ -235,7 +242,13 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
     }
     else {
       if(!$usr->signup_notice_sent) {
-        MeprUtils::send_notices($txn, null, 'MeprAdminSignupEmail');
+        if($this->settings->always_send_welcome) {
+          MeprUtils::send_notices($txn, 'MeprUserWelcomeEmail', 'MeprAdminSignupEmail');
+        }
+        else {
+          MeprUtils::send_notices($txn, null, 'MeprAdminSignupEmail');
+        }
+
         $usr->signup_notice_sent = true;
         $usr->store();
       }
@@ -399,7 +412,8 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
   /** Displays the form for the given payment gateway on the MemberPress Options page */
   public function display_options_form() {
     $mepr_options = MeprOptions::fetch();
-    $manually_complete = ($this->settings->manually_complete == 'on' or $this->settings->manually_complete == true);
+    $manually_complete = ($this->settings->manually_complete == true);
+    $always_send_welcome = ($this->settings->always_send_welcome == true);
     ?>
     <table>
       <tr>
@@ -408,6 +422,10 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
         </td>
       </tr>
       <tr>
+        <td colspan="2">
+          <input type="checkbox" name="<?php echo $mepr_options->integrations_str; ?>[<?php echo $this->id;?>][always_send_welcome]"<?php echo checked($always_send_welcome); ?> />&nbsp;<?php _e('Send Welcome email when "Admin Must Manually Complete Transactions" is enabled', 'memberpress'); ?>
+        </td>
+      </tr>      <tr>
         <td colspan="2">
           <label><?php _e('Description', 'memberpress'); ?></label><br/>
           <textarea name="<?php echo $mepr_options->integrations_str; ?>[<?php echo $this->id;?>][desc]" rows="3" cols="45"><?php echo stripslashes($this->settings->desc); ?></textarea>

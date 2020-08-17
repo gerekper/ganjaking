@@ -74,44 +74,9 @@
             mpToggleFieldValidation($(obj), (res.toString() == 'true'));
 
             if(res.toString() == 'true') {
-              $.ajax({
-                url: MeprI18n.ajaxurl,
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                  action: 'mepr_update_price_string_with_coupon',
-                  code: $(obj).val(),
-                  prd_id: $(obj).data("prdid"),
-                  coupon_nonce: MeprSignup.coupon_nonce
-                }
-              })
-              .done(function (response) {
-                if (response && typeof response == 'object' && response.status === 'success') {
-                  if(price_string.length) {
-                    var scroll_top = price_string.offset().top;
-                    price_string.html(response.price_string).parent().css({ opacity: 0 });
-                    if (MeprSignup.spc_invoice == '1') {
-                      price_string.parent().animate({ opacity: 1 }, 1000);
-                    } else { // Enable animation if SPC Invoice is disabled ... they don't look compatible
-                      $('html, body').animate({
-                        scrollTop: scroll_top - 30
-                      }, 200, function () {
-                        price_string.parent().animate({ opacity: 1 }, 1000);
-                      });
-                    }
-                  }
 
-                  if(response.payment_required) {
-                    form.find('.mepr-payment-methods-wrapper').show();
-                    form.find('input[name="mepr_payment_methods_hidden"]').remove();
-                  } else {
-                    form.find('.mepr-payment-methods-wrapper').hide();
-                    form.append('<input type="hidden" name="mepr_payment_methods_hidden" value="1">');
-                  }
-                }
-              });
-              // Valid Coupon - update SPC Invoice
-              display_spc_invoice(form);
+              // Let's update price string
+              meprUpdatePriceTerms(form);
             }
             else {
               form.find('.mepr-payment-methods-wrapper:hidden').show();
@@ -119,7 +84,7 @@
               price_string.text(price_string.data('default-price-string'));
 
               // Invalid Coupon - update SPC Invoice
-              display_spc_invoice(form);
+              meprUpdatePriceTerms(form);
             }
 
           });
@@ -133,12 +98,76 @@
 
           price_string.text(price_string.data('default-price-string'));
           // Enpty Coupon - update SPC Invoice
-          display_spc_invoice(form);
+          meprUpdatePriceTerms(form);
         }
       }
 
       $(obj).trigger('mepr-validate-input');
     };
+
+    var meprUpdatePriceTerms = function (form, submitting) {
+      var price_string = form.find('div.mepr_price_cell');
+
+      let settings = {
+        url: MeprI18n.ajaxurl,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          code: form.find('input[name="mepr_coupon_code"]').val(),
+          prd_id: form.find('input[name="mepr_product_id"]').val(),
+          mepr_address_one: form.find('input[name="mepr-address-one"]').val(),
+          mepr_address_two: form.find('input[name="mepr-address-two"]').val(),
+          mepr_address_city: form.find('input[name="mepr-address-city"]').val(),
+          mepr_address_state: form.find('select[name="mepr-address-state"]').is(':visible') ? form.find('select[name="mepr-address-state"]').val() : form.find('input[name="mepr-address-state"]').val(),
+          mepr_address_country: form.find('select[name="mepr-address-country"]').val(),
+          mepr_address_zip: form.find('input[name="mepr-address-zip"]').val(),
+          mepr_vat_number: form.find('input[name="mepr_vat_number"]').val(),
+          mepr_vat_customer_type: form.find('input[name="mepr_vat_customer_type"]:checked').val(),
+          coupon_nonce: MeprSignup.coupon_nonce
+        }
+      }
+
+      // Let's update terms
+      settings.data.action = 'mepr_update_price_string';
+      $.ajax(settings)
+      .done(function (response) {
+        if (response && typeof response == 'object' && response.status === 'success') {
+          if(price_string.length) {
+            var scroll_top = price_string.offset().top;
+            price_string.html(response.price_string).parent().css({ opacity: 0 });
+            if (MeprSignup.spc_invoice == '1') {
+              price_string.parent().animate({ opacity: 1 }, 1000);
+            } else { // Enable animation if SPC Invoice is disabled ... they don't look compatible
+              $('html, body').animate({
+                scrollTop: scroll_top - 30
+              }, 200, function () {
+                price_string.parent().animate({ opacity: 1 }, 1000);
+              });
+            }
+          }
+
+          if(response.payment_required) {
+            form.find('.mepr-payment-methods-wrapper').show();
+            form.find('input[name="mepr_payment_methods_hidden"]').remove();
+          } else {
+            form.find('.mepr-payment-methods-wrapper').hide();
+            form.append('<input type="hidden" name="mepr_payment_methods_hidden" value="1">');
+          }
+        }
+      });
+
+      // Let's update SPC Invoice
+      settings.data.action = 'mepr_update_spc_invoice_table';
+      $.ajax(settings)
+      .done(function (response) {
+        if (response && typeof response == 'object' && response.status === 'success') {
+          $(form).find('.mepr-transaction-invoice-wrapper > div').replaceWith(response.invoice);
+        }
+        $(form).find('.mepr-invoice-loader').hide();
+        $(form).find(".mepr-transaction-invoice-wrapper .mp_invoice").css({ opacity: 1 });
+      });
+    }
+
 
     $('body').on('focus', '.mepr-form .mepr-form-input', function (e) {
       $(this).prev('.mp-form-label').find('.cc-error').hide();
@@ -219,74 +248,22 @@
       }
     });
 
-    // displays transaction invoice for single page forms
-    var display_spc_invoice = function ($form) {
+    // Update price string & invoice when certain inputs change value
+    $("body").on("change",
+      ".mepr-form .mepr-form-input, .mepr-form .mepr-form-radios-input, .mepr-form .mepr-select-field",
+      function (e) {
 
-      // Flee if SPC Invoice is not enabled
-      if (MeprSignup.spc_invoice != '1'){
-        return false;
+        if($(this).attr('name') == 'mepr-address-zip' ||
+          $(this).attr('name') == 'mepr-address-city' ||
+          $(this).attr('name') == 'mepr-address-country' ||
+          $(this).attr('name') == 'mepr_vat_customer_type' ||
+          $(this).attr('name') == 'mepr_vat_number'
+        ) {
+          let form = $(this).closest(".mepr-signup-form");
+          meprUpdatePriceTerms(form);
+        }
       }
-
-      // There could be more than one form on a page
-      $( $form ).each(function( index, form ) {
-        // Declare variables
-        let pm = $(form).find('input[name="mepr_payment_method"]:checked').val();
-        let pid = $(form).find('input[name="mepr_product_id"]').val();
-        let address_one = $(form).find('input[name="mepr-address-one"]').val();
-        let address_two = $(form).find('input[name="mepr-address-two"]').val();
-        let city = $(form).find('input[name="mepr-address-city"]').val();
-        let state = $(form).find('select[name="mepr-address-state"]').is(':visible') ? $(form).find('select[name="mepr-address-state"]').val() : $(form).find('input[name="mepr-address-state"]').val();
-        let country = $(form).find('select[name="mepr-address-country"]').val();
-        let postcode = $(form).find('input[name="mepr-address-zip"]').val();
-        let coupon = $(form).find('input[name="mepr_coupon_code"]').val();
-
-        // UX effect
-        $(form).find('.mepr-invoice-loader').fadeIn();
-        $(form).find(".mepr-transaction-invoice-wrapper .mp_invoice").css({ opacity: 0.5 });
-
-        $.ajax({
-          url: MeprI18n.ajaxurl,
-          type: 'POST',
-          dataType: 'json',
-          data: {
-            action: 'mepr_display_spc_invoice',
-            mepr_product_id: pid,
-            mepr_payment_method: pm,
-            mepr_address_one: address_one,
-            mepr_address_two: address_two,
-            mepr_address_city: city,
-            mepr_address_state: state,
-            mepr_address_country: country,
-            mepr_address_zip: postcode,
-            mepr_coupon_code: coupon,
-            coupon_nonce: MeprSignup.coupon_nonce
-          }
-        })
-        .done(function (response) {
-          if (response && typeof response == 'object' && response.status === 'success') {
-            $(form).find('.mepr-transaction-invoice-wrapper > div').replaceWith(response.invoice);
-          }
-          $(form).find('.mepr-invoice-loader').hide();
-          $(form).find(".mepr-transaction-invoice-wrapper .mp_invoice").css({ opacity: 1 });
-        });
-      });
-    };
-
-    // Update Invoice table if country, state payment gateway changes
-    $('body').on('change', '.mepr-signup-form .mepr-countries-dropdown, .mepr-signup-form .mepr-states-dropdown', function (e) {
-      var $form = $(this).closest('.mepr-signup-form');
-      display_spc_invoice($form);
-    });
-
-    // Update Invoice table if state, city or postcode changes
-    $('body').on('blur', '.mepr-signup-form input[name="mepr-address-zip"], .mepr-signup-form input[name="mepr-address-city"], .mepr-signup-form .mepr-states-text', function (e) {
-      var $form = $(this).closest('.mepr-signup-form');
-      display_spc_invoice($form);
-    });
-
-    // Display Invoice after page loads
-    var $form = $('.mepr-signup-form');
-    display_spc_invoice($form);
+    );
 
   });
 })(jQuery);

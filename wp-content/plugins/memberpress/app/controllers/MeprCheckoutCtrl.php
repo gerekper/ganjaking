@@ -7,8 +7,10 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     add_filter('mepr_signup_form_payment_description', array($this, 'maybe_render_payment_form'), 10, 3);
     MeprHooks::add_shortcode('mepr-ecommerce-tracking', array($this, 'replace_tracking_codes'));
     add_filter('mepr-signup-checkout-url', array($this, 'handle_spc_checkout_url'), 10, 2);
-    add_action( 'wp_ajax_mepr_display_spc_invoice', array( $this, 'display_spc_invoice' ) );
-    add_action( 'wp_ajax_nopriv_mepr_display_spc_invoice', array( $this, 'display_spc_invoice' ) );
+    add_action( 'wp_ajax_mepr_update_spc_invoice_table', array( $this, 'update_spc_invoice_table' ) );
+    add_action( 'wp_ajax_nopriv_mepr_update_spc_invoice_table', array( $this, 'update_spc_invoice_table' ) );
+    add_action( 'wp_ajax_nopriv_mepr_update_price_string', array( $this, 'update_price_string' ) );
+    add_action( 'wp_ajax_mepr_update_price_string', array( $this, 'update_price_string' ) );
   }
 
   public function replace_tracking_codes($atts, $content='') {
@@ -558,83 +560,65 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
   }
 
   // Called in the 'the_content' hook ... used to display invoice on single page checkout forms
-  public function display_spc_invoice() {
-    check_ajax_referer('mepr_coupons', 'coupon_nonce'); // Security check
+  public function update_spc_invoice_table() {
+    extract($_POST, EXTR_SKIP);
 
-    if(!isset($_POST['mepr_product_id']) || empty($_POST['mepr_product_id'])          ) {
-      wp_send_json_error(esc_html__('Invalid Product ID or Payment Method', 'memberpress'));
+    if(!isset($prd_id) || empty($prd_id)) {
+      echo 'false';
+      die();
     }
 
-    // This code is pretty similar to MeprCheckoutCtrl::process_signup_form with minor modifications
-    $is_existing_user = MeprUtils::is_user_logged_in(); // Check if the user is logged in already
-
-    if($is_existing_user) {
-      $usr = MeprUtils::get_currentuserinfo();
+    if(isset($code) && !empty($code)){
+      check_ajax_referer('mepr_coupons', 'coupon_nonce');
     }
 
-    // Create a new transaction and set our new membership details
-    $txn = new MeprTransaction();
-    $txn->user_id = $is_existing_user ? $usr->ID : 0;
+    $code = sanitize_text_field(wp_unslash($code));
+    $product = new MeprProduct(sanitize_key(wp_unslash($prd_id)));
 
-    // Get the membership in place
-    $txn->product_id = sanitize_text_field($_POST['mepr_product_id']);
-    $product = $txn->product();
-
-    // Set default price, adjust it later if coupon applies
-    $price = $product->adjusted_price();
-
-    // Default coupon object
-    $cpn = (object)array('ID' => 0, 'post_title' => null);
-
-    // Adjust membership price from the coupon code
-    if(isset($_POST['mepr_coupon_code']) && !empty($_POST['mepr_coupon_code'])) {
-      $code = sanitize_text_field($_POST['mepr_coupon_code']);
-
-      if( MeprCoupon::is_valid_coupon_code($code, $product->ID) ){
-        // Coupon object has to be loaded here or else txn create will record a 0 for coupon_id
-        $cpn = MeprCoupon::get_one_from_code($code);
-
-        if(($cpn !== false) || ($cpn instanceof MeprCoupon) && (false !== $is_valid_coupon) ) {
-          $price = $product->adjusted_price($cpn->post_title);
-        }
-      }
-    }
-
-    $txn->set_subtotal($price);
-
-    // Set the coupon id of the transaction
-    $txn->coupon_id = $cpn->ID;
-
-    // Figure out the Payment Method
-    if(isset($_POST['mepr_payment_method']) && !empty($_POST['mepr_payment_method'])) {
-      $txn->gateway = sanitize_text_field($_POST['mepr_payment_method']);
-    }
-
-    $pm = $txn->payment_method();
-
-    // Create a new temporary subscription
-    if($product->is_one_time_payment()) {
-      $signup_type = 'non-recurring';
-    }
-    else {
-      $signup_type = 'recurring';
-
-      $sub              = new MeprSubscription();
-      $sub->subscr_id   = 'tmp' . uniqid();
-      $sub->user_id     = ( $is_existing_user ) ? $usr->ID : '';
-      $sub->gateway     = $pm->id;
-
-      $sub->load_product_vars( $product, $cpn->post_title, true );
-      $sub->maybe_prorate(); // sub to sub
-    }
-
-    $invoice_html = MeprTransactionsHelper::get_invoice($txn, $sub);
+    ob_start();
+    MeprProductsHelper::display_spc_invoice( $product, $code );
+    $invoice_html = ob_get_clean();
 
     wp_send_json(array(
       'status' => 'success',
       'invoice' => $invoice_html,
     ));
   }
+
+
+  /**
+   * Updates price string via AJAX
+   *
+   * @return void
+   */
+  public static function update_price_string() {
+    extract($_POST, EXTR_SKIP);
+
+    if(!isset($prd_id) || empty($prd_id)) {
+      echo 'false';
+      die();
+    }
+
+    if(isset($code) && !empty($code)){
+      check_ajax_referer('mepr_coupons', 'coupon_nonce');
+    }
+
+    $code = sanitize_text_field(wp_unslash($code));
+    $payment_required = true;
+    $product = new MeprProduct(sanitize_key(wp_unslash($prd_id)));
+
+    ob_start();
+    MeprProductsHelper::display_invoice( $product, $code, $payment_required );
+    $price_string = ob_get_clean();
+
+    wp_send_json(array(
+      'status' => 'success',
+      'price_string' => $price_string,
+      'payment_required' => $payment_required
+    ));
+  }
+
+
 
   public function process_payment_form() {
     if(isset($_POST['mepr_process_payment_form']) && isset($_POST['mepr_transaction_id']) && is_numeric($_POST['mepr_transaction_id'])) {

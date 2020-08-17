@@ -1,4 +1,4 @@
-/*! elementor - v2.9.11 - 02-06-2020 */
+/*! elementor - v2.9.14 - 21-07-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -24647,7 +24647,7 @@ module.exports = {
           return false;
         }
 
-        if ('repeater' === controlData.type) {
+        if (controlData.is_repeater) {
           has = hasControlOfType(controlData.fields, type);
 
           if (has) {

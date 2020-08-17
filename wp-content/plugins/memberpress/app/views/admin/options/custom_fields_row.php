@@ -17,9 +17,10 @@
     <option value="multiselect" <?php selected($line->field_type, 'multiselect'); ?>><?php _e('Multi-Select', 'memberpress'); ?></option>
     <option value="radios" <?php selected($line->field_type, 'radios'); ?>><?php _e('Radio Buttons', 'memberpress'); ?></option>
     <option value="checkboxes" <?php selected($line->field_type, 'checkboxes'); ?>><?php _e('Checkboxes', 'memberpress'); ?></option>
+    <option value="file" <?php selected($line->field_type, 'file'); ?>><?php _e('File Upload', 'memberpress'); ?></option>
   </select>
 
-  <label><?php _e('Default Value(s):', 'memberpress'); ?></label>
+  <label for="mepr-custom-fields[<?php echo $random_id; ?>][default]"><?php _e('Default Value(s):', 'memberpress'); ?></label>
   <input type="text" name="mepr-custom-fields[<?php echo $random_id; ?>][default]" value="<?php echo stripslashes($line->default_value); ?>" />
 
   <input type="checkbox" name="mepr-custom-fields[<?php echo $random_id; ?>][signup]" id="mepr-custom-fields-signup-<?php echo $random_id; ?>" <?php checked($line->show_on_signup); ?> />

@@ -1,4 +1,4 @@
-/*! elementor - v2.9.11 - 02-06-2020 */
+/*! elementor - v2.9.14 - 21-07-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -581,15 +581,14 @@ __webpack_require__(17);
 
   var ElementorGutenbergApp = {
     cacheElements: function cacheElements() {
-      this.isElementorMode = ElementorGutenbergSettings.isElementorMode;
-      this.cache = {};
-      this.cache.$gutenberg = $('#editor');
-      this.cache.$switchMode = $($('#elementor-gutenberg-button-switch-mode').html());
-      this.cache.$gutenberg.find('.edit-post-header-toolbar').append(this.cache.$switchMode);
-      this.cache.$switchModeButton = this.cache.$switchMode.find('#elementor-switch-mode-button');
-      this.toggleStatus();
-      this.buildPanel();
       var self = this;
+      self.isElementorMode = ElementorGutenbergSettings.isElementorMode;
+      self.cache = {};
+      self.cache.$gutenberg = $('#editor');
+      self.cache.$switchMode = $($('#elementor-gutenberg-button-switch-mode').html());
+      self.cache.$switchModeButton = self.cache.$switchMode.find('#elementor-switch-mode-button');
+      self.bindEvents();
+      self.toggleStatus();
       wp.data.subscribe(function () {
         setTimeout(function () {
           self.buildPanel();
@@ -598,6 +597,10 @@ __webpack_require__(17);
     },
     buildPanel: function buildPanel() {
       var self = this;
+
+      if (!self.cache.$gutenberg.find('#elementor-switch-mode').length) {
+        self.cache.$gutenberg.find('.edit-post-header-toolbar').append(self.cache.$switchMode);
+      }
 
       if (!$('#elementor-editor').length) {
         self.cache.$editorPanel = $($('#elementor-gutenberg-panel').html()); // TODO: `editor-block-list__layout` class for WP < 5.3 support.
@@ -667,11 +670,7 @@ __webpack_require__(17);
       jQuery('body').toggleClass('elementor-editor-active', this.isElementorMode).toggleClass('elementor-editor-inactive', !this.isElementorMode);
     },
     init: function init() {
-      var self = this;
-      setTimeout(function () {
-        self.cacheElements();
-        self.bindEvents();
-      }, 1);
+      this.cacheElements();
     }
   };
   $(function () {

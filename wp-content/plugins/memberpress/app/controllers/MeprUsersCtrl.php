@@ -40,6 +40,7 @@ class MeprUsersCtrl extends MeprBaseCtrl {
 
     //Shortcodes
     MeprHooks::add_shortcode('mepr-list-subscriptions', 'MeprUsersCtrl::list_users_subscriptions');
+    MeprHooks::add_shortcode('mepr-user-file', 'MeprUsersCtrl::show_user_file');
   }
 
   /**
@@ -192,6 +193,8 @@ class MeprUsersCtrl extends MeprBaseCtrl {
   public static function extra_profile_fields($wpuser) {
     $mepr_options = MeprOptions::fetch();
     $user = new MeprUser($wpuser->ID);
+    $vat_number = get_user_meta($wpuser->ID, 'mepr_vat_number', true);
+    $vat_number = empty($vat_number) ? __('Not set', 'memberpress') : $vat_number;
 
     MeprView::render("/admin/users/extra_profile_fields", get_defined_vars());
   }
@@ -283,10 +286,30 @@ class MeprUsersCtrl extends MeprBaseCtrl {
           elseif(in_array($line->field_type, array('checkboxes', 'multiselect'))) {
             update_user_meta($user_id, $line->field_key, array());
           }
+          elseif($line->field_type === 'file' && empty($_FILES[$line->field_key]['tmp_name'])) {
+            continue;
+          }
           else {
             update_user_meta($user_id, $line->field_key, '');
           }
         }
+
+        if ( isset($_FILES[$line->field_key]) && array_key_exists($line->field_key, $_FILES) && !empty($_FILES[$line->field_key]['tmp_name']) ){
+          add_filter( 'upload_dir', 'MeprUsersHelper::get_upload_dir' );
+          add_filter( 'upload_mimes', 'MeprUsersHelper::get_allowed_mime_types' );
+
+          $file = $_FILES[$line->field_key];
+          $pathinfo = pathinfo($file['name']);
+          $filename = sanitize_file_name( $pathinfo['filename'] .'_'. uniqid() .'.'. $pathinfo['extension'] );
+          $file = wp_upload_bits( $filename, null, @file_get_contents( $file['tmp_name'] ) );
+
+          update_user_meta($user_id, $line->field_key, esc_url($file['url']));
+
+          remove_filter( 'upload_mimes', 'MeprUsersHelper::get_allowed_mime_types' );
+          remove_filter( 'upload_dir', 'MeprUsersHelper::get_upload_dir' );
+        }
+
+
       }
 
       if(!$is_signup) {
@@ -348,12 +371,21 @@ class MeprUsersCtrl extends MeprBaseCtrl {
         $line->required = false;
       }
 
-      if((!isset($_POST[$line->field_key]) || (empty($_POST[$line->field_key]) && $_POST[$line->field_key] != '0')) && $line->required) {
+      if((!isset($_POST[$line->field_key]) || (empty($_POST[$line->field_key]) && $_POST[$line->field_key] != '0')) && $line->required && 'file' != $line->field_type) {
         $errs[] = sprintf(__('%s is required.', 'memberpress'), stripslashes($line->field_name));
 
         //This allows us to run this on dashboard profile fields as well as front end
         if(is_object($errors)) {
           $errors->add($line->field_key, sprintf(__('%s is required.', 'memberpress'), stripslashes($line->field_name)));
+        }
+      }
+
+      if( 'file' == $line->field_type && ( !isset($_FILES[$line->field_key]) || empty($_FILES[$line->field_key]['tmp_name']) ) ){
+        // If file is required and file does not exist
+        $file = get_user_meta(get_current_user_id(), $line->field_key, true);
+        $file_headers = @get_headers($file);
+        if($line->required && false == strpos($file_headers[0], '200 OK')){
+          $errs[] = sprintf(__('%s is required.', 'memberpress'), stripslashes($line->field_name));
         }
       }
     }
@@ -565,5 +597,26 @@ class MeprUsersCtrl extends MeprBaseCtrl {
     ob_start();
     MeprView::render('/shortcodes/list_users_subscriptions', get_defined_vars());
     return ob_get_clean();
+  }
+
+
+  /**
+   * Adds shortcode for displaying user files
+   *
+   * @param  mixed $atts
+   * @param  mixed $content
+   * @return mixed
+   */
+  public static function show_user_file($atts, $content = ''){
+    $key = (isset($atts['slug'])) ? $atts['slug'] : '';
+    $userid = (isset($atts['userid'])) ? $atts['userid'] : get_current_user_id();
+    $download = get_user_meta($userid, $key, true);
+
+    $file_headers = @get_headers($download);
+    if(strpos($file_headers[0], '200 OK')){
+      ob_start();
+      MeprView::render('/shortcodes/user_files', get_defined_vars());
+      return ob_get_clean();
+    }
   }
 } //End class

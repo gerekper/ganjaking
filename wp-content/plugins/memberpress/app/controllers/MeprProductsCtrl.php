@@ -147,10 +147,10 @@ class MeprProductsCtrl extends MeprCptCtrl {
 
       extract($_POST);
 
-      $product->price = (isset($_mepr_product_price))?MeprUtils::format_float(sanitize_text_field($_mepr_product_price)):$product->attrs['price'];
+      $product->price = (isset($_mepr_product_price))?MeprUtils::format_currency_us_float(sanitize_text_field($_mepr_product_price)):$product->attrs['price'];
       $product->period = (isset($_mepr_product_period))?sanitize_text_field($_mepr_product_period):$product->attrs['period'];
       $product->period_type = (isset($_mepr_product_period_type))?sanitize_text_field($_mepr_product_period_type):$product->attrs['period_type'];
-      $product->signup_button_text = (isset($_mepr_product_signup_button_text))?wp_kses_post($_mepr_product_signup_button_text):$product->attrs['signup_button_text'];
+      $product->signup_button_text = (isset($_mepr_product_signup_button_text))?wp_kses_post(trim($_mepr_product_signup_button_text)):$product->attrs['signup_button_text'];
       $product->limit_cycles = isset($_mepr_product_limit_cycles);
       $product->limit_cycles_num = (isset($_mepr_product_limit_cycles_num))?sanitize_text_field($_mepr_product_limit_cycles_num):$product->attrs['limit_cycles_num'];
       $product->limit_cycles_action = (isset($_mepr_product_limit_cycles_action)?sanitize_text_field($_mepr_product_limit_cycles_action):$product->attrs['limit_cycles_action']);
@@ -158,11 +158,11 @@ class MeprProductsCtrl extends MeprCptCtrl {
       $product->limit_cycles_expires_type = (isset($_mepr_product_limit_cycles_expires_type)?sanitize_text_field($_mepr_product_limit_cycles_expires_type):$product->attrs['limit_cycles_expires_type']);
       $product->trial = isset($_mepr_product_trial);
       $product->trial_days = (isset($_mepr_product_trial_days))?sanitize_text_field($_mepr_product_trial_days):$product->attrs['trial_days'];
-      $product->trial_amount = (isset($_mepr_product_trial_amount))?sanitize_text_field($_mepr_product_trial_amount):$product->attrs['trial_amount'];
+      $product->trial_amount = (isset($_mepr_product_trial_amount))?MeprUtils::format_currency_us_float(sanitize_text_field($_mepr_product_trial_amount)):$product->attrs['trial_amount'];
       $product->trial_once = isset($_mepr_product_trial_once);
       $product->who_can_purchase = self::get_who_can_purchase_array();
       $product->is_highlighted = isset($_mepr_product_is_highlighted);
-      $product->pricing_title = (isset($_mepr_product_pricing_title))?wp_kses_post($_mepr_product_pricing_title):$product->attrs['pricing_title'];
+      $product->pricing_title = (isset($_mepr_product_pricing_title))?wp_kses_post(trim($_mepr_product_pricing_title)):$product->attrs['pricing_title'];
       $product->pricing_show_price = isset($_mepr_product_pricing_show_price);
       $product->plan_code = isset($_mepr_plan_code) ? sanitize_user($_mepr_plan_code, true) : $product->attrs['plan_code'];
 
@@ -172,9 +172,11 @@ class MeprProductsCtrl extends MeprCptCtrl {
 
       $product->pricing_heading_txt = (isset($_mepr_product_pricing_heading_text))?wp_kses_post($_mepr_product_pricing_heading_text):$product->attrs['pricing_heading_text'];
       $product->pricing_footer_txt = (isset($_mepr_product_pricing_footer_text))?wp_kses_post($_mepr_product_pricing_footer_text):$product->attrs['pricing_footer_txt'];
-      $product->pricing_button_txt = (isset($_mepr_product_pricing_button_text))?wp_kses_post($_mepr_product_pricing_button_text):$product->attrs['pricing_button_txt'];
+      $product->pricing_button_txt = (isset($_mepr_product_pricing_button_text))?wp_kses_post(trim($_mepr_product_pricing_button_text)):$product->attrs['pricing_button_txt'];
       $product->pricing_button_position = (isset($_mepr_product_pricing_button_position))?sanitize_text_field($_mepr_product_pricing_button_position):$product->attrs['pricing_button_position'];
-      $product->pricing_benefits = (isset($_mepr_product_pricing_benefits))?array_map('sanitize_text_field', $_mepr_product_pricing_benefits):$product->attrs['pricing_benefits'];
+      $product->pricing_benefits = (isset($_mepr_product_pricing_benefits))?array_map(function($benefit) {
+        return trim(sanitize_text_field($benefit));
+      }, $_mepr_product_pricing_benefits):$product->attrs['pricing_benefits'];
       $product->register_price_action = (isset($_mepr_register_price_action))?sanitize_text_field($_mepr_register_price_action):$product->attrs['register_price_action'];
       $product->register_price = (isset($_mepr_register_price))?sanitize_text_field($_mepr_register_price):$product->attrs['register_price'];
       $product->thank_you_page_enabled = isset($_mepr_thank_you_page_enabled);
@@ -210,7 +212,7 @@ class MeprProductsCtrl extends MeprCptCtrl {
       $product->tax_exempt = isset($_POST[MeprProduct::$tax_exempt_str]);
       $product->tax_class = isset(${MeprProduct::$tax_class_str}) ? sanitize_text_field($_POST[MeprProduct::$tax_class_str]) : $product->attrs['tax_class'];
       $product->allow_renewal = (($product->expire_type == 'delay' && isset($_POST[MeprProduct::$allow_renewal_str])) || ($product->expire_type == 'fixed' && isset($_POST[MeprProduct::$allow_renewal_str.'-fixed'])));
-      $product->access_url = isset($_mepr_access_url)?sanitize_text_field(wp_unslash($_mepr_access_url)):$product->attrs['access_url'];
+      $product->access_url = isset($_mepr_access_url)?sanitize_text_field(wp_unslash(trim($_mepr_access_url))):$product->attrs['access_url'];
       $product->disable_address_fields = (isset($_mepr_disable_address_fields) && $product->price <= 0.00);
       $product->cannot_purchase_message = (!empty($meprcannotpurchasemessage))?wp_kses_post(wp_unslash($meprcannotpurchasemessage)):$product->cannot_purchase_message;
 
@@ -256,12 +258,12 @@ class MeprProductsCtrl extends MeprCptCtrl {
 
     $custom_login_urls = array();
 
-    $product->custom_login_urls_default = (isset($_mepr_custom_login_urls_default) && !empty($_mepr_custom_login_urls_default))?stripslashes($_mepr_custom_login_urls_default):'';
+    $product->custom_login_urls_default = (isset($_mepr_custom_login_urls_default) && !empty($_mepr_custom_login_urls_default))?stripslashes(trim($_mepr_custom_login_urls_default)):'';
 
     if(isset($_mepr_custom_login_urls) && !empty($_mepr_custom_login_urls)) {
       foreach($_mepr_custom_login_urls as $i => $url) {
         if(!empty($url)) {
-          $custom_login_urls[] = (object)array('url' => stripslashes($url), 'count' => (int)$_mepr_custom_login_urls_count[$i]);
+          $custom_login_urls[] = (object)array('url' => stripslashes(trim($url)), 'count' => (int)$_mepr_custom_login_urls_count[$i]);
         }
       }
     }
@@ -283,7 +285,12 @@ class MeprProductsCtrl extends MeprCptCtrl {
     for($i = 0; $i < $count; $i++) {
       $user_type = sanitize_text_field($_POST[MeprProduct::$who_can_purchase_str.'-user_type'][$i]);
       $product_id = sanitize_text_field($_POST[MeprProduct::$who_can_purchase_str.'-product_id'][$i]);
-      $rows[] = (object)array('user_type' => $user_type, 'product_id' => $product_id);
+      $purchase_type = sanitize_text_field($_POST[MeprProduct::$have_or_had_str.'-type'][$i]);
+      $rows[] = (object)array(
+        'user_type' => $user_type,
+        'product_id' => $product_id,
+        'purchase_type' => $purchase_type,
+      );
     }
 
     return $rows;
@@ -312,7 +319,8 @@ class MeprProductsCtrl extends MeprCptCtrl {
     }
 
     //Validate Prices
-    if(!is_numeric($product->price) || $product->price < 0.00) {
+    // preg_match replaces !is_numeric() to allow comma, period & space before applying (float)
+    if(preg_match("/[^0-9., ]/", $product->price) || $product->price < 0.00) {
       $product->price = 0.00;
     }
 

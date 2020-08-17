@@ -245,7 +245,8 @@ class MeprOptions {
     if(!isset($this->custom_fields)) //should be an array of objects but we store as just arrays in the DB for WPML compatibility - see $this->wpml_custom_fields()
       $this->custom_fields = array();
 
-    $this->mothership_license = '86007fe7c96b81e21230c92332cec962';
+    if(!isset($this->mothership_license))
+      $this->mothership_license = 'GPL001122334455AA6677BB8899CC000';
 
     if(!isset($this->edge_updates))
       $this->edge_updates = false;
@@ -533,9 +534,9 @@ class MeprOptions {
 
     $this->force_login_page_url = isset($params[$this->force_login_page_url_str]);
 
-    $this->login_redirect_url = (isset($params[$this->login_redirect_url_str]) && !empty($params[$this->login_redirect_url_str]))?stripslashes($params[$this->login_redirect_url_str]):$this->account_page_url();
+    $this->login_redirect_url = (isset($params[$this->login_redirect_url_str]) && !empty($params[$this->login_redirect_url_str]))?trim(stripslashes($params[$this->login_redirect_url_str])):$this->account_page_url();
 
-    $this->logout_redirect_url = (isset($params[$this->logout_redirect_url_str]) && !empty($params[$this->logout_redirect_url_str]))?stripslashes($params[$this->logout_redirect_url_str]):'';
+    $this->logout_redirect_url = (isset($params[$this->logout_redirect_url_str]) && !empty($params[$this->logout_redirect_url_str]))?trim(stripslashes($params[$this->logout_redirect_url_str])):'';
 
     // Notification Settings
     $this->emails = array();
@@ -543,7 +544,7 @@ class MeprOptions {
     foreach($params[$this->emails_str] as $email => $vals) {
       $this->emails[$email] = array('enabled'       => isset($params[$this->emails_str][$email]['enabled']),
                                     'use_template'  => isset($params[$this->emails_str][$email]['use_template']),
-                                    'subject'       => stripslashes($params[$this->emails_str][$email]['subject']),
+                                    'subject'       => trim(stripslashes($params[$this->emails_str][$email]['subject'])),
                                     'body'          => MeprUtils::maybe_wpautop(stripslashes($params[$this->emails_str][$email]['body'])));
     }
 
@@ -573,12 +574,12 @@ class MeprOptions {
     $this->enable_spc_invoice               = isset($params[$this->enable_spc_invoice_str]);
     $this->coupon_field_enabled             = isset($params[$this->coupon_field_enabled_str]);
     $this->require_tos                      = isset($params[$this->require_tos_str]);
-    $this->tos_url                          = (isset($params[$this->tos_url_str]))?stripslashes($params[$this->tos_url_str]):'';
-    $this->tos_title                        = (isset($params[$this->tos_title_str]) && !empty($params[$this->tos_title_str]))?stripslashes($params[$this->tos_title_str]):_x('I have read and agree to the Terms of Service', 'ui', 'memberpress');
+    $this->tos_url                          = (isset($params[$this->tos_url_str]))?trim(stripslashes($params[$this->tos_url_str])):'';
+    $this->tos_title                        = (isset($params[$this->tos_title_str]) && !empty($params[$this->tos_title_str]))?trim(stripslashes($params[$this->tos_title_str])):_x('I have read and agree to the Terms of Service', 'ui', 'memberpress');
     $this->require_privacy_policy           = isset($params[$this->require_privacy_policy_str]);
-    $this->privacy_policy_title             = (isset($params[$this->privacy_policy_title_str]) && !empty($params[$this->privacy_policy_title_str]))?stripslashes($params[$this->privacy_policy_title_str]):_x('This site collects names, emails and other user information. I consent to the terms set forth in the %Privacy Policy%.', 'ui', 'memberpress');
-    $this->mail_send_from_name              = (isset($params[$this->mail_send_from_name_str]))?stripslashes($params[$this->mail_send_from_name_str]):get_option('blogname');
-    $this->mail_send_from_email             = (isset($params[$this->mail_send_from_email_str]))?stripslashes($params[$this->mail_send_from_email_str]):get_option('admin_email');
+    $this->privacy_policy_title             = (isset($params[$this->privacy_policy_title_str]) && !empty($params[$this->privacy_policy_title_str]))?trim(stripslashes($params[$this->privacy_policy_title_str])):_x('This site collects names, emails and other user information. I consent to the terms set forth in the %Privacy Policy%.', 'ui', 'memberpress');
+    $this->mail_send_from_name              = (isset($params[$this->mail_send_from_name_str]))?trim(stripslashes($params[$this->mail_send_from_name_str])):get_option('blogname');
+    $this->mail_send_from_email             = (isset($params[$this->mail_send_from_email_str]))?trim(stripslashes($params[$this->mail_send_from_email_str])):get_option('admin_email');
     $this->username_is_email                = isset($params[$this->username_is_email_str]);
     $this->require_fname_lname              = isset($params[$this->require_fname_lname_str]);
     $this->show_fname_lname                 = isset($params[$this->show_fname_lname_str]);
@@ -600,7 +601,7 @@ class MeprOptions {
     $this->paywall_num_free_views             = (isset($params[$this->paywall_num_free_views_str]))?(int)$params[$this->paywall_num_free_views_str]:1;
     $this->disable_summary_email              = isset($params[$this->disable_summary_email_str]);
     $this->redirect_on_unauthorized           = isset($params[$this->redirect_on_unauthorized_str]);
-    $this->unauthorized_redirect_url          = stripslashes($params[$this->unauthorized_redirect_url_str]);
+    $this->unauthorized_redirect_url          = trim(stripslashes($params[$this->unauthorized_redirect_url_str]));
     $this->redirect_non_singular              = isset($params[$this->redirect_non_singular_str]);
     $this->redirect_method                    = $params[$this->redirect_method_str];
     $this->allow_cancel_subs                  = isset($params[$this->allow_cancel_subs_str]);

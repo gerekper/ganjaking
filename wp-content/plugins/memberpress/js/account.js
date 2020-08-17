@@ -38,4 +38,12 @@ jQuery(document).ready(function ($) {
     }
     form.submit();
   });
+
+  $(".mepr-replace-file").each(function(){
+    $(this).closest('div').find('.mepr-file-uploader').hide();
+  });
+  $('body').on('click', '.mepr-replace-file', function (e) {
+    $(this).closest('div').find('.mepr-file-uploader').toggle();
+  });
+
 });

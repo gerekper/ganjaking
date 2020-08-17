@@ -61,13 +61,14 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
     $mepr_options = MeprOptions::fetch();
 
     if(MeprUtils::is_logged_in_and_an_admin()) {
-     
-        
-		$li = array();
-		$li['license_key']['license'] = '86007fe7c96b81e21230c92332cec962';
-		$li['activation_count'] = '1';
-		$li['max_activations'] = '100';
-		$li['product_name'] = 'Memberpress';
+      if(!empty($mepr_options->mothership_license)) {
+        $li = get_site_transient('mepr_license_info');
+
+        if($li === false) {
+          MeprUpdateCtrl::manually_queue_update();
+          $li = get_site_transient('mepr_license_info');
+        }
+      }
 
       MeprView::render('/admin/options/form', get_defined_vars());
     }
@@ -92,15 +93,14 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
         $message = __('Options saved.', 'memberpress');
       }
 
-     
-        $li = array();
-		$li['license_key']['license'] = '86007fe7c96b81e21230c92332cec962';
-		$li['activation_count'] = '1';
-		$li['max_activations'] = '100';
-		$li['product_name'] = 'Memberpress';
+      if(!empty($mepr_options->mothership_license)) {
+        $li = get_site_transient('mepr_license_info');
 
-       
-     
+        if($li === false) {
+          MeprUpdateCtrl::manually_queue_update();
+          $li = get_site_transient('mepr_license_info');
+        }
+      }
 
       MeprView::render('/admin/options/form', get_defined_vars());
     }
@@ -132,6 +132,7 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
         'phoneOption'       => __('Phone', 'memberpress'),
         'radiosOption'      => __('Radio Buttons', 'memberpress'),
         'checkboxesOption'  => __('Checkboxes', 'memberpress'),
+        'fileuploadOption'  => __('File Upload', 'memberpress'),
         'dateOption'        => __('Date', 'memberpress'),
         'optionNameLabel'   => __('Option Name:', 'memberpress'),
         'optionValueLabel'  => __('Option Value:', 'memberpress'),
@@ -227,12 +228,18 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
   }
 
   public static function ajax_activate_license() {
-    
+    if(!MeprUtils::is_post_request() || !isset($_POST['key']) || !is_string($_POST['key'])) {
+      wp_send_json_error(sprintf(__('An error occurred during activation: %s', 'memberpress'), __('Bad request.', 'memberpress')));
+    }
+
     if(!MeprUtils::is_logged_in_and_an_admin()) {
       wp_send_json_error(__('Sorry, you don\'t have permission to do this.', 'memberpress'));
     }
 
-    
+    if(!check_ajax_referer('mepr_activate_license', false, false)) {
+      wp_send_json_error(sprintf(__('An error occurred during activation: %s', 'memberpress'), __('Security check failed.', 'memberpress')));
+    }
+
     $mepr_options = MeprOptions::fetch();
     $mepr_options->mothership_license = sanitize_text_field(wp_unslash($_POST['key']));
 
@@ -240,11 +247,7 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
       $act = MeprUpdateCtrl::send_mothership_request("/license_keys/jactivate/{$mepr_options->mothership_license}", MeprUpdateCtrl::activation_args(true), 'post');
       MeprUpdateCtrl::manually_queue_update();
       $mepr_options->store(false);
-     $li = array();
-	 $li['license_key']['license'] = '86007fe7c96b81e21230c92332cec962';
-	 $li['activation_count'] = '1';
-	 $li['max_activations'] = '100';
-	 $li['product_name'] = 'Memberpress';
+      $li = get_site_transient('mepr_license_info');
 
       // Clear the cache of add-ons
       delete_site_transient('mepr_addons');

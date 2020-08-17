@@ -43,6 +43,17 @@
               <input type="checkbox" name="mepr_vat_tax_businesses" <?php checked($vat_tax_businesses); ?> />
             </td>
           </tr>
+          <tr valign="top">
+            <th scope="row">
+              <label for="mepr_vat_tax_businesses"><?php _e('Disable VAT VIES database lookup', 'memberpress'); ?></label>
+              <?php MeprAppHelper::info_tooltip('mepr-merchant-vat-disable-vie-service',
+                      __('Disable VAT VIES database lookup', 'memberpress'),
+                      __('When this option is checked, the VAT number will not be validated by VIES online service.', 'memberpress')); ?>
+            </th>
+            <td>
+              <input type="checkbox" name="mepr_vat_disable_vies_service" <?php checked($vat_disable_vies_service); ?> />
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

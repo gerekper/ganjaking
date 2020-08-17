@@ -81,18 +81,26 @@ class MeprReminder extends MeprCptModel {
 
   public function store_meta() {
     global $wpdb;
+    $skip_name_override = false;
     $id = $this->ID;
-    $title = sprintf( __( '%d %s %s %s' , 'memberpress'),
-                      $this->trigger_length,
-                      strtolower($this->get_trigger_interval_str()),
-                      $this->trigger_timing,
-                      $this->trigger_event_name() );
 
-    // Direct SQL so we don't issue any actions / filters
-    // in WP itself that could get us in an infinite loop
-    $sql = "UPDATE {$wpdb->posts} SET post_title=%s WHERE ID=%d";
-    $sql = $wpdb->prepare( $sql, $title, $id );
-    $wpdb->query($sql);
+    if(isset($_POST["post_title"]) && !empty($_POST["post_title"])) {
+      $skip_name_override = true;
+    }
+
+    if (!$skip_name_override) {
+      $title = sprintf(__('%d %s %s %s', 'memberpress'),
+        $this->trigger_length,
+        strtolower($this->get_trigger_interval_str()),
+        $this->trigger_timing,
+        $this->trigger_event_name());
+
+      // Direct SQL so we don't issue any actions / filters
+      // in WP itself that could get us in an infinite loop
+      $sql = "UPDATE {$wpdb->posts} SET post_title=%s WHERE ID=%d";
+      $sql = $wpdb->prepare($sql, $title, $id);
+      $wpdb->query($sql);
+    }
 
     update_post_meta( $id, self::$trigger_length_str,   $this->trigger_length );
     update_post_meta( $id, self::$trigger_interval_str, $this->trigger_interval );
@@ -234,6 +242,70 @@ class MeprReminder extends MeprCptModel {
     return $res;
   }
 
+  // Used for After Subscription Renews Reminders
+  public function get_renewed_txn() {
+    global $wpdb;
+    $mepr_db = new MeprDb();
+
+    $unit = $this->db_trigger_interval();
+
+    //Make sure we're only grabbing from valid product ID's for this reminder yo
+    //If $this->products is empty, then we should send for all product_id's
+    $and_products = $this->get_query_products('tr.product_id');
+
+    $query = $wpdb->prepare(
+    // Get all info about renewing transactions
+      "SELECT tr.* FROM {$mepr_db->transactions} AS tr\n" .
+
+      // Lifetimes don't renew
+      "WHERE tr.expires_at <> %s\n" .
+
+      //Make sure it's recurring
+      "AND tr.subscription_id > 0\n" .
+
+      //Make sure only real users are grabbed
+      "AND tr.user_id > 0\n" .
+
+      // Make sure that only transactions that are
+      // complete get picked up
+      "AND tr.status = %s \n" .
+
+      // Ensure that we're defined timeframe
+      // Giving it a 2 days buffer to the past
+      "AND DATE_ADD( tr.created_at, INTERVAL {$this->trigger_length} {$unit} ) <= %s AND DATE_ADD(
+        DATE_ADD( tr.created_at, INTERVAL {$this->trigger_length} {$unit} ), INTERVAL 2 DAY) >= %s\n" .
+
+      "AND tr.created_at <= %s\n " .
+
+      // Let's make sure the reminder event hasn't already fired ...
+      // This will ensure that we don't send a second reminder
+      "AND ( SELECT ev.id
+                  FROM {$mepr_db->events} AS ev
+                 WHERE ev.evt_id=tr.id
+                   AND ev.evt_id_type='transactions'
+                   AND ev.event=%s
+                   AND ev.args=%d
+                 LIMIT 1 ) IS NULL\n" .
+
+      "{$and_products} " .
+
+      // We're just getting one of these at a time ... we need the oldest one first
+      "ORDER BY tr.created_at
+        LIMIT 1\n",
+
+      MeprUtils::db_lifetime(),
+      MeprTransaction::$complete_str,
+      MeprUtils::db_now(),
+      MeprUtils::db_now(),
+      MeprUtils::db_now(),
+      "{$this->trigger_timing}-{$this->trigger_event}-reminder",
+      $this->ID
+    );
+    $res = $wpdb->get_row($query);
+
+    return $res;
+  }
+
   // Used for Before Subscription Renews Reminders
   public function get_next_renewing_txn() {
     global $wpdb;
@@ -369,6 +441,19 @@ class MeprReminder extends MeprCptModel {
                 INTERVAL 2 DAY
               ) >= %s " .
 
+         // Ignore "confirmed" transactions that have less than 48 hours between
+         // the created_at and expires_at dates.
+         // That should avoid most free trial period issues.
+         // https://app.asana.com/0/1184143657882493/1151153991947745
+         "AND txn.id NOT IN
+             (SELECT txn3.id
+               FROM {$mepr_db->transactions} AS txn3
+               WHERE  txn3.status = %s AND DATE_ADD(
+                  txn3.created_at,
+                  INTERVAL 2 DAY
+               ) > txn3.expires_at)
+             " .
+
          // Make sure this is the *first* complete transaction
          "AND ( SELECT txn2.id
                   FROM {$mepr_db->transactions} AS txn2
@@ -398,12 +483,12 @@ class MeprReminder extends MeprCptModel {
       MeprTransaction::$confirmed_str,
       MeprUtils::db_now(),
       MeprUtils::db_now(),
+      MeprTransaction::$confirmed_str,
       MeprTransaction::$complete_str,
       MeprTransaction::$confirmed_str,
       "{$this->trigger_timing}-{$this->trigger_event}-reminder",
       $this->ID
     );
-
     $res = $wpdb->get_var($query);
     return $res;
   }

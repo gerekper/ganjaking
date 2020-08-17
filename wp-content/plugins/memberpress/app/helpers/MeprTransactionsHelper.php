@@ -235,9 +235,7 @@ class MeprTransactionsHelper {
   public static function get_invoice( $txn, $tmpsub = '' ) {
     $prd = $txn->product();
 
-    if ( !empty($tmpsub) &&
-      $tmpsub instanceof MeprSubscription &&
-      substr( $tmpsub->subscr_id, 0, 3 ) === "tmp"){
+    if ( !empty($tmpsub) && $tmpsub instanceof MeprSubscription ){
       $sub = $tmpsub;
     }
     else{
@@ -251,10 +249,12 @@ class MeprTransactionsHelper {
         $txn = new MeprTransaction();
         $txn->user_id = $sub->user_id;
         $txn->product_id = $sub->product_id;
+        // $txn->coupon_id = $sub->coupon_id;
         $txn->set_subtotal($sub->trial_amount);
 
         // Must do this *after* apply tax so we don't screw up the invoice
         $txn->subscription_id = $sub->id;
+        // $txn->coupon_id = $sub->coupon_id;
       }
       else if( $sub->txn_count >= 1 ) {
         $desc = __('Subscription Payment', 'memberpress');
@@ -269,6 +269,12 @@ class MeprTransactionsHelper {
 
     if($coupon = $txn->coupon()) {
       $amount = $prd->price;
+      $cpn_id = $coupon->ID;
+      $cpn_desc = sprintf(__("Coupon Code '%s'", 'memberpress'), $coupon->post_title);
+      $cpn_amount = MeprUtils::format_float((float)$amount - (float)$txn->amount);
+    }
+    elseif($sub && ($coupon = $sub->coupon())) {
+      $amount = $sub->price;
       $cpn_id = $coupon->ID;
       $cpn_desc = sprintf(__("Coupon Code '%s'", 'memberpress'), $coupon->post_title);
       $cpn_amount = MeprUtils::format_float((float)$amount - (float)$txn->amount);

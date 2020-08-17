@@ -17,7 +17,6 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
 
     add_action( 'mepr_display_general_options', array( $this,'display_options' ), 99 );
     add_action( 'mepr-process-options', array( $this, 'store_options' ) );
-	update_option('mepr_activated',true);
 
     // Add a custom admin menu item
     add_action('admin_menu', 'MeprUpdateCtrl::admin_menu', 50);
@@ -228,7 +227,7 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
   public static function is_activated() {
     $mepr_options = MeprOptions::fetch();
     $activated = get_option('mepr_activated');
-    return true;
+    return (!empty($mepr_options->mothership_license) && !empty($activated));
   }
 
   public static function activation_args($return_json=false) {
@@ -530,7 +529,9 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
       'name' => $display_name,
       'author' => '<a href="http://blairwilliams.com">Caseproof, LLC</a>',
       'author_profile' => 'http://blairwilliams.com',
-      'contributors' => array('Paul Carter' => '', 'Brandon Toone' => '', 'Chris Shepherd' => ''),
+      'contributors' => array(
+        array('display_name' => 'Caseproof', 'profile' => '', 'avatar' => '')
+      ),
       'homepage' => 'https://memberpress.com',
       'version' => $version_info['version'],
       'requires' => '3.8',

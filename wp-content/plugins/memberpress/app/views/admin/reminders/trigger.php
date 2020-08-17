@@ -15,6 +15,7 @@
   <option value="before_sub-expires" <?php selected($trigger,'before_sub-expires'); ?>><?php _e("before Subscription Expires", 'memberpress'); ?></option>
   <option value="after_sub-expires" <?php selected($trigger,'after_sub-expires'); ?>><?php _e("after Subscription Expires", 'memberpress'); ?></option>
   <option value="before_sub-renews" <?php selected($trigger,'before_sub-renews'); ?>><?php _e("before Subscription Renews", 'memberpress'); ?></option>
+  <option value="after_sub-renews" <?php selected($trigger,'after_sub-renews'); ?>><?php _e("after Subscription Renews", 'memberpress'); ?></option>
   <?php /*
   <option value="before_rule-drips" <?php selected($trigger,'before_rule-drips'); ?>><?php _e("before Rule Drips", 'memberpress'); ?></option>
   <option value="after_rule-drips" <?php selected($trigger,'after_rule-drips'); ?>><?php _e("after Rule Drips", 'memberpress'); ?></option>

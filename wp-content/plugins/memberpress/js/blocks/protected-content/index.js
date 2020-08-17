@@ -1,7 +1,7 @@
 const { registerBlockType } = wp.blocks;
 const { __ } = wp.i18n;
 const { InspectorControls, InnerBlocks } = wp.editor;
-const { PanelBody, PanelRow, SelectControl, TextareaControl } = wp.components;
+const { PanelBody, PanelRow, RadioControl, SelectControl, TextareaControl } = wp.components;
 const { rules } = memberpressBlocks;
 
 import MPPlaceholder from "../_global/components/mp-placeholder";
@@ -24,6 +24,9 @@ registerBlockType("memberpress/protected-content", {
     rule: {
       type: "string"
     },
+    ifallowed: {
+      type: "string"
+    },
     unauth: {
       type: "string"
     },
@@ -32,7 +35,7 @@ registerBlockType("memberpress/protected-content", {
     }
   },
   edit({ attributes, setAttributes, className }) {
-    const { rule, unauth, unauth_message } = attributes;
+    const { rule, ifallowed, unauth, unauth_message } = attributes;
     const ruleInfo = rules.filter(r => r.value === parseInt(rule)).pop();
     return [
       <InspectorControls>
@@ -67,6 +70,22 @@ registerBlockType("memberpress/protected-content", {
               </PanelRow>
             </div>
           )}
+          <PanelRow>
+            <RadioControl
+                    label={__("If Allowed", "memberpress")}
+                    help={__("When set to \"show\", the content is shown to authorized members only. When set to \"hide\", the content is hidden from authorized members.", "memberpress")}
+                    selected={ifallowed ? ifallowed : "show"}
+                    options={ [
+                        { label: __("Show", "memberpress"), value: 'show' },
+                        { label: __("Hide", "memberpress"), value: 'hide' },
+                    ] }
+                    onChange={ifallowed => {
+                      setAttributes({
+                        ifallowed
+                      });
+                    }}
+                />
+          </PanelRow>
         </PanelBody>
         <PanelBody
           title={__("Unauthorized Access", "memberpress")}

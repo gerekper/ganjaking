@@ -220,7 +220,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
       $timestamp = isset($_POST['payment_date']) ? strtotime($_POST['payment_date']) : time();
       $first_txn = new MeprTransaction($sub->first_txn_id);
 
-      if($first_txn == false || !($first_txn instanceof MeprTransaction)) {
+      if(!isset($first_txn->id) || empty($first_txn->id)) {
         $first_txn = new MeprTransaction();
         $first_txn->user_id = $sub->user_id;
         $first_txn->product_id = $sub->product_id;

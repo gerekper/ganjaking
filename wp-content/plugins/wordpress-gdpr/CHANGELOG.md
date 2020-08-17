@@ -1,5 +1,10 @@
 # Changelog
 ======
+1.9.5
+======
+- FIX:	Pages not selectable in admin panel
+
+======
 1.9.4
 ======
 - NEW:	Performance increase in admin panel through AJAX loading

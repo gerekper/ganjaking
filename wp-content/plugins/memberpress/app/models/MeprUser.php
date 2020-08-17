@@ -402,6 +402,16 @@ class MeprUser extends MeprBaseModel {
     $all_subscriptions      = $this->active_product_subscriptions('ids', true, false); //We need to force here, and we do not want to exclude expired
     $expired_subscriptions  = array_diff($all_subscriptions, $current_subscriptions); //return values from $all_subscriptions which are NOT also present in $current_subscriptions
 
+    if(isset($who->purchase_type) && $who->purchase_type === 'had') {
+      //user is previously subscribed to anything
+      if($who->product_id == 'anything') {
+        return ! empty($expired_subscriptions);
+      }
+
+      //Now let's check if the actual membership ID is in the user's past subscriptions or not
+      return in_array($who->product_id, $expired_subscriptions);
+    }
+
     //User is not currently subscribed to something
     if($who->product_id == 'nothing') { return empty($current_subscriptions); }
 
@@ -841,6 +851,26 @@ class MeprUser extends MeprBaseModel {
       $errors[] = __('You must agree to the Privacy Policy', 'memberpress');
     }
 
+    // Validate File Uploads
+    if (! empty($_FILES) && is_array($_FILES) ){
+      add_filter( 'upload_dir', 'MeprUsersHelper::get_upload_dir' );
+      add_filter( 'upload_mimes', 'MeprUsersHelper::get_allowed_mime_types' );
+      foreach($_FILES as $name => $file){
+        $pathinfo = pathinfo($file['name']);
+        $filename = sanitize_file_name( $pathinfo['filename'] .'_'. uniqid() .'.'. $pathinfo['extension'] );
+        $file = wp_upload_bits( $filename, null, @file_get_contents( $file['tmp_name'] ) );
+
+        $_POST[$name] = '';
+
+        if ( FALSE === $file['error'] ) {
+          $_POST[$name] = $file['url'];
+        }
+
+      }
+      remove_filter( 'upload_mimes', 'MeprUsersHelper::get_allowed_mime_types' );
+      remove_filter( 'upload_dir', 'MeprUsersHelper::get_upload_dir' );
+    }
+
     $product = new MeprProduct($mepr_product_id);
     $product_coupon_code = isset($mepr_coupon_code) ? $mepr_coupon_code : null;
     $product_price = $product->adjusted_price($product_coupon_code);
@@ -863,11 +893,11 @@ class MeprUser extends MeprBaseModel {
     if( isset($mepr_payment_method) and
         !empty($mepr_payment_method) and
         $product_price > 0.00 and
-        ( !in_array( strtolower($mepr_payment_method), $pms ) or
+        ( !in_array( $mepr_payment_method, $pms ) or
           ( $product->customize_payment_methods and
             isset($product->custom_payment_methods) and
             is_array($product->custom_payment_methods) and
-            !in_array( strtolower($mepr_payment_method),
+            !in_array( $mepr_payment_method,
                        $product->custom_payment_methods ) ) ) ) {
       $errors[] = __('Invalid Payment Method', 'memberpress');
     }
@@ -1339,7 +1369,7 @@ class MeprUser extends MeprBaseModel {
     if($this->address_is_set()) {
       if($mepr_options->attr('tax_calc_location')=='customer' ||
          MeprHooks::apply_filters('mepr-tax-rate-use-customer-address', false, $this)) {
-        $country  = $this->address('country');
+        $country  = isset($_POST['mepr_address_country']) && $_POST['mepr_address_country'] != $this->address('country') ? $_POST['mepr_address_country'] : $this->address('country');
         $state    = $this->address('state');
         $postcode = $this->address('zip');
         $city     = $this->address('city');

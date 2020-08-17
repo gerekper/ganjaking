@@ -15,7 +15,7 @@
 
   <?php MeprView::render('/shared/errors', get_defined_vars()); ?>
 
-  <form class="mepr-account-form mepr-form" id="mepr_account_form" action="" method="post" novalidate>
+  <form class="mepr-account-form mepr-form" id="mepr_account_form" action="" method="post" enctype="multipart/form-data" novalidate>
     <input type="hidden" name="mepr-process-account" value="Y" />
     <?php wp_nonce_field( 'update_account', 'mepr_account_nonce' ); ?>
 

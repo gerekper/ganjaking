@@ -152,9 +152,10 @@ jQuery(document).ready(function($) {
                 <option value="multiselect">' + MeprOptions.multiselectOption + '</option> \
                 <option value="radios">' + MeprOptions.radiosOption + '</option> \
                 <option value="checkboxes">' + MeprOptions.checkboxesOption + '</option> \
+                <option value="file">' + MeprOptions.fileuploadOption + '</option> \
               </select> \
                \
-              <label>' + MeprOptions.defaultLabel + '</label> \
+              <label for="mepr-custom-fields[' + random_id + '][default]">' + MeprOptions.defaultLabel + '</label> \
               <input type="text" name="mepr-custom-fields[' + random_id + '][default]" /> \
                \
               <input type="checkbox" name="mepr-custom-fields[' + random_id + '][signup]" id="mepr-custom-fields-signup-' + random_id + '" /> \
@@ -238,9 +239,37 @@ jQuery(document).ready(function($) {
     return false;
   });
 
-  //Terms of Service JS stuff
-  if($('#mepr-require-tos').is(":checked")) {
-    $('div#mepr_tos_hidden').show();
+  $('body').on('change', 'select.mepr-custom-fields-select', function() {
+    var my_id = $(this).data('value');
+    var type = $(this).val();
+
+    if( 'file' == type ) {
+      $('input[name="mepr-custom-fields['+my_id+'][default]"]').hide();
+      $('label[for="mepr-custom-fields['+my_id+'][default]"]').hide();
+
+    } else {
+      $('input[name="mepr-custom-fields['+my_id+'][default]"]').show();
+      $('label[for="mepr-custom-fields['+my_id+'][default]"]').show();
+    }
+
+    return false;
+  });
+
+  $("select.mepr-custom-fields-select").each(function(){
+    var my_id = $(this).data('value');
+    var type = $(this).val();
+
+    if( 'file' == type ) {
+      $('input[name="mepr-custom-fields['+my_id+'][default]"]').hide();
+      $('label[for="mepr-custom-fields['+my_id+'][default]"]').hide();
+
+    }
+  });
+
+
+    //Terms of Service JS stuff
+    if($('#mepr-require-tos').is(":checked")) {
+      $('div#mepr_tos_hidden').show();
   } else {
     $('div#mepr_tos_hidden').hide();
   }

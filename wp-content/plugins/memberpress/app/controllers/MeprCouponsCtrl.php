@@ -21,8 +21,6 @@ class MeprCouponsCtrl extends MeprCptCtrl {
     //Ajax coupon validation
     add_action('wp_ajax_mepr_validate_coupon', 'MeprCouponsCtrl::validate_coupon_ajax');
     add_action('wp_ajax_nopriv_mepr_validate_coupon', 'MeprCouponsCtrl::validate_coupon_ajax');
-    add_action('wp_ajax_mepr_update_price_string_with_coupon', 'MeprCouponsCtrl::update_price_string_with_coupon_ajax');
-    add_action('wp_ajax_nopriv_mepr_update_price_string_with_coupon', 'MeprCouponsCtrl::update_price_string_with_coupon_ajax');
   }
 
   public function register_post_type() {
@@ -55,6 +53,7 @@ class MeprCouponsCtrl extends MeprCptCtrl {
     $columns = array(
       "cb" => '<input type="checkbox" />',
       "title" => __('Code', 'memberpress'),
+      "coupon-description" => __('Description', 'memberpress'),
       "date" => __('Created', 'memberpress'),
       "coupon-discount" => __('Discount', 'memberpress'),
       "coupon-dm" => __('Mode', 'memberpress'),
@@ -72,6 +71,9 @@ class MeprCouponsCtrl extends MeprCptCtrl {
 
     if($coupon->ID !== null) {
       switch($column) {
+        case 'coupon-description':
+          echo strip_tags($coupon->post_content);
+          break;
         case 'coupon-discount':
           if($coupon->discount_mode=='first-payment') {
             echo $coupon->first_payment_discount_amount; //Update this to show proper currency symbol later
@@ -127,6 +129,7 @@ class MeprCouponsCtrl extends MeprCptCtrl {
     $c = new MeprCoupon($post_id);
 
     add_meta_box("memberpress-coupon-meta", __("Coupon Options", 'memberpress'), "MeprCouponsCtrl::coupon_meta_box", MeprCoupon::$cpt, "normal", "high");
+    add_meta_box("memberpress-coupon-description", __("Description", 'memberpress'), "MeprCouponsCtrl::coupon_description_box", MeprCoupon::$cpt, "normal", "high");
 
     MeprHooks::do_action('mepr-coupon-meta-boxes', $c);
   }
@@ -137,6 +140,15 @@ class MeprCouponsCtrl extends MeprCptCtrl {
     $c = new MeprCoupon($post_id);
 
     MeprView::render('/admin/coupons/form', get_defined_vars());
+  }
+
+  public static function coupon_description_box() {
+    global $post_id;
+    $c = new MeprCoupon($post_id);
+
+    ?>
+    <textarea name="content" id="excerpt"><?php echo $c->post_content; ?></textarea>
+    <?php
   }
 
   public static function save_postdata($post_id) {
@@ -265,7 +277,7 @@ class MeprCouponsCtrl extends MeprCptCtrl {
   public static function get_page_title_code($title) {
     global $current_screen;
 
-    if(empty($title) && $current_screen->post_type == MeprCoupon::$cpt) {
+    if(empty($title) && isset($current_screen->post_type) && $current_screen->post_type == MeprCoupon::$cpt) {
       return MeprUtils::random_string(10,false,true);
     }
     else {
@@ -297,31 +309,6 @@ class MeprCouponsCtrl extends MeprCptCtrl {
     }
 
     die();
-  }
-
-  //Coupon code should have already been validated with validate_coupon_ajax() above before calling this
-  public static function update_price_string_with_coupon_ajax() {
-    check_ajax_referer('mepr_coupons', 'coupon_nonce');
-
-    if(!isset($_POST['code']) || empty($_POST['code']) || !isset($_POST['prd_id']) || empty($_POST['prd_id'])) {
-      echo 'false';
-      die();
-    }
-    else {
-      $code = sanitize_text_field(wp_unslash($_POST['code']));
-      $product = new MeprProduct(sanitize_key(wp_unslash($_POST['prd_id'])));
-    }
-
-    $payment_required = true;
-    ob_start();
-    MeprProductsHelper::display_invoice( $product, $code, $payment_required );
-    $price_string = ob_get_clean();
-
-    wp_send_json(array(
-      'status' => 'success',
-      'price_string' => $price_string,
-      'payment_required' => $payment_required
-    ));
   }
 
   public static function update_coupon_usage_count($object) {

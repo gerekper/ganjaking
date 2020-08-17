@@ -133,7 +133,6 @@ class MeprUsersHelper {
     $class = isset($classes[$line->field_type]) ? $classes[$line->field_type] : '';
 
     ob_start();
-
     switch($line->field_type) {
       case 'text':
       case 'email':
@@ -160,6 +159,17 @@ class MeprUsersHelper {
 
       case 'date':
         ?><input type="text" name="<?php echo $line->field_key; ?>" id="<?php echo $line->field_key . $unique_suffix; ?>" value="<?php echo esc_attr(stripslashes($value)); ?>" class="mepr-date-picker mepr-form-input <?php echo $class; ?>" <?php echo $required_attr; ?> /><?php
+        break;
+
+      case 'file':
+        $file_headers = @get_headers($value);
+        if(strpos($file_headers[0], '200 OK')){
+          if(MeprUtils::is_logged_in_and_an_admin()){
+            printf('<a href="%s" class="mepr-view-file" target="_blank">%s | </a>', esc_url($value), esc_html__('View', 'memberpress'));
+          }
+          printf('<a href="#0" id="%s" class="mepr-replace-file">%s</a>', $line->field_key, esc_html__('Replace', 'memberpress'));
+        }
+        ?><input type="file" name="<?php echo $line->field_key; ?>" id="<?php echo $line->field_key . $unique_suffix; ?>" value="" class="mepr-file-uploader mepr-form-input <?php echo $class; ?>" <?php echo $required_attr; ?> /><?php
         break;
 
       case 'tel':
@@ -357,4 +367,47 @@ class MeprUsersHelper {
       }
     }
   }
+
+  /**
+   * Allowed upload file type
+   *
+   * @return void
+   */
+  public static function get_allowed_mime_types(){
+    $mimes = array(
+      "jpg|jpeg|jpe"  => "image/jpeg",
+      "gif" => "image/gif",
+      "png" => "image/png",
+      "tiff|tif"  => "image/tiff",
+      "txt|asc|c|cc|h|srt"  => "text/plain",
+      "csv" => "text/csv",
+      "rtx" => "text/richtext",
+      "zip" => "applicat /ion/zip",
+      "doc" => "application/msword",
+      "pot|pps|ppt" => "application/vnd.ms-powerpoint",
+      "xla|xls|xlt|xlw" => "application/vnd.ms-excel",
+      "docx"  => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "pptx"  => "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "odt" => "application/vnd.oasis.opendocument.text",
+      "odp" => "application/vnd.oasis.opendocument.presentation",
+      "ods" => "application/vnd.oasis.opendocument.spreadsheet",
+    );
+
+    return MeprHooks::apply_filters('mepr_upload_mimes', $mimes);
+  }
+
+
+  /**
+   * Returns user file upload directory
+   *
+   * @param  mixed $dir
+   * @return void
+   */
+  public static function get_upload_dir( $dir ) {
+    $dir['path'] = $dir['basedir'] . '/mepr/userfiles';
+    $dir['url'] = $dir['baseurl'] . '/mepr/userfiles';
+    return $dir;
+  }
+
+
 }

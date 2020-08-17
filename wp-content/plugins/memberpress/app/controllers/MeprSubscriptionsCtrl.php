@@ -26,7 +26,8 @@ class MeprSubscriptionsCtrl extends MeprBaseCtrl
     add_action( "load-{$hook}", array($this,'add_lifetime_screen_options') );
     add_filter( "manage_{$hook}_columns", array($this, 'get_lifetime_columns') );
 
-    add_filter( 'set-screen-option', array($this,'setup_screen_options'), 10, 3 );
+    add_filter( 'set_screen_option_mp_lifetime_subs_perpage', array($this,'setup_screen_options_lifetime'), 10, 3 );
+    add_filter( 'set_screen_option_mp_subs_perpage', array($this,'setup_screen_options_subs'), 10, 3 );
 
     add_action('mepr_table_controls_search', array($this, 'table_search_box'));
   }
@@ -143,7 +144,7 @@ class MeprSubscriptionsCtrl extends MeprBaseCtrl
     $sub->subscr_id = wp_unslash($subscr_id);
     $sub->product_id = $product_id;
     $product = new MeprProduct($product_id);
-    $sub->price = isset($price) ? (float) $price : (float) $product->price;
+    $sub->price = isset($price) ? MeprUtils::format_currency_us_float( $price ) : MeprUtils::format_currency_us_float( $product->price );
     $sub->period = isset($period) ? (int) $period : (int) $product->period;
     $sub->period_type = isset($period_type) ? (string) $period_type : (string) $product->period_type;
     $sub->limit_cycles = isset($limit_cycles) ? (boolean) $limit_cycles : $product->limit_cycles;
@@ -151,14 +152,14 @@ class MeprSubscriptionsCtrl extends MeprBaseCtrl
     $sub->limit_cycles_action = isset($limit_cycles_action) ? $limit_cycles_action : $product->limit_cycles_action;
     $sub->limit_cycles_expires_after = isset($limit_cycles_expires_after) ? (int) $limit_cycles_expires_after : (int) $product->limit_cycles_expires_after;
     $sub->limit_cycles_expires_type = isset($limit_cycles_expires_type) ? (string) $limit_cycles_expires_type : (string) $product->limit_cycles_expires_type;
-    $sub->tax_amount = (float) $tax_amount;
-    $sub->tax_rate = (float) $tax_rate;
-    $sub->total = $sub->price + $sub->tax_amount;
+    $sub->tax_amount = MeprUtils::format_currency_us_float( $tax_amount );
+    $sub->tax_rate = MeprUtils::format_currency_us_float( $tax_rate );
+    $sub->total = MeprUtils::format_currency_us_float( $sub->price + $sub->tax_amount );
     $sub->status = $status;
     $sub->gateway = $gateway;
     $sub->trial = isset($trial) ? (boolean) $trial : false;
     $sub->trial_days = (int) $trial_days;
-    $sub->trial_amount = (float) $trial_amount;
+    $sub->trial_amount = MeprUtils::format_currency_us_float( $trial_amount );
     if(isset($created_at) && (empty($created_at) || is_null($created_at))) {
       $sub->created_at = MeprUtils::ts_to_mysql_date(time());
     }
@@ -211,7 +212,7 @@ class MeprSubscriptionsCtrl extends MeprBaseCtrl
     if(!isset($price) || empty($price)) {
       $errors[] = __("The sub-total is required", 'memberpress');
     }
-    if(!is_numeric($price)) {
+    if( preg_match("/[^0-9., ]/", $price) ) {
       $errors[] = __("The sub-total must be a number", 'memberpress');
     }
     if(!is_numeric($trial_days)) {
@@ -561,9 +562,13 @@ class MeprSubscriptionsCtrl extends MeprBaseCtrl
     $this->add_screen_options('mp_lifetime_subs_perpage');
   }
 
-  public function setup_screen_options($status, $option, $value) {
-    $optname = $this->is_lifetime() ? 'mp_lifetime_subs_perpage' : 'mp_subs_perpage';
-    if ( $optname === $option ) { return $value; }
+  public function setup_screen_options_lifetime($status, $option, $value) {
+    if ( 'mp_lifetime_subs_perpage' === $option ) { return $value; }
+    return $status;
+  }
+
+  public function setup_screen_options_subs($status, $option, $value) {
+    if ( 'mp_subs_perpage' === $option ) { return $value; }
     return $status;
   }
 

@@ -39,6 +39,7 @@ jQuery(document).ready(function($) {
 
     loc = loc.replace(/[&\?]search=[^&]*/gi, '');
     loc = loc.replace(/[&\?]search-field=[^&]*/gi, '');
+    loc = loc.replace(/[&\?]paged=[^&]*/gi, ''); // Show first page when search button is clicked
 
     var search = escape($('#cspf-table-search').val());
     var search_field = $('#cspf-table-search-field').val();

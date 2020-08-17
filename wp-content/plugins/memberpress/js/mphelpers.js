@@ -1,4 +1,6 @@
 jQuery(document).ready(function($) {
+  if(typeof ajaxurl == 'undefined') { return; } //Prevent errors when ajaxurl is not defined
+
   $('.mepr_suggest_user').suggest(
     ajaxurl+'?action=mepr_user_search', {
       delay: 500,

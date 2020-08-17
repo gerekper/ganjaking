@@ -483,6 +483,12 @@ table.mepr-addons-table tr th {
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
+/* Fix for CMSMasters Content Composer plugin where widgets are broken on edit post/page on the backend */
+.cmsmastersBoxContIn.animate-spin {
+  animation: auto;
+  display: block;
+}
+
 .mepr-warning-notice-title {
   vertical-align: top !important;
   margin-left: 18px !important;
@@ -611,4 +617,12 @@ table.mepr-addons-table tr th {
     display: block;
     width: auto;
   }
+}
+
+.mepr-replace-file, .mepr-view-file{
+  text-decoration: none;
+}
+
+.mepr-replace-file{
+  margin-right: 5px;
 }

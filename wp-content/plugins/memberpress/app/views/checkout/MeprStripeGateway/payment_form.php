@@ -1,7 +1,11 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');} ?>
 
+<?php
+  if(isset($user) && $user instanceof MeprUser && isset($mepr_options)) {
+    MeprView::render("/checkout/MeprStripeGateway/payment_gateway_fields", get_defined_vars());
+  }
+?>
 
-<?php MeprView::render("/checkout/MeprStripeGateway/payment_gateway_fields", get_defined_vars()); ?>
 <div class="mp-form-row">
   <div class="mp-form-label">
     <label><?php _e('Name on the card:*', 'memberpress'); ?></label>

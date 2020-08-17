@@ -78,7 +78,7 @@ class MeprProductsHelper {
           <li>
             <?php self::get_user_types_dropdown($who->user_type, $id); ?>
             <span id="who_have_purchased-<?php echo $id; ?>" class="<?php echo $class; ?>">
-              <?php _e('who currently have', 'memberpress'); ?>
+              <?php self::get_purchase_type_dropdown(isset($who->purchase_type) ? $who->purchase_type : null); ?>
               <?php self::get_products_dropdown($who->product_id, $product->ID); ?>
             </span>
             <span class="remove-span">
@@ -98,7 +98,7 @@ class MeprProductsHelper {
       <li>
         <?php self::get_user_types_dropdown(null, $id); ?>
         <span id="who_have_purchased-<?php echo $id; ?>" class="who_have_purchased">
-          <?php _e('who currently have', 'memberpress'); ?>
+          <?php self::get_purchase_type_dropdown(null); ?>
           <?php self::get_products_dropdown(null, $product->ID); ?>
         </span>
         <span class="remove-span">
@@ -123,8 +123,8 @@ class MeprProductsHelper {
     $products = MeprCptModel::all('MeprProduct');
 
     ?>
-      <select name="<?php echo MeprProduct::$who_can_purchase_str.'-product_id'; ?>[]">
-        <option value="nothing" <?php selected($chosen, 'nothing'); ?>><?php _e('no memberships', 'memberpress'); ?></option>
+      <select name="<?php echo MeprProduct::$who_can_purchase_str.'-product_id'; ?>[]" id="<?php echo MeprProduct::$who_can_purchase_str.'-product_id'; ?>">
+        <option value="nothing" <?php selected($chosen, 'nothing'); ?>><?php _e('no active memberships', 'memberpress'); ?></option>
         <option value="anything" <?php selected($chosen, 'anything'); ?>><?php _e('any membership', 'memberpress'); ?></option>
         <option value="subscribed-before" <?php selected($chosen, 'subscribed-before'); ?>><?php _e('subscribed to this membership before', 'memberpress'); ?></option>
         <option value="not-subscribed-before" <?php selected($chosen, 'not-subscribed-before'); ?>><?php _e('NOT subscribed to this membership before', 'memberpress'); ?></option>
@@ -134,6 +134,15 @@ class MeprProductsHelper {
           <?php endif; ?>
         <?php endforeach; ?>
         <?php MeprHooks::do_action('mepr-get-products-dropdown-options', $chosen, $my_ID, $products); ?>
+      </select>
+    <?php
+  }
+
+  public static function get_purchase_type_dropdown($chosen = null) {
+    ?>
+      <select name="<?php echo MeprProduct::$have_or_had_str.'-type'; ?>[]" id="purchase_type_dropdown">
+        <option value="have" <?php selected($chosen, 'have'); ?>><?php _e('who currently have', 'memberpress'); ?></option>
+        <option value="had" <?php selected($chosen, 'had'); ?>><?php _e('who had', 'memberpress'); ?></option>
       </select>
     <?php
   }
@@ -151,17 +160,25 @@ class MeprProductsHelper {
   }
 
   public static function display_invoice( $product, $coupon_code = false, &$payment_required = true ) {
+    $current_user = MeprUtils::get_currentuserinfo();
+    MeprUtils::get_currentuserinfo();
+
     if($product->is_one_time_payment()) {
+      $tmp_txn = new MeprTransaction();
+      $tmp_txn->id = 0;
+      $tmp_txn->user_id = (isset($current_user->ID))?$current_user->ID:0;
+      $tmp_txn->load_product_vars($product, $coupon_code, true);
+
       if(empty($coupon_code)) { //We've already validated the coupon before including signup_form.php
         if($product->register_price_action == 'custom') {
           echo stripslashes($product->register_price);
         }
         else {
-          echo self::format_currency($product);
+          echo MeprAppHelper::format_price_string($tmp_txn, $tmp_txn->amount, true, $coupon_code, true, $payment_required);
         }
       }
       else {
-        echo self::format_currency($product, true, $coupon_code, true, $payment_required);
+        echo MeprAppHelper::format_price_string($tmp_txn, $tmp_txn->amount, true, $coupon_code, true, $payment_required);
       }
 
       echo self::renewal_str($product); // possibly print out the renewal string
@@ -185,6 +202,29 @@ class MeprProductsHelper {
       }
     }
   }
+
+  public static function display_spc_invoice( $product, $coupon_code = false, &$payment_required = true ) {
+    $current_user = MeprUtils::get_currentuserinfo();
+    MeprUtils::get_currentuserinfo();
+
+    $tmp_txn = new MeprTransaction();
+    $tmp_txn->id = 0;
+    $tmp_txn->user_id = (isset($current_user->ID))?$current_user->ID:0;
+    $tmp_txn->load_product_vars($product, $coupon_code, true);
+    $tmp_sub = new MeprSubscription();
+
+    if(!$product->is_one_time_payment()) {
+      // Setup to possibly do a proration without actually creating a subscription record
+      $tmp_sub->id = 0;
+      $tmp_sub->user_id = (isset($current_user->ID))?$current_user->ID:0;
+      $tmp_sub->load_product_vars($product, $coupon_code,true);
+      $tmp_sub->maybe_prorate();
+    }
+
+    $invoice_html = MeprTransactionsHelper::get_invoice($tmp_txn, $tmp_sub);
+    echo $invoice_html;
+  }
+
 
   public static function product_terms($product, $user, $mepr_coupon_code=null) {
     $terms = '';

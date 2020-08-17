@@ -78,6 +78,13 @@ if(!empty($records))
               <a href="" class="mepr_resend_txn_email" data-value="<?php echo $rec->id; ?>"><?php _e('Send Receipt', 'memberpress'); ?></a> |
               <a href="" class="mepr_send_welcome_email" data-value="<?php echo $rec->id; ?>"><?php _e('Send Welcome', 'memberpress'); ?></a> |
               <?php
+              if($rec->product_id) {
+                $prd = new MeprProduct($rec->product_id);
+                if(isset($prd->emails['MeprUserProductWelcomeEmail']) && $prd->emails['MeprUserProductWelcomeEmail']['enabled']) { ?>
+                  <a href="" class="mepr_send_welcome_email" data-value="<?php echo $rec->id; ?>"><?php _e('Send Welcome', 'memberpress'); ?></a> |
+              <?php
+                }
+              }
               if (class_exists('MePdfInvoicesCtrl')) {  ?>
                 <a href="
                   <?php

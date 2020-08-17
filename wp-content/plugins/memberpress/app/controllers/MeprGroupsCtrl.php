@@ -190,9 +190,9 @@ class MeprGroupsCtrl extends MeprCptCtrl {
       $group->upgrade_path_reset_period = isset($_POST[MeprGroup::$upgrade_path_reset_period_str]);
       //$group->group_page_style_options = self::get_style_options_array();
       $group->group_theme = sanitize_text_field($_POST[MeprGroup::$group_theme_str]);
-      $group->page_button_class = sanitize_text_field($_POST[MeprGroup::$page_button_class_str]);
-      $group->page_button_highlighted_class = sanitize_text_field($_POST[MeprGroup::$page_button_highlighted_class_str]);
-      $group->page_button_disabled_class = sanitize_text_field($_POST[MeprGroup::$page_button_disabled_class_str]);
+      $group->page_button_class = sanitize_text_field(trim($_POST[MeprGroup::$page_button_class_str]));
+      $group->page_button_highlighted_class = sanitize_text_field(trim($_POST[MeprGroup::$page_button_highlighted_class_str]));
+      $group->page_button_disabled_class = sanitize_text_field(trim($_POST[MeprGroup::$page_button_disabled_class_str]));
       $group->alternate_group_url = sanitize_text_field(wp_unslash($_POST[MeprGroup::$alternate_group_url_str]));
       self::store_chosen_products($group->ID);
       $group->use_custom_template = isset($_POST['_mepr_use_custom_template']);

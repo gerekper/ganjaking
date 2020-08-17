@@ -126,7 +126,7 @@
             </th>
             <td>
               <span><?php echo $mepr_options->currency_symbol; ?></span>
-              <input type="text" id="transaction_amount" name="transaction[amount]" value="<?php echo MeprAppHelper::format_currency($transaction->amount,false,false); ?>" />
+              <input type="text" id="transaction_amount" name="transaction[amount]" value="<?php echo MeprUtils::format_currency_float($transaction->amount); ?>" />
             </td>
           </tr>
           <tr valign="top">

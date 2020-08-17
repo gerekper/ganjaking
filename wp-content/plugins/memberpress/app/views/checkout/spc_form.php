@@ -3,7 +3,7 @@
 <?php do_action('mepr-above-checkout-form', $product->ID); ?>
 
 <div class="mp_wrapper">
-  <form class="mepr-signup-form mepr-form" method="post" action="<?php echo $_SERVER['REQUEST_URI'].'#mepr_jump'; ?>" novalidate>
+  <form class="mepr-signup-form mepr-form" method="post" action="<?php echo $_SERVER['REQUEST_URI'].'#mepr_jump'; ?>" enctype="multipart/form-data" novalidate>
     <input type="hidden" name="mepr_process_signup_form" value="<?php echo isset($_GET['mepr_process_signup_form']) ? esc_attr($_GET['mepr_process_signup_form']) : 1 ?>" />
     <input type="hidden" name="mepr_product_id" value="<?php echo esc_attr($product->ID); ?>" />
     <input type="hidden" name="mepr_transaction_id" value="<?php echo isset($_GET['mepr_transaction_id']) ? esc_attr($_GET['mepr_transaction_id']) : ""; ?>" />
@@ -119,12 +119,14 @@
         <input type="hidden" name="mepr_coupon_code" value="<?php echo (isset($mepr_coupon_code))?esc_attr(stripslashes($mepr_coupon_code)):''; ?>" />
       <?php endif; ?>
 
-      <div class="mepr-transaction-invoice-wrapper" style="padding-top:10px">
-        <span class="mepr-invoice-loader mepr-hidden">
-          <img src="<?php echo includes_url('js/thickbox/loadingAnimation.gif'); ?>" title="<?php _ex('Loading icon', 'ui', 'memberpress'); ?>" width="100" height="10" />
-        </span>
-        <div>  <!-- Transaction Invoice shows up here  --> </div>
-      </div>
+      <?php if($mepr_options->enable_spc_invoice): ?>
+        <div class="mepr-transaction-invoice-wrapper" style="padding-top:10px">
+          <span class="mepr-invoice-loader mepr-hidden">
+            <img src="<?php echo includes_url('js/thickbox/loadingAnimation.gif'); ?>" title="<?php _ex('Loading icon', 'ui', 'memberpress'); ?>" width="100" height="10" />
+          </span>
+          <div><?php MeprProductsHelper::display_spc_invoice( $product, $mepr_coupon_code ); ?></div>
+        </div>
+      <?php endif; ?>
 
       <div class="mepr-payment-methods-wrapper">
         <?php if(sizeof($payment_methods) > 1): ?>
@@ -145,7 +147,7 @@
       <input type="hidden" id="mepr_coupon_code-<?php echo $product->ID; ?>" name="mepr_coupon_code" value="<?php echo (isset($mepr_coupon_code))?esc_attr(stripslashes($mepr_coupon_code)):''; ?>" />
     <?php endif; ?>
 
-    <?php if($product->adjusted_price($mepr_coupon_code) <= 0.00 && false == ( isset($_GET['ca']) && class_exists('MPCA_Corporate_Account') )) { ?>
+    <?php if($mepr_options->enable_spc_invoice && $product->adjusted_price($mepr_coupon_code) <= 0.00 && false == ( isset($_GET['ca']) && class_exists('MPCA_Corporate_Account') )) { ?>
       <div class="mepr-transaction-invoice-wrapper" style="padding-top:10px">
         <span class="mepr-invoice-loader mepr-hidden">
           <img src="<?php echo includes_url('js/thickbox/loadingAnimation.gif'); ?>" title="<?php _ex('Loading icon', 'ui', 'memberpress'); ?>" width="100" height="10" />

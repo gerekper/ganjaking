@@ -37,6 +37,8 @@ var mepr_populate_states = function(obj) { (function($) {
       states_dropdown.attr('required','');
     }
 
+    states_dropdown.append('<option value="">' + MeprI18n.please_select_state + '</option>');
+
     for (var st in MeprI18n.states[country]) {
       var selected = (value===st ? ' selected="selected"' : '');
       states_dropdown.append('<option value="' + st + '" ' + selected + '>' + MeprI18n.states[country][st] + '</option>');

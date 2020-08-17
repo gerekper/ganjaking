@@ -665,6 +665,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
       wp_register_script('mp-i18n', MEPR_JS_URL.'/i18n.js');
 
       $i18n = array('states' => MeprUtils::states(), 'ajaxurl' => admin_url('admin-ajax.php'));
+      $i18n['please_select_state'] = __('-- Select State --', 'memberpress');
       wp_localize_script('mp-i18n', 'MeprI18n', $i18n);
 
       $prereqs = MeprHooks::apply_filters(

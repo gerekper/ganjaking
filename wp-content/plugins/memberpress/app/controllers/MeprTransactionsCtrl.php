@@ -18,7 +18,7 @@ class MeprTransactionsCtrl extends MeprBaseCtrl {
     // Screen Options
     $hook = 'memberpress_page_memberpress-trans';
     add_action( "load-{$hook}", array($this,'add_screen_options') );
-    add_filter( 'set-screen-option', array($this,'setup_screen_options'), 10, 3 );
+    add_filter( 'set_screen_option_mp_transactions_perpage', array($this,'setup_screen_options'), 10, 3 );
     add_filter( "manage_{$hook}_columns", array($this, 'get_columns'), 0 );
 
     add_filter('cron_schedules', array($this,'intervals'));
@@ -119,6 +119,9 @@ class MeprTransactionsCtrl extends MeprBaseCtrl {
     }
   }
 
+  /**
+   * @param MeprTransaction $txn
+   */
   public function create_trans($txn) {
     check_admin_referer( 'mepr_create_or_update_transaction', 'mepr_transactions_nonce' );
 
@@ -135,10 +138,10 @@ class MeprTransactionsCtrl extends MeprBaseCtrl {
     $txn->user_id    = $usr->ID;
     $txn->product_id = sanitize_key($_POST['product_id']);
     // $txn->set_subtotal($_POST['amount']); //Don't do this, it doesn't work right on existing txns
-    $txn->amount     = (float)$_POST['amount'];
-    $txn->tax_amount = (float)$_POST['tax_amount'];
-    $txn->total      = ((float)$_POST['amount'] + (float)$_POST['tax_amount']);
-    $txn->tax_rate   = (float)$_POST['tax_rate'];
+    $txn->amount     = MeprUtils::format_currency_us_float( $_POST['amount'] );
+    $txn->tax_amount = MeprUtils::format_currency_us_float($_POST['tax_amount']);
+    $txn->total      = MeprUtils::format_currency_us_float( $txn->amount + $txn->tax_amount);
+    $txn->tax_rate   = MeprUtils::format_currency_us_float($_POST['tax_rate']);
     $txn->status     = sanitize_text_field($_POST['status']);
     $txn->gateway    = sanitize_text_field($_POST['gateway']);
 
@@ -180,6 +183,18 @@ class MeprTransactionsCtrl extends MeprBaseCtrl {
         }
       }
 
+      if ( empty( $txn->subscription_id ) ) {
+        // If the transaction is not part of a subscription (stand-alone transaction)
+        MeprHooks::do_action( 'mepr-signup', $txn );
+      } else if (
+        isset( $sub ) &&
+        empty( $sub->transactions() ) &&
+        $txn->status == MeprTransaction::$complete_str
+      ) {
+        // If the transaction is the only completed transaction of a recurring subscription
+        MeprHooks::do_action( 'mepr-signup', $txn );
+      }
+
       $message = __('A transaction was created successfully.', 'memberpress');
 
       $_REQUEST['action'] = 'edit';
@@ -202,15 +217,14 @@ class MeprTransactionsCtrl extends MeprBaseCtrl {
     $usr->load_user_data_by_login($_POST['user_login']);
     $user_login = $usr->user_login;
     $subscr_num = '';
-
     $txn->trans_num  = sanitize_file_name(wp_unslash($_POST['trans_num']));
     $txn->user_id    = $usr->ID;
     $txn->product_id = sanitize_key($_POST['product_id']);
     // $txn->set_subtotal($_POST['amount']); //Don't do this, it doesn't work right on existing txns
-    $txn->amount     = (float)$_POST['amount'];
-    $txn->tax_amount = (float)$_POST['tax_amount'];
-    $txn->total      = ((float)$_POST['amount'] + (float)$_POST['tax_amount']);
-    $txn->tax_rate   = (float)$_POST['tax_rate'];
+    $txn->amount     = MeprUtils::format_currency_us_float( $_POST['amount'] );
+    $txn->tax_amount = MeprUtils::format_currency_us_float($_POST['tax_amount']);
+    $txn->total      = MeprUtils::format_currency_us_float( $_POST['amount'] + $_POST['tax_amount']);
+    $txn->tax_rate   = MeprUtils::format_currency_us_float($_POST['tax_rate']);
     $txn->status     = sanitize_text_field($_POST['status']);
     $txn->gateway    = sanitize_text_field($_POST['gateway']);
 
@@ -275,7 +289,7 @@ class MeprTransactionsCtrl extends MeprBaseCtrl {
       $errors[] = __("The amount must be set.", 'memberpress');
     }
 
-    if(!is_numeric($_POST['amount'])) {
+    if( preg_match("/[^0-9., ]/", $_POST['amount']) ) {
       $errors[] = __("The amount must be a number.", 'memberpress');
     }
 
@@ -512,8 +526,7 @@ class MeprTransactionsCtrl extends MeprBaseCtrl {
     MeprUtils::send_notices(
       $txn,
       'MeprUserReceiptEmail',
-      'MeprAdminReceiptEmail',
-      true
+      'MeprAdminReceiptEmail'
     );
 
     die(__('Email sent', 'memberpress'));

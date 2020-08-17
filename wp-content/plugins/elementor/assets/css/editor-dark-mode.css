@@ -1,4 +1,4 @@
-/*! elementor - v2.9.11 - 02-06-2020 */
+/*! elementor - v2.9.14 - 21-07-2020 */
 body {
   color: #E0E1E3; }
   body .pcr-app {
@@ -108,6 +108,12 @@ select {
       color: #E0E1E3; }
       .elementor-panel #elementor-panel-elements-search-input:focus + i {
         color: #E0E1E3; }
+    .elementor-panel #elementor-panel-elements-search-input::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      height: 8px;
+      width: 8px;
+      background: -webkit-linear-gradient(45deg, transparent 45%, #B4B5B7 45%, #B4B5B7 55%, transparent 55%), -webkit-linear-gradient(315deg, transparent 45%, #B4B5B7 45%, #B4B5B7 55%, transparent 55%);
+      background: linear-gradient(45deg, transparent 45%, #B4B5B7 45%, #B4B5B7 55%, transparent 55%), linear-gradient(135deg, transparent 45%, #B4B5B7 45%, #B4B5B7 55%, transparent 55%); }
   .elementor-panel .elementor-element {
     background-color: #404349; }
     .elementor-panel .elementor-element .title,
@@ -199,12 +205,8 @@ a.elementor-responsive-switcher {
 .elementor-control-type-popover_toggle .elementor-control-responsive-switchers__holder {
   background-color: #4C4F56; }
 
-.elementor-control-media-upload-button {
-  background-color: #34383C; }
-
 .elementor-control-media__remove {
-  background-color: #64666A;
-  color: #B4B5B7; }
+  border-color: #64666A; }
 
 .elementor-control-media .elementor-control-input-wrapper {
   border-color: #64666A; }
@@ -216,6 +218,7 @@ a.elementor-responsive-switcher {
   background-color: #7D7E82; }
 
 .elementor-control-media__file, .elementor-control-media__file__controls {
+  background-color: #34383C;
   border-color: #64666A; }
 
 .elementor-control-media-area, .pcr-app[data-theme=monolith] .pcr-color-palette, .pcr-button {
@@ -320,9 +323,17 @@ a.elementor-responsive-switcher {
   .elementor-control-type-repeater .elementor-repeater-row-tools:hover {
     background-color: #7D7E82; }
   .elementor-control-type-repeater .elementor-repeater-row-tools > div:not(.elementor-repeater-row-handle-sortable) {
-    background-color: #4C4F56; }
+    background-color: #404349; }
     .elementor-control-type-repeater .elementor-repeater-row-tools > div:not(.elementor-repeater-row-handle-sortable):hover {
-      background-color: #52555d; }
+      background-color: #464950; }
+
+.elementor-control-type-repeater .elementor-repeater-row--form-step .elementor-repeater-row-tools:hover {
+  background-color: #7D7E82; }
+
+.elementor-control-type-repeater .elementor-repeater-row--form-step .elementor-repeater-row-tools div:not(.elementor-repeater-row-handle-sortable) {
+  background-color: #4C4F56; }
+  .elementor-control-type-repeater .elementor-repeater-row--form-step .elementor-repeater-row-tools div:not(.elementor-repeater-row-handle-sortable):hover {
+    background-color: #64666A; }
 
 .elementor-control-type-repeater .elementor-repeater-row-controls {
   border-color: #64666A; }

@@ -62,27 +62,28 @@
      * @return {object}
      */
     function getBillingDetails() {
-      var formData = getFormData(stripePaymentForm);
-
-      var details = {
-        name: formData['card-name']
-      };
-
-      // Merges in the address fields if required for taxes
-      if(formData['address_required'] == 1) {
-        details.address = {
-          line1: formData['card-address-1'],
-          line2: formData['card-address-2'],
-          city: formData['card-city'],
-          state: formData['card-state'],
-          postal_code: formData['card-zip']
+      var formData = getFormData(stripePaymentForm),
+        keys = {
+          line1: 'card-address-one',
+          line2: 'card-address-two',
+          city: 'card-address-city',
+          country: 'card-address-country',
+          state: 'card-address-state',
+          postal_code: 'card-address-zip'
+        },
+        details = {
+          address: {}
         };
 
-        // Stripe throws an error if country is empty
-        if (typeof formData['card-country'] == 'string' && formData['card-country'].length) {
-          details.address.country = formData['card-country'];
-        }
+      if (formData.hasOwnProperty('card-name') && typeof formData['card-name'] == 'string' && formData['card-name'].length) {
+        details.name = formData['card-name'];
       }
+
+      $.each(keys, function (key, value) {
+        if (formData.hasOwnProperty(value) && typeof formData[value] == 'string' && formData[value].length) {
+          details.address[key] = formData[value];
+        }
+      });
 
       return details;
     }

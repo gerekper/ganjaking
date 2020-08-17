@@ -24,7 +24,7 @@ class MeprActiveInactiveHooksCtrl extends MeprBaseCtrl {
     $now            = time();
     $expires        = 0; // Lifetime
 
-    if($txn->expires_at != MeprUtils::db_lifetime()) {
+    if ( ! empty( $txn->expires_at ) && $txn->expires_at != MeprUtils::db_lifetime() ) {
       $expires = strtotime($txn->expires_at);
     }
 

@@ -1,4 +1,4 @@
-/*! elementor - v2.9.11 - 02-06-2020 */
+/*! elementor - v2.9.14 - 21-07-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -4722,7 +4722,7 @@ BaseSettingsModel = Backbone.Model.extend({
       var control = this,
           valueToParse;
 
-      if ('repeater' === control.type) {
+      if (control.is_repeater) {
         valueToParse = settings[control.name];
         valueToParse.forEach(function (value, key) {
           valueToParse[key] = self.parseDynamicSettings(value, options, control.fields);

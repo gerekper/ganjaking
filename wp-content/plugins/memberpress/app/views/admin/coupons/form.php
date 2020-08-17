@@ -122,7 +122,7 @@ if(!empty($products)):
     <tbody>
       <tr valign="top">
         <th scope="row">
-          <label for="<?php echo MeprCoupon::$use_on_upgrades_str; ?>"><?php _e('Use on Upgrades:', 'memberpress'); ?></label>
+          <label for="<?php echo MeprCoupon::$use_on_upgrades_str; ?>"><?php _e('Allow on Upgrades and Downgrades:', 'memberpress'); ?></label>
         </th>
         <td>
           <input type="checkbox" name="<?php echo MeprCoupon::$use_on_upgrades_str; ?>" id="<?php echo MeprCoupon::$use_on_upgrades_str; ?>" class="mepr-toggle-checkbox" data-box="mepr_use_on_upgrades_box" <?php checked($c->use_on_upgrades); ?> />

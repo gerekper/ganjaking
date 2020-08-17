@@ -19,6 +19,7 @@ class MeprProduct extends MeprCptModel implements MeprProductInterface {
   public static $group_order_str                = '_mepr_group_order'; // Position in group
   public static $is_highlighted_str             = '_mepr_product_is_highlighted';
   public static $who_can_purchase_str           = '_mepr_product_who_can_purchase';
+  public static $have_or_had_str                = '_mepr_product_purchase';
   public static $pricing_title_str              = '_mepr_product_pricing_title';
   public static $pricing_display_str            = '_mepr_product_pricing_display';
   public static $pricing_show_price_str         = '_mepr_product_pricing_show_price';
@@ -570,7 +571,7 @@ class MeprProduct extends MeprCptModel implements MeprProductInterface {
       //Give Developers a chance to hook in here
       //Return true or false if you run your own custom handling here
       //Otherwise return string 'no_custom' if MemberPress should handle the processing
-      if(($custom = MeprHooks::apply_filters('mepr-who-can-purchase-custom-check', 'no_custom', $who, $this)) !=  'no_custom' && is_bool($custom)) {
+      if(($custom = MeprHooks::apply_filters('mepr-who-can-purchase-custom-check', 'no_custom', $who, $this)) !==  'no_custom' && is_bool($custom)) {
         return $custom;
       }
 

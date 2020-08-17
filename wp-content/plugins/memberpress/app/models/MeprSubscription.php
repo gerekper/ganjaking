@@ -201,6 +201,11 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     return $mepr_db->get_one_record($mepr_db->subscriptions, $args, $return_type);
   }
 
+  /**
+   * @param $subscr_id
+   *
+   * @return bool|MeprSubscription
+   */
   public static function get_one_by_subscr_id($subscr_id) {
     //error_log("********** MeprUtils::get_one_by_subscr_id subscr_id: {$subscr_id}\n");
     global $wpdb;
@@ -777,6 +782,9 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     return new MeprUser($this->user_id);
   }
 
+  /**
+   * @return MeprProduct
+   */
   public function product() {
     //Don't do static caching stuff here
 
@@ -1553,6 +1561,9 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     }
     elseif($calculate_taxes && !$prd->tax_exempt && ($usr->ID != 0 || ((int)$usr->ID == 0 && $mepr_options->attr('tax_calc_location') == 'merchant'))) {
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = $usr->calculate_tax($subtotal, $num_decimals, $prd->ID);
+    }
+    elseif($calculate_taxes && 0 == absint($usr->ID)) { // Enables VAT calc for SPC Invoice
+      list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = $usr->calculate_tax($subtotal, $num_decimals);
     }
     else { // If all else fails, let's blank out the tax info
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = array($subtotal, $subtotal, 0.00, 0.00, '', 'standard');

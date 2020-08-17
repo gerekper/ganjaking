@@ -187,7 +187,7 @@ class MeprAppHelper {
 
     $period = (int)$obj->period;
     $period_type = $obj->period_type;
-    $period_type_str = strtolower( MeprUtils::period_type_name($period_type,$period) );
+    $period_type_str = MeprUtils::period_type_name($period_type,$period);
 
     if((float)$price <= 0.00) {
       if( $period_type != 'lifetime' && !empty($coupon) &&

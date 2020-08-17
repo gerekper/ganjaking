@@ -306,6 +306,12 @@ class MeprUtils {
 
     //Make sure all replacements can be converted to a string yo
     foreach($replacements as $i => $val) {
+      // The method_exists below causes a fatal error for incomplete classes
+      if($val instanceof __PHP_Incomplete_Class) {
+        $replacements[$i] = '';
+        continue;
+      }
+
       //Numbers and strings and objects with __toString are fine as is
       if(is_string($val) || is_numeric($val) || (is_object($val) && method_exists($val, '__toString'))) {
         continue;
@@ -350,6 +356,35 @@ class MeprUtils {
     }
 
     return self::format_float($number, $num_decimals);
+  }
+
+  /**
+   * Converts number to US format
+   *
+   * @param  mixed $number
+   * @param  mixed $num_decimals
+   * @return void
+   */
+  public static function format_currency_us_float($number, $num_decimals = 2) {
+    global $wp_locale;
+
+    if ( ! isset( $wp_locale ) || false === function_exists('number_format_i18n') ) {
+      return self::format_float($number, $num_decimals);
+    }
+
+    $decimal_point = $wp_locale->number_format['decimal_point'];
+    $thousands_sep = $wp_locale->number_format['thousands_sep'];
+
+    // Remove thousand separator
+    $number = str_replace ($thousands_sep, '' , $number);
+
+    // Replaces decimal separator
+    $index = strrpos( $number, $decimal_point );
+    if( $index !== FALSE ){
+      $number[ $index ] = '.';
+    }
+
+    return (float) $number;
   }
 
   public static function is_zero_decimal_currency() {

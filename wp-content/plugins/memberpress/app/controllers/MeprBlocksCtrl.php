@@ -69,6 +69,9 @@ class MeprBlocksCtrl extends MeprBaseCtrl {
           'rule' => array(
             'type' => 'number',
           ),
+          'ifallowed' => array(
+            'type' => 'string',
+          ),
           'unauth' => array(
             'type' => 'string',
           ),
@@ -136,7 +139,7 @@ class MeprBlocksCtrl extends MeprBaseCtrl {
    */
   public function render_protected_content_block( $attributes, $content ) {
 
-    $attributes['ifallowed'] = 'show';
+    $attributes['ifallowed'] = ! empty( $attributes['ifallowed'] ) ? $attributes['ifallowed'] : 'show';
 
     if ( ! isset( $attributes['unauth_message'] ) || '' === $attributes['unauth_message'] ) {
       $attributes['unauth_message'] = __( 'You are unauthorized to view this content.', 'memberpress' );

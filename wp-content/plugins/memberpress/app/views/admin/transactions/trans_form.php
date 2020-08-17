@@ -35,7 +35,7 @@
   <th scope="row"><label for="amount"><?php _e('Sub-Total*:', 'memberpress'); ?></label></th>
   <td>
     <span><?php echo $mepr_options->currency_symbol; ?></span>
-    <input type="text" name="amount" id="amount" value="<?php echo MeprUtils::format_float($txn->amount); ?>" class="regular-text" style="width:95px !important;"/>
+    <input type="text" name="amount" id="amount" value="<?php echo MeprUtils::format_currency_float($txn->amount); ?>" class="regular-text" style="width:95px !important;"/>
     <p class="description"><?php _e('The sub-total (amount before tax) of this transaction', 'memberpress'); ?></p>
   </td>
 </tr>
@@ -44,7 +44,7 @@
   <th scope="row"><label for="tax_amount"><?php _e('Tax Amount*:', 'memberpress'); ?></label></th>
   <td>
     <span><?php echo $mepr_options->currency_symbol; ?></span>
-    <input type="text" name="tax_amount" id="tax_amount" value="<?php echo MeprUtils::format_float($txn->tax_amount); ?>" class="regular-text" style="width:95px !important;"/>
+    <input type="text" name="tax_amount" id="tax_amount" value="<?php echo MeprUtils::format_currency_float($txn->tax_amount); ?>" class="regular-text" style="width:95px !important;"/>
     <p class="description"><?php _e('The amount of taxes for this transaction', 'memberpress'); ?></p>
   </td>
 </tr>
@@ -52,9 +52,9 @@
 <tr valign="top">
   <th scope="row"><label for="tax_rate"><?php _e('Tax Rate*:', 'memberpress'); ?></label></th>
   <td>
-    <input type="text" name="tax_rate" id="tax_rate" value="<?php echo MeprUtils::format_float($txn->tax_rate, 3); ?>" class="regular-text" style="width:95px !important;"/>
+    <input type="text" name="tax_rate" id="tax_rate" value="<?php echo MeprUtils::format_currency_float($txn->tax_rate, 3); ?>" class="regular-text" style="width:95px !important;"/>
     <span><?php echo '%'; ?></span>
-    <p class="description"><?php _e('The tax rate in percentage. (Ex: 10.000 for 10%)', 'memberpress'); ?></p>
+    <p class="description"><?php printf(__('The tax rate in percentage. (Ex: %s for 10%%)', 'memberpress'), MeprUtils::format_currency_float(10.000) ) ; ?></p>
   </td>
 </tr>
 

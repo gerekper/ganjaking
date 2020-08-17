@@ -165,7 +165,7 @@ class MeprRemindersCtrl extends MeprCptCtrl {
         'hierarchical' => false,
         'register_meta_box_cb' => array( $this, 'add_meta_boxes' ),
         'rewrite' => false,
-        'supports' => array('none')
+        'supports' => array('none', 'title')
       )
     );
     register_post_type( $this->cpt->slug, $this->cpt->config );
@@ -320,8 +320,15 @@ class MeprRemindersCtrl extends MeprCptCtrl {
             }
             break;
           case 'sub-renews':
-            if(($txn = $reminder->get_next_renewing_txn())) {
-              $obj = new MeprTransaction($txn->id); // we need the actual model
+            if ($reminder->trigger_timing == 'before') {
+              if (($txn = $reminder->get_next_renewing_txn())) {
+                $obj = new MeprTransaction($txn->id); // we need the actual model
+              }
+            }
+            else if ($reminder->trigger_timing == 'after') {
+              if (($txn = $reminder->get_renewed_txn())) {
+                $obj = new MeprTransaction($txn->id); // we need the actual model
+              }
             }
             break;
           case 'member-signup':
@@ -420,6 +427,13 @@ class MeprRemindersCtrl extends MeprCptCtrl {
           $aclass = 'MeprAdminSubExpiresReminderEmail';
           break;
         case 'sub-renews':
+          if($reminder->trigger_timing == 'after') {
+            $sub = $txn->subscription();
+            $txn_count = (isset($sub->txn_count) && $sub->txn_count) ? $sub->txn_count : 0;
+            if($txn_count < 2 && ($sub->trial == false || ($sub->trial && $sub->trail_amount > 0.00))) {
+              $disable_email = true;
+            }
+          }
           $uclass = 'MeprUserSubRenewsReminderEmail';
           $aclass = 'MeprAdminSubRenewsReminderEmail';
           break;

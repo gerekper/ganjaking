@@ -1,4 +1,4 @@
-/*! elementor - v2.9.11 - 02-06-2020 */
+/*! elementor - v2.9.14 - 21-07-2020 */
 @charset "UTF-8";
 .elementor-control-unit-1 {
   width: 27px; }
@@ -2178,7 +2178,10 @@ a.elementor-responsive-switcher {
           align-items: center;
   width: 100%;
   margin-top: 10px;
-  border: 1px solid #d5dadf; }
+  border: 1px solid #d5dadf;
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+  cursor: pointer; }
   .elementor-control-media__file__content {
     padding-left: 5px;
     font-size: 12px; }

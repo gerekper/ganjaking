@@ -1,0 +1,87 @@
+2020-08-14T00:05:39+00:00 CRITICAL Uncaught RuntimeException: Error saving action: Table 'gerekper_ganja.wp_actionscheduler_actions' doesn't exist in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-product-feeds/vendor/woocommerce/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:75
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-product-feeds/vendor/woocommerce/action-scheduler/classes/ActionScheduler_ActionFactory.php(177): ActionScheduler_DBStore->save_action()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-product-feeds/vendor/woocommerce/action-scheduler/classes/ActionScheduler_ActionFactory.php(84): ActionScheduler_ActionFactory->store()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-product-feeds/vendor/woocommerce/action-scheduler/functions.php(36): ActionScheduler_ActionFactory->single()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce/includes/queue/c in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-product-feeds/vendor/woocommerce/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php on line 75
+
+2020-08-14T00:12:22+00:00 CRITICAL Uncaught Error: Call to a member function get_queried_object() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php:44
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/yith-woocommerce-ajax-navigation/includes/class.yith-wcan-frontend.php(123): get_queried_object()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): YITH_WCAN_Frontend->the_posts()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(249): WP_Hook->apply_filters()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3190): apply_filters_ref_array()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3448): WP_Query->get_posts()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/post.php(2053): WP_Query->query()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-order-status-manager/includes/wc-order-status-manager-functions.php(48): get_posts( in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php on line 44
+
+2020-08-14T00:12:24+00:00 CRITICAL Uncaught Error: Call to a member function get_queried_object() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php:44
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/yith-woocommerce-ajax-navigation/includes/class.yith-wcan-frontend.php(123): get_queried_object()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): YITH_WCAN_Frontend->the_posts()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(249): WP_Hook->apply_filters()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3190): apply_filters_ref_array()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3448): WP_Query->get_posts()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/post.php(2053): WP_Query->query()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-order-status-manager/includes/wc-order-status-manager-functions.php(48): get_posts( in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php on line 44
+
+2020-08-14T00:12:24+00:00 CRITICAL Uncaught Error: Call to a member function get_queried_object() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php:44
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/yith-woocommerce-ajax-navigation/includes/class.yith-wcan-frontend.php(123): get_queried_object()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): YITH_WCAN_Frontend->the_posts()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(249): WP_Hook->apply_filters()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3190): apply_filters_ref_array()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3448): WP_Query->get_posts()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/post.php(2053): WP_Query->query()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-order-status-manager/includes/wc-order-status-manager-functions.php(48): get_posts( in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php on line 44
+
+2020-08-14T00:12:26+00:00 CRITICAL Uncaught Error: Call to a member function get_queried_object() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php:44
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/yith-woocommerce-ajax-navigation/includes/class.yith-wcan-frontend.php(123): get_queried_object()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): YITH_WCAN_Frontend->the_posts()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(249): WP_Hook->apply_filters()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3190): apply_filters_ref_array()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3448): WP_Query->get_posts()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/post.php(2053): WP_Query->query()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-order-status-manager/includes/wc-order-status-manager-functions.php(48): get_posts( in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php on line 44
+
+2020-08-14T00:12:27+00:00 CRITICAL Uncaught Error: Call to a member function get_queried_object() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php:44
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/yith-woocommerce-ajax-navigation/includes/class.yith-wcan-frontend.php(123): get_queried_object()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): YITH_WCAN_Frontend->the_posts()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(249): WP_Hook->apply_filters()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3190): apply_filters_ref_array()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3448): WP_Query->get_posts()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/post.php(2053): WP_Query->query()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-order-status-manager/includes/wc-order-status-manager-functions.php(48): get_posts( in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php on line 44
+
+2020-08-14T00:12:28+00:00 CRITICAL Uncaught Error: Call to a member function get_queried_object() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php:44
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/yith-woocommerce-ajax-navigation/includes/class.yith-wcan-frontend.php(123): get_queried_object()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): YITH_WCAN_Frontend->the_posts()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(249): WP_Hook->apply_filters()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3190): apply_filters_ref_array()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3448): WP_Query->get_posts()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/post.php(2053): WP_Query->query()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-order-status-manager/includes/wc-order-status-manager-functions.php(48): get_posts( in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php on line 44
+
+2020-08-14T00:12:29+00:00 CRITICAL Uncaught Error: Call to a member function get_queried_object() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php:44
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/yith-woocommerce-ajax-navigation/includes/class.yith-wcan-frontend.php(123): get_queried_object()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): YITH_WCAN_Frontend->the_posts()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(249): WP_Hook->apply_filters()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3190): apply_filters_ref_array()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3448): WP_Query->get_posts()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/post.php(2053): WP_Query->query()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-order-status-manager/includes/wc-order-status-manager-functions.php(48): get_posts( in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php on line 44
+
+2020-08-14T00:12:37+00:00 CRITICAL Uncaught Error: Call to a member function get_queried_object() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php:44
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/yith-woocommerce-ajax-navigation/includes/class.yith-wcan-frontend.php(123): get_queried_object()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): YITH_WCAN_Frontend->the_posts()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(249): WP_Hook->apply_filters()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3190): apply_filters_ref_array()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-query.php(3448): WP_Query->get_posts()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/post.php(2053): WP_Query->query()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/woocommerce-order-status-manager/includes/wc-order-status-manager-functions.php(48): get_posts( in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/query.php on line 44
+

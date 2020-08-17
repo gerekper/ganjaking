@@ -143,6 +143,9 @@ class MeprPayWallCtrl extends MeprBaseCtrl {
     if(self::allow_search_engines_through())
       return false; //Need to return false here to allow SE through the blocks
 
+    $hide_comments = $protect ? '__return_true' : '__return_false';
+    add_filter('mepr-rule-comments', $hide_comments);
+
     return $protect;
   }
 

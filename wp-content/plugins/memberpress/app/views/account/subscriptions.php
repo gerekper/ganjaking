@@ -14,7 +14,6 @@ if(!empty($subscriptions)) {
           <th><?php _ex('Subscription', 'ui', 'memberpress'); ?></th>
           <th><?php _ex('Active', 'ui', 'memberpress'); ?></th>
           <th><?php _ex('Created', 'ui', 'memberpress'); ?></th>
-          <th><?php _ex('Expires', 'ui', 'memberpress'); ?></th>
           <th><?php _ex('Card Exp.', 'ui', 'memberpress'); ?></th>
           <th> </th>
           <?php MeprHooks::do_action('mepr-account-subscriptions-th', $mepr_current_user, $subscriptions); ?>
@@ -121,6 +120,9 @@ if(!empty($subscriptions)) {
               <?php endif; ?>
               <?php if($txn != false && $txn instanceof MeprTransaction && !$txn->is_sub_account && $is_sub && ($nba = $sub->next_billing_at)): ?>
                 <div class="mepr-account-rebill"><?php printf(_x('Next Billing: %s', 'ui', 'memberpress'), MeprAppHelper::format_date($nba)); ?></div>
+              <?php elseif (!$sub->next_billing_at && ($nba = $sub->expires_at) && stripos($sub->expires_at, '0000-00') === false) : ?>
+
+                <div class="mepr-account-rebill"><?php printf(_x('Expires: %s', 'ui', 'memberpress'), MeprAppHelper::format_date($nba)); ?></div>
               <?php endif; ?>
             </td>
             <td data-label="<?php _ex('Active', 'ui', 'memberpress'); ?>"><div class="mepr-account-active"><?php echo $s->active; ?></div></td>
@@ -129,24 +131,6 @@ if(!empty($subscriptions)) {
                 <div>--</div>
               <?php else: ?>
                 <div class="mepr-account-created-at"><?php echo MeprAppHelper::format_date($s->created_at); ?></div>
-              <?php endif; ?>
-            </td>
-            <td data-label="<?php _ex('Expires', 'ui', 'memberpress'); ?>">
-              <?php if($txn != false && $txn instanceof MeprTransaction && $txn->is_sub_account()): ?>
-                <div>--</div>
-              <?php else: ?>
-                <div class="mepr-account-expires-at">
-                  <?php if($txn != false && $txn instanceof MeprTransaction && $txn->txn_type == MeprTransaction::$payment_str || ($is_sub && !$sub->in_grace_period())) {
-                          echo MeprAppHelper::format_date($s->expires_at, $default);
-                        }
-                        elseif($txn != false && $txn instanceof MeprTransaction && $txn->txn_type == MeprTransaction::$fallback_str) {
-                          _ex('Never', 'ui', 'memberpress');
-                        }
-                        else {
-                          _ex('processing', 'ui', 'memberpress');
-                        }
-                  ?>
-                </div>
               <?php endif; ?>
             </td>
             <td data-label="<?php _ex('Card Expires', 'ui', 'memberpress'); ?>">

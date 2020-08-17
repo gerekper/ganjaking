@@ -135,6 +135,18 @@ class MeprStripeCtrl extends MeprBaseCtrl
         wp_send_json(array('error' => __('Sorry, we were unable to find the membership.', 'memberpress')));
       }
 
+      // Prevent duplicate charges if the user is already subscribed
+      if($usr->is_already_subscribed_to($product->ID) && !$product->simultaneous_subscriptions && !$product->allow_renewal) {
+        wp_send_json(array(
+          'error' => sprintf(
+            /* translators: %1$s: open link tag, %2$s: close link tag */
+            esc_html__('You are already subscribed to this item, %1$sclick here%2$s to view your subscriptions.', 'memberpress'),
+            '<a href="' . esc_url(add_query_arg(array('action' => 'subscriptions'), $mepr_options->account_page_url())) . '">',
+            '</a>'
+          )
+        ));
+      }
+
       // If we're showing the fields on logged in purchases, let's save them here
       if(!$is_existing_user || ($is_existing_user && $mepr_options->show_fields_logged_in_purchases)) {
         MeprUsersCtrl::save_extra_profile_fields($usr->ID, true, $product, true);

@@ -6633,6 +6633,7 @@ rs-module .material-icons {
 		$html .= RS_T5.$this->get_html_js_start_size($fw, $fs)."\n";
 		$html .= RS_T5.'var	revapi'. $sid .','."\n";
 		$html .= RS_T6.'tpj;'."\n";
+		$html .= RS_T5.'function revinit_'.$sid .'() {'."\n"; 
 		$html .= RS_T5.'jQuery(function() {'."\n";
 		$html .= RS_T6.'tpj = jQuery;'."\n";
 		$html .= RS_T6.'revapi'. $sid.' = tpj("#'. $html_id .'");'."\n";
@@ -6651,8 +6652,8 @@ rs-module .material-icons {
 	 * get the JavaScript Post
 	 **/
 	public function js_get_base_post(){
+		$sid = $this->slider->get_id();
 		$html = '';
-		
 		ob_start();
 		do_action('revslider_fe_javascript_option_output', $this->slider);
 		$js_action = ob_get_contents();
@@ -6677,6 +6678,8 @@ rs-module .material-icons {
 		$html .= $js_action;
 		$html .= "\n";
 		$html .= RS_T5.'});'."\n";
+		$html .= RS_T5.'} // End of RevInitScript'."\n";
+		$html .= RS_T4.'if (document.readyState === "loading") window.addEventListener(\'DOMContentLoaded\',function() {	revinit_'.$sid .'();}); else revinit_'.$sid .'();'."\n";
 		$html .= RS_T4.'</script>'."\n";
 		
 		return $html;

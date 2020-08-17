@@ -8,7 +8,7 @@
     <strong><?php printf(__('Price (%s):', 'memberpress'), $mepr_options->currency_symbol); ?></strong>
   </p>
   <p>
-    <input name="<?php echo MeprProduct::$price_str; ?>" id="<?php echo MeprProduct::$price_str; ?>" type="text" value="<?php echo MeprUtils::format_float($product->price); ?>" />
+    <input name="<?php echo MeprProduct::$price_str; ?>" id="<?php echo MeprProduct::$price_str; ?>" type="text" value="<?php echo MeprUtils::format_currency_float($product->price); ?>" />
   </p>
   <p>
     <strong><?php _e('Billing Type:', 'memberpress'); ?></strong>
@@ -133,7 +133,7 @@
           <strong><?php printf(__('Trial Amount (%s):', 'memberpress'), $mepr_options->currency_symbol); ?></strong>
         </p>
         <p>
-          <input name="<?php echo MeprProduct::$trial_amount_str; ?>" id="<?php echo MeprProduct::$trial_amount_str; ?>" size="7" type="text" value="<?php echo MeprUtils::format_float($product->trial_amount); ?>" />
+          <input name="<?php echo MeprProduct::$trial_amount_str; ?>" id="<?php echo MeprProduct::$trial_amount_str; ?>" size="7" type="text" value="<?php echo MeprUtils::format_currency_float($product->trial_amount); ?>" />
         </p>
         <p>
           <input type="checkbox" name="<?php echo MeprProduct::$trial_once_str; ?>" id="<?php echo MeprProduct::$trial_once_str; ?>" <?php checked($product->trial_once); ?> /> <label for="<?php echo MeprProduct::$trial_once_str; ?>"><?php _e('Allow Only One Trial', 'memberpress'); ?></label>

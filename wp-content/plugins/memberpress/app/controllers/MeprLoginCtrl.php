@@ -144,7 +144,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
     }
 
     if(!empty($_REQUEST['mepr_process_login_form']) && !empty($_REQUEST['errors'])) {
-      $errors = array_map( 'sanitize_text_field', $_REQUEST['errors'] );
+      $errors = array_map( 'wp_kses_post', $_REQUEST['errors'] );
       MeprView::render('/shared/errors', get_defined_vars());
     }
 

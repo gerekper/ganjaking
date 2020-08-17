@@ -6,7 +6,7 @@ class MeprMembersCtrl extends MeprBaseCtrl {
     // Screen Options
     $hook = 'memberpress_page_memberpress-members';
     add_action("load-{$hook}", array($this,'add_screen_options'));
-    add_filter('set-screen-option', array($this,'setup_screen_options'), 10, 3);
+    add_filter('set_screen_option_mp_members_perpage', array($this,'setup_screen_options'), 10, 3);
     add_filter("manage_{$hook}_columns", array($this, 'get_columns'), 0);
     add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
 
@@ -176,6 +176,7 @@ class MeprMembersCtrl extends MeprBaseCtrl {
     $transaction = new MeprTransaction();
     $transaction->load_from_array($_POST['transaction']);
     $transaction->send_welcome = isset($_POST['transaction']['send_welcome']);
+    $_POST['transaction']['amount'] = MeprUtils::format_currency_us_float($_POST['transaction']['amount']); //Don't forget this, or the members page and emails will have $0.00 for amounts
     if($transaction->total <= 0) {
       $transaction->total = $_POST['transaction']['amount']; //Don't forget this, or the members page and emails will have $0.00 for amounts
     }
@@ -305,8 +306,8 @@ class MeprMembersCtrl extends MeprBaseCtrl {
       $errors[] = __('The transaction amount must be set.', 'memberpress');
     }
 
-    if(!is_numeric($_POST['transaction']['amount'])) {
-      $errors[] = __('The transaction amount must be a number.', 'memberpress');
+    if( preg_match("/[^0-9., ]/", $_POST['transaction']['amount']) ) {
+        $errors[] = __('The transaction amount must be a number.', 'memberpress');
     }
 
     if(empty($_POST['transaction']['trans_num']) || preg_match('#[^a-zA-z0-9_\-]#', $_POST['transaction']['trans_num'])) {

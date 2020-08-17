@@ -1,5 +1,8 @@
 *** WooCommerce 360 Image Changelog ***
 
+2020-08-11 - version 1.1.17
+* Tweak    - WordPress 5.5 compatibility.
+
 2020-07-14 - version 1.1.16
 * Tweak    - Remove CSS margins on 360 images to prevent upward scrolling.
 

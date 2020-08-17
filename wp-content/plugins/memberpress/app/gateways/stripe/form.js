@@ -42,7 +42,9 @@
         stripe = Stripe($cardElement.data('stripe-public-key')),
         elements = stripe.elements(),
         card = elements.create('card', { style: MeprStripeGateway.style }),
-        paymentMethodId = $cardElement.data('payment-method-id');
+        paymentMethodId = $cardElement.data('payment-method-id'),
+        wrapperSelector = self.isSpc ? '.mepr-payment-method' : '.mp_payment_form_wrapper',
+        $wrapper = $cardElement.closest(wrapperSelector);
 
       card.mount($cardElement[0]);
 
@@ -55,6 +57,7 @@
         stripe: stripe,
         card: card,
         $cardErrors: $cardErrors,
+        $wrapper: $wrapper,
         subscriptionId: null
       });
     });
@@ -88,7 +91,7 @@
 
     if (self.selectedPaymentMethod) {
       var cardData = {
-        billing_details: self.getBillingDetails()
+        billing_details: self.getBillingDetails(self.selectedPaymentMethod)
       };
 
       self.selectedPaymentMethod.stripe.createPaymentMethod('card', self.selectedPaymentMethod.card, cardData).then(function (result) {
@@ -141,32 +144,59 @@
   /**
    * Get the billing details object to pass to Stripe
    *
+   * @param  {object} selectedPaymentMethod
    * @return {object}
    */
-  MeprStripeForm.prototype.getBillingDetails = function () {
-    var formData = this.getFormData(),
+  MeprStripeForm.prototype.getBillingDetails = function (selectedPaymentMethod) {
+    var self = this,
+      name = selectedPaymentMethod.$wrapper.find('input[name="card-name"]').val(),
       keys = {
-        line1: this.isSpc ? 'mepr-address-one' : 'card-address-1',
-        line2: this.isSpc ? 'mepr-address-two' : 'card-address-2',
-        city: this.isSpc ? 'mepr-address-city' : 'card-city',
-        country: this.isSpc ? 'mepr-address-country' : 'card-country',
-        state: this.isSpc ? 'mepr-address-state' : 'card-state',
-        postal_code: this.isSpc ? 'mepr-address-zip' : 'card-zip'
+        line1: 'mepr-address-one',
+        line2: 'mepr-address-two',
+        city: 'mepr-address-city',
+        country: 'mepr-address-country',
+        state: 'mepr-address-state',
+        postal_code: 'mepr-address-zip'
       },
+      address = {},
+      addressFieldsPresent = false,
       details = {
         address: {}
       };
 
-    if (typeof formData['card-name'] == 'string' && formData['card-name'].length) {
-      details.name = formData['card-name'];
+    if (typeof name == 'string' && name.length) {
+      details.name = name;
     }
 
-    for (var key in keys) {
-      if (keys.hasOwnProperty(key)) {
-        if (typeof formData[keys[key]] == 'string' && formData[keys[key]].length) {
-          details.address[key] = formData[keys[key]];
+    $.each(keys, function (key, value) {
+      var $field = self.$form.find('input[name="' + value + '"], select[name="' + value + '"]');
+
+      if ($field.length) {
+        var val = $field.val();
+
+        if (typeof val == 'string' && val.length) {
+          address[key] = val;
         }
+
+        addressFieldsPresent = true;
       }
+    });
+
+    if (addressFieldsPresent) {
+      details.address = address;
+    } else {
+      $.each(keys, function (key, value) {
+        var cardAddressKey = value.replace('mepr-', 'card-'),
+          $field = selectedPaymentMethod.$wrapper.find('input[name="' + cardAddressKey + '"]');
+
+        if ($field.length) {
+          var val = $field.val();
+
+          if (typeof val == 'string' && val.length) {
+            details.address[key] = val;
+          }
+        }
+      });
     }
 
     return details;
@@ -231,7 +261,7 @@
     this.allowResubmission();
 
     // Inform the user if there was an error
-    this.selectedPaymentMethod.$cardErrors.text(error);
+    this.selectedPaymentMethod.$cardErrors.html(error);
     console.log(error);
   };
 
@@ -289,7 +319,7 @@
       data = {
         payment_method: {
           card: card,
-          billing_details: self.getBillingDetails()
+          billing_details: self.getBillingDetails(this.selectedPaymentMethod)
         }
       };
 
@@ -304,7 +334,7 @@
       data = {
         payment_method: {
           card: card,
-          billing_details: self.getBillingDetails()
+          billing_details: self.getBillingDetails(this.selectedPaymentMethod)
         }
       };
 
@@ -362,14 +392,19 @@
     })
     .done($.proxy(self.handleServerResponse, self))
     .fail(function (jqXHR, textStatus, errorThrown) {
-      self.handlePaymentError(MeprStripeGateway.ajax_error);
-      self.debugCheckoutError({
-        status: jqXHR.status,
-        status_text: jqXHR.statusText,
-        response_text: jqXHR.responseText,
-        text_status: textStatus,
-        error_thrown: '' + errorThrown
-      });
+      if (jqXHR.status === 0) {
+        // Don't send a debug email for errors with status 0
+        self.handlePaymentError(MeprStripeGateway.error_please_try_again);
+      } else {
+        self.handlePaymentError(MeprStripeGateway.ajax_error);
+        self.debugCheckoutError({
+          status: jqXHR.status,
+          status_text: jqXHR.statusText,
+          response_text: jqXHR.responseText,
+          text_status: textStatus,
+          error_thrown: '' + errorThrown
+        });
+      }
     });
   };
 
