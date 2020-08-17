@@ -1,1 +1,0 @@
-<div class="betterdocs-html-description"><?php echo $field['html']; ?></div>

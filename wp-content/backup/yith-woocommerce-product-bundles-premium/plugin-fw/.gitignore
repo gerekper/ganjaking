@@ -1,6 +1,0 @@
-# OS X metadata
-.DS_Store
-
-# NPM
-/node_modules/
-/package-lock.json

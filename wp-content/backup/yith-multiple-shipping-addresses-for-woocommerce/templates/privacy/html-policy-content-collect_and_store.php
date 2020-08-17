@@ -1,1 +1,0 @@
-<p><?php _ex( 'We’ll store all additional addresses that the user has recorded through the plugin. We’ll also store the addresses used in multiple shipping orders.', 'Privacy Policy Content', 'yith-multiple-shipping-addresses-for-woocommerce' ) ?></p>

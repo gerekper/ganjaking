@@ -1,9 +1,0 @@
-<wpml-config>
-    <admin-texts>
-        <key name="ywf_make_a_deposit"/>
-        <key name="ywf_view_income_expenditure_history"/>
-        <key name="ywf_mail_subject"/>
-        <key name="ywf_mail_content"/>
-        <key name="ywf_user_sender_name"/>
-    </admin-texts>
-</wpml-config>
