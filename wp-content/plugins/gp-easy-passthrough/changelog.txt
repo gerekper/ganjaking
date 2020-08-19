@@ -1,0 +1,63 @@
+
+# Changelog
+
+## 1.4.17
+
+	- Fixed a compatibility issue with Stripe Card field types.
+
+## 1.4.16
+
+	- Fixed issue where strict comparison of form IDs sometimes failed as form ID can be string or integer.
+	- Fixed issue where reference variable inherited unintended changes from subsequent fields.
+
+## 1.4.15
+
+	- Fixed error that was generated when administrative List fields were populated unintentionally.
+
+## 1.4.14
+
+	- Removed filter call to removed function.
+	- Fixed notice when logged-in user has no last submitted entry.
+
+## 1.4.13
+
+	- Fixed issue where session was not correctly set when loading last entry submitted by user.
+	- Fixed notice generated when mapping non-field based entry values.
+
+## 1.4.12
+
+	- Updated auto-mapping to support mapping by admin label for single-input fields.
+
+## 1.4.11
+
+	- Improved compatibility with GP Populate Anything's Live Merge Tags by adjusting the priority of when GP_Easy_Passthrough#populate_fields is ran on the gform_pre_render filter.
+
+## 1.4.10
+
+	- Added 'gpep_target_field_value' filter.
+
+## 1.4.9
+
+	- Fixed issue where Easy Passthrough incorrectly caused Nested Forms child entries not to be editable by default.
+
+## 1.4.8
+
+	- Added support for populating Nested Forms child entries when a token is used.
+
+## 1.4.7
+
+	- Fixed issue where entry inputs replaced inputs to be rendered resulting in notices where all inputs were expected (e.g. Credit Card fields).
+	- Fixed issue where disabled GP Easy Passthrough feeds would continue to populate forms.
+
+## 1.4.6
+
+	- Fixed issue where loading entry too early would cache form before Nested Forms had a chance to register it's field type.
+
+## 1.4.5
+
+	- Fixed issue where an unsupported field type (File Uploads) was mappable on the feed.
+
+## 1.4.4
+
+	- Added support for [Gravity Forms Iframe Add-on](https://github.com/cedaro/gravity-forms-iframe).
+	- Added upgrade routine to migrate data from ForGravity Easy Passthrough to GP Easy Passthroug

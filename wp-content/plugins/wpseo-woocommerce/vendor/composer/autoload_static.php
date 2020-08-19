@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3714c20fcbba510f30f81eb8524d0d20
+class ComposerStaticInitf105c64502c364e4ade85ef89b8b6e9c
 {
     public static $classMap = array (
         'WPSEO_Option_Woo' => __DIR__ . '/../..' . '/classes/option-woo.php',
@@ -33,7 +33,7 @@ class ComposerStaticInit3714c20fcbba510f30f81eb8524d0d20
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit3714c20fcbba510f30f81eb8524d0d20::$classMap;
+            $loader->classMap = ComposerStaticInitf105c64502c364e4ade85ef89b8b6e9c::$classMap;
 
         }, null, ClassLoader::class);
     }

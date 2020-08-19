@@ -215,7 +215,7 @@ class Prominent_Words_Route implements Route_Interface {
 		$this->save_action->save( $request->get_param( 'data' ) );
 
 		return new WP_REST_Response(
-			[ 'message' => __( 'The words have been successfully saved for the given indexables.', 'wordpress-seo-premium' ) ]
+			[ 'message' => \__( 'The words have been successfully saved for the given indexables.', 'wordpress-seo-premium' ) ]
 		);
 	}
 

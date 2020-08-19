@@ -45,6 +45,10 @@ class Settings implements Registrable {
 	}
 
 	public function render_submenu_view( ListScreen $current_list_screen ) {
+		if ( ! apply_filters( 'acp/admin/enable_submenu', false ) ) {
+			return;
+		}
+
 		$list_screens = $this->get_list_screens( $current_list_screen->get_key() );
 
 		if ( $list_screens->count() <= 1 ) {

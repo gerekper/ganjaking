@@ -41,7 +41,7 @@ class CustomFieldEditing implements Renderable {
 
 	private function get_label() {
 		return sprintf( '%s %s %s',
-			__( 'Enable inline editing for Custom Fields.', 'codepress-admin-columns' ),
+			__( 'Enable editing for Custom Fields.', 'codepress-admin-columns' ),
 			sprintf(
 				__( "Default is %s.", 'codepress-admin-columns' ),
 				sprintf( '<code>%s</code>', __( 'off', 'codepress-admin-columns' ) )

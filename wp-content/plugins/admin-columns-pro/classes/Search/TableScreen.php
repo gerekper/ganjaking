@@ -73,6 +73,11 @@ abstract class TableScreen
 				continue;
 			}
 
+			// Skip unsupported operators
+			if ( false === $column->search()->get_operators()->search( $rule['operator'] ) ) {
+				continue;
+			}
+
 			$bindings[] = $column->search()->get_query_bindings(
 				$rule['operator'],
 				new Value( $rule['value'], $rule['value_type'] )
@@ -136,56 +141,13 @@ abstract class TableScreen
 		if ( $this->is_segment_hidden() ) {
 			return;
 		}
-		?>
-		<div class="ac-segments" data-initial="<?= $this->request->get( 'ac-segment' ); ?>">
-			<div class="ac-segments__create">
-				<span class="cpac_icons-segment"></span>
-				<button class="button button-primary">
-					<?php _e( 'Save Filters', 'codepress-admin-columns' ); ?>
-				</button>
-			</div>
-			<div class="ac-segments__list">
-			</div>
-			<div class="ac-segments__instructions" rel="pointer-segments">
-				<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
-				<div id="ac-segments-instructions" style="display:none;">
-					<h3><?php _e( 'Instructions', 'codepress-admin-columns' ); ?></h3>
-					<p>
-						<?php _e( 'Save a set of custom smart filters for later use.', 'codepress-admin-columns' ); ?>
-					</p>
-					<p>
-						<?php _e( 'This can be useful to group your WordPress content based on different criteria.', 'codepress-admin-columns' ); ?>&nbsp;<?php _e( 'Click on a segment to load the filtered list.', 'codepress-admin-columns' ); ?>
-					</p>
-				</div>
-			</div>
 
-		</div>
-		<div class="ac-modal" id="ac-modal-create-segment">
-			<div class="ac-modal__dialog -create-segment">
-				<form id="frm_create_segment">
-					<div class="ac-modal__dialog__header">
-						<?php _e( 'Save Filters', 'codepress-admin-columns' ); ?>
-						<button class="ac-modal__dialog__close">
-							<span class="dashicons dashicons-no"></span>
-						</button>
-					</div>
-					<div class="ac-modal__dialog__content">
-						<label for="inp_segment_name"><?php _e( 'Name', 'codepress-admin-columns' ); ?></label>
-						<input type="text" name="segment_name" id="inp_segment_name" required autocomplete="off">
-						<div class="ac-modal__error">
-						</div>
-					</div>
-					<div class="ac-modal__dialog__footer">
-						<div class="ac-modal__loading">
-							<span class="dashicons dashicons-update"></span>
-						</div>
-						<button class="button button" data-dismiss="modal"><?php _e( 'Cancel' ); ?></button>
-						<button type="submit" class="button button-primary"><?php _e( 'Save', 'codepress-admin-columns' ); ?></button>
-					</div>
-				</form>
-			</div>
-		</div>
-		<?php
+		$view = new AC\View( [
+			'current_segment_id'       => $this->request->get( 'ac-segment' ),
+			'user_can_manage_segments' => current_user_can( AC\Capabilities::MANAGE ),
+		] );
+
+		echo $view->set_template( 'table/segment-modal' )->render();
 	}
 
 }

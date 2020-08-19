@@ -18,7 +18,7 @@ class WPSEO_Premium_Prominent_Words_Versioning {
 	/**
 	 * Gets the version number.
 	 *
-	 * @returns {number} the version number that was set in WPSEO_Premium_Prominent_Words_Versioning.
+	 * @return int The version number that was set in WPSEO_Premium_Prominent_Words_Versioning.
 	 */
 	public static function get_version_number() {
 		return self::VERSION_NUMBER;

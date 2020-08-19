@@ -46,7 +46,7 @@ class Indexation_List_Item_Presenter extends Abstract_Presenter {
 				\esc_html__( 'Analyze your content', 'wordpress-seo-premium' )
 			);
 
-			$output .= sprintf(
+			$output .= \sprintf(
 				'<span id="yoast-prominent-words-indexation"><p>%s</p>%s</span>',
 				\esc_html__( 'Some content on your website is not yet analyzed with the currently installed version of Internal linking suggestions. For the best results, it\'s always a good idea to keep your linking suggestions up to date. Please note that depending on how much content need to be analyzed it can take different amounts of time. But don\'t worry, you can always stop and resume the analysis later.', 'wordpress-seo-premium' ),
 				$analyze_button

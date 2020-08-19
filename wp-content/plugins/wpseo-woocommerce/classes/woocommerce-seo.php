@@ -139,6 +139,16 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
+	 * Method that is executed when the plugin is activated.
+	 */
+	public static function install() {
+		// Enable tracking.
+		if ( class_exists( 'WPSEO_Options' ) && method_exists( 'WPSEO_Options', 'set' ) ) {
+			WPSEO_Options::set( 'tracking', true );
+		}
+	}
+
+	/**
 	 * Adds the WooCommerce OpenGraph presenter.
 	 *
 	 * @param \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] $presenters The presenter instances.

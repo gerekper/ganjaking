@@ -12,11 +12,11 @@ use Yoast\WP\SEO\Actions\Prominent_Words\Content_Action;
 use Yoast\WP\SEO\Conditionals\Admin_Conditional;
 use Yoast\WP\SEO\Conditionals\Migrations_Conditional;
 use Yoast\WP\SEO\Conditionals\Yoast_Tools_Page_Conditional;
+use Yoast\WP\SEO\Helpers\Language_Helper;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Presenters\Admin\Prominent_Words\Indexation_List_Item_Presenter;
 use Yoast\WP\SEO\Presenters\Admin\Prominent_Words\Indexation_Modal_Presenter;
-use Yoast\WP\SEO\Helpers\Language_Helper;
 use Yoast\WP\SEO\Routes\Indexable_Indexation_Route;
 use Yoast\WP\SEO\Routes\Prominent_Words_Route;
 

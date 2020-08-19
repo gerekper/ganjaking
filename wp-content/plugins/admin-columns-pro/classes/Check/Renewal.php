@@ -108,7 +108,7 @@ class Renewal
 			return;
 		}
 
-		if ( apply_filters( 'acp/hide_renewal_notice', false ) ) {
+		if ( true === apply_filters( 'acp/hide_renewal_notice', false ) ) {
 			return;
 		}
 

@@ -104,10 +104,16 @@ class WPSEO_WooCommerce_Schema {
 	 */
 	public function filter_webpage( $webpage_data ) {
 		if ( is_product() ) {
-			$webpage_data['@type'] = 'ItemPage';
+			if ( ! is_array( $webpage_data['@type'] ) ) {
+				$webpage_data['@type'] = [ $webpage_data['@type'] ];
+			}
+			$webpage_data['@type'][] = 'ItemPage';
 		}
 		if ( is_checkout() || is_checkout_pay_page() ) {
-			$webpage_data['@type'] = 'CheckoutPage';
+			if ( ! is_array( $webpage_data['@type'] ) ) {
+				$webpage_data['@type'] = [ $webpage_data['@type'] ];
+			}
+			$webpage_data['@type'][] = 'CheckoutPage';
 		}
 
 		return $webpage_data;

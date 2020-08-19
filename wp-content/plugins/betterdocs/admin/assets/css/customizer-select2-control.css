@@ -1,0 +1,15 @@
+/**
+ * Select2 Controller Style
+ */
+.select2-dropdown,
+.select2-container {
+  z-index: 9999999!important;
+}
+.select2-container {
+  width:100%!important;
+}
+#customize-controls .customize-section-title.is-in-view.is-sticky {
+  z-index: 99999999;
+}
+
+

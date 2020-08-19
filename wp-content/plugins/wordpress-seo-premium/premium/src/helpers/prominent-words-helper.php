@@ -1,4 +1,5 @@
 <?php
+
 namespace Yoast\WP\SEO\Helpers;
 
 /**
@@ -19,7 +20,7 @@ class Prominent_Words_Helper {
 	 */
 	public function compute_tf_idf_score( $term_frequency, $doc_frequency ) {
 		// Set doc frequency to a minimum of 1, to avoid division by 0.
-		$doc_frequency = max( 1, $doc_frequency );
+		$doc_frequency = \max( 1, $doc_frequency );
 		return ( $term_frequency * ( 1 / $doc_frequency ) );
 	}
 
@@ -34,16 +35,14 @@ class Prominent_Words_Helper {
 		$sum_of_squares = 0;
 
 		foreach ( $prominent_words as $stem => $word ) {
-			if ( array_key_exists( 'df', $word ) ) {
+			$doc_frequency = 1;
+			if ( \array_key_exists( 'df', $word ) ) {
 				$doc_frequency = $word['df'];
-			}
-			else {
-				$doc_frequency = 1;
 			}
 
 			$tf_idf          = $this->compute_tf_idf_score( $word['weight'], $doc_frequency );
 			$sum_of_squares += ( $tf_idf ** 2 );
 		}
-		return sqrt( $sum_of_squares );
+		return \sqrt( $sum_of_squares );
 	}
 }

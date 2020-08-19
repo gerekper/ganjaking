@@ -1,0 +1,178 @@
+# Copyright (C) 2020 GP Easy Passthrough
+# This file is distributed under the same license as the GP Easy Passthrough package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Easy Passthrough\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../class-gp-easy-passthrough.php:345, ../class-gp-easy-passthrough.php:352, ../class-gp-easy-passthrough.php:869
+msgid "Source Form"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:353
+msgid "Select which form you want to populate this form form."
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:358, ../class-gp-easy-passthrough.php:364, ../class-gp-easy-passthrough.php:377
+msgid "Map Fields"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:365
+msgid "Select which fields on this form should be populated from fields on the source form."
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:370
+msgid "Map Meta"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:378
+msgid "Select which fields on this form should be populated from entry meta data on the source form."
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:383
+msgid "Options"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:389
+msgid "Use logged in user's last submitted entry"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:390
+msgid "If user is logged in and they have submitted an entry to the source form, submitted entry will be used instead of entry in session."
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:397
+msgid "Conditional Logic"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:399
+msgid "Enable"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:400
+msgid "Passthrough form entry if"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:405
+msgid "There was an error while saving the Easy Passthrough settings. Please review the errors below and try again."
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:406
+msgid "Entry Passthrough settings updated."
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:425
+msgid "Easy Passthrough Settings"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:445
+msgid "Select a Form"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:610
+msgid "Select a Meta Key"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:614
+msgid "Entry ID"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:618
+msgid "Entry Date"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:622
+msgid "User IP"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:626
+msgid "Source Url"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:630
+msgid "Form Title"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:633
+msgid "Payment Meta"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:637
+msgid "Payment Status"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:641
+msgid "Transaction Id"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:645
+msgid "Payment Date"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:649, ../class-gp-easy-passthrough.php:653
+msgid "Payment Amount"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:688
+msgid "Source Form Field"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:689
+msgid "Target Form Field"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:836, ../class-gp-easy-passthrough.php:849
+msgid "%s Configurations"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:1549
+msgid "Easy Passthrough"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:1553
+msgid "Easy Passthrough Token"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:2065
+msgid "Manage Settings"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:2066
+msgid "Uninstall"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:2100
+msgid "Heads up! It looks like you’re using the <em>Easy Passthrough for Gravity Forms</em> plugin or have used it in the past."
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:2104
+msgid "This plugin is not compatible with the new <em>GP Easy Passthrough</em> plugin that is part of the Gravity Perks suite. For the best experience, we will need to:"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:2108
+msgid "Migrate <em>Easy Passthrough for Gravity Forms</em> data to <em>GP Easy Passthrough</em>."
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:2109
+msgid "Deactivate the <em>Easy Passthrough for Gravity Forms</em> plugin."
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:2113
+msgid "All passthrough functionality will continue to function after the upgrade has been completed."
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:2174
+msgid "Upgrade Successful!"
+msgstr ""
+
+#: ../class-gp-easy-passthrough.php:2178
+msgid "<em>Easy Passthrough for Gravity Forms</em> has been deactivated and its data has been successfully migrated to <em>GP Easy Passthrough</em>."
+msgstr ""

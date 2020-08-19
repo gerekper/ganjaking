@@ -1,0 +1,230 @@
+
+# Changelog
+
+## 1.4.25
+
+	- Fixed an issue where clearing copied values would fail for checkboxes.
+
+## 1.4.24
+
+	- Fixed issue where Drop Down value was set to null when attempting to populate value that did not exist.
+	- Updated plugin author.
+
+## 1.4.23
+
+	- Added support for copying simple value to their equivalent value in a choice-based Pricing field.
+
+## 1.4.22
+
+	- Added "gpcc_field_group" filter to allow including non-GF inputs in the Copy Cat field group.
+
+## 1.4.21
+
+	- Added support for targeting Credit Card field expiration date.
+
+## 1.4.20
+
+	- Fixed issue where when resuming from Gravity Forms' Save & Continue - and - deleting an entry from a source List field, it would remove all except one row from the target List field.
+
+## 1.4.19
+
+	- Fixed issue where no rows were added when Maximum Rows was not set.
+
+## 1.4.18
+
+    - Fixed issue when copying from List field to read-only List field (via GP Read Only).
+    - Fixed issue with row count when copying from List field to List field.
+    - Added support for respecting List field "Maximum Rows" setting.
+    - Updated bootstrap for WordPress styling changes.
+
+## 1.4.17
+
+    - Added support for copying from specific List field column to another List field column.
+    - Added support for clearing a target List field when a row from the source List is removed.
+
+## 1.4.16
+
+    - Added 'gpcc_copied_value' filter to allow modifying the copied value before it is inserted into the target field.
+
+## 1.4.15
+
+    - Added support for not overwriting target values by default when the form is rendered; resolves issue where target values were overridden when loading data via Save & Continue.
+    - Added 'gpcc_overwrite_existing_values_on_init' filter; allows forcing source values to overwite target values when form is rendered.
+    - Updated gwCopyObj JS object to be more extensible.
+
+## 1.4.14
+
+    - Fixed issue in gwCopyCat class where assignment issue result in errors.
+
+## 1.4.13
+
+    - Updated copyValues() to trigger conditional logic for unchecked inputs in addition to checked inputs.
+
+## 1.4.12
+
+    - Updated forceEmptyCopy option to default to the value of isOverride; this will automatically overwriting existing values with empty valeus.
+
+## 1.4.11
+
+    - Fixed issue where coping to hidden fields was broken in v1.4
+
+## 1.4.9
+
+    - Fixed issue where target List field rows could be completely removed when targeted from another List field.
+    - Fixed issue where read only checkboxes were unchecked incorrectly have being checked.
+
+## 1.4.8
+
+    - Fixed issue where copying checkbox field to checkbox field did not correctly clear unselected checkbox fields from the target field.
+
+## 1.4.7
+
+    - Fixed issue where targeting a field from itself (via copy cat class) would cause infinte loop.
+
+## 1.4.6
+
+    - Fixed issue introduced in 1.4.5 that would incorrectly sort values when copying from multi-input fields.
+
+## 1.4.5
+
+    - Added support for copying to/from a specific List field column or input.
+    - Fixed issue where copying to a clickable field would not correctly "check" the field.
+
+## 1.4.4
+
+    - Updated to only select inputs from inside the .ginput_container class.
+
+## 1.4.3
+
+    - Added 'gpcc_copy_cat_fields' filter to allow adding copy cat fields programmatically. See: https://gist.github.com/spivurno/51df05b385c0b93f3eef7c582a2d9d13
+
+## 1.4.2
+
+    - Updated List field support to copy by row/column index; better supports mapping non-identical List fields to each other.
+
+## 1.4.1
+
+    - Fixed issue were gravityforms.js dependency was not enforced.
+
+## 1.4
+
+    - Added support for copying to and from List fields. A special thanks to [Edi Weigh](https://ff3dm.com/) for sponsoring this feature.
+
+## 1.3.13
+
+    - Fixed issue where conditional logic based on checkable fields (i.e radio, checkbox) was not applied when copying to a checkable field
+
+## 1.3.12
+
+    - Added support for clearing deselected checkbox values when copying into a Single Line Text field
+
+## 1.3.11
+
+    - Fixed issue when clearing checked checkboxes
+
+## 1.3.9
+
+    - Fixed issue where Radio Buttons could be copied from but not to
+
+## 1.3.8
+
+    - Fixed issue where Enhanced-UI-enabled drop downs did not copy correctly
+
+## 1.3.7
+
+    - Updated so copied values overwrite existing values by default.
+    - Updated 'gp-copy-cat' script to depend on 'jquery'
+
+## 1.3.6
+
+    - Updated perk to use GP_Bootstrap
+
+## 1.3.5
+
+    - Added support for copying values from one form to another (on the same page)
+
+## 1.3.4
+
+    - Updated init copy to no longer force overwriting values (caused changes to be overwritten on validation error)
+
+## 1.3.3
+
+    - Added initial support for field-type-sensitive copying (i.e. copying from calculation field to quantity field: 1,024 is converted to 1024)
+
+## 1.3.2
+
+    - Fixed issue where unchecked checkboxes were copying their associated copy cat fields on form render
+
+## 1.3.1
+
+    - Added support for processing checkbox-based copy cats on init; allows checking box on page 1 to copy value to field on page 2
+
+## 1.3
+
+    - Major overhaul to codebase to better confirm to Gravity Forms standards
+    - Updated JS to be loaded in separate file
+    - Add helper functions has_copy_cat_field() and get_copy_cat_fields() to consolidate these checks and processes
+
+## 1.2.7
+
+    - Added support for auto-copying from a drop down
+    - Added support for auto-copying when a value is pre-populated
+
+## 1.2.6
+
+    - Fixed issue where values were not clearing from field when checkbox was unchecked
+
+## 1.2.5
+
+    - Added support for copying checkboxes to checkboxes
+
+## 1.2.4
+
+    - Added support for targeting Quantity inputs on Single Product fields
+
+## 1.2.3
+
+    - Fixed issue where targetting specific input of email field did not allow copying of value
+
+## 1.2.2
+
+    - Added support for copying from specific inputs of multi-input fields to single input fields or specific inputs of other multi-input fields
+
+## 1.2.1
+
+    - Added support for copying textareas
+
+## 1.2
+
+    - Updated support for copying only the selected value from radio and checkbox fields
+
+## 1.1
+
+    - Added support for copying values when the field value changes, allowing support for automatically copying a value from one field two another without a checkbox
+
+## 1.0.7
+
+    - Fixed bug introduced in 1.0.6 where Country (if select type) was not copied
+
+## 1.0.6
+
+    - Fixed issue where calcultions were not updated when copy cat enabled fields were updated
+
+## 1.0.5
+
+    - Fixed issue which caused Copy Cat to break when applied to multiple forms displayed on the same page
+
+## 1.0.4
+
+    - Added namespace to checkbox click event which triggers copy cat functionality ("click.gpcopycat")
+    - Added form-specific instance of gwCopyObj to #gform_wrapper div for use in customizations
+
+## 1.0.3
+
+    - Updated minimum required version of Gravity Perks: 1.0.6
+    - Added 'gpcc_overwrite_existing_values' filter to allow users to indicate whether existing values in fields being copied *to* should have their value overwritten if already have a value
+
+## 1.0.1
+
+    - Updated minimum required version of Gravity Perks: 1.0.5
+    - Updated documentation to return GravityWiz.com URL

@@ -2,6 +2,7 @@
 
 namespace Yoast\WP\SEO\Integrations\Admin;
 
+use WP_User;
 use Yoast\WP\SEO\Actions\Indexation\Indexable_General_Indexation_Action;
 use Yoast\WP\SEO\Actions\Indexation\Indexable_Post_Indexation_Action;
 use Yoast\WP\SEO\Actions\Indexation\Indexable_Post_Type_Archive_Indexation_Action;
@@ -186,7 +187,7 @@ class Prominent_Words_Notification implements Integration_Interface {
 	 * Adds the notification for the given array of users,
 	 * if they do not have the notification already.
 	 *
-	 * @param \WP_User[] $users The users to add the notification for.
+	 * @param WP_User[] $users The users to add the notification for.
 	 */
 	private function add_notification( $users ) {
 		foreach ( $users as $user ) {
@@ -200,7 +201,7 @@ class Prominent_Words_Notification implements Integration_Interface {
 	/**
 	 * Removes the notification for the given array of users.
 	 *
-	 * @param \WP_User[] $users The users to remove the notification for.
+	 * @param WP_User[] $users The users to remove the notification for.
 	 */
 	private function remove_notification( $users ) {
 		foreach ( $users as $user ) {
@@ -242,9 +243,9 @@ class Prominent_Words_Notification implements Integration_Interface {
 	/**
 	 * Returns the prominent words reindex notification for the specified user.
 	 *
-	 * @param \WP_User $user The user to show the notification to.
+	 * @param WP_User $user The user to show the notification to.
 	 *
-	 * @return \Yoast_Notification The notification to show.
+	 * @return Yoast_Notification The notification to show.
 	 */
 	private function get_notification( $user ) {
 		return new Yoast_Notification(

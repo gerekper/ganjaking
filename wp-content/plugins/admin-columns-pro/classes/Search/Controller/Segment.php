@@ -5,12 +5,13 @@ namespace ACP\Search\Controller;
 use AC;
 use AC\Exception;
 use AC\ListScreenRepository;
-use AC\Preferences;
 use AC\Request;
 use AC\Response;
 use AC\Type\ListScreenId;
 use ACP\Controller;
-use ACP\Search\Segments;
+use ACP\Search\Entity;
+use ACP\Search\SegmentRepository;
+use ACP\Search\Type\SegmentId;
 
 class Segment extends Controller {
 
@@ -20,11 +21,11 @@ class Segment extends Controller {
 	protected $list_screen;
 
 	/**
-	 * @var Segments
+	 * @var SegmentRepository
 	 */
-	protected $segments;
+	private $segment_repository;
 
-	public function __construct( ListScreenRepository\Storage $storage, Request $request ) {
+	public function __construct( ListScreenRepository\Storage $storage, Request $request, SegmentRepository $segment_repository ) {
 		parent::__construct( $request );
 
 		$id = $request->get( 'layout' );
@@ -37,45 +38,21 @@ class Segment extends Controller {
 			throw Exception\RequestException::parameters_invalid();
 		}
 
-		$this->segments = new Segments(
-			new Preferences\Site( 'segments_' . $id )
-		);
-	}
-
-	protected function handle_segments_response( array $data = [] ) {
-		$response = new Response\Json();
-
-		$errors = [
-			Segments::ERROR_DUPLICATE_NAME => __( 'A segment with this name already exists.', 'codepress-admin-columns' ),
-			Segments::ERROR_NAME_NOT_FOUND => __( 'Could not find current segment.', 'codepress-admin-columns' ),
-			Segments::ERROR_SAVING         => __( 'Could not save the segment.', 'codepress-admin-columns' ),
-		];
-
-		if ( $this->segments->has_errors() ) {
-			$response
-				->set_parameter( 'error', $errors[ $this->segments->get_first_error() ] )
-				->error();
-		}
-
-		$response
-			->set_parameters( $data )
-			->success();
+		$this->segment_repository = $segment_repository;
 	}
 
 	/**
-	 * @param Segments\Segment $segment
+	 * @param Entity\Segment $segment
 	 *
 	 * @return array
 	 */
-	protected function get_segment_response( Segments\Segment $segment ) {
-		$query_string = array_merge( $segment->get_value( 'url_parameters' ), [
-			'ac-segment' => $segment->get_name(),
+	protected function get_segment_response( Entity\Segment $segment ) {
+		$query_string = array_merge( $segment->get_url_parameters(), [
+			'ac-segment' => $segment->get_id()->get_id(),
 		] );
 
 		foreach ( $query_string as $k => $v ) {
-			$query_string[ $k ] = is_array( $v )
-				? urlencode_deep( $v )
-				: urlencode( $v );
+			$query_string[ $k ] = urlencode_deep( $v );
 		}
 
 		$url = add_query_arg(
@@ -84,16 +61,44 @@ class Segment extends Controller {
 		);
 
 		return [
-			'name' => $segment->get_name(),
-			'url'  => $url,
+			'id'     => $segment->get_id()->get_id(),
+			'name'   => $segment->get_name(),
+			'url'    => $url,
+			'global' => $segment->is_global(),
 		];
 	}
 
 	public function read_action() {
 		$response = new Response\Json();
+
+		$list_screen_id = $this->list_screen->get_id();
+
+		$user_segments = $this->segment_repository->find_all( [
+			SegmentRepository::FILTER_LIST_SCREEN => $list_screen_id,
+			SegmentRepository::FILTER_USER        => get_current_user_id(),
+			SegmentRepository::FILTER_GLOBAL      => false,
+		] );
+
+		$global_segments = $this->segment_repository->find_all( [
+			SegmentRepository::FILTER_LIST_SCREEN => $list_screen_id,
+			SegmentRepository::FILTER_GLOBAL      => true,
+			SegmentRepository::ORDER_BY           => 'name',
+			SegmentRepository::ORDER              => 'ASC',
+		] );
+
+		/**
+		 * @var $segments Entity\Segment[]
+		 */
+		$segments = array_merge( $user_segments, $global_segments );
+
+		/**
+		 * @var $segments Entity\Segment[]
+		 */
+		$segments = apply_filters( 'acp/search/segments_list', $segments, $this->list_screen );
+
 		$data = [];
 
-		foreach ( $this->segments->get_segments() as $segment ) {
+		foreach ( $segments as $segment ) {
 			$data[] = $this->get_segment_response( $segment );
 		}
 
@@ -103,12 +108,15 @@ class Segment extends Controller {
 	}
 
 	public function create_action() {
+		$response = new Response\Json();
+
 		$data = filter_var_array(
 			$this->request->get_parameters()->all(),
 			[
 				'name'                     => FILTER_SANITIZE_STRING,
 				'query_string'             => FILTER_DEFAULT,
 				'whitelisted_query_string' => FILTER_DEFAULT,
+				'global'                   => FILTER_SANITIZE_NUMBER_INT,
 			]
 		);
 
@@ -123,28 +131,45 @@ class Segment extends Controller {
 			$whitelisted_url_parameters[ $whitelisted_url_parameter ] = $url_parameters[ $whitelisted_url_parameter ];
 		}
 
-		$segment = new Segments\Segment( $data['name'], [
-			'rules'          => $data['rules'],
-			'url_parameters' => $whitelisted_url_parameters,
-		] );
+		// Check capability before allowing global segments
+		$global = $data['global'] && current_user_can( AC\Capabilities::MANAGE );
 
-		$this->segments
-			->add_segment( $segment )
-			->save();
+		$segment = $this->segment_repository->create(
+			$this->list_screen->get_id(),
+			get_current_user_id(),
+			$data['name'],
+			$whitelisted_url_parameters,
+			$global
+		);
 
-		$this->handle_segments_response( [
-			'segment' => $this->get_segment_response( $segment ),
-		] );
+		$response
+			->set_parameters( [
+				'segment' => $this->get_segment_response( $segment ),
+			] )
+			->success();
 	}
 
 	public function delete_action() {
-		$name = $this->request->filter( 'name', FILTER_SANITIZE_STRING );
+		$response = new Response\Json();
+		$id = (int) $this->request->filter( 'id', FILTER_SANITIZE_NUMBER_INT );
 
-		$this->segments
-			->remove_segment( $name )
-			->save();
+		if ( ! $id ) {
+			$response->error();
+		}
 
-		$this->handle_segments_response();
+		$segment = $this->segment_repository->find( new SegmentId( $id ) );
+
+		if ( ! $segment ) {
+			$response->error();
+		}
+
+		if ( ! current_user_can( AC\Capabilities::MANAGE ) && $segment->get_user_id() !== get_current_user_id() ) {
+			$response->error();
+		}
+
+		$this->segment_repository->delete( new SegmentId( $id ) );
+
+		$response->success();
 	}
 
 }

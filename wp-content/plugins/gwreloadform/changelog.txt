@@ -1,0 +1,66 @@
+
+# Changelog
+
+## 1.1.14
+
+	- Added support for multiple {reload_form} merge tags in the confirmation.
+	- Added support for Cyrillic characters in the {reload_form} merge tag.
+
+## 1.1.13
+
+	- Updated confirmation element to avoid nesting inside the confirmation wrapper.
+
+## 1.1.12
+
+    - Added support for reloading form at any point after the form has been loaded.
+    - Fixed issue where spinner was not re-initialized when the form was reloaded.
+
+## 1.1.11
+
+    - Updated GP_Reload_Form::is_applicable_form() to check for invalid form objects
+
+## 1.1.10
+
+    - Updated perk to use GP_Bootstrap
+
+## 1.1.9
+
+    - Fixed issue where Enhanced UI fields did not reload correctly
+
+## 1.1.8
+
+    - Fixed issue where form was not reloaded due to incorrect class name
+
+## 1.1.7
+
+	- Fixed issue where GF character counter was added multiple times on submission
+	- Updated script to only fire gform_post_render once; causing miscellaneous issues
+
+## 1.1.6
+
+    - Updated scripts to be loaded in external file (rather than inline)
+
+## 1.1.5
+
+    - Updated gwrf object storage from form wrapper to form wrapper parent since on confirmation, form wrapper is not present
+
+## 1.1.4
+
+    - Added support for not auto-reloading when the "Save and Continue Confirmation" is displayed
+
+## 1.1.3
+
+	- Added support for accessing the gwrf object via the form wrapper
+
+## 1.1.2
+
+    - Fixed issue where auto-reload did not work unless the {reload_form} merge tag was in one of the confirmations
+    - Fixed issue where {reload_form} merge tag was no longer available in merge tag list
+
+## 1.1.1
+
+    - Fixed issue where script-based functionality was not reinitialized when the form was reloaded
+
+## 1.1
+
+    - Added support for auto-reloading form by a # of seconds

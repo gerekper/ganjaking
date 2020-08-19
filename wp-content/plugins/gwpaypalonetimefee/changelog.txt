@@ -1,0 +1,10 @@
+
+# Changelog
+
+## 2.0.beta1.1
+
+	- Removed empty translatable string
+
+## 2.0.beta1.0
+
+    - Updated code base to work with Gravity Forms 1.9 and GF PayPal Standard 2.0+

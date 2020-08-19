@@ -1,11 +1,12 @@
 <?php
+
 namespace Yoast\WP\SEO\Routes;
 
 use WP_REST_Request;
 use WP_REST_Response;
+use Yoast\WP\SEO\Actions\Link_Suggestions_Action;
 use Yoast\WP\SEO\Conditionals\No_Conditionals;
 use Yoast\WP\SEO\Main;
-use Yoast\WP\SEO\Actions\Link_Suggestions_Action;
 
 /**
  * Registers the route for the link suggestions retrieval.
@@ -73,7 +74,7 @@ class Link_Suggestions_Route implements Route_Interface {
 			'callback'            => [ $this, 'run_get_suggestions_action' ],
 			'permission_callback' => [ $this, 'can_retrieve_data' ],
 		];
-		register_rest_route( Main::API_V1_NAMESPACE, self::ENDPOINT_QUERY, $route_args );
+		\register_rest_route( Main::API_V1_NAMESPACE, self::ENDPOINT_QUERY, $route_args );
 	}
 
 	/**
@@ -105,6 +106,6 @@ class Link_Suggestions_Route implements Route_Interface {
 	 * @return bool
 	 */
 	public function can_retrieve_data() {
-		return current_user_can( 'edit_posts' );
+		return \current_user_can( 'edit_posts' );
 	}
 }

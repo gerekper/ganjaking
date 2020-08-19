@@ -30,7 +30,7 @@ class CustomFieldFactory {
 			case CustomFieldType::TYPE_NUMERIC :
 				return ( new MetaFactory() )->create( $meta_type, $meta_key, new DataType( DataType::NUMERIC ) );
 			case CustomFieldType::TYPE_DATE :
-				// $date_type can be `numeric`, `date` or `datetime`
+				// $date_type can be `string`, `numeric`, `date` or `datetime`
 				$date_type = apply_filters( 'acp/sorting/custom_field/date_type', DataType::DATETIME, $column );
 
 				return ( new MetaFactory() )->create( $meta_type, $meta_key, new DataType( $date_type ) );

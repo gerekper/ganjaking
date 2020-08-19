@@ -1,0 +1,18 @@
+
+# Changelog
+
+## 1.0.4
+
+	- Fixed conflict with Magic Tooltips plugin.
+
+## 1.0.3
+
+    - Updated perk to use GP_Bootstrap
+
+## 1.0.2
+
+    - Fixed issue where inserting value no longer saved due to change in GFs save event
+
+## 1.0.1
+
+    - Fixed issue where Expand Textarea button was misaligned when textarea had merge tag support

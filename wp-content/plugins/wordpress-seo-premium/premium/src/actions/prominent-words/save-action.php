@@ -21,14 +21,14 @@ class Save_Action {
 	/**
 	 * The repository to retrieve and save prominent words with.
 	 *
-	 * @var Prominent_Words_Repository $prominent_words_repository
+	 * @var Prominent_Words_Repository
 	 */
 	protected $prominent_words_repository;
 
 	/**
 	 * The repository to retrieve and save indexables with.
 	 *
-	 * @var Indexable_Repository $indexable_repository
+	 * @var Indexable_Repository
 	 */
 	protected $indexable_repository;
 
@@ -36,7 +36,7 @@ class Save_Action {
 	 * Contains helper function for prominent words.
 	 * For e.g. computing vector lengths and tf-idf scores.
 	 *
-	 * @var Prominent_Words_Helper $prominent_words_helper
+	 * @var Prominent_Words_Helper
 	 */
 	protected $prominent_words_helper;
 
@@ -79,9 +79,9 @@ class Save_Action {
 	/**
 	 * Links a list of prominent words to an indexable.
 	 *
-	 * @param string  $object_type The object type of the indexable (e.g. `post` or `term`).
-	 * @param integer $object_id   The object id of the indexable.
-	 * @param array   $words       The words to link, as a `'stem' => weight` map.
+	 * @param string $object_type The object type of the indexable (e.g. `post` or `term`).
+	 * @param int    $object_id   The object id of the indexable.
+	 * @param array  $words       The words to link, as a `'stem' => weight` map.
 	 */
 	public function link( $object_type, $object_id, $words ) {
 		$indexable = $this->indexable_repository->find_by_id_and_type( $object_id, $object_type );
@@ -129,8 +129,8 @@ class Save_Action {
 	/**
 	 * Creates the given words in the database and links them to the indexable with the given id.
 	 *
-	 * @param integer $indexable_id The ID of the indexable.
-	 * @param array   $words        The words to create, as a `'stem'` => weight` map.
+	 * @param int   $indexable_id The ID of the indexable.
+	 * @param array $words        The words to create, as a `'stem'` => weight` map.
 	 */
 	protected function create_words( $indexable_id, $words ) {
 		foreach ( $words as $stem => $weight ) {
@@ -144,7 +144,7 @@ class Save_Action {
 
 			try {
 				$new_word->save();
-			// @codingStandardsIgnoreLine Generic.CodeAnalysis.EmptyStatement.DetectedCATCH -- There is nothing to do.
+			// phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch -- There is nothing to do.
 			} catch ( Exception $exception ) {
 				// Do nothing.
 			}

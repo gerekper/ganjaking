@@ -1,0 +1,136 @@
+
+# Changelog
+
+## 1.2.14
+
+	- Fixed potential PHP notice when GF Media Library is used on a form that's also using Live Merge Tags from GF Populate Anything.
+
+## 1.2.13
+
+	- Added GP_Media_Library::acf_update_field() and refactored to use this method where possible.
+
+## 1.2.12
+
+	- Added [gpml_supported_field_types](https://gravitywiz.com/documentation/gpml_supported_field_types) filter.
+
+## 1.2.11
+
+	- Updated how file IDs are retrieved from existing file URLs to use a core WordPress function as it is more comprehensive.
+
+## 1.2.10
+
+	- Fixed issue where files with customized file paths (via [gform_upload_path](https://docs.gravityforms.com/gform_upload_path/) filter) failed importation.
+
+## 1.2.9
+
+	- Added support for populating WooCommerce product gallery when creating a product via Gravity Forms.
+	- Added [gpml_auto_convert_custom_fields](https://gravitywiz.com/documentation/gpml_auto_convert_custom_fields/) filter to allow auto-converting any custom field.
+
+## 1.2.8
+
+	- Fixed fatal error that occurred when mapping a GPML-enabled file upload field to a custom field via the Advanced Post Creation add-on.
+
+## 1.2.7
+
+	- Added [gpml_delete_entry_files_from_media_library](https://gravitywiz.com/documentation/gpml_delete_entry_files_from_media_library/) filter to allow filtering whether files imported into the Media library should be deleted when their corresponding entry is deleted.
+
+## 1.2.6
+
+	- Fixed issue where files that failed import were deleted.
+
+## 1.2.5
+
+	- Updated error processing to allow single import failures. Previously import would fail for all images if any image failed.
+
+## 1.2.4
+
+	- Fixed issue where Media Library files were not correctly attached to Gravity Forms notifications.
+
+## 1.2.3
+
+	- Added additional logging when a file fails to upload.
+
+## 1.2.2
+
+	- Added logging support.
+
+## 1.3
+
+	- Fixed fatal error that occurred when field mapped in Advanced Post Creation feed no longer exists.
+
+## 1.2.1
+
+	- Fixed fatal error that occurred when field mapped in Advanced Post Creation feed no longer exists.
+
+## 1.2
+
+	- Added support for integrating the [Advanced Custom Fields](https://www.advancedcustomfields.com/) and [Advanced Post Creation](https://www.gravityforms.com/add-ons/advanced-post-creation/).
+
+## 1.1
+
+    - Added support for [Slim Image Cropper for Gravity Forms](https://gwiz.io/2XYLv5D).
+
+## 1.0.14
+
+	- Updated minimum GF version to actual required version: 2.0.8
+	- Fixed notice that was generated on non-standard WP pages.
+
+## 1.0.13
+
+	- Fixed issue where files were uploaded to the wrong directory due to get_post() returning a post even when no post ID was passed.
+
+## 1.0.12
+
+	- Added 'gpml_media_data' filter to allow modifying media data before uploading (see: https://gravitywiz.com/documentation/gpml_media_data/).
+
+## 1.0.11
+
+    - Fixed link to documentation.
+
+## 1.0.10
+
+	- Fixed issue where all GPML-enabled image field merge tags were being treated as post images.
+
+## 1.0.9
+
+	- Fixed issue where new regex for parsing multi-file merge tag modifiers ignored all but the last modifier.
+
+## 1.0.8
+
+	- Added support for passing more than two parameters for multi-file merge tags (i.e. {File:1:thumbnail:left:link}).
+	- Added 'gpml_multi_file_merge_tag_glue' filter to allow modifying the string that is used to join individual images in a multi-file image merge tag.
+
+## 1.0.7
+
+	- Fixed notice generated when checking for existing file ID when none existed.
+	- Fixed notice genrated when replacing merge tags without an entry object.
+
+## 1.0.6
+
+    - Fixed issue w/ 3rd party integrations where GPML failed to correctly locate the existing attachment when the attachment URL did not match the guid.
+
+## 1.0.5
+
+    - Fixed fatal error that occurred w/ WC GF Product Add-ons (surprise!).
+
+## 1.0.4
+
+	- Added support for ":link" modifier; automatically wraps generated <img> in a link to the full sized image.
+	- Added support for automatically replacing GPML-enabled field images with the medium-sized thumbnail when viewed in Gravity View.
+
+## 1.0.3
+
+    - Added support for mapping GF Multi-file Upload fields to ACF's Gallery field.
+
+## 1.0.2
+
+	- Fixed fatal error when download_url() function failed.
+	- Updated upload_to_media_library() function to use original Gravity Forms image.
+
+## 1.0.1
+
+	- Added support for image merge tags (i.e. {File:1:medium} and {Multi-file Upload:2:thumbnail:right}).
+
+## 1.0
+
+	- "People can lose their lives in libraries. They ought to be warned." ~ Saul Bellow

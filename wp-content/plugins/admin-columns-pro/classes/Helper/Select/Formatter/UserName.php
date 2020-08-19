@@ -43,7 +43,7 @@ class UserName extends AC\Helper\Select\Formatter {
 
 		$suffix = $user->user_email ? $user->user_email : $user->user_login;
 
-		$label .= sprintf( esc_html__( ' (#%1$s &ndash; %2$s )' ), $user->ID, $suffix );
+		$label .= sprintf( ' (%s)', $suffix );
 
 		return (string) apply_filters( 'acp/select/formatter/user_name', $label, $user );
 	}

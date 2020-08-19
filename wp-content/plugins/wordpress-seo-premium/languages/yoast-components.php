@@ -32,9 +32,11 @@ $generated_i18n_strings = array(
 	__( 'Something went wrong. Please reload the page.', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/components/LanguageNotice.js:51
+	/* translators: %s expands to the actual language. */
 	__( 'Your site language is set to %s. ', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/components/LanguageNotice.js:54
+	/* translators: %s expands to the actual language. */
 	__( 'Your site language is set to %s. If this is not correct, contact your site administrator.', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/components/LanguageNotice.js:70
@@ -62,6 +64,7 @@ $generated_i18n_strings = array(
 	__( 'Close', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/components/data-model/DataModel.js:25
+	/* translators: %d expands to number of occurrences. */
 	__( '%d occurrences', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/components/data-model/DataModel.js:50
@@ -74,15 +77,18 @@ $generated_i18n_strings = array(
 	__( 'Copy link', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/LinkSuggestions/LinkSuggestion.js:68
+	/* translators: %s expands to the link value */
 	__( 'Copy link to suggested article: %s', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:20
 	__( 'We could not find any relevant articles on your website that you could link to from your post.', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:24
+	/* translators: Text between {{a}} and {{/a}} will be a link to an article about site structure. */
 	__( '{{a}}Read our article about site structure{{/a}} to learn more about how internal linking can help improve your SEO.', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:29
+	/* translators: Text between {{a}} and {{/a}} will be a link to an article about cornerstone content. */
 	__( 'Consider linking to these {{a}}cornerstone articles:{{/a}}', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/LinkSuggestions/LinkSuggestions.js:31
@@ -113,27 +119,34 @@ $generated_i18n_strings = array(
 	__( 'Next', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/configuration-wizard/ConfigurationWizard.js:375
+	/* translators: %s expands to "Yoast SEO for WordPress". */
 	__( '%s installation wizard', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/configuration-wizard/StepIndicator.js:52
 	__( 'Step %1$d: %2$s', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/helpers/social-preview-image-validation/facebookValidation.js:22
+	/* translators: %d expands to the minimum width, %d expands to the minimum hight */
 	__( 'Your image dimensions are not suitable. The minimum dimensions are %dx%d pixels.', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/helpers/social-preview-image-validation/facebookValidation.js:45
+	/* translators: %s expands to the jpg format, %s expands to the png format, %s expands to the gif format. */
 	__( 'The format of the uploaded image is not supported. The supported formats are: %s, %s and %s.', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/helpers/social-preview-image-validation/twitterValidation.js:28
+	/* translators: %d expands to the minimum width, %d expands to the minimum height, %d expands to the maximum width, %d expands to the maximum height. */
 	__( 'Your image dimensions are not suitable. The minimum dimensions are %dx%d pixels. The maximum dimensions are %dx%d pixels.', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/helpers/social-preview-image-validation/twitterValidation.js:58
+	/* translators: %s expands to the gif format, %s expands to the gif format. */
 	__( 'You have uploaded a %s. Please note that, if it’s an animated %s, only the first frame will be used.', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/helpers/social-preview-image-validation/twitterValidation.js:67
+	/* translators: %s expands to the jpg format, %s expands to the png format, %s expands to the gif format. */
 	__( 'The format of the uploaded image is not supported. The supported formats are: %s, %s, %s and %s.', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/helpers/social-preview-image-validation/twitterValidation.js:96
+	/* translators: %s expands to Twitter, %s expands to the 5MB size. */
 	__( 'The file size of the uploaded image is too large for %s. File size must be less than %s.', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/ModeSwitcher.js:107

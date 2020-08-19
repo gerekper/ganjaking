@@ -86,39 +86,26 @@ final class Addon implements Registrable {
 	}
 
 	public function segment_request() {
+		check_ajax_referer( 'ac-ajax' );
+
 		$segment = new Segment(
 			$this->storage,
-			$this->request
+			$this->request,
+			new SegmentRepository()
 		);
 
 		$segment->dispatch( $this->request->get( 'method' ) );
 	}
 
 	public function comparison_request() {
+		check_ajax_referer( 'ac-ajax' );
+
 		$comparison = new Comparison(
 			$this->storage,
 			$this->request
 		);
 
 		$comparison->dispatch( $this->request->get( 'method' ) );
-	}
-
-	/**
-	 * @param AC\ListScreen $list_screen
-	 *
-	 * @return bool
-	 */
-	private function is_smart_filters_hidden( AC\ListScreen $list_screen ) {
-		return ( new Settings\HideOnScreen\SmartFilters() )->is_hidden( $list_screen );
-	}
-
-	/**
-	 * @param AC\ListScreen $list_screen
-	 *
-	 * @return bool
-	 */
-	private function is_filters_hidden( AC\ListScreen $list_screen ) {
-		return $this->hide_filters->is_hidden( $list_screen );
 	}
 
 	/**

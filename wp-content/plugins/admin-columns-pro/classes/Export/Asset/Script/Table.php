@@ -28,6 +28,7 @@ final class Table extends Script {
 			'total_num_items' => $wp_list_table->get_pagination_arg( 'total_items' ),
 			'nonce'           => wp_create_nonce( 'acp_export_listscreen_export' ),
 			'i18n'            => [
+				'dismiss'          => __( 'Dismiss this notice.' ),
 				'export'           => __( 'Export', 'codepress-admin-columns' ),
 				'export_error'     => __( 'Something went wrong during exporting. Please try again.', 'codepress-admin-columns' ),
 				'processed'        => __( 'Processed {0} of {1} items ({2}%).', 'codepress-admin-columns' ),

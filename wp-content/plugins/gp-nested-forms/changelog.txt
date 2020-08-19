@@ -1,0 +1,872 @@
+
+# Changelog
+
+## 1.0-beta-8.63
+
+	- Added a more verbose notice when nested form and fields are not set.
+
+## 1.0-beta-8.62
+
+	- Added [gpnf_session_initialized](https://gravitywiz.com/documentation/gpnf_session_initialized/) action to support doing something after the Nested Forms session has been initialized.
+
+## 1.0-beta-8.61
+
+	- Added header text for actions column to improve accessibility (Thanks OIT Design & Web Services NCSU).
+
+## 1.0-beta-8.60
+
+	- Added support for duplicating child entries in a Nested Form field. Currently requires manually adding the action link template.
+
+## 1.0-beta-8.59
+
+	- Added support for filtering child entries by the Parent Entry ID in the Entries list view in addition to filtering by the Parent Entry ID in the Gravity Flow Form Connector plugin.
+
+## 1.0-beta-8.58
+
+	- Fixed an issue where GPNF won't recognize HTML button elements. (#21)
+
+## 1.0-beta-8.57
+
+	- Added `gpnf_submitted_nested_entries` hook. (#20)
+
+## 1.0-beta-8.56
+
+	- Improved compatibility with Gravity PDF Previewer when using legacy jQuery UI modal.
+
+## 1.0-beta-8.55
+
+	- Improved compatibility with Gravity PDF Previewer.
+
+## 1.0-beta-8.54
+
+	- Fixed issue where Nested Forms would show a blank row in the {all_fields} merge tag if no entries are provided.
+
+## 1.0-beta-8.53
+
+	- Fixed submit button on modal when nested form is configured to use an image. (#19)
+
+## 1.0-beta-8.52
+
+	- Fixed issue where child entries would not be attached to the proper entry when used in conjunction with the WooCommerce Gravity Forms Product Add-ons plugin.
+
+## 1.0-beta-8.51
+
+	- Fixed issue where GP Nested Forms would cause the form buttons to change when using multiple forms on a given page in conjunction with GravityView.
+	- Fixed issue where scrollbar did not work correctly when the modal was open by updating Tingle to v0.15.3.
+	- Reverted stop-gap fix for {Parent} merge tag compatibility with Populate Anything. Fixed in Populate Anything 1.0-beta-4.54.
+
+## 1.0-beta-8.50
+
+	- Fixed issue where {Parent} merge tag replacement did not trigger Populate Anything population in legacy jQuery UI modal as well.
+
+## 1.0-beta-8.49
+
+	- Fixed issue where {Parent} merge tag replacement did not trigger Populate Anything population.
+
+## 1.0-beta-8.48
+
+	- Fixed issue where {Parent} merge tag that targeted non-existent parent form field would return "undefined" rather than an empty string. This change allows a child form to be used on different parent forms.
+	- Fixed issue where displayOnly fields (e.g. HTML, Section) were available in form exports.
+
+## 1.0-beta-8.47
+
+	- Improved {Parent} merge tag. (#18)
+	- Added support for including custom content alongside {Parent} merge tags (e.g. "Name: {Parent:3}").
+	- Added support for multiple parent merge tags (e.g. "{Parent:3.3} {Parent:3.6}").
+	- Updated Nested Form field input markup to no longer apply the gform_pre_render filter if the child form is not set, does not exist, or if the Nested Form field is being rendered on the form editor view.
+
+## 1.0-beta-8.46
+
+	- Fixed noticed caused by check for $_GET property that may not be present.
+
+## 1.0-beta-8.45
+
+	- Fixed issue where GPPA disabled submit button but modal buttons were still clickable resulting in a child form that would fail to submit.
+
+## 1.0-beta-8.44
+
+	- Added [gppa_child_entry_max](https://gravitywiz.com/documentation/gppa_child_entry_max/) to allow accepting more (or less) entries in a Nested Form field.
+	- Fixed fatal error introduced in 1.0-beta-8.43.
+
+## 1.0-beta-8.43
+
+	- Updated the method used to get the current GravityView entry being edited. (#16)
+
+## 1.0-beta-8.42
+
+	- Fixed issue where orphaned child entries were not expired on the expected schedule due to double buffering of the entry expiration modifier.
+
+## 1.0-beta-8.41
+
+	- Added accessibility enhancements with an emphasis on navigability.
+
+## 1.0-beta-8.40
+
+	- Added support for re-populating child entries when editing a parent form via WC GF Product Add-on's Enable Card Edit option.
+
+## 1.0-beta-8.39
+
+	- Fixed issue where Next/Previous buttons in child form were not correctly classed.
+
+## 1.0-beta-8.38
+
+	- Fixed issue where {Parent} merge tags were not correctly replaced after hiding/showing a field via conditional logic.
+
+## 1.0-beta-8.37
+
+	- Fixed regression in 1.0-beta-8.35 which caused Nested Form fields on forms without a Datepicker to fail to initialize.
+	- Fixed issue introduced in GravityView 2.6 which prevented child entries from loading when editing an entry.
+
+## 1.0-beta-8.36
+
+	- Fixed issue where trashed child entries still appeared in the Nested Form field.
+
+## 1.0-beta-8.35
+
+	- Fixed issue where datepickers were not properly initialized in child forms when editing an entry on the frontend via Gravity Flow.
+
+## 1.0-beta-8.34
+
+	- Updated responsive styles to apply to portrait mode on most tablets.
+
+## 1.0-beta-8.33
+
+	- Fixed issue where `:value` modifier was ignored when filtering a single item in a Nested Form field (e.g. {Parent:1:filter[2],value}).
+
+## 1.0-beta-8.32
+
+	- Fixed issue where child entries added via a Gravity Flow User Input step did not save correctly to the parent entry.
+
+## 1.0-beta-8.31
+
+	- Updated responsive styles to apply for all touch-based devices.
+	- Removed unused GP Nested Forms Template setting in GravityView widget options.
+
+## 1.0-beta-8.30
+
+	- Fixed issue where child entries were capped at 20; new cap is 99.
+
+## 1.0-beta-8.29
+
+	- Added support for using admin label in child entry export fields and headers.
+
+## 1.0-beta-8.28
+
+	- Fixed conflict with Elementor where Nested Form fields did not initialize properly.
+
+## 1.0-beta-8.27
+
+	- Fixed notice generated when session cookie's "nested_entries" property was not set.
+
+## 1.0-beta-8.26
+
+	- Fixed issue where order of child entries in backend did not match the order of child entries submitted on the frontend.
+
+## 1.0-beta-8.25
+
+	- Updated 'gpnf_init_nested_form' to be a Gravity Forms JavaScript Hook rather than a jQuery event.
+
+## 1.0-beta-8.24
+
+	- Added 'gpnf_init_nested_form' jQuery event to improve compatibility with GP Populate Anything's Live Merge tags when used in a Nested Form.
+
+## 1.0-beta-8.23
+
+	- Added support for processing child feeds after a delayed payment from PayPal Standard.
+
+## 1.0-beta-8.22
+
+	- Added support for processing child feeds on delayed payments.
+
+## 1.0-beta-8.21
+
+	- Fixed issue where the sticky footer in the modal did not stay at the bottom in Chrome.
+
+## 1.0-beta-8.20
+
+	- Fixed notice generated when refreshing nested form markup.
+
+## 1.0-beta-8.19
+
+	- Fixed issue where Entry Limit was not honored when displaying a child form.
+
+## 1.0-beta-8.18
+
+	- Improved performance of dynamic Nested Form field value retrieval.
+	- Updated the PartialEntries acceptance test.
+
+## 1.0-beta-8.17
+
+	- Updated how Nested Form field values are handled; fixes issue where fetching a parent entry via `GFAPI::get_entry()` failed to populate the correct value for Nested Form fields.
+
+## 1.0-beta-8.16
+
+	- Fixed issue where max entry limit message was not translatable.
+
+## 1.0-beta-8.15
+
+	- Updated `GP_Nested_Forms::get_fields_by_ids()` method to return the fields in order of the field IDs passed.
+
+## 1.0-beta-8.14
+
+	- Added support for Partial Entries add-on.
+
+## 1.0-beta-8.13
+
+	- Fixed issue where GF Encrypted Fields was removing child entry meta resulting in child entries that were not property connected with their parent.
+
+## 1.0-beta-8.12
+
+	- Fixed issue where using global namespace removed events from previously initialized instances of Nested Forms.
+
+## 1.0-beta-8.11
+
+	- Fixed various issues with AJAX-enabled forms. (#14)
+
+## 1.0-beta-8.10
+
+	- Fixed issue where Post Category fields would not be re-populated with the correct value when editing a child entry.
+
+## 1.0-beta-8.9
+
+	- Fixed issue where the GPNF session cookie wouldn't be properly reset after editing a form with Nested Form fields in a GravityView.
+	- Fixed issue where child entries added when editing an entry with a GravityView view would not be assigned to the parent form.
+
+## 1.0-beta-8.8
+
+	- Fixed issue where {Parent} merge tag wouldn't work on certain multi-page forms.
+
+## 1.0-beta-8.7
+
+	- Fixed issue where some strings displayed in the child form modal were not localized.
+
+## 1.0-beta-8.6
+
+	- Fixed issue where AJAX-enabled parent forms caused modal to fail to close after submitting a child form.
+	- Fixed issue where {Parent} merge tag wouldn't work in some cases.
+
+## 1.0-beta-8.5
+
+	- Fixed potential recursion with handle_nested_forms_markup filter.
+
+## 1.0-beta-8.4
+
+	- Fixed issue where deleting a child entry from from the modal's delete button failed to delete the child entry.
+
+## 1.0-beta-8.3
+
+	- Updated Nested Forms field value method to ignore entries with alphanumeric IDs.
+
+## 1.1
+
+	- Fixed issue where new method for retrieving Nested Form field value dynamically incorrectly returned all child entries for a parent entry rather than only the child entries for the current Nested Form field.
+
+## 1.0
+
+	- Added support for auto-resizing modal when window is resized.
+	- Added responsive styling for Nested Form field.
+	- Updated acceptance tests to work with tingle.  Added export entries test.
+	- Updated font size of modal header.
+	- Fixed notice generated by undeclared $entry_ids variable in entry limit validation.
+	- Fixed issue where modal content was hidden incorrectly when two of the same child form existed on the page.
+	- Fixed UX issue where modal buttons were re-initialized on the modal confirmation page, creating a flicker on the submit button as the spinner was replaced with the submit button text.
+
+## 1.0-beta-8.2
+
+	- Fixed regression with {Parent} merge tag when using the new responsive UI.
+
+## 1.0-beta-8.1
+
+	- Fixed issue where new method for retrieving Nested Form field value dynamically incorrectly returned all child entries for a parent entry rather than only the child entries for the current Nested Form field.
+
+## 1.0-beta-8
+
+	- Added full integration with GravityView.
+	- Added support for exporting child entries alongside their parent entry.
+	- Added resopnsive styling and implemented a new modal experience.
+	- Added 'gpnf_entry_limit_min' and 'gpnf_entry_limit_max' WordPress filters.
+	- Added merge tag modifiers to merge tag selector for calculation-enabled fields.
+	- Added message when max entry limit is reached.
+	- Added security enhancement.
+	- Added is_gravityview() helper method.
+	- Added support for admins and users with the 'gravityforms_edit_entries' capability to edit nested entries on the front end created by other users
+	- Added nested-entries-count.php template. This is a new template that can be used to display the count of child entries in a parent entries.
+	- Added support for changing modal spinner via Gravity Forms' "gform_ajax_spinner_url" filter.
+	- Added [gpnf_disable_export_fields](https://gravitywiz.com/documentation/gpnf_disable_export_fields/) filter to allow disabling the addition of child form fields to the parent form export settings.
+	- Updated Nested Form field value handling.
+	- Updated GravityView integration to use the count template for views and the simple template on single entry pages.
+	- Fixed issue where query parameters were not populated correctly when editing child entries.
+	- Fixed issue where Delete and Cancel buttons would show in Nested Forms on GravityView edit views.
+	- Fixed conflict with Preview Confirmation where psuedo-entry without a proper entry ID would return child entries that did not belong to the psuedo-entry.
+	- Fixed issue where extra lines were being added to parent export when no child fields were selected.
+	- Removed feed processing setting to alleviate confusion.
+
+## 1.0-beta-7.28
+
+	- Fixed issue where extra lines were being added to parent export when no child fields were selected.
+
+## 1.0-beta-7.27
+
+	- Fixed conflict with Preview Confirmation where psuedo-entry without a proper entry ID would return child entries that did not belong to the psuedo-entry.
+
+## 1.0-beta-7.26
+
+	- Added [gpnf_disable_export_fields](https://gravitywiz.com/documentation/gpnf_disable_export_fields/) filter to allow disabling the addition of child form fields to the parent form export settings.
+
+## 1.0-beta-7.25
+
+	- Added support for changing modal spinner via Gravity Forms' "gform_ajax_spinner_url" filter.
+	- Improved Nested Form Field value handling.
+
+## 1.0-beta-7.24
+
+	- Added security enhancement.
+	- Added `is_gravityview()` helper method.
+	- Updated GravityView integration to use the count template for views and the simple template on single entry pages.
+	- Added nested-entries-count.php template. This is a new template that can be used to display the count of child entries in a parent entries.
+	- Fixed issue where Delete and Cancel buttons would show in Nested Forms on GravityView edit views.
+	- Added support for admins and users with the 'gravityforms_edit_entries' capability to edit nested entries on the front end created by other users
+
+## 1.0-beta-7.23
+
+	- Fixed issue where query parameters were not populated correctly when editing child entries.
+	- Added 'gpnf_entry_limit_max' JS filter.
+	- Added 'gpnf_entry_limit_min' and 'gpnf_entry_limit_max' WordPress filters.
+
+## 1.0-beta-7.22
+
+	- Added support for exporting child entries alongside their parent entry. (#11)
+	- Added "gpnf_enable_feed_processing_setting" to re-enable.
+	- Added support for exporting child entries along side their parent entry.
+
+## 1.0-beta-7.21
+
+	- Fixed issue when rendering child entries which contained sections with conditional logic.
+	- Fixed issue where maximum entries met message would be shown in the form editor at all times.
+	- Updated session script to be part of the GPNestedForms class.
+	- Added message beside submit button if maximum number of entries is met.
+	- Added count, total, and sum merge tags to merge tag selectors including the merge tag dropdown for calculations.
+	- Added support for Nested Forms on GravityView edit pages.
+	- Added count, total, and sum merge tags to merge tag selectors including the merge tag dropdown for calculations.
+	- Added support for Nested Forms on GravityView edit pages.
+	- Fixed issue where deleting parent entries would not result in the child entries being deleted.
+
+## 1.0-beta-7.20
+
+	- Updated {Parent} merge tag to be replaced with an empty string when loading a form outside of a Nested Form field.
+
+## 1.0-beta-7.19
+
+	- Added "gpnf_can_user_edit_entry" filter to better support overriding entry permissions when viewing, editing, and deleting entries in Nested Forms fields.
+
+## 1.0-beta-7.18
+
+	- Added support for using Nested Forms in WordPress admin.
+
+## 1.0-beta-7.17
+
+	- Fixed error generated when {Parent} merge tag was called in a context where parent entry was expected but did not exist (i.e. child form notifications).
+
+## 1.0-beta-7.16
+
+	- Fixed issue where child entry created_by property did not match that of its parent when a non-logged-in user registered via the parent form.
+
+## 1.0-beta-7.15
+
+	- Fixed issue with ACF where Limit Submission's version of select2 was loaded instead of its own.
+	- Fixed notices generated when Nested Form field does not have a nested form selected.
+
+## 1.0-beta-7.14
+
+	- Added "gpnf_parent_merge_tag_value" filter to allow modify the value of the parent merge tag before it is replaced.
+
+## 1.0-beta-7.13
+
+	- Fixed issue where product cache was not refreshed correctly.
+
+## 1.0-beta-7.12
+
+	- Fixed issue where incorrect child from was refreshed after adding, editing or deleting an entry when multiple Nested Form fields existed on a parent form.
+
+## 1.0-beta-7.11
+
+	- Added two new filters: ‘gpnf_process_feeds_nested_entries’ and ‘gpnf_process_feeds_nested_form’
+	- Added gp_nested_forms()->get_nested_form() helper method
+	- Fixed issue where the raw value of some fields including fields with dynamic choices from GP Populate Anything would be used instead of the choice text/label.
+
+## 1.0-beta-7.10
+
+	- Fixed fatal error generated by trashing a parent entry after child entry has been permanently deleted.
+	- Fixed issue where <hr> in All Fields markup were incorrectly visible in some mail clients.
+
+## 1.0-beta-7.9
+
+	- Fixed issue where close button was not styled property in Safari on mobile devices.
+
+## 1.0-beta-7.8
+
+	- Fixed issue where values of GPPA-populated choice-based fields were not correctly displayed in the Nested Form field on the entry detail view.
+
+## 1.0-beta-7.7
+
+	- Fixed issue where {Parent} merge tag did not correctly populate from Radio Button fields.
+	- Updated plugin author.
+
+## 1.0-beta-7.6
+
+	- Added support for scrolling back to original page position after closing modal; impacts long child forms, particularly on mobile.
+	- Added support for formatting {all_fields} value for text. Requires Gravity Forms 2.4.8.12 or greater.
+
+## 1.0-beta-7.5
+
+	- Updated how markup for Nested Form field merge tags (individually and in {all_fields}) is generated.
+	- Added "nested-entries-all" template to allow overriding the the markup generated for Nested Form field merge tags (individually and in {all_fields}).
+	- Updated Display Fields setting name to "Summary Fields" and improved description to alleviate customer confusion on its purpose.
+
+## 1.0-beta-7.4
+
+	- Updated check for WooCommerce to be more comprehensive.
+
+## 1.0-beta-7.3
+
+	- Updated Nested Forms markup to *always* be output in the footer; resolves an on-going issue with the WC GF Product Add-ons plugin.
+	- Added a simplified Nested Entries Detail template; will be automatically used when a Nested Form field is displayed in a WooCommerce cart or on Gravity Forms' Print Entry view.
+
+## 1.0-beta-7.2
+
+	- Fixed JS error generated when Beaver Builder triggers document ready event without having reloaded the UI.
+
+## 1.0-beta-7.1
+
+	- Added support for handling change in Gravity Forms 2.4.7 which adds support for wrapping GF's inline scripts in DOMContentLoaded listener.
+	- Updated minimum Gravity Forms version to 2.4.
+	- Updated logging for cron events to be more helpful.
+	- Fixed issue where modal was not visible when other elements on page had a higher z-index.
+	- Fixed issue where datepicker inside modal was displayed behind modal due to z-index conflict.
+
+## 1.0-beta-7
+
+	- Added "gpnf_session_script_data" filter to allow modifying the data used to initialize the session script.
+	- Added support for automatically populating fields from session cookie when refreshing the form markup.
+	- Added logging around daily cron that cleans up orphaned entries.
+	- Added basic responsive fix to prevent Nested Entries table from spilling outside container on mobile.
+	- Added support for gpnf_bypass_entry_permissions filter to allow advanced users to determine if entry permissions should be bypassed when populating entries into a Nested Form field.
+	- Updated child form feeds to be processed *after* parent form feeds when configured to be processed when the parent form is submitted.
+	- Updated Nested Entries Detail template to no longer output "View Entry" or "View Expanded List" when in print view.
+	- Updated parent entry processing to run child form through gform_pre_process filter to improve compatibility with 3rd party add-ons.
+	- Updated "gpnf_append_nested_forms_to_footer" to default to true if "gform_init_scripts_footer" is set to true.
+	- Updated priority of GP_Nested_Forms::output_nested_forms_markup() to 21 to ensure it is output after jQuery.
+	- Updated session cookie with COOKIEPATH, COOKIE_DOMAIN, and secure flag.
+	- Updated cookies to use COOKIE_DOMAIN constant for consistency with WordPress.
+	- Updated gpnf_template_args docblock with addition of the "actions" property and removal of the "related_entries_link" property.
+	- Fixed issue where close button does not appear when Bootstrap is loaded *after* jQuery UI.
+	- Fixed notice when form mapped in Nested Form field no longer exists.
+	- Fixed issue where child entries were not editable and failed to persist when navigating between pages after being populated via Save & Continue.
+	- Fixed use of deprecated GFFormsModel::get_incomplete_submission_values() method.
+	- Fixed issue where Print Entry view displayed "&nbsp".
+	- Fixed issue where perk name was not output on Logging page.
+	- Fixed issue where {Parent} merge tag was case sensitive.
+	- Fixed issue where modal header color setting was not saved correctly.
+	- Fixed issue where Nested Form fields on different forms loaded on the same page did not initialize correctly.
+	- Fixed JS error when attempting to repopulate entries between AJAX-enabled page submissions.
+	- Fixed issue where field ID was not respected when fetching submitted nested entries.
+	- Fixed issue where :sum merge tag was not working correctly on AJAX-enabled forms with multiple Nested Form fields.
+	- Fixed notice generated by attempting to access $form as an object.
+	- Fixed security issue where arbitrary entry data could be viewed in a Nested Form field.
+	- Fixed up {Parent} merge tag to work with paginated child forms
+	- Fixed issue where saving Nested Form field without fields in the Form Editor would cause a PHP notice/error
+	- Fixed issue where multiple "other" choices were added when including multiple instances of the same child form.
+	- Fixed issue where the Multi-file Upload field's delete icon returned a 404 when displayed in a nested form.
+	- Fixed issue where adding an image to a Multi-field Upload field on a nested form did not correctly save the image when editing a child entry.
+	- Fixed issue where {Parent} did not reevaluate conditional logic when value changed.
+	- Fixed issue where AJAX-enabled forms *still* broke Nested-Forms-based calculations.
+	- Fixed issues with calculations and saving entries when AJAX was enabled on parent form.
+	- Fixed issue where parent merge tag replacement broke routing in notifications.
+
+## 1.0-beta-6.24
+
+	- Fixed issue where close button does not appear when Bootstrap is loaded *after* jQuery UI.
+	- Fixed notice when form mapped in Nested Form field no longer exists.
+
+## 1.0-beta-6.23
+
+	- Fixed issue where child entries were not editable and failed to persist when navigating between pages after being populated via Save & Continue.
+
+## 1.0-beta-6.22
+
+	- Updated Nested Entries Detail template to no longer output "View Entry" or "View Expanded List" when in print view.
+	- Fixed use of deprecated GFFormsModel::get_incomplete_submission_values() method.
+	- Fixed issue where Print Entry view displayed "&nbsp".
+
+## 1.0-beta-6.21
+
+	- Updated parent entry processing to run child form through gform_pre_process filter to improve compatibility with 3rd party add-ons.
+
+## 1.0-beta-6.20
+
+	- Fixed issue where perk name was not output on Logging page.
+
+## 1.0-beta-6.19
+
+	- Added logging around daily cron that cleans up orphaned entries.
+
+## 1.0-beta-6.18
+
+	- Fixed issue where {Parent} merge tag was case sensitive.
+
+## 1.0-beta-6.17
+
+	- Fixed issue where modal header color setting was not saved correctly.
+
+## 1.0-beta-6.16
+
+	- Added support for automatically populating fields from session cookie when refreshing the form markup.
+
+## 1.0-beta-6.15
+
+	- Fixed issue where Nested Form fields on different forms loaded on the same page did not initialize correctly.
+	- Updated "gpnf_append_nested_forms_to_footer" to default to true if "gform_init_scripts_footer" is set to true.
+	- Updated priority of GP_Nested_Forms::output_nested_forms_markup() to 21 to ensure it is output after jQuery.
+	- Updated session cookie with COOKIEPATH, COOKIE_DOMAIN, and secure flag.
+
+## 1.0-beta-6.14
+
+	- Updated cookies to use COOKIE_DOMAIN constant for consistency with WordPress.
+
+## 1.0-beta-6.13
+
+	- Added "gpnf_session_script_data" filter to allow modifying the data used to initialize the session script.
+
+## 1.0-beta-6.12
+
+	- Added basic responsive fix to prevent Nested Entries table from spilling outside container on mobile.
+
+## 1.0-beta-6.11
+
+	- Fixed JS error when attempting to repopulate entries between AJAX-enabled page submissions.
+
+## 1.0-beta-6.10
+
+	- Fixed issue where field ID was not respected when fetching submitted nested entries.
+
+## 1.0-beta-6.9
+
+	- Fixed issue where :sum merge tag was not working correctly on AJAX-enabled forms with multiple Nested Form fields.
+	- Fixed notice generated by attempting to access $form as an object.
+
+## 1.0-beta-6.8
+
+	- Fixed security issue where arbitrary entry data could be viewed in a Nested Form field.
+	- Added support for gpnf_bypass_entry_permissions filter to allow advanced users to determine if entry permissions should be bypassed when populating entries into a Nested Form field.
+	- Updated gpnf_template_args docblock with addition of the "actions" property and removal of the "related_entries_link" property.
+
+## 1.0-beta-6.7
+
+	- Fixed up {Parent:__} merge tag to work with paginated child forms
+	- Fixed issue where saving Nested Form field without fields in the Form Editor would cause a PHP notice/error
+
+## 1.0-beta-6.6
+
+	- Fixed issue where multiple "other" choices were added when including multiple instances of the same child form.
+
+## 1.0-beta-6.5
+
+	- Fixed issue where the Multi-file Upload field's delete icon returned a 404 when displayed in a nested form.
+	- Fixed issue where adding an image to a Multi-field Upload field on a nested form did not correctly save the image when editing a child entry.
+
+## 1.0-beta-6.4
+
+	- Fixed issue where {Parent:1} did not reevaluate conditional logic when value changed.
+
+## 1.0-beta-6.3
+
+	- Fixed issue where AJAX-enabled forms *still* broke Nested-Forms-based calculations.
+
+## 1.0-beta-6.2
+
+	- Fixed issues with calculations and saving entries when AJAX was enabled on parent form.
+	- Fixed issue where parent merge tag replacement broke routing in notifications.
+
+## 1.0-beta-6.1
+
+	- Fixed issue where parent merge tag replacement broke routing in notifications.
+
+## 1.0-beta-6
+
+	- Added support for {Parent} merge tag which allows populating child form inputs with data from the parent form.
+
+## 1.0-beta-5.17
+
+	- Updated Zapier integration so child entry feeds are always processed _after_ parent form feed.
+	- Updated field container selector to target only by id rather than element + id.
+
+## 1.0-beta-5.16
+
+	- Fixed issue where child entries were not editable/deletable when making https AJAX request from http URL.
+
+## 1.0-beta-5.15
+
+	- Fixed issue where entry total was not updated when editing via Nested Form field.
+
+## 1.0-beta-5.14
+
+	- Fixed security issues.
+
+## 1.0-beta-5.13
+
+	- Updated feed processing to only filter feeds when an entry has been created; allows feed validation to still process.
+
+## 1.0-beta-5.12
+
+	- Updated session init script to be output very late in the footer to allow footer-enqueued jQuery to load first.
+
+## 1.0-beta-5.11
+
+	- Updated name of Gravity Forms filter included in 1.0-beta-5.10 to its updated version.
+
+## 1.0-beta-5.10
+
+	- Fixed issue where updating an entry would fail to save some values depending on how conditional logic was configured.
+
+## 1.0-beta-5.9
+
+	- Fixed issue where dynamically populated and Save & Continue child entries were incorrectly prevented from loading in a Nested Form field.
+
+## 1.0-beta-5.8
+
+	- Added support for script minification.
+    - Fixed issue where false entry values were output as a string (i.e. "false") rather than empty in Nested Form field.
+
+## 1.0-beta-5.7
+
+	- Fixed issue with List field values containing commas being incorrectly split up when populating child form for editing.
+
+## 1.0-beta-5.6
+
+	- Added security enhancement to better protect viewing/editing/deleting child entries on the frontend.
+
+## 1.0-beta-5.5
+
+	- Fixed additional issues related to missing modal close button caused by other themes/plugins.
+	- Added 'gpnf_jquery_ui_dependencies' filter to allow 3rd parties to add their own dependencies for jQuery UI.
+
+## 1.0-beta-5.4
+
+	- Fixed issue introduced by modal close button fix in 1.0-beta-5.2.
+
+## 1.0-beta-5.3
+
+	- Added support for label placement setting on Nested Form field.
+
+## 1.0-beta-5.2
+
+	- Fixed issue where modal close button is missing when Bootstrap is loaded *after* jQuery UI.
+	- Added support for displaying additional entry actions in the Nested Form Detail view.
+	- Updated notification processing to only surpress notifications of the "form_submission" event.
+
+## 1.0-beta-5
+
+	- Fixed major issue where unorphaned child entries were deleted during orphaned entry cleanup.
+
+## 1.0-beta-4.26
+
+	- Fixed JS error that appeared when parent form contained Nested Form field with an administrative visibility.
+
+## 1.0-beta-4.25
+
+	- Updated integration with All Fields Template (v0.9.2) to better support filtering child form fields within merge tags.
+
+## 1.0-beta-4.24
+
+	- Updated get_entry_display_values() to support returning all entry display values (rather than only the selected display fields).
+
+## 1.0-beta-4.23
+
+	- Fixed issue where No Duplicates validation was enforced when editing a child entry.
+
+## 1.0-beta-4.22
+
+	- Fixed issue where when refreshing the Nested Form markup, GF was ignoring the isSelected property of choices in favor of determining the selected status based on non-existant post values.
+
+## 1.0-beta-4.21
+
+	- Fixed fatal error when attempting to delete a parent entry.
+
+## 1.0-beta-4.20
+
+	- Fixed issue where Nested Form fields were not correctly populated via User Registration Update feeds.
+
+## 1.0-beta-4.19
+
+	- Fixed issue with :sum calc modifier where one or more child entries did not contain a value for the target field ID.
+
+## 1.0-beta-4.18
+
+	- Added support for GF Zapier.
+
+## 1.0-beta-4.17
+
+	- Updated to use minimum_requirements() method for declaring minimum requirements.
+
+## 1.0-beta-4.16
+
+	- Added 'gpnf_entry_url' filter to allow filtering the entry URL when linking to child entries.
+	- Fixed issue with :sum calculation modifier when target field ID was not present in child entry.
+
+## 1.0-beta-4.15
+
+	- Added support for integrating with GF Preview Submission.
+
+## 1.0-beta-4.14
+
+	- Fixed issues with translation support.
+
+## 1.0-beta-4.13
+
+	- Fixed issue where :total, :count, and :sum calculation modifiers included child entries from ALL Nested Form fields.
+
+## 1.0-beta-4.12
+
+	- Added integration with GW All Field Template to allow filtering which fields display from the nested form when displaying the Nested Form field value.
+	- Added support for displaying a simple list of nested entry values when filtered for a single field.
+	- Added support for 'nested-entries-simple-list' and 'nested-entry' templates.
+
+## 1.0-beta-4.11
+
+	- Fixed issue where Feed Processing field setting did not have a default value so feeds were not sent in either context (child/parent).
+
+## 1.0-beta-4.10
+
+    - Changed child form notifications to not be sent until the parent form is submitted.
+    - Added 'gpnf_should_send_notification' filter.
+    - Added support for populating child entries in request data for GF Webhooks Add-on.
+
+## 1.0-beta-4.9
+
+    - Nested form is now refreshed after adding or deleting entries.
+
+## 1.0-beta-4.8
+
+	- Fixed JS error caused by session initialization when parent form was AJAX-enabled.
+
+## 1.0-beta-4.7
+
+	- Refactored event reprioritization; new method lovingly dubbed, "The Event Handler".
+
+## 1.0-beta-4.6
+
+	- Added support for displaying labels instead of values for choice-based fields (preserving the ability to use values in calculations).
+	- Fixed issue where ":sum" calculations were not calculated correctly on submission.
+	- Fixed issue where some 3rd party add-ons caused nested form markup to be output multiple times.
+
+## 1.0-beta-4.5
+
+	- Fixed issue where only the first Nested Form field on a page had markup; template was set to require once.
+
+## 1.0-beta-4.4
+
+	- Fixed issue where View Entry links displayed outside admin resulted in 404s.
+
+## 1.0-beta-4.3
+
+	- Updated minimum required version of Gravity Forms to 2.3-beta-1.
+	- Fixed issue where Nested Form JS data was not always available depending on how 3rd party scripts bound to the gform_post_render JS event.
+	- Fixed issue where repositioning modal when the modal height exceeded the window height would jump up to the modal header.
+
+## 1.0-beta-4.2
+
+	- Updated field to not show up in conditional logic for other fields.
+
+## 1.0-beta-4.1
+
+	- Rewrote the GP_Template class.
+
+## 1.0.beta3.12
+
+	- Updated modal responsiveness.
+
+## 1.0.beta3.11
+
+    - Updated modal styles to be enqueued (rather than hardcoded)
+
+## 1.0.beta3.9
+
+    - Fixed issue where child entries were not populated when resuming a saved entry (via GF's Save & Continue feature)
+
+## 1.0.beta3.8
+
+    - Updated modal size to dynamically adjust to be 40 pixels smaller than the document size; primarily benefits mobile usage
+
+## 1.0.beta3.7
+
+    - Fixed issue where if multiple nested form fields were using the same child form, the first field would be updated with entries submitted from any other nested form field mapped to the same child form.
+
+## 1.0.beta3.6
+
+    - Fixed issue where Nested Form field's "Add Entry" button was being triggered when pressing enter within another field
+
+## 1.0.beta3.5
+
+    - Added JS hook for modify the arguments used to initailize the nested form modal: gpnf_modal_args
+    - Added PHP hook for modifying the display value of child entry values in the parent form: gpnf_display_value
+    - Miscellaneous cleanup items.
+
+## 1.0.beta3.4
+
+    - Fixed issue where child forms with conditional logic did not display when editing a child entry
+
+## 1.0.beta3.3
+
+    - Added support for repop of List fields when editing a child entry
+
+## 1.0.beta3.2
+
+    - Fixed JS error on confirmation page for AJAX-enabled forms; caused by KO bindings being applied twice
+
+## 1.0.beta3.1
+
+    - Fixed issue where non-logged-in users could not edit their nested entries
+    - Fixed issue where multi-input fields were not repopulated for editing
+
+## 1.0.beta3.0
+
+    - Added support for parent forms with AJAX-enabled
+    - Added translation support
+    - Fixed notices generated when no nested fields have been selected via the field settings
+
+## 1.0.beta2.3
+
+    - Fixed issue where navigating to the previous page in a multi-page nested form would break the nested form submission flow (and entry was not captured in parent form)
+
+## 1.0.beta2.2
+
+    - Fixed issue with usage of jQuery.clone(); replaced with jQuery.extend().
+
+## 1.0.beta2.1
+
+    - Fix for IE8 recursive loop issue
+
+## 1.0.beta2.0
+
+	- Updated jQuery UI stylesheet URL to be protocol-less to better work with secure sites
+	- Fixed several notices
+	- Fixed several coding standards violations
+
+## 1.0beta.1.3
+
+    - Updated frontend to support HTML values rather than simply TEXT (allows currency symbols to be shown)
+    - Updated get_entry_display_values() method to get the display value
+    - Fixed error on entry detail edit where input HTML function was not called correctly resulting in a "Method GFField::input_html() must be over-ridden in a sub-class." error.
+    - Removed documentation link to Terms of Service perk (will replace once real documentation is written)
+
+## 1.0.beta1.2
+
+    - Fixed issue where "Total" field did not update when nested entry was edited
+
+## 1.0.beta1.1
+
+    - Added support for displaying all child entry values in {all_fields} merge tag (previously showed comma-delimited list of child entry IDs)
+
+## 1.0.alpha3.3
+
+    - Fixed issue where gformInitDatepicker was not found and generated error

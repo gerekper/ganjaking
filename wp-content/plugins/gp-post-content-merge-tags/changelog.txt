@@ -1,0 +1,98 @@
+
+# Changelog
+
+## 1.1.9
+
+	- Added context parameter to shortcode to allow filtering attributes specifically for the [eid] shortcode.
+	- Fixed issue where apostrophes were incorrectly escaped.
+	- Updated plugin author.
+
+## 1.1.8
+
+	- Fixed issue where query that fetched entry ID by pretty ID was too generic and could return an incorrect entry ID.
+
+## 1.1.7
+
+	- Fixed issue where Pretty IDs were misinterpreted as raw entry IDs.
+
+## 1.1.6
+
+	- Fixed issue where date-based conditional logic was not properly processed when a payment add-on was configured for the form.
+
+## 1.1.5
+
+	- Fixed compatibility change for Gravity Forms 2.3 column name.
+
+## 1.1.4
+
+    - Added support for using merge tag modifiers on global merge tags (i.e. {Field Label:value}).
+
+## 1.1.3
+
+    - Added compatibility fix for Gravity Forms 2.3.
+
+## 1.1.2
+
+    - If Pretty ID and encryption is disabled for eids, the eid will be checked against the current user ID as well as the current visitor IP before display the contents.
+
+## 1.1.1
+
+	- Added support for 'gppct_always_process_merge_tags' filter to allow always processing merge tags; even when no eid is passed.
+
+## 1.1
+
+	- Enabled Pretty ID by default for eids. To disable add this to your theme's functions.php file: add_filter( 'gppcmt_enable_pretty_id', '__return_false' );
+	- Fixed deprecation issue with the use of GFCommon::encrypt() and GFCommon::decrypt() functions which have been deprecated in Gravity Forms 2.3.
+
+## 1.0.5
+
+	- Fixed issue where Confirmation URL in Entry details metabox displayed awkwardly when other custom items were included in the metabox. 
+
+## 1.0.4
+
+	- Fixed issue where spaces in the confirmation URL parameters were replaced with underscores.
+
+## 1.0.3
+
+	- Added logging to get_entry() method.
+
+## 1.0.2
+
+	- Added support for processing pre-population merge tags in the [noeid] shortcode.
+
+## 1.0.1
+
+	- Fixed issue where required GF script (gravityforms.js) did not load if another GF script (form_admin.js) was already enqueued. 
+
+## 1.0
+
+	- Added support for "pretty id". When enabled, eid parameter will be a 6 character alphanumeric string.
+
+## 1.0.beta1.7
+
+	- Added support for [noeid] merge tag. Contents are displayed when no entry is available.
+
+## 1.0.beta1.6
+
+	- Added support for not displaying any content within the [eid] merge tag if no entry is found.
+
+## 1.0.beta1.5
+
+    - Fixed error introduced by WordPress 4.7.2 where merge tag selector failed to insert merge tag.
+
+## 1.0.beta1.4
+
+    - Fixed error in FireFox which prevented merge tag selector from loading in Post Edit view.
+    - Updated merge tag selector to truncate field labels to 40 characters.
+
+## 1.0.beta1.3
+
+	- Fixed issue where anonymous functions are not supported by earlier PHP versions.
+
+## 1.0.beta1.2
+
+	- Fixed conflict with ACF where merge tag selector on the post edit view was not working.
+
+## 1.0.beta1.1
+
+	- Added support for processing pre-population merge tags without eid parameter

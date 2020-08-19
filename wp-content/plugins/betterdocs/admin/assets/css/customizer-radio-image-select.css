@@ -1,0 +1,64 @@
+.customize-control-betterdocs-radio-image .image.ui-buttonset input[type=radio] {
+    height: auto; 
+    display: none;
+}
+.customize-control-betterdocs-radio-image .image.ui-buttonset label {
+    display: inline;
+    width: 100%;
+}
+.customize-control-betterdocs-radio-image .image.ui-buttonset label.ui-state-active {
+    background: none;
+}
+.customize-control-betterdocs-radio-image .customize-control-radio-buttonset label {
+    padding: 5px 10px;
+    background: #f7f7f7;
+    border-left: 1px solid #dedede;
+    line-height: 35px; 
+}
+.customize-control-betterdocs-radio-image label img {
+    border: 2px solid #bbb;
+    opacity: 0.8;
+}
+.customize-control-betterdocs-radio-image .image.ui-buttonset input[checked="checked"] + label img {
+    opacity: 1;
+}
+.customize-control-betterdocs-radio-image label.ui-state-active img {
+    border: 2px solid #15c7a4;
+}
+#customize-controls .customize-control-betterdocs-radio-image label img {
+    height: auto;
+    width: 100%;
+    margin-bottom: 3px;
+}
+.customize-control-betterdocs-radio-image label.ui-state-active img {
+    background: #dedede;
+    opacity: 1;
+}
+.customize-control-betterdocs-radio-image label.ui-state-hover img,
+.customize-control-betterdocs-radio-image label.ui-state-active.ui-state-hover img {
+    border: 2px solid #1e73be;
+}
+.customize-control-radio-buttonset label.ui-corner-left {
+    border-radius: 3px 0 0 3px;
+    border-left: 0; 
+}
+.customize-control-radio-buttonset label.ui-corner-right {
+    border-radius: 0 3px 3px 0; 
+}
+.image-select {
+    position: relative;
+    display: block;
+}
+.image-select .go-pro {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+    color: #26d396;
+}
+.image-select:hover .go-pro {
+    display: block;
+}

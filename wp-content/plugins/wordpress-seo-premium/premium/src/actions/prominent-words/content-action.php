@@ -52,7 +52,7 @@ class Content_Action {
 	/**
 	 * Holds the object sub types.
 	 *
-	 * @var null|array
+	 * @var array|null
 	 */
 	protected $object_sub_types;
 
@@ -169,7 +169,7 @@ class Content_Action {
 	 */
 	protected function get_object_sub_types() {
 		if ( $this->object_sub_types === null ) {
-			$this->object_sub_types = array_merge(
+			$this->object_sub_types = \array_merge(
 				$this->prominent_words_support->get_supported_post_types(),
 				$this->prominent_words_support->get_supported_taxonomies()
 			);
@@ -216,7 +216,7 @@ class Content_Action {
 	 *
 	 * @param Indexable $indexable The indexable to get context for.
 	 *
-	 * @return Meta_Tags_Context The context object.
+	 * @return Meta_Tags_Context|null The context object.
 	 */
 	protected function get_context( $indexable ) {
 		if ( $indexable->object_type === 'post' ) {
@@ -282,8 +282,8 @@ class Content_Action {
 		}
 
 		if ( $context->indexable->object_type === 'term' ) {
-			$term = get_term( $context->indexable->object_id, $context->indexable->object_sub_type );
-			if ( $term === null || is_wp_error( $term ) ) {
+			$term = \get_term( $context->indexable->object_id, $context->indexable->object_sub_type );
+			if ( $term === null || \is_wp_error( $term ) ) {
 				return '';
 			}
 

@@ -10,7 +10,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO Premium
- * Version:     14.7
+ * Version:     14.8
  * Plugin URI:  https://yoa.st/2jc
  * Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
  * Author:      Team Yoast
@@ -18,7 +18,7 @@
  * Text Domain: wordpress-seo
  * Domain Path: /languages/
  * License:     GPL v3
- * Requires at least: 5.3
+ * Requires at least: 5.4
  * Requires PHP: 5.6.20
  *
  * This program is free software: you can redistribute it and/or modify

@@ -2,6 +2,7 @@
 
 namespace Yoast\WP\SEO\Database;
 
+use Exception;
 use Yoast\WP\SEO\Initializers\Migration_Runner;
 
 /**
@@ -12,7 +13,7 @@ class Migration_Runner_Premium extends Migration_Runner {
 	/**
 	 * Runs this initializer.
 	 *
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function initialize() {
 		$this->run_premium_migrations();
@@ -24,9 +25,9 @@ class Migration_Runner_Premium extends Migration_Runner {
 	/**
 	 * Runs the Premium migrations.
 	 *
-	 * @throws \Exception When a migration errored.
-	 *
 	 * @return void
+	 *
+	 * @throws Exception When a migration errored.
 	 */
 	public function run_premium_migrations() {
 		$this->run_migrations( 'premium' );

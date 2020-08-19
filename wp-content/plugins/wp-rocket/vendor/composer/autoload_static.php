@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit34363104ff98fe47424734dd3fef849b
+class ComposerStaticInitba43eb7ffde2a583b8e98817a11470e9
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -26,10 +26,6 @@ class ComposerStaticInit34363104ff98fe47424734dd3fef849b
             'Monolog\\' => 8,
             'MatthiasMullie\\PathConverter\\' => 29,
             'MatthiasMullie\\Minify\\' => 22,
-        ),
-        'L' => 
-        array (
-            'League\\Container\\' => 17,
         ),
         'I' => 
         array (
@@ -73,10 +69,6 @@ class ComposerStaticInit34363104ff98fe47424734dd3fef849b
         'MatthiasMullie\\Minify\\' => 
         array (
             0 => __DIR__ . '/..' . '/matthiasmullie/minify/src',
-        ),
-        'League\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/container/src',
         ),
         'Interop\\Container\\' => 
         array (
@@ -155,9 +147,9 @@ class ComposerStaticInit34363104ff98fe47424734dd3fef849b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit34363104ff98fe47424734dd3fef849b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit34363104ff98fe47424734dd3fef849b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit34363104ff98fe47424734dd3fef849b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitba43eb7ffde2a583b8e98817a11470e9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitba43eb7ffde2a583b8e98817a11470e9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitba43eb7ffde2a583b8e98817a11470e9::$classMap;
 
         }, null, ClassLoader::class);
     }

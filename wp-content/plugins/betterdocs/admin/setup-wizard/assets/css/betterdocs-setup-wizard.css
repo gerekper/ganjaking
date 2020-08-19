@@ -1,0 +1,432 @@
+/* general */
+.betterdocs-setup-wizard form input.invalid {
+    background: #ffdddd !important;
+    border-color: #e00f0f !important;
+}
+.betterdocs-setup-wizard .whatwecollecttext {
+    margin: 0;
+    margin-left: 10px;
+    display: none;
+    font-size: 12px;
+}
+/* Tab Nav */
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav li {
+    display: inline-block;
+    background-color: #fff;
+}
+
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav,
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav {
+    margin: 0;
+    padding: 0;
+}
+
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav li { 
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav > li {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 3px;
+    position: relative;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    color: #000;
+}
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav li span {
+    display: block;
+}
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav li:after {
+    position: absolute;
+    left: 100%;
+    width: 100px;
+    height: 10px;
+    background: #fff;
+    content: "";
+    top: 50%;
+    margin-top: -5px;
+    z-index: -1;
+}
+
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav li:last-child:after {
+    display: none;
+}
+
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav li>span.tab-active {
+    margin-right: 10px;
+}
+
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav li.tab-active,
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav li.tab-active,
+.betterdocs-setup-wizard .betterdocs-tabnav-wrap ul.tab-nav li.tab-active:after {
+    background-image: -webkit-linear-gradient(-169deg, #15c7a4 0%, #37de89 100%);
+    color: #fff;
+}
+
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap .tab-content {
+    display: none;
+}
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap .tab-content.active {
+    display: block;
+}
+.betterdocs-setup-wizard .welcome-sub-title {
+    margin-bottom: 40px;
+}
+.betterdocs-settings-wrap .betterdocs-topbar-logo {
+    padding: 10px;
+    margin-top: 30px;
+}
+.betterdocs-settings-wrap .betterdocs-topbar-logo img {
+    width: 180px;
+}
+/* Tab Content */
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 50px 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.05);
+    border-radius: 3px;
+    border: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    min-height: 500px;
+}
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap h2 {
+    text-align: center;
+    color: #06142F;
+    font-size: 24px;
+    letter-spacing: .035em;
+    font-weight: 400;
+    margin-top: 0;
+}
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap .bd-sw-sub-title {
+    color: #666c6f;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap label {
+    color: #323a46;
+    font-size: 14px;
+    font-weight: 500;
+}
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap td img {
+    width: 100%;
+}
+.betterdocs-setup-wizard #betterdocs_finalize_settings td img {
+    max-width: 300px;
+    margin-bottom: 30px;
+}
+/* button */
+.betterdocs-setup-wizard .betterdocs-button-wrap {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.betterdocs-setup-wizard .submit {
+    display: inline-block;
+}
+.betterdocs-setup-wizard input.button.button-primary,
+.betterdocs-setup-wizard .betterdocs-next-option {
+    background-color: #15c7a4;
+    background-image: -webkit-linear-gradient(-169deg, #15c7a4 0%, #37de89 100%);
+    color: #fff;
+    display: inline-block;
+    border: 0;
+    padding: 10px 40px;
+    border-radius: 50px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: auto;
+    height: auto;
+    margin: 30px 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    transition: all .3s;
+}
+.betterdocs-next-option:hover {
+    background-color: #6044EA;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+}
+.betterdocs-setup-wizard .betterdocs-prev-option {
+    background-color: transparent;
+    background-image: none;
+    color: #333;
+    font-weight: 300;
+    text-decoration: underline;
+    font-size: 13px;
+    border: none;
+    box-shadow: none;
+}
+
+/* getting started field */
+.betterdocs_field_gettting_started {
+    width: 400px;
+    height: 50px;
+    padding: 0 20px;
+    border-radius: 35px;
+    border-color: #37de89 !important;
+}
+
+
+.text-center {
+    text-align: center;
+}
+
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap th {
+    width: auto;
+    padding-right: 20px;
+}
+/* Feature List */
+.betterdocs-checkbox {
+    overflow: hidden;
+    display: flex;
+    width: 270px;
+    flex-basis: 330px;
+    flex-flow: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: 0;
+    margin-right: 20px;
+    padding: 15px 30px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 5px 18px 0 rgba(0,4,32,.08);
+    position: relative;
+}
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap input[type="text"] {
+    padding: 10px;
+    border: 1px solid #37de89;
+}
+.betterdocs-checkbox input[type=checkbox] {
+    visibility: hidden;
+    display: none;
+}
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap input[type=checkbox] {
+    padding: 10px !important;
+    border: 1px solid #9b9d9d;
+    background-color: #fff;
+    box-shadow: none !important;
+    border-radius: 2px;
+}
+.betterdocs-setup-wizard .betterdocs-tab-content-wrap input[type=checkbox]:checked::before {
+    color: #73d16f;
+    margin: -9px 0 0 -8px;
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26' fill='%2373d16f'%3E%3Cpath d='M 22.566406 4.730469 L 20.773438 3.511719 C 20.277344 3.175781 19.597656 3.304688 19.265625 3.796875 L 10.476563 16.757813 L 6.4375 12.71875 C 6.015625 12.296875 5.328125 12.296875 4.90625 12.71875 L 3.371094 14.253906 C 2.949219 14.675781 2.949219 15.363281 3.371094 15.789063 L 9.582031 22 C 9.929688 22.347656 10.476563 22.613281 10.96875 22.613281 C 11.460938 22.613281 11.957031 22.304688 12.277344 21.839844 L 22.855469 6.234375 C 23.191406 5.742188 23.0625 5.066406 22.566406 4.730469 Z'%3E%3C/path%3E%3C/svg%3E");
+    width: 16px;
+}
+.betterdocs-checkbox label {
+    width: 2em;
+    height: 1em;
+    position: relative;
+    cursor: pointer;
+    display: block;
+}
+.betterdocs-checkbox label:after, .betterdocs-checkbox label:before {
+    content: "";
+    position: absolute;
+    background: #cbcfd0;
+}
+.betterdocs-checkbox label:before {
+    content: ' ';
+    position: absolute;
+    width: 2em;
+    height: 1em;
+    left: .1em;
+    transition: background .1s .1s ease;
+    border: 1px solid #cbcfd0;
+    border-radius: 50px;
+}
+.betterdocs-checkbox label:after {
+    content: ' ';
+    position: absolute;
+    width: .8em;
+    height: .8em;
+    border-radius: 100%;
+    left: .2em;
+    top: .14em;
+    transition: all .2s ease;
+    box-shadow: 0 0 0 5px #fcfff4 inset;
+    z-index: 2;
+    -webkit-animation: switch-off .3s ease-out;
+    animation: switch-off .3s ease-out;
+}
+.betterdocs-checkbox p.betterdocs-module-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin: .5em;
+    display: flex;
+}
+.betterdocs-checkbox p.betterdocs-module-title>a {
+    border: 1px solid #000;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    text-align: center;
+    line-height: 10px;
+    margin-left: 10px;
+    opacity: .3;
+    transition: opacity .3s ease 0s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.betterdocs-checkbox .betterdocs-pro-label {
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 8px;
+    left: -20px;
+    width: 80px;
+    background-image: linear-gradient(-122deg,#9271ff 0,#5725ff 100%);
+    box-shadow: 0 3px 7px 0 rgba(0,5,41,.1);
+    color: #fff;
+}
+.betterdocs-checkbox .betterdocs-pro-label {
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 8px;
+    left: -20px;
+    width: 80px;
+    background-image: linear-gradient(-122deg,#9271ff 0,#5725ff 100%);
+    box-shadow: 0 3px 7px 0 rgba(0,5,41,.1);
+    color: #fff;
+}
+/* notice */
+.betterdocs-setup-wizard .bottom-notice {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+}
+.betterdocs-setup-wizard .bottom-notice-left {
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+}
+.betterdocs-setup-wizard .bottom-notice-left .btn-collect:focus {
+    outline: none;
+}
+.betterdocs-setup-wizard .bottom-notice-left .btn-collect,
+.betterdocs-setup-wizard .bottom-notice .btn-skip {
+    text-decoration: none;
+    text-decoration: underline;
+    border: 0;
+    padding: 5px 10px;
+    background: #fff;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+.betterdocs-setup-wizard .bottom-notice .btn-skip:hover {
+    color: #333;
+    background: #fff;
+}
+
+/* button */
+.btn-setup-wizard {
+    display: inline-block;
+    background: #fff;
+    color: #37de89;
+    border: 1px solid #37de89;
+    padding: 10px 25px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: auto;
+    height: auto;
+    margin: 20px 0px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.btn-setup-wizard:focus,
+.btn-setup-wizard:hover {
+    color: #15c7a4;
+    border-color: #15c7a4;
+}
+.btn-setup-wizard:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* setup wizard feature */
+ul.betterdocs-setup-feature-list li {
+    display: flex;
+    margin-bottom: 50px;
+}
+ul.betterdocs-setup-feature-list li .bd-media-left {
+    height: 70px;
+    width: 70px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1;
+    border-radius: 50%;
+    background-color: rgba(55, 222, 137, .15);
+    display: inline-table;
+    margin-right: 20px;
+}
+ul.betterdocs-setup-feature-list li .bd-media-left span svg {
+    margin-top: 19px;
+    width: 32px;
+    fill: #37de89;
+}
+ul.betterdocs-setup-feature-list li .bd-media-body {
+    text-align: left;
+    display: inline-block;
+}
+ul.betterdocs-setup-feature-list li .bd-media-body h4 {
+    margin: 0 0 10px;
+}
+ul.betterdocs-setup-feature-list li .bd-media-body h4 a {
+    color: #21262c;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all .3s ease;
+}
+ul.betterdocs-setup-feature-list li .bd-media-body h4 a:hover {
+    color: #15c7a4;
+    text-decoration: underline;
+    transition: all .3s ease;
+}
+#betterdocs_migration_settings .form-table th {
+    text-align: right;
+    width: 50%;
+}
+#betterdocs_migration_settings .form-table td {
+    width: 50%;
+}

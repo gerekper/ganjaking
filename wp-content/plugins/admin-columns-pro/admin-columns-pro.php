@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns Pro
-Version: 5.2.3
+Version: 5.3
 Description: Customize columns on the administration screens for post(types), users and other content. Filter and sort content, and edit posts directly from the posts overview. All via an intuitive, easy-to-use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -20,7 +20,7 @@ if ( ! is_admin() ) {
 }
 
 define( 'ACP_FILE', __FILE__ );
-define( 'ACP_VERSION', '5.2.3' );
+define( 'ACP_VERSION', '5.3' );
 
 /**
  * Deactivate Admin Columns
@@ -49,7 +49,13 @@ add_action( 'after_setup_theme', function () {
 
 	require_once __DIR__ . '/api.php';
 
-	AC\Autoloader::instance()->register_prefix( 'ACP', __DIR__ . '/classes' );
+	$class_map = __DIR__ . '/config/autoload-classmap.php';
+
+	if ( is_readable( $class_map ) ) {
+		AC\Autoloader::instance()->register_class_map( require $class_map );
+	} else {
+		AC\Autoloader::instance()->register_prefix( 'ACP', __DIR__ . '/classes' );
+	}
 
 	// Backward compatible underscore loader
 	AC\Autoloader\Underscore::instance()

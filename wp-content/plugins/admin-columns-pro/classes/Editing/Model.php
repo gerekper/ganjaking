@@ -132,7 +132,7 @@ abstract class Model extends ACP\Model {
 		 *
 		 * @param mixed     $value Value send from inline edit ajax callback
 		 * @param AC\Column $column
-		 * @param int       $id    ID
+		 * @param int       $id
 		 *
 		 * @since 4.0
 		 */

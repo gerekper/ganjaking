@@ -92,7 +92,6 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 */
 	public function send_data_to_assets() {
 		$analysis_seo = new WPSEO_Metabox_Analysis_SEO();
-		$locale       = get_locale();
 		$current_user = wp_get_current_user();
 
 		$data = [
@@ -100,11 +99,11 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'seoAnalysisEnabled' => $analysis_seo->is_enabled(),
 			'licensedURL'        => WPSEO_Utils::get_home_url(),
 			'languageBeacon'     => [
-				'show'           => in_array( $locale, [ 'fr_FR', 'fr_CA', 'fr_BE', 'ru_RU', 'it_IT', 'id_ID', 'pt_PT', 'pt_BR', 'pt_AO' ], true ),
 				'id'             => '1060600e-401f-4e6a-88b2-47429e942e74',
 				'name'           => trim( $current_user->user_firstname . ' ' . $current_user->user_lastname ),
 				'email'          => $current_user->user_email,
 			],
+			'settingsPageUrl'    => admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
 		];
 
 		if ( WPSEO_Metabox::is_post_edit( $this->get_current_page() ) ) {

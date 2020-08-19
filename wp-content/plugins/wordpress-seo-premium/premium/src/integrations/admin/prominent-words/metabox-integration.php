@@ -67,10 +67,10 @@ class Metabox_Integration implements Integration_Interface {
 	 * Saves the value of the _yoast_wpseo_words_for_linking hidden field to the prominent_words table, not postmeta.
 	 * Added to the 'update_post_metadata' filter.
 	 *
-	 * @param null    $check      Whether to allow updating metadata for the given type.
-	 * @param integer $object_id  The post id.
-	 * @param string  $meta_key   The key of the metadata.
-	 * @param mixed   $meta_value The value of the metadata.
+	 * @param false|null $check      Whether to allow updating metadata for the given type.
+	 * @param int        $object_id  The post id.
+	 * @param string     $meta_key   The key of the metadata.
+	 * @param mixed      $meta_value The value of the metadata.
 	 *
 	 * @return false|null Non-null value if meta data should not be updated.
 	 *                    Null if the metadata should be updated as normal.
@@ -100,13 +100,15 @@ class Metabox_Integration implements Integration_Interface {
 	 * @param int $term_id The term id to save the words for.
 	 */
 	public function save_prominent_words_for_term( $term_id ) {
-		if ( ! isset( $_POST['wpseo_words_for_linking'] ) ) { // phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification The nonce is already validated.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- The nonce is already validated.
+		if ( ! isset( $_POST['wpseo_words_for_linking'] ) ) {
 			return;
 		}
 
 		$words_for_linking = [];
-		if ( ! empty( $_POST['wpseo_words_for_linking'] ) ) {  // phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification The nonce is already validated.
-			$prominent_words   = sanitize_text_field( wp_unslash( $_POST['wpseo_words_for_linking'] ) ); // phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification The nonce is already validated.
+		if ( ! empty( $_POST['wpseo_words_for_linking'] ) ) {
+			$prominent_words = \sanitize_text_field( \wp_unslash( $_POST['wpseo_words_for_linking'] ) );
+			// phpcs:enable
 			$words_for_linking = \json_decode( $prominent_words, true );
 		}
 

@@ -1,0 +1,12 @@
+export TEST_SITE_DB_HOST=localhost
+export TEST_SITE_DB_NAME=local
+export TEST_SITE_DB_USER=root
+export TEST_SITE_DB_PASSWORD=root
+export TEST_SITE_TABLE_PREFIX=wp_
+export TEST_SITE_ADMIN_USERNAME=admin
+export TEST_SITE_ADMIN_PASSWORD=admin
+export TEST_SITE_WP_ADMIN_PATH=/wp-admin
+export TEST_SITE_DOMAIN=gwiz.local
+export TEST_CHROME_HOST=127.0.0.1
+export TEST_SITE_WP_PATH="/Users/your-username/Local Lightning Sites/development/app/public"
+export GF_KEY=

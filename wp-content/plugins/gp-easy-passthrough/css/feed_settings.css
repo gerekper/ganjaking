@@ -1,0 +1,24 @@
+#gform-settings table.gforms_form_settings th {
+
+	font-weight: 500;
+	line-height: 25px;
+
+}
+
+#gform-settings table.gforms_form_settings th select {
+
+	font-weight: normal;
+
+}
+
+#gform-settings table.settings-field-map-table td {
+
+	vertical-align: top;
+
+}
+
+.wp-admin select {
+
+	vertical-align: inherit;
+
+}

@@ -1,0 +1,590 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.betterdocs-cross-domain-code {
+	width: 100%;
+	background-color: #2D3346;
+	padding: 5px 20px;
+	max-width: 650px;
+	overflow-x: scroll;
+	border-radius: 3px;
+	color: #fffdfe;
+    position: relative;
+    transition: all 0.3s ease 0s;
+}
+.betterdocs-cross-domain-code pre{
+    background-color: #2D3346;
+    border: none;
+    padding: 5px;
+    color: #fffdfe;
+}
+.betterdocs-cross-domain-code pre xmp {
+    margin: 5px 0px;
+}
+
+.betterdocs-cross-domain-code .betterdocs-copy-button {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    visibility: hidden;
+}
+.betterdocs-cross-domain-code .betterdocs-copy-button:hover {
+    color: inherit;
+}
+.betterdocs-cross-domain-code:hover .betterdocs-copy-button{
+    visibility: visible;
+}
+
+/* License activation */
+
+.betterdocs-pro-license-status {
+    color: #008000;
+    font-style: italic;
+}
+
+.betterdocs-license-container {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.betterdocs-license-container .betterdocs-license-input {
+    flex: 1 1 auto;
+}
+
+.betterdocs-license-container .betterdocs-license-deactivation {
+    flex: 0 0 150px;
+}
+
+.betterdocs-license-container .betterdocs-license-input #betterdocs-pro-license-key {
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    padding: 10px 10px 10px 35px;
+    font-size: 19px;
+    color: #666;
+    border: 1px solid #1ecd9d;
+    border-right: 0;
+    box-shadow: none;
+    line-height: 1;
+}
+
+.betterdocs-license-container .betterdocs-license-input #betterdocs-pro-license-key:disabled {
+    border-color: rgba(20, 216, 161, .25);
+    color: rgba(20, 216, 161, .5);
+    font-size: 17px;
+}
+
+.betterdocs-license-container .betterdocs-license-buttons #submit {
+    height: 50px;
+    margin: 0;
+    line-height: 1;
+    border: none;
+    border-radius: 0;
+    background-image: -webkit-linear-gradient(-169deg, #15c7a4 0%, #37de89 100%);
+    text-shadow: none;
+    box-shadow: none;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all .3s;
+}
+
+.betterdocs-license-container .betterdocs-license-buttons #submit.betterdocs-license-activation-btn:hover {
+    background-image: -webkit-linear-gradient(-169deg, #31da8d 0%, #1ecd9d 100%);
+}
+
+.betterdocs-license-container .betterdocs-license-buttons #submit.betterdocs-license-deactivation-btn {
+    background-color: rgba(186, 110, 120, .5);
+    background-image: none;
+    font-size: 11px;
+}
+
+.betterdocs-license-container .betterdocs-license-buttons #submit.betterdocs-license-deactivation-btn:hover {
+    background-color: rgba(186, 110, 120, .75);
+}
+
+.betterdocs-license-instruction {
+    padding: 10px;
+}
+
+.betterdocs-license-icon {
+    position: absolute;
+}
+
+/* Lock screen */
+
+.betterdocs-lockscreen{
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 15px;
+}
+.betterdocs-lockscreen-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.betterdocs-lockscreen svg {
+    width: 60px;
+    margin: 0px auto;
+    padding: 10px;
+}
+.betterdocs-lockscreen svg#arrow-right {
+    width: 36px;
+}
+.betterdocs-validation-title {
+    margin: 15px auto;
+    font-size: 24px;
+    text-align: center;
+}
+.validated-feature-list {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 30px 0;
+}
+
+.validated-feature-list-item {
+    flex: 1 1 48%;
+    display: flex;
+    align-items: center;
+}
+
+.validated-feature-list-icon {
+    width: 32px;
+}
+
+.validated-feature-list-icon svg {
+    width: 100%;
+}
+
+.validated-feature-list-content h4 {
+    margin: 8px;
+    padding: 0;
+    font-size: 15px;
+}
+
+.validated-feature-list-content {
+    padding: 5px;
+}
+
+.validated-feature-list-content p {
+    margin: 8px;
+    padding: 0;
+    font-size: 13px;
+}
+.betterdocs-drag-drop-cat-tax-placeholder { 
+    min-height: 57px;
+    height: 100%;
+}
+.taxonomy-doc_category #the-list tr:hover {
+    cursor: -webkit-grab; 
+    cursor: -moz-grab;
+}
+
+.taxonomy-doc_category #the-list tr.ui-sortable-helper:hover {
+    display: table;
+    cursor: -webkit-grabbing; 
+    cursor: -moz-grabbing;
+}
+
+.taxonomy-doc_category #the-list tr.no-items:hover {
+    cursor: default;
+}
+
+.betterdocs-cat-tax-preloader {
+    margin: 0 0 0 8px;
+}
+
+.betterdocs-listing-content {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+body.toplevel_page_betterdocs-admin {
+    background-color: #F5F6FB;
+}
+.betterdocs-single-listing {
+    padding: 0 15px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    background-color: #E2E5ED;
+    background-clip: content-box;
+    width: 25%;
+    min-width: 350px;
+    text-align: center;
+}
+
+.betterdocs-single-listing > a.betterdocs-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 25px;
+}
+
+.betterdocs-single-listing > div {
+    padding: 15px 10px;
+    text-align: initial;
+}
+.betterdocs-single-listing-title {
+    color: #474e59;
+    font-size: 18px;
+    margin: 15px 0px 25px;
+    text-align: center;
+    font-weight: 600;
+}
+.betterdocs-single-listing li.betterdocs-no-docs {
+    pointer-events: none;
+}
+.betterdocs-single-listing .betterdocs-no-docs svg {
+    width: 70%;
+    margin: 50px auto;
+    display: block;
+    max-width: 300px;
+}
+.betterdocs-single-listing-inner ul {
+    padding: 11px;
+    margin: 0;
+    border-radius: 3px;
+}
+.betterdocs-single-listing li:not( .betterdocs-no-docs ) {
+    background-color: #D6D9E3;
+    border: 1px dashed #AAB3CA;
+    margin: 0 0 10px;
+    cursor: grab;
+}
+.betterdocs-single-listing li .betterdocs-single-list-content {
+    background-color: #fff;
+    padding: 10px 5px;
+    margin: -1px;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid #36d692;
+    box-shadow: 0 1px 3px rgba(9,30,66,.15);
+    transition: all 0.3s ease 0s;
+}
+.betterdocs-single-listing li .betterdocs-single-list-content:hover {
+    box-shadow: 0px 19px 18px 0px rgba(0, 9, 78, 0.12);
+}
+.betterdocs-single-listing li .betterdocs-single-list-content > a {
+    width: 70%;
+    display: inline-block;
+    flex: 1;
+}
+
+.betterdocs-single-listing li .betterdocs-single-list-content > a .betterdocs-draft {
+    color: #f54;
+}
+
+.betterdocs-single-listing li a {
+    text-decoration: none;
+    margin-left: 5px;
+    color: #626b77;
+    font-size: 13px;
+}
+.betterdocs-single-listing li .betterdocs-single-list-content > span:not( .betterdocs-article-title ) {
+    display: flex;
+    align-items: center;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.betterdocs-single-listing li .betterdocs-single-list-content > span.betterdocs-article-title {
+    margin-left: 5px;
+    display: inline-block;
+    flex: 1;
+}
+.betterdocs-single-listing li .betterdocs-single-list-content > span > a {
+    display: inline-block;
+    font-size: 15px;
+}
+
+.betterdocs-single-listing li .betterdocs-single-list-content > span > a > span {
+    font-size: 15px;
+    display: inline;
+}
+
+.betterdocs-single-listing li .betterdocs-single-list-content > span > a span:hover {
+    color: #1bd083;
+}
+.betterdocs-single-listing li .betterdocs-single-list-content > span > a > svg {
+    width: 15px;
+    fill: #0073aa;
+}
+
+.betterdocs-header-button {
+    margin-left: 20px;
+}
+.betterdocs-button {
+    background-color: #15c7a4;
+    color: rgb(255, 255, 255);
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+    border: none;
+    padding: 13px 25px;
+    border-radius: 3px;
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+}
+
+.betterdocs-button-primary {
+    background-image: -webkit-linear-gradient(-169deg, #15c7a4 0%, #37de89 100%);
+    color: rgb(255, 255, 255);
+    border: 1px solid transparent;
+}
+.betterdocs-button-primary:hover {
+    background-image: -webkit-linear-gradient(-169deg, #31da8d 0%, #1ecd9d 100%);
+    color: rgb(255, 255, 255);
+}
+.betterdocs-button-secondary {
+    background-color: #fff;
+    background-image: none;
+    color: #15c7a4;
+    border: 1px solid #15c7a4;
+}
+.betterdocs-button-secondary:hover {
+    background-color: #15c7a4;
+    background-image: -webkit-linear-gradient(-169deg, #15c7a4 0%, #37de89 100%);
+    color: rgb(255, 255, 255);
+}
+.betterdocs-header-button .betterdocs-button {
+    padding: 10px 20px;
+    margin-right: 8px;
+    font-size: 12px;
+    box-shadow: none;
+}
+.betterdocs-header-button #dashboard-select-kb {
+    border: 1px solid #15c7a4;
+    padding: 5px 24px 5px 8px;
+    font-size: 12px;
+}
+
+/* Dark Mode */
+
+body.toplevel_page_betterdocs-admin {
+  -webkit-transition: background-color 150ms ease-out !important;
+  transition: background-color 150ms ease-out !important;
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode {
+    background-color: #36405a;
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode ul#adminmenu a.wp-has-current-submenu::after{
+    border-right-color: #36405a;
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode #wpfooter {
+    color: #f9fafa;
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode .betterdocs-single-listing {
+    background-color: #1f283d;
+    background-image: -webkit-linear-gradient(-169deg, #20283e 0%, #29344e 100%);
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode .betterdocs-single-listing-title {
+    color: #fdfdfe;
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode .betterdocs-single-listing li:not(.betterdocs-no-docs) {
+    background-color: #36405a;
+    border: 1px dashed #AAB3CA;
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode .betterdocs-single-listing li .betterdocs-single-list-content {
+    background-color: #36405a;
+    box-shadow: 0 1px 3px rgba(16, 22, 37, .5);
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode .betterdocs-single-listing li a {
+    color: #c6c8d0;
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode .betterdocs-single-listing li a:hover {
+    color: #fff;
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode .betterdocs-settings-header {
+    background: #2c3650;
+    border: none;
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode .betterdocs-single-listing-title {
+    color: #d7d9dd;
+}
+body.toplevel_page_betterdocs-admin.betterdocs-dark-mode .betterdocs-settings-header .betterdocs-header-full .title {
+    color: #f9fafa;
+}
+
+.betterdocs-switch-mode {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0,0,0, .15);
+    margin-top: 1px;
+    padding: 5px;
+    border-radius: 40px;
+    position: absolute;
+    right: 40px;
+}
+.betterdocs-switch-mode label {
+    display: flex;
+    align-items: center;
+}
+.betterdocs-dark-mode .betterdocs-switch-mode {
+    border-color: rgba(156, 174, 192, 0.27);
+}
+.betterdocs-dark-mode .betterdocs-header-button .betterdocs-button-secondary {
+    background-color: #4F6593;
+    color: #fff;
+    border: 1px solid transparent;
+}
+#dayIcon {
+  position: relative;
+  width: 24px;
+  height: 18px;
+  margin: 0 7px;
+  fill: rgba(156, 174, 192, 0.27);
+}
+
+#nightIcon {
+    position: relative;
+    width: 24px;
+    height: 18px;
+    margin: 0 7px;
+    fill: rgba(156, 174, 192, 0.27);
+}
+body:not(.betterdocs-dark-mode) #dayIcon {
+    fill: #15c7a4;
+}
+body.betterdocs-dark-mode #nightIcon {
+    fill: #15c7a4;
+}
+#dayIcon, #nightIcon {
+  cursor: pointer;
+}
+
+input[type="checkbox"].betterdocs-mode-toggle {
+  display: none;
+}
+
+.betterdocs-mode-toggle, .betterdocs-mode-toggle:after, .betterdocs-mode-toggle:before, .betterdocs-mode-toggle *, .betterdocs-mode-toggle *:after, .betterdocs-mode-toggle *:before, .betterdocs-mode-toggle + .betterdocs-mode-toggle-button {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.betterdocs-mode-toggle::-moz-selection, .betterdocs-mode-toggle:after::-moz-selection, .betterdocs-mode-toggle:before::-moz-selection, .betterdocs-mode-toggle *::-moz-selection, .betterdocs-mode-toggle *:after::-moz-selection, .betterdocs-mode-toggle *:before::-moz-selection, .betterdocs-mode-toggle + .betterdocs-mode-toggle-button::-moz-selection {
+  background: none;
+}
+
+.betterdocs-mode-toggle::selection, .betterdocs-mode-toggle:after::selection, .betterdocs-mode-toggle:before::selection, .betterdocs-mode-toggle *::selection, .betterdocs-mode-toggle *:after::selection, .betterdocs-mode-toggle *:before::selection, .betterdocs-mode-toggle + .betterdocs-mode-toggle-button::selection {
+  background: none;
+}
+
+.betterdocs-mode-toggle + .betterdocs-mode-toggle-button {
+  outline: 0;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid #333;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.betterdocs-mode-toggle + .betterdocs-mode-toggle-button:after, .betterdocs-mode-toggle + .betterdocs-mode-toggle-button:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+
+.betterdocs-mode-toggle + .betterdocs-mode-toggle-button:after {
+  left: 0;
+}
+
+.betterdocs-mode-toggle + .betterdocs-mode-toggle-button:before {
+  display: none;
+}
+
+.betterdocs-mode-toggle:checked + .betterdocs-mode-toggle-button:after {
+  left: 50%;
+}
+
+.betterdocs-mode-toggle + .betterdocs-mode-toggle-button {
+  padding: 2px;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  border: 2px solid rgba(156, 174, 192, 0.27);
+  border-radius: 2em;
+}
+
+.betterdocs-mode-toggle + .betterdocs-mode-toggle-button:after {
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  background: rgba(156, 174, 192, 0.27);
+  content: "";
+  border-radius: 1em;
+}
+
+.betterdocs-mode-toggle:checked + .betterdocs-mode-toggle-button:after {
+  left: 50%;
+}
+.betterdocs-add-new-link {
+    color: #707070;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    outline: none;
+    box-shadow: none;
+    transition: all .3s;
+}
+.betterdocs-add-new-link:hover, .betterdocs-add-new-link:focus, .betterdocs-add-new-link:active {
+    outline: none;
+    box-shadow: none;
+}
+.betterdocs-add-new-link .add-new-icon {
+    background-color: #fff;
+    height: 48px;
+    width: 48px;
+    line-height: 48px;
+    border-radius: 50px;
+    margin: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease 0s;
+}
+.betterdocs-add-new-link .add-new-text {
+    display: none;
+}
+.betterdocs-add-new-link:hover .add-new-icon {
+    background-image: -webkit-linear-gradient(-169deg, #15c7a4 0%, #37de89 100%);
+}
+
+.betterdocs-add-new-link:hover .add-new-icon > svg{
+    fill: #fff;
+}
+
+@media only screen and (max-width: 1023px) {
+.betterdocs-single-listing {
+    flex: 1 1 33%;
+    width: auto;
+}
+}
+
+@media only screen and (max-width: 767px) {
+.betterdocs-settings-header .betterdocs-header-full {
+    flex-wrap: wrap;
+}
+.betterdocs-header-button .betterdocs-button {
+    display: block;
+    margin-bottom: 10px;
+}
+.betterdocs-single-listing {
+    width: 100%;
+    min-width: auto;
+    max-width: 100%;
+}
+}

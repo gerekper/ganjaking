@@ -1,0 +1,106 @@
+# Copyright (C) 2018 GP Conditional Pricing
+# This file is distributed under the same license as the GP Conditional Pricing package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Conditional Pricing\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../class-gp-conditional-pricing.php:50, ../class-gp-conditional-pricing.php:90
+msgid "Conditional Pricing"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:252
+msgid "This product costs <strong>{0}</strong> if <strong>{1}</strong> of the following match:"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:253
+msgid "This product costs %s if "
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:254, ../class-gp-conditional-pricing.php:1011
+msgid "Add New Pricing Level"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:255
+msgid "Select a Product"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:256, ../class-gp-conditional-pricing.php:1917
+msgid "Quantity"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:257
+msgid "Enter Quantity"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:258, ../class-gp-conditional-pricing.php:995
+msgid "or"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:259, ../class-gp-conditional-pricing.php:995
+msgid "and"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:971
+msgid "Save Conditional Pricing"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:973
+msgid "Import Pricing Levels"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1017
+msgid "You have not added any pricing levels."
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1018
+msgid "Select a product from the drop down above to add a pricing level for that product."
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1027
+msgid "Done"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1028
+msgid "Delete"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1047
+msgid "Pricing Rules Importer"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1073, ../class-gp-conditional-pricing.php:1078
+msgid "Import File"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1075
+msgid "Select a CSV file to import. Use this %ssample.csv%s file as an starting point for configuring your own import files."
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1112
+msgid "Import File: Field Mappings"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1114
+msgid "Specify which form fields map to your import products, columns, and rows."
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1459
+msgid "Conditional pricing saved successfully!"
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1461
+msgid "There was an error saving your conditional pricing."
+msgstr ""
+
+#: ../class-gp-conditional-pricing.php:1616
+msgid "There was an error calculating the price for this field."
+msgstr ""

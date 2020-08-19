@@ -61,9 +61,9 @@ class Prominent_Words_Repository {
 	/**
 	 * Finds all indexable ids which have prominent words with stems from the list.
 	 *
-	 * @param array $stems  The stems of prominent words to search for.
-	 * @param int   $limit  The number of indexable ids to return in 1 call.
-	 * @param int   $page   From which page (batch) to begin.
+	 * @param array $stems The stems of prominent words to search for.
+	 * @param int   $limit The number of indexable ids to return in 1 call.
+	 * @param int   $page  From which page (batch) to begin.
 	 *
 	 * @return array The list of indexable ids.
 	 */
@@ -81,8 +81,8 @@ class Prominent_Words_Repository {
 			->offset( $offset )
 			->find_many();
 
-		return array_map(
-			function( $object ) {
+		return \array_map(
+			static function( $object ) {
 				return $object->indexable_id;
 			},
 			$indexable_ids_in_prominent_words
@@ -113,14 +113,14 @@ class Prominent_Words_Repository {
 				->find_many();
 
 		// We want to change the raw document frequencies into a map mapping stems to document frequency.
-		$stems = array_map(
-			function ( $item ) {
+		$stems = \array_map(
+			static function ( $item ) {
 				return $item->stem;
 			},
 			$raw_doc_frequencies
 		);
 
-		$doc_frequencies = array_fill_keys( $stems, 0 );
+		$doc_frequencies = \array_fill_keys( $stems, 0 );
 		foreach ( $raw_doc_frequencies as $raw_doc_frequency ) {
 			$doc_frequencies[ $raw_doc_frequency->stem ] = (int) $raw_doc_frequency->document_frequency;
 		}

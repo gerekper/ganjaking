@@ -49,11 +49,11 @@ class Taxonomy extends AbstractModel {
 					INNER JOIN {$wpdb->term_relationships} acsort_tr
 						ON acsort_tt.term_taxonomy_id = acsort_tr.term_taxonomy_id
 					INNER JOIN {$wpdb->terms} AS acsort_t
-						ON acsort_t.term_id = acsort_tt.term_id	
-					WHERE taxonomy = '{$this->taxonomy}'	
+						ON acsort_t.term_id = acsort_tt.term_id
+					WHERE taxonomy = '{$this->taxonomy}'
 					ORDER BY acsort_t.slug ASC
 				) as acsort_main
-				GROUP BY acsort_main.object_id	
+				GROUP BY acsort_main.object_id
             ) as acsort_terms ON {$wpdb->posts}.ID = acsort_terms.object_id
         ";
 		$clauses['orderby'] = "acsort_terms.slug " . $query->query_vars['order'];

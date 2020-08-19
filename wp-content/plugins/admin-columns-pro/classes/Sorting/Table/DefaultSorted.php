@@ -36,7 +36,7 @@ class DefaultSorted {
 		}
 
 		/**
-		 * @param array $args [ string $column_name, bool $descending ]
+		 * @param array $args [ 0 => (string) $column_name, 1 => (bool) $descending ]
 		 * @param ListScreen
 		 */
 		$args = apply_filters( 'acp/sorting/default', $args, $this->list_screen );

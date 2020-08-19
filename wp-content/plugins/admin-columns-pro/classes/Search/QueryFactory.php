@@ -3,6 +3,7 @@
 namespace ACP\Search;
 
 use AC\MetaType;
+use LogicException;
 
 class QueryFactory {
 
@@ -10,7 +11,7 @@ class QueryFactory {
 	 * @param string $meta_type
 	 * @param array  $bindings
 	 *
-	 * @return Query|false
+	 * @return Query
 	 */
 	public static function create( $meta_type, array $bindings ) {
 		switch ( $meta_type ) {
@@ -27,7 +28,7 @@ class QueryFactory {
 				return new Query\Term( $bindings );
 		}
 
-		return false;
+		throw new LogicException( 'Unsupported query meta type.' );
 	}
 
 }

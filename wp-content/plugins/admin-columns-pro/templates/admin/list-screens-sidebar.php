@@ -98,6 +98,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						}
 
 						?>
+						<small class="layouts__item__id"><?= sprintf( '%s: %s', __( 'ID', 'codepress-admin-columns' ), $list_screen->get_layout_id() ); ?></small>
 					</div>
 					<div class="layouts__item__actions">
 						<?php if ( ! $list_screen->is_read_only() ): ?>

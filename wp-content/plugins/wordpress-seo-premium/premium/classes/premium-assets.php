@@ -141,6 +141,22 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				],
 			],
 			[
+				'name'         => 'wp-seo-premium-blocks',
+				'path'         => 'assets/js/dist/',
+				'filename'     => 'blocks-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'dependencies' => [
+					'wp-blocks',
+					'wp-block-editor',
+					'wp-components',
+					'wp-data',
+					'wp-dom-ready',
+					'wp-element',
+					'wp-i18n',
+					'yoast-seo-premium-metabox',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'components',
+				],
+			],
+			[
 				'name'         => 'yoast-premium-prominent-words-indexation',
 				'path'         => 'assets/js/dist/',
 				'filename'     => 'yoast-premium-prominent-words-indexation-' . $version . WPSEO_CSSJS_SUFFIX . '.js',

@@ -4344,7 +4344,7 @@ var BulkEditModal = /*#__PURE__*/function (_AdminColumns$Modals$) {
   }]);
 
   return BulkEditModal;
-}(AdminColumns.Modals._abstract.modal);
+}(AdminColumns.Modals.defaults.modal);
 
 AdminColumns.Editing.BulkEdit.Modal = BulkEditModal;
 
@@ -6172,12 +6172,12 @@ var InlineEdit = /*#__PURE__*/function () {
       Object.keys(columns).forEach(function (column_name) {
         var cell = _this2.Table.Cells.get(id, column_name);
 
-        cell.el = _this2.Table.getRowCellByName(row, column_name);
+        if (cell) {
+          cell.el = _this2.Table.getRowCellByName(row, column_name);
 
-        _this2.Table._addColumnCellMethods(cell);
-
-        if (cell.IEdit) {
-          cell.IEdit.afterSetValue();
+          if (cell.IEdit) {
+            cell.IEdit.afterSetValue();
+          }
         }
       });
     }

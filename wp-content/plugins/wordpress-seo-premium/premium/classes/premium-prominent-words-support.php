@@ -106,7 +106,7 @@ class WPSEO_Premium_Prominent_Words_Support {
 
 		$prominent_words_taxonomies = array_filter(
 			$prominent_words_taxonomies,
-			function( $taxonomy ) {
+			static function( $taxonomy ) {
 				return (bool) WPSEO_Options::get( 'display-metabox-tax-' . $taxonomy, true );
 			}
 		);

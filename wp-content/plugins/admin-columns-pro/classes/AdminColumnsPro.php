@@ -9,8 +9,10 @@ use AC\ListScreenTypes;
 use AC\Request;
 use ACP\Admin;
 use ACP\Migrate;
+use ACP\Plugin;
 use ACP\Plugin\NetworkUpdate;
 use ACP\Plugin\Updater;
+use ACP\Search;
 use ACP\Settings;
 use ACP\Storage\ListScreen\DecoderFactory;
 use ACP\Storage\ListScreen\Encoder;
@@ -138,6 +140,8 @@ final class AdminColumnsPro extends AC\Plugin {
 				$service->register();
 			}
 		}
+
+		$this->set_installer( new Plugin\Installer() );
 
 		add_action( 'init', [ $this, 'install' ], 1000 );
 		add_action( 'init', [ $this, 'install_network' ], 1000 );

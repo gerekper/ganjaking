@@ -2,10 +2,11 @@
 
 namespace Yoast\WP\SEO\Actions;
 
+use WP_Query;
 use WPSEO_Premium_Prominent_Words_Support;
+use Yoast\WP\SEO\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
-use Yoast\WP\SEO\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Repositories\Prominent_Words_Repository;
 
 /**
@@ -86,7 +87,7 @@ class Link_Suggestions_Action {
 		 */
 		$suggestions_scores = $this->retrieve_suggested_indexable_ids( $words_from_request, $limit, 100, $current_indexable_id );
 
-		$indexable_ids = array_keys( $suggestions_scores );
+		$indexable_ids = \array_keys( $suggestions_scores );
 
 		// Return the empty list if no suggestions have been found.
 		if ( empty( $indexable_ids ) ) {
@@ -108,11 +109,11 @@ class Link_Suggestions_Action {
 	 * @return array An array mapping post ID to title.
 	 */
 	protected function retrieve_posts( $post_ids ) {
-		$query = new \WP_Query(
+		$query = new WP_Query(
 			[
 				'post_type'      => $this->prominent_words_support->get_supported_post_types(),
 				'post__in'       => $post_ids,
-				'posts_per_page' => count( $post_ids ),
+				'posts_per_page' => \count( $post_ids ),
 			]
 		);
 		$posts = $query->get_posts();
@@ -142,7 +143,7 @@ class Link_Suggestions_Action {
 				continue;
 			}
 
-			$term = get_term_by( 'term_id', $indexable->object_id, $indexable->object_sub_type );
+			$term = \get_term_by( 'term_id', $indexable->object_id, $indexable->object_sub_type );
 
 			$data[ $indexable->object_id ] = [
 				'title' => $term->name,
@@ -163,7 +164,7 @@ class Link_Suggestions_Action {
 		$object_ids = [];
 
 		foreach ( $indexables as $indexable ) {
-			if ( array_key_exists( $indexable->object_type, $object_ids ) ) {
+			if ( \array_key_exists( $indexable->object_type, $object_ids ) ) {
 				$object_ids[ $indexable->object_type ][] = $indexable->object_id;
 			}
 			else {
@@ -177,11 +178,11 @@ class Link_Suggestions_Action {
 		];
 
 		// At the moment we only support internal linking for posts, so we only need the post titles.
-		if ( array_key_exists( 'post', $object_ids ) ) {
+		if ( \array_key_exists( 'post', $object_ids ) ) {
 			$objects['post'] = $this->retrieve_posts( $object_ids['post'] );
 		}
 
-		if ( array_key_exists( 'term', $object_ids ) ) {
+		if ( \array_key_exists( 'term', $object_ids ) ) {
 			$objects['term'] = $this->retrieve_terms( $indexables );
 		}
 
@@ -189,7 +190,8 @@ class Link_Suggestions_Action {
 	}
 
 	/**
-	 * Computes, for a given indexable, its raw matching score on the request words to match. In general, higher scores mean better matches.
+	 * Computes, for a given indexable, its raw matching score on the request words to match.
+	 * In general, higher scores mean better matches.
 	 *
 	 * @param array $request_data   The words to match, as an array containing stems, weights and dfs.
 	 * @param array $candidate_data The words to match against, as an array of `Prominent_Words` objects.
@@ -200,7 +202,7 @@ class Link_Suggestions_Action {
 		$raw_score = 0;
 
 		foreach ( $candidate_data as $stem => $candidate_word_data ) {
-			if ( ! array_key_exists( $stem, $request_data ) ) {
+			if ( ! \array_key_exists( $stem, $request_data ) ) {
 				continue;
 			}
 
@@ -228,7 +230,7 @@ class Link_Suggestions_Action {
 	 * @return array An array mapping stems, weights and dfs.
 	 */
 	protected function compose_request_data( $request_words ) {
-		$request_doc_frequencies = $this->prominent_words_repository->count_document_frequencies( array_keys( $request_words ) );
+		$request_doc_frequencies = $this->prominent_words_repository->count_document_frequencies( \array_keys( $request_words ) );
 		$combined_request_data   = [];
 		foreach ( $request_words as $stem => $weight ) {
 			if ( ! isset( $request_doc_frequencies[ $stem ] ) ) {
@@ -245,8 +247,8 @@ class Link_Suggestions_Action {
 	}
 
 	/**
-	 * Transforms the array of prominent words into an array of objects mapping indexable_id to an array of prominent words
-	 * associated with this indexable_id, with each prominent word's stem as a key.
+	 * Transforms the array of prominent words into an array of objects mapping indexable_id to an array
+	 * of prominent words associated with this indexable_id, with each prominent word's stem as a key.
 	 *
 	 * @param array $words The array of prominent words, with indexable_id as one of the keys.
 	 *
@@ -284,13 +286,15 @@ class Link_Suggestions_Action {
 	/**
 	 * In the prominent words repository, find a $batch_size of all ProminentWord-IndexableID pairs where
 	 * prominent words match the set of stems we are interested in.
-	 * Request prominent words for indexables in the batch (including the iDF of all words) to calculate their vector length later.
+	 * Request prominent words for indexables in the batch (including the iDF of all words) to calculate
+	 * their vector length later.
 	 *
 	 * @param array $stems      The stems in the request.
 	 * @param int   $batch_size How many indexables to request in one query.
 	 * @param int   $page       The start of the current batch (in pages).
 	 *
-	 * @return array An array of ProminentWords objects, containing their stem, weight, indexable id, and document frequency.
+	 * @return array An array of ProminentWords objects, containing their stem, weight, indexable id,
+	 *               and document frequency.
 	 */
 	protected function get_candidate_words( $stems, $batch_size, $page ) {
 		return $this->prominent_words_repository->find_by_list_of_ids(
@@ -317,7 +321,7 @@ class Link_Suggestions_Action {
 		// Calculate vector length of the request set (needed for score normalization later).
 		$request_vector_length = $this->prominent_words_helper->compute_vector_length( $request_data );
 
-		$request_stems = array_keys( $request_data );
+		$request_stems = \array_keys( $request_data );
 		$scores        = [];
 		$page          = 1;
 
@@ -332,7 +336,7 @@ class Link_Suggestions_Action {
 
 			foreach ( $candidates_words_by_indexable_ids as $id => $candidate_data ) {
 				$scores[ $id ] = $this->calculate_score_for_indexable( $request_data, $request_vector_length, $candidate_data );
-				$batch_scores_size++;
+				++$batch_scores_size;
 			}
 
 			if ( $current_indexable_id && isset( $scores[ $current_indexable_id ] ) ) {
@@ -355,7 +359,7 @@ class Link_Suggestions_Action {
 	 * @param float $vector_length_candidate The vector lengths of the candidate indexable.
 	 * @param float $vector_length_request   The vector length of the words from the request.
 	 *
-	 * @return float The score, normalized on vector lengths.
+	 * @return int|float The score, normalized on vector lengths.
 	 */
 	protected function normalize_score( $raw_score, $vector_length_candidate, $vector_length_request ) {
 		$normalizing_factor = ( $vector_length_request * $vector_length_candidate );
@@ -379,9 +383,9 @@ class Link_Suggestions_Action {
 	 */
 	protected function get_top_suggestions( $scores, $limit ) {
 		// Sort the indexables by descending score.
-		uasort(
+		\uasort(
 			$scores,
-			function( $score_1, $score_2 ) {
+			static function( $score_1, $score_2 ) {
 				if ( $score_1 === $score_2 ) {
 					return 0;
 				}
@@ -390,7 +394,7 @@ class Link_Suggestions_Action {
 		);
 
 		// Take the top $limit suggestions, while preserving their ids specified in the keys of the array elements.
-		return array_slice( $scores, 0, $limit, true );
+		return \array_slice( $scores, 0, $limit, true );
 	}
 
 	/**
@@ -437,12 +441,12 @@ class Link_Suggestions_Action {
 		$link_suggestions = [];
 
 		foreach ( $indexables as $indexable ) {
-			if ( ! array_key_exists( $indexable->object_type, $objects ) ) {
+			if ( ! \array_key_exists( $indexable->object_type, $objects ) ) {
 				continue;
 			}
 
 			// Object tied to this indexable. E.g. post, page, term.
-			if ( ! array_key_exists( $indexable->object_id, $objects[ $indexable->object_type ] ) ) {
+			if ( ! \array_key_exists( $indexable->object_id, $objects[ $indexable->object_type ] ) ) {
 				continue;
 			}
 
@@ -455,14 +459,17 @@ class Link_Suggestions_Action {
 				'title'                 => $objects[ $indexable->object_type ][ $indexable->object_id ]['title'],
 				'link'                  => $indexable->permalink,
 				'isCornerstone'         => (bool) $indexable->is_cornerstone,
-				'score'                 => round( (float) ( $scores[ $indexable->id ] ), 2 ),
+				'score'                 => \round( (float) ( $scores[ $indexable->id ] ), 2 ),
 			];
 		}
 
-		// Because the request to the indexables table messes up with the ordering of the suggestions, we have to sort again.
-		usort(
+		/*
+		 * Because the request to the indexables table messes up with the ordering of the suggestions,
+		 * we have to sort again.
+		 */
+		\usort(
 			$link_suggestions,
-			function( $suggestion_1, $suggestion_2 ) {
+			static function( $suggestion_1, $suggestion_2 ) {
 				if ( $suggestion_1['score'] === $suggestion_2['score'] ) {
 					return 0;
 				}

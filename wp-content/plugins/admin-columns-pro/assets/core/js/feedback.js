@@ -1,1 +1,244 @@
-!function(e){var t={};function n(a){if(t[a])return t[a].exports;var o=t[a]={i:a,l:!1,exports:{}};return e[a].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,a){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:a})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var a=Object.create(null);if(n.r(a),Object.defineProperty(a,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(a,o,function(t){return e[t]}.bind(null,o));return a},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=8)}({8:function(e,t,n){"use strict";n.r(t);class a{constructor(e){e&&(this.el=e,this.dialog=e.querySelector(".ac-modal__dialog"),this.initEvents())}static initGlobalEvents(){jQuery(document).on("click","[data-ac-open-modal]",(function(e){e.preventDefault();let t=e.target.dataset.acOpenModal,n=document.querySelector(t);n&&n.AC_MODAL&&n.AC_MODAL.open()})),jQuery(document).on("click","[data-ac-modal]",(function(e){e.preventDefault();let t=jQuery(this).data("ac-modal");o.init().get(t)&&o.init().get(t).open()}))}initEvents(){let e=this;document.addEventListener("keydown",e=>{const t=event.key;this.isOpen()&&"Escape"===t&&this.close()});let t=this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');t.length>0&&t.forEach(t=>{t.addEventListener("click",t=>{t.preventDefault(),e.close()})}),this.el.addEventListener("click",t=>{t.target.classList.contains("ac-modal")&&e.close()}),void 0===document.querySelector("body").dataset.ac_modal_init&&(a.initGlobalEvents(),document.querySelector("body").dataset.ac_modal_init=1),this.el.AC_MODAL=e}isOpen(){return this.el.classList.contains("-active")}close(){this.onClose(),this.el.classList.remove("-active")}open(){setTimeout(()=>{this.onOpen(),this.el.removeAttribute("style"),this.el.classList.add("-active")})}destroy(){this.el.remove()}onClose(){}onOpen(){}}class o{constructor(){this.modals=[],this.number=1}register(e,t=""){return t||(t="m"+this.number),this.modals[t]=e,this.number++,e}get(e){return!!this.modals[e]&&this.modals[e]}static init(){return void 0===AdminColumns.Modals&&(AdminColumns.Modals=new this,AdminColumns.Modals._abstract={modal:a}),AdminColumns.Modals}}function i(e,t){for(var n=0;n<t.length;n++){var a=t[n];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}var r=function(){function e(t){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.form=t,this.initEvents()}var t,n,a;return t=e,(n=[{key:"initEvents",value:function(){var e=this,t=jQuery(this.form);t.submit((function(e){e.preventDefault()})),t.find("[name=frm_ac_fb_submit]").on("click",(function(){e._sendData().done((function(e){e.success?(t.find(".ac-modal__dialog__footer").remove(),t.find(".ac-modal__dialog__content").html(e.data)):t.find(".ac-feedback__error").html(e.data)}))}))}},{key:"_sendData",value:function(){var e=jQuery(this.form);return jQuery.ajax({url:ajaxurl,method:"post",data:{action:"acp-send-feedback",email:e.find("[name=name]").val(),feedback:e.find("[name=feedback]").val(),_ajax_nonce:e.find("[name=_ajax_nonce]").val()}})}}])&&i(t.prototype,n),a&&i(t,a),e}();document.addEventListener("DOMContentLoaded",(function(){o.init().register(new a(document.getElementById("ac-modal-feedback")),"feedback"),new r(document.querySelector("#frm-ac-feedback"))}))}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./core/js/feedback.ts");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "../admin-columns/src/js/modules/modal.ts":
+/*!************************************************!*\
+  !*** ../admin-columns/src/js/modules/modal.ts ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var Modal =
+/** @class */
+function () {
+  function Modal(el) {
+    if (!el) {
+      return;
+    }
+
+    this.el = el;
+    this.dialog = el.querySelector('.ac-modal__dialog');
+    this.initEvents();
+  }
+
+  Modal.prototype.initEvents = function () {
+    var _this = this;
+
+    var self = this;
+    document.addEventListener('keydown', function (e) {
+      var keyName = e.key;
+
+      if (!_this.isOpen()) {
+        return;
+      }
+
+      if ('Escape' === keyName) {
+        _this.close();
+      }
+    });
+    var dismissButtons = this.el.querySelectorAll('[data-dismiss="modal"], .ac-modal__dialog__close');
+
+    if (dismissButtons.length > 0) {
+      dismissButtons.forEach(function (b) {
+        b.addEventListener('click', function (e) {
+          e.preventDefault();
+          self.close();
+        });
+      });
+    }
+
+    this.el.addEventListener('click', function (e) {
+      if (e.target.classList.contains('ac-modal')) {
+        self.close();
+      }
+    });
+  };
+
+  Modal.prototype.isOpen = function () {
+    return this.el.classList.contains('-active');
+  };
+
+  Modal.prototype.close = function () {
+    this.onClose();
+    this.el.classList.remove('-active');
+  };
+
+  Modal.prototype.open = function () {
+    var _this = this; //short delay in order to allow bubbling events to bind before opening
+
+
+    setTimeout(function () {
+      _this.onOpen();
+
+      _this.el.removeAttribute('style');
+
+      _this.el.classList.add('-active');
+    });
+  };
+
+  Modal.prototype.destroy = function () {
+    this.el.remove();
+  };
+
+  Modal.prototype.onClose = function () {};
+
+  Modal.prototype.onOpen = function () {};
+
+  return Modal;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Modal);
+
+/***/ }),
+
+/***/ "./core/js/feedback.ts":
+/*!*****************************!*\
+  !*** ./core/js/feedback.ts ***!
+  \*****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var AC_modules_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! AC/modules/modal */ "../admin-columns/src/js/modules/modal.ts");
+
+
+var Feedback =
+/** @class */
+function () {
+  function Feedback(form) {
+    this.form = form;
+    this.initEvents();
+  }
+
+  Feedback.prototype.initEvents = function () {
+    var self = this;
+    var $form = jQuery(this.form);
+    $form.submit(function (e) {
+      e.preventDefault();
+    });
+    $form.find('[name=frm_ac_fb_submit]').on('click', function () {
+      self._sendData().done(function (response) {
+        if (response.success) {
+          $form.find('.ac-modal__dialog__footer').remove();
+          $form.find('.ac-modal__dialog__content').html(response.data);
+        } else {
+          $form.find('.ac-feedback__error').html(response.data);
+        }
+      });
+    });
+  };
+
+  Feedback.prototype._sendData = function () {
+    var $form = jQuery(this.form);
+    return jQuery.ajax({
+      url: ajaxurl,
+      method: 'post',
+      data: {
+        action: 'acp-send-feedback',
+        email: $form.find('[name=name]').val(),
+        feedback: $form.find('[name=feedback]').val(),
+        _ajax_nonce: $form.find('[name=_ajax_nonce]').val()
+      }
+    });
+  };
+
+  return Feedback;
+}();
+
+document.addEventListener("DOMContentLoaded", function () {
+  AdminColumns.Modals.register(new AC_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"](document.getElementById('ac-modal-feedback')), 'feedback');
+  new Feedback(document.querySelector('#frm-ac-feedback'));
+});
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=feedback.js.map
