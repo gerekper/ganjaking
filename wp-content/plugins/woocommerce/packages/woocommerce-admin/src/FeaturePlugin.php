@@ -1,8 +1,6 @@
 <?php
 /**
  * WooCommerce Admin: Feature plugin main class.
- *
- * @package WooCommerce Admin
  */
 
 namespace Automattic\WooCommerce\Admin;
@@ -20,6 +18,7 @@ use \Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes_Draw_Attention;
 use \Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes_Coupon_Page_Moved;
 use \Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
 use \Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes_Home_Screen_Feedback;
+use \Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes_Set_Up_Additional_Payment_Types;
 
 /**
  * Feature plugin main class.
@@ -136,10 +135,6 @@ class FeaturePlugin {
 			return;
 		}
 
-		if ( ! $this->check_build() ) {
-			add_action( 'admin_notices', array( $this, 'render_build_notice' ) );
-		}
-
 		$this->includes();
 		$this->hooks();
 	}
@@ -155,7 +150,7 @@ class FeaturePlugin {
 		$this->define( 'WC_ADMIN_PLUGIN_FILE', WC_ADMIN_ABSPATH . 'woocommerce-admin.php' );
 		// WARNING: Do not directly edit this version number constant.
 		// It is updated as part of the prebuild process from the package.json value.
-		$this->define( 'WC_ADMIN_VERSION_NUMBER', '1.3.1' );
+		$this->define( 'WC_ADMIN_VERSION_NUMBER', '1.4.0' );
 	}
 
 	/**
@@ -183,7 +178,7 @@ class FeaturePlugin {
 		CategoryLookup::instance()->init();
 
 		// Admin note providers.
-		// @todo These should be bundled in the features/ folder, but loading them from there currently has a load order issue.
+		// These should be bundled in the features/ folder, but loading them from there currently has a load order issue.
 		new WC_Admin_Notes_Woo_Subscriptions_Notes();
 		new WC_Admin_Notes_Historical_Data();
 		new WC_Admin_Notes_Order_Milestones();
@@ -192,6 +187,7 @@ class FeaturePlugin {
 		new WC_Admin_Notes_Install_JP_And_WCS_Plugins();
 		new WC_Admin_Notes_Draw_Attention();
 		new WC_Admin_Notes_Home_Screen_Feedback();
+		new WC_Admin_Notes_Set_Up_Additional_Payment_Types();
 
 		// Initialize RemoteInboxNotificationsEngine.
 		RemoteInboxNotificationsEngine::init();
@@ -252,15 +248,6 @@ class FeaturePlugin {
 	}
 
 	/**
-	 * Returns true if build file exists.
-	 *
-	 * @return bool
-	 */
-	protected function check_build() {
-		return file_exists( plugin_dir_path( __DIR__ ) . '/dist/app/index.js' );
-	}
-
-	/**
 	 * Deactivates this plugin.
 	 */
 	public function deactivate_self() {
@@ -274,19 +261,6 @@ class FeaturePlugin {
 	public function render_dependencies_notice() {
 		$message = $this->get_dependency_errors();
 		printf( '<div class="error"><p>%s</p></div>', implode( ' ', $message ) ); /* phpcs:ignore xss ok. */
-	}
-
-	/**
-	 * Notify users that the plugin needs to be built.
-	 */
-	public function render_build_notice() {
-		$message_one = __( 'You have installed a development version of WooCommerce Admin which requires files to be built. From the plugin directory, run <code>npm install</code> to install dependencies, <code>npm run build</code> to build the files.', 'woocommerce' );
-		$message_two = sprintf(
-			/* translators: 1: URL of GitHub Repository build page */
-			__( 'Or you can download a pre-built version of the plugin by visiting <a href="%1$s">the releases page in the repository</a>.', 'woocommerce' ),
-			'https://github.com/woocommerce/woocommerce-admin/releases'
-		);
-		printf( '<div class="error"><p>%s %s</p></div>', $message_one, $message_two ); /* phpcs:ignore xss ok. */
 	}
 
 	/**

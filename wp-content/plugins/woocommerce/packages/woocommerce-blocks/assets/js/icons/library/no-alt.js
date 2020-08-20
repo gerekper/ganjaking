@@ -2,18 +2,13 @@
  * External dependencies
  */
 import { SVG } from 'wordpress-components';
-import classnames from 'classnames';
-const noAlt = ( { className, size, ...extraProps } ) => {
-	const iconClass = classnames(
-		'dashicon',
-		'dashicons-arrow-down-alt2',
-		className
-	);
+
+const Component = ( { className, size, ...extraProps } ) => {
 	return (
 		<SVG
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 20 20"
-			className={ iconClass }
+			className={ className }
 			width={ size }
 			height={ size }
 			{ ...extraProps }
@@ -22,5 +17,7 @@ const noAlt = ( { className, size, ...extraProps } ) => {
 		</SVG>
 	);
 };
+
+const noAlt = <Component />;
 
 export default noAlt;

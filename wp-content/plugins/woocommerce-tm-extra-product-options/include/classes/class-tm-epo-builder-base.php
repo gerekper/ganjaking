@@ -1520,6 +1520,19 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"desc"        => esc_html__( "Select the position of the datepicker.", 'woocommerce-tm-extra-product-options' ),
 					),
 					array(
+						"id"          => "date_exlude_disabled",
+						"wpmldisable" => 1,
+						"default"     => "",
+						"type"        => "checkbox",
+						"tags"        => array(
+							"value" => "1",
+							"id"    => "builder_date_exlude_disabled",
+							"name"  => "tm_meta[tmfbuilder][date_exlude_disabled][]",
+						),
+						"label"       => esc_html__( 'Exclude disabled', 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( 'Enabling this will make it so that the Minimum and Maximum selectable date will not count the selected disabled weekdays.', 'woocommerce-tm-extra-product-options' ),
+					),
+					array(
 						"id"          => "date_disabled_weekdays",
 						"wpmldisable" => 1,
 						"default"     => "",

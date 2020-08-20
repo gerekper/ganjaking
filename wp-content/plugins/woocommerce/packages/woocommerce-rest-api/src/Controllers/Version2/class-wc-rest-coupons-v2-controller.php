@@ -385,12 +385,12 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 				),
 				'date_expires'                => array(
 					'description' => __( "The date the coupon expires, in the site's timezone.", 'woocommerce' ),
-					'type'        => 'string',
+					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_expires_gmt'            => array(
 					'description' => __( 'The date the coupon expires, as GMT.', 'woocommerce' ),
-					'type'        => 'string',
+					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'usage_count'                 => array(
@@ -511,7 +511,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 							),
 							'value' => array(
 								'description' => __( 'Meta value.', 'woocommerce' ),
-								'type'        => array( 'string', 'null' ),
+								'type'        => 'mixed',
 								'context'     => array( 'view', 'edit' ),
 							),
 						),

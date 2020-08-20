@@ -1,8 +1,6 @@
 <?php
 /**
  * REST API bootstrap.
- *
- * @package WooCommerce Admin/Classes
  */
 
 namespace Automattic\WooCommerce\Admin\API;
@@ -150,7 +148,7 @@ class Init {
 
 	/**
 	 * Add the currency symbol (in addition to currency code) to each Order
-	 * object in REST API responses. For use in formatCurrency().
+	 * object in REST API responses. For use in formatAmount().
 	 *
 	 * @param {WP_REST_Response} $response REST response object.
 	 * @returns {WP_REST_Response}

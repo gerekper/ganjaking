@@ -1,8 +1,6 @@
 <?php
 /**
  * Handles storage and retrieval of admin notes
- *
- * @package WooCommerce Admin/Classes
  */
 
 namespace Automattic\WooCommerce\Admin\Notes;
@@ -24,6 +22,7 @@ class WC_Admin_Notes {
 	 */
 	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'schedule_unsnooze_notes' ) );
+		add_action( 'admin_init', array( __CLASS__, 'possibly_delete_survey_notes' ) );
 		add_action( 'update_option_woocommerce_show_marketplace_suggestions', array( __CLASS__, 'possibly_delete_marketing_notes' ), 10, 2 );
 	}
 
@@ -172,8 +171,12 @@ class WC_Admin_Notes {
 				'orderby'    => 'date_created',
 				'per_page'   => 25,
 				'page'       => 1,
-				'type'       => array( 'info', 'marketing', 'warning' ),
-				'status'     => array( 'unactioned' ),
+				'type'       => array(
+					WC_Admin_Note::E_WC_ADMIN_NOTE_INFORMATIONAL,
+					WC_Admin_Note::E_WC_ADMIN_NOTE_MARKETING,
+					WC_Admin_Note::E_WC_ADMIN_NOTE_WARNING,
+					WC_Admin_Note::E_WC_ADMIN_NOTE_SURVEY,
+				),
 				'is_deleted' => 0,
 			)
 		);
@@ -259,4 +262,24 @@ class WC_Admin_Notes {
 		}
 	}
 
+	/**
+	 * Delete actioned survey notes.
+	 */
+	public static function possibly_delete_survey_notes() {
+		$data_store = \WC_Data_Store::load( 'admin-note' );
+		$notes      = $data_store->get_notes(
+			array(
+				'type'   => array( WC_Admin_Note::E_WC_ADMIN_NOTE_SURVEY ),
+				'status' => array( 'actioned' ),
+			)
+		);
+
+		foreach ( $notes as $note ) {
+			$note = self::get_note( $note->note_id );
+			if ( $note ) {
+				$note->set_is_deleted( 1 );
+				$note->save();
+			}
+		}
+	}
 }

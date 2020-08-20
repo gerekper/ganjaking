@@ -53,8 +53,8 @@ if ( ! class_exists( 'Redux_Connection_Banner', false ) ) {
 		 * the admin_init action fires, we know that the admin is initialized at this point.
 		 */
 		private function __construct() {
-			add_action( 'current_screen', array( $this, 'maybe_initialize_hooks' ) );
 			add_action( 'wp_ajax_redux_activation', array( $this, 'admin_ajax' ) ); // executed when logged in
+			add_action( 'current_screen', array( $this, 'maybe_initialize_hooks' ) );
 		}
 
 		public function admin_ajax() {
@@ -63,7 +63,7 @@ if ( ! class_exists( 'Redux_Connection_Banner', false ) ) {
 				die( __( 'Security check failed.', 'redux-framework' ) );
 			}
 			if ( 'true' === $_REQUEST['activate'] ) {
-				Redux_Functions_Ex::set_activated();
+				Redux_Functions_Ex::set_activated( $_REQUEST['activate'] );
 			} else {
 				Redux_Functions_Ex::set_deactivated();
 				update_option( 'redux-framework_tracking_notice', 'hide' );
@@ -107,15 +107,18 @@ if ( ! class_exists( 'Redux_Connection_Banner', false ) ) {
 				return;
 			}
 
-			add_action( 'admin_notices', array( $this, 'render_banner' ) );
-			add_action( 'network_admin_notices', array( $this, 'network_connect_notice' ) );
-			add_action( 'admin_head', array( $this, 'admin_head' ) );
-			add_filter( 'admin_body_class', array( $this, 'admin_body_class' ), 20 );
+			// Only show this notice when the plugin is installed.
+			if ( class_exists( 'Redux_Framework_Plugin' ) && false === Redux_Framework_Plugin::$crash ) {
+				add_action( 'admin_notices', array( $this, 'render_banner' ) );
+				add_action( 'network_admin_notices', array( $this, 'network_connect_notice' ) );
+				add_action( 'admin_head', array( $this, 'admin_head' ) );
+				add_filter( 'admin_body_class', array( $this, 'admin_body_class' ), 20 );
 
-			// Only fires immediately after plugin activation
-			if ( get_transient( 'activated_Redux' ) ) {
-				add_action( 'admin_notices', array( $this, 'render_connect_prompt_full_screen' ) );
-				delete_transient( 'activated_Redux' );
+				// Only fires immediately after plugin activation
+				if ( get_transient( 'activated_Redux' ) ) {
+					add_action( 'admin_notices', array( $this, 'render_connect_prompt_full_screen' ) );
+					delete_transient( 'activated_Redux' );
+				}
 			}
 		}
 
@@ -202,7 +205,6 @@ if ( ! class_exists( 'Redux_Connection_Banner', false ) ) {
 
 			$notice .= '<p class="description" style="display:none;">' . self::tos_blurb( 'option_panel' ) . ' </p>';
 
-
 			echo '<div class="updated" id="redux-connect-message" data-nonce="' . wp_create_nonce( 'redux-panel-admin-notice' ) . '" style="border-left-color: #24b0a6;"><p>';
 			echo $notice;
 			echo '</p><p class="submit">';
@@ -211,8 +213,7 @@ if ( ! class_exists( 'Redux_Connection_Banner', false ) ) {
 			echo '</p></div>';
 			echo '<style type="text/css">.wp-core-ui .button-primary.redux-activate-connection{background: #24b0a6;}.wp-core-ui .button-primary.redux-activate-connection:hover{background: #19837c;}</style>';
 
-			echo "
-		";
+			echo "<noscript><style type='text/css'>#redux-connect-message{display:none;}</style></noscript>";
 
 		}
 
@@ -334,6 +335,7 @@ if ( ! class_exists( 'Redux_Connection_Banner', false ) ) {
 					</div>
 				</div>
 			</div>
+			<noscript><style type='text/css'>#redux-connect-message{display:none;}</style></noscript>
 			<?php
 		}
 
@@ -457,6 +459,7 @@ if ( ! class_exists( 'Redux_Connection_Banner', false ) ) {
 					</h2>
 				</div>
 			</div>
+			<noscript><style type='text/css'>#message{display:none;}</style></noscript>
 			<?php
 		}
 
@@ -470,8 +473,7 @@ if ( ! class_exists( 'Redux_Connection_Banner', false ) ) {
 		public static function tos_blurb($campaign = "options_panel") {
 			return sprintf(
 				__( 'By clicking the <strong>Register</strong> button, you agree to our <a href="%1$s" target="_blank">terms of service</a>, to create an account, and to share details of your usage metrics with Redux.io.', 'redux-framework' ),
-				esc_url( 'https://redux.io/terms?utm_source=plugin&utm_medium=appsero&utm_campaign=' . $campaign ),
-				esc_url( 'https://redux.io/share-details?utm_source=plugin&utm_medium=appsero&utm_campaign=' . $campaign )
+				Redux_Functions_Ex::get_site_utm_url( 'terms', 'appsero', 'activate', $campaign )
 			);
 		}
 

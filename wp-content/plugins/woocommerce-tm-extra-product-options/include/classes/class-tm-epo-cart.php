@@ -1206,7 +1206,7 @@ class THEMECOMPLETE_EPO_Cart {
 						// Unique values
 						$display_value  = ! empty( $data['display'] ) ? $data['display'] : $data['value'];
 						$original_price = $data['unit_price'] / $data['quantity'];
-						$new_price      = apply_filters( 'wc_epo_discounted_price', $data['unit_price'], $cart_item['data'], $cart_item[ THEMECOMPLETE_EPO()->cart_edit_key_var ] );
+						$new_price      = apply_filters( 'wc_epo_discounted_price', $data['unit_price'], $cart_item['data'], isset($cart_item[ THEMECOMPLETE_EPO()->cart_edit_key_var ]) ? $cart_item[ THEMECOMPLETE_EPO()->cart_edit_key_var ] : array() );
 						$after_price    = $new_price / $data['quantity'];
 						$format_price   = $this->get_price_for_cart( $after_price, $cart_item, FALSE, $data['unit_price_per_currency'], $data['quantity'], 0, $data['price_type'] );
 
@@ -2292,7 +2292,6 @@ class THEMECOMPLETE_EPO_Cart {
 						if ( ! $_passed ) {
 							$passed = FALSE;
 							wc_add_notice( sprintf( esc_html__( '"%s" is a required field.', 'woocommerce-tm-extra-product-options' ), $tmcp['label'] ), 'error' );
-
 						}
 					}
 				}

@@ -167,6 +167,25 @@ if ( ! class_exists( 'Redux_Functions_Ex', false ) ) {
 		}
 
 		/**
+		 * Run URL through a ssl check.
+		 *
+		 * @param     string $url URL to check.
+		 *
+		 * @return string
+		 */
+		public static function verify_url_protocol( $url ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+			$protocol = ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] || ( ! empty( $_SERVER['SERVER_PORT'] ) && 443 === $_SERVER['SERVER_PORT'] ) ? 'https://' : 'http://';
+			if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && ! empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+				$new_protocol = sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) ) . '://'; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+				if ( 'http://' === $protocol && $new_protocol !== $protocol && false === strpos( $url, $new_protocol ) ) {
+					$url = str_replace( $protocol, $new_protocol, $url );
+				}
+			}
+			return $url;
+		}
+
+		/**
 		 * Is Redux embedded inside a plugin.
 		 *
 		 * @param     string $file File to check.
@@ -181,14 +200,13 @@ if ( ! class_exists( 'Redux_Functions_Ex', false ) ) {
 				$slug = explode( '/', $plugin_basename );
 				$slug = $slug[0];
 
-				$data             = array(
+				$data = array(
 					'slug'      => $slug,
 					'basename'  => $plugin_basename,
-					'path'      => self::wp_normalize_path( $file ),
-					'url'       => plugins_url( $plugin_basename ),
+					'path'      => $file,
+					'url'       => self::verify_url_protocol( plugins_url( $plugin_basename ) ),
 					'real_path' => self::wp_normalize_path( dirname( realpath( $file ) ) ),
 				);
-				$data['realpath'] = $data['real_path'];  // Shim for old extensions.
 
 				return $data;
 			}
@@ -236,7 +254,7 @@ if ( ! class_exists( 'Redux_Functions_Ex', false ) ) {
 						'slug'      => $slug,
 						'path'      => trailingslashit( trailingslashit( $theme_path ) . $relative_path ) . $filename,
 						'real_path' => trailingslashit( trailingslashit( $real_path ) . $relative_path ) . $filename,
-						'url'       => trailingslashit( trailingslashit( $url ) . $relative_path ) . $filename,
+						'url'       => self::verify_url_protocol( trailingslashit( trailingslashit( $url ) . $relative_path ) . $filename ),
 						'basename'  => trailingslashit( $slug ) . trailingslashit( $relative_path ) . $filename,
 					);
 					$data['realpath'] = $data['real_path'];  // Shim for old extensions.
@@ -392,6 +410,86 @@ if ( ! class_exists( 'Redux_Functions_Ex', false ) ) {
 			}
 			$loader = new Redux_Autoloader( $prefix, $path );
 			spl_autoload_register( array( $loader, 'load' ) );
+		}
+
+		/**
+		 * Check if a string starts with a string.
+		 *
+		 * @param string $haystack Full string.
+		 * @param string $needle String to check if it starts with.
+		 * @return string
+		 */
+		public static function string_starts_with( $haystack, $needle ) {
+			$length = strlen( $needle );
+			return substr( $haystack, 0, $length ) === $needle;
+		}
+
+		/**
+		 * Check if a string ends with a string.
+		 *
+		 * @param string $haystack Full string.
+		 * @param string $needle String to check if it starts with.
+		 * @return string
+		 */
+		public static function string_ends_with( $haystack, $needle ) {
+			$length = strlen( $needle );
+			if ( ! $length ) {
+				return true;
+			}
+			return substr( $haystack, -$length ) === $needle;
+		}
+
+		/**
+		 * Get the url where the Admin Columns website is hosted
+		 *
+		 * @param string $path Path to add to url.
+		 *
+		 * @return string
+		 */
+		private static function get_site_url( $path = '' ) {
+			$url = 'https://redux.io';
+
+			if ( ! empty( $path ) ) {
+				$url .= '/' . trim( $path, '/' ) . '/';
+			}
+
+			return $url;
+		}
+
+		/**
+		 * Url with utm tags
+		 *
+		 * @param string $path Path on site.
+		 * @param string $utm_medium Medium var.
+		 * @param string $utm_content Content var.
+		 * @param bool   $utm_campaign Campaign var.
+		 *
+		 * @return string
+		 */
+		public static function get_site_utm_url( $path, $utm_medium, $utm_content = null, $utm_campaign = false ) {
+			$url = self::get_site_url( $path );
+
+			if ( ! $utm_campaign ) {
+				$utm_campaign = 'plugin-installation';
+			}
+
+			$args = array(
+				// Referrer: plugin.
+				'utm_source'   => 'plugin-installation',
+
+				// Specific promotions or sales.
+				'utm_campaign' => $utm_campaign,
+
+				// Marketing medium: banner, documentation or email.
+				'utm_medium'   => $utm_medium,
+
+				// Used for differentiation of medium.
+				'utm_content'  => $utm_content,
+			);
+
+			$args = array_map( 'sanitize_key', array_filter( $args ) );
+
+			return add_query_arg( $args, $url );
 		}
 
 	}

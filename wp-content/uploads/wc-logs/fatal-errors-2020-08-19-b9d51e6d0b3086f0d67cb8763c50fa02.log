@@ -1,0 +1,46 @@
+2020-08-19T21:22:51+00:00 CRITICAL Uncaught Error: Call to undefined function Illuminate\Database\Query\array_wrap() in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Query/Builder.php:1953
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Eloquent/Builder.php(1251): Illuminate\Database\Query\Builder->count()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Eloquent/Model.php(1374): Illuminate\Database\Eloquent\Builder->__call()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Eloquent/Model.php(1386): Illuminate\Database\Eloquent\Model->__call()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/db/seeds/RoleTableSeeder.php(20): Illuminate\Database\Eloquent\Model::__callStatic()
+#4 /home/gerekper/web/ganjaking.asia/public in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Query/Builder.php on line 1953
+
+2020-08-19T21:22:52+00:00 CRITICAL Uncaught Error: Call to a member function switch_to_locale() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/l10n.php:1665
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-admin/includes/misc.php(132): switch_to_locale()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/mpc-massive/panel/extra/utils.php(44): insert_with_markers()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/mpc-massive/mpc-massive.php(150): MPC_Utils::add_htaccess_rules()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): mpc_check_vc()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(478): WP_Hook->do_action()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-settings.php(409): do_action()
+#7 /home/gerekper/web/ganjaking.asia/public_html/wp-config.php(92): require_once('/home/gerekper/...')
+#8 /home in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/l10n.php on line 1665
+
+2020-08-19T21:26:02+00:00 CRITICAL Uncaught Error: Call to undefined function Illuminate\Database\Query\array_wrap() in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Query/Builder.php:1953
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Eloquent/Builder.php(1251): Illuminate\Database\Query\Builder->count()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Eloquent/Model.php(1374): Illuminate\Database\Eloquent\Builder->__call()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Eloquent/Model.php(1386): Illuminate\Database\Eloquent\Model->__call()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/db/seeds/RoleTableSeeder.php(20): Illuminate\Database\Eloquent\Model::__callStatic()
+#4 /home/gerekper/web/ganjaking.asia/public in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Query/Builder.php on line 1953
+
+2020-08-19T22:00:10+00:00 CRITICAL Class WeDevs\PM\Core\DB_Connection\Model contains 4 abstract methods and must therefore be declared abstract or implement the remaining methods (Illuminate\Contracts\Queue\QueueableEntity::getQueueableRelations, Illuminate\Contracts\Queue\QueueableEntity::getQueueableConnection, Illuminate\Contracts\Routing\UrlRoutable::resolveRouteBinding, ...) in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/core/DB_Connection/Model.php on line 12
+
+2020-08-19T22:00:14+00:00 CRITICAL Class WeDevs\PM\Core\DB_Connection\Model contains 4 abstract methods and must therefore be declared abstract or implement the remaining methods (Illuminate\Contracts\Queue\QueueableEntity::getQueueableRelations, Illuminate\Contracts\Queue\QueueableEntity::getQueueableConnection, Illuminate\Contracts\Routing\UrlRoutable::resolveRouteBinding, ...) in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/core/DB_Connection/Model.php on line 12
+
+2020-08-19T22:00:48+00:00 CRITICAL Class WeDevs\PM\Core\DB_Connection\Model contains 4 abstract methods and must therefore be declared abstract or implement the remaining methods (Illuminate\Contracts\Queue\QueueableEntity::getQueueableRelations, Illuminate\Contracts\Queue\QueueableEntity::getQueueableConnection, Illuminate\Contracts\Routing\UrlRoutable::resolveRouteBinding, ...) in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/core/DB_Connection/Model.php on line 12
+
+2020-08-19T22:33:45+00:00 CRITICAL Uncaught Error: Call to a member function switch_to_locale() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/l10n.php:1665
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-admin/includes/misc.php(132): switch_to_locale()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/mpc-massive/panel/extra/utils.php(44): insert_with_markers()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/mpc-massive/mpc-massive.php(150): MPC_Utils::add_htaccess_rules()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): mpc_check_vc()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(478): WP_Hook->do_action()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-settings.php(409): do_action()
+#7 /home/gerekper/web/ganjaking.asia/public_html/wp-config.php(92): require_once('/home/gerekper/...')
+#8 /home in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/l10n.php on line 1665
+

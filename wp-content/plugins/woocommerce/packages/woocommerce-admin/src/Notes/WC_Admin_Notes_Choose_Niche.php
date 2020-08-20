@@ -3,8 +3,6 @@
  * WooCommerce Admin: Choose a niche note.
  *
  * Adds a note to show the client how to choose a niche for their store.
- *
- * @package WooCommerce Admin
  */
 
 namespace Automattic\WooCommerce\Admin\Notes;
@@ -41,6 +39,16 @@ class WC_Admin_Notes_Choose_Niche {
 			! isset( $onboarding_profile['setup_client'] ) ||
 			$onboarding_profile['setup_client']
 		) {
+			return;
+		}
+
+		// Make sure that the product count is set in the onboarding profile.
+		if ( ! isset( $onboarding_profile['product_count'] ) ) {
+			return;
+		}
+
+		// Make sure that the revenue is set in the onboarding profile.
+		if ( ! isset( $onboarding_profile['revenue'] ) ) {
 			return;
 		}
 

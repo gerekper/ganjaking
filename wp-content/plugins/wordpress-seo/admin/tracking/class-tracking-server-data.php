@@ -57,6 +57,7 @@ class WPSEO_Tracking_Server_Data implements WPSEO_Collection {
 		$curl = curl_version();
 
 		$ssl_support = true;
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_version_ssl -- This only concerns the basic act of getting the curl version.
 		if ( ! $curl['features'] && CURL_VERSION_SSL ) {
 			$ssl_support = false;
 		}
@@ -74,12 +75,12 @@ class WPSEO_Tracking_Server_Data implements WPSEO_Collection {
 	 */
 	protected function get_php_extensions() {
 		return [
-			'imagick' => extension_loaded( 'imagick' ),
-			'filter'  => extension_loaded( 'filter' ),
-			'bcmath'  => extension_loaded( 'bcmath' ),
-			'modXml'  => extension_loaded( 'modXml' ),
-			'pcre'    => extension_loaded( 'pcre' ),
-			'xml'     => extension_loaded( 'xml' ),
+			'imagick'   => extension_loaded( 'imagick' ),
+			'filter'    => extension_loaded( 'filter' ),
+			'bcmath'    => extension_loaded( 'bcmath' ),
+			'pcre'      => extension_loaded( 'pcre' ),
+			'xml'       => extension_loaded( 'xml' ),
+			'pdo_mysql' => extension_loaded( 'pdo_mysql' ),
 		];
 	}
 }

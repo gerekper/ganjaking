@@ -143,7 +143,9 @@ class Connections extends AbstractSettingsPage
         foreach ($boxes as $box) :
             ?>
             <div class="postbox">
-                <h2 class="hndle is-non-sortable"><span><?= $box['title'] ?></span></h2>
+                <div class="postbox-header">
+                    <h2 class="hndle is-non-sortable"><span><?= $box['title'] ?></span></h2>
+                </div>
                 <div class="inside"><?= $box['content'] ?></div>
             </div>
         <?php

@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState, useEffect, useRef } from '@wordpress/element';
-import { Button } from '@woocommerce/base-components/cart-checkout';
+import Button from '@woocommerce/base-components/button';
 import { ValidatedTextInput } from '@woocommerce/base-components/text-input';
 import Label from '@woocommerce/base-components/label';
 import { ValidationInputError } from '@woocommerce/base-components/validation';
@@ -39,11 +39,12 @@ const TotalsCouponCodeInput = ( {
 		}
 	}, [ isLoading, couponValue, validationError ] );
 
-	const textInputId = `wc-block-coupon-code__input-${ instanceId }`;
+	const textInputId = `wc-block-components-totals-coupon__input-${ instanceId }`;
 
 	return (
 		<Panel
-			className="wc-block-coupon-code"
+			className="wc-block-components-totals-coupon"
+			hasBorder={ true }
 			initialOpen={ initialOpen }
 			title={
 				<Label
@@ -68,12 +69,12 @@ const TotalsCouponCodeInput = ( {
 				isLoading={ isLoading }
 				showSpinner={ false }
 			>
-				<div className="wc-block-coupon-code__content">
-					<form className="wc-block-coupon-code__form">
+				<div className="wc-block-components-totals-coupon__content">
+					<form className="wc-block-components-totals-coupon__form">
 						<ValidatedTextInput
 							id={ textInputId }
 							errorId="coupon"
-							className="wc-block-coupon-code__input"
+							className="wc-block-components-totals-coupon__input"
 							label={ __(
 								'Enter code',
 								'woocommerce'
@@ -90,7 +91,7 @@ const TotalsCouponCodeInput = ( {
 							showError={ false }
 						/>
 						<Button
-							className="wc-block-coupon-code__button"
+							className="wc-block-components-totals-coupon__button"
 							disabled={ isLoading || ! couponValue }
 							showSpinner={ isLoading }
 							onClick={ ( e ) => {

@@ -117,14 +117,14 @@ class WPSEO_Admin_Asset {
 	/**
 	 * For JS Assets. Whether or not the script should be loaded in the footer.
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $in_footer;
 
 	/**
 	 * For CSS Assets. Whether this stylesheet is a right-to-left stylesheet.
 	 *
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $rtl;
 
@@ -142,11 +142,11 @@ class WPSEO_Admin_Asset {
 	 */
 	private $defaults = [
 		'deps'      => [],
-		'version'   => WPSEO_VERSION,
 		'in_footer' => true,
 		'rtl'       => true,
 		'media'     => 'all',
-		'suffix'    => WPSEO_CSSJS_SUFFIX,
+		'version'   => '',
+		'suffix'    => '',
 	];
 
 	/**
@@ -210,7 +210,11 @@ class WPSEO_Admin_Asset {
 	 * @return string
 	 */
 	public function get_version() {
-		return $this->version;
+		if ( ! empty( $this->version ) ) {
+			return $this->version;
+		}
+
+		return null;
 	}
 
 	/**
@@ -247,24 +251,5 @@ class WPSEO_Admin_Asset {
 	 */
 	public function get_suffix() {
 		return $this->suffix;
-	}
-
-	/**
-	 * Returns the full URL for this asset based on the path to the plugin file.
-	 *
-	 * @deprecated 6.2
-	 * @codeCoverageIgnore
-	 *
-	 * @param string $type        Type of asset.
-	 * @param string $plugin_file Absolute path to the plugin file.
-	 *
-	 * @return string The full URL to the asset.
-	 */
-	public function get_url( $type, $plugin_file ) {
-		_deprecated_function( __CLASS__ . '::get_url', '6.2', 'WPSEO_Admin_Asset_SEO_Location::get_url' );
-
-		$asset_location = new WPSEO_Admin_Asset_SEO_Location( $plugin_file );
-
-		return $asset_location->get_url( $this, $type );
 	}
 }

@@ -414,8 +414,12 @@ final class THEMECOMPLETE_EPO_Admin_base {
 	 */
 	public function tm_woocommerce_order_item_line_item_html( $item_id = "", $item = array() ) {
 
-		$order          = THEMECOMPLETE_EPO_HELPER()->tm_get_order_object();
-		$order_currency = is_callable( array( $order, 'get_currency' ) ) ? $order->get_currency() : $order->get_order_currency();
+		$order = THEMECOMPLETE_EPO_HELPER()->tm_get_order_object();
+		if ($order){
+			$order_currency = is_callable( array( $order, 'get_currency' ) ) ? $order->get_currency() : $order->get_order_currency();
+		} else {
+			$order_currency = get_woocommerce_currency();
+		}
 		$mt_prefix      = $order_currency;
 
 		$_product    = themecomplete_get_product_from_item( $item, $order );

@@ -1,8 +1,8 @@
-.wc-block-checkout-form {
+.wc-block-components-checkout-form {
 	counter-reset: checkout-step;
 }
 
-.wc-block-checkout-form fieldset.wc-block-checkout-step {
+.wc-block-components-checkout-form fieldset.wc-block-components-checkout-step {
 	position: relative;
 	border: none;
 	padding: 0 0 0 $gap-larger;
@@ -14,52 +14,53 @@
 	}
 }
 
-.wc-block-checkout-step__container {
+.wc-block-components-checkout-step__container {
 	position: relative;
 }
 
-.wc-block-checkout-step__content {
-	padding-bottom: $gap-larger;
+.wc-block-components-checkout-step__content {
+	padding-bottom: em($gap-large);
 }
 
-.wc-block-checkout-form fieldset.wc-block-checkout-step:disabled {
+.wc-block-components-checkout-form fieldset.wc-block-components-checkout-step:disabled {
 	opacity: 0.6;
 }
 
-.wc-block-checkout-step__heading {
+.wc-block-components-checkout-step__heading {
 	display: flex;
 	justify-content: space-between;
 	align-content: center;
 	flex-wrap: wrap;
-	margin-bottom: $gap-smaller;
+	margin: em($gap-small) 0 em($gap);
 	position: relative;
 }
 
-.wc-block-checkout-step__title {
-	line-height: 1.5;
+.wc-block-components-checkout-step:first-child .wc-block-components-checkout-step__heading {
+	margin-top: 0;
+}
+
+.wc-block-components-checkout-step__title {
 	margin: 0 $gap-small 0 0;
 }
 
-.wc-block-checkout-step__heading-content {
+.wc-block-components-checkout-step__heading-content {
 	@include font-size(smaller);
-	color: $gray-80;
 	position: absolute;
 	right: 0;
 
 	a {
 		font-weight: bold;
-		color: $gray-80;
+		color: inherit;
 	}
 }
 
-.wc-block-checkout-step__description {
+.wc-block-components-checkout-step__description {
 	@include font-size(small);
 	line-height: 1.25;
-	color: $gray-60;
 	margin-bottom: $gap;
 }
 
-.wc-block-checkout-step__title::before {
+.wc-block-components-checkout-step__title::before {
 	@include reset-box();
 	background: transparent;
 	counter-increment: checkout-step;
@@ -73,15 +74,16 @@
 	transform: translateX(-50%);
 }
 
-.wc-block-checkout-step__container::after {
+.wc-block-components-checkout-step__container::after {
 	content: "";
-	height: calc(100% - #{$gap-smaller});
+	height: 100%;
 	border-left: 1px solid;
+	opacity: 0.3;
 	position: absolute;
 	left: -$gap-larger/2;
 	top: 0;
 }
 
-.wc-block-checkout-step:last-child .wc-block-checkout-step__container::after {
+.wc-block-components-checkout-step:last-child .wc-block-components-checkout-step__container::after {
 	content: none;
 }

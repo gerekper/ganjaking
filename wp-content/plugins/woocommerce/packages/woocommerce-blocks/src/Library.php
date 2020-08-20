@@ -65,7 +65,7 @@ class Library {
 		];
 		// Note: as a part of refactoring dynamic block registration, this will be moved
 		// to block level config.
-		if ( version_compare( $wp_version, '5.2', '>' ) ) {
+		if ( version_compare( $wp_version, '5.3', '>=' ) ) {
 			$blocks[] = 'AllProducts';
 			$blocks[] = 'PriceFilter';
 			$blocks[] = 'AttributeFilter';
@@ -100,6 +100,10 @@ class Library {
 			'product-sale-badge',
 			'product-summary',
 			'product-sku',
+			'product-category-list',
+			'product-tag-list',
+			'product-stock-indicator',
+			'product-add-to-cart',
 		];
 		foreach ( $atomic_blocks as $atomic_block ) {
 			$instance = new \Automattic\WooCommerce\Blocks\BlockTypes\AtomicBlock( $atomic_block );

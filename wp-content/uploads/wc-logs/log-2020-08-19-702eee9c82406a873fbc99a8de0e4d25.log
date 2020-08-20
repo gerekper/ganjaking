@@ -1,0 +1,17 @@
+2020-08-19T22:04:09+00:00 INFO Updating to version 1.2.0.
+2020-08-19T22:04:09+00:00 INFO - Queuing wc_mnm_update_120_main callback.
+2020-08-19T22:04:09+00:00 INFO Updating to version 1.10.0.
+2020-08-19T22:04:09+00:00 INFO - Queuing wc_mnm_update_1x10_product_meta callback.
+2020-08-19T22:04:09+00:00 INFO - Queuing wc_mnm_update_1x10_order_item_meta callback.
+2020-08-19T22:04:09+00:00 INFO - Queuing wc_mnm_update_1x10_db_version callback.
+2020-08-19T22:04:12+00:00 INFO - Running wc_mnm_update_120_main callback...
+2020-08-19T22:04:12+00:00 INFO - Finished wc_mnm_update_120_main callback.
+2020-08-19T22:04:12+00:00 INFO - Running wc_mnm_update_1x10_product_meta callback...
+2020-08-19T22:04:12+00:00 INFO - Finished wc_mnm_update_1x10_product_meta callback.
+2020-08-19T22:04:12+00:00 INFO - Running wc_mnm_update_1x10_order_item_meta callback...
+2020-08-19T22:04:12+00:00 INFO - Finished wc_mnm_update_1x10_order_item_meta callback.
+2020-08-19T22:04:12+00:00 INFO - Running wc_mnm_update_1x10_db_version callback...
+2020-08-19T22:04:12+00:00 INFO Database version is 1.10.0.
+2020-08-19T22:04:12+00:00 INFO - Finished wc_mnm_update_1x10_db_version callback.
+2020-08-19T22:04:12+00:00 INFO Data update complete.
+2020-08-19T22:04:12+00:00 INFO Database version is 1.10.0.

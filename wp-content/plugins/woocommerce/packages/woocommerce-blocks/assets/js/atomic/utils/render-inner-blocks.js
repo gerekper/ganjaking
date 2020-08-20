@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { cloneElement, isValidElement } from '@wordpress/element';
+import { Suspense, cloneElement, isValidElement } from '@wordpress/element';
 import parse from 'html-react-parser';
 
 /**
@@ -56,10 +56,14 @@ export const renderInnerBlocks = ( {
 		}
 
 		return (
-			// eslint-disable-next-line react/jsx-key
-			<LayoutComponent { ...componentProps }>
-				{ componentChildren }
-			</LayoutComponent>
+			<Suspense
+				key={ `${ parentBlockName }_${ depth }_${ index }_suspense` }
+				fallback={ <div className="wc-block-placeholder" /> }
+			>
+				<LayoutComponent { ...componentProps }>
+					{ componentChildren }
+				</LayoutComponent>
+			</Suspense>
 		);
 	} );
 };

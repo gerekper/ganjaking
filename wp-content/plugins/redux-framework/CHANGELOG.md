@@ -1,5 +1,21 @@
 # Redux Changelog
 
+## 4.1.15
+* Fixed: Defaults were not saving in some situations.
+* Added: Various fallback calls for JS when fetching opt_names.
+* Fixed: Warnings with Rest API due to WP 5.5.
+* Fixed: Subsets now are full-width in typography when rendered after page load.
+* Fixed: for subsets loading when font-family is not specified.
+* Added: No opt-in to tracking when embedded. Google Fonts and panel notices are still there though.
+* Fixed: Is local checks conflicting with some servers.
+* Fixed: WooCommerce race condition with their autoloader causing issues with some sites.
+* Updated: Complete overhaul of WordPress data class.
+* Fixed: Backtrace errors when blocked on servers.
+* Fixed: Select2 and required fixes.
+* Fixed: Customizer sidebar not showing in some cases.
+* Added: Google Fonts now load ~20% faster!!!
+
+
 ## 4.1.14
 * Added: Shim for ReduxFramework->get_default_value()
 * Fixed: Local issue with WP and strtolower. Sites that couldn't find classes should work now.

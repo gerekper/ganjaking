@@ -1,0 +1,334 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the woothemes-updater package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: woothemes-updater 1.5.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-18 12:02+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: classes/class-woothemes-updater-admin.php:76
+msgid "The WooCommerce Helper"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:77
+msgid "WooCommerce Helper"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:142
+#, php-format
+msgid ""
+"%sYour WooCommerce products are almost ready.%s To get started, %sactivate "
+"your product subscriptions%s."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:223
+#, php-format
+msgid ""
+"Your subscription for <strong>%s</strong> expires on %s, %sEnable auto-renew"
+"%s."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:225
+#, php-format
+msgid ""
+"Your subscription for <strong>%s</strong> has expired. Please %senable auto-"
+"renew%s to be eligible for future updates and support."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:231
+msgid "a subscription is about to expire"
+msgid_plural "several subscriptions are about to expire"
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/class-woothemes-updater-admin.php:232
+msgid "Warning:"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:254
+msgid ""
+"Any customizations you have made to theme files will be lost. Are you sure "
+"you would like to update?"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:288
+msgid "Welcome to the WooCommerce Helper"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:292
+msgid "This is your one-stop-spot for activating your subscriptions."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:296
+#, php-format
+msgid ""
+"To make sure your subscriptions stay active, %1$sadd a saved card%2$s and "
+"%3$senable auto-renew%2$s on the subscriptions you’re continuing to enjoy."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:357
+msgid "Documentation Portal"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:358
+msgid "Knowledgebase"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:359
+msgid "FAQ"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:360
+msgid "Blog"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:362
+#: classes/class-woothemes-updater-admin.php:363
+#: classes/class-woothemes-updater-admin.php:377
+#: classes/class-woothemes-updater-admin.php:397
+#: classes/class-woothemes-updater-admin.php:416
+msgid "Getting Started"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:365
+msgid "Follow WooCommerce on Twitter"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:378
+msgid "Theme Compatibility"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:379
+msgid "Product Variations"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:380
+msgid "WooCommerce Self Service Guide"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:382
+#: classes/class-woothemes-updater-admin.php:383
+msgid "WooCommerce"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:385
+msgid "Find out more about WooCommerce"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:398
+msgid "Theming Sensei"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:399
+msgid "Import Sensei Dummy Data"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:401
+#: classes/class-woothemes-updater-admin.php:402
+msgid "Sensei"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:404
+msgid "Find out more about Sensei"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:417
+msgid "Setting up Canvas"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:418
+msgid "WooCodex"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:420
+#: classes/class-woothemes-updater-admin.php:421
+msgid "Themes"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:423
+msgid "Find out more about our Themes"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:434
+msgid "Help!"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:434
+msgid "Panic Button"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:434
+msgid "For when all else fails"
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:597
+#: classes/class-woothemes-updater-admin.php:700
+msgid "Products activated successfully."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:597
+msgid "Refreshing the products list..."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:602
+#: classes/class-woothemes-updater-admin.php:702
+msgid "There was an error and not all products were activated."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:621
+#: classes/class-woothemes-updater-admin.php:686
+msgid "No license keys were specified for activation."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:691
+msgid "Product deactivated successfully."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:693
+msgid "There was an error while deactivating the product."
+msgstr ""
+
+#: classes/class-woothemes-updater-admin.php:790
+msgid "Please activate"
+msgstr ""
+
+#: classes/class-woothemes-updater-api.php:217
+msgid "WooCommerce Request Error"
+msgstr ""
+
+#: classes/class-woothemes-updater-api.php:230
+msgid "There was an error making your request, please try again."
+msgstr ""
+
+#: classes/class-woothemes-updater-licenses-table.php:43
+msgid "No WooCommerce products found."
+msgstr ""
+
+#: classes/class-woothemes-updater-licenses-table.php:80
+msgid "Product"
+msgstr ""
+
+#: classes/class-woothemes-updater-licenses-table.php:81
+msgid "Version"
+msgstr ""
+
+#: classes/class-woothemes-updater-licenses-table.php:82
+msgid "Key"
+msgstr ""
+
+#: classes/class-woothemes-updater-licenses-table.php:83
+msgid "Renews On"
+msgstr ""
+
+#: classes/class-woothemes-updater-licenses-table.php:106
+#, php-format
+msgid "version %1$s available"
+msgstr ""
+
+#: classes/class-woothemes-updater-licenses-table.php:124
+msgid "Deactivate"
+msgstr ""
+
+#: classes/class-woothemes-updater-licenses-table.php:126
+msgid "Place your subscription key here"
+msgstr ""
+
+#: classes/class-woothemes-updater-screen.php:84
+msgid "Subscriptions"
+msgstr ""
+
+#: classes/class-woothemes-updater-screen.php:85
+msgid "Help"
+msgstr ""
+
+#: classes/class-woothemes-updater-update-checker.php:420
+msgid ""
+"An unexpected error occurred. Something may be wrong with WooCommerce.com or "
+"this server&#8217;s configuration. If you continue to have problems, please "
+"try the <a href=\"https://support.WooCommerce.com/hc/en-us\">help center</a>."
+msgstr ""
+
+#: classes/class-woothemes-updater-update-checker.php:420
+msgid ""
+"(WordPress could not establish a secure connection to WooCommerce.com. Please "
+"contact your server administrator.)"
+msgstr ""
+
+#: classes/class-woothemes-updater.php:168
+msgid "Theme Information File Not Found."
+msgstr ""
+
+#: classes/class-woothemes-updater.php:184
+msgid "Theme Information File is Inaccurate. Please try again."
+msgstr ""
+
+#: classes/class-woothemes-updater.php:254
+msgid ""
+"WooCommerce Updater must be network activated when in multisite environment."
+msgstr ""
+
+#: classes/class-woothemes-updater.php:280
+#: classes/class-woothemes-updater.php:298
+msgid ""
+"To enable this update please activate your WooCommerce license by visiting the "
+"Dashboard > WooCommerce Helper screen."
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-file.php:3
+msgid "I'm a translatable string."
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:4
+msgid "Me too"
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:7
+#, php-format
+msgid "I have %d apple"
+msgid_plural "I have %d apples"
+msgstr[0] ""
+msgstr[1] ""
+
+#. / TRANSLATORS: This should be translated as a shorthand for YEAR-MONTH-DAY using 4, 2 and 2 digits.
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:16
+msgid "yyyy-mm-dd"
+msgstr ""
+
+#: screens/screen-manage.php:5
+#, php-format
+msgid ""
+"See below for a list of the WooCommerce products in use on %s. You can %s, as "
+"well as our %s on how this works. %s"
+msgstr ""
+
+#: screens/screen-manage.php:5
+msgid "Check for Updates"
+msgstr ""
+
+#: screens/screen-manage.php:20
+msgid "Activate Subscriptions"
+msgstr ""
+
+#: screens/screen-manage.php:21
+msgid "Manage my Subscriptions"
+msgstr ""
+
+#: screens/woothemes-api-unreachable.php:4
+#, php-format
+msgid ""
+"There seems to be an error reaching the WooCommerce API at this time. Please "
+"try again later. Should this error persist, please %slog a ticket%s in our "
+"help desk."
+msgstr ""

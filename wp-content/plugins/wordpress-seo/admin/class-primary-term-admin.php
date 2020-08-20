@@ -21,9 +21,6 @@ class WPSEO_Primary_Term_Admin implements WPSEO_WordPress_Integration {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 
 		add_action( 'save_post', [ $this, 'save_primary_terms' ] );
-
-		$primary_term = new WPSEO_Frontend_Primary_Category();
-		$primary_term->register_hooks();
 	}
 
 	/**
@@ -127,14 +124,14 @@ class WPSEO_Primary_Term_Admin implements WPSEO_WordPress_Integration {
 
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
 		$asset_manager->enqueue_style( 'primary-category' );
-		$asset_manager->enqueue_script( 'primary-category' );
 
 		$mapped_taxonomies = $this->get_mapped_taxonomies_for_js( $taxonomies );
 
 		$data = [
 			'taxonomies' => $mapped_taxonomies,
 		];
-		wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'primary-category', 'wpseoPrimaryCategoryL10n', $data );
+		wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'post-edit', 'wpseoPrimaryCategoryL10n', $data );
+		wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'post-edit-classic', 'wpseoPrimaryCategoryL10n', $data );
 	}
 
 	/**
@@ -175,12 +172,12 @@ class WPSEO_Primary_Term_Admin implements WPSEO_WordPress_Integration {
 	 * @return array
 	 */
 	protected function get_primary_term_taxonomies( $post_id = null ) {
-		if ( null === $post_id ) {
+		if ( $post_id === null ) {
 			$post_id = $this->get_current_id();
 		}
 
 		$taxonomies = wp_cache_get( 'primary_term_taxonomies_' . $post_id, 'wpseo' );
-		if ( false !== $taxonomies ) {
+		if ( $taxonomies !== false ) {
 			return $taxonomies;
 		}
 
@@ -208,7 +205,7 @@ class WPSEO_Primary_Term_Admin implements WPSEO_WordPress_Integration {
 		$primary_term = filter_input( INPUT_POST, WPSEO_Meta::$form_prefix . 'primary_' . $taxonomy->name . '_term', FILTER_SANITIZE_NUMBER_INT );
 
 		// We accept an empty string here because we need to save that if no terms are selected.
-		if ( null !== $primary_term && check_admin_referer( 'save-primary-term', WPSEO_Meta::$form_prefix . 'primary_' . $taxonomy->name . '_nonce' ) ) {
+		if ( $primary_term && check_admin_referer( 'save-primary-term', WPSEO_Meta::$form_prefix . 'primary_' . $taxonomy->name . '_nonce' ) !== null ) {
 			$primary_term_object = new WPSEO_Primary_Term( $taxonomy->name, $post_id );
 			$primary_term_object->set_primary_term( $primary_term );
 		}

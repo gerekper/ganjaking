@@ -1524,6 +1524,28 @@
 					$.tmEPOAdmin.builder_reorder_multiple();
 					$.tmEPOAdmin.section_logic_init();
 					$.tmEPOAdmin.init_sections_check();
+				},
+				aftermovetab: function( newIndex, oldIndex, $tab, initialIndex ) {
+					var bwindex = bw.index();
+					var length = $tab.find( '.bitem' ).length;
+					var index = $.tmEPOAdmin.find_index( true, $tab.find( '.bitem' ).first() );
+
+					TCBUILDER[ bwindex ].fields
+						.splice.apply(
+							TCBUILDER[ bwindex ].fields, [ index, 0 ].concat( TCBUILDER[ bwindex ].fields.splice( initialIndex, length ) )
+						);
+
+					TCBUILDER[ bwindex ].section.sections_slides.default = $( '.builder_wrapper' ).eq( bwindex )
+						.find( '.bitem_wrapper' )
+						.map( function( i, e ) {
+							return $( e ).children( '.bitem' ).not( '.pl2' ).length;
+						} )
+						.get()
+						.join( ',' );
+
+					$.tmEPOAdmin.builder_reorder_multiple();
+					$.tmEPOAdmin.section_logic_init();
+					$.tmEPOAdmin.init_sections_check();
 				}
 			} );
 

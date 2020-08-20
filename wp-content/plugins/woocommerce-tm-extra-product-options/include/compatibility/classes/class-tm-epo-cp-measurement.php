@@ -90,7 +90,8 @@ final class THEMECOMPLETE_EPO_CP_measurement {
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
 			wp_enqueue_script( 'themecomplete-comp-measurement', THEMECOMPLETE_EPO_PLUGIN_URL . '/include/compatibility/assets/js/cp-measurement.js', array( 'jquery' ), THEMECOMPLETE_EPO_VERSION, TRUE );
 			$args = array(
-				'wc_measurement_qty_multiplier' => isset( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) && ( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode == "yes" ) ? 1 : 0,
+				'wc_measurement_qty_multiplier' => isset( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) && ( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode === "yes" ) ? 1 : 0,
+				'wc_measurement_divide' => isset( THEMECOMPLETE_EPO()->tm_epo_measurement_divide ) && ( THEMECOMPLETE_EPO()->tm_epo_measurement_divide === "yes" ) ? 1 : 0,
 			);
 			wp_localize_script( 'themecomplete-comp-measurement', 'TMEPOMEASUREMENTJS', $args );
 		}
@@ -133,16 +134,18 @@ final class THEMECOMPLETE_EPO_CP_measurement {
 			array(
 				'title'    => esc_html__( 'Multiply options cost by area', 'woocommerce-tm-extra-product-options' ),
 				'desc'     => esc_html__( 'Enabling this will multiply the options price by the calculated area.', 'woocommerce-tm-extra-product-options' ),
-				'id'       => 'tm_epo_measurement_calculate_mode',
-				'class'    => 'chosen_select',
-				'css'      => 'min-width:300px;',
-				'default'  => 'no',
-				'type'     => 'select',
-				'options'  => array(
-					'no'  => esc_html__( 'Disable', 'woocommerce-tm-extra-product-options' ),
-					'yes' => esc_html__( 'Enable', 'woocommerce-tm-extra-product-options' ),
-				),
-				'desc_tip' => FALSE,
+				'id'      => 'tm_epo_measurement_calculate_mode',
+				'default' => 'no',
+				'class'   => 'tcdisplay',
+				'type'    => 'checkbox',
+			),
+			array(
+				'title'   => esc_html__( 'Divide price with measurement', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'This will divide the original price with the needed measurement.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_measurement_divide',
+				'default' => 'no',
+				'class'   => 'tcdisplay',
+				'type'    => 'checkbox',
 			),
 
 			array( 'type' => 'tm_sectionend', 'id' => 'epo_page_options' ),
@@ -160,6 +163,7 @@ final class THEMECOMPLETE_EPO_CP_measurement {
 
 		if ( class_exists( 'WC_Measurement_Price_Calculator' ) ) {
 			$settings["tm_epo_measurement_calculate_mode"] = "no";
+			$settings["tm_epo_measurement_divide"] = "no";
 		}
 
 		return $settings;
@@ -193,14 +197,14 @@ final class THEMECOMPLETE_EPO_CP_measurement {
 	 */
 	public function wc_epo_option_price_correction( $price = "", $cart_item = "" ) {
 
-		if ( isset( $cart_item['pricing_item_meta_data'] ) && !empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) ) {
-			$price = $price/$cart_item['pricing_item_meta_data']['_measurement_needed'];
+		if ( isset( $cart_item['pricing_item_meta_data'] ) && !empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) && isset( THEMECOMPLETE_EPO()->tm_epo_measurement_divide ) && THEMECOMPLETE_EPO()->tm_epo_measurement_divide === 'yes' ) {
+			$price = floatval( $price ) / floatval( $cart_item['pricing_item_meta_data']['_measurement_needed'] );
 		}
 
-		if ( isset( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) && THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode == 'yes' ) {
+		if ( isset( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) && THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode === 'yes' ) {
 
 			if ( is_array( $cart_item ) && isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) ) {
-				$price = $price * floatval( $cart_item['pricing_item_meta_data']['_measurement_needed'] );
+				$price = floatval( $price ) * floatval( $cart_item['pricing_item_meta_data']['_measurement_needed'] );
 			}
 
 		}
@@ -214,9 +218,12 @@ final class THEMECOMPLETE_EPO_CP_measurement {
 	 * @since 1.0
 	 */
 	public function wc_epo_add_cart_item_original_price( $price = "", $cart_item = "" ) {
-
-		if ( isset( $cart_item['pricing_item_meta_data'] ) && isset( $cart_item['pricing_item_meta_data']['_price'] ) && !empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) ) {
-			$price = $cart_item['pricing_item_meta_data']['_price']/$cart_item['pricing_item_meta_data']['_measurement_needed'];
+		
+		if ( isset( $cart_item['pricing_item_meta_data'] ) && isset( $cart_item['pricing_item_meta_data']['_price'] ) ) {
+			$price = floatval( $cart_item['pricing_item_meta_data']['_price'] );
+			if ( ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) && isset( THEMECOMPLETE_EPO()->tm_epo_measurement_divide ) && THEMECOMPLETE_EPO()->tm_epo_measurement_divide === 'yes' ) {
+				$price = floatval( $price ) / floatval( $cart_item['pricing_item_meta_data']['_measurement_needed'] );
+			}
 		}
 
 		return $price;

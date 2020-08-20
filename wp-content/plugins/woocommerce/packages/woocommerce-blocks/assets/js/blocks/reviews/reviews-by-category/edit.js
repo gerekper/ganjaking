@@ -141,6 +141,7 @@ const ReviewsByCategoryEditor = ( {
 					'Reviews by Category',
 					'woocommerce'
 				) }
+				className="wc-block-reviews-by-category"
 			>
 				{ __(
 					'Show product reviews from specific categories.',

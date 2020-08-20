@@ -50,12 +50,12 @@ const TotalsShippingItem = ( {
 		return (
 			<>
 				<TotalsItem
-					className="wc-block-shipping-totals"
+					className="wc-block-components-totals-shipping"
 					label={ __( 'Shipping', 'woocommerce' ) }
 					value={
 						showCalculator ? (
 							<button
-								className="wc-block-shipping-totals__change-address-button"
+								className="wc-block-components-totals-shipping__change-address-button"
 								onClick={ () => {
 									setIsShippingCalculatorOpen(
 										! isShippingCalculatorOpen
@@ -89,7 +89,7 @@ const TotalsShippingItem = ( {
 	}
 
 	return (
-		<div className="wc-block-shipping-totals">
+		<div className="wc-block-components-totals-shipping">
 			<TotalsItem
 				label={ __( 'Shipping', 'woocommerce' ) }
 				value={ totalShippingValue ? totalShippingValue : '' }
@@ -98,12 +98,13 @@ const TotalsShippingItem = ( {
 						<ShippingLocation address={ shippingAddress } />{ ' ' }
 						{ showCalculator && (
 							<button
-								className="wc-block-shipping-totals__change-address-button"
+								className="wc-block-components-totals-shipping__change-address-button"
 								onClick={ () => {
 									setIsShippingCalculatorOpen(
 										! isShippingCalculatorOpen
 									);
 								} }
+								aria-expanded={ isShippingCalculatorOpen }
 							>
 								{ __(
 									'(change address)',

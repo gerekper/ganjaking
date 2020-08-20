@@ -2,6 +2,11 @@
 	@include link-button();
 }
 
+.wc-block-suspense-placeholder {
+	@include placeholder();
+	@include force-content();
+}
+
 // These styles are for the server side rendered product grid blocks.
 .wc-block-grid__products .wc-block-grid__product-image {
 	text-decoration: none;
@@ -231,7 +236,7 @@
 	}
 
 	.wc-block-grid__products .wc-block-grid__product-onsale,
-	.wc-block-layout .wc-block-components-product-sale-badge {
+	.wc-block-components-product-sale-badge {
 		background: $twentytwenty-highlights-color;
 		color: #fff;
 		font-family: $twentytwenty-headings;

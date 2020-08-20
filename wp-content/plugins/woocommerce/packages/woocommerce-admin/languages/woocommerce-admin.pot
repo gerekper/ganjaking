@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Admin package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Admin 1.3.1\n"
+"Project-Id-Version: WooCommerce Admin 1.4.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-admin\n"
-"POT-Creation-Date: 2020-07-20 22:32:58+00:00\n"
+"POT-Creation-Date: 2020-08-17 22:43:49+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "South African Rand"
 msgstr ""
 
-#: includes/connect-existing-pages.php:26 src/Features/Navigation.php:197
+#: includes/connect-existing-pages.php:26
 msgid "Extensions"
 msgstr ""
 
@@ -49,20 +49,19 @@ msgstr ""
 msgid "Reports"
 msgstr ""
 
-#: includes/connect-existing-pages.php:34 src/Features/Analytics.php:152
-#: src/Features/Navigation.php:225
+#: includes/connect-existing-pages.php:34 src/Features/Analytics.php:187
 #: client/header/activity-panel/panels/orders.js:241
-#: client/layout/controller.js:130
+#: client/layout/controller.js:133
 #: client/marketing/overview/installed-extensions/row.js:49
-#: client/task-list/tasks/payments/methods.js:104
+#: client/task-list/tasks/payments/methods.js:137
 msgid "Settings"
 msgstr ""
 
 #: includes/connect-existing-pages.php:38
-#: src/API/Reports/Orders/Controller.php:479
-#: src/API/Reports/Products/Controller.php:399
-#: src/API/Reports/Stock/Controller.php:529
-#: src/API/Reports/Variations/Controller.php:365
+#: src/API/Reports/Orders/Controller.php:476
+#: src/API/Reports/Products/Controller.php:396
+#: src/API/Reports/Stock/Controller.php:526
+#: src/API/Reports/Variations/Controller.php:362
 #: client/analytics/report/orders/table.js:50
 #: client/analytics/report/products/table-variations.js:73
 #: client/analytics/report/products/table.js:88
@@ -70,11 +69,11 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: includes/connect-existing-pages.php:42 src/Features/Navigation.php:240
+#: includes/connect-existing-pages.php:42
 msgid "System status"
 msgstr ""
 
-#: includes/connect-existing-pages.php:43 src/Features/Navigation.php:233
+#: includes/connect-existing-pages.php:43
 msgid "Tools"
 msgstr ""
 
@@ -86,23 +85,23 @@ msgstr ""
 msgid "WooCommerce"
 msgstr ""
 
-#: includes/connect-existing-pages.php:130 src/API/Leaderboards.php:128
-#: src/API/Leaderboards.php:258 src/API/Reports/Categories/Controller.php:336
-#: src/API/Reports/Coupons/Controller.php:303
-#: src/API/Reports/Customers/Controller.php:594
-#: src/API/Reports/Orders/Stats/Controller.php:164
-#: src/API/Reports/Products/Controller.php:393
-#: src/API/Reports/Revenue/Stats/Controller.php:452
-#: src/API/Reports/Taxes/Controller.php:310
-#: src/API/Reports/Variations/Controller.php:361 src/Features/Analytics.php:104
-#: src/Features/Navigation.php:181 src/ReportCSVEmail.php:35
+#: includes/connect-existing-pages.php:130 src/API/Leaderboards.php:125
+#: src/API/Leaderboards.php:255 src/API/Reports/Categories/Controller.php:333
+#: src/API/Reports/Coupons/Controller.php:300
+#: src/API/Reports/Customers/Controller.php:591
+#: src/API/Reports/Orders/Stats/Controller.php:161
+#: src/API/Reports/Products/Controller.php:390
+#: src/API/Reports/Revenue/Stats/Controller.php:449
+#: src/API/Reports/Taxes/Controller.php:307
+#: src/API/Reports/Variations/Controller.php:358 src/Features/Analytics.php:139
+#: src/ReportCSVEmail.php:33
 #: client/analytics/report/categories/config.js:36
 #: client/analytics/report/categories/table.js:62
 #: client/analytics/report/coupons/table.js:42
 #: client/analytics/report/customers/table.js:63
 #: client/analytics/report/get-reports.js:63
 #: client/analytics/report/orders/config.js:25
-#: client/analytics/report/orders/table.js:350
+#: client/analytics/report/orders/table.js:337
 #: client/analytics/report/products/config.js:36
 #: client/analytics/report/products/table-variations.js:66
 #: client/analytics/report/products/table.js:72
@@ -110,7 +109,7 @@ msgstr ""
 #: client/analytics/report/taxes/config.js:43
 #: client/analytics/report/taxes/table.js:62
 #: client/dashboard/dashboard-charts/config.js:41
-#: client/header/activity-panel/index.js:135
+#: client/header/activity-panel/index.js:160
 #: client/header/activity-panel/panels/orders.js:273
 msgid "Orders"
 msgstr ""
@@ -126,10 +125,10 @@ msgid "Edit Order"
 msgstr ""
 
 #: includes/connect-existing-pages.php:161
-#: src/API/Reports/Revenue/Stats/Controller.php:455
-#: src/Features/Analytics.php:122 src/Features/Coupons.php:76
-#: src/Features/Coupons.php:77 src/ReportCSVEmail.php:38
-#: client/analytics/report/coupons/table.js:226
+#: src/API/Reports/Revenue/Stats/Controller.php:452
+#: src/Features/Analytics.php:157 src/Features/Coupons.php:74
+#: src/Features/Coupons.php:75 src/ReportCSVEmail.php:36
+#: client/analytics/report/coupons/table.js:237
 #: client/analytics/report/get-reports.js:73
 #: client/analytics/report/orders/table.js:77
 #: client/analytics/report/revenue/config.js:30
@@ -142,8 +141,8 @@ msgid "Edit Coupon"
 msgstr ""
 
 #: includes/connect-existing-pages.php:191
-#: src/API/Reports/Categories/Controller.php:335 src/Features/Analytics.php:110
-#: src/Features/Navigation.php:189 src/ReportCSVEmail.php:36
+#: src/API/Reports/Categories/Controller.php:332 src/Features/Analytics.php:145
+#: src/ReportCSVEmail.php:34
 #: client/analytics/report/categories/table.js:56
 #: client/analytics/report/get-reports.js:58
 #: client/analytics/report/orders/config.js:119
@@ -188,7 +187,8 @@ msgstr ""
 msgid "Edit attribute"
 msgstr ""
 
-#: includes/emails/html-admin-report-export-download.php:17
+#: includes/emails/html-admin-report-export-download.php:19
+#. translators: %s: report name
 msgid "Download your %s Report"
 msgstr ""
 
@@ -197,61 +197,61 @@ msgstr ""
 msgid "Download your %1$s Report: %2$s"
 msgstr ""
 
-#: src/API/Coupons.php:37
+#: src/API/Coupons.php:34
 msgid "Limit results to coupons with codes matching a given string."
 msgstr ""
 
-#: src/API/Customers.php:53 src/API/Notes.php:63
+#: src/API/Customers.php:50 src/API/Notes.php:60
 msgid "Unique ID for the resource."
 msgstr ""
 
-#: src/API/Data.php:41
+#: src/API/Data.php:38
 msgid "An endpoint used for searching download logs for a specific IP address."
 msgstr ""
 
-#: src/API/DataDownloadIPs.php:75
+#: src/API/DataDownloadIPs.php:72
 msgid "Invalid request. Please pass the match parameter."
 msgstr ""
 
-#: src/API/DataDownloadIPs.php:139
+#: src/API/DataDownloadIPs.php:136
 msgid "A partial IP address can be passed and matching results will be returned."
 msgstr ""
 
-#: src/API/DataDownloadIPs.php:160
+#: src/API/DataDownloadIPs.php:157
 msgid "IP address."
 msgstr ""
 
-#: src/API/Leaderboards.php:122
+#: src/API/Leaderboards.php:119
 msgid "Top Coupons - Number of Orders"
 msgstr ""
 
-#: src/API/Leaderboards.php:125 src/API/Reports/Coupons/Controller.php:302
+#: src/API/Leaderboards.php:122 src/API/Reports/Coupons/Controller.php:299
 #: client/analytics/report/coupons/table.js:35
 msgid "Coupon Code"
 msgstr ""
 
-#: src/API/Leaderboards.php:131 src/API/Reports/Coupons/Controller.php:304
+#: src/API/Leaderboards.php:128 src/API/Reports/Coupons/Controller.php:301
 #: client/analytics/report/coupons/table.js:50
 msgid "Amount Discounted"
 msgstr ""
 
-#: src/API/Leaderboards.php:188
+#: src/API/Leaderboards.php:185
 msgid "Top Categories - Items Sold"
 msgstr ""
 
-#: src/API/Leaderboards.php:191 src/API/Reports/Categories/Controller.php:332
-#: src/API/Reports/Products/Controller.php:394
+#: src/API/Leaderboards.php:188 src/API/Reports/Categories/Controller.php:329
+#: src/API/Reports/Products/Controller.php:391
 #: client/analytics/report/categories/table.js:35
 #: client/analytics/report/products/table.js:78
 msgid "Category"
 msgstr ""
 
-#: src/API/Leaderboards.php:194 src/API/Leaderboards.php:324
-#: src/API/Reports/Categories/Controller.php:333
-#: src/API/Reports/Orders/Controller.php:482
-#: src/API/Reports/Products/Controller.php:391
-#: src/API/Reports/Products/Stats/Controller.php:160
-#: src/API/Reports/Variations/Controller.php:359
+#: src/API/Leaderboards.php:191 src/API/Leaderboards.php:321
+#: src/API/Reports/Categories/Controller.php:330
+#: src/API/Reports/Orders/Controller.php:479
+#: src/API/Reports/Products/Controller.php:388
+#: src/API/Reports/Products/Stats/Controller.php:157
+#: src/API/Reports/Variations/Controller.php:356
 #: client/analytics/report/categories/config.js:22
 #: client/analytics/report/categories/table.js:42
 #: client/analytics/report/orders/table.js:69
@@ -262,7 +262,7 @@ msgstr ""
 msgid "Items Sold"
 msgstr ""
 
-#: src/API/Leaderboards.php:197 src/API/Leaderboards.php:327
+#: src/API/Leaderboards.php:194 src/API/Leaderboards.php:324
 #: client/analytics/report/categories/config.js:29
 #: client/analytics/report/categories/table.js:50
 #: client/analytics/report/orders/config.js:30
@@ -276,1054 +276,1066 @@ msgstr ""
 msgid "Net Sales"
 msgstr ""
 
-#: src/API/Leaderboards.php:252
+#: src/API/Leaderboards.php:249
 msgid "Top Customers - Total Spend"
 msgstr ""
 
-#: src/API/Leaderboards.php:255
+#: src/API/Leaderboards.php:252
 msgid "Customer Name"
 msgstr ""
 
-#: src/API/Leaderboards.php:261 src/API/Reports/Customers/Controller.php:595
+#: src/API/Leaderboards.php:258 src/API/Reports/Customers/Controller.php:592
 #: client/analytics/report/customers/config.js:338
 #: client/analytics/report/customers/table.js:69
 msgid "Total Spend"
 msgstr ""
 
-#: src/API/Leaderboards.php:318
+#: src/API/Leaderboards.php:315
 msgid "Top Products - Items Sold"
 msgstr ""
 
-#: src/API/Leaderboards.php:321
+#: src/API/Leaderboards.php:318
 #: client/analytics/report/downloads/config.js:55
 msgid "Product"
 msgstr ""
 
-#: src/API/Leaderboards.php:438 src/API/Notes.php:465
-#: src/API/Reports/Categories/Controller.php:222
-#: src/API/Reports/Coupons/Controller.php:228
-#: src/API/Reports/Coupons/Stats/Controller.php:275
-#: src/API/Reports/Customers/Controller.php:354
-#: src/API/Reports/Downloads/Controller.php:253
-#: src/API/Reports/Downloads/Stats/Controller.php:232
-#: src/API/Reports/Orders/Controller.php:260
-#: src/API/Reports/Orders/Stats/Controller.php:333
-#: src/API/Reports/Products/Controller.php:262
-#: src/API/Reports/Products/Stats/Controller.php:315
-#: src/API/Reports/Revenue/Stats/Controller.php:361
-#: src/API/Reports/Stock/Controller.php:430
-#: src/API/Reports/Taxes/Controller.php:234
-#: src/API/Reports/Taxes/Stats/Controller.php:312
-#: src/API/Reports/Variations/Controller.php:261
+#: src/API/Leaderboards.php:435 src/API/Notes.php:462
+#: src/API/Reports/Categories/Controller.php:219
+#: src/API/Reports/Coupons/Controller.php:225
+#: src/API/Reports/Coupons/Stats/Controller.php:272
+#: src/API/Reports/Customers/Controller.php:351
+#: src/API/Reports/Downloads/Controller.php:258
+#: src/API/Reports/Downloads/Stats/Controller.php:229
+#: src/API/Reports/Orders/Controller.php:257
+#: src/API/Reports/Orders/Stats/Controller.php:324
+#: src/API/Reports/Products/Controller.php:259
+#: src/API/Reports/Products/Stats/Controller.php:312
+#: src/API/Reports/Revenue/Stats/Controller.php:358
+#: src/API/Reports/Stock/Controller.php:427
+#: src/API/Reports/Taxes/Controller.php:231
+#: src/API/Reports/Taxes/Stats/Controller.php:309
+#: src/API/Reports/Variations/Controller.php:258
 msgid "Current page of the collection."
 msgstr ""
 
-#: src/API/Leaderboards.php:446 src/API/Notes.php:473
-#: src/API/Reports/Categories/Controller.php:230
-#: src/API/Reports/Coupons/Controller.php:236
-#: src/API/Reports/Coupons/Stats/Controller.php:283
-#: src/API/Reports/Customers/Controller.php:362
-#: src/API/Reports/Downloads/Controller.php:261
-#: src/API/Reports/Downloads/Stats/Controller.php:240
-#: src/API/Reports/Orders/Controller.php:268
-#: src/API/Reports/Orders/Stats/Controller.php:341
-#: src/API/Reports/Products/Controller.php:270
-#: src/API/Reports/Products/Stats/Controller.php:323
-#: src/API/Reports/Revenue/Stats/Controller.php:369
-#: src/API/Reports/Stock/Controller.php:438
-#: src/API/Reports/Taxes/Controller.php:242
-#: src/API/Reports/Taxes/Stats/Controller.php:320
-#: src/API/Reports/Variations/Controller.php:269
+#: src/API/Leaderboards.php:443 src/API/Notes.php:470
+#: src/API/Reports/Categories/Controller.php:227
+#: src/API/Reports/Coupons/Controller.php:233
+#: src/API/Reports/Coupons/Stats/Controller.php:280
+#: src/API/Reports/Customers/Controller.php:359
+#: src/API/Reports/Downloads/Controller.php:266
+#: src/API/Reports/Downloads/Stats/Controller.php:237
+#: src/API/Reports/Orders/Controller.php:265
+#: src/API/Reports/Orders/Stats/Controller.php:332
+#: src/API/Reports/Products/Controller.php:267
+#: src/API/Reports/Products/Stats/Controller.php:320
+#: src/API/Reports/Revenue/Stats/Controller.php:366
+#: src/API/Reports/Stock/Controller.php:435
+#: src/API/Reports/Taxes/Controller.php:239
+#: src/API/Reports/Taxes/Stats/Controller.php:317
+#: src/API/Reports/Variations/Controller.php:266
 msgid "Maximum number of items to be returned in result set."
 msgstr ""
 
-#: src/API/Leaderboards.php:455 src/API/Reports/Categories/Controller.php:239
-#: src/API/Reports/Coupons/Controller.php:245
-#: src/API/Reports/Coupons/Stats/Controller.php:292
-#: src/API/Reports/Downloads/Controller.php:270
-#: src/API/Reports/Downloads/Stats/Controller.php:249
-#: src/API/Reports/Orders/Controller.php:277
-#: src/API/Reports/Orders/Stats/Controller.php:350
-#: src/API/Reports/PerformanceIndicators/Controller.php:677
-#: src/API/Reports/Products/Controller.php:279
-#: src/API/Reports/Products/Stats/Controller.php:332
-#: src/API/Reports/Revenue/Stats/Controller.php:378
-#: src/API/Reports/Taxes/Controller.php:251
-#: src/API/Reports/Taxes/Stats/Controller.php:329
-#: src/API/Reports/Variations/Controller.php:278
+#: src/API/Leaderboards.php:452 src/API/Reports/Categories/Controller.php:236
+#: src/API/Reports/Coupons/Controller.php:242
+#: src/API/Reports/Coupons/Stats/Controller.php:289
+#: src/API/Reports/Downloads/Controller.php:275
+#: src/API/Reports/Downloads/Stats/Controller.php:246
+#: src/API/Reports/Orders/Controller.php:274
+#: src/API/Reports/Orders/Stats/Controller.php:341
+#: src/API/Reports/PerformanceIndicators/Controller.php:674
+#: src/API/Reports/Products/Controller.php:276
+#: src/API/Reports/Products/Stats/Controller.php:329
+#: src/API/Reports/Revenue/Stats/Controller.php:375
+#: src/API/Reports/Taxes/Controller.php:248
+#: src/API/Reports/Taxes/Stats/Controller.php:326
+#: src/API/Reports/Variations/Controller.php:275
 msgid "Limit response to resources published after a given ISO8601 compliant date."
 msgstr ""
 
-#: src/API/Leaderboards.php:461 src/API/Reports/Categories/Controller.php:245
-#: src/API/Reports/Coupons/Controller.php:251
-#: src/API/Reports/Coupons/Stats/Controller.php:298
-#: src/API/Reports/Downloads/Controller.php:276
-#: src/API/Reports/Downloads/Stats/Controller.php:255
-#: src/API/Reports/Orders/Controller.php:283
-#: src/API/Reports/Orders/Stats/Controller.php:356
-#: src/API/Reports/PerformanceIndicators/Controller.php:683
-#: src/API/Reports/Products/Controller.php:285
-#: src/API/Reports/Products/Stats/Controller.php:338
-#: src/API/Reports/Revenue/Stats/Controller.php:384
-#: src/API/Reports/Taxes/Controller.php:257
-#: src/API/Reports/Taxes/Stats/Controller.php:335
-#: src/API/Reports/Variations/Controller.php:284
+#: src/API/Leaderboards.php:458 src/API/Reports/Categories/Controller.php:242
+#: src/API/Reports/Coupons/Controller.php:248
+#: src/API/Reports/Coupons/Stats/Controller.php:295
+#: src/API/Reports/Downloads/Controller.php:281
+#: src/API/Reports/Downloads/Stats/Controller.php:252
+#: src/API/Reports/Orders/Controller.php:280
+#: src/API/Reports/Orders/Stats/Controller.php:347
+#: src/API/Reports/PerformanceIndicators/Controller.php:680
+#: src/API/Reports/Products/Controller.php:282
+#: src/API/Reports/Products/Stats/Controller.php:335
+#: src/API/Reports/Revenue/Stats/Controller.php:381
+#: src/API/Reports/Taxes/Controller.php:254
+#: src/API/Reports/Taxes/Stats/Controller.php:332
+#: src/API/Reports/Variations/Controller.php:281
 msgid "Limit response to resources published before a given ISO8601 compliant date."
 msgstr ""
 
-#: src/API/Leaderboards.php:467
+#: src/API/Leaderboards.php:464
 msgid "URL query to persist across links."
 msgstr ""
 
-#: src/API/Leaderboards.php:487
+#: src/API/Leaderboards.php:484
 msgid "Leaderboard ID."
 msgstr ""
 
-#: src/API/Leaderboards.php:493
+#: src/API/Leaderboards.php:490
 msgid "Displayed title for the leaderboard."
 msgstr ""
 
-#: src/API/Leaderboards.php:499
+#: src/API/Leaderboards.php:496
 msgid "Table headers."
 msgstr ""
 
-#: src/API/Leaderboards.php:506
+#: src/API/Leaderboards.php:503
 msgid "Table column header."
 msgstr ""
 
-#: src/API/Leaderboards.php:516
+#: src/API/Leaderboards.php:513
 msgid "Table rows."
 msgstr ""
 
-#: src/API/Leaderboards.php:523
+#: src/API/Leaderboards.php:520
 msgid "Table cell display."
 msgstr ""
 
-#: src/API/Leaderboards.php:529
+#: src/API/Leaderboards.php:526
 msgid "Table cell value."
 msgstr ""
 
-#: src/API/MarketingOverview.php:93
+#: src/API/MarketingOverview.php:90
 msgid "Invalid plugin."
 msgstr ""
 
-#: src/API/MarketingOverview.php:99
+#: src/API/MarketingOverview.php:96
 msgid "The plugin could not be activated."
 msgstr ""
 
-#: src/API/MarketingOverview.php:120 src/API/Plugins.php:182
+#: src/API/MarketingOverview.php:117 src/API/Plugins.php:179
 msgid "Sorry, you cannot manage plugins."
 msgstr ""
 
-#: src/API/NoteActions.php:34
+#: src/API/NoteActions.php:32
 msgid "Unique ID for the Note."
 msgstr ""
 
-#: src/API/NoteActions.php:38
+#: src/API/NoteActions.php:36
 msgid "Unique ID for the Note Action."
 msgstr ""
 
-#: src/API/NoteActions.php:65 src/API/NoteActions.php:84 src/API/Notes.php:133
-#: src/API/Notes.php:245
+#: src/API/NoteActions.php:63 src/API/NoteActions.php:82 src/API/Notes.php:130
+#: src/API/Notes.php:242
 msgid "Sorry, there is no resource with that ID."
 msgstr ""
 
-#: src/API/Notes.php:213 src/API/Notes.php:227 src/API/OnboardingProfile.php:76
-#: src/API/Reports/Controller.php:63
+#: src/API/Notes.php:210 src/API/Notes.php:224 src/API/OnboardingProfile.php:73
+#: src/API/Reports/Controller.php:60
 msgid "Sorry, you cannot list resources."
 msgstr ""
 
-#: src/API/Notes.php:266
+#: src/API/Notes.php:263
 msgid "Sorry, there is no note with that ID."
 msgstr ""
 
-#: src/API/Notes.php:359 src/API/OnboardingProfile.php:90
-#: src/API/Reports/Import/Controller.php:113
+#: src/API/Notes.php:356 src/API/OnboardingProfile.php:87
+#: src/API/Reports/Import/Controller.php:110
 msgid "Sorry, you cannot edit this resource."
 msgstr ""
 
-#: src/API/Notes.php:445 src/API/Reports/Categories/Controller.php:251
-#: src/API/Reports/Coupons/Controller.php:257
-#: src/API/Reports/Coupons/Stats/Controller.php:304
-#: src/API/Reports/Customers/Controller.php:371
-#: src/API/Reports/Downloads/Controller.php:282
-#: src/API/Reports/Downloads/Stats/Controller.php:261
-#: src/API/Reports/Orders/Controller.php:289
-#: src/API/Reports/Orders/Stats/Controller.php:362
-#: src/API/Reports/Products/Controller.php:291
-#: src/API/Reports/Products/Stats/Controller.php:344
-#: src/API/Reports/Revenue/Stats/Controller.php:390
-#: src/API/Reports/Stock/Controller.php:471
-#: src/API/Reports/Taxes/Controller.php:263
-#: src/API/Reports/Taxes/Stats/Controller.php:341
-#: src/API/Reports/Variations/Controller.php:290
+#: src/API/Notes.php:442 src/API/Reports/Categories/Controller.php:248
+#: src/API/Reports/Coupons/Controller.php:254
+#: src/API/Reports/Coupons/Stats/Controller.php:301
+#: src/API/Reports/Customers/Controller.php:368
+#: src/API/Reports/Downloads/Controller.php:287
+#: src/API/Reports/Downloads/Stats/Controller.php:258
+#: src/API/Reports/Orders/Controller.php:286
+#: src/API/Reports/Orders/Stats/Controller.php:353
+#: src/API/Reports/Products/Controller.php:288
+#: src/API/Reports/Products/Stats/Controller.php:341
+#: src/API/Reports/Revenue/Stats/Controller.php:387
+#: src/API/Reports/Stock/Controller.php:468
+#: src/API/Reports/Taxes/Controller.php:260
+#: src/API/Reports/Taxes/Stats/Controller.php:338
+#: src/API/Reports/Variations/Controller.php:287
 msgid "Order sort attribute ascending or descending."
 msgstr ""
 
-#: src/API/Notes.php:452 src/API/Reports/Categories/Controller.php:258
-#: src/API/Reports/Coupons/Controller.php:264
-#: src/API/Reports/Coupons/Stats/Controller.php:311
-#: src/API/Reports/Customers/Controller.php:378
-#: src/API/Reports/Downloads/Controller.php:289
-#: src/API/Reports/Downloads/Stats/Controller.php:268
-#: src/API/Reports/Orders/Controller.php:296
-#: src/API/Reports/Orders/Stats/Controller.php:369
-#: src/API/Reports/Products/Controller.php:298
-#: src/API/Reports/Products/Stats/Controller.php:351
-#: src/API/Reports/Revenue/Stats/Controller.php:397
-#: src/API/Reports/Stock/Controller.php:478
-#: src/API/Reports/Taxes/Controller.php:270
-#: src/API/Reports/Taxes/Stats/Controller.php:348
-#: src/API/Reports/Variations/Controller.php:297
+#: src/API/Notes.php:449 src/API/Reports/Categories/Controller.php:255
+#: src/API/Reports/Coupons/Controller.php:261
+#: src/API/Reports/Coupons/Stats/Controller.php:308
+#: src/API/Reports/Customers/Controller.php:375
+#: src/API/Reports/Downloads/Controller.php:294
+#: src/API/Reports/Downloads/Stats/Controller.php:265
+#: src/API/Reports/Orders/Controller.php:293
+#: src/API/Reports/Orders/Stats/Controller.php:360
+#: src/API/Reports/Products/Controller.php:295
+#: src/API/Reports/Products/Stats/Controller.php:348
+#: src/API/Reports/Revenue/Stats/Controller.php:394
+#: src/API/Reports/Stock/Controller.php:475
+#: src/API/Reports/Taxes/Controller.php:267
+#: src/API/Reports/Taxes/Stats/Controller.php:345
+#: src/API/Reports/Variations/Controller.php:294
 msgid "Sort collection by object attribute."
 msgstr ""
 
-#: src/API/Notes.php:482
+#: src/API/Notes.php:479
 msgid "Type of note."
 msgstr ""
 
-#: src/API/Notes.php:492
+#: src/API/Notes.php:489
 msgid "Status of note."
 msgstr ""
 
-#: src/API/Notes.php:516
+#: src/API/Notes.php:513
 msgid "ID of the note record."
 msgstr ""
 
-#: src/API/Notes.php:522
+#: src/API/Notes.php:519
 msgid "Name of the note."
 msgstr ""
 
-#: src/API/Notes.php:528
+#: src/API/Notes.php:525
 msgid "The type of the note (e.g. error, warning, etc.)."
 msgstr ""
 
-#: src/API/Notes.php:534
+#: src/API/Notes.php:531
 msgid "Locale used for the note title and content."
 msgstr ""
 
-#: src/API/Notes.php:540
+#: src/API/Notes.php:537
 msgid "Title of the note."
 msgstr ""
 
-#: src/API/Notes.php:546
+#: src/API/Notes.php:543
 msgid "Content of the note."
 msgstr ""
 
-#: src/API/Notes.php:552
+#: src/API/Notes.php:549
 msgid "Content data for the note. JSON string. Available for re-localization."
 msgstr ""
 
-#: src/API/Notes.php:558
+#: src/API/Notes.php:555
 msgid "The status of the note (e.g. unactioned, actioned)."
 msgstr ""
 
-#: src/API/Notes.php:563
+#: src/API/Notes.php:560
 msgid "Source of the note."
 msgstr ""
 
-#: src/API/Notes.php:569
+#: src/API/Notes.php:566
 msgid "Date the note was created."
 msgstr ""
 
-#: src/API/Notes.php:575
+#: src/API/Notes.php:572
 msgid "Date the note was created (GMT)."
 msgstr ""
 
-#: src/API/Notes.php:581
+#: src/API/Notes.php:578
 msgid "Date after which the user should be reminded of the note, if any."
 msgstr ""
 
-#: src/API/Notes.php:587
+#: src/API/Notes.php:584
 msgid "Date after which the user should be reminded of the note, if any (GMT)."
 msgstr ""
 
-#: src/API/Notes.php:593
+#: src/API/Notes.php:590
 msgid "Whether or not a user can request to be reminded about the note."
 msgstr ""
 
-#: src/API/Notes.php:599
+#: src/API/Notes.php:596
 msgid "An array of actions, if any, for the note."
 msgstr ""
 
-#: src/API/Notes.php:605
+#: src/API/Notes.php:602
 msgid "The layout of the note (e.g. banner, thumbnail, plain)."
 msgstr ""
 
-#: src/API/Notes.php:611
+#: src/API/Notes.php:608
 msgid "The image of the note, if any."
 msgstr ""
 
-#: src/API/Notes.php:617
+#: src/API/Notes.php:614
 msgid "Registers whether the note is deleted or not"
 msgstr ""
 
-#: src/API/OnboardingProfile.php:136
+#: src/API/OnboardingProfile.php:133
 msgid "Onboarding profile data has been updated."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:207
+#: src/API/OnboardingProfile.php:204
 msgid "Whether or not the profile was completed."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:214
+#: src/API/OnboardingProfile.php:211
+msgid "Whether or not the profile was skipped."
+msgstr ""
+
+#: src/API/OnboardingProfile.php:218
 msgid "How the Jetpack/WooCommerce Services step was handled."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:228
+#: src/API/OnboardingProfile.php:232
 msgid "Account type used for Jetpack."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:240
+#: src/API/OnboardingProfile.php:244
 msgid "Industry."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:250
+#: src/API/OnboardingProfile.php:254
 msgid "Types of products sold."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:262
+#: src/API/OnboardingProfile.php:266
 msgid "Number of products to be added."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:276
+#: src/API/OnboardingProfile.php:280
 msgid "Other places the store is selling products."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:290
+#: src/API/OnboardingProfile.php:294
 msgid "Current annual revenue of the store."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:305
+#: src/API/OnboardingProfile.php:309
 msgid "Name of other platform used to sell."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:323
+#: src/API/OnboardingProfile.php:327
 msgid "Name of other platform used to sell (not listed)."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:330
+#: src/API/OnboardingProfile.php:334
 msgid "Extra business extensions to install."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:346
+#: src/API/OnboardingProfile.php:353
 msgid "Selected store theme."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:354
+#: src/API/OnboardingProfile.php:361
 msgid "Whether or not the user opted to purchase items now or later."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:361
+#: src/API/OnboardingProfile.php:368
 msgid "Whether or not this store was setup for a client."
 msgstr ""
 
-#: src/API/OnboardingProfile.php:368
+#: src/API/OnboardingProfile.php:375
 msgid ""
 "Whether or not the store was connected to WooCommerce.com during the "
 "extension flow."
 msgstr ""
 
-#: src/API/OnboardingTasks.php:89
+#: src/API/OnboardingTasks.php:86
 msgid "Sorry, you are not allowed to create resources."
 msgstr ""
 
-#: src/API/OnboardingTasks.php:103
+#: src/API/OnboardingTasks.php:100
 msgid "Sorry, you are not allowed to create new pages."
 msgstr ""
 
-#: src/API/OnboardingTasks.php:132
+#: src/API/OnboardingTasks.php:129
 msgid "Sorry, the sample products data file was not found."
 msgstr ""
 
-#: src/API/OnboardingTasks.php:191 src/API/OnboardingTasks.php:206
+#: src/API/OnboardingTasks.php:188 src/API/OnboardingTasks.php:203
 msgid "Write title…"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:192 src/API/OnboardingTasks.php:207
+#: src/API/OnboardingTasks.php:189 src/API/OnboardingTasks.php:204
 msgid "Welcome to the store"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:196 src/API/OnboardingTasks.php:211
+#: src/API/OnboardingTasks.php:193 src/API/OnboardingTasks.php:208
 msgid "Write a short welcome message here"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:200 src/API/OnboardingTasks.php:215
+#: src/API/OnboardingTasks.php:197 src/API/OnboardingTasks.php:212
 msgid "Go shopping"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:233 src/API/OnboardingTasks.php:240
+#: src/API/OnboardingTasks.php:230 src/API/OnboardingTasks.php:237
 msgid "Content…"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:259
+#: src/API/OnboardingTasks.php:256
 msgid "Shop by Category"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:265
+#: src/API/OnboardingTasks.php:262
 msgid "New In"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:271
+#: src/API/OnboardingTasks.php:266
 msgid "Fan Favorites"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:277
+#: src/API/OnboardingTasks.php:270
 msgid "On Sale"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:283
+#: src/API/OnboardingTasks.php:274
 msgid "Best Sellers"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:304
+#: src/API/OnboardingTasks.php:293
 msgid "New Products"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:415
+#: src/API/OnboardingTasks.php:404
 msgid "Homepage"
 msgstr ""
 
-#: src/API/OnboardingTasks.php:443
+#: src/API/OnboardingTasks.php:432
 msgid "Homepage created."
 msgstr ""
 
-#: src/API/OnboardingThemes.php:76
+#: src/API/OnboardingThemes.php:73
 msgid "Sorry, you cannot manage themes."
 msgstr ""
 
-#: src/API/OnboardingThemes.php:92 src/API/OnboardingThemes.php:166
+#: src/API/OnboardingThemes.php:89 src/API/OnboardingThemes.php:162
 msgid "Invalid theme."
 msgstr ""
 
-#: src/API/OnboardingThemes.php:127
+#: src/API/OnboardingThemes.php:123
 #. translators: %s: theme slug (example: woocommerce-services)
 msgid "The requested theme `%s` could not be installed. Theme API call failed."
 msgstr ""
 
-#: src/API/OnboardingThemes.php:142
+#: src/API/OnboardingThemes.php:138
 #. translators: %s: theme slug (example: woocommerce-services)
 msgid "The requested theme `%s` could not be installed."
 msgstr ""
 
-#: src/API/OnboardingThemes.php:176
+#: src/API/OnboardingThemes.php:171
 #. translators: %s: theme slug (example: woocommerce-services)
 msgid "Invalid theme %s."
 msgstr ""
 
-#: src/API/OnboardingThemes.php:181
+#: src/API/OnboardingThemes.php:176
 msgid "The requested theme could not be activated."
 msgstr ""
 
-#: src/API/OnboardingThemes.php:203
+#: src/API/OnboardingThemes.php:198
 msgid "Theme slug."
 msgstr ""
 
-#: src/API/OnboardingThemes.php:209
+#: src/API/OnboardingThemes.php:204
 msgid "Theme name."
 msgstr ""
 
-#: src/API/OnboardingThemes.php:215
+#: src/API/OnboardingThemes.php:210
 msgid "Theme status."
 msgstr ""
 
-#: src/API/Options.php:76
+#: src/API/Options.php:73
 msgid "You must supply an array of options."
 msgstr ""
 
-#: src/API/Options.php:81
+#: src/API/Options.php:78
 msgid "Sorry, you cannot view these options."
 msgstr ""
 
-#: src/API/Options.php:115
+#: src/API/Options.php:112
 msgid "You must supply an array of options and values."
 msgstr ""
 
-#: src/API/Options.php:120
+#: src/API/Options.php:117
 msgid "Sorry, you cannot manage these options."
 msgstr ""
 
-#: src/API/Options.php:202
+#: src/API/Options.php:199
 msgid "Array of options with associated values."
 msgstr ""
 
-#: src/API/Orders.php:37
+#: src/API/Orders.php:34
 msgid "Limit result set to orders matching part of an order number."
 msgstr ""
 
-#: src/API/Plugins.php:227 src/API/Plugins.php:392
+#: src/API/Plugins.php:224 src/API/Plugins.php:389
 msgid "Plugins must be a non-empty array."
 msgstr ""
 
-#: src/API/Plugins.php:250
+#: src/API/Plugins.php:247
 #. translators: %s: plugin slug (example: woocommerce-services)
 msgid "The requested plugin `%s` is not in the list of allowed plugins."
 msgstr ""
 
-#: src/API/Plugins.php:273 src/API/Plugins.php:285
+#: src/API/Plugins.php:270 src/API/Plugins.php:282
 #. translators: %s: plugin slug (example: woocommerce-services)
 msgid "The requested plugin `%s` could not be installed. Plugin API call failed."
 msgstr ""
 
-#: src/API/Plugins.php:300
+#: src/API/Plugins.php:297
 #. translators: %s: plugin slug (example: woocommerce-services)
 msgid "The requested plugin `%s` could not be installed."
 msgstr ""
 
-#: src/API/Plugins.php:314
+#: src/API/Plugins.php:311
 #. translators: %s: plugin slug (example: woocommerce-services)
 msgid "The requested plugin `%s` could not be installed.  Upgrader install failed."
 msgstr ""
 
-#: src/API/Plugins.php:332
+#: src/API/Plugins.php:329
 msgid "Plugins were successfully installed."
 msgstr ""
 
-#: src/API/Plugins.php:333
+#: src/API/Plugins.php:330
 msgid "There was a problem installing some of the requested plugins."
 msgstr ""
 
-#: src/API/Plugins.php:405
+#: src/API/Plugins.php:402
 #. translators: %s: plugin slug (example: woocommerce-services)
 msgid "The requested plugin `%s`. is not in the list of allowed plugins."
 msgstr ""
 
-#: src/API/Plugins.php:414
+#: src/API/Plugins.php:411
 #. translators: %s: plugin slug (example: woocommerce-services)
 msgid "The requested plugin `%s`. is not yet installed."
 msgstr ""
 
-#: src/API/Plugins.php:426
+#: src/API/Plugins.php:423
 #. translators: %s: plugin slug (example: woocommerce-services)
 msgid "The requested plugin `%s` could not be activated."
 msgstr ""
 
-#: src/API/Plugins.php:442
+#: src/API/Plugins.php:439
 msgid "Plugins were successfully activated."
 msgstr ""
 
-#: src/API/Plugins.php:443
+#: src/API/Plugins.php:440
 msgid "There was a problem activating some of the requested plugins."
 msgstr ""
 
-#: src/API/Plugins.php:455
+#: src/API/Plugins.php:452
 msgid "Jetpack is not installed or active."
 msgstr ""
 
-#: src/API/Plugins.php:466
+#: src/API/Plugins.php:463
 #: packages/data/build-module/plugins/constants.js:12
 msgid "Jetpack"
 msgstr ""
 
-#: src/API/Plugins.php:479 src/API/Plugins.php:542
+#: src/API/Plugins.php:476 src/API/Plugins.php:539
 msgid "There was an error loading the WooCommerce.com Helper API."
 msgstr ""
 
-#: src/API/Plugins.php:496 src/API/Plugins.php:501 src/API/Plugins.php:558
-#: src/API/Plugins.php:563 src/API/Plugins.php:579
-#: client/task-list/tasks/connect.js:57
+#: src/API/Plugins.php:493 src/API/Plugins.php:498 src/API/Plugins.php:555
+#: src/API/Plugins.php:560 src/API/Plugins.php:576
 msgid "There was an error connecting to WooCommerce.com. Please try again."
 msgstr ""
 
-#: src/API/Plugins.php:599
+#: src/API/Plugins.php:596
 msgid "There was an error connecting to PayPal."
 msgstr ""
 
-#: src/API/Plugins.php:630
+#: src/API/Plugins.php:627
 msgid "There was an error connecting to Square."
 msgstr ""
 
-#: src/API/Plugins.php:682
+#: src/API/Plugins.php:679
 msgid "There was an error communicating with the WooCommerce Payments plugin."
 msgstr ""
 
-#: src/API/Plugins.php:710
+#: src/API/Plugins.php:707
 msgid "Plugin slug."
 msgstr ""
 
-#: src/API/Plugins.php:716
+#: src/API/Plugins.php:713
 msgid "Plugin name."
 msgstr ""
 
-#: src/API/Plugins.php:722
+#: src/API/Plugins.php:719
 msgid "Plugin status."
 msgstr ""
 
-#: src/API/Plugins.php:742
+#: src/API/Plugins.php:739
 msgid "Action that should be completed to connect Jetpack."
 msgstr ""
 
-#: src/API/ProductVariations.php:36 src/API/Products.php:68
+#: src/API/ProductVariations.php:33 src/API/Products.php:65
 msgid "Search by similar product name or sku."
 msgstr ""
 
-#: src/API/ProductVariations.php:86
+#: src/API/ProductVariations.php:83
 msgid "Product parent name."
 msgstr ""
 
-#: src/API/ProductVariations.php:91
+#: src/API/ProductVariations.php:88
 msgid "Product type."
 msgstr ""
 
-#: src/API/ProductVariations.php:98 src/API/Reports/Stock/Controller.php:379
+#: src/API/ProductVariations.php:95 src/API/Reports/Stock/Controller.php:376
 msgid "Product parent ID."
 msgstr ""
 
-#: src/API/Products.php:62
+#: src/API/Products.php:59
 msgid "Limit result set to products that are low or out of stock."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:78
+#: src/API/Reports/Categories/Controller.php:75
 msgid "Invalid response from data store."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:170
+#: src/API/Reports/Categories/Controller.php:167
 msgid "Category ID."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:176
+#: src/API/Reports/Categories/Controller.php:173
 msgid "Amount of items sold."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:182
-#: src/API/Reports/Revenue/Stats/Controller.php:170
+#: src/API/Reports/Categories/Controller.php:179
+#: src/API/Reports/Revenue/Stats/Controller.php:167
 msgid "Total Sales."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:188
-#: src/API/Reports/Coupons/Controller.php:169
-#: src/API/Reports/Products/Stats/Controller.php:175
-#: src/API/Reports/Revenue/Stats/Controller.php:224
-#: src/API/Reports/Taxes/Controller.php:214
-#: src/API/Reports/Taxes/Stats/Controller.php:194
+#: src/API/Reports/Categories/Controller.php:185
+#: src/API/Reports/Coupons/Controller.php:166
+#: src/API/Reports/Products/Stats/Controller.php:172
+#: src/API/Reports/Revenue/Stats/Controller.php:221
+#: src/API/Reports/Taxes/Controller.php:211
+#: src/API/Reports/Taxes/Stats/Controller.php:191
 msgid "Number of orders."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:194
+#: src/API/Reports/Categories/Controller.php:191
 msgid "Amount of products."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:204
+#: src/API/Reports/Categories/Controller.php:201
 msgid "Category name."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:272
-#: src/API/Reports/Coupons/Stats/Controller.php:323
-#: src/API/Reports/Downloads/Stats/Controller.php:278
-#: src/API/Reports/Orders/Stats/Controller.php:381
-#: src/API/Reports/Products/Stats/Controller.php:368
-#: src/API/Reports/Revenue/Stats/Controller.php:415
-#: src/API/Reports/Taxes/Stats/Controller.php:361
+#: src/API/Reports/Categories/Controller.php:269
+#: src/API/Reports/Coupons/Stats/Controller.php:320
+#: src/API/Reports/Downloads/Stats/Controller.php:275
+#: src/API/Reports/Orders/Stats/Controller.php:372
+#: src/API/Reports/Products/Stats/Controller.php:365
+#: src/API/Reports/Revenue/Stats/Controller.php:412
+#: src/API/Reports/Taxes/Stats/Controller.php:358
 msgid "Time interval to use for buckets in the returned data."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:286
-#: src/API/Reports/Orders/Controller.php:367
-#: src/API/Reports/Orders/Stats/Controller.php:405
+#: src/API/Reports/Categories/Controller.php:283
+#: src/API/Reports/Orders/Controller.php:364
+#: src/API/Reports/Orders/Stats/Controller.php:396
 msgid "Limit result set to items that have the specified order status."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:296
-#: src/API/Reports/Orders/Controller.php:377
-#: src/API/Reports/Orders/Stats/Controller.php:416
+#: src/API/Reports/Categories/Controller.php:293
+#: src/API/Reports/Orders/Controller.php:374
+#: src/API/Reports/Orders/Stats/Controller.php:407
 msgid "Limit result set to items that don't have the specified order status."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:306
+#: src/API/Reports/Categories/Controller.php:303
 msgid ""
 "Limit result set to all items that have the specified term assigned in the "
 "categories taxonomy."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:315
+#: src/API/Reports/Categories/Controller.php:312
 msgid "Add additional piece of info about each category to the report."
 msgstr ""
 
-#: src/API/Reports/Categories/Controller.php:334
-#: src/API/Reports/Revenue/Stats/Controller.php:458
+#: src/API/Reports/Categories/Controller.php:331
+#: src/API/Reports/Revenue/Stats/Controller.php:455
 msgid "Net Revenue"
 msgstr ""
 
 #: src/API/Reports/Categories/DataStore.php:277
-#: src/API/Reports/Orders/Stats/DataStore.php:298
-#: src/API/Reports/Orders/Stats/DataStore.php:351
-#: src/API/Reports/Products/Stats/DataStore.php:181
-#: src/API/Reports/Products/Stats/DataStore.php:197
-#: src/API/Reports/Taxes/Stats/DataStore.php:191
+#: src/API/Reports/Orders/Stats/DataStore.php:293
+#: src/API/Reports/Orders/Stats/DataStore.php:346
+#: src/API/Reports/Products/Stats/DataStore.php:187
+#: src/API/Reports/Products/Stats/DataStore.php:203
+#: src/API/Reports/Taxes/Stats/DataStore.php:189
 msgid "Sorry, fetching revenue data failed."
 msgstr ""
 
-#: src/API/Reports/Controller.php:81
+#: src/API/Reports/Controller.php:78
 msgid ""
 "Batch endpoint for getting specific performance indicators from `stats` "
 "endpoints."
 msgstr ""
 
-#: src/API/Reports/Controller.php:85
+#: src/API/Reports/Controller.php:82
 msgid "Stats about revenue."
 msgstr ""
 
-#: src/API/Reports/Controller.php:89
+#: src/API/Reports/Controller.php:86
 msgid "Stats about orders."
 msgstr ""
 
-#: src/API/Reports/Controller.php:93
+#: src/API/Reports/Controller.php:90
 msgid "Products detailed reports."
 msgstr ""
 
-#: src/API/Reports/Controller.php:97
+#: src/API/Reports/Controller.php:94
 msgid "Stats about products."
 msgstr ""
 
-#: src/API/Reports/Controller.php:101
+#: src/API/Reports/Controller.php:98
 msgid "Product categories detailed reports."
 msgstr ""
 
-#: src/API/Reports/Controller.php:105
+#: src/API/Reports/Controller.php:102
 msgid "Stats about product categories."
 msgstr ""
 
-#: src/API/Reports/Controller.php:109
+#: src/API/Reports/Controller.php:106
 msgid "Coupons detailed reports."
 msgstr ""
 
-#: src/API/Reports/Controller.php:113
+#: src/API/Reports/Controller.php:110
 msgid "Stats about coupons."
 msgstr ""
 
-#: src/API/Reports/Controller.php:117
+#: src/API/Reports/Controller.php:114
 msgid "Taxes detailed reports."
 msgstr ""
 
-#: src/API/Reports/Controller.php:121
+#: src/API/Reports/Controller.php:118
 msgid "Stats about taxes."
 msgstr ""
 
-#: src/API/Reports/Controller.php:125
+#: src/API/Reports/Controller.php:122
 msgid "Product downloads detailed reports."
 msgstr ""
 
-#: src/API/Reports/Controller.php:129
+#: src/API/Reports/Controller.php:126
 msgid "Product download files detailed reports."
 msgstr ""
 
-#: src/API/Reports/Controller.php:133
+#: src/API/Reports/Controller.php:130
 msgid "Stats about product downloads."
 msgstr ""
 
-#: src/API/Reports/Controller.php:137
+#: src/API/Reports/Controller.php:134
 msgid "Customers detailed reports."
 msgstr ""
 
-#: src/API/Reports/Controller.php:257
+#: src/API/Reports/Controller.php:258
 msgid "An alphanumeric identifier for the resource."
 msgstr ""
 
-#: src/API/Reports/Controller.php:263
+#: src/API/Reports/Controller.php:264
 msgid "A human-readable description of the resource."
 msgstr ""
 
-#: src/API/Reports/Controller.php:269
+#: src/API/Reports/Controller.php:270
 msgid "API path."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:157
+#: src/API/Reports/Coupons/Controller.php:154
 msgid "Coupon ID."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:163
-#: src/API/Reports/Coupons/Stats/Controller.php:147
+#: src/API/Reports/Coupons/Controller.php:160
+#: src/API/Reports/Coupons/Stats/Controller.php:144
 msgid "Net discount amount."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:179
+#: src/API/Reports/Coupons/Controller.php:176
 msgid "Coupon code."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:185
+#: src/API/Reports/Coupons/Controller.php:182
 msgid "Coupon creation date."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:191
+#: src/API/Reports/Coupons/Controller.php:188
 msgid "Coupon creation date in GMT."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:197
+#: src/API/Reports/Coupons/Controller.php:194
 msgid "Coupon expiration date."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:203
+#: src/API/Reports/Coupons/Controller.php:200
 msgid "Coupon expiration date in GMT."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:210
+#: src/API/Reports/Coupons/Controller.php:207
 msgid "Coupon discount type."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:276
-#: src/API/Reports/Coupons/Stats/Controller.php:337
+#: src/API/Reports/Coupons/Controller.php:273
+#: src/API/Reports/Coupons/Stats/Controller.php:334
 msgid "Limit result set to coupons assigned specific coupon IDs."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:285
-#: src/API/Reports/Orders/Controller.php:411
+#: src/API/Reports/Coupons/Controller.php:282
+#: src/API/Reports/Orders/Controller.php:408
 msgid "Add additional piece of info about each coupon to the report."
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:305
+#: src/API/Reports/Coupons/Controller.php:302
 #: client/analytics/report/coupons/table.js:56
 msgid "Created"
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:306
+#: src/API/Reports/Coupons/Controller.php:303
 #: client/analytics/report/coupons/table.js:60
 msgid "Expires"
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:307
+#: src/API/Reports/Coupons/Controller.php:304
 #: client/analytics/report/coupons/table.js:64
 msgid "Type"
 msgstr ""
 
-#: src/API/Reports/Coupons/Controller.php:319
-#: src/API/Reports/Products/Controller.php:428
-#: src/API/Reports/Products/Controller.php:429
-#: client/analytics/report/orders/table.js:100
-msgctxt "customer type"
+#: src/API/Reports/Coupons/Controller.php:316
+#: src/API/Reports/Coupons/DataStore.php:173
+#: src/API/Reports/Products/Controller.php:425
+#: src/API/Reports/Products/Controller.php:426
+#: client/analytics/report/coupons/table.js:214
+#: client/analytics/report/products/table.js:269
+#: client/analytics/report/stock/table.js:135
+#: packages/components/build-module/summary/number.js:97
 msgid "N/A"
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:155
+#: src/API/Reports/Coupons/DataStore.php:168
+#: src/API/Reports/Products/DataStore.php:227
+#: client/analytics/report/downloads/table.js:95
+msgid "(Deleted)"
+msgstr ""
+
+#: src/API/Reports/Coupons/Stats/Controller.php:152
 msgid "Number of coupons."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:161
+#: src/API/Reports/Coupons/Stats/Controller.php:158
 #: client/analytics/report/coupons/config.js:20
 #: client/dashboard/dashboard-charts/config.js:61
 msgid "Discounted Orders"
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:162
+#: src/API/Reports/Coupons/Stats/Controller.php:159
 msgid "Number of discounted orders."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:172
-#: src/API/Reports/Orders/Stats/Controller.php:225
-#: src/API/Reports/Products/Stats/Controller.php:184
-#: src/API/Reports/Revenue/Stats/Controller.php:253
-#: src/API/Reports/Taxes/Stats/Controller.php:209
+#: src/API/Reports/Coupons/Stats/Controller.php:169
+#: src/API/Reports/Orders/Stats/Controller.php:216
+#: src/API/Reports/Products/Stats/Controller.php:181
+#: src/API/Reports/Revenue/Stats/Controller.php:250
+#: src/API/Reports/Taxes/Stats/Controller.php:206
 msgid "Reports data grouped by segment condition."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:180
-#: src/API/Reports/Orders/Stats/Controller.php:233
-#: src/API/Reports/Products/Stats/Controller.php:192
-#: src/API/Reports/Revenue/Stats/Controller.php:261
-#: src/API/Reports/Taxes/Stats/Controller.php:217
+#: src/API/Reports/Coupons/Stats/Controller.php:177
+#: src/API/Reports/Orders/Stats/Controller.php:224
+#: src/API/Reports/Products/Stats/Controller.php:189
+#: src/API/Reports/Revenue/Stats/Controller.php:258
+#: src/API/Reports/Taxes/Stats/Controller.php:214
 msgid "Segment identificator."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:186
-#: src/API/Reports/Coupons/Stats/Controller.php:251
-#: src/API/Reports/Downloads/Stats/Controller.php:208
-#: src/API/Reports/Orders/Stats/Controller.php:239
-#: src/API/Reports/Orders/Stats/Controller.php:309
-#: src/API/Reports/Products/Stats/Controller.php:205
-#: src/API/Reports/Products/Stats/Controller.php:270
-#: src/API/Reports/Revenue/Stats/Controller.php:267
-#: src/API/Reports/Revenue/Stats/Controller.php:337
-#: src/API/Reports/Taxes/Stats/Controller.php:223
-#: src/API/Reports/Taxes/Stats/Controller.php:288
+#: src/API/Reports/Coupons/Stats/Controller.php:183
+#: src/API/Reports/Coupons/Stats/Controller.php:248
+#: src/API/Reports/Downloads/Stats/Controller.php:205
+#: src/API/Reports/Orders/Stats/Controller.php:230
+#: src/API/Reports/Orders/Stats/Controller.php:300
+#: src/API/Reports/Products/Stats/Controller.php:202
+#: src/API/Reports/Products/Stats/Controller.php:267
+#: src/API/Reports/Revenue/Stats/Controller.php:264
+#: src/API/Reports/Revenue/Stats/Controller.php:334
+#: src/API/Reports/Taxes/Stats/Controller.php:220
+#: src/API/Reports/Taxes/Stats/Controller.php:285
 msgid "Interval subtotals."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:205
-#: src/API/Reports/Customers/Stats/Controller.php:167
-#: src/API/Reports/Downloads/Stats/Controller.php:162
-#: src/API/Reports/Orders/Stats/Controller.php:263
-#: src/API/Reports/Products/Stats/Controller.php:224
-#: src/API/Reports/Revenue/Stats/Controller.php:291
-#: src/API/Reports/Stock/Stats/Controller.php:118
-#: src/API/Reports/Taxes/Stats/Controller.php:242
+#: src/API/Reports/Coupons/Stats/Controller.php:202
+#: src/API/Reports/Customers/Stats/Controller.php:164
+#: src/API/Reports/Downloads/Stats/Controller.php:159
+#: src/API/Reports/Orders/Stats/Controller.php:254
+#: src/API/Reports/Products/Stats/Controller.php:221
+#: src/API/Reports/Revenue/Stats/Controller.php:288
+#: src/API/Reports/Stock/Stats/Controller.php:115
+#: src/API/Reports/Taxes/Stats/Controller.php:239
 msgid "Totals data."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:212
-#: src/API/Reports/Downloads/Stats/Controller.php:169
-#: src/API/Reports/Orders/Stats/Controller.php:270
-#: src/API/Reports/Products/Stats/Controller.php:231
-#: src/API/Reports/Revenue/Stats/Controller.php:298
-#: src/API/Reports/Taxes/Stats/Controller.php:249
+#: src/API/Reports/Coupons/Stats/Controller.php:209
+#: src/API/Reports/Downloads/Stats/Controller.php:166
+#: src/API/Reports/Orders/Stats/Controller.php:261
+#: src/API/Reports/Products/Stats/Controller.php:228
+#: src/API/Reports/Revenue/Stats/Controller.php:295
+#: src/API/Reports/Taxes/Stats/Controller.php:246
 msgid "Reports data grouped by intervals."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:220
-#: src/API/Reports/Downloads/Stats/Controller.php:177
-#: src/API/Reports/Orders/Stats/Controller.php:278
-#: src/API/Reports/Products/Stats/Controller.php:239
-#: src/API/Reports/Revenue/Stats/Controller.php:306
-#: src/API/Reports/Taxes/Stats/Controller.php:257
+#: src/API/Reports/Coupons/Stats/Controller.php:217
+#: src/API/Reports/Downloads/Stats/Controller.php:174
+#: src/API/Reports/Orders/Stats/Controller.php:269
+#: src/API/Reports/Products/Stats/Controller.php:236
+#: src/API/Reports/Revenue/Stats/Controller.php:303
+#: src/API/Reports/Taxes/Stats/Controller.php:254
 msgid "Type of interval."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:227
-#: src/API/Reports/Downloads/Stats/Controller.php:184
-#: src/API/Reports/Orders/Stats/Controller.php:285
-#: src/API/Reports/Products/Stats/Controller.php:246
-#: src/API/Reports/Revenue/Stats/Controller.php:313
-#: src/API/Reports/Taxes/Stats/Controller.php:264
+#: src/API/Reports/Coupons/Stats/Controller.php:224
+#: src/API/Reports/Downloads/Stats/Controller.php:181
+#: src/API/Reports/Orders/Stats/Controller.php:276
+#: src/API/Reports/Products/Stats/Controller.php:243
+#: src/API/Reports/Revenue/Stats/Controller.php:310
+#: src/API/Reports/Taxes/Stats/Controller.php:261
 msgid "The date the report start, in the site's timezone."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:233
-#: src/API/Reports/Downloads/Stats/Controller.php:190
-#: src/API/Reports/Orders/Stats/Controller.php:291
-#: src/API/Reports/Products/Stats/Controller.php:252
-#: src/API/Reports/Revenue/Stats/Controller.php:319
-#: src/API/Reports/Taxes/Stats/Controller.php:270
+#: src/API/Reports/Coupons/Stats/Controller.php:230
+#: src/API/Reports/Downloads/Stats/Controller.php:187
+#: src/API/Reports/Orders/Stats/Controller.php:282
+#: src/API/Reports/Products/Stats/Controller.php:249
+#: src/API/Reports/Revenue/Stats/Controller.php:316
+#: src/API/Reports/Taxes/Stats/Controller.php:267
 msgid "The date the report start, as GMT."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:239
-#: src/API/Reports/Downloads/Stats/Controller.php:196
-#: src/API/Reports/Orders/Stats/Controller.php:297
-#: src/API/Reports/Products/Stats/Controller.php:258
-#: src/API/Reports/Revenue/Stats/Controller.php:325
-#: src/API/Reports/Taxes/Stats/Controller.php:276
+#: src/API/Reports/Coupons/Stats/Controller.php:236
+#: src/API/Reports/Downloads/Stats/Controller.php:193
+#: src/API/Reports/Orders/Stats/Controller.php:288
+#: src/API/Reports/Products/Stats/Controller.php:255
+#: src/API/Reports/Revenue/Stats/Controller.php:322
+#: src/API/Reports/Taxes/Stats/Controller.php:273
 msgid "The date the report end, in the site's timezone."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:245
-#: src/API/Reports/Downloads/Stats/Controller.php:202
-#: src/API/Reports/Orders/Stats/Controller.php:303
-#: src/API/Reports/Products/Stats/Controller.php:264
-#: src/API/Reports/Revenue/Stats/Controller.php:331
-#: src/API/Reports/Taxes/Stats/Controller.php:282
+#: src/API/Reports/Coupons/Stats/Controller.php:242
+#: src/API/Reports/Downloads/Stats/Controller.php:199
+#: src/API/Reports/Orders/Stats/Controller.php:294
+#: src/API/Reports/Products/Stats/Controller.php:261
+#: src/API/Reports/Revenue/Stats/Controller.php:328
+#: src/API/Reports/Taxes/Stats/Controller.php:279
 msgid "The date the report end, as GMT."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:346
-#: src/API/Reports/Orders/Stats/Controller.php:505
-#: src/API/Reports/Products/Stats/Controller.php:409
-#: src/API/Reports/Revenue/Stats/Controller.php:429
-#: src/API/Reports/Taxes/Stats/Controller.php:384
+#: src/API/Reports/Coupons/Stats/Controller.php:343
+#: src/API/Reports/Orders/Stats/Controller.php:496
+#: src/API/Reports/Products/Stats/Controller.php:406
+#: src/API/Reports/Revenue/Stats/Controller.php:426
+#: src/API/Reports/Taxes/Stats/Controller.php:381
 msgid "Segment the response by additional constraint."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Controller.php:357
-#: src/API/Reports/Customers/Stats/Controller.php:382
-#: src/API/Reports/Downloads/Stats/Controller.php:374
-#: src/API/Reports/Orders/Stats/Controller.php:517
-#: src/API/Reports/Products/Stats/Controller.php:419
-#: src/API/Reports/Taxes/Stats/Controller.php:392
+#: src/API/Reports/Coupons/Stats/Controller.php:354
+#: src/API/Reports/Customers/Stats/Controller.php:379
+#: src/API/Reports/Downloads/Stats/Controller.php:371
+#: src/API/Reports/Orders/Stats/Controller.php:508
+#: src/API/Reports/Products/Stats/Controller.php:416
+#: src/API/Reports/Taxes/Stats/Controller.php:389
 msgid "Limit stats fields to the specified items."
 msgstr ""
 
-#: src/API/Reports/Coupons/Stats/Segmenter.php:285
-#: src/API/Reports/Orders/Stats/Segmenter.php:380
-#: src/API/Reports/Products/Stats/Segmenter.php:171
+#: src/API/Reports/Coupons/Stats/Segmenter.php:283
+#: src/API/Reports/Orders/Stats/Segmenter.php:378
+#: src/API/Reports/Products/Stats/Segmenter.php:169
 msgid ""
 "product_includes parameter need to specify exactly one product when "
 "segmenting by variation."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:227
-#: src/API/Reports/Orders/Controller.php:202
+#: src/API/Reports/Customers/Controller.php:224
+#: src/API/Reports/Orders/Controller.php:199
 msgid "Customer ID."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:233
+#: src/API/Reports/Customers/Controller.php:230
 msgid "User ID."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:239
+#: src/API/Reports/Customers/Controller.php:236
 msgid "Name."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:245
+#: src/API/Reports/Customers/Controller.php:242
 msgid "Username."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:251
-#: src/API/Reports/Taxes/Controller.php:178
+#: src/API/Reports/Customers/Controller.php:248
+#: src/API/Reports/Taxes/Controller.php:175
 msgid "Country / Region."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:257
+#: src/API/Reports/Customers/Controller.php:254
 msgid "City."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:263
+#: src/API/Reports/Customers/Controller.php:260
 msgid "Region."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:269
+#: src/API/Reports/Customers/Controller.php:266
 msgid "Postal code."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:275
+#: src/API/Reports/Customers/Controller.php:272
 msgid "Date registered."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:281
+#: src/API/Reports/Customers/Controller.php:278
 msgid "Date registered GMT."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:287
+#: src/API/Reports/Customers/Controller.php:284
 msgid "Date last active."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:293
+#: src/API/Reports/Customers/Controller.php:290
 msgid "Date last active GMT."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:299
+#: src/API/Reports/Customers/Controller.php:296
 msgid "Order count."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:305
+#: src/API/Reports/Customers/Controller.php:302
 msgid "Total spend."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:311
+#: src/API/Reports/Customers/Controller.php:308
 msgid "Avg order value."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:330
-#: src/API/Reports/Customers/Controller.php:482
-#: src/API/Reports/Customers/Stats/Controller.php:188
-#: src/API/Reports/Customers/Stats/Controller.php:285
+#: src/API/Reports/Customers/Controller.php:327
+#: src/API/Reports/Customers/Controller.php:479
+#: src/API/Reports/Customers/Stats/Controller.php:185
+#: src/API/Reports/Customers/Stats/Controller.php:282
 msgid ""
 "Limit response to objects registered before (or at) a given ISO8601 "
 "compliant datetime."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:336
-#: src/API/Reports/Customers/Controller.php:488
-#: src/API/Reports/Customers/Stats/Controller.php:194
-#: src/API/Reports/Customers/Stats/Controller.php:291
+#: src/API/Reports/Customers/Controller.php:333
+#: src/API/Reports/Customers/Controller.php:485
+#: src/API/Reports/Customers/Stats/Controller.php:191
+#: src/API/Reports/Customers/Stats/Controller.php:288
 msgid ""
 "Limit response to objects registered after (or at) a given ISO8601 "
 "compliant datetime."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:342
+#: src/API/Reports/Customers/Controller.php:339
 msgid ""
 "Limit response to resources with orders published after a given ISO8601 "
 "compliant date."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:348
+#: src/API/Reports/Customers/Controller.php:345
 msgid ""
 "Limit response to resources with orders published before a given ISO8601 "
 "compliant date."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:397
-#: src/API/Reports/Customers/Stats/Controller.php:200
-#: src/API/Reports/Downloads/Stats/Controller.php:292
-#: src/API/Reports/Orders/Stats/Controller.php:395
-#: src/API/Reports/Products/Controller.php:322
+#: src/API/Reports/Customers/Controller.php:394
+#: src/API/Reports/Customers/Stats/Controller.php:197
+#: src/API/Reports/Downloads/Stats/Controller.php:289
+#: src/API/Reports/Orders/Stats/Controller.php:386
+#: src/API/Reports/Products/Controller.php:319
 msgid ""
 "Indicates whether all the conditions should be true for the resulting set, "
 "or if any one of them is sufficient. Match affects the following "
@@ -1331,163 +1343,163 @@ msgid ""
 "coupon_includes, coupon_excludes, customer, categories"
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:407
-#: src/API/Reports/Customers/Stats/Controller.php:210
+#: src/API/Reports/Customers/Controller.php:404
+#: src/API/Reports/Customers/Stats/Controller.php:207
 msgid ""
 "Limit response to objects with a customer field containing the search term. "
 "Searches the field provided by `searchby`."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:422
-#: src/API/Reports/Customers/Stats/Controller.php:225
+#: src/API/Reports/Customers/Controller.php:419
+#: src/API/Reports/Customers/Stats/Controller.php:222
 msgid "Limit response to objects with specfic names."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:427
-#: src/API/Reports/Customers/Stats/Controller.php:230
+#: src/API/Reports/Customers/Controller.php:424
+#: src/API/Reports/Customers/Stats/Controller.php:227
 msgid "Limit response to objects excluding specfic names."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:432
-#: src/API/Reports/Customers/Stats/Controller.php:235
+#: src/API/Reports/Customers/Controller.php:429
+#: src/API/Reports/Customers/Stats/Controller.php:232
 msgid "Limit response to objects with specfic usernames."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:437
-#: src/API/Reports/Customers/Stats/Controller.php:240
+#: src/API/Reports/Customers/Controller.php:434
+#: src/API/Reports/Customers/Stats/Controller.php:237
 msgid "Limit response to objects excluding specfic usernames."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:442
-#: src/API/Reports/Customers/Stats/Controller.php:245
+#: src/API/Reports/Customers/Controller.php:439
+#: src/API/Reports/Customers/Stats/Controller.php:242
 msgid "Limit response to objects including emails."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:447
-#: src/API/Reports/Customers/Stats/Controller.php:250
+#: src/API/Reports/Customers/Controller.php:444
+#: src/API/Reports/Customers/Stats/Controller.php:247
 msgid "Limit response to objects excluding emails."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:452
-#: src/API/Reports/Customers/Stats/Controller.php:255
+#: src/API/Reports/Customers/Controller.php:449
+#: src/API/Reports/Customers/Stats/Controller.php:252
 msgid "Limit response to objects with specfic countries."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:457
-#: src/API/Reports/Customers/Stats/Controller.php:260
+#: src/API/Reports/Customers/Controller.php:454
+#: src/API/Reports/Customers/Stats/Controller.php:257
 msgid "Limit response to objects excluding specfic countries."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:462
-#: src/API/Reports/Customers/Stats/Controller.php:265
+#: src/API/Reports/Customers/Controller.php:459
+#: src/API/Reports/Customers/Stats/Controller.php:262
 msgid ""
 "Limit response to objects last active before (or at) a given ISO8601 "
 "compliant datetime."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:468
-#: src/API/Reports/Customers/Stats/Controller.php:271
+#: src/API/Reports/Customers/Controller.php:465
+#: src/API/Reports/Customers/Stats/Controller.php:268
 msgid ""
 "Limit response to objects last active after (or at) a given ISO8601 "
 "compliant datetime."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:474
-#: src/API/Reports/Customers/Controller.php:494
-#: src/API/Reports/Customers/Stats/Controller.php:277
-#: src/API/Reports/Customers/Stats/Controller.php:297
+#: src/API/Reports/Customers/Controller.php:471
+#: src/API/Reports/Customers/Controller.php:491
+#: src/API/Reports/Customers/Stats/Controller.php:274
+#: src/API/Reports/Customers/Stats/Controller.php:294
 msgid ""
 "Limit response to objects last active between two given ISO8601 compliant "
 "datetime."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:502
-#: src/API/Reports/Customers/Stats/Controller.php:305
+#: src/API/Reports/Customers/Controller.php:499
+#: src/API/Reports/Customers/Stats/Controller.php:302
 msgid ""
 "Limit response to objects with an order count greater than or equal to "
 "given integer."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:508
-#: src/API/Reports/Customers/Stats/Controller.php:311
+#: src/API/Reports/Customers/Controller.php:505
+#: src/API/Reports/Customers/Stats/Controller.php:308
 msgid ""
 "Limit response to objects with an order count less than or equal to given "
 "integer."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:514
-#: src/API/Reports/Customers/Stats/Controller.php:317
+#: src/API/Reports/Customers/Controller.php:511
+#: src/API/Reports/Customers/Stats/Controller.php:314
 msgid "Limit response to objects with an order count between two given integers."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:522
-#: src/API/Reports/Customers/Stats/Controller.php:325
+#: src/API/Reports/Customers/Controller.php:519
+#: src/API/Reports/Customers/Stats/Controller.php:322
 msgid ""
 "Limit response to objects with a total order spend greater than or equal to "
 "given number."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:527
-#: src/API/Reports/Customers/Stats/Controller.php:330
+#: src/API/Reports/Customers/Controller.php:524
+#: src/API/Reports/Customers/Stats/Controller.php:327
 msgid ""
 "Limit response to objects with a total order spend less than or equal to "
 "given number."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:532
-#: src/API/Reports/Customers/Stats/Controller.php:335
+#: src/API/Reports/Customers/Controller.php:529
+#: src/API/Reports/Customers/Stats/Controller.php:332
 msgid ""
 "Limit response to objects with a total order spend between two given "
 "numbers."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:540
-#: src/API/Reports/Customers/Stats/Controller.php:343
+#: src/API/Reports/Customers/Controller.php:537
+#: src/API/Reports/Customers/Stats/Controller.php:340
 msgid ""
 "Limit response to objects with an average order spend greater than or equal "
 "to given number."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:545
-#: src/API/Reports/Customers/Stats/Controller.php:348
+#: src/API/Reports/Customers/Controller.php:542
+#: src/API/Reports/Customers/Stats/Controller.php:345
 msgid ""
 "Limit response to objects with an average order spend less than or equal to "
 "given number."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:550
-#: src/API/Reports/Customers/Stats/Controller.php:353
+#: src/API/Reports/Customers/Controller.php:547
+#: src/API/Reports/Customers/Stats/Controller.php:350
 msgid ""
 "Limit response to objects with an average order spend between two given "
 "numbers."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:558
-#: src/API/Reports/Customers/Stats/Controller.php:361
+#: src/API/Reports/Customers/Controller.php:555
+#: src/API/Reports/Customers/Stats/Controller.php:358
 msgid ""
 "Limit response to objects with last order before (or at) a given ISO8601 "
 "compliant datetime."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:564
-#: src/API/Reports/Customers/Stats/Controller.php:367
+#: src/API/Reports/Customers/Controller.php:561
+#: src/API/Reports/Customers/Stats/Controller.php:364
 msgid ""
 "Limit response to objects with last order after (or at) a given ISO8601 "
 "compliant datetime."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:570
-#: src/API/Reports/Customers/Stats/Controller.php:373
+#: src/API/Reports/Customers/Controller.php:567
+#: src/API/Reports/Customers/Stats/Controller.php:370
 msgid "Limit result to items with specified customer ids."
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:589
+#: src/API/Reports/Customers/Controller.php:586
 #: client/analytics/report/customers/config.js:78
 #: client/analytics/report/customers/table.js:36
 msgid "Name"
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:590
+#: src/API/Reports/Customers/Controller.php:587
 #: client/analytics/report/customers/config.js:187
 #: client/analytics/report/customers/table.js:43
 #: client/analytics/report/downloads/config.js:97
@@ -1495,650 +1507,642 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:591
+#: src/API/Reports/Customers/Controller.php:588
 #: client/analytics/report/customers/table.js:48
 msgid "Last Active"
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:592
+#: src/API/Reports/Customers/Controller.php:589
 #: client/analytics/report/customers/table.js:54
 msgid "Sign Up"
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:593
+#: src/API/Reports/Customers/Controller.php:590
 #: client/analytics/report/customers/config.js:238
 #: client/analytics/report/customers/table.js:59
 msgid "Email"
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:596
+#: src/API/Reports/Customers/Controller.php:593
 #: client/analytics/report/customers/config.js:387
 #: client/analytics/report/customers/table.js:75
 msgid "AOV"
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:597
+#: src/API/Reports/Customers/Controller.php:594
 #: client/analytics/report/customers/config.js:129
 #: client/analytics/report/customers/table.js:84
 #: client/dashboard/components/settings/general/store-address.js:206
 msgid "Country / Region"
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:598
+#: src/API/Reports/Customers/Controller.php:595
 #: client/analytics/report/customers/table.js:89
 #: client/dashboard/components/settings/general/store-address.js:219
 msgid "City"
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:599
+#: src/API/Reports/Customers/Controller.php:596
 #: client/analytics/report/customers/table.js:95
 msgid "Region"
 msgstr ""
 
-#: src/API/Reports/Customers/Controller.php:600
+#: src/API/Reports/Customers/Controller.php:597
 #: client/analytics/report/customers/table.js:101
 msgid "Postal Code"
 msgstr ""
 
-#: src/API/Reports/Customers/Stats/Controller.php:134
+#: src/API/Reports/Customers/Stats/Controller.php:131
 msgid "Number of customers."
 msgstr ""
 
-#: src/API/Reports/Customers/Stats/Controller.php:140
+#: src/API/Reports/Customers/Stats/Controller.php:137
 msgid "Average number of orders."
 msgstr ""
 
-#: src/API/Reports/Customers/Stats/Controller.php:146
+#: src/API/Reports/Customers/Stats/Controller.php:143
 msgid "Average total spend per customer."
 msgstr ""
 
-#: src/API/Reports/Customers/Stats/Controller.php:153
+#: src/API/Reports/Customers/Stats/Controller.php:150
 msgid "Average AOV per customer."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:164
+#: src/API/Reports/Downloads/Controller.php:169
 msgid "ID."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:170
-#: src/API/Reports/Downloads/Controller.php:206
-#: src/API/Reports/Products/Controller.php:165
-#: src/API/Reports/Variations/Controller.php:170
-#: src/API/Reports/Variations/Controller.php:176
+#: src/API/Reports/Downloads/Controller.php:175
+#: src/API/Reports/Downloads/Controller.php:211
+#: src/API/Reports/Products/Controller.php:162
+#: src/API/Reports/Variations/Controller.php:167
+#: src/API/Reports/Variations/Controller.php:173
 msgid "Product ID."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:173
+#: src/API/Reports/Downloads/Controller.php:178
 msgid "The date of the download, in the site's timezone."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:179
+#: src/API/Reports/Downloads/Controller.php:184
 msgid "The date of the download, as GMT."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:188
+#: src/API/Reports/Downloads/Controller.php:193
 msgid "Download ID."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:194
+#: src/API/Reports/Downloads/Controller.php:199
 msgid "File name."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:200
+#: src/API/Reports/Downloads/Controller.php:205
 msgid "File URL."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:212
-#: src/API/Reports/Orders/Controller.php:172
+#: src/API/Reports/Downloads/Controller.php:217
+#: src/API/Reports/Orders/Controller.php:169
 msgid "Order ID."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:218
-#: src/API/Reports/Orders/Controller.php:178
+#: src/API/Reports/Downloads/Controller.php:223
+#: src/API/Reports/Orders/Controller.php:175
 msgid "Order Number."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:224
+#: src/API/Reports/Downloads/Controller.php:229
 msgid "User ID for the downloader."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:230
+#: src/API/Reports/Downloads/Controller.php:235
 msgid "User name of the downloader."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:236
+#: src/API/Reports/Downloads/Controller.php:241
 msgid "IP address for the downloader."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:299
+#: src/API/Reports/Downloads/Controller.php:304
 msgid ""
 "Indicates whether all the conditions should be true for the resulting set, "
 "or if any one of them is sufficient. Match affects the following "
 "parameters: products, orders, username, ip_address."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:309
-#: src/API/Reports/Downloads/Stats/Controller.php:302
-#: src/API/Reports/Orders/Controller.php:307
-#: src/API/Reports/Orders/Stats/Controller.php:426
+#: src/API/Reports/Downloads/Controller.php:314
+#: src/API/Reports/Downloads/Stats/Controller.php:299
+#: src/API/Reports/Orders/Controller.php:304
+#: src/API/Reports/Orders/Stats/Controller.php:417
 msgid "Limit result set to items that have the specified product(s) assigned."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:319
-#: src/API/Reports/Downloads/Stats/Controller.php:312
-#: src/API/Reports/Orders/Controller.php:317
-#: src/API/Reports/Orders/Stats/Controller.php:436
+#: src/API/Reports/Downloads/Controller.php:324
+#: src/API/Reports/Downloads/Stats/Controller.php:309
+#: src/API/Reports/Orders/Controller.php:314
+#: src/API/Reports/Orders/Stats/Controller.php:427
 msgid "Limit result set to items that don't have the specified product(s) assigned."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:329
-#: src/API/Reports/Downloads/Stats/Controller.php:321
-#: src/API/Reports/Orders/Controller.php:418
+#: src/API/Reports/Downloads/Controller.php:334
+#: src/API/Reports/Downloads/Stats/Controller.php:318
+#: src/API/Reports/Orders/Controller.php:415
 msgid "Limit result set to items that have the specified order ids."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:338
-#: src/API/Reports/Downloads/Stats/Controller.php:330
-#: src/API/Reports/Orders/Controller.php:427
+#: src/API/Reports/Downloads/Controller.php:343
+#: src/API/Reports/Downloads/Stats/Controller.php:327
+#: src/API/Reports/Orders/Controller.php:424
 msgid "Limit result set to items that don't have the specified order ids."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:347
+#: src/API/Reports/Downloads/Controller.php:352
 msgid "Limit response to objects that have the specified user ids."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:356
+#: src/API/Reports/Downloads/Controller.php:361
 msgid "Limit response to objects that don't have the specified user ids."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:365
-#: src/API/Reports/Downloads/Stats/Controller.php:357
+#: src/API/Reports/Downloads/Controller.php:370
+#: src/API/Reports/Downloads/Stats/Controller.php:354
 msgid "Limit response to objects that have a specified ip address."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:374
-#: src/API/Reports/Downloads/Stats/Controller.php:366
+#: src/API/Reports/Downloads/Controller.php:379
+#: src/API/Reports/Downloads/Stats/Controller.php:363
 msgid "Limit response to objects that don't have a specified ip address."
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:392
-#: src/API/Reports/Orders/Controller.php:477
-#: src/API/Reports/Revenue/Stats/Controller.php:451
+#: src/API/Reports/Downloads/Controller.php:397
+#: src/API/Reports/Orders/Controller.php:474
+#: src/API/Reports/Revenue/Stats/Controller.php:448
 #: client/analytics/report/downloads/table.js:38
 #: client/analytics/report/orders/table.js:36
 #: client/analytics/report/revenue/table.js:44
 msgid "Date"
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:393
-#: src/API/Reports/Products/Controller.php:389
+#: src/API/Reports/Downloads/Controller.php:398
+#: src/API/Reports/Products/Controller.php:386
 #: client/analytics/report/downloads/table.js:46
 #: client/analytics/report/products/table.js:43
 msgid "Product Title"
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:394
+#: src/API/Reports/Downloads/Controller.php:399
 #: client/analytics/report/downloads/table.js:52
 msgid "File Name"
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:395
-#: src/API/Reports/Orders/Controller.php:478
+#: src/API/Reports/Downloads/Controller.php:400
+#: src/API/Reports/Orders/Controller.php:475
 #: client/analytics/report/downloads/config.js:148
 #: client/analytics/report/downloads/table.js:56
 #: client/analytics/report/orders/table.js:44
 msgid "Order #"
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:396
+#: src/API/Reports/Downloads/Controller.php:401
 msgid "User Name"
 msgstr ""
 
-#: src/API/Reports/Downloads/Controller.php:397
+#: src/API/Reports/Downloads/Controller.php:402
 #: client/analytics/report/downloads/table.js:65
 msgid "IP"
 msgstr ""
 
-#: src/API/Reports/Downloads/Stats/Controller.php:147
-#: src/Features/Analytics.php:134 src/Features/Onboarding.php:335
-#: src/ReportCSVEmail.php:40
+#: src/API/Reports/Downloads/Stats/Controller.php:144
+#: src/Features/Analytics.php:169 src/Features/Onboarding.php:344
+#: src/ReportCSVEmail.php:38
 #: client/analytics/report/downloads/config.js:22
-#: client/analytics/report/downloads/table.js:187
+#: client/analytics/report/downloads/table.js:198
 #: client/analytics/report/get-reports.js:100
 #: client/dashboard/dashboard-charts/config.js:91
 msgid "Downloads"
 msgstr ""
 
-#: src/API/Reports/Downloads/Stats/Controller.php:148
+#: src/API/Reports/Downloads/Stats/Controller.php:145
 msgid "Number of downloads."
 msgstr ""
 
-#: src/API/Reports/Downloads/Stats/Controller.php:339
+#: src/API/Reports/Downloads/Stats/Controller.php:336
 msgid "Limit response to objects that have the specified customer ids."
 msgstr ""
 
-#: src/API/Reports/Downloads/Stats/Controller.php:348
+#: src/API/Reports/Downloads/Stats/Controller.php:345
 msgid "Limit response to objects that don't have the specified customer ids."
 msgstr ""
 
-#: src/API/Reports/Downloads/Stats/DataStore.php:120
-#: src/API/Reports/Downloads/Stats/DataStore.php:136
+#: src/API/Reports/Downloads/Stats/DataStore.php:118
+#: src/API/Reports/Downloads/Stats/DataStore.php:134
 msgid "Sorry, fetching downloads data failed."
 msgstr ""
 
-#: src/API/Reports/Export/Controller.php:79
+#: src/API/Reports/Export/Controller.php:76
 msgid "Parameters to pass on to the exported report."
 msgstr ""
 
-#: src/API/Reports/Export/Controller.php:84
+#: src/API/Reports/Export/Controller.php:81
 msgid "When true, email a link to download the export to the requesting user."
 msgstr ""
 
-#: src/API/Reports/Export/Controller.php:103
-#: src/API/Reports/Import/Controller.php:218
+#: src/API/Reports/Export/Controller.php:100
+#: src/API/Reports/Import/Controller.php:215
 msgid "Regeneration status."
 msgstr ""
 
-#: src/API/Reports/Export/Controller.php:109
-#: src/API/Reports/Import/Controller.php:224
+#: src/API/Reports/Export/Controller.php:106
+#: src/API/Reports/Import/Controller.php:221
 msgid "Regenerate data message."
 msgstr ""
 
-#: src/API/Reports/Export/Controller.php:132
+#: src/API/Reports/Export/Controller.php:129
 msgid "Percentage complete."
 msgstr ""
 
-#: src/API/Reports/Export/Controller.php:138
+#: src/API/Reports/Export/Controller.php:135
 msgid "Export download URL."
 msgstr ""
 
-#: src/API/Reports/Export/Controller.php:167
+#: src/API/Reports/Export/Controller.php:164
 msgid "There is no data to export for the given request."
 msgstr ""
 
-#: src/API/Reports/Export/Controller.php:175
+#: src/API/Reports/Export/Controller.php:172
 msgid "Your report file is being generated."
 msgstr ""
 
-#: src/API/Reports/Export/Controller.php:210
+#: src/API/Reports/Export/Controller.php:207
 msgid "Sorry, there is no export with that ID."
 msgstr ""
 
-#: src/API/Reports/Import/Controller.php:190
+#: src/API/Reports/Import/Controller.php:187
 msgid "Number of days to import."
 msgstr ""
 
-#: src/API/Reports/Import/Controller.php:197
+#: src/API/Reports/Import/Controller.php:194
 msgid "Skip importing existing order data."
 msgstr ""
 
-#: src/API/Reports/Import/Controller.php:246
+#: src/API/Reports/Import/Controller.php:243
 msgid "All pending and in-progress import actions have been cancelled."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:184
+#: src/API/Reports/Orders/Controller.php:181
 msgid "Date the order was created, in the site's timezone."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:190
+#: src/API/Reports/Orders/Controller.php:187
 msgid "Date the order was created, as GMT."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:196
+#: src/API/Reports/Orders/Controller.php:193
 msgid "Order status."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:208
-#: src/API/Reports/Products/Controller.php:171
-#: src/API/Reports/Products/Stats/Controller.php:161
-#: src/API/Reports/Variations/Controller.php:182
+#: src/API/Reports/Orders/Controller.php:205
+#: src/API/Reports/Products/Controller.php:168
+#: src/API/Reports/Products/Stats/Controller.php:158
+#: src/API/Reports/Variations/Controller.php:179
 msgid "Number of items sold."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:214
+#: src/API/Reports/Orders/Controller.php:211
 msgid "Net total revenue."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:220
+#: src/API/Reports/Orders/Controller.php:217
 msgid "Returning or new customer."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:230
+#: src/API/Reports/Orders/Controller.php:227
 msgid "List of order product IDs, names, quantities."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:236
+#: src/API/Reports/Orders/Controller.php:233
 msgid "List of order coupons."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:242
+#: src/API/Reports/Orders/Controller.php:239
 msgid "Order customer information."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:327
-#: src/API/Reports/Orders/Stats/Controller.php:445
+#: src/API/Reports/Orders/Controller.php:324
+#: src/API/Reports/Orders/Stats/Controller.php:436
 msgid "Limit result set to items that have the specified coupon(s) assigned."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:337
-#: src/API/Reports/Orders/Stats/Controller.php:454
-#: src/API/Reports/Orders/Stats/Controller.php:483
+#: src/API/Reports/Orders/Controller.php:334
+#: src/API/Reports/Orders/Stats/Controller.php:445
+#: src/API/Reports/Orders/Stats/Controller.php:474
 msgid "Limit result set to items that don't have the specified coupon(s) assigned."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:347
-#: src/API/Reports/Orders/Stats/Controller.php:463
+#: src/API/Reports/Orders/Controller.php:344
+#: src/API/Reports/Orders/Stats/Controller.php:454
 msgid "Limit result set to items that have the specified tax rate(s) assigned."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:357
-#: src/API/Reports/Orders/Stats/Controller.php:473
+#: src/API/Reports/Orders/Controller.php:354
+#: src/API/Reports/Orders/Stats/Controller.php:464
 msgid ""
 "Limit result set to items that don't have the specified tax rate(s) "
 "assigned."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:387
+#: src/API/Reports/Orders/Controller.php:384
 msgid "Limit result set to returning or new customers."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:398
-#: src/API/Reports/Orders/Stats/Controller.php:492
+#: src/API/Reports/Orders/Controller.php:395
+#: src/API/Reports/Orders/Stats/Controller.php:483
 msgid "Limit result set to specific types of refunds."
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:451
+#: src/API/Reports/Orders/Controller.php:448
 #. translators: 1: numeric product quantity, 2: name of product
 msgid "%1$s× %2$s"
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:480
+#: src/API/Reports/Orders/Controller.php:477
 #: client/analytics/report/orders/table.js:56
 msgid "Customer"
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:481
+#: src/API/Reports/Orders/Controller.php:478
 #: client/analytics/report/orders/table.js:62
 msgid "Product(s)"
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:483
+#: src/API/Reports/Orders/Controller.php:480
 #: client/analytics/report/orders/table.js:76
 msgid "Coupon(s)"
 msgstr ""
 
-#: src/API/Reports/Orders/Controller.php:484
-#: src/API/Reports/Products/Controller.php:392
-#: src/API/Reports/Variations/Controller.php:360
+#: src/API/Reports/Orders/Controller.php:481
+#: src/API/Reports/Products/Controller.php:389
+#: src/API/Reports/Variations/Controller.php:357
 msgid "N. Revenue"
 msgstr ""
 
-#: src/API/Reports/Orders/Stats/Controller.php:157
-#: src/API/Reports/Products/Stats/Controller.php:168
-#: src/API/Reports/Revenue/Stats/Controller.php:178
+#: src/API/Reports/Orders/Stats/Controller.php:154
+#: src/API/Reports/Products/Stats/Controller.php:165
+#: src/API/Reports/Revenue/Stats/Controller.php:175
 msgid "Net Sales."
 msgstr ""
 
-#: src/API/Reports/Orders/Stats/Controller.php:165
+#: src/API/Reports/Orders/Stats/Controller.php:162
 msgid "Number of orders"
 msgstr ""
 
-#: src/API/Reports/Orders/Stats/Controller.php:172
+#: src/API/Reports/Orders/Stats/Controller.php:169
 msgid "Average order value."
 msgstr ""
 
-#: src/API/Reports/Orders/Stats/Controller.php:180
+#: src/API/Reports/Orders/Stats/Controller.php:177
 msgid "Average items per order"
 msgstr ""
 
-#: src/API/Reports/Orders/Stats/Controller.php:186
+#: src/API/Reports/Orders/Stats/Controller.php:183
 msgid "Number of items sold"
 msgstr ""
 
-#: src/API/Reports/Orders/Stats/Controller.php:192
-#: src/API/Reports/Revenue/Stats/Controller.php:186
+#: src/API/Reports/Orders/Stats/Controller.php:189
+#: src/API/Reports/Revenue/Stats/Controller.php:183
 msgid "Amount discounted by coupons."
 msgstr ""
 
-#: src/API/Reports/Orders/Stats/Controller.php:198
-#: src/API/Reports/Revenue/Stats/Controller.php:192
+#: src/API/Reports/Orders/Stats/Controller.php:195
+#: src/API/Reports/Revenue/Stats/Controller.php:189
 msgid "Unique coupons count."
 msgstr ""
 
-#: src/API/Reports/Orders/Stats/Controller.php:204
-msgid "Number of orders done by returning customers"
+#: src/API/Reports/Orders/Stats/Controller.php:201
+msgid "Total distinct customers."
 msgstr ""
 
-#: src/API/Reports/Orders/Stats/Controller.php:210
-msgid "Number of orders done by new customers"
-msgstr ""
-
-#: src/API/Reports/Orders/Stats/Controller.php:216
+#: src/API/Reports/Orders/Stats/Controller.php:207
 msgid "Number of distinct products sold."
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:146
+#: src/API/Reports/PerformanceIndicators/Controller.php:143
 msgid "Sorry, fetching performance indicators failed."
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:228
+#: src/API/Reports/PerformanceIndicators/Controller.php:225
 msgid "Visitors"
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:234
+#: src/API/Reports/PerformanceIndicators/Controller.php:231
 msgid "Views"
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:409
+#: src/API/Reports/PerformanceIndicators/Controller.php:406
 msgid "A list of stats to query must be provided."
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:598
-#: src/API/Reports/Stock/Controller.php:373
+#: src/API/Reports/PerformanceIndicators/Controller.php:595
+#: src/API/Reports/Stock/Controller.php:370
 msgid "Unique identifier for the resource."
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:605
+#: src/API/Reports/PerformanceIndicators/Controller.php:602
 msgid "The specific chart this stat referrers to."
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:611
+#: src/API/Reports/PerformanceIndicators/Controller.php:608
 msgid "Human readable label for the stat."
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:617
+#: src/API/Reports/PerformanceIndicators/Controller.php:614
 msgid "Format of the stat."
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:624
+#: src/API/Reports/PerformanceIndicators/Controller.php:621
 msgid ""
 "Value of the stat. Returns null if the stat does not exist or cannot be "
 "loaded."
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:655
+#: src/API/Reports/PerformanceIndicators/Controller.php:652
 msgid "There was an issue loading the report endpoints"
 msgstr ""
 
-#: src/API/Reports/PerformanceIndicators/Controller.php:665
+#: src/API/Reports/PerformanceIndicators/Controller.php:662
 #. translators: Allowed values is a list of stat endpoints.
 msgid "Limit response to specific report stats. Allowed values: %s."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:177
-#: src/API/Reports/Variations/Controller.php:188
+#: src/API/Reports/Products/Controller.php:174
+#: src/API/Reports/Variations/Controller.php:185
 msgid "Total Net Sales of all items sold."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:183
-#: src/API/Reports/Variations/Controller.php:194
+#: src/API/Reports/Products/Controller.php:180
+#: src/API/Reports/Variations/Controller.php:191
 msgid "Number of orders product appeared in."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:190
-#: src/API/Reports/Stock/Controller.php:385
-#: src/API/Reports/Variations/Controller.php:201
+#: src/API/Reports/Products/Controller.php:187
+#: src/API/Reports/Stock/Controller.php:382
+#: src/API/Reports/Variations/Controller.php:198
 msgid "Product name."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:196
-#: src/API/Reports/Variations/Controller.php:207
+#: src/API/Reports/Products/Controller.php:193
+#: src/API/Reports/Variations/Controller.php:204
 msgid "Product price."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:202
-#: src/API/Reports/Variations/Controller.php:213
+#: src/API/Reports/Products/Controller.php:199
+#: src/API/Reports/Variations/Controller.php:210
 msgid "Product image."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:208
-#: src/API/Reports/Variations/Controller.php:219
+#: src/API/Reports/Products/Controller.php:205
+#: src/API/Reports/Variations/Controller.php:216
 msgid "Product link."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:214
+#: src/API/Reports/Products/Controller.php:211
 msgid "Product category IDs."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:220
-#: src/API/Reports/Variations/Controller.php:231
+#: src/API/Reports/Products/Controller.php:217
+#: src/API/Reports/Variations/Controller.php:228
 msgid "Product inventory status."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:226
-#: src/API/Reports/Variations/Controller.php:237
+#: src/API/Reports/Products/Controller.php:223
+#: src/API/Reports/Variations/Controller.php:234
 msgid "Product inventory quantity."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:232
-#: src/API/Reports/Variations/Controller.php:243
+#: src/API/Reports/Products/Controller.php:229
+#: src/API/Reports/Variations/Controller.php:240
 msgid "Product inventory threshold for low stock."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:238
+#: src/API/Reports/Products/Controller.php:235
 msgid "Product variations IDs."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:244
+#: src/API/Reports/Products/Controller.php:241
 msgid "Product SKU."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:313
-#: src/API/Reports/Products/Stats/Controller.php:382
+#: src/API/Reports/Products/Controller.php:310
+#: src/API/Reports/Products/Stats/Controller.php:379
 msgid "Limit result to items from the specified categories."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:332
-#: src/API/Reports/Products/Stats/Controller.php:391
-#: src/API/Reports/Variations/Controller.php:310
+#: src/API/Reports/Products/Controller.php:329
+#: src/API/Reports/Products/Stats/Controller.php:388
+#: src/API/Reports/Variations/Controller.php:307
 msgid "Limit result to items with specified product ids."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:342
-#: src/API/Reports/Variations/Controller.php:328
+#: src/API/Reports/Products/Controller.php:339
+#: src/API/Reports/Variations/Controller.php:325
 msgid "Add additional piece of info about each product to the report."
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:390
-#: src/API/Reports/Stock/Controller.php:528
-#: src/API/Reports/Variations/Controller.php:358
+#: src/API/Reports/Products/Controller.php:387
+#: src/API/Reports/Stock/Controller.php:525
+#: src/API/Reports/Variations/Controller.php:355
 #: client/analytics/report/products/table-variations.js:44
 #: client/analytics/report/products/table.js:50
 #: client/analytics/report/stock/table.js:44
 msgid "SKU"
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:395
-#: client/analytics/report/products/table-variations.js:273
+#: src/API/Reports/Products/Controller.php:392
+#: client/analytics/report/products/table-variations.js:277
 #: client/analytics/report/products/table.js:82
 msgid "Variations"
 msgstr ""
 
-#: src/API/Reports/Products/Controller.php:400
-#: src/API/Reports/Stock/Controller.php:530
-#: src/API/Reports/Variations/Controller.php:366 src/Features/Analytics.php:140
-#: src/ReportCSVEmail.php:41
+#: src/API/Reports/Products/Controller.php:397
+#: src/API/Reports/Stock/Controller.php:527
+#: src/API/Reports/Variations/Controller.php:363 src/Features/Analytics.php:175
+#: src/ReportCSVEmail.php:39
 #: client/analytics/report/get-reports.js:89
 #: client/analytics/report/products/table-variations.js:79
 #: client/analytics/report/products/table.js:94
 #: client/analytics/report/stock/table.js:202
-#: client/header/activity-panel/index.js:142
+#: client/header/activity-panel/index.js:167
 #: client/header/activity-panel/panels/stock/index.js:83
 msgid "Stock"
 msgstr ""
 
-#: src/API/Reports/Products/DataStore.php:229
+#: src/API/Reports/Products/DataStore.php:227
 #. translators: %s is product name
 msgid "%s (Deleted)"
 msgstr ""
 
-#: src/API/Reports/Products/DataStore.php:229
-msgid "(Deleted)"
-msgstr ""
-
-#: src/API/Reports/Products/Stats/Controller.php:198
+#: src/API/Reports/Products/Stats/Controller.php:195
 msgid "Human readable segment label, either product or variation name."
 msgstr ""
 
-#: src/API/Reports/Products/Stats/Controller.php:400
-#: src/API/Reports/Variations/Controller.php:319
+#: src/API/Reports/Products/Stats/Controller.php:397
+#: src/API/Reports/Variations/Controller.php:316
 msgid "Limit result to items with specified variation ids."
 msgstr ""
 
-#: src/API/Reports/Query.php:24
+#: src/API/Reports/Query.php:22
 #. translators: %s: Method name
 msgid "Method '%s' not implemented. Must be overridden in subclass."
 msgstr ""
 
-#: src/API/Reports/Revenue/Stats/Controller.php:199
-#: src/API/Reports/Revenue/Stats/Controller.php:457
+#: src/API/Reports/Revenue/Stats/Controller.php:196
+#: src/API/Reports/Revenue/Stats/Controller.php:454
 #: client/analytics/report/revenue/config.js:50
 #: client/analytics/report/revenue/table.js:94
 #: client/dashboard/dashboard-charts/config.js:86
 msgid "Shipping"
 msgstr ""
 
-#: src/API/Reports/Revenue/Stats/Controller.php:200
+#: src/API/Reports/Revenue/Stats/Controller.php:197
 msgid "Total of shipping."
 msgstr ""
 
-#: src/API/Reports/Revenue/Stats/Controller.php:208
+#: src/API/Reports/Revenue/Stats/Controller.php:205
 msgid "Total of taxes."
 msgstr ""
 
-#: src/API/Reports/Revenue/Stats/Controller.php:215
-#: src/API/Reports/Revenue/Stats/Controller.php:454
+#: src/API/Reports/Revenue/Stats/Controller.php:212
+#: src/API/Reports/Revenue/Stats/Controller.php:451
 #: client/analytics/report/revenue/config.js:23
 #: client/analytics/report/revenue/table.js:66
 #: client/dashboard/dashboard-charts/config.js:56
 msgid "Returns"
 msgstr ""
 
-#: src/API/Reports/Revenue/Stats/Controller.php:216
+#: src/API/Reports/Revenue/Stats/Controller.php:213
 msgid "Total of returns."
 msgstr ""
 
-#: src/API/Reports/Revenue/Stats/Controller.php:230
+#: src/API/Reports/Revenue/Stats/Controller.php:227
 msgid "Items sold."
 msgstr ""
 
-#: src/API/Reports/Revenue/Stats/Controller.php:236
+#: src/API/Reports/Revenue/Stats/Controller.php:233
 msgid "Products sold."
 msgstr ""
 
-#: src/API/Reports/Revenue/Stats/Controller.php:242
+#: src/API/Reports/Revenue/Stats/Controller.php:239
 msgid "Gross Sales."
 msgstr ""
 
-#: src/API/Reports/Revenue/Stats/Controller.php:453
+#: src/API/Reports/Revenue/Stats/Controller.php:450
 #: client/analytics/report/revenue/config.js:56
 #: client/analytics/report/revenue/table.js:101
 #: client/dashboard/dashboard-charts/config.js:31
 msgid "Total Sales"
 msgstr ""
 
-#: src/API/Reports/Revenue/Stats/Controller.php:456
-#: src/Features/Analytics.php:128 src/ReportCSVEmail.php:39
+#: src/API/Reports/Revenue/Stats/Controller.php:453
+#: src/Features/Analytics.php:163 src/ReportCSVEmail.php:37
 #: client/analytics/report/get-reports.js:78
 #: client/analytics/report/revenue/config.js:43
 #: client/analytics/report/revenue/table.js:87
@@ -2146,205 +2150,205 @@ msgstr ""
 msgid "Taxes"
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:391
+#: src/API/Reports/Stock/Controller.php:388
 msgid "Unique identifier."
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:397
+#: src/API/Reports/Stock/Controller.php:394
 msgid "Stock status."
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:404
+#: src/API/Reports/Stock/Controller.php:401
 msgid "Stock quantity."
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:410
+#: src/API/Reports/Stock/Controller.php:407
 msgid "Manage stock."
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:447
+#: src/API/Reports/Stock/Controller.php:444
 msgid "Ensure result set excludes specific IDs."
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:456
+#: src/API/Reports/Stock/Controller.php:453
 msgid "Limit result set to specific ids."
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:465
+#: src/API/Reports/Stock/Controller.php:462
 msgid "Offset the result set by a specific number of items."
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:493
+#: src/API/Reports/Stock/Controller.php:490
 msgid "Limit result set to those of particular parent IDs."
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:502
+#: src/API/Reports/Stock/Controller.php:499
 msgid "Limit result set to all items except those of a particular parent ID."
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:511
+#: src/API/Reports/Stock/Controller.php:508
 msgid "Limit result set to items assigned a stock report type."
 msgstr ""
 
-#: src/API/Reports/Stock/Controller.php:527
+#: src/API/Reports/Stock/Controller.php:524
 #: client/analytics/report/stock/table.js:37
 msgid "Product / Variation"
 msgstr ""
 
-#: src/API/Reports/Stock/Stats/Controller.php:88
+#: src/API/Reports/Stock/Stats/Controller.php:85
 msgid "Number of products."
 msgstr ""
 
-#: src/API/Reports/Stock/Stats/Controller.php:94
+#: src/API/Reports/Stock/Stats/Controller.php:91
 msgid "Number of low stock products."
 msgstr ""
 
-#: src/API/Reports/Stock/Stats/Controller.php:105
+#: src/API/Reports/Stock/Stats/Controller.php:102
 #. translators: Stock status. Example: "Number of low stock products
 msgid "Number of %s products."
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:160
+#: src/API/Reports/Taxes/Controller.php:157
 msgid "Tax rate ID."
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:166
+#: src/API/Reports/Taxes/Controller.php:163
 msgid "Tax rate name."
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:172
+#: src/API/Reports/Taxes/Controller.php:169
 msgid "Tax rate."
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:184
+#: src/API/Reports/Taxes/Controller.php:181
 msgid "State."
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:190
+#: src/API/Reports/Taxes/Controller.php:187
 msgid "Priority."
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:196
-#: src/API/Reports/Taxes/Stats/Controller.php:170
+#: src/API/Reports/Taxes/Controller.php:193
+#: src/API/Reports/Taxes/Stats/Controller.php:167
 msgid "Total tax."
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:202
-#: src/API/Reports/Taxes/Stats/Controller.php:178
+#: src/API/Reports/Taxes/Controller.php:199
+#: src/API/Reports/Taxes/Stats/Controller.php:175
 msgid "Order tax."
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:208
-#: src/API/Reports/Taxes/Stats/Controller.php:186
+#: src/API/Reports/Taxes/Controller.php:205
+#: src/API/Reports/Taxes/Stats/Controller.php:183
 msgid "Shipping tax."
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:286
+#: src/API/Reports/Taxes/Controller.php:283
 msgid "Limit result set to items assigned one or more tax rates."
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:305
+#: src/API/Reports/Taxes/Controller.php:302
 #: client/analytics/report/taxes/table.js:34
 msgid "Tax Code"
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:306
+#: src/API/Reports/Taxes/Controller.php:303
 #: client/analytics/report/taxes/table.js:41
 msgid "Rate"
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:307
+#: src/API/Reports/Taxes/Controller.php:304
 #: client/analytics/report/taxes/config.js:22
 #: client/analytics/report/taxes/table.js:47
 #: client/dashboard/dashboard-charts/config.js:71
 msgid "Total Tax"
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:308
+#: src/API/Reports/Taxes/Controller.php:305
 #: client/analytics/report/taxes/config.js:29
 #: client/analytics/report/taxes/table.js:52
 #: client/dashboard/dashboard-charts/config.js:76
 msgid "Order Tax"
 msgstr ""
 
-#: src/API/Reports/Taxes/Controller.php:309
+#: src/API/Reports/Taxes/Controller.php:306
 #: client/analytics/report/taxes/config.js:36
 #: client/analytics/report/taxes/table.js:57
 #: client/dashboard/dashboard-charts/config.js:81
 msgid "Shipping Tax"
 msgstr ""
 
-#: src/API/Reports/Taxes/Stats/Controller.php:200
+#: src/API/Reports/Taxes/Stats/Controller.php:197
 msgid "Amount of tax codes."
 msgstr ""
 
-#: src/API/Reports/Taxes/Stats/Controller.php:375
+#: src/API/Reports/Taxes/Stats/Controller.php:372
 msgid ""
 "Limit result set to all items that have the specified term assigned in the "
 "taxes taxonomy."
 msgstr ""
 
-#: src/API/Reports/Taxes/Stats/DataStore.php:225
+#: src/API/Reports/Taxes/Stats/DataStore.php:223
 msgid "Sorry, fetching tax data failed."
 msgstr ""
 
-#: src/API/Reports/TimeInterval.php:589 src/API/Reports/TimeInterval.php:621
+#: src/API/Reports/TimeInterval.php:587 src/API/Reports/TimeInterval.php:619
 #. translators: 1: parameter name
 msgid "%1$s is not a numerically indexed array."
 msgstr ""
 
-#: src/API/Reports/TimeInterval.php:601
+#: src/API/Reports/TimeInterval.php:599
 #. translators: %s: parameter name
 msgid "%s must contain 2 numbers."
 msgstr ""
 
-#: src/API/Reports/TimeInterval.php:633
+#: src/API/Reports/TimeInterval.php:631
 #. translators: %s: parameter name
 msgid "%s must contain 2 valid dates."
 msgstr ""
 
-#: src/API/Reports/Variations/Controller.php:225
+#: src/API/Reports/Variations/Controller.php:222
 msgid "Product attributes."
 msgstr ""
 
-#: src/API/Reports/Variations/Controller.php:357
+#: src/API/Reports/Variations/Controller.php:354
 #: client/analytics/report/products/table-variations.js:38
 msgid "Product / Variation Title"
 msgstr ""
 
-#: src/API/Taxes.php:37
+#: src/API/Taxes.php:34
 msgid "Search by similar tax code."
 msgstr ""
 
-#: src/API/Taxes.php:42
+#: src/API/Taxes.php:39
 msgid "Limit result set to items that have the specified rate ID(s) assigned."
 msgstr ""
 
-#: src/API/Themes.php:65
+#: src/API/Themes.php:62
 msgid "Sorry, you are not allowed to install themes on this site."
 msgstr ""
 
-#: src/API/Themes.php:80
+#: src/API/Themes.php:77
 msgid "Specified file failed upload test."
 msgstr ""
 
-#: src/API/Themes.php:164
+#: src/API/Themes.php:165
 msgid "Theme installation status."
 msgstr ""
 
-#: src/API/Themes.php:170
+#: src/API/Themes.php:171
 msgid "Theme installation message."
 msgstr ""
 
-#: src/API/Themes.php:176
+#: src/API/Themes.php:177
 msgid "Uploaded theme."
 msgstr ""
 
-#: src/API/Themes.php:195
+#: src/API/Themes.php:196
 msgid "A zip file of the theme to be uploaded."
 msgstr ""
 
-#: src/FeaturePlugin.php:226
+#: src/FeaturePlugin.php:222
 #. translators: 1: URL of WooCommerce plugin, 2: The minimum WooCommerce
 #. version number
 msgid ""
@@ -2352,7 +2356,7 @@ msgid ""
 "href=\"%1$s\">WooCommerce</a> %2$s or greater to be installed and active."
 msgstr ""
 
-#: src/FeaturePlugin.php:235
+#: src/FeaturePlugin.php:231
 #. translators: 1: URL of WordPress.org, 2: The minimum WordPress version
 #. number
 msgid ""
@@ -2360,235 +2364,222 @@ msgid ""
 "href=\"%1$s\">WordPress</a> %2$s or greater to be installed and active."
 msgstr ""
 
-#: src/FeaturePlugin.php:283
-msgid ""
-"You have installed a development version of WooCommerce Admin which "
-"requires files to be built. From the plugin directory, run <code>npm "
-"install</code> to install dependencies, <code>npm run build</code> to build "
-"the files."
+#: src/Features/Analytics.php:97
+msgid "Clear analytics cache"
 msgstr ""
 
-#: src/FeaturePlugin.php:286
-#. translators: 1: URL of GitHub Repository build page
-msgid ""
-"Or you can download a pre-built version of the plugin by visiting <a "
-"href=\"%1$s\">the releases page in the repository</a>."
+#: src/Features/Analytics.php:98
+msgid "Clear"
 msgstr ""
 
-#: src/Features/Analytics.php:84
-#: client/layout/controller.js:157
+#: src/Features/Analytics.php:119
+#. translators: 1: opening link tag, 2: closing tag
+#: client/layout/controller.js:160
 msgid "Analytics"
 msgstr ""
 
-#: src/Features/Analytics.php:92 src/Features/Marketing.php:136
+#: src/Features/Analytics.php:127 src/Features/Marketing.php:134
 #: client/layout/controller.js:176
 msgid "Overview"
 msgstr ""
 
-#: src/Features/Analytics.php:98 src/ReportCSVEmail.php:34
+#: src/Features/Analytics.php:133 src/ReportCSVEmail.php:32
 #: client/analytics/report/get-reports.js:53
-#: client/analytics/report/revenue/table.js:269
+#: client/analytics/report/revenue/table.js:273
 msgid "Revenue"
 msgstr ""
 
-#: src/Features/Analytics.php:116 src/ReportCSVEmail.php:37
+#: src/Features/Analytics.php:151 src/ReportCSVEmail.php:35
 #: client/analytics/report/categories/table.js:211
 #: client/analytics/report/get-reports.js:68
 msgid "Categories"
 msgstr ""
 
-#: src/Features/Analytics.php:146 src/ReportCSVEmail.php:42
+#: src/Features/Analytics.php:181 src/ReportCSVEmail.php:40
 #: client/analytics/report/customers/table.js:294
 #: client/analytics/report/get-reports.js:95
-#: client/layout/controller.js:139
+#: client/layout/controller.js:142
 msgid "Customers"
 msgstr ""
 
-#: src/Features/AnalyticsDashboard.php:99
-#: client/layout/controller.js:95
+#: src/Features/Analytics.php:208
+msgid "Analytics cache cleared."
+msgstr ""
+
+#: src/Features/AnalyticsDashboard.php:101
+#: client/layout/controller.js:98
 msgid "Home"
 msgstr ""
 
-#: src/Features/AnalyticsDashboard.php:99
-#: client/layout/controller.js:83
+#: src/Features/AnalyticsDashboard.php:101
+#: client/layout/controller.js:86
 #: client/marketing/overview/installed-extensions/row.js:56
 msgid "Dashboard"
 msgstr ""
 
-#: src/Features/Marketing.php:75 src/Features/Marketing.php:76
-#: client/layout/controller.js:174
+#: src/Features/Marketing.php:73 src/Features/Marketing.php:74
+#: client/layout/controller.js:175
 msgid "Marketing"
 msgstr ""
 
-#: src/Features/Navigation.php:207
-msgid "My extensions"
-msgstr ""
-
-#: src/Features/Navigation.php:217
-msgid "Marketplace"
-msgstr ""
-
-#: src/Features/Navigation.php:247
-msgid "Import / Export"
-msgstr ""
-
-#: src/Features/Navigation.php:257
-msgid "Utilities"
-msgstr ""
-
-#: src/Features/Onboarding.php:279
+#: src/Features/Onboarding.php:278
 msgid "Fashion, apparel, and accessories"
 msgstr ""
 
-#: src/Features/Onboarding.php:284
+#: src/Features/Onboarding.php:283
 msgid "Health and beauty"
 msgstr ""
 
-#: src/Features/Onboarding.php:289
+#: src/Features/Onboarding.php:288
 msgid "Art, music, and photography"
 msgstr ""
 
-#: src/Features/Onboarding.php:294
+#: src/Features/Onboarding.php:293
 msgid "Electronics and computers"
 msgstr ""
 
-#: src/Features/Onboarding.php:299
+#: src/Features/Onboarding.php:298
 msgid "Food and drink"
 msgstr ""
 
-#: src/Features/Onboarding.php:304
+#: src/Features/Onboarding.php:303
 msgid "Home, furniture, and garden"
 msgstr ""
 
-#: src/Features/Onboarding.php:309
+#: src/Features/Onboarding.php:308
 msgid "CBD and other hemp-derived products"
 msgstr ""
 
-#: src/Features/Onboarding.php:314
-#: client/profile-wizard/steps/business-details.js:546
+#: src/Features/Onboarding.php:313
+msgid "Education and learning"
+msgstr ""
+
+#: src/Features/Onboarding.php:318
+msgid "Travel and tourism"
+msgstr ""
+
+#: src/Features/Onboarding.php:323
+#: client/profile-wizard/steps/business-details.js:765
 msgid "Other"
 msgstr ""
 
-#: src/Features/Onboarding.php:331
+#: src/Features/Onboarding.php:340
 msgid "Physical products"
 msgstr ""
 
-#: src/Features/Onboarding.php:332
-msgid "Products you ship to customers."
-msgstr ""
-
-#: src/Features/Onboarding.php:336
-msgid "Virtual products that customers download."
-msgstr ""
-
-#: src/Features/Onboarding.php:339
+#: src/Features/Onboarding.php:347
 msgid "Subscriptions"
 msgstr ""
 
-#: src/Features/Onboarding.php:343
+#: src/Features/Onboarding.php:351
 msgid "Memberships"
 msgstr ""
 
-#: src/Features/Onboarding.php:347
+#: src/Features/Onboarding.php:355
 msgid "Composite Products"
 msgstr ""
 
-#: src/Features/Onboarding.php:351
+#: src/Features/Onboarding.php:359
 msgid "Bookings"
 msgstr ""
 
-#: src/Features/Onboarding.php:529
-#. translators: Amount of product per year (e.g. Bookings - $240.00 per year)
-msgid " — %s per year"
+#: src/Features/Onboarding.php:363
+msgid "Bundles"
 msgstr ""
 
-#: src/Features/Onboarding.php:535
+#: src/Features/Onboarding.php:367
+msgid "Customizable products"
+msgstr ""
+
+#: src/Features/Onboarding.php:553
 #. translators: site currency symbol (used to show that the product costs
 #. money)
 msgid " — %s"
 msgstr ""
 
-#: src/Features/Onboarding.php:847 src/Features/Onboarding.php:947
+#: src/Features/Onboarding.php:868 src/Features/Onboarding.php:962
 msgid "New onboarding experience"
 msgstr ""
 
-#: src/Features/Onboarding.php:848
+#: src/Features/Onboarding.php:869
 msgid ""
 "If you want to try out the new WooCommerce onboarding experience, click the "
 "button below."
 msgstr ""
 
-#: src/Features/Onboarding.php:849 src/Features/Onboarding.php:926
-#: src/Features/Onboarding.php:932
+#: src/Features/Onboarding.php:870 src/Features/Onboarding.php:947
 msgid "Enable"
 msgstr ""
 
-#: src/Features/Onboarding.php:920
+#: src/Features/Onboarding.php:938
 msgid "WooCommerce Onboarding"
 msgstr ""
 
-#: src/Features/Onboarding.php:922
+#: src/Features/Onboarding.php:940
 msgid "Profile Setup Wizard"
 msgstr ""
 
-#: src/Features/Onboarding.php:923
+#: src/Features/Onboarding.php:941
 msgid ""
-"If you need to enable or disable the setup wizard again, please click on "
-"the button below."
+"If you need to access the setup wizard again, please click on the button "
+"below."
 msgstr ""
 
-#: src/Features/Onboarding.php:925 src/Features/Onboarding.php:933
-#: src/Features/Onboarding.php:949
-msgid "Disable"
+#: src/Features/Onboarding.php:942
+msgid "Setup wizard"
 msgstr ""
 
-#: src/Features/Onboarding.php:929
+#: src/Features/Onboarding.php:944
 msgid "Task List"
 msgstr ""
 
-#: src/Features/Onboarding.php:930
+#: src/Features/Onboarding.php:945
 msgid ""
 "If you need to enable or disable the task list, please click on the button "
 "below."
 msgstr ""
 
-#: src/Features/Onboarding.php:937
+#: src/Features/Onboarding.php:948 src/Features/Onboarding.php:964
+msgid "Disable"
+msgstr ""
+
+#: src/Features/Onboarding.php:952
 msgid "Calypso / WordPress.com"
 msgstr ""
 
-#: src/Features/Onboarding.php:939
+#: src/Features/Onboarding.php:954
 msgid "Quickly access the Jetpack connection flow in Calypso."
 msgstr ""
 
-#: src/Features/Onboarding.php:940 src/Features/Onboarding.php:944
-#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:192
-#: client/dashboard/components/connect/index.js:104
-#: client/task-list/tasks/payments/paypal.js:113
+#: src/Features/Onboarding.php:955 src/Features/Onboarding.php:959
+#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:190
+#: client/dashboard/components/connect/index.js:83
+#: client/task-list/tasks/payments/paypal.js:317
 #: client/task-list/tasks/payments/square.js:134
 #: client/task-list/tasks/payments/stripe.js:131
 msgid "Connect"
 msgstr ""
 
-#: src/Features/Onboarding.php:943
+#: src/Features/Onboarding.php:958
 msgid "Quickly access the WooCommerce.com connection flow in Calypso."
 msgstr ""
 
-#: src/Features/Onboarding.php:948
+#: src/Features/Onboarding.php:963
 msgid ""
 "To disable the new WooCommerce onboarding experience, click the button "
 "below."
 msgstr ""
 
-#: src/Features/Onboarding.php:995 src/Features/Onboarding.php:1001
+#: src/Features/Onboarding.php:1010 src/Features/Onboarding.php:1016
 msgid "WooCommerce Helper was not able to connect to WooCommerce.com."
 msgstr ""
 
-#: src/Features/ShippingLabelBanner.php:106
+#: src/Features/ShippingLabelBanner.php:104
 #: client/wp-admin-scripts/print-shipping-label-banner/shipping-banner/index.js:186
 msgid "Shipping Label"
 msgstr ""
 
-#: src/Loader.php:796
+#: src/Loader.php:936
 #. translators: %1$s: updated title, %2$s: blog info name
 msgid "%1$s &lsaquo; %2$s"
 msgstr ""
@@ -2597,31 +2588,31 @@ msgstr ""
 msgid "WooCommerce Admin"
 msgstr ""
 
-#: src/Loader.php:963
+#: src/Loader.php:1103
 msgid "Settings for WooCommerce admin reporting."
 msgstr ""
 
-#: src/Loader.php:982
+#: src/Loader.php:1122
 msgid "Excluded report order statuses"
 msgstr ""
 
-#: src/Loader.php:983
+#: src/Loader.php:1123
 msgid "Statuses that should not be included when calculating report totals."
 msgstr ""
 
-#: src/Loader.php:991
+#: src/Loader.php:1131
 msgid "Actionable order statuses"
 msgstr ""
 
-#: src/Loader.php:992
+#: src/Loader.php:1132
 msgid "Statuses that require extra action on behalf of the store admin."
 msgstr ""
 
-#: src/Loader.php:1000 src/Loader.php:1001
+#: src/Loader.php:1140 src/Loader.php:1141
 msgid "Default Date Range"
 msgstr ""
 
-#: src/Notes/DataStore.php:127
+#: src/Notes/DataStore.php:125
 msgid "Invalid admin note"
 msgstr ""
 
@@ -2675,19 +2666,19 @@ msgstr ""
 msgid "The admin note layout has a wrong prop value."
 msgstr ""
 
-#: src/Notes/WC_Admin_Note.php:583
+#: src/Notes/WC_Admin_Note.php:592
 msgid "The admin note action name prop cannot be empty."
 msgstr ""
 
-#: src/Notes/WC_Admin_Note.php:587
+#: src/Notes/WC_Admin_Note.php:596
 msgid "The admin note action label prop cannot be empty."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Choose_Niche.php:57
+#: src/Notes/WC_Admin_Notes_Choose_Niche.php:65
 msgid "How to choose a niche for your online store"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Choose_Niche.php:58
+#: src/Notes/WC_Admin_Notes_Choose_Niche.php:66
 msgid ""
 "Your niche defines the products and services you develop. It directs your "
 "marketing. It focuses your attention on specific problems facing your "
@@ -2695,94 +2686,122 @@ msgid ""
 "five guiding principles to define your niche."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Choose_Niche.php:65
-#: src/Notes/WC_Admin_Notes_Draw_Attention.php:77
-#: src/Notes/WC_Admin_Notes_EU_VAT_Number.php:53
-#: src/Notes/WC_Admin_Notes_Migrate_From_Shopify.php:70
-#: src/Notes/WC_Admin_Notes_Mobile_App.php:47
-#: src/Notes/WC_Admin_Notes_Onboarding_Payments.php:71
-#: src/Notes/WC_Admin_Notes_Online_Clothing_Store.php:89
-#: src/Notes/WC_Admin_Notes_Order_Milestones.php:241
-#: src/Notes/WC_Admin_Notes_Real_Time_Order_Alerts.php:57
-#: src/Notes/WC_Admin_Notes_Start_Dropshipping_Business.php:75
-#: src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:108
+#: src/Notes/WC_Admin_Notes_Choose_Niche.php:73
+#: src/Notes/WC_Admin_Notes_Customize_Store_With_Blocks.php:75
+#: src/Notes/WC_Admin_Notes_Draw_Attention.php:75
+#: src/Notes/WC_Admin_Notes_EU_VAT_Number.php:51
+#: src/Notes/WC_Admin_Notes_Facebook_Marketing_Expert.php:73
+#: src/Notes/WC_Admin_Notes_Launch_Checklist.php:52
+#: src/Notes/WC_Admin_Notes_Migrate_From_Shopify.php:68
+#: src/Notes/WC_Admin_Notes_Mobile_App.php:45
+#: src/Notes/WC_Admin_Notes_Onboarding_Payments.php:56
+#: src/Notes/WC_Admin_Notes_Online_Clothing_Store.php:87
+#: src/Notes/WC_Admin_Notes_Order_Milestones.php:239
+#: src/Notes/WC_Admin_Notes_Real_Time_Order_Alerts.php:55
+#: src/Notes/WC_Admin_Notes_Start_Dropshipping_Business.php:73
+#: src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:106
 #: client/header/activity-panel/panels/orders.js:73
 #: client/header/activity-panel/panels/reviews.js:206
-#: client/profile-wizard/steps/product-types.js:144
+#: client/profile-wizard/steps/product-types.js:188
 msgid "Learn more"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Coupon_Page_Moved.php:71
+#: src/Notes/WC_Admin_Notes_Coupon_Page_Moved.php:67
 msgid "Coupon management has moved!"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Coupon_Page_Moved.php:72
+#: src/Notes/WC_Admin_Notes_Coupon_Page_Moved.php:68
 msgid ""
 "Coupons can now be managed from Marketing > Coupons. Click the button below "
 "to remove the legacy WooCommerce > Coupons menu item."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Coupon_Page_Moved.php:79
+#: src/Notes/WC_Admin_Notes_Coupon_Page_Moved.php:75
 msgid "Remove legacy coupon menu"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Deactivate_Plugin.php:40
+#: src/Notes/WC_Admin_Notes_Customize_Store_With_Blocks.php:67
+msgid "Customize your online store with WooCommerce blocks"
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Customize_Store_With_Blocks.php:68
+msgid ""
+"With our blocks, you can select and display products, categories, filters, "
+"and more virtually anywhere on your site — no need to use shortcodes or "
+"edit lines of code. Learn more about how to use each one of them."
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Deactivate_Plugin.php:38
 msgid "Deactivate old WooCommerce Admin version"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Deactivate_Plugin.php:41
+#: src/Notes/WC_Admin_Notes_Deactivate_Plugin.php:39
 msgid ""
 "Your current version of WooCommerce Admin is outdated and a newer version "
 "is included with WooCommerce.  We recommend deactivating the plugin and "
 "using the stable version included with WooCommerce."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Deactivate_Plugin.php:48
+#: src/Notes/WC_Admin_Notes_Deactivate_Plugin.php:46
 msgid "Deactivate"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Draw_Attention.php:69
+#: src/Notes/WC_Admin_Notes_Draw_Attention.php:67
 msgid "How to draw attention to your online store"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Draw_Attention.php:70
+#: src/Notes/WC_Admin_Notes_Draw_Attention.php:68
 msgid ""
 "To get you started, here are seven ways to boost your sales and avoid "
 "getting drowned out by similar, mass-produced products competing for the "
 "same buyers."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_EU_VAT_Number.php:42
+#: src/Notes/WC_Admin_Notes_EU_VAT_Number.php:40
 msgid ""
 "If your store is based in the EU, we recommend using the EU VAT Number "
 "extension in addition to automated taxes. It provides your checkout with a "
 "field to collect and validate a customer's EU VAT number, if they have one."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_EU_VAT_Number.php:45
+#: src/Notes/WC_Admin_Notes_EU_VAT_Number.php:43
 msgid "Collect and validate EU VAT numbers at checkout"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_First_Product.php:69
+#: src/Notes/WC_Admin_Notes_Facebook_Marketing_Expert.php:65
+msgid ""
+"Create and optimise your Facebook ads with the help of a Facebook Marketing "
+"Expert"
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Facebook_Marketing_Expert.php:66
+msgid ""
+"Get 1:1 business support from a Facebook Marketing Expert who will work "
+"with you and your business to create and optimize your Facebook ads. "
+"Discover new strategies used by similar businesses in your market and "
+"industry. Check whether you are eligible to make use of this offer."
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_First_Product.php:67
 msgid "Do you need help with adding your first product?"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_First_Product.php:70
+#: src/Notes/WC_Admin_Notes_First_Product.php:68
 msgid ""
 "This video tutorial will help you go through the process of adding your "
 "first product in WooCommerce."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_First_Product.php:77
-#: src/Notes/WC_Admin_Notes_Learn_More_About_Product_Settings.php:77
+#: src/Notes/WC_Admin_Notes_First_Product.php:75
+#: src/Notes/WC_Admin_Notes_Learn_More_About_Product_Settings.php:75
 msgid "Watch tutorial"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Giving_Feedback_Notes.php:40
+#: src/Notes/WC_Admin_Notes_Giving_Feedback_Notes.php:38
 msgid "Give feedback"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Giving_Feedback_Notes.php:41
+#: src/Notes/WC_Admin_Notes_Giving_Feedback_Notes.php:39
 msgid ""
 "Now that you’ve chosen us as a partner, our goal is to make sure we're "
 "providing the right tools to meet your needs. We're looking forward to "
@@ -2790,37 +2809,61 @@ msgid ""
 "the future."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Giving_Feedback_Notes.php:48
-#: src/Notes/WC_Admin_Notes_Home_Screen_Feedback.php:77
+#: src/Notes/WC_Admin_Notes_Giving_Feedback_Notes.php:46
+#: src/Notes/WC_Admin_Notes_Home_Screen_Feedback.php:75
 msgid "Share feedback"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Historical_Data.php:76
+#: src/Notes/WC_Admin_Notes_Historical_Data.php:74
 msgid "WooCommerce Admin: Historical Analytics Data"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Historical_Data.php:77
+#: src/Notes/WC_Admin_Notes_Historical_Data.php:75
 msgid ""
 "To view your historical analytics data, you must process your existing "
 "orders and customers."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Historical_Data.php:85
+#: src/Notes/WC_Admin_Notes_Historical_Data.php:83
 msgid "Get Started"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Home_Screen_Feedback.php:69
+#: src/Notes/WC_Admin_Notes_Home_Screen_Feedback.php:67
 msgid "Help us improve the WooCommerce Home screen"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Home_Screen_Feedback.php:70
+#: src/Notes/WC_Admin_Notes_Home_Screen_Feedback.php:68
 msgid ""
 "We'd love your input to shape the future of the WooCommerce Home screen "
 "together. Feel free to share any feedback, ideas or suggestions that you "
 "have."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Install_JP_And_WCS_Plugins.php:44
+#: src/Notes/WC_Admin_Notes_Insight_First_Sale.php:38
+msgid "Did you know?"
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Insight_First_Sale.php:39
+msgid ""
+"A WooCommerce powered store needs on average 31 days to get the first sale. "
+"You're on the right track! Do you find this type of insight useful?"
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Insight_First_Sale.php:50
+msgid "Yes"
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Insight_First_Sale.php:54
+#: src/Notes/WC_Admin_Notes_Insight_First_Sale.php:62
+msgid "Thanks for your feedback"
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Insight_First_Sale.php:58
+#: client/profile-wizard/steps/business-details.js:701
+msgid "No"
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Install_JP_And_WCS_Plugins.php:42
 msgid ""
 "We noticed that there was a problem during the Jetpack and WooCommerce "
 "Services install. Please try again and enjoy all the advantages of having "
@@ -2829,45 +2872,55 @@ msgid ""
 "activated for free."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Install_JP_And_WCS_Plugins.php:47
+#: src/Notes/WC_Admin_Notes_Install_JP_And_WCS_Plugins.php:45
 msgid ""
 "Uh oh... There was a problem during the Jetpack and WooCommerce Services "
 "install. Please try again."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Install_JP_And_WCS_Plugins.php:55
+#: src/Notes/WC_Admin_Notes_Install_JP_And_WCS_Plugins.php:53
 msgid "Install plugins"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Learn_More_About_Product_Settings.php:69
+#: src/Notes/WC_Admin_Notes_Launch_Checklist.php:43
+msgid ""
+"To make sure you never get that sinking \"what did I forget\" feeling, "
+"we've put together the essential pre-launch checklist."
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Launch_Checklist.php:46
+msgid "Ready to launch your store?"
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Learn_More_About_Product_Settings.php:67
 msgid "Learn more about Product Settings"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Learn_More_About_Product_Settings.php:70
+#: src/Notes/WC_Admin_Notes_Learn_More_About_Product_Settings.php:68
 msgid ""
 "In this video you'll find information about configuring product settings, "
 "such as how they are displayed, editing inventory options and so on."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Marketing.php:34
+#: src/Notes/WC_Admin_Notes_Marketing.php:32
 msgid "Connect with your audience"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Marketing.php:35
+#: src/Notes/WC_Admin_Notes_Marketing.php:33
 msgid ""
 "Grow your customer base and increase your sales with marketing tools built "
 "for WooCommerce."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Marketing.php:42
+#: src/Notes/WC_Admin_Notes_Marketing.php:40
 msgid "Open marketing hub"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Migrate_From_Shopify.php:62
+#: src/Notes/WC_Admin_Notes_Migrate_From_Shopify.php:60
 msgid "Do you want to migrate from Shopify to WooCommerce?"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Migrate_From_Shopify.php:63
+#: src/Notes/WC_Admin_Notes_Migrate_From_Shopify.php:61
 msgid ""
 "Changing eCommerce platforms might seem like a big hurdle to overcome, but "
 "it is easier than you might think to move your products, customers, and "
@@ -2875,31 +2928,31 @@ msgid ""
 "process."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Mobile_App.php:38
+#: src/Notes/WC_Admin_Notes_Mobile_App.php:36
 msgid ""
 "Install the WooCommerce mobile app to manage orders, receive sales "
 "notifications, and view key metrics — wherever you are."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Mobile_App.php:41
+#: src/Notes/WC_Admin_Notes_Mobile_App.php:39
 msgid "Install Woo mobile app"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Need_Some_Inspiration.php:54
+#: src/Notes/WC_Admin_Notes_Need_Some_Inspiration.php:57
 msgid "Do you need some inspiration?"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Need_Some_Inspiration.php:55
+#: src/Notes/WC_Admin_Notes_Need_Some_Inspiration.php:58
 msgid ""
 "Check some of our favorite customer stories from entrepreneurs, agencies, "
 "and developers in our global community."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Need_Some_Inspiration.php:62
+#: src/Notes/WC_Admin_Notes_Need_Some_Inspiration.php:65
 msgid "See success stories"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_New_Sales_Record.php:103
+#: src/Notes/WC_Admin_Notes_New_Sales_Record.php:101
 #. translators: 1 and 4: Date (e.g. October 16th), 2 and 3: Amount (e.g.
 #. $160.00)
 msgid ""
@@ -2907,62 +2960,62 @@ msgid ""
 "previous record of %3$s set on %4$s."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_New_Sales_Record.php:124
+#: src/Notes/WC_Admin_Notes_New_Sales_Record.php:122
 msgid "New sales record!"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_New_Sales_Record.php:130
+#: src/Notes/WC_Admin_Notes_New_Sales_Record.php:128
 msgid "View report"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Onboarding_Email_Marketing.php:32
+#: src/Notes/WC_Admin_Notes_Onboarding_Email_Marketing.php:30
 msgid ""
 "We're here for you - get tips, product updates and inspiration straight to "
 "your email box"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Onboarding_Email_Marketing.php:35
+#: src/Notes/WC_Admin_Notes_Onboarding_Email_Marketing.php:33
 msgid "Tips, product updates, and inspiration"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Onboarding_Email_Marketing.php:41
-#: client/profile-wizard/steps/benefits/index.js:241
+#: src/Notes/WC_Admin_Notes_Onboarding_Email_Marketing.php:39
+#: client/profile-wizard/steps/benefits/index.js:243
 msgid "Yes please!"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Onboarding_Payments.php:63
+#: src/Notes/WC_Admin_Notes_Onboarding_Payments.php:48
 msgid "Start accepting payments on your store!"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Onboarding_Payments.php:64
+#: src/Notes/WC_Admin_Notes_Onboarding_Payments.php:49
 msgid ""
 "Take payments with the provider that’s right for you - choose from 100+ "
 "payment gateways for WooCommerce."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Onboarding_Profiler.php:47
+#: src/Notes/WC_Admin_Notes_Onboarding_Profiler.php:45
 msgid "Welcome to WooCommerce! Set up your store and start selling"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Onboarding_Profiler.php:48
+#: src/Notes/WC_Admin_Notes_Onboarding_Profiler.php:46
 msgid ""
 "We're here to help you going through the most important steps to get your "
 "store up and running."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Onboarding_Profiler.php:55
+#: src/Notes/WC_Admin_Notes_Onboarding_Profiler.php:53
 msgid "Continue Store Setup"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Onboarding_Profiler.php:62
+#: src/Notes/WC_Admin_Notes_Onboarding_Profiler.php:60
 msgid "Skip Setup"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Online_Clothing_Store.php:81
+#: src/Notes/WC_Admin_Notes_Online_Clothing_Store.php:79
 msgid "Start your online clothing store"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Online_Clothing_Store.php:82
+#: src/Notes/WC_Admin_Notes_Online_Clothing_Store.php:80
 msgid ""
 "Starting a fashion website is exciting but it may seem overwhelming as "
 "well. In this article, we'll walk you through the setup process, teach you "
@@ -2970,42 +3023,42 @@ msgid ""
 "ideal audience."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Order_Milestones.php:184
+#: src/Notes/WC_Admin_Notes_Order_Milestones.php:182
 msgid "First order received"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Order_Milestones.php:196
+#: src/Notes/WC_Admin_Notes_Order_Milestones.php:194
 #. translators: Number of orders processed.
 msgid "Congratulations on processing %s orders!"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Order_Milestones.php:213
+#: src/Notes/WC_Admin_Notes_Order_Milestones.php:211
 msgid ""
 "Congratulations on getting your first order! Now is a great time to learn "
 "how to manage your orders."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Order_Milestones.php:215
+#: src/Notes/WC_Admin_Notes_Order_Milestones.php:213
 msgid ""
 "You've hit the 10 orders milestone! Look at you go. Browse some WooCommerce "
 "success stories for inspiration."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Order_Milestones.php:224
+#: src/Notes/WC_Admin_Notes_Order_Milestones.php:222
 msgid ""
 "Another order milestone! Take a look at your Orders Report to review your "
 "orders to date."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Order_Milestones.php:247
+#: src/Notes/WC_Admin_Notes_Order_Milestones.php:245
 msgid "Browse"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Order_Milestones.php:260
+#: src/Notes/WC_Admin_Notes_Order_Milestones.php:258
 msgid "Review your orders"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Personalize_Store.php:48
+#: src/Notes/WC_Admin_Notes_Personalize_Store.php:46
 msgid ""
 "The homepage is one of the most important entry points in your store. When "
 "done right it can lead to higher conversions and engagement. Don't forget "
@@ -3013,29 +3066,44 @@ msgid ""
 "onboarding."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Personalize_Store.php:51
+#: src/Notes/WC_Admin_Notes_Personalize_Store.php:49
 msgid "Personalize your store's homepage"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Personalize_Store.php:57
+#: src/Notes/WC_Admin_Notes_Personalize_Store.php:55
 msgid "Personalize homepage"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Real_Time_Order_Alerts.php:48
+#: src/Notes/WC_Admin_Notes_Real_Time_Order_Alerts.php:46
 msgid ""
 "Get notifications about store activity, including new orders and product "
 "reviews directly on your mobile devices with the Woo app."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Real_Time_Order_Alerts.php:51
+#: src/Notes/WC_Admin_Notes_Real_Time_Order_Alerts.php:49
 msgid "Get real-time order alerts anywhere"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Start_Dropshipping_Business.php:67
+#: src/Notes/WC_Admin_Notes_Set_Up_Additional_Payment_Types.php:70
+msgid ""
+"Set up additional payment providers, using third-party services or other "
+"methods."
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Set_Up_Additional_Payment_Types.php:74
+msgid "Set up additional payment providers"
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Set_Up_Additional_Payment_Types.php:82
+#: client/task-list/tasks.js:177
+msgid "Set up payments"
+msgstr ""
+
+#: src/Notes/WC_Admin_Notes_Start_Dropshipping_Business.php:65
 msgid "Are you considering starting a dropshipping business?"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Start_Dropshipping_Business.php:68
+#: src/Notes/WC_Admin_Notes_Start_Dropshipping_Business.php:66
 msgid ""
 "The ability to add inventory without having to deal with production, "
 "stocking, or fulfilling orders may seem like a dream. But is dropshipping "
@@ -3043,7 +3111,7 @@ msgid ""
 "you make the best decision for your business."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Tracking_Opt_In.php:50
+#: src/Notes/WC_Admin_Notes_Tracking_Opt_In.php:48
 #. translators: 1: open link to WooCommerce.com settings, 2: open link to
 #. WooCommerce.com tracking documentation, 3: close link tag.
 msgid ""
@@ -3054,33 +3122,33 @@ msgid ""
 "what data we collect."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Tracking_Opt_In.php:63
+#: src/Notes/WC_Admin_Notes_Tracking_Opt_In.php:61
 msgid "Help WooCommerce improve with usage tracking"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Tracking_Opt_In.php:69
+#: src/Notes/WC_Admin_Notes_Tracking_Opt_In.php:67
 msgid "Activate usage tracking"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:102
+#: src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:100
 msgid "Try the new way to get paid"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:103
+#: src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:101
 msgid ""
 "Securely accept credit and debit cards on your site. Manage transactions "
 "without leaving your WordPress dashboard. Only with WooCommerce Payments."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:109
+#: src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:107
 msgid "Install now"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_WooCommerce_Subscriptions.php:45
+#: src/Notes/WC_Admin_Notes_WooCommerce_Subscriptions.php:43
 msgid "Do you need more info about WooCommerce Subscriptions?"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_WooCommerce_Subscriptions.php:46
+#: src/Notes/WC_Admin_Notes_WooCommerce_Subscriptions.php:44
 msgid ""
 "WooCommerce Subscriptions allows you to introduce a variety of "
 "subscriptions for physical or virtual products and services. Create "
@@ -3089,101 +3157,119 @@ msgid ""
 "expiration periods."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_WooCommerce_Subscriptions.php:53
+#: src/Notes/WC_Admin_Notes_WooCommerce_Subscriptions.php:51
 msgid "Learn More"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:184
+#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:182
 msgid "Connect to WooCommerce.com"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:185
+#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:183
 msgid "Connect to get important product notifications and updates."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:313
+#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:311
 #. translators: name of the extension subscription expiring soon
 msgid "%s subscription expiring soon"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:319
+#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:317
 #. translators: number of days until the subscription expires
 msgid ""
 "Your subscription expires in %d days. Enable autorenew to avoid losing "
 "updates and access to support."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:342
+#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:340
 msgid "Enable Autorenew"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:374
+#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:372
 #. translators: name of the extension subscription that expired
 msgid "%s subscription expired"
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:380
+#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:378
 #. translators: date the subscription expired, e.g. Jun 7th 2018
 msgid ""
 "Your subscription expired on %s. Get a new subscription to continue "
 "receiving updates and access to support."
 msgstr ""
 
-#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:405
+#: src/Notes/WC_Admin_Notes_Woo_Subscriptions_Notes.php:403
 msgid "Renew Subscription"
 msgstr ""
 
-#: src/PageController.php:206
+#: src/PageController.php:204
 msgid ""
 "Current page retrieval should be called on or after the `current_screen` "
 "hook."
 msgstr ""
 
-#: src/ReportCSVEmail.php:74
+#: src/ReportCSVEmail.php:72
 msgid "Your Report Download"
 msgstr ""
 
-#: src/ReportCSVEmail.php:83
+#: src/ReportCSVEmail.php:81
 msgid "[{site_title}]: Your {report_name} Report download is ready"
 msgstr ""
 
-#: src/ReportsSync.php:51
+#: src/ReportsSync.php:49
 msgid ""
 "Report sync schedulers should be derived from the "
 "Automattic\\WooCommerce\\Admin\\Schedulers\\ImportScheduler class."
 msgstr ""
 
-#: src/ReportsSync.php:81
+#: src/ReportsSync.php:79
 msgid ""
 "An import is already in progress.  Please allow the previous import to "
 "complete before beginning a new one."
 msgstr ""
 
-#: src/ReportsSync.php:97
+#: src/ReportsSync.php:95
 msgid ""
 "Report table data is being rebuilt.  Please allow some time for data to "
 "fully populate."
 msgstr ""
 
-#: src/ReportsSync.php:181
+#: src/ReportsSync.php:179
 msgid "Report table data is being deleted."
 msgstr ""
 
-#: src/Schedulers/CustomersScheduler.php:200
+#: src/Schedulers/CustomersScheduler.php:198
 msgid "[deleted]"
 msgstr ""
 
-#: vendor/autoload_packages.php:158
-#: vendor/automattic/jetpack-autoloader/src/autoload.php:158
-#. translators: %s Name of a PHP Class
-msgid "Not all plugins have loaded yet but we requested the class %s"
-msgstr ""
-
-#: woocommerce-admin.php:38 woocommerce-admin.php:56
+#: woocommerce-admin.php:39 woocommerce-admin.php:57
 #. translators: 1: composer command. 2: plugin directory
 msgid ""
 "Your installation of the WooCommerce Admin feature plugin is incomplete. "
 "Please run %1$s within the %2$s directory."
+msgstr ""
+
+#: woocommerce-admin.php:109
+#. Translators: %1$s is referring to a php constant name, %2$s is referring to
+#. the wp-config.php file.
+msgid ""
+"WooCommerce Admin development mode requires the %1$s constant to be defined "
+"and true in your %2$s file. Otherwise you are loading the admin package "
+"from WooCommerce core."
+msgstr ""
+
+#: woocommerce-admin.php:128
+#. Translators: %1$s, %2$s, and %3$s are all build commands to be run in order.
+msgid ""
+"You have installed a development version of WooCommerce Admin which "
+"requires files to be built. From the plugin directory, run %1$s and %2$s to "
+"install dependencies, then %3$s to build the files."
+msgstr ""
+
+#: woocommerce-admin.php:135
+#. translators: 1: URL of GitHub Repository build page
+msgid ""
+"Or you can download a pre-built version of the plugin by visiting <a "
+"href=\"%1$s\">the releases page in the repository</a>."
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -3201,7 +3287,7 @@ msgstr ""
 msgid "https://woocommerce.com/"
 msgstr ""
 
-#: client/analytics/components/leaderboard/index.js:69
+#: client/analytics/components/leaderboard/index.js:70
 msgid "No data recorded for the selected time period."
 msgstr ""
 
@@ -3233,14 +3319,14 @@ msgstr ""
 msgid "View Orders"
 msgstr ""
 
-#: client/analytics/components/report-summary/index.js:101
+#: client/analytics/components/report-summary/index.js:100
 #: client/dashboard/store-performance/index.js:135
 #: client/homescreen/stats-overview/stats-list.js:83
 #: packages/components/build-module/summary/number.js:173
 msgid "Previous Period:"
 msgstr ""
 
-#: client/analytics/components/report-summary/index.js:102
+#: client/analytics/components/report-summary/index.js:101
 #: client/dashboard/store-performance/index.js:136
 msgid "Previous Year:"
 msgstr ""
@@ -3328,8 +3414,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: client/analytics/report/categories/table.js:154
-#: client/analytics/report/orders/table.js:285
-#: client/analytics/report/products/table-variations.js:202
+#: client/analytics/report/orders/table.js:273
+#: client/analytics/report/products/table-variations.js:206
 #: client/analytics/report/products/table.js:297
 msgid "item sold"
 msgid_plural "items sold"
@@ -3337,17 +3423,17 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: client/analytics/report/categories/table.js:163
-#: client/analytics/report/orders/table.js:303
-#: client/analytics/report/products/table-variations.js:211
+#: client/analytics/report/orders/table.js:291
+#: client/analytics/report/products/table-variations.js:215
 #: client/analytics/report/products/table.js:306
-#: client/analytics/report/revenue/table.js:230
+#: client/analytics/report/revenue/table.js:234
 msgid "net sales"
 msgstr ""
 
 #: client/analytics/report/categories/table.js:167
-#: client/analytics/report/coupons/table.js:178
-#: client/analytics/report/orders/table.js:249
-#: client/analytics/report/revenue/table.js:209
+#: client/analytics/report/coupons/table.js:193
+#: client/analytics/report/orders/table.js:246
+#: client/analytics/report/revenue/table.js:213
 #: client/analytics/report/taxes/table.js:172
 msgid "order"
 msgid_plural "orders"
@@ -3386,26 +3472,26 @@ msgstr ""
 msgid "%d coupons"
 msgstr ""
 
-#: client/analytics/report/coupons/table.js:169
-#: client/analytics/report/orders/table.js:294
+#: client/analytics/report/coupons/table.js:184
+#: client/analytics/report/orders/table.js:282
 msgid "coupon"
 msgid_plural "coupons"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/analytics/report/coupons/table.js:187
+#: client/analytics/report/coupons/table.js:202
 msgid "amount discounted"
 msgstr ""
 
-#: client/analytics/report/coupons/table.js:195
+#: client/analytics/report/coupons/table.js:210
 msgid "Percentage"
 msgstr ""
 
-#: client/analytics/report/coupons/table.js:196
+#: client/analytics/report/coupons/table.js:211
 msgid "Fixed cart"
 msgstr ""
 
-#: client/analytics/report/coupons/table.js:197
+#: client/analytics/report/coupons/table.js:212
 msgid "Fixed product"
 msgstr ""
 
@@ -3690,8 +3776,8 @@ msgstr ""
 msgid "Select product"
 msgstr ""
 
-#: client/analytics/report/downloads/table.js:158
-#: client/analytics/report/revenue/table.js:205
+#: client/analytics/report/downloads/table.js:169
+#: client/analytics/report/revenue/table.js:209
 msgid "day"
 msgid_plural "days"
 msgstr[0] ""
@@ -3764,13 +3850,11 @@ msgstr ""
 msgid "Select a customer type"
 msgstr ""
 
-#: client/analytics/report/orders/table.js:96
-msgctxt "customer type"
+#: client/analytics/report/orders/config.js:221
 msgid "New"
 msgstr ""
 
-#: client/analytics/report/orders/table.js:98
-msgctxt "customer type"
+#: client/analytics/report/orders/config.js:225
 msgid "Returning"
 msgstr ""
 
@@ -3865,23 +3949,17 @@ msgstr ""
 msgid "Select an order status"
 msgstr ""
 
-#: client/analytics/report/orders/table.js:201
+#: client/analytics/report/orders/table.js:199
 msgid "%s× %s"
 msgstr ""
 
-#: client/analytics/report/orders/table.js:258
-msgid "new customer"
-msgid_plural "new customers"
+#: client/analytics/report/orders/table.js:255
+msgid " customer"
+msgid_plural " customers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/analytics/report/orders/table.js:267
-msgid "returning customer"
-msgid_plural "returning customers"
-msgstr[0] ""
-msgstr[1] ""
-
-#: client/analytics/report/orders/table.js:276
+#: client/analytics/report/orders/table.js:264
 #: client/analytics/report/products/table.js:288
 #: client/analytics/report/stock/table.js:153
 msgid "product"
@@ -3894,7 +3972,7 @@ msgid "All Variations"
 msgstr ""
 
 #: client/analytics/report/products/config.js:122
-#: client/analytics/report/products/table-variations.js:236
+#: client/analytics/report/products/table-variations.js:240
 msgid "Check at least two variations below to compare"
 msgstr ""
 
@@ -3936,20 +4014,20 @@ msgstr ""
 msgid "%d variations"
 msgstr ""
 
-#: client/analytics/report/products/table-variations.js:193
+#: client/analytics/report/products/table-variations.js:197
 msgid "variation sold"
 msgid_plural "variations sold"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/analytics/report/products/table-variations.js:215
+#: client/analytics/report/products/table-variations.js:219
 #: client/analytics/report/products/table.js:310
 msgid "orders"
 msgid_plural "orders"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/analytics/report/products/table-variations.js:240
+#: client/analytics/report/products/table-variations.js:244
 msgid "Search by variation name or SKU"
 msgstr ""
 
@@ -3962,27 +4040,27 @@ msgstr ""
 msgid "Gross Sales"
 msgstr ""
 
-#: client/analytics/report/revenue/table.js:218
+#: client/analytics/report/revenue/table.js:222
 msgid "gross sales"
 msgstr ""
 
-#: client/analytics/report/revenue/table.js:222
+#: client/analytics/report/revenue/table.js:226
 msgid "returns"
 msgstr ""
 
-#: client/analytics/report/revenue/table.js:226
+#: client/analytics/report/revenue/table.js:230
 msgid "coupons"
 msgstr ""
 
-#: client/analytics/report/revenue/table.js:234
+#: client/analytics/report/revenue/table.js:238
 msgid "taxes"
 msgstr ""
 
-#: client/analytics/report/revenue/table.js:238
+#: client/analytics/report/revenue/table.js:242
 msgid "shipping"
 msgstr ""
 
-#: client/analytics/report/revenue/table.js:242
+#: client/analytics/report/revenue/table.js:246
 msgid "total sales"
 msgstr ""
 
@@ -4268,17 +4346,17 @@ msgstr ""
 msgid "Purchase & install now"
 msgstr ""
 
-#: client/dashboard/components/connect/index.js:109
-#: client/homescreen/stats-overview/install-jetpack-cta.js:121
-#: client/profile-wizard/steps/benefits/index.js:250
-#: packages/components/build-module/plugins/index.js:167
-msgid "No thanks"
-msgstr ""
-
-#: client/dashboard/components/connect/index.js:95
-#: client/profile-wizard/steps/business-details.js:666
+#: client/dashboard/components/connect/index.js:74
+#: client/profile-wizard/steps/business-details.js:887
 #: packages/components/build-module/plugins/index.js:144
 msgid "Retry"
+msgstr ""
+
+#: client/dashboard/components/connect/index.js:88
+#: client/homescreen/stats-overview/install-jetpack-cta.js:131
+#: client/profile-wizard/steps/benefits/index.js:252
+#: packages/components/build-module/plugins/index.js:167
+msgid "No thanks"
 msgstr ""
 
 #: client/dashboard/components/settings/general/store-address.js:192
@@ -4309,19 +4387,19 @@ msgstr ""
 msgid "Please add a post code"
 msgstr ""
 
-#: client/dashboard/customizable.js:191
+#: client/dashboard/customizable.js:196
 msgid "Add more sections"
 msgstr ""
 
-#: client/dashboard/customizable.js:200
+#: client/dashboard/customizable.js:205
 msgid "Dashboard Sections"
 msgstr ""
 
-#: client/dashboard/customizable.js:213
+#: client/dashboard/customizable.js:218
 msgid "Add %s section"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/block.js:71
+#: client/dashboard/dashboard-charts/block.js:72
 msgid "%s Report"
 msgstr ""
 
@@ -4329,51 +4407,51 @@ msgstr ""
 msgid "Gross discounted"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/index.js:153
+#: client/dashboard/dashboard-charts/index.js:154
 msgid "Choose which charts to display"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/index.js:194
+#: client/dashboard/dashboard-charts/index.js:198
 #: client/dashboard/default-sections.js:65
 msgid "Charts"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/index.js:213
+#: client/dashboard/dashboard-charts/index.js:221
 #: packages/components/build-module/chart/index.js:457
 msgid "Line chart"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/index.js:232
+#: client/dashboard/dashboard-charts/index.js:237
 #: packages/components/build-module/chart/index.js:468
 msgid "Bar chart"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/index.js:67
+#: client/dashboard/dashboard-charts/index.js:62
 #: packages/components/build-module/chart/index.js:310
 msgid "By hour"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/index.js:68
+#: client/dashboard/dashboard-charts/index.js:63
 #: packages/components/build-module/chart/index.js:311
 msgid "By day"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/index.js:69
+#: client/dashboard/dashboard-charts/index.js:64
 #: packages/components/build-module/chart/index.js:312
 msgid "By week"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/index.js:70
+#: client/dashboard/dashboard-charts/index.js:65
 #: packages/components/build-module/chart/index.js:313
 msgid "By month"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/index.js:71
+#: client/dashboard/dashboard-charts/index.js:66
 #: packages/components/build-module/chart/index.js:314
 msgid "By quarter"
 msgstr ""
 
-#: client/dashboard/dashboard-charts/index.js:72
+#: client/dashboard/dashboard-charts/index.js:67
 #: packages/components/build-module/chart/index.js:315
 msgid "By year"
 msgstr ""
@@ -4383,15 +4461,15 @@ msgid "Performance"
 msgstr ""
 
 #: client/dashboard/default-sections.js:86
-#: client/dashboard/leaderboards/index.js:156
+#: client/dashboard/leaderboards/index.js:162
 msgid "Leaderboards"
 msgstr ""
 
-#: client/dashboard/leaderboards/index.js:106
+#: client/dashboard/leaderboards/index.js:115
 msgid "Choose which leaderboards to display and other settings"
 msgstr ""
 
-#: client/dashboard/leaderboards/index.js:118
+#: client/dashboard/leaderboards/index.js:131
 msgid "Rows Per Table"
 msgstr ""
 
@@ -4427,62 +4505,171 @@ msgstr ""
 msgid "Display Stats:"
 msgstr ""
 
-#: client/header/activity-panel/index.js:128
+#: client/header/activity-panel/index.js:153
 #: client/header/activity-panel/panels/inbox/index.js:137
 msgid "Inbox"
 msgstr ""
 
-#: client/header/activity-panel/index.js:152
+#: client/header/activity-panel/index.js:177
 #: client/header/activity-panel/panels/reviews.js:272
 msgid "Reviews"
 msgstr ""
 
-#: client/header/activity-panel/index.js:258
+#: client/header/activity-panel/index.js:188
+msgid "Help"
+msgstr ""
+
+#: client/header/activity-panel/index.js:292
 msgid "unread activity"
 msgstr ""
 
-#: client/header/activity-panel/index.js:275
+#: client/header/activity-panel/index.js:309
 msgid "View Activity Panel, you have unread activity"
 msgstr ""
 
-#: client/header/activity-panel/index.js:279
+#: client/header/activity-panel/index.js:313
 msgid "View Activity Panel"
 msgstr ""
 
-#: client/header/activity-panel/index.js:284
+#: client/header/activity-panel/index.js:318
 msgid "Store Activity"
 msgstr ""
 
-#: client/header/activity-panel/index.js:295
+#: client/header/activity-panel/index.js:329
 msgid "Close Activity Panel"
 msgstr ""
 
-#: client/header/activity-panel/panels/inbox/card.js:146
+#: client/header/activity-panel/panels/help.js:104
+msgid "WooCommerce Payments FAQs"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:109
+msgid "Stripe Setup and Configuration"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:114
+msgid "PayPal Checkout Setup and Configuration"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:122
+msgid "Square - Get started"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:132
+msgid "Klarna - Introduction"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:137
+msgid "PayFast Setup and Configuration"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:142
+msgid "Direct Bank Transfer (BACS)"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:147
+msgid "Cash on Delivery"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:157
+msgid "Adding and Managing Products"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:162
+msgid "Import products using the CSV Importer and Exporter"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:170
+msgid "Migrate products using Cart2Cart"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:178
+msgid "Learn more about setting up products"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:194
+msgid "Setting up Shipping Zones"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:199
+msgid "Core Shipping Options"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:204
+msgid "Product Shipping Classes"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:209
+msgid "WooCommerce Shipping setup and configuration"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:217
+msgid "Learn more about configuring your shipping settings"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:240
+msgid "Setting up Taxes in WooCommerce"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:245
+msgid "Automated Tax calculation using WooCommerce Services"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:291
+msgid "WooCommerce Docs"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:345
+msgid "Documentation"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:38
+msgid "Showcase your products and tailor your shopping experience using Blocks"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:46
+msgid "Manage Store Notice, Catalog View and Product Images"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:54
+msgid "How to choose and change a theme"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:88
+msgid "Which Payment Option is Right for Me?"
+msgstr ""
+
+#: client/header/activity-panel/panels/help.js:96
+msgid "WooCommerce Payments Start Up Guide"
+msgstr ""
+
+#: client/header/activity-panel/panels/inbox/card.js:153
+#: client/task-list/index.js:383
 msgid "Dismiss"
 msgstr ""
 
-#: client/header/activity-panel/panels/inbox/card.js:160
+#: client/header/activity-panel/panels/inbox/card.js:167
 msgid "Dismiss this message"
 msgstr ""
 
-#: client/header/activity-panel/panels/inbox/card.js:173
+#: client/header/activity-panel/panels/inbox/card.js:180
 msgid "Dismiss all messages"
 msgstr ""
 
-#: client/header/activity-panel/panels/inbox/card.js:192
+#: client/header/activity-panel/panels/inbox/card.js:199
 msgid "Yes, I'm sure"
 msgstr ""
 
-#: client/header/activity-panel/panels/inbox/card.js:205
+#: client/header/activity-panel/panels/inbox/card.js:212
 #: client/wp-admin-scripts/print-shipping-label-banner/dismiss-modal/index.js:58
 msgid "Are you sure?"
 msgstr ""
 
-#: client/header/activity-panel/panels/inbox/card.js:213
+#: client/header/activity-panel/panels/inbox/card.js:220
 msgid "Dismissed messages cannot be viewed again"
 msgstr ""
 
-#: client/header/activity-panel/panels/inbox/card.js:223
+#: client/header/activity-panel/panels/inbox/card.js:230
 #: client/header/activity-panel/panels/stock/card.js:93
 msgid "Cancel"
 msgstr ""
@@ -4672,25 +4859,29 @@ msgid "Display stats:"
 msgstr ""
 
 #: client/homescreen/stats-overview/install-jetpack-cta.js:102
+msgid "Connect Jetpack"
+msgstr ""
+
+#: client/homescreen/stats-overview/install-jetpack-cta.js:112
 msgid "Get traffic stats with Jetpack"
 msgstr ""
 
-#: client/homescreen/stats-overview/install-jetpack-cta.js:108
+#: client/homescreen/stats-overview/install-jetpack-cta.js:118
 msgid ""
 "Keep an eye on your views and visitors metrics with Jetpack. Requires "
 "Jetpack plugin and a WordPress.com account."
 msgstr ""
 
-#: client/homescreen/stats-overview/install-jetpack-cta.js:84
+#: client/homescreen/stats-overview/install-jetpack-cta.js:94
 msgid "Get Jetpack"
 msgstr ""
 
-#: client/homescreen/stats-overview/install-jetpack-cta.js:88
+#: client/homescreen/stats-overview/install-jetpack-cta.js:98
 msgid "Activate Jetpack"
 msgstr ""
 
-#: client/homescreen/stats-overview/install-jetpack-cta.js:92
-msgid "Connect Jetpack"
+#: client/layout/controller.js:188
+msgid "Profiler"
 msgstr ""
 
 #: client/layout/store-alerts/index.js:101
@@ -4739,11 +4930,11 @@ msgid ""
 "WooCommerce."
 msgstr ""
 
-#: client/marketing/components/recommended-extensions/index.js:90
+#: client/marketing/components/recommended-extensions/index.js:91
 msgid "Recommended extensions"
 msgstr ""
 
-#: client/marketing/components/recommended-extensions/index.js:91
+#: client/marketing/components/recommended-extensions/index.js:92
 msgid ""
 "Great marketing requires the right tools. Take your marketing to the next "
 "level with our recommended marketing extensions."
@@ -4794,7 +4985,7 @@ msgid "Activate"
 msgstr ""
 
 #: client/marketing/overview/installed-extensions/row.js:116
-#: client/task-list/index.js:370
+#: client/task-list/index.js:423
 msgid "Finish setup"
 msgstr ""
 
@@ -4817,27 +5008,31 @@ msgid ""
 "for WooCommerce"
 msgstr ""
 
-#: client/profile-wizard/index.js:125
+#: client/profile-wizard/index.js:123
 msgid "Store Details"
 msgstr ""
 
-#: client/profile-wizard/index.js:133
+#: client/profile-wizard/index.js:131
 msgid "Industry"
 msgstr ""
 
-#: client/profile-wizard/index.js:141
+#: client/profile-wizard/index.js:139
 msgid "Product Types"
 msgstr ""
 
-#: client/profile-wizard/index.js:149
+#: client/profile-wizard/index.js:147
 msgid "Business Details"
 msgstr ""
 
-#: client/profile-wizard/index.js:157
+#: client/profile-wizard/index.js:155
 msgid "Theme"
 msgstr ""
 
-#: client/profile-wizard/index.js:60
+#: client/profile-wizard/index.js:286
+msgid "There was a problem skipping the setup wizard."
+msgstr ""
+
+#: client/profile-wizard/index.js:64
 msgid "There was a problem finishing the profile wizard."
 msgstr ""
 
@@ -4846,233 +5041,268 @@ msgstr ""
 msgid "There was a problem updating your preferences."
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:152
+#: client/profile-wizard/steps/benefits/index.js:149
 msgid "Store management on the go"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:154
+#: client/profile-wizard/steps/benefits/index.js:151
 msgid ""
 "Your store in your pocket. Manage orders, receive sales notifications, and "
 "more. Only with a Jetpack connection."
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:161
+#: client/profile-wizard/steps/benefits/index.js:158
 msgid "Automated sales taxes"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:163
+#: client/profile-wizard/steps/benefits/index.js:160
 msgid ""
 "Ensure that the correct rate of tax is charged on all of your orders "
 "automatically, and print shipping labels at home."
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:170
+#: client/profile-wizard/steps/benefits/index.js:167
 msgid "Improved speed & security"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:172
+#: client/profile-wizard/steps/benefits/index.js:169
 msgid ""
 "Automatically block brute force attacks and speed up your store using our "
 "powerful, global server network to cache images."
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:179
+#: client/profile-wizard/steps/benefits/index.js:176
+#: client/profile-wizard/steps/business-details.js:601
 msgid "Print shipping labels at home"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:184
+#: client/profile-wizard/steps/benefits/index.js:181
 msgid ""
 "Save time at the post office by printing shipping labels for your orders at "
 "home."
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:215
+#: client/profile-wizard/steps/benefits/index.js:210
 #: client/task-list/tasks/payments/index.js:168
 msgid "and"
 msgstr ""
 
-#: client/profile-wizard/steps/benefits/index.js:227
-msgid "Enhance your store with %s"
-msgstr ""
-
-#: client/profile-wizard/steps/benefits/index.js:274
-msgid "%s %s will be installed & activated for free."
-msgstr ""
-
-#: client/profile-wizard/steps/benefits/index.js:279
+#: client/profile-wizard/steps/benefits/index.js:217
 msgid "plugin"
 msgid_plural "plugins"
 msgstr[0] ""
 msgstr[1] ""
 
+#: client/profile-wizard/steps/benefits/index.js:229
+msgid "Enhance your store with %s"
+msgstr ""
+
+#: client/profile-wizard/steps/benefits/index.js:260
+msgid ""
+"%s %s will be installed & activated for free, and you agree to our "
+"{{link}}Terms of Service{{/link}}."
+msgstr ""
+
+#: client/profile-wizard/steps/benefits/index.js:278
+msgid "%s %s will be installed & activated for free."
+msgstr ""
+
 #: client/profile-wizard/steps/benefits/logo.js:16
 msgid "WooCommerce + Jetpack"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:130
+#: client/profile-wizard/steps/business-details.js:184
 msgid "There was a problem updating your business details."
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:208
+#: client/profile-wizard/steps/business-details.js:239
 msgid "This field is required"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:303
+#: client/profile-wizard/steps/business-details.js:348
 msgid "Installing the following plugin: %s"
 msgid_plural "Installing the following plugins: %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/profile-wizard/steps/business-details.js:318
-msgid "The following plugin will be installed for free: %s"
-msgid_plural "The following plugins will be installed for free: %s"
+#: client/profile-wizard/steps/business-details.js:360
+msgid "User accounts are required to use these features."
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:369
+msgid "The following plugin will be installed for free: %s. %s"
+msgid_plural "The following plugins will be installed for free: %s. %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: client/profile-wizard/steps/business-details.js:334
-msgid "Market on Facebook"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details.js:336
+#: client/profile-wizard/steps/business-details.js:394
 msgid ""
 "Grow your business by targeting the right people and driving sales with "
 "Facebook."
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:343
-msgid "Contact customers with Mailchimp"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details.js:348
+#: client/profile-wizard/steps/business-details.js:406
 msgid ""
 "Send targeted campaigns, recover abandoned carts and much more with "
 "Mailchimp."
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:355
-msgid "Drive sales with Google Ads"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details.js:357
+#: client/profile-wizard/steps/business-details.js:415
 msgid ""
 "Get in front of new customers on Google and secure $150 in ads credit with "
 "Kliken’s integration."
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:405
+#: client/profile-wizard/steps/business-details.js:465
+msgid "Install recommended {{strong}}free{{/strong}} business features"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:474
+msgid "Requires an account"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:482
+msgid "Learn more about recommended free business features"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:517
+msgid "Manage your store on the go with the WooCommerce mobile app"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:529
+msgid "Accept credit cards with WooCommerce Payments"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:541
+msgid "Speed & security enhancements"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:553
+msgid "Automatic sales taxes"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:565
+msgid "Market on Facebook"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:577
+msgid "Contact customers with Mailchimp"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:589
+msgid "Drive sales with Google Ads"
+msgstr ""
+
+#: client/profile-wizard/steps/business-details.js:624
 msgid "I don't have any products yet."
 msgstr ""
 
 # %s: $0 revenue amount
-#: client/profile-wizard/steps/business-details.js:433
+#: client/profile-wizard/steps/business-details.js:652
 msgid "%s (I'm just getting started)"
 msgstr ""
 
 # %s: A given revenue amount, e.g., $2500
-#: client/profile-wizard/steps/business-details.js:441
+#: client/profile-wizard/steps/business-details.js:660
 msgid "Up to %s"
 msgstr ""
 
 # %s: A given revenue amount, e.g., $250000
-#: client/profile-wizard/steps/business-details.js:473
+#: client/profile-wizard/steps/business-details.js:692
 msgid "More than %s"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:482
-msgid "No"
-msgstr ""
-
-#: client/profile-wizard/steps/business-details.js:486
+#: client/profile-wizard/steps/business-details.js:705
 msgid "Yes, on another platform"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:490
+#: client/profile-wizard/steps/business-details.js:709
 msgid "Yes, I own a different store powered by WooCommerce"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:497
+#: client/profile-wizard/steps/business-details.js:716
 msgid "Yes, in person at physical stores and/or events"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:504
+#: client/profile-wizard/steps/business-details.js:723
 msgid "Yes, on another platform and in person at physical stores and/or events"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:514
+#: client/profile-wizard/steps/business-details.js:733
 msgid "Shopify"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:518
+#: client/profile-wizard/steps/business-details.js:737
 msgid "BigCommerce"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:522
+#: client/profile-wizard/steps/business-details.js:741
 msgid "Magento"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:526
+#: client/profile-wizard/steps/business-details.js:745
 msgid "Wix"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:530
+#: client/profile-wizard/steps/business-details.js:749
 msgid "Amazon"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:534
+#: client/profile-wizard/steps/business-details.js:753
 msgid "eBay"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:538
+#: client/profile-wizard/steps/business-details.js:757
 msgid "Etsy"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:542
+#: client/profile-wizard/steps/business-details.js:761
 msgid "Squarespace"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:562
+#: client/profile-wizard/steps/business-details.js:779
 msgid "Tell us about your business"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:568
+#: client/profile-wizard/steps/business-details.js:785
 msgid ""
 "We'd love to know if you are just getting started or you already have a "
 "business in place."
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:576
+#: client/profile-wizard/steps/business-details.js:793
 msgid "How many products do you plan to display?"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:586
+#: client/profile-wizard/steps/business-details.js:803
 msgid "Currently selling elsewhere?"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:602
+#: client/profile-wizard/steps/business-details.js:819
 msgid "What's your current annual revenue?"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:619
+#: client/profile-wizard/steps/business-details.js:836
 msgid "Which platform is the store using?"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:634
+#: client/profile-wizard/steps/business-details.js:851
 msgid "What is the platform name?"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:662
-#: client/profile-wizard/steps/industry.js:242
-#: client/profile-wizard/steps/product-types.js:178
-#: client/profile-wizard/steps/store-details.js:225
-#: client/profile-wizard/steps/usage-modal.js:153
-#: client/task-list/index.js:294
+#: client/profile-wizard/steps/business-details.js:883
+#: client/profile-wizard/steps/industry.js:243
+#: client/profile-wizard/steps/product-types.js:223
+#: client/profile-wizard/steps/store-details.js:262
+#: client/profile-wizard/steps/usage-modal.js:161
+#: client/task-list/index.js:338
 #: client/task-list/tasks/payments/klarna.js:75
 #: client/task-list/tasks/steps/location.js:100
 #: packages/components/build-module/plugins/index.js:158
 msgid "Continue"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:675
+#: client/profile-wizard/steps/business-details.js:896
 #: packages/components/build-module/plugins/index.js:146
 msgid "Continue without installing"
 msgstr ""
@@ -5090,36 +5320,65 @@ msgid "In which industry does the store operate?"
 msgstr ""
 
 #: client/profile-wizard/steps/industry.js:184
-#: client/profile-wizard/steps/product-types.js:117
+#: client/profile-wizard/steps/product-types.js:159
 msgid "Choose any that apply"
 msgstr ""
 
-#: client/profile-wizard/steps/product-types.js:112
-msgid "What type of products will be listed?"
-msgstr ""
-
-#: client/profile-wizard/steps/product-types.js:41
-msgid "Please select at least one product type"
-msgstr ""
-
-#: client/profile-wizard/steps/product-types.js:71
+#: client/profile-wizard/steps/product-types.js:111
 msgid "There was a problem updating your product types."
 msgstr ""
 
-#: client/profile-wizard/steps/store-details.js:156
+#: client/profile-wizard/steps/product-types.js:153
+msgid "What type of products will be listed?"
+msgstr ""
+
+#: client/profile-wizard/steps/product-types.js:32
+msgid "$%f per month, billed annually"
+msgstr ""
+
+#: client/profile-wizard/steps/product-types.js:35
+msgid ""
+"This product type requires a paid extension.\n"
+"We'll add this to a cart so that\n"
+"you can purchase and install it later."
+msgstr ""
+
+#: client/profile-wizard/steps/product-types.js:81
+msgid "Please select at least one product type"
+msgstr ""
+
+#: client/profile-wizard/steps/store-details.js:165
 msgid "There was a problem saving your store details."
 msgstr ""
 
-#: client/profile-wizard/steps/store-details.js:170
-msgid "Where is your store based?"
+#: client/profile-wizard/steps/store-details.js:177
+msgid ""
+"Manual setup is only recommended for\n"
+" experienced WooCommerce users or developers."
 msgstr ""
 
-#: client/profile-wizard/steps/store-details.js:173
-msgid "This will help us configure your store and get you started quickly"
+#: client/profile-wizard/steps/store-details.js:182
+msgid ""
+"Your store address will help us configure currency\n"
+" options and shipping rules automatically.\n"
+" This information will not be publicly visible and can\n"
+" easily be changed later."
 msgstr ""
 
-#: client/profile-wizard/steps/store-details.js:212
+#: client/profile-wizard/steps/store-details.js:190
+msgid "Welcome to WooCommerce"
+msgstr ""
+
+#: client/profile-wizard/steps/store-details.js:193
+msgid "Tell us about your store and we'll get you set up in no time"
+msgstr ""
+
+#: client/profile-wizard/steps/store-details.js:244
 msgid "I'm setting up a store for a client"
+msgstr ""
+
+#: client/profile-wizard/steps/store-details.js:281
+msgid "Skip setup wizard"
 msgstr ""
 
 #: client/profile-wizard/steps/theme/index.js:114
@@ -5217,22 +5476,22 @@ msgstr ""
 msgid "Drop your theme zip file here"
 msgstr ""
 
-#: client/profile-wizard/steps/usage-modal.js:100
+#: client/profile-wizard/steps/usage-modal.js:108
 msgid ""
 "Get improved features and faster fixes by sharing non-sensitive data via "
 "{{link}}usage tracking{{/link}} that shows us how WooCommerce is used. No "
 "personal data is tracked or stored."
 msgstr ""
 
-#: client/profile-wizard/steps/usage-modal.js:118
+#: client/profile-wizard/steps/usage-modal.js:126
 msgid "Build a better WooCommerce"
 msgstr ""
 
-#: client/profile-wizard/steps/usage-modal.js:133
+#: client/profile-wizard/steps/usage-modal.js:141
 msgid "Yes, count me in!"
 msgstr ""
 
-#: client/quick-links/index.js:177
+#: client/quick-links/index.js:183
 msgid "Store management"
 msgstr ""
 
@@ -5245,7 +5504,7 @@ msgid "Add products"
 msgstr ""
 
 #: client/quick-links/index.js:55
-#: client/task-list/tasks.js:110
+#: client/task-list/tasks.js:221
 msgid "Personalize my store"
 msgstr ""
 
@@ -5265,7 +5524,7 @@ msgstr ""
 msgid "Edit store details"
 msgstr ""
 
-#: client/quick-links/index.js:97
+#: client/quick-links/index.js:98
 msgid "View my store"
 msgstr ""
 
@@ -5277,70 +5536,75 @@ msgstr ""
 msgid "Mutable settings should be mutated via data store."
 msgstr ""
 
-#: client/task-list/index.js:212
+#: client/task-list/index.js:115
+msgid "Task dismissed"
+msgstr ""
+
+#: client/task-list/index.js:118
+#: client/wc-api/notes/mutations.js:71
+msgid "Undo"
+msgstr ""
+
+#: client/task-list/index.js:256
 msgid "Task List Options"
 msgstr ""
 
-#: client/task-list/index.js:220
+#: client/task-list/index.js:264
 msgid "Hide this"
 msgstr ""
 
-#: client/task-list/index.js:266
+#: client/task-list/index.js:310
 msgid "Woo hoo - you're almost there!"
 msgstr ""
 
-#: client/task-list/index.js:278
+#: client/task-list/index.js:322
 msgid ""
 "Based on the information you provided we’ve prepared some final set up "
 "tasks for you to perform."
 msgstr ""
 
-#: client/task-list/index.js:284
+#: client/task-list/index.js:328
 msgid "Once complete your store will be ready for launch - exciting!"
 msgstr ""
 
-#: client/task-list/tasks.js:102
-msgid "Add my products"
-msgstr ""
-
-#: client/task-list/tasks.js:106
-msgid "1 minute per product"
-msgstr ""
-
-#: client/task-list/tasks.js:118
-msgid "Set up shipping"
-msgstr ""
-
-#: client/task-list/tasks.js:129
-msgid "Set up tax"
-msgstr ""
-
-#: client/task-list/tasks.js:133
-msgid "1 minute"
-msgstr ""
-
-#: client/task-list/tasks.js:137
-msgid "Set up payments"
-msgstr ""
-
-#: client/task-list/tasks.js:150
-msgid "2 minutes"
-msgstr ""
-
-#: client/task-list/tasks.js:67
+#: client/task-list/tasks.js:101
 msgid "Store details"
 msgstr ""
 
-#: client/task-list/tasks.js:76
+#: client/task-list/tasks.js:111
 msgid "4 minutes"
 msgstr ""
 
-#: client/task-list/tasks.js:80
+#: client/task-list/tasks.js:115
 msgid "Purchase & install extensions"
 msgstr ""
 
-#: client/task-list/tasks.js:90
-msgid "Connect your store to WooCommerce.com"
+#: client/task-list/tasks.js:130
+msgid "Add my products"
+msgstr ""
+
+#: client/task-list/tasks.js:140
+msgid "1 minute per product"
+msgstr ""
+
+#: client/task-list/tasks.js:144
+msgid "Set up WooCommerce Payments"
+msgstr ""
+
+#: client/task-list/tasks.js:191
+msgid "Set up tax"
+msgstr ""
+
+#: client/task-list/tasks.js:205
+msgid "Set up shipping"
+msgstr ""
+
+#: client/task-list/tasks.js:217
+msgid "1 minute"
+msgstr ""
+
+#: client/task-list/tasks.js:231
+msgid "2 minutes"
 msgstr ""
 
 #: client/task-list/tasks/appearance.js:125
@@ -5399,7 +5663,7 @@ msgstr ""
 
 #: client/task-list/tasks/appearance.js:348
 #: client/task-list/tasks/payments/payfast.js:141
-#: client/task-list/tasks/payments/paypal.js:228
+#: client/task-list/tasks/payments/paypal.js:273
 #: client/task-list/tasks/payments/stripe.js:243
 #: client/task-list/tasks/shipping/index.js:215
 msgid "Proceed"
@@ -5424,16 +5688,6 @@ msgstr ""
 #: client/task-list/tasks/appearance.js:384
 #: client/task-list/tasks/shipping/index.js:216
 msgid "Complete task"
-msgstr ""
-
-#: client/task-list/tasks/connect.js:100
-msgid "Store connected to WooCommerce.com and extensions are being installed."
-msgstr ""
-
-#: client/task-list/tasks/connect.js:30
-msgid ""
-"You must click approve to install your extensions and connect to "
-"WooCommerce.com."
 msgstr ""
 
 #: client/task-list/tasks/payments/bacs.js:105
@@ -5520,111 +5774,111 @@ msgstr ""
 msgid "Connect your Klarna account"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:110
+#: client/task-list/tasks/payments/methods.js:101
+msgid "By clicking \"Set up,\" you agree to the {{link}}Terms of Service{{/link}}"
+msgstr ""
+
+#: client/task-list/tasks/payments/methods.js:121
+msgid "Setting up a store for a client? {{link}}Start here{{/link}}"
+msgstr ""
+
+#: client/task-list/tasks/payments/methods.js:143
 #: packages/data/build-module/plugins/constants.js:19
 msgid "WooCommerce Payments"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:113
+#: client/task-list/tasks/payments/methods.js:146
 msgid ""
 "Accept credit card payments the easy way! No setup fees. No monthly fees. "
 "Just 2.9% + $0.30 per transaction on U.S. issued cards. "
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:126
-msgid ""
-"There was an error connecting to WooCommerce Payments. Please try again or "
-"connect later in store settings."
-msgstr ""
-
-#: client/task-list/tasks/payments/methods.js:167
+#: client/task-list/tasks/payments/methods.js:181
 msgid "Credit cards - powered by Stripe"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:173
+#: client/task-list/tasks/payments/methods.js:187
 msgid ""
 "Accept debit and credit cards in 135+ currencies, methods such as Alipay, "
 "and one-touch checkout with Apple Pay."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:197
+#: client/task-list/tasks/payments/methods.js:211
 msgid "PayPal Checkout"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:200
+#: client/task-list/tasks/payments/methods.js:214
 msgid ""
 "Safe and secure payments using credit cards or your customer's PayPal "
 "account."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:221
+#: client/task-list/tasks/payments/methods.js:241
 msgid "Klarna Checkout"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:245
+#: client/task-list/tasks/payments/methods.js:265
 msgid "Klarna Payments"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:246
+#: client/task-list/tasks/payments/methods.js:266
 msgid ""
 "Choose the payment that you want, pay now, pay later or slice it. No credit "
 "card numbers, no passwords, no worries."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:269
+#: client/task-list/tasks/payments/methods.js:289
 msgid "Square"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:272
+#: client/task-list/tasks/payments/methods.js:292
 msgid ""
 "Securely accept credit and debit cards with one low rate, no surprise fees "
 "(custom rates available). Sell online and in store and track sales and "
 "inventory in one place."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:279
+#: client/task-list/tasks/payments/methods.js:299
 msgid " Selling CBD products is only supported by Square."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:310
+#: client/task-list/tasks/payments/methods.js:330
 msgid "PayFast"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:313
+#: client/task-list/tasks/payments/methods.js:333
 msgid ""
 "The PayFast extension for WooCommerce enables you to accept payments by "
 "Credit Card and EFT via one of South Africa’s most popular payment "
 "gateways. No setup fees or monthly subscription costs."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:318
+#: client/task-list/tasks/payments/methods.js:338
 msgid ""
 "Selecting this extension will configure your store to use South African "
 "rands as the selected currency."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:346
+#: client/task-list/tasks/payments/methods.js:366
 msgid "Cash on delivery"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:347
+#: client/task-list/tasks/payments/methods.js:367
 msgid "Take payments in cash upon delivery."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:360
+#: client/task-list/tasks/payments/methods.js:380
 msgid "Direct bank transfer"
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:361
+#: client/task-list/tasks/payments/methods.js:381
 msgid "Take payments via bank transfer."
 msgstr ""
 
-#: client/task-list/tasks/payments/methods.js:68
-msgid "By clicking \"Set up,\" you agree to the {{link}}Terms of Service{{/link}}"
-msgstr ""
-
-#: client/task-list/tasks/payments/methods.js:88
-msgid "Setting up a store for a client? {{link}}Start here{{/link}}"
+#: client/task-list/tasks/payments/methods.js:43
+msgid ""
+"There was an error connecting to WooCommerce Payments. Please try again or "
+"connect later in store settings."
 msgstr ""
 
 #: client/task-list/tasks/payments/payfast.js:113
@@ -5663,48 +5917,62 @@ msgstr ""
 msgid "Your API details can be obtained from your {{link}}PayFast account{{/link}}"
 msgstr ""
 
-#: client/task-list/tasks/payments/paypal.js:138
+#: client/task-list/tasks/payments/paypal.js:152
 msgid "PayPal connected successfully."
 msgstr ""
 
-#: client/task-list/tasks/payments/paypal.js:144
+#: client/task-list/tasks/payments/paypal.js:158
 msgid "There was a problem saving your payment settings."
 msgstr ""
 
-#: client/task-list/tasks/payments/paypal.js:163
+#: client/task-list/tasks/payments/paypal.js:179
 msgid "Please enter your API username"
 msgstr ""
 
-#: client/task-list/tasks/payments/paypal.js:169
+#: client/task-list/tasks/payments/paypal.js:185
 msgid "Please enter your API password"
 msgstr ""
 
-#: client/task-list/tasks/payments/paypal.js:188
-msgid "Your API details can be obtained from your {{link}}PayPal account{{/link}}"
+#: client/task-list/tasks/payments/paypal.js:196
+msgid "Please enter a valid email address"
 msgstr ""
 
-#: client/task-list/tasks/payments/paypal.js:207
+#: client/task-list/tasks/payments/paypal.js:224
+msgid "Create a PayPal account for me"
+msgstr ""
+
+#: client/task-list/tasks/payments/paypal.js:232
+msgid "Email address"
+msgstr ""
+
+#: client/task-list/tasks/payments/paypal.js:248
 msgid "API Username"
 msgstr ""
 
-#: client/task-list/tasks/payments/paypal.js:215
+#: client/task-list/tasks/payments/paypal.js:258
 msgid "API Password"
 msgstr ""
 
-#: client/task-list/tasks/payments/paypal.js:243
+#: client/task-list/tasks/payments/paypal.js:281
+msgid "Your API details can be obtained from your {{link}}PayPal account{{/link}}"
+msgstr ""
+
+#: client/task-list/tasks/payments/paypal.js:305
+msgid "Create account"
+msgstr ""
+
+#: client/task-list/tasks/payments/paypal.js:323
+msgid "You will be redirected to the Paypal website to create the connection."
+msgstr ""
+
+#: client/task-list/tasks/payments/paypal.js:340
 msgid "Connect your PayPal account"
 msgstr ""
 
-#: client/task-list/tasks/payments/paypal.js:253
+#: client/task-list/tasks/payments/paypal.js:341
 msgid ""
-"A Paypal account is required to process payments. You will be redirected to "
-"the Paypal website to create the connection."
-msgstr ""
-
-#: client/task-list/tasks/payments/paypal.js:263
-msgid ""
-"Connect your store to your PayPal account. Don’t have a PayPal account? "
-"Create one."
+"A Paypal account is required to process payments. Connect your store to "
+"your PayPal account."
 msgstr ""
 
 #: client/task-list/tasks/payments/square.js:119
@@ -5805,12 +6073,12 @@ msgid "📦 Shipping is done! Don't worry, you can always change it later."
 msgstr ""
 
 #: client/task-list/tasks/shipping/index.js:182
-#: client/task-list/tasks/tax.js:261
+#: client/task-list/tasks/tax.js:193
 msgid "Set store location"
 msgstr ""
 
 #: client/task-list/tasks/shipping/index.js:183
-#: client/task-list/tasks/tax.js:262
+#: client/task-list/tasks/tax.js:194
 msgid "The address from which your business operates"
 msgstr ""
 
@@ -5840,7 +6108,7 @@ msgid ""
 msgstr ""
 
 #: client/task-list/tasks/shipping/index.js:279
-#: client/task-list/tasks/tax.js:328
+#: client/task-list/tasks/tax.js:287
 msgid "Connect your store"
 msgstr ""
 
@@ -5877,67 +6145,73 @@ msgstr ""
 msgid "There was a problem saving your store location."
 msgstr ""
 
-#: client/task-list/tasks/tax.js:229
+#: client/task-list/tasks/tax.js:153
 msgid "You're awesome! One less item on your to-do list ✅"
 msgstr ""
 
-#: client/task-list/tasks/tax.js:242
+#: client/task-list/tasks/tax.js:166
 msgid "There was a problem updating your tax settings."
 msgstr ""
 
-#: client/task-list/tasks/tax.js:291
+#: client/task-list/tasks/tax.js:218
 msgid "Install Jetpack and WooCommerce Services"
 msgstr ""
 
-#: client/task-list/tasks/tax.js:295
+#: client/task-list/tasks/tax.js:222
 msgid ""
 "Jetpack and WooCommerce Services allow you to automate sales tax "
 "calculations"
 msgstr ""
 
-#: client/task-list/tasks/tax.js:329
+#: client/task-list/tasks/tax.js:261
+msgid ""
+"By installing Jetpack and WooCommerce Services you agree to the "
+"{{link}}Terms of Service{{/link}}."
+msgstr ""
+
+#: client/task-list/tasks/tax.js:288
 msgid ""
 "Connect your store to WordPress.com to enable automated sales tax "
 "calculations"
 msgstr ""
 
-#: client/task-list/tasks/tax.js:350
+#: client/task-list/tasks/tax.js:306
 msgid "Set up tax rates manually"
 msgstr ""
 
-#: client/task-list/tasks/tax.js:360
+#: client/task-list/tasks/tax.js:316
 msgid "Configure tax rates"
 msgstr ""
 
-#: client/task-list/tasks/tax.js:361
+#: client/task-list/tasks/tax.js:317
 msgid "Head over to the tax rate settings screen to configure your tax rates"
 msgstr ""
 
-#: client/task-list/tasks/tax.js:375
+#: client/task-list/tasks/tax.js:332
 msgid "Configure"
 msgstr ""
 
-#: client/task-list/tasks/tax.js:381
+#: client/task-list/tasks/tax.js:338
 msgid ""
 "By clicking \"Configure\" you're enabling tax rates and calculations. More "
 "info {{link}}here{{/link}}."
 msgstr ""
 
-#: client/task-list/tasks/tax.js:432
+#: client/task-list/tasks/tax.js:382
 msgid "Good news!"
 msgstr ""
 
-#: client/task-list/tasks/tax.js:436
+#: client/task-list/tasks/tax.js:386
 msgid ""
 "{{strong}}Jetpack{{/strong}} and {{strong}}WooCommerce Services{{/strong}} "
 "can automate your sales tax calculations for you."
 msgstr ""
 
-#: client/task-list/tasks/tax.js:465
+#: client/task-list/tasks/tax.js:410
 msgid "Yes please"
 msgstr ""
 
-#: client/task-list/tasks/tax.js:481
+#: client/task-list/tasks/tax.js:425
 msgid "No thanks, I'll configure taxes manually"
 msgstr ""
 
@@ -5967,10 +6241,6 @@ msgstr ""
 
 #: client/wc-api/notes/mutations.js:67
 msgid "All messages dismissed."
-msgstr ""
-
-#: client/wc-api/notes/mutations.js:71
-msgid "Undo"
 msgstr ""
 
 #: client/wc-api/notes/mutations.js:89
@@ -6083,15 +6353,15 @@ msgstr ""
 msgid "Choose to apply any or all filters"
 msgstr ""
 
-#: packages/components/build-module/advanced-filters/index.js:365
+#: packages/components/build-module/advanced-filters/index.js:379
 msgid "Add a Filter"
 msgstr ""
 
-#: packages/components/build-module/advanced-filters/index.js:389
+#: packages/components/build-module/advanced-filters/index.js:403
 msgid "Filter"
 msgstr ""
 
-#: packages/components/build-module/advanced-filters/index.js:393
+#: packages/components/build-module/advanced-filters/index.js:407
 msgid "Clear all filters"
 msgstr ""
 
@@ -6298,7 +6568,7 @@ msgstr ""
 msgid "select a preset period"
 msgstr ""
 
-#: packages/components/build-module/filter-picker/index.js:281
+#: packages/components/build-module/filter-picker/index.js:299
 msgid "filter report to show:"
 msgstr ""
 
@@ -6461,11 +6731,22 @@ msgid "Sort by %s in descending order"
 msgstr ""
 
 #: packages/components/build-module/table/table.js:283
+#: packages/components/build-module/timeline/index.js:36
 msgid "No data to display"
 msgstr ""
 
 #: packages/components/build-module/tag/index.js:74
 msgid "Remove %s"
+msgstr ""
+
+# PHP date format string used to display dates, see php.net/date.
+#: packages/components/build-module/timeline/index.js:120
+msgid "F j, Y"
+msgstr ""
+
+# PHP clock format string used to display times, see php.net/date.
+#: packages/components/build-module/timeline/index.js:123
+msgid "g:ia"
 msgstr ""
 
 #: client/analytics/report/products/table.js:218
@@ -6523,6 +6804,10 @@ msgstr ""
 
 #: packages/data/build-module/plugins/constants.js:22
 msgid "Google Ads"
+msgstr ""
+
+#: packages/data/build-module/settings/actions.js:133
+msgid "There was a problem updating your settings."
 msgstr ""
 
 #: packages/date/build-module/index.js:143
@@ -6679,19 +6964,19 @@ msgctxt "order status"
 msgid "Is"
 msgstr ""
 
-#: client/analytics/report/products/table-variations.js:160
+#: client/analytics/report/products/table-variations.js:164
 #: client/analytics/report/products/table.js:167
 #: client/analytics/report/stock/table.js:103
 msgctxt "Indication of a low quantity"
 msgid "Low"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:265
+#: client/profile-wizard/steps/business-details.js:310
 msgctxt "store product count or revenue"
 msgid "%s+"
 msgstr ""
 
-#: client/profile-wizard/steps/business-details.js:275
+#: client/profile-wizard/steps/business-details.js:320
 msgctxt "store product count or revenue range"
 msgid "%1$s - %2$s"
 msgstr ""

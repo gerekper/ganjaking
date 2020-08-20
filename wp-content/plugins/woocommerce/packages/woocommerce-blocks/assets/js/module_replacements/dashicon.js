@@ -5,7 +5,7 @@ import {
 	arrowDownAlt2 as ArrowDownIcon,
 	noAlt as DismissIcon,
 } from '@woocommerce/icons';
-import { createElement } from '@wordpress/element';
+import { cloneElement } from '@wordpress/element';
 
 // Note: Aside from import/export, everything in this file must be IE11 friendly
 // because currently it does not go through babel transpiling. It is injected
@@ -13,9 +13,7 @@ import { createElement } from '@wordpress/element';
 // the Webpack NormalModuleReplacementPlugin plugin.
 
 export default function( props ) {
-	let Icon = function() {
-		return null;
-	};
+	let Icon;
 	switch ( props.icon ) {
 		case 'arrow-down-alt2':
 			Icon = ArrowDownIcon;
@@ -24,7 +22,12 @@ export default function( props ) {
 			Icon = DismissIcon;
 			break;
 	}
-	return createElement( Icon, {
+
+	if ( ! Icon ) {
+		return null;
+	}
+
+	return cloneElement( Icon, {
 		size: props.size || 20,
 		className: props.className,
 	} );

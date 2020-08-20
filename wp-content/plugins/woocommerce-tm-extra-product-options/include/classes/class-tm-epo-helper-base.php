@@ -1608,13 +1608,13 @@ final class THEMECOMPLETE_EPO_HELPER_base {
 		if ( ! is_object( $theorder ) ) {
 			$theorder = wc_get_order( $thepostid );
 		}
-		if ( ! $theorder && isset( $_POST['order_id'] ) ) {
-			$order_id = absint( $_POST['order_id'] );
+		if ( ! $theorder && isset( $_REQUEST['order_id'] ) ) {
+			$order_id = absint( $_REQUEST['order_id'] );
 			$order    = wc_get_order( $order_id );
 
 			return $order;
-		} elseif ( ! $theorder && isset( $_POST['post_ID'] ) ) {
-			$order_id = absint( $_POST['post_ID'] );
+		} elseif ( ! $theorder && isset( $_REQUEST['post_ID'] ) ) {
+			$order_id = absint( $_REQUEST['post_ID'] );
 			$order    = wc_get_order( $order_id );
 
 			return $order;
@@ -1637,13 +1637,17 @@ final class THEMECOMPLETE_EPO_HELPER_base {
 	public function upload_to_png( $source, $target ) {
 
 		if ( function_exists( 'exif_imagetype' ) && exif_imagetype( $source ) === FALSE ) {
-			return FALSE; //Invalid image
+			return FALSE; // Invalid image.
+		}
+
+		if ( ! function_exists( 'imagecreatefromstring' ) ) {
+			return FALSE; // GD library not installed.
 		}
 
 		$sourceImg = imagecreatefromstring( file_get_contents( $source ) );
 
 		if ( $sourceImg === FALSE ) {
-			return FALSE; //Invalid image
+			return FALSE; // Invalid image.
 		}
 
 		$width     = imagesx( $sourceImg );

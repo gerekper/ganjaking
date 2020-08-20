@@ -1,0 +1,3366 @@
+# Copyright (C) 2018 Ultimate GDPR
+# This file is distributed under the same license as the Ultimate GDPR package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Ultimate GDPR 1.6.4\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
+"POT-Creation-Date: 2019-03-26T15:39:02+00:00\n"
+"PO-Revision-Date: 2019-03-26 17:04+0000\n"
+"Last-Translator: Create IT <m.stepnowska@createit.pl>\n"
+"Language-Team: Hungarian\n"
+"Language: hu-HU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.1; wp-5.1.1"
+
+#. Plugin Name of the plugin/theme
+#: includes/views/admin/admin-data-access.php:32 
+#: includes/views/admin/admin-policy.php:21 
+#: includes/views/admin/admin-plugins.php:21 
+#: includes/views/admin/admin-unsubscribe.php:30 
+#: includes/views/admin/admin-forgotten.php:30 
+#: includes/views/admin/admin-breach.php:21 
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:21 
+#: includes/views/admin/admin-services.php:21 
+#: includes/views/admin/admin-pseudonymization.php:30 
+#: includes/views/admin/admin-cookie.php:21 
+#: includes/views/admin/admin-rectification.php:32 
+#: includes/views/admin/admin-terms.php:22 
+#: includes/controller/controller-admin.php:508 
+#: includes/controller/controller-admin.php:509
+msgid "Ultimate GDPR"
+msgstr "Ultimate GDPR"
+
+#. Description of the plugin/theme
+msgid ""
+"Complete General Data Protection Regulation compliance toolkit plugin for "
+"WordPress."
+msgstr ""
+"Általános Adatvédelmi Rendelet compliance toolkit bővítmény WordPress "
+"számára."
+
+#. Author of the plugin/theme
+msgid "CreateIT"
+msgstr "CreateIT"
+
+#. Author URI of the plugin/theme
+msgid "https://www.createit.pl"
+msgstr "https://www.createit.pl"
+
+#: includes/helpers.php:110
+msgid "To confirm, please follow this link: %s"
+msgstr "Megerősítéshez kérjük kattintson az alábbi linkre: %s"
+
+#: includes/views/admin/admin-data-access-user-details.php:16
+msgid "Collected data for user: %s"
+msgstr "A következő felhasználó adatai összegyűjtve: %s"
+
+#: includes/views/admin/admin-data-access-user-details.php:20 
+#: includes/views/admin/admin-data-access-user-details.php:34 
+#: includes/views/admin/admin-rectification-user-details.php:34
+msgid "Go back"
+msgstr "Vissza"
+
+#: includes/views/admin/admin-data-access-user-details.php:26
+msgid "No data collected for this service"
+msgstr "Ehhez a szolgáltatáshoz nincsenek összegyűjtött adatok"
+
+#: includes/views/admin/admin-data-access.php:33 
+#: includes/views/admin/admin-policy.php:22 
+#: includes/views/admin/admin-plugins.php:22 
+#: includes/views/admin/admin-unsubscribe.php:31 
+#: includes/views/admin/admin-forgotten.php:31 
+#: includes/views/admin/admin-breach.php:22 
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:22 
+#: includes/views/admin/admin-services.php:22 
+#: includes/views/admin/admin-pseudonymization.php:31 
+#: includes/views/admin/admin-cookie.php:22 
+#: includes/views/admin/admin-rectification.php:33 
+#: includes/views/admin/admin-terms.php:23
+msgid "Settings"
+msgstr "Beállítások"
+
+#: includes/views/admin/admin-data-access.php:41 
+#: includes/views/admin/admin-forgotten.php:37 
+#: includes/views/admin/admin-breach.php:30 
+#: includes/views/admin/admin-rectification.php:41 
+#: includes/controller/controller-forgotten.php:180 
+#: includes/controller/controller-forgotten.php:181
+msgid "Right To Be Forgotten"
+msgstr "Felejtéshez való jog"
+
+#: includes/views/admin/admin-data-access.php:44 
+#: includes/views/admin/admin-forgotten.php:40 
+#: includes/views/admin/admin-breach.php:33 
+#: includes/views/admin/admin-rectification.php:44 
+#: includes/controller/controller-data-access.php:468 
+#: includes/controller/controller-data-access.php:469
+msgid "Data Access"
+msgstr "Adathozzáférés"
+
+#: includes/views/admin/admin-data-access.php:47 
+#: includes/views/admin/admin-forgotten.php:43 
+#: includes/views/admin/admin-breach.php:36 
+#: includes/views/admin/admin-rectification.php:47 
+#: includes/controller/controller-breach.php:98 
+#: includes/controller/controller-breach.php:99 
+#: includes/controller/controller-breach.php:127
+msgid "Data Breach"
+msgstr "Adatsérülés"
+
+#: includes/views/admin/admin-data-access.php:50 
+#: includes/views/admin/admin-forgotten.php:46 
+#: includes/views/admin/admin-breach.php:39 
+#: includes/views/admin/admin-rectification.php:50 
+#: includes/controller/controller-rectification.php:491 
+#: includes/controller/controller-rectification.php:492
+msgid "Data Rectification"
+msgstr "Adat helyesbítés"
+
+#: includes/views/admin/admin-data-access.php:71
+msgid "Data access requests list"
+msgstr "Adathozzáférési kérelmek listája"
+
+#: includes/views/admin/admin-data-access.php:76 
+#: includes/views/admin/admin-unsubscribe.php:54 
+#: includes/views/admin/admin-forgotten.php:70 
+#: includes/views/admin/admin-rectification.php:74
+msgid "User ID"
+msgstr "Felhasználói azonosító"
+
+#: includes/views/admin/admin-data-access.php:77 
+#: includes/views/admin/admin-unsubscribe.php:55 
+#: includes/views/admin/admin-forgotten.php:71 
+#: includes/views/admin/admin-rectification.php:75
+msgid "Email"
+msgstr "E-mail cím"
+
+#: includes/views/admin/admin-data-access.php:78 
+#: includes/views/admin/admin-unsubscribe.php:57 
+#: includes/views/admin/admin-forgotten.php:73 
+#: includes/views/admin/admin-rectification.php:76
+msgid "Date of request"
+msgstr "Kérelem időpontja"
+
+#: includes/views/admin/admin-data-access.php:79 
+#: includes/views/admin/admin-rectification.php:77
+msgid "Date of data sent"
+msgstr "Adatok elküldésének időpontja"
+
+#: includes/views/admin/admin-data-access.php:80 
+#: includes/views/admin/admin-rectification.php:78
+msgid "Select for action"
+msgstr "Kiválasztás a művelethez"
+
+#: includes/views/admin/admin-data-access.php:81 
+#: includes/views/admin/admin-rectification.php:79
+msgid "See details"
+msgstr "Részletek megtekintése"
+
+#: includes/views/admin/admin-data-access.php:94 
+#: includes/views/admin/admin-unsubscribe.php:72 
+#: includes/views/admin/admin-forgotten.php:88 
+#: includes/views/admin/admin-rectification.php:92
+msgid "Not registered"
+msgstr "Nincs regisztrálva"
+
+#: includes/views/admin/admin-data-access.php:97 
+#: includes/views/admin/admin-unsubscribe.php:116 
+#: includes/views/admin/admin-forgotten.php:132 
+#: includes/views/admin/admin-rectification.php:95 
+#: includes/controller/controller-data-access.php:430
+msgid "Not sent"
+msgstr "Nincs elküldve"
+
+#: includes/views/admin/admin-data-access.php:105
+msgid "Preview data"
+msgstr "Adatok előnézete"
+
+#: includes/views/admin/admin-data-access.php:124 
+#: includes/views/admin/admin-rectification.php:122
+msgid "Send data to selected emails"
+msgstr "Adatok küldése a kiválasztott e-mail címekre"
+
+#: includes/views/admin/admin-data-access.php:126 
+#: includes/views/admin/admin-unsubscribe.php:137 
+#: includes/views/admin/admin-forgotten.php:153 
+#: includes/views/admin/admin-rectification.php:124
+msgid "Remove selected requests from list"
+msgstr "Kiválasztott kérelmek eltávolítása a listából"
+
+#: includes/views/admin/admin-data-access.php:128 
+#: includes/views/admin/admin-unsubscribe.php:139 
+#: includes/views/admin/admin-forgotten.php:155 
+#: includes/views/admin/admin-rectification.php:126
+msgid "Remove all sent requests from list"
+msgstr "Az összes elküldött kérelem eltávolítása a listából"
+
+#: includes/views/admin/admin-rectification-user-details.php:16
+msgid "Rectified data for user: %s"
+msgstr "Helyesbített adatok a következő felhasználónak: %s"
+
+#: includes/views/admin/admin-rectification-user-details.php:18
+msgid "Current data:"
+msgstr "Aktuális adatok:"
+
+#: includes/views/admin/admin-rectification-user-details.php:24
+msgid "Rectified data:"
+msgstr "Helyesbített adatok:"
+
+#: includes/views/admin/admin-policy.php:29 
+#: includes/views/admin/admin-terms.php:30 
+#: includes/controller/controller-terms.php:414 
+#: includes/controller/controller-terms.php:808
+msgid "Terms and Conditions"
+msgstr "Felhasználási feltételek"
+
+#: includes/views/admin/admin-policy.php:32 
+#: includes/views/admin/admin-terms.php:33 
+#: includes/controller/controller-policy.php:20 
+#: includes/controller/controller-policy.php:21 
+#: includes/controller/controller-policy.php:45 
+#: includes/controller/controller-policy.php:859
+msgid "Privacy Policy"
+msgstr "Adatvédelmi irányelvek"
+
+#: includes/views/admin/admin-policy.php:47 
+#: includes/views/admin/admin-terms.php:48
+msgid ""
+"Press \"Save changes\" before downloading logs if you changed any options"
+msgstr ""
+"Ha módosított egy opciót, nyomja meg a \"Módosítások mentése\" gombot a "
+"naplók letöltése előtt"
+
+#: includes/views/admin/admin-policy.php:58 
+#: includes/views/admin/admin-cookie.php:90 
+#: includes/views/admin/admin-terms.php:59
+msgid "Download consents log"
+msgstr "Beleegyezések naplójának letöltése"
+
+#: includes/views/admin/admin-plugins.php:30 
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:38
+msgid "Introduction"
+msgstr "Bevezetés"
+
+#: includes/views/admin/admin-plugins.php:33 
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:41
+msgid "Compatibility"
+msgstr "Kompatibilitás"
+
+#: includes/views/admin/admin-plugins.php:42
+msgid "Plugin"
+msgstr "Bővítmény"
+
+#: includes/views/admin/admin-plugins.php:43
+msgid "Collects user data"
+msgstr "Felhasználói adatok összegyűjtése"
+
+#: includes/views/admin/admin-plugins.php:44
+msgid "Compatible with Ultimate GDPR"
+msgstr "Kompatibilis az Ultimate GDPR-el"
+
+#: includes/views/admin/admin-plugins.php:94 
+#: includes/views/admin/admin-plugins.php:112 
+#: includes/service/service-gravity-forms.php:265
+msgid "Yes"
+msgstr "Igen"
+
+#: includes/views/admin/admin-plugins.php:96 
+#: includes/views/admin/admin-plugins.php:116
+msgid "No"
+msgstr "Adatvédelmi beállítások"
+
+#: includes/views/admin/admin-plugins.php:98
+msgid "Probably"
+msgstr "Valószínűleg"
+
+#: includes/views/admin/admin-plugins.php:100
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#: includes/views/admin/admin-plugins.php:114
+msgid "Partly"
+msgstr "Részben"
+
+#: includes/views/admin/admin-unsubscribe.php:49
+msgid "Unsubscribe request list"
+msgstr "Leiratkozási kérelmek listája"
+
+#: includes/views/admin/admin-unsubscribe.php:56
+msgid "Services to unsubscribe from (user selected)"
+msgstr "Leiratkozáshoz szükséges szolgáltatások (felhasználó kiválasztva)"
+
+#: includes/views/admin/admin-unsubscribe.php:58 
+#: includes/views/admin/admin-forgotten.php:74
+msgid "Date of mail sent"
+msgstr "Elküldött e-mail időpontja"
+
+#: includes/views/admin/admin-unsubscribe.php:59 
+#: includes/views/admin/admin-forgotten.php:75
+msgid "Email user / remove request"
+msgstr "E-mail felhasználó / kérelem eltávolítása"
+
+#: includes/views/admin/admin-unsubscribe.php:79 
+#: includes/views/admin/admin-forgotten.php:95
+msgid "Select all"
+msgstr "Összes kiválasztása"
+
+#: includes/views/admin/admin-unsubscribe.php:98
+msgid "Unsubscribed at %s"
+msgstr "Leiratkozott a következőre: %s"
+
+#: includes/views/admin/admin-unsubscribe.php:135
+msgid "Unsubscribe and notify selected users"
+msgstr "Leiratkozás és értesítés a kiválasztott felhasználókról"
+
+#: includes/views/admin/admin-forgotten.php:65
+msgid "Right To Be Forgotten request list"
+msgstr "Felejtéshez való jog lista"
+
+#: includes/views/admin/admin-forgotten.php:72
+msgid "Services to forget (user selected)"
+msgstr "Elfelejteni való szolgáltatások (kiválasztott felhasználó)"
+
+#: includes/views/admin/admin-forgotten.php:114
+msgid "Forgotten at %s"
+msgstr "Elfelejtve %s"
+
+#: includes/views/admin/admin-forgotten.php:151
+msgid "Forget and notify selected users"
+msgstr "Elfelejt és értesíti a kiválasztott felhasználókat"
+
+#: includes/views/admin/admin-breach.php:56
+msgid "Press 'Save changes' before sending emails if you changed any options"
+msgstr ""
+"Ha bármilyen opciót megváltoztatott, az e-mail elküldése előtt kattintson a "
+"'Változtatások mentése' gombra"
+
+#: includes/views/admin/admin-breach.php:70
+msgid "Go to send emails screen"
+msgstr "Menj az e-mailek küldéséhez"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:50
+msgid "The GDPR was approved and adopted by the EU Parliament in April 2016."
+msgstr "A GDPR-t a Parlament 2016 áprilisában hagyta jóvá és fogadta el."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:51
+msgid ""
+" The regulation will take effect after a two-year transition period and, "
+"unlike a Directive it does not require any enabling legislation to be passed "
+"by government; meaning it will be in force May 2018."
+msgstr ""
+" A GDPR-t a 2016. áprilisi időszakban az Európai Parlament jóváhagyta és "
+"elfogadta. A rendelet egy kétéves átmeneti időszak után lép hatályba, és az "
+"irányelvvel ellentétben nem követeli meg a kormány által elfogadandó "
+"törvényalkotási szabályokat; vagyis 2018 májusában hatályba lép."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:55
+msgid ""
+"The GDPR not only applies to organisations located within the EU but it will "
+"also apply to organisations located outside of the EU if they offer goods or "
+"services to, or monitor the behaviour of, EU data subjects. It applies to "
+"all companies processing and holding the personal data of data subjects "
+"residing in the European Union, regardless of the company's location."
+msgstr ""
+"A GDPR nemcsak az EU-n belül működő szervezetekre vonatkozik, hanem az EU-n "
+"kívüli szervezetekre is vonatkozik, ha termékeket vagy szolgáltatásokat "
+"kínálnak, illetve az EU érintettjei magatartását figyelik. Minden olyan "
+"cégre vonatkozik, amely az Európai Unióban lakóhellyel rendelkező "
+"adatalanyok személyes adatait feldolgozza és tárolja, függetlenül a vállalat "
+"székhelyétől."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:60
+msgid ""
+"This plugin will create a form where users can request access to or deletion "
+"of their personal data, stored on your website. It is also possible to:"
+msgstr ""
+"Ez a beépülő modul létrehoz egy olyan űrlapot, ahol a felhasználók "
+"hozzáférhetnek a személyes adataikhoz, illetve törölhetik őket a te honlapod."
+" Az is lehetséges:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:64
+msgid ""
+"Create a custom cookie notice and block all cookies until cookie consent is "
+"given."
+msgstr ""
+"Egy egyéni cookie értesítő létrehozása és minden cookie letiltása a "
+"felhasználó beleegyezéséig."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:65
+msgid ""
+"Set up redirects for your Terms and Conditions and Privacy Policy pages "
+"until consent is given."
+msgstr ""
+"A beállítás átirányít az Ön Felhasználási feltételeihez és Adatvédelmi "
+"Irányelveihez egészen addig míg a beleegyezés nem történik meg."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:66
+msgid ""
+"Browse user requests for data access/deletion and set custom email "
+"notifications."
+msgstr ""
+"Böngészhet a felhasználók adat hozzáférési/törlési kérelmei között és egyéni "
+"e-mail értesítőket állíthat be."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:67
+msgid ""
+"Send custom email informing about data breach to all users which left their "
+"email at your site."
+msgstr ""
+"Adatszegés esetén egyéni értesítő e-mail küldése mindazon felhasználó "
+"számára, akik megadták e-mail címüket az Ön oldalán."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:68
+msgid "Automatically add consent boxes for various forms on your website."
+msgstr ""
+"Beleegyezési jelölőnégyzet automatikus hozzáadása az oldalán lévő különböző "
+"űrlapokhoz."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:69
+msgid "Pseudonymize some of user data stored in database."
+msgstr "Az adatbázisban tárolt néhány felhasználói adat álnevesítése."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:70
+msgid "Check currently activated plugins for GDPR compliance."
+msgstr "Ellenőrizze a jelenleg aktivált bővítményeket a GDPR megfeleléshez."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:75
+msgid ""
+"To start, browse through settings. Then, create a new page with shortcode:"
+msgstr ""
+"Indítsa el a böngészést a beállítások között. Ezután hozzon létre egy új "
+"oldalt rövid kóddal:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:76 
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:94
+msgid "[ultimate_gdpr_myaccount]"
+msgstr "[ultimate_gdpr_myaccount]"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:83
+msgid "Available Shortcodes"
+msgstr "Elérhető verzió"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:90
+msgid "User Settings:"
+msgstr "Beállítások megváltoztatása:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:102
+msgid "Privacy Policy Button:"
+msgstr "Adatvédelmi irányelvek:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:106
+msgid "[ultimate_gdpr_policy_accept]"
+msgstr "[ultimate_gdpr_policy_accept]"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:114
+msgid "Terms and Conditions Button:"
+msgstr "Felhasználási feltételek:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:118
+msgid "[ultimate_gdpr_terms_accept]"
+msgstr "[ultimate_gdpr_terms_accept]"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:126
+msgid "Cookie Popup Link:"
+msgstr "Cookie felugró tartalom:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:130
+msgid "[ultimate_gdpr_cookie_popup]Link [/ultimate_gdpr_cookie_popup]"
+msgstr "[ultimate_gdpr_cookie_popup]Link [/ultimate_gdpr_cookie_popup]"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:138
+msgid "Display Cookies List:"
+msgstr "Sütik listájának megjelenítése:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:142
+msgid "[render_cookies_list]"
+msgstr "[render_cookies_list]"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:150
+msgid "Protect Content:"
+msgstr "Tartalom védelme:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:157
+msgid "content"
+msgstr "tartalom"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:168
+msgid "Privacy Center:"
+msgstr "Adatvédelmi központ:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:184
+msgid "System requirements:"
+msgstr "Rendszerkövetelmények:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:191
+msgid "PHP Version:"
+msgstr "PHP Verzió:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:195
+msgid "5.4+"
+msgstr "5.4+"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:203
+msgid "Memory limit:"
+msgstr "Memória korlát:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:207
+msgid "64 MB"
+msgstr "64 MB"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:215
+msgid "Disk space:"
+msgstr "Lemez terület:"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:219
+msgid "10 MB"
+msgstr "10 MB"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:245 
+#: includes/views/admin/admin-cookie.php:79
+msgid "Press 'Save changes' before downloading logs if you changed any options"
+msgstr ""
+"Ha megváltoztatta a beállításokat, nyomja meg a \"Módosítások mentése\" "
+"gombot a naplók letöltése előtt"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:259
+msgid "Export/import options"
+msgstr "Export / import lehetőségek"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:261
+msgid ""
+"You can export current plugin settings to a file which can be used to import "
+"the settings on other websites"
+msgstr ""
+"A jelenlegi pluginbeállításokat olyan fájlba exportálhatja, amelybe más "
+"webhelyeken importálhatja a beállításokat"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:265
+msgid "Export plugin settings"
+msgstr "A plugin beállításainak exportálása"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:269
+msgid ""
+"Select file to import settings from. Your current settings will be "
+"overwritten."
+msgstr ""
+"Válassza ki a fájlt a beállítások importálásához. Az aktuális beállítások "
+"felül lesznek írva."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:275
+msgid "Import plugin settings"
+msgstr "A bővítmény importálása"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:279
+msgid "Export services from Service Manager"
+msgstr "Export szolgáltatásokat a Service Managertől"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:283
+msgid "Export services"
+msgstr "Export szolgáltatások"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:287
+msgid ""
+"Select file to add services from. Your current services will not be removed."
+msgstr ""
+"Válasszon fájlt a szolgáltatások hozzáadásához. A jelenlegi szolgáltatásokat "
+"nem távolítjuk el."
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:293
+msgid "Import services to Service Manager"
+msgstr "Importálási szolgáltatásokat a szolgáltatáskezelőhöz"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:303 
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:309
+msgid "Any questions?"
+msgstr "Bármi kérdés?"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:305
+msgid "Please have a look at the"
+msgstr "Kérjük, nézze meg a"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:307
+msgid "Support forum"
+msgstr "Támogatói fórum"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:307
+msgid "or ask your questions via email"
+msgstr "vagy tegye fel kérdéseit e-mailben"
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:311
+msgid "Link to our "
+msgstr "Link a mi "
+
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:313
+msgid "Documentation"
+msgstr "Dokumentáció"
+
+#: includes/views/admin/admin-breach-send.php:17
+msgid "Emails were sent."
+msgstr "E-mailek elküldve."
+
+#: includes/views/admin/admin-breach-send.php:25
+msgid "You will send emails to the following emails:"
+msgstr "Ön a következő e-mail címekre fog e-mailt küldeni:"
+
+#: includes/views/admin/admin-breach-send.php:40
+msgid "Send"
+msgstr "Küldés"
+
+#: includes/views/admin/admin-services.php:48
+msgid "Download all consents log"
+msgstr "Töltse le az összes jóváhagyási naplót"
+
+#: includes/views/admin/admin-pseudonymization.php:47
+msgid ""
+"Press 'Save changes' before pressing encryption buttons if you changed any "
+"options"
+msgstr ""
+"Ha bármilyen opciót megváltoztatott, a titkosítás előtt kattintson a "
+"'Változtatások mentése' gombra"
+
+#: includes/views/admin/admin-pseudonymization.php:58
+msgid "Encrypt selected"
+msgstr "Titkosítás kiválasztva"
+
+#: includes/views/admin/admin-pseudonymization.php:60
+msgid "Decrypt selected"
+msgstr "Dekódolás kiválasztva"
+
+#: includes/views/admin/admin-cookie.php:57
+msgid "Cookie popup"
+msgstr "Cookie popup"
+
+#: includes/views/admin/admin-cookie.php:60
+msgid "Preferences"
+msgstr "Preferenciák"
+
+#: includes/views/admin/admin-cookie.php:63
+msgid "Advanced settings"
+msgstr "További beállítások"
+
+#: includes/views/admin/admin-cookie.php:96
+msgid "Detect cookies"
+msgstr "Cookie-k felismerése"
+
+#: includes/views/admin/admin-cookie.php:99
+msgid ""
+"Your website should be publicly accessible so that the Cookie Detector can "
+"work properly."
+msgstr ""
+"A weboldalnak nyilvánosan hozzáférhetőnek kell lennie, ahhoz, hogy a Cookie "
+"Detector megfelelően működjön."
+
+#: includes/views/admin/admin-cookie.php:107
+msgid "Close"
+msgstr "Bezárás"
+
+#: includes/views/admin/admin-cookie.php:109
+msgid "Cookies Scanner"
+msgstr "Sütik Scanner"
+
+#: includes/views/admin/admin-cookie.php:112
+msgid "Our busy bees are searching for cookies on:"
+msgstr "Forgalmas méheink a cookie-kat keresik:"
+
+#: includes/views/admin/admin-cookie.php:116
+msgid "posts and pages"
+msgstr "bejegyzések oldala"
+
+#: includes/views/admin/admin-cookie.php:118
+msgid " of your WordPress site."
+msgstr " a WordPress webhelyén."
+
+#: includes/views/admin/admin-cookie.php:127
+msgid "It can take up to few minutes. Thanks for your patience!"
+msgstr "Néhány percig tarthat. Köszönöm a türelmét!"
+
+#: includes/views/admin/admin-cookie.php:128
+msgid "One of our bees returned with: "
+msgstr "Az egyik méhek visszatértek:"
+
+#: includes/views/admin/admin-cookie.php:131
+msgid "Other bees are still searching..."
+msgstr "Más méhek még mindig keresik ..."
+
+#: includes/views/admin/admin-cookie.php:132
+msgid "All our busy bees are back with these results: "
+msgstr "Minden elfoglalt méhek visszatérnek ezekkel az eredményekkel:"
+
+#: includes/views/admin/admin-cookie.php:136
+msgid "We are currently scanning:"
+msgstr "Jelenleg szkennelünk:"
+
+#: includes/views/admin/admin-cookie.php:141
+msgid "Failed scans:"
+msgstr "Sikertelen beolvasás:"
+
+#: includes/views/admin/admin-cookie.php:142
+msgid "Show failed scans"
+msgstr "A sikertelen ellenőrzések megjelenítése"
+
+#: includes/views/admin/admin-cookie.php:143
+msgid "Retry failed scans"
+msgstr "Próbálja újra a sikertelen beolvasásokat"
+
+#: includes/views/admin/admin-cookie.php:151
+msgid "Are you sure you want to retry failed scans?"
+msgstr "Biztosan újra próbálkozik a sikertelen beolvasásokkal?"
+
+#: includes/views/admin/admin-cookie.php:158
+msgid "Currently scanned URL:"
+msgstr "Jelenleg beolvasott URL:"
+
+#: includes/views/admin/admin-rectification.php:69
+msgid "Data rectification requests list"
+msgstr "Adat helyesbítési kérelem lista"
+
+#: includes/views/admin/admin-rectification.php:103
+msgid "See rectified data"
+msgstr "Helyesbített adatok megtekintése"
+
+#: includes/views/cookie-group-popup.php:112 
+#: includes/views/shortcode/shortcode-policy-accept.php:54 
+#: includes/views/shortcode/shortcode-terms-accept.php:54 
+#: includes/views/cookie-popup.php:30 
+#: includes/controller/controller-cookie.php:3590
+msgid "Accept"
+msgstr "Elfogad"
+
+#: includes/views/cookie-group-popup.php:120 
+#: includes/views/cookie-popup.php:38 
+#: includes/controller/controller-cookie.php:3592
+msgid "Change Settings"
+msgstr "Beállítások változtatása"
+
+#: includes/views/cookie-group-popup.php:266 
+#: includes/views/shortcode/shortcode-privacy-center.php:47 
+#: includes/views/shortcode/shortcode-privacy-center.php:73 
+#: includes/views/shortcode/shortcode-privacy-center.php:99 
+#: includes/views/shortcode/shortcode-privacy-center.php:123 
+#: includes/views/shortcode/shortcode-privacy-center.php:131 
+#: includes/views/shortcode/shortcode-privacy-center.php:140 
+#: includes/views/shortcode/shortcode-privacy-center.php:152 
+#: includes/views/shortcode/shortcode-privacy-center.php:162 
+#: includes/views/cookie-popup.php:181 
+#: includes/controller/controller-cookie.php:1264 
+#: includes/controller/controller-cookie.php:3591 
+#: includes/shortcode/shortcode-cookie-popup.php:703
+msgid "Read more"
+msgstr "Olvasson többet"
+
+#: includes/views/cookie-group-popup.php:320 
+#: includes/views/cookie-group-popup.php:331 
+#: includes/views/cookie-group-popup.php:364 
+#: includes/views/cookie-group-popup.php:375
+msgid "Cookie Box Settings"
+msgstr "Süti box beállítások"
+
+#: includes/views/cookie-group-popup.php:326 
+#: includes/views/cookie-group-popup.php:370 
+#: includes/controller/controller-cookie.php:3609
+msgid "Trigger"
+msgstr "Ravasz"
+
+#: includes/views/cookie-group-popup.php:524
+msgid "Hide details"
+msgstr "Rejtett részletek"
+
+#: includes/views/cookie-group-popup.php:543 
+#: includes/views/service/service-arforms-consent-field.php:29
+msgid "OK"
+msgstr "OK"
+
+#: includes/views/cookie-group-popup.php:600 
+#: includes/views/cookie-group-popup.php:645 
+#: includes/views/cookie-group-popup.php:665 
+#: includes/views/cookie-group-popup.php:689 
+#: includes/views/cookie-group-popup.php:732 
+#: includes/controller/controller-cookie.php:3614
+msgid "This website will:"
+msgstr "Ez a weboldal:"
+
+#: includes/views/cookie-group-popup.php:620 
+#: includes/views/cookie-group-popup.php:709 
+#: includes/views/cookie-group-popup.php:752
+msgid "This website wont't:"
+msgstr "Ez a weboldal nem:"
+
+#: includes/views/cookie-group-popup.php:777 
+#: includes/controller/controller-cookie.php:3616
+msgid "Save & Close"
+msgstr "Mentés & Bezárás"
+
+#: includes/views/cookie-group-popup-header-content.php:23
+msgid "Privacy settings"
+msgstr "Adatvédelmi beállítások"
+
+#: includes/views/cookie-group-popup-header-content.php:25
+msgid "Decide which cookies you want to allow."
+msgstr "Döntse el, hogy mely cookie-kat kívánja engedélyezni."
+
+#: includes/views/cookie-group-popup-header-content.php:26
+msgid ""
+"You can change these settings at any time. However, this can result in some "
+"functions no longer being available. For information on deleting the cookies,"
+" please consult your browser’s help function."
+msgstr ""
+"Bármikor megváltoztathatja ezeket a beállításokat. Ezek a változások "
+"elérhetetlenné változtathatnak néhány funkciót. További információkért a "
+"cookie-k törléséről látogasson el a böngészőjének a Segítség oldalára."
+
+#: includes/views/cookie-group-popup-header-content.php:27
+msgid "Learn more about the cookies we use."
+msgstr "OLVASSON TÖBBET AZ ÁLTALUNK HASZNÁLT COOKIE-KRÓL."
+
+#: includes/views/cookie-group-popup-header-content.php:29
+msgid "With the slider, you can enable or disable different types of cookies:"
+msgstr ""
+"A kurzor segítségével aktiválhatja és dezaktiválhatja a különböző típusú "
+"cookie-kat:"
+
+#: includes/views/service/service-gravity-forms-consent-field-error-message.php:12
+#:  
+#: includes/views/service/service-woocommerce-forms-consent-field-error-message.php:12
+msgid "You must accept the Privacy Policy before submitting the form"
+msgstr "Az űrlap elküldése előtt el kell fogadnia az Adatvédelmi Irányelveket"
+
+#: includes/views/service/service-ct-waitlist-consent-field.php:17 
+#: includes/views/service/service-mailster-consent-field.php:16 
+#: includes/views/service/service-gravity-forms-consent-field-label.php:12 
+#: includes/views/service/service-formcraft-consent-field.php:16 
+#: includes/views/service/service-mailerlite-consent-field.php:16
+msgid "I consent to my data being stored according to the Privacy Policy"
+msgstr ""
+"Hozzájárulok, hogy az adataimat az Adatvédelmi irányelvek szerint tárolják"
+
+#: includes/views/service/service-mailchimp-consent-field.php:16 
+#: includes/views/service/service-metorik-helper-consent-field.php:17 
+#: includes/views/service/service-ultimate-member-consent-field.php:20
+msgid "I consent to the storage of my data according to the Privacy Policy "
+msgstr "Hozzájárulok az Adatvédelmi Irányelvek szerinti adataim tárolásához "
+
+#: includes/views/service/service-gravity-forms-consent-field-description.php:12
+msgid "Follow this link to access Privacy Policy"
+msgstr "Kattintson a linkre az Adatvédelmi Irányelvek megtekintéséhez"
+
+#: includes/views/service/service-buddypress-consent-field.php:16 
+#: includes/views/service/service-bbpress-consent-field.php:16
+msgid ""
+"I consent to the storage of my data according to the Privacy Policy "
+"(required)"
+msgstr ""
+"Hozzájárulok az Adatvédelmi Irányelvek szerinti adataim tárolásához "
+"(kötelező)"
+
+#: includes/views/service/service-klaviyo-consent-field.php:17
+msgid ""
+"I consent to the storage of my data according to the Privacy Policy "
+"(required to submit)"
+msgstr ""
+"Elfogadom az adatainak adatait az adatvédelmi irányelveknek (benyújtásukhoz "
+"szükséges)"
+
+#: includes/views/service/service-newsletter-consent-field-widget-minimal.php:16
+#:  includes/views/service/service-formidable-forms-consent-field.php:12 
+#: includes/views/service/service-contact-form-7-consent-field.php:19 
+#: includes/views/service/service-woocommerce-checkout-consent-field.php:16 
+#: includes/views/service/service-quform-consent-field.php:12 
+#: includes/views/service/service-woocommerce-consent-field-label.php:12 
+#: includes/views/service/service-newsletter-consent-field.php:16 
+#: includes/views/service/service-ninja-forms-consent-field.php:18 
+#: includes/views/service/service-newsletter-consent-field-widget.php:16 
+#: includes/views/service/service-eform-consent-field.php:19 
+#: includes/views/service/service-woocommerce-consent-field.php:16 
+#: includes/views/service/service-events-manager-consent-field.php:17 
+#: includes/views/service/service-arforms-consent-field.php:18 
+#: includes/views/service/service-wp-comments-consent-field.php:16 
+#: includes/views/service/service-wp-user-consent-field.php:17 
+#: includes/views/service/service-caldera-forms-consent-field.php:18 
+#: includes/service/service-woocommerce.php:314
+msgid "I consent to the storage of my data according to the Privacy Policy"
+msgstr ""
+"Az Adatvédelmi Irányelveknek megfelelően beleegyeztem az adataim tárolásába"
+
+#: includes/views/service/service-ninja-forms-consent-field.php:24
+msgid "This is a required field."
+msgstr "Ez kötelezően kitöltendő mező."
+
+#: includes/views/service/service-quform-consent-field-error-message.php:12
+msgid "This field is mandatory"
+msgstr "Ez a mező kötelező"
+
+#: includes/views/service/service-arforms-consent-field.php:26
+msgid "This field cannot be blank."
+msgstr "Ez a mező nem lehet üres."
+
+#: includes/views/shortcode/shortcode-policy-accept.php:34
+msgid "You have already accepted Privacy Policy"
+msgstr "Ön már elfogadta az Adatvédelmi Irányelveket"
+
+#: includes/views/shortcode/shortcode-policy-accept.php:43 
+#: includes/views/shortcode/shortcode-terms-accept.php:43
+msgid "Decline"
+msgstr "Visszautasítom"
+
+#: includes/views/shortcode/shortcode-terms-accept.php:34
+msgid "You have already accepted Terms and Conditions"
+msgstr "Ön már elfogadta a Felhasználási Feltételeket"
+
+#: includes/views/shortcode/shortcode-myaccount.php:37
+msgid "Personal Data Access"
+msgstr "Személyes adatok hozzáférés"
+
+#: includes/views/shortcode/shortcode-myaccount.php:42
+msgid "Forget me"
+msgstr "Felejts el"
+
+#: includes/views/shortcode/shortcode-myaccount.php:47 
+#: includes/views/shortcode/shortcode-privacy-center.php:88
+msgid "Data rectification"
+msgstr "Adat helyesbítés"
+
+#: includes/views/shortcode/shortcode-myaccount.php:53 
+#: includes/views/shortcode/shortcode-privacy-center.php:113 
+#: includes/controller/controller-unsubscribe.php:563 
+#: includes/controller/controller-unsubscribe.php:564
+msgid "Unsubscribe"
+msgstr "Leiratkozás"
+
+#: includes/views/shortcode/shortcode-myaccount.php:62
+msgid ""
+"Below, you can request for your personal data that's collected by this "
+"website sent to you in an email."
+msgstr ""
+"Az alábbiakban kérheti az e weboldalon gyűjtött személyes adatait, amelyeket "
+"Ön e-mailben elküld."
+
+#: includes/views/shortcode/shortcode-myaccount.php:66 
+#: includes/views/shortcode/shortcode-myaccount.php:134 
+#: includes/views/shortcode/shortcode-myaccount.php:209 
+#: includes/views/shortcode/shortcode-myaccount.php:276
+msgid "Email:"
+msgstr "E-mail:"
+
+#: includes/views/shortcode/shortcode-myaccount.php:78
+msgid ""
+"I consent to have my email collected in order to receive my requested data. "
+"See Privacy Policy page for more information."
+msgstr ""
+"Hozzájárulok az e-mail címem begyűjtéséhez, a kért adatokhoz való hozzáférés "
+"érdekében. További információkért tekintse meg az Adatvédelmi Irányelvek "
+"oldalunkat."
+
+#: includes/views/shortcode/shortcode-myaccount.php:92 
+#: includes/views/shortcode/shortcode-myaccount.php:164 
+#: includes/views/shortcode/shortcode-myaccount.php:244 
+#: includes/views/shortcode/shortcode-myaccount.php:304
+msgid "Submit"
+msgstr "Küldés"
+
+#: includes/views/shortcode/shortcode-myaccount.php:99
+msgid ""
+"Below, you can browse services which collects your personal data on this "
+"website. Check services you wish to be forgotten by. This will send a "
+"request to the website admin. You will be notified by email once this is "
+"done.\""
+msgstr ""
+"Az alábbiakban böngészhet olyan szolgáltatások között, amelyek személyes "
+"adatait gyűjtik össze ezen a weboldalon. Ellenőrizze azokat a "
+"szolgáltatásokat, amelyeket el kívánja felejteni. Ezzel kérést küld a "
+"weboldal adminisztrátorának. E-mailben értesítjük, ha ez megtörtént. \""
+
+#: includes/views/shortcode/shortcode-myaccount.php:149 
+#: includes/views/shortcode/shortcode-myaccount.php:229 
+#: includes/views/shortcode/shortcode-myaccount.php:290
+msgid ""
+"I consent to have my email collected in order to process this request. See "
+"Privacy Policy page for more information."
+msgstr ""
+"Hozzájárulok az e-mail címem begyűjtéséhez, hogy ez a folyamat megvalósuljon."
+" További információkért tekintse meg az Adatvédelmi Irányelvek oldalunkat."
+
+#: includes/views/shortcode/shortcode-myaccount.php:174
+msgid ""
+"Below, you can send a request to have your data rectified by  the website "
+"admin. Enter what you would like to be rectified. You will be notified by "
+"email once this is done."
+msgstr ""
+"Az alábbiakban kérést küldhet az adatok javításáért a webhely "
+"adminisztrátorának részéről. Adja meg, hogy mit szeretne kijavítani. E-"
+"mailben értesítést kap, ha ez megtörtént."
+
+#: includes/views/shortcode/shortcode-myaccount.php:182
+msgid "Current data"
+msgstr "Jelenlegi adatok"
+
+#: includes/views/shortcode/shortcode-myaccount.php:196
+msgid "Rectified data"
+msgstr "Helyesbített adatok"
+
+#: includes/views/shortcode/shortcode-myaccount.php:252
+msgid ""
+"Below, you can browse services which sign up users to newsletters. Check "
+"services which newsletters you wish to be unsubscribed from. The "
+"subscription will stop immediately."
+msgstr ""
+"Az alábbiakban olyan szolgáltatásokat böngészhet, amelyek feliratkoznak a "
+"felhasználókra hírlevelekre. Ellenőrizze, hogy mely hírleveleket kívánja "
+"leiratkozni. Az előfizetés azonnal leáll."
+
+#: includes/views/shortcode/shortcode-privacy-center.php:36
+msgid "Data access"
+msgstr "Adat hozzáférés"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:62
+msgid "Right to be forgotten"
+msgstr "Jutalom elfelejteni"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:130
+msgid "Cookie settings"
+msgstr "Cookie beállítások"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:139
+msgid "Privacy policy"
+msgstr "Adatvédelmi irányelvek"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:151
+msgid "Terms &amp; conditions pages"
+msgstr "Feltételek &amp; feltételek oldalakon"
+
+#: includes/views/shortcode/shortcode-privacy-center.php:161
+msgid "Contact DPO"
+msgstr "Kapcsolatfelvétel az DPO-val"
+
+#: includes/service/service-ct-waitlist.php:77 
+#: includes/service/service-quform.php:87 
+#: includes/service/service-mailster.php:155
+msgid "There were problems forgetting data for user: %s"
+msgstr "Problémák merültek fel a felhasználó adatainak elfelejtésében: %s"
+
+#: includes/service/service-ct-waitlist.php:95 
+#: includes/service/service-quform.php:115 
+#: includes/service/service-formcraft.php:95 
+#: includes/service/service-ninja-forms.php:62 
+#: includes/service/service-contact-form-7.php:93 
+#: includes/service/service-mailchimp.php:85 
+#: includes/service/service-yith-woocommerce-wishlist.php:82 
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:141 
+#: includes/service/service-eform.php:132 
+#: includes/service/service-wp-comments.php:109 
+#: includes/service/service-woocommerce.php:180 
+#: includes/service/service-formidable-forms.php:136 
+#: includes/service/service-events-manager.php:110 
+#: includes/service/service-caldera-forms.php:133 
+#: includes/service/service-bbpress.php:162 
+#: includes/service/service-wp-job-manager.php:78 
+#: includes/service/service-wp-user.php:103 
+#: includes/service/service-wp-foro.php:420 
+#: includes/service/service-buddypress.php:334 
+#: includes/service/service-newsletter.php:148 
+#: includes/service/service-mailerlite.php:75 
+#: includes/service/service-gravity-forms.php:96 
+#: includes/service/service-hotjar.php:63 
+#: includes/service/service-custom-facebook-feed.php:56 
+#: includes/service/service-mailpoet.php:108 
+#: includes/service/service-flamingo.php:98 
+#: includes/service/service-cf7db.php:116 
+#: includes/service/service-wp-posts.php:116 
+#: includes/service/service-mailster.php:183 
+#: includes/service/service-arforms.php:129
+msgid "[%s] Name"
+msgstr "[%s] Név"
+
+#: includes/service/service-ct-waitlist.php:103 
+#: includes/service/service-quform.php:123 
+#: includes/service/service-formcraft.php:103 
+#: includes/service/service-ninja-forms.php:70 
+#: includes/service/service-contact-form-7.php:101 
+#: includes/service/service-yith-woocommerce-wishlist.php:90 
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:149 
+#: includes/service/service-eform.php:140 
+#: includes/service/service-formidable-forms.php:144 
+#: includes/service/service-caldera-forms.php:141 
+#: includes/service/service-ultimate-member.php:77 
+#: includes/service/service-bbpress.php:170 
+#: includes/service/service-wp-foro.php:428 
+#: includes/service/service-buddypress.php:342 
+#: includes/service/service-newsletter.php:156 
+#: includes/service/service-mailerlite.php:83 
+#: includes/service/service-hotjar.php:71 
+#: includes/service/service-flamingo.php:106 
+#: includes/service/service-cf7db.php:124 
+#: includes/service/service-mailster.php:191
+msgid "[%s] Description"
+msgstr "[%s] Leírás"
+
+#: includes/service/service-ct-waitlist.php:112 
+#: includes/service/service-quform.php:132 
+#: includes/service/service-ninja-forms.php:79 
+#: includes/service/service-contact-form-7.php:110 
+#: includes/service/service-eform.php:149 
+#: includes/service/service-formidable-forms.php:153 
+#: includes/service/service-events-manager.php:119 
+#: includes/service/service-caldera-forms.php:149 
+#: includes/service/service-bbpress.php:178 
+#: includes/service/service-wp-foro.php:436 
+#: includes/service/service-buddypress.php:350 
+#: includes/service/service-newsletter.php:165 
+#: includes/service/service-mailerlite.php:92 
+#: includes/service/service-gravity-forms.php:113 
+#: includes/service/service-klaviyo.php:64 
+#: includes/service/service-arforms.php:146
+msgid "[%s] Inject consent checkbox to all forms"
+msgstr "[%s] A Beleegyezési jelölőnégyzetet hozzáadása minden űrlaphoz"
+
+#: includes/service/service-ct-waitlist.php:123
+msgid "[%s] Display consent checkbox for logged in user"
+msgstr "[%s] A bejelentkezéshez engedélyezett jelölőnégyzet megjelenítése"
+
+#: includes/service/service-ct-waitlist.php:133
+msgid "Waitlist"
+msgstr "Waitlist"
+
+#: includes/service/service-ct-waitlist.php:241
+msgid ""
+"Waitlist for WooCommerce - Back In Stock Notifier gathers data entered by "
+"users in forms"
+msgstr ""
+"Waitlist for WooCommerce - Back In Stock Notifier összegyűjti a felhasználók "
+"által bevitt adatokat formában"
+
+#: includes/service/service-facebook-pixel.php:110
+msgid ""
+"[%s] Block Facebook Pixel cookies when a user doesn't accept Advertising "
+"cookies"
+msgstr ""
+"[%s] Blokkolja a Facebook Pixel sütiket, ha a felhasználó nem fogadja el a "
+"Reklám sütiket"
+
+#: includes/service/service-quform.php:143 
+#: includes/service/service-mailster.php:211
+msgid "[%s] Inject consent checkbox as the first field instead of the last"
+msgstr ""
+"[%s] Adja be a hozzájárulás jelölőnégyzetet, mint az első mezőt az utolsó "
+"helyett"
+
+#: includes/service/service-quform.php:153
+msgid "Quform"
+msgstr "Quform"
+
+#: includes/service/service-quform.php:375
+msgid "Quform gathers data entered by users in forms"
+msgstr ""
+"A Quform összegyűjti a felhasználók által, az űrlapokban megadott adatokat"
+
+#: includes/service/service-formcraft.php:112
+msgid "[%s] Inject consent checkbox to all forms (Premium)"
+msgstr "[% s] Bejövő beleegyezés jelölőnégyzet minden formába (Premium)"
+
+#: includes/service/service-formcraft.php:170 
+#: includes/service/service-formidable-forms.php:320
+msgid "Formidable Forms gathers data entered by users in forms"
+msgstr ""
+"Formidable Forms összegyűjti a felhasználók által, űrlapokban megadott "
+"adatokat"
+
+#: includes/service/service-ninja-forms.php:137
+msgid "Ninja Forms gathers data entered by users in forms"
+msgstr ""
+"A Ninja Forms a felhasználók által űrlapon megadott adatokat gyűjti össze"
+
+#: includes/service/service-contact-form-7.php:120
+msgid ""
+"[Contact Form 7] Inject consent checkbox as the first field instead of the "
+"last"
+msgstr ""
+"[Contact Form 7] A beleegyezési jelölőnégyzetet az első helyre rakjuk az "
+"utolsó helyett"
+
+#: includes/service/service-contact-form-7.php:206
+msgid "Contact Form 7 gathers data entered by users in forms"
+msgstr ""
+"Contact Form 7 összegyűjti a felhasználók által, űrlapokban megadott adatokat"
+
+#: includes/service/service-google-analytics.php:56
+msgid ""
+"Google Analytics Tracking ID (disable tracking for this ID when cookies "
+"consent not given), eg. UA-118586768-1"
+msgstr ""
+"Google Analytics nyomon követési azonosító (letiltja az azonosító követését, "
+"ha a cookie-k nem engedélyezik), pl. UA-118.586.768-1"
+
+#: includes/service/service-google-analytics.php:65
+msgid ""
+"Enable Google Analytics anonymized IP tracking (<a href='%s' target='_blank'>"
+"read more</a>)"
+msgstr ""
+"A Google Analytics anonimizált IP-követésének engedélyezése (<a href='%s' "
+"target='_blank'> további információ </a>)"
+
+#: includes/service/service-google-analytics.php:73
+msgid ""
+"Please note that even when enabled, Ultimate GDPR will still block Google "
+"Analytics without user consent. If you would like to track anonymously users "
+"without accepting cookies, please <a href='%s' target='_blank'>read more "
+"here</a>."
+msgstr ""
+"Felhívjuk a figyelmét arra, hogy ha engedélyezve van, az Ultimate GDPR "
+"továbbra is blokkolja a Google Analytics szolgáltatást a felhasználó "
+"beleegyezése nélkül. Ha névtelen felhasználókat szeretne követni a cookie-k "
+"elfogadása nélkül, <a href='%s' target='_blank'> további információkat itt "
+"olvashat </a>."
+
+#: includes/service/service-formcraft-form-builder.php:89
+msgid "[%s] Inject consent checkbox to all forms (Basic)"
+msgstr "[% s] Bejövő beleegyezés jelölőnégyzet minden formába (Alap)"
+
+#: includes/service/service-mailchimp.php:93
+msgid "[Mailchimp] Description"
+msgstr "[Mailchimp] Leírás"
+
+#: includes/service/service-mailchimp.php:101
+msgid "[Mailchimp] Inject consent checkbox to order fields"
+msgstr "[Mailchimp] Beleegyezési jelölőnégyzet hozzáadása a rendelési mezőkhöz"
+
+#: includes/service/service-mailchimp.php:109
+msgid ""
+"[Mailchimp] Inject consent checkbox as the first field instead of the last"
+msgstr ""
+"[Mailchimp] Beleegyezési jelölőnégyzet hozzáadása az első mezőként, az "
+"utolsó helyett"
+
+#: includes/service/service-mailchimp.php:214
+msgid "Consent is mandatory to proceed"
+msgstr "A beleegyezés kötelező a folytatáshoz"
+
+#: includes/service/service-mailchimp.php:228
+msgid "Mailchimp gathers data entered by users in forms"
+msgstr ""
+"Mailchimp összegyűjti a felhasználók által, űrlapokban megadott adatokat"
+
+#: includes/service/service-yith-woocommerce-wishlist.php:206
+msgid "WooCommerce Wishlist gathers data entered by users in shop orders"
+msgstr ""
+"WooCommerce Wishlist összegyűjti a felhasználók által, a megrendelésekben "
+"megadott adatokat"
+
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:169
+msgid "[WP Simple Paypal Shopping Cart] Pseudonymize user order data"
+msgstr ""
+"[WP Simple Paypal Shopping Cart] A felhasználói megrendelési adatok "
+"elnevezése"
+
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:256
+msgid "WP Simple Paypal Shopping Cart gathers consumer orders data"
+msgstr ""
+"A WP Simple Paypal Bevásárlókosár összegyűjti a fogyasztói megrendelések "
+"adatait"
+
+#: includes/service/service-wordfence.php:70
+msgid ""
+"[%s] Block Wordfence cookies when a user doesn't accept Functionality cookies"
+msgstr ""
+"[%s] Blokkolja a Wordfence cookie-kat, ha a felhasználó nem fogadja el a "
+"Functionality cookie-kat"
+
+#: includes/service/service-eform.php:245
+msgid "eForm gathers data entered by users in forms"
+msgstr "az e-űrlap a felhasználók által űrlapon megadott adatokat gyűjti össze"
+
+#: includes/service/service-metorik-helper.php:87 
+#: includes/service/service-mailster.php:200
+msgid "[%s] Inject consent checkbox to subscribe forms"
+msgstr "[%s] A beleegyezés beírása jelölőnégyzet beolvasása űrlapokba"
+
+#: includes/service/service-wp-comments.php:71
+msgid "Anonymous"
+msgstr "Névtelen"
+
+#: includes/service/service-wp-comments.php:83
+msgid "Could not update comment data for comments: %s"
+msgstr ""
+"A következő hozzászólásokhoz nem lehet frissíteni a hozzászólás adatokat: %s"
+
+#: includes/service/service-wp-comments.php:116
+msgid "[WP Comments] Description"
+msgstr "[WP Comments] Leírás"
+
+#: includes/service/service-wp-comments.php:124
+msgid "[WP Comments] Inject consent checkbox to comments fields"
+msgstr ""
+"[WP Hozzászólások] Beleegyezési jelölőnégyzet hozzáadása a hozzászólás mezőbe"
+
+#: includes/service/service-wp-comments.php:186
+msgid "Please give consent to collect your data"
+msgstr "Kérjük járuljon hozzá az adatai begyűjtéséhez"
+
+#: includes/service/service-wp-comments.php:197
+msgid "WordPress Comments are data entered by users in comments"
+msgstr ""
+"A WordPress Comments olyan adatok, melyeket a felhasználók adnak meg a "
+"hozzászólásokban"
+
+#: includes/service/service-woocommerce.php:188
+msgid "[WooCommerce] Description"
+msgstr "[WooCommerce] Leírás"
+
+#: includes/service/service-woocommerce.php:196
+msgid "[WooCommerce] Inject consent checkbox to order fields"
+msgstr ""
+"[WooCommerce] Beleegyezési jelölődoboz hozzáadása az összes rendelési mezőhöz"
+
+#: includes/service/service-woocommerce.php:204
+msgid "[WooCommerce] Inject consent checkbox to account forms"
+msgstr "[WooCommerce] Beleegyezési jelölőnégyzet beszúrása a fiók űrlapokba"
+
+#. ID
+#: includes/service/service-woocommerce.php:212
+msgid "[WooCommerce] Inject consent checkbox to checkout"
+msgstr "[WooCommerce] A befizetés engedélyezésének jelölőnégyzetét adja meg"
+
+#: includes/service/service-woocommerce.php:220
+msgid "[WooCommerce] Additional checkout consent label"
+msgstr "[WooCommerce] Kiegészítő pénztár-jóváhagyási címke"
+
+#: includes/service/service-woocommerce.php:228
+msgid "[WooCommerce] Inject Additional consent checkbox to checkout"
+msgstr ""
+"[WooCommerce] Injekciós kiegészítő beleegyezés jelölőnégyzet bejelöléséhez"
+
+#: includes/service/service-woocommerce.php:236
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: includes/service/service-woocommerce.php:244
+msgid "[WooCommerce] Pseudonymize first and last name"
+msgstr "[WooCommerce] Álnevesíti a vezeték- és keresztnevet"
+
+#: includes/service/service-woocommerce.php:252
+msgid "[WooCommerce] Pseudonymize address information"
+msgstr "[WooCommerce] Álnevesíti a lakcímhez kapcsolódó információkat"
+
+#: includes/service/service-woocommerce.php:260
+msgid "[WooCommerce] Pseudonymize billing email"
+msgstr "[WooCommerce] Álnevesíti a számlázási e-mail címet"
+
+#: includes/service/service-woocommerce.php:532 
+#: includes/service/service-formidable-forms.php:255 
+#: includes/service/service-events-manager.php:179
+msgid "Consent"
+msgstr "Beleegyezés"
+
+#: includes/service/service-woocommerce.php:549 
+#: includes/service/service-ultimate-member.php:126 
+#: includes/service/service-wp-user.php:312 
+#: includes/service/service-wp-user.php:332 
+#: includes/service/service-wp-user.php:352
+msgid "Consent is required"
+msgstr "Beleegyezés szükséges"
+
+#: includes/service/service-woocommerce.php:709
+msgid "WooCommerce gathers data entered by users in shop orders"
+msgstr ""
+"WooCommerce összegyűjti a felhasználók által, a megrendelésekben megadott "
+"adatokat"
+
+#: includes/service/service-formidable-forms.php:163
+msgid ""
+"[Formidable Forms] Inject consent checkbox as the first field instead of the "
+"last"
+msgstr ""
+"[Formidable Forms] Beleegyezési jelölőnégyzet beszúrása első mezőként nem "
+"pedig utolsó mezőként"
+
+#: includes/service/service-formidable-forms.php:231 
+#: includes/service/service-formidable-forms.php:274
+msgid "This field is required"
+msgstr "A mező kitöltése kötelező"
+
+#: includes/service/service-youtube.php:100
+msgid "[Youtube] Remove youtube iframes until Necessary cookies accepted"
+msgstr ""
+"[Youtube] Youtube iframe-k eltávolítása a szükségszerű cooki-ek elfogadásáig"
+
+#: includes/service/service-youtube.php:151
+msgid "Youtube creates cookies"
+msgstr "A Youtube cookie-kat hoz létre"
+
+#: includes/service/service-events-manager.php:178
+msgid "%s is required."
+msgstr "%s kötelező."
+
+#: includes/service/service-events-manager.php:194
+msgid "Events Manager gathers data entered by users in booking order forms"
+msgstr ""
+"Events Manager összegyűjti a felhasználók által a megrendelési űrlapokba "
+"beírt adatokat"
+
+#: includes/service/service-caldera-forms.php:221
+msgid "Caldera Forms gathers data entered by users in forms"
+msgstr ""
+"A Caldera Forms a felhasználók által űrlapon megadott adatokat gyűjti össze"
+
+#. ID
+#: includes/service/service-ultimate-member.php:85
+msgid "Inject consent checkbox to all forms"
+msgstr "A beleegyezés bejelölése jelölőnégyzetet minden űrlaphoz"
+
+#: includes/service/service-ultimate-member.php:164
+msgid "%s gathers data entered by users in forms"
+msgstr "%s összegyűjti a felhasználók által űrlapon megadott adatokat"
+
+#: includes/service/service-bbpress.php:194 
+#: includes/service/service-wp-foro.php:452 
+#: includes/service/service-buddypress.php:360
+msgid ""
+"[%s] Enter the existing user's email whom the posts will be reassigned to "
+"(or leave empty to delete them when forgetting)"
+msgstr ""
+"[%s] Adja meg a meglévő felhasználó e-mail címét, akinek a bejegyzései át "
+"lesznek adva (vagy hagyja üresen ha törölni szeretné őket, amikor a "
+"felhasználó törölte az adatait)"
+
+#: includes/service/service-bbpress.php:266
+msgid "bbPress gathers users activity in forums"
+msgstr "buddyPress adatokat gyűjt a felhasználók profiljáról és csoportokból"
+
+#: includes/service/service-bbpress.php:297
+msgid "<strong>ERROR</strong>: Please consent to storage of your data"
+msgstr ""
+"<strong> HIBA </ strong>: adja meg hozzájárulását az adatok tárolásához"
+
+#: includes/service/service-wp-job-manager.php:50
+msgid "Could not delete posts for user: %s"
+msgstr "Nem sikerült törölni a felhasználók hozzászólásait: %s"
+
+#: includes/service/service-wp-job-manager.php:86
+msgid "[WP Job Manager] Description"
+msgstr "[WP Job Manager] Leírás"
+
+#: includes/service/service-wp-job-manager.php:129
+msgid "WP Job Manager gathers data entered by users in forms"
+msgstr ""
+"A WP Job Manager összegyűjti a felhasználók által űrlapon megadott adatokat"
+
+#: includes/service/service-wp-user.php:69 
+#: includes/service/service-buddypress.php:111
+msgid "Could not delete user data for user: %s"
+msgstr "A felhasználó adatai nem törölhetők az alábbi felhasználó számára: %s"
+
+#: includes/service/service-wp-user.php:87
+msgid "WP User Data"
+msgstr "WP felhasználói adatok"
+
+#: includes/service/service-wp-user.php:111
+msgid "[WP User Data] Description"
+msgstr "[WP User Data] Leírás"
+
+#: includes/service/service-wp-user.php:119
+msgid "[WP User Data] Pseudonymize first and last name"
+msgstr "[WP User Data] Álnevesíti a vezeték- és keresztnevet"
+
+#: includes/service/service-wp-user.php:135
+msgid "[WP User] Inject consent checkbox to User network signup form fields"
+msgstr ""
+"[WP Felhasználó] Beleegyezés jelölőnégyzet beszúrása a Felhasználói hálózat "
+"feliratkozási űlapokba"
+
+#: includes/service/service-wp-user.php:143
+msgid "[WP User] Inject consent checkbox to User register form fields"
+msgstr ""
+"[WP Felhasználó] Beleegyezés jelölőnégyzet beszúrása a Felhasználói "
+"regisztrációs űrlapokba"
+
+#: includes/service/service-wp-user.php:151
+msgid "[WP User] Inject consent checkbox to lost password form fields"
+msgstr ""
+"[WP Felhasználó] Beleegyezés jelölőnégyzet beszúrása az elvesztett jelszó "
+"űrlapokba"
+
+#: includes/service/service-wp-user.php:405
+msgid "WordPress user data stored as user meta data in database"
+msgstr ""
+"WordPress felhasználó adatok metaadatokként tárolva mint az adatbázisban"
+
+#: includes/service/service-addthis.php:95
+msgid ""
+"[%s] Block Addthis cookies when a user doesn't accept Functionality cookies"
+msgstr ""
+"[%s] Blokkolja az Addthis sütiket, ha a felhasználó nem fogadja el a "
+"Funkcionalitás sütiket"
+
+#: includes/service/service-wp-foro.php:518
+msgid "wpForo gathers users activity in forums"
+msgstr "A wpForo fórumokat gyűjt a felhasználók tevékenységébe"
+
+#: includes/service/service-buddypress.php:147 
+#: includes/service/service-buddypress.php:159 
+#: includes/service/service-buddypress.php:171 
+#: includes/service/service-buddypress.php:183 
+#: includes/service/service-buddypress.php:195 
+#: includes/service/service-buddypress.php:218 
+#: includes/service/service-buddypress.php:229 
+#: includes/service/service-buddypress.php:240 
+#: includes/service/service-buddypress.php:251 
+#: includes/service/service-buddypress.php:262
+msgid "Could not reassign user data for user: %s"
+msgstr "Az alábbi felhasználó adatait nem lehet áthelyezni: %s"
+
+#: includes/service/service-buddypress.php:428
+msgid "BuddyPress gathers users activity in profile pages and groups"
+msgstr "A BuddyPress adatokat gyűjt a felhasználók profiljáról és csoportokból"
+
+#. ID
+#: includes/service/service-newsletter.php:175
+msgid ""
+"[Newsletter] Inject consent checkbox as the first field instead of the last"
+msgstr ""
+"[Newsletter] Adja be a hozzájárulás jelölőnégyzetet, mint az első mezőt az "
+"utolsó helyett"
+
+#: includes/service/service-newsletter.php:183
+msgid "Newsletter"
+msgstr "Hírlevél"
+
+#: includes/service/service-newsletter.php:349
+msgid "Newsletter gathers data entered by users in newsletter forms"
+msgstr ""
+"A hírlevél a felhasználók által a hírlevél űrlapokon megadott adatokat gyűjt"
+
+#: includes/service/service-mailerlite.php:176
+msgid "Mailer Lite gathers data entered by users in forms"
+msgstr "Mailer Lite összegyűjti a felhasználók által űrlapon megadott adatokat"
+
+#: includes/service/service-gravity-forms.php:104
+msgid "[Gravity Forms] Description"
+msgstr "[Gravity Forms] Leírás"
+
+#: includes/service/service-gravity-forms.php:123
+msgid ""
+"[Gravity Forms] Inject consent checkbox as the first field instead of the "
+"last"
+msgstr ""
+"[Gravity Forms] Beleegyezési jelölőnégyzet hozzáadása az első mezőként, az "
+"utolsó helyett"
+
+#: includes/service/service-gravity-forms.php:131
+msgid "Gravity Forms"
+msgstr "Gravity Forms"
+
+#: includes/service/service-gravity-forms.php:323
+msgid "Gravity forms gathers data entered by users in forms"
+msgstr ""
+"Gravity Forms összegyűjti a felhasználók által, űrlapokban megadott adatokat"
+
+#: includes/service/service-hotjar.php:129
+msgid ""
+"Hotjar works most accurately if the Hotjar Tracking Code is in the Head tag "
+"(<head>) of every page you want to track on your site. This ensures that "
+"Hotjar will start tracking visitors as soon as possible."
+msgstr ""
+"A Hotjar a legpontosabban működik, ha a Hotjar követőkód a webhelyén nyomon "
+"követni kívánt oldalak fejcímkéjén (<head>) található. Ez biztosítja, hogy a "
+"Hotjar a lehető leghamarabb elkezdi a látogatók nyomon követését."
+
+#. ID
+#: includes/service/service-mailpoet.php:116
+msgid "[Mailpoet] Description"
+msgstr "[Mailpoet] Leírás"
+
+#: includes/service/service-mailpoet.php:124
+msgid "Mailpoet"
+msgstr "Mailpoet"
+
+#: includes/service/service-mailpoet.php:224
+msgid "Mailpoet gathers data entered by users in forms"
+msgstr "Mailpoet összegyűjti a felhasználók által űrlapon megadott adatokat"
+
+#: includes/service/service-flamingo.php:124
+msgid "Flamingo gathers data entered by users in CF7 forms"
+msgstr ""
+"A Flamingo összegyűjti a felhasználók által a CF7 formában megadott adatokat"
+
+#: includes/service/service-cf7db.php:189
+msgid "Contact Form CFDB7 gathers data entered by users in Contact Form 7"
+msgstr ""
+"Contact Form CFDB7 összegyűjti a felhasználók által a CF7 formában megadott "
+"adatokat"
+
+#: includes/service/service-wp-posts.php:82
+msgid "Could not update post data for posts: %s"
+msgstr ""
+"A következő bejegyzésekhez nem lehet frissíteni a bejegyzés adatokat: %s"
+
+#: includes/service/service-wp-posts.php:100
+msgid "[WP Posts] Delete posts instead of reassigning to a different user?"
+msgstr ""
+"[WP Posts] Bejegyzés törlése ahelyett, hogy más felhasználóhoz rendelné?"
+
+#: includes/service/service-wp-posts.php:124
+msgid "[WordPress Posts] Description"
+msgstr "[WordPress Posts] Leírás"
+
+#: includes/service/service-wp-posts.php:132
+msgid ""
+"[WP Posts] Enter the user email whom the posts will be reassigned to "
+"(default is admin)"
+msgstr ""
+"[WP Posts] Adja meg a felhasználó e-mail címét, melynek a bejegyzéseit át "
+"szeretné adni (alapértelmezett az admin)"
+
+#: includes/service/service-wp-posts.php:190
+msgid "WordPress posts author data"
+msgstr "WordPress bejegyzések szerzői adatai"
+
+#: includes/service/service-mailster.php:222
+msgid "[%s] Inject consent checkbox to unsubscribe forms"
+msgstr "[%s] A beleegyezés beírása jelölőnégyzetet a leiratkozási űrlapokba"
+
+#: includes/service/service-mailster.php:233
+msgid "Mailster"
+msgstr "Email címe"
+
+#: includes/service/service-mailster.php:447
+msgid "Consent is missing"
+msgstr "A tartalom hiányzik"
+
+#: includes/service/service-mailster.php:460
+msgid "Mailster collects signed in user data"
+msgstr "A Mailster összegyűjti a bejelentkezett felhasználók adatait"
+
+#: includes/service/service-arforms.php:137
+msgid "[ARForms] Description"
+msgstr "[ARForms] Leírás"
+
+#: includes/service/service-arforms.php:156
+msgid "ARForms"
+msgstr "ARForms"
+
+#: includes/service/service-arforms.php:272
+msgid "ARForms gathers data entered by users in forms"
+msgstr "Az ARForms a felhasználók által űrlapon megadott adatokat gyűjti össze"
+
+#: includes/controller/controller-data-access.php:170 
+#: includes/controller/controller-rectification.php:188 
+#: includes/controller/controller-forgotten.php:221 
+#: includes/controller/controller-unsubscribe.php:192
+msgid "Wrong email!"
+msgstr "Hibás e-mail cím!"
+
+#: includes/controller/controller-data-access.php:176 
+#: includes/controller/controller-rectification.php:193 
+#: includes/controller/controller-forgotten.php:226 
+#: includes/controller/controller-unsubscribe.php:198
+msgid "Recaptcha error!"
+msgstr "Recaptcha hiba!"
+
+#: includes/controller/controller-data-access.php:189
+msgid "[Ultimate GDPR] New Data Access request"
+msgstr "[Ultimate GDPR] Új adathozzáférési kérelem"
+
+#: includes/controller/controller-data-access.php:191
+msgid "There is a new data access request from email %s. See details at %s"
+msgstr ""
+"Új adathozzáférési kérelem érkezett az alábbi e-mail címről: %s. Nézze meg a "
+"részleteket itt: %s"
+
+#: includes/controller/controller-data-access.php:199 
+#: includes/controller/controller-rectification.php:219 
+#: includes/controller/controller-forgotten.php:265 
+#: includes/controller/controller-unsubscribe.php:238
+msgid "Your request was sent!"
+msgstr "Kérelme elküldve!"
+
+#: includes/controller/controller-data-access.php:311 
+#: includes/controller/controller-rectification.php:323 
+#: includes/controller/controller-unsubscribe.php:392
+msgid "Data was sent to email: %s"
+msgstr "Adatok elküldve a %s e-mail címre"
+
+#: includes/controller/controller-data-access.php:347 
+#: includes/controller/controller-rectification.php:362 
+#: includes/controller/controller-unsubscribe.php:432
+msgid "The following emails were removed from the list: %s"
+msgstr "A következő e-mail címeket eltávolítottuk a listáról: %s"
+
+#: includes/controller/controller-data-access.php:508
+msgid "Data access settings"
+msgstr "Adathozzáférési beállítások"
+
+#. ID
+#: includes/controller/controller-data-access.php:519
+msgid "Automatically send data to all users on their request"
+msgstr "Automatikusan elküldi az adatokat az összes felhasználónak kérésére"
+
+#: includes/controller/controller-data-access.php:527
+msgid "Remove empty fields in Data Access Request List"
+msgstr "Távolítsa el az üres mezőket Adathozzáférési kérelmek listája"
+
+#: includes/controller/controller-data-access.php:535
+msgid "Email to send new request notifications to"
+msgstr "E-mail az új kérési értesítések küldésére"
+
+#: includes/controller/controller-data-access.php:543 
+#: includes/controller/controller-breach.php:136
+msgid "Mail title"
+msgstr "Email címe"
+
+#: includes/controller/controller-data-access.php:551 
+#: includes/controller/controller-breach.php:144
+msgid "Mail content"
+msgstr "Email tartalma"
+
+#: includes/controller/controller-data-access.php:649
+msgid "[Ultimate GDPR] Data request results from %s"
+msgstr "[Ultimate GDPR] Adathozzáférés eredményei %s-tól"
+
+#: includes/controller/controller-data-access.php:650
+msgid "Please find data attached"
+msgstr "Csatolva találja az adatait"
+
+#: includes/controller/controller-cookie.php:194 
+#: includes/controller/controller-admin.php:487
+msgid "Enabled"
+msgstr "Bekapcsolt"
+
+#: includes/controller/controller-cookie.php:195 
+#: includes/controller/controller-admin.php:488
+msgid "Enable"
+msgstr "Engedélyezze"
+
+#: includes/controller/controller-cookie.php:196 
+#: includes/controller/controller-admin.php:489
+msgid "Disabled"
+msgstr "Tiltva"
+
+#: includes/controller/controller-cookie.php:197 
+#: includes/controller/controller-admin.php:490
+msgid "Disable"
+msgstr "Kikapcsolja"
+
+#: includes/controller/controller-cookie.php:1094 
+#: includes/controller/controller-cookie.php:5396
+msgid ""
+"<h3>Please navigate to <a href='%s'>Service Manager</a> tab to see all "
+"detected cookies.</h3>"
+msgstr ""
+"<h3> Keresse fel a <a href='%s'> Szervizkezelő </a> lapot az összes észlelt "
+"cookie megjelenítéséhez. </h3>"
+
+#: includes/controller/controller-cookie.php:1181 
+#: includes/controller/controller-cookie.php:1182
+msgid "Cookie Consent"
+msgstr "Cookie engedély"
+
+#: includes/controller/controller-cookie.php:1190 
+#: includes/controller/controller-cookie.php:1191
+msgid "Services Manager"
+msgstr "Szolgáltatások menedzser"
+
+#. ID
+#: includes/controller/controller-cookie.php:1213 
+#: includes/controller/controller-cookie.php:1359
+msgid "Cookie popup content"
+msgstr "Cookie felugró tartalom"
+
+#. ID
+#: includes/controller/controller-cookie.php:1220
+msgid "Buttons labels"
+msgstr "A gombok címkéket"
+
+#. ID
+#: includes/controller/controller-cookie.php:1227
+msgid "Options"
+msgstr "Lehetőségek"
+
+#. ID
+#: includes/controller/controller-cookie.php:1234
+msgid "Google Analytics Tracking ID"
+msgstr "Google Analytics nyomon követési azonosító"
+
+#. ID
+#: includes/controller/controller-cookie.php:1250
+msgid "Cookie check"
+msgstr "Cookie ellenőrzés"
+
+#. ID
+#: includes/controller/controller-cookie.php:1257
+msgid "Buttons styles"
+msgstr "Gombok stílusok"
+
+#. ID
+#: includes/controller/controller-cookie.php:1271
+msgid "Position of the cookie notice box"
+msgstr "A cookie értesítési mező helye"
+
+#. ID
+#: includes/controller/controller-cookie.php:1278
+msgid "Cookie notice box"
+msgstr "Cookie értesítési doboz"
+
+#. ID
+#: includes/controller/controller-cookie.php:1285
+msgid "Protection shortcode"
+msgstr "Védelmi rövid kód"
+
+#. ID
+#: includes/controller/controller-cookie.php:1292 
+#: includes/controller/controller-cookie.php:1630
+msgid "Custom style CSS"
+msgstr "Egyéni stílus CSS"
+
+#. ID
+#: includes/controller/controller-cookie.php:1301
+msgid "Advanced Cookies Settings"
+msgstr "Speciális cookie-k beállításai"
+
+#. ID
+#: includes/controller/controller-cookie.php:1309
+msgid "Trigger cookie"
+msgstr "Érvényesítő cookie"
+
+#. ID
+#: includes/controller/controller-cookie.php:1316
+msgid "Modal styles"
+msgstr "Modális stílusok"
+
+#. ID
+#: includes/controller/controller-cookie.php:1323
+msgid "Lists of features"
+msgstr "A funkciók listája"
+
+#. ID
+#: includes/controller/controller-cookie.php:1331
+msgid "Labels"
+msgstr "Címkék"
+
+#. ID
+#: includes/controller/controller-cookie.php:1338
+msgid "Additional settings"
+msgstr "További beállítások"
+
+#. ID
+#: includes/controller/controller-cookie.php:1351
+msgid ""
+"Provide default content for the selected language (remember to save changes)"
+msgstr ""
+"Adja meg a kiválasztott nyelv alapértelmezett tartalmát (ne felejtse el "
+"menteni a változtatásokat)"
+
+#. ID
+#: includes/controller/controller-cookie.php:1368
+msgid "Cookie popup 'accept' button label (leave empty for default)"
+msgstr ""
+"Cookie popup \"accept\" gomb címkéje (hagyja üresen az alapértelmezett "
+"értéket)"
+
+#. ID
+#: includes/controller/controller-cookie.php:1376
+msgid "Cookie popup 'read more' button label (leave empty for default)"
+msgstr ""
+"A cookie-k előugró \"többet\" gomb címkéje (hagyja üresen az alapértelmezett "
+"értéket)"
+
+#. ID
+#: includes/controller/controller-cookie.php:1384
+msgid "Cookie popup 'change settings' button label (leave empty for default)"
+msgstr ""
+"Cookie popup \"change settings\" gomb címkéje (hagyja üresen az "
+"alapértelmezett értéket)"
+
+#: includes/controller/controller-cookie.php:1392
+msgid "Open \"Read More\" in a new tab"
+msgstr "Nyissa meg a \"Read More\" új lapon"
+
+#: includes/controller/controller-cookie.php:1401
+msgid "Display cookie popup on all pages"
+msgstr "A cookie-k felugró ablakának megjelenítése minden oldalon"
+
+#: includes/controller/controller-cookie.php:1409
+msgid "Check if user is from European Union"
+msgstr "Ellenőrizze, hogy a felhasználó az Európai Unióból származik-e"
+
+#: includes/controller/controller-cookie.php:1417
+msgid "Select page where to display the cookie popup"
+msgstr "Válassza ki az oldalat, ahol megjelenik a cookie-k előugró ablak"
+
+#: includes/controller/controller-cookie.php:1428
+msgid "Choose how often cookie check should be performed"
+msgstr ""
+"Válassza ki, hogy milyen gyakran kell a cookie-ellenőrzést végrehajtani"
+
+#: includes/controller/controller-cookie.php:1436
+msgid "Choose default level of new cookies"
+msgstr "Válassza az új cookie-k alapértelmezett szintjét"
+
+#: includes/controller/controller-cookie.php:1444
+msgid "Cookies whitelist (never block these cookies, comma separated)"
+msgstr ""
+"Cookie-k fehérlistája (soha ne tiltsa le ezeket a cookie-kat, vesszővel "
+"elválasztva)"
+
+#: includes/controller/controller-cookie.php:1452
+msgid "Block selected/all cookies until user consents"
+msgstr ""
+"Blokkolja a kiválasztott / az összes cookie-t, amíg a felhasználó nem "
+"engedélyezi"
+
+#: includes/controller/controller-cookie.php:1460 
+#: includes/controller/controller-terms.php:490 
+#: includes/controller/controller-policy.php:129
+msgid "Set consent expire time [s]"
+msgstr "Hozzájárulási idő lejáratának beállítása [s]"
+
+#: includes/controller/controller-cookie.php:1471
+msgid "Button settings by"
+msgstr "A gomb beállításai"
+
+#: includes/controller/controller-cookie.php:1480
+msgid "Button shape"
+msgstr "Gomb alak"
+
+#: includes/controller/controller-cookie.php:1489
+msgid "Button size"
+msgstr "Gomb méret"
+
+#: includes/controller/controller-cookie.php:1498
+msgid "Button text color"
+msgstr "A gomb szövegének színe"
+
+#: includes/controller/controller-cookie.php:1508
+msgid "Button background color"
+msgstr "Gomb háttérszíne"
+
+#: includes/controller/controller-cookie.php:1517
+msgid "Button border color"
+msgstr "Gomb szegély színe"
+
+#: includes/controller/controller-cookie.php:1528
+msgid "Read more page"
+msgstr "Olvassa el az oldalt"
+
+#: includes/controller/controller-cookie.php:1536
+msgid "Read More Custom URL"
+msgstr "További egyéni URL"
+
+#: includes/controller/controller-cookie.php:1545
+msgid "Active Tab"
+msgstr "Aktív lap"
+
+#: includes/controller/controller-cookie.php:1559
+msgid "Position"
+msgstr "Pozíció"
+
+#: includes/controller/controller-cookie.php:1567
+msgid "Distance from border [px]"
+msgstr "Távolság a határról [px]"
+
+#: includes/controller/controller-cookie.php:1578
+msgid "Box style"
+msgstr "Box stílus"
+
+#: includes/controller/controller-cookie.php:1586
+msgid "Box shape"
+msgstr "Doboz alakú"
+
+#: includes/controller/controller-cookie.php:1594
+msgid "Background color"
+msgstr "Háttérszín"
+
+#: includes/controller/controller-cookie.php:1602
+msgid "Background image"
+msgstr "Háttérkép"
+
+#: includes/controller/controller-cookie.php:1610
+msgid "Text color"
+msgstr "Szöveg szín"
+
+#: includes/controller/controller-cookie.php:1620
+msgid "Protection shortcode label"
+msgstr "Védelmi rövidített címke"
+
+#: includes/controller/controller-cookie.php:1643
+msgid "Show advanced cookie popup always, even when the consent is given"
+msgstr ""
+"A fejlett cookie-k felugró ablakának megjelenítése mindig akkor is, ha a "
+"beleegyezést megadta"
+
+#: includes/controller/controller-cookie.php:1651
+msgid "Use advanced cookie groups popup"
+msgstr "Használja a fejlett cookie-csoportok felugró ablakát"
+
+#: includes/controller/controller-cookie.php:1659 
+#: includes/controller/controller-cookie.php:1667
+msgid "Advanced cookie groups popup header content"
+msgstr "A fejlett cookie-csoportok felugró fejléc-tartalmat"
+
+#: includes/controller/controller-cookie.php:1678
+msgid "Trigger cookie settings by"
+msgstr "A cookie beállítások aktiválása"
+
+#: includes/controller/controller-cookie.php:1686
+msgid "Trigger cookie settings icon"
+msgstr "A cookie-beállítások ikonjának megjelenítése"
+
+#: includes/controller/controller-cookie.php:1694
+msgid "Trigger cookie settings text"
+msgstr "A cookie-beállítások szövegének aktiválása"
+
+#: includes/controller/controller-cookie.php:1702
+msgid "Trigger cookie settings background color"
+msgstr "A cookie-beállítások háttérszínének beállítása"
+
+#: includes/controller/controller-cookie.php:1710
+msgid "Trigger cookie settings shape"
+msgstr "A cookie-beállítások létrehozása"
+
+#: includes/controller/controller-cookie.php:1718
+msgid "Trigger cookie settings position"
+msgstr "A cookie-beállítások beállítása"
+
+#: includes/controller/controller-cookie.php:1726
+msgid "Trigger cookie settings color"
+msgstr "A cookie-beállítások színének aktiválása"
+
+#: includes/controller/controller-cookie.php:1736
+msgid "List of features available for Essential level (semicolon separated)"
+msgstr ""
+"Az Essential szinthez rendelkezésre álló funkciók listája (pontosvesszővel "
+"elválasztva)"
+
+#: includes/controller/controller-cookie.php:1744
+msgid ""
+"List of features not available for Essential level (semicolon separated)"
+msgstr ""
+"Az Essential szinthez nem elérhető funkciók listája (pontosvesszővel "
+"elválasztva)"
+
+#: includes/controller/controller-cookie.php:1752
+msgid ""
+"List of features available for Functionality level (semicolon separated)"
+msgstr ""
+"A funkcionalitás szintjén rendelkezésre álló funkciók listája "
+"(pontosvesszővel elválasztva)"
+
+#: includes/controller/controller-cookie.php:1760
+msgid ""
+"List of features not available for Functionality level (semicolon separated)"
+msgstr ""
+"A funkcionalitás szintjén nem elérhető funkciók listája (pontosvesszővel "
+"elválasztva)"
+
+#: includes/controller/controller-cookie.php:1768
+msgid "List of features available for Analytics level (semicolon separated)"
+msgstr ""
+"Az Analytics szintjén rendelkezésre álló funkciók listája (pontosvesszővel "
+"elválasztva)"
+
+#: includes/controller/controller-cookie.php:1776
+msgid ""
+"List of features not available for Analytics level (semicolon separated)"
+msgstr ""
+"Az Analytics szintjén nem elérhető funkciók listája (pontosvesszővel "
+"elválasztva)"
+
+#: includes/controller/controller-cookie.php:1784
+msgid "List of features available for Advertising level (semicolon separated)"
+msgstr ""
+"A hirdetési szinthez rendelkezésre álló funkciók listája (pontosvesszővel "
+"elválasztva)"
+
+#: includes/controller/controller-cookie.php:1792
+msgid ""
+"List of features not available for Advertising level (semicolon separated)"
+msgstr ""
+"A hirdetési szinthez nem elérhető funkciók listája (pontosvesszővel "
+"elválasztva)"
+
+#: includes/controller/controller-cookie.php:1803
+msgid "Cookie modal header color"
+msgstr "A cookie modális fejléc színe"
+
+#: includes/controller/controller-cookie.php:1811
+msgid "Cookie modal text color"
+msgstr "A cookie modális szöveg színe"
+
+#: includes/controller/controller-cookie.php:1819
+msgid "Cookie modal skin"
+msgstr "Cookie modális bőr"
+
+#: includes/controller/controller-cookie.php:1830
+msgid "<i>This website will</i> label"
+msgstr "<i> Ez a webhely </i> címkét"
+
+#: includes/controller/controller-cookie.php:1838
+msgid "<i>This website won't</i> label"
+msgstr "<i> Ez a weboldal nem </i> címkével rendelkezik"
+
+#: includes/controller/controller-cookie.php:1846
+msgid "Hide \"Block All\" level features"
+msgstr "A \"Block All\" szintű funkciók elrejtése"
+
+#: includes/controller/controller-cookie.php:1854
+msgid "Hide \"Essential\" level features"
+msgstr "Az \"Alapvető\" szintű funkciók elrejtése"
+
+#: includes/controller/controller-cookie.php:1862
+msgid "Hide \"Functionality\" level features"
+msgstr "A \"Funkcionalitás\" szintű funkciók elrejtése"
+
+#: includes/controller/controller-cookie.php:1870
+msgid "Hide \"Analytics\" level features"
+msgstr "Az \"Analytics\" szintű szolgáltatások elrejtése"
+
+#: includes/controller/controller-cookie.php:1878
+msgid "Hide \"Advertising\" level features"
+msgstr "A \"Reklám\" szintű funkciók elrejtése"
+
+#: includes/controller/controller-cookie.php:1886
+msgid "<i>Block all</i> label"
+msgstr "<i> Blokkolja az összes </i> címkét"
+
+#: includes/controller/controller-cookie.php:1894
+msgid "<i>Essentials</i> label"
+msgstr "<i> Essentials </i> címkét"
+
+#: includes/controller/controller-cookie.php:1902
+msgid "<i>Functionality</i> label"
+msgstr "<i> Funkcionalitás </i> címke"
+
+#: includes/controller/controller-cookie.php:1910
+msgid "<i>Analytics</i> label"
+msgstr "<i> Analytics </i> címkét"
+
+#: includes/controller/controller-cookie.php:1918
+msgid "<i>Advertising</i> label"
+msgstr "<i> Hirdetési </i> címke"
+
+#. ID
+#: includes/controller/controller-cookie.php:1928
+msgid ""
+"Advanced cookie popup 'save & close' button label (leave empty for default)"
+msgstr ""
+"Haladó cookie-k előugró 'mentés és bezárás' gomb címke (hagyja üresen az "
+"alapértelmezett értéket)"
+
+#: includes/controller/controller-cookie.php:1936
+msgid "Select default privacy group"
+msgstr "Válassza ki az alapértelmezett adatvédelmi csoportot"
+
+#: includes/controller/controller-cookie.php:1944
+msgid "Reload page when user saves changes"
+msgstr "Oldal újratöltése, amikor a felhasználó elmenti a módosításokat"
+
+#: includes/controller/controller-cookie.php:1953
+msgid "Select privacy group after user accepts cookies in the popup"
+msgstr ""
+"Válassza ki az adatvédelmi csoportot, miután a felhasználó elfogadja a "
+"cookie-kat a felugró ablakban"
+
+#: includes/controller/controller-cookie.php:2050
+msgid "Never"
+msgstr "Soha"
+
+#: includes/controller/controller-cookie.php:2051
+msgid "Weekly"
+msgstr "Heti"
+
+#: includes/controller/controller-cookie.php:2052
+msgid "Monthly"
+msgstr "Havi"
+
+#: includes/controller/controller-cookie.php:2053
+msgid "Quarterly"
+msgstr "Negyedévenként"
+
+#: includes/controller/controller-cookie.php:2081
+msgid "Select"
+msgstr "Választ"
+
+#: includes/controller/controller-cookie.php:2113
+msgid "Load"
+msgstr "Betöltés"
+
+#: includes/controller/controller-cookie.php:2365
+msgid "Update"
+msgstr "Frissítés"
+
+#: includes/controller/controller-cookie.php:2366
+msgid "Remove"
+msgstr "Eltávolít"
+
+#: includes/controller/controller-cookie.php:2383
+msgid "Classic"
+msgstr "Klasszikus"
+
+#: includes/controller/controller-cookie.php:2384
+msgid "Classic Dark"
+msgstr "Klasszikus sötét"
+
+#: includes/controller/controller-cookie.php:2385
+msgid "Classic Light"
+msgstr "Klasszikus fény"
+
+#: includes/controller/controller-cookie.php:2386
+msgid "Modern"
+msgstr "Modern"
+
+#: includes/controller/controller-cookie.php:2387
+msgid "Apas Blue"
+msgstr "Apas Blue"
+
+#: includes/controller/controller-cookie.php:2388
+msgid "Apas Black"
+msgstr "Apas Black"
+
+#: includes/controller/controller-cookie.php:2389
+msgid "Apas White"
+msgstr "Apas White"
+
+#: includes/controller/controller-cookie.php:2390
+msgid "Kahk Blue"
+msgstr "Kahk Blue"
+
+#: includes/controller/controller-cookie.php:2391
+msgid "Kahk Black"
+msgstr "Kahk Black"
+
+#: includes/controller/controller-cookie.php:2392
+msgid "Kahk White"
+msgstr "Kahk White"
+
+#: includes/controller/controller-cookie.php:2393
+msgid "Oreo Blue"
+msgstr "Oreo Blue"
+
+#: includes/controller/controller-cookie.php:2394
+msgid "Oreo Black"
+msgstr "Oreo Black"
+
+#: includes/controller/controller-cookie.php:2395
+msgid "Oreo White"
+msgstr "Oreo White"
+
+#: includes/controller/controller-cookie.php:2396
+msgid "Wafer Blue"
+msgstr "Wafer Blue"
+
+#: includes/controller/controller-cookie.php:2397
+msgid "Wafer Black"
+msgstr "Wafer Black"
+
+#: includes/controller/controller-cookie.php:2398
+msgid "Wafer White"
+msgstr "Wafer White"
+
+#: includes/controller/controller-cookie.php:2399
+msgid "Jumble Blue"
+msgstr "Jumble Blue"
+
+#: includes/controller/controller-cookie.php:2400
+msgid "Jumble Black"
+msgstr "Jumble Black"
+
+#: includes/controller/controller-cookie.php:2401
+msgid "Jumble White"
+msgstr "Jumble White"
+
+#: includes/controller/controller-cookie.php:2402
+msgid "Khapse Blue"
+msgstr "Khapse Blue"
+
+#: includes/controller/controller-cookie.php:2403
+msgid "Khapse Black"
+msgstr "Khapse Black"
+
+#: includes/controller/controller-cookie.php:2404
+msgid "Khapse White"
+msgstr "Khapse White"
+
+#: includes/controller/controller-cookie.php:2405
+msgid "Tareco Blue"
+msgstr "Tareco Blue"
+
+#: includes/controller/controller-cookie.php:2406
+msgid "Tareco Black"
+msgstr "Tareco Black"
+
+#: includes/controller/controller-cookie.php:2407
+msgid "Tareco White"
+msgstr "Tareco White"
+
+#: includes/controller/controller-cookie.php:2408
+msgid "Kichel Blue"
+msgstr "Kichel Blue"
+
+#: includes/controller/controller-cookie.php:2409
+msgid "Kichel Black"
+msgstr "Kichel Black"
+
+#: includes/controller/controller-cookie.php:2410
+msgid "Kichel White"
+msgstr "Kichel White"
+
+#: includes/controller/controller-cookie.php:2411
+msgid "Macaron Blue"
+msgstr "Macaron Blue"
+
+#: includes/controller/controller-cookie.php:2412
+msgid "Macaron Black"
+msgstr "Macaron Black"
+
+#: includes/controller/controller-cookie.php:2413
+msgid "Macaron White"
+msgstr "Macaron White"
+
+#: includes/controller/controller-cookie.php:2414
+msgid "Wibele Blue"
+msgstr "Wibele Blue"
+
+#: includes/controller/controller-cookie.php:2415
+msgid "Wibele Black"
+msgstr "Wibele Black"
+
+#: includes/controller/controller-cookie.php:2416
+msgid "Wibele White"
+msgstr "Wibele White"
+
+#: includes/controller/controller-cookie.php:2445 
+#: includes/controller/controller-cookie.php:2506 
+#: includes/controller/controller-cookie.php:3475
+msgid "Rounded"
+msgstr "Lekerekített"
+
+#: includes/controller/controller-cookie.php:2446 
+#: includes/controller/controller-cookie.php:2507 
+#: includes/controller/controller-cookie.php:3476
+msgid "Squared"
+msgstr "Négyzetben"
+
+#: includes/controller/controller-cookie.php:2476 
+#: includes/controller/controller-cookie.php:3316
+msgid "Text Only"
+msgstr "Csak szöveg"
+
+#: includes/controller/controller-cookie.php:2477 
+#: includes/controller/controller-cookie.php:3318
+msgid "Icon and Text"
+msgstr "Ikon és szöveg"
+
+#: includes/controller/controller-cookie.php:2577
+msgid "Normal"
+msgstr "Normál"
+
+#: includes/controller/controller-cookie.php:2578
+msgid "Large"
+msgstr "Nagy"
+
+#: includes/controller/controller-cookie.php:3237
+msgid "Front page"
+msgstr "Címlap"
+
+#: includes/controller/controller-cookie.php:3240
+msgid "Posts page"
+msgstr "Hozzászólások oldal"
+
+#: includes/controller/controller-cookie.php:3265
+msgid "Bottom left"
+msgstr "Bal alsó"
+
+#: includes/controller/controller-cookie.php:3266
+msgid "Bottom right"
+msgstr "Jobb alsó"
+
+#: includes/controller/controller-cookie.php:3267
+msgid "Bottom panel"
+msgstr "Alsó panel"
+
+#: includes/controller/controller-cookie.php:3268
+msgid "Top left"
+msgstr "Bal felső"
+
+#: includes/controller/controller-cookie.php:3269
+msgid "Top right"
+msgstr "Jobb felső"
+
+#: includes/controller/controller-cookie.php:3270
+msgid "Top panel"
+msgstr "A felső panel"
+
+#: includes/controller/controller-cookie.php:3317
+msgid "Icon Only"
+msgstr "Csak ikon"
+
+#: includes/controller/controller-cookie.php:3402
+msgid "Top Left"
+msgstr "Bal felső"
+
+#: includes/controller/controller-cookie.php:3403
+msgid "Top center"
+msgstr "Középső központ"
+
+#: includes/controller/controller-cookie.php:3404
+msgid "Top Right"
+msgstr "Jobb felső"
+
+#: includes/controller/controller-cookie.php:3405
+msgid "Center Left"
+msgstr "Balra középen"
+
+#: includes/controller/controller-cookie.php:3406
+msgid "Center Right"
+msgstr "Középre igaz"
+
+#: includes/controller/controller-cookie.php:3407
+msgid "Bottom Left"
+msgstr "Bal alsó"
+
+#: includes/controller/controller-cookie.php:3408
+msgid "Bottom Center"
+msgstr "Alsó Központ"
+
+#: includes/controller/controller-cookie.php:3409
+msgid "Bottom Right"
+msgstr "Jobb alsó"
+
+#: includes/controller/controller-cookie.php:3474
+msgid "Round"
+msgstr "Kerek"
+
+#: includes/controller/controller-cookie.php:3537 
+#: includes/controller/controller-forgotten.php:809
+msgid "Default"
+msgstr "Alapértelmezett"
+
+#: includes/controller/controller-cookie.php:3538
+msgid "Neutral"
+msgstr "Semleges"
+
+#: includes/controller/controller-cookie.php:3539
+msgid "Modern Blue"
+msgstr "Modern kék"
+
+#: includes/controller/controller-cookie.php:3540
+msgid "Compact Dark Blue"
+msgstr "Kompakt sötétkék"
+
+#: includes/controller/controller-cookie.php:3541
+msgid "Compact Light Blue"
+msgstr "Kompakt világoskék"
+
+#: includes/controller/controller-cookie.php:3542
+msgid "Compact Green"
+msgstr "Kompakt zöld"
+
+#: includes/controller/controller-cookie.php:3615
+msgid "This website won't:"
+msgstr "Ez a weboldal nem fog:"
+
+#: includes/controller/controller-cookie.php:3617 
+#: includes/model/model-group.php:73 includes/model/model-group.php:91
+msgid "Block all"
+msgstr "Összes blokkolása"
+
+#: includes/controller/controller-cookie.php:3618
+msgid "Essentials"
+msgstr "Essentials"
+
+#: includes/controller/controller-cookie.php:3619 
+#: includes/model/model-group.php:55 includes/model/model-group.php:88
+msgid "Functionality"
+msgstr "Használhatóság"
+
+#: includes/controller/controller-cookie.php:3620 
+#: includes/model/model-group.php:61 includes/model/model-group.php:89
+msgid "Analytics"
+msgstr "Analitika"
+
+#: includes/controller/controller-cookie.php:3621 
+#: includes/model/model-group.php:67 includes/model/model-group.php:90
+msgid "Advertising"
+msgstr "Reklám"
+
+#: includes/controller/controller-cookie.php:3622
+msgid ""
+"Essential: Remember your cookie permission setting; Essential: Allow session "
+"cookies; Essential: Gather information you input into a contact forms, "
+"newsletter and other forms across all pages; Essential: Keep track of what "
+"you input in a shopping cart; Essential: Authenticate that you are logged "
+"into your user account; Essential: Remember language version you selected;"
+msgstr ""
+"Alapvető: Ne feledkezzen meg a cookie engedélybeállításáról; Alapvető: "
+"Engedélyezze a munkamenet cookie-kat; Alapvető: összegyűjti azokat az "
+"információkat, amelyeket egy űrlapon, hírlevélben és más formában minden "
+"oldalon megtalál; Alapvető: Tartsa nyomon a bevásárlókosárban bevitt "
+"adatokat; Alapvető: Hitelesítése, hogy bejelentkezett a felhasználói "
+"fiókjába; Alapvető: Ne feledje a kiválasztott nyelvi verziót;"
+
+#: includes/controller/controller-cookie.php:3623
+msgid ""
+"Remember your login details; Functionality: Remember social media settings; "
+"Functionality: Remember selected region and country; Analytics: Keep track "
+"of your visited pages and interaction taken; Analytics: Keep track about "
+"your location and region based on your IP number; Analytics: Keep track of "
+"the time spent on each page; Analytics: Increase the data quality of the "
+"statistics functions; Advertising: Tailor information and advertising to "
+"your interests based on e.g. the content you have visited before. (Currently "
+"we do not use targeting or targeting cookies.; Advertising: Gather "
+"personally identifiable information such as name and location;"
+msgstr ""
+"Ne feledje a bejelentkezési adatait; Funkcionalitás: Ne felejtse el a "
+"közösségi média beállításait; Funkcionalitás: Ne feledje, hogy kiválasztott "
+"régió és ország; Analytics: nyomon kövesse a látogatott oldalakat és a "
+"kölcsönhatásokat; Analytics: Tartsa nyomon az Ön helyét és régióját az IP-"
+"száma alapján; Analytics: nyomon kövesse az egyes oldalakra fordított időt; "
+"Analytics: növelni kell a statisztikai funkciók adatminőségét; Reklám: A "
+"személyre szabott információk és a hirdetés az Ön érdekeire alapozva, pl. az "
+"eddig meglátogatott tartalom. (Jelenleg nem használunk célzási vagy célzási "
+"cookie-kat. Reklám: Gyűjtsük össze a személyesen azonosítható adatokat, "
+"például a nevet és a helyszínt;"
+
+#: includes/controller/controller-cookie.php:3624
+msgid ""
+"Essential: Remember your cookie permission setting; Essential: Allow session "
+"cookies; Essential: Gather information you input into a contact forms, "
+"newsletter and other forms across all pages; Essential: Keep track of what "
+"you input in a shopping cart; Essential: Authenticate that you are logged "
+"into your user account; Essential: Remember language version you selected; "
+"Functionality: Remember social media settings; Functionality: Remember "
+"selected region and country;"
+msgstr ""
+"Alapvető: Ne feledkezzen meg a cookie engedélybeállításáról; Alapvető: "
+"Engedélyezze a munkamenet cookie-kat; Alapvető: összegyűjti azokat az "
+"információkat, amelyeket egy űrlapon, hírlevélben és más formában minden "
+"oldalon megtalál; Alapvető: Tartsa nyomon a bevásárlókosárban bevitt "
+"adatokat; Alapvető: Hitelesítése, hogy bejelentkezett a felhasználói "
+"fiókjába; Alapvető: Ne feledje a kiválasztott nyelvi verziót; Funkcionalitás:"
+" Ne felejtse el a közösségi média beállításait; Funkcionalitás: Ne feledje, "
+"hogy kiválasztott régió és ország;"
+
+#: includes/controller/controller-cookie.php:3625
+msgid ""
+"Remember your login details; Analytics: Keep track of your visited pages and "
+"interaction taken; Analytics: Keep track about your location and region "
+"based on your IP number; Analytics: Keep track of the time spent on each "
+"page; Analytics: Increase the data quality of the statistics functions; "
+"Advertising: Tailor information and advertising to your interests based on e."
+"g. the content you have visited before. (Currently we do not use targeting "
+"or targeting cookies.; Advertising: Gather personally identifiable "
+"information such as name and location;"
+msgstr ""
+"Ne feledje a bejelentkezési adatait; Analytics: nyomon kövesse a látogatott "
+"oldalakat és a kölcsönhatásokat; Analytics: Tartsa nyomon az Ön helyét és "
+"régióját az IP-száma alapján; Analytics: nyomon kövesse az egyes oldalakra "
+"fordított időt; Analytics: növelni kell a statisztikai funkciók "
+"adatminőségét; Reklám: A személyre szabott információk és a hirdetés az Ön "
+"érdekeire alapozva, pl. az eddig meglátogatott tartalom. (Jelenleg nem "
+"használunk célzási vagy célzási cookie-kat. Reklám: Gyűjtsük össze a "
+"személyesen azonosítható adatokat, például a nevet és a helyszínt;"
+
+#: includes/controller/controller-cookie.php:3626
+msgid ""
+"Essential: Remember your cookie permission setting; Essential: Allow session "
+"cookies; Essential: Gather information you input into a contact forms, "
+"newsletter and other forms across all pages; Essential: Keep track of what "
+"you input in a shopping cart; Essential: Authenticate that you are logged "
+"into your user account; Essential: Remember language version you selected; "
+"Functionality: Remember social media settingsl Functionality: Remember "
+"selected region and country; Analytics: Keep track of your visited pages and "
+"interaction taken; Analytics: Keep track about your location and region "
+"based on your IP number; Analytics: Keep track of the time spent on each "
+"page; Analytics: Increase the data quality of the statistics functions;"
+msgstr ""
+"Alapvető: Ne feledkezzen meg a cookie engedélybeállításáról; Alapvető: "
+"Engedélyezze a munkamenet cookie-kat; Alapvető: összegyűjti azokat az "
+"információkat, amelyeket egy űrlapon, hírlevélben és más formában minden "
+"oldalon megtalál; Alapvető: Tartsa nyomon a bevásárlókosárban bevitt "
+"adatokat; Alapvető: Hitelesítése, hogy bejelentkezett a felhasználói "
+"fiókjába; Alapvető: Ne feledje a kiválasztott nyelvi verziót; Funkcionalitás:"
+" Ne felejtse el a közösségi média beállításait1 Funkcionalitás: Ne feledje, "
+"hogy kiválasztott régió és ország; Analytics: nyomon kövesse a látogatott "
+"oldalakat és a kölcsönhatásokat; Analytics: Tartsa nyomon az Ön helyét és "
+"régióját az IP-száma alapján; Analytics: nyomon kövesse az egyes oldalakra "
+"fordított időt; Analytics: növelni kell a statisztikai funkciók "
+"adatminőségét;"
+
+#: includes/controller/controller-cookie.php:3627
+msgid ""
+"Remember your login details; Advertising: Use information for tailored "
+"advertising with third parties; Advertising: Allow you to connect to social "
+"sites; Advertising: Identify device you are using; Advertising: Gather "
+"personally identifiable information such as name and location"
+msgstr ""
+"Ne feledje a bejelentkezési adatait; Reklám: a harmadik felekkel történő "
+"személyre szabott hirdetésekkel kapcsolatos információk felhasználása; "
+"Hirdetések: Lehetővé teszik a közösségi oldalakhoz való kapcsolódást; Reklám:"
+" azonosítja az Ön által használt eszközt; Reklám: gyűjtsön "
+"személyazonosításra alkalmas adatokat, például nevét és helyét"
+
+#: includes/controller/controller-cookie.php:3628
+msgid ""
+"Essential: Remember your cookie permission setting; Essential: Allow session "
+"cookies; Essential: Gather information you input into a contact forms, "
+"newsletter and other forms across all pages; Essential: Keep track of what "
+"you input in a shopping cart; Essential: Authenticate that you are logged "
+"into your user account; Essential: Remember language version you selected; "
+"Functionality: Remember social media settingsl Functionality: Remember "
+"selected region and country; Analytics: Keep track of your visited pages and "
+"interaction taken; Analytics: Keep track about your location and region "
+"based on your IP number; Analytics: Keep track of the time spent on each "
+"page; Analytics: Increase the data quality of the statistics functions; "
+"Advertising: Use information for tailored advertising with third parties; "
+"Advertising: Allow you to connect to social sitesl Advertising: Identify "
+"device you are using; Advertising: Gather personally identifiable "
+"information such as name and location"
+msgstr ""
+"Alapvető: Ne feledkezzen meg a cookie engedélybeállításáról; Alapvető: "
+"Engedélyezze a munkamenet cookie-kat; Alapvető: összegyűjti azokat az "
+"információkat, amelyeket egy űrlapon, hírlevélben és más formában minden "
+"oldalon megtalál; Alapvető: Tartsa nyomon a bevásárlókosárban bevitt "
+"adatokat; Alapvető: Hitelesítése, hogy bejelentkezett a felhasználói "
+"fiókjába; Alapvető: Ne feledje a kiválasztott nyelvi verziót; Funkcionalitás:"
+" Ne felejtse el a közösségi média beállításait1 Funkcionalitás: Ne feledje, "
+"hogy kiválasztott régió és ország; Analytics: nyomon kövesse a látogatott "
+"oldalakat és a kölcsönhatásokat; Analytics: Tartsa nyomon az Ön helyét és "
+"régióját az IP-száma alapján; Analytics: nyomon kövesse az egyes oldalakra "
+"fordított időt; Analytics: növelni kell a statisztikai funkciók "
+"adatminőségét; Reklám: a harmadik felekkel történő személyre szabott "
+"hirdetésekkel kapcsolatos információk felhasználása; Reklám: lehetővé teszi, "
+"hogy csatlakozzon a közösségi oldalakhoz Advertising: azonosítsa az Ön által "
+"használt eszközt; Reklám: gyűjtsön személyazonosításra alkalmas adatokat, "
+"például nevét és helyét"
+
+#: includes/controller/controller-cookie.php:3629
+msgid "Remember your login details"
+msgstr "Ne feledje a bejelentkezési adatait"
+
+#: includes/controller/controller-cookie.php:3633
+msgid "This content requires cookies"
+msgstr "Ez a tartalom cookie-kat igényel"
+
+#: includes/controller/controller-cookie.php:5269
+msgid "Every week"
+msgstr "Minden héten"
+
+#: includes/controller/controller-cookie.php:5273
+msgid "Every month"
+msgstr "Minden hónap"
+
+#: includes/controller/controller-cookie.php:5277
+msgid "Every quarter"
+msgstr "Minden negyedévben"
+
+#: includes/controller/controller-cookie.php:5383
+msgid "Cookies detected: %s, Cookies saved: %s"
+msgstr "Siketek észlelve: %s, Mentett cookie: %s"
+
+#: includes/controller/controller-cookie.php:5595
+msgid ""
+"There was a problem with connecting to the cookie scanner. Skipped this url."
+msgstr "Probléma volt a cookie-lapolvasóval való kapcsolathoz. Ugrás az urlra."
+
+#: includes/controller/controller-rectification.php:106 
+#: includes/controller/controller-forgotten.php:309 
+#: includes/controller/controller-unsubscribe.php:102
+msgid "Your request was already confirmed."
+msgstr "Kérelmét már megerősítették."
+
+#: includes/controller/controller-rectification.php:131 
+#: includes/controller/controller-forgotten.php:334 
+#: includes/controller/controller-unsubscribe.php:127
+msgid "Your request was successfully confirmed."
+msgstr "Kérelmét sikeresen megerősítettük."
+
+#: includes/controller/controller-rectification.php:142
+msgid "[Ultimate GDPR] New Data Rectification request from %s"
+msgstr "[Ultimate GDPR] Új adat helyesbítési kérelem %s -tól"
+
+#: includes/controller/controller-rectification.php:150
+msgid ""
+"There is a new Data Rectification request from email %s. See details at %s"
+msgstr ""
+"Új Adat helyesbítési kérelem a %s e-mail címről. Nézze meg a részleteket itt:"
+" %s"
+
+#: includes/controller/controller-rectification.php:171 
+#: includes/controller/controller-forgotten.php:395 
+#: includes/controller/controller-unsubscribe.php:175
+msgid "Your request was not confirmed. Please check the link or contact admin."
+msgstr ""
+"Kérelme nem lett megerősítve. Kérjük ellenőrizze a linket vagy lépjen "
+"kapcsolatba az adminisztrátorral."
+
+#: includes/controller/controller-rectification.php:213
+msgid "[Ultimate GDPR] Please confirm your data rectification request from %s"
+msgstr "[Ultimate GDPR] Kérjük erősítse meg adat helyesbítési kérelmét %s -tól"
+
+#: includes/controller/controller-rectification.php:527
+msgid "Data Rectification settings"
+msgstr "Adat helyesbítési beállítások"
+
+#: includes/controller/controller-rectification.php:537 
+#: includes/controller/controller-unsubscribe.php:629
+msgid "Email to send admin notifications to"
+msgstr "E-mail cím az admin értesítések küldéséhez"
+
+#: includes/controller/controller-rectification.php:545 
+#: includes/controller/controller-unsubscribe.php:637
+msgid "User mail title"
+msgstr "Felhasználó e-mail címe"
+
+#: includes/controller/controller-rectification.php:553 
+#: includes/controller/controller-unsubscribe.php:645
+msgid "User mail content"
+msgstr "Felhasználó e-mail tartalma"
+
+#. ID
+#: includes/controller/controller-rectification.php:561 
+#: includes/controller/controller-forgotten.php:719 
+#: includes/controller/controller-unsubscribe.php:653
+msgid ""
+"Set custom URL to the page containing Ultimate GDPR shortcode as the email "
+"confirmation target page (or leave empty for autodetect)"
+msgstr ""
+"Állítson be egyéni URL-t az Ultimate GDPR shortcode-t tartalmazó oldalnak, "
+"mint e-mail megerősítési céloldalának (vagy hagyja üresen az automatikus "
+"észleléshez)"
+
+#: includes/controller/controller-rectification.php:647
+msgid "[Ultimate GDPR] Data rectification notice from %s"
+msgstr "[Ultimate GDPR] Adat helyesbítési értesítő %s - tól"
+
+#: includes/controller/controller-rectification.php:648
+msgid "Your data has been rectified"
+msgstr "Adatait javítottuk"
+
+#: includes/controller/controller-plugins.php:135 
+#: includes/controller/controller-plugins.php:136
+msgid "Plugins"
+msgstr "Bővítmények"
+
+#: includes/controller/controller-terms.php:169 
+#: includes/controller/controller-terms.php:170
+msgid "Terms And Conditions"
+msgstr "Felhasználási feltételek"
+
+#: includes/controller/controller-terms.php:423 
+#: includes/controller/controller-pseudonymization.php:155 
+#: includes/controller/controller-policy.php:54
+msgid "Instructions"
+msgstr "Útmutatók"
+
+#: includes/controller/controller-terms.php:434
+msgid "Require administrators to accept Terms and Conditions (redirect)"
+msgstr ""
+"Az adminisztrátoroknak elfogadniuk az Általános Szerződési Feltételeket "
+"(átirányítás)"
+
+#: includes/controller/controller-terms.php:442
+msgid "Require logged in users to accept Terms and Conditions (redirect)"
+msgstr ""
+"A bejelentkezett felhasználóknak el kell fogadniuk a Felhasználási "
+"feltételeket (átirányít)"
+
+#. ID
+#: includes/controller/controller-terms.php:450
+msgid "Require guest users to accept Terms and Conditions (redirect)"
+msgstr ""
+"A vendégfelhasználók elfogadása a Általános Szerződési Feltételek "
+"elfogadásához (átirányítás)"
+
+#. ID
+#: includes/controller/controller-terms.php:458
+msgid "The page with existing Terms and Conditions"
+msgstr "Az elfogadható feltételek után átirányított oldal"
+
+#. ID
+#: includes/controller/controller-terms.php:466
+msgid "The page to redirect to after Terms accepted"
+msgstr "Az elfogadható feltételek után átirányított oldal"
+
+#: includes/controller/controller-terms.php:474
+msgid "Terms and Condition Custom URL"
+msgstr "Felhasználási feltételek egyéni URL"
+
+#: includes/controller/controller-terms.php:482 
+#: includes/controller/controller-policy.php:121
+msgid "Shortcode Button Styling"
+msgstr "Rövid kód gomb stílus"
+
+#: includes/controller/controller-terms.php:498
+msgid ""
+"Terms version, eg. 1.0 (if you change it, user has to give consent again)"
+msgstr ""
+"Felhasználói feltételek verziója, pl. 1.0 (ha megváltoztatja, a "
+"felhasználóknak ismét el kell fogadniuk)"
+
+#: includes/controller/controller-terms.php:506
+msgid ""
+"Convert the following text to Terms and Conditions link in all services "
+"templates, eg. 'Terms and Conditions'"
+msgstr ""
+"A következő szöveg Felhasználói feltételek linkké való átalakítása minden "
+"szolgáltatási sablonon, pl. 'Felhasználói feltételek'"
+
+#. ID
+#: includes/controller/controller-terms.php:514 
+#: includes/controller/controller-policy.php:161
+msgid ""
+"Do not block user agents (eg. bots) containing the following texts (comma "
+"separated)"
+msgstr ""
+"Ne blokkolja a következő szövegeket tartalmazó felhasználói ügynököket (pl. "
+"Botokat) (vesszővel elválasztva)"
+
+#: includes/controller/controller-terms.php:544
+msgid ""
+"1. Place %s shortcode on your existing Terms and Conditions page to add an "
+"accept button.%s2. Select Terms and Conditions page below, so users can be "
+"redirected there to give their consent."
+msgstr ""
+"1. Helyezze el a %s shortcode-ot a már létező Felhasználási feltételek "
+"oldalon, hogy hozzáadjon az oldalhoz egy elfogadási gombot.%s2. Válassza ki "
+"a Felhasználási feltételek oldalt az alábbiakból, hogy a felhasználók ide "
+"legyenek átirányítva az elfogadáshoz."
+
+#: includes/controller/controller-terms.php:652 
+#: includes/controller/controller-policy.php:744
+msgid "Theme Default"
+msgstr "Téma alapértelmezett"
+
+#: includes/controller/controller-terms.php:653 
+#: includes/controller/controller-policy.php:745
+msgid "Cookie box buttons"
+msgstr "Cookie box gombok"
+
+#: includes/controller/controller-terms.php:729 
+#: includes/controller/controller-policy.php:717
+msgid "Last visited page"
+msgstr "Utoljára látogatott oldal"
+
+#: includes/controller/controller-terms.php:730 
+#: includes/controller/controller-policy.php:718
+msgid "Don't redirect"
+msgstr "Ne irányítsa át"
+
+#: includes/controller/controller-pseudonymization.php:111 
+#: includes/controller/controller-pseudonymization.php:112 
+#: includes/controller/controller-pseudonymization.php:135
+msgid "Pseudonymization"
+msgstr "Álnevesítés"
+
+#: includes/controller/controller-pseudonymization.php:126 
+#: includes/controller/controller-pseudonymization.php:265
+msgid "Encryption is not possible. Please check your openssl library."
+msgstr "Titkosítás nem lehetséges. Kérjük ellenőrizze az openssl könyvtárat."
+
+#: includes/controller/controller-pseudonymization.php:144
+msgid "Warning"
+msgstr "Figyelmeztetés"
+
+#: includes/controller/controller-pseudonymization.php:166
+msgid "Automatically encrypt new data"
+msgstr "Új adatok automatikus titkosítása"
+
+#: includes/controller/controller-pseudonymization.php:174
+msgid ""
+"Automatically decrypt all data on the fly (if you have anything encrypted, "
+"this is recommended)"
+msgstr ""
+"Összes adat automatikus dekódolása (ajánlott, ha bármilyen adata titkosítva "
+"van)"
+
+#: includes/controller/controller-pseudonymization.php:182
+msgid "Select data to encrypt"
+msgstr "Válassza ki a titkosítandó adatokat"
+
+#: includes/controller/controller-pseudonymization.php:230
+msgid ""
+"This feature is experimental and may lead to irreversible data lost! After "
+"encryption, it may be impossible for anyone to decrypt your data. "
+msgstr ""
+"Ez az opció kísérleti jellegű és visszafordíthatatlan adatvesztéshez "
+"vezethet! Kódolás után, lehetetlenné válhat bárki számára, hogy dekódolja az "
+"adatait. "
+
+#: includes/controller/controller-pseudonymization.php:242
+msgid ""
+"Pseudonymization feature allows you to encrypt some of the data stored in "
+"the database. That way, if anyone got access to your database, the user's "
+"data would be pseudonymized. Database contents are permanently encrypted and "
+"can be decrypted on the fly when accessed by users. You can also permanently "
+"decrypt all your contents."
+msgstr ""
+"A titkosítási funkció lehetővé teszi az adatbázisban tárolt adatok "
+"titkosítását. Így, ha valaki hozzáférhetett az adatbázishoz, a felhasználó "
+"adatai titkosítva lesznek. Az adatbázis tartalma folyamatosan titkosítva van "
+"és a felhasználók hozzáférése esetén visszafejthető. Az adatbázis tartalma "
+"véglegesen is visszafejthető."
+
+#: includes/controller/controller-pseudonymization.php:245
+msgid "How to use:"
+msgstr "Hogyan használja:"
+
+#: includes/controller/controller-pseudonymization.php:247
+msgid "1. Make a backup"
+msgstr "1. Készítsen biztonsági mentést"
+
+#: includes/controller/controller-pseudonymization.php:249
+msgid "2. Select which data to encrypt"
+msgstr "2. Válassza ki a titkosítani kívánt adatokat"
+
+#: includes/controller/controller-pseudonymization.php:251
+msgid ""
+"3. (Optionally) Select 'automatically encrypt new data' for continuous "
+"encryption of all incoming data"
+msgstr ""
+"3. (Opcionális) Válassza ki az 'új adatok automatikus titkosítása' opciót az "
+"újonnan érkező összes adat titkosításához"
+
+#: includes/controller/controller-pseudonymization.php:253
+msgid "4. Click 'Save changes'"
+msgstr "4. Kattintson a 'Változtatások mentése'"
+
+#: includes/controller/controller-pseudonymization.php:255
+msgid ""
+"5. (Optionally) Click 'Encrypt selected' to encrypt all current data which "
+"has not been yet encrypted"
+msgstr ""
+"5. (Opcionális) Kattintson 'Titkosítás' gombra mindazon adatok "
+"titkosításához, melyek eddig nem voltak titkosítva"
+
+#: includes/controller/controller-pseudonymization.php:279
+msgid "Data encrypted successfully"
+msgstr "Adatok sikeresen titkosítva"
+
+#: includes/controller/controller-pseudonymization.php:289
+msgid "Decryption is not possible. Please check your openssl library."
+msgstr "A dekódolás nem lehetséges. Kérjük, ellenőrizze az openssl könyvtárát."
+
+#: includes/controller/controller-pseudonymization.php:303
+msgid "Data decrypted successfully"
+msgstr "Adatok sikeresen dekódolva"
+
+#: includes/controller/controller-admin.php:230 
+#: includes/controller/controller-admin.php:273
+msgid "Please upload a file to import"
+msgstr "Töltsön be egy importálandó fájlt"
+
+#: includes/controller/controller-admin.php:239 
+#: includes/controller/controller-admin.php:282
+msgid "No options were imported"
+msgstr "Nem importáltak opciókat"
+
+#: includes/controller/controller-admin.php:260
+msgid "Settings imported successfully"
+msgstr "Beállítások importálva sikeresen"
+
+#: includes/controller/controller-admin.php:261
+msgid "Settings were not imported. Please check the import file."
+msgstr "A beállításokat nem importálták. Ellenőrizze az importfájlt."
+
+#: includes/controller/controller-admin.php:293
+msgid "Wrong file format for services."
+msgstr "A szolgáltatások hibás formátuma."
+
+#: includes/controller/controller-admin.php:323
+msgid "Services imported successfully"
+msgstr "A szolgáltatások sikeresen importálva"
+
+#: includes/controller/controller-admin.php:324
+msgid "No service was imported"
+msgstr "Nem importált szolgáltatást"
+
+#: includes/controller/controller-breach.php:152
+msgid "Collect user emails from services"
+msgstr "Felhasználói e-mailek gyűjtése a szolgáltatásokból"
+
+#: includes/controller/controller-breach.php:223
+msgid "[Ultimate GDPR] Data breach information from %s"
+msgstr "[Ultimate GDPR] Adatsérülési információk %s-től"
+
+#: includes/controller/controller-breach.php:226
+msgid "There was a data breach on our page..."
+msgstr "Adatsérülés történt a weboldalunkon…"
+
+#: includes/controller/controller-policy.php:65
+msgid "Require administrators to accept Privacy Policy (redirect)"
+msgstr ""
+"A rendszergazdáknak el kell fogadniuk az adatvédelmi irányelveket "
+"(átirányítások)"
+
+#: includes/controller/controller-policy.php:73
+msgid "Require logged in users to accept Privacy Policy (redirect)"
+msgstr ""
+"A bejelentkezett felhasználóknak el kell fogadniuk az adatvédelmi "
+"irányelveket (átirányít)"
+
+#: includes/controller/controller-policy.php:81
+msgid "Require not logged in users/guests to accept Privacy Policy (redirect)"
+msgstr ""
+"Szükséges, hogy a nem bejelentkezett/vendég felhasználók elfogadják az "
+"Adatvédelmi Irányelveket (átirányítás)"
+
+#: includes/controller/controller-policy.php:89
+msgid "WordPress Privacy Policy page"
+msgstr "WordPress Adatvédelmi Irányelvek oldal"
+
+#: includes/controller/controller-policy.php:97
+msgid "Page with existing Privacy Policy"
+msgstr "Létező Adatvédelmi Irányelvekkel rendelkező oldal"
+
+#: includes/controller/controller-policy.php:105
+msgid "Privacy Policy Custom URL"
+msgstr "Adatvédelmi Irányelvek egyéni URL"
+
+#: includes/controller/controller-policy.php:113
+msgid "Page to redirect to after Privacy Policy accepted"
+msgstr "Céloldal az Adatvédelmi Irányelvek elfogadása után"
+
+#: includes/controller/controller-policy.php:137
+msgid ""
+"Privacy Policy version, eg. 1.0 (if you change it, user has to give consent "
+"again)"
+msgstr ""
+"Adatvédelmi Irányelvek verziója, pl. 1.0 (ha megváltoztatja, a "
+"felhasználónak ismét el kell fogadnia)"
+
+#: includes/controller/controller-policy.php:145
+msgid ""
+"Redirect to Privacy Policy first (if Terms and Conditions also redirect)"
+msgstr ""
+"Átirányítás elsőként az Adatvédelmi irányelvekhez (ha a Felhasználási "
+"feltételek szintén átirányít)"
+
+#: includes/controller/controller-policy.php:153
+msgid ""
+"Convert the following text to Privacy Policy link in all services templates, "
+"eg. 'Privacy Policy'"
+msgstr ""
+"A következő szöveg Adatvédelmi irányelvek linkké való átalakítása minden "
+"szolgáltatási sablonon, pl. 'Adatvédelmi irányelvek'"
+
+#: includes/controller/controller-policy.php:198
+msgid "Click here to create"
+msgstr "Kattints ide a létrehozáshoz"
+
+#: includes/controller/controller-policy.php:209
+msgid ""
+"1. Place %s shortcode on your existing Privacy Policy page to add an accept "
+"button.%s2. Select Privacy Policy page below, so users can be redirected "
+"there to give their consent."
+msgstr ""
+"1. Helyezze el a %s shortcode-ot a már létező Adatvédelmi irányelvek oldalon,"
+" hogy hozzáadjon az oldalhoz egy elfogadási gombot.%s2. Válassza ki az "
+"Adatvédelmi irányelvek oldalt az alábbiakból, hogy a felhasználók ide "
+"legyenek átirányítva az elfogadáshoz."
+
+#: includes/controller/controller-policy.php:661
+msgid "WordPress Privacy page"
+msgstr "WordPress Adatvédelmi oldal"
+
+#: includes/controller/controller-forgotten.php:110 
+#: includes/controller/controller-forgotten.php:345
+msgid "[Ultimate GDPR] New Right To Be Forgotten request from %s"
+msgstr "[Ultimate GDPR] Új Felejtéshez való jog kérelem %s - tól"
+
+#: includes/controller/controller-forgotten.php:129 
+#: includes/controller/controller-forgotten.php:353
+msgid ""
+"There is a new Right To Be Forgotten request from email %s. See details at %s"
+msgstr ""
+"Új felejtéshez való kérelem érkezett az alábbi e-mail címről: %s. Nézze meg "
+"a részleteket itt: %s"
+
+#: includes/controller/controller-forgotten.php:259
+msgid "[Ultimate GDPR] Please confirm request to be forgotten from %s"
+msgstr "[Ultimate GDPR] Kérjük erősítse meg kérelmet az elfelejtéshez %s"
+
+#: includes/controller/controller-forgotten.php:513
+msgid "[Ultimate GDPR] Emails were sent to the following users: %s"
+msgstr ""
+"[Ultimate GDPR] Az e-maileket elküldtünk a következő felhasználóknak: %s"
+
+#: includes/controller/controller-forgotten.php:551
+msgid "[Ultimate GDPR] The following emails were removed from list: %s"
+msgstr ""
+"[Ultimate GDPR] A következő e-mail címeket eltávolítottuk a listáról: %s"
+
+#: includes/controller/controller-forgotten.php:584 
+#: includes/controller/controller-unsubscribe.php:487
+msgid "Non existing service id: %s"
+msgstr "Nem létező szolgáltatásazonosító: %s"
+
+#: includes/controller/controller-forgotten.php:604
+msgid "There was an error forgetting %s service: %s"
+msgstr "Hiba lépett fel a %s szolgáltatás elfelejtésében: %s"
+
+#: includes/controller/controller-forgotten.php:629
+msgid "[Ultimate GDPR] Services data were removed"
+msgstr "[Ultimate GDPR] Szolgáltatási adatok eltávolítva"
+
+#. ID
+#: includes/controller/controller-forgotten.php:645
+msgid "Forms skin"
+msgstr "A bőr formája"
+
+#: includes/controller/controller-forgotten.php:652
+msgid "Right to be forgotten settings"
+msgstr "Felejtéshez való jog beállításai"
+
+#: includes/controller/controller-forgotten.php:663
+msgid "Skin"
+msgstr "Bőr"
+
+#. ID
+#: includes/controller/controller-forgotten.php:671
+msgid "Automatically forget users who confirmed their mail"
+msgstr ""
+"Automatikusan elfelejteni azokat a felhasználókat, akik megerősítették "
+"postájukat"
+
+#. ID
+#: includes/controller/controller-forgotten.php:679
+msgid ""
+"Automatically send email about data removal to users who confirmed their "
+"email"
+msgstr ""
+"Automatikusan küldjön e-mailt az adatok eltávolításáról azoknak a "
+"felhasználóknak, akik megerősítették e-mailjüket"
+
+#. ID
+#: includes/controller/controller-forgotten.php:687
+msgid "Permit users of selected roles only to be forgotten automatically"
+msgstr ""
+"Engedélyezze a kiválasztott szerepkör felhasználók számára, hogy "
+"automatikusan elfelejthetők legyenek"
+
+#: includes/controller/controller-forgotten.php:695
+msgid "Admin email to send new request notifications to"
+msgstr "Admin e-mail az új kérési értesítések küldésére"
+
+#: includes/controller/controller-forgotten.php:703
+msgid "User notification email subject"
+msgstr "Felhasználói értesítés e-mail tárgya"
+
+#: includes/controller/controller-forgotten.php:711
+msgid "User notification email message"
+msgstr "Felhasználói értesítés e-mail üzenete"
+
+#: includes/controller/controller-forgotten.php:810
+msgid "Simple form"
+msgstr "Egyszerű alak"
+
+#: includes/controller/controller-forgotten.php:811
+msgid "Rounded form"
+msgstr "Kerekített forma"
+
+#: includes/controller/controller-forgotten.php:812
+msgid "Tabbed form"
+msgstr "Lapos forma"
+
+#: includes/controller/controller-forgotten.php:911 
+#: includes/controller/controller-forgotten.php:912
+msgid "[Ultimate GDPR] Your data has been forgotten"
+msgstr "[Ultimate GDPR] Adatai elfelejtve"
+
+#: includes/controller/controller-unsubscribe.php:143
+msgid "There is a new Unsubscribe request from email %s. See details at %s"
+msgstr "Új leiratkozási kérelem van a (z) %s e-mailben. A részletek itt: %s"
+
+#: includes/controller/controller-unsubscribe.php:232
+msgid ""
+"[Ultimate GDPR] Please confirm request to be unsubscribed from %s newsletters"
+msgstr ""
+"[Ultimate GDPR] Kérjük, erősítse meg, hogy leiratkozzon a %s hírlevelekről"
+
+#: includes/controller/controller-unsubscribe.php:507
+msgid "There was an error unsubscribing %s from %s service: %s"
+msgstr ""
+"Hiba történt a (z) %s szolgáltatás %s szolgáltatásának leiratkozásáról: %s"
+
+#: includes/controller/controller-unsubscribe.php:533
+msgid "[Ultimate GDPR] Unsubscription finished!"
+msgstr "[Ultimate GDPR] A feliratkozás befejeződött!"
+
+#. ID
+#: includes/controller/controller-unsubscribe.php:595
+msgid "Unsubscribe settings"
+msgstr "Leiratkozási beállítások"
+
+#: includes/controller/controller-unsubscribe.php:605
+msgid "Hide Unsubscribe Tab"
+msgstr "Leiratkozás elrejtése lap"
+
+#. ID
+#: includes/controller/controller-unsubscribe.php:613
+msgid "Automatically unsubscribe users who confirmed their mail"
+msgstr ""
+"Automatikusan leiratkozni azokról a felhasználókról, akik megerősítették a "
+"levelüket"
+
+#. ID
+#: includes/controller/controller-unsubscribe.php:621
+msgid ""
+"Automatically send email about unsubscription to users who confirmed their "
+"email"
+msgstr ""
+"Automatikusan küldjön e-mailt a leiratkozásról azokról a felhasználókról, "
+"akik megerősítették e-mailjüket"
+
+#: includes/controller/controller-unsubscribe.php:787
+msgid "[Ultimate GDPR] Unsubscribe notice from %s"
+msgstr "[Ultimate GDPR] Leiratkozás a %s -ról"
+
+#: includes/controller/controller-unsubscribe.php:788
+msgid "Your have been unsubscribed"
+msgstr "Leiratkozott"
+
+#: includes/controller/controller-services.php:99 
+#: includes/controller/controller-services.php:100 
+#: includes/controller/controller-services.php:328 
+#: includes/controller/controller-services.php:344
+msgid "Services"
+msgstr "Szolgáltatások"
+
+#: includes/controller/controller-services.php:116 
+#: includes/controller/controller-services.php:123 
+#: includes/controller/controller-services.php:130
+msgid "Services options"
+msgstr "Szolgáltatások beállítása"
+
+#: includes/controller/controller-services.php:141
+msgid "Recaptcha key (for myaccount shortcode submissions)"
+msgstr "Recaptcha kulcs (myaccount shortcode beadványok esetén)"
+
+#: includes/controller/controller-services.php:149
+msgid "Recaptcha secret key (for myaccount shortcode submissions)"
+msgstr "Recaptcha titkos kulcs (myaccount shortcode beadványok esetén)"
+
+#. ID
+#: includes/controller/controller-services.php:157
+msgid ""
+"When logging consents of users who did not accept Privacy Policy, log their "
+"IP"
+msgstr ""
+"Amikor bejelentkezik azoknak a felhasználóknak, akik nem fogadták el az "
+"adatvédelmi irányelvet, jelentkezzenek be IP-címükre"
+
+#. ID
+#: includes/controller/controller-services.php:165
+msgid ""
+"When logging consents of users who did not accept Privacy Policy, log their "
+"User Agent"
+msgstr ""
+"Amikor olyan felhasználók engedélyezésével jelentkezik be, akik nem fogadták "
+"el az adatvédelmi irányelvet, jelentkezzenek be a felhasználói ügynökükre"
+
+#: includes/controller/controller-services.php:326
+msgctxt "Post Type General Name"
+msgid "Services"
+msgstr "Szolgáltatások"
+
+#: includes/controller/controller-services.php:327
+msgctxt "Post Type Singular Name"
+msgid "Services"
+msgstr "Szolgáltatások"
+
+#: includes/controller/controller-services.php:329
+msgid "Parent Services"
+msgstr "Törzs szolgáltatások"
+
+#: includes/controller/controller-services.php:330
+msgid "All Services"
+msgstr "Minden szolgáltatás"
+
+#: includes/controller/controller-services.php:331
+msgid "View Service"
+msgstr "Szolgáltatás megtekintése"
+
+#: includes/controller/controller-services.php:332
+msgid "Add New Service"
+msgstr "Új szolgáltatás hozzáadása"
+
+#: includes/controller/controller-services.php:333
+msgid "Add New"
+msgstr "Új hozzáadása"
+
+#: includes/controller/controller-services.php:334
+msgid "Edit Service"
+msgstr "Szolgáltatás szerkesztése"
+
+#: includes/controller/controller-services.php:335
+msgid "Update Service"
+msgstr "Szolgáltatás frissítése"
+
+#: includes/controller/controller-services.php:336
+msgid "Search Services"
+msgstr "Szolgáltatások keresése"
+
+#: includes/controller/controller-services.php:337
+msgid "Not Found"
+msgstr "Nem található"
+
+#: includes/controller/controller-services.php:338
+msgid "Not found in Trash"
+msgstr "Nem található"
+
+#: includes/controller/controller-services.php:343
+msgid "services"
+msgstr "szolgáltatások"
+
+#: includes/model/model-group.php:48 includes/model/model-group.php:87
+msgid "Essential"
+msgstr "Alapvető"
+
+#: includes/shortcode/shortcode-myaccount.php:32
+msgid "There was an error in your request"
+msgstr "Hiba történt a kérelemben"
+
+#: includes/shortcode/shortcode-privacy-policy.php:17
+msgid "Cookie names"
+msgstr "Cookie-k nevei"
+
+#: includes/shortcode/shortcode-privacy-policy.php:20
+msgid "Type of cookie"
+msgstr "Cookie-k fajtái"
+
+#: includes/shortcode/shortcode-privacy-policy.php:23
+msgid "First or Third party"
+msgstr "Első vagy Harmadik fél"
+
+#: includes/shortcode/shortcode-privacy-policy.php:26
+msgid "Can be blocked"
+msgstr "Blokkolható"
+
+#: includes/shortcode/shortcode-privacy-policy.php:29
+msgid "Session or Persistent"
+msgstr "Szakaszos vagy Folyamatos"
+
+#: includes/shortcode/shortcode-privacy-policy.php:32
+msgid "Expiry Time"
+msgstr "Lejárati idő"
+
+#: includes/shortcode/shortcode-privacy-policy.php:35
+msgid "Purpose"
+msgstr "Cél"
+
+#: includes/shortcode/shortcode-privacy-policy.php:91
+msgid "First party"
+msgstr "Első fél"
+
+#: includes/shortcode/shortcode-privacy-policy.php:91
+msgid "Third party"
+msgstr "Harmadik fél"
+
+#: includes/shortcode/shortcode-privacy-policy.php:102
+msgid "Session"
+msgstr "Szakaszos"
+
+#: includes/shortcode/shortcode-privacy-policy.php:102
+msgid "Persistent"
+msgstr "Folyamatos"

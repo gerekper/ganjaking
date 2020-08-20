@@ -56,13 +56,6 @@ class WPSEO_Sitemaps {
 	private $current_page = 1;
 
 	/**
-	 * The timezone.
-	 *
-	 * @var WPSEO_Sitemap_Timezone
-	 */
-	private $timezone;
-
-	/**
 	 * The sitemaps router.
 	 *
 	 * @since 3.2
@@ -99,6 +92,13 @@ class WPSEO_Sitemaps {
 	public $providers;
 
 	/**
+	 * The date helper.
+	 *
+	 * @var WPSEO_Date_Helper
+	 */
+	protected $date;
+
+	/**
 	 * Class constructor.
 	 */
 	public function __construct() {
@@ -109,10 +109,10 @@ class WPSEO_Sitemaps {
 		add_action( 'wpseo_hit_sitemap_index', [ $this, 'hit_sitemap_index' ] );
 		add_action( 'wpseo_ping_search_engines', [ __CLASS__, 'ping_search_engines' ] );
 
-		$this->timezone = new WPSEO_Sitemap_Timezone();
 		$this->router   = new WPSEO_Sitemaps_Router();
 		$this->renderer = new WPSEO_Sitemaps_Renderer();
 		$this->cache    = new WPSEO_Sitemaps_Cache();
+		$this->date     = new WPSEO_Date_Helper();
 
 		if ( ! empty( $_SERVER['SERVER_PROTOCOL'] ) ) {
 			$this->http_protocol = sanitize_text_field( wp_unslash( $_SERVER['SERVER_PROTOCOL'] ) );
@@ -150,7 +150,7 @@ class WPSEO_Sitemaps {
 		}
 		$request_uri = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
 		$extension   = substr( $request_uri, -4 );
-		if ( false !== stripos( $request_uri, 'sitemap' ) && in_array( $extension, [ '.xml', '.xsl' ], true ) ) {
+		if ( stripos( $request_uri, 'sitemap' ) !== false && in_array( $extension, [ '.xml', '.xsl' ], true ) ) {
 			remove_all_actions( 'widgets_init' );
 		}
 	}
@@ -287,7 +287,7 @@ class WPSEO_Sitemaps {
 
 		$this->transient = false;
 
-		if ( true !== $this->cache->is_enabled() ) {
+		if ( $this->cache->is_enabled() !== true ) {
 			return false;
 		}
 
@@ -432,9 +432,10 @@ class WPSEO_Sitemaps {
 		// Make the browser cache this file properly.
 		$expires = YEAR_IN_SECONDS;
 		header( 'Pragma: public' );
-		header( 'Cache-Control: maxage=' . $expires );
-		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', ( time() + $expires ) ) . ' GMT' );
+		header( 'Cache-Control: max-age=' . $expires );
+		header( 'Expires: ' . $this->date->format_timestamp( ( time() + $expires ), 'D, d M Y H:i:s' ) . ' GMT' );
 
+		// Don't use WP_Filesystem() here because that's not initialized yet. See https://yoast.atlassian.net/browse/QAK-2043.
 		readfile( WPSEO_PATH . 'css/main-sitemap.xsl' );
 	}
 
@@ -500,7 +501,7 @@ class WPSEO_Sitemaps {
 					WHERE post_status IN ('" . implode( "','", $post_statuses ) . "')
 						AND post_type IN ('" . implode( "','", $post_type_names ) . "')
 					GROUP BY post_type
-					ORDER BY post_modified_gmt DESC
+					ORDER BY date DESC
 				";
 
 				foreach ( $wpdb->get_results( $sql ) as $obj ) {
@@ -530,8 +531,7 @@ class WPSEO_Sitemaps {
 	 * @return string
 	 */
 	public function get_last_modified( $post_types ) {
-
-		return $this->timezone->format_date( self::get_last_modified_gmt( $post_types ) );
+		return $this->date->format( self::get_last_modified_gmt( $post_types ) );
 	}
 
 	/**
@@ -550,12 +550,12 @@ class WPSEO_Sitemaps {
 			return;
 		}
 
-		if ( '0' === get_option( 'blog_public' ) ) { // Don't ping if blog is not public.
+		if ( get_option( 'blog_public' ) === '0' ) { // Don't ping if blog is not public.
 			return;
 		}
 
 		if ( empty( $url ) ) {
-			$url = urlencode( WPSEO_Sitemaps_Router::get_base_url( 'sitemap_index.xml' ) );
+			$url = rawurlencode( WPSEO_Sitemaps_Router::get_base_url( 'sitemap_index.xml' ) );
 		}
 
 		// Ping Google and Bing.

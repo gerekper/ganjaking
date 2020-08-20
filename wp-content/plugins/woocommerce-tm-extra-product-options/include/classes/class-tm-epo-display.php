@@ -792,8 +792,6 @@ class THEMECOMPLETE_EPO_Display {
 	 */
 	public function get_builder_display( $field, $where, $args, $form_prefix = "", $dummy_prefix = FALSE ) {
 
-		// $form_prefix	shoud be passed with _ if not empty 
-
 		$columns = array(
 
 			"w1"    => array( "tcwidth-1", 1 ),

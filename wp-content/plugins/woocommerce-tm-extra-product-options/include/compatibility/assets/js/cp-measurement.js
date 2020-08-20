@@ -6,7 +6,7 @@
 	var TMEPOMEASUREMENTJS;
 
 	function AlterElementQty( elementQty, dataObject ) {
-		if ( TMEPOMEASUREMENTJS.wc_measurement_qty_multiplier === '1' && dataObject.currentCart.find( '#_measurement_needed' ).length > 0 ) {
+		if ( TMEPOMEASUREMENTJS.wc_measurement_divide !== '1' && TMEPOMEASUREMENTJS.wc_measurement_qty_multiplier === '1' && dataObject.currentCart.find( '#_measurement_needed' ).length > 0 ) {
 			elementQty = dataObject.currentCart.find( '#_measurement_needed' ).val();
 		}
 
@@ -52,7 +52,9 @@
 						} else if ( ! force && force2 ) {
 							v = get_price_including_tax( v, totalsHolder, null, force2 );
 						}
-
+						if ( TMEPOMEASUREMENTJS.wc_measurement_divide === '1' && totalsHolder.data( 'tm_for_cart' ).find( '#_measurement_needed' ).length > 0 ) {
+							v = v / totalsHolder.data( 'tm_for_cart' ).find( '#_measurement_needed' ).val();
+						}
 						totalsHolderContainer.find( '.cpf-product-price' ).val( v );
 						totalsHolder.data( 'price', v );
 						currentCart.trigger( {
@@ -75,7 +77,9 @@
 						} else {
 							v = parseFloat( v );
 						}
-
+						if ( TMEPOMEASUREMENTJS.wc_measurement_divide === '1' && totalsHolder.data( 'tm_for_cart' ).find( '#_measurement_needed' ).length > 0 ) {
+							v = v / totalsHolder.data( 'tm_for_cart' ).find( '#_measurement_needed' ).val();
+						}
 						totalsHolderContainer.find( '.cpf-product-price' ).val( v );
 						totalsHolder.data( 'price', v );
 						currentCart.trigger( {

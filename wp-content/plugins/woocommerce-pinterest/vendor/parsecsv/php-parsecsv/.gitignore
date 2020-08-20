@@ -1,6 +1,0 @@
-*.bak
-/.idea
-/phive.xml
-/tools
-composer.lock
-vendor/

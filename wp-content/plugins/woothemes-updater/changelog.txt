@@ -1,0 +1,129 @@
+*** WooThemes Helper Changelog ***
+
+2016.11.01 - version 1.7.2
+ * New - Add support for new `Woo` header in WooCommerce extensions, will allow the user to see updates, even for inactive products
+ * Fix - Prevent a PHP notice when the license expiry date is invalid (or set to infinity)
+ * Fix - Remove some old references to WooThemes for consistency
+ * Fix - Use consistent array keys for themes and extensions data structures
+ * Fix - Plugin information display (View details) for non-WordPress.org hosted plugins
+
+2016.08.31 - version 1.7.1
+ * Adds a check to ensure we're on the 'woothemes-helper' page, before validating and storing the Helper master key.
+
+2016.07.27 - version 1.7.0
+ * New ‘connect to WooCommerce.com functionality’
+ * Various connection/activation bug fixes
+
+2016.04.18 - version 1.6.2
+ * Fix - Ensure no subscription renewal messages after a subscription was renewed.
+
+2016.03.24 - version 1.6.1
+ * Fix - Ensures the JavaScript for the admin screens is enqueued correctly, to avoid conflicts with other admin screens (for example, undraggable widgets).
+
+2016.03.09 - version 1.6.0
+ * Fix - Ensures inline plugin updates work as expected.
+ * New - Adds a version check on the hosted changelog.txt file, to notify of updates regardless of activation.
+ * New - Adjusts all wording to reflect how WooThemes.com now handles "product subscriptions".
+ * Fix - Adjusts how the "renew your subscription" admin notice presents itself, and ensure it can be correctly dismissed.
+
+2015.07.07 - version 1.5.9
+ * Fix - Deactivate/Activate nonce check fail on network installs
+
+2015.06.26 - version 1.5.8
+ * Fix - Deactivate plugins nonce issue
+
+2015.05.21 - version 1.5.7
+ * Fix - WooThemes Helper update message not going away
+
+2015.05.15 - version 1.5.6
+ * Fix - JS error on non helper pages
+
+2015.05.05 - version 1.5.5
+ * Fix - Can't activate licenses on a Multisite
+ * Tweak - Copy & links on the Help tab
+
+2015.04.27 - version 1.5.4
+ * Fix - Empty license table when using WP 4.2+
+
+2015.03.26 - version 1.5.3
+ * Fix - Ensure there are no wp.org update clashes from products with same slugs.
+ * Fix - Warnings when checking for updates in some instances.
+ * Tweak - Make renewing notices dismissable.
+
+
+2015.03.18 - version 1.5.2
+ * Tweak - Increase the timeout for update checks from the default 5 seconds.
+
+2015.03.18 - version 1.5.1
+ * New - License expire dates and notices with links to renew
+ * New - Plugin update "view details" support, shows plugin data & changelog in popup.
+ * New - Clear message on plugins page to activate your license if you haven't already.
+ * New - Better error reporting regarding update checks, ie. show when server cant be reached or there are failed checks on WooThemes end.
+ * Fix - Ensure updates always show up, no more clicking check for updates multiple times.
+ * Tweak - Improved update checks, more reliable and faster with less calls.
+
+2015.02.01 - version 1.5.0
+ * Beta test version
+
+2015.01.09 - version 1.4.1
+ * Fix - remove unnecessary $defaults
+
+2015.01.08 - version 1.4.0
+ * New - Activate license keys using AJAX. Fixes Suhosin issue, while adding a bit of extra spice to the interface.
+ * New - Adds a woothemes_updater_request_args filter around the request arguments when using the request() method in the Woothemes_Updater_API class.
+ * New - Adds language translation POT file and adjusts the localisation loader to look in the new "languages" directory.
+
+2014.07.18 - version 1.3.0
+ * New - Check license keys on the "Licenses" screen to ensure they are active on WooThemes.com. If not, deactivate them locally to avoid confusion.
+ * New - Remove the "Panic" button from the "Help" tab.
+
+2014.03.24 - version 1.2.4
+ * Fix - Ensure we have a numeric product id.
+
+2014.02.25 - version 1.2.3
+ * Fix - Adjusts the API URL to point to a newly formed version of the same endpoint on WooThemes.com.
+
+2013.11.27 - version 1.2.1
+ * Adds an admin notice if there are products present on the installation which have not yet had their licenses activated.
+ * Ensures the network admin screen works correctly when switching between the tabs.
+ * Moves the admin screen back under "Dashboard" to ensure it works 100% across multisite.
+ * Renames the admin menu item to "WooThemes Helper".
+
+2013.11.26 - version 1.2.0
+ * Adds support for 2-click theme updates, via the WordPress theme updates system.
+ * Adds a "Help" tab with links to help you get started with WooThemes.
+ * Moves the admin menu item under "Tools" and renames to "WooThemes Help".
+
+2013.08.13 - version 1.1.3
+ * Add user agent to API requests.
+
+2013.08.11 - version 1.1.2
+ * Ping API to make sure server requests can be made.
+
+2013.06.12 - version 1.1.1
+ * Bug fixes.
+
+2013.05.29 - version 1.1.0
+ * Update notifications without license.
+ * Better NetWork integration.
+
+2013.02.01 - version 1.0.4
+ * woothemes-updater.php - Trailing Space cleanup.
+ * /classes/class-woothemes-updater-api.php - Disable ssl_verify in API call.s Trailing space clean up.
+ * /classes/class-woothemes-updater-api.php - Trailing Space cleanup.
+ * /classes/class-woothemes-updater-self-updater.php - Trailing Space cleanup.
+ * /classes/class-woothemes-updater-updater-checker.php - Trailing Space cleanup.
+
+2012.12.10 - version 1.0.3
+ * /classes/class-woothemes-updater-api.php - Use is_numeric instead of is_int - fails on strings.
+
+2012.12.10 - version 1.0.2
+ * /classes/class-woothemes-updater-admin.php - Pass file name of plugin to activate.
+ * /screens/screen-manage.php - Show links to license and faq page.
+ * /classes/class-woothemes-updater-api.php - Use plugin file name when displaying error message for incorrect product id.
+
+2012.12.10 - version 1.0.1
+ * /screens/screen-manage.php - Always show the "activate" button.
+
+2012.12.05 - version 1.0.0
+ * First release. Woo!

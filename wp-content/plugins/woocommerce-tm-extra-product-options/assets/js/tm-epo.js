@@ -16,6 +16,7 @@
 	var jDocument = $( document );
 	var errorObject;
 	var FloatingTotalsBox;
+	var currentAjaxButton;
 	var errorContainer = $( window );
 	var tcmexp = window.tcmexp;
 	var _ = window._;
@@ -259,7 +260,7 @@
 				var obj = {};
 
 				if ( decode === true ) {
-					value = decodeURIComponent( value );
+					value = decodeURIComponent( value.replace( /\+/g, '%20' ) );
 				}
 
 				value = value.split( '=' ).map( function( v ) {
@@ -363,9 +364,11 @@
 					if ( wrap.is( '.closed' ) ) {
 						$( wrap ).removeClass( 'closed open' ).addClass( 'closed' ).hide();
 						$( headers ).find( '.tm-arrow' ).removeClass( 'tcfa-angle-down tcfa-angle-up' ).addClass( 'tcfa-angle-down' );
+						$( headers ).removeClass( 'toggle-header-open toggle-header-closed' ).addClass( 'toggle-header-closed' );
 					} else {
 						$( wrap ).removeClass( 'closed open' ).addClass( 'open' ).show();
 						$( headers ).find( '.tm-arrow' ).removeClass( 'tcfa-angle-down tcfa-angle-up' ).addClass( 'tcfa-angle-up' );
+						$( headers ).removeClass( 'toggle-header-open toggle-header-closed' ).addClass( 'toggle-header-open' );
 						is_one_open_for_accordion = true;
 					}
 
@@ -376,6 +379,7 @@
 							}
 							$( wrap ).removeClass( 'closed open' ).addClass( 'closed' );
 							$( this ).find( '.tm-arrow' ).removeClass( 'tcfa-angle-down tcfa-angle-up' ).addClass( 'tcfa-angle-down' );
+							$( this ).removeClass( 'toggle-header-open toggle-header-closed' ).addClass( 'toggle-header-closed' );
 							$( wrap ).removeClass( 'tm-animated fadeIn' );
 							if ( t.is( '.tmaccordion' ) ) {
 								$( wrap ).animate( { height: 'toggle' }, 100, function() {
@@ -395,6 +399,7 @@
 							}
 							$( wrap ).removeClass( 'closed open' ).addClass( 'open' );
 							$( this ).find( '.tm-arrow' ).removeClass( 'tcfa-angle-down tcfa-angle-up' ).addClass( 'tcfa-angle-up' );
+							$( this ).removeClass( 'toggle-header-open toggle-header-closed' ).addClass( 'toggle-header-open' );
 							$( wrap ).show().removeClass( 'tm-animated fadeIn' ).addClass( 'tm-animated fadeIn' );
 							setTimeout( function() {
 								jWindow.trigger( 'tmlazy' );
@@ -2322,7 +2327,7 @@
 		};
 
 		if ( ( TMEPOJS.tm_epo_auto_hide_price_if_zero === 'yes' && $.tmempty( price ) === false ) || TMEPOJS.tm_epo_auto_hide_price_if_zero !== 'yes' ) {
-			if ( ! force && f.length > 0 && ( f.attr( 'data-no-price' ) === '1' || ( f.attr( 'data-type' ) === 'variable' && ! f.data( 'price' ) ) || ( f.is( '.tmcp-select' ) && ! f.children( 'option:selected' ).data( 'price' ) ) ) ) {
+			if ( $.tmempty( price ) === true || ( ! force && f.length > 0 && ( f.attr( 'data-no-price' ) === '1' || ( f.attr( 'data-type' ) === 'variable' && ! f.data( 'price' ) ) || ( f.is( '.tmcp-select' ) && ! f.children( 'option:selected' ).data( 'price' ) ) ) ) ) {
 				$obj.empty();
 				$ba_amount.addClass( 'tm-hidden' );
 			} else {
@@ -4317,9 +4322,9 @@
 						} );
 						ajaxSuccessFunc = function() {
 							thisPopup.destroy();
-							jDocument.off('ajaxSuccess', ajaxSuccessFunc);
+							jDocument.off( 'ajaxSuccess', ajaxSuccessFunc );
 						};
-						jDocument.on('ajaxSuccess', ajaxSuccessFunc);
+						jDocument.on( 'ajaxSuccess', ajaxSuccessFunc );
 					}
 
 					return true;
@@ -5914,6 +5919,32 @@
 		return true;
 	}
 
+	function correctDate( days ) {
+		var sign, testDate, count, added, noOfDaysToAdd;
+		if ( days.toString().isNumeric() ) {
+			sign = days === 0 ? days : ( days > 0 ? 1 : -1 );
+			if ( sign !== 0 ) {
+				testDate = new Date();
+				count = 1;
+				added = false;
+				noOfDaysToAdd = Math.abs( days );
+				while ( count <= noOfDaysToAdd ) {
+					if ( added === false ) {
+						added = 0;
+					}
+					testDate.setDate( testDate.getDate() + ( 1 * sign ) );
+					added++;
+					if ( testDate.getDay() !== 0 && testDate.getDay() !== 6 ) {
+						count++;
+					}
+				}
+				if ( added !== false ) {
+					days = added * sign;
+				}
+			}
+		}
+		return days;
+	}
 	// Date and time picker setup
 	function tm_set_datepicker( obj ) {
 		var inputIds;
@@ -6024,6 +6055,7 @@
 				var maxDate = field.attr( 'data-max-date' ).trim();
 				var disabled_dates = field.attr( 'data-disabled-dates' ).trim();
 				var enabled_only_dates = field.attr( 'data-enabled-only-dates' ).trim();
+				var exlude_disabled = field.attr( 'data-exlude-disabled' ).trim();
 				var disabled_weekdays = field.attr( 'data-disabled-weekdays' ).trim().split( ',' );
 				var disabled_months = field.attr( 'data-disabled-months' ).trim().split( ',' );
 				var format = field.attr( 'data-date-format' ).trim();
@@ -6060,6 +6092,8 @@
 					} else {
 						minDate = new Date( startDate, 1 - 1, 1 );
 					}
+				} else if ( exlude_disabled ) {
+					minDate = correctDate( minDate );
 				}
 				if ( maxDate === '' ) {
 					if ( endDate === '' ) {
@@ -6067,6 +6101,8 @@
 					} else {
 						maxDate = new Date( endDate, 12 - 1, 31 );
 					}
+				} else if ( exlude_disabled ) {
+					maxDate = correctDate( maxDate );
 				}
 
 				field.data( 'tc-enabled_only_dates', enabled_only_dates );
@@ -6383,7 +6419,7 @@
 					var subField;
 					var subFieldName;
 					var subRule;
-					var productField
+					var productField;
 
 					tmcpulwrap = $( tmcpulwrap );
 					has_rules = tmcpulwrap.data( 'tm-validation' );
@@ -6413,7 +6449,7 @@
 							if ( 'required' in has_rules ) {
 								subField = tmcpulwrap.find( '.product-variation-id' );
 								subFieldName = subField.first().attr( 'name' );
-								productField = tmcpulwrap.find( ".tc-epo-field-product" ).first();
+								productField = tmcpulwrap.find( '.tc-epo-field-product' ).first();
 								subRule = {
 									required: function() {
 										if ( productField.is( 'select' ) && field_is_active( productField, true ) ) {
@@ -6476,9 +6512,9 @@
 						main_product.find( tcAPI.addToCartButtonSelector ).first().addClass( 'disabled' );
 						ajaxSuccessFunc = function() {
 							main_product.find( tcAPI.addToCartButtonSelector ).first().removeClass( 'disabled' );
-							jDocument.off('ajaxSuccess', ajaxSuccessFunc);
+							jDocument.off( 'ajaxSuccess', ajaxSuccessFunc );
 						};
-						jDocument.on('ajaxSuccess', ajaxSuccessFunc);
+						jDocument.on( 'ajaxSuccess', ajaxSuccessFunc );
 					}
 					return apply_submit_events( epoObject );
 				}
@@ -7073,7 +7109,7 @@
 				}
 			} )
 			.off( 'change.cpf', '.tm-quantity .tm-qty' )
-			.on( 'change.cpf', '.tm-quantity .tm-qty', function() {
+			.on( 'change.cpf', '.tm-quantity .tm-qty', function( event, data ) {
 				var qtyField = $( this );
 				var field = qtyField.closest( '.tmcp-field-wrap' ).find( '.tm-epo-field' );
 				var currentVal = parseFloat( qtyField.val() );
@@ -7104,9 +7140,9 @@
 
 				if ( check1 && check2 && check3 ) {
 					if ( ! epoObject.noEpoUpdate ) {
-						field.data( 'tm-quantity', qtyField.val() ).trigger( 'change' );
+						field.data( 'tm-quantity', qtyField.val() ).trigger( 'change', data );
 					} else {
-						field.data( 'tm-quantity', qtyField.val() ).trigger( 'change.cpf' ).trigger( 'change.cpfproduct' );
+						field.data( 'tm-quantity', qtyField.val() ).trigger( 'change.cpf', data ).trigger( 'change.cpfproduct', data );
 					}
 					field.trigger( 'tm-select-change-html-all' );
 				} else if ( qtyField.data( 'tm-prev-value' ) ) {
@@ -7308,7 +7344,7 @@
 		epoHolder
 			.find( '.tm-epo-field' )
 			.off( 'change.cpf' )
-			.on( 'change.cpf', function() {
+			.on( 'change.cpf', function( event, data ) {
 				var field = $( this );
 				var is_li = field.closest( '.tmcp-field-wrap' );
 				var is_ul = field.closest( '.tmcp-ul-wrap' );
@@ -7316,7 +7352,9 @@
 
 				if ( field.is( ':checkbox, :radio' ) ) {
 					if ( field.is( ':radio' ) ) {
-						is_ul.find( '.tmcp-field-wrap' ).removeClass( 'tc-active' );
+						if ( ! data ) {
+							is_ul.find( '.tmcp-field-wrap' ).removeClass( 'tc-active' );
+						}
 					}
 					if ( field.is( ':checked' ) ) {
 						is_li.addClass( 'tc-active' );
@@ -7517,6 +7555,8 @@
 				var isTrigger = 1000;
 				var qtyalt;
 				var associatedSetter = $this;
+				var productPrice;
+				var originalProductPrice;
 
 				if ( data && data.forced === 2 ) {
 					return;
@@ -7587,22 +7627,23 @@
 
 				if ( ! value ) {
 					variableProductContainers.addClass( 'tm-hidden' );
-
+					productPrice = $.epoAPI.util.parseJSON( $this.attr( 'data-rules' ) );
+					originalProductPrice = $.epoAPI.util.parseJSON( $this.attr( 'data-original-rules' ) );
 					associatedSetter.data( 'associated_price_set', 1 );
 					associatedSetter.data( 'price_set', 1 );
-					associatedSetter.data( 'raw_price', 0 );
-					associatedSetter.data( 'raw_original_price', 0 );
-					associatedSetter.data( 'price', 0 );
-					associatedSetter.data( 'original_price', 0 );
+					associatedSetter.data( 'raw_price', productPrice[ 0 ] );
+					associatedSetter.data( 'raw_original_price', originalProductPrice[ 0 ] );
+					associatedSetter.data( 'price', productPrice[ 0 ] );
+					associatedSetter.data( 'original_price', originalProductPrice[ 0 ] );
 					tm_force_update_price(
 						associatedSetter
 							.closest( '.tmcp-field-wrap' )
 							.find( '.tc-price' )
 							.not( tcAPI.associatedEpoSelector + ' .tc-price' ),
-						0,
-						'',
-						0,
-						''
+						productPrice[ 0 ],
+						tm_set_price_totals( productPrice[ 0 ] ),
+						originalProductPrice[ 0 ],
+						tm_set_price_totals( originalProductPrice[ 0 ] )
 					);
 
 					return;
@@ -8839,7 +8880,7 @@
 		}
 
 		epoHolder.find( 'select.tm-epo-field' ).trigger( 'tm-select-change-html' );
-		epoHolder.find( '.tm-quantity .tm-qty' ).trigger( 'change.cpf' );
+		epoHolder.find( '.tm-quantity .tm-qty' ).trigger( 'change.cpf', { init: 1 } );
 		epoHolder.find( '.tm-quantity' ).trigger( 'showhide.cpfcustom' );
 		epoHolder.find( '.tm-has-clearbutton .tm-epo-field:checked' ).trigger( 'cpfclearbutton' );
 
@@ -9372,44 +9413,59 @@
 						var product_id = $this.attr( 'data-product-id' );
 						var epo_id = $this.attr( 'data-epo-id' );
 						var quickview_floating = false;
-						var j_product_wrap = $( tcAPI.addToCartSelector + "[value='" + product_id + "']" )
-							.closest( 'form,.cart' )
-							.first()
-							.parent();
+						var jProductWrap;
+						var addInputs = false;
 
-						if ( j_product_wrap.length <= 0 ) {
-							j_product_wrap = $( tcAPI.tcAddToCartSelector + "[value='" + product_id + "']" )
+						// First check if we are in a loop.
+						jProductWrap = $this.closest( '.tc-after-shop-loop.tm-has-options' );
+
+						if ( jProductWrap.length === 0 ) {
+							// Check based on native add to cart selector.
+							jProductWrap = $( tcAPI.addToCartSelector + "[value='" + product_id + "']" )
 								.closest( 'form,.cart' )
 								.first()
 								.parent();
+							// Check based on plugin add to cart selector.
+							if ( jProductWrap.length === 0 ) {
+								jProductWrap = $( tcAPI.tcAddToCartSelector + "[value='" + product_id + "']" )
+									.closest( 'form,.cart' )
+									.first()
+									.parent();
 
-							if ( j_product_wrap.length <= 0 ) {
-								j_product_wrap = $this.closest( 'form,.cart' ).first().parent( '.tm-has-options' );
-
-								if ( j_product_wrap.length <= 0 ) {
-									if ( $this.is( '.tc-shortcode' ) ) {
-										j_product_wrap = $this.wrap( '<div class="tc-shortcode-wrap tc-wrap-' + epo_id + '"></div>' );
-										j_product_wrap = $this.parent();
+								if ( jProductWrap.length === 0 ) {
+									// Check if we are in a shortcode
+									jProductWrap = $this.closest( 'form,.cart' ).first().parent( '.tm-has-options' );
+									if ( jProductWrap.length === 0 ) {
+										if ( $this.is( '.tc-shortcode' ) ) {
+											jProductWrap = $this.wrap( '<div class="tc-shortcode-wrap tc-wrap-' + epo_id + '"></div>' );
+											jProductWrap = $this.parent();
+										}
+										if ( jProductWrap.length > 0 ) {
+											addInputs = true;
+										}
 									}
 								}
-								if ( j_product_wrap.length > 0 ) {
-									// in shop (variation logic will not work here)
-									quickview_floating = true;
-									$this
-										.closest( 'form,.cart' )
-										.first()
-										.append( $( '<input name="add-to-cart" value="' + product_id + '" type="hidden" />' ) );
-									$this.closest( 'form,.cart' ).first().append( $( '<input type="hidden" value="" class="variation_id" name="variation_id">' ) );
-								}
 							}
+						} else {
+							addInputs = true;
 						}
 
-						if ( j_product_wrap.length > 0 ) {
-							if ( j_product_wrap.is( 'form' ) ) {
-								j_product_wrap = j_product_wrap.parent();
+						if ( jProductWrap.length > 0 ) {
+							if ( addInputs ) {
+								// in shop (variation logic will not work here)
+								quickview_floating = true;
+								$this
+									.closest( 'form,.cart' )
+									.first()
+									.append( $( '<input name="add-to-cart" value="' + product_id + '" type="hidden" />' ) );
+								$this.closest( 'form,.cart' ).first().append( $( '<input type="hidden" value="" class="variation_id" name="variation_id">' ) );
 							}
 
-							tm_init_epo( j_product_wrap, quickview_floating, product_id, epo_id );
+							if ( jProductWrap.is( 'form' ) ) {
+								jProductWrap = jProductWrap.parent();
+							}
+
+							tm_init_epo( jProductWrap, quickview_floating, product_id, epo_id );
 						}
 					} );
 				}
@@ -9450,6 +9506,10 @@
 			window.console.log( errorObject );
 		} );
 
+		$( '.ajax_add_to_cart' ).on( 'click.tcajax', function() {
+			currentAjaxButton = $( this );
+		} );
+
 		$.ajaxPrefilter( function( options, originalOptions ) {
 			var found = false;
 			var hashes;
@@ -9486,6 +9546,9 @@
 							options.originalsuccess = options.success;
 							options.success = function( response ) {
 								if ( response && response.error && response.product_url ) {
+									if ( currentAjaxButton && currentAjaxButton.length === 1 ) {
+										$thisbutton = currentAjaxButton;
+									}
 									$thisbutton = $( ".ajax_add_to_cart[data-product_id='" + originalOptions.data.product_id + "']" );
 									$thisbutton.removeClass( 'added' );
 									$thisbutton.removeClass( 'loading' );
@@ -9510,7 +9573,12 @@
 
 				if ( 'quantity' in _data && ( _data.product_id || _data[ 'add-to-cart' ] || _urldata.product_id || _urldata[ 'add-to-cart' ] || _data.tcaddtocart ) ) {
 					_pid = _data.product_id || _data[ 'add-to-cart' ] || _urldata.product_id || _urldata[ 'add-to-cart' ] || _data.tcaddtocart;
-					epos = $( '.tc-extra-product-options.tm-product-id-' + _pid );
+					if ( currentAjaxButton && currentAjaxButton.length === 1 && currentAjaxButton.closest( '.tm-has-options' ).length === 1 ) {
+						epos = currentAjaxButton.closest( '.tm-has-options' ).find( '.tc-extra-product-options.tm-product-id-' + _pid );
+					} else {
+						epos = $( '.tc-extra-product-options.tm-product-id-' + _pid );
+					}
+
 					if ( epos.length > 1 ) {
 						if ( epos.filter( '.formepo' ) ) {
 							epos = epos.filter( '.formepo' );
@@ -9534,7 +9602,7 @@
 							obj.tc_form_prefix = form_prefix;
 						}
 
-						options.data = $.epoAPI.util.parseParams( options.data );
+						options.data = $.epoAPI.util.parseParams( options.data, true );
 						options.data = $.extend( options.data, epos.tcSerializeObject(), obj );
 						oldData = options.data;
 						formData = new FormData();

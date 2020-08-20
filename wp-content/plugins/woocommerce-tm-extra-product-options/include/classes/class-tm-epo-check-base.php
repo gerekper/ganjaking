@@ -61,6 +61,10 @@ final class THEMECOMPLETE_EPO_CHECK_base {
 	 */
 	public function stop_plugin() {
 
+		if ( apply_filters( 'wc_epo_stop_plugin', false ) ) {
+			return TRUE;
+		}
+
 		if ( ! self::themecomplete_woocommerce_check() ) {
 			return TRUE;
 		}

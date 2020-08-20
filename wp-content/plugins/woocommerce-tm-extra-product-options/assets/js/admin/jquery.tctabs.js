@@ -37,6 +37,7 @@
 				showonhover: false,
 				useclasstohide: true,
 				afteraddtab: null,
+				aftermovetab: null,
 				deletebutton: false,
 				deletebuttonhtml: '<h4 class="tm-del-tab"><span class="tcfa tcfa-times"></span></h4>',
 				deleteheader: '.tm-del-tab',
@@ -192,6 +193,7 @@
 			var add_counter = 0;
 			var _selected_tab;
 			var vars = {};
+			var initialIndex;
 
 			if ( headers.length === 0 ) {
 				return;
@@ -245,15 +247,21 @@
 				cursor: 'move',
 				items: '.tm-box:not(.tm-add-box)',
 				start: function( e, ui ) {
+					var $tab;
+					$tab = t.find( '.' + ui.item.closest( '.tm-box' ).find( options.header ).attr( options.dataattribute ) );
 					ohp = ui.item.index();
 					ohpid = ui.item.find( options.header ).attr( 'data-id' );
+
+					initialIndex = $.tmEPOAdmin.find_index( true, $tab.find( '.bitem' ).first() );
 				},
-				stop: function() {
+				stop: function( e, ui ) {
 					var all_headers = t.find( options.headers + ' ' + options.header );
 					var original_item;
 					var new_index;
 					var replaced_item;
+					var $tab;
 
+					$tab = t.find( '.' + ui.item.closest( '.tm-box' ).find( options.header ).attr( options.dataattribute ) );
 					all_headers.each( function( i ) {
 						$( this ).html( parseInt( i, 10 ) + 1 );
 					} );
@@ -268,7 +276,9 @@
 					} else if ( new_index < ohp ) {
 						replaced_item.before( original_item );
 					}
-					$.tmEPOAdmin.builder_reorder_multiple();
+					if ( typeof options.aftermovetab === 'function' ) {
+						options.aftermovetab.call( this, new_index, ohp, $tab, initialIndex );
+					}
 				},
 				cancel: '.tm-add-box',
 				forcePlaceholderSize: true,

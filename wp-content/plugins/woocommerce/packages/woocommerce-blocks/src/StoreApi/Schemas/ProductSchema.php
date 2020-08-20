@@ -62,6 +62,12 @@ class ProductSchema extends AbstractSchema {
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
+			'type'                => [
+				'description' => __( 'Product type.', 'woocommerce' ),
+				'type'        => 'string',
+				'context'     => [ 'view', 'edit' ],
+				'readonly'    => true,
+			],
 			'variation'           => [
 				'description' => __( 'Product variation attributes, if applicable.', 'woocommerce' ),
 				'type'        => 'string',
@@ -171,14 +177,176 @@ class ProductSchema extends AbstractSchema {
 					'properties' => $this->image_attachment_schema->get_properties(),
 				],
 			],
+			'categories'          => [
+				'description' => __( 'List of categories, if applicable.', 'woocommerce' ),
+				'type'        => 'array',
+				'context'     => [ 'view', 'edit' ],
+				'items'       => [
+					'type'       => 'object',
+					'properties' => [
+						'id'   => [
+							'description' => __( 'Category ID', 'woocommerce' ),
+							'type'        => 'number',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'name' => [
+							'description' => __( 'Category name', 'woocommerce' ),
+							'type'        => 'string',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'slug' => [
+							'description' => __( 'Category slug', 'woocommerce' ),
+							'type'        => 'string',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'link' => [
+							'description' => __( 'Category link', 'woocommerce' ),
+							'type'        => 'string',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+					],
+				],
+			],
+			'tags'                => [
+				'description' => __( 'List of tags, if applicable.', 'woocommerce' ),
+				'type'        => 'array',
+				'context'     => [ 'view', 'edit' ],
+				'items'       => [
+					'type'       => 'object',
+					'properties' => [
+						'id'   => [
+							'description' => __( 'Tag ID', 'woocommerce' ),
+							'type'        => 'number',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'name' => [
+							'description' => __( 'Tag name', 'woocommerce' ),
+							'type'        => 'string',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'slug' => [
+							'description' => __( 'Tag slug', 'woocommerce' ),
+							'type'        => 'string',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'link' => [
+							'description' => __( 'Tag link', 'woocommerce' ),
+							'type'        => 'string',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+					],
+				],
+			],
+			'attributes'          => [
+				'description' => __( 'List of attributes assigned to the product/variation that are visible or used for variations.', 'woocommerce' ),
+				'type'        => 'array',
+				'context'     => [ 'view', 'edit' ],
+				'items'       => [
+					'type'       => 'object',
+					'properties' => [
+						'id'             => [
+							'description' => __( 'The attribute ID, or 0 if the attribute is not taxonomy based.', 'woocommerce' ),
+							'type'        => 'integer',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'name'           => [
+							'description' => __( 'The attribute name.', 'woocommerce' ),
+							'type'        => 'string',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'taxonomy'       => [
+							'description' => __( 'The attribute taxonomy, or null if the attribute is not taxonomy based.', 'woocommerce' ),
+							'type'        => 'string',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'has_variations' => [
+							'description' => __( 'True if this attribute is used by product variations.', 'woocommerce' ),
+							'type'        => 'boolean',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'terms'          => [
+							'description' => __( 'List of assigned attribute terms.', 'woocommerce' ),
+							'type'        => 'array',
+							'context'     => [ 'view', 'edit' ],
+							'items'       => [
+								'type'       => 'object',
+								'properties' => [
+									'id'   => [
+										'description' => __( 'The term ID, or 0 if the attribute is not a global attribute.', 'woocommerce' ),
+										'type'        => 'integer',
+										'context'     => [ 'view', 'edit' ],
+										'readonly'    => true,
+									],
+									'name' => [
+										'description' => __( 'The term name.', 'woocommerce' ),
+										'type'        => 'string',
+										'context'     => [ 'view', 'edit' ],
+										'readonly'    => true,
+									],
+									'slug' => [
+										'description' => __( 'The term slug.', 'woocommerce' ),
+										'type'        => 'string',
+										'context'     => [ 'view', 'edit' ],
+										'readonly'    => true,
+									],
+								],
+							],
+						],
+					],
+				],
+			],
 			'variations'          => [
 				'description' => __( 'List of variation IDs, if applicable.', 'woocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
-				'items'       => 'number',
+				'items'       => [
+					'type'       => 'object',
+					'properties' => [
+						'id'         => [
+							'description' => __( 'The attribute ID, or 0 if the attribute is not taxonomy based.', 'woocommerce' ),
+							'type'        => 'integer',
+							'context'     => [ 'view', 'edit' ],
+							'readonly'    => true,
+						],
+						'attributes' => [
+							'description' => __( 'List of variation attributes.', 'woocommerce' ),
+							'type'        => 'array',
+							'context'     => [ 'view', 'edit' ],
+							'items'       => [
+								'type'       => 'object',
+								'properties' => [
+									'name'  => [
+										'description' => __( 'The attribute name.', 'woocommerce' ),
+										'type'        => 'string',
+										'context'     => [ 'view', 'edit' ],
+										'readonly'    => true,
+									],
+									'value' => [
+										'description' => __( 'The assigned attribute.', 'woocommerce' ),
+										'type'        => 'string',
+										'context'     => [ 'view', 'edit' ],
+										'readonly'    => true,
+									],
+								],
+							],
+						],
+					],
+				],
 			],
 			'has_options'         => [
-				'description' => __( 'Does the product have options?', 'woocommerce' ),
+				'description' => __( 'Does the product have additional options before it can be added to the cart?', 'woocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -195,9 +363,27 @@ class ProductSchema extends AbstractSchema {
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
+			'is_on_backorder'     => [
+				'description' => __( 'Is the product stock backordered? This will also return false if backorder notifications are turned off.', 'woocommerce' ),
+				'type'        => 'boolean',
+				'context'     => [ 'view', 'edit' ],
+				'readonly'    => true,
+			],
 			'low_stock_remaining' => [
 				'description' => __( 'Quantity left in stock if stock is low, or null if not applicable.', 'woocommerce' ),
 				'type'        => [ 'integer', 'null' ],
+				'context'     => [ 'view', 'edit' ],
+				'readonly'    => true,
+			],
+			'sold_individually'   => [
+				'description' => __( 'If true, only one item of this product is allowed for purchase in a single order.', 'woocommerce' ),
+				'type'        => 'boolean',
+				'context'     => [ 'view', 'edit' ],
+				'readonly'    => true,
+			],
+			'quantity_limit'      => [
+				'description' => __( 'The maximum quantity than can be added to the cart at once.', 'woocommerce' ),
+				'type'        => 'integer',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
@@ -219,6 +405,12 @@ class ProductSchema extends AbstractSchema {
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
+					'url'         => [
+						'description' => __( 'Add to cart URL.', 'woocommerce' ),
+						'type'        => 'string',
+						'context'     => [ 'view', 'edit' ],
+						'readonly'    => true,
+					],
 				],
 			],
 		];
@@ -235,6 +427,7 @@ class ProductSchema extends AbstractSchema {
 			'id'                  => $product->get_id(),
 			'name'                => $this->prepare_html_response( $product->get_title() ),
 			'parent'              => $product->get_parent_id(),
+			'type'                => $product->get_type(),
 			'variation'           => $this->prepare_html_response( $product->is_type( 'variation' ) ? wc_get_formatted_variation( $product, true, true, false ) : '' ),
 			'permalink'           => $product->get_permalink(),
 			'sku'                 => $this->prepare_html_response( $product->get_sku() ),
@@ -246,15 +439,22 @@ class ProductSchema extends AbstractSchema {
 			'average_rating'      => $product->get_average_rating(),
 			'review_count'        => $product->get_review_count(),
 			'images'              => $this->get_images( $product ),
-			'variations'          => $product->is_type( 'variable' ) ? $product->get_visible_children() : [],
+			'categories'          => $this->get_term_list( $product, 'product_cat' ),
+			'tags'                => $this->get_term_list( $product, 'product_tag' ),
+			'attributes'          => $this->get_attributes( $product ),
+			'variations'          => $this->get_variations( $product ),
 			'has_options'         => $product->has_options(),
 			'is_purchasable'      => $product->is_purchasable(),
 			'is_in_stock'         => $product->is_in_stock(),
+			'is_on_backorder'     => 'onbackorder' === $product->get_stock_status(),
 			'low_stock_remaining' => $this->get_low_stock_remaining( $product ),
+			'sold_individually'   => $product->is_sold_individually(),
+			'quantity_limit'      => $this->get_product_quantity_limit( $product ),
 			'add_to_cart'         => (object) $this->prepare_html_response(
 				[
 					'text'        => $product->add_to_cart_text(),
 					'description' => $product->add_to_cart_description(),
+					'url'         => $product->add_to_cart_url(),
 				]
 			),
 		];
@@ -295,10 +495,168 @@ class ProductSchema extends AbstractSchema {
 		$remaining_stock = $this->get_remaining_stock( $product );
 
 		if ( ! is_null( $remaining_stock ) && $remaining_stock <= wc_get_low_stock_amount( $product ) ) {
-			return $remaining_stock;
+			return max( $remaining_stock, 0 );
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get the quantity limit for an item in the cart.
+	 *
+	 * @param \WC_Product $product Product instance.
+	 * @return int
+	 */
+	protected function get_product_quantity_limit( \WC_Product $product ) {
+		$limits = [ 99 ];
+
+		if ( $product->is_sold_individually() ) {
+			$limits[] = 1;
+		} elseif ( ! $product->backorders_allowed() ) {
+			$limits[] = $this->get_remaining_stock( $product );
+		}
+
+		return apply_filters( 'woocommerce_store_api_product_quantity_limit', max( min( array_filter( $limits ) ), 1 ), $product );
+	}
+
+	/**
+	 * Returns true if the given attribute is valid.
+	 *
+	 * @param mixed $attribute Object or variable to check.
+	 * @return boolean
+	 */
+	protected function filter_valid_attribute( $attribute ) {
+		return is_a( $attribute, '\WC_Product_Attribute' );
+	}
+
+	/**
+	 * Returns true if the given attribute is valid and used for variations.
+	 *
+	 * @param mixed $attribute Object or variable to check.
+	 * @return boolean
+	 */
+	protected function filter_variation_attribute( $attribute ) {
+		return $this->filter_valid_attribute( $attribute ) && $attribute->get_variation();
+	}
+
+	/**
+	 * Get variation IDs and attributes from the DB.
+	 *
+	 * @param \WC_Product $product Product instance.
+	 * @returns array
+	 */
+	protected function get_variations( \WC_Product $product ) {
+		if ( ! $product->is_type( 'variable' ) ) {
+			return [];
+		}
+		global $wpdb;
+
+		$variation_ids               = $product->get_visible_children();
+		$attributes                  = array_filter( $product->get_attributes(), [ $this, 'filter_variation_attribute' ] );
+		$default_variation_meta_data = array_reduce(
+			$attributes,
+			function( $defaults, $attribute ) {
+				$meta_key              = wc_variation_attribute_name( $attribute->get_name() );
+				$defaults[ $meta_key ] = [
+					'name'  => wc_attribute_label( $attribute->get_name(), $product ),
+					'value' => null,
+				];
+				return $defaults;
+			},
+			[]
+		);
+
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
+		$variation_meta_data = $wpdb->get_results(
+			"
+			SELECT post_id as variation_id, meta_key as attribute_key, meta_value as attribute_value
+			FROM {$wpdb->postmeta}
+			WHERE post_id IN (" . implode( ',', array_map( 'esc_sql', $variation_ids ) ) . ")
+			AND meta_key IN ('" . implode( "','", array_map( 'esc_sql', array_keys( $default_variation_meta_data ) ) ) . "')
+		"
+		);
+		// phpcs:enable
+
+		$attributes_by_variation = array_reduce(
+			$variation_meta_data,
+			function( $values, $data ) {
+				$values[ $data->variation_id ][ $data->attribute_key ] = $data->attribute_value;
+				return $values;
+			},
+			array_fill_keys( $variation_ids, [] )
+		);
+
+		$variations = [];
+
+		foreach ( $variation_ids as $variation_id ) {
+			$attribute_data = $default_variation_meta_data;
+
+			foreach ( $attributes_by_variation[ $variation_id ] as $meta_key => $meta_value ) {
+				if ( '' !== $meta_value ) {
+					$attribute_data[ $meta_key ]['value'] = $meta_value;
+				}
+			}
+
+			$variations[] = (object) [
+				'id'         => $variation_id,
+				'attributes' => array_values( $attribute_data ),
+			];
+		}
+
+		return $variations;
+	}
+
+	/**
+	 * Get list of product attributes and attribute terms.
+	 *
+	 * @param \WC_Product $product Product instance.
+	 * @return array
+	 */
+	protected function get_attributes( \WC_Product $product ) {
+		$attributes = array_filter( $product->get_attributes(), [ $this, 'filter_valid_attribute' ] );
+		$return     = [];
+
+		foreach ( $attributes as $attribute_slug => $attribute ) {
+			// Only visible and variation attributes will be exposed by this API.
+			if ( ! $attribute->get_visible() || ! $attribute->get_variation() ) {
+				continue;
+			}
+			$return[] = (object) [
+				'id'             => $attribute->get_id(),
+				'name'           => wc_attribute_label( $attribute->get_name(), $product ),
+				'taxonomy'       => $attribute->is_taxonomy() ? $attribute->get_name() : null,
+				'has_variations' => true === $attribute->get_variation(),
+				'terms'          => $attribute->is_taxonomy() ? array_map( [ $this, 'prepare_product_attribute_taxonomy_value' ], $attribute->get_terms() ) : array_map( [ $this, 'prepare_product_attribute_value' ], $attribute->get_options() ),
+			];
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Prepare an attribute term for the response.
+	 *
+	 * @param \WP_Term $term Term object.
+	 * @return object
+	 */
+	protected function prepare_product_attribute_taxonomy_value( \WP_Term $term ) {
+		return $this->prepare_product_attribute_value( $term->name, $term->term_id, $term->slug );
+	}
+
+	/**
+	 * Prepare an attribute term for the response.
+	 *
+	 * @param string $name Attribute term name.
+	 * @param int    $id Attribute term ID.
+	 * @param string $slug Attribute term slug.
+	 * @return object
+	 */
+	protected function prepare_product_attribute_value( $name, $id = 0, $slug = '' ) {
+		return (object) [
+			'id'   => (int) $id,
+			'name' => $name,
+			'slug' => $slug ? $slug : $name,
+		];
 	}
 
 	/**
@@ -381,5 +739,48 @@ class ProductSchema extends AbstractSchema {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Returns a list of terms assigned to the product.
+	 *
+	 * @param \WC_Product $product Product object.
+	 * @param string      $taxonomy Taxonomy name.
+	 * @return array Array of terms (id, name, slug).
+	 */
+	protected function get_term_list( \WC_Product $product, $taxonomy = '' ) {
+		if ( ! $taxonomy ) {
+			return [];
+		}
+
+		$terms = get_the_terms( $product->get_id(), $taxonomy );
+
+		if ( ! $terms || is_wp_error( $terms ) ) {
+			return [];
+		}
+
+		$return           = [];
+		$default_category = (int) get_option( 'default_product_cat', 0 );
+
+		foreach ( $terms as $term ) {
+			$link = get_term_link( $term, $taxonomy );
+
+			if ( is_wp_error( $link ) ) {
+				continue;
+			}
+
+			if ( $term->term_id === $default_category ) {
+				continue;
+			}
+
+			$return[] = (object) [
+				'id'   => $term->term_id,
+				'name' => $term->name,
+				'slug' => $term->slug,
+				'link' => $link,
+			];
+		}
+
+		return $return;
 	}
 }

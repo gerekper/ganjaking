@@ -1071,7 +1071,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$post_id = get_the_ID();
 		$has_epo = THEMECOMPLETE_EPO_API()->has_options( $post_id );
 		if ( THEMECOMPLETE_EPO_API()->is_valid_options( $has_epo ) ) {
-			echo '<div class="tm-has-options"><form class="cart">';
+			echo '<div class="tm-has-options tc-after-shop-loop"><form class="cart">';
 			THEMECOMPLETE_EPO_DISPLAY()->frontend_display( $post_id, "tc_" . $post_id, FALSE );
 			echo '</form></div>';
 		}
@@ -1397,11 +1397,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 								? wc_get_price_html_from_text()
 								: $product->get_price_html_from_text() )
 						                    . $displayed_price;
+						$price .= $product->get_price_suffix();
 					} else {
 						$price .= $original_price;
 					}
-					$price .= $product->get_price_suffix();
-
 				} else {
 					if ( $use_from && ( $max > 0 || $max > $min ) ) {
 						$price .= ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() );
@@ -1565,6 +1564,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			)
 
 		) {
+			return $classes;
+		}
+
+		if ($this->tm_epo_enable_in_shop == "no"){
 			return $classes;
 		}
 
@@ -5241,6 +5244,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													'max_date'               => $this->get_builder_element( $_prefix . 'max_date', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 													'disabled_dates'         => $disabled_dates,
 													'enabled_only_dates'     => $enabled_only_dates,
+													'exlude_disabled'        => $this->get_builder_element( $_prefix . 'exlude_disabled', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 													'disabled_weekdays'      => $this->get_builder_element( $_prefix . 'disabled_weekdays', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 													'disabled_months'        => $this->get_builder_element( $_prefix . 'disabled_months', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 

@@ -56,6 +56,7 @@ defined( 'ABSPATH' ) || exit;
                data-max-date="<?php echo esc_attr( $max_date ); ?>"
                data-disabled-dates="<?php echo esc_attr( $disabled_dates ); ?>"
                data-enabled-only-dates="<?php echo esc_attr( $enabled_only_dates ); ?>"
+			   data-exlude-disabled="<?php echo esc_attr( $exlude_disabled ); ?>"
                data-disabled-weekdays="<?php echo esc_attr( $disabled_weekdays ); ?>"
                data-disabled-months="<?php echo esc_attr( $disabled_months ); ?>"
                data-date-format="<?php echo esc_attr( $date_format ); ?>"

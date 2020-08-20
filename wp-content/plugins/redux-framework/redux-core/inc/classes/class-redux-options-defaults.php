@@ -43,9 +43,17 @@ if ( ! class_exists( 'Redux_Options_Defaults', false ) ) {
 			// We want it to be clean each time this is run.
 			$this->options_defaults = array();
 
-			if ( ! is_null( $sections ) && ! wp_doing_ajax() ) {
+			// Check to make sure we're not in the select2 action, we don't want to fetch any there.
+			if ( isset( $_REQUEST['action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$action = sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				if ( Redux_Functions_Ex::string_ends_with( $action, '_select2' ) && Redux_Functions_Ex::string_starts_with( $action, 'redux_' ) ) {
+					return;
+				}
+			}
 
-				// fill the cache.
+			if ( ! is_null( $sections ) || ! empty( $sections ) ) {
+
+				// Fill the cache.
 				foreach ( $sections as $sk => $section ) {
 					if ( ! isset( $section['id'] ) ) {
 						if ( ! is_numeric( $sk ) || ! isset( $section['title'] ) ) {
@@ -94,7 +102,7 @@ if ( ! class_exists( 'Redux_Options_Defaults', false ) ) {
 				// phpcs:ignore WordPress.NamingConventions.ValidHookName
 				$this->options_defaults[ $field['id'] ] = apply_filters( "redux/{$opt_name}/field/{$field['type']}/defaults", $field['default'], $field );
 			} elseif ( ( 'ace_editor' !== $field['type'] ) && ! ( 'select' === $field['type'] && ! empty( $field['ajax'] ) ) ) {
-				if ( isset( $field['data'] ) && ! empty( $field['data'] ) ) {
+				if ( isset( $field['data'] ) && empty( $field['data'] ) ) {
 					if ( ! isset( $field['args'] ) ) {
 						$field['args'] = array();
 					}

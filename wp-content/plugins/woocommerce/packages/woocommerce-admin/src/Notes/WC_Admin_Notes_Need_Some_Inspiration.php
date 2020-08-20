@@ -3,8 +3,6 @@
  * WooCommerce Admin: Do you need some inspiration?
  *
  * Adds a note to ask the client if they need some inspiration.
- *
- * @package WooCommerce Admin
  */
 
 namespace Automattic\WooCommerce\Admin\Notes;
@@ -31,6 +29,11 @@ class WC_Admin_Notes_Need_Some_Inspiration {
 	public static function get_note() {
 		// We want to show the note after five days.
 		if ( ! self::wc_admin_active_for( 5 * DAY_IN_SECONDS ) ) {
+			return;
+		}
+
+		// We don't want to show the note after 30 days.
+		if ( self::wc_admin_active_for( 30 * DAY_IN_SECONDS ) ) {
 			return;
 		}
 

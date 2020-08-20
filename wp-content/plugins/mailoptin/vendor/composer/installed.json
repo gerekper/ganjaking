@@ -538,17 +538,17 @@
     },
     {
         "name": "mailoptin/core",
-        "version": "0.1.0-alpha.1597256632",
-        "version_normalized": "0.1.0.0-alpha1597256632",
+        "version": "0.1.0-alpha.1597642842",
+        "version_normalized": "0.1.0.0-alpha1597642842",
         "source": {
             "type": "git",
             "url": "https://github.com/mailoptin/core.git",
-            "reference": "aef1ab44087e444142be8410b7718eb997b8464a"
+            "reference": "0bfefcb9108986dc5e9ff311476c3322ed84048a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mailoptin/core/zipball/aef1ab44087e444142be8410b7718eb997b8464a",
-            "reference": "aef1ab44087e444142be8410b7718eb997b8464a",
+            "url": "https://api.github.com/repos/mailoptin/core/zipball/0bfefcb9108986dc5e9ff311476c3322ed84048a",
+            "reference": "0bfefcb9108986dc5e9ff311476c3322ed84048a",
             "shasum": ""
         },
         "require": {
@@ -560,7 +560,7 @@
             "pelago/emogrifier": "^1.0",
             "soundasleep/html2text": "~0.5"
         },
-        "time": "2020-08-12T10:59:20+00:00",
+        "time": "2020-08-13T08:53:54+00:00",
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "autoload": {

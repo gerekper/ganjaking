@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Blocks
  * Plugin URI: https://github.com/woocommerce/woocommerce-gutenberg-products-block
  * Description: WooCommerce blocks for the Gutenberg editor.
- * Version: 2.7.3
+ * Version: 3.1.0
  * Author: Automattic
  * Author URI: https://woocommerce.com
  * Text Domain:  woo-gutenberg-products-block
@@ -13,7 +13,7 @@
  * WC tested up to: 4.2
  *
  * @package WooCommerce\Blocks
- * @internal This file is only used when running the REST API as a feature plugin.
+ * @internal This file is only used when running as a feature plugin.
  */
 
 defined( 'ABSPATH' ) || exit;

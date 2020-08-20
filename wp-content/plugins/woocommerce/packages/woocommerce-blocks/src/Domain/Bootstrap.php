@@ -20,6 +20,8 @@ use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
 use Automattic\WooCommerce\Blocks\Payments\Integrations\Stripe;
 use Automattic\WooCommerce\Blocks\Payments\Integrations\Cheque;
 use Automattic\WooCommerce\Blocks\Payments\Integrations\PayPal;
+use Automattic\WooCommerce\Blocks\Payments\Integrations\BankTransfer;
+use Automattic\WooCommerce\Blocks\Payments\Integrations\CashOnDelivery;
 use Automattic\WooCommerce\Blocks\Domain\Services\DraftOrders;
 
 /**
@@ -225,6 +227,20 @@ class Bootstrap {
 			function( Container $container ) {
 				$asset_api = $container->get( AssetApi::class );
 				return new PayPal( $asset_api );
+			}
+		);
+		$this->container->register(
+			BankTransfer::class,
+			function( Container $container ) {
+				$asset_api = $container->get( AssetApi::class );
+				return new BankTransfer( $asset_api );
+			}
+		);
+		$this->container->register(
+			CashOnDelivery::class,
+			function( Container $container ) {
+				$asset_api = $container->get( AssetApi::class );
+				return new CashOnDelivery( $asset_api );
 			}
 		);
 	}

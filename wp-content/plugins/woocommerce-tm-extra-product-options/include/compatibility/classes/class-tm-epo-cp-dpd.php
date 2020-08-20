@@ -207,7 +207,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 				$cart_item_key = $product->rightpress_in_cart;
 				if ( isset( WC()->cart->cart_contents[ $cart_item_key ] ) ) {
 					$cart_item = WC()->cart->cart_contents[ $cart_item_key ];
-					if ( ! empty( $cart_item['tmcartepo'] ) && isset( $cart_item['tm_epo_options_prices'] ) && empty( $cart_item['epo_price_override'] ) ) {
+					if ( ! isset($cart_item['tc_recalculate']) && ! empty( $cart_item['tmcartepo'] ) && isset( $cart_item['tm_epo_options_prices'] ) && empty( $cart_item['epo_price_override'] ) ) {
 						WC()->cart->cart_contents[ $cart_item_key ]['tm_epo_product_after_adjustment'] = $price; 
 						$price                                                                         = floatval( $price ) + floatval( $cart_item['tm_epo_options_prices'] );
 						unset( WC()->cart->cart_contents[ $cart_item_key ]['tm_epo_doing_adjustment'] );

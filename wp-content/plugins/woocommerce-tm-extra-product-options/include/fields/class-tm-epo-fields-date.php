@@ -231,6 +231,7 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 			'max_date'            => isset( $element['max_date'] ) ? $element['max_date'] : "",
 			'disabled_dates'      => ! empty( $element['disabled_dates'] ) ? $element['disabled_dates'] : "",
 			'enabled_only_dates'  => ! empty( $element['enabled_only_dates'] ) ? $element['enabled_only_dates'] : "",
+			'exlude_disabled'     => isset( $element['exlude_disabled'] ) ? $element['exlude_disabled'] : "",
 			'disabled_weekdays'   => isset( $element['disabled_weekdays'] ) ? $element['disabled_weekdays'] : "",
 			'disabled_months'     => isset( $element['disabled_months'] ) ? $element['disabled_months'] : "",
 			'tranlation_day'      => $tranlation_day,
