@@ -751,6 +751,7 @@ class Vc_Base {
 			'preset_removed' => esc_html__( 'Element successfully removed.', 'js_composer' ),
 			'vc_successfully_updated' => esc_html__( 'Successfully updated!', 'js_composer' ),
 			'gutenbergDoesntWorkProperly' => esc_html__( 'Gutenberg plugin doesn\'t work properly. Please check Gutenberg plugin.', 'js_composer' ),
+			'unfiltered_html_access' => esc_html__( 'Custom HTML is disabled for your user role. Please contact your site Administrator to change your capabilities.', 'js_composer' ),
 		);
 	}
 }

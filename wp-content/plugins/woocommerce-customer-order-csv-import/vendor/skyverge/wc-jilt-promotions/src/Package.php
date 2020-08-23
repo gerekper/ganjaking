@@ -26,11 +26,12 @@ defined( 'ABSPATH' ) or exit;
  */
 class Package {
 
+
 	/** @var string the package ID */
 	const ID = 'sv-wc-jilt-promotions';
 
 	/** @var string the package version */
-	const VERSION = '1.0.2';
+	const VERSION = '1.1.0';
 
 	/** @var string the minimum required version of WooCommerce */
 	const MINIMUM_WOOCOMMERCE_VERSION = '3.0';
@@ -66,9 +67,23 @@ class Package {
 	 */
 	private function includes() {
 
+		require_once( self::get_package_path() . '/Messages.php' );
+		require_once( self::get_package_path() . '/Notices/Notice.php' );
+		require_once( self::get_package_path() . '/Handlers/Installation.php' );
+		require_once( self::get_package_path() . '/Handlers/Prompt.php' );
+		require_once( self::get_package_path() . '/Admin/Customers.php' );
 		require_once( self::get_package_path() . '/Admin/Emails.php' );
+		require_once( self::get_package_path() . '/Admin/Orders.php' );
+		require_once( self::get_package_path() . '/Admin/Product.php' );
+		require_once( self::get_package_path() . '/Admin/Users.php' );
 
+		new Messages();
+		new Handlers\Installation();
+		new Admin\Customers();
 		new Admin\Emails();
+		new Admin\Orders();
+		new Admin\Product();
+		new Admin\Users();
 	}
 
 

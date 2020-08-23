@@ -34,7 +34,7 @@ class WC_Authorize_Net_Reporting extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.10.3';
+	const VERSION = '1.11.0';
 
 	/** @var \WC_Authorize_Net_Reporting single instance of this plugin */
 	protected static $instance;
@@ -205,7 +205,7 @@ class WC_Authorize_Net_Reporting extends Framework\SV_WC_Plugin {
 	 */
 	public function get_documentation_url() {
 
-		return 'http://docs.woocommerce.com/document/woocommerce-authorize-net-reporting/';
+		return 'https://docs.woocommerce.com/document/woocommerce-authorize-net-reporting/';
 	}
 
 

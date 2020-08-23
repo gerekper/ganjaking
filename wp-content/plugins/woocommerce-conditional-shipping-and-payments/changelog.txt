@@ -1,5 +1,12 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2020.08.21 - version 1.8.4
+* Tweak - Renamed 'Recurring Item' condition to 'Product on Subscription'.
+
+2020.08.18 - version 1.8.3
+* Feature - Introduced 'Recurring Package' condition, useful for restricting shipping methods in recurring (renewal) packages only.
+* Fix - 'Coupon code' condition not working correctly when using the 'not used' modifier with multiple coupon codes.
+
 2020.07.15 - version 1.8.2
 * Important - Declared compatibility with WooCommerce 4.3.
 * Feature - Added support for importing/exporting product-level Restrictions via the WooCommerce Importer/Exporter tool.

@@ -98,6 +98,7 @@ class WooCommerce_Widget_Recommended_Products extends WP_Widget {
 		}
 
 		if ( ! count( $this->similar_products ) ) {
+		    ob_end_clean();
 			return;
 		}
 
@@ -197,6 +198,10 @@ class WooCommerce_Widget_Recommended_Products extends WP_Widget {
 		if ( ! isset( $instance['number'] ) || ! $number = (int) $instance['number'] ) {
 			$number = 5;
 		}
+
+		if (!isset($instance['activity'])) {
+		    $instance['activity'] = 'completed';
+        }
 
 		if ( is_array( $instance['activity'] ) ) {
 			$instance['activity'] = array_shift( $instance['activity'] );

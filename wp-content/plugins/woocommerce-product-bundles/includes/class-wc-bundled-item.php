@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The bunded item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  6.3.2
+ * @version  6.3.4
  */
 class WC_Bundled_Item {
 
@@ -1895,13 +1895,25 @@ class WC_Bundled_Item {
 	 * @return double
 	 */
 	public function get_discount( $context = '' ) {
-		/**
-		 * 'woocommerce_bundled_item_discount' filter.
-		 *
-		 * @param  mixed            $discount
-		 * @param  WC_Bundled_Item  $this
-		 */
-		return $this->is_priced_individually() ? apply_filters( 'woocommerce_bundled_item_discount', $this->discount, $this, $context ) : '';
+
+		$discount = '';
+
+		if ( $this->is_priced_individually() ) {
+
+			if ( isset( $this->is_subscription_renewal ) ) {
+				return $discount;
+			}
+
+			/**
+			 * 'woocommerce_bundled_item_discount' filter.
+			 *
+			 * @param  mixed            $discount
+			 * @param  WC_Bundled_Item  $this
+			 */
+			$discount = apply_filters( 'woocommerce_bundled_item_discount', $this->discount, $this, $context );
+		}
+
+		return $discount;
 	}
 
 	/**

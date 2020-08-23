@@ -1,5 +1,12 @@
 *** WooCommerce Social Login Changelog ***
 
+2020.08.17 - version 2.10.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+
+2020.07.16 - version 2.9.0
+ * Tweak - Remove Instagram support after Facebook fully deprecated its legacy API
+ * Localization - Add Spanish translation kindly provided by David Lott and Jonathan Lott
+
 2020.06.23 - version 2.8.8
  * Fix - Fix an error trying to login using VK provider
  * Misc - Update HybridAuth to version 2.17

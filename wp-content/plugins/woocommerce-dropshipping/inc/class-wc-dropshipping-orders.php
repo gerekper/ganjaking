@@ -325,7 +325,7 @@ class WC_Dropshipping_Orders {
 				$ds = wc_dropshipping_get_dropship_supplier_by_product_id( intval( $item['product_id'] ) );
 
 				if ( isset($ds['id']) && $ds['id'] > 0 ) {
-					$product = $order->get_product_from_item( $item ); // get the product obj
+					$product = $item->get_product(); // get the product obj
 
 					$prod_info = $this->get_order_product_info($item,$product);
 

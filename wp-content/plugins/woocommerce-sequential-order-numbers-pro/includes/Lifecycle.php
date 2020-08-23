@@ -51,6 +51,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 		$this->upgrade_versions = [
 			'1.5.5',
 			'1.8.1',
+			'1.16.0',
 		];
 	}
 
@@ -185,6 +186,18 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 		// option used until support for WC 2.3 was dropped after 1.8.1
 		delete_option( 'woocommerce_hash_before_order_number' );
+	}
+
+
+	/**
+	 * Updates to version 1.16.0.
+	 *
+	 * @since 1.16.0
+	 */
+	protected function upgrade_to_1_16_0() {
+
+		// for merchants updating, set a flag to not show the onboarding tips
+		update_option( sprintf( 'wc_%s_onboarding_status', $this->get_plugin()->get_id() ), 'updated' );
 	}
 
 

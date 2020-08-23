@@ -197,7 +197,7 @@ $coupons = FUE_Coupons::get_coupons();
 
 			$section.find('a').removeClass('current');
 
-			if ( $section.find('.section:visible').size() > 0 ) {
+			if ($section.find('.section:visible').length) {
 				$section.find('.section:visible').fadeOut( 100, function() {
 					$section.find( $target ).fadeIn('fast');
 				});

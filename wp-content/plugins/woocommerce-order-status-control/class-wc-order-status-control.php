@@ -34,7 +34,7 @@ class WC_Order_Status_Control extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.12.3';
+	const VERSION = '1.13.0';
 
 	/** @var WC_Order_Status_Control single instance of this plugin */
 	protected static $instance;
@@ -67,6 +67,21 @@ class WC_Order_Status_Control extends Framework\SV_WC_Plugin {
 			// add general settings
 			add_filter( 'woocommerce_general_settings', array( $this, 'add_global_settings' ) );
 		}
+	}
+
+
+	/**
+	 * Initializes admin handlers.
+	 *
+	 * @internal
+	 *
+	 * @since 1.13.0
+	 */
+	public function init_admin() {
+
+		require_once( $this->get_plugin_path() . '/includes/Admin/Onboarding_Tips.php' );
+
+		new \SkyVerge\WooCommerce\Order_Status_Control\Admin\Onboarding_Tips( $this );
 	}
 
 
@@ -242,6 +257,19 @@ class WC_Order_Status_Control extends Framework\SV_WC_Plugin {
 
 
 	/**
+	 * Determines whether the current page is the plugin settings page.
+	 *
+	 * @since 1.13.0
+	 *
+	 * @return bool
+	 */
+	public function is_plugin_settings() {
+
+		return $this->is_general_configuration_page();
+	}
+
+
+	/**
 	 * Returns the plugin name, localized.
 	 *
 	 * @since 1.2
@@ -287,7 +315,7 @@ class WC_Order_Status_Control extends Framework\SV_WC_Plugin {
 	 * @return string
 	 */
 	public function get_documentation_url() {
-		return 'http://docs.woocommerce.com/document/woocommerce-order-status-control/';
+		return 'https://docs.woocommerce.com/document/woocommerce-order-status-control/';
 	}
 
 

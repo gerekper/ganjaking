@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce All Products For Subscriptions
 * Plugin URI: https://woocommerce.com/products/all-products-for-woocommerce-subscriptions/
 * Description: Make existing products available on subscription, and give customers the freedom to add products to their existing subscriptions. WooCommerce Subscriptions add-on formerly known as Subscribe All The Things.
-* Version: 3.1.16
+* Version: 3.1.17
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -15,7 +15,7 @@
 * Requires PHP: 5.6
 *
 * Requires at least: 4.4
-* Tested up to: 5.4
+* Tested up to: 5.5
 *
 * WC requires at least: 3.3
 * WC tested up to: 4.4
@@ -43,12 +43,12 @@ require_once( 'includes/modules/abstract/class-wcs-att-abstract-module.php' );
  * Main plugin class.
  *
  * @class    WCS_ATT
- * @version  3.1.16
+ * @version  3.1.17
  */
 class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 	/* Plugin version. */
-	const VERSION = '3.1.16';
+	const VERSION = '3.1.17';
 
 	/* Required WC version. */
 	const REQ_WC_VERSION = '3.3.0';

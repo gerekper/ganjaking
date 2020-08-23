@@ -73,7 +73,7 @@ class WC_Memberships_User_Memberships {
 		add_filter( 'comments_clauses',   array( $this, 'exclude_membership_notes_from_queries' ) );
 		add_action( 'comment_feed_join',  array( $this, 'exclude_membership_notes_from_feed_join' ) );
 		add_action( 'comment_feed_where', array( $this, 'exclude_membership_notes_from_feed_where' ) );
-		add_filter( 'wp_count_comments',  array( $this, 'exclude_membership_notes_from_comments_count' ), 999, 2 );
+		add_filter( 'wp_count_comments',  [ $this, 'exclude_membership_notes_from_comments_count' ], 999, 2 );
 
 		// expiration events handling
 		add_action( 'wc_memberships_user_membership_expiry',           array( $this, 'trigger_expiration_events' ), 10, 1 );
@@ -169,7 +169,7 @@ class WC_Memberships_User_Memberships {
 
 		// this shouldn't happen, yet ensure $user_membership isn't null
 		if ( ! $user_membership instanceof \WC_Memberships_User_Membership ) {
-			/* translators: Placeholder: %s - membership plan ID */
+			/* translators: Placeholder: %d - membership plan ID */
 			throw new Framework\SV_WC_Plugin_Exception( sprintf( __( 'Cannot create User Membership #%d.', 'woocommerce-memberships' ), $user_membership_id ) );
 		}
 
@@ -1614,11 +1614,14 @@ class WC_Memberships_User_Memberships {
 
 		if ( 0 === $post_id ) {
 
-			$notes = $this->get_user_membership_notes_count();
+			if ( ! empty( $counts ) && isset( $counts->all, $counts->approved ) ) {
 
-			if ( $notes > 0 ) {
-				$counts->all      = max( 0, (int) $counts->all - $notes );
-				$counts->approved = max( 0, (int) $counts->approved - $notes );
+				$notes = $this->get_user_membership_notes_count();
+
+				if ( $notes > 0 ) {
+					$counts->all      = max( 0, (int) $counts->all - $notes );
+					$counts->approved = max( 0, (int) $counts->approved - $notes );
+				}
 			}
 
 		} elseif ( is_numeric( $post_id ) && $post_id > 0 && 'wc_user_membership' === get_post_type( $post_id ) ) {

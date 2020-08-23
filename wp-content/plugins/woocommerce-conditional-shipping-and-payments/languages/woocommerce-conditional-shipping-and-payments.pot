@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.8.2\n"
+"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.8.4\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2020-07-15 14:24:51+00:00\n"
+"POT-Creation-Date: 2020-08-21 20:53:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -379,6 +379,7 @@ msgstr ""
 #: includes/conditions/class-wc-csp-condition-billing-country.php:125
 #: includes/conditions/class-wc-csp-condition-currency.php:170
 #: includes/conditions/class-wc-csp-condition-customer-role.php:154
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:242
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:263
 #: includes/conditions/class-wc-csp-condition-shipping-method.php:243
 #: includes/conditions/class-wc-csp-condition-shipping-postcode.php:205
@@ -388,6 +389,7 @@ msgstr ""
 #: includes/conditions/class-wc-csp-condition-billing-country.php:126
 #: includes/conditions/class-wc-csp-condition-currency.php:171
 #: includes/conditions/class-wc-csp-condition-customer-role.php:155
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:243
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:264
 #: includes/conditions/class-wc-csp-condition-shipping-method.php:244
 #: includes/conditions/class-wc-csp-condition-shipping-postcode.php:206
@@ -580,7 +582,7 @@ msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-recurring-item.php:28
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:28
-msgid "Recurring Item"
+msgid "Product on Subscription"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-recurring-item.php:53
@@ -617,26 +619,31 @@ msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-recurring-item.php:107
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:295
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:198
 msgid "daily"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-recurring-item.php:108
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:296
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:199
 msgid "weekly"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-recurring-item.php:109
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:297
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:200
 msgid "monthly"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-recurring-item.php:110
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:298
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:201
 msgid "yearly"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-recurring-item.php:391
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:347
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:248
 msgid "Select billing period&hellip;"
 msgstr ""
 
@@ -694,12 +701,12 @@ msgstr ""
 msgid "use a qualifying coupon"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:202
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:204
 #: includes/conditions/class-wc-csp-condition-gift-cards.php:122
 msgid "used"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:203
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:205
 #: includes/conditions/class-wc-csp-condition-gift-cards.php:123
 msgid "not used"
 msgstr ""
@@ -942,22 +949,27 @@ msgid ">"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:47
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:47
 msgid "recurring"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:58
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:58
 msgid "make sure that your cart does not contain any items shipped at %s intervals"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:60
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:60
 msgid "make sure it does not contain any items shipped at %s intervals"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:66
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:66
 msgid "make sure that your cart contains items shipped at %s intervals"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:68
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:68
 msgid "make sure it contains items shipped at %s intervals"
 msgstr ""
 
@@ -978,7 +990,12 @@ msgid "make sure it only contains items shipped at %s intervals"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:90
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:74
 msgid "consider changing its shipping schedule"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-recurring-package.php:28
+msgid "Recurring Package"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-shipping-class.php:58

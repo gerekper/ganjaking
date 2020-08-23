@@ -24,7 +24,7 @@ jQuery(document).ready(function($){
 	$("#csv_type").change(function(){showType()});
 	showType();
 
-	$('.csvupload_submit_btn').live('click',function()
+	$(document).on('click', '.csvupload_submit_btn',function()
 	{
 		$('.csvupload_form').hide()
 		$('.csv_upload_iframe').show();

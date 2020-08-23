@@ -1,3 +1,18 @@
+21.08.2020 - ver 6.3.0
+  - Added: Role manager for unfiltered_html available
+  - Update: Filter for screen sizes in the navigation bar
+  - Update: Trigger event to prepare tab content
+  - Update: Description for the limit in WooCommerce shortcodes
+  - Update: LiteSpeed cache compatibility updated
+  - Update: Flickr element render API
+  - Update: HTML for image captions enabled
+  - Fix: Posts grid elements with "load more" option animates properly
+  - Fix: Dependency for not_empty in vc_link attribute type
+  - Fix: Target blank link selector
+  - Fix: Entity characters in french language
+  - Fix: Class vc_tta-o-non-responsive on parent nodes
+  - Fix: Undo/redo content disappearing with edit-only access
+
 20.04.2020 - ver 6.2.0
   - Update: Performance improvements for the editor
   - Update: Filter for ajax grid rendering added

@@ -35,11 +35,6 @@
 			<key name="link_button_text" />
 		</key>
 
-		<key name="wc_social_login_instagram_settings">
-			<key name="login_button_text" />
-			<key name="link_button_text" />
-		</key>
-
 		<key name="wc_social_login_linkedin_settings">
 			<key name="login_button_text" />
 			<key name="link_button_text" />

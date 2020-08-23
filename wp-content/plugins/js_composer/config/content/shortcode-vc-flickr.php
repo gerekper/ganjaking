@@ -29,6 +29,17 @@ return array(
 			'heading' => esc_html__( 'Number of photos', 'js_composer' ),
 			'param_name' => 'count',
 			'value' => array(
+				20,
+				19,
+				18,
+				17,
+				16,
+				15,
+				14,
+				13,
+				12,
+				11,
+				10,
 				9,
 				8,
 				7,
@@ -39,6 +50,7 @@ return array(
 				2,
 				1,
 			),
+			'std' => 9, // bc
 			'description' => esc_html__( 'Select number of photos to display.', 'js_composer' ),
 		),
 		array(

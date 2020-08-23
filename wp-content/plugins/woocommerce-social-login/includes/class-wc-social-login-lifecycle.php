@@ -57,6 +57,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 			'2.6.4',
 			'2.7.0',
 			'2.8.4',
+			'2.9.0',
 		];
 	}
 
@@ -294,6 +295,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 	 *
 	 * Flags Instagram to be hidden on installations where Instagram is not currently used due to API deprecation.
 	 * If Instagram is found to be enabled (even if misconfigured), then the flag will tell Social Login to keep the service enabled and the merchant warned.
+	 * @see Lifecycle::upgrade_to_2_9_0()
 	 *
 	 * @since 2.8.4
 	 */
@@ -303,8 +305,29 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 		$keep_instagram     = isset( $instagram_settings['enabled'] ) && 'yes' === $instagram_settings['enabled'] ? 'yes' : 'no';
 
 		// if existing installs are not using Instagram, we can remove this provider as its login API is deprecated
-		// TODO in a future upgrade routine, once Instagram is completely removed from Social Login, we can destroy this option {FN 2019-11-30}
 		update_option( 'wc_social_login_allow_instagram', $keep_instagram );
+	}
+
+
+	/**
+	 * Updates to v2.9.0
+	 *
+	 * Removes Instagram support.
+	 *
+	 * @since 2.9.0
+	 */
+	protected function upgrade_to_2_9_0() {
+
+		$instagram_settings = get_option( 'wc_social_login_instagram_settings',  [] );
+
+		// we can't access Instagram via PHP handlers since they've been removed
+		if ( isset( $instagram_settings['enabled'] ) && 'yes' === $instagram_settings['enabled'] ) {
+			update_option( 'wc_social_login_instagram_removed', 'yes' );
+		}
+
+		// completely remove settings and previous options
+		delete_option( 'wc_social_login_instagram_settings' );
+		delete_option( 'wc_social_login_allow_instagram' );
 	}
 
 

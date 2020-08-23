@@ -4,6 +4,9 @@ REQUIRED: WooCommerce 3.4.
 REQUIRED: PHP 7.0.
 REQUIRED: WooCommerce Subscriptions 2.3, if it is installed and active.
 
+2020.8.18 - version 2.3.3
+ * Compatibility: Bump version to display compatibility with WooCommerce 4.4 and WordPress 5.5.
+
 2020.05.27 - version 2.3.2
  * Tweak: API Status requests are now uniquely cached, with individual expire times, if the Instance ID is sent in the request.
  * Tweak: Auto log SmartCache errors.

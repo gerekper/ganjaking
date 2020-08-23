@@ -383,7 +383,9 @@ class WC_Social_Login_Frontend {
 
 
 	/**
-	 * Hide password reset fields when prompting new Twitter / Instagram customers for an email
+	 * Hides password reset fields when prompting new Twitter customers for an email.
+	 *
+	 * @internal
 	 *
 	 * @since 2.0.0
 	 */

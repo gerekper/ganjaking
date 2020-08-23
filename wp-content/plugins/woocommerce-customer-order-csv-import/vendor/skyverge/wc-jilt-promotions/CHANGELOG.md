@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.0 - 2020.nn.nn
+* Add support for contextual messages to promote Jilt to WooCommerce customers
+
 ## v1.0.2 - 2020.07.09
 * Check that the site meets the minimum PHP and WooCommerce versions requirements before loading the package
 

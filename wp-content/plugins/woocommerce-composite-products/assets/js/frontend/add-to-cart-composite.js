@@ -591,7 +591,7 @@ jQuery.fn.wc_get_composite_script = function() {
 			 */
 			get_composite_availability: function() {
 
-				var availability = composite.composite_availability_view.get_components_availability_string();
+				var availability = composite.composite_availability_view.get_insufficient_stock_components_string();
 
 				if ( availability === '' && false !== composite.composite_availability_view.$composite_stock_status ) {
 					availability = composite.composite_availability_view.$composite_stock_status.clone().wrap( '<div></div>' ).parent().html();
@@ -1020,6 +1020,10 @@ jQuery.fn.wc_get_composite_script = function() {
 
 					if ( ! this.update_history() || ! $wc_cp_body.hasClass( 'single-product' ) || ! $wc_cp_body.hasClass( 'postid-' + composite.composite_id ) || composite.$composite_form.parent().hasClass( 'quick-view-content' ) ) {
 						return;
+					}
+
+					if ( Backbone.history.started ) {
+						this.is_history_started = true;
 					}
 
 					if ( this.is_history_started ) {
@@ -3518,8 +3522,11 @@ jQuery.fn.wc_get_composite_script = function() {
 
 				scroll_viewport_target: false,
 				summary_element_scroll_location: false,
+				is_scroll_anchored: null,
 
 				initialize: function() {
+
+					this.is_scroll_anchoring_supported();
 
 					if ( 'single' === composite.settings.layout ) {
 
@@ -3919,6 +3926,30 @@ jQuery.fn.wc_get_composite_script = function() {
 				},
 
 				/**
+				 * Tests if the browser supports scroll anchoring.
+				 */
+				is_scroll_anchoring_supported: function() {
+
+					if ( null === this.is_scroll_anchored ) {
+
+						var scroll_pos = $wc_cp_window.scrollTop(),
+						    $test_div  = $( '<div style="height:5px;"></div>' );
+
+						// Go down a bit.
+						window.scroll( 0, scroll_pos + 10 );
+						// Add something above the viewport.
+						$wc_cp_body.prepend( $test_div );
+						// Did the scroll position change?
+						this.is_scroll_anchored = $wc_cp_window.scrollTop() !== scroll_pos + 10;
+						// Clean up.
+						$test_div.remove();
+						window.scroll( 0, scroll_pos );
+					}
+
+					return this.is_scroll_anchored;
+				},
+
+				/**
 				 * Hides/shows an element that is above the viewport while keeping the visible viewport area unchanged.
 				 */
 				illusion_scroll: function( args ) {
@@ -3927,12 +3958,13 @@ jQuery.fn.wc_get_composite_script = function() {
 						return null;
 					}
 
-					var	$el           = args[ 'target' ],
-						scroll_pos    = $wc_cp_window.scrollTop(),
-						type          = typeof( args[ 'type' ] ) !== 'undefined' ? args[ 'type' ] : 'hide',
-						do_it         = true,
-						scroll_to     = 0.0,
-						scroll_offset = 0.0;
+					var view          = this,
+					    $el           = args[ 'target' ],
+					    scroll_pos    = $wc_cp_window.scrollTop(),
+					    type          = typeof( args[ 'type' ] ) !== 'undefined' ? args[ 'type' ] : 'hide',
+					    do_it         = true,
+					    scroll_to     = 0.0,
+					    scroll_offset = 0.0;
 
 					if ( 'hide' === type ) {
 						if ( 'none' === $el.css( 'display' ) ) {
@@ -3987,7 +4019,9 @@ jQuery.fn.wc_get_composite_script = function() {
 						setTimeout( function() {
 
 							// Scroll as much as the height offset...
-							window.scroll( 0, scroll_to );
+							if ( ! view.is_scroll_anchoring_supported() ) {
+								window.scroll( 0, scroll_to );
+							}
 
 							if ( 'hide' === type ) {
 								// ...while hiding the element.
@@ -4536,12 +4570,11 @@ jQuery.fn.wc_get_composite_script = function() {
 					/*
 					 * Update composite availability string.
 					 */
-					var insufficient_stock_components = this.get_insufficient_stock_components();
+					var insufficient_stock_components_string = this.get_insufficient_stock_components_string();
 
-					if ( insufficient_stock_components.length > 0 ) {
+					if ( insufficient_stock_components_string ) {
 
-						var composite_out_of_stock_string = wc_composite_params.i18n_insufficient_stock.replace( '%s', wc_cp_join( _.map( insufficient_stock_components, function( component_id ) { return composite.api.get_step_title( component_id ); } ) ) );
-						this.$el.html( composite_out_of_stock_string );
+						this.$el.html( insufficient_stock_components_string );
 
 						if ( this.is_in_widget ) {
 							this.$el.show();
@@ -4582,6 +4615,18 @@ jQuery.fn.wc_get_composite_script = function() {
 					}
 
 					return data;
+				},
+
+				get_insufficient_stock_components_string: function() {
+
+					var insufficient_stock_components = this.get_insufficient_stock_components(),
+						composite_out_of_stock_string = '';
+
+					if ( insufficient_stock_components.length > 0 ) {
+						composite_out_of_stock_string = wc_composite_params.i18n_insufficient_stock.replace( '%s', wc_cp_join( _.map( insufficient_stock_components, function( component_id ) { return composite.api.get_step_title( component_id ); } ) ) );
+					}
+
+					return composite_out_of_stock_string;
 				}
 
 			} );
@@ -5548,7 +5593,7 @@ jQuery.fn.wc_get_composite_script = function() {
 					// Action text.
 					if ( content_data.element_selection_title && component.passes_validation() ) {
 
-						if ( component.is_static() ) {
+						if ( component.is_static() && ! component.is_selected_product_configurable() ) {
 							content_data.element_action = wc_composite_params.i18n_summary_static_component;
 						} else {
 							content_data.element_action = wc_composite_params.i18n_summary_configured_component;
@@ -8691,7 +8736,9 @@ jQuery.fn.wc_get_composite_script = function() {
 										setTimeout( function() {
 
 											// Scroll as much as the height offset...
-											window.scroll( 0, illusion_scroll_to );
+											if ( ! composite.composite_viewport_scroller.is_scroll_anchoring_supported() ) {
+												window.scroll( 0, illusion_scroll_to );
+											}
 
 											// while setting height to 0.
 											self.$component_content.css( { 'height': 0 } );
@@ -11193,7 +11240,7 @@ jQuery.fn.wc_get_composite_script = function() {
 		 * True if the step is configured to transition automatically to the next when a valid selection is made and no configuration is required in this step.
 		 */
 		WC_CP_Step.prototype.can_autotransition = function() {
-			return this.maybe_autotransition() && this.passes_validation() && this.get_selected_product() > 0 && 'invalid-product' !== this.get_selected_product_type() && false === this.is_selected_product_configurable() && ( 'progressive' !== this.composite.settings.layout || ! this.is_last() );
+			return this.maybe_autotransition() && this.passes_validation() && this.is_in_stock( false ) && this.get_selected_product() > 0 && 'invalid-product' !== this.get_selected_product_type() && false === this.is_selected_product_configurable() && ( 'progressive' !== this.composite.settings.layout || ! this.is_last() );
 		};
 
 		/**
@@ -12224,11 +12271,13 @@ jQuery.fn.wc_get_composite_script = function() {
 		/**
 		 * False if the component has an out-of-stock availability class.
 		 */
-		WC_CP_Component.prototype.is_in_stock = function() {
+		WC_CP_Component.prototype.is_in_stock = function( check_quantity ) {
+
+			check_quantity = typeof check_quantity === 'undefined' ? true : check_quantity;
 
 			var is_in_stock = true;
 
-			if ( this.get_selected_quantity() > 0 && 'out-of-stock' === this.component_selection_model.get_stock_status() ) {
+			if ( ( ! check_quantity || this.get_selected_quantity() > 0 ) && 'out-of-stock' === this.component_selection_model.get_stock_status() ) {
 				if ( this.get_selected_product_type() !== 'variable' || this.get_selected_variation( false ) > 0 ) {
 					is_in_stock = false;
 				}

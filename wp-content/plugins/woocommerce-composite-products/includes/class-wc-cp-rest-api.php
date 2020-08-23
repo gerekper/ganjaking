@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_CP_REST_API
- * @version  6.1.1
+ * @version  7.0.6
  */
 class WC_CP_REST_API {
 
@@ -247,7 +247,7 @@ class WC_CP_REST_API {
 						),
 						'quantity_max'          => array(
 							'description' => __( 'Maximum component quantity.', 'woocommerce-composite-products' ),
-							'type'        => '',
+							'type'        => WC_CP_Core_Compatibility::is_wp_version_gte( '5.5' ) ? array( 'integer', 'string' ) : '',
 							'context'     => array( 'view', 'edit' )
 						),
 						'priced_individually'   => array(
@@ -1424,6 +1424,9 @@ class WC_CP_REST_API {
 			$quantity  = $item->get_quantity();
 
 			if ( $composite && $composite->is_type( 'composite' ) ) {
+
+				// Load required frontend functions.
+				include_once WC_ABSPATH . 'includes/wc-cart-functions.php';
 
 				$configuration = self::parse_posted_composite_configuration( $posted_item_data[ 'composite_configuration' ], $composite, $item );
 

@@ -214,7 +214,7 @@ class WCS_ATT_Order {
 		// Scheme originally existed but not applied successfuly? It could mean that product schemes may have changed, or that this product was purchased with a cart plan.
 		if ( false === $scheme_set && $scheme_key ) {
 			// Applying a coupon?
-			if ( doing_action( 'wp_ajax_woocommerce_add_coupon_discount' ) ) {
+			if ( doing_action( 'wp_ajax_woocommerce_add_coupon_discount' ) || wcs_is_subscription( $order_item->get_order_id() ) ) {
 
 				// Validate our theory and apply cart level schemes.
 				$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );

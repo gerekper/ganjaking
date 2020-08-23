@@ -1,4 +1,4 @@
-jQuery(window).load(function(){
+jQuery().ready(function() {
     // Active/Archived Tabs
     jQuery(".email-tab.inactive").hide();
 
@@ -99,7 +99,7 @@ jQuery(window).load(function(){
 
     });
 
-    jQuery(".unarchive").live("click", function(e) {
+    jQuery(".unarchive").on("click", function(e) {
         e.preventDefault();
 
         var table   = jQuery(this).parents("table");

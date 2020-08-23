@@ -3,16 +3,16 @@
  * Plugin Name: WooCommerce Sale Flash Pro
  * Plugin URI: https://woocommerce.com/products/sale-flash-pro/
  * Description: Gives you global and per-product control over sale flash display and lets you show % or the amount off.
- * Version: 1.2.16
+ * Version: 1.2.18
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: wc_sale_flash
  * Domain Path: /languages
- * WC tested up to: 4.1
+ * WC tested up to: 4.2
  * WC requires at least: 2.6
  *
  * Requires at least: 3.1
- * Tested up to: 5.3
+ * Tested up to: 5.5
  *
  * Copyright: © 2020 WooCommerce
  * License: GNU General Public License v3.0

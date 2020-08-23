@@ -1,5 +1,9 @@
 *** WooCommerce Address Validation Changelog ***
 
+2020.08.17 - version 2.7.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+ * Dev - Add an action hook before performing a postcode lookup
+
 2020.07.29 - version 2.6.7
  * Misc - Add the Documentation URL to the extra plugin headers
 

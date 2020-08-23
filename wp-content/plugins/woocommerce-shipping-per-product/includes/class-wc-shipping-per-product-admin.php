@@ -391,13 +391,7 @@ class WC_Shipping_Per_Product_Admin {
 	 * @return bool
 	 */
 	private function is_per_product_shipping_enabled( $product ) {
-		if ( version_compare( WC_VERSION, '2.6', '>' ) ) {
-			$per_product_shipping_enabled = 'yes' === $product->get_meta( '_per_product_shipping' );
-		} else {
-			$per_product_shipping_enabled = 'yes' === get_post_meta( $product->get_id(), '_per_product_shipping' );
-		}
-
-		return $per_product_shipping_enabled;
+		return 'yes' === $product->get_meta( '_per_product_shipping' );
 	}
 
 	/**

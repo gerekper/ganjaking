@@ -1,4 +1,4 @@
-jQuery(window).load(function() {
+jQuery().ready(function() {
     var $ = jQuery.noConflict();
 
     $("#fue_dash_period").change(function() {

@@ -83,7 +83,7 @@ jQuery(function($) {
 		} )
 		.on( 'click', '.per_product_shipping_rules .remove', function() {
 			var $tbody = $(this).closest('.per_product_shipping_rules').find('tbody');
-			if ( $tbody.find('tr.current').size() > 0 ) {
+			if ( $tbody.find('tr.current').length ) {
 				$tbody.find('tr.current').find('input').val('');
 				$tbody.find('tr.current').hide();
 			} else {
@@ -103,7 +103,7 @@ jQuery(function($) {
 				<td class="item_cost"><input type="text" value="0.00" placeholder="0.00" name="per_product_item_cost[' + postid + '][new][]" /></td>\
 			</tr>';
 
-			if ( $tbody.find('tr.current').size() > 0 ) {
+			if ( $tbody.find('tr.current').length ) {
 				$tbody.find('tr.current').last().after( code );
 			} else {
 				$tbody.append( code );

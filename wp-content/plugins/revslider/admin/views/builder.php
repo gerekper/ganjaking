@@ -380,12 +380,23 @@ if(isset($animationsRaw['out'])){ ?>
 
 		if (!RVS.V.ignoreAutoStart) RVS.F.loadSlider({id:"<?php echo $slide_id; ?>", alias: "<?php echo $slide_alias; ?>"});
 	}
-	if (document.readyState === "loading")
-		window.addEventListener('DOMContentLoaded',function() {
-			rs_builder_inits();		
+
+
+	// INITIALISE PROCESSES
+	var RSBUILDERINITS_once = false
+	if (document.readyState === "loading") 
+		document.addEventListener('readystatechange',function(){
+			if ((document.readyState === "interactive" || document.readyState === "complete") && !RSBUILDERINITS_once) {
+				RSBUILDERINITS_once = true;
+				rs_builder_inits();	
+			}
 		});
-	else
-		rs_builder_inits();
+	else {
+		RSBUILDERINITS_once = true;
+		rs_builder_inits();	
+	}
+
+	
 	
 	<?php
 	

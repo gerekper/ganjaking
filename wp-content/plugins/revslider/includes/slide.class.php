@@ -592,21 +592,22 @@ class RevSliderSlide extends RevSliderFunctions {
 		}
 		$this->params['publish']['state'] = ($data['post_status'] == 'publish') ? 'published' : $this->params['publish']['state'] = 'unpublished';
 		
-		if($this->get_val($this->params, array('bg', 'imageFromStream'), false) === true){ //if image is choosen, use featured image as background // && $this->get_val($this->params, array('bg', 'type')) == 'image'
-			$tid = get_post_thumbnail_id($post_id);
-			
-			if(!empty($tid)){
-				$this->set_image_by_image_id($tid);
+		if(!in_array($this->get_val($this->params, array('bg', 'type'), 'trans'), array('trans', 'solid'), true)){
+			if($this->get_val($this->params, array('bg', 'imageFromStream'), false) === true){ //if image is choosen, use featured image as background // && $this->get_val($this->params, array('bg', 'type')) == 'image'
+				$tid = get_post_thumbnail_id($post_id);
 				
-				//set the thumbnail image
-				$thumbnail_url = wp_get_attachment_image_src($tid, 'thumbnail');
-				if($thumbnail_url !== false){
-					if(!isset($this->params['thumb'])) $this->params['thumb'] = array();
-					$this->params['thumb']['customThumbSrc'] = $this->get_val($thumbnail_url, 0);
+				if(!empty($tid)){
+					$this->set_image_by_image_id($tid);
+					
+					//set the thumbnail image
+					$thumbnail_url = wp_get_attachment_image_src($tid, 'thumbnail');
+					if($thumbnail_url !== false){
+						if(!isset($this->params['thumb'])) $this->params['thumb'] = array();
+						$this->params['thumb']['customThumbSrc'] = $this->get_val($thumbnail_url, 0);
+					}
 				}
 			}
 		}
-		
 		//replace placeholders in layers:
 		$this->set_layers_by_post($data, $slider_id);
 	}

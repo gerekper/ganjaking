@@ -1,5 +1,10 @@
 *** WooCommerce Product Bundles ***
 
+2020.08.20 - version 6.3.4
+* Fix - Introduced integration with WooCommerce Services. When shipping an assembled bundle, WooCommerce Services will now see a single physical item that aggregates the weight and total of its contents.
+* Fix - Bundled item discount applied twice when manually renewing the subscription of a Product Bundle with plans created using All Products for WooCommerce Subscriptions.
+* Fix - Added compatibility with the WordPress 5.5 REST API.
+
 2020.07.22 - version 6.3.3
 * Tweak - Added responsive styles. 380px form-width breakpoint is editable using the 'woocommerce_bundle_front_end_params' filter.
 * Tweak - Made various small styling tweaks in Product Bundle pages.

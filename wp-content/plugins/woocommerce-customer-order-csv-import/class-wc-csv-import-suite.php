@@ -35,7 +35,7 @@ class WC_CSV_Import_Suite extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '3.8.8';
+	const VERSION = '3.9.0';
 
 	/** @var WC_CSV_Import_Suite single instance of this plugin */
 	protected static $instance;
@@ -284,7 +284,7 @@ class WC_CSV_Import_Suite extends Framework\SV_WC_Plugin {
 	 */
 	public function get_documentation_url() {
 
-		return 'http://docs.woocommerce.com/document/customer-order-csv-import-suite/';
+		return 'https://docs.woocommerce.com/document/customer-order-csv-import-suite/';
 	}
 
 

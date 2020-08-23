@@ -100,22 +100,6 @@ abstract class WC_Memberships_Job_Handler extends Framework\SV_WP_Background_Job
 
 
 	/**
-	 * Processes a single item from the background job.
-	 *
-	 * Child classes should override this method.
-	 *
-	 * @since 1.10.0
-	 *
-	 * @param mixed $item current item in queue
-	 * @param \stdClass $job related job instance
-	 * @return \stdClass the $job, processed
-	 */
-	public function process_item( $item, $job ) {
-		return parent::process_item( $item, $job );
-	}
-
-
-	/**
 	 * Returns the number of items to process in a job batch, filtered.
 	 *
 	 * @since 1.10.0

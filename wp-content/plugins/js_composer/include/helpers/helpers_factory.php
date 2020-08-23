@@ -492,8 +492,29 @@ function vc_user_roles_get_all() {
  *
  * @return string
  */
-function vc_generate_nonce( $data ) {
+function vc_generate_nonce( $data, $from_esi = false ) {
+	if ( ! $from_esi && ! vc_is_frontend_editor() ) {
+		if ( method_exists( 'LiteSpeed_Cache_API', 'esi_enabled' ) && LiteSpeed_Cache_API::esi_enabled() ) {
+			if ( method_exists( 'LiteSpeed_Cache_API', 'v' ) && LiteSpeed_Cache_API::v( '1.3' ) ) {
+				$params = array( 'data' => $data );
+
+				return LiteSpeed_Cache_API::esi_url( 'js_composer', 'WPBakery Page Builder', $params, 'default', true );// The last parameter is to remove ESI comment wrapper
+			}
+		}
+	}
+
 	return wp_create_nonce( is_array( $data ) ? ( 'vc-nonce-' . implode( '|', $data ) ) : ( 'vc-nonce-' . $data ) );
+}
+
+/**
+ * @param $params
+ *
+ * @return string
+ */
+function vc_hook_esi( $params ) {
+	$data = $params['data'];
+	echo vc_generate_nonce( $data, true );
+	exit;
 }
 
 /**

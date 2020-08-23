@@ -278,6 +278,8 @@ class WC_GFPA_Main {
 				'use_ajax'                     => $use_ajax,
 			);
 
+			$wc_gravityforms_params = apply_filters('woocommerce_gforms_quickview_script_params', $wc_gravityforms_params, $product_ids);
+
 			wp_localize_script( 'wc-gravityforms-product-addons', 'wc_gravityforms_params', $wc_gravityforms_params );
 		}
 
@@ -365,6 +367,8 @@ class WC_GFPA_Main {
 			'price_suffix'                 => array( $product->get_id() => $product->get_price_suffix() ),
 			'use_ajax'                     => array( $product->get_id() => apply_filters( 'woocommerce_gforms_use_ajax', isset( $gravity_form_data['use_ajax'] ) ? ( $gravity_form_data['use_ajax'] == 'yes' ) : false ) )
 		);
+
+		$wc_gravityforms_params = apply_filters('woocommerce_gforms_script_params', $wc_gravityforms_params, $product->get_id());
 
 		wp_localize_script( 'wc-gravityforms-product-addons', 'wc_gravityforms_params', $wc_gravityforms_params );
 	}

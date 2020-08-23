@@ -24,24 +24,39 @@ function woocommerce_shortcode_related_products_by_status( $atts ) {
 	$the_product_id = $args['product_id'];
 
 	if ( empty( $the_product_id ) ) {
-		$session_id = WC_Recommender_Compatibility::WC()->session->get_customer_id();
-		$user_id    = is_user_logged_in() ? get_current_user_id() : 0;
+		if (WC()->session && WC()->session->has_session()) {
 
-		if ( empty( $user_id ) ) {
-			$sql = $wpdb->prepare( "SELECT product_id FROM {$woocommerce_recommender->db_tbl_session_activity} WHERE session_id = %s AND activity_type = %s ORDER BY activity_date DESC", $session_id,  $args['type']  );
-		} else {
-			$sql = $wpdb->prepare( "SELECT product_id FROM {$woocommerce_recommender->db_tbl_session_activity} WHERE user_id = %d AND activity_type = %s ORDER BY activity_date DESC", $user_id,  $args['type'] );
-		}
+			$session_id = WC_Recommender_Compatibility::WC()->session->get_customer_id();
+			$user_id    = is_user_logged_in() ? get_current_user_id() : 0;
 
-		$result = $wpdb->get_var( $sql );
-		if ($result && !is_wp_error($result)) {
-			$the_product_id = $result;
+			if ( empty( $user_id ) ) {
+				$sql = $wpdb->prepare( "SELECT product_id FROM {$woocommerce_recommender->db_tbl_session_activity} WHERE session_id = %s AND activity_type = %s ORDER BY activity_date DESC", $session_id, $args['type'] );
+			} else {
+				$sql = $wpdb->prepare( "SELECT product_id FROM {$woocommerce_recommender->db_tbl_session_activity} WHERE user_id = %d AND activity_type = %s ORDER BY activity_date DESC", $user_id, $args['type'] );
+			}
+
+			$result = $wpdb->get_var( $sql );
+			if ( $result && !is_wp_error( $result ) ) {
+				$the_product_id = $result;
+			}
+
+			if (empty($the_product_id)) {
+				//Looks like the current user has not done anything on the site yet.
+				//Lets grab the top product id based on the activity_type
+				$sql = $wpdb->prepare("SELECT product_id FROM {$woocommerce_recommender->db_tbl_session_activity} WHERE activity_type = %s GROUP BY session_id ORDER BY COUNT(session_id) DESC", $args['type']);
+			}
+
+			$result = $wpdb->get_var( $sql );
+			if ( $result && !is_wp_error( $result ) ) {
+				$the_product_id = $result;
+			}
+
 		}
 	}
 
 	$name = $args['type'] == 'completed' || $args['type'] == 'viewed' ? '-' . $args['type'] : '';
 
-	woocommerce_reset_loop();
+	wc_reset_loop();
 	wc_get_template( 'shortcodes/related' . $name . '.php', array(
 		'product_to_compare' => $the_product_id,
 		'label'              => $args['label'],
@@ -50,6 +65,6 @@ function woocommerce_shortcode_related_products_by_status( $atts ) {
 		'columns'            => $args['columns'],
 		'activity_types'     => $args['type']
 	), $woocommerce_recommender->template_url . 'templates/', $woocommerce_recommender->plugin_dir() . '/templates/' );
-	woocommerce_reset_loop();
+	wc_reset_loop();
 
 }

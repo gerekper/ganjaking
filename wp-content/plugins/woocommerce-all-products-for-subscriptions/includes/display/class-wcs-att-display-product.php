@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Single-product template modifications.
  *
  * @class    WCS_ATT_Display_Product
- * @version  3.1.16
+ * @version  3.1.17
  */
 class WCS_ATT_Display_Product {
 
@@ -241,9 +241,17 @@ class WCS_ATT_Display_Product {
 				$prompt = ob_get_clean();
 			}
 
+			$hide_options = false;
+
+			if ( 'grouped' === $layout ) {
+				$hide_options = count( $subscription_schemes ) === 1 || '0' === $default_subscription_scheme_option_value;
+			} else {
+				$hide_options = count( $options ) === 1;
+			}
+
 			$wrapper_classes[] = 'wcsatt-options-wrapper-' . $layout;
 			$wrapper_classes[] = 'wcsatt-options-wrapper-' . $prompt_type;
-			$wrapper_classes[] = count( $options ) === 1 || ( '0' === $default_subscription_scheme_option_value && 'grouped' === $layout ) ? 'closed' : 'open';
+			$wrapper_classes[] = $hide_options ? 'closed' : 'open';
 			$wrapper_classes[] = $product->is_type( 'variation' ) && ! self::modify_variation_data_price_html( $parent_product ) ? 'wcsatt-options-wrapper--variation' : '';
 
 			if ( in_array( $prompt_type, array( 'radio', 'checkbox' ) ) ) {

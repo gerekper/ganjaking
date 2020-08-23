@@ -317,6 +317,7 @@ class WC_CP_Install {
 	public static function trigger_update() {
 		self::update();
 		wp_safe_redirect( admin_url() );
+		exit;
 	}
 
 	/**
@@ -333,6 +334,7 @@ class WC_CP_Install {
 		 */
 		do_action( self::$background_updater->get_cron_hook_identifier() );
 		wp_safe_redirect( admin_url() );
+		exit;
 	}
 
 	/**

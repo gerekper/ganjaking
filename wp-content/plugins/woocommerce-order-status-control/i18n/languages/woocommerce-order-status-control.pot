@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Order Status Control 1.12.3\n"
+"Project-Id-Version: WooCommerce Order Status Control 1.13.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-05-05 02:37:41+00:00\n"
+"POT-Creation-Date: 2020-08-21 19:21:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,38 +13,103 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: class-wc-order-status-control.php:121
+#: class-wc-order-status-control.php:136
 msgid "Order auto-completion skipped: deleted or non-existent product found."
 msgstr ""
 
-#: class-wc-order-status-control.php:209
+#: class-wc-order-status-control.php:224 includes/Admin/Onboarding_Tips.php:354
 msgid "Orders to Auto-Complete"
 msgstr ""
 
-#: class-wc-order-status-control.php:210
+#: class-wc-order-status-control.php:225
 msgid ""
 "Select which types of orders should be changed to completed when payment is "
 "received. Default WooCommerce behavior is \"Virtual & Downloadable\"."
 msgstr ""
 
-#: class-wc-order-status-control.php:216
+#: class-wc-order-status-control.php:231
 msgid "None"
 msgstr ""
 
-#: class-wc-order-status-control.php:217
+#: class-wc-order-status-control.php:232
 msgid "All Orders"
 msgstr ""
 
-#: class-wc-order-status-control.php:218
+#: class-wc-order-status-control.php:233
 msgid "Virtual Orders"
 msgstr ""
 
-#: class-wc-order-status-control.php:219
+#: class-wc-order-status-control.php:234
 msgid "Virtual & Downloadable Orders"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "WooCommerce Order Status Control"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:123
+msgid "Yes, let's go!"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:124
+msgid "Not now"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:133
+#. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s -
+#. localized plugin name, %3$s - closing </strong> HTML tag
+msgid "%1$sThanks for purchasing %2$s%3$s! Would you like to set up the plugin now?"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:153
+msgid "Sign me up!"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:154
+msgid "No thanks"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:163
+#. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s -
+#. localized plugin name, %3%s - closing </strong> HTML tag
+msgid ""
+"%1$sNice work! You’re all set up with %2$s%3$s. To learn more about your "
+"plugins, SkyVerge, and running a successful eCommerce store, sign up for "
+"our newsletter!"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:217
+msgid ""
+"Thanks for signing up! Keep an eye on your inbox for product updates and "
+"helpful tips!"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:355
+msgid ""
+"Choose which types of paid orders should auto-complete. Use \"Virtual "
+"Orders\" to complete any paid order that doesn't require shipping."
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:367
+msgid "Save Changes"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:370
+#. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s closing
+#. </strong> link HTML tag
+msgid "Click %1$sSave Changes%2$s to save your settings."
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:433
+msgid "Dismiss"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:437
+msgid "Next"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:440
+msgid "Finish"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

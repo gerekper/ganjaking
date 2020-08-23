@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Conditional Shipping and Payments
 * Plugin URI: https://woocommerce.com/products/woocommerce-conditional-shipping-and-payments
 * Description: Exclude shipping methods, payment gateways and shipping countries/states using conditional logic.
-* Version: 1.8.2
+* Version: 1.8.4
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -13,10 +13,10 @@
 * Domain Path: /languages/
 *
 * Requires at least: 4.1
-* Tested up to: 5.4
+* Tested up to: 5.5
 *
 * WC requires at least: 2.6
-* WC tested up to: 4.3
+* WC tested up to: 4.4
 *
 * Copyright: © 2017-2020 SomewhereWarm SMPC.
 * License: GNU General Public License v3.0
@@ -76,7 +76,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Multiple restriction instances can be added to implement OR-related rules.
  *
  * @class    WC_Conditional_Shipping_Payments
- * @version  1.8.2
+ * @version  1.8.4
  */
 
 if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
@@ -84,7 +84,7 @@ if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
 class WC_Conditional_Shipping_Payments {
 
 	/* Plugin version */
-	const VERSION = '1.8.2';
+	const VERSION = '1.8.4';
 
 	/* Required WC version */
 	const REQ_WC_VERSION = '2.6.0';

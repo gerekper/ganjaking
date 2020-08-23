@@ -2,8 +2,9 @@
 /**
  * Plugin Name: WooCommerce Tab Manager
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-tab-manager/
+ * Documentation URI: https://docs.woocommerce.com/document/tab-manager/
  * Description: A product tab manager for WooCommerce
- * Version: 1.12.2
+ * Version: 1.13.0
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
  * Text Domain: woocommerce-tab-manager
@@ -22,7 +23,7 @@
  *
  * Woo: 132195:89a9ac74850855cfe772b4b4ee1e31e0
  * WC requires at least: 3.0.9
- * WC tested up to: 4.1.0
+ * WC tested up to: 4.3.3
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -84,10 +85,13 @@ class WC_Tab_Manager_Loader {
 		add_action( 'admin_init',    array( $this, 'add_plugin_notices' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
 
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
+
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
+			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}
@@ -329,6 +333,24 @@ class WC_Tab_Manager_Loader {
 			<?php
 
 		endforeach;
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

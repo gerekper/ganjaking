@@ -166,11 +166,7 @@ function betterdocs_customize_css_pro() {
 			margin-right: 0;
 		}
 		.betterdocs-single-bg .betterdocs-content-full {
-			<?php if(!empty(get_theme_mod('betterdocs_doc_single_content_area_bg_color'))) { ?>
-			background-color: <?php echo get_theme_mod('betterdocs_doc_single_content_area_bg_color') ?>;
-			<?php } else {?>
-			background-color: <?php echo $output['betterdocs_doc_single_content_area_bg_color'] ?>;		
-			<?php } ?>
+			background-color: <?php echo $output['betterdocs_doc_single_content_area_bg_color'] ?>;
 		}
 		.betterdocs-single-wraper .betterdocs-content-full {
 			padding-right: <?php echo $output['betterdocs_doc_single_content_area_padding_right'] ?>px;

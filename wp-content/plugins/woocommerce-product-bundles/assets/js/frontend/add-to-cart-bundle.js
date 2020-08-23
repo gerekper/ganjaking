@@ -677,6 +677,10 @@ jQuery.fn.wc_get_bundle_script = function() {
 		 */
 		this.viewport_resized = function() {
 
+			if ( this.is_composited() ) {
+				return;
+			}
+
 			var form_width = this.$bundle_form.width();
 
 			if ( form_width <= wc_bundle_params.responsive_breakpoint ) {

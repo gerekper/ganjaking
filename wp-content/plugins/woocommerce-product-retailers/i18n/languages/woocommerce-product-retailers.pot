@@ -1,0 +1,314 @@
+# Copyright (C) 2020 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Product Retailers 1.14.0\n"
+"Report-Msgid-Bugs-To: "
+"https://woocommerce.com/my-account/marketplace-ticket-form/\n"
+"POT-Creation-Date: 2020-08-18 01:05:21+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Product Retailers"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:152
+msgid "Product Retailers"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:160
+#: includes/admin/class-wc-product-retailers-admin.php:301
+msgid "Product Button Text"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:161
+msgid ""
+"This text will be shown on the dropdown linking to the external product, "
+"unless overridden at the product level."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:164
+msgid "Purchase from Retailer"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:170
+#: includes/admin/class-wc-product-retailers-admin.php:312
+msgid "Catalog Button Text"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:171
+msgid ""
+"This text will be shown on the catalog page \"Add to Cart\" button for "
+"simple products that are sold through retailers only, unless overridden at "
+"the product level."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:174
+#: includes/class-wc-product-retailers-taxonomy.php:88
+msgid "View Retailers"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:180
+msgid "Open retailer links in a new tab"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:181
+msgid ""
+"Enable this option to open links to other retailers in a new tab instead of "
+"the current one."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:237
+#: includes/admin/class-wc-product-retailers-admin.php:244
+#: includes/class-wc-product-retailers-taxonomy.php:80
+msgid "Retailers"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:276
+msgid "Retailer Availability"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:277
+msgid "Choose when retailers are shown for the product."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:280
+msgid "Always; Use both retailers and the store add-to-cart button."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:281
+msgid "Always; Use retailers instead of the store add-to-cart button."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:282
+msgid "Only when the product is out of stock."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:292
+msgid "Use Buttons"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:293
+msgid "Enable this to use buttons rather than a dropdown for multiple retailers."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:302
+msgid ""
+"This text will be shown on the dropdown linking to the external product, or "
+"before the buttons if \"Use Buttons\" is enabled."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:313
+msgid ""
+"This text will be shown on the catalog page \"Add to Cart\" button for "
+"simple products that are sold through retailers only."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:323
+msgid "Hide Product Retailers"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:324
+msgid ""
+"Enable this to hide the default product retailers buttons/dropdown on the "
+"product page.  Useful if you want to display them elsewhere using the "
+"shortcode or widget."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:368
+#: includes/class-wc-product-retailers-taxonomy.php:81
+msgid "Retailer"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:369
+msgid "Product Price"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:370
+msgid "Product URL"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:425
+msgid ""
+"Search for a retailer to add to this product. You may add multiple "
+"retailers by searching for them first."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:428
+msgid "Search for a retailer to add%s"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:440
+#: includes/class-wc-product-retailers-taxonomy.php:83
+msgid "Add Retailer"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-admin.php:444
+msgid "Delete Selected"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:93
+#: includes/admin/class-wc-product-retailers-edit.php:96
+#: includes/admin/class-wc-product-retailers-edit.php:98
+msgid "Retailer updated."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:94
+msgid "Custom field updated."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:95
+msgid "Custom field deleted."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:97
+msgid "Retailer restored to revision from %s"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:99
+msgid "Retailer saved."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:100
+msgid "Retailer submitted."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:102
+#. translators: Placeholder: %s - Product Retailer post scheduled date for
+#. publishing
+msgid "Retailer scheduled for: <strong>%s</strong>."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:103
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:105
+msgid "Retailer draft updated."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:126
+msgid "Retailer Name"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:145
+msgid "Retailer Info"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:192
+#: includes/admin/class-wc-product-retailers-list.php:277
+msgid "Default URL"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-edit.php:194
+msgid ""
+"The default URL for the retailer, ie: http://www.example.com  This URL will "
+"be used unless overridden by a product."
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-list.php:276
+msgid "Name"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-list.php:328
+msgid "Restore this item from the Trash"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-list.php:328
+msgid "Restore"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-list.php:332
+msgid "Move this item to the Trash"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-list.php:332
+msgid "Trash"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-list.php:338
+msgid "Delete this item permanently"
+msgstr ""
+
+#: includes/admin/class-wc-product-retailers-list.php:338
+msgid "Delete Permanently"
+msgstr ""
+
+#: includes/class-wc-product-retailers-product.php:108
+msgid "Free!"
+msgstr ""
+
+#: includes/class-wc-product-retailers-taxonomy.php:84
+msgid "Add New Retailer"
+msgstr ""
+
+#: includes/class-wc-product-retailers-taxonomy.php:85
+msgid "Edit"
+msgstr ""
+
+#: includes/class-wc-product-retailers-taxonomy.php:86
+msgid "Edit Retailer"
+msgstr ""
+
+#: includes/class-wc-product-retailers-taxonomy.php:87
+msgid "New Retailer"
+msgstr ""
+
+#: includes/class-wc-product-retailers-taxonomy.php:89
+msgid "View Retailer"
+msgstr ""
+
+#: includes/class-wc-product-retailers-taxonomy.php:90
+msgid "Search Retailers"
+msgstr ""
+
+#: includes/class-wc-product-retailers-taxonomy.php:91
+msgid "No Retailers found"
+msgstr ""
+
+#: includes/class-wc-product-retailers-taxonomy.php:92
+msgid "No Retailers found in trash"
+msgstr ""
+
+#: includes/class-wc-product-retailers-taxonomy.php:94
+msgid ""
+"This is where you can add new product retailers that you can add to "
+"products."
+msgstr ""
+
+#: includes/widgets/class-wc-product-retailers-widget.php:46
+msgid ""
+"Display a set of product retailers for the current product if on a product "
+"page."
+msgstr ""
+
+#: includes/widgets/class-wc-product-retailers-widget.php:129
+#: includes/widgets/class-wc-product-retailers-widget.php:130
+msgid "Title"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/product-retailers/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Allow customers to purchase products from external retailers"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr ""
+
+#: includes/class-wc-product-retailers-taxonomy.php:82
+msgctxt "Admin menu name"
+msgid "Retailers"
+msgstr ""

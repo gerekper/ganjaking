@@ -34,7 +34,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.8.8';
+	const VERSION = '2.10.0';
 
 	/** @var WC_Social_Login single instance of this plugin */
 	protected static $instance;
@@ -367,7 +367,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 			 */
 			$image = (string) apply_filters( 'wc_social_login_profile_image', $image );
 
-			if ( ! ( ( is_ssl() || 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) ) && strpos( $image, 'instagram.com' ) ) ) {
+			if ( ! ( is_ssl() || 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) ) ) {
 
 				$avatar = preg_replace( "/src='(.*?)'/i", "src='" . $image . "'", $avatar );
 				$avatar = preg_replace( "/srcset='(.*?)'/i", "srcset='" . $image . " 2x'", $avatar );
@@ -388,9 +388,8 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 	 */
 	public function adjust_avatar_url( $url ) {
 
-		// Instragram and VK do not support SSL avatars. For others - we force https.
-		if (    false === strpos( $url, 'instagram.com' )
-			 && false === strpos( $url, '.vk.me' ) ) {
+		// VK does not support SSL avatars. For others - we force https.
+		if ( false === strpos( $url, '.vk.me' ) ) {
 
 			$url = set_url_scheme( $url, 'https' );
 		}
@@ -423,34 +422,24 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 		// Providers can register themselves through this hook
 		do_action( 'wc_social_login_load_providers' );
 
-		$provider_classes = [
+		/**
+		 * Filters the list of providers to load.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $provider_classes list of provider classes to load
+		 */
+		$providers_to_load = (array) apply_filters( 'wc_social_login_providers', [
 			'facebook'  => 'WC_Social_Login_Provider_Facebook',
 			'twitter'   => 'WC_Social_Login_Provider_Twitter',
 			'google'    => 'WC_Social_Login_Provider_Google',
 			'amazon'    => 'WC_Social_Login_Provider_Amazon',
 			'linkedin'  => 'WC_Social_Login_Provider_LinkedIn',
 			'paypal'    => 'WC_Social_Login_Provider_PayPal',
-			// TODO Instagram will be removed in a future version {FN 2019-11-30}
-			'instagram' => 'WC_Social_Login_Provider_Instagram',
 			'disqus'    => 'WC_Social_Login_Provider_Disqus',
 			'yahoo'     => 'WC_Social_Login_Provider_Yahoo',
 			'vkontakte' => 'WC_Social_Login_Provider_VKontakte',
-		];
-
-		// Instagram is being removed as its login API is deprecated without a replacement
-		// TODO remove this once Instagram is removed from the plugin
-		if ( 'yes' !== get_option( 'wc_social_login_allow_instagram' ) ) {
-			unset( $provider_classes['instagram'] );
-		}
-
-		/**
-		 * Filter the list of providers to load.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $provider_classes list of provider classes to load
-		 */
-		$providers_to_load = (array) apply_filters( 'wc_social_login_providers', $provider_classes );
+		] );
 
 		foreach ( $providers_to_load as $provider ) {
 			$this->register_provider( $provider );
@@ -633,13 +622,13 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 		if ( $this->is_plugin_settings() ) {
 
 			$this->get_admin_notice_handler()->add_admin_notice(
-			/* translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML </a> tag */
+				/* translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML </a> tag */
 				sprintf( __( 'Thanks for installing Social Login! Before you get started, please take a moment to %1$sread through the documentation%2$s.', 'woocommerce-social-login' ), '<a href="' . $this->get_documentation_url() . '">', '</a>' ),
 				'read-the-docs',
-				array(
+				[
 					'always_show_on_settings' => false,
 					'notice_class'            => 'updated',
-				)
+				]
 			);
 		}
 
@@ -649,16 +638,33 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 		if ( $facebook && $facebook->is_enabled() && ! $facebook->is_redirect_uri_configured() ) {
 
 			$message = sprintf(
-			/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag, %3$s - <a> tag, %4$s - </a> tag */
+				/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag, %3$s - <a> tag, %4$s - </a> tag */
 				__( 'WooCommerce Social Login: Facebook now requires your site\'s full OAuth Redirect URI to be configured for your app. Please head over to the %1$sFacebook settings%2$s to get your Redirect URI, and read more about %3$sconfiguring your app &raquo;%4$s', 'woocommerce-social-login' ),
 				'<a href="' . esc_url( add_query_arg( 'section', strtolower( get_class( $facebook ) ), $this->get_settings_url() ) ) . '">', '</a>',
 				'<a href="' . esc_url( 'https://docs.woocommerce.com/document/woocommerce-social-login-create-social-apps/#section-1' ) . '">', '</a>'
 			);
 
-			$this->get_admin_notice_handler()->add_admin_notice( $message, $facebook->get_id() . '-redirect-uri-not-configured', array(
+			$this->get_admin_notice_handler()->add_admin_notice( $message, $facebook->get_id() . '-redirect-uri-not-configured', [
 				'notice_class' => 'notice-warning',
 				'dismissible'  => false,
-			) );
+			] );
+		}
+
+		// if the shop was using Instagram, notify the administrator that the provider has been removed following deprecation of its API
+		if ( 'yes' === get_option( 'wc_social_login_instagram_removed' ) ) {
+
+			$message = sprintf(
+				/* translators: Placeholders: %1$s - <strong> opening HTML tag, %2$s - </strong> closing HTML tag, %3$s - <a> opening HTML tag, %4$s - </a> closing HTML tag, , %5$s - <a> opening HTML tag, %6$s - </a> closing HTML tag */
+				__( '%1$sHeads up!%2$s Instagram has %3$sdeprecated its support for user logins%4$s. Your customers cannot use Instagram to login to your site. Please consider %5$ssetting up another provider%6$s to let your customers login via social platforms.', 'woocommerce-social-login' ),
+				'<strong>', '</strong>',
+				'<a href="https://www.instagram.com/developer/" target="_blank">', '</a>',
+				'<a href="https://docs.woocommerce.com/document/woocommerce-social-login/#section-7" target="_blank">', '</a>'
+			);
+
+			$this->get_admin_notice_handler()->add_admin_notice( $message, $facebook->get_id() . '-redirect-uri-not-configured', [
+				'always_show_on_settings' => false,
+				'notice_class'            => 'notice-warning',
+			] );
 		}
 	}
 
@@ -781,32 +787,6 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 					'always_show_on_settings' => false,
 				]
 			);
-		}
-
-		// show a notice if Instagram is in use
-		// TODO remove this once Instagram is removed from Social Login {FN 2019-11-30}
-		if ( 'yes' === get_option( 'wc_social_login_allow_instagram' ) ) {
-
-			// double confirm as they may have disabled it later
-			$instagram = $this->get_provider( 'instagram' );
-
-			if ( $instagram && $instagram->is_enabled() ) {
-
-				$this->get_admin_notice_handler()->add_admin_notice(
-					sprintf(
-						/* translators: Placeholders: %1$s - Instagram provider name, %2$s - opening <a> HTML link tag, %3$s - closing </a> HTML link tag, %4$s - opening <a> HTML link tag, %5$s - closing </a> HTML link tag */
-						__( 'Heads up! In early 2020, %1$s will %2$sdeprecate support for user logins%3$s. At this point, your customers will no longer be able to login to your site via %1$s. %4$sClick here to read more about this update%5$s.', 'woocommerce-social-login' ),
-						$instagram->get_title(),
-						'<a href="https://www.instagram.com/developer/" target="_blank">', '</a>',
-						'<a href="https://docs.woocommerce.com/document/woocommerce-social-login/#faq-instagram" target="_blank">', '</a>'
-					),
-					'wc-social-login-instagram-deprecation',
-					[
-						'notice_class'            => 'error',
-						'always_show_on_settings' => false,
-					]
-				);
-			}
 		}
 	}
 
@@ -970,7 +950,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 	 */
 	public function get_documentation_url() {
 
-		return 'http://docs.woocommerce.com/document/woocommerce-social-login/';
+		return 'https://docs.woocommerce.com/document/woocommerce-social-login/';
 	}
 
 

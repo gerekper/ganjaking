@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Sequential Order Numbers Pro 1.15.3\n"
+"Project-Id-Version: WooCommerce Sequential Order Numbers Pro 1.16.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-05-05 02:59:29+00:00\n"
+"POT-Creation-Date: 2020-08-21 19:06:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,15 +13,15 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: class-wc-seq-order-number-pro.php:428
+#: class-wc-seq-order-number-pro.php:443
 msgid "Draft"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:557
+#: class-wc-seq-order-number-pro.php:572
 msgid "Order Number Start must be a number greater than or equal to 0."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:575
+#: class-wc-seq-order-number-pro.php:590
 #. translators: Placeholders: %1$s - highest order number, %2$s - current order
 #. number set
 msgid ""
@@ -30,15 +30,15 @@ msgid ""
 "permanently delete the relevant order(s)."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:601
+#: class-wc-seq-order-number-pro.php:616
 msgid "Order Numbers"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:604
+#: class-wc-seq-order-number-pro.php:619 includes/Admin/Onboarding_Tips.php:352
 msgid "Order Number Start"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:607
+#: class-wc-seq-order-number-pro.php:622
 #. translators: Placeholders: %s - sample order number
 msgid ""
 "The starting number for the incrementing portion of the order numbers, "
@@ -47,68 +47,68 @@ msgid ""
 "orders will be numbered like: %s"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:614
+#: class-wc-seq-order-number-pro.php:629
 #. translators: Placeholders: %s - order number
 msgid "Sample order number: %s"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:618
+#: class-wc-seq-order-number-pro.php:633 includes/Admin/Onboarding_Tips.php:369
 msgid "Order Number Prefix"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:619
+#: class-wc-seq-order-number-pro.php:634
 msgid ""
 "Set your custom order number prefix.  You may use {DD}, {MM}, {YYYY} for "
 "the current day, month and year respectively."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:625
+#: class-wc-seq-order-number-pro.php:640
 #. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
 #. link tag
 msgid "See the %1$splugin documentation%2$s for the full set of available patterns."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:629
+#: class-wc-seq-order-number-pro.php:644 includes/Admin/Onboarding_Tips.php:391
 msgid "Order Number Suffix"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:630
+#: class-wc-seq-order-number-pro.php:645
 msgid ""
 "Set your custom order number suffix. You may use {DD}, {MM}, {YYYY} for the "
 "current day, month and year respectively."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:638
+#: class-wc-seq-order-number-pro.php:653 includes/Admin/Onboarding_Tips.php:413
 msgid "Skip Free Orders"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:639
+#: class-wc-seq-order-number-pro.php:654
 msgid "Skip order numbers for free orders"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:640
+#: class-wc-seq-order-number-pro.php:655
 msgid ""
 "With this enabled an order number will not be assigned to an order "
 "consisting solely of free products."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:648
+#: class-wc-seq-order-number-pro.php:663
 msgid "Free Order Identifer"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:650
+#: class-wc-seq-order-number-pro.php:665
 #. translators: Placeholders: %s - sample order number
 msgid "Example free order identifier: %s"
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:651
+#: class-wc-seq-order-number-pro.php:666
 msgid ""
 "The text to display in place of the order number for free orders. This will "
 "be displayed anywhere an order number would otherwise be shown: to the "
 "customer, in emails, and in the admin."
 msgstr ""
 
-#: class-wc-seq-order-number-pro.php:656 class-wc-seq-order-number-pro.php:1192
+#: class-wc-seq-order-number-pro.php:671 class-wc-seq-order-number-pro.php:1207
 #. translators: FREE- as in free purchase order
 msgid "FREE-"
 msgstr ""
@@ -117,12 +117,105 @@ msgstr ""
 msgid "WooCommerce Sequential Order Numbers Pro"
 msgstr ""
 
-#: includes/Lifecycle.php:96
+#: includes/Admin/Onboarding_Tips.php:110
+msgid "Yes, let's go!"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:111
+msgid "Not now"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:120
+#. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s -
+#. localized plugin name, %3$s - closing </strong> HTML tag
+msgid "%1$sThanks for purchasing %2$s%3$s! Would you like to set up the plugin now?"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:140
+msgid "Sign me up!"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:141
+msgid "No thanks"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:150
+#. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s -
+#. localized plugin name, %3%s - closing </strong> HTML tag
+msgid ""
+"%1$sNice work! You’re all set up with %2$s%3$s. To learn more about your "
+"plugins, SkyVerge, and running a successful eCommerce store, sign up for "
+"our newsletter!"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:204
+msgid ""
+"Thanks for signing up! Keep an eye on your inbox for product updates and "
+"helpful tips!"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:353
+msgid ""
+"Set your starting order number for new orders. You can use leading zeroes "
+"to control the required order number length (e.g., “0001” for order numbers "
+"that must be four digits long)."
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:372
+#. translators: Placeholders: %1$s - opening <a> link HTML tag, %2$s closing
+#. </a> link HTML tag
+msgid ""
+"Add a custom prefix to your order numbers for new orders. %1$sClick here "
+"for prefix patterns%2$s that can add special values, such as the month or "
+"year, to your order numbers."
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:394
+#. translators: Placeholders: %1$s - opening <a> link HTML tag, %2$s closing
+#. </a> link HTML tag
+msgid ""
+"Add a custom suffix to your order numbers for new orders. %1$sClick here "
+"for suffix%2$s patterns that can add special values, such as the month or "
+"year, to your order numbers."
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:416
+#. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s closing
+#. </strong> link HTML tag
+msgid ""
+"Select this setting to skip free orders in your order number sequence. When "
+"enabled, you can set a %1$sFree Order Identifier%2$s to add a prefix to "
+"free orders."
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:431
+msgid "Save Changes"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:434
+#. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s closing
+#. </strong> link HTML tag
+msgid "Click %1$sSave Changes%2$s to save your settings."
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:497
+msgid "Dismiss"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:501
+msgid "Next"
+msgstr ""
+
+#: includes/Admin/Onboarding_Tips.php:504
+msgid "Finish"
+msgstr ""
+
+#: includes/Lifecycle.php:97
 #. translators: Placeholders: %1$s - Plugin Name, %2$s - Error message(s)
 msgid "Error activating and installing %1$s: %2$s"
 msgstr ""
 
-#: includes/Lifecycle.php:99
+#: includes/Lifecycle.php:100
 msgid "&laquo; Go Back"
 msgstr ""
 

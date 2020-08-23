@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Bundles 6.3.3\n"
+"Project-Id-Version: WooCommerce Product Bundles 6.3.4\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2020-07-22 11:14:24+00:00\n"
+"POT-Creation-Date: 2020-08-20 22:56:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,30 +13,30 @@ msgstr ""
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: includes/admin/class-wc-pb-admin-ajax.php:246
+#: includes/admin/class-wc-pb-admin-ajax.php:252
 msgid ""
 "The selected product cannot be bundled. Please select a simple product, a "
 "variable product, or a simple/variable subscription."
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-ajax.php:250
+#: includes/admin/class-wc-pb-admin-ajax.php:256
 msgid "The selected product is invalid."
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-ajax.php:414
+#: includes/admin/class-wc-pb-admin-ajax.php:420
 msgid "The submitted configuration is invalid."
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-ajax.php:627
+#: includes/admin/class-wc-pb-admin-ajax.php:633
 msgid "Deleted bundled line items: %s"
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-ajax.php:631
+#: includes/admin/class-wc-pb-admin-ajax.php:637
 #: includes/admin/class-wc-pb-admin-order.php:197
 msgid "Added bundled line items: %s"
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-ajax.php:635
+#: includes/admin/class-wc-pb-admin-ajax.php:641
 msgid "Adjusted bundled line items: %s"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgstr ""
 #: includes/admin/class-wc-pb-admin-post-types.php:49
 #: includes/admin/class-wc-pb-admin.php:418
 #: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1379
-#: includes/class-wc-bundled-item.php:2076 includes/class-wc-pb-display.php:211
+#: includes/class-wc-bundled-item.php:2088 includes/class-wc-pb-display.php:211
 #: includes/class-wc-product-bundle.php:1193
 #: tests/unit/test-wc-product-bundle.php:527
 msgid "Insufficient stock"
@@ -720,7 +720,7 @@ msgid "Expand all"
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1375
-#: includes/class-wc-bundled-item.php:2087
+#: includes/class-wc-bundled-item.php:2099
 #: templates/single-product/bundled-product-unavailable.php:26
 msgid "Out of stock"
 msgstr ""
@@ -854,22 +854,22 @@ msgstr ""
 msgid "optional"
 msgstr ""
 
-#: includes/class-wc-bundled-item.php:2082
-#: includes/class-wc-bundled-item.php:2099
+#: includes/class-wc-bundled-item.php:2094
+#: includes/class-wc-bundled-item.php:2111
 msgid "(only %s left in stock)"
 msgstr ""
 
-#: includes/class-wc-bundled-item.php:2093 includes/class-wc-pb-display.php:212
+#: includes/class-wc-bundled-item.php:2105 includes/class-wc-pb-display.php:212
 #: includes/class-wc-product-bundle.php:1199
 #: tests/unit/test-wc-product-bundle.php:552
 msgid "Available on backorder"
 msgstr ""
 
-#: includes/class-wc-bundled-item.php:2283
+#: includes/class-wc-bundled-item.php:2295
 msgid "Weight"
 msgstr ""
 
-#: includes/class-wc-bundled-item.php:2290
+#: includes/class-wc-bundled-item.php:2302
 msgid "Dimensions"
 msgstr ""
 
@@ -960,40 +960,40 @@ msgstr ""
 msgid "Please choose at least 1 item."
 msgstr ""
 
-#: includes/class-wc-pb-cart.php:1215
+#: includes/class-wc-pb-cart.php:1219
 msgid "Cart update failed. The quantity of &quot;%s&quot; must be a multiple of %d."
 msgstr ""
 
-#: includes/class-wc-pb-cart.php:1221
+#: includes/class-wc-pb-cart.php:1225
 msgid "Cart update failed. The quantity of &quot;%s&quot; must be at least %d."
 msgstr ""
 
-#: includes/class-wc-pb-cart.php:1227
+#: includes/class-wc-pb-cart.php:1231
 msgid "Cart update failed. The quantity of &quot;%s&quot; cannot be higher than %d."
 msgstr ""
 
-#: includes/class-wc-pb-cart.php:1260
+#: includes/class-wc-pb-cart.php:1264
 msgid "Cart updated."
 msgstr ""
 
-#: includes/class-wc-pb-cart.php:1325 includes/class-wc-pb-cart.php:1327
-#: includes/class-wc-pb-cart.php:1854
+#: includes/class-wc-pb-cart.php:1329 includes/class-wc-pb-cart.php:1331
+#: includes/class-wc-pb-cart.php:1858
 #: includes/class-wc-pb-stock-manager.php:295
 msgid "View Cart"
 msgstr ""
 
-#: includes/class-wc-pb-cart.php:1325
+#: includes/class-wc-pb-cart.php:1329
 msgid "You cannot add another &quot;%s&quot; to your cart."
 msgstr ""
 
-#: includes/class-wc-pb-cart.php:1327 includes/class-wc-pb-cart.php:1854
+#: includes/class-wc-pb-cart.php:1331 includes/class-wc-pb-cart.php:1858
 msgid ""
 "You have already added an identical &quot;%s&quot; to your cart. You cannot "
 "add another one."
 msgstr ""
 
-#: includes/class-wc-pb-cart.php:1370 includes/class-wc-pb-cart.php:1378
-#: includes/class-wc-pb-cart.php:1411
+#: includes/class-wc-pb-cart.php:1374 includes/class-wc-pb-cart.php:1382
+#: includes/class-wc-pb-cart.php:1415
 msgid ""
 "The requested configuration of &quot;%s&quot; cannot be purchased at the "
 "moment."
@@ -1066,11 +1066,11 @@ msgstr ""
 msgid "Product bundle"
 msgstr ""
 
-#: includes/class-wc-pb-install.php:558
+#: includes/class-wc-pb-install.php:560
 msgid "Documentation"
 msgstr ""
 
-#: includes/class-wc-pb-install.php:559
+#: includes/class-wc-pb-install.php:561
 msgid "Support"
 msgstr ""
 
@@ -1383,62 +1383,62 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:286
+#: includes/compatibility/class-wc-pb-compatibility.php:291
 msgid "Composite Products"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:287
+#: includes/compatibility/class-wc-pb-compatibility.php:292
 msgid "WooCommerce Composite Products"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:289
-#: includes/compatibility/class-wc-pb-compatibility.php:305
-#: includes/compatibility/class-wc-pb-compatibility.php:330
-#: includes/compatibility/class-wc-pb-compatibility.php:355
+#: includes/compatibility/class-wc-pb-compatibility.php:294
+#: includes/compatibility/class-wc-pb-compatibility.php:310
+#: includes/compatibility/class-wc-pb-compatibility.php:335
+#: includes/compatibility/class-wc-pb-compatibility.php:360
 msgid ""
 "The installed version of <strong>%1$s</strong> is not supported by "
 "<strong>Product Bundles</strong>. Please update <a href=\"%2$s\" "
 "target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:302
+#: includes/compatibility/class-wc-pb-compatibility.php:307
 msgid "Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:303
+#: includes/compatibility/class-wc-pb-compatibility.php:308
 msgid "WooCommerce Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:313
+#: includes/compatibility/class-wc-pb-compatibility.php:318
 msgid ""
 "The <strong>Tabular Layout</strong> mini-extension has been rolled into "
 "<strong>Product Bundles</strong>. Please deactivate and remove the "
 "<strong>Product Bundles - Tabular Layout</strong> feature plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:319
+#: includes/compatibility/class-wc-pb-compatibility.php:324
 msgid ""
 "The <strong>Bundle-Sells</strong> mini-extension has been rolled into "
 "<strong>Product Bundles</strong>. Please deactivate and remove the "
 "<strong>Product Bundles - Bundle-Sells</strong> feature plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:328
+#: includes/compatibility/class-wc-pb-compatibility.php:333
 msgid "Product Bundles - Min/Max Items"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:341
+#: includes/compatibility/class-wc-pb-compatibility.php:346
 msgid "Product Bundles - Top Add to Cart Button"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:342
+#: includes/compatibility/class-wc-pb-compatibility.php:347
 msgid ""
 "The installed version of <strong>%1$s</strong> is not supported by "
 "<strong>Product Bundles</strong>. Please update <strong>%1$s</strong> to "
 "version <strong>%2$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:353
+#: includes/compatibility/class-wc-pb-compatibility.php:358
 msgid "Product Bundles - Bulk Discounts"
 msgstr ""
 
@@ -1620,18 +1620,18 @@ msgstr ""
 msgid "https://somewherewarm.com/"
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-ajax.php:420
+#: includes/admin/class-wc-pb-admin-ajax.php:426
 msgctxt "edit bundle in order: formatted validation message"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-ajax.php:612
+#: includes/admin/class-wc-pb-admin-ajax.php:618
 #: includes/admin/class-wc-pb-admin-order.php:174
 msgctxt "bundled items stock change note sku with id format"
 msgid "%1$s:%2$s"
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-ajax.php:618
+#: includes/admin/class-wc-pb-admin-ajax.php:624
 #: includes/admin/class-wc-pb-admin-order.php:187
 msgctxt "bundled items stock change note format"
 msgid "%1$s (%2$s) &ndash; %3$s"
@@ -1642,7 +1642,7 @@ msgctxt "bundled items stock change note format"
 msgid "%1$s (%2$s)"
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-ajax.php:620
+#: includes/admin/class-wc-pb-admin-ajax.php:626
 msgctxt "bundled items change note format"
 msgid "%1$s (%2$s)"
 msgstr ""

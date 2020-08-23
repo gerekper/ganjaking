@@ -60,7 +60,7 @@ jQuery(document).ready(function($){
             $( '#fue_customer_reminders' ).unblock();
             $( '#reminder_note' ).val( '' );
             $("#assign_reminder")
-                .attr("checked", false)
+                .prop("checked", false)
                 .change();
             $("#assignee").val("");
         });
@@ -92,7 +92,7 @@ jQuery(document).ready(function($){
         return false;
     });
 
-    $(".queue-toggle").live("click", function(e) {
+    $(".queue-toggle").on("click", function(e) {
         e.preventDefault();
 
         var that    = this;
@@ -350,7 +350,7 @@ jQuery(document).ready(function($){
         $("#send_time_ampm").val("am");
 
         $("#send_again")
-            .attr("checked", false)
+            .prop("checked", false)
             .change();
         $("#send_again_value").val("");
         $("#send_again_interval").val("minutes");

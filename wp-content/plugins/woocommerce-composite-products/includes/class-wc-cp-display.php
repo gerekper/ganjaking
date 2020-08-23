@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products display functions and filters.
  *
  * @class    WC_CP_Display
- * @version  7.0.3
+ * @version  7.0.5
  */
 class WC_CP_Display {
 
@@ -31,6 +31,12 @@ class WC_CP_Display {
 	 * @var false|WC_Order
 	 */
 	private $order_item_order = false;
+
+	/**
+ 	 * Runtime cache.
+ 	 * @var bool
+ 	 */
+ 	private $display_cart_prices_incl_tax;
 
 	/**
 	 * The single instance of the class.
@@ -414,6 +420,22 @@ class WC_CP_Display {
 	*/
 
 	/**
+ 	 * Back-compat wrapper for 'WC_Cart::display_price_including_tax'.
+ 	 *
+ 	 * @since  7.0.5
+ 	 *
+ 	 * @return string
+ 	 */
+ 	private function display_cart_prices_including_tax() {
+
+ 		if ( is_null( $this->display_cart_prices_incl_tax ) ) {
+ 			$this->display_cart_prices_incl_tax = WC_CP_Core_Compatibility::is_wc_version_gte( '3.3' ) ? WC()->cart->display_prices_including_tax() : ( 'incl' === get_option( 'woocommerce_tax_display_cart' ) );
+ 		}
+
+ 		return $this->display_cart_prices_incl_tax;
+ 	}
+
+	/**
 	 * Outputs a formatted subtotal.
 	 *
 	 * @param  WC_Product  $product
@@ -430,7 +452,7 @@ class WC_CP_Display {
 
 			$tax_subtotal = WC_CP_Core_Compatibility::is_wc_version_gte( '3.2' ) ? $cart->get_subtotal_tax() : $cart->tax_total;
 
-			if ( 'excl' === get_option( 'woocommerce_tax_display_cart' ) ) {
+			if ( ! $this->display_cart_prices_including_tax() ) {
 
 				if ( wc_prices_include_tax() && $tax_subtotal > 0 ) {
 					$formatted_subtotal .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
@@ -487,9 +509,8 @@ class WC_CP_Display {
 
 			if ( $aggregate_prices ) {
 
-				$tax_display_cart  = get_option( 'woocommerce_tax_display_cart' );
 				$child_items_price = 0.0;
-				$calc_type         = 'excl' === $tax_display_cart ? 'excl_tax' : 'incl_tax';
+				$calc_type         = ! $this->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
 				$composite_price   = WC_CP_Products::get_product_price( $cart_item[ 'data' ], array( 'price' => $cart_item[ 'data' ]->get_price(), 'calc' => $calc_type ) );
 				$child_cart_items  = wc_cp_get_composited_cart_items( $cart_item, WC()->cart->cart_contents, false, true );
 
@@ -576,9 +597,8 @@ class WC_CP_Display {
 
 			if ( $aggregate_subtotals ) {
 
-				$tax_display_cart  = get_option( 'woocommerce_tax_display_cart' );
 				$child_items_price = 0.0;
-				$calc_type         = 'excl' === $tax_display_cart ? 'excl_tax' : 'incl_tax';
+				$calc_type         = ! $this->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
 				$composite_price   = WC_CP_Products::get_product_price( $cart_item[ 'data' ], array( 'price' => $cart_item[ 'data' ]->get_price(), 'calc' => $calc_type, 'qty' => $cart_item[ 'quantity' ] ) );
 				$child_cart_items  = wc_cp_get_composited_cart_items( $cart_item, WC()->cart->cart_contents, false, true );
 

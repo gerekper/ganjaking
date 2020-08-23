@@ -18,6 +18,7 @@
 	    	'product',
     		array(
                 'methods' => WP_REST_Server::CREATABLE,
+                'permission_callback' => '__return_true',
                 'callback' => 'import_ali_product_in_woo',
             )
         );
@@ -31,6 +32,7 @@
 	    	'products-categories',
     		array(
                 'methods' => WP_REST_Server::READABLE,
+                'permission_callback' => '__return_true',
                 'callback' => 'get_product_category_from_woo',
             )
         );
@@ -44,6 +46,7 @@
 	    	'create-categories',
     		array(
                 'methods' => WP_REST_Server::CREATABLE,
+                'permission_callback' => '__return_true',
                 'callback' => 'create_product_category_in_woo',
             )
         );
@@ -57,6 +60,7 @@
 	    	'order-details',
     		array(
                 'methods' => WP_REST_Server::CREATABLE,
+                'permission_callback' => '__return_true',
                 'callback' => 'get_order_detail_by_id',
             )
         );
@@ -70,6 +74,7 @@
 	    	'woo-authentication',
     		array(
                 'methods' => WP_REST_Server::CREATABLE,
+                'permission_callback' => '__return_true',
                 'callback' => 'woo_authentication',
             )
         );
@@ -84,6 +89,7 @@
 	    	'update-product',
     		array(
                 'methods' => WP_REST_Server::CREATABLE,
+                'permission_callback' => '__return_true',
                 'callback' => 'update_ali_product_in_woo',
             )
         );
@@ -97,6 +103,7 @@
 	    	'store-currency-code',
     		array(
                 'methods' => WP_REST_Server::READABLE,
+                'permission_callback' => '__return_true',
                 'callback' => 'get_merchant_store_currency_code_in_woo',
             )
         );
@@ -111,6 +118,7 @@
 	    	'product-sku',
 			array(
 	            'methods' => WP_REST_Server::CREATABLE,
+	            'permission_callback' => '__return_true',
 	            'callback' => 'get_product_sku_from_woo',
 	        )
 	    );
@@ -130,7 +138,7 @@
     		array(
 
                 'methods' => WP_REST_Server::CREATABLE,
-
+                'permission_callback' => '__return_true',
                 'callback' => 'get_order_status_by_id',
             )
         );
@@ -150,6 +158,7 @@
 		    	'price-rate',
 	    		array(
 	                'methods' => WP_REST_Server::READABLE,
+	                'permission_callback' => '__return_true',
 	                'callback' => 'getPriceRate',
 	            )
 	        );

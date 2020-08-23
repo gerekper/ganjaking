@@ -467,11 +467,12 @@ class WC_GFPA_Cart {
 	 * @param $cart_item
 	 */
 	public function order_item_meta( $item, $cart_item_key, $cart_item ) {
+		GFCommon::log_debug( "Gravity Forms Begin Adding Order Item Meta: (#{$cart_item_key}) - Order (#{$item->get_order_id()}) - Item(#{$item->get_id()}" );
+
 		if ( function_exists( 'woocommerce_add_order_item_meta' ) ) {
+			GFCommon::log_debug( "Gravity Forms woocommerce_add_order_item_meta Exists Proceeding.. - Order (#{$item->get_order_id()}) - Item(#{$item->get_id()}" );
 
-			$cart_item_debug = print_r( $cart_item, true );
-			GFCommon::log_debug( "Gravity Forms Add Order Item Meta: (#{$cart_item_key}) - Data (#{$cart_item_debug})" );
-
+			//$cart_item_debug = print_r( $cart_item, true );
 			if ( isset( $cart_item['_gravity_form_lead'] ) && isset( $cart_item['_gravity_form_data'] ) ) {
 
 				$item_id = $item->get_id();
@@ -484,7 +485,7 @@ class WC_GFPA_Cart {
 					return;
 				}
 
-				GFCommon::log_debug( "Gravity Forms Add Order Item Meta: Order Item ID(#{$item_id})" );
+				GFCommon::log_debug( "Gravity Forms Has cart_item['_gravity_form_lead'] and cart_item['_gravity_form_data']: Order Item ID(#{$item_id})" );
 
 				$item->add_meta_data( '_gravity_forms_history', array(
 						'_gravity_form_lead'          => $cart_item['_gravity_form_lead'],
@@ -492,6 +493,8 @@ class WC_GFPA_Cart {
 						'_gravity_form_cart_item_key' => $cart_item_key
 					)
 				);
+
+				GFCommon::log_debug( "Gravity Forms Added Order Item Gravity Forms History: Order Item ID(#{$item_id})" );
 
 				//Gravity forms generates errors and warnings.  To prevent these from conflicting with other things, we are going to disable warnings and errors.
 				$err_level = error_reporting();
@@ -529,7 +532,7 @@ class WC_GFPA_Cart {
 
 						if ( ( isset( $field['inputType'] ) && $field['inputType'] == 'hiddenproduct' ) || ( isset( $field['displayOnly'] ) && $field['displayOnly'] ) || ( isset( $field->cssClass ) && strpos( $field->cssClass, 'wc-gforms-hide-from-email-and-admin' ) !== false ) ) {
 							$field_debug_string = print_r( $field, true );
-							GFCommon::log_debug( "Gravity Forms Add Order Item Meta: Skipping (#{$field_debug_string})" );
+							GFCommon::log_debug( "Gravity Forms Function - Add Order Item Meta: Skipping (#{$field_debug_string})" );
 							continue;
 						}
 
@@ -623,7 +626,7 @@ class WC_GFPA_Cart {
 									$display_title = $field['id'] . ' -';
 								}
 								$value_debug_string = $prefix . $display_title . ' - Value:' . $display_value;
-								GFCommon::log_debug( "Gravity Forms Add Order Item Meta:(#{$value_debug_string})" );
+								GFCommon::log_debug( "Gravity Forms Adding Order Item Meta:(#{$value_debug_string})" );
 
 								$order_item_meta = array(
 									'name'  => $prefix . $display_title,
@@ -634,16 +637,25 @@ class WC_GFPA_Cart {
 
 								if ( $order_item_meta ) {
 									$item->add_meta_data( $order_item_meta['name'], $order_item_meta['value'] );
+									GFCommon::log_debug( "Gravity Forms Added Order Item Meta:({$order_item_meta['name']} - {$order_item_meta['value']})" );
+								} else {
+									GFCommon::log_debug( "(ERROR) Gravity Forms Did Not Add Order Item Meta, It was empty after the filter" );
 								}
 							} catch ( Exception $e ) {
 								$e_debug_string = $e->getMessage();
-								GFCommon::log_debug( "Gravity Forms Add Order Item Meta Exception:(#{$e_debug_string})" );
+								GFCommon::log_debug( "(ERROR) Gravity Forms Add Order Item Meta Exception:(#{$e_debug_string})" );
 							}
 						}
 					}
+				} else {
+					GFCommon::log_debug( "(ERROR) Gravity Forms Form Meta Did Not Exist - Form ID(#{$gravity_form_data['id']} - Order (#{$item->get_order_id()}) - Item(#{$item->get_id()}" );
 				}
 				error_reporting( $err_level );
+			} else {
+				GFCommon::log_debug( "(NOTE) Gravity Forms Product Addons, Skipping: (#{$cart_item_key}) - Order Item ID (#{$item->get_id()}) - No cart_item data form gravity forms." );
 			}
+		} else {
+			GFCommon::log_debug( "(ERROR) Gravity Forms woocommerce_add_order_item_meta DOES NOT EXIST - Order (#{$item->get_order_id()}) - Item(#{$item->get_id()}" );
 		}
 	}
 

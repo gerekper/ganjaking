@@ -3,8 +3,8 @@ Contributors: wpdevteam, re_enter_rupok
 Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
-Tested up to: 5.4
-Stable tag: 1.3.0
+Tested up to: 5.5
+Stable tag: 1.3.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,12 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.3.1 - 20/08/2020 =
+- Added: Order & Icon Change options for Each KBs
+- Fixed: Collapsible TOC not working for responsive devices
+- Fixed: PHP Query Errors with Shortcode
+- Few minor bugfix and improvements
 
 = 1.3.0 - 27/07/2020 =
 - Added: Multiple Knowledge Base

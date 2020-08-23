@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.3.0
+ * @version  6.3.4
  */
 class WC_PB_Compatibility {
 
@@ -231,6 +231,11 @@ class WC_PB_Compatibility {
 		// Wishlists compatibility.
 		if ( class_exists( 'WC_Wishlists_Plugin' ) ) {
 			$module_paths[ 'wishlists' ] = 'modules/class-wc-pb-wl-compatibility.php';
+		}
+
+		// WooCommerce Services compatibility.
+		if ( class_exists( 'WC_Connect_Loader' ) ) {
+			$module_paths[ 'wc_services' ] = 'modules/class-wc-pb-wc-services-compatibility.php';
 		}
 
 		// Shipstation integration.

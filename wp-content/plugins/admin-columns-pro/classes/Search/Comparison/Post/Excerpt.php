@@ -12,6 +12,8 @@ class Excerpt extends PostField {
 			Operators::NOT_CONTAINS,
 			Operators::BEGINS_WITH,
 			Operators::ENDS_WITH,
+			Operators::IS_EMPTY,
+			Operators::NOT_IS_EMPTY,
 		] );
 
 		parent::__construct( $operators );

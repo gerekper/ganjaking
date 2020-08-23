@@ -243,7 +243,7 @@ jQuery(document).ready(function($) {
 	}).change();
 
 	jQuery("#tracking_on").change(function() {
-		if (jQuery(this).attr("checked")) {
+		if (jQuery(this).prop("checked")) {
 			jQuery(".tracking_on").show();
 		} else {
 			jQuery(".tracking_on").hide();
@@ -284,7 +284,7 @@ jQuery(document).ready(function($) {
 	<?php do_action('fue_manual_email_form_script'); ?>
 
 	jQuery("#send_again").change(function() {
-		if (jQuery(this).attr("checked")) {
+		if (jQuery(this).prop("checked")) {
 			jQuery(".class_send_again").show();
 		} else {
 			jQuery(".class_send_again").hide();
@@ -292,7 +292,7 @@ jQuery(document).ready(function($) {
 	}).change();
 
 	jQuery("#schedule_email").change(function() {
-		if (jQuery(this).attr("checked")) {
+		if (jQuery(this).prop("checked")) {
 			jQuery(".sending_schedule_picker").show();
 		} else {
 			jQuery(".sending_schedule_picker").hide();

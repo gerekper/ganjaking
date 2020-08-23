@@ -1,5 +1,11 @@
 *** WooCommerce Box Office Changelog ***
 
+2020-08-19 - version 1.1.28
+* Tweak - WordPress 5.5 compatibility.
+
+2020-07-22 - version 1.1.27
+* Fix - Show barcode as image in emails.
+
 2020-07-01 - version 1.1.26
 * Add - `{barcode}` variable to display barcodes in ticket emails.
 * Add - Ticket ID variables to printed tickets and emails.

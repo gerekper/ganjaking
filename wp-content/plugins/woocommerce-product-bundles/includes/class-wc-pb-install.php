@@ -423,6 +423,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_bundled_itemmeta (
 	public static function trigger_update() {
 		self::update();
 		wp_safe_redirect( admin_url() );
+		exit;
 	}
 
 	/**
@@ -439,6 +440,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_bundled_itemmeta (
 		 */
 		do_action( self::$background_updater->get_cron_hook_identifier() );
 		wp_safe_redirect( admin_url() );
+		exit;
 	}
 
 	/**

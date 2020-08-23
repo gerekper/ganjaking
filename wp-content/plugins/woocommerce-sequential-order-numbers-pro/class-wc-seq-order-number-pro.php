@@ -34,7 +34,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.15.3';
+	const VERSION = '1.16.0';
 
 	/** @var WC_Seq_Order_Number_Pro single instance of this plugin */
 	protected static $instance;
@@ -133,6 +133,21 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 		     class_exists( 'WC_Admin_Install', false ) ) {
 			add_filter( 'woocommerce_rest_orders_prepare_object_query', [ $this, 'filter_downloads_analytics_search_by_order' ], 10, 2 );
 		}
+	}
+
+
+	/**
+	 * Initializes admin handlers.
+	 *
+	 * @internal
+	 *
+	 * @since 1.16.0
+	 */
+	public function init_admin() {
+
+		require_once( $this->get_plugin_path() . '/includes/Admin/Onboarding_Tips.php' );
+
+		new \SkyVerge\WooCommerce\Sequential_Order_Numbers_Pro\Admin\Onboarding_Tips( $this );
 	}
 
 
@@ -1263,7 +1278,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 	 */
 	public function get_documentation_url() {
 
-		return 'http://docs.woocommerce.com/document/sequential-order-numbers/';
+		return 'https://docs.woocommerce.com/document/sequential-order-numbers/';
 	}
 
 

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Bundles and Composite Products.
  *
  * @class    WCS_ATT_Integration_PB_CP
- * @version  3.1.15
+ * @version  3.1.17
  */
 class WCS_ATT_Integration_PB_CP {
 
@@ -1194,21 +1194,7 @@ class WCS_ATT_Integration_PB_CP {
 
 		if ( $is_bundle_type_container_order_item && ! $is_bundle_type_order_item ) {
 
-			$product = $item->get_product();
-			$schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-			$found   = false;
-
-			// Does a matching scheme exist?
-			foreach ( $schemes as $scheme ) {
-				if ( $scheme->matches_subscription( $subscription ) ) {
-					$found = true;
-					break;
-				}
-			}
-
-			if ( ! $found ) {
-				$can = false;
-			}
+			// See 'WCS_ATT_Manage_Switch::can_switch_item'.
 
 		} elseif ( $is_bundle_type_order_item ) {
 

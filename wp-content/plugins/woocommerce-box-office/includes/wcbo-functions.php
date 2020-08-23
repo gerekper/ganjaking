@@ -499,8 +499,10 @@ function wc_box_office_get_parsed_ticket_content( $ticket_id, $content ) {
 	$barcode_obj = new WC_Box_Office_Ticket_Barcode();
 
 	if ( $barcode_obj->is_available() ) {
-		$barcode = WC_Order_Barcodes()->display_barcode( $ticket_id );
-		$content = str_replace( '{barcode}', $barcode, $content );
+		$barcode  = '<span class="woocommerce-order-barcodes-container" style="text-align:center;">';
+		$barcode .= WC_Order_Barcodes()->display_barcode( $ticket_id, true );
+		$barcode .= '</span>';
+		$content  = str_replace( '{barcode}', $barcode, $content );
 	}
 
 	// Parse link var '{ticket_link}'.

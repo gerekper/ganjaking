@@ -34,7 +34,7 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.6.7';
+	const VERSION = '2.7.0';
 
 	/** @var \WC_Address_Validation single instance of this plugin */
 	protected static $instance;
@@ -67,9 +67,9 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 		spl_autoload_register( array( $this, 'autoload_providers' ) );
 
 		// postcode lookup AJAX
-		add_action( 'wp_ajax_wc_address_validation_lookup_postcode',        array( $this, 'lookup_postcode' ) );
-		add_action( 'wp_ajax_nopriv_wc_address_validation_lookup_postcode', array( $this, 'lookup_postcode' ) );
-		add_action( 'wc_ajax_wc_address_validation_lookup_postcode',        array( $this, 'lookup_postcode' ) );
+		add_action( 'wp_ajax_wc_address_validation_lookup_postcode',        [ $this, 'lookup_postcode' ] );
+		add_action( 'wp_ajax_nopriv_wc_address_validation_lookup_postcode', [ $this, 'lookup_postcode' ] );
+		add_action( 'wc_ajax_wc_address_validation_lookup_postcode',        [ $this, 'lookup_postcode' ] );
 	}
 
 
@@ -220,13 +220,28 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 
 		$postcode     = isset( $_GET['postcode'] )     ? sanitize_text_field( $_GET['postcode'] )     : '';
 		$house_number = isset( $_GET['house_number'] ) ? sanitize_text_field( $_GET['house_number'] ) : '';
-		$results      = $this->get_handler_instance()->get_active_provider()->lookup_postcode( $postcode, $house_number );
+		$provider     = $this->get_handler_instance()->get_active_provider();
+
+		/**
+		 * Fires before a postcode lookup is issued to the active provider.
+		 *
+		 * Third party actors can intercept this hook to output alternative results earlier and exit.
+		 *
+		 * @since 2.7.0
+		 *
+		 * @param null|WC_Address_Validation_Provider $provider the address validation provider used for lookup
+		 * @param string $postcode postcode
+		 * @param string $house_number house number (optional)
+		 */
+		do_action( 'wc_address_validation_before_lookup_postcode', $provider, $postcode, $house_number );
+
+		$results = $provider ? $provider->lookup_postcode( $postcode, $house_number ) : [];
 
 		// add a helper notice to the top of the select box
-		array_unshift( $results, array(
+		array_unshift( $results, [
 			'value' => 'none',
-			'name'  => __( 'Select your address to populate the form.', 'woocommerce-address-validation' )
-		) );
+			'name'  => __( 'Select your address to populate the form.', 'woocommerce-address-validation' ),
+		] );
 
 		echo json_encode( $results );
 
@@ -262,7 +277,7 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 	 */
 	public function get_documentation_url() {
 
-		return 'http://docs.woocommerce.com/document/address-validation/';
+		return 'https://docs.woocommerce.com/document/address-validation/';
 	}
 
 

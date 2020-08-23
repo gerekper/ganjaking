@@ -5,7 +5,7 @@
  * Description: Sell memberships that provide access to restricted content, products, discounts, and more!
  * Author: SkyVerge
  * Author URI: https://www.woocommerce.com/
- * Version: 1.17.5
+ * Version: 1.17.6
  * Text Domain: woocommerce-memberships
  * Domain Path: /i18n/languages/
  *
@@ -20,7 +20,7 @@
  *
  * Woo: 958589:9288e7609ad0b487b81ef6232efa5cfc
  * WC requires at least: 3.0.9
- * WC tested up to: 4.2.0
+ * WC tested up to: 4.4.0
  */
 
 defined( 'ABSPATH' ) or exit;

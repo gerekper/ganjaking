@@ -1,0 +1,342 @@
+# Copyright (C) 2019 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Product Retailers 1.13.0-dev.1\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2019-10-18 07:46:55+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-10-18 16:08+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it_IT\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Product Retailers"
+msgstr "WooCommerce Product Retailers"
+
+#: includes/admin/class-wc-product-retailers-admin.php:152
+msgid "Product Retailers"
+msgstr "Rivenditori Prodotto"
+
+#: includes/admin/class-wc-product-retailers-admin.php:160
+#: includes/admin/class-wc-product-retailers-admin.php:301
+msgid "Product Button Text"
+msgstr "Testo Bottone Prodotto"
+
+#: includes/admin/class-wc-product-retailers-admin.php:161
+msgid ""
+"This text will be shown on the dropdown linking to the external product, "
+"unless overridden at the product level."
+msgstr ""
+"Questo testo verrà mostrato nel menù a tendina che collega un prodotto "
+"esterno, a meno che non venga sovrascritto dalle impostazioni del prodotto."
+
+#: includes/admin/class-wc-product-retailers-admin.php:164
+msgid "Purchase from Retailer"
+msgstr "Acquista da Rivenditori"
+
+#: includes/admin/class-wc-product-retailers-admin.php:170
+#: includes/admin/class-wc-product-retailers-admin.php:312
+msgid "Catalog Button Text"
+msgstr "Testo Bottone Catalogo"
+
+#: includes/admin/class-wc-product-retailers-admin.php:171
+msgid ""
+"This text will be shown on the catalog page \"Add to Cart\" button for simple "
+"products that are sold through retailers only, unless overridden at the "
+"product level."
+msgstr ""
+"Questo testo verrà mostrato accanto al bottone \"Aggiungi al Carrello\" delle "
+"pagine del catalogo per prodotti semplici che vengono venduti tramite "
+"rivenditori, a meno che questo non venga modificato individualmente dalle "
+"impostazioni del prodotto."
+
+#: includes/admin/class-wc-product-retailers-admin.php:174
+#: includes/class-wc-product-retailers-taxonomy.php:88
+msgid "View Retailers"
+msgstr "Vedi Rivenditori"
+
+#: includes/admin/class-wc-product-retailers-admin.php:180
+msgid "Open retailer links in a new tab"
+msgstr "Apri i collegamenti ai rivenditori in una nuova scheda"
+
+#: includes/admin/class-wc-product-retailers-admin.php:181
+msgid ""
+"Enable this option to open links to other retailers in a new tab instead of "
+"the current one."
+msgstr ""
+"Abilita questa opzione per aprire i collegamenti verso altri rivenditori in "
+"una nuova scheda del browser anziché in quella corrente."
+
+#: includes/admin/class-wc-product-retailers-admin.php:237
+#: includes/admin/class-wc-product-retailers-admin.php:244
+#: includes/class-wc-product-retailers-taxonomy.php:80
+msgid "Retailers"
+msgstr "Rivenditori"
+
+#: includes/admin/class-wc-product-retailers-admin.php:276
+msgid "Retailer Availability"
+msgstr "Disponibilità Rivenditore"
+
+#: includes/admin/class-wc-product-retailers-admin.php:277
+msgid "Choose when retailers are shown for the product."
+msgstr "Scegli quando i rivenditori vengono mostrati per il prodotto."
+
+#: includes/admin/class-wc-product-retailers-admin.php:280
+msgid "Always; Use both retailers and the store add-to-cart button."
+msgstr ""
+"Sempre - Utilizza sia i rivenditori, sia il bottone del negozio per aggiungere "
+"al carrello."
+
+#: includes/admin/class-wc-product-retailers-admin.php:281
+msgid "Always; Use retailers instead of the store add-to-cart button."
+msgstr ""
+"Sempre - Usa i rivenditori invece del bottone del negozio per aggiungere al "
+"carrello."
+
+#: includes/admin/class-wc-product-retailers-admin.php:282
+msgid "Only when the product is out of stock."
+msgstr "Solo quando il prodotto è esaurito."
+
+#: includes/admin/class-wc-product-retailers-admin.php:292
+msgid "Use Buttons"
+msgstr "Utilizza Bottoni"
+
+#: includes/admin/class-wc-product-retailers-admin.php:293
+msgid "Enable this to use buttons rather than a dropdown for multiple retailers."
+msgstr "Abilita questo per utilizzare bottoni anziché un menù a tendina."
+
+#: includes/admin/class-wc-product-retailers-admin.php:302
+msgid ""
+"This text will be shown on the dropdown linking to the external product, or "
+"before the buttons if \"Use Buttons\" is enabled."
+msgstr ""
+"Questo testo verrà mostrato nel menù a tendina che collega un prodotto "
+"esterno, oppure prima dei bottoni se \"Utilizza Bottoni\" è stato selezionato."
+
+#: includes/admin/class-wc-product-retailers-admin.php:313
+msgid ""
+"This text will be shown on the catalog page \"Add to Cart\" button for simple "
+"products that are sold through retailers only."
+msgstr ""
+"Questo testo verrà mostrato accanto al bottone \"Aggiungi al Carrello\" delle "
+"pagine del catalogo per prodotti semplici che vengono venduti  tramite "
+"rivenditori."
+
+#: includes/admin/class-wc-product-retailers-admin.php:323
+msgid "Hide Product Retailers"
+msgstr "Nascondi Rivenditori Prodotto"
+
+#: includes/admin/class-wc-product-retailers-admin.php:324
+msgid ""
+"Enable this to hide the default product retailers buttons/dropdown on the "
+"product page.  Useful if you want to display them elsewhere using the "
+"shortcode or widget."
+msgstr ""
+"Abilita questa opzione per nascondere i bottoni/menù a tendina predefiniti per "
+"i rivenditori nella pagina del prodotto. Utile se intendi mostrarli altrove "
+"utilizzando il widget apposito o lo shortcode."
+
+#: includes/admin/class-wc-product-retailers-admin.php:368
+#: includes/class-wc-product-retailers-taxonomy.php:81
+msgid "Retailer"
+msgstr "Rivenditore"
+
+#: includes/admin/class-wc-product-retailers-admin.php:369
+msgid "Product Price"
+msgstr "Prezzo Prodotto"
+
+#: includes/admin/class-wc-product-retailers-admin.php:370
+msgid "Product URL"
+msgstr "URL Prodotto"
+
+#: includes/admin/class-wc-product-retailers-admin.php:425
+msgid ""
+"Search for a retailer to add to this product. You may add multiple retailers "
+"by searching for them first."
+msgstr ""
+"Cerca un rivenditore da aggiungere a questo prodotto. Puoi aggiungere più di "
+"un rivenditore."
+
+#: includes/admin/class-wc-product-retailers-admin.php:428
+msgid "Search for a retailer to add%s"
+msgstr "Cerca un rivenditore da aggiungere%s"
+
+#: includes/admin/class-wc-product-retailers-admin.php:440
+#: includes/class-wc-product-retailers-taxonomy.php:83
+msgid "Add Retailer"
+msgstr "Aggiungi"
+
+#: includes/admin/class-wc-product-retailers-admin.php:444
+msgid "Delete Selected"
+msgstr "Elimina Selezionato"
+
+#: includes/admin/class-wc-product-retailers-edit.php:93
+#: includes/admin/class-wc-product-retailers-edit.php:96
+#: includes/admin/class-wc-product-retailers-edit.php:98
+msgid "Retailer updated."
+msgstr "Rivenditore aggiornato."
+
+#: includes/admin/class-wc-product-retailers-edit.php:94
+msgid "Custom field updated."
+msgstr "Campo personalizzabile aggiornato."
+
+#: includes/admin/class-wc-product-retailers-edit.php:95
+msgid "Custom field deleted."
+msgstr "Campo personalizzabile rimosso."
+
+#: includes/admin/class-wc-product-retailers-edit.php:97
+msgid "Retailer restored to revision from %s"
+msgstr "Revisione Rivenditore ripristinata da %s"
+
+#: includes/admin/class-wc-product-retailers-edit.php:99
+msgid "Retailer saved."
+msgstr "Rivenditore salvato."
+
+#: includes/admin/class-wc-product-retailers-edit.php:100
+msgid "Retailer submitted."
+msgstr "Rivenditore inviato."
+
+#. translators: Placeholder: %s - Product Retailer post scheduled date for
+#. publishing
+#: includes/admin/class-wc-product-retailers-edit.php:102
+msgid "Retailer scheduled for: <strong>%s</strong>."
+msgstr "Rivenditore da pubblicare il: <strong>%s</strong>."
+
+#: includes/admin/class-wc-product-retailers-edit.php:103
+msgid "M j, Y @ G:i"
+msgstr "j M Y @ H:i"
+
+#: includes/admin/class-wc-product-retailers-edit.php:105
+msgid "Retailer draft updated."
+msgstr "Bozza Rivenditore aggiornata."
+
+#: includes/admin/class-wc-product-retailers-edit.php:126
+msgid "Retailer Name"
+msgstr "Nome Rivenditore"
+
+#: includes/admin/class-wc-product-retailers-edit.php:145
+msgid "Retailer Info"
+msgstr "Informazioni Rivenditore"
+
+#: includes/admin/class-wc-product-retailers-edit.php:192
+#: includes/admin/class-wc-product-retailers-list.php:277
+msgid "Default URL"
+msgstr "URL predefinito"
+
+#: includes/admin/class-wc-product-retailers-edit.php:194
+msgid ""
+"The default URL for the retailer, ie: http://www.example.com  This URL will be "
+"used unless overridden by a product."
+msgstr ""
+"URL predefinito del rivenditore, per esempio http://www.example.com/ Questo "
+"URL verrà utilizzato a meno che non venga modificato dalle impostazioni di "
+"ciascun prodotto."
+
+#: includes/admin/class-wc-product-retailers-list.php:276
+msgid "Name"
+msgstr "Nome"
+
+#: includes/admin/class-wc-product-retailers-list.php:328
+msgid "Restore this item from the Trash"
+msgstr "Ripristina questo oggetto dal cestino"
+
+#: includes/admin/class-wc-product-retailers-list.php:328
+msgid "Restore"
+msgstr "Riprisitina"
+
+#: includes/admin/class-wc-product-retailers-list.php:332
+msgid "Move this item to the Trash"
+msgstr "Sposta questo oggetto nel cestino"
+
+#: includes/admin/class-wc-product-retailers-list.php:332
+msgid "Trash"
+msgstr "Cestino"
+
+#: includes/admin/class-wc-product-retailers-list.php:338
+msgid "Delete this item permanently"
+msgstr "Elimina questo oggetto permanentemente"
+
+#: includes/admin/class-wc-product-retailers-list.php:338
+msgid "Delete Permanently"
+msgstr "Elimina Permanentemente"
+
+#: includes/class-wc-product-retailers-product.php:108
+msgid "Free!"
+msgstr "Gratis!"
+
+#: includes/class-wc-product-retailers-taxonomy.php:84
+msgid "Add New Retailer"
+msgstr "Aggiungi Nuovo Rivenditore"
+
+#: includes/class-wc-product-retailers-taxonomy.php:85
+msgid "Edit"
+msgstr "Modifica"
+
+#: includes/class-wc-product-retailers-taxonomy.php:86
+msgid "Edit Retailer"
+msgstr "Modifica Rivenditore"
+
+#: includes/class-wc-product-retailers-taxonomy.php:87
+msgid "New Retailer"
+msgstr "Nuovo Rivenditore"
+
+#: includes/class-wc-product-retailers-taxonomy.php:89
+msgid "View Retailer"
+msgstr "Vedi Rivenditore"
+
+#: includes/class-wc-product-retailers-taxonomy.php:90
+msgid "Search Retailers"
+msgstr "Cerca Rivenditori"
+
+#: includes/class-wc-product-retailers-taxonomy.php:91
+msgid "No Retailers found"
+msgstr "Nessun Rivenditore trovato"
+
+#: includes/class-wc-product-retailers-taxonomy.php:92
+msgid "No Retailers found in trash"
+msgstr "Nessun Rivenditore trovato nel cestino"
+
+#: includes/class-wc-product-retailers-taxonomy.php:94
+msgid ""
+"This is where you can add new product retailers that you can add to products."
+msgstr "Qui puoi aggiungere nuovi rivenditori da aggiungere ai prodotti."
+
+#: includes/widgets/class-wc-product-retailers-widget.php:46
+msgid ""
+"Display a set of product retailers for the current product if on a product "
+"page."
+msgstr ""
+"Mostra una collazione di rivenditori del prodotto per il prodotto corrente "
+"nella pagina del prodotto."
+
+#: includes/widgets/class-wc-product-retailers-widget.php:129
+#: includes/widgets/class-wc-product-retailers-widget.php:130
+msgid "Title"
+msgstr "Titolo"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/product-retailers/"
+msgstr "http://www.woocommerce.com/products/product-retailers/"
+
+#. Description of the plugin/theme
+msgid "Allow customers to purchase products from external retailers"
+msgstr "Consenti ai clienti di acquistare prodotti da rivenditori esterni"
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr "SkyVerge"
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr "http://www.woocommerce.com"
+
+#: includes/class-wc-product-retailers-taxonomy.php:82
+msgctxt "Admin menu name"
+msgid "Retailers"
+msgstr "Rivenditori"

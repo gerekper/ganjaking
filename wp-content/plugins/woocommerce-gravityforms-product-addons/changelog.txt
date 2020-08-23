@@ -1,4 +1,8 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2020.08.18 - version 3.3.15
+    * New:  Added filter, woocommerce_gforms_script_params, to allow modification of the script params object enqueued for the forms front end.
+    * Update:  Added additional logging when an order is being created.
+
 2020.06.25 - version 3.3.14
     * Update:  WC and WP version compatibility tags.
     * Fix:  Fix issue with email fields which require email confirmation on subscription renewal.

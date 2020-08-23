@@ -62,8 +62,8 @@ class Vc_Add_Element_Box {
 			$data .= ' data-is-container="true"';
 		}
 		$data .= ' data-vc-ui-element="add-element-button"';
-		$description = ! empty( $params['description'] ) ? '<span class="vc_element-description">' . htmlspecialchars( esc_html( $params['description'] ), ENT_QUOTES, 'UTF-8' ) . '</span>' : '';
-		$name = '<span data-vc-shortcode-name>' . htmlspecialchars( esc_html( stripslashes( $params['name'] ) ), ENT_QUOTES, 'UTF-8' ) . '</span>';
+		$description = ! empty( $params['description'] ) ? '<span class="vc_element-description">' . esc_html( $params['description'] ) . '</span>' : '';
+		$name = '<span data-vc-shortcode-name>' . esc_html( stripslashes( $params['name'] ) ) . '</span>';
 		$output .= '<li data-element="' . esc_attr( $params['base'] ) . '" ' . ( isset( $params['presetId'] ) ? 'data-preset="' . esc_attr( $params['presetId'] ) . '"' : '' ) . ' class="wpb-layout-element-button vc_col-xs-12 vc_col-sm-4 vc_col-md-3 vc_col-lg-2' . ( isset( $params['deprecated'] ) ? ' vc_element-deprecated' : '' ) . esc_attr( $category_css_classes ) . esc_attr( $class_out ) . '" ' . $data . '><div class="vc_el-container"><a id="' . esc_attr( $params['base'] ) . '" data-tag="' . esc_attr( $params['base'] ) . '" class="dropable_el vc_shortcode-link' . esc_attr( $class ) . '" href="javascript:;" data-vc-clickable>' . $this->getIcon( $params ) . $name . $description . '</a></div></li>';
 
 		return $output;

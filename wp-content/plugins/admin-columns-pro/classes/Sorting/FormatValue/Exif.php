@@ -18,9 +18,11 @@ class Exif implements FormatValue {
 	public function format_value( $value ) {
 		$data = maybe_unserialize( $value );
 
-		return isset( $data[ $this->field ] )
-			? $data[ $this->field ]
-			: null;
+		if ( ! isset( $data['image_meta'], $data['image_meta'][ $this->field ] ) ) {
+			return null;
+		}
+
+		return $data['image_meta'][ $this->field ];
 	}
 
 }

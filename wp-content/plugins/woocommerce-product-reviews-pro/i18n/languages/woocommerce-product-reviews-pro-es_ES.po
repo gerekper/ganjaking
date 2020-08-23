@@ -1,0 +1,2702 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Product Reviews Pro v1.2.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2018-09-19 23:29:16+00:00\n"
+"PO-Revision-Date: 2018-10-09 18:31+0100\n"
+"Last-Translator: miguel-martinez <martmiguel@gmail.com>\n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %s contribution flagged n times
+#: includes/admin/class-wc-product-reviews-pro-admin.php:159
+msgid ""
+"Flagged <span class=\"count\">(<span class=\"flagged-count\">%s</span>)</"
+"span>"
+msgid_plural ""
+"Flagged <span class=\"count\">(<span class=\"flagged-count\">%s</span>)</"
+"span>"
+msgstr[0] ""
+"Reportada <span class=\"count\">(<span class=\"flagged-count\">%s</span>)</"
+"span>"
+msgstr[1] ""
+"Reportadas <span class=\"count\">(<span class=\"flagged-count\">%s</span>)</"
+"span>"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:213
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1011
+#: templates/myaccount/contribution-list.php:58
+#: templates/myaccount/contribution-list.php:134
+msgid "Type"
+msgstr "Tipo"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:214
+msgid "Votes"
+msgstr "Votos"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:261
+#: includes/admin/class-wc-reviews-list-table.php:69
+#: includes/admin/class-wc-reviews-list-table.php:569
+#: includes/class-wc-product-reviews-pro-contribution-type.php:64
+#: includes/class-wc-product-reviews-pro-contribution-type.php:571
+msgid "Review"
+msgstr "Opinión"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:261
+#: includes/class-wc-product-reviews-pro-contribution-type.php:81
+#: includes/class-wc-product-reviews-pro-contribution-type.php:717
+#: templates/myaccount/contribution-list.php:105
+msgid "Comment"
+msgstr "Comentario"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %1$s - Contribution type (CSS class), %2$s -
+#. Contribution type name
+#: includes/admin/class-wc-product-reviews-pro-admin.php:269
+msgid "attached"
+msgstr "adjuntos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:276
+msgid "Positive votes"
+msgstr "Votos positivos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:277
+msgid "Negative votes"
+msgstr "Votos negativos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:318
+msgid ""
+"Are you sure you want to remove this flag? This action cannot be undone."
+msgstr ""
+"¿Está seguro de querer eliminar este reporte? Esta acción es irreversible."
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:319
+msgid ""
+"Are you sure you want to remove these flags? This action cannot be undone."
+msgstr ""
+"¿Está seguro de querer eliminar estos reportes? Esta acción es irreversible."
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:320
+msgid "Are you sure you want to remove the attachment from this contribution?"
+msgstr ""
+"¿Está seguro de querer eliminar el archivo adjunto de esta contribución?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:321
+msgid "There was an error removing the attachment. Please try again later."
+msgstr ""
+"Ha habido un error al eliminar el adjunto. Por favor, inténtelo de nuevo."
+
+# @ default
+#: includes/admin/class-wc-product-reviews-pro-admin.php:358
+msgid "All contribution types"
+msgstr "Todos los tipos de contribución"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:401
+msgid "All media"
+msgstr "Todos los archivos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:402
+#: includes/class-wc-product-reviews-pro-contribution-type.php:72
+#: includes/class-wc-product-reviews-pro-contribution-type.php:731
+msgid "Photo"
+msgstr "Foto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:403
+#: includes/class-wc-product-reviews-pro-contribution-type.php:76
+#: includes/class-wc-product-reviews-pro-contribution-type.php:732
+msgid "Video"
+msgstr "Video"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:531
+msgid "Oops, no comment with this ID."
+msgstr "¡Ups! No hay ningún comentario con este ID."
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:531
+msgid "Go back"
+msgstr "Volver"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %s count of contributions flagged
+#: includes/admin/class-wc-product-reviews-pro-admin.php:611
+msgid "%s contribution flagged"
+msgid_plural "%s contributions flagged"
+msgstr[0] "%s contribución reportada"
+msgstr[1] "%s contribuciones reportadas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:669
+msgid "Contributions types"
+msgstr "Tipos de contribución"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:670
+msgid "Select which contribution types to enable"
+msgstr "Seleccione el tipo de contribución que desea habilitar"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:678
+msgid "Enable all contribution types"
+msgstr "Habilitar todos los tipos de contribución"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:679
+msgid "Enable specific contribution types only"
+msgstr "Habilitar únicamente los tipos específicos de contribución"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:683
+msgid "Specific contribution types"
+msgstr "Tipos específicos de contribución"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:693
+msgid "Admins can always reply"
+msgstr "Los administradores pueden responder siempre"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:694
+msgid ""
+"Allow administrators and shop managers to leave replies to contributions"
+msgstr ""
+"Permitir a los administradores y encargados de tienda responder a las "
+"contribuciones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:699
+msgid "Allow Attachments"
+msgstr "Permitir archivos adjuntos"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:700
+msgid ""
+"Enable to allow customers to add photo and video attachments as part of a "
+"review or question"
+msgstr ""
+"Actívelo para permitir a sus clientes adjuntar fotos o videos en sus "
+"opiniones o preguntas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:706
+msgid "Admin badges"
+msgstr "Insignias de los administradores"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:708
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:333
+msgid "Leave blank to disable badges."
+msgstr "Déjelo en blanco para desactivar las insignias."
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:709
+msgid ""
+"Enter the text to use on badges displayed on admin and shop manager "
+"contributions."
+msgstr ""
+"Escriba el texto de las insignias que aparecerán en las contribuciones de "
+"los administradores y gestores de tienda."
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:711
+#: woocommerce-product-reviews-pro.php:551
+#: woocommerce-product-reviews-pro.php:594
+msgid "Admin"
+msgstr "Administrador"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:714
+msgid "Sorting order"
+msgstr "Ordenar por"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:715
+msgid "Choose how contributions are sorted on product pages"
+msgstr "Seleccione cómo se organizan las opiniones en las páginas de producto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:723
+msgid "Most helpful first"
+msgstr "Más útiles primero"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:724
+msgid "Newest first"
+msgstr "Más recientes primero"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:728
+msgid "Minimum word count"
+msgstr "Número mínimo de palabras"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:729
+msgid ""
+"Users need to enter at least this amount of words when posting a contribution"
+msgstr ""
+"Numero mínimo de palabras que un usuario debe escribir para poder publicar "
+"una contribución"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:734
+msgid "Maximum word count"
+msgstr "Número máximo de palabras"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:735
+msgid "Maximum number of words users can enter when posting a contribution"
+msgstr ""
+"Numero máximo de palabras que un usuario puede escribir al publicar una "
+"contribución"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:740
+msgid "Threshold for publication"
+msgstr "Límite para mostrar las publicaciones"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:741
+msgid ""
+"Show contributions to public only after a minimum amount of submission is met"
+msgstr ""
+"Muestra contribuciones públicamente sólo cuando se cumpla un número mínimo "
+"de envíos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:751
+msgid "Flagged contributions"
+msgstr "Contribuciones reportadas"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:752
+msgid ""
+"Change publication status should a contribution be flagged as inappropriate"
+msgstr ""
+"Cambie el estado de una publicación cuando ésta sea reportada como "
+"inapropiada"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:759
+msgid "Keep published"
+msgstr "Mantener publicada"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:760
+msgid "Set to pending approval when flagged by a registered customer"
+msgstr ""
+"Marcar como “pendiente de aprobación” cuando haya sido reportada por un "
+"usuario registrado"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:761
+msgid "Set to pending approval when flagged by anyone"
+msgstr ""
+"Marcar como “pendiente de aprobación” cuando haya sido reportada por "
+"cualquiera"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:765
+msgid "Moderation"
+msgstr "Moderación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:766
+msgid "Contributions must be manually approved"
+msgstr "Las contribuciones deben ser aprobadas manualmente"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:812
+#: includes/admin/class-wc-reviews-list-table.php:68
+#: includes/admin/class-wc-reviews.php:89
+#: includes/admin/views/html-report-product-reviews.php:13
+#: includes/class-wc-product-reviews-pro-contribution-type.php:64
+msgid "Reviews"
+msgstr "Opiniones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:815
+msgid "Most Reviews"
+msgstr "Más opiniones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:821
+#: includes/admin/views/html-report-product-reviews.php:14
+msgid "Highest Rating"
+msgstr "Valoración más alta"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:827
+#: includes/admin/views/html-report-product-reviews.php:15
+msgid "Lowest Rating"
+msgstr "Valoración más baja"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:897
+#: includes/class-wc-product-reviews-pro-contribution-type.php:712
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:765
+#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:50
+#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:50
+#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:50
+#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:50
+#: templates/emails/plain/review-update-confirmation.php:78
+#: templates/emails/review-update-confirmation.php:87
+msgid "Title"
+msgstr "Título"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:900
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:811
+msgid "Stats"
+msgstr "Estadísticas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:901
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:818
+msgid "Flags"
+msgstr "Reportes"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:904
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:802
+msgid "Attached media"
+msgstr "Archivos adjuntos"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1015
+#: includes/admin/class-wc-reviews-list-table.php:570
+#: includes/admin/views/html-report-product-reviews.php:12
+msgid "Product"
+msgstr "Producto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1019
+msgid "Upvotes"
+msgstr "Votos positivos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1023
+msgid "Downvotes"
+msgstr "Votos negativos"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1027
+msgid "Active Flags"
+msgstr "Reportes activos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1050
+msgid "Qualifiers"
+msgstr "Calificaciones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1093
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1193
+msgid "Bulk Actions"
+msgstr "Acciones en lote"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1094
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1157
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1194
+msgid "Resolve"
+msgstr "Resolver"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1095
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1164
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1195
+#: includes/admin/class-wc-reviews-list-table.php:858
+msgid "Delete"
+msgstr "Eliminar"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1097
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1197
+msgid "Apply"
+msgstr "Aplicar"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1104
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1183
+msgid "Flagged by"
+msgstr "Reportado por"
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1105
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1184
+msgid "Reason"
+msgstr "Motivo"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1106
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1185
+#: includes/admin/views/html-report-product-reviews.php:17
+#: templates/myaccount/contribution-list.php:188
+msgid "Actions"
+msgstr "Acciones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1133
+msgid "Guest"
+msgstr "Invitado"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1145
+msgid "No flag reasons given"
+msgstr "No se aporaton razones para el reporte"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1175
+msgid "No one has flagged this contribution for removal."
+msgstr "Nadie reportó esta contribución para su eliminación."
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1233
+msgid "View Source"
+msgstr "Ver fuente"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1237
+msgid "Edit attachment"
+msgstr "Editar adjunto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1239
+msgid "Remove attachment"
+msgstr "Eliminar adjunto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1262
+msgid "Attachment has been removed"
+msgstr "El adjunto ha sido eliminado"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:213
+msgid "All ratings"
+msgstr "Todas las valoraciones"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:214
+#: includes/class-wc-product-reviews-pro-contribution-type.php:551
+msgid "Perfect"
+msgstr "Perfecto"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:215
+#: includes/class-wc-product-reviews-pro-contribution-type.php:552
+msgid "Good"
+msgstr "Bueno"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:216
+#: includes/class-wc-product-reviews-pro-contribution-type.php:553
+msgid "Average"
+msgstr "Normal"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:217
+#: includes/class-wc-product-reviews-pro-contribution-type.php:554
+msgid "Mediocre"
+msgstr "Mediocre"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:218
+#: includes/class-wc-product-reviews-pro-contribution-type.php:555
+msgid "Poor"
+msgstr "Malo"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:247
+#: includes/admin/class-wc-reviews-list-table.php:261
+msgid "Search for a product&hellip;"
+msgstr "Buscar un producto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:356
+msgid "No reviews awaiting moderation."
+msgstr "No tiene opiniones esperando moderación."
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:358
+msgid "No reviews found."
+msgstr "No se encontró ninguna opinión."
+
+# @ woocommerce-product-reviews-pro
+# @ default
+#: includes/admin/class-wc-reviews-list-table.php:465
+#: includes/admin/class-wc-reviews-list-table.php:843
+msgid "Unapprove"
+msgstr "Denegar"
+
+# @ woocommerce-product-reviews-pro
+# @ default
+#: includes/admin/class-wc-reviews-list-table.php:469
+#: includes/admin/class-wc-reviews-list-table.php:840
+msgid "Approve"
+msgstr "Aprobar"
+
+# @ woocommerce-product-reviews-pro
+# @ default
+#: includes/admin/class-wc-reviews-list-table.php:477
+#: includes/admin/class-wc-reviews-list-table.php:855
+msgid "Restore"
+msgstr "Restaurar"
+
+# @ woocommerce-product-reviews-pro
+# @ default
+#: includes/admin/class-wc-reviews-list-table.php:483
+msgid "Delete Permanently"
+msgstr "Borrar permanentemente"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:485
+msgid "Move to Trash"
+msgstr "Mover a la papelera"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:522
+msgid "Empty Spam"
+msgstr "Vaciar Spam"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:522
+msgid "Empty Trash"
+msgstr "Vaciar papelera"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:568
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:598
+msgid "Author"
+msgstr "Autor"
+
+# @ default
+#: includes/admin/class-wc-reviews-list-table.php:663
+msgid "Select comment"
+msgstr "Seleccionar comentario"
+
+# @ wc-product-reviews-pro
+#. translators: Placeholders: %1$s opening <a> link tag, %2$s comment date,
+#. %3$s comment time, %4$s closing <a> link tag
+#: includes/admin/class-wc-reviews-list-table.php:762
+msgid "On %1$s%2$s at %3$s%4$s"
+msgstr "El <a href=\"%1$s\">%2$s a las %3$s</a>"
+
+# @ wc-product-reviews-pro
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder %d - rating (e.g. 'Rated 4 out of 5')
+#: includes/admin/class-wc-reviews-list-table.php:775
+#: templates/single-product/contributions/contribution-review-legacy.php:61
+msgid "Rated %d out of 5"
+msgstr "Valorado con %d de 5"
+
+# @ wc-product-reviews-pro
+#. translators: Placeholder %d - rating (e.g. '4 out of 5')
+#: includes/admin/class-wc-reviews-list-table.php:777
+msgid "%d out of 5"
+msgstr "%d de 5"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:792
+msgid "show more"
+msgstr "mostrar más"
+
+# @ default
+#. translators: Placeholder: %s contribution type name
+#: includes/admin/class-wc-reviews-list-table.php:839
+msgid "Approve this %s"
+msgstr "Aprobar %s"
+
+# @ default
+#. translators: Placeholder: %s contribution type name
+#: includes/admin/class-wc-reviews-list-table.php:842
+msgid "Unapprove this %s"
+msgstr "Denegar %s"
+
+# @ default
+#. translators: Placeholder: %s contribution type name
+#: includes/admin/class-wc-reviews-list-table.php:845
+msgid "Mark this %s as spam"
+msgstr "Marcar %s como Spam"
+
+# @ default
+#. translators: Placeholder: %s contribution type name
+#: includes/admin/class-wc-reviews-list-table.php:851
+msgid "Move this %s to the trash"
+msgstr "Mover %s a la papelera"
+
+# @ wc-product-reviews-pro
+#. translators: Placeholder: %s contribution type name
+#: includes/admin/class-wc-reviews-list-table.php:854
+msgid "Restore %s from trash"
+msgstr "Recuperar %s de la papelera"
+
+# @ woocommerce-product-reviews-pro
+# @ default
+#. translators: Placeholder: %s contribution type name
+#: includes/admin/class-wc-reviews-list-table.php:857
+msgid "Delete this %s permanently"
+msgstr "Borrar %s permanentemente"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s contribution type name
+#: includes/admin/class-wc-reviews-list-table.php:860
+msgid "Edit this %s"
+msgstr "Editar %s"
+
+# @ default
+#: includes/admin/class-wc-reviews-list-table.php:861
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1117
+msgid "Edit"
+msgstr "Editar"
+
+# @ default
+#. translators: Placeholder: %s contribution type name
+#: includes/admin/class-wc-reviews-list-table.php:863
+msgid "Reply to this %s"
+msgstr "Responder %s"
+
+# @ default
+#: includes/admin/class-wc-reviews-list-table.php:864
+msgid "Reply"
+msgstr "Responder"
+
+#: includes/admin/class-wc-reviews-list-table.php:985
+msgid "%1$sReview by %2$s%3$s"
+msgstr "%1$s Opiniones de %2$s%3$s"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s - product title
+#: includes/admin/class-wc-reviews.php:94
+msgid "Reviews for %s"
+msgstr "Opiniones para %s"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:225
+msgid "Search reviews"
+msgstr "Buscar opiniones"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:259
+msgid "%s comment approved"
+msgid_plural "%s comments approved"
+msgstr[0] "%s comentario aprobado"
+msgstr[1] "%s comentarios aprobados"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:264
+msgid "%s comment marked as spam."
+msgid_plural "%s comments marked as spam."
+msgstr[0] "%s comentario marcado como Spam."
+msgstr[1] "%s comentarios marcados como Spam."
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:264
+#: includes/admin/class-wc-reviews.php:273
+msgid "Undo"
+msgstr "Deshacer"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:268
+msgid "%s comment restored from the spam"
+msgid_plural "%s comments restored from the spam"
+msgstr[0] "%s comentario recuperado de la bandeja de Spam"
+msgstr[1] "%s comentarios recuperados de la bandeja de Spam"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:273
+msgid "%s comment moved to the Trash."
+msgid_plural "%s comments moved to the Trash."
+msgstr[0] "%s comentario movido a la papelera."
+msgstr[1] "%s comentarios movidos a la papelera."
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:277
+msgid "%s comment restored from the Trash"
+msgid_plural "%s comments restored from the Trash"
+msgstr[0] "%s comentario recuperado de la papelera"
+msgstr[1] "%s comentarios recuperados de la papelera"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:281
+msgid "%s comment permanently deleted"
+msgid_plural "%s comments permanently deleted"
+msgstr[0] "%s comentario borrado permanentemente"
+msgstr[1] "%s comentarios borrados permanentemente"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:287
+msgid "This comment is already approved."
+msgstr "Este comentario ya ha sido aprobado."
+
+# @ default
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:287
+#: includes/admin/class-wc-reviews.php:293
+msgid "Edit comment"
+msgstr "Editar comentario"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:290
+msgid "This comment is already in the Trash."
+msgstr "Este comentario ya está en la papelera."
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:290
+msgid "View Trash"
+msgstr "Ver papelera"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:293
+msgid "This comment is already marked as spam."
+msgstr "Este comentario ya ha sido marcado como Spam."
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:324
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:366
+#: includes/class-wc-product-reviews-pro-contribution-type.php:441
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:579
+msgid "Edit Review"
+msgstr "Editar opinión"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:370
+#: includes/class-wc-product-reviews-pro-contribution-type.php:484
+msgid "Moderate Review"
+msgstr "Moderar opinión"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/views/html-report-product-reviews.php:16
+msgid "Average Rating"
+msgstr "Valoración promedio"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/views/html-report-product-reviews.php:34
+msgid "View Product"
+msgstr "Ver producto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/views/html-report-product-reviews.php:37
+msgid "View Reviews"
+msgstr "Ver opiniones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:114
+#: includes/class-wc-product-reviews-pro-emails.php:258
+msgid "You have taken too long, please go back and try again."
+msgstr "Ha tardado demasiado, por favor vuelva atrás e inténtelo de nuevo."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:137
+msgid "You need to be logged in to vote."
+msgstr "Ha de estar registrado para poder votar."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:145
+#: includes/class-wc-product-reviews-pro-ajax.php:194
+#: includes/class-wc-product-reviews-pro-ajax.php:247
+#: includes/class-wc-product-reviews-pro-ajax.php:483
+#: includes/class-wc-product-reviews-pro-ajax.php:653
+#: includes/class-wc-product-reviews-pro-ajax.php:765
+#: includes/class-wc-product-reviews-pro-ajax.php:858
+#: includes/class-wc-product-reviews-pro-ajax.php:910
+#: includes/class-wc-product-reviews-pro-ajax.php:1012
+msgid "Invalid request."
+msgstr "Petición no válida."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:155
+#: includes/class-wc-product-reviews-pro-ajax.php:203
+#: includes/class-wc-product-reviews-pro-ajax.php:255
+#: includes/class-wc-product-reviews-pro-ajax.php:492
+msgid "Invalid request. Contribution not found."
+msgstr "Petición no válida. No se ha encontrado esta contribución."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:167
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:545
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:1076
+msgid "Could not cast your vote. Please try again later."
+msgstr "No se pudo contabilizar su voto, por favor inténtelo de nuevo."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:173
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:1071
+msgid "Vote has been cast. Thanks!"
+msgstr "¡El voto se ha contabilizado con éxito! ¡Muchas gracias!"
+
+#: includes/class-wc-product-reviews-pro-ajax.php:215
+#: includes/class-wc-product-reviews-pro-ajax.php:1040
+msgid "You'll be notified when there are replies."
+msgstr "Le notificaremos en cuanto reciba respuestas."
+
+#: includes/class-wc-product-reviews-pro-ajax.php:219
+msgid "You are no longer following replies."
+msgstr "Ya no está siguiendo las respuestas."
+
+#: includes/class-wc-product-reviews-pro-ajax.php:228
+#: includes/class-wc-product-reviews-pro-ajax.php:1044
+#: includes/class-wc-product-reviews-pro-emails.php:237
+#: includes/class-wc-product-reviews-pro-emails.php:267
+#: includes/class-wc-product-reviews-pro-emails.php:277
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:544
+msgid "An error occurred. Your request could not be processed."
+msgstr "Ha habido un error. No hemos podido procesar su petición."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:267
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:543
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:1028
+msgid "Could not flag contribution. Please try again later."
+msgstr ""
+"No se ha podido reportar la contribución. Por favor, inténtelo de nuevo más "
+"tarde."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:272
+msgid "Contribution has been flagged. Thanks!"
+msgstr "La opinión ha sido reportada. ¡Muchas gracias!"
+
+# @ woocommerce
+#: includes/class-wc-product-reviews-pro-ajax.php:383
+msgid "Error"
+msgstr "Error"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:513
+msgid "Attachment successfully removed."
+msgstr "El archivo se ha eliminado con éxito."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:660
+#: includes/class-wc-product-reviews-pro-ajax.php:727
+#: includes/class-wc-product-reviews-pro-ajax.php:772
+#: includes/class-wc-product-reviews-pro-ajax.php:850
+#: includes/class-wc-product-reviews-pro-ajax.php:917
+msgid "Invalid request. Product not found."
+msgstr "Petición no válida. No se ha encontrado este producto."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:668
+#: includes/class-wc-product-reviews-pro-ajax.php:674
+#: includes/class-wc-product-reviews-pro-ajax.php:780
+msgid "Invalid request. Review not found."
+msgstr "Petición no válida. No se ha encontrado esta opinión."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:742
+msgid "Invalid request. No review found."
+msgstr "Petición no válida. No se ha encontrado ninguna opinión."
+
+#: includes/class-wc-product-reviews-pro-ajax.php:787
+msgid "Invalid request. Review content can't be empty."
+msgstr "Petición no válida. El campo de la opinión no puede estar vacío."
+
+#: includes/class-wc-product-reviews-pro-ajax.php:797
+msgid "You did not make any changes to your review!"
+msgstr "No has hecho ningún cambio en tu comentario."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:827
+msgid "Review updated!"
+msgstr "La opinión ha sido actualizada."
+
+#: includes/class-wc-product-reviews-pro-ajax.php:831
+msgid "Something went wrong. Please try again!"
+msgstr "Ha habido un error. Por favor, inténtelo de nuevo."
+
+#: includes/class-wc-product-reviews-pro-ajax.php:885
+msgid ""
+"Whoops, looks like you've already reviewed this product! Please contact the "
+"store if you’d like to update your review."
+msgstr ""
+"¡Ups! Parece que ya había comentado en este producto. Por favor, contacte "
+"con la tienda si desea actualizar su opinión."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:956
+msgid "Invalid request. File is not updated."
+msgstr "Petición no válida. El archivo no está actualizado."
+
+#: includes/class-wc-product-reviews-pro-ajax.php:989
+msgid "Confirmation mail sent!"
+msgstr "Email de confirmación enviado."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:993
+msgid "Something went wrong. Please try again."
+msgstr "Ha habido un error. Por favor, inténtelo de nuevo."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-ajax.php:1019
+msgid "Email is required."
+msgstr "Este campo de email es obligatorio."
+
+#: includes/class-wc-product-reviews-pro-ajax.php:1028
+msgid "An account is already registered with your email address. Please login."
+msgstr ""
+"Ya existe una cuenta registrada con esta dirección de email. Por favor, "
+"pruebe a iniciar sesión."
+
+#. translators: Placeholder: %s - IP address of the visitor in parenthesis
+#: includes/class-wc-product-reviews-pro-contribution-flag.php:251
+msgid "Visitor %s"
+msgstr "Visitante %s"
+
+#: includes/class-wc-product-reviews-pro-contribution-flag.php:259
+msgid "Customer"
+msgstr "Usuario"
+
+#. translators: Placeholder: %s - customer's profile edit screen URL in
+#. parenthesis
+#: includes/class-wc-product-reviews-pro-contribution-flag.php:262
+msgid "Customer %s"
+msgstr "Usuario %s"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:68
+msgid "Questions"
+msgstr "Preguntas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:68
+#: includes/class-wc-product-reviews-pro-contribution-type.php:586
+#: templates/single-product/contributions/contribution-question-legacy.php:51
+#: templates/single-product/contributions/contribution-question.php:49
+msgid "Question"
+msgstr "Pregunta"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:72
+msgid "Photos"
+msgstr "Fotos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:76
+msgid "Videos"
+msgstr "Videos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:81
+msgid "Comments"
+msgstr "Comentarios"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:116
+msgid "Update my Review"
+msgstr "Actualizar mi opinión"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:118
+msgid "Leave a Review"
+msgstr "Dejar una opinión"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:124
+msgid "Ask a Question"
+msgstr "Hacer una pregunta"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:128
+msgid "Post a Photo"
+msgstr "Publicar una foto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:132
+msgid "Post a Video"
+msgstr "Publicar un video"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:164
+msgid "One review with a %2$d-star rating"
+msgid_plural "%1$d reviews with a %2$d-star rating"
+msgstr[0] "Una opinión con %2$d-estrella"
+msgstr[1] "%1$d opiniones con %2$d- estrellas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:166
+msgid "One review"
+msgid_plural "%d reviews"
+msgstr[0] "Una opinión"
+msgstr[1] "%d opiniones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:172
+msgid "One question"
+msgid_plural "%d questions"
+msgstr[0] "Una pregunta"
+msgstr[1] "%d preguntas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:176
+msgid "One photo"
+msgid_plural "%d photos"
+msgstr[0] "Una foto"
+msgstr[1] "%d fotos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:180
+msgid "One video"
+msgid_plural "%d videos"
+msgstr[0] "Un video"
+msgstr[1] "%d videos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:209
+msgid "Reviews (%d)"
+msgstr "Opiniones (%d)"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:213
+msgid "Questions (%d)"
+msgstr "Preguntas (%d)"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:217
+msgid "Photos (%d)"
+msgstr "Fotos (%d)"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:221
+msgid "Videos (%d)"
+msgstr "Videos (%d)"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:225
+msgid "Discussion (%d)"
+msgstr "Conversaciones (%d)"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:254
+msgid "Show all reviews"
+msgstr "Mostrar todas las opiniones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:258
+msgid "Show all questions"
+msgstr "Mostrar todas las preguntas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:262
+msgid "Show all photos"
+msgstr "Mostrar todas las fotos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:266
+msgid "Show all videos"
+msgstr "Mostrar todos los videos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:295
+msgid "Show my reviews"
+msgstr "Mostrar mis opiniones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:299
+msgid "Show my questions"
+msgstr "Mostrar mis preguntas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:303
+msgid "Show my photos"
+msgstr "Mostrar mis fotos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:307
+msgid "Show my videos"
+msgstr "Mostrar mis videos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:334
+msgid "Save Review"
+msgstr "Guardar opinión"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:338
+msgid "Save Question"
+msgstr "Guardar pregunta"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:342
+msgid "Save Photo"
+msgstr "Guardar foto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:346
+msgid "Save Video"
+msgstr "Guardar video"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:350
+msgid "Save %s"
+msgstr "Guardar %s"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:373
+#: includes/class-wc-product-reviews-pro-contribution-type.php:394
+msgid "There are no reviews yet"
+msgstr "Aún no tiene opiniones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:383
+msgid "There are no helpful reviews yet"
+msgstr "Aún no tiene opiniones marcadas como útiles"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:386
+msgid "There are no helpful positive reviews yet"
+msgstr "Aún no tiene opiniones positivas marcadas como útiles"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:388
+msgid "There are no helpful negative reviews yet"
+msgstr "Aún no tiene opiniones negativas marcadas como útiles"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:392
+msgid " There are no reviews with a %d-star rating yet"
+msgstr " Aún no tiene opiniones con una valoración de %d estrellas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:402
+msgid "There are no unanswered questions"
+msgstr "No tiene preguntas sin responder"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:404
+msgid "There are no questions yet"
+msgstr "Aún no tiene preguntas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:410
+msgid "There are no photos yet"
+msgstr "Aún no tiene fotos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:414
+msgid "There are no videos yet"
+msgstr "Aún no tiene videos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:445
+msgid "Edit Question"
+msgstr "Editar pregunta"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:449
+msgid "Edit Photo"
+msgstr "Editar foto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:453
+msgid "Edit Video"
+msgstr "Editar video"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s - contribution type (e.g. review, photo,
+#. video...)
+#: includes/class-wc-product-reviews-pro-contribution-type.php:457
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1116
+msgid "Edit %s"
+msgstr "Editar %s"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:488
+msgid "Moderate Question"
+msgstr "Moderar pregunta"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:492
+msgid "Moderate Photo"
+msgstr "Moderar foto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:496
+msgid "Moderate Video"
+msgstr "Moderar video"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:500
+msgid "Moderate %s"
+msgstr "Moderar %s"
+
+#: includes/class-wc-product-reviews-pro-contribution-type.php:536
+msgid "Change your recent rating"
+msgstr "Cambie su reciente valoración"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:540
+msgid "How would you rate this product?"
+msgstr "¿Como calificaría este producto?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:568
+msgid "What is the title of your review?"
+msgstr "¿Cuál es el título de su opinión?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:589
+msgid "What is your question?"
+msgstr "¿Cuál es su pregunta?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:596
+msgid "What is the title of your photo?"
+msgstr "¿Cuál es el título de su foto?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:599
+#: includes/class-wc-product-reviews-pro-contribution-type.php:627
+msgid "Description"
+msgstr "Descripción"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:602
+msgid "Your photo's description"
+msgstr "Descripción de la foto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:624
+msgid "What is the title of your video?"
+msgstr "¿Cuál es el título de su video?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:630
+msgid "Your video's description"
+msgstr "Descripción del video"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:656
+msgid "What is your comment?"
+msgstr "¿Cuál es su comentario?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:718
+msgid "Tell us what you think of this product..."
+msgstr "Díganos qué opina de este producto."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:728
+msgid "Attach a photo or video"
+msgstr "Adjuntar una foto o video"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:738
+msgid "Enter a URL"
+msgstr "Añadir URL"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-contribution-type.php:745
+msgid "Choose a file"
+msgstr "Seleccione un archivo"
+
+#: includes/class-wc-product-reviews-pro-emails.php:235
+msgid ""
+"You will be no longer receiving email notifications for comments on the "
+"review you had subscribed to."
+msgstr ""
+"No recibirá mas notificaciones por email de los comentarios de esta opinión "
+"a la que estaba suscrito."
+
+#: includes/class-wc-product-reviews-pro-emails.php:275
+msgid "Review updated successfully!"
+msgstr "¡La opinión se ha actualizado con éxito!"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:68
+msgid "Search Review Qualifiers"
+msgstr "Buscar criterios de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:69
+msgid "All Review Qualifiers"
+msgstr "Todos los criterios de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:70
+msgid "Edit Review Qualifier"
+msgstr "Editar criterios de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:71
+msgid "View Review Qualifier"
+msgstr "Ver criterios de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:72
+msgid "Update Review Qualifier"
+msgstr "Actualizar criterio de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:73
+msgid "Add New Review Qualifier"
+msgstr "Añadir un nuevo criterio de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:74
+msgid "New Review Qualifier Name"
+msgstr "Nombre para el nuevo criterio de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:75
+msgid "Separate qualifiers with commas"
+msgstr "Separe los criterios con comas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:76
+msgid "Add or remove review qualifiers"
+msgstr "Añada o elimine criterios de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:77
+msgid "Choose from the most used review qualifiers"
+msgstr "Escoja entre los criterios de evaluación más usados"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:78
+msgid "No review qualifiers found."
+msgstr "No se encontró ningún criterio de evaluación."
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:79
+msgid "Review Qualifiers"
+msgstr "Criterios de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:80
+msgid "Most used Qualifiers"
+msgstr "Criterios más usados"
+
+# @ default
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:118
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:139
+msgid "List review qualifier options above (1 per line)."
+msgstr ""
+"Mostrar las opciones de criterios de evaluación de arriba (1 por linea)"
+
+# @ woocommerce-product-reviews-pro
+# @ default
+#: includes/contributions/abstract-wc-contribution.php:590
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:1455
+msgid "You must be logged in to vote"
+msgstr "Inicie sesión para poder votar"
+
+# @ woocommerce-product-reviews-pro
+#: includes/contributions/abstract-wc-contribution.php:597
+msgid "You can't vote for yourself"
+msgstr "Lo sentimos, pero no puede votar"
+
+# @ woocommerce-product-reviews-pro
+#: includes/contributions/abstract-wc-contribution.php:775
+msgid "You have already flagged this contribution"
+msgstr "Ya reportó esta contribución anteriormente"
+
+# @ woocommerce-product-reviews-pro
+#: includes/contributions/abstract-wc-contribution.php:780
+msgid "You can't flag your own contributions!"
+msgstr "No puede reportar sus propias contribuciones."
+
+# @ woocommerce-product-reviews-pro
+#: includes/contributions/abstract-wc-contribution.php:856
+msgid "An error occurred. Please try again."
+msgstr "Ha habido un error. Por favor, inténtelo de nuevo."
+
+# @ woocommerce-product-reviews-pro
+#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:52
+msgid "Flagged Contribution"
+msgstr "Contribuciones reportadas"
+
+#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:53
+msgid ""
+"Notifies the admin when a contribution is flagged for removal by a customer."
+msgstr ""
+"Notifica al administrador cuando una contribución ha sido reportada por el "
+"usuario para su eliminación."
+
+#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:60
+msgid "A {contribution_type} on {site_title} has been flagged for removal!"
+msgstr ""
+"Se ha reportado un/a {contribution_type} en {site_title} para su eliminación."
+
+#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:61
+msgid "A {contribution_type} for {product_name} was marked as inappropriate."
+msgstr "Un/a {contribution_type} en {site_title} ha sido marcada como Spam."
+
+#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:225
+msgid "Recipients"
+msgstr "Destinatario"
+
+#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:226
+msgid ""
+"The recipients that will be notified whenever a contribution is flagged for "
+"removal."
+msgstr ""
+"Se notificará a los destinatarios en cuanto una contribución se reporte para "
+"su eliminación."
+
+# @ woocommerce-product-reviews-pro
+#: includes/emails/class-wc-product-reviews-pro-emails-new-comment.php:55
+msgid "Contribution reply"
+msgstr "Tipos de respuesta"
+
+#: includes/emails/class-wc-product-reviews-pro-emails-new-comment.php:56
+msgid ""
+"Email users that wish to be notified whenever there is a new comment on a "
+"product contribution they subscribed to."
+msgstr ""
+"Envíe un email a los usuarios que desee notificar cuando una contribución a "
+"la que estén suscritos reciba un nuevo mensaje."
+
+#: includes/emails/class-wc-product-reviews-pro-emails-new-comment.php:61
+msgid "New reply posted on a {product_name} {contribution_type}"
+msgstr ""
+"Nueva respuesta publicada en un/a {contribution_type} de {product_name}"
+
+#: includes/emails/class-wc-product-reviews-pro-emails-new-comment.php:62
+msgid "A reply has been added to a {contribution_type} on {site_title}"
+msgstr ""
+"Se ha añadido una respuesta para un/a {contribution_type} en {site_title}."
+
+#: includes/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:52
+msgid "Review Update Confirmation"
+msgstr "Revisar la confirmación de la actualización"
+
+#: includes/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:53
+msgid ""
+"Email users when they try to leave a review with an email tied to a "
+"registered user."
+msgstr ""
+"Envíe un email a los usuarios cuando alguien intente dejar una opinión "
+"utilizando una dirección de email asociada a su cuenta."
+
+#: includes/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:58
+msgid "Review update confirmation needed on a {product_name}"
+msgstr "Hay una revisión de confirmación pendiente para {product_name}"
+
+#: includes/emails/class-wc-product-reviews-pro-emails-review-update-confirmation.php:59
+msgid "A review update confirmation needed on a {product_name} on {site_title}"
+msgstr ""
+"Hay una revisión de confirmación pendiente para {product_name} en "
+"{site_title}"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:536
+msgid "Loading..."
+msgstr "Cargando..."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:537
+msgid "Attach a photo"
+msgstr "Adjuntar foto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:538
+msgid "Attach a video"
+msgstr "Adjuntar video"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:539
+msgid "Rather attach photo from another website?"
+msgstr "¿Prefiere adjuntar una foto desde otra web?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:540
+msgid "Rather attach photo from your computer?"
+msgstr "¿Prefiere adjuntar una foto desde su pc?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:541
+msgid "Rather attach video from another website?"
+msgstr "¿Prefiere adjuntar un video desde otra web?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:542
+msgid "Rather attach video from your computer?"
+msgstr "¿Prefiere adjuntar un video desde su pc?"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:546
+msgid "%1$d out of %2$d people found this helpful"
+msgstr "%1$d de %2$d encontraron esta opinión útil"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:548
+msgid "Please attach a file."
+msgstr "Por favor adjunte un archivo."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:549
+msgid "This is a required field."
+msgstr "Este campo es obligatorio."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:550
+msgid "Please enter at least %d words."
+msgstr "Por favor, escriba al menos %d palabras."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:551
+msgid "Please enter less than %d words."
+msgstr "Por favor, escriba menos de %d palabras."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:552
+msgid "Only jpg, png, gif, bmp and tiff files, please"
+msgstr "Solo jpg, png, gif, bmp y tiff"
+
+#. translators: Placeholders: %s Size of file in human readable format (e.g.
+#. 2M, 200Kb, etc.)
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:554
+msgid "File is too large. Size must be less than %s."
+msgstr "El archivo es demasiado grande. Por favor, inténtelo de nuevo."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:555
+msgid "An error occurred, please try again."
+msgstr "Ha habido un error. Por favor, inténtelo de nuevo."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:556
+msgid "Remove Attachment"
+msgstr "Eliminar archivo adjunto"
+
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:558
+msgid ""
+"Hold up -- it looks like you've already left a review for this product. You "
+"can update your existing review instead."
+msgstr ""
+"Parece que ya había dejado una opinión para este producto. Si lo desea, "
+"puede actualizar su comentario."
+
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:558
+msgid ""
+"Please click \"OK\" to send a confirmation email to update your existing "
+"review, or \"Cancel\" to go back."
+msgstr ""
+"Haga click en “OK” para enviar un email de confirmación para actualizar su "
+"actual opinión, o en “Cancelar” para volver atrás."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:586
+msgid "required"
+msgstr "obligatorio"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:728
+msgid "%s is a required field."
+msgstr "%s es un campo obligatorio."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:739
+msgid "is not a valid email address."
+msgstr "la dirección de email no es válida."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:749
+msgid "Please rate the product."
+msgstr "Por favor, valore este producto."
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %s - error description
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:789
+msgid "Unable to upload file: %s"
+msgstr "No se ha podido subir el siguiente archivo: %s"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:800
+msgid "Only photo uploads are supported at the moment"
+msgstr "Por el momento solo se pueden subir fotos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:810
+msgid "Please attach a photo."
+msgstr "Por favor, adjunte una foto."
+
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:833
+msgid "Thank you! Your contribution has been received and is being reviewed."
+msgstr "¡Gracias! Hemos recibido su contribución y está siendo revisada."
+
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:835
+msgid "Thank you! Your contribution has been received."
+msgstr "¡Gracias! Hemos recibido su contribución."
+
+# @ woocommerce-product-reviews-pro
+#: includes/frontend/class-wc-product-reviews-pro-frontend.php:1023
+msgid "Contribution was flagged. Thanks!"
+msgstr "¡Gracias! La contribución ha sido reportada."
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %s contribution type name (e.g. 'My Reviews' or
+#. 'My Contributions')
+#: includes/frontend/class-wc-product-reviews-pro-my-account-contributions.php:67
+msgid "My %s"
+msgstr "Mis %s"
+
+# @ woocommerce-product-reviews-pro
+#: includes/functions/wc-product-reviews-pro-functions-template.php:321
+msgid "What others are saying"
+msgstr "Lo que otros usuarios opinan"
+
+# @ woocommerce-product-reviews-pro
+#: includes/functions/wc-product-reviews-pro-functions-template.php:346
+msgid "There are no contributions yet."
+msgstr "Aún no tiene ninguna contribución."
+
+# @ woocommerce-product-reviews-pro
+#: includes/functions/wc-product-reviews-pro-functions-template.php:364
+msgid "Contributions"
+msgstr "Contribuciones"
+
+#. translators: Placeholder: %s - contribution type (plural)
+#: includes/functions/wc-product-reviews-pro-functions-template.php:386
+msgid ""
+"We are accepting %s for this product, and will display them when get a few "
+"more!"
+msgstr ""
+"Estamos aceptando %s para este producto y las mostraremos en cuanto "
+"recibamos unas pocas más."
+
+# @ woocommerce-product-reviews-pro
+#: includes/functions/wc-product-reviews-pro-functions-template.php:536
+msgid "contributions"
+msgstr "contribuciones"
+
+#. translators: Placeholder: %s - enabled contributions name, e.g.,
+#. "contributions" or "reviews"
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:83
+msgid "Show buttons on product %s"
+msgstr "Mostrar los botones en las %s del producto."
+
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:92
+msgid "Yes"
+msgstr "Sí"
+
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:150
+msgid "Copied URL - ready to share!"
+msgstr "URL copiada. ¡Listo para compartirla!"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:234
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:237
+msgid "Click to share on %s"
+msgstr "Haga click para compartir en %s"
+
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:238
+msgid " (Opens in new window)"
+msgstr " (Abrir en una nueva ventana)"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:251
+msgid "Click to copy link"
+msgstr "Haga click para copiar el enlace"
+
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:331
+msgid "Vendor badges"
+msgstr "Insignias del proveedor"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:334
+msgid ""
+"Enter the text to use on badges displayed on vendor admin and vendor manager "
+"contributions."
+msgstr ""
+"Escriba el texto de las insignias que aparecerán en las contribuciones de "
+"los administradores y gestores de proveedores."
+
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:336
+#: woocommerce-product-reviews-pro.php:552
+#: woocommerce-product-reviews-pro.php:595
+msgid "Vendor"
+msgstr "Proveedor"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:367
+msgid "Product Reviews"
+msgstr "Opiniones del producto"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:374
+msgid "New Contributions"
+msgstr "Nuevas contribuciones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:383
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:405
+msgid "Enable notifications"
+msgstr "Habilitar notificaciones"
+
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:386
+msgid ""
+"Receive email notifications whenever an administrator is notified of new "
+"contributions placed for one of the products you manage."
+msgstr ""
+"Reciba un email cuando se notifique a un administrador de nuevas "
+"contribuciones publicadas en uno de los productos que usted gestiona."
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:396
+msgid "Flagged Contributions"
+msgstr "Contribuciones reportadas"
+
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:408
+msgid ""
+"Receive email notifications whenever someone flags a contribution to one of "
+"the products you manage as inappropriate."
+msgstr ""
+"Reciba un email cuando alguien reporte como inapropiada una contribución de "
+"uno de los productos que usted gestiona."
+
+#. translators: Placeholders: %1$s - reviews screen title (usually "Reviews"),
+#. %2$s vendor name
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:535
+msgid "%1$s (Vendor: \"%2$s\")"
+msgstr "%1$s (Proveedor: “%2$s”)"
+
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:589
+msgid "Permalink:"
+msgstr "Permalink:"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:619
+msgid "Email:"
+msgstr "Email:"
+
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:634
+msgid "URL:"
+msgstr "URL:"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:681
+msgid "Status"
+msgstr "Estado"
+
+#. translators: Placeholder: %s - date and time of publication
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:719
+msgid "Submitted on: %s"
+msgstr "Enviado el: %s"
+
+#. translators: Placeholder: %s - product the contribution comment is placed
+#. for
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:732
+msgid "In response to: %s"
+msgstr "En respuesta a: %s"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:748
+msgid "Update"
+msgstr "Actualizar"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:783
+#: templates/emails/plain/review-update-confirmation.php:77
+#: templates/emails/review-update-confirmation.php:82
+#: templates/myaccount/contribution-list.php:70
+#: templates/myaccount/contribution-list.php:148
+msgid "Rating"
+msgstr "Valoración"
+
+# @ wc-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:894
+msgid "Search for a vendor&hellip;"
+msgstr "Buscar por proveedor"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1339
+msgid "Product Vendor"
+msgstr "Proveedor del producto"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s - product vendor's profile edit screen URL in
+#. parenthesis
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1342
+msgid "Product Vendor %s"
+msgstr "Proveedor del producto %s"
+
+#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:43
+msgid ""
+"Display a list of most recent photo contributions from Product Reviews Pro "
+"on your site."
+msgstr ""
+"Muestra una lista de las contribuciones con fotos más recientes de Product "
+"Reviews Pro en su página."
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:45
+msgid "WooCommerce Product Reviews Pro: Photos"
+msgstr "WooCommerce Product Reviews Pro: Fotos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:49
+msgid "Recent Photos"
+msgstr "Fotos recientes"
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:58
+msgid "Number of photo contributions to show"
+msgstr "Número de contribuciones con foto para mostrar"
+
+#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:43
+msgid ""
+"Display a list of most recent questions from Product Reviews Pro on your "
+"site."
+msgstr ""
+"Muestra una lista con las preguntas más recientes de Product Reviews Pro en "
+"su página."
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:45
+msgid "WooCommerce Product Reviews Pro: Questions"
+msgstr "WooCommerce Product Reviews Pro: Preguntas"
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:49
+msgid "Recent Questions"
+msgstr "Preguntas recientes"
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:58
+msgid "Number of questions to show"
+msgstr "Número de preguntas para mostrar"
+
+#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:43
+msgid ""
+"Display a list of most recent reviews from Product Reviews Pro on your site."
+msgstr ""
+"Muestra una lista con las opiniones más recientes de Product Reviews Pro en "
+"su página."
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:45
+msgid "WooCommerce Product Reviews Pro: Reviews"
+msgstr "WooCommerce Product Reviews Pro: Opiniones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:49
+msgid "Recent Reviews"
+msgstr "Opiniones recientes"
+
+#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:58
+msgid "Number of reviews to show"
+msgstr "Número de opiniones para mostrar"
+
+#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:43
+msgid ""
+"Display a list of most recent video contributions from Product Reviews Pro "
+"on your site."
+msgstr ""
+"Muestra una lista con los videos más recientes de Product Reviews Pro en su "
+"página."
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:45
+msgid "WooCommerce Product Reviews Pro: Videos"
+msgstr "WooCommerce Product Reviews Pro: Videos"
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:49
+msgid "Recent Videos"
+msgstr "Videos recientes"
+
+# @ woocommerce-product-reviews-pro
+#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:58
+msgid "Number of video contributions to show"
+msgstr "Número de contribuciones con videos para mostrar"
+
+#. translators: Placeholders: %1$s user name - %2$s product title - %3$s
+#. contribution type - %4$s site title
+#: templates/emails/contribution-comment-notification.php:48
+#: templates/emails/plain/contribution-comment-notification.php:46
+msgid ""
+"Hello %1$s, a new comment has been posted to a %2$s %3$s you are watching on "
+"%4$s."
+msgstr ""
+"Hola %1$s. Se ha publicado un nuevo comentario en una %3$s de %2$s que está "
+"siguiendo en %4$s."
+
+# @ default
+#: templates/emails/contribution-comment-notification.php:58
+msgid "View new comment."
+msgstr "Ver el nuevo comentario."
+
+#. translators: Placeholders: %1$s contribution type - %2$s <a> html opening
+#. tag - %3$s </a> html closing tag
+#: templates/emails/contribution-comment-notification.php:65
+msgid ""
+"If you no longer wish to receive notifications for new replies to this %1$s, "
+"please %2$sfollow this link%3$s."
+msgstr ""
+"Si desea dejar de recibir notificaciones de las nuevas respuestas a esta "
+"%1$s, por favor,%2$s siga este enlace %3$s."
+
+#. translators: Placeholders: %1$s - formatted name of the user setting the
+#. flag, %2$s - linked contribution type name with link to contribution, %3$s -
+#. linked product name
+#. translators: Placeholders: %1$s - formatted name of the user setting the
+#. flag, %2$s - contribution type name, %3$s - product name
+#: templates/emails/flagged-contribution.php:46
+#: templates/emails/plain/flagged-contribution.php:44
+msgid ""
+"Hello, a %1$s flagged a %2$s on %3$s as inappropriate and thinks it should "
+"be moderated."
+msgstr ""
+"Hola, %1$s ha reportado como inapropiada una %2$s de %3$s y considera que "
+"debería ser moderado."
+
+#. translators: Placeholder: %s - reason given for flagging a contribution as
+#. inappropriate
+#: templates/emails/flagged-contribution.php:52
+msgid "Reason given: %s"
+msgstr "Motivos: %s"
+
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - contribution
+#. type name, %3$s - closing </a> link tag
+#: templates/emails/flagged-contribution.php:58
+msgid "You can %1$sdismiss this flag or moderate the related %2$s%3$s."
+msgstr "Puede %1$desestimar este reporte o moderar la %2$s%3$s."
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %s - url to go to a product comment
+#: templates/emails/plain/contribution-comment-notification.php:56
+msgid "Comment link: %s"
+msgstr "Enlace del comentario: %s"
+
+#. translators: Placeholders: %1$s url to unsubscribe from email notifications
+#. - %2$s contribution type
+#: templates/emails/plain/contribution-comment-notification.php:61
+msgid "Stop notifications for this %1$s: %2$s"
+msgstr "Detener las notificaciones de esta %1$s: %2$s"
+
+#. translators: Placeholder: %s - reason given for flagging a contribution as
+#. inappropriate
+#: templates/emails/plain/flagged-contribution.php:48
+msgid "Reason given: \"%s\""
+msgstr "Motivos: “%s”"
+
+#. translators: Placeholders: %1$s - the contribution type name, %2$s - URL to
+#. the contribution's admin edit screen
+#: templates/emails/plain/flagged-contribution.php:52
+msgid "You can dismiss this flag or moderate the related %1$s: %2$s"
+msgstr "Puede omitir este reporte o moderar la %1$s: %2$s"
+
+#. translators: Placeholders: %s user name
+#: templates/emails/plain/review-update-confirmation.php:43
+#: templates/emails/review-update-confirmation.php:46
+msgid "Hello %s,"
+msgstr "Hola %s,"
+
+#. translators: Placeholders: %1$s <a> html opening tag - %2$s </a> html
+#. closing tag - %3$s product title
+#: templates/emails/plain/review-update-confirmation.php:48
+msgid "Update your review for %1$s: %2$s"
+msgstr "Actualice su opinión de %1$s: %2$s"
+
+#: templates/emails/plain/review-update-confirmation.php:53
+#: templates/emails/review-update-confirmation.php:60
+msgid ""
+"Please note that your updated review won't be published unless you click "
+"this link."
+msgstr ""
+"Tenga en cuenta que la actualización de su opinión no se publicará a menos "
+"que clique en este enlace."
+
+#: templates/emails/plain/review-update-confirmation.php:59
+#: templates/emails/review-update-confirmation.php:69
+msgid "For reference, here's your review:"
+msgstr "Como referencia, esta es su opinión:"
+
+# @ woocommerce-product-reviews-pro
+#: templates/emails/plain/review-update-confirmation.php:76
+#: templates/emails/review-update-confirmation.php:76
+msgid "Old Content"
+msgstr "Contenido antiguo"
+
+# @ woocommerce-product-reviews-pro
+#: templates/emails/plain/review-update-confirmation.php:76
+#: templates/emails/review-update-confirmation.php:77
+msgid "New Content"
+msgstr "Contenido nuevo"
+
+# @ woocommerce-product-reviews-pro
+#: templates/emails/plain/review-update-confirmation.php:79
+#: templates/emails/review-update-confirmation.php:92
+#: templates/myaccount/contribution-list.php:76
+msgid "Content"
+msgstr "Contenido"
+
+# @ woocommerce-product-reviews-pro
+#: templates/emails/plain/review-update-confirmation.php:80
+#: templates/emails/review-update-confirmation.php:97
+msgid "Attachment Type"
+msgstr "Tipo de archivo adjunto"
+
+# @ woocommerce-product-reviews-pro
+#: templates/emails/plain/review-update-confirmation.php:81
+#: templates/emails/review-update-confirmation.php:102
+msgid "Attachment"
+msgstr "Archivo adjunto"
+
+#. translators: Placeholders: %1$s <a> html opening tag - %2$s </a> html
+#. closing tag - %3$s product title
+#: templates/emails/review-update-confirmation.php:52
+msgid ""
+"Please %1$sclick this confirmation link%2$s to update your review for %3$s."
+msgstr ""
+"Por favor, %1$haga click en este enlace de confirmación%2$s para actualizar "
+"su opinión de %3$s."
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %s - contribution type name for product
+#. translators: Placeholder: %s - contribution type name (e.g. 'Review')
+#: templates/myaccount/contribution-list.php:51
+#: templates/myaccount/contribution-list.php:126
+msgid "%s for"
+msgstr "%s para"
+
+# @ woocommerce-product-reviews-pro
+#: templates/myaccount/contribution-list.php:64
+msgid "Left on"
+msgstr "En"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: templates/myaccount/contribution-list.php:118
+msgid "Product photo"
+msgstr "Foto del producto"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s - contribution date
+#: templates/myaccount/contribution-list.php:142
+msgid "%s date"
+msgstr "Fecha %s"
+
+# @ woocommerce-product-reviews-pro
+#: templates/myaccount/contribution-list.php:158
+msgid "none"
+msgstr "ninguno/a"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s contribution type name
+#: templates/myaccount/contribution-list.php:174
+msgid "%s content"
+msgstr "Contenido de %s"
+
+# @ woocommerce-product-reviews-pro
+#: templates/myaccount/contribution-list.php:195
+msgid "View"
+msgstr "Ver"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %1$s - contribution type name, %2$s - opening <a>
+#. link tag, %3$s - closing </a> link tag
+#: templates/myaccount/contribution-list.php:230
+msgid "You have not added any %1$s yet. %2$sAdd one now%3$s"
+msgstr "No ha añadido ninguna %s. %2$sCree una ahora.%3$s"
+
+#: templates/myaccount/form-guest.php:37
+msgid "Continue as a Guest"
+msgstr "Continuar como invitado"
+
+#: templates/myaccount/form-guest.php:51
+msgid "Email address"
+msgstr "Dirección de email"
+
+# @ woocommerce-product-reviews-pro
+#: templates/myaccount/form-guest.php:66
+msgid "Continue"
+msgstr "Continuar"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions/actions-legacy.php:41
+#: templates/single-product/contributions/actions.php:39
+msgid "Upvote if this was helpful"
+msgstr "Vote positivo si fue útil"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions/actions-legacy.php:45
+#: templates/single-product/contributions/actions.php:43
+msgid "Downvote if this was not helpful"
+msgstr "Vote negativo si no fue útil"
+
+#: templates/single-product/contributions/actions-legacy.php:52
+#: templates/single-product/contributions/actions.php:50
+msgid "Receive email notifications when there are replies"
+msgstr "Recibir notificaciones por email cuando haya respuestas"
+
+#: templates/single-product/contributions/actions-legacy.php:55
+#: templates/single-product/contributions/actions.php:53
+msgid "Stop receiving email notifications when there are replies"
+msgstr "Dejar de recibir notificaciones por email cuando haya respuestas"
+
+# @ default
+# @ wc-product-reviews-pro
+#: templates/single-product/contributions/actions-legacy.php:62
+#: templates/single-product/contributions/actions.php:60
+msgid "Edit your comment"
+msgstr "Edite su comentario"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions/actions-legacy.php:70
+#: templates/single-product/contributions/actions.php:68
+#: templates/single-product/form-flag-contribution.php:47
+msgid "Flag for removal"
+msgstr "Reportar para su eliminación"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions/attachments-legacy.php:57
+#: templates/single-product/contributions/attachments.php:44
+msgid "Photo has been removed"
+msgstr "La foto ha sido eliminada"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions/attachments-legacy.php:70
+#: templates/single-product/contributions/attachments.php:57
+msgid "Video has been removed"
+msgstr "El video ha sido eliminado"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %d contribution rating
+#: templates/single-product/contributions/contribution-review-legacy.php:64
+msgid "<strong itemprop=\"ratingValue\">%d</strong> out of 5"
+msgstr "<strong itemprop=\"ratingValue\">%d</strong> de 5"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Number of users that found a contibution useful - %1$d number
+#. of users, %2$d - total number of users that found the contribution useful
+#: templates/single-product/contributions/karma.php:40
+msgid "One person found this helpful"
+msgid_plural "%1$d out of %2$d people found this helpful"
+msgstr[0] "%1$d de %2$d encontró esta opinión útil"
+msgstr[1] "%1$d de %2$d encontraron esta opinión útil"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions/meta-legacy.php:40
+#: templates/single-product/contributions/meta.php:40
+msgid "Your contribution is awaiting approval"
+msgstr "Su contribución está esperando la aprobación"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions/meta-legacy.php:56
+msgid "verified owner"
+msgstr "dueño verificado"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:51
+msgid "Share your thoughts!"
+msgstr "¡Comparta su opinión!"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %s - average rating stars count (float casted as
+#. string to avoid trailing zeroes), %d - 5 stars total (integer) -- (e.g "4.2
+#. out of 5 stars")
+#: templates/single-product/contributions.php:73
+msgid "%s out of %d stars"
+msgstr "%s de %d estrellas"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:133
+msgid "Let us know what you think..."
+msgstr "Cuéntenos qué opina…"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:166
+#: templates/single-product/form-contribution.php:149
+msgid "You must be <a href=\"%s\">logged in</a> to join the discussion."
+msgstr "Debe <a href=\"%s\">iniciar sesión</a> para unirse a la conversación."
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:179
+msgid "Show everything"
+msgstr "Mostrar todo"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:215
+msgid "Show all reviews that said %s is \"%s\""
+msgstr "Mostrar todas las opiniones que dicen que %s es \"%s\""
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:221
+msgid "Show helpful positive reviews"
+msgstr "Mostrar las opiniones positivas más útiles"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:222
+msgid "Show helpful negative reviews"
+msgstr "Mostrar las opiniones negativas más útiles"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:223
+msgid "Show unanswered questions"
+msgstr "Mostrar preguntas sin resolver"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:243
+msgid "Click to clear filters"
+msgstr "Haga click para los borrar los filtros"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:243
+msgid "(clear)"
+msgstr "(borrar)"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:247
+msgid "Go"
+msgstr "Ir"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
+#. link tag
+#: templates/single-product/contributions.php:270
+msgid "Already have an account? %1$sLog In%2$s"
+msgstr "¿Ya tiene una cuenta? %1$Inicie sesión%2$s"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
+#. link tag
+#: templates/single-product/contributions.php:272
+msgid "Don't have an account? %1$sSign Up%2$s"
+msgstr "¿Aún no tiene una cuenta? %1$sRegístrese%2$s"
+
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
+#. link tag
+#: templates/single-product/contributions.php:277
+msgid "%1$sContinue as a Guest%2$s"
+msgstr "%1$sContinuar como invitado%2$s"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/form-contribution.php:76
+msgid "Name"
+msgstr "Nombre"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/form-contribution.php:80
+msgid "Email"
+msgstr "Email"
+
+#: templates/single-product/form-contribution.php:113
+msgid "Notify me of replies"
+msgstr "Informarme de las respuestas"
+
+# @ woocommerce-product-reviews-pro
+# @ wc-product-reviews-pro
+#: templates/single-product/form-contribution.php:121
+msgid "Update Review"
+msgstr "Actualizar opinión"
+
+#: templates/single-product/form-contribution.php:129
+msgid ""
+"Looks like you've already reviewed this product! Please contact the store if "
+"you’d like to update your review."
+msgstr ""
+"Parece que ya había comentado en este producto. Por favor, contacte con la "
+"tienda si desea actualizar su opinión."
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/form-contribution.php:157
+msgid ""
+"Only logged in customers who have purchased this product may leave a review."
+msgstr ""
+"Sólo los usuarios registrados que han comprado este producto pueden dejar "
+"una opinión."
+
+#: templates/single-product/form-contribution.php:158
+msgid "Log in now"
+msgstr "Inicie sesión"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/form-contribution.php:160
+msgid "Only customers who have purchased this product may leave a review."
+msgstr ""
+"Sólo los usuarios que han comprado este producto pueden dejar una opinión."
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/form-contribution_comment.php:53
+msgid "Save Comment"
+msgstr "Guardar comentario"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/form-flag-contribution.php:39
+msgid ""
+"Something wrong with this post? Thanks for letting us know. If you can point "
+"us in the right direction..."
+msgstr "¿Algo está mal? Gracias por reportarlo. Si puede indicarnos el motivo…"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/form-flag-contribution.php:42
+msgid "This post was..."
+msgstr "Este post fue..."
+
+# @ woocommerce-product-reviews-pro
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Product Reviews Pro"
+msgstr "WooCommerce Product Reviews Pro"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %1$s opening <a> html tag - %2$s closing </a>
+#. html tag - %3$s opening <a> html tag - %4$s closing </a> html tag - %5$s
+#. opening <a> html tag - %6$s closing </a> html tag
+#: woocommerce-product-reviews-pro.php:378
+msgid ""
+"Thanks for installing Product Reviews Pro! Before getting started, please "
+"take a moment to %1$sread the documentation%2$s, configure %3$ssettings%4$s "
+"or %5$semails%6$s :) "
+msgstr ""
+"Gracias por instalar WooCommerce Product Reviews Pro. Antes de comenzar, por "
+"favor %1$slea la documentación%2$s, y configure %3$slos ajustes%4$s o "
+"%5$slos emails%6$s :) "
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholders: %1$s - plugin name, %2$s - error message(s)
+#: woocommerce-product-reviews-pro.php:620
+msgid "Error activating and installing %1$s: %2$s"
+msgstr "Ha habido un error durante la activación e instalación de %1$s: %2$s"
+
+# @ woocommerce-product-reviews-pro
+#: woocommerce-product-reviews-pro.php:623
+msgid "&laquo; Go Back"
+msgstr "&laquo; Volver"
+
+# @ woocommerce-product-reviews-pro
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/woocommerce-product-reviews-pro/"
+msgstr "http://www.woocommerce.com/products/woocommerce-product-reviews-pro/"
+
+# @ woocommerce-product-reviews-pro
+#. Description of the plugin/theme
+msgid ""
+"Extend WooCommerce product reviews to add video, photo, comment, and "
+"question contribution types, as well as review filtering, voting, and "
+"flagging."
+msgstr ""
+"Extienda Woocommerce para añadir videos, comentarios y preguntas así como "
+"filtros, votos y reportes."
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr "SkyVerge"
+
+# @ woocommerce-product-reviews-pro
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr "http://www.woothemes.com"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:215
+msgctxt "number of times contribution has been flagged"
+msgid "Flags"
+msgstr "Reportes"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-product-reviews-pro-admin.php:640
+msgctxt "[contribution type] by [author name]"
+msgid "%1$s by %2$s"
+msgstr "%1$s por %2$s"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s total contributions, singular not used
+#: includes/admin/class-wc-reviews-list-table.php:371
+msgctxt "comments"
+msgid "All <span class=\"count\">(<span class=\"all-count\">%s</span>)</span>"
+msgid_plural ""
+"All <span class=\"count\">(<span class=\"all-count\">%s</span>)</span>"
+msgstr[0] ""
+"Todos <span class=\"count\">(<span class=\"trash-count\">%s</span>)</span>"
+msgstr[1] ""
+"Todos <span class=\"count\">(<span class=\"trash-count\">%s</span>)</span>"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s count of pending contributions
+#: includes/admin/class-wc-reviews-list-table.php:373
+msgctxt "Reviews"
+msgid ""
+"Pending <span class=\"count\">(<span class=\"pending-count\">%s</span>)</"
+"span>"
+msgid_plural ""
+"Pending <span class=\"count\">(<span class=\"pending-count\">%s</span>)</"
+"span>"
+msgstr[0] ""
+"Pendiente <span class=\"count\">(<span class=\"pending-count\">%s</span>)</"
+"span>"
+msgstr[1] ""
+"Pendientes <span class=\"count\">(<span class=\"pending-count\">%s</span>)</"
+"span>"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s Approved contributions, singular not used
+#: includes/admin/class-wc-reviews-list-table.php:375
+msgctxt "Reviews"
+msgid ""
+"Approved <span class=\"count\">(<span class=\"approved-count\">%s</span>)</"
+"span>"
+msgid_plural ""
+"Approved <span class=\"count\">(<span class=\"all-count\">%s</span>)</span>"
+msgstr[0] ""
+"Aprobada <span class=\"count\">(<span class=\"flagged-count\">%s</span>)</"
+"span>"
+msgstr[1] ""
+"Aprobadas <span class=\"count\">(<span class=\"flagged-count\">%s</span>)</"
+"span>"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s count of spam contributions, singular not used
+#: includes/admin/class-wc-reviews-list-table.php:377
+msgctxt "Reviews"
+msgid ""
+"Spam <span class=\"count\">(<span class=\"spam-count\">%s</span>)</span>"
+msgid_plural ""
+"Spam <span class=\"count\">(<span class=\"spam-count\">%s</span>)</span>"
+msgstr[0] ""
+"Spam <span class=\"count\">(<span class=\"trash-count\">%s</span>)</span>"
+msgstr[1] ""
+"Spam <span class=\"count\">(<span class=\"trash-count\">%s</span>)</span>"
+
+# @ woocommerce-product-reviews-pro
+#. translators: Placeholder: %s count of trashed contributions, singular not
+#. used
+#: includes/admin/class-wc-reviews-list-table.php:379
+msgctxt "Reviews"
+msgid ""
+"Trash <span class=\"count\">(<span class=\"trash-count\">%s</span>)</span>"
+msgid_plural ""
+"Trash <span class=\"count\">(<span class=\"trash-count\">%s</span>)</span>"
+msgstr[0] ""
+"Papelera <span class=\"count\">(<span class=\"trash-count\">%s</span>)</span>"
+msgstr[1] ""
+"Papelera <span class=\"count\">(<span class=\"trash-count\">%s</span>)</span>"
+
+# @ woocommerce-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:473
+msgctxt "comment"
+msgid "Mark as Spam"
+msgstr "Marcar como Spam"
+
+# @ woocommerce-product-reviews-pro
+# @ default
+#: includes/admin/class-wc-reviews-list-table.php:479
+msgctxt "comment"
+msgid "Not Spam"
+msgstr "No es Spam"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:515
+msgctxt "verb"
+msgid "Filter"
+msgstr "Filtro"
+
+#: includes/admin/class-wc-reviews-list-table.php:571
+msgctxt "Review parent item"
+msgid "Parent"
+msgstr "Elemento padre"
+
+# @ default
+#: includes/admin/class-wc-reviews-list-table.php:846
+msgctxt "Mark as spam"
+msgid "Spam"
+msgstr "Spam"
+
+#: includes/admin/class-wc-reviews-list-table.php:849
+msgctxt "Mark as not spam"
+msgid "Not spam"
+msgstr "No es Spam"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews-list-table.php:852
+msgctxt "Verb"
+msgid "Trash"
+msgstr "Papelera"
+
+# @ wc-product-reviews-pro
+#: includes/admin/class-wc-reviews.php:196
+msgctxt "reviews per page (screen options)"
+msgid "Reviews"
+msgstr "Opiniones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:66
+msgctxt "taxonomy general name"
+msgid "Review Qualifiers"
+msgstr "Criterios de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:67
+msgctxt "taxonomy singular name"
+msgid "Review Qualifier"
+msgstr "Criterio de evaluación"
+
+# @ woocommerce-product-reviews-pro
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:116
+#: includes/class-wc-product-reviews-pro-review-qualifiers.php:137
+msgctxt "Review qualifier options"
+msgid "Options"
+msgstr "Opiniones"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:604
+msgctxt "Comment author name"
+msgid "Name:"
+msgstr "Nombre:"
+
+# @ woocommerce-product-reviews-pro
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:695
+msgctxt "Set comment to approved status"
+msgid "Approved"
+msgstr "Aprobado"
+
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:696
+msgctxt "Set comment to pending approval status"
+msgid "Pending"
+msgstr "Pendiente"
+
+# @ default
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:697
+msgctxt "Mark comment as spam"
+msgid "Spam"
+msgstr "Spam"
+
+#: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:154
+#: includes/widgets/class-wc-product-reviews-pro-recent-questions-widget.php:139
+#: includes/widgets/class-wc-product-reviews-pro-recent-reviews-widget.php:155
+#: includes/widgets/class-wc-product-reviews-pro-recent-videos-widget.php:154
+msgctxt "by comment author"
+msgid "by %1$s"
+msgstr "por %1$s"
+
+#: templates/single-product/contributions/actions-legacy.php:53
+#: templates/single-product/contributions/actions.php:51
+msgctxt "Subscribe to contribution thread"
+msgid "Watch"
+msgstr "Seguir"
+
+#: templates/single-product/contributions/actions-legacy.php:56
+#: templates/single-product/contributions/actions.php:54
+msgctxt "Unsubscribe from contribution thread"
+msgid "Unwatch"
+msgstr "Dejar de seguir"
+
+# @ default
+#: templates/single-product/contributions/actions-legacy.php:64
+#: templates/single-product/contributions/actions.php:62
+msgctxt "Edit your comment"
+msgid "Edit"
+msgstr "Editar"
+
+# @ woocommerce-product-reviews-pro
+#: templates/single-product/contributions.php:77
+msgctxt "noun"
+msgid "%d review"
+msgid_plural "%d reviews"
+msgstr[0] "%d opinión"
+msgstr[1] "%d opiniones"
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "Source:"
+#~ msgstr "Fuente: "
+
+# @ wc-product-reviews-pro
+#, fuzzy
+#~ msgid "%s out of 5"
+#~ msgstr "%d de 5"
+
+# @ woocommerce-product-reviews-pro
+#, fuzzy
+#~ msgid "<strong>%d</strong> out of 5"
+#~ msgstr "<strong itemprop=\"ratingValue\">%d</strong> de 5"
+
+# @ wc-product-reviews-pro
+#~ msgid "All Products"
+#~ msgstr "Todos los productos "
+
+# @ wc-product-reviews-pro
+#~ msgid "Y/m/d"
+#~ msgstr "A/m/d"
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "<a href=\"%s\">Review by %s</a>"
+#~ msgstr "<a href=\"%s\">Opinión hecha por %s</a>"
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "Dismiss"
+#~ msgstr "Descartar"
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "You cannot clone instances of %s."
+#~ msgstr "No puede clonar instancias de %s."
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "You cannot unserialize instances of %s."
+#~ msgstr "No puede des serializar instancias de %s."
+
+# @ woocommerce-product-reviews-pro
+#~ msgid ""
+#~ "%s requires the %s PHP extension to function.  Contact your host or "
+#~ "server administrator to configure and install the missing extension."
+#~ msgid_plural ""
+#~ "%s requires the following PHP extensions to function: %s.  Contact your "
+#~ "host or server administrator to configure and install the missing "
+#~ "extensions."
+#~ msgstr[0] ""
+#~ "%s requiere que las %s PHP funcionen, contacte a su servicio de hosting "
+#~ "para configurar e instalar las faltantes"
+#~ msgstr[1] ""
+
+# @ woocommerce-product-reviews-pro
+#~ msgid ""
+#~ "%s requires the %s PHP function to exist.  Contact your host or server "
+#~ "administrator to configure and install the missing function."
+#~ msgid_plural ""
+#~ "%s requires the following PHP functions to exist: %s.  Contact your host "
+#~ "or server administrator to configure and install the missing functions."
+#~ msgstr[0] ""
+#~ "%s requiere la función PHP %s., contacte a su servicio de hosting para "
+#~ "instalar la función faltante"
+#~ msgstr[1] ""
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "Docs"
+#~ msgstr "Documentos"
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "Support"
+#~ msgstr "Soporte"
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "Configure"
+#~ msgstr "Configurar"
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "out of 5"
+#~ msgstr "de 5"
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "WooThemes / SkyVerge"
+#~ msgstr "WooThemes / SkyVerge"
+
+# @ woocommerce-product-reviews-pro
+#~ msgid "1.2.0"
+#~ msgstr "1.2.0"

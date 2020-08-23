@@ -55,3 +55,27 @@ if ( 'vc-roles' === vc_get_param( 'page' ) ) {
 
 	add_action( 'admin_init', 'vc_settings_render_tab_vc_roles_scripts' );
 }
+
+function wpb_unfiltered_html_state( $state, $role ) {
+	if ( is_null( $state ) ) {
+		return $role->has_cap( 'unfiltered_html' );
+	}
+
+	return $state;
+}
+
+add_filter( 'vc_role_access_with_unfiltered_html_get_state', 'wpb_unfiltered_html_state', 10, 2 );
+
+function wpb_custom_html_elements_access( $state, $shortcode ) {
+	if ( in_array( $shortcode, array(
+		'vc_raw_html',
+		'vc_raw_js',
+	) ) ) {
+		$state = vc_user_access()->part( 'unfiltered_html' )->checkStateAny( true, null )->get();
+	}
+
+	return $state;
+}
+
+add_filter( 'vc_user_access_check-shortcode_edit', 'wpb_custom_html_elements_access', 10, 2 );
+add_filter( 'vc_user_access_check-shortcode_all', 'wpb_custom_html_elements_access', 10, 2 );

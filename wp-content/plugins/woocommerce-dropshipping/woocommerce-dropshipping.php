@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Dropshipping
  * Plugin URI: http://woocommerce.com/products/woocommerce-dropshipping/
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
- * Version: 2.5
+ * Version: 2.6
  * Author: WooCommerce
  * Author URI: http://woocommerce.com/
  * Developer: OPMC
  * Developer URI: https://opmc.com.au/
  * Requires at least: 4.5
- * Tested up to: 5.2.3
+ * Tested up to: 5.5
  * Copyright: © 2009-2018 WooThemes.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html

@@ -16,6 +16,7 @@ class Vc_Roles {
 		'post_types',
 		'backend_editor',
 		'frontend_editor',
+		'unfiltered_html',
 		'post_settings',
 		'settings',
 		'templates',

@@ -194,12 +194,18 @@ class RevSliderExtension {
 						// openAnimationSpeed: how quick the Ajax Content window should be animated (default is 0.3)					
 			}
 			
-			if (document.readyState === "loading")
-				window.addEventListener('DOMContentLoaded',function() {
-					rsCustomAjaxContentLoadingFunction()			
+			var rsCustomAjaxContent_Once = false
+			if (document.readyState === "loading") 
+				document.addEventListener('readystatechange',function(){
+					if ((document.readyState === "interactive" || document.readyState === "complete") && !rsCustomAjaxContent_Once) {
+						rsCustomAjaxContent_Once = true;
+						rsCustomAjaxContentLoadingFunction();
+					}
 				});
-			else 
-				rsCustomAjaxContentLoadingFunction()
+			else {
+				rsCustomAjaxContent_Once = true;
+				rsCustomAjaxContentLoadingFunction();
+			}					
 		</script>
 		<?php
 	}

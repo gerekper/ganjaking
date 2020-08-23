@@ -31,6 +31,33 @@ if ( ! empty( $el_id ) ) {
 	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
 }
 $custom_tag = 'script';
+// https://api.flickr.com/services/feeds/photos_public.gne?id=94395039@N00&format=json&nojsoncallback=1
+$provider = 'https://www.flickr.com/services/feeds/photos_public.gne';
+$flickr_url = 'https://www.flickr.com/photos/' . esc_attr( $flickr_id );
+if ( 'group' === $type ) {
+	$provider = 'https://www.flickr.com/services/feeds/groups_pool.gne';
+	$flickr_url = 'https://www.flickr.com/groups/' . esc_attr( $flickr_id ) . '/pool';
+}
+$url = $provider . '?id=' . $flickr_id . '&format=json&nojsoncallback=1';
+$response = wp_safe_remote_get( $url );
+$items = [];
+if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
+	$body = wp_remote_retrieve_body( $response );
+	$data = json_decode( trim( $body ), true );
+	$num = 0;
+	foreach ( $data['items'] as $item ) {
+		if ( $num > $count ) {
+			break;
+		}
+		if ( isset( $item['media']['m'] ) ) {
+			$items[] = '<div class="flickr_badge_image"><a href="' . esc_url( $item['link'] ) . '"><img src="' . esc_url( $item['media']['m'] ) . '" title="' . esc_attr( $item['title'] ) . '" /></a></div>';
+		}
+		$num ++;
+	}
+}
+if ( 'random' === $display ) {
+	shuffle( $items );
+}
 // @codingStandardsIgnoreStarts
 $output = '
 	<div class="' . esc_attr( $css_class ) . '" ' . implode( ' ', $wrapper_attributes ) . '>
@@ -38,8 +65,7 @@ $output = '
 			' . wpb_widget_title( array(
 		'title' => $title,
 		'extraclass' => 'wpb_flickr_heading',
-	) ) . '<' . $custom_tag . ' src="https://www.flickr.com/badge_code_v2.gne?count=' . esc_attr( $count ) . '&amp;display=' . esc_attr( $display ) . '&amp;size=s&amp;layout=x&amp;source=' . esc_attr( $type ) . '&amp;' . esc_attr( $type ) . '=' . esc_attr( $flickr_id ) . '"></' . $custom_tag . '>
-			<p class="flickr_stream_wrap"><a class="wpb_follow_btn wpb_flickr_stream" href="https://www.flickr.com/photos/' . esc_attr( $flickr_id ) . '">' . esc_html__( 'View stream on flickr', 'js_composer' ) . '</a></p>
+	) ) . '<div>' . implode( '', $items ) . '</div><p class="flickr_stream_wrap"><a class="wpb_follow_btn wpb_flickr_stream" href="' . esc_url( $flickr_url ) . '">' . esc_html__( 'View stream on flickr', 'js_composer' ) . '</a></p>
 		</div>
 	</div>
 ';

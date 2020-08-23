@@ -76,7 +76,7 @@ function draw_ctor_chart() {
     ctor_rendered = true;
 }
 
-jQuery(document).ready(function($) {
+jQuery().ready(function($) {
     $("div.section:gt(0)").hide();
 
     $("h2.reports-overview-tabs a.nav-tab").click(function(e) {
@@ -88,7 +88,7 @@ jQuery(document).ready(function($) {
         $clicked.parents('h2').find('a').removeClass('nav-tab-active');
         $clicked.addClass('nav-tab-active');
 
-        if ( $(".chart_sections .chart_section:visible").size() > 0 ) {
+        if ($(".chart_sections .chart_section:visible").length) {
             $(".chart_sections .chart_section:visible").fadeOut( 100, function() {
                 $(".chart_sections").find( $target ).fadeIn('fast', function() {
                     draw_chart( $target );
@@ -115,7 +115,7 @@ jQuery(document).ready(function($) {
 
         $section.find('a').removeClass('current');
 
-        if ( $section.find('.section:visible').size() > 0 ) {
+        if ($section.find('.section:visible').length) {
             $section.find('.section:visible').fadeOut( 100, function() {
                 $section.find( $target ).fadeIn('fast');
             });
@@ -149,7 +149,7 @@ jQuery(document).ready(function($) {
     });
 });
 
-jQuery(window).load(function() {
+jQuery().ready(function() {
     var $ = jQuery.noConflict();
     jQuery("h2.reports-overview-tabs a:eq(0)").click();
 

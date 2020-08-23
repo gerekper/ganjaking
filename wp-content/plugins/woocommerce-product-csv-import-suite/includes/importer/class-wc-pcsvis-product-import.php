@@ -176,7 +176,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 													response = response.split("<!--WC_END-->")[0]; // Strip off anything after WC_END
 
 												// Parse
-												var results = $.parseJSON( response );
+												var results = JSON.parse( response );
 
 												if ( results.error ) {
 
@@ -184,7 +184,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 
 													i++;
 
-												} else if ( results.import_results && $( results.import_results ).size() > 0 ) {
+												} else if ( results.import_results && $( results.import_results ).length ) {
 
 													$.each( results.processed_terms, function( index, value ) {
 														processed_terms.push( value );

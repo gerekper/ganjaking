@@ -61,7 +61,7 @@ class WCS_ATT_Display {
 		wp_style_add_data( 'wcsatt-css', 'rtl', 'replace' );
 		wp_enqueue_style( 'wcsatt-css' );
 
-		if ( is_cart() ) {
+		if ( apply_filters( 'wcsatt_enqueue_cart_script', is_cart() ) ) {
 
 			wp_register_script( 'wcsatt-cart', WCS_ATT()->plugin_url() . '/assets/js/frontend/cart.js', array( 'jquery', 'wc-country-select', 'wc-address-i18n' ), WCS_ATT::VERSION, true );
 			wp_enqueue_script( 'wcsatt-cart' );

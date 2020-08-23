@@ -1,5 +1,10 @@
 *** WooCommerce Memberships Changelog ***
 
+2020.08.18 - version 1.17.6
+ * Fix - Correctly load the Block Editor in WordPress 5.5
+ * Fix - Ensure that the comments count is not an empty array while trying to subtract membership notes from the counts object's properties
+ * Fix - When a subscription that has membership discounts is in cart for renewal, make sure it is not accidentally double discounted
+
 2020.06.09 - version 1.17.5
  * Tweak - Improve compatibility with WooCommerce Name Your Price during WooCommerce Subscriptions switches
  * Fix - Ensure that pagination links in the members area have a trailing slash when using pretty permalinks

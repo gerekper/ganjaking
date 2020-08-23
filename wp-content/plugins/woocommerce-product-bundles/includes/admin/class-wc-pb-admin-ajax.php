@@ -116,14 +116,17 @@ class WC_PB_Admin_Ajax {
 	public static function ajax_loopback_test() {
 
 		$failure = array(
-			'result' => 'failure'
+			'result' => 'failure',
+			'reason' => ''
 		);
 
 		if ( ! check_ajax_referer( 'wc_pb_loopback_notice_nonce', 'security', false ) ) {
+			$failure[ 'reason' ] = 'nonce';
 			wp_send_json( $failure );
 		}
 
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			$failure[ 'reason' ] = 'user_role';
 			wp_send_json( $failure );
 		}
 
@@ -139,6 +142,9 @@ class WC_PB_Admin_Ajax {
 		WC_PB_Admin_Notices::set_notice_option( 'loopback', 'last_result', $passes_test ? 'pass' : 'fail' );
 
 		if ( ! $passes_test ) {
+			$failure[ 'reason' ]  = 'status';
+			$failure[ 'status' ]  = $result->status;
+			$failure[ 'message' ] = $result->message;
 			wp_send_json( $failure );
 		}
 

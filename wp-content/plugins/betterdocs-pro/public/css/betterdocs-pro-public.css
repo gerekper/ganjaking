@@ -38,3 +38,13 @@
 	width: 100% !important;
 	border-radius: 0 !important;
 }
+.betterdocs-single-layout2 .betterdocs-entry-content .betterdocs-toc,
+.betterdocs-single-layout3 .betterdocs-entry-content .betterdocs-toc {
+	display: none;
+}
+@media only screen and (max-width: 1199px) {
+	.betterdocs-single-layout2 .betterdocs-entry-content .betterdocs-toc,
+	.betterdocs-single-layout3 .betterdocs-entry-content .betterdocs-toc {
+		display: block;
+	}
+}

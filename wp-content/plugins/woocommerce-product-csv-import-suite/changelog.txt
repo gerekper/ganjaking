@@ -1,5 +1,12 @@
 *** Product CSV Import Suite Changelog ***
 
+2020-08-18 - version 1.10.36
+* Fix   - Replace deprecated jQuery methods.
+* Tweak - WordPress 5.5 compatibility.
+
+2020-07-07 - version 1.10.35
+* Fix - Escape output for selectWoo fields.
+
 2020-06-05 - version 1.10.34
 * Tweak - WC 4.2 compatibility.
 

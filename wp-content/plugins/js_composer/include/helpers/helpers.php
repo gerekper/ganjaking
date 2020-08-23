@@ -845,7 +845,7 @@ function vc_parse_multi_attribute( $value, $default = array() ) {
 		foreach ( $params_pairs as $pair ) {
 			$param = preg_split( '/\:/', $pair );
 			if ( ! empty( $param[0] ) && isset( $param[1] ) ) {
-				$result[ $param[0] ] = rawurldecode( $param[1] );
+				$result[ $param[0] ] = trim( rawurldecode( $param[1] ) );
 			}
 		}
 	}
@@ -1407,4 +1407,23 @@ function wpb_widget_title( $params = array( 'title' => '' ) ) {
 	$output = '<h2 class="wpb_heading' . esc_attr( $extraclass ) . '">' . esc_html( $params['title'] ) . '</h2>';
 
 	return apply_filters( 'wpb_widget_title', $output, $params );
+}
+
+/**
+ * Used to remove raw_html/raw_js elements from content
+ * @param $content
+ * @return string|string[]|null
+ * @since 6.3.0
+ */
+function wpb_remove_custom_html( $content ) {
+	if ( ! vc_user_access()->part( 'unfiltered_html' )->checkStateAny( true, null )->get() ) {
+		$regex = vc_get_shortcode_regex( implode( '|', apply_filters( 'wpb_custom_html_elements', array(
+			'vc_raw_html',
+			'vc_raw_js',
+		) ) ) );
+
+		$content = preg_replace( '/' . $regex . '/', '', $content );
+	}
+
+	return $content;
 }

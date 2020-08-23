@@ -63,15 +63,16 @@ class WC_Box_Office_Ticket_Barcode {
 		);
 
 		$barcode_text = get_post_meta( $ticket_id, '_barcode_text', true );
+		$barcode      = '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';
 
 		if ( $barcode_text ) {
-			$barcode = WC_Order_Barcodes()->display_barcode( $ticket_id );
-
+			$barcode .= WC_Order_Barcodes()->display_barcode( $ticket_id );
 		} else {
 			$this->generate_ticket_barcode( $ticket_id );
-			$barcode = WC_Order_Barcodes()->display_barcode( $ticket_id );
+			$barcode .= WC_Order_Barcodes()->display_barcode( $ticket_id );
 		}
 
+		$barcode .= '</div>';
 		echo $barcode;
 	}
 

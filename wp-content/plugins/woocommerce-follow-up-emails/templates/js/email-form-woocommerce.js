@@ -239,7 +239,7 @@ jQuery( function( $ ) {
     });
 
     $("#fue-email-details").on("change", "#use_custom_field", function () {
-        if ($(this).attr("checked")) {
+        if ($(this).prop("checked")) {
             $(".show-if-custom-field").show();
         } else {
             $(".show-if-custom-field").hide();
@@ -253,7 +253,7 @@ jQuery( function( $ ) {
     });
 
     $("#fue-email-details").on("change", "#send_coupon", function () {
-        if ($(this).attr("checked")) {
+        if ($(this).prop("checked")) {
             $(".var_coupon").show();
             $(".coupon_tr").show();
         } else {

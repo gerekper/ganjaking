@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Social Login
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-social-login/
+ * Documentation URI: https://docs.woocommerce.com/document/woocommerce-social-login/
  * Description: One-click registration and login via social networks like Facebook, Google, Twitter and Amazon
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.8.8
+ * Version: 2.10.0
  * Text Domain: woocommerce-social-login
  * Domain Path: /i18n/languages/
  * Copyright: (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
@@ -20,7 +21,7 @@
  *
  * Woo: 473617:b231cd6367a79cc8a53b7d992d77525d
  * WC requires at least: 3.0.9
- * WC tested up to: 4.2.1
+ * WC tested up to: 4.3.3
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -82,10 +83,13 @@ class WC_Social_Login_Loader {
 		add_action( 'admin_init',    array( $this, 'add_plugin_notices' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
 
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
+
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
+			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}
@@ -327,6 +331,24 @@ class WC_Social_Login_Loader {
 			<?php
 
 		endforeach;
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 2.10.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

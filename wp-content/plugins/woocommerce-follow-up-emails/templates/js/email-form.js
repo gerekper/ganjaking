@@ -187,7 +187,7 @@ jQuery( function ( $ ) {
 
     // GA Tracking switch
     $("#fue-email-details").on("change", "#tracking_on", function() {
-        if (jQuery(this).attr("checked")) {
+        if (jQuery(this).prop("checked")) {
             jQuery(".tracking_on").show();
         } else {
             jQuery(".tracking_on").hide();
@@ -196,7 +196,7 @@ jQuery( function ( $ ) {
 
     // Custom Fields
     jQuery("#use_custom_field").change(function() {
-        if (jQuery(this).attr("checked")) {
+        if (jQuery(this).prop("checked")) {
             jQuery(".show-if-custom-field").show();
         } else {
             jQuery(".show-if-custom-field").hide();
@@ -623,7 +623,7 @@ function fue_toggle_elements( elements, show ) {
     }
 }
 
-jQuery(window).load(function() {
+jQuery().ready(function() {
     var ifr_body    = jQuery("#content_ifr").contents().find("body");
     var dummy       = jQuery("#email_content_dummy");
     var timer       = null;

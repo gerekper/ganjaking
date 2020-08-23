@@ -1,6 +1,11 @@
 @import "lib/bootstrap-components.less";
 // must be outputed
 @import "lib/editor.less";
+// override lib/editor.less
+.metabox-composer-content .vc_message {
+  position: relative;
+  top: 0;
+}
 
 // Here comes panels
 @vc_modal_top_margin: 34px;
@@ -75,6 +80,7 @@
 .vc_shortcode-param[data-param_type="iconpicker"] {
   .vc-icons-selector .selected-icon {
     line-height: 40px;
+
     i.vc_pixel_icon {
       position: relative;
       top: 3px;
@@ -111,9 +117,11 @@
   margin-right: 5px;
   line-height: 1;
   word-wrap: break-word;
+
   label {
     vertical-align: inherit;
   }
+
   &.hidden-label {
     display: none;
   }
@@ -130,10 +138,12 @@
 
 #wpb_visual_composer {
   display: none;
+
   > .inside {
     margin: 0;
     padding: 0;
   }
+
   .vc_navbar {
     border-bottom: 1px solid @vc_navbar_border_color;
   }
@@ -143,6 +153,7 @@
   @media (max-width: @screen-xs-max) {
     .vc_backend-editor-invisibility-settings;
   }
+
   .vc_hidden-xs {
     > * {
       .opacity(1) !important;
@@ -154,6 +165,7 @@
   @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
     .vc_backend-editor-invisibility-settings;
   }
+
   .vc_hidden-sm {
     > * {
       .opacity(1) !important;
@@ -165,6 +177,7 @@
   @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
     .vc_backend-editor-invisibility-settings;
   }
+
   .vc_hidden-md {
     > * {
       .opacity(1) !important;
@@ -176,6 +189,7 @@
   @media (min-width: @screen-lg-min) {
     .vc_backend-editor-invisibility-settings;
   }
+
   .vc_hidden-lg {
     > * {
       .opacity(1) !important;
@@ -193,6 +207,7 @@
   h3.vc_modal-title {
     .vc_heading(16px);
   }
+
   .vc_welcome {
     h3 {
       margin: 0;
@@ -201,8 +216,10 @@
       line-height: 26px;
       cursor: default;
     }
+
     &.vc_not-empty {
       margin-top: 0;
+
       .vc_buttons {
         margin-top: 0;
       }

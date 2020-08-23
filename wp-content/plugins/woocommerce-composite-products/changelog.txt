@@ -1,5 +1,18 @@
 *** WooCommerce Composite Products ***
 
+2020.08.20 - version 7.0.6
+* Tweak - Backfill current component data in composite configurations extracted from orders.
+* Fix - Introduced integration with WooCommerce Services. When shipping an assembled Composite, WooCommerce Services will now see a single physical item that aggregates the weight and total of its contents.
+* Fix - Added compatibility with the WordPress 5.5 REST API.
+
+2020.07.14 - version 7.0.5
+* Fix - Added missing JS method 'Composite_Availability_View::get_components_availability_string'.
+* Fix - Prevent JS errors if third-party code has already started the Backbone history.
+* Fix - Renamed summary element button text from 'View' to 'Edit' when the chosen product is configurable.
+* Tweak - Detect scroll anchoring support and let the browser handle things when available.
+* Tweak - Prevent autotransitioning if the selected product is out of stock.
+* Tweak - Consider if customer is tax exempt when formatting cart item display prices.
+
 2020.06.26 - version 7.0.4
 * Fix - 'Sold Individually > Yes' not working as expected.
 * Tweak - Added loopback test results in Status Report.

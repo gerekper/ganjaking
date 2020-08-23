@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite order-related filters and functions.
  *
  * @class    WC_CP_Order
- * @version  6.2.0
+ * @version  7.0.6
  */
 class WC_CP_Order {
 
@@ -121,6 +121,7 @@ class WC_CP_Order {
 			return false;
 		}
 
+		$composite     = wc_get_product( $order_item->get_product_id() );
 		$configuration = $order_item->get_meta( '_composite_data', true );
 		$child_items   = wc_cp_get_composited_order_items( $order_item, $order );
 
@@ -152,7 +153,8 @@ class WC_CP_Order {
 			$configuration[ $component_id ][ 'quantity' ] = $child_item_qty / $order_item->get_quantity();
 		}
 
-		return $configuration;
+		// Finally, parse the configuration to add data for any new components.
+		return $composite ? WC_CP()->cart->parse_composite_configuration( $composite, $configuration ) : $configuration;
 	}
 
 	/**

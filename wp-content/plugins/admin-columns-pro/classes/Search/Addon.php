@@ -39,6 +39,11 @@ final class Addon implements Registrable {
 	 */
 	private $hide_smart_filters;
 
+	/**
+	 * @var SegmentRepository
+	 */
+	private $segment_repository;
+
 	public function __construct( Storage $storage, Location $location ) {
 		$this->storage = $storage;
 		$this->location = $location;
@@ -47,6 +52,7 @@ final class Addon implements Registrable {
 		$this->table_preference = new Preferences\SmartFiltering();
 		$this->hide_filters = new ACP\Settings\ListScreen\HideOnScreen\Filters();
 		$this->hide_smart_filters = new Settings\HideOnScreen\SmartFilters();
+		$this->segment_repository = new SegmentRepository();
 	}
 
 	/**
@@ -78,6 +84,35 @@ final class Addon implements Registrable {
 		add_action( 'wp_ajax_acp_search_segment_request', [ $this, 'segment_request' ] );
 		add_action( 'wp_ajax_acp_search_comparison_request', [ $this, 'comparison_request' ] );
 		add_action( 'acp/admin/settings/hide_on_screen', [ $this, 'add_hide_on_screen' ] );
+		add_action( 'acp/list_screen/deleted', [ $this, 'delete_segments_after_list_screen_deleted' ] );
+		add_action( 'deleted_user', [ $this, 'delete_segments_after_user_deleted' ] );
+	}
+
+	/**
+	 * @param AC\ListScreen $list_screen
+	 */
+	public function delete_segments_after_list_screen_deleted( AC\ListScreen $list_screen ) {
+		$segments = $this->segment_repository->find_all( [
+			SegmentRepository::FILTER_LIST_SCREEN => $list_screen->get_id(),
+		] );
+
+		foreach ( $segments as $segment ) {
+			$this->segment_repository->delete( $segment->get_id() );
+		}
+	}
+
+	/**
+	 * @param int $user_id
+	 */
+	public function delete_segments_after_user_deleted( $user_id ) {
+		$segments = $this->segment_repository->find_all( [
+			SegmentRepository::FILTER_USER   => (int) $user_id,
+			SegmentRepository::FILTER_GLOBAL => false,
+		] );
+
+		foreach ( $segments as $segment ) {
+			$this->segment_repository->delete( $segment->get_id() );
+		}
 	}
 
 	public function add_hide_on_screen( HideOnScreenCollection $collection ) {
@@ -91,7 +126,7 @@ final class Addon implements Registrable {
 		$segment = new Segment(
 			$this->storage,
 			$this->request,
-			new SegmentRepository()
+			$this->segment_repository
 		);
 
 		$segment->dispatch( $this->request->get( 'method' ) );

@@ -1,5 +1,8 @@
 *** WooCommerce Cart Add-ons ***
 
+2020-08-19 - version 1.15.31
+* Tweak - WordPress 5.5 compatibility.
+
 2020-07-07 - version 1.5.30
 * Fix - Switch to using selectWoo fields and escape output.
 

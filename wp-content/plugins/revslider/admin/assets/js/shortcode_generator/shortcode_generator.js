@@ -253,11 +253,20 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 		openOptimizer : function(alias){ if (alias!==undefined && alias.length>0) RVS.F.openOptimizer({alias:alias});}						
 	};
 
+	
 	// INITIALISE PROCESSES
+	var RVSSCINIT_once = false
 	if (document.readyState === "loading") 
-		window.addEventListener('DOMContentLoaded',function() {	RVS.SC.init();	});
-	else
+		document.addEventListener('readystatechange',function(){
+			if ((document.readyState === "interactive" || document.readyState === "complete") && !RVSSCINIT_once) {
+				RVSSCINIT_once = true;
+				RVS.SC.init();
+			}
+		});
+	else {
+		RVSSCINIT_once = true;
 		RVS.SC.init();
+	}
 		
 	function updateInherits(novisual) {
 		if (RVS==undefined || RVS.SC.BLOCK==undefined || RVS.SC.BLOCK.offset===undefined) return;

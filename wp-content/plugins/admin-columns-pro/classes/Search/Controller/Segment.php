@@ -151,13 +151,14 @@ class Segment extends Controller {
 
 	public function delete_action() {
 		$response = new Response\Json();
-		$id = (int) $this->request->filter( 'id', FILTER_SANITIZE_NUMBER_INT );
+		$id = $this->request->filter( 'id', FILTER_SANITIZE_NUMBER_INT );
 
 		if ( ! $id ) {
 			$response->error();
 		}
 
-		$segment = $this->segment_repository->find( new SegmentId( $id ) );
+		$segment_id = new SegmentId( (int) $id );
+		$segment = $this->segment_repository->find( $segment_id );
 
 		if ( ! $segment ) {
 			$response->error();
@@ -167,7 +168,7 @@ class Segment extends Controller {
 			$response->error();
 		}
 
-		$this->segment_repository->delete( new SegmentId( $id ) );
+		$this->segment_repository->delete( $segment_id );
 
 		$response->success();
 	}

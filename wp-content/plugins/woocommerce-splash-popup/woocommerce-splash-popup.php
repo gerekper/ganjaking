@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce Splash Popup
  * Plugin URI: https://woocommerce.com/products/woocommerce-splash-popup/
  * Description: Allows store owners to display a lightbox popup on their web site containing page content based on whether the user is logged in or not, and whether the user is a customer or not. Once hidden the popup remains hidden via cookie.
- * Version: 1.2.17
+ * Version: 1.2.18
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0
- * Tested up to: 4.8
+ * Tested up to: 5.5
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Woo: 187449:fa19ddbd06f96ba55e651d56418259be
@@ -17,7 +17,7 @@
  * @package woocommerce-splash-popup
  */
 
-define( 'WC_SPLASH_POPUP_VERSION', '1.2.17' ); // WRCS: DEFINED_VERSION.
+define( 'WC_SPLASH_POPUP_VERSION', '1.2.18' ); // WRCS: DEFINED_VERSION.
 
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_splash_popup_init' );

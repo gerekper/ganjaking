@@ -50,6 +50,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 		$this->upgrade_versions = [
 			'1.7.0',
+			'1.13.0',
 		];
 	}
 
@@ -89,6 +90,18 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 			update_option( 'wc_order_status_control_auto_complete_orders', 'virtual_downloadable' );
 		}
+	}
+
+
+	/**
+	 * Upgrades to version 1.13.0
+	 *
+	 * @since 1.13.0
+	 */
+	protected function upgrade_to_1_13_0() {
+
+		// for merchants updating, set a flag to not show the onboarding tips
+		update_option( sprintf( 'wc_%s_onboarding_status', $this->get_plugin()->get_id() ), 'updated' );
 	}
 
 

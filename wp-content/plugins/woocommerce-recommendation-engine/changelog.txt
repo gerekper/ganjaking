@@ -1,4 +1,14 @@
 *** WooCommerce Recommendation Engine Changelog ***
+2020.08.18 - version 3.2.4
+    * Fix:  Check for WC()->session before attempting to use it in the shortcodes.
+    * Update:  When using the shortcode on a page of the site other than a product page, and when the user has never interacted with the site before, grab the top
+                product for the activity status requested in the shortcode.  This product ID will be used for the comparision.
+    * Update:  Fix deprecated call to woocommerce_reset_loop.
+    * New:  Added shortcodes for the three different recommendation types.  Must be used on a single product page.
+        * woocommerce_recommender_viewed_products
+        * woocommerce_recommender_purchased_products
+        * woocommerce_recommender_purchased_together
+
 2020.04.06 - version 3.2.3
     * New:  Added a shortcode which can be used anywhere on the site to display Also Viewed and Also Purchased type recommendations.  The recommendations are based on the
             users browsing history.

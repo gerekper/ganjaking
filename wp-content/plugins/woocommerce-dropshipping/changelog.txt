@@ -1,5 +1,9 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2020.08.19 -Version 2.6
+
+PLUGINS-568 - Fixed the issue [permission_callback] after update wordpress version(v5.5).
+PLUGINS-574 - Removed the deprecated script [.live] after update the WordPress version(v5.5).
 
 2020.08.13 -Version 2.5
 
@@ -8,10 +12,10 @@ PLUGINS-519 - Added Feature - Added option ["Hide Shipping Price in supplier ema
 PLUGINS-257 - Added Feature - Added option ["Show Total Price in supplier email"].
 PLUGINS-338 - Added Feature - Added feature to support multisite network.
 PLUGINS-431 - Added Feature - Added Separate email template for "complete order" status.
-PLUGINS-493 - Fixed Bug - Show order date beside order number
-PLUGINS-494 - Fixed Bug - Show user phone number to supplier
-PLUGINS-484 - Added Feature - Added Price Calculator
-PLUGINS-302 - Added Feature - Disable Aliexpress Support Settings
+PLUGINS-493 - Fixed Bug - Show order date beside order number.
+PLUGINS-494 - Fixed Bug - Show user phone number to supplier.
+PLUGINS-484 - Added Feature - Added Price Calculator.
+PLUGINS-302 - Added Feature - Disable Aliexpress Support Settings.
 
 2020.06.24 -Version 2.4
 

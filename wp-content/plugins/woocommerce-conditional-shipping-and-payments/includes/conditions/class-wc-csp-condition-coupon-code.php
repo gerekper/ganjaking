@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Coupon Code Condition.
  *
  * @class    WC_CSP_Condition_Coupon_Code
- * @version  1.7.6
+ * @version  1.8.3
  */
 class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 
@@ -128,7 +128,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 			return true;
 		}
 
-		$condition_matching  = false;
+		$found_coupon        = false;
 		$active_coupon_codes = array();
 
 		// Gather active coupon codes.
@@ -137,17 +137,19 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 		}
 
 		foreach ( $data[ 'value' ] as $coupon_req ) {
-
-			if ( $this->modifier_is( $data[ 'modifier' ], array( 'used' ) ) && in_array( $coupon_req, $active_coupon_codes ) ) {
-				$condition_matching = true;
-				break;
-			} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-used' ) ) && false === in_array( $coupon_req, $active_coupon_codes ) ) {
-				$condition_matching = true;
+			if ( in_array( $coupon_req, $active_coupon_codes ) ) {
+				$found_coupon = true;
 				break;
 			}
 		}
 
-		return $condition_matching;
+		if ( 'used' === $data[ 'modifier' ] && $found_coupon ) {
+			return true;
+		} elseif ( 'not-used' === $data[ 'modifier' ] && false === $found_coupon ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

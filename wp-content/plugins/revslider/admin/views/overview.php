@@ -221,13 +221,17 @@ $rs_languages	= $rs_slider->get_available_languages();
 <script type="text/javascript">
 	window.sliderLibrary = JSON.parse(<?php echo $rs_slider->json_encode_client_side(array('sliders' => $overview_data)); ?>);
 	window.rs_system = JSON.parse(<?php echo $rs_slider->json_encode_client_side($system_config); ?>);
+	var rvs_f_initOverView_Once = false
 	if (document.readyState === "loading") 
-		window.addEventListener('DOMContentLoaded',function() {
-			RVS.ENV.code = "<?php echo $code; ?>";
-			RVS.F.initOverView();
+		document.addEventListener('readystatechange',function(){
+			if ((document.readyState === "interactive" || document.readyState === "complete") && !rvs_f_initOverView_Once) {
+				rvs_f_initOverView_Once = true;
+				RVS.ENV.code = "<?php echo $code; ?>";
+				RVS.F.initOverView();
+			}
 		});
 	else {
-		RVS.ENV.code = "<?php echo $code; ?>";
+		rvs_f_initOverView_Once = true;
 		RVS.F.initOverView();
-	}
+	}			
 </script>

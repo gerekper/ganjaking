@@ -905,25 +905,4 @@ class WC_Memberships_Members_Area {
 	}
 
 
-	/**
-	 * Adds the members area query var to WooCommerce query vars.
-	 *
-	 * TODO remove this deprecated method by version 2.0.0 or by May 2020, whichever comes earlier {FN 2019-01-28}
-	 *
-	 * @internal
-	 *
-	 * @since 1.10.1
-	 * @deprecated since 1.13.0
-	 *
-	 * @param string[] $query_vars array of query vars
-	 * @return string[]
-	 */
-	public function add_query_var( $query_vars ) {
-
-		_deprecated_function( '\WC_Memberships_Members_Area::add_query_var()', '1.13.0' );
-
-		return $query_vars;
-	}
-
-
 }

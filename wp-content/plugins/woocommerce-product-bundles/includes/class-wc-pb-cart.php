@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  6.2.4
+ * @version  6.3.4
  */
 class WC_PB_Cart {
 
@@ -834,6 +834,10 @@ class WC_PB_Cart {
 
 		if ( ! $bundled_item ) {
 			return $cart_item;
+		}
+
+		if ( isset( $cart_item[ 'subscription_renewal' ] ) ) {
+			$bundled_item->is_subscription_renewal = true;
 		}
 
 		$discount_method = WC_PB_Product_Prices::get_bundled_cart_item_discount_method();

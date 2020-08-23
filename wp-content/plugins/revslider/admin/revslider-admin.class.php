@@ -1583,6 +1583,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					
 					$post = $this->create_fake_post($content, $title);
 					
+					define('SHOW_CT_BUILDER', false); //fix for oxygen builder plugin to not remove the <html> tag and so on
+					
 					ob_start();
 					include(RS_PLUGIN_PATH . 'public/views/revslider-page-template.php');
 					$html = ob_get_contents();

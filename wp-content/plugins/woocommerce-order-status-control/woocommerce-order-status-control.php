@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Order Status Control
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-order-status-control/
+ * Documentation URI: https://docs.woocommerce.com/document/woocommerce-order-status-control/
  * Description: Automatically change order status to complete for all orders or just virtual orders when payment is successful
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.12.3
+ * Version: 1.13.0
  * Text Domain: woocommerce-order-status-control
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +23,7 @@
  *
  * Woo: 439037:32400e509c7c36dcc1cd368e8267d981
  * WC requires at least: 3.0.9
- * WC tested up to: 4.1.0
+ * WC tested up to: 4.4.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -85,10 +86,13 @@ class WC_Order_Status_Control_Loader {
 
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
 
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
+
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
+			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}
@@ -328,6 +332,24 @@ class WC_Order_Status_Control_Loader {
 				echo wp_kses( $notice['message'], array( 'a' => array( 'href' => array() ) ) );
 			echo "</p></div>";
 		}
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 1.13.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

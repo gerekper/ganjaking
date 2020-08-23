@@ -144,7 +144,7 @@ class Setup_Wizard extends Framework\Admin\Setup_Wizard {
 		$connected_profiles = wc_social_login()->get_user_social_login_profiles();
 
 		// these providers either require approval or additional steps and are not available to be configured in the Setup Wizard (for now)
-		unset( $providers['amazon'], $providers['instagram'], $providers['linkedin'], $providers['paypal'] );
+		unset( $providers['amazon'], $providers['linkedin'], $providers['paypal'] );
 
 		foreach ( $providers as $provider ) {
 			// skip providers that have been configured and connected already

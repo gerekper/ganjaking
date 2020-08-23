@@ -26,11 +26,15 @@ defined( 'ABSPATH' ) or exit;
  */
 class Package {
 
+
 	/** @var string the package ID */
 	const ID = 'sv-wc-jilt-promotions';
 
 	/** @var string the package version */
-	const VERSION = '1.0.1';
+	const VERSION = '1.1.0';
+
+	/** @var string the minimum required version of WooCommerce */
+	const MINIMUM_WOOCOMMERCE_VERSION = '3.0';
 
 
 	/** @var Package single instance of this package */
@@ -43,6 +47,11 @@ class Package {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+
+		// bail if WooCommerce is not active or compatible
+		if ( ! self::is_woocommerce_compatible() ) {
+			return;
+		}
 
 		$this->includes();
 
@@ -58,9 +67,23 @@ class Package {
 	 */
 	private function includes() {
 
+		require_once( self::get_package_path() . '/Messages.php' );
+		require_once( self::get_package_path() . '/Notices/Notice.php' );
+		require_once( self::get_package_path() . '/Handlers/Installation.php' );
+		require_once( self::get_package_path() . '/Handlers/Prompt.php' );
+		require_once( self::get_package_path() . '/Admin/Customers.php' );
 		require_once( self::get_package_path() . '/Admin/Emails.php' );
+		require_once( self::get_package_path() . '/Admin/Orders.php' );
+		require_once( self::get_package_path() . '/Admin/Product.php' );
+		require_once( self::get_package_path() . '/Admin/Users.php' );
 
+		new Messages();
+		new Handlers\Installation();
+		new Admin\Customers();
 		new Admin\Emails();
+		new Admin\Orders();
+		new Admin\Product();
+		new Admin\Users();
 	}
 
 
@@ -108,6 +131,42 @@ class Package {
 
 		return untrailingslashit( __DIR__ );
 	}
+
+
+	/** Conditional methods *******************************************************************************************/
+
+
+	/**
+	 * Determines if WooCommerce is active.
+	 *
+	 * @since x.y.z
+	 *
+	 * @return bool
+	 */
+	private static function is_woocommerce_active() {
+
+		if ( ! did_action( 'plugins_loaded' ) ) {
+			_doing_it_wrong( __METHOD__, 'Cannot be called before plugins_loaded is fired', 'x.y.z' );
+		}
+
+		return function_exists( 'WC' );
+	}
+
+
+	/**
+	 * Determines if the current version WooCommerce is compatible with this package.
+	 *
+	 * @since x.y.z
+	 *
+	 * @return bool
+	 */
+	private static function is_woocommerce_compatible() {
+
+		return self::is_woocommerce_active() && defined( 'WC_VERSION' ) && version_compare( WC_VERSION, self::MINIMUM_WOOCOMMERCE_VERSION, '>=' );
+	}
+
+
+	/** Utility methods ***********************************************************************************************/
 
 
 	/**

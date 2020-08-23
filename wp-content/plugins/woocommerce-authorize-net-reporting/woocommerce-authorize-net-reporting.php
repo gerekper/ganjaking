@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Authorize.Net Reporting
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-authorize-net-reporting/
+ * Documentation URI: https://docs.woocommerce.com/document/woocommerce-authorize-net-reporting/
  * Description: Automatically generates and emails daily CSV exports of your Authorize.Net transactions. You can also download an export by going to WooCommerce > Reports > Authorize.Net > Export
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com/
- * Version: 1.10.3
+ * Version: 1.11.0
  * Text Domain: woocommerce-authorize-net-reporting
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +23,7 @@
  *
  * Woo: 228317:6319791b3db6c23cb91d312bf2fcf2a4
  * WC requires at least: 3.0.9
- * WC tested up to: 4.1.0
+ * WC tested up to: 4.3.3
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -84,10 +85,13 @@ class WC_Authorize_Net_Reporting_Loader {
 		add_action( 'admin_init',    array( $this, 'add_plugin_notices' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
 
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
+
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
+			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}
@@ -329,6 +333,24 @@ class WC_Authorize_Net_Reporting_Loader {
 			<?php
 
 		endforeach;
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 1.11.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

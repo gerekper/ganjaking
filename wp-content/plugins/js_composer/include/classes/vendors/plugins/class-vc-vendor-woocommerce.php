@@ -521,11 +521,11 @@ class Vc_Vendor_Woocommerce {
 					'params' => array(
 						array(
 							'type' => 'textfield',
-							'heading' => esc_html__( 'Per page', 'js_composer' ),
+							'heading' => esc_html__( 'Limit', 'js_composer' ),
 							'value' => 12,
 							'save_always' => true,
 							'param_name' => 'per_page',
-							'description' => esc_html__( 'How much items per page to show', 'js_composer' ),
+							'description' => esc_html__( 'How much items to show', 'js_composer' ),
 						),
 						array(
 							'type' => 'textfield',
@@ -646,11 +646,11 @@ class Vc_Vendor_Woocommerce {
 				'params' => array(
 					array(
 						'type' => 'textfield',
-						'heading' => esc_html__( 'Per page', 'js_composer' ),
+						'heading' => esc_html__( 'Limit', 'js_composer' ),
 						'value' => 12,
 						'save_always' => true,
 						'param_name' => 'per_page',
-						'description' => esc_html__( 'How much items per page to show', 'js_composer' ),
+						'description' => esc_html__( 'How much items to show', 'js_composer' ),
 					),
 					array(
 						'type' => 'textfield',
@@ -699,11 +699,11 @@ class Vc_Vendor_Woocommerce {
 				'params' => array(
 					array(
 						'type' => 'textfield',
-						'heading' => esc_html__( 'Per page', 'js_composer' ),
+						'heading' => esc_html__( 'Limit', 'js_composer' ),
 						'value' => 12,
 						'param_name' => 'per_page',
 						'save_always' => true,
-						'description' => esc_html__( 'How much items per page to show', 'js_composer' ),
+						'description' => esc_html__( 'How much items to show', 'js_composer' ),
 					),
 					array(
 						'type' => 'textfield',
@@ -734,11 +734,11 @@ class Vc_Vendor_Woocommerce {
 				'params' => array(
 					array(
 						'type' => 'textfield',
-						'heading' => esc_html__( 'Per page', 'js_composer' ),
+						'heading' => esc_html__( 'Limit', 'js_composer' ),
 						'value' => 12,
 						'param_name' => 'per_page',
 						'save_always' => true,
-						'description' => esc_html__( 'How much items per page to show', 'js_composer' ),
+						'description' => esc_html__( 'How much items to show', 'js_composer' ),
 					),
 					array(
 						'type' => 'textfield',
@@ -796,11 +796,11 @@ class Vc_Vendor_Woocommerce {
 					'params' => array(
 						array(
 							'type' => 'textfield',
-							'heading' => esc_html__( 'Per page', 'js_composer' ),
+							'heading' => esc_html__( 'Limit', 'js_composer' ),
 							'value' => 12,
 							'param_name' => 'per_page',
 							'save_always' => true,
-							'description' => esc_html__( 'How much items per page to show', 'js_composer' ),
+							'description' => esc_html__( 'How much items to show', 'js_composer' ),
 						),
 						array(
 							'type' => 'textfield',

@@ -1,5 +1,9 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2020.08.20 - version 3.1.17
+* Fix - Recurring coupons not applied to subscriptions that contain items purchased using a cart subscription plan when running manual AutomateWoo workflows.
+* Fix - Product Bundles and Composite Products with a fixed-length plan cannot be switched.
+
 2020.08.05 - version 3.1.16
 * Tweak - Introduced 'wcsatt_cart_subscription_schemes' filter.
 * Fix - 'You can only switch to a subscription product' notice when attempting to switch to a new variation.

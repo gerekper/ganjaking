@@ -160,12 +160,18 @@ function betterdocs_multiple_kb( $atts, $content = null ) {
 	$taxonomy_objects = get_terms( $terms_object );
 
 	if ( $taxonomy_objects && ! is_wp_error( $taxonomy_objects ) ) :
+
 		$class = ['betterdocs-categories-wrap betterdocs-category-box layout-2 ash-bg'];
 		$class[] = 'layout-flex';
-		if(isset($get_args['column']) && $get_args['column'] == true && is_numeric($get_args['column'])){
+
+		if ( isset($get_args['column']) && $get_args['column'] == true && is_numeric($get_args['column'] ) ) {
+			
 			$class[] = 'docs-col-'.$get_args['column'];
-		}else{
+
+		} else {
+
 			$class[] = 'docs-col-'.$column_number;
+
 		}
 
 	?>
@@ -183,19 +189,33 @@ function betterdocs_multiple_kb( $atts, $content = null ) {
 				$wrap_class = 'docs-single-cat-wrap';
 			?>
 				<a href="<?php echo get_term_link( $term->slug, $get_args['taxonomy'] ) ?>" class="<?php echo esc_attr($wrap_class) ?>">
+					
 					<?php
-					$cat_icon_id = get_term_meta( $term_id, 'doc_category_image-id', true);
+
+					$cat_icon_id = get_term_meta( $term_id, 'knowledge_base_image-id', true);
+					
 					if($cat_icon_id){
+
 						echo wp_get_attachment_image ( $cat_icon_id, 'thumbnail' );
+
 					} else {
+
 						echo '<img class="docs-cat-icon" src="'.BETTERDOCS_ADMIN_URL.'assets/img/betterdocs-cat-icon.svg" alt="">';
+					
 					}
+
 					echo '<h3 class="docs-cat-title">'.$term->name.'</h3>';
+					
 					$cat_desc = get_theme_mod('betterdocs_doc_page_cat_desc');
-					if($cat_desc == true){
+					
+					if ( $cat_desc == true ) {
+
 						echo '<p class="cat-description">'.$term->description.'</p>';
+
 					}
+
 					echo wp_sprintf('<span>%s ' . __('articles', 'betterdocs').'</span>', $term->count);
+
 					?>	
 				</a>
 			<?php
@@ -264,7 +284,7 @@ function betterdocs_multiple_kb_2( $atts, $content = null ) {
 				<a href="<?php echo get_term_link( $term->slug, $get_args['taxonomy'] ) ?>" class="<?php echo esc_attr($wrap_class) ?>">
 					<?php
 
-					$cat_icon_id = get_term_meta( $term_id, 'doc_category_image-id', true);
+					$cat_icon_id = get_term_meta( $term_id, 'knowledge_base_image-id', true);
 
 					if( $cat_icon_id ) {
 
@@ -329,27 +349,40 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 	$taxonomy_objects = BetterDocs_Helper::taxonomy_object( $get_args['multiple_knowledge_base'], $get_args['terms'] );
 
 	if ( $taxonomy_objects && ! is_wp_error( $taxonomy_objects ) ) :
+
 		$class = ['betterdocs-categories-wrap category-grid pro-layout-4 white-bg'];
-		if(!is_singular('docs') && !is_tax('doc_category') && !is_tax('doc_tag')){
+		
+		if ( !is_singular( 'docs' ) && !is_tax( 'doc_category' ) && !is_tax( 'doc_tag' ) ) {
+			
 			$class[] = 'layout-flex';
-			if(isset($get_args['column']) && $get_args['column'] == true && is_numeric($get_args['column'])){
+
+			if ( isset( $get_args['column'] ) && $get_args['column'] == true && is_numeric( $get_args['column'] ) ) {
+				
 				$class[] = 'docs-col-'.$get_args['column'];
-			}else{
+
+			} else {
+
 				$class[] = 'docs-col-'.$column_number;
+
 			}
 		}
 
 	?>
 	<div class="<?php echo implode(' ',$class) ?>">
+		
 		<?php
 		// get single page category id
 		if(is_single()) {
+
 			$term_list = wp_get_post_terms(get_the_ID(), 'doc_category', array("fields" => "all"));
 			$category_id = array_column($term_list, 'term_id');
 			$page_cat = get_the_ID();
+
 		} else {
+
 			$category_id = '';
 			$page_cat = '';
+
 		}
 		
 
@@ -357,7 +390,9 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 		$taxonomy_all = array_slice($taxonomy_objects, $column_number);
 
 		echo '<div class="betterdocs-categories-wrap wrap-top-row layout-flex">';
+		
 		foreach ( $taxonomy_first_row as $term ) {
+
 			if ( '0' == ( $term->count && $term->parent ) ) {
 
 				$term_permalink = BetterDocs_Helper::term_permalink( $get_args['category'], $term->slug );
@@ -366,10 +401,15 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 				echo '<div class="docs-cat-list-2-box-content">';
 					$term_id = $term->term_id;	
 					$cat_icon_id = get_term_meta( $term_id, 'doc_category_image-id', true);
-					if($cat_icon_id){
+					
+					if( $cat_icon_id ) {
+
 						echo wp_get_attachment_image ( $cat_icon_id, 'thumbnail' );
+
 					} else {
-						echo '<img class="docs-cat-icon" src="'.BETTERDOCS_ADMIN_URL.'assets/img/betterdocs-cat-icon.svg" alt="">';
+
+						echo '<img class="docs-cat-icon" src="' . BETTERDOCS_ADMIN_URL . 'assets/img/betterdocs-cat-icon.svg" alt="">';
+					
 					}
 					echo '<div class="title-count">';
 					echo '<h3 class="docs-cat-title">'.$term->name.'</h3>';
@@ -377,7 +417,9 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 					echo '</div>';
 				echo '</div>';
 				echo '</a>';
+			
 			}
+		
 		}
 		echo '</div>';
 

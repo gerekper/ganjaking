@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_PB_REST_API
- * @version  6.1.2
+ * @version  6.3.4
  */
 class WC_PB_REST_API {
 
@@ -186,7 +186,7 @@ class WC_PB_REST_API {
 						),
 						'quantity_max'                          => array(
 							'description' => __( 'Maximum bundled item quantity.', 'woocommerce-product-bundles' ),
-							'type'        => '',
+							'type'        => WC_PB_Core_Compatibility::is_wp_version_gte( '5.5' ) ? array( 'integer', 'string' ) : '',
 							'context'     => array( 'view', 'edit' )
 						),
 						'priced_individually'                   => array(

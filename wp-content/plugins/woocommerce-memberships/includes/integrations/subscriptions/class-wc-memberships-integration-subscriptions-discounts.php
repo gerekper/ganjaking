@@ -58,6 +58,9 @@ class WC_Memberships_Integration_Subscriptions_Discounts {
 
 		// ensure we filter member prices before Subscriptions calculates cart totals
 		add_filter( 'wc_memberships_price_adjustments_filter_priority', array( $this, 'adjust_price_filters_priority' ) );
+
+		// if using cart discounts, ensure renewals don't get double discounted
+		add_filter( 'wc_memberships_is_user_eligible_for_member_discounts', [ $this, 'disable_cart_discounts_for_renewals' ] );
 	}
 
 
@@ -273,6 +276,25 @@ class WC_Memberships_Integration_Subscriptions_Discounts {
 		array_splice( $product_settings, 2, 0, $new_option );
 
 		return $product_settings;
+	}
+
+
+	/**
+	 * Ensures that the cart does not contain a renewal to avoid double-discounting.
+	 *
+	 * @since 1.17.6
+	 *
+	 * @param bool $user_is_eligible whether the user should be eligible for cart discounts
+	 * @return bool
+	 */
+	public function disable_cart_discounts_for_renewals( $user_is_eligible ) {
+
+		if ( $user_is_eligible && function_exists( 'wcs_cart_contains_renewal' ) ) {
+
+			$user_is_eligible = ! wcs_cart_contains_renewal();
+		}
+
+		return $user_is_eligible;
 	}
 
 

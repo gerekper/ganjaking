@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_CP_Compatibility
- * @version  7.0.3
+ * @version  7.0.6
  */
 class WC_CP_Compatibility {
 
@@ -221,6 +221,11 @@ class WC_CP_Compatibility {
 		// Wishlists compatibility.
 		if ( class_exists( 'WC_Wishlists_Plugin' ) ) {
 			$module_paths[ 'wishlists' ] = 'modules/class-wc-cp-wl-compatibility.php';
+		}
+
+		// WooCommerce Services compatibility.
+		if ( class_exists( 'WC_Connect_Loader' ) ) {
+			$module_paths[ 'wc_services' ] = 'modules/class-wc-cp-wc-services-compatibility.php';
 		}
 
 		// Storefront compatibility.

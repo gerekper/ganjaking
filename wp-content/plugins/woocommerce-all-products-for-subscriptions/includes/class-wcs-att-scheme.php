@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Subscription scheme object. May extend the WC_Data class or handle CRUD in the future, if schemes are moved out of meta.
  *
  * @class    WCS_ATT_Scheme
- * @version  3.1.2
+ * @version  3.1.17
  */
 class WCS_ATT_Scheme implements ArrayAccess {
 
@@ -392,7 +392,7 @@ class WCS_ATT_Scheme implements ArrayAccess {
 		$match = wp_parse_args( $args, $default );
 
 		// The subscription must have an upcoming renewal.
-		if ( $match[ 'payment_date' ] && ! $subscription->get_time( 'next_payment', '' ) ) {
+		if ( $match[ 'next_payment' ] && ! $subscription->get_time( 'next_payment', '' ) ) {
 			return false;
 		}
 

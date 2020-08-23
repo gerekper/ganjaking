@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'skyverge';
+  src: url('../fonts/skyverge.eot?8141322');
+  src: url('../fonts/skyverge.eot?8141322#iefix') format('embedded-opentype'),
+  url('../fonts/skyverge.woff2?8141322') format('woff2'),
+  url('../fonts/skyverge.woff?8141322') format('woff'),
+  url('../fonts/skyverge.ttf?8141322') format('truetype'),
+  url('../fonts/skyverge.svg?8141322#skyverge') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#toplevel_page_skyverge div.wp-menu-image:before {
+  display: inline-block;
+  font-family: 'skyverge';
+  font-size: 8px;
+  font-variant: normal;
+  content: '\e800';
+  line-height: 20px;
+  position: relative;
+  right: 1px;
+  speak: none;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#skyverge-dashboard-react-main-menu-item,
+#skyverge-dashboard-react-dashboard-menu-item {
+  display: inline-block;
+  margin-left: 5px;
+}

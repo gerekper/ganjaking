@@ -464,9 +464,61 @@
 							url: docs_cat_ordering_data.ajaxurl,
 							data: data,
 							dataType: 'JSON',
-							success: function( response ) {
-								console.log( response );
+							success: function( response ) {}
+						});
+					}
+				});
+			}
+		}
+		
+		// drag and drop sortalbe doc category
+		const kb_index = parseInt( docs_cat_ordering_data.paged ) > 0 ? ( parseInt( docs_cat_ordering_data.paged ) - 1 ) * parseInt( $( '#' + docs_cat_ordering_data.per_page_id ).val() ) : 0;
+		const kb_table  = $( '.taxonomy-knowledge_base #the-list' );
+
+		if( kb_table.length > 0 ) {
+
+			// If the tax table contains items.
+			if ( ! kb_table.find( 'tr:first-child' ).hasClass( 'no-items' ) ) {
+				
+				kb_table.sortable({
+					placeholder: "betterdocs-drag-drop-kb-tax-placeholder",
+					axis: "y",
+	
+					// On start, set a height for the placeholder to prevent table jumps.
+					start: function( event, ui ) {
+						const item  = $( ui.item[0] );
+						const index = item.index();
+						$( '.betterdocs-drag-drop-kb-tax-placeholder' ).css( 'height', item.css( 'height' ) );
+					},
+					// Update callback.
+					update: function( event, ui ) {
+						const item = $( ui.item[0] );
+	
+						const kb_ordering_data = [];
+	
+						kb_table.find( 'tr.ui-sortable-handle' ).each( function() {
+							const ele       = $( this );
+							const term_data = {
+								term_id: ele.attr( 'id' ).replace( 'tag-', '' ),
+								order: parseInt( ele.index() ) + 1
 							}
+							kb_ordering_data.push( term_data );
+						});
+						
+						// AJAX Data.
+						const data = {
+							'action': 'update_knowledge_base_order',
+							'kb_ordering_data': kb_ordering_data,
+							'kb_index': kb_index,
+							'knowledge_base_order_nonce': docs_cat_ordering_data.knowledge_base_order_nonce
+						};
+						
+						// Run the ajax request.
+						$.ajax({
+							type: 'POST',
+							url: docs_cat_ordering_data.ajaxurl,
+							data: data,
+							dataType: 'JSON'
 						});
 					}
 				});

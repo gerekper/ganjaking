@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 4.4
-Tested up to: 5.4.1
+Tested up to: 5.5
 Requires PHP: 5.6
 
 Automatically generates and emails daily CSV exports of your Authorize.Net transactions. You can also download an export by going to WooCommerce > Reports > Authorize.Net > Export

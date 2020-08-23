@@ -1,5 +1,8 @@
 *** Customer/Order/Coupon CSV Import Suite Changelog ***
 
+2020.08.17 - version 3.9.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+
 2020.08.05 - version 3.8.8
  * Tweak - Offer an import option to avoid reducing stock for imported orders
  * Fix - Do not reduce stock for imported orders that may contain unknown items that do not match catalog products

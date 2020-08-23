@@ -13,10 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Recurring frequency in Package Condition.
+ * Product on Subscription in Package Condition.
  *
  * @class    WC_CSP_Condition_Package_Recurring_Item
- * @version  1.6.0
+ * @version  1.8.4
  */
 class WC_CSP_Condition_Package_Recurring_Item extends WC_CSP_Package_Condition {
 
@@ -25,7 +25,7 @@ class WC_CSP_Condition_Package_Recurring_Item extends WC_CSP_Package_Condition {
 	 */
 	public function __construct() {
 		$this->id                            = 'recurring_item_in_package';
-		$this->title                         = __( 'Recurring Item', 'woocommerce-conditional-shipping-and-payments' );
+		$this->title                         = __( 'Product on Subscription', 'woocommerce-conditional-shipping-and-payments' );
 		$this->supported_global_restrictions = array( 'shipping_methods', 'shipping_countries' );
 	}
 

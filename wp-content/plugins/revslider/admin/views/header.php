@@ -109,13 +109,19 @@ if(version_compare(RS_REVISION, $rs_show_updated, '>')){
 	var RS_DO_SILENT_SLIDER_UPDATE = <?php echo ($rs_slider_update_needed == true) ? 'true' : 'false'; ?>;
 	
 	if(RS_DO_SILENT_SLIDER_UPDATE === true){
-		//push request to update slider for slider until finished
+		//push request to update slider for slider until finished		
+		var rs_do_silent_update_once = false
 		if (document.readyState === "loading") 
-			window.addEventListener('DOMContentLoaded',function(){
-				rs_do_silent_update();
+			document.addEventListener('readystatechange',function(){
+				if ((document.readyState === "interactive" || document.readyState === "complete") && !rs_do_silent_update_once) {
+					rs_do_silent_update_once = true;
+					rs_do_silent_update();
+				}
 			});
-		else
+		else {
+			rs_do_silent_update_once = true;
 			rs_do_silent_update();
+		}		
 	}
 	
 	function rs_do_silent_update(){

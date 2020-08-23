@@ -202,11 +202,18 @@ class RevSliderFront extends RevSliderFunctions {
 					jQuery('#wp-admin-bar-revslider').remove();
 				}
 			}
+			var adminBarLoaded_once = false
 			if (document.readyState === "loading") 
-				window.addEventListener('DOMContentLoaded',function(){
-					rs_adminBarToolBarTopFunction()
+				document.addEventListener('readystatechange',function(){
+					if ((document.readyState === "interactive" || document.readyState === "complete") && !adminBarLoaded_once) {
+						adminBarLoaded_once = true;
+						rs_adminBarToolBarTopFunction()
+					}
 				});
-			else rs_adminBarToolBarTopFunction();
+			else {
+				adminBarLoaded_once = true;
+				rs_adminBarToolBarTopFunction();
+			}
 		</script>
 		<?php
 }

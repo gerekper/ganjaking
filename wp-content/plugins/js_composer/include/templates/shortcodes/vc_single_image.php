@@ -216,7 +216,7 @@ if ( in_array( $source, array( 'media_library', 'featured_image' ), true ) && 'y
 }
 
 if ( 'yes' === $add_caption && '' !== $caption ) {
-	$html .= '<figcaption class="vc_figure-caption">' . esc_html( $caption ) . '</figcaption>';
+	$html .= '<figcaption class="vc_figure-caption">' . $caption . '</figcaption>';
 }
 $wrapper_attributes = array();
 if ( ! empty( $el_id ) ) {

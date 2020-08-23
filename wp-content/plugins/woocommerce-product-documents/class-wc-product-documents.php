@@ -34,7 +34,7 @@ class WC_Product_Documents extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.11.3';
+	const VERSION = '1.12.0';
 
 	/** @var WC_Product_Documents single instance of this plugin */
 	protected static $instance;

@@ -1,5 +1,9 @@
 *** WooCommerce Sequential Order Numbers Pro Changelog ***
 
+2020.08.21 - version 1.16.0
+ * Feature - Add onboarding tips for new users
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+
 2020.05.04 - version 1.15.3
  * Misc - Add support for WooCommerce 4.1
 

@@ -1,0 +1,95 @@
+08-20-2020 @ 16:12:31 - 3.0.7 upgrade complete from Subscriptions v0 while WooCommerce WC_VERSION 4.4.1 and database version 4.4.1 was active.
+08-20-2020 @ 16:12:31 - Environment info:
+08-20-2020 @ 16:12:31 -     WordPress Version : 5.5
+08-20-2020 @ 16:12:31 - Active Plugins:
+08-20-2020 @ 16:12:31 -     Ultimate Addons for WPBakery Page Builder by Brainstorm Force – 3.19.6
+08-20-2020 @ 16:12:31 -     Admin Columns Pro by AdminColumns.com – 5.3
+08-20-2020 @ 16:12:31 -     Advanced WordPress Reset by Younes JFR. – 1.1.0
+08-20-2020 @ 16:12:31 -     BetterDocs Pro by WPDeveloper – 1.3.0
+08-20-2020 @ 16:12:31 -     BetterDocs by WPDeveloper – 1.3.4
+08-20-2020 @ 16:12:31 -     Contact Form 7 by Takayuki Miyoshi – 5.2.1
+08-20-2020 @ 16:12:31 -     Ultimate GDPR by CreateIT – 1.7.6
+08-20-2020 @ 16:12:31 -     Custom Post Type UI by WebDevStudios – 1.8.0
+08-20-2020 @ 16:12:31 -     Dynamic Featured Image by Ankit Pokhrel – 3.7.0
+08-20-2020 @ 16:12:31 -     Elementor by Elementor.com – 2.9.14
+08-20-2020 @ 16:12:31 -     Energy+ by EN.ER.GY – 1.2.2
+08-20-2020 @ 16:12:31 -     Force Regenerate Thumbnails by Pedro Elsner – 2.0.6
+08-20-2020 @ 16:12:31 -     Imagify by WP Media – 1.9.10
+08-20-2020 @ 16:12:31 -     Social Slider Widget by creativemotion – 1.7.11
+08-20-2020 @ 16:12:31 -     WPBakery Page Builder by Michael M - WPBakery.com – 6.2.0
+08-20-2020 @ 16:12:31 -     MailOptin - Lite by MailOptin Team – 1.2.30.2
+08-20-2020 @ 16:12:31 -     MemberPress Active Campaign by Caseproof, LLC – 1.0.4
+08-20-2020 @ 16:12:31 -     MemberPress AWeber by Caseproof, LLC – 1.1.0
+08-20-2020 @ 16:12:31 -     MemberPress AWS by Caseproof, LLC – 1.3.4
+08-20-2020 @ 16:12:31 -     MemberPress Beaver Builder Content Protection by Caseproof, LLC – 1.0.4
+08-20-2020 @ 16:12:31 -     MemberPress + BuddyPress Integration by Caseproof, LLC – 1.1.6
+08-20-2020 @ 16:12:31 -     MemberPress Campaign Monitor by Caseproof, LLC – 1.0.2
+08-20-2020 @ 16:12:31 -     MemberPress Constant Contact by Caseproof, LLC – 1.1.1
+08-20-2020 @ 16:12:31 -     MemberPress ConvertKit by Caseproof, LLC – 1.2.1
+08-20-2020 @ 16:12:31 -     MemberPress Corporate Accounts by Caseproof, LLC – 1.5.6
+08-20-2020 @ 16:12:31 -     MemberPress Delightful Downloads by Caseproof, LLC – 1.0.2
+08-20-2020 @ 16:12:31 -     MemberPress Developer Tools by Caseproof, LLC – 1.1.36
+08-20-2020 @ 16:12:31 -     MemberPress Divi Content Protection by Caseproof, LLC – 1.0.2
+08-20-2020 @ 16:12:31 -     MemberPress Downloads by Caseproof, LLC – 1.0.5
+08-20-2020 @ 16:12:31 -     MemberPress Drip - Tags Version by Caseproof, LLC – 1.1.1
+08-20-2020 @ 16:12:31 -     MemberPress GetResponse by Caseproof, LLC – 1.1.0
+08-20-2020 @ 16:12:31 -     MemberPress HelpScout by Caseproof, LLC – 1.0.7
+08-20-2020 @ 16:12:31 -     MemberPress Importer by Caseproof, LLC – 1.6.1
+08-20-2020 @ 16:12:31 -     MemberPress Mad Mimi by Caseproof, LLC – 1.0.2
+08-20-2020 @ 16:12:31 -     MemberPress MailChimp 3.0 by Caseproof, LLC – 1.2.1
+08-20-2020 @ 16:12:31 -     MemberPress MailPoet by Caseproof, LLC – 1.2.0
+08-20-2020 @ 16:12:31 -     MemberPress Mailrelay by Caseproof, LLC – 1.0.5
+08-20-2020 @ 16:12:31 -     MemberPress Mailster by Caseproof, LLC – 1.1.0
+08-20-2020 @ 16:12:31 -     MemberPress Math CAPTCHA by Caseproof, LLC – 1.1.7
+08-20-2020 @ 16:12:31 -     MemberPress PDF Invoice by Caseproof, LLC – 1.0.9
+08-20-2020 @ 16:12:31 -     MemberPress Sendy by Caseproof, LLC – 1.0.5
+08-20-2020 @ 16:12:31 -     MemberPress + Sensei by Caseproof, LLC – 1.0.2
+08-20-2020 @ 16:12:31 -     MemberPress User Roles by Caseproof, LLC – 1.0.5
+08-20-2020 @ 16:12:31 -     MemberPress WooCommerce by Caseproof, LLC – 1.0.5
+08-20-2020 @ 16:12:31 -     MemberPress WP Simple Pay Pro by Caseproof, LLC – 1.0.3
+08-20-2020 @ 16:12:31 -     MemberPress Plus by Caseproof, LLC – 1.8.15
+08-20-2020 @ 16:12:31 -     Permalink Manager Pro by Maciej Bis – 2.2.8.9
+08-20-2020 @ 16:12:31 -     PHP Compatibility Checker by WP Engine – 1.5.0
+08-20-2020 @ 16:12:31 -     Porto Theme - Functionality by P-Themes – 1.7.4
+08-20-2020 @ 16:12:31 -     Regenerate Thumbnails by Alex Mills (Viper007Bond) – 3.1.3
+08-20-2020 @ 16:12:31 -     Slider Revolution 404 Page Add-On by ThemePunch – 2.0.0
+08-20-2020 @ 16:12:31 -     Slider Revolution Backup Add-On by ThemePunch – 2.0.1
+08-20-2020 @ 16:12:31 -     Slider Revolution Before/After Add-On by ThemePunch – 2.0.4
+08-20-2020 @ 16:12:31 -     Slider Revolution Bubblemorph AddOn by ThemePunch – 2.1.0
+08-20-2020 @ 16:12:31 -     Slider Revolution Domain Switch Add-on by ThemePunch – 1.0.1
+08-20-2020 @ 16:12:31 -     Slider Revolution Duotone-Filters Add-On by ThemePunch – 2.0.0
+08-20-2020 @ 16:12:31 -     Slider Revolution Exploding Layers Add-On by ThemePunch – 2.1.1
+08-20-2020 @ 16:12:31 -     Slider Revolution Featured Slider Add-on by ThemePunch – 2.0.1
+08-20-2020 @ 16:12:31 -     Slider Revolution FilmStrip Add-On by ThemePunch – 2.0.2
+08-20-2020 @ 16:12:31 -     Slider Revolution WP Gallery Add-On by ThemePunch – 2.0.0
+08-20-2020 @ 16:12:31 -     Slider Revolution Distortion Effect AddOn by ThemePunch – 2.0.2
+08-20-2020 @ 16:12:31 -     Slider Revolution Login Page Add-on by ThemePunch – 2.0.1
+08-20-2020 @ 16:12:31 -     Slider Revolution Coming Soon & Maintenance Add-on by ThemePunch – 2.1.1
+08-20-2020 @ 16:12:31 -     Slider Revolution Paint-Brush Add-On by ThemePunch – 2.1.6
+08-20-2020 @ 16:12:31 -     Slider Revolution Panorama AddOn by ThemePunch – 2.1.1
+08-20-2020 @ 16:12:31 -     Slider Revolution Particles Effect by ThemePunch – 2.1.0
+08-20-2020 @ 16:12:31 -     Slider Revolution Polyfold Scroll Effect by ThemePunch – 2.0.0
+08-20-2020 @ 16:12:31 -     Slider Revolution Previous and Next Posts Add-On by ThemePunch – 2.0.1
+08-20-2020 @ 16:12:31 -     Slider Revolution URL Load Add-on by ThemePunch – 2.0.0
+08-20-2020 @ 16:12:31 -     Slider Revolution Related Posts Add-On by ThemePunch – 2.0.0
+08-20-2020 @ 16:12:31 -     Slider Revolution Reveal Preloaders by ThemePunch – 2.0.0
+08-20-2020 @ 16:12:31 -     Slider Revolution Sharing Add-on by ThemePunch – 2.0.5
+08-20-2020 @ 16:12:31 -     Slider Revolution Slicey Add-On by ThemePunch – 2.0.4
+08-20-2020 @ 16:12:31 -     Slider Revolution Holiday Snow by ThemePunch – 2.0.0
+08-20-2020 @ 16:12:31 -     Slider Revolution Typewriter Effect by ThemePunch – 2.0.2
+08-20-2020 @ 16:12:31 -     Slider Revolution Weather Add-on by ThemePunch – 2.0.1
+08-20-2020 @ 16:12:31 -     Slider Revolution Whiteboard Add-on by ThemePunch – 2.2.0
+08-20-2020 @ 16:12:31 -     Slider Revolution by ThemePunch – 6.2.21
+08-20-2020 @ 16:12:31 -     SeedProd Coming Soon Page Pro by SeedProd – 5.12.5
+08-20-2020 @ 16:12:31 -     The Plus Ultimate Visual Composer Addons by Posimyth Themes – 3.0.0
+08-20-2020 @ 16:12:31 -     UnGrabber by Merkulove – 2.0.1
+08-20-2020 @ 16:12:31 -     Cart Reports for WooCommerce by WooCommerce – 1.2.9
+08-20-2020 @ 16:12:31 -     Follow-Up Emails by WooCommerce – 4.9.4
+08-20-2020 @ 16:12:31 -     WooCommerce Subscriptions by WooCommerce – 3.0.7
+08-20-2020 @ 16:12:31 -     WooCommerce by Automattic – 4.4.1
+08-20-2020 @ 16:12:31 -     Yoast SEO Premium by Team Yoast – 14.8
+08-20-2020 @ 16:12:31 -     WP Cerber Security, Anti-spam & Malware Scan by Cerber Tech Inc. – 8.6.6
+08-20-2020 @ 16:12:31 -     WP Media Folders by WP Hi-Tech – 1.2.3
+08-20-2020 @ 16:12:31 -     WP Rocket by WP Media – 3.6.4
+08-20-2020 @ 16:12:31 -     WP Sitemap Page by Tony Archambeau – 1.6.2
+08-20-2020 @ 16:12:31 -     Yoast SEO: WooCommerce by Team Yoast – 13.5

@@ -221,24 +221,6 @@ class REST_API extends Framework\REST_API {
 
 
 	/**
-	 * Gets the webhooks handler instance.
-	 *
-	 * TODO remove this deprecated method by May 2020 or by version 2.0.0 {FN 2019-05-29}
-	 *
-	 * @since 1.11.0
-	 * @deprecated since 1.13.1
-	 *
-	 * @return \SkyVerge\WooCommerce\Memberships\API\Webhooks
-	 */
-	public function get_webhooks() {
-
-		_deprecated_function( __METHOD__, '1.13.1', 'wc_memberships()->get_webhooks_instance()' );
-
-		return $this->get_plugin()->get_webhooks_instance();
-	}
-
-
-	/**
 	 * Returns the data to add to the WooCommerce REST API System Status response.
 	 *
 	 * @see \SkyVerge\WooCommerce\Memberships\System_Status_Report::get_system_status_report_data() for extending the response data

@@ -1,5 +1,11 @@
 *** WooCommerce Follow-Up Emails ***
 
+2020-08-19 - version 4.9.6
+* Fix - Replace deprecated jQuery methods.
+
+2020-08-11 - version 4.9.5
+* Tweak - WP 5.5 compatibility.
+
 2020-08-06 - version 4.9.4
 * Add - Debug logging for the email queue.
 * Fix - Save all meta data when updating an email.

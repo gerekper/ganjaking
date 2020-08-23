@@ -1,0 +1,165 @@
+*** WooCommerce Twilio SMS Notifications Changelog ***
+
+2020.08.17 - version 1.15.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+
+2020.05.04 - version 1.14.4
+ * Misc - Add support for WooCommerce 4.1
+
+2020.04.17 - version 1.14.3
+ * Tweak - Change trigger for admin notifications to woocommerce_payment_complete to better support custom order statuses.
+ * Fix - Address a fatal error with WooCommerce Bookings when creating a booking without an associated order from the admin
+ * Fix - Prevent WooCommerce Bookings reminders and follow up notifications from being send at the wrong time
+
+2020.03.05 - version 1.14.2
+ * Misc - Add support for WooCommerce 4.0
+
+2020.01.02 - version 1.14.1
+ * Misc - Add support for WooCommerce 3.9
+
+2019.11.05 - version 1.14.0
+ * Misc - Add support for WooCommerce 3.8
+
+2019.08.12 - version 1.13.0
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.07.17 - version 1.12.3
+ * Tweak - When verifying AJAX requests, check if logged in user can manage WooCommerce rather than checking if they can simply edit posts
+ * Fix - Make sure an ellipsis at the end of truncated messages is always added
+
+2019.06.19 - version 1.12.2
+ * Tweak - Add setting to disable truncating messages to 160 characters to attempt sending long messages split into multiple concatenated segments
+ * Tweak - The Send Test SMS box in admin settings will also reflect the characters limit setting when sending test SMS
+ * Misc - Remove support for discontinued Google URL shortener
+
+2019.04.30 - version 1.12.1
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+
+2019.02.21 - version 1.12.0
+ * Feature - Add compatibility for WooCommerce Bookings to send appointment confirmations and reminders via SMS
+ * Misc - Upgrade to SkyVerge plugin framework version 5.3.1
+ * Misc - Remove support for PHP 5.2
+
+2018.11.29 - version 1.11.2
+ * Fix - Ensure customers can still enter their phone numbers without the country calling code
+
+2018.11.07 - version 1.11.1
+ * Fix - Update Jamaica's country code to allow for the recently introduced 658 calling code
+ * Fix - Check if a calling code was already provided by the customer in more instances
+
+2018.10.24 - version 1.11.0
+ * Feature - Allow use of Firebase Dynamic Links instead of the legacy Google URL shortener, which is being phased out by Google
+ * Misc - Add support for WooCommerce 3.5
+
+2018.05.23 - version 1.10.1
+ * Tweak - When an order is anonymized and personal data removed, remove also the customer opt-in preference to receive SMS notifications for the order
+ * Misc - Add support for WooCommerce 3.4
+
+2018.01.23 - version 1.10.0
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2018.01.10 - version 1.9.3
+ * Tweak - Determine destination phone number country code from the number whenever possible and use order billing country only as a fallback
+
+2017.12.05 - version 1.9.2
+ * Tweak - Add Alphanumeric Sender ID support for Cuba, Egypt and Tunisia.
+
+2017.11.01 - version 1.9.1
+ * Tweak - Add billing first name and billing last name merge tags for message content.
+
+2017.03.28 - version 1.9.0
+ * Tweak - Updated supported countries list for Alphanumeric Sender ID
+ * Fix - The %shop_name% merge tag now uses the proper site name on multisite installations rather than the network name
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2016.11.02 - version 1.8.3
+ * Fix - Ensure messages using a multibyte character set are properly truncated to 160 characters
+
+2016.10.19 - version 1.8.2
+ * Tweak - Restore Google URL shortening support and require a Google API key
+
+2016.09.07 - version 1.8.1
+ * Fix - Plugin may trigger a fatal error when failing to generate a short URL for an SMS
+
+2016.06.02 - version 1.8.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.02.09 - version 1.7.1
+ * Tweak - Use the updated `/Messages.json` endpoint
+ * Fix - Fix support for Alphanumeric Sender IDs
+ * Fix - Fix "The 'To' number +XXXXXXXXXX is not a valid phone number" errors that could occur when sending messages to certain countries
+
+2016.01.14 - version 1.7.0
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.12.11 - version 1.6.1
+ * Fix - Fix message placeholder compatibility for WooCommerce 2.2 & 2.3
+
+2015.10.19 - version 1.6.0
+ * Feature - Add support for Alphanumeric Sender IDs
+ * Feature - Add ability to toggle order SMS messages from the admin
+ * Feature - Add support for custom order statuses
+ * Tweak - Add new message placeholder options
+ * Fix - Fix incorrect removal of leading zeroes for certain international mobile numbers
+ * Fix - Don't display opt-in checkbox on checkout if label is not set
+
+2015.07.28 - version 1.5.0
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.02.09 - version 1.4.0
+ * Misc - WooCommerce 2.3 Compatibility
+
+2015.01.23 - version 1.3.0
+ * Feature - You can now customize the Twilio SMS response message :)
+
+2014.09.07 - version 1.2.1
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.01.20 - version 1.2.0
+ * Misc - WooCommerce 2.1 compatibility
+ * Misc - Uses SkyVerge Plugin Framework
+ * Localization - Text domain changed from `wc-twilio-sms-notifications` to `woocommerce-twilio-sms-notifications`
+
+2013.07.12 - version 1.1.4
+ * Tweak - Send order SMS via AJAX so default messages can be used
+ * Misc - Added a new filter 'wc_twilio_sms_notifications_default_admin_sms_message'
+
+2013.06.28 - version 1.1.3
+ * Fix - Improved compatibility with restrictive server environments
+
+2013.05.03 - version 1.1.2
+ * Fix - Don't format admin mobile number for admin notifications
+ * Tweak - Don't format customer mobile number if the entered mobile number starts with a '+'
+
+2013.01.29 - version 1.1.1
+ * Fix - Typo :)
+
+2013.1.23 - version 1.1.0
+ * Feature - Show total cost and number of SMS messages sent for current day in admin menu bar
+ * Feature - WooCommerce 2.0 Compatible
+ * Fix - Strip '00' international dialing code if entered by customer
+ * Fix - Support custom order numbers
+ * Misc - Many other small tweaks and refactors to improve reliability and performance
+
+2012.12.07 - version 1.0.3
+ * Fix - Fix possible issue in PHP environments with E_STRICT turned on
+
+2012.12.06 - version 1.0.2
+ * Fix - Uncaught exception when formatting datetimes when the WordPress timezone was set to UTC or a UTC offset
+ * Fix - Don't e.164 format the 'From' number or 'Test Number'
+ * Feature - new updater
+
+2012.11.30 - version 1.0.1
+ * Feature - The site timezone settings are now used when displaying the Date / Time that an SMS was sent
+ * Feature - Greatly improve e.164 formatting for phone numbers so international numbers now include the + symbol and correct country dialing code
+ * Feature - Log errors to the WooCommerce log instead of the PHP error log for easier access when on shared or cloud hosting
+
+2012.11.08 - version 1.0
+ * Initial Release :)

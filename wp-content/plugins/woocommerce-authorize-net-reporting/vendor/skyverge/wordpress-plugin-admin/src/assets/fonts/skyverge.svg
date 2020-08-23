@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2018 by original authors @ fontello.com</metadata>
+<defs>
+<font id="skyverge" horiz-adv-x="1000" >
+<font-face font-family="skyverge" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="skyverge" unicode="&#xe800;" d="M1104 850c-94-20-185-46-271-77 128-528 515-754 545-771v136c-261 263-274 641-274 712m-338-103c-106-43-205-94-295-152 200-425 865-723 907-741v148c-400 170-585 665-612 745m-353-193c-133-96-243-208-324-332 464-359 1244-369 1289-369v49c-554 128-882 537-965 652m-365-402c-18-33-34-67-48-102 66-27 570-225 1378-197v0c-47 1-915 32-1330 299m1603 698c95-20 186-46 272-77-129-528-515-754-545-771v136c261 263 273 641 273 712m339-103c106-43 205-94 294-152-200-425-864-723-906-741v148c400 170 585 665 612 745m353-193c133-96 243-208 324-332-465-359-1244-369-1289-369v49c554 128 882 537 965 652m365-402c18-33 34-67 48-102-66-27-570-225-1378-197v0c47 1 915 32 1330 299" horiz-adv-x="2756" />
+</font>
+</defs>
+</svg>

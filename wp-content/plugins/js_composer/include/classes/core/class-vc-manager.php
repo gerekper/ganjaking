@@ -224,6 +224,9 @@ class Vc_Manager {
 	 * @access public
 	 */
 	public function init() {
+		if ( method_exists( 'LiteSpeed_Cache_API', 'esi_enabled' ) && LiteSpeed_Cache_API::esi_enabled() ) {
+			LiteSpeed_Cache_API::hook_tpl_esi( 'js_composer', 'vc_hook_esi' );
+		}
 		ob_start();
 		do_action( 'vc_before_init' );
 		ob_end_clean(); // FIX for whitespace issues (#76147)

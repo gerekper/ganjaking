@@ -44,6 +44,9 @@ class WCS_ATT_Manage_Switch extends WCS_ATT_Abstract_Module {
 		// Allow scheme switching for SATT products with more than 1 scheme.
 		add_filter( 'wcs_is_product_switchable', array( __CLASS__, 'is_product_switchable' ), 10, 2 );
 
+		// Prevent content switching when plan switching is disabled and a matching scheme can't be found.
+		add_filter( 'woocommerce_subscriptions_can_item_be_switched', array( __CLASS__, 'can_switch_item' ), 5, 3 );
+
 		// Disable one-time purchases when switching.
 		add_filter( 'wcsatt_force_subscription', array( __CLASS__, 'force_subscription' ), 10, 2 );
 
@@ -138,6 +141,41 @@ class WCS_ATT_Manage_Switch extends WCS_ATT_Abstract_Module {
 		}
 
 		return $is_switchable;
+	}
+
+	/**
+	 * Prevent content switching when plan switching is disabled and a matching scheme can't be found.
+	 *
+	 * @since  3.1.17
+	 *
+	 * @param  boolean          $can
+	 * @param  WC_Order_Item    $item
+	 * @param  WC_Subscription  $subscription
+	 * @return boolean
+	 */
+	public static function can_switch_item( $can, $item, $subscription ) {
+
+		$product = $item->get_product();
+
+		if ( WCS_ATT_Product::supports_feature( $product, 'subscription_schemes' ) && WCS_ATT_Product::supports_feature( $product, 'subscription_content_switching' ) && ! WCS_ATT_Product::supports_feature( $product, 'subscription_scheme_switching' ) ) {
+
+			$schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
+			$found   = false;
+
+			// Does a matching scheme exist?
+			foreach ( $schemes as $scheme ) {
+				if ( $scheme->matches_subscription( $subscription, array( 'upcoming_renewals' => false ) ) ) {
+					$found = true;
+					break;
+				}
+			}
+
+			if ( ! $found ) {
+				$can = false;
+			}
+		}
+
+		return $can;
 	}
 
 	/**

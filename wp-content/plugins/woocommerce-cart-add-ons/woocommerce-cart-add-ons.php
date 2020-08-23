@@ -3,8 +3,9 @@
  * Plugin Name: WooCommerce Cart Add-Ons
  * Plugin URI: https://woocommerce.com/products/cart-add-ons/
  * Description: A tool for driving incremental and impulse purchases once customers are in the shopping cart. It extends the concept of upsells and cross-sells at the product level, and engages your customers at the moment they are most likely to increase spending.
- * Version: 1.5.30
+ * Version: 1.15.31
  * Author: WooCommerce
+ * Tested up to: 5.5
  * WC tested up to: 4.2
  * Author URI: https://woocommerce.com/
  * Text domain: sfn_cart_addons
@@ -33,7 +34,7 @@
  **/
 load_plugin_textdomain( 'sfn_cart_addons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-define( 'WC_CART_ADDONS_VERSION', '1.5.30' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CART_ADDONS_VERSION', '1.15.31' ); // WRCS: DEFINED_VERSION.
 
 class SFN_Cart_Addons {
 

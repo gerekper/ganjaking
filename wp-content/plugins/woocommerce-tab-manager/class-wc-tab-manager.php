@@ -34,7 +34,7 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version */
-	const VERSION = '1.12.2';
+	const VERSION = '1.13.0';
 
 	/** @var \WC_Tab_Manager single instance of this plugin */
 	protected static $instance;

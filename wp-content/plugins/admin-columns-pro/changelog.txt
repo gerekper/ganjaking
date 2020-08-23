@@ -1,5 +1,14 @@
 == Changelog ==
 
+= 5.3.1 =
+Release Date: August 21st, 2020
+
+* [Fixed] Sorting for Media Exif information improved
+* [Improved] Add 'is empty' and 'is not empty' smart filtering operators for Excerpt column
+* [Improved] Remove filter in saved filter when a column does not exist anymore
+* [Updated] Admin Columns Core changes ( 4.2.1 )
+* [Fixed] JS error on table pages
+
 = 5.3 =
 Release Date: August 18th, 2020
 

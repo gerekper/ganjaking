@@ -1490,8 +1490,8 @@ class WC_Dropshipping_Admin
 						<span>
 							<td>
 								<select name="ali_cbe_price_rate_name">
-	  							<option value="ali_cbe_price_rate_percent_offset" '. $ali_cbe_price_rate_selected_1 .'>Percent Offset</option>
-	  							<option value="ali_cbe_fixed_price_offset"'. $ali_cbe_price_rate_selected_2 .'>Fixed Price Offset</option>
+	  							<option value="ali_cbe_price_rate_percent_offset" '. @$ali_cbe_price_rate_selected_1 .'>Percent Offset</option>
+	  							<option value="ali_cbe_fixed_price_offset"'. @$ali_cbe_price_rate_selected_2 .'>Fixed Price Offset</option>
 								</select>
 							</td>
 						</span>

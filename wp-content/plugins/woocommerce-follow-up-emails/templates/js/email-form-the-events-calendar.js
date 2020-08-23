@@ -122,14 +122,14 @@ jQuery(document).ready(function($) {
                 if ( resp == 1) {
                     jQuery(".product_include_variations").show();
                 } else {
-                    jQuery("#include_variations").attr("checked", false);
+                    jQuery("#include_variations").prop("checked", false);
                     jQuery(".product_include_variations").hide();
                 }
 
                 jQuery(".ticket_product_tr").unblock();
             });
         } else {
-            jQuery("#include_variations").attr("checked", false);
+            jQuery("#include_variations").prop("checked", false);
             jQuery(".product_include_variations").hide();
         }
     });

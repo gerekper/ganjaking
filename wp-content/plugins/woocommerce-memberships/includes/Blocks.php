@@ -63,6 +63,8 @@ class Blocks {
 	/**
 	 * Gets the block editor version in use.
 	 *
+	 * Note: since WordPress 5.5 this may no longer be a valid semver string!
+	 *
 	 * @since 1.15.0
 	 *
 	 * @return string
@@ -96,11 +98,16 @@ class Blocks {
 			$block_editor_version   = $this->get_block_editor_version();
 			$this->has_block_editor = '' !== $block_editor_version
 			                          && function_exists( 'register_block_type' )
-			                          && function_exists( 'wp_set_script_translations' )
-			                          && version_compare( $block_editor_version, $this->min_block_editor_version, '>=' );
+			                          && function_exists( 'wp_set_script_translations' );
+
+			// we may only use version compare with semver strings
+			if ( $this->has_block_editor && false !== strpos( $block_editor_version, '.' ) ) {
+
+				$this->has_block_editor = version_compare( $block_editor_version, $this->min_block_editor_version, '>=' );
+			}
 		}
 
-		return (bool) $this->has_block_editor;
+		return $this->has_block_editor;
 	}
 
 
@@ -262,8 +269,10 @@ class Blocks {
 			];
 		}
 
+		$version = $this->get_block_editor_version();
+
 		// blocks keywords for shortcut and blocks search uses
-		if ( version_compare( $this->get_block_editor_version(), '6.2', '<' ) ) {
+		if ( false !== strpos( $version, '.' ) && version_compare( $version, '6.2', '<' ) ) {
 			// older versions of Gutenberg may throw an error if more than 3 keywords are defined per block
 			$keywords = [
 				__( 'restricted', 'woocommerce-memberships' ),

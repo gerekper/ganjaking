@@ -59,13 +59,17 @@ class Betterdocs_Pro_Admin {
 		add_action( 'wp_ajax_update_docs_term', array( $this, 'update_docs_term' ) );
 		add_action( 'save_post_docs', array( $this, 'update_new_post_doc_order_by_category' ) );
 		add_action( 'wp_ajax_betterdocs_dark_mode', array( $this, 'dark_mode' ) );
+		
 		$alphabetically_order_post = BetterDocs_DB::get_settings('alphabetically_order_post');
 		if ( $alphabetically_order_post != 1 ) {
 			add_filter( 'betterdocs_articles_args', array( $this, 'docs_args' ), 11, 2 );
 			add_filter( 'betterdocs_sub_cat_articles_args', array( $this, 'docs_args' ), 11, 2 );
 		}
+		
 		add_action( 'new_to_auto-draft', array( $this, 'auto_add_category') );
+
 	}
+
 	/**
 	 * Auto Add in Category, Adding from Sorting
 	 *
@@ -146,18 +150,22 @@ class Betterdocs_Pro_Admin {
 				return;
 			}
 		}
+
 		wp_enqueue_script( 'clipboard', BETTERDOCS_PUBLIC_URL . 'js/clipboard.min.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/betterdocs-pro-admin.js', array( 'jquery', 'clipboard' ), $this->version, false );
+		
 		$dark_mode = false;
 		if( class_exists( 'BetterDocs_DB' ) ) {
 			$dark_mode = BetterDocs_DB::get_settings( 'dark_mode' );
 		}
+
 		wp_localize_script(
 			$this->plugin_name,
 			'docs_cat_ordering_data',
 			array(
 				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
 				'doc_cat_order_nonce' => wp_create_nonce( 'doc_cat_order_nonce' ),
+				'knowledge_base_order_nonce' => wp_create_nonce( 'knowledge_base_order_nonce' ),
 				'paged'               => isset( $_GET['paged'] ) ? absint( wp_unslash( $_GET['paged'] ) ) : 0,
 				'per_page_id'         => "edit_{$tax->taxonomy}_per_page",
 				'menu_title'          => __( 'Switch to BetterDocs UI', 'betterdocs-pro' ),
@@ -222,14 +230,16 @@ class Betterdocs_Pro_Admin {
         <?php
     }
 
-	public function betterdocs_menu_slug(){
+	public function betterdocs_menu_slug() {
 		return 'betterdocs-admin';
 	}
-	public function betterdocs_admin_output(){
+
+	public function betterdocs_admin_output() {
 		return array( $this, 'betterdocs_admin_display' );
 	}
 
-	public function betterdocs_admin_display(){
+	public function betterdocs_admin_display() {
+		
 		$terms_object = array(
 			'taxonomy' => 'doc_category',
 			'orderby' => 'meta_value_num',
@@ -237,6 +247,7 @@ class Betterdocs_Pro_Admin {
 			'order' => 'ASC',
 			'hide_empty' => false,
 		);
+
 		if ( BetterDocs_Multiple_Kb::$enable == 1 && isset( $_GET['knowledgebase'] ) && $_GET['knowledgebase'] !== 'all' ) {
 			$terms_object['meta_query'] = array( 
 				array(
@@ -246,7 +257,9 @@ class Betterdocs_Pro_Admin {
 				)
 			);
 		}
+
 		$terms = get_terms($terms_object);
+
 		if( file_exists( BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-sorting-display.php' ) ) {
             return include_once BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-sorting-display.php';
         }
@@ -267,11 +280,16 @@ class Betterdocs_Pro_Admin {
         return $pages;
 	}
 	
-	public function highlight_admin_menu( $parent_file ){
+	public function highlight_admin_menu( $parent_file ) {
+
 		global $current_screen;
+
 		if( $current_screen->post_type === 'docs' ) {
+
 			$parent_file = 'betterdocs-admin';
+
 		}
+
         return $parent_file;
 	}
 
@@ -280,32 +298,56 @@ class Betterdocs_Pro_Admin {
 		global $current_screen, $pagenow;
 
         if ( $current_screen->post_type == 'docs' ) {
+
             if ( $pagenow == 'post.php' ) {
-                $submenu_file = 'betterdocs-admin';
+
+				$submenu_file = 'betterdocs-admin';
+				
 			}
+
 			if ( $pagenow == 'post-new.php' ) {
-                $submenu_file = 'post-new.php?post_type=docs';
+
+				$submenu_file = 'post-new.php?post_type=docs';
+				
 			}
+
 			if( $current_screen->id === 'edit-doc_category' ) {
+
 				$submenu_file = 'edit-tags.php?taxonomy=doc_category&post_type=docs';
+
 			}
+
 			if( $current_screen->id === 'edit-doc_tag' ) {
+
 				$submenu_file = 'edit-tags.php?taxonomy=doc_tag&post_type=docs';
+
 			}
+
 			if( $current_screen->id === 'edit-knowledge_base' ) {
+
 				$submenu_file = 'edit-tags.php?taxonomy=knowledge_base&post_type=docs';
+
 			}
 		}
+
 		if( 'betterdocs_page_betterdocs-settings' == $current_screen->id ) {
+
 			$submenu_file = 'betterdocs-settings';
+
 		}
 
 		if( 'betterdocs_page_betterdocs-analytics' == $current_screen->id ) {
+
 			$submenu_file = 'betterdocs-analytics';
+
 		}
+
 		if( 'betterdocs_page_betterdocs-setup' == $current_screen->id ) {
+
 			$submenu_file = 'betterdocs-setup';
+
 		}
+
         return $submenu_file;
 	}
 
@@ -313,11 +355,13 @@ class Betterdocs_Pro_Admin {
 	 * AJAX Handler to update terms' tax position.
 	 */
 	public function dark_mode() {
+
 		if ( ! check_ajax_referer( 'doc_cat_order_nonce', 'nonce', false ) ) {
 			wp_send_json_error();
 		}
 
 		if( isset( $_POST['mode'] ) ) {
+
 			$saved_settings = BetterDocs_DB::get_settings();
 			$saved_settings[ 'dark_mode' ] = $_POST['mode'];
 	
@@ -325,126 +369,179 @@ class Betterdocs_Pro_Admin {
 				wp_send_json_success();
 			}
 		}
-		wp_send_json_error();		
+
+		wp_send_json_error();
+
 	}
+	
 	/**
+	 * 
 	 * AJAX Handler to update terms' tax position.
+	 * 
 	 */
 	public function update_doc_cat_order() {
+
 		if ( ! check_ajax_referer( 'doc_cat_order_nonce', 'doc_cat_order_nonce', false ) ) {
 			wp_send_json_error();
 		}
 
 		$taxonomy_ordering_data = filter_var_array( wp_unslash( $_POST['taxonomy_ordering_data'] ), FILTER_SANITIZE_NUMBER_INT );
 		$base_index             = filter_var( wp_unslash( $_POST['base_index'] ), FILTER_SANITIZE_NUMBER_INT ) ;
+		
 		foreach ( $taxonomy_ordering_data as $order_data ) {
 
 			if ( $base_index > 0 ) {
+
 				$current_position = get_term_meta( $order_data['term_id'], 'doc_category_order', true );
+				
 				if ( (int) $current_position < (int) $base_index ) {
 					continue;
 				}
 			}
 
 			update_term_meta( $order_data['term_id'], 'doc_category_order', ( (int) $order_data['order'] + (int) $base_index ) );
+		
 		}
+
 		wp_send_json_success();
 	}
+	
 	/**
 	 * AJAX Handler to update docs position.
 	 */
 	public function update_doc_order_by_category() {
+		
 		if ( ! check_ajax_referer( 'doc_cat_order_nonce', 'doc_cat_order_nonce', false ) ) {
 			wp_send_json_error();
 		}
 
 		$docs_ordering_data = filter_var_array( wp_unslash( $_POST['docs_ordering_data'] ), FILTER_SANITIZE_NUMBER_INT );
 		$term_id = intval( $_POST['list_term_id'] );
+		
 		if( ! $term_id ) {
 			wp_send_json_error();
 		}
+
 		if( update_term_meta( $term_id, '_docs_order', implode( ',', $docs_ordering_data ) ) ) {
 			wp_send_json_success();
 		}
+
 		wp_send_json_error();
+
 	}
+	
 	/**
 	 * AJAX Handler to update docs position.
 	 */
+
 	public function update_docs_term() {
+
 		if ( ! check_ajax_referer( 'doc_cat_order_nonce', 'doc_cat_order_nonce', false ) ) {
 			wp_send_json_error();
 		}
+
 		$object_id = intval( $_POST['object_id'] );
 		$term_id = intval( $_POST['list_term_id'] );
 		$prev_term_id = intval( isset( $_POST['prev_term_id'] ) ? $_POST['prev_term_id'] : 0 );
+
 		if( ! $term_id || ! $object_id ) {
+
 			wp_send_json_error();
+		
 		}
+
 		global $wpdb;
+
 		if( $prev_term_id ) {
+
 			wp_remove_object_terms( $object_id, $prev_term_id, 'doc_category' );
+
 		}
+
 		$terms_added = wp_set_object_terms( $object_id, $term_id, 'doc_category' );
+		
 		if( ! is_wp_error( $terms_added ) ) {
+
 			wp_send_json_success();
+
 		}
+
 		wp_send_json_error();
 	}
+
 	/**
 	 * Update docs_term meta when new post created
 	 */
+	
 	public function update_new_post_doc_order_by_category($post_id) {
+
 		$term_list = wp_get_post_terms( $post_id, 'doc_category', array( 'fields' => 'ids' ) );
+		
 		if($term_list) {
+
 			foreach ($term_list as $term_id){
+
 				$term = get_term( $term_id, 'doc_category' );
 				$term_slug = $term->slug;
 				$term_meta = get_term_meta( $term_id, '_docs_order');
 				$term_meta_arr = explode(",", $term_meta[0]);
+
 				if( ! in_array( $post_id, $term_meta_arr ) ) {
+
 					array_unshift($term_meta_arr, $post_id);
 					$docs_ordering_data = filter_var_array( wp_unslash( $term_meta_arr ), FILTER_SANITIZE_NUMBER_INT );
 					$val = implode( ',', $docs_ordering_data );
 					update_term_meta( $term_id, '_docs_order', implode( ',', $docs_ordering_data ) );
+				
 				}
 			}
+
 		}
 	}
+
 	/** 
+	 * 
 	 * Update docs query arguments
+	 * 
 	 */
+
 	public function docs_args($args, $term_id = null) {
+		
 		if (is_null($term_id)) {
 			return $args;
 		}
-		$docs_order = get_term_meta($term_id, '_docs_order', true);
 
+		$docs_order = get_term_meta($term_id, '_docs_order', true);
 
 		global $wpdb;
 
+		if ( !empty( $docs_order ) ) {
 
-		if (!empty($docs_order)) {
-			$docs_order = explode(',', $docs_order);
+			$docs_order = explode( ',', $docs_order );
 
 			$new_ids = [];
 			$results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}term_relationships WHERE term_taxonomy_id = $term_id");
 
 			if (!is_null($results) && !empty($results) && is_array($results)) {
+				
 				$object_ids = array_filter($results, function ($value) use ($docs_order) {
 					return !in_array($value->object_id, $docs_order);
 				});
 
-				if (!empty($object_ids)) {
+				if ( !empty( $object_ids ) ) {
+
 					array_walk($object_ids, function ($value) use (&$new_ids) {
 						$new_ids[] = $value->object_id;
 					});
+
 				}
+
 			}
 
 			$args['orderby'] = 'post__in';
 			$args['post__in'] = array_merge($new_ids, $docs_order);
 		}
+
 		return $args;
 	}
 

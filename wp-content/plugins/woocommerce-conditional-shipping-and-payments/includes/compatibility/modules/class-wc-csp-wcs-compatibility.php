@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Subscriptions Compatibility.
  *
- * @since  1.4.0
+ * @version 1.8.3
  */
 class WC_CSP_WCS_Compatibility {
 
@@ -42,7 +42,8 @@ class WC_CSP_WCS_Compatibility {
 
 		$load_conditions = array(
 			'WC_CSP_Condition_Cart_Recurring_Item',
-			'WC_CSP_Condition_Package_Recurring_Item'
+			'WC_CSP_Condition_Package_Recurring_Item',
+			'WC_CSP_Condition_Package_Recurring_Package'
 		);
 
 		if ( is_array( WC_CSP()->conditions->conditions ) ) {
@@ -55,6 +56,12 @@ class WC_CSP_WCS_Compatibility {
 		}
 	}
 
+	/**
+	 * Add an extra billing period variable in all recurring packages.
+	 *
+	 * @param  array  $packages
+	 * @return array
+	 */
 	public static function set_period_on_recurring_packages( $packages ) {
 
 		if ( 'recurring_total' !== WC_Subscriptions_Cart::get_calculation_type() ) {
@@ -79,6 +86,12 @@ class WC_CSP_WCS_Compatibility {
 		return $packages;
 	}
 
+	/**
+	 * Include recurring packages for the checkout process.
+	 *
+	 * @param  array  $initial_packages
+	 * @return array
+	 */
 	public static function get_recurring_packages( $initial_packages ) {
 
 		$shipping_methods     = WC()->checkout()->shipping_methods;

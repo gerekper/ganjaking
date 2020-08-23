@@ -89,7 +89,8 @@ class WC_Dropshipping_CSV_Import {
 		// process uploaded CSV
 		if(($_FILES['csv_file']['error'] == 0)&&(strlen($ds['csv_delimiter']) > 0)) {
 			$name = $_FILES['csv_file']['name'];
-			$ext = strtolower(end(explode('.', $_FILES['csv_file']['name'])));
+			$ext_file = explode('.', $_FILES['csv_file']['name']);
+			$ext = strtolower(end($ext_file));
 			$type = $_FILES['csv_file']['type'];
 			$tmpName = $_FILES['csv_file']['tmp_name'];
 			// check the file is a csv
@@ -110,14 +111,14 @@ class WC_Dropshipping_CSV_Import {
 							if (trim($temp['qty_remaining']) < $options['inventory_pad']) {
 								// if the product has less than "inventory_pad" remaining then its out of stock
 								$outofstock .= "'$temp[sku]',";
-								$sku = $temp[sku];
+								$sku = $temp['sku'];
 								$product_id = wc_get_product_id_by_sku($sku);
 								update_post_meta($product_id,'_stock',$qty_remaining);
 							} else {
 								// product is active
 
 								$instock .= "'$temp[sku]',";
-								$sku = $temp[sku];
+								$sku = $temp['sku'];
 								$product_id = wc_get_product_id_by_sku($sku);
 								update_post_meta($product_id,'_stock',$qty_remaining);
 

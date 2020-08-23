@@ -5,6 +5,7 @@ namespace ACP\Plugin\Update;
 use AC\Plugin\Update;
 use AC\Type\ListScreenId;
 use ACP\Search\SegmentRepository;
+use Exception;
 
 class V5300 extends Update {
 
@@ -45,15 +46,31 @@ class V5300 extends Update {
 			}
 
 			foreach ( $value['segments'] as $segment_data ) {
+				if ( empty( $segment_data['name'] ) || empty( $segment_data['data'] ) ) {
+					continue;
+				}
+
 				$data = unserialize( $segment_data['data'] );
 
-				$repository->create(
-					new ListScreenId( $list_id ),
-					(int) $row->user_id,
-					(string) $segment_data['name'],
-					$data['url_parameters'],
-					false
-				);
+				if ( empty( $data ) ) {
+					continue;
+				}
+
+				$url_parameters = isset( $data['url_parameters'] ) && is_array( $data['url_parameters'] )
+					? $data['url_parameters']
+					: [];
+
+				try {
+					$repository->create(
+						new ListScreenId( $list_id ),
+						(int) $row->user_id,
+						(string) $segment_data['name'],
+						$url_parameters,
+						false
+					);
+				} catch ( Exception $e ) {
+					continue;
+				}
 			}
 		}
 	}

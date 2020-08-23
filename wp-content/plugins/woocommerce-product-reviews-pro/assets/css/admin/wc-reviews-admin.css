@@ -1,0 +1,79 @@
+@font-face {
+	font-family: 'star';
+	src:url('../../../../woocommerce/assets/fonts/star.eot');
+	src:url('../../../../woocommerce/assets/fonts/star.eot?#iefix') format('embedded-opentype'),
+	url('../../../../woocommerce/assets/fonts/star.woff') format('woff'),
+	url('../../../../woocommerce/assets/fonts/star.ttf') format('truetype'),
+	url('../../../../woocommerce/assets/fonts/star.svg#star') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.star-rating {
+	float: none;
+	display: inline-block;
+	margin-right: 1em;
+	font-family: star;
+	overflow: hidden;
+	position: relative;
+	height: 1em;
+	line-height: 1em;
+	font-size: 1em;
+	width: 5.4em;
+}
+.star-rating:before {
+	content: "\73\73\73\73\73";
+	color: #e0dadf;
+	float: left;
+	top: 0;
+	left: 0;
+	position: absolute;
+}
+.star-rating span {
+	display: inline-block;
+	overflow: hidden;
+	float: left;
+	top: 0;
+	left: 0;
+	position: absolute;
+	padding-top: 1.5em;
+}
+.star-rating span:before {
+	content: "\53\53\53\53\53";
+	top: 0;
+	position: absolute;
+	left: 0;
+}
+
+/* copied and modified from WooCommerce's select2 adjustments for .wc-custom-search field in Orders page */
+.woocommerce_page_reviews .tablenav .select2-container {
+	float: left;
+	width: 200px !important;
+	vertical-align: middle;
+	margin: 1px 6px 4px 1px;
+}
+
+.woocommerce_page_reviews .tablenav .select2-selection--single {
+	height: 28px;
+}
+
+.woocommerce_page_reviews .tablenav .select2-selection--single .select2-selection__rendered {
+	line-height: 26px;
+}
+
+.woocommerce_page_reviews .tablenav .select2-container .select2-selection--single .select2-selection__arrow {
+	height: 26px;
+}
+
+table.wp-list-table.reviews .column-author {
+	width: 20%;
+}
+
+table.wp-list-table.reviews .comment-text-trimmed+.comment-text-full {
+	display: none;
+}
+
+table.wp-list-table.reviews img.avatar {
+	float: left;
+	margin: 1px 10px 0 0;
+}
