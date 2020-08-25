@@ -1,5 +1,8 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2020-08-19 - version 3.6.22
+* Tweak - WordPress 5.5 compatibility.
+
 2020-08-06 - version 3.6.21
 * Fix - Remove unused code causing undefined variable notice.
 

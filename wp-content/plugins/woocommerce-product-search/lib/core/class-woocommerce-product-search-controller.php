@@ -120,7 +120,7 @@ class WooCommerce_Product_Search_Controller {
 			$exists = $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) === $table;
 			if ( $exists ) {
 				self::$tables[] = $name;
-				update_option( 'woocommerce_product_search_plugin_tables', self::$tables );
+				update_option( 'woocommerce_product_search_plugin_tables', self::$tables, true );
 			}
 		}
 		return $exists;
@@ -566,8 +566,10 @@ class WooCommerce_Product_Search_Controller {
 		$indexer->process_term_weights();
 
 		if ( $result ) {
-			update_option( 'woocommerce_product_search_db_version', WOO_PS_PLUGIN_VERSION, false );
+			update_option( 'woocommerce_product_search_db_version', WOO_PS_PLUGIN_VERSION, true );
 		}
+
+		self::cleanup_cache();
 
 		return $result;
 	}
@@ -678,12 +680,16 @@ class WooCommerce_Product_Search_Controller {
 				}
 			}
 		}
+
+		self::cleanup_cache();
 	}
 
 	/**
 	 * Database update.
 	 *
 	 * @since 3.0.0
+	 *
+	 * @return boolean update successful
 	 */
 	public static function update_db() {
 
@@ -691,7 +697,11 @@ class WooCommerce_Product_Search_Controller {
 
 		$success = true;
 
-		if ( !self::table_exists( 'object_term' ) ) {
+		self::cleanup_cache();
+
+		$object_term_table = self::get_tablename( 'object_term' );
+
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '$object_term_table'" ) !== $object_term_table ) {
 			$charset_collate = '';
 			if ( ! empty( $wpdb->charset ) ) {
 				$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
@@ -700,56 +710,73 @@ class WooCommerce_Product_Search_Controller {
 				$charset_collate .= " COLLATE $wpdb->collate";
 			}
 
-			$object_term_table = self::get_tablename( 'object_term' );
-			if ( $wpdb->get_var( "SHOW TABLES LIKE '$object_term_table'" ) != $object_term_table ) {
+			$query =
+				"CREATE TABLE $object_term_table (
+				object_term_id   BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+				object_id        BIGINT(20) UNSIGNED NOT NULL,
+				parent_object_id BIGINT(20) UNSIGNED DEFAULT NULL,
+				term_id          BIGINT(20) UNSIGNED NOT NULL,
+				parent_term_id   BIGINT(20) UNSIGNED DEFAULT NULL,
+				object_type      VARCHAR(100) DEFAULT NULL,
+				taxonomy         VARCHAR(100) DEFAULT NULL,
+				inherit          TINYINT DEFAULT NULL,
+				modified         DATETIME DEFAULT NULL,
+				PRIMARY KEY      (object_term_id),
+				INDEX            object_id (object_id),
+				INDEX            parent_object_id (parent_object_id),
+				INDEX            term_id (term_id),
+				INDEX            parent_term_id (parent_term_id),
+				INDEX            object_type (object_type(10)),
+				INDEX            taxonomy (taxonomy(10))
+			) $charset_collate;";
 
-				$query =
-					"CREATE TABLE $object_term_table (
-					object_term_id   BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-					object_id        BIGINT(20) UNSIGNED NOT NULL,
-					parent_object_id BIGINT(20) UNSIGNED DEFAULT NULL,
-					term_id          BIGINT(20) UNSIGNED NOT NULL,
-					parent_term_id   BIGINT(20) UNSIGNED DEFAULT NULL,
-					object_type      VARCHAR(100) DEFAULT NULL,
-					taxonomy         VARCHAR(100) DEFAULT NULL,
-					inherit          TINYINT DEFAULT NULL,
-					modified         DATETIME DEFAULT NULL,
-					PRIMARY KEY      (object_term_id),
-					INDEX            object_id (object_id),
-					INDEX            parent_object_id (parent_object_id),
-					INDEX            term_id (term_id),
-					INDEX            parent_term_id (parent_term_id),
-					INDEX            object_type (object_type(10)),
-					INDEX            taxonomy (taxonomy(10))
-				) $charset_collate;";
-
-				if ( $wpdb->query( $query ) === false ) {
-					wps_log_error( 'Failed to execute database query: ' . $query );
-				}
+			if ( $wpdb->query( $query ) === false ) {
+				wps_log_error( 'Failed to execute database query: ' . $query );
 			}
 
-			if ( self::table_exists( 'object_term' ) ) {
+			delete_option( 'woocommerce_product_search_plugin_tables' );
 
-				if ( !WooCommerce_Product_Search_Worker::get_status() ) {
-					WooCommerce_Product_Search_Worker::start();
-				}
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$object_term_table'" ) === $object_term_table ) {
+
+				update_option( 'woocommerce_product_search_db_version', WOO_PS_PLUGIN_VERSION, true );
 
 				$indexer = new WooCommerce_Product_Search_Indexer();
 				$indexer->process_term_weights();
 				$indexer->preprocess_terms(); 
 				$indexer->process_terms(); 
-				WooCommerce_Product_Search_Worker::work(); 
+
+				WooCommerce_Product_Search_Worker::stop();
+				WooCommerce_Product_Search_Worker::start();
+
 			} else {
 				$success = false;
 				wps_log_error( sprintf( 'The table %s is missing.', $object_term_table ) );
 			}
 		}
 
-		if ( $success ) {
-			update_option( 'woocommerce_product_search_db_version', WOO_PS_PLUGIN_VERSION, false );
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '$object_term_table'" ) === $object_term_table ) {
+
+			update_option( 'woocommerce_product_search_db_version', WOO_PS_PLUGIN_VERSION, true );
 			wps_log_info( 'Database updated.' );
 		} else {
 			wps_log_error( "Failed to update the database." );
+		}
+
+		return $success;
+	}
+
+	/**
+	 * Reset certain cache entries.
+	 *
+	 * @since 3.1.0
+	 */
+	private static function cleanup_cache() {
+
+		if ( function_exists( 'wp_cache_delete' ) ) {
+			wp_cache_delete( 'woocommerce-product-search', 'options' );
+			wp_cache_delete( 'woocommerce_product_search_db_version', 'options' );
+			wp_cache_delete( 'woocommerce_product_search_plugin_tables', 'options' );
+			wp_cache_delete( 'woocommerce_product_search_plugin_version', 'options' );
 		}
 	}
 

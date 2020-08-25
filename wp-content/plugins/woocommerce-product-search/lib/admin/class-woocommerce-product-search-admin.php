@@ -2343,7 +2343,7 @@ class WooCommerce_Product_Search_Admin {
 
 		wp_nonce_field( 'set', self::NONCE );
 		wp_nonce_field( 'woocommerce-settings' );
-		echo '<p>';
+		echo '<p class="submit">'; 
 		switch ( $current_section ) {
 			case self::SECTION_WELCOME :
 				break;
@@ -2351,7 +2351,7 @@ class WooCommerce_Product_Search_Admin {
 				echo '<input id="run-assistant-confirm" class="button button-primary" type="submit" name="submit" value="' . esc_attr( __( 'Add selected', 'woocommerce-product-search' ) ) . '"/>';
 				break;
 			default :
-				echo '<input class="button button-primary" type="submit" name="submit" value="' . esc_attr( __( 'Save changes', 'woocommerce-product-search' ) ) . '"/>';
+				echo '<input class="button button-primary woocommerce-save-button" type="submit" name="submit" value="' . esc_attr( __( 'Save changes', 'woocommerce-product-search' ) ) . '"/>';
 		}
 		echo '</p>';
 		echo '</div>';

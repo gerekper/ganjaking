@@ -162,10 +162,11 @@ class WooCommerce_Product_Search_Admin_Notice {
 
 			if ( !empty( $_GET[self::CONFIRM_UPDATE] ) && isset( $_GET['wps_notice'] ) && wp_verify_nonce( $_GET['wps_notice'], 'confirm' ) ) {
 				WooCommerce_Product_Search::schedule_db_update();
-			}
+			} else { 
 
-			if ( WooCommerce_Product_Search::needs_db_update() && !WooCommerce_Product_Search::is_db_update_scheduled() ) {
-				add_action( 'admin_notices', array( __CLASS__, 'update_notice' ), 0 );
+				if ( WooCommerce_Product_Search::needs_db_update() && !WooCommerce_Product_Search::is_db_update_scheduled() ) {
+					add_action( 'admin_notices', array( __CLASS__, 'update_notice' ), 0 );
+				}
 			}
 		}
 	}

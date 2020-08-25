@@ -1,5 +1,8 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2020-08-19 - version 2.4.19
+* Tweak - WP 5.5 compatibility.
+
 2020-06-10 - version 2.4.18
 * Tweak - WC 4.2 compatibility.
 

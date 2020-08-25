@@ -1,11 +1,11 @@
-# Copyright (C) 2020
-# This file is distributed under the same license as the  package.
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: WooCommerce Stamps.com API integration 1.3.20\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-stamps\n"
-"POT-Creation-Date: 2020-06-11 10:37:25+00:00\n"
+"POT-Creation-Date: 2020-08-19 15:52:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -873,21 +873,41 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: woocommmerce-shipping-stamps.php:36
+#: woocommerce-shipping-stamps.php:36
 #. translators: %s WC download URL link.
 msgid ""
 "Stamps requires WooCommerce to be installed and active. You can download %s "
 "here."
 msgstr ""
 
-#: woocommmerce-shipping-stamps.php:102
+#: woocommerce-shipping-stamps.php:102
 msgid "Settings"
 msgstr ""
 
-#: woocommmerce-shipping-stamps.php:103
+#: woocommerce-shipping-stamps.php:103
 msgid "Support"
 msgstr ""
 
-#: woocommmerce-shipping-stamps.php:104
+#: woocommerce-shipping-stamps.php:104
 msgid "Docs"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Stamps.com API integration"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/woocommerce-shipping-stamps/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Stamps.com API integration for label printing. Requires server SOAP support."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com/"
 msgstr ""

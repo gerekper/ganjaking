@@ -18,7 +18,7 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 		self::$_this = $this;
 
 		add_action( 'wp_ajax_wc_store_catalog_pdf_download_frontend_generate_pdf_ajax', array( $this, 'generate_pdf_ajax' ) );
-		
+
 		add_action( 'wp_ajax_nopriv_wc_store_catalog_pdf_download_frontend_generate_pdf_ajax', array( $this, 'generate_pdf_ajax' ) );
 
 		add_action( 'wc_store_catalog_pdf_download_product_attr', array( $this, 'display_attributes' ) );
@@ -47,18 +47,18 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 
 		// bail if nonce don't check out
 		if ( ! wp_verify_nonce( $nonce, '_wc_store_catalog_pdf_download_nonce' ) ) {
-		     die ( 'error' );		
+		     die ( 'error' );
 		}
 
 		global $wc_posts, $layout, $is_single;
-	
+
 		if ( isset( $_POST['posts'] ) && ! empty( $_POST['posts'] ) ) {
-		
+
 			$posts = json_decode( $_POST['posts'] );
 
 			$posts = array_map( 'absint', $posts );
 
-		} else { 
+		} else {
 			$posts = false;
 		}
 
@@ -69,7 +69,7 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 		// single template trumps others
 		$layout = ! empty( $is_single ) && $is_single === 'true' ? 'single' : $layout;
 
-		require_once( 'vendor/autoload.php' );
+		require_once dirname( __DIR__ ) . '/vendor/autoload.php';
 
 		// portrait, landscape
 		$orientation = apply_filters( 'wc_store_catalog_pdf_download_orientation', 'portrait' );
@@ -82,14 +82,14 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 		$dompdf->set_option( 'defaultFont', 'DejaVu Sans' );
 		$dompdf->set_option( 'isRemoteEnabled', true );
 
-		add_action( 'woocommerce_store_catalog_pdf_download_dompdf_options', $dompdf );
+		do_action( 'woocommerce_store_catalog_pdf_download_dompdf_options', $dompdf );
 
 		if ( $wc_posts = $posts ) {
 
 			@set_time_limit( 0 );
 
 			ob_start();
-			
+
 			include( self::get_header_template( $layout ) );
 			include( self::get_body_template( $layout ) );
 			include( self::get_footer_template( $layout ) );
@@ -101,7 +101,7 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 			$dompdf->set_paper( $size, $orientation );
 			$dompdf->render();
 
-			$upload_dir = wp_upload_dir(); 
+			$upload_dir = wp_upload_dir();
 			$pdf_path   = $upload_dir['basedir'] . '/woocommerce-store-catalog-pdf-download/';
 			$pdf_url    = $upload_dir['baseurl'] . '/woocommerce-store-catalog-pdf-download/';
 			$filename   = apply_filters( 'wc_store_catalog_pdf_download_filename', str_replace( ' ', '-', wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ) ) . '-' . __( 'Store-Catalog', 'woocommerce-store-catalog-pdf-download' ) . '-' . time() . '.pdf' );
@@ -163,15 +163,15 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 
 		// check if template has been overriden
 		if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-product-meta-html.php' ) ) {
-			
+
 			return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-product-meta-html.php';
-		
+
 		} else {
-			
+
 			return plugin_dir_path( dirname( __FILE__ ) ) . 'templates/pdf-layout-product-meta-html.php';
 		}
 	}
-	
+
 	/**
 	 * Get the body template
 	 *
@@ -185,7 +185,7 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 
 			// check if template has been overriden
 			if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-list-html.php' ) ) {
-				
+
 				return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-list-html.php';
 
 			} else  {
@@ -196,7 +196,7 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 		if ( 'grid' === $layout ) {
 			// check if template has been overriden
 			if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-grid-html.php' ) ) {
-				
+
 				return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-grid-html.php';
 
 			} else  {
@@ -207,7 +207,7 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 		if ( 'single' === $layout ) {
 			// check if template has been overriden
 			if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-single-html.php' ) ) {
-				
+
 				return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-single-html.php';
 
 			} else  {
@@ -232,7 +232,7 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 			return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-header-html.php';
 
 		} else {
-			
+
 			return plugin_dir_path( dirname( __FILE__ ) ) . 'templates/pdf-layout-header-html.php';
 		}
 	}
@@ -247,11 +247,11 @@ class WC_Store_Catalog_PDF_Download_Ajax {
 
 		// check if template has been overriden
 		if ( file_exists( get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-footer-html.php' ) ) {
-			
+
 			return get_stylesheet_directory() . '/woocommerce-store-catalog-pdf-download/pdf-layout-footer-html.php';
-		
+
 		} else {
-			
+
 			return plugin_dir_path( dirname( __FILE__ ) ) . 'templates/pdf-layout-footer-html.php';
 		}
 	}

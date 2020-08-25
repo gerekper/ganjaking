@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2020-08-19 - version 1.6.36
+* Tweak - WordPress 5.5 compatibility.
+
 2020-08-06 - version 1.6.35
 * Tweak - Remove use of deprecated WC_Abstract_Legacy_Order::get_product_from_item() for WC 4.4 and up.
 
@@ -9,7 +12,6 @@
 
 2020-06-10 - version 1.6.33
 * Fix - Stop using legacy filter to solve rounding issues.
-* Tweak - WC 4.2 compatibility.
 * Tweak - WC 4.2 compatibility.
 
 2020-04-30 - version 1.6.32

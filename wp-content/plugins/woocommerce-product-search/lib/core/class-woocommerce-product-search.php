@@ -120,6 +120,8 @@ class WooCommerce_Product_Search {
 		register_deactivation_hook( WOO_PS_FILE, array( __CLASS__, 'deactivate' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'admin_notices' ) );
 		add_action( 'init', array( __CLASS__, 'wp_init' ) );
+
+		add_action( 'woocommerce_product_search_update_db', array( __CLASS__, 'update_db' ) );
 		add_action( 'plugins_loaded', array( __CLASS__, 'plugins_loaded' ) );
 
 		add_action( 'wpmu_new_blog', array( __CLASS__, 'wpmu_new_blog' ), 9, 2 );
@@ -181,7 +183,6 @@ class WooCommerce_Product_Search {
 
 		}
 
-		add_action( 'woocommerce_product_search_update_db', array( __CLASS__, 'update_db' ) );
 	}
 
 
@@ -591,11 +592,13 @@ class WooCommerce_Product_Search {
 	 * @since 3.0.0
 	 */
 	public static function schedule_db_update() {
-		$scheduled = wp_schedule_single_event( time() + 20, 'woocommerce_product_search_update_db' );
-		if ( $scheduled ) {
-			wps_log_info( 'A database update has been scheduled.' );
-		} else {
-			wps_log_error( 'Failed to schedule a database update.' );
+		if ( !self::is_db_update_scheduled() ) { 
+			$scheduled = wp_schedule_single_event( time() + 20, 'woocommerce_product_search_update_db' );
+			if ( $scheduled ) {
+				wps_log_info( 'A database update has been scheduled.' );
+			} else {
+				wps_log_error( 'Failed to schedule a database update.' );
+			}
 		}
 	}
 

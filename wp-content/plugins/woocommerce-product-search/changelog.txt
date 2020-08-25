@@ -1,5 +1,14 @@
 *** WooCommerce Product Search ***
 
+2020.08.19 - version 3.1.0
+* WooCommerce 4.4 compatible.
+* Replaced use of deprecated function woocommerce_reset_loop() with wc_reset_loop() when available (as of WC 3.3).
+* Noting that previously introduced woocommerce_product_search_query_vars and woocommerce_product_search_query_vars_intersect filters are not used and considered removed.
+* Fixed potential database version number update miss and resetting internal table reference to force cache refresh.
+* Fixed potential execution time issues when index processing is initiated on the same request as the database update.
+* Updated settings HTML to avoid the undesired edit prompt when saving changes.
+* Guarded update procedure against inconsistent caching systems like W3 Total Cache and WP Engine's object cache which do not recognize changed options properly.
+
 2020.08.12 - version 3.0.0
 * This release includes major improvements aimed at further optimizing our search engine's performance and enhancing its search and filtering features.
 * WordPress 5.5 compatible.

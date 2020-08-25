@@ -1,5 +1,8 @@
 *** Product Finder Changelog ***
 
+2020-08-19 - version 1.2.15
+* Tweak - WordPress 5.5 compatibility.
+
 2020-08-05 - version 1.2.14
 * Fix - Cannot find Product finder options in Settings.
 
