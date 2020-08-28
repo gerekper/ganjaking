@@ -1,5 +1,9 @@
 *** WooCommerce Checkout Add-Ons Changelog ***
 
+2020.08.24 - version 2.4.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+ * Dev - Add filter `wc_checkout_add_ons_should_display` which allows merchants to override the displaying rules of an add-on
+
 2020.06.09 - version 2.3.0
  * Tweak - Add a customizer setting to allow to apply percentage adjustments on top of the total or subtotal
 

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.5.2
- * @version     1.0.0
+ * @version     1.0.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -125,7 +125,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Columns' ) ) {
 				$columns = array();
 			}
 
-			$columns['wc_sc_view_orders'] = __( 'Used in orders', 'woocommerce-smart-coupons' );
+			$columns['wc_sc_view_orders']     = __( 'Used in orders', 'woocommerce-smart-coupons' );
+			$columns['wc_sc_coupon_category'] = __( 'Coupon categories', 'woocommerce-smart-coupons' );
 
 			return $columns;
 		}
@@ -148,6 +149,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Columns' ) ) {
 				switch ( $column ) {
 					case 'wc_sc_view_orders':
 						$this->render_view_orders_column();
+						break;
+					case 'wc_sc_coupon_category':
+						WC_SC_Coupon_Categories::get_instance()->render_coupon_category_column( $post_id );
 						break;
 				}
 			}

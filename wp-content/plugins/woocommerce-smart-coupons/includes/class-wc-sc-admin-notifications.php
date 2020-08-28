@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.0.0
- * @version     1.1.1
+ * @version     1.1.2
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -269,7 +269,7 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 					</style>
 					<?php
 					/* translators: %s: link to review WooCommerce Smart Coupons */
-					$sc_rating_text = wp_kses_post( sprintf( __( 'Liked WooCommerce Smart Coupons? Leave us a %s. A huge thank you from WooCommerce & StoreApps in advance!', 'woocommerce-smart-coupons' ), '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/products/smart-coupons/#comments' ) . '" style="color: #96588a;">5-star rating here</a>' ) );
+					$sc_rating_text = wp_kses_post( sprintf( __( 'Liked WooCommerce Smart Coupons? Leave us a %s. A huge thank you from WooCommerce & StoreApps in advance!', 'woocommerce-smart-coupons' ), '<a target="_blank" href="' . esc_url( 'https://woocommerce.com/products/smart-coupons/#comments' ) . '" style="color: #5850EC;">5-star rating here</a>' ) );
 				}
 			}
 
@@ -295,7 +295,7 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 
 				if ( in_array( $get_page, $sc_pages, true ) || 'shop_coupon' === $get_post_type || 'wc-smart-coupons' === $get_tab ) {
 					/* translators: %s: link to submit idea for Smart Coupons on WooCommerce idea board */
-					$sc_text = sprintf( __( 'Have a feature request? Submit it on our %s.', 'woocommerce-smart-coupons' ), '<a href="' . esc_url( 'http://ideas.woocommerce.com/forums/133476-woocommerce?category_id=163716' ) . '" target="_blank" style="color: #96588a;">idea board</a>' );
+					$sc_text = sprintf( __( 'Have a feature request? Submit it on our %s.', 'woocommerce-smart-coupons' ), '<a href="' . esc_url( 'http://ideas.woocommerce.com/forums/133476-woocommerce?category_id=163716' ) . '" target="_blank" style="color: #5850EC;">idea board</a>' );
 				}
 			}
 

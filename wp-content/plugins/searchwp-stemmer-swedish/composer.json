@@ -1,0 +1,7 @@
+{
+  "name": "searchwp/searchwp-stemmer-swedish",
+  "description": "SearchWP Swedish Keyword Stemmer",
+  "require": {
+    "wamania/php-stemmer": "dev-master"
+  }
+}

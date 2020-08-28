@@ -1,0 +1,144 @@
+# Copyright (C) 2017 weDevs
+# This file is distributed under the same license as the WP Project Manager - Sub Task package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Project Manager - Sub Task 1.3\n"
+"Report-Msgid-Bugs-To: http://wedevs.com/support/forum/plugin-support/wp-"
+"project-manager/\n"
+"POT-Creation-Date: 2018-03-12 10:15+0600\n"
+"PO-Revision-Date: 2018-03-27 07:45+0600\n"
+"Last-Translator: \n"
+"Language-Team: EMAIL@ADDRESS\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: classes/ajax.php:33
+msgid "The subtask has been deleted successfully."
+msgstr "a"
+
+#: classes/ajax.php:65
+msgid "The subtask has been updated successfully."
+msgstr "v"
+
+#: classes/ajax.php:80
+msgid "The subtask has been re-opened."
+msgstr "ds"
+
+#: classes/ajax.php:142
+msgid "The subtask has been marked as completed."
+msgstr "dfgsda"
+
+#: classes/ajax.php:165
+msgid "A new subtask has been created successfully."
+msgstr "sdfsad"
+
+#: classes/ajax.php:271
+msgid "Subtask title is required."
+msgstr "sdfgsda"
+
+#: classes/ajax.php:272
+msgid "Start date is a date field and should be formatted as Y-m-d."
+msgstr "sdfgsa"
+
+#: classes/ajax.php:273
+msgid "Due date is a date field and should be formatted as Y-m-d."
+msgstr "dfgsad"
+
+#: sub-task.php:235
+msgid "No Subtask Found"
+msgstr "dfgs kjdhfk"
+
+#: sub-task.php:272
+msgid "Add this sub task"
+msgstr "fdgsd"
+
+#: sub-task.php:279
+msgid "Save Changes"
+msgstr "fdgfsd"
+
+#: sub-task.php:305 views/js-templates/new-subtask-form.php:5
+msgid "Add a new to-do"
+msgstr "dfgd"
+
+#: sub-task.php:310 sub-task.php:311 views/js-templates/new-subtask-form.php:10
+#: views/js-templates/new-subtask-form.php:11
+msgid "Start date"
+msgstr "dfgvd"
+
+#: sub-task.php:315 sub-task.php:316 views/js-templates/new-subtask-form.php:15
+#: views/js-templates/new-subtask-form.php:16
+msgid "Due date"
+msgstr "dfgfsd"
+
+#: sub-task.php:328 views/js-templates/new-subtask-form.php:43
+msgid "Cancel"
+msgstr "dfgfsd"
+
+#: sub-task.php:397
+msgid "(Completed by %s on %s)"
+msgstr "dfgfsd"
+
+#: sub-task.php:441
+msgid "Are you sure to delete this to-do?"
+msgstr "dfgfsdg"
+
+#: views/js-templates/new-subtask-button.php:2
+#: views/js-templates/new-subtask-button.php:3
+msgid "New sub task"
+msgstr "Nueva tarea secundaria"
+
+#: views/js-templates/new-subtask-form.php:30
+msgid "Select User"
+msgstr "lkdjflds"
+
+#: views/js-templates/new-subtask-form.php:41
+msgid "Update Subtask"
+msgstr "dfgsd"
+
+#: views/js-templates/new-subtask-form.php:42
+msgid "Add New Subtask"
+msgstr "dfgas"
+
+#: views/js-templates/show-subtask.php:2
+msgid "Show Subtask"
+msgstr "dgasd"
+
+#: views/js-templates/subtasks.php:54
+msgid "Completed by "
+msgstr "dfhgfsd"
+
+#: views/js-templates/subtasks.php:54
+msgid " on"
+msgstr "fgsdfg"
+
+#: views/subtask.php:12
+msgid "Sub Tasks"
+msgstr "fgsfd"
+
+#: views/subtask.php:54
+msgid "Add Sub Task"
+msgstr "dfgsdf"
+
+#. Plugin Name of the plugin/theme
+msgid "WP Project Manager - Sub Task"
+msgstr "fdsgsd"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wedevs.com/products/plugins/wp-project-manager-pro/sub-task/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Sub Task add-on for WP Project Manager"
+msgstr "dfgsd"
+
+#. Author of the plugin/theme
+msgid "weDevs"
+msgstr "fdgsd"
+
+#. Author URI of the plugin/theme
+msgid "http://wedevs.com"
+msgstr ""

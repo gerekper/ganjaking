@@ -5,7 +5,7 @@
  * @category    Class
  * @package     WC-compat
  * @author      StoreApps
- * @version     1.0.0
+ * @version     1.0.1
  * @since       WooCommerce 4.4.0
  */
 
@@ -26,7 +26,7 @@ if ( ! class_exists( 'SA_WC_Compatibility_4_4' ) ) {
 		 * @return boolean
 		 */
 		public static function is_wc_gte_44() {
-			return self::is_wc_greater_than( '4.3.9' );
+			return self::is_wc_greater_than( '4.3.3' );
 		}
 
 	}

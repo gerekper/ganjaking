@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.6
+ * @version     1.1.7
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -839,15 +839,11 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 
 			foreach ( $order_items as $item_id => $order_item ) {
 
-				if ( $this->is_wc_gte_30() ) {
-					$item_sc_called_credit = ( is_object( $order_item ) && is_callable( array( $order_item, 'get_meta' ) ) ) ? $order_item->get_meta( 'sc_called_credit' ) : array();
-				} else {
-					$item_sc_called_credit = ( ! empty( $order_item['sc_called_credit'] ) ) ? $order_item['sc_called_credit'] : 0;
-				}
+				$item_sc_called_credit = ( is_object( $order_item ) && is_callable( array( $order_item, 'get_meta' ) ) ) ? $order_item->get_meta( 'sc_called_credit' ) : ( ( ! empty( $order_item['sc_called_credit'] ) ) ? $order_item['sc_called_credit'] : 0 );
 
 				if ( ! empty( $item_sc_called_credit ) ) {
 
-					$product = $order->get_product_from_item( $order_item );
+					$product = ( is_object( $order_item ) && is_callable( array( $order_item, 'get_product' ) ) ) ? $order_item->get_product() : $order->get_product_from_item( $order_item );
 
 					if ( ! is_object( $product ) ) {
 						continue;
@@ -861,7 +857,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 					} else {
 						$product_id = ( ! empty( $product->id ) ) ? $product->id : 0;
 						$item_qty   = ( ! empty( $order_item['qty'] ) ) ? $order_item['qty'] : 1;
-						$item_tax   = ( ! empty( $order_item['line_tax'] ) ) ? $order_item['line_tax'] : 0;
+						$item_tax   = ( ! empty( $order_item['line_subtotal_tax'] ) ) ? $order_item['line_subtotal_tax'] : 0;
 					}
 
 					if ( true === $prices_include_tax && ! $this->is_generated_store_credit_includes_tax() ) {

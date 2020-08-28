@@ -34,7 +34,7 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.8.14';
+	const VERSION = '1.9.0';
 
 	/** @var \WC_Google_Analytics_Pro the singleton instance of the plugin */
 	protected static $instance;
@@ -287,7 +287,7 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 	 */
 	public function get_documentation_url() {
 
-		return 'http://docs.woocommerce.com/document/woocommerce-google-analytics-pro/';
+		return 'https://docs.woocommerce.com/document/woocommerce-google-analytics-pro/';
 	}
 
 

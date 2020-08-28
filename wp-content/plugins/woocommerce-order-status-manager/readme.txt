@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 4.7
-Tested up to: 5.4.2
+Tested up to: 5.5
 Requires PHP: 5.6
 
 Easily create custom order statuses and trigger custom emails when order status changes

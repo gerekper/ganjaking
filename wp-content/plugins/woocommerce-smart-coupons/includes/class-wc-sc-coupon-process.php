@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.6
+ * @version     1.1.7
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -469,16 +469,17 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 					if ( empty( $difference ) ) {
 						break;
 					}
-					$code   = trim( $item['name'] );
+					$code   = ( is_object( $item ) && is_callable( array( $item, 'get_name' ) ) ) ? $item->get_name() : trim( $item['name'] );
 					$coupon = new WC_Coupon( $code );
 					if ( $this->is_wc_gte_30() ) {
 						$discount_type = $coupon->get_discount_type();
 					} else {
 						$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
 					}
-					if ( 'smart_coupon' === $discount_type && ! empty( $item['discount_amount'] ) ) {
+					$discount = ( is_object( $item ) && is_callable( array( $item, 'get_discount' ) ) ) ? $item->get_discount() : $item['discount_amount'];
+					if ( 'smart_coupon' === $discount_type && ! empty( $discount ) ) {
 						$new_discount  = 0;
-						$item_discount = $item['discount_amount'];
+						$item_discount = $discount;
 						$cut_amount    = min( $difference, $item_discount );
 						$new_discount  = $item_discount - $cut_amount;
 						$difference   -= $cut_amount;
@@ -507,6 +508,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 								$item_args['discount_tax'] = $item_args['discount_amount_tax'];
 							}
 
+							unset( $item_args['discount_amount'] ); // deprecated offset.
+							unset( $item_args['discount_amount_tax'] ); // deprecated offset.
+
 							$item->set_order_id( $order->get_id() );
 							$item->set_props( $item_args );
 							$item->save();
@@ -523,7 +527,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 							if ( empty( $smart_coupons_contribution ) || ! is_array( $smart_coupons_contribution ) ) {
 								$smart_coupons_contribution = array();
 							}
-							$smart_coupons_contribution[ $code ] = $item_args['discount_amount'];
+							$smart_coupons_contribution[ $code ] = ( $this->is_wc_gte_30() ) ? $item_args['discount'] : $item_args['discount_amount'];
 							update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupons_contribution );
 
 							if ( ! empty( $store_credit_label['singular'] ) ) {
@@ -854,7 +858,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 			$sc_called_credit_details = get_post_meta( $order_id, 'sc_called_credit_details', true );
 
 			$order       = wc_get_order( $order_id );
-			$order_items = (array) $order->get_items();
+			$order_items = $order->get_items();
 
 			if ( count( $order_items ) <= 0 ) {
 				return;
@@ -907,7 +911,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 
 				foreach ( $order_items as $item_id => $item ) {
 
-					$product = $order->get_product_from_item( $item );
+					$product  = ( is_object( $item ) && is_callable( array( $item, 'get_product' ) ) ) ? $item->get_product() : $order->get_product_from_item( $item );
+					$item_qty = ( is_object( $item ) && is_callable( array( $item, 'get_quantity' ) ) ) ? $item->get_quantity() : $item['qty'];
 
 					if ( $this->is_wc_gte_30() ) {
 						$product_type = ( is_object( $product ) && is_callable( array( $product, 'get_type' ) ) ) ? $product->get_type() : '';
@@ -939,7 +944,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 							if ( ! isset( $receivers_emails[ $coupon_id ] ) ) {
 								continue;
 							}
-							for ( $i = 0; $i < $item['qty']; $i++ ) {
+							for ( $i = 0; $i < $item_qty; $i++ ) {
 								if ( isset( $receivers_emails[ $coupon_id ][0] ) ) {
 									if ( ! isset( $email_to_credit[ $receivers_emails[ $coupon_id ][0] ] ) ) {
 										$email_to_credit[ $receivers_emails[ $coupon_id ][0] ] = array();
@@ -960,7 +965,12 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						}
 					}
 					if ( $this->is_coupon_amount_pick_from_product_price( $coupon_titles ) && $product->get_price() >= 0 ) {
-						$item['sc_called_credit'] = ( ! empty( $sc_called_credit_details[ $item_id ] ) ) ? $sc_called_credit_details[ $item_id ] : '';
+						$sc_called_credit = ( ! empty( $sc_called_credit_details[ $item_id ] ) ) ? $sc_called_credit_details[ $item_id ] : '';
+						if ( is_object( $item ) && is_callable( array( $item, 'update_meta_data' ) ) ) {
+							$item->update_meta_data( 'sc_called_credit', $sc_called_credit );
+						} else {
+							$item['sc_called_credit'] = $sc_called_credit;
+						}
 					}
 				}
 			}
@@ -1029,7 +1039,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 
 				foreach ( $order_items as $item_id => $item ) {
 
-					$product = $order->get_product_from_item( $item );
+					$product = ( is_object( $item ) && is_callable( array( $item, 'get_product' ) ) ) ? $item->get_product() : $order->get_product_from_item( $item );
 					if ( $this->is_wc_gte_30() ) {
 						$product_type = ( is_object( $product ) && is_callable( array( $product, 'get_type' ) ) ) ? $product->get_type() : '';
 						$product_id   = ( in_array( $product_type, array( 'variable', 'variable-subscription', 'variation', 'subscription_variation' ), true ) ) ? ( ( is_object( $product ) && is_callable( array( $product, 'get_parent_id' ) ) ) ? $product->get_parent_id() : 0 ) : ( ( is_object( $product ) && is_callable( array( $product, 'get_id' ) ) ) ? $product->get_id() : 0 );
@@ -1044,7 +1054,12 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						$flag = true;
 
 						if ( $this->is_coupon_amount_pick_from_product_price( $coupon_titles ) && $product->get_price() >= 0 ) {
-							$item['sc_called_credit'] = ( ! empty( $sc_called_credit_details[ $item_id ] ) ) ? $sc_called_credit_details[ $item_id ] : '';
+							$sc_called_credit = ( ! empty( $sc_called_credit_details[ $item_id ] ) ) ? $sc_called_credit_details[ $item_id ] : '';
+							if ( is_object( $item ) && is_callable( array( $item, 'update_meta_data' ) ) ) {
+								$item->update_meta_data( 'sc_called_credit', $sc_called_credit );
+							} else {
+								$item['sc_called_credit'] = $sc_called_credit;
+							}
 						}
 
 						$this->update_coupons( $coupon_titles, $email, '', $operation, $item, $gift_certificate_receiver, $gift_certificate_receiver_name, $message_from_sender, $gift_certificate_sender_name, $gift_certificate_sender_email, $order_id );
@@ -1173,11 +1188,13 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 
 				foreach ( $coupons as $item_id => $item ) {
 
-					if ( empty( $item['name'] ) ) {
+					$code = ( is_object( $item ) && is_callable( array( $item, 'get_name' ) ) ) ? $item->get_name() : trim( $item['name'] );
+
+					if ( empty( $code ) ) {
 						continue;
 					}
 
-					$coupon = new WC_Coupon( $item['name'] );
+					$coupon = new WC_Coupon( $code );
 
 					if ( $this->is_wc_gte_30() ) {
 						if ( ! is_object( $coupon ) || ! is_callable( array( $coupon, 'get_id' ) ) ) {
@@ -1201,18 +1218,21 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						continue;
 					}
 
-					if ( ! empty( $_POST['action'] ) && 'woocommerce_remove_order_coupon' === wc_clean( wp_unslash( $_POST['action'] ) ) && ! empty( $_POST['smart_coupon_removed'] ) && sanitize_text_field( wp_unslash( $_POST['smart_coupon_removed'] ) ) !== $item['name'] ) { // phpcs:ignore
+					if ( ! empty( $_POST['action'] ) && 'woocommerce_remove_order_coupon' === wc_clean( wp_unslash( $_POST['action'] ) ) && ! empty( $_POST['smart_coupon_removed'] ) && sanitize_text_field( wp_unslash( $_POST['smart_coupon_removed'] ) ) !== $code ) { // phpcs:ignore
 						continue;
 					}
 
+					$discount     = ( is_object( $item ) && is_callable( array( $item, 'get_discount' ) ) ) ? $item->get_discount() : $item['discount_amount'];
+					$discount_tax = ( is_object( $item ) && is_callable( array( $item, 'get_discount_tax' ) ) ) ? $item->get_discount_tax() : $item['discount_amount_tax'];
+
 					$update = false;
-					if ( ! empty( $item['discount_amount'] ) ) {
-						$coupon_amount += $item['discount_amount'];
+					if ( ! empty( $discount ) ) {
+						$coupon_amount += $discount;
 
 						$sc_include_tax = $this->is_store_credit_include_tax();
 						// Add discount on tax if it has been given on tax.
-						if ( 'yes' === $sc_include_tax && ! empty( $item['discount_amount_tax'] ) ) {
-							$coupon_amount += $item['discount_amount_tax'];
+						if ( 'yes' === $sc_include_tax && ! empty( $discount_tax ) ) {
+							$coupon_amount += $discount_tax;
 						}
 						$usage_count--;
 						if ( $usage_count < 0 ) {

@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.0.3
+ * @version     1.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -411,13 +411,13 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 						$invalid_products = array();
 						foreach ( $items_to_validate as $item ) {
 							$cart_item    = clone $item; // Clone the item so changes to wc_discounts item do not affect the originals.
-							$item_proudct = isset( $cart_item->product ) ? $cart_item->product : null;
+							$item_product = isset( $cart_item->product ) ? $cart_item->product : null;
 							$item_object  = isset( $cart_item->object ) ? $cart_item->object : null;
-							if ( ! is_null( $item_proudct ) && ! is_null( $item_object ) ) {
-								if ( $coupon->is_valid_for_product( $item_proudct, $item_object ) ) {
-									$valid_products[] = $item_proudct;
+							if ( ! is_null( $item_product ) && ! is_null( $item_object ) ) {
+								if ( $coupon->is_valid_for_product( $item_product, $item_object ) ) {
+									$valid_products[] = $item_product;
 								} else {
-									$invalid_products[] = $item_proudct;
+									$invalid_products[] = $item_product;
 								}
 							}
 						}

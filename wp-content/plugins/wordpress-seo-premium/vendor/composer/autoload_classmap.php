@@ -828,6 +828,7 @@ return array(
     'Yoast\\WP\\SEO\\Initializers\\Disable_Core_Sitemaps' => $baseDir . '/src/initializers/disable-core-sitemaps.php',
     'Yoast\\WP\\SEO\\Initializers\\Initializer_Interface' => $baseDir . '/src/initializers/initializer-interface.php',
     'Yoast\\WP\\SEO\\Initializers\\Migration_Runner' => $baseDir . '/src/initializers/migration-runner.php',
+    'Yoast\\WP\\SEO\\Integrations\\Admin\\Disable_Concatenate_Scripts_Integration' => $baseDir . '/src/integrations/admin/disable-concatenate-scripts-integration.php',
     'Yoast\\WP\\SEO\\Integrations\\Admin\\Indexation_Integration' => $baseDir . '/src/integrations/admin/indexation-integration.php',
     'Yoast\\WP\\SEO\\Integrations\\Admin\\Migration_Error_Integration' => $baseDir . '/src/integrations/admin/migration-error-integration.php',
     'Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Indexation_Integration' => $baseDir . '/premium/src/integrations/admin/prominent-words/indexation-integration.php',

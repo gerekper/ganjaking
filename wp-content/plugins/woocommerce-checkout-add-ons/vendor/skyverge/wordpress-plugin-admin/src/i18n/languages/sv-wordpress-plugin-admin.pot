@@ -1,0 +1,154 @@
+# Copyright (C) 2020 SkyVerge WordPress Admin
+# This file is distributed under the same license as the SkyVerge WordPress Admin package.
+msgid ""
+msgstr ""
+"Project-Id-Version: SkyVerge WordPress Admin\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/Dashboard.php:45
+msgid "Dashboard"
+msgstr ""
+
+#: src/Menus.php:105
+msgid "SkyVerge"
+msgstr ""
+
+#: src/Menus.php:106
+msgid "SkyVerge Dashboard"
+msgstr ""
+
+#: src/Support.php:41
+msgid "Get Help"
+msgstr ""
+
+#: src/REST_API/Controllers/Messages.php:121
+msgid "Unique message ID"
+msgstr ""
+
+#: src/REST_API/Controllers/Messages.php:127
+msgid "Publish date"
+msgstr ""
+
+#: src/REST_API/Controllers/Messages.php:133
+msgid "Expiration date"
+msgstr ""
+
+#: src/REST_API/Controllers/Messages.php:139
+msgid "Message status for the current user"
+msgstr ""
+
+#: src/REST_API/Controllers/Messages.php:348, src/REST_API/Controllers/Messages.php:386, src/REST_API/Controllers/Support_Requests.php:144
+msgid "A required field is missing or empty"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:89
+msgid "Whether or not the shop is connected to WooCommerce.com"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:96
+msgid "Whether or not the support bot is connected"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:103
+msgid "The shop's site URL"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:109
+msgid "The shop's e-mail address."
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:115
+msgid "The current admin's e-mail address."
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:121
+msgid "The shop's support user."
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:127
+msgid "The Shop page's creation date."
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:133
+msgid "The version of the currently loaded SkyVerge WordPress Plugin Admin package."
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:142
+msgid "Address line 1"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:148
+msgid "Address line 2"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:154
+msgid "City"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:160
+msgid "Country"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:166
+msgid "State"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:172
+msgid "Postal code"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:183
+msgid "The plugin's slug."
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:189
+msgid "The plugin's name."
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:195
+msgid "The plugin's WordPress status."
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:202
+msgid "The plugin's WooCommerce.com subscription status."
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:209
+msgid "Whether or not the plugin is connected to WooCommerce.com"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:216
+msgid "The URL to activate the plugin"
+msgstr ""
+
+#: src/REST_API/Controllers/Shop.php:222
+msgid "The plugin URL"
+msgstr ""
+
+#: src/REST_API/Controllers/Support_Requests.php:75
+msgid "The e-mail address the support team will reply to"
+msgstr ""
+
+#: src/REST_API/Controllers/Support_Requests.php:80
+msgid "The plugin name"
+msgstr ""
+
+#: src/REST_API/Controllers/Support_Requests.php:85
+msgid "The subject"
+msgstr ""
+
+#: src/REST_API/Controllers/Support_Requests.php:90
+msgid "The message"
+msgstr ""
+
+#: src/REST_API/Controllers/Support_Requests.php:95
+msgid "Whether or not to create a debug user"
+msgstr ""

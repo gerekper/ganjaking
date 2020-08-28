@@ -1,0 +1,63 @@
+.searchwp-diagnostics-tool {
+	margin-bottom: 3em;
+}
+
+.searchwp-diagnostics-tool:last-of-type {
+	margin-bottom: 6em;
+}
+
+.searchwp-diagnostics-indexed-tokens div {
+	display: flex;
+	align-items: center;
+}
+
+.searchwp-diagnostics-loading {
+	position: relative;
+	opacity: 0.5;
+}
+
+.searchwp-diagnostics-loading:after {
+	display: block;
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	cursor: wait;
+}
+
+.searchwp-diagnostics-indexed-tokens div > div {
+	margin-right: 1em;
+	margin-left: 1em;
+}
+
+.searchwp-diagnostics-indexed-tokens label {
+	display: block;
+	margin-right: 0.5em;
+}
+
+.searchwp-diagnostics-results-display {
+	margin: 1em 0;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	padding: 1em;
+}
+
+.searchwp-diagnostics-results-display p.description {
+	margin: 0;
+}
+
+.searchwp-diagnostics-results-display ul {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 1em 0 0;
+	padding: 0;
+}
+
+.searchwp-diagnostics-results-display li {
+	font-family: monospace;
+	width: 25%;
+}

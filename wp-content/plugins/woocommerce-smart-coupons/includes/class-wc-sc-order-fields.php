@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0.2
+ * @version     1.0.3
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -101,11 +101,13 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 
 				foreach ( $coupons as $item_id => $item ) {
 
-					if ( empty( $item['code'] ) ) {
+					$code = ( is_object( $item ) && is_callable( array( $item, 'get_code' ) ) ) ? $item->get_code() : $item['code'];
+
+					if ( empty( $code ) ) {
 							continue;
 					}
 
-					$coupon = new WC_Coupon( $item['code'] );
+					$coupon = new WC_Coupon( $code );
 					if ( ! empty( $coupon ) && $coupon instanceof WC_Coupon ) {
 
 						if ( $this->is_wc_gte_30() ) {
@@ -119,12 +121,15 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 							continue;
 						}
 
-						$total_credit_used += $item['discount_amount'];
+						$discount     = ( is_object( $item ) && is_callable( array( $item, 'get_discount' ) ) ) ? $item->get_discount() : $item['discount_amount'];
+						$discount_tax = ( is_object( $item ) && is_callable( array( $item, 'get_discount_tax' ) ) ) ? $item->get_discount_tax() : $item['discount_amount_tax'];
+
+						$total_credit_used += $discount;
 
 						$sc_include_tax = $this->is_store_credit_include_tax();
 						// Check if discount include tax.
-						if ( 'yes' === $sc_include_tax && ! empty( $item['discount_amount_tax'] ) ) {
-							$total_credit_used += $item['discount_amount_tax'];
+						if ( 'yes' === $sc_include_tax && ! empty( $discount_tax ) ) {
+							$total_credit_used += $discount_tax;
 						} else {
 							$prices_include_tax = ( 'incl' === get_option( 'woocommerce_tax_display_cart' ) ) ? true : false;
 							if ( true === $prices_include_tax ) {
@@ -132,7 +137,7 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 								if ( 'yes' === $apply_before_tax ) {
 									$_sc_include_tax = get_option( 'woocommerce_smart_coupon_include_tax', 'no' );
 									if ( 'no' === $_sc_include_tax ) {
-										$total_credit_used += $item['discount_amount_tax'];
+										$total_credit_used += $discount_tax;
 									}
 								}
 							}
@@ -317,7 +322,9 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 				include_once 'class-wcs-compatibility.php';
 			}
 
-			if ( wc_tax_enabled() && 'incl' === WC()->cart->tax_display_cart ) {
+			$is_display_price_incl_tax = ( $this->is_wc_gte_33() ) ? WC()->cart->display_prices_including_tax() : ( 'incl' === WC()->cart->tax_display_cart );
+
+			if ( wc_tax_enabled() && true === $is_display_price_incl_tax ) {
 
 				$applied_coupons = ( is_object( WC()->cart ) && is_callable( array( WC()->cart, 'get_applied_coupons' ) ) ) ? WC()->cart->get_applied_coupons() : array();
 

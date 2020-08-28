@@ -1,0 +1,948 @@
+/** My Task Page design **/
+/**Common CSS**/
+@gray: #eee;
+@blueColor : #0073aa ;
+@box-shadow: 0 1px 1px rgba(0,0,0,.04);
+@modal-line-gap : 18px;
+.cpm-line-bg{
+    border-top: #EDE5B5 solid 1px;
+    background: #FAFEF0 -webkit-linear-gradient(top,transparent 0px,transparent 29px,#EDE5B5 29px,#EDE5B5 30px);
+    background: -moz-linear-gradient(top,transparent 0px,transparent 29px,#EDE5B5 29px,#EDE5B5 30px);
+    background: -ms-linear-gradient(top,transparent 0px,transparent 29px,#EDE5B5 29px,#EDE5B5 30px);
+    background: -o-linear-gradient(top,transparent 0px,transparent 29px,#EDE5B5 29px,#EDE5B5 30px);
+    background: linear-gradient(top,transparent 0px,transparent 29px,#EDE5B5 29px,#EDE5B5 30px);
+    background-size: 100% 30px;
+    background-position: 0px 0px;
+    padding: 30px @modal-line-gap;
+    line-height: 30px;
+    font-size: 16px;
+
+    min-height: 350px;
+    ul, ol{
+        padding: 0px;
+        margin: 0px;
+        margin-left: 40px;
+        li{
+            padding: 0px;
+            margin: 0px;
+        }
+
+    }
+    ul{
+        list-style: disc;
+    }
+
+
+    pre{
+        padding: 0px;
+        margin: 0px;
+        margin-left: 15px;
+        padding-left: 15px;
+    }
+
+}
+
+
+.cpm-project-head {
+    .cpm-edit-project {
+        margin-top: -50px;
+    }
+}
+#wpadminbar{
+    z-index: 9999;
+}
+
+#cpm-report,
+#cpm-advance-report {
+    margin-top: 15px;
+    [v-cloak] {
+        display: none;
+    }
+    .report-page-title{
+        padding-right: 0px;
+    }
+    .cpm-advance-search{
+        background: @blueColor;
+        padding: 5px 25px;
+        color : #ffffff;
+        font-weight: normal;
+        font-size: 14px  ;
+        box-shadow: 1 2px 2px rgba(0,0,0,.01);
+        border-radius: 5px;
+    }
+    .postbox{
+        background: none;
+        border: none;
+        box-shadow:none;
+        ul{
+            padding-left: 0px;
+
+            margin-left: 0px;
+
+            li {
+                text-align: center;
+                padding:2% 1% 1%;
+                background: #fff;
+                box-shadow:@box-shadow;
+                border: solid 1px #ccc;
+                margin: 0% 1% 1%;
+                width: 19% ;
+                margin-left: 0;
+                text-align: center;
+                cursor: pointer;
+                min-height: 228px;
+                float: left ;
+                a {
+                    padding: 15px;
+                }
+                strong{
+                    color: #000;
+                }
+            }
+            li:hover{
+                background : #f8f8f8;
+            }
+        }
+    }
+
+    .cpm-report-content {
+        .button {
+            margin-top: 1px;
+        }
+        .cpm-field, .cpm-report-more {
+            margin-left: 10px;
+        }
+    }
+    .cpm-form-title {
+        border-bottom: 1px solid #eee;
+        padding: 8px 12px;
+        margin-bottom: 14px;
+    }
+    .cpm-projects-dropdown {
+        margin-left: 10px;
+        margin-top: -4px;
+    }
+    .cpm-projects-from, .cpm-projects-to {
+        margin-left: 6px;
+    }
+    .cpm-report-more {
+        margin-left: 5px;
+    }
+    .cpm-action-parent {
+        width: 100%;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .cpm-report-action-wrap {
+        .cpm-report-lebel, .cpm-report-projects-wrap, .cpm-report-co-worker-wrap, .cpm-report-status-wrap, .cpm-report-time-wrap {
+            float: left;
+            //padding-left: 10px;
+        }
+        input[type="text"],
+        select {
+            width: 160px;
+        }
+
+    }
+    .cpm-report-button-wrap {
+        margin-top: 10px;
+    }
+    select {
+        width: 160px;
+    }
+    label {
+        strong {
+            width: 100px;
+        }
+    }
+    .cpm-postbox-wrap {
+        padding: 0px 20px 20px 13px;
+        .cpm-label-title {
+            width: 100px;
+        }
+        .cpm-label-title, .cpm-field {
+            float: left;
+        }
+    }
+    .cpm-reoprt-individul-table-wrap {
+        margin-bottom: 30px;
+        padding: 20px !important;
+        th, td {
+            width: 20%;
+        }
+        .cpm-list-title {
+            margin: 20px 0;
+            width: 100%;
+            display: inline-block;
+        }
+        .cpm-project-title {
+            padding-left: 10px;
+            padding: 0 10px;
+        }
+        .cpm-project-title, .cpm-interval-title {
+            margin-bottom: 10px;
+        }
+        .cpm-interval-title{
+            padding-right: 10px;
+            border-right: 1px solid #939393;
+        }
+        .cpm-project-title, .cpm-interval-title{
+            float: left;
+        }
+        .cpm-reoprt-table-header{
+            margin-bottom: 20px;
+        }
+        .cpm-project-title-not-interval{
+            margin-bottom: 4px;
+        }
+    }
+    form {
+        select{
+            margin-bottom: 5px;
+        }
+        label{
+            padding: 0px;
+            margin: 0px;
+            margin-right: 15px;
+        }
+        input[type="radio"] {
+            padding: 0px;
+            margin: 0px;
+        }
+
+    }
+    .modal-body{
+        input,
+        select{
+            width: 100%;
+        }
+    }
+
+    .cpm-assigned-user{
+
+    }
+
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        width : auto;
+    }
+    .cpm-report-page{
+        width : 100%;
+
+        .cpm-report-body{
+            margin-top: 20px;
+
+            // background: #fff;
+            // border: 1px solid #e5e5e5;
+            .cpm-report-filter,
+            .cpl-data-head{
+                background: #fff;
+                border: #E5E5E5 solid 1px ;
+            }
+            .cpm-report-filter{
+                border-bottom: none;
+                background: #F9F9F9;
+                div{
+                    margin-bottom: 0px;
+
+                }
+                .report-title{
+                    font-size: 140%;
+                    padding-top:10px;
+                    width: 60%;
+                    float: left;
+
+                }
+                .cpm-report-btn-group{
+                    padding-top: 13px;
+                    margin-bottom: 10px;
+                    padding-right: 12px;
+                    width: 32%;
+                    float: right;
+                    :before{
+                        margin-top: 4px;
+                    }
+                }
+                .cpm-report-btn-pc{
+                    width: 8%;
+                    float: right;
+                    .cpm-close{
+                        display: block;
+                        width: 40%;
+                        min-height: 27px;
+                        padding: 15% 4%;
+                        background:'' ;
+                        border: none;
+                        border-left: 1px solid #ddd;
+                        color: #444;
+                        text-align: center;
+                        font-size: 175%;
+                        cursor: pointer;
+                        -webkit-transition: color .1s ease-in-out,background .1s ease-in-out;
+                        transition: color .1s ease-in-out,background .1s ease-in-out;
+                        -webkit-box-sizing: content-box;
+                        -moz-box-sizing: content-box;
+                        box-sizing: content-box;
+
+                    }
+                    .cpm-close:hover{
+                        background: #eee ;
+                    }
+                }
+                .dashicons-media-spreadsheet{
+                    margin-left: 15px;
+                }
+
+            }
+            .cpm-report-icon{
+                padding-right: 10px;
+                margin-top: 5px;
+            }
+            .cpl-data-head{
+                border-bottom: 1px solid #e5e5e5;
+                padding : 10px;
+                .cpm-col-3{
+                    text-align: center;
+                    padding-bottom: 0px;
+                    margin-bottom: 0px;
+                }
+                .cpm-border-right{
+                    border-right: 1px solid #e5e5e5;
+                }
+            }
+            .cpm-report-details{
+                .cpm-report-project{
+                    background: #fff;
+                    margin-top: 20px;
+                    padding: 15px;
+                }
+                img{
+                    vertical-align: middle;
+                    margin-top: -5px;
+                    padding-right: 5px;
+                }
+                h2, h4, hr{
+                    padding: 0px;
+                    margin: 0px;
+
+                }
+                h2{
+                    padding:0px 0px 10px ;
+
+                }
+                h4{
+                    padding: 0px;
+                    margin: 0px;
+                    padding:5px 0px 5px ;
+                }
+                hr{
+                    padding: 0px;
+                    margin: 0px;
+                    margin-bottom: 5px;
+                }
+                .cpm-project-list{
+
+                }
+                table{
+                    margin-bottom: 8px;
+                    margin-top: 8px;
+                }
+            }
+        }
+    }
+    .complete_task{
+        color: green ;
+    }
+    .incomplete_task{
+        color: red ;
+    }
+}
+
+.cpm-pro-file-container{
+    display: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    .cpm-uplaod-btn-list {
+        a{
+            margin-left: 10px;
+            line-height: 36px;
+            height: 40px;
+            .dashicons{
+                margin-top: 8px;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .cpm-previous-back{
+
+        /* background: #f6f6f6;*/
+        .dashicons{
+
+        }
+        ul{
+
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+
+
+            li{
+                padding: 5px 5px 0px;
+                float: left;
+                margin-right: 5px;
+
+            }
+        }
+        .dashicons-arrow-left-alt{
+            margin-top: 3px;
+        }
+        .cpm-right{
+            margin-top: -4px;
+        }
+    }
+
+    .cpm-form-title{
+        border: solid 1px #EAEAEA ;
+        background: #F9F9F9;
+        padding: 10px;
+        font-weight: bold;
+        font-size: 120%;
+        clear: right;
+
+        .button{
+            float: right;
+            margin-top: -3px;
+        }
+    }
+    .form-uploader{
+        background: #fff;
+        box-shadow: @box-shadow;
+        margin-top: 25px;
+
+
+    }
+
+    .cpm-upload-filelist{
+        .cpm-uploaded-item{
+            padding: 0px;
+            float: left;
+            text-align: center;
+            margin-right: 25px;
+            margin-bottom: 25px;
+            padding: 15px;
+            a{
+                display: block;
+                img{
+                    margin: 0px;
+                }
+            }
+
+            .cpm-delete-file{
+                margin-top: 10px;
+                display: inline-block;
+            }
+        }
+        .cpm-uploaded-item:last-child{
+            margin-right: 0px;
+        }
+
+    }
+
+    .cpm-privacy{
+        margin: 15px auto;
+    }
+    .form-uploader,  .docform{
+        form{
+            padding: 25px;
+        }
+    }
+    .docform{
+        background: #fff;
+        box-shadow: @box-shadow;
+        margin-top: 35px;
+        label{
+            display: block;
+            width: 100%;
+        }
+        input[type='text'] {
+            display: block;
+            width: 100%;
+        }
+        .submit{
+            width: 80px;
+        }
+        .docs-icon{
+            text-align: center;
+        }
+    }
+
+    .cpm-folders-list{
+        padding: 0;
+        margin: 20px -15px 0;
+        list-style: none;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        -webkit-flex-flow: row wrap;
+        justify-content: flex-start;
+
+        li{
+            margin: 0 0 30px;
+            padding:0px 15px;
+            background:none;
+            width: 20%;
+            float: left;
+            min-width: 272px;
+            height: 248px;
+
+            .ff-content{
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                box-shadow: @box-shadow;
+                border :  #E2E6E7 solid 1px;
+                background: #fff;
+
+            }
+            .ff-content:last-child{
+                margin-right: 0px !important;
+            }
+
+            .image-content{
+                padding: 20px 20px 0px;
+                text-align: center;
+                height: 205px;
+
+                img {
+                    max-height: 140px;
+                    vertical-align: middle;
+                    margin-bottom: 10px;
+                }
+
+                .item-title {
+                    font-weight: bold;
+                }
+
+                .edit {
+                    display: none;
+                }
+
+            }
+            .editing{
+                .view{
+                    display: none;
+                }
+                .edit{
+                    display: block;
+                    position: relative;
+                    width : 100%;
+
+                    input{
+                        width: 70%;
+                        border: 1px solid #ccc;
+                        box-shadow: @box-shadow;
+                        box-sizing: border-box;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-font-smoothing: antialiased;
+                        font-smoothing: antialiased;
+                    }
+                    .button{
+                        padding: 1px 2px;
+                    }
+                    .dashicons,
+                    .dashicons-before:before{
+                        line-height: inherit;
+
+                    }
+                    .save{
+                        color: green;
+                    }
+                    .cancel{
+                        color: red;
+                    }
+
+                }
+
+            }
+            .footer-section{
+                padding: 10px 15px;
+                background: #FCFCFC;
+                border-top: #F2F2F2 solid 1px;
+                width: 100%;
+                text-align: center;
+                height: 42px;
+                a{
+                    color: #ccc;
+                    padding: 2px 12px;
+                }
+                a:hover{
+                    color:@blueColor;
+                }
+
+                .cpm-comments-count{
+                    background :  url('../images/discussion.svg') no-repeat center center ;
+                    padding: 15px;
+                    background-size: 20px;
+                    span{
+                        padding: 0px 6px;
+                        margin-top: -12px;
+                        border-radius: 10px;
+                        position: absolute;
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+        .folder{
+            img {
+                padding: 35px 25px 33px;
+            }
+        }
+
+        .file {
+            .image-content{
+                img{
+                    border : #fdfdfd solid 1px;
+                }
+            }
+
+            .doc-content{
+                padding: 20px 20px 0px;
+                text-align: center;
+                font-weight: normal;
+                height: 205px;
+                background:#FAFEF0;
+                text-align: left;
+                cursor: pointer ;
+                overflow: hidden;
+
+                .item-title {
+                    font-weight: bold;
+                }
+            }
+
+
+            .online-docx-image-content {
+                position:absolute;
+                width: 18% ;
+                height: 200px;
+                background-repeat: no-repeat;
+                background-position: 50% 30% ;
+                -ms-background-size: cover;
+                -o-background-size: cover;
+                -moz-background-size: cover;
+                -webkit-background-size: cover;
+                background-size: 150px;
+            }
+
+            .footer-section {
+                text-align: center;
+            }
+
+        }
+    }
+    .cpm-folders-list:last-child{
+        margin-right: 0px;
+    }
+
+    .cpm-doc-attachment{
+        float: left;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border: #ccc solid 1px;
+        background: #fff;
+        padding: 5px;
+    }
+    .cpm-doc-attachment:last-child{
+        margin-right: 0px;
+    }
+    .cpm-attachment-area{
+        border: #ccc dashed 1px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    .cpm-trix-editor{
+        border: #ccc solid 1px ;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .cpm-doc-modal{
+        modal-container {
+            background-color: #fff000;
+        }
+        .modal-body{
+            display : flex;
+            background: #fff;
+            padding : 0px;
+
+            .doc_contents{
+                background: #F9F9F9;
+                border: #E6E9EB solid 1px;
+                h3{
+                    border-bottom: #E6E9EB solid 1px;
+                    margin: 0px;
+                    padding: @modal-line-gap;
+
+                    .sub-title{
+                        font-size: small;
+                        color: #b0b0b0;
+                        font-weight: normal;
+                    }
+                }
+
+                .document-details{
+                    padding: @modal-line-gap;
+                }
+
+                .online_doc_link{
+                    .cpm-box{
+                        border: #E6EAEB solid 1px;
+                        background: #fff;
+                        box-shadow: @box-shadow;
+                        max-width: 350px;
+                        text-align: center;
+                        padding: @modal-line-gap;
+                    }
+                    .cpm-title{
+                        font-weight: bold;
+
+                    }
+                    .button-primary{
+                        margin: @modal-line-gap 0px ;
+                        padding: 10px;
+                        height: 40px;
+
+                    }
+                }
+            }
+
+            .cpm-created-doc{
+                .doc_contents{
+                    background: #FAFEF0 ;
+
+                    .document-details{
+                        .cpm-line-bg
+                    }
+                }
+            }
+
+            .cpm-doc-attch{
+                text-align: center;
+                margin-left: 25px;
+                overflow: hidden;
+
+                img {
+                    max-width: 100%;
+                }
+
+                .file-download{
+                    text-align: left;
+                }
+            }
+        }
+
+        .cpm-doc-edit-mod{
+            background: #fff;
+            .cpm-col-9{
+
+                overflow-x: auto;
+            }
+            .top_part{
+                padding: 0 25px;
+            }
+            .cpm-doc-content
+            {
+                padding: 0px;
+            }
+            .doc_content{
+
+            }
+            .editor {
+                .cpm-line-bg;
+                padding: 0px 18px;
+                trix-toolbar{
+                    background: none;
+                    button{
+                        background: none;
+                    }
+                }
+                trix-editor{
+                    padding-top: 12px;
+                }
+
+            }
+            .bottom-part{
+                padding: 25px;
+            }
+        }
+
+        .doc_attach_comments{
+            padding: 25px;
+        }
+        .comment-content{
+            .cpm-avatar img{
+                height: 48px;
+            }
+            .cpm-comment{
+                background: none;
+            }
+
+
+        }
+        #new_comment_form{
+            margin-bottom: 50px;
+
+            trix-toolbar .button_group button,
+            trix-toolbar .button_group input[type=button]{
+                background: rgba(255, 255, 255, 0)
+            }
+        }
+
+
+        .cpm-revision{
+            background: #F9F9F9;
+            padding: 25px 10px  0px 25px;
+            ul{
+                margin-left: -10px;
+                li{
+                    border-bottom:  #E5E5E5 solid 1px;
+                    padding: 10px;
+                    margin-bottom: 5px;
+                }
+            }
+        }
+
+    }
+    #doc-update-form{
+        margin-top: 20px;
+        input[type='text']{
+            width: 100%;
+            padding: 15px;
+            font-size: 100%;
+        }
+    }
+
+    .cpm-rdoc-view{
+        .image-content{
+            img{
+                max-height:120px !important;
+            }
+        }
+    }
+
+    .doc-content{
+        a{
+            color: #848484 !important;
+        }
+    }
+    .cpm-files-load{
+        .loadmoreanimation{
+            display: block;
+        }
+    }
+    .cpm-center{
+        text-align: center;
+    }
+}
+
+.cpm-front-end{
+    a{
+        text-decoration: none !important;
+    }
+    .project-overview{
+        .overview-menu {
+            ul {
+                display: flex;
+            }
+        }
+        .cpm-col-10{
+            width: 81.45795196225%;
+        }
+    }
+}
+
+.cpm-update-todolist-form {
+    width: 50%;
+    .cpm-new-todolist-form {
+        margin: 0px;
+        width: 100% !important;
+    }
+}
+
+.cpm-calendar {
+    .fc-title {
+        color: #efefef;
+    }
+}
+
+@media only screen and (max-width : 640px) {
+    .postbox{
+        ul{
+            li{
+                min-width: 48%;
+            }
+        }
+    }
+}
+
+@media print {
+    #adminmenumain {
+        display: none;
+    }
+
+    #wpadminbar {
+        display: none;
+    }
+
+    #wpfooter {
+        display: none;
+    }
+
+    .cpm-report-filter {
+        display: none;
+    }
+
+    #report {
+        width: 210mm;
+        height: 297mm;
+        padding: 0px;
+        margin: 0px;
+        margin-left: -100px;
+
+        .cpl-data-head {
+            margin: 0px;
+            padding: 0px;
+            margin-top: -50px;
+
+            .first {
+                width: 22%;
+            }
+            .second {
+                width: 22%;
+            }
+            .third {
+                width: 22%;
+            }
+            .fourth {
+                width: 25%;
+                h3 {
+                    padding: 3px;
+                    margin: 2px;
+                }
+            }
+        }
+    }
+
+    @page {
+        size: A4;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}

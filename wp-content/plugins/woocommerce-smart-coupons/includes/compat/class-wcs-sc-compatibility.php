@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.3
+ * @version     1.1.4
  * @package     WooCommerce Smart Coupons
  */
 
@@ -654,13 +654,15 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 							$items_to_apply_credit = array();
 							if ( count( $coupon_product_ids ) > 0 || count( $coupon_category_ids ) > 0 ) {
 								foreach ( $renewal_order_items as $renewal_order_item_id => $renewal_order_item ) {
-									$product_category_ids = wc_get_product_cat_ids( $renewal_order_item['product_id'] );
+									$renewal_product_id   = ( is_object( $renewal_order_item ) && is_callable( array( $renewal_order_item, 'get_product_id' ) ) ) ? $renewal_order_item->get_product_id() : $renewal_order_item['product_id'];
+									$renewal_variation_id = ( is_object( $renewal_order_item ) && is_callable( array( $renewal_order_item, 'get_variation_id' ) ) ) ? $renewal_order_item->get_variation_id() : $renewal_order_item['variation_id'];
+									$product_category_ids = wc_get_product_cat_ids( $renewal_product_id );
 									if ( count( $coupon_product_ids ) > 0 && count( $coupon_category_ids ) > 0 ) {
-										if ( ( in_array( $renewal_order_item['product_id'], $coupon_product_ids, true ) || in_array( $renewal_order_item['variation_id'], $coupon_product_ids, true ) ) && count( array_intersect( $product_category_ids, $coupon_category_ids ) ) > 0 ) {
+										if ( ( in_array( $renewal_product_id, $coupon_product_ids, true ) || in_array( $renewal_variation_id, $coupon_product_ids, true ) ) && count( array_intersect( $product_category_ids, $coupon_category_ids ) ) > 0 ) {
 											$items_to_apply_credit[ $renewal_order_item_id ] = $renewal_order_item;
 										}
 									} else {
-										if ( in_array( $renewal_order_item['product_id'], $coupon_product_ids, true ) || in_array( $renewal_order_item['variation_id'], $coupon_product_ids, true ) || count( array_intersect( $product_category_ids, $coupon_category_ids ) ) > 0 ) {
+										if ( in_array( $renewal_product_id, $coupon_product_ids, true ) || in_array( $renewal_variation_id, $coupon_product_ids, true ) || count( array_intersect( $product_category_ids, $coupon_category_ids ) ) > 0 ) {
 											$items_to_apply_credit[ $renewal_order_item_id ] = $renewal_order_item;
 										}
 									}
@@ -766,7 +768,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 
 			if ( count( $renewal_order->get_items() ) > 0 ) {
 				foreach ( $renewal_order->get_items() as $item ) {
-					$_product = $renewal_order->get_product_from_item( $item );
+					$_product = ( is_object( $item ) && is_callable( array( $item, 'get_product' ) ) ) ? $item->get_product() : $renewal_order->get_product_from_item( $item );
 
 					if ( $_product instanceof WC_Product ) {
 						$virtual_downloadable_item = $_product->is_downloadable() && $_product->is_virtual();

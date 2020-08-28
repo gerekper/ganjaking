@@ -1,5 +1,8 @@
 *** WooCommerce Measurement Price Calculator Changelog ***
 
+2020.08.24 - version 3.18.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+
 2020.06.02 - version 3.17.5
  * Fix - When using a comma as the decimal separator in a quantity mode calculator, ensure that the actual amount displayed uses the same separator consistently
 

@@ -1,5 +1,8 @@
 *** WooCommerce Memberships Changelog ***
 
+2020.08.24 - version 1.18.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+
 2020.08.18 - version 1.17.6
  * Fix - Correctly load the Block Editor in WordPress 5.5
  * Fix - Ensure that the comments count is not an empty array while trying to subtract membership notes from the counts object's properties

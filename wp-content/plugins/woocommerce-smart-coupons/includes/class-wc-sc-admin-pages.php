@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.6
+ * @version     1.1.8
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		private function __construct() {
 
 			add_filter( 'views_edit-shop_coupon', array( $this, 'smart_coupons_views_row' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'generate_coupon_styles_and_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'generate_coupon_styles_and_scripts' ), 99 );
 			add_action( 'admin_notices', array( $this, 'woocommerce_show_import_message' ) );
 
 			add_action( 'admin_menu', array( $this, 'woocommerce_coupon_admin_menu' ) );
@@ -298,7 +298,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		 * Function to show import message
 		 */
 		public function woocommerce_show_import_message() {
-			global $pagenow,$typenow;
+			global $pagenow, $typenow;
 
 			$get_show_import_message = ( ! empty( $_GET['show_import_message'] ) ) ? wc_clean( wp_unslash( $_GET['show_import_message'] ) ) : ''; // phpcs:ignore
 			$get_imported            = ( ! empty( $_GET['imported'] ) ) ? wc_clean( wp_unslash( $_GET['imported'] ) ) : 0; // phpcs:ignore
@@ -325,19 +325,20 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		public function smart_coupons_script_in_footer() {
 
 			global $pagenow;
-
-			if ( empty( $pagenow ) || 'admin.php' !== $pagenow ) {
+			if ( empty( $pagenow ) ) {
 				return;
 			}
-			$get_page = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore
 
-			if ( 'wc-smart-coupons' === $get_page ) {
+			$get_page  = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore
+			$post_type = ( ! empty( $_GET['post_type'] ) ) ? wc_clean( wp_unslash( $_GET['post_type'] ) ) : ''; // phpcs:ignore
+
+			if ( in_array( $get_page, array( 'wc-smart-coupons', 'sc-about', 'sc-faqs' ), true ) || 'shop_coupon' === $post_type ) {
 				?>
 				<script type="text/javascript">
 					jQuery(function(){
 						let is_marketing = '<?php echo esc_js( ( $this->is_wc_gte_44() ) ? 'yes' : 'no' ); ?>';
-						// Highlight Coupons menu when visiting Bulk Generate/Import Coupons/Send Store Credit tab.
-						jQuery(document).on('ready', function(){
+						// Highlight Coupons menu when visiting Bulk Generate/Import Coupons/Send Store Credit/Coupon category tab.
+						jQuery(document).on('ready', function() {
 							let sa_wc_menu_selector           = 'toplevel_page_woocommerce';
 							let sa_wc_marketing_menu_selector = 'toplevel_page_woocommerce-marketing';
 							let element = jQuery('li#' + sa_wc_menu_selector);

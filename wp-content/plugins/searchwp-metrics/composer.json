@@ -1,0 +1,21 @@
+{
+  "name": "searchwp/searchwp-metrics",
+  "description": "Advanced search metrics from SearchWP",
+  "keywords": ["wordpress", "search", "metrics"],
+  "homepage": "https://searchwp.com/extensions/metrics/",
+  "authors": [
+    {
+      "name": "SearchWP, LLC",
+      "homepage": "https://searchwp.com/"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "autoload" : {
+    "psr-4": {
+      "SearchWP_Metrics\\": "includes"
+    }
+  },
+  "require": {
+    "php": ">=5.3.2"
+  }
+}

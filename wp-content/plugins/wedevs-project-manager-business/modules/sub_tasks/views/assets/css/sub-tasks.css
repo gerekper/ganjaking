@@ -1,0 +1,283 @@
+ul.cpmst-complete-status .cpm-todo-wrap, ul.cpmst-uncomplete-status .cpm-todo-wrap, ul.cpm-todo-completed .cpm-todo-wrap {
+    position: relative;
+    text-align: justify;
+    width: 88%;
+}
+
+
+ul.cpmst-complete-status .cpm-todo-wrap:hover > .cpmst-todo-action, ul.cpmst-uncomplete-status .cpm-todo-wrap:hover > .cpmst-todo-action, ul.cpm-todo-completed .cpm-todo-wrap:hover > .cpmst-todo-action {
+    display: block;
+}
+
+ul.cpmst-complete-status .cpm-todo-wrap .cpmst-todo-action, ul.cpmst-uncomplete-status .cpm-todo-wrap .cpmst-todo-action, ul.cpm-todo-completed .cpm-todo-wrap .cpmst-todo-action {
+    display: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    font-size: 11px;
+    line-height: 14px;
+    padding: 2px 0 0;
+    z-index: 99;
+}
+
+ul.cpmst-complete-status .cpm-todo-wrap .cpmst-todo-action, ul.cpm-todo-completed .cpm-todo-wrap .cpmst-todo-action {
+
+}
+
+.cpm .cpm-todolists .cpm-todolist .cpm-todos ul.cpm-sub-task {
+    margin-top: 6px;
+    margin-left: 10px;
+}
+
+.cpm .cpm-todolists .cpm-todolist .cpm-todos ul.cpm-sub-task.cpm-todo-completed {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.cpm .cpm-todolists .cpm-todolist .cpm-todos ul.cpm-sub-task li {
+    border-bottom: none;
+}
+
+.cpmst-sub-task .cpm-new-task-spinner {
+    background: url("images/loading.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: none;
+    height: 16px;
+    left: 0;
+    margin-top: 5px;
+    position: absolute;
+    width: 16px;
+}
+.cpmst-sub-task {
+    background: #f8f8f8;
+    border: 1px solid #eee;
+    margin: 15px 0 10px 15px;
+    padding: 15px 15px 15px;
+    width: 100%;
+}
+.cpmst-sub-task input[type="text"], .cpmst-sub-task textarea {
+    width: 98%;
+}
+.cpmst-sub-task #task_assign_chosen  {
+    width: 98% !important;
+}
+.cpmst-sub-task #task_assign_chosen input {
+    height: 30px !important;
+}
+
+.cpm-todolist .cpmst-front-new-subtask-btn, .cpm-todolist .cpmst-front-new-subtask-btn:hover {
+    background: none;
+    border: none;
+    box-shadow: none;
+    color: #0074a2;
+    margin-bottom: 14px;
+    margin-top: -4px;
+}
+
+
+.cpm-single-task .cpmst-sub-task {
+    background: none repeat scroll 0 0 #F8F8F8;
+    border: 1px solid #eee;
+    margin: 15px 0 10px 15px;
+    padding: 15px 15px 0;
+    width: 40%;
+}
+.cpm-single-task .cpmst-sub-task .item label {
+    display: block;
+    font-size: 13px;
+}
+
+.cpm-single-task .cpm-add-subtask, .cpm-single-task .cpmi-add-subtask-submit,.cpm-single-task .cpm-cancle-new-sub-task {
+
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 26px;
+    margin: 0;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0 10px 1px;
+
+}
+
+.cpm-single-task .cpmi-add-subtask:hover {
+    background: #1E8CBE;
+    border-color: #0074A2;
+    box-shadow: 0 1px 0 rgba(120, 200, 230, 0.6) inset;
+    color: #FFFFFF;
+}
+.cpm-single-task .button-primary {
+    background: #2EA2CC;
+    border-color: #0074A2;
+    box-shadow: 0 1px 0 rgba(120, 200, 230, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+    color: #FFFFFF;
+}
+.cpm-single-task .cpm-cancle-new-sub-task {
+    background: #F7F7F7;
+    border-color: #CCCCCC;
+    box-shadow: 0 1px 0 #FFFFFF inset, 0 1px 0 rgba(0, 0, 0, 0.08);
+    color: #555555;
+    vertical-align: top;
+}
+
+.cpmst-front-ul-wrap .cpmst-front-li-wrap {
+    position: relative;
+}
+
+.cpmst-front-ul-wrap .cpmst-front-new-subtask-btn {
+    position: absolute;
+}
+
+.cpmst-btn-column-add {
+    background: url('../images/plus_blue.svg') no-repeat 0% 50%;
+    padding: 0px 8px;
+}
+
+.cpmst-show-subtask {
+    background: url('../images/dark-eye.svg') no-repeat 0% 50%;
+    padding: 0px 8px;
+}
+
+.cpm-new-btn.sub-task {
+    border : none !important;
+}
+
+.cpmst-add-subtask{
+    font-size: small;
+    padding: 2px 5px 3px 30px !important;
+    color : #cccc00;
+    margin: 0;
+    border-radius: 0px;
+    display: inline;
+    background-size: 15px !important;
+    background-color:  #0998c9 !important;
+}
+
+
+#task_assign_chosen {
+  width: 98% !important;
+}
+
+#task_assign_chosen input[type="text"] {
+    height: 30px;
+    color: #9B9B9B;
+}
+#task_assign_chosen .chosen-choices .search-choice {
+    position: relative;
+    margin: 3px 0 3px 5px;
+    padding: 3px 20px 3px 5px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    background-color: #e4e4e4;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
+    background-image: -webkit-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-image: -moz-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-image: -o-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-clip: padding-box;
+    box-shadow: 0 0 2px #ffffff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+    color: #333;
+    line-height: 13px;
+    cursor: default;
+}
+ #task_assign_chosen .chosen-results li.highlighted {
+    background-color: #3875d7;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #3875d7), color-stop(90%, #2a62bc));
+    background-image: -webkit-linear-gradient(#3875d7 20%, #2a62bc 90%);
+    background-image: -moz-linear-gradient(#3875d7 20%, #2a62bc 90%);
+    background-image: -o-linear-gradient(#3875d7 20%, #2a62bc 90%);
+    background-image: linear-gradient(#3875d7 20%, #2a62bc 90%);
+    color: #fff;
+}
+
+.cpm-single-task-subtask-form {
+    width: 60%;
+}
+
+.cpmst-sub-task .item {
+    margin-bottom: 10px;
+}
+
+.cpmst-sub-task label {
+    display: block;
+}
+
+.cpmst-sub-task .item  input[type="text"] {
+    height: 34px;
+}
+
+.cpmst-sub-task .item  input[type="text"], textarea {
+    width: 98%;
+}
+.cpmst-sub-task .item .multiselect__tag {
+    background: #019dd6;
+}
+.cpmst-sub-task .item .multiselect__tag-icon:focus, .multiselect__tag-icon:hover {
+    background: #019dd6;
+}
+.cpmst-sub-task .item .multiselect__input {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    margin-top: -1px;
+    padding: 0;
+    height: 30px !important;
+    display: none;
+}
+.cpmst-sub-task .item .multiselect__element {
+    height: 25px;
+    margin: 0;
+}
+
+.cpmst-sub-task .item .multiselect__select:before {
+    top: 57%;
+}
+
+.cpmst-sub-task .item .multiselect__tags {
+    min-height: 34px;
+    border-radius: 0px;
+    width: 98%;
+}
+
+.cpmst-sub-task  .item .multiselect__option {
+    min-height: 30px;
+    padding: 8px 12px;
+}
+
+.cpmst-sub-task  .item .multiselect__option--highlight {
+    background: #019dd6;
+}
+
+
+.cpmst-sub-task  .item .multiselect__content {
+    border-radius: 0px;
+}
+.cpmst-sub-task  .item li {
+    border: none;
+    padding: 0;
+    height: 34px;
+}
+.cpmst-sub-task .submit {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.singleSubtask .pm-todo-form {
+    border: 1px solid #eee;
+    padding: 10px;
+    margin: 10px;
+}
+.singleSubtask .pm-todo-form .hasDatepicker{
+    width: 98%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.singleSubtask .pm-todo-form .multiselect {
+    width: 98%;
+}
+
+.singleSubtask .pm-todo-form .multiselect  .multiselect__tags{
+    border-radius: 0px;
+}

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2020-08-04 07:42:49+00:00\n"
+"POT-Creation-Date: 2020-08-24 15:13:02+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -190,17 +190,26 @@ msgstr ""
 msgid "An error occurred while saving data."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:60 mp3/lib/API/JSON/v1/Forms.php:120
-#: mp3/lib/API/JSON/v1/Forms.php:212 mp3/lib/API/JSON/v1/Forms.php:230
-#: mp3/lib/API/JSON/v1/Forms.php:244 mp3/lib/API/JSON/v1/Forms.php:273
+#: mp3/lib/API/JSON/v1/Forms.php:68 mp3/lib/API/JSON/v1/Forms.php:86
+#: mp3/lib/API/JSON/v1/Forms.php:167 mp3/lib/API/JSON/v1/Forms.php:261
+#: mp3/lib/API/JSON/v1/Forms.php:279 mp3/lib/API/JSON/v1/Forms.php:293
+#: mp3/lib/API/JSON/v1/Forms.php:322
 msgid "This form does not exist."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:126
+#: mp3/lib/API/JSON/v1/Forms.php:77 mp3/lib/API/JSON/v1/Newsletters.php:155
+msgid "You need to specify a status."
+msgstr ""
+
+#: mp3/lib/API/JSON/v1/Forms.php:94
+msgid "Invalid status. Allowed values are (%1$s), you specified %2$s"
+msgstr ""
+
+#: mp3/lib/API/JSON/v1/Forms.php:173
 msgid "New form"
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:254 mp3/lib/API/JSON/v1/Newsletters.php:255
+#: mp3/lib/API/JSON/v1/Forms.php:303 mp3/lib/API/JSON/v1/Newsletters.php:255
 #: mp3/lib/API/JSON/v1/Segments.php:142
 msgid "Copy of %s"
 msgstr ""
@@ -225,10 +234,6 @@ msgstr ""
 #: mp3/lib/API/JSON/v1/Newsletters.php:288
 #: mp3/lib/API/JSON/v1/Newsletters.php:311
 msgid "This email does not exist."
-msgstr ""
-
-#: mp3/lib/API/JSON/v1/Newsletters.php:155
-msgid "You need to specify a status."
 msgstr ""
 
 #: mp3/lib/API/JSON/v1/Newsletters.php:161
@@ -379,49 +384,50 @@ msgstr ""
 msgid "Can’t use this email yet! Please authorize it first."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Subscribers.php:126
-#: mp3/lib/API/JSON/v1/Subscribers.php:451
-#: mp3/lib/API/JSON/v1/Subscribers.php:469
-#: mp3/lib/API/JSON/v1/Subscribers.php:482
-#: mp3/lib/API/JSON/v1/Subscribers.php:497 mp3/lib/API/MP/v1/API.php:129
+#: mp3/lib/API/JSON/v1/SubscriberStats.php:39
+#: mp3/lib/API/JSON/v1/Subscribers.php:132
+#: mp3/lib/API/JSON/v1/Subscribers.php:474
+#: mp3/lib/API/JSON/v1/Subscribers.php:492
+#: mp3/lib/API/JSON/v1/Subscribers.php:505
+#: mp3/lib/API/JSON/v1/Subscribers.php:520 mp3/lib/API/MP/v1/API.php:129
 #: mp3/lib/API/MP/v1/API.php:204 mp3/lib/API/MP/v1/API.php:354
 msgid "This subscriber does not exist."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Subscribers.php:188
+#: mp3/lib/API/JSON/v1/Subscribers.php:211
 msgid "Please specify a valid form ID."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Subscribers.php:193
+#: mp3/lib/API/JSON/v1/Subscribers.php:216
 msgid "Please leave the first field empty."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Subscribers.php:231
+#: mp3/lib/API/JSON/v1/Subscribers.php:254
 msgid "Please select a list."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Subscribers.php:252
+#: mp3/lib/API/JSON/v1/Subscribers.php:275
 msgid "You need to wait %s before subscribing again."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Subscribers.php:308
+#: mp3/lib/API/JSON/v1/Subscribers.php:331
 msgid "Please fill in the CAPTCHA."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Subscribers.php:315
+#: mp3/lib/API/JSON/v1/Subscribers.php:338
 msgid "Please check the CAPTCHA."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Subscribers.php:329
-#: mp3/lib/API/JSON/v1/Subscribers.php:335
+#: mp3/lib/API/JSON/v1/Subscribers.php:352
+#: mp3/lib/API/JSON/v1/Subscribers.php:358
 msgid "Error while validating the CAPTCHA."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Subscribers.php:342
+#: mp3/lib/API/JSON/v1/Subscribers.php:365
 msgid "Please regenerate the CAPTCHA."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Subscribers.php:349
+#: mp3/lib/API/JSON/v1/Subscribers.php:372
 msgid "The characters entered do not match with the previous CAPTCHA."
 msgstr ""
 
@@ -430,11 +436,11 @@ msgid "You have not specified any user flags to be saved."
 msgstr ""
 
 #: mp3/lib/API/MP/v1/API.php:54
-#: mp3/lib/Form/Templates/Templates/InitialForm.php:16
-#: mp3/lib/Form/Templates/Templates/InitialForm.php:19
+#: mp3/lib/Form/Templates/Templates/InitialForm.php:18
+#: mp3/lib/Form/Templates/Templates/InitialForm.php:21
 #: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:48
 #: mp3/lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:40
-#: mp3/tests/integration/API/MP/APITest.php:40 mp3/views/form/editor.html:145
+#: mp3/tests/integration/API/MP/APITest.php:40 mp3/views/form/editor.html:147
 #: mp3/views/help.html:70 mp3/views/newsletter/editor.html:1076
 #: mp3/views/newsletter/editor.html:1077 mp3/views/segments.html:126
 #: mp3/views/subscription/manage_subscription.html:9
@@ -444,7 +450,7 @@ msgstr ""
 #: mp3/lib/API/MP/v1/API.php:62
 #: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:49
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:138
-#: mp3/tests/integration/API/MP/APITest.php:48 mp3/views/form/editor.html:136
+#: mp3/tests/integration/API/MP/APITest.php:48 mp3/views/form/editor.html:138
 #: mp3/views/subscribers/subscribers.html:78
 msgid "First name"
 msgstr ""
@@ -452,7 +458,7 @@ msgstr ""
 #: mp3/lib/API/MP/v1/API.php:70
 #: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:50
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:147
-#: mp3/tests/integration/API/MP/APITest.php:56 mp3/views/form/editor.html:138
+#: mp3/tests/integration/API/MP/APITest.php:56 mp3/views/form/editor.html:140
 #: mp3/views/subscribers/subscribers.html:79
 msgid "Last name"
 msgstr ""
@@ -487,68 +493,68 @@ msgstr ""
 msgid "Failed to add list"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:110
+#: mp3/lib/AdminPages/Pages/Newsletters.php:116
 msgid "In any WordPress role"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:155
+#: mp3/lib/AdminPages/Pages/Newsletters.php:161
 #: mp3/lib/AutomaticEmails/WooCommerce/WooCommerce.php:52
 #: mp3/views/settings.html:37
 msgid "WooCommerce"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:156
+#: mp3/lib/AdminPages/Pages/Newsletters.php:162
 #: mp3/lib/AutomaticEmails/WooCommerce/WooCommerce.php:53
 msgid ""
 "Automatically send an email when there is a new WooCommerce product, order "
 "and some other action takes place."
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:160
+#: mp3/lib/AdminPages/Pages/Newsletters.php:166
 msgid "Abandoned Shopping Cart"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:161
+#: mp3/lib/AdminPages/Pages/Newsletters.php:167
 msgid ""
 "Send an email to identified visitors who have items in their shopping carts "
 "but left your website without checking out. Can convert up to 20% of "
 "abandoned carts."
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:164
-#: mp3/lib/AdminPages/Pages/Newsletters.php:173
+#: mp3/lib/AdminPages/Pages/Newsletters.php:170
+#: mp3/lib/AdminPages/Pages/Newsletters.php:179
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/AbandonedCart.php:47
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/FirstPurchase.php:66
 msgid "Must-have"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:170
+#: mp3/lib/AdminPages/Pages/Newsletters.php:176
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/FirstPurchase.php:62
 msgid "First Purchase"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:171
+#: mp3/lib/AdminPages/Pages/Newsletters.php:177
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/FirstPurchase.php:63
 msgid "Let MailPoet send an email to customers who make their first purchase."
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:179
+#: mp3/lib/AdminPages/Pages/Newsletters.php:185
 msgid "Purchased In This Category"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:180
+#: mp3/lib/AdminPages/Pages/Newsletters.php:186
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/PurchasedInCategory.php:39
 msgid ""
 "Let MailPoet send an email to customers who purchase a product from a "
 "specific category."
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:185
+#: mp3/lib/AdminPages/Pages/Newsletters.php:191
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/PurchasedProduct.php:59
 msgid "Purchased This Product"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:186
+#: mp3/lib/AdminPages/Pages/Newsletters.php:192
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/PurchasedProduct.php:60
 msgid "Let MailPoet send an email to customers who purchase a specific product."
 msgstr ""
@@ -571,17 +577,17 @@ msgid ""
 msgstr ""
 
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/AbandonedCart.php:56
-#: mp3/views/newsletters.html:224
+#: mp3/views/newsletters.html:234
 msgid "hour(s) later"
 msgstr ""
 
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/AbandonedCart.php:60
-#: mp3/views/newsletters.html:225
+#: mp3/views/newsletters.html:235
 msgid "day(s) later"
 msgstr ""
 
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/AbandonedCart.php:64
-#: mp3/views/newsletters.html:226
+#: mp3/views/newsletters.html:236
 msgid "week(s) later"
 msgstr ""
 
@@ -760,13 +766,13 @@ msgid "Settings imported"
 msgstr ""
 
 #: mp3/lib/Config/Menu.php:110 mp3/lib/Config/Menu.php:111
-#: mp3/views/newsletters.html:71
+#: mp3/views/newsletters.html:72
 msgid "Emails"
 msgstr ""
 
 #: mp3/lib/Config/Menu.php:135
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:34
-#: mp3/views/newsletters.html:183
+#: mp3/views/newsletters.html:193
 msgid "Newsletter"
 msgstr ""
 
@@ -791,26 +797,26 @@ msgstr ""
 
 #: mp3/lib/Config/Menu.php:239 mp3/lib/Config/Menu.php:240
 #: mp3/views/subscribers/importExport/import.html:6
-#: mp3/views/subscribers/subscribers.html:130
+#: mp3/views/subscribers/subscribers.html:135
 msgid "Import"
 msgstr ""
 
 #: mp3/lib/Config/Menu.php:252 mp3/lib/Config/Menu.php:253
 #: mp3/views/subscribers/importExport/export.html:6
 #: mp3/views/subscribers/importExport/export.html:87
-#: mp3/views/subscribers/subscribers.html:131
+#: mp3/views/subscribers/subscribers.html:136
 msgid "Export"
 msgstr ""
 
 #: mp3/lib/Config/Menu.php:265 mp3/lib/Config/Menu.php:266
-#: mp3/views/forms.html:76 mp3/views/newsletters.html:120
-#: mp3/views/newsletters.html:231 mp3/views/segments.html:47
+#: mp3/views/forms.html:81 mp3/views/newsletters.html:121
+#: mp3/views/newsletters.html:241 mp3/views/segments.html:47
 #: mp3/views/subscribers/subscribers.html:99
 msgid "Lists"
 msgstr ""
 
 #: mp3/lib/Config/Menu.php:290 mp3/lib/Config/Menu.php:291
-#: mp3/views/mp2migration.html:14 mp3/views/newsletters.html:121
+#: mp3/views/mp2migration.html:14 mp3/views/newsletters.html:122
 #: mp3/views/settings.html:33
 msgid "Settings"
 msgstr ""
@@ -868,15 +874,15 @@ msgid ""
 "might work within a MultiSite environment, we don’t support it."
 msgstr ""
 
-#: mp3/lib/Config/Populator.php:344
+#: mp3/lib/Config/Populator.php:350
 msgid "My First List"
 msgstr ""
 
-#: mp3/lib/Config/Populator.php:346
+#: mp3/lib/Config/Populator.php:352
 msgid "This list is automatically created when you install MailPoet."
 msgstr ""
 
-#: mp3/lib/Config/Populator.php:349
+#: mp3/lib/Config/Populator.php:355
 msgid "Newsletter mailing list"
 msgstr ""
 
@@ -884,11 +890,487 @@ msgstr ""
 msgid "App Welcome"
 msgstr ""
 
+#: mp3/lib/Config/PopulatorData/Templates/AppWelcome.php:319
+#: mp3/lib/Config/PopulatorData/Templates/Avocado.php:643
+#: mp3/lib/Config/PopulatorData/Templates/Avocado.php:876
+#: mp3/lib/Config/PopulatorData/Templates/Birds.php:1349
+#: mp3/lib/Config/PopulatorData/Templates/Birds.php:1583
+#: mp3/lib/Config/PopulatorData/Templates/BookStoreWithCoupon.php:801
+#: mp3/lib/Config/PopulatorData/Templates/BookStoreWithCoupon.php:1059
+#: mp3/lib/Config/PopulatorData/Templates/BrandingAgencyNews.php:1687
+#: mp3/lib/Config/PopulatorData/Templates/BrandingAgencyNews.php:1933
+#: mp3/lib/Config/PopulatorData/Templates/BuddhistTemple.php:896
+#: mp3/lib/Config/PopulatorData/Templates/BuddhistTemple.php:1130
+#: mp3/lib/Config/PopulatorData/Templates/Charity.php:774
+#: mp3/lib/Config/PopulatorData/Templates/Charity.php:987
+#: mp3/lib/Config/PopulatorData/Templates/CityLocalNews.php:1041
+#: mp3/lib/Config/PopulatorData/Templates/CityLocalNews.php:1323
+#: mp3/lib/Config/PopulatorData/Templates/ClearNews.php:1424
+#: mp3/lib/Config/PopulatorData/Templates/ClearNews.php:1718
+#: mp3/lib/Config/PopulatorData/Templates/Coffee.php:934
+#: mp3/lib/Config/PopulatorData/Templates/College.php:712
+#: mp3/lib/Config/PopulatorData/Templates/College.php:976
+#: mp3/lib/Config/PopulatorData/Templates/ComputerRepair.php:605
+#: mp3/lib/Config/PopulatorData/Templates/ComputerRepair.php:958
+#: mp3/lib/Config/PopulatorData/Templates/DogFood.php:758
+#: mp3/lib/Config/PopulatorData/Templates/DogFood.php:990
+#: mp3/lib/Config/PopulatorData/Templates/Drone.php:812
+#: mp3/lib/Config/PopulatorData/Templates/Drone.php:1044
+#: mp3/lib/Config/PopulatorData/Templates/Engineering.php:822
+#: mp3/lib/Config/PopulatorData/Templates/Engineering.php:1111
+#: mp3/lib/Config/PopulatorData/Templates/Faith.php:353
+#: mp3/lib/Config/PopulatorData/Templates/FarmersMarket.php:1103
+#: mp3/lib/Config/PopulatorData/Templates/FarmersMarket.php:1396
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlog.php:656
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlog.php:943
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlogA.php:1045
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlogA.php:1278
+#: mp3/lib/Config/PopulatorData/Templates/FashionShop.php:639
+#: mp3/lib/Config/PopulatorData/Templates/FashionShop.php:871
+#: mp3/lib/Config/PopulatorData/Templates/FashionStore.php:1064
+#: mp3/lib/Config/PopulatorData/Templates/FashionStore.php:1277
+#: mp3/lib/Config/PopulatorData/Templates/FestivalEvent.php:464
+#: mp3/lib/Config/PopulatorData/Templates/Fitness.php:744
+#: mp3/lib/Config/PopulatorData/Templates/Fitness.php:968
+#: mp3/lib/Config/PopulatorData/Templates/FlowersWithCoupon.php:1121
+#: mp3/lib/Config/PopulatorData/Templates/FlowersWithCoupon.php:1354
+#: mp3/lib/Config/PopulatorData/Templates/FoodBox.php:687
+#: mp3/lib/Config/PopulatorData/Templates/GiftWelcome.php:298
+#: mp3/lib/Config/PopulatorData/Templates/Guitarist.php:1338
+#: mp3/lib/Config/PopulatorData/Templates/Guitarist.php:1584
+#: mp3/lib/Config/PopulatorData/Templates/HealthyFoodBlog.php:2068
+#: mp3/lib/Config/PopulatorData/Templates/HealthyFoodBlog.php:2302
+#: mp3/lib/Config/PopulatorData/Templates/Hotels.php:1032
+#: mp3/lib/Config/PopulatorData/Templates/Hotels.php:1265
+#: mp3/lib/Config/PopulatorData/Templates/IndustryConference.php:1066
+#: mp3/lib/Config/PopulatorData/Templates/IndustryConference.php:1306
+#: mp3/lib/Config/PopulatorData/Templates/JazzClub.php:853
+#: mp3/lib/Config/PopulatorData/Templates/JazzClub.php:1093
+#: mp3/lib/Config/PopulatorData/Templates/KidsClothing.php:1315
+#: mp3/lib/Config/PopulatorData/Templates/KidsClothing.php:1565
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogA.php:891
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogA.php:1123
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogB.php:1110
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogB.php:1343
+#: mp3/lib/Config/PopulatorData/Templates/Minimal.php:782
+#: mp3/lib/Config/PopulatorData/Templates/Minimal.php:1068
+#: mp3/lib/Config/PopulatorData/Templates/ModularStyleStories.php:1022
+#: mp3/lib/Config/PopulatorData/Templates/ModularStyleStories.php:1290
+#: mp3/lib/Config/PopulatorData/Templates/Mosque.php:1412
+#: mp3/lib/Config/PopulatorData/Templates/Mosque.php:1646
+#: mp3/lib/Config/PopulatorData/Templates/Motor.php:790
+#: mp3/lib/Config/PopulatorData/Templates/Motor.php:1052
+#: mp3/lib/Config/PopulatorData/Templates/Music.php:1090
+#: mp3/lib/Config/PopulatorData/Templates/Music.php:1336
+#: mp3/lib/Config/PopulatorData/Templates/NewsDay.php:562
+#: mp3/lib/Config/PopulatorData/Templates/NewsDay.php:949
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank121Column.php:321
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank12Column.php:261
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank13Column.php:284
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank1Column.php:200
+#: mp3/lib/Config/PopulatorData/Templates/NewspaperTraditional.php:722
+#: mp3/lib/Config/PopulatorData/Templates/NewspaperTraditional.php:1064
+#: mp3/lib/Config/PopulatorData/Templates/NotSoMedium.php:604
+#: mp3/lib/Config/PopulatorData/Templates/NotSoMedium.php:859
+#: mp3/lib/Config/PopulatorData/Templates/Painter.php:1035
+#: mp3/lib/Config/PopulatorData/Templates/Painter.php:1248
+#: mp3/lib/Config/PopulatorData/Templates/Phone.php:416
+#: mp3/lib/Config/PopulatorData/Templates/Phone.php:630
+#: mp3/lib/Config/PopulatorData/Templates/Photography.php:1700
+#: mp3/lib/Config/PopulatorData/Templates/Photography.php:1946
+#: mp3/lib/Config/PopulatorData/Templates/PieceOfCake.php:367
+#: mp3/lib/Config/PopulatorData/Templates/Poet.php:867
+#: mp3/lib/Config/PopulatorData/Templates/Poet.php:1100
+#: mp3/lib/Config/PopulatorData/Templates/PostNotificationsBlank1Column.php:287
+#: mp3/lib/Config/PopulatorData/Templates/PrimarySchool.php:959
+#: mp3/lib/Config/PopulatorData/Templates/PrimarySchool.php:1193
+#: mp3/lib/Config/PopulatorData/Templates/RealEstate.php:723
+#: mp3/lib/Config/PopulatorData/Templates/RealEstate.php:967
+#: mp3/lib/Config/PopulatorData/Templates/RenewableEnergy.php:977
+#: mp3/lib/Config/PopulatorData/Templates/RenewableEnergy.php:1191
+#: mp3/lib/Config/PopulatorData/Templates/Retro.php:832
+#: mp3/lib/Config/PopulatorData/Templates/Retro.php:1185
+#: mp3/lib/Config/PopulatorData/Templates/RetroComputingMagazine.php:592
+#: mp3/lib/Config/PopulatorData/Templates/RockBand.php:843
+#: mp3/lib/Config/PopulatorData/Templates/RockBand.php:1077
+#: mp3/lib/Config/PopulatorData/Templates/RssSimpleNews.php:451
+#: mp3/lib/Config/PopulatorData/Templates/RssSimpleNews.php:689
+#: mp3/lib/Config/PopulatorData/Templates/ScienceWeekly.php:772
+#: mp3/lib/Config/PopulatorData/Templates/ScienceWeekly.php:1039
+#: mp3/lib/Config/PopulatorData/Templates/Shoes.php:509
+#: mp3/lib/Config/PopulatorData/Templates/SimpleText.php:145
+#: mp3/lib/Config/PopulatorData/Templates/Software.php:907
+#: mp3/lib/Config/PopulatorData/Templates/Software.php:1152
+#: mp3/lib/Config/PopulatorData/Templates/Sunglasses.php:660
+#: mp3/lib/Config/PopulatorData/Templates/Synagogue.php:1352
+#: mp3/lib/Config/PopulatorData/Templates/Synagogue.php:1640
+#: mp3/lib/Config/PopulatorData/Templates/TakeAHike.php:647
+#: mp3/lib/Config/PopulatorData/Templates/Vlogger.php:1003
+#: mp3/lib/Config/PopulatorData/Templates/Vlogger.php:1255
+#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank12Column.php:291
+#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank1Column.php:200
+#: mp3/lib/Config/PopulatorData/Templates/WideStoryLayout.php:360
+#: mp3/lib/Config/PopulatorData/Templates/WideStoryLayout.php:626
+#: mp3/lib/Config/PopulatorData/Templates/WineCity.php:504
+#: mp3/lib/Config/PopulatorData/Templates/WineCity.php:801
+#: mp3/lib/Config/PopulatorData/Templates/WordPressTheme.php:1032
+#: mp3/lib/Config/PopulatorData/Templates/WordPressTheme.php:1266
+#: mp3/lib/Config/PopulatorData/Templates/WorldCup.php:724
+#: mp3/lib/Config/PopulatorData/Templates/YogaStudio.php:698
+#: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:86
+#: mp3/views/newsletter/editor.html:1255
+msgid "Unsubscribe"
+msgstr ""
+
+#: mp3/lib/Config/PopulatorData/Templates/AppWelcome.php:319
+#: mp3/lib/Config/PopulatorData/Templates/Avocado.php:643
+#: mp3/lib/Config/PopulatorData/Templates/Avocado.php:876
+#: mp3/lib/Config/PopulatorData/Templates/Birds.php:1349
+#: mp3/lib/Config/PopulatorData/Templates/Birds.php:1583
+#: mp3/lib/Config/PopulatorData/Templates/BookStoreWithCoupon.php:801
+#: mp3/lib/Config/PopulatorData/Templates/BookStoreWithCoupon.php:1059
+#: mp3/lib/Config/PopulatorData/Templates/BrandingAgencyNews.php:1687
+#: mp3/lib/Config/PopulatorData/Templates/BrandingAgencyNews.php:1933
+#: mp3/lib/Config/PopulatorData/Templates/BuddhistTemple.php:896
+#: mp3/lib/Config/PopulatorData/Templates/BuddhistTemple.php:1130
+#: mp3/lib/Config/PopulatorData/Templates/Charity.php:774
+#: mp3/lib/Config/PopulatorData/Templates/Charity.php:987
+#: mp3/lib/Config/PopulatorData/Templates/CityLocalNews.php:1041
+#: mp3/lib/Config/PopulatorData/Templates/CityLocalNews.php:1323
+#: mp3/lib/Config/PopulatorData/Templates/ClearNews.php:1425
+#: mp3/lib/Config/PopulatorData/Templates/ClearNews.php:1718
+#: mp3/lib/Config/PopulatorData/Templates/Coffee.php:934
+#: mp3/lib/Config/PopulatorData/Templates/College.php:712
+#: mp3/lib/Config/PopulatorData/Templates/College.php:976
+#: mp3/lib/Config/PopulatorData/Templates/ComputerRepair.php:605
+#: mp3/lib/Config/PopulatorData/Templates/ComputerRepair.php:958
+#: mp3/lib/Config/PopulatorData/Templates/DogFood.php:758
+#: mp3/lib/Config/PopulatorData/Templates/DogFood.php:990
+#: mp3/lib/Config/PopulatorData/Templates/Drone.php:812
+#: mp3/lib/Config/PopulatorData/Templates/Drone.php:1044
+#: mp3/lib/Config/PopulatorData/Templates/Engineering.php:823
+#: mp3/lib/Config/PopulatorData/Templates/Engineering.php:1111
+#: mp3/lib/Config/PopulatorData/Templates/Faith.php:353
+#: mp3/lib/Config/PopulatorData/Templates/FarmersMarket.php:1103
+#: mp3/lib/Config/PopulatorData/Templates/FarmersMarket.php:1396
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlog.php:656
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlog.php:943
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlogA.php:1045
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlogA.php:1278
+#: mp3/lib/Config/PopulatorData/Templates/FashionShop.php:639
+#: mp3/lib/Config/PopulatorData/Templates/FashionShop.php:871
+#: mp3/lib/Config/PopulatorData/Templates/FashionStore.php:1064
+#: mp3/lib/Config/PopulatorData/Templates/FashionStore.php:1277
+#: mp3/lib/Config/PopulatorData/Templates/Fitness.php:744
+#: mp3/lib/Config/PopulatorData/Templates/Fitness.php:968
+#: mp3/lib/Config/PopulatorData/Templates/FlowersWithCoupon.php:1121
+#: mp3/lib/Config/PopulatorData/Templates/FlowersWithCoupon.php:1354
+#: mp3/lib/Config/PopulatorData/Templates/FoodBox.php:687
+#: mp3/lib/Config/PopulatorData/Templates/GiftWelcome.php:298
+#: mp3/lib/Config/PopulatorData/Templates/Guitarist.php:1338
+#: mp3/lib/Config/PopulatorData/Templates/Guitarist.php:1584
+#: mp3/lib/Config/PopulatorData/Templates/HealthyFoodBlog.php:2068
+#: mp3/lib/Config/PopulatorData/Templates/HealthyFoodBlog.php:2302
+#: mp3/lib/Config/PopulatorData/Templates/Hotels.php:1032
+#: mp3/lib/Config/PopulatorData/Templates/Hotels.php:1265
+#: mp3/lib/Config/PopulatorData/Templates/IndustryConference.php:1066
+#: mp3/lib/Config/PopulatorData/Templates/IndustryConference.php:1306
+#: mp3/lib/Config/PopulatorData/Templates/JazzClub.php:853
+#: mp3/lib/Config/PopulatorData/Templates/JazzClub.php:1093
+#: mp3/lib/Config/PopulatorData/Templates/KidsClothing.php:1315
+#: mp3/lib/Config/PopulatorData/Templates/KidsClothing.php:1565
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogA.php:891
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogA.php:1123
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogB.php:1110
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogB.php:1343
+#: mp3/lib/Config/PopulatorData/Templates/Minimal.php:783
+#: mp3/lib/Config/PopulatorData/Templates/Minimal.php:1068
+#: mp3/lib/Config/PopulatorData/Templates/ModularStyleStories.php:1022
+#: mp3/lib/Config/PopulatorData/Templates/ModularStyleStories.php:1290
+#: mp3/lib/Config/PopulatorData/Templates/Mosque.php:1412
+#: mp3/lib/Config/PopulatorData/Templates/Mosque.php:1646
+#: mp3/lib/Config/PopulatorData/Templates/Motor.php:790
+#: mp3/lib/Config/PopulatorData/Templates/Motor.php:1052
+#: mp3/lib/Config/PopulatorData/Templates/Music.php:1091
+#: mp3/lib/Config/PopulatorData/Templates/Music.php:1336
+#: mp3/lib/Config/PopulatorData/Templates/NewsDay.php:562
+#: mp3/lib/Config/PopulatorData/Templates/NewsDay.php:949
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank121Column.php:321
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank12Column.php:261
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank13Column.php:284
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank1Column.php:200
+#: mp3/lib/Config/PopulatorData/Templates/NewspaperTraditional.php:722
+#: mp3/lib/Config/PopulatorData/Templates/NewspaperTraditional.php:1064
+#: mp3/lib/Config/PopulatorData/Templates/NotSoMedium.php:604
+#: mp3/lib/Config/PopulatorData/Templates/NotSoMedium.php:859
+#: mp3/lib/Config/PopulatorData/Templates/Painter.php:1035
+#: mp3/lib/Config/PopulatorData/Templates/Painter.php:1248
+#: mp3/lib/Config/PopulatorData/Templates/Phone.php:417
+#: mp3/lib/Config/PopulatorData/Templates/Phone.php:630
+#: mp3/lib/Config/PopulatorData/Templates/Photography.php:1700
+#: mp3/lib/Config/PopulatorData/Templates/Photography.php:1946
+#: mp3/lib/Config/PopulatorData/Templates/Poet.php:867
+#: mp3/lib/Config/PopulatorData/Templates/Poet.php:1100
+#: mp3/lib/Config/PopulatorData/Templates/PostNotificationsBlank1Column.php:287
+#: mp3/lib/Config/PopulatorData/Templates/PrimarySchool.php:959
+#: mp3/lib/Config/PopulatorData/Templates/PrimarySchool.php:1193
+#: mp3/lib/Config/PopulatorData/Templates/RealEstate.php:723
+#: mp3/lib/Config/PopulatorData/Templates/RealEstate.php:967
+#: mp3/lib/Config/PopulatorData/Templates/RenewableEnergy.php:977
+#: mp3/lib/Config/PopulatorData/Templates/RenewableEnergy.php:1191
+#: mp3/lib/Config/PopulatorData/Templates/Retro.php:832
+#: mp3/lib/Config/PopulatorData/Templates/Retro.php:1185
+#: mp3/lib/Config/PopulatorData/Templates/RetroComputingMagazine.php:592
+#: mp3/lib/Config/PopulatorData/Templates/RockBand.php:843
+#: mp3/lib/Config/PopulatorData/Templates/RockBand.php:1077
+#: mp3/lib/Config/PopulatorData/Templates/RssSimpleNews.php:451
+#: mp3/lib/Config/PopulatorData/Templates/RssSimpleNews.php:689
+#: mp3/lib/Config/PopulatorData/Templates/ScienceWeekly.php:772
+#: mp3/lib/Config/PopulatorData/Templates/ScienceWeekly.php:1039
+#: mp3/lib/Config/PopulatorData/Templates/Shoes.php:509
+#: mp3/lib/Config/PopulatorData/Templates/SimpleText.php:145
+#: mp3/lib/Config/PopulatorData/Templates/Software.php:907
+#: mp3/lib/Config/PopulatorData/Templates/Software.php:1152
+#: mp3/lib/Config/PopulatorData/Templates/Sunglasses.php:660
+#: mp3/lib/Config/PopulatorData/Templates/Synagogue.php:1352
+#: mp3/lib/Config/PopulatorData/Templates/Synagogue.php:1640
+#: mp3/lib/Config/PopulatorData/Templates/TakeAHike.php:647
+#: mp3/lib/Config/PopulatorData/Templates/Vlogger.php:1003
+#: mp3/lib/Config/PopulatorData/Templates/Vlogger.php:1255
+#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank12Column.php:291
+#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank1Column.php:200
+#: mp3/lib/Config/PopulatorData/Templates/WideStoryLayout.php:360
+#: mp3/lib/Config/PopulatorData/Templates/WideStoryLayout.php:626
+#: mp3/lib/Config/PopulatorData/Templates/WineCity.php:504
+#: mp3/lib/Config/PopulatorData/Templates/WineCity.php:801
+#: mp3/lib/Config/PopulatorData/Templates/WordPressTheme.php:1032
+#: mp3/lib/Config/PopulatorData/Templates/WordPressTheme.php:1266
+#: mp3/lib/Config/PopulatorData/Templates/WorldCup.php:724
+#: mp3/lib/Config/PopulatorData/Templates/YogaStudio.php:698
+#: mp3/lib/Subscription/Pages.php:322 mp3/lib/Subscription/Pages.php:404
+msgid "Manage your subscription"
+msgstr ""
+
 #: mp3/lib/Config/PopulatorData/Templates/Avocado.php:19
 msgid "Avocado"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/Birds.php:17
+#: mp3/lib/Config/PopulatorData/Templates/Avocado.php:643
+#: mp3/lib/Config/PopulatorData/Templates/Avocado.php:876
+#: mp3/lib/Config/PopulatorData/Templates/Birds.php:1349
+#: mp3/lib/Config/PopulatorData/Templates/Birds.php:1583
+#: mp3/lib/Config/PopulatorData/Templates/BookStoreWithCoupon.php:801
+#: mp3/lib/Config/PopulatorData/Templates/BookStoreWithCoupon.php:1059
+#: mp3/lib/Config/PopulatorData/Templates/BrandingAgencyNews.php:1687
+#: mp3/lib/Config/PopulatorData/Templates/BrandingAgencyNews.php:1933
+#: mp3/lib/Config/PopulatorData/Templates/BuddhistTemple.php:896
+#: mp3/lib/Config/PopulatorData/Templates/BuddhistTemple.php:1130
+#: mp3/lib/Config/PopulatorData/Templates/Charity.php:774
+#: mp3/lib/Config/PopulatorData/Templates/Charity.php:987
+#: mp3/lib/Config/PopulatorData/Templates/CityLocalNews.php:1041
+#: mp3/lib/Config/PopulatorData/Templates/CityLocalNews.php:1323
+#: mp3/lib/Config/PopulatorData/Templates/ClearNews.php:1718
+#: mp3/lib/Config/PopulatorData/Templates/Coffee.php:934
+#: mp3/lib/Config/PopulatorData/Templates/College.php:712
+#: mp3/lib/Config/PopulatorData/Templates/College.php:976
+#: mp3/lib/Config/PopulatorData/Templates/ComputerRepair.php:958
+#: mp3/lib/Config/PopulatorData/Templates/DogFood.php:758
+#: mp3/lib/Config/PopulatorData/Templates/DogFood.php:990
+#: mp3/lib/Config/PopulatorData/Templates/Drone.php:1044
+#: mp3/lib/Config/PopulatorData/Templates/Engineering.php:823
+#: mp3/lib/Config/PopulatorData/Templates/Engineering.php:1111
+#: mp3/lib/Config/PopulatorData/Templates/Faith.php:353
+#: mp3/lib/Config/PopulatorData/Templates/FarmersMarket.php:1103
+#: mp3/lib/Config/PopulatorData/Templates/FarmersMarket.php:1396
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlog.php:656
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlog.php:943
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlogA.php:1045
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlogA.php:1278
+#: mp3/lib/Config/PopulatorData/Templates/FashionShop.php:639
+#: mp3/lib/Config/PopulatorData/Templates/FashionShop.php:871
+#: mp3/lib/Config/PopulatorData/Templates/FashionStore.php:1064
+#: mp3/lib/Config/PopulatorData/Templates/FashionStore.php:1277
+#: mp3/lib/Config/PopulatorData/Templates/Fitness.php:968
+#: mp3/lib/Config/PopulatorData/Templates/FlowersWithCoupon.php:1121
+#: mp3/lib/Config/PopulatorData/Templates/FlowersWithCoupon.php:1354
+#: mp3/lib/Config/PopulatorData/Templates/FoodBox.php:687
+#: mp3/lib/Config/PopulatorData/Templates/Guitarist.php:1338
+#: mp3/lib/Config/PopulatorData/Templates/Guitarist.php:1584
+#: mp3/lib/Config/PopulatorData/Templates/HealthyFoodBlog.php:2068
+#: mp3/lib/Config/PopulatorData/Templates/HealthyFoodBlog.php:2302
+#: mp3/lib/Config/PopulatorData/Templates/Hotels.php:1032
+#: mp3/lib/Config/PopulatorData/Templates/Hotels.php:1265
+#: mp3/lib/Config/PopulatorData/Templates/IndustryConference.php:1066
+#: mp3/lib/Config/PopulatorData/Templates/IndustryConference.php:1306
+#: mp3/lib/Config/PopulatorData/Templates/JazzClub.php:853
+#: mp3/lib/Config/PopulatorData/Templates/JazzClub.php:1093
+#: mp3/lib/Config/PopulatorData/Templates/KidsClothing.php:1315
+#: mp3/lib/Config/PopulatorData/Templates/KidsClothing.php:1565
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogA.php:891
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogA.php:1123
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogB.php:1110
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogB.php:1343
+#: mp3/lib/Config/PopulatorData/Templates/Minimal.php:783
+#: mp3/lib/Config/PopulatorData/Templates/Minimal.php:1068
+#: mp3/lib/Config/PopulatorData/Templates/ModularStyleStories.php:1022
+#: mp3/lib/Config/PopulatorData/Templates/ModularStyleStories.php:1290
+#: mp3/lib/Config/PopulatorData/Templates/Mosque.php:1412
+#: mp3/lib/Config/PopulatorData/Templates/Mosque.php:1646
+#: mp3/lib/Config/PopulatorData/Templates/Motor.php:790
+#: mp3/lib/Config/PopulatorData/Templates/Motor.php:1052
+#: mp3/lib/Config/PopulatorData/Templates/Music.php:1091
+#: mp3/lib/Config/PopulatorData/Templates/Music.php:1336
+#: mp3/lib/Config/PopulatorData/Templates/NewsDay.php:949
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank121Column.php:321
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank12Column.php:261
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank13Column.php:284
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank1Column.php:200
+#: mp3/lib/Config/PopulatorData/Templates/NewspaperTraditional.php:722
+#: mp3/lib/Config/PopulatorData/Templates/NewspaperTraditional.php:1064
+#: mp3/lib/Config/PopulatorData/Templates/NotSoMedium.php:604
+#: mp3/lib/Config/PopulatorData/Templates/NotSoMedium.php:859
+#: mp3/lib/Config/PopulatorData/Templates/Painter.php:1035
+#: mp3/lib/Config/PopulatorData/Templates/Painter.php:1248
+#: mp3/lib/Config/PopulatorData/Templates/Phone.php:630
+#: mp3/lib/Config/PopulatorData/Templates/Photography.php:1700
+#: mp3/lib/Config/PopulatorData/Templates/Photography.php:1946
+#: mp3/lib/Config/PopulatorData/Templates/Poet.php:867
+#: mp3/lib/Config/PopulatorData/Templates/Poet.php:1100
+#: mp3/lib/Config/PopulatorData/Templates/PostNotificationsBlank1Column.php:287
+#: mp3/lib/Config/PopulatorData/Templates/PrimarySchool.php:959
+#: mp3/lib/Config/PopulatorData/Templates/PrimarySchool.php:1193
+#: mp3/lib/Config/PopulatorData/Templates/RealEstate.php:723
+#: mp3/lib/Config/PopulatorData/Templates/RealEstate.php:967
+#: mp3/lib/Config/PopulatorData/Templates/RenewableEnergy.php:977
+#: mp3/lib/Config/PopulatorData/Templates/RenewableEnergy.php:1191
+#: mp3/lib/Config/PopulatorData/Templates/Retro.php:832
+#: mp3/lib/Config/PopulatorData/Templates/Retro.php:1185
+#: mp3/lib/Config/PopulatorData/Templates/RetroComputingMagazine.php:592
+#: mp3/lib/Config/PopulatorData/Templates/RockBand.php:843
+#: mp3/lib/Config/PopulatorData/Templates/RockBand.php:1077
+#: mp3/lib/Config/PopulatorData/Templates/RssSimpleNews.php:452
+#: mp3/lib/Config/PopulatorData/Templates/RssSimpleNews.php:689
+#: mp3/lib/Config/PopulatorData/Templates/ScienceWeekly.php:772
+#: mp3/lib/Config/PopulatorData/Templates/ScienceWeekly.php:1039
+#: mp3/lib/Config/PopulatorData/Templates/SimpleText.php:145
+#: mp3/lib/Config/PopulatorData/Templates/Software.php:907
+#: mp3/lib/Config/PopulatorData/Templates/Software.php:1152
+#: mp3/lib/Config/PopulatorData/Templates/Sunglasses.php:660
+#: mp3/lib/Config/PopulatorData/Templates/Synagogue.php:1352
+#: mp3/lib/Config/PopulatorData/Templates/Synagogue.php:1640
+#: mp3/lib/Config/PopulatorData/Templates/TakeAHike.php:677
+#: mp3/lib/Config/PopulatorData/Templates/Vlogger.php:1003
+#: mp3/lib/Config/PopulatorData/Templates/Vlogger.php:1255
+#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank12Column.php:291
+#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank1Column.php:200
+#: mp3/lib/Config/PopulatorData/Templates/WideStoryLayout.php:360
+#: mp3/lib/Config/PopulatorData/Templates/WideStoryLayout.php:626
+#: mp3/lib/Config/PopulatorData/Templates/WineCity.php:504
+#: mp3/lib/Config/PopulatorData/Templates/WineCity.php:801
+#: mp3/lib/Config/PopulatorData/Templates/WordPressTheme.php:1032
+#: mp3/lib/Config/PopulatorData/Templates/WordPressTheme.php:1266
+#: mp3/lib/Config/PopulatorData/Templates/WorldCup.php:724
+#: mp3/views/newsletter/editor.html:1255
+msgid "Add your postal address here!"
+msgstr ""
+
+#: mp3/lib/Config/PopulatorData/Templates/Avocado.php:1012
+#: mp3/lib/Config/PopulatorData/Templates/Birds.php:209
+#: mp3/lib/Config/PopulatorData/Templates/Birds.php:1730
+#: mp3/lib/Config/PopulatorData/Templates/BookStoreWithCoupon.php:825
+#: mp3/lib/Config/PopulatorData/Templates/BookStoreWithCoupon.php:1176
+#: mp3/lib/Config/PopulatorData/Templates/BrandingAgencyNews.php:104
+#: mp3/lib/Config/PopulatorData/Templates/BrandingAgencyNews.php:2070
+#: mp3/lib/Config/PopulatorData/Templates/BuddhistTemple.php:159
+#: mp3/lib/Config/PopulatorData/Templates/BuddhistTemple.php:1277
+#: mp3/lib/Config/PopulatorData/Templates/Charity.php:1112
+#: mp3/lib/Config/PopulatorData/Templates/CityLocalNews.php:105
+#: mp3/lib/Config/PopulatorData/Templates/CityLocalNews.php:1478
+#: mp3/lib/Config/PopulatorData/Templates/ClearNews.php:105
+#: mp3/lib/Config/PopulatorData/Templates/ClearNews.php:1863
+#: mp3/lib/Config/PopulatorData/Templates/Coffee.php:226
+#: mp3/lib/Config/PopulatorData/Templates/College.php:278
+#: mp3/lib/Config/PopulatorData/Templates/College.php:1122
+#: mp3/lib/Config/PopulatorData/Templates/ComputerRepair.php:105
+#: mp3/lib/Config/PopulatorData/Templates/ComputerRepair.php:1115
+#: mp3/lib/Config/PopulatorData/Templates/DogFood.php:1126
+#: mp3/lib/Config/PopulatorData/Templates/Drone.php:1169
+#: mp3/lib/Config/PopulatorData/Templates/Engineering.php:163
+#: mp3/lib/Config/PopulatorData/Templates/Engineering.php:1248
+#: mp3/lib/Config/PopulatorData/Templates/FarmersMarket.php:104
+#: mp3/lib/Config/PopulatorData/Templates/FarmersMarket.php:1533
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlog.php:105
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlog.php:1080
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlogA.php:173
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlogA.php:1423
+#: mp3/lib/Config/PopulatorData/Templates/FashionShop.php:105
+#: mp3/lib/Config/PopulatorData/Templates/FashionShop.php:1018
+#: mp3/lib/Config/PopulatorData/Templates/FashionStore.php:1402
+#: mp3/lib/Config/PopulatorData/Templates/Fitness.php:1091
+#: mp3/lib/Config/PopulatorData/Templates/FlowersWithCoupon.php:1491
+#: mp3/lib/Config/PopulatorData/Templates/Guitarist.php:287
+#: mp3/lib/Config/PopulatorData/Templates/Guitarist.php:1721
+#: mp3/lib/Config/PopulatorData/Templates/HealthyFoodBlog.php:2449
+#: mp3/lib/Config/PopulatorData/Templates/Hotels.php:1390
+#: mp3/lib/Config/PopulatorData/Templates/IndustryConference.php:1042
+#: mp3/lib/Config/PopulatorData/Templates/IndustryConference.php:1453
+#: mp3/lib/Config/PopulatorData/Templates/JazzClub.php:105
+#: mp3/lib/Config/PopulatorData/Templates/JazzClub.php:1248
+#: mp3/lib/Config/PopulatorData/Templates/KidsClothing.php:1689
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogA.php:93
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogA.php:1260
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogB.php:155
+#: mp3/lib/Config/PopulatorData/Templates/LifestyleBlogB.php:1490
+#: mp3/lib/Config/PopulatorData/Templates/Minimal.php:1193
+#: mp3/lib/Config/PopulatorData/Templates/ModularStyleStories.php:1422
+#: mp3/lib/Config/PopulatorData/Templates/Mosque.php:147
+#: mp3/lib/Config/PopulatorData/Templates/Mosque.php:1783
+#: mp3/lib/Config/PopulatorData/Templates/Motor.php:238
+#: mp3/lib/Config/PopulatorData/Templates/Motor.php:1188
+#: mp3/lib/Config/PopulatorData/Templates/Music.php:1461
+#: mp3/lib/Config/PopulatorData/Templates/NewsDay.php:1073
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank121Column.php:62
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank12Column.php:62
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank13Column.php:62
+#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank1Column.php:62
+#: mp3/lib/Config/PopulatorData/Templates/NewspaperTraditional.php:143
+#: mp3/lib/Config/PopulatorData/Templates/NewspaperTraditional.php:1211
+#: mp3/lib/Config/PopulatorData/Templates/NotSoMedium.php:986
+#: mp3/lib/Config/PopulatorData/Templates/Painter.php:105
+#: mp3/lib/Config/PopulatorData/Templates/Painter.php:1395
+#: mp3/lib/Config/PopulatorData/Templates/Phone.php:754
+#: mp3/lib/Config/PopulatorData/Templates/Photography.php:155
+#: mp3/lib/Config/PopulatorData/Templates/Photography.php:2093
+#: mp3/lib/Config/PopulatorData/Templates/PieceOfCake.php:58
+#: mp3/lib/Config/PopulatorData/Templates/Poet.php:180
+#: mp3/lib/Config/PopulatorData/Templates/Poet.php:1244
+#: mp3/lib/Config/PopulatorData/Templates/PostNotificationsBlank1Column.php:62
+#: mp3/lib/Config/PopulatorData/Templates/PrimarySchool.php:105
+#: mp3/lib/Config/PopulatorData/Templates/PrimarySchool.php:1340
+#: mp3/lib/Config/PopulatorData/Templates/RealEstate.php:1092
+#: mp3/lib/Config/PopulatorData/Templates/RenewableEnergy.php:1327
+#: mp3/lib/Config/PopulatorData/Templates/Retro.php:1310
+#: mp3/lib/Config/PopulatorData/Templates/RetroComputingMagazine.php:163
+#: mp3/lib/Config/PopulatorData/Templates/RockBand.php:147
+#: mp3/lib/Config/PopulatorData/Templates/RockBand.php:1214
+#: mp3/lib/Config/PopulatorData/Templates/RssSimpleNews.php:812
+#: mp3/lib/Config/PopulatorData/Templates/ScienceWeekly.php:1165
+#: mp3/lib/Config/PopulatorData/Templates/Software.php:1289
+#: mp3/lib/Config/PopulatorData/Templates/Synagogue.php:105
+#: mp3/lib/Config/PopulatorData/Templates/Synagogue.php:1777
+#: mp3/lib/Config/PopulatorData/Templates/Vlogger.php:105
+#: mp3/lib/Config/PopulatorData/Templates/Vlogger.php:1402
+#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank12Column.php:62
+#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank1Column.php:62
+#: mp3/lib/Config/PopulatorData/Templates/WideStoryLayout.php:751
+#: mp3/lib/Config/PopulatorData/Templates/WineCity.php:937
+#: mp3/lib/Config/PopulatorData/Templates/WordPressTheme.php:105
+#: mp3/lib/Config/PopulatorData/Templates/WordPressTheme.php:1413
+#: mp3/views/newsletter/editor.html:1438
+msgid "View this in your browser."
+msgstr ""
+
+#: mp3/lib/Config/PopulatorData/Templates/Birds.php:19
 msgid "Birds"
 msgstr ""
 
@@ -900,7 +1382,7 @@ msgstr ""
 msgid "Branding Agency News"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/BuddhistTemple.php:17
+#: mp3/lib/Config/PopulatorData/Templates/BuddhistTemple.php:19
 msgid "Buddhist Temple"
 msgstr ""
 
@@ -908,7 +1390,7 @@ msgstr ""
 msgid "Charity"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/CityLocalNews.php:18
+#: mp3/lib/Config/PopulatorData/Templates/CityLocalNews.php:19
 msgid "City News"
 msgstr ""
 
@@ -920,11 +1402,11 @@ msgstr ""
 msgid "Coffee"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/College.php:18
+#: mp3/lib/Config/PopulatorData/Templates/College.php:19
 msgid "College"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/ComputerRepair.php:18
+#: mp3/lib/Config/PopulatorData/Templates/ComputerRepair.php:19
 msgid "Computer Repair"
 msgstr ""
 
@@ -948,7 +1430,7 @@ msgstr ""
 msgid "Farmers Market"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/FashionBlog.php:17
+#: mp3/lib/Config/PopulatorData/Templates/FashionBlog.php:19
 msgid "Fashion Blog"
 msgstr ""
 
@@ -984,7 +1466,7 @@ msgstr ""
 msgid "Gift Welcome"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/Guitarist.php:17
+#: mp3/lib/Config/PopulatorData/Templates/Guitarist.php:19
 msgid "Guitarist"
 msgstr ""
 
@@ -1000,7 +1482,7 @@ msgstr ""
 msgid "Industry Conference"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/JazzClub.php:17
+#: mp3/lib/Config/PopulatorData/Templates/JazzClub.php:19
 msgid "Jazz Club"
 msgstr ""
 
@@ -1024,11 +1506,11 @@ msgstr ""
 msgid "Modular Style Stories"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/Mosque.php:17
+#: mp3/lib/Config/PopulatorData/Templates/Mosque.php:19
 msgid "Mosque"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/Motor.php:17
+#: mp3/lib/Config/PopulatorData/Templates/Motor.php:19
 msgid "Motor"
 msgstr ""
 
@@ -1042,18 +1524,6 @@ msgstr ""
 
 #: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank121Column.php:23
 msgid "Newsletter: Blank 1:2:1 Column"
-msgstr ""
-
-#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank121Column.php:62
-#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank12Column.php:62
-#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank13Column.php:62
-#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank1Column.php:62
-#: mp3/lib/Config/PopulatorData/Templates/PostNotificationsBlank1Column.php:62
-#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank12Column.php:62
-#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank1Column.php:62
-msgid ""
-"<a href=\"[link:newsletter_view_in_browser_url]\">View this in your "
-"browser.</a>"
 msgstr ""
 
 #: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank121Column.php:114
@@ -1118,20 +1588,6 @@ msgid ""
 "<li>2 columns</li>\n"
 "<li>3 columns</li>\n"
 "</ul>"
-msgstr ""
-
-#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank121Column.php:321
-#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank12Column.php:261
-#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank13Column.php:284
-#: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank1Column.php:200
-#: mp3/lib/Config/PopulatorData/Templates/PostNotificationsBlank1Column.php:287
-#: mp3/lib/Config/PopulatorData/Templates/SimpleText.php:145
-#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank12Column.php:291
-#: mp3/lib/Config/PopulatorData/Templates/WelcomeBlank1Column.php:200
-msgid ""
-"<p><a href=\"[link:subscription_unsubscribe_url]\">Unsubscribe</a> | <a "
-"href=\"[link:subscription_manage_url]\">Manage your subscription</a><br "
-"/>Add your postal address here!</p>"
 msgstr ""
 
 #: mp3/lib/Config/PopulatorData/Templates/NewsletterBlank12Column.php:23
@@ -1244,7 +1700,7 @@ msgstr ""
 msgid "One Full Post In An Email"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/Painter.php:17
+#: mp3/lib/Config/PopulatorData/Templates/Painter.php:19
 msgid "Painter"
 msgstr ""
 
@@ -1252,7 +1708,7 @@ msgstr ""
 msgid "New Phone Purchase"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/Photography.php:17
+#: mp3/lib/Config/PopulatorData/Templates/Photography.php:19
 msgid "Photography"
 msgstr ""
 
@@ -1260,7 +1716,7 @@ msgstr ""
 msgid "Piece of cake"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/Poet.php:17
+#: mp3/lib/Config/PopulatorData/Templates/Poet.php:19
 msgid "Poet"
 msgstr ""
 
@@ -1306,7 +1762,7 @@ msgstr ""
 msgid "Read the post"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/PrimarySchool.php:18
+#: mp3/lib/Config/PopulatorData/Templates/PrimarySchool.php:19
 msgid "Primary School"
 msgstr ""
 
@@ -1326,7 +1782,7 @@ msgstr ""
 msgid "Retro Computing Magazine"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/RockBand.php:17
+#: mp3/lib/Config/PopulatorData/Templates/RockBand.php:19
 msgid "Rock Band"
 msgstr ""
 
@@ -1382,7 +1838,7 @@ msgstr ""
 msgid "Sunglasses"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/Synagogue.php:17
+#: mp3/lib/Config/PopulatorData/Templates/Synagogue.php:19
 msgid "Synagogue"
 msgstr ""
 
@@ -1390,7 +1846,7 @@ msgstr ""
 msgid "Take a Hike"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/Vlogger.php:17
+#: mp3/lib/Config/PopulatorData/Templates/Vlogger.php:19
 msgid "Vlogger"
 msgstr ""
 
@@ -1477,7 +1933,7 @@ msgstr ""
 msgid "Wine City (with coupon)"
 msgstr ""
 
-#: mp3/lib/Config/PopulatorData/Templates/WordPressTheme.php:18
+#: mp3/lib/Config/PopulatorData/Templates/WordPressTheme.php:19
 msgid "WordPress Theme"
 msgstr ""
 
@@ -1589,17 +2045,17 @@ msgid ""
 "fix this issue."
 msgstr ""
 
-#: mp3/lib/Config/ServicesChecker.php:36 mp3/views/newsletters.html:256
+#: mp3/lib/Config/ServicesChecker.php:36 mp3/views/newsletters.html:266
 #: mp3/views/segments.html:103 mp3/views/subscribers/subscribers.html:121
 msgid "All sending is currently paused!"
 msgstr ""
 
-#: mp3/lib/Config/ServicesChecker.php:37 mp3/views/newsletters.html:257
+#: mp3/lib/Config/ServicesChecker.php:37 mp3/views/newsletters.html:267
 #: mp3/views/segments.html:104 mp3/views/subscribers/subscribers.html:122
 msgid "Your key to send with MailPoet is invalid."
 msgstr ""
 
-#: mp3/lib/Config/ServicesChecker.php:42 mp3/views/newsletters.html:258
+#: mp3/lib/Config/ServicesChecker.php:42 mp3/views/newsletters.html:268
 #: mp3/views/segments.html:105 mp3/views/subscribers/subscribers.html:123
 msgid "Purchase a key"
 msgstr ""
@@ -1728,8 +2184,8 @@ msgstr ""
 msgid "Please specify a valid email address."
 msgstr ""
 
-#: mp3/lib/Form/Block/BlockRendererHelper.php:41 mp3/views/form/editor.html:104
-#: mp3/views/newsletters.html:234
+#: mp3/lib/Form/Block/BlockRendererHelper.php:41 mp3/views/form/editor.html:106
+#: mp3/views/newsletters.html:244
 msgid "Please select a list"
 msgstr ""
 
@@ -1750,9 +2206,9 @@ msgid "Please select a day"
 msgstr ""
 
 #: mp3/lib/Form/Block/Date.php:62 mp3/lib/Form/Block/Date.php:189
-#: mp3/views/form/editor.html:121
+#: mp3/views/form/editor.html:123
 #: mp3/views/form/templatesLegacy/blocks/date_days.hbs:3
-#: mp3/views/subscribers/subscribers.html:128
+#: mp3/views/subscribers/subscribers.html:133
 msgid "Day"
 msgstr ""
 
@@ -1761,9 +2217,9 @@ msgid "Please select a month"
 msgstr ""
 
 #: mp3/lib/Form/Block/Date.php:71 mp3/lib/Form/Block/Date.php:133
-#: mp3/views/form/editor.html:122
+#: mp3/views/form/editor.html:124
 #: mp3/views/form/templatesLegacy/blocks/date_months.hbs:3
-#: mp3/views/subscribers/subscribers.html:127
+#: mp3/views/subscribers/subscribers.html:132
 msgid "Month"
 msgstr ""
 
@@ -1774,9 +2230,9 @@ msgstr ""
 #: mp3/lib/Form/Block/Date.php:80 mp3/lib/Form/Block/Date.php:96
 #: mp3/lib/Form/Block/Date.php:163
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:76
-#: mp3/views/form/editor.html:123
+#: mp3/views/form/editor.html:125
 #: mp3/views/form/templatesLegacy/blocks/date_years.hbs:5
-#: mp3/views/subscribers/subscribers.html:126
+#: mp3/views/subscribers/subscribers.html:131
 msgid "Year"
 msgstr ""
 
@@ -1792,65 +2248,75 @@ msgstr ""
 msgid "Month (January, February,...)"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:262
+#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:272
 #: mp3/views/subscribers/importExport/import.html:60
 msgid "January"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:263
+#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:273
 #: mp3/views/subscribers/importExport/import.html:61
 msgid "February"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:264
+#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:274
 #: mp3/views/subscribers/importExport/import.html:62
 msgid "March"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:265
+#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:275
 #: mp3/views/subscribers/importExport/import.html:63
 msgid "April"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:266
-#: mp3/views/newsletters.html:278
+#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:276
+#: mp3/views/newsletters.html:288
 #: mp3/views/subscribers/importExport/import.html:64
 msgid "May"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:267
+#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:277
 #: mp3/views/subscribers/importExport/import.html:65
 msgid "June"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:268
+#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:278
 #: mp3/views/subscribers/importExport/import.html:66
 msgid "July"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:269
+#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:279
 #: mp3/views/subscribers/importExport/import.html:67
 msgid "August"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:270
+#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:280
 #: mp3/views/subscribers/importExport/import.html:68
 msgid "September"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:112 mp3/views/newsletters.html:271
+#: mp3/lib/Form/Block/Date.php:112 mp3/views/newsletters.html:281
 #: mp3/views/subscribers/importExport/import.html:69
 msgid "October"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:112 mp3/views/newsletters.html:272
+#: mp3/lib/Form/Block/Date.php:112 mp3/views/newsletters.html:282
 #: mp3/views/subscribers/importExport/import.html:70
 msgid "November"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:112 mp3/views/newsletters.html:273
+#: mp3/lib/Form/Block/Date.php:112 mp3/views/newsletters.html:283
 #: mp3/views/subscribers/importExport/import.html:71
 msgid "December"
+msgstr ""
+
+#: mp3/lib/Form/FormFactory.php:63 mp3/lib/Models/Form.php:132
+#: mp3/lib/Models/Form.php:140 mp3/lib/Models/Form.php:142
+msgid "Check your inbox or spam folder to confirm your subscription."
+msgstr ""
+
+#: mp3/lib/Form/FormFactory.php:65 mp3/lib/Models/Form.php:134
+#: mp3/lib/Models/Form.php:141
+msgid "You’ve been successfully subscribed to our newsletter!"
 msgstr ""
 
 #: mp3/lib/Form/PreviewPage.php:62
@@ -1861,22 +2327,12 @@ msgstr ""
 msgid "Please leave this field empty"
 msgstr ""
 
-#: mp3/lib/Form/Templates/TemplateRepository.php:59 mp3/lib/Models/Form.php:131
-#: mp3/lib/Models/Form.php:139 mp3/lib/Models/Form.php:141
-msgid "Check your inbox or spam folder to confirm your subscription."
-msgstr ""
-
-#: mp3/lib/Form/Templates/TemplateRepository.php:61 mp3/lib/Models/Form.php:133
-#: mp3/lib/Models/Form.php:140
-msgid "You’ve been successfully subscribed to our newsletter!"
-msgstr ""
-
-#: mp3/lib/Form/Templates/Templates/InitialForm.php:29
+#: mp3/lib/Form/Templates/Templates/InitialForm.php:31
 #: mp3/vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:284
 msgid "Submit"
 msgstr ""
 
-#: mp3/lib/Form/Templates/Templates/InitialForm.php:32
+#: mp3/lib/Form/Templates/Templates/InitialForm.php:34
 msgid "Subscribe!"
 msgstr ""
 
@@ -1990,7 +2446,7 @@ msgid "[link]Authorize your email in your account now.[/link]"
 msgstr ""
 
 #: mp3/lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:106
-#: mp3/views/newsletters.html:340
+#: mp3/views/newsletters.html:350
 msgid "Resume sending"
 msgstr ""
 
@@ -2024,17 +2480,19 @@ msgstr ""
 msgid "Please specify a type."
 msgstr ""
 
-#: mp3/lib/Models/DynamicSegment.php:69 mp3/lib/Models/Form.php:110
-#: mp3/lib/Models/ScheduledTaskSubscriber.php:96 mp3/lib/Models/Segment.php:228
-#: mp3/lib/Models/Subscriber.php:228
+#: mp3/lib/Models/DynamicSegment.php:69 mp3/lib/Models/Form.php:111
+#: mp3/lib/Models/ScheduledTaskSubscriber.php:109
+#: mp3/lib/Models/Segment.php:228
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:104
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:94
 msgid "All"
 msgstr ""
 
-#: mp3/lib/Models/DynamicSegment.php:74 mp3/lib/Models/Form.php:115
-#: mp3/lib/Models/Segment.php:233 mp3/lib/Models/Subscriber.php:258
+#: mp3/lib/Models/DynamicSegment.php:74 mp3/lib/Models/Form.php:116
+#: mp3/lib/Models/Segment.php:233
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:171
-#: mp3/views/forms.html:90 mp3/views/newsletters.html:133
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:124
+#: mp3/views/forms.html:95 mp3/views/newsletters.html:134
 #: mp3/views/segments.html:86 mp3/views/subscribers/subscribers.html:55
 msgid "Trash"
 msgstr ""
@@ -2092,40 +2550,13 @@ msgstr ""
 
 #: mp3/lib/Models/Subscriber.php:161
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:60
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:170
 msgid "All Lists"
 msgstr ""
 
 #: mp3/lib/Models/Subscriber.php:169
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:151
 msgid "Subscribers without a list (%s)"
-msgstr ""
-
-#: mp3/lib/Models/Subscriber.php:233
-#: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:161
-#: mp3/views/segments.html:64 mp3/views/subscribers/subscribers.html:82
-msgid "Subscribed"
-msgstr ""
-
-#: mp3/lib/Models/Subscriber.php:238 mp3/views/segments.html:65
-#: mp3/views/subscribers/subscribers.html:81
-msgid "Unconfirmed"
-msgstr ""
-
-#: mp3/lib/Models/Subscriber.php:243
-#: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:169
-#: mp3/views/segments.html:66 mp3/views/subscribers/subscribers.html:83
-msgid "Unsubscribed"
-msgstr ""
-
-#: mp3/lib/Models/Subscriber.php:248
-#: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:189
-#: mp3/views/segments.html:67 mp3/views/subscribers/subscribers.html:84
-msgid "Inactive"
-msgstr ""
-
-#: mp3/lib/Models/Subscriber.php:253
-#: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:177
-#: mp3/views/segments.html:68 mp3/views/subscribers/subscribers.html:85
-msgid "Bounced"
 msgstr ""
 
 #: mp3/lib/Newsletter/Editor/PostContentManager.php:126
@@ -2154,7 +2585,7 @@ msgid "Sent"
 msgstr ""
 
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:157
-#: mp3/views/newsletters.html:141
+#: mp3/views/forms.html:66 mp3/views/newsletters.html:142
 msgid "Active"
 msgstr ""
 
@@ -2165,7 +2596,7 @@ msgstr ""
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:12
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:109
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:110
-#: mp3/views/newsletters.html:382 mp3/views/subscribers/subscribers.html:97
+#: mp3/views/newsletters.html:392 mp3/views/subscribers/subscribers.html:97
 #: views/newsletters/campaign_stats.html:16
 msgid "Subscriber"
 msgstr ""
@@ -2197,7 +2628,7 @@ msgid "Newsletter Subject"
 msgstr ""
 
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:40
-#: mp3/views/newsletters.html:77
+#: mp3/views/newsletters.html:78
 msgid "Post Notifications"
 msgstr ""
 
@@ -2214,9 +2645,9 @@ msgid "Issue Number"
 msgstr ""
 
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:54
-#: mp3/views/form/editor.html:117
+#: mp3/views/form/editor.html:119
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:41
-#: mp3/views/newsletters.html:395
+#: mp3/views/newsletters.html:405
 msgid "Date"
 msgstr ""
 
@@ -2245,11 +2676,6 @@ msgstr ""
 #: mp3/views/newsletter/templates/blocks/header/settings.hbs:30
 #: mp3/views/newsletter/templates/components/sidebar/styles.hbs:105
 msgid "Links"
-msgstr ""
-
-#: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:86
-#: mp3/views/newsletter/editor.html:1255
-msgid "Unsubscribe"
 msgstr ""
 
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:90
@@ -2334,15 +2760,15 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/Import/Import.php:69
+#: mp3/lib/Subscribers/ImportExport/Import/Import.php:76
 msgid "Missing or invalid import data."
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/Import/Import.php:77
+#: mp3/lib/Subscribers/ImportExport/Import/Import.php:84
 msgid "No valid subscribers were found."
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/Import/Import.php:119
+#: mp3/lib/Subscribers/ImportExport/Import/Import.php:134
 msgid "Unable to save imported subscribers."
 msgstr ""
 
@@ -2437,6 +2863,7 @@ msgstr ""
 
 #: mp3/lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:54
 #: mp3/lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:63
+#: mp3/views/subscribers/subscribers.html:126
 msgid "Opened"
 msgstr ""
 
@@ -2494,8 +2921,8 @@ msgstr ""
 
 #: mp3/lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:44
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:157
-#: mp3/views/help.html:50 mp3/views/newsletters.html:117
-#: mp3/views/subscribers/subscribers.html:80
+#: mp3/views/forms.html:65 mp3/views/help.html:50
+#: mp3/views/newsletters.html:118 mp3/views/subscribers/subscribers.html:80
 #: mp3/views/subscribers/subscribers.html:98
 #: views/newsletters/campaign_stats.html:17
 msgid "Status"
@@ -2545,6 +2972,41 @@ msgstr ""
 msgid "New subscriber to %s"
 msgstr ""
 
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:99
+#: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:161
+#: mp3/views/segments.html:64
+#: mp3/views/subscribers/importExport/import.html:136
+#: mp3/views/subscribers/subscribers.html:82
+msgid "Subscribed"
+msgstr ""
+
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:104
+#: mp3/views/segments.html:65 mp3/views/subscribers/subscribers.html:81
+msgid "Unconfirmed"
+msgstr ""
+
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:109
+#: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:169
+#: mp3/views/segments.html:66
+#: mp3/views/subscribers/importExport/import.html:137
+#: mp3/views/subscribers/subscribers.html:83
+msgid "Unsubscribed"
+msgstr ""
+
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:114
+#: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:189
+#: mp3/views/segments.html:67
+#: mp3/views/subscribers/importExport/import.html:138
+#: mp3/views/subscribers/subscribers.html:84
+msgid "Inactive"
+msgstr ""
+
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:119
+#: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:177
+#: mp3/views/segments.html:68 mp3/views/subscribers/subscribers.html:85
+msgid "Bounced"
+msgstr ""
+
 #: mp3/lib/Subscription/CaptchaRenderer.php:41
 msgid "Confirm you’re not a robot"
 msgstr ""
@@ -2575,7 +3037,7 @@ msgstr ""
 #: mp3/views/layout.html:93
 #: mp3/views/newsletter/templates/components/save.hbs:4
 #: mp3/views/newsletter/templates/components/save.hbs:23
-#: mp3/views/segments.html:92 mp3/views/subscribers/subscribers.html:132
+#: mp3/views/segments.html:92 mp3/views/subscribers/subscribers.html:137
 msgid "Save"
 msgstr ""
 
@@ -2613,10 +3075,6 @@ msgstr ""
 
 #: mp3/lib/Subscription/Pages.php:309
 msgid "You are now subscribed!"
-msgstr ""
-
-#: mp3/lib/Subscription/Pages.php:322 mp3/lib/Subscription/Pages.php:404
-msgid "Manage your subscription"
 msgstr ""
 
 #: mp3/lib/Subscription/Pages.php:328
@@ -2841,18 +3299,20 @@ msgid "No comments to show."
 msgstr ""
 
 #: mp3/node_modules/@wordpress/block-library/src/latest-posts/index.php:105
+#: mp3/node_modules/@wordpress/block-library/src/rss/index.php:60
 #. translators: byline. %s: current author.
+#. translators: %s: the author.
 msgid "by %s"
 msgstr ""
 
 #: mp3/node_modules/@wordpress/block-library/src/query-pagination/index.php:26
-#: mp3/views/newsletters.html:301
+#: mp3/views/newsletters.html:311
 msgid "Previous"
 msgstr ""
 
 #: mp3/node_modules/@wordpress/block-library/src/query-pagination/index.php:33
 #: mp3/views/newsletter/templates/components/save.hbs:21
-#: mp3/views/newsletters.html:300
+#: mp3/views/newsletters.html:310
 #: mp3/views/subscribers/importExport/import.html:98
 msgid "Next"
 msgstr ""
@@ -2867,12 +3327,10 @@ msgid ""
 "later."
 msgstr ""
 
-#: mp3/node_modules/@wordpress/block-library/src/rss/index.php:58
-msgid "by"
-msgstr ""
-
-#: mp3/node_modules/@wordpress/block-library/src/search/index.php:32
-#: mp3/views/forms.html:48 mp3/views/newsletters.html:81
+#: mp3/node_modules/@wordpress/block-library/src/search/index.php:25
+#: mp3/node_modules/@wordpress/block-library/src/search/index.php:26
+#: mp3/node_modules/@wordpress/block-library/src/search/index.php:44
+#: mp3/views/forms.html:48 mp3/views/newsletters.html:82
 #: mp3/views/segments.html:48 mp3/views/segments.html:149
 #: mp3/views/subscribers/subscribers.html:37
 msgid "Search"
@@ -3157,11 +3615,11 @@ msgstr ""
 msgid "Export Error"
 msgstr ""
 
-#: mp3/vendor/wp-cli/extension-command/src/WP_CLI/CommandWithUpgrade.php:651
+#: mp3/vendor/wp-cli/extension-command/src/WP_CLI/CommandWithUpgrade.php:661
 msgid " Try again"
 msgstr ""
 
-#: mp3/vendor/wp-cli/extension-command/src/WP_CLI/CommandWithUpgrade.php:657
+#: mp3/vendor/wp-cli/extension-command/src/WP_CLI/CommandWithUpgrade.php:667
 msgid "API error. Try Again."
 msgstr ""
 
@@ -3183,7 +3641,7 @@ msgstr ""
 msgid "Automatic Email"
 msgstr ""
 
-#: mp3/views/automatic_emails.html:9 mp3/views/subscribers/subscribers.html:124
+#: mp3/views/automatic_emails.html:9 mp3/views/subscribers/subscribers.html:129
 msgid "Tip:"
 msgstr ""
 
@@ -3227,7 +3685,7 @@ msgid "Close this window and deactivate MailPoet"
 msgstr ""
 
 #: mp3/views/emails/congratulatoryMssEmail.html:50
-#: mp3/views/newsletters.html:152
+#: mp3/views/newsletters.html:153
 msgid "Congrats!"
 msgstr ""
 
@@ -3310,323 +3768,331 @@ msgstr ""
 msgid "Disable these emails"
 msgstr ""
 
-#: mp3/views/form/editor.html:44
-msgid "Your changes you made may not be saved"
+#: mp3/views/form/editor.html:43
+msgid "Display the form"
 msgstr ""
 
-#: mp3/views/form/editor.html:45 mp3/views/newsletters.html:393
-#: mp3/views/segments.html:108 mp3/views/subscribers/subscribers.html:133
-msgid "Back"
+#: mp3/views/form/editor.html:44
+msgid "Enable"
 msgstr ""
 
 #: mp3/views/form/editor.html:46
-msgid "Form"
+msgid "Your changes you made may not be saved"
+msgstr ""
+
+#: mp3/views/form/editor.html:47 mp3/views/newsletters.html:403
+#: mp3/views/segments.html:108 mp3/views/subscribers/subscribers.html:138
+msgid "Back"
 msgstr ""
 
 #: mp3/views/form/editor.html:48
+msgid "Form"
+msgstr ""
+
+#: mp3/views/form/editor.html:50
 #: mp3/views/newsletter/templates/blocks/social/settings.hbs:27
 #: mp3/views/newsletter/templates/components/sidebar/styles.hbs:2
 msgid "Styles"
 msgstr ""
 
-#: mp3/views/form/editor.html:49
+#: mp3/views/form/editor.html:51
 msgid "Background Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:50
+#: mp3/views/form/editor.html:52
 msgid "Background Image"
 msgstr ""
 
-#: mp3/views/form/editor.html:51
+#: mp3/views/form/editor.html:53
 msgid "Select Image…"
 msgstr ""
 
-#: mp3/views/form/editor.html:52
+#: mp3/views/form/editor.html:54
 msgid "Font Size"
 msgstr ""
 
-#: mp3/views/form/editor.html:53
+#: mp3/views/form/editor.html:55
 msgid "Font Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:54
+#: mp3/views/form/editor.html:56
 msgid "Inherit from theme"
 msgstr ""
 
-#: mp3/views/form/editor.html:55
+#: mp3/views/form/editor.html:57
 msgid "Inherit style from theme"
 msgstr ""
 
-#: mp3/views/form/editor.html:67
+#: mp3/views/form/editor.html:69
 msgid "Apply styles to all inputs"
 msgstr ""
 
-#: mp3/views/form/editor.html:74
+#: mp3/views/form/editor.html:76
 msgid "Form saved."
 msgstr ""
 
-#: mp3/views/form/editor.html:75
+#: mp3/views/form/editor.html:77
 msgid "Cookies reset — you will see all your dismissed popup forms again."
 msgstr ""
 
-#: mp3/views/form/editor.html:76
+#: mp3/views/form/editor.html:78
 msgid "Custom field saved."
 msgstr ""
 
-#: mp3/views/form/editor.html:78
+#: mp3/views/form/editor.html:80
 msgid ""
 "Display your form in a fixed horizontal bar at the top or bottom of posts "
 "or pages."
 msgstr ""
 
-#: mp3/views/form/editor.html:80
+#: mp3/views/form/editor.html:82
 msgid "Display your form in a slide–in form on top of your page content."
 msgstr ""
 
-#: mp3/views/form/editor.html:82
+#: mp3/views/form/editor.html:84
 msgid "Display your form in a pop up window."
 msgstr ""
 
-#: mp3/views/form/editor.html:84
+#: mp3/views/form/editor.html:86
 msgid ""
 "This form placement allows you to add this form at the end of all the pages "
 "or posts, below the content."
 msgstr ""
 
-#: mp3/views/form/editor.html:97
+#: mp3/views/form/editor.html:99
 msgid "You can add this form to a [link]widget area of your theme[/link] (new tab)."
 msgstr ""
 
-#: mp3/views/form/editor.html:98
+#: mp3/views/form/editor.html:100
 msgid ""
 "Or in any page or post as a block, or with this shortcode if you prefer "
 "[shortcode]."
 msgstr ""
 
-#: mp3/views/form/editor.html:99
+#: mp3/views/form/editor.html:101
 msgid "Use [link]PHP[/link] or [link]iFrame[/link]."
 msgstr ""
 
-#: mp3/views/form/editor.html:100
+#: mp3/views/form/editor.html:102
 msgid "This form adds the subscribers to these lists"
 msgstr ""
 
-#: mp3/views/form/editor.html:101
+#: mp3/views/form/editor.html:103
 msgid "After submit…"
 msgstr ""
 
-#: mp3/views/form/editor.html:102
+#: mp3/views/form/editor.html:104
 msgid "Show message"
 msgstr ""
 
-#: mp3/views/form/editor.html:103
+#: mp3/views/form/editor.html:105
 msgid "Go to Page"
 msgstr ""
 
-#: mp3/views/form/editor.html:105
+#: mp3/views/form/editor.html:107
 msgid "Fields"
 msgstr ""
 
-#: mp3/views/form/editor.html:106
+#: mp3/views/form/editor.html:108
 msgid "Custom Fields"
 msgstr ""
 
-#: mp3/views/form/editor.html:107
+#: mp3/views/form/editor.html:109
 msgid "Layout"
 msgstr ""
 
-#: mp3/views/form/editor.html:108
+#: mp3/views/form/editor.html:110
 msgid "Number of lines"
 msgstr ""
 
-#: mp3/views/form/editor.html:111
+#: mp3/views/form/editor.html:113
 msgid "This field will be deleted for all your subscribers. Are you sure?"
 msgstr ""
 
-#: mp3/views/form/editor.html:112
+#: mp3/views/form/editor.html:114
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:21
 msgid "Text Input"
 msgstr ""
 
-#: mp3/views/form/editor.html:113
+#: mp3/views/form/editor.html:115
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:25
 msgid "Text Area"
 msgstr ""
 
-#: mp3/views/form/editor.html:114
+#: mp3/views/form/editor.html:116
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:29
 msgid "Radio buttons"
 msgstr ""
 
-#: mp3/views/form/editor.html:115
+#: mp3/views/form/editor.html:117
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:33
 msgid "Checkbox"
 msgstr ""
 
-#: mp3/views/form/editor.html:118
+#: mp3/views/form/editor.html:120
 #: mp3/views/form/templatesLegacy/settings/date_types.hbs:2
 msgid "Type of date"
 msgstr ""
 
-#: mp3/views/form/editor.html:119
+#: mp3/views/form/editor.html:121
 #: mp3/views/form/templatesLegacy/settings/date_formats.hbs:9
 msgid "Order"
 msgstr ""
 
-#: mp3/views/form/editor.html:120
+#: mp3/views/form/editor.html:122
 msgid "Preselect today’s date"
 msgstr ""
 
-#: mp3/views/form/editor.html:129
+#: mp3/views/form/editor.html:131
 msgid "Validate for"
 msgstr ""
 
-#: mp3/views/form/editor.html:130
+#: mp3/views/form/editor.html:132
 #: mp3/views/form/templatesLegacy/settings/validate.hbs:6
 msgid "Nothing"
 msgstr ""
 
-#: mp3/views/form/editor.html:131
+#: mp3/views/form/editor.html:133
 #: mp3/views/form/templatesLegacy/settings/validate.hbs:11
 msgid "Numbers only"
 msgstr ""
 
-#: mp3/views/form/editor.html:132
+#: mp3/views/form/editor.html:134
 #: mp3/views/form/templatesLegacy/settings/validate.hbs:16
 msgid "Alphanumerical"
 msgstr ""
 
-#: mp3/views/form/editor.html:133
+#: mp3/views/form/editor.html:135
 #: mp3/views/form/templatesLegacy/settings/validate.hbs:21
 msgid "Phone number, (+,-,#,(,) and spaces allowed)"
 msgstr ""
 
-#: mp3/views/form/editor.html:134
+#: mp3/views/form/editor.html:136
 #: mp3/views/form/templatesLegacy/settings/values.hbs:4
 msgid "Add item"
 msgstr ""
 
-#: mp3/views/form/editor.html:135
+#: mp3/views/form/editor.html:137
 msgid "Mandatory field"
 msgstr ""
 
-#: mp3/views/form/editor.html:137
+#: mp3/views/form/editor.html:139
 msgid "Input field used to catch subscribers’ first names."
 msgstr ""
 
-#: mp3/views/form/editor.html:139
+#: mp3/views/form/editor.html:141
 msgid "Input field used to catch subscribers’ last names."
 msgstr ""
 
-#: mp3/views/form/editor.html:140
+#: mp3/views/form/editor.html:142
 msgid "List selection"
 msgstr ""
 
-#: mp3/views/form/editor.html:141
+#: mp3/views/form/editor.html:143
 msgid "Allow your subscribers to select which list(s) they want to subscribe to."
 msgstr ""
 
-#: mp3/views/form/editor.html:142
+#: mp3/views/form/editor.html:144
 msgid "Select list(s):"
 msgstr ""
 
-#: mp3/views/form/editor.html:143
+#: mp3/views/form/editor.html:145
 #: mp3/views/subscribers/importExport/import.html:52
 msgid "Please select at least one list"
 msgstr ""
 
-#: mp3/views/form/editor.html:144
+#: mp3/views/form/editor.html:146
 msgid "Select the segment that you want to add"
 msgstr ""
 
-#: mp3/views/form/editor.html:146
+#: mp3/views/form/editor.html:148
 msgid "Input field used to catch subscribers’ email addresses."
 msgstr ""
 
-#: mp3/views/form/editor.html:147
+#: mp3/views/form/editor.html:149
 msgid "Submit button"
 msgstr ""
 
-#: mp3/views/form/editor.html:148
+#: mp3/views/form/editor.html:150
 msgid "Button used to submit the form."
 msgstr ""
 
-#: mp3/views/form/editor.html:150
+#: mp3/views/form/editor.html:152
 msgid "Email input or submit is missing. Try reloading the form editor."
 msgstr ""
 
-#: mp3/views/form/editor.html:152
+#: mp3/views/form/editor.html:154
 msgid "Display label within input"
 msgstr ""
 
-#: mp3/views/form/editor.html:155
+#: mp3/views/form/editor.html:157
 msgid "Custom HTML"
 msgstr ""
 
-#: mp3/views/form/editor.html:156
+#: mp3/views/form/editor.html:158
 msgid "Display custom text or HTML code in your form."
 msgstr ""
 
-#: mp3/views/form/editor.html:157
+#: mp3/views/form/editor.html:159
 msgid ""
 "Subscribe to our newsletter and join [mailpoet_subscribers_count] other "
 "subscribers."
 msgstr ""
 
-#: mp3/views/form/editor.html:159
+#: mp3/views/form/editor.html:161
 #: mp3/views/form/templatesLegacy/settings/field.hbs:61
 msgid "Automatically add paragraphs"
 msgstr ""
 
-#: mp3/views/form/editor.html:160
+#: mp3/views/form/editor.html:162
 msgid "Create Custom Field"
 msgstr ""
 
-#: mp3/views/form/editor.html:161
+#: mp3/views/form/editor.html:163
 msgid "Create a new custom field for your subscribers."
 msgstr ""
 
-#: mp3/views/form/editor.html:162
+#: mp3/views/form/editor.html:164
 msgid "New Custom Field."
 msgstr ""
 
-#: mp3/views/form/editor.html:166
+#: mp3/views/form/editor.html:168
 msgid "The custom field [name] already exists. Please choose another name."
 msgstr ""
 
-#: mp3/views/form/editor.html:167
+#: mp3/views/form/editor.html:169
 msgid "This is what the success message looks like."
 msgstr ""
 
-#: mp3/views/form/editor.html:168
+#: mp3/views/form/editor.html:170
 msgid "This is what the error message looks like."
 msgstr ""
 
-#: mp3/views/form/editor.html:169
+#: mp3/views/form/editor.html:171
 msgid "Form Preview"
 msgstr ""
 
-#: mp3/views/form/editor.html:170
+#: mp3/views/form/editor.html:172
 msgid "Font Family"
 msgstr ""
 
-#: mp3/views/form/editor.html:171
+#: mp3/views/form/editor.html:173
 msgid "Theme’s default fonts"
 msgstr ""
 
-#: mp3/views/form/editor.html:190
+#: mp3/views/form/editor.html:192
 msgid ""
 "Psssst. We try our best to show you what the widget might look like, but "
 "better check the final result on your website."
 msgstr ""
 
-#: mp3/views/form/editor.html:191
+#: mp3/views/form/editor.html:193
 msgid ""
 "Psssst. Forms on mobile appear smaller automatically because it’s better "
 "for SEO."
 msgstr ""
 
-#: mp3/views/form/editor.html:192
+#: mp3/views/form/editor.html:194
 msgid "Close Button Style"
 msgstr ""
 
@@ -3759,7 +4225,7 @@ msgstr ""
 msgid "Select all forms on all pages"
 msgstr ""
 
-#: mp3/views/forms.html:54 mp3/views/newsletters.html:88
+#: mp3/views/forms.html:54 mp3/views/newsletters.html:89
 #: mp3/views/segments.html:54 mp3/views/subscribers/subscribers.html:45
 msgid "Clear selection"
 msgstr ""
@@ -3768,159 +4234,167 @@ msgstr ""
 msgid "%d forms permanently deleted."
 msgstr ""
 
-#: mp3/views/forms.html:56 mp3/views/newsletters.html:90
+#: mp3/views/forms.html:56 mp3/views/newsletters.html:91
 #: mp3/views/segments.html:56 mp3/views/subscribers/subscribers.html:47
 msgid "Select bulk action"
 msgstr ""
 
-#: mp3/views/forms.html:57 mp3/views/newsletters.html:91
+#: mp3/views/forms.html:57 mp3/views/newsletters.html:92
 #: mp3/views/segments.html:57 mp3/views/subscribers/subscribers.html:48
 msgid "Bulk Actions"
 msgstr ""
 
-#: mp3/views/forms.html:58 mp3/views/newsletters.html:92
+#: mp3/views/forms.html:58 mp3/views/newsletters.html:93
 #: mp3/views/segments.html:58 mp3/views/subscribers/subscribers.html:49
 msgid "Apply"
 msgstr ""
 
-#: mp3/views/forms.html:59 mp3/views/newsletters.html:93
+#: mp3/views/forms.html:59 mp3/views/newsletters.html:94
 #: mp3/views/subscribers/subscribers.html:50
 msgid "Filter"
 msgstr ""
 
-#: mp3/views/forms.html:60 mp3/views/newsletters.html:94
+#: mp3/views/forms.html:60 mp3/views/newsletters.html:95
 #: mp3/views/segments.html:88 mp3/views/subscribers/subscribers.html:51
 msgid "Empty Trash"
 msgstr ""
 
-#: mp3/views/forms.html:61 mp3/views/newsletters.html:95
+#: mp3/views/forms.html:61 mp3/views/newsletters.html:96
 #: mp3/views/segments.html:89 mp3/views/subscribers/subscribers.html:52
 msgid "Select All"
 msgstr ""
 
-#: mp3/views/forms.html:62 mp3/views/newsletters.html:96
+#: mp3/views/forms.html:62 mp3/views/newsletters.html:97
 #: mp3/views/segments.html:90 mp3/views/subscribers/subscribers.html:54
 msgid "Restore"
 msgstr ""
 
-#: mp3/views/forms.html:63 mp3/views/newsletters.html:97
+#: mp3/views/forms.html:63 mp3/views/newsletters.html:98
 #: mp3/views/subscribers/subscribers.html:57
 msgid "Delete Permanently"
 msgstr ""
 
-#: mp3/views/forms.html:65 mp3/views/newsletters.html:100
+#: mp3/views/forms.html:67 mp3/views/newsletters.html:143
+msgid "Not Active"
+msgstr ""
+
+#: mp3/views/forms.html:68
+msgid "Your Form is now activated!"
+msgstr ""
+
+#: mp3/views/forms.html:70 mp3/views/newsletters.html:101
 #: mp3/views/segments.html:95 mp3/views/segments.html:134
 #: mp3/views/subscribers/subscribers.html:60
 msgid "Previous page"
 msgstr ""
 
-#: mp3/views/forms.html:66 mp3/views/newsletters.html:101
+#: mp3/views/forms.html:71 mp3/views/newsletters.html:102
 #: mp3/views/segments.html:96 mp3/views/segments.html:135
 #: mp3/views/subscribers/subscribers.html:61
 msgid "First page"
 msgstr ""
 
-#: mp3/views/forms.html:67 mp3/views/newsletters.html:102
+#: mp3/views/forms.html:72 mp3/views/newsletters.html:103
 #: mp3/views/segments.html:97 mp3/views/segments.html:136
 #: mp3/views/subscribers/subscribers.html:62
 msgid "Next page"
 msgstr ""
 
-#: mp3/views/forms.html:68 mp3/views/newsletters.html:103
+#: mp3/views/forms.html:73 mp3/views/newsletters.html:104
 #: mp3/views/segments.html:98 mp3/views/segments.html:137
 #: mp3/views/subscribers/subscribers.html:63
 msgid "Last page"
 msgstr ""
 
-#: mp3/views/forms.html:69 mp3/views/subscribers/subscribers.html:64
+#: mp3/views/forms.html:74 mp3/views/subscribers/subscribers.html:64
 msgid "Current Page"
 msgstr ""
 
-#: mp3/views/forms.html:70 mp3/views/newsletters.html:105
+#: mp3/views/forms.html:75 mp3/views/newsletters.html:106
 #: mp3/views/segments.html:100 mp3/views/subscribers/subscribers.html:65
 msgid "of"
 msgstr ""
 
-#: mp3/views/forms.html:71 mp3/views/newsletters.html:106
+#: mp3/views/forms.html:76 mp3/views/newsletters.html:107
 #: mp3/views/segments.html:101 mp3/views/segments.html:132
 #: mp3/views/subscribers/subscribers.html:66
 msgid "1 item"
 msgstr ""
 
-#: mp3/views/forms.html:72 mp3/views/newsletters.html:107
+#: mp3/views/forms.html:77 mp3/views/newsletters.html:108
 #: mp3/views/segments.html:102 mp3/views/segments.html:133
 #: mp3/views/subscribers/subscribers.html:67
 msgid "%$1d items"
 msgstr ""
 
-#: mp3/views/forms.html:74 mp3/views/segments.html:59
+#: mp3/views/forms.html:79 mp3/views/segments.html:59
 #: mp3/views/segments.html:127
 #: mp3/views/subscribers/importExport/import/step_data_manipulation.html:7
 msgid "Name"
 msgstr ""
 
-#: mp3/views/forms.html:77 mp3/views/segments.html:124
+#: mp3/views/forms.html:82 mp3/views/segments.html:124
 msgid "Type"
 msgstr ""
 
-#: mp3/views/forms.html:78
+#: mp3/views/forms.html:83
 msgid "User choice:"
 msgstr ""
 
-#: mp3/views/forms.html:79
+#: mp3/views/forms.html:84
 msgid "Sign-ups"
 msgstr ""
 
-#: mp3/views/forms.html:80
+#: mp3/views/forms.html:85
 msgid "Modified date"
 msgstr ""
 
-#: mp3/views/forms.html:81
+#: mp3/views/forms.html:86
 msgid "1 form was moved to the trash."
 msgstr ""
 
-#: mp3/views/forms.html:82
+#: mp3/views/forms.html:87
 msgid "%$1d forms were moved to the trash."
 msgstr ""
 
-#: mp3/views/forms.html:83
+#: mp3/views/forms.html:88
 msgid "1 form was permanently deleted."
 msgstr ""
 
-#: mp3/views/forms.html:84
+#: mp3/views/forms.html:89
 msgid "%$1d forms were permanently deleted."
 msgstr ""
 
-#: mp3/views/forms.html:85
+#: mp3/views/forms.html:90
 msgid "1 form has been restored from the trash."
 msgstr ""
 
-#: mp3/views/forms.html:86
+#: mp3/views/forms.html:91
 msgid "%$1d forms have been restored from the trash."
 msgstr ""
 
-#: mp3/views/forms.html:87 mp3/views/newsletters.html:135
+#: mp3/views/forms.html:92 mp3/views/newsletters.html:136
 #: mp3/views/segments.html:85 mp3/views/subscribers/subscribers.html:53
 msgid "Edit"
 msgstr ""
 
-#: mp3/views/forms.html:88
+#: mp3/views/forms.html:93
 #: mp3/views/newsletter/templates/blocks/base/toolsGeneric.hbs:26
-#: mp3/views/newsletters.html:136 mp3/views/segments.html:76
+#: mp3/views/newsletters.html:137 mp3/views/segments.html:76
 msgid "Duplicate"
 msgstr ""
 
-#: mp3/views/forms.html:89
+#: mp3/views/forms.html:94
 msgid "Form \"%$1s\" has been duplicated."
 msgstr ""
 
-#: mp3/views/forms.html:91 mp3/views/newsletters.html:134
+#: mp3/views/forms.html:96 mp3/views/newsletters.html:135
 #: mp3/views/segments.html:87 mp3/views/subscribers/subscribers.html:56
 msgid "Move to trash"
 msgstr ""
 
-#: mp3/views/forms.html:92 mp3/views/newsletters.html:149
-#: mp3/views/subscribers/subscribers.html:129
+#: mp3/views/forms.html:97 mp3/views/newsletters.html:150
+#: mp3/views/subscribers/subscribers.html:134
 msgid "Add New"
 msgstr ""
 
@@ -4084,7 +4558,7 @@ msgstr ""
 msgid "Sending has been resumed."
 msgstr ""
 
-#: mp3/views/layout.html:82 mp3/views/newsletters.html:73
+#: mp3/views/layout.html:82 mp3/views/newsletters.html:74
 msgid "Dismiss this notice."
 msgstr ""
 
@@ -4250,7 +4724,7 @@ msgstr ""
 msgid "Start upgrade"
 msgstr ""
 
-#: mp3/views/mp2migration.html:25 mp3/views/newsletters.html:147
+#: mp3/views/mp2migration.html:25 mp3/views/newsletters.html:148
 msgid "Pause"
 msgstr ""
 
@@ -4289,7 +4763,7 @@ msgid ""
 "sent with the free version of MailPoet."
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:347 mp3/views/newsletters.html:260
+#: mp3/views/newsletter/editor.html:347 mp3/views/newsletters.html:270
 msgid "Close"
 msgstr ""
 
@@ -4341,23 +4815,23 @@ msgstr ""
 msgid "The email could not be sent due to a technical issue with %$1s"
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:359 mp3/views/newsletters.html:334
+#: mp3/views/newsletter/editor.html:359 mp3/views/newsletters.html:344
 msgid ""
 "Please check your sending method configuration, you may need to consult "
 "with your hosting company."
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:360 mp3/views/newsletters.html:335
+#: mp3/views/newsletter/editor.html:360 mp3/views/newsletters.html:345
 msgid ""
 "The easy alternative is to <b>send emails with MailPoet Sending Service</b> "
 "instead, like thousands of other users do."
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:361 mp3/views/newsletters.html:336
+#: mp3/views/newsletter/editor.html:361 mp3/views/newsletters.html:346
 msgid "Sign up for free in minutes"
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:362 mp3/views/newsletters.html:339
+#: mp3/views/newsletter/editor.html:362 mp3/views/newsletters.html:349
 msgid "Check your [link]sending method settings[/link]."
 msgstr ""
 
@@ -4442,23 +4916,23 @@ msgstr ""
 msgid "Before you start, this is how you drag and drop in MailPoet"
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:383 mp3/views/newsletters.html:109
+#: mp3/views/newsletter/editor.html:383 mp3/views/newsletters.html:110
 msgid "Select type"
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:384 mp3/views/newsletters.html:110
+#: mp3/views/newsletter/editor.html:384 mp3/views/newsletters.html:111
 msgid "Events"
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:386 mp3/views/newsletters.html:112
+#: mp3/views/newsletter/editor.html:386 mp3/views/newsletters.html:113
 msgid "Template"
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:387 mp3/views/newsletters.html:113
+#: mp3/views/newsletter/editor.html:387 mp3/views/newsletters.html:114
 msgid "Designer"
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:388 mp3/views/newsletters.html:114
+#: mp3/views/newsletter/editor.html:388 mp3/views/newsletters.html:115
 msgid "Send"
 msgstr ""
 
@@ -4501,10 +4975,6 @@ msgstr ""
 msgid "Button"
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:1255
-msgid "Add your postal address here!"
-msgstr ""
-
 #: mp3/views/newsletter/editor.html:1275
 msgid "An image of..."
 msgstr ""
@@ -4519,10 +4989,6 @@ msgstr ""
 
 #: mp3/views/newsletter/editor.html:1435
 msgid "Edit this to insert text."
-msgstr ""
-
-#: mp3/views/newsletter/editor.html:1438
-msgid "View this in your browser."
 msgstr ""
 
 #: mp3/views/newsletter/templates/blocks/automatedLatestContent/settings.hbs:1
@@ -4830,7 +5296,7 @@ msgstr ""
 
 #: mp3/views/newsletter/templates/blocks/base/toolsGeneric.hbs:14
 #: mp3/views/newsletter/templates/blocks/base/toolsGeneric.hbs:21
-#: mp3/views/newsletters.html:171
+#: mp3/views/newsletters.html:181
 msgid "Delete"
 msgstr ""
 
@@ -4839,7 +5305,7 @@ msgid "Cancel deletion"
 msgstr ""
 
 #: mp3/views/newsletter/templates/blocks/base/toolsGeneric.hbs:18
-#: mp3/views/newsletters.html:344
+#: mp3/views/newsletters.html:354
 #: mp3/views/subscribers/importExport/import/step_data_manipulation.html:27
 msgid "Cancel"
 msgstr ""
@@ -5316,7 +5782,7 @@ msgid "Content"
 msgstr ""
 
 #: mp3/views/newsletter/templates/components/sidebar/preview.hbs:2
-#: mp3/views/newsletters.html:173 mp3/views/newsletters.html:349
+#: mp3/views/newsletters.html:183 mp3/views/newsletters.html:359
 #: mp3/views/settings.html:62
 msgid "Preview"
 msgstr ""
@@ -5330,7 +5796,7 @@ msgid "Send preview"
 msgstr ""
 
 #: mp3/views/newsletter/templates/components/sidebar/preview.hbs:21
-#: mp3/views/newsletters.html:249
+#: mp3/views/newsletters.html:259
 msgid ""
 "You’ll soon be able to send once our team reviews your account. In the "
 "meantime, you can send previews to [link]your authorized emails[/link]."
@@ -5364,904 +5830,908 @@ msgstr ""
 msgid "Global background"
 msgstr ""
 
-#: mp3/views/newsletters.html:75
+#: mp3/views/newsletters.html:76
 msgid "Newsletters"
 msgstr ""
 
-#: mp3/views/newsletters.html:76
+#: mp3/views/newsletters.html:77
 msgid "Welcome Emails"
 msgstr ""
 
-#: mp3/views/newsletters.html:78
+#: mp3/views/newsletters.html:79
 msgid "WooCommerce Emails"
 msgstr ""
 
-#: mp3/views/newsletters.html:79
+#: mp3/views/newsletters.html:80
 msgid "Simple text"
 msgstr ""
 
-#: mp3/views/newsletters.html:82
+#: mp3/views/newsletters.html:83
 msgid "Loading emails..."
 msgstr ""
 
-#: mp3/views/newsletters.html:83
+#: mp3/views/newsletters.html:84
 msgid "No emails found."
 msgstr ""
 
-#: mp3/views/newsletters.html:84
+#: mp3/views/newsletters.html:85
 msgid ""
 "Nothing here yet! But, don't fret - there's no reason to get upset. Pretty "
 "soon, you’ll be sending emails faster than a turbo-jet."
 msgstr ""
 
-#: mp3/views/newsletters.html:85
+#: mp3/views/newsletters.html:86
 msgid "All emails on this page are selected."
 msgstr ""
 
-#: mp3/views/newsletters.html:86
+#: mp3/views/newsletters.html:87
 msgid "All %d emails are selected."
 msgstr ""
 
-#: mp3/views/newsletters.html:87
+#: mp3/views/newsletters.html:88
 msgid "Select all emails on all pages"
 msgstr ""
 
-#: mp3/views/newsletters.html:89
+#: mp3/views/newsletters.html:90
 msgid "%d emails were permanently deleted."
 msgstr ""
 
-#: mp3/views/newsletters.html:98
+#: mp3/views/newsletters.html:99
 #: mp3/views/subscribers/importExport/import.html:51
 #: mp3/views/subscribers/importExport/import.html:127
 #: mp3/views/subscribers/subscribers.html:58
 msgid "Show more details"
 msgstr ""
 
-#: mp3/views/newsletters.html:104 mp3/views/segments.html:99
+#: mp3/views/newsletters.html:105 mp3/views/segments.html:99
 #: mp3/views/segments.html:138
 msgid "Current page"
 msgstr ""
 
-#: mp3/views/newsletters.html:116 mp3/views/newsletters.html:176
+#: mp3/views/newsletters.html:117 mp3/views/newsletters.html:186
 msgid "Subject"
 msgstr ""
 
-#: mp3/views/newsletters.html:118
+#: mp3/views/newsletters.html:119
 msgid "Statistics"
 msgstr ""
 
-#: mp3/views/newsletters.html:119
+#: mp3/views/newsletters.html:120
 msgid "Opened, Clicked"
 msgstr ""
 
-#: mp3/views/newsletters.html:122
+#: mp3/views/newsletters.html:123
 msgid "History"
 msgstr ""
 
-#: mp3/views/newsletters.html:123
+#: mp3/views/newsletters.html:124
 msgid "View history"
 msgstr ""
 
-#: mp3/views/newsletters.html:124 mp3/views/segments.html:69
+#: mp3/views/newsletters.html:125 mp3/views/segments.html:69
 msgid "Created on"
 msgstr ""
 
-#: mp3/views/newsletters.html:125 mp3/views/subscribers/subscribers.html:101
+#: mp3/views/newsletters.html:126 mp3/views/subscribers/subscribers.html:101
 msgid "Last modified on"
 msgstr ""
 
-#: mp3/views/newsletters.html:126
+#: mp3/views/newsletters.html:127
 msgid "Sent on"
 msgstr ""
 
-#: mp3/views/newsletters.html:127
+#: mp3/views/newsletters.html:128
 msgid "1 email was moved to the trash."
 msgstr ""
 
-#: mp3/views/newsletters.html:128
+#: mp3/views/newsletters.html:129
 msgid "%$1d emails were moved to the trash."
 msgstr ""
 
-#: mp3/views/newsletters.html:129
+#: mp3/views/newsletters.html:130
 msgid "1 email was permanently deleted."
 msgstr ""
 
-#: mp3/views/newsletters.html:130
+#: mp3/views/newsletters.html:131
 msgid "%$1d emails were permanently deleted."
 msgstr ""
 
-#: mp3/views/newsletters.html:131
+#: mp3/views/newsletters.html:132
 msgid "1 email has been restored from the Trash."
 msgstr ""
 
-#: mp3/views/newsletters.html:132
+#: mp3/views/newsletters.html:133
 msgid "%$1d emails have been restored from the Trash."
 msgstr ""
 
-#: mp3/views/newsletters.html:137
+#: mp3/views/newsletters.html:138
 msgid "Email \"%$1s\" has been duplicated."
 msgstr ""
 
-#: mp3/views/newsletters.html:138 mp3/views/segments.html:140
+#: mp3/views/newsletters.html:139 mp3/views/segments.html:140
 msgid "Not sent yet"
 msgstr ""
 
-#: mp3/views/newsletters.html:139
+#: mp3/views/newsletters.html:140
 msgid "Scheduled for"
 msgstr ""
 
-#: mp3/views/newsletters.html:140
+#: mp3/views/newsletters.html:141
 msgid "Schedule it"
 msgstr ""
 
-#: mp3/views/newsletters.html:142
-msgid "Not Active"
-msgstr ""
-
-#: mp3/views/newsletters.html:143
+#: mp3/views/newsletters.html:144
 msgid "Processed %$1d of %$2d"
 msgstr ""
 
-#: mp3/views/newsletters.html:146
+#: mp3/views/newsletters.html:147
 msgid "Resume"
 msgstr ""
 
-#: mp3/views/newsletters.html:148
+#: mp3/views/newsletters.html:149
 msgid "Paused"
 msgstr ""
 
-#: mp3/views/newsletters.html:151
+#: mp3/views/newsletters.html:152
 msgid "Excellent"
 msgstr ""
 
-#: mp3/views/newsletters.html:153
+#: mp3/views/newsletters.html:154
 msgid "Good"
 msgstr ""
 
-#: mp3/views/newsletters.html:154
+#: mp3/views/newsletters.html:155
 msgid "Good stuff."
 msgstr ""
 
-#: mp3/views/newsletters.html:155
-msgid "Bad"
+#: mp3/views/newsletters.html:156
+msgid "Average"
 msgstr ""
 
-#: mp3/views/newsletters.html:156
+#: mp3/views/newsletters.html:157 mp3/views/newsletters.html:166
 msgid "Something to improve."
 msgstr ""
 
-#: mp3/views/newsletters.html:157
+#: mp3/views/newsletters.html:164
+msgid "Revenues by customers who clicked on this email in the last 2 weeks."
+msgstr ""
+
+#: mp3/views/newsletters.html:165
+msgid "Bad"
+msgstr ""
+
+#: mp3/views/newsletters.html:167
 msgid ""
 "Above 30% is excellent.\\n"
 "Between 10 and 30% is good.\\n"
 "Under 10% is bad."
 msgstr ""
 
-#: mp3/views/newsletters.html:158
+#: mp3/views/newsletters.html:168
 msgid ""
 "Above 3% is excellent.\\n"
 "Between 1 and 3% is good.\\n"
 "Under 1% is bad."
 msgstr ""
 
-#: mp3/views/newsletters.html:159
+#: mp3/views/newsletters.html:169
 msgid ""
 "Under 1% is excellent.\\n"
 "Between 1 and 3% is good.\\n"
 "Over 3% is bad."
 msgstr ""
 
-#: mp3/views/newsletters.html:160 views/newsletters/campaign_stats.html:6
+#: mp3/views/newsletters.html:170 views/newsletters/campaign_stats.html:6
 msgid ""
 "Revenues generated by customers who made a purchase within two weeks after "
 "they clicked on this email. This is the sum of the order totals including "
 "shipping and taxes."
 msgstr ""
 
-#: mp3/views/newsletters.html:161
+#: mp3/views/newsletters.html:171
 msgid "Nice job! Check back in %$1d hour(s) for more stats."
 msgstr ""
 
-#: mp3/views/newsletters.html:162
+#: mp3/views/newsletters.html:172
 msgid "What can I do to improve this?"
 msgstr ""
 
-#: mp3/views/newsletters.html:164
+#: mp3/views/newsletters.html:174
 msgid "This template file appears to be damaged. Please try another one."
 msgstr ""
 
-#: mp3/views/newsletters.html:165
+#: mp3/views/newsletters.html:175
 msgid "Import a template"
 msgstr ""
 
-#: mp3/views/newsletters.html:166
+#: mp3/views/newsletters.html:176
 msgid "Select a .json file to upload"
 msgstr ""
 
-#: mp3/views/newsletters.html:167
+#: mp3/views/newsletters.html:177
 msgid ""
 "You can only upload .json templates that were originally created with "
 "MailPoet 3."
 msgstr ""
 
-#: mp3/views/newsletters.html:168
+#: mp3/views/newsletters.html:178
 msgid "Upload"
 msgstr ""
 
-#: mp3/views/newsletters.html:169
+#: mp3/views/newsletters.html:179
 msgid "MailPoet's Guide"
 msgstr ""
 
-#: mp3/views/newsletters.html:170
+#: mp3/views/newsletters.html:180
 msgid "You are about to delete the template named \"%$1s\"."
 msgstr ""
 
-#: mp3/views/newsletters.html:174
+#: mp3/views/newsletters.html:184
 msgid "Select a responsive template"
 msgstr ""
 
-#: mp3/views/newsletters.html:177
+#: mp3/views/newsletters.html:187
 msgid "The last [newsletter:total] posts from our blog"
 msgstr ""
 
-#: mp3/views/newsletters.html:178
+#: mp3/views/newsletters.html:188
 msgid "Select type of email"
 msgstr ""
 
-#: mp3/views/newsletters.html:179
+#: mp3/views/newsletters.html:189
 msgid "Create your first email"
 msgstr ""
 
-#: mp3/views/newsletters.html:180 mp3/views/settings.html:221
+#: mp3/views/newsletters.html:190 mp3/views/settings.html:221
 msgid "See video guide"
 msgstr ""
 
-#: mp3/views/newsletters.html:181
+#: mp3/views/newsletters.html:191
 msgid "This is a Premium feature."
 msgstr ""
 
-#: mp3/views/newsletters.html:182 mp3/views/settings.html:175
+#: mp3/views/newsletters.html:192 mp3/views/settings.html:175
 msgid "Learn more"
 msgstr ""
 
-#: mp3/views/newsletters.html:184
+#: mp3/views/newsletters.html:194
 msgid ""
 "Send a newsletter with images, buttons, dividers, and social bookmarks. Or, "
 "just send a basic text email."
 msgstr ""
 
-#: mp3/views/newsletters.html:185
+#: mp3/views/newsletters.html:195
 msgid "Create"
 msgstr ""
 
-#: mp3/views/newsletters.html:186
+#: mp3/views/newsletters.html:196
 msgid "WooCommerce Emails Customizer"
 msgstr ""
 
-#: mp3/views/newsletters.html:187
+#: mp3/views/newsletters.html:197
 msgid ""
 "Customize the template used for your WooCommerce emails using MailPoet's "
 "editor. Example of WooCommerce email: Order processing notification, Order "
 "failed notification, ..."
 msgstr ""
 
-#: mp3/views/newsletters.html:189
+#: mp3/views/newsletters.html:199
 msgid "Welcome Email"
 msgstr ""
 
-#: mp3/views/newsletters.html:190
+#: mp3/views/newsletters.html:200
 msgid ""
 "Automatically send an email (or series of emails) to new subscribers or "
 "WordPress users. Send a day, a week, or a month after they sign up."
 msgstr ""
 
-#: mp3/views/newsletters.html:191
+#: mp3/views/newsletters.html:201
 msgid "This is a Premium feature"
 msgstr ""
 
-#: mp3/views/newsletters.html:192
+#: mp3/views/newsletters.html:202
 msgid "Set up"
 msgstr ""
 
-#: mp3/views/newsletters.html:193
+#: mp3/views/newsletters.html:203
 msgid "Latest Post Notifications"
 msgstr ""
 
-#: mp3/views/newsletters.html:194
+#: mp3/views/newsletters.html:204
 msgid ""
 "Let MailPoet email your subscribers with your latest content. You can send "
 "daily, weekly, monthly, or even immediately after publication."
 msgstr ""
 
-#: mp3/views/newsletters.html:195
+#: mp3/views/newsletters.html:205
 msgid "Select a frequency"
 msgstr ""
 
-#: mp3/views/newsletters.html:196
+#: mp3/views/newsletters.html:206
 msgid ""
 "Insert [newsletter:total] to show number of posts, [newsletter:post_title] "
 "to show the latest post's title & [newsletter:number] to display the issue "
 "number."
 msgstr ""
 
-#: mp3/views/newsletters.html:197 mp3/views/settings.html:222
+#: mp3/views/newsletters.html:207 mp3/views/settings.html:222
 msgid "Activate"
 msgstr ""
 
-#: mp3/views/newsletters.html:198
+#: mp3/views/newsletters.html:208
 msgid "Send this Welcome Email when..."
 msgstr ""
 
-#: mp3/views/newsletters.html:200
+#: mp3/views/newsletters.html:210
 msgid "Once a day at..."
 msgstr ""
 
-#: mp3/views/newsletters.html:201
+#: mp3/views/newsletters.html:211
 msgid "Weekly on..."
 msgstr ""
 
-#: mp3/views/newsletters.html:202
+#: mp3/views/newsletters.html:212
 msgid "Monthly on the..."
 msgstr ""
 
-#: mp3/views/newsletters.html:203
+#: mp3/views/newsletters.html:213
 msgid "Monthly every..."
 msgstr ""
 
-#: mp3/views/newsletters.html:204
+#: mp3/views/newsletters.html:214
 msgid "Immediately"
 msgstr ""
 
-#: mp3/views/newsletters.html:205
+#: mp3/views/newsletters.html:215
 msgid "Sunday"
 msgstr ""
 
-#: mp3/views/newsletters.html:206
+#: mp3/views/newsletters.html:216
 msgid "Monday"
 msgstr ""
 
-#: mp3/views/newsletters.html:207
+#: mp3/views/newsletters.html:217
 msgid "Tuesday"
 msgstr ""
 
-#: mp3/views/newsletters.html:208
+#: mp3/views/newsletters.html:218
 msgid "Wednesday"
 msgstr ""
 
-#: mp3/views/newsletters.html:209
+#: mp3/views/newsletters.html:219
 msgid "Thursday"
 msgstr ""
 
-#: mp3/views/newsletters.html:210
+#: mp3/views/newsletters.html:220
 msgid "Friday"
 msgstr ""
 
-#: mp3/views/newsletters.html:211
+#: mp3/views/newsletters.html:221
 msgid "Saturday"
 msgstr ""
 
-#: mp3/views/newsletters.html:212
+#: mp3/views/newsletters.html:222
 msgid "1st"
 msgstr ""
 
-#: mp3/views/newsletters.html:213
+#: mp3/views/newsletters.html:223
 msgid "2nd"
 msgstr ""
 
-#: mp3/views/newsletters.html:214
+#: mp3/views/newsletters.html:224
 msgid "3rd"
 msgstr ""
 
-#: mp3/views/newsletters.html:215
+#: mp3/views/newsletters.html:225
 msgid "%$1dth"
 msgstr ""
 
-#: mp3/views/newsletters.html:219
+#: mp3/views/newsletters.html:229
 msgid "When is this Welcome Email sent?"
 msgstr ""
 
-#: mp3/views/newsletters.html:221
+#: mp3/views/newsletters.html:231
 msgid "When someone subscribes to the list..."
 msgstr ""
 
-#: mp3/views/newsletters.html:222
+#: mp3/views/newsletters.html:232
 msgid "When a new WordPress user is added to your site..."
 msgstr ""
 
-#: mp3/views/newsletters.html:223
+#: mp3/views/newsletters.html:233
 msgid "immediately"
 msgstr ""
 
-#: mp3/views/newsletters.html:228
+#: mp3/views/newsletters.html:238
 msgid "Subject line"
 msgstr ""
 
-#: mp3/views/newsletters.html:229
+#: mp3/views/newsletters.html:239
 msgid ""
 "Be creative! It's the first thing that your subscribers see. Tempt them to "
 "open your email."
 msgstr ""
 
-#: mp3/views/newsletters.html:230
+#: mp3/views/newsletters.html:240
 msgid "Please specify a subject"
 msgstr ""
 
-#: mp3/views/newsletters.html:232
+#: mp3/views/newsletters.html:242
 msgid "Subscribers in multiple lists will only receive one email."
 msgstr ""
 
-#: mp3/views/newsletters.html:233 mp3/views/subscribers/subscribers.html:86
+#: mp3/views/newsletters.html:243 mp3/views/subscribers/subscribers.html:86
 msgid "Select a list"
 msgstr ""
 
-#: mp3/views/newsletters.html:235
+#: mp3/views/newsletters.html:245
 msgid "Sender"
 msgstr ""
 
-#: mp3/views/newsletters.html:236
+#: mp3/views/newsletters.html:246
 msgid "Your name and email"
 msgstr ""
 
-#: mp3/views/newsletters.html:237 mp3/views/newsletters.html:241
+#: mp3/views/newsletters.html:247 mp3/views/newsletters.html:251
 msgid "John Doe"
 msgstr ""
 
-#: mp3/views/newsletters.html:238 mp3/views/newsletters.html:242
+#: mp3/views/newsletters.html:248 mp3/views/newsletters.html:252
 msgid "john.doe@email.com"
 msgstr ""
 
-#: mp3/views/newsletters.html:239 mp3/views/newsletters.html:398
+#: mp3/views/newsletters.html:249 mp3/views/newsletters.html:408
 #: mp3/views/settings.html:48
 msgid "Reply-to"
 msgstr ""
 
-#: mp3/views/newsletters.html:240
+#: mp3/views/newsletters.html:250
 msgid ""
 "When your subscribers reply to your emails, their emails will go to this "
 "address."
 msgstr ""
 
-#: mp3/views/newsletters.html:243
+#: mp3/views/newsletters.html:253
 msgid "Email was updated successfully!"
 msgstr ""
 
-#: mp3/views/newsletters.html:244
+#: mp3/views/newsletters.html:254
 msgid "Email was added successfully!"
 msgstr ""
 
-#: mp3/views/newsletters.html:245
+#: mp3/views/newsletters.html:255
 msgid ""
 "An error occurred while trying to send. <a href=\"%$1s\">Please check your "
 "settings</a>."
 msgstr ""
 
-#: mp3/views/newsletters.html:246
+#: mp3/views/newsletters.html:256
 msgid "Final Step: Last Details"
 msgstr ""
 
-#: mp3/views/newsletters.html:247
+#: mp3/views/newsletters.html:257
 msgid "Save as draft and close"
 msgstr ""
 
-#: mp3/views/newsletters.html:248
+#: mp3/views/newsletters.html:258
 msgid ""
 "You cannot send the same email twice, as that would be considered spam. <br "
 "/> If you must send the same email more than one time, simply duplicate "
 "this email first."
 msgstr ""
 
-#: mp3/views/newsletters.html:250
+#: mp3/views/newsletters.html:260
 msgid "or simply"
 msgstr ""
 
-#: mp3/views/newsletters.html:251
+#: mp3/views/newsletters.html:261
 msgid "go back to the Design page"
 msgstr ""
 
-#: mp3/views/newsletters.html:252
+#: mp3/views/newsletters.html:262
 msgid "Your website’s time is"
 msgstr ""
 
-#: mp3/views/newsletters.html:253
+#: mp3/views/newsletters.html:263
 msgid "Please enter the scheduled date."
 msgstr ""
 
-#: mp3/views/newsletters.html:254
+#: mp3/views/newsletters.html:264
 msgid "Schedule"
 msgstr ""
 
-#: mp3/views/newsletters.html:261
+#: mp3/views/newsletters.html:271
 msgid "Today"
 msgstr ""
 
-#: mp3/views/newsletters.html:274
+#: mp3/views/newsletters.html:284
 msgid "Jan"
 msgstr ""
 
-#: mp3/views/newsletters.html:275
+#: mp3/views/newsletters.html:285
 msgid "Feb"
 msgstr ""
 
-#: mp3/views/newsletters.html:276
+#: mp3/views/newsletters.html:286
 msgid "Mar"
 msgstr ""
 
-#: mp3/views/newsletters.html:277
+#: mp3/views/newsletters.html:287
 msgid "Apr"
 msgstr ""
 
-#: mp3/views/newsletters.html:279
+#: mp3/views/newsletters.html:289
 msgid "Jun"
 msgstr ""
 
-#: mp3/views/newsletters.html:280
+#: mp3/views/newsletters.html:290
 msgid "Jul"
 msgstr ""
 
-#: mp3/views/newsletters.html:281
+#: mp3/views/newsletters.html:291
 msgid "Aug"
 msgstr ""
 
-#: mp3/views/newsletters.html:282
+#: mp3/views/newsletters.html:292
 msgid "Sep"
 msgstr ""
 
-#: mp3/views/newsletters.html:283
+#: mp3/views/newsletters.html:293
 msgid "Oct"
 msgstr ""
 
-#: mp3/views/newsletters.html:284
+#: mp3/views/newsletters.html:294
 msgid "Nov"
 msgstr ""
 
-#: mp3/views/newsletters.html:285
+#: mp3/views/newsletters.html:295
 msgid "Dec"
 msgstr ""
 
-#: mp3/views/newsletters.html:286
+#: mp3/views/newsletters.html:296
 msgid "Sun"
 msgstr ""
 
-#: mp3/views/newsletters.html:287
+#: mp3/views/newsletters.html:297
 msgid "Mon"
 msgstr ""
 
-#: mp3/views/newsletters.html:288
+#: mp3/views/newsletters.html:298
 msgid "Tue"
 msgstr ""
 
-#: mp3/views/newsletters.html:289
+#: mp3/views/newsletters.html:299
 msgid "Wed"
 msgstr ""
 
-#: mp3/views/newsletters.html:290
+#: mp3/views/newsletters.html:300
 msgid "Thu"
 msgstr ""
 
-#: mp3/views/newsletters.html:291
+#: mp3/views/newsletters.html:301
 msgid "Fri"
 msgstr ""
 
-#: mp3/views/newsletters.html:292
+#: mp3/views/newsletters.html:302
 msgid "Sat"
 msgstr ""
 
-#: mp3/views/newsletters.html:302
+#: mp3/views/newsletters.html:312
 msgid "The newsletter is being sent..."
 msgstr ""
 
-#: mp3/views/newsletters.html:303
+#: mp3/views/newsletters.html:313
 msgid "The newsletter has been scheduled."
 msgstr ""
 
-#: mp3/views/newsletters.html:304
+#: mp3/views/newsletters.html:314
 msgid "The newsletter sending has been resumed."
 msgstr ""
 
-#: mp3/views/newsletters.html:306
+#: mp3/views/newsletters.html:316
 msgid "Your Welcome Email is now activated!"
 msgstr ""
 
-#: mp3/views/newsletters.html:307
+#: mp3/views/newsletters.html:317
 msgid "Your Welcome Email could not be activated, please check the settings."
 msgstr ""
 
-#: mp3/views/newsletters.html:308
+#: mp3/views/newsletters.html:318
 msgid "Your post notification is now active!"
 msgstr ""
 
-#: mp3/views/newsletters.html:309
+#: mp3/views/newsletters.html:319
 msgid "Your Post Notification could not be activated, check the settings."
 msgstr ""
 
-#: mp3/views/newsletters.html:310
+#: mp3/views/newsletters.html:320
 msgid "This newsletter is sent when someone subscribes to the list: \"%$1s\"."
 msgstr ""
 
-#: mp3/views/newsletters.html:311
+#: mp3/views/newsletters.html:321
 msgid "This newsletter is sent when a new WordPress user is added to your site."
 msgstr ""
 
-#: mp3/views/newsletters.html:312
+#: mp3/views/newsletters.html:322
 msgid ""
 "This newsletter is sent when a new WordPress user with the role \"%$1s\" is "
 "added to your site."
 msgstr ""
 
-#: mp3/views/newsletters.html:313
+#: mp3/views/newsletters.html:323
 msgid "%$1d minute(s) later"
 msgstr ""
 
-#: mp3/views/newsletters.html:314
+#: mp3/views/newsletters.html:324
 msgid "%$1d hour(s) later"
 msgstr ""
 
-#: mp3/views/newsletters.html:315
+#: mp3/views/newsletters.html:325
 msgid "%$1d day(s) later"
 msgstr ""
 
-#: mp3/views/newsletters.html:316
+#: mp3/views/newsletters.html:326
 msgid "%$1d week(s) later"
 msgstr ""
 
-#: mp3/views/newsletters.html:317
+#: mp3/views/newsletters.html:327
 msgid "Invalid sending delay."
 msgstr ""
 
-#: mp3/views/newsletters.html:318
+#: mp3/views/newsletters.html:328
 msgid "Send daily at %$1s"
 msgstr ""
 
-#: mp3/views/newsletters.html:319
+#: mp3/views/newsletters.html:329
 msgid "Send weekly on %$1s at %$2s"
 msgstr ""
 
-#: mp3/views/newsletters.html:320
+#: mp3/views/newsletters.html:330
 msgid "Send monthly on the %$1s at %$2s"
 msgstr ""
 
-#: mp3/views/newsletters.html:321
+#: mp3/views/newsletters.html:331
 msgid "Send every %$1s %$2s of the month at %$3s"
 msgstr ""
 
-#: mp3/views/newsletters.html:322
+#: mp3/views/newsletters.html:332
 msgid "Send immediately"
 msgstr ""
 
-#: mp3/views/newsletters.html:323
+#: mp3/views/newsletters.html:333
 msgid "if there's new content to %$1s."
 msgstr ""
 
-#: mp3/views/newsletters.html:324
+#: mp3/views/newsletters.html:334
 msgid "You need to select a list to send to."
 msgstr ""
 
-#: mp3/views/newsletters.html:326
+#: mp3/views/newsletters.html:336
 msgid "Back to Post notifications"
 msgstr ""
 
-#: mp3/views/newsletters.html:327
+#: mp3/views/newsletters.html:337
 msgid "No subscribers!"
 msgstr ""
 
-#: mp3/views/newsletters.html:329
+#: mp3/views/newsletters.html:339
 msgid "Good news! MailPoet can now send your website’s emails too"
 msgstr ""
 
-#: mp3/views/newsletters.html:330
+#: mp3/views/newsletters.html:340
 msgid ""
 "All of your WordPress and WooCommerce emails are sent with your hosting "
 "company, unless you have an SMTP plugin. Would you like such emails to be "
 "delivered with MailPoet’s active sending method for better deliverability?"
 msgstr ""
 
-#: mp3/views/newsletters.html:333
+#: mp3/views/newsletters.html:343
 msgid "Sending has been paused due to a technical issue with %$1s"
 msgstr ""
 
-#: mp3/views/newsletters.html:337
+#: mp3/views/newsletters.html:347
 msgid ""
 "Sending is paused because the following connection issue prevents MailPoet "
 "from delivering emails"
 msgstr ""
 
-#: mp3/views/newsletters.html:338
+#: mp3/views/newsletters.html:348
 msgid "Error code: %$1s"
 msgstr ""
 
-#: mp3/views/newsletters.html:341
+#: mp3/views/newsletters.html:351
 msgid ""
 "Sending is in progress. Do you want to pause sending and edit the "
 "newsletter?"
 msgstr ""
 
-#: mp3/views/newsletters.html:342
+#: mp3/views/newsletters.html:352
 msgid "Confirm to proceed"
 msgstr ""
 
-#: mp3/views/newsletters.html:343
+#: mp3/views/newsletters.html:353
 msgid "Confirm"
 msgstr ""
 
-#: mp3/views/newsletters.html:346
+#: mp3/views/newsletters.html:356
 msgid "Recently sent"
 msgstr ""
 
-#: mp3/views/newsletters.html:347
+#: mp3/views/newsletters.html:357
 msgid "Your saved templates"
 msgstr ""
 
-#: mp3/views/newsletters.html:348
+#: mp3/views/newsletters.html:358
 msgid "Template preview"
 msgstr ""
 
-#: mp3/views/newsletters.html:351
+#: mp3/views/newsletters.html:361
 msgid "This category does not contain any template yet!"
 msgstr ""
 
-#: mp3/views/newsletters.html:353
+#: mp3/views/newsletters.html:363
 msgid "Soon"
 msgstr ""
 
-#: mp3/views/newsletters.html:354
+#: mp3/views/newsletters.html:364
 msgid "Beta"
 msgstr ""
 
-#: mp3/views/newsletters.html:355
+#: mp3/views/newsletters.html:365
 msgid "An error occurred while saving the template in \"Recently sent\""
 msgstr ""
 
-#: mp3/views/newsletters.html:356
+#: mp3/views/newsletters.html:366
 msgid "Select %$1s events"
 msgstr ""
 
-#: mp3/views/newsletters.html:357
+#: mp3/views/newsletters.html:367
 msgid ""
 "Oops! There seems to be an issue with the sending on your website. "
 "[link]See our guide[/link] to solve this yourself."
 msgstr ""
 
-#: mp3/views/newsletters.html:359
+#: mp3/views/newsletters.html:369
 msgid "What’s new"
 msgstr ""
 
-#: mp3/views/newsletters.html:360
+#: mp3/views/newsletters.html:370
 msgid "[link]Update MailPoet[/link] to see the latest changes"
 msgstr ""
 
-#: mp3/views/newsletters.html:362
+#: mp3/views/newsletters.html:372
 msgid "Congratulations, your newsletter is being sent!"
 msgstr ""
 
-#: mp3/views/newsletters.html:363
+#: mp3/views/newsletters.html:373
 msgid "Congratulations, your newsletter is scheduled to be sent."
 msgstr ""
 
-#: mp3/views/newsletters.html:364
+#: mp3/views/newsletters.html:374
 msgid "Congratulations, your WooCommerce email has been activated."
 msgstr ""
 
-#: mp3/views/newsletters.html:365
+#: mp3/views/newsletters.html:375
 msgid "Congratulations, your Post Notification is now active."
 msgstr ""
 
-#: mp3/views/newsletters.html:366
+#: mp3/views/newsletters.html:376
 msgid "Congratulations, your Welcome Email is now active."
 msgstr ""
 
-#: mp3/views/newsletters.html:367
+#: mp3/views/newsletters.html:377
 msgid "Oops! We can’t send your newsletter 😕"
 msgstr ""
 
-#: mp3/views/newsletters.html:368
+#: mp3/views/newsletters.html:378
 msgid ""
 "Rest assured, this is fairly common and is usually fixed quickly. [link]See "
 "our quick guide[/link] to help you solve this and get your website sending."
 msgstr ""
 
-#: mp3/views/newsletters.html:369
+#: mp3/views/newsletters.html:379
 msgid ""
 "Congrats, you’re sending your first newsletter! We’re doing a quick "
 "verification to make sure everything works fine."
 msgstr ""
 
-#: mp3/views/newsletters.html:371
+#: mp3/views/newsletters.html:381
 msgid "Your email has been sent!"
 msgstr ""
 
-#: mp3/views/newsletters.html:372
+#: mp3/views/newsletters.html:382
 msgid ""
 "What’s next? Sign up to MailPoet Premium to see who clicked and opened your "
 "email. It’s entirely free for you!"
 msgstr ""
 
-#: mp3/views/newsletters.html:375
+#: mp3/views/newsletters.html:385
 msgid ""
 "[username], did you know that hundreds of WordPress users read the reviews "
 "on the plugin repository? They’re also a source of inspiration for our team."
 msgstr ""
 
-#: mp3/views/newsletters.html:379
+#: mp3/views/newsletters.html:389
 msgid "Not now"
 msgstr ""
 
-#: mp3/views/newsletters.html:384
+#: mp3/views/newsletters.html:394
 msgid "Failure reason (if applicable)"
 msgstr ""
 
-#: mp3/views/newsletters.html:385
+#: mp3/views/newsletters.html:395
 msgid "Resend"
 msgstr ""
 
-#: mp3/views/newsletters.html:389
+#: mp3/views/newsletters.html:399
 msgid "No sending task found."
 msgstr ""
 
-#: mp3/views/newsletters.html:391
+#: mp3/views/newsletters.html:401
 msgid "Stats"
 msgstr ""
 
-#: mp3/views/newsletters.html:392
+#: mp3/views/newsletters.html:402
 msgid "Loading..."
 msgstr ""
 
-#: mp3/views/newsletters.html:394
+#: mp3/views/newsletters.html:404
 msgid "Preview in browser"
 msgstr ""
 
-#: mp3/views/newsletters.html:396 mp3/views/settings.html:46
+#: mp3/views/newsletters.html:406 mp3/views/settings.html:46
 msgid "From"
 msgstr ""
 
-#: mp3/views/newsletters.html:397
+#: mp3/views/newsletters.html:407
 msgid "To"
 msgstr ""
 
-#: mp3/views/newsletters.html:399
+#: mp3/views/newsletters.html:409
 msgid "Sent to"
 msgstr ""
 
-#: mp3/views/newsletters.html:403
+#: mp3/views/newsletters.html:413
 msgid "Read more on stats."
 msgstr ""
 
-#: mp3/views/newsletters.html:404
+#: mp3/views/newsletters.html:414
 msgid "Clicked Links"
 msgstr ""
 
-#: mp3/views/newsletters.html:405
+#: mp3/views/newsletters.html:415
 msgid "Subscriber Engagement"
 msgstr ""
 
-#: mp3/views/newsletters.html:406
+#: mp3/views/newsletters.html:416
 msgid "Google Analytics campaign name"
 msgstr ""
 
-#: mp3/views/newsletters.html:408
+#: mp3/views/newsletters.html:418
 msgid "Buy the Premium to see your stats"
 msgstr ""
 
-#: mp3/views/newsletters.html:409
+#: mp3/views/newsletters.html:419
 msgid "Sign Up for Free"
 msgstr ""
 
-#: mp3/views/newsletters.html:410
+#: mp3/views/newsletters.html:420
 msgid "Purchase Now"
 msgstr ""
 
-#: mp3/views/newsletters.html:411
+#: mp3/views/newsletters.html:421
 msgid "Learn more about Premium"
 msgstr ""
 
-#: mp3/views/newsletters.html:413
+#: mp3/views/newsletters.html:423
 msgid "Google Analytics Campaign"
 msgstr ""
 
-#: mp3/views/newsletters.html:414
+#: mp3/views/newsletters.html:424
 msgid "For example, “Spring email”. [link]Read the guide.[/link]"
 msgstr ""
 
-#: mp3/views/newsletters.html:376
+#: mp3/views/newsletters.html:386
 msgid ""
 "You’ve been using MailPoet for [days] day now, and we would love to read "
 "your own review."
@@ -6271,7 +6741,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/views/newsletters.html:377
+#: mp3/views/newsletters.html:387
 msgid ""
 "You’ve been using MailPoet for [months] month now, and we would love to "
 "read your own review."
@@ -7700,6 +8170,14 @@ msgid ""
 "support team’s favorite."
 msgstr ""
 
+#: mp3/views/subscribers/importExport/import.html:140
+msgid "Set new subscribers’ status to"
+msgstr ""
+
+#: mp3/views/subscribers/importExport/import.html:141
+msgid "Update existing subscribers’ status to"
+msgstr ""
+
 #: mp3/views/subscribers/subscribers.html:38
 msgid "Loading subscribers..."
 msgstr ""
@@ -7854,6 +8332,18 @@ msgid ""
 msgstr ""
 
 #: mp3/views/subscribers/subscribers.html:125
+msgid "Sent email"
+msgstr ""
+
+#: mp3/views/subscribers/subscribers.html:127
+msgid "Clicked"
+msgstr ""
+
+#: mp3/views/subscribers/subscribers.html:128
+msgid "Not opened"
+msgstr ""
+
+#: mp3/views/subscribers/subscribers.html:130
 msgid ""
 "Need to add new fields, like a telephone number or street address? You can "
 "add custom fields by editing the subscription form on the Forms page."
@@ -8133,14 +8623,14 @@ msgctxt "segments per page (screen options)"
 msgid "Number of segments per page"
 msgstr ""
 
-#: mp3/lib/Config/Populator.php:279
+#: mp3/lib/Config/Populator.php:285
 msgctxt ""
 "default email opt-in message displayed on checkout page for ecommerce "
 "websites"
 msgid "Yes, I would like to be added to your mailing list"
 msgstr ""
 
-#: mp3/lib/Config/Populator.php:280
+#: mp3/lib/Config/Populator.php:286
 msgctxt ""
 "default email opt-in message displayed on checkout page for ecommerce "
 "websites"
@@ -8161,58 +8651,441 @@ msgctxt "newsletter open rate, click rate and unsubscribe rate"
 msgid "%1$s%% opens, %2$s%% clicks, %3$s%% unsubscribes in a nutshell."
 msgstr ""
 
-#: mp3/lib/Form/Templates/Templates/DefaultForm.php:12
+#: mp3/lib/Form/Templates/Templates/DefaultForm.php:14
 msgctxt "default name of form (GDPR friendly) to capture emails"
 msgid "My First Form"
 msgstr ""
 
-#: mp3/lib/Form/Templates/Templates/DefaultForm.php:19
-#: mp3/lib/Form/Templates/Templates/DefaultForm.php:23
-#: mp3/lib/Form/Templates/Templates/DemoForm.php:34
-#: mp3/lib/Form/Templates/Templates/DemoForm.php:36
+#: mp3/lib/Form/Templates/Templates/DefaultForm.php:21
+#: mp3/lib/Form/Templates/Templates/DefaultForm.php:25
 msgctxt "Form label"
 msgid "First name"
 msgstr ""
 
-#: mp3/lib/Form/Templates/Templates/DefaultForm.php:28
-#: mp3/lib/Form/Templates/Templates/DefaultForm.php:32
-#: mp3/lib/Form/Templates/Templates/DemoForm.php:27
-#: mp3/lib/Form/Templates/Templates/DemoForm.php:29
+#: mp3/lib/Form/Templates/Templates/DefaultForm.php:30
+#: mp3/lib/Form/Templates/Templates/DefaultForm.php:34
+#: mp3/lib/Form/Templates/Templates/Template3BelowPages.php:81
+#: mp3/lib/Form/Templates/Templates/Template3FixedBar.php:98
+#: mp3/lib/Form/Templates/Templates/Template3Popup.php:63
+#: mp3/lib/Form/Templates/Templates/Template3SlideIn.php:63
+#: mp3/lib/Form/Templates/Templates/Template3Widget.php:63
 msgctxt "Form label"
 msgid "Email"
 msgstr ""
 
-#: mp3/lib/Form/Templates/Templates/DefaultForm.php:37
+#: mp3/lib/Form/Templates/Templates/DefaultForm.php:39
 msgctxt "Form label"
 msgid "Submit"
 msgstr ""
 
-#: mp3/lib/Form/Templates/Templates/DefaultForm.php:41
-#: mp3/lib/Form/Templates/Templates/DemoForm.php:70
+#: mp3/lib/Form/Templates/Templates/DefaultForm.php:43
 msgctxt "Form label"
 msgid "Subscribe!"
 msgstr ""
 
-#: mp3/lib/Form/Widget.php:139 mp3/views/form/editor.html:193
-#: mp3/views/forms.html:75
+#: mp3/lib/Form/Templates/Templates/Template10BelowPages.php:59
+#: mp3/lib/Form/Templates/Templates/Template10FixedBar.php:91
+#: mp3/lib/Form/Templates/Templates/Template10Popup.php:48
+#: mp3/lib/Form/Templates/Templates/Template10SlideIn.php:48
+#: mp3/lib/Form/Templates/Templates/Template10Widget.php:48
+msgctxt "Form label"
+msgid "What's your name?"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template10BelowPages.php:77
+#: mp3/lib/Form/Templates/Templates/Template10Popup.php:86
+#: mp3/lib/Form/Templates/Templates/Template10SlideIn.php:84
+#: mp3/lib/Form/Templates/Templates/Template10Widget.php:86
+msgctxt "Form label"
+msgid "Pop your email address here"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template10BelowPages.php:106
+#: mp3/lib/Form/Templates/Templates/Template10FixedBar.php:119
+#: mp3/lib/Form/Templates/Templates/Template10Popup.php:67
+#: mp3/lib/Form/Templates/Templates/Template10SlideIn.php:66
+#: mp3/lib/Form/Templates/Templates/Template10Widget.php:67
+msgctxt "Form label"
+msgid "And your surname?"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template10BelowPages.php:124
+#: mp3/lib/Form/Templates/Templates/Template10FixedBar.php:176
+#: mp3/lib/Form/Templates/Templates/Template10Popup.php:106
+#: mp3/lib/Form/Templates/Templates/Template10SlideIn.php:103
+#: mp3/lib/Form/Templates/Templates/Template10Widget.php:106
+msgctxt "Form label"
+msgid "Keep me posted!"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template10FixedBar.php:147
+msgctxt "Form label"
+msgid "Pop your email here"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3BelowPages.php:110
+#: mp3/lib/Form/Templates/Templates/Template3FixedBar.php:117
+#: mp3/lib/Form/Templates/Templates/Template3Popup.php:82
+#: mp3/lib/Form/Templates/Templates/Template3SlideIn.php:82
+#: mp3/lib/Form/Templates/Templates/Template3Widget.php:82
+msgctxt "Form label"
+msgid "Save 10%"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template4BelowPages.php:83
+#: mp3/lib/Form/Templates/Templates/Template4FixedBar.php:97
+#: mp3/lib/Form/Templates/Templates/Template4Popup.php:99
+#: mp3/lib/Form/Templates/Templates/Template4SlideIn.php:99
+#: mp3/lib/Form/Templates/Templates/Template4Widget.php:62
+msgctxt "Form label"
+msgid "Enter your e-mail"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template4BelowPages.php:102
+#: mp3/lib/Form/Templates/Templates/Template4FixedBar.php:116
+#: mp3/lib/Form/Templates/Templates/Template4Popup.php:118
+#: mp3/lib/Form/Templates/Templates/Template4SlideIn.php:118
+#: mp3/lib/Form/Templates/Templates/Template4Widget.php:81
+msgctxt "Form label"
+msgid "Let's keep in touch"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6BelowPages.php:68
+#: mp3/lib/Form/Templates/Templates/Template6FixedBar.php:83
+#: mp3/lib/Form/Templates/Templates/Template6Popup.php:49
+#: mp3/lib/Form/Templates/Templates/Template6SlideIn.php:49
+#: mp3/lib/Form/Templates/Templates/Template6Widget.php:49
+msgctxt "Form label"
+msgid "Insert your email address"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6BelowPages.php:97
+#: mp3/lib/Form/Templates/Templates/Template6FixedBar.php:112
+#: mp3/lib/Form/Templates/Templates/Template6Popup.php:69
+#: mp3/lib/Form/Templates/Templates/Template6SlideIn.php:68
+#: mp3/lib/Form/Templates/Templates/Template6Widget.php:68
+msgctxt "Form label"
+msgid "Get Started!"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template10BelowPages.php:20
+#: mp3/lib/Form/Templates/Templates/Template10Popup.php:20
+#: mp3/lib/Form/Templates/Templates/Template10SlideIn.php:20
+#: mp3/lib/Form/Templates/Templates/Template10Widget.php:20
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><span style=\"font-family: Concert One\" data-font=\"Concert One\" "
+"class=\"mailpoet-has-font\">LET'S KEEP IN TOUCH!</span></strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template10BelowPages.php:35
+#: mp3/lib/Form/Templates/Templates/Template10Popup.php:35
+#: mp3/lib/Form/Templates/Templates/Template10SlideIn.php:35
+#: mp3/lib/Form/Templates/Templates/Template10Widget.php:35
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Concert One\" data-font=\"Concert One\" "
+"class=\"mailpoet-has-font\">We'd love to keep you updated with our latest "
+"news and offers <img draggable=\"false\" role=\"img\" class=\"emoji\" "
+"alt=\"😎\" "
+"src=\"https://s.w.org/images/core/emoji/13.0.0/svg/1f60e.svg\"></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template10BelowPages.php:156
+#: mp3/lib/Form/Templates/Templates/Template10Popup.php:127
+#: mp3/lib/Form/Templates/Templates/Template10SlideIn.php:124
+#: mp3/lib/Form/Templates/Templates/Template10Widget.php:127
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Concert One\" data-font=\"Concert One\" "
+"class=\"mailpoet-has-font\">We don't spam! Read our <a "
+"href=\"https://www.mailpoet.com/privacy-notice/\">Privacy Policy</a> for "
+"more details.</span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template10FixedBar.php:31
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><span style=\"font-family: Concert One\" data-font=\"Concert One\" "
+"class=\"mailpoet-has-font\">LET'S KEEP IN TOUCH!</span></strong> <img "
+"draggable=\"false\" role=\"img\" class=\"emoji\" alt=\"😎\" "
+"src=\"https://s.w.org/images/core/emoji/13.0.0/svg/1f60e.svg\">"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template10FixedBar.php:56
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Concert One\" data-font=\"Concert One\" "
+"class=\"mailpoet-has-font\">We'd love to keep you updated with our latest "
+"news! We promise we'll never spam. Take a look at our <a "
+"href=\"https://www.mailpoet.com/privacy-notice/\">Privacy Policy</a> for "
+"more details.</span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3BelowPages.php:31
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>10% off, </strong></span><br><span "
+"style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>especially for you 🎁</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3BelowPages.php:57
+#: mp3/lib/Form/Templates/Templates/Template3Popup.php:50
+#: mp3/lib/Form/Templates/Templates/Template3SlideIn.php:50
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>Sign up to receive your exclusive "
+"discount, and keep up to date on our latest products &amp; "
+"offers!</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3BelowPages.php:143
+#: mp3/lib/Form/Templates/Templates/Template3FixedBar.php:61
+#: mp3/lib/Form/Templates/Templates/Template3Popup.php:104
+#: mp3/lib/Form/Templates/Templates/Template3SlideIn.php:104
+#: mp3/lib/Form/Templates/Templates/Template3Widget.php:104
+#: mp3/lib/Form/Templates/Templates/Template4BelowPages.php:60
+#: mp3/lib/Form/Templates/Templates/Template4FixedBar.php:74
+#: mp3/lib/Form/Templates/Templates/Template4Popup.php:140
+#: mp3/lib/Form/Templates/Templates/Template4SlideIn.php:140
+#: mp3/lib/Form/Templates/Templates/Template4Widget.php:103
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<em>We don't spam! Read our <a href=\"/privacy-notice/\">privacy policy</a> "
+"for more info.</em>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3FixedBar.php:31
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>10% off,</strong> <strong>especially "
+"for you 🎁</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3FixedBar.php:46
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>Sign up to receive your exclusive "
+"discount,</strong></span><br><span style=\"font-family: Montserrat\" "
+"data-font=\"Montserrat\" class=\"mailpoet-has-font\"><strong>and keep up to "
+"date on our latest products &amp; offers!</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3Popup.php:20
+#: mp3/lib/Form/Templates/Templates/Template3SlideIn.php:20
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\">10</span>%</strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3Popup.php:35
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>off, especially for you "
+"🎁</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3SlideIn.php:35
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>o</strong></span><span "
+"style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>ff, especially for you "
+"🎁</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3Widget.php:20
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>10% off,</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3Widget.php:35
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>especially for you 🎁</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template3Widget.php:50
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\">Sign up to receive your exclusive discount, and "
+"keep up to date on our latest products &amp; offers!</span></strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template4BelowPages.php:31
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid "<strong>Oh hi there 👋 It's nice to meet you.</strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template4BelowPages.php:46
+#: mp3/lib/Form/Templates/Templates/Template4FixedBar.php:60
+#: mp3/lib/Form/Templates/Templates/Template4Popup.php:71
+#: mp3/lib/Form/Templates/Templates/Template4SlideIn.php:71
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong>Sign up to receive awesome content in your inbox, every "
+"month.</strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template4FixedBar.php:45
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>Oh hi there 👋 It's nice to meet "
+"you.</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template4Popup.php:56
+#: mp3/lib/Form/Templates/Templates/Template4SlideIn.php:56
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid "<strong>Oh hi there 👋</strong><br><strong>It's nice to meet you.</strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template4Widget.php:34
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>Oh hi there 👋</strong><br><strong>It's "
+"nice to meet you.</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template4Widget.php:49
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\">Sign up to receive awesome content in your "
+"inbox, every month.</span></strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6BelowPages.php:20
+#: mp3/lib/Form/Templates/Templates/Template6Popup.php:20
+#: mp3/lib/Form/Templates/Templates/Template6Widget.php:20
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>Dive in!</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6BelowPages.php:35
+#: mp3/lib/Form/Templates/Templates/Template6Widget.php:35
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>Join [mailpoet_subscribers_count] "
+"others, and start your fitness journey with us today.</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6BelowPages.php:137
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\">We promise we'll never spam! Take a look at our "
+"<a href=\"https://www.mailpoet.com/privacy-notice/\">Privacy Policy</a> for "
+"more info.</span></strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6FixedBar.php:45
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>Dive in!</strong> Start your journey "
+"today.</span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6FixedBar.php:60
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\">Sign up to start your fitness program. We "
+"promise we'll never spam! Take a look at our <a "
+"href=\"https://www.mailpoet.com/privacy-notice/\">Privacy Policy</a> for "
+"more info.</span></strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6Popup.php:35
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\">Join </span>[mailpoet_subscribers_count] "
+"others, and start your fitness journey with us today.</strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6Popup.php:90
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>We promise we'll never spam! Take a "
+"look at our <a href=\"https://www.mailpoet.com/privacy-notice/\">Privacy "
+"Policy </a>for more info.</strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6SlideIn.php:20
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\">Dive in!</span></strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6SlideIn.php:35
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<span style=\"font-family: Montserrat\" data-font=\"Montserrat\" "
+"class=\"mailpoet-has-font\"><strong>Join [mailpoet_subscribers_count] "
+"others, and start your fitness journey with us today. </strong></span>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6SlideIn.php:89
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><strong><span style=\"font-family: Montserrat\" "
+"data-font=\"Montserrat\" class=\"mailpoet-has-font\">We promise we'll never "
+"spam! Take a look at our <a "
+"href=\"https://www.mailpoet.com/privacy-notice/\">Privacy Policy</a> for "
+"more info.</span></strong></strong>"
+msgstr ""
+
+#: mp3/lib/Form/Templates/Templates/Template6Widget.php:89
+msgctxt "Text in a web form. Keep HTML tags!"
+msgid ""
+"<strong><strong><strong><span style=\"font-family: Montserrat\" "
+"data-font=\"Montserrat\" class=\"mailpoet-has-font\">We promise we'll never "
+"spam! Take a look at our <a "
+"href=\"https://www.mailpoet.com/privacy-notice/\">Privacy Policy </a>for "
+"more info.</span></strong></strong></strong>"
+msgstr ""
+
+#: mp3/lib/Form/Widget.php:139 mp3/views/form/editor.html:195
+#: mp3/views/forms.html:80
 msgctxt "fallback for forms without a name in a form list"
 msgid "no name"
 msgstr ""
 
-#: mp3/lib/Models/ScheduledTaskSubscriber.php:101
-#: mp3/views/newsletters.html:387
+#: mp3/lib/Models/ScheduledTaskSubscriber.php:114
+#: mp3/views/newsletters.html:397
 msgctxt "status when a newsletter has been sent"
 msgid "Sent"
 msgstr ""
 
-#: mp3/lib/Models/ScheduledTaskSubscriber.php:106
-#: mp3/views/newsletters.html:388
+#: mp3/lib/Models/ScheduledTaskSubscriber.php:119
+#: mp3/views/newsletters.html:398
 msgctxt "status when the sending of a newsletter has failed"
 msgid "Failed"
 msgstr ""
 
-#: mp3/lib/Models/ScheduledTaskSubscriber.php:111
-#: mp3/views/newsletters.html:386
+#: mp3/lib/Models/ScheduledTaskSubscriber.php:124
+#: mp3/views/newsletters.html:396
 msgctxt "status when the sending of a newsletter has not been processed"
 msgid "Unprocessed"
 msgstr ""
@@ -8272,355 +9145,355 @@ msgctxt "Default category slug"
 msgid "Uncategorized"
 msgstr ""
 
-#: mp3/views/form/editor.html:43
+#: mp3/views/form/editor.html:45
 msgctxt "A placeholder for form name input"
 msgid "Add form name"
 msgstr ""
 
-#: mp3/views/form/editor.html:47
+#: mp3/views/form/editor.html:49
 msgctxt "A settings section heading"
 msgid "Settings"
 msgstr ""
 
-#: mp3/views/form/editor.html:69
+#: mp3/views/form/editor.html:71
 msgctxt "A settings section heading"
 msgid "Custom field settings"
 msgstr ""
 
-#: mp3/views/form/editor.html:70
+#: mp3/views/form/editor.html:72
 msgctxt "A settings section heading"
 msgid "Form settings"
 msgstr ""
 
-#: mp3/views/form/editor.html:71
+#: mp3/views/form/editor.html:73
 msgctxt "A settings section heading"
 msgid "Form Placement"
 msgstr ""
 
-#: mp3/views/form/editor.html:73
+#: mp3/views/form/editor.html:75
 msgctxt "A settings section heading"
 msgid "Custom CSS"
 msgstr ""
 
-#: mp3/views/form/editor.html:56
+#: mp3/views/form/editor.html:58
 msgctxt "A label for checkbox in form style settings"
 msgid "Display Fullwidth"
 msgstr ""
 
-#: mp3/views/form/editor.html:57
+#: mp3/views/form/editor.html:59
 msgctxt "A label for checkbox in form style settings"
 msgid "Bold"
 msgstr ""
 
-#: mp3/views/form/editor.html:58
+#: mp3/views/form/editor.html:60
 msgctxt "A label for checkbox in form style settings"
 msgid "Border Size"
 msgstr ""
 
-#: mp3/views/form/editor.html:59
+#: mp3/views/form/editor.html:61
 msgctxt "A label for checkbox in form style settings"
 msgid "Border Radius"
 msgstr ""
 
-#: mp3/views/form/editor.html:66
+#: mp3/views/form/editor.html:68
 msgctxt "A label for checkbox in form style settings"
 msgid "Border Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:60
+#: mp3/views/form/editor.html:62
 msgctxt "A label for form style settings"
 msgid "Input Padding"
 msgstr ""
 
-#: mp3/views/form/editor.html:61
+#: mp3/views/form/editor.html:63
 msgctxt "A label for form style settings"
 msgid "Form Padding"
 msgstr ""
 
-#: mp3/views/form/editor.html:62
+#: mp3/views/form/editor.html:64
 msgctxt "A label for form style settings"
 msgid "Alignment"
 msgstr ""
 
-#: mp3/views/form/editor.html:63
+#: mp3/views/form/editor.html:65
 msgctxt "An alignment value for form editor"
 msgid "left"
 msgstr ""
 
-#: mp3/views/form/editor.html:64
+#: mp3/views/form/editor.html:66
 msgctxt "An alignment value for form editor"
 msgid "center"
 msgstr ""
 
-#: mp3/views/form/editor.html:65
+#: mp3/views/form/editor.html:67
 msgctxt "An alignment value for form editor"
 msgid "right"
 msgstr ""
 
-#: mp3/views/form/editor.html:68
+#: mp3/views/form/editor.html:70
 msgctxt "A label for form width settings"
 msgid "Form width"
 msgstr ""
 
-#: mp3/views/form/editor.html:72
+#: mp3/views/form/editor.html:74
 msgctxt "A label for a select box"
 msgid "Form placement"
 msgstr ""
 
-#: mp3/views/form/editor.html:77 mp3/views/forms.html:94
+#: mp3/views/form/editor.html:79 mp3/views/forms.html:99
 msgctxt ""
 "This is a text on a widget that leads to settings for form placement - form "
 "type is fixed bar"
 msgid "Fixed bar"
 msgstr ""
 
-#: mp3/views/form/editor.html:79 mp3/views/forms.html:95
+#: mp3/views/form/editor.html:81 mp3/views/forms.html:100
 msgctxt ""
 "This is a text on a widget that leads to settings for form placement - form "
 "type is slide in"
 msgid "Slide–in"
 msgstr ""
 
-#: mp3/views/form/editor.html:81 mp3/views/forms.html:96
+#: mp3/views/form/editor.html:83 mp3/views/forms.html:101
 msgctxt ""
 "This is a text on a widget that leads to settings for form placement - form "
 "type is pop up, it will be displayed on page in a small modal window"
 msgid "Pop up"
 msgstr ""
 
-#: mp3/views/form/editor.html:83 mp3/views/forms.html:93
+#: mp3/views/form/editor.html:85 mp3/views/forms.html:98
 msgctxt "This is a text on a widget that leads to settings for form placement"
 msgid "Below pages"
 msgstr ""
 
-#: mp3/views/form/editor.html:85
+#: mp3/views/form/editor.html:87
 msgctxt "This is a text on a switch if a form should be displayed bellow all pages"
 msgid "Display on all pages"
 msgstr ""
 
-#: mp3/views/form/editor.html:86
+#: mp3/views/form/editor.html:88
 msgctxt "This is a text on a switch if a form should be displayed bellow all posts"
 msgid "Display on all posts"
 msgstr ""
 
-#: mp3/views/form/editor.html:87 mp3/views/forms.html:97
+#: mp3/views/form/editor.html:89 mp3/views/forms.html:102
 msgctxt "Placement of the form using theme widget"
 msgid "Others (widget)"
 msgstr ""
 
-#: mp3/views/form/editor.html:88
+#: mp3/views/form/editor.html:90
 msgctxt "Label on a selection of different times"
 msgid "Display with a delay of"
 msgstr ""
 
-#: mp3/views/form/editor.html:89
+#: mp3/views/form/editor.html:91
 msgctxt "Placement of a fixed bar form, on top of the page or on the bottom"
 msgid "Position"
 msgstr ""
 
-#: mp3/views/form/editor.html:90
+#: mp3/views/form/editor.html:92
 msgctxt "Placement of a fixed bar form, on top of the page or on the bottom"
 msgid "top"
 msgstr ""
 
-#: mp3/views/form/editor.html:91
+#: mp3/views/form/editor.html:93
 msgctxt "Placement of a fixed bar form, on top of the page or on the bottom"
 msgid "bottom"
 msgstr ""
 
-#: mp3/views/form/editor.html:92
+#: mp3/views/form/editor.html:94
 msgctxt "Placement of a slide in form, on the left or right side of the page"
 msgid "left"
 msgstr ""
 
-#: mp3/views/form/editor.html:93
+#: mp3/views/form/editor.html:95
 msgctxt "Placement of a slide in  form, on the left or right side of the page"
 msgid "right"
 msgstr ""
 
-#: mp3/views/form/editor.html:94
+#: mp3/views/form/editor.html:96
 msgctxt "times selection should be in the end \"30 sec\""
 msgid "%1s sec"
 msgstr ""
 
-#: mp3/views/form/editor.html:95
+#: mp3/views/form/editor.html:97
 msgctxt "Text on a button to save and close a form"
 msgid "Close"
 msgstr ""
 
-#: mp3/views/form/editor.html:96
+#: mp3/views/form/editor.html:98
 msgctxt "Label in the form placement section (Other form placements)"
 msgid "Other"
 msgstr ""
 
-#: mp3/views/form/editor.html:109
+#: mp3/views/form/editor.html:111
 msgctxt "Text on the save button"
 msgid "Update custom field"
 msgstr ""
 
-#: mp3/views/form/editor.html:110
+#: mp3/views/form/editor.html:112
 msgctxt "Text on the delete button"
 msgid "Delete this custom field"
 msgstr ""
 
-#: mp3/views/form/editor.html:116
+#: mp3/views/form/editor.html:118
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:37
 msgctxt "Form input type"
 msgid "Select"
 msgstr ""
 
-#: mp3/views/form/editor.html:124
+#: mp3/views/form/editor.html:126
 msgctxt "Number of rows in textarea"
 msgid "1 line"
 msgstr ""
 
-#: mp3/views/form/editor.html:125
+#: mp3/views/form/editor.html:127
 msgctxt "Number of rows in textarea"
 msgid "2 lines"
 msgstr ""
 
-#: mp3/views/form/editor.html:126
+#: mp3/views/form/editor.html:128
 msgctxt "Number of rows in textarea"
 msgid "3 lines"
 msgstr ""
 
-#: mp3/views/form/editor.html:127
+#: mp3/views/form/editor.html:129
 msgctxt "Number of rows in textarea"
 msgid "4 lines"
 msgstr ""
 
-#: mp3/views/form/editor.html:128
+#: mp3/views/form/editor.html:130
 msgctxt "Number of rows in textarea"
 msgid "5 lines"
 msgstr ""
 
-#: mp3/views/form/editor.html:149
+#: mp3/views/form/editor.html:151
 msgctxt "a default value for a subscription form button"
 msgid "Subscribe!"
 msgstr ""
 
-#: mp3/views/form/editor.html:151
+#: mp3/views/form/editor.html:153
 msgctxt "settings for a label of an input"
 msgid "Label"
 msgstr ""
 
-#: mp3/views/form/editor.html:153
+#: mp3/views/form/editor.html:155
 msgctxt "Settings - if label should be displayed"
 msgid "Display label"
 msgstr ""
 
-#: mp3/views/form/editor.html:154
+#: mp3/views/form/editor.html:156
 msgctxt "The name of the block in the editor"
 msgid "Divider / Spacer"
 msgstr ""
 
-#: mp3/views/form/editor.html:158
+#: mp3/views/form/editor.html:160
 msgctxt "Textarea label"
 msgid "Custom text"
 msgstr ""
 
-#: mp3/views/form/editor.html:163
+#: mp3/views/form/editor.html:165
 msgctxt "Label on form submit button."
 msgid "Create"
 msgstr ""
 
-#: mp3/views/form/editor.html:164
+#: mp3/views/form/editor.html:166
 msgctxt "Label for form field for custom input name"
 msgid "Field name"
 msgstr ""
 
-#: mp3/views/form/editor.html:165
+#: mp3/views/form/editor.html:167
 msgctxt "Label for form field for custom input type"
 msgid "Select a field type"
 msgstr ""
 
-#: mp3/views/form/editor.html:172
+#: mp3/views/form/editor.html:174
 msgctxt "Heading in the font selection list: Arial, Times, ..."
 msgid "Standard fonts"
 msgstr ""
 
-#: mp3/views/form/editor.html:173
+#: mp3/views/form/editor.html:175
 msgctxt "Heading in the font selection list for a list of custom fonts"
 msgid "Custom fonts"
 msgstr ""
 
-#: mp3/views/form/editor.html:174
+#: mp3/views/form/editor.html:176
 msgctxt "Settings in the spacer block"
 msgid "Height"
 msgstr ""
 
-#: mp3/views/form/editor.html:175
+#: mp3/views/form/editor.html:177
 msgctxt "Settings in the spacer block"
 msgid "Enable Divider"
 msgstr ""
 
-#: mp3/views/form/editor.html:176
+#: mp3/views/form/editor.html:178
 msgctxt "How a background image will be rendered: scale, fit or tile"
 msgid "Scale"
 msgstr ""
 
-#: mp3/views/form/editor.html:177
+#: mp3/views/form/editor.html:179
 msgctxt "How a background image will be rendered: scale, fit or tile"
 msgid "Fit"
 msgstr ""
 
-#: mp3/views/form/editor.html:178
+#: mp3/views/form/editor.html:180
 msgctxt "How a background image will be rendered: scale, fit or tile"
 msgid "Tile"
 msgstr ""
 
-#: mp3/views/form/editor.html:179
+#: mp3/views/form/editor.html:181
 msgctxt "Settings in the divider block (solid, dotted, …)"
 msgid "Divider Style"
 msgstr ""
 
-#: mp3/views/form/editor.html:180
+#: mp3/views/form/editor.html:182
 msgctxt "Setting in the divider block"
 msgid "Solid"
 msgstr ""
 
-#: mp3/views/form/editor.html:181
+#: mp3/views/form/editor.html:183
 msgctxt "Setting in the divider block"
 msgid "Dashed"
 msgstr ""
 
-#: mp3/views/form/editor.html:182
+#: mp3/views/form/editor.html:184
 msgctxt "Setting in the divider block"
 msgid "Dotted"
 msgstr ""
 
-#: mp3/views/form/editor.html:183
+#: mp3/views/form/editor.html:185
 msgctxt "Settings in the divider block"
 msgid "Divider Height"
 msgstr ""
 
-#: mp3/views/form/editor.html:184
+#: mp3/views/form/editor.html:186
 msgctxt "Settings in the divider block"
 msgid "Divider Width"
 msgstr ""
 
-#: mp3/views/form/editor.html:185
+#: mp3/views/form/editor.html:187
 msgctxt "Settings in the divider block"
 msgid "Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:186
+#: mp3/views/form/editor.html:188
 msgctxt "heading above the settings"
 msgid "Success Message Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:187
+#: mp3/views/form/editor.html:189
 msgctxt "heading above the settings"
 msgid "Error Message Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:188
+#: mp3/views/form/editor.html:190
 #: mp3/views/newsletter/templates/components/newsletterPreview.hbs:6
 msgctxt "Desktop browser preview mode"
 msgid "Desktop"
 msgstr ""
 
-#: mp3/views/form/editor.html:189
+#: mp3/views/form/editor.html:191
 #: mp3/views/newsletter/templates/components/newsletterPreview.hbs:9
 msgctxt "Mobile browser preview mode"
 msgid "Mobile"
@@ -8821,7 +9694,7 @@ msgctxt "cancel color selection"
 msgid "Cancel"
 msgstr ""
 
-#: mp3/views/newsletter/editor.html:385 mp3/views/newsletters.html:111
+#: mp3/views/newsletter/editor.html:385 mp3/views/newsletters.html:112
 msgctxt "Configuration options for automatic email events"
 msgid "Conditions"
 msgstr ""
@@ -8960,17 +9833,47 @@ msgctxt "Open email preview in new tab"
 msgid "Open in new tab"
 msgstr ""
 
-#: mp3/views/newsletters.html:144
+#: mp3/views/newsletters.html:145
 msgctxt "number of welcome emails sent"
 msgid "%$1d sent"
 msgstr ""
 
-#: mp3/views/newsletters.html:145
+#: mp3/views/newsletters.html:146
 msgctxt "number of welcome emails scheduled to be sent"
 msgid "%$1d scheduled"
 msgstr ""
 
-#: mp3/views/newsletters.html:172
+#: mp3/views/newsletters.html:158
+msgctxt "Excellent open rate"
+msgid "above 30%"
+msgstr ""
+
+#: mp3/views/newsletters.html:159
+msgctxt "Good open rate"
+msgid "between 10 and 30%"
+msgstr ""
+
+#: mp3/views/newsletters.html:160
+msgctxt "Average open rate"
+msgid "under 10%"
+msgstr ""
+
+#: mp3/views/newsletters.html:161
+msgctxt "Excellent click rate"
+msgid "above 3%"
+msgstr ""
+
+#: mp3/views/newsletters.html:162
+msgctxt "Good click rate"
+msgid "between 1 and 3%"
+msgstr ""
+
+#: mp3/views/newsletters.html:163
+msgctxt "Average click rate"
+msgid "under 1%"
+msgstr ""
+
+#: mp3/views/newsletters.html:182
 #: mp3/views/subscribers/importExport/export.html:32
 #: mp3/views/subscribers/importExport/export.html:49
 #: mp3/views/subscribers/importExport/import.html:125
@@ -8978,52 +9881,52 @@ msgctxt "Verb"
 msgid "Select"
 msgstr ""
 
-#: mp3/views/newsletters.html:216
+#: mp3/views/newsletters.html:226
 msgctxt "e.g. monthly every last Monday"
 msgid "last"
 msgstr ""
 
-#: mp3/views/newsletters.html:217
+#: mp3/views/newsletters.html:227
 msgctxt "Button label: Next step"
 msgid "Next"
 msgstr ""
 
-#: mp3/views/newsletters.html:293
+#: mp3/views/newsletters.html:303
 msgctxt "Sunday - one letter abbreviation"
 msgid "S"
 msgstr ""
 
-#: mp3/views/newsletters.html:294
+#: mp3/views/newsletters.html:304
 msgctxt "Monday - one letter abbreviation"
 msgid "M"
 msgstr ""
 
-#: mp3/views/newsletters.html:295
+#: mp3/views/newsletters.html:305
 msgctxt "Tuesday - one letter abbreviation"
 msgid "T"
 msgstr ""
 
-#: mp3/views/newsletters.html:296
+#: mp3/views/newsletters.html:306
 msgctxt "Wednesday - one letter abbreviation"
 msgid "W"
 msgstr ""
 
-#: mp3/views/newsletters.html:297
+#: mp3/views/newsletters.html:307
 msgctxt "Thursday - one letter abbreviation"
 msgid "T"
 msgstr ""
 
-#: mp3/views/newsletters.html:298
+#: mp3/views/newsletters.html:308
 msgctxt "Friday - one letter abbreviation"
 msgid "F"
 msgstr ""
 
-#: mp3/views/newsletters.html:299
+#: mp3/views/newsletters.html:309
 msgctxt "Saturday - one letter abbreviation"
 msgid "S"
 msgstr ""
 
-#: mp3/views/newsletters.html:305
+#: mp3/views/newsletters.html:315
 msgctxt ""
 "Users need to confirm that they own the email address they want to use to "
 "send their newsletter"
@@ -9032,56 +9935,56 @@ msgid ""
 "it. [link]Authorize my email address[/link]"
 msgstr ""
 
-#: mp3/views/newsletters.html:331
+#: mp3/views/newsletters.html:341
 msgctxt "This is a link that leads to more information about transactional emails"
 msgid "Read more."
 msgstr ""
 
-#: mp3/views/newsletters.html:332
+#: mp3/views/newsletters.html:342
 msgctxt "Button, after clicking it we will enable transactional emails"
 msgid "Enable"
 msgstr ""
 
-#: mp3/views/newsletters.html:350
+#: mp3/views/newsletters.html:360
 msgctxt "Importing template tab title"
 msgid "Import"
 msgstr ""
 
-#: mp3/views/newsletters.html:374
+#: mp3/views/newsletters.html:384
 msgctxt ""
 "After a user gives us positive feedback via the NPS poll, we ask them to "
 "review our plugin on WordPress.org."
 msgid "Thank you! Time to tell the world?"
 msgstr ""
 
-#: mp3/views/newsletters.html:378
+#: mp3/views/newsletters.html:388
 msgctxt "Review our plugin on WordPress.org."
 msgid "Rate us now"
 msgstr ""
 
-#: mp3/views/newsletters.html:381
+#: mp3/views/newsletters.html:391
 msgctxt ""
 "Page title. This page displays a list of emails along with their sending "
 "status: unprocessed, sent or failed."
 msgid "Sending status"
 msgstr ""
 
-#: mp3/views/newsletters.html:383
+#: mp3/views/newsletters.html:393
 msgctxt "an email sending status: unprocessed, sent or failed."
 msgid "Sending status"
 msgstr ""
 
-#: mp3/views/newsletters.html:400
+#: mp3/views/newsletters.html:410
 msgctxt "Percentage of subscribers that opened a newsletter link"
 msgid "opened"
 msgstr ""
 
-#: mp3/views/newsletters.html:401
+#: mp3/views/newsletters.html:411
 msgctxt "Percentage of subscribers that clicked a newsletter link"
 msgid "clicked"
 msgstr ""
 
-#: mp3/views/newsletters.html:402
+#: mp3/views/newsletters.html:412
 msgctxt "Percentage of subscribers that unsubscribed from a newsletter"
 msgid "unsubscribed"
 msgstr ""
@@ -10008,6 +10911,18 @@ msgstr ""
 #: mp3/views/subscribers/importExport/import.html:135
 msgctxt "Text in a link"
 msgid "Got it, I’ll proceed to import"
+msgstr ""
+
+#: mp3/views/subscribers/importExport/import.html:139
+msgctxt "This is a value in a select box for \"Set new subscribers’ status to\""
+msgid "Don’t update"
+msgstr ""
+
+#: mp3/views/subscribers/subscribers.html:124
+msgctxt ""
+"This is a heading for the subscribers statistics page example: \"Stats: "
+"mailpoet@example.com\""
+msgid "Stats: %s"
 msgstr ""
 
 #: mp3/views/subscription/confirm_unsubscribe.html:5

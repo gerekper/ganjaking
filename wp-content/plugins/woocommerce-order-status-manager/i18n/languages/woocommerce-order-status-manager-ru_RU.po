@@ -1,0 +1,906 @@
+# Copyright (C) 2020 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Order Status Manager 1.11.8\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2020-05-19 20:47:39+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-06-19 14:28+0700\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.3.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Language: ru_RU\n"
+
+#. translators: 1$s - opening <a> link tag, 2$s - closing </a> link tag
+#: class-wc-order-status-manager.php:405
+msgid ""
+"Thanks for installing Order Status Manager! Before you get started, please "
+"take a moment to %1$sread through the documentation%2$s."
+msgstr ""
+"Спасибо за установку Менеджера Статуса Заказа! Перед началом работы, "
+"пожалуйста, уделите некоторое время %1$sчтению документации%2$s."
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Order Status Manager"
+msgstr "WooCommerce Менеджер Статуса Заказа"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:48
+#: includes/class-wc-order-status-manager-order-status-email.php:98
+msgid "Customer"
+msgstr "Покупатель"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:49
+msgid "Admin"
+msgstr "Администратор"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:77
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:162
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:73
+msgid "Type"
+msgstr "Тип"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:78
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:171
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:70
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:185
+msgid "Description"
+msgstr "Описание"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:79
+msgid "Status"
+msgstr "Статус"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:97
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:99
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:301
+#: includes/class-wc-order-status-manager-post-types.php:172
+msgid "Customize Email"
+msgstr "Настроить содержание письма"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:116
+msgid "Order Status Email Data"
+msgstr "Данные письма о Статусе Заказа"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:126
+msgid "Order Status Email Actions"
+msgstr "Действия для письма о Статусе Заказа"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:155
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:152
+#: includes/admin/class-wc-order-status-manager-admin.php:398
+msgid "Name"
+msgstr "Название"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:165
+msgid ""
+"A customer email is dispatched to the order's customer, and admin email is "
+"sent to the store admin (you can define individual recipient's)."
+msgstr ""
+"Письмо покупателю отправляется покупателю по заказу, а письмо администратору "
+"отправляется администратору магазина (вы можете выбрать получателей "
+"индивидуально)."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:173
+msgid "Optional email description. This is for informational purposes only."
+msgstr "Дополнительное описание письма. Только в информационных целях."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:180
+#: includes/admin/class-wc-order-status-manager-admin.php:327
+msgid "Any"
+msgstr "Любой"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:203
+msgid "When to dispatch"
+msgstr "Когда отправлять"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:209
+#: includes/admin/class-wc-order-status-manager-admin.php:324
+msgid "From Status"
+msgstr "Из Статуса"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:210
+#: includes/admin/class-wc-order-status-manager-admin.php:325
+msgid "To Status"
+msgstr "В Статус"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:238
+#: includes/admin/class-wc-order-status-manager-admin.php:326
+msgid "Remove"
+msgstr "Удалить"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:254
+msgid "Add Condition"
+msgstr "Добавить Условие"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:268
+msgid "Dispatch when a new order is created"
+msgstr "Отправлять при создании нового заказа"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:307
+#: includes/admin/class-wc-order-status-manager-admin.php:429
+msgid "Delete Permanently"
+msgstr "Удалить Навсегда"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:314
+msgid "Save Email"
+msgstr "Сохранить Письмо"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:315
+msgid "Save/update the order status email"
+msgstr "Сохранить/обновить письмо по статусу заказа"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:395
+msgid "Inactive"
+msgstr "Неактивно"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:396
+msgid "No dispatch rules set for this email."
+msgstr "Для этого письма не установлены правила отправки."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:401
+msgid "Enabled"
+msgstr "Включено"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:402
+msgid "This email is enabled."
+msgstr "Это письмо включено."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:406
+msgid "Disabled"
+msgstr "Выключено"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:407
+msgid "This email is disabled."
+msgstr "Это письмо выключено."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:458
+msgid ""
+"Emails will not be sent while a dispatch condition's To and From statuses "
+"are both 'Any'"
+msgstr ""
+"Письма не будут отправляться, пока в условиях доставки в обоих полях \"Из "
+"Статуса\" и \"В Статус\" установлено \"Любой\""
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:69
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:175
+msgid "Slug"
+msgstr "Слаг"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:71
+msgid "Paid"
+msgstr "Оплачено"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:72
+msgid "Reports"
+msgstr "Отчеты"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:75
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:217
+msgid "Icon"
+msgstr "Значок"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:111
+msgid "Order Status Data"
+msgstr "Данные Статуса Заказа"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:121
+msgid "Order Status Actions"
+msgstr "Действия Статуса Заказа"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:158
+msgid "Maximum 35 characters."
+msgstr "Максимум 35 символов."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:179
+msgid ""
+"Optional. If left blank, the slug will be automatically generated from the "
+"name. Maximum: 17 characters, cannot contain leading numbers."
+msgstr ""
+"Необязательно. Если оставлено пустым, то слаг автоматически генерируется на "
+"базе имени. Максимум 17 символом, не может начинаться с цифр."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:187
+msgid ""
+"Optional status description. If set, this will be shown to customers while "
+"viewing an order."
+msgstr ""
+"Необязательное описание статуса. Если заполнено, то оно будет показано "
+"покупателю при просмотре заказа."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:200
+msgid "Color"
+msgstr "Цвет"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:204
+msgid "Color displayed behind the order status image or name"
+msgstr "Цвет под текстом или значком статуса заказа"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:228
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:256
+msgid "Set as status icon"
+msgstr "Установить как значок статуса"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:228
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:256
+msgid "Select File"
+msgstr "Выбрать Файл"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:229
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:257
+#: includes/admin/class-wc-order-status-manager-admin.php:328
+msgid "Remove Icon"
+msgstr "Удалить Значок"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:230
+msgid ""
+"Optional status icon. If not supplied, then Name will be displayed to "
+"represent the status"
+msgstr ""
+"Необязательный значок статуса. Если не установлен, то в качестве обозначения "
+"статуса будет использоваться Название"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:245
+msgid "Action Icon"
+msgstr "Значок Действия"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:258
+msgid ""
+"Optional action icon displayed in the action buttons for the next statuses."
+msgstr ""
+"Необязательный значок действия отображается в кнопках действия для следующих "
+"статусов."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:279
+msgid "Next Statuses"
+msgstr "Следующие Статусы"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:283
+msgid "Choose statuses that follow this one in your workflow."
+msgstr ""
+"Выберите статусы, которые в вашем рабочем процессе идут за этим статусом."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:289
+msgid ""
+"Zero or more statuses that would be considered next during normal order "
+"status flow. Action buttons will be available to move an order with this "
+"custom status to these next statuses."
+msgstr ""
+"Ноль или больше статусов, которые считаются следующими при обычном порядке "
+"изменения статусов в рабочем процессе. Будут доступны кнопки действия для "
+"перевода этого созданного статуса в указанные следующие статусы."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:296
+msgid "Bulk action"
+msgstr "Массовое действие"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:297
+msgid ""
+"Check this to add this order status to the Orders list table Bulk Actions "
+"list."
+msgstr ""
+"Отметьте для добавления этого статуса заказа в список Массовых Действий на "
+"странице Списка заказов."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:304
+msgid "Include in reports"
+msgstr "Добавить в отчеты"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:305
+msgid ""
+"Check this to include orders with this order status in the order reports."
+msgstr "Отметьте для добавления заказов с этим статусом в отчеты по заказам."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:313
+msgid ""
+"Choose whether this status implies a payment that has been received or not."
+msgstr "Выберите, подразумевает ли этот статус, что заказ оплачен или нет."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:316
+msgid "Orders with this status have been paid."
+msgstr "Заказы с этим статусом оплачены."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:317
+msgid "Orders with this status require payment (similar to \"pending\")."
+msgstr ""
+"Заказы с этим статусом требуют оплаты (аналогично статусу \"В ожидании оплаты"
+"\")."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:318
+msgid ""
+"Orders are neither paid nor require payment (similar to \"on-hold\" or "
+"\"refunded\")."
+msgstr ""
+"Заказы и не оплачены, и не требуют оплаты (аналогично статусам \"На удержании"
+"\" и \"Возвращен\")."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:357
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:548
+msgid "Delete"
+msgstr "Удалить"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:364
+msgid "Save Order Status"
+msgstr "Сохранить Статус Заказа"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:365
+msgid "Save/update the order status"
+msgstr "Сохранить/обновить статус заказа"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:412
+msgid "Add statuses that may have been added by other plugins or custom code."
+msgstr ""
+"Добавить статусы которые могли быть добавлены другими плагинами или "
+"пользовательским кодом."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:413
+msgid "Import custom statuses"
+msgstr "Импортировать настроенные статусы"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:492
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:496
+msgid "Yes"
+msgstr "Да"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:492
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:496
+msgid "No"
+msgstr "Нет"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:528
+msgid "Are you sure that you want to delete this order status?"
+msgstr "Вы уверены, что хотите удалить этот статус заказа?"
+
+#. translators: singular order marked with status name - %1$s: orders count
+#. (1), %2$s: order status name
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:533
+msgid "There is currently %1$s order marked as %2$s."
+msgstr "Сейчас %1$s заказ отмечен как %2$s."
+
+#. translators: multiple orders marked with status name - %1$s orders count
+#. (n), %2$s: order status name
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:538
+msgid "There are currently %1$s orders marked as %2$s."
+msgstr "Сейчас %1$s заказов отмечено как %2$s."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:541
+msgid ""
+"You can choose to reassign the status of existing orders with another before "
+"deleting or have it reassigned automatically."
+msgstr ""
+"Вы можете выбрать между самостоятельным переназначением статуса существующих "
+"заказов на другой или переназначить автоматически."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:545
+msgid "Reassign and delete"
+msgstr "Переназначить и удалить"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:551
+msgid "Either operation cannot be undone automatically."
+msgstr "Любая операция не может быть отменена автоматически."
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:552
+msgid "Emails and other actions will not be triggered automatically."
+msgstr "Письма и другие действия не будут запускаться автоматически."
+
+#. translators: Placeholders: %s - custom email name
+#: includes/admin/class-wc-order-status-manager-admin-orders.php:125
+msgid "Send %s custom email"
+msgstr "Отправить %s персонализированное письмо."
+
+#. translators: Placeholders: %s - custom email name
+#: includes/admin/class-wc-order-status-manager-admin-orders.php:168
+msgid "%s email notification manually sent."
+msgstr "%s письменное уведомление отправлено вручную."
+
+#. translators: Placeholders: %s - custom email name
+#: includes/admin/class-wc-order-status-manager-admin-orders.php:176
+msgid "%s email notification couldn't be sent."
+msgstr "%s письменное уведомление не отправлено."
+
+#. translators: Placeholder: %s - order status name
+#: includes/admin/class-wc-order-status-manager-admin-orders.php:543
+msgid "Mark %s"
+msgstr "Отметить %s"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:114
+#: includes/class-wc-order-status-manager-post-types.php:81
+msgid "Order Statuses"
+msgstr "Статусы Заказов"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:168
+msgid "Statuses"
+msgstr "Статусы"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:169
+msgid "Emails"
+msgstr "Письма"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:323
+msgid "Remove this condition?"
+msgstr "Удалить это условие?"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:329
+msgid "Select Icon"
+msgstr "Выбрать значок"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:330
+msgid "All icon packages"
+msgstr "Все значки"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:331
+msgid "Search Icons"
+msgstr "Искать значки"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:332
+msgid "Choose a file"
+msgstr "Выбрать файл"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:333
+msgid "Close"
+msgstr "Закрыть"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:334
+msgid ""
+"Emails will not be sent for dispatch conditions where the To and From "
+"statuses are both 'Any'. Continue anyway?"
+msgstr ""
+"Письма не будут отправляться, если в условиях отправки \"Из Статуса\" и \"В "
+"Статус\" оба установлены в \"Любой\". Продолжить в любом случае?"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:335
+msgid ""
+"Please be sure to remove custom statuses from orders before deactivating the "
+"plugin. Continue?"
+msgstr ""
+"Перед деактивацией плагина убедитесь, что вы убрали с заказов настроенные "
+"пользователем статусы. Продолжить?"
+
+#: includes/admin/class-wc-order-status-manager-admin.php:336
+msgid "Sorry, slugs can't begin with \"wc-\"."
+msgstr "Извините, слаги не могут начинаться с \"wc-\"."
+
+#: includes/admin/class-wc-order-status-manager-admin.php:427
+msgid "Delete this item permanently"
+msgstr "Удалить этот пункт навсегда"
+
+#. translators: Placeholder: %s - custom order status slug
+#: includes/admin/class-wc-order-status-manager-admin.php:532
+msgid ""
+"Sorry, slugs can't begin with \"wc-\". Order status has been renamed \"%s\"."
+msgstr ""
+"Извините, слаги не могут начинаться с \"wc-\". Статус заказа переименован "
+"\"%s\"."
+
+#: includes/class-wc-order-status-manager-ajax.php:225
+msgid "Change status: "
+msgstr "Изменить статус:"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:93
+#: includes/class-wc-order-status-manager-order-status-email.php:105
+msgid "Order has been updated"
+msgstr "Заказ был обновлен"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:94
+msgid "Regarding your {site_title} order from {order_date}"
+msgstr "Относительно вашего заказа {site_title} от {order_date}"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:95
+msgid ""
+"Your order is now {order_status}. Order details are shown below for your "
+"reference:"
+msgstr ""
+"Ваш заказ сейчас {order_status}. Детали заказа приведены ниже для справки:"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:106
+msgid "[{site_title}] Customer order ({order_number}) updated"
+msgstr "[{site_title}] Клиентский заказ ({order_number}) обновлен"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:107
+msgid "This order is now {order_status}. Order details are as follows:"
+msgstr "Этот заказ сейчас {order_status}. Детали заказа следующие:"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:157
+msgid "Enable/Disable"
+msgstr "Включить/Вывключить"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:159
+msgid "Enable this email notification"
+msgstr "Включить это уведомление по электронной почте"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:164
+msgid "Recipient(s)"
+msgstr "Получатель(-ли)"
+
+#. translators: %s - admin email as default option
+#: includes/class-wc-order-status-manager-order-status-email.php:167
+msgid ""
+"Enter recipients (comma separated) for this email. Defaults to <code>%s</"
+"code>."
+msgstr ""
+"Введите получателей (через запятую) для этого письма. По умолчанию <code>%s</"
+"code>."
+
+#: includes/class-wc-order-status-manager-order-status-email.php:173
+msgid "Subject"
+msgstr "Тема"
+
+#. translators: %s - the default subject text
+#: includes/class-wc-order-status-manager-order-status-email.php:176
+msgid ""
+"This controls the email subject line. Leave blank to use the default "
+"subject: <code>%s</code>."
+msgstr ""
+"Здесь указывается тема письма. Оставьте пустым, чтобы использовать тему по "
+"умолчанию: <code>%s</code>."
+
+#: includes/class-wc-order-status-manager-order-status-email.php:182
+msgid "Email Heading"
+msgstr "Заголовок письма"
+
+#. translators: %s - the default heading text
+#: includes/class-wc-order-status-manager-order-status-email.php:185
+msgid ""
+"This controls the main heading contained within the email notification. "
+"Leave blank to use the default heading: <code>%s</code>."
+msgstr ""
+"Здесь указывается основной заголовок, содержащийся в письме. Оставьте "
+"пустым, чтобы использовать заголовок по умолчанию: <code>%s</code>."
+
+#: includes/class-wc-order-status-manager-order-status-email.php:191
+msgid "Email Body"
+msgstr "Тело Письма"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:193
+msgid ""
+"Optional email body text. You can use the following placeholders: "
+"<code>{order_date}, {order_number}, {order_status}, {billing_first_name}, "
+"{billing_last_name}, {billing_company}, {blogname}, {site_title}</code>"
+msgstr ""
+"Дополнительный текст в теле письма. Вы можете использовать следующие "
+"заполнители: <code>{order_date}, {order_number}, {order_status}, "
+"{billing_first_name}, {billing_last_name}, {billing_company}, {blogname}, "
+"{site_title}</code>"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:199
+msgid "Email type"
+msgstr "Тип письма"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:201
+msgid "Choose which format of email to send."
+msgstr "Выберите, в каком формате отправлять письмо."
+
+#: includes/class-wc-order-status-manager-order-status-email.php:205
+msgid "Plain text"
+msgstr "Простой текст"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:206
+msgid "HTML"
+msgstr "HTML"
+
+#: includes/class-wc-order-status-manager-order-status-email.php:207
+msgid "Multipart"
+msgstr "Multipart (несколько частей)"
+
+#: includes/class-wc-order-status-manager-order-status.php:258
+msgid "Custom"
+msgstr "Настроенный"
+
+#: includes/class-wc-order-status-manager-order-status.php:272
+msgid "Core"
+msgstr "Из ядра"
+
+#: includes/class-wc-order-status-manager-order-status.php:274
+msgid "Third Party"
+msgstr "Третья сторона"
+
+#. translators: Order status updated from %1$s = old status to %2$s = new
+#. status
+#: includes/class-wc-order-status-manager-order-statuses.php:725
+msgid ""
+"Order status updated from %1$s to %2$s because the former status was deleted."
+msgstr ""
+"Статус заказа обновлен с %1$s до %2$s, поскольку прежний статус был удален."
+
+#. translators: Placeholders: %d is the number of orders changed, %1$s is the
+#. old order status, %2$s is the new order status
+#: includes/class-wc-order-status-manager-order-statuses.php:760
+msgid "%d order that was previously %1$s is now %2$s."
+msgid_plural "%d orders that were previously %1$s are now %2$s."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: includes/class-wc-order-status-manager-post-types.php:82
+msgid "Order Status"
+msgstr "Статус Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:84
+msgid "Add Order Status"
+msgstr "Добавить Статус Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:85
+msgid "Add New Order Status"
+msgstr "Добавить Новый Статус Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:86
+#: includes/class-wc-order-status-manager-post-types.php:120
+msgid "Edit"
+msgstr "Изменить"
+
+#: includes/class-wc-order-status-manager-post-types.php:87
+msgid "Edit Order Status"
+msgstr "Изменить Статус Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:88
+msgid "New Order Status"
+msgstr "Новый Статус Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:89
+msgid "View Order Statuses"
+msgstr "Посмотреть Статусы Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:90
+msgid "View Order Status"
+msgstr "Посмотреть Статус Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:91
+msgid "Search Order Statuses"
+msgstr "Искать Статусы Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:92
+msgid "No Order Statuses found"
+msgstr "Статусы Заказа не найдены"
+
+#: includes/class-wc-order-status-manager-post-types.php:93
+msgid "No Order Statuses found in trash"
+msgstr "Статусы Заказа не найдены в корзине"
+
+#: includes/class-wc-order-status-manager-post-types.php:115
+msgid "Order Status Emails"
+msgstr "Письма Статуса Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:116
+msgid "Order Status Email"
+msgstr "Письмо Статуса Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:118
+msgid "Add Order Status Email"
+msgstr "Добавить Письмо Статуса Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:119
+msgid "Add New Order Status Email"
+msgstr "Добавить Новое Письмо Статуса Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:121
+msgid "Edit Order Status Email"
+msgstr "Изменить Письмо Статуса Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:122
+msgid "New Order Status Email"
+msgstr "Новое Письмо Статуса Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:123
+msgid "View Order Status Emails"
+msgstr "Посмотреть Письма Статуса Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:124
+msgid "View Order Status Email"
+msgstr "Посмотреть Письмо Статуса Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:125
+msgid "Search Order Status Emails"
+msgstr "Искать Письма Статуса Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:126
+msgid "No Order Status Emails found"
+msgstr "Письма Статуса Заказа не найдены"
+
+#: includes/class-wc-order-status-manager-post-types.php:127
+msgid "No Order Status Emails found in trash"
+msgstr "Письма Статуса Заказа не найдены в корзине"
+
+#: includes/class-wc-order-status-manager-post-types.php:160
+#: includes/class-wc-order-status-manager-post-types.php:163
+#: includes/class-wc-order-status-manager-post-types.php:165
+#: includes/class-wc-order-status-manager-post-types.php:166
+#: includes/class-wc-order-status-manager-post-types.php:169
+msgid "Order Status saved."
+msgstr "Статус Заказа сохранен."
+
+#: includes/class-wc-order-status-manager-post-types.php:161
+#: includes/class-wc-order-status-manager-post-types.php:177
+msgid "Custom field updated."
+msgstr "Настраиваемое поле обновлено."
+
+#: includes/class-wc-order-status-manager-post-types.php:162
+#: includes/class-wc-order-status-manager-post-types.php:178
+msgid "Custom field deleted."
+msgstr "Настраиваемое поле удалено."
+
+#: includes/class-wc-order-status-manager-post-types.php:176
+#: includes/class-wc-order-status-manager-post-types.php:179
+#: includes/class-wc-order-status-manager-post-types.php:181
+#: includes/class-wc-order-status-manager-post-types.php:182
+#: includes/class-wc-order-status-manager-post-types.php:185
+msgid "Order Status Email saved."
+msgstr "Письма Статуса Заказа сохранено."
+
+#: includes/class-wc-order-status-manager-post-types.php:203
+msgid "%s order status updated."
+msgid_plural "%s order statuses updated."
+msgstr[0] "%s статус заказа обновлен."
+msgstr[1] "%s статуса заказа обновлено."
+msgstr[2] "%s статусов заказа обновлено."
+
+#: includes/class-wc-order-status-manager-post-types.php:204
+msgid "%s order status not updated, somebody is editing it."
+msgid_plural "%s order statuses not updated, somebody is editing them."
+msgstr[0] "%s статус заказа не обновлен, кто-то его редактирует."
+msgstr[1] "%s статуса заказа не обновлено, кто-то их редактирует."
+msgstr[2] "%s статусов заказа не обновлен, кто-то их редактирует."
+
+#: includes/class-wc-order-status-manager-post-types.php:205
+msgid "%s order status permanently deleted."
+msgid_plural "%s order statuses permanently deleted."
+msgstr[0] "%s статус заказа удален навсегда."
+msgstr[1] "%s статуса заказа удалено навсегда."
+msgstr[2] "%s статусов заказа удалено навсегда."
+
+#: includes/class-wc-order-status-manager-post-types.php:206
+msgid "%s order status moved to the Trash."
+msgid_plural "%s order statuses moved to the Trash."
+msgstr[0] "%s статус заказа перемещен в Корзину."
+msgstr[1] "%s статуса заказа перемещено в Корзину."
+msgstr[2] "%s статусов заказа перемещено в Корзину."
+
+#: includes/class-wc-order-status-manager-post-types.php:207
+msgid "%s order status restored from the Trash."
+msgid_plural "%s order statuses restored from the Trash."
+msgstr[0] "%s статус заказа восстановлен из Корзины."
+msgstr[1] "%s статуса заказа восстановлено из Корзины."
+msgstr[2] "%s статусов заказа восстановлено из Корзины."
+
+#: includes/class-wc-order-status-manager-post-types.php:211
+msgid "%s order status email updated."
+msgid_plural "%s order status emails updated."
+msgstr[0] "%s письмо статуса заказа обновлено."
+msgstr[1] "%s письма статуса заказа обновлено."
+msgstr[2] "%s писем статуса заказа обновлено."
+
+#: includes/class-wc-order-status-manager-post-types.php:212
+msgid "%s order status email not updated, somebody is editing it."
+msgid_plural "%s order status emails not updated, somebody is editing them."
+msgstr[0] "%s письмо статуса заказа не обновлено, кто-то его редактирует."
+msgstr[1] "%s письма статуса заказа не обновлено, кто-то их редактирует."
+msgstr[2] "%s писем статуса заказа не обновлено, кто-то их редактирует."
+
+#: includes/class-wc-order-status-manager-post-types.php:213
+msgid "%s order status email permanently deleted."
+msgid_plural "%s order status emails permanently deleted."
+msgstr[0] "%s письмо статуса заказа удалено навсегда."
+msgstr[1] "%s письма статуса заказа удалено навсегда."
+msgstr[2] "%s писем статуса заказа удалено навсегда."
+
+#: includes/class-wc-order-status-manager-post-types.php:214
+msgid "%s order status email moved to the Trash."
+msgid_plural "%s order status emails moved to the Trash."
+msgstr[0] "%s письмо статуса заказа перемещено в Корзину."
+msgstr[1] "%s письма статуса заказа перемещено в Корзину."
+msgstr[2] "%s писем статуса заказа перемещено в Корзину."
+
+#: includes/class-wc-order-status-manager-post-types.php:215
+msgid "%s order status email restored from the Trash."
+msgid_plural "%s order status emails restored from the Trash."
+msgstr[0] "%s письмо статуса заказа восстановлено из Корзины."
+msgstr[1] "%s письма статуса заказа восстановлено из Корзины."
+msgstr[2] "%s писем статуса заказа восстановлено из Корзины."
+
+#. translators: Placeholders: %s - order number
+#: templates/emails/admin-order-status-email.php:56
+msgid "Order: %s"
+msgstr "Заказ: %s"
+
+#: templates/emails/admin-order-status-email.php:68
+#: templates/emails/customer-order-status-email.php:58
+msgid "Product"
+msgstr "Продукт"
+
+#: templates/emails/admin-order-status-email.php:69
+#: templates/emails/customer-order-status-email.php:59
+msgid "Quantity"
+msgstr "Количество"
+
+#: templates/emails/admin-order-status-email.php:70
+#: templates/emails/customer-order-status-email.php:60
+msgid "Price"
+msgstr "Цена"
+
+#: templates/emails/admin-order-status-email.php:104
+#: templates/emails/customer-order-status-email.php:96
+#: templates/emails/plain/admin-order-status-email.php:88
+msgid "Customer details"
+msgstr "Данные клиента"
+
+#: templates/emails/admin-order-status-email.php:107
+#: templates/emails/customer-order-status-email.php:99
+#: templates/emails/plain/admin-order-status-email.php:91
+#: templates/emails/plain/customer-order-status-email.php:89
+msgid "Email:"
+msgstr "Письмо:"
+
+#: templates/emails/admin-order-status-email.php:111
+#: templates/emails/customer-order-status-email.php:102
+#: templates/emails/plain/admin-order-status-email.php:95
+#: templates/emails/plain/customer-order-status-email.php:93
+msgid "Tel:"
+msgstr "Тел:"
+
+#: templates/emails/customer-order-status-email.php:53
+msgid "Order:"
+msgstr "Заказ:"
+
+#. translators: Placeholders: %s - order number
+#: templates/emails/plain/admin-order-status-email.php:54
+#: templates/emails/plain/customer-order-status-email.php:53
+msgid "Order number: %s"
+msgstr "Номер заказа: %s"
+
+#. translators: Placeholders: %s - order link
+#: templates/emails/plain/admin-order-status-email.php:57
+msgid "Order link: %s"
+msgstr "Ссылка заказа: %s"
+
+#. translators: Placeholders: %s - order date
+#: templates/emails/plain/admin-order-status-email.php:62
+#: templates/emails/plain/customer-order-status-email.php:58
+msgid "Order date: %s"
+msgstr "Дата заказа: %s"
+
+#: templates/emails/plain/admin-order-status-email.php:62
+msgid "jS F Y"
+msgstr "jS F Y"
+
+#: templates/emails/plain/customer-order-status-email.php:86
+msgid "Your details"
+msgstr "Ваши данные"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/woocommerce-order-status-manager/"
+msgstr "http://www.woocommerce.com/products/woocommerce-order-status-manager/"
+
+#. Description of the plugin/theme
+msgid ""
+"Easily create custom order statuses and trigger custom emails when order "
+"status changes"
+msgstr ""
+"Простое создание пользовательских статусов заказа и отправка настраиваемых "
+"писем при изменении статуса заказа"
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr "SkyVerge"
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr "http://www.woocommerce.com"
+
+#: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:312
+msgctxt "Order status has had payment received"
+msgid "Paid"
+msgstr "Оплачено"
+
+#: includes/class-wc-order-status-manager-post-types.php:83
+msgctxt "Admin menu name"
+msgid "Order Statuses"
+msgstr "Статусы Заказа"
+
+#: includes/class-wc-order-status-manager-post-types.php:117
+msgctxt "Admin menu name"
+msgid "Order Status Emails"
+msgstr "Письма Статусов Заказа"

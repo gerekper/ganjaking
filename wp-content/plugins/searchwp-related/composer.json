@@ -1,0 +1,21 @@
+{
+  "name": "searchwp/searchwp-related",
+  "description": "Utilize SearchWP to find related content",
+  "keywords": ["wordpress", "search", "related"],
+  "homepage": "https://searchwp.com/extensions/related/",
+  "authors": [
+    {
+      "name": "Jonathan Christopher",
+      "homepage": "https://searchwp.com/"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "autoload" : {
+    "psr-4": {
+      "SearchWP_Related\\": "includes"
+    }
+  },
+  "require": {
+    "php": ">=5.3.2"
+  }
+}

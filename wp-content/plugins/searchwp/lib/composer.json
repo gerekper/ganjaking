@@ -1,0 +1,12 @@
+{
+    "name": "searchwp/dependencies",
+    "autoload" : {
+      "psr-4": {
+        "SearchWP\\": "./../includes",
+        "SearchWP\\Dependencies\\": "lib"
+      }
+    },
+    "require": {
+        "php": ">=7.0"
+    }
+}

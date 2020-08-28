@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.3
+ * @version     1.1.4
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -513,6 +513,9 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			</style>
 
 			<?php
+
+			do_action( 'wc_sc_before_shortcode_smart_coupons_html_start', array( 'source' => $this ) );
+
 			if ( 'yes' === $is_email ) {
 				echo '<div style="margin: 10px 0; text-align: center;" title="' . esc_html__( 'Click to visit store. This coupon will be applied automatically.', 'woocommerce-smart-coupons' ) . '">';
 			}

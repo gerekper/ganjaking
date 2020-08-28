@@ -1,5 +1,9 @@
 *** WooCommerce Order Status Manager Changelog ***
 
+2020.08.24 - version 1.12.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+ * Localization - Add Russian translation, courtesy of Mikhail Zaytsev (mszaitsev@gmail.com)
+
 2020.06.15 - version 1.11.9
  * Fix - Prevent class name conflicts on the order edit screen for custom statuses with core names
 

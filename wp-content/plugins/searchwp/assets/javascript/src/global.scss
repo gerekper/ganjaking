@@ -1,0 +1,424 @@
+@import 'node_modules/vue-slider-component/theme/antd.css';
+@import 'node_modules/vue-select/src/scss/vue-select.scss';
+
+.settings_page_searchwp .wrap {
+	margin-left: 0; // Override a 2px default.
+}
+
+.searchwp-settings-view {
+	.v-collapse-content {
+		display: none;
+	}
+
+	.v-collapse-content-end {
+		display: block !important; // There is competition with WP core's .closed here.
+	}
+
+	.searchwp-settings {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		flex-wrap: wrap;
+		transition: opacity 125ms ease-in-out;
+
+		* {
+			box-sizing: border-box;
+		}
+
+		li {
+			margin: 0;
+		}
+
+		.v--modal {
+			border-radius: 2px;
+		}
+
+		.v--modal-overlay {
+			z-index: 99999;
+			background: rgba(20, 20, 20, 0.7);
+
+			.v--modal-box {
+				overflow: visible; // We're setting up our own handling of overflow.
+			}
+		}
+
+		&.searchwp-settings-disabled {
+			opacity: 0.2;
+			cursor: wait;
+			position: relative;
+
+			&:after {
+				display: block;
+				content: '';
+				z-index:  9999999999;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+			}
+		}
+	}
+
+	.searchwp-settings-view-header {
+		display: flex;
+		margin-bottom: 1em;
+		align-items: center;
+
+		// Admin Notices can sneak in here.
+		> * {
+			display: none;
+		}
+
+		h1:first-child {
+			display: block;
+			margin: 0 0.7em 0 0;
+			padding: 0;
+		}
+
+		.searchwp-actions {
+			display: flex;
+
+			> * {
+				margin-left: 1em;
+			}
+		}
+	}
+
+	button.button {
+
+		> span {
+			display: flex;
+			align-items: center;
+
+			.searchwp-button-icon {
+				margin-left: -0.1em;
+			}
+
+			.searchwp-button-label {
+				font-weight: normal;
+				padding-left: 0.4em;
+				padding-right: 0.3em;
+			}
+		}
+
+		&.button-link-delete {
+			border-color: currentColor;
+
+			&:hover {
+				border-color: currentColor;
+			}
+		}
+
+		&.searchwp-button-subtle {
+			border-color: transparent;
+			background-color: transparent;
+		}
+	}
+
+	.searchwp-actions--mini {
+
+		button.button {
+			border-radius: 30em;
+			// padding: 0.09em 0.16em 0.1em 0.15em;
+			padding: 0;
+			min-height: 1px;
+			line-height: 1;
+
+			> span {
+				width: 20px;
+				height: 20px;
+
+				.searchwp-button-icon {
+					margin: 0;
+					width: 20px;
+					height: 20px;
+				}
+			}
+		}
+	}
+
+	.searchwp-no-show {
+		visibility: hidden !important;
+	}
+
+	.v-select {
+		display: block;
+		background: white;
+
+		input[type="search"],
+		input[type="search"]:focus,
+		input[type="search"]:hover,
+		.vs__search,
+		.vs__search:hover,
+		.vs__search:focus {
+			line-height: 1.4;
+			min-height: 1px;
+			background: transparent;
+			border-color: transparent;
+			border-radius: 1px;
+		}
+
+		.vs__search {
+			min-width: 4em;
+		}
+
+		&.vs--unsearchable {
+			.vs__search {
+				// We can't hide it completely as the component piggybacks its blur event to hide the dropdown.
+				opacity: 0;
+				min-width: 1px;
+				width: 1px;
+			}
+		}
+
+		.vs__dropdown-toggle {
+			border-radius: 3px !important; // Override inline style.
+		}
+
+		.vs__dropdown-menu {
+			z-index: 999999;
+			min-width: 5em;
+			top: calc(100% - 3px);
+			box-shadow: none;
+			max-height: 100px; // ~3 items.
+		}
+
+		.vs__open-indicator {
+			color: #72777c; // Matches WP Core.
+			transition: none !important; // Inline style override;
+		}
+
+		.vs__selected {
+			border-radius: 3px;
+
+			.searchwp-icon-label {
+
+				// // This renders largely.
+				// .searchwp-button-icon {
+				// 	// transform: scale(0.7);
+				// 	margin-right: 1px; // Because of the scale.
+				// }
+			}
+		}
+
+		.vs__deselect {
+			opacity: 0.5;
+			margin-left: 0 !important;
+			height: 18px; // Has a dashicon which is 20px.
+			width: 18px; // Has a dashicon which is 20px.
+			overflow: hidden;
+			align-items: center;
+			align-content: center;
+		}
+
+		&.vs--open {
+			.vs__selected {
+				margin-right: 5px; // Prevents jitter when using Dashicons OpenIndicator.
+			}
+		}
+	}
+
+	.vs__selected {
+		position: relative !important;
+	}
+
+	.vs__dropdown-option {
+		padding: 3px calc(5px + 0.25em);
+		color: inherit;
+	}
+
+	.vs__dropdown-option--highlight,
+	.vs__dropdown-option--selected,
+	.vs__dropdown-option--selected:hover,
+	.vs__dropdown-option-searchwp-special:hover {
+		color: inherit;
+		background-color: #f2f2f2;
+	}
+
+	.vs__dropdown-option--selected,
+	.vs__dropdown-option--selected:hover {
+		cursor: default;
+	}
+
+	.vs__selected .searchwp-icon-label > span:last-of-type {
+		padding-right: 0.3em;
+	}
+
+	.searchwp-input-tags {
+
+		.vs__dropdown-toggle {
+			padding: 0;
+			border: 0;
+		}
+
+		.vs__actions {
+			display: none;
+		}
+
+		.vs__selected-options {
+			padding: 0;
+		}
+	}
+
+	// Styles to have <input> match .v-select.
+	.searchwp-input-mimic {
+		display: block;
+		border-radius: 3px;
+		font-size: 13px;
+		padding: 6px;
+		background: white;
+		border: 1px solid rgba(60, 60, 60, 0.26);
+		border-radius: 2px;
+	}
+
+	.searchwp-icon-label {
+		display: block;
+		position: relative;
+		padding-left: 18px; // Make space for the icon.
+
+		span {
+			display: block;
+
+			&.searchwp-button-icon {
+				position: absolute;
+				top: 2px;
+				left: 0;
+				width: 14px;
+				height: 14px;
+
+				&.dashicons {
+					font-size: 14px;
+					line-height: 1;
+
+					&:before {
+						font-size: 14px;
+						line-height: 1;
+					}
+				}
+			}
+		}
+
+		> span:last-of-type {
+			font-style: italic;
+		}
+	}
+
+	.fade-enter-active, .fade-leave-active {
+		transition: opacity 175ms;
+	}
+
+	.fade-enter, .fade-leave-to {
+		opacity: 0;
+	}
+
+	.searchwp-meta-box-heading__label {
+
+		> span {
+			display: block;
+			flex: 1;
+		}
+
+		> button,
+		> .v-popover button {
+			font-weight: normal;
+			display: block;
+			margin-left: 0.5em;
+		}
+
+		code {
+			font-size: 0.9em;
+			font-weight: normal;
+			display: inline-block;
+			margin-left: 0.5em;
+		}
+	}
+
+	// VueSlider theme overrides.
+	.vue-slider {
+		cursor: pointer;
+
+		:hover {
+			.vue-slider-rail,
+			.vue-slider-process {
+				background-color: inherit;
+			}
+		}
+	}
+
+	.vue-slider-rail {
+		opacity: 1 !important; /* Inline style override */
+		height: 2px !important;
+	}
+
+	.vue-slider-dot,
+	.vue-slider-dot-handle {
+		box-sizing: border-box;
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-top: 1em;
+
+		thead {
+
+			th {
+				padding-bottom: 0.75em;
+			}
+		}
+
+		th, td {
+			border-bottom: 1px solid rgba(40, 40, 40, 0.2);
+		}
+
+		tbody tr:last-of-type {
+			th, td {
+				border-bottom: 0;
+			}
+		}
+
+		th {
+			font-weight: 600;
+			text-align: left;
+		}
+
+		td {
+			padding: 0.75em 0;
+		}
+	}
+
+	.searchwp-settings .vue-tabs {
+
+		.nav-tabs {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			display: flex;
+			flex-wrap: wrap;
+
+			> li {
+				padding: 0 12px; // Combined with To match other elements.
+
+				a {
+					display: block;
+					padding: 12px 0 8px 0; // Combined with To match other elements.
+					text-decoration: none;
+					border-bottom: 2px solid transparent;
+
+					&:focus {
+						outline: none;
+						box-shadow: none;
+					}
+				}
+
+				&.active {
+
+					a {
+						border-bottom: 2px solid currentColor;
+					}
+				}
+			}
+		}
+	}
+}

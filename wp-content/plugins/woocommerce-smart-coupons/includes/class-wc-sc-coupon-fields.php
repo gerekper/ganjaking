@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.3
+ * @version     1.1.5
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -111,11 +111,6 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 
 			$coupon_share_url = home_url( '/?coupon-code=' . $post->post_title );
 			?>
-			<style type="text/css">
-				#sc-share-link {
-					background-color: #f0fff0;
-				}
-			</style>
 			<h2 style="padding: unset;">
 				<?php
 					echo esc_html__( 'Copy the following link and share it to apply this coupon via URL.', 'woocommerce-smart-coupons' );
@@ -125,7 +120,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 				<textarea id="coupon-link" readonly="readonly" rows="1" cols="25"><?php echo esc_html( $coupon_share_url ); ?></textarea>
 				<br><br>
 				<div class="copy-button" style="float: right;">
-					<button class="button button-primary sc-click-to-copy-btn" id="sc-click-to-copy-btn" onclick="sc_copy_coupon_link_to_clipboard()" data-clipboard-action="copy" data-clipboard-target="#coupon-link"><?php echo esc_html__( 'Click to copy', 'woocommerce-smart-coupons' ); ?></button>
+					<a class="button button-primary sc-click-to-copy-btn" id="sc-click-to-copy-btn" onclick="sc_copy_coupon_link_to_clipboard()" data-clipboard-action="copy" data-clipboard-target="#coupon-link"><?php echo esc_html__( 'Click to copy', 'woocommerce-smart-coupons' ); ?></a>
 				</div>
 				<br><br>
 				<div class="sc-multiple-coupons">
@@ -156,18 +151,6 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 			}
 
 			?>
-			<style type="text/css">
-				.smart-coupons-field {
-					background-color: #f0fff0;
-				}
-				.coupon_title_prefix_suffix_field input {
-					height: 2em;
-				}
-				li.wc_sc_actions_tab a::before {
-					font-family: WooCommerce !important;
-					content: '\e01c' !important;
-				}
-			</style>
 			<script type="text/javascript">
 				jQuery(function(){
 					var customerEmails;
@@ -305,7 +288,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 						'id'                => 'wc_sc_max_discount',
 						'label'             => __( 'Max discount', 'woocommerce-smart-coupons' ),
 						'placeholder'       => esc_attr__( 'Unlimited discount', 'woocommerce-smart-coupons' ),
-						'description'       => __( 'The maximum discount this coupon can give.', 'woocommerce-smart-coupons' ),
+						'description'       => __( 'The maximum discount this coupon can give on a cart.', 'woocommerce-smart-coupons' ),
 						'type'              => 'number',
 						'desc_tip'          => true,
 						'custom_attributes' => array(

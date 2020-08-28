@@ -1,5 +1,8 @@
 *** WooCommerce Follow-Up Emails ***
 
+2020-08-25 - version 4.9.7
+* Add - Import subscriptions where the last payment failed for trigger 'subs_payment_failed'.
+
 2020-08-19 - version 4.9.6
 * Fix - Replace deprecated jQuery methods.
 

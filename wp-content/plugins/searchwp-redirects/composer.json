@@ -1,0 +1,21 @@
+{
+  "name": "searchwp/searchwp-redirect",
+  "description": "Automatically redirect to a specific URL when certain searches are performed",
+  "keywords": ["wordpress", "search", "redirect"],
+  "homepage": "https://searchwp.com/extensions/redirect/",
+  "authors": [
+    {
+      "name": "Jonathan Christopher",
+      "homepage": "https://searchwp.com/"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "autoload" : {
+    "psr-4": {
+      "SearchWP_Redirects\\": "includes"
+    }
+  },
+  "require": {
+    "php": ">=5.3.2"
+  }
+}

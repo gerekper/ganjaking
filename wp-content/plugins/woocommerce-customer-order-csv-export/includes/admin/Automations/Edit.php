@@ -709,6 +709,15 @@ class Edit {
 
 			wc_customer_order_csv_export()->get_message_handler()->add_message( __( 'Automated export saved successfully.', 'woocommerce-customer-order-csv-export' ) );
 
+			/**
+			 * Fires after an automated export has been saved.
+			 *
+			 * @since 5.1.0
+			 *
+			 * @param Automation $automation automation object
+			 */
+			do_action( 'wc_customer_order_export_automated_export_saved', $automation );
+
 			wp_safe_redirect( Automations::get_automation_edit_url( $automation->get_id() ) );
 			exit;
 

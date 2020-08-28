@@ -1,5 +1,17 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2020.08.24 - version 4.8.0
+* New: Group coupons by category
+* New: Tested upto WooCommerce 4.4.1 & WordPress 5.5
+* Fix: 'Click to Copy' updating coupon
+* Fix: Max discount not working
+* Update: Link color in footer
+* Update: Code improvements for admin CSS
+* Developer: Hook 'wc_sc_before_shortcode_smart_coupons_html_start'
+* Developer: Hook 'wc_sc_coupon_code_allowed_characters'
+* Developer: Hook 'wc_sc_is_coupon_restriction_available'
+* Update: POT file
+
 2020.08.05 - version 4.7.8
 * New: Tested upto WooCommerce 4.3.1
 * New: Template for purchasing credit of any amount (on single product page)

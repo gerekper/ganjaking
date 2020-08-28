@@ -1,0 +1,494 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: SearchWP Metrics\n"
+"POT-Creation-Date: 2018-07-19 10:24-0400\n"
+"PO-Revision-Date: 2018-07-19 10:24-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.9\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: searchwp-metrics.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/DashboardWidget.php:137
+msgid "Popular Searches (across all engines)"
+msgstr ""
+
+#: includes/DashboardWidget.php:146
+msgid "Popular Search Content (Based on clicks across all engines)"
+msgstr ""
+
+#: includes/DashboardWidget.php:283 includes/SearchWP_Metrics.php:173
+#: includes/SearchWP_Metrics.php:174
+msgid "Search Metrics"
+msgstr ""
+
+#: includes/SearchWP_Metrics.php:112
+msgid "Invalid option"
+msgstr ""
+
+#: includes/SearchWP_Metrics.php:202
+msgid "Metrics"
+msgstr ""
+
+#: includes/SearchWP_Metrics.php:344 includes/Utilities.php:508
+msgid "Default"
+msgstr ""
+
+#: includes/Utilities.php:147
+msgid "An invalid engine was passed to get_popular_search_details()"
+msgstr ""
+
+#: includes/Utilities.php:499 includes/Utilities.php:505
+msgid "Invalid Engine"
+msgstr ""
+
+#: includes/Utilities.php:657 includes/Utilities.php:822
+msgid "An invalid engine was passed to get_queries_for_post_id()"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:13
+msgid "Add as a partial match"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:14
+msgid "Are you sure?"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:15
+msgid "Average Click Rank"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:16
+msgid "Average Rank"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:17
+msgid "Cancel"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:18
+msgid "Choose an engine"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:19
+msgid "Clear Data"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:20
+msgid "Clear Metrics Data"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:22
+msgid ""
+"This will remove all of the data Metrics has logged to date. Once cleared, "
+"this data <strong>cannot be restored!</strong>"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:28
+msgid ""
+"Are you sure you want to clear all ignored queries? <strong>This cannot be "
+"undone!</strong>"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:33
+msgid "Clicked Result"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:34
+msgid "Clicks"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:35
+msgid "Clicks Per Search"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:39
+#, php-format
+msgid ""
+"Click tracking requires a small %1$stemplate customization%2$s to be in place"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:49
+msgid "Influence search results using click data"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:50
+msgid ""
+"When enabled, Metrics will use its data to add weight to results based on "
+"conversion rate (clicks)"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:51
+msgid ""
+"To enable the ability to influence search results ranking, update to "
+"SearchWP 2.9.14 or higher."
+msgstr ""
+
+#: searchwp-metrics-i18n.php:52
+msgid "Close"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:53
+msgid "Conversion Rate"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:54
+msgid "Date Range"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:56
+msgid "Su_Mo_Tu_We_Th_Fr_Sa"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:57
+msgid "Details"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:60
+#, php-format
+msgid "%s Engine - Details for this Date Range"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:63
+msgid "Engine Statistics"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:64
+msgid "Engines to display"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:65
+msgid "Entry"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:66
+msgid "Export Engine Statistics"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:67
+msgid "Export Popular Searches"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:68
+msgid "Export Searches Over Time"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:69
+msgid "Ignored"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:70
+msgid ""
+"You have ignored the following queries; they are excluded from Metrics. "
+"Ignored queries are unique to you, other users retain their own ignored "
+"queries."
+msgstr ""
+
+#: searchwp-metrics-i18n.php:71
+msgid "Ignored Searches"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:72
+msgid "Ignored Search Query"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:76
+#, php-format
+msgid ""
+"Searches for %1$s generated %2$s clicks to %3$s different results. Content "
+"related to %4$s may need to be more targeted."
+msgstr ""
+
+#: searchwp-metrics-i18n.php:89
+#, php-format
+msgid ""
+"There are %1$s popular entries with a relatively high conversion rate. "
+"Should these entries be more prominent on the site?"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:99
+#, php-format
+msgid ""
+"There is %1$s popular entry that is viewed more than the average. Should "
+"this entry be more prominent on the site?"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:108
+#, php-format
+msgid ""
+"There are %1$s entries with a relatively high conversion rate, but a low "
+"search result rank. Can any be optimized to rank higher?"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:114
+#, php-format
+msgid ""
+"There is %1$s entry that has a high conversion rate, but a low search result "
+"rank. Can it be optimized to rank higher?"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:121
+msgid "Insights"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:124
+#, php-format
+msgid "Insights (%s engine)"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:127
+msgid "IP Blacklist"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:128
+msgid "One per line. Searches from these IPs will be ignored."
+msgstr ""
+
+#: searchwp-metrics-i18n.php:129
+msgid "Logging Rules"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:130
+msgid ""
+"Logging can be prevented by customizing the IP Blacklist and User ID/Role "
+"Blacklist below. Searches that meet the criteria of either Blacklist will "
+"not be logged."
+msgstr ""
+
+#: searchwp-metrics-i18n.php:132
+msgid ""
+"<strong>Note:</strong> these rules are <strong>not</strong> applied "
+"retroactively"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:137
+msgid "Limit Metrics to Queries"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:138
+msgid "Modify Logging Rules"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:140
+msgid "January_February_March_April_May_June_July_August_September_October_November_December"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:142
+msgid "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:143
+msgid "There were no clicks for this search during this timeframe"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:144
+msgid "There are no searches that yielded zero results"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:145
+msgid "There are no queries that have been ignored"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:146
+msgid ""
+"There are no Insights to display yet, please allow time for more data to be "
+"collected"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:147
+msgid "No Results Searches"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:150
+#, php-format
+msgid "No Results Searches (%s engine)"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:156
+#, php-format
+msgid ""
+"<strong>Tip:</strong> Because these searches found no results you may want "
+"to set up %s that better match your content."
+msgstr ""
+
+#: searchwp-metrics-i18n.php:165
+msgid "Not enough data..."
+msgstr ""
+
+#: searchwp-metrics-i18n.php:166
+msgid "of all searches"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:169
+#, php-format
+msgid "Popular Search Details (%s engine)"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:172
+msgid ""
+"Gain more insight into your popular searches by analyzing the clicks for "
+"popular search terms."
+msgstr ""
+
+#: searchwp-metrics-i18n.php:173
+msgid "Popular Searches"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:174
+msgid "remove"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:175
+msgid "Remove All Ignored Queries"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:176
+msgid "Remove all Metrics data on uninstallation"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:177
+msgid ""
+"When enabled, Metrics will permanently remove all of its data upon "
+"uninstallation (cannot be undone)"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:178
+msgid "Save and Close"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:180
+msgid "Search Query"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:181
+msgid "Search Query Controls"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:182
+msgid "Searches"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:183
+msgid "Searches Per User"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:185
+msgid "Average number of searches by<br>users who have searched"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:190
+msgid "Select Hour"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:191
+msgid "Select Minute"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:192
+msgid "Select Second"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:193
+msgid "General Settings"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:194
+msgid "Stop ignoring this query"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:196
+msgid "to"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:197
+msgid "Total Results Viewed"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:198
+msgid "Total Searches"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:199
+msgid "Update"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:200
+msgid "User ID/Role Blacklist"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:201
+msgid "One per line. Searches from these IDs/Roles will be ignored."
+msgstr ""
+
+#: searchwp-metrics-i18n.php:202
+msgid "View All"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:203
+msgid "View More"
+msgstr ""
+
+#: searchwp-metrics-i18n.php:204
+msgid "View No Results Searches"
+msgstr ""
+
+#: searchwp-metrics.php:57
+#, php-format
+msgid ""
+"Your version of PHP (%s) is below the minimum version of PHP required by "
+"SearchWP Metrics (5.4). Please contact your host and request that your "
+"version be upgraded to 5.4 or later."
+msgstr ""
+
+#: updater.php:203
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+
+#: updater.php:211
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+
+#: updater.php:401
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: updater.php:401
+msgid "Error"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "SearchWP Metrics"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://searchwp.com/extensions/metrics/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Advanced search metrics from SearchWP"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SearchWP, LLC"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://searchwp.com/"
+msgstr ""

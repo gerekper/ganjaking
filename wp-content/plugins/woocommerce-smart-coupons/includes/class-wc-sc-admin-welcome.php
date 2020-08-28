@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.0
+ * @version     1.1.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -51,6 +51,29 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 		}
 
 		/**
+		 * Handle call to functions which is not available in this class
+		 *
+		 * @param string $function_name The function name.
+		 * @param array  $arguments Array of arguments passed while calling $function_name.
+		 * @return result of function call
+		 */
+		public function __call( $function_name, $arguments = array() ) {
+
+			global $woocommerce_smart_coupon;
+
+			if ( ! is_callable( array( $woocommerce_smart_coupon, $function_name ) ) ) {
+				return;
+			}
+
+			if ( ! empty( $arguments ) ) {
+				return call_user_func_array( array( $woocommerce_smart_coupon, $function_name ), $arguments );
+			} else {
+				return call_user_func( array( $woocommerce_smart_coupon, $function_name ) );
+			}
+
+		}
+
+		/**
 		 * Add admin menus/screens.
 		 */
 		public function admin_menus() {
@@ -64,12 +87,14 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 			$welcome_page_name  = __( 'About Smart Coupons', 'woocommerce-smart-coupons' );
 			$welcome_page_title = __( 'Welcome to Smart Coupons', 'woocommerce-smart-coupons' );
 
+			$parent_slug = ( $this->is_wc_gte_44() ) ? 'woocommerce-marketing' : 'woocommerce';
+
 			switch ( $get_page ) {
 				case 'sc-about':
-					add_submenu_page( 'woocommerce', $welcome_page_title, $welcome_page_name, 'manage_options', 'sc-about', array( $this, 'about_screen' ) );
+					add_submenu_page( $parent_slug, $welcome_page_title, $welcome_page_name, 'manage_options', 'sc-about', array( $this, 'about_screen' ) );
 					break;
 				case 'sc-faqs':
-					add_submenu_page( 'woocommerce', $welcome_page_title, $welcome_page_name, 'manage_options', 'sc-faqs', array( $this, 'faqs_screen' ) );
+					add_submenu_page( $parent_slug, $welcome_page_title, $welcome_page_name, 'manage_options', 'sc-faqs', array( $this, 'faqs_screen' ) );
 					break;
 			}
 		}
@@ -78,8 +103,10 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 		 * Add styles just for this page, and remove dashboard page links.
 		 */
 		public function admin_head() {
-			remove_submenu_page( 'woocommerce', 'sc-about' );
-			remove_submenu_page( 'woocommerce', 'sc-faqs' );
+			$parent_slug = ( $this->is_wc_gte_44() ) ? 'woocommerce-marketing' : 'woocommerce';
+
+			remove_submenu_page( $parent_slug, 'sc-about' );
+			remove_submenu_page( $parent_slug, 'sc-faqs' );
 
 			$get_page = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore
 

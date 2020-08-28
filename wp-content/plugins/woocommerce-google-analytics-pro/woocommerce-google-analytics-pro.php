@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Google Analytics Pro
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-google-analytics-pro/
+ * Documentation URI: https://docs.woocommerce.com/document/woocommerce-google-analytics-pro/
  * Description: Supercharge your Google Analytics tracking with enhanced eCommerce tracking and custom event tracking
  * Author: SkyVerge
  * Author URI: http://www.skyverge.com
- * Version: 1.8.14
+ * Version: 1.9.0
  * Text Domain: woocommerce-google-analytics-pro
  * Domain Path: /i18n/languages/
  *
@@ -21,7 +22,7 @@
  *
  * Woo: 1312497:d8aed8b7306b509eec1589e59abe319f
  * WC requires at least: 3.0.9
- * WC tested up to: 4.2.2
+ * WC tested up to: 4.4.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -84,10 +85,13 @@ class WC_Google_Analytics_Pro_Loader {
 		add_action( 'admin_init',    array( $this, 'add_plugin_notices' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
 
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
+
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
+			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}
@@ -331,6 +335,24 @@ class WC_Google_Analytics_Pro_Loader {
 			<?php
 
 		endforeach;
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

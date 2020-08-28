@@ -122,6 +122,7 @@ function rocket_plugins_to_deactivate() {
 		'cache-enabler'                              => 'cache-enabler/cache-enabler.php',
 		'swift-performance-lite'                     => 'swift-performance-lite/performance.php',
 		'swift-performance'                          => 'swift-performance/performance.php',
+		'speed-booster-pack'                         => 'speed-booster-pack/speed-booster-pack.php',
 		'wp-http-compression'                        => 'wp-http-compression/wp-http-compression.php',
 		'wordpress-gzip-compression'                 => 'wordpress-gzip-compression/ezgz.php',
 		'gzip-ninja-speed-compression'               => 'gzip-ninja-speed-compression/gzip-ninja-speed.php',
@@ -156,7 +157,7 @@ function rocket_plugins_to_deactivate() {
 		$plugins['lazy-load-for-videos'] = 'lazy-load-for-videos/codeispoetry.php';
 	}
 
-	if ( get_rocket_option( 'minify_css' ) || get_rocket_option( 'minify_js' ) || get_rocket_option( 'minify_html' ) ) {
+	if ( get_rocket_option( 'minify_css' ) || get_rocket_option( 'minify_js' ) ) {
 		$plugins['wp-super-minify']         = 'wp-super-minify/wp-super-minify.php';
 		$plugins['bwp-minify']              = 'bwp-minify/bwp-minify.php';
 		$plugins['wp-minify']               = 'wp-minify/wp-minify.php';
@@ -169,11 +170,6 @@ function rocket_plugins_to_deactivate() {
 	if ( get_rocket_option( 'minify_css' ) || get_rocket_option( 'minify_js' ) ) {
 		$plugins['async-js-and-css']     = 'async-js-and-css/asyncJSandCSS.php';
 		$plugins['merge-minify-refresh'] = 'merge-minify-refresh/merge-minify-refresh.php';
-	}
-
-	if ( get_rocket_option( 'minify_html' ) ) {
-		$plugins['wp-html-compression'] = 'wp-html-compression/wp-html-compression.php';
-		$plugins['wp-compress-html']    = 'wp-compress-html/wp_compress_html.php';
 	}
 
 	if ( get_rocket_option( 'minify_js' ) ) {

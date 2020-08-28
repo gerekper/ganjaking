@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.3.0';
+	const VERSION = '2.4.0';
 
 	/** plugin id */
 	const PLUGIN_ID = 'checkout_add_ons';
@@ -147,7 +147,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 				'version'     => '2.0.0',
 				'removed'     => true,
 				'map'         => true,
-				'replacement' => 'woocommerce_checkout_add_on_get_attributes',
+				'replacement' => 'woocommerce_checkout_add_on_get_options',
 			),
 			'wc_checkout_add_ons_add_on_name' => array(
 				'version'     => '2.0.0',

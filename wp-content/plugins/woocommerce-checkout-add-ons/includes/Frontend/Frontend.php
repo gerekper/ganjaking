@@ -407,6 +407,8 @@ class Frontend {
 							'default'     => $this->checkout_get_add_on_value( $default, $add_on->get_id() ),
 							'placeholder' => $default,
 							'description' => $add_on->get_description(),
+							// this class is used to prevent errors before triggering update_checkout
+							'input_class' => [ 'select2-search__field' ],
 						];
 
 					break;
@@ -993,7 +995,7 @@ class Frontend {
 						$field .= '<label for="' . esc_attr( $key ) . '" class="' . implode( ' ', $args['label_class'] ) .'">' . $args['label']. $required . '</label>';
 					}
 
-					$field .= '<select name="' . esc_attr( $key ) . '[]" id="' . esc_attr( $key ) . '" class="select" multiple="multiple" ' . implode( ' ', $custom_attributes ) . '>'
+					$field .= '<select name="' . esc_attr( $key ) . '[]" id="' . esc_attr( $key ) . '" class="select select2-search__field" multiple="multiple" ' . implode( ' ', $custom_attributes ) . '>'
 							. $options
 							. ' </select>';
 

@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Customer/Order/Coupon Export
  * Plugin URI: http://www.woocommerce.com/products/ordercustomer-csv-export/
+ * Documentation URI: https://docs.woocommerce.com/document/ordercustomer-csv-export/
  * Description: Easily download customers, orders, and coupons in CSV and XML and schedule recurring, automated exports via FTP, HTTP POST, and more.
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 5.0.14
+ * Version: 5.1.0
  * Text Domain: woocommerce-customer-order-csv-export
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +23,7 @@
  *
  * Woo: 18652:914de15813a903c767b55445608bf290
  * WC requires at least: 3.0.9
- * WC tested up to: 4.3.1
+ * WC tested up to: 4.4.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -89,10 +90,13 @@ class WC_Customer_Order_CSV_Export_Loader {
 
 		add_action( 'admin_notices', [ $this, 'admin_notices' ], 15 );
 
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
+
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
+			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
 		}
@@ -342,6 +346,24 @@ class WC_Customer_Order_CSV_Export_Loader {
 			</div>
 			<?php
 		}
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 5.1.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

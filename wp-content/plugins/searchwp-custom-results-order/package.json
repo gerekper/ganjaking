@@ -1,0 +1,36 @@
+{
+	"dependencies": {
+		"autoprefixer": "^8.6.5",
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"babel-plugin-transform-runtime": "^6.23.0",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-es2017": "^6.24.1",
+		"concurrently": "^3.6.0",
+		"cross-env": "^5.2.0",
+		"css-loader": "^3.4.2",
+		"cssnano": "^4.1.10",
+		"debounce": "^1.2.0",
+		"parcel-bundler": "^1.9.0",
+		"postcss-modules": "^1.1.0",
+		"scss-loader": "0.0.1",
+		"v-tooltip": "^3.0.0-alpha.7",
+		"vue": "^2.5.16",
+		"vue-simple-spinner": "^1.2.8",
+		"vue-style-loader": "^4.1.0",
+		"vue-template-compiler": "^2.5.16"
+	},
+	"scripts": {
+		"watch": "concurrently \"npm run dev\" \"npm run build\" \"npm run pot\"",
+		"dev": "cross-env NODE_ENV=development node assets/js/bundler-dev.js",
+		"build": "cross-env NODE_ENV=production node assets/js/bundler-build.js",
+		"pot": "chokidar ./i18n.php ./searchwp-custom-results-order.php ./includes/*.php -c 'wp-pot --write-file --src \"**/*.php\" --dest-file \"languages/searchwpcro.pot\" --package \"SearchWP Custom Results Order\" --domain \"searchwpcro\" --last-translator \"Jon Christopher <info@searchwp.com>\" --team \"SearchWP <info@searchwpcro.com>\" --bug-report \"https://searchwp.com/contact\"' --initial"
+	},
+	"devDependencies": {
+		"@vue/component-compiler-utils": "^3.0.0",
+		"node-sass": "^4.13.1",
+		"parcel-plugin-bundle-visualiser": "^1.1.2"
+	},
+	"alias": {
+		"vue": "./node_modules/vue/dist/vue.common.js"
+	}
+}

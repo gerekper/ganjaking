@@ -1386,6 +1386,52 @@ class FUE_Addon_Subscriptions_V2 {
 				// $subscription is of type stdClass
 				$orders[] = $subscription->ID;
 			}
+		} elseif ( $email->trigger == 'subs_payment_failed' ) {
+			// Get subscriptions which are on-hold and have their last payment set to failed.
+			$args = array(
+				'subscription_status' => 'on-hold',
+			);
+
+			if ( $email->product_id > 0 ) {
+				$args['product_id'] = $email->product_id;
+			} elseif ( $email->category_id > 0 ) {
+				$args['category_id'] = $email->category_id;
+			}
+
+			$all_subscriptions = self::get_subscriptions( $args );
+
+			foreach ( $all_subscriptions as $the_subscription ) {
+				if ( $the_subscription->post_parent == 0 ) {
+					continue;
+				}
+
+				$subscription = wcs_get_subscription( $the_subscription->ID );
+				$last_order   = $subscription ? $subscription->get_last_order( 'all' ) : false;
+
+				if ( $last_order && $last_order->has_status( 'failed' ) ) {
+					$order_id = ($subscription->get_parent()) ? WC_FUE_Compatibility::get_order_prop( $subscription->get_parent(), 'id' ) : 0;
+
+					// Only add to queue if this is a resubscribe/renewal order.
+					if ( ! wcs_order_contains_resubscribe( $last_order ) && ! wcs_order_contains_renewal( $last_order ) ) {
+						continue;
+					}
+
+					$in_queue = $wpdb->get_var( $wpdb->prepare(
+						"SELECT COUNT(*)
+						FROM {$wpdb->prefix}followup_email_orders
+						WHERE order_id = %d
+						AND email_id = %d",
+						$order_id,
+						$email->id
+					) );
+
+					if ( $in_queue ) {
+						continue;
+					}
+
+					$orders[] = $subscription->get_id();
+				}
+			}
 		}
 
 		if ( empty( $orders ) ) {
@@ -1472,6 +1518,13 @@ class FUE_Addon_Subscriptions_V2 {
 				case 'subs_before_renewal':
 					$trigger_date = $subscription->get_date( 'next_payment' );
 					break;
+
+				case 'subs_payment_failed':
+					// Trigger date is set to the modified date of the last failed renewal order.
+					$last_order   = $subscription->get_last_order( 'all' );
+					$trigger_date = $last_order && $last_order->has_status( 'failed' ) ? get_date_from_gmt( $last_order->get_date_modified() ) : 0;
+					break;
+
 		        default:
 			        $trigger_date = 0;
 			        break;

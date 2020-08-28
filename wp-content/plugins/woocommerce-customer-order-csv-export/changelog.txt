@@ -1,5 +1,8 @@
 *** WooCommerce Customer/Order/Coupon Export Changelog ***
 
+2020.08.24 - version 5.1.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+
 2020.07.28 - version 5.0.14
  * Fix - Escape quotes in the export name field
  * Fix - Hide start date and end date fields when Export Type is set to Coupon in the Manual Export

@@ -25,6 +25,7 @@ defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\CSV_Export\Automations\Scheduler;
 use SkyVerge\WooCommerce\CSV_Export\Background_Mark_Exported;
+use SkyVerge\WooCommerce\CSV_Export\Integrations\Integrations;
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
 use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
 
@@ -37,7 +38,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '5.0.14';
+	const VERSION = '5.1.0';
 
 	/** @var WC_Customer_Order_CSV_Export single instance of this plugin */
 	protected static $instance;
@@ -92,6 +93,9 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 
 	/** @var \SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler instance */
 	protected $taxonomies_handler;
+
+	/** @var \SkyVerge\WooCommerce\CSV_Export\Integrations\Integrations integrations instance */
+	protected $integrations;
 
 
 	/**
@@ -241,6 +245,9 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 
 		// handles custom taxonomy
 		$this->taxonomies_handler = $this->load_class( '/includes/Taxonomies_Handler.php', Taxonomies_Handler::class );
+
+		// handles integrations
+		$this->integrations = $this->load_class( '/includes/Integrations/Integrations.php', Integrations::class );
 
 		require_once( $this->get_plugin_path() . '/includes/Export_Formats/Export_Format_Definition.php' );
 		require_once( $this->get_plugin_path() . '/includes/Export_Formats/CSV/CSV_Export_Format_Definition.php' );
@@ -626,7 +633,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 	 */
 	public function get_documentation_url() {
 
-		return 'http://docs.woocommerce.com/document/ordercustomer-csv-exporter/';
+		return 'https://docs.woocommerce.com/document/ordercustomer-csv-export/';
 	}
 
 

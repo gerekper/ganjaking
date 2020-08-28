@@ -1,0 +1,21 @@
+{
+  "name": "searchwp/searchwp-custom-results-order",
+  "description": "Customize SearchWP results order",
+  "keywords": ["wordpress", "search", "results", "customize"],
+  "homepage": "https://searchwp.com/extensions/custom-results-order/",
+  "authors": [
+    {
+      "name": "Jonathan Christopher",
+      "homepage": "https://searchwp.com/"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "autoload" : {
+    "psr-4": {
+      "SearchWP_CRO\\": "includes"
+    }
+  },
+  "require": {
+    "php": ">=5.6"
+  }
+}
