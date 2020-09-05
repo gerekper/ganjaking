@@ -139,7 +139,7 @@ class CT_Ultimate_GDPR_Controller_Rectification extends CT_Ultimate_GDPR_Control
 			$subject = apply_filters(
 				'ct_ultimate_gdpr_controller_rectification_request_admin_mail_subject',
 				sprintf(
-					esc_html__( "[Ultimate GDPR] New Data Rectification request from %s", 'ct-ultimate-gdpr' ),
+					esc_html__( "[Ultimate GDPR & CCPA] New Data Rectification request from %s", 'ct-ultimate-gdpr' ),
 					get_bloginfo( 'name' )
 				)
 			);
@@ -210,7 +210,7 @@ class CT_Ultimate_GDPR_Controller_Rectification extends CT_Ultimate_GDPR_Control
 
 		ct_ultimate_gdpr_send_confirm_mail(
 			$email,
-			sprintf( esc_html__( '[Ultimate GDPR] Please confirm your data rectification request from %s', 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
+			sprintf( esc_html__( '[Ultimate GDPR & CCPA] Please confirm your data rectification request from %s', 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 			$this->get_id(),
 			$request_data['date'],
 			$target_url
@@ -558,7 +558,7 @@ class CT_Ultimate_GDPR_Controller_Rectification extends CT_Ultimate_GDPR_Control
 
 			add_settings_field(
 				'rectification_target_page', // ID
-				esc_html__( "Set custom URL to the page containing Ultimate GDPR shortcode as the email confirmation target page (or leave empty for autodetect)", 'ct-ultimate-gdpr' ), // Title
+				esc_html__( "Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email confirmation target page (or leave empty for autodetect)", 'ct-ultimate-gdpr' ), // Title
 				array( $this, 'render_field_rectification_target_page' ), // Callback
 				$this->get_id(), // Page
 				$this->get_id() // Section
@@ -644,7 +644,7 @@ class CT_Ultimate_GDPR_Controller_Rectification extends CT_Ultimate_GDPR_Control
 
 		return apply_filters( "ct_ultimate_gdpr_controller_{$this->get_id()}_default_options", array(
 			'rectification_notify_email' => get_bloginfo( 'admin_email' ),
-			'rectification_mail_title'   => sprintf( esc_html__( "[Ultimate GDPR] Data rectification notice from %s", 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
+			'rectification_mail_title'   => sprintf( esc_html__( "[Ultimate GDPR & CCPA] Data rectification notice from %s", 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 			'rectification_mail_content' => sprintf( esc_html__( "Your data has been rectified", 'ct-ultimate-gdpr' ) ),
 		) );
 

@@ -70,7 +70,7 @@ class CT_Ultimate_GDPR_Service_Google_Analytics extends CT_Ultimate_GDPR_Service
 			'ct-ultimate-gdpr-cookie_tab-1_section-4',
 			array(
 				'hint' => sprintf(
-					wp_kses_post( __( 'Please note that even when enabled, Ultimate GDPR will still block Google Analytics without user consent. If you would like to track anonymously users without accepting cookies, please <a href=\'%s\' target=\'_blank\'>read more here</a>.', 'ct-ultimate-gdpr' ) ),
+					wp_kses_post( __( 'Please note that even when enabled, Ultimate GDPR & CCPA will still block Google Analytics without user consent. If you would like to track anonymously users without accepting cookies, please <a href=\'%s\' target=\'_blank\'>read more here</a>.', 'ct-ultimate-gdpr' ) ),
 					'https://gdpr-plugin.readthedocs.io/en/latest/faq/FAQ.html#google-analytics-stats'
 				),
 			)

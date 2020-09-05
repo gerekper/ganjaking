@@ -1,0 +1,22 @@
+/**
+ * Table of contents
+ *
+ * # Activation warning
+ */
+
+/* --------------------------------------
+ * # Activation warning
+ *--------------------------------------*/
+
+.wpb-rss-not-active-info {
+	background: #fff url('../img/snip.svg') no-repeat center right;
+	background-size: 100px;
+	background-position: right center;
+	background-position: calc(100% - 1rem) center;
+}
+
+@media (max-width: 560px) {
+	.wpb-rss-not-active-info {
+		background-image: none;
+	}
+}

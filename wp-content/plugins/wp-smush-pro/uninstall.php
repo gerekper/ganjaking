@@ -51,6 +51,7 @@ $smushit_keys = array(
 	'networkwide',
 	'cron_update_running',
 	'hide-conflict-notice',
+	'show_upgrade_modal',
 );
 
 $db_keys = array(

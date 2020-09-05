@@ -58,7 +58,7 @@ import Smush from '../smush/smush';
 					return false;
 				}
 
-				$( '.wp-smush-remaining' ).hide();
+				$( '.wp-smush-remaining' ).addClass( 'sui-hidden' );
 
 				// Show loader.
 				progress

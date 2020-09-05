@@ -56,6 +56,72 @@ class Cart {
 
 		// perhaps disable the shipping calculator if the first and sole item in the cart totals is for pickup
 		add_filter( 'option_woocommerce_enable_shipping_calc', [ $this, 'disable_shipping_calculator' ] );
+
+		// ensures that the cart totals are blocked until the document is ready to ensure that package handling is persisted in session via AJAX request
+		add_action( 'woocommerce_after_template_part', [ $this, 'add_cart_totals_block_ui_script' ], 1 );
+	}
+
+
+	/**
+	 * Blocks the cart totals UI until the document is ready.
+	 *
+	 * May address an issue that is more evident on slower connections (while testing you may need to throttle your network speed to see it).
+	 * The cart page may not block the cart totals carrying the shipping options radio inputs while the document is being loaded.
+	 * Hence, there's the possibility that the customer clicks on the inputs but the choice would not be persisted as the AJAX request won't fire on time.
+	 * This will inject a script to be executed immediately, instructing to block the cart totals until document is ready.
+	 *
+	 * Note that we require jQuery and jQueryUI to be loaded in head when attaching Local Pickup Plus front end scripts:
+	 * @see Frontend::load_scripts()
+	 *
+	 * @internal
+	 *
+	 * @since 2.8.3
+	 *
+	 * @param string $template_name the template being loaded
+	 */
+	public function add_cart_totals_block_ui_script( $template_name ) {
+
+		// bail if not on the cart page
+		if ( 'cart/shipping-calculator.php' !== $template_name || ! is_cart() ) {
+			return;
+		}
+
+		$local_pickup_plus = wc_local_pickup_plus_shipping_method();
+
+		// bail if:
+		// - Local Pickup Plus is not available
+		// - if the pickup is one item per package: the radio inputs won't show
+		if ( ! $local_pickup_plus || ! $local_pickup_plus->is_available() || ! $local_pickup_plus->is_per_order_selection_enabled() )  {
+			return;
+		}
+
+		?>
+		<script type="text/javascript">
+			if ( typeof jQuery !== 'undefined' && jQuery.isFunction( jQuery.fn.block ) ) {
+
+				var $cartTotals       = jQuery( 'div.cart_totals' );
+				var unblockCartTotals = true;
+
+				if ( $cartTotals && $cartTotals.length > 0 && ( ! $cartTotals.is( 'processing' ) && ! $cartTotals.parents( '.processing' ).length > 0 ) ) {
+					$cartTotals.addClass( 'processing' ).block( {
+						message: null,
+						overlayCSS: {
+							background: '#fff',
+							opacity: 0.6
+						}
+					} );
+				} else {
+					unblockCartTotals = false;
+				}
+
+				jQuery( document ).ready( function( $ ) {
+					if ( unblockCartTotals ) {
+						$( 'div.cart_totals' ).removeClass( 'processing' ).unblock()
+					}
+				} );
+			}
+		</script>
+		<?php
 	}
 
 

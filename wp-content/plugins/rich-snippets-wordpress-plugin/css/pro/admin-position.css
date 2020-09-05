@@ -1,0 +1,46 @@
+/**
+ * Table of contents
+ *
+ * # Actions
+ * # Select
+ */
+
+.wpb-rs-ruleset thead {
+    display: none;
+}
+
+.wpb-rs-param,
+.wpb-rs-operator {
+    width: 25%;
+}
+
+.wpb-rs-value {
+    width: 30%;
+}
+
+/* --------------------------------------
+ * # Actions
+ *--------------------------------------*/
+.wpb-rs-rule-action {
+    width: 10%;
+    min-width: 3rem;
+    text-align: center;
+}
+.wpb-rs-rulegroup-remove span,
+.wpb-rs-rule-remove span {
+    vertical-align: middle;
+}
+
+.wpb-rs-ruleset tbody tr:first-child .wpb-rs-rule-remove a {
+    display: none;
+}
+
+/* --------------------------------------
+ * # Select
+ *--------------------------------------*/
+
+.wpb-rs-value .wpb-rs-select2-outer,
+.wpb-rs-value .wpb-rs-select,
+.wpb-rs-rule select {
+    width: 100%!important;
+}

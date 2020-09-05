@@ -343,6 +343,17 @@
 				);
 			}, 3000 );
 		},
+
+		/**
+		 * Hide new features modal.
+		 *
+		 * @since 3.7.0
+		 */
+		hideUpgradeModal: () => {
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', ajaxurl + '?action=hide_new_features');
+			xhr.send();
+		},
 	};
 
 	/**

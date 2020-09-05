@@ -1,70 +1,16 @@
 @charset "UTF-8";
-@font-face {
-  font-family: dosis_regular;
-  src: url("fonts/dosis/Dosis-Regular.woff2") format("woff2"), url("fonts/dosis/Dosis-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Hind;
-  src: url("fonts/hind/Hind-Regular.woff2") format("woff2"), url("fonts/hind/Hind-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: montserrat_regular;
-  src: url("fonts/montserrat/Montserrat-Regular.woff2") format("woff2"), url("fonts/montserrat/Montserrat-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: montserrat_medium;
-  src: url("fonts/montserrat/Montserrat-Medium.woff2") format("woff2"), url("fonts/montserrat/Montserrat-Medium.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: montserrat_semibold;
-  src: url("fonts/montserrat/Montserrat-SemiBold.woff2") format("woff2"), url("fonts/montserrat/Montserrat-SemiBold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: montserrat_bold;
-  src: url("fonts/montserrat/Montserrat-Bold.woff2") format("woff2"), url("fonts/montserrat/Montserrat-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: open_sans_regular;
-  src: url("fonts/open-sans/OpenSans-Regular.woff2") format("woff2"), url("fonts/open-sans/OpenSans-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: open_sans_bold;
-  src: url("fonts/open-sans/OpenSans-Bold.woff2") format("woff2"), url("fonts/open-sans/OpenSans-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-}
-
 body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 #ct-ultimate-gdpr-cookie-popup {
   line-height: 20px;
-  box-shadow: black 0 0 8px;
+  -webkit-box-shadow: black 0 0 8px;
+          box-shadow: black 0 0 8px;
   border-radius: 5px;
   z-index: 999999;
   opacity: 1;
@@ -112,12 +58,20 @@ body, html {
 }
 
 .notice-info {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-  padding: .5rem .7rem;
-  border-radius: 2px;
+  padding: 15px 20px;
   margin-bottom: 15px;
+  border: 1px solid #c3e6cb;
+  border-radius: 2px;
+  background-color: #d4edda;
+  font-family: Hind, sans-serif;
+  font-size: 18px;
+  color: #155724;
+}
+
+.notice-info.has-error {
+  border-color: #f5c6cb;
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
 .ct-ultimate-gdpr-container #tabs .ui-widget-header {
@@ -148,7 +102,8 @@ body, html {
 
 .ct-ultimate-gdpr-container #tabs .ui-tabs-nav .ui-tabs-anchor {
   padding: 1em 1.5em;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   font-weight: 700;
   white-space: normal;
 }
@@ -266,7 +221,8 @@ button:focus, input[type="button"]:focus, input[type="reset"]:focus, input[type=
 }
 
 .ct-ultimate-gdpr-container input[type="submit"] {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .ct-ultimate-gdpr-container input[type="text"],
@@ -335,7 +291,8 @@ body.cookie-modal-open {
   background-color: black;
   background-color: rgba(0, 0, 0, 0.7);
   overflow: auto;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .ct-ultimate-gdpr-cookie-modal-content {
@@ -441,8 +398,11 @@ body.cookie-modal-open {
 .ct-ultimate-gdpr-cookie-modal-slider {
   list-style: none;
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   margin: 0;
   padding: 0 0 50px 0;
 }
@@ -478,7 +438,8 @@ body.cookie-modal-open {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+          transform: translateY(-50%) translateX(-50%);
 }
 
 .ct-ultimate-gdpr-cookie-modal-slider li div svg path {
@@ -518,7 +479,8 @@ body.cookie-modal-open {
   border-radius: 100%;
   background: #fff;
   padding: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .ct-ultimate-gdpr-cookie-modal-slider li.ct-ultimate-gdpr-cookie-modal-slider-item--active label:after {
@@ -538,7 +500,8 @@ body.cookie-modal-open {
   -webkit-transform: scale(1);
   transform: scale(1);
   padding: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .ct-ultimate-gdpr-cookie-modal-slider li.ct-ultimate-gdpr-cookie-modal-slider-item--NOTactive label:after {
@@ -656,7 +619,8 @@ body.cookie-modal-open {
   background: #3170ce;
   border: 2px solid #3170ce;
   font-size: 14px;
-  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
 }
 
 .ct-ultimate-gdpr-cookie-modal-btn a:hover {
@@ -768,7 +732,8 @@ body.cookie-modal-open #ct-ultimate-gdpr-cookie-popup {
 }
 
 .ct-ultimate-gdpr-cookie-popup-modern {
-  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
 }
 
 .ct-ultimate-gdpr-cookie-popup-modern#ct-ultimate-gdpr-cookie-popup {
@@ -881,9 +846,6 @@ body.cookie-modal-open #ct-ultimate-gdpr-cookie-popup {
   position: absolute;
   top: -10px;
   -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
   transition: all 0.3s;
 }
 
@@ -1220,7 +1182,6 @@ body.cookie-modal-open #ct-ultimate-gdpr-cookie-popup {
 }
 
 .ct-ultimate-gdpr-my-account .fa-spinner {
-  -moz-animation: spin 3s linear infinite;
   -webkit-animation: spin 3s linear infinite;
   animation: spin 3s linear infinite;
   color: #6a8ee7;
@@ -1234,12 +1195,6 @@ body.cookie-modal-open #ct-ultimate-gdpr-cookie-popup {
 
 .ct-ultimate-gdpr-my-account.ct-ultimate-gdpr-container .ct-checkbox {
   top: 0;
-}
-
-@-moz-keyframes spin {
-  100% {
-    -moz-transform: rotate(360deg);
-  }
 }
 
 @-webkit-keyframes spin {
@@ -1282,6 +1237,13 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
 .ct-ultimate-gdpr-container form input[type="submit"] {
   display: block;
   margin-top: 15px;
+}
+
+.ct-ultimate-gdpr-container.ct-ultimate-gdpr-my-account .ct-headerContent p {
+  font-family: Hind, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #333;
 }
 
 .ct-ultimate-gdpr-container.ct-ultimate-gdpr-my-account #tabs .ui-widget-content input[type=submit]:disabled {
@@ -1481,7 +1443,8 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
 .ct-ultimate-gdpr-container.ct-ultimate-gdpr-simple-form .ui-widget-content input[type="submit"] {
   background-color: #6a8ee7;
   border-radius: 3px;
-  box-shadow: 0 0;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
   margin: 10px 0 0 0;
   padding: 13px 28px;
 }
@@ -1637,7 +1600,7 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   font-family: Hind, sans-serif;
   font-size: 12px;
   font-weight: 700;
-  margin: 0;
+  margin: 0 5px 0 0;
   text-transform: uppercase;
 }
 
@@ -1653,11 +1616,27 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   text-decoration: underline;
 }
 
+.ct-ultimate-gdpr-container.ct-ultimate-gdpr-rounded-form .ui-widget-content #ct-ultimate-gdpr-age-guard-name {
+  display: inline;
+  width: auto;
+}
+
+.ct-ultimate-gdpr-container.ct-ultimate-gdpr-rounded-form .ui-widget-content #ct-ultimate-gdpr-age-guard-name + label {
+  position: relative;
+}
+
+.ct-ultimate-gdpr-container.ct-ultimate-gdpr-rounded-form .ui-widget-content #ct-ultimate-gdpr-age-guard-name + label:before {
+  content: '';
+  display: block;
+  margin-top: 20px;
+}
+
 .ct-ultimate-gdpr-container.ct-ultimate-gdpr-rounded-form .ui-widget-content input[type=email],
 .ct-ultimate-gdpr-container.ct-ultimate-gdpr-rounded-form .ui-widget-content textarea {
   border: 0;
   border-radius: 3px;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   color: #b8b8b8;
   font-family: Hind, sans-serif;
   font-size: 13px;
@@ -1669,7 +1648,8 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
 .ct-ultimate-gdpr-container.ct-ultimate-gdpr-rounded-form .ui-widget-content input[type=submit] {
   background-color: #6a8ee7;
   border-radius: 25px;
-  box-shadow: 0 0;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
   font-family: Hind, sans-serif;
   font-weight: 600;
   margin: 20px 0 0 0;
@@ -1837,7 +1817,8 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
   border: 0;
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   color: #b8b8b8;
   display: inline-block;
   font-size: 13px;
@@ -1903,7 +1884,8 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
 .ct-ultimate-gdpr-container.ct-ultimate-gdpr-tabbed-form #tabs .ui-widget-content .ct-ultimate-gdpr-services-email textarea {
   background-color: #ffffff;
   border: 0;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   margin: 0;
 }
 
@@ -2029,6 +2011,8 @@ Modal Skin Style 1
 
 @media screen and (min-width: 568px) {
   .ct-ultimate-gdpr-cookie-skin-one #ct-ultimate-gdpr-cookie-modal-body .ct-ultimate-gdpr-cookie-modal-slider {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
   }
   .ct-ultimate-gdpr-cookie-skin-one #ct-ultimate-gdpr-cookie-modal-body .ct-ultimate-gdpr-cookie-modal-slider li {
@@ -2075,6 +2059,7 @@ Modal Skin Style 1
   border-radius: 0;
   font-family: Hind, sans-serif !important;
   padding: 10px 20px;
+  -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
 }
 
@@ -2227,6 +2212,8 @@ Modal Skin Style 2
 
 @media screen and (min-width: 568px) {
   .ct-ultimate-gdpr-cookie-skin-two.ct-ultimate-gdpr-cookie-modal-content #ct-ultimate-gdpr-cookie-modal-body .ct-ultimate-gdpr-cookie-modal-slider {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
   }
 }
@@ -2252,8 +2239,6 @@ Modal Skin Style 2
 }
 
 .ct-ultimate-gdpr-cookie-skin-two.ct-ultimate-gdpr-cookie-modal-content #ct-ultimate-gdpr-cookie-modal-body .ct-ultimate-gdpr-cookie-modal-btn a {
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
   border-radius: 0;
   font-family: montserrat_regular, sans-serif;
   font-size: 14px;
@@ -2261,6 +2246,7 @@ Modal Skin Style 2
   background-color: #6a8ee7;
   border: 2px solid #6a8ee7;
   padding: 11px 18px 11px 14px;
+  -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
 }
 
@@ -2308,6 +2294,7 @@ Modal Skin Style 2
 }
 
 .ct-ultimate-gdpr-cookie-skin-two .ct-ultimate-gdpr-cookie-modal-slider li.ct-ultimate-gdpr-cookie-modal-slider-item--active label:after {
+  -webkit-transition: all 1s ease;
   transition: all 1s ease;
 }
 
@@ -2436,7 +2423,8 @@ Modal Skin Style 2
 
 .ct-ultimate-gdpr-cookie-modal-compact-dark-blue #ct-ultimate-gdpr-cookie-modal-body h2 {
   clear: none;
-  font-family: Hind, sans-serif;
+  font-family: Hind,
+ sans-serif;
   font-size: 12px !important;
   font-weight: 600;
   letter-spacing: normal;
@@ -3329,11 +3317,11 @@ Modal Skin Style 2
   font-family: FontAwesome;
   font-size: 12px;
   height: auto;
-  left: -17px;
+  left: -15px;
   margin: 0;
   position: absolute;
   right: auto;
-  top: 2px;
+  top: -1px;
   transform: none;
   width: auto;
 }
@@ -3484,7 +3472,8 @@ Modal Skin Style 2
 }
 
 .ct-ultimate-gdpr-cookie-modal-compact-green h4 {
-  font-family: open_sans_regular, sans-serif;
+  font-family: open_sans_regular,
+ sans-serif;
   font-size: 9px;
   font-weight: 600;
   letter-spacing: normal;
@@ -4042,7 +4031,8 @@ Modal Skin Style 2
   text-transform: uppercase;
   font-size: 13px;
   border: none;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .detailed-features.container .feature .fa {
@@ -4271,8 +4261,10 @@ Modal Skin Style 2
 /* APAS */
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-popup-apas {
   border-radius: 5px;
-  box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 35px 40px;
   text-align: center;
   width: 527px;
@@ -4500,8 +4492,10 @@ Modal Skin Style 2
 /* END APAS */
 /* KAHK */
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-popup-kahk {
-  box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 35px;
   text-align: center;
   width: 470px;
@@ -4711,8 +4705,10 @@ Modal Skin Style 2
 /* END KAHK */
 /* OREO */
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-popup-oreo {
-  box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   overflow: hidden;
   padding: 0;
   text-align: left;
@@ -4981,8 +4977,10 @@ Modal Skin Style 2
 /* WAFER */
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-popup-wafer {
   border-radius: 15px !important;
-  box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 35px 40px;
   text-align: center;
   width: 470px;
@@ -5222,8 +5220,10 @@ Modal Skin Style 2
 /* END WAFER */
 /* JUMBLE */
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-popup-jumble {
-  box-sizing: border-box;
-  box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   padding: 35px 40px;
   text-align: center;
   width: 470px;
@@ -5483,8 +5483,10 @@ Modal Skin Style 2
 /* KHAPSE */
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-popup-khapse {
   border-radius: 5px;
-  box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 35px 40px;
   text-align: center;
   width: 470px;
@@ -5697,8 +5699,10 @@ Modal Skin Style 2
 /* END KHAPSE */
 /* TARECO */
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-popup-tareco {
-  box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 35px 40px;
   text-align: center;
   width: 470px;
@@ -5965,8 +5969,10 @@ Modal Skin Style 2
 /* END TARECO */
 /* KICHEL */
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-popup-kichel {
-  box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 0;
   text-align: center;
 }
@@ -6280,8 +6286,10 @@ Modal Skin Style 2
 /* MACARON */
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-popup-macaron {
   border-radius: 10px;
-  box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 35px 43px 51px 43px;
   text-align: center;
   width: 360px;
@@ -6489,8 +6497,10 @@ Modal Skin Style 2
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-popup-wibele {
   background-image: url(images/cookie-popup-wibele-blue-black-bg.png);
   background-repeat: repeat;
-  box-shadow: none;
-  box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 35px 40px;
   text-align: center;
   width: 470px;
@@ -6725,7 +6735,8 @@ Modal Skin Style 2
   top: 50% !important;
   left: 50% !important;
   padding: 70px !important;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 @media (min-width: 768px) {
@@ -6751,7 +6762,7 @@ Modal Skin Style 2
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-fullPanel.ct-ultimate-gdpr-cookie-popup-modern #ct-ultimate-gdpr-cookie-change-settings,
 #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-fullPanel.ct-ultimate-gdpr-cookie-popup-modern #ct-ultimate-gdpr-cookie-read-more {
   width: 100%;
-  min-width: 150px;
+  min-width: 165px;
   margin: 0 !important;
 }
 
@@ -6761,7 +6772,7 @@ Modal Skin Style 2
   #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-fullPanel.ct-ultimate-gdpr-cookie-popup-classic #ct-ultimate-gdpr-cookie-read-more, #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-fullPanel.ct-ultimate-gdpr-cookie-popup-modern #ct-ultimate-gdpr-cookie-accept,
   #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-fullPanel.ct-ultimate-gdpr-cookie-popup-modern #ct-ultimate-gdpr-cookie-change-settings,
   #ct-ultimate-gdpr-cookie-popup.ct-ultimate-gdpr-cookie-fullPanel.ct-ultimate-gdpr-cookie-popup-modern #ct-ultimate-gdpr-cookie-read-more {
-    max-width: 150px;
+    max-width: 165px;
   }
 }
 

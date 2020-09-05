@@ -143,8 +143,8 @@ class WC_Local_Pickup_Plus_Geocoding_API extends Framework\SV_WC_API_Base {
 	private function parse_geocode_request_args( array $args ) {
 
 		$address      = '';
-		$components   = array();
-		$request_args = array();
+		$components   = [];
+		$request_args = [];
 
 		if ( '' !== $args['address_1'] ) {
 			$address .= trim( $args['address_1'] );
@@ -154,12 +154,12 @@ class WC_Local_Pickup_Plus_Geocoding_API extends Framework\SV_WC_API_Base {
 		}
 
 		$address        = trim( $address );
-		$map_components = array(
+		$map_components = [
 			'locality'            => trim( $args['city'] ),
 			'administrative_area' => trim( $args['state'] ),
 			'postal_code'         => trim( $args['postcode'] ),
 			'country'             => trim( $args['country'] ),
-		);
+		];
 
 		foreach ( $map_components as $k => $v ) {
 			if ( '' !== $v ) {
@@ -183,10 +183,10 @@ class WC_Local_Pickup_Plus_Geocoding_API extends Framework\SV_WC_API_Base {
 
 			if ( ! empty( $components ) ) {
 
-				$component_parts = array();
+				$component_parts = [];
 
 				foreach ( $components as $k => $v ) {
-					$component_parts[] = $k . ':' . str_replace( array( ':', '|', '&' ), ' ', $v );
+					$component_parts[] = $k . ':' . str_replace( [ ':', '|', '&' ], ' ', $v );
 				}
 
 				$request_args['components'] = implode( '|', $component_parts );
@@ -195,7 +195,15 @@ class WC_Local_Pickup_Plus_Geocoding_API extends Framework\SV_WC_API_Base {
 			$request_args['key'] = $this->get_plugin()->get_shipping_method_instance()->get_google_maps_api_key();
 		}
 
-		return $request_args;
+		/**
+		 * Filters the geocoding request arguments.
+		 *
+		 * @since 2.8.3
+		 *
+		 * @param array $request_args request arguments
+		 * @param array $args raw arguments
+		 */
+		return (array) apply_filters( 'wc_local_pickup_plus_geocoding_request_args', $request_args, $args );
 	}
 
 

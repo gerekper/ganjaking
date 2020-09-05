@@ -8,7 +8,7 @@
  */
 
 if ( ! defined( 'WPINC' ) ) {
-	die;
+	die;		 		  	  	 	  	  			
 }
 
 ?>

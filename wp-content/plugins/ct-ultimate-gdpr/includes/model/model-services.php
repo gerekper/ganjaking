@@ -141,6 +141,7 @@ class CT_Ultimate_GDPR_Model_Services {
 				'CT_Ultimate_GDPR_Service_Order_Delivery_Date_For_Woocommerce',
 				'CT_Ultimate_GDPR_Service_Polylang',
 				'CT_Ultimate_GDPR_Service_Quform',
+				'CT_Ultimate_GDPR_Service_Sell_Personal_Data',
 				'CT_Ultimate_GDPR_Service_Ultimate_Member',
 				'CT_Ultimate_GDPR_Service_Woocommerce',
 				'CT_Ultimate_GDPR_Service_Wordfence',

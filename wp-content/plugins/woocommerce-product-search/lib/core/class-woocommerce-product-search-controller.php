@@ -681,6 +681,10 @@ class WooCommerce_Product_Search_Controller {
 			}
 		}
 
+		if ( !WooCommerce_Product_Search::needs_db_update() ) {
+			self::update_db();
+		}
+
 		self::cleanup_cache();
 	}
 

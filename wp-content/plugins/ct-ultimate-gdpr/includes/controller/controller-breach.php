@@ -220,7 +220,7 @@ class CT_Ultimate_GDPR_Controller_Breach extends CT_Ultimate_GDPR_Controller_Abs
 
 		return apply_filters( "ct_ultimate_gdpr_controller_{$this->get_id()}_default_options", array(
 			'breach_mail_title' => sprintf(
-				esc_html__( '[Ultimate GDPR] Data breach information from %s', 'ct-ultimate-gdpr' ),
+				esc_html__( '[Ultimate GDPR & CCPA] Data breach information from %s', 'ct-ultimate-gdpr' ),
 				get_bloginfo( 'name' )
 			),
 			'breach_mail_content' => esc_html__( 'There was a data breach on our page...', 'ct-ultimate-gdpr' )

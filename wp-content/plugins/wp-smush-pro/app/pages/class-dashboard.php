@@ -299,13 +299,10 @@ class Dashboard extends Abstract_Page {
 	public function after_tab( $tab ) {
 		if ( 'bulk' === $tab ) {
 			$remaining = WP_Smush::get_instance()->core()->remaining_count;
-			if ( 0 < $remaining ) {
-				echo '<span class="sui-tag sui-tag-warning wp-smush-remaining-count">' . absint( $remaining ) . '</span>';
-			} else {
-				echo '<i class="sui-icon-check-tick sui-success" aria-hidden="true"></i>';
-			}
+				echo '<span class="sui-tag sui-tag-warning wp-smush-remaining-count' . ( 0 < $remaining ? '' : ' sui-hidden' ) . '">' . absint( $remaining ) . '</span>';
+				echo '<i class="sui-icon-check-tick sui-success' . ( 0 < $remaining ? ' sui-hidden' : '' ) . '" aria-hidden="true"></i>';
 		} elseif ( 'cdn' === $tab ) {
-			$status = 'enabled';
+			$status = WP_Smush::get_instance()->core()->mod->cdn->status();
 			if ( 'overcap' === $status ) {
 				echo '<i class="sui-icon-warning-alert sui-error" aria-hidden="true"></i>';
 			} elseif ( 'upgrade' === $status || 'activating' === $status ) {
@@ -576,15 +573,15 @@ class Dashboard extends Abstract_Page {
 				</span>
 				<?php if ( WP_Smush::is_pro() ) : ?>
 					<span class="sui-list-detail wp-smush-stats">
-						<span class="smushed-savings">
-							<?php if ( ! $this->settings->get( 'lossy' ) ) : ?>
-								<a role="button" class="sui-hidden-xs <?php echo esc_attr( $link_class ); ?>" href="<?php echo esc_url( $settings_link ); ?>">
-									<?php esc_html_e( 'Enable Super-Smush', 'wp-smushit' ); ?>
-								</a>
-							<?php else : ?>
+						<?php if ( ! $this->settings->get( 'lossy' ) ) : ?>
+							<a role="button" class="sui-hidden-xs <?php echo esc_attr( $link_class ); ?>" href="<?php echo esc_url( $settings_link ); ?>">
+								<?php esc_html_e( 'Enable Super-Smush', 'wp-smushit' ); ?>
+							</a>
+						<?php else : ?>
+							<span class="smushed-savings">
 								<?php echo esc_html( size_format( $compression_savings, 1 ) ); ?>
-							<?php endif; ?>
-						</span>
+							</span>
+						<?php endif; ?>
 					</span>
 				<?php endif; ?>
 			</li>
@@ -902,7 +899,7 @@ class Dashboard extends Abstract_Page {
 		// Get the counts from transient.
 		$items          = (int) get_transient( 'wp-smush-show-dir-scan-notice' );
 		$failed_items   = (int) get_transient( 'wp-smush-dir-scan-failed-items' );
-		$skipped_items  = (int) get_transient( 'wp-smush-dir-scan-skipped-items' );
+		$skipped_items  = (int) get_transient( 'wp-smush-dir-scan-skipped-items' ); //skipped because already optimized
 		$notice_message = esc_html__( 'Image compression complete.', 'wp-smushit' ) . ' ';
 		$notice_class   = 'error';
 
@@ -910,10 +907,10 @@ class Dashboard extends Abstract_Page {
 
 		/**
 		 * 1 image was successfully optimized / 10 images were successfully optimized
-		 * 1 image was skipped because it couldn't be optimized / 5/10 images were skipped because they couldn't be optimized
+		 * 1 image was skipped because it was already optimized / 5/10 images were skipped because they were already optimized
 		 * 1 image resulted in an error / 5/10 images resulted in an error, check the logs for more information
 		 *
-		 * 2/10 images were skipped because they couldn't be optimized and 4/10 resulted in an error
+		 * 2/10 images were skipped because they were already optimized and 4/10 resulted in an error
 		 */
 
 		if ( 0 === $failed_items && 0 === $skipped_items ) {
@@ -932,8 +929,8 @@ class Dashboard extends Abstract_Page {
 			$notice_message .= sprintf(
 				/* translators: %1$d - number of skipped images, %2$d - total number of images */
 				_n(
-					'%d image was skipped because it couldn\'t be optimized',
-					'%1$d/%2$d images were skipped because they couldn\'t be optimized',
+					'%d image was skipped because it was already optimized',
+					'%1$d/%2$d images were skipped because they were already optimized',
 					$skipped_items,
 					'wp-smushit'
 				),
@@ -956,7 +953,7 @@ class Dashboard extends Abstract_Page {
 		} elseif ( 0 <= $skipped_items && 0 <= $failed_items ) {
 			$notice_message .= sprintf(
 				/* translators: %1$d - number of skipped images, %2$d - total number of images, %3$d - number of failed images */
-				esc_html__( '%1$d/%2$d images were skipped because they couldn\'t be optimized and %3$d/%2$d resulted in an error', 'wp-smushit' ),
+				esc_html__( '%1$d/%2$d images were skipped because they were already optimized and %3$d/%2$d images resulted in an error', 'wp-smushit' ),
 				$skipped_items,
 				$total,
 				$failed_items
@@ -1251,7 +1248,7 @@ class Dashboard extends Abstract_Page {
 	 * @since 3.0
 	 */
 	public function cdn_metabox() {
-		$status = 'enabled';
+		$status = WP_Smush::get_instance()->core()->mod->cdn->status();
 
 		// Available values: warning (inactive), success (active) or error (expired).
 		$status_msg = array(

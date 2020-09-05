@@ -50,6 +50,9 @@ class Common {
 
 		// Soliloquy slider CDN support.
 		add_filter( 'soliloquy_image_src', array( $this, 'soliloquy_image_src' ) );
+
+		// Translate Press integration.
+		add_filter( 'smush_skip_image_from_lazy_load', array( $this, 'trp_translation_editor' ) );
 	}
 
 	/**
@@ -354,6 +357,29 @@ class Common {
 		}
 
 		return $src;
+	}
+
+	/**************************************
+	 *
+	 * Translate Press
+	 *
+	 * @since 3.6.3
+	 */
+
+	/**
+	 * Disables "Lazy Load" on Translate Press translate editor
+	 *
+	 * @param bool   $skip  Should skip? Default: false.
+	 *
+	 * @return bool
+	 */
+	public function trp_translation_editor( $skip ){
+
+		if( ! class_exists( '\TRP_Translate_Press' ) || ! isset( $_GET['trp-edit-translation'] ) ){
+			return $skip;
+		}
+
+		return true;
 	}
 
 	/**************************************

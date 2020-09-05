@@ -1417,7 +1417,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 			$global_rules       = WC_Data_Store::load( 'booking-global-availability' )->get_all_as_array();
 
 			// Get availability of each resource - no resource has been chosen yet
-			if ( $this->has_resources() && ! $for_resource ) {
+			if ( $this->has_resources() && ! $for_resource && $this->is_resource_assignment_type( 'automatic' ) ) {
 				$resources = $this->get_resources();
 
 				// If all blocks are available by default, we should not hide days if we don't know which resource is going to be used.
@@ -1499,25 +1499,35 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 		// Check all blocks availability
 		$available_qtys    = array();
 		foreach ( $blocks as $block ) {
-			$available_qty       = $original_available_qty;
-			$qty_booked_in_block = 0;
+			// Initially, for every minute block, there will be 0 bookings.
+			$block_minutes_array = wc_bookings_get_block_minutes_array( $block, $interval );
+			$qty_booked_in_block = $block_minutes_array;
 
 			foreach ( $existing_bookings as $existing_booking ) {
 
 				if ( ! $existing_booking->is_within_block( $block, strtotime( "+{$interval} minutes", $block ) ) ) {
 					continue;
 				}
-
-				$qty_to_add = $this->has_person_qty_multiplier() ? $existing_booking->get_persons_total() : 1;
+				$existing_booking_product    = $existing_booking->get_product();
+				$qty_to_add                  = $existing_booking_product->has_person_qty_multiplier() ? $existing_booking->get_persons_total() : 1;
+				// The call to `is_within_block` above will ensure we have cached data.
+				$existing_booking_block      = $existing_booking->get_start_cached();
+				/* 
+				 * We use ceil to round up intervals that are 1 second shorter then a full minute.
+				 * This happens for example for a day interval where one day is basically 24h -1s.
+				 * That one second is subtracted in order not to overlap in calculations with the other interval.
+				 */
+				$existing_booking_interval   = ceil( ( $existing_booking->get_end_cached() - $existing_booking_block ) / MINUTE_IN_SECONDS );
+				$booking_block_minutes_array = wc_bookings_get_block_minutes_array( $existing_booking_block, $existing_booking_interval );
 				if ( $this->has_resources() ) {
 					if ( $existing_booking->get_resource_id() === absint( $resource_id ) || ( ! $booking_resource->has_qty() && $existing_booking->get_resource() && ! $existing_booking->get_resource()->has_qty() ) ) {
-						$qty_booked_in_block += $qty_to_add;
+						$qty_booked_in_block = wc_bookings_add_at_intersection( $qty_booked_in_block, $booking_block_minutes_array, $qty_to_add );
 					}
 				} else {
-					$qty_booked_in_block += $qty_to_add;
+					$qty_booked_in_block = wc_bookings_add_at_intersection( $qty_booked_in_block, $booking_block_minutes_array, $qty_to_add );
 				}
 			}
-			$available_qty = $available_qty - $qty_booked_in_block;
+			$available_qty = $original_available_qty - max( $qty_booked_in_block );
 
 			// Remaining places are less than requested qty, return an error.
 			if ( $available_qty < $qty ) {

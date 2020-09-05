@@ -1,12 +1,12 @@
-# Copyright (C) 2018 Ultimate GDPR
-# This file is distributed under the same license as the Ultimate GDPR package.
+# Copyright (C) 2018 Ultimate GDPR & CCPA
+# This file is distributed under the same license as the Ultimate GDPR & CCPA package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR 1.6.4\n"
+"Project-Id-Version: Ultimate GDPR & CCPA\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "POT-Creation-Date: 2019-03-26T15:39:02+00:00\n"
 "PO-Revision-Date: 2019-03-26 17:00+0000\n"
-"Last-Translator: Create IT <m.stepnowska@createit.pl>\n"
+"Last-Translator: Create IT\n"
 "Language-Team: Croatian\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -32,8 +32,8 @@ msgstr ""
 #: includes/views/admin/admin-terms.php:22 
 #: includes/controller/controller-admin.php:508 
 #: includes/controller/controller-admin.php:509
-msgid "Ultimate GDPR"
-msgstr "Ultimate GDPR"
+msgid "Ultimate GDPR & CCPA"
+msgstr "Ultimate GDPR & CCPA"
 
 #. Description of the plugin/theme
 msgid ""
@@ -260,8 +260,8 @@ msgid "Collects user data"
 msgstr "Prikupi korisničke podatke"
 
 #: includes/views/admin/admin-plugins.php:44
-msgid "Compatible with Ultimate GDPR"
-msgstr "Kompatibilno s Ultimate GDPR"
+msgid "Compatible with Ultimate GDPR & CCPA"
+msgstr "Kompatibilno s Ultimate GDPR & CCPA"
 
 #: includes/views/admin/admin-plugins.php:94 
 #: includes/views/admin/admin-plugins.php:112 
@@ -1199,12 +1199,12 @@ msgstr ""
 
 #: includes/service/service-google-analytics.php:73
 msgid ""
-"Please note that even when enabled, Ultimate GDPR will still block Google "
+"Please note that even when enabled, Ultimate GDPR & CCPA will still block Google "
 "Analytics without user consent. If you would like to track anonymously users "
 "without accepting cookies, please <a href='%s' target='_blank'>read more "
 "here</a>."
 msgstr ""
-"Imajte na umu da će čak i ako je omogućen, Ultimate GDPR i dalje blokira "
+"Imajte na umu da će čak i ako je omogućen, Ultimate GDPR & CCPA i dalje blokira "
 "Google Analytics bez pristanka korisnika. Ako želite pratiti anonimno "
 "korisnike bez prihvaćanja kolačića, <a href='%s' target='_blank'> ovdje "
 "pročitajte više </a>."
@@ -1632,8 +1632,8 @@ msgid "Recaptcha error!"
 msgstr "Pogreška rekaptaze!"
 
 #: includes/controller/controller-data-access.php:189
-msgid "[Ultimate GDPR] New Data Access request"
-msgstr "[Ultimate GDPR] Novi zahtjev za pristup podacima"
+msgid "[Ultimate GDPR & CCPA] New Data Access request"
+msgstr "[Ultimate GDPR & CCPA] Novi zahtjev za pristup podacima"
 
 #: includes/controller/controller-data-access.php:191
 msgid "There is a new data access request from email %s. See details at %s"
@@ -1687,8 +1687,8 @@ msgid "Mail content"
 msgstr "Sadržaj e-pošte"
 
 #: includes/controller/controller-data-access.php:649
-msgid "[Ultimate GDPR] Data request results from %s"
-msgstr "[Ultimate GDPR] Rezultati traženih podataka %s"
+msgid "[Ultimate GDPR & CCPA] Data request results from %s"
+msgstr "[Ultimate GDPR & CCPA] Rezultati traženih podataka %s"
 
 #: includes/controller/controller-data-access.php:650
 msgid "Please find data attached"
@@ -2632,8 +2632,8 @@ msgid "Your request was successfully confirmed."
 msgstr "Vaš zahtjev je uspješno potvrđen."
 
 #: includes/controller/controller-rectification.php:142
-msgid "[Ultimate GDPR] New Data Rectification request from %s"
-msgstr "[Ultimate GDPR] Novi Podaci Ratificirani po zahtjevima u %s"
+msgid "[Ultimate GDPR & CCPA] New Data Rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Novi Podaci Ratificirani po zahtjevima u %s"
 
 #: includes/controller/controller-rectification.php:150
 msgid ""
@@ -2650,9 +2650,9 @@ msgstr ""
 "Vaš zahtjev nije potvrđen. Molim vas potvrdite link ili kontaktirajte admina."
 
 #: includes/controller/controller-rectification.php:213
-msgid "[Ultimate GDPR] Please confirm your data rectification request from %s"
+msgid "[Ultimate GDPR & CCPA] Please confirm your data rectification request from %s"
 msgstr ""
-"[Ultimate GDPR] Molim vas da potvrdite vaše podatke ratificirane po "
+"[Ultimate GDPR & CCPA] Molim vas da potvrdite vaše podatke ratificirane po "
 "zahtjevima u %s"
 
 #: includes/controller/controller-rectification.php:527
@@ -2679,15 +2679,15 @@ msgstr "Korisnički mail sadržaj"
 #: includes/controller/controller-forgotten.php:719 
 #: includes/controller/controller-unsubscribe.php:653
 msgid ""
-"Set custom URL to the page containing Ultimate GDPR shortcode as the email "
+"Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email "
 "confirmation target page (or leave empty for autodetect)"
 msgstr ""
 "Postavite prilagođeni URL stranici koja sadrži krajnji kratki ID za GDPR kao "
 "stranicu cilja potvrde e-pošte (ili ostavite prazno za automatsko otkrivanje)"
 
 #: includes/controller/controller-rectification.php:647
-msgid "[Ultimate GDPR] Data rectification notice from %s"
-msgstr "[Ultimate GDPR] Obavijest o ratifikaciji podataka %s"
+msgid "[Ultimate GDPR & CCPA] Data rectification notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Obavijest o ratifikaciji podataka %s"
 
 #: includes/controller/controller-rectification.php:648
 msgid "Your data has been rectified"
@@ -2930,8 +2930,8 @@ msgid "Collect user emails from services"
 msgstr "Prikupljanje korisničkih mailova iz usluge"
 
 #: includes/controller/controller-breach.php:223
-msgid "[Ultimate GDPR] Data breach information from %s"
-msgstr "[Ultimate GDPR] Podaci o kršenju podataka u %s"
+msgid "[Ultimate GDPR & CCPA] Data breach information from %s"
+msgstr "[Ultimate GDPR & CCPA] Podaci o kršenju podataka u %s"
 
 #: includes/controller/controller-breach.php:226
 msgid "There was a data breach on our page..."
@@ -3016,8 +3016,8 @@ msgstr "WordPress stranica o privatnosti"
 
 #: includes/controller/controller-forgotten.php:110 
 #: includes/controller/controller-forgotten.php:345
-msgid "[Ultimate GDPR] New Right To Be Forgotten request from %s"
-msgstr "[Ultimate GDPR] Novi zahtjev za pravo da budeš zaboravljen %s"
+msgid "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s"
+msgstr "[Ultimate GDPR & CCPA] Novi zahtjev za pravo da budeš zaboravljen %s"
 
 #: includes/controller/controller-forgotten.php:129 
 #: includes/controller/controller-forgotten.php:353
@@ -3028,17 +3028,17 @@ msgstr ""
 "detalje u %s"
 
 #: includes/controller/controller-forgotten.php:259
-msgid "[Ultimate GDPR] Please confirm request to be forgotten from %s"
+msgid "[Ultimate GDPR & CCPA] Please confirm request to be forgotten from %s"
 msgstr ""
-"[Ultimate GDPR] Molim vas da potvrdite zahtjev da budete zabotavljeni u %s"
+"[Ultimate GDPR & CCPA] Molim vas da potvrdite zahtjev da budete zabotavljeni u %s"
 
 #: includes/controller/controller-forgotten.php:513
-msgid "[Ultimate GDPR] Emails were sent to the following users: %s"
-msgstr "[Ultimate GDPR] E - pošta je poslana sljedecim korisnicima u %s"
+msgid "[Ultimate GDPR & CCPA] Emails were sent to the following users: %s"
+msgstr "[Ultimate GDPR & CCPA] E - pošta je poslana sljedecim korisnicima u %s"
 
 #: includes/controller/controller-forgotten.php:551
-msgid "[Ultimate GDPR] The following emails were removed from list: %s"
-msgstr "[Ultimate GDPR] Sljedeći mailovi su uklonjeni s popisa u postocima: %s"
+msgid "[Ultimate GDPR & CCPA] The following emails were removed from list: %s"
+msgstr "[Ultimate GDPR & CCPA] Sljedeći mailovi su uklonjeni s popisa u postocima: %s"
 
 #: includes/controller/controller-forgotten.php:584 
 #: includes/controller/controller-unsubscribe.php:487
@@ -3050,8 +3050,8 @@ msgid "There was an error forgetting %s service: %s"
 msgstr "Dogodila se pogreška tijekom zaboravljanja %s usluge: %s"
 
 #: includes/controller/controller-forgotten.php:629
-msgid "[Ultimate GDPR] Services data were removed"
-msgstr "[Ultimate GDPR] Podaci o usluzi su uklonjeni"
+msgid "[Ultimate GDPR & CCPA] Services data were removed"
+msgstr "[Ultimate GDPR & CCPA] Podaci o usluzi su uklonjeni"
 
 #. ID
 #: includes/controller/controller-forgotten.php:645
@@ -3112,8 +3112,8 @@ msgstr "Obrazloženi oblik"
 
 #: includes/controller/controller-forgotten.php:911 
 #: includes/controller/controller-forgotten.php:912
-msgid "[Ultimate GDPR] Your data has been forgotten"
-msgstr "[Ultimate GDPR] Vaši podaci su zaboravljeni"
+msgid "[Ultimate GDPR & CCPA] Your data has been forgotten"
+msgstr "[Ultimate GDPR & CCPA] Vaši podaci su zaboravljeni"
 
 #: includes/controller/controller-unsubscribe.php:143
 msgid "There is a new Unsubscribe request from email %s. See details at %s"
@@ -3123,9 +3123,9 @@ msgstr ""
 
 #: includes/controller/controller-unsubscribe.php:232
 msgid ""
-"[Ultimate GDPR] Please confirm request to be unsubscribed from %s newsletters"
+"[Ultimate GDPR & CCPA] Please confirm request to be unsubscribed from %s newsletters"
 msgstr ""
-"[Ultimate GDPR] Molimo potvrdite zahtjev za otkazivanje pretplate na %s "
+"[Ultimate GDPR & CCPA] Molimo potvrdite zahtjev za otkazivanje pretplate na %s "
 "newslettere"
 
 #: includes/controller/controller-unsubscribe.php:507
@@ -3133,8 +3133,8 @@ msgid "There was an error unsubscribing %s from %s service: %s"
 msgstr "Došlo je do pogreške prilikom otkazivanja %s usluge %s: %s"
 
 #: includes/controller/controller-unsubscribe.php:533
-msgid "[Ultimate GDPR] Unsubscription finished!"
-msgstr "[Ultimate GDPR] Unsubscription je gotova!"
+msgid "[Ultimate GDPR & CCPA] Unsubscription finished!"
+msgstr "[Ultimate GDPR & CCPA] Unsubscription je gotova!"
 
 #. ID
 #: includes/controller/controller-unsubscribe.php:595
@@ -3160,8 +3160,8 @@ msgstr ""
 "potvrdili svoju e-poštu"
 
 #: includes/controller/controller-unsubscribe.php:787
-msgid "[Ultimate GDPR] Unsubscribe notice from %s"
-msgstr "[Ultimate GDPR] Otkaži pretplatu obavijesti od %s"
+msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Otkaži pretplatu obavijesti od %s"
 
 #: includes/controller/controller-unsubscribe.php:788
 msgid "Your have been unsubscribed"

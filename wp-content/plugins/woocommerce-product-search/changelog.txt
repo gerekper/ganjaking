@@ -1,5 +1,9 @@
 *** WooCommerce Product Search ***
 
+2020.08.22 - version 3.1.1
+* Substantially improved query processing performance with a revised algorithm, fixed overhead in conjunctive term query.
+* Added automatic database update path for minor revisions.
+
 2020.08.19 - version 3.1.0
 * WooCommerce 4.4 compatible.
 * Replaced use of deprecated function woocommerce_reset_loop() with wc_reset_loop() when available (as of WC 3.3).

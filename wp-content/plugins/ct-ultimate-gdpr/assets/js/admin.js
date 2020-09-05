@@ -3,6 +3,11 @@ jQuery(document).ready(function ($) {
     // set color picker options
     $().wpColorPicker && $('.ct-color-field').wpColorPicker();
 
+    // date picker
+    $().datepicker && $('.ct-datepicker').datepicker({
+        dateFormat : 'MM d, yy'
+    });
+
     // select all checkboxes
     $("input[name=services-select-all]").on('click', function () {
         if ($(this).prop('checked')) {
@@ -158,6 +163,25 @@ jQuery(document).ready(function ($) {
         $(".ct-tab-1").css("display","none");
         $(".ct-tab-2").css("display","none");
         $(".ct-tab-3").css("display","block");
+    });
+
+    $("#age-popup").click(function(){
+        $(this).addClass( "nav-tab-active" );
+        $("#age-preference").removeClass("nav-tab-active");
+        $("#age-advanced").removeClass("nav-tab-active");
+
+        $(".ct-tab-1").css("display","block");
+        $(".ct-tab-2").css("display","none");
+        $(".ct-tab-3").css("display","none");
+    });
+    $("#age-preference").click(function(){
+        $(this).addClass( "nav-tab-active" );
+        $("#age-popup").removeClass("nav-tab-active");
+        $("#age-advanced").removeClass("nav-tab-active");
+
+        $(".ct-tab-1").css("display","none");
+        $(".ct-tab-2").css("display","block");
+        $(".ct-tab-3").css("display","none");
     });
 
     //cookie advanced settings - fullwidth

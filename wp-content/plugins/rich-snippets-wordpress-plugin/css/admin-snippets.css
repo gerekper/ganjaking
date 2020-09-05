@@ -1,0 +1,325 @@
+/**
+ * Table of contents
+ *
+ * # General
+ * # Main select
+ * # Select Input
+ * ## Popular items
+ * # Loader
+ * # Property list table
+ * # Select Button
+ * # Help metabox
+ * # JSON+LD metabox
+ * # Misc fields
+ * ## 5-Star Rating
+ * ## 100-Points Rating
+ * # Overwrite Form
+ */
+
+/* --------------------------------------
+ * # General
+ *--------------------------------------*/
+.wpb-rs-hidden {
+    display: none;
+}
+
+/* --------------------------------------
+ * # Main select
+ *--------------------------------------*/
+
+.wpb-rs-schema-main label {
+    display: block;
+    margin: 1em 0 .5em 0;
+}
+
+/* --------------------------------------
+ * # Select Input
+ *--------------------------------------*/
+.wpb-rs-select {
+    font-size: 1rem;
+    width: 100%;
+}
+
+/* Overwrite WordPress styles */
+tfoot td input.wpb-rs-select {
+    margin: 0;
+    padding: 3px 5px;
+}
+
+.wpb-rs-select2-outer {
+    display: inline-block;
+    position: relative;
+    width: 85%;
+    width: calc(100% - 70px);
+}
+
+.wpb-rs-select2-close {
+    position: absolute;
+    right: 0;
+}
+
+.wpb-rs-select-options {
+    position: absolute;
+    left: .1em;
+    top: 2.8em;
+    width: 100%;
+    height: 200px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    overflow-x: scroll;
+    outline: .5em solid #fff;
+    z-index: 10;
+}
+
+.wpb-rs-select-options li {
+    padding: 1em;
+    cursor: pointer;
+    margin: 0;
+}
+
+.wpb-rs-select-options li:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.wpb-rs-select-options li:hover {
+    background-color: #f5f5f5;
+}
+
+/* --------------------------------------
+ * ## Popular items
+ *--------------------------------------*/
+.wpb-rs-popular .button {
+    margin-left: .5em;
+}
+
+.wpb-rs-popular .button span {
+    vertical-align: middle;
+}
+
+/* --------------------------------------
+ * # Loader
+ *--------------------------------------*/
+.wpb-rs-loader {
+    position: fixed;
+    right: 0;
+    top: 40%;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+
+.wpb-rs-loader .updating-message {
+    text-align: center;
+}
+
+.wpb-rs-loader .updating-message:before {
+    font-size: 40px;
+    color: #222;
+}
+
+/* --------------------------------------
+ * # Property list table
+ *--------------------------------------*/
+
+.wpb-rs-property-list-main {
+    margin-top: 3em;
+}
+
+.wpb-rs-property-list {
+    border-collapse: collapse;
+}
+
+.wpb-rs-property-list > tbody tr > td:first-child {
+    width: 110px;
+}
+
+.wpb-rs-schema-property-name {
+    font-weight: bold;
+}
+
+.wpb-rs-property-list th {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.wpb-rs-property-list th .small-text .dashicons {
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+.wpb-rs-property-list .small-text {
+    font-size: 10px;
+}
+
+.wpb-rs-schema-property-actions {
+    margin: 0;
+    min-height: 2em;
+}
+
+.wpb-rs-schema-property-actions li {
+    margin: 0 1em 0 0;
+    display: none;
+}
+
+.wpb-rs-schema-property-row:hover .wpb-rs-schema-property-actions li {
+    display: inline-block;
+}
+
+.wpb-rs-schema-property-actions .delete a {
+    color: #a00;
+}
+
+.wpb-rs-property-list label {
+    margin: 0;
+}
+
+.wpb-rs-schema-property-row > td:first-child {
+    width: 130px;
+}
+
+.wpb-rs-schema-property-row-new .select2-container {
+    width: 85% !important;
+    width: calc(100% - 70px) !important;
+}
+
+.wpb-rs-schema-property-row-new td {
+    vertical-align: middle;
+}
+
+.wpb-rs-nowrap {
+    white-space: nowrap;
+}
+
+.wpb-rs-property-list tbody td {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+tr.wpb-rs-schema-property-row-new td {
+    padding: 8px 10px 1em 10px;
+}
+
+
+.wpb-rs-schema-property-field {
+    display: none;
+}
+
+
+.wpb-rs-schema-property-field > td {
+    padding: 0;
+}
+
+.wpb-rs-schema-property-field-options {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.wpb-rs-schema-property-field-options > tbody > tr > td:first-child {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+.wpb-rs-schema-property-row.opened td {
+    background-color: #2a9bd9;
+    color: #fff;
+}
+
+.wpb-rs-schema-property-row.opened label,
+.wpb-rs-schema-property-row.opened a {
+    color: #fff;
+}
+
+.wpb-rs-schema-property-row.opened + .wpb-rs-schema-property-field {
+    display: table-row;
+}
+
+.wpb-rs-schema-property-row.opened .wpb-rs-schema-property-actions li {
+    display: inline-block;
+}
+
+.wpb-rs-schema-property-row .ui-effects-wrapper {
+    padding: 8px 10px 1em 10px !important;
+}
+
+.wpb-rs-property-expander {
+    float: right;
+}
+
+/* --------------------------------------
+ * ## Property fields
+ *--------------------------------------*/
+
+
+.wpb-rs-schema-property-field-subfield-select,
+.wpb-rs-schema-property-field-subfield-select option {
+    font-size: 1em;
+}
+
+/* --------------------------------------
+ * # Select Button
+ *--------------------------------------*/
+.wpb-rs-new-type-button span,
+.wpb-rs-new-property-button span {
+    vertical-align: middle;
+}
+
+/* --------------------------------------
+ * # Help metabox
+ *--------------------------------------*/
+#wp-rs-mb-help img {
+    max-width: 100%;
+    display: block;
+}
+
+/* --------------------------------------
+ * # JSON+LD metabox
+ *--------------------------------------*/
+
+#wp-rs-mb-jsonld hr {
+    margin: 1rem 0;
+}
+
+#wp-rs-mb-jsonld label {
+    display: block;
+}
+
+#wp-rs-mb-jsonld input {
+    width: 100%;
+    display: block;
+}
+
+#wp-rs-mb-jsonld input + .description {
+    margin-top: 1rem;
+}
+
+/* --------------------------------------
+ * # Misc fields
+ *--------------------------------------*/
+.misc-field {
+    margin: .5em 0;
+}
+
+/* --------------------------------------
+ * ## 5-Star Rating
+ *--------------------------------------*/
+
+.misc-field .star-cancel,
+.misc-field .star {
+    cursor: pointer;
+}
+
+/* --------------------------------------
+ * ## 100-Points Rating
+ *--------------------------------------*/
+
+/* --------------------------------------
+ * # Overwrite Form
+ *--------------------------------------*/
+
+.wpb-rs-overwrite-form .wpb-rs-schema-property-field {
+    display: block;
+}

@@ -108,7 +108,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 		<div class="booking-day-restriction">
-			<table class="widefat">
+			<table class="widefat wc_input_table_wrapper">
 				<tbody>
 					<tr>
 						<td>&nbsp;</td>

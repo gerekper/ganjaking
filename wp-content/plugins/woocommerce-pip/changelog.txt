@@ -1,5 +1,8 @@
 *** WooCommerce Print Invoices/Packing Lists Changelog ***
 
+2020.08.24 - version 3.9.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+
 2020.08.03 - version 3.8.7
  * Fix - Display the sample SKU column in invoice previews when enabled
 

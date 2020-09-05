@@ -9,6 +9,7 @@ return array(
     'CT_Ultimate_CCPA_Service_Interface' => $baseDir . '/includes/service/service-ccpa-interface.php',
     'CT_Ultimate_GDPR_Controller_Abstract' => $baseDir . '/includes/controller/controller-abstract.php',
     'CT_Ultimate_GDPR_Controller_Admin' => $baseDir . '/includes/controller/controller-admin.php',
+    'CT_Ultimate_GDPR_Controller_Age' => $baseDir . '/includes/controller/controller-age.php',
     'CT_Ultimate_GDPR_Controller_Breach' => $baseDir . '/includes/controller/controller-breach.php',
     'CT_Ultimate_GDPR_Controller_Cookie' => $baseDir . '/includes/controller/controller-cookie.php',
     'CT_Ultimate_GDPR_Controller_Data_Access' => $baseDir . '/includes/controller/controller-data-access.php',
@@ -64,6 +65,7 @@ return array(
     'CT_Ultimate_GDPR_Service_Order_Delivery_Date_For_Woocommerce' => $baseDir . '/includes/service/service-order-delivery-date-for-woocommerce.php',
     'CT_Ultimate_GDPR_Service_Polylang' => $baseDir . '/includes/service/service-polylang.php',
     'CT_Ultimate_GDPR_Service_Quform' => $baseDir . '/includes/service/service-quform.php',
+    'CT_Ultimate_GDPR_Service_Sell_Personal_Data' => $baseDir . '/includes/service/service-sell-personal-data.php',
     'CT_Ultimate_GDPR_Service_Ultimate_Member' => $baseDir . '/includes/service/service-ultimate-member.php',
     'CT_Ultimate_GDPR_Service_WPForms_Lite' => $baseDir . '/includes/service/service-wpforms-lite.php',
     'CT_Ultimate_GDPR_Service_WP_Comments' => $baseDir . '/includes/service/service-wp-comments.php',
@@ -86,4 +88,5 @@ return array(
     'CT_Ultimate_GDPR_Shortcode_Protection' => $baseDir . '/includes/shortcode/shortcode-protection.php',
     'CT_Ultimate_GDPR_Shortcode_Terms_Accept' => $baseDir . '/includes/shortcode/shortcode-terms-accept.php',
     'CT_Ultimate_GDPR_Update_Legacy_Options' => $baseDir . '/includes/update/update-legacy-options.php',
+    'IP2Location\\Database' => $vendorDir . '/ip2location/ip2location-php/IP2Location.php',
 );

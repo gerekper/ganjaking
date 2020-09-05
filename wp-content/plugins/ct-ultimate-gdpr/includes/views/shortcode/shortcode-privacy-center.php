@@ -47,6 +47,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 							?>"><?php echo esc_html__( 'Read more', 'ct-ultimate-gdpr' ); ?></a> <span class="fa fa-list"></span></div>
             </div>
 
+            <?php if ( ct_ultimate_gdpr_get_value( 'age_enabled', $options ) ) : ?>
+
+                <div class="feature"><a href="<?php
+                        echo esc_url(
+                            add_query_arg(
+                                array(
+                                    '#tabs-5' => '',
+                                ),
+                                $url
+                            )
+                        );
+                        ?>" target="_blank"
+                                           class="ct-full-link"></a>
+                    <div class="icon-wrapper section"><span class="fa fa-child" style="color:<?php echo esc_attr( $options['icon_color'] ); ?>"></span></div>
+                    <div class="text section"><?php echo esc_html__( 'Age verification', 'ct-ultimate-gdpr' ); ?></div>
+                    <div class="ct-btn section text-uppercase"><a
+                                href="<?php
+                                echo esc_url(
+                                    add_query_arg(
+                                        array(
+                                            '#tabs-1' => '',
+                                        ),
+                                        $url
+                                    )
+                                );
+                                ?>"><?php echo esc_html__( 'Read more', 'ct-ultimate-gdpr' ); ?></a> <span class="fa fa-list"></span></div>
+                </div>
+
+            <?php endif; ?>
+
             <div class="feature"><a href="<?php
 		            echo esc_url(
 			            add_query_arg(

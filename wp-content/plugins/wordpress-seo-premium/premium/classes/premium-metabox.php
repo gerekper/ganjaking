@@ -92,6 +92,8 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 */
 	public function send_data_to_assets() {
 		$analysis_seo = new WPSEO_Metabox_Analysis_SEO();
+		$locale       = get_locale();
+		$language     = WPSEO_Language_Utils::get_language( $locale );
 		$current_user = wp_get_current_user();
 
 		$data = [
@@ -99,6 +101,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'seoAnalysisEnabled' => $analysis_seo->is_enabled(),
 			'licensedURL'        => WPSEO_Utils::get_home_url(),
 			'languageBeacon'     => [
+				'show'           => $language !== 'pl',
 				'id'             => '1060600e-401f-4e6a-88b2-47429e942e74',
 				'name'           => trim( $current_user->user_firstname . ' ' . $current_user->user_lastname ),
 				'email'          => $current_user->user_email,
@@ -326,18 +329,6 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		global $pagenow;
 
 		return $pagenow;
-	}
-
-	/**
-	 * Registers assets to WordPress.
-	 *
-	 * @deprecated 9.4
-	 * @codeCoverageIgnore
-	 *
-	 * @return void
-	 */
-	public function register_assets() {
-		_deprecated_function( 'WPSEO_Premium_Metabox::register_assets', '9.4' );
 	}
 
 	/**

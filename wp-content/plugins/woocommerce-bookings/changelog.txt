@@ -1,5 +1,17 @@
 *** WooCommerce Bookings Changelog ***
 
+2020-08-25 - version 1.15.25
+* Fix   - Replace deprecated jQuery methods.
+* Fix   - Fix end times drop down for multiple resources.
+* Fix   - Do not combine resources availability rules if no resource is selected.
+* Fix   - All blocks were available when block end time was between 0000 and 0059.
+* Fix   - Fix admin month date picker not working for certain languages in Firefox.
+* Fix   - Fix a case of end times becoming available when they shouldn't.
+* Fix   - Account for different block lengths during availability calculation.
+* Fix   - Bug when switching days on calendar if duration is greater than 1.
+* Tweak - Send admin email notification when unpaid bookings are canceled.
+* Tweak - Tweak restricted days display when editing.
+
 2020-08-13 - version 1.15.24
 * Fix   - WordPress 5.5 REST API compatibility changes.
 

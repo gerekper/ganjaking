@@ -82,11 +82,11 @@ if ( ! defined( 'WPINC' ) ) {
 	</li>
 	<li class="smush-pro-feature-row">
 		<div class="smush-pro-feature-title">
-			<?php esc_html_e( 'WPMU DEV CDN with WebP Support', 'wp-smushit' ); ?></div>
+			<?php esc_html_e( 'Streamline your images with Smush CDN', 'wp-smushit' ); ?></div>
 		<div class="smush-pro-feature-desc">
 			<?php
 			esc_html_e(
-				'Serve your images from our CDN from 45 blazing fast servers around the world. Enable automatic image sizing and WebP support and your website will be absolutely flying.',
+				'Serve your images from our CDN from 45 blazing fast servers around the world. Enable automatic image sizing and WebP support and your website will be absolute flying.',
 				'wp-smushit'
 			);
 			?>
@@ -134,7 +134,19 @@ if ( ! defined( 'WPINC' ) ) {
 		<div class="smush-pro-feature-desc">
 			<?php
 			esc_html_e(
-				'When you compress a PNG, Smush will check if converting it to JPEG could further reduce its size, and do so if necessary,',
+				'When you compress a PNG, Smush will check if converting it to JPEG could further reduce its size, and do so if necessary.',
+				'wp-smushit'
+			);
+			?>
+		</div>
+	</li>
+	<li class="smush-pro-feature-row">
+		<div class="smush-pro-feature-title">
+			<?php esc_html_e( 'NextGen Gallery Integration', 'wp-smushit' ); ?></div>
+		<div class="smush-pro-feature-desc">
+			<?php
+			esc_html_e(
+				'Allow smushing images directly through NextGen Gallery settings.',
 				'wp-smushit'
 			);
 			?>

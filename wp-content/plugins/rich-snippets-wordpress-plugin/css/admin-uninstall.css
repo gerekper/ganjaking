@@ -1,0 +1,26 @@
+/**
+ * Table of contents
+ *
+ * # SNIP Logo
+ * # Uninstall Window
+ */
+
+/* --------------------------------------
+ * # SNIP Logo
+ *--------------------------------------*/
+#wpb-rs-logo {
+	text-align: center;
+}
+
+#wpb-rs-logo img {
+	width: 115px;
+	height: 45px;
+}
+
+
+/* --------------------------------------
+ * # Uninstall Window
+ *--------------------------------------*/
+.wpb-rs-uninstall-window {
+	text-align: center;
+}

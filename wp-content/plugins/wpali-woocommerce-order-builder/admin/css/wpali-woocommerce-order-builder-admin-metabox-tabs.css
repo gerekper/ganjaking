@@ -1,0 +1,109 @@
+
+.no-js .cmb-tabs { display: none; }
+
+.cmb-tabs .tabs-nav {
+    clear: both;
+    background-color: #fafafa;
+    border-right: 1px solid #eee;
+    box-sizing: border-box;
+    display: block;
+    line-height: 1em;
+    margin: 0;
+    padding: 0 0 10px;
+    position: relative;
+    width: 20%;
+    float: left;
+}
+.cmb-tabs .tabs-nav:after {
+    background-color: #fafafa;
+    border-right: 1px solid #eee;
+    bottom: -9999em;
+    content: "";
+    display: block;
+    height: 9999em;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+.cmb-tabs .tabs-nav li {
+	display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-weight: 600;
+}
+
+.cmb-tabs .tabs-nav li a {
+    border-bottom: 1px solid #eee;
+    box-shadow: none;
+    display: block;
+    line-height: 13px;
+    margin: 0;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+}
+.cmb-tabs .tabs-nav li.current a {
+    color: #555;
+    position: relative;
+    background-color: #eee;
+}
+.cmb-tabs .tabs-nav li a i {
+    line-height: 13px;
+    margin-right: 5px;
+}
+.cmb-tabs ul li a:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none
+}
+
+.cmb-tabs .tab-content {
+    box-sizing: border-box;
+    color: #555;
+    display: inline-flex;
+    width: 80%;
+    padding: 0;
+}
+.tab-content-container {
+    display: block;
+    width: 100%;
+    clear: both;
+    margin: 0;
+    padding: 20px;
+}
+@media (max-width: 750px) {
+	.cmb-tabs .tabs-nav {
+	    width: 10%;
+	}
+	.cmb-tabs .tab-content {
+	    width: 90%;
+	}
+	.cmb-tabs .tabs-nav li a i {
+	    padding: 0;
+	    margin: 0 auto;
+	    text-align: center;
+	    display: block;
+	    max-width: 25px;
+		margin-right:0px;
+	}
+	.cmb-tabs .tabs-nav li span{
+	    padding: 10px;
+	    position: relative;
+	    text-indent: -999px;
+	    display: none;
+	}
+}
+@media (max-width: 500px) {
+	
+	.cmb-tabs .cmb-th,
+	.cmb-tabs .cmb-th + .cmb-td, 
+	.cmb-tabs .cmb-th + .cmb-td {
+	    float: none;
+	    width: 96%;
+	}
+
+    .cmb-tabs .cmb-repeat-row .cmb-td {
+        width: auto;
+    }
+}

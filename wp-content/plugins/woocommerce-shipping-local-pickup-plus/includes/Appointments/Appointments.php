@@ -193,14 +193,14 @@ class Appointments {
 	 *
 	 * @since 2.8.0
 	 *
-	 * @param \DateTime $order_created_date used to calcualte the first available pickup time for anytime appointments
+	 * @param \DateTime $calendar_day used to calculate the first available pickup time for anytime appointments
 	 * @param \WC_Local_Pickup_Plus_Pickup_Location $pickup_location the pickup location object
-	 * @param int $appointment_duration the duration of an appointment in this pickup location
+	 * @param int|null $appointment_duration the duration of an appointment in this pickup location (unless "anytime" is used)
 	 * @param \DateTime $start_date the selected appointment start time
 	 * @param \DateTime $end_date the selected appointment end time
 	 * @return bool
 	 */
-	public function is_appointment_time_available( $order_created_date, $pickup_location, $appointment_duration, $start_date, $end_date ) {
+	public function is_appointment_time_available( $calendar_day, $pickup_location, $appointment_duration, $start_date, $end_date ) {
 
 		$is_available_appointment_time = false;
 
@@ -208,7 +208,7 @@ class Appointments {
 
 			$shipping_method = wc_local_pickup_plus_shipping_method();
 
-			if ( $start_date >= $pickup_location->get_appointments()->get_first_available_pickup_time( $order_created_date ) ) {
+			if ( $start_date >= $pickup_location->get_appointments()->get_first_available_pickup_time( $calendar_day ) ) {
 
 				if ( 'required' === $shipping_method->pickup_appointments_mode() && $shipping_method->is_default_appointment_limits( 'limited' ) ) {
 

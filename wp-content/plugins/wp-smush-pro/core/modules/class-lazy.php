@@ -75,9 +75,20 @@ class Lazy extends Abstract_Module {
 			return;
 		}
 
+		// If native compat is enabled, and we are on WordPress 5.5 - disable Smush lazy load.
+		if ( isset( $this->options['native'] ) && $this->options['native'] ) {
+			global $wp_version;
+			if ( version_compare( $wp_version, '5.4.999', '>' ) ) {
+				return;
+			}
+		}
+
 		// Load js file that is required in public facing pages.
 		add_action( 'wp_head', array( $this, 'add_inline_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		if ( defined( 'WP_SMUSH_ASYNC_LAZY' ) && WP_SMUSH_ASYNC_LAZY ) {
+			add_filter( 'script_loader_tag', array( $this, 'async_load' ), 10, 2 );
+		}
 
 		// Allow lazy load attributes in img tag.
 		add_filter( 'wp_kses_allowed_html', array( $this, 'add_lazy_load_attributes' ) );
@@ -120,7 +131,7 @@ class Lazy extends Abstract_Module {
 			document.documentElement.className = document.documentElement.className.replace( 'no-js', 'js' );
 		</script>
 		<?php
-		if ( ! $this->options['animation']['selected'] ) {
+		if ( ! $this->options['animation']['selected'] || 'none' === $this->options['animation']['selected'] ) {
 			return;
 		}
 
@@ -140,7 +151,7 @@ class Lazy extends Abstract_Module {
 				$background = '#333333';
 			}
 			if ( isset( $this->options['animation']['placeholder']['selected'] ) && 2 < (int) $this->options['animation']['placeholder']['selected'] ) {
-				$loader = wp_get_attachment_image_src( $this->options['animation']['placeholder']['selected'], 'full' );
+				$loader = wp_get_attachment_image_src( (int) $this->options['animation']['placeholder']['selected'], 'full' );
 				$loader = $loader[0];
 			}
 			if ( isset( $this->options['animation']['placeholder']['color'] ) ) {
@@ -169,6 +180,7 @@ class Lazy extends Abstract_Module {
 					opacity: 1;
 					background: <?php echo esc_attr( $background ); ?> url('<?php echo esc_url( $loader ); ?>') no-repeat center !important;
 					background-size: 16px auto !important;
+					min-width: 16px;
 				}
 			<?php endif; ?>
 		</style>
@@ -185,23 +197,44 @@ class Lazy extends Abstract_Module {
 			return;
 		}
 
+		$script = WP_SMUSH_URL . 'app/assets/js/smush-lazy-load.min.js';
+
+		// Native lazy loading support.
+		if ( isset( $this->options['native'] ) && $this->options['native'] ) {
+			$script = WP_SMUSH_URL . 'app/assets/js/smush-lazy-load-native.min.js';
+		}
+
 		$in_footer = isset( $this->options['footer'] ) ? $this->options['footer'] : true;
 
 		wp_enqueue_script(
 			'smush-lazy-load',
-			WP_SMUSH_URL . 'app/assets/js/smush-lazy-load.min.js',
+			$script,
 			array(),
 			WP_SMUSH_VERSION,
 			$in_footer
 		);
 
-		// Native lazy loading support.
-		$native = isset( $this->options['native'] ) && $this->options['native'] ? 'true' : 'false';
-		$custom = 'lazySizes.cfg.nativeLoading={setLoadingAttribute:' . $native . ',disableListeners:{scroll:true}};lazySizes.init();';
-
-		wp_add_inline_script( 'smush-lazy-load', $custom );
-
 		$this->add_masonry_support();
+		$this->add_avada_support();
+		$this->add_soliloquy_support();
+	}
+
+	/**
+	 * Async load the lazy load scripts.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param string $tag     The <script> tag for the enqueued script.
+	 * @param string $handle  The script's registered handle.
+	 *
+	 * @return string
+	 */
+	public function async_load( $tag, $handle ) {
+		if ( 'smush-lazy-load' === $handle ) {
+			return str_replace( ' src', ' async="async" src', $tag );
+		}
+
+		return $tag;
 	}
 
 	/**
@@ -231,6 +264,40 @@ class Lazy extends Abstract_Module {
 		$block_gallery_compat = "jQuery(document).on('lazyloaded', function(){{$js} if ('function' === typeof e.masonry) e.masonry();});";
 
 		wp_add_inline_script( 'smush-lazy-load', $block_gallery_compat );
+	}
+
+	/**
+	 * Add fusion gallery support in Avada theme.
+	 *
+	 * @since 3.7.0
+	 */
+	private function add_avada_support() {
+		if ( ! defined( 'FUSION_BUILDER_VERSION' ) ) {
+			return;
+		}
+
+		$js = "var e = jQuery( '.fusion-gallery' );";
+
+		$block_gallery_compat = "jQuery(document).on('lazyloaded', function(){{$js} if ('function' === typeof e.isotope) e.isotope();});";
+
+		wp_add_inline_script( 'smush-lazy-load', $block_gallery_compat );
+	}
+
+	/**
+	 * Prevents the navigation from being missaligned in Soliloquy when lazy loading.
+	 *
+	 * @since 3.7.0
+	 */
+	private function add_soliloquy_support() {
+		if ( ! function_exists( 'soliloquy' ) ) {
+			return;
+		}
+
+		$js = "var e = jQuery( '.soliloquy-image:not(.lazyloaded)' );";
+
+		$soliloquy = "jQuery(document).on('lazybeforeunveil', function(){{$js}e.each(function(){lazySizes.loader.unveil(this);});});";
+
+		wp_add_inline_script( 'smush-lazy-load', $soliloquy );
 	}
 
 	/**
@@ -312,8 +379,9 @@ class Lazy extends Abstract_Module {
 
 		$is_gravatar = false !== strpos( $src, 'gravatar.com' );
 
-		$ext = strtolower( pathinfo( $src, PATHINFO_EXTENSION ) );
-		$ext = 'jpg' === $ext ? 'jpeg' : $ext;
+		$path = wp_parse_url( $src, PHP_URL_PATH );
+		$ext  = strtolower( pathinfo( $path, PATHINFO_EXTENSION ) );
+		$ext  = 'jpg' === $ext ? 'jpeg' : $ext;
 
 		// If not a supported image in src or not an iframe - skip.
 		$iframe = 'iframe' === substr( $image, 1, 6 );
@@ -335,11 +403,18 @@ class Lazy extends Abstract_Module {
 		 * Filter to skip a iframe from lazy load.
 		 *
 		 * @since 3.4.2
+		 * @since 3.7.0  Added filtering by empty source. Better approach to make the get_images_from_content() work
+		 *               by finding all the images (even escaped). But it does what it does.
 		 *
 		 * @param bool   $skip  Should skip? Default: false.
 		 * @param string $src   Iframe url.
 		 */
-		if ( $iframe && apply_filters( 'smush_skip_iframe_from_lazy_load', false, $src ) ) {
+		if ( empty( $src ) || ( $iframe && apply_filters( 'smush_skip_iframe_from_lazy_load', false, $src ) ) ) {
+			return $image;
+		}
+
+		// Check if the iframe URL is valid if not skip it from lazy load.
+		if ( $iframe && esc_url_raw( $src ) !== $src ) {
 			return $image;
 		}
 
@@ -389,7 +464,7 @@ class Lazy extends Abstract_Module {
 		Helpers\Parser::add_attribute( $new_image, 'src', 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' );
 
 		// Use noscript element in HTML to load elements normally when JavaScript is disabled in browser.
-		if ( ! $iframe ) {
+		if ( ! $iframe && ( ! isset( $this->options['noscript'] ) || ! $this->options['noscript'] ) ) {
 			$new_image .= '<noscript>' . $image . '</noscript>';
 		}
 

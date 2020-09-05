@@ -39,7 +39,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '14.8.1';
+	const PLUGIN_VERSION_NAME = '14.9';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -75,17 +75,6 @@ class WPSEO_Premium {
 
 		// Enable tracking.
 		WPSEO_Options::set( 'tracking', true );
-	}
-
-	/**
-	 * Creates instance of license manager if needed and returns the instance of it.
-	 *
-	 * @codeCoverageIgnore
-	 *
-	 * @deprecated 10.1
-	 */
-	public static function get_license_manager() {
-		_deprecated_function( __FUNCTION__, '10.1' );
 	}
 
 	/**
@@ -199,6 +188,9 @@ class WPSEO_Premium {
 
 			// Add Premium imports.
 			$this->integrations[] = new WPSEO_Premium_Import_Manager();
+
+			// Filter the content of the update notice.
+			add_filter( 'wpseo_update_notice_content', [ $this, 'filter_update_notice_content' ] );
 		}
 
 		// Only activate post and term watcher if permalink structure is enabled.
@@ -470,36 +462,25 @@ class WPSEO_Premium {
 	}
 
 	/**
-	 * Adds multi keyword functionality if we are on the correct pages.
+	 * Filters the content of the update notice with data for premium.
 	 *
-	 * @deprecated 8.4
-	 * @codeCoverageIgnore
+	 * @param object $free_release_data The object with content for free version of the plugin.
+	 *
+	 * @return mixed The filtered object with premium data, or null if file non existent or malformed
 	 */
-	public function enqueue_multi_keyword() {
-		_deprecated_function( 'WPSEO_Premium::enqueue_multi_keyword', '8.4' );
-	}
+	public function filter_update_notice_content( $free_release_data ) {
+		$release_data = $free_release_data;
+		$file         = plugin_dir_path( WPSEO_FILE ) . '/premium/release-info.json';
 
-	/**
-	 * Loads the autoloader
-	 *
-	 * @deprecated 9.4
-	 * @codeCoverageIgnore
-	 *
-	 * @return void
-	 */
-	public static function autoloader() {
-		_deprecated_function( __METHOD__, '9.4' );
-	}
+		if ( file_exists( $file ) ) {
+			$premium_release_json = file_get_contents( $file );
+			$premium_release_data = json_decode( $premium_release_json );
 
-	/**
-	 * Adds multi keyword functionality if we are on the correct pages
-	 *
-	 * @deprecated 9.4
-	 * @codeCoverageIgnore
-	 *
-	 * @return void
-	 */
-	public function enqueue_social_previews() {
-		_deprecated_function( 'WPSEO_Premium::enqueue_social_previews', '9.4' );
+			// If file existing and not malformed, filter and use premium data instead of free.
+			if ( ! is_null( $premium_release_data ) ) {
+				$release_data = $premium_release_data;
+			}
+		}
+		return $release_data;
 	}
 }

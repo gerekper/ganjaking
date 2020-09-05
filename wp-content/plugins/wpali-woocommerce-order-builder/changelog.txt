@@ -1,0 +1,59 @@
+== Changelog ==
+
+= 1.0.0 = 10/23/2017
+*  First plugin release.
+
+= 1.0.1 = 10/27/2017
+*  Added option to disable image.
+*  Fixed flickering sticky bar issue.
+*  Fixed images dynamic height issue.
+
+= 1.0.2 = 10/28/2017
+*  Added quantity selection feature.
+*  Improved sticky-bar performance.
+*  Added ability to set base-price (Price added to the total of selected items).
+
+= 1.0.3 = 11/04/2017
+*  Added hooks and filters for web developers.
+
+= 1.0.4 = 11/06/2017
+*  Added enhanced calculator.
+*  Improvements and new feature to sort products.
+*  Added the ability to change product display between WooCommerce layout and WWOB layout.
+
+= 1.0.5 = 11/06/2017
+*  Fixed bugs.
+*  Added new hooks and features.
+*  Improved WWOB product options.
+
+= 1.0.6 = 11/12/2017
+*  Fixed WC variation conflict bug.
+*  New actions and filters
+*  Compatibility fixes for PHP versions over 7.0.14
+
+= 1.0.7 = 03/02/2017
+*  Fixed bugs.
+*  added wwob class to body to have better control over the pages where wwob is used.
+
+= 1.0.8 = 30/03/2018
+*  Fixed bugs
+*  Made transation ready
+*  Added preview image option
+*  Added special instruction to email
+
+= 1.0.9 = 31/01/2019
+*  Fix conflicts with WooCommerce 3.5.4
+
+= 1.1.0 = 16/04/2019
+*  Fixed image preview bug
+*  Added ability to include quantity selections in the max product restriction
+
+= 1.1.1 = 04/09/2019
+*  Fixed translation issue
+
+= 1.1.2 = 04/03/2020
+* Display fixes
+* Fixed issue of extra options not appearing in cart
+
+= 1.1.3 = 22/07/2020
+* fixed bug ( prevent add to cart without selection )

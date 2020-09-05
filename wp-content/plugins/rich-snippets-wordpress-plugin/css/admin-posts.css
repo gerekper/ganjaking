@@ -1,0 +1,59 @@
+/**
+ * Table of contents
+ *
+ * # Single Snippet
+ * # Post Table
+ */
+
+/* --------------------------------------
+ * # Single Snippet
+ *--------------------------------------*/
+
+.wpb-rs-add-snippet {
+    line-height: 2em;
+}
+
+.wpb-rs-add-snippet span {
+    vertical-align: middle;
+}
+
+.wpb-rs-single-snippet {
+    border: 1px dashed #bbb;
+    margin: 0 0 2em 0;
+    padding: 0 1em 1em 1em;
+    position: relative;
+}
+
+.wpb-rs-remove-snippet {
+    position: absolute;
+    right: -1px;
+    top: -1px;
+}
+
+.wpb-rs-toggle-snippet {
+    position: absolute;
+    top: -1px;
+    right: 2.5rem;
+}
+
+.wpb-rs-type {
+    font-weight: bold;
+}
+
+.wpb-rs-snippet-closed {
+    cursor: pointer;
+}
+
+.wpb-rs-snippet-closed > *:not(button):not(.wpb-rs-loader):not(.wpb-rs-type) {
+    display: none;
+}
+
+
+/* --------------------------------------
+ * # Post Table
+ *--------------------------------------*/
+
+.column-sync,
+.column-predefined {
+    width: 100px;
+}

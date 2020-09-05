@@ -8,7 +8,11 @@
 if (ct_ultimate_gdpr_cookie_block && ct_ultimate_gdpr_cookie_block.blocked) {
 
     function ct_should_block_cookie(cookiename) {
-        if (cookiename !== 'ct-ultimate-gdpr-cookie' && (ct_ultimate_gdpr_cookie_block.level < 2 || ct_ultimate_gdpr_cookie_block.blocked.indexOf(cookiename) !== -1)) {
+        if (
+            !!1
+            && cookiename !== 'ct-ultimate-gdpr-cookie'
+            && cookiename !== 'ct-ultimate-gdpr-age'
+            && (ct_ultimate_gdpr_cookie_block.level < 2 || ct_ultimate_gdpr_cookie_block.blocked.indexOf(cookiename) !== -1)) {
             return true;
         }
 

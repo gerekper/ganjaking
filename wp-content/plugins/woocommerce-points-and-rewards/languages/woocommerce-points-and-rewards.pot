@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Points and Rewards 1.6.36\n"
+"Project-Id-Version: WooCommerce Points and Rewards 1.6.37\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-points-and-rewards\n"
-"POT-Creation-Date: 2020-08-19 14:31:58+00:00\n"
+"POT-Creation-Date: 2020-08-25 17:25:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -131,7 +131,7 @@ msgstr ""
 
 #: includes/class-wc-points-rewards-admin.php:556
 msgid ""
-"Set the minimum product discount allowed for the cart when redeeming "
+"Set the minimum amount a user's points must add up to in order to redeem "
 "points. Use a fixed monetary amount or leave blank to disable."
 msgstr ""
 

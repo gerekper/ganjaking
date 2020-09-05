@@ -537,6 +537,14 @@ class WooCommerce_Product_Search {
 			update_option( 'woocommerce_product_search_plugin_version', $woocommerce_product_search_version );
 			self::update( $previous_version );
 		}
+
+		$db_version = get_option( 'woocommerce_product_search_db_version', '0' );
+		if ( version_compare( $db_version, WOO_PS_PLUGIN_VERSION ) < 0 ) {
+			if ( !self::needs_db_update() ) {
+
+				self::update_db();
+			}
+		}
 	}
 
 	/**
@@ -579,11 +587,15 @@ class WooCommerce_Product_Search {
 	 * @return boolean
 	 */
 	public static function needs_db_update() {
+
 		if ( did_action( 'init' ) < 1 ) {
 			return false;
 		}
 		$db_version = get_option( 'woocommerce_product_search_db_version', '0' );
-		return version_compare( $db_version, WOO_PS_PLUGIN_VERSION ) < 0;
+		return
+			( version_compare( $db_version, WOO_PS_PLUGIN_VERSION ) < 0 )
+			&&
+			( version_compare( $db_version, '3.1.0' ) < 0 ); 
 	}
 
 	/**

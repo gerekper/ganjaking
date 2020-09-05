@@ -103,9 +103,11 @@ class WC_Deposits_Cart_Manager {
 	 * @return boolean
 	 */
 	public function has_deposit() {
-		foreach ( WC()->cart->get_cart() as $cart_item ) {
-			if ( ! empty( $cart_item['is_deposit'] ) ) {
-				return true;
+		if ( ! is_null( WC()->cart ) ) {
+			foreach ( WC()->cart->get_cart() as $cart_item ) {
+				if ( ! empty( $cart_item['is_deposit'] ) ) {
+					return true;
+				}
 			}
 		}
 		return false;

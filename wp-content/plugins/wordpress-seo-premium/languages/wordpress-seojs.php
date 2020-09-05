@@ -173,12 +173,12 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/SettingsReplacementVariableEditor.js:39
 	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SnippetPreviewModal.js:59
+	// Reference: js/src/components/SnippetPreviewModal.js:62
 	// Reference: js/src/components/fills/MetaboxFill.js:58
 	__( 'Google preview', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SnippetPreviewModal.js:67
-	// Reference: js/src/components/modals/Modal.js:78
+	// Reference: js/src/components/SnippetPreviewModal.js:70
+	// Reference: js/src/components/modals/SeoAnalysisModal.js:25
 	__( 'Close', 'wordpress-seo' ),
 
 	// Reference: js/src/components/WordPressUserSelector.js:113
@@ -282,12 +282,12 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/modals/MultipleKeywords.js:69
 	__( '1 year free support and updates included!', 'wordpress-seo' ),
 
-	// Reference: js/src/components/modals/Modal.js:76
-	__( 'Open', 'wordpress-seo' ),
-
 	// Reference: js/src/components/modals/MultipleKeywords.js:19
 	/* translators: %s expands to a 'Yoast SEO Premium' text linked to the yoast.com website. */
 	__( 'Great news: you can, with %s!', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SeoAnalysisModal.js:23
+	__( 'Open', 'wordpress-seo' ),
 
 	// Reference: js/src/components/social/SocialMetadata.js:31
 	/* translators: %s expands to Twitter. */
@@ -301,13 +301,13 @@ $generated_i18n_strings = array(
 	/* translators: %s expands to the social medium name, which is either Twitter or Facebook. %s expands to Yoast SEO Premium */
 	__( 'Do you want to preview what it will look like if people share this post on %s? You can, with %s.', 'wordpress-seo' ),
 
-	// Reference: js/src/containers/FacebookEditor.js:18
-	// Reference: js/src/containers/TwitterEditor.js:18
+	// Reference: js/src/containers/FacebookEditor.js:16
+	// Reference: js/src/containers/TwitterEditor.js:16
 	/* translators: %s expands to the social medium name, i.e. Faceboook. */
 	__( 'Modify your %s title by editing it right here...', 'wordpress-seo' ),
 
-	// Reference: js/src/containers/FacebookEditor.js:25
-	// Reference: js/src/containers/TwitterEditor.js:25
+	// Reference: js/src/containers/FacebookEditor.js:23
+	// Reference: js/src/containers/TwitterEditor.js:23
 	/* translators: %s expands to the social medium name, i.e. Faceboook. */
 	__( 'Modify your %s description by editing it right here...', 'wordpress-seo' ),
 
@@ -324,19 +324,19 @@ $generated_i18n_strings = array(
 	/* translators: %1$s expands to the plural name of the current post type, %2$s expands to the current site wide default. */
 	__( 'Default for %1$s (%2$s)', 'wordpress-seo' ),
 
-	// Reference: js/src/containers/SnippetEditor.js:56
+	// Reference: js/src/containers/SnippetEditor.js:63
 	__( 'Please provide a meta description by editing the snippet below.', 'wordpress-seo' ),
 
 	// Reference: js/src/help-scout-beacon.js:208
 	__( 'When you click OK we will open our HelpScout beacon where you can find answers to your questions. This beacon will load our support data and also potentially set cookies.', 'wordpress-seo' ),
 
-	// Reference: js/src/initializers/edit.js:216
+	// Reference: js/src/initializers/block-editor-integration.js:139
 	__( 'Yoast SEO', 'wordpress-seo' ),
 
-	// Reference: js/src/initializers/edit.js:81
+	// Reference: js/src/initializers/block-editor-integration.js:52
 	__( 'Marking links with nofollow/sponsored has been disabled for WordPress installs < 5.4.', 'wordpress-seo' ),
 
-	// Reference: js/src/initializers/edit.js:84
+	// Reference: js/src/initializers/block-editor-integration.js:55
 	__( 'Please upgrade your WordPress version or install the Gutenberg plugin to get this %1$s feature.', 'wordpress-seo' ),
 
 	// Reference: js/src/inline-links/edit-link.js:106

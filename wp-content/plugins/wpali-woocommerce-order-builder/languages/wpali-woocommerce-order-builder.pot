@@ -1,0 +1,892 @@
+# Copyright (C) 2018 WpAli: Woocommerce Order Builder
+# This file is distributed under the same license as the WpAli: Woocommerce Order Builder package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WpAli: Woocommerce Order Builder 1.0.8\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpali-woocommerce-"
+"order-builder\n"
+"POT-Creation-Date: 2018-03-30 13:04:30+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: admin/class-wpali-woocommerce-order-builder-admin.php:128
+msgid ""
+"WpAli: Woocommerce Order Builder: Please Activate WooCommerce First to Use "
+"the Plugin."
+msgstr ""
+
+#: admin/class-wpali-woocommerce-order-builder-admin.php:140
+msgid "Customer Instructions:"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2.php:175
+msgid "Metabox configuration is required to have an ID parameter."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2.php:553
+msgid "Click to toggle"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Ajax.php:75
+msgid "Please Try Again"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Ajax.php:181
+msgid "Remove Embed"
+msgstr ""
+
+#. translators: 1: results for. 2: link to codex.wordpress.org/Embeds
+#: admin/partials/includes/CMB2/includes/CMB2_Ajax.php:189
+#: admin/partials/includes/CMB2/includes/helper-functions.php:105
+msgid "No oEmbed Results Found for %1$s. View more info at %2$s."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Base.php:406
+msgid ""
+"The \"%1$s\" field parameter has been deprecated in favor of the \"%1$s\" "
+"parameter."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Base.php:410
+msgid ""
+"Using the \"%1$s\" field parameter as a callback has been deprecated in "
+"favor of the \"%1$s\" parameter."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Base.php:440
+msgid ""
+"%1$s was called with a parameter that is <strong>deprecated</strong> since "
+"version %2$s! %3$s"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Base.php:442
+msgid ""
+"%1$s was called with a parameter that is <strong>deprecated</strong> since "
+"version %2$s with no alternative available."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Base.php:475
+#: admin/partials/includes/CMB2/includes/CMB2_Hookup_Base.php:100
+#: admin/partials/includes/CMB2/includes/CMB2_Options_Hookup.php:233
+#: admin/partials/includes/CMB2/includes/types/CMB2_Type_Base.php:149
+msgid "Invalid %1$s property: %2$s"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Base.php:490
+#: admin/partials/includes/CMB2/includes/types/CMB2_Type_Base.php:133
+msgid "Invalid %1$s method: %2$s"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Field.php:1181
+msgid "Add Group"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Field.php:1182
+msgid "Remove Group"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Field.php:1204
+#: admin/partials/includes/CMB2/includes/CMB2_Field.php:1208
+msgid "None"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Field.php:1269
+msgid "Sorry, this field does not have a cmb_id specified."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Field_Display.php:432
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:168
+#: admin/partials/includes/CMB2/includes/types/CMB2_Type_File_Base.php:78
+msgid "File:"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Hookup_Base.php:42
+msgid "%1$s should be implemented by the extended class."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:107
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:148
+msgid "Clear"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:108
+msgid "Default"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:109
+msgid "Select Color"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:110
+msgid "Current Color"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:138
+msgctxt "Valid formatDate string for jquery-ui datepicker"
+msgid "mm/dd/yy"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:139
+msgid "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:140
+msgid "Su, Mo, Tu, We, Th, Fr, Sa"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:141
+msgid "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:142
+msgid ""
+"January, February, March, April, May, June, July, August, September, "
+"October, November, December"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:143
+msgid "Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:144
+msgid "Next"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:145
+msgid "Prev"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:146
+msgid "Today"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:147
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:157
+msgid "Done"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:151
+msgid "Choose Time"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:152
+msgid "Time"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:153
+msgid "Hour"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:154
+msgid "Minute"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:155
+msgid "Second"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:156
+msgid "Now"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:158
+msgctxt ""
+"Valid formatting string, as per http://trentrichardson.com/examples/"
+"timepicker/"
+msgid "hh:mm TT"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:164
+msgid "Use this file"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:165
+msgid "Use these files"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:166
+#: admin/partials/includes/CMB2/includes/types/CMB2_Type_File_Base.php:63
+msgid "Remove Image"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:167
+#: admin/partials/includes/CMB2/includes/CMB2_Types.php:412
+#: admin/partials/includes/CMB2/includes/types/CMB2_Type_File_Base.php:83
+msgid "Remove"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:169
+#: admin/partials/includes/CMB2/includes/types/CMB2_Type_File_Base.php:81
+msgid "Download"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_JS.php:170
+msgid "Select / Deselect All"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Options_Hookup.php:111
+msgid "Settings updated."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Options_Hookup.php:113
+msgid "Nothing to update."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Types.php:231
+msgid "Custom CMB2 field type classes must extend CMB2_Type_Base."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Types.php:349
+msgid "Add Row"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_Types.php:412
+msgid "Remove Row"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_hookup.php:181
+msgid ""
+"Term Metadata is a WordPress 4.4+ feature. Please upgrade your WordPress "
+"install."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_hookup.php:185
+msgid "Term metaboxes configuration requires a \"taxonomies\" parameter."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/CMB2_hookup.php:458
+msgid "Toggle panel: %s"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/helper-functions.php:303
+msgid "Save"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller.php:257
+msgid "This box does not have read permissions."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller.php:277
+msgid "This box does not have write permissions."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller.php:300
+msgid ""
+"No box found by that id. A box needs to be registered with the \"show_in_rest"
+"\" parameter configured."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller.php:378
+msgid "A human-readable description of the object."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller.php:385
+msgid "The id for the object."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller.php:392
+msgid "The title for the object."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Boxes.php:51
+msgid "Includes the registered fields for the box in the response."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Boxes.php:72
+msgid ""
+"Includes the fully rendered attributes, 'form_open', 'form_close', as well "
+"as the enqueued 'js_dependencies' script handles, and 'css_dependencies' "
+"stylesheet handles."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Boxes.php:122
+msgid "No boxes found."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Fields.php:27
+msgid ""
+"Includes the box object which the fields are registered to in the response."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Fields.php:30
+msgid ""
+"When the '_rendered' argument is passed, the renderable field attributes "
+"will be returned fully rendered. By default, the names of the callback "
+"handers for the renderable attributes will be returned."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Fields.php:33
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Fields.php:36
+msgid ""
+"To view or modify the field's value, the 'object_id' and 'object_type' "
+"arguments are required."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Fields.php:236
+msgid ""
+"CMB2 Field value cannot be updated without the value parameter specified."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Fields.php:297
+msgid ""
+"CMB2 Field value cannot be modified without the object_id and object_type "
+"parameters specified."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Fields.php:312
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Fields.php:341
+msgid "No field found by that id."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/rest-api/CMB2_REST_Controller_Fields.php:415
+msgid "Value Error for %s"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:24
+msgid "The register_routes() method must be overridden"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:34
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:46
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:58
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:70
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:82
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:94
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:106
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:118
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:130
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:142
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:154
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:167
+msgid "Method '%s' not implemented. Must be overridden in subclass."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:272
+msgid "Current page of the collection."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:280
+msgid "Maximum number of items to be returned in result set."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:289
+msgid "Limit results to those matching a string."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/shim/WP_REST_Controller.php:307
+msgid ""
+"Scope under which the request is made; determines fields present in response."
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/types/CMB2_Type_File.php:76
+msgid "Add or Upload File"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/types/CMB2_Type_File_List.php:41
+msgid "Add or Upload Files"
+msgstr ""
+
+#: admin/partials/includes/CMB2/includes/types/CMB2_Type_Taxonomy_Base.php:99
+msgid "No terms"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:25
+msgid "WpAli: WooCommerce Order Builder Settings"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:29
+msgid "WWOB Settings"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:32
+msgid "Save WWOB Options"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:35
+msgid "Styling options"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:39
+msgid "Display Options"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:43
+msgid "Responsiveness"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:51
+msgid "Primary Color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:59
+msgid "Secondary Color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:67
+msgid "Items Styling"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:74
+msgid "Items Container Background"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:75
+msgid "Pick background color for items container"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:83
+msgid "Items Background"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:84
+msgid "Pick background color of every item within items container "
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:93
+msgid "Items Text Color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:94
+msgid "Pick color for items text (name & price) "
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:102
+msgid "Label Color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:104
+msgid "Leave empty to use primary color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:112
+msgid "Description Color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:114
+msgid "Leave empty to use secondary color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:122
+msgid "Container Padding"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:123
+msgid "Padding around items container in pixels"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:136
+msgid "Sticky-bar Styling"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:143
+msgid "Sticky-bar Background"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:144
+msgid "Pick background color for sticky sidebar (optional)"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:153
+msgid "Sticky-bar Heading Color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:162
+msgid "Sticky-bar Heading Background"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:164
+msgid ""
+"Fallback background color if product featured image is not available or "
+"disabled"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:172
+msgid "Sticky-bar Top Position"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:173
+msgid "Top position for the sticky sidebar (eg: fixed navigation height)"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:186
+msgid "Button Text Color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:194
+msgid "Button Hover Text Color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:202
+msgid "Button Background Color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:211
+msgid "Button Hover Background Color"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:221
+msgid "Desktop Items height"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:222
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:235
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:249
+msgid "Leave empty to use dynamic height based on tallest item."
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:234
+msgid "Tablet Items height"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:248
+msgid "Mobile Items height"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:262
+msgid "Sticky-bar Breakpoint"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:263
+msgid "Sticky-bar breakpoint by pixels (leave empty to use default \"780px\")."
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:275
+msgid "Items Tablet Breakpoint"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:276
+msgid "Items breakpoint by pixels (leave empty to use default \"768px\")."
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:288
+msgid "Tablet: items per row"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:289
+msgid "Number of items per row in tablet display."
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:294
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:322
+msgid "2"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:295
+msgid "3"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:302
+msgid "Items Mobile Breakpoint"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:303
+msgid "Items breakpoint by pixels (leave empty to use default \"480px\")"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:315
+msgid "Mobile: items per row"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:316
+msgid "Number of items per row in mobile display."
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:321
+msgid "1"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:331
+msgid "Product Display"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:332
+msgid ""
+"Choose product layout ( <a href=\"https://plugins.wpali.com/wp-content/"
+"uploads/2017/10/wwob_layout.png\">WWOB Layout</a> | <a href=\"https://"
+"plugins.wpali.com/wp-content/uploads/2017/10/WC_layout.png\">WooCommerce "
+"Layout</a> )"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:337
+msgid "WWOB Layout"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:338
+msgid "WooCommerce Layout"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:346
+msgid "Sticky-bar Background Image"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:347
+msgid "Show or hide background image on the floating sidebar"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:352
+msgid "Show"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:353
+msgid "Hide"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:361
+msgid "Items style"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:362
+msgid ""
+"Choose items style from available designs ( <a href=\"http://plugins.wpali."
+"com/wp-content/uploads/2017/10/1.png\">Style 1</a> | <a href=\"http://"
+"plugins.wpali.com/wp-content/uploads/2017/10/2.png\">Style 2</a> | <a href="
+"\"http://plugins.wpali.com/wp-content/uploads/2017/10/3-1.png\">Style 3</"
+"a> )<br><b>Note:</b> Make sure to select primary color and secondary color "
+"before using this option."
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:367
+msgid "default"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:368
+msgid "Style 1"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:369
+msgid "Style 2"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:370
+msgid "Stlye 3"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:378
+msgid "Enable Enhanced Calculator"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:379
+msgid "Check this box to enable enhanced sticky bar"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:389
+msgid "Product Options Position"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:390
+msgid "Choose where you want to display product options on the page"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:395
+msgid "Inside Sticky-bar"
+msgstr ""
+
+#: admin/partials/includes/wpali-woocommerce-order-builder-admin-options.php:396
+msgid "Below Product Items"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:213
+msgid "WPAli: WooCommerce Order Builder"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:225
+msgid "Yes"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:226
+msgid "No"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:247
+msgid "Product"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:248
+msgid "Add Product"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:249
+msgid "Remove Product"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:323
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:482
+msgid "+"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:324
+msgid "Upload Image"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:352
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:492
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:502
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:534
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:576
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:585
+msgid "Enable"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:362
+#: public/class-wpali-woocommerce-order-builder-public.php:569
+#: public/class-wpali-woocommerce-order-builder-public.php:644
+#: public/class-wpali-woocommerce-order-builder-public.php:693
+msgid "Color"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:363
+#: public/class-wpali-woocommerce-order-builder-public.php:572
+#: public/class-wpali-woocommerce-order-builder-public.php:647
+#: public/class-wpali-woocommerce-order-builder-public.php:696
+msgid "Size"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:364
+msgid "Custom"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:377
+msgid "White"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:378
+msgid "Black"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:379
+msgid "Blue"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:380
+msgid "Red"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:381
+msgid "Yellow"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:382
+msgid "Grey"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:383
+msgid "Orange"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:384
+msgid "Green"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:385
+msgid "Brown"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:386
+msgid "Pink"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:387
+msgid "Purple"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:411
+msgid "Small"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:412
+msgid "Medium"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:413
+msgid "Large"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:414
+msgid "Extra Large"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:415
+msgid "Extra Extra Large"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:439
+msgid "Option"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:440
+msgid "Add Option"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:441
+msgid "Remove Option"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:463
+msgid "Select Dropdown"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:464
+msgid "Checkbox"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:465
+msgid "Radio"
+msgstr ""
+
+#: admin/partials/wpali-woocommerce-order-builder-admin-metaboxes.php:466
+msgid "Text"
+msgstr ""
+
+#: public/class-wpali-woocommerce-order-builder-public.php:108
+msgid "Please select at least"
+msgstr ""
+
+#: public/class-wpali-woocommerce-order-builder-public.php:516
+msgid "Order Details:"
+msgstr ""
+
+#: public/class-wpali-woocommerce-order-builder-public.php:565
+#: public/class-wpali-woocommerce-order-builder-public.php:639
+#: public/class-wpali-woocommerce-order-builder-public.php:690
+msgid "Product Options"
+msgstr ""
+
+#: public/class-wpali-woocommerce-order-builder-public.php:575
+#: public/class-wpali-woocommerce-order-builder-public.php:650
+#: public/class-wpali-woocommerce-order-builder-public.php:699
+msgid "Instructions"
+msgstr ""
+
+#: public/class-wpali-woocommerce-order-builder-public.php:687
+msgid "Order details"
+msgstr ""
+
+#: public/partials/wpali-woocommerce-order-builder-public-display.php:172
+msgid "Additional Options"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WpAli: Woocommerce Order Builder"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wpali.com/woocommerce-order-builder"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Plugin to create unlimited combo products and enable your customers to build "
+"their order easily in one page and see the price instantly.."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "ALI KHALLAD"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wpali.com"
+msgstr ""

@@ -75,6 +75,33 @@ class Frontend {
 
 			// add frontend script and styles
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts_styles' ] );
+
+			// when updating the shipping method, force WC to save the session before getting the chosen shipping method for the template
+			add_action( 'woocommerce_before_template_part', [ $this, 'force_save_session_after_updating_shipping_method' ] );
+		}
+	}
+
+
+	/**
+	 * Forces WC to save the session when updating the shipping method.
+	 *
+	 * For some reason WC does not save the session after setting the
+	 * shipping method and before getting the template.
+	 *
+	 * @see \WC_AJAX::update_shipping_method()
+	 * @see \WC_AJAX::get_cart_totals()
+	 *
+	 * @internal
+	 *
+	 * @since 2.8.3
+	 *
+	 * @param string $template_name template being loaded by WC
+	 */
+	public function force_save_session_after_updating_shipping_method( $template_name ) {
+
+		if ( is_ajax() && 'update_shipping_method' === Framework\SV_WC_Helper::get_request( 'wc-ajax' ) && 'cart/cart-shipping.php' === $template_name ) {
+
+			WC()->session->save_data();
 		}
 	}
 
@@ -169,6 +196,7 @@ class Frontend {
 
 		$dependencies = [
 			'jquery',
+			'jquery-blockui',
 			'jquery-tiptip',
 			'jquery-ui-datepicker',
 			'select2',
@@ -188,7 +216,7 @@ class Frontend {
 		}
 
 		// load scripts
-		wp_enqueue_script( 'wc-local-pickup-plus-frontend', wc_local_pickup_plus()->get_plugin_url() . '/assets/js/frontend/wc-local-pickup-plus-frontend.min.js', $dependencies, \WC_Local_Pickup_Plus::VERSION );
+		wp_enqueue_script( 'wc-local-pickup-plus-frontend', wc_local_pickup_plus()->get_plugin_url() . '/assets/js/frontend/wc-local-pickup-plus-frontend.min.js', $dependencies, \WC_Local_Pickup_Plus::VERSION, false );
 
 		$shipping_method = wc_local_pickup_plus_shipping_method();
 

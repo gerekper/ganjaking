@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Local Pickup Plus
  * Plugin URI: http://woocommerce.com/products/local-pickup-plus/
+ * Documentation URI: https://docs.woocommerce.com/document/local-pickup-plus/
  * Description: A shipping plugin for WooCommerce that allows the store operator to define local pickup locations, which the customer can then choose from when making a purchase.
  * Author: SkyVerge
  * Author URI: http://woocommerce.com
- * Version: 2.8.2
+ * Version: 2.9.0
  * Text Domain: woocommerce-shipping-local-pickup-plus
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +23,7 @@
  *
  * Woo: 18696:4d6fbe9e8968a669d11cec40b85a0caa
  * WC requires at least: 3.0.9
- * WC tested up to: 4.1.0
+ * WC tested up to: 4.4.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -49,7 +50,7 @@ class WC_Local_Pickup_Plus_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '5.6';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/** minimum WordPress version required by this plugin */
 	const MINIMUM_WP_VERSION = '4.4';
@@ -85,10 +86,13 @@ class WC_Local_Pickup_Plus_Loader {
 
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
 
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
+
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
+			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}
@@ -328,6 +332,24 @@ class WC_Local_Pickup_Plus_Loader {
 			<?php
 
 		endforeach;
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

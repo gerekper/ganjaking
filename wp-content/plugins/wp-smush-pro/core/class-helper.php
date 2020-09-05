@@ -34,6 +34,11 @@ class Helper {
 	 * @return bool|string
 	 */
 	public static function get_mime_type( $path ) {
+		// These mime functions only work on local files/streams.
+		if ( ! stream_is_local( $path ) ) {
+			return false;
+		}
+
 		// Get the File mime.
 		if ( class_exists( 'finfo' ) ) {
 			$finfo = new finfo( FILEINFO_MIME_TYPE );

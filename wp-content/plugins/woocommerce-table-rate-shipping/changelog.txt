@@ -1,5 +1,8 @@
 *** Table Rate Shipping Changelog ***
 
+2020-08-19 - version 3.0.29
+* Tweak - WordPress 5.5 compatibility.
+
 2020-06-05 - version 3.0.28
 * Tweak - WC 4.2 compatibility.
 

@@ -41,22 +41,7 @@ class Smush {
 		this.deferred = jQuery.Deferred();
 		this.deferred.errors = [];
 
-		const ids =
-			0 < wp_smushit_data.resmush.length && ! this.skip_resmush
-				? wp_smushit_data.unsmushed.length > 0
-					? wp_smushit_data.resmush.concat(
-							wp_smushit_data.unsmushed
-					  )
-					: wp_smushit_data.resmush
-				: wp_smushit_data.unsmushed;
-		if ( 'object' === typeof ids ) {
-			// If button has re-Smush class, and we do have ids that needs to re-Smushed, put them in the list.
-			this.ids = ids.filter( function( itm, i, a ) {
-				return i === a.indexOf( itm );
-			} );
-		} else {
-			this.ids = ids;
-		}
+		this.setIds();
 
 		this.is_bulk_resmush =
 			0 < wp_smushit_data.resmush.length && ! this.skip_resmush;
@@ -156,6 +141,31 @@ class Smush {
 	}
 
 	/**
+	 * Sets this.ids.
+	 */
+	setIds() {
+		let ids = [];
+		if ( 0 < wp_smushit_data.resmush.length && ! this.skip_resmush ) {
+			if ( 0 < wp_smushit_data.unsmushed.length ) {
+				ids = wp_smushit_data.resmush.concat( wp_smushit_data.unsmushed );
+			} else {
+				ids = wp_smushit_data.resmush;
+			}
+		} else {
+			ids = wp_smushit_data.unsmushed;
+		}
+
+		if ( 'object' === typeof ids ) {
+			// If button has re-Smush class, and we do have ids that needs to re-Smushed, put them in the list.
+			this.ids = ids.filter( function( itm, i, a ) {
+				return i === a.indexOf( itm );
+			} );
+		} else {
+			this.ids = ids;
+		}
+	}
+
+	/**
 	 * Show loader in button for single and bulk Smush.
 	 */
 	start() {
@@ -175,7 +185,7 @@ class Smush {
 		}
 
 		// Hide the bulk div.
-		jQuery( '.wp-smush-bulk-wrapper' ).hide();
+		jQuery( '.wp-smush-bulk-wrapper' ).addClass( 'sui-hidden' );
 
 		// Remove any global notices if there.
 		jQuery( '.sui-notice-top' ).remove();
@@ -194,8 +204,8 @@ class Smush {
 
 		// Show the progress bar.
 		jQuery(
-			'.bulk-smush-wrapper .wp-smush-bulk-progress-bar-wrapper'
-		).show();
+			'.bulk-smush-wrapper .wp-smush-bulk-progress-bar-wrapper, #wp-smush-running-notice'
+		).removeClass( 'sui-hidden' );
 	}
 
 	/**
@@ -505,16 +515,7 @@ class Smush {
 				count += wp_smushit_data.resmush.length;
 			}
 
-			if ( count > 0 ) {
-				sidenavCountDiv.html( count );
-			} else {
-				jQuery( '.sui-summary-smush .smush-stats-icon' ).addClass(
-					'sui-hidden'
-				);
-				sidenavCountDiv
-					.removeClass( 'sui-tag sui-tag-warning' )
-					.html( '' );
-			}
+			Smush.updateRemainingCount( count );
 		}
 	}
 
@@ -613,10 +614,10 @@ class Smush {
 			statusIcon.addClass( 'sui-hidden' );
 			jQuery(
 				'.bulk-smush-wrapper .wp-smush-all-done, .wp-smush-pagespeed-recommendation'
-			).show();
-			jQuery( '.wp-smush-bulk-wrapper' ).hide();
+			).removeClass( 'sui-hidden' );
+			jQuery( '.wp-smush-bulk-wrapper' ).addClass( 'sui-hidden' );
 			// Hide the progress bar if scan is finished.
-			jQuery( '.wp-smush-bulk-progress-bar-wrapper' ).hide();
+			jQuery( '.wp-smush-bulk-progress-bar-wrapper' ).addClass( 'sui-hidden' );
 		} else {
 			// Show loader.
 			statusIcon
@@ -630,7 +631,7 @@ class Smush {
 			if ( notice.length > 0 ) {
 				notice.show();
 			} else {
-				jQuery( '.bulk-smush-wrapper .wp-smush-remaining' ).show();
+				jQuery( '.bulk-smush-wrapper .wp-smush-remaining' ).removeClass( 'sui-hidden' );
 			}
 		}
 
@@ -667,39 +668,23 @@ class Smush {
 	/**
 	 * Update remaining count.
 	 */
-	updateRemainingCount() {
-		if ( this.is_bulk_resmush ) {
-			// Re-Smush notice.
-			const resumeCountDiv = jQuery(
-				'.wp-smush-resmush-notice .wp-smush-remaining-count'
-			);
-			if ( resumeCountDiv.length && 'undefined' !== typeof this.ids ) {
-				resumeCountDiv.html( this.ids.length );
-			}
-		} else {
-			// Smush notice.
-			const wrapperCountDiv = jQuery(
-				'.bulk-smush-wrapper .wp-smush-remaining-count'
-			);
-			if ( wrapperCountDiv.length && 'undefined' !== typeof this.ids ) {
-				wrapperCountDiv.html( this.ids.length );
-			}
+	static updateRemainingCount( count ) {
+		const remainingCountContainers = jQuery( '.wp-smush-remaining-count' );
+		if ( remainingCountContainers.length ) {
+			remainingCountContainers.html( count );
 		}
 
 		// Update sidebar count.
-		const sidenavCountDiv = jQuery(
-			'.smush-sidenav .wp-smush-remaining-count'
-		);
-		if ( sidenavCountDiv.length && 'undefined' !== typeof this.ids ) {
-			if ( this.ids.length > 0 ) {
-				sidenavCountDiv.html( this.ids.length );
+		const sidenavCountDiv = jQuery( '.smush-sidenav .wp-smush-remaining-count' ),
+			sidenavCheckTag = jQuery( '.smush-sidenav .smush-bulk .sui-icon-check-tick' );
+		if ( sidenavCountDiv.length && sidenavCheckTag.length ) {
+			if ( count > 0 ) {
+				sidenavCountDiv.removeClass( 'sui-hidden' );
+				sidenavCheckTag.addClass( 'sui-hidden' );
 			} else {
-				jQuery( '.sui-summary-smush .smush-stats-icon' ).addClass(
-					'sui-hidden'
-				);
-				sidenavCountDiv
-					.removeClass( 'sui-tag sui-tag-warning' )
-					.html( '' );
+				jQuery( '.sui-summary-smush .smush-stats-icon' ).addClass( 'sui-hidden' );
+				sidenavCheckTag.removeClass( 'sui-hidden' );
+				sidenavCountDiv.addClass( 'sui-hidden' );
 			}
 		}
 	}
@@ -858,7 +843,7 @@ class Smush {
 					// Hide everything else.
 					jQuery(
 						'.wp-smush-resmush-wrap, .wp-smush-bulk-progress-bar-wrapper'
-					).hide();
+					).addClass( 'sui-hidden' );
 				}
 			}
 
@@ -882,12 +867,14 @@ class Smush {
 			}
 			jQuery(
 				'.bulk-smush-wrapper .wp-smush-all-done, .wp-smush-pagespeed-recommendation'
-			).show();
-			jQuery( '.wp-smush-bulk-wrapper' ).hide();
+			).removeClass( 'sui-hidden' );
+			jQuery( '.wp-smush-bulk-wrapper' ).addClass( 'sui-hidden' );
 		}
 
 		// Update remaining count.
-		this.updateRemainingCount();
+		if ( 'undefined' !== typeof this.ids ) {
+			Smush.updateRemainingCount( this.ids.length );
+		}
 
 		// Increase the progress bar and counter.
 		this._updateProgress(
@@ -1197,10 +1184,10 @@ class Smush {
 			self.enableButton();
 			self.button.removeClass( 'wp-smush-started' );
 			wp_smushit_data.unsmushed.unshift( self.current_id );
-			jQuery( '.wp-smush-bulk-wrapper' ).show();
+			jQuery( '.wp-smush-bulk-wrapper' ).removeClass( 'sui-hidden' );
 
 			// Hide the progress bar.
-			jQuery( '.wp-smush-bulk-progress-bar-wrapper' ).hide();
+			jQuery( '.wp-smush-bulk-progress-bar-wrapper' ).addClass( 'sui-hidden' );
 		} );
 	}
 

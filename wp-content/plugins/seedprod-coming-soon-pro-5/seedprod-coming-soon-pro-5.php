@@ -3,7 +3,7 @@
 Plugin Name: SeedProd Coming Soon Page Pro
 Plugin URI: https://www.seedprod.com
 Description: The Ultimate Coming Soon & Maintenance Mode Plugin
-Version:  5.12.5
+Version:  5.12.8
 Author: SeedProd
 Author URI: http://www.seedprod.com
 Text Domain: seedprod-coming-soon-pro
@@ -19,7 +19,7 @@ define( 'SEED_CSPV5_SHORTNAME', 'seed_cspv5' ); // Used to reference namespace f
 define( 'SEED_CSPV5_SLUG', 'seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php' ); // Used for settings link.
 define( 'SEED_CSPV5_TEXTDOMAIN', 'seedprod-coming-soon-pro' ); // Your textdomain
 define( 'SEED_CSPV5_PLUGIN_NAME', __( 'Coming Soon Page Pro', 'seedprod-coming-soon-pro' ) ); // Plugin Name shows up on the admin settings screen.
-define( 'SEED_CSPV5_VERSION', '5.12.5'); // Plugin Version Number.
+define( 'SEED_CSPV5_VERSION', '5.12.8'); // Plugin Version Number.
 define( 'SEED_CSPV5_PLUGIN_PATH', plugin_dir_path( __FILE__ ) ); // Example output: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/seed_cspv5/
 define( 'SEED_CSPV5_PLUGIN_URL', plugin_dir_url( __FILE__ ) ); // Example output: http://localhost:8888/wordpress/wp-content/plugins/seed_cspv5/
 define( 'SEED_CSPV5_SUBSCRIBERS_TABLENAME', 'csp3_subscribers' );

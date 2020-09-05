@@ -1190,7 +1190,10 @@ if($settings->blocks[count($settings->blocks)-1] != 'column' ){
 	<div id="cspio-pp-modal" class="modal fade" tabindex="-1" role="dialog">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
-	      <div class="modal-body">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="z-index:99999999; position:relative">
+		<span aria-hidden="true" style="padding-right:5px">&times;</span>
+        </button>
+	      <div class="modal-body" style="color: #000">
 	        <?php echo $settings->privacy_policy ?>
 	      </div>
 

@@ -303,12 +303,13 @@ class WC_Bookings_Ajax {
 			wp_die( esc_html__( 'Cheatin&#8217; huh?', 'woocommerce-bookings' ) );
 		}
 
-		$start_date_time  = wc_clean( $_POST['start_date_time'] );
-		$product_id       = intval( $_POST['product_id'] );
-		$blocks           = wc_clean( $_POST['blocks'] );
-		$bookable_product = wc_get_product( $product_id );
-		$booking_form     = new WC_Booking_Form( $bookable_product );
-		$html             = $booking_form->get_end_time_html( $blocks, $start_date_time );
+		$start_date_time      = wc_clean( $_POST['start_date_time'] );
+		$product_id           = intval( $_POST['product_id'] );
+		$blocks               = wc_clean( $_POST['blocks'] );
+		$bookable_product     = wc_get_product( $product_id );
+		$booking_form         = new WC_Booking_Form( $bookable_product );
+		$resource_id_to_check = absint( wc_clean( $_POST['resource_id'] ) );
+		$html                 = $booking_form->get_end_time_html( $blocks, $start_date_time, array(), $resource_id_to_check );
 
 		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput
 		exit;

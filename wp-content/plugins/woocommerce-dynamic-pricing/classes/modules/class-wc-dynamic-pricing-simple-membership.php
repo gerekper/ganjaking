@@ -312,7 +312,7 @@ class WC_Dynamic_Pricing_Simple_Membership extends WC_Dynamic_Pricing_Simple_Bas
 			if ( ! $this->is_cumulative( $fake_cart_item, false ) ) {
 
 				//$product_class = get_class( $_product );
-				if ( $_product->is_type( 'variable' ) && ($lowest_price || $lowest_price === 0.0) ) {
+				if ( ($_product->is_type( 'variable' ) || $_product->is_type( 'variation' )) && ($lowest_price || $lowest_price === 0.0) ) {
 					return $lowest_price;
 				} elseif ( $applied_rule ) {
 					return $this->get_adjusted_price_by_product_rule( $applied_rule, $a_working_price, $_product, $additional_price );

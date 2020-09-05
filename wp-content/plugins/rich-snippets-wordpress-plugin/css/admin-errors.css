@@ -1,0 +1,23 @@
+/**
+ * Table of contents
+ *
+ * # Error messages
+ */
+
+/* --------------------------------------
+ * # Error messages
+ *--------------------------------------*/
+
+.wpb-rs-errors {
+    position: fixed;
+    width: 40%;
+    right: 1rem;
+    top: 10%;
+    outline: 1px solid #e74c3c;
+    background-color: #fff;
+    color: #e74c3c;
+    min-width: 400px;
+    display: none;
+    padding: .5rem;
+    z-index: 160001;
+}

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Ultimate GDPR
+ * Plugin Name: Ultimate GDPR & CCPA
  * Description: Complete General Data Protection Regulation compliance toolkit plugin for WordPress.
- * Version: 1.7.6
+ * Version: 2.3
  * Author URI: https://www.createit.pl
  * Author: CreateIT
  */
@@ -178,6 +178,7 @@ class CT_Ultimate_GDPR {
 		foreach (
 			array(
 				new CT_Ultimate_GDPR_Controller_Cookie( $this->logger ),
+				new CT_Ultimate_GDPR_Controller_Age( $this->logger ),
 				new CT_Ultimate_GDPR_Controller_Terms( $this->logger ),
 				new CT_Ultimate_GDPR_Controller_Policy( $this->logger ),
 				new CT_Ultimate_GDPR_Controller_Forgotten( $this->logger ),
@@ -230,6 +231,7 @@ class CT_Ultimate_GDPR {
 	public function wp_enqueue_scripts_action() {
 		wp_enqueue_style( 'ct-ultimate-gdpr', ct_ultimate_gdpr_url( '/assets/css/style.min.css' ), array(), ct_ultimate_gdpr_get_plugin_version() );
 		wp_enqueue_style( 'ct-ultimate-gdpr-font-awesome', ct_ultimate_gdpr_url( '/assets/css/fonts/font-awesome/css/font-awesome.min.css' ) );
+    wp_enqueue_style( 'ct-ultimate-gdpr-custom-fonts', ct_ultimate_gdpr_url( '/assets/css/fonts/fonts.css' ) );
 	}
 
 	/**
@@ -253,7 +255,7 @@ class CT_Ultimate_GDPR {
 	 *
 	 * @param $id
 	 *
-	 * @return mixed|null
+	 * @return CT_Ultimate_GDPR_Controller_Abstract|null
 	 */
 	public function get_controller_by_id( $id ) {
 		return isset( $this->controllers[ $id ] ) ? $this->controllers[ $id ] : null;

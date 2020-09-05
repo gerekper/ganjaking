@@ -22,10 +22,21 @@ if ( ! defined( 'WPINC' ) ) {
 
 $tooltip = sprintf(
 	/* translators: %d - number of images */
-	esc_html__( 'You have %d images that need smushing', 'wp-smushit' ),
+	_n( 'You have %d image that needs smushing', 'You have %d images that need smushing', $remaining, 'wp-smushit' ),
 	absint( $remaining )
 );
 
+$tooltip_singular = sprintf(
+	/* translators: %s - count placeholder */
+	__( 'You have %s image that needs smushing', 'wp-smushit' ),
+	'{count}'
+);
+
+$tooltip_plural = sprintf(
+	/* translators: %s - count placeholder */
+	__( 'You have %s images that need smushing', 'wp-smushit' ),
+	'{count}'
+);
 ?>
 
 <div class="sui-summary-image-space" aria-hidden="true"></div>
@@ -35,7 +46,12 @@ $tooltip = sprintf(
 		<span class="sui-summary-large wp-smush-stats-human">
 			<?php echo esc_html( $human_size ); ?>
 		</span>
-		<span class="sui-tooltip" data-tooltip="<?php echo esc_html( $tooltip ); ?>">
+		<span
+			class="sui-tooltip"
+			data-tooltip="<?php echo esc_html( $tooltip ); ?>"
+			data-singular="<?php echo esc_html( $tooltip_singular ); ?>"
+			data-plural="<?php echo esc_html( $tooltip_plural ); ?>"
+		>
 			<i class="sui-icon-info sui-warning smush-stats-icon <?php echo $remaining > 0 ? '' : 'sui-hidden'; ?>" aria-hidden="true"></i>
 		</span>
 		<span class="sui-summary-detail wp-smush-savings">
@@ -96,7 +112,7 @@ $tooltip = sprintf(
 			</span>
 			<span class="sui-list-detail wp-smush-stats">
 				<?php if ( $resize_enabled || $resize_savings > 0 ) : ?>
-					<?php echo $resize_savings > 0 ? esc_html( $resize_savings ) : esc_html__( 'No resize savings available', 'wp-smushit' ); ?>
+					<?php echo $resize_savings > 0 ? esc_html( $resize_savings ) : esc_html__( 'No resize savings', 'wp-smushit' ); ?>
 				<?php else : ?>
 					<a role="button" class="sui-hidden-xs <?php echo esc_attr( $link_class ); ?>" href="<?php echo esc_url( $settings_link ); ?>">
 						<?php esc_html_e( 'Resize images', 'wp-smushit' ); ?>

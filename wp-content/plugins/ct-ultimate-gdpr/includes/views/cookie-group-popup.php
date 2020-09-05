@@ -309,32 +309,33 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 
     </div><?php // #ct-ultimate-gdpr-cookie-popup ?><!-- #ct-ultimate-gdpr-cookie-popup -->
 
-    <div id="ct-ultimate-gdpr-cookie-open"
-         class="<?php echo esc_attr($cookie_trigger_modal_bg_shape); ?>"
-         style="background-color: <?php echo(isset($options['cookie_trigger_modal_bg']) ? esc_attr($options['cookie_trigger_modal_bg']) : ''); ?>;color: <?php echo esc_attr($options['cookie_gear_icon_color']); ?>;
-	     <?php
-	     if (isset($options['cookie_gear_icon_position'])) :
-		     if ($options['cookie_gear_icon_position'] == 'top_center_') :
-			     echo esc_attr("top: " . (int)$distance . "px; left: 50%; right: auto; bottom: auto;");
-             elseif ($options['cookie_gear_icon_position'] == 'top_left_') :
-			     echo esc_attr("top: " . (int)$distance . "px; left:" . (int)$distance . "px;bottom: auto; right: auto;");
-             elseif ($options['cookie_gear_icon_position'] == 'top_right_') :
-			     echo esc_attr("top: " . (int)$distance . "px; right:" . (int)$distance . "px; bottom: auto; left: auto;");
-             elseif ($options['cookie_gear_icon_position'] == 'bottom_center_') :
-			     echo esc_attr("bottom: " . (int)$distance . "px; left: 50%; right: auto; top: auto;");
-             elseif ($options['cookie_gear_icon_position'] == 'bottom_left_') :
-			     echo esc_attr("bottom: " . (int)$distance . "px; left: " . (int)$distance . "px;right: auto; top: auto;");
-             elseif ($options['cookie_gear_icon_position'] == 'bottom_right_') :
-			     echo esc_attr("bottom: " . (int)$distance . "px; right: " . (int)$distance . "px; top: auto; left: auto;");
-             elseif ($options['cookie_gear_icon_position'] == 'center_left_') :
-			     echo esc_attr("top: 50%; left: " . (int)$distance . "px; right: auto; bottom: auto;");
-             elseif ($options['cookie_gear_icon_position'] == 'center_right_') :
-			     echo esc_attr("top: 50%; right: " . (int)$distance . "px; bottom: auto; left: auto;");
-		     else :
-			     echo str_replace('_', ": " . (int)$distance . "px; ", esc_attr($options['cookie_gear_icon_position']));
-		     endif;
-	     endif;
-	     ?>">
+  <div id="ct-ultimate-gdpr-cookie-open"
+       class="<?php echo esc_attr($cookie_trigger_modal_bg_shape); ?>"
+       style="background-color: <?php echo(isset($options['cookie_trigger_modal_bg']) ? esc_attr($options['cookie_trigger_modal_bg']) : ''); ?>;color: <?php echo esc_attr($options['cookie_gear_icon_color']); ?>;
+       <?php
+       if (isset($options['cookie_gear_icon_position'])) :
+         if ($options['cookie_gear_icon_position'] == 'top_center_') :
+           echo esc_attr("top: " . (int)$distance . "px; left: 50%; right: auto; bottom: auto;");
+         elseif ($options['cookie_gear_icon_position'] == 'top_left_') :
+           echo esc_attr("top: " . (int)$distance . "px; left:" . (int)$distance . "px;bottom: auto; right: auto;");
+         elseif ($options['cookie_gear_icon_position'] == 'top_right_') :
+           echo esc_attr("top: " . (int)$distance . "px; right:" . (int)$distance . "px; bottom: auto; left: auto;");
+         elseif ($options['cookie_gear_icon_position'] == 'bottom_center_') :
+           echo esc_attr("bottom: " . (int)$distance . "px; left: 50%; right: auto; top: auto;");
+         elseif ($options['cookie_gear_icon_position'] == 'bottom_left_') :
+           echo esc_attr("bottom: " . (int)$distance . "px; left: " . (int)$distance . "px;right: auto; top: auto;");
+         elseif ($options['cookie_gear_icon_position'] == 'bottom_right_') :
+           echo esc_attr("bottom: " . (int)$distance . "px; right: " . (int)$distance . "px; top: auto; left: auto;");
+         elseif ($options['cookie_gear_icon_position'] == 'center_left_') :
+           echo esc_attr("top: 50%; left: " . (int)$distance . "px; right: auto; bottom: auto;");
+         elseif ($options['cookie_gear_icon_position'] == 'center_right_') :
+           echo esc_attr("top: 50%; right: " . (int)$distance . "px; bottom: auto; left: auto;");
+         else :
+           echo str_replace('_', ": " . (int)$distance . "px; ", esc_attr($options['cookie_gear_icon_position']));
+         endif;
+       endif;
+       ?>">
+
 		<?php
 		if (isset($options['cookie_settings_trigger'])) :
 			if ($options['cookie_settings_trigger'] == 'icon_only_' || $options['cookie_settings_trigger'] == 'text_icon_') : ?>

@@ -120,6 +120,7 @@ class WC_Booking_Email_Manager {
 			'woocommerce_booking_pending-confirmation_to_cancelled',
 			'woocommerce_booking_confirmed_to_cancelled',
 			'woocommerce_booking_paid_to_cancelled',
+			'woocommerce_booking_unpaid_to_cancelled',
 		));
 
 		foreach ( $email_actions as $action ) {

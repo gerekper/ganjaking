@@ -1,25 +1,25 @@
 [
     {
         "name": "skyverge/wc-jilt-promotions",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
-            "url": "git@github.com:skyverge/wc-jilt-promotions.git",
-            "reference": "e9c8fdede446e33d6b4469d2c25d3d6817489b0b"
+            "url": "https://github.com/skyverge/wc-jilt-promotions.git",
+            "reference": "6359c2c55420ab1601f0247a23fe39bd4a9a2f65"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/skyverge/wc-jilt-promotions/zipball/e9c8fdede446e33d6b4469d2c25d3d6817489b0b",
-            "reference": "e9c8fdede446e33d6b4469d2c25d3d6817489b0b",
+            "url": "https://api.github.com/repos/skyverge/wc-jilt-promotions/zipball/6359c2c55420ab1601f0247a23fe39bd4a9a2f65",
+            "reference": "6359c2c55420ab1601f0247a23fe39bd4a9a2f65",
             "shasum": ""
         },
-        "time": "2020-05-04T23:03:09+00:00",
+        "time": "2020-08-17T20:43:34+00:00",
         "type": "library",
         "installation-source": "dist",
         "description": "Callouts to promote Jilt in WooCommerce",
         "support": {
-            "source": "https://github.com/skyverge/wc-jilt-promotions/tree/1.0.1",
+            "source": "https://github.com/skyverge/wc-jilt-promotions/tree/1.1.0",
             "issues": "https://github.com/skyverge/wc-jilt-promotions/issues"
         }
     },
@@ -48,6 +48,34 @@
         "support": {
             "source": "https://github.com/skyverge/wc-plugin-framework/tree/5.5.0",
             "issues": "https://github.com/skyverge/wc-plugin-framework/issues"
+        }
+    },
+    {
+        "name": "skyverge/wordpress-plugin-admin",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "git@github.com:skyverge/wordpress-plugin-admin.git",
+            "reference": "b0e136b2c7b6a43c641fcfd253af500253c88b9b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/skyverge/wordpress-plugin-admin/zipball/b0e136b2c7b6a43c641fcfd253af500253c88b9b",
+            "reference": "b0e136b2c7b6a43c641fcfd253af500253c88b9b",
+            "shasum": ""
+        },
+        "require-dev": {
+            "lucatume/wp-browser": "2.2.37",
+            "skyverge/lumiere": "dev-master"
+        },
+        "time": "2020-08-10T19:37:09+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "description": "WordPress administrative area for SkyVerge plugins",
+        "support": {
+            "source": "https://github.com/skyverge/wordpress-plugin-admin/tree/master",
+            "issues": "https://github.com/skyverge/wordpress-plugin-admin/issues"
         }
     }
 ]

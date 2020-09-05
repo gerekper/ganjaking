@@ -413,6 +413,18 @@ $parent_settings = get_option($parent_settings_name);
     <input type="textbox" name="optin_confirmation_text" class="regular-text" value="<?php echo (isset($settings['optin_confirmation_text']))?esc_attr($settings['optin_confirmation_text']):'' ?>">
     </td>
 </tr>
+<tr>
+    <td>
+    <label>Optin Confirmation Required</label>
+    <code>
+    <?php echo esc_html($page_settings['txt_optin_confirmation_required']) ?>
+    </code>
+    </td>
+    <td>
+    <label>Optin Confirmation Required</label>
+    <input type="textbox" name="txt_optin_confirmation_required" class="regular-text" value="<?php echo (isset($settings['txt_optin_confirmation_required']))?esc_attr($settings['txt_optin_confirmation_required']):'' ?>">
+    </td>
+</tr>
 </tbody>
 </table>   
             

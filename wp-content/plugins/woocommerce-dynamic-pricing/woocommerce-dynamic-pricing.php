@@ -5,18 +5,18 @@
  * Woo: 18643:9a41775bb33843f52c93c922b0053986
  * Plugin URI: https://woocommerce.com/products/dynamic-pricing/
  * Description: WooCommerce Dynamic Pricing lets you configure dynamic pricing rules for products, categories and members.
- * Version: 3.1.19
+ * Version: 3.1.21
  * Author: Lucas Stark
  * Author URI: https://elementstark.com
  * Requires at least: 3.3
- * Tested up to: 5.4.0
+ * Tested up to: 5.5.0
  * Text Domain: woocommerce-dynamic-pricing
  * Domain Path: /i18n/languages/
- * Copyright: © 2009-2019 Lucas Stark.
+ * Copyright: © 2009-2020 Lucas Stark.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * WC requires at least: 3.0.0
- * WC tested up to: 4.0.2
+ * WC tested up to: 4.4.1
  */
 
 
@@ -583,19 +583,22 @@ class WC_Dynamic_Pricing {
 	}
 
 	/**
-	 * @param type $base_price
+	 * @param mixed $source_price
 	 * @param WC_Product $_product
-	 *
+	 * @param bool $force_calculation
 	 * @return float
 	 * @since 2.6.1
 	 *
 	 */
-	public function on_get_price( $base_price, $_product, $force_calculation = false ) {
+	public function on_get_price( $source_price, $_product, $force_calculation = false ) {
 		$composite_ajax = did_action( 'wp_ajax_woocommerce_show_composited_product' ) | did_action( 'wp_ajax_nopriv_woocommerce_show_composited_product' ) | did_action( 'wc_ajax_woocommerce_show_composited_product' );
 
-		if ( empty( $_product ) || empty( $base_price ) ) {
-			return $base_price;
+
+		$base_price = floatval($source_price);
+		if ( empty( $_product) || $source_price === '') {
+			return $source_price;
 		}
+
 
 		if ( class_exists( 'WCS_ATT_Product' ) && WCS_ATT_Product::is_subscription( $_product ) ) {
 			return $base_price;
@@ -718,19 +721,19 @@ class WC_Dynamic_Pricing {
 		foreach ( $modules as $module ) {
 			if ( $module->module_type == 'simple' ) {
 				//Make sure we are using the price that was just discounted.
-				$working_price = $discount_price ? $discount_price : $base_price;
+				$working_price = $discount_price !== false ? $discount_price : $base_price;
 				$working_price = $module->get_product_working_price( $working_price, $_product );
-				if ( floatval( $working_price ) ) {
+				if ( floatval( $working_price ) || intval($working_price) == 0 ) {
 					$discount_price = $module->get_discounted_price_for_shop( $_product, $working_price );
 					$cumulative     = apply_filters( 'woocommerce_dynamic_pricing_is_cumulative', true, $module->module_id, array( 'data' => $_product ), '' );
-					if ( $discount_price != $base_price && !$cumulative ) {
+					if ($discount_price !== false && $discount_price != $base_price && !$cumulative ) {
 						break;
 					}
 				}
 			}
 		}
 
-		if ( $discount_price ) {
+		if ( $discount_price !== false ) {
 			return $discount_price;
 		} else {
 			return $base_price;
@@ -748,7 +751,10 @@ class WC_Dynamic_Pricing {
 	 *
 	 */
 	public function on_get_variation_prices_price( $price, $variation ) {
-		return $this->get_discounted_price( $price, $variation );
+		if ($price !== '') {
+			$price = $this->get_discounted_price( $price, $variation );
+		}
+		return $price;
 	}
 
 	/**
@@ -854,7 +860,8 @@ class WC_Dynamic_Pricing {
 
 			$regular_price = $product->get_regular_price( 'view' );
 
-			if ( empty( $regular_price ) || empty( $dynamic_price ) ) {
+
+			if ( empty( $regular_price ) || (empty( $dynamic_price ) && floatval($dynamic_price) !== 0.00) ) {
 				return $is_on_sale;
 			} else {
 				$is_on_sale = $regular_price != $dynamic_price;

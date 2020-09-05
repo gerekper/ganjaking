@@ -78,6 +78,36 @@ class WC_Booking extends WC_Bookings_Data {
 	 */
 	protected $end_cached = null;
 
+
+	/**
+	 * Cached start time getter.
+	 * This data needs to be set manually before it can be accessed.
+	 * It also becomes available when the `is_within_block` function is used.
+	 * See DEVELOPER.md for more information.
+	 *
+	 * @since  1.15.13
+	 * 
+	 * @return integer Booking start timestamp.
+	 */
+	public function get_start_cached() {
+		return $this->start_cached;
+	}
+
+	/**
+	 * Cached end time getter.
+	 * This data needs to be set manually before it can be accessed.
+	 * It also becomes available when the `is_within_block` function is used.
+	 * See DEVELOPER.md for more information.
+	 * 
+	 * @since  1.15.13
+	 * 
+	 * @return integer Booking end timestamp.
+	 */
+	public function get_end_cached() {
+		return $this->end_cached;
+	}
+
+
 	/**
 	 * Constructor, possibly sets up with post or id belonging to existing booking
 	 * or supplied with an array to construct a new booking.

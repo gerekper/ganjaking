@@ -36,7 +36,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.2.4';
+	const VERSION = '1.3.0';
 
 	/** @var \SkyVerge\WooCommerce\Memberships\MailChimp\Plugin single instance of this plugin */
 	protected static $instance;

@@ -899,9 +899,15 @@ class Dir extends Abstract_Module {
 
 		$skip = false;
 
-		// Skip sites folder for multisite.
+		// Don't skip the whole sites folder but only skip media upload year folder for multi-sites.
 		if ( false !== strpos( $path, $base_dir . '/sites' ) ) {
-			$skip = true;
+			// If matches the current upload path contains one of the year sub folders of the media library.
+			$path_arr = explode( '/', str_replace( $base_dir.'/sites' . '/', '', $path ) );
+			if ( count( $path_arr ) >= 1
+			     && is_numeric( $path_arr[1] ) && $path_arr[1] > 1900 && $path_arr[1] < 2100 // Contains the year sub folder.
+			) {
+				$skip = true;
+			}
 		} elseif ( false !== strpos( $path, $base_dir ) ) {
 			// If matches the current upload path contains one of the year sub folders of the media library.
 			$path_arr = explode( '/', str_replace( $base_dir . '/', '', $path ) );

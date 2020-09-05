@@ -1,5 +1,21 @@
 *** WooCommerce Local Pickup Plus Changelog ***
 
+2020.08.24 - version 2.9.0
+ * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
+ * Localization - Added French translation
+
+2020.07.23 - version 2.8.3
+ * Tweak - Improve admin order UI when setting or editing appointment data in the corresponding shipping order item for pickup
+ * Fix - Address a UI bug when setting appointment data for manually created orders in the order admin edit screen
+ * Fix - Block the cart totals UI on the cart page until the document is ready to ensure that any package handling choice performed by the customer can be safely persisted
+ * Fix - Ensure that orders can be correctly filtered by pickup appointments scheduled "Today" and "Tomorrow" in the orders screen delivering the expected results
+ * Fix - Ensure that, when using appointments with any time of the day option, that the current day can be selected when made available by public holidays, business hours, and any lead time
+ * Fix - Intersect results when filtering orders in admin screen by pickup location and appointment dates simultaneously
+ * Fix - Allow pickup for product bundles containing only products that can be picked up
+ * Fix - Apply the correct lead time if a customer is about to place an order on the same day, but before the pickup location opens
+ * Dev - Make geocoding request arguments filterable
+ * Misc - Require PHP 7.0+
+
 2020.05.08 - version 2.8.2
  * Fix - Make sure customers cannot schedule appointments for times already at the limit
 

@@ -1,4 +1,16 @@
 *** Dynamic Pricing Changelog ***
+2020.08.21 - version 3.1.21
+    * Fix:  Remove hardcoded value for num_decimals.
+    * Update: Remove old compatibility file from the admin directory.
+
+2020.08.18 - version 3.1.20
+    * Update:  Allow variable products with a 0 based price to have their prices modified with a Fixed Price rule in the shop.
+    * Update:  Allow variable products with a 0 based price to have their prices modified with the groups module.
+    * Update:  Include modifications from WPML to allow translation of category rules.
+    * Update:  Fix issue with simple pricing rules on variable products.
+    * Update:  Fix an issue where prices reduced to 0 on variable products would not show the discount format after selecting a variation.
+    * Update:  Fix an issue with empty prices being returned as 0.00 from Dynamic Pricing rather than an empty string.
+
 2020.04.08 - version 3.1.19
     * Update:  Only show adjustments in the shop for advanced category rules when the product is in both the categories to count as well as the categories to adjust.
 

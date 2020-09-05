@@ -1,5 +1,8 @@
 *** WooCommerce Quick View Changelog ***
 
+2020-08-19 - version 1.2.11
+* Tweak - WordPress 5.5 compatibility.
+
 2020-06-10 - version 1.2.10
 * Tweak - WC 4.2 compatibility.
 

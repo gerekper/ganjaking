@@ -1,0 +1,2423 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: snip - The Rich Snippets & Structured Data Plugin\n"
+"POT-Creation-Date: 2020-08-26 10:05+0200\n"
+"PO-Revision-Date: 2020-08-26 10:06+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: rich-snippets-wordpress-plugin.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: classes\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: deprecated\n"
+
+#: bootstrap.php:166
+#, php-format
+msgid ""
+"Oops. SNIP crashed. Please send the following error to us so that we can "
+"analyze the error:<br />Error Message: %sFile: %sLine: %sStack Trace: %s"
+msgstr ""
+"Hoppala! SNIP ist abgestürzt. Bitte sende nachfolgende Fehlermeldung zu uns, "
+"damit wir ihn analysieren können:<br />Fehlermeldung: %sDatei: %sZeile: "
+"%sStack Trace: %s"
+
+#: classes/controller/admin-plugins.php:71
+msgid "Uninstall the SNIP plugin"
+msgstr "Das SNIP Plugin deinstallieren"
+
+#: classes/controller/admin-plugins.php:72
+msgid "Uninstall"
+msgstr "Deinstallieren"
+
+#: classes/controller/admin-plugins.php:110
+#, php-format
+msgid ""
+"An update may fail due to the following error: %1$s - <a target=\"_blank\" "
+"href=\"%2$s\">Read here what you can do about it</a>."
+msgstr ""
+"Das Update wird möglicherweise wegen diesem Fehler fehlschlagen: %1$s - <a "
+"target=\"_blank\" href=\"%2$s\">Lese hier was du dagegen tun kannst</a>."
+
+#: classes/controller/admin-plugins.php:139
+msgid "Perform a force-check now."
+msgstr "Erzwinge ein Update-Check."
+
+#: classes/controller/admin-scripts.php:268
+#: classes/view/admin/snippets/properties/table.php:46
+msgid "Expand all"
+msgstr "Alle aufklappen"
+
+#: classes/controller/admin-scripts.php:269
+msgid "Collapse all"
+msgstr "Alle zusammenklappen"
+
+#: classes/controller/admin-settings.php:85
+msgctxt "Message when snippets have been updated."
+msgid "All done"
+msgstr "Erledigt"
+
+#: classes/controller/admin-settings.php:160
+msgctxt "settings section title"
+msgid "Frontend"
+msgstr ""
+
+#: classes/controller/admin-settings.php:164
+msgid "Try to remove \"hentry\" CSS class from posts."
+msgstr "Versuche die „hentry“ CSS-Klasse von Posts zu entfernen."
+
+#: classes/controller/admin-settings.php:165
+msgid "Posts"
+msgstr "Beiträge"
+
+#: classes/controller/admin-settings.php:171
+#: classes/controller/admin-settings.php:182
+msgid "Click here for more information."
+msgstr "Klicke hier für weitere Informationen."
+
+#: classes/controller/admin-settings.php:175
+msgid "Try to remove \"vcard\" CSS class from comments."
+msgstr "Versuche „vCard“ CSS-Klasse von Kommentaren zu entfernen."
+
+#: classes/controller/admin-settings.php:176
+msgid "Comments"
+msgstr "Kommentare"
+
+#: classes/controller/admin-settings.php:186
+msgid "Move snippet output to footer"
+msgstr "Snippet-Ausgabe in den Footer"
+
+#: classes/controller/admin-settings.php:187
+msgid "Snippet Output"
+msgstr "Snippet-Ausgabe"
+
+#: classes/controller/admin-settings.php:193
+msgid ""
+"If you're using a lot of snippet on one page it's probably a good idea to "
+"move the output to the footer."
+msgstr ""
+"Wenn Du viele Snippets auf einer Seite hast, ist es vielleicht eine gute "
+"Idee, diese im Footer auszugeben."
+
+#: classes/controller/admin-settings.php:198
+msgid "Remove Yoast schema"
+msgstr "Yoast SEO Schema entfernen"
+
+#: classes/controller/admin-settings.php:199
+msgid "Yoast SEO"
+msgstr ""
+
+#: classes/controller/admin-settings.php:205
+msgid ""
+"Yoast SEO adds some schema.org syntax as well. If you don't want to use it, "
+"the plugin can try to remove it for you so that you can write your own "
+"Structured Data."
+msgstr ""
+"Yoast SEO erstellt auch schema.org Syntax. Wenn du sie nicht nutzen willst "
+"kann SNIP versuchen sie zu deaktivieren damit du deine eigenen "
+"Strukturierten Daten bauen kannst."
+
+#: classes/controller/admin-settings.php:211
+#, php-format
+msgid "Turn caching on %s"
+msgstr "Caching anschalten %s"
+
+#: classes/controller/admin-settings.php:212
+msgid "Cache plugin detected! You should turn this option OFF."
+msgstr "Cache-Plugin entdeckt! Du solltest diese Option ausschalten."
+
+#: classes/controller/admin-settings.php:214
+msgid "Frontend Caching"
+msgstr ""
+
+#: classes/controller/admin-settings.php:220
+msgid ""
+"Check the checkbox if you want the plugin to store generated structured data "
+"into the database. This avoids creating structured data over and over again "
+"and should result in a quicker page load."
+msgstr ""
+"Aktiviere das Kontrollkästchen, wenn du möchtest, dass das Plugin generierte "
+"strukturierte Daten in der Datenbank speichert. Dadurch wird vermieden, dass "
+"sie immer wieder neu erstellt werden müssen, was zu einem schnelleren "
+"Seitenaufbau führen sollte."
+
+#: classes/controller/admin-settings.php:225
+msgctxt "the caching time in \"hours\""
+msgid "hours"
+msgstr "Stunden"
+
+#: classes/controller/admin-settings.php:226
+msgid "Frontend Caching Time"
+msgstr "Frontend Cachezeit"
+
+#: classes/controller/admin-settings.php:238
+msgid "Pretty Print JSON-LD Code"
+msgstr "JSON-LD Code hübsch ausgeben"
+
+#: classes/controller/admin-settings.php:239
+msgid "Pretty Print"
+msgstr "Hübscher Code"
+
+#: classes/controller/admin-settings.php:245
+msgid ""
+"If the JSON-LD code should be printed in a pretty format (even more easy for "
+"humans to read). Only works if caching is turned off."
+msgstr ""
+"Ob der JSON-LD Code als hübscher Code (für Menschen noch besser lesbar) "
+"ausgegeben werden soll. Funktioniert nur, wenn das Caching ausgeschaltet ist."
+
+#: classes/controller/admin-settings.php:250
+msgid "Add \"creator\" property"
+msgstr "„creator“ Eigenschaft hinzufügen"
+
+#: classes/controller/admin-settings.php:251
+msgid "Creator"
+msgstr "Ersteller"
+
+#: classes/controller/admin-settings.php:258
+#, php-format
+msgid ""
+"This will add a \"creator\" property to your structured data to help you "
+"identify structured data generated by SNIP and the ones created by other "
+"plugins or services. <a href=\"%s\">Click here for more information</a>."
+msgstr ""
+"Dies wird eine „creator“ Eigenschaft zu deinen Strukturierten Daten "
+"hinzufügen. Damit kannst du herausfinden, welche Strukturierten Daten von "
+"SNIP stammen und welche von anderen Plugins oder Diensten. <a href=\"%s"
+"\">Klicke hier für mehr Informationen.</a>."
+
+#: classes/controller/admin-settings.php:271
+msgctxt "settings section title"
+msgid "Backend"
+msgstr ""
+
+#: classes/controller/admin-settings.php:294
+msgid "Post Types"
+msgstr "Posttypen"
+
+#: classes/controller/admin-settings.php:302
+msgid "Please select the post types where you want to create Rich Snippets."
+msgstr ""
+"Bitte wähle die Artikeltypen aus in denen du die Rich Snippets Funktion "
+"nutzen möchtest."
+
+#: classes/controller/admin-settings.php:313
+msgctxt "settings section title"
+msgid "Actions"
+msgstr "Aktionen"
+
+#: classes/controller/admin-settings.php:317
+msgid "Cache"
+msgstr "Zwischenspeicher"
+
+#: classes/controller/admin-settings.php:318
+msgid "Clear cache"
+msgstr "Cache bereinigen"
+
+#: classes/controller/admin-settings.php:322
+msgid ""
+"The plugin uses WordPress' internal caching mechanism to speed things up. If "
+"you experience weired behaviour, hit the above button to clear all caches."
+msgstr ""
+"Das Plugin nutzt WordPress-Interne Zwischenspeicher-Mechanismen um einige "
+"Operationen schneller durchführen zu können. Wenn du ein komisches verhalten "
+"feststellst, dann klicke auf obigen Button um den gesamten Zwischenspeicher "
+"zu leeren."
+
+#: classes/controller/admin-settings.php:354
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: classes/controller/admin-settings.php:362
+msgid "Help"
+msgstr "Hilfe"
+
+#: classes/controller/admin-settings.php:370
+#: classes/controller/admin-snippets.php:151
+#: classes/controller/admin-support.php:113
+msgctxt "metabox title"
+msgid "News"
+msgstr "Neuigkeiten"
+
+#: classes/controller/admin-snippets.php:124
+msgctxt "metabox title"
+msgid "Structured data"
+msgstr "Strukturierte Daten"
+
+#: classes/controller/admin-snippets.php:133
+msgctxt "metabox title"
+msgid "Rich Snippets"
+msgstr "Rich Snippets"
+
+#: classes/controller/admin-snippets.php:142
+msgctxt "metabox title"
+msgid "Help"
+msgstr "Hilfe"
+
+#: classes/controller/admin-support.php:94
+msgid "FAQ"
+msgstr ""
+
+#: classes/controller/admin-support.php:104
+msgctxt "metabox title"
+msgid "Rating"
+msgstr "Bewertung"
+
+#: classes/controller/admin-uninstall.php:31
+msgid "You are not allowed to do this."
+msgstr "Es scheint, als dürftest du dies nicht."
+
+#: classes/controller/admin-uninstall.php:72
+msgid ""
+"This will delete all data that was created by SNIP including all your Global "
+"Snippets and all settings. The plugin will then be deactivated so that you "
+"can delete it from your plugin list if you like. Are you sure you want to do "
+"this?"
+msgstr ""
+"Dies wird alle Daten, die von SNIP erstellt worden sind, löschen. Das "
+"beinhaltet alle globalen Snippets und Einstellungen. Das Plugin wird sich "
+"danach deaktivieren damit du es aus der Plugin-Liste löschen kannst. Bist du "
+"dir sicher, dass du das tun willst?"
+
+#: classes/controller/admin-uninstall.php:81
+msgid "Yes, uninstall please."
+msgstr "Ja, deinstallieren bitte."
+
+#: classes/controller/admin-uninstall.php:82
+msgid "No. Do not uninstall and go back."
+msgstr "Nein. Nicht deinstallieren und zurück."
+
+#: classes/controller/admin-uninstall.php:105
+msgid "SNIP Uninstalling"
+msgstr "SNIP Deinstallation"
+
+#: classes/controller/admin.php:252
+msgctxt "Main page title"
+msgid "Rich Snippets"
+msgstr "Rich Snippets"
+
+#: classes/controller/admin.php:253
+msgctxt "Main menu title"
+msgid "snip | Structured Data"
+msgstr "snip | Strukturierte Daten"
+
+#: classes/controller/admin.php:277
+msgctxt "Main page title"
+msgid "Let's start"
+msgstr "Los geht’s"
+
+#: classes/controller/admin.php:278
+msgctxt "First menu title: Lets start"
+msgid "Let's start"
+msgstr "Los geht’s"
+
+#: classes/controller/admin.php:329
+msgctxt "Settings page title"
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: classes/controller/admin.php:330
+msgctxt "Settings menu title"
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: classes/controller/admin.php:367
+msgctxt "Support page title"
+msgid "Support"
+msgstr ""
+
+#: classes/controller/admin.php:368
+msgctxt "Support menu title"
+msgid "Support"
+msgstr ""
+
+#: classes/controller/admin.php:454
+msgid "Hurray! Your copy of this plugins is active! Please wait ..."
+msgstr "Hurra! Die Kopie dieses Plugins ist aktiv! Bitte warten …"
+
+#: classes/controller/admin.php:455
+#, php-format
+msgid "The request did not return any data. Error code: %d."
+msgstr "Die WP-Buddy API gab keine Daten zurück. Error Code: %d."
+
+#: classes/controller/admin.php:690
+msgid "PHP Max Input Vars"
+msgstr ""
+
+#: classes/controller/admin.php:691 classes/controller/admin.php:695
+msgid "Cannot read this information."
+msgstr "Information konnte nicht gelesen werden."
+
+#: classes/controller/admin.php:694
+msgid "Post meta key type"
+msgstr "Postmeta-Schlüssel-Typ"
+
+#: classes/controller/admin.php:715
+msgid "SNIP: PHP Version"
+msgstr ""
+
+#: classes/controller/admin.php:724 classes/controller/admin.php:758
+msgid "Plugin issue"
+msgstr "Plugin Problem"
+
+#: classes/controller/admin.php:729
+#, php-format
+msgid ""
+"Future versions of SNIP will require a PHP version of %s. You are currently "
+"running version %s of PHP. <a href=\"https://wordpress.org/support/update-"
+"php/\" target=\"_blank\">Read more about updating your PHP version here.</a>"
+msgstr ""
+"Zukünftige Versionen von SNIP werden eine PHP-Version von %s erfordern. Du "
+"verwendest derzeit die Version %s von PHP. <a href=\"https://de.wordpress."
+"org/support/update-php/\" target=\"_blank\">Erfahre hier mehr über die "
+"Aktualisierung der PHP-Version.</a>"
+
+#: classes/controller/admin.php:734 classes/controller/admin.php:768
+msgid "Your site is not ready to run future versions of SNIP."
+msgstr "Ihre Website ist nicht bereit für zukünftige Versionen von SNIP."
+
+#: classes/controller/admin.php:748
+msgid "SNIP: WordPress Version"
+msgstr ""
+
+#: classes/controller/admin.php:763
+#, php-format
+msgid ""
+"Future versions of SNIP will require a WordPress version of at least %s. You "
+"are currently running version %s of WordPress. Please update soon."
+msgstr ""
+"Zukünftige Versionen von SNIP werden eine WordPress Version von mindestens "
+"%s erfordern. Du verwendest derzeit die Version %s von WordPress. Bitte "
+"aktualisiere deine Version demnächst."
+
+#: classes/controller/frontend.php:165
+msgid ""
+"Code generated by SNIP (Structured Data Plugin) for WordPress. See rich-"
+"snippets.io for more information."
+msgstr ""
+"Code generiert von SNIP (Strukturierte Daten Plugin) für WordPress. Besuche "
+"rich-snippets.io für weitere Informationen."
+
+#: classes/controller/frontend.php:168
+#, php-format
+msgid "Post ID is %d."
+msgstr "Post ID ist %d."
+
+#: classes/controller/frontend.php:337
+msgid "Test Structured Data"
+msgstr "Strukturierte Daten testen"
+
+#: classes/controller/frontend.php:343
+msgid "Test the current pages Structured Data"
+msgstr "Strukturierte Daten auf dieser Seite testen"
+
+#: classes/controller/rest.php:361
+msgctxt "Thrown error on rest api when there was no list of properties found."
+msgid "Please provide a list of properties."
+msgstr "Bitte stelle eine Liste von Eigenschaften zur Verfügung."
+
+#: classes/controller/rest.php:749 classes/controller/rest.php:992
+msgid "This schema property does not exist."
+msgstr "Dieses Schema-Property existiert nicht."
+
+#: classes/controller/rest.php:957
+msgctxt "No FAQ entries found."
+msgid "Sorry, nothing matched your search query."
+msgstr "Sorry, die Suche lieferte nichts zurück."
+
+#: classes/controller/rest.php:1081
+msgid "An array is needed."
+msgstr "Ein Array ist nötig."
+
+#: classes/controller/rest.php:1088
+msgid "An array with a key \"schemas\" is needed."
+msgstr "Ein Array mit dem Schlüssel „schemas“ wird benötigt."
+
+#: classes/controller/rest.php:1159 classes/controller/rest.php:1267
+msgid "An error occurred during the update."
+msgstr "Während des Update-Vorgangs trat ein Fehler auf."
+
+#: classes/controller/rest.php:1185
+msgid "An array with a \"ruleGroups\" key is needed."
+msgstr "Ein Array mit dem Schlüssel „ruleGroups“ ist nötig."
+
+#: classes/controller/rest.php:1383
+msgid ""
+"The WP-Buddy API returned an error while SNIP was searching for examples."
+msgstr ""
+"Die WP-Buddy API gab einen Fehler zurück während versucht wurde, nach "
+"Beispielen zu suchen."
+
+#: classes/controller/rest.php:1390
+msgid "The WP-Buddy API did not return any Term-IDs to request for examples."
+msgstr ""
+"Die WP-Buddy API gab keine Term-IDs zurück die notwendig sind, Beispiele zu "
+"suchen."
+
+#: classes/controller/rest.php:1407 pro/classes/controller/rest.php:992
+msgctxt "Thrown error on rest api when there were no snip examples found."
+msgid "The WP-Buddy API did not return any SNIPs."
+msgstr "Die WP-Buddy API gab keine SNIPs zurück."
+
+#: classes/model/fields.php:143
+msgctxt "subselect field"
+msgid "Direct text input"
+msgstr "Direkte Texteingabe"
+
+#: classes/model/fields.php:144
+msgid "Enter your custom text here."
+msgstr "Gib einen freien Text ein."
+
+#: classes/model/fields.php:149
+msgctxt "subselect field"
+msgid "Post meta field"
+msgstr "Postmeta-Feld"
+
+#: classes/model/fields.php:150
+msgid "Enter the name of the text meta field."
+msgstr "Gib einen Namen für das Meta-Feld ein."
+
+#: classes/model/fields.php:155
+msgctxt "subselect field"
+msgid "Term meta field"
+msgstr "Term-Meta-Feld"
+
+#: classes/model/fields.php:156
+msgid "Enter the name of the term meta field."
+msgstr "Gib einen Namen für das Term-Meta-Feld ein."
+
+#: classes/model/fields.php:161
+msgctxt "subselect field"
+msgid "Option"
+msgstr "Option"
+
+#: classes/model/fields.php:162
+msgid "Enter the name of the option from the WordPress options database table."
+msgstr ""
+"Gib den Namen für eine Option in der WordPress-Options-Datanbanktabelle ein."
+
+#: classes/model/fields.php:191
+msgctxt "subselect field"
+msgid "Sequential Number"
+msgstr "Fortlaufende Nummer"
+
+#: classes/model/fields.php:192
+msgid "Enter a name for the counter."
+msgstr "Gib einen Namen für den Zähler ein."
+
+#: classes/model/fields.php:203 classes/model/fields.php:256
+#: classes/model/fields.php:297 classes/model/fields.php:321
+msgctxt "subselect field"
+msgid "Term description (archive pages only)"
+msgstr "Termbeschreibung (nur Archivseiten)"
+
+#: classes/model/fields.php:207
+msgctxt "subselect field"
+msgid "Post title"
+msgstr "Beitrags-Titel"
+
+#: classes/model/fields.php:211
+msgctxt "subselect field"
+msgid "Post excerpt"
+msgstr "Beitrags-Auszug"
+
+#: classes/model/fields.php:215
+msgctxt "subselect field"
+msgid "Post author name"
+msgstr "Name des Autors"
+
+#: classes/model/fields.php:219
+msgctxt "subselect field"
+msgid "Blog title"
+msgstr "Blogtitel"
+
+#: classes/model/fields.php:223
+msgctxt "subselect field"
+msgid "Blog description"
+msgstr "Blog-Beschreibung"
+
+#: classes/model/fields.php:227
+msgctxt "subselect field"
+msgid "Post content"
+msgstr "Beitrags-Inhalt"
+
+#: classes/model/fields.php:231 classes/model/fields.php:260
+msgctxt "subselect field"
+msgid "Post ID"
+msgstr ""
+
+#: classes/model/fields.php:235
+msgctxt "subselect field"
+msgid "Category"
+msgstr "Kategorie"
+
+#: classes/model/fields.php:239
+msgctxt "subselect field"
+msgid "Term title (loop and archive pages only)"
+msgstr "Term-Titel (nur Schleifen und Archivseiten)"
+
+#: classes/model/fields.php:264
+msgctxt "subselect field"
+msgid "Post thumbnail width"
+msgstr "Breite des Beitragsbildes"
+
+#: classes/model/fields.php:268
+msgctxt "subselect field"
+msgid "Post thumbnail height"
+msgstr "Höhe des Beitragsbildes"
+
+#: classes/model/fields.php:272
+msgctxt "subselect field"
+msgid "Site icon width"
+msgstr "Breite des Website-Icons"
+
+#: classes/model/fields.php:276
+msgctxt "subselect field"
+msgid "Site icon height"
+msgstr "Höhe des Website-Icons"
+
+#: classes/model/fields.php:301
+msgctxt "subselect field"
+msgid "Post published date"
+msgstr "Veröffentlichungsdatum"
+
+#: classes/model/fields.php:305
+msgctxt "subselect field"
+msgid "Post modified date"
+msgstr "Datum der letzten Modifizierung"
+
+#: classes/model/fields.php:311 classes/model/fields.php:329
+msgctxt "subselect field"
+msgid "Post thumbnail url"
+msgstr "URL zum Beitragsbild"
+
+#: classes/model/fields.php:325
+msgctxt "subselect field"
+msgid "Post URL"
+msgstr "Beitrags-URL"
+
+#: classes/model/fields.php:333
+msgctxt "subselect field"
+msgid "Post author url"
+msgstr "Autor-URL"
+
+#: classes/model/fields.php:337
+msgctxt "subselect field"
+msgid "Blog URL (Site URL)"
+msgstr ""
+
+#: classes/model/fields.php:341
+msgctxt "subselect field"
+msgid "Home URL"
+msgstr "Home URL"
+
+#: classes/model/fields.php:345
+msgctxt "subselect field"
+msgid "Site icon URL"
+msgstr "Website Icon URL"
+
+#: classes/model/fields.php:349
+msgctxt "subselect field"
+msgid "Category URL"
+msgstr "Kategorie-URL"
+
+#: classes/model/fields.php:353
+msgctxt "subselect field"
+msgid "Term URL (loop and archive pages only)"
+msgstr "Term URL (nur Schleife und Archivseiten)"
+
+#: classes/model/fields.php:357
+msgctxt "subselect field"
+msgid "Search URL"
+msgstr "Such-URL"
+
+#: classes/model/fields.php:361
+msgctxt "subselect field"
+msgid "Search URL (with {search_term_string} placeholder)"
+msgstr "Such-URL (mit {search_term_string} Platzhalter)"
+
+#: classes/model/fields.php:411
+#, php-format
+msgid "Comma separated list of %s"
+msgstr "Kommagetrennte Liste von %s"
+
+#: classes/model/fields.php:765
+msgctxt "Link to a custom ID on a page."
+msgid "Custom ID"
+msgstr "Individuelle ID"
+
+#: classes/model/fields.php:766
+msgid "Post Content (as CreativeWork, deprecated)"
+msgstr "Beitrags-Inhalt (als CreativeWork, veraltet)"
+
+#: classes/model/helper.php:511
+msgid "not selected"
+msgstr "Nicht ausgewählt"
+
+#: classes/model/miscfields.php:149
+msgid "minutes"
+msgstr "Minuten"
+
+#: classes/model/miscfields.php:167
+msgctxt "subselect field"
+msgid "5 Star Rating"
+msgstr "5-Sterne-Bewertung"
+
+#: classes/model/miscfields.php:175
+msgctxt "subselect field"
+msgid "100 Points Rating"
+msgstr "100-Punkte-Bewertung"
+
+#: classes/model/miscfields.php:182
+msgctxt "subselect field"
+msgid "Duration (in minutes)"
+msgstr "Dauer (in Minuten)"
+
+#: classes/model/schemas.php:72
+msgid "Product"
+msgstr "Produkt"
+
+#: classes/model/schemas.php:73
+msgid "Event"
+msgstr "Event"
+
+#: classes/model/schemas.php:74
+msgid "Local Business"
+msgstr "Lokales Business"
+
+#: classes/model/schemas.php:75
+msgid "Restaurant"
+msgstr ""
+
+#: classes/model/schemas.php:76 pro/classes/model/predefined.php:810
+msgid "Recipe"
+msgstr "Rezept"
+
+#: classes/model/schemas.php:77 pro/classes/model/predefined.php:156
+msgid "Article"
+msgstr "Artikel"
+
+#: classes/model/schemas.php:78
+msgid "Review"
+msgstr "Rezension"
+
+#: classes/model/schemas.php:79
+msgid "Movie"
+msgstr "(Kino-)Film"
+
+#: classes/model/schemas.php:80
+msgid "VideoObject"
+msgstr ""
+
+#: classes/model/schemas.php:163
+msgctxt "Thrown error on rest api when there was no list of properties found."
+msgid "The WP-Buddy API did not return any properties."
+msgstr "Die WP-Buddy API gab keine Eigenschaften zurück."
+
+#: classes/model/schemas.php:200
+msgctxt "Thrown error on rest api when there was no list of classes found."
+msgid "The WP-Buddy API did not return any schema types."
+msgstr "Die WP-Buddy API gab keine Schema-Nachkommen zurück."
+
+#: classes/model/schemas.php:281
+msgctxt "Thrown error on rest api when there was no list of children found."
+msgid "The WP-Buddy API did not return any children."
+msgstr "Die WP-Buddy API gab keine Schema-Nachkommen zurück."
+
+#: classes/model/schemas.php:312
+msgctxt ""
+"Thrown error on rest api when there was no list of type descendants found."
+msgid "The WP-Buddy API did not return any descendants."
+msgstr "Die WP-Buddy API gab keine Schema-Nachkommen zurück."
+
+#: classes/model/snippets.php:147
+msgid "Could not delete snippet."
+msgstr "Snippet konnte nicht gelöscht werden."
+
+#: classes/model/wpbuddy.php:183
+msgid "Could not JSON-decode the response from the wp-buddy.com API."
+msgstr ""
+"Die Antwort aus der wp-buddy.com-API konnte nicht JSON dekodiert werden."
+
+#: classes/model/wpbuddy.php:195
+#, php-format
+msgid "Could not send a request to the wp-buddy.com API. Got error: %s"
+msgstr ""
+"Eine Anfrage an die wp-buddy.com-API konnte nicht gesendet werden. Fehler: %s"
+
+#: classes/model/wpbuddy.php:209
+#, php-format
+msgid ""
+"Could not send a request to the wp-buddy.com API. Got response code: %s and "
+"the following error message: <strong>%s</strong>"
+msgstr ""
+"Eine Anfrage an die wp-buddy.com-API konnte nicht gesendet werden. "
+"Fehlercode: %s mit folgender Fehlermeldung: <strong>%s</strong>"
+
+#: classes/model/wpbuddy.php:252
+msgid "An unknown error occurred during an API request."
+msgstr "Ein unbekannter Fehler ist während einer API-Anfrage aufgetreten."
+
+#: classes/model/yoastseo.php:34
+msgctxt "subselect field"
+msgid "Yoast SEO: SEO Title"
+msgstr ""
+
+#: classes/model/yoastseo.php:40
+msgctxt "subselect field"
+msgid "Yoast SEO: Meta description"
+msgstr "Yoast SEO: Metabeschreibung"
+
+#: classes/model/yoastseo.php:46
+msgctxt "subselect field"
+msgid "Yoast SEO: Primary category"
+msgstr "Yoast SEO: Primäre Kategorie"
+
+#: classes/model/yoastseo.php:52 classes/model/yoastseo.php:58
+msgctxt "subselect field"
+msgid "Yoast SEO: First Image in Content"
+msgstr "Yoast SEO: Erstes Bild im Inhalt"
+
+#: classes/model/yoastseo.php:64
+msgctxt "subselect field"
+msgid "Yoast SEO: Primary category URL"
+msgstr "Yoast SEO: Primäre Kategorie"
+
+#: classes/objects/rich-snippet.php:585
+msgid ""
+"Object is not ready for output, yet. Please call \\wpbuddy\\rich_snippets"
+"\\Rich_Snippet::prepare_for_output() first."
+msgstr ""
+"Das Objekt ist noch nicht zur Ausgabe bereit. Bitte rufe zuerst \\wpbuddy"
+"\\rich_snippets\\Rich_Snippet::prepare_for_output() auf."
+
+#: classes/view/admin/intro.php:20
+msgid ""
+"SNIP is the most flexible Structured Data and Rich Snippets Plugin on this "
+"planet."
+msgstr ""
+"SNIP ist das flexibelste Plugin für Strukturierte Daten und Rich Snippets."
+
+#: classes/view/admin/intro.php:23
+#, php-format
+msgid "%sVersion %s"
+msgstr ""
+
+#: classes/view/admin/intro.php:24
+msgid "Pro"
+msgstr ""
+
+#: classes/view/admin/intro.php:30
+msgid "Introduction"
+msgstr "Einführung"
+
+#: classes/view/admin/intro.php:34
+msgid "Activation"
+msgstr "Aktivierung"
+
+#: classes/view/admin/intro.php:38
+msgid "Updates"
+msgstr ""
+
+#: classes/view/admin/intro.php:39
+msgid "Training"
+msgstr ""
+
+#: classes/view/admin/intro.php:40
+msgid "Where to start?"
+msgstr "Wie anfangen?"
+
+#: classes/view/admin/intro.php:42
+msgid "What's new?"
+msgstr "Was ist neu?"
+
+#: classes/view/admin/intro.php:71
+msgctxt "Image alt text"
+msgid "WP-Buddy Head of Development"
+msgstr "WP-Buddy Chef-Entwickler"
+
+#: classes/view/admin/intro.php:75
+msgid "Follow me on Twitter"
+msgstr "Folge mir auf Twitter"
+
+#: classes/view/admin/intro.php:77
+msgid "Follow me on LinkedIn"
+msgstr "Folge mir auf LinkedIn"
+
+#: classes/view/admin/intro.php:83
+#, php-format
+msgid "Hey <strong>%s!</strong> Nice you're here!"
+msgstr "Hey <strong>%s!</strong> Cool, dass du hier bist!"
+
+#: classes/view/admin/intro.php:88
+msgid "My name is Florian but you can call me \"Flow\"."
+msgstr "Mein Name ist Florian aber du kannst mich „Flo“ nennen."
+
+#: classes/view/admin/intro.php:93
+msgid ""
+"I’m the one behind the SNIP and do general web development for over 17 years "
+"now. And as you might expect: I’m really passionate about what I do (who "
+"else can truly say that?)."
+msgstr ""
+"Ich bin derjenige hinter SNIP und bin seit mehr als 17 Jahren in der "
+"Webentwickler-Branche tätig. Wie du dir vorstellten kannst: Ich liebe was "
+"ich tue. Wer kann das schon von sich behaupten?"
+
+#: classes/view/admin/intro.php:100
+#, php-format
+msgid ""
+"Hopefully you can feel my passion in the all new <strong>SNIP Plugin</"
+"strong> which is now in version %s! Yey! :-)"
+msgstr ""
+"Sicherlich kannst du meine Passion im neuen <strong>SNIP Plugin</strong> "
+"spüren welches nun in Version %s vorliegt. Yepee!"
+
+#: classes/view/admin/intro.php:109
+#, php-format
+msgid ""
+"This plugin will skyrocket <strong>structured data</strong> on your site! If "
+"you have any questions and/or ideas to make this plugin even better, feel "
+"free to <a href=\"%s\">add a feature request.</a>"
+msgstr ""
+"Schier endlos viele Möglichkeiten bietet dir dieses Plugin hinsichtlich der "
+"<strong>strukturierten Daten</strong>. Wenn du Fragen und/oder Ideen hast "
+"dieses Tool noch besser zu machen, <a href=\"%s\">schreibe ein Feature "
+"Request</a>. Ansonsten:"
+
+#: classes/view/admin/intro.php:118
+msgid "Activate the plugin"
+msgstr "Plugin aktivieren"
+
+#: classes/view/admin/intro.php:124
+#, php-format
+msgid ""
+"Did you know? <strong>There is a pro version of this plugin available.</"
+"strong> It allows to automate structured data generation to save you time! "
+"Check it out here: <a href=\"%s\">SNIP Pro + Automation!</a>"
+msgstr ""
+"Schon gewusst? <strong>Es gibt eine PRO-Version von SNIP!</strong> Es "
+"erlaubt dir, Strukturierte Daten automatisch zu erzeugen. Spart dir vieeeeel "
+"Zeit! Sieh’s dir an: <a href=\"%s\">SNIP Pro + Automatisierung!</a>"
+
+#: classes/view/admin/intro.php:132 classes/view/admin/intro.php:240
+msgid "Next"
+msgstr "Weiter"
+
+#: classes/view/admin/intro.php:145
+msgid "Please enter your purchase code from CodeCanyon below."
+msgstr "Gib deinen Kaufcode von CodeCanyon unten ein."
+
+#: classes/view/admin/intro.php:149
+#, php-format
+msgid "<a href=\"%s\" target=\"_blank\">Where to find your purchase code</a>"
+msgstr "<a href=\"%s\" target=\"_blank\">Wo du den Kaufcode findest</a>"
+
+#: classes/view/admin/intro.php:152
+#, php-format
+msgid "<a href=\"%s\" target=\"_blank\">You cannot activate the plugin?</a>"
+msgstr ""
+"<a href=\"%s\" target=\"_blank\">Du kannst das Plugin nicht aktivieren?</a>"
+
+#: classes/view/admin/intro.php:174
+msgid "Purchase Code:"
+msgstr "Kaufcode:"
+
+#: classes/view/admin/intro.php:180
+msgid "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+msgstr ""
+
+#: classes/view/admin/intro.php:193
+msgid ""
+"I read and understood the <a href=\"https://rich-snippets.io/plugin-"
+"requirements/?pk_campaign=lets-start-activation-tab#privacy\" target=\"_blank"
+"\">privacy agreement</a> and I accept it."
+msgstr ""
+"Ich habe die <a href=\"https://rich-snippets.io/plugin-requirements/?"
+"pk_campaign=lets-start-activation-tab#privacy\" target=\"_blank"
+"\">Datenschutzerklärung</a> gelesen, verstanden und akzeptiere sie."
+
+#: classes/view/admin/intro.php:200
+msgid "Re-Activate your license"
+msgstr "Lizenz reaktivieren"
+
+#: classes/view/admin/intro.php:202
+msgid "Let's activate your copy"
+msgstr "Jetzt aktivieren"
+
+#: classes/view/admin/intro.php:212
+msgid "Stay up-to-date"
+msgstr "Bleibe auf dem Laufenden"
+
+#: classes/view/admin/intro.php:214
+msgid ""
+"You get new plugin updates automatically right into your WordPress dashboard."
+msgstr "Plugin-Updates landen automatisch in deinem WordPress Dashboard."
+
+#: classes/view/admin/intro.php:218
+msgid ""
+"In order to learn more about what is new and what I am currently working on, "
+"please subscribe to the mailing list:"
+msgstr ""
+"Um mehr darüber zu erfahren, was es Neues gibt und woran ich gerade arbeite, "
+"folge mir über die Mail-Verteilerliste:"
+
+#: classes/view/admin/intro.php:225 classes/view/admin/intro.php:467
+msgid "Your first name"
+msgstr "Dein Vorname"
+
+#: classes/view/admin/intro.php:229 classes/view/admin/intro.php:470
+msgid "Your E-Mail address"
+msgstr "Deine E-Mail Adresse"
+
+#: classes/view/admin/intro.php:231 classes/view/admin/intro.php:473
+msgid "Subscribe"
+msgstr "Eintragen"
+
+#: classes/view/admin/intro.php:234
+msgid ""
+"Learn more about your privacy in my <a href=\"https://wp-buddy.com/imprint/"
+"\" target=\"_blank\">privacy policy</a>."
+msgstr ""
+"Bitte beachte die <a href=\"https://wp-buddy.com/imprint/\" target=\"_blank"
+"\">Datenschutzerklärung</a>."
+
+#: classes/view/admin/intro.php:248
+#: classes/view/admin/snippets/metabox/help.php:3
+msgctxt "URL to structured data training course"
+msgid "https://rich-snippets.io/structured-data-training-course/"
+msgstr ""
+
+#: classes/view/admin/intro.php:255
+msgid "Are you new to structured data?"
+msgstr "Strukturierte Daten sind neu für dich?"
+
+#: classes/view/admin/intro.php:257
+#, php-format
+msgid ""
+"Structured Data is part of technical SEO. So yes: this whole thing is a "
+"technical topic. So to get you started I have a <a href=\"%s\" target="
+"\"_blank\">Structured Data training course</a> available for free that you "
+"can take! Start right here:"
+msgstr ""
+"Strukturierte Daten ist Teil technischer Suchmaschinenoptimierung (SEO). "
+"Also ja: die Thematik ist recht technisch. Um dir den Start zu erleichtern "
+"kannst du das <a href=\"%s\" target=\"_blank\">Structured Data Training</a> "
+"(englisch) absolvieren. Für dich ist er kostenlos. Starte hier:"
+
+#: classes/view/admin/intro.php:266
+msgid "Structured Data in SEO"
+msgstr "Strukturierte Daten in SEO"
+
+#: classes/view/admin/intro.php:267
+msgid "What is structured data and why is it important?"
+msgstr "Was sind strukturierte Daten und warum sind sie wichtig?"
+
+#: classes/view/admin/intro.php:269 classes/view/admin/intro.php:278
+#: classes/view/admin/intro.php:287 classes/view/admin/intro.php:304
+#: classes/view/admin/intro.php:339 classes/view/admin/intro.php:369
+#: classes/view/admin/intro.php:399
+msgctxt "Watch a video"
+msgid "Watch now"
+msgstr "Jetzt ansehen"
+
+#: classes/view/admin/intro.php:275
+msgid "How Structured Data works"
+msgstr "Wie Strukturierte Daten funktionieren"
+
+#: classes/view/admin/intro.php:276
+msgid "What is schema.org and JSON+LD? And how do they work?"
+msgstr "Was ist schema.org und JSON+LD? Und wie funktionieren sie?"
+
+#: classes/view/admin/intro.php:284
+msgid "Schema Types and Properties"
+msgstr "Schema-Typen und Eigenschaften"
+
+#: classes/view/admin/intro.php:285
+msgid "How to find the right schema types and properties"
+msgstr "Wie man die richtigen Schema-Typen und -Eigenschaften findet"
+
+#: classes/view/admin/intro.php:292
+msgid "How to work with SNIP"
+msgstr "Arbeiten mit SNIP"
+
+#: classes/view/admin/intro.php:293
+msgid ""
+"So now that you know more about Structured Data and Rich Snippets. Let's "
+"start working with SNIP!"
+msgstr ""
+"Da du nun mehr über Strukturierte Daten und Rich Snippets weißt: lass uns "
+"starten!"
+
+#: classes/view/admin/intro.php:301
+msgid "Integrate Structured Data on a page"
+msgstr "Integriere strukturierte Daten auf einer Seite"
+
+#: classes/view/admin/intro.php:302
+msgid ""
+"Learn how to integrate structured data to a single post, page or custom post "
+"type."
+msgstr ""
+"Lerne, wie du strukturierte Daten in eine Seite, in einen Beitrag oder einem "
+"anderen Posttyp integrieren kannst."
+
+#: classes/view/admin/intro.php:310
+msgid "Work with Global Snippets"
+msgstr "Mit Globalen Snippets arbeiten"
+
+#: classes/view/admin/intro.php:311
+msgid ""
+"Learn what global snippets are and how you can automate snippet generation."
+msgstr ""
+"Lerne, was globale Snippets sind und wie du die Generierung von Snippets "
+"automatisieren kannst."
+
+#: classes/view/admin/intro.php:313 classes/view/admin/intro.php:322
+#: classes/view/admin/intro.php:348 classes/view/admin/intro.php:357
+#: classes/view/admin/intro.php:378 classes/view/admin/intro.php:387
+msgid "Watch now"
+msgstr "Jetzt ansehen"
+
+#: classes/view/admin/intro.php:319
+msgid "Overwrite Global Properties"
+msgstr "Globale Eigenschaften überschreiben"
+
+#: classes/view/admin/intro.php:320
+msgid ""
+"Learn how you can overwrite properties from Global Snippets in each post or "
+"page."
+msgstr ""
+"Lerne, wie Du Eigenschaften von globalen Snippets in jedem Artikel oder auf "
+"einer Seite überschreiben kannst."
+
+#: classes/view/admin/intro.php:327
+msgid "Popular Rich Snippets"
+msgstr "Beliebte Rich Snippets"
+
+#: classes/view/admin/intro.php:328
+msgid "Let's explore which Rich Snippets can be created with SNIP."
+msgstr ""
+"Lass uns erforschen, welche Rich Snippets mit SNIP erstellt werden können."
+
+#: classes/view/admin/intro.php:336
+msgid "The Article Snippet"
+msgstr "Das Article-Snippet"
+
+#: classes/view/admin/intro.php:337
+msgid ""
+"This video is all about Structured Data for Articles, NewsArticles, "
+"TechArticles and so on."
+msgstr ""
+"In diesem Video dreht sich alles um Strukturierte Daten für Artikel, News-"
+"Artikel, Tech-Artikel und viele mehr."
+
+#: classes/view/admin/intro.php:345
+msgid "The Recipe Snippet"
+msgstr "Das Rezept-Snippet"
+
+#: classes/view/admin/intro.php:346
+msgid "This video is all about the Structured Data that is needed for Recipes."
+msgstr "In diesem Video dreht sich alles um Strukturierte Daten für Rezepte."
+
+#: classes/view/admin/intro.php:354
+msgid "The Review Snippet"
+msgstr "Das Review-Snippet"
+
+#: classes/view/admin/intro.php:355
+msgid "In this video you’ll learn how to create Reviews using Structured Data."
+msgstr ""
+"In diesem Video wirst du lernen, wie man Reviews mit Strukturierten Daten "
+"erstellt."
+
+#: classes/view/admin/intro.php:366 classes/view/admin/intro.php:396
+msgid "The Event Snippet"
+msgstr "Das Event Snippet"
+
+#: classes/view/admin/intro.php:367
+msgid ""
+"In this video I’ll show you how you can create Structured Data for Events "
+"that produce a Rich Snippet in search results."
+msgstr ""
+"In diesem Video zeige ich dir, wie du Strukturierte Daten für Events "
+"erzeugen kannst, sodass diese ein Rich Snippet in den Suchresultaten "
+"erzeugen."
+
+#: classes/view/admin/intro.php:375
+msgid "The Product Snippet"
+msgstr "Das Produkt-Snippet"
+
+#: classes/view/admin/intro.php:376
+msgid ""
+"In this video I want to show you how you can create a Rich Snippet for "
+"Products using Structured Data."
+msgstr ""
+"In diesem Video zeige ich dir, wie du ein Rich Snippet für Produkte mit "
+"Strukturierten Daten erzeugst."
+
+#: classes/view/admin/intro.php:384
+msgid "The LocalBusiness Snippet"
+msgstr "Das LocalBusiness Snippet"
+
+#: classes/view/admin/intro.php:385
+msgid ""
+"In this video you’ll learn how you can create a knowledge graph card for "
+"your local business using Structured Data."
+msgstr ""
+"In diesem Video wirst du lernen, wie du über ein LocalBusiness-Snippet ein "
+"so genannte „Knowledge Graph Card“ mithilfe von Strukturierten Daten "
+"erzeugst."
+
+#: classes/view/admin/intro.php:397
+msgid ""
+"In this video I’ll show you how you can create Structured Data for "
+"Breadcrumbs that produce a Rich Snippet (in this case breadcrumbs) in search "
+"results that are clickable, too!"
+msgstr ""
+"In diesem Video zeige ich dir, wie du Strukturierte Daten für so genannte "
+"„Breadcrumbs“ erzeugen kannst, so dass diese ein Rich Snippet (in diesem "
+"Fall „Breadcrumbs“) in Suchresultaten erzeugen, die klickbar sind!"
+
+#: classes/view/admin/intro.php:409
+msgid "Now, create your first snip!"
+msgstr "Erzeuge jetzt dein erstes SNIP!"
+
+#: classes/view/admin/intro.php:411
+msgid "Only one step is missing now: Create your first snip!"
+msgstr "Nur noch ein Schritt: Erzeuge dein erstes SNIP!"
+
+#: classes/view/admin/intro.php:416
+msgid "Animated GIF that shows where to add a snip."
+msgstr "Animiertes GIF, welches das Hinzufügen von Snippets zeigt."
+
+#: classes/view/admin/intro.php:424
+msgid "Setup Service"
+msgstr "Einrichtungsservice"
+
+#: classes/view/admin/intro.php:428
+msgid ""
+"For all busy people out there: Use our time saving setup service and let our "
+"SEO expert do the hard work for you!"
+msgstr ""
+"Für alle beschäftigten Menschen da draußen: Nutze unseren zeitsparenden "
+"Einrichtungsservice und lasse unseren SEO-Experten die harte Arbeit für dich "
+"erledigen!"
+
+#: classes/view/admin/intro.php:432
+msgctxt "about our setup service"
+msgid "Find out more"
+msgstr "Mehr erfahren"
+
+#: classes/view/admin/intro.php:439
+msgid "Latest news"
+msgstr "Neuigkeiten"
+
+#: classes/view/admin/intro.php:454
+msgid "Free WordPress News (German language only)"
+msgstr "Kostenlose WordPress News"
+
+#: classes/view/admin/intro.php:458
+msgid ""
+"Signup to my monthly WordPress newsletter if you're interested in monthly "
+"news:"
+msgstr ""
+"Erhalte meinen Newsletter monatlich kostenlos, wenn du an aktuellen "
+"WordPress News interessiert bist:"
+
+#: classes/view/admin/intro.php:477
+#, php-format
+msgid ""
+"Learn more about your privacy in our <a href=\"%s\" target=\"_blank"
+"\">privacy policy</a>."
+msgstr ""
+"Bitte beachte die <a href=\"%s\" target=\"_blank\">Datenschutzerklärung</a>."
+
+#: classes/view/admin/posts/metabox.php:26
+#, php-format
+msgid "One snippet is attached to this post. Want to edit it now?"
+msgid_plural "%s snippets are attached to this post. Want to edit them now?"
+msgstr[0] ""
+"Ein Snippet wurde zu diesem Post hinzugefügt. Willst Du es jetzt bearbeiten?"
+msgstr[1] ""
+"%s Snippets wurden zu diesem Post hinzugefügt. Willst du sie jetzt "
+"bearbeiten?"
+
+#: classes/view/admin/posts/metabox.php:33
+msgid "Yes"
+msgstr "Ja"
+
+#: classes/view/admin/posts/metabox.php:42
+msgid "Add a Rich Snippet"
+msgstr "Rich Snippet hinzufügen"
+
+#: classes/view/admin/posts/metabox.php:53
+#: classes/view/admin/posts/metabox/overwrites.php:18
+#: classes/view/admin/posts/modalwindow.php:26
+msgid "Edit global snippets"
+msgstr "Globale Snippets bearbeiten"
+
+#: classes/view/admin/posts/modalwindow.php:13
+msgid "Close window"
+msgstr "Fenster schließen"
+
+#: classes/view/admin/posts/modalwindow.php:22
+msgid "Create New Global Snippet"
+msgstr "Neues globales Snippet erstellen"
+
+#: classes/view/admin/posts/modalwindow.php:39
+#, php-format
+msgid ""
+"Please select a global snippet from the menu. No global snippets? <a target="
+"\"_blank\" href=\"%s\">Create one here.</a>"
+msgstr ""
+"Bitte wähle ein globales Snippet aus dem Menü. Es werden keine globalen "
+"Snippets angezeigt? <a target=\"_blank\" href=\"%s\">Erstelle eines.</a>"
+
+#: classes/view/admin/posts/modalwindow.php:53
+#: pro/classes/controller/admin-scripts.php:110
+msgid "Save"
+msgstr "Speichern"
+
+#: classes/view/admin/posts/modalwindow.php:56
+msgctxt "Button label for reloading menu"
+msgid "Reload menu"
+msgstr "Menü neu laden"
+
+#: classes/view/admin/snippets/metabox/help.php:9
+msgctxt "Url to how-to video image"
+msgid ""
+"https://wp-buddy.com/wp-content/uploads/2018/11/structured-data-"
+"training-1024x576.jpg"
+msgstr ""
+
+#: classes/view/admin/snippets/metabox/help.php:11
+msgid ""
+"Don't know what structured data is? Take the structured data training course "
+"for free."
+msgstr ""
+"Du weißt nicht, was strukturierte Daten sind? Mache mit beim kostenlosen "
+"„Structured Data“ Training von WP-Buddy (englisch)."
+
+#: classes/view/admin/snippets/metabox/help.php:15
+#: classes/view/admin/snippets/metabox/help.php:20
+msgid "Structured Data Training Course"
+msgstr "Structured Data Kurs"
+
+#: classes/view/admin/snippets/metabox/news.php:25
+msgid "More news"
+msgstr "Mehr Neuigkeiten"
+
+#: classes/view/admin/snippets/metabox/snippet.php:25
+msgid "Select a thing"
+msgstr "Wähle ein Ding"
+
+#: classes/view/admin/snippets/metabox/snippet.php:36
+msgid "Popular:"
+msgstr "Populär:"
+
+#: classes/view/admin/snippets/properties/row.php:62
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: classes/view/admin/snippets/properties/row.php:63
+msgid "Delete"
+msgstr "Löschen"
+
+#: classes/view/admin/snippets/properties/row.php:84
+msgid "Allow to overwrite the value."
+msgstr "Erlaubt das Überschreiben der Werte."
+
+#: classes/view/admin/snippets/properties/row.php:90
+msgid "Overridable"
+msgstr "Überschreibbar"
+
+#: classes/view/admin/snippets/properties/row.php:95
+msgid "This property can be used multiple times."
+msgstr "Dieses Attribut kann mehrfach genutzt werden."
+
+#: classes/view/admin/snippets/properties/row.php:100
+msgid "List"
+msgstr "Liste"
+
+#: classes/view/admin/snippets/properties/row.php:130
+msgid "Description"
+msgstr "Beschreibung"
+
+#: classes/view/admin/snippets/properties/row.php:156
+msgid "Field Type"
+msgstr "Feldtyp"
+
+#: classes/view/admin/snippets/properties/row.php:163
+msgctxt "String to show that nothing is selected on a subfield."
+msgid "[None]"
+msgstr "[Nichts]"
+
+#: classes/view/admin/snippets/properties/row.php:178
+msgid "Internal values"
+msgstr "Interne Werte"
+
+#: classes/view/admin/snippets/properties/row.php:197
+msgid "Related types"
+msgstr "Verwandte Typen"
+
+#: classes/view/admin/snippets/properties/row.php:217
+msgid "Descendant types"
+msgstr "Nachkommen"
+
+#: classes/view/admin/snippets/properties/row.php:228
+msgid "Reference to"
+msgstr "Referenzieren auf"
+
+#: classes/view/admin/snippets/properties/row.php:243
+msgid "Field Value"
+msgstr "Feldwert"
+
+#: classes/view/admin/snippets/properties/table.php:29
+#: pro/classes/view/admin/snippets/overwrite/table.php:28
+#, php-format
+msgid "Property list for %s"
+msgstr "Liste der Eigenschaften für %s"
+
+#: classes/view/admin/snippets/properties/table.php:72
+msgid "Property"
+msgstr "Eigenschaft"
+
+#: classes/view/admin/snippets/properties/table.php:73
+msgid "Type"
+msgstr "Typ"
+
+#: classes/view/admin/snippets/properties/table.php:82
+msgid "Add new property"
+msgstr "Neue Eigenschaft hinzufügen"
+
+#: classes/view/admin/snippets/properties/table.php:87
+msgid "Search for a new property..."
+msgstr "Suche nach einer neuen Eigenschaft…"
+
+#: classes/view/admin/support/metabox/faq.php:17
+msgid "Take the Structured Data Training"
+msgstr "Strukturierte Daten Training"
+
+#: classes/view/admin/support/metabox/faq.php:22
+msgid "Learn how to work with SNIP"
+msgstr "Lerne mit SNIP zu arbeiten"
+
+#: classes/view/admin/support/metabox/faq.php:29
+msgid "Start typing to search ..."
+msgstr "Tippe einen Buchstaben um die Suche zu starten…"
+
+#: classes/view/admin/support/metabox/faq.php:31
+msgid "Search"
+msgstr "Suche"
+
+#: classes/view/admin/support/metabox/faq.php:36
+msgid "Could not fetch latest FAQ entries from rich-snippets.io"
+msgstr ""
+"Die letzten FAQ-Eeinträge konnten nicht von rich-snippets.io abgerufen werden"
+
+#: classes/view/admin/support/metabox/rating.php:13
+msgid "Please rate this plugin with 5 stars!"
+msgstr "Mach mich glücklich mit 5 Sternen! 😍"
+
+#: pro/classes/controller/admin-importexport.php:147
+msgid "Please enter JSON encoded text into the textarea field"
+msgstr "Bitte gib JSON-kodierten Text in das Textfeld ein"
+
+#: pro/classes/controller/admin-importexport.php:149
+msgid ""
+"This will overwrite your current snippet. You may also lose your overwritten "
+"data (if any). Would you like to continue?"
+msgstr ""
+"Dies wird dein aktuelles Snippet überschreiben. Überschriebene Daten gehen "
+"womöglich verloren (falls welche gespeichert wurden). Möchtest du fortfahren?"
+
+#: pro/classes/controller/admin-importexport.php:151
+msgid "Nothing to export."
+msgstr "Es gibt nichts zum exportieren."
+
+#: pro/classes/controller/admin-importexport.php:152
+msgid "Invalid JSON."
+msgstr "Ungültiges JSON."
+
+#: pro/classes/controller/admin-importexport.php:172
+msgctxt "metabox title"
+msgid "Import / Export"
+msgstr ""
+
+#: pro/classes/controller/admin-position.php:177
+msgctxt "metabox title"
+msgid "Position"
+msgstr "Position"
+
+#: pro/classes/controller/admin-position.php:211
+msgctxt "rich-snippets-schema"
+msgid "Built-in Parameters"
+msgstr "Integrierte Parameter"
+
+#: pro/classes/controller/admin-position.php:213
+msgid "Post Type"
+msgstr "Posttyp"
+
+#: pro/classes/controller/admin-position.php:214
+msgid "Post, Page, Custom Post Type"
+msgstr "Beitrag, Seite, Benutzerdefinierter Posttyp"
+
+#: pro/classes/controller/admin-position.php:215
+msgid "Post Template"
+msgstr ""
+
+#: pro/classes/controller/admin-position.php:216
+msgid "Post Status"
+msgstr ""
+
+#: pro/classes/controller/admin-position.php:217
+msgid "Post Format"
+msgstr ""
+
+#: pro/classes/controller/admin-position.php:218
+msgid "Post Category"
+msgstr "Post Kategorie"
+
+#: pro/classes/controller/admin-position.php:219
+msgid "Child Terms of"
+msgstr "Kind-Term von"
+
+#: pro/classes/controller/admin-position.php:220
+msgid "Post Taxonomy"
+msgstr "Post Taxonomie"
+
+#: pro/classes/controller/admin-position.php:221
+msgid "Page Template"
+msgstr "Seiten Template"
+
+#: pro/classes/controller/admin-position.php:222
+msgid "Page Type"
+msgstr "Seitentyp"
+
+#: pro/classes/controller/admin-position.php:223
+msgid "Page Parent"
+msgstr "Elternseite"
+
+#: pro/classes/controller/admin-position.php:246
+msgctxt "Custom page rules for selecting a rule."
+msgid "Custom Parameters"
+msgstr "Benutzerdefinierte Parameter"
+
+#: pro/classes/controller/admin-position.php:278
+msgid "is equal to"
+msgstr "ist gleich"
+
+#: pro/classes/controller/admin-position.php:279
+msgid "is not equal to"
+msgstr "ist nicht gleich"
+
+#: pro/classes/controller/admin-position.php:376
+#: pro/classes/controller/admin-position.php:403
+msgid "Default template"
+msgstr "Standardtemplate"
+
+#: pro/classes/controller/admin-position.php:494
+msgid "Everything (globally active)"
+msgstr "Alles (global aktiv)"
+
+#: pro/classes/controller/admin-position.php:495
+msgid "Front Page"
+msgstr ""
+
+#: pro/classes/controller/admin-position.php:496
+msgid "Posts Page"
+msgstr "Beitragsseite"
+
+#: pro/classes/controller/admin-position.php:497
+msgid "Top Level Page (has no parent)"
+msgstr "Seite der obersten Ebene (hat keine Eltern)"
+
+#: pro/classes/controller/admin-position.php:498
+msgid "Parent Page (has children)"
+msgstr "Elternseite (mit Kindseiten)"
+
+#: pro/classes/controller/admin-position.php:499
+msgid "Child Page (has parent)"
+msgstr "Kindseite (mit Elternseite)"
+
+#: pro/classes/controller/admin-position.php:500
+msgid "Search Results Page"
+msgstr "Suchergebnis-Seite"
+
+#: pro/classes/controller/admin-position.php:501
+msgid "All Archive Pages"
+msgstr "Alle Archivseiten"
+
+#: pro/classes/controller/admin-position.php:508
+#, php-format
+msgid "Archive page: %s"
+msgstr "Archivseite: %s"
+
+#: pro/classes/controller/admin-position.php:662
+msgctxt "Local AND when adding a new position rule"
+msgid "and"
+msgstr "und"
+
+#: pro/classes/controller/admin-position.php:715
+#: pro/classes/view/admin/position/metabox.php:50
+msgctxt "logical OR when defining a ruleset"
+msgid "or"
+msgstr "oder"
+
+#: pro/classes/controller/admin-position.php:739
+msgctxt "term title"
+msgid "(no title)"
+msgstr "(kein Titel)"
+
+#: pro/classes/controller/admin-rating.php:58
+#: pro/classes/controller/admin-scripts.php:153
+msgid ""
+"Do you want to get free LIFETIME updates for SNIP, the Rich Snippets & "
+"Structured Data Plugin?"
+msgstr ""
+"Möchtest du LEBENSLANG kostenlose Updates für SNIP, das Strukturierte Daten "
+"Plugin, erhalten?"
+
+#: pro/classes/controller/admin-rating.php:59
+#: pro/classes/controller/admin-scripts.php:156
+msgid "No"
+msgstr "Nein"
+
+#: pro/classes/controller/admin-rating.php:60
+#: pro/classes/controller/admin-scripts.php:160
+msgid "Yes, of course! 👍"
+msgstr "Aber natürlich! 👍"
+
+#: pro/classes/controller/admin-scripts.php:111
+msgid "Saved!"
+msgstr "Gespeichert!"
+
+#: pro/classes/controller/admin-scripts.php:112
+msgid "This is the last property of this type. Really want to delete it?"
+msgstr ""
+"Dies ist das letzte Attribut von diesem Typ. Soll es wirklich entfern werden?"
+
+#: pro/classes/controller/admin-scripts.php:166
+msgid ""
+"Please rate this plugin on CodeCanyon. It only takes 30 seconds and it "
+"ensures ongoing sales and that programmers are properly paid for their work."
+msgstr ""
+"Bitte bewerte dieses Plugin bei CodeCanyon. Es dauert nur 30 Sekunden und du "
+"stellst dadurch sicher, dass es sich weiterhin verkauft und die Entwickler "
+"entsprechend bezahlt werden."
+
+#: pro/classes/controller/admin-scripts.php:169
+msgid "Let's do this! 🤘"
+msgstr "Ja, das machen wir! 🤘"
+
+#: pro/classes/controller/admin-scripts.php:174
+msgid "I don't have time."
+msgstr "Ich habe keine Zeit."
+
+#: pro/classes/controller/admin-scripts.php:180
+msgid ""
+"Without any further sales the plugin will not get updates anymore. Wouldn't "
+"you like to avoid that problem too?"
+msgstr ""
+"Ohne weitere Verkäufe wird das Plugin in Zukunft keine Updates mehr "
+"erhalten. Möchtest du dieses Problem nicht auch gerne vermeiden?"
+
+#: pro/classes/controller/admin-scripts.php:183
+msgid "Yes, how can I help?"
+msgstr "Klar, wie kann ich helfen?"
+
+#: pro/classes/controller/admin-scripts.php:187
+msgid "What's the worst case scenario?"
+msgstr "Was kann im schlimmsten Fall passieren?"
+
+#: pro/classes/controller/admin-scripts.php:193
+msgid ""
+"Would you like to help in just 30 seconds? I need your 5-Star-Rating on "
+"CodeCanyon."
+msgstr ""
+"Möchtest du mich in 30 Sekunden unterstützen? Ich brauche eine 5-Sterne-"
+"Bewerbung bei CodeCanyon."
+
+#: pro/classes/controller/admin-scripts.php:196
+msgid "Of course I want to help and rate now!"
+msgstr "Natürlich helfe ich gerne und bewerte jetzt!"
+
+#: pro/classes/controller/admin-scripts.php:201
+msgid "I can't!"
+msgstr "Ich kann nicht!"
+
+#: pro/classes/controller/admin-scripts.php:207
+msgid "Did it work? Please note that you need to be logged-in to CodeCanyon."
+msgstr ""
+"Hat’s funktioniert? Bitte beachte, dass du bei CodeCanyon eingeloggt sein "
+"musst."
+
+#: pro/classes/controller/admin-scripts.php:210
+msgid "Didn't work. But I'm logged in now. Try again."
+msgstr ""
+"Hat nicht funktioniert. Aber ich bin jetzt angemeldet. Nochmal versuchen."
+
+#: pro/classes/controller/admin-scripts.php:215
+msgid "Yeah, I rated! 💪"
+msgstr "Yeah! Ich hab bewertet! 💪"
+
+#: pro/classes/controller/admin-scripts.php:221
+msgid ""
+"Search engines tend to change a lot. Especially when it comes to structured "
+"data. Old snippets can lead to a loss of visibility in search engines. Do "
+"you want to risk that?"
+msgstr ""
+"Suchmaschinen neigen dazu, Dinge immer wieder zu verändern. Vor allem, wenn "
+"es um strukturierte Daten geht. Veraltete Snippets können zu einem Verlust "
+"der Sichtbarkeit in Suchmaschinen führen. Willst du das riskieren?"
+
+#: pro/classes/controller/admin-scripts.php:224
+msgid "What can I do to stay updated?"
+msgstr "Was kann ich tun um auf dem aktuellen Stand zu bleiben?"
+
+#: pro/classes/controller/admin-scripts.php:228
+msgid "I don't care."
+msgstr "Ist mir egal."
+
+#: pro/classes/controller/admin-scripts.php:234
+msgid ""
+"If in case you cannot rate the plugin with 5 stars. Why not add a feature "
+"request? This also helps make the plugin even better!"
+msgstr ""
+"Falls Du das Plugin nicht mit 5 Sternen bewerten kannst: Warum nicht eine "
+"Feature-Request hinzufügen? Auch das kann helfen, das Plugin noch besser zu "
+"machen!"
+
+#: pro/classes/controller/admin-scripts.php:237
+msgid "Show me the feature-request-form"
+msgstr "Zeige mir das Feature-Request-Formular"
+
+#: pro/classes/controller/admin-scripts.php:241
+msgid "Remind me later"
+msgstr "Erinnere mich später"
+
+#: pro/classes/controller/admin-scripts.php:247
+msgid "Awesome! You're my hero of the day! 🙌"
+msgstr "Geilo! Du bist mein Held / meine Heldin des Tages! 🙌"
+
+#: pro/classes/controller/admin-scripts.php:250
+msgid "Close"
+msgstr "Schließen"
+
+#: pro/classes/controller/admin-settings.php:45
+msgid "Reinstall predefined global snippets."
+msgstr "Vordefinierte globale Snippets erneut installieren."
+
+#: pro/classes/controller/admin-settings.php:46
+msgid "Go for it!"
+msgstr "Mach das!"
+
+#: pro/classes/controller/admin-settings.php:49
+msgid ""
+"The plugin comes shipped with pre-installed snippets. If you messed them up, "
+"just hit the above button to re-install and/or repair them."
+msgstr ""
+"Das Plugin liefert einige Snippets mit. Wenn du glaubst, dass du eines davon "
+"verunglimpft hast, installiere sie einfach erneut und/oder repariere sie, "
+"indem du auf den obigen Button klickst."
+
+#: pro/classes/controller/admin-settings.php:55
+msgid "Remove WooCommerce schema"
+msgstr "WooCommerce Schema entfernen"
+
+#: pro/classes/controller/admin-settings.php:56
+msgid "WooCommerce"
+msgstr ""
+
+#: pro/classes/controller/admin-settings.php:62
+msgid ""
+"WooCommerce adds its own schema.org syntax for products. If you don't want "
+"to use it, the plugin can try to remove it for you so that you can write "
+"your own Rich Snippets for products."
+msgstr ""
+"Das WooCommerce Plugin erstellt eigenen schema.org Syntax für Produkte. Wenn "
+"du deren Snippets nicht nutzen willst, kann das Plugin versuchen sie zu "
+"entfernen. Du kannst dann deine eigenen Snippets für Produkte erstellen."
+
+#: pro/classes/controller/admin-settings.php:66
+msgid "PreOrder instead of LimitedAvailability"
+msgstr "PreOrder anstatt LimitedAvailability"
+
+#: pro/classes/controller/admin-settings.php:67
+msgid "Item availability"
+msgstr "Produtk-Verfügbarkeit"
+
+#: pro/classes/controller/admin-settings.php:73
+msgid ""
+"Set schema.org/PreOrder instead of schema.org/LimitedAvailability if item is "
+"out of stock and the \"WooCommerde: Availability\" or \"WooCommerce: Offers"
+"\" field types are used."
+msgstr ""
+"Setze schema.org/PreOrder anstatt schema.org/LimitedAvailability wenn das "
+"Produkt nicht auf Lager ist und das Feld „WooCommerce: Verfügbarkeit“ oder "
+"„WooCommerce: Angebote“ benutzt wird."
+
+#: pro/classes/controller/admin-snippets-overwrite.php:128
+msgid "Global Snippets Values"
+msgstr "Globale Snippet-Werte"
+
+#: pro/classes/controller/admin-snippets-overwrite.php:201
+#, php-format
+msgid ""
+"No overridable properties found. <a href=\"%s\">Read how you can create "
+"properties that are overridable.</a>"
+msgstr ""
+"Keine überschreibbaren Eigenschaften gefunden. <a href=\"%s\">Lese hier, wie "
+"du Eigenschaften überschreiben kannst.</a>"
+
+#: pro/classes/controller/admin-snippets.php:100
+msgid "It seems that you're not allowed to do this."
+msgstr "Es scheint, als dürftest du dies nicht."
+
+#: pro/classes/controller/admin-snippets.php:225
+#, php-format
+msgid ""
+"Hey <strong>%s!</strong> The plugin can install some predefined global "
+"snippets for you!"
+msgstr ""
+"Hey <strong>%s!</strong>. Das Plugin kann einige vordefinierte Snippets für "
+"dich installieren."
+
+#: pro/classes/controller/admin-snippets.php:232
+msgid "Awesome! Install them please."
+msgstr "Genial! Installiere sie bitte."
+
+#: pro/classes/controller/admin-snippets.php:304
+msgid "Snippet IDs"
+msgstr ""
+
+#: pro/classes/controller/admin-support.php:31
+msgctxt "metabox title"
+msgid "Support"
+msgstr ""
+
+#: pro/classes/controller/admin-support.php:40
+msgctxt "metabox title"
+msgid "License Deactivation"
+msgstr "Lizenz-Deaktivierung"
+
+#: pro/classes/controller/admin-support.php:49
+msgid "Feature Requests"
+msgstr "Feature-Anfragen"
+
+#: pro/classes/controller/admin.php:137
+msgid "Your copy of SNIP has not yet been activated."
+msgstr "Deine Kopie von SNIP wurde noch nicht aktiviert."
+
+#: pro/classes/controller/admin.php:140
+msgid "Activate it now."
+msgstr "Jetzt aktivieren."
+
+#: pro/classes/controller/admin.php:143
+msgid "Your copy is active."
+msgstr "Deine Kopie ist aktiviert."
+
+#: pro/classes/controller/admin.php:188
+#, php-format
+msgid ""
+"Use this global snippet section if you don't want to create a single snippet "
+"for each post. Instead you can define one snippet that is valid globally. "
+"Use the position metabox to define a ruleset where a global snippet should "
+"be integrated. You can <a href=\"https://rich-snippets.io/structured-data/"
+"module-2/lesson-2/?pk_campaign=global-snippets-overview&pk_source=%1$s\" "
+"target=\"_blank\">learn more about Global Snippets in module 2 / lesson 2</"
+"a> of the <a href=\"https://rich-snippets.io/structured-data-training-"
+"course/?pk_campaign=global-snippets-overview&pk_source=%1$s\" target=\"_blank"
+"\">Structured Data Training Course</a>."
+msgstr ""
+"Benutze Globale Snippets wenn du nicht für jede einzelne Seite strukturierte "
+"Daten erstellen willst. Stattdessen ist es möglich, ein Snippet zu "
+"definieren, welches global gültig ist. Benutze die Positions-Metabox um "
+"Regeln zu definieren, wo dieses Snippet angezeigt werden soll. Erfahre mehr "
+"<a href=\"https://rich-snippets.io/structured-data/module-2/lesson-2/?"
+"pk_campaign=global-snippets-overview&pk_source=%1$s\" target=\"_blank\">über "
+"globale Snippets in Modul 2 / Lektion 2</a> aus dem <a href=\"https://rich-"
+"snippets.io/structured-data-training-course/?pk_campaign=global-snippets-"
+"overview&pk_source=%1$s\" target=\"_blank\">Structured Data Kurs</a> "
+"(englisch)."
+
+#: pro/classes/controller/rest.php:71
+msgid "Schemas saved on a post."
+msgstr "Schemas, die zu einem Artikel gespeichert wurden."
+
+#: pro/classes/controller/rest.php:84
+msgid "The position of the schema."
+msgstr "Position eines Schemas."
+
+#: pro/classes/controller/rest.php:619
+#, php-format
+msgctxt ""
+"value possibilities: %1$s is the post title, %2$s is the post type, %3$d is "
+"the post ID"
+msgid "%1$s (%2$s, %3$d)"
+msgstr "%1$s (%2$s, %3$d)"
+
+#: pro/classes/controller/rest.php:625
+msgid "(No post title)"
+msgstr "(Kein Posttitel)"
+
+#: pro/classes/controller/rest.php:677
+msgid "Could not find snippets on this post."
+msgstr "Es konnten keine Snippets zu diesem Post gefunden werden."
+
+#: pro/classes/controller/rest.php:931
+msgid "Missing field \"snippets\"."
+msgstr "Feld „snippets“ fehlt."
+
+#: pro/classes/controller/rest.php:938
+msgid "Field \"snippets\" should be an array of values."
+msgstr "Feld „snippets“ sollte ein Array sein und Werte enthalten."
+
+#: pro/classes/controller/rest.php:1019
+#, php-format
+msgid "Could not create global snippet during SNIP import. Got error: %s"
+msgstr ""
+"Es konnte kein Globales Snippet während des Import-Vorgangs erstellt werden. "
+"Die Fehlermeldung lautet: %s"
+
+#: pro/classes/controller/rest.php:1039
+msgid "Could not decode SNIP. No Global Snippet was created."
+msgstr ""
+"Ein SNIP konnte nicht dekodiert werden. Kein Globales Snippet wurde erstellt."
+
+#: pro/classes/controller/rest.php:1077
+#, php-format
+msgid "Created Global Snippet \"%s\"."
+msgstr "Global Snippet „%s“ erstellt."
+
+#: pro/classes/controller/rest.php:1082
+#, php-format
+msgid "Updated Global Snippet \"%s\"."
+msgstr "Global Snippet „%s“ aktualisiert."
+
+#: pro/classes/controller/update.php:109
+msgid ""
+"It seems the update server is not reachable at the moment. Please stay tuned."
+msgstr ""
+"Es sieht so aus als ob der Update-Server momentan nicht erreichbar wäre. "
+"Bitte bleib dran."
+
+#: pro/classes/model/cron.php:87
+msgctxt "cron schedule interval"
+msgid "Every two weeks"
+msgstr "Alle zwei Wochen"
+
+#: pro/classes/model/fields.php:85
+#, php-format
+msgctxt ""
+"%1$s is the title of the global schema. %2$s is the schema class name. %3$d "
+"is the post ID"
+msgid "Global snippet: %2$s/%1$s (%3$d)"
+msgstr "Globales Snippet: %2$s/%1$s (%3$d)"
+
+#: pro/classes/model/fields.php:114
+msgid "No loop"
+msgstr "Keine Schleife"
+
+#: pro/classes/model/fields.php:115
+msgid "Main query items (ie. for archive pages)"
+msgstr "Hauptabfrage-Elemente („Main Query“, z.B. für Archivseiten)"
+
+#: pro/classes/model/fields.php:116
+msgid "Page parents"
+msgstr "Elternseiten"
+
+#: pro/classes/model/fields.php:138
+#, php-format
+msgctxt "Menu label"
+msgid "Menu: %s"
+msgstr ""
+
+#: pro/classes/model/fields.php:161
+#, php-format
+msgctxt "Taxonomy label"
+msgid "Taxonomy: %s"
+msgstr "Taxonomie: %s"
+
+#: pro/classes/model/posttypes.php:28
+msgctxt "Global post type label"
+msgid "Global Structured Data"
+msgstr "Globale Strukturierte Daten"
+
+#: pro/classes/model/posttypes.php:30
+msgctxt "Global post type singular name"
+msgid "Global Structured Data"
+msgstr "Globale Strukturierte Daten"
+
+#: pro/classes/model/posttypes.php:31 pro/classes/model/posttypes.php:32
+#: pro/classes/model/posttypes.php:33
+msgid "Add new global snippet"
+msgstr "Neues globales Snippet"
+
+#: pro/classes/model/posttypes.php:34
+msgid "Edit global snippet"
+msgstr "Globales Snippet bearbeiten"
+
+#: pro/classes/model/posttypes.php:35
+msgctxt "Global post type menu label"
+msgid "Global Snippets"
+msgstr "Globale Snippets"
+
+#: pro/classes/model/posttypes.php:97 pro/classes/model/posttypes.php:98
+msgid "Global Snippets"
+msgstr "Globale Snippets"
+
+#: pro/classes/model/predefined.php:230
+msgid "Organization"
+msgstr "Organisation"
+
+#: pro/classes/model/predefined.php:375
+msgid "Review of Product"
+msgstr "Review von einem Produkt"
+
+#: pro/classes/model/predefined.php:536
+msgid "Product (WooCommerce)"
+msgstr "Produkt (WooCommerce)"
+
+#: pro/classes/model/predefined.php:915
+msgid "Website with Sitelink Searchbox"
+msgstr "Webseite mit Sitelink Searchbox"
+
+#: pro/classes/model/predefined.php:1007
+msgid "Carousel for Frontpage, Posts-Page, Search-Page & Archive pages"
+msgstr ""
+"Karussell für Frontpage, Beitragsseite, Suchergebnis-Seite & Archivseiten"
+
+#: pro/classes/model/predefined.php:1105
+msgid "Breadcrumbs for posts using categories"
+msgstr "Brotkrumen für Beiträge (nutzt Kategorien)"
+
+#: pro/classes/model/predefined.php:1203
+msgid "Breadcrumbs for pages using page hierarchy"
+msgstr "Brotkrumen für Seiten (nutzt Seitenhierarchie)"
+
+#: pro/classes/model/predefined.php:1272
+msgid "Carousel for Product Archive pages (WooCommerce)"
+msgstr "Karussell für Produkt-Archivseiten (WooCommerce)"
+
+#: pro/classes/model/predefined.php:1356
+msgid "WebPage for Pages and Posts"
+msgstr "WebPage für Seiten und Beiträge"
+
+#: pro/classes/model/update.php:77
+msgid ""
+"The plugin was not able to retrieve update information. The response did not "
+"return anything."
+msgstr ""
+"Das Plugin konnte keine Update-Informationen abrufen. Die Antwort gab nichts "
+"zurück."
+
+#: pro/classes/model/woocommerce.php:38 pro/classes/model/woocommerce.php:44
+msgctxt "subselect field"
+msgid "WooCommerce: Product Rating"
+msgstr "WooCommerce Produktbewertung"
+
+#: pro/classes/model/woocommerce.php:50 pro/classes/model/woocommerce.php:56
+msgctxt "subselect field"
+msgid "WooCommerce: Product Review Rating"
+msgstr "WooCommerce: Produkt-Review"
+
+#: pro/classes/model/woocommerce.php:62
+msgctxt "subselect field"
+msgid "WooCommerce: Stock Keeping Unit"
+msgstr "WooCommerce: Lagerhaltungseinheit"
+
+#: pro/classes/model/woocommerce.php:68
+msgctxt "subselect field"
+msgid "WooCommerce: Currency Code"
+msgstr "WooCommerce: Währungscode"
+
+#: pro/classes/model/woocommerce.php:74
+msgctxt "subselect field"
+msgid "WooCommerce: Offers"
+msgstr "WooCommerce: Angebote (Offers)"
+
+#: pro/classes/model/woocommerce.php:80
+msgctxt "subselect field"
+msgid "WooCommerce: Product Height"
+msgstr "WooCommerce: Produkthöhe"
+
+#: pro/classes/model/woocommerce.php:86
+msgctxt "subselect field"
+msgid "WooCommerce: Product Width"
+msgstr "WooCommerce: Produktbreite"
+
+#: pro/classes/model/woocommerce.php:92
+msgctxt "subselect field"
+msgid "WooCommerce: Product Length"
+msgstr "WooCommerce: Produktlänge"
+
+#: pro/classes/model/woocommerce.php:98
+msgctxt "subselect field"
+msgid "WooCommerce: Product Weight"
+msgstr "WooCommerce: Produktgewicht"
+
+#: pro/classes/model/woocommerce.php:104 pro/classes/model/woocommerce.php:110
+#: pro/classes/model/woocommerce.php:176
+msgctxt "subselect field"
+msgid "WooCommerce: Product attribute"
+msgstr "WooCommerce: Produktattribut"
+
+#: pro/classes/model/woocommerce.php:116
+msgctxt "subselect field"
+msgid "WooCommerce: Product reviews"
+msgstr "WooCommerce: Produktreviews"
+
+#: pro/classes/model/woocommerce.php:122
+msgctxt "subselect field"
+msgid "WooCommerce: Product Price"
+msgstr "WooCommerce: Produktpreis"
+
+#: pro/classes/model/woocommerce.php:128
+msgctxt "subselect field"
+msgid "WooCommerce: Product Sales Price"
+msgstr "WooCommerce: Produkt-Angebotspreis"
+
+#: pro/classes/model/woocommerce.php:134
+msgctxt "subselect field"
+msgid "WooCommerce: Availability"
+msgstr "WooCommerce: Verfügbarkeit"
+
+#: pro/classes/model/woocommerce.php:140
+msgctxt "subselect field"
+msgid "WooCommerce: Sales End Date"
+msgstr "WooCommerce: Angebots-Enddatum"
+
+#: pro/classes/model/woocommerce.php:146
+msgctxt "subselect field"
+msgid "WooCommerce: Sales Start Date"
+msgstr "WooCommerce: Angebots-Startdatum"
+
+#: pro/classes/model/woocommerce.php:152
+msgctxt "subselect field"
+msgid "WooCommerce: Sales End Date and Time"
+msgstr "WooCommerce: Angebots-Enddatum und Zeit"
+
+#: pro/classes/model/woocommerce.php:158
+msgctxt "subselect field"
+msgid "WooCommerce: Sales Start Date and Time"
+msgstr "WooCommerce: Angebots-Startdatum und Zeit"
+
+#: pro/classes/model/woocommerce.php:164
+msgctxt "subselect field"
+msgid "WooCommerce: Stock Number"
+msgstr "WooCommerce: Lagerbestand"
+
+#: pro/classes/model/woocommerce.php:170
+msgctxt "subselect field"
+msgid "WooCommerce: Weight Unit"
+msgstr "WooCommerce: Gewichtseinheit"
+
+#: pro/classes/model/woocommerce.php:883
+msgid "Variable products (WooCommerce)"
+msgstr "Variable Produkte (WooCommerce)"
+
+#: pro/classes/view/admin/importexport/metabox.php:17
+msgid ""
+"Use this textarea field to import from plain JSON-LD code or from SNIP "
+"examples that you can find around the web. You can also export a Global "
+"Snippet to use it on another site. <a href=\"https://rich-snippets.io/import-"
+"export/\" target=\"_blank\">Read more about this here.</a>"
+msgstr ""
+"Verwende dieses Textfeld, um aus reinem JSON-LD-Code oder aus SNIP-"
+"Beispielen zu importieren, die du im Web finden kannst. Du kannst auch ein "
+"Globales Snippet exportieren, um es auf einer anderen Website zu verwenden. "
+"<a href=\"https://rich-snippets.io/import-export/\" target=\"_blank\">Mehr "
+"dazu erfährst du hier.</a>"
+
+#: pro/classes/view/admin/importexport/metabox.php:27
+msgid "Import"
+msgstr ""
+
+#: pro/classes/view/admin/importexport/metabox.php:34
+msgid "Export"
+msgstr ""
+
+#: pro/classes/view/admin/position/metabox.php:18
+msgid ""
+"Create a set of rules to determine which pages will use these schema.org "
+"syntax."
+msgstr ""
+"Erstelle ein Regelwerk das festlegt welche Seiten diesen schema.org Syntax "
+"nutzen dürfen."
+
+#: pro/classes/view/admin/position/metabox.php:51
+msgid "Add rulegroup"
+msgstr "Regel-Gruppe hinzufügen"
+
+#: pro/classes/view/admin/snippets/overwrite/warnings/reference.php:31
+#, php-format
+msgctxt "%s is the link (with post title) to the global snippet"
+msgid ""
+"You have selected this property as overridable. However it references to "
+"another global snippet and cannot be edited here. Please click the following "
+"link in order to edit it now: %s"
+msgstr ""
+"Du hast dieses Attribut als überschreibbar deklariert. Allerdings "
+"referenziert es zu einem anderen globalen Snippet und kann hier nicht "
+"editiert werden. Bitte klicke auf den folgenden Link um es jetzt zu "
+"bearbeiten: %s"
+
+#: pro/classes/view/admin/snippets/properties/table/loop.php:16
+msgid "Loop"
+msgstr "Schleife"
+
+#: pro/classes/view/admin/support/metabox/deactivation.php:12
+msgid ""
+"CodeCanyon allows only one license per domain. If you mistakenly activated "
+"the plugin on this domain, just deactivate it here and you will then be able "
+"to activate it on the new domain. This process can be repeated up to three "
+"times per month. Please note that after hitting this button, the plugin will "
+"be deactivated on this site."
+msgstr ""
+"CodeCanyon erlaubt lediglich eine Lizenz pro Domain. Wenn Du das Plugin "
+"versehentlich auf dieser Domain aktiviert hast, deaktiviere es einfach und "
+"aktiviere es auf einer anderen Domain. Dieser Prozess kann drei mal pro "
+"Monat wiederholt werden. Beachte, dass das Plugin auf dieser Seite "
+"deaktiviert wird, nachdem Du auf diesen Button gedrückt hast."
+
+#: pro/classes/view/admin/support/metabox/deactivation.php:17
+msgid "Deactivate license on this site"
+msgstr "Lizenz auf dieser Seite deaktivieren"
+
+#: pro/classes/view/admin/support/metabox/features.php:13
+#, php-format
+msgid ""
+"Hey <strong>%s</strong>, here is Florian again. As you may know this plugin "
+"is maintained by me for <strong>%s</strong> now and I want it to grow even "
+"more. But I need your help. Please share your ideas and let me know what "
+"features you want to see for the next versions. Here are some ideas by other "
+"users. Don't be shy and vote for some of them if you think one of it could "
+"be interesting for you, too."
+msgstr ""
+"Hey <strong>%s</strong>, hier ist Florian noch einmal. Wie du weißt wird "
+"dieses Plugin von mir bereits seit <strong>%s</strong> betreut. Und ich "
+"möchte, dass es weiterhin wächst. Aber dafür benötige ich deine Hilfe. Bitte "
+"teile deine Ideen und lass mich wissen, welche Features du in einer der "
+"nächsten Versionen sehen möchtest. Hier sind einige Ideen von anderen "
+"Benutzern. Also zögere bitte nicht und bewerte die Features der anderen "
+"falls sie für dich auch von Interesse sind."
+
+#: pro/classes/view/admin/support/metabox/features.php:30
+msgid "Rating"
+msgstr "Bewertung"
+
+#: pro/classes/view/admin/support/metabox/features.php:31
+msgid ""
+"Feature Request / <a href=\"https://rich-snippets.io/feature-request/\" "
+"target=\"_blank\">See all feature requests</a>"
+msgstr ""
+"Feature Request / <a href=\"https://rich-snippets.io/feature-request/\" "
+"target=\"_blank\"> Alle Feature Requests ansehen</a>"
+
+#: pro/classes/view/admin/support/metabox/features.php:32
+msgid "Vote"
+msgstr "Bewerten"
+
+#: pro/classes/view/admin/support/metabox/features.php:38
+msgid "Could not fetch feature requests."
+msgstr "Feature Requests konnten nicht abgerufen werden."
+
+#: pro/classes/view/admin/support/metabox/features.php:75
+msgid ""
+"Please share your ideas and create a new feature request. Please do not "
+"share any private data and <u>do not use this form for support requests</u>."
+msgstr ""
+"Bitte teile deine Ideen und erstelle ein neues Feature Request. Bitte teile "
+"keine privaten Daten und <u>nutze dieses Formular nicht für eine Support-"
+"Anfrage</u>."
+
+#: pro/classes/view/admin/support/metabox/features.php:78
+msgid ""
+"I understand the following: After hitting the send button the text will be "
+"sent to our servers and that it may create a new public comment on the <a "
+"href=\"https://rich-snippets.io/feature-request/\" target=\"_blank\">rich-"
+"snippets.io feature request page</a>. The comment will be created as the "
+"user the current purchase code belongs to. It will be saved as long as you "
+"tell me to delete it or when the feature landed in one of our future "
+"versions of the plugin. Find out more about in our <a href=\"https://wp-"
+"buddy.com/imprint/\" target=\"_blank\">privacy policy</a>."
+msgstr ""
+"Ich verstehe folgendes: nach dem Klick auf den Senden-Button wird der Text "
+"an meinen Server übermittelt. Dort wird eventuell ein neuer, öffentlicher "
+"Kommentar auf der <a href=\"https://rich-snippets.io/feature-request/\" "
+"target=\"_blank\">rich-snippets.io feature request Seite (englisch)</a> "
+"erzeugt. Der Kommentar wird mit dem Benutzernamen erzeugt, zu dem dieser "
+"Kaufcode gehört. Der Kommentar bleibt gespeichert bis Du mir mitteilst, dass "
+"er gelöscht werden soll oder bis das von dir genannte Feature in eine "
+"zukünftige Plugin-Version integriert wurde. Erfahre mehr darüber in meiner "
+"<a href=\"https://wp-buddy.com/imprint/\" target=\"_blank"
+"\">Datenschutzerklärung (englisch)</a>."
+
+#: pro/classes/view/admin/support/metabox/features.php:81
+msgid "Share this with the community"
+msgstr "Teile dies mit der Community"
+
+#: pro/classes/view/admin/support/metabox/features.php:84
+msgid ""
+"Thanks for adding your feature request. It may take a while till it appears "
+"here."
+msgstr ""
+"Danke, dass du deine Idee geteilt hast. Es wird ein bisschen Zeit brauchen, "
+"bis sie hier auftaucht."
+
+#: pro/classes/view/admin/support/metabox/rating.php:12
+msgid ""
+"You have not rated the plugin on CodeCanyon yet. Please support me by rate "
+"this plugin with 5 stars if you like it!"
+msgstr ""
+"Du hast das Plugin noch nicht bei CodeCanyon bewertet. Bitte unterstütze "
+"mich und bewerte das Plugin mit 5 Sternen, wenn es dir gefällt!"
+
+#: pro/classes/view/admin/support/metabox/rating.php:19
+msgid "Please help and rate on CodeCanyon!"
+msgstr "Jetzt helfen; via CodeCanyon bewerten!"
+
+#: pro/classes/view/admin/support/metabox/rating.php:32
+#, php-format
+msgid "Your rating: %s%s"
+msgstr "Deine Bewertung: %s%s"
+
+#: pro/classes/view/admin/support/metabox/rating.php:44
+#, php-format
+msgid ""
+"What can I do to get the last star? Please write a feature request on this "
+"page if you miss something."
+msgid_plural ""
+"What can I do to get the last %d stars? Please write a feature request on "
+"this page if you miss something."
+msgstr[0] ""
+"Was kann ich tun um den letzten Stern zu erhalten? Bitte schreib ein Feature-"
+"Request auf dieser Seite wenn du glaubst, eine Funktion fehlt im Plugin."
+msgstr[1] ""
+"Was kann ich tun um die letzten %d Sterne zu erhalten? Bitte schreib ein "
+"Feature-Request auf dieser Seite wenn du glaubst, eine Funktion fehlt im "
+"Plugin."
+
+#: pro/classes/view/admin/support/metabox/rating.php:55
+msgid "Make me happy with 5 stars! 😍"
+msgstr "Mach mich glücklich mit 5 Sternen! 😍"
+
+#: pro/classes/view/admin/support/metabox/rating.php:60
+msgid "Awesome rating! Thank you! You're my superhero! 💪"
+msgstr "Eine Hammer Bewertung! Vielen Dank! Du bist mein Superhero! 💪"
+
+#: pro/classes/view/admin/support/metabox/validity.php:19
+#, php-format
+msgid "Cool! You are eligible for support until %1$s."
+msgstr "Cool! Du bist berichtigt für Support bis %1$s."
+
+#: pro/classes/view/admin/support/metabox/validity.php:24
+#, php-format
+msgctxt "First is the exact date. Second is the human time diff."
+msgid "Your item support will soon end (on %1$s). However still %2$s to go!"
+msgstr ""
+"Dein Support-Zeitraum läuft bald aus (am %1$s). Du hast aber noch %2$s Zeit!"
+
+#: pro/classes/view/admin/support/metabox/validity.php:31
+#, php-format
+msgid "Oh no! You are not eligible for support. It has expired on %1$s."
+msgstr "Oh nein! Dein Support-Zeitraum ist abgelaufen. Und zwar am %1$s."
+
+#: pro/classes/view/admin/support/metabox/validity.php:48
+msgid "Renew support now"
+msgstr "Support jetzt erneuern"
+
+#: pro/classes/view/admin/support/metabox/validity.php:51
+msgid ""
+"The plugin was not able to gather any information for your purchase code."
+msgstr ""
+"Das Plugin war nicht fähig, Informationen zu deinem Kaufcode abzurufen."
+
+#: rich-snippets-wordpress-plugin.php:51
+#, php-format
+msgid ""
+"Hey mate! Sorry for interrupting you. It seem's that you're using an old PHP "
+"version (your current version is %s). You should upgrade to at least %s or "
+"higher in order to use SNIP. Thank you!"
+msgstr ""
+"Hey Kumpel! Sorry, dass ich dich kurz unterbrechen muss. Es scheint so als "
+"würdest du eine alte PHP-Version nutzen (deine aktuelle Version ist %s). Du "
+"solltest mindestens auf Version %s oder höher upgraden um SNIP nutzen zu "
+"können. Danke!"
+
+#: rich-snippets-wordpress-plugin.php:66
+#, php-format
+msgid ""
+"SNIP needs at least PHP version %s to run properly. <a href=\"https://"
+"wordpress.org/support/update-php/\" target=\"_blank\">Read more about how to "
+"upgrade here.</a>"
+msgstr ""
+"SNIP benötigt mindestens PHP in Version %s. <a href=\"https://de.wordpress."
+"org/support/update-php/\" target=\"_blank\">Erfahre hier mehr darüber, wie "
+"du ein Update deiner PHP-Version durchführst.</a>"
+
+#: rich-snippets-wordpress-plugin.php:85
+#, php-format
+msgid ""
+"Hey mate! Sorry for interrupting you. It seem's that you're using an old "
+"WordPress version (your current version is %s). You should upgrade to at "
+"least %s or higher in order to use SNIP. Thank you!"
+msgstr ""
+"Hey Kumpel! Sorry, dass ich dich kurz unterbrechen muss. Es scheint so als "
+"würdest du eine alte WordPress-Version nutzen (deine aktuelle Version ist "
+"%s). Du solltest mindestens auf Version %s oder höher upgraden um SNIP "
+"nutzen zu können. Danke!"
+
+#: rich-snippets-wordpress-plugin.php:101
+msgid ""
+"Hey mate! Sorry for interrupting you. It seem's that another version of SNIP "
+"is already installed and active. Make sure only one version is active."
+msgstr ""
+"Hey Kumpel! Sorry für die Störung. Es scheint, dass eine andre Version von "
+"SNIP läuft. Stelle sicher, dass nur eines davon aktiv ist."
+
+#: rich-snippets-wordpress-plugin.php:127
+#, php-format
+msgid ""
+"Hey mate! Sorry for interrupting you. It seem's that you're using an old "
+"version WordPress (your current version is %s). You should upgrade to at "
+"least 4.6 or higher in order to use the Rich Snippets plugin. Thank you!"
+msgstr ""
+"Hey Kumpel! Ich muss dich kurz unterbrechen. Es scheint so als nutzt du eine "
+"alte Version von WordPress (die aktuelle Version ist %s). Du solltest "
+"mindestens auf Version 4.6 oder höher updaten um das Rich Snippet Plugin "
+"nutzen zu können. Danke!"
+
+#. Plugin Name of the plugin/theme
+msgid "snip - The Rich Snippets & Structured Data Plugin"
+msgstr "snip - Das Plugin für Rich Snippets & Strukturierte Daten"
+
+#. Plugin URI of the plugin/theme
+msgid "https://rich-snippets.io"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Allows to create Rich Snippets and general structured data readable by "
+"search engines."
+msgstr ""
+"Erlaubt das Erstellen von Rich Snippets und strukturierten Daten die von "
+"Suchmaschinen lesbar sind."
+
+#. Author of the plugin/theme
+msgid "wpbuddy"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wp-buddy.com"
+msgstr ""

@@ -49,6 +49,9 @@ jQuery(document).ready(function ($) {
     jQuery(document).on('.ct-ultimate-gdpr-my-account submit', '.ct-ultimate-gdpr-my-account form', function(e){
         e.preventDefault();
         var url = ct_ultimate_gdpr_myaccount.ajaxurl;
+        var userAgeLimit = parseInt(ct_ultimate_gdpr_myaccount.user_age_limit, 10);
+        var guardAgeLimit = parseInt(ct_ultimate_gdpr_myaccount.guard_age_limit, 10);
+        var ageLimitMessage = ct_ultimate_gdpr_myaccount.age_limit_message;
         var form = jQuery(this);
         var action = form.attr('id').split('-').join('_');
         var data = form.serialize();
@@ -58,21 +61,41 @@ jQuery(document).ready(function ($) {
         form.find('input[type=submit]').after('<i class="fa fa-spinner"></i>');
         form.addClass('ct-ultimate-on-process');
 
+        var getAge = function(dateString) {
+            var today = new Date();
+            var birthDate = new Date(dateString);
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            return age;
+        }
+
+        var userAge = getAge(form.find('#ct-ultimate-gdpr-age-date').val());
+        var guardAge = getAge(form.find('#ct-ultimate-gdpr-age-guard-date').val());
+
         jQuery.post(url, data,
-            function (res) {
-                if(res.notices){
-                    jQuery('<div class="notice-info notice">' + res.notices + '</div>').insertBefore('#tabs');
-                    form.find('input:text, input[type=email], select, textarea').val('');
-                    form.find('input:radio, input:checkbox').prop('checked', false);
-                    form.find('.ct-checkbox').removeClass('ct-checked');
-                }else{
+            function(res) {
+                if (res.notices) {
+                    if (userAge >= userAgeLimit || guardAge >= guardAgeLimit) {
+                        jQuery('<div class="notice-info notice">' + res.notices + '</div>').insertBefore('#tabs');
+                        form.find('input:text, input[type=email], select, textarea').not('[name=ct-ultimate-gdpr-age-guard-name]').val('');
+                        form.find('input:radio, input:checkbox').prop('checked', false);
+                        form.find('.ct-checkbox').removeClass('ct-checked');
+                    } else {
+                        jQuery('<div class="notice-info has-error">' + ageLimitMessage + '</div>').insertBefore('#tabs');
+                    }
+                } else {
                     jQuery('<div class="notice-info notice">' + ct_ultimate_gdpr_myaccount.error_message + '</div>').insertBefore('#tabs');
                 }
-                $("html, body").animate({ scrollTop: $(".notice-info").offset().top }, "fast");
+
                 setTimeout(function(){
                     jQuery('.notice-info').remove();
-
                 }, 5000);
+
                 form.find('input[type=submit]').removeAttr('disabled');
                 form.find('i.fa.fa-spinner').remove();
                 form.removeClass('ct-ultimate-on-process');

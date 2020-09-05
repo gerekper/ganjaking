@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  6.3.2
+ * @version  6.3.5
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -270,7 +270,7 @@ class WC_Product_Bundle extends WC_Product {
 					$this->contains[ 'non_purchasable' ] = true;
 				}
 
-				if ( ! $this->contains[ 'discounted' ] && $bundled_item->get_discount( 'sync' ) > 0 ) {
+				if ( ( ! $this->contains[ 'discounted' ] || ! $this->contains[ 'discounted_mandatory' ] ) && $bundled_item->get_discount( 'sync' ) > 0 ) {
 					$this->contains[ 'discounted' ] = true;
 					if ( false === $bundled_item->is_optional() && $min_quantity !== 0 ) {
 						$this->contains[ 'discounted_mandatory' ] = true;

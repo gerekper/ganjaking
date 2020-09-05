@@ -1,0 +1,117 @@
+/**
+ * Table of contents
+ *
+ * # Meta boxes
+ * ## FAQ metabox
+ * ## Feature Requests metabox
+ * ## Validity metabox
+ * ## Deactivation metabox
+ * ## Rating metabox
+ */
+
+/* --------------------------------------
+ * # Meta boxes
+ *--------------------------------------*/
+
+/* --------------------------------------
+ * ## FAQ metabox
+ *--------------------------------------*/
+.wpb-rs-support-faq-search {
+    display: flex;
+}
+
+.wpb-rs-support-faq-search-input {
+    width: 100%;
+    font-size: 120%;
+    padding: .8em;
+    flex: 1 1 80%;
+}
+
+.wpb-rs-support-faq-search-button {
+    flex: 1 0 20%;
+    text-align: center;
+}
+
+.wpb-rs-support-faq-search-button.installing::before {
+    margin-top: 12px;
+}
+
+.wpb-rs-support-faq-results li {
+    border-top: 1px solid #72777c;
+    margin: 1em 0 0 0;
+    padding: 1em 0 0 0;
+}
+
+#support-faq .button-hero span {
+    vertical-align: middle;
+    margin: 0 .5em 0 0;
+}
+
+/* --------------------------------------
+ * ## Feature Requests metabox
+ *--------------------------------------*/
+.wpb-rs-support-feature-requests div {
+    color: #72777c;
+}
+
+.wpb-rs-support-feature-requests .vote-column {
+    min-width: 150px;
+    text-align: right;
+}
+
+.wpb-rs-support .vote-errors {
+    font-size: 90%;
+    color: #e74c3c;
+}
+
+.vote-success {
+    color: #27ae60;
+    display: none;
+}
+
+.wpb-rs-support-feature-text-send .dashicons {
+    vertical-align: middle;
+    margin-right: .5em;
+}
+
+.description.gdpr input {
+    margin: 0 .5rem 0 0;
+    vertical-align: middle;
+}
+
+/* --------------------------------------
+ * ## Validity metabox
+ *--------------------------------------*/
+
+.wpb-rs-support-validity span {
+    font-size: 4em;
+    float: right;
+    width: 1em;
+}
+
+.wpb-rs-support-validity .dashicons-yes {
+    color: #2ecc71;
+}
+
+.wpb-rs-support-validity .dashicons-no {
+    color: #e74c3c;
+}
+
+.wpb-rs-support-validity .dashicons-warning {
+    color: #e67e22;
+}
+
+/* --------------------------------------
+ * ## Deactivation metabox
+ *--------------------------------------*/
+.wpb-rs-support-deactivate-license-error {
+    color: #e74c3c;
+}
+
+
+/* --------------------------------------
+ * ## Rating metabox
+ *--------------------------------------*/
+.wpb-rs-rating-button span {
+    vertical-align: text-bottom;
+}

@@ -14,7 +14,7 @@ use WP_Smush;
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-update_site_option( 'wpmudev_apikey', 'Activated' );
+
 /**
  * Class Smush
  */
@@ -71,9 +71,6 @@ class Smush extends Abstract_Module {
 		// Handle the Async optimisation.
 		add_action( 'wp_async_wp_generate_attachment_metadata', array( $this, 'wp_smush_handle_async' ) );
 		add_action( 'wp_async_wp_save_image_editor_file', array( $this, 'wp_smush_handle_editor_async' ), '', 2 );
-
-		// Register function for sending unsmushed image count to hub.
-		add_filter( 'wdp_register_hub_action', array( $this, 'smush_stats' ) );
 	}
 
 	/**
@@ -271,7 +268,7 @@ class Smush extends Abstract_Module {
 		$file_size = file_exists( $file_path ) ? filesize( $file_path ) : '';
 
 		// Check if premium user.
-		$max_size = WP_SMUSH_MAX_BYTES;
+		$max_size = WP_Smush::is_pro() ? WP_SMUSH_PREMIUM_MAX_BYTES : WP_SMUSH_MAX_BYTES;
 
 		// Check if file exists.
 		if ( 0 === (int) $file_size ) {
@@ -522,7 +519,7 @@ class Smush extends Abstract_Module {
 	public function resize_from_meta_data( $meta, $id = null ) {
 		// Flag to check, if original size image should be smushed or not.
 		$original   = $this->settings->get( 'original' );
-		$smush_full = true;
+		$smush_full = WP_Smush::is_pro() && true === $original;
 
 		$errors = new WP_Error();
 		$stats  = array(
@@ -1150,50 +1147,6 @@ class Smush extends Abstract_Module {
 
 		// Update stats.
 		update_post_meta( $post_data['postid'], self::$smushed_meta_key, $smush_stats );
-	}
-
-	/**
-	 * Registers smush action for HUB API
-	 *
-	 * @param array $actions  Array of registered actions.
-	 *
-	 * @return mixed
-	 */
-	public function smush_stats( $actions ) {
-		$actions['smush_get_stats'] = array( $this, 'smush_attachment_count' );
-
-		return $actions; // always return at least the original array so we don't mess up other integrations.
-	}
-
-	/**
-	 * Send stats to Hub
-	 *
-	 * @param $params
-	 * @param $action
-	 * @param $request
-	 */
-	public function smush_attachment_count( $params, $action, $request ) {
-		$core = WP_Smush::get_instance()->core();
-
-		$stats = array(
-			'count_total'     => 0,
-			'count_smushed'   => 0,
-			'count_unsmushed' => 0,
-			'savings'         => array(),
-		);
-
-		if ( ! isset( $core->stats ) ) {
-			// Setup stats, if not set already.
-			$core->setup_global_stats();
-		}
-		// Total, Smushed, Unsmushed, Savings.
-		$stats['count_total']   = $core->total_count;
-		$stats['count_smushed'] = $core->smushed_count;
-		// Considering the images to be resmushed.
-		$stats['count_unsmushed'] = $core->remaining_count;
-		$stats['savings']         = $core->stats;
-
-		$request->send_json_success( $stats );
 	}
 
 	/**

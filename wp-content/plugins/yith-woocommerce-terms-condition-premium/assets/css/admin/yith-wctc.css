@@ -1,0 +1,17 @@
+/* === ORDER METABOX === */
+#yith_wctc_user_preferences span.option-label {
+    font-weight: 600;
+}
+
+#yith_wctc_user_preferences p.option {
+    margin: 5px 0;
+}
+
+#yith_wctc_user_preferences p.description {
+    margin-bottom: 16px;
+}
+
+#yith_wctc_user_preferences .tos-versions {
+    border-top: 1px solid #ebebeb;
+    margin-top: 20px;
+}

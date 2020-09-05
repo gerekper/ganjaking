@@ -1,0 +1,27 @@
+{
+  "name": "rich-snippets-wordpress-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@wpackio/scripts": "^3.5.0",
+    "jsdoc-one-page": "0.0.5",
+    "less": "^3.10.3",
+    "node-sass": "^4.12.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "wp-hookdoc": "^0.2.0"
+  },
+  "scripts": {
+    "bootstrap": "wpackio-scripts bootstrap",
+    "build": "wpackio-scripts build && wp snip packer translate --component=setupwizard",
+    "start": "wpackio-scripts start",
+    "archive": "wpackio-scripts pack",
+    "make-json": "rm languages/json/* && wp i18n make-json languages/setupwizard/ languages/json --pretty-print --no-purge",
+    "hookdoc": "jsdoc . -r -d hookdoc -c hookdoc-conf.json"
+  },
+  "dependencies": {
+    "@wpackio/entrypoint": "^3.5.0",
+    "react-hot-loader": "^4.12.13",
+    "react-select": "^3.0.4"
+  }
+}

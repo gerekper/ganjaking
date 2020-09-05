@@ -626,8 +626,6 @@ class WooCommerce_Product_Search_Service {
 						$terms_post_ids = wps_cache_get( $cache_key, self::OBJECT_TERM_CACHE_GROUP );
 						if ( $terms_post_ids === false ) {
 
-							$query = "SELECT DISTINCT object_id FROM $object_term_table ";
-
 							$parts = array();
 							foreach ( $term_ids_by_taxonomy as $taxonomy => $term_ids ) {
 
@@ -635,21 +633,37 @@ class WooCommerce_Product_Search_Service {
 								$term_ids = array_unique( $term_ids );
 
 								$parts[] =
-									'object_id IN ( ' .
 									"SELECT DISTINCT IF ( object_type IN ( 'variation', 'subscription_variation' ), parent_object_id, object_id ) AS object_id FROM $object_term_table " .
 									'WHERE ' .
 									'term_id IN ( ' . implode( ',', array_map( 'intval', $term_ids ) ) . ' ) ' .
 									'UNION ' .
 									"SELECT DISTINCT object_id FROM $object_term_table " .
 									'WHERE ' .
-									"object_type IN ( 'variation', 'subscription_variation'  )" .
+									"object_type IN ( 'variation', 'subscription_variation' ) " .
 									'AND ' .
-									'term_id IN ( ' . implode( ',', array_map( 'intval', $term_ids ) ) . ' ) ' .
-									') ';
+									'term_id IN ( ' . implode( ',', array_map( 'intval', $term_ids ) ) . ' ) ';
 							}
 							if ( count( $parts ) > 0 ) {
-								$parts = implode( ' AND ', $parts ); 
-								$query .= "WHERE " . $parts;
+
+
+								if ( count( $parts ) === 1 ) {
+
+									$query = $parts[0];
+								} else {
+
+									$query = 'SELECT DISTINCT object_id FROM ( ' . $parts[0] . ' ) t1 ';
+									$query .= 'WHERE ';
+									array_shift( $parts );
+									$_parts = array();
+									for ( $i = 0; $i < count( $parts ); $i++ ) {
+										$_parts[] = ' t1.object_id IN ( ' . $parts[$i] . ' ) ';
+									}
+									$query .= implode( ' AND ', $_parts );
+								}
+
+							} else {
+
+								$query = "SELECT DISTINCT object_id FROM $object_term_table ";
 							}
 
 							$terms_post_ids = $wpdb->get_col( $query );

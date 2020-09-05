@@ -1,0 +1,432 @@
+# Copyright (C) 2020 SeedProd
+# This file is distributed under the same license as the SeedProd package.
+msgid ""
+msgstr ""
+"Project-Id-Version: SeedProd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: SeedProd <support@seedprod.com>\n"
+"Last-Translator: John Turner <john@seedprod.com>\n"
+"Report-Msgid-Bugs-To: https://seedprod.com/contact/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:2553
+msgid "] New Contact Form Message"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3181
+msgid "All subscribers deleted."
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3188
+msgid "Selected subscribers deleted."
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3514
+msgid "Name"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3515
+msgid "Path"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3516, ../seedprod-coming-soon-pro-5/admin/admin.php:3872
+msgid "Created"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3550, ../seedprod-coming-soon-pro-5/admin/admin.php:3912
+msgid "Delete Selected"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3702
+msgid "Subscribed on: "
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3868
+msgid "Subscribers"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3869
+msgid "Clicks"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3870
+msgid "# People Signed Up"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3871
+msgid "Conversion Rate"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3873
+msgid "Referrer"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3874
+msgid "Meta"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/admin.php:3911
+msgid "Export All"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:112
+msgid "Include URLs"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:113
+msgid "Include certain urls to display the Coming Soon or Maintenance Page. One per line. You may also enter a page or post id. <br>Example: https://www.example.com/about/ <br>To exclude wildcard urls use this pattern: https://www.example.com/about/* This will include any url that starts with https://www.example.com/about/ "
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:120
+msgid "Exclude URLs"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:121
+msgid "Exclude certain urls from displaying the Coming Soon or Maintenance Page. One per line. You may also enter a page or post id.<br>Example: https://www.example.com/about/ <br>To exclude wildcard urls use this pattern: https://www.example.com/about/* This will exclude any url that starts with https://www.example.com/about/"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:135
+msgid "Bypass URL"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:141
+msgid "Bypass URL Expires"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:142
+msgid "Default is 2 days. "
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:218
+msgid "Access by IP"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:219
+msgid "All visitors from certain IP's to bypass the Coming Soon page. Put each IP on it's own line. Your current IP is: "
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:227
+msgid "Access by Role"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/config-settings.php:228
+msgid "By default anyone logged in will see the regular site and not the coming soon page. To override this select Roles that will be given access to see the regular site."
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/license.php:17
+msgid "Check License"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/inc/class-seed-cspv5.php:566, ../seedprod-coming-soon-pro-5/inc/class-seed-cspv5.php:567
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/inc/functions.php:228
+msgid "Super Admin"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/admin/field-types/custom_pageauthcheck.php:16
+msgid "Authorize Page"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/activecampaign/activecampaign.php:21
+msgid "Active Campaign"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/activecampaign/activecampaign.php:23
+msgid "Configure saving subscribers to Get Response options. Save after you enter your api key to load your list. <a href=\"https://support.seedprod.com/article/84-collecting-emails-with-activecampaign\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/activecampaign/activecampaign.php:33
+msgid "API Url"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/activecampaign/activecampaign.php:53, ../seedprod-coming-soon-pro-5/extentions/aweber/aweber.php:41, ../seedprod-coming-soon-pro-5/extentions/campaignmonitor/campaignmonitor.php:49, ../seedprod-coming-soon-pro-5/extentions/constantcontact/constantcontact.php:49, ../seedprod-coming-soon-pro-5/extentions/feedblitz/feedblitz.php:40, ../seedprod-coming-soon-pro-5/extentions/getresponse/getresponse.php:39, ../seedprod-coming-soon-pro-5/extentions/icontact/icontact.php:50, ../seedprod-coming-soon-pro-5/extentions/madmimi/madmimi.php:51, ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp-v3.php:42, ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:50, ../seedprod-coming-soon-pro-5/extentions/mailpoet/mailpoet.php:31
+msgid "List"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/activecampaign/activecampaign.php:187, ../seedprod-coming-soon-pro-5/extentions/feedblitz/feedblitz.php:167, ../seedprod-coming-soon-pro-5/extentions/getresponse/getresponse.php:162, ../seedprod-coming-soon-pro-5/extentions/icontact/icontact.php:184, ../seedprod-coming-soon-pro-5/extentions/madmimi/madmimi.php:184, ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:240
+msgid "No lists Found"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/aweber/aweber.php:18
+msgid "Aweber"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/aweber/aweber.php:20
+msgid "Configure saving subscribers to Aweber options. <a target=\"_blank\" href=\"https://support.seedprod.com/article/71-collecting-emails-with-aweber\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/aweber/aweber.php:36
+msgid "Paste in the Authorization Code you received when authorizing the app."
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/aweber/aweber.php:188
+msgid "Unable to load Aweber lists"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/campaignmonitor/campaignmonitor.php:17
+msgid "CampaignMonitor"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/campaignmonitor/campaignmonitor.php:19
+msgid "Configure saving subscribers to Campaign Monitor options. Save your change after you enter your api key to load your client. Then save again after you select a client to load you list. <a href=\"https://support.seedprod.com/article/76-collecting-emails-with-campaign-monitor\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/campaignmonitor/campaignmonitor.php:183
+msgid "Unable to load Campaign Monitor lists"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/campaignmonitor/campaignmonitor.php:235
+msgid "Unable to load Campaign Monitor clients"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/constantcontact/constantcontact.php:17
+msgid "ConstantContact"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/constantcontact/constantcontact.php:19
+msgid "Configure saving subscribers to Constant Contact options. Save after you enter your username and password to load your list. <a href=\"https://support.seedprod.com/article/73-collecting-emails-with-constant-contact\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/constantcontact/constantcontact.php:187
+msgid "Unable to load Constant Contact lists"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/convertkit/convertkit.php:18
+msgid "ConvertKit"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/convertkit/convertkit.php:20, ../seedprod-coming-soon-pro-5/extentions/feedburner/feedburner.php:19, ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp-v3.php:21, ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:20
+msgid "Configure saving subscribers to MailChimp options. Save after you enter your api key to load your list. <a href=\"#\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/convertkit/convertkit.php:40
+msgid "Forms"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/convertkit/convertkit.php:57
+msgid "Sequences / Courses"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/convertkit/convertkit.php:200
+msgid "No Courses Found"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/convertkit/convertkit.php:226
+msgid "No Forms Found"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/database/database.php:156
+msgid " You have a new email subscriber: "
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/database/database.php:159, ../seedprod-coming-soon-pro-5/extentions/database/database.php:161
+msgid " : New Email Subscriber"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/database/database.php:233
+msgid "Database Options"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/database/database.php:235
+msgid "<p class=\"description\">Configure saving subscribers to the database options. <a target=\"_blank\" href=\"https://support.seedprod.com/article/70-collecting-emails-in-the-database\">Learn More</a></p>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/drip/drip.php:19
+msgid "Drip"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/drip/drip.php:21
+msgid "Configure saving subscribers to Drip options."
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/drip/drip.php:52
+msgid "Campaigns"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/drip/drip.php:67
+msgid "Enable Campaign Double Opt-In"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/feedblitz/feedblitz.php:18
+msgid "FeedBlitz"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/feedblitz/feedblitz.php:20
+msgid "Configure saving subscribers to Feedblitz options. Save after you enter your api key to load your list."
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/feedblitz/feedblitz.php:171
+msgid "Unable to load Feedblitz lists, check your API Key."
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/feedburner/feedburner.php:17
+msgid "FeedBurner"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/followupemails/followupemails.php:18
+msgid "Follow-Up Emails"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/followupemails/followupemails.php:20
+msgid "Configure saving subscribers to the WordPress Users Database to send Follow-up Emails after signing up. Requires <a href=\"http://www.75nineteen.com/woocommerce/follow-up-email-autoresponder/?utm_source=SeedProd&utm_medium=ComingSoonPro&utm_campaign=IntegrationLink\">Follow-Up Emails</a> to be installed.</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/followupemails/followupemails.php:30
+msgid "Email"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/formidable/formidable.php:25
+msgid "Formidable"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/formidable/formidable.php:27
+msgid "Configure saving subscribers to Formidable options. "
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/formidable/formidable.php:38, ../seedprod-coming-soon-pro-5/extentions/gravityforms/gravityforms.php:47, ../seedprod-coming-soon-pro-5/extentions/ninjaforms/ninjaforms.php:47
+msgid "Form"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/getresponse/getresponse.php:17
+msgid "GetResponse"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/getresponse/getresponse.php:19
+msgid "Configure saving subscribers to Get Response options. Save after you enter your api key to load your list. <a href=\"https://support.seedprod.com/article/74-collecting-emails-with-get-response\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/gravityforms/gravityforms.php:25
+msgid "Gravity Forms"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/gravityforms/gravityforms.php:27
+msgid "Configure saving subscribers to Gravity Forms options. <a href=\"http://support.seedprod.com/article/25-embedding-gravity-forms\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/gravityforms/gravityforms.php:37, ../seedprod-coming-soon-pro-5/extentions/ninjaforms/ninjaforms.php:37
+msgid "Override Gravity Form's confirmation page"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/htmlwebform/htmlwebform.php:18
+msgid "HTMLwebform"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/htmlwebform/htmlwebform.php:20
+msgid "Enter a HTML web form from any provider. This will bypass the Thank You page. <a href=\"https://support.seedprod.com/article/5-use-any-shortcode-html-3rd-party-scripts-or-web-form\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/icontact/icontact.php:17
+msgid "iContact"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/icontact/icontact.php:19
+msgid "<a href=\"https://app.icontact.com/icp/core/externallogin?sAppId=puD4TZWs2kKlKZLZZgD7IAUiqPSYPIvd\" target=\"_blank\">Authorize the App</a> and define the app password, then enter that information below. Save your username and password to load your list. <br><a href=\"https://support.seedprod.com/article/78-collecting-emails-with-icontact\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/infusionsoft/infusionsoft.php:18
+msgid "InfusionSoft"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/infusionsoft/infusionsoft.php:20
+msgid "Configure saving subscribers to InfusionSoft options. <a href=\"https://support.seedprod.com/article/72-collecting-emails-with-infusionsoft\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/madmimi/madmimi.php:19
+msgid "madmimi"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/madmimi/madmimi.php:21
+msgid "Configure saving subscribers to Mad Mimi options. Save after you enter your api key and username to load your list. <a href=\"https://support.seedprod.com/article/77-collecting-emails-with-mad-mimi\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/madmimi/madmimi.php:171
+msgid "Unable to authenticate"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp-v3.php:19, ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:18
+msgid "MailChimp"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp-v3.php:58, ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:63
+msgid "Enable Double Opt-In"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp-v3.php:69, ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:93
+msgid "Groups"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp-v3.php:80
+msgid "Assign Interests"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp-v3.php:102, ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:103
+msgid "Update Existing"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp-v3.php:112
+msgid "Send Referral URL to MailChimp"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:30
+msgid "Enable MailChimp API Version 3"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:73
+msgid "Send Welcome Email"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:83
+msgid "Group Name"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:113
+msgid "Replace Interests"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailchimp/mailchimp.php:244
+msgid "Unable to load MailChimp lists, check your API Key."
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailpoet/mailpoet.php:18
+msgid "MailPoet"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mailpoet/mailpoet.php:20
+msgid "Configure saving subscribers to MailPoet options. <a href=\"https://support.seedprod.com/article/80-collecting-emails-with-mailpoet\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mymail/mymail.php:41
+msgid "Mailster formerly MyMail"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/mymail/mymail.php:43
+msgid "Configure saving subscribers to MyMail options. This email provider will bypass the coming soon page and referral tracking if enabled."
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/ninjaforms/ninjaforms.php:25
+msgid "Ninja Forms"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/ninjaforms/ninjaforms.php:27
+msgid "Configure saving subscribers to Ninja Forms options. <a href=\"http://support.seedprod.com/article/25-embedding-ninja-forms\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/sendy/sendy.php:17
+msgid "Sendy"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/sendy/sendy.php:19
+msgid "Store emails in your Sendy app. <a href=\"https://support.seedprod.com/article/69-collecting-emails-with-sendy\" target=\"_blank\">Learn More</a>"
+msgstr ""
+
+#: ../seedprod-coming-soon-pro-5/extentions/zapier/zapier.php:17
+msgid "Zapier"
+msgstr ""

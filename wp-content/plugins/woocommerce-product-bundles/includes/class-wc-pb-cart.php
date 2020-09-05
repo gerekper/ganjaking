@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  6.3.4
+ * @version  6.3.5
  */
 class WC_PB_Cart {
 
@@ -1698,7 +1698,7 @@ class WC_PB_Cart {
 								continue;
 							}
 
-							$bundle     = unserialize( serialize( $cart_item[ 'data' ] ) );
+							$bundle     = WC_PB_Helpers::get_product_preserving_meta( $cart_item[ 'data' ] );
 							$bundle_qty = $cart_item[ 'quantity' ];
 
 							/*

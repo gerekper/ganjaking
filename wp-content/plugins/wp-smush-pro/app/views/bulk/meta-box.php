@@ -134,42 +134,46 @@ if ( 0 === absint( $core->total_count ) ) {
 <?php endif; ?>
 
 <div class="wp-smush-bulk-wrapper <?php echo $all_done ? ' sui-hidden' : ''; ?>">
-	<?php
-	if ( $core->remaining_count > 0 ) :
-		$class = count( $core->resmush_ids ) > 0 ? ' sui-hidden' : '';
-		?>
-		<div class="sui-notice sui-notice-warning<?php echo esc_attr( $class ); ?>">
-			<div class="sui-notice-content">
-				<div class="sui-notice-message">
-					<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
-					<p>
+	<?php $class = 0 === $core->remaining_count || 0 < count( $core->resmush_ids ) ? ' sui-hidden' : ''; ?>
+	<div
+		class="wp-smush-unsmushed-images-notice sui-notice sui-notice-warning<?php echo esc_attr( $class ); ?>"
+		<?php /* translators: %1$s: user name, %2$s: starting strong tag, %3$s: number placeholder, %4$s: ending strong tag */ ?>
+		data-singular="<?php echo sprintf( esc_attr__( '%1$s, you have %2$s%3$s attachment%4$s that needs smushing!', 'wp-smushit' ), esc_attr( Helper::get_user_name() ), '<strong>', '{count}', '</strong>' ); ?>"
+		<?php /* translators: %1$s: user name, %2$s: starting strong tag, %3$s: number placeholder, %4$s: ending strong tag */ ?>
+		data-plural="<?php echo sprintf( esc_attr__( '%1$s, you have %2$s%3$s attachments%4$s that need smushing!', 'wp-smushit' ), esc_attr( Helper::get_user_name() ), '<strong>', '{count}', '</strong>' ); ?>"
+	>
+		<div class="sui-notice-content">
+			<div class="sui-notice-message">
+				<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
+				<p>
+					<span class="wp-smush-unsmushed-notice-count-text">
 						<?php
 						printf(
-							/* translators: %1$s: user name, %2$s: starting strong tag, %3$s: starting span tag, %4$d: remaining image count, %5$s: ending span tag, %6$s: ending strong tag */
-							_n( '%1$s, you have %2$s%3$s%4$d%5$s attachment%6$s that needs smushing!', '%1$s, you have %2$s%3$s%4$d%5$s attachments%6$s that need smushing!', $core->remaining_count, 'wp-smushit' ),
+							/* translators: %1$s: user name, %2$s: starting strong tag, %3$d: remaining image count, %4$s: ending strong tag */
+							_n( '%1$s, you have %2$s%3$d attachment%4$s that needs smushing!', '%1$s, you have %2$s%3$d attachments%4$s that need smushing!', $core->remaining_count, 'wp-smushit' ),
 							esc_attr( Helper::get_user_name() ),
 							'<strong>',
-							'<span class="wp-smush-remaining-count">',
 							absint( $core->remaining_count ),
-							'</span>',
 							'</strong>'
 						);
-
-						if ( ! $is_pro && $core->remaining_count > 50 ) {
-							printf(
-							/* translators: %1$s: opening a tag, %2$s: closing a tag */
-								esc_html__( ' %1$sUpgrade to Pro%2$s to bulk smush all your images with one click.', 'wp-smushit' ),
-								'<a href="' . esc_url( $bulk_upgrade_url ) . '" target="_blank" title="' . esc_html__( 'Smush Pro', 'wp-smushit' ) . '">',
-								'</a>'
-							);
-							esc_html_e( ' Free users can smush 50 images with each click.', 'wp-smushit' );
-						}
 						?>
-					</p>
-				</div>
+					</span>
+
+					<?php
+					if ( ! $is_pro && $core->remaining_count > 50 ) {
+						printf(
+						/* translators: %1$s: opening a tag, %2$s: closing a tag */
+							esc_html__( ' %1$sUpgrade to Pro%2$s to bulk smush all your images with one click.', 'wp-smushit' ),
+							'<a href="' . esc_url( $bulk_upgrade_url ) . '" target="_blank" title="' . esc_html__( 'Smush Pro', 'wp-smushit' ) . '">',
+							'</a>'
+						);
+						esc_html_e( ' Free users can smush 50 images with each click.', 'wp-smushit' );
+					}
+					?>
+				</p>
 			</div>
 		</div>
-	<?php endif; ?>
+	</div>
 	<button type="button" class="wp-smush-all sui-button sui-button-blue" title="<?php esc_attr_e( 'Click to start Bulk Smushing images in Media Library', 'wp-smushit' ); ?>">
 		<?php esc_html_e( 'BULK SMUSH NOW', 'wp-smushit' ); ?>
 	</button>

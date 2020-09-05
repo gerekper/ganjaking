@@ -1,5 +1,11 @@
 *** WooCommerce Deposits Changelog ***
 
+2020-08-25 - version 1.5.4
+* Fix   - Fatal Error when checking out with WooCommerce PoS extension.
+
+2020-08-19 - version 1.5.3
+* Tweak - WordPress 5.5 compatibility.
+
 2020-07-07 - version 1.5.2
 * Fix - Adjust line item total when discount is used with a fixed deposit.
 

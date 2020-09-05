@@ -81,7 +81,7 @@ if ( ! defined( 'WPINC' ) ) {
 		</div>
 	</div>
 
-	<div class="sui-notice" style="margin-top: 30px">
+	<div id="wp-smush-running-notice" class="sui-notice" style="margin-top: 30px">
 		<div class="sui-notice-content">
 			<div class="sui-notice-message">
 				<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>

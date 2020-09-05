@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce, memberships, mailchimp
 Requires at least: 4.4
-Tested up to: 5.4.2
+Tested up to: 5.5
 Requires PHP: 5.6
 
 See https://docs.woocommerce.com/document/mailchimp-for-woocommerce-memberships for full documentation.

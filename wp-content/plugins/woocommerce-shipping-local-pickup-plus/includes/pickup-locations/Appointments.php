@@ -214,6 +214,15 @@ class Appointments {
 											$first_pickup_time->add( new \DateInterval( "PT${opening_time}S" ) );
 										}
 
+										// when a customer places an order prior to the opening of the shop on the same day, the lead time of open hours should be respected
+										$is_start_date_today   = $first_pickup_time->format( 'mdY' ) === ( new \DateTime( 'now', $first_pickup_time->getTimezone() ) )->format( 'mdY' );
+										$is_store_not_open_yet = $seconds_since_00 < $opening_time;
+
+										if ( $is_start_date_today && $is_store_not_open_yet ) {
+											$first_pickup_time->setTime( 0 ,0, 0 );
+											$first_pickup_time->add( new \DateInterval( "PT${opening_time}S" ) );
+										}
+
 										// add the remaining lead time
 										$first_pickup_time->add( new \DateInterval( "PT${remaining_lead_time}S" ) );
 

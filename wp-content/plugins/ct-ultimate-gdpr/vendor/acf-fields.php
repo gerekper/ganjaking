@@ -82,6 +82,14 @@ if(function_exists("register_field_group"))
 				'default_value' => 0,
 			),
 			array (
+				'key' => 'field_5b0e76d623443',
+				'label' => esc_html__( 'Cookies hold private data?', 'ct-ultimate-gdpr' ),
+				'name' => 'private_data',
+				'type' => 'true_false',
+				'message' => '',
+				'default_value' => 0,
+			),
+			array (
 				'key' => 'field_5b0e76ebfcf44',
 				'label' => esc_html__( 'Session or Persistent?', 'ct-ultimate-gdpr' ),
 				'name' => 'session_or_persistent',

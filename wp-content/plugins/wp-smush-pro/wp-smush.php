@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://premium.wpmudev.org/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://premium.wpmudev.org/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.6.3
+ * Version:           3.7.0
  * Author:            WPMU DEV
  * Author URI:        https://premium.wpmudev.org/
  * License:           GPLv2
@@ -45,13 +45,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-update_site_option( 'wdp_un_updates_available', 1 );
+
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.6.3' );
+	define( 'WP_SMUSH_VERSION', '3.7.0' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
-	define( 'WP_SHARED_UI_VERSION', 'sui-2-7-0' );
+	define( 'WP_SHARED_UI_VERSION', 'sui-2-9-4' );
 }
 if ( ! defined( 'WP_SMUSH_BASENAME' ) ) {
 	define( 'WP_SMUSH_BASENAME', plugin_basename( __FILE__ ) );
@@ -186,7 +186,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 *
 		 * @var bool $is_pro
 		 */
-		private static $is_pro;
+private static $is_pro = true;
 
 		/**
 		 * Return the plugin instance.
@@ -264,6 +264,11 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			$this->api = new Smush\Core\Api\API( self::get_api_key() );
 
 			self::$is_pro = $this->validate_install();
+
+			// Init hub endpoints.
+			if ( self::$is_pro ) {
+				new Smush\Core\Api\Hub();
+			}
 
 			$this->core    = new Smush\Core\Core();
 			$this->library = new Smush\App\Media_Library( $this->core() );
@@ -463,7 +468,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 
 			// Check if need to revalidate.
 			if ( ! $api_auth || empty( $api_auth ) || empty( $api_auth[ $api_key ] ) ) {
-				$revalidate = true;
+				$revalidate = false;
 			} else {
 				$last_checked = $api_auth[ $api_key ]['timestamp'];
 				$valid        = $api_auth[ $api_key ]['validity'];
@@ -472,7 +477,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 				$diff = ( current_time( 'timestamp' ) - $last_checked ) / HOUR_IN_SECONDS;
 
 				if ( 24 < $diff ) {
-					$revalidate = true;
+					$revalidate = false;
 				}
 			}
 
@@ -538,7 +543,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 				$api_key = get_site_option( 'wpmudev_apikey' );
 			}
 
-			return true;
+return true;
 		}
 
 	}

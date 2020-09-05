@@ -86,11 +86,17 @@ if ( 0 === $total_count ) {
 
 <div class="wp-smush-bulk-wrapper <?php echo $all_done ? ' sui-hidden' : ''; ?>">
 	<!-- Do not show the remaining notice if we have resmush ids -->
-	<div class="sui-notice sui-notice-warning wp-smush-remaining  <?php echo count( $resmush_ids ) > 0 ? ' sui-hidden' : ''; ?>">
+	<div
+		class="wp-smush-unsmushed-images-notice sui-notice sui-notice-warning wp-smush-remaining  <?php echo count( $resmush_ids ) > 0 ? ' sui-hidden' : ''; ?>"
+		<?php /* translators: %1$s: user name, %2$s: starting strong tag, %3$s: number placeholder, %4$s: ending strong tag */ ?>
+		data-singular="<?php echo sprintf( esc_attr__( '%1$s, you have %2$s%3$s attachment%4$s that needs smushing!', 'wp-smushit' ), esc_attr( Helper::get_user_name() ), '<strong>', '{count}', '</strong>' ); ?>"
+		<?php /* translators: %1$s: user name, %2$s: starting strong tag, %3$s: number placeholder, %4$s: ending strong tag */ ?>
+		data-plural="<?php echo sprintf( esc_attr__( '%1$s, you have %2$s%3$s attachments%4$s that need smushing!', 'wp-smushit' ), esc_attr( Helper::get_user_name() ), '<strong>', '{count}', '</strong>' ); ?>"
+	>
 		<div class="sui-notice-content">
 			<div class="sui-notice-message">
 				<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
-				<p>
+				<p class="wp-smush-unsmushed-notice-count-text">
 					<?php
 					printf(
 						/* translators: %1$s: user name, %2$s: strong opening tag, %3$s: span opening tag, %4$d: remaining count, %5$s: closing span tag, %6$s: closing strong tag */

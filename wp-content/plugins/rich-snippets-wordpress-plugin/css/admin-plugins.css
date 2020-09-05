@@ -1,0 +1,14 @@
+/**
+ * Table of contents
+ *
+ * # SNIP Logo
+ * # Uninstall Link
+ */
+
+/* --------------------------------------
+ * # Uninstall Link
+ *--------------------------------------*/
+
+.wp-list-table.plugins [data-plugin="rich-snippets-wordpress-plugin/rich-snippets-wordpress-plugin.php"] .uninstall a {
+	color: #a00;
+}

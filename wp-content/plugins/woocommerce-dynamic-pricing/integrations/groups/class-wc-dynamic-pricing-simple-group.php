@@ -179,7 +179,7 @@ class WC_Dynamic_Pricing_Simple_Group extends WC_Dynamic_Pricing_Simple_Base {
 		if ( $process_discounts ) {
 			if ( ! $this->is_cumulative( $fake_cart_item, false ) ) {
 
-				if ( get_class( $_product ) == 'WC_Product' && $_product->is_type( 'variable' ) && $lowest_price ) {
+				if ( ($_product->is_type( 'variable' ) || $_product->is_type( 'variation' )) && ($lowest_price || $lowest_price === 0.0) ) {
 					return $lowest_price;
 				} elseif ( $applied_rule ) {
 					return $this->get_adjusted_price_by_product_rule( $applied_rule, $a_working_price, $_product );

@@ -96,7 +96,7 @@ class WC_Local_Pickup_Plus_Orders {
 	public function get_order_pickup_location_ids( $order ) {
 
 		$order        = $order instanceof \WP_Post || is_numeric( $order ) ? wc_get_order( $order ) : $order;
-		$location_ids = array();
+		$location_ids = [];
 
 		if ( ( $order instanceof \WC_Order || $order instanceof \WC_Order_Refund ) && ! $order instanceof \WC_Subscription ) {
 
@@ -260,11 +260,11 @@ class WC_Local_Pickup_Plus_Orders {
 			$order_itemmeta     = $wpdb->prefix . 'woocommerce_order_itemmeta';
 			$pickup_location_id = (int) $_GET['_pickup_location'];
 			$item_results       = $wpdb->get_results( "
-					SELECT order_item_id
-					FROM {$order_itemmeta}
-					WHERE meta_key = '_pickup_location_id'
-					AND meta_value = {$pickup_location_id}
-				", ARRAY_N );
+				SELECT order_item_id
+				FROM {$order_itemmeta}
+				WHERE meta_key = '_pickup_location_id'
+				AND meta_value = {$pickup_location_id}
+			", ARRAY_N );
 
 			if ( ! empty( $item_results ) ) {
 

@@ -37,7 +37,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
 class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 
 
-	const VERSION = '2.8.2';
+	const VERSION = '2.9.0';
 
 	/** shipping method ID */
 	const SHIPPING_METHOD_ID = 'local_pickup_plus';

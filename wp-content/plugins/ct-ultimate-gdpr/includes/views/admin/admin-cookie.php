@@ -18,7 +18,7 @@
             <img src="<?php echo ct_ultimate_gdpr_url() . '/assets/css/images/branding.jpg' ?>">
         </div>
         <div class="text">
-            <div class="ct-ultimate-gdpr-plugin-name"><?php echo esc_html__( 'Ultimate GDPR', 'ct-ultimate-gdpr' ); ?></div>
+            <div class="ct-ultimate-gdpr-plugin-name"><?php echo esc_html__( 'Ultimate GDPR & CCPA', 'ct-ultimate-gdpr' ); ?></div>
             <div class="settings"><?php echo esc_html__( 'Settings', 'ct-ultimate-gdpr' ); ?></div>
         </div>
     </div>
@@ -117,6 +117,15 @@
     <p>
         <?php echo esc_html__( 'Your website should be publicly accessible so that the Cookie Detector can work properly.', 'ct-ultimate-gdpr' ); ?>
     </p>
+    <?php
+        $url = admin_url( "admin.php?page=ct-ultimate-gdpr" );
+        echo "<p>";
+        printf(
+            wp_kses_post(__( "Make sure that you're using, <a href=%s>valid purchase code</a> to use the cookie scanner.", 'ct-ultimate-gdpr' ) ),
+            $url
+        );
+        echo "</p>";
+    ?>
 </div>
 
 <div id="ct-ultimate-gdpr-cookies-scanner">

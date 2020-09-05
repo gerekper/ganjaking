@@ -561,8 +561,6 @@ function wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals = ar
 			) );
 		}
 
-		$existing_bookings = WC_Booking_Data_Store::get_all_existing_bookings( $bookable_product, $from, $to );
-
 		$booking_resource = $resource_id ? $bookable_product->get_resource( $resource_id ) : null;
 		$available_slots  = array();
 		$has_qty          = ! is_null( $booking_resource ) ? $booking_resource->has_qty() : false;
@@ -606,28 +604,72 @@ function wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals = ar
 				$resources[0] = $bookable_product->get_qty();
 			}
 
+			/*
+			 * The calculations below are performed using array of minutes for the following reason:
+			 * 
+			 * We are trying to figure-out resource and availability quote for the booking $block.
+			 * In order to do that we have to check all other bookings that are already booked and
+			 * take time overlapping the $block. Inconveniently bookings in $existing_bookings may come
+			 * from products that are different than our $bookable_product. This means that their start
+			 * and end times may not be aligned with our product $block and $interval. We can't because of that
+			 * check quote and resources 1 to 1 but we need to look at individual minutes.
+			 */
+			$existing_bookings = WC_Booking_Data_Store::get_all_existing_bookings( $bookable_product, $from, $to );
 			$qty_booked_in_block = 0;
 
+			$inteval_in_minutes = in_array( $bookable_product->get_duration_unit(), array( 'minute', 'hour' ) ) ? $interval : $interval * ( DAY_IN_SECONDS / MINUTE_IN_SECONDS );
+
+			// Prepare ( array ) of minutes we are looking at.
+			$block_minutes_array = wc_bookings_get_block_minutes_array( $block, $inteval_in_minutes );
+
+			// Spread resources and booked quote using minutes array. 
+			$resources = array_map(
+				function( $r ) use ( $block_minutes_array ) {
+					return array_fill_keys( array_keys( $block_minutes_array ), $r );
+				},
+				$resources
+			);
+			$qty_booked_in_block = $block_minutes_array;
+
 			foreach ( $existing_bookings as $existing_booking ) {
-				if ( $existing_booking->is_within_block( $block, strtotime( "+{$interval} minutes", $block ) ) ) {
-					$qty_to_add = $bookable_product->has_person_qty_multiplier() ? max( 1, array_sum( $existing_booking->get_persons() ) ) : 1;
+				if ( $existing_booking->is_within_block( $block, strtotime( "+{$inteval_in_minutes} minutes", $block ) ) ) {
+					$existing_booking_product    = $existing_booking->get_product();
+					$qty_to_add                  = $existing_booking_product->has_person_qty_multiplier() ? max( 1, array_sum( $existing_booking->get_persons() ) ) : 1;
+					// Default resource in case we don't have anything in product or existing bookings.
+					$res                         = 0;
 					if ( $has_resources ) {
 						if ( $existing_booking->get_resource_id() === absint( $resource_id ) ) {
 							// Include the quantity to subtract if an existing booking matches the selected resource id
-							$qty_booked_in_block += $qty_to_add;
-							$resources[ $resource_id ] = ( isset( $resources[ $resource_id ] ) ? $resources[ $resource_id ] : 0 ) - $qty_to_add;
+							$res = $resource_id;
 						} elseif ( ( is_null( $booking_resource ) || ! $has_qty ) && $existing_booking->get_resource() ) {
 							// Include the quantity to subtract if the resource is auto selected (null/resource id empty)
 							// but the existing booking includes a resource
-							$qty_booked_in_block += $qty_to_add;
-							$resources[ $existing_booking->get_resource_id() ] = ( isset( $resources[ $existing_booking->get_resource_id() ] ) ? $resources[ $existing_booking->get_resource_id() ] : 0 ) - $qty_to_add;
+							$res = $existing_booking->get_resource_id();
+						} else {
+							// We have resource but the existing booking resource does not overlap so we don't need to take it into consideration.
+							continue;
 						}
-					} else {
-						$qty_booked_in_block += $qty_to_add;
-						$resources[0] = ( isset( $resources[0] ) ? $resources[0] : 0 ) - $qty_to_add;
 					}
+
+					$existing_booking_block      = $existing_booking->get_start_cached();
+					$existing_booking_interval   = ceil( ( $existing_booking->get_end_cached() - $existing_booking_block ) / MINUTE_IN_SECONDS );
+					$booking_block_minutes_array = wc_bookings_get_block_minutes_array( $existing_booking_block, $existing_booking_interval );
+					$qty_booked_in_block         = wc_bookings_add_at_intersection( $qty_booked_in_block, $booking_block_minutes_array, $qty_to_add );
+					$res                         = $has_resources ? $existing_booking->get_resource_id() : 0;
+					$resources[ $res ]           = ( isset( $resources[ $res ] ) ? $resources[ $res ] : $block_minutes_array );
+					$resources[ $res ]           = wc_bookings_add_at_intersection( $resources[ $res ], $booking_block_minutes_array, - $qty_to_add );
 				}
 			}
+
+			// The minute with minimal resource value is the actual resource available from the perspective of the whole $block.
+			$resources = array_map(
+				function( $r ) {
+					return min( $r );
+				},
+				$resources
+			);
+			// The minute with maximal booked quota value is the actual booked quota from the perspective of the whole $block.	
+			$qty_booked_in_block = max( $qty_booked_in_block );
 
 			$available_slots[ $block ] = array(
 				'booked'    => $qty_booked_in_block,
@@ -640,6 +682,42 @@ function wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals = ar
 	}
 
 	return $available_slots;
+}
+
+/**
+ * Take two arrays, check where they intersect,
+ * add value to all elements in array1 from the intersection.
+ * 
+ * @since 1.15.13
+ * 
+ * @param array   $array1 First array.
+ * @param array   $array1 Second array.
+ * @param integer $value  Value to add to the intersection.
+ * @return array          First array updated with $value at intersection.
+ */
+function wc_bookings_add_at_intersection( $array1, $array2, $value ) {
+	$timestamps = array_keys( array_intersect_key( $array1, $array2 ) );
+	foreach ( $timestamps as $timestamp ) {
+		$array1[ $timestamp ] += $value;
+	}
+	return $array1;
+}
+
+/**
+ * Generate an array with keys representing minutes of a block of time.
+ * 
+ * @since 1.15.13
+ * 
+ * @param array   $block    Block timestamp.
+ * @param integer $interval How long is the block in minutes.
+ * @return array            Array with keys representing block minutes.
+ */
+function wc_bookings_get_block_minutes_array( $block, $interval ) {
+	$block_array = [];
+	for( $i = 0; $i < $interval; $i++ ) {
+		$block_array[ $block + ( $i * MINUTE_IN_SECONDS ) ] = 0;
+	}
+	return $block_array;
 }
 
 /**

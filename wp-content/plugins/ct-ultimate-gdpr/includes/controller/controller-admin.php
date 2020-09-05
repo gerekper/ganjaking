@@ -40,6 +40,9 @@ class CT_Ultimate_GDPR_Controller_Admin {
 		//Notice if PHP version is lower than 5.6
         add_action( 'admin_notices', array( $this, 'version_controller_check') );
 
+		// license
+        add_action( 'admin_notices', array( $this, 'license_check') );
+
 		// set plugin compatibility with itself
 		add_filter( 'ct_ultimate_gdpr_controller_plugins_compatible_ct-ultimate-gdpr/ct-ultimate-gdpr.php', '__return_true' );
 		add_filter( 'ct_ultimate_gdpr_controller_plugins_collects_data_ct-ultimate-gdpr/ct-ultimate-gdpr.php', '__return_true' );
@@ -47,9 +50,23 @@ class CT_Ultimate_GDPR_Controller_Admin {
 		//fix menu highlight when adding new service to service manager
 		add_filter( 'parent_file', array( $this, 'add_new_service_select_submenu' ) );
 
-	}
+        add_action( 'current_screen', array( $this, 'add_option_fields_function' ), 3 );
 
-	/**
+    }
+
+    public function render_field_admin_envato_key()
+    {
+        $admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+        $field_name = $admin->get_field_name(__FUNCTION__);
+        printf(
+            "<input type='text' id='%s' name='%s' value='%s' />",
+            $admin->get_field_name(__FUNCTION__),
+            $admin->get_field_name_prefixed($field_name),
+            $admin->get_option_value_escaped($field_name)
+        );
+    }
+
+    /**
 	 *
 	 */
 	private function admin_actions() {
@@ -140,7 +157,7 @@ class CT_Ultimate_GDPR_Controller_Admin {
 
 			echo "<div class = 'update-nag imgedit-thumbnail-preview-caption notice'><p>";
 			printf(
-				esc_html__( "Your server is running PHP version %s but Ultimate GDPR %s requires at least %s", 'ct-ultimate-gdpr' ),
+				esc_html__( "Your server is running PHP version %s but Ultimate GDPR & CCPA %s requires at least %s", 'ct-ultimate-gdpr' ),
 				$host_version,
 				$ct_gdpr_info['Version'],
 				$required_version
@@ -148,6 +165,25 @@ class CT_Ultimate_GDPR_Controller_Admin {
 			echo "</p></div>";
 
         }
+    }
+
+	/**
+	 *
+	 */
+	public function license_check(){
+
+        if ( !$this->get_option_value('admin_envato_key', '', CT_Ultimate_GDPR_Controller_Admin::ID ) ) {
+
+            $url = admin_url( "admin.php?page=ct-ultimate-gdpr" );
+			echo "<div class = 'update-nag notice' style='display: block;'><p>";
+			printf(
+			    wp_kses_post(__( "[Ultimate GDPR & CCPA] Your license key is missing, <a href=%s>add valid purchase code</a> to use the cookie scanner", 'ct-ultimate-gdpr' )),
+			    $url
+            );
+			echo "</p></div>";
+
+        }
+
     }
 
 	/**
@@ -470,7 +506,7 @@ class CT_Ultimate_GDPR_Controller_Admin {
 
 			wp_enqueue_script(
 				'ct-ultimate-gdpr-admin',
-				ct_ultimate_gdpr_url( '/assets/js/admin.min.js' ),
+				ct_ultimate_gdpr_url( '/assets/js/admin.js' ),
 				array( 'jquery', 'wp-color-picker', 'ct-ultimate-gdpr-admin-libs' ),
 				ct_ultimate_gdpr_get_plugin_version(),
 				true
@@ -487,8 +523,12 @@ class CT_Ultimate_GDPR_Controller_Admin {
 			wp_enqueue_style( 'ct-ultimate-gdpr-bootstrap-style', ct_ultimate_gdpr_url( '/assets/css/bootstrap/bootstrap.min.css' ) );
 			wp_enqueue_style( 'ct-ultimate-gdpr-font-awesome', ct_ultimate_gdpr_url( '/assets/css/fonts/font-awesome/css/font-awesome.min.css' ) );
 			wp_enqueue_style( 'wp-color-picker' );
- 
-		}
+
+            wp_enqueue_script('jquery-ui-datepicker');
+            wp_register_style('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
+            wp_enqueue_style('jquery-ui');
+
+        }
 
 	}
 
@@ -498,8 +538,8 @@ class CT_Ultimate_GDPR_Controller_Admin {
 	public function add_menu_pages() {
 
 		add_menu_page(
-			esc_html__( 'Ultimate GDPR', 'ct-ultimate-gdpr' ),
-			esc_html__( 'Ultimate GDPR', 'ct-ultimate-gdpr' ),
+			esc_html__( 'Ultimate GDPR & CCPA', 'ct-ultimate-gdpr' ),
+			esc_html__( 'Ultimate GDPR & CCPA', 'ct-ultimate-gdpr' ),
 			'manage_options',
 			'ct-ultimate-gdpr',
 			array( $this, 'render_menu_page' ),
@@ -556,9 +596,33 @@ class CT_Ultimate_GDPR_Controller_Admin {
 			array( $this, 'sanitize' ) // Sanitize
 		);
 
-	}
+        add_settings_section(
+            'ct-ultimate-gdpr-admin_tab-1_section-1', // ID
+            esc_html__('License', 'ct-ultimate-gdpr'), // Title
+            null, // callback
+            'ct-ultimate-gdpr-admin' // Page
+        );
 
-	/**
+        {
+            add_settings_field(
+                'admin_envato_key', // ID
+                esc_html__("Envato key", 'ct-ultimate-gdpr'), // Title
+                array($this, 'render_field_admin_envato_key'), // Callback
+                'ct-ultimate-gdpr-admin', // Page
+                'ct-ultimate-gdpr-admin_tab-1_section-1' // Section
+            );
+        }
+
+    }
+
+    /**
+     * Make sure option fields functions are present
+     */
+    public function add_option_fields_function() {
+        include_once( ABSPATH . 'wp-admin/includes/template.php' );
+    }
+
+    /**
 	 * @param string $section_id
 	 *
 	 * @return array

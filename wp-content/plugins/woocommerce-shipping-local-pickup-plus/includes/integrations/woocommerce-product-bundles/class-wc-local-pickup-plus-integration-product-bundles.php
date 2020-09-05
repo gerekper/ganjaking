@@ -52,6 +52,9 @@ class WC_Local_Pickup_Plus_Integration_Product_Bundles {
 
 		// ensure that items in a container bundle follow the parent product handling
 		add_filter( 'wc_local_pickup_plus_cart_shipping_packages', array( $this, 'adjust_cart_items_handling' ), 100 );
+
+		// make sure product bundles containing only products that can be picked up can also be picked up
+		add_filter( 'wc_local_pickup_plus_product_can_be_picked_up', [ $this, 'product_bundle_can_be_picked_up' ], 10, 3 );
 	}
 
 
@@ -216,6 +219,37 @@ class WC_Local_Pickup_Plus_Integration_Product_Bundles {
 			'pickup_items' => $pickup_items,
 			'ship_items'   => $ship_items,
 		);
+	}
+
+
+	/**
+	 * Checks each bundled item when checking if a product bundle can be picked up.
+	 *
+	 * @internal
+	 *
+	 * @since 2.8.3
+	 *
+	 * @param bool $can_be_picked_up whether the product can be picked up
+	 * @param int|\WC_Product $product product ID or object
+	 * @param null|int|\WC_Local_Pickup_Plus_Pickup_Location $pickup_location optional: a pickup location object or ID
+	 * @return bool
+	 */
+	public function product_bundle_can_be_picked_up( $can_be_picked_up, $product, $pickup_location ) {
+
+		if ( $product instanceof \WC_Product_Bundle ) {
+
+			$can_be_picked_up = true;
+
+			foreach ( $product->get_bundled_items() as $bundled_item ) {
+
+				if ( ! wc_local_pickup_plus()->get_products_instance()->product_can_be_picked_up( $bundled_item->get_product(), $pickup_location ) ) {
+					$can_be_picked_up = false;
+					break;
+				}
+			}
+		}
+
+		return $can_be_picked_up;
 	}
 
 

@@ -372,4 +372,34 @@ class WC_PB_Helpers {
 
 		return $allowed_html;
 	}
+
+	/**
+	 * Get a new product instance, preserving runtime meta from another one.
+	 *
+	 * @since  6.3.5
+	 *
+	 * @param  WC_Product  $product
+	 * @return WC_Product
+	 */
+	public static function get_product_preserving_meta( $product ) {
+
+		$clone = wc_get_product( $product->get_id() );
+
+		$meta_data_to_set = array();
+
+		foreach ( $product->get_meta_data() as $meta ) {
+			if ( ! isset( $meta->id ) ) {
+				$meta_data_to_set[] = array(
+					'key'   => $meta->key,
+					'value' => $meta->value
+				);
+			}
+		}
+
+		foreach ( $meta_data_to_set as $meta ) {
+			$clone->add_meta_data( $meta[ 'key' ], $meta[ 'value' ], true );
+		}
+
+		return $clone;
+	}
 }

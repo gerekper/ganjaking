@@ -1,0 +1,24 @@
+{
+  "opts": {
+    "template": "node_modules/wp-hookdoc/template"
+  },
+  "source": {
+    "includePattern": ".+\\.(php|inc)?$",
+    "include": [
+      "classes/",
+      "pro/"
+    ],
+    "exclude": [
+      "node_modules",
+      "hookdoc",
+      "css",
+      "img",
+      "js",
+      "js-dicst",
+      "vendor"
+    ]
+  },
+  "plugins": [
+    "node_modules/wp-hookdoc/plugin"
+  ]
+}

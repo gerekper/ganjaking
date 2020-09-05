@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Dynamic Pricing 3.1.19\n"
+"Project-Id-Version: WooCommerce Dynamic Pricing 3.1.21\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-dynamic-pricing\n"
-"POT-Creation-Date: 2020-04-08 20:54:56+00:00\n"
+"POT-Creation-Date: 2020-08-23 15:22:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -148,7 +148,6 @@ msgstr ""
 #: admin/classes/taxonomy_pricing_rules_admin.class.php:82
 #: admin/classes/taxonomy_pricing_rules_admin.class.php:166
 #: admin/classes/totals_pricing_rules_admin.class.php:31
-#: admin/classes/woocommerce_memberships_pricing_rules_admin.class.php:90
 #: dist/woocommerce-dynamic-pricing/admin/classes/category_pricing_rules_admin.class.php:72
 #: dist/woocommerce-dynamic-pricing/admin/classes/category_pricing_rules_admin.class.php:155
 #: dist/woocommerce-dynamic-pricing/admin/classes/group_pricing_rules_admin.class.php:90

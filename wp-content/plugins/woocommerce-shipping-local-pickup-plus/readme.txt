@@ -2,8 +2,8 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 4.4
-Tested up to: 5.4.1
-Requires PHP: 5.6
+Tested up to: 5.5
+Requires PHP: 7.0
 
 A shipping plugin for WooCommerce that allows the store operator to define local pickup locations, which the customer can then choose from when making a purchase.
 

@@ -63,6 +63,8 @@ class Core extends Stats {
 		'nggallery-manage-images',
 		'gallery_page_nggallery-manage-gallery',
 		'gallery_page_wp-smush-nextgen-bulk',
+		'nextgen-gallery_page_nggallery-manage-gallery', // Different since NextGen 3.3.6.
+		'nextgen-gallery_page_wp-smush-nextgen-bulk', // Different since NextGen 3.3.6.
 		'post',
 		'post-new',
 		'page',

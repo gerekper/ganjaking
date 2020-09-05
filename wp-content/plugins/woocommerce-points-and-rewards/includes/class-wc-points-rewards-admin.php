@@ -553,7 +553,7 @@ class WC_Points_Rewards_Admin {
 			// Minimum points discount.
 			array(
 				'title'    => __( 'Minimum Points Discount', 'woocommerce-points-and-rewards' ),
-				'desc_tip' => __( 'Set the minimum product discount allowed for the cart when redeeming points. Use a fixed monetary amount or leave blank to disable.', 'woocommerce-points-and-rewards' ),
+				'desc_tip' => __( 'Set the minimum amount a user\'s points must add up to in order to redeem points. Use a fixed monetary amount or leave blank to disable.', 'woocommerce-points-and-rewards' ),
 				'id'       => 'wc_points_rewards_cart_min_discount',
 				'default'  => '',
 				'type'     => 'text',

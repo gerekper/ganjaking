@@ -1,0 +1,44 @@
+/**
+ * Table of contents
+ *
+ * # Buttons
+ * # Meta boxes
+ * # Help metabox
+ */
+
+/* --------------------------------------
+ * # Buttons
+ *--------------------------------------*/
+
+.wpb-rs-ajax-finished:before {
+    vertical-align: middle;
+    margin: 0 5px 0 0;
+}
+
+/* --------------------------------------
+ * # Meta boxes
+ *--------------------------------------*/
+
+.wpb-rs-settings #poststuff .inside > h2 {
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+.wpb-rs-settings #poststuff .inside > table {
+    padding: 0 1rem 1rem;
+    display: block;
+    margin: 0 0 3em 0;
+}
+
+.wpb-rs-settings #poststuff .inside > h2:nth-of-type(even),
+.wpb-rs-settings #poststuff .inside > table:nth-of-type(even) {
+    background-color: #f4f4f4;
+}
+
+/* --------------------------------------
+ * # Help metabox
+ *--------------------------------------*/
+#settings-help img {
+    max-width: 100%;
+    display: block;
+}

@@ -180,10 +180,23 @@ abstract class CT_Ultimate_GDPR_Controller_Abstract implements CT_Ultimate_GDPR_
 
 		if ( $this->is_admin_page_active() ) {
 			$this->admin_page_action();
+			add_filter('admin_body_class', array($this, 'filter_admin_body_class'));
 		}
 
 	}
 
+
+    /**
+     * We need to add this class to the body as frontend depends on it
+     *
+     * @param string $classes
+     * @return string
+     */
+    public function filter_admin_body_class($classes)
+    {
+        return $classes . ' ' . 'ultimate-gdpr_page_' . $this->get_id();
+	}
+	
 	/**
 	 * @param mixed $view_options
 	 *

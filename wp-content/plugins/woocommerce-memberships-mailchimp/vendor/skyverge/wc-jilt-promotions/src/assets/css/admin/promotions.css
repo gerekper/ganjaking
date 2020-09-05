@@ -1,0 +1,20 @@
+.sv-wc-jilt-prompt-actions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.sv-wc-jilt-prompt-actions .sv-wc-jilt-prompt-action {
+	flex: 0 0 auto;
+	margin: 0 8px;
+}
+.sv-wc-jilt-prompt-actions .sv-wc-jilt-prompt-action:first-child {
+	margin-left: 0;
+}
+.sv-wc-jilt-prompt-actions .sv-wc-jilt-prompt-action:last-child {
+	margin-right: 0;
+}
+
+.sv-wc-jilt-promotional-notice .sv-wc-jilt-prompt-actions {
+	margin: 0 0 8px;
+}

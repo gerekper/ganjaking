@@ -105,16 +105,16 @@ class Installer {
 				define( 'WP_SMUSH_UPGRADING', true );
 			}
 
-			if ( version_compare( $version, '3.3.2', '<' ) ) {
-				self::upgrade_3_3_2();
-			}
-
 			if ( version_compare( $version, '3.4.0', '<' ) ) {
 				self::upgrade_3_4();
 			}
 
 			if ( version_compare( $version, '3.6.2', '<' ) ) {
 				self::upgrade_3_6_2();
+			}
+
+			if ( version_compare( $version, '3.7.0', '<' ) ) {
+				self::upgrade_3_7_0();
 			}
 
 			// Create/upgrade directory smush table.
@@ -149,19 +149,6 @@ class Installer {
 	}
 
 	/**
-	 * Show notice on upgrade.
-	 *
-	 * @since 3.3.2
-	 * @deprecated
-	 */
-	private static function upgrade_3_3_2() {
-		$install_type = get_site_option( 'wp-smush-install-type', false );
-		if ( 'existing' === $install_type ) {
-			set_site_transient( 'wp-smush-update-modal', true, 3600 );
-		}
-	}
-
-	/**
 	 * Adds new lazy load iframe setting.
 	 *
 	 * @since 3.4.0
@@ -187,6 +174,25 @@ class Installer {
 	 */
 	private static function upgrade_3_6_2() {
 		delete_site_option( WP_SMUSH_PREFIX . 'run_recheck' );
+	}
+
+	/**
+	 * Upgrade to 3.7.0
+	 *
+	 * @since 3.7.0
+	 */
+	private static function upgrade_3_7_0() {
+		// Fix the "None" animation in lazy-load options.
+		$lazy = Settings::get_instance()->get_setting( WP_SMUSH_PREFIX . 'lazy_load' );
+
+		if ( ! $lazy || ! isset( $lazy['animation'] ) || ! isset( $lazy['animation']['selected'] ) ) {
+			return;
+		}
+
+		if ( '0' === $lazy['animation']['selected'] ) {
+			$lazy['animation']['selected'] = 'none';
+			Settings::get_instance()->set_setting( WP_SMUSH_PREFIX . 'lazy_load', $lazy );
+		}
 	}
 
 }

@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2020-08-25 - version 1.6.37
+* Fix - Update Min Points Discount tooltip to more accurately describe the setting.
+
 2020-08-19 - version 1.6.36
 * Tweak - WordPress 5.5 compatibility.
 

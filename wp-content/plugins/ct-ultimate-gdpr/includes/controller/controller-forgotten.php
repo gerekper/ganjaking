@@ -107,7 +107,7 @@ class CT_Ultimate_GDPR_Controller_Forgotten extends CT_Ultimate_GDPR_Controller_
 			$email_title = esc_html__( $called_email_title );
 		} else {
 			$email_title = sprintf(
-				esc_html__( "[Ultimate GDPR] New Right To Be Forgotten request from %s", 'ct-ultimate-gdpr' ),
+				esc_html__( "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s", 'ct-ultimate-gdpr' ),
 				get_bloginfo( 'name' )
 			);
 		}
@@ -256,7 +256,7 @@ class CT_Ultimate_GDPR_Controller_Forgotten extends CT_Ultimate_GDPR_Controller_
 
 		ct_ultimate_gdpr_send_confirm_mail(
 			$email,
-			sprintf( esc_html__( '[Ultimate GDPR] Please confirm request to be forgotten from %s', 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
+			sprintf( esc_html__( '[Ultimate GDPR & CCPA] Please confirm request to be forgotten from %s', 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 			$this->get_id(),
 			$request_data['date'],
 			$target_url
@@ -342,7 +342,7 @@ class CT_Ultimate_GDPR_Controller_Forgotten extends CT_Ultimate_GDPR_Controller_
 			$subject = apply_filters(
 				'ct_ultimate_gdpr_controller_forgotten_request_admin_mail_subject',
 				sprintf(
-					esc_html__( "[Ultimate GDPR] New Right To Be Forgotten request from %s", 'ct-ultimate-gdpr' ),
+					esc_html__( "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s", 'ct-ultimate-gdpr' ),
 					get_bloginfo( 'name' )
 				)
 			);
@@ -510,7 +510,7 @@ class CT_Ultimate_GDPR_Controller_Forgotten extends CT_Ultimate_GDPR_Controller_
 			'notices',
 			array(
 				sprintf(
-					esc_html__( "[Ultimate GDPR] Emails were sent to the following users: %s", 'ct-ultimate-gdpr' ),
+					esc_html__( "[Ultimate GDPR & CCPA] Emails were sent to the following users: %s", 'ct-ultimate-gdpr' ),
 					implode( ', ', $emails )
 				)
 			)
@@ -548,7 +548,7 @@ class CT_Ultimate_GDPR_Controller_Forgotten extends CT_Ultimate_GDPR_Controller_
 			'notices',
 			array(
 				sprintf(
-					esc_html__( "[Ultimate GDPR] The following emails were removed from list: %s", 'ct-ultimate-gdpr' ),
+					esc_html__( "[Ultimate GDPR & CCPA] The following emails were removed from list: %s", 'ct-ultimate-gdpr' ),
 					implode( ', ', $emails )
 				)
 			)
@@ -626,7 +626,7 @@ class CT_Ultimate_GDPR_Controller_Forgotten extends CT_Ultimate_GDPR_Controller_
 		$this->add_view_option(
 			'notices',
 			array(
-				esc_html__( "[Ultimate GDPR] Services data were removed", 'ct-ultimate-gdpr' ),
+				esc_html__( "[Ultimate GDPR & CCPA] Services data were removed", 'ct-ultimate-gdpr' ),
 			)
 		);
 
@@ -716,7 +716,7 @@ class CT_Ultimate_GDPR_Controller_Forgotten extends CT_Ultimate_GDPR_Controller_
 
 			add_settings_field(
 				'forgotten_target_page', // ID
-				esc_html__( "Set custom URL to the page containing Ultimate GDPR shortcode as the email confirmation target page (or leave empty for autodetect)", 'ct-ultimate-gdpr' ), // Title
+				esc_html__( "Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email confirmation target page (or leave empty for autodetect)", 'ct-ultimate-gdpr' ), // Title
 				array( $this, 'render_field_forgotten_target_page' ), // Callback
 				'ct-ultimate-gdpr-forgotten', // Page
 				'ct-ultimate-gdpr-forgotten' // Section
@@ -908,8 +908,8 @@ class CT_Ultimate_GDPR_Controller_Forgotten extends CT_Ultimate_GDPR_Controller_
 
 		return apply_filters( "ct_ultimate_gdpr_controller_{$this->get_id()}_default_options", array(
 			'forgotten_notify_mail'                 => get_bloginfo( 'admin_email' ),
-			'forgotten_notify_email_subject'        => esc_html__( "[Ultimate GDPR] Your data has been forgotten", 'ct-ultimate-gdpr' ),
-			'forgotten_notify_email_message'        => esc_html__( "[Ultimate GDPR] Your data has been forgotten", 'ct-ultimate-gdpr' ),
+			'forgotten_notify_email_subject'        => esc_html__( "[Ultimate GDPR & CCPA] Your data has been forgotten", 'ct-ultimate-gdpr' ),
+			'forgotten_notify_email_message'        => esc_html__( "[Ultimate GDPR & CCPA] Your data has been forgotten", 'ct-ultimate-gdpr' ),
 			'forgotten_automated_user_forget_roles' => $roles_default,
 		) );
 

@@ -194,10 +194,7 @@ class GFAutoUpgrade {
 		);
 
 		$raw_response = 200;
-
-		
 		$text = '';
-		
 		return stripslashes( $text );
 	}
 
@@ -233,7 +230,6 @@ class GFAutoUpgrade {
 		$plugin_file = $this->_path;
 		$upgrade_url = wp_nonce_url( 'update.php?action=upgrade-plugin&amp;plugin=' . urlencode( $plugin_file ), 'upgrade-plugin_' . $plugin_file );
 
-		
 		return $updates;
 
 	}

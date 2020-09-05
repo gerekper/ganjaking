@@ -213,18 +213,16 @@ class SEED_CSPV5_ADMIN
      */
     function activate_license(){
         if(check_ajax_referer('seed_cspv5_activate_license') && isset($_GET['apikey'])){
-            $request["status"] = '200';
-           $request["per"] = '5b4db74d99994270485c4a2dbd698969';
-           $request["message"] = 'You have a valid license by Babiato';
-           
-           update_option('seed_cspv5_license_key','5b4db74d99994270485c4a2dbd698969');
-           
-           update_option('seed_cspv5_api_message','You have a valid license by Babiato');
-           update_option('seed_cspv5_api_nag','');
-           update_option('seed_cspv5_a',true);
-           update_option('seed_cspv5_per','You have a valid license by Babiato');
-           echo json_encode($request);
-           exit();
+        	$request["status"] = '200';
+$request["per"] = 'GPL001122334455AA6677BB8899CC000';
+$request["message"] = 'You have a valid license';
+update_option('seed_cspv5_license_key','GPL001122334455AA6677BB8899CC000');
+update_option('seed_cspv5_api_message','You have a valid license');
+update_option('seed_cspv5_api_nag','');
+update_option('seed_cspv5_a',true);
+update_option('seed_cspv5_per','You have a valid license');
+echo json_encode($request);
+exit();
             $api_key = $_GET['apikey'];
             $params = array(
                 'action'     => 'info',

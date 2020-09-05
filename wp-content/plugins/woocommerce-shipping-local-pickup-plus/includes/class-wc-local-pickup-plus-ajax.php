@@ -24,6 +24,7 @@
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments\Appointment;
 
 /**
  * AJAX class.
@@ -57,11 +58,11 @@ class WC_Local_Pickup_Plus_Ajax {
 		// ====================
 
 		// Admin: add new time range picker HTML.
-		add_action( 'wp_ajax_wc_local_pickup_plus_get_time_range_picker_html', array( $this, 'get_time_range_picker_html' ) );
+		add_action( 'wp_ajax_wc_local_pickup_plus_get_time_range_picker_html', [ $this, 'get_time_range_picker_html' ] );
 		// Admin: get pickup location IDs from a JSON search.
-		add_action( 'wp_ajax_wc_local_pickup_plus_json_search_pickup_location_ids', array( $this, 'json_search_pickup_location_ids' ) );
+		add_action( 'wp_ajax_wc_local_pickup_plus_json_search_pickup_location_ids', [ $this, 'json_search_pickup_location_ids' ] );
 		// Admin: update order shipping item pickup data.
-		add_action( 'wp_ajax_wc_local_pickup_plus_update_order_shipping_item_pickup_data', array( $this, 'update_order_shipping_item_pickup_data' ) );
+		add_action( 'wp_ajax_wc_local_pickup_plus_update_order_shipping_item_pickup_data', [ $this, 'update_order_shipping_item_pickup_data' ] );
 
 
 		// ====================
@@ -152,25 +153,40 @@ class WC_Local_Pickup_Plus_Ajax {
 
 		if ( isset( $_POST['item_id'] ) && is_numeric( $_POST['item_id'] ) ) {
 
-			$orders_handler = wc_local_pickup_plus()->get_orders_instance();
+			$orders_handler     = wc_local_pickup_plus()->get_orders_instance();
+			$order_item_handler = $orders_handler ? $orders_handler->get_order_items_instance() : null;
 
-			if ( $orders_handler && ( $order_item_handler = $orders_handler->get_order_items_instance() ) ) {
+			if ( $order_item_handler ) {
 
-				$item_id            = (int) Framework\SV_WC_Helper::get_posted_value( 'item_id', 0 );
-				$pickup_location_id = Framework\SV_WC_Helper::get_posted_value( 'pickup_location', null );
-				$pickup_date        = Framework\SV_WC_Helper::get_posted_value( 'pickup_date' );
-				$appointment_offset = (int) Framework\SV_WC_Helper::get_posted_value( 'pickup_appointment_offset', 0 );
-				$pickup_items       = Framework\SV_WC_Helper::get_posted_value( 'pickup_items', [] );
-				$force_selection    = (bool) Framework\SV_WC_Helper::get_posted_value( 'force', false );
-				// get the pickup location object
-				$pickup_location    = is_numeric( $pickup_location_id ) ? wc_local_pickup_plus_get_pickup_location( (int) $pickup_location_id ) : null;
+				$item_id              = (int) Framework\SV_WC_Helper::get_posted_value( 'item_id', 0 );
+				$pickup_location_id   = Framework\SV_WC_Helper::get_posted_value( 'pickup_location', null );
+				$set_appointment      = Framework\SV_WC_Helper::get_posted_value( 'set_pickup_appointment', null );
+				$pickup_date          = Framework\SV_WC_Helper::get_posted_value( 'pickup_date' );
+				$appointment_offset   = absint( Framework\SV_WC_Helper::get_posted_value( 'pickup_appointment_offset', 0 ) );
+				$pickup_items         = Framework\SV_WC_Helper::get_posted_value( 'pickup_items', [] );
+				$force_selection      = (bool) Framework\SV_WC_Helper::get_posted_value( 'force', false );
+				$pickup_location      = is_numeric( $pickup_location_id ) ? wc_local_pickup_plus_get_pickup_location( (int) $pickup_location_id ) : null;
+				$appointment_duration = wc_local_pickup_plus_shipping_method()->get_default_appointment_duration();
+				$appointments_handler = wc_local_pickup_plus()->get_appointments_instance();
+				$appointment          = $appointments_handler->get_shipping_item_appointment( $item_id );
+
+				// delete the appointment if admin chose to remove it, regardless of a pickup location
+				if ( 'no' === $set_appointment && 'required' !== wc_local_pickup_plus_appointments_mode() ) {
+					try {
+						if ( $appointment ) {
+							$appointment->delete();
+						} else {
+							wc_delete_order_item_meta( $item_id, '_pickup_appointment_start' );
+							wc_delete_order_item_meta( $item_id, '_pickup_appointment_end' );
+						}
+					} catch ( \Exception $e ) { }
+				}
 
 				// update corresponding order item meta if the pickup location exists
 				if ( $pickup_location instanceof \WC_Local_Pickup_Plus_Pickup_Location ) {
 
-					if ( 'disabled' !== wc_local_pickup_plus_appointments_mode() ) {
-
-						$appointment_duration = wc_local_pickup_plus_shipping_method()->get_default_appointment_duration();
+					// maybe set an appointment
+					if ( 'no' !== $set_appointment && ! empty( $pickup_date ) && 'disabled' !== wc_local_pickup_plus_appointments_mode() ) {
 
 						try {
 
@@ -197,11 +213,8 @@ class WC_Local_Pickup_Plus_Ajax {
 							$end_date   = null;
 						}
 
-						$appointments_handler = wc_local_pickup_plus()->get_appointments_instance();
-						$appointment          = $appointments_handler->get_shipping_item_appointment( $item_id );
-
-						// at this point $order can be either false or null
-						if ( ! $order instanceof \WC_Order || null === $appointment || null === $start_date || null === $end_date ) {
+						// at this point $order can be either false or null, or a date could be invalid
+						if ( ! $order instanceof \WC_Order || null === $start_date || null === $end_date ) {
 							wp_send_json_error( sprintf( 'Could not set pickup data for order item #%s', ( is_string( $item_id ) || is_numeric( $item_id ) ) ? $item_id : '' ) );
 						}
 
@@ -209,15 +222,29 @@ class WC_Local_Pickup_Plus_Ajax {
 
 							try {
 
-								// in theory setting an invalid start date could throw a notice, but this is unlikely here
-								$appointment->set_start( $start_date );
-								$appointment->set_end( $end_date );
-								$appointment->set_pickup_location_id( $pickup_location->get_id() );
-								$appointment->set_pickup_location_name( $pickup_location->get_name() );
-								$appointment->set_pickup_location_phone( $pickup_location->get_phone() );
-								$appointment->set_pickup_location_address( $pickup_location->get_address() );
+								// an appointment object will exist only for existing
+								if ( $appointment ) {
 
-								$appointment->save();
+									// in theory setting an invalid start date could throw a notice, but this is unlikely here
+									$appointment->set_start( $start_date );
+									$appointment->set_end( $end_date );
+									$appointment->set_pickup_location_id( $pickup_location->get_id() );
+									$appointment->set_pickup_location_name( $pickup_location->get_name() );
+									$appointment->set_pickup_location_phone( $pickup_location->get_phone() );
+									$appointment->set_pickup_location_address( $pickup_location->get_address() );
+
+									$appointment->save();
+
+								// for newly created items we might have to set meta directly
+								} elseif ( $item_id > 0 ) {
+
+									wc_update_order_item_meta( $item_id, '_pickup_appointment_start', $start_date ? $start_date->getTimestamp() : null );
+									wc_update_order_item_meta( $item_id, '_pickup_appointment_end', $end_date ? $end_date->getTimestamp() : null );
+									wc_update_order_item_meta( $item_id, '_pickup_location_id', $pickup_location->get_id() );
+									wc_update_order_item_meta( $item_id, '_pickup_location_address', $pickup_location->get_address()->get_array() );
+									wc_update_order_item_meta( $item_id, '_pickup_location_name', $pickup_location->get_name() );
+									wc_update_order_item_meta( $item_id, '_pickup_location_phone', $pickup_location->get_phone() );
+								}
 
 							} catch ( \Exception $e ) {
 
@@ -812,15 +839,21 @@ class WC_Local_Pickup_Plus_Ajax {
 				do {
 
 					if ( $end_date->format( 'Y-m-d' ) === $first_pickup_date->format( 'Y-m-d' ) ) {
-						$minimum_hours = $location->get_appointments()->get_schedule_minimum_hours( $end_date );
+						$new_start_time = clone $start_time;
+						$new_end_date   = clone $end_date;
+						$minimum_hours  = $location->get_appointments()->get_schedule_minimum_hours( $end_date );
+						$calendar_day   = wc_local_pickup_plus_shipping_method()->is_anytime_appointments_enabled() ? $new_start_time->setTime( 23, 59, 59 ) : $new_end_date;
 					} else {
 						$minimum_hours = null;
+						$calendar_day  = clone $end_date;
 					}
 
-					if ( ! $location->get_public_holidays()->is_public_holiday( $end_date )
-					     && $location->get_business_hours()->has_schedule( $end_date->format( 'w' ) )
+					if (
+					          $this->calendar_day_has_available_times( $location, $calendar_day, $start_time )
+					     && ! $location->get_public_holidays()->is_public_holiday( $end_date )
+					     &&   $location->get_business_hours()->has_schedule( $end_date->format( 'w' ) )
 					     && ! empty( $location->get_business_hours()->get_schedule( $end_date->format( 'w' ), false, $minimum_hours ) )
-					     && $this->calendar_day_has_available_times( $location, $end_date, $start_time ) ) {
+					) {
 
 						$available_days ++;
 
@@ -875,18 +908,20 @@ class WC_Local_Pickup_Plus_Ajax {
 	 *
 	 * @param \WC_Local_Pickup_Plus_Pickup_Location $pickup_location pickup location object
 	 * @param \DateTime $calendar_day the start of the day we want to check
-	 * @param \DateTime $start_time used to calculate the first available pickup time
+	 * @param \DateTime $chosen_time used to calculate the first available pickup time
+	 * @return bool
 	 */
-	private function calendar_day_has_available_times( $pickup_location, $calendar_day, $start_time ) {
+	private function calendar_day_has_available_times( $pickup_location, $calendar_day, $chosen_time ) {
 
 		if ( wc_local_pickup_plus_shipping_method()->is_anytime_appointments_enabled() ) {
 
+			$end_date            = clone $calendar_day;
 			$has_available_times = wc_local_pickup_plus()->get_appointments_instance()->is_appointment_time_available(
-				$start_time,
+				$chosen_time,
 				$pickup_location,
 				null, // appointment duration is not used when anytime appointments are enabled
 				$calendar_day,
-				( clone $calendar_day )->setTimestamp( $calendar_day->getTimestamp() + DAY_IN_SECONDS )
+				$end_date->setTime( 23, 59, 59 )
 			);
 
 		} else {

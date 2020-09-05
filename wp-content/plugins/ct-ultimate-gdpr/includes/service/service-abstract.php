@@ -424,13 +424,16 @@ abstract class CT_Ultimate_GDPR_Service_Abstract implements CT_Ultimate_GDPR_Ser
 	 */
 	protected function log_user_consent() {
 
-		$this->logger->consent( array(
-			'type'       => $this->get_id(),
-			'time'       => time(),
-			'user_id'    => wp_get_current_user()->ID,
-			'user_ip'    => ct_ultimate_gdpr_get_permitted_user_ip(),
-			'user_agent' => ct_ultimate_gdpr_get_permitted_user_agent()
-		) );
+        $data = array(
+            'type'       => $this->get_id(),
+            'time'       => time(),
+            'user_id'    => wp_get_current_user()->ID,
+            'user_ip'    => ct_ultimate_gdpr_get_permitted_user_ip(),
+            'user_agent' => ct_ultimate_gdpr_get_permitted_user_agent(),
+            'data'       => ct_ultimate_gdpr_get_user_age_data_array(),
+        );
+
+		$this->logger->consent( $data );
 
 	}
 

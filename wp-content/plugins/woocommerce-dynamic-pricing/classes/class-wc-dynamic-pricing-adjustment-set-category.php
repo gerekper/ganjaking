@@ -20,7 +20,7 @@ class WC_Dynamic_Pricing_Adjustment_Set_Category extends WC_Dynamic_Pricing_Adju
 
 		$this->targets = apply_filters( 'wc_dynamic_pricing_get_adjustment_set_targets', $targets, $this );
 		if ( $this->targets && is_array( $this->targets ) ) {
-			$this->is_valid_rule &= count( $this->targets ) > 0;
+			$this->is_valid_rule = count( $this->targets ) > 0;
 		} else {
 			$this->is_valid_rule = false;
 		}

@@ -1,5 +1,8 @@
 *** WooCommerce Give Products Changelog ***
 
+2020-08-19 - version 1.1.10
+* Tweak - WordPress 5.5 compatibility.
+
 2020-06-10 - version 1.1.9
 * Tweak - WC 4.2 compatibility.
 

@@ -376,15 +376,7 @@ abstract class Abstract_Page {
 		// Load page header.
 		$this->render_page_header();
 		$this->add_update_dialog();
-
-		$hide_quick_setup = false !== get_option( 'skip-smush-setup' );
-
-		// Show configure screen for only a new installation and for only network admins.
-		if ( ( ! is_multisite() && ! $hide_quick_setup ) || ( is_multisite() && ! is_network_admin() && ! $this->settings->is_network_enabled() && ! $hide_quick_setup ) ) {
-			$this->view( 'onboarding', array(), 'modals' );
-			$this->view( 'checking-files', array(), 'modals' );
-		}
-
+		$this->show_modals();
 		$this->render_inner_content();
 
 		// Nonce field.
@@ -415,6 +407,33 @@ abstract class Abstract_Page {
 			});
 		</script>
 		<?php
+	}
+
+	/**
+	 * Show onboarding and new feature dialogs.
+	 *
+	 * @since 3.7.0
+	 */
+	private function show_modals() {
+		$hide_quick_setup = false !== get_option( 'skip-smush-setup' );
+
+		// Show configure screen for only a new installation and for only network admins.
+		if ( ( ! is_multisite() && ! $hide_quick_setup ) || ( is_multisite() && ! is_network_admin() && ! $this->settings->is_network_enabled() && ! $hide_quick_setup ) ) {
+			$this->view( 'onboarding', array(), 'modals' );
+			$this->view( 'checking-files', array(), 'modals' );
+		}
+
+		// Show new features modal.
+		if ( $hide_quick_setup && get_option( WP_SMUSH_PREFIX . 'show_upgrade_modal' ) ) {
+			$this->view( 'updated', array(), 'modals' );
+			?>
+			<script>
+				window.addEventListener("load", function(){
+					window.SUI.openModal( 'smush-updated-dialog', 'wpbody-content', undefined, false );
+				});
+			</script>
+			<?php
+		}
 	}
 
 	/**
@@ -554,8 +573,13 @@ abstract class Abstract_Page {
 		<div class="sui-header wp-smush-page-header">
 			<h1 class="sui-header-title"><?php esc_html_e( 'DASHBOARD', 'wp-smushit' ); ?></h1>
 			<div class="sui-actions-right">
-				<?php if ( ! is_network_admin() && ( 'bulk' === $this->get_current_tab() || 'gallery_page_wp-smush-nextgen-bulk' === $this->page_id ) ) : ?>
-					<?php $data_type = 'gallery_page_wp-smush-nextgen-bulk' === $current_screen->id ? 'nextgen' : 'media'; ?>
+				<?php
+				if (
+					! is_network_admin() &&
+					( 'bulk' === $this->get_current_tab() || in_array( $this->page_id, array( 'nextgen-gallery_page_wp-smush-nextgen-bulk', 'gallery_page_wp-smush-nextgen-bulk' ), true ) )
+				) :
+					?>
+					<?php $data_type = in_array( $current_screen->id, array( 'nextgen-gallery_page_wp-smush-nextgen-bulk', 'gallery_page_wp-smush-nextgen-bulk' ), true ) ? 'nextgen' : 'media'; ?>
 					<button class="sui-button wp-smush-scan" data-tooltip="<?php esc_attr_e( 'Lets you check if any images can be further optimized. Useful after changing settings.', 'wp-smushit' ); ?>" data-type="<?php echo esc_attr( $data_type ); ?>">
 						<i class="sui-icon-update" aria-hidden="true"></i>
 						<?php esc_html_e( 'Re-Check Images', 'wp-smushit' ); ?>
@@ -693,6 +717,13 @@ abstract class Abstract_Page {
 	 */
 	public function builtin_wpmudev_branding( $plugin_pages ) {
 		$plugin_pages['gallery_page_wp-smush-nextgen-bulk'] = array(
+			'wpmudev_whitelabel_sui_plugins_branding',
+			'wpmudev_whitelabel_sui_plugins_footer',
+			'wpmudev_whitelabel_sui_plugins_doc_links',
+		);
+
+		// There's a different page ID since NextGen 3.3.6.
+		$plugin_pages['nextgen-gallery_page_wp-smush-nextgen-bulk'] = array(
 			'wpmudev_whitelabel_sui_plugins_branding',
 			'wpmudev_whitelabel_sui_plugins_footer',
 			'wpmudev_whitelabel_sui_plugins_doc_links',

@@ -480,10 +480,12 @@ function ct_gdpr_set_btn_css(
 function ct_gdpr_get_box_style_class_and_wrapper( $skin_name = null ) {
     $gdpr_pre = 'ct-ultimate-gdpr-cookie-popup-';
     $color_attr = "style='color: #";
+    $age_popup_pre = 'ct-ultimate-gdpr-age-popup-';
     $class_wrap['content_style'] = "";
     $class_wrap['popup_btn_wrap_open_tag'] = "";
     $class_wrap['close_tag'] = '';
     $class_wrap['skin_set'] = '';
+
     if ( 'modern' == $skin_name ) :
         $class_wrap['box_style_class'] = 'ct-ultimate-gdpr-cookie-popup-modern';
         $class_wrap['popup_btn_wrap_open_tag'] = "<div class='ct-ultimate-gdpr-cookie-buttons ct-clearfix'>";
@@ -615,7 +617,40 @@ function ct_gdpr_get_box_style_class_and_wrapper( $skin_name = null ) {
         $class_wrap['box_style_class'] = esc_attr( "{$gdpr_pre}10-set {$gdpr_pre}wibele {$gdpr_pre}wibele-white" );
         $class_wrap['content_style'] = $color_attr . "666666;'";
         $class_wrap['skin_set'] = '1';
+    elseif ( 'red_velvet' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}red-velvet" );
+    elseif ( 'thin_mint' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}thin-mint" );
+    elseif ( 'mint_chocolate' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}mint-chocolate" );
+    elseif ( 'classic_createit' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}classic-createit" );
+    elseif ( 'blueberry_orange' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}blueberry-orange" );
+    elseif ( 'blue_velvet' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}blue-velvet" );
+    elseif ( 'chocolate_matcha' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}chocolate-matcha" );
+    elseif ( 'classic_dark' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}classic-dark" );
+    elseif ( 'classic_light_style' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}classic-light" );
+    elseif ( 'oreo' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}oreo" );
+    elseif ( 'blue_shortbread' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}blue-shortbread" );
+    elseif ( 'light_mint' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}light-mint" );
+    elseif ( 'blue_cupcake' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}blue-cupcake" );
+    elseif ( 'matcha' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}matcha" );
+    elseif ( 'mint' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}mint" );
+    elseif ( 'none' == $skin_name ) :
+        $class_wrap['box_style_class'] =  esc_attr( "{$age_popup_pre}style-none" );
     endif;
+
     return $class_wrap;
 }
 

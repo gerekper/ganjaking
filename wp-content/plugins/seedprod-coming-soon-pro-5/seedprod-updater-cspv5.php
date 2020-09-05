@@ -73,7 +73,8 @@ class SeedProd_Updater_cspv5 {
 	 * @return array Modified update array with custom plugin data.
 	 */
 	function check_update( $_transient_data ) {
-return;
+		return;
+
 		global $pagenow;
 
 		if( ! is_object( $_transient_data ) ) {
@@ -103,6 +104,25 @@ return;
 					$_transient_data->response[ $this->name ] = $obj;
 
 
+				}else {
+					// No update is available.
+					$item = (object) array(
+						'id'            => 'seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php',
+						'slug'          => 'seedprod-coming-soon-pro-5',
+						'plugin'        => 'seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php',
+						'new_version'   => SEED_CSPV5_VERSION,
+						'url'           => '',
+						'package'       => '',
+						'icons'         => array(),
+						'banners'       => array(),
+						'banners_rtl'   => array(),
+						'tested'        => '',
+						'requires_php'  => '',
+						'compatibility' => new stdClass(),
+					);
+					// Adding the "mock" item to the `no_update` property is required
+					// for the enable/disable auto-updates links to correctly appear in UI.
+					$_transient_data->no_update['seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php'] = $item;
 				}
 
 				$_transient_data->last_checked = time();
@@ -225,8 +245,11 @@ return;
 		if ( !empty( $_args->slug ) ) {
 	        if ( !empty( $slug ) ) {
 	            if ( $_args->slug === $slug ) {
-	                $information =   $this->api_request( 'plugin_latest_version', array( 'slug' => $this->slug ) );
-	                $information->sections = (array) $information->sections;
+					$information =   $this->api_request( 'plugin_latest_version', array( 'slug' => $this->slug ) );
+					if(!empty($information->sections)){
+						$information->sections = (array) $information->sections;
+					}
+	                
 
 	                return $information;
 	            }

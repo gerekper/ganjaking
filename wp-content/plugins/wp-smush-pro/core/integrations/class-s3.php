@@ -188,6 +188,7 @@ class S3 extends Abstract_Integration {
 		$allowed_pages = array(
 			'toplevel_page_smush',
 			'gallery_page_wp-smush-nextgen-bulk',
+			'nextgen-gallery_page_wp-smush-nextgen-bulk', // Different since NextGen 3.3.6.
 			'toplevel_page_smush-network',
 		);
 

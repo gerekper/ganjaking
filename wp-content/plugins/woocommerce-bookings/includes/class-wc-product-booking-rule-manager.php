@@ -291,7 +291,7 @@ class WC_Product_Booking_Rule_Manager {
 	}
 
 	/**
-	 * Process and return formatted cost rules
+	 * Process and return formatted cost rules.
 	 *
 	 * @param  $rules array
 	 * @return array
@@ -445,12 +445,12 @@ class WC_Product_Booking_Rule_Manager {
 		return static::process_availability_rules( $rules, $level, $hide_past );
 	}
 
-	/** 
-	 * Process and return formatted availability rules 
+	/**
+	 * Process and return formatted availability rules
 	 *
 	 * @version 1.10.7
 	 * @param   array  $rules Rules to process.
-	 * @param   string $level Resource, Product or Globally .
+	 * @param   string $level Resource, Product or Globally.
 	 * @return  array
 	 */
 	public static function process_availability_rules( $rules, $level, $hide_past = true ) {
@@ -659,7 +659,7 @@ class WC_Product_Booking_Rule_Manager {
 
 		// If "to" is set to midnight, it is safe to assume they mean the end of the day
 		// php wraps 24 hours to "12AM the next day"
-		if ( 0 === $to_hour ) {
+		if ( 0 === $to_hour && 0 === $to_min ) {
 			$to_hour = 24;
 		}
 
@@ -1110,6 +1110,15 @@ class WC_Product_Booking_Rule_Manager {
 			} else {
 				// Normal rule.
 				if ( $slot_start_time < $rule_end_time && $slot_end_time > $rule_start_time ) {
+					if ( 'hour' === $bookable_product->get_duration_unit() || 'minute' === $bookable_product->get_duration_unit() ) {
+						// If the product is not available by default and the rule makes the product available,
+						// slot_end_time has to be also inside of the rule_end_time for products with duration of hours or minutes.
+						$check_in_range = $rule_val && ! $bookable_product->get_default_availability() && ! $bookable_product->get_check_start_block_only();
+
+						if ( $apply_rule_times && $check_in_range && ( $slot_end_time > $rule_end_time ) ) {
+							continue;
+						}
+					}
 					$bookable = $rule_val;
 					continue;
 				}

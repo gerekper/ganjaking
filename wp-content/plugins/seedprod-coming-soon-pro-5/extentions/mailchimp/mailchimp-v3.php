@@ -63,6 +63,17 @@ function seed_cspv5_section_mailchimp_v3($emaillist,$page_id) {
                         <small class="description">Learn more about <a href="http://kb.mailchimp.com/article/how-does-confirmed-optin-or-double-optin-work" target="_blank">Double Opt-In</a></small>
                     </td>
                 </tr>
+
+                <!-- <tr valign="top">
+                    <th scope="row">
+                        <strong><?php _e( "Groups", 'seedprod' ) ?></strong>
+                    </th>
+                    <td>
+                        <input class="large-text" type="textbox" id="mailchimp_groups" name="mailchimp_groups" value="<?php echo (!empty($settings['mailchimp_groups'])) ? $settings['mailchimp_groups'] : '' ?>" />
+                        <br>
+                        <small class="description">Optional: Comma delimited list of interest groups to add the email to.</a></small>
+                    </td>
+                </tr> -->
                 
                 <tr valign="top">
                     <th scope="row">
@@ -594,7 +605,9 @@ if ( wp_remote_retrieve_response_code( $response ) == 200 && $body->total_items 
             switch( $group->type ) :
                 case 'checkboxes':{
                     foreach( $body->interests as $interest ){
-                        $output .= '<label><input value="' . $interest->id . '" name="interests[' . $group->id . ']" type="checkbox" /> ' . $interest->name . '</label><br />';
+                        $output .= '<label><input value="' . $interest->id . '" name="interests[]" type="checkbox"';
+                        $output .= (in_array($interest->id,$settings['interests'])) ? 'checked' : '';
+                        $output .= ' /> ' . $interest->name . '</label><br />';
                     }
                     break;
                 }

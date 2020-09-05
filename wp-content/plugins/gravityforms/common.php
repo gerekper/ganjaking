@@ -17,6 +17,8 @@ class GFCommon {
 	public static $errors = array();
 	public static $messages = array();
 	public static $email_boundary = '394c21ef2c7143749256c37c3b5b7ee0';
+	
+	
 	/**
 	 * An array of dismissible messages to display on the page.
 	 *
@@ -2684,6 +2686,7 @@ Content-Type: text/html;
 	public static function get_version_info( $cache = true ) {
 		$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '0' );
 		return $version_info;
+		
 
 		$version_info = get_option( 'gform_version_info' );
 		if ( ! $cache ) {
@@ -2842,7 +2845,7 @@ $version_info['is_valid_key'] = '1';
 			return $option;
 		}
 
-		$plugin_path = 'gravityforms/gravityforms.php';
+		$plugin_path = plugin_basename( GFCommon::get_base_path() ) . '/gravityforms.php';
 		if ( empty( $option->response[ $plugin_path ] ) ) {
 			$option->response[ $plugin_path ] = new stdClass();
 		}
@@ -2883,11 +2886,7 @@ $version_info['is_valid_key'] = '1';
 		);
 
 		$raw_response = 200;
-
-		
 		$message = '';
-		
-
 		update_option( 'rg_gforms_message', $message );
 	}
 

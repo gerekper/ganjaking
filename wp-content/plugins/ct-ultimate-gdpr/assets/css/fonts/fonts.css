@@ -1,0 +1,71 @@
+@font-face {
+    font-family: dosis_regular;
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url('dosis/Dosis-Regular.woff2') format('woff2'),
+    url('dosis/Dosis-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: Hind;
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url('hind/Hind-Regular.woff2') format('woff2'),
+    url('hind/Hind-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: montserrat_regular;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('montserrat/Montserrat-Regular.woff2') format('woff2'),
+    url('montserrat/Montserrat-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: montserrat_medium;
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('montserrat/Montserrat-Medium.woff2') format('woff2'),
+    url('montserrat/Montserrat-Medium.woff') format('woff');
+}
+
+@font-face {
+    font-family: montserrat_semibold;
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('montserrat/Montserrat-SemiBold.woff2') format('woff2'),
+    url('montserrat/Montserrat-SemiBold.woff') format('woff');
+}
+
+@font-face {
+    font-family: montserrat_bold;
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('montserrat/Montserrat-Bold.woff2') format('woff2'),
+    url('montserrat/Montserrat-Bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: open_sans_regular;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('open-sans/OpenSans-Regular.woff2') format('woff2'),
+    url('open-sans/OpenSans-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: open_sans_bold;
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('open-sans/OpenSans-Bold.woff2') format('woff2'),
+    url('open-sans/OpenSans-Bold.woff') format('woff');
+}

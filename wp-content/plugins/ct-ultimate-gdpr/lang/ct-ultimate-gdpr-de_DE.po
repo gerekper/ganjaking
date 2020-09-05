@@ -1,38 +1,38 @@
-# Copyright (C) 2018 Ultimate GDPR
-# This file is distributed under the same license as the Ultimate GDPR package.
+# Copyright (C) 2018 Ultimate GDPR & CCPA
+# This file is distributed under the same license as the Ultimate GDPR & CCPA package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR 1.6.4\n"
+"Project-Id-Version: Ultimate GDPR & CCPA\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "POT-Creation-Date: 2019-03-26T15:39:02+00:00\n"
-"PO-Revision-Date: 2019-03-26 17:05+0000\n"
-"Last-Translator: Create IT <m.stepnowska@createit.pl>\n"
+"PO-Revision-Date: 2020-06-12 09:29+0200\n"
+"Last-Translator: Create IT\n"
 "Language-Team: German\n"
-"Language: de-DE\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.2.1; wp-5.1.1"
+"X-Generator: Poedit 2.0.5\n"
+"X-Loco-Version: 2.2.1; wp-5.1.1\n"
 
 #. Plugin Name of the plugin/theme
-#: includes/views/admin/admin-data-access.php:32 
-#: includes/views/admin/admin-policy.php:21 
-#: includes/views/admin/admin-plugins.php:21 
-#: includes/views/admin/admin-unsubscribe.php:30 
-#: includes/views/admin/admin-forgotten.php:30 
-#: includes/views/admin/admin-breach.php:21 
-#: includes/views/admin/admin-ct-ultimate-gdpr.php:21 
-#: includes/views/admin/admin-services.php:21 
-#: includes/views/admin/admin-pseudonymization.php:30 
-#: includes/views/admin/admin-cookie.php:21 
-#: includes/views/admin/admin-rectification.php:32 
-#: includes/views/admin/admin-terms.php:22 
-#: includes/controller/controller-admin.php:508 
+#: includes/views/admin/admin-data-access.php:32
+#: includes/views/admin/admin-policy.php:21
+#: includes/views/admin/admin-plugins.php:21
+#: includes/views/admin/admin-unsubscribe.php:30
+#: includes/views/admin/admin-forgotten.php:30
+#: includes/views/admin/admin-breach.php:21
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:21
+#: includes/views/admin/admin-services.php:21
+#: includes/views/admin/admin-pseudonymization.php:30
+#: includes/views/admin/admin-cookie.php:21
+#: includes/views/admin/admin-rectification.php:32
+#: includes/views/admin/admin-terms.php:22
+#: includes/controller/controller-admin.php:508
 #: includes/controller/controller-admin.php:509
-msgid "Ultimate GDPR"
-msgstr "Ultimate GDPR"
+msgid "Ultimate GDPR & CCPA"
+msgstr "Ultimate GDPR & CCPA"
 
 #. Description of the plugin/theme
 msgid ""
@@ -58,8 +58,8 @@ msgstr "Zur Bestätigung folgen Sie bitte diesem Link: %s"
 msgid "Collected data for user: %s"
 msgstr "Gesammelte Daten für Benutzer: %s"
 
-#: includes/views/admin/admin-data-access-user-details.php:20 
-#: includes/views/admin/admin-data-access-user-details.php:34 
+#: includes/views/admin/admin-data-access-user-details.php:20
+#: includes/views/admin/admin-data-access-user-details.php:34
 #: includes/views/admin/admin-rectification-user-details.php:34
 msgid "Go back"
 msgstr "Gehen Sie zurück"
@@ -68,54 +68,54 @@ msgstr "Gehen Sie zurück"
 msgid "No data collected for this service"
 msgstr "Keine Daten für diesen Service gesammelt"
 
-#: includes/views/admin/admin-data-access.php:33 
-#: includes/views/admin/admin-policy.php:22 
-#: includes/views/admin/admin-plugins.php:22 
-#: includes/views/admin/admin-unsubscribe.php:31 
-#: includes/views/admin/admin-forgotten.php:31 
-#: includes/views/admin/admin-breach.php:22 
-#: includes/views/admin/admin-ct-ultimate-gdpr.php:22 
-#: includes/views/admin/admin-services.php:22 
-#: includes/views/admin/admin-pseudonymization.php:31 
-#: includes/views/admin/admin-cookie.php:22 
-#: includes/views/admin/admin-rectification.php:33 
+#: includes/views/admin/admin-data-access.php:33
+#: includes/views/admin/admin-policy.php:22
+#: includes/views/admin/admin-plugins.php:22
+#: includes/views/admin/admin-unsubscribe.php:31
+#: includes/views/admin/admin-forgotten.php:31
+#: includes/views/admin/admin-breach.php:22
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:22
+#: includes/views/admin/admin-services.php:22
+#: includes/views/admin/admin-pseudonymization.php:31
+#: includes/views/admin/admin-cookie.php:22
+#: includes/views/admin/admin-rectification.php:33
 #: includes/views/admin/admin-terms.php:23
 msgid "Settings"
 msgstr "Die Einstellungen"
 
-#: includes/views/admin/admin-data-access.php:41 
-#: includes/views/admin/admin-forgotten.php:37 
-#: includes/views/admin/admin-breach.php:30 
-#: includes/views/admin/admin-rectification.php:41 
-#: includes/controller/controller-forgotten.php:180 
+#: includes/views/admin/admin-data-access.php:41
+#: includes/views/admin/admin-forgotten.php:37
+#: includes/views/admin/admin-breach.php:30
+#: includes/views/admin/admin-rectification.php:41
+#: includes/controller/controller-forgotten.php:180
 #: includes/controller/controller-forgotten.php:181
 msgid "Right To Be Forgotten"
 msgstr "Recht auf Vergessenheit"
 
-#: includes/views/admin/admin-data-access.php:44 
-#: includes/views/admin/admin-forgotten.php:40 
-#: includes/views/admin/admin-breach.php:33 
-#: includes/views/admin/admin-rectification.php:44 
-#: includes/controller/controller-data-access.php:468 
+#: includes/views/admin/admin-data-access.php:44
+#: includes/views/admin/admin-forgotten.php:40
+#: includes/views/admin/admin-breach.php:33
+#: includes/views/admin/admin-rectification.php:44
+#: includes/controller/controller-data-access.php:468
 #: includes/controller/controller-data-access.php:469
 msgid "Data Access"
 msgstr "Datenzugriff"
 
-#: includes/views/admin/admin-data-access.php:47 
-#: includes/views/admin/admin-forgotten.php:43 
-#: includes/views/admin/admin-breach.php:36 
-#: includes/views/admin/admin-rectification.php:47 
-#: includes/controller/controller-breach.php:98 
-#: includes/controller/controller-breach.php:99 
+#: includes/views/admin/admin-data-access.php:47
+#: includes/views/admin/admin-forgotten.php:43
+#: includes/views/admin/admin-breach.php:36
+#: includes/views/admin/admin-rectification.php:47
+#: includes/controller/controller-breach.php:98
+#: includes/controller/controller-breach.php:99
 #: includes/controller/controller-breach.php:127
 msgid "Data Breach"
 msgstr "Datenverletzung"
 
-#: includes/views/admin/admin-data-access.php:50 
-#: includes/views/admin/admin-forgotten.php:46 
-#: includes/views/admin/admin-breach.php:39 
-#: includes/views/admin/admin-rectification.php:50 
-#: includes/controller/controller-rectification.php:491 
+#: includes/views/admin/admin-data-access.php:50
+#: includes/views/admin/admin-forgotten.php:46
+#: includes/views/admin/admin-breach.php:39
+#: includes/views/admin/admin-rectification.php:50
+#: includes/controller/controller-rectification.php:491
 #: includes/controller/controller-rectification.php:492
 msgid "Data Rectification"
 msgstr "Datenberichtigung"
@@ -124,53 +124,53 @@ msgstr "Datenberichtigung"
 msgid "Data access requests list"
 msgstr "Liste der Datenzugriffsanfragen"
 
-#: includes/views/admin/admin-data-access.php:76 
-#: includes/views/admin/admin-unsubscribe.php:54 
-#: includes/views/admin/admin-forgotten.php:70 
+#: includes/views/admin/admin-data-access.php:76
+#: includes/views/admin/admin-unsubscribe.php:54
+#: includes/views/admin/admin-forgotten.php:70
 #: includes/views/admin/admin-rectification.php:74
 msgid "User ID"
 msgstr "Benutzer-ID"
 
-#: includes/views/admin/admin-data-access.php:77 
-#: includes/views/admin/admin-unsubscribe.php:55 
-#: includes/views/admin/admin-forgotten.php:71 
+#: includes/views/admin/admin-data-access.php:77
+#: includes/views/admin/admin-unsubscribe.php:55
+#: includes/views/admin/admin-forgotten.php:71
 #: includes/views/admin/admin-rectification.php:75
 msgid "Email"
 msgstr "E-Mail"
 
-#: includes/views/admin/admin-data-access.php:78 
-#: includes/views/admin/admin-unsubscribe.php:57 
-#: includes/views/admin/admin-forgotten.php:73 
+#: includes/views/admin/admin-data-access.php:78
+#: includes/views/admin/admin-unsubscribe.php:57
+#: includes/views/admin/admin-forgotten.php:73
 #: includes/views/admin/admin-rectification.php:76
 msgid "Date of request"
 msgstr "Datum der Anfrage"
 
-#: includes/views/admin/admin-data-access.php:79 
+#: includes/views/admin/admin-data-access.php:79
 #: includes/views/admin/admin-rectification.php:77
 msgid "Date of data sent"
 msgstr "Datum der Datenübermittlung"
 
-#: includes/views/admin/admin-data-access.php:80 
+#: includes/views/admin/admin-data-access.php:80
 #: includes/views/admin/admin-rectification.php:78
 msgid "Select for action"
 msgstr "Zur Aktion auswählen"
 
-#: includes/views/admin/admin-data-access.php:81 
+#: includes/views/admin/admin-data-access.php:81
 #: includes/views/admin/admin-rectification.php:79
 msgid "See details"
 msgstr "Siehe Details"
 
-#: includes/views/admin/admin-data-access.php:94 
-#: includes/views/admin/admin-unsubscribe.php:72 
-#: includes/views/admin/admin-forgotten.php:88 
+#: includes/views/admin/admin-data-access.php:94
+#: includes/views/admin/admin-unsubscribe.php:72
+#: includes/views/admin/admin-forgotten.php:88
 #: includes/views/admin/admin-rectification.php:92
 msgid "Not registered"
 msgstr "Nicht registriert"
 
-#: includes/views/admin/admin-data-access.php:97 
-#: includes/views/admin/admin-unsubscribe.php:116 
-#: includes/views/admin/admin-forgotten.php:132 
-#: includes/views/admin/admin-rectification.php:95 
+#: includes/views/admin/admin-data-access.php:97
+#: includes/views/admin/admin-unsubscribe.php:116
+#: includes/views/admin/admin-forgotten.php:132
+#: includes/views/admin/admin-rectification.php:95
 #: includes/controller/controller-data-access.php:430
 msgid "Not sent"
 msgstr "Nicht gesendet"
@@ -179,21 +179,21 @@ msgstr "Nicht gesendet"
 msgid "Preview data"
 msgstr "Vorschau der Daten"
 
-#: includes/views/admin/admin-data-access.php:124 
+#: includes/views/admin/admin-data-access.php:124
 #: includes/views/admin/admin-rectification.php:122
 msgid "Send data to selected emails"
 msgstr "Daten an ausgewählte E-Mails senden"
 
-#: includes/views/admin/admin-data-access.php:126 
-#: includes/views/admin/admin-unsubscribe.php:137 
-#: includes/views/admin/admin-forgotten.php:153 
+#: includes/views/admin/admin-data-access.php:126
+#: includes/views/admin/admin-unsubscribe.php:137
+#: includes/views/admin/admin-forgotten.php:153
 #: includes/views/admin/admin-rectification.php:124
 msgid "Remove selected requests from list"
 msgstr "Ausgewählte Aufträge aus der Liste entfernen"
 
-#: includes/views/admin/admin-data-access.php:128 
-#: includes/views/admin/admin-unsubscribe.php:139 
-#: includes/views/admin/admin-forgotten.php:155 
+#: includes/views/admin/admin-data-access.php:128
+#: includes/views/admin/admin-unsubscribe.php:139
+#: includes/views/admin/admin-forgotten.php:155
 #: includes/views/admin/admin-rectification.php:126
 msgid "Remove all sent requests from list"
 msgstr "Alle gesendeten Anfragen aus der Liste entfernen"
@@ -210,42 +210,42 @@ msgstr "Aktuelle Daten:"
 msgid "Rectified data:"
 msgstr "Berichtigte Daten:"
 
-#: includes/views/admin/admin-policy.php:29 
-#: includes/views/admin/admin-terms.php:30 
-#: includes/controller/controller-terms.php:414 
+#: includes/views/admin/admin-policy.php:29
+#: includes/views/admin/admin-terms.php:30
+#: includes/controller/controller-terms.php:414
 #: includes/controller/controller-terms.php:808
 msgid "Terms and Conditions"
 msgstr "Bedingungen und Konditionen"
 
-#: includes/views/admin/admin-policy.php:32 
-#: includes/views/admin/admin-terms.php:33 
-#: includes/controller/controller-policy.php:20 
-#: includes/controller/controller-policy.php:21 
-#: includes/controller/controller-policy.php:45 
+#: includes/views/admin/admin-policy.php:32
+#: includes/views/admin/admin-terms.php:33
+#: includes/controller/controller-policy.php:20
+#: includes/controller/controller-policy.php:21
+#: includes/controller/controller-policy.php:45
 #: includes/controller/controller-policy.php:859
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: includes/views/admin/admin-policy.php:47 
+#: includes/views/admin/admin-policy.php:47
 #: includes/views/admin/admin-terms.php:48
 msgid ""
 "Press \"Save changes\" before downloading logs if you changed any options"
 msgstr ""
-"Drücken Sie auf \"Änderungen speichern\", bevor Sie Protokolle herunterladen,"
-" wenn Sie Optionen geändert haben"
+"Drücken Sie auf \"Änderungen speichern\", bevor Sie Protokolle "
+"herunterladen, wenn Sie Optionen geändert haben"
 
-#: includes/views/admin/admin-policy.php:58 
-#: includes/views/admin/admin-cookie.php:90 
+#: includes/views/admin/admin-policy.php:58
+#: includes/views/admin/admin-cookie.php:90
 #: includes/views/admin/admin-terms.php:59
 msgid "Download consents log"
 msgstr "Download Zustimmungsprotokoll"
 
-#: includes/views/admin/admin-plugins.php:30 
+#: includes/views/admin/admin-plugins.php:30
 #: includes/views/admin/admin-ct-ultimate-gdpr.php:38
 msgid "Introduction"
 msgstr "Einleitung"
 
-#: includes/views/admin/admin-plugins.php:33 
+#: includes/views/admin/admin-plugins.php:33
 #: includes/views/admin/admin-ct-ultimate-gdpr.php:41
 msgid "Compatibility"
 msgstr "Kompatibilität"
@@ -259,16 +259,16 @@ msgid "Collects user data"
 msgstr "Sammelt Benutzerdaten"
 
 #: includes/views/admin/admin-plugins.php:44
-msgid "Compatible with Ultimate GDPR"
-msgstr "Kompatibel mit Ultimate GDPR"
+msgid "Compatible with Ultimate GDPR & CCPA"
+msgstr "Kompatibel mit Ultimate GDPR & CCPA"
 
-#: includes/views/admin/admin-plugins.php:94 
-#: includes/views/admin/admin-plugins.php:112 
+#: includes/views/admin/admin-plugins.php:94
+#: includes/views/admin/admin-plugins.php:112
 #: includes/service/service-gravity-forms.php:265
 msgid "Yes"
 msgstr "Ja, ja"
 
-#: includes/views/admin/admin-plugins.php:96 
+#: includes/views/admin/admin-plugins.php:96
 #: includes/views/admin/admin-plugins.php:116
 msgid "No"
 msgstr "Nein"
@@ -293,17 +293,17 @@ msgstr "Abmeldungsanforderungsliste"
 msgid "Services to unsubscribe from (user selected)"
 msgstr "Abzumeldende Dienste (vom Benutzer ausgewählt)"
 
-#: includes/views/admin/admin-unsubscribe.php:58 
+#: includes/views/admin/admin-unsubscribe.php:58
 #: includes/views/admin/admin-forgotten.php:74
 msgid "Date of mail sent"
 msgstr "Datum der Postsendung"
 
-#: includes/views/admin/admin-unsubscribe.php:59 
+#: includes/views/admin/admin-unsubscribe.php:59
 #: includes/views/admin/admin-forgotten.php:75
 msgid "Email user / remove request"
 msgstr "E-Mail-Benutzer / Anfrage löschen"
 
-#: includes/views/admin/admin-unsubscribe.php:79 
+#: includes/views/admin/admin-unsubscribe.php:79
 #: includes/views/admin/admin-forgotten.php:95
 msgid "Select all"
 msgstr "Alle auswählen"
@@ -437,7 +437,7 @@ msgstr ""
 "Um zu beginnen, durchsuchen Sie die Einstellungen. Erstellen Sie dann eine "
 "neue Seite mit dem Shortcode:"
 
-#: includes/views/admin/admin-ct-ultimate-gdpr.php:76 
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:76
 #: includes/views/admin/admin-ct-ultimate-gdpr.php:94
 msgid "[ultimate_gdpr_myaccount]"
 msgstr "[ultimate_gdpr_myaccount]"
@@ -522,7 +522,7 @@ msgstr "Festplattenplatz:"
 msgid "10 MB"
 msgstr "10 MB"
 
-#: includes/views/admin/admin-ct-ultimate-gdpr.php:245 
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:245
 #: includes/views/admin/admin-cookie.php:79
 msgid "Press 'Save changes' before downloading logs if you changed any options"
 msgstr ""
@@ -550,8 +550,8 @@ msgid ""
 "Select file to import settings from. Your current settings will be "
 "overwritten."
 msgstr ""
-"Wählen Sie die Datei aus, von der die Einstellungen importiert werden sollen."
-" Ihre aktuellen Einstellungen werden überschrieben."
+"Wählen Sie die Datei aus, von der die Einstellungen importiert werden "
+"sollen. Ihre aktuellen Einstellungen werden überschrieben."
 
 #: includes/views/admin/admin-ct-ultimate-gdpr.php:275
 msgid "Import plugin settings"
@@ -575,7 +575,7 @@ msgstr ""
 msgid "Import services to Service Manager"
 msgstr "Importieren Sie Dienste in Service Manager"
 
-#: includes/views/admin/admin-ct-ultimate-gdpr.php:303 
+#: includes/views/admin/admin-ct-ultimate-gdpr.php:303
 #: includes/views/admin/admin-ct-ultimate-gdpr.php:309
 msgid "Any questions?"
 msgstr "Irgendwelche Fragen?"
@@ -724,45 +724,44 @@ msgstr "Liste der Datenberichtigungsanforderungen"
 msgid "See rectified data"
 msgstr "Siehe korrigierte Daten"
 
-#: includes/views/cookie-group-popup.php:112 
-#: includes/views/shortcode/shortcode-policy-accept.php:54 
-#: includes/views/shortcode/shortcode-terms-accept.php:54 
-#: includes/views/cookie-popup.php:30 
+#: includes/views/cookie-group-popup.php:112
+#: includes/views/shortcode/shortcode-policy-accept.php:54
+#: includes/views/shortcode/shortcode-terms-accept.php:54
+#: includes/views/cookie-popup.php:30
 #: includes/controller/controller-cookie.php:3590
 msgid "Accept"
 msgstr "Akzeptieren"
 
-#: includes/views/cookie-group-popup.php:120 
-#: includes/views/cookie-popup.php:38 
+#: includes/views/cookie-group-popup.php:120 includes/views/cookie-popup.php:38
 #: includes/controller/controller-cookie.php:3592
 msgid "Change Settings"
 msgstr "Einstellungen ändern"
 
-#: includes/views/cookie-group-popup.php:266 
-#: includes/views/shortcode/shortcode-privacy-center.php:47 
-#: includes/views/shortcode/shortcode-privacy-center.php:73 
-#: includes/views/shortcode/shortcode-privacy-center.php:99 
-#: includes/views/shortcode/shortcode-privacy-center.php:123 
-#: includes/views/shortcode/shortcode-privacy-center.php:131 
-#: includes/views/shortcode/shortcode-privacy-center.php:140 
-#: includes/views/shortcode/shortcode-privacy-center.php:152 
-#: includes/views/shortcode/shortcode-privacy-center.php:162 
-#: includes/views/cookie-popup.php:181 
-#: includes/controller/controller-cookie.php:1264 
-#: includes/controller/controller-cookie.php:3591 
+#: includes/views/cookie-group-popup.php:266
+#: includes/views/shortcode/shortcode-privacy-center.php:47
+#: includes/views/shortcode/shortcode-privacy-center.php:73
+#: includes/views/shortcode/shortcode-privacy-center.php:99
+#: includes/views/shortcode/shortcode-privacy-center.php:123
+#: includes/views/shortcode/shortcode-privacy-center.php:131
+#: includes/views/shortcode/shortcode-privacy-center.php:140
+#: includes/views/shortcode/shortcode-privacy-center.php:152
+#: includes/views/shortcode/shortcode-privacy-center.php:162
+#: includes/views/cookie-popup.php:181
+#: includes/controller/controller-cookie.php:1264
+#: includes/controller/controller-cookie.php:3591
 #: includes/shortcode/shortcode-cookie-popup.php:703
 msgid "Read more"
 msgstr "Lesen Sie mehr"
 
-#: includes/views/cookie-group-popup.php:320 
-#: includes/views/cookie-group-popup.php:331 
-#: includes/views/cookie-group-popup.php:364 
+#: includes/views/cookie-group-popup.php:320
+#: includes/views/cookie-group-popup.php:331
+#: includes/views/cookie-group-popup.php:364
 #: includes/views/cookie-group-popup.php:375
 msgid "Cookie Box Settings"
 msgstr "Cookie-Box-Einstellungen"
 
-#: includes/views/cookie-group-popup.php:326 
-#: includes/views/cookie-group-popup.php:370 
+#: includes/views/cookie-group-popup.php:326
+#: includes/views/cookie-group-popup.php:370
 #: includes/controller/controller-cookie.php:3609
 msgid "Trigger"
 msgstr "Auslösen"
@@ -771,27 +770,27 @@ msgstr "Auslösen"
 msgid "Hide details"
 msgstr "Details ausblenden"
 
-#: includes/views/cookie-group-popup.php:543 
+#: includes/views/cookie-group-popup.php:543
 #: includes/views/service/service-arforms-consent-field.php:29
 msgid "OK"
 msgstr "OK"
 
-#: includes/views/cookie-group-popup.php:600 
-#: includes/views/cookie-group-popup.php:645 
-#: includes/views/cookie-group-popup.php:665 
-#: includes/views/cookie-group-popup.php:689 
-#: includes/views/cookie-group-popup.php:732 
+#: includes/views/cookie-group-popup.php:600
+#: includes/views/cookie-group-popup.php:645
+#: includes/views/cookie-group-popup.php:665
+#: includes/views/cookie-group-popup.php:689
+#: includes/views/cookie-group-popup.php:732
 #: includes/controller/controller-cookie.php:3614
 msgid "This website will:"
 msgstr "Diese Website wird:"
 
-#: includes/views/cookie-group-popup.php:620 
-#: includes/views/cookie-group-popup.php:709 
+#: includes/views/cookie-group-popup.php:620
+#: includes/views/cookie-group-popup.php:709
 #: includes/views/cookie-group-popup.php:752
 msgid "This website wont't:"
 msgstr "Diese Website wird nicht:"
 
-#: includes/views/cookie-group-popup.php:777 
+#: includes/views/cookie-group-popup.php:777
 #: includes/controller/controller-cookie.php:3616
 msgid "Save & Close"
 msgstr "Speichern & Schließen"
@@ -807,8 +806,8 @@ msgstr "Entscheiden Sie, welche Cookies Sie zulassen möchten."
 #: includes/views/cookie-group-popup-header-content.php:26
 msgid ""
 "You can change these settings at any time. However, this can result in some "
-"functions no longer being available. For information on deleting the cookies,"
-" please consult your browser’s help function."
+"functions no longer being available. For information on deleting the "
+"cookies, please consult your browser’s help function."
 msgstr ""
 "Sie können diese Einstellungen jederzeit ändern. Dies kann jedoch dazu "
 "führen, dass einige Funktionen nicht mehr zur Verfügung stehen. "
@@ -825,25 +824,24 @@ msgstr ""
 "oder deaktivieren:"
 
 #: includes/views/service/service-gravity-forms-consent-field-error-message.php:12
-#:  
 #: includes/views/service/service-woocommerce-forms-consent-field-error-message.php:12
 msgid "You must accept the Privacy Policy before submitting the form"
 msgstr ""
 "Sie müssen die Datenschutzbestimmungen akzeptieren, bevor Sie das Formular "
 "absenden"
 
-#: includes/views/service/service-ct-waitlist-consent-field.php:17 
-#: includes/views/service/service-mailster-consent-field.php:16 
-#: includes/views/service/service-gravity-forms-consent-field-label.php:12 
-#: includes/views/service/service-formcraft-consent-field.php:16 
+#: includes/views/service/service-ct-waitlist-consent-field.php:17
+#: includes/views/service/service-mailster-consent-field.php:16
+#: includes/views/service/service-gravity-forms-consent-field-label.php:12
+#: includes/views/service/service-formcraft-consent-field.php:16
 #: includes/views/service/service-mailerlite-consent-field.php:16
 msgid "I consent to my data being stored according to the Privacy Policy"
 msgstr ""
 "Ich stimme zu, dass meine Daten gemäß der Datenschutzrichtlinie gespeichert "
 "werden"
 
-#: includes/views/service/service-mailchimp-consent-field.php:16 
-#: includes/views/service/service-metorik-helper-consent-field.php:17 
+#: includes/views/service/service-mailchimp-consent-field.php:16
+#: includes/views/service/service-metorik-helper-consent-field.php:17
 #: includes/views/service/service-ultimate-member-consent-field.php:20
 msgid "I consent to the storage of my data according to the Privacy Policy "
 msgstr ""
@@ -854,7 +852,7 @@ msgstr ""
 msgid "Follow this link to access Privacy Policy"
 msgstr "Folgen Sie diesem Link, um auf die Datenschutzerklärung zuzugreifen"
 
-#: includes/views/service/service-buddypress-consent-field.php:16 
+#: includes/views/service/service-buddypress-consent-field.php:16
 #: includes/views/service/service-bbpress-consent-field.php:16
 msgid ""
 "I consent to the storage of my data according to the Privacy Policy "
@@ -872,21 +870,21 @@ msgstr ""
 "(zur Übermittlung erforderlich)"
 
 #: includes/views/service/service-newsletter-consent-field-widget-minimal.php:16
-#:  includes/views/service/service-formidable-forms-consent-field.php:12 
-#: includes/views/service/service-contact-form-7-consent-field.php:19 
-#: includes/views/service/service-woocommerce-checkout-consent-field.php:16 
-#: includes/views/service/service-quform-consent-field.php:12 
-#: includes/views/service/service-woocommerce-consent-field-label.php:12 
-#: includes/views/service/service-newsletter-consent-field.php:16 
-#: includes/views/service/service-ninja-forms-consent-field.php:18 
-#: includes/views/service/service-newsletter-consent-field-widget.php:16 
-#: includes/views/service/service-eform-consent-field.php:19 
-#: includes/views/service/service-woocommerce-consent-field.php:16 
-#: includes/views/service/service-events-manager-consent-field.php:17 
-#: includes/views/service/service-arforms-consent-field.php:18 
-#: includes/views/service/service-wp-comments-consent-field.php:16 
-#: includes/views/service/service-wp-user-consent-field.php:17 
-#: includes/views/service/service-caldera-forms-consent-field.php:18 
+#: includes/views/service/service-formidable-forms-consent-field.php:12
+#: includes/views/service/service-contact-form-7-consent-field.php:19
+#: includes/views/service/service-woocommerce-checkout-consent-field.php:16
+#: includes/views/service/service-quform-consent-field.php:12
+#: includes/views/service/service-woocommerce-consent-field-label.php:12
+#: includes/views/service/service-newsletter-consent-field.php:16
+#: includes/views/service/service-ninja-forms-consent-field.php:18
+#: includes/views/service/service-newsletter-consent-field-widget.php:16
+#: includes/views/service/service-eform-consent-field.php:19
+#: includes/views/service/service-woocommerce-consent-field.php:16
+#: includes/views/service/service-events-manager-consent-field.php:17
+#: includes/views/service/service-arforms-consent-field.php:18
+#: includes/views/service/service-wp-comments-consent-field.php:16
+#: includes/views/service/service-wp-user-consent-field.php:17
+#: includes/views/service/service-caldera-forms-consent-field.php:18
 #: includes/service/service-woocommerce.php:314
 msgid "I consent to the storage of my data according to the Privacy Policy"
 msgstr ""
@@ -909,7 +907,7 @@ msgstr "Dieses Feld darf nicht leer sein."
 msgid "You have already accepted Privacy Policy"
 msgstr "Sie haben die Datenschutzbestimmungen bereits akzeptiert"
 
-#: includes/views/shortcode/shortcode-policy-accept.php:43 
+#: includes/views/shortcode/shortcode-policy-accept.php:43
 #: includes/views/shortcode/shortcode-terms-accept.php:43
 msgid "Decline"
 msgstr "Rückgang"
@@ -926,14 +924,14 @@ msgstr "Zugang zu persönlichen Daten"
 msgid "Forget me"
 msgstr "Vergiss mich"
 
-#: includes/views/shortcode/shortcode-myaccount.php:47 
+#: includes/views/shortcode/shortcode-myaccount.php:47
 #: includes/views/shortcode/shortcode-privacy-center.php:88
 msgid "Data rectification"
 msgstr "Datenberichtigung"
 
-#: includes/views/shortcode/shortcode-myaccount.php:53 
-#: includes/views/shortcode/shortcode-privacy-center.php:113 
-#: includes/controller/controller-unsubscribe.php:563 
+#: includes/views/shortcode/shortcode-myaccount.php:53
+#: includes/views/shortcode/shortcode-privacy-center.php:113
+#: includes/controller/controller-unsubscribe.php:563
 #: includes/controller/controller-unsubscribe.php:564
 msgid "Unsubscribe"
 msgstr "Abmelden"
@@ -946,9 +944,9 @@ msgstr ""
 "Im Folgenden können Sie beantragen, dass Ihre persönlichen Daten, die auf "
 "dieser Website gesammelt werden, per E-Mail an Sie gesendet werden."
 
-#: includes/views/shortcode/shortcode-myaccount.php:66 
-#: includes/views/shortcode/shortcode-myaccount.php:134 
-#: includes/views/shortcode/shortcode-myaccount.php:209 
+#: includes/views/shortcode/shortcode-myaccount.php:66
+#: includes/views/shortcode/shortcode-myaccount.php:134
+#: includes/views/shortcode/shortcode-myaccount.php:209
 #: includes/views/shortcode/shortcode-myaccount.php:276
 msgid "Email:"
 msgstr "E-mail:"
@@ -962,9 +960,9 @@ msgstr ""
 "angeforderten Daten zu erhalten. Weitere Informationen finden Sie auf der "
 "Seite Datenschutz."
 
-#: includes/views/shortcode/shortcode-myaccount.php:92 
-#: includes/views/shortcode/shortcode-myaccount.php:164 
-#: includes/views/shortcode/shortcode-myaccount.php:244 
+#: includes/views/shortcode/shortcode-myaccount.php:92
+#: includes/views/shortcode/shortcode-myaccount.php:164
+#: includes/views/shortcode/shortcode-myaccount.php:244
 #: includes/views/shortcode/shortcode-myaccount.php:304
 msgid "Submit"
 msgstr "Einreichen"
@@ -981,8 +979,8 @@ msgstr ""
 "vergessen möchten. Dies wird eine Anfrage an den Website-Administrator "
 "senden. Sie werden per E-Mail benachrichtigt, sobald dies erledigt ist. \""
 
-#: includes/views/shortcode/shortcode-myaccount.php:149 
-#: includes/views/shortcode/shortcode-myaccount.php:229 
+#: includes/views/shortcode/shortcode-myaccount.php:149
+#: includes/views/shortcode/shortcode-myaccount.php:229
 #: includes/views/shortcode/shortcode-myaccount.php:290
 msgid ""
 "I consent to have my email collected in order to process this request. See "
@@ -1044,83 +1042,83 @@ msgstr "Terms &amp; Bedingungen seite"
 msgid "Contact DPO"
 msgstr "Kontaktieren Sie DPO"
 
-#: includes/service/service-ct-waitlist.php:77 
-#: includes/service/service-quform.php:87 
+#: includes/service/service-ct-waitlist.php:77
+#: includes/service/service-quform.php:87
 #: includes/service/service-mailster.php:155
 msgid "There were problems forgetting data for user: %s"
 msgstr "Es gab Probleme, Daten für den Benutzer zu vergessen: %s"
 
-#: includes/service/service-ct-waitlist.php:95 
-#: includes/service/service-quform.php:115 
-#: includes/service/service-formcraft.php:95 
-#: includes/service/service-ninja-forms.php:62 
-#: includes/service/service-contact-form-7.php:93 
-#: includes/service/service-mailchimp.php:85 
-#: includes/service/service-yith-woocommerce-wishlist.php:82 
-#: includes/service/service-wp-simple-paypal-shopping-cart.php:141 
-#: includes/service/service-eform.php:132 
-#: includes/service/service-wp-comments.php:109 
-#: includes/service/service-woocommerce.php:180 
-#: includes/service/service-formidable-forms.php:136 
-#: includes/service/service-events-manager.php:110 
-#: includes/service/service-caldera-forms.php:133 
-#: includes/service/service-bbpress.php:162 
-#: includes/service/service-wp-job-manager.php:78 
-#: includes/service/service-wp-user.php:103 
-#: includes/service/service-wp-foro.php:420 
-#: includes/service/service-buddypress.php:334 
-#: includes/service/service-newsletter.php:148 
-#: includes/service/service-mailerlite.php:75 
-#: includes/service/service-gravity-forms.php:96 
-#: includes/service/service-hotjar.php:63 
-#: includes/service/service-custom-facebook-feed.php:56 
-#: includes/service/service-mailpoet.php:108 
-#: includes/service/service-flamingo.php:98 
-#: includes/service/service-cf7db.php:116 
-#: includes/service/service-wp-posts.php:116 
-#: includes/service/service-mailster.php:183 
+#: includes/service/service-ct-waitlist.php:95
+#: includes/service/service-quform.php:115
+#: includes/service/service-formcraft.php:95
+#: includes/service/service-ninja-forms.php:62
+#: includes/service/service-contact-form-7.php:93
+#: includes/service/service-mailchimp.php:85
+#: includes/service/service-yith-woocommerce-wishlist.php:82
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:141
+#: includes/service/service-eform.php:132
+#: includes/service/service-wp-comments.php:109
+#: includes/service/service-woocommerce.php:180
+#: includes/service/service-formidable-forms.php:136
+#: includes/service/service-events-manager.php:110
+#: includes/service/service-caldera-forms.php:133
+#: includes/service/service-bbpress.php:162
+#: includes/service/service-wp-job-manager.php:78
+#: includes/service/service-wp-user.php:103
+#: includes/service/service-wp-foro.php:420
+#: includes/service/service-buddypress.php:334
+#: includes/service/service-newsletter.php:148
+#: includes/service/service-mailerlite.php:75
+#: includes/service/service-gravity-forms.php:96
+#: includes/service/service-hotjar.php:63
+#: includes/service/service-custom-facebook-feed.php:56
+#: includes/service/service-mailpoet.php:108
+#: includes/service/service-flamingo.php:98
+#: includes/service/service-cf7db.php:116
+#: includes/service/service-wp-posts.php:116
+#: includes/service/service-mailster.php:183
 #: includes/service/service-arforms.php:129
 msgid "[%s] Name"
 msgstr "[%s] Name"
 
-#: includes/service/service-ct-waitlist.php:103 
-#: includes/service/service-quform.php:123 
-#: includes/service/service-formcraft.php:103 
-#: includes/service/service-ninja-forms.php:70 
-#: includes/service/service-contact-form-7.php:101 
-#: includes/service/service-yith-woocommerce-wishlist.php:90 
-#: includes/service/service-wp-simple-paypal-shopping-cart.php:149 
-#: includes/service/service-eform.php:140 
-#: includes/service/service-formidable-forms.php:144 
-#: includes/service/service-caldera-forms.php:141 
-#: includes/service/service-ultimate-member.php:77 
-#: includes/service/service-bbpress.php:170 
-#: includes/service/service-wp-foro.php:428 
-#: includes/service/service-buddypress.php:342 
-#: includes/service/service-newsletter.php:156 
-#: includes/service/service-mailerlite.php:83 
-#: includes/service/service-hotjar.php:71 
-#: includes/service/service-flamingo.php:106 
-#: includes/service/service-cf7db.php:124 
+#: includes/service/service-ct-waitlist.php:103
+#: includes/service/service-quform.php:123
+#: includes/service/service-formcraft.php:103
+#: includes/service/service-ninja-forms.php:70
+#: includes/service/service-contact-form-7.php:101
+#: includes/service/service-yith-woocommerce-wishlist.php:90
+#: includes/service/service-wp-simple-paypal-shopping-cart.php:149
+#: includes/service/service-eform.php:140
+#: includes/service/service-formidable-forms.php:144
+#: includes/service/service-caldera-forms.php:141
+#: includes/service/service-ultimate-member.php:77
+#: includes/service/service-bbpress.php:170
+#: includes/service/service-wp-foro.php:428
+#: includes/service/service-buddypress.php:342
+#: includes/service/service-newsletter.php:156
+#: includes/service/service-mailerlite.php:83
+#: includes/service/service-hotjar.php:71
+#: includes/service/service-flamingo.php:106
+#: includes/service/service-cf7db.php:124
 #: includes/service/service-mailster.php:191
 msgid "[%s] Description"
 msgstr "[%s] Beschreibung"
 
-#: includes/service/service-ct-waitlist.php:112 
-#: includes/service/service-quform.php:132 
-#: includes/service/service-ninja-forms.php:79 
-#: includes/service/service-contact-form-7.php:110 
-#: includes/service/service-eform.php:149 
-#: includes/service/service-formidable-forms.php:153 
-#: includes/service/service-events-manager.php:119 
-#: includes/service/service-caldera-forms.php:149 
-#: includes/service/service-bbpress.php:178 
-#: includes/service/service-wp-foro.php:436 
-#: includes/service/service-buddypress.php:350 
-#: includes/service/service-newsletter.php:165 
-#: includes/service/service-mailerlite.php:92 
-#: includes/service/service-gravity-forms.php:113 
-#: includes/service/service-klaviyo.php:64 
+#: includes/service/service-ct-waitlist.php:112
+#: includes/service/service-quform.php:132
+#: includes/service/service-ninja-forms.php:79
+#: includes/service/service-contact-form-7.php:110
+#: includes/service/service-eform.php:149
+#: includes/service/service-formidable-forms.php:153
+#: includes/service/service-events-manager.php:119
+#: includes/service/service-caldera-forms.php:149
+#: includes/service/service-bbpress.php:178
+#: includes/service/service-wp-foro.php:436
+#: includes/service/service-buddypress.php:350
+#: includes/service/service-newsletter.php:165
+#: includes/service/service-mailerlite.php:92
+#: includes/service/service-gravity-forms.php:113
+#: includes/service/service-klaviyo.php:64
 #: includes/service/service-arforms.php:146
 msgid "[%s] Inject consent checkbox to all forms"
 msgstr "[%s] Kontrollkästchen Einwilligung in alle Formulare einfügen"
@@ -1150,7 +1148,7 @@ msgstr ""
 "[%s] Blockieren Sie Facebook-Pixel-Cookies, wenn der Benutzer keine Werbe-"
 "Cookies akzeptiert"
 
-#: includes/service/service-quform.php:143 
+#: includes/service/service-quform.php:143
 #: includes/service/service-mailster.php:211
 msgid "[%s] Inject consent checkbox as the first field instead of the last"
 msgstr ""
@@ -1170,7 +1168,7 @@ msgstr ""
 msgid "[%s] Inject consent checkbox to all forms (Premium)"
 msgstr "[%s] Kontrollkästchen für Einwilligung in alle Formulare (Premium)"
 
-#: includes/service/service-formcraft.php:170 
+#: includes/service/service-formcraft.php:170
 #: includes/service/service-formidable-forms.php:320
 msgid "Formidable Forms gathers data entered by users in forms"
 msgstr ""
@@ -1206,23 +1204,23 @@ msgstr ""
 
 #: includes/service/service-google-analytics.php:65
 msgid ""
-"Enable Google Analytics anonymized IP tracking (<a href='%s' target='_blank'>"
-"read more</a>)"
+"Enable Google Analytics anonymized IP tracking (<a href='%s' "
+"target='_blank'>read more</a>)"
 msgstr ""
 "Aktivieren Sie anonymisiertes Google Analytics-IP-Tracking (<a href='%s' "
 "target='_blank'> lesen Sie mehr </a>)"
 
 #: includes/service/service-google-analytics.php:73
 msgid ""
-"Please note that even when enabled, Ultimate GDPR will still block Google "
+"Please note that even when enabled, Ultimate GDPR & CCPA will still block Google "
 "Analytics without user consent. If you would like to track anonymously users "
 "without accepting cookies, please <a href='%s' target='_blank'>read more "
 "here</a>."
 msgstr ""
 "Bitte beachten Sie, dass Ultimate DSPR auch dann, wenn es aktiviert ist, "
 "weiterhin Google Analytics ohne Zustimmung des Nutzers blockiert. Wenn Sie "
-"anonym Nutzer ohne Cookies akzeptieren möchten, <a href='%s' target='_blank'>"
-" lesen Sie hier mehr </a>."
+"anonym Nutzer ohne Cookies akzeptieren möchten, <a href='%s' "
+"target='_blank'> lesen Sie hier mehr </a>."
 
 #: includes/service/service-formcraft-form-builder.php:89
 msgid "[%s] Inject consent checkbox to all forms (Basic)"
@@ -1279,7 +1277,7 @@ msgstr ""
 msgid "eForm gathers data entered by users in forms"
 msgstr "eForm sammelt Daten, die von Benutzern in Formularen eingegeben werden"
 
-#: includes/service/service-metorik-helper.php:87 
+#: includes/service/service-metorik-helper.php:87
 #: includes/service/service-mailster.php:200
 msgid "[%s] Inject consent checkbox to subscribe forms"
 msgstr ""
@@ -1355,16 +1353,16 @@ msgstr "[WooCommerce] Adressdaten pseudonymisieren"
 msgid "[WooCommerce] Pseudonymize billing email"
 msgstr "[WooCommerce] Pseudonymisierung der Rechnungs-E-Mail"
 
-#: includes/service/service-woocommerce.php:532 
-#: includes/service/service-formidable-forms.php:255 
+#: includes/service/service-woocommerce.php:532
+#: includes/service/service-formidable-forms.php:255
 #: includes/service/service-events-manager.php:179
 msgid "Consent"
 msgstr "Einwilligung"
 
-#: includes/service/service-woocommerce.php:549 
-#: includes/service/service-ultimate-member.php:126 
-#: includes/service/service-wp-user.php:312 
-#: includes/service/service-wp-user.php:332 
+#: includes/service/service-woocommerce.php:549
+#: includes/service/service-ultimate-member.php:126
+#: includes/service/service-wp-user.php:312
+#: includes/service/service-wp-user.php:332
 #: includes/service/service-wp-user.php:352
 msgid "Consent is required"
 msgstr "Zustimmung ist erforderlich"
@@ -1383,7 +1381,7 @@ msgstr ""
 "[Formidable Forms] Aktivieren Sie das Kontrollkästchen Einwilligung als "
 "erstes Feld anstelle des letzten Feldes"
 
-#: includes/service/service-formidable-forms.php:231 
+#: includes/service/service-formidable-forms.php:231
 #: includes/service/service-formidable-forms.php:274
 msgid "This field is required"
 msgstr "Dieses Feld muss ausgefüllt werden"
@@ -1422,8 +1420,8 @@ msgstr "Kontrollkästchen \"Zustimmung einwerfen\" für alle Formulare"
 msgid "%s gathers data entered by users in forms"
 msgstr "%s erfasst Daten, die von Benutzern in Formularen eingegeben wurden"
 
-#: includes/service/service-bbpress.php:194 
-#: includes/service/service-wp-foro.php:452 
+#: includes/service/service-bbpress.php:194
+#: includes/service/service-wp-foro.php:452
 #: includes/service/service-buddypress.php:360
 msgid ""
 "[%s] Enter the existing user's email whom the posts will be reassigned to "
@@ -1456,7 +1454,7 @@ msgstr ""
 "WP Job Manager sammelt Daten, die von Benutzern in Formularen eingegeben "
 "werden"
 
-#: includes/service/service-wp-user.php:69 
+#: includes/service/service-wp-user.php:69
 #: includes/service/service-buddypress.php:111
 msgid "Could not delete user data for user: %s"
 msgstr "Benutzerdaten des Benutzers konnten nicht gelöscht werden: %s"
@@ -1508,15 +1506,15 @@ msgstr ""
 msgid "wpForo gathers users activity in forums"
 msgstr "wpforo sammelt Benutzeraktivitäten in Foren"
 
-#: includes/service/service-buddypress.php:147 
-#: includes/service/service-buddypress.php:159 
-#: includes/service/service-buddypress.php:171 
-#: includes/service/service-buddypress.php:183 
-#: includes/service/service-buddypress.php:195 
-#: includes/service/service-buddypress.php:218 
-#: includes/service/service-buddypress.php:229 
-#: includes/service/service-buddypress.php:240 
-#: includes/service/service-buddypress.php:251 
+#: includes/service/service-buddypress.php:147
+#: includes/service/service-buddypress.php:159
+#: includes/service/service-buddypress.php:171
+#: includes/service/service-buddypress.php:183
+#: includes/service/service-buddypress.php:195
+#: includes/service/service-buddypress.php:218
+#: includes/service/service-buddypress.php:229
+#: includes/service/service-buddypress.php:240
+#: includes/service/service-buddypress.php:251
 #: includes/service/service-buddypress.php:262
 msgid "Could not reassign user data for user: %s"
 msgstr "Benutzerdaten für Benutzer konnten nicht neu zugeordnet werden: %s"
@@ -1658,44 +1656,44 @@ msgid "ARForms gathers data entered by users in forms"
 msgstr ""
 "ARForms sammelt Daten, die von Benutzern in Formularen eingegeben werden"
 
-#: includes/controller/controller-data-access.php:170 
-#: includes/controller/controller-rectification.php:188 
-#: includes/controller/controller-forgotten.php:221 
+#: includes/controller/controller-data-access.php:170
+#: includes/controller/controller-rectification.php:188
+#: includes/controller/controller-forgotten.php:221
 #: includes/controller/controller-unsubscribe.php:192
 msgid "Wrong email!"
 msgstr "Falsche E-Mail!"
 
-#: includes/controller/controller-data-access.php:176 
-#: includes/controller/controller-rectification.php:193 
-#: includes/controller/controller-forgotten.php:226 
+#: includes/controller/controller-data-access.php:176
+#: includes/controller/controller-rectification.php:193
+#: includes/controller/controller-forgotten.php:226
 #: includes/controller/controller-unsubscribe.php:198
 msgid "Recaptcha error!"
 msgstr "Recaptcha-Fehler!"
 
 #: includes/controller/controller-data-access.php:189
-msgid "[Ultimate GDPR] New Data Access request"
-msgstr "[Ultimate GDPR] Neue Datenzugriffsanfrage"
+msgid "[Ultimate GDPR & CCPA] New Data Access request"
+msgstr "[Ultimate GDPR & CCPA] Neue Datenzugriffsanfrage"
 
 #: includes/controller/controller-data-access.php:191
 msgid "There is a new data access request from email %s. See details at %s"
 msgstr ""
 "Es gibt eine neue Datenzugriffsanfrage von email %s. Siehe Details unter %s"
 
-#: includes/controller/controller-data-access.php:199 
-#: includes/controller/controller-rectification.php:219 
-#: includes/controller/controller-forgotten.php:265 
+#: includes/controller/controller-data-access.php:199
+#: includes/controller/controller-rectification.php:219
+#: includes/controller/controller-forgotten.php:265
 #: includes/controller/controller-unsubscribe.php:238
 msgid "Your request was sent!"
 msgstr "Ihre Anfrage wurde abgeschickt!"
 
-#: includes/controller/controller-data-access.php:311 
-#: includes/controller/controller-rectification.php:323 
+#: includes/controller/controller-data-access.php:311
+#: includes/controller/controller-rectification.php:323
 #: includes/controller/controller-unsubscribe.php:392
 msgid "Data was sent to email: %s"
 msgstr "Die Daten wurden per E-Mail verschickt: %s"
 
-#: includes/controller/controller-data-access.php:347 
-#: includes/controller/controller-rectification.php:362 
+#: includes/controller/controller-data-access.php:347
+#: includes/controller/controller-rectification.php:362
 #: includes/controller/controller-unsubscribe.php:432
 msgid "The following emails were removed from the list: %s"
 msgstr "Die folgenden E-Mails wurden aus der Liste entfernt: %s"
@@ -1717,45 +1715,45 @@ msgstr "Remove empty fields in Liste der Datenzugriffsanfragen"
 msgid "Email to send new request notifications to"
 msgstr "E-Mail, um neue Anforderungsbenachrichtigungen zu senden an"
 
-#: includes/controller/controller-data-access.php:543 
+#: includes/controller/controller-data-access.php:543
 #: includes/controller/controller-breach.php:136
 msgid "Mail title"
 msgstr "Mail-Titel"
 
-#: includes/controller/controller-data-access.php:551 
+#: includes/controller/controller-data-access.php:551
 #: includes/controller/controller-breach.php:144
 msgid "Mail content"
 msgstr "Mail-Inhalt"
 
 #: includes/controller/controller-data-access.php:649
-msgid "[Ultimate GDPR] Data request results from %s"
-msgstr "[Ultimate GDPR] Datenanfrage resultiert aus %s"
+msgid "[Ultimate GDPR & CCPA] Data request results from %s"
+msgstr "[Ultimate GDPR & CCPA] Datenanfrage resultiert aus %s"
 
 #: includes/controller/controller-data-access.php:650
 msgid "Please find data attached"
 msgstr "Die Daten finden Sie im Anhang"
 
-#: includes/controller/controller-cookie.php:194 
+#: includes/controller/controller-cookie.php:194
 #: includes/controller/controller-admin.php:487
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: includes/controller/controller-cookie.php:195 
+#: includes/controller/controller-cookie.php:195
 #: includes/controller/controller-admin.php:488
 msgid "Enable"
 msgstr "Aktivieren"
 
-#: includes/controller/controller-cookie.php:196 
+#: includes/controller/controller-cookie.php:196
 #: includes/controller/controller-admin.php:489
 msgid "Disabled"
-msgstr "Behindert"
+msgstr "Deaktiviert"
 
-#: includes/controller/controller-cookie.php:197 
+#: includes/controller/controller-cookie.php:197
 #: includes/controller/controller-admin.php:490
 msgid "Disable"
 msgstr "Deaktivieren"
 
-#: includes/controller/controller-cookie.php:1094 
+#: includes/controller/controller-cookie.php:1094
 #: includes/controller/controller-cookie.php:5396
 msgid ""
 "<h3>Please navigate to <a href='%s'>Service Manager</a> tab to see all "
@@ -1764,18 +1762,18 @@ msgstr ""
 "<h3> Navigieren Sie zum Tab <a href='%s'> Service Manager </a>, um alle "
 "gefundenen Cookies zu sehen. </h3>"
 
-#: includes/controller/controller-cookie.php:1181 
+#: includes/controller/controller-cookie.php:1181
 #: includes/controller/controller-cookie.php:1182
 msgid "Cookie Consent"
 msgstr "Cookie-Zustimmung"
 
-#: includes/controller/controller-cookie.php:1190 
+#: includes/controller/controller-cookie.php:1190
 #: includes/controller/controller-cookie.php:1191
 msgid "Services Manager"
 msgstr "Dienstmanager"
 
 #. ID
-#: includes/controller/controller-cookie.php:1213 
+#: includes/controller/controller-cookie.php:1213
 #: includes/controller/controller-cookie.php:1359
 msgid "Cookie popup content"
 msgstr "Cookie-Popup-Inhalt"
@@ -1821,7 +1819,7 @@ msgid "Protection shortcode"
 msgstr "Schutzkurzcode"
 
 #. ID
-#: includes/controller/controller-cookie.php:1292 
+#: includes/controller/controller-cookie.php:1292
 #: includes/controller/controller-cookie.php:1630
 msgid "Custom style CSS"
 msgstr "CSS im benutzerdefinierten Stil"
@@ -1914,8 +1912,8 @@ msgstr "Cookies Whitelist (blockiere diese Cookies niemals, Komma getrennt)"
 msgid "Block selected/all cookies until user consents"
 msgstr "Blockiert ausgewählte/alle Cookies, bis der Benutzer zustimmt"
 
-#: includes/controller/controller-cookie.php:1460 
-#: includes/controller/controller-terms.php:490 
+#: includes/controller/controller-cookie.php:1460
+#: includes/controller/controller-terms.php:490
 #: includes/controller/controller-policy.php:129
 msgid "Set consent expire time [s]"
 msgstr "Einwilligung setzen Ablaufzeit [s]"
@@ -1998,7 +1996,7 @@ msgstr ""
 msgid "Use advanced cookie groups popup"
 msgstr "Verwenden Sie das erweiterte Cookie-Gruppen-Popup"
 
-#: includes/controller/controller-cookie.php:1659 
+#: includes/controller/controller-cookie.php:1659
 #: includes/controller/controller-cookie.php:1667
 msgid "Advanced cookie groups popup header content"
 msgstr "Popup-Header-Inhalt für erweiterte Cookie-Gruppen"
@@ -2186,7 +2184,7 @@ msgstr "Wählen"
 
 #: includes/controller/controller-cookie.php:2113
 msgid "Load"
-msgstr "Belastung"
+msgstr "Laden"
 
 #: includes/controller/controller-cookie.php:2365
 msgid "Update"
@@ -2332,24 +2330,24 @@ msgstr "Wibele Black"
 msgid "Wibele White"
 msgstr "Wibele White"
 
-#: includes/controller/controller-cookie.php:2445 
-#: includes/controller/controller-cookie.php:2506 
+#: includes/controller/controller-cookie.php:2445
+#: includes/controller/controller-cookie.php:2506
 #: includes/controller/controller-cookie.php:3475
 msgid "Rounded"
 msgstr "Gerundet"
 
-#: includes/controller/controller-cookie.php:2446 
-#: includes/controller/controller-cookie.php:2507 
+#: includes/controller/controller-cookie.php:2446
+#: includes/controller/controller-cookie.php:2507
 #: includes/controller/controller-cookie.php:3476
 msgid "Squared"
 msgstr "Kariert"
 
-#: includes/controller/controller-cookie.php:2476 
+#: includes/controller/controller-cookie.php:2476
 #: includes/controller/controller-cookie.php:3316
 msgid "Text Only"
 msgstr "Nur Text"
 
-#: includes/controller/controller-cookie.php:2477 
+#: includes/controller/controller-cookie.php:2477
 #: includes/controller/controller-cookie.php:3318
 msgid "Icon and Text"
 msgstr "Symbol und Text"
@@ -2434,7 +2432,7 @@ msgstr "Unten rechts"
 msgid "Round"
 msgstr "Runden"
 
-#: includes/controller/controller-cookie.php:3537 
+#: includes/controller/controller-cookie.php:3537
 #: includes/controller/controller-forgotten.php:809
 msgid "Default"
 msgstr "Der Default"
@@ -2463,7 +2461,7 @@ msgstr "Kompaktes Grün"
 msgid "This website won't:"
 msgstr "Diese Website wird nicht:"
 
-#: includes/controller/controller-cookie.php:3617 
+#: includes/controller/controller-cookie.php:3617
 #: includes/model/model-group.php:73 includes/model/model-group.php:91
 msgid "Block all"
 msgstr "Alle sperren"
@@ -2472,17 +2470,17 @@ msgstr "Alle sperren"
 msgid "Essentials"
 msgstr "Grundlagen"
 
-#: includes/controller/controller-cookie.php:3619 
+#: includes/controller/controller-cookie.php:3619
 #: includes/model/model-group.php:55 includes/model/model-group.php:88
 msgid "Functionality"
 msgstr "Funktionalität"
 
-#: includes/controller/controller-cookie.php:3620 
+#: includes/controller/controller-cookie.php:3620
 #: includes/model/model-group.php:61 includes/model/model-group.php:89
 msgid "Analytics"
 msgstr "Analytik"
 
-#: includes/controller/controller-cookie.php:3621 
+#: includes/controller/controller-cookie.php:3621
 #: includes/model/model-group.php:67 includes/model/model-group.php:90
 msgid "Advertising"
 msgstr "Werbung"
@@ -2669,21 +2667,21 @@ msgstr ""
 "Beim Verbinden mit dem Cookie-Scanner ist ein Problem aufgetreten. Diese URL "
 "wurde übersprungen."
 
-#: includes/controller/controller-rectification.php:106 
-#: includes/controller/controller-forgotten.php:309 
+#: includes/controller/controller-rectification.php:106
+#: includes/controller/controller-forgotten.php:309
 #: includes/controller/controller-unsubscribe.php:102
 msgid "Your request was already confirmed."
 msgstr "Ihre Anfrage wurde bereits bestätigt."
 
-#: includes/controller/controller-rectification.php:131 
-#: includes/controller/controller-forgotten.php:334 
+#: includes/controller/controller-rectification.php:131
+#: includes/controller/controller-forgotten.php:334
 #: includes/controller/controller-unsubscribe.php:127
 msgid "Your request was successfully confirmed."
 msgstr "Ihre Anfrage wurde erfolgreich bestätigt."
 
 #: includes/controller/controller-rectification.php:142
-msgid "[Ultimate GDPR] New Data Rectification request from %s"
-msgstr "[Ultimate GDPR] Neue Daten Berichtigungsanfrage von %s"
+msgid "[Ultimate GDPR & CCPA] New Data Rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Neue Daten Berichtigungsanfrage von %s"
 
 #: includes/controller/controller-rectification.php:150
 msgid ""
@@ -2692,8 +2690,8 @@ msgstr ""
 "Es gibt eine neue Datenberichtigungsanfrage von email %s. Siehe Details "
 "unter %s"
 
-#: includes/controller/controller-rectification.php:171 
-#: includes/controller/controller-forgotten.php:395 
+#: includes/controller/controller-rectification.php:171
+#: includes/controller/controller-forgotten.php:395
 #: includes/controller/controller-unsubscribe.php:175
 msgid "Your request was not confirmed. Please check the link or contact admin."
 msgstr ""
@@ -2701,35 +2699,35 @@ msgstr ""
 "kontaktieren Sie den Admin."
 
 #: includes/controller/controller-rectification.php:213
-msgid "[Ultimate GDPR] Please confirm your data rectification request from %s"
+msgid "[Ultimate GDPR & CCPA] Please confirm your data rectification request from %s"
 msgstr ""
-"[Ultimate GDPR] Bitte bestätigen Sie Ihre Datenberichtigungsanfrage von %s"
+"[Ultimate GDPR & CCPA] Bitte bestätigen Sie Ihre Datenberichtigungsanfrage von %s"
 
 #: includes/controller/controller-rectification.php:527
 msgid "Data Rectification settings"
 msgstr "Einstellungen zur Datenberichtigung"
 
-#: includes/controller/controller-rectification.php:537 
+#: includes/controller/controller-rectification.php:537
 #: includes/controller/controller-unsubscribe.php:629
 msgid "Email to send admin notifications to"
 msgstr "E-Mail zum Versenden von Admin-Benachrichtigungen an"
 
-#: includes/controller/controller-rectification.php:545 
+#: includes/controller/controller-rectification.php:545
 #: includes/controller/controller-unsubscribe.php:637
 msgid "User mail title"
 msgstr "Benutzer-Mail-Titel"
 
-#: includes/controller/controller-rectification.php:553 
+#: includes/controller/controller-rectification.php:553
 #: includes/controller/controller-unsubscribe.php:645
 msgid "User mail content"
 msgstr "Inhalt der Benutzer-Mail"
 
 #. ID
-#: includes/controller/controller-rectification.php:561 
-#: includes/controller/controller-forgotten.php:719 
+#: includes/controller/controller-rectification.php:561
+#: includes/controller/controller-forgotten.php:719
 #: includes/controller/controller-unsubscribe.php:653
 msgid ""
-"Set custom URL to the page containing Ultimate GDPR shortcode as the email "
+"Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email "
 "confirmation target page (or leave empty for autodetect)"
 msgstr ""
 "Legen Sie eine benutzerdefinierte URL für die Seite fest, die den Ultimate "
@@ -2737,25 +2735,25 @@ msgstr ""
 "für die automatische Erkennung leer)."
 
 #: includes/controller/controller-rectification.php:647
-msgid "[Ultimate GDPR] Data rectification notice from %s"
-msgstr "[Ultimate GDPR] Datenberichtigungshinweis von %s"
+msgid "[Ultimate GDPR & CCPA] Data rectification notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Datenberichtigungshinweis von %s"
 
 #: includes/controller/controller-rectification.php:648
 msgid "Your data has been rectified"
 msgstr "Ihre Daten wurden berichtigt"
 
-#: includes/controller/controller-plugins.php:135 
+#: includes/controller/controller-plugins.php:135
 #: includes/controller/controller-plugins.php:136
 msgid "Plugins"
 msgstr "Plugins"
 
-#: includes/controller/controller-terms.php:169 
+#: includes/controller/controller-terms.php:169
 #: includes/controller/controller-terms.php:170
 msgid "Terms And Conditions"
 msgstr "Bedingungen und Konditionen"
 
-#: includes/controller/controller-terms.php:423 
-#: includes/controller/controller-pseudonymization.php:155 
+#: includes/controller/controller-terms.php:423
+#: includes/controller/controller-pseudonymization.php:155
 #: includes/controller/controller-policy.php:54
 msgid "Instructions"
 msgstr "Anweisungen"
@@ -2793,7 +2791,7 @@ msgstr "Die Seite, auf die nach den Nutzungsbedingungen umgeleitet werden soll"
 msgid "Terms and Condition Custom URL"
 msgstr "Bedingungen und Konditionen Benutzerdefinierte URL"
 
-#: includes/controller/controller-terms.php:482 
+#: includes/controller/controller-terms.php:482
 #: includes/controller/controller-policy.php:121
 msgid "Shortcode Button Styling"
 msgstr "Shortcode Button Styling"
@@ -2813,7 +2811,7 @@ msgstr ""
 "Konvertieren Sie den folgenden Text in einen AGB-Link in allen "
 "Servicevorlagen, z.B. Allgemeine Geschäftsbedingungen\""
 
-#: includes/controller/controller-terms.php:514 
+#: includes/controller/controller-terms.php:514
 #: includes/controller/controller-policy.php:161
 msgid ""
 "Do not block user agents (eg. bots) containing the following texts (comma "
@@ -2833,33 +2831,33 @@ msgstr ""
 "Allgemeinen Geschäftsbedingungen, damit die Benutzer dorthin weitergeleitet "
 "werden können, um ihre Zustimmung zu geben."
 
-#: includes/controller/controller-terms.php:652 
+#: includes/controller/controller-terms.php:652
 #: includes/controller/controller-policy.php:744
 msgid "Theme Default"
 msgstr "Thema Standard"
 
-#: includes/controller/controller-terms.php:653 
+#: includes/controller/controller-terms.php:653
 #: includes/controller/controller-policy.php:745
 msgid "Cookie box buttons"
 msgstr "Cookie-Box-Schaltflächen"
 
-#: includes/controller/controller-terms.php:729 
+#: includes/controller/controller-terms.php:729
 #: includes/controller/controller-policy.php:717
 msgid "Last visited page"
 msgstr "Zuletzt besuchte Seite"
 
-#: includes/controller/controller-terms.php:730 
+#: includes/controller/controller-terms.php:730
 #: includes/controller/controller-policy.php:718
 msgid "Don't redirect"
 msgstr "Nicht umleiten"
 
-#: includes/controller/controller-pseudonymization.php:111 
-#: includes/controller/controller-pseudonymization.php:112 
+#: includes/controller/controller-pseudonymization.php:111
+#: includes/controller/controller-pseudonymization.php:112
 #: includes/controller/controller-pseudonymization.php:135
 msgid "Pseudonymization"
 msgstr "Pseudonymisierung"
 
-#: includes/controller/controller-pseudonymization.php:126 
+#: includes/controller/controller-pseudonymization.php:126
 #: includes/controller/controller-pseudonymization.php:265
 msgid "Encryption is not possible. Please check your openssl library."
 msgstr ""
@@ -2956,12 +2954,12 @@ msgstr ""
 msgid "Data decrypted successfully"
 msgstr "Daten erfolgreich entschlüsselt"
 
-#: includes/controller/controller-admin.php:230 
+#: includes/controller/controller-admin.php:230
 #: includes/controller/controller-admin.php:273
 msgid "Please upload a file to import"
 msgstr "Laden Sie eine zu importierende Datei hoch"
 
-#: includes/controller/controller-admin.php:239 
+#: includes/controller/controller-admin.php:239
 #: includes/controller/controller-admin.php:282
 msgid "No options were imported"
 msgstr "Es wurden keine Optionen importiert"
@@ -2992,8 +2990,8 @@ msgid "Collect user emails from services"
 msgstr "Sammeln von Benutzer-E-Mails von Diensten"
 
 #: includes/controller/controller-breach.php:223
-msgid "[Ultimate GDPR] Data breach information from %s"
-msgstr "[Ultimate GDPR] Datenverstöße von %s"
+msgid "[Ultimate GDPR & CCPA] Data breach information from %s"
+msgstr "[Ultimate GDPR & CCPA] Datenverstöße von %s"
 
 #: includes/controller/controller-breach.php:226
 msgid "There was a data breach on our page..."
@@ -3067,20 +3065,20 @@ msgid ""
 "there to give their consent."
 msgstr ""
 "1. Platzieren Sie den Shortcode %s auf Ihrer bestehenden Seite der "
-"Datenschutzrichtlinie, um eine Schaltfläche \"Akzeptieren\" hinzuzufügen.%s2."
-" Wählen Sie unten die Seite mit den Datenschutzrichtlinien aus, damit "
+"Datenschutzrichtlinie, um eine Schaltfläche \"Akzeptieren\" hinzuzufügen."
+"%s2. Wählen Sie unten die Seite mit den Datenschutzrichtlinien aus, damit "
 "Benutzer dorthin weitergeleitet werden können, um ihre Zustimmung zu geben."
 
 #: includes/controller/controller-policy.php:661
 msgid "WordPress Privacy page"
 msgstr "WordPress Datenschutzseite"
 
-#: includes/controller/controller-forgotten.php:110 
+#: includes/controller/controller-forgotten.php:110
 #: includes/controller/controller-forgotten.php:345
-msgid "[Ultimate GDPR] New Right To Be Forgotten request from %s"
-msgstr "[Ultimate GDPR] Neues Recht, vergessen zu werden Antrag von %s"
+msgid "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s"
+msgstr "[Ultimate GDPR & CCPA] Neues Recht, vergessen zu werden Antrag von %s"
 
-#: includes/controller/controller-forgotten.php:129 
+#: includes/controller/controller-forgotten.php:129
 #: includes/controller/controller-forgotten.php:353
 msgid ""
 "There is a new Right To Be Forgotten request from email %s. See details at %s"
@@ -3089,19 +3087,19 @@ msgstr ""
 "Details bei %s"
 
 #: includes/controller/controller-forgotten.php:259
-msgid "[Ultimate GDPR] Please confirm request to be forgotten from %s"
+msgid "[Ultimate GDPR & CCPA] Please confirm request to be forgotten from %s"
 msgstr ""
-"[Ultimate GDPR] Bitte bestätigen Sie den Antrag, von %s vergessen zu werden"
+"[Ultimate GDPR & CCPA] Bitte bestätigen Sie den Antrag, von %s vergessen zu werden"
 
 #: includes/controller/controller-forgotten.php:513
-msgid "[Ultimate GDPR] Emails were sent to the following users: %s"
-msgstr "[Ultimate GDPR] E-Mails wurden an folgende Benutzer gesendet: %s"
+msgid "[Ultimate GDPR & CCPA] Emails were sent to the following users: %s"
+msgstr "[Ultimate GDPR & CCPA] E-Mails wurden an folgende Benutzer gesendet: %s"
 
 #: includes/controller/controller-forgotten.php:551
-msgid "[Ultimate GDPR] The following emails were removed from list: %s"
+msgid "[Ultimate GDPR & CCPA] The following emails were removed from list: %s"
 msgstr "Die folgenden E-Mails wurden aus der Liste entfernt: %s"
 
-#: includes/controller/controller-forgotten.php:584 
+#: includes/controller/controller-forgotten.php:584
 #: includes/controller/controller-unsubscribe.php:487
 msgid "Non existing service id: %s"
 msgstr "Nicht vorhandene Service-ID: %s"
@@ -3111,8 +3109,8 @@ msgid "There was an error forgetting %s service: %s"
 msgstr "Es gab einen Fehler beim Vergessen von %s Service: %s"
 
 #: includes/controller/controller-forgotten.php:629
-msgid "[Ultimate GDPR] Services data were removed"
-msgstr "[Ultimate GDPR] Servicedaten wurden entfernt"
+msgid "[Ultimate GDPR & CCPA] Services data were removed"
+msgstr "[Ultimate GDPR & CCPA] Servicedaten wurden entfernt"
 
 #. ID
 #: includes/controller/controller-forgotten.php:645
@@ -3170,10 +3168,10 @@ msgstr "Abgerundete Form"
 msgid "Tabbed form"
 msgstr "Registerkartenform"
 
-#: includes/controller/controller-forgotten.php:911 
+#: includes/controller/controller-forgotten.php:911
 #: includes/controller/controller-forgotten.php:912
-msgid "[Ultimate GDPR] Your data has been forgotten"
-msgstr "[Ultimate GDPR] Ihre Daten wurden vergessen"
+msgid "[Ultimate GDPR & CCPA] Your data has been forgotten"
+msgstr "[Ultimate GDPR & CCPA] Ihre Daten wurden vergessen"
 
 #: includes/controller/controller-unsubscribe.php:143
 msgid "There is a new Unsubscribe request from email %s. See details at %s"
@@ -3183,16 +3181,16 @@ msgstr ""
 
 #: includes/controller/controller-unsubscribe.php:232
 msgid ""
-"[Ultimate GDPR] Please confirm request to be unsubscribed from %s newsletters"
-msgstr "[Ultimate GDPR] Bitte bestätigen Sie die Abmeldung von %s Newslettern"
+"[Ultimate GDPR & CCPA] Please confirm request to be unsubscribed from %s newsletters"
+msgstr "[Ultimate GDPR & CCPA] Bitte bestätigen Sie die Abmeldung von %s Newslettern"
 
 #: includes/controller/controller-unsubscribe.php:507
 msgid "There was an error unsubscribing %s from %s service: %s"
 msgstr "Beim Abbestellen von %s von %s service: %s ist ein Fehler aufgetreten"
 
 #: includes/controller/controller-unsubscribe.php:533
-msgid "[Ultimate GDPR] Unsubscription finished!"
-msgstr "[Ultimate GDPR] Abmeldung beendet!"
+msgid "[Ultimate GDPR & CCPA] Unsubscription finished!"
+msgstr "[Ultimate GDPR & CCPA] Abmeldung beendet!"
 
 #. ID
 #: includes/controller/controller-unsubscribe.php:595
@@ -3218,22 +3216,22 @@ msgstr ""
 "Mail-Adresse bestätigt haben"
 
 #: includes/controller/controller-unsubscribe.php:787
-msgid "[Ultimate GDPR] Unsubscribe notice from %s"
-msgstr "[Ultimate GDPR] Abmeldung von %s"
+msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Abmeldung von %s"
 
 #: includes/controller/controller-unsubscribe.php:788
 msgid "Your have been unsubscribed"
 msgstr "Sie wurden abgemeldet"
 
-#: includes/controller/controller-services.php:99 
-#: includes/controller/controller-services.php:100 
-#: includes/controller/controller-services.php:328 
+#: includes/controller/controller-services.php:99
+#: includes/controller/controller-services.php:100
+#: includes/controller/controller-services.php:328
 #: includes/controller/controller-services.php:344
 msgid "Services"
 msgstr "Dienstleistungen"
 
-#: includes/controller/controller-services.php:116 
-#: includes/controller/controller-services.php:123 
+#: includes/controller/controller-services.php:116
+#: includes/controller/controller-services.php:123
 #: includes/controller/controller-services.php:130
 msgid "Services options"
 msgstr "Dienstoptionen"

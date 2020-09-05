@@ -119,6 +119,10 @@ class Parser {
 			return $content;
 		}
 
+		if ( is_customize_preview() ) {
+			return $content;
+		}
+
 		if ( empty( $content ) ) {
 			return $content;
 		}
@@ -148,25 +152,13 @@ class Parser {
 			return $content;
 		}
 
-		// Try to sort out the duplicate entries.
-		$elements = array_unique( $images[0] );
-		$urls     = array_unique( $images['src'] );
-		if ( count( $elements ) === count( $urls ) ) {
-			$matching         = array_intersect( $elements, $images[0] );
-			$matching_keys    = array_keys( $matching );
-			$images[0]        = array_values( $matching );
-			$images['src']    = array_intersect_key( $urls, $matching_keys );
-			$images['srcset'] = array_intersect_key( $images['srcset'], $matching_keys );
-			$images['type']   = array_intersect_key( $images['type'], $matching_keys );
-		}
-
 		foreach ( $images[0] as $key => $image ) {
 			$img_src   = $images['src'][ $key ];
 			$new_image = $image;
 
 			// Update the image with correct CDN links.
 			if ( $this->cdn ) {
-				$new_image = WP_Smush::get_instance()->core()->mod->cdn->parse_image( $img_src, $new_image, $images['srcset'][ $key ], $images['type'][ $key ] );		 	 	 			   		 	 			
+				$new_image = WP_Smush::get_instance()->core()->mod->cdn->parse_image( $img_src, $new_image, $images['srcset'][ $key ], $images['type'][ $key ] );
 			}
 
 			/**
@@ -317,13 +309,16 @@ class Parser {
 		 */
 		$images['img_url'] = array_map(
 			function ( $image ) {
-				// Remove the starting &quot;.
-				if ( '&quot;' === substr( $image, 0, 6 ) ) {
+				// Quote entities.
+				$quotes = apply_filters( 'wp_smush_background_image_quotes', array( '&quot;', '&#034;', '&#039;', '&apos;' ) );
+
+				// Remove the starting quotes.
+				if ( in_array( substr( $image, 0, 6 ), $quotes, true ) ) {
 					$image = substr( $image, 6 );
 				}
 
-				// Remove the ending &quot;.
-				if ( '&quot;' === substr( $image, -6 ) ) {
+				// Remove the ending quotes.
+				if ( in_array( substr( $image, -6 ), $quotes, true ) ) {
 					$image = substr( $image, 0, -6 );
 				}
 

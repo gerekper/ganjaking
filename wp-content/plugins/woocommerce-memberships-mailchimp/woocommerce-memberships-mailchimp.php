@@ -2,10 +2,11 @@
 /**
  * Plugin Name: MailChimp for WooCommerce Memberships
  * Plugin URI: https://www.woocommerce.com/products/mailchimp-woocommerce-memberships/
+ * Documentation URI: https://docs.woocommerce.com/document/mailchimp-for-woocommerce-memberships/
  * Description: Sync your member lists to MailChimp for improved email segmentation
  * Author: SkyVerge
  * Author URI: https://www.woocommerce.com/
- * Version: 1.2.4
+ * Version: 1.3.0
  * Text Domain: woocommerce-memberships-mailchimp
  * Domain Path: /i18n/languages/
  *
@@ -21,7 +22,7 @@
  *
  * Woo: 3007049:6046684d2432e8520e56028a64de70be
  * WC requires at least: 3.0.9
- * WC tested up to: 4.2.0
+ * WC tested up to: 4.4.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -89,10 +90,13 @@ class WC_Memberships_MailChimp_Sync_Loader {
 
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
 
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
+
 		// if the environment checks pass, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
+			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}
@@ -482,6 +486,24 @@ class WC_Memberships_MailChimp_Sync_Loader {
 			<?php
 
 		endforeach;
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 1.3.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 
