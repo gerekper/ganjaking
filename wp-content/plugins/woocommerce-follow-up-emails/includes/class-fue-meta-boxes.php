@@ -85,9 +85,9 @@ class FUE_Meta_Boxes {
 		?>
 		<div id="subjectdiv">
 			<div id="subjectwrap">
-				<label for="post_excerpt" class="fue-label"><?php esc_html_e('Email subject', 'follow_up_emails'); ?></label>
-				<label class="screen-reader-text" id="subject-prompt-text" for="subject"><?php echo esc_html( apply_filters( 'enter_subject_here', __( 'Your subject line' ), $post ) ); ?></label>
-				<input type="text" placeholder="<?php echo esc_attr( apply_filters( 'enter_subject_here', __( 'Your subject line' ), $post ) ); ?>" name="post_excerpt" size="30" value="<?php echo esc_attr( htmlspecialchars( $post->post_excerpt ) ); ?>" id="post_excerpt" autocomplete="off" tabindex="0" />
+				<label for="post_excerpt" class="fue-label"><?php esc_html_e( 'Email subject', 'follow_up_emails' ); ?></label>
+				<label class="screen-reader-text" id="subject-prompt-text" for="subject"><?php echo esc_html( apply_filters( 'enter_subject_here', __( 'Your subject line', 'follow_up_emails' ), $post ) ); ?></label>
+				<input type="text" placeholder="<?php echo esc_attr( apply_filters( 'enter_subject_here', __( 'Your subject line', 'follow_up_emails' ), $post ) ); ?>" name="post_excerpt" size="30" value="<?php echo esc_attr( htmlspecialchars( $post->post_excerpt ) ); ?>" id="post_excerpt" autocomplete="off" tabindex="0" />
 			</div>
 		</div>
 
@@ -162,26 +162,26 @@ class FUE_Meta_Boxes {
 
 		$email = self::get_email( $post );
 		?>
-		<div class="misc-pub-section misc-pub-email-status"><label for="post_status"><?php esc_html_e('Status:') ?></label>
+		<div class="misc-pub-section misc-pub-email-status"><label for="post_status"><?php esc_html_e( 'Status:', 'follow_up_emails' ); ?></label>
 			<span id="post-status-display">
 			<?php
 			switch ( $email->status ) {
 				case FUE_Email::STATUS_ACTIVE:
-					esc_html_e('Active', 'follow_up_emails');
+					esc_html_e( 'Active', 'follow_up_emails' );
 					break;
 				case FUE_Email::STATUS_INACTIVE:
 				case 'draft':
 				case 'auto-draft':
-					esc_html_e('Inactive', 'follow_up_emails');
+					esc_html_e( 'Inactive', 'follow_up_emails' );
 					break;
 				case FUE_Email::STATUS_ARCHIVED:
-					esc_html_e('Archived');
+					esc_html_e( 'Archived', 'follow_up_emails' );
 					break;
 			}
 			?>
 			</span>
 
-			<a href="#post_status" class="edit-post-status hide-if-no-js"><span aria-hidden="true"><?php esc_html_e( 'Edit' ); ?></span> <span class="screen-reader-text"><?php esc_html_e( 'Edit status' ); ?></span></a>
+			<a href="#post_status" class="edit-post-status hide-if-no-js"><span aria-hidden="true"><?php esc_html_e( 'Edit', 'follow_up_emails' ); ?></span> <span class="screen-reader-text"><?php esc_html_e( 'Edit status', 'follow_up_emails' ); ?></span></a>
 
 			<div id="post-status-select" class="hide-if-js">
 				<input type="hidden" name="hidden_post_status" id="hidden_post_status" value="<?php echo esc_attr( ('auto-draft' == $email->status ) ? 'draft' : $email->status); ?>" />
@@ -190,11 +190,11 @@ class FUE_Meta_Boxes {
 					<option<?php selected( $email->status, FUE_Email::STATUS_INACTIVE ); ?> value='<?php esc_attr_e(FUE_Email::STATUS_INACTIVE); ?>'><?php esc_html_e('Inactive', 'follow_up_emails') ?></option>
 					<option<?php selected( $email->status, FUE_Email::STATUS_ARCHIVED ); ?> value='<?php esc_attr_e(FUE_Email::STATUS_ARCHIVED); ?>'><?php esc_html_e('Archived', 'follow_up_emails') ?></option>
 					<?php if ( 'auto-draft' == $post->post_status ) : ?>
-						<option<?php selected( $post->post_status, 'auto-draft' ); ?> value='draft'><?php esc_html_e('Draft') ?></option>
+						<option<?php selected( $post->post_status, 'auto-draft' ); ?> value='draft'><?php esc_html_e( 'Draft', 'follow_up_emails' ) ?></option>
 					<?php endif; ?>
 				</select>
-				<a href="#post_status" class="save-post-status hide-if-no-js button"><?php esc_html_e('OK'); ?></a>
-				<a href="#post_status" class="cancel-post-status hide-if-no-js button-cancel"><?php esc_html_e('Cancel'); ?></a>
+				<a href="#post_status" class="save-post-status hide-if-no-js button"><?php esc_html_e( 'OK', 'follow_up_emails' ); ?></a>
+				<a href="#post_status" class="cancel-post-status hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'follow_up_emails' ); ?></a>
 			</div>
 
 		</div><!-- .misc-pub-section -->
@@ -205,14 +205,14 @@ class FUE_Meta_Boxes {
 	 * Add custom metaboxes
 	 */
 	public function add_meta_boxes() {
-		add_meta_box( 'fue-email-actions', __( 'Follow-up Actions', 'follow-up-emails' ), 'FUE_Meta_Boxes::email_actions', 'follow_up_email', 'side', 'high' );
+		add_meta_box( 'fue-email-actions', __( 'Follow-up Actions', 'follow_up_emails' ), 'FUE_Meta_Boxes::email_actions', 'follow_up_email', 'side', 'high' );
 
-		add_meta_box( 'fue-email-details', __( 'Follow-up Details', 'follow-up-emails' ), 'FUE_Meta_Boxes::email_details_view', 'follow_up_email', 'normal', 'high' );
+		add_meta_box( 'fue-email-details', __( 'Follow-up Details', 'follow_up_emails' ), 'FUE_Meta_Boxes::email_details_view', 'follow_up_email', 'normal', 'high' );
 
-		add_meta_box( 'fue-email-type', __( 'Follow-up Type', 'follow-up-emails' ), 'FUE_Meta_Boxes::email_type_view', 'follow_up_email', 'side', 'high' );
-		add_meta_box( 'fue-email-template', __( 'Template', 'follow-up-emails' ), 'FUE_Meta_Boxes::email_template_view', 'follow_up_email', 'side', 'high' );
-		add_meta_box( 'fue-email-variables', __( 'Variables', 'follow-up-emails' ), 'FUE_Meta_Boxes::email_variables_view', 'follow_up_email', 'side', 'high' );
-		add_meta_box( 'fue-email-test', __( 'Send Test', 'follow-up-emails' ), 'FUE_Meta_Boxes::email_test_view', 'follow_up_email', 'side', 'low' );
+		add_meta_box( 'fue-email-type', __( 'Follow-up Type', 'follow_up_emails' ), 'FUE_Meta_Boxes::email_type_view', 'follow_up_email', 'side', 'high' );
+		add_meta_box( 'fue-email-template', __( 'Template', 'follow_up_emails' ), 'FUE_Meta_Boxes::email_template_view', 'follow_up_email', 'side', 'high' );
+		add_meta_box( 'fue-email-variables', __( 'Variables', 'follow_up_emails' ), 'FUE_Meta_Boxes::email_variables_view', 'follow_up_email', 'side', 'high' );
+		add_meta_box( 'fue-email-test', __( 'Send Test', 'follow_up_emails' ), 'FUE_Meta_Boxes::email_test_view', 'follow_up_email', 'side', 'low' );
 
 		remove_meta_box( 'slugdiv', 'follow_up_email', 'normal' );
 	}

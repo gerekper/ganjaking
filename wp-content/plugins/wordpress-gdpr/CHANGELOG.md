@@ -1,5 +1,15 @@
 # Changelog
 ======
+1.9.7
+======
+- FIX:	Body script not loaded when service was set to enable by default
+
+======
+1.9.6
+======
+- NEW:	Usability improvements (switched buttons and colors)
+
+======
 1.9.5
 ======
 - FIX:	Pages not selectable in admin panel

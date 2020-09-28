@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gravity Forms 2.4.20.3\n"
+"Project-Id-Version: Gravity Forms 2.4.20.5\n"
 "Report-Msgid-Bugs-To: https://gravityforms.com/support\n"
 "Last-Translator: Gravity Forms <support@gravityforms.com>\n"
 "Language-Team: Gravity Forms <support@gravityforms.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-09-02T16:17:31+00:00\n"
+"POT-Creation-Date: 2020-09-23T07:18:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: gravityforms\n"
@@ -330,7 +330,7 @@ msgstr ""
 #: form_list.php:639
 #: form_settings.php:1123
 #: form_settings.php:2480
-#: includes/addon/class-gf-feed-addon.php:2220
+#: includes/addon/class-gf-feed-addon.php:2231
 #: js.php:268
 #: js.php:328
 #: notification.php:623
@@ -343,7 +343,7 @@ msgstr ""
 #: form_list.php:639
 #: form_settings.php:1119
 #: form_settings.php:2480
-#: includes/addon/class-gf-feed-addon.php:2220
+#: includes/addon/class-gf-feed-addon.php:2231
 #: js.php:268
 #: js.php:332
 #: notification.php:619
@@ -1031,8 +1031,8 @@ msgstr ""
 #: entry_detail.php:833
 #: form_detail.php:1515
 #: form_settings.php:2501
-#: includes/addon/class-gf-feed-addon.php:1395
-#: includes/addon/class-gf-feed-addon.php:1442
+#: includes/addon/class-gf-feed-addon.php:1406
+#: includes/addon/class-gf-feed-addon.php:1453
 #: notification.php:2021
 msgid "Delete"
 msgstr ""
@@ -1162,7 +1162,7 @@ msgstr ""
 #: form_settings.php:2499
 #: gravityforms.php:4338
 #: gravityforms.php:4653
-#: includes/addon/class-gf-feed-addon.php:1440
+#: includes/addon/class-gf-feed-addon.php:1451
 #: includes/webapi/includes/class-gf-api-keys-table.php:61
 #: notification.php:2019
 msgid "Edit"
@@ -4112,7 +4112,7 @@ msgstr ""
 
 #: form_list.php:216
 #: form_list.php:220
-#: includes/addon/class-gf-feed-addon.php:1442
+#: includes/addon/class-gf-feed-addon.php:1453
 #: notification.php:2021
 msgid "'Cancel' to stop, 'OK' to delete."
 msgstr ""
@@ -4142,8 +4142,8 @@ msgstr ""
 
 #: form_list.php:232
 #: form_settings.php:1107
-#: includes/addon/class-gf-feed-addon.php:1103
-#: includes/addon/class-gf-feed-addon.php:1237
+#: includes/addon/class-gf-feed-addon.php:1114
+#: includes/addon/class-gf-feed-addon.php:1248
 #: notification.php:611
 msgid "Add New"
 msgstr ""
@@ -4245,7 +4245,7 @@ msgstr ""
 
 #: form_list.php:716
 #: form_settings.php:2500
-#: includes/addon/class-gf-feed-addon.php:1441
+#: includes/addon/class-gf-feed-addon.php:1452
 #: notification.php:2020
 msgid "Duplicate"
 msgstr ""
@@ -5399,7 +5399,7 @@ msgstr ""
 #: includes/addon/class-gf-addon.php:3781
 #: includes/addon/class-gf-addon.php:3797
 #: includes/addon/class-gf-addon.php:3847
-#: includes/addon/class-gf-feed-addon.php:1614
+#: includes/addon/class-gf-feed-addon.php:1625
 msgid "Invalid value"
 msgstr ""
 
@@ -5409,7 +5409,7 @@ msgid "Validation Error"
 msgstr ""
 
 #: includes/addon/class-gf-addon.php:4399
-#: includes/addon/class-gf-feed-addon.php:1249
+#: includes/addon/class-gf-feed-addon.php:1260
 msgid "You don't have sufficient permissions to update the form settings."
 msgstr ""
 
@@ -5430,7 +5430,7 @@ msgstr ""
 
 #: includes/addon/class-gf-addon.php:4888
 #: includes/addon/class-gf-addon.php:5174
-#: includes/addon/class-gf-feed-addon.php:1475
+#: includes/addon/class-gf-feed-addon.php:1486
 msgid "%s Settings"
 msgstr ""
 
@@ -5504,78 +5504,78 @@ msgstr ""
 msgid "You can update to the latest version automatically or download the update and install it manually. %sUpdate Automatically%s %sDownload Update%s"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:962
+#: includes/addon/class-gf-feed-addon.php:973
 msgid "Copy 1"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:964
+#: includes/addon/class-gf-feed-addon.php:975
 msgid "Copy %d"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1044
+#: includes/addon/class-gf-feed-addon.php:1055
 #: includes/addon/class-gf-payment-addon.php:3736
 msgid "Access denied."
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1108
+#: includes/addon/class-gf-feed-addon.php:1119
 msgid "%s Feeds"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1154
+#: includes/addon/class-gf-feed-addon.php:1165
 msgid "Feed Settings"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1297
+#: includes/addon/class-gf-feed-addon.php:1308
 msgid "Feed updated successfully."
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1306
+#: includes/addon/class-gf-feed-addon.php:1317
 msgid "There was an error updating this feed. Please review all errors below and try again."
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1442
+#: includes/addon/class-gf-feed-addon.php:1453
 msgid "WARNING: You are about to delete this item."
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1458
+#: includes/addon/class-gf-feed-addon.php:1469
 msgid "You don't have any feeds configured. Let's go %screate one%s!"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1478
+#: includes/addon/class-gf-feed-addon.php:1489
 msgid "To get started, please configure your %s."
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1540
+#: includes/addon/class-gf-feed-addon.php:1551
 msgid "Process this feed if"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1561
+#: includes/addon/class-gf-feed-addon.php:1572
 msgid "Enable Condition"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1700
+#: includes/addon/class-gf-feed-addon.php:1711
 msgid "Process %s feed only when payment is received."
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1712
-#: includes/addon/class-gf-feed-addon.php:1715
+#: includes/addon/class-gf-feed-addon.php:1723
+#: includes/addon/class-gf-feed-addon.php:1726
 msgid "Post Payment Actions"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:1715
+#: includes/addon/class-gf-feed-addon.php:1726
 msgid "Select which actions should only occur after payment has been received."
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:2107
+#: includes/addon/class-gf-feed-addon.php:2118
 #: settings.php:572
 msgid "Checkbox"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:2122
+#: includes/addon/class-gf-feed-addon.php:2133
 msgid "feed"
 msgstr ""
 
-#: includes/addon/class-gf-feed-addon.php:2123
+#: includes/addon/class-gf-feed-addon.php:2134
 msgid "feeds"
 msgstr ""
 

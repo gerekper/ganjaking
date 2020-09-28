@@ -192,6 +192,46 @@ class WC_Memberships_Membership_Plans {
 
 
 	/**
+	 * Gets membership plans that a given product can grant access to.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @param \WC_Product $product the product
+	 * @param array $args optional array of arguments
+	 * @return \WC_Memberships_Membership_Plan[]|\WC_Memberships_Integration_Subscriptions_Membership_Plan[] array of membership plan objects indexed by their IDs
+	 */
+	public function get_membership_plans_for_product( \WC_Product $product, array $args = [] ) {
+
+		$product_id       = $product->get_id();
+		$membership_plans = [];
+
+		if ( $product_id > 0 ) {
+
+			// It would be easier if we could pass query args like `'fields' => 'ids'` and run a `meta_query` here to look into the plan's `_product_ids`.
+			// Unfortunately `meta_query` doesn't work when the meta value is stored as a serialized array and we want to search that array providing a possible value of it.
+			// Using `'compare' => 'LIKE'` would be error prone, so let's just query all plans and discard those who don't apply; the query will be cached anyway.
+			foreach ( wc_memberships_get_membership_plans( $args ) as $membership_plan ) {
+
+				if ( $membership_plan->has_product( $product_id ) ) {
+
+					$membership_plans[ $membership_plan->get_id() ] = $membership_plan;
+				}
+			}
+		}
+
+		/**
+		 * Filters membership plans matched to a product that grants access access.
+		 *
+		 * @since 1.19.0
+		 *
+		 * @param \WC_Memberships_Membership_Plan|\WC_Memberships_Integration_Subscriptions_Membership_Plan $membership_plans associative array of membership plan IDs and objects
+		 * @param \WC_Product $product product object
+		 */
+		return (array) apply_filters( 'wc_memberships_get_membership_plans_for_product', $membership_plans, $product );
+	}
+
+
+	/**
 	 * Returns the count of the existing membership plans.
 	 *
 	 * By default will only return the count of published plans.
@@ -451,9 +491,29 @@ class WC_Memberships_Membership_Plans {
 
 						// assign a membership to this user
 						if ( $grant_access ) {
+
 							try {
+
 								$user_membership = wc_memberships_create_user_membership( $access_args, $action );
+
+								/**
+								 * Fires after a user has been granted membership access after signing up for a new account
+								 *
+								 * @since 1.19.0
+								 *
+								 * @param \WC_Memberships_Membership_Plan $membership_plan the plan that user was granted access to
+								 * @param array $args {
+								 *     @type int $user_id newly registered user ID
+								 *     @type int $user_membership_id the ID of the new user membership
+								 * }
+								 */
+								do_action( 'wc_memberships_grant_free_membership_access_from_sign_up', $membership_plan, [
+									'user_id'            => $user_id,
+									'user_membership_id' => $user_membership->get_id(),
+								] );
+
 							} catch ( Framework\SV_WC_Plugin_Exception $e ) {
+
 								$user_membership = null;
 							}
 						}

@@ -1,0 +1,636 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ninja Tables 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ninja-tables\n"
+"POT-Creation-Date: 2019-07-10 10:35+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-07-10 10:44+0000\n"
+"Last-Translator: Shahjahan Jewel <cep.jewel@gmail.com>\n"
+"Language-Team: Basque\n"
+"Language: eu\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.2; wp-5.2.2"
+
+#. #-#-#-#-#  ninja-tables.pot (Ninja Tables 1.0.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: admin/NinjaTablesAdmin.php:69 admin/NinjaTablesAdmin.php:80
+#: admin/NinjaTablesAdmin.php:82 includes/I18nStrings.php:6
+msgid "Ninja Tables"
+msgstr "Ninja Taulak"
+
+#: admin/NinjaTablesAdmin.php:81
+msgid "Table"
+msgstr "Taula"
+
+#: admin/NinjaTablesAdmin.php:83 includes/I18nStrings.php:11
+msgid "Add Table"
+msgstr "Gehitu Taula"
+
+#: admin/NinjaTablesAdmin.php:84 includes/I18nStrings.php:13
+msgid "Add New Table"
+msgstr "Gehitu Taula Berria"
+
+#: admin/NinjaTablesAdmin.php:85 includes/I18nStrings.php:16
+msgid "Edit"
+msgstr "Editatu"
+
+#: admin/NinjaTablesAdmin.php:86
+msgid "Edit Table"
+msgstr "Editatu Taula"
+
+#: admin/NinjaTablesAdmin.php:87
+msgid "New Table"
+msgstr "Taula Berria"
+
+#: admin/NinjaTablesAdmin.php:88 admin/NinjaTablesAdmin.php:89
+msgid "View Table"
+msgstr "Ikusi Taula"
+
+#: admin/NinjaTablesAdmin.php:90
+msgid "Search Table"
+msgstr "Bilatu Taula"
+
+#: admin/NinjaTablesAdmin.php:91
+msgid "No Table Found"
+msgstr "Ez da Taularik Topatu"
+
+#: admin/NinjaTablesAdmin.php:92
+msgid "No Table Found in Trash"
+msgstr "Ez da Taularik Topatu Zaborrontzian"
+
+#: admin/NinjaTablesAdmin.php:93
+msgid "Parent Table"
+msgstr "Taula Gurasoa"
+
+#: admin/NinjaTablesAdmin.php:120
+msgid "NinjaTables"
+msgstr "NinjaTables"
+
+#: admin/NinjaTablesAdmin.php:136 admin/NinjaTablesAdmin.php:1539
+#: includes/I18nStrings.php:10
+msgid "All Tables"
+msgstr "Taula Guztiak"
+
+#: admin/NinjaTablesAdmin.php:142 includes/I18nStrings.php:8
+msgid "Tools"
+msgstr "Erremintak"
+
+#: admin/NinjaTablesAdmin.php:150
+msgid "Import a Table"
+msgstr "Inportatu Taula bat"
+
+#: admin/NinjaTablesAdmin.php:159
+msgid "<span style=\"color:#f39c12;\">Get Pro</span>"
+msgstr "<span style=\"color:#f39c12;\">Get Pro</span>"
+
+#: admin/NinjaTablesAdmin.php:190 includes/I18nStrings.php:9
+msgid "Help"
+msgstr "Laguntza"
+
+#: admin/NinjaTablesAdmin.php:482
+msgid "The name field is required."
+msgstr "Izenaren eremua derigorrezkoa da"
+
+#: admin/NinjaTablesAdmin.php:494
+msgid " successfully."
+msgstr "Arrakastaz."
+
+#: admin/NinjaTablesAdmin.php:633
+msgid "Successfully updated configuration."
+msgstr "Konfigurazioa ondo eguneratu da."
+
+#: admin/NinjaTablesAdmin.php:659
+msgid "Invalid Table to Delete"
+msgstr "Taula hori ezin da ezabatu."
+
+#: admin/NinjaTablesAdmin.php:677
+msgid "Successfully deleted the table."
+msgstr "Taula ondo ezabatu da."
+
+#: admin/NinjaTablesAdmin.php:874
+msgid "Successfully saved the data."
+msgstr "Datuak ondo gorde dira."
+
+#: admin/NinjaTablesAdmin.php:928
+msgid "Successfully deleted data."
+msgstr "Datuak ondo ezabatu dira."
+
+#: admin/NinjaTablesAdmin.php:1069
+msgid "Select a Table to insert"
+msgstr "Hautatu txertatzeko taula bat"
+
+#: admin/NinjaTablesAdmin.php:1070
+msgid "Insert Ninja Tables Shortcode"
+msgstr "Txertatu Ninja Taulen Shortcodea"
+
+#: admin/NinjaTablesAdmin.php:1072
+msgid "Insert Shortcode"
+msgstr "Txertatu Shortcodea"
+
+#: admin/NinjaTablesAdmin.php:1093
+msgid "Select a Table"
+msgstr "Aukeratu Taula bat"
+
+#: admin/NinjaTablesAdmin.php:1204
+msgid "Successfully duplicated table."
+msgstr "Mahai bikoiztua behar bezala kopiatu da."
+
+#: admin/NinjaTablesAdmin.php:1484 admin/NinjaTablesAdmin.php:1528
+#: admin/NinjaTablesAdmin.php:1561
+msgid "Settings successfully updated"
+msgstr "Ezarpenak behar bezala eguneratu dira"
+
+#: includes/I18nStrings.php:7
+msgid "Home"
+msgstr "Home"
+
+#: includes/I18nStrings.php:12
+msgid "Import Table"
+msgstr "Inportatu taula"
+
+#: includes/I18nStrings.php:14
+msgid "Title"
+msgstr "Izenburua"
+
+#: includes/I18nStrings.php:15
+msgid "ShortCode"
+msgstr "ShortCode"
+
+#: includes/I18nStrings.php:17
+msgid "Preview"
+msgstr "Aurreikusi"
+
+#: includes/I18nStrings.php:18
+msgid "Duplicate"
+msgstr "bikoiztua"
+
+#: includes/I18nStrings.php:19
+msgid "Delete"
+msgstr "ezabatu"
+
+#: includes/I18nStrings.php:20
+msgid "CSV - Comma-separated values"
+msgstr "CSV - Comma-separated values"
+
+#: includes/I18nStrings.php:21
+msgid "JSON - JavaScript Object Notation"
+msgstr "JSON - JavaScript Object Notation"
+
+#: includes/I18nStrings.php:22
+msgid "JSON - Exported From Ninja Tables"
+msgstr "JSON - Exported From Ninja Tables"
+
+#: includes/I18nStrings.php:23
+msgid "Import"
+msgstr "Inportazio"
+
+#: includes/I18nStrings.php:24
+msgid "Permission"
+msgstr "Permission"
+
+#: includes/I18nStrings.php:25
+msgid "License"
+msgstr "License"
+
+#: includes/I18nStrings.php:26
+msgid ""
+"NinjaTables can import tables from existing data, like from a CSV or JSON "
+"file. You can also import existing tables from the other WordPress table "
+"plugins."
+msgstr ""
+"NinjaTables can import tables from existing data, like from a CSV or JSON "
+"file. You can also import existing tables from the other WordPress table "
+"plugins."
+
+#: includes/I18nStrings.php:27
+msgid "Select file:"
+msgstr "Select file:"
+
+#: includes/I18nStrings.php:28
+msgid "Import Format:"
+msgstr "Import Format:"
+
+#: includes/I18nStrings.php:29
+msgid "Activate Ninja Tables Pro Add-on plugin to unlock this feature"
+msgstr "Aktibatu Ninja Tables Pro Add-on plugina funtzio hau desblokeatzeko"
+
+#: includes/I18nStrings.php:30
+msgid "Check all"
+msgstr "Begiratu guztiak"
+
+#: includes/I18nStrings.php:31
+msgid "Your License is Active"
+msgstr "Lizentzia aktiboa da"
+
+#: includes/I18nStrings.php:32
+msgid "Your license is active! Enjoy Ninja Tables Pro Add On"
+msgstr "Zure lizentzia aktiboa da! Gozatu Ninja Tables Pro Add On"
+
+#: includes/I18nStrings.php:33
+msgid "Deactivate License"
+msgstr "Lizentzia desaktibatu"
+
+#: includes/I18nStrings.php:34
+msgid "Licensing"
+msgstr "Lizentzia"
+
+#: includes/I18nStrings.php:35
+msgid "Enter your license key"
+msgstr "Enter your license key"
+
+#: includes/I18nStrings.php:36
+msgid "Activate Ninja Tables Pro"
+msgstr "Aktibatu Ninja Tables Pro"
+
+#: includes/I18nStrings.php:37
+msgid "Plugin Documentation and Help"
+msgstr "Pluginaren dokumentazioa eta laguntza"
+
+#: includes/I18nStrings.php:38
+msgid ""
+"For any type of query which was not covered in our documentation, Please "
+"submit a support ticket ticket"
+msgstr ""
+"Gure dokumentazioan estalita ez dagoen edozein kontsulta egiteko, bidali "
+"laguntza txartelaren txartela"
+
+#: includes/I18nStrings.php:39
+msgid "Documentation"
+msgstr "Dokumentazio"
+
+#: includes/I18nStrings.php:40
+msgid "Table Rows"
+msgstr "Table Rows"
+
+#: includes/I18nStrings.php:41
+msgid "Table Configuration"
+msgstr "Table Configuration"
+
+#: includes/I18nStrings.php:42
+msgid "Table Design"
+msgstr "Table Design"
+
+#: includes/I18nStrings.php:43
+msgid "Custom CSS"
+msgstr "CSS pertsonalizatua"
+
+#: includes/I18nStrings.php:44
+msgid "Import - Export"
+msgstr "Import - Export"
+
+#: includes/I18nStrings.php:45
+msgid "Select bulk action"
+msgstr "Select bulk action"
+
+#: includes/I18nStrings.php:46
+msgid "Bulk Actions"
+msgstr "Bulk Actions"
+
+#: includes/I18nStrings.php:47
+msgid "Delete Entries"
+msgstr "Ezabatu sarrerak"
+
+#: includes/I18nStrings.php:48
+msgid "Apply"
+msgstr "Apply"
+
+#: includes/I18nStrings.php:49
+msgid "Add Data"
+msgstr "Gehitu datuak"
+
+#: includes/I18nStrings.php:50
+msgid "Cancel"
+msgstr "Utzi"
+
+#: includes/I18nStrings.php:51
+msgid "Add"
+msgstr "Add"
+
+#: includes/I18nStrings.php:52
+msgid "Upgrade Notice"
+msgstr "Berritze oharra"
+
+#: includes/I18nStrings.php:53
+msgid ""
+"Your Ninja Tables Pro plugin is outdated. Please upgrade to its latest "
+"version."
+msgstr ""
+"Zure Ninja Tables Pro plugina zaharkituta dago. Eguneratu azken bertsiora."
+
+#: includes/I18nStrings.php:54
+msgid "Click here"
+msgstr "Klikatu hemen"
+
+#: includes/I18nStrings.php:55
+msgid "to view the upgrade guide."
+msgstr "to view the upgrade guide."
+
+#: includes/I18nStrings.php:56
+msgid "Are you sure to delete this?"
+msgstr "Are you sure to delete this?"
+
+#: includes/I18nStrings.php:57
+msgid "cancel"
+msgstr "cancel"
+
+#: includes/I18nStrings.php:58
+msgid "confirm"
+msgstr "berretsi"
+
+#: includes/I18nStrings.php:59
+msgid "Initial Hidden Mobile"
+msgstr "Initial Hidden Mobile"
+
+#: includes/I18nStrings.php:60
+msgid "Initial Hidden Mobile and Tab"
+msgstr "Initial Hidden Mobile and Tab"
+
+#: includes/I18nStrings.php:61
+msgid "Initial Hidden Mobile, Tab and Regular Computers"
+msgstr "Initial Hidden Mobile, Tab and Regular Computers"
+
+#: includes/I18nStrings.php:62
+msgid "Always show in all devices"
+msgstr "Always show in all devices"
+
+#: includes/I18nStrings.php:63
+msgid "Totally hidden on all devices"
+msgstr "Totally hidden on all devices"
+
+#: includes/I18nStrings.php:64
+msgid "Single Line Text Field"
+msgstr "Single Line Text Field"
+
+#: includes/I18nStrings.php:65
+msgid "Text Area"
+msgstr "Text Area"
+
+#: includes/I18nStrings.php:66
+msgid "HTML Field"
+msgstr "HTML Field"
+
+#: includes/I18nStrings.php:67
+msgid "Numeric Value"
+msgstr "Numeric Value"
+
+#: includes/I18nStrings.php:68
+msgid "Date Field"
+msgstr "Date Field"
+
+#: includes/I18nStrings.php:69
+msgid "Select Field"
+msgstr "Hautatu eremua"
+
+#: includes/I18nStrings.php:70
+msgid "Update Configuration"
+msgstr "Eguneratu konfigurazioa"
+
+#: includes/I18nStrings.php:71
+msgid "Available Columns"
+msgstr "Available Columns"
+
+#: includes/I18nStrings.php:72
+msgid "Add Column"
+msgstr "Add Column"
+
+#: includes/I18nStrings.php:73
+msgid "Column Name"
+msgstr "Column Name"
+
+#: includes/I18nStrings.php:74
+msgid "Column Key"
+msgstr "Column Key"
+
+#: includes/I18nStrings.php:75
+msgid "Data Type"
+msgstr "Datu mota"
+
+#: includes/I18nStrings.php:76
+msgid "Responsive Breakpoint"
+msgstr "Responsive Breakpoint"
+
+#: includes/I18nStrings.php:77
+msgid "Update"
+msgstr "eguneratzearen"
+
+#: includes/I18nStrings.php:78
+msgid "Date Format"
+msgstr "Date Format"
+
+#: includes/I18nStrings.php:79
+msgid "Standard"
+msgstr "Standard"
+
+#: includes/I18nStrings.php:80
+msgid "Select a Format"
+msgstr "Aukeratu formatua"
+
+#: includes/I18nStrings.php:81
+msgid "Select Items"
+msgstr "Hautatu elementuak"
+
+#: includes/I18nStrings.php:82
+msgid "Extra Classes"
+msgstr "Extra Classes"
+
+#: includes/I18nStrings.php:83
+msgid "Max Width"
+msgstr "Max zabalera"
+
+#: includes/I18nStrings.php:84
+msgid "Maximum Width"
+msgstr "Gehienezko zabalera"
+
+#: includes/I18nStrings.php:85
+msgid "Text Align"
+msgstr "Testua lerrokatu"
+
+#: includes/I18nStrings.php:86
+msgid "Filterable"
+msgstr "Filterable"
+
+#: includes/I18nStrings.php:87
+msgid "Header HTML Content"
+msgstr "Goiburuko HTML edukia"
+
+#: includes/I18nStrings.php:88
+msgid "Show Table Title"
+msgstr "Erakutsi taula izenburua"
+
+#: includes/I18nStrings.php:89
+msgid "Show Table Description"
+msgstr "Erakutsi taula deskribapena"
+
+#: includes/I18nStrings.php:90
+msgid "Enable the visitor to filter or search the table."
+msgstr "Gaitu bisitaria taula iragazi edo bilatzeko."
+
+#: includes/I18nStrings.php:91
+msgid "Enable sorting of the table by the visitor"
+msgstr "Gaitu bisitariaren taula ordenatzea"
+
+#: includes/I18nStrings.php:92
+msgid "Pagination Items Per Page"
+msgstr "Orrialde orri bakoitzeko orrialdea"
+
+#: includes/I18nStrings.php:93
+msgid "Pagination Position"
+msgstr "Paginazio-posizioa"
+
+#: includes/I18nStrings.php:94
+msgid "Row Details (Responsive drawer)"
+msgstr "Errenkaden xehetasunak (tiradera sentikorra)"
+
+#: includes/I18nStrings.php:95
+msgid "Extra CSS Class for the table"
+msgstr "Extra CSS Class for the table"
+
+#: includes/I18nStrings.php:96
+msgid "Table Header Colors"
+msgstr "Taularen goiburuko koloreak"
+
+#: includes/I18nStrings.php:97
+msgid "Table Body Colors"
+msgstr "Taula Gorputzaren Koloreak"
+
+#: includes/I18nStrings.php:98
+msgid "Footer Colors"
+msgstr "Oinarrizko koloreak"
+
+#: includes/I18nStrings.php:99
+msgid "Additional CSS"
+msgstr "CSS osagarria"
+
+#: includes/I18nStrings.php:100
+msgid "Export Table"
+msgstr "Esportatu taula"
+
+#: includes/I18nStrings.php:101
+msgid "Import Table Data"
+msgstr "Inportatu taula-datuak"
+
+#: includes/I18nStrings.php:102
+msgid "Replace Existing Data"
+msgstr "Ordeztu Datu Existitzen"
+
+#: includes/I18nStrings.php:103
+msgid "Import from CSV"
+msgstr "Inportatu CSV-tik"
+
+#: includes/I18nStrings.php:104
+msgid "CSV Header Structure"
+msgstr "CSV goiburuaren egitura"
+
+#: includes/I18nStrings.php:105
+msgid "Download Sample CSV"
+msgstr "Deskargatu Sample CSV"
+
+#: includes/NinjaTableImport.php:26
+msgid "No appropriate driver found for the import format."
+msgstr "Ez da inportatzeko formatu egokia aurkitu."
+
+#: includes/NinjaTableImport.php:73
+msgid ""
+"Successfully imported. Please go to all tables and review your newly "
+"imported table."
+msgstr ""
+"Ondo inportatu da. Joan tauletara eta berriki inportatutako taulak berrikusi."
+
+#: includes/NinjaTableImport.php:120
+msgid "Please upload valid CSV"
+msgstr "Kargatu baliozko CSV"
+
+#: includes/NinjaTableImport.php:140
+msgid "Something is wrong when parsing the csv"
+msgstr "Zerbait gaizki dago CSV parekatzean"
+
+#: includes/NinjaTableImport.php:161 includes/NinjaTableImport.php:187
+#: includes/NinjaTableImport.php:254
+msgid "Successfully added a table."
+msgstr "Taula ondo gehitu da."
+
+#: includes/NinjaTableImport.php:214
+msgid "You have a faulty JSON file. Please export a new one."
+msgstr "Zure JSON fitxategiak akatsak ditu. Mesedez, exportatu beste bat."
+
+#: includes/NinjaTableImport.php:264
+#: includes/libs/Migrations/NinjaTablesMigration.php:19
+msgid "Temporary table name"
+msgstr "Behin-behieneko taularen izena."
+
+#: includes/NinjaTableImport.php:265
+#: includes/libs/Migrations/NinjaTablesMigration.php:22
+msgid "Temporary table description"
+msgstr "Behin-behineko taularen deskribapena."
+
+#: includes/NinjaTableImport.php:290
+msgid "CSV File is not valid"
+msgstr "CSV fitxategia ez da baliozkoa"
+
+#: includes/NinjaTableImport.php:301
+msgid "Please set table configuration first"
+msgstr "Taula konfigurazioa lehenetsi ezazu"
+
+#: includes/NinjaTableImport.php:319
+msgid "Please use the provided CSV header structure. "
+msgstr "Mesedez erabili emandako CSV goiburuaren egitura."
+
+#: includes/NinjaTableImport.php:353
+msgid "Successfully uploaded data."
+msgstr "Datuak ondo eguneratu dira."
+
+#: public/dataProviders/FluentFormProvider.php:66
+msgid "The title field is required."
+msgstr "Izenburua eremua beharrezkoa da."
+
+#: public/dataProviders/FluentFormProvider.php:73
+msgid "No fields were selected."
+msgstr "Ez da eremurik hautatu."
+
+#: includes/libs/Migrations/NinjaTablesSupsysticTableMigration.php:24
+msgid "No Table Found with the selected table"
+msgstr ""
+"Taula Ez da hautatutako taula batekin aurkitu\n"
+
+#: includes/libs/Migrations/NinjaTablesUltimateTableMigration.php:21
+msgid "No Ultimate Table Found with the selected table"
+msgstr "No Ultimate Table Found with the selected table"
+
+#: includes/libs/TableDrivers/NinjaFooTable.php:61
+#: includes/libs/TableDrivers/NinjaFooTable.php:302
+msgid "Search in"
+msgstr "Bilatu honela"
+
+#: includes/libs/TableDrivers/NinjaFooTable.php:62
+#: includes/libs/TableDrivers/NinjaFooTable.php:304
+msgid "Search"
+msgstr "Bilatu"
+
+#: includes/libs/TableDrivers/NinjaFooTable.php:63
+#: includes/libs/TableDrivers/NinjaFooTable.php:306
+msgid "No Result Found"
+msgstr "Ez da emaitzarik aurkitu"
+
+#. Description of the plugin
+msgid ""
+"The Easiest & Fastest Responsive Table Plugin on WordPress. Multiple "
+"templates, drag-&-drop live table builder, multiple color scheme, and styles."
+msgstr ""
+"WorPressen Responsive Taula Plugin Errazena eta Azkarrena.Hainbat "
+"txantiloitan, arrastatu & askatu ezazu zuzeneko taula eraikitzailea, kolore "
+"eskema eta estilo askeak."
+
+#. URI of the plugin
+msgid "https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/"
+msgstr "https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/"
+
+#. Author of the plugin
+msgid "WPManageNinja LLC"
+msgstr "WPManageNinja LLC"
+
+#. Author URI of the plugin
+msgid "https://wpmanageninja.com/"
+msgstr "https://wpmanageninja.com/"

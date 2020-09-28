@@ -184,7 +184,7 @@ class Betterdocs_Pro_Admin {
 					
 					<div class="betterdocs-header-button">
 						<a href="edit.php?post_type=docs&bdocs_view=classic" class="betterdocs-button betterdocs-button-secondary"><?php _e( 'Switch to Classic UI', 'betterdocs-pro' ); ?></a>
-						<a href="post-new.php?post_type=docs" class="betterdocs-button betterdocs-button-primary"><?php _e( 'Add New Article', 'betterdocs-pro' ); ?></a>
+						<a href="post-new.php?post_type=docs" class="betterdocs-button betterdocs-button-primary"><?php _e( 'Add New Doc', 'betterdocs-pro' ); ?></a>
 						<?php if ( BetterDocs_Multiple_Kb::$enable == 1 ) { ?>
 						<select name="dashboard-select-kb" id="dashboard-select-kb" onchange="javascript:location.href = 'admin.php?page=betterdocs-admin&knowledgebase=' + this.value;">
 							<option value="all"><?php esc_html_e( 'All Knowledge Base', 'betterdocs' ) ?></option>

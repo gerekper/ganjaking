@@ -7,11 +7,17 @@
 
   <?php
   foreach($subscriptions as $sub):
+
+    $obj_type = MPCA_Corporate_Account::get_obj_type($sub);
+
+    // Hide sub accounts
+    if(MPCA_Corporate_Account::is_obj_sub_account( $sub->id, $obj_type )) continue;
+
     $i = uniqid();
     $product = $sub->product();
     ?>
 <table class="form-table">
-  <input type="hidden" name="mpca[<?php echo $i ?>][obj_type]" value="<?php echo MPCA_Corporate_Account::get_obj_type($sub) ?>" />
+  <input type="hidden" name="mpca[<?php echo $i ?>][obj_type]" value="<?php echo $obj_type ?>" />
   <input type="hidden" name="mpca[<?php echo $i ?>][obj_id]" value="<?php echo $sub->id ?>" />
 
   <tr>

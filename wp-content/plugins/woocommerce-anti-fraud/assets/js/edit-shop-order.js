@@ -1,9 +1,10 @@
 (function ($) {
-	$(window).ready(function () {
+	$( window ).on( "load",function () {
 		$('.knob').knob();
+		var data = $('.knob').attr('rel');
 
-		$({value: 0}).animate({value: $('.knob').attr('rel')}, {
-			duration: 1000,
+		$({value: 0}).animate({value: data}, {
+			duration: 3000,
 			easing  : 'swing',
 			step    : function () {
 				$('.knob').val(Math.ceil(this.value)).trigger('change');

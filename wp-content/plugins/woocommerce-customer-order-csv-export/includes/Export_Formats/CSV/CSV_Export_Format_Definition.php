@@ -326,6 +326,7 @@ class CSV_Export_Format_Definition extends Export_Format_Definition {
 					'item_product_id'      => 'item_product_id',
 					'item_name'            => 'item_name',
 					'item_sku'             => 'item_sku',
+					'item_price'           => 'item_price',
 					'item_quantity'        => 'item_quantity',
 					'item_subtotal'        => 'item_subtotal',
 					'item_subtotal_tax'    => 'item_subtotal_tax',

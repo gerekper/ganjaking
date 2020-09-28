@@ -17,7 +17,7 @@ if ( ! class_exists( 'WC_Settings_Restrictions' ) ) :
 /**
  * WooCommerce Global Restriction Settings.
  *
- * @version  1.5.0
+ * @version  1.8.5
  */
 class WC_Settings_Restrictions extends WC_Settings_Page {
 
@@ -40,7 +40,7 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 		// Render "overview" field :)
 		add_action( 'woocommerce_admin_field_wccsp_restrictions_overview', array( $this, 'restrictions_overview' ) );
 		// Delete hook.
-		add_action( 'woocommerce_settings_page_init', array( $this, 'delete' ) );
+		add_action( 'woocommerce_settings_page_init', array( $this, 'settings_page_init' ) );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 		$restrictions = WC_CSP()->restrictions->get_admin_global_field_restrictions();
 
 		$sections = array(
-			'' => __( 'Restrictions', 'woocommerce' )
+			'' => __( 'Overview', 'woocommerce' )
 		);
 
 		foreach ( $restrictions as $restriction_id => $restriction ) {
@@ -86,15 +86,15 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 			array( 'type' => 'sectionend', 'id' => 'global_restriction_options' ),
 
 			array(
-				'title' => __( 'Debug Options', 'woocommerce-conditional-shipping-and-payments' ),
+				'title' => __( 'Troubleshooting', 'woocommerce-conditional-shipping-and-payments' ),
 				'type'  => 'title',
-				'desc'  => __( 'Use these options to troubleshoot your payment and shipping settings.', 'woocommerce-conditional-shipping-and-payments' ),
+				'desc'  => __( 'Use these options to troubleshoot your payment and shipping restrictions.', 'woocommerce-conditional-shipping-and-payments' ),
 				'id'    => 'wccsp_restrictions_debug'
 			),
 
 			array(
 				'title'         => __( 'Disable Global Restrictions', 'woocommerce-conditional-shipping-and-payments' ),
-				'desc'          => __( 'Disable all global restrictions', 'woocommerce-conditional-shipping-and-payments' ),
+				'desc'          => __( 'Disable all global rules', 'woocommerce-conditional-shipping-and-payments' ),
 				'id'            => 'wccsp_restrictions_disable_global',
 				'default'       => 'no',
 				'type'          => 'checkbox',
@@ -104,12 +104,12 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 
 			array(
 				'title'         => __( 'Disable Product Restrictions', 'woocommerce-conditional-shipping-and-payments' ),
-				'desc'          => __( 'Disable all product-level restrictions', 'woocommerce-conditional-shipping-and-payments' ),
+				'desc'          => __( 'Disable all product-level rules', 'woocommerce-conditional-shipping-and-payments' ),
 				'id'            => 'wccsp_restrictions_disable_product',
 				'default'       => 'no',
 				'type'          => 'checkbox',
 				'checkboxgroup' => 'start',
-				'desc_tip'      => __( 'Disable all restrictions created from the <strong>Product Data > Restrictions</strong> tab of your products.', 'woocommerce-conditional-shipping-and-payments' ),
+				'desc_tip'      => __( 'Disable all restrictions created in the <strong>Product Data > Restrictions</strong> section of your products.', 'woocommerce-conditional-shipping-and-payments' ),
 			),
 
 			array( 'type' => 'sectionend', 'id' => 'global_restriction_debug_options' ),
@@ -173,16 +173,33 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 	}
 
 	/**
+	 * Initialize settings page.
+	 *
+	 * @since  1.8.5
+	 *
+	 * @return void
+	 */
+	public function settings_page_init() {
+
+		global $current_section;
+
+		if ( $current_section && 'yes' === get_option( 'wccsp_restrictions_disable_global', false ) ) {
+			$enable_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=wc-settings&tab=restrictions#wccsp_restrictions_debug-description' ), __( 're-enable global restrictions', 'woocommerce-conditional-shipping-and-payments' ) );
+			WC_CSP_Admin_Notices::add_notice( sprintf( __( 'Global restrictions are currently disabled. You can still edit, create and delete rules &ndash; however, they will have no effect until you %s.', 'woocommerce-conditional-shipping-and-payments' ), $enable_link ), 'warning' );
+		}
+
+		if ( isset( $_GET[ 'delete_rule' ], $_GET[ 'restriction_id' ] ) ) {
+			$this->delete();
+		}
+	}
+
+	/**
 	 * Delete restriction rule.
 	 *
 	 * @since  1.4.0
 	 * @return void
 	 */
 	public function delete() {
-
-		if ( ! isset( $_GET[ 'delete_rule' ], $_GET[ 'restriction_id' ] ) ) {
-			return;
-		}
 
 		// Security.
 		$delete_nonce = isset( $_GET[ 'delete_nonce' ] ) ? wc_clean( $_GET[ 'delete_nonce' ] ) : false;
@@ -247,7 +264,6 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 
 		?>
 		<tr valign="top">
-			<th scope="row" class="titledesc"><?php _e( 'Restrictions Overview', 'woocommerce-conditional-shipping-and-payments' ) ?></th>
 			<td class="forminp <?php echo WC_CSP_Core_Compatibility::get_versions_class(); ?>">
 				<table class="wc_shipping wc_restrictions_overview widefat wp-list-table" cellspacing="0">
 					<thead>
@@ -284,7 +300,7 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 													?>
 												</p>
 											</div>
-											<a class="action" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=restrictions&section=' . $restriction_id . '&add_rule=1' ) ); ?>" aria-label="Add Restriction">Add restriction</a>
+											<a class="action" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=restrictions&section=' . $restriction_id . '&add_rule=1' ) ); ?>" aria-label="Add Restriction"><?php _e( 'Add Restriction', 'woocommerce-conditional-shipping-and-payments' ); ?></a>
 										</div>
 									</td>
 								</tr>

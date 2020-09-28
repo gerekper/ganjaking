@@ -148,8 +148,8 @@ class WP_List_Table {
 
 		if ( empty( $this->modes ) ) {
 			$this->modes = array(
-				'list'    => __( 'List View' ),
-				'excerpt' => __( 'Excerpt View' )
+				'list'    => __( 'List View', 'follow_up_emails' ),
+				'excerpt' => __( 'Excerpt View', 'follow_up_emails' ),
 			);
 		}
 	}
@@ -309,7 +309,7 @@ class WP_List_Table {
 	 * @since 3.1.0
 	 */
 	public function no_items() {
-		esc_html_e( 'No items found.' );
+		esc_html_e( 'No items found.', 'follow_up_emails' );
 	}
 
 	/**
@@ -431,9 +431,9 @@ class WP_List_Table {
 		if ( empty( $this->_actions ) )
 			return;
 
-		echo '<label for="bulk-action-selector-' . esc_attr( $which ) . '" class="screen-reader-text">' . esc_html__( 'Select bulk action' ) . '</label>';
+		echo '<label for="bulk-action-selector-' . esc_attr( $which ) . '" class="screen-reader-text">' . esc_html__( 'Select bulk action', 'follow_up_emails' ) . '</label>';
 		echo '<select name="action' . esc_attr( $two ) . '" id="bulk-action-selector-' . esc_attr( $which ) . "\">\n";
-		echo '<option value="-1">' . esc_html__( 'Bulk Actions' ) . "</option>\n";
+		echo '<option value="-1">' . esc_html__( 'Bulk Actions', 'follow_up_emails' ) . "</option>\n";
 
 		foreach ( $this->_actions as $name => $title ) {
 			$class = 'edit' === $name ? ' class="hide-if-no-js"' : '';
@@ -453,7 +453,7 @@ class WP_List_Table {
 
         echo "</select>\n";
 
-		submit_button( __( 'Apply' ), 'action', '', false, array( 'id' => "doaction$two" ) );
+		submit_button( __( 'Apply', 'follow_up_emails' ), 'action', '', false, array( 'id' => "doaction$two" ) );
 		echo "\n";
 	}
 
@@ -501,7 +501,7 @@ class WP_List_Table {
 		}
 		$out .= '</div>';
 
-		$out .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . __( 'Show more details' ) . '</span></button>';
+		$out .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . __( 'Show more details', 'follow_up_emails' ) . '</span></button>';
 
 		return $out;
 	}
@@ -563,9 +563,9 @@ class WP_List_Table {
 
 		$m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0; // phpcs:ignore WordPress.Security.NonceVerification
 ?>
-		<label for="filter-by-date" class="screen-reader-text"><?php esc_html_e( 'Filter by date' ); ?></label>
+		<label for="filter-by-date" class="screen-reader-text"><?php esc_html_e( 'Filter by date', 'follow_up_emails' ); ?></label>
 		<select name="m" id="filter-by-date">
-			<option <?php selected( $m, 0 ); ?> value="0"><?php esc_html_e( 'All dates' ); ?></option>
+			<option <?php selected( $m, 0 ); ?> value="0"><?php esc_html_e( 'All dates', 'follow_up_emails' ); ?></option>
 <?php
 		foreach ( $months as $arc_row ) {
 			if ( 0 == $arc_row->year )
@@ -628,14 +628,14 @@ class WP_List_Table {
 		$approved_comments_number = number_format_i18n( $approved_comments );
 		$pending_comments_number = number_format_i18n( $pending_comments );
 
-		$approved_only_phrase = sprintf( _n( '%s comment', '%s comments', $approved_comments ), $approved_comments_number );
-		$approved_phrase = sprintf( _n( '%s approved comment', '%s approved comments', $approved_comments ), $approved_comments_number );
-		$pending_phrase = sprintf( _n( '%s pending comment', '%s pending comments', $pending_comments ), $pending_comments_number );
+		$approved_only_phrase = sprintf( _n( '%s comment', '%s comments', $approved_comments, 'follow_up_emails' ), $approved_comments_number );
+		$approved_phrase = sprintf( _n( '%s approved comment', '%s approved comments', $approved_comments, 'follow_up_emails' ), $approved_comments_number );
+		$pending_phrase = sprintf( _n( '%s pending comment', '%s pending comments', $pending_comments, 'follow_up_emails' ), $pending_comments_number );
 
 		// No comments at all.
 		if ( ! $approved_comments && ! $pending_comments ) {
 			echo wp_kses_post( sprintf( '<span aria-hidden="true">&#8212;</span><span class="screen-reader-text">%s</span>',
-				__( 'No comments' )
+				__( 'No comments', 'follow_up_emails' )
 			) );
 		// Approved comments have different display depending on some conditions.
 		} elseif ( $approved_comments ) {
@@ -647,7 +647,7 @@ class WP_List_Table {
 		} else {
 			echo wp_kses_post( sprintf( '<span class="post-com-count post-com-count-no-comments"><span class="comment-count comment-count-no-comments" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
 				$approved_comments_number,
-				$pending_comments ? esc_html__( 'No approved comments' ) : esc_html__( 'No comments' )
+				$pending_comments ? esc_html__( 'No approved comments', 'follow_up_emails' ) : esc_html__( 'No comments', 'follow_up_emails' )
 			) );
 		}
 
@@ -660,7 +660,7 @@ class WP_List_Table {
 		} else {
 			echo wp_kses_post( sprintf( '<span class="post-com-count post-com-count-pending post-com-count-no-pending"><span class="comment-count comment-count-no-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
 				$pending_comments_number,
-				$approved_comments ? __( 'No pending comments' ) : __( 'No comments' )
+				$approved_comments ? __( 'No pending comments', 'follow_up_emails' ) : __( 'No comments', 'follow_up_emails' )
 			) );
 		}
 	}
@@ -771,7 +771,7 @@ class WP_List_Table {
 		} else {
 			$page_links[] = sprintf( "<a class='first-page' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( remove_query_arg( 'paged', $current_url ) ),
-				__( 'First page' ),
+				__( 'First page', 'follow_up_emails' ),
 				'&laquo;'
 			);
 		}
@@ -781,30 +781,30 @@ class WP_List_Table {
 		} else {
 			$page_links[] = sprintf( "<a class='prev-page' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', max( 1, $current-1 ), $current_url ) ),
-				__( 'Previous page' ),
+				__( 'Previous page', 'follow_up_emails' ),
 				'&lsaquo;'
 			);
 		}
 
 		if ( 'bottom' === $which ) {
 			$html_current_page  = $current;
-			$total_pages_before = '<span class="screen-reader-text">' . __( 'Current Page' ) . '</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">';
+			$total_pages_before = '<span class="screen-reader-text">' . __( 'Current Page', 'follow_up_emails' ) . '</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">';
 		} else {
 			$html_current_page = sprintf( "%s<input class='current-page' id='current-page-selector' type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>",
-				'<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page' ) . '</label>',
+				'<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page', 'follow_up_emails' ) . '</label>',
 				$current,
 				strlen( $total_pages )
 			);
 		}
 		$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
-		$page_links[] = $total_pages_before . sprintf( _x( '%1$s of %2$s', 'paging' ), $html_current_page, $html_total_pages ) . $total_pages_after;
+		$page_links[] = $total_pages_before . sprintf( _x( '%1$s of %2$s', 'paging', 'follow_up_emails' ), $html_current_page, $html_total_pages ) . $total_pages_after;
 
 		if ( $disable_next ) {
 			$page_links[] = '<span class="tablenav-pages-navspan" aria-hidden="true">&rsaquo;</span>';
 		} else {
 			$page_links[] = sprintf( "<a class='next-page' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', min( $total_pages, $current+1 ), $current_url ) ),
-				__( 'Next page' ),
+				__( 'Next page', 'follow_up_emails' ),
 				'&rsaquo;'
 			);
 		}
@@ -814,7 +814,7 @@ class WP_List_Table {
 		} else {
 			$page_links[] = sprintf( "<a class='last-page' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ),
-				__( 'Last page' ),
+				__( 'Last page', 'follow_up_emails' ),
 				'&raquo;'
 			);
 		}
@@ -1281,7 +1281,7 @@ class WP_List_Table {
 	 * @return string The row actions HTML, or an empty string if the current column is the primary column.
 	 */
 	protected function handle_row_actions( $item, $column_name, $primary ) {
-		return $column_name === $primary ? '<button type="button" class="toggle-row"><span class="screen-reader-text">' . __( 'Show more details' ) . '</span></button>' : '';
+		return $column_name === $primary ? '<button type="button" class="toggle-row"><span class="screen-reader-text">' . __( 'Show more details', 'follow_up_emails' ) . '</span></button>' : '';
  	}
 
 	/**

@@ -12,6 +12,10 @@ if ( vc_user_access()->part( 'presets' )->can()->get() ) {
 // [/shortcodes presets data]
 global $wp_version;
 $custom_tag = 'script'; // TODO: Use ajax for variables
+$is_gutenberg = version_compare( $wp_version, '4.9.8', '>' ) && ! get_option( 'wpb_js_gutenberg_disable' );
+if ( $is_gutenberg ) {
+	$is_gutenberg = get_post_type_object( get_post_type() )->show_in_rest;
+}
 ?>
 	<<?php echo esc_attr( $custom_tag ); ?>>
 		window.vc_all_presets = <?php echo wp_json_encode( $vc_all_presets ); ?>;
@@ -19,7 +23,7 @@ $custom_tag = 'script'; // TODO: Use ajax for variables
 		window.wpbGutenbergEditorUrl = '<?php echo esc_js( set_url_scheme( admin_url( 'post-new.php?post_type=wpb_gutenberg_param' ) ) ); ?>';
 		window.wpbGutenbergEditorSWitchUrl = '<?php echo esc_js( set_url_scheme( admin_url( 'post.php?post=' . get_the_ID() . '&action=edit&vcv-gutenberg-editor' ) ) ); ?>';
 		window.wpbGutenbergEditorClassicSWitchUrl = '<?php echo esc_js( set_url_scheme( admin_url( 'post.php?post=' . get_the_ID() . '&action=edit&classic-editor' ) ) ); ?>';
-		window.wpbIsGutenberg = <?php echo version_compare( $wp_version, '4.9.8', '>' ) && ! get_option( 'wpb_js_gutenberg_disable' ) ? 'true' : 'false'; ?>;
+		window.wpbIsGutenberg = <?php echo $is_gutenberg ? 'true' : 'false'; ?>;
 	</<?php echo esc_attr( $custom_tag ); ?>>
 
 <?php

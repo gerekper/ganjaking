@@ -65,11 +65,18 @@ function userpro_ajax_fileupload()
                     'mimes' => $allowed,
                 ]
             );
-            $return = [
-                // 'target_file'	     => $result['file'],
-                'target_file_uri' => $result['url'],
-                'status' => 1,
-            ];
+            if($_FILES['webcam']['size'] > userpro_get_option('max_file_size')){
+                $return = [
+                    'status' => 2
+                ];
+            }
+            else{
+                $return = [
+                    // 'target_file'	     => $result['file'],
+                    'target_file_uri' => $result['url'],
+                    'status' => 1,
+                ];
+            }
             echo wp_json_encode($return);
             remove_filter('upload_dir', 'userpro_upload_dir');
             remove_filter('userpro_webcam_prefilter', 'userpro_upload_name');
@@ -89,11 +96,18 @@ function userpro_ajax_fileupload()
                     'mimes' => $allowed,
                 ]
             );
-            $return = [
-                // 'target_file'	     => $result['file'],
-                'target_file_uri' => $result['url'],
-                'status' => 1,
-            ];
+            if($_FILES['userpro_file']['size'] > userpro_get_option('max_file_size')){
+                $return = [
+                    'status' => 2
+                ];
+            }
+            else{
+                $return = [
+                    // 'target_file'	     => $result['file'],
+                    'target_file_uri' => $result['url'],
+                    'status' => 1,
+                ];
+            }
             echo wp_json_encode($return);
             remove_filter('upload_dir', 'userpro_upload_dir');
             remove_filter('userpro_file_prefilter', 'userpro_upload_file_name');
@@ -1084,7 +1098,7 @@ function userpro_side_validate()
                 $output['error'] = __('Please enter a valid email.', 'userpro');
             } else {
                 if (email_exists(sanitize_email($input_value))) {
-                    if(wp_get_current_user()->user_email != sanitize_email($input_value) ){
+                    if(wp_get_current_user()->user_email != sanitize_email($input_value) && !in_array("administrator",get_userdata(get_current_user_id())->roles)){
                         $output['error'] = __('Email is in use');
                     }
 
@@ -1570,7 +1584,7 @@ function userpro_userpro_performance()
         return false;
     }
 function mailchimp_remove_subscriber_status($email, $list_id = null){
-    $list_id = mailchimp_get_list_id();
+    $list_id = mailchimp_get_list_id_();
     if(mailchimp_is_subscriber($email, $list_id) && $list_id != null){
         $MailChimp = new UserProMailChimp();
         $test = $MailChimp->unsubscribe($list_id, [
@@ -1578,7 +1592,7 @@ function mailchimp_remove_subscriber_status($email, $list_id = null){
         ]);
     }
 }
-function mailchimp_get_list_id(){
+function mailchimp_get_list_id_(){
     $unsorted = get_option('userpro_fields');
     foreach($unsorted as $k=>$arr){
         if(isset($arr['list_id']) && $arr['list_id']!= ''){

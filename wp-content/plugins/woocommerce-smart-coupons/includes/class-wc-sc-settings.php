@@ -243,11 +243,9 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 						coupon_style_element.select2( options );
 					};
 
-					jQuery(document).ready(function(){
-						wc_sc_initialize_code_mirror();
-						wc_sc_reload_coupon_design();
-						wc_sc_reload_coupon_preview();
-					});
+					wc_sc_initialize_code_mirror();
+					wc_sc_reload_coupon_design();
+					wc_sc_reload_coupon_preview();
 
 					jQuery('#wc_sc_setting_coupon_background_color, #wc_sc_setting_coupon_foreground_color').on('change keyup irischange', function(){
 						wc_sc_reload_coupon_design();

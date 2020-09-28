@@ -52,7 +52,7 @@
 	<hr>
 
 	<h3><?php esc_html_e('Daily Emails Summary', 'follow_up_emails'); ?></h3>
-	
+
 	<p><?php esc_html_e('Turn on a daily summary of all emails sent to users, and sent the email addresses that you want to be notified with this summary.', 'follow_up_emails'); ?></p>
 
 	<table class="form-table">
@@ -108,12 +108,12 @@
 		</tr>
 		</tbody>
 	</table>
-	
+
 	<hr>
 
 	<h3><?php esc_html_e('Email Settings', 'follow_up_emails'); ?></h3>
-	
-	<p><?php esc_html_e('You can change the default from and reply-to name and email for all your emails. You can also customize these on every individual email.', 'follow_up_emails'); ?></p>    
+
+	<p><?php esc_html_e('You can change the default from and reply-to name and email for all your emails. You can also customize these on every individual email.', 'follow_up_emails'); ?></p>
 
 	<table class="form-table">
 		<tbody>
@@ -157,9 +157,9 @@
 	</table>
 
 	<hr>
-	
+
 	<h3><?php esc_html_e('Bounce Settings', 'follow_up_emails'); ?></h3>
-	
+
 	<p><?php esc_html_e('Which email address should all of your bounced emails be sent to? No premium version needed.', 'follow_up_emails'); ?></p>
 
 	<table id="emails_form" class="form-table">
@@ -257,7 +257,7 @@
 		<div class="spinner test-bounce-spinner" style="float: none;"></div>
 		<div class="test-bounce-status" style="display: none;"><?php esc_html_e('Sending test email...', 'follow_up_emails'); ?></div>
 	</div>
-	
+
 	<hr>
 
 	<h3><?php esc_html_e('Single Emails Sending Schedule', 'follow_up_emails'); ?></h3>
@@ -267,7 +267,7 @@
 		<input type="checkbox" name="email_batch_enabled" value="1" <?php checked( 1, $email_batches ); ?> />
 		<?php
 		printf(
-			esc_html__('Send manual emails in batches of %s emails every %s minutes'),
+			esc_html__( 'Send manual emails in batches of %s emails every %s minutes', 'follow_up_emails' ),
 			'<input type="text" name="emails_per_batch" value="'. esc_attr( $emails_per_batch ) .'" size="3" />',
 			'<input type="text" name="email_batch_interval" value="'. esc_attr( $email_batch_interval ) .'" size="2" />'
 		);

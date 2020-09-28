@@ -733,7 +733,6 @@ class GFSettings {
 		$raw_response = 200;
 		$message = '';
 		echo $message;
-
 		exit;
 	}
 

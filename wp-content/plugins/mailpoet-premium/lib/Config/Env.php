@@ -20,6 +20,7 @@ class Env {
   public static $cachePath;
   public static $languagesPath;
   public static $libPath;
+  public static $cdnAssetsBaseUrl;
 
   public static function init($file, $version) {
     self::$version = $version;
@@ -39,5 +40,6 @@ class Env {
     }
     self::$languagesPath = self::$path . '/lang';
     self::$libPath = self::$path . '/lib';
+    self::$cdnAssetsBaseUrl = ParentEnv::$baseUrl;
   }
 }

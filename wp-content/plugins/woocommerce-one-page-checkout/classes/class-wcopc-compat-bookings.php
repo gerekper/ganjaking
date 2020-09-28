@@ -35,16 +35,12 @@ class WCOPC_Compat_Bookings {
 	public static function opc_single_add_to_cart_booking( $opc_post_id ) {
 
 		global $product;
-
-		ob_start();
-
+		
 		// Prepare form
 		$booking_form = new WC_Booking_Form( $product );
 
 		// Get template
-		woocommerce_get_template( 'single-product/add-to-cart/booking.php', array( 'booking_form' => $booking_form ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH );
-
-		echo str_replace( array( '<form class="cart" method="post" enctype=\'multipart/form-data\'', '</form>' ), array( '<div class="cart" ', '</div>' ), ob_get_clean() );
+		wc_get_template( 'single-product/add-to-cart/booking.php', array( 'booking_form' => $booking_form ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH );
 	}
 
 

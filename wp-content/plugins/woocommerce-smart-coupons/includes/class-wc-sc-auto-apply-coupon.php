@@ -98,19 +98,17 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 			?>
 			<script type="text/javascript">
 				jQuery(function(){
-					jQuery(document).ready(function() {
-						let show_hide_auto_apply_field = function() {
-							let discount_type = jQuery('select#discount_type').val();
-							if ( 'smart_coupon' === discount_type ) {
-								jQuery( '.wc_sc_auto_apply_coupon_field' ).hide();
-							} else {
-								jQuery( '.wc_sc_auto_apply_coupon_field' ).show();
-							}
+					let show_hide_auto_apply_field = function() {
+						let discount_type = jQuery('select#discount_type').val();
+						if ( 'smart_coupon' === discount_type ) {
+							jQuery( '.wc_sc_auto_apply_coupon_field' ).hide();
+						} else {
+							jQuery( '.wc_sc_auto_apply_coupon_field' ).show();
 						}
+					}
+					show_hide_auto_apply_field();
+					jQuery('select#discount_type').on('change', function(){
 						show_hide_auto_apply_field();
-						jQuery('select#discount_type').on('change', function(){
-							show_hide_auto_apply_field();
-						});
 					});
 				});
 			</script>

@@ -1,0 +1,286 @@
+@import 'fonts';
+@import 'bootstrap';
+@import 'plugins/tiptip';
+@import 'plans/advanced-options';
+
+// Our Icon 
+.dashicons-before.dashicons-wpultimo::before {
+    font-family: WPUltimo;
+    content: "\e904";
+    transform: scale(1.4);
+}
+
+li#wp-admin-bar-wp-ultimo>a.ab-item::before {
+    font-family: WPUltimo;
+    content: "\e904";
+    transform: scale(1.4);
+    top: 1.4px;
+}
+
+.button.button-streched {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.wpultimo-price {
+    box-sizing: border-box;
+    float: left;
+    width: 50%;
+    padding: 12px;
+    text-align: center;
+    label {
+        display: block;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 11px;
+        padding: 3px 0;
+    }
+    input {
+        width: 100%;
+        &:disabled {
+            border: solid 1px #ddd;
+            padding: 4px 5px;
+            box-shadow: none;
+        }
+    }
+}
+
+
+/**
+ * Avatar Block
+ */
+
+.wpultimo-subscription-avatar-block {
+    margin: 0;
+    padding: 12px 12px;
+    border-bottom: solid 1px #eee;
+    text-align: center;
+}
+
+.wpultimo-subscription-avatar {
+    img {
+        border-radius: 45px;
+    }
+}
+
+.wpultimo-subscription-user-info {
+    strong,
+    span,
+    a {
+        display: block;
+    }
+}
+
+.wpultimo-price-text {
+    margin: 0 -12px;
+    padding: 12px 12px;
+    border-bottom: solid 1px #eee;
+}
+
+.wpultimo-price.wpultimo-price-first {
+    // box-sizing: content-box; 
+    display: block;
+    text-align: center;
+    // border-bottom: solid 1px #eee;
+    float: none;
+    width: 100%;
+    // margin: 0 -12px;
+    padding: 12px 12px;
+    margin-top: 0px;
+    // border-bottom: none;
+}
+
+.wpultimo-price:nth-child(3) {
+    // display: none !important;
+    // padding-right: 0 !important;  
+    border-bottom: none;
+}
+
+.wpultimo-premium-select {
+    height: 250px;
+    overflow: auto;
+    width: 100%;
+}
+
+.wpultimo-premium-select-items-container {
+    margin-bottom: 24px;
+}
+
+.wpultimo-premium-select-items {
+    box-sizing: border-box;
+    padding: 12px;
+    border: solid 1px #ddd;
+}
+
+.item-actions {
+    margin: 12px -12px -12px -12px;
+    padding: 12px;
+    overflow: hidden;
+    background: #f9f9f9;
+    border-top: solid 1px #ddd;
+}
+
+#wpultimo-header {
+    background: #fff;
+    border-bottom: solid 1px #ddd;
+    margin-left: -20px;
+    padding: 10px 20px;
+    height: 20px;
+}
+
+body.rtl #wpultimo-header {
+    margin-left: 0;
+    margin-right: -20px;
+}
+
+#wpultimo-header .dashicons-before.dashicons-wpultimo::before {}
+
+.text-right {
+    text-align: right;
+}
+
+
+/**
+ * Plans  
+ */
+
+.wu-top-deal,
+.wu-hidden {
+    display: inline-block;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 9px;
+    line-height: 17px;
+    padding: 0px 4px;
+    border-radius: 3px;
+}
+
+.wu-top-deal {
+    background-color: darkgreen;
+}
+
+.wu-hidden {
+    background-color: #222;
+}
+
+.button-delete {
+    color: #fff;
+    background: red;
+    border-color: darkred;
+}
+
+.wu-plan-placeholder-sortable,
+.wu-site-placeholder-sortable {
+    height: 60px;
+    content: " ";
+}
+
+body.toplevel_page_wp-ultimo-plans .striped>tbody>:nth-child(even),
+body.toplevel_page_wp-ultimo-plans ul.striped>:nth-child(even),
+body.sites-php .striped>tbody>:nth-child(even),
+body.sites-php ul.striped>:nth-child(even) {
+    background: #fff;
+}
+
+body.toplevel_page_wp-ultimo-plans .ui-sortable-helper,
+body.sites-php .ui-sortable-helper {
+    background: #f3f3f3 !important;
+}
+
+body.toplevel_page_wp-ultimo-plans .column-drag,
+body.sites-php .column-drag {
+    text-align: right;
+    vertical-align: inherit;
+    span {
+        cursor: move;
+    }
+}
+
+
+/**
+ *
+ * Edit Subscription
+ * 
+ */
+
+#wu-subscription-details {
+    p {
+        color: #777;
+    }
+    h3 {
+        color: #333;
+        margin: 1.33em 0 0;
+    }
+    .order_data_column .form-field .date-picker {
+        width: 50%;
+    }
+    .order_data_column .form-field .hour,
+    .order_data_column .form-field .minute {
+        width: 3.5em;
+    }
+}
+
+
+/**
+ * Template Selection  
+ */
+
+.themes-php {
+    .theme-browser .theme .more-details {
+        text-decoration: none !important;
+    }
+}
+
+.button-gateway {
+    margin-top: 12px !important;
+}
+
+
+/**
+ * TEMPLATE SELECTOR 
+ */
+
+body .wp-filter-responsive {
+    display: none;
+    // width: 100%;
+    padding: 20px;
+    h4 {
+        margin-bottom: 5px;
+        text-transform: uppercase;
+    }
+    select {
+        width: 100%;
+        // padding: 10px 0;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    body .theme .more-details,
+    body .theme:hover .more-details,
+    body .theme-browser .theme .theme-actions,
+    body .theme:not(.active):hover .theme-actions {
+        display: block !important;
+        opacity: 1 !important;
+    }
+    body .filter-links {
+        display: none;
+    }
+    body .wp-filter-responsive {
+        display: block;
+    }
+}
+
+#wu-addon .theme-browser .theme .theme-actions, 
+#wu-addon .theme-browser .theme.active .theme-actions {
+    opacity: 0;
+    bottom: 0;
+    top: auto;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+#wu-addon .theme:not(.active):hover .theme-actions {
+    opacity: 1;
+}

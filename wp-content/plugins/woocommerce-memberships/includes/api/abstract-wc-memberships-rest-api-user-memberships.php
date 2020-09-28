@@ -24,6 +24,7 @@
 namespace SkyVerge\WooCommerce\Memberships\API\Controller;
 
 use SkyVerge\WooCommerce\Memberships\API\Controller;
+use SkyVerge\WooCommerce\Memberships\Profile_Fields;
 use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -469,6 +470,75 @@ class User_Memberships extends Controller {
 			}
 		}
 
+		// maybe set the profile fields
+		if ( ! empty( $request['profile_fields'] ) ) {
+
+			if ( is_object( $request['profile_fields'] ) ) {
+				$request_profile_fields = (array) $request['profile_fields'];
+			} else {
+				$request_profile_fields = $request['profile_fields'];
+			}
+
+			if ( ! is_array( $request_profile_fields ) ) {
+				throw new \WC_REST_Exception( "woocommerce_rest_{$this->post_type}_invalid_profile_fields", __( 'Invalid profile fields.', 'woocommerce-memberships' ), 400 );
+			}
+
+			foreach ( $request_profile_fields as $key => $request_profile_field ) {
+
+				$slug = ! empty( $request_profile_field['slug'] ) ? wc_clean( $request_profile_field['slug'] ) : '';
+
+				// ensure the slug is passed - core handling will validate that it's a string
+				if ( empty( $slug ) ) {
+
+					throw new \WC_REST_Exception( "woocommerce_rest_{$this->post_type}_invalid_profile_field", sprintf(
+						/* translators: Placeholders: %d - array item index */
+						__( 'The profile field slug in "profile_fields[%d][slug]" is required.', 'woocommerce-memberships' ),
+						$key
+					), 400 );
+				}
+
+				// ensure at least the value property is passed - validation will happen later
+				if ( ! isset( $request_profile_field['value'] ) ) {
+
+					throw new \WC_REST_Exception( "woocommerce_rest_{$this->post_type}_invalid_profile_field", sprintf(
+						/* translators: Placeholders: %d - array item index */
+						__( 'The profile field value in "profile_fields[%d][value]" is required.', 'woocommerce-memberships' ),
+						$key
+					), 400 );
+				}
+
+				try {
+
+					$field_definition = Profile_Fields::get_profile_field_definition( $slug );
+
+					// this should already be validated by the schema enum, but just in case
+					if ( ! $field_definition instanceof Profile_Fields\Profile_Field_Definition ) {
+						/* translators: Placeholder: %s - profile field slug */
+						throw new Framework\SV_WC_Plugin_Exception( sprintf( __( 'No profile field definition found for "%s".', 'woocommerce-memberships' ), $slug ), 404 );
+					}
+
+					$value = $request_profile_field['value'];
+
+					if ( $field_definition->is_type( Profile_Fields::TYPE_FILE ) && ! wp_get_attachment_url( (int) $value ) ) {
+						/* translators: Placeholders: %1$s - profile field value, %2$s - profile field slug */
+						throw new Framework\SV_WC_Plugin_Exception( sprintf( __( 'The value "%1$s" for the "%2$s" profile field is not a valid attachment ID.', 'woocommerce-memberships' ), $value, $slug ) );
+					}
+
+					// store the value
+					$user_membership->set_profile_field( $slug, $value );
+
+				} catch ( Framework\SV_WC_Plugin_Exception $exception ) {
+
+					throw new \WC_REST_Exception( "woocommerce_rest_{$this->post_type}_invalid_profile_field", sprintf(
+						/* translators: Placeholders: %1$s - array item index, %2$s - error message */
+						__( 'The "profile_fields[%1$s]" data is invalid. %2$s', 'woocommerce-memberships' ),
+						$key,
+						$exception->getMessage()
+					), $exception->getCode() );
+				}
+			}
+		}
+
 		if ( ! empty( $request['meta_data'] ) ) {
 
 			if ( is_object( $request['meta_data'] ) ) {
@@ -782,8 +852,19 @@ class User_Memberships extends Controller {
 				'cancelled_date'     => $user_membership->get_local_cancelled_date( DATE_ATOM ),
 				'cancelled_date_gmt' => $user_membership->get_cancelled_date( DATE_ATOM ),
 				'view_url'           => $user_membership->get_view_membership_url(),
+				'profile_fields'     => [],
 				'meta_data'          => $this->prepare_item_meta_data( $user_membership ),
 			];
+
+			$profile_fields = $user_membership->get_profile_fields();
+
+			foreach ( $profile_fields as $profile_field ) {
+
+				$data['profile_fields'][] = [
+					'slug'  => $profile_field->get_slug(),
+					'value' => $profile_field->get_value(),
+				];
+			}
 
 		} else {
 
@@ -883,6 +964,20 @@ class User_Memberships extends Controller {
 			];
 		}
 
+		// for any "file" profile fields, add a link to its associated media object
+		if ( $profile_fields = $user_membership->get_profile_fields( [ 'type' => Profile_Fields::TYPE_FILE ] ) ) {
+
+			foreach ( $profile_fields as $profile_field ) {
+
+				if ( $attachment_id = $profile_field->get_value() ) {
+
+					$links[ $profile_field->get_slug() ] = [
+						'href' => rest_url( 'wp/v2/media/' . $attachment_id ),
+					];
+				}
+			}
+		}
+
 		/**
 		 * Filters the user membership item's links for WP API output.
 		 *
@@ -915,133 +1010,154 @@ class User_Memberships extends Controller {
 		 *
 		 * @param array associative array
 		 */
-		$schema = (array) apply_filters( 'wc_memberships_rest_api_user_membership_schema', array(
+		$schema = (array) apply_filters( 'wc_memberships_rest_api_user_membership_schema', [
 			'$schema'    => 'http://json-schema.org/draft-04/schema#',
 			'title'      => 'user_membership', // this will be used as the base for WP REST CLI commands
 			'type'       => 'object',
-			'properties' => array(
-				'id'                 => array(
+			'properties' => [
+				'id'                 => [
 					'description' => __( 'Unique identifier of the user membership.', 'woocommerce-memberships' ),
 					'type'        => 'integer',
-					'context'     => array( 'view', 'edit' ),
+					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
-				),
-				'customer_id'        => array(
+				],
+				'customer_id'        => [
 					'description' => __( 'Unique identifier of the user the membership belongs to.', 'woocommerce-memberships' ),
 					'type'        => 'integer',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'plan_id'            => array(
+					'context'     => [ 'view', 'edit' ],
+				],
+				'plan_id'            => [
 					'description' => __( 'Unique identifier of the plan the user membership grants access to.', 'woocommerce-memberships' ),
 					'type'        => 'integer',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'status'             => array(
+					'context'     => [ 'view', 'edit' ],
+				],
+				'status'             => [
 					'description' => __( 'User membership status.', 'woocommerce-membership' ),
 					'type'        => 'string',
-					'context'     => array( 'view', 'edit' ),
+					'context'     => [ 'view', 'edit' ],
 					'enum'        => wc_memberships_get_user_membership_statuses( false, false ),
-				),
-				'order_id'           => array(
+				],
+				'order_id'           => [
 					'description' => __( 'Unique identifier of the order that grants access.', 'woocommerce-memberships' ),
 					'type'        => 'integer',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'product_id'         => array(
+					'context'     => [ 'view', 'edit' ],
+				],
+				'product_id'         => [
 					'description' => __( 'Unique identifier of the purchased product, or its variation, that grants access.', 'woocommerce-memberships' ),
 					'type'        => 'integer',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'date_created'       => array(
+					'context'     => [ 'view', 'edit' ],
+				],
+				'date_created'       => [
 					'description' => __( 'The date when the user membership is created, in the site timezone.', 'woocommerce-memberships' ),
 					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
+					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
-				),
-				'date_created_gmt'   => array(
+				],
+				'date_created_gmt'   => [
 					'description' => __( 'The date when the user membership is created, in UTC.', 'woocommerce-memberships' ),
 					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
+					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
-				),
-				'start_date'         => array(
+				],
+				'start_date'         => [
 					'description' => __( 'The date when the user membership starts being active, in the site timezone.', 'woocommerce-memberships' ),
 					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
+					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
-				),
-				'start_date_gmt'     => array(
+				],
+				'start_date_gmt'     => [
 					'description' => __( 'The date when the user membership starts being active, in UTC.', 'woocommerce-memberships' ),
 					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'end_date'           => array(
+					'context'     => [ 'view', 'edit' ],
+				],
+				'end_date'           => [
 					'description' => __( 'The date when the user membership ends, in the site timezone.', 'woocommerce-memberships' ),
 					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
+					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
-				),
-				'end_date_gmt'       => array(
+				],
+				'end_date_gmt'       => [
 					'description' => __( 'The date when the user membership ends, in UTC.', 'woocommerce-memberships' ),
 					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'paused_date'        => array(
+					'context'     => [ 'view', 'edit' ],
+				],
+				'paused_date'        => [
 					'description' => __( 'The date when the user membership was last paused, in the site timezone.', 'woocommerce-memberships' ),
 					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
+					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
-				),
-				'paused_date_gmt'    => array(
+				],
+				'paused_date_gmt'    => [
 					'description' => __( 'The date when the user membership was last paused, in UTC.', 'woocommerce-memberships' ),
 					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'cancelled_date'     => array(
+					'context'     => [ 'view', 'edit' ],
+				],
+				'cancelled_date'     => [
 					'description' => __( 'The date when the user membership was cancelled, in the site timezone.', 'woocommerce-memberships' ),
 					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
+					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
-				),
-				'cancelled_date_gmt' => array(
+				],
+				'cancelled_date_gmt' => [
 					'description' => __( 'The date when the user membership was cancelled, in UTC.', 'woocommerce-memberships' ),
 					'type'        => 'date-time',
-					'context'     => array( 'view', 'edit' ),
-				),
-				'view_url'           => array(
+					'context'     => [ 'view', 'edit' ],
+				],
+				'view_url'           => [
 					'description' => __( 'The URL pointing to the Members Area to view the membership.', 'woocommerce-memberships' ),
 					'type'        => 'string',
-					'context'     => array( 'view', 'edit' ),
+					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
-				),
-				'meta_data'          => array(
+				],
+				'profile_fields' => [
+					'description' => __( 'User membership profile fields.', 'woocommerce-memberships' ),
+					'type'        => 'array',
+					'context'     => [ 'view', 'edit' ],
+					'items'       => [
+						'type'       => 'object',
+						'properties' => [
+							'slug' => [
+								'description' => __( 'Profile field slug.', 'woocommerce-memberships' ),
+								'type'        => 'string',
+								'context'     => [ 'view', 'edit' ],
+								'enum'        => array_keys( Profile_Fields::get_profile_field_definitions() ),
+							],
+							'value' => [
+								'description' => __( 'Profile field value.', 'woocommerce-memberships' ),
+								'type'        => 'mixed',
+								'context'     => [ 'view', 'edit' ],
+							],
+						],
+					],
+				],
+				'meta_data'          => [
 					'description' => __( 'User membership additional meta data.', 'woocommerce-memberships' ),
 					'type'        => 'array',
-					'context'     => array( 'view', 'edit' ),
-					'items'       => array(
+					'context'     => [ 'view', 'edit' ],
+					'items'       => [
 						'type'       => 'object',
-						'properties' => array(
-							'id'     => array(
+						'properties' => [
+							'id'     => [
 								'description' => __( 'Meta ID.', 'woocommerce-memberships' ),
 								'type'        => 'integer',
-								'context'     => array( 'view', 'edit' ),
+								'context'     => [ 'view', 'edit' ],
 								'readonly'    => true,
-							),
-							'key'    => array(
+							],
+							'key'    => [
 								'description' => __( 'Meta key.', 'woocommerce-memberships' ),
 								'type'        => 'string',
-								'context'     => array( 'view', 'edit' ),
-							),
-							'value'  => array(
+								'context'     => [ 'view', 'edit' ],
+							],
+							'value'  => [
 								'description' => __( 'Meta value.', 'woocommerce-memberships' ),
 								'type'        => 'mixed',
-								'context'     => array( 'view', 'edit' ),
-							),
-						),
-					),
-				),
-			),
-		) );
+								'context'     => [ 'view', 'edit' ],
+							],
+						],
+					],
+				],
+			],
+		] );
 
 		return $this->add_additional_fields_schema( $schema );
 	}

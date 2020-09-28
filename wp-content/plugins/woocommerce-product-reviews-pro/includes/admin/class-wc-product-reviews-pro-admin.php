@@ -187,11 +187,11 @@ class WC_Product_Reviews_Pro_Admin {
 		// fetch number of flagged contributions, optionally filtered by current post_id (product)
 		$where_comment = $post_id ? $wpdb->prepare( " AND c.comment_post_ID = %d", $post_id ) : '';
 		$flagged_count = max( 0, (int) $wpdb->get_var( "
-			SELECT COUNT(c.comment_ID) 
-			FROM {$wpdb->comments} c 
-			LEFT JOIN {$wpdb->commentmeta} m ON c.comment_ID = m.comment_id 
-			WHERE m.meta_key = 'flag_count' 
-			AND m.meta_value > 0 
+			SELECT COUNT(c.comment_ID)
+			FROM {$wpdb->comments} c
+			LEFT JOIN {$wpdb->commentmeta} m ON c.comment_ID = m.comment_id
+			WHERE m.meta_key = 'flag_count'
+			AND m.meta_value > 0
 			{$where_comment}
 		" ) );
 
@@ -273,8 +273,8 @@ class WC_Product_Reviews_Pro_Admin {
 
 			case 'votes':
 
-				echo (int) $contribution->get_positive_votes(); ?><span class="vote vote-up"   data-comment-id="<?php echo $comment->comment_ID; ?>" title="<?php esc_attr_e( 'Positive votes', 'woocommerce-product-reviews-pro' ); ?>"></span><br><?php
-				echo (int) $contribution->get_negative_votes(); ?><span class="vote vote-down" data-comment-id="<?php echo $comment->comment_ID; ?>" title="<?php esc_attr_e( 'Negative votes', 'woocommerce-product-reviews-pro' ); ?>"></span><?php
+				echo (int) $contribution->get_positive_votes(); ?><span class="vote vote-up"   data-comment-id="<?php echo esc_attr( $comment->comment_ID ); ?>" title="<?php esc_attr_e( 'Positive votes', 'woocommerce-product-reviews-pro' ); ?>"></span><br><?php
+				echo (int) $contribution->get_negative_votes(); ?><span class="vote vote-down" data-comment-id="<?php echo esc_attr( $comment->comment_ID ); ?>" title="<?php esc_attr_e( 'Negative votes', 'woocommerce-product-reviews-pro' ); ?>"></span><?php
 
 			break;
 
@@ -1134,19 +1134,19 @@ class WC_Product_Reviews_Pro_Admin {
 									<?php if ( $flag->is_anonymous() ) : ?>
 										<em><?php esc_html_e( 'Guest', 'woocommerce-product-reviews-pro' ); ?></em>
 									<?php elseif ( $user = $flag->get_user() ) : ?>
-										<a href="<?php get_edit_user_link( $user->ID ); ?>"><?php echo esc_html( $user->display_name ); ?></a>
+										<a href="<?php echo esc_url( get_edit_user_link( $user->ID ) ); ?>"><?php echo esc_html( $user->display_name ); ?></a>
 									<?php endif; ?>
 									<div class="meta">
 										<small><?php echo $flag->get_date( wc_date_format() . ' @ ' . wc_time_format() ); ?></small>
 										<br />
-										<small><?php echo $flag->has_ip() ? $flag->get_ip() : '&ndash;' ?></small>
+										<small><?php echo $flag->has_ip() ? esc_html( $flag->get_ip() ) : '&ndash;' ?></small>
 									</div>
 								</td>
 								<td class="reason">
 									<?php if ( ! $flag->has_reason() ) : ?>
 										<em><?php esc_html_e( 'No flag reasons given', 'woocommerce-product-reviews-pro' ); ?></em>
 									<?php else : ?>
-										<?php echo $flag->get_reason(); ?>
+										<?php echo esc_html( $flag->get_reason() ); ?>
 									<?php endif; ?>
 								</td>
 								<td class="actions">
@@ -1255,7 +1255,7 @@ class WC_Product_Reviews_Pro_Admin {
 				<?php if ( $attachment_url && 'video' === $contribution->get_attachment_type() ) : ?>
 					<?php $embed_code = wp_oembed_get( $attachment_url ); ?>
 					<?php if ( $embed_code ) : ?>
-						<p><?php printf( '<a href="%1$s">%2$s</a>', $attachment_url, $attachment_url ); ?></p>
+						<p><?php printf( '<a href="%1$s">%2$s</a>', esc_url( $attachment_url ), esc_url( $attachment_url ) ); ?></p>
 					<?php endif; ?>
 				<?php endif; ?>
 

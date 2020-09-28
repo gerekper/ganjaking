@@ -21,6 +21,9 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Profile_Fields;
+use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field;
+use SkyVerge\WooCommerce\Memberships\Profile_Fields\Exceptions\Invalid_Field;
 use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -189,6 +192,7 @@ class WC_Memberships_CSV_Import_User_Memberships extends \WC_Memberships_Job_Han
 				'memberships_merged'  => 0,
 				'users_created'       => 0,
 				'rows_skipped'        => 0,
+				'profile_fields'      => [],
 				'html'                => '',
 			),
 		) );
@@ -543,6 +547,9 @@ class WC_Memberships_CSV_Import_User_Memberships extends \WC_Memberships_Job_Han
 				$import_data['membership_expiration'] = null;
 			}
 
+			// add the profile fields' data
+			$import_data = array_merge( $this->get_profile_fields_import_data( $row ), $import_data );
+
 			/**
 			 * Filter CSV User Membership import data before processing an import.
 			 *
@@ -615,6 +622,29 @@ class WC_Memberships_CSV_Import_User_Memberships extends \WC_Memberships_Job_Han
 		}
 
 		return $user_membership;
+	}
+
+
+	/**
+	 * Gets the member profile fields' values from row data.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @param array $row_data CSV row data
+	 * @return array
+	 */
+	private function get_profile_fields_import_data( $row_data ) {
+
+		$profile_fields_import_data = $row_data;
+
+		foreach ( $row_data as $key => $value ) {
+
+			if ( ! Profile_Fields::is_profile_field_slug( $key ) ) {
+				unset( $profile_fields_import_data[ $key ] );
+			}
+		}
+
+		return $profile_fields_import_data;
 	}
 
 
@@ -698,6 +728,9 @@ class WC_Memberships_CSV_Import_User_Memberships extends \WC_Memberships_Job_Han
 
 					// update meta upon create or update action
 					$user_membership = $this->update_user_membership_meta( $user_membership, $action, $import_data, $job );
+
+					// update member profile fields upon create or update action
+					$user_membership = $this->update_member_profile_fields( $user_membership, $import_data, $job );
 
 					/**
 					 * Fires upon creating or updating a User Membership from import data.
@@ -819,6 +852,41 @@ class WC_Memberships_CSV_Import_User_Memberships extends \WC_Memberships_Job_Han
 		$membership_plan = null;
 
 		unset( $membership_plan );
+
+		return $user_membership;
+	}
+
+
+	/**
+	 * Updates the member profile fields.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @param \WC_Memberships_User_Membership $user_membership
+	 * @param array $data import data
+	 * @param \stdClass $job job object being processed
+	 * @return \WC_Memberships_User_Membership
+	 */
+	private function update_member_profile_fields( \WC_Memberships_User_Membership $user_membership, $data, $job ) {
+
+		foreach ( $data as $key => $value ) {
+
+			if ( Profile_Fields::is_profile_field_slug( $key ) ) {
+
+				try {
+
+					$user_membership->set_profile_field( $key, $value );
+
+				} catch ( \Exception $exception ) {
+
+					$code = $exception->getCode();
+
+					$job->results->profile_fields[ $code ] = ( isset( $job->results->profile_fields[ $code ] ) ? $job->results->profile_fields[ $code ] + 1 : 1 );
+				}
+			}
+		}
+
+		$this->update_job( $job );
 
 		return $user_membership;
 	}
@@ -1110,6 +1178,27 @@ class WC_Memberships_CSV_Import_User_Memberships extends \WC_Memberships_Job_Han
 				if ( $skipped_rows > 0 ) {
 					/* translators: Placeholder: %s - skipped User Memberships to import from file */
 					$message .= '<li>' . sprintf( _n( '%s row skipped.', '%s rows skipped.', $skipped_rows, 'woocommerce-memberships' ), $skipped_rows ) . '</li>';
+				}
+
+				foreach ( $results->profile_fields as $error_code => $error_count ) {
+
+					if ( $error_count > 0 ) {
+
+						switch ( $error_code ) {
+
+							case Invalid_Field::ERROR_REQUIRED_VALUE:
+								$message .= '<li>' . __( 'Some required profile fields had empty values and were not imported.', 'woocommerce-memberships' ) . '</li>';
+							break;
+
+							case Invalid_Field::ERROR_INVALID_PLAN:
+								$message .= '<li>' . __( 'Some profile fields could not be populated for users based on their assigned membership plans.', 'woocommerce-memberships' ) . '</li>';
+							break;
+
+							case Invalid_Field::ERROR_INVALID_VALUE:
+								$message .= '<li>' . __( 'Some profile fields had invalid values and were not imported.', 'woocommerce-memberships' ) . '</li>';
+							break;
+						}
+					}
 				}
 
 				$message .= '</ul>';

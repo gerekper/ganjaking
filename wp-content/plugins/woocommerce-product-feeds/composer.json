@@ -18,6 +18,7 @@
             "./src/common/woocommerce-gpf-rest-api.php",
             "./src/common/woocommerce-gpf-status-report.php",
             "./src/common/woocommerce-gpf-template-loader.class.php",
+            "./src/common/woocommerce-product-feeds-db-manager.php",
             "./src/common/woocommerce-product-feeds-integration-manager.php",
             "./src/common/woocommerce-product-feeds-term-depth-repository.php",
 
@@ -51,9 +52,13 @@
             "./src/prf/woocommerce-prf-google-review-product-info.php",
 
             "./src/integrations/woocommerce-cost-of-goods.php",
-            "./src/integrations/woocommerce-gpf-the-content-protection.php",
             "./src/integrations/woocommerce-gpf-multicurrency.php",
+            "./src/integrations/woocommerce-gpf-price-by-country.php",
+            "./src/integrations/woocommerce-gpf-product-brands-for-woocommerce.php",
+            "./src/integrations/woocommerce-gpf-the-content-protection.php",
+            "./src/integrations/woocommerce-gpf-woocommerce-mix-and-match-products.php",
             "./src/integrations/woocommerce-min-max-quantities.php",
+
             "./src/integrations/woocommerce-product-vendors.php",
             "./src/integrations/yoast-woocommerce-seo.php",
 

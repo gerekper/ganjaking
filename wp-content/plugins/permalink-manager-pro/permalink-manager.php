@@ -4,7 +4,7 @@
 * Plugin Name:       Permalink Manager Pro
 * Plugin URI:        https://permalinkmanager.pro?utm_source=plugin
 * Description:       Advanced plugin that allows to set-up custom permalinks (bulk editors included), slugs and permastructures (WooCommerce compatible).
-* Version:           2.2.8.9
+* Version:           2.2.9.1
 * Author:            Maciej Bis
 * Author URI:        http://maciejbis.net/
 * License:           GPL-2.0+
@@ -12,7 +12,7 @@
 * Text Domain:       permalink-manager
 * Domain Path:       /languages
 * WC requires at least: 3.0.0
-* WC tested up to:      4.3.2
+* WC tested up to:      4.5.2
 */
 
 // If this file is called directly or plugin is already defined, abort.
@@ -20,14 +20,12 @@ if (!defined('WPINC')) {
 	die;
 }
 
-update_site_option('permalink-manager-licence-key', 'nullmasterinbabiato');
-
 if(!class_exists('Permalink_Manager_Class')) {
 
 	// Define the directories used to load plugin files.
 	define( 'PERMALINK_MANAGER_PLUGIN_NAME', 'Permalink Manager' );
 	define( 'PERMALINK_MANAGER_PLUGIN_SLUG', 'permalink-manager' );
-	define( 'PERMALINK_MANAGER_VERSION', '2.2.8.9' );
+	define( 'PERMALINK_MANAGER_VERSION', '2.2.9.1' );
 	define( 'PERMALINK_MANAGER_FILE', __FILE__ );
 	define( 'PERMALINK_MANAGER_DIR', untrailingslashit(dirname(__FILE__)) );
 	define( 'PERMALINK_MANAGER_BASENAME', plugin_basename(__FILE__));
@@ -350,6 +348,6 @@ if(!class_exists('Permalink_Manager_Class')) {
 
 		$permalink_manager = new Permalink_Manager_Class();
 	}
-	run_permalink_manager();
 
+	run_permalink_manager();
 }

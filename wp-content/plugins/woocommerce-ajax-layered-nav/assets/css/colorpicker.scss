@@ -71,15 +71,12 @@
 .colorpicker input {
 	background-color: transparent;
 	border: 1px solid transparent;
-	position: absolute;
 	font-size: 10px;
 	font-family: Arial, Helvetica, sans-serif;
 	color: #898989;
-	top: 4px;
-	right: 11px;
 	text-align: right;
 	margin: 0;
-	padding: 0;
+	padding: 1px 0px 0px 20px;
 	height: 11px;
 }
 .colorpicker_hex {
@@ -138,6 +135,19 @@
 	top: 112px;
 	left: 282px;
 }
+
+.colorpicker_rgb_r,
+.colorpicker_rgb_g,
+.colorpicker_rgb_b,
+.colorpicker_hsb_h,
+.colorpicker_hsb_s,
+.colorpicker_hsb_b,
+.colorpicker_hex {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .colorpicker_submit {
 	position: absolute;
 	width: 22px;

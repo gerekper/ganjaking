@@ -1230,63 +1230,34 @@ final class THEMECOMPLETE_EPO_HELPER_base {
 		}
 
 		$cache_key = $this->_count_posts_cache_key( $type, $perm );
+		$counts = wp_cache_get( $cache_key, 'counts' );
+		if ( FALSE !== $counts ) {
+			return apply_filters( 'wc_epo_wp_count_posts', $counts, $type, $perm );
+		}
 
 		// WPML
 		$_lang = THEMECOMPLETE_EPO_WPML()->get_lang();
+
+		$args = array(
+			'posts_per_page'    => -1,
+			'post_type'         => $type,
+			'post_status'       => get_post_stati()
+		);
+
 		if ( THEMECOMPLETE_EPO_WPML()->is_active() && THEMECOMPLETE_EPO_WPML()->get_lang() != 'all' && $_lang == THEMECOMPLETE_EPO_WPML()->get_default_lang() ) {
-			$query = "SELECT p.post_status, COUNT( DISTINCT ID ) AS num_posts FROM {$wpdb->posts} p";
-		} else {
-			$query = "SELECT p.post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts} p";
-		}
-		// WPML
-		if ( THEMECOMPLETE_EPO_WPML()->is_active() && THEMECOMPLETE_EPO_WPML()->get_lang() != 'all' ) {
-			if ( $_lang == THEMECOMPLETE_EPO_WPML()->get_default_lang() ) {
-				$query .= " LEFT JOIN {$wpdb->postmeta} ON (p.ID = {$wpdb->postmeta}.post_id)"
-				          . " LEFT JOIN {$wpdb->postmeta} AS mt1 ON (p.ID = mt1.post_id AND mt1.meta_key = '" . THEMECOMPLETE_EPO_WPML_LANG_META . "')";
-			} else {
-				$query .= " JOIN  {$wpdb->postmeta} pm";
-			}
-		}
-		// WPML
-		if ( THEMECOMPLETE_EPO_WPML()->is_active() && THEMECOMPLETE_EPO_WPML()->get_lang() != 'all' && $_lang == THEMECOMPLETE_EPO_WPML()->get_default_lang() ) {
-			$query .= " WHERE 1=1 AND p.post_type = %s";
-		} else {
-			$query .= " WHERE p.post_type = %s";
+			$args['meta_query'] = THEMECOMPLETE_EPO_HELPER()->build_meta_query( 'AND', THEMECOMPLETE_EPO_WPML_LANG_META, $_lang, '=', 'EXISTS' );
 		}
 
-		if ( 'readable' == $perm && is_user_logged_in() ) {
-			$post_type_object = get_post_type_object( $type );
-			if ( ! current_user_can( $post_type_object->cap->read_private_posts ) ) {
-				$query .= $wpdb->prepare( " AND (p.post_status != 'private' OR ( p.post_author = %d AND p.post_status = 'private' ))",
-					get_current_user_id()
-				);
-			}
-		}
+		$posts_query = new WP_Query($args);
+		$the_count = $posts_query->post_count;
+			
+		$counts = array_fill_keys( get_post_stati(), 0 ) ;
+		$counts = array_merge( $counts, array_count_values(wp_list_pluck($posts_query->posts,'post_status')) );
 
-		// WPML
-		if ( THEMECOMPLETE_EPO_WPML()->is_active() && THEMECOMPLETE_EPO_WPML()->get_lang() != 'all' ) {
-			if ( $_lang == THEMECOMPLETE_EPO_WPML()->get_default_lang() ) {
-				$query .= " AND ( ( " . $wpdb->prefix . "postmeta.meta_key = '" . THEMECOMPLETE_EPO_WPML_LANG_META . "' AND CAST(" . $wpdb->prefix . "postmeta.meta_value AS CHAR) = '" . THEMECOMPLETE_EPO_WPML()->get_lang() . "' ) OR mt1.post_id IS NULL ) ";
-			} else {
-				$query .= " AND p.ID=pm.post_id AND pm.meta_key = '" . THEMECOMPLETE_EPO_WPML_LANG_META . "' AND pm.meta_value = '" . THEMECOMPLETE_EPO_WPML()->get_lang() . "'";
-			}
-		}
+		$counts = (object) $counts;
 
-		$query .= ' GROUP BY p.post_status';
-
-		$counts = wp_cache_get( $cache_key, 'counts' );
-		if ( FALSE === $counts ) {
-			$results = (array) $wpdb->get_results( $wpdb->prepare( $query, $type ), ARRAY_A );
-			$counts  = array_fill_keys( get_post_stati(), 0 );
-
-			foreach ( $results as $row ) {
-				$counts[ $row['post_status'] ] = $row['num_posts'];
-			}
-
-			$counts = (object) $counts;
-			wp_cache_set( $cache_key, $counts, 'counts' );
-		}
-
+		wp_cache_set( $cache_key, $counts, 'counts' );
+		
 		return apply_filters( 'wc_epo_wp_count_posts', $counts, $type, $perm );
 	}
 
@@ -1681,8 +1652,8 @@ final class THEMECOMPLETE_EPO_HELPER_base {
 	 *
 	 * @since 1.0
 	 */
-	public function str_endsswith( $source, $prefix ) {
-		return $prefix === '' || ( strlen( $prefix ) <= strlen( $source ) && substr_compare( $source, $prefix, - strlen( $prefix ) ) === 0 );
+	public function str_endsswith( $source, $suffix ) {
+		return $suffix === '' || ( strlen( $suffix ) <= strlen( $source ) && substr_compare( $source, $suffix, - strlen( $suffix ) ) === 0 );
 	}
 
 	/**

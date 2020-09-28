@@ -198,7 +198,7 @@ class WC_MNM_Core_Compatibility {
 	 * @param  string  $group
 	 */
 	public static function wc_cache_helper_incr_cache_prefix( $group ) {
-		WC_Cache_Helper::incr_cache_prefix( $group );
+		self::is_wc_version_gte( '3.9' ) ? WC_Cache_Helper::invalidate_cache_group( $group ) : WC_Cache_Helper::incr_cache_prefix( $group );
 	}
 
 	/**

@@ -51,9 +51,9 @@
 				return;
 			}
 
-			this.membership = document.getElementById(
-				'smush-onboarding'
-			).dataset.type;
+			const dialog = document.getElementById( 'smush-onboarding' );
+
+			this.membership = dialog.dataset.type;
 
 			if ( 'pro' !== this.membership ) {
 				this.onboardingSlides = [
@@ -64,6 +64,10 @@
 					'usage',
 				];
 				this.selection.lossy = false;
+			}
+
+			if ( 'false' === dialog.dataset.tracking ) {
+				this.onboardingSlides.pop();
 			}
 
 			this.renderTemplate();

@@ -137,7 +137,7 @@ class MeprSubscriptionsCtrl extends MeprBaseCtrl
   private function create_or_update($sub) {
     check_admin_referer( 'mepr_create_or_update_subscription', 'mepr_subscriptions_nonce' );
 
-    extract($_POST);
+    extract($_POST, EXTR_SKIP);
     $user = new MeprUser();
     $user->load_user_data_by_login($user_login);
     $sub->user_id = $user->ID;
@@ -171,7 +171,7 @@ class MeprSubscriptionsCtrl extends MeprBaseCtrl
 
   private function validate() {
     $errors = array();
-    extract($_POST);
+    extract($_POST, EXTR_SKIP);
     $user = new MeprUser;
 
     if(isset($subscr_id) && !empty($subscr_id)) {

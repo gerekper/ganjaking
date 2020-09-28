@@ -305,6 +305,68 @@ global $current_tab, $current_section, $output_type, $export_type;
 
 <?php if ( isset( $current_tab ) && 'custom_formats' === $current_tab ) : ?>
 
+	<script type="text/template" id="tmpl-wc-customer-order-coupon-export-modal-body-add-custom-format">
+
+		<form action="" method="post">
+
+			<table class="wc-customer-order-coupon-export-add-custom-format-options form-table">
+				<tbody>
+
+					<tr valign="top">
+						<th>
+							<label for="export_type">
+								<?php esc_html_e( 'Export type', 'woocommerce-customer-order-csv-export' ); ?>
+							</label>
+						</th>
+						<td>
+							<ul>
+
+								<?php $export_types = wc_customer_order_csv_export()->get_export_types(); ?>
+
+								<?php foreach ( $export_types as $export_type_option => $label ) : ?>
+									<li>
+										<label>
+											<input type="radio" name="export_type" value="<?php echo esc_attr( $export_type_option ); ?>" <?php checked( \WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS, $export_type_option ); ?> />
+											<?php echo esc_html( $label ); ?>
+										</label>
+									</li>
+								<?php endforeach; ?>
+
+							</ul>
+						</td>
+					</tr>
+
+					<tr valign="top">
+						<th>
+							<label for="output_type">
+								<?php esc_html_e( 'Output type', 'woocommerce-customer-order-csv-export' ); ?>
+							</label>
+						</th>
+						<td>
+							<ul>
+
+								<?php $output_types = wc_customer_order_csv_export()->get_output_types(); ?>
+
+								<?php foreach ( $output_types as $output_type_option => $label ) : ?>
+									<li>
+										<label>
+											<input type="radio" name="output_type" value="<?php echo esc_attr( $output_type_option ); ?>" <?php checked( \WC_Customer_Order_CSV_Export::OUTPUT_TYPE_CSV, $output_type_option ); ?> />
+											<?php echo esc_html( $label ); ?>
+										</label>
+									</li>
+								<?php endforeach; ?>
+
+							</ul>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+		</form>
+
+	</script>
+
 	<script type="text/template" id="tmpl-wc-customer-order-csv-export-modal-body-load-mapping">
 
 		<form action="" method="post">

@@ -225,35 +225,33 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 					});
 
 					<?php if ( $this->is_wc_gte_32() ) { ?>
-						jQuery(document).ready(function(){
-								let wc_sc_expiry_time = parseInt( jQuery('#wc_sc_expiry_time').val() );
-								let expiry_time_string = '';
-								if( Number.isInteger( wc_sc_expiry_time ) ) {
-									let expiry_minutes = wc_sc_expiry_time / 60; // Expiry time is stored in seconds.
-									let expiry_hours = Math.floor( expiry_minutes / 60 ); // Get total hours from total seconds.
-									expiry_minutes = expiry_minutes % 60; // Get remaining minutes after removing hours from total seconds.
-									expiry_hours = expiry_hours < 10 ? '0' + expiry_hours : expiry_hours; // Add leading zero to hours to avoid timepicker time not preselected issue when hours < 10.
-									expiry_minutes = expiry_minutes < 10 ? '0' + expiry_minutes : expiry_minutes; // Add leading zero to minutes to avoid timepicker time not preselected issue when minutes < 10.
-									expiry_time_string = expiry_hours + ':' + expiry_minutes;
-								}
+					let wc_sc_expiry_time = parseInt( jQuery('#wc_sc_expiry_time').val() );
+					let expiry_time_string = '';
+					if( Number.isInteger( wc_sc_expiry_time ) ) {
+						let expiry_minutes = wc_sc_expiry_time / 60; // Expiry time is stored in seconds.
+						let expiry_hours = Math.floor( expiry_minutes / 60 ); // Get total hours from total seconds.
+						expiry_minutes = expiry_minutes % 60; // Get remaining minutes after removing hours from total seconds.
+						expiry_hours = expiry_hours < 10 ? '0' + expiry_hours : expiry_hours; // Add leading zero to hours to avoid timepicker time not preselected issue when hours < 10.
+						expiry_minutes = expiry_minutes < 10 ? '0' + expiry_minutes : expiry_minutes; // Add leading zero to minutes to avoid timepicker time not preselected issue when minutes < 10.
+						expiry_time_string = expiry_hours + ':' + expiry_minutes;
+					}
 
-								jQuery('#wc_sc_expiry_time_picker').timepicker({
-									timeInput: true,
-								}).val(expiry_time_string);
+					jQuery('#wc_sc_expiry_time_picker').timepicker({
+						timeInput: true,
+					}).val(expiry_time_string);
 
-								jQuery('#wc_sc_expiry_time_picker').on('change', function(){
-									let expiry_time = jQuery(this).val();
-									if( expiry_time !== '' && expiry_time.indexOf(':') > 0 ) {
-										expiry_time = expiry_time.split(':');
-										let expiry_hours = parseInt( expiry_time[0] );
-										let expiry_minutes = parseInt( expiry_time[1] );
-										if( Number.isInteger( expiry_hours ) && Number.isInteger( expiry_minutes ) ) {
-											expiry_time = expiry_hours * 60 * 60 + expiry_minutes * 60;
-										}
-									}
-									jQuery('#wc_sc_expiry_time').val( expiry_time );
-								});
-						});
+					jQuery('#wc_sc_expiry_time_picker').on('change', function(){
+						let expiry_time = jQuery(this).val();
+						if( expiry_time !== '' && expiry_time.indexOf(':') > 0 ) {
+							expiry_time = expiry_time.split(':');
+							let expiry_hours = parseInt( expiry_time[0] );
+							let expiry_minutes = parseInt( expiry_time[1] );
+							if( Number.isInteger( expiry_hours ) && Number.isInteger( expiry_minutes ) ) {
+								expiry_time = expiry_hours * 60 * 60 + expiry_minutes * 60;
+							}
+						}
+						jQuery('#wc_sc_expiry_time').val( expiry_time );
+					});
 					<?php } ?>
 				});
 			</script>

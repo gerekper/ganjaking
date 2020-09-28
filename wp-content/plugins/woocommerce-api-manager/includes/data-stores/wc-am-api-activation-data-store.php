@@ -915,12 +915,13 @@ class WC_AM_API_Activation_Data_Store {
 			$result = $this->delete_api_key_activation_by_instance_id( wc_clean( $_GET[ 'instance' ] ) );
 
 			/**
-			 * Refresh cache.
+			 * Delete cache.
 			 *
 			 * @since 2.2.0
 			 */
 			WC_AM_SMART_CACHE()->delete_cache( wc_clean( array(
 				                                             'admin_resources' => array(
+					                                             'instance'      => $_GET[ 'instance' ],
 					                                             'order_id'      => $_GET[ 'order_id' ],
 					                                             'sub_parent_id' => $_GET[ 'sub_parent_id' ],
 					                                             'api_key'       => $_GET[ 'api_key' ],

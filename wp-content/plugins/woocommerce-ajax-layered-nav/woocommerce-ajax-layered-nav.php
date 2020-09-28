@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: WooCommerce Advanced Ajax Layered Navigation
- * Version: 1.4.24
+ * Version: 1.4.26
  * Plugin URI: https://woocommerce.com/products/ajax-layered-navigation/
  * Description: Ajaxifies the standard WooCommerce Layered Nav and adds additional output types like color swatches, sizes, checkboxes, etc
  * Author URI: https://woocommerce.com
  * Author: WooCommerce
- * Tested up to: 5.3
- * WC tested up to: 4.2
+ * Tested up to: 5.5
+ * WC tested up to: 4.5
  * Woo: 18675:8a0ed1b64e6a889a9f084db0ed5ece6c
  * Text Domain: woocommerce-ajax-layered-nav
  *
@@ -25,6 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_ajax_layered_nav_init' );
 
+// Subscribe to automated translations.
+add_action( 'woocommerce_translations_updates_for_woocommerce-ajax-layered-nav', '__return_true' );
+
 /**
  * Initialize plugin.
  */
@@ -35,7 +38,7 @@ function wc_ajax_layered_nav_init() {
 		return;
 	}
 
-	define( 'WC_AJAX_LAYERED_NAV_VERSION', '1.4.24' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_AJAX_LAYERED_NAV_VERSION', '1.4.26' ); // WRCS: DEFINED_VERSION.
 
 	load_plugin_textdomain( 'woocommerce-ajax-layered-nav', false, plugin_basename( __DIR__ ) . '/languages' );
 

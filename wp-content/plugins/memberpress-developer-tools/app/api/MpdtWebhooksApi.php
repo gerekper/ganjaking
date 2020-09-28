@@ -37,6 +37,7 @@ class MpdtWebhooksApi {
       array(
         'methods'             => WP_REST_Server::DELETABLE,
         'callback'            => array($this, 'webhook_unsubscribe'),
+        'permission_callback' => '__return_true'
       ),
     ));
   }

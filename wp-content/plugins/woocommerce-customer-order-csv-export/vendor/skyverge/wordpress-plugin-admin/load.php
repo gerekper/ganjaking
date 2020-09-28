@@ -34,17 +34,17 @@ if ( ! function_exists( 'sv_wordpress_plugin_admin_initialize_1_0_1' ) ) {
 		add_action( 'plugins_loaded', [ \SkyVerge\WordPress\Plugin_Admin\Versions::class, 'initialize_latest_version' ], 99, 0 );
 	}
 
-	// register v1.0.1
-	\SkyVerge\WordPress\Plugin_Admin\Versions::register( '1.0.1', 'sv_wordpress_plugin_admin_initialize_1_0_1' );
+	// register v1.0.2
+	\SkyVerge\WordPress\Plugin_Admin\Versions::register( '1.0.2', 'sv_wordpress_plugin_admin_initialize_1_0_2' );
 
 	/**
-	 * Initializes the WordPress Admin package v1.0.1.
+	 * Initializes the WordPress Admin package v1.0.2.
 	 *
 	 * This function should not be called directly.
 	 *
-	 * @since 1.0.1
+	 * @since 1.0.2
 	 */
-	function sv_wordpress_plugin_admin_initialize_1_0_1() {
+	function sv_wordpress_plugin_admin_initialize_1_0_2() {
 
 		require_once( 'src/Package.php' );
 

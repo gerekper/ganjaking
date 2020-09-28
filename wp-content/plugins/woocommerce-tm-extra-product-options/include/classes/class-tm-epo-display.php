@@ -1159,12 +1159,13 @@ class THEMECOMPLETE_EPO_Display {
 						if ( $element['type'] === "product" ) {
 							$args['extra_class']       = "cpf-type-product-" . $element['layout_mode'] . " cpf-type-product-mode-" . $element['mode'];
 							$args['element_data_attr'] = array(
-								"data-product-layout-mode" => $element['layout_mode'],
-								"data-quantity-min"        => $element['quantity_min'],
-								"data-quantity-max"        => $element['quantity_max'],
-								"data-priced-individually" => $element['priced_individually'],
-								"data-discount"            => $element['discount'],
-								"data-discount-type"       => $element['discount_type'],
+								"data-mode"                => isset($element['mode'])?$element['mode']:"",
+								"data-product-layout-mode" => isset($element['layout_mode'])?$element['layout_mode']:"",
+								"data-quantity-min"        => isset($element['quantity_min'])?$element['quantity_min']:"",
+								"data-quantity-max"        => isset($element['quantity_max'])?$element['quantity_max']:"",
+								"data-priced-individually" => isset($element['priced_individually'])?$element['priced_individually']:"",
+								"data-discount"            => isset($element['discount'])?$element['discount']:"",
+								"data-discount-type"       => isset($element['discount_type'])?$element['discount_type']:"",
 								"data-show-image"          => isset($element['show_image'])?$element['show_image']:"1",
 								"data-show-title"          => isset($element['show_title'])?$element['show_title']:"1",
 								"data-show-price"          => isset($element['show_price'])?$element['show_price']:"1",
@@ -1308,6 +1309,7 @@ class THEMECOMPLETE_EPO_Display {
 												'name'            => 'tmcp_' . $name_inc,
 												'amount'          => $amount . ' ' . $_currency,
 												'original_amount' => $original_amount . ' ' . $_currency,
+												'required'        => $element['required'],
 												'tabindex'        => $tabindex,
 												'fieldtype'       => $fieldtype,
 												'rules'           => isset( $element['rules_filtered'] ) ? wp_json_encode( ( $element['rules_filtered'] ) ) : '',
@@ -1452,6 +1454,7 @@ class THEMECOMPLETE_EPO_Display {
 													'name'            => 'tmcp_' . $name_inc,
 													'amount'          => $amount . ' ' . $_currency,
 													'original_amount' => $original_amount . ' ' . $_currency,
+													'required'        => $element['required'],
 													'tabindex'        => $tabindex,
 													'fieldtype'       => $fieldtype,
 													'rules'           => isset( $element['rules_filtered'][ $value ] ) ? wp_json_encode( ( $element['rules_filtered'][ $value ] ) ) : '',
@@ -2461,7 +2464,7 @@ class THEMECOMPLETE_EPO_Display {
 
 			} else {
 
-				$tax_string = ' <small>' . apply_filters( 'inc_tax_or_vat', WC()->countries->inc_tax_or_vat() ) . '</small>';
+				$tax_string = ' <small>' . apply_filters( 'wc_epo_inc_tax_or_vat_string', WC()->countries->inc_tax_or_vat() ) . '</small>';
 
 			}
 

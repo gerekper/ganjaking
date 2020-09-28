@@ -1440,7 +1440,7 @@ class FUE_Addon_Sensei {
 	public static function get_quiz_variables( $quiz_id ) {
 		$variables = array();
 		$variables['quiz_url']      = get_permalink( $quiz_id );
-		$variables['quiz_link']     = '<a href="'. $variables['quiz_url'] .'">'. __('View the lesson quiz', 'follow-up-emails') .'</a>';
+		$variables['quiz_link']     = '<a href="'. $variables['quiz_url'] .'">'. __('View the lesson quiz', 'follow_up_emails') .'</a>';
 
 		return $variables;
 	}

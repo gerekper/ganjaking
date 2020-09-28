@@ -201,24 +201,61 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 			$start_date = strtotime( '-1 day', $min_date );
 			$end_date   = strtotime( '+1 day', $max_date );
 
+			if ( 'day' === $bookable_product->get_duration_unit() ) {
+				$number_of_days = $bookable_product->get_min_duration() * $duration;
+				$start_date     = strtotime( 'today', $min_date );
+				$end_date       = strtotime( "+{$number_of_days} day", $start_date );
+			}
+
 			foreach ( $resources as $resource_id ) {
 				$blocks           = $bookable_product->get_blocks_in_range( $start_date, $end_date, array(), $resource_id, array(), $get_past_times );
 				$available_blocks = $bookable_product->get_time_slots( $blocks, $resource_id, $start_date, $end_date, true );
-				foreach ( $available_blocks as $timestamp => $data ) {
 
-					// Filter blocks outside of timerange.
+				if ( 'day' === $bookable_product->get_duration_unit() ) {
+					$available_block_keys = array_keys( $available_blocks );
+					$timestamp            = current( $available_block_keys );
+					$bookable             = false;
+
 					if ( $timestamp < $min_date || $timestamp >= $max_date ) {
 						continue;
 					}
 
-					unset( $data['resources'] );
-					if ( ! $hide_unavailable || 1 <= $data['available'] ) {
+					if ( count( $available_block_keys ) >= $number_of_days ) {
+						$bookable = true;
+						for ( $i = 0; $i < count( $available_block_keys ) - 1; $i++ ) {
+							if ( DAY_IN_SECONDS !== $available_block_keys[ $i + 1 ] - $available_block_keys[ $i ] ) {
+								$bookable = false;
+								break;
+							}
+						}
+					}
+
+					if ( $bookable ) {
+						$data = current( $available_blocks );
 						$availability[] = array(
 							self::DATE      => $this->get_time( $timestamp, $timezone ),
 							self::DURATION  => $duration,
 							self::AVAILABLE => $data['available'],
 							self::BOOKED    => $data['booked'],
 						);
+					}
+				} else {
+					foreach ( $available_blocks as $timestamp => $data ) {
+
+						// Filter blocks outside of timerange.
+						if ( $timestamp < $min_date || $timestamp >= $max_date ) {
+							continue;
+						}
+
+						unset( $data['resources'] );
+						if ( ! $hide_unavailable || 1 <= $data['available'] ) {
+							$availability[] = array(
+								self::DATE      => $this->get_time( $timestamp, $timezone ),
+								self::DURATION  => $duration,
+								self::AVAILABLE => $data['available'],
+								self::BOOKED    => $data['booked'],
+							);
+						}
 					}
 				}
 			}

@@ -30,7 +30,7 @@ class MPCA_Account_Controller {
       // AJAX Localization
       $local_js = array(
         'ajaxurl' => admin_url( 'admin-ajax.php' ),
-        'confirmMsg' => 'Are you sure you want to remove this sub-account?'
+        'confirmMsg' => __('Are you sure you want to remove this sub-account?', 'memberpress-corporate')
       );
 
       wp_localize_script('mpca-manage-account', 'mpcaAjax', $local_js);
@@ -304,6 +304,12 @@ class MPCA_Account_Controller {
         }
         else {
           array_push($errors, __('Cannot Add Existing User', 'memberpress-corporate'));
+          return compact('message', 'errors');
+        }
+
+        // Block parent Corporate account user from being able to add themselves as a sub account.
+        if( $user->ID == $ca->user_id ){
+          array_push($errors, __('Cannot Add Yourself as Sub Account', 'memberpress-corporate'));
           return compact('message', 'errors');
         }
       }

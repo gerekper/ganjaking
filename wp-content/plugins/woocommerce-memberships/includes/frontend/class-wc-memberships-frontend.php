@@ -21,6 +21,9 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Frontend\My_Account;
+use SkyVerge\WooCommerce\Memberships\Frontend\Profile_Fields;
+use \SkyVerge\WooCommerce\Memberships\Profile_Fields as Profile_Fields_Handler;
 use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -36,8 +39,11 @@ class WC_Memberships_Frontend {
 	/** @var \WC_Memberships_Checkout instance */
 	protected $checkout;
 
-	/** @var \WC_Memberships_Members_Area instance */
-	protected $members_area;
+	/** @var My_Account instance */
+	protected $my_account;
+
+	/** @var Profile_Fields instance */
+	private $profile_fields;
 
 	/** @var array associative array for caching membership content classes */
 	private $membership_content_classes = array();
@@ -51,11 +57,12 @@ class WC_Memberships_Frontend {
 	public function __construct() {
 
 		// load classes
-		$this->members_area = wc_memberships()->load_class( '/includes/frontend/class-wc-memberships-members-area.php', 'WC_Memberships_Members_Area' );
-		$this->checkout     = wc_memberships()->load_class( '/includes/frontend/class-wc-memberships-checkout.php',     'WC_Memberships_Checkout' );
+		$this->profile_fields = wc_memberships()->load_class( '/includes/frontend/Profile_Fields.php',                'SkyVerge\WooCommerce\Memberships\Frontend\Profile_Fields' );
+		$this->my_account     = wc_memberships()->load_class( '/includes/frontend/My_Account.php',                    My_Account::class );
+		$this->checkout       = wc_memberships()->load_class( '/includes/frontend/class-wc-memberships-checkout.php', 'WC_Memberships_Checkout' );
 
 		// enqueue JS and styles
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts_and_styles' ) );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts_and_styles' ] );
 
 		// show a notice to admins on new installs about restricted content
 		add_action( 'wp_footer', array( $this, 'output_admin_message_html' ) );
@@ -77,7 +84,7 @@ class WC_Memberships_Frontend {
 
 
 	/**
-	 * Returns the Checkout instance.
+	 * Gets the Checkout instance.
 	 *
 	 * @since 1.6.0
 	 *
@@ -89,14 +96,46 @@ class WC_Memberships_Frontend {
 
 
 	/**
-	 * Returns the Members Area handler instance.
+	 * Gets the My Account handler instance.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @return My_Account
+	 */
+	public function get_my_account_instance() {
+
+		return $this->my_account;
+	}
+
+
+	/**
+	 * Gets the Members Area handler instance.
+	 *
+	 * TODO: remove this method by 2.0.0 or by 2022-03-04 {WV 2020-09-04}
 	 *
 	 * @since 1.7.4
+	 * @deprecated 1.19.0
 	 *
 	 * @return \WC_Memberships_Members_Area
 	 */
 	public function get_members_area_instance() {
-		return $this->members_area;
+
+		wc_deprecated_function( __METHOD__, '1.19.0', __CLASS__ . '::get_my_account_instance()->get_members_area_instance()' );
+
+		return $this->get_my_account_instance()->get_members_area_instance();
+	}
+
+
+	/**
+	 * Gets the Profile Fields handler instance.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @return Profile_Fields
+	 */
+	public function get_profile_fields_instance() {
+
+		return $this->profile_fields;
 	}
 
 
@@ -109,7 +148,76 @@ class WC_Memberships_Frontend {
 	 */
 	public function enqueue_scripts_and_styles() {
 
-		wp_enqueue_style( 'wc-memberships-frontend', wc_memberships()->get_plugin_url() . '/assets/css/frontend/wc-memberships-frontend.min.css', '', \WC_Memberships::VERSION );
+		$this->enqueue_styles();
+		$this->enqueue_scripts();
+	}
+
+
+	/**
+	 * Enqueues front end styles.
+	 *
+	 * @since 1.19.0
+	 */
+	private function enqueue_styles() {
+
+		$dependencies = [];
+
+		wp_register_style( 'wc-memberships-profile-fields', wc_memberships()->get_plugin_url() . '/assets/css/frontend/wc-memberships-profile-fields.min.css', [ 'select2' ], \WC_Memberships::VERSION );
+
+		// TODO improve conditional load of front end assets {FN 2020-09-03}
+		if ( Profile_Fields_Handler::is_using_profile_fields() && ! empty( Profile_Fields_Handler::get_profile_field_definitions( [ 'editable_by' => Profile_Fields_Handler\Profile_Field_Definition::EDITABLE_BY_CUSTOMER, 'type' => [ Profile_Fields_Handler::TYPE_FILE, Profile_Fields_Handler::TYPE_SELECT, Profile_Fields_Handler::TYPE_MULTISELECT ] ] ) ) ) {
+			$dependencies[] = 'wc-memberships-profile-fields';
+		}
+
+		wp_enqueue_style( 'wc-memberships-frontend', wc_memberships()->get_plugin_url() . '/assets/css/frontend/wc-memberships-frontend.min.css', $dependencies, \WC_Memberships::VERSION );
+	}
+
+
+	/**
+	 * Enqueues front end scripts.
+	 *
+	 * @since 1.19.0
+	 */
+	private function enqueue_scripts() {
+
+		// TODO improve conditional load of front end assets {FN 2020-09-03}
+		if ( Profile_Fields_Handler::is_using_profile_fields() ) {
+
+			$dependencies =[ 'jquery' ];
+
+			// if there are file inputs, require plupload
+			if ( ! empty( Profile_Fields_Handler::get_profile_field_definitions( [ 'editable_by' => Profile_Fields_Handler\Profile_Field_Definition::EDITABLE_BY_CUSTOMER, 'type' => Profile_Fields_Handler::TYPE_FILE ] ) ) ) {
+				$dependencies[] = 'plupload-all';
+			}
+
+			// if there are dropdown inputs, ensure Select2 is available to enhanced them
+			if ( ! empty( Profile_Fields_Handler::get_profile_field_definitions( [ 'editable_by' => Profile_Fields_Handler\Profile_Field_Definition::EDITABLE_BY_CUSTOMER, 'type' => [ Profile_Fields_Handler::TYPE_SELECT, Profile_Fields_Handler::TYPE_MULTISELECT ] ] ) ) ) {
+				$dependencies[] = 'selectWoo';
+			}
+
+			wp_register_script( 'wc-memberships-frontend', wc_memberships()->get_plugin_url() . '/assets/js/frontend/wc-memberships-frontend.min.js', $dependencies, \WC_Memberships::VERSION, true );
+
+			wp_localize_script( 'wc-memberships-frontend', 'wc_memberships_frontend', [
+
+				'ajax_url'      => admin_url( 'admin-ajax.php' ),
+				'max_file_size' => wp_max_upload_size(),
+				'max_files'     => 1,
+				'mime_types'    => $this->get_supported_mime_types(),
+
+				'nonces'        => [
+					'profile_field_upload_file' => wp_create_nonce( 'member-profile-field-upload-file' ),
+					'profile_field_remove_file' => wp_create_nonce( 'member-profile-field-remove-file' ),
+				],
+
+				'i18n'          => [
+					/* translators: Placeholder: %1$s - error code, %2$s - error message */
+					'upload_error' => __( 'Error %1$s: %2$s', 'woocommerce-memberships' ) // the placeholders content will be handled in JS
+				],
+
+			] );
+
+			wp_enqueue_script( 'wc-memberships-frontend' );
+		}
 
 		if ( \WC_Memberships_User_Messages::show_admin_message() ) {
 
@@ -117,7 +225,7 @@ class WC_Memberships_Frontend {
 
 			wc_enqueue_js( "
 				jQuery( document ).ready( function( $ ) {
-					$( 'div.wc-memberships.admin-restricted-content-notice a.dismiss-link' ).click( function ( e ) {
+					$( 'div.wc-memberships.admin-restricted-content-notice a.dismiss-link' ).on( 'click', function ( e ) {
 						e.preventDefault();
 						$.post( '" . esc_js( $ajax_url ) . "', { action: 'wc_memberships_dismiss_admin_restricted_content_notice' } ).done( function() {
 							location.reload();
@@ -126,6 +234,52 @@ class WC_Memberships_Frontend {
 				} );
 			" );
 		}
+	}
+
+
+	/**
+	 * Gets supported MIME types for file uploads (helper method).
+	 *
+	 * @see \WC_Memberships_Frontend::enqueue_scripts()
+	 *
+	 * @since 1.19.0
+	 *
+	 * @return array
+	 */
+	private function get_supported_mime_types() {
+
+		$extensions = $types = [];
+
+		$allowed_types = get_allowed_mime_types();
+
+		// break the allowed extensions into their respective types
+		foreach ( $allowed_types as $allowed_extensions => $type ) {
+
+			$type = substr( $type, 0, strpos( $type, '/' ) );
+
+			$extensions[ $type ][] = str_replace( '|', ',', $allowed_extensions );
+		}
+
+		// format the extensions for plupload
+		foreach ( $extensions as $type => $file_extensions ) {
+
+			$types[] = [
+				'title'      => $type,
+				'extensions' => implode( ',', $file_extensions ),
+			];
+		}
+
+		/**
+		 * Filters the allowed upload mime types.
+		 *
+		 * @since 1.19.0
+		 *
+		 * @param array $types the allowed types and their extensions, each an array of {
+		 *     @type string $name the mime type name
+		 *     @type string $extensions the supported extensions, comma separated
+		 * }
+		 */
+		return (array) apply_filters( 'wc_memberships_allowed_mime_types', $types );
 	}
 
 

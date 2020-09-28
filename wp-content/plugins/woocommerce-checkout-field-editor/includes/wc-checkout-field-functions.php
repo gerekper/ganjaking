@@ -258,6 +258,13 @@ function wc_checkout_fields_modify_fields( $data, $old_fields ) {
 			),
 			true
 		) ) {
+			/*
+			 * Modify the options array for the select type field in case when there is a placeholder set.
+			 * The WooCommerce implementation of select field at the checkout requires an empty key with value ( placeholder text ) to display the placeholder.
+			 */
+			if ( isset( $fields[ $name ]['type'] ) && 'select' === $fields[ $name ]['type'] && ! empty( $fields[ $name ]['placeholder'] ) ) {
+				$fields[ $name ]['options'] = array( '' => $fields[ $name ]['placeholder'] ) + $fields[ $name ]['options'];
+			}
 			continue;
 		}
 

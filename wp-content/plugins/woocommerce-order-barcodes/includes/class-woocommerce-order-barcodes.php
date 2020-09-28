@@ -741,7 +741,7 @@ class WooCommerce_Order_Barcodes {
 	 * @return void
 	 */
 	public function load_onscan_js() {
-		wp_enqueue_script( $this->_token . '-frontend-onscan', esc_url( plugins_url( '/node_modules/', $this->file ) ) . 'onscan.js/onscan' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version, true );
+		wp_enqueue_script( $this->_token . '-frontend-onscan', esc_url( plugins_url( '/assets/js/', $this->file ) ) . 'onscan' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version, true );
 	}
 
 	/**

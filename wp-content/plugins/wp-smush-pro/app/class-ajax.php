@@ -93,6 +93,8 @@ class Ajax {
 		add_action( 'wp_ajax_wp_smushit_bulk', array( $this, 'process_smush_request' ) );
 		// Remove from skip list.
 		add_action( 'wp_ajax_remove_from_skip_list', array( $this, 'remove_from_skip_list' ) );
+		// Hide Tutorials from bulk Smush.
+		add_action( 'wp_ajax_hide_tutorials_bulk_smush', array( $this, 'hide_tutorials_bulk_smush' ) );
 
 		/**
 		 * DIRECTORY SMUSH
@@ -376,8 +378,6 @@ class Ajax {
 	 */
 	public function scan_images() {
 		check_ajax_referer( 'save_wp_smush_options', 'wp_smush_options_nonce' );
-
-		wp_cache_delete( 'media_attachments', 'wp-smush' );
 
 		$resmush_list = array();
 
@@ -974,6 +974,16 @@ class Ajax {
 				'links' => WP_Smush::get_instance()->library()->get_optimization_links( absint( $_POST['id'] ) ),
 			)
 		);
+	}
+
+	/**
+	 * Stores the 'dismissed' status of the tutorials meta-box under the Bulk Smush tab.
+	 *
+	 * @since 3.7.1
+	 */
+	public function hide_tutorials_bulk_smush() {
+		$this->settings->set_setting( WP_SMUSH_PREFIX . 'hide_tutorials_from_bulk_smush', true );
+		wp_send_json_success();
 	}
 
 	/***************************************

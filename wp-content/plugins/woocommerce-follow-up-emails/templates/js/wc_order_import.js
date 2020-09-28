@@ -20,9 +20,9 @@ jQuery(document).ready(function($) {
     // initialize the import
     (function() {
         // attach the event listeners
-        $("body").bind("import_init_completed", import_filter_orders);
-        $("body").bind("import_filter_completed", import_orders);
-        $("body").bind("import_completed", import_completed);
+        $("body").on("import_init_completed", import_filter_orders);
+        $("body").on("import_filter_completed", import_orders);
+        $("body").on("import_completed", import_completed);
 
         var params = {
             "action": "fue_wc_order_import",

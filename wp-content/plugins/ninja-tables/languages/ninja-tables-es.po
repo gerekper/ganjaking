@@ -1,0 +1,638 @@
+# Translation of Plugins - Ninja Tables &#8211; Best WP Data Table Plugin for WordPress - Stable (latest release) in Spanish (Guatemala)
+# This file is distributed under the same license as the Plugins - Ninja Tables &#8211; Best WP Data Table Plugin for WordPress - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-07-10 10:44+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Ninja Tables &#8211; Best WP Data Table Plugin "
+"for WordPress - Stable (latest release)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-10 10:35+0000\n"
+"Last-Translator: Shahjahan Jewel <cep.jewel@gmail.com>\n"
+"Language-Team: Spanish\n"
+"X-Loco-Version: 2.2.2; wp-5.2.2"
+
+#: admin/NinjaTablesAdmin.php:69 admin/NinjaTablesAdmin.php:80
+#: admin/NinjaTablesAdmin.php:82 includes/I18nStrings.php:6
+msgid "Ninja Tables"
+msgstr "Ninja Tables"
+
+#: admin/NinjaTablesAdmin.php:81
+msgid "Table"
+msgstr "Tabla"
+
+#: admin/NinjaTablesAdmin.php:83 includes/I18nStrings.php:11
+msgid "Add Table"
+msgstr "Agregar Tabla"
+
+#: admin/NinjaTablesAdmin.php:84 includes/I18nStrings.php:13
+msgid "Add New Table"
+msgstr "Agregar nueva Tabla"
+
+#: admin/NinjaTablesAdmin.php:85 includes/I18nStrings.php:16
+msgid "Edit"
+msgstr "Editar"
+
+#: admin/NinjaTablesAdmin.php:86
+msgid "Edit Table"
+msgstr "Editar Tabla"
+
+#: admin/NinjaTablesAdmin.php:87
+msgid "New Table"
+msgstr "Nueva Tabla"
+
+#: admin/NinjaTablesAdmin.php:88 admin/NinjaTablesAdmin.php:89
+msgid "View Table"
+msgstr "Ver Tabla"
+
+#: admin/NinjaTablesAdmin.php:90
+msgid "Search Table"
+msgstr "Busqueda de Tabla"
+
+#: admin/NinjaTablesAdmin.php:91
+msgid "No Table Found"
+msgstr "No se encontró ninguna tabla"
+
+#: admin/NinjaTablesAdmin.php:92
+msgid "No Table Found in Trash"
+msgstr "No se encontró ninguna Tabla en la basura"
+
+#: admin/NinjaTablesAdmin.php:93
+msgid "Parent Table"
+msgstr "Parent Table"
+
+#: admin/NinjaTablesAdmin.php:120
+msgid "NinjaTables"
+msgstr "NinjaTables"
+
+#: admin/NinjaTablesAdmin.php:136 admin/NinjaTablesAdmin.php:1539
+#: includes/I18nStrings.php:10
+msgid "All Tables"
+msgstr "Todas las Tablas"
+
+#: admin/NinjaTablesAdmin.php:142 includes/I18nStrings.php:8
+msgid "Tools"
+msgstr "Herramientas"
+
+#: admin/NinjaTablesAdmin.php:150
+msgid "Import a Table"
+msgstr "Importar una tabla"
+
+#: admin/NinjaTablesAdmin.php:159
+msgid "<span style=\"color:#f39c12;\">Get Pro</span>"
+msgstr "<span style=\"color:#f39c12;\">Obtener Pro</span>"
+
+#: admin/NinjaTablesAdmin.php:190 includes/I18nStrings.php:9
+msgid "Help"
+msgstr "Ayuda"
+
+#: admin/NinjaTablesAdmin.php:482
+msgid "The name field is required."
+msgstr "El campo de nombre es obligatorio."
+
+#: admin/NinjaTablesAdmin.php:494
+msgid " successfully."
+msgstr "exitosamente."
+
+#: admin/NinjaTablesAdmin.php:633
+msgid "Successfully updated configuration."
+msgstr "Configuración actualizada con éxito."
+
+#: admin/NinjaTablesAdmin.php:659
+msgid "Invalid Table to Delete"
+msgstr "Tabla no válida para eliminar"
+
+#: admin/NinjaTablesAdmin.php:677
+msgid "Successfully deleted the table."
+msgstr "Se ha eliminado correctamente la tabla."
+
+#: admin/NinjaTablesAdmin.php:874
+msgid "Successfully saved the data."
+msgstr "Se guardó con éxito los datos."
+
+#: admin/NinjaTablesAdmin.php:928
+msgid "Successfully deleted data."
+msgstr "Datos eliminados con éxito."
+
+#: admin/NinjaTablesAdmin.php:1069
+msgid "Select a Table to insert"
+msgstr "Seleccione una tabla para insertar"
+
+#: admin/NinjaTablesAdmin.php:1070
+msgid "Insert Ninja Tables Shortcode"
+msgstr "Insertar código corto de Ninja Tables"
+
+#: admin/NinjaTablesAdmin.php:1072
+msgid "Insert Shortcode"
+msgstr "Insertar Shortcode"
+
+#: admin/NinjaTablesAdmin.php:1093
+msgid "Select a Table"
+msgstr "Seleccione una Tabla"
+
+#: admin/NinjaTablesAdmin.php:1204
+msgid "Successfully duplicated table."
+msgstr "Tabla duplicada con éxito."
+
+#: admin/NinjaTablesAdmin.php:1484 admin/NinjaTablesAdmin.php:1528
+#: admin/NinjaTablesAdmin.php:1561
+msgid "Settings successfully updated"
+msgstr "Configuraciones actualizadas exitosamente"
+
+#: includes/I18nStrings.php:7
+msgid "Home"
+msgstr "Casa"
+
+#: includes/I18nStrings.php:12
+msgid "Import Table"
+msgstr "Tabla de importación"
+
+#: includes/I18nStrings.php:14
+msgid "Title"
+msgstr "Título"
+
+#: includes/I18nStrings.php:15
+msgid "ShortCode"
+msgstr "Código corto"
+
+#: includes/I18nStrings.php:17
+msgid "Preview"
+msgstr "Vista Previa"
+
+#: includes/I18nStrings.php:18
+msgid "Duplicate"
+msgstr "Duplicado"
+
+#: includes/I18nStrings.php:19
+msgid "Delete"
+msgstr "Borrar"
+
+#: includes/I18nStrings.php:20
+msgid "CSV - Comma-separated values"
+msgstr "CSV - Valores separados por comas"
+
+#: includes/I18nStrings.php:21
+msgid "JSON - JavaScript Object Notation"
+msgstr "JSON - Notación de objetos de JavaScript"
+
+#: includes/I18nStrings.php:22
+msgid "JSON - Exported From Ninja Tables"
+msgstr "JSON - Exportado De Ninja Tables"
+
+#: includes/I18nStrings.php:23
+msgid "Import"
+msgstr "Importar"
+
+#: includes/I18nStrings.php:24
+msgid "Permission"
+msgstr "Permiso"
+
+#: includes/I18nStrings.php:25
+msgid "License"
+msgstr "Licencia"
+
+#: includes/I18nStrings.php:26
+msgid ""
+"NinjaTables can import tables from existing data, like from a CSV or JSON "
+"file. You can also import existing tables from the other WordPress table "
+"plugins."
+msgstr ""
+"NinjaTables puede importar tablas desde datos existentes, como desde un "
+"archivo CSV o JSON. También puede importar tablas existentes de los otros "
+"complementos de tablas de WordPress."
+
+#: includes/I18nStrings.php:27
+msgid "Select file:"
+msgstr "Seleccione Archivo:"
+
+#: includes/I18nStrings.php:28
+msgid "Import Format:"
+msgstr "Importar Formato:"
+
+#: includes/I18nStrings.php:29
+msgid "Activate Ninja Tables Pro Add-on plugin to unlock this feature"
+msgstr ""
+"Activar Tablas Ninja Pro Add-on plugin para desbloquear esta característica"
+
+#: includes/I18nStrings.php:30
+msgid "Check all"
+msgstr "Marque todo"
+
+#: includes/I18nStrings.php:31
+msgid "Your License is Active"
+msgstr "Su licencia está activa"
+
+#: includes/I18nStrings.php:32
+msgid "Your license is active! Enjoy Ninja Tables Pro Add On"
+msgstr "¡Su licencia está activa! Disfrute Ninja Tables Pro Add On"
+
+#: includes/I18nStrings.php:33
+msgid "Deactivate License"
+msgstr "Desactivar licencia"
+
+#: includes/I18nStrings.php:34
+msgid "Licensing"
+msgstr "Licencia"
+
+#: includes/I18nStrings.php:35
+msgid "Enter your license key"
+msgstr "Introduce tu clave de licencia"
+
+#: includes/I18nStrings.php:36
+msgid "Activate Ninja Tables Pro"
+msgstr "Activar Tablas Ninja Pro"
+
+#: includes/I18nStrings.php:37
+msgid "Plugin Documentation and Help"
+msgstr "Documentación del plugin y ayuda"
+
+#: includes/I18nStrings.php:38
+msgid ""
+"For any type of query which was not covered in our documentation, Please "
+"submit a support ticket ticket"
+msgstr ""
+"Para cualquier tipo de consulta que no esté cubierta en nuestra "
+"documentación, envíe un ticket de soporte"
+
+#: includes/I18nStrings.php:39
+msgid "Documentation"
+msgstr "Documentación"
+
+#: includes/I18nStrings.php:40
+msgid "Table Rows"
+msgstr "Filas de Tabla"
+
+#: includes/I18nStrings.php:41
+msgid "Table Configuration"
+msgstr "Configuración de la tabla"
+
+#: includes/I18nStrings.php:42
+msgid "Table Design"
+msgstr "Diseño de Tabla"
+
+#: includes/I18nStrings.php:43
+msgid "Custom CSS"
+msgstr "CSS personalizado"
+
+#: includes/I18nStrings.php:44
+msgid "Import - Export"
+msgstr "Importar - exportar"
+
+#: includes/I18nStrings.php:45
+msgid "Select bulk action"
+msgstr "Seleccione acción masiva"
+
+#: includes/I18nStrings.php:46
+msgid "Bulk Actions"
+msgstr "Acciones masivas"
+
+#: includes/I18nStrings.php:47
+msgid "Delete Entries"
+msgstr "Eliminar entradas"
+
+#: includes/I18nStrings.php:48
+msgid "Apply"
+msgstr "Aplicar"
+
+#: includes/I18nStrings.php:49
+msgid "Add Data"
+msgstr "Agregar datos"
+
+#: includes/I18nStrings.php:50
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: includes/I18nStrings.php:51
+msgid "Add"
+msgstr "Agregar"
+
+#: includes/I18nStrings.php:52
+msgid "Upgrade Notice"
+msgstr "Aviso de actualización"
+
+#: includes/I18nStrings.php:53
+msgid ""
+"Your Ninja Tables Pro plugin is outdated. Please upgrade to its latest "
+"version."
+msgstr "Por favor actualice a su última versión."
+
+#: includes/I18nStrings.php:54
+msgid "Click here"
+msgstr "Haga clic aquí"
+
+#: includes/I18nStrings.php:55
+msgid "to view the upgrade guide."
+msgstr "para ver la guía de actualización."
+
+#: includes/I18nStrings.php:56
+msgid "Are you sure to delete this?"
+msgstr "¿Estás seguro de eliminar esto?"
+
+#: includes/I18nStrings.php:57
+msgid "cancel"
+msgstr "cancelar"
+
+#: includes/I18nStrings.php:58
+msgid "confirm"
+msgstr "confirmar"
+
+#: includes/I18nStrings.php:59
+msgid "Initial Hidden Mobile"
+msgstr "Inicial Móvil Oculto"
+
+#: includes/I18nStrings.php:60
+msgid "Initial Hidden Mobile and Tab"
+msgstr "Móvil y pestaña iniciales ocultos"
+
+#: includes/I18nStrings.php:61
+msgid "Initial Hidden Mobile, Tab and Regular Computers"
+msgstr "Inicial móvil oculta, pestaña y computadoras regulares"
+
+#: includes/I18nStrings.php:62
+msgid "Always show in all devices"
+msgstr "Mostrar siempre en todos los dispositivos."
+
+#: includes/I18nStrings.php:63
+msgid "Totally hidden on all devices"
+msgstr "Totalmente oculto en todos los dispositivos."
+
+#: includes/I18nStrings.php:64
+msgid "Single Line Text Field"
+msgstr "Campo de texto de una sola línea"
+
+#: includes/I18nStrings.php:65
+msgid "Text Area"
+msgstr "Area de texto"
+
+#: includes/I18nStrings.php:66
+msgid "HTML Field"
+msgstr "Campo HTML"
+
+#: includes/I18nStrings.php:67
+msgid "Numeric Value"
+msgstr "Valor numérico"
+
+#: includes/I18nStrings.php:68
+msgid "Date Field"
+msgstr "Campo de fecha"
+
+#: includes/I18nStrings.php:69
+msgid "Select Field"
+msgstr "Seleccionar campo"
+
+#: includes/I18nStrings.php:70
+msgid "Update Configuration"
+msgstr "Actualizar configuración"
+
+#: includes/I18nStrings.php:71
+msgid "Available Columns"
+msgstr "Columnas disponibles"
+
+#: includes/I18nStrings.php:72
+msgid "Add Column"
+msgstr "Añadir columna"
+
+#: includes/I18nStrings.php:73
+msgid "Column Name"
+msgstr "Nombre de columna"
+
+#: includes/I18nStrings.php:74
+msgid "Column Key"
+msgstr "Clave de columna"
+
+#: includes/I18nStrings.php:75
+msgid "Data Type"
+msgstr "Tipo de datos"
+
+#: includes/I18nStrings.php:76
+msgid "Responsive Breakpoint"
+msgstr "Responsive Breakpoint"
+
+#: includes/I18nStrings.php:77
+msgid "Update"
+msgstr "Actualizar"
+
+#: includes/I18nStrings.php:78
+msgid "Date Format"
+msgstr "Formato de fecha"
+
+#: includes/I18nStrings.php:79
+msgid "Standard"
+msgstr "Estándar"
+
+#: includes/I18nStrings.php:80
+msgid "Select a Format"
+msgstr "Seleccione un formato"
+
+#: includes/I18nStrings.php:81
+msgid "Select Items"
+msgstr "Seleccionar artículos"
+
+#: includes/I18nStrings.php:82
+msgid "Extra Classes"
+msgstr "Clases extra"
+
+#: includes/I18nStrings.php:83
+msgid "Max Width"
+msgstr "Anchura máxima"
+
+#: includes/I18nStrings.php:84
+msgid "Maximum Width"
+msgstr "Ancho máximo"
+
+#: includes/I18nStrings.php:85
+msgid "Text Align"
+msgstr "Alineado de Texto "
+
+#: includes/I18nStrings.php:86
+msgid "Filterable"
+msgstr "Filtrable"
+
+#: includes/I18nStrings.php:87
+msgid "Header HTML Content"
+msgstr "Contenido HTML del encabezado"
+
+#: includes/I18nStrings.php:88
+msgid "Show Table Title"
+msgstr "Mostrar el título de Tabla"
+
+#: includes/I18nStrings.php:89
+msgid "Show Table Description"
+msgstr "Mostrar descripción de tabla"
+
+#: includes/I18nStrings.php:90
+msgid "Enable the visitor to filter or search the table."
+msgstr "Permitir que el visitante filtre o busque en la tabla."
+
+#: includes/I18nStrings.php:91
+msgid "Enable sorting of the table by the visitor"
+msgstr "Habilitar la clasificación de la mesa por el visitante"
+
+#: includes/I18nStrings.php:92
+msgid "Pagination Items Per Page"
+msgstr "Paginación de artículos por página"
+
+#: includes/I18nStrings.php:93
+msgid "Pagination Position"
+msgstr "Posición de paginación"
+
+#: includes/I18nStrings.php:94
+msgid "Row Details (Responsive drawer)"
+msgstr "Detalles de Fila"
+
+#: includes/I18nStrings.php:95
+msgid "Extra CSS Class for the table"
+msgstr "Clase extra de CSS para la Tabla"
+
+#: includes/I18nStrings.php:96
+msgid "Table Header Colors"
+msgstr "Colores de encabezado de tabla"
+
+#: includes/I18nStrings.php:97
+msgid "Table Body Colors"
+msgstr "Colores del cuerpo de Tabla"
+
+#: includes/I18nStrings.php:98
+msgid "Footer Colors"
+msgstr "Colores de pie de página"
+
+#: includes/I18nStrings.php:99
+msgid "Additional CSS"
+msgstr "CSS adicional"
+
+#: includes/I18nStrings.php:100
+msgid "Export Table"
+msgstr "Exportar Tabla"
+
+#: includes/I18nStrings.php:101
+msgid "Import Table Data"
+msgstr "Importar los Datos de Tabla"
+
+#: includes/I18nStrings.php:102
+msgid "Replace Existing Data"
+msgstr "Reemplazar los datos existentes"
+
+#: includes/I18nStrings.php:103
+msgid "Import from CSV"
+msgstr "Importar desde un archivo .CSV"
+
+#: includes/I18nStrings.php:104
+msgid "CSV Header Structure"
+msgstr "Estructura de encabezado CSV"
+
+#: includes/I18nStrings.php:105
+msgid "Download Sample CSV"
+msgstr "Descargar el archivo CSV de ejemplo"
+
+#: includes/NinjaTableImport.php:26
+msgid "No appropriate driver found for the import format."
+msgstr ""
+"No se encontró el controlador apropiado para el formato de importación."
+
+#: includes/NinjaTableImport.php:73
+msgid ""
+"Successfully imported. Please go to all tables and review your newly "
+"imported table."
+msgstr ""
+"Importado con éxito. Por favor, vaya a todas las tablas y revise su tabla "
+"recién importada."
+
+#: includes/NinjaTableImport.php:120
+msgid "Please upload valid CSV"
+msgstr "Por favor, cargue un archivo CSV válido"
+
+#: includes/NinjaTableImport.php:140
+msgid "Something is wrong when parsing the csv"
+msgstr "Algo está mal al analizar el archivo csv"
+
+#: includes/NinjaTableImport.php:161 includes/NinjaTableImport.php:187
+#: includes/NinjaTableImport.php:254
+msgid "Successfully added a table."
+msgstr "Se ha añadido con éxito una tabla."
+
+#: includes/NinjaTableImport.php:214
+msgid "You have a faulty JSON file. Please export a new one."
+msgstr "Tienes un archivo JSON defectuoso. Por favor exporta uno nuevo."
+
+#: includes/NinjaTableImport.php:264
+#: includes/libs/Migrations/NinjaTablesMigration.php:19
+msgid "Temporary table name"
+msgstr "Nombre de la tabla temporal"
+
+#: includes/NinjaTableImport.php:265
+#: includes/libs/Migrations/NinjaTablesMigration.php:22
+msgid "Temporary table description"
+msgstr "Descripción de la tabla temporal"
+
+#: includes/NinjaTableImport.php:290
+msgid "CSV File is not valid"
+msgstr "El archivo CSV no es válido"
+
+#: includes/NinjaTableImport.php:301
+msgid "Please set table configuration first"
+msgstr "Por favor, establezca la configuración de la tabla primero"
+
+#: includes/NinjaTableImport.php:319
+msgid "Please use the provided CSV header structure. "
+msgstr "Utilice la estructura de encabezado CSV proporcionada."
+
+#: includes/NinjaTableImport.php:353
+msgid "Successfully uploaded data."
+msgstr "Los datos subidos con éxito."
+
+#: public/dataProviders/FluentFormProvider.php:66
+msgid "The title field is required."
+msgstr "El campo de título es obligatorio."
+
+#: public/dataProviders/FluentFormProvider.php:73
+msgid "No fields were selected."
+msgstr "No se seleccionaron campos."
+
+#: includes/libs/Migrations/NinjaTablesSupsysticTableMigration.php:24
+msgid "No Table Found with the selected table"
+msgstr "No se encontró Tabla con la tabla seleccionada"
+
+#: includes/libs/Migrations/NinjaTablesUltimateTableMigration.php:21
+msgid "No Ultimate Table Found with the selected table"
+msgstr "No se encontró una tabla definitiva con la tabla seleccionada"
+
+#: includes/libs/TableDrivers/NinjaFooTable.php:61
+#: includes/libs/TableDrivers/NinjaFooTable.php:302
+msgid "Search in"
+msgstr "Busca en"
+
+#: includes/libs/TableDrivers/NinjaFooTable.php:62
+#: includes/libs/TableDrivers/NinjaFooTable.php:304
+msgid "Search"
+msgstr "Buscar"
+
+#: includes/libs/TableDrivers/NinjaFooTable.php:63
+#: includes/libs/TableDrivers/NinjaFooTable.php:306
+msgid "No Result Found"
+msgstr "No se han encontrado resultados"
+
+#. Description of the plugin
+msgid ""
+"The Easiest & Fastest Responsive Table Plugin on WordPress. Multiple "
+"templates, drag-&-drop live table builder, multiple color scheme, and styles."
+msgstr ""
+"El complemento de tabla más fácil y rápido de respuesta en WordPress. "
+"Múltiples plantillas, creador de tablas en vivo con arrastrar y soltar, "
+"combinación de colores múltiples y estilos."
+
+#. Plugin URI of the plugin
+msgid "https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/"
+msgstr "https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/"
+
+#. Author of the plugin
+msgid "WPManageNinja LLC"
+msgstr "WPManageNinja LLC"
+
+#. Author URI of the plugin
+msgid "https://wpmanageninja.com/"
+msgstr "https://wpmanageninja.com/"

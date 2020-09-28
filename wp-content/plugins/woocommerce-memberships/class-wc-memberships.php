@@ -1,4 +1,7 @@
 <?php
+
+use SkyVerge\WooCommerce\Memberships\Profile_Fields;
+
 /**
  * WooCommerce Memberships
  *
@@ -36,7 +39,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 
 
 	/** plugin version number */
-	const VERSION = '1.18.0';
+	const VERSION = '1.19.0';
 
 	/** @var \WC_Memberships single instance of this plugin */
 	protected static $instance;
@@ -129,6 +132,13 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 		add_action( 'init',                       array( $this, 'add_rewrite_endpoints' ), 0 );
 		add_filter( 'query_vars',                 array( $this, 'add_query_vars' ), 0 );
 		add_filter( 'woocommerce_get_query_vars', array( $this, 'add_query_vars' ), 0 );
+
+		/** set submitted profile field values on the newly created membership @see Profile_Fields::set_member_profile_fields_from_purchase() */
+		add_action( 'wc_memberships_grant_membership_access_from_purchase', [ Profile_Fields::class, 'set_member_profile_fields_from_purchase' ], 10, 2 );
+		/** clears the profile fields data from the session on checkout @see Profile_Fields::clear_profile_fields_session_data() */
+		add_action( 'woocommerce_checkout_order_processed', [ Profile_Fields::class, 'clear_profile_fields_session_data' ], 999 );
+		/** deletes attachments that have not been set to profile fields when clearing session data @see Profile_Fields::remove_uploaded_profile_field_file_from_session() */
+		add_action( 'woocommerce_cleanup_sessions', [ Profile_Fields::class, 'remove_uploaded_profile_field_files_from_session' ], 1 );
 
 		// make sure template files are searched for in our plugin
 		add_filter( 'woocommerce_locate_template',      array( $this, 'locate_template' ), 20, 3 );
@@ -242,6 +252,16 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 
 		// load helper functions
 		require_once( $this->get_plugin_path() . '/includes/functions/wc-memberships-functions.php' );
+
+		// load data stores
+		require_once( $this->get_plugin_path() . '/includes/Data_Stores/Profile_Field_Definition/Option.php' );
+		require_once( $this->get_plugin_path() . '/includes/Data_Stores/Profile_Field/User_Meta.php' );
+
+		// load profile field objects
+		require_once( $this->get_plugin_path() . '/includes/Profile_Fields/Exceptions/Invalid_Field.php' );
+		require_once( $this->get_plugin_path() . '/includes/Profile_Fields/Profile_Field_Definition.php' );
+		require_once( $this->get_plugin_path() . '/includes/Profile_Fields/Profile_Field.php' );
+		require_once( $this->get_plugin_path() . '/includes/Profile_Fields.php' );
 
 		// init general classes
 		$this->rules            = $this->load_class( '/includes/class-wc-memberships-rules.php',            'WC_Memberships_Rules' );
@@ -823,9 +843,10 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 	 */
 	public function add_rewrite_endpoints() {
 
-		$endpoint = wc_memberships_get_members_area_endpoint();
+		$members_endpoint        = wc_memberships_get_members_area_endpoint();
+		$profile_fields_endpoint = wc_memberships_get_profile_fields_area_endpoint();
 
-		if ( ! empty( $endpoint ) ) {
+		if ( $members_endpoint || $profile_fields_endpoint ) {
 
 			$ep_mask = EP_PAGES;
 
@@ -840,7 +861,14 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 			}
 
 			// add Members Area endpoint
-			add_rewrite_endpoint( $endpoint, $ep_mask );
+			if ( $members_endpoint ) {
+				add_rewrite_endpoint( $members_endpoint, $ep_mask );
+			}
+
+			// add Profile Fields Area endpoint
+			if ( $profile_fields_endpoint ) {
+				add_rewrite_endpoint( $profile_fields_endpoint, $ep_mask );
+			}
 		}
 	}
 
@@ -866,10 +894,18 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 			return $query_vars;
 		}
 
+		// add Members Area query var
 		$query_var = wc_memberships_get_members_area_query_var();
 
 		if ( ! isset( $query_vars[ $query_var ] ) ) {
 			$query_vars[ $query_var ] = wc_memberships_get_members_area_endpoint();
+		}
+
+		// add Profile Fields Area query var
+		$query_var = wc_memberships_get_profile_fields_area_query_var();
+
+		if ( ! isset( $query_vars[ $query_var ] ) ) {
+			$query_vars[ $query_var ] = wc_memberships_get_profile_fields_area_endpoint();
 		}
 
 		return $query_vars;

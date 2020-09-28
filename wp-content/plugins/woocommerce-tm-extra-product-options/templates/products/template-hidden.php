@@ -23,13 +23,16 @@ defined( 'ABSPATH' ) || exit;
 			if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
 				THEMECOMPLETE_EPO_HTML()->create_attribute_list( $element_data_attr );
 			}
+			if ( isset( $required ) && ! empty( $required ) ) { 
+				echo ' required '; 
+			}
 			
 				if ( is_array( $options ) ):
 					foreach ( $options as $option ) :?>
                         <?php
                         $checked = FALSE;
 						if ( isset( $option['selected'] ) && isset( $option['current'] ) ) {
-							if ( $option['selected'] === $option['current'] ) {
+							if ( $option['selected'] === $option['current'] || $quantity_min > 0 ) {
 								$checked = TRUE;
 								if ( isset($_GET[ $name . '_quantity' ])){
 									$_REQUEST[ $name . '_quantity' ] = $_GET[ $name . '_quantity' ];

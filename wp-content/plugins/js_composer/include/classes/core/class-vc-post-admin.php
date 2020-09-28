@@ -31,9 +31,9 @@ class Vc_Post_Admin {
 	 * @throws \Exception
 	 */
 	public function saveAjaxFe() {
-		vc_user_access()->checkAdminNonce()->validateDie()->wpAny( 'edit_posts', 'edit_pages' )->validateDie();
-
 		$post_id = intval( vc_post_param( 'post_id' ) );
+		vc_user_access()->checkAdminNonce()->validateDie()->wpAny( 'edit_posts', 'edit_pages' )->validateDie()->canEdit( $post_id )->validateDie();
+
 		if ( $post_id > 0 ) {
 			ob_start();
 

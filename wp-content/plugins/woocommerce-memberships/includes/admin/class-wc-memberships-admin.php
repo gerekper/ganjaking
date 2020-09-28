@@ -21,6 +21,10 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Admin\Views\Modals\Profile_Field\Confirm_Deletion;
+use SkyVerge\WooCommerce\Memberships\Admin\Views\Modals\User_Membership\Confirm_Edit_Profile_Fields;
+use SkyVerge\WooCommerce\Memberships\Admin\Profile_Fields;
+use SkyVerge\WooCommerce\Memberships\Profile_Fields as Profile_Fields_Handler;
 use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -38,6 +42,9 @@ class WC_Memberships_Admin {
 
 	/** @var \WC_Memberships_Admin_Import_Export_Handler instance */
 	protected $import_export;
+
+	/** @var Profile_Fields instance */
+	private $profile_fields;
 
 	/** @var \WC_Memberships_Admin_User_Memberships instance */
 	protected $user_memberships;
@@ -82,8 +89,11 @@ class WC_Memberships_Admin {
 		add_action( 'all_admin_notices', array( $this, 'render_tabs' ), 5 );
 		// init content in Memberships tabbed admin pages
 		add_action( 'current_screen', array( $this, 'init' ) );
+
 		// init import/export page
-		add_action( 'admin_menu',  array( $this, 'add_import_export_admin_page' ) );
+		add_action( 'admin_menu', [ $this, 'add_import_export_admin_page' ] );
+		// init profile fields page
+		add_action( 'admin_menu', [ $this, 'add_profile_fields_admin_page' ] );
 
 		// add additional bulk actions to memberships-restrictable post types
 		// TODO when WordPress 4.7 is the minimum required version, this may be updated to use new hooks {FN 2018-11-05}
@@ -97,9 +107,9 @@ class WC_Memberships_Admin {
 		add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu' ), 9999 );
 
 		// enqueue admin scripts & styles
-		add_action( 'admin_enqueue_scripts', array( $this,  'enqueue_scripts_and_styles' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts_and_styles' ] );
 		// load admin scripts & styles
-		add_filter( 'woocommerce_screen_ids', array( $this, 'load_wc_scripts' ) );
+		add_filter( 'woocommerce_screen_ids', [ $this, 'load_wc_scripts' ] );
 
 		// add system status report data
 		add_action( 'woocommerce_system_status_report', array( $this, 'add_system_status_report_block' ), 9 );
@@ -107,63 +117,81 @@ class WC_Memberships_Admin {
 
 
 	/**
-	 * Returns the Message Handler instance.
+	 * Gets the Message Handler instance.
 	 *
 	 * @since 1.6.0
 	 *
 	 * @return Framework\SV_WP_Admin_Message_Handler
 	 */
 	public function get_message_handler() {
+
 		// note: this property is public since it needs to be passed from the main class
 		return $this->message_handler;
 	}
 
 
 	/**
-	 * Returns the Users admin handler instance.
+	 * Gets the Users admin handler instance.
 	 *
 	 * @since 1.7.4
 	 *
 	 * @return \WC_Memberships_Admin_Users
 	 */
 	public function get_users_instance() {
+
 		return $this->users;
 	}
 
 
 	/**
-	 * Returns the User Memberships admin handler instance.
+	 * Gets the User Memberships admin handler instance.
 	 *
 	 * @since 1.6.0
 	 *
 	 * @return \WC_Memberships_Admin_User_Memberships
 	 */
 	public function get_user_memberships_instance() {
+
 		return $this->user_memberships;
 	}
 
 
 	/**
-	 * Returns the User Memberships admin handler instance.
+	 * Gets the User Memberships admin handler instance.
 	 *
 	 * @since 1.6.0
 	 *
 	 * @return \WC_Memberships_Admin_Membership_Plans
 	 */
 	public function get_membership_plans_instance() {
+
 		return $this->membership_plans;
 	}
 
 
 	/**
-	 * Returns the Import / Export Handler instance.
+	 * Gets the Import / Export Handler instance.
 	 *
 	 * @since 1.6.0
 	 *
 	 * @return \WC_Memberships_Admin_Import_Export_Handler
 	 */
 	public function get_import_export_handler_instance() {
+
 		return $this->import_export;
+	}
+
+
+	/**
+	 * Gets the Profile Fields Handler instance.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @return Profile_Fields
+	 */
+	public function get_profile_fields_instance() {
+
+		return $this->profile_fields;
 	}
 
 
@@ -201,9 +229,9 @@ class WC_Memberships_Admin {
 	 */
 	public function get_screen_ids( $context = null ) {
 
-		$settings_page_id   = Framework\SV_WC_Plugin_Compatibility::normalize_wc_screen_id();
+		$settings_page_id = Framework\SV_WC_Plugin_Compatibility::normalize_wc_screen_id();
 
-		$tabs_screens       = array(
+		$tabs_screens = [
 			// User Membership screens:
 			'wc_user_membership',
 			'edit-wc_user_membership',
@@ -213,9 +241,11 @@ class WC_Memberships_Admin {
 			// User Memberships Import/Export screens:
 			'wc_memberships_import_export',
 			'admin_page_wc_memberships_import_export',
-		);
+			// Profile Fields screens:
+			'admin_page_wc_memberships_profile_fields',
+		];
 
-		$modal_screens      = array(
+		$modal_screens = [
 			// User Membership screens:
 			'wc_user_membership',
 			'edit-wc_user_membership',
@@ -227,9 +257,11 @@ class WC_Memberships_Admin {
 			// User Memberships Import/Export screens:
 			'wc_memberships_import_export',
 			'admin_page_wc_memberships_import_export',
-		);
+			// Profile Fields screens:
+			'admin_page_wc_memberships_profile_fields',
+		];
 
-		$scripts_screens    = array(
+		$scripts_screens = [
 			// User screens:
 			'users',
 			'user-edit',
@@ -238,16 +270,16 @@ class WC_Memberships_Admin {
 			$settings_page_id,
 			// WooCommerce system status
 			'woocommerce_page_wc-status',
-		);
+		];
 
-		$meta_boxes_screens = array(
+		$meta_boxes_screens = [
 			// User Membership screens:
 			'wc_user_membership',
 			'edit-wc_user_membership',
 			// Membership Plan screens:
 			'wc_membership_plan',
 			'edit-wc_membership_plan',
-		);
+		];
 
 		if ( class_exists( 'WC_Memberships_Admin_Membership_Plan_Rules' ) ) {
 			// post types edit screens, including products, where plan rules are applicable
@@ -264,20 +296,25 @@ class WC_Memberships_Admin {
 		 *
 		 * @param array $screen_ids associative array organized by context
 		 */
-		$screen_ids = (array) apply_filters( 'wc_memberships_admin_screen_ids', array(
+		$screen_ids = (array) apply_filters( 'wc_memberships_admin_screen_ids', [
 			'meta_boxes' => $meta_boxes_screens,
 			'modals'     => $modal_screens,
 			'scripts'    => array_merge( $tabs_screens, $scripts_screens, $meta_boxes_screens, $modal_screens ),
 			'tabs'       => $tabs_screens,
-		) );
+		] );
 
 		// return all screens or screens belonging to a particular group
 		if ( null !== $context && isset( $screen_ids[ $context ] ) ) {
-			$screen_ids = $screen_ids[ $context ];
+			$screen_ids = array_unique( $screen_ids[ $context ] );
+		} else {
+			$screens = [];
+			foreach ( $screen_ids as $group => $ids ) {
+				$screens += $ids;
+			}
+			$screen_ids = array_unique( $screens );
 		}
 
-		// apparently here in some circumstances we need a sort argument or an array to string notice may be thrown...
-		return array_unique( array_values( $screen_ids ), SORT_REGULAR );
+		return $screen_ids;
 	}
 
 
@@ -292,8 +329,9 @@ class WC_Memberships_Admin {
 	 * @return bool
 	 */
 	public function is_memberships_admin_screen( $screen_id = '', $which = 'any', $exclude_content = false ) {
+		global $current_screen;
 
-		$screen = empty( $screen_id ) ? get_current_screen() : $screen_id;
+		$screen = empty( $screen_id ) ? $current_screen : $screen_id;
 
 		if ( $screen instanceof \WP_Screen ) {
 			$screen_id = $screen->id;
@@ -333,7 +371,22 @@ class WC_Memberships_Admin {
 	 * @return bool
 	 */
 	public function is_memberships_import_export_admin_screen( $screen = null ) {
+
 		return $this->is_memberships_admin_screen( $screen, 'admin_page_wc_memberships_import_export', true );
+	}
+
+
+	/**
+	 * Checks if the current screen is a Memberships profile fields admin page.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @param null|\WP_Screen|string $screen optional, defaults to current screen global
+	 * @return bool
+	 */
+	public function is_memberships_profile_fields_admin_screen( $screen = null ) {
+
+		return $this->is_memberships_admin_screen( $screen, 'admin_page_wc_memberships_profile_fields', true );
 	}
 
 
@@ -346,6 +399,7 @@ class WC_Memberships_Admin {
 	 * @return bool
 	 */
 	public function is_memberships_modal_admin_screen( $screen = null ) {
+
 		return $this->is_memberships_admin_screen( $screen, $this->get_screen_ids( 'modals' ) );
 	}
 
@@ -406,7 +460,7 @@ class WC_Memberships_Admin {
 		 *
 		 * @param string $capability defaults to Shop Managers with 'manage_woocommerce'
 		 */
-		$capability = apply_filters( 'woocommerce_memberships_can_import_export', 'manage_woocommerce' );
+		$capability = (string) apply_filters( 'woocommerce_memberships_can_import_export', 'manage_woocommerce' );
 
 		add_submenu_page(
 			'',
@@ -415,6 +469,35 @@ class WC_Memberships_Admin {
 			$capability,
 			'wc_memberships_import_export',
 			array( $this, 'render_import_export_admin_page' )
+		);
+	}
+
+
+	/**
+	 * Adds the Profile Fields page for Memberships admin page.
+	 *
+	 * @internal
+	 *
+	 * @since 1.19.0
+	 */
+	public function add_profile_fields_admin_page() {
+
+		/**
+		 * Set minimum capability to use Profile Fields features.
+		 *
+		 * @since 1.19.0
+		 *
+		 * @param string $capability defaults to Shop Managers with 'manage_woocommerce'
+		 */
+		$capability = (string) apply_filters( 'woocommerce_memberships_can_manage_profile_fields', 'manage_woocommerce' );
+
+		add_submenu_page(
+			'',
+			__( 'Profile Fields', 'woocommerce-memberships' ),
+			__( 'Profile Fields', 'woocommerce-memberships' ),
+			$capability,
+			'wc_memberships_profile_fields',
+			[ $this, 'render_profile_fields_page' ]
 		);
 	}
 
@@ -434,6 +517,24 @@ class WC_Memberships_Admin {
 		 * @since 1.6.0
 		 */
 		do_action( 'wc_memberships_render_import_export_page' );
+	}
+
+
+	/**
+	 * Renders the Profile Fields admin page.
+	 *
+	 * @internal
+	 *
+	 * @since 1.19.0
+	 */
+	public function render_profile_fields_page() {
+
+		/**
+		 * Outputs the Profile Fields admin page.
+		 *
+		 * @since 1.19.0
+		 */
+		do_action( 'wc_memberships_render_profile_fields_page' );
 	}
 
 
@@ -640,12 +741,12 @@ class WC_Memberships_Admin {
 				case 'edit-shop_order' :
 				case 'shop_subscription' :
 				case 'edit-shop_subscription' :
-					$this->orders           = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-admin-orders.php', 'WC_Memberships_Admin_Orders' );
+					$this->orders = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-admin-orders.php', 'WC_Memberships_Admin_Orders' );
 				break;
 
 				case 'product' :
 				case 'edit-product' :
-					$this->products         = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-admin-products.php', 'WC_Memberships_Admin_Products' );
+					$this->products = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-admin-products.php', 'WC_Memberships_Admin_Products' );
 				break;
 
 				case 'wc_membership_plan' :
@@ -657,17 +758,21 @@ class WC_Memberships_Admin {
 				case 'edit-wc_user_membership' :
 					$this->user_memberships = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-admin-user-memberships.php',  'WC_Memberships_Admin_User_Memberships' );
 					// the import / export handler runs bulk export on User Memberships screen
-					$this->import_export    = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-import-export-handler.php', 'WC_Memberships_Admin_Import_Export_Handler' );
+					$this->import_export = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-import-export-handler.php', 'WC_Memberships_Admin_Import_Export_Handler' );
 				break;
 
 				case 'admin_page_wc_memberships_import_export' :
-					$this->import_export    = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-import-export-handler.php', 'WC_Memberships_Admin_Import_Export_Handler' );
+					$this->import_export = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-import-export-handler.php', 'WC_Memberships_Admin_Import_Export_Handler' );
+				break;
+
+				case 'admin_page_wc_memberships_profile_fields' :
+					$this->profile_fields = wc_memberships()->load_class( '/includes/admin/Profile_Fields.php', 'SkyVerge\WooCommerce\Memberships\Admin\Profile_Fields' );
 				break;
 
 				case 'users' :
 				case 'user-edit' :
 				case 'profile' :
-					$this->users            = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-admin-users.php', 'WC_Memberships_Admin_Users' );
+					$this->users = wc_memberships()->load_class( '/includes/admin/class-wc-memberships-admin-users.php', 'WC_Memberships_Admin_Users' );
 				break;
 			}
 
@@ -690,18 +795,24 @@ class WC_Memberships_Admin {
 	 * @since 1.9.0
 	 *
 	 * @param string $prefix prefix of each class name
-	 * @param string[] $object_names array of class names
-	 * @param string $path relative path to where the classes to load are
+	 * @param array $files associative array of object names and relative file paths (to includes/admin)
 	 * @return array
 	 */
-	private function init_objects( $prefix, $object_names, $path ) {
+	private function init_objects( $prefix, array $files ) {
 
-		$objects = array();
+		$objects = [];
 
-		foreach ( $object_names as $class ) {
+		foreach ( $files as $class => $path ) {
 
-			$file_name  = 'class-'. strtolower( str_replace( '_', '-', $class ) ) . '.php';
-			$file_path  = wc_memberships()->get_plugin_path() . $path . $file_name;
+			// handle namespaced classes and their paths
+			if ( Framework\SV_WC_Helper::str_starts_with( $class, '\\' ) ) {
+				$class_parts = explode( '\\', $class );
+				$file_name   = array_pop( $class_parts ) . '.php';
+			} else {
+				$file_name = 'class-'. strtolower( str_replace( '_', '-', $class ) ) . '.php';
+			}
+
+			$file_path = wc_memberships()->get_plugin_path() . $path . $file_name;
 
 			if ( is_readable( $file_path ) && ! class_exists( $class ) ) {
 
@@ -709,7 +820,12 @@ class WC_Memberships_Admin {
 
 				if ( class_exists( $class ) ) {
 
-					$object_name = strtolower( str_replace( $prefix . '_', '', $class ) );
+					// handle namespaced class names
+					if ( Framework\SV_WC_Helper::str_starts_with( $class, '\\' ) ) {
+						$object_name = str_replace( '\\', '-', str_replace( '\\SkyVerge\\WooCommerce\\Memberships\\', '', $class ) );
+					} else {
+						$object_name = strtolower( str_replace( $prefix . '_', '', $class ) );
+					}
 
 					$objects[ $object_name ] = new $class();
 				}
@@ -735,30 +851,36 @@ class WC_Memberships_Admin {
 			require_once( wc_memberships()->get_plugin_path() . '/includes/admin/modals/abstract-wc-memberships-batch-job-modal.php' );
 
 			$this->modals   = new stdClass();
-			$modals_classes = array();
+			$modals_classes = [];
 
 			// new user membership screen
 			if ( 'edit-wc_user_membership' === $screen->id ) {
-				$modals_classes[] = 'WC_Memberships_Modal_Add_User_Membership';
-				$modals_classes[] = 'WC_Memberships_Modal_Import_Export_User_Memberships';
+				$modals_classes['WC_Memberships_Modal_Add_User_Membership'] = '/includes/admin/modals/';
+				$modals_classes['WC_Memberships_Modal_Import_Export_User_Memberships'] = '/includes/admin/modals/';
 			// edit user membership screen
 			} elseif ( 'wc_user_membership' === $screen->id ) {
-				$modals_classes[] = 'WC_Memberships_Modal_Add_User_Membership';
-				$modals_classes[] = 'WC_Memberships_Modal_Transfer_User_Membership';
-				$modals_classes[] = 'WC_Memberships_Modal_Import_Export_User_Memberships';
+				$modals_classes['WC_Memberships_Modal_Add_User_Membership'] = '/includes/admin/modals/';
+				$modals_classes['WC_Memberships_Modal_Transfer_User_Membership'] = '/includes/admin/modals/';
+				$modals_classes['WC_Memberships_Modal_Import_Export_User_Memberships'] = '/includes/admin/modals/';
+				$modals_classes[ '\\' . Confirm_Edit_Profile_Fields::class ] = '/includes/admin/Views/Modals/User_Membership/';
 			// membership plan screens
 			} elseif ( in_array( $screen->id, array( 'wc_membership_plan', 'edit-wc-membership-plan' ), true ) ) {
-				$modals_classes[] = 'WC_Memberships_Modal_Grant_Access_Membership_Plan';
+				$modals_classes['WC_Memberships_Modal_Grant_Access_Membership_Plan'] = '/includes/admin/modals/';
 			// user memberships import/export screens
 			} elseif ( 'admin_page_wc_memberships_import_export' === $screen->id ) {
-				$modals_classes[] = 'WC_Memberships_Modal_Import_Export_User_Memberships';
+				$modals_classes['WC_Memberships_Modal_Import_Export_User_Memberships'] = '/includes/admin/modals/';
 			// email settings screens
 			} elseif ( isset( $_GET['tab'], $_GET['section'] ) && 'email' === $_GET['tab'] && in_array( $_GET['section'], array( 'wc_memberships_user_membership_ending_soon_email', 'wc_memberships_user_membership_renewal_reminder_email' ), true ) && Framework\SV_WC_Plugin_Compatibility::normalize_wc_screen_id() === $screen->id ) {
-				$modals_classes[] = 'WC_Memberships_Modal_Reschedule_User_Memberships_Events';
+				$modals_classes['WC_Memberships_Modal_Reschedule_User_Memberships_Events'] = '/includes/admin/modals/';
+
+			// profile fields screens
+			} elseif ( $this->get_profile_fields_instance() && $this->get_profile_fields_instance()->is_profile_fields_screen( [ Profile_Fields::SCREEN_ACTION_NEW, Profile_Fields::SCREEN_ACTION_EDIT ] ) ) {
+
+				$modals_classes[ '\\' . Confirm_Deletion::class ] = '/includes/admin/Views/Modals/Profile_Field/';
 			}
 
 			// load and instantiate objects
-			$modals = $this->init_objects( 'WC_Memberships_Modal', $modals_classes, '/includes/admin/modals/' );
+			$modals = $this->init_objects( 'WC_Memberships_Modal', $modals_classes );
 
 			/**
 			 * Filter Memberships admin modals.
@@ -796,7 +918,7 @@ class WC_Memberships_Admin {
 			return;
 		}
 
-		$meta_box_classes = array();
+		$meta_box_classes = [];
 
 		// load meta boxes abstract class
 		if ( ! class_exists( 'WC_Memberships_Meta_Box' ) ) {
@@ -806,29 +928,30 @@ class WC_Memberships_Admin {
 		$this->meta_boxes = new stdClass();
 
 		// load restriction meta boxes on post screen only
-		$meta_box_classes[] = 'WC_Memberships_Meta_Box_Post_Memberships_Data';
+		$meta_box_classes[ 'WC_Memberships_Meta_Box_Post_Memberships_Data'] = '/includes/admin/meta-boxes/';
 
 		// product-specific meta boxes
 		if ( 'product' === $screen->id ) {
-			$meta_box_classes[] = 'WC_Memberships_Meta_Box_Product_Memberships_Data';
+			$meta_box_classes['WC_Memberships_Meta_Box_Product_Memberships_Data'] = '/includes/admin/meta-boxes/';
 		}
 
 		// load user membership meta boxes on user membership screen only
 		if ( 'wc_membership_plan' === $screen->id ) {
-			$meta_box_classes[] = 'WC_Memberships_Meta_Box_Membership_Plan_Data';
-			$meta_box_classes[] = 'WC_Memberships_Meta_Box_Membership_Plan_Email_Content_Merge_Tags';
+			$meta_box_classes['WC_Memberships_Meta_Box_Membership_Plan_Data'] = '/includes/admin/meta-boxes/';
+			$meta_box_classes['WC_Memberships_Meta_Box_Membership_Plan_Email_Content_Merge_Tags'] = '/includes/admin/meta-boxes/';
 		}
 
 		// load user membership meta boxes on user membership screen only
 		if ( 'wc_user_membership' === $screen->id ) {
-			$meta_box_classes[] = 'WC_Memberships_Meta_Box_User_Membership_Data';
-			$meta_box_classes[] = 'WC_Memberships_Meta_Box_User_Membership_Notes';
-			$meta_box_classes[] = 'WC_Memberships_Meta_Box_User_Membership_Member_Details';
-			$meta_box_classes[] = 'WC_Memberships_Meta_Box_User_Membership_Recent_Activity';
+			$meta_box_classes['WC_Memberships_Meta_Box_User_Membership_Data'] = '/includes/admin/meta-boxes/';
+			$meta_box_classes['WC_Memberships_Meta_Box_User_Membership_Notes'] = '/includes/admin/meta-boxes/';
+			$meta_box_classes['WC_Memberships_Meta_Box_User_Membership_Member_Details'] = '/includes/admin/meta-boxes/';
+			$meta_box_classes['\\SkyVerge\\WooCommerce\\Memberships\\Admin\\Views\\Meta_Boxes\\User_Membership\\Profile_Fields'] = '/includes/admin/Views/Meta_Boxes/User_Membership/';
+			$meta_box_classes['WC_Memberships_Meta_Box_User_Membership_Recent_Activity' ] = '/includes/admin/meta-boxes/';
 		}
 
 		// load and instantiate objects
-		$meta_boxes = $this->init_objects( 'WC_Memberships_Meta_Box', array_unique( $meta_box_classes ), '/includes/admin/meta-boxes/' );
+		$meta_boxes = $this->init_objects( 'WC_Memberships_Meta_Box', $meta_box_classes );
 
 		/**
 		 * Filter Memberships admin meta boxes.
@@ -915,7 +1038,21 @@ class WC_Memberships_Admin {
 	 */
 	private function enqueue_styles() {
 
-		wp_enqueue_style( 'wc-memberships-admin', wc_memberships()->get_plugin_url() . '/assets/css/admin/wc-memberships-admin.min.css', array(), \WC_Memberships::VERSION );
+		$path = wc_memberships()->get_plugin_url() . '/assets/css/admin/';
+		$deps = [];
+
+		wp_register_style( 'wc-memberships-user-memberships', $path . 'wc-memberships-user-memberships.min.css', [], \WC_Memberships::VERSION );
+		wp_register_style( 'wc-memberships-profile-fields', $path . 'wc-memberships-profile-fields.min.css', [], \WC_Memberships::VERSION );
+
+		if ( $this->is_memberships_profile_fields_admin_screen() ) {
+			$deps[] = 'wc-memberships-profile-fields';
+		}
+
+		if ( $this->is_memberships_admin_screen( 'edit-wc_user_membership' ) || $this->is_memberships_admin_screen( 'wc_user_membership' ) ) {
+			$deps[] = 'wc-memberships-user-memberships';
+		}
+
+		wp_enqueue_style( 'wc-memberships-admin', $path . 'wc-memberships-admin.min.css', $deps, \WC_Memberships::VERSION );
 	}
 
 
@@ -925,44 +1062,75 @@ class WC_Memberships_Admin {
 	 * @since 1.8.0
 	 */
 	private function enqueue_scripts() {
+		global $pagenow, $typenow;
 
 		$screen   = get_current_screen();
 		$path     = wc_memberships()->get_plugin_url() . '/assets/js/admin/';
 		$ver      = \WC_Memberships::VERSION;
 
 		// base scripts
-		wp_register_script( 'wc-memberships-enhanced-select', $path . 'wc-memberships-enhanced-select.min.js', array( 'jquery', 'select2' ), $ver );
-		wp_register_script( 'wc-memberships-rules',           $path . 'wc-memberships-rules.min.js',           array( 'wc-memberships-enhanced-select' ), $ver );
-		wp_register_script( 'wc-memberships-modal',           $path . 'wc-memberships-modal.min.js',           array( 'jquery', 'backbone', 'wc-backbone-modal' ), $ver );
-		wp_register_script( 'wc-memberships-modals',          $path . 'wc-memberships-member-modals.min.js',   array( 'wc-memberships-modal', 'wc-memberships-enhanced-select' ), $ver );
-		wp_enqueue_script(  'wc-memberships-admin',           $path . 'wc-memberships-admin.min.js',           array( 'wc-memberships-rules' ), $ver );
+		wp_register_script( 'wc-memberships-enhanced-select', $path . 'wc-memberships-enhanced-select.min.js', [ 'jquery', 'select2' ], $ver );
+		wp_register_script( 'wc-memberships-rules',           $path . 'wc-memberships-rules.min.js',           [ 'wc-memberships-enhanced-select' ], $ver );
+		wp_register_script( 'wc-memberships-modal',           $path . 'wc-memberships-modal.min.js',           [ 'jquery', 'backbone', 'wc-backbone-modal'], $ver );
+		wp_register_script( 'wc-memberships-modals',          $path . 'wc-memberships-member-modals.min.js',   [ 'wc-memberships-modal', 'wc-memberships-enhanced-select' ], $ver );
+		wp_register_script( 'wc-memberships-profile-fields',  $path . 'wc-memberships-profile-fields.min.js',  [ 'wc-memberships-modals', 'jquery-ui-sortable' ], $ver );
+		wp_enqueue_script(  'wc-memberships-admin',           $path . 'wc-memberships-admin.min.js',           [ 'wc-memberships-rules' ], $ver );
 
 		// plans edit screens
-		if ( $screen && in_array( $screen->id, array( 'wc_membership_plan', 'edit-wc_membership_plan' ), false ) ) {
+		if ( $screen && in_array( $screen->id, [ 'wc_membership_plan', 'edit-wc_membership_plan' ], false ) ) {
 
 			wp_enqueue_script( 'wc-memberships-membership-plans', $path . 'wc-memberships-plans.min.js', array( 'wc-memberships-admin', 'wc-memberships-modal', 'jquery-ui-datepicker' ), $ver );
 
 		// user memberships screens and import export screens
-		} elseif ( $screen && in_array( $screen->id, array( 'admin_page_wc_memberships_import_export', 'wc_user_membership', 'edit-wc_user_membership' ), false ) ) {
+		} elseif ( $screen && in_array( $screen->id, [ 'admin_page_wc_memberships_import_export', 'wc_user_membership', 'edit-wc_user_membership' ], false ) ) {
 
 			// user memberships screens only
-			if ( in_array( $screen->id, array( 'wc_user_membership', 'edit-wc_user_membership' ), false ) ) {
+			if ( in_array( $screen->id, [ 'wc_user_membership', 'edit-wc_user_membership' ], false ) ) {
 
-				wp_enqueue_script( 'wc-memberships-user-memberships', $path . 'wc-memberships-user-memberships.min.js', array( 'wc-memberships-modals', 'jquery-ui-datepicker' ), $ver );
+				wp_enqueue_script( 'wc-memberships-user-memberships', $path . 'wc-memberships-user-memberships.min.js', [ 'wc-memberships-modals', 'jquery-ui-datepicker' ], $ver );
 			}
 
 			// export scripts are also loaded on the memberships edit screen for bulk exports
-			wp_enqueue_script( 'wc-memberships-import-export', $path . 'wc-memberships-import-export.min.js', array( 'wc-memberships-modal', 'wc-memberships-enhanced-select', 'jquery-ui-datepicker' ), $ver );
+			wp_enqueue_script( 'wc-memberships-import-export', $path . 'wc-memberships-import-export.min.js', [ 'wc-memberships-modal', 'wc-memberships-enhanced-select', 'jquery-ui-datepicker' ], $ver );
 
 		// product screens
-		} elseif ( $screen && in_array( $screen->id, array( 'product', 'edit-product' ), true ) ) {
+		} elseif ( $screen && in_array( $screen->id, [ 'product', 'edit-product' ], true ) ) {
 
 			wp_enqueue_script( 'wc-memberships-modals' );
+
+
+		// profile fields screens
+		} elseif ( $this->is_memberships_profile_fields_admin_screen() ) {
+
+			if ( $profile_fields = $this->get_profile_fields_instance() ) {
+				$profile_field_definition = $profile_fields->get_admin_screen_profile_field_definition();
+				$profile_field_in_use     = $profile_field_definition && $profile_field_definition->is_in_use();
+			}
+
+			wp_enqueue_script( 'wc-memberships-profile-fields' );
 
 		// settings pages, including memberships emails settings
 		} elseif ( wc_memberships()->is_plugin_settings() ) {
 
-			wp_enqueue_script( 'wc-memberships-settings', $path . 'wc-memberships-settings.min.js', array( 'wc-memberships-modal', 'wc-memberships-enhanced-select', 'jquery-ui-datepicker' ), $ver );
+			wp_enqueue_script( 'wc-memberships-settings', $path . 'wc-memberships-settings.min.js', [ 'wc-memberships-modal', 'wc-memberships-enhanced-select', 'jquery-ui-datepicker' ], $ver );
+		}
+
+		$profile_field_definition_options = [];
+
+		if ( 'edit.php' === $pagenow && 'wc_user_membership' === $typenow ) {
+
+			foreach ( Profile_Fields_Handler::get_profile_field_definitions() as $profile_field_definition ) {
+
+				if ( ! $profile_field_definition->has_options() ) {
+					continue;
+				}
+
+				// converts the slug into a format that can be used as a javascript property
+				$slug = str_replace( '-', '_', $profile_field_definition->get_slug( 'edit' ) );
+
+				// maps the profile field options
+				$profile_field_definition_options[ $slug ] = array_values( $profile_field_definition->get_options( 'edit' ) );
+			}
 		}
 
 		// localize the main admin script to add variable properties and localization strings.
@@ -978,6 +1146,9 @@ class WC_Memberships_Admin {
 			'user_membership_url'                       => admin_url( 'edit.php?post_type=wc_user_membership' ),
 			'new_user_membership_url'                   => admin_url( 'post-new.php?post_type=wc_user_membership' ),
 			'restrictable_post_types'                   => array_keys( WC_Memberships_Admin_Membership_Plan_Rules::get_valid_post_types_for_content_restriction_rules( false ) ),
+			'profile_fields_visibility_options'         => Profile_Fields_Handler::get_profile_fields_visibility_options( true ),
+			'profile_field_is_in_use'                   => ! empty( $profile_field_in_use ),
+			'profile_field_definitions_options'         => $profile_field_definition_options,
 			'search_products_nonce'                     => wp_create_nonce( 'search-products' ),
 			'search_posts_nonce'                        => wp_create_nonce( 'search-posts' ),
 			'search_terms_nonce'                        => wp_create_nonce( 'search-terms' ),
@@ -986,6 +1157,9 @@ class WC_Memberships_Admin {
 			'add_user_membership_note_nonce'            => wp_create_nonce( 'add-user-membership-note' ),
 			'create_user_for_membership_nonce'          => wp_create_nonce( 'create-user-for-membership' ),
 			'transfer_user_membership_nonce'            => wp_create_nonce( 'transfer-user-membership' ),
+			'toggle_profile_field_editable_by_nonce'    => wp_create_nonce( 'toggle-profile-field-editable-by' ),
+			'save_profile_fields_nonce'                 => wp_create_nonce( 'save-profile-fields' ),
+			'sort_profile_fields_nonce'                 => wp_create_nonce( 'sort-profile-fields' ),
 			'delete_user_membership_note_nonce'         => wp_create_nonce( 'delete-user-membership-note' ),
 			'delete_user_membership_subscription_nonce' => wp_create_nonce( 'delete-user-membership-with-subscription' ),
 			'get_memberships_batch_job_nonce'           => wp_create_nonce( 'get-memberships-batch-job' ),
@@ -1000,20 +1174,34 @@ class WC_Memberships_Admin {
 				// add i18n strings here, for example:
 				// 'log_in' => __( 'Log In', 'woocommerce-memberships' )
 
-				'delete_membership_confirm'        => __( 'Are you sure that you want to permanently delete this membership?', 'woocommerce-memberships' ),
-				'delete_memberships_confirm'       => __( 'Are you sure that you want to permanently delete these memberships?', 'woocommerce-memberships' ),
-				'please_select_user'               => __( 'Please select a user.', 'woocommerce-memberships' ),
-				'reschedule'                       => __( 'Reschedule', 'woocommerce-memberships' ),
-				'export_user_memberships'          => __( 'Export User Memberships', 'woocommerce-memberships' ),
-				'import_file_missing'              => __( 'Please upload a file to import memberships from.', 'woocommerce-memberships' ),
-				'confirm_export_cancel'            => __( 'Are you sure you want to cancel this export?', 'woocommerce-memberships' ),
-				'confirm_import_cancel'            => __( 'Are you sure you want to cancel this import?', 'woocommerce-memberships' ),
-				'confirm_stop_batch_job'           => __( 'Are you sure you want to stop the current batch process?', 'woocommerce-memberships' ),
-				'blanket_rule_warning'             => __( 'One or more of your rules uses a blank "Title" field - blank rules apply the rule to all content. This may restrict all content or products, or offer discounts on all products.', 'woocommerce-memberships' ),
-				'blanket_content_restriction_rule' => __( 'On the Restrict Content tab, all content under the specified post type or taxonomy will be restricted to plan members', 'woocommerce-memberships' ),
-				'blanket_product_restriction_rule' => __( 'On the Restrict Products tab, all products will be restricted to plan members', 'woocommerce-memberships' ),
-				'blanket_product_discount_rule'    => __( 'On the Purchasing Discounts tab, all products will have a discount for plan members', 'woocommerce-memberships' ),
-				'blanket_rule_confirmation'        => __( 'Please confirm to save the rules or cancel to review without saving.', 'woocommerce-memberships' ),
+				'delete_membership_confirm'                 => __( 'Are you sure that you want to permanently delete this membership?', 'woocommerce-memberships' ),
+				'delete_memberships_confirm'                => __( 'Are you sure that you want to permanently delete these memberships?', 'woocommerce-memberships' ),
+				'please_select_user'                        => __( 'Please select a user.', 'woocommerce-memberships' ),
+				'reschedule'                                => __( 'Reschedule', 'woocommerce-memberships' ),
+				'export_user_memberships'                   => __( 'Export User Memberships', 'woocommerce-memberships' ),
+				'import_file_missing'                       => __( 'Please upload a file to import memberships from.', 'woocommerce-memberships' ),
+				'confirm_export_cancel'                     => __( 'Are you sure you want to cancel this export?', 'woocommerce-memberships' ),
+				'confirm_import_cancel'                     => __( 'Are you sure you want to cancel this import?', 'woocommerce-memberships' ),
+				'confirm_stop_batch_job'                    => __( 'Are you sure you want to stop the current batch process?', 'woocommerce-memberships' ),
+				'blanket_rule_warning'                      => __( 'One or more of your rules uses a blank "Title" field - blank rules apply the rule to all content. This may restrict all content or products, or offer discounts on all products.', 'woocommerce-memberships' ),
+				'blanket_content_restriction_rule'          => __( 'On the Restrict Content tab, all content under the specified post type or taxonomy will be restricted to plan members', 'woocommerce-memberships' ),
+				'blanket_product_restriction_rule'          => __( 'On the Restrict Products tab, all products will be restricted to plan members', 'woocommerce-memberships' ),
+				'blanket_product_discount_rule'             => __( 'On the Purchasing Discounts tab, all products will have a discount for plan members', 'woocommerce-memberships' ),
+				'blanket_rule_confirmation'                 => __( 'Please confirm to save the rules or cancel to review without saving.', 'woocommerce-memberships' ),
+				'profile_field_no_visibility'               => __( 'The profile field should have visibility preferences if editable by a member.', 'woocommerce-memberships' ),
+				'profile_field_filter_comparators'          => [
+					'is'             => _x( 'is', 'Comparator: <value> is <something>', 'woocommerce-memberships' ),
+					'is_not'         => _x( 'is not', 'Comparator: <value> is not <something>', 'woocommerce-memberships' ),
+					'includes'       => _x( 'includes', 'Comparator: <value> includes <something>',  'woocommerce-memberships' ),
+					'doesnt_include' => _x( "doesn't include", "Comparator: <value> doesn't include <something>", 'woocommerce-memberships' ),
+					'is_empty'       => _x( 'is empty', 'Comparator: <value> is empty', 'woocommerce-memberships' ),
+				],
+				'profile_field_filter_checkbox'             => [
+					'yes'            => _x( 'selected', 'Checkbox field status', 'woocommerce-memberships' ),
+					'no'             => _x( 'unselected', 'Checkbox field status', 'woocommerce-memberships' ),
+				],
+				'profile_field_filter_placeholder_single'   => __( 'Select one option', 'woocommerce-memberships' ),
+				'profile_field_filter_placeholder_multiple' => __( 'Select one or more options', 'woocommerce-memberships' ),
 
 			],
 		] );
@@ -1126,6 +1314,8 @@ class WC_Memberships_Admin {
 				$current_tab = 'members';
 			} elseif ( $this->is_memberships_import_export_admin_screen() ) {
 				$current_tab = 'import-export';
+			} elseif( $this->is_memberships_profile_fields_admin_screen() ) {
+				$current_tab = 'profile-fields';
 			}
 		}
 
@@ -1156,20 +1346,24 @@ class WC_Memberships_Admin {
 		// handle tabs on the relevant WooCommerce pages
 		if ( $screen && in_array( $screen->id, $this->get_screen_ids( 'tabs' ), true ) ) :
 
-			$tabs = apply_filters( 'wc_memberships_admin_tabs', array(
-				'members'       => array(
+			$tabs = apply_filters( 'wc_memberships_admin_tabs', [
+				'members'        => [
 					'title' => __( 'Members', 'woocommerce-memberships' ),
 					'url'   => admin_url( 'edit.php?post_type=wc_user_membership' ),
-				),
-				'memberships'   => array(
+				],
+				'memberships'    => [
 					'title' => wp_is_mobile() ? __( 'Plans', 'woocommerce-memberships' ) : __( 'Membership Plans', 'woocommerce-memberships' ),
 					'url'   => admin_url( 'edit.php?post_type=wc_membership_plan' ),
-				),
-				'import-export' => array(
+				],
+				'import-export'  => [
 					'title' => __( 'Import / Export', 'woocommerce-memberships' ),
 					'url'   => admin_url( 'admin.php?page=wc_memberships_import_export' ),
-				),
-			) );
+				],
+				'profile-fields' => [
+					'title' => __( 'Profile Fields', 'woocommerce-memberships' ),
+					'url'   => admin_url( 'admin.php?page=wc_memberships_profile_fields' ),
+				],
+			] );
 
 			if ( is_array( $tabs ) ) :
 

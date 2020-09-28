@@ -467,7 +467,7 @@ function get_rocket_exclude_defer_js() { // phpcs:ignore WordPress.NamingConvent
  * @return bool true if everything is ok, false otherwise
  */
 function rocket_valid_key() {
-	return true;
+		return true;
 }
 
 /**

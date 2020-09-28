@@ -70,6 +70,33 @@ class MPCA_Corporate_Account extends MeprBaseModel {
     return $ca_obj;
   }
 
+  /**
+   * Checks if object is a sub account
+   *
+   * @param  mixed $obj_id
+   * @param  string $obj_type
+   *
+   * @return mixed
+   */
+  public static function is_obj_sub_account($obj_id, $obj_type) {
+    global $wpdb;
+
+    $mepr_db = MeprDb::fetch();
+    $id_col = 'subscriptions' == $obj_type ? 'subscription_id' : 'id';
+
+    $q = $wpdb->prepare("
+    SELECT id
+      FROM {$mepr_db->transactions}
+      WHERE {$id_col} = %d
+        AND txn_type = %s
+      LIMIT 1
+      ",
+      $obj_id,
+      'sub_account'
+    );
+    return $wpdb->get_var($q);
+  }
+
   public static function find_corporate_account_by_obj($obj) {
     if(!($obj instanceof MeprSubscription) &&
        !($obj instanceof MeprTransaction)) {

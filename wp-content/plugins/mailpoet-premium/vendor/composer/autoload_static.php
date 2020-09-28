@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInita96b3bdb6a0255d1d859a902912fe242
+class ComposerStaticInit4ad0620cace3fbb07bf83ca8bea411b7
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -31,7 +31,9 @@ class ComposerStaticInita96b3bdb6a0255d1d859a902912fe242
     public static $classMap = array (
         'MailPoetGenerated\\PremiumCachedContainer' => __DIR__ . '/../..' . '/generated/PremiumCachedContainer.php',
         'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder' => __DIR__ . '/../..' . '/lib/API/JSON/v1/ResponseBuilders/StatsResponseBuilder.php',
+        'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder' => __DIR__ . '/../..' . '/lib/API/JSON/v1/ResponseBuilders/SubscriberDetailedStatsResponseBuilder.php',
         'MailPoet\\Premium\\API\\JSON\\v1\\Stats' => __DIR__ . '/../..' . '/lib/API/JSON/v1/Stats.php',
+        'MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats' => __DIR__ . '/../..' . '/lib/API/JSON/v1/SubscriberDetailedStats.php',
         'MailPoet\\Premium\\Config\\Env' => __DIR__ . '/../..' . '/lib/Config/Env.php',
         'MailPoet\\Premium\\Config\\Hooks' => __DIR__ . '/../..' . '/lib/Config/Hooks.php',
         'MailPoet\\Premium\\Config\\Initializer' => __DIR__ . '/../..' . '/lib/Config/Initializer.php',
@@ -43,14 +45,16 @@ class ComposerStaticInita96b3bdb6a0255d1d859a902912fe242
         'MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository' => __DIR__ . '/../..' . '/lib/Newsletter/StatisticsUnsubscribesRepository.php',
         'MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts' => __DIR__ . '/../..' . '/lib/Newsletter/Stats/PurchasedProducts.php',
         'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement' => __DIR__ . '/../..' . '/lib/Newsletter/Stats/SubscriberEngagement.php',
+        'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStats' => __DIR__ . '/../..' . '/lib/Subscriber/Stats/SubscriberNewsletterStats.php',
+        'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository' => __DIR__ . '/../..' . '/lib/Subscriber/Stats/SubscriberNewsletterStatsRepository.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita96b3bdb6a0255d1d859a902912fe242::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita96b3bdb6a0255d1d859a902912fe242::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita96b3bdb6a0255d1d859a902912fe242::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4ad0620cace3fbb07bf83ca8bea411b7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4ad0620cace3fbb07bf83ca8bea411b7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4ad0620cace3fbb07bf83ca8bea411b7::$classMap;
 
         }, null, ClassLoader::class);
     }

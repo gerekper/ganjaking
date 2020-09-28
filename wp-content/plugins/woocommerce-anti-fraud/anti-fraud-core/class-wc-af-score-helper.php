@@ -115,7 +115,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			return ( ! empty( $score ) );
 
 		}
-
+		
 		/**
 		 * Do the actual fraud check
 		 *
@@ -221,8 +221,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			if ( ! empty( $payment_requested_status ) ) {
 				$new_status = $payment_requested_status;
 			}
-
-			$is_whitelisted = false;
+			$ip_address = $order->get_customer_ip_address();
+			$is_whitelisted = true;
 			$orderemail = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email();
 			// Check if there is a valid white list and if consumer email is found in white list
 			if ( $whitelist_available && in_array( ( $orderemail ), $whitelist ) ) {
@@ -240,8 +240,10 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				
 				if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
 					$new_status = 'processing'; 
+					
 				} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
 					$new_status = 'processing';
+					
 				}
 				
 			} else {
@@ -256,10 +258,22 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				// Check for automated action rules
 				if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
 					$new_status = 'cancelled';
+					$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress',false);
+					if($existing_blacklist_ip != '') {
+					$auto_blacklist_ip = explode( ",", $existing_blacklist_ip );
+					
+					if(!in_array( $ip_address, $auto_blacklist_ip )){
+						$existing_blacklist_ip .= ','.$ip_address;
+						update_option('wc_settings_anti_fraudblacklist_ipaddress',$existing_blacklist_ip);
+					}
+					}else {
+						update_option('wc_settings_anti_fraudblacklist_ipaddress',$ip_address);
+					}
+					$is_whitelisted = false;
 				} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
 					$new_status = 'on-hold';
-				}
-				$is_whitelisted = false;
+				} 
+				
 				//Auto blacklist email with high risk
 				$enable_auto_blacklist = get_option('wc_settings_anti_fraudenable_automatic_blacklist');
 				

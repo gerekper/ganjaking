@@ -52,7 +52,7 @@ class Initializer {
       [$this, 'includePremiumJavascript']
     );
 
-    $this->setupCampaignStats();
+    $this->setupStatsPages();
 
      $this->hooks->init();
 
@@ -71,10 +71,14 @@ class Initializer {
     $localizer->init();
   }
 
-  public function setupCampaignStats() {
+  public function setupStatsPages() {
     $this->wp->addAction(
       'mailpoet_newsletters_translations_after',
       [$this, 'newslettersCampaignStats']
+    );
+    $this->wp->addAction(
+      'mailpoet_subscribers_translations_after',
+      [$this, 'subscribersStats']
     );
   }
 
@@ -83,6 +87,13 @@ class Initializer {
     $data['shortcode_links'] = Worker::getShortcodeLinksMapping();
 
     echo $this->renderer->render('newsletters/campaign_stats.html', $data);
+  }
+
+  public function subscribersStats() {
+    // shortcode URLs to substitute with user-friendly names
+    $data['shortcode_links'] = Worker::getShortcodeLinksMapping();
+
+    echo $this->renderer->render('subscribers/stats.html', $data);
   }
 
   public function includePremiumStyles() {

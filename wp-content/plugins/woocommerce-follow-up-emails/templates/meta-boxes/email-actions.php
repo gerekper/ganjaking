@@ -59,7 +59,7 @@
 
 		<div id="publishing-action">
 			<span class="spinner"></span>
-			<input type="submit" class="button save_email button-primary" name="save" value="<?php esc_attr_e( 'Save Email', 'follow-up-emails' ); ?>" <?php if ( empty( $email->type ) ) echo 'disabled' ?> />
+			<input type="submit" class="button save_email button-primary" name="save" value="<?php esc_attr_e( 'Save Email', 'follow_up_emails' ); ?>" <?php if ( empty( $email->type ) ) echo 'disabled' ?> />
 			<?php wp_nonce_field( 'fue_save_data', 'fue_meta_nonce' ); ?>
 		</div>
 		<div class="clear"></div>

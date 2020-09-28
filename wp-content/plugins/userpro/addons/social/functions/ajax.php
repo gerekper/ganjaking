@@ -13,7 +13,7 @@
 		// User
         $user = new UP_User($to);
 
-		$output = $user->user_social->getFollowActionPlain($from);
+		$output = $user->user_social->getFollowActionPlain($from, 'follow');
         $output['count'] = $user->user_social->getUserFollowersCount('followers');
 
 		wp_send_json_success($output);
@@ -31,7 +31,7 @@
 
         // User
         $user = new UP_User($to);
-        $output = $user->user_social->getFollowActionPlain($from);
+        $output = $user->user_social->getFollowActionPlain($from, 'unfollow');
         $output['count'] = $user->user_social->getUserFollowersCount('followers');
 
         wp_send_json_success($output);

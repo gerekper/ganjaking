@@ -794,7 +794,9 @@ function userpro_edit_field($key, $array, $i, $args, $user_id = NULL)
                             $value = $array['default'];
 
                         $res .= "<select name='$key-$i' id='$key-$i' class='chosen-select' data-placeholder='" . $array['placeholder'] . "' $data >";
-
+                        if ($key == 'country') {
+                            $res .= '<option selected value>' . __('Select your country', 'userpro') . '</option>';
+                        }
                         if(is_array($array['options'])) {
 
                             if(isset($array['placeholder']) && !empty($array['placeholder'])) {
@@ -875,7 +877,7 @@ function userpro_edit_field($key, $array, $i, $args, $user_id = NULL)
 
                     if(isset($array['options'])) {
 
-                        $res .= "<select data-condition_rule='" .$array['condition_rule'] ."'  data-condition_fields='" . $array['condition_fields'] . "' data-condition_value='" . $array['condition_value'] . "' data-add_condition='" . $array['add_condition'] . "' name='" . $key . '-' . $i . '[]' . "' multiple='multiple' class='chosen-select' data-placeholder='" . $array['placeholder'] . "'>";
+                        $res .= "<select data-required=".$array['required']." data-condition_rule='" .$array['condition_rule'] ."'  data-condition_fields='" . $array['condition_fields'] . "' data-condition_value='" . $array['condition_value'] . "' data-add_condition='" . $array['add_condition'] . "' name='" . $key . '-' . $i . "' multiple='multiple' class='chosen-select' data-placeholder='" . $array['placeholder'] . "'>";
 
                         foreach($array['options'] as $k => $v) {
 

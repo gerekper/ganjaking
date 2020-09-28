@@ -53,20 +53,27 @@ if ( ! class_exists( 'WC_Mailchimp_Newsletter_Integration' ) ) {
 		 * Performs the underlying HTTP request. Not very exciting
 		 *
 		 * @since 2.7.0 Added parameter $http_method
+		 * @since 2.9.1 Added parameter $query_params
 		 *
 		 * @param  string $method The API method to be called.
 		 * @param  string $http_method Accepts 'GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'TRACE', 'OPTIONS', or 'PATCH'.
 		 * @param  array  $args   Assoc array of parameters to be passed.
+		 * @param  array  $query_params Assoc array of query params to be added to the URL.
 		 * @return array          Assoc array of decoded result.
 		 */
-		private function api_request( $method, $http_method = 'GET', $args = array() ) {
+		private function api_request( $method, $http_method = 'GET', $args = array(), $query_params = array() ) {
 
 			if ( ! empty( $args ) ) {
 				$args = wp_json_encode( $args );
 			}
 
+			$url = $this->api_endpoint . '/' . $method;
+			if ( ! empty( $query_params ) ) {
+				$url .= '?' . http_build_query( $query_params );
+			}
+
 			$result = wp_remote_request(
-				$this->api_endpoint . '/' . $method,
+				$url,
 				apply_filters(
 					'woocommerce_newsletter_mailchimp_api_request',
 					array(
@@ -155,7 +162,7 @@ if ( ! class_exists( 'WC_Mailchimp_Newsletter_Integration' ) ) {
 
 			if ( ! $mailchimp_lists ) {
 
-				$lists = $this->api_request( 'lists' );
+				$lists = $this->api_request( 'lists', 'GET', array(), array( 'count' => 1000 ) );
 
 				if ( $lists ) {
 

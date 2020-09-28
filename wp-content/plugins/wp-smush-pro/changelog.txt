@@ -6,6 +6,19 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.7.1 =
+
+- New: Tutorials sections
+- Enhance: Update the modal that displays the highlights of this release
+- Enhance: Compatibility with NextGen
+- Enhance: Compatibility with SVG images
+- Fix: Image resize detection styles
+- Fix: Tracking option on network subsites
+- Fix: Lazy load placeholder background colors
+- Fix: Lazy load custom placeholders on network installs
+- Fix: Jetpack CDN compatibility
+- Fix: Notice on CDN page
+
 = 3.7.0 =
 
 - New: Option to disable noscript in lazy load
@@ -805,4 +818,4 @@ Fix: Compatibility issues with latest WP Offload Media (WP Offload S3) update
 
 
 
-866819-1599134296-au
+539341-1600943547

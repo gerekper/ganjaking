@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Profile_Fields;
 use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -71,6 +72,22 @@ class WC_Memberships_CSV_Export_User_Memberships extends \WC_Memberships_Job_Han
 	protected function get_csv_headers( $job = null ) {
 
 		$headers = parent::get_csv_headers( $job );
+
+		if ( $job && ! empty( $job->include_profile_fields ) ) {
+
+			$profile_fields = Profile_Fields::get_profile_field_definitions();
+
+			foreach ( $profile_fields as $profile_field ) {
+
+				$headers[ $profile_field->get_slug() ] = $profile_field->get_slug();
+
+				if ( Profile_Fields::TYPE_FILE === $profile_field->get_type() ) {
+
+					// add a column for the attachment URL
+					$headers[ $profile_field->get_slug() . '(url)' ] = $profile_field->get_slug() . '(url)';
+				}
+			}
+		}
 
 		if ( $job && ! empty( $job->include_meta_data ) ) {
 			$headers['user_membership_meta'] = 'user_membership_meta';
@@ -222,19 +239,20 @@ class WC_Memberships_CSV_Export_User_Memberships extends \WC_Memberships_Job_Han
 			throw new Framework\SV_WC_Plugin_Exception( esc_html__( "No valid filename given for export file, can't export memberships.", 'woocommerce-memberships' ) );
 		}
 
-		$job = parent::create_job( wp_parse_args( $attrs, array(
-			'file_name'         => $file_name,
-			'file_path'         => $file_path,
-			'file_url'          => $file_url,
-			'fields_delimiter'  => 'comma',
-			'include_meta_data' => false,
-			'results'           => (object) array(
+		$job = parent::create_job( wp_parse_args( $attrs, [
+			'file_name'              => $file_name,
+			'file_path'              => $file_path,
+			'file_url'               => $file_url,
+			'fields_delimiter'       => 'comma',
+			'include_profile_fields' => false,
+			'include_meta_data'      => false,
+			'results'                => (object) [
 				'skipped'   => 0,
 				'exported'  => 0,
 				'processed' => 0,
 				'html'      => '',
-			),
-		) ) );
+			],
+		] ) );
 
 		if ( $job ) {
 
@@ -527,18 +545,53 @@ class WC_Memberships_CSV_Export_User_Memberships extends \WC_Memberships_Job_Han
 
 						default :
 
-							/**
-							 * Filter a User Membership CSV data custom column.
-							 *
-							 * @since 1.6.0
-							 *
-							 * @param string $value the value that should be returned for this column, default empty string
-							 * @param string $key the matching key of this column
-							 * @param \WC_Memberships_User_Membership $user_membership User Membership object
-							 * @param \WC_Memberships_CSV_Export_User_Memberships $export_instance an instance of the export class
-							 * @param \stdClass $job current export job
-							 */
-							$value = apply_filters( "wc_memberships_csv_export_user_memberships_{$column_name}_column", '', $column_name, $user_membership, $this, $job );
+							$value = '';
+
+							// check if the column is a profile field
+							if ( Profile_Fields::is_profile_field_slug( $column_name ) ) {
+
+								// check if profile fields should be included and if the field is set for this membership
+								if ( $job && ! empty( $job->include_profile_fields ) && ! empty( $profile_field = $user_membership->get_profile_field( $column_name ) ) ) {
+
+									if ( Profile_Fields::TYPE_FILE === $profile_field->get_definition()->get_type() ) {
+
+										// the column should contain the attachment ID
+										$value = $profile_field->get_value();
+									} else {
+
+										$value = $profile_field->get_formatted_value();
+									}
+
+								}
+
+							// check if the column is a URL column for a file profile field
+							} elseif ( Profile_Fields::is_profile_field_slug( str_replace( '(url)', '', $column_name ) ) ) {
+
+								// check if profile fields should be included and if the field is set for this membership
+								if ( $job && ! empty( $job->include_profile_fields ) && ! empty( $profile_field = $user_membership->get_profile_field( str_replace( '(url)', '', $column_name ) ) ) ) {
+
+									if ( Profile_Fields::TYPE_FILE === $profile_field->get_definition()->get_type() ) {
+
+										// the column should contain the attachment URL
+										$value = $profile_field->get_formatted_value();
+									}
+								}
+
+							} else {
+
+								/**
+								 * Filter a User Membership CSV data custom column.
+								 *
+								 * @since 1.6.0
+								 *
+								 * @param string $value the value that should be returned for this column, default empty string
+								 * @param string $key the matching key of this column
+								 * @param \WC_Memberships_User_Membership $user_membership User Membership object
+								 * @param \WC_Memberships_CSV_Export_User_Memberships $export_instance an instance of the export class
+								 * @param \stdClass $job current export job
+								 */
+								$value = apply_filters( "wc_memberships_csv_export_user_memberships_{$column_name}_column", $value, $column_name, $user_membership, $this, $job );
+							}
 
 						break;
 					}

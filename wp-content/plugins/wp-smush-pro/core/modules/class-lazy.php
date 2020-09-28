@@ -152,6 +152,14 @@ class Lazy extends Abstract_Module {
 			}
 			if ( isset( $this->options['animation']['placeholder']['selected'] ) && 2 < (int) $this->options['animation']['placeholder']['selected'] ) {
 				$loader = wp_get_attachment_image_src( (int) $this->options['animation']['placeholder']['selected'], 'full' );
+
+				// Can't find a loader on multisite? Try main site.
+				if ( ! $loader && is_multisite() ) {
+					switch_to_blog( 1 );
+					$loader = wp_get_attachment_image_src( (int) $this->options['animation']['placeholder']['selected'], 'full' );
+					restore_current_blog();
+				}
+
 				$loader = $loader[0];
 			}
 			if ( isset( $this->options['animation']['placeholder']['color'] ) ) {

@@ -506,7 +506,6 @@ class WoocommerceGpfFeedItem {
 				}
 				break;
 			case 'description:fullvar':
-			default:
 				$description = ! empty( $this->descriptions['main_product'] ) ?
 					$this->descriptions['main_product'] :
 					$this->descriptions['main_product_short'];
@@ -516,6 +515,10 @@ class WoocommerceGpfFeedItem {
 					}
 					$description .= $this->descriptions['variation'];
 				}
+				break;
+			default:
+				$product_values = $this->calculate_values_for_product();
+				$description    = isset( $product_values['description'][0] ) ? $product_values['description'][0] : '';
 				break;
 		}
 
@@ -550,8 +553,18 @@ class WoocommerceGpfFeedItem {
 		}
 		// Grab the price of the main product.
 		$prices = $this->generate_prices_for_product();
-		// Adjust the price if there are cheaper child products.
-		$prices = $this->adjust_prices_for_children( $prices );
+
+		// Adjust the price on variable products if there are cheaper child products.
+		if ( $this->specific_product->get_type() === 'variable' ) {
+			$prices = $this->adjust_prices_for_children( $prices );
+		}
+
+		$prices = apply_filters(
+			'woocommerce_gpf_item_prices',
+			$prices,
+			$this->specific_product,
+			$this->general_product
+		);
 
 		// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export
 		$this->debug->log( 'Prices calculated for %d are: %s', [ $this->specific_id, var_export( $prices, 1 ) ] );
@@ -964,11 +977,15 @@ class WoocommerceGpfFeedItem {
 			if ( ! empty( $product_gallery_images ) ) {
 				$product_gallery_images = explode( ',', $product_gallery_images );
 				foreach ( $product_gallery_images as $product_gallery_image_id ) {
+					// Skip it if we've already processed it.
 					if ( in_array( $product_gallery_image_id, $excluded_ids, true ) ) {
-						// Skip it if we've already processed it.
 						continue;
 					}
-					$full_image_src            = wp_get_attachment_image_src( $product_gallery_image_id, $this->image_style, false );
+					$full_image_src = wp_get_attachment_image_src( $product_gallery_image_id, $this->image_style, false );
+					// Skip if invalid / missing.
+					if ( ! $full_image_src ) {
+						continue;
+					}
 					$this->additional_images[] = $full_image_src[0];
 					$excluded_ids[]            = $product_gallery_image_id;
 				}
@@ -1104,7 +1121,6 @@ class WoocommerceGpfFeedItem {
 				$results[ $gpf_key ] = $value;
 			}
 		}
-
 		return $this->common->remove_blanks( $results );
 	}
 

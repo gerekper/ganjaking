@@ -252,7 +252,32 @@ if (isset($array['type']) && userpro_field_by_role($key,
 
 
 	}
-
+	else if($array['type'] == 'datepicker'){
+		$format = '';
+        $date_format = explode('-',userpro_get_option('date_format'));
+        foreach($date_format as $f){
+            if($f == 'yy'){
+                $format .= substr(strtoupper($f), 1) . '-';
+            }
+            else{
+                $format .= substr($f, 1) . '-';
+            }
+        }
+        $format = rtrim($format, '-');
+				try{
+					$start = DateTime::createFromFormat($format, date($format));
+        			$end   = DateTime::createFromFormat($format, $value);
+					if(!isset($start->diff( $end )->y) ){
+						$res .= $value;
+					}
+					else{
+						$res  .= $start->diff( $end )->y;
+					}
+				}
+				catch(Exception $ex){
+					$res.= $value;
+				}
+		}
 	else {
 
 		$res .= $value;

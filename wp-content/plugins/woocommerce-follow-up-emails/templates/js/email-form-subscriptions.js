@@ -1,5 +1,5 @@
 jQuery( function ( $ ) {
-    $("body").bind("fue_email_type_changed", function(evt, type) {
+    $("body").on("fue_email_type_changed", function(evt, type) {
         subscriptions_toggle_fields( type );
     });
 

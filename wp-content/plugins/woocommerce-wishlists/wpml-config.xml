@@ -1,0 +1,7 @@
+<wpml-config>
+    <admin-texts>
+        <key name="wc_wishlist_button_text"/>
+        <key name="wc_wishlists_cart_label"/>
+        <key name="wc_wishlist_guest_disabled_message"/>
+    </admin-texts>
+</wpml-config>

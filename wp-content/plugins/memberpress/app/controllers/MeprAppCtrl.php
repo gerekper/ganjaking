@@ -47,7 +47,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
   public static function mp_admin_header() {
     global $current_screen;
 
-    if(preg_match('/^(memberpress|mp-)/', $current_screen->post_type) || preg_match('/^memberpress_page_memberpress-/', $current_screen->id)) {
+    if(preg_match('/^(memberpress|mp-|mpcs-course)/', $current_screen->post_type) || preg_match('/^memberpress_page_memberpress-/', $current_screen->id)) {
       ?>
       <div id="mp-admin-header"><img class="mp-logo" src="<?php echo MEPR_IMAGES_URL . '/memberpress-logo-color.svg'; ?>" /></div>
       <?php
@@ -377,6 +377,12 @@ class MeprAppCtrl extends MeprBaseCtrl {
     add_submenu_page('memberpress', __('Account Login', 'memberpress'), __('Account Login', 'memberpress'), $capability, 'memberpress-account-login', 'MeprAccountLoginCtrl::route');
     add_submenu_page('memberpress', __('Add-ons', 'memberpress'), '<span style="color:#8CBD5A;">' . __('Add-ons', 'memberpress') . '</span>', $capability, 'memberpress-addons', 'MeprAddonsCtrl::route');
 
+    if ( ! is_plugin_active( 'memberpress-courses/main.php' ) ) {
+      $menu_title = __('Courses', 'memberpress');
+      $menu_title .= sprintf( '<span style="background-color: #ed5a4c; color: #fff; font-weight: bold; display: inline-block; margin-left: 5px; padding: 2px 6px 3px; border-radius: 100px; font-size: 10px;">%s</span>', __('NEW', 'memberpress') );
+      add_submenu_page('memberpress', __('MemberPress Courses', 'memberpress'), $menu_title, $capability, 'memberpress-courses', 'MeprCoursesCtrl::route');
+    }
+
     if(!get_option('mepr_disable_smtp_menu_item')) {
       if(function_exists('wp_mail_smtp')) {
         $submenu['memberpress'][998] = array(__('SMTP', 'memberpress'), $capability, admin_url('admin.php?page=wp-mail-smtp'));
@@ -471,7 +477,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
 
     $run = true;
     $new_order = array();
-    $i = 4;
+    $i = 5;
 
     foreach($submenu['memberpress'] as $sub)
     {
@@ -483,6 +489,8 @@ class MeprAppCtrl extends MeprBaseCtrl {
         $new_order[2] = $sub;
       elseif($sub[0] == __('Coupons', 'memberpress'))
         $new_order[3] = $sub;
+      elseif( 0 === strpos( $sub[0], __('Courses', 'memberpress') ) )
+        $new_order[4] = $sub;
       else
         $new_order[$i++] = $sub;
     }
@@ -657,7 +665,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
       wp_register_script('mepr-timepicker-js', MEPR_JS_URL.'/jquery-ui-timepicker-addon.js', array('jquery-ui-datepicker'));
       wp_register_script('mp-datepicker', MEPR_JS_URL.'/date_picker.js', array('mepr-timepicker-js'), MEPR_VERSION);
 
-      $date_picker_frontend = array('timeFormat' => (is_admin())?'HH:mm:ss':'', 'showTime' => (is_admin())?true:false);
+      $date_picker_frontend = array('timeFormat' => (is_admin())?'HH:mm:ss':'', 'dateFormat' => MeprUtils::datepicker_format(get_option('date_format')), 'showTime' => (is_admin())?true:false);
       wp_localize_script('mp-datepicker', 'MeprDatePicker', $date_picker_frontend);
 
       wp_register_script('jquery.payment', MEPR_JS_URL.'/jquery.payment.js');

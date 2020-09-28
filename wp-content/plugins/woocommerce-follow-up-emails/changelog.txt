@@ -1,5 +1,22 @@
 *** WooCommerce Follow-Up Emails ***
 
+2020-09-14 - version 4.9.8
+* Fix - Prevent fatal error with trigger added to cart and shipping method used rule.
+* Fix - Set the correct time when sending manual emails in batches larger than 50.
+* Fix - Replace additional deprecated jQuery methods.
+* Fix - Replace deprecated subscription function with get_payment_count.
+* Fix - Do not redirect to a hash link after sending manual email.
+* Fix - Prevent fatal errors when WooCommerce is not activated.
+* Fix - Remove action scheduler check on sending emails too early.
+* Fix - Do not set ID field as zero on DB insert. Allows emails to be sent with NO_AUTO_VALUE_ON_ZERO mode.
+* Fix - Use woocommerce_thumbnail for images with the {item_prices_image} variable.
+* Fix - Include inline CSS styles in email preview.
+* Fix - Clean up unused template code.
+* Tweak - Set default sort order of emails to be in order of creation.
+* Tweak - Default to active status when cloning email.
+* Tweak - Use the correct text domain.
+* Tweak - Fix spelling on update notice.
+
 2020-08-25 - version 4.9.7
 * Add - Import subscriptions where the last payment failed for trigger 'subs_payment_failed'.
 

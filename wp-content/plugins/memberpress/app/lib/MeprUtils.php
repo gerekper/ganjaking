@@ -1799,9 +1799,7 @@ class MeprUtils {
           $to = substr($to, (strpos($to, '<') + 1), -1);
         }
       }
-if($attachments){
-  // var_dump($attachments);
-}
+
       wp_mail($to, $subject, $message, $headers, $attachments);
 
       //Just leaving these here as I need to debug this shiz enough, it would save me some time
@@ -2146,4 +2144,65 @@ if($attachments){
 
     return new DateTimeZone($tz_offset);
   }
+
+  /**
+   * Matches each symbol of PHP date format standard
+   * with datepicker format
+   *
+   * @param string $format php date format
+   * @return string reformatted string
+   */
+  public static function datepicker_format( $format ) {
+    $supported_options = array(
+      'd'    => 'dd',  // Day, leading 0
+      'j'    => 'd',   // Day, no 0
+      'z'    => 'o',   // Day of the year, no leading zeroes,
+      // 'D' => 'D',   // Day name short, not sure how it'll work with translations
+      'l '   => 'DD ',  // Day name full, idem before
+      'l, '  => 'DD, ',  // Day name full, idem before
+      'm'    => 'mm',  // Month of the year, leading 0
+      'n'    => 'm',   // Month of the year, no leading 0
+      // 'M' => 'M',   // Month, Short name
+      'F '   => 'MM ',  // Month, full name,
+      'F, '  => 'MM, ',  // Month, full name,
+      'y'    => 'y',   // Year, two digit
+      'Y'    => 'yy',  // Year, full
+      'H'    => 'HH',  // Hour with leading 0 (24 hour)
+      'G'    => 'H',   // Hour with no leading 0 (24 hour)
+      'h'    => 'hh',  // Hour with leading 0 (12 hour)
+      'g'    => 'h',   // Hour with no leading 0 (12 hour),
+      'i'    => 'mm',  // Minute with leading 0,
+      's'    => 'ss',  // Second with leading 0,
+      'a'    => 'tt',  // am/pm
+      'A'    => 'TT',// AM/PM
+    );
+
+    foreach ( $supported_options as $php => $js ) {
+      $format = preg_replace( "~(?<!\\\\)$php~", $js, $format );
+    }
+
+    $supported_options = array(
+      'l' => 'DD',  // Day name full, idem before
+      'F' => 'MM',  // Month, full name,
+    );
+
+    if ( isset( $supported_options[ $format ] ) ) {
+      $format = $supported_options[ $format ];
+    }
+
+    $format = preg_replace_callback( '~(?:\\\.)+~', array( __CLASS__, 'wrap_escaped_chars' ), $format );
+
+    return $format;
+  }
+
+  /**
+   * Helper function
+   *
+   * @param  $value Value to wrap/escape
+   * @return string Modified value
+   */
+  public static function wrap_escaped_chars( $value ) {
+    return '&#39;' . str_replace( '\\', '', $value[0] ) . '&#39;';
+  }
+
 } // End class

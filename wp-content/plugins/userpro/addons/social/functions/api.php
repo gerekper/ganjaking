@@ -191,7 +191,7 @@ class userpro_sc_api {
 
 				$meta_value = get_user_meta( $user_id, 'up-timeline-actions', true );
 				$timeline_actions = empty($meta_value)?array():$meta_value;
-				$timeline_actions[] = array( 'action'=>'stop_follow', self=>1,'timestamp'=>$timestamp, 'target_user_id'=> $dest->ID );
+				$timeline_actions[] = array( 'action'=>'stop_follow', 'self'=>1,'timestamp'=>$timestamp, 'target_user_id'=> $dest->ID );
 				update_user_meta( $user_id, 'up-timeline-actions', $timeline_actions );
 
 				$meta_value = get_user_meta( $dest->ID, 'up-timeline-actions', true );

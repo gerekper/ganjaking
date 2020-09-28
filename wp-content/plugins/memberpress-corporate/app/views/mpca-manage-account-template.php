@@ -75,34 +75,36 @@
     <div class="mpca-sub-account-page-info">
       <?php printf(__('Page %1$s of %2$s (%3$s Sub Accounts)', 'memberpress-corporate'), $currpage, $total_pages, $total_sub_accounts); ?>
     </div>
-    <table id="mpca-sub-accounts-table" class="mepr-account-table">
-      <thead>
-        <tr>
-          <th><?php _ex('Username', 'ui', 'memberpress-corporate'); ?></th>
-          <th><?php _ex('Email', 'ui', 'memberpress-corporate'); ?></th>
-          <th><?php _ex('First Name', 'ui', 'memberpress-corporate'); ?></th>
-          <th><?php _ex('Last Name', 'ui', 'memberpress-corporate'); ?></th>
-          <th> </th>
-          <?php MeprHooks::do_action('mpca-sub-accounts-th', $mepr_current_user, $sub_accounts); ?>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        foreach($sub_accounts as $sa):
-          ?>
-          <tr id="mpca-sub-accounts-row-<?php echo $sa->ID; ?>" class="mpca-sub-accounts-row <?php echo (isset($alt) && !$alt)?'mepr-alt-row':''; ?>">
-            <td><?php echo $sa->user_login; ?></td>
-            <td><?php echo $sa->user_email; ?></td>
-            <td><?php echo $sa->first_name; ?></td>
-            <td><?php echo $sa->last_name; ?></td>
-            <td><a href="" data-ca="<?php echo $ca->id; ?>" data-sa="<?php echo $sa->ID; ?>" class="mpca-remove-sub-account"><?php _e('Remove', 'memberpress-corporate'); ?></a></td>
-            <?php MeprHooks::do_action('mpca-sub-accounts-td', $mepr_current_user, $sa); ?>
+    <div class="mpca-table-overflow">
+      <table id="mpca-sub-accounts-table" class="mepr-account-table">
+        <thead>
+          <tr>
+            <th><?php _ex('Username', 'ui', 'memberpress-corporate'); ?></th>
+            <th><?php _ex('Email', 'ui', 'memberpress-corporate'); ?></th>
+            <th><?php _ex('First Name', 'ui', 'memberpress-corporate'); ?></th>
+            <th><?php _ex('Last Name', 'ui', 'memberpress-corporate'); ?></th>
+            <th> </th>
+            <?php do_action('mpca-sub-accounts-th', $mepr_current_user, $sub_accounts); ?>
           </tr>
-          <?php $alt = !$alt; ?>
-        <?php endforeach; ?>
-        <?php MeprHooks::do_action('mpca-sub-accounts-table', $mepr_current_user, $sub_accounts); ?>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <?php
+          foreach($sub_accounts as $sa):
+            ?>
+            <tr id="mpca-sub-accounts-row-<?php echo $sa->ID; ?>" class="mpca-sub-accounts-row <?php echo (isset($alt) && !$alt)?'mepr-alt-row':''; ?>">
+              <td><?php echo $sa->user_login; ?></td>
+              <td><?php echo $sa->user_email; ?></td>
+              <td><?php echo $sa->first_name; ?></td>
+              <td><?php echo $sa->last_name; ?></td>
+              <td><a href="" data-ca="<?php echo $ca->id; ?>" data-sa="<?php echo $sa->ID; ?>" class="mpca-remove-sub-account"><?php _e('Remove', 'memberpress-corporate'); ?></a></td>
+              <?php do_action('mpca-sub-accounts-td', $mepr_current_user, $sa); ?>
+            </tr>
+            <?php $alt = !$alt; ?>
+          <?php endforeach; ?>
+          <?php do_action('mpca-sub-accounts-table', $mepr_current_user, $sub_accounts); ?>
+        </tbody>
+      </table>
+    </div>
     <br/>
     <div id="mepr-sub-account-paging">
       <?php $sub_account_search = isset($_REQUEST['search']) ? "&search={$_REQUEST['search']}" : ''; ?>

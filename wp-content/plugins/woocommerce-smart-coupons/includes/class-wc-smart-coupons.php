@@ -746,35 +746,33 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				?>
 				<script type="text/javascript">
 					jQuery(function(){
-						jQuery(document).ready(function() {
-							jQuery('body.post-type-shop_coupon .wp-list-table .delete a.submitdelete').click(function(e) {
-								e.preventDefault();
-								let coupon_delete_elem = jQuery(this);
-								let coupon_delete_url = jQuery(coupon_delete_elem).attr('href');
-								let coupon_id = jQuery(coupon_delete_elem).closest('.type-shop_coupon').find('[name="post[]"]').val();
-								jQuery.ajax({
-									url: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
-									type: 'post',
-									dataType: 'json',
-									data: {
-										action: 'wc_sc_check_scheduled_coupon_actions',
-										security: '<?php echo esc_html( wp_create_nonce( 'wc-sc-check-coupon-scheduled-actions' ) ); ?>',
-										coupon_id: coupon_id
-									},
-									success: function( response ){
-										if ( undefined !== response.has_scheduled_actions && '' !== response.has_scheduled_actions  && 'yes' === response.has_scheduled_actions ) {
-											let confirm_delete = window.confirm( '<?php echo esc_js( __( 'This coupon has pending emails to be sent. Deleting it will delete those emails also. Are you sure to delete this coupon?', 'woocommerce-smart-coupons' ) ); ?>' );
-											if( confirm_delete ) {
-												window.location.href = coupon_delete_url;
-											}
-										} else {
+						jQuery('body.post-type-shop_coupon .wp-list-table .delete a.submitdelete').click(function(e) {
+							e.preventDefault();
+							let coupon_delete_elem = jQuery(this);
+							let coupon_delete_url = jQuery(coupon_delete_elem).attr('href');
+							let coupon_id = jQuery(coupon_delete_elem).closest('.type-shop_coupon').find('[name="post[]"]').val();
+							jQuery.ajax({
+								url: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
+								type: 'post',
+								dataType: 'json',
+								data: {
+									action: 'wc_sc_check_scheduled_coupon_actions',
+									security: '<?php echo esc_html( wp_create_nonce( 'wc-sc-check-coupon-scheduled-actions' ) ); ?>',
+									coupon_id: coupon_id
+								},
+								success: function( response ){
+									if ( undefined !== response.has_scheduled_actions && '' !== response.has_scheduled_actions  && 'yes' === response.has_scheduled_actions ) {
+										let confirm_delete = window.confirm( '<?php echo esc_js( __( 'This coupon has pending emails to be sent. Deleting it will delete those emails also. Are you sure to delete this coupon?', 'woocommerce-smart-coupons' ) ); ?>' );
+										if( confirm_delete ) {
 											window.location.href = coupon_delete_url;
 										}
-									},
-									error: function( jq_xhr, exception ) {
-										alert( '<?php echo esc_js( __( 'An error has occurred. Please try again later.', 'woocommerce-smart-coupons' ) ); ?>' );
+									} else {
+										window.location.href = coupon_delete_url;
 									}
-								});
+								},
+								error: function( jq_xhr, exception ) {
+									alert( '<?php echo esc_js( __( 'An error has occurred. Please try again later.', 'woocommerce-smart-coupons' ) ); ?>' );
+								}
 							});
 						});
 					});
@@ -1455,6 +1453,21 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			if ( empty( $cart ) || ! ( $cart instanceof WC_Cart ) ) {
 				return;
+			}
+
+			// Check if AvaTax is active by checking for its main function.
+			if ( function_exists( 'wc_avatax' ) ) {
+				$wc_avatax = wc_avatax();
+				if ( is_callable( array( $wc_avatax, 'get_tax_handler' ) ) ) {
+					$ava_tax_handler = $wc_avatax->get_tax_handler();
+					// Check if AvaTax is doing tax calculation.
+					if ( is_callable( array( $ava_tax_handler, 'is_available' ) ) && true === $ava_tax_handler->is_available() ) {
+						// Stop discount calculation till taxes from AvaTax have been calculated.
+						if ( is_checkout() && ! did_action( 'wc_avatax_after_checkout_tax_calculated' ) ) {
+							return;
+						}
+					}
+				}
 			}
 
 			$cart_total = ( $this->is_wc_greater_than( '3.1.2' ) ) ? $cart->get_total( 'edit' ) : $cart->total;

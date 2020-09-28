@@ -1,5 +1,19 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2020-09-24 - version 3.0.8
+* Tweak: Remove the '$X now' from price string when synced product sign up date is today. PR#3797
+* Fix: Treat a subscription with a cancelled parent order as "needing payment". This ensures cancelling the subscription will go right to cancelled, rather than pending-cancellation. PR#3784
+* Fix: Remove code responsible for hiding/showing the WC order totals meta box. This fixes the deprecated jQuery.fn.load() warnings. PR#3786
+* Fix: Fix updating status and end dates via the REST API. PR#3796
+* Dev: Add an action hook to edit subscription admin payment meta inputs. Enables third-parties to display custom fields for each gateway. PR#3798
+* Dev: Opt-in tracking data for Subscriptions Reports PR#3738
+        Data sent to WooCommerce:
+        Subscriptions report views
+        Subscriptions report filter usage - clicks and report range
+        Number of subscriptions, orders, products
+        Plugin version
+        To disable this tracking, opt-out of WooCommerce tracking, see https://woocommerce.com/usage-tracking/
+
 2020-08-11 - version 3.0.7
 * Fix: Prevent possible errors caused by inaccessible get_current_screen() function. PR#3678
 * Fix: Decouple single_add_to_cart_text() from add_to_cart_text() and remove double and incorrect filtering. PR#3705

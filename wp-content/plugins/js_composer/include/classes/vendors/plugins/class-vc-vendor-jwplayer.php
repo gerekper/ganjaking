@@ -97,6 +97,6 @@ class Vc_Vendor_Jwplayer {
 	 * @todo check it for preview mode (check is it needed)
 	 */
 	public function vc_load_iframe_jscss() {
-		wp_enqueue_script( 'vc_vendor_jwplayer', vc_asset_url( 'js/frontend_editor/vendors/plugins/jwplayer.js' ), array( 'jquery' ), '1.0', true );
+		wp_enqueue_script( 'vc_vendor_jwplayer', vc_asset_url( 'js/frontend_editor/vendors/plugins/jwplayer.js' ), array( 'jquery-core' ), '1.0', true );
 	}
 }

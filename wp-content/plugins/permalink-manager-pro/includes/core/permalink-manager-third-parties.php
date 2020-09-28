@@ -39,6 +39,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 			}
 
 			add_action('woocommerce_product_import_inserted_product_object', array($this, 'woocommerce_generate_permalinks_after_import'), 9, 2);
+			add_filter('permalink_manager_filter_default_post_uri', array($this, 'woocommerce_product_attributes'), 5, 5);
 
 			if(wp_doing_ajax() && class_exists('SitePress')) {
 				add_filter('permalink_manager_filter_final_post_permalink', array($this, 'woocommerce_translate_ajax_fragments_urls'), 9999, 3);
@@ -119,6 +120,11 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		// 15. GeoDirectory
 		if(class_exists('GeoDirectory')) {
 			add_filter('permalink_manager_filter_default_post_uri', array($this, 'geodir_custom_fields'), 5, 5 );
+		}
+
+		// 16. BasePress
+		if(class_exists('Basepress')) {
+			add_filter('permalink_manager_filter_query', array($this, 'kb_adjust_query'), 5, 5);
 		}
 	}
 
@@ -353,6 +359,29 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 				update_option('permalink-manager-uris', $permalink_manager_uris);
 			}
 		}
+	}
+
+	function woocommerce_product_attributes($default_uri, $slug, $post, $post_name, $native_uri) {
+		// Do not affect native URIs
+		if($native_uri == true) { return $default_uri; }
+
+		// Use only for products
+		if(empty($post->post_type) || $post->post_type !== 'product') { return $default_uri; }
+
+		preg_match_all("/%pa_(.[^\%]+)%/", $default_uri, $custom_fields);
+
+		if(!empty($custom_fields[1])) {
+			$product = wc_get_product($post->ID);
+
+			foreach($custom_fields[1] as $i => $custom_field) {
+				$attribute_name = sanitize_title($custom_field);
+				$attribute_value = $product->get_attribute($attribute_name);
+
+				$default_uri = str_replace($custom_fields[0][$i], Permalink_Manager_Helper_Functions::sanitize_title($attribute_value), $default_uri);
+			}
+		}
+
+		return $default_uri;
 	}
 
 	function woocommerce_translate_ajax_fragments_urls($permalink, $post, $old_permalink) {
@@ -876,7 +905,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	function ml_set_listing_uri($post_id) {
 		global $permalink_manager_uris;
 
-		if(!empty($permalink_manager_uris)) {
+		if(!empty($permalink_manager_uris) && empty($permalink_manager_uris[$post_id])) {
 			$default_uri = Permalink_Manager_URI_Functions_Post::get_default_post_uri($post_id);
 
 			if($default_uri) {
@@ -896,7 +925,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 
 			// Check if any MyListing taxonomy was detected
 			foreach($taxonomies as $taxonomy) {
-				if(!empty($query[$taxonomy])) {
+				if(!empty($query[$taxonomy]) && empty($_GET[$taxonomy])) {
 					return array(
 						"page_id" => $explore_page_id,
 						"explore_tab" => $taxonomy,
@@ -1020,7 +1049,37 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 16. Store Locator - CSV Manager
+	 * 16. BasePress
+	 */
+	function kb_adjust_query($query, $old_query, $uri_parts, $pm_query, $content_type) {
+		$knowledgebase_options = get_option('basepress_settings');
+		$knowledgebase_page = (!empty($knowledgebase_options['entry_page'])) ? $knowledgebase_options['entry_page'] : '';
+
+		// A. Knowledgebase category
+		if(isset($query['knowledgebase_cat']) && !empty($pm_query['id']) && strpos($pm_query['id'], 'tax-') !== false) {
+			$query['post_type'] = 'knowledgebase';
+			unset($query['taxonomy']);
+			unset($query['term']);
+
+			$term_id = intval(preg_replace("/[^0-9]/", "", $pm_query['id']));
+			$term = get_term($term_id);
+
+			if(empty($term->parent)) {
+				$query['is_knowledgebase_product'] = 1;
+			}
+		}
+		// B. Knowledgebase main page
+		else if(!empty($knowledgebase_page) && !empty($pm_query['id']) && $pm_query['id'] == $knowledgebase_page) {
+			$query = array(
+				'page_id' => $knowledgebase_page
+			);
+		}
+
+		return $query;
+	}
+
+	/**
+	 * 17. Store Locator - CSV Manager
 	 */
 	public function wpsl_regenerate_after_import($meta_id, $post_id, $meta_key, $meta_value) {
 		global $permalink_manager_uris;

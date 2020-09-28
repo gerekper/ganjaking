@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Divi Content Protection
 Plugin URI: http://www.memberpress.com/
 Description: Divi Builder integration to protect content with MemberPress.
-Version: 1.0.2
+Version: 1.0.4
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress-divi

@@ -113,10 +113,35 @@ if ($user_id){
 			}
 				
 		}
+		else if($array['type'] == 'datepicker'){
+		$format = '';
+        $date_format = explode('-',userpro_get_option('date_format'));
+        foreach($date_format as $f){
+            if($f == 'yy'){
+                $format .= substr(strtoupper($f), 1) . '-';
+            }
+            else{
+                $format .= substr($f, 1) . '-';
+            }
+        }
+        $format = rtrim($format, '-');
+				try{
+					$start = DateTime::createFromFormat($format, date($format));
+        			$end   = DateTime::createFromFormat($format, $value);
+					if(!isset($start->diff( $end )->y) ){
+						$res .= $value;
+					}
+					else{
+						$res  .= $start->diff( $end )->y;
+					}
+				}
+				catch(Exception $ex){
+					$res.= $value;
+				}
+		}
 		else {
 			$res .= $value;
 		}
-		
 		/* hidden field notice */
 		if (userpro_field_is_viewable($key, $user_id, $args) && ( userpro_profile_data( 'hide_'.$key, $user_id ) || userpro_field_default_hidden( $key, $template, $args[ $template . '_group' ] ) ) ) {
 			$res .= '<div class="userpro-help">'.sprintf(__('(Your %s will not be visible to public)','userpro'), strtolower($array['label'])).'</div>';

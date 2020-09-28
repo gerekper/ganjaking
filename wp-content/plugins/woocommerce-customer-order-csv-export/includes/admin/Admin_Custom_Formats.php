@@ -23,6 +23,8 @@
 
 namespace SkyVerge\WooCommerce\CSV_Export\Admin;
 
+use SkyVerge\WooCommerce\PluginFramework\v5_4_1\SV_WC_Helper;
+
 defined( 'ABSPATH' ) or exit;
 
 /**
@@ -67,10 +69,11 @@ class Admin_Custom_Formats {
 	 * @since 4.7.0
 	 */
 	public function __construct() {
-		global $current_section;
 
-		$export_types      = wc_customer_order_csv_export()->get_export_types();
-		$this->export_type = isset( $export_types[ $current_section ] ) ? $current_section : current( array_keys( $export_types ) );
+		if ( ! empty( $_GET['export_type'] ) ) {
+			$export_types      = wc_customer_order_csv_export()->get_export_types();
+			$this->export_type = isset( $export_types[ $_GET['export_type'] ] ) ? sanitize_text_field( $_GET['export_type'] ) : current( array_keys( $export_types ) );
+		}
 
 		if ( ! empty( $_GET['format_action'] ) ) {
 			$this->action = sanitize_text_field( $_GET['format_action'] );
@@ -140,24 +143,11 @@ class Admin_Custom_Formats {
 	 * Outputs sections for the custom formats admin page.
 	 *
 	 * @since 4.7.0
+	 * @deprecated 5.1.1
 	 */
 	public function output_sections() {
 
-		$sections = $this->get_sections();
-
-		if ( empty( $sections ) || 1 === count( $sections ) ) {
-			return;
-		}
-
-		echo '<ul class="subsubsub">';
-
-		$section_ids = array_keys( $sections );
-
-		foreach ( $sections as $id => $label ) {
-			echo '<li><a href="' . admin_url( 'admin.php?page=wc_customer_order_csv_export&tab=custom_formats&section=' . sanitize_title( $id ) ) . '" class="' . ( $this->export_type === $id ? 'current' : '' ) . '">' . esc_html( $label ) . '</a> ' . ( end( $section_ids ) === $id ? '' : '|' ) . ' </li>';
-		}
-
-		echo '</ul><br class="clear" />';
+		wc_deprecated_function( __METHOD__, '5.1.1' );
 	}
 
 
@@ -173,42 +163,29 @@ class Admin_Custom_Formats {
 			return;
 		}
 
-		$titles = [
-			\WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS    => __( 'Orders Custom Export Formats', 'woocommerce-customer-order-csv-export' ),
-			\WC_Customer_Order_CSV_Export::EXPORT_TYPE_CUSTOMERS => __( 'Customers Custom Export Formats', 'woocommerce-customer-order-csv-export' ),
-			\WC_Customer_Order_CSV_Export::EXPORT_TYPE_COUPONS   => __( 'Coupons Custom Export Formats', 'woocommerce-customer-order-csv-export' ),
-		];
-
 		echo '<div id="custom-formats">';
 
-		if ( ! empty( $titles[ $this->export_type ] ) ) {
-			echo '<h2>' . esc_html( $titles[ $this->export_type ] ) . '</h2>';
-		}
+		$add_url = wp_nonce_url( add_query_arg( [
+			'format_action' => self::ACTION_ADD,
+		] ) );
+
+		?>
+
+		<h1 class="wp-heading-inline"><?php echo esc_html_x( 'Custom Formats', 'page title', 'woocommerce-customer-order-csv-export' ); ?></h1>
+		<a href="<?php echo esc_url( $add_url ); ?>" class="page-title-action add-new-custom-format"><?php echo esc_html_x( 'Add new', 'page title action', 'woocommerce-customer-order-csv-export' ); ?></a>
+
+		<?php
 
 		// instantiate extended list table
 		$custom_format_list_table = $this->get_custom_formats_list_table_instance();
-		$custom_format_list_table->set_export_type( $this->export_type );
+
+		if ( ! empty( $_POST['export_type'] ) ) {
+			$custom_format_list_table->set_export_type( wc_clean( $_POST['export_type'] ) );
+		}
 
 		// prepare and display the list table
 		$custom_format_list_table->prepare_items();
 		$custom_format_list_table->display();
-
-		// add buttons
-		foreach ( wc_customer_order_csv_export()->get_output_types() as $output_type => $name ) {
-
-			$add_url = wp_nonce_url( add_query_arg( [
-				'format_action' => self::ACTION_ADD,
-				'output_type'   => $output_type,
-			] ) );
-
-			$action = [
-				'url'    => $add_url,
-				'name'   => sprintf( esc_html__( 'Add new %s format', 'woocommerce-customer-order-csv-export' ), $name ),
-				'action' => self::ACTION_ADD,
-			];
-
-			printf( '<a class="button button-primary tips %1$s" href="%2$s" data-tip="%3$s">%4$s</a>', esc_attr( $action['action'] ), esc_url( $action['url'] ), esc_attr( $action['name'] ), esc_attr( $action['name'] ) );
-		}
 
 		echo '</div>';
 	}
@@ -221,13 +198,6 @@ class Admin_Custom_Formats {
 	 */
 	public function output() {
 
-		$this->output_sections();
-
-		// save custom format
-		if ( ! empty( $_POST ) ) {
-			$this->get_custom_format_builder_instance()->save( $this->export_type, $this->format_key );
-		}
-
 		switch ( $this->action ) {
 
 			case self::ACTION_ADD:
@@ -239,7 +209,8 @@ class Admin_Custom_Formats {
 
 			case self::ACTION_DELETE:
 
-				if ( $this->format_key ) {
+				// verify this is a legitimate request
+				if ( $this->format_key && wp_verify_nonce( SV_WC_Helper::get_request( '_wpnonce' ), 'wc_customer_order_coupon_export_delete_custom_format' ) ) {
 					wc_customer_order_csv_export()->get_formats_instance()->delete_custom_format( $this->export_type, $this->format_key );
 				}
 
@@ -265,7 +236,6 @@ class Admin_Custom_Formats {
 		return add_query_arg( [
 			'page'    => 'wc_customer_order_csv_export',
 			'tab'     => 'custom_formats',
-			'section' => $this->export_type,
 		], admin_url( 'admin.php' ) );
 	}
 

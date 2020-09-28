@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 ?>
 
-<script type="text/template" id="smush-onboarding" data-type="<?php echo WP_Smush::is_pro() ? 'pro' : 'free'; ?>">
+<script type="text/template" id="smush-onboarding" data-type="<?php echo WP_Smush::is_pro() ? 'pro' : 'free'; ?>" data-tracking="<?php echo ! is_multisite() ? 'true' : 'false'; ?>">
 	<div class="sui-box-header sui-flatten sui-content-center sui-spacing-sides--90">
 		<?php if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) : ?>
 		<figure class="sui-box-banner" aria-hidden="true">
@@ -28,6 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 		<h3 class="sui-box-title sui-lg" id="smush-title-onboarding-dialog">
 			<# if ( 'start' === data.slide ) { #>
 			<?php
+
 			/* translators: %s: current user name */
 			printf( esc_html__( 'Hey, %s!', 'wp-smushit' ), esc_html( Helper::get_user_name() ) );
 			?>
@@ -100,14 +101,14 @@ if ( ! defined( 'WPINC' ) ) {
 		<p class="sui-description" style="padding: 0 90px">
 			<?php esc_html_e( 'Note: By default we will store a copy of your original uploads just in case you want to revert in the future - you can turn this off at any time.', 'wp-smushit' ); ?>
 		</p>
-		<# } else if ( 'usage' === data.slide ) { #>
+		<# } else if ( data.last ) { #>
 		<button type="submit" class="sui-button sui-button-blue sui-button-icon-left" data-modal-close="">
 			<i class="sui-icon-check" aria-hidden="true"> </i>
 			<?php esc_html_e( 'Finish setup wizard', 'wp-smushit' ); ?>
 		</button>
 		<# } #>
 
-		<# if ( 'start' !== data.slide && 'usage' !== data.slide ) { #>
+		<# if ( 'start' !== data.slide && ! data.last ) { #>
 		<a class="sui-button sui-button-gray next" onclick="WP_Smush.onboarding.next(this)">
 			<?php esc_html_e( 'Next', 'wp-smushit' ); ?>
 		</a>
@@ -147,9 +148,11 @@ if ( ! defined( 'WPINC' ) ) {
 			<button onclick="WP_Smush.onboarding.goTo('lazy_load')" class="<# if ( 'lazy_load' === data.slide ) { #>sui-current<# } #>" <# if ( 'lazy_load' === data.slide ) { #>disabled<# } #>>
 				<?php esc_html_e( 'Lazy Load', 'wp-smushit' ); ?>
 			</button>
-			<button onclick="WP_Smush.onboarding.goTo('usage')" class="<# if ( 'usage' === data.slide ) { #>sui-current<# } #>" <# if ( 'usage' === data.slide ) { #>disabled<# } #>>
-				<?php esc_html_e( 'Usage Data', 'wp-smushit' ); ?>
-			</button>
+			<?php if ( ! is_multisite() ) : ?>
+				<button onclick="WP_Smush.onboarding.goTo('usage')" class="<# if ( 'usage' === data.slide ) { #>sui-current<# } #>" <# if ( 'usage' === data.slide ) { #>disabled<# } #>>
+					<?php esc_html_e( 'Usage Data', 'wp-smushit' ); ?>
+				</button>
+			<?php endif; ?>
 		</div>
 	</div>
 </script>

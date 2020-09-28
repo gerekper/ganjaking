@@ -52,3 +52,7 @@ if ( is_wp_error( $status ) ) {
 	show_message( $status );
 	return;
 }
+
+/* translators: %s template name */
+show_message( sprintf( __( 'Unzipped template', 'follow_up_emails' ), $template_name ) );
+show_message( '<a href="admin.php?page=followup-emails-templates">' . __( 'Go back', 'follow_up_emails' ) . '</a>' );

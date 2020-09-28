@@ -18,7 +18,7 @@ class WPBakeryShortCode_Vc_Gallery extends WPBakeryShortCode {
 	}
 
 	public function shortcodeScripts() {
-		wp_register_script( 'vc_grid-js-imagesloaded', vc_asset_url( 'lib/bower/imagesloaded/imagesloaded.pkgd.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
+		wp_register_script( 'vc_grid-js-imagesloaded', vc_asset_url( 'lib/bower/imagesloaded/imagesloaded.pkgd.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 	}
 
 	/**

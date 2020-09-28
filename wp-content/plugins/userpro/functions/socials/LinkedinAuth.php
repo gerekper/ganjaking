@@ -53,16 +53,20 @@ class LinkedinAuth
 		$this->linkedin->getAccessToken($code);
 
 		$user_info = $this->linkedin->get(
-			'people/~:(id,email-address,picture-urls::(original),first-name,last-name,location)'
+			'me'
 		);
-
-		$profile_exist = social_profile_check($user_info['emailAddress'], $user_info['id'], 'linkedin');
+		$emailAddress = $this->linkedin->get(
+			'emailAddress?q=members&projection=(elements*(handle~))'
+		);
+		$emailAddress = $emailAddress['elements'][0]['handle~']['emailAddress'];
+		
+		$profile_exist = social_profile_check($emailAddress, $user_info['id'], 'linkedin');
 
 		if($profile_exist == FALSE) {
 				$api        = new userpro_api();
-				$user_login = $user_info['firstName'] . '_' . $user_info['lastName'];
+				$user_login = $user_info['firstName']['localized']['en_US'] . '_' . $user_info['lastName']['localized']['en_US'];
 				$user_pass  = wp_generate_password($length = 12, $include_standard_special_chars = FALSE);
-				$user_email = isset($user_info['emailAddress']) ? $user_info['emailAddress'] : '';
+				$user_email = isset($emailAddress) ? $emailAddress : '';
 
 				if($api->display_name_exists($user_login)) {
 					$user_login = $api->unique_display_name($user_login);

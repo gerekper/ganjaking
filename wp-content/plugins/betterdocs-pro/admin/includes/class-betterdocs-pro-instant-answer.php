@@ -901,27 +901,27 @@ class BetterDocs_Pro_IA {
                                 ),
                                 'iac_article_bg' => array(
                                     'type'        => 'colorpicker',
-                                    'label'       => __('Article Card Background' , 'betterdocs-pro'),
+                                    'label'       => __('Docs Card Background' , 'betterdocs-pro'),
                                     'priority'    => 3,
                                 ),
                                 'iac_article_title_size' => array(
                                     'type'        => 'number',
-                                    'label'       => __('Article Title Font Size' , 'betterdocs-pro'),
+                                    'label'       => __('Docs Title Font Size' , 'betterdocs-pro'),
                                     'priority'    => 4,
                                 ),
                                 'iac_article_title' => array(
                                     'type'        => 'colorpicker',
-                                    'label'       => __('Article Title Color' , 'betterdocs-pro'),
+                                    'label'       => __('Docs Title Color' , 'betterdocs-pro'),
                                     'priority'    => 4,
                                 ),
                                 'iac_article_content_size' => array(
                                     'type'        => 'number',
-                                    'label'       => __('Article Content Font Size' , 'betterdocs-pro'),
+                                    'label'       => __('Docs Content Font Size' , 'betterdocs-pro'),
                                     'priority'    => 5
                                 ),
                                 'iac_article_content' => array(
                                     'type'        => 'colorpicker',
-                                    'label'       => __('Article Content Color' , 'betterdocs-pro'),
+                                    'label'       => __('Docs Content Color' , 'betterdocs-pro'),
                                     'priority'    => 5
                                 ),
                                 'ia_feedback_title_size' => array(

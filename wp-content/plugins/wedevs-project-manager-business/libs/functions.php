@@ -451,7 +451,7 @@ function assign_employees_to_project( $response, $request_params ) {
         return;
     }
 
-    if ( ! empty( $department_id ) ) {
+    if ( ! empty( (int)$request_params['department_id'] ) ) {
         $department_id   = absint( $request_params['department_id'] );
         $project_id      = $response['data']['id'];
 
@@ -502,10 +502,22 @@ function assign_employees_to_project( $response, $request_params ) {
     } else if ( isset ($request_params['department_id'] )) {
         $department_id   = absint( $request_params['department_id'] );
         $project_id      = $response['data']['id'];
-        pm_update_meta( $project_id, $project_id, 'erp_department', 'department_id', $department_id );
+        $has_dept =   pm_get_meta( $project_id, $project_id, 'erp_department', 'department_id' );
+        $employees       = erp_hr_get_employees( [ 'department' => (int)$has_dept->meta_value ] );
+
+        //If the department user assign any task then you can not remove or update the department from the project
+        if ( !empty( $employees ) ) {
+            $emp_ids = wp_list_pluck( $employees, 'user_id' );
+            $tasks = pm_get_tasks( ['users' =>  $emp_ids] );
+
+            if ( empty( $tasks['data'] ) ) {
+                pm_update_meta( $project_id, $project_id, 'erp_department', 'department_id', $department_id );
+            }
+
+        } else {
+            pm_update_meta( $project_id, $project_id, 'erp_department', 'department_id', $department_id );
+        }
     }
-
-
 }
 
 /**

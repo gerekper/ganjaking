@@ -1604,7 +1604,7 @@ class FUE_Addon_Wootickets {
 		$product        = WC_FUE_Compatibility::wc_get_product( $ticket_id );
 		$ticket_image   = '';
 		if ( $product ) {
-			$thumbnail      = $product->get_image( 'shop_thumbnail', array( 'title' => '' ) );
+			$thumbnail      = $product->get_image( 'woocommerce_thumbnail', array( 'title' => '' ) );
 			$ticket_image   = sprintf( '<a href="%s">%s</a>', esc_url( get_permalink( $ticket_id ) ), $thumbnail );
 		}
 		return $ticket_image;

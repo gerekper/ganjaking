@@ -26,6 +26,7 @@
       <key name="permalink_type"/>
       <key name="user_display_name"/>
       <key name="date_format"/>
+      <key name="date_to_age"/>
       <key name="user_display_name_key"/>
       <key name="hidden_from_view"/>
       <key name="unverify_on_namechange"/>

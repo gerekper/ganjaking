@@ -1,31 +1,26 @@
 <div class="wrap fue-addons-wrap">
 	<h2>
-		<?php esc_html_e('Templates', 'follow_up_emails'); ?>
-		<a class="add-new-h2" href="admin.php?page=followup-emails-templates&action=new"> <?php esc_html_e('Create New Follow-Up', 'follow_up_emails'); ?> </a>
+		<?php esc_html_e( 'Templates', 'follow_up_emails' ); ?>
+		<a class="add-new-h2" href="admin.php?page=followup-emails-templates&action=new"><?php esc_html_e( 'Create New Template', 'follow_up_emails' ); ?></a>
 	</h2>
 
-	<?php
-
-	include FUE_TEMPLATES_DIR .'/add-ons/notifications.php';
+<?php
+	require FUE_TEMPLATES_DIR . '/add-ons/notifications.php';
 
 	if ( isset( $_POST['action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-		if ( $_POST['action'] == 'template_create' ) { // phpcs:ignore WordPress.Security.NonceVerification
+		if ( 'template_create' == $_POST['action'] ) { // phpcs:ignore WordPress.Security.NonceVerification
 			include FUE_TEMPLATES_DIR . '/add-ons/template-create.php';
-		} elseif ( $_POST['action'] == 'template_upload' ) { // phpcs:ignore WordPress.Security.NonceVerification
-			if ( isset($_FILES['template']['tmp_name'] ) && is_uploaded_file( wp_unslash( $_FILES['template']['tmp_name'] ) ) ) {
+		} elseif ( 'template_upload' == $_POST['action'] ) { // phpcs:ignore WordPress.Security.NonceVerification
+			if ( isset( $_FILES['template']['tmp_name'] ) && is_uploaded_file( wp_unslash( $_FILES['template']['tmp_name'] ) ) ) {
 				include FUE_TEMPLATES_DIR . '/add-ons/template-upload.php';
 			} else {
-				show_message( __('No file selected or file is too large', 'follow_up_emails') );
+				show_message( __( 'No file selected or file is too large', 'follow_up_emails' ) );
 			}
 		}
 	} else {
-		$action = (empty($_GET['action'])) ? 'list' : sanitize_text_field( wp_unslash( $_GET['action'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
+		$template_action = empty( $_GET['action'] ) ? 'list' : sanitize_text_field( wp_unslash( $_GET['action'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 
-		switch ( $action ) {
-			case 'install_template':
-				include FUE_TEMPLATES_DIR . '/add-ons/templates-install.php';
-				break;
-
+		switch ( $template_action ) {
 			case 'uninstall_template':
 				include FUE_TEMPLATES_DIR . '/add-ons/templates-uninstall.php';
 				break;
@@ -39,6 +34,6 @@
 				break;
 		}
 	}
-	?>
+?>
 
 </div>

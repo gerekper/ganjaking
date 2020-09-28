@@ -18,6 +18,9 @@ class WoocommerceProductFeedsIntegrationManager {
 		$this->container = $container;
 	}
 
+	/**
+	 * Initialise integrations.
+	 */
 	public function initialise() {
 		$this->cost_of_goods_integration();
 		$this->multicurrency_integration();
@@ -25,6 +28,16 @@ class WoocommerceProductFeedsIntegrationManager {
 		$this->product_vendors_integration();
 		$this->the_content_protection_integration();
 		$this->yoast_woocommerce_seo_integration();
+		$this->product_brands_for_woocommerce_integration();
+		$this->woocommerce_mix_and_match_products_integration();
+		$this->price_by_country_integration();
+	}
+
+	private function product_brands_for_woocommerce_integration() {
+		if ( ! defined( 'PRODUCT_BRANDS_FOR_WOOCOMMERCE_VERSION' ) ) {
+			return;
+		}
+		$this->container['WoocommerceGpfProductBrandsForWooCommerce']->run();
 	}
 
 	private function yoast_woocommerce_seo_integration() {
@@ -65,10 +78,29 @@ class WoocommerceProductFeedsIntegrationManager {
 		$this->container['WoocommerceGpfMulticurrency']->run();
 	}
 
+	private function price_by_country_integration() {
+		if ( ! class_exists( 'CBP_Country_Based_Price' ) ) {
+			return;
+		}
+		$this->container['WoocommerceGpfPriceByCountry']->run();
+	}
+
 	private function cost_of_goods_integration() {
 		if ( ! class_exists( 'WC_COG_Loader' ) ) {
 			return;
 		}
 		$this->container['WoocommerceCostOfGoods']->run();
+	}
+
+	private function woocommerce_mix_and_match_products_integration() {
+		if ( ! class_exists( 'WC_Mix_and_Match' ) ) {
+			return;
+		}
+		$mnm_instance = WC_Mix_and_Match::instance();
+		if ( empty( $mnm_instance->version ) ||
+			 version_compare( $mnm_instance->version, '1.10.2', '<' ) ) {
+			return;
+		}
+		$this->container['WoocommerceGpfWoocommerceMixAndMatchProducts']->run();
 	}
 }

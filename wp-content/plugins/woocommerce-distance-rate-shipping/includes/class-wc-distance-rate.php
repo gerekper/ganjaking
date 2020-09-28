@@ -70,11 +70,7 @@ class WC_Distance_Rate {
 	 * Load our shipping class.
 	 */
 	public function shipping_init() {
-		if ( version_compare( WC_VERSION, '2.6.0', '<' ) ) {
-			include_once __DIR__ . '/class-wc-shipping-distance-rate-deprecated.php';
-		} else {
 			include_once __DIR__ . '/class-wc-shipping-distance-rate.php';
-		}
 	}
 
 	/**
@@ -84,12 +80,7 @@ class WC_Distance_Rate {
 	 * @return array
 	 */
 	public function shipping_methods( $methods ) {
-		if ( version_compare( WC_VERSION, '2.6.0', '<' ) ) {
-			$methods[] = 'WC_Shipping_Distance_Rate';
-		} else {
 			$methods['distance_rate'] = 'WC_Shipping_Distance_Rate';
-		}
-
 		return $methods;
 	}
 
@@ -107,7 +98,6 @@ class WC_Distance_Rate {
 		$doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 		if ( ! $doing_ajax
 				&& ! defined( 'IFRAME_REQUEST' )
-				&& version_compare( WC_VERSION, '2.6.0', '>=' )
 				&& version_compare( get_option( 'wc_distance_rate_version' ), '1.0.5', '<' ) ) {
 
 			$this->install();

@@ -72,7 +72,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php if ( ! empty( $tax_obj ) ) {
 				echo 'data-tax-obj="' . esc_attr( $tax_obj ) . '" ';
 			} ?>
-               name="<?php echo esc_attr( $name ); ?>"/>
+               name="<?php echo esc_attr( $name ); ?>" <?php if ( isset( $required ) && ! empty( $required ) ) { echo 'required '; }?>/>
     </label>
 	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php' ); ?>
 	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php' ); ?>

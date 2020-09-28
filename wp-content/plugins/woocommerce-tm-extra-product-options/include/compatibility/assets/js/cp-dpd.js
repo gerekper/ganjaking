@@ -193,7 +193,8 @@
 					switch ( type ) {
 						case 'percentage':
 						case 'discount__percentage':
-							price = price - ( ( Math.ceil( multFloats( price, value / 100 ) * Math.pow( 10, _dc ) ) - 0.5 ) * Math.pow( 10, -_dc ) );
+
+							price = price - ( Math.ceil( ( multFloats( price, ( value / 100 ) ) * Math.pow( 10, _dc ) ) - 0.5 ) * Math.pow( 10, -_dc ) );
 							price = tc_round( price, _dc );
 							if ( price < 0 ) {
 								price = 0;
@@ -488,6 +489,30 @@
 		return product_price;
 	}
 
+	function getUndiscountedPrice( price, type, value, _dc ) {
+		switch ( type ) {
+			case 'percentage':
+			case 'discount__percentage':
+				price = parseFloat( ( price / ( 1 - ( value / 100 ) ) ) * Math.pow( 10, _dc ) ) * Math.pow( 10, -_dc ) * 1;
+				price = tc_round( price, _dc );
+				if ( price < 0 ) {
+					price = 0;
+				}
+				break;
+
+			case 'price':
+			case 'discount__amount':
+				price = price + value;
+				price = parseFloat( price * Math.pow( 10, _dc ) ) * Math.pow( 10, -_dc );
+				price = tc_round( price, _dc );
+				if ( price < 0 ) {
+					price = 0;
+				}
+				break;
+		}
+		return price;
+	}
+
 	$( window ).on( 'epoEventHandlers', function( event, dataObject ) {
 		var epoObject = dataObject.epoObject;
 		var currentCart = dataObject.currentCart;
@@ -649,6 +674,9 @@
 			var original_price;
 			var price;
 			var dpdEnabled;
+			var undiscountedProductPrice;
+			var originalOptionsTotal;
+			var latePrices;
 
 			if ( o && o.data && o.epo && o.totals_holder ) {
 				totalsHolder = o.totals_holder;
@@ -690,34 +718,19 @@
 					original_price = tc_totals_ob.product_total_price_without_options;
 				}
 				price = original_price;
-
-				// need to suport when Enable discounts on extra options = disable
-				if ( o.totals_holder.attr( 'data-tm-epo-dpd-price-override' ) !== '1' ) {
-					switch ( type ) {
-						case 'percentage':
-						case 'discount__percentage':
-							price = parseFloat( ( price / ( 1 - ( value / 100 ) ) ) * Math.pow( 10, _dc ) ) * Math.pow( 10, -_dc ) * 1;
-							price = tc_round( price, _dc );
-							if ( price < 0 ) {
-								price = 0;
-							}
-							break;
-
-						case 'price':
-						case 'discount__amount':
-							price = price + value;
-							price = parseFloat( price * Math.pow( 10, _dc ) ) * Math.pow( 10, -_dc );
-							price = tc_round( price, _dc );
-							if ( price < 0 ) {
-								price = 0;
-							}
-							break;
-					}
-				}
-
 				original_price = tc_round( original_price, _dc );
 
-				if ( ! dpdEnabled ) {
+				if ( dpdEnabled ) {
+					undiscountedProductPrice = getUndiscountedPrice( tc_totals_ob.product_total_price_without_options, type, value, _dc );
+					originalOptionsTotal = getUndiscountedPrice( tc_totals_ob.options_original_total_price - tc_totals_ob.late_total_original_price, type, value, _dc );
+					latePrices = o.data.add_late_fields_prices( o.data.epo_object, undiscountedProductPrice, originalOptionsTotal, originalOptionsTotal, o.data.bundle_id, totalsHolder, 0 );
+					price = undiscountedProductPrice + originalOptionsTotal + latePrices[ 0 ];
+				} else {
+					// need to suport when Enable discounts on extra options = disable
+					if ( o.totals_holder.attr( 'data-tm-epo-dpd-price-override' ) !== '1' ) {
+						price = getUndiscountedPrice( price, type, value, _dc );
+					}
+
 					price = price + tc_totals_ob.options_original_total_price;
 				}
 

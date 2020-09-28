@@ -284,8 +284,24 @@ class WC_Bookings_Controller {
 
 		$max_booking_date = strtotime( '+1 day', $max_booking_date );
 
-		// Call these for the whole chunk range for the bookings since they're expensive
-		$blocks           = $bookable_product->get_blocks_in_range( $min_booking_date, $max_booking_date );
+		// Call these for the whole chunk range for the bookings since they're expensive.
+		$blocks = $bookable_product->get_blocks_in_range( $min_booking_date, $max_booking_date );
+
+		// The following loop is needed when:
+		// - The product is not available by default.
+		// - The product has no availability and the availability is provided by the resources.
+		// We need to loop trough the resources to get the blocs in range that would be missing from the product.
+		// We are limiting it to products with customer selected resources because it is expensive and there are no requests for automatically selected resources.
+		if ( ! $bookable_product->get_default_availability() && $bookable_product->has_resources() && ! $bookable_product->is_resource_assignment_type( 'automatic' ) ) {
+			foreach ( $bookable_product->get_resources() as $resource ) {
+				$resource_id     = $resource->get_id();
+				$resource_blocks = $bookable_product->get_blocks_in_range( $min_booking_date, $max_booking_date, array(), $resource_id );
+
+				$blocks = array_unique( array_merge( $blocks, $resource_blocks ) );
+				sort( $blocks );
+			}
+		}
+
 		$available_blocks = wc_bookings_get_time_slots( $bookable_product, $blocks, array(), 0, $min_booking_date, $max_booking_date );
 		$available_slots  = array();
 
@@ -300,7 +316,6 @@ class WC_Bookings_Controller {
 				}
 			}
 		}
-
 		// Go through [start, end] of each of the bookings by chunking it in days: [start, start + 1d, start + 2d, ..., end]
 		// For each of the chunk check the available slots. If there are no slots, it is fully booked, otherwise partially booked.
 		foreach ( $bookings as $booking ) {

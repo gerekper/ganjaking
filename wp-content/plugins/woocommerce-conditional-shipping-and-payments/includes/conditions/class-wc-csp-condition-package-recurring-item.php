@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product on Subscription in Package Condition.
  *
  * @class    WC_CSP_Condition_Package_Recurring_Item
- * @version  1.8.4
+ * @version  1.8.5
  */
 class WC_CSP_Condition_Package_Recurring_Item extends WC_CSP_Package_Condition {
 
@@ -133,115 +133,87 @@ class WC_CSP_Condition_Package_Recurring_Item extends WC_CSP_Package_Condition {
 				return false;
 			}
 
-			// Search for Renewal items.
-			// Note: A Renewal item can't co-exist with a Subcription item in the same cart.
+			// Processing a renewal?
+			// Note: Renewal items can't co-exist with subcription items in the same cart.
 			$renewal = wcs_cart_contains_renewal();
 
 			if ( $renewal ) {
 
-				$matching_item                   = false;
-				$all_items_matching              = true;
-				$billing_period_match            = false;
-				$contains_non_subscription_items = false;
+				$contains_renewals  = false;
+				$all_items_renewals = true;
 
 				// Fetch Subcription and renewal's billing period.
 				$subscription_id = (int) $renewal[ 'subscription_renewal' ][ 'subscription_id' ];
 				$subscription    = wcs_get_subscription( $subscription_id );
-				$billing_period  = $subscription->get_billing_period();
+				$billing_period  = $subscription ? $subscription->get_billing_period() : false;
 
-				if ( in_array( $billing_period, $data[ 'value' ] ) ) {
-					$billing_period_match = true;
-				}
+				$is_billing_period_matching = in_array( $billing_period, $data[ 'value' ] );
 
-				foreach ( $contents as $cart_item_key => $cart_item ) {
+				foreach ( $contents as $cart_item ) {
 
 					// Check for subscription renewal context.
-					if ( isset( $cart_item[ 'subscription_renewal' ] ) ) {
+					if ( isset( $cart_item[ 'subscription_renewal' ] ) && $is_billing_period_matching ) {
+
+						$contains_renewals = true;
 
 						if ( $this->modifier_is( $data[ 'modifier' ], array( 'in', 'not-in' ) ) ) {
-
-							if ( $billing_period_match ) {
-								$matching_item = true;
-							}
-
-						} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in', 'not-all-in' ) ) ) {
-
-							if ( ! $billing_period_match ) {
-								$all_items_matching = false;
-							}
+							break;
 						}
 
 					} else {
-						$contains_non_subscription_items = true;
-					}
-				}
 
-				if ( $subscription && $contains_non_subscription_items && ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in', 'not-all-in' ) ) ) ) {
-					return $this->modifier_is( $data[ 'modifier' ], array( 'all-in' ) ) ? false : true;
-				}
+						$all_items_renewals = false;
 
-				if ( $this->modifier_is( $data[ 'modifier' ], array( 'in' ) ) && $matching_item ) {
-					return true;
-				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-in' ) ) && ! $matching_item ) {
-					return true;
-				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in' ) ) && $all_items_matching ) {
-					return true;
-				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-all-in' ) ) && ! $all_items_matching ) {
-					return true;
-				}
-			}
-
-			// Re-Init.
-			$contains_non_subscription_items = false;
-
-			// Search for non-subcription items of any kind.
-			if ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in', 'not-all-in' ) ) ) {
-
-				foreach ( $contents as $cart_item_key => $cart_item ) {
-					if ( ! WC_Subscriptions_Product::is_subscription( $cart_item[ 'data' ] ) ) {
-						$contains_non_subscription_items = true;
-						break;
-					}
-				}
-
-				if ( $contains_non_subscription_items ) {
-					return $this->modifier_is( $data[ 'modifier' ], array( 'all-in' ) ) ? false : true;
-				}
-			}
-
-			// Lastly, search for subcriptions.
-			if ( WC_Subscriptions_Cart::cart_contains_subscription() ) {
-
-				$matching_item      = false;
-				$all_items_matching = true;
-
-				foreach ( $contents as $cart_item_key => $cart_item ) {
-
-					$billing_period = WC_Subscriptions_Product::get_period( $cart_item[ 'data' ] );
-
-					if ( $this->modifier_is( $data[ 'modifier' ], array( 'in', 'not-in' ) ) ) {
-
-						if ( in_array( $billing_period, $data[ 'value' ] ) ) {
-							$matching_item = true;
-							break;
-						}
-
-					} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in', 'not-all-in' ) ) ) {
-
-						if ( ! in_array( $billing_period, $data[ 'value' ] ) ) {
-							$all_items_matching = false;
+						if ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in', 'not-all-in' ) ) ) {
 							break;
 						}
 					}
 				}
 
-				if ( $this->modifier_is( $data[ 'modifier' ], array( 'in' ) ) && $matching_item ) {
+				if ( $this->modifier_is( $data[ 'modifier' ], array( 'in' ) ) && $contains_renewals ) {
 					return true;
-				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-in' ) ) && ! $matching_item ) {
+				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-in' ) ) && ! $contains_renewals ) {
 					return true;
-				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in' ) ) && $all_items_matching ) {
+				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in' ) ) && $all_items_renewals ) {
 					return true;
-				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-all-in' ) ) && ! $all_items_matching ) {
+				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-all-in' ) ) && ! $all_items_renewals ) {
+					return true;
+				}
+
+			// Search for subscriptions.
+			} elseif ( WC_Subscriptions_Cart::cart_contains_subscription() ) {
+
+				$contains_subscription     = false;
+				$all_items_on_subscription = true;
+
+				foreach ( $contents as $cart_item ) {
+
+					$is_subscription          = WC_Subscriptions_Product::is_subscription( $cart_item[ 'data' ] );
+					$is_matching_subscription = $is_subscription && in_array( WC_Subscriptions_Product::get_period( $cart_item[ 'data' ] ), $data[ 'value' ] );
+
+					if ( $is_matching_subscription ) {
+
+						if ( $this->modifier_is( $data[ 'modifier' ], array( 'in', 'not-in' ) ) ) {
+							$contains_subscription = true;
+							break;
+						}
+
+					} else {
+
+						if ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in', 'not-all-in' ) ) ) {
+							$all_items_on_subscription = false;
+							break;
+						}
+					}
+				}
+
+				if ( $this->modifier_is( $data[ 'modifier' ], array( 'in' ) ) && $contains_subscription ) {
+					return true;
+				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-in' ) ) && ! $contains_subscription ) {
+					return true;
+				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'all-in' ) ) && $all_items_on_subscription ) {
+					return true;
+				} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-all-in' ) ) && ! $all_items_on_subscription ) {
 					return true;
 				}
 

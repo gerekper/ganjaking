@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 2.7.3
+ * Version: 2.9
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * License: GPL v3
@@ -48,7 +48,7 @@
 
 
 
-	define( 'WOOCOMMERCE_ANTI_FRAUD_VERSION', '2.7.3' );
+	define( 'WOOCOMMERCE_ANTI_FRAUD_VERSION', '2.7.5' );
 
 class WooCommerce_Anti_Fraud {
 
@@ -81,9 +81,9 @@ class WooCommerce_Anti_Fraud {
 		spl_autoload_register( array( $core_autoloader, 'load' ) );
 
 		// Rule loader
+
 		$rule_autoloader = new WC_AF_Autoloader( plugin_dir_path( self::get_plugin_file() ) . 'rules/' );
 		spl_autoload_register( array( $rule_autoloader, 'load' ) );
-
 	}
 
 	/**
@@ -104,8 +104,48 @@ class WooCommerce_Anti_Fraud {
 		// Ajax For whitlist email check 
 		add_action( 'wp_ajax_check_blacklist_whitelist', array($this,'check_blacklist_whitelist' ) );
 		add_action( 'wp_ajax_nopriv_check_blacklist_whitelist', array($this,'check_blacklist_whitelist' ) );
+
+		// For MaxMind Device Tracking Script
+		add_action('admin_head', array( $this, 'get_device_tracking_script'), 100, 100);
+		add_action('wp_head', array( $this, 'get_device_tracking_script'), 100, 100);
 		
 	}
+
+	/**
+	* Check if Device tracking is active
+	*
+	* @since  1.0.0
+	*
+	* Call on header
+	*/
+	
+    public function get_device_tracking_script() {
+
+    	$device_trackin_settings = get_option( 'wc_af_maxmind_device_tracking' ); 
+    	// Get Device Tracking enable/disable
+        if ( $device_trackin_settings == 'yes' ) {
+	    	$maxmind_user = get_option( 'wc_af_maxmind_user' );
+
+	    	if( !empty( $maxmind_user ) ) {
+	    	?>
+		        <script type="text/javascript">
+		            maxmind_user_id = "<?php echo $maxmind_user ?>";
+		            (function() {
+		                var loadDeviceJs = function() {
+		                var element = document.createElement('script');
+		                element.src = 'https://device.maxmind.com/js/device.js';
+		                document.body.appendChild(element);
+		            };
+		            if (window.addEventListener) {
+		                window.addEventListener('load', loadDeviceJs, false);
+		            } else if (window.attachEvent) {
+		                window.attachEvent('onload', loadDeviceJs);
+		            }
+		          })();
+		        </script>
+    	<?php } 
+    	} 
+    }
 	
     function check_blacklist_whitelist() {
 		$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
@@ -194,6 +234,11 @@ class WooCommerce_Anti_Fraud {
 		WC_AF_Hook_Manager::setup();
 
 		// Add base rules
+		$maxmind_settings = get_option( 'wc_af_maxmind_type' ); // Get MaxMind enable/disable
+        if( $maxmind_settings == 'yes' ) {
+        	
+        	WC_AF_Rules::get()->add_rule( new WC_AF_Rule_MinFraud() );
+		}
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Country() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Billing_Matches_Shipping() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Detect_Proxy() );
@@ -204,15 +249,16 @@ class WooCommerce_Anti_Fraud {
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_High_Amount() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Ip_Location() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_First_Order() );
+		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_First_Order_Processing() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Ip_Multiple_Order_Details() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Velocities() );
-        
+
 		// Check if admin
 		if ( is_admin() ) {
 			require_once(dirname( __FILE__ ) . '/anti-fraud-core/class-wc-af-settings.php');
 		}
-
 	}
+
 	//Update order on paypal verification
 	public function paypal_verification(){
 		if(isset($_REQUEST['order_id']) && isset($_REQUEST['paypal_verification'])){
@@ -235,10 +281,16 @@ class WooCommerce_Anti_Fraud {
 	//TO DO
 	public function admin_scripts() {
 		wp_enqueue_script('cal', plugins_url( 'assets/js/cal.js', __FILE__ ) );
+		wp_enqueue_script('edit', plugins_url( '/assets/js/edit-shop-order.js', __FILE__ ) );
 		wp_enqueue_script('tags_input', plugins_url( 'assets/js/tags-input.js', __FILE__ ) );
 		wp_enqueue_style('cal', plugins_url( 'assets/css/tags-input.css', __FILE__ ) );
 	}
-	public function save_default_settings(){
+	public function save_default_settings() {
+		// For Minfraud
+		//update_option('wc_af_minfrraud_order_score_enable','yes');
+		update_option('wc_settings_anti_fraud_minfraud_order_weight',30);
+		update_option('wc_settings_anti_fraud_minfraud_risk_score',30);
+
 		update_option('wc_af_email_notification','yes');
 		update_option('wc_settings_anti_fraud_cancel_score',90);
 		update_option('wc_settings_anti_fraud_hold_score',70);
@@ -376,15 +428,25 @@ class WooCommerce_Anti_Fraud {
 	add_action( 'woocommerce_after_checkout_validation', 'misha_validate_fname_lname', 10, 2);
 	function misha_validate_fname_lname( $fields, $errors ){
 		$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
+		$blocked_ipaddress = get_option('wc_settings_anti_fraudblacklist_ipaddress');
 		$array_mail = explode(',',$blocked_email);
-		foreach($array_mail as $single){
-			if($_POST[ 'billing_email' ] == $single){
-				$errors->add( 'validation', 'This email id is blocked please contact with admin' );
+		if('' != $blocked_email) {
+			foreach($array_mail as $single){
+				if($_POST[ 'billing_email' ] == $single){
+					$errors->add( 'validation', 'This email id is blocked please contact with admin' );
+				}
+			}
+		}else if('' != $blocked_ipaddress){
+		
+			$userip = WC_Geolocation::get_ip_address();
+			$array_ipaddress = explode(',',$blocked_ipaddress);
+			foreach($array_ipaddress as $singles){
+				if($userip == $singles){
+					$errors->add( 'validation', 'This IP Address is blocked please contact with admin' );
+				}
 			}
 		}
 	}
 
 //echo get_option('wc_af_paypal_verification');die;
 new WooCommerce_Anti_Fraud();
-
-?>

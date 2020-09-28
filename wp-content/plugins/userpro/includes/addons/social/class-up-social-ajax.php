@@ -56,7 +56,7 @@ class UP_SocialAjax extends UP_Ajax{
                     $user->user_social->unfollow($from);
                 }
 
-                $output = $user->user_social->getFollowActionPlain($from);
+                $output = $user->user_social->getFollowActionPlain($from, $action);
 
                 $output['count'] = $user->user_social->getUserFollowersCount('followers');
 

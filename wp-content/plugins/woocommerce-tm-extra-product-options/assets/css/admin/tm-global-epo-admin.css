@@ -4333,3 +4333,7 @@ li.tc-var-field {
 .blockUI.blockOverlay{
 	background: #fff !important;
 }
+
+.select2-container--open:not(.select2){
+	z-index: 199999 !important;
+}

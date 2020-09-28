@@ -1,7 +1,5 @@
 <?php
 
-$GLOBALS['fue_subscriptions_product_link'] = 'http://www.75nineteen.com/woocommerce';
-
 /**
  * Class FUE_Addon_Subscriptions
  */

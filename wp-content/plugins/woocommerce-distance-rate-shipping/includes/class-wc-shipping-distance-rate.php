@@ -297,11 +297,11 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 								<th><?php esc_html_e( 'Condition', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'On what condition must the rule be applied.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
 								<th><?php esc_html_e( 'Min', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Minimum condition value, leave blank for no limit. Travel time based in minutes.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
 								<th><?php esc_html_e( 'Max', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Maximum condition value, leave blank for no limit. Travel time based in minutes.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
-								<th><?php esc_html_e( 'Fixed Cost', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Fixed cost for rule, exluding tax.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
-								<th style="padding-right: 20px;"><?php esc_html_e( 'Cost Per Distance / Minute', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Cost per distance unit, or cost per minute for total travel time, excluding tax.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
-								<th><?php esc_html_e( 'Handling Fee', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Fee excluding tax. Enter an amount, e.g. 2.50, or a percentage, e.g. 5%.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
+								<th><?php esc_html_e( 'Base Cost', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Base cost for rule, exluding tax. Other calculations will be added on top of this cost.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
+								<th style="padding-right: 20px;"><?php esc_html_e( 'Cost Per Distance / Minute', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Cost per distance unit, or cost per minute for total travel time, excluding tax. Will be added to Base cost.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
+								<th><?php esc_html_e( 'Handling Fee', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Fee excluding tax. Enter an amount, e.g. 2.50, or a percentage, e.g. 5%. Will be added to Base cost.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
 								<th><?php esc_html_e( 'Break', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Check to not continue processing rules below the selected rule.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
-                                <th><?php esc_html_e( 'Abort', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Check to disable the shipping method if the rule matches.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
+								<th><?php esc_html_e( 'Abort', 'woocommerce-distance-rate-shipping' ); ?> <a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Check to disable the shipping method if the rule matches.', 'woocommerce-distance-rate-shipping' ) ); ?>">[?]</a></th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -361,7 +361,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 
 						jQuery('#<?php echo $this->id; ?>_rules').on( 'click', 'a.add', function(){
 
-							var size = jQuery('#<?php echo $this->id; ?>_rules tbody .distance_rule').size();
+							var size = jQuery('#<?php echo $this->id; ?>_rules tbody .distance_rule').length;
 
 							jQuery('<tr class="distance_rule">\
 								<th class="check-column"><input type="checkbox" name="select" /></th>\
@@ -603,9 +603,11 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				return;
 			}
 
-			// Make sure the customer address is not only the country code
-			// as this means the customer has not yet entered an address.
-			if ( 2 === strlen( $this->get_customer_address_string( $package ) )  ) {
+			/*
+			 * Make sure the customer address is not only the country code.
+			 * as this means the customer has not yet entered an address.
+			 */ 
+			if ( 2 === strlen( $this->get_customer_address_string( $package, false ) )  ) {
 				return;
 			}
 
@@ -1072,9 +1074,10 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		 * Build customer address string from package.
 		 *
 		 * @param  array $package Package to ship.
+		 * @param  bool  $convert_country_code Use full country name or just the country code ( France vs. FR )
 		 * @return string
 		 */
-		public function get_customer_address_string( $package ) {
+		public function get_customer_address_string( $package, $convert_country_code = true ) {
 			$address = array();
 
 			if ( ! empty( $package['destination']['address'] ) ) {
@@ -1116,7 +1119,7 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				$country = $package['destination']['country'];
 
 				// Convert country code to full name if available
-				if ( isset( WC()->countries->countries[ $country ] ) ) {
+				if ( $convert_country_code && isset( WC()->countries->countries[ $country ] ) ) {
 					$country = WC()->countries->countries[ $country ];
 				}
 				$address[] = $country;

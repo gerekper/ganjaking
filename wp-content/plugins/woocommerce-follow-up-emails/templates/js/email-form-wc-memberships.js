@@ -3,11 +3,11 @@ jQuery( function( $ ) {
     $("body").on("change", "#interval_type", function() {
         wc_memberships_toggle_fields($("#email_type").val());
     });
-    $("body").bind("updated_email_type updated_variables_list", function () {
+    $("body").on("updated_email_type updated_variables_list", function () {
         wc_memberships_toggle_fields($("#email_type").val());
     });
 
-    $("body").bind("updated_email_details", function () {
+    $("body").on("updated_email_details", function () {
         wc_memberships_toggle_fields($("#email_type").val());
 
         $("#storewide_type").trigger("change");

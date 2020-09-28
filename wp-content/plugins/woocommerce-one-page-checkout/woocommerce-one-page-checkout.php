@@ -7,10 +7,10 @@
  * Text Domain: wcopc
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 1.7.8
+ * Version: 1.7.9
  * Tested up to: 5.5
  * WC requires at least: 2.5
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * Woo: 527886:c9ba8f8352cd71b5508af5161268619a
  *
  * This program is free software: you can redistribute it and/or modify
@@ -56,7 +56,9 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.7.8' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.7.9' ); // WRCS: DEFINED_VERSION.
+
+add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 
 /**
  * Load the text domain to make the plugin's strings available for localisation.
@@ -145,6 +147,8 @@ class PP_One_Page_Checkout {
 	static $raw_shortcode_atts;
 
 	static $shortcode_page_id = 0;
+
+	static $shortcode_page_temp_id = 0;
 
 	static $products_to_display =  null;
 
@@ -250,6 +254,10 @@ class PP_One_Page_Checkout {
 		// Checks if a queried page contains the one page checkout shortcode, needs to happen after the "template_redirect"
 		add_action( 'the_posts', array( __CLASS__, 'ensure_shortcode_page_id_is_set' ), 10, 2 );
 
+		// Reset shortcode page id when in product loop. Restore when exiting product loop.
+		add_action( 'woocommerce_before_shop_loop', array( __CLASS__, 'clear_shortcode_page_id_for_product_loop' ), 10, 2 );
+		add_action( 'woocommerce_after_shop_loop', array( __CLASS__, 'restore_shortcode_page_id_after_product_loop' ), 10, 2 );
+		
 		// Allow empty cart when we're doing a request from a OPC page.
 		add_action( 'wp_ajax_woocommerce_update_order_review', array( __CLASS__, 'maybe_allow_expired_session' ), 9 );
 		add_action( 'wp_ajax_nopriv_woocommerce_update_order_review', array( __CLASS__, 'maybe_allow_expired_session' ), 9 );
@@ -314,8 +322,6 @@ class PP_One_Page_Checkout {
 			add_filter( 'woocommerce_get_script_data', array( __CLASS__, 'filter_woocommerce_script_paramaters' ), 10, 2 );
 			add_filter( 'woocommerce_get_script_data', array( __CLASS__, 'checkout_params' ), 10, 2 );
 		}
-
-		add_filter( 'woocommerce_default_address_fields', array( __CLASS__, 'filter_default_address_fields' ), 10, 1 );
 
 		add_action( 'wcopc_before_display_checkout', array( __CLASS__, 'maybe_add_products_to_cart' ) );
 
@@ -555,6 +561,24 @@ class PP_One_Page_Checkout {
 	 */
 	public static function modify_single_add_to_cart_text( $product ) {
 		return __( 'Add to order', 'wcopc' );
+	}
+
+	/**
+	 * When we are in the product loop, we don't want to use the product one page checkout page.
+	 *
+	 * @return string
+	 */
+	public static function clear_shortcode_page_id_for_product_loop() {
+		self::$shortcode_page_id = 0;
+	}
+
+	/**
+	 * Restore shortcode page id after the prduct loop finishes.
+	 *
+	 * @return string
+	 */
+	public static function restore_shortcode_page_id_after_product_loop() {
+		self::$shortcode_page_id = self::$shortcode_page_temp_id;
 	}
 
 	/**
@@ -802,7 +826,7 @@ class PP_One_Page_Checkout {
 
 			} else {
 				ob_start();
-				woocommerce_get_template( 'cart/cart-item-data.php', array( 'item_data' => $item_data ) );
+				wc_get_template( 'cart/cart-item-data.php', array( 'item_data' => $item_data ) );
 				return ob_get_clean();
 			}
 
@@ -1881,19 +1905,6 @@ class PP_One_Page_Checkout {
 			$woocommerce_params['option_guest_checkout'] = 'yes';
 		}
 		return $woocommerce_params;
-	}
-
-	/**
-	 * Do not autofocus the First Name address field on OPC pages in WooCommerce 3.0 and newer to avoid the
-	 * browser scrolling to that field (and potentially past OPC product selection fields).
-	 */
-	public static function filter_default_address_fields( $fields ) {
-
-		if ( self::is_any_form_of_opc_page() && isset( $fields['first_name']['autofocus'] ) && true === $fields['first_name']['autofocus'] ) {
-			$fields['first_name']['autofocus'] = false;
-		}
-
-		return $fields;
 	}
 
 	/**

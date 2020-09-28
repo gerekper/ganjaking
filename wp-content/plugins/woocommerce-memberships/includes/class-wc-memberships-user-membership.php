@@ -21,6 +21,8 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field;
+use SkyVerge\WooCommerce\Memberships\Profile_Fields;
 use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -2183,6 +2185,87 @@ class WC_Memberships_User_Membership {
 		}
 
 		return $comment_id;
+	}
+
+
+	/**
+	 * Creates or updates a profile field.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @param string $field_slug
+	 * @param string|bool|int|float|array $value
+	 * @return Profile_Field object
+	 * @throws Framework\SV_WC_Plugin_Exception
+	 */
+	public function set_profile_field( $field_slug, $value ) {
+
+		if ( $profile_field = $this->get_profile_field( $field_slug ) ) {
+
+			$profile_field->set_value( $value );
+
+		} else {
+
+			$profile_field = new Profile_Field();
+			$profile_field->set_slug( $field_slug );
+			$profile_field->set_user_id( $this->get_user_id() );
+			$profile_field->set_value( $value );
+		}
+
+		$profile_field->save();
+
+		return $profile_field;
+	}
+
+
+	/**
+	 * Deletes a profile field.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @param string $field_slug the slug of profile field to remove
+	 * @return bool
+	 */
+	public function delete_profile_field( $field_slug ) {
+
+		if ( $profile_field = $this->get_profile_field( $field_slug ) ) {
+
+			$profile_field->delete( true );
+
+			return true;
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Gets the user's profile field associated with the membership plan identified by the field slug.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @param string $field_slug
+	 * @return Profile_Field|null
+	 */
+	public function get_profile_field( $field_slug ) {
+
+		return Profile_Fields::get_profile_field( $this->get_user_id(), $field_slug );
+	}
+
+
+	/**
+	 * Gets the user's profile fields associated with the membership plan.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @param array $args
+	 * @return Profile_Field[]
+	 */
+	public function get_profile_fields( array $args = [] ) {
+
+		$args['membership_plan_ids'] = [ $this->get_plan_id() ];
+
+		return Profile_Fields::get_profile_fields( $this->get_user_id(), $args );
 	}
 
 

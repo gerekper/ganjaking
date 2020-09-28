@@ -20,8 +20,8 @@ jQuery(document).ready(function($) {
     // initialize the import
     (function() {
         // attach the event listeners
-        $("body").bind("update_init_completed", update_subscriptions);
-        $("body").bind("update_completed", update_completed);
+        $("body").on("update_init_completed", update_subscriptions);
+        $("body").on("update_completed", update_completed);
 
         var params = {
             "action": "fue_wc_subscriptions_update",

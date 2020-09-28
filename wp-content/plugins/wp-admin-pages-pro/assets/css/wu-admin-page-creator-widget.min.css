@@ -1,0 +1,5 @@
+/*! WP Ultimo: Admin Page Creator - v1.8.1
+ * http://wp-ultimo.com
+ * 2020; */
+
+[id^=wu_apc_widget_no_margin] .inside,[id^=wu_apc_widget_no_margin] .wu-apc-invisible-title{padding:0!important;margin:0!important}[id^=wu_apc_widget] .inside br.clear,#welcome-panel .wu-apc-widget br.clear{display:none}.welcome-panel{padding:12px 10px}.welcome-panel .welcome-panel-content{margin-top:11px}.welcome-panel .wu-apc-wrap-no-margin{margin:-12px!important}.welcome-panel .welcome-panel-close{z-index:9999}.welcome-panel .wu-apc-invisible-title{display:none}.wuapc-tag-welcome-box{display:inline-block;color:#fff;text-transform:uppercase;font-weight:400;font-size:9px;line-height:17px;padding:0 5px;border-radius:3px}

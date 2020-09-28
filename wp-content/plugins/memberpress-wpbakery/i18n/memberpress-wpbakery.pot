@@ -1,0 +1,83 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress WPBakery Content Protection plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress WPBakery Content Protection 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-wpbakery\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-06-29T11:10:23-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-wpbakery\n"
+
+#. Plugin Name of the plugin
+msgid "MemberPress WPBakery Content Protection"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "WPBakery (Visual Composer) integration to protect content with MemberPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: memberpress-wpbakery.php:33
+msgid "MemberPress WPBakery"
+msgstr ""
+
+#: memberpress-wpbakery.php:34
+msgid "WPBakery (Visual Composer) Builder integration to protect content with MemberPress."
+msgstr ""
+
+#: MpWpBakery.php:36
+msgid "Default"
+msgstr ""
+
+#: MpWpBakery.php:37
+msgid "Hide"
+msgstr ""
+
+#: MpWpBakery.php:38
+msgid "Display Message"
+msgstr ""
+
+#: MpWpBakery.php:42
+msgid "None"
+msgstr ""
+
+#: MpWpBakery.php:53
+msgid "MemberPress Rule"
+msgstr ""
+
+#: MpWpBakery.php:54
+msgid "Select a Rule to determine member access."
+msgstr ""
+
+#: MpWpBakery.php:65
+msgid "Unauthorized Content"
+msgstr ""
+
+#: MpWpBakery.php:66
+msgid "What should be shown to unauthorized users."
+msgstr ""
+
+#: MpWpBakery.php:74
+msgid "Custom Message"
+msgstr ""
+
+#: MpWpBakery.php:75
+msgid "Custom message for unauthorized users."
+msgstr ""

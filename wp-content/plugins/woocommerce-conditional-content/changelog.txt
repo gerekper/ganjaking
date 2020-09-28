@@ -1,4 +1,10 @@
 *** WooCommerce Conditional Content Changelog ***
+2020.08.25 - version 2.1.3
+    * Update:  WP and WC Version Compatibility Updates
+
+2020.04.06 - version 2.1.2
+    * Fix: Correct Day of Week condition type.
+
 2020.01.22 - version 2.1.1
     * Enhancement: Add Product Tag as a conditional content rule type.
     * Enhancement: Add Date rule type.

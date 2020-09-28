@@ -90,16 +90,8 @@ jQuery( document ).ready( function( $ ) {
 			} else {
 				if ( ! wc_additional_variation_images_local.bwc ) {
 					var parent = $( wc_additional_variation_images_local.main_images_class ).parent();
-
-					// we subtract the (inner) dimensions by 92 to get the outer dimensions
-					var width  = $( response.main_images ).find( 'img' ).first().attr( 'width' ) - 92;
-					var height = $( response.main_images ).find( 'img' ).first().attr( 'height' ) - 92;
-
 					$( wc_additional_variation_images_local.main_images_class ).remove();
-					$.when( parent.prepend( response.main_images ) ).then( function() {
-						$( '.woocommerce-product-gallery__image' ).width( width );
-						$( '.woocommerce-product-gallery__wrapper' ).width( width ).height( height );
-					});
+					parent.prepend( response.main_images );
 				} else {
 					$( wc_additional_variation_images_local.gallery_images_class ).fadeOut( 50, function() {
 						$( this ).html( response.gallery_images ).hide().fadeIn( 100, function() {
@@ -188,18 +180,18 @@ jQuery( document ).ready( function( $ ) {
 						if ( response ) {
 
 							$( 'form.variations_form' ).trigger( 'wc_additional_variation_images_frontend_ajax_response_callback', [ response, wc_additional_variation_images_local.gallery_images_class, wc_additional_variation_images_local.main_images_class, wcavi_original_gallery_images, wcavi_original_main_images ] );
-	
+
 							// replace with new image set
 							$.wc_additional_variation_images_frontend.imageSwap( response );
 
 						} else {
-	
+
 							$( 'form.variations_form' ).trigger( 'wc_additional_variation_images_frontend_ajax_response_callback', [ response, wc_additional_variation_images_local.gallery_images_class, wc_additional_variation_images_local.main_images_class, wcavi_original_gallery_images, wcavi_original_main_images ] );
-	
+
 							// replace with original image set
 							$.wc_additional_variation_images_frontend.imageSwapOriginal();
 						}
-						
+
 						$( wc_additional_variation_images_local.gallery_images_class ).unblock();
 					});
 				});

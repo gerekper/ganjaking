@@ -18,17 +18,20 @@ defined( 'ABSPATH' ) || exit;
 <li class="tmcp-field-wrap">
 	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php' ); ?>
     <label class="tm-epo-field-label" for="<?php echo esc_attr( $id ); ?>">
-        <input<?php
+        <input <?php
 		if ( isset( $placeholder ) && $placeholder !== '' ) {
-			echo ' placeholder="' . esc_attr( $placeholder ) . '"';
+			echo 'placeholder="' . esc_attr( $placeholder ) . '" ';
 		}
 		if ( isset( $min_chars ) && $min_chars !== '' ) {
-			echo ' minlength="' . esc_attr( $min_chars ) . '"';
+			echo 'minlength="' . esc_attr( $min_chars ) . '" ';
 		}
 		if ( isset( $max_chars ) && $max_chars !== '' ) {
-			echo ' maxlength="' . esc_attr( $max_chars ) . '"';
+			echo 'maxlength="' . esc_attr( $max_chars ) . '" ';
 		}
-		?> class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-textfield"
+		if ( isset( $required ) && ! empty( $required ) ) {
+			echo 'required ';
+		}
+		?>class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-textfield"
            name="<?php echo esc_attr( $name ); ?>"
            data-price=""
            data-rules="<?php echo esc_attr( $rules ); ?>"

@@ -1907,6 +1907,11 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	width: 100%;
 }
 
+.tc-totals-form dl.tm-extra-product-options-totals {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 /* 3. Elements */
 
 /* Required indicator */
@@ -2078,8 +2083,14 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	position: relative;
 	float: none;
 	width: 100%;
-	font-weight: 700;
 	margin-bottom: 0;
+}
+
+.tm-extra-product-options label.tm-epo-element-label,
+.tm-extra-product-options div.tm-epo-element-label,
+.tm-extra-product-options p.tm-epo-element-label,
+.tm-extra-product-options span.tm-epo-element-label {
+	font-weight: 700;
 }
 
 .tm-extra-product-options .tm-epo-element-label.tm-section-label {
@@ -4648,7 +4659,13 @@ body[data-form-style="minimal"] .tc-extra-product-options .minimal-form-input la
 	margin: 0;
 }
 
-/* Elementor fix */
+/* Elementor and theme fixes */
+.fullwidth-button .cart:not(.variations_form), .fullwidth-button .woocommerce-variation-add-to-cart.variations_button,
+.thb-product-main-row .summary form.cart,
+.single-product div.product form.cart,
+.single-product div.product .single-button-wrapper,
+.single-product div.product .entry-summary form.cart:not(.variations_form):not(.grouped_form),
+.single-product div.product .variations_button,
 .woocommerce div.product.elementor form.cart.variations_form .woocommerce-variation-add-to-cart,
 .woocommerce div.product.elementor form.cart:not(.grouped_form):not(.variations_form) {
 	-ms-flex-wrap: wrap !important;

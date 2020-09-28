@@ -145,7 +145,7 @@ class MeprProductsCtrl extends MeprCptCtrl {
     if(!empty($post) && $post->post_type == MeprProduct::$cpt) {
       $product = new MeprProduct($post_id);
 
-      extract($_POST);
+      extract($_POST, EXTR_SKIP);
 
       $product->price = (isset($_mepr_product_price))?MeprUtils::format_currency_us_float(sanitize_text_field($_mepr_product_price)):$product->attrs['price'];
       $product->period = (isset($_mepr_product_period))?sanitize_text_field($_mepr_product_period):$product->attrs['period'];
@@ -254,7 +254,7 @@ class MeprProductsCtrl extends MeprCptCtrl {
   }
 
   public static function set_custom_login_urls($product) {
-    extract($_POST);
+    extract($_POST, EXTR_SKIP);
 
     $custom_login_urls = array();
 

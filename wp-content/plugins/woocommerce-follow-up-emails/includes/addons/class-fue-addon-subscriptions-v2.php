@@ -514,7 +514,7 @@ class FUE_Addon_Subscriptions_V2 {
 
 		$product_ids =  implode( ',', array_map( 'absint', $product_ids ) );
 
-		if ( $subscription->get_completed_payment_count() > 1 ) {
+		if ( $subscription->get_payment_count() > 1 ) {
 			$triggers[] = 'subs_renewed';
 		}  else {
 			$triggers[] = 'subs_activated';
@@ -1273,7 +1273,7 @@ class FUE_Addon_Subscriptions_V2 {
 
 				$subscription = wcs_get_subscription( $the_subscription->ID );
 
-				if ( $subscription->get_completed_payment_count() >= 2 ) {
+				if ( $subscription->get_payment_count() >= 2 ) {
 					$order_id = ($subscription->get_parent()) ? WC_FUE_Compatibility::get_order_prop( $subscription->get_parent(), 'id' ) : 0;
 					$in_queue = $wpdb->get_var( $wpdb->prepare(
 						"SELECT COUNT(*)
@@ -1512,7 +1512,7 @@ class FUE_Addon_Subscriptions_V2 {
 
 				case 'subs_cancelled':
 					// Do not import when no payments have been completed
-					$trigger_date = ( $subscription->get_completed_payment_count() >= 1 ) ? $subscription->get_date( 'end', 'site' ) : 0;
+					$trigger_date = ( $subscription->get_payment_count() >= 1 ) ? $subscription->get_date( 'end', 'site' ) : 0;
 					break;
 
 				case 'subs_before_renewal':

@@ -46,6 +46,9 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
             //define custom time for cron job
 			add_filter('cron_schedules', array($this, 'cron_schedule_paypal_email_schedule') );
 			
+			//define cron job every hour for check risk score
+            add_action('wp', array($this, 'check_risk_score_seven_days_scheduled'));
+			add_action('my_hourly_event', array($this, 'do_this_hourly'));
 		}
 
 		/**
@@ -90,11 +93,11 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 					array( 'jquery' )
 				);
 
-				wp_enqueue_script(
+				/*wp_enqueue_script(
 					'wc_af_edit_shop_order_js',
 					plugins_url( '/assets/js/edit-shop-order' . ( ( ! SCRIPT_DEBUG ) ? '.min' : '' ) . '.js', WooCommerce_Anti_Fraud::get_plugin_file() ),
 					array( 'jquery', 'wc_af_knob_js' )
-				);
+				);*/
 
 				// CSS
 				wp_enqueue_style(
@@ -273,6 +276,10 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 					'interval'  => 86400*get_option('wc_settings_anti_fraud_time_paypal_attempts'),
 					'display'   => __( 'Antifraud paypal verification', 'textdomain' )
 			);
+			$schedules['every_hour'] = array(  // For fraud risk score check
+			    'interval'  => 3600,
+			    'display'   => __( 'Every hour', 'textdomain' )
+			);
 			return $schedules;
 		}
 
@@ -309,6 +316,61 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				    	}
 				    }
 				}
+			}
+		}
+
+
+		/*
+		* cron_schedules
+		* execute as cron job and check if any order not check within 7 days 
+		*/
+		public function check_risk_score_seven_days_scheduled() {
+		    if ( !wp_next_scheduled( 'every_hour' ) ) {
+		        wp_schedule_event( time(), 'every_hour', 'my_hourly_event');
+		    }
+		}
+
+
+		public function do_this_hourly() {
+
+		    global $wpdb;
+		    $date_range = strtotime ( '-7 day' );  
+		   	$orders = wc_get_orders(array(
+			    'limit'=>-1,
+			    'type'=> 'shop_order',
+			    'date_query'  => array(
+                        array(
+                            'after' => array(
+                                'year'  => date('Y', $date_range ),
+                                'month' => date('m', $date_range ),
+                                'day'   => date('d', $date_range ),
+                            ),
+                        )
+                    ),
+
+			    'id' =>'ids'
+			    )
+			);
+		   	if(!empty($orders)) {
+
+			   	foreach ($orders as $value) {
+
+			   		$id = $value->get_id();
+			   		$score_points = get_post_meta( $id, 'wc_af_score', true );
+
+			   		if('' != $score_points) {
+
+			   			return;
+			   		}
+
+		   			$risk_waiting = get_post_meta( $id, '_wc_af_waiting', true );
+
+		   			if('' == $score_points || '' != $risk_waiting) {
+		   		
+		   				$score_helper = new WC_AF_Score_Helper();
+						$score_helper->schedule_fraud_check( $id );
+		   			}
+			   	}
 			}
 		}
 	}

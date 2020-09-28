@@ -16,7 +16,7 @@ final class UserPro
 
     public $up_admin = null;
 
-    public static $version = '4.9.37.1';
+    public static $version = '4.9.38';
 
     /**
      * Social addon object
@@ -238,19 +238,6 @@ final class UserPro
             update_option("userpro_invite_check", "1");
         }
 
-        /* Page id where front end publisher exist */
-        $user_publisher_id = get_option('userpro_publish_page_link');
-
-        if (empty($user_publisher_id)) {
-            global $wpdb;
-            $userpropost = $wpdb->base_prefix . "posts";
-            $query = "SELECT ID FROM $userpropost WHERE (post_content LIKE '%template=publish%')";
-            $result = $wpdb->get_results($query);
-            if (isset($result[0]->ID)) {
-                update_option('userpro_publish_page_link', $result[0]->ID);
-            }
-        }
-
         $userpro->do_uploads_dir();
 
         /* include libs */
@@ -312,5 +299,11 @@ final class UserPro
     public function loadLanguages()
     {
         load_plugin_textdomain('userpro', false, 'userpro/languages');
+    }
+}
+add_action('wp_loaded', 'close_my_session', 30);
+function close_my_session() {
+    if (session_status() == PHP_SESSION_ACTIVE) {
+        session_write_close();
     }
 }

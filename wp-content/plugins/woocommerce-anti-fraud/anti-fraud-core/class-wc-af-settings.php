@@ -39,6 +39,11 @@ function wc_af_add_settings() {
             add_action( 'woocommerce_settings_' . $this->id,      array( $this, 'output' ) );
             add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
             add_action( 'woocommerce_sections_' . $this->id,      array( $this, 'output_sections' ) );
+            add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'Authorized_Minfraud' ) );
+            add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'Authorized_Quickemailverification' ) );
+
+            /* initiation of logging instance */
+            $this->log = new WC_Logger();
         }
         
         /**
@@ -52,6 +57,7 @@ function wc_af_add_settings() {
                 ''         => __( 'General Settings', 'wc_af' ),
                 'black_list' => __( 'Blacklist Settings', 'wc_af' ),
                 'paypal_settings' => __( 'Paypal Settings', 'wc_af' ),
+                'minfraud_settings' => __( 'MinFraud Settings', 'wc_af' ),
             );
             
             return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
@@ -75,10 +81,104 @@ function wc_af_add_settings() {
 
             $rule_weight = array();
             for ($i = 20; $i > -1; $i -- ){
-            	$rule_weight[$i] = $i;	
+                $rule_weight[$i] = $i;  
             } 
 
-            if ( 'black_list' == $current_section ) {
+            if ( 'minfraud_settings' == $current_section ) {
+
+                /**
+                 * WCAF Filter Plugin  MinFraud Settings
+                 *
+                 * @since 1.0.0
+                 * @param array $settings Array of the plugin settings
+                */
+                 
+                $settings = apply_filters( 'myplugin_minfraud_settings', array(
+                    array(
+                        'name'     => __( 'MinFraud Settings', 'woocommerce-anti-fraud' ),
+                        'type'     => 'title',
+                        'desc'     => '<hr/>',
+                        'id'       => 'wc_af_minfraud_settings', 
+                    ),
+
+                    array(
+                        'title'    => __( 'Enable/Disable', 'woocommerce-anti-fraud' ),
+                        'type'     => 'checkbox',
+                        'label'    => '',
+                        'desc'    =>  __( 'Enable MinFraud Settings', 'woocommerce-anti-fraud' ),
+                        'default'  => 'no',
+                        'id'       => 'wc_af_maxmind_type'
+                    ),
+
+                    array(
+                        'title'    => __( 'Device Tracking Settings', 'woocommerce-anti-fraud' ),
+                        'type'     => 'checkbox',
+                        'label'    => 'Device Tracking Settings',
+                        'desc'    =>  __( '<br/>If a fraudster uses the same device but changes proxies while they are placing multiple orders from your website, then there will be an increase in the risk score if we detect order velocity on such device.', 'woocommerce-anti-fraud' ),
+                        'default'  => 'no',
+                        'id'       => 'wc_af_maxmind_device_tracking'
+                    ),
+                    
+                    array(
+                        'name'     => __( 'MaxMind Account ID', 'woocommerce-anti-fraud' ),
+                        'type'     => 'text',
+                        'desc'     => __( 'MaxMind Account ID', 'woocommerce-anti-fraud' ),
+                        'id'       => 'wc_af_maxmind_user',
+                    ),
+                    array(
+                        'name'     => __( 'MaxMind License Key', 'woocommerce-anti-fraud' ),
+                        'type'     => 'password',
+                        'desc'     => __( 'MaxMind License Key', 'woocommerce-anti-fraud' ),
+                        'id'       => 'wc_af_maxmind_license_key',
+                    ),
+
+                     array(
+                        'type' => 'sectionend',
+                        'id'   => 'wc_af_minfraud_settings'
+                    ),
+
+                    array(
+                        'name' => __( 'Rule Settings' ),
+                        'type' => 'title',
+                        'desc' => '<hr/>',
+                        'id'   => 'wc_af_minfraud_rule_settings' 
+                    ),
+
+                    array(
+                        'name'     => __( 'Minimum MinFraud Risk Score', 'woocommerce-anti-fraud' ),
+                        'type'     => 'number',
+                        'desc'     => __( '' ),
+                        'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_minfraud_risk_score',
+                        'css'      => 'display: block;',
+                        'default'  => '5',
+                        'custom_attributes' => array(
+                            'min'  => 0,
+                            'step' => 1,
+                            'max'  => 100
+                        ),
+                    ),
+
+                    array(
+                        'name'     => __( 'MinFraud Rule Weight', 'woocommerce-anti-fraud' ),
+                        'type'     => 'number',
+                        'options'  => $rule_weight,
+                        'desc'     => __( 'Weight of the single rule in the total calculation of risk.' ),
+                        'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_minfraud_order_weight',
+                        'css'         => 'display: block;',
+                        'custom_attributes' => array(
+                            'min'  => 0,
+                            'step' => 1,
+                            'max'  => 100
+                        ),
+                    ),
+                    array(
+                        'type' => 'sectionend',
+                        'id'   => 'wc_af_minfraud_rule_settings'
+                    ),
+
+                ) );
+
+            } else if ( 'black_list' == $current_section ) {
             
                 /**
                  * WCAF Filter Plugin  Blacklist Settings
@@ -95,24 +195,24 @@ function wc_af_add_settings() {
                     ),
                     //Enable email blacklist
                     array(
-						'title'       => __( 'Enable email blacklist', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => 'wc_af_emial_blacklist',
-						'default'     => 'no',
-						'desc' => __( '' ),
-						'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'enable_automatic_email_blacklist', 
-					),  
+                        'title'       => __( 'Enable email blacklist', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => 'wc_af_emial_blacklist',
+                        'default'     => 'no',
+                        'desc' => __( '' ),
+                        'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'enable_automatic_email_blacklist', 
+                    ),  
                     //Enable automatic blacklisting
-					array(
-						'title'       => __( 'Enable automatic blacklisting', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => 'wc_af_email_blacklist',
-						'default'     => 'no',
-						'desc' => __( '<br/>Add email addresses of orders reported with a high risk of fraud to blacklist automatically' ),
-						'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'enable_automatic_blacklist', 
-					),
-					//Block these email addresses
-					array(
+                    array(
+                        'title'       => __( 'Enable automatic blacklisting', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => 'wc_af_email_blacklist',
+                        'default'     => 'no',
+                        'desc' => __( '<br/>Add email addresses of orders reported with a high risk of fraud to blacklist automatically' ),
+                        'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'enable_automatic_blacklist', 
+                    ),
+                    //Block these email addresses
+                    array(
                         'name'        => __( 'Block these email addresses', 'woocommerce-anti-fraud' ),
                         'type'        => 'textarea',
                         'desc'        => __( "The following email addresses are not safe.", 'woocommerce-anti-fraud '),
@@ -121,6 +221,18 @@ function wc_af_add_settings() {
                         'default'     => '',
                         'class'       => 'wc_af_tags_input'  
                     ), 
+                    
+                    //Block these email addresses
+                    array(
+                        'name'        => __( 'Block these IP addresses', 'woocommerce-anti-fraud' ),
+                        'type'        => 'textarea',
+                        'desc'        => __( "The following IP addresses are not safe.", 'woocommerce-anti-fraud '),
+                        'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'blacklist_ipaddress',
+                        'css'         => 'width:100%; height: 100px;',
+                        'default'     => '',
+                        'class'       => 'wc_af_tags_input'  
+                    ), 
+                    
                     array(
                         'type' => 'sectionend',
                         'id'   => 'wc_af_blacklist_settings'
@@ -144,24 +256,24 @@ function wc_af_add_settings() {
                         'id'   => 'wc_af_paypal_settings', 
                     ),
                     array(
-						'title'       => __( 'Enable Paypal Verification', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => 'wc_af_paypal_verification',
-						'default'     => 'no',
-						'desc' => __( '' ),
-						'id'   => 'wc_af_paypal_verification', 
-					),  
+                        'title'       => __( 'Enable Paypal Verification', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => 'wc_af_paypal_verification',
+                        'default'     => 'no',
+                        'desc' => __( '' ),
+                        'id'   => 'wc_af_paypal_verification', 
+                    ),  
                     //Prevent downloads if verification failed or still processing
-					array(
-						'title'       => __( 'Prevent downloads if verification failed or still processing', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => 'wc_af_paypal_verification',
-						'default'     => 'no',
-						'desc' => __( '' ),
-						'id'   => 'wc_af_paypal_prevent_downloads', 
-					),
-					//Time span before further attempts 
-					array(
+                    array(
+                        'title'       => __( 'Prevent downloads if verification failed or still processing', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => 'wc_af_paypal_verification',
+                        'default'     => 'no',
+                        'desc' => __( '' ),
+                        'id'   => 'wc_af_paypal_prevent_downloads', 
+                    ),
+                    //Time span before further attempts 
+                    array(
                         'name'     => __( 'Time span before further attempts' ),
                         'type'     => 'number',
                         'desc'     => __( 'Number of days that have to pass before sending another email if the order is still waiting for verification' ),
@@ -190,23 +302,23 @@ function wc_af_add_settings() {
                         'name'     => __( 'Email Type', 'woocommerce-anti-fraud' ),
                         'type'     => 'select',
                         'options'  => array(
-						    'html'        => __( 'Html', 'woocommerce_antifraud' ),
-						    'text'       => __( 'text', 'woocommerce_antifraud' ),
-						),
+                            'html'        => __( 'Html', 'woocommerce_antifraud' ),
+                            'text'       => __( 'text', 'woocommerce_antifraud' ),
+                        ),
                         'desc'     => __( '<br/>Choose a format for the email.' ),
                         'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_paypal_email_format',
                         'default' => 'html',
                     ), 
                     //Email subject
                     array(
-					    'name'     => __( 'Email Subject', 'woocommerce' ),
-					    'desc'     => __( '</br>{site_title} Replaced with the site title' ),
-					    'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_paypal_email_subject',
-					    'type'     => 'text',
-					    'placeholder' => '[{site_title}] Confirm your PayPal email address'
-					),
-					//Email body
-					array(
+                        'name'     => __( 'Email Subject', 'woocommerce' ),
+                        'desc'     => __( '</br>{site_title} Replaced with the site title' ),
+                        'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_paypal_email_subject',
+                        'type'     => 'text',
+                        'placeholder' => '[{site_title}] Confirm your PayPal email address'
+                    ),
+                    //Email body
+                    array(
                         'name'        => __( 'Email body', 'woocommerce-anti-fraud' ),
                         'type'        => 'textarea',
                         'desc'        => __( "{site_title} Replaced with the site title<br/>{site_email} Replaced with the site title", 'woocommerce-anti-fraud '),
@@ -229,7 +341,7 @@ function wc_af_add_settings() {
                     ),
                     
                 ) );
-            }else {
+            } else {
                 
                 /**
                  * WCAF Filter Plugin General Settings
@@ -246,18 +358,18 @@ function wc_af_add_settings() {
                         'id'   => 'wc_af_general_settings' 
                     ),
                     array(
-						'title'       => __( 'Admin Email Settings', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '<br/>Send a notification mail to admin showing the outcome of anti-fraud checks.' ),
-						'id'	=> 'wc_af_email_notification'
-					),    
+                        'title'       => __( 'Admin Email Settings', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '<br/>Send a notification mail to admin showing the outcome of anti-fraud checks.' ),
+                        'id'    => 'wc_af_email_notification'
+                    ),    
                     array(
                         'name'     => __( 'Cancel Score', 'woocommerce-anti-fraud' ),
                         'type'     => 'select',
                         'options'  => $score_options,
-                        'desc'     => __( 'Orders with a score equal to or greater than this number will be automatically cancelled. Select 0 to disable.', 'woocommerce-anti-fraud' ),
+                        'desc'     => __( 'After payment is done and order is placed, and if the fraud score is found equal or greater than the specified value, then the status of such order will be changed to "Cancelled" so that the order is not fulfilled. Select 0 to disable.', 'woocommerce-anti-fraud' ),
                         'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_cancel_score',
                         'css'         => 'display: block;',
                         'default' => '90',
@@ -345,14 +457,14 @@ function wc_af_add_settings() {
                         'id'   => 'wc_af_rule_settings' 
                     ),
                     array(
-						'title'       => __( 'Enable first order check', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '<br/>Enable first order check' ),
-						'id'	=> 'wc_af_first_order'
-					),
-					array(
+                        'title'       => __( 'Enable first order check', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '<br/>Enable first order check' ),
+                        'id'    => 'wc_af_first_order'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -367,19 +479,19 @@ function wc_af_add_settings() {
                     ),  
                     //custom rule for processing order
                     array(
-						'title'       => __( 'Enable first order check for processing order', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'no',
-						'desc' => __( '<br/>Enable first order check for in processing order ' ),
-						'id'	=> 'wc_af_first_order_custom'
-					),
-					array(
+                        'title'       => __( 'Enable first order check for processing order', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'no',
+                        'desc' => __( '<br/>Enable first order check for in processing order ' ),
+                        'id'    => 'wc_af_first_order_custom'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
                         'desc'     => __( 'Weight of the single rule in the total calculation of risk.' ),
-                        'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_first_order_weight',
+                        'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_first_order_custom_weight',
                         'css'         => 'display: block;',
                         'custom_attributes' => array(
                             'min'  => 0,
@@ -388,14 +500,14 @@ function wc_af_add_settings() {
                         ),
                     ), 
                     array(
-						'title'       => __( 'Enable International order check', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '' ),
-						'id'	=> 'wc_af_international_order'
-					),
-					array(
+                        'title'       => __( 'Enable International order check', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '' ),
+                        'id'    => 'wc_af_international_order'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -408,15 +520,15 @@ function wc_af_add_settings() {
                             'max'  => 100
                         ),
                     ),
-					array(
-						'title'       => __( 'Enable IP geolocation check', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '' ),
-						'id'	=> 'wc_af_ip_geolocation_order'
-					),
-					array(
+                    array(
+                        'title'       => __( 'Enable IP geolocation check', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '' ),
+                        'id'    => 'wc_af_ip_geolocation_order'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -430,14 +542,14 @@ function wc_af_add_settings() {
                         ),
                     ),
                     array(
-						'title'       => __( 'Enable Billing and Shipping address check', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '' ),
-						'id'	=> 'wc_af_bca_order'
-					),
-					array(
+                        'title'       => __( 'Enable Billing and Shipping address check', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '' ),
+                        'id'    => 'wc_af_bca_order'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -451,14 +563,14 @@ function wc_af_add_settings() {
                         ),
                     ),
                     array(
-						'title'       => __( 'Enable Proxy check', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '' ),
-						'id'	=> 'wc_af_proxy_order'
-					),
-					array(
+                        'title'       => __( 'Enable Proxy check', 'woocommerce-anti-fraud' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '' ),
+                        'id'    => 'wc_af_proxy_order'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -472,14 +584,20 @@ function wc_af_add_settings() {
                         ),
                     ),
                     array(
-						'title'       => __( 'Enable suspecious domain email check' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '<br/>Enable international order check' ),
-						'id'	=> 'wc_af_suspecius_email'
-					),
-					array(
+                        'title'       => __( 'Enable suspecious domain email check' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '<br/>Enable international order check' ),
+                        'id'    => 'wc_af_suspecius_email'
+                    ),
+                     array(
+                        'title'       => __( 'Your API Key For quickemailverification.com' ),
+                        'type'        => 'password',
+                        'desc' => __( 'We use this quickemailverification.com service to give more accurate results for false email domain related checks. So you can register on this site and can get api key from there.' ),
+                        'id'    => 'check_email_domain_api_key'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -500,16 +618,16 @@ function wc_af_add_settings() {
                         'css'         => 'width:100%; height: 100px;',
                         'default'     => $this->suspicious_domains(),
                         'class'       => 'wc_af_tags_input' 
-                    ), 
+                    ),
                     array(
-						'title'       => __( 'Enable unsafe countries check' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '' ),
-						'id'	=> 'wc_af_unsafe_countries'
-					),
-					array(
+                        'title'       => __( 'Enable unsafe countries check' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '' ),
+                        'id'    => 'wc_af_unsafe_countries'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -531,14 +649,14 @@ function wc_af_add_settings() {
                         'options'      => $this->get_countries() 
                     ), 
                     array(
-						'title'       => __( 'Enable order amount check (for orders exceeding average order amount)' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '' ),
-						'id'	=> 'wc_af_order_avg_amount_check'
-					),
-					array(
+                        'title'       => __( 'Enable order amount check (for orders exceeding average order amount)' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '' ),
+                        'id'    => 'wc_af_order_avg_amount_check'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -564,14 +682,14 @@ function wc_af_add_settings() {
                         ),
                     ),
                     array(
-						'title'       => __( 'Enable order amount check (for order exceeding the below specified amount)' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '' ),
-						'id'	=> 'wc_af_order_amount_check'
-					),
-					array(
+                        'title'       => __( 'Enable order amount check (for order exceeding the below specified amount)' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '' ),
+                        'id'    => 'wc_af_order_amount_check'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -593,14 +711,14 @@ function wc_af_add_settings() {
                         'default' => '0',
                     ),
                     array(
-						'title'       => __( 'Enable check for attempt count' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '' ),
-						'id'	=> 'wc_af_attempt_count_check'
-					),
-					array(
+                        'title'       => __( 'Enable check for attempt count' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '' ),
+                        'id'    => 'wc_af_attempt_count_check'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -633,15 +751,15 @@ function wc_af_add_settings() {
                             'step' => 1,
                         ),
                     ),
-					array(
-						'title'       => __( 'Enable IP multiple details check' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'yes',
-						'desc' => __( '' ),
-						'id'	=> 'wc_af_ip_multiple_check'
-					),
-					array(
+                    array(
+                        'title'       => __( 'Enable IP multiple details check' ),
+                        'type'        => 'checkbox',
+                        'label'       => '',
+                        'default'     => 'yes',
+                        'desc' => __( '' ),
+                        'id'    => 'wc_af_ip_multiple_check'
+                    ),
+                    array(
                         'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
                         'type'     => 'number',
                         'options'  => $rule_weight,
@@ -710,6 +828,104 @@ function wc_af_add_settings() {
             
             $settings = $this->get_settings( $current_section );
             WC_Admin_Settings::save_fields( $settings );
+        }
+
+        
+        /**
+         * Authorized_Minfraud
+         *
+         * @since 1.0
+         */
+        public function Authorized_Minfraud() {
+        
+            global $current_section;
+            $get_settings = $this->get_settings( $current_section );
+
+            if(isset( $get_settings ) ) {
+
+                $this->log->add( 'MinFraud', '====== Authentication function has been accessed' );
+
+                $curr_settings =  $get_settings['0']['id'];
+                $setting_type = get_option( 'wc_af_maxmind_type' );
+
+                $this->log->add( 'MinFraud', print_r( array( 'current settings tab' => $curr_settings, 'setting enable' => $setting_type ), true ) );
+
+                if($setting_type == 'yes' &&  $curr_settings == 'wc_af_minfraud_settings') {
+
+                    $maxmind_user = get_option( 'wc_af_maxmind_user' );
+                    $maxmind_license_key = get_option( 'wc_af_maxmind_license_key' );
+                    $authkey = "Basic ".base64_encode( $maxmind_user.":".$maxmind_license_key );
+
+                    $this->log->add( 'MinFraud', print_r( array( 'Authorization' => $authkey), true ) );
+
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://minfraud.maxmind.com/minfraud/v2.0/score",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_USERAGENT => "AnTiFrAuDOPMC",
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => "",
+                    CURLOPT_HTTPHEADER => array(
+                        "authorization:".$authkey,
+                        "cache-control: no-cache",
+                        "content-type: application/json",
+                        ),
+                    ));
+
+                    $response = curl_exec($curl);
+                    curl_close($curl);
+                    $result = json_decode( $response, true );
+                    $error = $result['code'];
+
+                    if ($error == 'AUTHORIZATION_INVALID') {
+
+                        $this->log->add( 'MinFraud', '====== Authentication failed' );
+                        $this->log->add( 'MinFraud', print_r( array( 'MaxMind Account Id' => $maxmind_user, 'MaxMind license key' => $maxmind_license_key ), true ) );
+                        add_action('admin_notices', array( $this, 'auth_error_admin_notice'));
+
+                    } else {
+
+                        $this->log->add( 'MinFraud', '====== Authentication succeed ' );
+                        add_action('admin_notices', array( $this, 'auth_success_admin_notice'));
+                        
+                    }
+                }
+            }            
+        }
+
+        /**
+         * Auth_error_admin_notice
+         *
+         * @since 1.0
+         */
+        public function auth_error_admin_notice() {
+        
+            ?>
+            <div class="error is-dismissible">
+                <p><strong>Your Account Id or License Key could not be authenticated!!</strong></p>
+            </div>
+
+            <?php
+        }
+
+        /**
+         * Auth_success_admin_notice
+         *
+         * @since 1.0
+         */
+        public function auth_success_admin_notice() {
+        
+            ?>
+            <div class="notice notice-success is-dismissible">
+                <p><strong>Great, authenticated successfully!!</strong></p>
+            </div>
+
+            <?php
         }
 
         public function suspicious_domains(){
@@ -790,11 +1006,105 @@ function wc_af_add_settings() {
 
         }
 
+        /**
+         * Authorized_Quickemailverification
+         *
+         * @since 1.0
+         */
+        public function Authorized_Quickemailverification() {
+        
+            global $current_section;
+            $get_settings = $this->get_settings( $current_section );
+
+            if(isset( $get_settings ) ) {
+
+                $curr_settings =  $get_settings['0']['id'];
+
+                $setting_type = get_option( 'wc_af_suspecius_email' );
+
+                if($setting_type == 'yes' &&  $curr_settings == 'wc_af_general_settings') {
+
+                    $email_api_key = get_option( 'check_email_domain_api_key' );
+                    $admin_email = get_option( 'admin_email' );
+
+                    $contents = @file_get_contents("https://api.quickemailverification.com/v1/verify?email=$admin_email&apikey=$email_api_key");
+
+                    if ( $contents !== false ) {
+
+                        $res = @json_decode($contents);
+                        
+                        if(json_last_error() === JSON_ERROR_NONE) {
+                            
+                            $data = @$res->message;
+
+                            if ( 'Invalid api key' !== $data  ) {
+
+                                add_action('admin_notices', array( $this, 'auth_quickemailverification_success_admin_notice'));
+                            } else {
+                                 add_action('admin_notices', array( $this, 'auth_quickemailverification_success_low_creadit_admin_notice'));
+                            }  
+                        } 
+
+                    } else {
+
+                         add_action('admin_notices', array( $this, 'auth_quickemailverification_error_admin_notice'));
+                    }
+                }
+            }            
+        }
+
+        /**
+         * Auth_error_admin_notice
+         *
+         * @since 1.0
+         */
+        public function auth_quickemailverification_error_admin_notice() {
+        
+            ?>
+            <div class="error is-dismissible">
+                <p><strong>Your Quickemailverification API Key could not be authenticated!!</strong></p>
+            </div>
+
+            <?php
+        }
+
+        /**
+         * Auth_success_admin_notice
+         *
+         * @since 1.0
+         */
+        public function auth_quickemailverification_success_admin_notice() {
+        
+            ?>
+            <div class="notice notice-success is-dismissible">
+                <p><strong>Great, Quickemailverification authenticated successfully!!</strong></p>
+            </div>
+
+            <?php
+        }
+
+        /**
+         * Auth_success_admin_notice With low creadit
+         *
+         * @since 1.0
+         */
+        public function auth_quickemailverification_success_low_creadit_admin_notice() {
+        
+            ?>
+            <div class="notice notice-info is-dismissible">
+                <p><strong>Great, Quickemailverification authenticated successfully but you don't have enough credit to use this service.</strong></p>
+            </div>
+
+            <?php
+        }
+        
+
     }
     $settings[] = new WC_AF_Settings();
      return $settings;
     /*$a =  new WC_AF_Settings();*/
     //$res = $a->get_settings();
+    
    }
 add_filter( 'woocommerce_get_settings_pages', 'wc_af_add_settings', 15 );
 endif;

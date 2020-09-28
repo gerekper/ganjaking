@@ -1,5 +1,13 @@
 *** Ajax Layered Nav Changelog ***
 
+2020-09-21 - version 1.4.26
+* Fix - Overflowing text in colorpicker input fields.
+* Tweak - Bump WC tested to 4.5.
+* Tweak - Automated translations.
+
+2020-08-11 - version 1.4.25
+* Tweak - WordPress 5.5 compatibility.
+
 2020-06-10 - version 1.4.24
 * Fix - Hide color picker title if all color picker attributes are  hidden.
 * Tweak - WC 4.2 compatibility.

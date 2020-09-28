@@ -36,6 +36,11 @@ class MPCA_User_Admin_Controller {
     foreach($mpca_data as $d) {
       $old_account = MPCA_Corporate_Account::find_corporate_account_by_obj_id($d['obj_id'], $d['obj_type']);
 
+      // Is it a sub account? If yes, bail out
+      // Sub accounts should not be convertible to a Corporate account
+      $is_sub_account = MPCA_Corporate_Account::is_obj_sub_account($d['obj_id'], $d['obj_type']);
+      if($is_sub_account) continue;
+
       if(empty($old_account)) {
         if(isset($d['is_corporate'])) {  // create
           $d['user_id'] = $user->ID;

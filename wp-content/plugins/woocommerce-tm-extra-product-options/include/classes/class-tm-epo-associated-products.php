@@ -137,6 +137,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			$priced_individually               = isset( $_POST['priced_individually'] ) ? $_POST['priced_individually'] : '';
 			$discount               		   = isset( $_POST['discount'] ) ? $_POST['discount'] : '';
 			$discount_type                     = isset( $_POST['discount_type'] ) ? $_POST['discount_type'] : '';
+			$mode                              = $_POST['mode'];
 			$layout_mode                       = $_POST['layout_mode'];
 			$product_id                        = $_POST['product_id'];
 			$product                           = wc_get_product( $product_id );
@@ -197,6 +198,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 				$args = array(
 					'tm_element_settings'               => array( 'uniqid' => $uniqid ),
+					'mode'                              => $mode,
 					'template'                          => $template,
 					'quantity_min'                      => $__min_value,
 					'quantity_max'                      => $__max_value,

@@ -10,12 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-global $post, $product;
+global $post;
 
 $the_post_id = $post->ID;
 
 foreach ( $products as $single_product_id => $single_product ) :
-
+	global $product;
 	$product = $single_product;
 	$post    = get_post( $single_product_id );
 

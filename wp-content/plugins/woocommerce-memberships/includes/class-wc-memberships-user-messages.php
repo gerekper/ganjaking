@@ -1247,7 +1247,7 @@ class WC_Memberships_User_Messages {
 				'<strong>', '</strong>'
 			);
 
-			$message = '<div class="woocommerce wc-memberships admin-restricted-content-notice">' . wp_kses_post( $text ) . ' <a href="#" class="dismiss-link">' . __( 'Dismiss', 'woocommerce-memberships' ) . '</a></div>';
+			$message = '<div class="woocommerce wc-memberships wc-memberships-frontend-banner admin-restricted-content-notice">' . wp_kses_post( $text ) . ' <a href="#" class="dismiss-link">' . __( 'Dismiss', 'woocommerce-memberships' ) . '</a></div>';
 		}
 
 		return $message;

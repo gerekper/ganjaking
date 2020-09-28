@@ -51,26 +51,14 @@ class Stats extends NextGen {
 		parent::__construct();
 		$this->is_pro_user = WP_Smush::is_pro();
 
-		// Update Total Image count.
-		add_action( 'ngg_added_new_image', array( $this, 'image_count' ), 10 );
-
-		// Update images list in cache.
-		add_action( 'wp_smush_nextgen_image_stats', array( $this, 'update_cache' ) );
+		// Clear stats cache when an image is restored.
+		add_action( 'wp_smush_image_nextgen_restored', array( $this, 'clear_cache' ) );
 
 		// Add the resizing stats to Global stats.
 		add_action( 'wp_smush_image_nextgen_resized', array( $this, 'update_stats' ), '', 2 );
 
 		// Get the stats for single image, update the global stats.
 		add_action( 'wp_smush_nextgen_image_stats', array( $this, 'update_stats' ), '', 2 );
-	}
-
-	/**
-	 * Refreshes the total image count when a new image is added to nextgen gallery
-	 * Should be called only if image count need to be updated, use total_count(), otherwise
-	 */
-	public function image_count() {
-		// Force the cache refresh for top-commented posts.
-		self::total_count( true );
 	}
 
 	/**
@@ -398,6 +386,18 @@ class Stats extends NextGen {
 		}
 
 		update_option( 'wp_smush_stats_nextgen', $smush_stats, false );
+		$this->clear_cache();
+	}
+
+	/**
+	 * Clears the object cache for NextGen stats.
+	 *
+	 * @since 3.7.0
+	 */
+	public function clear_cache() {
+		wp_cache_delete( 'wp_smush_images_smushed', 'nextgen' );
+		wp_cache_delete( 'wp_smush_images_unsmushed', 'nextgen' );
+		wp_cache_delete( 'wp_smush_images', 'nextgen' );
 	}
 
 	/**

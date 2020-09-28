@@ -76,11 +76,11 @@ class WC_Product_Reviews_Pro_Contribution_Flag {
 
 		$flag_data = current( $flag_data );
 
-		$this->user_id   = isset( $flag_data['user_id'] )   && is_numeric( $flag_data['user_id'] )   ? (int) $flag_data['user_id']   : 0;
-		$this->reason    = isset( $flag_data['reason'] )    && is_string( $flag_data['reason'] )     ? $flag_data['reason']          : '';
-		$this->resolved  = isset( $flag_data['resolved'] )  && is_bool( $flag_data['resolved'] )     ? $flag_data['resolved']        : false;
-		$this->timestamp = isset( $flag_data['timestamp'] ) && is_numeric( $flag_data['timestamp'] ) ? (int) $flag_data['timestamp'] : current_time( 'timestamp', true );
-		$this->ip        = isset( $flag_data['ip'] )        && is_string( $flag_data['ip'] )         ? $flag_data['ip']              : '';
+		$this->user_id   = isset( $flag_data['user_id'] )   && is_numeric( $flag_data['user_id'] )   ? (int) $flag_data['user_id']               : 0;
+		$this->reason    = isset( $flag_data['reason'] )    && is_string( $flag_data['reason'] )     ? wp_strip_all_tags( $flag_data['reason'] ) : '';
+		$this->resolved  = isset( $flag_data['resolved'] )  && is_bool( $flag_data['resolved'] )     ? $flag_data['resolved']                    : false;
+		$this->timestamp = isset( $flag_data['timestamp'] ) && is_numeric( $flag_data['timestamp'] ) ? (int) $flag_data['timestamp']             : current_time( 'timestamp', true );
+		$this->ip        = isset( $flag_data['ip'] )        && is_string( $flag_data['ip'] )         ? $flag_data['ip']                          : '';
 	}
 
 
@@ -369,7 +369,7 @@ class WC_Product_Reviews_Pro_Contribution_Flag {
 	public function set_reason( $reason ) {
 
 		if ( is_string( $reason ) ) {
-			$this->reason = $reason;
+			$this->reason = wp_strip_all_tags( $reason );
 		}
 	}
 

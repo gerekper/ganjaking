@@ -124,7 +124,7 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
     else {
       if(!$usr->signup_notice_sent) {
         if($this->settings->always_send_welcome) {
-          MeprUtils::send_notices($txn, 'MeprUserWelcomeEmail', 'MeprAdminSignupEmail');
+          MeprUtils::send_signup_notices($txn, false, true);
         }
         else {
           MeprUtils::send_notices($txn, null, 'MeprAdminSignupEmail');
@@ -243,7 +243,7 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
     else {
       if(!$usr->signup_notice_sent) {
         if($this->settings->always_send_welcome) {
-          MeprUtils::send_notices($txn, 'MeprUserWelcomeEmail', 'MeprAdminSignupEmail');
+          MeprUtils::send_signup_notices($txn, false, true);
         }
         else {
           MeprUtils::send_notices($txn, null, 'MeprAdminSignupEmail');

@@ -199,9 +199,7 @@ $bloginfo = get_bloginfo( 'name', 'display' );
 		</div>
 		<script type="text/javascript">
 			jQuery(function(){
-				jQuery(document).ready(function(){
-					window.print();
-				});
+				window.print();
 			});
 		</script>
 	</body>

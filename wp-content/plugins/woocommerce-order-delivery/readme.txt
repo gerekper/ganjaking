@@ -50,6 +50,10 @@ Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-order-
 
 == Changelog ==
 
+= 1.7.1 September 14, 2020 =
+* Tweak - Tested compatibility with WC 4.5.
+* Tweak - Tested compatibility with WP 5.5.
+
 = 1.7.0 July 23, 2020 =
 * Feature - Define different delivery ranges for shipping methods.
 * Tweak - Enqueue minified Javascript files.

@@ -11,7 +11,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'MailPoetGenerated\\PremiumCachedContainer' => $baseDir . '/generated/PremiumCachedContainer.php',
     'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder' => $baseDir . '/lib/API/JSON/v1/ResponseBuilders/StatsResponseBuilder.php',
+    'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder' => $baseDir . '/lib/API/JSON/v1/ResponseBuilders/SubscriberDetailedStatsResponseBuilder.php',
     'MailPoet\\Premium\\API\\JSON\\v1\\Stats' => $baseDir . '/lib/API/JSON/v1/Stats.php',
+    'MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats' => $baseDir . '/lib/API/JSON/v1/SubscriberDetailedStats.php',
     'MailPoet\\Premium\\Config\\Env' => $baseDir . '/lib/Config/Env.php',
     'MailPoet\\Premium\\Config\\Hooks' => $baseDir . '/lib/Config/Hooks.php',
     'MailPoet\\Premium\\Config\\Initializer' => $baseDir . '/lib/Config/Initializer.php',
@@ -23,4 +25,6 @@ return array(
     'MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository' => $baseDir . '/lib/Newsletter/StatisticsUnsubscribesRepository.php',
     'MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts' => $baseDir . '/lib/Newsletter/Stats/PurchasedProducts.php',
     'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement' => $baseDir . '/lib/Newsletter/Stats/SubscriberEngagement.php',
+    'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStats' => $baseDir . '/lib/Subscriber/Stats/SubscriberNewsletterStats.php',
+    'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository' => $baseDir . '/lib/Subscriber/Stats/SubscriberNewsletterStatsRepository.php',
 );

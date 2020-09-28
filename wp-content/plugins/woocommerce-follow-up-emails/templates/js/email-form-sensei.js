@@ -1,11 +1,11 @@
 var init_sensei_search;
 
 jQuery( function ( $ ) {
-    jQuery("body").bind("fue_email_type_changed", function(evt, type) {
+    jQuery("body").on("fue_email_type_changed", function(evt, type) {
         sensei_toggle_fields( type );
     });
 
-    jQuery("body").bind("updated_email_details", function() {
+    jQuery("body").on("updated_email_details", function() {
         sensei_toggle_interval_type_fields( $("#interval_type").val() );
     });
 
@@ -105,7 +105,7 @@ jQuery( function ( $ ) {
     });
 
     // enable visible input fields
-    $('body').bind('updated_email_details', function() {
+    $('body').on('updated_email_details', function() {
         init_sensei_search();
         $("#trigger_conditions :input:visible").removeAttr("disabled");
 

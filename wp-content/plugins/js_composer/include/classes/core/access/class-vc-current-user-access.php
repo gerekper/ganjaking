@@ -87,4 +87,47 @@ class Vc_Current_User_Access extends Vc_Role_Access {
 
 		return $this;
 	}
+
+	public function canEdit( $id ) {
+		// @codingStandardsIgnoreStart
+		$post = get_post( $id );
+		if ( ! $post ) {
+			$this->setValidAccess( false );
+
+			return $this;
+		}
+		if ( $post->post_status === 'trash' ) {
+			$this->setValidAccess( false );
+
+			return $this;
+		}
+		if ( 'page' !== $post->post_type ) {
+			if ( 'publish' === $post->post_status && $this->wpAll( [
+						get_post_type_object( $post->post_type )->cap->edit_published_posts,
+						$post->ID,
+					] )->get() ) {
+				$this->setValidAccess( true );
+
+				return $this;
+			} elseif ( 'publish' !== $post->post_status && $this->wpAll( [
+						get_post_type_object( $post->post_type )->cap->edit_posts,
+						$post->ID,
+					] )->get() ) {
+				$this->setValidAccess( true );
+
+				return $this;
+			}
+		} elseif ( 'page' === $post->post_type && $this->wpAll( [
+				'edit_pages',
+				$post->ID,
+			] )->get() ) {
+			$this->setValidAccess( true );
+
+			return $this;
+		}
+
+		$this->setValidAccess( false );
+
+		return $this;
+	}
 }

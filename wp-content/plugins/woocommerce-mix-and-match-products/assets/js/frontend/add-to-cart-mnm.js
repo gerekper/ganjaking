@@ -1000,15 +1000,15 @@ jQuery.fn.wc_get_mnm_script = function() {
 		};
 
 		/**
-		 * Shuts down events, actions and filters managed by this script object.
+		 * Validates if this container's requirements are met and can be added to the cart.
 		 */
 		this.validate = function() {
 			
-			var min_container_size  = this.api.get_min_container_size();
-			var max_container_size  = this.api.get_max_container_size();
-			var total_qty			= this.api.get_container_size();
-			var error_message 		= '';
-			var validation_status        = container.is_initialized ? '' : container.api.get_validation_status();
+			var min_container_size = this.api.get_min_container_size();
+			var max_container_size = this.api.get_max_container_size();
+			var total_qty          = this.api.get_container_size();
+			var error_message      = '';
+			var validation_status  = container.is_initialized ? '' : container.api.get_validation_status();
 
 			// Validation.
 			if( min_container_size === max_container_size && total_qty !== min_container_size ){

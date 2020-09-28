@@ -95,10 +95,19 @@ class MpimpCorporateSubAccountsImporter extends MpimpUsersImporter {
       if($user_id) {
         $u = new MeprUser($user_id);
         if($row['email'] !== $u->user_email) {
-          throw new Exception( sprintf(__('User (email=%s, username=%s) already exists with this username. Please choose a different USERNAME.', 'memberpress-corporate'), $u->user_email, $u->user_login) );
+          if(current_user_can( 'manage_options' )){
+            throw new Exception( sprintf(__('User (email=%s, username=%s) already exists with this username. Please choose a different USERNAME.', 'memberpress-corporate'), $u->user_email, $u->user_login) );
+          }else{
+            throw new Exception( sprintf(__('User (username=%s) already exists. Please choose a different USERNAME.', 'memberpress-corporate'), $u->user_login) );
+          }
         }
         else if($row['username'] !== $u->user_login) {
-          throw new Exception( sprintf(__('User (email=%s, username=%s) already exists with this email. Please choose a different EMAIL.', 'memberpress-corporate'), $u->user_email, $u->user_login) );
+          if(current_user_can( 'manage_options' )){
+            throw new Exception( sprintf(__('User (email=%s, username=%s) already exists with this email. Please choose a different EMAIL.', 'memberpress-corporate'), $u->user_email, $u->user_login) );
+          }
+          else{
+            throw new Exception( sprintf(__('User (email=%s) already exists. Please choose a different EMAIL.', 'memberpress-corporate'), $u->user_email) );
+          }
         }
       }
 

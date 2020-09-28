@@ -1,3 +1,21 @@
+Version 4.9.38 (22 September 2020)
+============================
+ - New feature: Option to convert datepicker value to age in user profile
+ - Enhancement: LinkedIn social connect v2
+ - Enhancement: Removed CURL notice in licensing page (no longer used)
+ - Enhancement: Datepicker format validation
+ - Enhancement: Add new connection now returns "Pending request" instead of "Undefined"
+ - Enhancement: Country now can be de-selected by users
+ - Enhancement: File upload field "allowed extensions" now can be edited
+ - Enhancement: Function "post_thumb" accepts more parameters and can be used via template override
+ - Fixed bug: File/Picture upload no longer ignores size limit
+ - Fixed bug: MultiSelect field now works with required option
+ - Fixed bug: Follow - unfollow issues
+ - Fixed bug: Pop-up registration - webcam issue
+ - Fixed bug: Incompatibility with MailChimp for WooCommerce plugin
+ - Fixed bug: Email is in use, when administrator edits another user
+ - Fixed bug: WordPress site health issue - The REST API encountered an error 
+============================
 Version 4.9.37.1 (29 April 2020)
 ============================
  - Fixed bug: License activation in UserPro admin page

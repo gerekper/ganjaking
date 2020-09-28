@@ -145,6 +145,7 @@ class WC_Memberships_Admin_Import_Export_Handler {
 	 * Sets the Memberships admin menu item as active while viewing the Import / Export tab page.
 	 *
 	 * @internal
+	 * @see \SkyVerge\WooCommerce\Memberships\Admin\Profile_Fields::set_current_admin_menu_item()
 	 *
 	 * @since 1.6.2
 	 *
@@ -175,6 +176,9 @@ class WC_Memberships_Admin_Import_Export_Handler {
 
 	/**
 	 * Sets the admin page title.
+	 *
+	 * @internal
+	 * @see Profile_Fields::set_admin_page_title()
 	 *
 	 * @since 1.6.2
 	 *
@@ -449,16 +453,16 @@ class WC_Memberships_Admin_Import_Export_Handler {
 	 */
 	private function get_export_fields() {
 
-		$options = array(
+		$options = [
 
 			// section start
-			array(
+			[
 				'title' => __( 'Export Members', 'woocommerce-memberships' ),
 				'type'  => 'title',
-			),
+			],
 
 			// select plans to export from
-			array(
+			[
 				'id'                => 'wc_memberships_members_csv_export_plan',
 				'title'             => __( 'Plan', 'woocommerce-memberships' ),
 				'desc_tip'          => __( 'Choose which plan(s) to export members from. Leave blank to export members from every plan.', 'woocommerce-memberships' ),
@@ -467,13 +471,13 @@ class WC_Memberships_Admin_Import_Export_Handler {
 				'default'           => '',
 				'class'             => 'wc-enhanced-select',
 				'css'               => 'min-width: 250px;',
-				'custom_attributes' => array(
+				'custom_attributes' => [
 					'data-placeholder' => __( 'Leave blank to export members of any plan.', 'woocommerce-memberships' ),
-				)
-			),
+				],
+			],
 
 			// select membership statuses to export
-			array(
+			[
 				'id'                => 'wc_memberships_members_csv_export_status',
 				'title'             => __( 'Status', 'woocommerce-memberships' ),
 				'desc_tip'          => __( 'Choose to export user memberships with specific status(es) only. Leave blank to export user memberships of any status.', 'woocommerce-memberships' ),
@@ -482,13 +486,13 @@ class WC_Memberships_Admin_Import_Export_Handler {
 				'default'           => '',
 				'class'             => 'wc-enhanced-select',
 				'css'               => 'min-width: 250px;',
-				'custom_attributes' => array(
+				'custom_attributes' => [
 					'data-placeholder' => __( 'Leave blank to export members with any status.', 'woocommerce-memberships' ),
-				)
-			),
+				],
+			],
 
 			// set memberships minimum start date
-			array(
+			[
 				'id'    => 'wc_memberships_members_csv_export_start_date',
 				'title' => __( 'Start Date', 'woocommerce-memberships' ),
 				/* translators: Placeholder: %s - date format */
@@ -500,10 +504,10 @@ class WC_Memberships_Admin_Import_Export_Handler {
 				'css'   => 'max-width: 120px;',
 				'type'  => 'wc-memberships-date-range',
 				'class' => 'js-user-membership-date',
-			),
+			],
 
 			// set memberships maximum end date
-			array(
+			[
 				'id'    => 'wc_memberships_members_csv_export_end_date',
 				'title' => __( 'End Date', 'woocommerce-memberships' ),
 				/* translators: Placeholder: %s - date format */
@@ -515,32 +519,44 @@ class WC_Memberships_Admin_Import_Export_Handler {
 				'css'   => 'max-width: 120px;',
 				'type'  => 'wc-memberships-date-range',
 				'class' => 'js-user-membership-date',
-			),
+			],
+
+			// export profile fields
+			[
+				'id'       => 'wc_memberships_members_csv_export_profile_fields',
+				'name'     => __( 'Profile fields', 'woocommerce-memberships' ),
+				'type'     => 'checkbox',
+				'desc'     => __( 'Include profile fields', 'woocommerce-memberships' ),
+				'desc_tip' => __( 'Include member profile field data in member export.', 'woocommerce-memberships' ),
+				'default'  => 'no',
+			],
 
 			// export all post meta
-			array(
+			[
 				'id'       => 'wc_memberships_members_csv_export_meta_data',
 				'name'     => __( 'Meta data', 'woocommerce-memberships' ),
 				'type'     => 'checkbox',
 				'desc'     => __( 'Include additional meta data', 'woocommerce-memberships' ),
 				'desc_tip' => __( 'Add an extra column to the CSV file with all post meta of each membership in JSON format.', 'woocommerce-memberships' ),
 				'default'  => 'no'
-			),
+			],
 
 			// entries are going to be separated by comma or tab? (filterable)
-			array(
+			[
 				'id'       => 'wc_memberships_members_csv_export_fields_delimiter',
 				'name'     => __( 'Separate fields by', 'woocommerce-memberships' ),
 				'type'     => 'select',
 				'class'    => 'wc-enhanced-select',
 				'desc_tip' => __( 'Change the delimiter based on your desired output format.', 'woocommerce-memberships' ),
 				'options'  => $this->get_csv_delimiter_options( 'export' ),
-			),
+			],
 
 			// section end
-			array( 'type' => 'sectionend' ),
+			[
+				'type' => 'sectionend'
+			],
 
-		);
+		];
 
 		/**
 		 * Filters CSV Export User Memberships options.

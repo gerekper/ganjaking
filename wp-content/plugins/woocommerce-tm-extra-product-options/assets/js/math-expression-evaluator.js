@@ -14,6 +14,7 @@
 	};
 
 	var token = [
+		'round',
 		'ceil',
 		'floor',
 		'abs',
@@ -66,6 +67,7 @@
 		'pow'
 	];
 	var show = [
+		'round',
 		'ceil',
 		'floor',
 		'abs',
@@ -123,12 +125,12 @@
 		[],
 		[ '1', '2', '3', '7', '8', '9', '4', '5', '6', '+', '-', '*', '/', '(', ')', '^', '!', 'P', 'C', 'e', '0', '.', ',', 'n' ],
 		[ 'pi', 'ln', 'Pi' ],
-		[ 'ceil', 'floor', 'abs', 'exp', 'sqrt' ],
+		[ 'round', 'ceil', 'floor', 'abs', 'exp', 'sqrt' ],
 		[ 'sin', 'cos', 'tan', 'Del', 'int', 'Mod', 'log', 'pow' ],
 		[ 'asin', 'acos', 'atan', 'cosh', 'root', 'tanh', 'sinh' ],
 		[ 'acosh', 'atanh', 'asinh', 'Sigma' ]
 	];
-	var type = [ 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 5, 10, 10, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 10, 0, 1, 1, 1, 2, 7, 0, 0, 2, 1, 1, 1, 2, 0, 0, 3, 0, 1, 6, 9, 9, 11, 12, 13, 12, 8 ];
+	var type = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 5, 10, 10, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 10, 0, 1, 1, 1, 2, 7, 0, 0, 2, 1, 1, 1, 2, 0, 0, 3, 0, 1, 6, 9, 9, 11, 12, 13, 12, 8 ];
 	/*
      0 : function with syntax function_name(Maths_exp)
      1 : numbers
@@ -371,6 +373,7 @@
 	};
 
 	eva = [
+		Math.round,
 		Math.ceil,
 		Math.floor,
 		Math.abs,

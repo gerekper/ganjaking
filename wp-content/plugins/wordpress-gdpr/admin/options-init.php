@@ -26,7 +26,7 @@ if (! class_exists('Redux')) {
         'use_cdn' => true,
         'dev_mode' => false,
         'display_name' => __('WordPress GDPR', 'wordpress-gdpr'),
-        'display_version' => '1.9.5',
+        'display_version' => '1.9.7',
         'page_title' => __('WordPress GDPR', 'wordpress-gdpr'),
         'update_notice' => true,
         'intro_text' => '',
@@ -362,7 +362,7 @@ if (! class_exists('Redux')) {
                 'type' => 'color',
                 'title' => __('Decline Button Background Color', 'wordpress-gdpr'), 
                 'validate' => 'color',
-                'default' => '#F44336',
+                'default' => '#777777',
                 'required' => array('popupEnable','equals','1'),
             ),
             array(
@@ -583,7 +583,7 @@ if (! class_exists('Redux')) {
                 'type' => 'color',
                 'title' => __('Decline Button Background Color', 'wordpress-gdpr'), 
                 'validate' => 'color',
-                'default' => '#F44336',
+                'default' => '#777777',
                 'required' => array('privacySettingsPopupEnable','equals','1'),
             ),
             array(

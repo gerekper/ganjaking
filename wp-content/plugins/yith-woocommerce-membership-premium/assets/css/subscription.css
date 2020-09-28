@@ -1,0 +1,49 @@
+/**
+ * Subscription
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+.yith-wcmbs-subscription-status {
+    border-radius    : 3px;
+    padding          : 4px 7px;
+    font-size        : 12px;
+    box-sizing       : border-box;
+    line-height      : 1em;
+    display: inherit;
+    background-color: #ccc;
+    color: #fff;
+    text-shadow: none;
+}
+
+.yith-wcmbs-subscription-status {
+    font-size: 12px;
+}
+
+.yith-wcmbs-subscription-status.active,
+.yith-wcmbs-subscription-status.success {
+    background-color: #40C749;
+}
+
+.yith-wcmbs-subscription-status.pending {
+    background-color: #FD8210;
+}
+
+.yith-wcmbs-subscription-status.trial,
+.yith-wcmbs-subscription-status.info {
+    background-color: #408AC7;
+}
+
+.yith-wcmbs-subscription-status.suspended {
+    background-color: #c73878;
+}
+
+.yith-wcmbs-subscription-status.cancelled,
+.yith-wcmbs-subscription-status.error {
+    background-color: #c70509;
+}
+
+.yith-wcmbs-subscription-status.overdue {
+    background-color: #3d8931;
+}

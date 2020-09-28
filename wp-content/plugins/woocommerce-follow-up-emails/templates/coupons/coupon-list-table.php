@@ -184,11 +184,11 @@ $coupons = FUE_Coupons::get_coupons();
 </div>
 <script>
 	jQuery(document).ready(function($) {
-		$("div.section:gt(0)").hide();
+		$("div.section").slice(1).hide();
 
 		// Subsubsub tabs
-		jQuery('div.subsubsub_section ul.subsubsub li a:eq(0)').addClass('current');
-		jQuery('div.subsubsub_section .section:gt(0)').hide();
+		jQuery('div.subsubsub_section ul.subsubsub li a').first().addClass('current');
+		jQuery('div.subsubsub_section .section').slice(1).hide();
 
 		jQuery('div.subsubsub_section ul.subsubsub li a').click(function(){
 			var $clicked = jQuery(this);

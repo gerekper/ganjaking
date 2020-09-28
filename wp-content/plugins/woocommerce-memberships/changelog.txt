@@ -1,5 +1,13 @@
 *** WooCommerce Memberships Changelog ***
 
+2020.09.23 - version 1.19.0
+ * Feature - Members can now be segmented by adding custom profile fields to their memberships
+ * Feature - Add new admin screens to let merchants manage custom profile fields for their members
+ * Feature - Members can fill or edit profile fields when signing up for a membership or from a dedicated area in the My Account page
+ * Feature - Add member profile fields support when importing or exporting memberships
+ * Feature - Add member profile fields support to the REST API
+ * Misc - Remove the SkyVerge help menu item as part of the plugin assets
+
 2020.08.24 - version 1.18.0
  * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
 

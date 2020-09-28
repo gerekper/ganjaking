@@ -145,6 +145,14 @@ if ( ! defined( 'WPINC' ) ) {
 							<span aria-hidden="true">&nbsp;</span>
 							<span><?php esc_html_e( 'Tools', 'wp-smushit' ); ?></span>
 						</label>
+						<?php // Don't display if Dashboard's whitelabel is hiding documentation. ?>
+						<?php if ( ! apply_filters( 'wpmudev_branding_hide_doc_link', false ) ) : ?>
+							<label class="sui-checkbox sui-checkbox-stacked sui-checkbox-sm">
+								<input type="checkbox" id="module-tutorials" name="<?php echo esc_attr( WP_SMUSH_PREFIX ); ?>access[]" value="tutorials" <?php checked( ! is_array( $networkwide ) || in_array( 'tutorials', $networkwide, true ) ); ?>>
+								<span aria-hidden="true">&nbsp;</span>
+								<span><?php esc_html_e( 'Tutorials', 'wp-smushit' ); ?></span>
+							</label>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

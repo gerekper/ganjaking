@@ -99,7 +99,7 @@ function betterdocs_customize_register_pro( $wp_customize ) {
 			$wp_customize, 'betterdocs_mkb_background_image', array(
 			'section'  => 'betterdocs_mkb_settings',
 			'settings' => 'betterdocs_mkb_background_image',
-			'label'    => __( 'Backgroud Image', 'betterdocs' ),
+			'label'    => __( 'Background Image', 'betterdocs' ),
 			'priority' => 3
 		) ) );
 
@@ -964,7 +964,7 @@ function betterdocs_customize_register_pro( $wp_customize ) {
 		'type'     => 'betterdocs-range-value',
 		'section'  => 'betterdocs_doc_page_settings',
 		'settings' => 'betterdocs_doc_page_cat_title_font_size2',
-		'label'    => __( 'Article List Title Font Size', 'betterdocs-pro' ),
+		'label'    => __( 'Docs List Title Font Size', 'betterdocs-pro' ),
 		'priority' => 34,
 		'input_attrs' => array(
 			'min'    => 0,

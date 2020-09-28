@@ -100,10 +100,12 @@ class WoocommerceProductFeedsMain {
 
 		if ( is_admin() ) {
 			$this->gpf_admin                 = $this->container['WoocommerceGpfAdmin'];
+			$this->gpf_db_manager            = $this->container['WoocommerceProductFeedsDbManager'];
 			$this->status_report             = $this->container['WoocommerceGpfStatusReport'];
 			$this->prf_admin                 = $this->container['WoocommercePrfAdmin'];
 			$this->import_export_integration = $this->container['WoocommerceGpfImportExportIntegration'];
 			$this->gpf_admin->initialise();
+			$this->gpf_db_manager->initialise();
 			$this->status_report->initialise();
 			$this->prf_admin->initialise();
 			$this->import_export_integration->initialise();

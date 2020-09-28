@@ -494,6 +494,7 @@ class Settings {
 		$this->delete_setting( WP_SMUSH_PREFIX . 'lazy_load' );
 		$this->delete_setting( 'skip-smush-setup' );
 		$this->delete_setting( WP_SMUSH_PREFIX . 'hide_pagespeed_suggestion' );
+		$this->delete_setting( WP_SMUSH_PREFIX . 'hide_tutorials_from_bulk_smush' );
 
 		wp_send_json_success();
 	}

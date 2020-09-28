@@ -346,6 +346,7 @@ class THEMECOMPLETE_EPO_Scripts {
 				wp_enqueue_style( $handle, $args['src'], $args['deps'], $args['version'], $args['media'] );
 			}
 		}
+		global $post, $product;
 
 		$dependencies   = array();
 		$dependencies[] = 'jquery-ui-slider';
@@ -577,7 +578,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			'current_free_text' => esc_html( THEMECOMPLETE_EPO()->current_free_text ),
 			'assoc_current_free_text' => esc_html( THEMECOMPLETE_EPO()->assoc_current_free_text ),
 
-			'cart_total' => floatval( WC()->cart->get_cart_contents_total() ),
+			'cart_total' => ( function_exists( 'WC' ) && WC()->cart ) ? floatval( WC()->cart->get_cart_contents_total() ) : 0,
 
 			'quickview_container' => esc_html( wp_json_encode( apply_filters( 'wc_epo_js_quickview_container', array() ) ) ),
 			'quickview_array'     => esc_html( wp_json_encode( apply_filters( 'wc_epo_get_quickview_containers', array() ) ) ),

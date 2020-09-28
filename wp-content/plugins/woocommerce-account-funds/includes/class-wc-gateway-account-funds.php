@@ -90,8 +90,10 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 				return false;
 			}
 
-			// There are no enough funds to pay for the whole order.
-			if ( WC_Account_Funds_Cart_Manager::using_funds() && $this->get_order_total() > 0 ) {
+			$available_funds = WC_Account_Funds::get_account_funds( null, false );
+			$cart_total      = $this->get_order_total();
+
+			if ( $available_funds <= $cart_total ) {
 				return false;
 			}
 		}

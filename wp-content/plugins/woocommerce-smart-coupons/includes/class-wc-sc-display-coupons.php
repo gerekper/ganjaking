@@ -1104,18 +1104,14 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 						jQuery('#sc_coupons_list').hide();
 					}
 
-					jQuery( document ).ready(function() {
-						if( jQuery('div#all_coupon_container').children().length == 0 ) {
-							jQuery('#coupons_list').hide();
-						}
-					});
+					if( jQuery('div#all_coupon_container').children().length == 0 ) {
+						jQuery('#coupons_list').hide();
+					}
 
-					jQuery( document ).ready(function() {
-						if( jQuery('div.woocommerce-MyAccount-content').children().length == 0 ) {
-							jQuery('.woocommerce-MyAccount-content').append(jQuery('.woocommerce-Message.woocommerce-Message--info.woocommerce-info'));
-							jQuery('.woocommerce-Message.woocommerce-Message--info.woocommerce-info').show();
-						}
-					});
+					if( jQuery('div.woocommerce-MyAccount-content').children().length == 0 ) {
+						jQuery('.woocommerce-MyAccount-content').append(jQuery('.woocommerce-Message.woocommerce-Message--info.woocommerce-info'));
+						jQuery('.woocommerce-Message.woocommerce-Message--info.woocommerce-info').show();
+					}
 
 					/* to show scroll bar for core coupons */
 					var coupons_list = jQuery('#coupons_list');

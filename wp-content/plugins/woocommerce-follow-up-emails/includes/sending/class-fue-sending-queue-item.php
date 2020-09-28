@@ -178,34 +178,36 @@ class FUE_Sending_Queue_Item {
 		}
 
 		foreach ( $fields as $field => $value ) {
-			if ( $field == 'meta' ) {
-				$data[ $field ] = maybe_serialize( $this->$field );
-			} else {
-				$data[ $field ] = $this->$field;
+			switch ( $field ) {
+				case 'meta':
+					$data[ $field ] = maybe_serialize( $this->$field );
+					break;
+				case 'id':
+					// Do not set (on insert it will be autoassigned, and for updating we pass it in the update).
+					break;
+				default:
+					$data[ $field ] = $this->$field;
+					break;
 			}
 		}
 
 		if ( $id ) {
-			// updating
-			unset($data['id']);
-
 			$wpdb->update(
-				$wpdb->prefix .'followup_email_orders',
+				$wpdb->prefix . 'followup_email_orders',
 				$data,
-				array('id' => $id)
+				array( 'id' => $id )
 			);
 		} else {
 			$wpdb->insert(
-				$wpdb->prefix .'followup_email_orders',
+				$wpdb->prefix . 'followup_email_orders',
 				$data
 			);
 
 			$this->id = $wpdb->insert_id;
-			$id = $this->id;
+			$id       = $this->id;
 		}
 
 		return $id;
-
 	}
 
 	public function get_user() {

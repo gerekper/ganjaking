@@ -58,7 +58,7 @@
 			continue;
 		}
 
-		$thumbnail = get_thumbnail_data( $_product, 'shop_thumbnail', array( 'title' => '' ) );
+		$thumbnail = get_thumbnail_data( $_product, 'woocommerce_thumbnail', array( 'title' => '' ) );
 
 		$thumbnail_html = sprintf( '<a href="%s">%s</a>', esc_url( $item['link'] ), $thumbnail );
 

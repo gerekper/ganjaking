@@ -65,6 +65,7 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 			'quantity'        => isset( $element['quantity'] ) ? $element['quantity'] : "",
 			'saved_value'     => $saved_value,
 			'upload_text'     => $upload_text,
+			'allowed_mimes'   => implode( ', ', THEMECOMPLETE_EPO()->get_allowed_mimes()),
 		);
 	}
 
@@ -129,7 +130,7 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 
 			if ( empty( $upload['error'] ) && ! empty( $upload['file'] ) ) {
 				$value = wc_clean( $upload['url'] );
-				if ( empty( $upload['tc'] ) ) {
+				if ( empty( $upload['tc'] ) && THEMECOMPLETE_EPO()->tm_epo_upload_success_message === 'yes' ) {
 					wc_add_notice( esc_html__( "Upload successful", 'woocommerce-tm-extra-product-options' ), 'success' );
 				}
 				$can_be_added = TRUE;
@@ -178,7 +179,7 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 			$upload = THEMECOMPLETE_EPO()->upload_file( $_FILES[ $this->attribute ] );
 			if ( empty( $upload['error'] ) && ! empty( $upload['file'] ) ) {
 				$value = wc_clean( $upload['url'] );
-				if ( empty( $upload['tc'] ) ) {
+				if ( empty( $upload['tc'] ) && THEMECOMPLETE_EPO()->tm_epo_upload_success_message === 'yes' ) {
 					wc_add_notice( esc_html__( "Upload successful", 'woocommerce-tm-extra-product-options' ), 'success' );
 				}
 				$_price = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $this->element, $this->key, $this->attribute, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id );

@@ -606,6 +606,15 @@ class MeprUser extends MeprBaseModel {
   }
 
   public function destroy() {
+    if(!function_exists('wp_delete_user')) {
+      if(!is_multisite()) {
+        require_once(ABSPATH . 'wp-admin/includes/user.php');
+      }
+      else {
+        require_once(ABSPATH . 'wp-admin/includes/ms.php');
+      }
+    }
+
     $res = wp_delete_user($this->ID);
 
     if(false===$res) {

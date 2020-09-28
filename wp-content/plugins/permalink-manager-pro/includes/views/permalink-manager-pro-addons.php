@@ -10,13 +10,15 @@ class Permalink_Manager_Pro_Addons extends Permalink_Manager_Class {
 	}
 
 	public function init() {
-		add_filter( 'permalink_manager_sections', array($this, 'add_admin_section'), 5 );
+		if(Permalink_Manager_Admin_Functions::is_pro_active()) {
+			add_filter( 'permalink_manager_sections', array($this, 'add_admin_section'), 5 );
 
-		// Stop Words
-		add_action( 'admin_init', array($this, 'save_stop_words'), 9 );
+			// Stop Words
+			add_action( 'admin_init', array($this, 'save_stop_words'), 9 );
 
-		add_filter( 'permalink_manager_tools_fields', array($this, 'filter_tools_fields'), 9, 2 );
-		add_filter( 'permalink_manager_permastructs_fields', array($this, 'filter_permastructure_fields'), 9 );
+			add_filter( 'permalink_manager_tools_fields', array($this, 'filter_tools_fields'), 9, 2 );
+			add_filter( 'permalink_manager_permastructs_fields', array($this, 'filter_permastructure_fields'), 9 );
+		}
 
 		add_filter( 'permalink_manager_settings_fields', array($this, 'filter_settings_fields'), 9 );
 	}

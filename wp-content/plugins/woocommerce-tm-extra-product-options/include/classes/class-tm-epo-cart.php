@@ -295,7 +295,7 @@ class THEMECOMPLETE_EPO_Cart {
 
 		if (!isset($cart_item_meta['associated_products_price']) || !empty($cart_item_meta['tc_recalculate'])) {
 
-			$associated_products_price = 0;			
+			$associated_products_price = 0;
 
 			if ( isset( $cart_item_meta['associated_products'] ) ) {
 				foreach ( $cart_item_meta['associated_products'] as $associated_cart_key ) {
@@ -471,9 +471,9 @@ class THEMECOMPLETE_EPO_Cart {
 	 */
 	public function woocommerce_add_to_cart( $cart_item_key = "", $product_id = "", $quantity = "", $variation_id = "", $variation = "", $cart_item_data = "" ) {
 
-		if ( ! did_action( 'woocommerce_cart_loaded_from_session' ) ) {
-			return;
-		}
+		//if ( ! did_action( 'woocommerce_cart_loaded_from_session' ) ) {
+		//	return;
+		//}
 
 		WC()->cart->cart_contents[ $cart_item_key ] = $this->add_cart_item( WC()->cart->cart_contents[ $cart_item_key ] );
 	}
@@ -484,7 +484,7 @@ class THEMECOMPLETE_EPO_Cart {
 	 * @since 1.0
 	 */
 	public function add_cart_item( $cart_item = array() ) {
-
+		
 		if ( apply_filters( 'wc_epo_no_add_cart_item', FALSE ) ) {
 			return $cart_item;
 		}
@@ -494,7 +494,7 @@ class THEMECOMPLETE_EPO_Cart {
 		* when currency or product price is being changed from various
 		* 3rd part plugins.
 		*/
-		$cart_item['tm_epo_product_original_price'] = apply_filters( 'wc_epo_add_cart_item_original_price', $cart_item['data']->get_price(), $cart_item );
+		$cart_item['tm_epo_product_original_price'] = apply_filters( 'wc_epo_add_cart_item_original_price', $cart_item['data']->get_price( 'edit' ), $cart_item );
 
 		$cart_item['tm_epo_options_prices']             = 0;
 		$cart_item['tm_epo_product_price_with_options'] = $cart_item['tm_epo_product_original_price'];
@@ -669,7 +669,7 @@ class THEMECOMPLETE_EPO_Cart {
 			$price2 = wc_format_decimal( apply_filters( 'wc_epo_add_cart_item_calculated_price2', $price2, $cart_item ) );
 
 			$price2 = wc_format_decimal( apply_filters( 'wc_epo_add_cart_item_calculated_price3', $price2, $price1, $cart_item ) );
-
+			
 			do_action( 'wc_epo_currency_actions', $price1, $price2, $cart_item );
 
 			if ( apply_filters( 'wc_epo_adjust_price', TRUE, $cart_item ) ) {
@@ -765,7 +765,9 @@ class THEMECOMPLETE_EPO_Cart {
 			$product_epos_choices = array();
 
 			if ( ! empty( $cart_item['tmcartepo'] ) && ! empty( $cart_item['tc_recalculate'] ) ) {
-
+				
+				unset($cart_item['tc_recalculate']);
+				
 				$tmcp_prices           = 0;
 				$tmcp_static_prices    = 0;
 				$tmcp_variable_prices  = 0; // percentcurrenttotal
@@ -867,13 +869,17 @@ class THEMECOMPLETE_EPO_Cart {
 
 				if ( apply_filters( 'wc_epo_adjust_price', TRUE, $cart_item ) ) {
 					if ( ! empty( $cart_item['epo_price_override'] ) && $tmcp_prices > 0 ) {
-						$cart_item['data']->set_price( $price1 );
+						if ( apply_filters( 'wc_epo_adjust_price_before_calculate_totals', TRUE, $cart_item ) ) {
+							$cart_item['data']->set_price( $price1 );
+						}
 						$cart_item['tm_epo_product_price_with_options'] = $price1;
 						$cart_item = apply_filters( 'wc_epo_cart_set_price', $cart_item, $price1 );
 					} else {
 						if ( ! empty( $price1 ) ) {
 							$cart_item['tm_epo_product_price_with_options'] = $price2;
-							$cart_item['data']->set_price( $price2 );
+							if ( apply_filters( 'wc_epo_adjust_price_before_calculate_totals', TRUE, $cart_item ) ) {
+								$cart_item['data']->set_price( $price2 );
+							}
 						}
 						$cart_item = apply_filters( 'wc_epo_cart_set_price', $cart_item, $price2 );
 					}
@@ -1104,7 +1110,7 @@ class THEMECOMPLETE_EPO_Cart {
 						if ( $section['type'] === 'checkbox' && THEMECOMPLETE_EPO()->tm_epo_cart_field_display == 'normal' ) {
 							if ( THEMECOMPLETE_EPO()->tm_epo_hide_options_prices_in_cart == "normal" ) {
 								$original_price = $data['unit_price'] / $data['quantity'];
-								$new_price      = apply_filters( 'wc_epo_discounted_price', $data['unit_price'], $cart_item['data'], $cart_item[ THEMECOMPLETE_EPO()->cart_edit_key_var ] );
+								$new_price      = apply_filters( 'wc_epo_discounted_price', $data['unit_price'], $cart_item['data'], isset($cart_item[ THEMECOMPLETE_EPO()->cart_edit_key_var ]) ? $cart_item[ THEMECOMPLETE_EPO()->cart_edit_key_var ] : '' );
 								$after_price    = $new_price / $data['quantity'];
 								$format_price   = $this->get_price_for_cart( $after_price, $cart_item, FALSE, $data['unit_price_per_currency'], $data['quantity'], 0, $data['price_type'] );
 
@@ -1350,7 +1356,7 @@ class THEMECOMPLETE_EPO_Cart {
 				$original_price   = $section['price'] / $section['quantity'];
 				$original_price_q = $original_price * $quantity * $section['quantity'];
 
-				$section['price'] = apply_filters( 'wc_epo_discounted_price', $section['price'], $cart_item['data'], $cart_item[ THEMECOMPLETE_EPO()->cart_edit_key_var ] );
+				$section['price'] = apply_filters( 'wc_epo_discounted_price', $section['price'], $cart_item['data'], isset($cart_item[ THEMECOMPLETE_EPO()->cart_edit_key_var ]) ? $cart_item[ THEMECOMPLETE_EPO()->cart_edit_key_var ] : '' );
 				$after_price      = $section['price'] / $section['quantity'];
 
 				$price                 = $price + (float) $section['price'];
@@ -2418,6 +2424,10 @@ class THEMECOMPLETE_EPO_Cart {
 	 * @since 1.0
 	 */
 	public function woocommerce_update_cart_action_cart_updated( $cart_updated = FALSE ) {
+
+		if ( apply_filters( 'wc_epo_update_cart_action_cart_updated', false, $cart_updated ) ) {
+			return $cart_updated;
+		}
 
 		$cart_contents = WC()->cart->cart_contents;
 		if ( is_array( $cart_contents ) ) {

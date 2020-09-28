@@ -115,7 +115,7 @@
 
     wp.customize( 'betterdocs_mkb_column_bg_color2', function( value ) {
         value.bind( function( to ) {
-            $( '.betterdocs-category-box.betterdocs-archive-mkb.ash-bg .docs-single-cat-wrap' ).css( 'background-color', to );
+            $( '.betterdocs-archive-mkb .betterdocs-category-box.ash-bg .docs-single-cat-wrap' ).css( 'background-color', to );
         } );
     });
 

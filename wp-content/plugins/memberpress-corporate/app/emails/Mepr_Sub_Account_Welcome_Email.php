@@ -18,6 +18,9 @@ class Mepr_Sub_Account_Welcome_Email extends MeprBaseOptionsUserEmail {
   public function send_sub_account_welcome_email( $transaction ) {
     $params = MeprTransactionsHelper::get_email_params($transaction);
     $sub_account = $transaction->user();
+    $corporate_account = new MPCA_Corporate_Account($transaction->corporate_account_id);
+    $corporate_account_user = $corporate_account->user();
+    $params['corporate_name'] = $corporate_account_user->get_full_name();
     $params['reset_password_link'] = $sub_account->reset_password_link();
     $this->to = $sub_account->formatted_email();
     $this->send($params);

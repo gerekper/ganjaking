@@ -310,12 +310,13 @@ class WC_AM_Order_Admin {
 		WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_instance_id( wc_clean( $_POST[ 'instance' ] ) );
 
 		/**
-		 * Refresh cache.
+		 * Delete cache.
 		 *
 		 * @since 2.1.7
 		 */
 		WC_AM_SMART_CACHE()->delete_cache( wc_clean( array(
 			                                             'admin_resources' => array(
+				                                             'instance'      => $_POST[ 'instance' ],
 				                                             'order_id'      => $_POST[ 'order_id' ],
 				                                             'sub_parent_id' => $_POST[ 'sub_parent_id' ],
 				                                             'api_key'       => $_POST[ 'api_key' ],

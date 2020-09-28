@@ -210,9 +210,9 @@ class FUE_AJAX {
 
 		$new_email_id = fue_clone_email($id, $name);
 
-		// set status to inactive
+		// Set cloned status to active.
 		$email = new FUE_Email( $new_email_id );
-		$email->update_status( FUE_Email::STATUS_INACTIVE );
+		$email->update_status( FUE_Email::STATUS_ACTIVE );
 
 		if (! is_wp_error($new_email_id)) {
 			$resp = array(
@@ -1564,7 +1564,7 @@ class FUE_AJAX {
 	}
 
 	/**
-	 * Seems like DEAD CODE.
+	 * Send manual emails in batches when "Single Emails Sending Schedule" has been enabled in the settings.
 	 */
 	public static function send_manual_email_batches() {
 		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
@@ -1654,8 +1654,9 @@ class FUE_AJAX {
 				}
 			}
 
-			if ( !empty( $args['recipients'] ) ) {
-				// queue remaining recipients
+			if ( ! empty( $args['recipients'] ) ) {
+				// Queue remaining recipients.
+				$args['schedule_timestamp'] = $data['batch_send_date'];
 				FUE_Sending_Scheduler::queue_manual_emails( $args );
 
 				if ( empty( $recipients ) ) {

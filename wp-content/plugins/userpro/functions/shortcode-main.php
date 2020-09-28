@@ -32,6 +32,7 @@
 				'align'						=> 'center',
 				'skin'						=> userpro_get_option('skin'),
 				'required_text'					=> __('This field is required','userpro'),
+				'datepicker_format'					=> __('Bad format','userpro'),
 				'password_too_short'				=> __('Your password is too short','userpro'),
 				'passwords_do_not_match'			=> __('Passwords do not match','userpro'),
 				'password_not_strong'				=> __('Password is not strong enough','userpro'),

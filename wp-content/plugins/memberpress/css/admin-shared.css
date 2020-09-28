@@ -484,7 +484,8 @@ table.mepr-addons-table tr th {
 }
 
 /* Fix for CMSMasters Content Composer plugin where widgets are broken on edit post/page on the backend */
-.cmsmastersBoxContIn.animate-spin {
+.cmsmastersBoxContIn.animate-spin,
+.cmsmastersLightBoxContIn.animate-spin {
   animation: auto;
   display: block;
 }

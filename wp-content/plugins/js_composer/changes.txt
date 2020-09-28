@@ -1,3 +1,20 @@
+24.09.2020 - ver 6.4.1
+  - Fix: Role manager unfiltered html access improved
+  - Fix: Role manager Frontend editor access improved
+  - Update: German translation updated
+
+11.09.2020 - ver 6.4.0
+  - New: Rank Math SEO compatibility introduced
+  - New: Option to exclude categories in the loop parameters
+  - New: Option to ignore sticky posts in the loop parameters
+  - Update: jquery updated to jquery-core
+  - Update: show_in_rest is checked for Gutenberg compatibility
+  - Update: setTitle allows HTML entities
+  - Update: Role manager access improved for WordPress user roles
+  - Fix: Multisite setup works properly for super admin user role
+  - Fix: Yoast SEO latest version is fully compatible with the editor
+  - Fix: Autocomplete works properly
+
 21.08.2020 - ver 6.3.0
   - Added: Role manager for unfiltered_html available
   - Update: Filter for screen sizes in the navigation bar

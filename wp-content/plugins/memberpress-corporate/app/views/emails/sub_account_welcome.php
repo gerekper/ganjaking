@@ -4,7 +4,7 @@
 </div>
 <div id="body" style="width: 600px; background: white; padding: 40px; margin: 0 auto; text-align: left;">
   <div id="receipt">
-    <div class="section" style="display: block; margin-bottom: 24px;"><?php _ex('Welcome to <strong>{$blog_name}</strong>. An administrator has setup your account and you now have access to the {$product_name} membership content.', 'welcome-email', 'memberpress-corporate'); ?></div>
+    <div class="section" style="display: block; margin-bottom: 24px;"><?php _ex('Welcome to <strong>{$blog_name}</strong>. <br><strong>{$corporate_name}</strong> has setup your account and you now have access to the {$product_name} membership content.', 'welcome-email', 'memberpress-corporate'); ?></div>
     <div class="section" style="display: block; margin-bottom: 24px;"><?php _ex('Before you can access your account, you will need to setup a new password. You can use this link to <a href="{$reset_password_link}">reset your password now.</a>', 'welcome-email', 'memberpress-corporate'); ?></div>
     <div class="section" style="display: block; margin-bottom: 24px;"><?php _ex('Use the info below to access your account.', 'welcome-email', 'memberpress-corporate'); ?></div>
     <div class="section" style="display: block; margin-bottom: 24px;"><?php _ex('You can login here: <a href="{$login_page}">{$login_page}</a>', 'welcome-email', 'memberpress-corporate'); ?></div>

@@ -21,14 +21,6 @@
 			if ( this.cdnEnableButton ) {
 				this.cdnEnableButton.addEventListener( 'click', ( e ) => {
 					e.currentTarget.classList.add( 'sui-button-onload' );
-
-					// Force repaint of the spinner.
-					const loader = e.currentTarget.querySelector(
-						'.sui-icon-loader'
-					);
-					loader.style.display = 'none';
-					loader.style.display = 'flex';
-
 					this.toggle_cdn( true );
 				} );
 			}
@@ -95,19 +87,17 @@
 				return;
 			}
 
-			const notice = document.getElementById( 'wp-smush-ajax-notice' );
+			const noticeMessage = `<p>${ message }</p>`,
+				noticeOptions = {
+					type: 'error',
+					icon: 'info',
+				};
 
-			notice.classList.add( 'sui-notice-error' );
-			notice.innerHTML = `<p>${ message }</p>`;
+			SUI.openNotice( 'wp-smush-ajax-notice', noticeMessage, noticeOptions );
 
 			if ( this.cdnEnableButton ) {
 				this.cdnEnableButton.classList.remove( 'sui-button-onload' );
 			}
-
-			notice.style.display = 'block';
-			setTimeout( () => {
-				notice.style.display = 'none';
-			}, 5000 );
 		},
 
 		/**

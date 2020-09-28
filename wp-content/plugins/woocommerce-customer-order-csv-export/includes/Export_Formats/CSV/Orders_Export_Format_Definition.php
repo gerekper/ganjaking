@@ -193,6 +193,7 @@ class Orders_Export_Format_Definition extends CSV_Export_Format_Definition {
 			'item_refunded',
 			'item_refunded_qty',
 			'item_meta',
+			'item_price',
 			'line_items',
 			'shipping_items',
 			'fee_items',

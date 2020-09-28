@@ -81,26 +81,9 @@ class Stats {
 			}
 		);
 
-		// Send Smush stats for PRO members.
-		add_filter( 'wpmudev_api_project_extra_data-912164', array( $this, 'send_smush_stats' ) );
-	}
-
-	/**
-	 * Return global stats.
-	 *
-	 * Stats sent
-	 *  array( 'total_images','bytes', 'human', 'percent')
-	 *
-	 * @return array|bool|mixed
-	 */
-	public function send_smush_stats() {
-		$stats = $this->global_stats();
-
-		$required_stats = array( 'total_images', 'bytes', 'human', 'percent' );
-
-		$stats = is_array( $stats ) ? array_intersect_key( $stats, array_flip( $required_stats ) ) : array();
-
-		return $stats;
+		// Update the media_attachments list.
+		add_action( 'add_attachment', array( $this, 'add_to_media_attachments_list' ) );
+		add_action( 'delete_attachment', array( $this, 'remove_from_media_attachments_list' ), 12 );
 	}
 
 	/**
@@ -281,6 +264,53 @@ class Stats {
 		wp_cache_set( 'media_attachments', $posts, 'wp-smush' );
 
 		return $posts;
+	}
+
+	/**
+	 * Adds the ID of the smushed image to the media_attachments list.
+	 *
+	 * @since 3.7.1
+	 *
+	 * @param int $id Attachment's ID.
+	 */
+	public function add_to_media_attachments_list( $id ) {
+		$posts = wp_cache_get( 'media_attachments', 'wp-smush' );
+
+		// Return if there's no list to update.
+		if ( ! $posts ) {
+			return;
+		}
+
+		$mime_type = get_post_mime_type( $id );
+		$id_string = strval( $id );
+
+		// Add the ID if the mime type is allowed and the ID isn't in the list already.
+		if ( $mime_type && in_array( $mime_type, Core::$mime_types, true ) && ! in_array( $id_string, $posts, true ) ) {
+			$posts[] = $id_string;
+			wp_cache_set( 'media_attachments', $posts, 'wp-smush' );
+		}
+	}
+
+	/**
+	 * Removes the ID of the deleted image from the media_attachments list.
+	 *
+	 * @since 3.7.1
+	 *
+	 * @param int $id Attachment's ID.
+	 */
+	public function remove_from_media_attachments_list( $id ) {
+		$posts = wp_cache_get( 'media_attachments', 'wp-smush' );
+
+		// Return if there's no list to update.
+		if ( ! $posts ) {
+			return;
+		}
+
+		$index = array_search( strval( $id ), $posts, true );
+		if ( false !== $index ) {
+			unset( $posts[ $index ] );
+			wp_cache_set( 'media_attachments', $posts, 'wp-smush' );
+		}
 	}
 
 	/**

@@ -24,14 +24,15 @@ defined( 'ABSPATH' ) || exit;
     }
     ?>
         <input type="file" class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-upload"
-               data-file="<?php echo esc_attr( $saved_value ); ?>"
-               data-filename="<?php echo esc_attr( basename( $saved_value ) ); ?>"
-               data-price=""
-               data-rules="<?php echo esc_attr( $rules ); ?>"
-               data-original-rules="<?php echo esc_attr( $original_rules ); ?>"
-               data-rulestype="<?php echo esc_attr( $rules_type ); ?>"
-               id="<?php echo esc_attr( $id ); ?>"
-               name="<?php echo esc_attr( $name ); ?>"/>
+                accept="<?php echo esc_attr($allowed_mimes); ?>" 
+                data-file="<?php echo esc_attr( $saved_value ); ?>"
+                data-filename="<?php echo esc_attr( basename( $saved_value ) ); ?>"
+                data-price=""
+                data-rules="<?php echo esc_attr( $rules ); ?>"
+                data-original-rules="<?php echo esc_attr( $original_rules ); ?>"
+                data-rulestype="<?php echo esc_attr( $rules_type ); ?>"
+                id="<?php echo esc_attr( $id ); ?>"
+                name="<?php echo esc_attr( $name ); ?>" <?php if ( isset( $required ) && ! empty( $required ) ) { echo 'required '; }?>/>
     </label>
     <small><?php echo sprintf( esc_html__( '(max file size %s)', 'woocommerce-tm-extra-product-options' ), $max_size ) ?></small>
 	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php' ); ?>

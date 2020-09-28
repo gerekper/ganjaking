@@ -1483,8 +1483,15 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 		$resource_id = isset( $booking_resource ) ? $booking_resource->get_id() : 0;
 		$interval    = 'hour' === $this->get_duration_unit() ? $this->get_duration() * 60 : $this->get_duration();
 
-		$existing_bookings = WC_Booking_Data_Store::get_bookings_in_date_range( $start_date + 1, $end_date - 1, $this->has_resources() && $resource_id ? $resource_id : $this->get_id() );
-		$blocks           = $this->get_blocks_in_range( $start_date, $end_date, $intervals, $resource_id );
+		$bookings_end_date = $end_date - 1;
+
+		// If we have an adjacent buffer then look for bookings till the end time + buffer time.
+		if ( $this->get_apply_adjacent_buffer() ) {
+			$bookings_end_date += $this->get_buffer_period_minutes() * 60;
+		}
+
+		$existing_bookings = WC_Booking_Data_Store::get_bookings_in_date_range( $start_date + 1, $bookings_end_date, $this->has_resources() && $resource_id ? $resource_id : $this->get_id() );
+		$blocks            = $this->get_blocks_in_range( $start_date, $end_date, $intervals, $resource_id );
 
 		if ( empty( $blocks ) || ! in_array( $start_date, $blocks ) ) {
 			return false;
@@ -1512,7 +1519,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 				$qty_to_add                  = $existing_booking_product->has_person_qty_multiplier() ? $existing_booking->get_persons_total() : 1;
 				// The call to `is_within_block` above will ensure we have cached data.
 				$existing_booking_block      = $existing_booking->get_start_cached();
-				/* 
+				/*
 				 * We use ceil to round up intervals that are 1 second shorter then a full minute.
 				 * This happens for example for a day interval where one day is basically 24h -1s.
 				 * That one second is subtracted in order not to overlap in calculations with the other interval.

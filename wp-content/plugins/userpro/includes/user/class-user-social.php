@@ -161,8 +161,8 @@ class UP_UserSocial
      * @return string
      */
     public function getFollowActionHtml($user_id)
-    {
-        if (array_key_exists($user_id, $this->getUserFollowers())) {
+    {  
+        if (array_key_exists($user_id, is_array($this->getUserFollowers()[0]) ? $this->getUserFollowers()[0] : $this->getUserFollowers() )    ) {
             $followText = __('Unfollow', 'userpro');
             $followAction = 'unfollow';
             $icon = 'fas fa-user-minus';
@@ -185,10 +185,10 @@ class UP_UserSocial
      * @since 4.9.31
      * @return array
      */
-    public function getFollowActionPlain($user_id)
+    public function getFollowActionPlain($user_id, $action)
     {
-        $followers = $this->getUserFollowers();
-        if (array_key_exists($user_id, $followers)) {
+       // $followers = $this->getUserFollowers();
+        if ($action === 'follow') {
             $followPlain['text'] = __('Unfollow', 'userpro');
             $followPlain['action'] = 'unfollow';
             $followPlain['icon'] = 'up-fas up-fa-minus';
@@ -244,6 +244,9 @@ class UP_UserSocial
 
         if(empty($followers)){
             $followers_ids = array();
+        }
+        else{
+            $followers_ids = $this->getUserFollowers();
         }
 
         if (!empty($followers_ids[$from]))

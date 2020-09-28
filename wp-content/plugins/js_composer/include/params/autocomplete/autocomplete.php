@@ -111,7 +111,7 @@ function vc_render_suggestion( $query, $tag, $param_name ) {
 	if ( is_array( $suggestions ) && ! empty( $suggestions ) ) {
 		die( wp_json_encode( $suggestions ) );
 	}
-	die( '' ); // if nothing found..
+	die( wp_json_encode( array() ) ); // if nothing found..
 }
 
 /**

@@ -1,3 +1,11 @@
+### 2.4.20.5
+- AF: Fixed a fatal error which occurs when the add-on is not active during background feed processing.
+
+
+### 2.4.20.4
+- AF: Added the [gform_pre_delete_feed](https://docs.gravityforms.com/gform_pre_delete_feed) action hook.
+
+
 ### 2.4.20.3
 - Fixed an issue where the honeypot field description can be assigned the same id attribute as other forms on the page.
 

@@ -321,13 +321,16 @@
 
                     $.each(response, function(i, index) {
 
-                        if(index.head !== "" && index.allowed && !that.privacySettingsLoaded[i]) {
-                            $("head").append(index.head);
-                        }
-                        if(index.body !== "" && index.allowed && that.privacySettingsLoaded[i]) {
-                            $(index.body).prependTo($('body'));
-                        }
+                        if(index.allowed && !that.privacySettingsLoaded[i]) {
+                            if(index.head !== "") {
+                                $("head").append(index.head);
+                            }
 
+                            if(index.body !== "") {
+                                $(index.body).prependTo($('body'));
+                            }
+                        }
+ 
                         if(index.adsense == "1" && !index.allowed && that.privacySettingsLoaded[i]) {
                             var adsExists = $(".adsbygoogle");
 

@@ -387,6 +387,10 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 					foreach($get_endpoints as $endpoint) {
 						// Numeric endpoints
 						$endpoint_value = (in_array($endpoint, array('page', 'paged', 'attachment_id'))) ? filter_var($_GET[$endpoint], FILTER_SANITIZE_NUMBER_INT) : $_GET[$endpoint];
+
+						// Ignore page endpoint if its value is 1
+						if(in_array($endpoint, array('page', 'paged')) && $endpoint_value == 1) { continue; }
+
 						$query[$endpoint] = sanitize_text_field($endpoint_value);
 					}
 				}
@@ -681,7 +685,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		/**
 		 * 5. Check trailing slashes (ignore links with query parameters)
 		 */
-		if($trailing_slashes_mode && $trailing_slashes_redirect && empty($correct_permalink) && empty($_SERVER['QUERY_STRING']) && !empty($_SERVER['REQUEST_URI'])) {
+		if($trailing_slashes_mode && $trailing_slashes_redirect && empty($correct_permalink) && empty($_SERVER['QUERY_STRING']) && !empty($_SERVER['REQUEST_URI']) && !is_front_page()) {
 			// Check if $old_uri ends with slash or not
 			$ends_with_slash = (substr($old_uri, -1) == "/") ? true : false;
 			$trailing_slashes_mode = (preg_match("/.*\.([a-zA-Z]{3,4})\/?$/", $old_uri) && $trailing_slashes_mode == 1) ? 2 : $trailing_slashes_mode;
@@ -759,7 +763,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 		// Check if any endpoint is called (fix for feed and similar endpoints)
 		foreach($endpoints_array as $endpoint) {
-			if(!empty($wp->query_vars[$endpoint]) && $endpoint !== 'attachment') {
+			if(!empty($wp->query_vars[$endpoint]) && !in_array($endpoint, array('attachment', 'page', 'paged'))) {
 				$wp->query_vars['do_not_redirect'] = 1;
 				break;
 			}

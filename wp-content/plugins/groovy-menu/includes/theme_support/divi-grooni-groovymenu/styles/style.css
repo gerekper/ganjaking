@@ -1,0 +1,24 @@
+.grooni_groovymenu--wrapper {
+    text-align: center;
+    padding: 40px 0;
+    background: #610ea0;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    background-image: -webkit-gradient(linear, left top, right top, from(#ce2039), color-stop(56%, #991e7f), to(#610ea0)) !important;
+    background-image: -webkit-linear-gradient(left, #ce2039 0%, #991e7f 56%, #610ea0 100%) !important;
+    background-image: -o-linear-gradient(left, #ce2039 0%, #991e7f 56%, #610ea0 100%) !important;
+    background-image: linear-gradient(to right, #ce2039 0%, #991e7f 56%, #610ea0 100%) !important;
+}
+.grooni_groovymenu_fullwidth--wrapper {
+    text-align: center;
+    padding: 40px 0;
+    background: #610ea0;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    background-image: -webkit-gradient(linear, left top, right top, from(#ce2039), color-stop(56%, #991e7f), to(#610ea0)) !important;
+    background-image: -webkit-linear-gradient(left, #ce2039 0%, #991e7f 56%, #610ea0 100%) !important;
+    background-image: -o-linear-gradient(left, #ce2039 0%, #991e7f 56%, #610ea0 100%) !important;
+    background-image: linear-gradient(to right, #ce2039 0%, #991e7f 56%, #610ea0 100%) !important;
+}

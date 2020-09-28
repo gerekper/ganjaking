@@ -1,5 +1,12 @@
 *** Checkout Field Editor Changelog ***
 
+2020-09-21 - version 1.5.37
+* Fix   - First option is shown instead of placeholder text in Select field.
+* Fix   - Extra empty boxes in Order emails.
+* Tweak - Add Settings, Docs and Support links to the plugin page.
+* Tweak - WC 4.5 compatibility.
+* Tweak - Add automated translations.
+
 2020-08-13 - version 1.5.36
 * Fix   - Replace deprecated jQuery methods.
 * Tweak - WordPress 5.5 compatibility.

@@ -5,7 +5,7 @@ $link = trailingslashit ( trailingslashit( get_page_link($page_id) ));
 return $link;
 }
 	add_action( 'save_post', 'userpro_is_publish_shortcode' );
-
+	/* userpro publisher page*/
   function userpro_is_publish_shortcode($post_id){
 	$post = get_post($post_id);
 	$pattern = get_shortcode_regex();

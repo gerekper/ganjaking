@@ -83,7 +83,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 							$before = "@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2), only screen and (min-width: 320px) and (max-width: 568px) {";
 							break;
 						case 'smartphones'://320-480
-							$before = "@media only screen and (min-device-width : 320px) and (max-device-width : 480px), only screen and (min-width : 320px) and (max-width : 480px),, only screen and (max-width : 319px){";
+							$before = "@media only screen and (min-device-width : 320px) and (max-device-width : 480px), only screen and (min-width : 320px) and (max-width : 480px), only screen and (max-width : 319px){";
 							break;
 
 						default:
@@ -215,10 +215,12 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		$minimumlimit          = empty( $element['minimumlimit'] ) ? "" : $element['minimumlimit'];
 
 		if (THEMECOMPLETE_EPO()->tm_epo_global_image_mode === "relative"){
-			$image  = wp_make_link_relative($image);
-			$imagec  = wp_make_link_relative($imagec);
-			$imagep  = wp_make_link_relative($imagep);
-			$imagel  = wp_make_link_relative($imagel);
+			if ( strpos($image, get_site_url() ) !== false ){
+				$image  = wp_make_link_relative($image);
+				$imagec  = wp_make_link_relative($imagec);
+				$imagep  = wp_make_link_relative($imagep);
+				$imagel  = wp_make_link_relative($imagel);
+			}
 		}		
 
 		if ( empty( $image ) ) {

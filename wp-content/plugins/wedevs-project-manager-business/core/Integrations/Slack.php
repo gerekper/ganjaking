@@ -867,9 +867,7 @@ class Slack {
             'body'        => $data,
             'cookies'     => array()
         ) );
-
     }
-
 }
 
 

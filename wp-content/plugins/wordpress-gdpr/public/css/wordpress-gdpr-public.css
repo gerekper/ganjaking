@@ -188,12 +188,12 @@ a.wordpress-gdpr-popup-agree:hover, a.wordpress-gdpr-popup-decline:hover, a.word
 
 .wordpress-gdpr-popup-agree {
     background: #FF5722;
-    float: left;
+    float: right;
 }
 
 .wordpress-gdpr-popup-decline {
-    background: #9E9E9E;
-    float: right;
+    background: #777;
+    float: left;
 }
 
 .wordpress-gdpr-popup-full-width .wordpress-gdpr-popup-agree, .wordpress-gdpr-popup-full-width .wordpress-gdpr-popup-decline{
@@ -558,7 +558,7 @@ a.wordpress-gdpr-popup-privacy-settings-service-category:hover, a.wordpress-gdpr
 
 .wordpress-gdpr-privacy-settings-popup-services-decline-all {
 	float: left;
-	background-color: #F44336;
+	background-color: #777;
 }
 
 .wordpress-gdpr-privacy-settings-popup-services-accept-all {

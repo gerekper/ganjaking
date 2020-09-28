@@ -102,6 +102,11 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 				'name'        => 'wc_distance_rate',
 				'origin'      => $origin,
 				'destination' => $destination,
+				'sensor'      => $sensor,
+				'mode'        => $mode,
+				'avoid'       => $avoid,
+				'units'       => $units,
+				'region'      => $region,
 			) ) );
 
 			$distance = get_transient( $transient );

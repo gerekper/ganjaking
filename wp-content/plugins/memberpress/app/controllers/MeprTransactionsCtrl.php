@@ -223,7 +223,7 @@ class MeprTransactionsCtrl extends MeprBaseCtrl {
     // $txn->set_subtotal($_POST['amount']); //Don't do this, it doesn't work right on existing txns
     $txn->amount     = MeprUtils::format_currency_us_float( $_POST['amount'] );
     $txn->tax_amount = MeprUtils::format_currency_us_float($_POST['tax_amount']);
-    $txn->total      = MeprUtils::format_currency_us_float( $_POST['amount'] + $_POST['tax_amount']);
+    $txn->total      = MeprUtils::format_currency_us_float($txn->amount + $txn->tax_amount);
     $txn->tax_rate   = MeprUtils::format_currency_us_float($_POST['tax_rate']);
     $txn->status     = sanitize_text_field($_POST['status']);
     $txn->gateway    = sanitize_text_field($_POST['gateway']);

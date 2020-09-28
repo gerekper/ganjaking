@@ -1597,6 +1597,13 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 					'type'    => 'checkbox',
 				),
 				array(
+					'title'   => esc_html__( 'Enable upload success message', 'woocommerce-tm-extra-product-options' ),
+					'desc'    => esc_html__( 'Indicates if the upload was successful with a message.', 'woocommerce-tm-extra-product-options' ),
+					'id'      => 'tm_epo_upload_success_message',
+					'default' => 'yes',
+					'type'    => 'checkbox',
+				),
+				array(
 					'title'             => esc_html__( 'Allowed file types', 'woocommerce-tm-extra-product-options' ),
 					'desc'              => esc_html__( 'Select which file types the user will be allowed to upload.', 'woocommerce-tm-extra-product-options' ),
 					'id'                => 'tm_epo_allowed_file_types',

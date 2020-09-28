@@ -52,6 +52,7 @@ $smushit_keys = array(
 	'cron_update_running',
 	'hide-conflict-notice',
 	'show_upgrade_modal',
+	'hide_tutorials_from_bulk_smush',
 );
 
 $db_keys = array(

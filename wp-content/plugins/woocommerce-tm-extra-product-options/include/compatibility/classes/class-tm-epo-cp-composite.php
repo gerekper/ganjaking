@@ -63,8 +63,64 @@ final class THEMECOMPLETE_EPO_CP_composite {
 		add_filter( 'woocommerce_composite_button_behaviour', array( $this, 'tm_woocommerce_composite_button_behaviour' ), 50, 2 );
 		add_action( 'woocommerce_composite_products_remove_product_filters', array( $this, 'tm_woocommerce_composite_products_remove_product_filters' ), 99999 );
 		add_filter( 'woocommerce_composite_cart_permalink_args', array( $this, 'woocommerce_composite_cart_permalink_args' ), 99, 3 );
+		add_filter( 'wc_epo_tm_post_class_no_options', array( $this, 'wc_epo_tm_post_class_no_options' ), 10, 2 );
 	}
 
+	/**
+	 * Search composite products for extra options
+	 *
+	 * @since 5.0.12.9
+	 */
+	public function wc_epo_tm_post_class_no_options( $array = array(), $post_id ) {
+		
+		$terms = get_the_terms( $post_id, 'product_type' );
+		$product_type = ! empty( $terms ) && isset( current( $terms )->name ) ? sanitize_title( current( $terms )->name ) : 'simple';
+
+		if ( ( $product_type == 'bto' || $product_type == 'composite' )
+		     && ! THEMECOMPLETE_EPO_API()->is_valid_options( $has_epo )
+		     && TMEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all != "yes"
+		) {
+
+			// search components for options
+			$product = wc_get_product( $post_id );
+			if ( is_callable( array( $product, 'get_composite_data' ) ) ) {
+				$composite_data = $product->get_composite_data();
+
+				foreach ( $composite_data as $component_id => $component_data ) {
+
+					$component_options = array();
+
+					if ( class_exists( 'WC_CP_Component' ) && method_exists( 'WC_CP_Component', 'query_component_options' ) ) {
+						$component_options = WC_CP_Component::query_component_options( $component_data );
+					} elseif ( function_exists( 'WC_CP' ) ) {
+						$component_options = WC_CP()->api->get_component_options( $component_data );
+					} else {
+						global $woocommerce_composite_products;
+						if ( is_object( $woocommerce_composite_products ) && function_exists( 'WC_CP' ) ) {
+							$component_options = WC_CP()->api->get_component_options( $component_data );
+						} else {
+							if ( isset( $component_data['assigned_ids'] ) && is_array( $component_data['assigned_ids'] ) ) {
+								$component_options = $component_data['assigned_ids'];
+							}
+						}
+					}
+
+					foreach ( $component_options as $key => $pid ) {
+						$has_options = THEMECOMPLETE_EPO_API()->has_options( $pid );
+						if ( THEMECOMPLETE_EPO_API()->is_valid_options_or_variations( $has_options ) ) {
+							$array[] = 'tm-no-options-composite';
+
+							return $array;
+						}
+					}
+
+				}
+			}
+
+		}
+
+		return $array;
+	}
 	/**
 	 * Enable options when editing cart for composite products
 	 *

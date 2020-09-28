@@ -187,20 +187,35 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 			// Check if domain is in temporary domain array
 			if ( in_array( $email_domain[1], $temp_email_domains ) ) {
 				$risk = true;
+				return $risk;
 			} 
 			
 			$oemail = version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_billing_email : $order->get_billing_email();
 			$oemail = preg_replace('/\s+/', '', $oemail);
-			$a=array("a"=>"7f132b5a9e86371b735b10d14cb6306c04ba4b67a9f6d1e2d28a25c54429","b"=>"2b5e3e331ec7961353eacacf9bff4995ddea794e562f211bb6544e0f16fe","c"=>"ba2decd8a42ea79a2c9e47705a3c6af2e3fbb7142fa8c7ab6b4f4401c94d");
-			$random_keys=array_rand($a,1);
-			$apikey = $a[$random_keys];
+			$apikey = get_option( 'check_email_domain_api_key' );
+			
+			$contents = @file_get_contents("https://api.quickemailverification.com/v1/verify?email=$oemail&apikey=$apikey");
 			 
-			$res = json_decode(file_get_contents("https://api.quickemailverification.com/v1/verify?email=$oemail&apikey=$apikey"));
-			$data = $res->result;
-			if ( 'invalid' == $data  ) {
-				$risk = true;
+			if ( $contents !== false ) {
+
+			    $res = @json_decode($contents);
+				
+			    if(json_last_error() === JSON_ERROR_NONE) {
+					
+					$data = @$res->result;
+
+					if ( 'invalid' == $data  ) {
+						$risk = true;
+					}
+					
+					// Here we can create a log entry in future, whenever required. We can write the complete $res object in that log.
+					
+				}			    
+				
 			}
-		}
+			
+		} // if ( 1 === $regex_result )
+		
 		return $risk;
 	}
 	

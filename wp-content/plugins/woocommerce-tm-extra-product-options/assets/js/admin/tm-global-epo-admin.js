@@ -112,7 +112,9 @@
 			startswith: TMEPOGLOBALADMINJS.i18n_starts_with,
 			endswith: TMEPOGLOBALADMINJS.i18n_ends_with,
 			greaterthan: TMEPOGLOBALADMINJS.i18n_greater_than,
-			lessthan: TMEPOGLOBALADMINJS.i18n_less_than
+			lessthan: TMEPOGLOBALADMINJS.i18n_less_than,
+			greaterthanequal: TMEPOGLOBALADMINJS.i18n_greater_than_equal,
+			lessthanequal: TMEPOGLOBALADMINJS.i18n_less_than_equal
 		},
 		builder_items_sortable_obj: {
 			start: {},
@@ -642,7 +644,7 @@
 
 			// Auto generate option value
 			$( document ).on( 'keyup.cpf change.cpf', '.tm_option_title', function() {
-				$( this ).closest( '.options_wrap' ).find( '.tm_option_value' ).val( $( this ).val() );
+				$( this ).closest( '.options_wrap' ).find( '.tm_option_value' ).val( $( '<div/>' ).html( $( this ).val() ).text() );
 			} );
 
 			$( document ).on( 'change.cpf changechoice', '.tm_option_enabled', function() {
@@ -1415,19 +1417,23 @@
 				selectoperator.find( "[value='is']" ).show();
 				selectoperator.find( "[value='isnot']" ).show();
 				if ( type === 'variation' || type === 'multiple' ) {
-					if ( value === 'startswith' || value === 'endswith' || value === 'greaterthan' || value === 'lessthan' ) {
+					if ( value === 'startswith' || value === 'endswith' || value === 'greaterthan' || value === 'lessthan' || value === 'greaterthanequal' || value === 'lessthanequal' ) {
 						selectoperator.val( 'isempty' );
 					}
 					selectoperator.find( "[value='startswith']" ).hide();
 					selectoperator.find( "[value='endswith']" ).hide();
 					selectoperator.find( "[value='greaterthan']" ).hide();
 					selectoperator.find( "[value='lessthan']" ).hide();
+					selectoperator.find( "[value='greaterthanequal']" ).hide();
+					selectoperator.find( "[value='lessthanequal']" ).hide();
 					selectoperator.trigger( 'change.cpf' );
 				} else {
 					selectoperator.find( "[value='startswith']" ).show();
 					selectoperator.find( "[value='endswith']" ).show();
 					selectoperator.find( "[value='greaterthan']" ).show();
 					selectoperator.find( "[value='lessthan']" ).show();
+					selectoperator.find( "[value='greaterthanequal']" ).show();
+					selectoperator.find( "[value='lessthanequal']" ).show();
 				}
 			} else if ( element === section ) {
 				if ( value === 'is' || value === 'isnot' || value === 'startswith' || value === 'endswith' || value === 'greaterthan' || value === 'lessthan' ) {
@@ -1439,6 +1445,8 @@
 				selectoperator.find( "[value='endswith']" ).hide();
 				selectoperator.find( "[value='greaterthan']" ).hide();
 				selectoperator.find( "[value='lessthan']" ).hide();
+				selectoperator.find( "[value='greaterthanequal']" ).hide();
+				selectoperator.find( "[value='lessthanequal']" ).hide();
 				selectoperator.trigger( 'change.cpf' );
 			} else {
 				selectoperator.find( "[value='is']" ).show();
@@ -1447,6 +1455,8 @@
 				selectoperator.find( "[value='endswith']" ).show();
 				selectoperator.find( "[value='greaterthan']" ).show();
 				selectoperator.find( "[value='lessthan']" ).show();
+				selectoperator.find( "[value='greaterthanequal']" ).show();
+				selectoperator.find( "[value='lessthanequal']" ).show();
 			}
 		},
 
@@ -1525,6 +1535,15 @@
 					$.tmEPOAdmin.section_logic_init();
 					$.tmEPOAdmin.init_sections_check();
 				},
+				beforemovetab: function( oldIndex, $tab ) {
+					$.tmEPOAdmin.sliderTabMoveBefore = [];
+					$tab.find( '.bitem' ).toArray().forEach( function( el ) {
+						$.tmEPOAdmin.sliderTabMoveBefore.push( {
+							field_index: $.tmEPOAdmin.find_index( true, $( el ) ),
+							disabledFieldIndex: $.tmEPOAdmin.find_index( true, $( el ), '.bitem', '.element_is_disabled' )
+						} );
+					} );
+				},
 				aftermovetab: function( newIndex, oldIndex, $tab, initialIndex ) {
 					var bwindex = bw.index();
 					var length = $tab.find( '.bitem' ).length;
@@ -1542,6 +1561,28 @@
 						} )
 						.get()
 						.join( ',' );
+
+					$.tmEPOAdmin.sliderTabMoveAfter = [];
+					$tab.find( '.bitem' ).toArray().forEach( function( el ) {
+						$.tmEPOAdmin.sliderTabMoveAfter.push( {
+							field_index: $.tmEPOAdmin.find_index( true, $( el ) ),
+							disabledFieldIndex: $.tmEPOAdmin.find_index( true, $( el ), '.bitem', '.element_is_disabled' )
+						} );
+					} );
+
+					$.tmEPOAdmin.sliderTabMoveAfter.forEach( function( el, i ) {
+						$.tmEPOAdmin.builder_items_sortable_obj.start.section = TCBUILDER[ bwindex ].section.sections_uniqid.default;
+						$.tmEPOAdmin.builder_items_sortable_obj.start.section_eq = bwindex.toString();
+						$.tmEPOAdmin.builder_items_sortable_obj.start.element = $.tmEPOAdmin.sliderTabMoveBefore[ i ].field_index.toString();
+						$.tmEPOAdmin.builder_items_sortable_obj.start.disabledFieldIndex = $.tmEPOAdmin.sliderTabMoveBefore[ i ].disabledFieldIndex;
+
+						$.tmEPOAdmin.builder_items_sortable_obj.end.section = TCBUILDER[ bwindex ].section.sections_uniqid.default;
+						$.tmEPOAdmin.builder_items_sortable_obj.end.section_eq = bwindex.toString();
+						$.tmEPOAdmin.builder_items_sortable_obj.end.element = el.field_index.toString();
+						$.tmEPOAdmin.builder_items_sortable_obj.end.disabledFieldIndex = el.disabledFieldIndex;
+
+						$.tmEPOAdmin.logic_reindex();
+					} );
 
 					$.tmEPOAdmin.builder_reorder_multiple();
 					$.tmEPOAdmin.section_logic_init();
@@ -2320,7 +2361,7 @@
 				$.tmEPOAdmin.builder_clone_elements_after_events( _clone );
 				_clone.find( '[name]' ).val( '' );
 				_clone.find( '.tm_option_title' ).val( line[ 0 ] );
-				_clone.find( '.tm_option_value' ).val( line[ 0 ] );
+				_clone.find( '.tm_option_value' ).val( $( '<div/>' ).html( line[ 0 ] ).text() );
 				_clone.find( '.tm_option_price' ).val( line[ 1 ] );
 				if ( line[ 2 ] ) {
 					_clone.find( '.tm_option_price_type' ).val( line[ 2 ] );
@@ -2567,8 +2608,21 @@
 			$.tmEPOAdmin.var_is( 'tm-style-variation-forced', true );
 			$( '.builder_add_section' ).addClass( 'inline' );
 			$( '.builder_add_variation' ).addClass( 'inline' ).removeClass( 'tm-hidden' );
-			if ( $( '.tma-variations-wrap' ).length === 2 ) {
-				$( '.tma-variations-wrap' ).eq( 1 ).remove();
+			if ( $( '.tma-variations-wrap' ).length > 1 ) {
+				$( '.tma-variations-wrap' ).not( ':first' ).each( function() {
+					var $this = $( this );
+					var sectionIndex;
+					var builder_wrapper;
+
+					builder_wrapper = $this.closest( '.builder_wrapper' );
+					sectionIndex = builder_wrapper.index();
+					builder_wrapper.remove();
+					TCBUILDER.splice( sectionIndex, 1 );
+					$.tmEPOAdmin.builder_reorder_multiple();
+
+					$.tmEPOAdmin.section_logic_init();
+					$.tmEPOAdmin.init_sections_check();
+				} );
 			}
 			$( '.tma-variations-wrap' ).addClass( 'tm-hidden' );
 			$.tmEPOAdmin.setFieldValue( $.tmEPOAdmin.variationSectionIndex, $.tmEPOAdmin.variationFieldIndex, 'variations_disabled', '1' );
@@ -3493,6 +3547,10 @@
 				var section_rules = TCBUILDER[ sectionIndex ].section.sections_clogic.default || 'null';
 				var copy;
 
+				if ( ! TCBUILDER[ sectionIndex ].section.sections_logic.default ) {
+					return true; // skip
+				}
+
 				section_rules = $.epoAPI.util.parseJSON( section_rules );
 
 				if ( ! ( section_rules && section_rules.rules !== undefined && section_rules.rules.length > 0 ) ) {
@@ -3591,6 +3649,11 @@
 				Object.keys( TCBUILDER[ sectionIndex ].fields ).forEach( function( fieldIndex ) {
 					field = TCBUILDER[ sectionIndex ].fields[ fieldIndex ];
 					elementType = $.tmEPOAdmin.getFieldValue( field, 'element_type' );
+
+					if ( ! $.tmEPOAdmin.getFieldValue( field, 'logic', elementType ) ) {
+						return true; // skip
+					}
+
 					copy_rules = [];
 					element_rules = $.tmEPOAdmin.getFieldValue( field, 'clogic', elementType );
 
@@ -5787,6 +5850,11 @@
 			} else {
 				$use_imagesp_all.find( "option[value='images']" ).removeAttr( 'disabled' ).show();
 			}
+			setTimeout( function() {
+				$use_imagesp_all.selectWoo( 'destroy' ).removeClass( 'enhanced' );
+				$.tmEPOAdmin.create_normal_dropdown( $use_imagesp_all.parent() );
+				$use_imagesp_all.trigger( 'change.select2' );
+			}, 100 );
 			if ( $use_images_all.val() === 'images' || $use_images_all.val() === 'start' || $use_images_all.val() === 'end' || ( $use_images_all.val() === 'images' && $use_imagesp_all.val() === 'images' ) ) {
 				tm_upload.show();
 				tm_upload_image.show();

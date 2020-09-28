@@ -1417,13 +1417,26 @@ function wpb_widget_title( $params = array( 'title' => '' ) ) {
  */
 function wpb_remove_custom_html( $content ) {
 	if ( ! vc_user_access()->part( 'unfiltered_html' )->checkStateAny( true, null )->get() ) {
+		// html encoded shortcodes
 		$regex = vc_get_shortcode_regex( implode( '|', apply_filters( 'wpb_custom_html_elements', array(
 			'vc_raw_html',
 			'vc_raw_js',
 		) ) ) );
 
+		// custom on click
+		$button_regex = vc_get_shortcode_regex( 'vc_btn' );
+		$content = preg_replace_callback( '/' . $button_regex . '/', 'wpb_remove_custom_onclick', $content );
+
 		$content = preg_replace( '/' . $regex . '/', '', $content );
 	}
 
 	return $content;
+}
+
+function wpb_remove_custom_onclick( $match ) {
+	if ( strpos( $match[3], 'custom_onclick' ) !== false ) {
+		return '';
+	}
+
+	return $match[0];
 }

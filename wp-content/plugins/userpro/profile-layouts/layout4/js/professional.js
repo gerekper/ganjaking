@@ -16,16 +16,17 @@
 
         switch (action) {
             case 'follow':
-                data.from = current_user_id;
                 data.to = profile_user_id;
-                data.action = 'up_follow';
-
+                data.action = 'userpro_followAction';
+                data.follow_action = 'follow';
+                data.security = up_social_ajax.security;
                 break;
 
             case 'unfollow':
-                data.from = current_user_id;
                 data.to = profile_user_id;
-                data.action = 'up_follow';
+                data.action = 'userpro_followAction';
+                data.follow_action = 'unfollow';
+                data.security = up_social_ajax.security;
 
                 break;
 
@@ -78,11 +79,9 @@
     function up_changeValue(selector, data) {
         // Followers counter
         var followers = $('.up-followers');
-
         selector.data('profile-action', data.data.action);
         selector.find('p').text(data.data.text);
         selector.find('i').removeClass().addClass(data.data.icon);
-
         followers.find('span').text(data.data.count);
     }
 

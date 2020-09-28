@@ -574,6 +574,16 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		return 'mix-and-match';
 	}
 
+	/**
+	 * Returns whether or not the product has additional options that need
+	 * selecting before adding to cart.
+	 *
+	 * @since  1.10.2
+	 * @return boolean
+	 */
+	public function has_options() {
+		return true;
+	}
 
 	/**
 	 * Is this a NYP product?

@@ -149,6 +149,19 @@
 .mepr-sister-plugin-step-pro {
   color: #ccc;
 }
+.mepr-courses-action-notice {
+  display: none;
+}
+.mepr-sister-plugin-step-no-number .mepr-sister-plugin-step-detail  {
+  margin-left: 0;
+  text-align: center;
+}
+.mp-courses-image img {
+  width: 400px;
+}
+body[data-mepr-chosen-tab="courses"] p.submit {
+  display: none;
+}
 @media (max-width: 782px) {
   .mepr-sister-plugin-info > div {
     float: none;

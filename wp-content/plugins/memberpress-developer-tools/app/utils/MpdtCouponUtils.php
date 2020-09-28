@@ -6,7 +6,7 @@ class MpdtCouponUtils extends MpdtBaseCptUtils {
   public function __construct() {
     $this->map = array(
       'post_title'            => 'coupon_code',
-      'post_content'          => false,
+      'post_content'          => 'description',
       'post_excerpt'          => false,
       'post_name'             => false,
       'post_parent'           => false,

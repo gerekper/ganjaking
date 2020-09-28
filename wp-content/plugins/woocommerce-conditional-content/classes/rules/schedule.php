@@ -83,14 +83,14 @@ class WC_Conditional_Content_Rule_Schedule_Day extends WC_Conditional_Content_Ru
 		$result = false;
 		if ( isset( $rule_data['condition'] ) && isset( $rule_data['operator'] ) ) {
 
-			$date = strtotime( $rule_data['condition'] );
+			$date = intval( $rule_data['condition'] );
 
 			switch ( $rule_data['operator'] ) {
 				case '==' :
-					$result = date( 'j' ) == $date;
+					$result = date( 'w' ) == $date;
 					break;
 				case '!=' :
-					$result = date( 'j' ) != $date;
+					$result = date( 'w' ) != $date;
 					break;
 				default:
 					$result = false;

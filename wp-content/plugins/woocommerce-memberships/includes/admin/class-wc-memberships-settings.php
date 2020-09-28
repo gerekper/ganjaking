@@ -712,14 +712,23 @@ class WC_Settings_Memberships extends \WC_Settings_Page {
 
 			if ( isset( $setting['id'] ) && 'woocommerce_logout_endpoint' === $setting['id'] ) {
 
-				$new_settings[] = array(
+				$new_settings[] = [
 					'title'    => __( 'My Membership', 'woocommerce-memberships' ),
-					'desc'     => __( 'Endpoint for the My Account &rarr; My Membership', 'woocommerce-memberships' ),
+					'desc'     => __( 'Endpoint for the My Account &rarr; My Membership page', 'woocommerce-memberships' ),
 					'id'       => 'woocommerce_myaccount_members_area_endpoint',
 					'type'     => 'text',
 					'default'  => 'members-area',
 					'desc_tip' => true,
-				);
+				];
+
+				$new_settings[] = [
+					'title'    => __( 'My Profile', 'woocommerce-memberships' ),
+					'desc'     => __( 'Endpoint for the My Account &rarr; My Profile page', 'woocommerce-memberships' ),
+					'id'       => 'woocommerce_myaccount_profile_fields_area_endpoint',
+					'type'     => 'text',
+					'default'  => 'profile',
+					'desc_tip' => true,
+				];
 			}
 		}
 

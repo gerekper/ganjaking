@@ -129,7 +129,7 @@ abstract class WPBakeryShortCode extends WPBakeryVisualComposerAbstract {
 		} elseif ( is_string( $param ) && ! empty( $param ) ) {
 			$name = 'admin_enqueue_js_' . md5( $param );
 			self::$js_scripts[] = $name;
-			wp_register_script( $name, $param, array( 'jquery' ), WPB_VC_VERSION, true );
+			wp_register_script( $name, $param, array( 'jquery-core' ), WPB_VC_VERSION, true );
 		}
 	}
 

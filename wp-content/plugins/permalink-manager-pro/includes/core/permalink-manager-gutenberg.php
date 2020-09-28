@@ -26,10 +26,6 @@ class Permalink_Manager_Gutenberg extends Permalink_Manager_Class {
 		add_meta_box('permalink-manager', __('Permalink Manager', 'permalink-manager'), array($this, 'meta_box'), '', 'side', 'high' );
 	}
 
-	public function pm_gutenberg_scripts() {
-		wp_enqueue_script('permalink-manager-gutenberg', PERMALINK_MANAGER_URL . '/out/permalink-manager-gutenberg.js', array('wp-blocks', 'wp-element', 'wp-components', 'wp-i18n'), PERMALINK_MANAGER_VERSION, true);
-	}
-
 	public function meta_box($post) {
 		global $permalink_manager_uris;
 

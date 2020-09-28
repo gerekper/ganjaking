@@ -67,7 +67,11 @@ $options_installed = array(
 				'i13_recapcha_hide_label_wplogin',
 				'i13_recapcha_hide_label_addpayment',
 				'i13_recapcha_hide_label_wpregister',
-				'i13_recapcha_hide_label_wplostpassword'
+				'i13_recapcha_hide_label_wplostpassword',
+				'i13_recapcha_guest_recpacha_refersh_on_error',
+				'i13_recapcha_login_recpacha_refersh_on_error',
+				'i13_recapcha_enable_on_payfororder',
+				'i13_recapcha_disable_submitbtn_payfororder'
 
 
 );

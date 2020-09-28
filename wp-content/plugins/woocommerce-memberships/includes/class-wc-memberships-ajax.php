@@ -21,6 +21,9 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Data_Stores;
+use SkyVerge\WooCommerce\Memberships\Profile_Fields;
+use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field_Definition;
 use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -42,6 +45,8 @@ class WC_Memberships_AJAX {
 
 		// dismiss a noticed displayed to shop managers and admins when they browse restricted content
 		add_action( 'wp_ajax_wc_memberships_dismiss_admin_restricted_content_notice', array( $this, 'dismiss_restricted_content_notice' ) );
+		// dismiss notices (banners) displayed to shop managers, admins, or members
+		add_action( 'wp_ajax_wc_memberships_dismiss_frontend_banner', [ $this, 'dismiss_frontend_banner' ] );
 
 		// determine user membership start date by plan start date
 		add_action( 'wp_ajax_wc_memberships_get_membership_plan_start_date', array( $this, 'get_membership_start_date' ) );
@@ -56,6 +61,17 @@ class WC_Memberships_AJAX {
 		add_action( 'wp_ajax_wc_memberships_create_user_for_membership', array( $this, 'create_user_for_membership' ) );
 		// transfer a membership from a user to another
 		add_action( 'wp_ajax_wc_memberships_transfer_user_membership',   array( $this, 'transfer_user_membership' ) );
+
+		// toggle editable status of member profile fields
+		add_action( 'wp_ajax_wc_memberships_toggle_profile_field_editable_by', [ $this, 'toggle_member_profile_field_editable_by' ] );
+		add_action( 'wp_ajax_wc_memberships_sort_profile_fields',              [ $this, 'sort_member_profile_fields' ] );
+		add_action( 'wp_ajax_wc_memberships_save_profile_fields',              [ $this, 'save_member_profile_fields' ] );
+
+		// handle profile field file form field uploads
+		add_action( 'wp_ajax_wc_memberships_upload_profile_field_file',        [ $this, 'upload_member_profile_field_file' ] );
+		add_action( 'wp_ajax_nopriv_wc_memberships_upload_profile_field_file', [ $this, 'upload_member_profile_field_file' ] );
+		add_action( 'wp_ajax_wc_memberships_remove_profile_field_file',        [ $this, 'remove_member_profile_field_file' ] );
+		add_action( 'wp_ajax_nopriv_wc_memberships_remove_profile_field_file', [ $this, 'remove_member_profile_field_file' ] );
 
 		// enhanced select
 		add_action( 'wp_ajax_wc_memberships_json_search_posts', array( $this, 'json_search_posts' ) );
@@ -85,6 +101,26 @@ class WC_Memberships_AJAX {
 
 		if ( current_user_can( 'wc_memberships_access_all_restricted_content' ) ) {
 			wp_send_json_success( update_user_meta( get_current_user_id(), '_wc_memberships_show_admin_restricted_content_notice', 'no' ) );
+		}
+
+		wp_send_json_error();
+	}
+
+
+	/**
+	 * Dismiss the specified frontend banner to make sure the current user don't see that notice again.
+	 *
+	 * @internal
+	 *
+	 * @since 1.19.0
+	 */
+	public function dismiss_frontend_banner() {
+
+		$message_id = Framework\SV_WC_Helper::get_posted_value( 'message_id' );
+		$user_id    = get_current_user_id();
+
+		if ( $message_id && $user_id ) {
+			wp_send_json_success( update_user_meta( $user_id, sprintf( '_wc_memberships_show_%s_notice', str_replace( '-', '_', $message_id ) ), 'no' ) );
 		}
 
 		wp_send_json_error();
@@ -494,6 +530,262 @@ class WC_Memberships_AJAX {
 
 
 	/**
+	 * Toggles the "editable by" status of a profile field definition.
+	 *
+	 * @internal
+	 *
+	 * @since 1.19.0
+	 */
+	public function toggle_member_profile_field_editable_by() {
+
+		check_ajax_referer( 'toggle-profile-field-editable-by', 'security' );
+
+		$profile_field_definition = Profile_Fields::get_profile_field_definition( isset( $_POST['profile_field'] ) ? $_POST['profile_field'] : '' );
+
+		if ( ! $profile_field_definition ) {
+			wp_send_json_error( 'Profile field definition invalid or not found.' );
+		}
+
+		if ( $profile_field_definition->is_editable_by( Profile_Field_Definition::EDITABLE_BY_ADMIN ) ) {
+			$profile_field_definition->set_editable_by( Profile_Field_Definition::EDITABLE_BY_CUSTOMER );
+		} else {
+			$profile_field_definition->set_editable_by( Profile_Field_Definition::EDITABLE_BY_ADMIN );
+		}
+
+		try {
+
+			$editable_by = $profile_field_definition->get_editable_by();
+
+			// if setting to editable by customer, the field needs to be visible at least in one area for customers to edit
+			if ( Profile_Field_Definition::EDITABLE_BY_CUSTOMER === $editable_by && empty( $profile_field_definition->get_visibility() ) ) {
+				$profile_field_definition->set_visibility( [ Profile_Fields::VISIBILITY_PROFILE_FIELDS_AREA ] );
+			}
+
+			$profile_field_definition->save();
+
+			wp_send_json_success( [
+				'editable_by' => $editable_by,
+				'visibility'  => Profile_Field_Definition::EDITABLE_BY_CUSTOMER === $editable_by ? $profile_field_definition->get_visibility() : [],
+			] );
+
+		} catch ( \Exception $e ) {
+
+			wp_send_json_error( $e->getMessage() );
+		}
+	}
+
+
+	/**
+	 * Sorts profile field definitions.
+	 *
+	 * @internal
+	 *
+	 * @since 1.19.0
+	 */
+	public function sort_member_profile_fields() {
+
+		check_ajax_referer( 'sort-profile-fields', 'security' );
+
+		$profile_fields = Framework\SV_WC_Helper::get_posted_value( 'profile_fields', [] );
+
+		if ( empty( $profile_fields ) ) {
+			wp_send_json_error();
+		}
+
+		$profile_field_definitions_store = new Data_Stores\Profile_Field_Definition\Option();
+		$profile_field_definitions_store->sort( array_map( 'strval', (array) $profile_fields ) );
+
+		wp_send_json_success();
+	}
+
+
+	/**
+	 * Updates member profile fields.
+	 *
+	 * @internal
+	 *
+	 * @since 1.19.0
+	 */
+	public function save_member_profile_fields() {
+
+		check_ajax_referer( 'save-profile-fields', 'security' );
+
+		$profile_fields     = Framework\SV_WC_Helper::get_posted_value( 'profile_fields', [] );
+		$user_membership_id = Framework\SV_WC_Helper::get_posted_value( 'user_membership_id', 0 );
+		$user_membership    = $user_membership_id > 0 ? wc_memberships_get_user_membership( $user_membership_id ) : null;
+
+		if ( ! $user_membership || empty( $profile_fields ) || ! is_array( $profile_fields ) ) {
+			wp_send_json_error();
+		}
+
+		$plan_profile_field_definitions = Profile_Fields::get_profile_field_definitions( [ 'membership_plan_ids' => [ $user_membership->get_plan_id() ] ] );
+		$profile_fields_data            = $errors = $updated = [];
+
+		foreach ( $profile_fields as $profile_field ) {
+
+			if ( empty( $profile_field['slug'] ) || ! isset( $profile_field['value'] ) ) {
+				continue;
+			}
+
+			// turn value into an array for fields with multiple values
+			if ( isset( $profile_fields_data[ $profile_field['slug'] ] ) ) {
+				$profile_fields_data[ $profile_field['slug'] ] = array_merge( (array) $profile_fields_data[ $profile_field['slug'] ], [ $profile_field['value'] ] );
+			} else {
+				$profile_fields_data[ $profile_field['slug'] ] = $profile_field['value'];
+			}
+
+			unset( $plan_profile_field_definitions[ $profile_field['slug'] ] );
+		}
+
+		// ensures that profile fields without a value sent in AJAX are overwritten with an empty value still
+		foreach ( $plan_profile_field_definitions as $profile_field_definition ) {
+			$profile_fields_data[ $profile_field_definition->get_slug() ] = $profile_field_definition->has_options() ? [] : '';
+		}
+
+		foreach ( $profile_fields_data as $slug => $value ) {
+
+			if ( ! Profile_Fields::is_profile_field_slug( $slug ) ) {
+				continue;
+			}
+
+			$profile_field = $user_membership->get_profile_field( $slug ) ?: new Profile_Fields\Profile_Field();
+			$value         = is_string( $value ) ? trim( $value ) : $value;
+
+			try {
+
+				$profile_field->set_user_id( $user_membership->get_user_id() );
+				$profile_field->set_slug( $slug );
+				$profile_field->set_value( $value );
+				$profile_field->save();
+
+				$update        = new \stdClass();
+				$update->slug  = $profile_field->get_slug();
+				$update->value = $profile_field->get_value();
+
+				if ( $profile_field->get_definition()->is_type( Profile_Fields::TYPE_FILE ) ) {
+					$media_library_url = $update->value > 0 ? get_edit_post_link( $update->value ) : '';
+					$formatted_value   = $update->value > 0 && '' !== $media_library_url ? sprintf( '<a href="%s">%s</a>', esc_url( $media_library_url ), basename( get_attached_file( $update->value ) ) ) : '';
+				} else {
+					$formatted_value   = esc_html( $profile_field->get_formatted_value() );
+				}
+
+				$update->formatted_value = '' !== trim( $formatted_value ) ? $formatted_value : '&mdash;';
+
+				$updated[] = $update;
+
+			} catch ( \Exception $e ) {
+
+				$error = new \stdClass();
+				$error->slug  = $slug;
+				$error->error = $e->getMessage();
+
+				$errors[] = $error;
+			}
+		}
+
+		if ( ! empty( $errors ) ) {
+			wp_send_json_error( [ 'errors' => $errors ] );
+		}
+
+		wp_send_json_success( [ 'updated' => $updated ] );
+	}
+
+
+	/**
+	 * Handles a file profile field upload from front end.
+	 *
+	 * @internal
+	 *
+	 * @since 1.19.0
+	 */
+	public function upload_member_profile_field_file() {
+
+		check_ajax_referer( 'member-profile-field-upload-file', 'security' );
+
+		$slug = Framework\SV_WC_Helper::get_posted_value( 'profile_field', '' );
+
+		// bail if no files were posted or file upload errors occurred
+		if ( empty( $_FILES ) || ( isset( $_FILES['file']['error'] ) && $_FILES['file']['error'] ) ) {
+			return false;
+		}
+
+		// bail if invalid profile field was posted
+		if ( ! Profile_Fields::is_profile_field_slug( $slug ) ) {
+			return false;
+		}
+
+		if ( ! function_exists( 'wp_handle_upload' ) ) {
+			require_once( ABSPATH . "wp-admin" . '/includes/image.php' );
+			require_once( ABSPATH . "wp-admin" . '/includes/file.php' );
+			require_once( ABSPATH . "wp-admin" . '/includes/media.php' );
+		}
+
+		$file_info = pathinfo( $_FILES['file']['name'] );
+
+		// ensure names are unique in sessions
+		$_FILES['file']['name'] = uniqid( $file_info['filename'] . '-', false ) . '.' . $file_info['extension'];
+
+		$attachment_id = media_handle_upload( 'file', 0 );
+
+		if ( is_wp_error( $attachment_id ) ) {
+
+			echo json_encode( $attachment_id );
+
+		} else {
+
+			// store the file in session
+			Profile_Fields::store_uploaded_profile_field_file_in_session( $slug, $attachment_id );
+
+			echo json_encode( [
+				'id'       => $attachment_id,
+				'title'    => get_the_title( $attachment_id ) . '.' . strtolower( $file_info['extension'] ),
+				'url'      => wp_get_attachment_url( $attachment_id ),
+				'security' => wp_create_nonce( 'woocommerce-register' ),
+			] );
+		}
+
+		exit;
+	}
+
+
+	/**
+	 * Handles the removal of an uploaded profile field file from front end.
+	 *
+	 * @internal
+	 *
+	 * @since 1.19.0
+	 */
+	public function remove_member_profile_field_file() {
+
+		check_ajax_referer( 'member-profile-field-remove-file', 'security' );
+
+		$slug = Framework\SV_WC_Helper::get_posted_value( 'profile_field', '' );
+		$file = Framework\SV_WC_Helper::get_posted_value( 'file', '' );
+
+		// bail if no file identifier was posted
+		if ( empty( $file ) ) {
+			wp_send_json_error( 'Missing file information.' );
+		}
+
+		// bail if no matching profile field was posted
+		if ( ! Profile_Fields::is_profile_field_slug( $slug ) ) {
+			wp_send_json_error( 'Invalid profile field slug' );
+		}
+
+		// delete the file from session (security check: prevents deleting somebody's else file)
+		if ( Profile_Fields::remove_uploaded_profile_field_file_from_session( $slug, $file ) ) {
+
+			// delete the attachment
+			wp_delete_attachment( $file, true );
+
+			wp_send_json_success( $file );
+		}
+
+		wp_send_json_error( 'Could not match requested file to delete from user files in session.' );
+	}
+
+
+	/**
 	 * Fetches a batch job object.
 	 *
 	 * It will send null if the object wasn't found, which isn't necessarily an error.
@@ -730,11 +1022,12 @@ class WC_Memberships_AJAX {
 
 			try {
 
-				wp_send_json_success( (array)  $export_handler->create_job( array(
-					'user_membership_ids' => empty( $_POST['user_membership_ids'] ) ? $export_handler->get_user_memberships_ids_for_export( $export_args ) : $_POST['user_membership_ids'],
-					'include_meta_data'   => isset( $export_args['include_meta'] ) && 'yes' === $export_args['include_meta'],
-					'fields_delimiter'    => ! empty( $export_args['fields_delimiter'] ) ? $export_args['fields_delimiter'] : 'comma',
-				) ) );
+				wp_send_json_success( (array) $export_handler->create_job( [
+					'user_membership_ids'    => empty( $_POST['user_membership_ids'] ) ? $export_handler->get_user_memberships_ids_for_export( $export_args ) : $_POST['user_membership_ids'],
+					'include_profile_fields' => isset( $export_args['include_profile_fields'] ) && 'yes' === $export_args['include_profile_fields'],
+					'include_meta_data'      => isset( $export_args['include_meta'] ) && 'yes' === $export_args['include_meta'],
+					'fields_delimiter'       => ! empty( $export_args['fields_delimiter'] ) ? $export_args['fields_delimiter'] : 'comma',
+				] ) );
 
 			} catch ( Framework\SV_WC_Plugin_Exception $e ) {
 

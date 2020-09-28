@@ -1,5 +1,11 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2020.09.07 - version 1.8.5
+* Fix - 'Product on Subscription' condition not working during manual renewals.
+* Tweak - Updated the 'Settings > Restrictions' page layout.
+* Tweak - Added a warning in global restriction pages to let store managers know when 'Settings > Restrictions > Troubleshooting > Disable Global Restrictions' is active.
+* Tweak - Added a warning in edit-product pages to let store managers know when 'Settings > Restrictions > Troubleshooting > Disable Product Restrictions' is active.
+
 2020.08.21 - version 1.8.4
 * Tweak - Renamed 'Recurring Item' condition to 'Product on Subscription'.
 

@@ -1,5 +1,8 @@
 *** WooCommerce Account Funds ***
 
+2020-09-07 - version 2.3.1
+* Fix - Compatibility issue with WooCommerce Subscriptions.
+
 2020-08-05 - version 2.3.0
 * Tweak - Add "Funds used" before order total.
 * Tweak - Checkout improvements.

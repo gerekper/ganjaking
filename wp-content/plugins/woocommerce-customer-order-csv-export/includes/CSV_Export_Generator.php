@@ -297,10 +297,13 @@ class CSV_Export_Generator extends Export_Generator {
 
 			foreach ( $line_items as $item ) {
 
+				$item_price = wc_format_decimal( $item['quantity'] && is_numeric( $item['quantity'] ) ? floatval( $item['subtotal'] ) / floatval( $item['quantity'] ) : 0 );
+
 				$order_data['item_id']           = $item['id'];
 				$order_data['item_name']         = $item['name'];
 				$order_data['item_product_id']   = $item['product_id'];
 				$order_data['item_sku']          = $item['sku'];
+				$order_data['item_price']        = $item_price;
 				$order_data['item_quantity']     = $item['quantity'];
 				$order_data['item_subtotal']     = $item['subtotal'];
 				$order_data['item_subtotal_tax'] = $item['subtotal_tax'];

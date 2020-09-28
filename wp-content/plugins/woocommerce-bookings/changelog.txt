@@ -1,5 +1,12 @@
 *** WooCommerce Bookings Changelog ***
 
+2020-09-07 - version 1.15.26
+* Fix   - Bookable products with multiple resources incorrectly showing fully booked on calendar.
+* Fix   - Load created bookings including buffer time to check for availability.
+* Fix   - Booking day duration not considered in the REST API.
+* Tweak - Include metadata of an order item in the Booking screen.
+* Tweak - Introduce feature to enable use of self owned Google Calendar API application for calendar synchronisation.
+
 2020-08-25 - version 1.15.25
 * Fix   - Replace deprecated jQuery methods.
 * Fix   - Fix end times drop down for multiple resources.

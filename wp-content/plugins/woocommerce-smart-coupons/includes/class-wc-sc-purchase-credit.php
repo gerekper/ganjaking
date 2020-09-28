@@ -171,14 +171,12 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 							});
 
 							// To handle, if the call for credit form is included twice.
-							jQuery(document).ready(function(){
-								jQuery.each( jQuery('body').find('div#call_for_credit'), function(){
-									let current_element = jQuery(this);
-									let is_visible = current_element.is(':visible');
-									if ( false === is_visible ) {
-										current_element.remove();
-									}
-								});
+							jQuery.each( jQuery('body').find('div#call_for_credit'), function(){
+								let current_element = jQuery(this);
+								let is_visible = current_element.is(':visible');
+								if ( false === is_visible ) {
+									current_element.remove();
+								}
 							});
 
 						";

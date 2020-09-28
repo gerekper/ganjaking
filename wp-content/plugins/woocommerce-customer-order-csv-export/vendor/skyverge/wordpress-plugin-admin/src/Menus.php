@@ -87,8 +87,9 @@ class Menus {
 
 		/* @see https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/ */
 		wp_localize_script( 'sv-wordpress-plugin-admin-client-admin', 'SVWPPluginAdminAPIParams', [
-			'root'  => esc_url_raw( rest_url() ),
-			'nonce' => wp_create_nonce( 'wp_rest' )
+			'root'             => esc_url_raw( rest_url() ),
+			'nonce'            => wp_create_nonce( 'wp_rest' ),
+			'adminRelativeURL' => esc_url_raw( untrailingslashit( str_replace( site_url(), '', admin_url() ) ) ),
 		] );
 	}
 

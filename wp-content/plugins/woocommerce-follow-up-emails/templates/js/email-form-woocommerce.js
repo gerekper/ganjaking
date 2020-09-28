@@ -37,11 +37,11 @@ jQuery( function( $ ) {
         }
     }
 
-    $("body").bind("updated_email_type", function () {
+    $("body").on("updated_email_type", function () {
         woocommerce_toggle_fields($("#email_type").val());
     });
 
-    $("body").bind("updated_email_details", function () {
+    $("body").on("updated_email_details", function () {
         woocommerce_toggle_fields($("#email_type").val());
 
         toggle_custom_fields_tab();
@@ -52,7 +52,7 @@ jQuery( function( $ ) {
         $("#storewide_type").trigger("change");
     });
 
-    $("body").bind("updated_email", toggle_variations_row);
+    $("body").on("updated_email", toggle_variations_row);
 
     init_select2_fields();
 
@@ -200,7 +200,7 @@ jQuery( function( $ ) {
     });
 
     // enable visible input fields
-    $('body').bind('updated_email_details', function () {
+    $('body').on('updated_email_details', function () {
         $("#trigger_conditions :input:visible").removeAttr("disabled");
 
         $(".select2-init:visible")
@@ -219,7 +219,7 @@ jQuery( function( $ ) {
         init_select2_fields();
     });
 
-    $('body').bind('updated_email_type', function (evt, type) {
+    $('body').on('updated_email_type', function (evt, type) {
         $("#fue-email-test").block({
             message: null,
             overlayCSS: {background: '#fff url(' + FUE.ajax_loader + ') no-repeat center', opacity: 0.6}

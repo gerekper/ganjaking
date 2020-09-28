@@ -430,10 +430,14 @@ jQuery(document).ready(function($){
 	function showHidePlaceOrder() {
 
 		if ( $( '#order_review tbody' ).children().length>0 ) {
-			$( '#place_order' ).show();
+			/* Stop animations from other plugins and show immediately.*/
+			$( '#place_order' ).stop();
+			$( '#place_order' ).animate( { opacity: 'show', height: 'show', padding: 'show' }, 0 );
 			$( '#payment .payment_methods').show();
 		} else {
-			$( '#place_order' ).hide();
+			/* Stop animations from other plugins and hide immediately*/
+			$( '#place_order' ).stop();
+			$( '#place_order' ).animate( { opacity: 'hide', height: 'hide', padding: 'hide' }, 0 );
 			$( '#payment .payment_methods').hide();
 		}
 	}

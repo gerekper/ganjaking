@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-08-25T13:47:58+00:00\n"
-"PO-Revision-Date: 2020-06-17 10:54:07+0000\n"
+"POT-Creation-Date: 2020-09-07T17:21:54+02:00\n"
+"PO-Revision-Date: 2020-09-02 08:33:00+0000\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
@@ -237,7 +237,7 @@ msgstr "Ponte en contacto con nosotros si tienes alguna pregunta o inquietud."
 #: templates/emails/customer-booking-cancelled.php:35
 #: templates/emails/plain/customer-booking-cancelled.php:30
 msgid "We are sorry to say that your booking could not be confirmed and has been cancelled. The details of the cancelled booking can be found below."
-msgstr "Lamentamos decir que tu reserva no pudo ser confirmada y se ha cancelado. Los detalles de la reserva cancelada pueden encontrarse abajo."
+msgstr "Lamentamos decir que tu reserva no pudo confirmarse y se ha cancelado. Los detalles de la reserva cancelada pueden encontrarse abajo."
 
 #. translators: 1: billing first name
 #: templates/emails/customer-booking-cancelled.php:30
@@ -486,7 +486,7 @@ msgstr "Reservas: Multiplica el coste por el número de personas"
 
 #: includes/gateways/class-wc-bookings-gateway.php:86
 msgid "Your booking is awaiting confirmation. You will be notified by email as soon as we've confirmed availability."
-msgstr "Tu reserva está esperando confirmación. Se te notificará por correo electrónico tan pronto como se haya confirmado la disponibilidad."
+msgstr "Tu reserva está esperando confirmación. Se te avisará por correo electrónico tan pronto como se haya confirmado la disponibilidad."
 
 #: includes/gateways/class-wc-bookings-gateway.php:84
 msgid "Your booking has been confirmed. Thank you."
@@ -515,7 +515,7 @@ msgstr "Consultar disponibilidad de reserva"
 #. translators: %s: heading confirmation
 #: includes/emails/class-wc-email-new-booking.php:234
 msgid "This controls the main heading contained within the email notification for Pending confirmation bookings. Leave blank to use the default heading: <code>%s</code>."
-msgstr "Esto controla la línea principal que figura en la notificación por correo electrónico. Déjalo en blanco para usar la cabecera por defecto: <code>%s</code> ."
+msgstr "Esto controla la línea principal que figura en el aviso por correo electrónico. Déjalo en blanco para usar la cabecera por defecto: <code>%s</code> ."
 
 #: includes/emails/class-wc-email-new-booking.php:231
 msgid "Email Heading (Pending confirmation)"
@@ -579,11 +579,11 @@ msgstr "Confirmación de reserva pendiente"
 
 #: includes/emails/class-wc-email-booking-notification.php:20
 msgid "Booking notification emails are sent manually from WooCommerce > Bookings > Send Notification."
-msgstr "Los mensajes de notificación de la reserva se enviarán manualmente desde WooCommerce > Reservas > Enviar notificación."
+msgstr "Los mensajes de aviso de la reserva se enviarán manualmente desde WooCommerce > Reservas > Enviar aviso."
 
 #: includes/emails/class-wc-email-booking-notification.php:19
 msgid "Booking Notification"
-msgstr "Notificación de reserva"
+msgstr "Aviso de reserva"
 
 #: includes/emails/class-wc-email-booking-confirmed.php:22
 msgid "[{blogname}] Your booking of {product_title} has been confirmed (Order {order_number}) - {order_date}"
@@ -660,7 +660,7 @@ msgstr "Tipo de correo"
 #: includes/emails/class-wc-email-booking-reminder.php:157
 #: includes/emails/class-wc-email-new-booking.php:226
 msgid "This controls the main heading contained within the email notification. Leave blank to use the default heading: <code>%s</code>."
-msgstr "Esto controla el encabezado principal de la notificación por correo electrónico. Déjalo en blanco para usar el encabezado predeterminado: <code>%s</code>"
+msgstr "Esto controla el encabezado principal del aviso por correo electrónico. Déjalo en blanco para usar el encabezado por defecto: <code>%s</code>"
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:174
 #: includes/emails/class-wc-email-booking-cancelled.php:169
@@ -700,7 +700,7 @@ msgstr "Destinatario(s)"
 #: includes/emails/class-wc-email-booking-reminder.php:142
 #: includes/emails/class-wc-email-new-booking.php:195
 msgid "Enable this email notification"
-msgstr "Activar este email de notificación"
+msgstr "Activar este correo electrónico de aviso"
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:152
 #: includes/emails/class-wc-email-booking-cancelled.php:155
@@ -1855,7 +1855,7 @@ msgstr "Producto reservable"
 #. tag 4: closing a href tag
 #: includes/admin/views/html-notifications-page.php:7
 msgid "You may send an email notification to all customers who have a %1$sfuture%2$s booking for a particular product. This will use the default template specified under %3$sWooCommerce > Settings > Emails%4$s."
-msgstr "Puedes enviar una notificación por correo electrónico a todos los clientes que tienen una reserva %1$sfutura%2$s para un producto determinado. Se usará la plantilla por defecto especificada en %3$sWooCommerce > Configuración> Correos electrónicos%4$s."
+msgstr "Puedes enviar un aviso por correo electrónico a todos los clientes que tienen una reserva %1$sfutura%2$s para un producto determinado. Se usará la plantilla por defecto especificada en %3$sWooCommerce > Ajustes> Correos electrónicos%4$s."
 
 #: includes/admin/views/html-create-booking-page.php:76
 #: includes/booking-form/class-wc-booking-form.php:37
@@ -2821,7 +2821,7 @@ msgstr "Disponibilidad de la tienda"
 
 #: includes/admin/class-wc-bookings-menus.php:167
 msgid "Notification sent successfully"
-msgstr "Notificación enviada con éxito"
+msgstr "Aviso enviado correctamente"
 
 #: includes/admin/class-wc-bookings-menus.php:145
 msgid "Please enter a subject"
@@ -2844,7 +2844,7 @@ msgstr "Ajustes"
 #: includes/admin/views/html-notifications-page.php:2
 #: includes/admin/views/html-notifications-page.php:58
 msgid "Send Notification"
-msgstr "Enviar notificación"
+msgstr "Enviar aviso"
 
 #: includes/admin/class-wc-bookings-menus.php:71
 #: includes/admin/views/html-calendar-day.php:2

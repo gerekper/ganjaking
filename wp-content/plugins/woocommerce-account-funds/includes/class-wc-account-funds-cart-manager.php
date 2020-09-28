@@ -25,6 +25,7 @@ class WC_Account_Funds_Cart_Manager {
 		add_action( 'wp', array( $this, 'maybe_use_funds' ) );
 
 		add_filter( 'woocommerce_calculated_total', array( $this, 'calculated_total' ) );
+		add_filter( 'woocommerce_subscriptions_calculated_total', array( $this, 'calculated_total' ) );
 		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'calculate_totals' ), 99 );
 
 		add_filter( 'woocommerce_get_shop_coupon_data', array( $this, 'get_discount_data' ), 10, 2 );
@@ -51,7 +52,7 @@ class WC_Account_Funds_Cart_Manager {
 
 		$use_funds = ( $funds > 0 && ( WC()->cart->total <= $funds || 'yes' === get_option( 'account_funds_partial_payment' ) ) );
 
-		if ( self::cart_contains_deposit() || self::cart_contains_subscription() || ! is_user_logged_in() ) {
+		if ( self::cart_contains_deposit() || ! is_user_logged_in() ) {
 			$use_funds = false;
 		}
 

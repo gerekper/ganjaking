@@ -1391,15 +1391,15 @@ class userpro_api
     /******************************************
      * Get post thumbnail image (size wise)
      ******************************************/
-    function post_thumb($postid, $size = 400)
+    function post_thumb($postid, $width = 400 ,$height = 400, $quality = 100)
     {
 
         require_once(userpro_path . 'lib/BFI_Thumb.php');
         $post_thumb_url = $this->post_thumb_url($postid);
         if (isset($post_thumb_url)) {
-            $params = ['width' => $size, 'height' => $size, 'quality' => 100];
+            $params = ['width' => $width, 'height' => $height, 'quality' => $quality];
             $cropped_thumb = bfi_thumb(urldecode($post_thumb_url), $params);
-            $img = '<img style="height:'.$size.'px; width:'.$size.'px" src="' . $cropped_thumb . '" alt="" />';
+            $img = '<img style="height:'.$height.'px; width:'.$width.'px" src="' . $cropped_thumb . '" alt="" />';
 
             return $img;
         }
@@ -2746,10 +2746,9 @@ EOF;
     {
 
         global $userpro;
-
         $id = (isset($array['id'])) ? $array['id'] : 0;
-        $firstName = (isset($array['firstName'])) ? $array['firstName'] : '';
-        $lastName = (isset($array['lastName'])) ? $array['lastName'] : '';
+        $firstName = (isset($array['firstName']['localized']['en_US'])) ? $array['firstName']['localized']['en_US'] : '';
+        $lastName = (isset($array['lastName']['localized']['en_US'])) ? $array['lastName']['localized']['en_US'] : '';
         $location = (isset($array['location']['name'])) ? $array['location']['name'] : '';
         $profile_picture = (isset($array['pictureUrls']['values'][0])) ? $array['pictureUrls']['values'][0] : '';
 

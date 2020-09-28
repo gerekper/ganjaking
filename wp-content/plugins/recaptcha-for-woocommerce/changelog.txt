@@ -1,5 +1,16 @@
 *** Changelog ***
 
+2020-09-17 - version 1.0.17
+
+* Added captcha protection for WooCommerce Pay For Order (This is only used when your order is failed. WooCommerce allow failed order to repay using this page.
+
+
+2020-09-01 - version 1.0.16
+
+* Added option for checkout captcha to refresh when there are checkout errors.
+* Fixed issue of refresh captcha sometimes not working
+
+
 2020-08-19 - version 1.0.15
 
 * Tested With WooCommerce 4.4.0

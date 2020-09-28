@@ -2292,6 +2292,8 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 			'i18n_ends_with'                   => esc_html__( 'ends with', 'woocommerce-tm-extra-product-options' ),
 			'i18n_greater_than'                => esc_html__( 'greater than', 'woocommerce-tm-extra-product-options' ),
 			'i18n_less_than'                   => esc_html__( 'less than', 'woocommerce-tm-extra-product-options' ),
+			'i18n_greater_than_equal'          => esc_html__( 'greater than or equal to', 'woocommerce-tm-extra-product-options' ),
+			'i18n_less_than_equal'             => esc_html__( 'less than or equal to', 'woocommerce-tm-extra-product-options' ),
 			'i18n_cannot_apply_rules'          => esc_html__( 'Cannot apply rules on this element or section since there are not any value configured elements on other sections, or no other sections found.', 'woocommerce-tm-extra-product-options' ),
 			'i18n_invalid_request'             => esc_html__( 'Invalid request!', 'woocommerce-tm-extra-product-options' ),
 			'i18n_populate'                    => esc_html__( 'Populate', 'woocommerce-tm-extra-product-options' ),
@@ -2456,7 +2458,13 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 			if ( ! isset( $tm_metas['tm_meta']['tmfbuilder'][ $key ] ) ) {
 				$tm_metas['tm_meta']['tmfbuilder'][ $key ] = array();
 			}
-			$tm_metas['tm_meta']['tmfbuilder'][ $key ] = ( array_merge( $tm_metas['tm_meta']['tmfbuilder'][ $key ], $value ) );
+			if ( THEMECOMPLETE_EPO_HELPER()->str_startswith( $key, 'variations_' ) ){
+				if ($key !== 'variations_disabled'){
+					$tm_metas['tm_meta']['tmfbuilder'][ $key ] = $value;
+				}
+			} else {
+				$tm_metas['tm_meta']['tmfbuilder'][ $key ] = array_merge( $tm_metas['tm_meta']['tmfbuilder'][ $key ], $value );
+			}
 		}
 
 		return $tm_metas;

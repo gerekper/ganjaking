@@ -493,18 +493,12 @@ class FUE_Admin_Controller {
 			wp_enqueue_script( 'raphael', plugins_url( 'templates/js/justgage/raphael.min.js', FUE_FILE ), null, '2.1.0', true );
 			wp_enqueue_script( 'justgage', plugins_url( 'templates/js/justgage/justgage.1.1.min.js', FUE_FILE ), null, '1.1', true );
 
-			wp_enqueue_script( 'circliful', plugins_url( 'templates/js/circliful/js/jquery.circliful.min.js', FUE_FILE ), array( 'jquery' ) );
-			wp_enqueue_style( 'circliful', plugins_url( 'templates/js/circliful/css/jquery.circliful.css', FUE_FILE ), array(), FUE_VERSION );
-
 			wp_enqueue_script( 'jquery-tiptip' );
 		}
 
 		if ( 'followup-emails-reports' === $page ) {
 			wp_enqueue_style( 'fue_admin_report_flags', plugins_url( 'templates/flags.css', FUE_FILE ), array(), FUE_VERSION );
 			wp_enqueue_style( 'fue_admin_report_styles', plugins_url( 'templates/reports.css', FUE_FILE ), array(), FUE_VERSION );
-
-			wp_enqueue_script( 'circliful', plugins_url( 'templates/js/circliful/js/jquery.circliful.min.js', FUE_FILE ), array( 'jquery' ) );
-			wp_enqueue_style( 'circliful', plugins_url( 'templates/js/circliful/css/jquery.circliful.css', FUE_FILE ), array(), FUE_VERSION );
 
 			wp_enqueue_script( 'fue-user-view', plugins_url( 'templates/js/user-view.js', FUE_FILE ), array( 'jquery' ), FUE_VERSION );
 			wp_enqueue_script( 'jquery-ui-datepicker', null, array( 'jquery' ) );

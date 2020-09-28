@@ -78,16 +78,75 @@ class BetterDocs_Multiple_Kb {
 	public static function postcount( $term_count, $multiple_kb, $term_id, $term_slug, $count ) {
 		
 		global $wp_query;
+		
+		$kb_terms = get_terms( 'knowledge_base' );
+		$doc_category_terms = get_terms( 'doc_category' );
 
-		if ( $multiple_kb == true && $wp_query->query['knowledge_base'] != 'non-knowledgebase' ) {
-			$term_count = BetterDocs_Helper::count_category($wp_query->query['knowledge_base'], $term_slug);
+		if ( $multiple_kb == true && !empty($kb_terms) && !empty($doc_category_terms) && $wp_query->query['knowledge_base'] != 'non-knowledgebase' ) {
+
+			$term_count = self::count_category($wp_query->query['knowledge_base'], $term_slug);
+
 		} else {
+
 			$term_count = betterdocs_get_postcount( $count, $term_id );
+			
 		}
 
 		return $term_count;
 		
 	}
+
+	public static function count_category( $kb_slug, $cat_slug ) {
+        
+        $args = array(
+            'post_type'   => 'docs',
+            'post_status' => 'publish',
+        );
+
+		$taxes = array( 'knowledge_base', 'doc_category' );
+		$tax_map = array();
+
+        foreach ( $taxes as $tax ) {
+            $terms = get_terms( $tax );
+        
+            foreach ( $terms as $term )
+                $tax_map[$tax][$term->slug] = $term->term_taxonomy_id;
+        }
+
+        $args['tax_query'] = array(
+            'relation' => 'AND'
+		);
+		
+		if ( array_key_exists( 'knowledge_base', $tax_map ) && !empty( $tax_map['knowledge_base'][$kb_slug] ) ) {
+			
+			$args['tax_query'][] = array(
+                'taxonomy' => 'knowledge_base',
+                'field' => 'term_taxonomy_id',
+                'terms' => array( $tax_map['knowledge_base'][$kb_slug] ),
+                'operator' => 'IN',
+                'include_children'  => false,
+			);
+			
+		}
+		
+		if ( array_key_exists( 'doc_category', $tax_map ) && !empty( $tax_map['doc_category'][$cat_slug] ) ) {
+			
+			$args['tax_query'][] = array(
+                'taxonomy' => 'doc_category',
+                'field' => 'term_taxonomy_id',
+                'operator' => 'IN',
+                'terms' => array( $tax_map['doc_category'][$cat_slug] ),
+                'include_children'  => false,
+			);
+			
+		}
+
+        $query = new WP_Query( $args );
+
+        $count = $query->found_posts;
+
+        return $count;
+    }
 
 	public static function category_list_shortcode( $shortcode ) {
 
@@ -222,7 +281,9 @@ class BetterDocs_Multiple_Kb {
 		global $wp_query;
 
 		if ( $multiple_kb == true && $wp_query->query['knowledge_base'] != 'non-knowledgebase' ) {
+			
 			$taxes = array( 'knowledge_base', 'doc_category' );
+			$tax_map = array();
 
 			foreach ( $taxes as $tax ) {
 				$terms = get_terms( $tax );
@@ -233,21 +294,45 @@ class BetterDocs_Multiple_Kb {
 
 			$tax_query = array(
 				'relation' => 'AND',
-				array(
+				// array(
+				// 	'taxonomy' => 'knowledge_base',
+				// 	'field' => 'term_taxonomy_id',
+				// 	'terms' => array( $tax_map['knowledge_base'][self::kb_slug()] ),
+				// 	'operator' => 'IN',
+				// 	'include_children'  => false,
+				// ),
+				// array(
+				// 	'taxonomy' => 'doc_category',
+				// 	'field' => 'term_taxonomy_id',
+				// 	'operator' => 'IN',
+				// 	'terms' => array( $tax_map['doc_category'][$tax_slug] ),
+				// 	'include_children'  => false,
+				// ),
+			);
+
+			if ( array_key_exists( 'knowledge_base', $tax_map ) && !empty( $tax_map['knowledge_base'][self::kb_slug()] ) ) {
+			
+				$tax_query['tax_query'][] = array(
 					'taxonomy' => 'knowledge_base',
 					'field' => 'term_taxonomy_id',
 					'terms' => array( $tax_map['knowledge_base'][self::kb_slug()] ),
 					'operator' => 'IN',
 					'include_children'  => false,
-				),
-				array(
+				);
+				
+			}
+
+			if ( array_key_exists( 'doc_category', $tax_map ) && !empty( $tax_map['doc_category'][$tax_slug] ) ) {
+				
+				$tax_query['tax_query'][] = array(
 					'taxonomy' => 'doc_category',
 					'field' => 'term_taxonomy_id',
 					'operator' => 'IN',
 					'terms' => array( $tax_map['doc_category'][$tax_slug] ),
 					'include_children'  => false,
-				),
-			);
+				);
+				
+			}
 
 			return $tax_query;
 		}

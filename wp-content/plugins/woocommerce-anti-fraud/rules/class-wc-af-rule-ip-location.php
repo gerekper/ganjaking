@@ -35,21 +35,39 @@ class WC_AF_Rule_Ip_Location extends WC_AF_Rule {
 		// Set IP address in var
 		$ip_address = $order->get_customer_ip_address();
 		$billing_country = $order->get_billing_country();
-        $ipdat = json_decode(file_get_contents( 
-                 "http://www.geoplugin.net/json.gp?ip=" . $ip_address));
-        
-		// We can only do this check if there is an IP address
-		if ( empty( $ip_address ) ) {
-			return false;
+		$contents = @file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip_address);
+			 
+		if ( $contents !== false ) {
+
+		    $ipdat = @json_decode($contents);
+			
+		    if(json_last_error() === JSON_ERROR_NONE) {
+				
+				// We can only do this check if there is an IP address
+				if ( empty( $ip_address ) ) {
+
+					return false;
+				}
+
+     			$objectTostring = json_decode(json_encode($ipdat), true);
+
+     			if(array_key_exists( 'geoplugin_countryCode', $objectTostring )) {
+
+					$risk = ($objectTostring['geoplugin_countryCode'] == $billing_country) ? false : true;
+				} else {
+
+					$risk = false;
+				}
+				
+				// Here we can create a log entry in future, whenever required. We can write the complete $res object in that log.
+				
+			}			    
+			
 		}
-         $objectTostring = json_decode(json_encode($ipdat), true);
-         if(array_key_exists( 'geoplugin_countryCode', $objectTostring )){
-    	$risk = ($objectTostring['geoplugin_countryCode'] == $billing_country) ? false : true;
-    }else{
-    	$risk = false;
-    }
-    return $risk;
-}
+
+    	return $risk;
+	}
+	
 	//Enable rule check
 	public function is_enabled(){
 		if('yes' == $this->is_enabled){

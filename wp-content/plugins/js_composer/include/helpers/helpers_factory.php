@@ -550,7 +550,7 @@ function vc_verify_public_nonce( $nonce = '' ) {
  * @return bool|mixed|void
  * @throws \Exception
  */
-function vc_check_post_type( $type ) {
+function vc_check_post_type( $type = '' ) {
 	if ( empty( $type ) ) {
 		$type = get_post_type();
 	}

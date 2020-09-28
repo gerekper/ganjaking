@@ -1,6 +1,6 @@
 <?php 
 /**
- * Article Reactions Shortcode
+ * Docs Reactions Shortcode
  * *
  * @since      1.0.2
  * 
@@ -68,7 +68,8 @@ add_shortcode( 'betterdocs_category_box_l3', 'betterdocs_category_box_l3' );
 function betterdocs_category_box_l3( $atts, $content = null ) {
 	ob_start();
 	$column_number = BetterDocs_DB::get_settings('column_number');
-	$nested_subcategory = BetterDocs_DB::get_settings('nested_subcategory');
+	$post_count = BetterDocs_DB::get_settings('post_count');
+	$count_text = BetterDocs_DB::get_settings('count_text');
 	$get_args = shortcode_atts(
 		array(
             'post_type' => 'docs',
@@ -115,7 +116,9 @@ function betterdocs_category_box_l3( $atts, $content = null ) {
 					}
 					echo '<div class="title-count">';
 					echo '<h3 class="docs-cat-title">'.$term->name.'</h3>';
-					echo wp_sprintf('<span>%s ' . __('articles', 'betterdocs-pro').'</span>', $term->count);
+					if ( $post_count == 1 ) {
+						echo wp_sprintf('<span>%s %s</span>', $term->count, ( $count_text ) ? $count_text : __('articles', 'betterdocs'));
+					}
 					echo '</div>';
 					?>	
 				</a>
@@ -141,6 +144,8 @@ function betterdocs_multiple_kb( $atts, $content = null ) {
 	ob_start();
 
 	$column_number = BetterDocs_DB::get_settings('column_number');
+	$post_count = BetterDocs_DB::get_settings('post_count');
+	$count_text = BetterDocs_DB::get_settings('count_text');
 	$get_args = shortcode_atts (
 		array (
             'post_type' => 'docs',
@@ -214,7 +219,9 @@ function betterdocs_multiple_kb( $atts, $content = null ) {
 
 					}
 
-					echo wp_sprintf('<span>%s ' . __('articles', 'betterdocs').'</span>', $term->count);
+					if ( $post_count == 1 ) {
+						echo wp_sprintf('<span>%s %s</span>', $term->count, ( $count_text ) ? $count_text : __('articles', 'betterdocs'));
+					}
 
 					?>	
 				</a>
@@ -240,6 +247,8 @@ function betterdocs_multiple_kb_2( $atts, $content = null ) {
 	ob_start();
 
 	$column_number = BetterDocs_DB::get_settings('column_number');
+	$post_count = BetterDocs_DB::get_settings('post_count');
+	$count_text = BetterDocs_DB::get_settings('count_text');
 	$get_args = shortcode_atts(
 		array(
             'post_type' => 'docs',
@@ -297,7 +306,9 @@ function betterdocs_multiple_kb_2( $atts, $content = null ) {
 					}
 					echo '<div class="title-count">';
 					echo '<h3 class="docs-cat-title">'.$term->name.'</h3>';
-					echo wp_sprintf('<span>%s ' . __('articles', 'betterdocs-pro').'</span>', $term->count);
+					if ( $post_count == 1 ) {
+						echo wp_sprintf('<span>%s %s</span>', $term->count, ( $count_text ) ? $count_text : __('articles', 'betterdocs'));
+					}
 					echo '</div>';
 					?>	
 				</a>
@@ -329,6 +340,8 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 	$nested_subcategory = BetterDocs_DB::get_settings('nested_subcategory');
 	$exploremore_btn = BetterDocs_DB::get_settings('exploremore_btn');
 	$exploremore_btn_txt = BetterDocs_DB::get_settings('exploremore_btn_txt');
+	$post_count = BetterDocs_DB::get_settings('post_count');
+	$count_text = BetterDocs_DB::get_settings('count_text');
 	$get_args = shortcode_atts (
 		array(
             'sidebar_list' => false,
@@ -413,7 +426,9 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 					}
 					echo '<div class="title-count">';
 					echo '<h3 class="docs-cat-title">'.$term->name.'</h3>';
-					echo wp_sprintf('<span>%s ' . __('articles', 'betterdocs-pro').'</span>', $term->count);
+					if ( $post_count == 1 ) {
+						echo wp_sprintf('<span>%s %s</span>', $term->count, ( $count_text ) ? $count_text : __('articles', 'betterdocs'));
+					}
 					echo '</div>';
 				echo '</div>';
 				echo '</a>';

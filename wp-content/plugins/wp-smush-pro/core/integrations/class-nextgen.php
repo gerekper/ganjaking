@@ -99,6 +99,9 @@ class NextGen extends Abstract_Integration {
 			add_action( 'ngg_added_new_image', array( $this, 'auto_smush' ) );
 		}
 
+		// Update Total Image count.
+		add_action( 'ngg_added_new_image', array( $this, 'update_stats_image_count' ), 10 );
+
 		/**
 		 * AJAX
 		 */
@@ -382,6 +385,14 @@ class NextGen extends Abstract_Integration {
 	}
 
 	/**
+	 * Refreshes the total image count from the stats when a new image is added to nextgen gallery
+	 * Should be called only if image count need to be updated, use total_count(), otherwise
+	 */
+	public function update_stats_image_count() {
+		NextGen\Stats::total_count( true );
+	}
+
+	/**
 	 * Handles the smushing of each image and its registered sizes
 	 * Calls the function to update the compression stats
 	 */
@@ -607,6 +618,15 @@ class NextGen extends Abstract_Integration {
 
 			// Get the Button html without wrapper.
 			$button_html = $this->ng_admin->wp_smush_column_options( '', $image_id );
+
+			/**
+			 * Called after the image has been successfully restored
+			 *
+			 * @since 3.7.0
+			 *
+			 * @param int $image_id ID of the restored image.
+			 */
+			do_action( 'wp_smush_image_nextgen_restored', $image_id );
 
 			wp_send_json_success(
 				array(

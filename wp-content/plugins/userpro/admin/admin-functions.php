@@ -19,7 +19,8 @@
         return $output;
     }
 
-
+    update_option('userpro_trial', 0);
+    update_option('userpro_activated',true);
     function userpro_admin_bar(){
         ?>
 <div class="userpro-admin-head">
@@ -27,13 +28,13 @@
 <a href="<?php echo admin_url('admin.php'); ?>?page=userpro">User<span>Pro</span> <span class="userpro-admin-left--version"><?php echo UserPro::$version ?></span></a>
     <span class="userpro-admin-left--desc"><?php _e('administration backend', 'userpro') ?></span>
 
-    <!--<?php if (get_option('userpro_activated')) {
+    <?php if (get_option('userpro_activated')) {
         $message_class = 'up-approve';
        $message =  __('Thank you for activating UserPro!', 'userpro');
     } else {
         $message_class = 'up-warning';
         $message = __('This copy is unlicensed. Please activate your copy.', 'userpro');
-    } ?> -->
+    } ?>
     <span class="<?= $message_class ?>"><?= $message ?></span>
 </div>
 <div class="userpro-admin-right">
@@ -196,6 +197,7 @@
                 if (!isset($arr['woo'])) $arr['woo'] = 0;
                 if (userpro_get_field_icon($specific_field)) { $arr['icon'] = userpro_get_field_icon($specific_field); } else { $arr['icon'] = ''; }
                 if (!isset($arr['button_text']) && isset($arr['type']) && ( $arr['type'] == 'file' || $arr['type'] == 'picture') ) $arr['button_text'] = '';
+                if (!isset($arr['allowed_extensions']) && isset($arr['type']) && ( $arr['type'] == 'file' ) ) $arr['allowed_extensions'] = '';
                 if (!isset($arr['list_id']) && isset($arr['type']) && ( $arr['type'] == 'mailchimp' ) ) $arr['list_id'] = '';
                 if (!isset($arr['sitekey']) && isset($arr['type']) && ( $arr['type'] == 'recaptcha' ) ) $arr['sitekey'] = '';
                 if (!isset($arr['list_text']) && isset($arr['type']) && ( $arr['type'] == 'mailchimp' ) ) $arr['list_text'] = '';
@@ -271,7 +273,7 @@
                     if (is_array($arr)){
                         ksort($arr);
                         foreach($arr as $opt=>$val){
-                            if (in_array($opt, array('label','help','placeholder','ajaxcheck','icon','button_text','list_id','list_text','sitekey','follower_text')) ) {
+                            if (in_array($opt, array('label','help','placeholder','ajaxcheck','icon','button_text','list_id','list_text','sitekey','follower_text', 'allowed_extensions')) ) {
                                 $output .= userpro_admin_field_desc($opt) . '<input type="text" name="'.$k.'-'.$opt.'" id="'.$k.'-'.$opt.'" value="'.stripslashes($val).'" />';
                             }
                             if (in_array($opt, array('options' , 'security_qa')) ) {
@@ -285,7 +287,7 @@
 
                     ksort($arr);
                     foreach($arr as $opt=>$val){
-                        if (!in_array($opt, array('label','help','placeholder','options','ajaxcheck','icon','button_text','list_id','list_text','follower_text' , 'security_qa')) ) {
+                        if (!in_array($opt, array('label','help','placeholder','options','ajaxcheck','icon','button_text','list_id','list_text','follower_text' , 'security_qa', 'allowed_extensions')) ) {
                             if (!is_array($val)){
                                 $output .= "<input type='hidden' name='$k-$opt' id='$k-$opt' value='$val' />";
                             } else {
@@ -436,6 +438,7 @@
             case 'collapsed' : $text = __('Collapsed','userpro'); break;
             case 'follower_text' : $text = __('followers email alert text','userpro'); break;
             case 'button_text' : $text = __('Upload Button Text','userpro'); break;
+            case 'allowed_extensions' : $text = __('Allowed extensions', 'userpro'); break;
             case 'list_id' : $text = __('MailChimp List ID','userpro'); break;
             case 'sitekey' : $text = __('Recaptcha SiteKey','userpro'); break;
             case 'list_text' : $text = __('MailChimp Subscribe Text','userpro'); break;

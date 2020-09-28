@@ -105,7 +105,7 @@ get_header();
 
 					<?php } ?>
 
-					<div class="betterdocs-entry-content" itemscope itemtype="http://schema.org/PublicationIssue">
+					<div class="betterdocs-entry-content">
 						
 						<?php 
 
@@ -173,6 +173,8 @@ get_header();
 							<?php 
 							
 							$email_feedback = BetterDocs_DB::get_settings('email_feedback');
+							$flink_text = BetterDocs_DB::get_settings('feedback_link_text');
+							$fform_title = BetterDocs_DB::get_settings('feedback_form_title');
 							
 							if( $email_feedback == 1 ) {
 
@@ -180,12 +182,15 @@ get_header();
 							<div class="feedback-form">
 								<a class="feedback-form-link" href="#betterdocs-form-modal" name="betterdocs-form-modal">
 									<span class="feedback-form-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32px" viewBox="0 0 64 64"><linearGradient id="zWPy7gPuySZ8fg4Y3QF24a" x1="26" x2="26" y1="630.833" y2="619.332" gradientTransform="matrix(1 0 0 -1 0 654)" gradientUnits="userSpaceOnUse" spreadMethod="reflect"><stop offset="0" stop-color="#6dc7ff"></stop><stop offset="1" stop-color="#e6abff"></stop></linearGradient><path fill="url(#zWPy7gPuySZ8fg4Y3QF24a)" d="M15.082,25.762l9.625,8.141c0.746,0.633,1.84,0.633,2.59,0l9.621-8.141 C37.629,25.16,37.203,24,36.27,24H15.73C14.797,24,14.371,25.16,15.082,25.762z"></path><linearGradient id="zWPy7gPuySZ8fg4Y3QF24b" x1="26" x2="26" y1="647.5" y2="596.439" gradientTransform="matrix(1 0 0 -1 0 654)" gradientUnits="userSpaceOnUse" spreadMethod="reflect"><stop offset="0" stop-color="#1a6dff"></stop><stop offset="1" stop-color="#c822ff"></stop></linearGradient><path fill="url(#zWPy7gPuySZ8fg4Y3QF24b)" d="M18,49h16v2H18V49z"></path><linearGradient id="zWPy7gPuySZ8fg4Y3QF24c" x1="32" x2="32" y1="8.915" y2="55.387" gradientUnits="userSpaceOnUse" spreadMethod="reflect"><stop offset="0" stop-color="#1a6dff"></stop><stop offset="1" stop-color="#c822ff"></stop></linearGradient><path fill="url(#zWPy7gPuySZ8fg4Y3QF24c)" d="M48,9c-6.134,0-11.277,4.276-12.637,10H8c-2.758,0-5,2.242-5,5v26c0,2.758,2.242,5,5,5h36 c2.758,0,5-2.242,5-5V35h2v-2h-3c-6.066,0-11-4.934-11-11s4.934-11,11-11s11,4.934,11,11v3c0,1.102-0.898,2-2,2s-2-0.898-2-2v-3 c0-3.859-3.141-7-7-7s-7,3.141-7,7s3.141,7,7,7c2.125,0,4.027-0.953,5.312-2.453C53.918,27.984,55.344,29,57,29c2.207,0,4-1.793,4-4 v-3C61,14.832,55.168,9,48,9z M5,24.109L17.086,34L5,43.891V24.109z M47,50c0,1.652-1.348,3-3,3H8c-1.652,0-3-1.348-3-3v-3.527 l13.668-11.18l4.168,3.41c0.914,0.75,2.039,1.125,3.164,1.125s2.25-0.375,3.164-1.125l4.172-3.41L47,46.473V50z M47,34.949v8.941 L34.914,34l3.618-3.12C40.691,33.18,43.668,34.694,47,34.949z M37.264,29.317l-9.365,7.835c-1.102,0.902-2.699,0.902-3.801,0 L5.699,22.098C6.25,21.434,7.07,21,8,21h27.051C35.025,21.331,35,21.662,35,22C35,24.712,35.837,27.231,37.264,29.317z M48,27 c-2.758,0-5-2.242-5-5s2.242-5,5-5s5,2.242,5,5S50.758,27,48,27z"></path></svg></span>
-									<?php esc_html_e('Still stuck? How can we help?','betterdocs-pro') ?></a>
+									<?php echo ( $flink_text ) ? $flink_text : esc_html__( 'Still stuck? How can we help?', 'betterdocs' ); ?>
+								</a>
 								<div id="betterdocs-form-modal" class="betterdocs-modalwindow">
 									<div class="modal-inner">
 										<div class="modal-content">
 											<a href="#" class="close"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" viewBox="0 0 50 50" version="1.1"><g id="surface1"><path style=" " d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z "></path></g></svg></a>
-											<h2><?php esc_html_e('How can we help?','betterdocs-pro') ?></h2>
+											<h2>
+												<?php echo ( $fform_title ) ? $fform_title : esc_html__( 'How can we help?', 'betterdocs' ); ?>
+											</h2>
 											<div class="modal-content-inner">
 												<?php echo do_shortcode('[betterdocs_feedback_form]'); ?>
 											</div>

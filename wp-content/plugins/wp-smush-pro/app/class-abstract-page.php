@@ -423,16 +423,27 @@ abstract class Abstract_Page {
 			$this->view( 'checking-files', array(), 'modals' );
 		}
 
-		// Show new features modal.
-		if ( $hide_quick_setup && get_option( WP_SMUSH_PREFIX . 'show_upgrade_modal' ) ) {
-			$this->view( 'updated', array(), 'modals' );
-			?>
-			<script>
-				window.addEventListener("load", function(){
-					window.SUI.openModal( 'smush-updated-dialog', 'wpbody-content', undefined, false );
-				});
-			</script>
-			<?php
+		// Show new features modal the modal wasn't dismissed, and docs aren't hidden.
+		if ( get_site_option( WP_SMUSH_PREFIX . 'show_upgrade_modal' ) && ! apply_filters( 'wpmudev_branding_hide_doc_link', false ) ) {
+
+			// Display only on single installs and on Network admin for multisites.
+			if ( ( ! is_multisite() && $hide_quick_setup ) || ( is_multisite() && is_network_admin() ) ) {
+				$cta_url = $this->get_tab_url( 'tutorials' );
+
+				// In MU, use the main site URL if the 'tutorials' tab isn't shown on the Network admin.
+				if ( is_multisite() && empty( $this->tabs['tutorials'] ) ) {
+					$cta_url = menu_page_url( 'smush', false ) . '&view=tutorials';
+				}
+
+				$this->view( 'updated', array( 'cta_url' => $cta_url ), 'modals' );
+				?>
+				<script>
+					window.addEventListener("load", function(){
+						window.SUI.openModal( 'smush-updated-dialog', 'wpbody-content', undefined, false );
+					});
+				</script>
+				<?php
+			}
 		}
 	}
 
@@ -587,12 +598,12 @@ abstract class Abstract_Page {
 				<?php endif; ?>
 				<?php if ( ! apply_filters( 'wpmudev_branding_hide_doc_link', false ) ) : ?>
 					<?php
-					$doc = 'https://premium.wpmudev.org/project/wp-smush-pro/#wpmud-hg-project-documentation';
+					$doc = 'https://premium.wpmudev.org/docs/wpmu-dev-plugins/smush/';
 					if ( WP_Smush::is_pro() ) {
 						$doc = 'https://premium.wpmudev.org/docs/wpmu-dev-plugins/smush/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_pluginlist_docs';
 					}
 					?>
-					<a href="<?php echo esc_url( $doc ); ?>>" class="sui-button sui-button-ghost" target="_blank">
+					<a href="<?php echo esc_url( $doc ); ?>" class="sui-button sui-button-ghost" target="_blank">
 						<i class="sui-icon-academy" aria-hidden="true"></i> <?php esc_html_e( 'Documentation', 'wp-smushit' ); ?>
 					</a>
 				<?php endif; ?>
@@ -602,6 +613,7 @@ abstract class Abstract_Page {
 		<div class="sui-floating-notices">
 			<div role="alert" id="wp-smush-ajax-notice" class="sui-notice" aria-live="assertive"></div>
 			<div role="alert" id="wp-smush-s3support-alert" class="sui-notice" aria-live="assertive"></div>
+			<div role="alert" id="wp-smush-hide-tutorials-notice" class="sui-notice" aria-live="assertive"></div>
 			<?php do_action( 'wp_smush_header_notices' ); ?>
 		</div>
 		<?php

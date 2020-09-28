@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.4.20.3
+Version: 2.4.20.5
 Author: Gravity Forms
 Author URI: https://gravityforms.com
 License: GPL-2.0+
@@ -54,13 +54,6 @@ $gf_recaptcha_public_key  = '';
 // define('GF_RECAPTCHA_PRIVATE_KEY','YOUR_PRIVATE_KEY_GOES_HERE');
 // define('GF_RECAPTCHA_PUBLIC_KEY','YOUR_PUBLIC_KEY_GOES_HERE');
 //------------------------------------------------------------------------------------------------------------------
-
-	update_option( 'gform_pending_installation', false );
-	delete_option( 'rg_gforms_message' );
-	update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
-	update_option( 'gf_site_secret' ,true);
-	update_option( 'gform_upgrade_status', false );
-	update_option( 'rg_gforms_message', '' );
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
@@ -167,6 +160,13 @@ if ( ! GFCommon::is_logging_plugin_active() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/logging/logging.php' );
 }
 
+update_option( 'gform_pending_installation', false );
+delete_option( 'rg_gforms_message' );
+update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
+update_option( 'gf_site_secret' ,true);
+update_option( 'gform_upgrade_status', false );
+update_option( 'rg_gforms_message', '' );
+
 // GFCommon::$version is deprecated, set it to current version for backwards compatibility
 GFCommon::$version = GFForms::$version;
 
@@ -217,7 +217,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.4.20.3';
+	public static $version = '2.4.20.5';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -2136,7 +2136,7 @@ class GFForms {
 		);
 
 		$raw_response = 200;
-    	$page_text = '';
+		$page_text = '';
 		return stripslashes( $page_text );
 	}
 

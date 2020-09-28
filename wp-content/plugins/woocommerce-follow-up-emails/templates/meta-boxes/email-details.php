@@ -97,7 +97,7 @@
 
 		<p class="form-field tracking_on" style="display: none;">
 			<label for="tracking"><?php esc_html_e('Link Tracking', 'follow_up_emails'); ?></label>
-			<input type="text" name="tracking" id="tracking" class="test-email-field" value="<?php echo esc_attr($email->tracking); ?>" placeholder="e.g. utm_campaign=Follow-up-Emails-by-75nineteen" style="width: 75%; display: block; float: none;" />
+			<input type="text" name="tracking" id="tracking" class="test-email-field" value="<?php echo esc_attr($email->tracking); ?>" placeholder="e.g. utm_campaign=Follow-up-Emails-by-WooCommerce" style="width: 75%; display: block; float: none;" />
 			<span class="description"><?php esc_html_e('Appended to all URLs in the Email Body.', 'follow_up_emails'); ?> <a href="https://support.google.com/analytics/answer/1033867?hl=en"><?php esc_html_e( 'Get the Tracking Link.', 'follow_up_emails' ); ?></a></span>
 		</p>
 	</div>

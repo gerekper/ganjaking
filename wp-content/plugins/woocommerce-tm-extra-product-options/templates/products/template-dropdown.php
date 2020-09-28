@@ -23,6 +23,9 @@ defined( 'ABSPATH' ) || exit;
 			if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
 				THEMECOMPLETE_EPO_HTML()->create_attribute_list( $element_data_attr );
 			}
+			if ( isset( $required ) && ! empty( $required ) ) { 
+				echo ' required '; 
+			}
 			?> ><?php 
 				if ( is_array( $options ) ):
 					foreach ( $options as $option ) :

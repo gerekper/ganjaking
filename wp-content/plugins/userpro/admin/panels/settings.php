@@ -300,6 +300,16 @@
 		</td>
 	</tr>
 	<tr valign="top">
+		<th scope="row"><label for="date_to_age"><?php _e('Convert date to age','userpro'); ?></label></th>
+		<td>
+			<select name="date_to_age" id="date_to_age" class="chosen-select" style="width:300px">
+				<option value="0" <?php selected(0, userpro_get_option('date_to_age')); ?>><?php _e('No','userpro'); ?></option>
+				<option value="1" <?php selected(1, userpro_get_option('date_to_age')); ?>><?php _e('Yes','userpro'); ?></option>
+			</select>
+			<span class="up-description"><?php _e('Profile page will show calculated age, instead of date','userpro'); ?></span>
+		</td>
+	</tr>
+	<tr valign="top">
 		<th scope="row"><label for="user_display_name_key"><?php _e('Replace Display Name with custom field','userpro'); ?></label></th>
 		<td>
 			<input type="text" name="user_display_name_key" id="user_display_name_key" value="<?php echo userpro_get_option('user_display_name_key'); ?>" class="regular-text" />

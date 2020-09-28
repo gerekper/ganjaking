@@ -65,8 +65,14 @@ class Dashboard extends Abstract_Page {
 				'cdn'          => __( 'CDN', 'wp-smushit' ),
 				'tools'        => __( 'Tools', 'wp-smushit' ),
 				'settings'     => __( 'Settings', 'wp-smushit' ),
+				'tutorials'    => __( 'Tutorials', 'wp-smushit' ),
 			)
 		);
+
+		// Don't display if Dashboard's whitelabel is hiding the documentation.
+		if ( apply_filters( 'wpmudev_branding_hide_doc_link', false ) ) {
+			unset( $this->tabs['tutorials'] );
+		}
 
 		$access = Settings::can_access();
 
@@ -76,6 +82,7 @@ class Dashboard extends Abstract_Page {
 			unset( $this->tabs['lazy_load'] );
 			unset( $this->tabs['cdn'] );
 			unset( $this->tabs['tools'] );
+			unset( $this->tabs['tutorials'] );
 		}
 
 		if ( is_network_admin() && is_array( $access ) ) {
@@ -133,6 +140,23 @@ class Dashboard extends Abstract_Page {
 		}
 
 		if ( 'bulk' === $this->get_current_tab() && $this->should_render() ) {
+			// Only display if the 'Tutorials' tab is shown (relevant in MU),
+			// the tutorials weren't dismissed, and if Dashboard's whitelabel isn't hiding the documentation.
+			if (
+				isset( $this->tabs['tutorials'] ) &&
+				! $this->settings->get_setting( WP_SMUSH_PREFIX . 'hide_tutorials_from_bulk_smush' ) &&
+				! apply_filters( 'wpmudev_branding_hide_doc_link', false )
+			) {
+				$this->add_meta_box(
+					'bulk-tutorials',
+					__( 'Tutorials', 'wp-smushit' ),
+					array( $this, 'bulk_tutorials_metabox' ),
+					null,
+					null,
+					'bulk'
+				);
+			}
+
 			if ( ! is_network_admin() ) {
 				// Show bulk smush box if a subsite admin.
 				$class = WP_Smush::is_pro() ? 'wp-smush-pro-install' : '';
@@ -287,6 +311,17 @@ class Dashboard extends Abstract_Page {
 				null,
 				array( $this, 'common_metabox_footer' ),
 				'settings'
+			);
+		}
+
+		if ( 'tutorials' === $this->get_current_tab() && $this->should_render() ) {
+			$this->add_meta_box(
+				'tutorials',
+				__( 'Tutorials', 'wp-smushit' ),
+				array( $this, 'tutorials_metabox' ),
+				null,
+				null,
+				'tutorials'
 			);
 		}
 	}
@@ -1026,6 +1061,50 @@ class Dashboard extends Abstract_Page {
 	}
 
 	/**
+	 * Tutorials slider under Bulk Smush section metabox.
+	 *
+	 * @since 3.7.1
+	 */
+	public function bulk_tutorials_metabox() {
+		$this->view( 'bulk-tutorials/meta-box' );
+	}
+
+	/**
+	 * Returns the tutorials data to display.
+	 *
+	 * @since 3.7.1
+	 * @return array
+	 */
+	protected function get_tutorials_data() {
+		return array(
+			array(
+				'title'                => __( 'How to Get the Most Out of Smush Image Optimization', 'wp-smushit' ),
+				'content'              => __( 'Set your site up for maximum success. Learn how to get the most out of Smush and streamline your images for peak site performance.', 'wp-smushit' ),
+				'thumbnail_full'       => 'tutorial-1-thumbnail.png',
+				'thumbnail_full_2x'    => 'tutorial-1-thumbnail@2x.png',
+				'url'                  => 'https://premium.wpmudev.org/blog/how-to-get-the-most-out-of-smush/',
+				'read_time'            => 5,
+			),
+			array(
+				'title'                => __( "How To Ace Google's Image Page Speed Recommendations", 'wp-smushit' ),
+				'content'              => __( "See how toggling specific Smush settings can easily help you resolve all 4 of Google's 'image-related' page speed recommendations.", 'wp-smushit' ),
+				'thumbnail_full'       => 'tutorial-2-thumbnail.png',
+				'thumbnail_full_2x'    => 'tutorial-2-thumbnail@2x.png',
+				'url'                  => 'https://premium.wpmudev.org/blog/smush-pagespeed-image-compression/',
+				'read_time'            => 6,
+			),
+			array(
+				'title'                => __( 'How To Bulk Optimize Images With Smush', 'wp-smushit' ),
+				'content'              => __( 'Skip the hassle of compressing all your images manually. Learn how Smush can easily help you do it in bulk.', 'wp-smushit' ),
+				'thumbnail_full'       => 'tutorial-3-thumbnail.png',
+				'thumbnail_full_2x'    => 'tutorial-3-thumbnail@2x.png',
+				'url'                  => 'https://premium.wpmudev.org/blog/smush-bulk-optimize-images/',
+				'read_time'            => 6,
+			),
+		);
+	}
+
+	/**
 	 * Bulk smush meta box.
 	 *
 	 * Container box to handle bulk smush actions. Show progress bars,
@@ -1384,6 +1463,15 @@ class Dashboard extends Abstract_Page {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Tutorials meta box.
+	 *
+	 * @since 3.7.1
+	 */
+	public function tutorials_metabox() {
+		$this->view( 'tutorials/meta-box' );
 	}
 
 	/**

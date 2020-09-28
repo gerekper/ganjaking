@@ -1,5 +1,15 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2020.09.17 - version 9.0.4
+* New: Integration with the "Price by Country" extension
+* New: Integration with the "Mix and Match Products" extension
+* Change: Support for other description fields
+* Fix: Improvements to how "color" is sent in the feed where multiple colors exist
+
+2020.09.09 - version 9.0.3
+* Change: Do not throw warnings for invalid product gallery data
+* New: Product Brands for WooCommerce integration
+
 2020.08.12 - version 9.0.2
 * Change: Be more conservative about the number of background jobs raised when feed item caching is enabled
 * Fix: Fix issue where exported columns could be blank

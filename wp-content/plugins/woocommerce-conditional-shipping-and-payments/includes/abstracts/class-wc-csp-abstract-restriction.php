@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Restriction class.
  *
  * @class    WC_CSP_Restriction
- * @version  1.8.0
+ * @version  1.8.5
  */
 class WC_CSP_Restriction extends WC_Settings_API {
 
@@ -202,7 +202,7 @@ class WC_CSP_Restriction extends WC_Settings_API {
 					}
 					?>
 				</div>
-				<p class="toolbar toolbar--footer borderless <?php echo empty( $global_restrictions ) && empty( $_GET[ 'add_rule' ] ) ? 'restriction_data--empty' : '' ; ?>">
+				<p class="submit toolbar toolbar--footer borderless <?php echo empty( $global_restrictions ) && empty( $_GET[ 'add_rule' ] ) ? 'restriction_data--empty' : '' ; ?>">
 					<button id="woocommerce-add-global-restriction" type="button" class="button button-secondary add_restriction"><?php _e( 'Add Restriction', 'woocommerce-conditional-shipping-and-payments' ); ?></button>
 					<button name="save" class="button button-primary woocommerce-save-button" type="submit" value="<?php esc_attr_e( 'Save changes', 'woocommerce' ); ?>"><?php esc_html_e( 'Save changes', 'woocommerce' ); ?></button>
 				</p>

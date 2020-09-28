@@ -61,6 +61,7 @@ class WC_Memberships_Upgrade extends Framework\Plugin\Lifecycle {
 			'1.13.2',
 			'1.16.2',
 			'1.17.5',
+			'1.19.0',
 		];
 	}
 
@@ -137,6 +138,12 @@ class WC_Memberships_Upgrade extends Framework\Plugin\Lifecycle {
 		// show a notice about restricted content to admin users as they get started
 		update_option( 'wc_memberships_admin_restricted_content_notice', 'yes' );
 
+		// default option to the my account members area endpoint
+		update_option( 'woocommerce_myaccount_members_area_endpoint', 'members-area' );
+
+		// default option to the my account profile fields area endpoint
+		update_option( 'woocommerce_myaccount_profile_fields_area_endpoint', 'profile' );
+
 		// load settings and install default values
 		include_once( WC()->plugin_path() . '/includes/admin/settings/class-wc-settings-page.php' );
 
@@ -205,18 +212,38 @@ class WC_Memberships_Upgrade extends Framework\Plugin\Lifecycle {
 	 */
 	private static function create_files() {
 
+		self::create_access_protected_uploads_dir( 'memberships_csv_exports' );
+		self::create_access_protected_uploads_dir( 'memberships_profile_fields' );
+	}
+
+
+	/**
+	 * Creates a directory with access protection files in WordPress uploads.
+	 *
+	 * Adds files to loosely protect a directory from access:
+	 * - empty "index.html"
+	 * - .htaccess with "deny from all"
+	 *
+	 * Helper method, do not open to public.
+	 *
+	 * @since 1.19.0
+	 *
+	 * @param string $dir
+	 */
+	public static function create_access_protected_uploads_dir( $dir ) {
+
 		// install files and folders for exported files and prevent hotlinking
-		$upload_dir  = wp_upload_dir();
-		$exports_dir = trailingslashit( $upload_dir['basedir'] ) . 'memberships_csv_exports';
+		$upload_dir = wp_upload_dir();
+		$directory  = trailingslashit( $upload_dir['basedir'] ) . $dir;
 
 		$files = [
 			[
-				'base'    => $exports_dir,
+				'base'    => $directory,
 				'file'    => 'index.html',
 				'content' => '',
 			],
 			[
-				'base'    => $exports_dir,
+				'base'    => $directory,
 				'file'    => '.htaccess',
 				'content' => 'deny from all',
 			],
@@ -630,6 +657,19 @@ class WC_Memberships_Upgrade extends Framework\Plugin\Lifecycle {
 				$note->save();
 			}
 		}
+	}
+
+
+	/**
+	 * Updates to version 1.19.0
+	 *
+	 * @since 1.19.0
+	 */
+	protected function upgrade_to_1_19_0() {
+
+		self::create_access_protected_uploads_dir( 'memberships_profile_fields' );
+
+		update_option( 'woocommerce_myaccount_profile_fields_area_endpoint', 'profile' );
 	}
 
 

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-14 16:16+0300\n"
-"PO-Revision-Date: 2018-05-14 16:16+0300\n"
+"PO-Revision-Date: 2020-09-16 12:48+0200\n"
 "Last-Translator: Michael M <hello@wpbakery.com>\n"
 "Language-Team: WPBakery\n"
 "Language: de_DE\n"
@@ -12,14 +12,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;esc_attr__\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SearchPath-0: ./config/.\n"
 "X-Poedit-SearchPath-1: ./include/.\n"
 
 #: config/./buttons/shortcode-vc-btn.php:27
 #: config/./content/shortcode-vc-message.php:156
 msgid "Pixel"
-msgstr ""
+msgstr "Pixel"
 
 #: config/./buttons/shortcode-vc-btn.php:39
 #: config/./buttons/shortcode-vc-btn.php:152
@@ -88,9 +88,8 @@ msgid "Style"
 msgstr "Stil"
 
 #: config/./buttons/shortcode-vc-btn.php:54
-#, fuzzy
 msgid "Select button display style."
-msgstr "Wählen Sie eine Button Darstellung"
+msgstr "Button-Darstellung auswählen."
 
 #: config/./buttons/shortcode-vc-btn.php:58
 #: config/./content/shortcode-vc-line-chart.php:40
@@ -99,7 +98,7 @@ msgstr "Wählen Sie eine Button Darstellung"
 #: config/./tta/shortcode-vc-tta-tabs.php:29
 #: config/./tta/shortcode-vc-tta-tour.php:29
 msgid "Modern"
-msgstr ""
+msgstr "Modern"
 
 #: config/./buttons/shortcode-vc-btn.php:59
 #: config/./buttons/shortcode-vc-cta.php:135
@@ -108,7 +107,7 @@ msgstr ""
 #: config/./tta/shortcode-vc-tta-tabs.php:28
 #: config/./tta/shortcode-vc-tta-tour.php:28
 msgid "Classic"
-msgstr ""
+msgstr "Klassisch"
 
 #: config/./buttons/shortcode-vc-btn.php:60
 #: config/./buttons/shortcode-vc-cta.php:136
@@ -118,21 +117,20 @@ msgstr ""
 #: config/./tta/shortcode-vc-tta-tabs.php:30
 #: config/./tta/shortcode-vc-tta-tour.php:30
 msgid "Flat"
-msgstr ""
+msgstr "Flach"
 
 #: config/./buttons/shortcode-vc-btn.php:61
 #: config/./buttons/shortcode-vc-cta.php:137
 #: config/./tta/shortcode-vc-tta-accordion.php:31
 #: config/./tta/shortcode-vc-tta-tabs.php:31
 #: config/./tta/shortcode-vc-tta-tour.php:31
-#, fuzzy
 msgid "Outline"
-msgstr "in einer Linie darstellen"
+msgstr "Umriss"
 
 #: config/./buttons/shortcode-vc-btn.php:62
 #: config/./buttons/shortcode-vc-cta.php:138
 msgid "3d"
-msgstr ""
+msgstr "3D"
 
 #: config/./buttons/shortcode-vc-btn.php:63
 #: config/./buttons/shortcode-vc-cta.php:139
@@ -156,22 +154,21 @@ msgid "Custom"
 msgstr "Individuell"
 
 #: config/./buttons/shortcode-vc-btn.php:64
-#, fuzzy
 msgid "Outline custom"
-msgstr "individuellen Link öffnen"
+msgstr ""
 
 #: config/./buttons/shortcode-vc-btn.php:65
 msgid "Gradient"
-msgstr ""
+msgstr "Farbverlauf"
 
 #: config/./buttons/shortcode-vc-btn.php:66
 msgid "Gradient Custom"
-msgstr ""
+msgstr "Benutzerdefinierter Farbverlauf"
 
 #: config/./buttons/shortcode-vc-btn.php:71
 #: config/./buttons/shortcode-vc-btn.php:100
 msgid "Gradient Color 1"
-msgstr ""
+msgstr "Verlaufsfarbe 1"
 
 #: config/./buttons/shortcode-vc-btn.php:73
 #: config/./buttons/shortcode-vc-btn.php:102
@@ -181,7 +178,7 @@ msgstr ""
 #: config/./buttons/shortcode-vc-btn.php:85
 #: config/./buttons/shortcode-vc-btn.php:113
 msgid "Gradient Color 2"
-msgstr ""
+msgstr "Verlaufsfarbe 2"
 
 #: config/./buttons/shortcode-vc-btn.php:87
 #: config/./buttons/shortcode-vc-btn.php:115
@@ -190,7 +187,7 @@ msgstr ""
 
 #: config/./buttons/shortcode-vc-btn.php:126
 msgid "Button Text Color"
-msgstr ""
+msgstr "Button Textfarbe"
 
 #: config/./buttons/shortcode-vc-btn.php:128
 msgid "Select button text color."
@@ -234,7 +231,7 @@ msgstr "Wählen Sie die Hintergrundfarbe für Ihr Element."
 #: config/./buttons/shortcode-vc-btn.php:188
 #: config/./content/shortcode-vc-hoverbox.php:137
 msgid "Hover text"
-msgstr ""
+msgstr "Hover Text"
 
 #: config/./buttons/shortcode-vc-btn.php:190
 #, fuzzy
@@ -252,12 +249,11 @@ msgstr "Wählen Sie eine Rahmenfarbe für Ihr Element"
 #: config/./tta/shortcode-vc-tta-tabs.php:44
 #: config/./tta/shortcode-vc-tta-tour.php:44
 msgid "Shape"
-msgstr ""
+msgstr "Form"
 
 #: config/./buttons/shortcode-vc-btn.php:201
-#, fuzzy
 msgid "Select button shape."
-msgstr "Wählen Sie eine Button Größe"
+msgstr "Button-Form auswählen."
 
 #: config/./buttons/shortcode-vc-btn.php:205
 #: config/./buttons/shortcode-vc-cta.php:125
@@ -272,7 +268,7 @@ msgstr "Wählen Sie eine Button Größe"
 #: config/./tta/shortcode-vc-tta-tour.php:40
 #: include/./params/vc_grid_item/shortcodes.php:497
 msgid "Rounded"
-msgstr ""
+msgstr "Abgerundet"
 
 #: config/./buttons/shortcode-vc-btn.php:206
 #: config/./buttons/shortcode-vc-cta.php:124
@@ -283,7 +279,7 @@ msgstr ""
 #: config/./tta/shortcode-vc-tta-tabs.php:41
 #: config/./tta/shortcode-vc-tta-tour.php:41
 msgid "Square"
-msgstr ""
+msgstr "Quadratisch"
 
 #: config/./buttons/shortcode-vc-btn.php:207
 #: config/./buttons/shortcode-vc-cta.php:126
@@ -293,7 +289,7 @@ msgstr ""
 #: config/./tta/shortcode-vc-tta-tabs.php:42
 #: config/./tta/shortcode-vc-tta-tour.php:42
 msgid "Round"
-msgstr ""
+msgstr "Rund"
 
 #: config/./buttons/shortcode-vc-btn.php:212
 #: config/./buttons/shortcode-vc-cta.php:168
@@ -326,53 +322,50 @@ msgstr "Farbe"
 #: config/./grids/class-vc-grids-common.php:715
 #: config/./grids/class-vc-grids-common.php:842
 #: config/./grids/class-vc-grids-common.php:1073
-#, fuzzy
 msgid "Select button color."
-msgstr "Wählen Sie eine Button Darstellung"
+msgstr "Button-Farbe auswählen."
 
 #: config/./buttons/shortcode-vc-btn.php:219
 #: config/./content/shortcode-vc-progress-bar.php:60
 #: config/./content/shortcode-vc-progress-bar.php:107
 msgid "Classic Grey"
-msgstr ""
+msgstr "Klassisches Grau"
 
 #: config/./buttons/shortcode-vc-btn.php:220
 #: config/./content/shortcode-vc-progress-bar.php:61
 #: config/./content/shortcode-vc-progress-bar.php:108
 msgid "Classic Blue"
-msgstr ""
+msgstr "Klassisches Blau"
 
 #: config/./buttons/shortcode-vc-btn.php:221
 #: config/./content/shortcode-vc-progress-bar.php:62
 #: config/./content/shortcode-vc-progress-bar.php:109
-#, fuzzy
 msgid "Classic Turquoise"
-msgstr "Türkis"
+msgstr "Klassisches Türkis"
 
 #: config/./buttons/shortcode-vc-btn.php:222
 #: config/./content/shortcode-vc-progress-bar.php:63
 #: config/./content/shortcode-vc-progress-bar.php:110
 msgid "Classic Green"
-msgstr ""
+msgstr "Klassisches Grün"
 
 #: config/./buttons/shortcode-vc-btn.php:223
 #: config/./content/shortcode-vc-progress-bar.php:64
 #: config/./content/shortcode-vc-progress-bar.php:111
-#, fuzzy
 msgid "Classic Orange"
-msgstr "Orange"
+msgstr "Klassisches Orange"
 
 #: config/./buttons/shortcode-vc-btn.php:224
 #: config/./content/shortcode-vc-progress-bar.php:65
 #: config/./content/shortcode-vc-progress-bar.php:112
 msgid "Classic Red"
-msgstr ""
+msgstr "Klassisches Rot"
 
 #: config/./buttons/shortcode-vc-btn.php:225
 #: config/./content/shortcode-vc-progress-bar.php:66
 #: config/./content/shortcode-vc-progress-bar.php:113
 msgid "Classic Black"
-msgstr ""
+msgstr "Klassisches Schwarz"
 
 #: config/./buttons/shortcode-vc-btn.php:242
 #: config/./content/shortcode-vc-toggle.php:63
@@ -385,9 +378,8 @@ msgid "Size"
 msgstr "Größe"
 
 #: config/./buttons/shortcode-vc-btn.php:244
-#, fuzzy
 msgid "Select button display size."
-msgstr "Wählen Sie eine Button Größe"
+msgstr "Anzeigegröße des Buttons auswählen."
 
 #: config/./buttons/shortcode-vc-btn.php:251
 #: config/./content/shortcode-vc-hoverbox.php:198
@@ -400,9 +392,8 @@ msgstr "Wählen Sie eine Button Größe"
 #: config/./tta/shortcode-vc-tta-tabs.php:121
 #: config/./tta/shortcode-vc-tta-tour.php:121
 #: include/./params/vc_grid_item/shortcodes.php:656
-#, fuzzy
 msgid "Alignment"
-msgstr "Zentriert ausrichten"
+msgstr "Ausrichtung"
 
 #: config/./buttons/shortcode-vc-btn.php:253
 #: config/./deprecated/shortcode-vc-button2.php:42
@@ -415,7 +406,7 @@ msgstr "Buttonausrichtung auswählen."
 #: config/./deprecated/shortcode-vc-button2.php:37
 #: config/./social/shortcode-vc-googleplus.php:33
 msgid "Inline"
-msgstr "in einer Linie darstellen"
+msgstr "Inline"
 
 #: config/./buttons/shortcode-vc-btn.php:258
 #: config/./buttons/shortcode-vc-btn.php:284
@@ -443,7 +434,7 @@ msgstr "in einer Linie darstellen"
 #: include/./params/vc_grid_item/shortcodes.php:659
 #: include/./params/vc_grid_item/shortcodes.php:773
 msgid "Left"
-msgstr ""
+msgstr "Linksbündig"
 
 #: config/./buttons/shortcode-vc-btn.php:260
 #: config/./buttons/shortcode-vc-btn.php:286
@@ -470,7 +461,6 @@ msgstr ""
 #: include/./params/vc_grid_item/shortcodes.php:571
 #: include/./params/vc_grid_item/shortcodes.php:660
 #: include/./params/vc_grid_item/shortcodes.php:774
-#, fuzzy
 msgid "Right"
 msgstr "Rechtsbündig"
 
@@ -492,27 +482,23 @@ msgstr "Rechtsbündig"
 #: include/./params/vc_grid_item/shortcodes.php:572
 #: include/./params/vc_grid_item/shortcodes.php:661
 #: include/./params/vc_grid_item/shortcodes.php:775
-#, fuzzy
 msgid "Center"
 msgstr "Zentriert"
 
 #: config/./buttons/shortcode-vc-btn.php:266
-#, fuzzy
 msgid "Set full width button?"
-msgstr "Text auf dem Button"
+msgstr "Button auf volle Breite setzen?"
 
 #: config/./buttons/shortcode-vc-btn.php:275
 #: config/./buttons/shortcode-vc-cta.php:220
 #: config/./content/shortcode-vc-text-separator.php:53
 #: config/./tta/shortcode-vc-tta-section.php:15
-#, fuzzy
 msgid "Add icon?"
-msgstr "Spalte hinzufügen"
+msgstr "Icon hinzufügen?"
 
 #: config/./buttons/shortcode-vc-btn.php:280
-#, fuzzy
 msgid "Icon Alignment"
-msgstr "Bildausrichtung"
+msgstr "Icon-Ausrichtung"
 
 #: config/./buttons/shortcode-vc-btn.php:281
 #: config/./content/vc-icon-element.php:234
@@ -557,9 +543,8 @@ msgstr "Icon"
 #: config/./content/vc-icon-element.php:121
 #: config/./content/vc-icon-element.php:140
 #: config/./content/vc-icon-element.php:159
-#, fuzzy
 msgid "Select icon from library."
-msgstr "Bild aus Medienbibliothek auswählen"
+msgstr "Icon aus Bibliothek auswählen."
 
 #: config/./buttons/shortcode-vc-btn.php:315
 #: config/./buttons/shortcode-vc-cta.php:255
@@ -612,9 +597,8 @@ msgstr "Bild aus Medienbibliothek auswählen"
 #: config/./wp/shortcode-vc-wp-search.php:23
 #: config/./wp/shortcode-vc-wp-tagcloud.php:46
 #: config/./wp/shortcode-vc-wp-text.php:29
-#, fuzzy
 msgid "Element ID"
-msgstr "Element-Tag"
+msgstr "Element-ID"
 
 #: config/./buttons/shortcode-vc-btn.php:317
 #: config/./buttons/shortcode-vc-cta.php:257
@@ -910,7 +894,7 @@ msgstr ""
 #: include/./params/vc_grid_item/shortcodes.php:610
 #: include/./params/vc_grid_item/shortcodes.php:807
 msgid "CSS box"
-msgstr ""
+msgstr "CSS-Box"
 
 #: config/./buttons/shortcode-vc-btn.php:345
 #: config/./buttons/shortcode-vc-cta.php:269
@@ -1042,14 +1026,13 @@ msgstr "Auffallender Button"
 #: config/./deprecated/shortcode-vc-cta-button2.php:17
 #: include/./classes/settings/class-vc-automapper.php:355
 msgid "Heading"
-msgstr "Aufsteigend"
+msgstr "Überschrift"
 
 #: config/./buttons/shortcode-vc-cta.php:42
 #: config/./buttons/shortcode-vc-cta.php:96
 #: config/./deprecated/shortcode-vc-cta-button2.php:25
-#, fuzzy
 msgid "Subheading"
-msgstr "Aufsteigend"
+msgstr "Untertitel"
 
 #: config/./buttons/shortcode-vc-cta.php:81
 #: config/./deprecated/shortcode-vc-cta-button2.php:20
@@ -1068,17 +1051,15 @@ msgstr "Text für die Überschrift"
 #: config/./content/shortcode-vc-hoverbox.php:95
 #: config/./content/shortcode-vc-hoverbox.php:120
 #: config/./content/shortcode-vc-toggle.php:32
-#, fuzzy
 msgid "Use custom font?"
-msgstr "Nutzen Sie individuelle Designeinstellungen"
+msgstr "Eigene Schriftart verwenden?"
 
 #: config/./buttons/shortcode-vc-cta.php:89
 #: config/./content/shortcode-vc-hoverbox.php:97
 #: config/./content/shortcode-vc-toggle.php:34
 #: include/./params/vc_grid_item/shortcodes.php:107
-#, fuzzy
 msgid "Enable Google fonts."
-msgstr "Google Font Schriften konnten nicht geladen werden"
+msgstr "Google Fonts aktivieren."
 
 #: config/./buttons/shortcode-vc-cta.php:99
 #: config/./deprecated/shortcode-vc-cta-button2.php:28
@@ -1094,7 +1075,6 @@ msgstr "Nutzen Sie individuelle Designeinstellungen"
 
 #: config/./buttons/shortcode-vc-cta.php:112
 #: config/./deprecated/shortcode-vc-cta-button2.php:46
-#, fuzzy
 msgid "Text alignment"
 msgstr "Textausrichtung"
 
@@ -1134,15 +1114,13 @@ msgid "Text color"
 msgstr "Textfarbe"
 
 #: config/./buttons/shortcode-vc-cta.php:159
-#, fuzzy
 msgid "Select custom text color."
-msgstr "Wählen Sie ein Farbe für den Text."
+msgstr "Benutzerdefinierte Textfarbe auswählen."
 
 #: config/./buttons/shortcode-vc-cta.php:172
 #: config/./content/shortcode-vc-hoverbox.php:161
-#, fuzzy
 msgid "Select color schema."
-msgstr "Wählen Sie die Anzahl der Spalten"
+msgstr "Farbschema auswählen."
 
 #: config/./buttons/shortcode-vc-cta.php:183
 #: config/./deprecated/shortcode-vc-cta-button2.php:61
@@ -1167,20 +1145,18 @@ msgid "Width"
 msgstr "Breite"
 
 #: config/./buttons/shortcode-vc-cta.php:197
-#, fuzzy
 msgid "Select call to action width (percentage)."
-msgstr "Breite des Aktionselements in Prozent"
+msgstr "Breite für „Call-to-Action“ auswählen (in Prozent)."
 
 #: config/./buttons/shortcode-vc-cta.php:201
 #: config/./content/shortcode-vc-hoverbox.php:210
-#, fuzzy
 msgid "Add button"
-msgstr "Akkordion Bereich hinzufügen"
+msgstr "Button hinzufügen"
 
 #: config/./buttons/shortcode-vc-cta.php:202
 #: config/./content/shortcode-vc-hoverbox.php:211
 msgid "Add button for call to action."
-msgstr ""
+msgstr "Button für „Call-to-Action“ hinzufügen."
 
 #: config/./buttons/shortcode-vc-cta.php:205
 #: config/./buttons/shortcode-vc-cta.php:224
@@ -1199,7 +1175,7 @@ msgstr "Nein"
 #: config/./tta/shortcode-vc-tta-pageable.php:89
 #: config/./tta/shortcode-vc-tta-tabs.php:107
 msgid "Top"
-msgstr ""
+msgstr "Oben"
 
 #: config/./buttons/shortcode-vc-cta.php:207
 #: config/./buttons/shortcode-vc-cta.php:226
@@ -1211,14 +1187,12 @@ msgstr ""
 #: config/./deprecated/shortcode-vc-cta-button2.php:106
 #: config/./tta/shortcode-vc-tta-pageable.php:90
 #: config/./tta/shortcode-vc-tta-tabs.php:108
-#, fuzzy
 msgid "Bottom"
-msgstr "Von unten nach oben"
+msgstr "Unten"
 
 #: config/./buttons/shortcode-vc-cta.php:221
-#, fuzzy
 msgid "Add icon for call to action."
-msgstr "Ausrichtung des Texts im Aktionsblock"
+msgstr "Icon für \"Call-to-Action\" hinzufügen."
 
 #: config/./buttons/shortcode-vc-cta.php:234
 msgid "Place icon on border?"
@@ -1335,15 +1309,14 @@ msgstr "12 Spalten - 1/1"
 #: config/./containers/shortcode-vc-column-inner.php:66
 #: config/./containers/shortcode-vc-column.php:135
 #: config/./containers/shortcode-vc-column.php:143
-#, fuzzy
 msgid "Responsive Options"
-msgstr "Responsives Verhalten"
+msgstr "Responsive Einstellungen"
 
 #: config/./containers/shortcode-vc-column-inner.php:59
 #: config/./containers/shortcode-vc-column.php:136
 #: include/./params/vc_grid_item/shortcodes.php:355
 msgid "Select column width."
-msgstr "Wählen Sie die Anzahl der Spalten"
+msgstr "Spaltenbreite auswählen."
 
 #: config/./containers/shortcode-vc-column-inner.php:64
 #: config/./containers/shortcode-vc-column.php:141
@@ -1372,9 +1345,8 @@ msgstr ""
 #: config/./containers/shortcode-vc-column.php:18
 #: config/./containers/shortcode-vc-row.php:92
 #: config/./containers/shortcode-vc-section.php:53
-#, fuzzy
 msgid "Use video background?"
-msgstr "Reiternavigation Hintergrundfarbe"
+msgstr "Video-Hintergrund verwenden?"
 
 #: config/./containers/shortcode-vc-column.php:20
 #: config/./containers/shortcode-vc-row.php:94
@@ -1438,15 +1410,14 @@ msgstr "Ja"
 #: config/./containers/shortcode-vc-column.php:25
 #: config/./containers/shortcode-vc-row.php:99
 #: config/./containers/shortcode-vc-section.php:60
-#, fuzzy
 msgid "YouTube link"
-msgstr "kein Link"
+msgstr "YouTube-Link"
 
 #: config/./containers/shortcode-vc-column.php:29
 #: config/./containers/shortcode-vc-row.php:103
 #: config/./containers/shortcode-vc-section.php:64
 msgid "Add YouTube link."
-msgstr ""
+msgstr "YouTube-Link hinzufügen."
 
 #: config/./containers/shortcode-vc-column.php:37
 #: config/./containers/shortcode-vc-column.php:52
@@ -1455,7 +1426,7 @@ msgstr ""
 #: config/./containers/shortcode-vc-section.php:72
 #: config/./containers/shortcode-vc-section.php:87
 msgid "Parallax"
-msgstr ""
+msgstr "Parallax"
 
 #: config/./containers/shortcode-vc-column.php:40
 #: config/./containers/shortcode-vc-column.php:55
@@ -1495,7 +1466,7 @@ msgstr ""
 #: include/./params/vc_grid_item/shortcodes.php:495
 #: include/./templates/pages/vc-settings/default-template-post-type.tpl.php:27
 msgid "None"
-msgstr "Nichts"
+msgstr "Keine"
 
 #: config/./containers/shortcode-vc-column.php:41
 #: config/./containers/shortcode-vc-column.php:56
@@ -1506,7 +1477,7 @@ msgstr "Nichts"
 #: config/./grids/class-vc-grids-common.php:491
 #: config/./grids/class-vc-grids-common.php:862
 msgid "Simple"
-msgstr ""
+msgstr "Einfach"
 
 #: config/./containers/shortcode-vc-column.php:42
 #: config/./containers/shortcode-vc-column.php:57
@@ -1515,7 +1486,7 @@ msgstr ""
 #: config/./containers/shortcode-vc-section.php:77
 #: config/./containers/shortcode-vc-section.php:92
 msgid "With fade"
-msgstr ""
+msgstr "Mit Überblendung"
 
 #: config/./containers/shortcode-vc-column.php:44
 #: config/./containers/shortcode-vc-row.php:118
@@ -1546,7 +1517,7 @@ msgstr "Bild"
 #: config/./content/shortcode-vc-single-image.php:36
 #: include/./params/vc_grid_item/shortcodes.php:745
 msgid "Select image from media library."
-msgstr "Bild aus Medienbibliothek auswählen"
+msgstr "Bild aus Medienbibliothek auswählen."
 
 #: config/./containers/shortcode-vc-column.php:78
 #: config/./containers/shortcode-vc-column.php:89
@@ -1555,7 +1526,7 @@ msgstr "Bild aus Medienbibliothek auswählen"
 #: config/./containers/shortcode-vc-section.php:113
 #: config/./containers/shortcode-vc-section.php:124
 msgid "Parallax speed"
-msgstr ""
+msgstr "Parallax-Geschwindigkeit"
 
 #: config/./containers/shortcode-vc-column.php:81
 #: config/./containers/shortcode-vc-column.php:92
@@ -1568,7 +1539,7 @@ msgstr ""
 
 #: config/./containers/shortcode-vc-row-inner.php:7
 msgid "Inner Row"
-msgstr ""
+msgstr "Innere Zeile"
 
 #: config/./containers/shortcode-vc-row-inner.php:14
 msgid "Place content elements inside the inner row"
@@ -1577,7 +1548,7 @@ msgstr ""
 #: config/./containers/shortcode-vc-row-inner.php:18
 #: config/./containers/shortcode-vc-row.php:175
 msgid "Row ID"
-msgstr ""
+msgstr "Zeilen-ID"
 
 #: config/./containers/shortcode-vc-row-inner.php:20
 #: config/./deprecated/shortcode-vc-accordion-tab.php:25
@@ -1590,9 +1561,8 @@ msgstr ""
 #: config/./containers/shortcode-vc-row-inner.php:20
 #: config/./content/shortcode-vc-toggle.php:84
 #: config/./deprecated/shortcode-vc-accordion-tab.php:25
-#, fuzzy
 msgid "link"
-msgstr "kein Link"
+msgstr "Link"
 
 #: config/./containers/shortcode-vc-row-inner.php:24
 #: config/./containers/shortcode-vc-row.php:73
@@ -1607,9 +1577,8 @@ msgstr ""
 #: config/./containers/shortcode-vc-row-inner.php:31
 #: config/./containers/shortcode-vc-row.php:80
 #: config/./containers/shortcode-vc-section.php:41
-#, fuzzy
 msgid "Content position"
-msgstr "Titel Position"
+msgstr "Inhaltsposition"
 
 #: config/./containers/shortcode-vc-row-inner.php:34
 #: config/./containers/shortcode-vc-row.php:20
@@ -1621,16 +1590,15 @@ msgstr "Titel Position"
 #: config/./grids/class-vc-grids-common.php:1126
 #: config/./grids/class-vc-grids-common.php:1175
 #: include/./helpers/helpers_api.php:498
-#, fuzzy
 msgid "Default"
-msgstr "10 - Standard"
+msgstr "Standard"
 
 #: config/./containers/shortcode-vc-row-inner.php:36
 #: config/./containers/shortcode-vc-row.php:60
 #: config/./containers/shortcode-vc-row.php:85
 #: config/./containers/shortcode-vc-section.php:46
 msgid "Middle"
-msgstr ""
+msgstr "Mitte"
 
 #: config/./containers/shortcode-vc-row-inner.php:39
 #: config/./containers/shortcode-vc-row.php:88
@@ -1650,7 +1618,7 @@ msgstr ""
 #: config/./containers/shortcode-vc-row-inner.php:64
 #: config/./containers/shortcode-vc-row.php:181
 msgid "Disable row"
-msgstr ""
+msgstr "Zeile deaktivieren"
 
 #: config/./containers/shortcode-vc-row-inner.php:67
 #: config/./containers/shortcode-vc-row.php:184
@@ -1671,17 +1639,15 @@ msgstr "Binden Sie Inhaltselemente in die Zeile ein"
 
 #: config/./containers/shortcode-vc-row.php:17
 msgid "Row stretch"
-msgstr ""
+msgstr "Zeile strecken"
 
 #: config/./containers/shortcode-vc-row.php:21
-#, fuzzy
 msgid "Stretch row"
-msgstr "Zeile löschen"
+msgstr "Zeile strecken"
 
 #: config/./containers/shortcode-vc-row.php:22
-#, fuzzy
 msgid "Stretch row and content"
-msgstr "Inhalte mit vertikalen Reitern"
+msgstr "Zeile und Inhalt strecken"
 
 #: config/./containers/shortcode-vc-row.php:23
 msgid "Stretch row and content (no paddings)"
@@ -1707,7 +1673,7 @@ msgstr ""
 
 #: config/./containers/shortcode-vc-row.php:63
 msgid "Stretch"
-msgstr ""
+msgstr "Strecken"
 
 #: config/./containers/shortcode-vc-row.php:65
 msgid "Select columns position within row."
@@ -1757,7 +1723,7 @@ msgstr ""
 
 #: config/./containers/shortcode-vc-section.php:34
 msgid "Full height section?"
-msgstr ""
+msgstr "Abschnitt mit voller Höhe?"
 
 #: config/./containers/shortcode-vc-section.php:36
 msgid "If checked section will be set to full height."
@@ -1784,9 +1750,8 @@ msgstr ""
 #: config/./containers/shortcode-vc-section.php:136
 #: config/./deprecated/shortcode-vc-accordion-tab.php:23
 #: config/./tta/shortcode-vc-tta-section.php:57
-#, fuzzy
 msgid "Section ID"
-msgstr "Inhaltsbereich"
+msgstr "Abschnitts-ID"
 
 #: config/./containers/shortcode-vc-section.php:138
 #: config/./tta/shortcode-vc-tta-section.php:58
@@ -1829,9 +1794,8 @@ msgid "Empty Space"
 msgstr "Leerer Bereich"
 
 #: config/./content/shortcode-vc-empty-space.php:12
-#, fuzzy
 msgid "Blank space with custom height"
-msgstr "Abstandshalter mit individueller Höhe"
+msgstr "Leerraum mit benutzerdefinierter Höhe"
 
 #: config/./content/shortcode-vc-empty-space.php:16
 #: include/./params/vc_grid_item/shortcodes.php:252
@@ -1847,9 +1811,8 @@ msgid "Flickr Widget"
 msgstr "Flickr Widget"
 
 #: config/./content/shortcode-vc-flickr.php:11
-#, fuzzy
 msgid "Image feed from Flickr account"
-msgstr "Bilder-Feed Ihres Flickr Accounts"
+msgstr "Bilder-Feed aus Flickr Konto"
 
 #: config/./content/shortcode-vc-flickr.php:15
 #: config/./content/shortcode-vc-gallery.php:15
@@ -1916,11 +1879,8 @@ msgstr "Widget Titel"
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:66
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:134
 #: include/./params/vc_grid_item/shortcodes.php:727
-#, fuzzy
 msgid "Enter text used as widget title (Note: located above content element)."
 msgstr ""
-"Dieser Text wird als Widget Titel genutzt. Feld leer lassen um nichts "
-"anzuzeigen."
 
 #: config/./content/shortcode-vc-flickr.php:21
 msgid "Flickr ID"
@@ -1936,9 +1896,8 @@ msgid "Number of photos"
 msgstr "Anzahl der Bilder"
 
 #: config/./content/shortcode-vc-flickr.php:42
-#, fuzzy
 msgid "Select number of photos to display."
-msgstr "Wählen Sie ein Formular."
+msgstr "Anzahl der Fotos auswählen die angezeigt werden sollen."
 
 #: config/./content/shortcode-vc-flickr.php:46
 msgid "Type"
@@ -1953,19 +1912,16 @@ msgid "Group"
 msgstr "Gruppe"
 
 #: config/./content/shortcode-vc-flickr.php:52
-#, fuzzy
 msgid "Select photo stream type."
-msgstr "Fotostream Typ"
+msgstr ""
 
 #: config/./content/shortcode-vc-flickr.php:56
-#, fuzzy
 msgid "Display order"
-msgstr "Formulartitel anzeigen."
+msgstr "Anzeigenreihenfolge"
 
 #: config/./content/shortcode-vc-flickr.php:59
-#, fuzzy
 msgid "Latest first"
-msgstr "Aktuelleste"
+msgstr "Aktuellste zuerst"
 
 #: config/./content/shortcode-vc-flickr.php:60
 #: config/./content/shortcode-vc-posts-slider.php:138
@@ -1976,9 +1932,8 @@ msgid "Random"
 msgstr "Zufällig"
 
 #: config/./content/shortcode-vc-flickr.php:62
-#, fuzzy
 msgid "Select photo display order."
-msgstr "Wählen Sie ein Formular."
+msgstr "Anzeigereihenfolge für Bilder auswählen."
 
 #: config/./content/shortcode-vc-gallery.php:7
 msgid "Image Gallery"
@@ -2018,9 +1973,8 @@ msgstr "Wählen Sie einen Galerietyp."
 #: config/./content/shortcode-vc-gallery.php:33
 #: config/./content/shortcode-vc-posts-slider.php:40
 #: config/./deprecated/shortcode-vc-tabs.php:24
-#, fuzzy
 msgid "Auto rotate"
-msgstr "Tabs automatisch durchwechseln"
+msgstr "Auto-Rotation"
 
 #: config/./content/shortcode-vc-gallery.php:40
 #: config/./content/shortcode-vc-posts-slider.php:47
@@ -2040,24 +1994,24 @@ msgstr "Slides automatisch jede X-te Sekunde rotieren."
 #: config/./content/shortcode-vc-single-image.php:21
 #: include/./params/vc_grid_item/shortcodes.php:731
 msgid "Image source"
-msgstr ""
+msgstr "Bildquelle"
 
 #: config/./content/shortcode-vc-gallery.php:57
 #: config/./content/shortcode-vc-single-image.php:24
 #: include/./params/vc_grid_item/shortcodes.php:734
 msgid "Media library"
-msgstr ""
+msgstr "Medienbibliothek"
 
 #: config/./content/shortcode-vc-gallery.php:58
 #: config/./content/shortcode-vc-gallery.php:76
 msgid "External links"
-msgstr ""
+msgstr "Externe Links"
 
 #: config/./content/shortcode-vc-gallery.php:61
 #: config/./content/shortcode-vc-single-image.php:29
 #: include/./params/vc_grid_item/shortcodes.php:738
 msgid "Select image source."
-msgstr ""
+msgstr "Bildquelle auswählen."
 
 #: config/./content/shortcode-vc-gallery.php:65
 #: config/./content/shortcode-vc-images-carousel.php:21
@@ -2069,7 +2023,7 @@ msgstr "Bilder"
 #: config/./content/shortcode-vc-images-carousel.php:24
 #: config/./grids/class-vc-grids-common.php:751
 msgid "Select images from media library."
-msgstr "Wählen Sie Bilder aus der Medienbibliothek"
+msgstr "Bilder aus der Medienbibliothek auswählen."
 
 #: config/./content/shortcode-vc-gallery.php:78
 msgid ""
@@ -2107,37 +2061,35 @@ msgstr ""
 #: config/./content/shortcode-vc-gallery.php:108
 #: config/./content/shortcode-vc-images-carousel.php:35
 #: config/./content/shortcode-vc-single-image.php:179
-#, fuzzy
 msgid "On click action"
-msgstr "Beim anklicken"
+msgstr "Aktion beim Klicken"
 
 #: config/./content/shortcode-vc-gallery.php:112
 #: config/./content/shortcode-vc-single-image.php:183
 msgid "Link to large image"
-msgstr ""
+msgstr "Link zum großen Bild"
 
 #: config/./content/shortcode-vc-gallery.php:113
 #: config/./content/shortcode-vc-images-carousel.php:38
 #: config/./content/shortcode-vc-single-image.php:184
 msgid "Open prettyPhoto"
-msgstr "mit Popup öffnen (Lightbox)"
+msgstr "Öffne PrettyPhoto"
 
 #: config/./content/shortcode-vc-gallery.php:114
 #: config/./content/shortcode-vc-single-image.php:185
 msgid "Open custom link"
-msgstr ""
+msgstr "Öffne benutzerdefinierten Link"
 
 #: config/./content/shortcode-vc-gallery.php:116
 #: config/./content/shortcode-vc-single-image.php:188
-#, fuzzy
 msgid "Select action for click action."
-msgstr "Wählen Sie die Position des Titels."
+msgstr ""
 
 #: config/./content/shortcode-vc-gallery.php:121
 #: config/./content/shortcode-vc-images-carousel.php:46
 #: config/./content/shortcode-vc-posts-slider.php:99
 msgid "Custom links"
-msgstr "individuelle Links"
+msgstr "Individuelle Links"
 
 #: config/./content/shortcode-vc-gallery.php:123
 #: config/./content/shortcode-vc-images-carousel.php:48
@@ -2151,7 +2103,7 @@ msgstr ""
 #: config/./content/shortcode-vc-gallery.php:131
 #: config/./content/shortcode-vc-images-carousel.php:56
 msgid "Custom link target"
-msgstr "individuelles Linkziel"
+msgstr "Individuelles Linkziel"
 
 #: config/./content/shortcode-vc-gallery.php:133
 msgid "Select where to open  custom links."
@@ -2178,56 +2130,47 @@ msgid ""
 msgstr ""
 
 #: config/./content/shortcode-vc-gmaps.php:24
-#, fuzzy
 msgid "Google maps"
-msgstr "Google Maps Karte"
+msgstr "Google Maps"
 
 #: config/./content/shortcode-vc-gmaps.php:28
 msgid "Map height"
 msgstr "Höhe der Karte"
 
 #: config/./content/shortcode-vc-gmaps.php:32
-#, fuzzy
 msgid "Enter map height (in pixels or leave empty for responsive map)."
 msgstr ""
-"Geben Sie die Kartenhöhe in Pixeln an. Beispiel: 200, oder lassen dieses "
-"Feld frei um eine responsive Karte zu erstellen."
+"Höhe der Karte in Pixeln angeben oder dieses Feld leer lassen um eine "
+"responsive Karte zu erstellen."
 
 #: config/./content/shortcode-vc-hoverbox.php:9
-#, fuzzy
 msgid "Primary Title"
-msgstr "Beitragstypen"
+msgstr "Primärer Titel"
 
 #: config/./content/shortcode-vc-hoverbox.php:42
-#, fuzzy
 msgid "Hover Title"
-msgstr "Beitragstypen"
+msgstr "Hover-Titel"
 
 #: config/./content/shortcode-vc-hoverbox.php:86
-#, fuzzy
 msgid "Primary title"
-msgstr "Seitentitel"
+msgstr "Primärer Titel"
 
 #: config/./content/shortcode-vc-hoverbox.php:89
 #: config/./content/shortcode-vc-hoverbox.php:114
-#, fuzzy
 msgid "Hover Box Element"
-msgstr "Wähle Inhaltselement"
+msgstr ""
 
 #: config/./content/shortcode-vc-hoverbox.php:102
-#, fuzzy
 msgid "Primary title alignment"
-msgstr "Bildausrichtung"
+msgstr ""
 
 #: config/./content/shortcode-vc-hoverbox.php:106
-#, fuzzy
 msgid "Select text alignment for primary title."
-msgstr "Wählen Sie die Textausrichtung."
+msgstr ""
 
 #: config/./content/shortcode-vc-hoverbox.php:111
-#, fuzzy
 msgid "Hover title"
-msgstr "Formtitel"
+msgstr "Hover-Titel"
 
 #: config/./content/shortcode-vc-hoverbox.php:115
 #: config/./content/shortcode-vc-hoverbox.php:123
@@ -2236,44 +2179,35 @@ msgstr "Formtitel"
 #: config/./content/shortcode-vc-hoverbox.php:163
 #: config/./content/shortcode-vc-hoverbox.php:171
 #: config/./content/shortcode-vc-hoverbox.php:212
-#, fuzzy
 msgid "Hover Block"
-msgstr "Hover Farbe"
+msgstr ""
 
 #: config/./content/shortcode-vc-hoverbox.php:128
-#, fuzzy
 msgid "Hover title alignment"
-msgstr "Textausrichtung"
+msgstr ""
 
 #: config/./content/shortcode-vc-hoverbox.php:133
-#, fuzzy
 msgid "Select text alignment for hovered title."
-msgstr "Wählen Sie die Textausrichtung."
+msgstr ""
 
 #: config/./content/shortcode-vc-hoverbox.php:139
-#, fuzzy
 msgid ""
 "Click edit button to change this text. Lorem ipsum dolor sit amet, "
 "consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, "
 "pulvinar dapibus leo."
 msgstr ""
-"Ich bin ein Aktionstext. Klicken Sie auf den Bearbeiten Button um diesen "
-"Text zu ändern. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut "
-"elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
 
 #: config/./content/shortcode-vc-hoverbox.php:141
 msgid "Hover part text."
 msgstr ""
 
 #: config/./content/shortcode-vc-hoverbox.php:154
-#, fuzzy
 msgid "Select block shape."
-msgstr "Wählen Sie eine Button Größe"
+msgstr ""
 
 #: config/./content/shortcode-vc-hoverbox.php:158
-#, fuzzy
 msgid "Background Color"
-msgstr "Hintergrundfarbe der Zeile"
+msgstr "Hintergrundfarbe"
 
 #: config/./content/shortcode-vc-hoverbox.php:194
 #, fuzzy
@@ -2295,9 +2229,8 @@ msgid "Reverse hover and primary block."
 msgstr ""
 
 #: config/./content/shortcode-vc-hoverbox.php:221
-#, fuzzy
 msgid "Hover Button"
-msgstr "Hover Farbe"
+msgstr "Hover-Button"
 
 #: config/./content/shortcode-vc-hoverbox.php:249
 #, fuzzy
@@ -2318,9 +2251,8 @@ msgid "Animated carousel with images"
 msgstr "Animiertes Karussell mit Bildern"
 
 #: config/./content/shortcode-vc-images-carousel.php:28
-#, fuzzy
 msgid "Carousel size"
-msgstr "Karussell"
+msgstr "Karussell-Größe"
 
 #: config/./content/shortcode-vc-images-carousel.php:31
 #, fuzzy
@@ -2337,9 +2269,8 @@ msgstr ""
 
 #: config/./content/shortcode-vc-images-carousel.php:40
 #: config/./content/shortcode-vc-posts-slider.php:92
-#, fuzzy
 msgid "Open custom links"
-msgstr "individuellen Link öffnen"
+msgstr "Individuelle Links öffnen"
 
 #: config/./content/shortcode-vc-images-carousel.php:42
 #, fuzzy
@@ -2353,9 +2284,8 @@ msgstr "Wählen in welchem Fenster der Link geöffnet werden soll"
 
 #: config/./content/shortcode-vc-images-carousel.php:67
 #: config/./deprecated/shortcode-vc-carousel.php:95
-#, fuzzy
 msgid "Slider orientation"
-msgstr "Slidermodus"
+msgstr "Slider-Ausrichtung"
 
 #: config/./content/shortcode-vc-images-carousel.php:70
 #: config/./deprecated/shortcode-vc-carousel.php:98
@@ -2374,17 +2304,17 @@ msgstr "Vertikal"
 #: config/./deprecated/shortcode-vc-carousel.php:101
 msgid "Select slider position (Note: this affects swiping orientation)."
 msgstr ""
+"Slider-Position auswählen (Hinweis: dies beeinflusst die Swipe-Richtung)."
 
 #: config/./content/shortcode-vc-images-carousel.php:77
 #: config/./deprecated/shortcode-vc-carousel.php:88
 msgid "Slider speed"
-msgstr "Slider Geschwindigkeit"
+msgstr "Slider-Geschwindigkeit"
 
 #: config/./content/shortcode-vc-images-carousel.php:80
 #: config/./deprecated/shortcode-vc-carousel.php:91
-#, fuzzy
 msgid "Duration of animation between slides (in ms)."
-msgstr "Dauer der Animation (in Millisekunden)"
+msgstr "Dauer der Animation zwischen den Slides (in Millisekunden)."
 
 #: config/./content/shortcode-vc-images-carousel.php:84
 #: config/./deprecated/shortcode-vc-carousel.php:105
@@ -2393,9 +2323,8 @@ msgstr "Anzahl der sichtbaren Slides"
 
 #: config/./content/shortcode-vc-images-carousel.php:87
 #: config/./deprecated/shortcode-vc-carousel.php:108
-#, fuzzy
 msgid "Enter number of slides to display at the same time."
-msgstr "Soll der Formulartitel angezeigt werden?"
+msgstr "Anzahl der Slides angeben, die gleichzeitig angezeigt werden sollen."
 
 #: config/./content/shortcode-vc-images-carousel.php:91
 #: config/./deprecated/shortcode-vc-carousel.php:112
@@ -2404,9 +2333,8 @@ msgstr "Slider automatisch abspielen"
 
 #: config/./content/shortcode-vc-images-carousel.php:93
 #: config/./deprecated/shortcode-vc-carousel.php:114
-#, fuzzy
 msgid "Enable autoplay mode."
-msgstr "Aktiviert den Modus zum automatischen Abspielen des Sliders"
+msgstr "Autoplay-Modus aktivieren."
 
 #: config/./content/shortcode-vc-images-carousel.php:98
 #: config/./deprecated/shortcode-vc-carousel.php:119
@@ -2450,46 +2378,41 @@ msgid "Enable slider loop mode."
 msgstr "Aktiviert die Schleifenwiedergabe."
 
 #: config/./content/shortcode-vc-line-chart.php:7
-#, fuzzy
 msgid "Line Chart"
-msgstr "Kreisdiagramm"
+msgstr "Liniendiagramm"
 
 #: config/./content/shortcode-vc-line-chart.php:12
 msgid "Line and Bar charts"
-msgstr ""
+msgstr "Linien- und Balkendiagramme"
 
 #: config/./content/shortcode-vc-line-chart.php:23
 #: config/./content/shortcode-vc-progress-bar.php:30
 #: config/./content/shortcode-vc-round-chart.php:23
-#, fuzzy
 msgid "Design"
-msgstr "Designeinstellungen"
+msgstr "Design"
 
 #: config/./content/shortcode-vc-line-chart.php:26
 msgid "Line"
-msgstr ""
+msgstr "Linie"
 
 #: config/./content/shortcode-vc-line-chart.php:27
 msgid "Bar"
-msgstr ""
+msgstr "Balken"
 
 #: config/./content/shortcode-vc-line-chart.php:30
 #: config/./content/shortcode-vc-round-chart.php:29
-#, fuzzy
 msgid "Select type of chart."
-msgstr "Wählen Sie einen Anmerkungstyp"
+msgstr "Diagrammtyp auswählen."
 
 #: config/./content/shortcode-vc-line-chart.php:36
 #: config/./content/shortcode-vc-round-chart.php:35
-#, fuzzy
 msgid "Select chart color style."
-msgstr "Wählen Sie die Farben für das Kreisdiagramm."
+msgstr "Farben für das Diagramm auswählen."
 
 #: config/./content/shortcode-vc-line-chart.php:49
 #: config/./content/shortcode-vc-round-chart.php:84
-#, fuzzy
 msgid "Show legend?"
-msgstr "Filter anzeigen"
+msgstr "Legende anzeigen?"
 
 #: config/./content/shortcode-vc-line-chart.php:51
 #: config/./content/shortcode-vc-round-chart.php:86
@@ -2499,7 +2422,7 @@ msgstr ""
 #: config/./content/shortcode-vc-line-chart.php:57
 #: config/./content/shortcode-vc-round-chart.php:92
 msgid "Show hover values?"
-msgstr ""
+msgstr "Hover-Werte anzeigen?"
 
 #: config/./content/shortcode-vc-line-chart.php:59
 #: config/./content/shortcode-vc-round-chart.php:94
@@ -2507,31 +2430,29 @@ msgid "If checked, chart will show values on hover."
 msgstr ""
 
 #: config/./content/shortcode-vc-line-chart.php:65
-#, fuzzy
 msgid "X-axis values"
-msgstr "grafische Werte"
+msgstr "X-Achsenwerte"
 
 #: config/./content/shortcode-vc-line-chart.php:67
 #: config/./content/shortcode-vc-line-chart.php:98
 msgid "Enter values for axis (Note: separate values with \";\")."
-msgstr ""
+msgstr "Werte für Achsen eingeben (Werte mit „;“ trennen)."
 
 #: config/./content/shortcode-vc-line-chart.php:72
 #: config/./content/shortcode-vc-progress-bar.php:21
 #: config/./content/shortcode-vc-round-chart.php:100
 msgid "Values"
-msgstr ""
+msgstr "Werte"
 
 #: config/./content/shortcode-vc-line-chart.php:76
 #: config/./content/shortcode-vc-round-chart.php:104
-#, fuzzy
 msgid "One"
-msgstr "Orange"
+msgstr "Eins"
 
 #: config/./content/shortcode-vc-line-chart.php:81
 #: config/./content/shortcode-vc-round-chart.php:109
 msgid "Two"
-msgstr ""
+msgstr "Zwei"
 
 #: config/./content/shortcode-vc-line-chart.php:89
 #: config/./content/shortcode-vc-posts-slider.php:136
@@ -2560,9 +2481,8 @@ msgid "Enter title for chart dataset."
 msgstr ""
 
 #: config/./content/shortcode-vc-line-chart.php:96
-#, fuzzy
 msgid "Y-axis values"
-msgstr "grafische Werte"
+msgstr "Y-Achsenwerte"
 
 #: config/./content/shortcode-vc-line-chart.php:105
 #, fuzzy
@@ -2679,44 +2599,42 @@ msgstr "Wählen Sie einen Nachrichtentyp."
 #: config/./content/shortcode-vc-message.php:149
 #: config/./content/vc-icon-element.php:16
 msgid "Icon library"
-msgstr ""
+msgstr "Icon-Bibliothek"
 
 #: config/./content/shortcode-vc-message.php:151
 #: config/./content/vc-icon-element.php:18
-#, fuzzy
 msgid "Font Awesome"
-msgstr "Schriftgröße"
+msgstr "FontAwesome"
 
 #: config/./content/shortcode-vc-message.php:152
 #: config/./content/vc-icon-element.php:19
 msgid "Open Iconic"
-msgstr ""
+msgstr "Open Iconic"
 
 #: config/./content/shortcode-vc-message.php:153
 #: config/./content/vc-icon-element.php:20
 msgid "Typicons"
-msgstr ""
+msgstr "Typicons"
 
 #: config/./content/shortcode-vc-message.php:154
 #: config/./content/vc-icon-element.php:21
 msgid "Entypo"
-msgstr ""
+msgstr "Entypo"
 
 #: config/./content/shortcode-vc-message.php:155
 #: config/./content/vc-icon-element.php:22
 msgid "Linecons"
-msgstr ""
+msgstr "Line-Icons"
 
 #: config/./content/shortcode-vc-message.php:157
 #: config/./content/vc-icon-element.php:23
 msgid "Mono Social"
-msgstr ""
+msgstr "Mono Social"
 
 #: config/./content/shortcode-vc-message.php:160
 #: config/./content/vc-icon-element.php:28
-#, fuzzy
 msgid "Select icon library."
-msgstr "Bild aus Medienbibliothek auswählen"
+msgstr "Icon-Bibliothek auswählen."
 
 #: config/./content/shortcode-vc-message.php:285
 msgid "Message text"
@@ -2729,13 +2647,12 @@ msgstr ""
 "Text zu ändern</p>"
 
 #: config/./content/shortcode-vc-pie.php:7
-#, fuzzy
 msgid "Pie Chart"
-msgstr "Kreisdiagramm"
+msgstr "Tortendiagramm"
 
 #: config/./content/shortcode-vc-pie.php:12
 msgid "Animated pie chart"
-msgstr "Animiertes Kreisdiagramm"
+msgstr "Animiertes Tortendiagramm"
 
 #: config/./content/shortcode-vc-pie.php:23
 #: config/./content/shortcode-vc-progress-bar.php:48
@@ -2748,9 +2665,8 @@ msgid "Enter value for graph (Note: choose range from 0 to 100)."
 msgstr ""
 
 #: config/./content/shortcode-vc-pie.php:31
-#, fuzzy
 msgid "Label value"
-msgstr "Textueller Teilwert"
+msgstr "Label-Wert"
 
 #: config/./content/shortcode-vc-pie.php:33
 msgid ""
@@ -2775,7 +2691,7 @@ msgstr ""
 
 #: config/./content/shortcode-vc-pie.php:47
 msgid "Select pie chart color."
-msgstr "Wählen Sie die Farben für das Kreisdiagramm."
+msgstr "Wähle die Farben für das Tortendiagramm."
 
 #: config/./content/shortcode-vc-pie.php:56
 msgid "Select custom color."
@@ -2795,12 +2711,11 @@ msgstr "Slidertyp"
 
 #: config/./content/shortcode-vc-posts-slider.php:29
 msgid "Select slider type."
-msgstr "Wählen Sie einen Slidertyp"
+msgstr "Wähle einen Slider-Typ."
 
 #: config/./content/shortcode-vc-posts-slider.php:33
-#, fuzzy
 msgid "Slider count"
-msgstr "Anzahl der Slides"
+msgstr "Slider Anzahl"
 
 #: config/./content/shortcode-vc-posts-slider.php:36
 msgid ""
@@ -2871,11 +2786,11 @@ msgstr "Link zum Vollbild"
 #: include/./templates/teaser.html.php:22
 #: include/./templates/teaser.html.php:43
 msgid "No link"
-msgstr "kein Link"
+msgstr "Kein Link"
 
 #: config/./content/shortcode-vc-posts-slider.php:95
 msgid "Link type."
-msgstr "Linktyp"
+msgstr "Linktyp."
 
 #: config/./content/shortcode-vc-posts-slider.php:106
 msgid "Enter links for each slide here. Divide links with linebreaks (Enter)."
@@ -2976,7 +2891,7 @@ msgstr "Autor"
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:110
 #: include/./params/loop/loop.php:447
 msgid "Modified"
-msgstr "zuletzt bearbeitet"
+msgstr "Bearbeitet"
 
 #: config/./content/shortcode-vc-posts-slider.php:139
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:112
@@ -3007,9 +2922,8 @@ msgstr "Wählen Sie die Sortierung für die Anzeige der Artikel. Mehr unter %s."
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:788
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:881
 #: include/./params/loop/loop.php:328
-#, fuzzy
 msgid "Sort order"
-msgstr "Sortierreihenfolge."
+msgstr "Sortierreihenfolge"
 
 #: config/./content/shortcode-vc-posts-slider.php:149
 #: config/./grids/class-vc-grids-common.php:303
@@ -3044,11 +2958,11 @@ msgstr ""
 
 #: config/./content/shortcode-vc-progress-bar.php:26
 msgid "Development"
-msgstr ""
+msgstr "Entwicklung"
 
 #: config/./content/shortcode-vc-progress-bar.php:34
 msgid "Marketing"
-msgstr ""
+msgstr "Marketing"
 
 #: config/./content/shortcode-vc-progress-bar.php:41
 #: include/./params/vc_grid_item/shortcodes.php:650
@@ -3080,7 +2994,7 @@ msgstr ""
 
 #: config/./content/shortcode-vc-progress-bar.php:86
 msgid "Custom text color"
-msgstr ""
+msgstr "Benutzerdefinierte Textfarbe"
 
 #: config/./content/shortcode-vc-progress-bar.php:88
 msgid "Select custom single bar text color."
@@ -3113,9 +3027,8 @@ msgid "Options"
 msgstr "Optionen"
 
 #: config/./content/shortcode-vc-progress-bar.php:146
-#, fuzzy
 msgid "Add stripes"
-msgstr "Streifen hinzufügen?"
+msgstr "Streifen hinzufügen"
 
 #: config/./content/shortcode-vc-progress-bar.php:147
 #, fuzzy
@@ -3124,20 +3037,19 @@ msgstr "Animation hinzufügen? Wird nur bei Balken mit Streifen angezeigt."
 
 #: config/./content/shortcode-vc-round-chart.php:7
 msgid "Round Chart"
-msgstr ""
+msgstr "Rund"
 
 #: config/./content/shortcode-vc-round-chart.php:12
 msgid "Pie and Doughnut charts"
-msgstr ""
+msgstr "Torten- und Ring-Digramme"
 
 #: config/./content/shortcode-vc-round-chart.php:26
-#, fuzzy
 msgid "Pie"
-msgstr "Vorschau"
+msgstr "Torte"
 
 #: config/./content/shortcode-vc-round-chart.php:27
 msgid "Doughnut"
-msgstr ""
+msgstr "Ring"
 
 #: config/./content/shortcode-vc-round-chart.php:48
 #: config/./grids/class-vc-grids-common.php:248
@@ -3145,14 +3057,12 @@ msgstr ""
 #: config/./tta/shortcode-vc-tta-accordion.php:99
 #: config/./tta/shortcode-vc-tta-tabs.php:100
 #: config/./tta/shortcode-vc-tta-tour.php:100
-#, fuzzy
 msgid "Gap"
-msgstr "Karte"
+msgstr "Abstand"
 
 #: config/./content/shortcode-vc-round-chart.php:56
-#, fuzzy
 msgid "Select gap size."
-msgstr "Wählen Sie eine Button Größe"
+msgstr "Abstandsgröße auswählen."
 
 #: config/./content/shortcode-vc-round-chart.php:61
 #, fuzzy
@@ -3204,16 +3114,14 @@ msgstr "Horizontale Trennlinie"
 #: config/./content/shortcode-vc-separator.php:20
 #: config/./content/shortcode-vc-text-separator.php:85
 #: config/./content/shortcode-vc-zigzag.php:19
-#, fuzzy
 msgid "Select color of separator."
-msgstr "Wählen Sie die Schriftfarbe."
+msgstr "Farbe der Trennlinie auswählen."
 
 #: config/./content/shortcode-vc-separator.php:32
 #: config/./content/shortcode-vc-text-separator.php:77
 #: config/./content/shortcode-vc-zigzag.php:41
-#, fuzzy
 msgid "Select separator alignment."
-msgstr "Wählen Sie die Textausrichtung."
+msgstr "Ausrichtung der Trennlinie auswählen."
 
 #: config/./content/shortcode-vc-separator.php:36
 msgid "Custom Border Color"
@@ -3225,22 +3133,19 @@ msgstr "Wählen Sie eine Rahmenfarbe für Ihr Element"
 
 #: config/./content/shortcode-vc-separator.php:49
 #: config/./content/shortcode-vc-text-separator.php:103
-#, fuzzy
 msgid "Separator display style."
-msgstr "Stil der Trennlinie"
+msgstr "Anzeigestil der Trennlinie."
 
 #: config/./content/shortcode-vc-separator.php:53
 #: config/./content/shortcode-vc-text-separator.php:107
 #: config/./content/shortcode-vc-zigzag.php:63
-#, fuzzy
 msgid "Border width"
-msgstr "Darstellungsgitter Abstände"
+msgstr "Rahmenbreite"
 
 #: config/./content/shortcode-vc-separator.php:56
 #: config/./content/shortcode-vc-text-separator.php:110
-#, fuzzy
 msgid "Select border width (pixels)."
-msgstr "Wählen Sie einen Slidertyp"
+msgstr "Rahmenbreite (in Pixeln) auswählen."
 
 #: config/./content/shortcode-vc-separator.php:60
 #: config/./content/shortcode-vc-text-separator.php:114
@@ -3250,9 +3155,8 @@ msgstr "Breite des Elements"
 
 #: config/./content/shortcode-vc-separator.php:63
 #: config/./content/shortcode-vc-zigzag.php:59
-#, fuzzy
 msgid "Select separator width (percentage)."
-msgstr "Wählen Sie die Textausrichtung."
+msgstr "Breite der Trennlinie (in Prozent)."
 
 #: config/./content/shortcode-vc-single-image.php:7
 #: include/./params/vc_grid_item/shortcodes.php:717
@@ -3273,12 +3177,12 @@ msgstr ""
 
 #: config/./content/shortcode-vc-single-image.php:26
 msgid "Featured Image"
-msgstr ""
+msgstr "Beitragsbild"
 
 #: config/./content/shortcode-vc-single-image.php:47
 #: include/./params/vc_grid_item/shortcodes.php:755
 msgid "Select external link."
-msgstr ""
+msgstr "Externen Link auswählen."
 
 #: config/./content/shortcode-vc-single-image.php:59
 #: include/./params/vc_grid_item/shortcodes.php:47
@@ -3288,22 +3192,25 @@ msgid ""
 "other sizes defined by theme). Alternatively enter size in pixels (Example: "
 "200x100 (Width x Height))."
 msgstr ""
+"Bildgröße eingeben (z.B. „thumbnail“, „medium“, „large“, „full“, oder andere "
+"im Theme definierte Größen). Alternativ kannst du die Größe auch in Pixeln "
+"angeben, z.B. 200x100 (Breite x Höhe)."
 
 #: config/./content/shortcode-vc-single-image.php:81
 msgid "Caption"
-msgstr ""
+msgstr "Bildunterschrift"
 
 #: config/./content/shortcode-vc-single-image.php:83
 msgid "Enter text for image caption."
-msgstr ""
+msgstr "Gibt einen Text für die Bildunterschrift ein."
 
 #: config/./content/shortcode-vc-single-image.php:91
 msgid "Add caption?"
-msgstr ""
+msgstr "Bildunterschrift hinzufügen?"
 
 #: config/./content/shortcode-vc-single-image.php:93
 msgid "Add image caption."
-msgstr ""
+msgstr "Bildunterschrift hinzufügen."
 
 #: config/./content/shortcode-vc-single-image.php:105
 #: include/./params/vc_grid_item/shortcodes.php:567
@@ -3328,9 +3235,8 @@ msgstr "Bildstil"
 #: config/./content/shortcode-vc-single-image.php:133
 #: include/./params/vc_grid_item/shortcodes.php:581
 #: include/./params/vc_grid_item/shortcodes.php:784
-#, fuzzy
 msgid "Select image display style."
-msgstr "Wählen Sie einen Nachrichtentyp."
+msgstr "Anzeigestil des Bildes wählen."
 
 #: config/./content/shortcode-vc-single-image.php:141
 #: config/./content/shortcode-vc-single-image.php:161
@@ -3348,20 +3254,20 @@ msgid "Border color."
 msgstr "Rahmenfarbe."
 
 #: config/./content/shortcode-vc-single-image.php:186
-#, fuzzy
 msgid "Zoom"
-msgstr "Kartenzoom"
+msgstr "Zoom"
 
 #: config/./content/shortcode-vc-single-image.php:193
 msgid "Image link"
 msgstr "Bild Link"
 
 #: config/./content/shortcode-vc-single-image.php:195
-#, fuzzy
 msgid ""
 "Enter URL if you want this image to have a link (Note: parameters like "
 "\"mailto:\" are also accepted)."
-msgstr "Tragen Sie eine URL ein wenn Sie dieses Bild verlinken möchten."
+msgstr ""
+"Trage eine URL ein, falls du dieses Bild verlinken möchtest (Parameter wie "
+"„mailto:“ sind auch erlaubt)."
 
 #: config/./content/shortcode-vc-single-image.php:203
 msgid "Link Target"
@@ -3376,9 +3282,8 @@ msgid "Horizontal separator line with heading"
 msgstr "Horizontale Trennlinie mit Überschrift"
 
 #: config/./content/shortcode-vc-text-separator.php:49
-#, fuzzy
 msgid "Add text to separator."
-msgstr "Reiter hinzufügen"
+msgstr "Text zur Trennlinie hinzufügen."
 
 #: config/./content/shortcode-vc-text-separator.php:59
 msgid "Title position"
@@ -3389,9 +3294,8 @@ msgid "Select title location."
 msgstr "Wählen Sie die Position des Titels."
 
 #: config/./content/shortcode-vc-text-separator.php:70
-#, fuzzy
 msgid "Separator alignment"
-msgstr "Stil der Trennlinie"
+msgstr "Ausrichtung der Trennlinie"
 
 #: config/./content/shortcode-vc-text-separator.php:92
 msgid "Custom separator color for your element."
@@ -3425,26 +3329,22 @@ msgid "Toggle block content."
 msgstr "Aufklappelement Inhalt"
 
 #: config/./content/shortcode-vc-toggle.php:51
-#, fuzzy
 msgid "Select toggle design style."
-msgstr "Wählen Sie einen Button Typ"
+msgstr ""
 
 #: config/./content/shortcode-vc-toggle.php:55
 #: config/./content/vc-icon-element.php:163
-#, fuzzy
 msgid "Icon color"
-msgstr "Button Farbe."
+msgstr "Icon-Farbe"
 
 #: config/./content/shortcode-vc-toggle.php:58
 #: config/./content/vc-icon-element.php:166
-#, fuzzy
 msgid "Select icon color."
-msgstr "Wählen Sie ein Farbe für den Text."
+msgstr "Icon-Farbe auswählen."
 
 #: config/./content/shortcode-vc-toggle.php:67
-#, fuzzy
 msgid "Select toggle size"
-msgstr "Wählen Sie eine Button Größe"
+msgstr ""
 
 #: config/./content/shortcode-vc-toggle.php:71
 msgid "Default state"
@@ -3452,17 +3352,15 @@ msgstr "Standardeinstellung"
 
 #: config/./content/shortcode-vc-toggle.php:74
 msgid "Closed"
-msgstr "geschlossen"
+msgstr "Geschlossen"
 
 #: config/./content/shortcode-vc-toggle.php:75
 msgid "Open"
-msgstr "geöffnet"
+msgstr "Geöffnet"
 
 #: config/./content/shortcode-vc-toggle.php:77
 msgid "Select \"Open\" if you want toggle to be open by default."
-msgstr ""
-"Wählen Sie \"geöffnet\" um dieses Element standardmäßig im offenen Status "
-"anzuzeigen."
+msgstr "Wähle „Geöffnet\" um dieses Element standardmäßig geöffnet anzuzeigen."
 
 #: config/./content/shortcode-vc-toggle.php:84
 #, php-format
@@ -3470,6 +3368,8 @@ msgid ""
 "Enter optional ID. Make sure it is unique, and it is valid as w3c "
 "specification: %s (Must not have spaces)"
 msgstr ""
+"Gib eine optionale ID ein. Stelle sicher, dass diese einmalig ist, keine "
+"Leerzeichen enthält und den W3C Richtlinien entspricht: %s"
 
 #: config/./content/shortcode-vc-toggle.php:102
 #: include/./autoload/vc-pages/welcome-screen.php:93
@@ -3498,31 +3398,32 @@ msgid ""
 "Enter link to video (Note: read more about available formats at WordPress <a "
 "href=\"%s\" target=\"_blank\">codex page</a>)."
 msgstr ""
+"Link zum Video eingeben (Mehr Informationen zu verfügbaren Formaten findest "
+"du im <a href=„%s“ target=„_blank“>WordPress Codex</a>)."
 
 #: config/./content/shortcode-vc-video.php:29
 msgid "Video width"
-msgstr ""
+msgstr "Videobreite"
 
 #: config/./content/shortcode-vc-video.php:43
 msgid "Select video width (percentage)."
-msgstr ""
+msgstr "Video-Breite (in Prozent) auswählen."
 
 #: config/./content/shortcode-vc-video.php:47
 msgid "Video aspect ration"
-msgstr ""
+msgstr "Video Seitenverhältnis"
 
 #: config/./content/shortcode-vc-video.php:54
 msgid "Select video aspect ratio."
-msgstr ""
+msgstr "Video-Seitenverhältnis auswählen."
 
 #: config/./content/shortcode-vc-video.php:60
 msgid "Select video alignment."
-msgstr ""
+msgstr "Videoausrichtung auswählen."
 
 #: config/./content/shortcode-vc-zigzag.php:7
-#, fuzzy
 msgid "ZigZag Separator"
-msgstr "Trennlinie"
+msgstr "ZickZack Trennlinie"
 
 #: config/./content/shortcode-vc-zigzag.php:11
 #, fuzzy
@@ -3538,7 +3439,7 @@ msgstr "Wählen Sie die Schriftfarbe."
 #: config/./content/shortcode-vc-zigzag.php:67
 #: config/./tta/shortcode-vc-tta-tour.php:133
 msgid "Extra small"
-msgstr ""
+msgstr "Extra klein"
 
 #: config/./content/shortcode-vc-zigzag.php:68 config/./lean-map.php:201
 #: config/./social/shortcode-vc-googleplus.php:20
@@ -3559,9 +3460,8 @@ msgstr "Groß"
 
 #: config/./content/shortcode-vc-zigzag.php:71
 #: config/./tta/shortcode-vc-tta-tour.php:129
-#, fuzzy
 msgid "Extra large"
-msgstr "CSS Klassenname (ohne Punkt oder Raute davor)"
+msgstr "Extra groß"
 
 #: config/./content/shortcode-vc-zigzag.php:73
 #, fuzzy
@@ -3573,25 +3473,24 @@ msgid "Custom Heading"
 msgstr "Individuelle Überschrift"
 
 #: config/./content/vc-custom-heading-element.php:13
-#, fuzzy
 msgid "Text with Google fonts"
-msgstr "Individuelle Überschrift mit Google Fonts Schrift"
+msgstr "Text mit Google-Schriften"
 
 #: config/./content/vc-custom-heading-element.php:17
 msgid "Text source"
-msgstr ""
+msgstr "Textquelle"
 
 #: config/./content/vc-custom-heading-element.php:20
 msgid "Custom text"
-msgstr ""
+msgstr "Benutzerdefinierter Text"
 
 #: config/./content/vc-custom-heading-element.php:21
 msgid "Post or Page Title"
-msgstr ""
+msgstr "Beitrags- oder Seitentitel"
 
 #: config/./content/vc-custom-heading-element.php:24
 msgid "Select text source."
-msgstr ""
+msgstr "Textquelle auswählen."
 
 #: config/./content/vc-custom-heading-element.php:31
 #, fuzzy
@@ -3609,9 +3508,8 @@ msgstr ""
 "Allgemeine Einstellungen\" aktivieren."
 
 #: config/./content/vc-custom-heading-element.php:42
-#, fuzzy
 msgid "Add link to custom heading."
-msgstr "Abstandshalter mit individueller Höhe"
+msgstr "Link zu benutzerdefinierter Überschrift hinzufügen."
 
 #: config/./content/vc-custom-heading-element.php:57
 #: include/./params/vc_grid_item/shortcodes.php:94
@@ -3623,32 +3521,31 @@ msgstr "Wählen Sie einen Inhaltstyp"
 #: include/./params/vc_grid_item/shortcodes.php:95
 #: include/./params/vc_grid_item/shortcodes.php:119
 msgid "Select text alignment."
-msgstr "Wählen Sie die Textausrichtung."
+msgstr "Textausrichtung auswählen."
 
 #: config/./content/vc-custom-heading-element.php:59
 #: include/./params/vc_grid_item/shortcodes.php:96
 #: include/./params/vc_grid_item/shortcodes.php:120
 msgid "Enter font size."
-msgstr "Geben Sie die Schriftgröße ein."
+msgstr "Schriftgröße eingeben."
 
 #: config/./content/vc-custom-heading-element.php:60
 #: include/./params/vc_grid_item/shortcodes.php:97
 #: include/./params/vc_grid_item/shortcodes.php:121
 msgid "Enter line height."
-msgstr "Geben Sie die Zeilenhöhe ein."
+msgstr "Zeilenhöhe eingeben."
 
 #: config/./content/vc-custom-heading-element.php:61
-#, fuzzy
 msgid "Select heading color."
-msgstr "Wählen Sie ein Farbe für den Text."
+msgstr "Farbe für Überschrift eingeben."
 
 #: config/./content/vc-custom-heading-element.php:67
 msgid "Use theme default font family?"
-msgstr ""
+msgstr "Standardschriftart des Themes benutzen?"
 
 #: config/./content/vc-custom-heading-element.php:70
 msgid "Use font family from the theme."
-msgstr ""
+msgstr "Standardschriftart des Themes benutzen."
 
 #: config/./content/vc-custom-heading-element.php:78
 #: include/./params/vc_grid_item/shortcodes.php:151
@@ -3662,37 +3559,35 @@ msgstr "Wählen Sie den Schriftstil."
 
 #: config/./content/vc-icon-element.php:12
 msgid "Eye catching icons from libraries"
-msgstr ""
+msgstr "Aufsehenerregende Icons aus Bibliotheken"
 
 #: config/./content/vc-icon-element.php:24
 msgid "Material"
-msgstr ""
+msgstr "Material"
 
 #: config/./content/vc-icon-element.php:173
-#, fuzzy
 msgid "Select custom icon color."
-msgstr "Wählen Sie eine individuelle Farbe für die Statusbalken."
+msgstr "Wähle eine individuelle Icon-Farbe."
 
 #: config/./content/vc-icon-element.php:181
-#, fuzzy
 msgid "Background shape"
-msgstr "Hintergrund"
+msgstr "Hintergrundform"
 
 #: config/./content/vc-icon-element.php:185
 msgid "Circle"
-msgstr ""
+msgstr "Kreis"
 
 #: config/./content/vc-icon-element.php:188
 msgid "Outline Circle"
-msgstr ""
+msgstr "Umriss Kreis"
 
 #: config/./content/vc-icon-element.php:189
 msgid "Outline Square"
-msgstr ""
+msgstr "Umriss Quadrat"
 
 #: config/./content/vc-icon-element.php:190
 msgid "Outline Rounded"
-msgstr ""
+msgstr "Umriss abgerundet"
 
 #: config/./content/vc-icon-element.php:192
 #, fuzzy
@@ -3705,37 +3600,32 @@ msgid "Select background color for icon."
 msgstr "Wählen Sie die Hintergrundfarbe für Ihr Element."
 
 #: config/./content/vc-icon-element.php:209
-#, fuzzy
 msgid "Custom background color"
 msgstr "Individuelle Hintergrundfarbe"
 
 #: config/./content/vc-icon-element.php:211
-#, fuzzy
 msgid "Select custom icon background color."
-msgstr "Wählen Sie eine individuelle Farbe für die Statusbalken."
+msgstr "Individuelle Hintergrundfarbe auswählen."
 
 #: config/./content/vc-icon-element.php:223
-#, fuzzy
 msgid "Icon size."
-msgstr "Schriftgröße"
+msgstr "Größe des Icons."
 
 #: config/./content/vc-icon-element.php:227
-#, fuzzy
 msgid "Icon alignment"
-msgstr "Bildausrichtung"
+msgstr "Icon-Ausrichtung"
 
 #: config/./content/vc-icon-element.php:240
 msgid "Add link to icon."
-msgstr ""
+msgstr "Link zum Icon hinzufügen."
 
 #: config/./deprecated/shortcode-vc-accordion-tab.php:7
 msgid "Old Section"
-msgstr ""
+msgstr "Alter Abschnitt"
 
 #: config/./deprecated/shortcode-vc-accordion-tab.php:19
-#, fuzzy
 msgid "Enter accordion section title."
-msgstr "Akkordion Bereich Titel"
+msgstr "Akkordion Abschnittstitel."
 
 #: config/./deprecated/shortcode-vc-accordion.php:7
 msgid "Old Accordion"
@@ -3765,23 +3655,24 @@ msgstr ""
 "sind."
 
 #: config/./deprecated/shortcode-vc-accordion.php:31
-#, fuzzy
 msgid "Allow collapse all sections?"
-msgstr "Alle für Elemente öffnen/schließen"
+msgstr "Erlauben, alle Abschnitte einzuklappen?"
 
 #: config/./deprecated/shortcode-vc-accordion.php:33
 msgid "If checked, it is allowed to collapse all sections."
-msgstr ""
+msgstr "Wenn aktiviert, dürfen alle Abschnitte eingeklappt werden."
 
 #: config/./deprecated/shortcode-vc-accordion.php:38
 msgid "Disable keyboard interactions?"
-msgstr ""
+msgstr "Tastatureingaben deaktivieren?"
 
 #: config/./deprecated/shortcode-vc-accordion.php:40
 msgid ""
 "If checked, disables keyboard arrow interactions (Keys: Left, Up, Right, "
 "Down, Space)."
 msgstr ""
+"Wenn aktiviert, werden Tastatureingaben deaktiviert (Pfeiltasten, "
+"Leerzeichen)."
 
 #: config/./deprecated/shortcode-vc-accordion.php:55
 msgid "Add section"
@@ -3798,20 +3689,18 @@ msgstr "Inhaltsbereich"
 #: config/./deprecated/shortcode-vc-button.php:10
 #: config/./deprecated/shortcode-vc-button2.php:7
 msgid "Old Button"
-msgstr ""
+msgstr "Alter Button"
 
 #: config/./deprecated/shortcode-vc-button.php:25
 #: config/./deprecated/shortcode-vc-button2.php:30
 #: config/./deprecated/shortcode-vc-cta-button.php:31
-#, fuzzy
 msgid "Enter text on the button."
-msgstr "Text auf dem Button."
+msgstr "Button-Text eingeben."
 
 #: config/./deprecated/shortcode-vc-button.php:31
 #: config/./deprecated/shortcode-vc-cta-button.php:37
-#, fuzzy
 msgid "Enter button link."
-msgstr "Button Link."
+msgstr "Button-Link eingeben."
 
 #: config/./deprecated/shortcode-vc-button.php:35
 #: config/./deprecated/shortcode-vc-cta-button.php:41
@@ -3820,9 +3709,8 @@ msgstr "Ziel"
 
 #: config/./deprecated/shortcode-vc-button.php:57
 #: config/./deprecated/shortcode-vc-cta-button.php:63
-#, fuzzy
 msgid "Select icon to display on button."
-msgstr "Wählen Sie ein Formular."
+msgstr "Icon auswählen, das auf dem Button angezeigt werden soll."
 
 #: config/./deprecated/shortcode-vc-button.php:64
 #: config/./deprecated/shortcode-vc-button2.php:65
@@ -3833,7 +3721,7 @@ msgstr "Wählen Sie ein Formular."
 #: config/./grids/class-vc-grids-common.php:1080
 #: config/./social/shortcode-vc-googleplus.php:24
 msgid "Select button size."
-msgstr "Wählen Sie eine Button Größe"
+msgstr "Buttongröße auswählen."
 
 #: config/./deprecated/shortcode-vc-button2.php:49
 #: config/./deprecated/shortcode-vc-cta-button2.php:81
@@ -3843,7 +3731,7 @@ msgstr "Wählen Sie einen Button Typ"
 
 #: config/./deprecated/shortcode-vc-carousel.php:7
 msgid "Old Post Carousel"
-msgstr ""
+msgstr "Altes Beitrags-Karussell"
 
 #: config/./deprecated/shortcode-vc-carousel.php:14
 msgid "Animated carousel with posts"
@@ -3861,7 +3749,7 @@ msgstr "Generiert einen WordPress Loop um Inhalte aus Ihrer Seite auszulesen."
 #: config/./deprecated/shortcode-vc-carousel.php:38
 #: config/./deprecated/shortcode-vc-posts-grid.php:65
 msgid "Teaser layout"
-msgstr "Anlesertext Layout."
+msgstr "Teaser-Layout"
 
 #: config/./deprecated/shortcode-vc-carousel.php:40
 #: config/./deprecated/shortcode-vc-posts-grid.php:67
@@ -3886,7 +3774,7 @@ msgstr "Anlesertext (Auszug)"
 #: config/./deprecated/shortcode-vc-carousel.php:63
 #: config/./deprecated/shortcode-vc-posts-grid.php:90
 msgid "Full content"
-msgstr "kompletter Inhalt"
+msgstr "Kompletter Inhalt"
 
 #: config/./deprecated/shortcode-vc-carousel.php:69
 #: config/./deprecated/shortcode-vc-posts-grid.php:96
@@ -3912,21 +3800,19 @@ msgstr "Ein Teil des nächsten Slides ist sichtbar wenn sie \"Ja\" auswählen."
 
 #: config/./deprecated/shortcode-vc-cta-button.php:10
 msgid "Old Call to Action"
-msgstr ""
+msgstr "Alter Call-to-Action"
 
 #: config/./deprecated/shortcode-vc-cta-button.php:23
 msgid "Click edit button to change this text."
 msgstr "Klicken Sie um den Text des Buttons zu ändern."
 
 #: config/./deprecated/shortcode-vc-cta-button.php:24
-#, fuzzy
 msgid "Enter text content."
-msgstr "Geben Sie Ihren Inhalt ein."
+msgstr "Gib den Text-Inhalt ein."
 
 #: config/./deprecated/shortcode-vc-cta-button.php:60
-#, fuzzy
 msgid "Button icon"
-msgstr "Button Icon."
+msgstr "Button-Icon"
 
 #: config/./deprecated/shortcode-vc-cta-button.php:74
 #: config/./deprecated/shortcode-vc-cta-button2.php:101
@@ -3935,12 +3821,11 @@ msgstr "Button Position"
 
 #: config/./deprecated/shortcode-vc-cta-button2.php:7
 msgid "Old Call to Action Button"
-msgstr ""
+msgstr "Alter Call-to-Action Button"
 
 #: config/./deprecated/shortcode-vc-cta-button2.php:35
-#, fuzzy
 msgid "Select display shape and style."
-msgstr "Wählen Sie einen Button Typ"
+msgstr "Anzeige-Form und -Stil auswählen."
 
 #: config/./deprecated/shortcode-vc-cta-button2.php:42
 #, fuzzy
@@ -3957,13 +3842,12 @@ msgid "Add link to button (Important: adding link automatically adds button)."
 msgstr ""
 
 #: config/./deprecated/shortcode-vc-cta-button2.php:74
-#, fuzzy
 msgid "Add text on the button."
-msgstr "Text auf dem Button."
+msgstr "Text auf dem Button hinzufügen."
 
 #: config/./deprecated/shortcode-vc-posts-grid.php:21
 msgid "Old Posts Grid"
-msgstr ""
+msgstr "Altes Beitrags-Gitter"
 
 #: config/./deprecated/shortcode-vc-posts-grid.php:26
 msgid "Posts in grid view"
@@ -4010,19 +3894,19 @@ msgstr "Anlesertext Layoutvorlage"
 
 #: config/./deprecated/shortcode-vc-tab.php:7
 msgid "Old Tab"
-msgstr ""
+msgstr "Alter Tab"
 
 #: config/./deprecated/shortcode-vc-tab.php:18
 msgid "Enter title of tab."
-msgstr ""
+msgstr "Gebe den Titel des Tabs ein."
 
 #: config/./deprecated/shortcode-vc-tab.php:22
 msgid "Tab ID"
-msgstr "Tab ID"
+msgstr "Tab-ID"
 
 #: config/./deprecated/shortcode-vc-tabs.php:7
 msgid "Old Tabs"
-msgstr ""
+msgstr "Alte Tabs"
 
 #: config/./deprecated/shortcode-vc-tabs.php:14
 #: config/./tta/shortcode-vc-tta-tabs.php:16
@@ -4045,7 +3929,7 @@ msgstr "Tab 2"
 
 #: config/./deprecated/shortcode-vc-tour.php:7
 msgid "Old Tour"
-msgstr ""
+msgstr "Alte Tour"
 
 #: config/./deprecated/shortcode-vc-tour.php:16
 #: config/./tta/shortcode-vc-tta-tour.php:16
@@ -4066,39 +3950,35 @@ msgstr "Slides automatisch rotieren"
 #: config/./grids/class-vc-grids-common.php:1055
 #: config/./grids/class-vc-grids-common.php:1068
 #: config/./grids/class-vc-grids-common.php:1081
-#, fuzzy
 msgid "Load More Button"
-msgstr "Weiterlesen"
+msgstr "\"Mehr laden\" Button"
 
 #: config/./grids/class-vc-grids-common.php:33
 #: include/./classes/shortcodes/paginator/class-vc-pageable.php:55
 #: include/./classes/shortcodes/vc-basic-grid.php:92
-#, fuzzy
 msgid "Load more"
-msgstr "Weiterlesen"
+msgstr "Mehr laden"
 
 #: config/./grids/class-vc-grids-common.php:97
 #: config/./grids/class-vc-grids-common.php:145
-#, fuzzy
 msgid "Custom query"
-msgstr "Individuelles Menü"
+msgstr "Benutzerdefinierte Abfrage"
 
 #: config/./grids/class-vc-grids-common.php:101
 msgid "List of IDs"
-msgstr ""
+msgstr "Liste der IDs"
 
 #: config/./grids/class-vc-grids-common.php:120
 msgid "Data source"
-msgstr ""
+msgstr "Datenquelle"
 
 #: config/./grids/class-vc-grids-common.php:124
-#, fuzzy
 msgid "Select content type for your grid."
-msgstr "Wählen Sie die Schriftfarbe."
+msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:129
 msgid "Include only"
-msgstr ""
+msgstr "Nur folgende einschließen"
 
 #: config/./grids/class-vc-grids-common.php:131
 msgid "Add posts, pages, etc. by title."
@@ -4119,9 +3999,8 @@ msgid "Enter categories, tags or custom taxonomies."
 msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:183
-#, fuzzy
 msgid "Total items"
-msgstr "Anzahl der Slides"
+msgstr "Gesamtanzahl"
 
 #: config/./grids/class-vc-grids-common.php:188
 msgid ""
@@ -4130,9 +4009,8 @@ msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:199
 #: config/./grids/class-vc-grids-common.php:756
-#, fuzzy
 msgid "Display Style"
-msgstr "Formulartitel anzeigen."
+msgstr "Anzeigestil"
 
 #: config/./grids/class-vc-grids-common.php:202
 #: config/./grids/class-vc-grids-common.php:759
@@ -4141,15 +4019,13 @@ msgstr "Zeige alle"
 
 #: config/./grids/class-vc-grids-common.php:203
 #: config/./grids/class-vc-grids-common.php:760
-#, fuzzy
 msgid "Load more button"
-msgstr "Weiterlesen"
+msgstr "\"Mehr laden\" Button"
 
 #: config/./grids/class-vc-grids-common.php:204
 #: config/./grids/class-vc-grids-common.php:761
-#, fuzzy
 msgid "Lazy loading"
-msgstr "Lade..."
+msgstr "Lazy loading"
 
 #: config/./grids/class-vc-grids-common.php:205
 #: config/./grids/class-vc-grids-common.php:505
@@ -4175,25 +4051,23 @@ msgstr "Lade..."
 #: config/./grids/class-vc-grids-common.php:1135
 #: config/./grids/class-vc-grids-common.php:1157
 #: config/./grids/class-vc-grids-common.php:1166
-#, fuzzy
 msgid "Pagination"
-msgstr "Seitenauswahl verstecken"
+msgstr "Paginierung"
 
 #: config/./grids/class-vc-grids-common.php:212
 #: config/./grids/class-vc-grids-common.php:769
 msgid "Select display style for grid."
-msgstr ""
+msgstr "Anzeigestil für das Gitter auswählen."
 
 #: config/./grids/class-vc-grids-common.php:216
 #: config/./grids/class-vc-grids-common.php:773
 msgid "Items per page"
-msgstr ""
+msgstr "Artikel pro Seite"
 
 #: config/./grids/class-vc-grids-common.php:218
 #: config/./grids/class-vc-grids-common.php:775
-#, fuzzy
 msgid "Number of items to show per page."
-msgstr "Anzahl der angezeigten Beiträge"
+msgstr "Anzahl der Elemente die pro Seite angezeigt werden sollen."
 
 #: config/./grids/class-vc-grids-common.php:235
 msgid "Append filter to grid."
@@ -4202,7 +4076,7 @@ msgstr ""
 #: config/./grids/class-vc-grids-common.php:239
 #: config/./grids/class-vc-grids-common.php:789
 msgid "Grid elements per row"
-msgstr ""
+msgstr "Gitter-Elemente pro Zeile"
 
 #: config/./grids/class-vc-grids-common.php:244
 #: config/./grids/class-vc-grids-common.php:794
@@ -4211,23 +4085,20 @@ msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:265
 #: config/./grids/class-vc-grids-common.php:815
-#, fuzzy
 msgid "Select gap between grid elements."
-msgstr "Wähle Inhaltselement"
+msgstr "Abstand zwischen Gitter-Elementen wählen."
 
 #: config/./grids/class-vc-grids-common.php:275
-#, fuzzy
 msgid "Order by post ID"
-msgstr "Sortieren nach"
+msgstr "Sortieren nach Beitrags-ID"
 
 #: config/./grids/class-vc-grids-common.php:278
 msgid "Last modified date"
-msgstr ""
+msgstr "Datum der letzten Änderung"
 
 #: config/./grids/class-vc-grids-common.php:279
-#, fuzzy
 msgid "Post/page parent ID"
-msgstr "Artikel/Seiten ID's"
+msgstr "Übergeordnete Beitrags-/Seiten-ID"
 
 #: config/./grids/class-vc-grids-common.php:280
 #: config/./wp/shortcode-vc-wp-recentcomments.php:24
@@ -4236,9 +4107,8 @@ msgid "Number of comments"
 msgstr "Anzahl der Kommentare"
 
 #: config/./grids/class-vc-grids-common.php:281
-#, fuzzy
 msgid "Menu order/Page Order"
-msgstr "Menüreihenfolge"
+msgstr "Menüreihenfolge/Seitenreihenfolge"
 
 #: config/./grids/class-vc-grids-common.php:282
 #, fuzzy
@@ -4250,9 +4120,8 @@ msgid "Meta value number"
 msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:284
-#, fuzzy
 msgid "Random order"
-msgstr "Zufällig"
+msgstr "Zufällige Sortierung"
 
 #: config/./grids/class-vc-grids-common.php:286
 msgid ""
@@ -4265,19 +4134,16 @@ msgstr ""
 #: config/./grids/class-vc-grids-common.php:321
 #: config/./grids/class-vc-grids-common.php:336
 #: config/./grids/class-vc-grids-common.php:351
-#, fuzzy
 msgid "Data Settings"
-msgstr "Seiteneinstellungen"
+msgstr "Daten-Einstellungen"
 
 #: config/./grids/class-vc-grids-common.php:307
-#, fuzzy
 msgid "Select sorting order."
-msgstr "Wählen Sie Ihren Layerslider."
+msgstr "Sortierreihenfolge auswählen."
 
 #: config/./grids/class-vc-grids-common.php:318
-#, fuzzy
 msgid "Meta key"
-msgstr "Zusatzinformationen"
+msgstr "Meta-Schlüssel"
 
 #: config/./grids/class-vc-grids-common.php:320
 msgid "Input meta key for grid ordering."
@@ -4299,12 +4165,11 @@ msgstr "Ausschließen"
 
 #: config/./grids/class-vc-grids-common.php:350
 msgid "Exclude posts, pages, etc. by title."
-msgstr ""
+msgstr "Beiträge, Seiten etc. nach Titel ausschließen."
 
 #: config/./grids/class-vc-grids-common.php:368
-#, fuzzy
 msgid "Filter by"
-msgstr "Schriftgröße"
+msgstr "Filtern nach"
 
 #: config/./grids/class-vc-grids-common.php:371
 #: config/./grids/class-vc-grids-common.php:405
@@ -4315,25 +4180,25 @@ msgstr "Schriftgröße"
 #: config/./grids/class-vc-grids-common.php:481
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:804
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: config/./grids/class-vc-grids-common.php:377
-#, fuzzy
 msgid "Select filter source."
-msgstr "Wählen Sie die Position des Titels."
+msgstr "Quelle des Filters auswählen."
 
 #: config/./grids/class-vc-grids-common.php:381
 msgid "Exclude from filter list"
-msgstr ""
+msgstr "Aus der Filterliste ausschließen"
 
 #: config/./grids/class-vc-grids-common.php:399
 msgid "Enter categories, tags won't be shown in the filters list"
 msgstr ""
+"Kategorien eingeben, Schlagwörter werden nicht in der Filterliste angezeigt"
 
 #: config/./grids/class-vc-grids-common.php:413
 #: include/./params/vc_grid_item/shortcodes.php:498
 msgid "Less Rounded"
-msgstr ""
+msgstr "Weniger abgerundet"
 
 #: config/./grids/class-vc-grids-common.php:414
 #: include/./params/vc_grid_item/shortcodes.php:499
@@ -4342,22 +4207,21 @@ msgstr "Rahmen"
 
 #: config/./grids/class-vc-grids-common.php:415
 #: include/./params/vc_grid_item/shortcodes.php:500
-#, fuzzy
 msgid "Rounded Border"
-msgstr "Rahmen"
+msgstr "Abgerundeter Rahmen"
 
 #: config/./grids/class-vc-grids-common.php:416
 #: include/./params/vc_grid_item/shortcodes.php:501
 msgid "Less Rounded Border"
-msgstr ""
+msgstr "Weniger abgerundeter Rand"
 
 #: config/./grids/class-vc-grids-common.php:417
 msgid "Filled"
-msgstr ""
+msgstr "Gefüllt"
 
 #: config/./grids/class-vc-grids-common.php:418
 msgid "Rounded Filled"
-msgstr ""
+msgstr "Abgerundet und gefüllt"
 
 #: config/./grids/class-vc-grids-common.php:419
 #: config/./wp/shortcode-vc-wp-archives.php:27
@@ -4367,13 +4231,12 @@ msgid "Dropdown"
 msgstr "Dropdown"
 
 #: config/./grids/class-vc-grids-common.php:426
-#, fuzzy
 msgid "Select filter display style."
-msgstr "Wählen Sie ein Formular."
+msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:430
 msgid "Default title"
-msgstr ""
+msgstr "Standardtitel"
 
 #: config/./grids/class-vc-grids-common.php:432
 #: include/./templates/editors/partials/add_element_tabs.tpl.php:10
@@ -4392,30 +4255,25 @@ msgid "Enter default title for filter option display (empty: \"All\")."
 msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:454
-#, fuzzy
 msgid "Select filter alignment."
-msgstr "Wählen Sie die Textausrichtung."
+msgstr "Filter-Ausrichtung auswählen."
 
 #: config/./grids/class-vc-grids-common.php:468
-#, fuzzy
 msgid "Select filter color."
-msgstr "Wählen Sie ein Farbe für den Text."
+msgstr "Filter-Farbe auswählen."
 
 #: config/./grids/class-vc-grids-common.php:472
-#, fuzzy
 msgid "Filter size"
-msgstr "Schriftgröße"
+msgstr "Filtergröße"
 
 #: config/./grids/class-vc-grids-common.php:476
-#, fuzzy
 msgid "Select filter size."
-msgstr "Wählen Sie eine Button Größe"
+msgstr "Filtergröße auswählen."
 
 #: config/./grids/class-vc-grids-common.php:487
 #: config/./grids/class-vc-grids-common.php:858
-#, fuzzy
 msgid "Arrows design"
-msgstr "Pfeil Icon"
+msgstr "Pfeil-Design"
 
 #: config/./grids/class-vc-grids-common.php:492
 #: config/./grids/class-vc-grids-common.php:863
@@ -4469,25 +4327,23 @@ msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:510
 #: config/./grids/class-vc-grids-common.php:881
-#, fuzzy
 msgid "Select design for arrows."
-msgstr "Wählen Sie ein Formular."
+msgstr "Wähle das Aussehen der Pfeile."
 
 #: config/./grids/class-vc-grids-common.php:514
 #: config/./grids/class-vc-grids-common.php:885
-#, fuzzy
 msgid "Arrows position"
-msgstr "Pfeil Icon"
+msgstr "Pfeil-Position"
 
 #: config/./grids/class-vc-grids-common.php:517
 #: config/./grids/class-vc-grids-common.php:888
 msgid "Inside Wrapper"
-msgstr ""
+msgstr "Innerhalb des Wrappers"
 
 #: config/./grids/class-vc-grids-common.php:518
 #: config/./grids/class-vc-grids-common.php:889
 msgid "Outside Wrapper"
-msgstr ""
+msgstr "Außerhalb des Wrappers"
 
 #: config/./grids/class-vc-grids-common.php:526
 #: config/./grids/class-vc-grids-common.php:897
@@ -4496,9 +4352,8 @@ msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:530
 #: config/./grids/class-vc-grids-common.php:901
-#, fuzzy
 msgid "Arrows color"
-msgstr "Pfeil Icon"
+msgstr "Pfeil-Farbe"
 
 #: config/./grids/class-vc-grids-common.php:540
 #: config/./grids/class-vc-grids-common.php:911
@@ -4511,9 +4366,8 @@ msgstr "Wählen Sie die Schriftfarbe."
 #: config/./tta/shortcode-vc-tta-pageable.php:68
 #: config/./tta/shortcode-vc-tta-tabs.php:163
 #: config/./tta/shortcode-vc-tta-tour.php:177
-#, fuzzy
 msgid "Pagination style"
-msgstr "Seitenauswahl verstecken"
+msgstr "Seitennavigationsstil"
 
 #: config/./grids/class-vc-grids-common.php:548
 #: config/./grids/class-vc-grids-common.php:919
@@ -4521,7 +4375,7 @@ msgstr "Seitenauswahl verstecken"
 #: config/./tta/shortcode-vc-tta-tabs.php:157
 #: config/./tta/shortcode-vc-tta-tour.php:171
 msgid "Square Dots"
-msgstr ""
+msgstr "Quadratische Punkte"
 
 #: config/./grids/class-vc-grids-common.php:549
 #: config/./grids/class-vc-grids-common.php:920
@@ -4630,9 +4484,8 @@ msgstr ""
 #: config/./tta/shortcode-vc-tta-pageable.php:69
 #: config/./tta/shortcode-vc-tta-tabs.php:164
 #: config/./tta/shortcode-vc-tta-tour.php:178
-#, fuzzy
 msgid "Select pagination style."
-msgstr "Stil der Trennlinie"
+msgstr "Paginierungs-Stil auswählen."
 
 #: config/./grids/class-vc-grids-common.php:578
 #: config/./grids/class-vc-grids-common.php:949
@@ -4675,9 +4528,8 @@ msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:617
 #: config/./grids/class-vc-grids-common.php:988
-#, fuzzy
 msgid "Animation In"
-msgstr "CSS Animation"
+msgstr "Eingangsanimation"
 
 #: config/./grids/class-vc-grids-common.php:630
 #: config/./grids/class-vc-grids-common.php:1001
@@ -4686,9 +4538,8 @@ msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:634
 #: config/./grids/class-vc-grids-common.php:1005
-#, fuzzy
 msgid "Animation Out"
-msgstr "CSS Animation"
+msgstr "Ausgangsanimation"
 
 #: config/./grids/class-vc-grids-common.php:644
 #: config/./grids/class-vc-grids-common.php:1015
@@ -4711,9 +4562,8 @@ msgstr ""
 
 #: config/./grids/class-vc-grids-common.php:651
 #: config/./grids/class-vc-grids-common.php:1022
-#, fuzzy
 msgid "Item Design"
-msgstr "Anzahl"
+msgstr "Artikel-Design"
 
 #: config/./grids/class-vc-grids-common.php:660
 #: config/./grids/class-vc-grids-common.php:1089
@@ -4738,16 +4588,14 @@ msgstr "Button Stil"
 #: config/./grids/class-vc-grids-common.php:702
 #: config/./grids/class-vc-grids-common.php:829
 #: config/./grids/class-vc-grids-common.php:1060
-#, fuzzy
 msgid "Select button style."
-msgstr "Wählen Sie einen Button Typ"
+msgstr "Button-Stil auswählen."
 
 #: config/./grids/class-vc-grids-common.php:706
 #: config/./grids/class-vc-grids-common.php:833
 #: config/./grids/class-vc-grids-common.php:1064
-#, fuzzy
 msgid "Button color"
-msgstr "Button Farbe."
+msgstr "Button-Farbe"
 
 #: config/./grids/class-vc-grids-common.php:719
 #: config/./grids/class-vc-grids-common.php:846
@@ -4762,18 +4610,16 @@ msgid "Fade In"
 msgstr ""
 
 #: config/./grids/shortcode-vc-basic-grid.php:10
-#, fuzzy
 msgid "Post Grid"
-msgstr "Beitragskacheln"
+msgstr "Beitrags-Gitter"
 
 #: config/./grids/shortcode-vc-basic-grid.php:14
 msgid "Posts, pages or custom posts in grid"
 msgstr ""
 
 #: config/./grids/shortcode-vc-masonry-grid.php:10
-#, fuzzy
 msgid "Post Masonry Grid"
-msgstr "Masonry"
+msgstr "Beitrags-Masonry-Gitter"
 
 #: config/./grids/shortcode-vc-masonry-grid.php:14
 msgid "Posts, pages or custom posts in masonry grid"
@@ -4790,22 +4636,20 @@ msgid "Masonry media grid from Media Library"
 msgstr "Bild aus Medienbibliothek auswählen"
 
 #: config/./grids/shortcode-vc-media-grid.php:10
-#, fuzzy
 msgid "Media Grid"
-msgstr "Mediengalerie"
+msgstr "Media Grid"
 
 #: config/./grids/shortcode-vc-media-grid.php:14
-#, fuzzy
 msgid "Media grid from Media Library"
-msgstr "Bild aus Medienbibliothek auswählen"
+msgstr "Media Grid aus der Medienbibliothek"
 
 #: config/./lean-map.php:121
 msgid "Same window"
-msgstr "gleiches Fenster"
+msgstr "Gleiches Fenster"
 
 #: config/./lean-map.php:122
 msgid "New window"
-msgstr "neues Fenster"
+msgstr "Neues Fenster"
 
 #: config/./lean-map.php:145
 msgid "Alert"
@@ -4813,7 +4657,7 @@ msgstr ""
 
 #: config/./lean-map.php:146
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: config/./lean-map.php:147
 msgid "Tick"
@@ -4824,44 +4668,36 @@ msgid "Explanation"
 msgstr ""
 
 #: config/./lean-map.php:149
-#, fuzzy
 msgid "Address book"
-msgstr "Adressbuch Icon"
+msgstr "Adressbuch"
 
 #: config/./lean-map.php:150
-#, fuzzy
 msgid "Alarm clock"
-msgstr "Wecker Icon"
+msgstr "Wecker"
 
 #: config/./lean-map.php:151
-#, fuzzy
 msgid "Anchor"
-msgstr "Anker Icon"
+msgstr "Anker"
 
 #: config/./lean-map.php:152
-#, fuzzy
 msgid "Application Image"
-msgstr "Anwendungs Icon"
+msgstr "Anwendung"
 
 #: config/./lean-map.php:153
-#, fuzzy
 msgid "Arrow"
-msgstr "Pfeil Icon"
+msgstr "Pfeil"
 
 #: config/./lean-map.php:154
-#, fuzzy
 msgid "Asterisk"
-msgstr "Stern Icon"
+msgstr "Sternchen"
 
 #: config/./lean-map.php:155
-#, fuzzy
 msgid "Hammer"
-msgstr "Hammer Icon"
+msgstr "Hammer"
 
 #: config/./lean-map.php:156
-#, fuzzy
 msgid "Balloon"
-msgstr "Ballon Icon"
+msgstr "Balloon"
 
 #: config/./lean-map.php:157
 #, fuzzy
@@ -4879,109 +4715,88 @@ msgid "Balloon Twitter"
 msgstr "Twitter Ballon Icon"
 
 #: config/./lean-map.php:160
-#, fuzzy
 msgid "Battery"
-msgstr "Batterie Icon"
+msgstr "Batterie"
 
 #: config/./lean-map.php:161
-#, fuzzy
 msgid "Binocular"
-msgstr "Fernglas Icon"
+msgstr "Fernglas"
 
 #: config/./lean-map.php:162
-#, fuzzy
 msgid "Document Excel"
-msgstr "Excel Dokument Icon"
+msgstr "Excel-Dokument"
 
 #: config/./lean-map.php:163
-#, fuzzy
 msgid "Document Image"
-msgstr "Bild Dokument Icon"
+msgstr "Bild-Dokument"
 
 #: config/./lean-map.php:164
-#, fuzzy
 msgid "Document Music"
-msgstr "Musik Dokument Icon"
+msgstr "Musik-Dokument"
 
 #: config/./lean-map.php:165
-#, fuzzy
 msgid "Document Office"
-msgstr "Office Dokument Icon"
+msgstr "Office-Dokument"
 
 #: config/./lean-map.php:166
-#, fuzzy
 msgid "Document PDF"
-msgstr "PDF Dokument Icon"
+msgstr "PDF-Dokument"
 
 #: config/./lean-map.php:167
-#, fuzzy
 msgid "Document Powerpoint"
-msgstr "Powerpoint Dokument Icon"
+msgstr "Powerpoint-Dokument"
 
 #: config/./lean-map.php:168
-#, fuzzy
 msgid "Document Word"
-msgstr "Word Dokument Icon"
+msgstr "Word-Dokument"
 
 #: config/./lean-map.php:169
-#, fuzzy
 msgid "Bookmark"
-msgstr "Lesezeichen Icon"
+msgstr "Lesezeichen"
 
 #: config/./lean-map.php:170
-#, fuzzy
 msgid "Camcorder"
-msgstr "Videokamera Icon"
+msgstr "Videokamera"
 
 #: config/./lean-map.php:171
-#, fuzzy
 msgid "Camera"
-msgstr "Kamera Icon"
+msgstr "Kamera"
 
 #: config/./lean-map.php:172
-#, fuzzy
 msgid "Chart"
-msgstr "Diagramm Icon"
+msgstr "Diagramm"
 
 #: config/./lean-map.php:173
-#, fuzzy
 msgid "Chart pie"
-msgstr "Kreisdiagramm Icon"
+msgstr "Kreisdiagramm"
 
 #: config/./lean-map.php:174
-#, fuzzy
 msgid "Clock"
-msgstr "Uhr Icon"
+msgstr "Uhr"
 
 #: config/./lean-map.php:175
-#, fuzzy
 msgid "Fire"
-msgstr "Feuer Icon"
+msgstr "Feuer"
 
 #: config/./lean-map.php:176
-#, fuzzy
 msgid "Heart"
-msgstr "Herz Icon"
+msgstr "Herz"
 
 #: config/./lean-map.php:177
-#, fuzzy
 msgid "Mail"
-msgstr "E-Mail Icon"
+msgstr "E-Mail"
 
 #: config/./lean-map.php:178
-#, fuzzy
 msgid "Play"
-msgstr "Wiedergabe Icon"
+msgstr "Play"
 
 #: config/./lean-map.php:179
-#, fuzzy
 msgid "Shield"
-msgstr "Schild Icon"
+msgstr "Schild"
 
 #: config/./lean-map.php:180
-#, fuzzy
 msgid "Video"
-msgstr "Video Icon"
+msgstr "Video"
 
 #: config/./lean-map.php:186
 #: include/./classes/core/class-vc-shared-library.php:335
@@ -5018,9 +4833,8 @@ msgid "Black"
 msgstr "Schwarz"
 
 #: config/./lean-map.php:199
-#, fuzzy
 msgid "Regular"
-msgstr "Standardgröße"
+msgstr "Regulär"
 
 #: config/./lean-map.php:202
 msgid "Mini"
@@ -5048,7 +4862,7 @@ msgstr "Pfeil Icon"
 
 #: config/./lean-map.php:214
 msgid "Asterisk icon"
-msgstr "Stern Icon"
+msgstr "Sternchen Icon"
 
 #: config/./lean-map.php:215
 msgid "Hammer icon"
@@ -5080,31 +4894,31 @@ msgstr "Fernglas Icon"
 
 #: config/./lean-map.php:222
 msgid "Document Excel icon"
-msgstr "Excel Dokument Icon"
+msgstr "Excel-Dokument Icon"
 
 #: config/./lean-map.php:223
 msgid "Document Image icon"
-msgstr "Bild Dokument Icon"
+msgstr "Bild-Dokument Icon"
 
 #: config/./lean-map.php:224
 msgid "Document Music icon"
-msgstr "Musik Dokument Icon"
+msgstr "Musik-Dokument Icon"
 
 #: config/./lean-map.php:225
 msgid "Document Office icon"
-msgstr "Office Dokument Icon"
+msgstr "Office-Dokument Icon"
 
 #: config/./lean-map.php:226
 msgid "Document PDF icon"
-msgstr "PDF Dokument Icon"
+msgstr "PDF-Dokument Icon"
 
 #: config/./lean-map.php:227
 msgid "Document Powerpoint icon"
-msgstr "Powerpoint Dokument Icon"
+msgstr "Powerpoint-Dokument Icon"
 
 #: config/./lean-map.php:228
 msgid "Document Word icon"
-msgstr "Word Dokument Icon"
+msgstr "Word-Dokument Icon"
 
 #: config/./lean-map.php:229
 msgid "Bookmark icon"
@@ -5144,7 +4958,7 @@ msgstr "E-Mail Icon"
 
 #: config/./lean-map.php:238
 msgid "Play icon"
-msgstr "Wiedergabe Icon"
+msgstr "Play Icon"
 
 #: config/./lean-map.php:239
 msgid "Shield icon"
@@ -5166,9 +4980,8 @@ msgid "Social"
 msgstr "Social Media"
 
 #: config/./social/shortcode-vc-facebook.php:11
-#, fuzzy
 msgid "Facebook \"Like\" button"
-msgstr "Facebook Like Button"
+msgstr "Facebook Like-Button"
 
 #: config/./social/shortcode-vc-facebook.php:15
 #: config/./social/shortcode-vc-pinterest.php:15
@@ -5176,18 +4989,16 @@ msgid "Button type"
 msgstr "Button Typ"
 
 #: config/./social/shortcode-vc-facebook.php:20
-#, fuzzy
 msgid "Horizontal with count"
-msgstr "Anzahl der Slides"
+msgstr ""
 
 #: config/./social/shortcode-vc-facebook.php:21
-#, fuzzy
 msgid "Vertical with count"
-msgstr "Inhalte mit vertikalen Reitern"
+msgstr ""
 
 #: config/./social/shortcode-vc-facebook.php:23
 msgid "Select button type."
-msgstr "Wählen Sie einen Button Typ"
+msgstr "Buttontyp auswählen."
 
 #: config/./social/shortcode-vc-googleplus.php:7
 msgid "Google+ Button"
@@ -5214,9 +5025,8 @@ msgid "Bubble"
 msgstr "Sprechblase"
 
 #: config/./social/shortcode-vc-googleplus.php:37
-#, fuzzy
 msgid "Select type of annotation."
-msgstr "Wählen Sie einen Anmerkungstyp"
+msgstr "Wähle die Art der Anmerkung."
 
 #: config/./social/shortcode-vc-googleplus.php:47
 msgid ""
@@ -5227,7 +5037,7 @@ msgstr ""
 
 #: config/./social/shortcode-vc-pinterest.php:7
 msgid "Pinterest"
-msgstr "Pinterest Button"
+msgstr "Pinterest"
 
 #: config/./social/shortcode-vc-pinterest.php:11
 msgid "Pinterest button"
@@ -5235,11 +5045,11 @@ msgstr "Pinterest Button"
 
 #: config/./social/shortcode-vc-pinterest.php:21
 msgid "No count"
-msgstr "kein Zähler"
+msgstr "Kein Zähler"
 
 #: config/./social/shortcode-vc-pinterest.php:23
 msgid "Select button layout."
-msgstr "Wählen Sie eine Button Darstellung"
+msgstr "Button-Layout auswählen."
 
 #: config/./social/shortcode-vc-tweetmeme.php:7
 msgid "Tweetmeme Button"
@@ -5247,28 +5057,28 @@ msgstr "Tweetmeme Button"
 
 #: config/./social/shortcode-vc-tweetmeme.php:11
 msgid "Tweet button"
-msgstr ""
+msgstr "Tweet Button"
 
 #: config/./social/shortcode-vc-tweetmeme.php:16
 msgid "Choose a button"
-msgstr ""
+msgstr "Button auswählen"
 
 #: config/./social/shortcode-vc-tweetmeme.php:18
 msgid "Share a link"
-msgstr ""
+msgstr "Einen Link teilen"
 
 #: config/./social/shortcode-vc-tweetmeme.php:19
 #: include/./templates/shortcodes/vc_tweetmeme.php:20
 msgid "Follow"
-msgstr ""
+msgstr "Folgen"
 
 #: config/./social/shortcode-vc-tweetmeme.php:20
 msgid "Hashtag"
-msgstr ""
+msgstr "Hashtag"
 
 #: config/./social/shortcode-vc-tweetmeme.php:21
 msgid "Mention"
-msgstr ""
+msgstr "Erwähnung"
 
 #: config/./social/shortcode-vc-tweetmeme.php:23
 msgid "Select type of Twitter button."
@@ -5308,7 +5118,7 @@ msgstr ""
 
 #: config/./social/shortcode-vc-tweetmeme.php:79
 msgid "Via @"
-msgstr ""
+msgstr "Via @"
 
 #: config/./social/shortcode-vc-tweetmeme.php:86
 msgid "Enter your Twitter username."
@@ -5329,7 +5139,7 @@ msgstr ""
 #: config/./social/shortcode-vc-tweetmeme.php:101
 #: config/./social/shortcode-vc-tweetmeme.php:151
 msgid "Hashtag #"
-msgstr ""
+msgstr "Hashtag #"
 
 #: config/./social/shortcode-vc-tweetmeme.php:108
 msgid ""
@@ -5339,7 +5149,7 @@ msgstr ""
 
 #: config/./social/shortcode-vc-tweetmeme.php:114
 msgid "User @"
-msgstr ""
+msgstr "Benutzer @"
 
 #: config/./social/shortcode-vc-tweetmeme.php:121
 msgid "Enter username to follow."
@@ -5347,7 +5157,7 @@ msgstr ""
 
 #: config/./social/shortcode-vc-tweetmeme.php:125
 msgid "Show username"
-msgstr ""
+msgstr "Benutzernamen anzeigen"
 
 #: config/./social/shortcode-vc-tweetmeme.php:135
 msgid "Do you want to show username in button?"
@@ -5390,7 +5200,7 @@ msgstr ""
 
 #: config/./social/shortcode-vc-tweetmeme.php:209
 msgid "Tweet url: No URL"
-msgstr ""
+msgstr "Tweet-URL: Keine URL"
 
 #: config/./social/shortcode-vc-tweetmeme.php:219
 msgid "Do you want to set no url to be tweeted?"
@@ -5398,7 +5208,7 @@ msgstr ""
 
 #: config/./social/shortcode-vc-tweetmeme.php:223
 msgid "Tweet url: custom"
-msgstr ""
+msgstr "Tweet-URL: benutzerdefiniert"
 
 #: config/./social/shortcode-vc-tweetmeme.php:230
 msgid "Enter custom url to be used in the tweet."
@@ -5406,7 +5216,7 @@ msgstr ""
 
 #: config/./social/shortcode-vc-tweetmeme.php:235
 msgid "Tweet to @"
-msgstr ""
+msgstr "Tweet an @"
 
 #: config/./social/shortcode-vc-tweetmeme.php:242
 msgid "Enter username where you want to send your tweet."
@@ -5427,7 +5237,7 @@ msgstr ""
 
 #: config/./social/shortcode-vc-tweetmeme.php:294
 msgid "Use large button"
-msgstr ""
+msgstr "Großen Button verwenden"
 
 #: config/./social/shortcode-vc-tweetmeme.php:297
 msgid "Do you like to display a larger Tweet button?"
@@ -5445,7 +5255,7 @@ msgstr ""
 
 #: config/./social/shortcode-vc-tweetmeme.php:308
 msgid "Language"
-msgstr ""
+msgstr "Sprache"
 
 #: config/./social/shortcode-vc-tweetmeme.php:341
 msgid ""
@@ -5511,7 +5321,7 @@ msgstr "Wählen Sie ein Formular."
 
 #: config/./templates.php:13
 msgid "Landing Page"
-msgstr ""
+msgstr "Landingpage"
 
 #: config/./templates.php:23
 msgid "Call to Action Page"
@@ -5534,9 +5344,8 @@ msgid "Product Page"
 msgstr "Produktseite"
 
 #: config/./templates.php:72
-#, fuzzy
 msgid "FAQ section"
-msgstr "Akkordion Bereich hinzufügen"
+msgstr "FAQ-Bereich"
 
 #: config/./templates.php:82
 #, fuzzy
@@ -5620,9 +5429,8 @@ msgid "Map and Contacts"
 msgstr ""
 
 #: config/./templates.php:258
-#, fuzzy
 msgid "Help section"
-msgstr "Akkordion Bereich hinzufügen"
+msgstr "Hilfe-Bereich"
 
 #: config/./templates.php:268
 #, fuzzy
@@ -5635,9 +5443,8 @@ msgid "Description with round images"
 msgstr "Beschreibung"
 
 #: config/./templates.php:288
-#, fuzzy
 msgid "FAQ in three columns"
-msgstr "Spalte bearbeiten"
+msgstr "FAQ in drei Spalten"
 
 #: config/./templates.php:298
 #, fuzzy
@@ -5645,9 +5452,8 @@ msgid "Centre description"
 msgstr "Keine Beschreibung"
 
 #: config/./templates.php:308
-#, fuzzy
 msgid "Description with gallery"
-msgstr "Beschreibung"
+msgstr "Beschreibung mit Galerie"
 
 #: config/./templates.php:318
 #, fuzzy
@@ -5664,9 +5470,8 @@ msgid "About with left gallery"
 msgstr ""
 
 #: config/./templates.php:348
-#, fuzzy
 msgid "Five image layout"
-msgstr "Anlesertext Layout."
+msgstr "Fünf Bilder Layout"
 
 #: config/./templates.php:358
 #, fuzzy
@@ -5679,9 +5484,8 @@ msgid "Product with social icons"
 msgstr "Produktlizenz"
 
 #: config/./templates.php:378
-#, fuzzy
 msgid "Complex news layout"
-msgstr "Individuelles Layout"
+msgstr "Komplexes News-Layout"
 
 #: config/./templates.php:388
 msgid "Product list with CTA"
@@ -5714,7 +5518,7 @@ msgstr "Keine Beschreibung"
 
 #: config/./templates.php:458
 msgid "Articles with headings"
-msgstr ""
+msgstr "Artikel mit Überschriften"
 
 #: config/./templates.php:476
 msgid "Call to Action section"
@@ -5726,7 +5530,7 @@ msgstr ""
 
 #: config/./templates.php:506
 msgid "Chess Grid"
-msgstr ""
+msgstr "Schachbrett-Raster"
 
 #: config/./templates.php:528
 msgid "Features and articles"
@@ -5770,7 +5574,7 @@ msgstr ""
 
 #: config/./templates.php:757
 msgid "Post portfolio"
-msgstr ""
+msgstr "Beitrags-Portfolio"
 
 #: config/./templates.php:767
 msgid "Product introduction"
@@ -5782,7 +5586,7 @@ msgstr ""
 
 #: config/./templates.php:815
 msgid "Tabs with features"
-msgstr ""
+msgstr "Tabs mit Features"
 
 #: config/./templates.php:837
 msgid "Video section"
@@ -5871,7 +5675,7 @@ msgstr ""
 #: config/./tta/shortcode-vc-tta-tabs.php:79
 #: config/./tta/shortcode-vc-tta-tour.php:79
 msgid "Spacing"
-msgstr ""
+msgstr "Abstand"
 
 #: config/./tta/shortcode-vc-tta-accordion.php:80
 #, fuzzy
@@ -5892,9 +5696,8 @@ msgstr "Akkordion Bereich Titel"
 #: config/./tta/shortcode-vc-tta-pageable.php:47
 #: config/./tta/shortcode-vc-tta-tabs.php:142
 #: config/./tta/shortcode-vc-tta-tour.php:156
-#, fuzzy
 msgid "Autoplay"
-msgstr "Slider automatisch abspielen"
+msgstr "Autoplay"
 
 #: config/./tta/shortcode-vc-tta-accordion.php:132
 msgid ""
@@ -5913,15 +5716,15 @@ msgstr "Alle für Elemente öffnen/schließen"
 
 #: config/./tta/shortcode-vc-tta-accordion.php:146
 msgid "Chevron"
-msgstr ""
+msgstr "Winkel"
 
 #: config/./tta/shortcode-vc-tta-accordion.php:147
 msgid "Plus"
-msgstr ""
+msgstr "Plus"
 
 #: config/./tta/shortcode-vc-tta-accordion.php:148
 msgid "Triangle"
-msgstr ""
+msgstr "Dreieck"
 
 #: config/./tta/shortcode-vc-tta-accordion.php:152
 msgid "Select accordion navigation icon."
@@ -6070,7 +5873,7 @@ msgstr "Tab"
 
 #: config/./tta/shortcode-vc-tta-tour.php:7
 msgid "Tour"
-msgstr ""
+msgstr "Tour"
 
 #: config/./tta/shortcode-vc-tta-tour.php:34
 #, fuzzy
@@ -6109,7 +5912,7 @@ msgstr "Buttonausrichtung auswählen."
 
 #: config/./tta/shortcode-vc-tta-tour.php:128
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: config/./tta/shortcode-vc-tta-tour.php:135
 msgid "Navigation width"
@@ -6168,9 +5971,8 @@ msgstr ""
 
 #: config/./wp/shortcode-vc-wp-archives.php:24
 #: config/./wp/shortcode-vc-wp-categories.php:24
-#, fuzzy
 msgid "Display options"
-msgstr "Formularbeschreibung anzeigen"
+msgstr "Anzeigeoptionen"
 
 #: config/./wp/shortcode-vc-wp-archives.php:28
 #: config/./wp/shortcode-vc-wp-categories.php:28
@@ -6223,9 +6025,8 @@ msgstr ""
 "können Sie neue Menüs erstellen."
 
 #: config/./wp/shortcode-vc-wp-custommenu.php:38
-#, fuzzy
 msgid "Select menu to display."
-msgstr "Wählen Sie ein Formular."
+msgstr "Wähle aus, welches Menü angezeigt werden soll."
 
 #: config/./wp/shortcode-vc-wp-links.php:7
 msgid "All Links"
@@ -6237,7 +6038,7 @@ msgstr "Links"
 
 #: config/./wp/shortcode-vc-wp-links.php:28
 msgid "Your blogroll"
-msgstr "Deine Blogrolle"
+msgstr "Deine Blogroll"
 
 #: config/./wp/shortcode-vc-wp-links.php:32
 msgid "Link Category"
@@ -6307,9 +6108,8 @@ msgid "Page ID"
 msgstr "Seiten ID"
 
 #: config/./wp/shortcode-vc-wp-pages.php:31
-#, fuzzy
 msgid "Select how to sort pages."
-msgstr "Wählen Sie ein Formular."
+msgstr "Wähle aus, wie Seiten sortiert werden sollen."
 
 #: config/./wp/shortcode-vc-wp-pages.php:38
 msgid "Enter page IDs to be excluded (Note: separate values by commas (,))."
@@ -6325,14 +6125,12 @@ msgid "The most recent posts on your site"
 msgstr "Die neuesten Beiträge auf Ihrer Webseite"
 
 #: config/./wp/shortcode-vc-wp-posts.php:24
-#, fuzzy
 msgid "Number of posts"
-msgstr "Anzahl der Bilder"
+msgstr "Anzahl der Beiträge"
 
 #: config/./wp/shortcode-vc-wp-posts.php:25
-#, fuzzy
 msgid "Enter number of posts to display."
-msgstr "Anzahl der angezeigten Beiträge"
+msgstr "Anzahl der Beiträge die angezeigt werden sollen."
 
 #: config/./wp/shortcode-vc-wp-posts.php:32
 msgid "Display post date?"
@@ -6349,12 +6147,11 @@ msgstr "Letzte Kommentare"
 
 #: config/./wp/shortcode-vc-wp-recentcomments.php:13
 msgid "The most recent comments"
-msgstr "Letzte Kommentare"
+msgstr "Die neuesten Kommentare"
 
 #: config/./wp/shortcode-vc-wp-recentcomments.php:25
-#, fuzzy
 msgid "Enter number of comments to display."
-msgstr "Anzahl der Kommentare"
+msgstr "Anzahl der Kommentare die angezeigt werden sollen."
 
 #: config/./wp/shortcode-vc-wp-rss.php:7
 msgid "RSS"
@@ -6374,16 +6171,15 @@ msgstr "Geben Sie die RSS URL ein."
 
 #: config/./wp/shortcode-vc-wp-rss.php:30
 msgid "Items"
-msgstr "Anzahl"
+msgstr "Einträge"
 
 #: config/./wp/shortcode-vc-wp-rss.php:33
 msgid "10 - Default"
 msgstr "10 - Standard"
 
 #: config/./wp/shortcode-vc-wp-rss.php:55
-#, fuzzy
 msgid "Select how many items to display."
-msgstr "Wählen Sie ein Formular."
+msgstr "Wähle aus, wie viele Einträge angezeigt werden sollen."
 
 #: config/./wp/shortcode-vc-wp-rss.php:63
 #, fuzzy
@@ -6400,7 +6196,7 @@ msgstr "Beitragsdatum anzeigen?"
 
 #: config/./wp/shortcode-vc-wp-rss.php:67
 msgid "Select display options for RSS feeds."
-msgstr ""
+msgstr "Anzeigeoptionen für RSS-Feeds auswählen."
 
 #: config/./wp/shortcode-vc-wp-search.php:7
 #: include/./classes/settings/class-vc-automapper.php:268
@@ -6447,30 +6243,27 @@ msgstr ""
 
 #: include/./autoload/ui-vc-pointers.php:63
 msgid "Finish"
-msgstr ""
+msgstr "Fertigstellen"
 
 #: include/./autoload/ui-vc-pointers.php:64
-#, fuzzy
 msgid "Next"
-msgstr "Nächster Reiter"
+msgstr "Weiter"
 
 #: include/./autoload/ui-vc-pointers.php:65
-#, fuzzy
 msgid "Prev"
-msgstr "Vorschau"
+msgstr "Zurück"
 
 #: include/./autoload/vc-grid-item-editor.php:174
 msgid "Start Here!"
-msgstr ""
+msgstr "Hier beginnen!"
 
 #: include/./autoload/vc-grid-item-editor.php:174
 msgid "Start easy - use predefined template as a starting point and modify it."
 msgstr ""
 
 #: include/./autoload/vc-grid-item-editor.php:184
-#, fuzzy
 msgid "Use Animations"
-msgstr "CSS Animation"
+msgstr "Animationen verwenden"
 
 #: include/./autoload/vc-grid-item-editor.php:184
 msgid ""
@@ -6491,9 +6284,8 @@ msgid ""
 msgstr ""
 
 #: include/./autoload/vc-grid-item-editor.php:204
-#, fuzzy
 msgid "Extend Element"
-msgstr "Inhaltselemente bearbeiten"
+msgstr "Element erweitern"
 
 #: include/./autoload/vc-grid-item-editor.php:204
 msgid ""
@@ -6558,9 +6350,8 @@ msgid "Her Majesty"
 msgstr ""
 
 #: include/./autoload/vc-image-filters.php:28
-#, fuzzy
 msgid "Light"
-msgstr "Rechtsbündig"
+msgstr "Hell"
 
 #: include/./autoload/vc-image-filters.php:29
 msgid "Orange Peel"
@@ -6595,14 +6386,12 @@ msgid "Washed"
 msgstr ""
 
 #: include/./autoload/vc-image-filters.php:66
-#, fuzzy
 msgid "Image filter"
-msgstr "Bildgröße"
+msgstr "Bild-Filter"
 
 #: include/./autoload/vc-image-filters.php:361
-#, fuzzy
 msgid "Filter:"
-msgstr "Schriftgröße"
+msgstr "Filter:"
 
 #: include/./autoload/vc-pages/page-design-options.php:40
 msgid "Important notice"
@@ -6616,9 +6405,8 @@ msgid ""
 msgstr ""
 
 #: include/./autoload/vc-pages/page-design-options.php:56
-#, fuzzy
 msgid "Open Design Options"
-msgstr "Designeinstellungen"
+msgstr "Öffne Designeinstellungen"
 
 #: include/./autoload/vc-pages/page-role-manager.php:12
 msgid "Role Manager"
@@ -6660,9 +6448,8 @@ msgstr ""
 
 #: include/./autoload/vc-pointers-backend-editor.php:43
 #: include/./autoload/vc-pointers-frontend-editor.php:25
-#, fuzzy
 msgid "Add Elements"
-msgstr "Inhaltselement hinzufügen"
+msgstr "Elemente hinzufügen"
 
 #: include/./autoload/vc-pointers-backend-editor.php:44
 #: include/./autoload/vc-pointers-frontend-editor.php:26
@@ -6671,9 +6458,8 @@ msgstr ""
 
 #: include/./autoload/vc-pointers-backend-editor.php:59
 #: include/./autoload/vc-pointers-frontend-editor.php:40
-#, fuzzy
 msgid "Rows and Columns"
-msgstr "Spalte"
+msgstr "Zeilen und Spalten"
 
 #: include/./autoload/vc-pointers-backend-editor.php:60
 #: include/./autoload/vc-pointers-frontend-editor.php:41
@@ -6727,7 +6513,7 @@ msgstr ""
 
 #: include/./autoload/vendors/gravity_forms.php:49
 msgid "Display Form Title"
-msgstr "Formulartitel anzeigen."
+msgstr "Formulartitel anzeigen"
 
 #: include/./autoload/vendors/gravity_forms.php:56
 msgid "Would you like to display the forms title?"
@@ -6763,7 +6549,6 @@ msgstr ""
 
 #: include/./classes/core/class-vc-base.php:626
 #: include/./templates/pages/vc-settings/index.php:7
-#, fuzzy
 msgid "WPBakery Page Builder Settings"
 msgstr "WPBakery Page Builder Einstellungen"
 
@@ -6789,25 +6574,21 @@ msgstr "Bilder hinzufügen"
 
 #: include/./classes/core/class-vc-base.php:760
 #: include/./templates/pages/vc-welcome/index.php:24
-#, fuzzy
 msgid "Settings"
-msgstr "Inhaltselement Einstellungen"
+msgstr "Einstellungen"
 
 #: include/./classes/core/class-vc-base.php:762
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:120
-#, fuzzy
 msgid "Backend Editor"
 msgstr "Backend Editor"
 
 #: include/./classes/core/class-vc-base.php:763
-#, fuzzy
 msgid "Frontend Editor"
-msgstr "Backend Editor"
+msgstr "Frontend Editor"
 
 #: include/./classes/core/class-vc-base.php:764
-#, fuzzy
 msgid "Classic Mode"
-msgstr "Orange"
+msgstr "Klassischer Modus"
 
 #: include/./classes/core/class-vc-base.php:765
 msgid "Enter template name you want to save."
@@ -6908,9 +6689,8 @@ msgid "Loop settings"
 msgstr "Einstellungen für Schleifenwiedergabe"
 
 #: include/./classes/core/class-vc-base.php:789
-#, fuzzy
 msgid "Custom row layout"
-msgstr "Individuelles Layout"
+msgstr "Benutzerdefiniertes Zeilenlayout"
 
 #: include/./classes/core/class-vc-base.php:790
 msgid "Wrong row layout format! Example: 1/2 + 1/2 or span6 + span6."
@@ -6945,7 +6725,7 @@ msgstr "Eingabehilfen AUS"
 
 #: include/./classes/core/class-vc-base.php:797
 msgid "New template successfully saved."
-msgstr ""
+msgstr "Neue Vorlage erfolgreich gespeichert."
 
 #: include/./classes/core/class-vc-base.php:798
 msgid "Template added to the page."
@@ -6958,9 +6738,8 @@ msgid ""
 msgstr ""
 
 #: include/./classes/core/class-vc-base.php:800
-#, fuzzy
 msgid "Template successfully removed."
-msgstr "Neue Vorlage wurde erfolgreich gespeichert!"
+msgstr "Vorlage wurde erfolgreich entfernt."
 
 #: include/./classes/core/class-vc-base.php:801
 msgid "Template is empty: There is no content to be saved as a template."
@@ -6968,7 +6747,7 @@ msgstr ""
 
 #: include/./classes/core/class-vc-base.php:802
 msgid "Error while saving template."
-msgstr ""
+msgstr "Fehler beim Speichern der Vorlage."
 
 #: include/./classes/core/class-vc-base.php:803
 msgid "Page settings updated!"
@@ -6992,7 +6771,7 @@ msgstr "%s gespeichert!"
 #: include/./classes/core/class-vc-base.php:807
 #, php-format
 msgid "%s deleted!"
-msgstr "%s gelöscht"
+msgstr "%s gelöscht!"
 
 #: include/./classes/core/class-vc-base.php:808
 #, php-format
@@ -7016,9 +6795,8 @@ msgid "Unable to load Google Fonts"
 msgstr "Google Font Schriften konnten nicht geladen werden"
 
 #: include/./classes/core/class-vc-base.php:812
-#, fuzzy
 msgid "no title"
-msgstr "Formtitel"
+msgstr "kein Titel"
 
 #: include/./classes/core/class-vc-base.php:813
 msgid ""
@@ -7028,11 +6806,11 @@ msgstr ""
 
 #: include/./classes/core/class-vc-base.php:814
 msgid "Saved!"
-msgstr ""
+msgstr "Gespeichert!"
 
 #: include/./classes/core/class-vc-base.php:815
 msgid "Failed to Save!"
-msgstr ""
+msgstr "Speichern fehlgeschlagen!"
 
 #: include/./classes/core/class-vc-base.php:816
 msgid "You are about to delete this preset. This action can not be undone."
@@ -7040,7 +6818,7 @@ msgstr ""
 
 #: include/./classes/core/class-vc-base.php:817
 msgid "Downloaded"
-msgstr ""
+msgstr "Heruntergeladen"
 
 #: include/./classes/core/class-vc-base.php:818
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:148
@@ -7061,11 +6839,11 @@ msgstr "Neue Vorlage wurde erfolgreich gespeichert!"
 
 #: include/./classes/core/class-vc-shared-library.php:328
 msgid "Pink"
-msgstr ""
+msgstr "Pink"
 
 #: include/./classes/core/class-vc-shared-library.php:329
 msgid "Violet"
-msgstr ""
+msgstr "Violett"
 
 #: include/./classes/core/class-vc-shared-library.php:330
 msgid "Peacoc"
@@ -7085,7 +6863,7 @@ msgstr ""
 
 #: include/./classes/core/class-vc-shared-library.php:337
 msgid "Sky"
-msgstr ""
+msgstr "Himmelblau"
 
 #: include/./classes/core/class-vc-shared-library.php:339
 msgid "Juicy pink"
@@ -7093,15 +6871,15 @@ msgstr ""
 
 #: include/./classes/core/class-vc-shared-library.php:340
 msgid "Sandy brown"
-msgstr ""
+msgstr "Sandbraun"
 
 #: include/./classes/core/class-vc-shared-library.php:341
 msgid "Purple"
-msgstr ""
+msgstr "Lila"
 
 #: include/./classes/core/class-vc-shared-library.php:342
 msgid "White"
-msgstr ""
+msgstr "Weiß"
 
 #: include/./classes/core/class-wpb-map.php:153
 #: include/./classes/core/class-wpb-map.php:168
@@ -7235,15 +7013,14 @@ msgid "Edit %s with WPBakery Page Builder"
 msgstr ""
 
 #: include/./classes/editors/class-vc-frontend-editor.php:466
-#, fuzzy
 msgid "(no title)"
-msgstr "Formtitel"
+msgstr "(kein Titel)"
 
 #: include/./classes/editors/class-vc-frontend-editor.php:483
 #: include/./classes/editors/class-vc-frontend-editor.php:498
 #: include/./classes/editors/class-vc-frontend-editor.php:535
 msgid "Edit with WPBakery Page Builder"
-msgstr ""
+msgstr "Mit WPBakery Page Builder bearbeiten"
 
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:44
 msgid "Toggle editor's guides"
@@ -7251,7 +7028,7 @@ msgstr ""
 
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:58
 msgid "Desktop"
-msgstr ""
+msgstr "Desktop"
 
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:64
 msgid "Tablet landscape mode"
@@ -7278,7 +7055,6 @@ msgid "Cancel all changes and return to WP dashboard"
 msgstr "Alle Änderungen verwerfen und zum Backend Editor zurückkehren"
 
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:130
-#, fuzzy
 msgid "Save Draft"
 msgstr "Entwurf speichern"
 
@@ -7306,11 +7082,11 @@ msgstr "Seiteneinstellungen"
 
 #: include/./classes/editors/navbar/class-vc-navbar.php:110
 msgid "CSS"
-msgstr ""
+msgstr "CSS"
 
 #: include/./classes/editors/navbar/class-vc-navbar.php:120
 msgid "Full screen"
-msgstr ""
+msgstr "Vollbild"
 
 #: include/./classes/editors/navbar/class-vc-navbar.php:129
 msgid "Exit full screen"
@@ -7329,7 +7105,7 @@ msgstr "Vorlagen"
 
 #: include/./classes/editors/navbar/class-vc-navbar.php:175
 msgid "Frontend"
-msgstr ""
+msgstr "Frontend"
 
 #: include/./classes/editors/navbar/class-vc-navbar.php:191
 #: include/./params/vc_grid_item/editor/class-vc-grid-item-editor.php:220
@@ -7340,7 +7116,7 @@ msgstr "Vorschau"
 #: include/./classes/editors/popups/class-vc-shortcode-edit-form.php:61
 #: include/./classes/editors/popups/class-vc-shortcode-edit-form.php:64
 msgid "Access denied"
-msgstr ""
+msgstr "Zugriff verweigert"
 
 #: include/./classes/editors/popups/class-vc-templates-panel-editor.php:96
 msgid "Save current layout as a template"
@@ -7351,7 +7127,6 @@ msgid "Template name"
 msgstr "Vorlagen"
 
 #: include/./classes/editors/popups/class-vc-templates-panel-editor.php:100
-#, fuzzy
 msgid "Save Template"
 msgstr "Vorlage speichern"
 
@@ -7368,7 +7143,7 @@ msgstr ""
 #: include/./params/vc_grid_item/editor/popups/class-vc-templates-editor-grid-item.php:86
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:155
 msgid "Preview template"
-msgstr ""
+msgstr "Vorschau dieser Vorlage"
 
 #: include/./classes/editors/popups/class-vc-templates-panel-editor.php:189
 #: include/./classes/editors/popups/class-vc-templates-panel-editor.php:233
@@ -7376,7 +7151,7 @@ msgstr ""
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:141
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:143
 msgid "Add template"
-msgstr ""
+msgstr "Vorlage hinzufügen"
 
 #: include/./classes/editors/popups/class-vc-templates-panel-editor.php:192
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:149
@@ -7388,9 +7163,8 @@ msgid "Error: wrong template id."
 msgstr ""
 
 #: include/./classes/editors/popups/class-vc-templates-panel-editor.php:538
-#, fuzzy
 msgid "My Templates"
-msgstr "Vorlagen"
+msgstr "Meine Vorlagen"
 
 #: include/./classes/editors/popups/class-vc-templates-panel-editor.php:539
 #, fuzzy
@@ -7408,13 +7182,12 @@ msgid "Append default template to the current layout."
 msgstr "Standardlayout an das aktuelle Layout anhängen"
 
 #: include/./classes/editors/popups/class-vc-templates-panel-editor.php:841
-#, fuzzy
 msgid "No title"
-msgstr "Formtitel"
+msgstr "Kein Titel"
 
 #: include/./classes/settings/class-vc-automapper.php:191
 msgid "Shortcode Mapper"
-msgstr ""
+msgstr "Shortcode Mapper"
 
 #: include/./classes/settings/class-vc-automapper.php:217
 #, fuzzy
@@ -7463,18 +7236,16 @@ msgstr ""
 "mein_shortcode] ein"
 
 #: include/./classes/settings/class-vc-automapper.php:267
-#, fuzzy
 msgid "Add"
-msgstr "Hinzugefügt"
+msgstr "Hinzufügen"
 
 #: include/./classes/settings/class-vc-automapper.php:284
-#, fuzzy
 msgid "General Information"
-msgstr "Allgemeine Einstellungen"
+msgstr "Allgemeine Informationen"
 
 #: include/./classes/settings/class-vc-automapper.php:287
 msgid "Tag:"
-msgstr ""
+msgstr "Schlagwort:"
 
 #: include/./classes/settings/class-vc-automapper.php:291
 msgid "Description:"
@@ -7493,14 +7264,12 @@ msgid "Include content param into shortcode"
 msgstr "\"Inhalt\" Parameter zum Shortcode hinzufügen"
 
 #: include/./classes/settings/class-vc-automapper.php:309
-#, fuzzy
 msgid "Shortcode Parameters"
-msgstr "Shortcode Parameter"
+msgstr "Shortcode-Parameter"
 
 #: include/./classes/settings/class-vc-automapper.php:311
-#, fuzzy
 msgid "Add Param"
-msgstr "Reiter hinzufügen"
+msgstr "Parameter hinzufügen"
 
 #: include/./classes/settings/class-vc-automapper.php:317
 #: include/./classes/settings/class-vc-settings.php:446
@@ -7527,9 +7296,8 @@ msgstr "Ziehen Sie die Zeile um Sie neu zu positionieren"
 
 #: include/./classes/settings/class-vc-automapper.php:328
 #: include/./templates/params/param_group/inner_content.tpl.php:10
-#, fuzzy
 msgid "Delete this param"
-msgstr "Zeile löschen"
+msgstr "Parameter löschen"
 
 #: include/./classes/settings/class-vc-automapper.php:336
 msgid "Param name"
@@ -7726,9 +7494,8 @@ msgid "Are you sure you want to reset to defaults?"
 msgstr "Sind Sie sicher das Sie die Standardeinstellungen herstellen möchten?"
 
 #: include/./classes/settings/class-vc-settings.php:445
-#, fuzzy
 msgid "Saving..."
-msgstr "Lade..."
+msgstr "Speichern..."
 
 #: include/./classes/settings/class-vc-settings.php:447
 #, fuzzy
@@ -7871,7 +7638,7 @@ msgstr ""
 
 #: include/./classes/settings/class-vc-settings.php:748
 msgid "Invalid Margin value."
-msgstr "ungültiger Wert"
+msgstr "Ungültiger Margin-Wert."
 
 #: include/./classes/settings/class-vc-settings.php:762
 msgid "Invalid Gutter value."
@@ -8072,7 +7839,7 @@ msgstr "Bilder hinzufügen"
 
 #: include/./classes/shortcodes/vc-gitem-animated-block.php:30
 msgid "Single block (no animation)"
-msgstr ""
+msgstr "Einzelner Block (keine Animation)"
 
 #: include/./classes/shortcodes/vc-gitem-animated-block.php:31
 msgid "Double block (no animation)"
@@ -8226,7 +7993,7 @@ msgstr ""
 
 #: include/./classes/updaters/class-vc-updating-manager.php:172
 msgid "settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: include/./classes/updaters/class-vc-updating-manager.php:174
 #, fuzzy, php-format
@@ -8239,9 +8006,8 @@ msgstr ""
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:18
 #: include/./classes/vendors/plugins/acf/shortcode.php:18
-#, fuzzy
 msgid "Field name"
-msgstr "Feldtyp"
+msgstr "Feldname"
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:22
 #: include/./classes/vendors/plugins/acf/shortcode.php:22
@@ -8259,9 +8025,8 @@ msgstr "Bild hinzufügen"
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:42
 #: include/./classes/vendors/plugins/acf/shortcode.php:39
-#, fuzzy
 msgid "Field group"
-msgstr "Feldtyp"
+msgstr "Feldgruppe"
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:46
 #: include/./classes/vendors/plugins/acf/shortcode.php:43
@@ -8272,9 +8037,8 @@ msgstr "Wählen Sie einen Feldtyp"
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:52
 #: include/./classes/vendors/plugins/acf/shortcode.php:48
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:73
-#, fuzzy
 msgid "Show label"
-msgstr "Zeige alle"
+msgstr "Beschriftung anzeigen"
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:55
 #: include/./classes/vendors/plugins/acf/shortcode.php:51
@@ -8286,9 +8050,8 @@ msgstr ""
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:59
 #: include/./classes/vendors/plugins/acf/shortcode.php:55
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:81
-#, fuzzy
 msgid "Align"
-msgstr "Links ausrichten"
+msgstr "Ausrichten"
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:62
 #: include/./classes/vendors/plugins/acf/shortcode.php:58
@@ -8328,7 +8091,7 @@ msgstr "Wählen Sie die Textausrichtung."
 
 #: include/./classes/vendors/plugins/class-vc-vendor-contact-form7.php:49
 msgid "No contact forms found"
-msgstr "Keine Gravity Formulare gefunden."
+msgstr "Keine Kontaktformulare gefunden"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-contact-form7.php:54
 msgid "Contact Form 7"
@@ -8340,7 +8103,7 @@ msgstr "Contact Form 7 einbinden"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-contact-form7.php:61
 msgid "Select contact form"
-msgstr "Wählen Sie ein Kontaktformular."
+msgstr "Kontaktformular auswählen"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-contact-form7.php:65
 msgid "Choose previously created contact form from the drop down list."
@@ -8378,7 +8141,7 @@ msgstr "Wählen Sie Ihren Layerslider."
 
 #: include/./classes/vendors/plugins/class-vc-vendor-ninja-forms.php:38
 msgid "Ninja Forms"
-msgstr ""
+msgstr "Ninja Forms"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-ninja-forms.php:41
 #, fuzzy
@@ -8414,7 +8177,7 @@ msgstr "Wählen Sie Ihren Revolution Slider."
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:125
 msgid "Cart"
-msgstr ""
+msgstr "Warenkorb"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:128
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:145
@@ -8435,7 +8198,7 @@ msgstr ""
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:759
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:852
 msgid "WooCommerce"
-msgstr ""
+msgstr "WooCommerce"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:129
 #, fuzzy
@@ -8480,9 +8243,8 @@ msgid ""
 msgstr ""
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:208
-#, fuzzy
 msgid "Recent products"
-msgstr "Letzte Beiträge"
+msgstr ""
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:212
 msgid "Lists recent products"
@@ -8497,7 +8259,7 @@ msgstr ""
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:764
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:857
 msgid "Per page"
-msgstr ""
+msgstr "Pro Seite"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:220
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:272
@@ -8770,18 +8532,18 @@ msgstr ""
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1383
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1460
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1247
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1275
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1338
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1452
 msgid "Sku"
-msgstr ""
+msgstr "Artikelnummer"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1383
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1383
 msgid "Slug"
@@ -8789,24 +8551,23 @@ msgstr ""
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1471
 msgid "SKU"
-msgstr ""
+msgstr "Artikelnummer"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1473
 msgid "Price"
-msgstr ""
+msgstr "Preis"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1474
-#, fuzzy
 msgid "Regular Price"
-msgstr "Standardgröße"
+msgstr "Regulärer Preis"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1475
 msgid "Sale Price"
-msgstr ""
+msgstr "Angebotspreis"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1476
 msgid "Price html"
-msgstr ""
+msgstr "Preis HTML"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1477
 #, fuzzy
@@ -8820,7 +8581,7 @@ msgstr "Keine Beschreibung"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1479
 msgid "Dimensions"
-msgstr ""
+msgstr "Abmessungen"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1480
 #, fuzzy
@@ -8834,7 +8595,7 @@ msgstr "Höhe"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1482
 msgid "Is on sale"
-msgstr ""
+msgstr "Ist im Angebot"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1483
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1509
@@ -8849,15 +8610,15 @@ msgstr "Sortieren nach"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1499
 msgid "Currency"
-msgstr ""
+msgstr "Währung"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1500
 msgid "Total"
-msgstr ""
+msgstr "Gesamt"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1501
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1502
 msgid "Payment method"
@@ -8901,12 +8662,11 @@ msgstr ""
 
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:12
 msgid "Woocommerce"
-msgstr ""
+msgstr "WooCommerce"
 
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:18
-#, fuzzy
 msgid "Content type"
-msgstr "Inhaltstypen"
+msgstr "Inhaltstyp"
 
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:22
 msgid "Order"
@@ -9006,36 +8766,35 @@ msgstr ""
 
 #: include/./params/animation_style/animation_style.php:48
 msgid "bounce"
-msgstr ""
+msgstr "bounce"
 
 #: include/./params/animation_style/animation_style.php:52
 msgid "flash"
-msgstr ""
+msgstr "flash"
 
 #: include/./params/animation_style/animation_style.php:56
 msgid "pulse"
-msgstr ""
+msgstr "pulse"
 
 #: include/./params/animation_style/animation_style.php:60
 msgid "rubberBand"
-msgstr ""
+msgstr "rubberBand"
 
 #: include/./params/animation_style/animation_style.php:64
 msgid "shake"
-msgstr ""
+msgstr "shake"
 
 #: include/./params/animation_style/animation_style.php:68
 msgid "swing"
-msgstr ""
+msgstr "swing"
 
 #: include/./params/animation_style/animation_style.php:72
 msgid "tada"
-msgstr ""
+msgstr "tada"
 
 #: include/./params/animation_style/animation_style.php:76
-#, fuzzy
 msgid "wobble"
-msgstr "Sprechblase"
+msgstr "wobble"
 
 #: include/./params/animation_style/animation_style.php:83
 msgid "Bouncing Entrances"
@@ -9043,23 +8802,23 @@ msgstr ""
 
 #: include/./params/animation_style/animation_style.php:86
 msgid "bounceIn"
-msgstr ""
+msgstr "bounceIn"
 
 #: include/./params/animation_style/animation_style.php:90
 msgid "bounceInDown"
-msgstr ""
+msgstr "bounceInDown"
 
 #: include/./params/animation_style/animation_style.php:94
 msgid "bounceInLeft"
-msgstr ""
+msgstr "bounceInLeft"
 
 #: include/./params/animation_style/animation_style.php:98
 msgid "bounceInRight"
-msgstr ""
+msgstr "bounceInRight"
 
 #: include/./params/animation_style/animation_style.php:102
 msgid "bounceInUp"
-msgstr ""
+msgstr "bounceInUp"
 
 #: include/./params/animation_style/animation_style.php:109
 msgid "Bouncing Exits"
@@ -9067,63 +8826,63 @@ msgstr ""
 
 #: include/./params/animation_style/animation_style.php:112
 msgid "bounceOut"
-msgstr ""
+msgstr "bounceOut"
 
 #: include/./params/animation_style/animation_style.php:116
 msgid "bounceOutDown"
-msgstr ""
+msgstr "bounceOutDown"
 
 #: include/./params/animation_style/animation_style.php:120
 msgid "bounceOutLeft"
-msgstr ""
+msgstr "bounceOutLeft"
 
 #: include/./params/animation_style/animation_style.php:124
 msgid "bounceOutRight"
-msgstr ""
+msgstr "bounceOutRight"
 
 #: include/./params/animation_style/animation_style.php:128
 msgid "bounceOutUp"
-msgstr ""
+msgstr "bounceOutUp"
 
 #: include/./params/animation_style/animation_style.php:135
 msgid "Fading Entrances"
-msgstr ""
+msgstr "Einblenden"
 
 #: include/./params/animation_style/animation_style.php:138
 msgid "fadeIn"
-msgstr ""
+msgstr "fadeIn"
 
 #: include/./params/animation_style/animation_style.php:142
 msgid "fadeInDown"
-msgstr ""
+msgstr "fadeInDown"
 
 #: include/./params/animation_style/animation_style.php:146
 msgid "fadeInDownBig"
-msgstr ""
+msgstr "fadeInDownBig"
 
 #: include/./params/animation_style/animation_style.php:150
 msgid "fadeInLeft"
-msgstr ""
+msgstr "fadeInLeft"
 
 #: include/./params/animation_style/animation_style.php:154
 msgid "fadeInLeftBig"
-msgstr ""
+msgstr "fadeInLeftBig"
 
 #: include/./params/animation_style/animation_style.php:158
 msgid "fadeInRight"
-msgstr ""
+msgstr "fadeInRight"
 
 #: include/./params/animation_style/animation_style.php:162
 msgid "fadeInRightBig"
-msgstr ""
+msgstr "fadeInRightBig"
 
 #: include/./params/animation_style/animation_style.php:166
 msgid "fadeInUp"
-msgstr ""
+msgstr "fadeInUp"
 
 #: include/./params/animation_style/animation_style.php:170
 msgid "fadeInUpBig"
-msgstr ""
+msgstr "fadeInUpBig"
 
 #: include/./params/animation_style/animation_style.php:177
 msgid "Fading Exits"
@@ -9131,39 +8890,39 @@ msgstr ""
 
 #: include/./params/animation_style/animation_style.php:179
 msgid "fadeOut"
-msgstr ""
+msgstr "fadeOut"
 
 #: include/./params/animation_style/animation_style.php:183
 msgid "fadeOutDown"
-msgstr ""
+msgstr "fadeOutDown"
 
 #: include/./params/animation_style/animation_style.php:187
 msgid "fadeOutDownBig"
-msgstr ""
+msgstr "fadeOutDownBig"
 
 #: include/./params/animation_style/animation_style.php:191
 msgid "fadeOutLeft"
-msgstr ""
+msgstr "fadeOutLeft"
 
 #: include/./params/animation_style/animation_style.php:195
 msgid "fadeOutLeftBig"
-msgstr ""
+msgstr "fadeOutLeftBig"
 
 #: include/./params/animation_style/animation_style.php:199
 msgid "fadeOutRight"
-msgstr ""
+msgstr "fadeOutRight"
 
 #: include/./params/animation_style/animation_style.php:203
 msgid "fadeOutRightBig"
-msgstr ""
+msgstr "fadeOutRightBig"
 
 #: include/./params/animation_style/animation_style.php:207
 msgid "fadeOutUp"
-msgstr ""
+msgstr "fadeOutUp"
 
 #: include/./params/animation_style/animation_style.php:211
 msgid "fadeOutUpBig"
-msgstr ""
+msgstr "fadeOutUpBig"
 
 #: include/./params/animation_style/animation_style.php:218
 msgid "Flippers"
@@ -9171,35 +8930,35 @@ msgstr ""
 
 #: include/./params/animation_style/animation_style.php:220
 msgid "flip"
-msgstr ""
+msgstr "flip"
 
 #: include/./params/animation_style/animation_style.php:224
 msgid "flipInX"
-msgstr ""
+msgstr "flipInX"
 
 #: include/./params/animation_style/animation_style.php:228
 msgid "flipInY"
-msgstr ""
+msgstr "flipInY"
 
 #: include/./params/animation_style/animation_style.php:232
 msgid "flipOutX"
-msgstr ""
+msgstr "flipOutX"
 
 #: include/./params/animation_style/animation_style.php:236
 msgid "flipOutY"
-msgstr ""
+msgstr "flipOutY"
 
 #: include/./params/animation_style/animation_style.php:243
 msgid "Lightspeed"
-msgstr ""
+msgstr "Lichtgeschwindigkeit"
 
 #: include/./params/animation_style/animation_style.php:245
 msgid "lightSpeedIn"
-msgstr ""
+msgstr "lightSpeedIn"
 
 #: include/./params/animation_style/animation_style.php:249
 msgid "lightSpeedOut"
-msgstr ""
+msgstr "lightSpeedOut"
 
 #: include/./params/animation_style/animation_style.php:256
 msgid "Rotating Entrances"
@@ -9207,23 +8966,23 @@ msgstr ""
 
 #: include/./params/animation_style/animation_style.php:258
 msgid "rotateIn"
-msgstr ""
+msgstr "rotateIn"
 
 #: include/./params/animation_style/animation_style.php:262
 msgid "rotateInDownLeft"
-msgstr ""
+msgstr "rotateInDownLeft"
 
 #: include/./params/animation_style/animation_style.php:266
 msgid "rotateInDownRight"
-msgstr ""
+msgstr "rotateInDownRight"
 
 #: include/./params/animation_style/animation_style.php:270
 msgid "rotateInUpLeft"
-msgstr ""
+msgstr "rotateInUpLeft"
 
 #: include/./params/animation_style/animation_style.php:274
 msgid "rotateInUpRight"
-msgstr ""
+msgstr "rotateInUpRight"
 
 #: include/./params/animation_style/animation_style.php:281
 msgid "Rotating Exits"
@@ -9231,40 +8990,39 @@ msgstr ""
 
 #: include/./params/animation_style/animation_style.php:283
 msgid "rotateOut"
-msgstr ""
+msgstr "rotateOut"
 
 #: include/./params/animation_style/animation_style.php:287
 msgid "rotateOutDownLeft"
-msgstr ""
+msgstr "rotateOutDownLeft"
 
 #: include/./params/animation_style/animation_style.php:291
 msgid "rotateOutDownRight"
-msgstr ""
+msgstr "rotateOutDownRight"
 
 #: include/./params/animation_style/animation_style.php:295
 msgid "rotateOutUpLeft"
-msgstr ""
+msgstr "rotateOutUpLeft"
 
 #: include/./params/animation_style/animation_style.php:299
 msgid "rotateOutUpRight"
-msgstr ""
+msgstr "rotateOutUpRight"
 
 #: include/./params/animation_style/animation_style.php:306
-#, fuzzy
 msgid "Specials"
-msgstr "Social Media"
+msgstr ""
 
 #: include/./params/animation_style/animation_style.php:308
 msgid "hinge"
-msgstr ""
+msgstr "hinge"
 
 #: include/./params/animation_style/animation_style.php:312
 msgid "rollIn"
-msgstr ""
+msgstr "rollIn"
 
 #: include/./params/animation_style/animation_style.php:316
 msgid "rollOut"
-msgstr ""
+msgstr "rollOut"
 
 #: include/./params/animation_style/animation_style.php:323
 msgid "Zoom Entrances"
@@ -9272,23 +9030,23 @@ msgstr ""
 
 #: include/./params/animation_style/animation_style.php:325
 msgid "zoomIn"
-msgstr ""
+msgstr "zoomIn"
 
 #: include/./params/animation_style/animation_style.php:329
 msgid "zoomInDown"
-msgstr ""
+msgstr "zoomInDown"
 
 #: include/./params/animation_style/animation_style.php:333
 msgid "zoomInLeft"
-msgstr ""
+msgstr "zoomInLeft"
 
 #: include/./params/animation_style/animation_style.php:337
 msgid "zoomInRight"
-msgstr ""
+msgstr "zoomInRight"
 
 #: include/./params/animation_style/animation_style.php:341
 msgid "zoomInUp"
-msgstr ""
+msgstr "zoomInUp"
 
 #: include/./params/animation_style/animation_style.php:348
 msgid "Zoom Exits"
@@ -9296,75 +9054,71 @@ msgstr ""
 
 #: include/./params/animation_style/animation_style.php:350
 msgid "zoomOut"
-msgstr ""
+msgstr "zoomOut"
 
 #: include/./params/animation_style/animation_style.php:354
 msgid "zoomOutDown"
-msgstr ""
+msgstr "zoomOutDown"
 
 #: include/./params/animation_style/animation_style.php:358
 msgid "zoomOutLeft"
-msgstr ""
+msgstr "zoomOutLeft"
 
 #: include/./params/animation_style/animation_style.php:362
 msgid "zoomOutRight"
-msgstr ""
+msgstr "zoomOutRight"
 
 #: include/./params/animation_style/animation_style.php:366
 msgid "zoomOutUp"
-msgstr ""
+msgstr "zoomOutUp"
 
 #: include/./params/animation_style/animation_style.php:373
-#, fuzzy
 msgid "Slide Entrances"
-msgstr "Slidertyp"
+msgstr "Slide Entrances"
 
 #: include/./params/animation_style/animation_style.php:375
 msgid "slideInDown"
-msgstr ""
+msgstr "slideInDown"
 
 #: include/./params/animation_style/animation_style.php:379
 msgid "slideInLeft"
-msgstr ""
+msgstr "slideInLeft"
 
 #: include/./params/animation_style/animation_style.php:383
-#, fuzzy
 msgid "slideInRight"
-msgstr "Rechts ausrichten"
+msgstr "slideInRight"
 
 #: include/./params/animation_style/animation_style.php:387
 msgid "slideInUp"
-msgstr ""
+msgstr "slideInUp"
 
 #: include/./params/animation_style/animation_style.php:394
-#, fuzzy
 msgid "Slide Exits"
-msgstr "Slide 1"
+msgstr "Slide Exits"
 
 #: include/./params/animation_style/animation_style.php:396
 msgid "slideOutDown"
-msgstr ""
+msgstr "slideOutDown"
 
 #: include/./params/animation_style/animation_style.php:400
 msgid "slideOutLeft"
-msgstr ""
+msgstr "slideOutLeft"
 
 #: include/./params/animation_style/animation_style.php:404
 msgid "slideOutRight"
-msgstr ""
+msgstr "slideOutRight"
 
 #: include/./params/animation_style/animation_style.php:408
 msgid "slideOutUp"
-msgstr ""
+msgstr "slideOutUp"
 
 #: include/./params/animation_style/animation_style.php:499
-#, fuzzy
 msgid "Animate it"
-msgstr "Animiertes Kreisdiagramm"
+msgstr "Animieren"
 
 #: include/./params/autocomplete/autocomplete.php:79
 msgid "Click here and start typing..."
-msgstr ""
+msgstr "Hier klicken und Text eingeben..."
 
 #: include/./params/column_offset/column_offset.php:90
 msgid "Default value from width attribute"
@@ -9382,7 +9136,7 @@ msgstr "Kein Versatz"
 
 #: include/./params/css_editor/css_editor.php:95
 msgid "Border style"
-msgstr ""
+msgstr "Rahmenstil"
 
 #: include/./params/css_editor/css_editor.php:97
 msgid "Border radius"
@@ -9452,14 +9206,12 @@ msgid "bold"
 msgstr "fett"
 
 #: include/./params/iconpicker/iconpicker.php:90
-#, fuzzy
 msgid "From all categories"
-msgstr "Produktseite"
+msgstr "Aus allen Kategorien"
 
 #: include/./params/iconpicker/iconpicker.php:94
-#, fuzzy
 msgid "Uncategorized"
-msgstr "Kategorien"
+msgstr "Nicht kategorisiert"
 
 #: include/./params/loop/loop.php:28
 msgid "Build query"
@@ -9597,9 +9349,8 @@ msgid ""
 msgstr ""
 
 #: include/./params/vc_grid_item/editor/class-vc-grid-item-preview.php:112
-#, fuzzy
 msgid "Post title"
-msgstr "Beitragstypen"
+msgstr "Beitragstitel"
 
 #: include/./params/vc_grid_item/editor/class-vc-grid-item-preview.php:113
 #: include/./params/vc_grid_item/editor/class-vc-grid-item-preview.php:114
@@ -9630,14 +9381,12 @@ msgstr ""
 #: include/./params/vc_grid_item/shortcodes.php:11
 #: include/./params/vc_grid_item/shortcodes.php:455
 #: include/./params/vc_grid_item/shortcodes.php:485
-#, fuzzy
 msgid "Add link"
-msgstr "kein Link"
+msgstr "Link hinzufügen"
 
 #: include/./params/vc_grid_item/shortcodes.php:15
-#, fuzzy
 msgid "Post link"
-msgstr "kein Link"
+msgstr "Beitragslink"
 
 #: include/./params/vc_grid_item/shortcodes.php:16
 msgid "Post author"
@@ -9717,11 +9466,11 @@ msgstr "Google Maps Karte einbinden"
 
 #: include/./params/vc_grid_item/shortcodes.php:210
 msgid "Zone"
-msgstr ""
+msgstr "Zone"
 
 #: include/./params/vc_grid_item/shortcodes.php:224
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: include/./params/vc_grid_item/shortcodes.php:237
 #, fuzzy
@@ -9730,7 +9479,7 @@ msgstr "Höhe"
 
 #: include/./params/vc_grid_item/shortcodes.php:241
 msgid "Original"
-msgstr ""
+msgstr "Original"
 
 #: include/./params/vc_grid_item/shortcodes.php:248
 msgid ""
@@ -9744,9 +9493,8 @@ msgid "Enter custom height."
 msgstr "Geben Sie die Zeilenhöhe ein."
 
 #: include/./params/vc_grid_item/shortcodes.php:264
-#, fuzzy
 msgid "Hover"
-msgstr "Ausfüllen"
+msgstr "Hover"
 
 #: include/./params/vc_grid_item/shortcodes.php:278
 #, fuzzy
@@ -9754,9 +9502,8 @@ msgid "Additional"
 msgstr "Textbereich hinzufügen"
 
 #: include/./params/vc_grid_item/shortcodes.php:415
-#, fuzzy
 msgid "Post Title"
-msgstr "Beitragstypen"
+msgstr "Beitragstitel"
 
 #: include/./params/vc_grid_item/shortcodes.php:418
 #: include/./params/vc_grid_item/shortcodes.php:434
@@ -9765,7 +9512,7 @@ msgstr "Beitragstypen"
 #: include/./params/vc_grid_item/shortcodes.php:545
 #: include/./params/vc_grid_item/shortcodes.php:621
 msgid "Post"
-msgstr ""
+msgstr "Beitrag"
 
 #: include/./params/vc_grid_item/shortcodes.php:419
 msgid "Title of current post"
@@ -9782,11 +9529,11 @@ msgstr ""
 
 #: include/./params/vc_grid_item/shortcodes.php:447
 msgid "Post Author"
-msgstr ""
+msgstr "Beitragsautor"
 
 #: include/./params/vc_grid_item/shortcodes.php:451
 msgid "Author of current post"
-msgstr ""
+msgstr "Autor dieses Beitrags"
 
 #: include/./params/vc_grid_item/shortcodes.php:458
 msgid "Add link to author?"
@@ -9806,7 +9553,7 @@ msgstr ""
 
 #: include/./params/vc_grid_item/shortcodes.php:496
 msgid "Comma"
-msgstr ""
+msgstr "Komma"
 
 #: include/./params/vc_grid_item/shortcodes.php:503
 msgid "Select category display style."
@@ -9830,7 +9577,6 @@ msgid "Post Image"
 msgstr "Bild festlegen"
 
 #: include/./params/vc_grid_item/shortcodes.php:546
-#, fuzzy
 msgid "Featured image"
 msgstr "Beitragsbild"
 
@@ -9866,9 +9612,8 @@ msgstr "Individuelles Menü"
 #: include/./params/vc_grid_item/shortcodes.php:638
 #: include/./templates/pages/partials/vc-roles-parts/_shortcodes.tpl.php:35
 #: include/./templates/pages/partials/vc-roles-parts/_shortcodes.tpl.php:36
-#, fuzzy
 msgid "Elements"
-msgstr "Inhaltselemente bearbeiten"
+msgstr "Elemente"
 
 #: include/./params/vc_grid_item/shortcodes.php:640
 msgid "Custom fields data from meta values of the post."
@@ -9884,7 +9629,6 @@ msgid "Enter custom field name to retrieve meta data value."
 msgstr ""
 
 #: include/./params/vc_grid_item/shortcodes.php:662
-#, fuzzy
 msgid "Justify"
 msgstr "Blocksatz"
 
@@ -9946,7 +9690,7 @@ msgstr ""
 
 #: include/./params/vc_grid_item/templates.php:45
 msgid "READ MORE"
-msgstr ""
+msgstr "MEHR LESEN"
 
 #: include/./params/vc_grid_item/templates.php:48
 #, fuzzy
@@ -10079,7 +9823,7 @@ msgstr "URL auswählen"
 
 #: include/./params/vc_link/vc_link.php:18
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: include/./templates/editors/partials/add_element_search.tpl.php:11
 msgid "Search element by name"
@@ -10091,13 +9835,12 @@ msgstr "Sonstige"
 
 #: include/./templates/editors/partials/add_element_tabs.tpl.php:27
 msgid "Deprecated"
-msgstr ""
+msgstr "Veraltet"
 
 #: include/./templates/editors/partials/add_element_tabs.tpl.php:30
 #: include/./templates/editors/popups/vc_ui-panel-preset.tpl.php:10
-#, fuzzy
 msgid "My Elements"
-msgstr "Inhaltselemente bearbeiten"
+msgstr "Meine Elemente"
 
 #: include/./templates/editors/partials/backend_controls.tpl.php:16
 #: include/./templates/editors/partials/frontend_controls.tpl.php:13
@@ -10149,7 +9892,7 @@ msgstr "Artikelanzahl anzeigen %s"
 
 #: include/./templates/editors/partials/frontend_controls.tpl.php:133
 msgid "Change layout"
-msgstr "Anlesertext Layout."
+msgstr "Layout wechseln"
 
 #: include/./templates/editors/partials/frontend_controls.tpl.php:136
 #: include/./templates/editors/partials/frontend_controls.tpl.php:196
@@ -10159,9 +9902,8 @@ msgid "Add new %s"
 msgstr "%s hinzufügen"
 
 #: include/./templates/editors/partials/prompt-presets.tpl.php:14
-#, fuzzy
 msgid "Element Title"
-msgstr "Breite des Elements"
+msgstr "Elementtitel"
 
 #: include/./templates/editors/partials/prompt-presets.tpl.php:23
 #, fuzzy
@@ -10173,7 +9915,7 @@ msgstr "Geben Sie die Schriftgröße ein."
 #: include/./templates/editors/popups/vc_ui-panel-edit-element.tpl.php:47
 #: include/./templates/editors/popups/vc_ui-panel-post-settings.tpl.php:47
 msgid "Save changes"
-msgstr ""
+msgstr "Änderungen speichern"
 
 #: include/./templates/editors/partials/prompt-templates.tpl.php:14
 msgid "Template Title"
@@ -10185,16 +9927,15 @@ msgstr ""
 
 #: include/./templates/editors/partials/settings_presets_popup.tpl.php:15
 msgid "Save as template"
-msgstr ""
+msgstr "Als Vorlage speichern"
 
 #: include/./templates/editors/partials/settings_presets_popup.tpl.php:24
-#, fuzzy
 msgid "Save as Element"
-msgstr "Als unerledigt speichern"
+msgstr "Als Element speichern"
 
 #: include/./templates/editors/partials/settings_presets_popup.tpl.php:35
 msgid "Untitled"
-msgstr ""
+msgstr "Unbenannt"
 
 #: include/./templates/editors/partials/templates_search.tpl.php:11
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:42
@@ -10212,9 +9953,8 @@ msgstr ""
 #: include/./templates/editors/partials/vc_welcome_block.tpl.php:36
 #: include/./templates/editors/partials/vc_welcome_block.tpl.php:77
 #: include/./templates/editors/popups/vc_ui-panel-add-element.tpl.php:11
-#, fuzzy
 msgid "Add Element"
-msgstr "Inhaltselement hinzufügen"
+msgstr "Element hinzufügen"
 
 #: include/./templates/editors/partials/vc_welcome_block.tpl.php:39
 #: include/./templates/editors/popups/vc_ui-panel-preset.tpl.php:31
@@ -10250,14 +9990,13 @@ msgid "Hide panel"
 msgstr "Verstecken"
 
 #: include/./templates/editors/popups/panel_multi_shortcode_edit_form.tpl.php:14
-#, fuzzy
 msgid "Edit Elements"
 msgstr "Inhaltselemente bearbeiten"
 
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:32
 #: include/./templates/pages/vc-settings/tab.php:112
 msgid "Activate WPBakery Page Builder"
-msgstr ""
+msgstr "WPBakery Page Builder aktivieren"
 
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:33
 msgid ""
@@ -10287,7 +10026,7 @@ msgstr ""
 
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:108
 msgid "Download Templates"
-msgstr ""
+msgstr "Vorlagen herunterladen"
 
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:109
 msgid ""
@@ -10315,18 +10054,16 @@ msgid ""
 msgstr ""
 
 #: include/./templates/editors/popups/vc_ui-panel-add-element.tpl.php:40
-#, fuzzy
 msgid "Manage elements"
-msgstr "Inhaltselement hinzufügen"
+msgstr "Elemente verwalten"
 
 #: include/./templates/editors/popups/vc_ui-panel-post-settings.tpl.php:9
-#, fuzzy
 msgid "Page Settings"
 msgstr "Seiteneinstellungen"
 
 #: include/./templates/editors/popups/vc_ui-panel-post-settings.tpl.php:22
 msgid "Please enter page title"
-msgstr "Geben Sie einen Titel für die Seite ein."
+msgstr "Bitte gib einen Titel für die Seite an"
 
 #: include/./templates/editors/popups/vc_ui-panel-post-settings.tpl.php:24
 #, php-format
@@ -10357,12 +10094,10 @@ msgid "Remove existing elements"
 msgstr ""
 
 #: include/./templates/editors/popups/vc_ui-panel-preset.tpl.php:32
-#, fuzzy
 msgid "Delete element"
-msgstr "Wählen Sie einen Inhaltstyp"
+msgstr "Element löschen"
 
 #: include/./templates/editors/popups/vc_ui-panel-row-layout.tpl.php:9
-#, fuzzy
 msgid "Row Layout"
 msgstr "Zeilenlayout"
 
@@ -10389,7 +10124,7 @@ msgstr ""
 
 #: include/./templates/pages/partials/vc-roles-parts/_backend_editor.tpl.php:12
 msgid "Disable Classic editor"
-msgstr ""
+msgstr "Klassischen Editor deaktivieren"
 
 #: include/./templates/pages/partials/vc-roles-parts/_backend_editor.tpl.php:15
 #: include/./templates/pages/partials/vc-roles-parts/_dragndrop.tpl.php:11
@@ -10397,11 +10132,11 @@ msgstr ""
 #: include/./templates/pages/partials/vc-roles-parts/_grid_builder.tpl.php:11
 #: include/./templates/pages/partials/vc-roles-parts/_post_settings.tpl.php:11
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiviert"
 
 #: include/./templates/pages/partials/vc-roles-parts/_backend_editor.tpl.php:16
 msgid "Enabled and default"
-msgstr ""
+msgstr "Aktiviert und Standard"
 
 #: include/./templates/pages/partials/vc-roles-parts/_backend_editor.tpl.php:17
 #: include/./templates/pages/partials/vc-roles-parts/_dragndrop.tpl.php:12
@@ -10413,16 +10148,16 @@ msgstr ""
 #: include/./templates/pages/partials/vc-roles-parts/_settings.tpl.php:19
 #: include/./templates/pages/partials/vc-roles-parts/_templates.tpl.php:13
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktiviert"
 
 #: include/./templates/pages/partials/vc-roles-parts/_backend_editor.tpl.php:19
 #: include/./templates/pages/partials/vc-roles-parts/_backend_editor.tpl.php:20
 msgid "Backend editor"
-msgstr ""
+msgstr "Backend Editor"
 
 #: include/./templates/pages/partials/vc-roles-parts/_dragndrop.tpl.php:14
 msgid "Drag and Drop"
-msgstr ""
+msgstr "Drag & Drop"
 
 #: include/./templates/pages/partials/vc-roles-parts/_dragndrop.tpl.php:15
 msgid "Control access rights to drag and drop functionality within the editor."
@@ -10431,7 +10166,7 @@ msgstr ""
 #: include/./templates/pages/partials/vc-roles-parts/_frontend_editor.tpl.php:16
 #: include/./templates/pages/partials/vc-roles-parts/_frontend_editor.tpl.php:17
 msgid "Frontend editor"
-msgstr ""
+msgstr "Frontend Editor"
 
 #: include/./templates/pages/partials/vc-roles-parts/_grid_builder.tpl.php:16
 msgid "Control user access to Grid Builder and Grid Builder Elements."
@@ -10445,7 +10180,7 @@ msgstr ""
 
 #: include/./templates/pages/partials/vc-roles-parts/_post_types.tpl.php:14
 msgid "Pages only"
-msgstr ""
+msgstr "Nur Seiten"
 
 #: include/./templates/pages/partials/vc-roles-parts/_post_types.tpl.php:20
 msgid ""
@@ -10480,7 +10215,7 @@ msgstr ""
 
 #: include/./templates/pages/partials/vc-roles-parts/_shortcodes.tpl.php:29
 msgid "Element"
-msgstr ""
+msgstr "Element"
 
 #: include/./templates/pages/partials/vc-roles-parts/_shortcodes.tpl.php:32
 msgid "Edit only"
@@ -10507,7 +10242,7 @@ msgstr ""
 
 #: include/./templates/pages/vc-settings/default-template-post-type.tpl.php:15
 msgid "Template"
-msgstr ""
+msgstr "Vorlage"
 
 #: include/./templates/pages/vc-settings/tab-vc-roles.php:15
 msgid ""
@@ -10529,11 +10264,11 @@ msgstr "Eingabehilfen AN"
 
 #: include/./templates/pages/vc-settings/tab.php:45
 msgid "Done"
-msgstr ""
+msgstr "Fertig"
 
 #: include/./templates/pages/vc-settings/tab.php:45
 msgid "Reset"
-msgstr ""
+msgstr "Zurücksetzen"
 
 #: include/./templates/pages/vc-settings/tab.php:48
 msgid ""
@@ -10542,9 +10277,8 @@ msgid ""
 msgstr ""
 
 #: include/./templates/pages/vc-settings/tab.php:71
-#, fuzzy
 msgid "Restore Default"
-msgstr "Werkseinstellungen wiederherstellen"
+msgstr "Auf Standard zurücksetzen"
 
 #: include/./templates/pages/vc-settings/tab.php:80
 msgid ""
@@ -10588,7 +10322,7 @@ msgstr ""
 #: include/./templates/pages/vc-welcome/index.php:14
 #, php-format
 msgid "Version %s"
-msgstr ""
+msgstr "Version %s"
 
 #: include/./templates/pages/vc-welcome/vc-faq.php:7
 msgid "New to WPBakery Page Builder or Looking for More Information?"
@@ -10638,7 +10372,7 @@ msgstr ""
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:11
 msgid "New Interface, Native Colors"
-msgstr ""
+msgstr "Neue Benutzeroberfläche, native Farben"
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:13
 msgid ""
@@ -10648,9 +10382,8 @@ msgid ""
 msgstr ""
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:21
-#, fuzzy
 msgid "Native Colors"
-msgstr "Button Farbe."
+msgstr "Native Farben"
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:23
 msgid ""
@@ -10659,9 +10392,8 @@ msgid ""
 msgstr ""
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:28
-#, fuzzy
 msgid "New Icons"
-msgstr "Icon"
+msgstr "Neue Icons"
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:30
 msgid ""
@@ -10678,16 +10410,16 @@ msgid "Add even more icons to your website with our updated icon libraries."
 msgstr ""
 
 #: include/./templates/params/column_offset/template.tpl.php:21
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Responsive design settings are currently disabled. You can enable them in "
 "WPBakery Page Builder <a href=\"%s\">settings page</a> by unchecking "
 "\"Disable responsive content elements\"."
 msgstr ""
-"Die responsiven Designeinstellungen sind deaktiviert. Sie können sie auf der "
-"WPBakery Page Builder <a href=\"%s\">Optionsseite</a> aktivieren, indem Sie "
-"das Häkchen bei der Option \"Responsive Inhaltselemente deaktivieren\" "
-"entfernen."
+"Responsive Design Einstellungen sind derzeit deaktiviert. Du kannst sie auf "
+"der <a href=\"%s\">Einstellungsseite des WPBakery Page Builder</a> "
+"aktivieren, indem du die Option \"Responsive Content Elemente deaktivieren\" "
+"deaktivierst."
 
 #: include/./templates/params/column_offset/template.tpl.php:31
 msgid "Device"
@@ -10711,12 +10443,12 @@ msgstr "Google Fonts Vorschau"
 
 #: include/./templates/params/google_fonts/template.php:43
 msgid "Grumpy wizards make toxic brew for the evil Queen and Jack."
-msgstr ""
+msgstr "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern."
 
 #: include/./templates/params/vc_grid_item/attributes/post_categories.php:28
 #, php-format
 msgid "View all posts in %s"
-msgstr ""
+msgstr "Zeige alle Beiträge in %s"
 
 #: include/./templates/params/vc_grid_item/editor/vc_grid_item_editor.tpl.php:18
 msgid "Loading, please wait..."
@@ -10738,7 +10470,7 @@ msgstr "Anzahl"
 #: include/./templates/shortcodes/vc_posts_grid.php:194
 #: include/./templates/shortcodes/vc_posts_slider.php:209
 msgid "Nothing found."
-msgstr "Nichts gefunden"
+msgstr "Nichts gefunden."
 
 #: include/./templates/shortcodes/vc_tab.php:25
 msgid "Empty tab. Edit page to add content here."
@@ -10755,7 +10487,7 @@ msgstr "Nächster Reiter"
 
 #: include/./templates/shortcodes/vc_tweetmeme.php:24
 msgid "Tweet to"
-msgstr ""
+msgstr "Tweet an"
 
 #: include/./templates/shortcodes/vc_tweetmeme.php:29
 #: include/./templates/shortcodes/vc_tweetmeme.php:33

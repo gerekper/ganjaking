@@ -3,7 +3,7 @@ Contributors: tareq1988, wedevs, asaquzzaman, wpasikur
 Donate Link: https://tareq.co/donate/
 Tags: project, manager, project manager, project management, todo, todo list, task, basecamp, milestone, message, file, comment, client, team, tracking, planning, lists, reporting, project management plugin for wordpress, project manager, project manager plugin for wordpress, wordpress project management
 Requires at least: 4.0
-Tested up to: 5.5
+Tested up to: 5.5.1
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -120,6 +120,18 @@ A. Found any bugs? Please create an [issue](https://github.com/tareq1988/wp-proj
 13. Project Settings -> Email Settings Tab
 
 == Changelog ==
+
+= v2.5.2 - Sep 10, 2020 =
+
+**Fix** After moving subtask, task estimation time does not updated in real time.
+**Fix** After updating task user subtask user was not updated in real time during subtask create time.
+**Fix** Summary reports estimation time were not same in total and individual time.
+**Fix** Subtask type dropdown was not appearing during subtask update time.
+**Fix** Calendar search data was not remaining after reloading the page.
+**Fix** Calendar permission issue as user are suppose to check private task.
+**Fix** Calendar dropdown project showing all projects even though user is not assign to project.
+**Fix** In Calendar all tasks were showing even tasks were not assign to user for the first time navigate to calendar.
+**Fix** Remove Date occurrence field from recurring task form.
 
 = v2.5.1 - Aug 25, 2020 =
 

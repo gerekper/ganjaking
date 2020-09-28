@@ -61,7 +61,7 @@ function vc_iconpicker_base_register_css() {
  * @since 4.4
  */
 function vc_iconpicker_base_register_js() {
-	wp_register_script( 'vc-icon-picker', vc_asset_url( 'lib/bower/vcIconPicker/jquery.fonticonpicker.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
+	wp_register_script( 'vc-icon-picker', vc_asset_url( 'lib/bower/vcIconPicker/jquery.fonticonpicker.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 }
 
 /**

@@ -136,28 +136,6 @@ class FUE_Sending_Mailer {
 			return new WP_Error( 'fue_queue_error', $error );
 		}
 
-		// make sure we are not sending too early
-		if ( !$force_send ) {
-			$current_time       = current_time( 'timestamp' );
-			$time_difference    = $queue_item->send_on - $current_time;
-
-			if ( $time_difference > 60 ) {
-				//reschedule with the correct date/time
-				$param = $this->fue->scheduler->get_scheduler_parameters( $queue_item->id );
-				as_unschedule_action( 'sfn_followup_emails', $param, 'fue' );
-				as_schedule_single_action( $queue_item->send_on, 'sfn_followup_emails', $param, 'fue' );
-
-				$format = wc_date_format() . ' ' . wc_time_format();
-				$date1  = date_i18n( $format, $current_time );
-				$date2  = date_i18n( $format, $queue_item->send_on );
-
-				/* translators: %1$s Scheduled time, %2$s Sending time. */
-				$error = sprintf( __( 'Email tried to send too early. Scheduled on %1$s but attempted to send on %2$s', 'follow_up_emails' ), $date2, $date1 );
-				fue_debug_log( $error, $queue_item->id );
-				return new WP_Error( 'fue_queue_error', $error );
-			}
-		}
-
 		// set local variables
 		$this->email = $email;
 		$this->queue = $queue_item;
@@ -379,6 +357,9 @@ class FUE_Sending_Mailer {
 
 		// apply the email template
 		$email_data['message'] = $email->apply_template( $email_data['message'] );
+
+		// Include CSS rules for text and image alignment.
+		$email_data['message'] .= '<style>' . self::get_html_email_css() . '</style>';
 
 		$email_data = apply_filters( 'fue_before_sending_email', $email_data, $email, null );
 

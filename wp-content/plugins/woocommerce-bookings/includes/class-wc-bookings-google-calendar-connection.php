@@ -110,20 +110,26 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 * 
 	 * @since 1.15.15
 	 */
-	 const CALENDAR_POLLER_MAX_RETRY_RATE = 4; // Maximum index for CALENDAR_EXPONENTIAL_BACKOFF_RATES.
+	const CALENDAR_POLLER_MAX_RETRY_RATE = 4; // Maximum index for CALENDAR_EXPONENTIAL_BACKOFF_RATES.
 
 	/**
 	 * Init and hook in the integration.
 	 */
 	private function __construct() {
 
-		$this->plugin_id = 'wc_bookings_';
-		$this->id        = 'google_calendar_wooconnect';
+		$this->plugin_id        = 'wc_bookings_';
+		$this->id               = 'google_calendar_wooconnect';
+		$this->redirect_uri_custom = WC()->api_request_url( 'wc_bookings_google_calendar' );
+
+		// Define user set variables.
+		$this->client_id       = $this->get_option( 'client_id' );
+		$this->client_secret   = $this->get_option( 'client_secret' );
 
 		$this->maybe_migrate_old_settings();
 
 		// Actions.
-		add_action( 'woocommerce_api_wc_bookings_google_calendar', array( $this, 'oauth_redirect' ) );
+		add_action( 'woocommerce_api_wc_bookings_google_calendar_wooconnect', array( $this, 'oauth_redirect' ) );
+		add_action( 'woocommerce_api_wc_bookings_google_calendar', array( $this, 'oauth_redirect_custom' ) );
 
 		add_action( 'init', array( $this, 'register_booking_update_hooks' ) );
 
@@ -137,6 +143,40 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		add_action( 'init', array( $this, 'maybe_schedule_poller' ) );
 
 		add_action( 'woocommerce_bookings_update_google_client', array( $this, 'maybe_enable_legacy_integration' ), 1, 5 );
+
+		if ( is_admin() ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		}
+
+		if ( isset( $_POST['wc_bookings_google_calendar_redirect'] ) && $_POST['wc_bookings_google_calendar_redirect'] && empty( $_POST['save'] ) ) {
+			$this->process_calendar_redirect();
+		}
+	}
+
+	/**
+	 * Process Calendar redirect
+	 *
+	 * @since 1.11
+	 */
+	public function process_calendar_redirect() {
+		$client = $this->get_client();
+		// We need this to get the refresh token every time.
+		$client->setPrompt( 'consent' );
+		$client->setClientId( $this->client_id );
+		$client->setClientSecret( $this->client_secret );
+		$client->setRedirectUri( $this->redirect_uri_custom );
+		$auth_url = $client->createAuthUrl();
+		wp_redirect( $auth_url );
+		exit;
+	}
+
+	/**
+	 * Enqueues admin js scripts.
+	 *
+	 * @since 1.3.12
+	 */
+	public function enqueue_scripts() {
+		wp_enqueue_script( 'wc_bookings_calendar_connection_scripts', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-calendar-connection.js', array( 'jquery' ), WC_BOOKINGS_VERSION, true );
 	}
 
 	/**
@@ -408,8 +448,11 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 
 		do_action( 'woocommerce_bookings_update_google_client', $client );
 
-		$client->setRedirectUri( WC()->api_request_url( 'wc_bookings_google_calendar' ) );
-
+		if ( get_option( 'wc_bookings_google_calendar_custom_connection' ) ) {
+			$client->setRedirectUri( WC()->api_request_url( 'wc_bookings_google_calendar' ) );
+		} else {
+			$client->setRedirectUri( WC()->api_request_url( 'wc_bookings_google_calendar_wooconnect' ) );
+		}
 		// Refresh the token if it's expired. Note that we need a refresh token for this.
 		if ( $refresh_token && empty( $access_token ) ) {
 			$access_token = $this->renew_access_token( $refresh_token, $client );
@@ -426,7 +469,6 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 					array(),
 					WC_Log_Levels::ERROR
 				);
-				$this->delete_legacy_integration();
 			}
 		}
 
@@ -438,7 +480,6 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			} catch ( InvalidArgumentException $e ) {
 				// Something is wrong with the access token, customer should try to connect again.
 				$this->log( sprintf( 'Invalid access token. Reconnect with Google necessary. Code %s. Message: %s.', $e->getCode(), $e->getMessage() ) );
-				$this->delete_legacy_integration();
 			}
 		}
 
@@ -460,29 +501,32 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		}
 	}
 
-	/**
-	 * Delete old options from before version 1.15.0 so they are no longer used and merchant must re-authenticate.
-	 */
-	private function delete_legacy_integration() {
-		$deleted = delete_option( 'wc_bookings_google_calendar_settings' );
-
-		if ( $deleted ) {
-			delete_option( 'wc_bookings_gcalendar_refresh_token' );
-			delete_transient( 'wc_bookings_gcalendar_sync_token' );
-			delete_transient( 'wc_bookings_gcalendar_access_token' );
-			$client = $this->get_client();
-			$client->setClientId( null );
-			$client->setClientSecret( null );
-			WC_Admin_Notices::add_custom_notice(
-				'bookings_google_calendar_connection',
-				'<strong>' . __( 'Google Calendar', 'woocommerce-bookings' ) . '</strong> ' .
-				sprintf(
-					// Translators: %s url.
-					__( 'Calendar Sync lost connection. You must <a href="%s">Re-Authenticate</a>', 'woocommerce-bookings' ),
-					$this->get_google_auth_url()
-				)
-			);
+	public function is_using_wooconnect_method() {
+		$wooconnect_method = get_option( 'wc_bookings_google_calendar_wooconnect_method_connection', null );
+		if ( $wooconnect_method ) {
+			return true;
 		}
+		$custom_connect_method = get_option( 'wc_bookings_google_calendar_custom_connection', null );
+		if ( $custom_connect_method ) {
+			return false;
+		}
+		$access_token  = $this->get_client()->getAccessToken();
+		$refresh_token = get_option( 'wc_bookings_gcalendar_refresh_token' );
+		if ( $refresh_token && ! $access_token ) {
+			return false;
+		}
+
+		$doing_logout = ! empty( $_POST['wc_bookings_google_calendar_wooconnect_authorization'] ) && 'logout' === $_POST['wc_bookings_google_calendar_wooconnect_authorization'];
+		if ( null === $custom_connect_method && null === $wooconnect_method && ( ! $doing_logout && $this->is_integration_active() ) ) {
+			// This is the edge case of still using the old setup with migration.
+			return true;
+		}
+		return false;
+	}
+
+	public function is_using_custom_connection() {
+		$custom_method = get_option( 'wc_bookings_google_calendar_custom_connection', null );
+		return $custom_method && $this->is_integration_active();
 	}
 
 	/**
@@ -698,31 +742,56 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 				'title' => __( 'Authorization', 'woocommerce-bookings' ),
 				'type'  => 'google_calendar_authorization',
 			),
-			'calendar_id'     => array(
-				'title'       => __( 'Calendar', 'woocommerce-bookings' ),
-				'type'        => 'select',
-				'description' => __( 'Enter with your Calendar.', 'woocommerce-bookings' ),
+			'testing'         => array(
+				'title'       => __( 'Connect with a custom Google Calendar App', 'woocommerce-bookings' ),
+				'type'        => 'title',
+				'description' => 'Enter the credentials below to use a custom Google Calendar API app. Disconnect existing connection to enter credentials.',
+			),
+			'client_id'       => array(
+				'title'       => __( 'Client ID', 'woocommerce-bookings' ),
+				'type'        => 'text',
+				'description' => __( 'Enter the Google Client ID associated with your Calendar API app.', 'woocommerce-bookings' ),
+				'disabled'    => $this->is_using_wooconnect_method(),
 				'desc_tip'    => true,
 				'default'     => '',
-				'options'     => $this->get_calendar_list_options(),
+			),
+			'client_secret'   => array(
+				'title'       => __( 'Client Secret', 'woocommerce-bookings' ),
+				'type'        => 'text',
+				'description' => __( 'Enter the Google Client Secret associated with your Calendar API app.', 'woocommerce-bookings' ),
+				'disabled'    => $this->is_using_wooconnect_method(),
+				'desc_tip'    => true,
+				'default'     => '',
+			),
+			'custom_authorization'   => array(
+				'title' => __( 'Authorization', 'woocommerce-bookings' ),
+				'type'  => 'custom_google_calendar_authorization',
+			),
+			'calendar_connection_settings' => array(
+				'title'         => __( 'Connected Calendar Settings', 'woocommerce-bookings' ),
+				'type'          => 'title',
 				'display_check' => array( $this, 'display_connection_settings' ),
 			),
-			'sync_preference' => array(
-				'type'         => 'select',
-				'title'        => __( 'Sync Preference', 'woocommerce-bookings' ),
-				'options'      => array(
+			'calendar_id'       => array(
+				'title'         => __( 'Calendar', 'woocommerce-bookings' ),
+				'type'          => 'select',
+				'description'   => __( 'Select your Calendar.', 'woocommerce-bookings' ),
+				'desc_tip'      => true,
+				'default'       => '',
+				'options'       => $this->get_calendar_list_options(),
+				'display_check' => array( $this, 'display_connection_settings' ),
+			),
+			'sync_preference'   => array(
+				'type'          => 'select',
+				'title'         => __( 'Sync Preference', 'woocommerce-bookings' ),
+				'options'       => array(
 					'both_ways' => __( 'Sync both ways - between Store and Google', 'woocommerce-bookings' ),
 					'one_way'   => __( 'Sync one way - from Store to Google', 'woocommerce-bookings' ),
 				),
-				'description'  => __( 'Manage the sync flow between your Store calendar and Google calendar.', 'woocommerce-bookings' ),
-				'desc_tip'     => true,
-				'default'      => 'one_way',
+				'description'   => __( 'Manage the sync flow between your Store calendar and Google calendar.', 'woocommerce-bookings' ),
+				'desc_tip'      => true,
+				'default'       => 'one_way',
 				'display_check' => array( $this, 'display_connection_settings' ),
-			),
-			'testing'         => array(
-				'title'       => __( 'Testing', 'woocommerce-bookings' ),
-				'type'        => 'title',
-				'description' => '',
 			),
 			'debug'           => array(
 				'title'       => __( 'Debug Log', 'woocommerce-bookings' ),
@@ -776,6 +845,44 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	}
 
 	/**
+	 * Generate the Google Calendar Authorization field for self-owned Google Calendar apps.
+	 *
+	 * @param  mixed $key
+	 * @param  array $data
+	 *
+	 * @return string
+	 */
+	public function generate_custom_google_calendar_authorization_html( $key, $data ) {
+		$options          = $this->plugin_id . $this->id . '_';
+		$client_id        = isset( $_POST[ $options . 'client_id' ] ) ? sanitize_text_field( $_POST[ $options . 'client_id' ] ) : $this->client_id;
+		$client_secret    = isset( $_POST[ $options . 'client_secret' ] ) ? sanitize_text_field( $_POST[ $options . 'client_secret' ] ) : $this->client_secret;
+		$access_token     = $this->get_client()->getAccessToken();
+		$refresh_token    = get_option( 'wc_bookings_gcalendar_refresh_token' );
+		$wooconnect_method = $this->is_using_wooconnect_method();
+
+		ob_start();
+		?>
+		<tr valign="top">
+			<th scope="row" class="titledesc">
+				<?php echo wp_kses_post( $data['title'] ); ?>
+			</th>
+			<td class="forminp">
+				<input type="hidden" name="wc_bookings_google_calendar_redirect" id="wc_bookings_google_calendar_redirect">
+				<?php if ( ! $wooconnect_method && ( ! $client_id || ! $client_secret ) ) : ?>
+					<p style="color:red;"><?php esc_html_e( 'Please fill out all required fields from above and save changes.', 'woocommerce-bookings' ); ?></p>
+				<?php elseif ( ! $refresh_token || ( $refresh_token && ! $access_token ) || $wooconnect_method ) : ?>
+					<p class="submit"><a class="button button-primary <?php echo $wooconnect_method ? ' disabled"' : ' wc-bookings-calendar-connect"'; ?> ><?php esc_html_e( 'Connect with custom Google app', 'woocommerce-bookings' ); ?></a></p>
+				<?php else : ?>
+					<p><?php esc_html_e( 'Successfully authenticated.', 'woocommerce-bookings' ); ?></p>
+					<p class="submit"><a class="button button-primary" href="<?php echo esc_url( add_query_arg( array( 'logout' => 'true' ), $this->redirect_uri_custom ) ); ?>"><?php esc_html_e( 'Disconnect', 'woocommerce-bookings' ); ?></a></p>
+				<?php endif; ?>
+			</td>
+		</tr>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
 	 * Returns an array to feed the calendar list select input
 	 *
 	 * @return array
@@ -819,6 +926,24 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	}
 
 	/**
+	 * Validate the the id and secret.
+	 * If the integration is active and one of the fields was deleted then it means that we should log-out.
+	 *
+	 * @param string $key Current Key.
+	 * @param string $value Value of field.
+	 *
+	 * @return string
+	 */
+	public function validate_text_field( $key, $value ) {
+		if ( 'client_secret' === $key || 'client_id' === $key ) {
+			if ( $this->is_integration_active() && '' === $value ) {
+				$this->oauth_logout_custom();
+			}
+		}
+		return parent::validate_text_field( $key, $value );
+	}	
+
+	/**
 	 * Generate the Google Calendar Authorization field.
 	 *
 	 * @param  mixed $key
@@ -829,6 +954,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	public function generate_google_calendar_authorization_html( $key, $data ) {
 		$access_token  = $this->get_client()->getAccessToken();
 		$refresh_token = get_option( 'wc_bookings_gcalendar_refresh_token' );
+		$custom_oauth_active = $this->is_using_custom_connection();
 		ob_start();
 		?>
 		<tr valign="top">
@@ -836,18 +962,15 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 				<?php echo wp_kses_post( $data['title'] ); ?>
 			</th>
 			<td class="forminp">
-				<?php if ( ! $refresh_token ) : ?>
+				<?php if ( ! $refresh_token || ( $refresh_token && ! $access_token ) || $custom_oauth_active ) : ?>
 					<p class="submit">
-						<a class="button button-primary" href="<?php echo esc_attr( $this->get_google_auth_url() ); ?>">
+						<a class="button button-primary" <?php echo $custom_oauth_active ? ' disabled' : ''; ?>  href="<?php echo $custom_oauth_active ? '' : esc_attr( $this->get_google_auth_url() ); ?>">
 							<?php esc_html_e( 'Connect with Google', 'woocommerce-bookings' ); ?>
 						</a>
 					</p>
-				<?php elseif ( $access_token ) : ?>
+				<?php else : ?>
 					<p><?php esc_html_e( 'Successfully authenticated.', 'woocommerce-bookings' ); ?></p>
 					<p class="submit"><button class="button button-primary" name="<?php echo esc_attr( $this->get_field_key( $key ) ); ?>" value="logout"><?php esc_html_e( 'Disconnect', 'woocommerce-bookings' ); ?></button></p>
-				<?php else : ?>
-					<p><?php esc_html_e( 'Unable to authenticate.' ); ?></p>
-					<p class="submit"><a class="button button-primary" href="<?php echo esc_attr( $this->get_google_auth_url() ); ?>"><?php esc_html_e( 'Re-Connect with Google', 'woocommerce-bookings' ); ?></a></p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -859,7 +982,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 * Admin Options.
 	 */
 	public function admin_options() {
-		echo '<p>' . esc_html__( 'To start syncing with Google Calendar, click the "Connect with Google" button below to authorize your store to access your Google calendar.', 'woocommerce-bookings' ) . '</p>';
+		echo '<p>' . esc_html__( 'To sync with Google Calendar using an app provided by WooCommerce.com, click the "Connect with Google" button below to authorize access to your Google calendar.', 'woocommerce-bookings' ) . '</p>';
 
 		echo '<table class="form-table">';
 			$this->generate_settings_html();
@@ -901,6 +1024,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		delete_option( 'wc_bookings_gcalendar_refresh_token' );
 		delete_transient( 'wc_bookings_gcalendar_sync_token' );
 		delete_transient( 'wc_bookings_gcalendar_access_token' );
+		delete_option( 'wc_bookings_google_calendar_wooconnect_method_connection' );
 
 		// Delete legacy settings since we will resync with official app.
 		delete_option( 'wc_bookings_google_calendar_settings' );
@@ -910,7 +1034,13 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			$logger->add( $this->id, 'Left the Google Calendar App. successfully' );
 		}
 
-		return true;
+		$redirect_args = array(
+			'post_type' => 'wc_booking',
+			'page'      => 'wc_bookings_settings',
+			'tab'       => 'connection',
+		);
+		wp_redirect( add_query_arg( $redirect_args, admin_url( '/edit.php?' ) ), 301 );
+		exit;
 	}
 
 	/**
@@ -953,6 +1083,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 					'Google Oauth successful.'
 				)
 			);
+			update_option( 'wc_bookings_google_calendar_wooconnect_method_connection', true );
 		} else {
 			$this->log(
 				sprintf(
@@ -973,9 +1104,91 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	}
 
 	/**
+	 * OAuth Logout.
+	 *
+	 * @return bool
+	 */
+	protected function oauth_logout_custom() {
+		$this->log( 'Leaving the Google Calendar app...' );
+
+		$client  = $this->get_client();
+		$success = $client->revokeToken();
+
+		if ( ! $success ) {
+			$this->log( 'Failed to revoke access token.' );
+			return false;
+		}
+
+		delete_option( 'wc_bookings_gcalendar_refresh_token' );
+		delete_transient( 'wc_bookings_gcalendar_sync_token' );
+		delete_transient( 'wc_bookings_gcalendar_access_token' );
+
+		$this->log( 'Left the Google Calendar App. successfully' );
+		return true;
+	}
+
+	/**
+	 * Process the oauth redirect.
+	 *
+	 * @return void
+	 */
+	public function oauth_redirect_custom() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( __( 'Permission denied!', 'woocommerce-bookings' ) );
+		}
+
+		$redirect_args = array(
+			'post_type' => 'wc_booking',
+			'page'      => 'wc_bookings_settings',
+			'tab'       => 'connection',
+		);
+
+		// OAuth.
+		if ( isset( $_GET['code'] ) ) {
+			update_option( 'wc_bookings_google_calendar_custom_connection', true );
+			$code   = sanitize_text_field( $_GET['code'] );
+			$client = $this->get_client();
+			$client->setClientId( $this->client_id );
+			$client->setClientSecret( $this->client_secret );	
+			$access_token = $client->fetchAccessTokenWithAuthCode( $code );
+
+			if ( empty( $access_token ) ) {
+				$redirect_args['wc_gcalendar_oauth'] = 'fail';
+
+				wp_redirect( add_query_arg( $redirect_args, admin_url( '/edit.php?' ) ), 301 );
+				exit;
+			}
+
+			unset( $access_token['refresh_token'] ); // unset this since we store it in an option.
+			set_transient( 'wc_bookings_gcalendar_access_token', $access_token, self::TOKEN_TRANSIENT_TIME );
+			update_option( 'wc_bookings_gcalendar_refresh_token', $client->getRefreshToken() );
+			$redirect_args['wc_gcalendar_oauth'] = 'success';
+
+			wp_safe_redirect( add_query_arg( $redirect_args, admin_url( '/edit.php?' ) ), 301 );
+			exit;
+		}
+		if ( isset( $_GET['error'] ) ) {
+			$redirect_args['wc_gcalendar_oauth'] = 'fail';
+
+			wp_redirect( add_query_arg( $redirect_args, admin_url( '/edit.php?' ) ), 301 );
+			exit;
+		}
+
+		// Logout.
+		if ( isset( $_GET['logout'] ) ) {
+			$redirect_args['wc_gcalendar_logout'] = $this->oauth_logout_custom() ? 'success' : 'fail';
+			delete_option( 'wc_bookings_google_calendar_custom_connection' );
+			wp_redirect( add_query_arg( $redirect_args, admin_url( '/edit.php?' ) ), 301 );
+			exit;
+		}
+
+		wp_die( __( 'Invalid request!', 'woocommerce-bookings' ) );
+	}
+
+	/**
 	 * Sync new Booking with Google Calendar.
 	 *
-	 * @param  int $booking_id Booking ID.
+	 * @param int $booking_id Booking ID.
 	 *
 	 * @return void
 	 */
@@ -1556,8 +1769,10 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 * @return array
 	 */
 	private function renew_access_token( $refresh_token, $client ) {
-
-		if ( $client->getClientId() ) {
+		
+		if ( get_option( 'wc_bookings_google_calendar_custom_connection' ) ) {
+			$client->setClientId( $this->client_id );
+			$client->setClientSecret( $this->client_secret );	
 			return $client->fetchAccessTokenWithRefreshToken( $refresh_token );
 		}
 
@@ -1584,7 +1799,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		}
 		return add_query_arg(
 			array(
-				'redirect' => WC()->api_request_url( 'wc_bookings_google_calendar' ),
+				'redirect' => WC()->api_request_url( 'wc_bookings_google_calendar_wooconnect' ),
 			),
 			self::CONNECT_WOOCOMMERCE_URL . '/login/google'
 		);

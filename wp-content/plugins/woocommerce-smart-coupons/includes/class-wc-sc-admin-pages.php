@@ -349,7 +349,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 							element.find('ul li a[href="edit.php?post_type=shop_coupon"]').parent().addClass('current');
 						});
 						// Show notification about coupon CSV export
-						jQuery(window).load(function(){
+						jQuery(window).on('load', function(){
 							let target_element = jQuery('#wc_sc_coupon_background_progress');
 							let is_move = ( target_element ) ? target_element.parent().hasClass('woocommerce-layout__notice-list-hide') : false;
 							if ( true === is_move ) {

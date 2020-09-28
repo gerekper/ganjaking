@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
+$tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_display_cart : WC()->cart->get_tax_price_display_mode();
 ?>
 
 <?php if ( ! $is_ajax ) : ?><div id="order_review" class="opc_order_review"><?php endif; ?>
@@ -100,7 +100,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</tr>
 			<?php endforeach; ?>
 
-			<?php if ( WC()->cart->tax_display_cart === 'excl' ) : ?>
+			<?php if ( $tax_display_mode === 'excl' ) : ?>
 				<?php if ( get_option( 'woocommerce_tax_total_display' ) === 'itemized' ) : ?>
 					<?php foreach ( WC()->cart->get_tax_totals() as $code => $tax ) : ?>
 						<tr class="tax-rate tax-rate-<?php echo sanitize_title( $code ); ?>">

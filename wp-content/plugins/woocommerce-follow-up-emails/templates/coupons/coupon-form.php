@@ -270,7 +270,7 @@ else
 		// TABS
 		$('ul.coupon_data_tabs').show();
 		$('div.panel-wrap').each(function(){
-			$(this).find('div.panel:not(:first)').hide();
+			$(this).find('div.panel').slice(1).hide();
 		});
 		$('#coupon_options').on("click", "ul.coupon_data_tabs a", function(){
 			var panel_wrap =  $(this).closest('div.panel-wrap');

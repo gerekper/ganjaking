@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Loads admin tabs and adds related hooks / filters.
  *
- * @version  1.7.3
+ * @version  1.8.5
  */
 class WC_CSP_Admin {
 
@@ -49,6 +49,9 @@ class WC_CSP_Admin {
 		// Admin scripts.
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 11 );
 
+		// Add body class for WP 5.3 compatibility.
+		add_filter( 'admin_body_class', array( __CLASS__, 'include_admin_body_class' ) );
+
 		/*
 		 * Product Settings.
 		 */
@@ -69,6 +72,9 @@ class WC_CSP_Admin {
 		} else {
 			add_action( 'woocommerce_process_product_meta', array( $this, 'process_product_meta' ) );
 		}
+
+		// Add a notice if product-level restrictions are disabled.
+		add_action( 'admin_notices', array( $this, 'maybe_add_disabled_restrictions_notice' ), 0 );
 
 		/*
 		 * Global Settings.
@@ -100,9 +106,6 @@ class WC_CSP_Admin {
 
 		// Dismiss notices.
 		add_action( 'wp_ajax_woocommerce_dismiss_csp_notice', array( __CLASS__ , 'dismiss_notice' ) );
-
-		// Add body class for WP 5.3 compatibility.
-		add_filter( 'admin_body_class', array( __CLASS__, 'include_admin_body_class' ) );
 	}
 
 	/**
@@ -525,6 +528,44 @@ class WC_CSP_Admin {
 
 		// Clear cached shipping rates.
 		WC_CSP_Core_Compatibility::clear_cached_shipping_rates();
+	}
+
+	/**
+	 * Add a notice if product-level restrictions are globally disabled.
+	 *
+	 * @return void
+	 */
+	public function maybe_add_disabled_restrictions_notice() {
+
+		global $post_id;
+
+		// Get admin screen ID.
+		$screen    = get_current_screen();
+		$screen_id = $screen ? $screen->id : '';
+
+		if ( 'product' !== $screen_id ) {
+			return;
+		}
+
+		$disable_restrictions = 'yes' === get_option( 'wccsp_restrictions_disable_product', false );
+
+		if ( ! $disable_restrictions ) {
+			return;
+		}
+
+		$restrictions = get_post_meta( $post_id, '_wccsp_restrictions', true );;
+
+		if ( ! $restrictions ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return;
+		}
+
+		$enable_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=wc-settings&tab=restrictions#wccsp_restrictions_debug-description' ), __( 're-enable product-level restrictions', 'woocommerce-conditional-shipping-and-payments' ) );
+
+		WC_CP_Admin_Notices::add_notice( sprintf( __( 'Product restrictions are currently disabled globally. You can still edit, create and delete rules under <strong>Product Data > Restrictions</strong> &ndash; however, they will have no effect until you %s.', 'woocommerce-conditional-shipping-and-payments' ), $enable_link ), 'warning', false );
 	}
 
 	/**

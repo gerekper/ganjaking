@@ -34,5 +34,6 @@ if ( !$wp_filesystem->delete( $_dir .'/'. $file ) ) {
 	return;
 }
 
-show_message( sprintf( __('Template <b>%s</b> uninstalled!', 'follow_up_emails'), $tpl->name ) );
-show_message( '<a href="admin.php?page=followup-emails-templates">'. __('Go back', 'follow_up_emails') .'</a>');
+/* translators: %s template name */
+show_message( sprintf( __( 'Removed template %s', 'follow_up_emails' ), $tpl->name ) );
+show_message( '<a href="admin.php?page=followup-emails-templates">' . __( 'Go back', 'follow_up_emails' ) . '</a>' );

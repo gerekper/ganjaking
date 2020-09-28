@@ -4,11 +4,11 @@ jQuery( function ( $ ) {
         'booking_status_paid', 'booking_status_cancelled', 'booking_status_complete'
     ];
 
-    $("body").bind("fue_email_type_changed", function(evt, type) {
+    $("body").on("fue_email_type_changed", function(evt, type) {
         wc_bookings_toggle_fields(type);
     });
 
-    $("body").bind("updated_email_details", function() {
+    $("body").on("updated_email_details", function() {
         $(".show-if-booking-status").hide();
         $(".wc-bookings-selector").show();
 

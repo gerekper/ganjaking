@@ -44,7 +44,7 @@ $custom_tag = 'script';
 							data-vc-done-txt="<?php esc_attr_e( 'Done', 'js_composer' ); ?>"><?php esc_html_e( 'Reset', 'js_composer' ); ?></a>
 
 					<p
-							class="description indicator-hint"><?php esc_html_e( 'Guide tours are shown in VC editors to help you to start working with editors. You can see them again by clicking button above.', 'js_composer' ); ?></p>
+							class="description indicator-hint"><?php esc_html_e( 'Guide tours are shown in WPBakery editors to help you to start working with editors. You can see them again by clicking button above.', 'js_composer' ); ?></p>
 				</td>
 			</tr>
 		</table>

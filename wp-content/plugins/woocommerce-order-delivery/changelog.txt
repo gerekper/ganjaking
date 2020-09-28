@@ -1,5 +1,9 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2020.09.14 - version 1.7.1
+* Tweak - Tested compatibility with WC 4.5.
+* Tweak - Tested compatibility with WP 5.5.
+
 2020.07.23 - version 1.7.0
 * Feature - Define different delivery ranges for shipping methods.
 * Tweak - Enqueue minified Javascript files.

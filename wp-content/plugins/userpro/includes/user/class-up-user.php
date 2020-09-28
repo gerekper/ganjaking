@@ -191,14 +191,46 @@ class UP_User extends UP_Data
                 }
                 $body .= '</div>';
             } else {
-                $body .= '<div class="up-value">' . $field['value'] . '</div>';
+                if($field['type'] == 'datepicker' && userpro_get_option('date_to_age') == 1){
+                    $body .= '<div class="up-value">' . $this->date_to_age($field['value']) . '</div>';
+                }
+                else{
+                    $body .= '<div class="up-value">' . $field['value'] . '</div>';
+                }
             }
             $body .= '</div>';
         }
 
         return $body;
     }
+    function date_to_age($dt) {
+        $format = '';
+        $date_format = explode('-',userpro_get_option('date_format'));
+        foreach($date_format as $f){
+            if($f == 'yy'){
+                $format .= substr(strtoupper($f), 1) . '-';
+            }
+            else{
+                $format .= substr($f, 1) . '-';
+            }
+        }
+        $format = rtrim($format, '-');
+        try{
+            $start = DateTime::createFromFormat($format, date($format));
+            $end   = DateTime::createFromFormat($format, $dt);
+            if(!isset($start->diff( $end )->y) ){
+                $diff .= $dt;
+            }
+            else{
+                $diff  .= $start->diff( $end )->y;
+            }
+        }
+        catch(Exception $ex){
+            $diff = $dt;
+        }
 
+        return $diff;
+    }
     /**
      * Add to visible fields array
      *

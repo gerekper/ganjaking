@@ -1,10 +1,10 @@
 jQuery( function( $ ) {
 
-    $("body").bind("updated_variables_list", function() {
+    $("body").on("updated_variables_list", function() {
         twitter_toggle_variables( $("#email_type").val() );
     });
 
-    $("body").bind("updated_email_type", function() {
+    $("body").on("updated_email_type", function() {
         if ( $("#email_type").val() == 'twitter' ) {
             // hide the WP editor and show the simple twitter textarea
             $("#postdivrich").hide();
@@ -23,7 +23,7 @@ jQuery( function( $ ) {
         }
     });
 
-    $("body").bind("updated_email_details", function() {
+    $("body").on("updated_email_details", function() {
         twitter_toggle_fields( $("#email_type").val() );
     });
 
@@ -41,7 +41,7 @@ jQuery( function( $ ) {
 
         if ( count > limit ) {
             var trimmed = $("#twitter_content").val().substr( 0, limit );
-            
+
             $("#twitter_content").val( trimmed );
             count = $("#twitter_content").val().length;
         }

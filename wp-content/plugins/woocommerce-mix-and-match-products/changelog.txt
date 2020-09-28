@@ -1,5 +1,13 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2020.09.09 - version 1.10.2
+* Update: Tested up to WooCommerce 4.5.0.
+* New: add has_options() method to product class for better compat with blocks.
+* Fix: Elementor style rule, force Elementor to display MNM form as a block instead of flex layout.
+
+2020.08.25 - version 1.10.1
+* Fix: Validate stock against quantity already in the cart.
+
 2020.07.24 - version 1.10.0
 * IMPORTANT: Includes a Database update so please make a database backup before proceeding.
 * New: REST API support for Mix and Match properties in product and order responses.

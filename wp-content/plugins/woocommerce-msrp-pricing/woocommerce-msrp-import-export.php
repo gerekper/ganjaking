@@ -53,7 +53,7 @@ class WoocommerceMsrpImportExport {
 	public function add_default_mapping_columns( $mappings ) {
 		$fields = $this->generate_column_list();
 		foreach ( $fields as $k => $v ) {
-			$mappings[ $v ] = $k;
+			$mappings[ $v ]               = $k;
 			$mappings[ strtolower( $v ) ] = $k;
 		}
 		return $mappings;
@@ -79,7 +79,7 @@ class WoocommerceMsrpImportExport {
 	 * @return WC_Product          The product with updates applied.
 	 */
 	public function process_import( $object, $data ) {
-		$fields       = $this->generate_column_list();
+		$fields = $this->generate_column_list();
 		foreach ( array_keys( $fields ) as $key ) {
 			if ( ! isset( $data[ $key ] ) ) {
 				continue;
@@ -101,6 +101,8 @@ class WoocommerceMsrpImportExport {
 	 *
 	 * @return string                The value of the key for this product, or
 	 *                               empty string.
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function render_column_msrp_price( $key, $product ) {
 		if ( 'variation' === $product->get_type() ) {

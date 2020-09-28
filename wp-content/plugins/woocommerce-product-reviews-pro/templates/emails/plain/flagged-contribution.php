@@ -44,7 +44,7 @@ printf( esc_html__( 'Hello, a %1$s flagged a %2$s on %3$s as inappropriate and t
 
 if ( $flag->has_reason() ) {
 	/* translators: Placeholder: %s - reason given for flagging a contribution as inappropriate */
-	printf( esc_html__( 'Reason given: "%s"', 'woocommerce-product-reviews-pro' ) . "\n\n", $flag->get_reason() );
+	printf( esc_html__( 'Reason given: "%s"', 'woocommerce-product-reviews-pro' ) . "\n\n", esc_html( $flag->get_reason() ) );
 }
 
 /* translators: Placeholders: %1$s - the contribution type name, %2$s - URL to the contribution's admin edit screen */

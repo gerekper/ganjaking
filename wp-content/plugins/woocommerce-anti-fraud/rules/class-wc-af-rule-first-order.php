@@ -28,33 +28,10 @@ class WC_AF_Rule_First_Order extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
+
 		global $wpdb;
 		$risk = false;
-		$pending_status = get_option('wc_af_first_order_custom');
-		if($pending_status == 'yes'){
-        $order_amount =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
- 			FROM $wpdb->postmeta PM
- 			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
- 			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ( 'wc-" . implode( "','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array( 'completed','processing' ) ) ) . "' ) ;",  $order->get_billing_email() )); 
-			
-		$order_count =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
- 			FROM $wpdb->postmeta PM
- 			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
- 			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ( 'wc-" . implode( "','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array( 'completed','processing','pending','on-hold' ) ) ) . "' ) ;",  $order->get_billing_email() )); 
-			
-		/* $order_amount = $wpdb->get_var($wpdb->prepare("SELECT COUNT(P.ID) FROM $wpdb->postmeta PM INNER JOIN $wpdb->posts P ON P.ID = PM.post_id WHERE PM.meta_key = '_billing_email' AND PM.meta_value =".$order->get_billing_email()." AND P.post_type = 'shop_order' AND P.post_status IN ( 'wc-completed' )")); */
-			
-		// Risk is true if order amount is smaller than 2
-		if ( ($order_amount < 1) && ($order_count == 1)) {
-			$risk = true;
-		}elseif(($order_amount < 1) && ($order_count > 1)){
-			parent::__construct( 'first_order', "Customer has ordered before, but has never completed their order", $this->rule_weight );
-			$risk = true;
-			
-		}
-	}
+
 		$order_amount =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id

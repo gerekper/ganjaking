@@ -639,7 +639,7 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 		} else if(!empty($_REQUEST['custom_uri']) && !empty($_REQUEST['element_id'])) {
 			$is_duplicated = Permalink_Manager_Helper_Functions::is_uri_duplicated($uri, $element_id);
 
-			echo ($is_duplicated) ? $duplicate_alert : 0;;
+			echo ($is_duplicated) ? $duplicate_alert : 0;
 		}
 
 		die();

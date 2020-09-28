@@ -29,6 +29,7 @@ require_once( wc_memberships()->get_plugin_path() . '/includes/functions/wc-memb
 require_once( wc_memberships()->get_plugin_path() . '/includes/functions/wc-memberships-functions-orders.php' );
 require_once( wc_memberships()->get_plugin_path() . '/includes/functions/wc-memberships-functions-membership-plans.php' );
 require_once( wc_memberships()->get_plugin_path() . '/includes/functions/wc-memberships-functions-user-memberships.php' );
+require_once( wc_memberships()->get_plugin_path() . '/includes/functions/wc-memberships-functions-profile-fields.php' );
 
 // load template functions (loaded everywhere as we may need to use them in AJAX or Email contexts)
 require_once( wc_memberships()->get_plugin_path() . '/includes/functions/wc-memberships-functions-restrictions.php' );

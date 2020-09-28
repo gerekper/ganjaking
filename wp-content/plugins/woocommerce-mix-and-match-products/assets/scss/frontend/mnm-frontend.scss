@@ -191,3 +191,9 @@
 		margin: 0 0 1.5em;
 	}
 }
+
+
+// Elementor fix for flex styles.
+.woocommerce div.product.elementor form.cart.mnm_form {
+	display: block !important;
+}

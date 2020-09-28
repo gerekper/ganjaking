@@ -230,6 +230,12 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 					'type' => 'checkbox',
 					'id' => 'i13_recapcha_enable_on_logincheckout'
 					),
+					'i13_recapcha_enable_on_payfororder' => array(
+					'name' => __('Enable Recaptcha on Pay For Order', 'recaptcha-for-woocommerce'),
+					'type' => 'checkbox',
+					'id' => 'i13_recapcha_enable_on_payfororder',
+										 'desc' => __('WooCommerce allow faild order to pay again. In this case captcha must be needed to prevent fraud', 'recaptcha-for-woocommerce'),   
+					),
 					'i13_recapcha_guestcheckout_title' => array(
 					'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
 					'type' => 'text',
@@ -281,6 +287,26 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 					'type' => 'checkbox',
 					'id' => 'i13_recapcha_disable_submitbtn_logincheckout'
 					),
+										'i13_recapcha_disable_submitbtn_payfororder' => array(
+					'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
+										'desc' => __('Disable submit button until recaptcha validate for pay for order.', 'recaptcha-for-woocommerce'),    
+					'type' => 'checkbox',
+					'id' => 'i13_recapcha_disable_submitbtn_payfororder'
+					),
+															'i13_recapcha_guest_recpacha_refersh_on_error' => array(
+					'name' => __('Refresh captcha on guest checkout error', 'recaptcha-for-woocommerce'),
+										'desc' => __('Refresh captcha on guest checkout error', 'recaptcha-for-woocommerce'),    
+					'type' => 'checkbox',
+					'id' => 'i13_recapcha_guest_recpacha_refersh_on_error'
+					),
+																				'i13_recapcha_login_recpacha_refersh_on_error' => array(
+					'name' => __('Refresh captcha on login checkout error', 'recaptcha-for-woocommerce'),
+										'desc' => __('Refresh captcha on login checkout error', 'recaptcha-for-woocommerce'),    
+					'type' => 'checkbox',
+					'id' => 'i13_recapcha_login_recpacha_refersh_on_error'
+					),
+											
+										  
 					array(
 					'type' => 'sectionend',
 					'id' => 'wc_settings_tab_recapcha_guestcheckout',

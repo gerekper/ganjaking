@@ -39,7 +39,7 @@ class Vc_Vendor_QtranslateX {
 	public function enqueueJsBackend() {
 		wp_enqueue_script( 'vc_vendor_qtranslatex_backend', vc_asset_url( 'js/vendors/qtranslatex_backend.js' ), array(
 			'vc-backend-min-js',
-			'jquery',
+			'jquery-core',
 		), '1.0', true );
 	}
 
@@ -59,7 +59,7 @@ class Vc_Vendor_QtranslateX {
 	public function enqueueJsFrontend() {
 		wp_enqueue_script( 'vc_vendor_qtranslatex_frontend', vc_asset_url( 'js/vendors/qtranslatex_frontend.js' ), array(
 			'vc-frontend-editor-min-js',
-			'jquery',
+			'jquery-core',
 		), '1.0', true );
 	}
 

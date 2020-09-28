@@ -187,10 +187,10 @@ class FUE_Front_Handler {
 
 		$data = array(
 			'test'             => true,
-			'username'         => '75nineteen',
-			'first_name'       => '75nineteen',
-			'last_name'        => 'Media',
-			'cname'            => '75nineteen Media',
+			'username'         => 'johndoe',
+			'first_name'       => 'John',
+			'last_name'        => 'Doe',
+			'cname'            => 'John Doe',
 			'user_id'          => '0',
 			'order_id'         => '',
 			'product_id'       => '',

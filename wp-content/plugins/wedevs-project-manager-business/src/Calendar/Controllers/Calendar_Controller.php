@@ -18,14 +18,50 @@ class Calendar_Controller {
 
     public $all_users = [];
 
+    private function filter_users( $param_users, $project ) {
+        if ( empty( $project ) ) {
+            return [];
+        }
+
+        $project_users   = empty( $project['assignees']['data'] ) ? [] : $project['assignees']['data'];
+        $project_users   = wp_list_pluck( $project_users, 'id' );
+        $param_users     = pm_get_prepare_data( $param_users );
+        $filtered_users  = array_intersect($project_users, $param_users);
+        $current_user_id = get_current_user_id();
+
+        if ( count( $param_users ) &&  empty( $filtered_users ) ) {
+            return [];
+        }
+
+        if ( empty( $filtered_users ) ) {
+
+            if ( in_array( $current_user_id, $project_users ) ) {
+                return $project_users;
+            }
+
+            if ( pm_has_manage_capability() ) {
+                return $project_users;
+            }
+
+            if ( pm_is_manager( $project['id'] ) ) {
+                return $project_users;
+            }
+        }
+
+        return $filtered_users;
+    }
+
     public function index( WP_REST_Request $request ) {
         global $wpdb;
 
         $project_id    = $request->get_param( 'project_id' );
+        $project       = pm_get_projects( ['id' => $project_id, 'with' => 'assignees'] );
+        $project       = empty( $project['data'] ) ? [] : $project['data'];
         $start         = $request->get_param( 'start' );
         $end           = $request->get_param( 'end' );
         $events        = [];
-        $users         = $request->get_param( 'users' );
+        $users         = $this->filter_users( $request->get_param( 'users' ), $project );
+        $users         = empty( $users ) ? [0] : $users;
         $user_id       = get_current_user_id();
         $tb_tasks      = pm_tb_prefix() . 'pm_tasks';
         $tb_boards     = pm_tb_prefix() . 'pm_boards';
@@ -49,41 +85,16 @@ class Calendar_Controller {
         $boards_id  = implode( ',', $boards_id );
         $boards_id  = empty( $boards_id ) ? 0 : $boards_id;
 
-        //Before
-        // if ( ! empty( $project_ids ) ) {
-        //     $project_ids = implode( ',', $project_ids );
-        //     $where_projec_ids = " AND pj.id IN ($project_ids)";
-        // } else {
-        //     $where_projec_ids = '';
-        // }
-
         if ( empty( $project_id ) ) {
             $where_projec_ids = "";
         } else {
             $where_projec_ids = "AND pj.id IN ($project_id)";
         }
 
-        //Before
-        // if ( ! empty( $users ) && is_array( $users ) ) {
-        //     $users = implode( ',', $users );
-        //     $where_users = " AND asin.assigned_to IN ($users)";
-        // } else if ( ! empty( $users ) && !is_array( $users ) ) {
-        //     $users = [$users];
-        //     $users = implode( ',', $users );
-        //     $where_users = " AND asin.assigned_to IN ($users)";
-        // } else {
-        //     $users = get_current_user_id();
-        //     $where_users = " AND asin.assigned_to IN ($users)";
-        // }
 
-        if ( empty( $users ) ) {
-            $where_users = '';
-        } else {
-            $users = pm_get_prepare_data( $users );
-            $users = implode( ',', $users );
+        $users = implode( ',', $users );
+        $where_users = " AND asin.assigned_to IN ($users)";
 
-            $where_users = " AND asin.assigned_to IN ($users)";
-        }
 
         if ( pm_has_manage_capability() ) {
             $where_users = '';
@@ -423,7 +434,14 @@ class Calendar_Controller {
             }
 
             $milestone->privacy  = $this->get_privacy_meta_value( $milestone->milestone_meta );
-            $milestone->settings      = $this->get_settings_value( $milestone->settings );
+            $milestone->settings = $this->get_settings_value( $milestone->settings );
+
+            if ( empty( $milestone->settings ) ) {
+                $milestone->settings = [
+                    'co_worker' => pm_default_co_caps(),
+                    'client' => pm_default_client_caps()
+                ];
+            }
 
             if ( ! $this->milestone_view_permission(
                 $has_manage_cap,
@@ -477,16 +495,21 @@ class Calendar_Controller {
         $settings
     ) {
 
-        if ( $has_manage_cap ||  $role == 1 ) {
+        if ( ! empty( (int)$has_manage_cap ) ) {
             return true;
         }
 
-        if ( $list_privacy == 1 ) {
+        if ( $role == 1 )  {
+            return true;
+        }
+
+        if ( $milestone_privacy == 1 ) {
             if ( $role == 2 ) {
+
                 if (
-                    ! empty( $settings['co_worker'] )
-                    &&
-                    ! $settings['co_worker']['view_private_milestone']
+                    $settings['co_worker']['view_private_milestone'] == 'false'
+                        ||
+                    empty( $settings['co_worker']['view_private_milestone'] )
                 ) {
                     return false;
                 }
@@ -494,9 +517,9 @@ class Calendar_Controller {
 
             if ( $role == 3 ) {
                 if (
-                    ! empty( $settings['client'] )
-                    &&
-                    ! $settings['client']['view_private_milestone']
+                    $settings['client']['view_private_milestone'] == 'false'
+                        ||
+                    empty( $settings['client']['view_private_milestone'] )
                 ) {
                     return false;
                 }
@@ -567,13 +590,20 @@ class Calendar_Controller {
             $event->settings      = $this->get_settings_value( $event->settings );
             $event->project_title = $this->get_project_title( $event->project );
 
+            if ( empty( $event->settings ) ) {
+                $event->settings = [
+                    'co_worker' => pm_default_co_caps(),
+                    'client' => pm_default_client_caps()
+                ];
+            }
 
             if ( ! $this->has_view_permission(
                     $has_manage_cap,
                     $role,
                     $event->list_privacy,
                     $event->task_privacy,
-                    $event->settings
+                    $event->settings,
+                    $event->assignees
                 )
             ) {
                 continue;
@@ -635,19 +665,32 @@ class Calendar_Controller {
         $role,
         $list_privacy,
         $task_privacy,
-        $settings
+        $settings,
+        $assignees
     ) {
 
-        if ( $has_manage_cap ||  $role == 1 ) {
+        $current_user_id = get_current_user_id();
+
+        if ( ! empty( (int)$has_manage_cap ) ) {
+            return true;
+        }
+
+        if ( $role == 1 )  {
+            return true;
+        }
+
+        $assignees = wp_list_pluck( $assignees['data'], 'id' );
+
+        if ( in_array( $current_user_id, $assignees ) ) {
             return true;
         }
 
         if ( $list_privacy == 1 ) {
             if ( $role == 2 ) {
                 if (
-                    ! empty( $settings['co_worker'] )
-                    &&
-                    ! $settings['co_worker']['view_private_list']
+                    $settings['co_worker']['view_private_list'] == 'false'
+                        ||
+                    empty( $settings['co_worker']['view_private_list'] )
                 ) {
                     return false;
                 }
@@ -655,9 +698,9 @@ class Calendar_Controller {
 
             if ( $role == 3 ) {
                 if (
-                    ! empty( $settings['client'] )
-                    &&
-                    ! $settings['client']['view_private_list']
+                    $settings['client']['view_private_list'] == 'false'
+                        ||
+                    empty( $settings['client']['view_private_list'] )
                 ) {
                     return false;
                 }
@@ -666,10 +709,11 @@ class Calendar_Controller {
 
         if ( $task_privacy == 1 ) {
             if ( $role == 2 ) {
+
                 if (
-                    ! empty( $settings['co_worker'] )
-                    &&
-                    ! $settings['co_worker']['view_private_task']
+                    $settings['co_worker']['view_private_task'] == 'false'
+                        ||
+                    empty( $settings['co_worker']['view_private_task'] )
                 ) {
                     return false;
                 }
@@ -677,9 +721,9 @@ class Calendar_Controller {
 
             if ( $role == 3 ) {
                 if (
-                    ! empty( $settings['client'] )
-                    &&
-                    ! $settings['client']['view_private_task']
+                    $settings['client']['view_private_task'] == 'false'
+                        ||
+                    empty( $settings['client']['view_private_task'] )
                 ) {
                     return false;
                 }
@@ -838,6 +882,56 @@ class Calendar_Controller {
     }
 
     public function get_projects( WP_REST_Request $request ) {
+
+        $has_manage_cap = pm_has_manage_capability();
+
+        if ( $has_manage_cap ) {
+            $projects = pm_get_projects(
+                [
+                 'status' => 'incomplete',
+                 'with' => 'assignees'
+                ]
+            );
+        } else {
+            $projects = pm_get_projects(
+                [
+                    'status' => 'incomplete',
+                    'inUsers' => get_current_user_id(),
+                    'with' => 'assignees'
+                ]
+            );
+        }
+
+        $users = [];
+
+        foreach ( $projects['data'] as $key => $project ) {
+            if ( empty( $project['assignees']['data'] ) ) {
+                continue;
+            }
+
+            foreach ( $project['assignees']['data'] as $key => $user ) {
+                $users[$user->id] = $user;
+            }
+        }
+
+        wp_send_json_success(
+            [
+                'projects'        => $projects['data'],
+                'users'         => $users,
+                'has_manage_cap'  => $has_manage_cap,
+                'current_user'    => wp_get_current_user(),
+                'current_user_id' => get_current_user_id(),
+            ]
+        );
+
+        exit();
+
+
+
+
+
+
+
         global $wpdb;
 
         $per_page               = $request->get_param( 'per_page' );

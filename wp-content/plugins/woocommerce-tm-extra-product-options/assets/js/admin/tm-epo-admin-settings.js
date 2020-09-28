@@ -20,7 +20,6 @@
 				action: 'tm_' + action + '_license',
 				username: $( '#tm_epo_envato_username' ).val(),
 				key: $( '#tm_epo_envato_purchasecode' ).val(),
-				api_key: $( '#tm_epo_envato_apikey' ).val(),
 				security: TMEPOADMINSETTINGSJS.settings_nonce
 			};
 			$.post(

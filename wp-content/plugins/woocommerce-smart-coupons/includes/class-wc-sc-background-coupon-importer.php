@@ -330,15 +330,13 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 				</div>
 				<script type="text/javascript">
 					jQuery(function(){
-						jQuery(document).ready(function() {
-							jQuery('#generate_and_import').addClass('disabled')
-							.attr( 'data-tip', '<?php echo esc_js( __( 'Bulk generation is disabled since uploads directory is not writable. Please ensure uploads directory is writable before starting bulk generate process.', 'woocommerce-smart-coupons' ) ); ?>' )
-							.tipTip({
-								'attribute': 'data-tip',
-								'fadeIn':    50,
-								'fadeOut':   50,
-								'delay':     100
-							});
+						jQuery('#generate_and_import').addClass('disabled')
+						.attr( 'data-tip', '<?php echo esc_js( __( 'Bulk generation is disabled since uploads directory is not writable. Please ensure uploads directory is writable before starting bulk generate process.', 'woocommerce-smart-coupons' ) ); ?>' )
+						.tipTip({
+							'attribute': 'data-tip',
+							'fadeIn':    50,
+							'fadeOut':   50,
+							'delay':     100
 						});
 					});
 				</script>

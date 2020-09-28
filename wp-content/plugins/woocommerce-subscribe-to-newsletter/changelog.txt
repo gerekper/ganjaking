@@ -1,5 +1,8 @@
 *** Subscribe to Newsletter Changelog ***
 
+2020-09-02 - version 2.9.1
+* Fix - Fixed limit of list retrieved by Mailchimp API.
+
 2020-07-01 - version 2.9.0
 * Tweak - Moved the subscription field after the terms and conditions in the checkout form.
 * Tweak - Hidden the tag (optional) from the subscription field.

@@ -165,11 +165,12 @@ class WoocommerceGpfCommon {
 					'feed_types'  => [ 'google', 'googlelocalproducts' ],
 				],
 				'color'                               => [
-					'desc'            => __( 'Colour', 'woocommerce_gpf' ),
-					'full_desc'       => __( "Item's Colour", 'woocommerce_gpf' ),
-					'feed_types'      => [ 'google', 'googlelocalproducts' ],
-					'can_prepopulate' => true,
-					'google_len'      => 100,
+					'desc'                 => __( 'Colour', 'woocommerce_gpf' ),
+					'full_desc'            => __( "Item's Colour", 'woocommerce_gpf' ),
+					'feed_types'           => [ 'google', 'googlelocalproducts' ],
+					'can_prepopulate'      => true,
+					'google_len'           => 100,
+					'google_single_output' => ' / ',
 				],
 				'size'                                => [
 					'desc'            => __( 'Size', 'woocommerce_gpf' ),
@@ -665,13 +666,12 @@ class WoocommerceGpfCommon {
 		$options = [];
 		if ( 'description' === $key ) {
 			$options = $this->get_description_prepopulate_options();
-		} else {
-			$options = array_merge( $options, $this->get_available_taxonomies() );
-			$options = array_merge( $options, $this->get_prepopulate_fields() );
-			$options = array_merge( $options, $this->get_prepopulate_meta() );
 		}
+		$options = array_merge( $options, $this->get_available_taxonomies() );
+		$options = array_merge( $options, $this->get_prepopulate_fields() );
+		$options = array_merge( $options, $this->get_prepopulate_meta() );
 
-		return $options;
+		return apply_filters( 'woocommerce_gpf_prepopulate_options', $options, $key );
 	}
 
 	/**
@@ -896,18 +896,20 @@ class WoocommerceGpfCommon {
 	 */
 	public function get_description_prepopulate_options() {
 		return [
-			'description:fullvar'  =>
-				__( 'Main product description (full preferred) plus variation description.', 'woo_gpf' ),
-			'description:shortvar' =>
-				__( 'Main product description (short preferred) plus variation description.', 'woo_gpf' ),
-			'description:full'     =>
-				__( 'Main product description only (full preferred.)', 'woo_gpf' ),
-			'description:short'    =>
-				__( 'Main product description only (short preferred.)', 'woo_gpf' ),
-			'description:varfull'  =>
-				__( 'Variation description only, fallback to main description (full preferred).', 'woo_gpf' ),
-			'description:varshort' =>
-				__( 'Variation description only, fallback to main description (short preferred).', 'woo_gpf' ),
+			'disabled:descriptions' =>
+				__( '- Descriptions -', 'woo_gpf' ),
+			'description:fullvar'   =>
+				__( 'Main product description (full preferred) plus variation description', 'woo_gpf' ),
+			'description:shortvar'  =>
+				__( 'Main product description (short preferred) plus variation description', 'woo_gpf' ),
+			'description:full'      =>
+				__( 'Main product description only (full preferred)', 'woo_gpf' ),
+			'description:short'     =>
+				__( 'Main product description only (short preferred)', 'woo_gpf' ),
+			'description:varfull'   =>
+				__( 'Variation description only, fallback to main description (full preferred)', 'woo_gpf' ),
+			'description:varshort'  =>
+				__( 'Variation description only, fallback to main description (short preferred)', 'woo_gpf' ),
 		];
 	}
 

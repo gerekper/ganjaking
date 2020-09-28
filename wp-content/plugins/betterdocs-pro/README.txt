@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.5
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,6 +91,10 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
+= 1.3.2 - 09/09/2020 =
+- Fixed: 'Undefined Variables: Reactions' PHP error
+- Few minor bugfix and improvements 
+
 = 1.3.1 - 20/08/2020 =
 - Added: Order & Icon Change options for Each KBs
 - Fixed: Collapsible TOC not working for responsive devices
@@ -107,7 +111,7 @@ Yes, it will work with any standard WordPress theme.
 = 1.2.8 - 10/06/2020 =
 - Fixed: 'WP is not defined' error when using Instant Answers in external website
 - Improvement: Added more translatable strings
-- Fixed: Article sequence issue with Drag & Drop Builder
+- Fixed: Docs sequence issue with Drag & Drop Builder
 - Few minor bug fix and improvements
 
 = 1.2.7 - 15/04/2020 =
@@ -138,7 +142,7 @@ Yes, it will work with any standard WordPress theme.
 
 = 1.2.1 - 28/01/2020 =
 - Added: Nested subcategory
-- Fixed: Article ordering issue
+- Fixed: Docs ordering issue
 - Fixed: Archive page templating issue
 - Few minor bugfix and improvements
 
@@ -157,11 +161,11 @@ Yes, it will work with any standard WordPress theme.
 
 = 1.1.4 - 17/12/2019 =
 - Fixed : No article shows when there's no category
-- Improved : Single Article Layouts
+- Improved : Single Docs Layouts
 
 = 1.1.3 - 04/12/2019 =
 - Fixed : Single Layout 3 counter issue
-- Improved : Article printing
+- Improved : Docs printing
 
 = 1.1.2 - 03/12/2019 =
 - Added : Instant Answer Live editing
@@ -172,14 +176,14 @@ Yes, it will work with any standard WordPress theme.
 - Few minor bugfix and improvements
 
 = 1.1.1 - 13/11/2019 =
-- Added : Dark Mode for Article Organizer
+- Added : Dark Mode for Docs Organizer
 - Fixed : Analytics Count issue
 - Few minor bugfix and improvements
 
 = 1.1.0 - 12/11/2019 =
 
 - Added : Easy Setup Wizard
-- Added : New Layouts for Docs and Articles
+- Added : New Layouts for Docs
 - Added : Social share buttons
 - Improved : Options Page with tabbed navigation
 - Lots of bugfix and improvements

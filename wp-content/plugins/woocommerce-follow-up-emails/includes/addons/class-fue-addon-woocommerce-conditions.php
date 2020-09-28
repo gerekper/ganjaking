@@ -504,10 +504,10 @@ class FUE_Addon_Woocommerce_Conditions {
 	 * @return bool|WP_Error
 	 */
 	public function test_shipping_method( $item, $condition ) {
-		$order      = WC_FUE_Compatibility::wc_get_order( $item->order_id );
-		$methods    = $order->get_shipping_methods();
-		$value      = $condition['shipping_method'];
-		$result     = false;
+		$order   = WC_FUE_Compatibility::wc_get_order( $item->order_id );
+		$methods = $order ? $order->get_shipping_methods() : array();
+		$value   = $condition['shipping_method'];
+		$result  = false;
 
 		$method_names = array();
 

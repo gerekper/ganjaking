@@ -52,6 +52,7 @@ class Permalink_Manager_Permastructs extends Permalink_Manager_Class {
 
 		// 3. Append fields for all post types
 		foreach($all_post_types as $post_type) {
+			if($post_type['name'] == 'shop_coupon') { continue; }
 
 			$fields["post_types"]["fields"][$post_type['name']] = array(
 				'label' => $post_type['label'],

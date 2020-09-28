@@ -381,7 +381,6 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		add_action( 'template_redirect', array( $this, 'init_vars' ), 1 );
 
 		// Force Select Options 
-		add_filter( 'woocommerce_add_to_cart_url', array( $this, 'add_to_cart_url' ), 50, 1 );
 		add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'add_to_cart_url' ), 50, 1 );
 		add_action( 'woocommerce_product_add_to_cart_text', array( $this, 'add_to_cart_text' ), 10, 1 );
 		add_filter( 'woocommerce_cart_redirect_after_error', array( $this, 'woocommerce_cart_redirect_after_error' ), 50, 2 );
@@ -1536,7 +1535,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	public function tm_post_class( $classes = "" ) {
 
 		$post_id = get_the_ID();
-
+		
 		if (
 			// disable in admin interface
 			is_admin() ||
@@ -1566,17 +1565,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		) {
 			return $classes;
 		}
-
-		if ($this->tm_epo_enable_in_shop == "no"){
-			return $classes;
-		}
-
+		
 		// enabling "global $post;" here will cause issues on certain Visual composer shortcodes.
 
 		if ( $post_id && ( $this->wc_vars['is_product'] || 'product' == get_post_type( $post_id ) ) ) {
 
 			$has_epo = THEMECOMPLETE_EPO_API()->has_options( $post_id );
-
 
 			// Product has styled variations
 			if ( ! empty( $has_epo['variations'] ) && empty( $has_epo['variations_disabled'] ) ) {
@@ -1595,55 +1589,16 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				// Search for composite products extra options
 			} else {
 
-				$terms        = get_the_terms( $post_id, 'product_type' );
-				$product_type = ! empty( $terms ) && isset( current( $terms )->name ) ? sanitize_title( current( $terms )->name ) : 'simple';
+				$extra_classes = apply_filters( 'wc_epo_tm_post_class_no_options', array(), $post_id );
 
-				if ( ( $product_type == 'bto' || $product_type == 'composite' )
-				     && ! THEMECOMPLETE_EPO_API()->is_valid_options( $has_epo )
-				     && $this->tm_epo_enable_final_total_box_all != "yes"
-				) {
-
-					// search components for options
-					$product = wc_get_product( $post_id );
-					if ( is_callable( array( $product, 'get_composite_data' ) ) ) {
-						$composite_data = $product->get_composite_data();
-
-						foreach ( $composite_data as $component_id => $component_data ) {
-
-							$component_options = array();
-
-							if ( class_exists( 'WC_CP_Component' ) && method_exists( 'WC_CP_Component', 'query_component_options' ) ) {
-								$component_options = WC_CP_Component::query_component_options( $component_data );
-							} elseif ( function_exists( 'WC_CP' ) ) {
-								$component_options = WC_CP()->api->get_component_options( $component_data );
-							} else {
-								global $woocommerce_composite_products;
-								if ( is_object( $woocommerce_composite_products ) && function_exists( 'WC_CP' ) ) {
-									$component_options = WC_CP()->api->get_component_options( $component_data );
-								} else {
-									if ( isset( $component_data['assigned_ids'] ) && is_array( $component_data['assigned_ids'] ) ) {
-										$component_options = $component_data['assigned_ids'];
-									}
-								}
-							}
-
-							foreach ( $component_options as $key => $pid ) {
-								$has_options = THEMECOMPLETE_EPO_API()->has_options( $pid );
-								if ( THEMECOMPLETE_EPO_API()->is_valid_options_or_variations( $has_options ) ) {
-									$classes[] = 'tm-no-options-composite';
-
-									return $classes;
-								}
-							}
-
-						}
-					}
-
+				if ( ! empty( $extra_classes) ) {
+					$classes = array_merge( $classes, $extra_classes );
+				} else {
+					$classes[] = 'tm-no-options';
 				}
 
-				$classes[] = 'tm-no-options';
-
 			}
+
 		}
 
 		return $classes;
@@ -3026,6 +2981,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			case "lessthan" :
 				return floatval( $posted_value ) < floatval( $value );
 				break;
+			case "greaterthanequal" :
+				return floatval( $posted_value ) >= floatval( $value );
+				break;
+			case "lessthanequal" :
+				return floatval( $posted_value ) <= floatval( $value );
+				break;
 		}
 
 		return FALSE;
@@ -3071,6 +3032,100 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 *
 	 * @return mixed|void
 	 */
+	public function get_allowed_mimes() {
+
+		$mimes = array();
+
+		$tm_epo_custom_file_types  = $this->tm_epo_custom_file_types;
+		$tm_epo_allowed_file_types = $this->tm_epo_allowed_file_types;
+
+		$tm_epo_custom_file_types = explode( ",", $tm_epo_custom_file_types );
+		if ( ! is_array( $tm_epo_custom_file_types ) ) {
+			$tm_epo_custom_file_types = array();
+		}
+		if ( ! is_array( $tm_epo_allowed_file_types ) ) {
+			$tm_epo_allowed_file_types = array( "@" );
+		}
+		$tm_epo_allowed_file_types = array_merge( $tm_epo_allowed_file_types, $tm_epo_custom_file_types );
+		$tm_epo_allowed_file_types = array_unique( $tm_epo_allowed_file_types );
+
+		$wp_get_ext_types  = wp_get_ext_types();
+		$wp_get_mime_types = wp_get_mime_types();
+		
+		foreach ( $tm_epo_allowed_file_types as $key => $value ) {
+			if ( ! $value ) {
+				continue;
+			}
+			if ( $value == "@" ) {
+				$mimes = $wp_get_mime_types;
+			} else {
+				$value = ltrim( $value, "@" );
+				switch ( $value ) {
+					case 'image':
+					case 'audio':
+					case 'video':
+					case 'document':
+					case 'spreadsheet':
+					case 'interactive':
+					case 'text':
+					case 'archive':
+					case 'code':
+						if ( isset( $wp_get_ext_types[ $value ] ) && is_array( $wp_get_ext_types[ $value ] ) ) {
+							foreach ( $wp_get_ext_types[ $value ] as $k => $extension ) {
+								$type = FALSE;
+								foreach ( $wp_get_mime_types as $exts => $_mime ) {
+									if ( preg_match( '!^(' . $exts . ')$!i', $extension ) ) {
+										$type = $_mime;
+										break;
+									}
+								}
+								if ( $type ) {
+									$mimes[ $extension ] = $type;
+								}
+							}
+						}
+						break;
+
+					default:
+						$type = FALSE;
+						foreach ( $wp_get_mime_types as $exts => $_mime ) {
+							if ( preg_match( '!^(' . $exts . ')$!i', $value ) ) {
+								$type = $_mime;
+								break;
+							}
+						}
+						if ( $type ) {
+							$mimes[ $value ] = $type;
+						} else {
+							$mimes[ $value ] = "application/octet-stream";
+						}
+						break;
+				}
+			}
+		}
+		
+		$allowed_mimes = array();
+		foreach ( $mimes as $key => $value ) {
+			$value = explode( '|', $key);
+			
+			foreach ( $value as $k => $v ) {				
+				$v = str_replace('.', '', trim($v));
+				$v = '.' . $v;
+				$allowed_mimes[] = $v;
+			}
+		}
+
+		return apply_filters( 'wc_epo_get_allowed_mimes', $allowed_mimes );
+
+	}
+
+	/**
+	 * Alter allowed file mime and type
+	 *
+	 * @param array $existing_mimes
+	 *
+	 * @return mixed|void
+	 */
 	public function upload_mimes_trick( $existing_mimes = array() ) {
 
 		$mimes = array();
@@ -3090,8 +3145,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 		$wp_get_ext_types  = wp_get_ext_types();
 		$wp_get_mime_types = wp_get_mime_types();
-
+		
 		foreach ( $tm_epo_allowed_file_types as $key => $value ) {
+			if ( ! $value ) {
+				continue;
+			}
 			if ( $value == "@" ) {
 				$mimes = $existing_mimes;
 			} else {

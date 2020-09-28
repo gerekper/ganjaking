@@ -49,6 +49,7 @@ class THEMECOMPLETE_EPO_WPML_base {
 	 * @since 1.0
 	 */
 	public function __construct() {
+
 		if ( class_exists( 'SitePress' ) ) {
 			$this->is_wpml = TRUE;
 			global $sitepress;
@@ -139,6 +140,7 @@ class THEMECOMPLETE_EPO_WPML_base {
 	 * @since 1.0
 	 */
 	public function get_original_id( $id = 0, $post_type = 'product', $basetype = FALSE ) {
+		
 		if ( $basetype === FALSE ) {
 			$basetype = THEMECOMPLETE_EPO_GLOBAL_POST_TYPE;
 			if ( defined( 'THEMECOMPLETE_ECO_GLOBAL_POST_TYPE' ) && $post_type == THEMECOMPLETE_ECO_GLOBAL_POST_TYPE ) {
@@ -148,7 +150,7 @@ class THEMECOMPLETE_EPO_WPML_base {
 		if ( $this->is_wpml ) {
 			$check_post = get_post( $id );
 			if ( $check_post && property_exists( $check_post, 'ID' ) && property_exists( $check_post, 'post_type' ) ) {
-				if ( ! ( $check_post->post_type == "product" || $check_post->post_type == $basetype ) ) {
+				if ( ( $check_post->post_status == "auto-draft" && $check_post->post_title == 'AUTO-DRAFT' ) || ! ( $check_post->post_type == "product" || $check_post->post_type == $basetype ) ) {
 					return (double) $id;
 				}
 			}
@@ -622,6 +624,7 @@ class THEMECOMPLETE_EPO_WPML_base {
 	 * @since 1.0
 	 */
 	public function get_default_lang() {
+
 		if ( $this->is_wpml ) {
 			return $this->sitepress->get_default_language();
 		}

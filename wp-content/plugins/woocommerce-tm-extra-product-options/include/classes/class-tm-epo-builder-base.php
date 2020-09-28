@@ -6963,7 +6963,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	public function get_tax_classes() {
 		// Get tax class options
 		$tax_classes = array_filter( array_map( 'trim', explode( "\n", get_option( 'woocommerce_tax_classes' ) ) ) );
-		if ( empty( $tax_classes ) ) {
+		if ( empty( $tax_classes ) && class_exists( 'WC_Tax' ) ) {
 			$tax_classes = WC_Tax::get_tax_classes();
 		}
 		$classes_options      = array();

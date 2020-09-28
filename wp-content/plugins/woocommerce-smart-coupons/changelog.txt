@@ -1,5 +1,10 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2020.09.08 - version 4.8.1
+* Fix: Discount not applied on taxes when Apply before tax is disabled [WooCommerce AvaTax]
+* Update: Remove usage of deprecated jQuery event 'ready' & function 'load' [WordPress 5.5]
+* Update: POT file
+
 2020.08.24 - version 4.8.0
 * New: Group coupons by category
 * New: Tested upto WooCommerce 4.4.1 & WordPress 5.5

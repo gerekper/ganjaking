@@ -1,0 +1,47 @@
+#icon-woocommerce.icon32-posts-wishlist {
+    background-image: url('../images/wishlist-settings-icon.png') !important;
+    background-position: 2px 2px !important;
+    background-size: 30px 30px !important;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    #icon-woocommerce.icon32-posts-wishlist {
+        background-image: url('../images/wishlist-settings-icon@2x.png') !important;
+    }
+}
+
+.add-new-h2, .page-title-action {
+    display: none !important;
+}
+
+#edit-slug-box {
+    display: none !important;
+}
+
+#woocommerce-wishlist-items th {
+    text-align: left;
+    padding: 1em;
+    font-weight: 400;
+    color: #999;
+    background: #f8f8f8;
+}
+
+#woocommerce-wishlist-items th.quantity, #woocommerce-wishlist-items th.line_cost {
+    text-align: right;
+}
+
+#woocommerce-wishlist-items tr.item td {
+    padding: 1.5em 1em 1em;
+    text-align: left;
+    line-height: 1.5em;
+    vertical-align: top;
+    border-bottom: 1px solid #f8f8f8;
+}
+
+#woocommerce-wishlist-items tr.item td.thumb {
+    text-align: left;
+    width: 38px;
+    padding-bottom: 1.5em;
+}
+

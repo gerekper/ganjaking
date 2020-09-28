@@ -37,6 +37,7 @@
 				showonhover: false,
 				useclasstohide: true,
 				afteraddtab: null,
+				beforemovetab: null,
 				aftermovetab: null,
 				deletebutton: false,
 				deletebuttonhtml: '<h4 class="tm-del-tab"><span class="tcfa tcfa-times"></span></h4>',
@@ -253,6 +254,10 @@
 					ohpid = ui.item.find( options.header ).attr( 'data-id' );
 
 					initialIndex = $.tmEPOAdmin.find_index( true, $tab.find( '.bitem' ).first() );
+
+					if ( typeof options.beforemovetab === 'function' ) {
+						options.beforemovetab.call( this, ohp, $tab, initialIndex );
+					}
 				},
 				stop: function( e, ui ) {
 					var all_headers = t.find( options.headers + ' ' + options.header );

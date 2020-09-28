@@ -27,14 +27,17 @@ defined( 'ABSPATH' ) || exit;
          data-field-id="<?php echo esc_attr( $id ); ?>"
          data-start="<?php echo esc_attr( $get_default_value ); ?>"></div>
     <label class="tm-epo-field-label tm-show-picker-value" for="<?php echo esc_attr( $id ); ?>"></label>
-    <input<?php
+    <input <?php
 	if ( isset( $placeholder ) ) {
-		echo ' placeholder="' . esc_attr( $placeholder ) . '"';
+		echo 'placeholder="' . esc_attr( $placeholder ) . '" ';
 	}
 	if ( isset( $max_chars ) && $max_chars != '' ) {
-		echo ' maxlength="' . esc_attr( $max_chars ) . '"';
-	}
-	?> class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-textfield tmcp-range"
+		echo 'maxlength="' . esc_attr( $max_chars ) . '" ';
+    }
+    if ( isset( $required ) && ! empty( $required ) ) {
+        echo 'required ';
+    }
+	?>class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-textfield tmcp-range"
        name="<?php echo esc_attr( $name ); ?>"
        data-price=""
        data-rules="<?php echo esc_attr( $rules ); ?>"

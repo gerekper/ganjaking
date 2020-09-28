@@ -50,7 +50,7 @@ function vc_roles_settings_save() {
 add_action( 'wp_ajax_vc_roles_settings_save', 'vc_roles_settings_save' );
 if ( 'vc-roles' === vc_get_param( 'page' ) ) {
 	function vc_settings_render_tab_vc_roles_scripts() {
-		wp_register_script( 'vc_accordion_script', vc_asset_url( 'lib/vc_accordion/vc-accordion.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
+		wp_register_script( 'vc_accordion_script', vc_asset_url( 'lib/vc_accordion/vc-accordion.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 	}
 
 	add_action( 'admin_init', 'vc_settings_render_tab_vc_roles_scripts' );
@@ -58,13 +58,40 @@ if ( 'vc-roles' === vc_get_param( 'page' ) ) {
 
 function wpb_unfiltered_html_state( $state, $role ) {
 	if ( is_null( $state ) ) {
-		return $role->has_cap( 'unfiltered_html' );
+		if ( is_network_admin() && is_super_admin() ) {
+			return true;
+		}
+
+		return isset( $role, $role->name ) && $role->has_cap( 'unfiltered_html' );
+	}
+
+	return $state;
+}
+
+/**
+ * @param $start
+ * @param WP_Role $role
+ */
+function wpb_editor_access( $state, $role ) {
+	if ( is_null( $state ) ) {
+		if ( is_network_admin() && is_super_admin() ) {
+			return true;
+		}
+
+		return isset( $role, $role->name ) && in_array( $role->name, array(
+			'administrator',
+			'editor',
+			'author',
+		), true );
 	}
 
 	return $state;
 }
 
 add_filter( 'vc_role_access_with_unfiltered_html_get_state', 'wpb_unfiltered_html_state', 10, 2 );
+add_filter( 'vc_role_access_with_grid_builder_get_state', 'wpb_editor_access', 10, 2 );
+add_filter( 'vc_role_access_with_backend_editor_get_state', 'wpb_editor_access', 10, 2 );
+add_filter( 'vc_role_access_with_frontend_editor_get_state', 'wpb_editor_access', 10, 2 );
 
 function wpb_custom_html_elements_access( $state, $shortcode ) {
 	if ( in_array( $shortcode, array(

@@ -33,8 +33,6 @@ if((defined('MEPR_VERSION') && version_compare('1.2.9', MEPR_VERSION, '>=')) ||
     }
 
     protected function extend_obj(Array $sub) {
-      $mepr_options = MeprOptions::fetch();
-
       $coupon_utils = MpdtUtilsFactory::fetch('coupon');
       $member_utils = MpdtUtilsFactory::fetch('member');
       $membership_utils = MpdtUtilsFactory::fetch('membership');
@@ -67,12 +65,7 @@ if((defined('MEPR_VERSION') && version_compare('1.2.9', MEPR_VERSION, '>=')) ||
         $sub['membership'] = false;
       }
 
-      if(isset($sub['gateway']) && !empty($sub['gateway'])) {
-        if(($pm = $mepr_options->payment_method($sub['gateway'])) !== false) {
-          $sub['gateway'] = $pm;
-        }
-      }
-      else {
+      if(empty($sub['gateway'])) {
         $sub['gateway'] = 'manual';
       }
 
@@ -175,8 +168,6 @@ else {
     }
 
     public function extend_obj(Array $sub) {
-      $mepr_options = MeprOptions::fetch();
-
       $coupon_utils = MpdtUtilsFactory::fetch('coupon');
       $member_utils = MpdtUtilsFactory::fetch('member');
       $membership_utils = MpdtUtilsFactory::fetch('membership');
@@ -207,12 +198,7 @@ else {
         $sub['membership'] = false;
       }
 
-      if(isset($sub['gateway']) && !empty($sub['gateway'])) {
-        if(($pm = $mepr_options->payment_method($sub['gateway'])) !== false) {
-          $sub['gateway'] = $pm;
-        }
-      }
-      else {
+      if(empty($sub['gateway'])) {
         $sub['gateway'] = 'manual';
       }
 

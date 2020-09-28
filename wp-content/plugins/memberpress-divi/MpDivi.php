@@ -4,10 +4,13 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 class MpDivi {
 
   public function __construct() {
-    add_filter( 'et_builder_main_tabs', array( $this, 'tab' ) );
-    add_filter( 'et_builder_get_parent_modules', array( $this, 'toggle' ) );
-    add_filter( 'et_pb_module_content', array( $this, 'shortcode' ), 10, 4 );
-    add_filter( 'et_pb_all_fields_unprocessed_et_pb_row', array( $this, 'row_settings' ) );
+    // Don't run in the Divi Role Editor
+    if ( ('et_divi_role_editor' !== $_GET['page'] ) ) {
+      add_filter( 'et_builder_main_tabs', array( $this, 'tab' ) );
+      add_filter( 'et_builder_get_parent_modules', array( $this, 'toggle' ) );
+      add_filter( 'et_pb_module_content', array( $this, 'shortcode' ), 10, 4 );
+      add_filter( 'et_pb_all_fields_unprocessed_et_pb_row', array( $this, 'row_settings' ) );
+    }
   }
 
   /**
@@ -32,7 +35,7 @@ class MpDivi {
   public function toggle( $modules ) {
 
     // Add toggle to Rows
-    if ( ! empty( $modules ) ) {
+    if ( ! empty( $modules ) && is_object( $modules['et_pb_row'] ) ) {
       $modules['et_pb_row']->settings_modal_toggles['memberpress'] = array(
         'toggles' => array(
           'mp_protect_content' => array(

@@ -1,9 +1,9 @@
 jQuery( function ( $ ) {
-    jQuery("body").bind("fue_email_type_changed", function(evt, type) {
+    jQuery("body").on("fue_email_type_changed", function(evt, type) {
         points_rewards_toggle_fields( type );
     });
 
-    $("body").bind( "updated_email_details", function() {
+    $("body").on( "updated_email_details", function() {
         $("#interval_type").change();
     } );
 } );

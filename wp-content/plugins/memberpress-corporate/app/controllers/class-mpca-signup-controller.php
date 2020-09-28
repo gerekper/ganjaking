@@ -27,6 +27,17 @@ class MPCA_Signup_Controller {
         if(is_wp_error($error)) {
           array_push($errors, __($error->get_error_message(), 'memberpress-corporate'));
         }
+
+        // Block parent Corporate account user from being able to add themselves as a sub account.
+        $is_existing_user = MeprUtils::is_user_logged_in();
+        if($is_existing_user) {
+          $usr = MeprUtils::get_currentuserinfo();
+
+          if( $usr->ID == $ca->user_id ){
+            array_push($errors, __('Cannot Add Yourself as Sub Account', 'memberpress-corporate'));
+          }
+        }
+
       }
     }
 
@@ -52,7 +63,7 @@ class MPCA_Signup_Controller {
         $mailer->send_sub_account_signup_email($txn);
       }
       else {
-        MeprUtils::send_signup_notices($txn, true, false);
+        MeprUtils::send_signup_notices($txn, false, false);
       }
 
       $product = new MeprProduct($txn->product_id);

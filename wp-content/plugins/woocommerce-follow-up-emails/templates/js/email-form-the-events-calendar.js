@@ -1,10 +1,10 @@
 jQuery( function ( $ ) {
-    jQuery("body").bind("fue_email_type_changed", function(evt, type) {
+    jQuery("body").on("fue_email_type_changed", function(evt, type) {
         wootickets_toggle_fields(type);
     });
 
     // enable visible input fields
-    $('body').bind('updated_email_details', function() {
+    $('body').on('updated_email_details', function() {
         $("#wootickets_type").change();
     });
 
@@ -52,7 +52,7 @@ jQuery( function ( $ ) {
         $("#ticket_category_id").change();
     });
 
-    jQuery("body").bind("fue_interval_type_changed", function(evt, type) {
+    jQuery("body").on("fue_interval_type_changed", function(evt, type) {
         if (type == "before_tribe_event_starts" || type == "after_tribe_event_ends") {
             jQuery(".adjust_date_tr").show();
             $(".wootickets-selector").show();

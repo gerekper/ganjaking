@@ -173,7 +173,7 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 		// Alter global epo table
 		add_filter( 'global_epos_fill_builder_display', array( $this, 'global_epos_fill_builder_display' ), 10, 9 );
 
-		// Check for subscription fee typewhen displaying options on admin Order page
+		// Check for subscription fee type when displaying options on admin Order page
 		add_filter( 'wc_epo_html_tm_epo_order_item_is_other_fee', array( $this, 'wc_epo_html_tm_epo_order_item_is_other_fee' ), 10, 2 );
 
 		// Alter the array of data for a variation. Used in the add to cart form.

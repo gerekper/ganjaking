@@ -42,6 +42,8 @@ if (!isset($settings['accepted_args'])) {
 		<option <?php selected('custom', $settings['hook']); ?> value="custom:custom"><?php _e('Custom Action', 'wc_conditional_content'); ?></option>
 	</optgroup>
 </select>
+
+
 <p class="description"><?php _e('Choose where you would like this content to be displayed.', 'wc_conditional_content'); ?></p>
 
 

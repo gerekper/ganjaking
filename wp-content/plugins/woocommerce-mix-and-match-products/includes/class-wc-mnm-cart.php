@@ -499,9 +499,6 @@ class WC_Mix_and_Match_Cart {
 			return false;
 		}
 
-		$existing_quantity   = $values[ 'quantity' ];
-		$additional_quantity = $product_quantity - $existing_quantity;
-
 		// Don't check child items individually, will be checked by parent container.
 		if ( wc_mnm_maybe_is_child_cart_item( $values ) ) {
 			return $passed_validation;
@@ -509,54 +506,11 @@ class WC_Mix_and_Match_Cart {
 
 		if ( $product->is_type( 'mix-and-match' ) && wc_mnm_is_container_cart_item( $values ) ) {
 
-			// Grab child items.
-			$mnm_items = $product->get_children();
+			$existing_quantity   = $values[ 'quantity' ];
+			$additional_quantity = $product_quantity - $existing_quantity;
 
-			if ( empty( $mnm_items ) ) {
-				return false;
-			}
+			$passed_validation = $this->validate_container_configuration( $product, $additional_quantity, $values[ 'mnm_config' ], 'cart' );
 
-			// If a stock-managed product / variation exists in the container multiple times, its stock will be checked only once for the sum of all child quantities.
-			// The stock manager class keeps a record of stock-managed product / variation ids.
-			$mnm_stock = new WC_Mix_and_Match_Stock_Manager( $product );
-
-			// Loop through the items.
-			foreach ( $values[ 'mnm_config' ] as $id => $data ) {
-
-				// Double check it is an allowed item - is this needed? Wasn't it checked on its way into the cart?
-				if ( ! array_key_exists( $id, $mnm_items ) ) {
-					return false;
-				}
-
-				// Quantity per container.
-				$item_quantity = $data[ 'quantity' ];
-
-				// Total quantity.
-				$quantity = $item_quantity * $additional_quantity;
-
-				// Get the child product/variation.
-				$mnm_item = wc_get_product( $id );
-
-				// Must be some kinda fake product.
-				if ( ! $mnm_item ) {
-					return false;
-				}
-
-				// Stock management.
-				if ( $mnm_item->is_type( 'variation' ) ) {
-					$mnm_stock->add_item( $mnm_item->get_parent_id(), $id, $quantity );
-				} else {
-					$mnm_stock->add_item( $id, false, $quantity );
-				}
-
-			} // End foreach.
-
-
-			// Check stock for stock-managed child items.
-			// If out of stock, don't proceed.
-			if ( ! $mnm_stock->validate_stock( true ) ) {
-				return false;
-			}
 		}
 
 		return $passed_validation;
@@ -588,8 +542,9 @@ class WC_Mix_and_Match_Cart {
 	 *
 	 * @param  mixed   $container int|WC_Product_Mix_and_Match
 	 * @param  int     $container_quantity
-	 * @param  array   $configuration
-	 * @param  string  $context
+	 * @param  array   $configuration 
+	 * @see            get_posted_container_configuration() for array details.
+	 * @param  string  $context - Possible values: 'add-to-cart'|'add-to-order'|'cart'
 	 * @return boolean
 	 */
 	public function validate_container_configuration( $container, $container_quantity, $configuration, $context = '' ) {
@@ -720,6 +675,14 @@ class WC_Mix_and_Match_Cart {
 						throw new Exception( $notice );
 					}
 
+					// Check stock for stock-managed bundled items when adding to cart. If out of stock, don't proceed.
+					if ( 'add-to-cart' === $context ) {
+						$is_configuration_valid = $mnm_stock->validate_stock( array(
+							'context'         => $context,
+							'throw_exception' => true
+						) );
+					}
+
 					/**
 					 * Perform additional validation checks at container level.
 					 *
@@ -747,20 +710,20 @@ class WC_Mix_and_Match_Cart {
 
 			} catch ( Exception $e ) {
 
-					/**
-					 * Change the quantity error message.
-					 *
-					 * @param str $error_message
-					 * @param obj WC_Mix_and_Match_Stock_Manager $cart_item_data
-					 * @param obj WC_Product_Mix_and_Match $container
-					 */
-					$notice = apply_filters( 'woocommerce_mnm_container_quantity_error_message', $e->getMessage(), $mnm_stock, $container );
+				/**
+				 * Change the quantity error message.
+				 *
+				 * @param str $error_message
+				 * @param obj WC_Mix_and_Match_Stock_Manager $cart_item_data
+				 * @param obj WC_Product_Mix_and_Match $container
+				 */
+				$notice = apply_filters( 'woocommerce_mnm_container_quantity_error_message', $e->getMessage(), $mnm_stock, $container );
 
 				if ( $notice ) {
 					wc_add_notice( $notice, 'error' );
 				}
 
-					$is_configuration_valid = false;
+				$is_configuration_valid = false;
 
 			}
 

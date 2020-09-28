@@ -19,14 +19,12 @@
 		<p class="installed"><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Installed', 'follow_up_emails' ); ?></p>
 		<p class="hover">
 			<a class="uninstall" href="<?php echo esc_url( wp_nonce_url( 'admin.php?page=followup-emails-templates&action=uninstall_template&template='. rawurlencode( $template_file ), 'template_uninstall' ) ); ?>">
-				<span class="dashicons dashicons-no"></span> <?php esc_html_e( 'Uninstall', 'follow_up_emails' ); ?>
+				<span class="dashicons dashicons-no"></span> <?php esc_html_e( 'Remove', 'follow_up_emails' ); ?>
 			</a>
 			<a href="#" class="edit-html" data-template="<?php echo esc_attr( $template_file ); ?>">
 				<span class="dashicons dashicons-edit"></span> <?php esc_html_e( 'HTML', 'follow_up_emails' ); ?>
 			</a>
 		</p>
-	<?php else: ?>
-		<a class="button" href="<?php echo esc_url( wp_nonce_url( 'admin.php?page=followup-emails-templates&action=install_template&template='. rawurlencode($id), 'template_install' ) ); ?>"><?php esc_html_e( 'Download', 'follow_up_emails' ); ?></a>
 	<?php endif; ?>
 
 	<?php if ( is_numeric( $template->downloads ) ): ?>

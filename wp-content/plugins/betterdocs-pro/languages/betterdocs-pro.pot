@@ -38,7 +38,7 @@ msgid "Switch to Classic UI"
 msgstr ""
 
 #: admin/class-betterdocs-pro-admin.php:179
-msgid "Add New Article"
+msgid "Add New Doc"
 msgstr ""
 
 #: admin/class-betterdocs-pro-admin.php:263
@@ -74,7 +74,7 @@ msgid "Top Box Icon Size"
 msgstr ""
 
 #: admin/customizer/customizer.php:967
-msgid "Article List Title Font Size"
+msgid "Docs List Title Font Size"
 msgstr ""
 
 #: admin/customizer/customizer.php:986
@@ -438,23 +438,23 @@ msgid "Search Box Foreground Color"
 msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:904
-msgid "Article Card Background"
+msgid "Docs Card Background"
 msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:909
-msgid "Article Title Font Size"
+msgid "Docs Title Font Size"
 msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:914
-msgid "Article Title Color"
+msgid "Docs Title Color"
 msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:919
-msgid "Article Content Font Size"
+msgid "Docs Content Font Size"
 msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:924
-msgid "Article Content Color"
+msgid "Docs Content Color"
 msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:929

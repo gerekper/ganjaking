@@ -17,7 +17,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		add_action( 'admin_notices', array($this, 'display_global_notices'));
 		add_action( 'wp_ajax_dismissed_notice_handler', array($this, 'hide_global_notice') );
 
-		add_filter( 'default_hidden_columns', array($this, 'quick_edit_hide_column'), 10, 2 );
+		add_filter( 'default_hidden_columns', array($this, 'quick_edit_hide_column'), 99, 2 );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 	 */
 	public function fix_customize_url($wp_admin_bar) {
 		$object = get_queried_object();
-		
+
 		$customize = $wp_admin_bar->get_node('customize');
 
 		if(empty($customize->href)) { return; }
@@ -1003,19 +1003,30 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 	 * Check if Permalink Manager Pro is active
 	 */
 	public static function is_pro_active($return_text = false) {
-		
-		$is_pro = true;
-		
+		if(defined('PERMALINK_MANAGER_PRO') && PERMALINK_MANAGER_PRO == true) {
+			$is_pro = true;
+		} else {
+			$is_pro = false;
+		}
 
-		
+		// Check if license is active
+		if(class_exists('Permalink_Manager_Pro_Functions')) {
+			$exp_date = Permalink_Manager_Pro_Functions::get_expiration_date(true);
+
+			$is_pro = ($exp_date > 1) ? false : true;
+		} else {
+			$is_pro = false;
+		}
 
 		return $is_pro;
 	}
 
 	static function pro_text($text_only = false) {
-		
-		$text = Permalink_Manager_Pro_Functions::get_expiration_date(false, true);
-		
+		if(class_exists('Permalink_Manager_Pro_Functions')) {
+			$text = Permalink_Manager_Pro_Functions::get_expiration_date(false, true);
+		} else {
+			$text = sprintf(__('This functionality is available only in <a href="%s" target="_blank">Permalink Manager Pro</a>.', 'permalink-manager'), PERMALINK_MANAGER_WEBSITE);
+		}
 
 		return ($text_only) ? $text : sprintf("<div class=\"alert info\"> %s</div>", wpautop($text, 'alert', false));
 	}

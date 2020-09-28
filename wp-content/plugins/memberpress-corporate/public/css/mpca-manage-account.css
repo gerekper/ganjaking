@@ -11,6 +11,10 @@ input[type=text][readonly].mpca-readonly {
   display: none;
 }
 
+.mpca-table-overflow {
+  overflow: auto;
+}
+
 /* Used for suggest.js */
 .ac_results {
   display: none;

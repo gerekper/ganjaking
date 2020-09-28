@@ -5,7 +5,9 @@ namespace MailPoet\Premium\Config;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\DI\ContainerWrapper;
 use MailPoet\Twig;
+use MailPoet\Util\CdnAssetUrl;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Twig\Environment as TwigEnv;
 use MailPoetVendor\Twig\Extension\DebugExtension;
@@ -74,7 +76,7 @@ class Renderer {
       'assets_url' => Env::$assetsUrl,
       'assets_manifest_js' => $this->assetsManifestJs,
       'assets_manifest_css' => $this->assetsManifestCss,
-    ]));
+    ], ContainerWrapper::getInstance()->get(CdnAssetUrl::class)));
   }
 
   public function setupSyntax() {

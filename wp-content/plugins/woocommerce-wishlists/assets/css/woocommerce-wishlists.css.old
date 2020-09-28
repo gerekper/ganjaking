@@ -1,0 +1,157 @@
+body {position:relative;}
+#wl-wrapper {}
+
+/* form stuff */
+#wl-wrapper label {font-weight:bold;cursor:pointer;}
+	#wl-wrapper label.block {display:block;}
+
+/* Buttons */
+#wl-wrapper a.wl-but {} /* class added to all buttons for wl */
+#wl-wrapper button.wl-but {} /* class added to all buttons for wl */
+#wl-wrapper input.wl-but {} /* class added to all buttons for wl */
+#wl-wrapper .wl-but.small {font-size:11px;padding:5px 10px;} 
+
+/* general */
+#wl-wrapper .wl-clear:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; } .wl-clear { display: inline-block; } /* Hide from IE Mac \*/ .wl-clear { display: block; } /* End hide from IE Mac */ /* End Clearfix */
+#wl-wrapper .wl-right {float:right;}
+#wl-wrapper .wl-left {float:left;}
+#wl-wrapper .wl-row {margin-bottom:15px;clear:both;} /* standard row of items, used multiple places */
+#wl-wrapper .wl-row-box {} /* fancier row with backrgound/border */
+#wl-wrapper .ctr {text-align:center}
+#wl-wrapper .vtop {vertical-align:top !important;}	
+#wl-wrapper .wl-fgroup {float:left;margin-right:10px;} /* grouping of form field/select items */
+#wl-wrapper .wl-intro {margin-bottom:20px;} /* simple container around title/description of lists */
+#wl-wrapper .wl-small {font-size:11px;color:#8c8c8c;font-weight:normal;}
+#wl-wrapper .no-marg {margin:0;}
+
+/* bulk option area */
+#wl-wrapper .bulk-opt {} /* wrapper */
+	#wl-wrapper .wl-sel {} /* select box */
+	#wl-wrapper .move-list-sel {max-width:150px;} /* testing optgroup for bulk actions */
+	
+/* sharing row and icons */
+#wl-wrapper .wl-meta-share {clear:both;overflow:hidden;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #e5e5e5;line-height:16px;} /* div wrap around */
+#wl-wrapper .wl-manage-link {display:block;float:left;margin-left:20px;} /* manage list link */
+#wl-wrapper .wl-share-links {margin:0;padding:0;float:left;line-height:16px;} /* ul of share icons */ 
+	#wl-wrapper .wl-share-links li {margin:0 5px 0 0;float:left;list-style-type:none;}
+	#wl-wrapper .wl-share-links a {display:block;width:16px;height:16px;background:url('../images/wl-share-icons.png') no-repeat 0 0;text-indent:-9999px;}
+	#wl-wrapper .wl-email {}
+	#wl-wrapper .wl-facebook a{background-position:0 -16px;}
+	#wl-wrapper .wl-twitter a{background-position:0 -48px;}
+	#wl-wrapper .wl-pinterest a{background-position:0 -32px;}
+	
+/* tables */
+#wl-wrapper .wl-table {} /* class applied to all wishlist tables */
+	#wl-wrapper .wl-table td {vertical-align:top;}
+#wl-wrapper .wl-table.view {} /* applied to table when viewing lists */
+#wl-wrapper .wl-table.manage {} /* applied to manage table */
+#wl-wrapper .wl-table .check-column, 
+#wl-wrapper .wl-table .product-remove {width:15px;padding:4px 5px;} /* td/th widths for bulk checkbox/delete icon */
+	#wl-wrapper .wl-table .check-column input {width:auto;} /* some themes have hardcoded width */
+	#wl-wrapper .wl-table .check-column a.remove {background-position:-2px 0;width:25px;}
+#wl-wrapper .wl-table .product-purchase .button {font-size:11px !important;} /* decreasing font-size to help with small content areas on some themes so button doesn't wrap */
+#wl-wrapper .wl-table .product-name {text-align:left;} /* left aligns list name column since some themes have center */
+#wl-wrapper .wl-table .wl-date-added, #wl-wrapper .wl-table .product-quantity, #wl-wrapper .wl-table .product-price {text-align:center;} /* center aligns date column since some themes have left */
+
+/* action row containing selects for viewing/managing lists */	
+#wl-wrapper .wl-actions-table {width:auto;font-size:12px;padding:0;} /* table containing selects and sorting options on table views */		
+	#wl-wrapper .wl-actions-table, 
+	#wl-wrapper .wl-actions-table table, 
+	#wl-wrapper .wl-actions-table td, 
+	#wl-wrapper .wl-actions-table th {padding:0;border:none;vertical-align:middle;}
+		#wl-wrapper .wl-actions-table td {padding:0 5px 0 0;}
+	#wl-wrapper .wl-actions-table.wl-right {margin-bottom:0;}
+
+/* stock status */
+#wl-wrapper .wl-stock-status {margin:0;font-size:11px !important;} /* additional class added to stock p */
+#wl-wrapper .wl-manage {} /* table class for manage your lists table */
+	#wl-wrapper .wl-privacy-col {width:150px;text-align:center;} /* th/td class for privacy settings */
+	#wl-wrapper .wl-priv-sel {} /* select box for privacy */
+	#wl-wrapper .wl-manage .row-actions {margin-bottom:5px;}
+	#wl-wrapper .wl-manage .row-actions a {font-size:12px;color:#8c8c8c;}
+
+#wl-wrapper .reg-table {} /* class applied to registry tables */
+#wl-wrapper .purchased {} /* when registry items have been purchased, class added to tr to allow color styling of row/text */
+	#wl-wrapper .purchased td {background-color:#fafafa}
+	
+/* form stuff */
+#wl-wrapper .wl-form {margin-bottom:20px;}
+	#wl-wrapper .wl-form ul {list-style:none;margin:0;padding:0;overflow:hidden;}
+	#wl-wrapper .wl-form .wl-inline li {float:left;display:inline;margin-right:10px;}
+	#wl-wrapper .wl-form input[type="radio"]+label {font-weight:normal;}
+	#wl-wrapper .wl-form .form-row {clear:both;width:100%;}
+	#wl-wrapper .wl-form .form-row-full input {width:99%;}
+	#wl-wrapper .wl-form .form-row-half input {width:50%;}
+	#wl-wrapper .wl-wrapper input.qty {}
+	
+/* search areas */
+#wl-wrapper .wl-search-result {} /* class applied to h2 listing X results found */
+#wl-wrapper .wl-find-table {} /* table showing search results */
+	#wl-wrapper .wl-pers-name {}
+	#wl-wrapper .wl-date-added {}
+	#wl-wrapper .wl-table+.wl-row {margin-top:-10px;}
+	
+/* tabbed areas */
+#wl-wrapper .wl-tab-wrap {}
+#wl-wrapper ul.wl-tabs {margin:0 0 20px 0;*zoom: 1;border-bottom: 1px solid #ddd;}
+	#wl-wrapper .wl-tabs:before, #wl-wrapper .wl-tabs:after {display:table;content: "";line-height:0;}
+	#wl-wrapper .wl-tabs:after {clear:both;}
+	#wl-wrapper .wl-tabs > li {float:left;margin-bottom: -1px;list-style-type:none;}	
+	#wl-wrapper .wl-tabs > li > a {display:block;padding:8px 12px;margin:0 3px 0 0;line-height:20px; border: 1px solid transparent;-webkit-border-radius: 4px 4px 0 0;-moz-border-radius: 4px 4px 0 0;border-radius: 4px 4px 0 0;}
+	#wl-wrapper .wl-tabs > li > a:hover {text-decoration: none;background-color: #eeeeee;border-color: #eeeeee #eeeeee #dddddd}
+	#wl-wrapper .wl-tabs > li.active > a {color: #555555;background-color: #ffffff;border: 1px solid #ddd;border-bottom-color: transparent;cursor: default;}
+#wl-wrapper .wl-panel {}
+
+/* add to wishlist buttons links */
+#wl-wrapper.wl-button-wrap  {position:relative;float:left;width:100%;margin:10px 0 0 0;} /* wrapper around buttons */
+#wl-wrapper .wl-add-to {position:relative;} /* general class on both types of button/link */
+#wl-wrapper .wl-add-but {} /* additional class applied to button version for overwriting button colors */
+#wl-wrapper .wl-add-link {} /* additional class applied to link version */
+	#wl-wrapper .wl-add-link.star {background:url('../images/star.png') no-repeat 0 0;padding-left:20px;}
+	#wl-wrapper .wl-add-link.present {background:url('../images/present.png') no-repeat 0 0;padding-left:20px;}
+
+/* add to list pop-up */
+#wl-list-pop-wrap {width:100%;height:100%;position:absolute;top:0;left:0;background:transparent;z-index:5000;} /* full size div to use to click off */
+	#wl-list-pop-wrap .wl-list-pop {padding:15px;background:#f5f5f5;-webkit-border-radius: 4px 4px 0 0;-moz-border-radius: 4px 4px 0 0;border-radius: 4px 4px 0 0;-webkit-box-shadow:  0px 0px 20px 0px rgba(000, 000, 000, .2);box-shadow:  0px 0px 20px 0px rgba(000, 000, 000, .2);width:auto;max-width:200px;height:auto;border:1px solid #ccc;z-index:5000;position:absolute;}
+	#wl-list-pop-wrap .wl-list-pop strong {font-size:12px;}
+	#wl-list-pop-wrap .wl-list-pop ul {margin-bottom:5px;font-size:11px;list-style-type:none;}
+	#wl-list-pop-wrap p.wl-pop-head {font-size:13px;font-weight:bold;font-style:italic;margin-bottom:5px;}
+
+        
+/*!
+ * Bootstrap Modal v2.2.1
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+.clearfix {
+*zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {display: table;content: "";line-height: 0;}
+.clearfix:after {clear: both;}
+.hide-text {font: 0/0 a;color: transparent;text-shadow: none;background-color: transparent;border: 0;}
+.input-block-level {display: block;width: 100%;min-height: 30px;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+.modal-backdrop {position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index: 9000;background-color: #000000;}
+.modal-backdrop.fade {opacity: 0;}
+.modal-backdrop,.modal-backdrop.fade.in {opacity: 0.8;filter: alpha(opacity=80);}
+.modal {position: fixed;top: 50%;left: 50%;z-index: 9999;width: 560px;margin: -250px 0 0 -280px;background-color: #ffffff;border: 1px solid #999;border: 1px solid rgba(0, 0, 0, 0.3);*border: 1px solid #999;
+/* IE6-7 */
+-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);-webkit-background-clip: padding-box;-moz-background-clip: padding-box;background-clip: padding-box;outline: none;}
+.modal.fade {-webkit-transition: opacity .3s linear, top .3s ease-out;-moz-transition: opacity .3s linear, top .3s ease-out;-o-transition: opacity .3s linear, top .3s ease-out;transition: opacity .3s linear, top .3s ease-out;top: -25%;}
+.modal.fade.in {top: 50%;}
+.modal-header {padding: 9px 15px;border-bottom: 1px solid #eee;}
+.modal-header .close {margin-top: 2px;}
+.modal-header h3 {margin: 0;line-height: 30px;}
+.modal-body {overflow-y: auto;max-height: 400px;padding: 15px;}
+.modal-form {margin-bottom: 0;}
+.modal-footer {padding: 14px 15px 15px;margin-bottom: 0;text-align: right;background-color: #f5f5f5;border-top: 1px solid #ddd;-webkit-border-radius: 0 0 6px 6px;-moz-border-radius: 0 0 6px 6px;border-radius: 0 0 6px 6px;-webkit-box-shadow: inset 0 1px 0 #ffffff;-moz-box-shadow: inset 0 1px 0 #ffffff;box-shadow: inset 0 1px 0 #ffffff;*zoom: 1;}
+.modal-footer:before,
+.modal-footer:after {display: table;content: "";line-height: 0;}
+.modal-footer:after {clear: both;}
+.modal-footer .btn + .btn {margin-left: 5px;margin-bottom: 0;}
+.modal-footer .btn-group .btn + .btn {margin-left: -1px;}
+.modal-footer .btn-block + .btn-block {margin-left: 0;}

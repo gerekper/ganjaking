@@ -2,7 +2,7 @@
 /**
  * Extra Product Options API class
  *
- * Class THEMECOMPLETE_EPO_MATH. Supports basic math and buil-in functions only (NO eval function).
+ * Class THEMECOMPLETE_EPO_MATH. Supports basic math and built-in functions only (NO eval function).
  * Based on EvalMath by Miles Kaufman Copyright (C) 2005 Miles Kaufmann http://www.twmagic.com/
  *
  * @package Extra Product Options/Classes
@@ -68,6 +68,7 @@ class THEMECOMPLETE_EPO_MATH {
 		'atanh',
 		'ln',
 		'log',
+		'round',
 		'ceil',
 		'floor',
 		'abs',

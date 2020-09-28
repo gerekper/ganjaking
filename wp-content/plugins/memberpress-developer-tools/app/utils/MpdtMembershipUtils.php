@@ -20,21 +20,12 @@ class MpdtMembershipUtils extends MpdtBaseCptUtils {
   }
 
   protected function extend_obj(Array $memb) {
-    $mepr_options = MeprOptions::fetch();
     $group_utils = MpdtUtilsFactory::fetch('group');
 
     if(isset($memb['group']) && is_numeric($memb['group']) && (int)$memb['group'] > 0) {
       $grp = new MeprGroup($memb['group']);
       $mgrp = $group_utils->map_vars((array)$grp->rec);
       $memb['group'] = $group_utils->trim_obj($mgrp);
-    }
-
-    if(isset($memb['custom_payment_methods']) && is_array($memb['custom_payment_methods'])) {
-      foreach($memb['custom_payment_methods'] as $k => $v) {
-        if(($pm = $mepr_options->payment_method($v)) !== false) {
-          $memb['custom_payment_methods'][$k] = $pm;
-        }
-      }
     }
 
     return $memb;

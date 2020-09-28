@@ -32,9 +32,16 @@ class MpBuddyPress {
       add_action('bp_core_signup_user',               array($this, 'capture_bp_signups'), 11, 5);
 
       //Sync BP Groups w/MP
-      add_action('mepr-txn-store',                    array($this, 'update_groups_txn_wrapper')); //Used mostly for testing quickly
-      add_action('mepr_txn_destroy',                  array($this, 'update_groups_txn_wrapper'));
-      add_action('mepr-event-create',                 array($this, 'update_groups'));
+      add_action('mepr-account-is-active',            array($this, 'sync_groups_from_txn'));
+      add_action('mepr-account-is-inactive',          array($this, 'sync_groups_from_txn'));
+
+      //Sync BP groups (manually from WP profile)
+      if(is_admin()) {
+        add_action('admin_enqueue_scripts',           array($this, 'enqueue_sync_groups_script'));
+        add_action('show_user_profile',               array($this, 'display_sync_groups_button'), 20);
+        add_action('edit_user_profile',               array($this, 'display_sync_groups_button'), 20);
+        add_action('wp_ajax_mepr_bp_sync_groups',     array($this, 'sync_groups_ajax'));
+      }
 
       //Auto activate BP users when they signup via MemberPress
       add_action('mepr-signup',                       array($this, 'activate_bp_profile'));
@@ -239,71 +246,181 @@ class MpBuddyPress {
     }
   }
 
-//Sync BP Groups w/MP
-  public function update_groups_txn_wrapper($txn) {
-    $this->update_groups($txn, true);
+  /**
+   * Sync BP groups for the given transaction
+   *
+   * @param MeprTransaction $txn
+   */
+  public function sync_groups_from_txn($txn) {
+    $this->sync_groups($txn->user_id);
   }
 
-  public function update_groups($event_or_obj, $is_obj = false) {
+  /**
+   * Sync BP groups for the given user
+   *
+   * @param int $user_id
+   */
+  public function sync_groups($user_id) {
     $enabled = get_option($this->enabled_str, 0);
+    $user = new MeprUser($user_id);
 
-    if(!$enabled || !bp_is_active('groups')) { return; }
-
-    //$is_obj - should we decide to use other hooks here like mepr-txn-store
-    if(!$is_obj) {
-      $obj = $event_or_obj->get_data(); //$event_or_obj is of type MeprEvent
-    }
-    else {
-      $obj = $event_or_obj; //$event_or_obj is most likely a MeprTransaction or MeprSubscription
+    if(!$enabled || !bp_is_active('groups') || !class_exists('BP_Groups_Member') || empty($user->ID)) {
+      return;
     }
 
-    if(!($obj instanceof MeprTransaction) && !($obj instanceof MeprSubscription)) {
-      return; // nothing here to do if we're not dealing with a txn or sub
+    $all_product_groups = $this->get_all_product_groups();
+
+    if(empty($all_product_groups)) {
+      return;
     }
 
-    $member = $obj->user(true);
+    $active_product_groups = $this->get_active_product_groups($user->ID); // Groups granted by active products
+    $user_groups = bp_get_user_groups($user->ID, array('is_admin' => null, 'is_mod' => null)); // Current BP groups for user
 
-    if($member->is_active_on_membership($obj)) {
-      $this->add_groups($obj);
+    foreach($all_product_groups as $group_id) {
+      $user_in_group = isset($user_groups[$group_id]);
+      $user_should_be_in_group = in_array($group_id, $active_product_groups);
+
+      if($user_should_be_in_group && !$user_in_group) {
+        groups_join_group($group_id, $user->ID);
+        $groups_member = new BP_Groups_Member($user->ID, $group_id);
+        do_action('groups_member_after_save', $groups_member); // For the buddypress-group-email-subscription plugin
+      }
+      elseif(!$user_should_be_in_group && $user_in_group) {
+        BP_Groups_Member::delete($user->ID, $group_id);
+      }
     }
-    else {
-      $this->remove_groups($obj);
+
+    $default_groups = maybe_unserialize(get_option($this->default_groups_str, array()));
+
+    // Make sure the user still has the default Groups
+    if(is_array($default_groups) && !empty($default_groups)) {
+      foreach($default_groups as $g_id) {
+        groups_join_group($g_id, $user->ID);
+      }
     }
   }
 
-  public function add_groups($obj) {
-    $membership_groups_enabled  = (bool)get_post_meta($obj->product_id, $this->membership_groups_enabled_str, true);
-    $membership_groups          = maybe_unserialize(get_post_meta($obj->product_id, $this->membership_groups_str, true));
+  /**
+   * Get all of the groups currently assigned to memberships
+   *
+   * @return array
+   */
+  private function get_all_product_groups() {
+    $products = MeprCptModel::all('MeprProduct');
+    $product_groups = array();
 
-    if($membership_groups_enabled && !empty($membership_groups)) {
-      foreach($membership_groups as $g_id) {
-        groups_join_group($g_id, $obj->user_id);
+    foreach($products as $product) {
+      $membership_groups_enabled  = (bool) get_post_meta($product->ID, $this->membership_groups_enabled_str, true);
+      $membership_groups = maybe_unserialize(get_post_meta($product->ID, $this->membership_groups_str, true));
 
-        if(class_exists('BP_Groups_Member')) {
-          $groups_member = new BP_Groups_Member($obj->user_id, $g_id);
-          do_action('groups_member_after_save', $groups_member); // For the buddypress-group-email-subscription plugin
+      if($membership_groups_enabled && is_array($membership_groups) && !empty($membership_groups)) {
+        $product_groups = array_merge($product_groups, $membership_groups);
+      }
+    }
+
+    $product_groups = array_unique(array_map('intval', $product_groups));
+
+    return $product_groups;
+  }
+
+  /**
+   * Get all of the the groups the user should be a member of, based on their active subscriptions
+   *
+   * @param  int   $user_id
+   * @return array
+   */
+  private function get_active_product_groups($user_id) {
+    $user = new MeprUser($user_id);
+    $active_product_groups = array();
+
+    if(!empty($user->ID)) {
+      $active_product_ids = $user->active_product_subscriptions('ids', true);
+      $active_product_ids = array_unique(array_map('intval', $active_product_ids));
+
+      foreach($active_product_ids as $active_product_id) {
+        $membership_groups_enabled  = (bool) get_post_meta($active_product_id, $this->membership_groups_enabled_str, true);
+        $membership_groups = maybe_unserialize(get_post_meta($active_product_id, $this->membership_groups_str, true));
+
+        if($membership_groups_enabled && is_array($membership_groups) && !empty($membership_groups)) {
+          $active_product_groups = array_merge($active_product_groups, $membership_groups);
         }
       }
     }
+
+    $active_product_groups = array_unique(array_map('intval', $active_product_groups));
+
+    return $active_product_groups;
   }
 
-  public function remove_groups($obj) {
-    $membership_groups_enabled  = (bool)get_post_meta($obj->product_id, $this->membership_groups_enabled_str, true);
-    $membership_groups          = maybe_unserialize(get_post_meta($obj->product_id, $this->membership_groups_str, true));
-    $default_groups     = maybe_unserialize(get_option($this->default_groups_str, array()));
+  /**
+   * Enqueue the sync groups script on the edit user page
+   *
+   * @param string $hook
+   */
+  public function enqueue_sync_groups_script($hook) {
+    if(in_array($hook, array('profile.php', 'user-edit.php'))) {
+      wp_enqueue_script('mepr-buddypress-sync-groups-js', MPBP_URL . '/admin_sync_groups.js', array('jquery'));
+      wp_localize_script('mepr-buddypress-sync-groups-js', 'MeprBuddyPressSyncGroups', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('mepr_bb_sync_groups')
+      ));
+    }
+  }
 
-    if($membership_groups_enabled && !empty($membership_groups)) {
-      foreach($membership_groups as $g_id) {
-        groups_leave_group($g_id, $obj->user_id);
-      }
+  /**
+   * Display a button to sync groups on the edit user page
+   *
+   * @param WP_User $user
+   */
+  public function display_sync_groups_button($user) {
+    $enabled = get_option($this->enabled_str, 0);
+
+    if(!$enabled || !bp_is_active('groups') || !MeprUtils::is_logged_in_and_an_admin()) {
+      return;
     }
 
-    //Make sure the user still has the default Groups
-    if(!empty($default_groups)) {
-      foreach($default_groups as $g_id) {
-        groups_join_group($g_id, $obj->user_id);
-      }
+    ?>
+    <h2><?php esc_html_e('MemberPress BuddyPress Groups', 'memberpress-buddypress'); ?></h2>
+    <table class="form-table">
+      <tr>
+        <td colspan="2">
+          <div>
+            <button type="button" id="mepr-bb-sync-groups" class="button" data-user-id="<?php echo esc_attr($user->ID); ?>"><?php esc_html_e('Sync BuddyPress Groups', 'memberpress-buddypress'); ?></button>
+            <span id="mepr-bb-sync-groups-status" style="display:none;margin-top:4px;"></span>
+          </div>
+          <p class="description"><?php esc_html_e('Sync the BuddyPress groups for this user based on their active subscriptions.', 'memberpress-buddypress'); ?></p>
+        </td>
+      </tr>
+    </table>
+    <?php
+  }
+
+  /**
+   * Handle the Ajax request to sync groups from the WP edit user page
+   */
+  public function sync_groups_ajax() {
+    if(!MeprUtils::is_post_request() || !isset($_POST['user_id']) || !is_numeric($_POST['user_id'])) {
+      wp_send_json_error(__('Bad request.', 'memberpress-buddypress'));
     }
+
+    if(!MeprUtils::is_logged_in_and_an_admin()) {
+      wp_send_json_error(__('Sorry, you don\'t have permission to do this.', 'memberpress-buddypress'));
+    }
+
+    if(!check_ajax_referer('mepr_bb_sync_groups', false, false)) {
+      wp_send_json_error(__('Security check failed.', 'memberpress-buddypress'));
+    }
+
+    $user = new MeprUser((int) $_POST['user_id']);
+
+    if(empty($user->ID)) {
+      wp_send_json_error(__('User not found.', 'memberpress-buddypress'));
+    }
+
+    $this->sync_groups($user->ID);
+
+    wp_send_json_success();
   }
 
 //BP NAV AND ACCOUNT

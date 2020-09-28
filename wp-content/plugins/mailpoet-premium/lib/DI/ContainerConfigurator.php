@@ -42,10 +42,13 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\WooCommerce\Helper::class);
     $this->registerFreeService($container, \MailPoet\WP\Functions::class);
     $this->registerFreeService($container, \MailPoetVendor\Doctrine\ORM\EntityManager::class);
+    $this->registerFreeService($container, \MailPoet\Util\CdnAssetUrl::class);
 
     // API
     $container->autowire(\MailPoet\Premium\API\JSON\v1\Stats::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\API\JSON\v1\SubscriberDetailedStats::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\API\JSON\v1\ResponseBuilders\SubscriberDetailedStatsResponseBuilder::class);
 
     // Config
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);
@@ -59,6 +62,8 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Newsletter\StatisticsClicksRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Newsletter\StatisticsOpensRepository::class);
     $container->autowire(\MailPoet\Premium\Newsletter\StatisticsUnsubscribesRepository::class);
+    // Subscriber
+    $container->autowire(\MailPoet\Premium\Subscriber\Stats\SubscriberNewsletterStatsRepository::class);
     return $container;
   }
 

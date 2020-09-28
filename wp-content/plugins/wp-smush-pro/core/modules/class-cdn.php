@@ -240,7 +240,14 @@ class CDN extends Abstract_Module {
 					);
 					break;
 				case 'auto_resize':
-					esc_html_e( 'Having trouble with Google PageSpeeds ‘properly size images’ suggestion? This feature will fix this without any coding needed! Note: No resizing is done on your actual images, only what is served from the CDN - so your original images will remain untouched.', 'wp-smushit' );
+					esc_html_e( 'Having trouble with Google PageSpeeds ‘properly size images’ suggestion? This feature will fix this without any coding needed!', 'wp-smushit' );
+					echo '<br>';
+					printf(
+						/* translators: %1$s - opening tag, %2$s - closing tag */
+						esc_html__( 'Note: Smush will pre-fill the srcset attribute with missing image sizes so for this feature to work, those must be declared properly by your theme and page builder using the %1$scontent width%2$s variable.', 'wp-smushit' ),
+						'<a href="https://developer.wordpress.com/themes/content-width/" target="_blank">',
+						'</a>'
+					);
 					break;
 				case 'background_images':
 					printf(
@@ -689,7 +696,7 @@ class CDN extends Abstract_Module {
 	 * @return array $sources
 	 */
 	public function update_image_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id = 0 ) {
-		if ( ! is_array( $sources ) ) {
+		if ( ! is_array( $sources ) || ! $this->is_supported_path( $image_src ) ) {
 			return $sources;
 		}
 

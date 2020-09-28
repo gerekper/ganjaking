@@ -19,9 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$text_align = is_rtl() ? 'right' : 'left';
-$address    = $order->get_formatted_billing_address();
-$shipping   = $order->get_formatted_shipping_address();
+$text_align                 = is_rtl() ? 'right' : 'left';
+$address                    = $order->get_formatted_billing_address();
+$shipping                   = $order->get_formatted_shipping_address();
+$has_custom_billing_fields  = WC_Checkout_Field_Editor_Order_Details::has_custom_billing_checkout_fields( $order );
+$has_custom_shipping_fields = WC_Checkout_Field_Editor_Order_Details::has_custom_shipping_checkout_fields( $order );
 
 ?><table id="addresses" cellspacing="0" cellpadding="0" style="width: 100%; vertical-align: top; margin-bottom: 40px; padding:0;" border="0">
 	<tr>
@@ -37,18 +39,22 @@ $shipping   = $order->get_formatted_shipping_address();
 					<br/><?php echo esc_html( $order->get_billing_email() ); ?>
 				<?php endif; ?>
 			</address>
-			<div class="address">
-				<?php WC_Checkout_Field_Editor_Order_Details::display_custom_fields_email( $order, 'billing' ); ?>
-			</div>
+			<?php if ( $has_custom_billing_fields ) : ?>
+				<div class="address">
+					<?php WC_Checkout_Field_Editor_Order_Details::display_custom_fields_email( $order, 'billing' ); ?>
+				</div>
+			<?php endif; ?>
 		</td>
 		<?php if ( ! wc_ship_to_billing_address_only() && $order->needs_shipping_address() && $shipping ) : ?>
 			<td style="text-align:<?php echo esc_attr( $text_align ); ?>; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; padding:0;" valign="top" width="50%">
 				<h2><?php esc_html_e( 'Shipping address', 'woocommerce' ); ?></h2>
 
 				<address class="address"><?php echo wp_kses_post( $shipping ); ?></address>
-				<div class="address">
-					<?php WC_Checkout_Field_Editor_Order_Details::display_custom_fields_email( $order, 'shipping' ); ?>
-				</div>
+				<?php if ( $has_custom_shipping_fields ) : ?>
+					<div class="address">
+						<?php WC_Checkout_Field_Editor_Order_Details::display_custom_fields_email( $order, 'shipping' ); ?>
+					</div>
+				<?php endif; ?>
 			</td>
 		<?php endif; ?>
 	</tr>

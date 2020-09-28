@@ -286,6 +286,8 @@ class WC_Mix_and_Match_Order {
 						}
 
 						// Shipping Setup.
+						$shipped_individually = false;
+
 						if ( $child_product->needs_shipping() ) {
 
 							/**
@@ -296,7 +298,11 @@ class WC_Mix_and_Match_Order {
 							 * @param  int $child_item_id Product or Variation ID of child item.
 							 * @param obj WC_Product_Mix_and_Match $container Product object of parent container.
 							 */
-							if ( false === apply_filters( 'woocommerce_mnm_item_shipped_individually', $container->is_shipped_per_product(), $child_product, $child_item_id, $container ) ) {
+							if ( apply_filters( 'woocommerce_mnm_item_shipped_individually', $container->is_shipped_per_product(), $child_product, $child_item_id, $container ) ) {
+
+								$shipped_individually = true;
+
+							} else {
 
 								/**
 								 * Does the child item have weight?
@@ -309,13 +315,11 @@ class WC_Mix_and_Match_Order {
 								if ( apply_filters( 'woocommerce_mnm_item_has_bundled_weight', false, $child_product, $child_item_id, $container ) ) {
 									$aggregate_weight += (double) $child_product->get_weight( 'edit' ) * $child_item_quantity;
 								}
-
-
 							}
 						}
 
 						// Store shipping data.
-						$child_order_item->add_meta_data( '_mnm_item_needs_shipping', wc_bool_to_string( $child_product->needs_shipping() ), true );
+						$child_order_item->add_meta_data( '_mnm_item_needs_shipping', wc_bool_to_string( $shipped_individually ), true );
 
 						// Save the item.
 						$child_order_item->save();

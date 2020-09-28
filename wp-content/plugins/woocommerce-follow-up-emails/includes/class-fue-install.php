@@ -80,13 +80,35 @@ class FUE_Install {
 	 * Display a welcome notice.
 	 */
 	public function welcome_notice() {
-	  update_option( 'fue_welcome_notice', true );
+		update_option( 'fue_welcome_notice', true );
 	?>
-	  <div class="updated">
-		<?php
-		echo '<p><strong>' . esc_html__( 'Thanks for installing Follow-Up Emails.', 'woocommerce-product-addons' ) . '</strong></p><p>' . sprintf( esc_html__( 'Before diving in, we highly recommend taking the time to read about %1$semail types%2$s and %3$scampaigns%2$s in the %4$sdocumentation%2$s.', 'woocommerce-product-addons' ), '<a href="https://docs.woocommerce.com/document/automated-follow-up-emails-docs/">', '</a>', '<a href="https://docs.woocommerce.com/document/automated-follow-up-emails-docs/email-campaigns/">', '<a href="https://docs.woocommerce.com/document/automated-follow-up-emails-docs/">' ) . '</p><p>' . sprintf( esc_html__( 'Ready to get started? %sCreate a new email campaign%s.','woocommerce-product-addons' ), '<a href="' . esc_url( admin_url( 'post-new.php?post_type=follow_up_email' ) ) . '">', '</a>' ) . '</p>';
-		?>
-	  </div>
+		<div class="updated">
+			<p>
+				<strong><?php esc_html_e( 'Thanks for installing Follow-Up Emails.', 'follow_up_emails' ); ?></strong>
+			</p>
+			<p>
+				<?php
+					printf(
+						/* translators: %1$s email types documentation link, %3$s campaigns link, %4$s documentation link */
+						esc_html__( 'Before diving in, we highly recommend taking the time to read about %1$semail types%2$s and %3$scampaigns%2$s in the %4$sdocumentation%2$s.', 'follow_up_emails' ),
+						'<a href="https://docs.woocommerce.com/document/automated-follow-up-emails-docs/">',
+						'</a>',
+						'<a href="https://docs.woocommerce.com/document/automated-follow-up-emails-docs/email-campaigns/">',
+						'<a href="https://docs.woocommerce.com/document/automated-follow-up-emails-docs/">'
+					);
+				?>
+			</p>
+			<p>
+				<?php
+					printf(
+						/* translators: %1$s create new email campaign link, %2$s link end */
+						esc_html__( 'Ready to get started? %1$sCreate a new email campaign%2$s.', 'follow_up_emails' ),
+						'<a href="' . esc_url( admin_url( 'post-new.php?post_type=follow_up_email' ) ) . '">',
+						'</a>'
+					);
+				?>
+			</p>
+		</div>
 	<?php
 	}
 
@@ -133,7 +155,7 @@ class FUE_Install {
 	public function updated_notice() {
 		?>
 		<div id="message" class="updated">
-			<p><?php esc_html_e('Data update have been successfully applied!', 'follow_up_emails'); ?></p>
+			<p><?php esc_html_e( 'Data updates have been successfully applied!', 'follow_up_emails' ); ?></p>
 		</div>
 		<?php
 	}

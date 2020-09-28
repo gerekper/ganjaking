@@ -77,7 +77,7 @@ function draw_ctor_chart() {
 }
 
 jQuery().ready(function($) {
-    $("div.section:gt(0)").hide();
+    $("div.section").slice(1).hide();
 
     $("h2.reports-overview-tabs a.nav-tab").click(function(e) {
         e.preventDefault();
@@ -105,8 +105,8 @@ jQuery().ready(function($) {
 
     jQuery(".help_tip").tipTip();
     // Subsubsub tabs
-    jQuery('div.subsubsub_section ul.subsubsub li a:eq(0)').addClass('current');
-    jQuery('div.subsubsub_section .section:gt(0)').hide();
+    jQuery('div.subsubsub_section ul.subsubsub li a').first().addClass('current');
+    jQuery('div.subsubsub_section .section').slice(1).hide();
 
     jQuery('div.subsubsub_section ul.subsubsub li a').click(function(){
         var $clicked = jQuery(this);
@@ -151,11 +151,7 @@ jQuery().ready(function($) {
 
 jQuery().ready(function() {
     var $ = jQuery.noConflict();
-    jQuery("h2.reports-overview-tabs a:eq(0)").click();
-
-    $("div.circle").each(function() {
-        $(this).circliful();
-    });
+    jQuery("h2.reports-overview-tabs a").first().click();
 
     $("div.gauge").each(function() {
         var that = this;

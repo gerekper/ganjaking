@@ -1,0 +1,13 @@
+/**
+ * Messages css
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+/*
+    Hide Add New
+*/
+.page-title-action{
+	display: none;
+}

@@ -162,20 +162,23 @@ var clicks_rendered = opens_rendered = ctor_rendered = false;
 					<th colspan="7"><?php esc_html_e('No reports available', 'follow_up_emails'); ?></th>
 				</tr><?php
 			} else {
-				foreach ($email_reports as $report) {
+				foreach ( $email_reports as $report ) {
 					$sent       = FUE_Reports::count_email_sends( $report->email_id );
 					$opened     = FUE_Reports::count_event_occurences( $report->email_id, 'open' );
 					$web_opened = FUE_Reports::count_event_occurences( $report->email_id, 'web_open' );
 					$clicked    = FUE_Reports::count_event_occurences( $report->email_id, 'click' );
 					$bounces    = FUE_Reports::count_total_bounces( $report->email_id );
 					$meta       = '';
-					$conversions = FUE_Reports::get_conversion_reports( array('email_id' => $report->email_id) );
 
-					$num_conversions = count( $conversions );
-					$conversions_total  = 0;
+					if ( class_exists( 'WooCommerce' ) ) {
+						$conversions = FUE_Reports::get_conversion_reports( array( 'email_id' => $report->email_id ) );
 
-					foreach ( $conversions as $conversion ) {
-						$conversions_total += WC_FUE_Compatibility::get_order_prop( $conversion['order'], 'order_total' );
+						$num_conversions   = count( $conversions );
+						$conversions_total = 0;
+
+						foreach ( $conversions as $conversion ) {
+							$conversions_total += WC_FUE_Compatibility::get_order_prop( $conversion['order'], 'order_total' );
+						}
 					}
 
 					$email_row = new FUE_Email( $report->email_id );
@@ -195,7 +198,7 @@ var clicks_rendered = opens_rendered = ctor_rendered = false;
 						<td><a class="row-title" href="admin.php?page=followup-emails-reports&tab=linkclick_view&eid=<?php echo urlencode($report->email_id); ?>&ename=<?php echo urlencode($report->email_name); ?>"><span class="dashicons-before dashicons-yes"></span> <?php echo esc_html( $clicked ); ?></a></td>
 						<td><a class="row-title" href="admin.php?page=followup-emails-reports&tab=bounces_view&eid=<?php echo urlencode($report->email_id); ?>&ename=<?php echo urlencode($report->email_name); ?>"><span class="dashicons-before dashicons-flag"></span> <?php echo esc_html( $bounces ); ?></a></td>
 						<td><span class="dashicons-before dashicons-desktop"></span> <?php echo esc_html( $web_opened ); ?></td>
-						<td><?php echo wp_kses_post( sprintf('%d (%s)', $num_conversions, wc_price($conversions_total)) ); ?></td>
+						<td><?php echo class_exists( 'WooCommerce' ) ? wp_kses_post( sprintf( '%d (%s)', $num_conversions, wc_price( $conversions_total ) ) ) : ''; ?></td>
 					</tr><?php
 				}
 			}

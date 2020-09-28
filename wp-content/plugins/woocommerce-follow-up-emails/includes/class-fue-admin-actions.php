@@ -112,7 +112,7 @@ class FUE_Admin_Actions {
 			}
 		}
 
-		wp_safe_redirect( 'admin.php?page=followup-emails&manual_sent=1#manual_mails' );
+		wp_safe_redirect( 'admin.php?page=followup-emails&manual_sent=1' );
 		exit;
 	}
 

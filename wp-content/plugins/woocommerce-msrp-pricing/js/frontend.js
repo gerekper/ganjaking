@@ -51,6 +51,12 @@ jQuery(document).ready(function($) {
                 } else {
                     hide_msrp( this );
                 }
+            } else if ( woocommerce_msrp.msrp_status == 'higher' ) {
+                if ( parseFloat( variation.msrp ) > parseFloat( variation.non_msrp_price ) ) {
+                    show_msrp( this, variation.msrp_html, variation.msrp_saving );
+                } else {
+                    hide_msrp( this );
+                }
             }
         }
     });

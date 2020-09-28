@@ -1,5 +1,8 @@
 *** WooCommerce Product Reviews Pro Changelog ***
 
+2020.09.04 - version 1.16.1
+ * Fix - Escape all instances of contribution output to avoid a potential XSS attack
+ 
 2020.08.18 - version 1.16.0
  * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
 

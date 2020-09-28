@@ -122,7 +122,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 			$mode = (is_taxonomy_hierarchical($taxonomy)) ? 2 : 4;
 		}
 
-		// A. Get permalink base from the term's custom URI
+		// A. Inherit the custom permalink from the term
 		if($mode == 1) {
 			$term_slug = $permalink_manager_uris["tax-{$term->term_id}"];
 		}
@@ -142,18 +142,32 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 			$last_term_slug = ($native_uri) ? $term->slug : self::force_custom_slugs($term->slug, $term);
 			$term_slug = "{$term_slug}/{$last_term_slug}";
 		}
-		// C. Force flat taxonomy base - get highgest level term (if %taxonomy_flat% tag is used)
-		else if($mode == 4) {
-			foreach($terms as $single_term) {
-				if($single_term->parent == 0) {
-					$term_slug = self::force_custom_slugs($single_term->slug, $single_term);
-					break;
+		// C. Force flat taxonomy base - get highest level term (if %taxonomy_top% tag is used)
+		else if($mode == 3) {
+			if(!empty($term->parent)) {
+				$ancestors = get_ancestors($term->term_id, $taxonomy, 'taxonomy');
+
+				if(is_array($ancestors)) {
+					$top_ancestor = end($ancestors);
+					$top_ancestor_term = get_term($top_ancestor, $taxonomy);
+					$single_term = (!empty($top_ancestor_term->slug)) ? $top_ancestor_term : $term;
 				}
 			}
+
+			$term_slug = (!empty($single_term->slug)) ? self::force_custom_slugs($single_term->slug, $single_term) : $term->slug;
 		}
-		// D. Flat/non-hierarchical taxonomy base - get primary term (if set) or first term
-		else if(!empty($term->slug)) {
-			$term_slug = ($native_uri) ? $term->slug : Permalink_Manager_Helper_Functions::force_custom_slugs($term->slug, $term);
+		// D. Force flat taxonomy base - get primary or lowest level term (if term is non-hierarchical or %taxonomy_flat% tag is used)
+		else {
+			if(!empty($term->slug)) {
+				$term_slug = ($native_uri) ? $term->slug : Permalink_Manager_Helper_Functions::force_custom_slugs($term->slug, $term);
+			} else {
+				foreach($terms as $single_term) {
+					if($single_term->parent == 0) {
+						$term_slug = self::force_custom_slugs($single_term->slug, $single_term);
+						break;
+					}
+				}
+			}
 		}
 
 		return (!empty($term_slug)) ? $term_slug : "";
@@ -450,18 +464,14 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 			$sanitize_slugs = (!empty($permalink_manager_options['general']['disable_slug_sanitization'])) ? false : true;
 		}
 
-		// Trim slashes & whitespaces
-		$clean = trim($str, " /");
-
 		// Remove accents & entities
-		$clean = (empty($permalink_manager_options['general']['keep_accents'])) ? remove_accents($clean) : $clean;
+		$clean = (empty($permalink_manager_options['general']['keep_accents'])) ? remove_accents($str) : $str;
 		$clean = str_replace(array('&lt', '&gt', '&amp'), '', $clean);
 
 		$percent_sign = ($keep_percent_sign) ? "\%" : "";
-		//$sanitize_regex = apply_filters("permalink_manager_sanitize_regex", "/[^\p{Thai}\p{Greek}\p{Hebrew}\p{Arabic}\p{Cyrillic}a-zA-Z0-9{$percent_sign}\/_\.|+, -]/u", $percent_sign);
 		$sanitize_regex = apply_filters("permalink_manager_sanitize_regex", "/[^\p{Xan}a-zA-Z0-9{$percent_sign}\/_\.|+, -]/ui", $percent_sign);
 		$clean = preg_replace($sanitize_regex, '', $clean);
-		$clean = ($force_lowercase) ? strtolower(trim($clean, '-')) : trim($clean, '-');
+		$clean = ($force_lowercase) ? strtolower($clean) : $clean;
 
 		// Remove amperand
 		$clean = str_replace(array('%26', '&'), '', $clean);
@@ -476,8 +486,12 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 			$clean = preg_replace("/[\s]+/", "-", $clean);
 		}
 
-		// Remove trailing slashes
-		$clean = str_replace(array('-/', '/-', '//'), '/', $clean);
+		// Remove widow & duplicated slashes
+		$clean = preg_replace('/([-]*[\/]+[-]*)/', '/', $clean);
+		$clean = preg_replace('/([\/]+)/', '/', $clean);
+
+		// Trim slashes, dashes and whitespaces
+		$clean = trim($clean, " /-");
 
 		return $clean;
 	}
@@ -598,7 +612,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 				$duplicated_ids = array_keys($all_uris, $duplicated_uri);
 
 				// Ignore duplicates in different langauges
-				if(self::is_uri_duplicated($duplicated_uri, $duplicated_ids[0])) {
+				if(self::is_uri_duplicated($duplicated_uri, $duplicated_ids[0], $duplicated_ids)) {
 					$duplicates_groups[$duplicated_uri] = $duplicated_ids;
 				}
 			}
@@ -610,35 +624,43 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 	/**
 	 * Check if a single URI is duplicated
 	 */
-	public static function is_uri_duplicated($uri, $element_id) {
+	public static function is_uri_duplicated($uri, $element_id, $duplicated_ids = array()) {
 		global $permalink_manager_uris;
 
- 		if(empty($uri) || empty($element_id)) { return false; }
+ 		if(empty($uri) || empty($element_id) || empty($permalink_manager_uris)) { return false; }
 
  		$uri = trim(trim(sanitize_text_field($uri)), "/");
  		$element_id = sanitize_text_field($element_id);
 
- 		// Keep the URIs in a separate array just here & unset the URI for requested element to prevent false alert
- 		$all_uris = $permalink_manager_uris;
- 		if(!empty($all_uris[$element_id])) { unset($all_uris[$element_id]); }
+ 		// Keep the URIs in a separate array just here
+		if(!empty($duplicated_ids)) {
+			$all_duplicates = $duplicated_ids;
+		} else if(in_array($uri, $permalink_manager_uris)) {
+			$all_duplicates = (array) array_keys($permalink_manager_uris, $uri);
+		}
 
- 		if(in_array($uri, $all_uris)) {
-			$all_duplicates = (array) array_keys($all_uris, $uri);
+ 		if(!empty($all_duplicates)) {
+			// Get the language code of current element
 			$this_uri_lang = Permalink_Manager_Language_Plugins::get_language_code($element_id);
 
-			if($this_uri_lang) {
-				foreach($all_duplicates as $key => $duplicated_id) {
-					$duplicated_uri_lang = Permalink_Manager_Language_Plugins::get_language_code($duplicated_id);
-
-					if($duplicated_uri_lang !== $this_uri_lang && !empty($all_duplicates[$key])) {
-						unset($all_duplicates[$key]);
-					}
+			foreach($all_duplicates as $key => $duplicated_id) {
+				// Ignore custom redirects
+				if(strpos($key, 'redirect-') !== false) {
+					unset($all_duplicates[$key]);
+					continue;
 				}
 
-				return (count($all_duplicates) > 0) ? true : false;
-			} else {
-				return true;
+				if($this_uri_lang) {
+					$duplicated_uri_lang = Permalink_Manager_Language_Plugins::get_language_code($duplicated_id);
+				}
+
+				// Ignore the URI for requested element and other elements in other languages to prevent the false alert
+				if((!empty($duplicated_uri_lang) && $duplicated_uri_lang !== $this_uri_lang) || $element_id == $duplicated_id) {
+					unset($all_duplicates[$key]);
+				}
 			}
+
+			return (count($all_duplicates) > 0) ? true : false;
 		} else {
 			return false;
 		}

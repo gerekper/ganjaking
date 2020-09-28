@@ -20,7 +20,7 @@ jQuery( function ( $ ) {
     // TABS
     $('ul.fue-tabs').show();
     $('div.panel-wrap').each(function(){
-        $(this).find('div.panel:not(:first)').hide();
+        $(this).find('div.panel').slice(1).hide();
     });
     $('#fue-email-details').on("click", "ul.fue-tabs a", function(){
         var panel_wrap =  $(this).closest('div.panel-wrap');
@@ -210,7 +210,7 @@ jQuery( function ( $ ) {
     }).change();
 
     // Event for updating the metaboxes
-    $('body').bind( 'updated_email_type updated_email', function() {
+    $('body').on( 'updated_email_type updated_email', function() {
         fue_refresh_email_details();
         fue_refresh_email_variables();
         fue_toggle_elements();
@@ -218,7 +218,7 @@ jQuery( function ( $ ) {
         $("body").trigger( 'fue_email_type_changed', [$("#email_type").val()] );
     });
 
-    $('body').bind( 'fue_update_variables', function() {
+    $('body').on( 'fue_update_variables', function() {
         fue_refresh_email_variables();
     });
 

@@ -161,4 +161,33 @@ class WC_Checkout_Field_Editor_Order_Details {
 
 		return $field_values;
 	}
+
+	/**
+	 * Check if the order has additional billing fields to display.
+	 *
+	 * @since 1.5.37
+	 *
+	 * @param WC_Order $order Current Order.
+	 *
+	 * @return bool
+	 */
+	public static function has_custom_billing_checkout_fields( $order ) {
+		$fields = self::get_custom_checkout_fields( $order, 'billing', 'emails' );
+		return ! empty( $fields );
+	}
+
+
+	/**
+	 * Check if the order has additional shipping fields to display.
+	 *
+	 * @since 1.5.37
+	 *
+	 * @param WC_Order $order Current Order.
+	 *
+	 * @return bool
+	 */
+	public static function has_custom_shipping_checkout_fields( $order ) {
+		$fields = self::get_custom_checkout_fields( $order, 'shipping', 'emails' );
+		return ! empty( $fields );
+	}
 }

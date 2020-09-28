@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recpatcha
 Requires at least:3.0
-Tested up to:5.5
-Version:1.0.15
-Stable tag:1.0.15
+Tested up to:5.5.1
+Version:1.0.17
+Stable tag:1.0.17
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -58,6 +58,18 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 1.0.17 =
+
+* Added captcha protection for WooCommerce Pay For Order (This is only used when your order is failed. WooCommerce allow failed order to repay using this page.
+
+
+
+= 1.0.16 =
+
+* Added option for checkout captcha to refresh when there are checkout errors.
+* Fixed issue of refresh captcha sometimes not working
+
 
 = 1.0.15 =
 

@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) or exit;
  */
 function wc_memberships_is_members_area() {
 
-	return wc_memberships()->get_frontend_instance()->get_members_area_instance()->is_members_area();
+	return wc_memberships()->get_frontend_instance()->get_my_account_instance()->get_members_area_instance()->is_members_area();
 }
 
 
@@ -47,7 +47,7 @@ function wc_memberships_is_members_area() {
  */
 function wc_memberships_is_members_area_section( $section = null ) {
 
-	return wc_memberships()->get_frontend_instance()->get_members_area_instance()->is_members_area_section( $section );
+	return wc_memberships()->get_frontend_instance()->get_my_account_instance()->get_members_area_instance()->is_members_area_section( $section );
 }
 
 
@@ -445,7 +445,7 @@ function wc_memberships_get_members_area_page_links( $membership_plan, $section,
  */
 function wc_memberships_get_members_area_sorting_link( $sort_key, $sort_label ) {
 
-	if ( $members_area = wc_memberships()->get_frontend_instance()->get_members_area_instance() ) {
+	if ( $members_area = wc_memberships()->get_frontend_instance()->get_my_account_instance()->get_members_area_instance() ) {
 
 		$sorting_link = '<span class="wc-memberships-members-area-sorting">';
 		$sorting_args = $members_area->get_members_area_sorting_args();

@@ -69,5 +69,6 @@ if ( !$wp_filesystem->put_contents( $emails_dir .'/'. $template_file, $template_
 	return;
 }
 
-show_message( sprintf( __('Template %s installed!', 'follow_up_emails'), $template_name ) );
-show_message( '<a href="admin.php?page=followup-emails-templates">'. __('Go back', 'follow_up_emails') .'</a>');
+/* translators: %s template name */
+show_message( sprintf( __( 'Created template %s', 'follow_up_emails' ), $template_name ) );
+show_message( '<a href="admin.php?page=followup-emails-templates">' . __( 'Go back', 'follow_up_emails' ) . '</a>' );

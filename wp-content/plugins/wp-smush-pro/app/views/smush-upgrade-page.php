@@ -63,7 +63,7 @@ $upgrade_url = add_query_arg(
 			<span id="wistia_oegnwrdag1"></span>
 			<script>
 				document.addEventListener("DOMContentLoaded", function() {
-					var trigger = document.getElementById("wistia-play-button");
+					var trigger = document.getElementById("wistia-play-button");	 		   	  	 					   	
 
 					window.wistiaSmushEmbed = null;
 					window.wistiaInit = function(Wistia) {

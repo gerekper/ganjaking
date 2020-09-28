@@ -184,7 +184,7 @@ if ( isset($_POST) && !empty($_POST) ) { // phpcs:ignore WordPress.Security.Nonc
 						<label for="tracking"><?php esc_html_e('Link Tracking', 'follow_up_emails'); ?></label>
 					</th>
 					<td>
-						<input type="text" name="tracking" id="tracking" class="test-email-field" value="<?php echo esc_attr($defaults['tracking']); ?>" placeholder="e.g. utm_campaign=Follow-up-Emails-by-75nineteen" size="40" />
+						<input type="text" name="tracking" id="tracking" class="test-email-field" value="<?php echo esc_attr($defaults['tracking']); ?>" placeholder="e.g. utm_campaign=Follow-up-Emails-by-WooCommerce" size="40" />
 						<p class="description">
 							<?php esc_html_e('The value inserted here will be appended to all URLs in the Email Body', 'follow_up_emails'); ?>
 						</p>

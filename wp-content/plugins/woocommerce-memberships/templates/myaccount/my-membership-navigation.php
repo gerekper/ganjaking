@@ -30,7 +30,7 @@ defined( 'ABSPATH' ) or exit;
  * @since 1.9.0
  */
 
-$members_area          = wc_memberships()->get_frontend_instance()->get_members_area_instance();
+$members_area          = wc_memberships()->get_frontend_instance()->get_my_account_instance()->get_members_area_instance();
 $customer_membership   = $members_area->get_members_area_user_membership();
 $membership_plan       = $customer_membership ? $customer_membership->get_plan() : null;
 $members_area_sections = $membership_plan ? $members_area->get_members_area_navigation_items( $membership_plan ) : null;

@@ -10,6 +10,13 @@ return array(
     'required' => false,
     'desc' => __('This is the coupon code to be associated with the coupon. This should be a unique code with no spaces or special characters other than \'-\'. If spaces are present the value will be accepted but MemberPress will replace them with dashes. Also, if this value is left blank, MemberPress will automatically generate a unique code for this coupon.', 'memberpress-developer-tools')
   ),
+  'description' => array(
+    'name' => __('Coupon Description', 'memberpress-developer-tools'),
+    'type' => 'string',
+    'default' => 'empty',
+    'required' => false,
+    'desc' => __('This is the coupon description. This field can be used to add notes to coupon so admin can have an idea of what this coupon offers', 'memberpress-developer-tools')
+  ),
   'should_expire' => array(
     'name' => __('Expire Coupon', 'memberpress-developer-tools'),
     'type' => 'bool',

@@ -1,5 +1,19 @@
 *** WooCommerce Distance Rate Shipping Changelog ***
 
+2020-09-23 - version 1.0.26
+* Tweak - Change "Fixed Cost" to "Base Cost" on settings page and improve tooltips.
+
+2020-08-14 - version 1.0.25
+* Fix   - Replace deprecated jQuery methods.
+* Tweak - WordPress 5.5 compatibility.
+* Tweak - Remove WC < 2.6 support.
+
+2020-07-07 - version 1.0.24
+* Fix - Don't calculate shipping cost when full address is not provided.
+
+2020-06-16 - version 1.0.23
+* Fix - Take into consideration all parameters before caching when calling the `get_distance` function.
+
 2020-06-10 - version 1.0.22
 * Tweak - WC 4.2 compatibility.
 

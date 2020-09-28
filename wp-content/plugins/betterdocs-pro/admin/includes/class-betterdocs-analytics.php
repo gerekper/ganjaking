@@ -569,9 +569,13 @@ class BetterDocsPro_Analytics {
         return $output;
     }
 
-    public function analytics_data(){
+    public function analytics_data() {
+
         global $user_ID, $post, $post_type;
-        if( $post_type != 'docs' ) {
+
+        $get_docs = get_posts( array( 'post_type' => 'docs', 'post_status' => 'publish') );
+        
+        if( $post_type != 'docs' || count( $get_docs ) == 0 ) {
             return;
         }
         

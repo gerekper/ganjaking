@@ -2,9 +2,9 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Project Manager Pro 2.5.1\n"
+"Project-Id-Version: WP Project Manager Pro 2.5.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cpm-pro\n"
-"POT-Creation-Date: 2020-08-26 05:02:52+00:00\n"
+"POT-Creation-Date: 2020-09-10 06:16:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -82,8 +82,7 @@ msgstr ""
 #: modules/time_tracker/views-d/assets/src/components/user-projects-task-estimation.vue:41
 #: modules/time_tracker/views-d/assets/src/components/user-reports-task-estimation.vue:136
 #: modules/time_tracker/views-d/assets/src/components/user-reports-task-estimation.vue:186
-#: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/task-create-form.vue:50
+#: views/assets/src/components/calendar/task-create-form-x.vue:50
 #: views/emails/html/daily_digest.php:63
 msgid "Task"
 msgstr ""
@@ -631,6 +630,12 @@ msgid "%1$s will start with the %2$s or after completing the %3$s"
 msgstr ""
 
 #: modules/gantt/views/assets/js/gantt.js:1
+#: modules/gantt/views/assets/src/components/tab-menu.vue:12
+#: modules/gantt/views/assets/src/router/router.js:28
+msgid "Gantt Chart"
+msgstr ""
+
+#: modules/gantt/views/assets/js/gantt.js:1
 #: modules/gantt/views/assets/src/components/list-form.vue:8
 msgid "Edit Task List"
 msgstr ""
@@ -643,7 +648,8 @@ msgstr ""
 #: modules/gantt/views/assets/js/gantt.js:1
 #: modules/gantt/views/assets/src/components/task-form.vue:7
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/task-create-form.vue:24
+#: views/assets/src/components/calendar/task-create-form-x.vue:24
+#: views/assets/src/components/calendar/task-create-form.vue:25
 msgid "New Task"
 msgstr ""
 
@@ -660,7 +666,7 @@ msgstr ""
 #: modules/time_tracker/views-d/assets/src/components/user-reports-task-estimation.vue:97
 #: modules/woo_project/views/assets/src/components/woo-option.vue:27
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/task-create-form.vue:27
+#: views/assets/src/components/calendar/task-create-form-x.vue:27
 #: views/assets/src/components/reports/advance-task.vue:305
 #: views/assets/src/components/reports/completed-task-results.vue:7
 #: views/assets/src/components/reports/completed-tasks.vue:59
@@ -681,11 +687,6 @@ msgstr ""
 msgid "Project"
 msgstr ""
 
-#: modules/gantt/views/assets/js/gantt.js:1
-#: modules/gantt/views/assets/src/components/tab-menu.vue:12
-msgid "Gantt Chart"
-msgstr ""
-
 #: modules/invoice/core/Paypal/Paypal.php:50
 msgid "Payment from PayPal, Txn: %s"
 msgstr ""
@@ -698,6 +699,7 @@ msgstr ""
 #: modules/invoice/views/assets/src/components/invoice.vue:21
 #: modules/invoice/views/assets/src/components/settings-tab-menu.vue:3
 #: modules/invoice/views/assets/src/components/tab-menu.vue:13
+#: modules/invoice/views/assets/src/router/router.js:55
 msgid "Invoice"
 msgstr ""
 
@@ -1590,13 +1592,8 @@ msgid "You do not select any task for importing"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard.vue:8
-msgid "List View"
-msgstr ""
-
-#: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard.vue:14
-msgid "Kanban"
+#: modules/kanboard/views/assets/src/router/router.js:37
+msgid "Kanban board"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
@@ -1613,7 +1610,7 @@ msgstr ""
 #: modules/time_tracker/views/assets/src/components/summary-search-results.vue:29
 #: modules/time_tracker/views-d/assets/src/components/summary-search-results.vue:29
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/select-projects.vue:121
+#: views/assets/src/components/calendar/select-projects.vue:122
 #: views/assets/src/components/reports/completed-tasks.vue:16
 #: views/assets/src/components/reports/milestone-task.vue:16
 #: views/assets/src/components/reports/overdue-task.vue:16
@@ -1885,6 +1882,14 @@ msgstr ""
 #: views/reports/completed-tasks.php:66 views/reports/milestone-tasks.php:66
 #: views/reports/unassigned-tasks.php:58
 msgid "Due Date"
+msgstr ""
+
+#: modules/kanboard/views/assets/src/components/kanboard.vue:8
+msgid "List View"
+msgstr ""
+
+#: modules/kanboard/views/assets/src/components/kanboard.vue:14
+msgid "Kanban"
 msgstr ""
 
 #: modules/pm_buddypress/pm_buddypress.php:150
@@ -2591,7 +2596,7 @@ msgstr ""
 #: modules/time_tracker/views-d/assets/src/components/projects-task-estimation.vue:30
 #: modules/time_tracker/views-d/assets/src/components/projects-task-estimation.vue:175
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/calendar.vue:127
+#: views/assets/src/components/calendar/calendar.vue:134
 msgid "Users"
 msgstr ""
 
@@ -3572,7 +3577,7 @@ msgid "Update Link"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/calendar.vue:116
+#: views/assets/src/components/calendar/calendar.vue:123
 msgid "User view"
 msgstr ""
 
@@ -3604,6 +3609,7 @@ msgstr ""
 
 #: views/assets/js/pm-pro.js:1
 #: views/assets/src/components/archive-list/archive-list.vue:21
+#: views/assets/src/components/archive-list/archive-page-button.vue:5
 msgid "Archive"
 msgstr ""
 
@@ -3842,47 +3848,38 @@ msgid "Filter by project"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/select-projects.vue:23
+#: views/assets/src/components/calendar/select-projects.vue:24
 msgid "Filter by user"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/task-create-form.vue:33
-msgid "Type project name"
-msgstr ""
-
-#: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/task-create-form.vue:39
-msgid "In List"
-msgstr ""
-
-#: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/task-create-form.vue:44
-msgid "Type task list name"
-msgstr ""
-
-#: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/calendar.vue:23
+#: views/assets/src/components/calendar/calendar.vue:27
 msgid "Incomplete Task"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/calendar.vue:24
+#: views/assets/src/components/calendar/calendar.vue:28
 #: views/assets/src/components/reports/reports.vue:27
 msgid "Complete Task"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/calendar.vue:25
+#: views/assets/src/components/calendar/calendar.vue:29
 msgid "Outstanding Task"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/calendar/calendar.vue:26
+#: views/assets/src/components/calendar/calendar.vue:30
 #: views/assets/src/components/project-settings/capabilities.vue:137
 #: views/assets/src/components/reports/milestone-task.vue:70
 #: views/reports/milestone-tasks.php:11
 msgid "Milestone"
+msgstr ""
+
+#: views/assets/js/pm-pro.js:1
+#: views/assets/src/components/project-settings/router.js:43
+#: views/assets/src/components/project-settings/tab-menu.vue:12
+msgid "Settings"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
@@ -4321,6 +4318,18 @@ msgstr ""
 msgid "No activity found"
 msgstr ""
 
+#: views/assets/src/components/calendar/task-create-form-x.vue:33
+msgid "Type project name"
+msgstr ""
+
+#: views/assets/src/components/calendar/task-create-form-x.vue:39
+msgid "In List"
+msgstr ""
+
+#: views/assets/src/components/calendar/task-create-form-x.vue:44
+msgid "Type task list name"
+msgstr ""
+
 #: views/assets/src/components/erp-department/erp-department.vue:3
 msgid "Assign co-worker from departments"
 msgstr ""
@@ -4358,10 +4367,6 @@ msgstr ""
 
 #: views/assets/src/components/project-files/uploader.vue:15
 msgid "Attach a File"
-msgstr ""
-
-#: views/assets/src/components/project-settings/tab-menu.vue:12
-msgid "Settings"
 msgstr ""
 
 #: views/assets/src/components/reports/advance-task.vue:10

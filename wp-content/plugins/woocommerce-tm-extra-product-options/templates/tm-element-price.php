@@ -37,7 +37,7 @@ if ( isset( $hide_amount ) && isset( $textbeforeprice ) && $textbeforeprice != '
 </span>
 <?php 
 if ( isset( $textafterprice ) && $textafterprice != '' ) : ?>
-	<span class="after-amount"><?php echo apply_filters( 'wc_epo_kses', esc_html( $textafterprice ), $textafterprice ); ?></span>
+	<span class="after-amount<?php if ( ! empty( $hide_amount ) ){ echo esc_attr( $hide_amount ); } ?>"><?php echo apply_filters( 'wc_epo_kses', esc_html( $textafterprice ), $textafterprice ); ?></span>
 <?php endif; ?>
 </span>
 <?php

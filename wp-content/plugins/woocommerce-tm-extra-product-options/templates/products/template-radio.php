@@ -38,6 +38,9 @@ if ( is_array( $options ) ) :
 					}
 					if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
 						THEMECOMPLETE_EPO_HTML()->create_attribute_list( $element_data_attr );
+					} 
+					if ( isset( $required ) && ! empty( $required ) ) { 
+						echo ' required '; 
 					} ?> value="<?php echo esc_attr( $product_id ); ?>" id="<?php echo esc_attr( $forid ); ?>" type="radio" <?php
 					checked( $checked, TRUE );
 					?> />

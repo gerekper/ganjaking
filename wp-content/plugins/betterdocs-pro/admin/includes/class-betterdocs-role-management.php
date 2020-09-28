@@ -78,7 +78,7 @@ class BetterDocs_Role_Management {
         return false;
     }
     /**
-     * Capabilities Check for Write and Read Article and Category, Tags.
+     * Capabilities Check for Write and Read Docs and Category, Tags.
      *
      * @param string $default_caps
      * @param string $roles_for

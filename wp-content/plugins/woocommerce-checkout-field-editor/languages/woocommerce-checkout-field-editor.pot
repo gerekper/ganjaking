@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Checkout Field Editor 1.5.36\n"
+"Project-Id-Version: WooCommerce Checkout Field Editor 1.5.37\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-checkout-field-editor\n"
-"POT-Creation-Date: 2020-08-13 14:48:04+00:00\n"
+"POT-Creation-Date: 2020-09-21 14:04:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -245,7 +245,7 @@ msgid "Select option"
 msgstr ""
 
 #: includes/class-wc-checkout-field-editor.php:691
-#: includes/wc-checkout-field-functions.php:474
+#: includes/wc-checkout-field-functions.php:481
 msgid "Select some options"
 msgstr ""
 
@@ -257,52 +257,64 @@ msgstr ""
 msgid "Your changes were not saved due to an error (or you made none!)."
 msgstr ""
 
-#: includes/wc-checkout-field-functions.php:370
-#: includes/wc-checkout-field-functions.php:413
-#: includes/wc-checkout-field-functions.php:453
+#: includes/wc-checkout-field-functions.php:377
+#: includes/wc-checkout-field-functions.php:420
+#: includes/wc-checkout-field-functions.php:460
 msgid "required"
 msgstr ""
 
-#: includes/wc-checkout-field-functions.php:537
+#: includes/wc-checkout-field-functions.php:544
 msgid "is a required field."
 msgstr ""
 
-#: includes/wc-checkout-field-functions.php:545
-#: includes/wc-checkout-field-functions.php:548
+#: includes/wc-checkout-field-functions.php:552
+#: includes/wc-checkout-field-functions.php:555
 #. translators: %s: Invalid number
 msgid "(%s) is not a valid number."
 msgstr ""
 
-#: includes/wc-checkout-field-functions.php:557
+#: includes/wc-checkout-field-functions.php:564
 #. translators: %s: Invalid email address
 msgid "(%s) is not a valid email address."
 msgstr ""
 
-#: includes/wc-checkout-field-functions.php:679
+#: includes/wc-checkout-field-functions.php:686
 msgid "yes"
 msgstr ""
 
-#: templates/emails/email-addresses.php:29
+#: templates/emails/email-addresses.php:31
 #: templates/emails/plain/email-addresses.php:20
 #: templates/order/order-details-customer.php:34
 msgid "Billing address"
 msgstr ""
 
-#: templates/emails/email-addresses.php:32
+#: templates/emails/email-addresses.php:34
 #: templates/order/order-details-customer.php:37
 #: templates/order/order-details-customer.php:56
 msgid "N/A"
 msgstr ""
 
-#: templates/emails/email-addresses.php:46
+#: templates/emails/email-addresses.php:50
 #: templates/emails/plain/email-addresses.php:37
 #: templates/order/order-details-customer.php:54
 msgid "Shipping address"
 msgstr ""
 
-#: woocommerce-checkout-field-editor.php:92
+#: woocommerce-checkout-field-editor.php:102
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Checkout Field Editor requires %s to be installed and active."
+msgstr ""
+
+#: woocommerce-checkout-field-editor.php:130
+msgid "Settings"
+msgstr ""
+
+#: woocommerce-checkout-field-editor.php:147
+msgid "Docs"
+msgstr ""
+
+#: woocommerce-checkout-field-editor.php:148
+msgid "Support"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

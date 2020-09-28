@@ -502,8 +502,8 @@ function fue_get_email_type( $email_id ) {
 function fue_get_emails( $type = 'any', $status = '', $filters = array() ) {
 	$args = array(
 		'nopaging'  => true,
-		'orderby'   => 'menu_order',
-		'order'     => 'ASC',
+		'orderby'   => 'ID',
+		'order'     => 'DESC',
 		'post_type' => 'follow_up_email'
 	);
 
@@ -532,11 +532,6 @@ function fue_get_emails( $type = 'any', $status = '', $filters = array() ) {
 				'field'     => 'slug'
 			);
 		}
-	}
-
-	if ( !isset( $args['orderby'] ) ) {
-		$args['orderby']    = 'menu_order';
-		$args['order']      = 'ASC';
 	}
 
 	if ( isset( $args['tax_query'] ) && isset( $filters['tax_query'] ) )

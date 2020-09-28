@@ -220,6 +220,22 @@ class WC_Bookings_Details_Meta_Box {
 							<?php endif; ?>
 						</p>
 
+						<p class="form-field form-field-wide">
+							<label><?php esc_html_e( 'Metadata:', 'woocommerce-bookings' ); ?></label>
+							<?php
+							$order_item_id = $booking->get_order_item_id();
+							$order_item    = new WC_Order_Item_Product( $order_item_id );
+							?>
+
+							<table cellspacing="0" class="wc_bookings_metadata_table">
+							<?php foreach ( $order_item->get_formatted_meta_data() as $meta ) : ?>
+								<tr>
+									<th><?php echo wp_kses_post( $meta->display_key ); ?>:</th>
+									<td><?php echo wp_kses_post( force_balance_tags( $meta->display_value ) ); ?></td>
+								</tr>
+							<?php endforeach; ?>
+							</table>
+						</p>
 						<?php do_action( 'woocommerce_admin_booking_data_after_booking_details', $post->ID ); ?>
 
 					</div>

@@ -30,7 +30,7 @@ class Package {
 	const ID = 'wordpress-plugin-admin';
 
 	/** @var string the package version */
-	const VERSION = '1.0.1';
+	const VERSION = '1.0.2';
 
 	/** @var string the minimum required version of WooCommerce */
 	const MINIMUM_WOOCOMMERCE_VERSION = '3.5';

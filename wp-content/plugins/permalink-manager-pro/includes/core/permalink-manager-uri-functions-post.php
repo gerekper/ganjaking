@@ -280,16 +280,27 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 				// 0. Check if taxonomy tag is present
 				if(strpos($default_uri, "%{$taxonomy}") === false) { continue; }
 
-				// 1. Reset $replacement
+				// 1. Reset $replacement variable
 				$replacement = $replacement_term = "";
 				$terms = wp_get_object_terms($post->ID, $taxonomy);
 
-				// 2. Try to use Yoast SEO Primary Term
+				// 2. Sort the terms
+				if(!empty($terms)) {
+					$terms = wp_list_sort(
+						$terms,
+						array(
+							'parent'  => 'DESC',
+							'term_id' => 'ASC',
+						)
+					);
+				}
+
+				// 3A. Try to use Yoast SEO Primary Term
 				$replacement_term = $primary_term = Permalink_Manager_Helper_Functions::get_primary_term($post->ID, $taxonomy, false);
 
-				// 3. Get the first assigned term to this taxonomy
+				// 3B. Get the first assigned term to this taxonomy
 				if(empty($replacement_term)) {
-					$replacement_term = (!is_wp_error($terms) && !empty($terms) && is_object($terms[0])) ? Permalink_Manager_Helper_Functions::get_lowest_element($terms[0], $terms) : "";
+					$replacement_term = (!is_wp_error($terms) && !empty($terms) && is_object($terms[0])) ? Permalink_Manager_Helper_Functions::get_lowest_element($terms[0], $terms) : '';
 					$replacement_term = apply_filters('permalink_manager_filter_post_terms', $replacement_term, $post, $terms, $taxonomy, $native_uri);
 				}
 
@@ -298,21 +309,16 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 					$mode = 1;
 				}
 				// 4B. Hierarhcical term base
-				else if(!empty($replacement_term->term_id) && strpos($default_uri, "%{$taxonomy}_flat%") === false && is_taxonomy_hierarchical($taxonomy)) {
+				else if(!empty($replacement_term->term_id) && strpos($default_uri, "%{$taxonomy}_flat%") === false && strpos($default_uri, "%{$taxonomy}_top%") === false && is_taxonomy_hierarchical($taxonomy)) {
 					$mode = 2;
 				}
-				// 4C. Force flat/non-hierarchical term base - get highgest level term (if %taxonomy_flat% tag is used and primary term is not set)
-				else if(!$native_uri && strpos($default_uri, "%{$taxonomy}_flat%") !== false && !empty($terms) && empty($primary_term->slug)) {
+				// 4C. Force flat/non-hierarchical term base - get highest level term (if %taxonomy_top% tag is used)
+				else if(strpos($default_uri, "%{$taxonomy}_top%") !== false) {
 					$mode = 3;
 				}
-				// 4D. Flat/non-hierarchical term base - get first term (if primary term not set)
-				else if(empty($primary_term->slug)) {
-					$mode = 4;
-				}
-				// 4E. Flat/non-hierarchical term base - get and force primary term (if set)
+				// 4D. Force flat/non-hierarchical term base - get lowest level term (if %taxonomy_flat% tag is used)
 				else {
-					$mode = 5;
-					$replacement_term = $primary_term;
+					$mode = 4;
 				}
 
 				// Get the replacement slug (custom + native)
@@ -327,7 +333,8 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 				$replacement = apply_filters('permalink_manager_filter_term_slug', $replacement, $replacement_term, $post, $terms, $taxonomy, $native_uri);
 
 				// 4. Do the replacement
-				$default_uri = (!empty($replacement)) ? str_replace(array("%{$taxonomy}%", "%{$taxonomy}_flat%", "%{$taxonomy}_custom_uri%", "%{$taxonomy}_native_slug%"), array($replacement, $replacement, $replacement, $native_replacement), $default_uri) : $default_uri;
+				$default_uri = (!empty($replacement)) ? str_replace(array("%{$taxonomy}%", "%{$taxonomy}_flat%", "%{$taxonomy}_custom_uri%", "%{$taxonomy}_top%"), $replacement, $default_uri) : $default_uri;
+				$default_uri = (!empty($native_replacement)) ? str_replace("%{$taxonomy}_native_slug%", $native_replacement, $default_uri) : $default_uri;
 			}
 		}
 

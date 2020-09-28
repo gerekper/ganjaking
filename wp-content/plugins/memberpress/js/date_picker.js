@@ -4,17 +4,21 @@ jQuery(document).ready(function($) {
   var pastYears = currentYear - 100;
   var futureYears = currentYear + 50;
 
+  var dateFormat = 'yy-mm-dd';
   var timeFormat = 'HH:mm:ss';
   var showTime   = true;
 
   //Front End needs to display cleaner
   if(typeof MeprDatePicker != "undefined") {
+    if(MeprDatePicker.hasOwnProperty('dateFormat')){
+      dateFormat = String(MeprDatePicker.dateFormat);
+    }
     timeFormat = MeprDatePicker.timeFormat;
     showTime = Boolean(MeprDatePicker.showTime);
   }
 
   $('.mepr-date-picker').datetimepicker( {
-    dateFormat : 'yy-mm-dd',
+    dateFormat : dateFormat,
     timeFormat: timeFormat,
     yearRange : pastYears + ":" + futureYears,
     changeMonth : true,

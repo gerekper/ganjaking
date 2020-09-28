@@ -37,7 +37,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php if ( ! empty( $tax_obj ) ) {
 				echo 'data-tax-obj="' . esc_attr( $tax_obj ) . '" ';
 			} ?>
-               type="text"/>
+               type="text" <?php if ( isset( $required ) && ! empty( $required ) ) { echo 'required '; }?>/>
     </label>
 	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php' ); ?>
 	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php' ); ?>

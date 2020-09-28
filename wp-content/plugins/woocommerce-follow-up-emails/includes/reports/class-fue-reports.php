@@ -36,8 +36,11 @@ class FUE_Reports {
 	 * Register the menu entry and the submenu page
 	 */
 	public function menu() {
-		add_submenu_page( 'followup-emails', __('Reports', 'follow_up_emails'), __('Reports', 'follow_up_emails'), 'manage_follow_up_emails', 'followup-emails-reports', 'FUE_Reports::settings_main' );
-		add_submenu_page( 'followup-emails', __('Customers', 'follow_up_emails'), __('Customers', 'follow_up_emails'), 'manage_follow_up_emails', 'followup-emails-reports-customers', 'FUE_Reports::customers_search' );
+		add_submenu_page( 'followup-emails', __( 'Reports', 'follow_up_emails' ), __( 'Reports', 'follow_up_emails' ), 'manage_follow_up_emails', 'followup-emails-reports', 'FUE_Reports::settings_main' );
+
+		if ( class_exists( 'WooCommerce' ) ) {
+			add_submenu_page( 'followup-emails', __( 'Customers', 'follow_up_emails' ), __( 'Customers', 'follow_up_emails' ), 'manage_follow_up_emails', 'followup-emails-reports-customers', 'FUE_Reports::customers_search' );
+		}
 	}
 
 	/**

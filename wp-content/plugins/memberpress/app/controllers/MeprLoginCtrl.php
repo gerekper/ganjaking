@@ -261,7 +261,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
     $mepr_options = MeprOptions::fetch();
     $errors = MeprHooks::apply_filters('mepr-validate-forgot-password', MeprUser::validate_forgot_password($_POST, array()));
 
-    extract($_POST);
+    extract($_POST, EXTR_SKIP);
 
     if(empty($errors)) {
       $is_email = (is_email($mepr_user_or_email) and email_exists($mepr_user_or_email));
@@ -311,7 +311,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
 
   public function display_reset_password_form_errors($errors) {
     if(!empty($errors)) {
-      extract($_POST);
+      extract($_POST, EXTR_SKIP);
       MeprView::render('/shared/errors', get_defined_vars());
       MeprView::render('/login/reset_password', get_defined_vars());
     }
@@ -338,7 +338,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
       }
 
       if(empty($errors)) {
-        extract($_POST);
+        extract($_POST, EXTR_SKIP);
         $user = new MeprUser();
         $user->load_user_data_by_login($mepr_screenname);
 

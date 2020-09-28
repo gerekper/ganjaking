@@ -251,13 +251,16 @@ class Betterdocs_Pro_Public {
 		return $template;
 	}
 
-	public function betterdocs_article_reactions(){
+	public function betterdocs_article_reactions( $reactions = '' ) {
 
-		$post_reactions = get_theme_mod('betterdocs_post_reactions', true);
+		$post_reactions = get_theme_mod( 'betterdocs_post_reactions', true );
 
-		if($post_reactions == true){
+		if ( $post_reactions == true ) {
+
 			$reactions = do_shortcode( '[betterdocs_article_reactions]' );
+
 		}
+
 		return $reactions;
 		
 	}

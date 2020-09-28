@@ -165,7 +165,7 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     $mepr_blogurl = home_url();
     $mepr_coupon_code = '';
 
-    extract($_REQUEST);
+    extract($_REQUEST, EXTR_SKIP);
     if(isset($_REQUEST['errors'])) {
       $errors = array_map( 'wp_kses_post', $_REQUEST['errors'] ); // Use kses here so our error HTML isn't stripped
     }
@@ -545,7 +545,7 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     $mepr_options = MeprOptions::fetch();
 
     if(isset($_REQUEST['payment_method_params'])) {
-      extract($_REQUEST['payment_method_params']);
+      extract($_REQUEST['payment_method_params'], EXTR_SKIP);
 
       if(isset($_POST['errors']) && !empty($_POST['errors'])) {
         $errors = $_POST['errors'];

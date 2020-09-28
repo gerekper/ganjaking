@@ -326,6 +326,11 @@ class WC_Customer_Order_CSV_Export_Admin_Custom_Format_Builder {
 	public function output( $export_type, $format_key = '' ) {
 		global $output_type;
 
+		// save custom format
+		if ( ! empty( $_POST ) ) {
+			$this->save( $export_type, $format_key );
+		}
+
 		$format_definition = null;
 
 		if ( $format_key ) {

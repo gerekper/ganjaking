@@ -43,7 +43,6 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 * @since 1.0
 	 */
 	public function __construct() {
-
 		add_action( 'init', array( $this, 'add_compatibility' ) );
 		add_filter( 'plugins_loaded', array( $this, 'add_compatibility_settings' ), 2, 1 );
 		add_filter( 'wc_epo_autoload_path', array( $this, 'wc_epo_autoload_path' ), 10, 2 );
@@ -118,6 +117,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 			}
 		}
+		add_filter( 'wc_epo_adjust_price_before_calculate_totals', array( $this, 'wc_epo_adjust_price_before_calculate_totals' ) );
 		add_filter( 'woocommerce_cart_item_price', array( $this, 'cart_item_price' ), 99999, 3 );
 		add_action( 'wc_epo_order_item_meta', array( $this, 'wc_epo_order_item_meta' ), 10, 3 );
 
@@ -135,6 +135,17 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 		add_filter( 'epo_can_show_order_price', array( $this, 'epo_can_show_order_price' ), 10, 2 );
 
 		add_filter( 'wc_epo_original_price_type_mode', array( $this, 'wc_epo_original_price_type_mode' ), 1, 4 );
+
+	}
+
+	/**
+	 * Select correct original price type mode
+	 *
+	 * @since 5.0.12.9
+	 */
+	public function wc_epo_adjust_price_before_calculate_totals( $ret ) {
+
+		return false;
 
 	}
 
@@ -211,6 +222,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 						WC()->cart->cart_contents[ $cart_item_key ]['tm_epo_product_after_adjustment'] = $price; 
 						$price                                                                         = floatval( $price ) + floatval( $cart_item['tm_epo_options_prices'] );
 						unset( WC()->cart->cart_contents[ $cart_item_key ]['tm_epo_doing_adjustment'] );
+						
 					}
 				}
 			}

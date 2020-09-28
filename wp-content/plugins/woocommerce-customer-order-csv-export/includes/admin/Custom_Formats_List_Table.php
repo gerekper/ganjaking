@@ -76,6 +76,42 @@ class Custom_Formats_List_Table extends \WP_List_Table {
 
 
 	/**
+	 * Outputs the filter dropdowns and button.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @param string $which the tablenav this is for -- 'top' or 'bottom'
+	 */
+	protected function extra_tablenav( $which ) {
+
+		if ( 'top' !== $which ) {
+			return;
+		}
+
+		?>
+		<div class="alignleft actions">
+
+			<label class="screen-reader-text" for="filter-by-export-type"><?php esc_html_e( 'Filter by export type', 'woocommerce-customer-order-csv-export' ); ?></label>
+			<select id="filter-by-export-type" name="export_type">
+				<option value=""><?php esc_html_e( 'Show all types', 'woocommerce-customer-order-csv-export' ); ?></option>
+
+				<?php foreach ( wc_customer_order_csv_export()->get_export_types() as $type => $label ) : ?>
+
+					<option value="<?php echo esc_attr( $type ); ?>" <?php selected( $type, $this->export_type ); ?>>
+						<?php echo esc_html( $label ); ?>
+					</option>
+
+				<?php endforeach; ?>
+			</select>
+
+			<?php submit_button( _x( 'Filter', 'button text', 'woocommerce-customer-order-csv-export' ), '', 'filter_action', false ); ?>
+
+		</div>
+		<?php
+	}
+
+
+	/**
 	 * Returns column titles.
 	 *
 	 * @since 4.7.0
@@ -85,18 +121,15 @@ class Custom_Formats_List_Table extends \WP_List_Table {
 	public function get_columns() {
 
 		$columns = [
-			'name'        => esc_html__( 'Format name', 'woocommerce-customer-order-csv-export' ),
-			'output_type' => esc_html__( 'Output Type', 'woocommerce-customer-order-csv-export' ),
+			'name'           => esc_html__( 'Format name', 'woocommerce-customer-order-csv-export' ),
+			'export_type'    => esc_html__( 'Type', 'woocommerce-customer-order-csv-export' ),
+			'output_type'    => esc_html__( 'Output Type', 'woocommerce-customer-order-csv-export' ),
+			'row_type'       => esc_html__( 'Rows represent', 'woocommerce-customer-order-csv-export' ),
+			'items_format'   => esc_html__( 'Cell format', 'woocommerce-customer-order-csv-export' ),
+			'delimiter'      => esc_html__( 'Delimiter', 'woocommerce-customer-order-csv-export' ),
+			'indent'         => esc_html__( 'Indent Output', 'woocommerce-customer-order-csv-export' ),
+			'format_actions' => esc_html__( 'Actions', 'woocommerce-customer-order-csv-export' ),
 		];
-
-		if ( $this->export_type === WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS ) {
-			$columns['row_type']     = esc_html__( 'Rows represent', 'woocommerce-customer-order-csv-export' );
-			$columns['items_format'] = esc_html__( 'Cell format', 'woocommerce-customer-order-csv-export' );
-		}
-
-		$columns['delimiter']      = esc_html__( 'Delimiter', 'woocommerce-customer-order-csv-export' );
-		$columns['indent']         = esc_html__( 'Indent Output', 'woocommerce-customer-order-csv-export' );
-		$columns['format_actions'] = esc_html__( 'Actions', 'woocommerce-customer-order-csv-export' );
 
 		/**
 		 * Filters the columns in the custom formats list table.
@@ -129,9 +162,23 @@ class Custom_Formats_List_Table extends \WP_List_Table {
 				$edit_url = wp_nonce_url( add_query_arg( [
 					'format_action' => Admin_Custom_Formats::ACTION_EDIT,
 					'format_key'    => $custom_format->get_key(),
+					'export_type'   => $custom_format->get_export_type(),
 				] ) );
 
 				$content = '<a href="' . esc_url( $edit_url ) . '">' . esc_html( $custom_format->get_name() ) . '</a>';
+
+			break;
+
+			case 'export_type':
+
+				$type_options = wc_customer_order_csv_export()->get_export_types();
+
+				if ( $custom_format->get_export_type() ) {
+
+					$type = ! empty( $type_options[ $custom_format->get_export_type() ] ) ? $type_options[ $custom_format->get_export_type() ] : $custom_format->get_export_type();
+
+					$content = esc_html( $type );
+				}
 
 			break;
 
@@ -244,7 +291,8 @@ class Custom_Formats_List_Table extends \WP_List_Table {
 			$delete_url = wp_nonce_url( add_query_arg( [
 				'format_action' => Admin_Custom_Formats::ACTION_DELETE,
 				'format_key'    => $custom_format->get_key(),
-			] ) );
+				'export_type'   => $custom_format->get_export_type(),
+			] ), 'wc_customer_order_coupon_export_delete_custom_format' );
 
 			$actions[ Admin_Custom_Formats::ACTION_DELETE ] = [
 				'url'    => $delete_url,
@@ -278,6 +326,7 @@ class Custom_Formats_List_Table extends \WP_List_Table {
 			$edit_url = wp_nonce_url( add_query_arg( [
 				'format_action' => Admin_Custom_Formats::ACTION_EDIT,
 				'format_key'    => $custom_format->get_key(),
+				'export_type'   => $custom_format->get_export_type(),
 			] ) );
 
 			$actions['edit'] = [
@@ -346,7 +395,36 @@ class Custom_Formats_List_Table extends \WP_List_Table {
 		$sortable              = [];
 		$this->_column_headers = [ $columns, $hidden, $sortable ];
 
-		$this->items = wc_customer_order_csv_export()->get_formats_instance()->get_custom_format_definitions( $this->export_type );
+		$formats = wc_customer_order_csv_export()->get_formats_instance();
+
+		if ( $this->export_type ) {
+
+			$format_definitions = $formats->get_custom_format_definitions( $this->export_type );
+
+		} else {
+
+			$format_definitions = [];
+
+			foreach ( wc_customer_order_csv_export()->get_export_types() as $type ) {
+				$format_definitions[] = $formats->get_custom_format_definitions( $type );
+			}
+
+			$format_definitions = array_merge( [], ...$format_definitions );
+		}
+
+		$this->set_pagination_args( [
+			'total_items' => count( $format_definitions ),
+			'per_page'    => $this->get_items_per_page( 'wc_customer_order_export_admin_custom_formats_per_page' ),
+		] );
+
+		if ( $page_number = $this->get_pagenum() ) {
+
+			$per_page = $this->get_pagination_arg( 'per_page' );
+
+			$format_definitions = array_splice( $format_definitions, $per_page * ( $page_number - 1 ), $per_page );
+		}
+
+		$this->items = $format_definitions;
 	}
 
 
