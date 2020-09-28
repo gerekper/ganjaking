@@ -1,10 +1,10 @@
 <?php
 
-namespace WBCR\Factory_429\Updates;
+namespace WBCR\Factory_436\Updates;
 
 use Exception;
 use stdClass;
-use Wbcr_Factory429_Plugin;
+use Wbcr_Factory436_Plugin;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,8 +28,8 @@ class Upgrader {
 	 * @since  4.1.7
 	 * @var array хранит имя репозитория и его имя класса
 	 * [
-	 *  'wordpress' => 'WBCR\Factory_Freemius_117\Updates\Freemius_Repository',
-	 *  'freemius' => '\WBCR\Factory_429\Updates\Wordpress_Repository'
+	 *  'wordpress' => 'WBCR\Factory_Freemius_123\Updates\Freemius_Repository',
+	 *  'freemius' => '\WBCR\Factory_436\Updates\Wordpress_Repository'
 	 * ]
 	 */
 	public static $repositories = [];
@@ -42,7 +42,7 @@ class Upgrader {
 	protected $type = 'default';
 
 	/**
-	 * @var Wbcr_Factory429_Plugin
+	 * @var Wbcr_Factory436_Plugin
 	 */
 	protected $plugin;
 
@@ -90,13 +90,13 @@ class Upgrader {
 	 *
 	 * @since 4.1.1
 	 *
-	 * @param Wbcr_Factory429_Plugin $plugin
+	 * @param Wbcr_Factory436_Plugin $plugin
 	 * @param                        $args
 	 * @param bool                   $is_premium
 	 *
 	 * @throws Exception
 	 */
-	public function __construct( Wbcr_Factory429_Plugin $plugin ) {
+	public function __construct( Wbcr_Factory436_Plugin $plugin ) {
 
 		$this->plugin = $plugin;
 
@@ -106,7 +106,7 @@ class Upgrader {
 		$this->is_debug             = defined( 'FACTORY_UPDATES_DEBUG' ) && FACTORY_UPDATES_DEBUG;
 
 		# Добавляем Wordpress репозиторий в список доступных репозиториев по умолчанию
-		self::$repositories['wordpress'] = '\WBCR\Factory_429\Updates\Wordpress_Repository';
+		self::$repositories['wordpress'] = '\WBCR\Factory_436\Updates\Wordpress_Repository';
 
 		$settings = $this->get_settings();
 
@@ -287,7 +287,7 @@ class Upgrader {
 
 		if ( isset( self::$repositories[ $repository_name ] ) && class_exists( self::$repositories[ $repository_name ] ) ) {
 			if ( self::$repositories[ $repository_name ] instanceof Repository ) {
-				throw new Exception( "Repository {$repository_name} must extend the class WBCR\Factory_429\Updates\Repository interface!" );
+				throw new Exception( "Repository {$repository_name} must extend the class WBCR\Factory_436\Updates\Repository interface!" );
 			}
 
 			return new self::$repositories[ $repository_name ]( $this->plugin );

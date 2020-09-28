@@ -35,13 +35,4 @@ if ( $porto_settings['icon-ipad-retina'] ) :
 	<?php
 endif;
 
-global $porto_layout, $porto_sidebar;
-
-	$porto_layout_arr = porto_meta_layout();
-	$porto_layout     = $porto_layout_arr[0];
-	$porto_sidebar    = $porto_layout_arr[1];
-if ( in_array( $porto_layout, porto_options_both_sidebars() ) ) {
-	$GLOBALS['porto_sidebar2'] = $porto_layout_arr[2];
-}
-
 wp_head();

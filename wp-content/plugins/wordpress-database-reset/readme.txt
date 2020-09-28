@@ -3,8 +3,8 @@ Contributors: WebFactory, wpreset, underconstructionpage, googlemapswidget
 Tags: database, reset, restore, database reset, wp reset, developer, development
 Requires at least: 4.2
 Requires PHP: 5.2
-Tested up to: 5.4
-Stable tag: 3.15
+Tested up to: 5.5
+Stable tag: 3.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,10 @@ WP Database Reset was originally developed in October 2011 by <a href="https://g
 1. The WP Database Reset plugin page
 
 == Changelog ==
+
+= 3.16 =
+* 2020/09/01
+* fixed an issue with select tables element
 
 = 3.15 =
 * 2020/01/14

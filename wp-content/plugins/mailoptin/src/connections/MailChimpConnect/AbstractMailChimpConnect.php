@@ -58,7 +58,7 @@ class AbstractMailChimpConnect extends AbstractConnect
             $api    = new MailchimpCampaigns($api_key, 'apikey', ['timeout' => 10], $client);
             $result = $api->getAccount();
 
-            if ($result->account_id) {
+            if (isset($result->account_id) && $result->account_id) {
                 set_transient('_mo_mailchimp_is_connected', 'true', WEEK_IN_SECONDS);
 
                 return true;

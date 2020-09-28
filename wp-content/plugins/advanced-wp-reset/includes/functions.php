@@ -3,11 +3,15 @@
 * Resets the database back to its initial status just like a fresh installation
 **********************************************************************************/
 function DBR_wp_reset(){
+
+	// Verify ajax nonce before doing anything
+	check_ajax_referer('DBR_nonce', 'security');
+
 	require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
 	global $current_user, $wpdb;
-	$blogname = get_option( 'blogname' );
-	$admin_email = get_option( 'admin_email' );
-	$blog_public = get_option( 'blog_public' );
+	$blogname 		= get_option( 'blogname' );
+	$admin_email 	= get_option( 'admin_email' );
+	$blog_public 	= get_option( 'blog_public' );
 	if ( $current_user->user_login != 'admin' ){
 		$user = get_user_by( 'login', 'admin' );
 	}
@@ -26,8 +30,8 @@ function DBR_wp_reset(){
 	$query = $wpdb->prepare( "UPDATE $wpdb->users SET user_pass = %s, user_activation_key = '' WHERE ID = %d", $user->user_pass, $user_id );
 	$wpdb->query( $query );
 	// Test for functions
-	$get_user_meta = function_exists( 'get_user_meta' ) ? 'get_user_meta' : 'get_usermeta';
-	$update_user_meta = function_exists( 'update_user_meta' ) ? 'update_user_meta' : 'update_usermeta';
+	$get_user_meta 		= function_exists( 'get_user_meta' ) ? 'get_user_meta' : 'get_usermeta';
+	$update_user_meta 	= function_exists( 'update_user_meta' ) ? 'update_user_meta' : 'update_usermeta';
 	// Say to wordpress that we will not use generated password
 	if ( $get_user_meta( $user_id, 'default_password_nag' ) ){
 		$update_user_meta( $user_id, 'default_password_nag', false );
@@ -36,8 +40,8 @@ function DBR_wp_reset(){
 		$update_user_meta( $user_id, $wpdb->prefix . 'default_password_nag', false );
 	}
 	// Add a small file to invite users rate the plugin
-	$aDBc_upload_dir = wp_upload_dir();
-	$aDBc_file_path = str_replace('\\' ,'/', $aDBc_upload_dir['basedir']) . "/DBR.txt";
+	$aDBc_upload_dir 	= wp_upload_dir();
+	$aDBc_file_path 	= str_replace('\\' ,'/', $aDBc_upload_dir['basedir']) . "/DBR.txt";
 	if(!file_exists($aDBc_file_path)){
 		$handle = fopen($aDBc_file_path, "w");
 		if($handle){
@@ -53,6 +57,8 @@ function DBR_wp_reset(){
 	//wp_set_auth_cookie( $user_id );
 	// Redirect user to admin pannel
 	//wp_redirect( admin_url()."tools.php?page=advanced_wp_reset&reset-db=done");
+
+	wp_die(); // Always die after ajax call
 }
 
 ?>

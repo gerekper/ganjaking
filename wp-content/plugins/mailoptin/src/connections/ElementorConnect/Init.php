@@ -37,7 +37,7 @@ class Init
 
     public function enqueue_script()
     {
-        if ( ! defined('MAILOPTIN_DETACH_LIBSODIUM')) return;
+        if ( ! Init::is_mailoptin_detach_libsodium()) return;
 
         wp_enqueue_script('mailoptin-elementor', MAILOPTIN_ELEMENTOR_CONNECT_ASSETS_URL . 'elementor.js', ['jquery', 'underscore'], MAILOPTIN_VERSION_NUMBER, true);
 
@@ -96,6 +96,11 @@ class Init
         if (empty($tags)) wp_send_json_error([]);
 
         wp_send_json_success($tags);
+    }
+
+    public static function is_mailoptin_detach_libsodium()
+    {
+        return defined('MAILOPTIN_DETACH_LIBSODIUM') || get_option('mo_sendinblue_support_id_flag', false) == 'true';
     }
 
     /**

@@ -1150,8 +1150,8 @@ function porto_shipping_calculator() {
 		woocommerce_shipping_calculator();
 	}
 }
-add_filter( 'body_class', 'porto_body_class' );
-function porto_body_class( $classes ) {
+add_filter( 'body_class', 'porto_wc_body_class' );
+function porto_wc_body_class( $classes ) {
 	if ( is_cart() && porto_cart_version() == 'v2' ) {
 		$classes[] = 'cart-v2';
 	} elseif ( is_checkout() && porto_checkout_version() == 'v2' ) {
@@ -1665,14 +1665,17 @@ endif;
 // horizontal filter
 function porto_woocommerce_output_horizontal_filter() {
 	global $porto_shop_filter_layout, $porto_settings;
-	if ( isset( $porto_shop_filter_layout ) && 'horizontal' === $porto_shop_filter_layout ) {
+	if ( ! isset( $porto_shop_filter_layout ) ) {
+		return;
+	}
+	if ( 'horizontal' === $porto_shop_filter_layout ) {
 		if ( porto_is_ajax() && isset( $_COOKIE['porto_horizontal_filter'] ) && 'opened' == $_COOKIE['porto_horizontal_filter'] ) {
 			$class = ' opened';
 		} else {
 			$class = '';
 		}
 		echo '<span class="porto-product-filters-toggle d-none d-lg-flex' . $class . '"><span>' . esc_html__( 'Filters:', 'porto' ) . '</span><a href="#">&nbsp;</a></span>';
-	} elseif ( isset( $porto_shop_filter_layout ) && 'horizontal2' === $porto_shop_filter_layout ) {
+	} elseif ( 'horizontal2' === $porto_shop_filter_layout ) {
 		echo '<div class="porto-product-filters style2 mobile-sidebar">';
 			echo '<div class="porto-product-filters-body">';
 				dynamic_sidebar( 'woo-category-filter-sidebar' );
@@ -1680,12 +1683,12 @@ function porto_woocommerce_output_horizontal_filter() {
 		echo '</div>';
 	}
 
-	if ( $porto_settings['show-mobile-sidebar'] || ( isset( $porto_shop_filter_layout ) && 'horizontal2' === $porto_shop_filter_layout ) ) {
+	if ( $porto_settings['show-mobile-sidebar'] || 'horizontal2' === $porto_shop_filter_layout ) {
 		echo '<a href="#" class="porto-product-filters-toggle sidebar-toggle d-inline-flex d-lg-none"><svg data-name="Layer 3" id="Layer_3" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><line class="cls-1" x1="15" x2="26" y1="9" y2="9"/><line class="cls-1" x1="6" x2="9" y1="9" y2="9"/><line class="cls-1" x1="23" x2="26" y1="16" y2="16"/><line class="cls-1" x1="6" x2="17" y1="16" y2="16"/><line class="cls-1" x1="17" x2="26" y1="23" y2="23"/><line class="cls-1" x1="6" x2="11" y1="23" y2="23"/><path class="cls-2" d="M14.5,8.92A2.6,2.6,0,0,1,12,11.5,2.6,2.6,0,0,1,9.5,8.92a2.5,2.5,0,0,1,5,0Z"/><path class="cls-2" d="M22.5,15.92a2.5,2.5,0,1,1-5,0,2.5,2.5,0,0,1,5,0Z"/><path class="cls-3" d="M21,16a1,1,0,1,1-2,0,1,1,0,0,1,2,0Z"/><path class="cls-2" d="M16.5,22.92A2.6,2.6,0,0,1,14,25.5a2.6,2.6,0,0,1-2.5-2.58,2.5,2.5,0,0,1,5,0Z"/></svg> <span>' . esc_html__( 'Filter', 'porto' ) . '</span></a>';
 
 		$GLOBALS['porto_mobile_toggle'] = false;
 	}
-	if ( isset( $porto_shop_filter_layout ) && 'horizontal2' === $porto_shop_filter_layout ) {
+	if ( 'horizontal2' === $porto_shop_filter_layout ) {
 		unset( $porto_shop_filter_layout );
 	}
 }
@@ -1955,6 +1958,9 @@ function porto_woocommerce_shortcodes_products() {
 	if ( isset( $_POST['per_page'] ) && $_POST['per_page'] ) {
 		$atts .= ' per_page="' . esc_attr( $_POST['per_page'] ) . '"';
 	}
+	if ( isset( $_POST['order'] ) && $_POST['order'] ) {
+		$atts .= ' order="' . esc_attr( $_POST['order'] ) . '"';
+	}
 	if ( isset( $_POST['view'] ) ) {
 		$atts .= ' view="' . esc_attr( $_POST['view'] ) . '"';
 	}
@@ -2187,7 +2193,7 @@ if ( ! function_exists( 'porto_woocommerce_add_to_cart_notification_html' ) ) :
 				<div class="msg-box">
 					<div class="msg"><?php _e( "You've just added this product to the cart", 'porto' ); ?>:<p class="product-name text-color-primary"></p></div>
 				</div>
-				<button class="button btn-primay viewcart" data-link=""><?php esc_html_e( 'Go to cart page', 'porto' ); ?></button>
+				<button class="button btn-primay viewcart" data-link=""><?php esc_html_e( 'View Cart', 'porto' ); ?></button>
 				<button class="button btn-primay continue_shopping"><?php esc_html_e( 'Continue', 'porto' ); ?></button>
 			</div>
 		</div>

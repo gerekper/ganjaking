@@ -1,0 +1,27 @@
+/**
+ * OceanWP YITH WooCommerce Wishlist CSS
+ *
+ * @author YITH
+ * @package YITH WooCommerce Wishlist
+ * @version 3.0.0
+ */
+
+/* === 12. WISHLIST BUTTONS === */
+
+.woocommerce ul.products .product{
+	position: relative;
+}
+
+/* === 27. FONTAWESOME ADJUSTMENTS === */
+
+.heading-icon .fa-heart-o:before,
+.yith-wcwl-icon.fa-heart-o:before{
+	content: '\f004';
+	font-weight: 400;
+}
+
+.yith-wcwl-share a i:before,
+.wishlist_table .product-arrange i:before,
+.wishlist-title i:before{
+	font-family: FontAwesome;
+}

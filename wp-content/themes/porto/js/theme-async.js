@@ -285,15 +285,201 @@
 
 			initialize: function($elements, post_type) {
 				this.$elements = ($elements || $(this.defaults.elements));
-				this.post_type = ( typeof post_type == 'undefined' ? 'portfolio' : post_type );
+				if (typeof post_type == 'undefined') {
+					post_type = 'portfolio';
+				}
 
-				this.build();
+				this.build(post_type);
 
 				return this;
 			},
 
-			build: function() {
-				var parentobj = this;
+			build: function(post_type) {
+				var parentobj = this,
+				postAjaxOnModal = {
+
+					$wrapper: null,
+					modals: [],
+					currentModal: 0,
+					total: 0,
+					p_type: 'portfolio',
+
+					build: function($this, p_type) {
+						var self = this;
+						self.$wrapper = $this;
+						if (!self.$wrapper) {
+							return;
+						}
+						self.modals = [];
+						self.total = 0;
+						self.p_type = p_type;
+
+						$this.find('a[data-ajax-on-modal]').each(function() {
+							self.add($(this));
+						});
+
+						$this.off('mousedown', 'a[data-ajax-on-modal]').on('mousedown', 'a[data-ajax-on-modal]', function (ev) {
+							if (ev.which == 2) {
+								ev.preventDefault();
+								return false;
+							}
+						});
+					},
+
+					add: function($el) {
+
+						var self = this,
+							href = $el.attr('href'),
+							index = self.total;
+
+						self.modals.push({src: href});
+						self.total++;
+
+						$el.off('click').on('click', function(e) {
+							e.preventDefault();
+							self.show(index);
+							return false;
+						});
+
+					},
+
+					next: function() {
+						var self = this;
+						if(self.currentModal + 1 < self.total) {
+							self.show(self.currentModal + 1);
+						} else {
+							self.show(0);
+						}
+					},
+
+					prev: function() {
+						var self = this;
+
+						if((self.currentModal - 1) >= 0) {
+							self.show(self.currentModal - 1);
+						} else {
+							self.show(self.total - 1);
+						}
+					},
+
+					show: function(i) {
+						var self = this;
+
+						self.currentModal = i;
+
+						if (i < 0 || i > (self.total-1)) {
+							return false;
+						}
+
+						$.magnificPopup.close();
+						$.magnificPopup.open($.extend(true, {}, theme.mfpConfig, {
+							type: 'ajax',
+							items: self.modals,
+							gallery: {
+								enabled: true
+							},
+							ajax: {
+								settings: {
+									type: 'post',
+									data: {
+										ajax_action: self.p_type + '_ajax_modal'
+									}
+								}
+							},
+							mainClass: self.p_type + '-ajax-modal',
+							fixedContentPos: false,
+							callbacks: {
+								parseAjax: function(mfpResponse) {
+									var $response = $(mfpResponse.data),
+										$post = $response.find('#content article.' + self.p_type),
+										$vc_css = $response.filter('style[data-type]:not("")'),
+										vc_css = '';
+
+									$vc_css.each(function() {
+										vc_css += $(this).text();
+									});
+
+									if ($('#' + self.p_type + 'AjaxCSS').get(0)) {
+										$('#' + self.p_type + 'AjaxCSS').text(vc_css);
+									} else {
+										$('<style id="' + self.p_type + 'AjaxCSS">' + vc_css + '</style>').appendTo( "head" )
+									}
+
+									$post.find('.' + self.p_type + '-nav-all').html('<a href="#" data-ajax-' + self.p_type + '-close data-tooltip data-original-title="' + js_porto_vars.popup_close + '" data-placement="bottom"><i class="fas fa-th"></i></a>');
+									$post.find('.' + self.p_type + '-nav').html('<a href="#" data-ajax-' + self.p_type + '-prev class="' + self.p_type + '-nav-prev" data-tooltip data-original-title="' + js_porto_vars.popup_prev + '" data-placement="bottom"><i class="fa"></i></a><a href="#" data-toggle="tooltip" data-ajax-' + self.p_type + '-next class="' + self.p_type + '-nav-next" data-tooltip data-original-title="' + js_porto_vars.popup_next + '" data-placement="bottom"><i class="fa"></i></a>');
+									$post.find('.elementor-invisible').removeClass('elementor-invisible');
+									mfpResponse.data = '<div class="ajax-container">' + $post.html() + '</div>';
+								},
+								ajaxContentAdded: function() {
+									// Wrapper
+									var $wrapper = $('.' + self.p_type + '-ajax-modal');
+
+									// Close
+									$wrapper.find('a[data-ajax-' + self.p_type + '-close]').on('click', function(e) {
+										e.preventDefault();
+										$.magnificPopup.close();
+										return false;
+									});
+
+									$rev_sliders = $wrapper.find('.rev_slider, rs-module');
+
+									// Remove Next and Close
+									if(self.modals.length <= 1) {
+										$wrapper.find('a[data-ajax-' + self.p_type + '-prev], a[data-ajax-' + self.p_type + '-next]').remove();
+									} else {
+										// Prev
+										$wrapper.find('a[data-ajax-' + self.p_type + '-prev]').on('click', function(e) {
+											e.preventDefault();
+											if ($rev_sliders && $rev_sliders.get(0)) {
+												try {$rev_sliders.revkill();} catch(err) {}
+											}
+											$wrapper.find('.mfp-arrow-left').trigger('click');
+											return false;
+										});
+										// Next
+										$wrapper.find('a[data-ajax-' + self.p_type + '-next]').on('click', function(e) {
+											e.preventDefault();
+											if ($rev_sliders && $rev_sliders.get(0)) {
+												try {$rev_sliders.revkill();} catch(err) {}
+											}
+											$wrapper.find('.mfp-arrow-right').trigger('click');
+											return false;
+										});
+									}
+									if ('portfolio' == self.p_type) {
+										$(window).trigger('resize');
+									}
+									porto_init();
+									theme.refreshVCContent($wrapper);
+									setTimeout(function() {
+										var videos = $wrapper.find('video');
+										if (videos.get(0)) {
+											videos.each(function() {
+												$(this)[0].play();
+												$(this).parent().parent().parent().find('.video-controls').attr('data-action','play');
+												$(this).parent().parent().parent().find('.video-controls').html('<i class="ult-vid-cntrlpause"></i>');
+											});
+										}
+									}, 600);
+									$wrapper.off('scroll').on('scroll', function() {
+										$.fn.appear.run();
+									});
+								},
+								change: function() {
+									$('.mfp-wrap .ajax-container').click();
+								},
+								beforeClose: function() {
+									if ($rev_sliders && $rev_sliders.get(0)) {
+										try {$rev_sliders.revkill();} catch(err) {}
+									}
+									// Wrapper
+									var $wrapper = $('.' + self.p_type + '-ajax-modal');
+									$wrapper.off('scroll');
+								}
+							}
+						}), i);
+					}
+				};
 
 				parentobj.$elements.each(function() {
 
@@ -302,189 +488,9 @@
 					if (!$this.find('a[data-ajax-on-modal]').get(0))
 						return;
 
-					var $container = $(this),
-						postAjaxOnModal = {
+					postAjaxOnModal.build($this, post_type);
 
-							$wrapper: $container,
-							modals: [],
-							currentModal: 0,
-							total: 0,
-
-							build: function() {
-								var self = this;
-
-								self.modals = [];
-								self.total = 0;
-
-								$this.find('a[data-ajax-on-modal]').each(function() {
-									self.add($(this));
-								});
-
-								$this.off('mousedown', 'a[data-ajax-on-modal]').on('mousedown', 'a[data-ajax-on-modal]', function (ev) {
-									if (ev.which == 2) {
-										ev.preventDefault();
-										return false;
-									}
-								});
-							},
-
-							add: function($el) {
-
-								var self = this,
-									href = $el.attr('href'),
-									index = self.total;
-
-								self.modals.push({src: href});
-								self.total++;
-
-								$el.off('click').on('click', function(e) {
-									e.preventDefault();
-									self.show(index);
-									return false;
-								});
-
-							},
-
-							next: function() {
-								var self = this;
-								if(self.currentModal + 1 < self.total) {
-									self.show(self.currentModal + 1);
-								} else {
-									self.show(0);
-								}
-							},
-
-							prev: function() {
-								var self = this;
-
-								if((self.currentModal - 1) >= 0) {
-									self.show(self.currentModal - 1);
-								} else {
-									self.show(self.total - 1);
-								}
-							},
-
-							show: function(i) {
-								var self = this;
-
-								self.currentModal = i;
-
-								if (i < 0 || i > (self.total-1)) {
-									return false;
-								}
-
-								$.magnificPopup.close();
-								$.magnificPopup.open($.extend(true, {}, theme.mfpConfig, {
-									type: 'ajax',
-									items: self.modals,
-									gallery: {
-										enabled: true
-									},
-									ajax: {
-										settings: {
-											type: 'post',
-											data: {
-												ajax_action: parentobj.post_type + '_ajax_modal'
-											}
-										}
-									},
-									mainClass: parentobj.post_type + '-ajax-modal',
-									fixedContentPos: false,
-									callbacks: {
-										parseAjax: function(mfpResponse) {
-											var $response = $(mfpResponse.data),
-												$post = $response.find('#content article.' + parentobj.post_type),
-												$vc_css = $response.filter('style[data-type]:not("")'),
-												vc_css = '';
-
-											$vc_css.each(function() {
-												vc_css += $(this).text();
-											});
-
-											if ($('#' + parentobj.post_type + 'AjaxCSS').get(0)) {
-												$('#' + parentobj.post_type + 'AjaxCSS').text(vc_css);
-											} else {
-												$('<style id="' + parentobj.post_type + 'AjaxCSS">' + vc_css + '</style>').appendTo( "head" )
-											}
-
-											$post.find('.' + parentobj.post_type + '-nav-all').html('<a href="#" data-ajax-' + parentobj.post_type + '-close data-tooltip data-original-title="' + js_porto_vars.popup_close + '" data-placement="bottom"><i class="fas fa-th"></i></a>');
-											$post.find('.' + parentobj.post_type + '-nav').html('<a href="#" data-ajax-' + parentobj.post_type + '-prev class="' + parentobj.post_type + '-nav-prev" data-tooltip data-original-title="' + js_porto_vars.popup_prev + '" data-placement="bottom"><i class="fa"></i></a><a href="#" data-toggle="tooltip" data-ajax-' + parentobj.post_type + '-next class="' + parentobj.post_type + '-nav-next" data-tooltip data-original-title="' + js_porto_vars.popup_next + '" data-placement="bottom"><i class="fa"></i></a>');
-											mfpResponse.data = '<div class="ajax-container">' + $post.html() + '</div>';
-										},
-										ajaxContentAdded: function() {
-											// Wrapper
-											var $wrapper = $('.' + parentobj.post_type + '-ajax-modal');
-
-											// Close
-											$wrapper.find('a[data-ajax-' + parentobj.post_type + '-close]').on('click', function(e) {
-												e.preventDefault();
-												$.magnificPopup.close();
-												return false;
-											});
-
-											$rev_sliders = $wrapper.find('.rev_slider, rs-module');
-
-											// Remove Next and Close
-											if(self.modals.length <= 1) {
-												$wrapper.find('a[data-ajax-' + parentobj.post_type + '-prev], a[data-ajax-' + parentobj.post_type + '-next]').remove();
-											} else {
-												// Prev
-												$wrapper.find('a[data-ajax-' + parentobj.post_type + '-prev]').on('click', function(e) {
-													e.preventDefault();
-													if ($rev_sliders && $rev_sliders.get(0)) {
-														try {$rev_sliders.revkill();} catch(err) {}
-													}
-													$wrapper.find('.mfp-arrow-left').trigger('click');
-													return false;
-												});
-												// Next
-												$wrapper.find('a[data-ajax-' + parentobj.post_type + '-next]').on('click', function(e) {
-													e.preventDefault();
-													if ($rev_sliders && $rev_sliders.get(0)) {
-														try {$rev_sliders.revkill();} catch(err) {}
-													}
-													$wrapper.find('.mfp-arrow-right').trigger('click');
-													return false;
-												});
-											}
-											if ('portfolio' == parentobj.post_type) {
-												$(window).trigger('resize');
-											}
-											porto_init();
-											theme.refreshVCContent($wrapper);
-											setTimeout(function() {
-												var videos = $wrapper.find('video');
-												if (videos.get(0)) {
-													videos.each(function() {
-														$(this)[0].play();
-														$(this).parent().parent().parent().find('.video-controls').attr('data-action','play');
-														$(this).parent().parent().parent().find('.video-controls').html('<i class="ult-vid-cntrlpause"></i>');
-													});
-												}
-											}, 600);
-											$wrapper.off('scroll').on('scroll', function() {
-												$.fn.appear.run();
-											});
-										},
-										change: function() {
-											$('.mfp-wrap .ajax-container').click();
-										},
-										beforeClose: function() {
-											if ($rev_sliders && $rev_sliders.get(0)) {
-												try {$rev_sliders.revkill();} catch(err) {}
-											}
-											// Wrapper
-											var $wrapper = $('.' + parentobj.post_type + '-ajax-modal');
-											$wrapper.off('scroll');
-										}
-									}
-								}), i);
-							}
-						};
-
-					postAjaxOnModal.build();
-
-					$this.data(parentobj.post_type + 'AjaxOnModal', postAjaxOnModal);
+					$this.data(post_type + 'AjaxOnModal', postAjaxOnModal);
 				});
 
 				return parentobj;

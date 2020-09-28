@@ -92,6 +92,9 @@ $wrapper        = porto_get_wrapper_type();
 				<div id="footer-boxed">
 				<?php endif; ?>
 
+				<?php if ( isset( $porto_footer_escaped ) ) : ?>
+					<?php echo porto_filter_output( $porto_footer_escaped ); ?>
+				<?php else : ?>
 				<?php if ( is_active_sidebar( 'footer-top' ) && ! $footer_view ) : ?>
 					<div class="footer-top">
 						<div class="container">
@@ -103,6 +106,7 @@ $wrapper        = porto_get_wrapper_type();
 				<?php
 					get_template_part( 'footer/footer' );
 				?>
+				<?php endif; ?>
 
 				<?php if ( porto_get_wrapper_type() != 'boxed' && 'boxed' == $porto_settings['footer-wrapper'] ) : ?>
 				</div>
@@ -135,27 +139,7 @@ if ( isset( $porto_settings['mobile-panel-type'] ) && 'side' === $porto_settings
 	get_template_part( 'panel' );
 }
 
-?>
-
-<!--[if lt IE 9]>
-<script src="<?php echo esc_url( PORTO_JS ); ?>/libs/html5shiv.min.js"></script>
-<script src="<?php echo esc_url( PORTO_JS ); ?>/libs/respond.min.js"></script>
-<![endif]-->
-
-<?php wp_footer(); ?>
-
-<?php
-// js code (Theme Settings/General)
-if ( isset( $porto_settings['js-code'] ) && $porto_settings['js-code'] ) {
-	?>
-	<script>
-		<?php echo porto_filter_output( $porto_settings['js-code'] ); ?>
-	</script>
-<?php } ?>
-<?php if ( isset( $porto_settings['page-share-pos'] ) && $porto_settings['page-share-pos'] ) : ?>
-	<div class="page-share position-<?php echo esc_attr( $porto_settings['page-share-pos'] ); ?>">
-		<?php get_template_part( 'share' ); ?>
-	</div>
-<?php endif; ?>
-</body>
-</html>
+if ( ! isset( $porto_footer_escaped ) ) {
+	wp_footer();
+	echo "</body>\n</html>";
+}

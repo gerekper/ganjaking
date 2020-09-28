@@ -39,7 +39,7 @@ if ( $section_ids ) {
 			options.dotsClass = '<?php echo ! $is_light ? '' : 'dots-nav-light'; ?>';
 
 			setTimeout(function() {
-				$(document.body).themePluginSectionScroll(options);
+				$('.page-wrapper').themePluginSectionScroll(options);
 			}, 400);
 		});
 	</script>

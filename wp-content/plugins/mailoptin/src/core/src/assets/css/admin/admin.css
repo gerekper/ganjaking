@@ -4,6 +4,7 @@
 .mo-action-icon {
     line-height: 1.5;
     font-size: 18px;
+    margin: 0;
 }
 
 .mo-action-icon.hellip {

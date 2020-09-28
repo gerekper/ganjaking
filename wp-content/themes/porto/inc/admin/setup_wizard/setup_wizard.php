@@ -1742,7 +1742,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 					} else {
 						echo '<form action="" method="post"><input type="hidden" name="porto_registration" /><input type="hidden" name="action" value="unregister" />' .
 								'<input type="text" id="porto_purchase_code" name="code" value="' . esc_attr( $purchase_code ) . '" placeholder="Purchase code" class="w-50" style="padding:10px;"/><br/>' .
-								'<p class="porto-setup-actions step">' . '<a href="' . esc_url( $this->get_next_step_link() ) . '" class="btn btn-dark button-next">' . esc_html__( 'Next Step', 'porto' ) . '</a> ' . '<button type="submit" class="btn button-next btn-primary">' . esc_attr__( 'Deactivate', 'porto' ) . '<i class="fas fa-chevron-right ml-2"></i></button>' .
+								'<p class="porto-setup-actions step">' . '<button type="submit" class="btn button-next btn-dark">' . esc_attr__( 'Deactivate', 'porto' ) . '<i class="fas fa-chevron-right ml-2"></i></button>' . '<a href="' . esc_url( $this->get_next_step_link() ) . '" class="btn btn-primary button-next">' . esc_html__( 'Next Step', 'porto' ) . '</a> ' .
 								'</p>';
 					}
 						wp_nonce_field( 'porto-setup' );
@@ -2594,9 +2594,15 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				}
 
 				if ( false !== strpos( $demo, 'elementor-' ) ) { // Elementor demo
-					update_option( 'elementor_disable_color_schemes', 'yes' );
-					update_option( 'elementor_disable_typography_schemes', 'yes' );
+					if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.0' ) < 0 ) {
+						update_option( 'elementor_disable_color_schemes', 'yes' );
+						update_option( 'elementor_disable_typography_schemes', 'yes' );
+					} else {
+						update_option( 'elementor_disable_color_schemes', true );
+						update_option( 'elementor_disable_typography_schemes', true );
+					}
 					update_option( '_elementor_settings_update_time', time() );
+					do_action( 'porto_admin_save_theme_settings' );
 				}
 			} else {
 				// Import widgets

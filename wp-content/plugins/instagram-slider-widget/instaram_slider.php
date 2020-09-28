@@ -2,7 +2,7 @@
 /*
 Plugin Name: Social Slider Widget
 Plugin URI: https://cm-wp.com/instagram-slider-widget
-Version: 1.7.11
+Version: 1.7.13
 Description: Social Slider Widget is a responsive slider widget that shows 12 latest images from a public Instagram user and up to 18 images from a hashtag.
 Author: creativemotion
 Author URI: https://cm-wp.com/
@@ -100,23 +100,24 @@ $plugin_info = array(
 	// Подключаемые модуль фреймворка
 	// Необходимые для ускоренной разработки продуктов Webcrfatic
 	'load_factory_modules' => array(
-		array( 'libs/factory/bootstrap', 'factory_bootstrap_430', 'admin' ),
+		array( 'libs/factory/bootstrap', 'factory_bootstrap_436', 'admin' ),
 		// Модуль позволяет использовать различные js виджеты и стили оформление форм.
-		array( 'libs/factory/forms', 'factory_forms_427', 'admin' ),
+		array( 'libs/factory/forms', 'factory_forms_433', 'admin' ),
 		// Модуль позволяет быстро создавать формы и готовые поля настроек
-		array( 'libs/factory/pages', 'factory_pages_429', 'admin' ),
+		array( 'libs/factory/pages', 'factory_pages_435', 'admin' ),
 		// Модуль позволяет создавать страницы плагина, в том числе шаблонизированные страницы
-		array( 'libs/factory/freemius', 'factory_freemius_117', 'all' ),
+		array( 'libs/factory/freemius', 'factory_freemius_123', 'all' ),
 		// Модуль для работы с freemius.com, содержит api библиотеку и провайдеры для премиум менеджера
-		array( 'libs/factory/adverts', 'factory_adverts_109', 'admin' )
-		// Модуль для показа рекламы в админпанели Wordpress, вся реклама вытягивается через API Creative Motion
+		array( 'libs/factory/adverts', 'factory_adverts_114', 'admin' ),
+		// Модуль clearfy для страницы компонентов
+        array( 'libs/factory/clearfy', 'factory_clearfy_227', 'admin' )
 	)
 );
 
-$wis_compatibility = new Wbcr_Factory429_Requirements( __FILE__, array_merge( $plugin_info, array(
+$wis_compatibility = new Wbcr_Factory436_Requirements( __FILE__, array_merge( $plugin_info, array(
 	'plugin_already_activate'          => defined( 'WIS_PLUGIN_ACTIVE' ),
-	'required_php_version'             => '5.4',
-	'required_wp_version'              => '4.2.0',
+	'required_php_version'             => '5.6',
+	'required_wp_version'              => '4.8.0',
 	'required_clearfy_check_component' => false
 ) ) );
 
@@ -190,7 +191,10 @@ define( 'WIS_FACEBOOK_ACCOUNT_PROFILES_OPTION_NAME', 'facebook_account_profiles'
 require_once WIS_PLUGIN_DIR . '/includes/class.wis_social.php';
 
 require_once WIS_PLUGIN_DIR . "/includes/class-wis_instagram_slider.php";
-add_action( 'widgets_init', array( 'WIS_InstagramSlider', 'register_widget' ) );
+add_action('plugins_loaded', function (){
+    add_action( 'widgets_init', array( 'WIS_InstagramSlider', 'register_widget' ) );
+});
+
 //require_once WIS_PLUGIN_DIR."/includes/class-wis_facebook_slider.php";
 //add_action( 'widgets_init', array( 'WIS_FacebookSlider', 'register_widget' ) );
 ?>

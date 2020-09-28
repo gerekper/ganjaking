@@ -78,6 +78,18 @@ if ( ! class_exists( 'Porto_LazyLoad_Images' ) ) :
 			}
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'add_scripts' ), 99 );
 			add_action( 'wp_head', array( __CLASS__, 'setup' ), 99 );
+
+			add_filter(
+				'wp_lazy_loading_enabled',
+				function( $default, $tag_name ) {
+					if ( 'img' === $tag_name ) {
+						return false;
+					}
+					return $default;
+				},
+				10,
+				2
+			);
 		}
 		static function setup() {
 			add_filter( 'the_content', array( __CLASS__, 'add_image_placeholders' ), 9999 );
@@ -98,9 +110,9 @@ if ( ! class_exists( 'Porto_LazyLoad_Images' ) ) :
 				return $content;
 			}
 
-			if ( false !== strpos( $content, 'data-oi' ) ) {
+			/*if ( false !== strpos( $content, 'data-oi' ) ) {
 				return $content;
-			}
+			}*/
 
 			$matches = array();
 			preg_match_all( '/<img[\s\r\n]+.*?>/is', $content, $matches );
@@ -111,7 +123,7 @@ if ( ! class_exists( 'Porto_LazyLoad_Images' ) ) :
 			global $porto_settings;
 
 			foreach ( $matches[0] as $img_html ) {
-				if ( false !== strpos( $img_html, 'data-original' ) || false !== strpos( $img_html, 'data-src' ) || preg_match( "/src=['\"]data:image/is", $img_html ) || false !== strpos( $img_html, 'rev-slidebg' ) ) {
+				if ( false !== strpos( $img_html, 'data-oi' ) || false !== strpos( $img_html, 'data-original' ) || false !== strpos( $img_html, 'data-src' ) || preg_match( "/src=['\"]data:image/is", $img_html ) || false !== strpos( $img_html, 'rev-slidebg' ) ) {
 					continue;
 				}
 
@@ -124,6 +136,9 @@ if ( ! class_exists( 'Porto_LazyLoad_Images' ) ) :
 					preg_match( '/width=(["\'])(.*?)["\']/is', $img_html, $match_width );
 					preg_match( '/height=(["\'])(.*?)["\']/is', $img_html, $match_height );
 					if ( isset( $match_width[2] ) && isset( $match_height[2] ) ) {
+						if ( $match_width[2] != $match_height[2] && $match_width[2] < 100 ) {
+							continue;
+						}
 						$lazy_image = porto_generate_placeholder( $match_width[2] . 'x' . $match_height[2] );
 						$lazy_image = $lazy_image[0];
 					}

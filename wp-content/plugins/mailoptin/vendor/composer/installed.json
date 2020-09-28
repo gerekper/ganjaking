@@ -423,11 +423,11 @@
     },
     {
         "name": "mailoptin/authifly",
-        "version": "0.2.1596979583",
-        "version_normalized": "0.2.1596979583.0",
+        "version": "0.2.1599332183",
+        "version_normalized": "0.2.1599332183.0",
         "dist": {
             "type": "zip",
-            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1Sluao/mailoptinauthifly-0-2-1596979583.zip"
+            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_g69HL/mailoptinauthifly-0-2-1599332183.zip"
         },
         "require": {
             "composer/installers": "~1.0",
@@ -451,7 +451,8 @@
                 "Facebook.php",
                 "Hubspot.php",
                 "Zoho.php",
-                "Infusionsoft.php"
+                "Infusionsoft.php",
+                "Jilt.php"
             ]
         },
         "license": [
@@ -469,11 +470,11 @@
     },
     {
         "name": "mailoptin/connections",
-        "version": "0.2.1597256647",
-        "version_normalized": "0.2.1597256647.0",
+        "version": "0.2.1601041900",
+        "version_normalized": "0.2.1601041900.0",
         "dist": {
             "type": "zip",
-            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1LLatS/mailoptinconnections-0-2-1597256647.zip"
+            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1SJQwB/mailoptinconnections-0-2-1601041900.zip"
         },
         "require": {
             "composer/installers": "~1.0",
@@ -504,10 +505,12 @@
                 "MailOptin\\MailerliteConnect\\": "MailerliteConnect/",
                 "MailOptin\\HubspotConnect\\": "HubspotConnect/",
                 "MailOptin\\InfusionsoftConnect\\": "InfusionsoftConnect/",
+                "MailOptin\\JiltConnect\\": "JiltConnect/",
                 "MailOptin\\MailsterConnect\\": "MailsterConnect/",
                 "MailOptin\\DripConnect\\": "DripConnect/",
                 "MailOptin\\SendlaneConnect\\": "SendlaneConnect/",
                 "MailOptin\\SendFoxConnect\\": "SendFoxConnect/",
+                "MailOptin\\WeMailConnect\\": "WeMailConnect/",
                 "MailOptin\\WordPressUserRegistrationConnect\\": "WordPressUserRegistrationConnect/",
                 "MailOptin\\EmmaConnect\\": "EmmaConnect/",
                 "MailOptin\\ConvertKitConnect\\": "ConvertKitConnect/",
@@ -527,6 +530,7 @@
                 "MailOptin\\ContactForm7Connect\\": "ContactForm7Connect/",
                 "MailOptin\\PolylangConnect\\": "PolylangConnect/",
                 "MailOptin\\WPMLConnect\\": "WPMLConnect/",
+                "MailOptin\\FormidableFormConnect\\": "FormidableFormConnect/",
                 "MailOptin\\FacebookCustomAudienceConnect\\": "FacebookCustomAudienceConnect/",
                 "MailOptin\\Connections\\": "./"
             },
@@ -538,17 +542,17 @@
     },
     {
         "name": "mailoptin/core",
-        "version": "0.1.0-alpha.1597642842",
-        "version_normalized": "0.1.0.0-alpha1597642842",
+        "version": "0.1.0-alpha.1601062498",
+        "version_normalized": "0.1.0.0-alpha1601062498",
         "source": {
             "type": "git",
             "url": "https://github.com/mailoptin/core.git",
-            "reference": "0bfefcb9108986dc5e9ff311476c3322ed84048a"
+            "reference": "7381dee805f8bbd3d554e0541ed6b5b4b73d4257"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mailoptin/core/zipball/0bfefcb9108986dc5e9ff311476c3322ed84048a",
-            "reference": "0bfefcb9108986dc5e9ff311476c3322ed84048a",
+            "url": "https://api.github.com/repos/mailoptin/core/zipball/7381dee805f8bbd3d554e0541ed6b5b4b73d4257",
+            "reference": "7381dee805f8bbd3d554e0541ed6b5b4b73d4257",
             "shasum": ""
         },
         "require": {
@@ -560,7 +564,7 @@
             "pelago/emogrifier": "^1.0",
             "soundasleep/html2text": "~0.5"
         },
-        "time": "2020-08-13T08:53:54+00:00",
+        "time": "2020-09-25T19:32:13+00:00",
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "autoload": {
@@ -843,17 +847,17 @@
     },
     {
         "name": "symfony/translation",
-        "version": "v3.4.43",
-        "version_normalized": "3.4.43.0",
+        "version": "v3.4.44",
+        "version_normalized": "3.4.44.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/translation.git",
-            "reference": "600b84224bf482441cd4d0026eba78755d2e2b34"
+            "reference": "0411f10409ca8a23b94613bb2008017f387bacf0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation/zipball/600b84224bf482441cd4d0026eba78755d2e2b34",
-            "reference": "600b84224bf482441cd4d0026eba78755d2e2b34",
+            "url": "https://api.github.com/repos/symfony/translation/zipball/0411f10409ca8a23b94613bb2008017f387bacf0",
+            "reference": "0411f10409ca8a23b94613bb2008017f387bacf0",
             "shasum": ""
         },
         "require": {
@@ -880,7 +884,7 @@
             "symfony/config": "",
             "symfony/yaml": ""
         },
-        "time": "2020-07-16T09:41:49+00:00",
+        "time": "2020-08-10T07:13:15+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

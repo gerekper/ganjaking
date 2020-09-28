@@ -133,3 +133,18 @@
     height: 0;
     flex: 0 0 1.6666%
 }
+
+.no-padding,
+.vc_row-no-padding {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.row.no-padding,
+.vc_row.no-padding > .container > .row {
+    margin-left: 0;
+    margin-right: 0;
+    > .vc_column_container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

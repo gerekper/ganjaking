@@ -31,7 +31,8 @@
       "Facebook.php",
       "Hubspot.php",
       "Zoho.php",
-      "Infusionsoft.php"
+      "Infusionsoft.php",
+      "Jilt.php"
     ]
   }
 }

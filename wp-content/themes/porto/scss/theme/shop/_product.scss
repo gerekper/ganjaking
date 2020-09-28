@@ -623,7 +623,12 @@ div.products {
     .reset_variations {
         display: inline-block;
         line-height: 1;
-        padding: 0.7em 0 0;
+        padding: .4375rem .5rem;
+        margin-top: .7em;
+        background: #f4f4f4;
+        color: inherit;
+        font-size: .625rem;
+        text-transform: uppercase;
         text-decoration: none;
     }
     tr {

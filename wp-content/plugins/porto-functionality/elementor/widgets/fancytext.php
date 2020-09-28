@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Fancy Text Widget
  *
- * Porto Element widget to display fancy text which displays ratating words.
+ * Porto Elementor widget to display fancy text which displays ratating words.
  *
  * @since 5.4.2
  */

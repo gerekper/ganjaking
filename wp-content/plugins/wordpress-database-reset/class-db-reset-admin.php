@@ -62,6 +62,7 @@ if (!class_exists('DB_Reset_Admin')) :
       add_action('admin_action_install_wpr', array($this, 'install_wpr'));
 
       add_filter('install_plugins_table_api_args_featured', array($this, 'featured_plugins_tab'));
+      add_filter('install_plugins_table_api_args_recommended', array($this, 'featured_plugins_tab'));
       add_filter('plugin_action_links_' . plugin_basename(DB_RESET_FILE), array($this, 'plugin_action_links'));
       add_filter('plugin_row_meta', array($this, 'plugin_meta_links'), 10, 2);
       add_filter('admin_footer_text', array($this, 'admin_footer_text'));
@@ -122,10 +123,9 @@ if (!class_exists('DB_Reset_Admin')) :
     {
       remove_filter('plugins_api_result', array($this, 'plugins_api_result'), 10, 3);
 
-      $res = $this->add_plugin_favs('eps-301-redirects', $res);
-      $res = $this->add_plugin_favs('wp-htaccess-editor', $res);
       $res = $this->add_plugin_favs('under-construction-page', $res);
       $res = $this->add_plugin_favs('simple-author-box', $res);
+      $res = $this->add_plugin_favs('eps-301-redirects', $res);
 
       return $res;
     } // plugins_api_result

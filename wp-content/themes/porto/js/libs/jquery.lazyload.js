@@ -16,53 +16,70 @@
 (function($, window, document, undefined) {
     'use strict';
 
-    var $window = $(window);
+    var $window = $(window),
+        lz_elements = [],
+        lz_timer = false,
+        lz_action = false;
+
+
+    var lz_update = function(ev, settings) {
+        var counter = 0;
+        lz_timer = false;
+        if (!lz_elements.length) {
+            return;
+        }
+        lz_elements.forEach(function(obj, index) {
+            var $this = $(obj);
+            if (!$this.length) {
+                //delete lz_elements[index];
+                lz_elements.splice(index, 1);
+                return;
+            }
+            if ($this.hasClass('lazy-load-loaded') || (obj.lz_count && obj.lz_count > 3)) {
+                lz_elements.splice(index, 1);
+                return;
+            }
+            if (settings.skip_invisible && !$this.is(":visible")) {
+                return;
+            }
+            if ($this.closest('.owl-carousel').length && !$.abovethetop(obj, settings) && !$.belowthefold(obj, settings)) {
+                $this.trigger("appear");
+                counter = 0;
+            } else if ($.abovethetop(obj, settings) || $.leftofbegin(obj, settings)) {
+                /* Nothing. */
+            } else if (!$.belowthefold(obj, settings) && !$.rightoffold(obj, settings)) {
+                $this.trigger("appear");
+                /* if we found an image we'll load, reset the counter */
+                counter = 0;
+                if (!obj.lz_count) {
+                    obj.lz_count = 1;
+                } else {
+                    obj.lz_count++;
+                }
+            }/* else {
+                if (++counter > settings.failure_limit) {
+                    return false;
+                }
+            }*/
+        });
+    };
 
     $.fn.lazyload = function(options) {
-        var elements = this;
-        var $container;
-        var settings = {
-            threshold       : 0,
-            failure_limit   : 0,
-            event           : "scroll",
-            effect          : "show",
-            container       : window,
-            data_attribute  : "original",
-            data_srcset     : "srcset",
-            skip_invisible  : false,
-            appear          : null,
-            load            : null,
-            placeholder     : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-        };
-
-        function update() {
-            var counter = 0;
-            elements.each(function(index) {
-                var $this = $(this);
-                if (!$this.length || $this.hasClass('lazy-load-loaded')) {
-                    delete elements[index];
-                    return;
-                }
-                if (settings.skip_invisible && !$this.is(":visible")) {
-                    return;
-                }
-                if ($this.closest('.owl-carousel').length && !$.abovethetop(this, settings) && !$.belowthefold(this, settings)) {
-                    $this.trigger("appear");
-                    counter = 0;
-                } else if ($.abovethetop(this, settings) || $.leftofbegin(this, settings)) {
-                    /* Nothing. */
-                } else if (!$.belowthefold(this, settings) && !$.rightoffold(this, settings)) {
-                    $this.trigger("appear");
-                    /* if we found an image we'll load, reset the counter */
-                    counter = 0;
-                } else {
-                    if (++counter > settings.failure_limit) {
-                        return false;
-                    }
-                }
-            });
-
-        }
+        var elements = this,
+            $container,
+            settings = {
+                threshold       : 0,
+                failure_limit   : 0,
+                event           : "scroll",
+                effect          : "show",
+                container       : window,
+                data_attribute  : "original",
+                data_srcset     : "srcset",
+                skip_invisible  : false,
+                appear          : null,
+                load            : null,
+                placeholder     : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+            };
 
         if(options) {
             /* Maintain BC for a couple of versions. */
@@ -80,16 +97,22 @@
 
         /* Cache container as jQuery as object. */
         $container = (settings.container === undefined ||
-                      settings.container === window) ? $window : $(settings.container);
+                      settings.container === window) ? window : settings.container;
 
         /* Fire one scroll event per scroll. Not one scroll event per image. */
-        if (0 === settings.event.indexOf("scroll")) {
-            $container.bind(settings.event, function() {
-                return update();
-            });
+        if (0 === settings.event.indexOf("scroll") && !lz_action) {
+            //$container.bind(settings.event, lz_update);
+            $container.addEventListener('scroll', function() {
+                if (!lz_timer) {
+                    lz_timer = theme.requestTimeout(function() {
+                        lz_update(null, settings);
+                    }, 100);
+                }
+            }, {passive: true});
         }
 
         this.each(function() {
+            lz_elements.push(this);
             var self = this;
             var $self = $(self);
 
@@ -135,10 +158,10 @@
                             self.loaded = true;
 
                             /* Remove image from array so it is not looped next time. */
-                            var temp = $.grep(elements, function(element) {
+                            var temp = $.grep(lz_elements, function(element) {
                                 return !element.loaded;
                             });
-                            elements = $(temp);
+                            lz_elements = temp;
 
                             if (settings.load) {
                                 var elements_left = elements.length;
@@ -165,26 +188,35 @@
         });
 
         /* Check if something appears when window is resized. */
-        $window.bind("resize", function() {
-            update();
-        });
+        if (!lz_action) {
+            $window.on("resize", function() {
+                lz_update(null, settings);
+            });
+        }
 
         /* With IOS5 force loading images when navigating with back button. */
         /* Non optimal workaround. */
         if ((/(?:iphone|ipod|ipad).*os 5/gi).test(navigator.appVersion)) {
             $window.bind("pageshow", function(event) {
                 if (event.originalEvent && event.originalEvent.persisted) {
-                    elements.each(function() {
-                        $(this).trigger("appear");
+                    lz_elements.forEach(function(obj) {
+                        $(obj).trigger("appear");
                     });
                 }
             });
         }
 
         /* Force initial check if images should appear. */
-        $(document).ready(function() {
-            update();
-        });
+        if (!lz_action) {
+            $(document).ready(function() {
+                lz_update(null, settings);
+            });
+            $(window).on('load', function() {
+                lz_update(null, settings);
+            });
+        }
+
+        lz_action = true;
 
         return this;
     };

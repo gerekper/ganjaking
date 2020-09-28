@@ -5,7 +5,7 @@ if (!defined('ABSPATH') || !is_main_site()) return;
 Plugin Name: Advanced WordPress Reset
 Plugin URI: http://sigmaplugin.com/downloads/advanced-wordpress-reset
 Description: Reset your WordPress database back to its first original status, just like if you make a fresh installation.
-Version: 1.1.0
+Version: 1.1.1
 Author: Younes JFR.
 Author URI: http://www.sigmaplugin.com
 Contributors: symptote
@@ -18,7 +18,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 /********************************************************************
 * Define common constants
 ********************************************************************/
-if (!defined("DBR_PLUGIN_VERSION")) 				define("DBR_PLUGIN_VERSION", "1.1.0");
+if (!defined("DBR_PLUGIN_VERSION")) 				define("DBR_PLUGIN_VERSION", "1.1.1");
 if (!defined("DBR_PLUGIN_DIR_PATH")) 				define("DBR_PLUGIN_DIR_PATH", plugins_url('' , __FILE__));
 if (!defined("DBR_PLUGIN_BASENAME")) 				define("DBR_PLUGIN_BASENAME", plugin_basename(__FILE__));
 
@@ -40,17 +40,44 @@ function DBR_add_admin_menu() {
 }
 
 /********************************************************************
+* Add actions for ajax
+********************************************************************/
+add_action('wp_ajax_DBR_wp_reset', 'DBR_wp_reset');
+
+/********************************************************************
 * Load CSS and JS
 ********************************************************************/
 add_action('admin_enqueue_scripts', 'DBR_load_styles_and_scripts');
 function DBR_load_styles_and_scripts($hook) {
+
 	// Enqueue our js and css in the plugin pages only
 	global $DBR_tool_submenu;
 	if($hook != $DBR_tool_submenu){
 		return;
 	}
+
 	wp_enqueue_style('DBR_css', DBR_PLUGIN_DIR_PATH . '/css/admin.css');
-	//wp_enqueue_script('DBR_js', DBR_PLUGIN_DIR_PATH . '/js/admin.js');
+	wp_enqueue_script('DBR_js', DBR_PLUGIN_DIR_PATH . '/js/admin.js');
+
+	wp_enqueue_style('sweet2_css', DBR_PLUGIN_DIR_PATH . '/css/sweetalert2.min.css');
+	wp_enqueue_script('sweet2_js', DBR_PLUGIN_DIR_PATH . '/js/sweetalert2.min.js');
+
+	// The wp_localize_script allows us to output the ajax_url path for our script to use.
+	wp_localize_script('DBR_js', 'DBR_ajax_obj', array(
+
+		'ajaxurl' 		=> admin_url('admin-ajax.php'),
+		'images_path'	=> DBR_PLUGIN_DIR_PATH . "/images/",
+		'are_you_sure'  => __('Are you sure to continue?', 'advanced-wp-reset'),
+		'warning_msg' 	=> __('You are about to reset your database. Any content will be lost! This operation is irreversible!', 'advanced-wp-reset'),
+		'type_reset'  	=> sprintf(__('Please type the word "<b>%s</b>" correctly in the text box','advanced-wp-reset'), "reset"),
+		'processing' 	=> __('Processing...', 'advanced-wp-reset'),
+		'done' 			=> __('Done!', 'advanced-wp-reset'),
+		'cancel' 		=> __('Cancel', 'advanced-wp-reset'),
+		'Continue' 		=> __('Continue', 'advanced-wp-reset'),
+		'ajax_nonce'	=> wp_create_nonce('DBR_nonce'),
+
+	));
+
     //wp_enqueue_script('jquery');
     //wp_enqueue_script('jquery-ui-dialog');
 	//wp_enqueue_style('wp-jquery-ui-dialog');
@@ -107,8 +134,6 @@ function DBR_show_rate_box(){
 <?php
 }
 
-
-
 /********************************************************************
 * Deactivation of the plugin
 ********************************************************************/
@@ -129,15 +154,12 @@ function DBR_uninstall(){
 * The admin page of the plugin
 ********************************************************************/
 function DBR_main_page_callback(){
+
 	if(!current_user_can("manage_options")){
 		_e('You do not have sufficient permissions to access this page.','advanced-wp-reset');
 		die();
 	}
-	//if(array_key_exists('reset-db', $_GET)){
-		//echo '<div id="DBR_message" class="updated notice is-dismissible"><p>';
-		//_e('Your database has been reset successfully!','advanced-wp-reset');
-		//echo '</p></div>';
-	//}
+
 	?>
 	<div class="wrap">
 		<h2>Advanced WordPress Reset</h2>

@@ -61,7 +61,7 @@ abstract class AbstractTemplate extends ParentAbstractTemplate
 
             $replace = apply_filters('mo_email_campaign_ped_replace_args', [
                 $this->post_title($post),
-                $this->post_content($post),
+                apply_filters('mo_posts_email_digest_post_content', $this->post_content($post), $post, $this->email_campaign_id),
                 $this->feature_image($post),
                 $this->post_url($post),
                 $this->post_meta($post),

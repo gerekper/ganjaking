@@ -115,7 +115,7 @@
     });
 
     //run checks when these methods are called
-    $.each(['append', 'prepend', 'after', 'before', 'attr',
+    /*$.each(['append', 'prepend', 'after', 'before', 'attr',
         'removeAttr', 'addClass', 'removeClass', 'toggleClass',
         'remove', 'css', 'show', 'hide'], function(i, n) {
         var old = $.fn[n];
@@ -126,7 +126,7 @@
                 return r;
             }
         }
-    });
+    });*/
 })(jQuery);
 
 // Easy Responsive Tabs Plugin
@@ -245,7 +245,7 @@
                 $respTabs.find("[role=tab]").each(function () {
 
                     var $currentTab = $(this);
-                    $currentTab.click(function () {
+                    $currentTab.on('click', function () {
 
                         var $currentTab = $(this);
                         var $tabAria = $currentTab.attr('aria-controls');
@@ -369,7 +369,7 @@ jQuery(document).ready(function($) {
                     });
                     $required.change();
                 } else if (type == 'radio') {
-                    $required.click(function() {
+                    $required.on('click', function() {
                         if ($(this).is(':checked')) {
                             if ($.inArray($(this).val(), value.split(',')) !== -1) {
                                 $el.show();
@@ -416,15 +416,16 @@ jQuery(document).ready(function($) {
 
         file_frame.open();
         
-        clickedID = jQuery(this).attr('id');
+        clickedID = jQuery(this).data('id');
         
         // When an image is selected, run a callback.
         file_frame.on( 'select', function() {
-            var attachment = file_frame.state().get('selection').first().toJSON();
+            var attachment = file_frame.state().get('selection').first().toJSON(),
+                $obj = jQuery('#' + clickedID);
 
-            jQuery('#' + clickedID).val( attachment.url );
-            if (jQuery('#' + clickedID).attr('data-name'))
-                jQuery('#' + clickedID).attr('name', jQuery('#' + clickedID).attr('data-name'));
+            $obj.val( attachment.url );
+            if ($obj.attr('data-name'))
+                $obj.attr('name', $obj.attr('data-name'));
 
             file_frame.close();
         });
@@ -448,16 +449,17 @@ jQuery(document).ready(function($) {
 
         file_frame.open();
 
-        clickedID = jQuery(this).attr('id');
+        clickedID = jQuery(this).data('id');
 
         // When an image is selected, run a callback.
         file_frame.on( 'select', function() {
-            var attachment = file_frame.state().get('selection').first().toJSON();
+            var attachment = file_frame.state().get('selection').first().toJSON(),
+                $obj = jQuery('#' + clickedID);
 
-            jQuery('#' + clickedID).val( attachment.id );
+            $obj.val( attachment.id );
             jQuery('#' + clickedID + '_thumb').html('<img src="' + attachment.url + '"/>');
-            if (jQuery('#' + clickedID).attr('data-name'))
-                jQuery('#' + clickedID).attr('name', jQuery('#' + clickedID).attr('data-name'));
+            if ($obj.attr('data-name'))
+                $obj.attr('name', $obj.attr('data-name'));
 
             file_frame.close();
         });
@@ -465,7 +467,7 @@ jQuery(document).ready(function($) {
 
     jQuery(document).on( 'click', '.button_remove_image', function( event ){
         
-        var clickedID = jQuery(this).attr('id');
+        var clickedID = jQuery(this).data('id');
         jQuery('#' + clickedID).val( '' );
         jQuery('#' + clickedID + '_thumb').html('');
 
@@ -670,13 +672,13 @@ jQuery(function($) {
         $('.porto-install-demo #import-status').stop().show().html(html);
     }
 
-    $(window).load(function() {
+    $(window).on('load', function() {
         // filter demos
         if ($('#theme-install-demos').length) {
             var $install_demos = $('#theme-install-demos').isotope(),
                 $demos_filter = $('.demo-sort-filters');
 
-            $demos_filter.find('.sort-source li').click(function(e) {
+            $demos_filter.find('.sort-source li').on('click', function(e) {
                 e.preventDefault();
                 var $this = $(this),
                     filter = $this.data('filter-by');
@@ -826,7 +828,7 @@ jQuery(function($) {
                                                 $('[name="' + key + '"]').removeProp('checked');
                                                 $('[name="' + key + '"]').each(function() {
                                                     if ($(this).val() == value) {
-                                                        $(this).prop('checked', 'checked');
+                                                        $(this).prop('checked', true);
                                                     }
                                                 });
                                             }
@@ -987,13 +989,13 @@ jQuery(function($) {
     });
 
     // cancel import button
-    $('#porto-import-no').click(function() {
+    $('#porto-import-no').on('click', function() {
         $.magnificPopup.close();
         removeAlertLeavePage();
     });
 
     // import
-    $('.porto-import-yes').click(function() {
+    $('.porto-import-yes').on('click', function() {
         addAlertLeavePage();
         var demo = $('#porto-install-demo-type').val(),
             options = {
@@ -1435,7 +1437,7 @@ jQuery(function($) {
                 if (jQuery(this).parent().hasClass('gutenberg')) {
                     $o.find('.radio.gutenberg').show();
                 }
-                $o.find('.radio.' + active_p + ' > input').attr('checked', true);
+                $o.find('.radio.' + active_p + ' > input').prop('checked', true);
                 $o.find('.message-section').addClass('d-none').children('div').addClass('d-none');
                 if ($o.find('.radio.' + active_p).hasClass('notinstalled')) {
                     $o.find('.message-section').removeClass('d-none').find('.' + active_p).removeClass('d-none');
@@ -1482,7 +1484,7 @@ jQuery(function($) {
             });
         }
     });
-    jQuery('.porto-install-demo .more-options').click(function(e) {
+    jQuery('.porto-install-demo .more-options').on('click', function(e) {
         e.preventDefault();
         jQuery(this).toggleClass('opened');
         jQuery(this).closest('.porto-install-demo').find('.porto-install-options-section').stop().toggle('slide');
@@ -1861,7 +1863,7 @@ jQuery(function($) {
             porto_pre_order.init();
         }
 
-        // VC Frontend Editor
+        // WPBakery Frontend Editor
         if ($('body').hasClass('vc_editor') && window.vc && window.vc.events) {
             // extends tabs frontend editor
             if (window.InlineShortcodeView) {
@@ -1941,5 +1943,4 @@ jQuery(function($) {
             });
         }
     });
-
 });

@@ -15,7 +15,7 @@
 	 * @package core
 	 * @since 1.0.0
 	 */
-	class Wbcr_FactoryForms427_GoogleFontControl extends Wbcr_FactoryForms427_FontControl {
+	class Wbcr_FactoryForms433_GoogleFontControl extends Wbcr_FactoryForms433_FontControl {
 
 		public $type = 'google-font';
 		const APIKEY = 'AIzaSyB-3vazYv7Q-5QZA04bmSKFrWcw_VhC40w';
@@ -30,7 +30,7 @@
 				'cssClass' => 'factory-google-font-data'
 			);
 
-			$this->google_font_data = new Wbcr_FactoryForms427_HiddenControl($option_google_font_data, $form, $provider);
+			$this->google_font_data = new Wbcr_FactoryForms433_HiddenControl($option_google_font_data, $form, $provider);
 			$this->inner_controls[] = $this->google_font_data;
 		}
 
@@ -49,12 +49,12 @@
 			$google_fonts = $this->getGoogleFonts();
 
 			$fonts = array(
-				array('inherit', __('(use default website font)', 'wbcr_factory_forms_427'))
+				array('inherit', __('(use default website font)', 'wbcr_factory_forms_433'))
 			);
 
 			$fontsCommon = array(
 				'group',
-				__('Standard:', 'wbcr_factory_forms_427'),
+				__('Standard:', 'wbcr_factory_forms_433'),
 				array(
 
 					array('Arial, "Helvetica Neue", Helvetica, sans-serif', 'Arial'),
@@ -65,7 +65,7 @@
 				)
 			);
 
-			$fontsGoogleFonts = array('group', __('Google Fonts:', 'wbcr_factory_forms_427'), array());
+			$fontsGoogleFonts = array('group', __('Google Fonts:', 'wbcr_factory_forms_433'), array());
 
 			foreach($google_fonts->items as $item) {
 
@@ -115,7 +115,7 @@
 
 			if( is_wp_error($response) ) {
 
-				$this->error = __('Unable to retrieve the list of Google Fonts.', 'wbcr_factory_forms_427');
+				$this->error = __('Unable to retrieve the list of Google Fonts.', 'wbcr_factory_forms_433');
 				$this->defailed_error = $response->get_error_message();
 
 				return $body;
@@ -123,7 +123,7 @@
 
 			if( !isset($response['body']) ) {
 
-				$this->error = __('Invalide response from the Google Fonts API.', 'wbcr_factory_forms_427');
+				$this->error = __('Invalide response from the Google Fonts API.', 'wbcr_factory_forms_433');
 				$this->defailed_error = $response['body'];
 
 				return $body;
@@ -133,7 +133,7 @@
 
 			if( empty($body->items) ) {
 
-				$this->error = __('Unexpected error. The list of Google Fonts are empty.', 'wbcr_factory_forms_427');
+				$this->error = __('Unexpected error. The list of Google Fonts are empty.', 'wbcr_factory_forms_433');
 
 				return $body;
 			}

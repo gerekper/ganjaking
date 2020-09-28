@@ -36,15 +36,14 @@ class Customizer_Control extends WP_Customize_Control
      */
     public function enqueue()
     {
-        wp_enqueue_script('mailoptin-customizer-email-content', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/email-content-control/control.js', array('jquery', 'customize-base'), false, true);
-        wp_enqueue_style('mailoptin-customizer-email-content', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/email-content-control/style.css', null);
+        wp_enqueue_script('wp-color-picker');
+        wp_enqueue_style('wp-color-picker');
 
+        wp_enqueue_script('mailoptin-customizer-email-content', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/email-content-control/control.js', array('jquery', 'customize-base', 'wp-color-picker'), false, true);
+        wp_enqueue_style('mailoptin-customizer-email-content', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/email-content-control/style.css', null);
 
         wp_enqueue_script('mailoptin-customizer-select2', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/select2/select2.min.js', array('jquery'), false, true);
         wp_enqueue_style('mailoptin-customizer-select2', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/select2/select2.min.css', null);
-
-        wp_enqueue_script('wp-color-picker');
-        wp_enqueue_style('wp-color-picker');
 
         wp_enqueue_script('underscore');
 

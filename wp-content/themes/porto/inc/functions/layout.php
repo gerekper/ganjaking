@@ -4,8 +4,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+require_once( PORTO_FUNCTIONS . '/layout/header.php' );
 require_once( PORTO_FUNCTIONS . '/layout/breadcrumbs.php' );
 require_once( PORTO_FUNCTIONS . '/layout/page-title.php' );
+require_once( PORTO_FUNCTIONS . '/layout/footer.php' );
 
 add_action( 'wp_head', 'porto_nofollow_block', 0 );
 

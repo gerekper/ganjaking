@@ -48,7 +48,7 @@ class Subscription extends AbstractCampaignMonitorConnect
                     // selected for it, the default "Select..." value is empty ("")
                     if ( ! empty($customFieldKey) && ! empty($this->extras[$customFieldKey])) {
                         $value = $this->extras[$customFieldKey];
-                        // note for date field, AC accept one in this format 2020-01-31 which is the default for pikaday
+                        // note for date field, CM accept one in this format 2020-01-31 which is the default for pikaday
                         if (OCR::get_custom_field_type_by_id($customFieldKey, $this->extras['optin_campaign_id']) == 'checkbox') {
                             if (is_array($value)) {
                                 $custom_fields[$CMKey] = [];

@@ -1,5 +1,36 @@
 ﻿== Changelog ==
 
+= 1.2.31.1 =
+* Added weMail integration.
+* Fixed bug where customizer preview wasn't showing changes being made.
+* FFixed bug where country field wasn’t showing unless an alpha code type is selected.
+
+= 1.2.31.0 =
+* Added Formidable Forms integration.
+* Added Woocommerce product tag page-targeting rule.
+* Fixed bug where a non-admin account in AC was showing not connected.
+
+= 1.2.30.6 =
+* Switched from using wp_cache_* to static variable for non-persistent cache.
+
+= 1.2.30.5 =
+* Layout adjustments to lucid email template.
+* Fixed bug in videotoimg where regex captured > in opening p tag and < in closing p tag.
+
+= 1.2.30.4 =
+* Added Jilt integration.
+* Renamed GetResponse Enterprise to GetResponse MAX
+* Fixed bug where google fonts were disabled by default.
+* Fixed bug where GDPR eraser wasn't returning a response.
+
+= 1.2.30.3 =
+* Added option to disable google font loading.
+* Fixed issue where vimeotoimg wasn’t working for Vimeo.
+* Added filters to all post_content email campaign functions.
+* Added cache implementation on expensive queries.
+* Renamed newsletter to broadcast.
+* Improved conversion tracking accuracy.
+
 = 1.2.30.2 =
 * UI compatibility with WP 5.5
 

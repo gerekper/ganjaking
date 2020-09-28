@@ -172,8 +172,8 @@ class RegisterScripts
     public function modal_scripts()
     {
         wp_enqueue_script('jquery');
-        // trailing "true" function argument not needed because we want it loaded before hidden optin markup display in footer.
-        wp_enqueue_script('mo-google-webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js', false, MAILOPTIN_VERSION_NUMBER, true);
+
+        $this->google_fonts_script();
 
         if (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) {
             wp_enqueue_style('mo-animate', MAILOPTIN_ASSETS_URL . 'css/animate.css', false, MAILOPTIN_VERSION_NUMBER);
@@ -214,6 +214,21 @@ class RegisterScripts
         Recaptcha::get_instance()->enqueue_script();
 
         $this->global_js_variables('mailoptin');
+    }
+
+    /**
+     * @return void
+     */
+    public function google_fonts_script()
+    {
+        $google_fonts_status = Settings::instance()->dequeue_google_font();
+
+        if ( ! empty($google_fonts_status) && in_array($google_fonts_status, ['true', true], true)) {
+            return;
+        }
+
+        // trailing "true" function argument not needed because we want it loaded before hidden optin markup display in footer.
+        wp_enqueue_script('mo-google-webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js', false, MAILOPTIN_VERSION_NUMBER, true);
     }
 
     /**

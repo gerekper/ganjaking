@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Portfolio Widget
  *
- * Porto Element widget to display portfolios.
+ * Porto Elementor widget to display portfolios.
  *
  * @since 5.1.0
  */

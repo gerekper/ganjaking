@@ -46,9 +46,26 @@
             return this;
         },
 
+        getEventsPage: function(e) {
+            var events = [];
+
+            events.y = (typeof e.pageY !== 'undefined' && (e.pageY || e.pageX) ? e.pageY : e.touches[0].pageY);
+            events.x = (typeof e.pageX !== 'undefined' && (e.pageY || e.pageX) ? e.pageX : e.touches[0].pageX);
+
+            if ( ('ontouchstart' in window || navigator.msMaxTouchPoints) && ( typeof e.pointerType === 'undefined' || e.pointerType != 'mouse' ) && typeof e.touches !== 'undefined') {
+                events.y = e.touches[0].pageY;
+                events.x = e.touches[0].pageX;
+            }
+
+            return events;
+        },
+
         build: function() {
+            if (!this.options.wrapper.length) {
+                return;
+            }
             var self = this,
-                $el = this.options.wrapper;
+                el_obj = this.options.wrapper.get(0);
 
             // Check type of header and change the target for header (by change header color purpose)
             self.$header = $('#header');
@@ -78,15 +95,15 @@
 
             var wheelEvent;
             if ('ontouchstart' in window || navigator.msMaxTouchPoints) {
-                document.addEventListener('touchstart', function(event) {
-                    touchstartY = event.changedTouches && event.changedTouches.length ? event.changedTouches[0].screenY : event.touches[0].screenY;
+                el_obj.addEventListener('touchstart', function(e) {
+                    touchstartY = self.getEventsPage(e).y;
                 });
-                wheelEvent = 'onwheel' in document ? 'wheel touchend' : document.onmousewheel !== undefined ? 'mousewheel touchend' : 'DOMMouseScroll touchend';
+                wheelEvent = 'onwheel' in document ? 'wheel touchmove' : document.onmousewheel !== undefined ? 'mousewheel touchmove' : 'DOMMouseScroll touchmove';
             } else {
-                wheelEvent = 'onwheel' in document ? 'wheel pointerup' : document.onmousewheel !== undefined ? 'mousewheel pointerup' : 'DOMMouseScroll pointerup';
-                document.addEventListener('pointerdown', function(e) {
-                    if ('touch' == e.pointerType) {
-                        touchstartY = e.screenY;
+                wheelEvent = 'onwheel' in document ? 'wheel pointermove' : document.onmousewheel !== undefined ? 'mousewheel pointermove' : 'DOMMouseScroll pointermove';
+                el_obj.addEventListener('pointerdown', function(e) {
+                    if (typeof e.pointerType === 'undefined' || 'mouse' != e.pointerType) {
+                        touchstartY = self.getEventsPage(e).y;
                     }
                 });
             }
@@ -94,29 +111,39 @@
                 if ($('.porto-popup-menu.opened').length) {
                     return;
                 }
-                var wheelDirection = e.wheelDelta == undefined ? e.deltaY > 0 : e.wheelDelta < 0;
-                if ( e.type && ( 'touchend' == e.type || 'pointerup' == e.type ) ) {
-                    if ('touchend' == e.type) {
-                        touchendY = event.changedTouches && event.changedTouches.length ? event.changedTouches[0].screenY : event.touches[0].screenY;;
-                    } else if (('touch' == e.pointerType) && e.screenY) {
-                        touchendY = e.screenY;
-                    } else {
+                if ( 'mouse' == e.pointerType ) {
+                    return;
+                }
+                var wheelDirection = null;
+                touchDirection = '';
+                if ( e.type && ( 'touchmove' == e.type || ( e.pointerType && e.pointerType != 'mouse' ) ) ) {
+                    touchendY = self.getEventsPage(e).y;
+                    if (touchstartY == touchendY) {
                         return;
                     }
-
-                    if( touchendY <= touchstartY - 20 ) {
-                        touchDirection = 'up';
-                    } else if( touchendY >= touchstartY + 20 ) {
-                        touchDirection = 'down';
-                    } else {
-                        return;
-                    }
+                    //if (Math.abs(touchstartY - touchendY) > (window.innerHeight / 100 * 5)) {
+                        if (touchstartY > touchendY) {
+                            touchDirection = 'up';
+                        } else if (touchendY > touchstartY) {
+                            touchDirection = 'down';
+                        }
+                    //}
+                } else {
+                    wheelDirection = e.wheelDelta == undefined ? e.deltaY > 0 : e.wheelDelta < 0;
                 }
 
                 var $currentSection = $('.section-wrapper').eq( self.getCurrentIndex() ).find('.section-scroll'),
-                    $nextSection = self.getNextSection(wheelDirection, touchDirection);
+                    $nextSection = self.getNextSection(wheelDirection, touchDirection),
+                    nextSectionOffsetTop;
 
-                //if ( $(window).width() < 992 && ( 'ontouchstart' in window || navigator.msMaxTouchPoints ) ) {
+                // If is the last section, then change the offsetTop value
+                if( self.getCurrentIndex() == $('.section-wrapper').length - 1 ) {
+                    nextSectionOffsetTop = $(document).height();
+                } else {
+                    nextSectionOffsetTop = $nextSection.offset().top;
+                }
+
+                if ( touchDirection ) {
                     if ( checkTimer ) {
                         clearTimeout( checkTimer );
                     }
@@ -127,7 +154,7 @@
                             $('html').addClass('overflow-hidden');
                         }
                     }, 1200);
-                //}
+                }
 
                 // For non full height sections
                 if( $currentSection.hasClass('section-scroll-scrollable') ) {
@@ -135,7 +162,7 @@
                     if( !flag && !scrollableFlag ) {
 
                         if(wheelDirection || touchDirection == 'up') {
-                            if($nextSection.length && ( $(window).scrollTop() + $(window).height() ) >= $nextSection.offset().top ) {
+                            if($nextSection.length && ( $(window).scrollTop() + window.innerHeight ) >= nextSectionOffsetTop ) {
                                 flag = true;
                                 setTimeout(function(){
                                     setTimeout(function(){
@@ -159,11 +186,11 @@
                                 });
                             }
 
-                            if( !$('html').hasClass('touch') ) {
+                            if( !touchDirection ) {
                                 for( var i = 1; i < 100; i++ ) {
                                     $('body, html').scrollTop( $(window).scrollTop() + 1 );
 
-                                    if( ( $(window).scrollTop() + $(window).height() ) >= $nextSection.offset().top ) {
+                                    if( ( $(window).scrollTop() + window.innerHeight ) >= nextSectionOffsetTop ) {
                                         scrollableFlag = true;
                                         setTimeout(function(){
                                             scrollableFlag = false;
@@ -186,7 +213,7 @@
                                 }
 
                                 // Move to the next section
-                                self.moveTo( $currentSection.offset().top - $(window).height() );
+                                self.moveTo( $currentSection.offset().top - window.innerHeight );
 
                                 // Change Section Active Class
                                 self.changeSectionActiveState( $nextSection );
@@ -197,7 +224,7 @@
                                 });
                             }
 
-                            if( !$('html').hasClass('touch') ) {
+                            if( !touchDirection ) {
                                 for( var i = 1; i < 100; i++ ) {
                                     $('body, html').scrollTop( $(window).scrollTop() - 1 );
 
@@ -218,6 +245,10 @@
                         return;
 
                     }
+                }
+
+                if (touchDirection && Math.abs(touchstartY - touchendY) <= (window.innerHeight / 100 * 2)) {
+                    return;
                 }
 
                 // For full height sections
@@ -244,9 +275,9 @@
                         // Change Section Active Class
                         self.changeSectionActiveState( $nextSection );
 
-                        if( $nextSection.height() > $(window).height() ) {
+                        if( $nextSection.height() > window.innerHeight ) {
                             // Move to the next section
-                            self.moveTo( $currentSection.offset().top - $(window).height() );
+                            self.moveTo( $currentSection.offset().top - window.innerHeight );
                         } else {
                             setTimeout(function(){
                                 // Move to the next section
@@ -312,7 +343,7 @@
             };
 
             wheelEvent.split(' ').forEach(function(eventName) {
-                document.addEventListener(eventName, process_scroll);
+                el_obj.addEventListener(eventName, process_scroll);
             });
             // Dots Navigation
             if( this.options.dotsNav ) {
@@ -348,6 +379,10 @@
                     self.updateHash( true );
                 }
 
+                if( $('.section-wrapper').eq( self.getCurrentIndex() ).find('.section-scroll').hasClass('section-scroll-scrollable') ) {
+                    $('html').removeClass('overflow-hidden');
+                }
+
                 $(window).trigger('section.scroll.ready');
 
                 self.$header.trigger('porto_section_scroll_scrolled', [self.getCurrentIndex()]);
@@ -360,7 +395,7 @@
             var self = this;
 
             $('.section-scroll').each(function(){
-                if( $(this).outerHeight() < ( $(window).height() + 3 ) ) {
+                if( $(this).outerHeight() < ( window.innerHeight + 3 ) ) {
                     $(this).css({ height: '100vh' });
                 } else {
                     $(this).addClass('section-scroll-scrollable');

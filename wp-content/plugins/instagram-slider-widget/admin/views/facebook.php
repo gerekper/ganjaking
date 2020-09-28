@@ -6,7 +6,7 @@ $args         = array(
 $autorize_url = "https://instagram.cm-wp.com/facebook/?" . http_build_query( $args );
 $accounts     = WIS_Plugin::app()->getPopulateOption( WIS_FACEBOOK_ACCOUNT_PROFILES_OPTION_NAME, array() );
 ?>
-<div class="factory-bootstrap-430 factory-fontawesome-000">
+<div class="factory-bootstrap-436 factory-fontawesome-000">
     <div class="row">
         <div class="col-md-9">
             <div class="row">

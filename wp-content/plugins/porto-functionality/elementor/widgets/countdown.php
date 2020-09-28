@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Countdown Widget
  *
- * Porto Element widget to display a countdown timer.
+ * Porto Elementor widget to display a countdown timer.
  *
  * @since 5.2.0
  */

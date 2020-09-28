@@ -731,10 +731,10 @@ ul.products,
 
 	/* menu effect down */
 	.mega-menu > li.has-sub:before,
-	.mega-menu > li.has-sub:after { bottom: 4px; transition: bottom .2s ease-out; }
-	.mega-menu > li.has-sub:before { bottom: 5px; }
-	.mega-menu > li.has-sub:hover:before { bottom: 0; }
-	.mega-menu > li.has-sub:hover:after { bottom: -1px; }
+	.mega-menu > li.has-sub:after { bottom: 3px; transition: bottom .2s ease-out; }
+	.mega-menu > li.has-sub:before { bottom: 4px; }
+	.mega-menu > li.has-sub:hover:before { bottom: -1px; }
+	.mega-menu > li.has-sub:hover:after { bottom: -2px; }
 	/* end menu effect down */
 
 	<?php if ( ! class_exists( 'Woocommerce' ) ) : ?>
@@ -949,6 +949,7 @@ ul.products,
 <?php endif; ?>
 <?php if ( 10 == $header_type ) : ?>
 	#header .header-right-bottom { margin: 10px 0 5px; }
+	#header .header-right-bottom > * { margin-<?php echo porto_filter_output( $left ); ?>: 1em }
 	#header.sticky-header .header-right-bottom { margin-top: 5px; }
 	@media (max-width: 991px) {
 		#header .header-right-bottom { margin-top: 0; margin-bottom: 0; }
@@ -2458,7 +2459,8 @@ body.boxed .portfolio-ajax-modal .vc_row[data-vc-stretch-content],
 		.add-links .add_to_cart_button.loading.viewcart-style-1:after,
 		.add-links .quickview.loading:after,
 		.wcml-switcher li.loading,
-		ul.product_list_widget li .ajax-loading { background-color: <?php echo esc_html( $color_dark_3 ); ?>; }
+		ul.product_list_widget li .ajax-loading,
+		.variations .reset_variations { background-color: <?php echo esc_html( $color_dark_3 ); ?>; }
 		.select2-drop, .select2-drop-active,
 		.woocommerce-pagination ul li a,
 		.woocommerce-pagination ul li span { background: <?php echo esc_html( $color_dark_3 ); ?>; }
@@ -2686,7 +2688,8 @@ ul[class^="wsp-"].show-bg-active a.active:hover { background-color: <?php echo p
 .resp-tabs-list li,
 .resp-tabs-list li:hover,
 .nav-tabs li .nav-link,
-.nav-tabs li .nav-link:hover { background: <?php echo porto_if_light( '#f4f4f4', $color_dark_3 ); ?>; border-left: 1px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; border-right: 1px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; border-top: 3px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; }
+.nav-tabs li .nav-link:hover,
+.nav-tabs li .nav-link:focus { background: <?php echo porto_if_light( '#f4f4f4', $color_dark_3 ); ?>; border-left: 1px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; border-right: 1px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; border-top: 3px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; }
 .resp-tabs-list li.resp-tab-active { background: <?php echo porto_if_light( '#fff', $color_dark_4 ); ?>; border-left: 1px solid <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; border-right: 1px solid <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; }
 .resp-vtabs .resp-tabs-container { border: 1px solid <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; background: <?php echo porto_if_light( '#fff', $color_dark_4 ); ?>; }
 .resp-vtabs .resp-tabs-list li:first-child { border-top: 1px solid <?php echo porto_if_light( '#eee', $color_dark_4 ); ?> !important; }
@@ -2701,45 +2704,24 @@ h2.resp-tab-active { background: <?php echo porto_if_light( '#f5f5f5', $color_da
 .resp-easy-accordion .resp-tab-content:last-child { border-color: <?php echo porto_if_light( '#ddd', $color_dark_3 ); ?> !important; }
 .nav-tabs { border-bottom-color: <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; }
 .nav-tabs li .nav-link:hover { border-top-color: <?php echo porto_if_light( '#ccc', '#808697' ); ?>; }
-.nav-tabs li.active a,
-.nav-tabs li.active a:hover,
-.nav-tabs li.active a:focus { background: <?php echo porto_if_light( '#fff', $color_dark_4 ); ?>; border-left-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; border-right-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; border-top: 3px solid <?php echo porto_if_light( '#ccc', '#808697' ); ?>; }
+.nav-tabs li.active .nav-link { background: <?php echo porto_if_light( '#fff', $color_dark_4 ); ?>; border-left-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; border-right-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; border-top: 3px solid <?php echo porto_if_light( '#ccc', '#808697' ); ?>; }
 .tab-content { background: <?php echo porto_if_light( '#fff', $color_dark_4 ); ?>; border-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; }
 .tabs.tabs-bottom .tab-content,
 .tabs.tabs-bottom .nav-tabs { border-bottom: none; border-top: 1px solid <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; }
 .tabs.tabs-bottom .nav-tabs li .nav-link { border-bottom-color: <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; border-top: 1px solid <?php echo porto_if_light( '#eee', $color_dark_4 ); ?> !important; }
-.tabs.tabs-bottom .nav-tabs li .nav-link:hover { border-bottom-color: <?php echo porto_if_light( '#ccc', '#808697' ); ?>; }
-.tabs.tabs-bottom .nav-tabs li.active a,
-.tabs.tabs-bottom .nav-tabs li.active a:hover,
-.tabs.tabs-bottom .nav-tabs li.active a:focus { border-bottom: 3px solid <?php echo porto_if_light( '#ccc', '#808697' ); ?>; border-top-color: transparent !important; }
 .tabs-vertical { border-top-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; }
 .tabs-left .nav-tabs > li:last-child .nav-link,
 .tabs-right .nav-tabs > li:last-child .nav-link,
 .nav-tabs.nav-justified li .nav-link,
-.nav-tabs.nav-justified li .nav-link:hover,
-.nav-tabs.nav-justified li .nav-link:focus { border-bottom: 1px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; }
+.nav-tabs.nav-justified li .nav-link:hover { border-bottom: 1px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; }
 .tabs-left .nav-tabs > li .nav-link { border-<?php echo porto_filter_output( $right ); ?>: 1px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; border-<?php echo porto_filter_output( $left ); ?>: 3px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; }
-.tabs-left .nav-tabs > li.active .nav-link,
-.tabs-left .nav-tabs > li.active .nav-link:hover,
-.tabs-left .nav-tabs > li.active .nav-link:focus { border-<?php echo porto_filter_output( $right ); ?>-color: <?php echo porto_if_light( '#fff', $color_dark_4 ); ?>; }
+.tabs-left .nav-tabs > li.active .nav-link { border-<?php echo porto_filter_output( $right ); ?>-color: transparent; }
 .tabs-right .nav-tabs > li .nav-link { border-<?php echo porto_filter_output( $right ); ?>: 3px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; border-<?php echo porto_filter_output( $left ); ?>: 1px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; }
-.tabs-right .nav-tabs > li.active .nav-link,
-.tabs-right .nav-tabs > li.active .nav-link:hover,
-.tabs-right .nav-tabs > li.active .nav-link:focus { border-<?php echo porto_filter_output( $left ); ?>-color: <?php echo porto_if_light( '#fff', $color_dark_4 ); ?>; }
-.nav-tabs.nav-justified li.active .nav-link,
-.nav-tabs.nav-justified li.active .nav-link:hover,
-.nav-tabs.nav-justified li.active .nav-link:focus { background: <?php echo porto_if_light( '#fff', $color_dark_4 ); ?>; border-left-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; border-right-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; border-top-width: 3px; border-bottom: 1px solid <?php echo porto_if_light( '#fff', $color_dark_4 ); ?>; }
-.tabs.tabs-bottom .nav.nav-tabs.nav-justified li .nav-link { border-top: 1px solid <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; }
-.tabs.tabs-bottom .nav.nav-tabs.nav-justified li.active .nav-link,
-.tabs.tabs-bottom .nav.nav-tabs.nav-justified li.active .nav-link:hover,
-.tabs.tabs-bottom .nav.nav-tabs.nav-justified li.active .nav-link:focus { border-top: 1px solid <?php echo porto_if_light( '#fff', $color_dark_4 ); ?>; }
+.tabs-right .nav-tabs > li.active .nav-link { border-<?php echo porto_filter_output( $left ); ?>-color: transparent; }
+.nav-tabs.nav-justified li.active .nav-link { border-bottom: 1px solid transparent; }
 .tabs-navigation .nav-tabs > li:first-child .nav-link { border-top: 1px solid <?php echo porto_if_light( '#eee', $color_dark_4 ); ?> !important; }
-.tabs-navigation .nav-tabs > li.active .nav-link,
-.tabs-navigation .nav-tabs > li.active .nav-link:hover,
-.tabs-navigation .nav-tabs > li.active .nav-link:focus { border-left-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; border-right-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; }
-.tabs.tabs-simple .nav-tabs > li .nav-link,
-.tabs.tabs-simple .nav-tabs > li .nav-link:hover,
-.tabs.tabs-simple .nav-tabs > li .nav-link:focus { border-bottom-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; }
+.tabs-navigation .nav-tabs > li.active .nav-link { border-left-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; border-right-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; }
+.tabs.tabs-simple .nav-tabs > li .nav-link { border-bottom-color: <?php echo porto_if_light( '#eee', $color_dark_4 ); ?>; }
 .testimonial .testimonial-author strong { color: <?php echo porto_if_light( '#111', '#fff' ); ?>; }
 .testimonial.testimonial-style-3 blockquote { background: <?php echo porto_if_light( '#f2f2f2', $color_dark_4 ); ?>; }
 .testimonial.testimonial-style-3 .testimonial-arrow-down { border-top: 10px solid <?php echo porto_if_light( '#f2f2f2', $color_dark_4 ); ?> !important; }
@@ -3540,7 +3522,7 @@ if ( $b['mainmenu-wrap-bg-color-sticky'] && 'transparent' != $b['mainmenu-wrap-b
 	$main_menu_level1_abg_color    = $b['mainmenu-toplevel-config-active'] ? $b['mainmenu-toplevel-abg-color'] : $b['mainmenu-toplevel-hbg-color'];
 	$main_menu_level1_active_color = $b['mainmenu-toplevel-config-active'] ? $b['mainmenu-toplevel-alink-color'] : $b['mainmenu-toplevel-link-color']['hover'];
 ?>
-#header .main-menu > li.menu-item.active > a {
+#header .main-menu:not(:hover) > li.menu-item.active > a {
 	<?php if ( $main_menu_level1_abg_color ) : ?>
 		background-color: <?php echo esc_html( $main_menu_level1_abg_color ); ?>;
 	<?php endif; ?>
@@ -3548,7 +3530,6 @@ if ( $b['mainmenu-wrap-bg-color-sticky'] && 'transparent' != $b['mainmenu-wrap-b
 		color: <?php echo esc_html( $main_menu_level1_active_color ); ?>;
 	<?php endif; ?>
 }
-#header .main-menu > li.menu-item.active:hover > a,
 #header .main-menu > li.menu-item:hover > a {
 	<?php if ( $b['mainmenu-toplevel-hbg-color'] ) : ?>
 		background-color: <?php echo esc_html( $b['mainmenu-toplevel-hbg-color'] ); ?>;
@@ -4147,11 +4128,6 @@ ul.list.icons li a,
 .thumb-info-bottom-info .thumb-info-title a,
 .thumb-info-bottom-info .thumb-info-title a:hover,
 .tabs.tabs-simple .nav-tabs > li .nav-link,
-.tabs.tabs-simple .nav-tabs > li .nav-link:hover,
-.tabs.tabs-simple .nav-tabs > li .nav-link:focus,
-.tabs.tabs-simple .nav-tabs > li.active .nav-link,
-.tabs.tabs-simple .nav-tabs > li.active .nav-link:hover,
-.tabs.tabs-simple .nav-tabs > li.active .nav-link:focus,
 .porto-links-block li.porto-links-item > a,
 .porto-links-block li.porto-links-item > span,
 .vc_general.vc_cta3.vc_cta3-color-white.vc_cta3-style-flat,
@@ -4229,11 +4205,7 @@ section.toggle label,
 .master-slider .ms-container .ms-video-btn,
 .resp-tabs-list li,
 h2.resp-accordion,
-.tabs ul.nav-tabs a,
-.tabs ul.nav-tabs a:hover,
-.tabs ul.nav-tabs li.active a,
-.tabs ul.nav-tabs li.active a:hover,
-.tabs ul.nav-tabs li.active a:focus,
+.tabs ul.nav-tabs .nav-link,
 .wpb_wrapper .porto-sicon-read,
 .vc_custom_heading em,
 .widget .widget-title a:hover,
@@ -4309,10 +4281,8 @@ section.toggle label,
 	border-<?php echo porto_filter_output( $left ); ?>-color: <?php echo esc_html( $skin_color ); ?>;
 }
 
-.tabs.tabs-vertical.tabs-left ul.nav-tabs li .nav-link:hover,
-.tabs.tabs-vertical.tabs-left ul.nav-tabs li.active .nav-link,
-.tabs.tabs-vertical.tabs-left ul.nav-tabs li.active .nav-link:hover,
-.tabs.tabs-vertical.tabs-left ul.nav-tabs li.active .nav-link:focus {
+.tabs.tabs-vertical.tabs-left li .nav-link:hover,
+.tabs.tabs-vertical.tabs-left li.active .nav-link {
 	border-left-color: <?php echo esc_html( $skin_color ); ?>;
 }
 
@@ -4321,10 +4291,8 @@ section.toggle label,
 	border-<?php echo porto_filter_output( $right ); ?>-color: <?php echo esc_html( $porto_color_lib->darken( $skin_color, 15 ) ); ?>;
 }
 
-.tabs.tabs-vertical.tabs-right ul.nav-tabs li .nav-link:hover,
-.tabs.tabs-vertical.tabs-right ul.nav-tabs li.active .nav-link,
-.tabs.tabs-vertical.tabs-right ul.nav-tabs li.active .nav-link:hover,
-.tabs.tabs-vertical.tabs-right ul.nav-tabs li.active .nav-link:focus {
+.tabs.tabs-vertical.tabs-right li .nav-link:hover,
+.tabs.tabs-vertical.tabs-right li.active .nav-link {
 	border-right-color: <?php echo esc_html( $skin_color ); ?>;
 }
 
@@ -4341,13 +4309,8 @@ body.boxed .page-wrapper,
 .resp-tabs-list li:hover,
 .resp-tabs-list li:focus,
 .resp-tabs-list li.resp-tab-active,
-.tabs ul.nav-tabs a:hover,
-.tabs ul.nav-tabs a:focus,
-.tabs ul.nav-tabs li.active a,
-.tabs ul.nav-tabs li.active a:hover,
-.tabs ul.nav-tabs li.active a:focus,
-.tabs ul.nav-tabs.nav-justified .nav-link:hover,
-.tabs ul.nav-tabs.nav-justified .nav-link:focus,
+.tabs ul.nav-tabs .nav-link:hover,
+.tabs ul.nav-tabs li.active .nav-link,
 .sidebar-content .widget.widget_wysija .box-content,
 .mega-menu .wide .popup,
 .sidebar-menu > li.menu-item:hover > a,
@@ -4359,11 +4322,10 @@ body.boxed .page-wrapper,
 	border-top-color: <?php echo esc_html( $porto_color_lib->lighten( $skin_color, 5 ) ); ?>;
 }
 
+.tabs.tabs-bottom .nav-tabs li .nav-link:hover { border-bottom-color: <?php echo esc_html( $skin_color ); ?>; }
+.tabs.tabs-bottom .nav-tabs li.active .nav-link { border-bottom: 3px solid <?php echo esc_html( $skin_color ); ?>; border-top-color: transparent !important; }
+
 .page-top .product-nav .product-popup:before,
-.tabs.tabs-bottom ul.nav-tabs li .nav-link:hover,
-.tabs.tabs-bottom ul.nav-tabs li.active a,
-.tabs.tabs-bottom ul.nav-tabs li.active a:hover,
-.tabs.tabs-bottom ul.nav-tabs li.active a:focus,
 .tabs.tabs-simple .nav-tabs > li .nav-link:hover,
 .tabs.tabs-simple .nav-tabs > li .nav-link:focus,
 .tabs.tabs-simple .nav-tabs > li.active .nav-link,
@@ -4412,8 +4374,8 @@ section.exp-timeline .timeline-box.right:after,
 .thumb-info-ribbon,
 .thumb-info-social-icons a,
 .widget_sidebar_menu .widget-title .toggle:hover,
-.mega-menu > li.menu-item.active > a,
-.mega-menu > li.menu-item:hover > a,
+.mega-menu:not(:hover) > li.menu-item.active > a,
+.mega-menu:not(:hover) > li.menu-item:hover > a,
 .mega-menu .narrow ul.sub-menu,
 .sidebar-menu > li.menu-item:hover,
 .sidebar-menu .menu-custom-block a:hover,
@@ -4838,7 +4800,7 @@ if ( ! empty( $css ) ) {
 .tparrows.tparrows-carousel.tp-rightarrow,
 .button,
 input.submit {
-	color: #fff;
+	color: <?php echo esc_html( $b['skin-color-inverse'] ); ?>; 
 	background-color: <?php echo esc_html( $skin_color ); ?>;
 	border-color: <?php echo esc_html( $skin_color ); ?>;
 }
@@ -4955,40 +4917,24 @@ fieldset[disabled] input.submit.active,
 #geodir-wrapper [type="button"][disabled],
 #geodir-wrapper [type="submit"][disabled],
 fieldset[disabled] [type="submit"],
-fieldset[disabled] .geodir-search [type="button"],
-fieldset[disabled] .geodir-search [type="submit"],
-fieldset[disabled] #geodir-wrapper [type="button"],
-fieldset[disabled] #geodir-wrapper [type="submit"],
 [type="submit"][disabled]:hover,
 .geodir-search [type="button"][disabled]:hover,
 .geodir-search [type="submit"][disabled]:hover,
 #geodir-wrapper [type="button"][disabled]:hover,
 #geodir-wrapper [type="submit"][disabled]:hover,
 fieldset[disabled] [type="submit"]:hover,
-fieldset[disabled] .geodir-search [type="button"]:hover,
-fieldset[disabled] .geodir-search [type="submit"]:hover,
-fieldset[disabled] #geodir-wrapper [type="button"]:hover,
-fieldset[disabled] #geodir-wrapper [type="submit"]:hover,
 [type="submit"][disabled]:focus,
 .geodir-search [type="button"][disabled]:focus,
 .geodir-search [type="submit"][disabled]:focus,
 #geodir-wrapper [type="button"][disabled]:focus,
 #geodir-wrapper [type="submit"][disabled]:focus,
 fieldset[disabled] [type="submit"]:focus,
-fieldset[disabled] .geodir-search [type="button"]:focus,
-fieldset[disabled] .geodir-search [type="submit"]:focus,
-fieldset[disabled] #geodir-wrapper [type="button"]:focus,
-fieldset[disabled] #geodir-wrapper [type="submit"]:focus,
 [type="submit"][disabled]:active,
 .geodir-search [type="button"][disabled]:active,
 .geodir-search [type="submit"][disabled]:active,
 #geodir-wrapper [type="button"][disabled]:active,
 #geodir-wrapper [type="submit"][disabled]:active,
-fieldset[disabled] [type="submit"]:active,
-fieldset[disabled] .geodir-search [type="button"]:active,
-fieldset[disabled] .geodir-search [type="submit"]:active,
-fieldset[disabled] #geodir-wrapper [type="button"]:active,
-fieldset[disabled] #geodir-wrapper [type="submit"]:active {
+fieldset[disabled] [type="submit"]:active {
 	background-color: <?php echo esc_html( $skin_color ); ?>;
 	border-color: <?php echo esc_html( $skin_color ); ?>;
 }
@@ -5043,47 +4989,27 @@ fieldset[disabled] #geodir-wrapper [type="submit"]:active {
 		color: <?php echo esc_html( $theme_colors_inverse[ $key ] ); ?>;
 	}
 
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs li .nav-link,
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs.nav-justified li .nav-link,
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs li .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs.nav-justified li .nav-link:hover {
-		color: <?php echo esc_html( $theme_color ); ?>;
-	}
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs li .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs.nav-justified li .nav-link:hover {
-		border-top-color: <?php echo esc_html( $theme_color ); ?>;
-	}
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs li.active .nav-link,
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs.nav-justified li.active .nav-link,
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs li.active .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs.nav-justified li.active .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs li.active .nav-link:focus,
-	html .tabs-<?php echo porto_filter_output( $key ); ?> .nav-tabs.nav-justified li.active .nav-link:focus {
-		border-top-color: <?php echo esc_html( $theme_color ); ?>;
-		color: <?php echo esc_html( $theme_color ); ?>;
-	}
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-bottom .nav-tabs li .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-bottom .nav-tabs.nav-justified li .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-bottom .nav-tabs li.active .nav-link,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-bottom .nav-tabs.nav-justified li.active .nav-link,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-bottom .nav-tabs li.active .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-bottom .nav-tabs.nav-justified li.active .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-bottom .nav-tabs li.active .nav-link:focus,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-bottom .nav-tabs.nav-justified li.active .nav-link:focus {
-		border-bottom-color: <?php echo esc_html( $theme_color ); ?>;
-	}
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-left li .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-left li.active .nav-link,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-left li.active .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-left li.active .nav-link:focus {
-		border-left-color: <?php echo esc_html( $theme_color ); ?>;
-	}
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-right li .nav-link:hover ,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-right li.active .nav-link,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-right li.active .nav-link:hover,
-	html .tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-right li.active .nav-link:focus {
-		border-right-color: <?php echo esc_html( $theme_color ); ?>;
-	}
+	<?php if ( 'primary' != $key ) : ?>
+		.tabs-<?php echo porto_filter_output( $key ); ?> ul.nav-tabs .nav-link {
+			color: <?php echo esc_html( $theme_color ); ?>;
+		}
+		.tabs-<?php echo porto_filter_output( $key ); ?> ul.nav-tabs li.active .nav-link,
+		.tabs-<?php echo porto_filter_output( $key ); ?> ul.nav-tabs li .nav-link:hover {
+			border-top-color: <?php echo esc_html( $theme_color ); ?>;
+		}
+		.tabs-<?php echo porto_filter_output( $key ); ?>.tabs-bottom .nav-tabs li .nav-link:hover,
+		.tabs-<?php echo porto_filter_output( $key ); ?>.tabs-bottom .nav-tabs li.active .nav-link {
+			border-bottom-color: <?php echo esc_html( $theme_color ); ?>;
+		}
+		.tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-left li .nav-link:hover,
+		.tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-left li.active .nav-link {
+			border-left-color: <?php echo esc_html( $theme_color ); ?>;
+		}
+		.tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-right li .nav-link:hover ,
+		.tabs-<?php echo porto_filter_output( $key ); ?>.tabs-vertical.tabs-right li.active .nav-link {
+			border-right-color: <?php echo esc_html( $theme_color ); ?>;
+		}
+	<?php endif; ?>
 
 	html .stats-block.counter-<?php echo porto_filter_output( $key ); ?> .stats-number,
 	html .stats-block.counter-<?php echo porto_filter_output( $key ); ?> div.counter_prefix,
@@ -5526,23 +5452,23 @@ article.post .post-date .sticky,
 	li.product-onimage .product-content { background: <?php echo porto_if_dark( $color_dark_3, '#fff' ); ?>; border-top: 1px solid <?php echo esc_html( $input_border_color ); ?>; }
 	li.product-onimage .product-content .add-links { border-top: 1px solid <?php echo esc_html( $input_border_color ); ?>; }
 	@media (min-width: <?php echo (int) ( $b['container-width'] + $b['grid-gutter-width'] ); ?>px) {
-		.divider-line.pcols-lg-6 > .product-col:nth-child(6n) { border-right-width: 0; }
-		.divider-line.pcols-lg-5 > .product-col:nth-child(5n) { border-right-width: 0; }
-		.divider-line.pcols-lg-4 > .product-col:nth-child(4n) { border-right-width: 0; }
-		.divider-line.pcols-lg-3 > .product-col:nth-child(3n) { border-right-width: 0; }
+		.divider-line.pcols-lg-6 > .product-col:nth-child(6n),
+		.divider-line.pcols-lg-5 > .product-col:nth-child(5n),
+		.divider-line.pcols-lg-4 > .product-col:nth-child(4n),
+		.divider-line.pcols-lg-3 > .product-col:nth-child(3n),
 		.divider-line.pcols-lg-2 > .product-col:nth-child(2n) { border-right-width: 0; }
 	}
 	@media (max-width: 992px) {
 		.shop-loop-before { margin-bottom: <?php echo (int) $b['grid-gutter-width']; ?>px; }
 	}
 	@media (min-width: 768px) and <?php echo porto_filter_output( $screen_large ); ?> {
-		.divider-line.pcols-md-5 > .product-col:nth-child(5n) { border-right-width: 0; }
-		.divider-line.pcols-md-4 > .product-col:nth-child(4n) { border-right-width: 0; }
-		.divider-line.pcols-md-3 > .product-col:nth-child(3n) { border-right-width: 0; }
+		.divider-line.pcols-md-5 > .product-col:nth-child(5n),
+		.divider-line.pcols-md-4 > .product-col:nth-child(4n),
+		.divider-line.pcols-md-3 > .product-col:nth-child(3n),
 		.divider-line.pcols-md-2 > .product-col:nth-child(2n) { border-right-width: 0; }
 	}
 	@media (min-width: 576px) and (max-width: 767px) {
-		.divider-line.pcols-xs-3 > .product-col:nth-child(3n) { border-right-width: 0; }
+		.divider-line.pcols-xs-3 > .product-col:nth-child(3n),
 		.divider-line.pcols-xs-2 > .product-col:nth-child(2n) { border-right-width: 0; }
 	}
 	@media (max-width: 575px) {
@@ -5642,12 +5568,18 @@ article.post .post-date .sticky,
 	.product-thumbs-slider.owl-carousel .thumb-nav .thumb-prev,
 	ul.products li.cat-has-icon:hover .thumb-info > i { color: <?php echo esc_html( $skin_color ); ?> }
 
+	.variations .reset_variations:hover {
+		background-color: <?php echo esc_html( $skin_color ); ?>;
+		color: <?php echo $b['skin-color-inverse']; ?>;
+	}
+
 	.product-image .viewcart:hover,
 	.widget_price_filter .ui-slider .ui-slider-handle,
 	li.product-outimage_aq_onimage .add-links .quickview,
 	li.product-onimage .product-content .quickview,
 	li.product-onimage2 .quickview,
 	li.product-wq_onimage .links-on-image .quickview { background-color: <?php echo esc_html( $skin_color ); ?> }
+	li.product-outimage_aq_onimage .add-links .quickview { color: <?php echo esc_html( $b['skin-color-inverse'] ); ?> }
 	li.product-default:hover .add-links .add_to_cart_button,
 	li.product-default:hover .add-links .add_to_cart_read_more,
 	li.product-wq_onimage .add-links .button:hover,
@@ -6072,63 +6004,78 @@ article.post .post-date .sticky,
 
 /*---------------- Elementor Styles ---------------- */
 <?php if ( defined( 'ELEMENTOR_VERSION' ) ) : ?>
-	.elementor-section.elementor-section-boxed > .elementor-container { max-width: <?php echo (int) ( $b['container-width'] - $b['grid-gutter-width'] ); ?>px; margin-left: auto; margin-right: auto; }
-	.container-fluid .elementor-top-section { margin-left: -<?php echo (int) $b['grid-gutter-width']; ?>px; margin-right: -<?php echo (int) $b['grid-gutter-width']; ?>px }
-	.container-fluid .elementor-top-section > .elementor-container { padding-left: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width']; ?>px }
-	.container-fluid .elementor-top-section.elementor-section-full_width > .elementor-column-gap-no,
+	.elementor-section { display: -ms-flexbox; display: flex; -ms-flex-pack: center; justify-content: center }
+	.elementor-section .elementor-container { width: 100%; margin-left: 0; margin-right: 0 }
+	.elementor-section.elementor-section-boxed > .elementor-container { max-width: <?php echo (int) $b['container-width']; ?>px }
+	.container-fluid .elementor-top-section { margin-left: -<?php echo (int) $b['grid-gutter-width']; ?>px; margin-right: -<?php echo (int) $b['grid-gutter-width']; ?>px; padding-left: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width']; ?>px }
+	.container-fluid .elementor-top-section.elementor-section-full_width > .elementor-column-gap-no { margin-left: -<?php echo (int) $b['grid-gutter-width']; ?>px; margin-right: -<?php echo (int) $b['grid-gutter-width']; ?>px; width: calc(100% + <?php echo (int) $b['grid-gutter-width'] * 2; ?>px) }
 	.elementor .pricing-table { padding-left: 0; padding-right: 0 }
-	.container-fluid .elementor-top-section.elementor-section-boxed > .elementor-container { max-width: <?php echo (int) ( $b['container-width'] + $b['grid-gutter-width'] ); ?>px }
+
+	.elementor-container > .porto-carousel { width: 100%; }
+	.porto-carousel .elementor-section.elementor-section-boxed > .elementor-container { margin: 0; max-width: 100%; }
+
+	.elementor-section > .elementor-column-gap-default { margin-left: -<?php echo (int) $b['grid-gutter-width'] / 2; ?>px; margin-right: -<?php echo (int) $b['grid-gutter-width'] / 2; ?>px; width: calc(100% + <?php echo (int) $b['grid-gutter-width']; ?>px) }
+	.elementor-section > .elementor-column-gap-narrow { margin-left: -5px; margin-right: -5px; width: calc(100% + 10px) }
+	.elementor-section > .elementor-column-gap-extended { margin-left: -15px; margin-right: -15px; width: calc(100% + 30px) }
+	.elementor-section > .elementor-column-gap-wide { margin-left: -20px; margin-right: -20px; width: calc(100% + 40px) }
+	.elementor-section > .elementor-column-gap-wider { margin-left: -30px; margin-right: -30px; width: calc(100% + 60px) }
+	.elementor-column-gap-default > .elementor-row > .elementor-column > .elementor-element-populated,
+	.elementor-column-gap-default > .elementor-column > .elementor-element-populated { padding: <?php echo (int) $b['grid-gutter-width'] / 2; ?>px }
+	.elementor-section.elementor-section-boxed > .elementor-column-gap-no { max-width: <?php echo (int) $b['container-width'] - (int) $b['grid-gutter-width']; ?>px }
+	.elementor-section.elementor-section-boxed > .elementor-column-gap-narrow { max-width: <?php echo (int) $b['container-width'] - (int) $b['grid-gutter-width'] + 10; ?>px }
+	.elementor-section.elementor-section-boxed > .elementor-column-gap-extended { max-width: <?php echo (int) $b['container-width'] - (int) $b['grid-gutter-width'] + 30; ?>px }
+	.elementor-section.elementor-section-boxed > .elementor-column-gap-wide { max-width: <?php echo (int) $b['container-width'] - (int) $b['grid-gutter-width'] + 40; ?>px }
+	.elementor-section.elementor-section-boxed > .elementor-column-gap-wider { max-width: <?php echo (int) $b['container-width'] - (int) $b['grid-gutter-width'] + 60; ?>px }
 
 	@media (min-width: 992px) and (max-width: <?php echo (int) $b['container-width'] + $b['grid-gutter-width'] - 1; ?>px) {
-		.elementor-section.elementor-section-boxed > .elementor-container { max-width: <?php echo 960 - (int) $b['grid-gutter-width']; ?>px }
-		.container-fluid .elementor-top-section.elementor-section-boxed > .elementor-container { max-width: <?php echo 960 + (int) $b['grid-gutter-width']; ?>px }
+		.elementor-section.elementor-section-boxed > .elementor-container { max-width: 960px }
+		.elementor-section.elementor-section-boxed > .elementor-column-gap-no { max-width: <?php echo 960 - (int) $b['grid-gutter-width']; ?>px }
+		.elementor-section.elementor-section-boxed > .elementor-column-gap-narrow { max-width: <?php echo 960 - (int) $b['grid-gutter-width'] + 10; ?>px }
+		.elementor-section.elementor-section-boxed > .elementor-column-gap-extended { max-width: <?php echo 960 - (int) $b['grid-gutter-width'] + 30; ?>px }
+		.elementor-section.elementor-section-boxed > .elementor-column-gap-wide { max-width: <?php echo 960 - (int) $b['grid-gutter-width'] + 40; ?>px }
+		.elementor-section.elementor-section-boxed > .elementor-column-gap-wider { max-width: <?php echo 960 - (int) $b['grid-gutter-width'] + 60; ?>px }
 	}
 
 	<?php if ( (int) $b['grid-gutter-width'] > $max_spacing_mobile ) : ?>
 		@media (max-width: 480px) {
-			.container-fluid .elementor-top-section { margin-left: -<?php echo (int) $max_spacing_mobile; ?>px; margin-right: -<?php echo (int) $max_spacing_mobile; ?>px }
-			.container-fluid .elementor-top-section > .elementor-container { padding-left: <?php echo (int) $max_spacing_mobile; ?>px; padding-right: <?php echo (int) $max_spacing_mobile; ?>px }
+			.container-fluid .elementor-top-section { margin-left: -<?php echo (int) $max_spacing_mobile; ?>px; margin-right: -<?php echo (int) $max_spacing_mobile; ?>px; padding-left: <?php echo (int) $max_spacing_mobile; ?>px; padding-right: <?php echo (int) $max_spacing_mobile; ?>px }
+			.container-fluid .elementor-top-section.elementor-section-full_width > .elementor-column-gap-no { margin-left: -<?php echo (int) $max_spacing_mobile; ?>px; margin-right: -<?php echo (int) $max_spacing_mobile; ?>px; width: calc(100% + <?php echo (int) $max_spacing_mobile * 2; ?>px) }
 		}
 	<?php endif; ?>
 
-	.elementor-container > .porto-carousel { width: 100%; }
-
-	.elementor-column-gap-default > .elementor-row { margin-left: -<?php echo (int) $b['grid-gutter-width'] / 2; ?>px; margin-right: -<?php echo (int) $b['grid-gutter-width'] / 2; ?>px; width: calc(100% + <?php echo (int) $b['grid-gutter-width']; ?>px) }
-	.elementor-column-gap-narrow > .elementor-row { margin-left: -5px; margin-right: -5px; width: calc(100% + 10px) }
-	.elementor-column-gap-extended > .elementor-row { margin-left: -15px; margin-right: -15px; width: calc(100% + 30px) }
-	.elementor-column-gap-wide > .elementor-row { margin-left: -20px; margin-right: -20px; width: calc(100% + 40px) }
-	.elementor-column-gap-wider > .elementor-row { margin-left: -30px; margin-right: -30px; width: calc(100% + 60px) }
-	.elementor-column-gap-default > .elementor-row > .elementor-column > .elementor-element-populated { padding: <?php echo (int) $b['grid-gutter-width'] / 2; ?>px }
 	.porto-carousel.elementor-row,
-	.porto-ibanner.elementor-container,
-	.elementor-column-wrap > .porto-carousel,
-	.elementor-column-wrap .porto-sicon-box,
-	.elementor-column-wrap .porto-u-heading,
+	.elementor-section > .porto-ibanner,
+	.porto-carousel,
+	.elementor-widget-wrap .porto-sicon-box,
+	.elementor-widget-wrap .porto-u-heading,
 	.porto-u-heading p:last-child,
-	.elementor-column-wrap .circular-bar { margin-bottom: 0 }
+	.elementor-widget-wrap .circular-bar { margin-bottom: 0 }
 	.porto-carousel .elementor-column,
-	.elementor-column-wrap > .porto-carousel { width: 100% }
-	.porto-carousel .elementor-section.elementor-section-boxed > .elementor-container { margin: 0; max-width: 100%; }
-	.porto-ibanner > .elementor-row { position: absolute; top: 0; left: 0; right: 0; height: 100%; }
+	.elementor-column-wrap > .porto-carousel,
+	.elementor-column > .porto-carousel { width: 100% }
 
-	.elementor-column-wrap.porto-ibanner-layer { width: auto }
+	.porto-ibanner > .elementor-row { position: absolute; top: 0; left: 0; right: 0; height: 100%; }
+	.porto-ibanner-layer { width: auto }
 	.elementor-editor-active .elementor-element-empty.porto-ibanner-layer { width: 100% }
-	.porto-ibanner > .elementor-row > .elementor-column { position: absolute; top: 0; left: 0; right: 0; height: 100%; width: auto }
-	.porto-ibanner > .container > .elementor-column { left: <?php echo (int) $b['grid-gutter-width'] / 2; ?>px; right: <?php echo (int) $b['grid-gutter-width'] / 2; ?>px }
-	.porto-ibanner .porto-ibanner-layer > .elementor-widget-wrap { display: block }
+	.porto-ibanner > .elementor-row > .elementor-column,
+	.porto-ibanner > .elementor-column { position: absolute; top: 0; left: 0; right: 0; height: 100%; width: 100% }
+	.container > .porto-ibanner-layer { margin-left: <?php echo (int) $b['grid-gutter-width'] / 2; ?>px; margin-right: <?php echo (int) $b['grid-gutter-width'] / 2; ?>px }
+	.porto-ibanner .porto-ibanner-layer > .elementor-widget-wrap,
+	.porto-ibanner .porto-ibanner-layer.elementor-widget-wrap { display: block }
 	@media (max-width: 991px) {
 		.elementor-section.elementor-section-stretched > .elementor-container { padding-left: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width']; ?>px }
-		.porto-ibanner > .container > .elementor-column { left: <?php echo (int) $b['grid-gutter-width']; ?>px; right: <?php echo (int) $b['grid-gutter-width']; ?>px }
+		.container > .porto-ibanner-layer { margin-left: <?php echo (int) $b['grid-gutter-width']; ?>px; margin-right: <?php echo (int) $b['grid-gutter-width']; ?>px }
 	}
 	<?php if ( (int) $b['grid-gutter-width'] > $max_spacing_mobile ) : ?>
 		@media (max-width: 480px) {
 			.elementor-section.elementor-section-stretched > .elementor-container { padding-left: <?php echo (int) $max_spacing_mobile; ?>px; padding-right: <?php echo (int) $max_spacing_mobile; ?>px }
-			.porto-ibanner > .container > .elementor-column { left: <?php echo (int) $max_spacing_mobile; ?>px; right: <?php echo (int) $max_spacing_mobile; ?>px }
+			.container > .porto-ibanner-layer { margin-left: <?php echo (int) $max_spacing_mobile; ?>px; margin-right: <?php echo (int) $max_spacing_mobile; ?>px }
 		}
 	<?php endif; ?>
 
-	.elementor-row[data-plugin-masonry], .elementor-widget-wrap.owl-carousel.owl-loaded { display: block; }
-	.elementor-row[data-plugin-masonry] > .elementor-column { float: <?php echo porto_filter_output( $left ); ?> }
+	.elementor-row[data-plugin-masonry], .elementor-container[data-plugin-masonry], .elementor-widget-wrap.owl-carousel.owl-loaded { display: block; }
+	.elementor-row[data-plugin-masonry] > .elementor-column,
+	.elementor-container[data-plugin-masonry] > .elementor-column { float: <?php echo porto_filter_output( $left ); ?> }
 
 	.elementor-widget-container > .btn { position: relative }
 	.elementor-widget-container > .btn .dir-arrow { position: absolute; top: -35px; <?php echo porto_filter_output( $left ); ?>: 85% }
@@ -6138,8 +6085,33 @@ article.post .post-date .sticky,
 
 	.elementor-element[data-plugin-parallax], .elementor-element > [data-plugin-parallax] { background-attachment: scroll !important }
 
-	.elementor-element.elementor-products-grid ul.products:not(.owl-carousel) { display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; flex-wrap: wrap; }
-	.elementor-element.elementor-products-grid ul.products { margin-left: -<?php echo (int) $b['grid-gutter-width'] / 2; ?>px; margin-right: -<?php echo (int) $b['grid-gutter-width'] / 2; ?>px; }
+	<?php if ( defined( 'ELEMENTOR_PRO_VERSION' ) ) : ?>
+		.elementor-products-grid .products li.product-col { max-width: none; padding: 0; margin-bottom: 0 }
+		.elementor-products-grid .products li.product-col .woocommerce-loop-product__title,
+		.elementor-products-grid .products .category-list { white-space: normal }
+	<?php endif; ?>
+<?php endif; ?>
+
+/*---------------- Visual Composer Styles ---------------- */
+<?php if ( defined( 'VCV_VERSION' ) ) : ?>
+	.container-fluid .vce-row-container { margin-left: -<?php echo (int) $b['grid-gutter-width']; ?>px; margin-right: -<?php echo (int) $b['grid-gutter-width']; ?>px; width: calc(100% + <?php echo (int) $b['grid-gutter-width'] * 2; ?>px) }
+	.container-fluid .no-inner-container,
+	.vce-row[data-vce-stretch-content="true"] { padding-left: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width']; ?>px }
+	<?php if ( 30 !== (int) $b['grid-gutter-width'] ) : ?>
+		.vce-row.vce-element--has-background { padding-left: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-top: <?php echo (int) $b['grid-gutter-width']; ?>px }
+	<?php endif; ?>
+	<?php if ( (int) $b['grid-gutter-width'] > $max_spacing_mobile ) : ?>
+		@media (max-width: 480px) {
+			.container-fluid .vce-row-container { margin-left: -<?php echo (int) $max_spacing_mobile; ?>px; margin-right: -<?php echo (int) $max_spacing_mobile; ?>px; width: calc(100% + <?php echo (int) $max_spacing_mobile * 2; ?>px) }
+			.vce-row.vce-element--has-background,
+			.container-fluid .no-inner-container,
+			.vce-row[data-vce-stretch-content="true"] { padding-left: <?php echo (int) $max_spacing_mobile; ?>px; padding-right: <?php echo (int) $max_spacing_mobile; ?>px; padding-top: <?php echo (int) $max_spacing_mobile; ?>px }
+		}
+	<?php endif; ?>
+
+	.vce-row--col-gap-<?php echo (int) $b['grid-gutter-width']; ?> > .vce-row-content > .vce-col { margin-<?php echo porto_filter_output( $right ); ?>: <?php echo (int) $b['grid-gutter-width']; ?>px }
+	.vce-row--col-gap-<?php echo (int) $b['grid-gutter-width']; ?> > .vce-row-content > .vce-column-resizer .vce-column-resizer-handler { width: <?php echo (int) $b['grid-gutter-width']; ?>px }
+	.container-fluid .vce-row-container .vce-row-container { margin-left: 0; margin-right: 0; width: 100% }
 <?php endif; ?>
 
 /*---------------- Gutenberg Styles ---------------- */

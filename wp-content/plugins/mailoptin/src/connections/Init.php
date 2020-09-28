@@ -11,7 +11,7 @@ class Init
 
     public static function text_tag_connections()
     {
-        return ['AweberConnect', 'MailChimpConnect', 'ConvertFoxConnect', 'SendlaneConnect', 'DripConnect', 'ActiveCampaignConnect', 'ZohoCRMConnect'];
+        return ['AweberConnect', 'MailChimpConnect', 'ConvertFoxConnect', 'SendlaneConnect', 'DripConnect', 'ActiveCampaignConnect', 'ZohoCRMConnect', 'JiltConnect'];
     }
 
     public static function init()
@@ -26,6 +26,7 @@ class Init
         \MailOptin\DripConnect\Connect::get_instance();
         \MailOptin\SendlaneConnect\Connect::get_instance();
         \MailOptin\SendFoxConnect\Connect::get_instance();
+        \MailOptin\WeMailConnect\Connect::get_instance();
         \MailOptin\WordPressUserRegistrationConnect\Connect::get_instance();
         \MailOptin\EmmaConnect\Connect::get_instance();
         \MailOptin\OntraportConnect\Connect::get_instance();
@@ -34,6 +35,7 @@ class Init
         \MailOptin\CtctConnect\Connect::get_instance();
         \MailOptin\HubspotConnect\Connect::get_instance();
         \MailOptin\InfusionsoftConnect\Connect::get_instance();
+        \MailOptin\JiltConnect\Connect::get_instance();
         \MailOptin\MailerliteConnect\Connect::get_instance();
         \MailOptin\EmailOctopusConnect\Connect::get_instance();
         \MailOptin\GEMConnect\Connect::get_instance();
@@ -54,6 +56,7 @@ class Init
         \MailOptin\GravityFormsConnect\Connect::get_instance();
         \MailOptin\LeadBankConnect\Connect::get_instance();
         \MailOptin\FacebookCustomAudienceConnect\Connect::get_instance();
+        \MailOptin\FormidableFormConnect\Connect::get_instance();
         GoogleAnalytics::get_instance();
     }
 }

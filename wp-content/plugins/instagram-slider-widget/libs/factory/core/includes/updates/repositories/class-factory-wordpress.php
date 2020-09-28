@@ -1,9 +1,9 @@
 <?php
 
-namespace WBCR\Factory_429\Updates;
+namespace WBCR\Factory_436\Updates;
 
 // Exit if accessed directly
-use Wbcr_Factory429_Plugin;
+use Wbcr_Factory436_Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,10 +20,10 @@ class Wordpress_Repository extends Repository {
 	/**
 	 * Wordpress constructor.
 	 *
-	 * @param Wbcr_Factory429_Plugin $plugin
+	 * @param Wbcr_Factory436_Plugin $plugin
 	 * @param bool                   $is_premium
 	 */
-	public function __construct( Wbcr_Factory429_Plugin $plugin ) {
+	public function __construct( Wbcr_Factory436_Plugin $plugin ) {
 		$this->plugin = $plugin;
 	}
 

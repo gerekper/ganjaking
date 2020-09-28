@@ -335,6 +335,12 @@ class Porto_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 						echo 'selected="selected"';}
 					?>
 					><?php echo 'Center (only wide)'; ?></option>
+					<option value="pos-fullwidth" 
+					<?php
+					if ( 'pos-fullwidth' == $item->popup_pos ) {
+						echo 'selected="selected"';}
+					?>
+					><?php echo 'Full Width (only wide)'; ?></option>
 				</select>
 			</label>
 		</p>
@@ -438,8 +444,8 @@ class Porto_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 						data-name="menu-item-popup_bg_image[<?php echo esc_attr( $item_id ); ?>]"
 						value="<?php echo esc_attr( $item->popup_bg_image ); ?>" />
 				<br/>
-				<input class="button_upload_image button" id="edit-menu-item-popup_bg_image-<?php echo esc_attr( $item_id ); ?>" type="button" value="Upload Image" />&nbsp;
-				<input class="button_remove_image button" id="edit-menu-item-popup_bg_image-<?php echo esc_attr( $item_id ); ?>" type="button" value="Remove Image" />
+				<input class="button_upload_image button" data-id="edit-menu-item-popup_bg_image-<?php echo esc_attr( $item_id ); ?>" type="button" value="Upload Image" />&nbsp;
+				<input class="button_remove_image button" data-id="edit-menu-item-popup_bg_image-<?php echo esc_attr( $item_id ); ?>" type="button" value="Remove Image" />
 			</label>
 		</p>
 		<p class="description description-wide">
@@ -622,8 +628,8 @@ class Porto_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 					data-name="menu-item-preview[<?php echo esc_attr( $item_id ); ?>]"
 					value="<?php echo esc_attr( $item->preview ); ?>" />
 			<br/>
-			<input class="button_upload_image button" id="edit-menu-item-preview-<?php echo esc_attr( $item_id ); ?>" type="button" value="Upload Image" />&nbsp;
-			<input class="button_remove_image button" id="edit-menu-item-preview-<?php echo esc_attr( $item_id ); ?>" type="button" value="Remove Image" />
+			<input class="button_upload_image button" data-id="edit-menu-item-preview-<?php echo esc_attr( $item_id ); ?>" type="button" value="Upload Image" />&nbsp;
+			<input class="button_remove_image button" data-id="edit-menu-item-preview-<?php echo esc_attr( $item_id ); ?>" type="button" value="Remove Image" />
 		</label>
 	</p>
 	<p class="description description-wide">

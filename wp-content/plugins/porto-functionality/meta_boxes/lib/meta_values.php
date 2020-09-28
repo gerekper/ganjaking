@@ -57,14 +57,14 @@ if ( ! function_exists( 'porto_ct_layouts' ) ) :
 	function porto_ct_layouts() {
 
 		return array(
-			'widewidth'          => __( 'Wide Width', 'porto-functionality' ),
-			'wide-left-sidebar'  => __( 'Wide Left Sidebar', 'porto-functionality' ),
-			'wide-right-sidebar' => __( 'Wide Right Sidebar', 'porto-functionality' ),
-			'wide-both-sidebar'  => __( 'Wide Left & Right Sidebars', 'porto-functionality' ),
-			'fullwidth'          => __( 'Without Sidebar', 'porto-functionality' ),
-			'left-sidebar'       => __( 'Left Sidebar', 'porto-functionality' ),
-			'right-sidebar'      => __( 'Right Sidebar', 'porto-functionality' ),
-			'both-sidebar'       => __( 'Left & Right Sidebars', 'porto-functionality' ),
+			'widewidth'          => esc_html__( 'Wide Width', 'porto-functionality' ),
+			'wide-left-sidebar'  => esc_html__( 'Wide Left Sidebar', 'porto-functionality' ),
+			'wide-right-sidebar' => esc_html__( 'Wide Right Sidebar', 'porto-functionality' ),
+			'wide-both-sidebar'  => esc_html__( 'Wide Left & Right Sidebars', 'porto-functionality' ),
+			'fullwidth'          => esc_html__( 'Without Sidebar', 'porto-functionality' ),
+			'left-sidebar'       => esc_html__( 'Left Sidebar', 'porto-functionality' ),
+			'right-sidebar'      => esc_html__( 'Right Sidebar', 'porto-functionality' ),
+			'both-sidebar'       => esc_html__( 'Left & Right Sidebars', 'porto-functionality' ),
 		);
 	}
 endif;
@@ -160,7 +160,7 @@ if ( ! function_exists( 'porto_ct_sidebars' ) ) :
 
 			foreach ( $wp_registered_sidebars as $sidebar ) {
 				if ( ! in_array( $sidebar['id'], array( 'content-bottom-1', 'content-bottom-2', 'content-bottom-3', 'content-bottom-4', 'footer-top', 'footer-column-1', 'footer-column-2', 'footer-column-3', 'footer-column-4', 'footer-bottom' ) ) ) {
-					$sidebar_options[ $sidebar['id'] ] = $sidebar['name'];
+					$sidebar_options[ esc_html( $sidebar['id'] ) ] = esc_html( $sidebar['name'] );
 				}
 			}
 		};

@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Stat Counter Widget
  *
- * Porto Element widget to display stat counters.
+ * Porto Elementor widget to display stat counters.
  *
  * @since 5.1.0
  */

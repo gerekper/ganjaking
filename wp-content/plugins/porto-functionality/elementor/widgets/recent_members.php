@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Recent Members slider Widget
  *
- * Porto Element widget to display recent members slider.
+ * Porto Elementor widget to display recent members slider.
  *
  * @since 5.4.1
  */

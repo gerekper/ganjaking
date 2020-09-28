@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Pricing Table Widget
  *
- * Porto Element widget to display a pricing table.
+ * Porto Elementor widget to display a pricing table.
  *
  * @since 5.4.1
  */

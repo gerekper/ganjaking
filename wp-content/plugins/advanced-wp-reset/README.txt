@@ -3,8 +3,8 @@ Contributors: symptote
 Donate Link: http://www.sigmaplugin.com/donation
 Tags: database, reset database, reset, clean, restore
 Requires at least: 4.0
-Tested up to: 5.3
-Stable tag: 1.1.0
+Tested up to: 5.5
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,12 @@ This section describes how to install the plugin and get it working.
 1. Admin page of the plugin
 
 == Changelog ==
+
+= 1.1.1 - 17/09/2020 =
+- Tweak: enhancing the JavaScript code
+- Tweak: we are now using SweetAlert for all popup boxes
+- Tweak: enhancing some blocks of code
+- Tested with WordPress 5.5
 
 = 1.1.0 =
 * Some changes to CSS style

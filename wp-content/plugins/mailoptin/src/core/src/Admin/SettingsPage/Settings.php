@@ -112,6 +112,12 @@ class Settings extends AbstractSettingsPage
                             'label'       => __('Disable Impression Tracking', 'mailoptin'),
                             'checkbox_label' => __('Disable', 'mailoptin')
                         ],
+                        'dequeue_google_font'     => [
+                            'type'        => 'checkbox',
+                            'label'       => __('Disable Google Fonts', 'mailoptin'),
+                            'checkbox_label' => __('Disable', 'mailoptin'),
+                            'description' => esc_html__('Check to stop us from loading Google Fonts on your site.', 'mailoptin')
+                        ],
                         'global_cookie'         => [
                             'type'        => 'number',
                             'value'       => 0,

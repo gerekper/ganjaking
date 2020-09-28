@@ -8,6 +8,7 @@ $grid-gutter-space: <?php echo (int) $porto_settings['grid-gutter-width']; ?> !d
 @import "theme/shortcodes/common";
 
 <?php if ( defined( 'WPB_VC_VERSION' ) ) : ?>
+	@import "theme/shortcodes/wpb_general";
 	<?php if ( ! in_array( 'vc_tabs', $unused_shortcode_list ) || ! in_array( 'vc_tour', $unused_shortcode_list ) ) : ?>
 	@import "theme/shortcodes/tabs";
 	<?php endif; ?>

@@ -164,8 +164,8 @@ function porto_show_meta_field( $meta_field ) {
 				<div class="box-option">
 						<input value="<?php echo stripslashes( $meta_value ); ?>" type="text" name="<?php echo esc_attr( $name ); ?>"  id="<?php echo esc_attr( $name ); ?>" size="50%" />
 						<br/>
-						<input class="button_upload_image button" id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Upload Image', 'porto-functionality' ); ?>" />&nbsp;
-						<input class="button_remove_image button" id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Remove Image', 'porto-functionality' ); ?>" />
+						<input class="button_upload_image button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Upload Image', 'porto-functionality' ); ?>" />&nbsp;
+						<input class="button_remove_image button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Remove Image', 'porto-functionality' ); ?>" />
 					<?php
 					if ( $desc ) :
 						?>
@@ -191,8 +191,8 @@ function porto_show_meta_field( $meta_field ) {
 					</div>
 					<input value="<?php echo stripslashes( $meta_value ); ?>" type="hidden" name="<?php echo esc_attr( $name ); ?>"  id="<?php echo esc_attr( $name ); ?>" size="50%" />
 					<br/>
-					<input class="button_attach_image button" id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Attach Image', 'porto-functionality' ); ?>" />&nbsp;
-					<input class="button_remove_image button" id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Remove Image', 'porto-functionality' ); ?>" />
+					<input class="button_attach_image button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Attach Image', 'porto-functionality' ); ?>" />&nbsp;
+					<input class="button_remove_image button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Remove Image', 'porto-functionality' ); ?>" />
 					<label>
 					<?php
 					if ( $desc ) :
@@ -508,8 +508,8 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 			<td>
 					<input style="margin-bottom:5px;" value="<?php echo stripslashes( $meta_value ); ?>" type="text" name="<?php echo esc_attr( $name ); ?>"  id="<?php echo esc_attr( $name ); ?>" size="50%" />
 					<br/>
-					<button class="button_upload_image button" id="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( 'Upload Image', 'porto-functionality' ); ?></button>
-					<button class="button_remove_image button" id="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( 'Remove Image', 'porto-functionality' ); ?></button>
+					<button class="button_upload_image button" data-id="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( 'Upload Image', 'porto-functionality' ); ?></button>
+					<button class="button_remove_image button" data-id="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( 'Remove Image', 'porto-functionality' ); ?></button>
 				<?php
 				if ( $desc ) :
 					?>
@@ -534,8 +534,8 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 			</div>
 			<input style="margin-bottom:5px;" value="<?php echo stripslashes( $meta_value ); ?>" type="hidden" name="<?php echo esc_attr( $name ); ?>"  id="<?php echo esc_attr( $name ); ?>" size="50%" />
 			<br/>
-			<button class="button_attach_image button" id="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( 'Attach Image', 'porto-functionality' ); ?></button>
-			<button class="button_remove_image button" id="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( 'Remove Image', 'porto-functionality' ); ?></button>
+			<button class="button_attach_image button" data-id="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( 'Attach Image', 'porto-functionality' ); ?></button>
+			<button class="button_remove_image button" data-id="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( 'Remove Image', 'porto-functionality' ); ?></button>
 				<?php
 				if ( $desc ) :
 					?>

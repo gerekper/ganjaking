@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Custom Product Hooks Widget
  *
- * Porto Element widget to run default hooks on the single product page when using custom product layout
+ * Porto Elementor widget to run default hooks on the single product page when using custom product layout
  *
  * @since 5.4.0
  */

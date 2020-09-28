@@ -15,9 +15,9 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryForms427_MultipleTextboxControl') ) {
+	if( !class_exists('Wbcr_FactoryForms433_MultipleTextboxControl') ) {
 
-		class Wbcr_FactoryForms427_MultipleTextboxControl extends Wbcr_FactoryForms427_Control {
+		class Wbcr_FactoryForms433_MultipleTextboxControl extends Wbcr_FactoryForms433_Control {
 
 			public $type = 'multiple-textbox';
 
@@ -86,7 +86,7 @@
 						<?php endif; ?>
 					</div>
 					<button class="btn btn-default btn-small factory-mtextbox-add-item">
-						<i class="fa fa-plus" aria-hidden="true"></i> <?php _e('Add new', 'wbcr_factory_forms_427') ?>
+						<i class="fa fa-plus" aria-hidden="true"></i> <?php _e('Add new', 'wbcr_factory_forms_433') ?>
 					</button>
 				</div>
 

@@ -19,16 +19,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-abstract class Wbcr_Factory429_Activator {
+abstract class Wbcr_Factory436_Activator {
 
 	/**
 	 * Curent plugin.
 	 *
-	 * @var Wbcr_Factory429_Plugin
+	 * @var Wbcr_Factory436_Plugin
 	 */
 	public $plugin;
 
-	public function __construct( Wbcr_Factory429_Plugin $plugin ) {
+	public function __construct( Wbcr_Factory436_Plugin $plugin ) {
 		$this->plugin = $plugin;
 	}
 

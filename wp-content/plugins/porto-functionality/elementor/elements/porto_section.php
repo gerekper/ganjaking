@@ -19,8 +19,9 @@ class Porto_Elementor_Section extends Elementor\Element_Section {
 		$items_tablet = 0 < intval( $settings['items_tablet']['size'] ) ? $settings['items_tablet']['size'] : 1;
 		$items_mobile = 0 < intval( $settings['items_mobile']['size'] ) ? $settings['items_mobile']['size'] : 1;
 
-		$extra_class   = '';
-		$extra_options = '';
+		$extra_class    = '';
+		$extra_options  = '';
+		$extra_cont_cls = '';
 
 		if ( 'carousel' == $settings['as_param'] ) {
 			$settings['gap'] = 'no';
@@ -107,10 +108,8 @@ class Porto_Elementor_Section extends Elementor\Element_Section {
 			$extra_options = ' data-plugin-options="' . esc_attr( json_encode( $extra_options ) ) . '"';
 
 		} elseif ( 'banner' == $settings['as_param'] ) {
-			if ( 'yes' == $settings['add_container'] ) {
-				$extra_class .= ' container';
-			}
 			$settings['gap'] = 'no';
+			$extra_cont_cls .= ' porto-ibanner';
 		} elseif ( 'creative' == $settings['as_param'] ) {
 			wp_enqueue_script( 'isotope' );
 			$extra_options                    = array();
@@ -126,6 +125,12 @@ class Porto_Elementor_Section extends Elementor\Element_Section {
 				$settings['gap'] = 'no';
 			}
 		}
+
+		if ( isset( $settings['porto_el_cls'] ) && $settings['porto_el_cls'] ) {
+			$extra_class .= ' ' . trim( $settings['porto_el_cls'] );
+		}
+
+		$before_html = '';
 
 		?>
 		<<?php echo esc_html( $this->get_html_tag() ); ?> <?php $this->print_render_attribute_string( '_wrapper' ); ?>>
@@ -174,54 +179,56 @@ class Porto_Elementor_Section extends Elementor\Element_Section {
 				$this->print_shape_divider( 'bottom' );
 			}
 			?>
-			<div class="elementor-container elementor-column-gap-<?php echo esc_attr( $settings['gap'] ), ( 'banner' == $settings['as_param'] ? ' porto-ibanner' : '' ); ?>">
-				<?php
-				if ( 'banner' == $settings['as_param'] ) {
-					if ( ! empty( $settings['banner_image'] ) && ! empty( $settings['banner_image']['id'] ) ) {
-						$attr    = array( 'class' => 'porto-ibanner-img' );
-						$img_src = wp_get_attachment_image_src( $settings['banner_image']['id'], ! empty( $settings['banner_image_size'] ) ? $settings['banner_image_size'] : 'full' );
-						// Generate 'srcset' and 'sizes'
-						$image_meta          = wp_get_attachment_metadata( $settings['banner_image']['id'] );
-						$settings_min_height = false;
-						if ( ! empty( $settings['min_height']['size'] ) && 'px' == $settings['min_height']['unit'] ) {
-							if ( ! $settings_min_height ) {
-								$settings_min_height = (int) $settings['min_height']['size'];
-							}
-						}
-						if ( ! empty( $settings['min_height_tablet']['size'] ) && 'px' == $settings['min_height_tablet']['unit'] ) {
-							if ( ! $settings_min_height || (int) $settings['min_height_tablet']['size'] < $settings_min_height ) {
-								$settings_min_height = (int) $settings['min_height_tablet']['size'];
-							}
-						}
-						if ( ! empty( $settings['min_height_mobile']['size'] ) && 'px' == $settings['min_height_mobile']['unit'] ) {
-							if ( ! $settings_min_height || (int) $settings['min_height_mobile']['size'] < $settings_min_height ) {
-								$settings_min_height = (int) $settings['min_height_mobile']['size'];
-							}
-						}
-						if ( $settings_min_height && is_array( $image_meta ) && is_array( $image_meta['sizes'] ) ) {
-							$ratio = $image_meta['height'] / $image_meta['width'];
-							foreach ( $image_meta['sizes'] as $key => $size ) {
-								if ( $size['width'] * (float) $ratio < $settings_min_height ) {
-									unset( $image_meta['sizes'][ $key ] );
-								}
-							}
-						}
-						$srcset = wp_get_attachment_image_srcset( $settings['banner_image']['id'], ! empty( $settings['banner_image_size'] ) ? $settings['banner_image_size'] : 'full', $image_meta );
-						$sizes  = wp_get_attachment_image_sizes( $settings['banner_image']['id'], ! empty( $settings['banner_image_size'] ) ? $settings['banner_image_size'] : 'full', $image_meta );
-						if ( $srcset && $sizes ) {
-							$attr['srcset'] = $srcset;
-							$attr['sizes']  = $sizes;
-						}
 
-						if ( is_array( $img_src ) ) {
-							$attr_str_escaped = '';
-							foreach ( $attr as $key => $val ) {
-								$attr_str_escaped .= ' ' . esc_html( $key ) . '="' . esc_attr( $val ) . '"';
-							}
-							echo '<img src="' . esc_url( $img_src[0] ) . '" alt="' . esc_attr( trim( get_post_meta( $settings['banner_image']['id'], '_wp_attachment_image_alt', true ) ) ) . '" width="' . esc_attr( $img_src[1] ) . '" height="' . esc_attr( $img_src[2] ) . '"' . $attr_str_escaped . '>';
+			<?php
+			$legacy_enabled = ! method_exists( \Elementor\Plugin::instance(), 'get_legacy_mode' ) || \Elementor\Plugin::instance()->get_legacy_mode( 'elementWrappers' );
+			if ( 'banner' == $settings['as_param'] ) {
+				if ( ! empty( $settings['banner_image'] ) && ! empty( $settings['banner_image']['id'] ) ) {
+					$attr    = array( 'class' => 'porto-ibanner-img' );
+					$img_src = wp_get_attachment_image_src( $settings['banner_image']['id'], ! empty( $settings['banner_image_size'] ) ? $settings['banner_image_size'] : 'full' );
+					// Generate 'srcset' and 'sizes'
+					$image_meta          = wp_get_attachment_metadata( $settings['banner_image']['id'] );
+					$settings_min_height = false;
+					if ( ! empty( $settings['min_height']['size'] ) && 'px' == $settings['min_height']['unit'] ) {
+						if ( ! $settings_min_height ) {
+							$settings_min_height = (int) $settings['min_height']['size'];
 						}
 					}
-				} elseif ( 'creative' == $settings['as_param'] && 'yes' == $settings['use_preset'] ) {
+					if ( ! empty( $settings['min_height_tablet']['size'] ) && 'px' == $settings['min_height_tablet']['unit'] ) {
+						if ( ! $settings_min_height || (int) $settings['min_height_tablet']['size'] < $settings_min_height ) {
+							$settings_min_height = (int) $settings['min_height_tablet']['size'];
+						}
+					}
+					if ( ! empty( $settings['min_height_mobile']['size'] ) && 'px' == $settings['min_height_mobile']['unit'] ) {
+						if ( ! $settings_min_height || (int) $settings['min_height_mobile']['size'] < $settings_min_height ) {
+							$settings_min_height = (int) $settings['min_height_mobile']['size'];
+						}
+					}
+					if ( $settings_min_height && is_array( $image_meta ) && is_array( $image_meta['sizes'] ) ) {
+						$ratio = $image_meta['height'] / $image_meta['width'];
+						foreach ( $image_meta['sizes'] as $key => $size ) {
+							if ( $size['width'] * (float) $ratio < $settings_min_height ) {
+								unset( $image_meta['sizes'][ $key ] );
+							}
+						}
+					}
+					$srcset = wp_get_attachment_image_srcset( $settings['banner_image']['id'], ! empty( $settings['banner_image_size'] ) ? $settings['banner_image_size'] : 'full', $image_meta );
+					$sizes  = wp_get_attachment_image_sizes( $settings['banner_image']['id'], ! empty( $settings['banner_image_size'] ) ? $settings['banner_image_size'] : 'full', $image_meta );
+					if ( $srcset && $sizes ) {
+						$attr['srcset'] = $srcset;
+						$attr['sizes']  = $sizes;
+					}
+
+					if ( is_array( $img_src ) ) {
+						$attr_str_escaped = '';
+						foreach ( $attr as $key => $val ) {
+							$attr_str_escaped .= ' ' . esc_html( $key ) . '="' . esc_attr( $val ) . '"';
+						}
+						$before_html .= '<img src="' . esc_url( $img_src[0] ) . '" alt="' . esc_attr( trim( get_post_meta( $settings['banner_image']['id'], '_wp_attachment_image_alt', true ) ) ) . '" width="' . esc_attr( $img_src[1] ) . '" height="' . esc_attr( $img_src[2] ) . '"' . $attr_str_escaped . '>';
+					}
+				}
+			} elseif ( 'creative' == $settings['as_param'] ) {
+				if ( 'yes' == $settings['use_preset'] ) {
 					$extra_class .= ' grid-creative porto-preset-layout';
 
 					$grid_layout        = porto_creative_grid_layout( empty( $settings['grid_layout'] ) ? '1' : $settings['grid_layout'] );
@@ -229,15 +236,35 @@ class Porto_Elementor_Section extends Elementor\Element_Section {
 					$unit               = trim( str_replace( $grid_height_number, '', $settings['grid_height'] ) );
 
 					echo '<style scope="scope" data-id="' . esc_attr( $this->get_id() ) . '">';
+					global $porto_settings;
+					if ( 'boxed' == $settings['layout'] && ! $legacy_enabled && ! empty( $porto_settings ) ) {
+						echo '.elementor-element.elementor-element-' . $this->get_id() . ' .grid-creative { max-width: ' . ( (int) $porto_settings['container-width'] - (int) $porto_settings['grid-gutter-width'] + (int) $settings['spacing']['size'] ) . 'px }';
+						echo '@media (min-width: 992px) and (max-width: ' . ( (int) $porto_settings['container-width'] + $porto_settings['grid-gutter-width'] - 1 ) . 'px) {';
+						echo '.elementor-element.elementor-element-' . $this->get_id() . ' .grid-creative { max-width: ' . ( 960 - (int) $porto_settings['grid-gutter-width'] + (int) $settings['spacing']['size'] ) . 'px }';
+						echo '}';
+					}
 					porto_creative_grid_style( $grid_layout, $grid_height_number, '.elementor-element.elementor-element-' . $this->get_id(), '' === $settings['spacing']['size'] ? false : intval( $settings['spacing']['size'] ), false, $unit, '.porto-grid-item' );
 					echo '</style>';
+				} else {
+					global $porto_settings;
+					if ( 'boxed' == $settings['layout'] && ! $legacy_enabled && ! empty( $porto_settings ) && ( 0 === $settings['spacing1']['size'] || $settings['spacing1']['size'] ) ) {
+						echo '<style scope="scope" data-id="' . esc_attr( $this->get_id() ) . '">';
+						echo '@media (min-width: 992px) and (max-width: ' . ( (int) $porto_settings['container-width'] + $porto_settings['grid-gutter-width'] - 1 ) . 'px) {';
+						echo '.elementor-element.elementor-element-' . $this->get_id() . ' > .elementor-container { max-width: ' . ( 960 - (int) $porto_settings['grid-gutter-width'] + (int) $settings['spacing1']['size'] ) . 'px }';
+						echo '}';
+						echo '</style>';
+					}
 				}
-
-				if ( isset( $settings['porto_el_cls'] ) && $settings['porto_el_cls'] ) {
-					$extra_class .= ' ' . trim( $settings['porto_el_cls'] );
-				}
-				?>
+			}
+			?>
+			<?php if ( $legacy_enabled ) : ?>
+			<div class="elementor-container elementor-column-gap-<?php echo esc_attr( $settings['gap'] ), esc_attr( $extra_cont_cls ); ?>">
+				<?php echo porto_filter_output( $before_html ); ?>
 				<div class="elementor-row<?php echo esc_attr( $extra_class ); ?>"<?php echo porto_filter_output( $extra_options ); ?>>
+			<?php else : ?>
+			<div class="elementor-container elementor-column-gap-<?php echo esc_attr( $settings['gap'] ), esc_attr( $extra_class ), esc_attr( $extra_cont_cls ); ?>"<?php echo porto_filter_output( $extra_options ); ?>>
+				<?php echo porto_filter_output( $before_html ); ?>
+			<?php endif; ?>
 		<?php
 	}
 
@@ -298,9 +325,14 @@ class Porto_Elementor_Section extends Elementor\Element_Section {
 		<?php
 		if ( 'creative' == $settings['as_param'] ) {
 			unset( $GLOBALS['porto_grid_layout'], $GLOBALS['porto_item_count'], $GLOBALS['porto_grid_type'] );
+		} elseif ( 'banner' == $settings['as_param'] && 'yes' == $settings['add_container'] ) {
+			unset( $GLOBALS['porto_banner_add_container'] );
 		}
-		?>
+		$legacy_enabled = ! method_exists( \Elementor\Plugin::instance(), 'get_legacy_mode' ) || \Elementor\Plugin::instance()->get_legacy_mode( 'elementWrappers' );
+		if ( $legacy_enabled ) :
+			?>
 			</div>
+		<?php endif; ?>
 		</<?php echo esc_html( $this->get_html_tag() ); ?>>
 		<?php
 	}
@@ -401,7 +433,7 @@ function porto_elementor_section_custom_control( $self, $args ) {
 			'type'        => Controls_Manager::NUMBER,
 			'default'     => 0,
 			'min'         => '0',
-			'max'         => '50',
+			'max'         => '100',
 			'step'        => '1',
 			'placeholder' => '0',
 			'condition'   => array(
@@ -604,7 +636,7 @@ function porto_elementor_section_custom_control( $self, $args ) {
 			'type'      => Controls_Manager::COLOR,
 			'label'     => __( 'Background Color', 'porto-functionality' ),
 			'selectors' => array(
-				'{{WRAPPER}} .porto-ibanner' => 'background-color: {{VALUE}};',
+				'{{WRAPPER}} > .porto-ibanner' => 'background-color: {{VALUE}};',
 			),
 			'condition' => array(
 				'as_param' => 'banner',
@@ -675,7 +707,7 @@ function porto_elementor_section_custom_control( $self, $args ) {
 				'em',
 			),
 			'selectors'  => array(
-				'{{WRAPPER}} .porto-ibanner' => 'min-height: {{SIZE}}{{UNIT}};',
+				'{{WRAPPER}} > .porto-ibanner' => 'min-height: {{SIZE}}{{UNIT}};',
 			),
 			'condition'  => array(
 				'as_param' => 'banner',
@@ -742,6 +774,23 @@ function porto_elementor_section_custom_control( $self, $args ) {
 		)
 	);
 
+	$legacy_enabled = ! method_exists( \Elementor\Plugin::instance(), 'get_legacy_mode' ) || \Elementor\Plugin::instance()->get_legacy_mode( 'elementWrappers' );
+	if ( $legacy_enabled ) {
+		$spacing_selectors = array(
+			'{{WRAPPER}} > .elementor-container > .elementor-row' => 'margin-left: calc(-{{SIZE}}{{UNIT}} / 2); margin-right: calc(-{{SIZE}}{{UNIT}} / 2); width: calc(100% + {{SIZE}}{{UNIT}});',
+			'{{WRAPPER}} > .elementor-container > .elementor-row > .elementor-column > .elementor-element-populated' => 'padding: calc({{SIZE}}{{UNIT}} / 2);',
+		);
+	} else {
+		global $porto_settings;
+		$spacing_selectors = array(
+			'.elementor-element.elementor-element-{{ID}} > .elementor-container' => 'margin-left: calc(-{{SIZE}}{{UNIT}} / 2); margin-right: calc(-{{SIZE}}{{UNIT}} / 2); width: calc(100% + {{SIZE}}{{UNIT}});',
+			'{{WRAPPER}} > .elementor-container > .elementor-column > .elementor-element-populated' => 'padding: calc({{SIZE}}{{UNIT}} / 2);',
+		);
+		if ( ! empty( $porto_settings ) ) {
+			$spacing_selectors['.elementor-section-boxed.elementor-element-{{ID}} > .elementor-container'] = 'max-width:calc(' . ( (int) $porto_settings['container-width'] - (int) $porto_settings['grid-gutter-width'] ) . 'px + {{SIZE}}{{UNIT}});';
+		}
+	}
+
 	$self->add_control(
 		'spacing1',
 		array(
@@ -767,10 +816,7 @@ function porto_elementor_section_custom_control( $self, $args ) {
 			'default'     => array(
 				'unit' => 'px',
 			),
-			'selectors'   => array(
-				'{{WRAPPER}} > .elementor-container > .elementor-row' => 'margin-left: calc(-{{SIZE}}{{UNIT}} / 2); margin-right: calc(-{{SIZE}}{{UNIT}} / 2); width: calc(100% + {{SIZE}}{{UNIT}});',
-				'{{WRAPPER}} > .elementor-container > .elementor-row > .elementor-column > .elementor-element-populated' => 'padding: calc({{SIZE}}{{UNIT}} / 2);',
-			),
+			'selectors'   => $spacing_selectors,
 			'condition'   => array(
 				'as_param'    => 'creative',
 				'use_preset!' => 'yes',
@@ -864,7 +910,7 @@ function porto_elementor_column_custom_control( $self, $args ) {
 			'type'        => Controls_Manager::NUMBER,
 			'default'     => 0,
 			'min'         => '0',
-			'max'         => '50',
+			'max'         => '100',
 			'step'        => '1',
 			'placeholder' => '0',
 			'condition'   => array(
@@ -1100,7 +1146,7 @@ function porto_elementor_column_custom_control( $self, $args ) {
 				'unit' => '%',
 			),
 			'selectors'           => array(
-				'.elementor-row .elementor-element-{{ID}}.porto-grid-item' => 'width: {{SIZE}}%;',
+				'.elementor-element-{{ID}}.porto-grid-item' => 'width: {{SIZE}}%;',
 			),
 			'min_affected_device' => array(
 				Elementor\Controls_Stack::RESPONSIVE_DESKTOP => Elementor\Controls_Stack::RESPONSIVE_TABLET,
@@ -1328,7 +1374,7 @@ function porto_elementor_print_section_template( $content, $self ) {
 	ob_start();
 	?>
 	<#
-		let extra_container_class = '',
+		let extra_container_cls = '',
 			extra_before_html = '',
 			extra_after_html = '',
 			extra_attr = '',
@@ -1413,6 +1459,13 @@ function porto_elementor_print_section_template( $content, $self ) {
 					extra_attr += ' data-layout=' + Number( settings.grid_layout );
 					extra_attr += ' data-grid-height=' + escape( settings.grid_height );
 					settings.gap = 'no';
+					if (0 === settings.spacing.size || settings.spacing.size) {
+						extra_attr += ' data-spacing=' + Number( settings.spacing.size );
+					}
+				} else {
+					if (0 === settings.spacing1.size || settings.spacing1.size) {
+						extra_attr += ' data-spacing=' + Number( settings.spacing1.size );
+					}
 				}
 				extra_options['layoutMode'] = 'masonry';
 				extra_options['masonry'] = {'columnWidth': '.grid-col-sizer'};
@@ -1420,9 +1473,7 @@ function porto_elementor_print_section_template( $content, $self ) {
 				extra_options['animationEngine'] = 'best-available';
 				extra_options['resizable'] = false;
 				extra_attr += ' data-plugin-masonry data-plugin-options=' + JSON.stringify( extra_options );
-				if (0 === settings.spacing.size || settings.spacing.size) {
-					extra_attr += ' data-spacing=' + Number( settings.spacing.size );
-				}
+
 				extra_after_html += '<div class="grid-col-sizer"></div>';
 			}
 		} else if ('banner' == settings.as_param) {
@@ -1441,9 +1492,9 @@ function porto_elementor_print_section_template( $content, $self ) {
 			}
 
 			if ('yes' == settings.add_container) {
-				extra_class += ' container';
+				extra_attr += ' data-add_container=1';
 			}
-			extra_container_class += 'porto-ibanner ';
+			extra_container_cls += ' porto-ibanner';
 		}
 
 		if (settings.parallax_speed.size) {
@@ -1456,20 +1507,27 @@ function porto_elementor_print_section_template( $content, $self ) {
 		}
 	#>
 	<?php
-		$content = str_replace( '<div class="elementor-container', '<div class="{{ extra_container_class }}elementor-container', $content );
+		$legacy_enabled = ! method_exists( \Elementor\Plugin::instance(), 'get_legacy_mode' ) || \Elementor\Plugin::instance()->get_legacy_mode( 'elementWrappers' );
+	if ( $legacy_enabled ) {
+		$content = str_replace( '<div class="elementor-container', '<div class="elementor-container{{ extra_container_cls }}', $content );
 		$content = str_replace( '<div class="elementor-row">', '{{{ extra_before_html }}}<div{{ extra_attr }} class="elementor-row{{ extra_class }}">{{{ extra_after_html }}}', $content );
+	} else {
+		$content = str_replace( '<div class="elementor-container elementor-column-gap-{{ settings.gap }}">', '<div{{ extra_attr }} class="elementor-container elementor-column-gap-{{ settings.gap }}{{ extra_container_cls }}{{ extra_class }}">{{{ extra_before_html }}}{{{ extra_after_html }}}', $content );
+	}
 		echo porto_filter_output( $content );
 	return ob_get_clean();
 }
 
 function porto_elementor_print_column_template( $content, $self ) {
+	$legacy_enabled = ! method_exists( \Elementor\Plugin::instance(), 'get_legacy_mode' ) || \Elementor\Plugin::instance()->get_legacy_mode( 'elementWrappers' );
 	ob_start();
 	?>
 	<#
 		let extra_class = '',
 			extra_style = '',
 			extra_class1 = '',
-			extra_attr = '';
+			extra_attr = '',
+			before_html = '';
 		if ( 'yes' == settings.as_banner_layer ) {
 			extra_class += ' porto-ibanner-layer';
 			if (50 == Number(settings.horizontal.size)) {
@@ -1596,12 +1654,22 @@ function porto_elementor_print_column_template( $content, $self ) {
 				extra_class += ' ' + settings.porto_el_cls;
 			}
 		}
+
+		if (!settings.as_banner_layer) {
+			before_html += '<div class="elementor-background-overlay"></div>';
+		}
 	#>
+	<?php if ( $legacy_enabled ) : ?>
 	<div class="elementor-column-wrap{{ extra_class }}"{{{ extra_style }}}>
 		<div class="elementor-background-overlay"></div>
 		<div class="elementor-widget-wrap{{ extra_class1 }}"{{ extra_attr }}></div>
 	</div>
-	<?php
+	<?php else : ?>
+	<div class="elementor-widget-wrap{{ extra_class }}{{ extra_class1 }}"{{{ extra_style }}}{{ extra_attr }}>
+		{{{ before_html }}}
+	</div>
+		<?php
+	endif;
 	return ob_get_clean();
 }
 
@@ -1619,6 +1687,9 @@ function porto_elementor_section_add_custom_attrs( $self ) {
 		}
 		global $porto_grid_type;
 		$porto_grid_type = $self->get_data( 'isInner' );
+	} elseif ( 'banner' == $settings['as_param'] && 'yes' == $settings['add_container'] ) {
+		global $porto_banner_add_container;
+		$porto_banner_add_container = true;
 	}
 	if ( ! empty( $settings['parallax_speed']['size'] ) ) {
 		$self->add_render_attribute( '_wrapper', 'data-plugin-parallax', '' );
@@ -1629,9 +1700,15 @@ function porto_elementor_section_add_custom_attrs( $self ) {
 }
 
 function porto_elementor_column_add_custom_attrs( $self ) {
+	$legacy_enabled = ! method_exists( \Elementor\Plugin::instance(), 'get_legacy_mode' ) || \Elementor\Plugin::instance()->get_legacy_mode( 'elementWrappers' );
+
 	$settings = $self->get_settings_for_display();
 
 	if ( 'yes' == $settings['as_banner_layer'] ) {
+		global $porto_banner_add_container;
+		if ( ! empty( $porto_banner_add_container ) ) {
+			$self->add_render_attribute( '_wrapper', 'class', 'container' );
+		}
 		$extra_class = array( 'porto-ibanner-layer' );
 		$extra_style = '';
 
@@ -1664,18 +1741,19 @@ function porto_elementor_column_add_custom_attrs( $self ) {
 			$extra_class[] = esc_attr( $settings['porto_el_cls'] );
 		}
 
-		$self->add_render_attribute( '_inner_wrapper', 'class', $extra_class );
+		$wrapper_name = $legacy_enabled ? '_inner_wrapper' : '_widget_wrapper';
+		$self->add_render_attribute( $wrapper_name, 'class', $extra_class );
 		if ( $extra_style ) {
-			$self->add_render_attribute( '_inner_wrapper', 'style', $extra_style );
+			$self->add_render_attribute( $wrapper_name, 'style', $extra_style );
 		}
 
 		if ( isset( $settings['css_anim_type'] ) && $settings['css_anim_type'] ) {
-			$self->add_render_attribute( '_inner_wrapper', 'data-appear-animation', esc_attr( $settings['css_anim_type'] ) );
+			$self->add_render_attribute( $wrapper_name, 'data-appear-animation', esc_attr( $settings['css_anim_type'] ) );
 			if ( ! empty( $settings['css_anim_delay'] ) ) {
-				$self->add_render_attribute( '_inner_wrapper', 'data-appear-animation-delay', absint( $settings['css_anim_delay'] ) );
+				$self->add_render_attribute( $wrapper_name, 'data-appear-animation-delay', absint( $settings['css_anim_delay'] ) );
 			}
 			if ( ! empty( $settings['css_anim_duration'] ) ) {
-				$self->add_render_attribute( '_inner_wrapper', 'data-appear-animation-duration', absint( $settings['css_anim_duration'] ) );
+				$self->add_render_attribute( $wrapper_name, 'data-appear-animation-duration', absint( $settings['css_anim_duration'] ) );
 			}
 		}
 	} if ( 'carousel' == $settings['as_banner_layer'] ) {
@@ -1797,8 +1875,9 @@ function porto_elementor_column_add_custom_attrs( $self ) {
 	}
 
 	if ( ! empty( $settings['parallax_speed']['size'] ) ) {
-		$self->add_render_attribute( '_inner_wrapper', 'data-plugin-parallax', '' );
-		$self->add_render_attribute( '_inner_wrapper', 'data-plugin-options', '{"speed": ' . floatval( $settings['parallax_speed']['size'] ) . '}' );
+		$wrapper_name = $legacy_enabled ? '_inner_wrapper' : '_widget_wrapper';
+		$self->add_render_attribute( $wrapper_name, 'data-plugin-parallax', '' );
+		$self->add_render_attribute( $wrapper_name, 'data-plugin-options', '{"speed": ' . floatval( $settings['parallax_speed']['size'] ) . '}' );
 		wp_enqueue_script( 'skrollr' );
 	}
 

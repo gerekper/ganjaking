@@ -12,9 +12,13 @@ require_once( PORTO_FUNCTIONS . '/post.php' );
 
 if ( class_exists( 'Woocommerce' ) ) {
 	if ( porto_is_elementor_preview() ) {
-		add_action( 'after_setup_theme', function() {
+		add_action(
+			'init',
+			function() {
 			require_once( PORTO_FUNCTIONS . '/woocommerce.php' );
-		} );
+			},
+			8
+		);
 	} else {
 		require_once( PORTO_FUNCTIONS . '/woocommerce.php' );
 	}

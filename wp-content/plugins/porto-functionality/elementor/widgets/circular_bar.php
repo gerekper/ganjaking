@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Circular Bar Widget
  *
- * Porto Element widget to display a circular bar.
+ * Porto Elementor widget to display a circular bar.
  *
  * @since 5.4.1
  */

@@ -29,6 +29,8 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			'fancytext',
 			'countdown',
 			'faqs',
+			'google_map',
+			'portfolios_category',
 		);
 
 		private $woo_widgets = array(
@@ -293,7 +295,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 					'elementor/editor/localize_settings',
 					function( $config ) {
 						global $porto_settings;
-						if ( 'yes' !== get_option( 'elementor_disable_color_schemes', '' ) || empty( $porto_settings ) || empty( $porto_settings['skin-color'] ) ) {
+						if ( ! get_option( 'elementor_disable_color_schemes', false ) || empty( $porto_settings ) || empty( $porto_settings['skin-color'] ) ) {
 							return $config;
 						}
 						try {
@@ -623,13 +625,19 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 
 				wp_enqueue_script( 'porto-elementor-widgets-js' );
 
+				$admin_vars = array(
+					'creative_layouts' => $creative_layouts,
+					'gmt_offset'       => get_option( 'gmt_offset' ),
+				);
+				global $porto_settings;
+				if ( ! empty( $porto_settings ) ) {
+					$admin_vars['container_width'] = (int) $porto_settings['container-width'];
+					$admin_vars['grid_spacing']    = (int) $porto_settings['grid-gutter-width'];
+				}
 				wp_localize_script(
 					'porto-elementor-widgets-js',
 					'porto_elementor_vars',
-					array(
-						'creative_layouts' => $creative_layouts,
-						'gmt_offset'       => get_option( 'gmt_offset' ),
-					)
+					$admin_vars
 				);
 			}
 		}

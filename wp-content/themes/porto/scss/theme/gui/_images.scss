@@ -100,8 +100,7 @@ img {
             border-radius: 0;
         }
         .rev_slider_wrapper {
-            border-radius: 0 !important;
-            li.tp-revslider-slidesli {
+            &, li.tp-revslider-slidesli {
                 border-radius: 0 !important;
             }
         }

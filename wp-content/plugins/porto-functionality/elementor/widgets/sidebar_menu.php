@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Sidebar Menu Widget
  *
- * Porto Element widget to display a sidebar menu.
+ * Porto Elementor widget to display a sidebar menu.
  *
  * @since 5.4.0
  */

@@ -116,6 +116,7 @@ if ( ! empty( $show_sort ) || $category_filter || $pagination_style ) {
 	}
 	$output .= '<input type="hidden" name="original_orderby" value="' . esc_attr( $orderby ) . '" >';
 	$output .= '<input type="hidden" name="orderby" value="' . esc_attr( $orderby ) . '" >';
+	$output .= '<input type="hidden" name="order" value="' . esc_attr( $order ) . '" >';
 	$output .= '<input type="hidden" name="category" value="' . esc_attr( $category ) . '" >';
 	$output .= '<input type="hidden" name="ids" value="' . esc_attr( $ids ) . '" >';
 	$output .= '<input type="hidden" name="columns" value="' . esc_attr( $columns ) . '" >';

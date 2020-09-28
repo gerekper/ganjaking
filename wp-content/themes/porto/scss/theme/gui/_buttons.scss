@@ -1,3 +1,62 @@
+/* Visual Composer Buttons */
+.btn-inverse {
+    @include button-variant(#fff, #333, #2d2d2d);
+}
+
+.btn {
+    margin: 0;
+}
+.btn-block {
+    padding-right: 0;
+    padding-left: 0;
+}
+.vc_btn3.vc_btn3-size-md {
+    border-radius: 4px;
+}
+
+.btn,
+.btn-group-md > .btn,
+.vc_btn3.vc_btn3-size-md {
+    padding: 0.533rem 0.933rem;
+    font-size: 0.8rem;
+    line-height: 1.42857;
+}
+
+.btn-xl,
+.vc_btn3.vc_btn3-size-xl {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+}
+
+.btn-lg,
+.btn-group-lg > .btn,
+.vc_btn3.vc_btn3-size-lg,
+.cart-actions .button,
+.checkout-button,
+#place_order,
+input.submit.btn-lg, input.btn.btn-lg[type="submit"], input.button.btn-lg[type="submit"] {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    line-height: 1.3333;
+}
+
+.btn-sm,
+.btn-group-sm > .btn,
+.vc_btn3.vc_btn3-size-sm {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.btn-xs,
+.btn-group-xs > .btn
+.vc_btn3.vc_btn3-size-xs {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+    line-height: 1.5;
+}
+
+
 /* Buttons */
 .btn,
 .button,

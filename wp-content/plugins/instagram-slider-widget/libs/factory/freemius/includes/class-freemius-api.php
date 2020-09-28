@@ -1,10 +1,10 @@
 <?php
 
-namespace WBCR\Factory_Freemius_117;
+namespace WBCR\Factory_Freemius_123;
 
 use Freemius_Api_WordPress;
 use Freemius_Exception;
-use Wbcr_Factory429_Plugin;
+use Wbcr_Factory436_Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -33,7 +33,7 @@ final class Api {
 	private $api;
 	
 	/**
-	 * @var Wbcr_Factory429_Plugin
+	 * @var Wbcr_Factory436_Plugin
 	 */
 	private $plugin;
 	
@@ -48,14 +48,14 @@ final class Api {
 	private static $clock_diff;
 	
 	/**
-	 * @param Wbcr_Factory429_Plugin $slug
+	 * @param Wbcr_Factory436_Plugin $slug
 	 * @param string $scope 'app', 'developer', 'user' or 'install'.
 	 * @param number $id Element's id.
 	 * @param string $public_key Public key.
 	 * @param bool|string $secret_key Element's secret key.
 	 * @param bool $is_sandbox
 	 */
-	private function __construct( Wbcr_Factory429_Plugin $plugin, $scope, $id, $public_key, $secret_key, $is_sandbox ) {
+	private function __construct( Wbcr_Factory436_Plugin $plugin, $scope, $id, $public_key, $secret_key, $is_sandbox ) {
 		if ( ! class_exists( 'Freemius_Api_WordPress' ) ) {
 			require_once WP_FS__DIR_SDK . '/FreemiusWordPress.php';
 		}
@@ -73,7 +73,7 @@ final class Api {
 	}
 	
 	/**
-	 * @param Wbcr_Factory429_Plugin $plugin
+	 * @param Wbcr_Factory436_Plugin $plugin
 	 * @param string $scope 'app', 'developer', 'user' or 'install'.
 	 * @param number $id Element's id.
 	 * @param string $public_key Public key.
@@ -82,7 +82,7 @@ final class Api {
 	 *
 	 * @return Api
 	 */
-	public static function instance( Wbcr_Factory429_Plugin $plugin, $scope, $id, $public_key, $is_sandbox, $secret_key = false ) {
+	public static function instance( Wbcr_Factory436_Plugin $plugin, $scope, $id, $public_key, $is_sandbox, $secret_key = false ) {
 		$identifier = md5( $plugin->getPluginName() . $scope . $id . $public_key . ( is_string( $secret_key ) ? $secret_key : '' ) . json_encode( $is_sandbox ) );
 		
 		if ( ! isset( self::$instances[ $identifier ] ) ) {

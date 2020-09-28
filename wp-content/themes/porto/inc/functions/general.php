@@ -900,3 +900,12 @@ if ( ! function_exists( 'porto_check_using_elementor_style' ) ) :
 		return false;
 	}
 endif;
+
+/**
+ * old WordPress fallback functions
+ */
+if ( ! function_exists( 'wp_slash_strings_only' ) ) :
+	function wp_slash_strings_only( $val ) {
+		return $val;
+	}
+endif;

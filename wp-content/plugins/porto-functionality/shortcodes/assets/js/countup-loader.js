@@ -46,8 +46,8 @@ if (typeof portoInitStatCounter == 'undefined') {
                     counter.start(endTrigger);
                 },500);
             }
-            if (jQuery.fn.appear) {
-                jQuery(this).appear(function() {
+            if (window.theme && theme.appear) {
+                theme.appear(this, function() {
                     initCounter(this);
                 }, {
                     accX: 0,

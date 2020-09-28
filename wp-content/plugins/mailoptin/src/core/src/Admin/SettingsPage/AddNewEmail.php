@@ -51,7 +51,7 @@ class AddNewEmail extends AbstractSettingsPage
     public function content()
     {
         $email_automation_url = add_query_arg('view', 'add-new-email-automation', MAILOPTIN_EMAIL_CAMPAIGNS_SETTINGS_PAGE);
-        $newsletter_url       = add_query_arg('view', 'create-newsletter', MAILOPTIN_EMAIL_CAMPAIGNS_SETTINGS_PAGE);
+        $newsletter_url       = add_query_arg('view', 'create-broadcast', MAILOPTIN_EMAIL_CAMPAIGNS_SETTINGS_PAGE);
         ?>
         <div class="mo-add-new-form-wrapper">
             <div class="mo-design-gateway">
@@ -83,8 +83,8 @@ class AddNewEmail extends AbstractSettingsPage
                                         </svg>
                                     </div>
                                     <div class="mo-half-meta">
-                                        <h2><?php _e('Newsletter', 'mailoptin'); ?></h2>
-                                        <p><?php _e('Create and send emails to your subscribers informing them of the latest news or updates about your product or company.', 'mailoptin'); ?></p>
+                                        <h2><?php _e('Broadcast', 'mailoptin'); ?></h2>
+                                        <p><?php _e('Create and send one-off emails to your subscribers informing them of any news or updates about your product or company.', 'mailoptin'); ?></p>
                                     </div>
                                 </div>
                                 <div class="mo-builder-create-btn"><?php _e('Create Now', 'mailoptin'); ?></div>

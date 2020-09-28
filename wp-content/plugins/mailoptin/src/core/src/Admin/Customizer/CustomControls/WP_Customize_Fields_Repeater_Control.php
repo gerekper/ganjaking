@@ -45,18 +45,19 @@ class WP_Customize_Fields_Repeater_Control extends WP_Customize_Control
      */
     public function enqueue()
     {
+        // color field
+        wp_enqueue_script('wp-color-picker');
+        wp_enqueue_style('wp-color-picker');
+
         add_action('customize_controls_print_footer_scripts', [$this, 'field_template']);
 
-        wp_enqueue_script('mailoptin-customizer-fields', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/fields-control/control.js', array('jquery', 'customize-base'), false, true);
+        wp_enqueue_script('mailoptin-customizer-fields', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/fields-control/control.js', array('jquery', 'customize-base', 'wp-color-picker'), false, true);
         wp_enqueue_style('mailoptin-customizer-fields', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/fields-control/style.css', null);
 
         // toggle control assets
         wp_enqueue_script('mo-customizer-toggle-control', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/toggle-control/customizer-toggle-control.js', array('jquery'), false, true);
         wp_enqueue_style('mo-pure-css-toggle-buttons', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/toggle-control/pure-css-togle-buttons.css', array(), false);
 
-        // color field
-        wp_enqueue_script('wp-color-picker');
-        wp_enqueue_style('wp-color-picker');
 
         wp_enqueue_script('jquery-ui-sortable');
     }

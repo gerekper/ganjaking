@@ -1122,7 +1122,8 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
                             $html .= "</select>" . $atts['tag_end'];
                             break;
                         case 'country':
-                            $display_type = moVar($field, 'country_field_options', 'alpha_two', true);
+
+                            $display_type = moVar($field, 'country_field_options', 'alpha-2', true);
 
                             $html .= $atts['tag_start'];
 

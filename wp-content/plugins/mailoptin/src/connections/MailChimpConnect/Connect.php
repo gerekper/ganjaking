@@ -187,7 +187,7 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
     public function get_email_list()
     {
         try {
-            $response = $this->mc_list_instance()->getLists(['count' => 100]);
+            $response = $this->mc_list_instance()->getLists(['count' => 1000]);
 
             // an array with list id as key and name as value.
             $lists_array = array();
@@ -857,7 +857,6 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
 
                     if ($connection_service !== 'MailChimpConnect') continue;
                     if ($segment_type == 'automatic') continue;
-
 
                     $choices = $this->get_integration_data('MailChimpConnect_interests', $integration_data, []);
 

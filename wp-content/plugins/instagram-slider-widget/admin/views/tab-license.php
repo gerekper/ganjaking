@@ -1,11 +1,11 @@
 <div class="wrap">
-    <div class="factory-bootstrap-430 factory-fontawesome-000">
+    <div class="factory-bootstrap-436 factory-fontawesome-000">
 		<?php wp_nonce_field( 'license' ); ?>
         <div id="wis-license-wrapper"
              data-loader="<?php echo WIS_PLUGIN_URL . '/admin/assets/img/loader.gif'; ?>"
              data-plugin="<?php echo get_class( $this->plugin ) ?>">
 
-            <div class="factory-bootstrap-430 onp-page-wrap <?php echo $this->get_license_type() ?>-license-manager-content"
+            <div class="factory-bootstrap-436 onp-page-wrap <?php echo $this->get_license_type() ?>-license-manager-content"
                  id="license-manager">
                 <div>
                     <h3><?php printf( __( 'Activate %s', 'instagram-slider-widget' ), $this->plan_name ) ?></h3>

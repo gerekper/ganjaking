@@ -1,12 +1,12 @@
 <?php
 
-namespace WBCR\Factory_429\Updates;
+namespace WBCR\Factory_436\Updates;
 
 use Exception;
 use Plugin_Installer_Skin;
 use Plugin_Upgrader;
-use Wbcr_Factory429_Plugin;
-use Wbcr_FactoryPages429_ImpressiveThemplate;
+use Wbcr_Factory436_Plugin;
+use Wbcr_FactoryPages435_ImpressiveThemplate;
 use WP_Filesystem_Base;
 use WP_Upgrader;
 use WP_Upgrader_Skin;
@@ -16,6 +16,7 @@ if( !defined('ABSPATH') ) {
 	exit;
 }
 
+require_once ABSPATH . "/wp-admin/includes/list-table.php";
 /**
  * @author        Alex Kovalev <alex.kovalevv@gmail.com>, repo: https://github.com/alexkovalevv
  * @author        Webcraftic <wordpress.webraftic@gmail.com>, site: https://webcraftic.com
@@ -32,18 +33,25 @@ class Premium_Upgrader extends Upgrader {
 	protected $type = 'premium';
 
 	/**
+	 * Объект таблицы со списком плагинов
+	 *
+	 * @var \WP_Plugins_List_Table
+	 */
+	protected $wp_list_table;
+
+	/**
 	 * Manager constructor.
 	 *
 	 * @param                        $args
 	 * @param bool $is_premium
 	 *
-	 * @param Wbcr_Factory429_Plugin $plugin
+	 * @param Wbcr_Factory436_Plugin $plugin
 	 *
 	 * @throws Exception
 	 * @since 4.1.1
 	 *
 	 */
-	public function __construct(Wbcr_Factory429_Plugin $plugin)
+	public function __construct(Wbcr_Factory436_Plugin $plugin)
 	{
 		parent::__construct($plugin);
 
@@ -234,9 +242,9 @@ class Premium_Upgrader extends Upgrader {
 	/**
 	 * Выводит уведомление внутри интерфейса плагина, на всех страницах плагина.
 	 *
-	 * @param Wbcr_FactoryPages429_ImpressiveThemplate $obj
+	 * @param Wbcr_FactoryPages435_ImpressiveThemplate $obj
 	 *
-	 * @param Wbcr_Factory429_Plugin $plugin
+	 * @param Wbcr_Factory436_Plugin $plugin
 	 *
 	 * @return void
 	 * @since 4.1.1
@@ -301,9 +309,18 @@ class Premium_Upgrader extends Upgrader {
 			$notice_text = $this->get_notice_text('need_renew_license');
 		}
 
+		if( !$this->wp_list_table ) {
+			$this->wp_list_table = \_get_list_table(
+				'WP_Plugins_List_Table',
+				array(
+					'screen' => null,
+				)
+			);
+		}
+
 		?>
 		<tr class="plugin-update-tr active update wbcr-factory-updates">
-			<td colspan="3" class="plugin-update colspanchange">
+			<td colspan="<?php echo esc_attr($this->wp_list_table->get_column_count());?>" class="plugin-update colspanchange">
 				<div class="update-message notice inline notice-warning notice-alt">
 					<p>
 						<?php echo $notice_text; ?>
@@ -378,7 +395,7 @@ class Premium_Upgrader extends Upgrader {
 			}
 
 			# if it is bulk upgrade
-			if( is_array($hook_extra['plugins']) && in_array($this->plugin_basename, $hook_extra['plugins']) ) {
+			if( isset($hook_extra['plugins']) && in_array($this->plugin_basename, $hook_extra['plugins']) ) {
 				$this->update_package_data();
 			}
 		}
@@ -791,12 +808,12 @@ class Premium_Upgrader extends Upgrader {
 		$cancel_license_url = $this->get_action_url('cancel_license');
 
 		$texts = [
-			'need_activate_license' => __('License activation required. A license is required to get premium plugin updates, as well as to get additional services.', 'wbcr_factory_429'),
-			'need_renew_license' => __('Your license has expired. You can no longer get premium plugin updates, premium support and your access to Webcraftic services has been suspended.', 'wbcr_factory_429'),
+			'need_activate_license' => __('License activation required. A license is required to get premium plugin updates, as well as to get additional services.', 'wbcr_factory_436'),
+			'need_renew_license' => __('Your license has expired. You can no longer get premium plugin updates, premium support and your access to Webcraftic services has been suspended.', 'wbcr_factory_436'),
 			'please_install_premium' => sprintf(__('Congratulations, you have activated a premium license! Please install premium add-on to use pro features now.
-        <a href="%s">Install</a> premium add-on or <a href="%s">cancel</a> license.', 'wbcr_factory_429'), $upgrade_url, $cancel_license_url),
+        <a href="%s">Install</a> premium add-on or <a href="%s">cancel</a> license.', 'wbcr_factory_436'), $upgrade_url, $cancel_license_url),
 			'please_activate_premium' => sprintf(__('Congratulations, you have activated a premium license! Please activate premium add-on to use pro features now.
-        <a href="%s">Activate</a> premium add-on or <a href="%s">cancel</a> license.', 'wbcr_factory_429'), $activate_plugin_url, $cancel_license_url)
+        <a href="%s">Activate</a> premium add-on or <a href="%s">cancel</a> license.', 'wbcr_factory_436'), $activate_plugin_url, $cancel_license_url)
 		];
 
 		if( isset($texts[$type]) ) {

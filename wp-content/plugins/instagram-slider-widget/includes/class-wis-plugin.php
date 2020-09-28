@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright (c) 2019 Webraftic Ltd
  * @version       1.0
  */
-class WIS_Plugin extends Wbcr_Factory429_Plugin {
+class WIS_Plugin extends Wbcr_Factory436_Plugin {
 
 	/**
 	 * @see self::app()
-	 * @var Wbcr_Factory429_Plugin
+	 * @var Wbcr_Factory436_Plugin
 	 */
 	private static $app;
 
@@ -34,7 +34,7 @@ class WIS_Plugin extends Wbcr_Factory429_Plugin {
 	 * Используется для получения настроек плагина, информации о плагине, для доступа к вспомогательным
 	 * классам.
 	 *
-	 * @return Wbcr_Factory429_Plugin
+	 * @return Wbcr_Factory436_Plugin
 	 */
 	public static function app() {
 		return self::$app;
@@ -100,8 +100,17 @@ class WIS_Plugin extends Wbcr_Factory429_Plugin {
 
 		self::app()->registerPage( 'WIS_WidgetsPage', WIS_PLUGIN_DIR . '/admin/pages/widgets.php' );
 		self::app()->registerPage( 'WIS_SettingsPage', WIS_PLUGIN_DIR . '/admin/pages/settings.php' );
-		self::app()->registerPage( 'WIS_LicensePage', WIS_PLUGIN_DIR . '/admin/pages/license.php' );
 		self::app()->registerPage( 'WIS_AboutPage', WIS_PLUGIN_DIR . '/admin/pages/about.php' );
+        self::app()->registerPage( 'WIS_LicensePage', WIS_PLUGIN_DIR . '/admin/pages/license.php' );
+        self::app()->registerPage( 'WIS_ComponentsPage', WIS_PLUGIN_DIR . '/admin/pages/components.php' );
+
+        add_action('plugins_loaded', function (){
+            if( defined('SPFD_PLUGIN_DIR')){
+                self::app()->registerPage(  'WBCR\Shopifeed\Page\ShopifeedLicensePage', SPFD_PLUGIN_DIR . '/admin/pages/LicensePage.php' );
+            }
+            self::app()->registerPage( 'Licenses', WIS_PLUGIN_DIR . '/admin/pages/Licenses.php' );
+
+        }, 2);
 	}
 
 	/**

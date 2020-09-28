@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Custom Product Title Widget
  *
- * Porto Element widget to display product title on the single product page when using custom product layout
+ * Porto Elementor widget to display product title on the single product page when using custom product layout
  *
  * @since 5.4.0
  */

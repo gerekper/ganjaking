@@ -46,7 +46,7 @@ class AddNewsletter extends AbstractSettingsPage
         add_filter('wp_cspa_main_content_area', [$this, 'available_email_templates']);
 
         $instance = Custom_Settings_Page_Api::instance();
-        $instance->page_header(__('Create Newsletter', 'mailoptin'));
+        $instance->page_header(__('Create Broadcast', 'mailoptin'));
         $this->register_core_settings($instance);
         $instance->build(true, true);
     }

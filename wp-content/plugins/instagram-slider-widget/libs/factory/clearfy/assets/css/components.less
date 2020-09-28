@@ -1,0 +1,153 @@
+/**
+ * Page components
+ * @author Alex Kovalev <alex.kovalevv@gmail.com> 
+ * @copyright Alex Kovalev 30.09.2017 
+ */
+
+#WBCR {
+  .card-ribbon(@bgColor:#f7dea9, @color:#67532f) {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    height: 30px;
+    width: 120px;
+    border-radius: 3px 0 0 3px;
+    background-color: @bgColor;
+    color: @color;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 2.4;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  .wbc-factory-clearfy-000-components {
+    padding: 0 20px 20px;
+    text-align: center;
+
+    .plugin-card {
+      position: relative;
+      display: inline-block;
+      width: 32.7%;
+      height: 250px;
+      margin-left: 0;
+      margin-right: 0;
+      text-align: left;
+      float: none;
+      vertical-align: top;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      .plugin-card-bottom {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
+
+      .plugin-card-top {
+        min-height: 163px;
+      }
+
+      .desc, .name {
+        margin-right: 0 !important;
+      }
+
+      .name {
+        h3 {
+          font-size: 17px;
+          margin-top: 0 !important;
+        }
+      }
+
+      .install-now {
+        float: right;
+      }
+
+      .delete-now {
+        float: right;
+        margin-left: 5px;
+
+        .dashicons, .dashicons-before:before {
+          font-size: 16px !important;
+          line-height: 1.5 !important;
+          color: #62696f;
+        }
+      }
+
+      a.open-plugin-details-modal {
+        color: #5c5d5f;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      // Premium
+      .plugin-card-premium-ribbon {
+        .card-ribbon();
+      }
+
+      // Free
+      .plugin-card-free-ribbon {
+        .card-ribbon(#cccccc, #6b6b6b);
+      }
+
+      // Freemium
+      .plugin-card-freemium-ribbon {
+        .card-ribbon(#cae2b3, #546742);
+      }
+
+      &.premium {
+        border-color: #e8d7b2;
+        background-color: #fff9eb;
+      }
+
+      &.plugin-status-deactive {
+        background-color: #f1f1f1;
+        //background-color: #f9f2f1;
+
+        a.open-plugin-details-modal {
+          color: #ababab;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 15px;
+        }
+
+        .plugin-icon {
+          opacity: 0.3;
+        }
+
+        .desc {
+          color: #afafaf;
+        }
+
+        &.premium {
+          background-color: #f9f2f1;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1750px) {
+  #WBCR {
+    .wbc-factory-clearfy-000-components {
+      .plugin-card {
+        width: 49%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1350px) {
+  #WBCR {
+    .wbc-factory-clearfy-000-components {
+      .plugin-card {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -2,10 +2,10 @@
 
 namespace MailOptin\Core\Repositories;
 
+use function MailOptin\Core\cache_transform;
+
 class OptinCampaignStat extends OptinCampaignMeta
 {
-    public static $cache;
-
     /**
      * @var int ID of optin campaign
      */
@@ -39,11 +39,11 @@ class OptinCampaignStat extends OptinCampaignMeta
     {
         $cache_key = 'get_impressions_' . $this->optin_campaign_id;
 
-        if (isset(self::$cache[$cache_key])) {
-            return self::$cache[$cache_key];
-        }
+        $callback = function () {
+            return (int)parent::get_campaign_meta($this->optin_campaign_id, $this->impression, true);
+        };
 
-        return (int)parent::get_campaign_meta($this->optin_campaign_id, $this->impression, true);
+        return cache_transform($cache_key, $callback);
     }
 
     /**
@@ -55,11 +55,11 @@ class OptinCampaignStat extends OptinCampaignMeta
     {
         $cache_key = 'get_conversions_' . $this->optin_campaign_id;
 
-        if (isset(self::$cache[$cache_key])) {
-            return self::$cache[$cache_key];
-        }
+        $callback = function () {
+            return (int)parent::get_campaign_meta($this->optin_campaign_id, $this->conversion, true);
+        };
 
-        return (int)parent::get_campaign_meta($this->optin_campaign_id, $this->conversion, true);
+        return cache_transform($cache_key, $callback);
     }
 
     /**
@@ -96,6 +96,7 @@ class OptinCampaignStat extends OptinCampaignMeta
         $key = $this->{$stat_type};
         // Increase the counter by 1.
         $counter = (int)parent::get_campaign_meta($this->optin_campaign_id, $key, true);
+
         return parent::update_campaign_meta($this->optin_campaign_id, $key, (int)$counter + 1);
 
     }

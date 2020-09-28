@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Ultimate Heading Widget
  *
- * Porto Element widget to display headings.
+ * Porto Elementor widget to display headings.
  *
  * @since 5.1.0
  */

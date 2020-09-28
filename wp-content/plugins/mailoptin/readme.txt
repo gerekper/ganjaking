@@ -1,11 +1,11 @@
 ﻿=== Popup, Forms, Optin & Email Newsletters for Mailchimp, AWeber, HubSpot - MailOptin ===
 Contributors: properfraction, Collizo4sky
 Donate link: https://mailoptin.io/pricing/
-Tags: popup, form, newsletter, zoho, mailchimp, aweber, constant contact, campaignmonitor, campaign monitor, convertkit, forms, infusionsoft, contact form, wpforms, wpform, cf7, contact form 7, ninja forms, gravity forms, activecampaign, drip, sendy, hubspot, mailerlite, sendinblue, klaviyo, mailjet, ontraport, constantcontact, vertical response, zoho, sendgrid, zoho crm, zoho campaigns, moosend, godaddy, getgist, sendlane, myemma, mailster, getresponse, sendfox, autoresponder, wpml, woocommerce, lightbox, modal, emailoctopus, pop up, email, exit intent, user registration, ninja form
+Tags: popup, form, newsletter, zoho, mailchimp, aweber, constant contact, campaignmonitor, campaign monitor, convertkit, forms, infusionsoft, contact form, wpforms, wpform, cf7, contact form 7, ninja forms, formidable forms, gravity forms, activecampaign, drip, sendy, hubspot, mailerlite, sendinblue, klaviyo, mailjet, ontraport, constantcontact, jilt, vertical response, zoho, sendgrid, zoho crm, zoho campaigns, moosend, godaddy, getgist, sendlane, myemma, mailster, getresponse, sendfox, wemail, autoresponder, wpml, woocommerce, lightbox, modal, emailoctopus, pop up, email, exit intent, user registration, ninja form
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 5.5
-Stable tag: 1.2.30.2
+Stable tag: 1.2.31.1
 License: GPL-2.0+
 
 Convert visitors into email subscribers, register new users & keep them engaged with newsletters. Mailchimp, AWeber, Infusionsoft, ActiveCampaign, ConvertKit, Campaign Monitor, Constant Contact, CRM etc.
@@ -47,7 +47,7 @@ Our forms are GDPR compliant.
 
 * **New Post Notification:** It allows you to create automated email newsletters of new blog posts (can be restricted to specific post categories and tags) to all registered users or users of specific roles immediately after they are published. This make the process of keeping in touch with your subscribers or users very easy.
 * **Email Digest:** It allows you to create automated daily, weekly and monthly email newsletters of published posts.
-* **Newsletters:** It allows you to send one-off emails to your registered users. Pro version can send to your list subscribers on Mailchimp, AWeber etc.
+* **Broadcasts:** It allows you to send one-off emails to your registered users. Pro version can send to your list subscribers on Mailchimp, AWeber etc.
 * **Scheduling:** It allows you to set when the newsletter will be sent. Could be immediately after a post is publish or few minutes, hours and days after publication.
 * **Beautiful and Responsive Email template** ready to send out newsletters.
 
@@ -57,11 +57,11 @@ MailOptin integrates with WordPress user system so you can [create custom user r
 
 = Integrates with All Email Marketing Platforms =
 
-MailOptin works with all popular email marketing software and CRM including Mailchimp, AWeber, Constant Contact, Campaign Monitor, Sendy, Mailerlite, MailPoet, ConvertKit, ActiveCampaign, Infusionsoft by Keap, Drip, Sendinblue, EmailOctopus, HubSpot, Ontraport CRM, Mailjet, Klaviyo, Sendlane, Mailster, Moosend, Gist, VerticalResponse, Zoho CRM, Zoho Campaigns, Emma, SendFox, SendGrid Email Marketing, GoDaddy Email Marketing, GetResponse, GetResponse360.
+MailOptin works with all popular email marketing software and CRM including Mailchimp, AWeber, Constant Contact, Campaign Monitor, Sendy, Mailerlite, MailPoet, ConvertKit, ActiveCampaign, Infusionsoft by Keap, Drip, Sendinblue, EmailOctopus, HubSpot, Jilt, Ontraport CRM, Mailjet, Klaviyo, Sendlane, Mailster, Moosend, Gist, VerticalResponse, Zoho CRM, Zoho Campaigns, Emma, SendFox, SendGrid Email Marketing, GoDaddy Email Marketing, GetResponse, weMail.
 
 = Integration with Form Plugins =
 
-MailOptin integrates with [Gravity Forms](https://mailoptin.io/article/gravity-forms-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Contact Form 7](https://mailoptin.io/article/contact-form-7-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Ninja Forms](https://mailoptin.io/article/ninja-forms-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [WPForms](https://mailoptin.io/article/wpforms-email-marketing-crm/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and [Elementor forms](https://mailoptin.io/article/elementor-form-integration/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) so you can capture and save leads to your email marketing software and CRMs.
+MailOptin integrates with [Gravity Forms](https://mailoptin.io/article/gravity-forms-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Contact Form 7](https://mailoptin.io/article/contact-form-7-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Ninja Forms](https://mailoptin.io/article/ninja-forms-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [WPForms](https://mailoptin.io/article/wpforms-email-marketing-crm/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Formidable Forms](https://mailoptin.io/article/formidable-forms-email-marketing-crm/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and [Elementor forms](https://mailoptin.io/article/elementor-form-integration/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) so you can capture and save leads to your email marketing software and CRMs.
 
 = Intuitive Form & Template Builder =
 
@@ -167,19 +167,14 @@ Yes, MailOptin has full translation and localization support via the mailoptin t
 
 == Changelog ==
 
-= 1.2.30.2 =
-* UI compatibility with WP 5.5
+= 1.2.31.1 =
+* Added weMail integration.
+* Fixed bug where customizer preview wasn't showing changes being made.
+* FFixed bug where country field wasn’t showing unless an alpha code type is selected.
 
-= 1.2.30.1 =
-* Fixed issue where fetching tags via ajax wasn’t working.
-* Renamed Infusionsoft label.
-
-= 1.2.30.0 =
-* Added Infusionsoft integration.
-* Added WordPress user registration integration.
-* Added a new panel to clearly show embed shortcode, widget and block.
-* Fixed multiple undefined index PHP errors.
-* Improved optin conversion counter accuracy.
-* Added missing Ninja Forms ESP integrations.
+= 1.2.31.0 =
+* Added Formidable Forms integration.
+* Added Woocommerce product tag page-targeting rule.
+* Fixed bug where a non-admin account in AC was showing not connected.
 
 See the [changelog file](https://plugins.svn.wordpress.org/mailoptin/trunk/changelog.txt) for full change log information.

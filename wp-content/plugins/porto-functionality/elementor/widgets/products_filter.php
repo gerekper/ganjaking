@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Products Filter Widget
  *
- * Porto Element widget to display a list of select boxes to filter products by category, price or attributes.
+ * Porto Elementor widget to display a list of select boxes to filter products by category, price or attributes.
  *
  * @since 5.4.0
  */

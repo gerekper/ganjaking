@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Custom Product Image Widget
  *
- * Porto Element widget to display images section on the single product page when using custom product layout
+ * Porto Elementor widget to display images section on the single product page when using custom product layout
  *
  * @since 5.4.0
  */

@@ -204,7 +204,7 @@
                     $parent.data('portfolioAjaxOnPage').build();
                 }
                 if ($parent.data('portfolioAjaxOnModal')) {
-                    $parent.data('portfolioAjaxOnModal').build();
+                    $parent.data('portfolioAjaxOnModal').build($parent, 'portfolio');
                 }
             },
 
@@ -264,7 +264,7 @@
                     $(this).data('text', $(this).text());
                     $(this).text(porto_infinite_scroll.loader_text);
                     e.data.scroll();
-					$(this).blur();
+                    $(this).blur();
                 }
             }
         }

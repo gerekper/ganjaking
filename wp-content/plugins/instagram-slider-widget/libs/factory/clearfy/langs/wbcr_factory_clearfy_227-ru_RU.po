@@ -1,0 +1,307 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: clearfy\n"
+"POT-Creation-Date: 2018-10-16 22:37+0300\n"
+"PO-Revision-Date: 2018-10-16 22:41+0300\n"
+"Last-Translator: alex.kovalevv@gmail.com <alex.kovalevv@gmail.com>\n"
+"Language-Team: Alex Kovalev <alex.kovalevv@gmail.com>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/check-clearfy-compatibility.php:265
+msgid "Clearfy warning"
+msgstr "Clearfy предупреждение"
+
+#: includes/check-clearfy-compatibility.php:266
+#, php-format
+msgid "The %s component"
+msgstr "Работа компонента %s"
+
+#: includes/check-clearfy-compatibility.php:268
+msgid "warning"
+msgstr "предупреждение"
+
+#: includes/check-clearfy-compatibility.php:269
+#, php-format
+msgid "The %s plugin"
+msgstr "Работа плагина %s"
+
+#: includes/check-clearfy-compatibility.php:272
+msgid "has stopped."
+msgstr "была остановлена."
+
+#: includes/check-clearfy-compatibility.php:273
+msgid "Possible reasons:"
+msgstr "Возможные причины:"
+
+#: includes/check-clearfy-compatibility.php:279
+#, php-format
+msgid "You need to update the PHP version to %s or higher!"
+msgstr "Вам нужно обновить версию PHP до %s или выше!"
+
+#: includes/check-clearfy-compatibility.php:284
+#, php-format
+msgid "You need to update WordPress to %s or higher!"
+msgstr "Вам нужно обновить WordPress до %s или выше!"
+
+#: includes/check-clearfy-compatibility.php:289
+#, php-format
+msgid "You need to update the Clearfy plugin version to %s or higher!"
+msgstr "Вам нужно обновить версию плагина Clearfy до %s или выше!"
+
+#: includes/check-clearfy-compatibility.php:294
+msgid "This plugin is already activated, you are trying to activate it again."
+msgstr "Этот плагин уже активирован, вы пытаетесь активировать его снова."
+
+#: includes/check-clearfy-compatibility.php:299
+#, php-format
+msgid ""
+"Clearfy has the features of the %s plugin. Please, deactivate %s to avoid "
+"conflicts of plugins!"
+msgstr ""
+"Плагин Clearfy уже включает в себя функции плагина %s. Пожалуйста, "
+"деактивируйте плагин %s, чтобы не создавать конфликтов!"
+
+#: pages/class.pages.php:212
+msgid "Upgrade to Clearfy Business"
+msgstr "Перейти на Clearfy Бизнес"
+
+#: pages/class.pages.php:213
+msgid "Oops... Sorry for the inconvenience caused!"
+msgstr "Упс... Мы приносим свои извинения за неудобства!"
+
+#: pages/class.pages.php:214
+msgid ""
+"Complete multisite support is available in Clearfy Business and Clearfy "
+"Business Revolution packages only!"
+msgstr ""
+"Полная поддержка мультисайтов доступна только в пакете Clearfy Бизнес и "
+"Clearfy Бизнес Революция!"
+
+#: pages/class.pages.php:215
+msgid ""
+"You can activate the plugin on each website and use it with zero "
+"limitations. But you can’t save the plugin’s settings under the Super "
+"Administrator role!"
+msgstr ""
+"Вы можете активировать плагин отдельно для каждого сайта и использовать его "
+"без ограничений, но в режиме суперадминистратора, вы не можете сохранять "
+"настройки плагина!"
+
+#: pages/class.pages.php:217
+msgid "Activate license "
+msgstr "Активировать лицензию "
+
+#: pages/class.pages.php:218
+#, php-format
+msgid "Upgrade to Clearfy Business for $%d"
+msgstr "Обновить до Clearfy Бизнес за $%d"
+
+#: pages/class.pages.php:273
+msgid "MORE IN CLEARFY <span>BUSINESS</span>"
+msgstr "ЛУЧШЕЕ В CLEARFY <span>БИЗНЕС</span>"
+
+#: pages/class.pages.php:275
+msgid "4 premium components now;"
+msgstr "4 премиум компонента сейчас;"
+
+#: pages/class.pages.php:276
+msgid "40 new premium components within a year for the single price;"
+msgstr "40 новых премиум компонентов в год по одной цене;"
+
+#: pages/class.pages.php:277
+msgid "Multisite support;"
+msgstr "Поддержка мультисайтов;"
+
+#: pages/class.pages.php:278
+msgid "Advanced settings;"
+msgstr "Дополнительные настройки;"
+
+#: pages/class.pages.php:279
+msgid "No ads;"
+msgstr "Нет рекламы;"
+
+#: pages/class.pages.php:280
+msgid "Perfect support."
+msgstr "Лучшая поддержка."
+
+#: pages/class.pages.php:283
+#, php-format
+msgid "Upgrade for $%s"
+msgstr "Обновиться за $%s"
+
+#: pages/class.pages.php:299
+msgid ""
+"A neutral setting that can not harm your site, but you must be sure that you "
+"need to use it."
+msgstr ""
+"Нейтральная настройка, которая не может нанести вред вашему сайту, но вы "
+"должны быть уверены, что вам нужно ее использовать."
+
+#: pages/class.pages.php:305
+msgid ""
+"When set this option, you must be careful. Plugins and themes may depend on "
+"this function. You must be sure that you can disable this feature for the "
+"site."
+msgstr ""
+"При включении этой настройки, вы должны быть осторожны. Некоторые плагины и "
+"темы могут зависеть от этой функции. Вы должны быть уверены, что эту функцию "
+"можно отключить для сайта."
+
+#: pages/class.pages.php:311
+msgid "Absolutely safe setting, We recommend to use."
+msgstr "Абсолютно безопасная настройка, рекомендуем использовать."
+
+#: pages/class.pages.php:316
+msgid "Hover to the icon to get help for the feature you selected."
+msgstr ""
+"Наведите указатель мыши на значок, чтобы получить справку по выбранной "
+"функции."
+
+#: pages/class.pages.php:334
+msgid "Do you want the plugin to improved and update?"
+msgstr "Вы хотите, чтобы плагин улучшался и обновлялся?"
+
+#: pages/class.pages.php:337
+msgid ""
+"Help the author, leave a review on wordpress.org. Thanks to feedback, I will "
+"know that the plugin is really useful to you and is needed."
+msgstr ""
+"Помогите автору, оставьте отзыв на wordpress.org. Благодаря отзывам, я буду "
+"знать, что плагин действительно полезен для вас и необходим."
+
+#: pages/class.pages.php:339
+msgid "And also write your ideas on how to extend or improve the plugin."
+msgstr "А также напишите свои идеи о том, как расширить или улучшить плагин."
+
+#: pages/class.pages.php:344
+msgid "Go rate us and push ideas"
+msgstr "Оставить отзыв или поделиться идеей"
+
+#: pages/class.pages.php:356
+msgid "Donation for plugin development"
+msgstr "Пожертвования на развитие плагина"
+
+#: pages/more-features.php:31
+msgid "More features (<b>free</b>)"
+msgstr "Дополнительно"
+
+#: pages/more-features.php:40
+msgid "install the ultimate version of the plugin for free!"
+msgstr "установите полную версию плагина бесплатно!"
+
+#: pages/more-features.php:51
+msgid "Code cleaning"
+msgstr "Очищает код"
+
+#: pages/more-features.php:53
+msgid "Clears the source code of the page from unused code."
+msgstr "Очищает исходный код страницы от неиспользуемого кода."
+
+#: pages/more-features.php:60
+msgid "Improve SEO"
+msgstr "Улучшает SEO"
+
+#: pages/more-features.php:62
+msgid ""
+"Removes duplicate pages, closes external links, changes the headers of the "
+"server."
+msgstr ""
+"Удаляет дубликаты страниц, закрывает внешние ссылки, изменяет заголовки "
+"сервера."
+
+#: pages/more-features.php:69
+msgid "Site protection"
+msgstr "Защита сайта"
+
+#: pages/more-features.php:71
+msgid "Enables and disables features that improve the protection of your site."
+msgstr "Включает и отключает функции, которые улучшают защиту вашего сайта."
+
+#: pages/more-features.php:78
+msgid "Disable comments"
+msgstr "Отключает комментарии"
+
+#: pages/more-features.php:80
+msgid "Disables comments on the entire site or on specific pages."
+msgstr "Отключает комментарии на всем сайте или у определенных страниц."
+
+#: pages/more-features.php:87
+msgid "Manage updates"
+msgstr "Менеджер обновлений"
+
+#: pages/more-features.php:89
+msgid ""
+"Enables or disables automatically updates for plugins, themes and core. It "
+"is also possible\n"
+"\t\t\t\t\t\t\tto disable all updates."
+msgstr ""
+"Включает или отключает автоматические обновление плагинов, тем и ядра. Также "
+"возможно\n"
+"отключение всех обновлений."
+
+#: pages/more-features.php:97
+msgid "Manage widgets"
+msgstr "Управление виджетами"
+
+#: pages/more-features.php:99
+msgid "Allows you to remove unused widgets."
+msgstr "Позволяет удалить неиспользуемые виджеты."
+
+#: pages/more-features.php:106
+msgid "Speed Optimization"
+msgstr "Оптимизация производительности"
+
+#: pages/more-features.php:108
+msgid ""
+"Increases performance by disabling unused functions and reducing the number "
+"of requests."
+msgstr ""
+"Повышает производительность, отключая неиспользуемые функции и уменьшая "
+"количество запросов."
+
+#: pages/more-features.php:115
+msgid "Site privacy"
+msgstr "Конфиденциальность сайта"
+
+#: pages/more-features.php:117
+msgid ""
+"Allows you to hide the version of the site and plugins. Allows you to hide "
+"your\n"
+"\t\t\t\t\t\t\tWordPress."
+msgstr ""
+"Позволяет скрыть версию сайта и плагинов. Позволяет скрыть ваш\n"
+"WordPress."
+
+#: pages/more-features.php:125
+msgid "Easy setup"
+msgstr "Простая настройка"
+
+#: pages/more-features.php:127
+msgid ""
+"In quick mode, you can easily configure the plugin according to your needs."
+msgstr ""
+"В быстром режиме вы можете легко настроить плагин в соответствии с вашими "
+"потребностями."
+
+#: pages/more-features.php:142
+msgid "Get the ultimate plugin 100% FREE"
+msgstr "Получить полную версию бесплатно на 100%."
+
+#~ msgid "component"
+#~ msgstr "компонент"
+
+#~ msgid "plugin"
+#~ msgstr "плагин"
+
+#~ msgid "Site ptotection"
+#~ msgstr "Защищает ваш сайт"

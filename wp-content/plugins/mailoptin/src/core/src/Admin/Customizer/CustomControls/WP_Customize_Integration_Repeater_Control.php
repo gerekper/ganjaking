@@ -41,9 +41,13 @@ class WP_Customize_Integration_Repeater_Control extends WP_Customize_Control
      */
     public function enqueue()
     {
+        // color field
+        wp_enqueue_script('wp-color-picker');
+        wp_enqueue_style('wp-color-picker');
+
         add_action('customize_controls_print_footer_scripts', [$this, 'integration_template']);
 
-        wp_enqueue_script('mailoptin-customizer-integrations', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/integration-control/control.js', array('jquery', 'customize-base'), false, true);
+        wp_enqueue_script('mailoptin-customizer-integrations', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/integration-control/control.js', array('jquery', 'customize-base', 'wp-color-picker'), false, true);
         wp_enqueue_style('mailoptin-customizer-integrations', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/integration-control/style.css', null);
 
         if (defined('MAILOPTIN_DETACH_LIBSODIUM')) {
@@ -81,10 +85,6 @@ class WP_Customize_Integration_Repeater_Control extends WP_Customize_Control
 
 		';
         wp_add_inline_style('mo-pure-css-toggle-buttons', $css);
-
-        // color field
-        wp_enqueue_script('wp-color-picker');
-        wp_enqueue_style('wp-color-picker');
 
         do_action('mo_optin_integration_control_enqueue');
     }

@@ -269,7 +269,9 @@ if ( $posts->have_posts() ) {
 
 	if ( $excerpt_length ) {
 		$global_excerpt_length                 = $porto_settings['blog-excerpt-length'];
+		$global_post_excerpt_length                    = $porto_settings['post-related-excerpt-length'];
 		$porto_settings['blog-excerpt-length'] = $excerpt_length;
+		$porto_settings['post-related-excerpt-length'] = $excerpt_length;
 	}
 	while ( $posts->have_posts() ) {
 		$posts->the_post();
@@ -285,6 +287,7 @@ if ( $posts->have_posts() ) {
 	}
 	if ( $excerpt_length ) {
 		$porto_settings['blog-excerpt-length'] = $global_excerpt_length;
+		$porto_settings['post-related-excerpt-length'] = $global_post_excerpt_length;
 	}
 	if ( $is_creative_layout ) {
 		echo '<div class="grid-col-sizer"></div>';

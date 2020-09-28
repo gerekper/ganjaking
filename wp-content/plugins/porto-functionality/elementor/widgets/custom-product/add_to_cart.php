@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Custom Product Add to Cart Widget
  *
- * Porto Element widget to display "add to cart" button on the single product page when using custom product layout
+ * Porto Elementor widget to display "add to cart" button on the single product page when using custom product layout
  *
  * @since 5.4.0
  */

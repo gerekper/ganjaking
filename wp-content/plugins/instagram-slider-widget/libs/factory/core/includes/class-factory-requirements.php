@@ -12,8 +12,8 @@
  * @since         4.0.9
  */
 // @formatter:off
-if ( ! class_exists( 'Wbcr_Factory429_Requirements' ) ) {
-	class Wbcr_Factory429_Requirements {
+if ( ! class_exists( 'Wbcr_Factory436_Requirements' ) ) {
+	class Wbcr_Factory436_Requirements {
 
 		/**
 		 * Factory framework version
@@ -242,7 +242,7 @@ if ( ! class_exists( 'Wbcr_Factory429_Requirements' ) ) {
 			$notice_text         = $notice_default_text = '';
 			$notice_default_text .= '<b>' . $this->plugin_title . ' ' . __( 'warning', '' ) . ':</b>' . '<br>';
 
-			$notice_default_text .= sprintf( __( 'The %s plugin has stopped.', 'wbcr_factory_clearfy_000' ), $this->plugin_title ) . ' ';
+			$notice_default_text .= sprintf( __( 'The %s plugin has stopped.', 'wbcr_factory_clearfy_227' ), $this->plugin_title ) . ' ';
 			$notice_default_text .= __( 'Possible reasons:', '' ) . ' <br>';
 
 			$has_one = false;
@@ -273,21 +273,21 @@ if ( ! class_exists( 'Wbcr_Factory429_Requirements' ) ) {
 		 * @return string
 		 */
 		protected function get_php_incompat_text() {
-			return sprintf( __( 'You need to update the PHP version to %s or higher!', 'wbcr_factory_429' ), $this->required_php_version );
+			return sprintf( __( 'You need to update the PHP version to %s or higher!', 'wbcr_factory_436' ), $this->required_php_version );
 		}
 
 		/**
 		 * @return string
 		 */
 		protected function get_wp_incompat_text() {
-			return sprintf( __( 'You need to update WordPress to %s or higher!', 'wbcr_factory_429' ), $this->required_wp_version );
+			return sprintf( __( 'You need to update WordPress to %s or higher!', 'wbcr_factory_436' ), $this->required_wp_version );
 		}
 
 		/**
 		 * @return string
 		 */
 		protected function get_plugin_already_activate_text() {
-			return sprintf( __( 'Plugin %s is already activated, you are trying to activate it again.', 'wbcr_factory_429' ), $this->plugin_title );
+			return sprintf( __( 'Plugin %s is already activated, you are trying to activate it again.', 'wbcr_factory_436' ), $this->plugin_title );
 		}
 	}
 }

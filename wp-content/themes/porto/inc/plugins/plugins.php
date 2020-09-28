@@ -15,6 +15,9 @@ include_once $plugin;
  */
 if ( defined( 'ELEMENTOR_VERSION' ) ) {
 	include_once PORTO_PLUGINS . '/compatibility/class-porto-elementor-compatibility.php';
+	if ( defined( 'ELEMENTOR_PRO_VERSION' ) ) {
+		include_once PORTO_PLUGINS . '/compatibility/class-porto-elementor-pro-compatibility.php';
+	}
 }
 
 /**
@@ -33,7 +36,7 @@ if ( current_user_can( 'manage_options' ) ) {
 				'slug'      => 'porto-functionality',
 				'source'    => PORTO_PLUGINS . '/porto-functionality.zip',
 				'required'  => true,
-				'version'   => '1.7.4',
+				'version'   => '1.7.7',
 				'url'       => 'porto-functionality/porto-functionality.php',
 				'image_url' => PORTO_PLUGINS_URI . '/images/porto_functionality.png',
 			),

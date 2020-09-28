@@ -1226,7 +1226,6 @@
     font-size: 10px;
     font-weight: 600;
     text-align: center;
-    display: inline-block;
     width: 16px;
     height: 16px;
     line-height: 16px;
@@ -1234,6 +1233,10 @@
     overflow: hidden;
     color: #fff;
     background-color: #ff5b5b;
+
+    &.count-updating {
+        animation: topDown .6s ease-in;
+    }
 
     .items-loading {
         width: 16px;

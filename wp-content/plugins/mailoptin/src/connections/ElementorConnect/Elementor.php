@@ -37,7 +37,7 @@ class Elementor extends Action_Base
     {
         $connections = ConnectionsRepository::get_connections();
 
-        if (defined('MAILOPTIN_DETACH_LIBSODIUM')) {
+        if (Init::is_mailoptin_detach_libsodium()) {
             $connections['leadbank'] = __('MailOptin Leads', 'mailoptin');
         }
 
@@ -90,7 +90,7 @@ class Elementor extends Action_Base
             ]
         );
 
-        if (defined('MAILOPTIN_DETACH_LIBSODIUM')) {
+        if (Init::is_mailoptin_detach_libsodium()) {
 
             $widget->add_control(
                 'mailoptin_tags_text',
@@ -232,7 +232,7 @@ class Elementor extends Action_Base
         $optin_data->form_tags  = $form_tags;
 
         $fields_map = $record->get_form_settings('mailoptin_fields_map');
-        if (defined('MAILOPTIN_DETACH_LIBSODIUM') && is_array($fields_map) && ! empty($fields_map)) {
+        if (Init::is_mailoptin_detach_libsodium() && is_array($fields_map) && ! empty($fields_map)) {
             foreach ($fields_map as $mapped_field) {
                 $optin_data->form_custom_field_mappings[$mapped_field['remote_id']] = $mapped_field['local_id'];
             }

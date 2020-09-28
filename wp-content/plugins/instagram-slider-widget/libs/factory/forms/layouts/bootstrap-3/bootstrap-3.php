@@ -14,11 +14,11 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryForms427_Bootstrap3FormLayout') ) {
+	if( !class_exists('Wbcr_FactoryForms433_Bootstrap3FormLayout') ) {
 		/**
 		 * A form layout based on Twitter Bootstrap 3
 		 */
-		class Wbcr_FactoryForms427_Bootstrap3FormLayout extends Wbcr_FactoryForms427_FormLayout {
+		class Wbcr_FactoryForms433_Bootstrap3FormLayout extends Wbcr_FactoryForms433_FormLayout {
 
 			public $name = 'default';
 
@@ -27,7 +27,7 @@
 			 *
 			 * @since 1.0.0
 			 * @param array $options A holder options.
-			 * @param Wbcr_FactoryForms427_Form $form A parent form.
+			 * @param Wbcr_FactoryForms433_Form $form A parent form.
 			 */
 			public function __construct($options, $form)
 			{
@@ -68,7 +68,7 @@
 			}
 
 			/**
-			 * @param Wbcr_FactoryForms427_Control $control
+			 * @param Wbcr_FactoryForms433_Control $control
 			 */
 			public function beforeControl($control)
 			{
@@ -116,7 +116,7 @@
 			}
 
 			/**
-			 * @param Wbcr_FactoryForms427_Control $control
+			 * @param Wbcr_FactoryForms433_Control $control
 			 */
 			public function afterControl($control)
 			{
@@ -168,7 +168,7 @@
 			}
 
 			/**
-			 * @param Wbcr_FactoryForms427_Control $control
+			 * @param Wbcr_FactoryForms433_Control $control
 			 * @param int $index
 			 * @param int $total
 			 */
@@ -193,7 +193,7 @@
 			}
 
 			/**
-			 * @param Wbcr_FactoryForms427_Control $control
+			 * @param Wbcr_FactoryForms433_Control $control
 			 * @param int $index
 			 * @param int $total
 			 */

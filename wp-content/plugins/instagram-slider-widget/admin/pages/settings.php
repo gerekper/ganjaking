@@ -27,7 +27,7 @@ class WIS_SettingsPage extends WIS_Page {
 	 * Mainly used to navigate between pages.
 	 *
 	 * @since 1.0.0
-	 * @see   FactoryPages429_AdminPage
+	 * @see   FactoryPages435_AdminPage
 	 *
 	 * @var string
 	 */

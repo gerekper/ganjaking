@@ -4582,7 +4582,7 @@ function _makeConsumableArray(arr) {
 				('grid' == attrs.view || 'products-slider' == attrs.view) && el( SelectControl, {
 					label: __('Column Width'),
 					value: attrs.column_width,
-					options: [{ label: __('Default'), value: '' }, { label: __('1/1 of content width'), value: '1' }, { label: __('1/1 of content width'), value: '2' }, { label: __('1/3 of content width'), value: '3' }, { label: __('1/4 of content width'), value: '4' }, { label: __('1/5 of content width'), value: '5' }, { label: __('1/6 of content width'), value: '6' }, { label: __('1/7 of content width'), value: '7' }, { label: __('1/8 of content width'), value: '8' }],
+					options: [{ label: __('Default'), value: '' }, { label: __('1/1 of content width'), value: '1' }, { label: __('1/2 of content width'), value: '2' }, { label: __('1/3 of content width'), value: '3' }, { label: __('1/4 of content width'), value: '4' }, { label: __('1/5 of content width'), value: '5' }, { label: __('1/6 of content width'), value: '6' }, { label: __('1/7 of content width'), value: '7' }, { label: __('1/8 of content width'), value: '8' }],
 					onChange: ( value ) => { setAttributes( { column_width: value } ); },
 				} ),
 				'creative' == attrs.view && el( RangeControl, {
@@ -4875,8 +4875,8 @@ function _makeConsumableArray(arr) {
 			categories: { type: 'array', default: [] },
 			status: { type: 'string' },
 			count: { type: 'int' },
-			orderby: { type: 'string' },
-			order: { type: 'string' },
+			orderby: { type: 'string', default: 'date' },
+			order: { type: 'string', default: 'desc' },
 			columns: { type: 'int', default: 4 },
 			columns_mobile: { type: 'string' },
 			column_width: { type: 'string' },

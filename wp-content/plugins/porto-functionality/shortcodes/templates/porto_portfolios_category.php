@@ -12,6 +12,8 @@ extract(
 			'portfolios_counter' => 'show',
 			'cat_in'             => '',
 			'number'             => 5,
+			'orderby'            => '',
+			'order'              => '',
 			'el_class'           => '',
 		),
 		$atts
@@ -31,10 +33,17 @@ $cat_args = array();
 if ( $cat_in ) {
 	$cat_args['orderby'] = 'include';
 	$cat_ids_arr         = explode( ',', $cat_in );
-	$cat_args['include'] = $cat_ids_arr;
+	$cat_args['include'] = array_map( 'trim', $cat_ids_arr );
+} else {
+	if ( $orderby ) {
+		$cat_args['orderby'] = sanitize_text_field( $orderby );
+	}
+	if ( $order ) {
+		$cat_args['order'] = sanitize_text_field( $order );
+	}
 }
 if ( $number ) {
-	$cat_args['number'] = esc_attr( $number );
+	$cat_args['number'] = intval( $number );
 }
 
 $cats = get_terms( 'portfolio_cat', $cat_args );

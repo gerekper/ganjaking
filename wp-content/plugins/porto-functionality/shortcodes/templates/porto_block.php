@@ -78,7 +78,7 @@ if ( $id || $name ) {
 			$css_file               = new Elementor\Core\Files\CSS\Post( $post_id );
 			$shortcodes_custom_css .= $css_file->get_content();
 
-			$post_content = '<div class="porto-block elementor elementor-' . intval( $post_id ) . '">';
+			$post_content = '<div class="porto-block' . ( function_exists( 'porto_is_elementor_preview' ) && porto_is_elementor_preview() && is_single( $post_id ) ? '" data-el_cls="elementor elementor-' . intval( $post_id ) : ' elementor elementor-' . intval( $post_id ) ) . '">';
 			if ( 'fluid' == $inner_container ) {
 				$post_content .= '<div class="container-fluid">';
 			}

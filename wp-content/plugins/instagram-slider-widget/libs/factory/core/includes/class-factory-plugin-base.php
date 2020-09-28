@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Базовый класс для создания нового плагина. Полную реализацию класса смотрите в Wbcr_Factory429_Plugin
+ * Базовый класс для создания нового плагина. Полную реализацию класса смотрите в Wbcr_Factory436_Plugin
  *
  * Документация по классу: https://webcraftic.atlassian.net/wiki/spaces/FFD/pages/392724484
  * Документация по созданию плагина: https://webcraftic.atlassian.net/wiki/spaces/CNCFC/pages/327828
@@ -17,9 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since         1.0.0
  * @package       factory-core
  */
-class  Wbcr_Factory429_Base {
+class  Wbcr_Factory436_Base {
 
-	use WBCR\Factory_429\Options;
+	use WBCR\Factory_436\Options;
 
 	/**
 	 * Обязательное свойство. Префикс, используется для создания пространство имен.
@@ -81,7 +81,7 @@ class  Wbcr_Factory429_Base {
 	 * https://robin-image-optimizer.webcraftic.com/premium-features.
 	 *
 	 * Это свойство заполняется для того, чтобы в процессе разработки вы могли использовать
-	 * экземпляр класса \WBCR\Factory_429\Entities\Support, для получения информации о сайте плагина.
+	 * экземпляр класса \WBCR\Factory_436\Entities\Support, для получения информации о сайте плагина.
 	 * Тем самым вы избавляете себя от жесткого прописывания ссылок на лендинг плагина и
 	 * можете изменить все ссылки в одном месте.
 	 *
@@ -127,7 +127,7 @@ class  Wbcr_Factory429_Base {
 	 * к примеру: freemius, codecanyon, templatemonster, вам нужно указать только настройки для
 	 * взаимодействия с выбранным вами провайдером. Каждая реализация провайдера лицензий может иметь
 	 * индивидуальный настройки, в этом примере приведены настройки для freemius провайдера
-	 * WBCR\Factory_429\Premium\Provider > WBCR\Factory_Freemius_117\Premium\Provider
+	 * WBCR\Factory_436\Premium\Provider > WBCR\Factory_Freemius_123\Premium\Provider
 	 *
 	 * На текущий момент существует только реализация для freemius провайдера.
 	 *
@@ -177,9 +177,9 @@ class  Wbcr_Factory429_Base {
 	 * }
 	 */
 	protected $load_factory_modules = [
-		[ 'libs/factory/bootstrap', 'factory_bootstrap_430', 'admin' ],
-		[ 'libs/factory/forms', 'factory_forms_427', 'admin' ],
-		[ 'libs/factory/pages', 'factory_pages_429', 'admin' ],
+		[ 'libs/factory/bootstrap', 'factory_bootstrap_436', 'admin' ],
+		[ 'libs/factory/forms', 'factory_forms_433', 'admin' ],
+		[ 'libs/factory/pages', 'factory_pages_435', 'admin' ],
 	];
 
 	/**
@@ -209,20 +209,20 @@ class  Wbcr_Factory429_Base {
 
 
 	/**
-	 * Экземпляр класса \WBCR\Factory_429\Entities\Support используется для получения информации
+	 * Экземпляр класса \WBCR\Factory_436\Entities\Support используется для получения информации
 	 * о сайте плагина. Чаще всего используется для получения ссылки на страницу с тарифами или
 	 * ссылки на форму обратной связи. Встроен механизм отслеживания по utm меткам.
 	 *
-	 * @var \WBCR\Factory_429\Entities\Support
+	 * @var \WBCR\Factory_436\Entities\Support
 	 */
 	protected $support;
 
 	/**
-	 * Экземпляр класса \WBCR\Factory_429\Entities\Paths используется для получения информации о
+	 * Экземпляр класса \WBCR\Factory_436\Entities\Paths используется для получения информации о
 	 * путях плагина. Часто используется для получения путей или ссылок на место хранения плагина
 	 * или его входного файла.
 	 *
-	 * @var \WBCR\Factory_429\Entities\Paths
+	 * @var \WBCR\Factory_436\Entities\Paths
 	 */
 	protected $paths;
 
@@ -270,8 +270,8 @@ class  Wbcr_Factory429_Base {
 			throw new Exception( 'One of the required attributes has not been passed (prefix, plugin_title, plugin_name, plugin_version, plugin_text_domain).' );
 		}
 
-		$this->support = new \WBCR\Factory_429\Entities\Support( $this->support_details );
-		$this->paths   = new \WBCR\Factory_429\Entities\Paths( $plugin_file );
+		$this->support = new \WBCR\Factory_436\Entities\Support( $this->support_details );
+		$this->paths   = new \WBCR\Factory_436\Entities\Paths( $plugin_file );
 
 		// used only in the module 'updates'
 		$this->plugin_slug = ! empty( $this->plugin_name ) ? $this->plugin_name : basename( $plugin_file );
@@ -391,7 +391,7 @@ class  Wbcr_Factory429_Base {
 	 * Проверяет, включен ли премиум для этого плагина или нет.
 	 *
 	 * @return bool Возвращает true, если премиум пакет включен для этого плагина.
-	 * См. Wbcr_Factory429_Base::has_premium
+	 * См. Wbcr_Factory436_Base::has_premium
 	 */
 	public function has_premium() {
 		return $this->has_premium;
@@ -400,7 +400,7 @@ class  Wbcr_Factory429_Base {
 	/**
 	 * Позволяет получить заголовок плагина.
 	 *
-	 * @return string Возвращает заголовок плагина. См. Wbcr_Factory429_Base::plugin_title
+	 * @return string Возвращает заголовок плагина. См. Wbcr_Factory436_Base::plugin_title
 	 */
 	public function getPluginTitle() {
 		return $this->plugin_title;
@@ -409,7 +409,7 @@ class  Wbcr_Factory429_Base {
 	/**
 	 * Позволяет получить префикс плагина.
 	 *
-	 * @return string Возвращает префикс плагина.См. Wbcr_Factory429_Base::prefix
+	 * @return string Возвращает префикс плагина.См. Wbcr_Factory436_Base::prefix
 	 */
 	public function getPrefix() {
 		return $this->prefix;
@@ -418,7 +418,7 @@ class  Wbcr_Factory429_Base {
 	/**
 	 * Позволяет получить имя плагина.
 	 *
-	 * @return string Возвращает имя плагина. См. Wbcr_Factory429_Base::plugin_name
+	 * @return string Возвращает имя плагина. См. Wbcr_Factory436_Base::plugin_name
 	 */
 	public function getPluginName() {
 		return $this->plugin_name;
@@ -427,7 +427,7 @@ class  Wbcr_Factory429_Base {
 	/**
 	 * Позволяет получить версию плагина.
 	 *
-	 * @return string Возвращает версию плагина. См. Wbcr_Factory429_Base::plugin_version
+	 * @return string Возвращает версию плагина. См. Wbcr_Factory436_Base::plugin_version
 	 */
 	public function getPluginVersion() {
 		return $this->plugin_version;
@@ -449,7 +449,7 @@ class  Wbcr_Factory429_Base {
 	 * какие-то данные не описанные в интерфейсе этого плагина.
 	 *
 	 * @param string $attr_name   Имя атрибута, который нужно получить. Идентично ключу в массиве
-	 *                            Wbcr_Factory429_Base::plugin_data
+	 *                            Wbcr_Factory436_Base::plugin_data
 	 *
 	 * @return null
 	 */
@@ -462,18 +462,18 @@ class  Wbcr_Factory429_Base {
 	}
 
 	/**
-	 * Предоставляет доступ к экземпляру класса \WBCR\Factory_429\Entities\Support.
+	 * Предоставляет доступ к экземпляру класса \WBCR\Factory_436\Entities\Support.
 	 *
-	 * @return \WBCR\Factory_429\Entities\Support
+	 * @return \WBCR\Factory_436\Entities\Support
 	 */
 	public function get_support() {
 		return $this->support;
 	}
 
 	/**
-	 * Предоставляет доступ к экземпляру класса \WBCR\Factory_429\Entities\Paths.
+	 * Предоставляет доступ к экземпляру класса \WBCR\Factory_436\Entities\Paths.
 	 *
-	 * @return \WBCR\Factory_429\Entities\Paths
+	 * @return \WBCR\Factory_436\Entities\Paths
 	 */
 	public function get_paths() {
 		return $this->paths;
@@ -482,7 +482,7 @@ class  Wbcr_Factory429_Base {
 	/**
 	 * Позволяет получить сырые данные плагина в виде объекта StdClass.
 	 *
-	 * @return object Возвращает объект с сырыми данными плагина. См. Wbcr_Factory429_Base::plugin_data
+	 * @return object Возвращает объект с сырыми данными плагина. См. Wbcr_Factory436_Base::plugin_data
 	 */
 	public function getPluginInfo() {
 		return (object) $this->plugin_data;

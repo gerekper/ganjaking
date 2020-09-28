@@ -646,19 +646,17 @@ if ( class_exists( 'WP_Importer' ) ) {
 					continue;
 				}
 
-				$category_parent      = empty( $cat['category_parent'] ) ? 0 : category_exists( $cat['category_parent'] );
-				$category_description = isset( $cat['category_description'] ) ? $cat['category_description'] : '';
-				$catarr               = array(
+				$parent      = empty( $cat['category_parent'] ) ? 0 : category_exists( $cat['category_parent'] );
+				$description = isset( $cat['category_description'] ) ? $cat['category_description'] : '';
+				$data        = array(
 					'category_nicename'    => $cat['category_nicename'],
-					'category_parent'      => $category_parent,
-					'cat_name'             => $cat['cat_name'],
-					'category_description' => $category_description,
+					'category_parent'      => $parent,
+					'cat_name'             => wp_slash( $cat['cat_name'] ),
+					'category_description' => wp_slash( $description ),
 				);
 
-				$catarr = wp_slash( $catarr );
-
-				$id = wp_insert_category( $catarr );
-				if ( ! is_wp_error( $id ) ) {
+				$id = wp_insert_category( $data );
+				if ( ! is_wp_error( $id ) && $id > 0 ) {
 					if ( isset( $cat['term_id'] ) ) {
 						$this->processed_terms[ intval( $cat['term_id'] ) ] = $id;
 					}
@@ -679,7 +677,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 					continue;
 				}
 
-				$this->process_termmeta( $cat, $id['term_id'] );
+				$this->process_termmeta( $cat, $id );
 			}
 
 			unset( $this->categories );
@@ -711,14 +709,13 @@ if ( class_exists( 'WP_Importer' ) ) {
 					continue;
 				}
 
-				$tag      = wp_slash( $tag );
-				$tag_desc = isset( $tag['tag_description'] ) ? $tag['tag_description'] : '';
-				$tagarr   = array(
+				$description = isset( $tag['tag_description'] ) ? $tag['tag_description'] : '';
+				$args        = array(
 					'slug'        => $tag['tag_slug'],
-					'description' => $tag_desc,
+					'description' => wp_slash( $description ),
 				);
 
-				$id = wp_insert_term( $tag['tag_name'], 'post_tag', $tagarr );
+				$id = wp_insert_term( wp_slash( $tag['tag_name'] ), 'post_tag', $args );
 				if ( ! is_wp_error( $id ) ) {
 					if ( isset( $tag['term_id'] ) ) {
 						$this->processed_terms[ intval( $tag['term_id'] ) ] = $id['term_id'];
@@ -790,15 +787,15 @@ if ( class_exists( 'WP_Importer' ) ) {
 							$parent = $parent['term_id'];
 						}
 					}
-					$term        = wp_slash( $term );
+
 					$description = isset( $term['term_description'] ) ? $term['term_description'] : '';
-					$termarr     = array(
+					$args        = array(
 						'slug'        => $term['slug'],
-						'description' => $description,
-						'parent'      => intval( $parent ),
+						'description' => wp_slash( $description ),
+						'parent'      => (int) $parent,
 					);
 
-					$id = wp_insert_term( $term['term_name'], $term['term_taxonomy'], $termarr );
+					$id = wp_insert_term( wp_slash( $term['term_name'] ), $term['term_taxonomy'], $args );
 					if ( ! is_wp_error( $id ) ) {
 						if ( isset( $term['term_id'] ) ) {
 							$this->processed_terms[ intval( $term['term_id'] ) ] = $id['term_id'];
@@ -838,6 +835,10 @@ if ( class_exists( 'WP_Importer' ) ) {
 		 * @param int   $term_id ID of the newly created term.
 		 */
 		protected function process_termmeta( $term, $term_id ) {
+			if ( ! function_exists( 'add_term_meta' ) ) {
+				return;
+			}
+
 			if ( ! isset( $term['termmeta'] ) ) {
 				$term['termmeta'] = array();
 			}
@@ -875,7 +876,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 				// Export gets meta straight from the DB so could have a serialized string
 				$value = maybe_unserialize( $meta['value'] );
 
-				add_term_meta( $term_id, $key, $value );
+				add_term_meta( $term_id, wp_slash( $key ), wp_slash_strings_only( $value ) );
 
 				/**
 				 * Fires after term meta is imported.
@@ -1210,14 +1211,17 @@ if ( class_exists( 'WP_Importer' ) ) {
 						if ( isset( $inserted_comments[ $comment['comment_parent'] ] ) ) {
 							$comment['comment_parent'] = $inserted_comments[ $comment['comment_parent'] ];
 						}
-						$comment                   = wp_slash( $comment );
-						$comment                   = wp_filter_comment( $comment );
-						$inserted_comments[ $key ] = wp_insert_comment( $comment );
+						$comment_data = wp_slash( $comment );
+						unset( $comment_data['commentmeta'] ); // Handled separately, wp_insert_comment() also expects `comment_meta`.
+						$comment_data = wp_filter_comment( $comment_data );
+
+						$inserted_comments[ $key ] = wp_insert_comment( $comment_data );
+
 						do_action( 'wp_import_insert_comment', $inserted_comments[ $key ], $comment, $comment_post_ID, $post );
 
 						foreach ( $comment['commentmeta'] as $meta ) {
 							$value = maybe_unserialize( $meta['value'] );
-							add_comment_meta( $inserted_comments[ $key ], $meta['key'], $value );
+							add_comment_meta( $inserted_comments[ $key ], wp_slash( $meta['key'] ), wp_slash_strings_only( $value ) );
 						}
 
 						$num_comments++;
@@ -1257,14 +1261,11 @@ if ( class_exists( 'WP_Importer' ) ) {
 						if ( ! $value ) {
 							$value = maybe_unserialize( $meta['value'] );
 						}
-						if ( in_array( $key, array( 'custom_css' ) ) ) {
-							$value = wp_slash( $value );
-						}
 
 						if ( $post_exists ) {
 							delete_post_meta( $post_id, $key );
 						}
-						add_post_meta( $post_id, $key, $value );
+						add_post_meta( $post_id, wp_slash( $key ), wp_slash_strings_only( $value ) );
 
 						do_action( 'import_post_meta', $post_id, $key, $value );
 

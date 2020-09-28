@@ -1,0 +1,140 @@
+/**
+ * Page components
+ * @author Alex Kovalev <alex.kovalevv@gmail.com> 
+ * @copyright Alex Kovalev 30.09.2017 
+ */
+#WBCR .wbc-factory-clearfy-227-components {
+  padding: 0 20px 20px;
+  text-align: center;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card {
+  position: relative;
+  display: inline-block;
+  width: 32.7%;
+  height: 250px;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+  float: none;
+  vertical-align: top;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card:first-child {
+  margin-left: 0;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .plugin-card-bottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .plugin-card-top {
+  min-height: 163px;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .desc,
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .name {
+  margin-right: 0 !important;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .name h3 {
+  font-size: 17px;
+  margin-top: 0 !important;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .install-now {
+  float: right;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .delete-now {
+  float: right;
+  margin-left: 5px;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .delete-now .dashicons,
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .delete-now .dashicons-before:before {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  color: #62696f;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card a.open-plugin-details-modal {
+  color: #5c5d5f;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .plugin-card-premium-ribbon {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  height: 30px;
+  width: 120px;
+  border-radius: 3px 0 0 3px;
+  background-color: #f7dea9;
+  color: #67532f;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 2.4;
+  text-transform: uppercase;
+  z-index: 1;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .plugin-card-free-ribbon {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  height: 30px;
+  width: 120px;
+  border-radius: 3px 0 0 3px;
+  background-color: #cccccc;
+  color: #6b6b6b;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 2.4;
+  text-transform: uppercase;
+  z-index: 1;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card .plugin-card-freemium-ribbon {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  height: 30px;
+  width: 120px;
+  border-radius: 3px 0 0 3px;
+  background-color: #cae2b3;
+  color: #546742;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 2.4;
+  text-transform: uppercase;
+  z-index: 1;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card.premium {
+  border-color: #e8d7b2;
+  background-color: #fff9eb;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card.plugin-status-deactive {
+  background-color: #f1f1f1;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card.plugin-status-deactive a.open-plugin-details-modal {
+  color: #ababab;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card.plugin-status-deactive .plugin-icon {
+  opacity: 0.3;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card.plugin-status-deactive .desc {
+  color: #afafaf;
+}
+#WBCR .wbc-factory-clearfy-227-components .plugin-card.plugin-status-deactive.premium {
+  background-color: #f9f2f1;
+}
+@media screen and (max-width: 1750px) {
+  #WBCR .wbc-factory-clearfy-227-components .plugin-card {
+    width: 49%;
+  }
+}
+@media screen and (max-width: 1350px) {
+  #WBCR .wbc-factory-clearfy-227-components .plugin-card {
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=components.css.map */

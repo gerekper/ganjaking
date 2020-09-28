@@ -23,7 +23,7 @@ class VideoToImageLink
         $return = preg_replace_callback(
             [
                 '/<iframe.*src="(?:.+)?youtube(?:-nocookie)?.com\/(?:embed|\?)?\/([a-z0-9-_]+).+".+<\/iframe>/i',
-                '/[^\"\']https:\/\/(?:www.)?youtube(?:-nocookie)?.com\/\watch\?v=([a-z0-9-_]+)[^\"\']/i'
+                '/https:\/\/(?:www.)?youtube(?:-nocookie)?.com\/\watch\?v=([a-z0-9-_]+)/i'
             ],
             function ($matches) {
                 return $this->convertYoutube($matches[1]);
@@ -41,7 +41,7 @@ class VideoToImageLink
         $return = preg_replace_callback(
             [
                 '/<iframe.*src="(?:.+)?player.vimeo.com\/video\/(\d+).+".+<\/iframe>/',
-                '/[^\"\']https:\/\/(?:www .)?vimeo.com\/([\d]+)[^\"]/'
+                '/https:\/\/(?:www .)?vimeo.com\/([\d]+)/'
             ],
             function ($matches) {
                 return $this->convertVimeo($matches[1]);
@@ -60,7 +60,7 @@ class VideoToImageLink
 
         $image_url = MAILOPTIN_ASSETS_URL . 'images/video-placeholder.png';
 
-        if (is_wp_error($result)) {
+        if ( ! is_wp_error($result)) {
             $response = json_decode(wp_remote_retrieve_body($result), true);
 
             $thumbnail = isset($response['thumbnail_url_with_play_button']) ? $response['thumbnail_url_with_play_button'] : $response['thumbnail_url'];

@@ -110,7 +110,7 @@ class EmailCampaigns extends AbstractSettingsPage
             return AddEmailCampaign::get_instance()->settings_admin_page();
         }
 
-        if ( ! empty($_GET['view']) && $_GET['view'] == 'create-newsletter') {
+        if ( ! empty($_GET['view']) && $_GET['view'] == 'create-broadcast') {
             return AddNewsletter::get_instance()->settings_admin_page();
         }
 
@@ -136,7 +136,7 @@ class EmailCampaigns extends AbstractSettingsPage
 
     public function add_new_email_campaign()
     {
-        if (isset($_GET['view']) && in_array($_GET['view'], ['add-new-email-automation', 'add-new', 'create-newsletter'])) return;
+        if (isset($_GET['view']) && in_array($_GET['view'], ['add-new-email-automation', 'add-new', 'create-broadcast'])) return;
 
         $url = add_query_arg('view', 'add-new', MAILOPTIN_EMAIL_CAMPAIGNS_SETTINGS_PAGE);
         echo "<a class=\"add-new-h2\" href=\"$url\">" . __('Add New', 'mailoptin') . '</a>';

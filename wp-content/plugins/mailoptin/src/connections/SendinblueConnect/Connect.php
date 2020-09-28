@@ -3,6 +3,7 @@
 namespace MailOptin\SendinblueConnect;
 
 use MailOptin\Core\Connections\ConnectionInterface;
+use MailOptin\Core\PluginSettings;
 
 class Connect extends AbstractSendinblueConnect implements ConnectionInterface
 {
@@ -25,6 +26,8 @@ class Connect extends AbstractSendinblueConnect implements ConnectionInterface
             return $val;
         });
 
+        add_action('mailoptin_before_connections_settings_page', [$this, 'validate_support_id']);
+
         parent::__construct();
     }
 
@@ -35,6 +38,37 @@ class Connect extends AbstractSendinblueConnect implements ConnectionInterface
             self::EMAIL_CAMPAIGN_SUPPORT,
             self::OPTIN_CUSTOM_FIELD_SUPPORT
         ];
+    }
+
+    public function validate_support_id()
+    {
+        $support_id = PluginSettings\Connections::instance()->sendinblue_support_id();
+
+        if ( ! empty($support_id) && is_numeric($support_id)) {
+
+            $flag = get_option('mo_sendinblue_support_id_flag', false);
+
+            if ('true' != $flag) {
+
+                $args = [
+                    'headers' => ["Content-Type" => "application/x-www-form-urlencoded"],
+                    'body'    => ['id' => $support_id]
+                ];
+
+                $response = wp_remote_post('https://get.sendinblue.com/mailoptin/', $args);
+
+                if (is_wp_error($response)) {
+
+                    delete_option('mo_sendinblue_support_id_flag');
+
+                    return self::save_optin_error_log($response->get_error_message(), 'sendinblue');
+                }
+
+                return update_option('mo_sendinblue_support_id_flag', 'true', false);
+            }
+        }
+
+        delete_option('mo_sendinblue_support_id_flag');
     }
 
     public function customizer_advance_controls_defaults($defaults)

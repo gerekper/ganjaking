@@ -351,6 +351,7 @@
 
             api.control('mo_optin_campaign[' + mailoptin_optin_campaign_id + '][woocommerce_show_specific_woo_products]', linkSettingValueToControlActiveState);
             api.control('mo_optin_campaign[' + mailoptin_optin_campaign_id + '][woocommerce_show_specific_categories]', linkSettingValueToControlActiveState);
+            api.control('mo_optin_campaign[' + mailoptin_optin_campaign_id + '][woocommerce_show_specific_tags]', linkSettingValueToControlActiveState);
         });
 
         api('mo_optin_campaign[' + mailoptin_optin_campaign_id + '][hide_form_image]', function (setting) {

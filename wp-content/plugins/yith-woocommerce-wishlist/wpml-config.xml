@@ -1,0 +1,19 @@
+<wpml-config>
+    <admin-texts>
+      <key name="yith_wcwl_wishlist_title" />
+      <key name="yith_wcwl_wishlist_search_title" />
+      <key name="yith_wcwl_wishlist_manage_title" />
+      <key name="yith_wcwl_wishlist_create_title" />
+      <key name="yith_wcwl_add_to_wishlist_text" />
+      <key name="yith_wcwl_browse_wishlist_text" />
+      <key name="yith_wcwl_already_in_wishlist_text" />
+      <key name="yith_wcwl_product_added_text" />
+      <key name="yith_wcwl_add_to_wishlist_popup_text" />
+      <key name="yith_wcwl_add_to_cart_text" />
+      <key name="yith_wcwl_socials_title" />
+      <key name="yith_wcwl_socials_text" />
+      <key name="yith_wcwl_show_login_notice" />
+      <key name="yith_wcwl_login_anchor_text" />
+      <key name="yith_wcwl_additional_info_textarea_label" />
+    </admin-texts>
+</wpml-config>

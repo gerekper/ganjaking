@@ -441,6 +441,16 @@ function porto_css() {
 		}
 	}
 
+	// dequeue block css
+	if ( class_exists( 'Woocommerce' ) && isset( $porto_settings_optimize['dequeue_wc_block_css'] ) && $porto_settings_optimize['dequeue_wc_block_css'] ) {
+		wp_dequeue_style( 'wc-block-vendors-style' );
+		wp_dequeue_style( 'wc-block-style' );
+	}
+	if ( isset( $porto_settings_optimize['dequeue_wp_block_css'] ) && $porto_settings_optimize['dequeue_wp_block_css'] ) {
+		wp_dequeue_style( 'wp-block-library' );
+		wp_dequeue_style( 'wp-block-library-theme' );
+	}
+
 	/*
 	 register styles */
 	// plugins styles
@@ -510,6 +520,11 @@ function porto_css() {
 		wp_enqueue_style( 'elementor-icons' );
 		wp_enqueue_style( 'elementor-animations' );
 		wp_enqueue_style( 'elementor-frontend' );
+
+		/*$kit_id = \Elementor\Plugin::$instance->kits_manager->get_active_id();
+		if ( $kit_id ) {
+			wp_enqueue_style( 'elementor-post-' . $kit_id, wp_upload_dir()['baseurl'] . '/elementor/css/post-' . $kit_id . '.css' );
+		}*/
 
 		if ( isset( \Elementor\Plugin::$instance ) ) {
 			add_action(
@@ -705,7 +720,7 @@ function porto_scripts() {
 		//wp_deregister_script( 'isotope' );
 		wp_register_script( 'jquery-cookie', PORTO_JS . '/libs/jquery.cookie.min.js', array(), '1.4.1', true );
 		wp_register_script( 'owl.carousel', PORTO_JS . '/libs/owl.carousel.min.js', array(), '2.3.4', true );
-		wp_register_script( 'jquery-appear', PORTO_JS . '/libs/jquery.appear.min.js', array(), null, true );
+		//wp_register_script( 'jquery-appear', PORTO_JS . '/libs/jquery.appear.min.js', array(), null, true );
 		wp_register_script( 'jquery-fitvids', PORTO_JS . '/libs/jquery.fitvids.min.js', array(), '1.1', true );
 		wp_register_script( 'jquery-matchHeight', PORTO_JS . '/libs/jquery.matchHeight.min.js', array(), null, true );
 		wp_register_script( 'modernizr', PORTO_JS . '/libs/modernizr.js', array(), '2.8.3', true );
@@ -716,7 +731,7 @@ function porto_scripts() {
 
 		wp_enqueue_script( 'jquery-cookie' );
 		wp_enqueue_script( 'owl.carousel' );
-		wp_enqueue_script( 'jquery-appear' );
+		//wp_enqueue_script( 'jquery-appear' );
 		wp_enqueue_script( 'jquery-fitvids' );
 		wp_enqueue_script( 'jquery-matchHeight' );
 		wp_enqueue_script( 'modernizr' );
@@ -918,6 +933,7 @@ function porto_admin_scripts() {
 		$admin_vars['options_search_text']    = esc_js( __( 'Search for...', 'porto' ) );
 		$admin_vars['header_default_options'] = json_encode( porto_header_types_default_options() );
 	}
+
 	wp_localize_script( 'porto-admin', 'js_porto_admin_vars', $admin_vars );
 }
 

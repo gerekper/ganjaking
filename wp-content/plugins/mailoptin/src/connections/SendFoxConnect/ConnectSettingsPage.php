@@ -10,7 +10,7 @@ class ConnectSettingsPage extends AbstractSendFoxConnect
     {
         parent::__construct();
 
-        add_filter('mailoptin_connections_settings_page', array($this, 'connection_settings'), 10, 99);
+        add_filter('mailoptin_connections_settings_page', array($this, 'connection_settings'));
         add_action('wp_cspa_settings_after_title', array($this, 'output_error_log_link'), 10, 2);
     }
 

@@ -726,6 +726,17 @@ class AjaxHandler
         );
     }
 
+    public static function is_leadbank_disabled()
+    {
+        $status = false;
+
+        if (class_exists('MailOptin\Libsodium\LeadBank\LeadBank') && LeadBank::is_leadbank_disabled()) {
+            $status = true;
+        }
+
+        return $status;
+    }
+
     /**
      * Accept wide range of optin conversion data and save the lead.
      *
@@ -804,7 +815,7 @@ class AjaxHandler
         $conversionRepoResponse = false;
 
         // lite should also store leads in leadbank albeit locked.
-        if ( ! defined('MAILOPTIN_DETACH_LIBSODIUM') || (class_exists('MailOptin\Libsodium\LeadBank\LeadBank') && ! LeadBank::is_leadbank_disabled())) {
+        if ( ! defined('MAILOPTIN_DETACH_LIBSODIUM') || ! self::is_leadbank_disabled()) {
             // capture optin lead / conversion
             $conversionRepoResponse = OptinConversionsRepository::add($lead_data);
         }
@@ -812,10 +823,7 @@ class AjaxHandler
         // kick-in if only lead bank should be used
         if ($lead_bank_only === true) {
 
-            if ($conversionRepoResponse) {
-                // record optin campaign conversion.
-                self::track_conversion($optin_campaign_id, $lead_data);
-            }
+            if ( ! self::is_leadbank_disabled() && $conversionRepoResponse) self::track_conversion($optin_campaign_id, $lead_data);
 
             return AbstractConnect::ajax_success();
         }
@@ -897,6 +905,7 @@ class AjaxHandler
 
         // if we get here, it means we have multiple integration tied to the optin campaign
         $is_any_success = false;
+
         foreach ($responses as $response) {
             if (AbstractConnect::is_ajax_success($response)) {
                 $is_any_success = true;
@@ -905,7 +914,8 @@ class AjaxHandler
         }
 
         if ($is_any_success) {
-            self::track_conversion($optin_campaign_id, $lead_data);
+
+            if ( ! self::is_leadbank_disabled() && $conversionRepoResponse) self::track_conversion($optin_campaign_id, $lead_data);
 
             return AbstractConnect::ajax_success();
         }

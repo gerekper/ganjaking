@@ -104,6 +104,9 @@ class Onboarding {
 		add_action( 'woocommerce_theme_installed', array( $this, 'delete_themes_transient' ) );
 		add_action( 'after_switch_theme', array( $this, 'delete_themes_transient' ) );
 
+		// Always hook into Jetpack connection even if outside of admin.
+		add_action( 'jetpack_site_registered', array( $this, 'set_woocommerce_setup_jetpack_opted_in' ) );
+
 		if ( ! is_admin() ) {
 			return;
 		}
@@ -117,6 +120,13 @@ class Onboarding {
 		add_action( 'current_screen', array( $this, 'redirect_wccom_install' ) );
 		add_action( 'current_screen', array( $this, 'redirect_old_onboarding' ) );
 	}
+    
+    /**
+     * Sets the woocommerce_setup_jetpack_opted_in to true when Jetpack connects to WPCOM.
+     */
+    public function set_woocommerce_setup_jetpack_opted_in() {
+        update_option( 'woocommerce_setup_jetpack_opted_in', true );
+    }
 
 	/**
 	 * Add onboarding filters.
@@ -314,11 +324,6 @@ class Onboarding {
 					'use_description'   => false,
 					'description_label' => '',
 				),
-				'travel-and-tourism'              => array(
-					'label'             => __( 'Travel and tourism', 'woocommerce' ),
-					'use_description'   => false,
-					'description_label' => '',
-				),
 				'other'                           => array(
 					'label'             => __( 'Other', 'woocommerce' ),
 					'use_description'   => true,
@@ -350,10 +355,6 @@ class Onboarding {
 				'memberships'     => array(
 					'label'   => __( 'Memberships', 'woocommerce' ),
 					'product' => 958589,
-				),
-				'composite'       => array(
-					'label'   => __( 'Composite Products', 'woocommerce' ),
-					'product' => 216836,
 				),
 				'bookings'        => array(
 					'label'   => __( 'Bookings', 'woocommerce' ),
@@ -628,6 +629,7 @@ class Onboarding {
 		$options[] = 'woocommerce_bacs_settings';
 		$options[] = 'woocommerce_bacs_accounts';
 		$options[] = 'woocommerce_woocommerce_payments_settings';
+		$options[] = 'woocommerce_eway_settings';
 
 		return $options;
 	}
@@ -720,6 +722,7 @@ class Onboarding {
 				'woocommerce-shipstation-integration' => 'woocommerce-shipstation-integration/woocommerce-shipstation.php',
 				'woocommerce-payfast-gateway'         => 'woocommerce-payfast-gateway/gateway-payfast.php',
 				'woocommerce-payments'                => 'woocommerce-payments/woocommerce-payments.php',
+				'woocommerce-gateway-eway'            => 'woocommerce-gateway-eway/woocommerce-gateway-eway.php',
 			)
 		);
 		return array_merge( $plugins, $onboarding_plugins );

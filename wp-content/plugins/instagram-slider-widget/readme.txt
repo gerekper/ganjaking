@@ -2,8 +2,8 @@
 Contributors: creativemotion
 Tags: instagram, instagram feed, instagram gallery, instagram photos, Instagram widget
 Requires at least: 4.8
-Tested up to: 5.3.0
-Requires PHP: 5.4
+Tested up to: 5.5
+Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,11 +72,6 @@ Our goal is to create a simple yet powerful plugin – customized and multifunct
 3. Go to Appearance > Widgets and drag \'Social Slider Widget\' to your sidebar
 4. Update the settings in the widget: Instagram Username, Images Layout, Number of Images to show, Check for new images hours
 
-= Requirements =
-* PHP 5.4.0 or later
-* Wordpress 4.8 or later
-* WordPress Cron must be enabled
-
 == Frequently Asked Questions ==
 
 = Images from instagram are no longer displayed in the widget =
@@ -103,7 +98,18 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 10. Highlight
 
 == Changelog ==
+= 1.7.13 =
+* Fixed: Unable to save widget settings
+
+= 1.7.12 =
+* Added the Components page
+* Added the Shopifeed component (PRO) (https://cm-wp.com/instagram-slider-widget/shopifeed)
+* Added 'Allow list' to widget settings
+
 = 1.7.11 =
+* Hot Fix
+
+= 1.7.10 =
 * Added 'alt', 'rel' HTML attributes to images
 * Minor bug fixes
 * Fixed issue with disabled premium widget (PRO)

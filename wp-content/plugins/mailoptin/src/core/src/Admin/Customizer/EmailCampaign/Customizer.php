@@ -66,7 +66,7 @@ class Customizer
             add_action('customize_controls_enqueue_scripts', array($this, 'customizer_css'));
             add_action('customize_controls_enqueue_scripts', array($this, 'customizer_js'));
 
-            add_action('customize_controls_print_footer_scripts', [$this, 'add_send_newsletter_button']);
+            add_action('customize_controls_print_footer_scripts', [$this, 'add_send_broadcast_button']);
             add_action('customize_controls_print_footer_scripts', [$this, 'add_activate_switch']);
             add_action('customize_controls_print_footer_scripts', [$this, 'change_title_html']);
 
@@ -142,7 +142,7 @@ class Customizer
         $wp_customize->set_return_url($return_url);
     }
 
-    public function add_send_newsletter_button()
+    public function add_send_broadcast_button()
     {
         if ( ! ER::is_newsletter($this->email_campaign_id)) return;
 
@@ -167,7 +167,7 @@ class Customizer
             '\\',
             __('Are you sure you want to send this newsletter now?', 'mailoptin') . '\\',
             $url,
-            __('Send Newsletter', 'mailoptin')
+            __('Send Broadcast', 'mailoptin')
         );
         ?>
         <script type="text/javascript">

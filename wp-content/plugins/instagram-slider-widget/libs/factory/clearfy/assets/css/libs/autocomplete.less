@@ -1,0 +1,57 @@
+/**
+ * Styles for plugin options search form
+
+ * @author Alex Kovlaev <alex.kovalevv@gmail.com>, https://github.com/alexkovalevv
+ *
+ * @since 2.2.0
+ */
+
+@prefix: ~'wbcr-factory-clearfy-000__';
+
+#wbcr-factory-clearfy-000__search_options_form {
+  #@{prefix}autocomplete {
+    width: 100%;
+    box-sizing: border-box;
+    border-color: #d6d4d4;
+  }
+
+  &.@{prefix}autocomplete-wrap {
+    padding: 10px;
+  }
+
+  .@{prefix}autocomplete-label {
+    display: block !important;
+  }
+}
+
+.@{prefix}autocomplete-suggestions {
+  border: 1px solid #999;
+  background: #FFF;
+  overflow: auto;
+}
+
+.@{prefix}autocomplete-suggestion {
+  padding: 2px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.@{prefix}autocomplete-selected {
+  background: #F0F0F0;
+}
+
+.@{prefix}autocomplete-suggestions strong {
+  font-weight: normal;
+  color: #3399FF;
+}
+
+.@{prefix}autocomplete-group {
+  padding: 2px 5px;
+}
+
+.@{prefix}autocomplete-group strong {
+  display: block;
+  border-bottom: 1px solid #000;
+}
+

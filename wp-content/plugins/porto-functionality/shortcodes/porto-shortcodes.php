@@ -184,7 +184,7 @@ class PortoShortcodesClass {
 
 		wp_enqueue_script( 'isotope', PORTO_SHORTCODES_URL . 'assets/js/isotope.pkgd.min.js', array( 'jquery' ), '3.0.6', false );
 
-		wp_enqueue_script( 'porto_blocks', PORTO_SHORTCODES_URL . 'assets/blocks/blocks.js', array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-data', 'wp-editor' ), PORTO_SHORTCODES_VERSION, true );
+		wp_enqueue_script( 'porto_blocks', PORTO_SHORTCODES_URL . 'assets/blocks/blocks.min.js', array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-data', 'wp-editor' ), PORTO_SHORTCODES_VERSION, true );
 
 		$nav_types = array();
 		foreach ( porto_sh_commons( 'carousel_nav_types' ) as $value => $key ) {

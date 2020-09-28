@@ -104,7 +104,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 			);
 
 			$this->steps['shortcodes'] = array(
-				'name'    => esc_html__( 'JS Composer & Shortcodes', 'porto' ),
+				'name'    => esc_html__( 'WPBakery & Shortcodes', 'porto' ),
 				'view'    => array( $this, 'porto_speed_optimize_wizard_shortcodes' ),
 				'handler' => array( $this, 'porto_speed_optimize_wizard_shortcodes_save' ),
 			);
@@ -337,11 +337,11 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 				</p>
 			</form>
 			<script>
-				jQuery("#toggle_select").click(function() {
+				jQuery("#toggle_select").on('click', function() {
 					if (jQuery(this).is(":checked")) {
-						jQuery(this).closest('form').find('input[type="checkbox"]').attr('checked', 'checked');
+						jQuery(this).closest('form').find('input[type="checkbox"]').prop('checked', true);
 					} else {
-						jQuery(this).closest('form').find('input[type="checkbox"]').removeAttr('checked');
+						jQuery(this).closest('form').find('input[type="checkbox"]').prop('checked', false);
 					}
 				});
 			</script>
@@ -357,7 +357,9 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 			} else {
 				unset( $porto_settings_optimize['shortcodes_to_remove'] );
 			}
+
 			update_option( 'porto_settings_optimize', $porto_settings_optimize );
+
 			$result = porto_compile_css( 'shortcodes' );
 			if ( $result ) {
 				wp_redirect( esc_url_raw( $this->get_next_step_link() ) );
@@ -505,6 +507,12 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 						<p><?php esc_html_e( 'By using this option, you can use fontawesome icons only what Porto theme used. This will reduce around 40KB of page size.', 'porto' ); ?></p>
 					</li>
 					<li>
+						<label class="checkbox checkbox-inline">
+							<input type="checkbox" value="true" name="optimize_gutenberg" <?php echo isset( $porto_settings_optimize['optimize_gutenberg'] ) ? checked( $porto_settings_optimize['optimize_gutenberg'], true, false ) : ''; ?>> <?php esc_html_e( 'Dequeue Gutenberg block syle', 'porto' ); ?>
+						</label>
+						<p><?php esc_html_e( 'By using this option, Gutenberg block styles will not be enqueued if they were not used in the site. This will reduce around 150KB ~ 200KB of page size.', 'porto' ); ?></p>
+					</li>
+					<li>
 						<h4><?php esc_html_e( 'Disable Unused Content Types', 'porto' ); ?></h4>
 						<?php
 							$post_types = array(
@@ -607,6 +615,22 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 			} else {
 				$porto_settings_optimize['optimize_fontawesome'] = false;
 			}
+
+			// check Gutenberg block is used
+			$porto_settings_optimize['dequeue_wc_block_css'] = false;
+			$porto_settings_optimize['dequeue_wp_block_css'] = false;
+			if ( isset( $_POST['optimize_gutenberg'] ) && 'true' == $_POST['optimize_gutenberg'] ) {
+				$porto_settings_optimize['optimize_gutenberg'] = true;
+				if ( ! $this->check_wp_block() ) {
+					$porto_settings_optimize['dequeue_wc_block_css'] = true;
+					$porto_settings_optimize['dequeue_wp_block_css'] = true;
+				} else if ( ! $this->check_wc_block() ) {
+					$porto_settings_optimize['dequeue_wc_block_css'] = true;
+				}
+			} else {
+				$porto_settings_optimize['optimize_gutenberg'] = false;
+			}
+
 			update_option( 'porto_settings_optimize', $porto_settings_optimize );
 
 			wp_redirect( esc_url_raw( $this->get_next_step_link() ) );
@@ -865,9 +889,12 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 					$shortcode_list = array_merge( PortoShortcodesClass::$shortcodes, PortoShortcodesClass::$woo_shortcodes );
 					if ( defined( 'ELEMENTOR_VERSION' ) ) {
 						// Includes Elementor widgets
-						$shortcode_list = array_merge( $shortcode_list, array(
-							'porto_circular_bar',
-						) );
+						$shortcode_list = array_merge(
+							$shortcode_list,
+							array(
+								'porto_circular_bar',
+							)
+						);
 					}
 				}
 			} else {
@@ -1073,6 +1100,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 						'porto_circular_bar',
 						'porto_fancytext',
 						'porto_countdown',
+						'porto_google_map',
 					);
 					$widgets = array_diff( $widgets, $used );
 					foreach ( $widgets as $widget ) {
@@ -1134,6 +1162,16 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 				}
 			}
 			return false;
+		}
+
+		private function check_wp_block() {
+			global $wpdb;
+			return $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type not in (%s, %s) AND post_status = 'publish' AND post_content LIKE '%<!-- wp:%' LIMIT 1", 'revision', 'attachment' ) );
+		}
+
+		private function check_wc_block() {
+			global $wpdb;
+			return $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type not in (%s, %s) AND post_status = 'publish' AND post_content LIKE '%<!-- wp:woocommerce/%' LIMIT 1", 'revision', 'attachment' ) );
 		}
 
 	}

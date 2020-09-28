@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor Modal Widget
  *
- * Porto Element widget to display a modal dialog.
+ * Porto Elementor widget to display a modal dialog.
  *
  * @since 5.4.0
  */

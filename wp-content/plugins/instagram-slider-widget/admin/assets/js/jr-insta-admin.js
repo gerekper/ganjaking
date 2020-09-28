@@ -1,6 +1,7 @@
 (function ($) {
 
     $(document).ready(function ($) {
+
         var template = $('.jr-container select[id$="template"]')
         if (template.val() == 'thumbs' || template.val() == 'thumbs-no-border' || template.val() == 'slider' || template.val() == 'slider-overlay') {
             template.closest('.jr-container').find('select[id$="images_link"] option[value="popup"]').animate({
@@ -30,6 +31,21 @@
                 images_link.closest('.jr-container').find('input[id$="custom_url"]').parent().animate({
                     opacity: 'show',
                     height: 'show'
+                }, 200);
+            }
+        });
+
+        $('body').on('change', '.jr-container input[id$="keep_ratio"]', function (e) {
+            var keep_ratio = $(this);
+            if (keep_ratio.is(":checked")){
+                keep_ratio.closest('.jr-container').find('.slick_img_size').animate({
+                    opacity: 'show',
+                    height: 'show'
+                }, 200);
+            } else {
+                keep_ratio.closest('.jr-container').find('.slick_img_size').animate({
+                    opacity: 'hide',
+                    height: 'hide'
                 }, 200);
             }
         });
@@ -97,6 +113,27 @@
                     height: 'show'
                 }, 200);
             }
+
+            if (template.val() != 'showcase'){
+                template.closest('.jr-container').find('.shopifeed_settings').animate({
+                    opacity: 'hide',
+                    height: 'hide'
+                }, 200);
+                $('.isw-linkto').animate({
+                    opacity: 'show',
+                    height: 'show'
+                }, 200);
+            } else {
+                template.closest('.jr-container').find('.shopifeed_settings').animate({
+                    opacity: 'show',
+                    height: 'show'
+                }, 200);
+                $('.isw-linkto').animate({
+                    opacity: 'hide',
+                    height: 'hide'
+                }, 200);
+            }
+
             if (template.val() != 'slider' && template.val() != 'slider-overlay') {
                 template.closest('.jr-container').find('.slider_normal_settings').animate({
                     opacity: 'hide',

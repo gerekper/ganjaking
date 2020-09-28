@@ -2,7 +2,7 @@
 /**
  * Cross-sells
  *
- * @version     3.0.0
+ * @version     4.4.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,8 +12,13 @@ global $product, $porto_settings;
 if ( $cross_sells && $porto_settings['product-crosssell'] ) : ?>
 
 	<div class="cross-sells">
+		<?php
+			$heading = apply_filters( 'woocommerce_product_cross_sells_products_heading', __( 'You may be interested in&hellip;', 'woocommerce' ) );
 
-		<h2 class="slider-title"><span class="inline-title"><?php esc_html_e( 'You may be interested in&hellip;', 'woocommerce' ); ?></span><span class="line"></span></h2>
+		if ( $heading ) :
+			?>
+			<h2 class="slider-title"><span class="inline-title"><?php echo esc_html( $heading ); ?></span><span class="line"></span></h2>
+		<?php endif; ?>
 
 		<div class="slider-wrapper">
 
@@ -39,7 +44,7 @@ if ( $cross_sells && $porto_settings['product-crosssell'] ) : ?>
 					}
 						$post_object = get_post( $cross_sell->get_id() );
 
-						setup_postdata( $GLOBALS['post'] =& $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited, Squiz.PHP.DisallowMultipleAssignments.Found
+						setup_postdata( $GLOBALS['post'] =& $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Override.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
 
 						wc_get_template_part( 'content', 'product' );
 					?>

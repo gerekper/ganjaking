@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Elementor One Page Category Products Widget
  *
- * Porto Element widget to display one page navigation of product categories and products by category.
+ * Porto Elementor widget to display one page navigation of product categories and products by category.
  *
  * @since 5.3.1
  */

@@ -186,7 +186,12 @@ class Shortcodes
 
     public function post_content_tag()
     {
-        return $this->post_content($this->wp_post_obj);
+        return apply_filters(
+            'mo_email_campaign_shortcode_post_content',
+            $this->post_content($this->wp_post_obj),
+            $this->wp_post_obj,
+            $this->email_campaign_id
+        );
     }
 
     public function post_excerpt_tag()

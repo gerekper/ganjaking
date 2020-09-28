@@ -1654,6 +1654,10 @@ if ( ! porto_is_elementor_preview() ) {
 	if ( $page_css ) {
 		$custom_css .= $page_css;
 	}
+} else {
+	?>
+	.elementor-edit-area-active .elementor-inner-section.h-100:first-child { margin-top: 0 }
+	<?php
 }
 if ( $custom_css ) {
 	echo wp_strip_all_tags( preg_replace( '#<style[^>]*>(.*)</style>#is', '$1', $custom_css ) );

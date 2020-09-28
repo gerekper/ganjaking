@@ -53,17 +53,17 @@ if ( ! function_exists( 'get_user_locale' ) ) {
  * @param string $message       Optional. A message regarding the change.
  *
  * @return mixed
- * @see   wbcr_factory_429_deprecated_hook()
+ * @see   wbcr_factory_436_deprecated_hook()
  *
  */
-function wbcr_factory_429_apply_filters_deprecated( $tag, $args, $version, $replacement = false, $message = null ) {
+function wbcr_factory_436_apply_filters_deprecated( $tag, $args, $version, $replacement = false, $message = null ) {
 	if ( function_exists( 'apply_filters_deprecated' ) ) {
 		return apply_filters_deprecated( $tag, $args, $version, $replacement, $message );
 	}
 	if ( ! has_filter( $tag ) ) {
 		return $args[0];
 	}
-	wbcr_factory_429_deprecated_hook( $tag, $version, $replacement, $message );
+	wbcr_factory_436_deprecated_hook( $tag, $version, $replacement, $message );
 
 	return apply_filters_ref_array( $tag, $args );
 }
@@ -89,7 +89,7 @@ function wbcr_factory_429_apply_filters_deprecated( $tag, $args, $version, $repl
  * @see   _deprecated_hook()
  *
  */
-function wbcr_factory_429_do_action_deprecated( $tag, $args, $version, $replacement = false, $message = null ) {
+function wbcr_factory_436_do_action_deprecated( $tag, $args, $version, $replacement = false, $message = null ) {
 	if ( function_exists( 'do_action_deprecated' ) ) {
 		do_action_deprecated( $tag, $args, $version, $replacement, $message );
 
@@ -98,14 +98,14 @@ function wbcr_factory_429_do_action_deprecated( $tag, $args, $version, $replacem
 	if ( ! has_action( $tag ) ) {
 		return;
 	}
-	wbcr_factory_429_deprecated_hook( $tag, $version, $replacement, $message );
+	wbcr_factory_436_deprecated_hook( $tag, $version, $replacement, $message );
 	do_action_ref_array( $tag, $args );
 }
 
 /**
  * Marks a deprecated action or filter hook as deprecated and throws a notice.
  *
- * Use the 'wbcr_factory_429_deprecated_hook_run' action to get the backtrace describing where the
+ * Use the 'wbcr_factory_436_deprecated_hook_run' action to get the backtrace describing where the
  * deprecated hook was called.
  *
  * Default behavior is to trigger a user error if WP_DEBUG is true.
@@ -123,7 +123,7 @@ function wbcr_factory_429_do_action_deprecated( $tag, $args, $version, $replacem
  * @param string $replacement   Optional. The hook that should have been used.
  * @param string $message       Optional. A message regarding the change.
  */
-function wbcr_factory_429_deprecated_hook( $hook, $version, $replacement = null, $message = null ) {
+function wbcr_factory_436_deprecated_hook( $hook, $version, $replacement = null, $message = null ) {
 	/**
 	 * Fires when a deprecated hook is called.
 	 *

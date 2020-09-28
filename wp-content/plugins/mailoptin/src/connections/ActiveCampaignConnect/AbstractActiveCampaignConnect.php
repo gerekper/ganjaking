@@ -50,8 +50,9 @@ class AbstractActiveCampaignConnect extends AbstractConnect
 
         try {
 
-            $api      = new \ActiveCampaign($api_url, $api_key);
-            $response = $api->api('account/view');
+            $api = new \ActiveCampaign($api_url, $api_key);
+
+            $response = $api->api('list/list?ids=all');
 
             if ( ! is_object($response)) return false;
 
@@ -72,9 +73,9 @@ class AbstractActiveCampaignConnect extends AbstractConnect
     /**
      * Returns instance of API class.
      *
+     * @return \ActiveCampaign
      * @throws \Exception
      *
-     * @return \ActiveCampaign
      */
     public function activecampaign_instance()
     {

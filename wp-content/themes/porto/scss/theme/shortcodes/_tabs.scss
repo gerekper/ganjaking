@@ -363,14 +363,6 @@ h2.resp-accordion {
                     border-left-color: #CCC;
                 }
             }
-
-            &.active {
-                .nav-link,
-                .nav-link:hover,
-                .nav-link:focus {
-                    border-left: 3px solid #CCC;
-                }
-            }
         }
     }
 }
@@ -392,14 +384,6 @@ h2.resp-accordion {
 
                 &:hover {
                     border-right-color: #CCC;
-                }
-            }
-
-            &.active {
-                .nav-link,
-                .nav-link:hover,
-                .nav-link:focus {
-                    border-right: 3px solid #CCC;
                 }
             }
         }

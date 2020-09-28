@@ -8,7 +8,7 @@ class ConnectSettingsPage
 {
     public function __construct()
     {
-        add_filter('mailoptin_connections_settings_page', array($this, 'connection_settings'), 10, 99);
+        add_filter('mailoptin_connections_settings_page', array($this, 'connection_settings'));
         add_action('wp_cspa_settings_after_title', array($this, 'output_error_log_link'), 10, 2);
 
         add_action('mailoptin_after_connections_settings_page', [$this, 'toggle_js_Script']);
@@ -64,23 +64,23 @@ class ConnectSettingsPage
             ),
             'getresponse_is_360'               => array(
                 'type'        => 'checkbox',
-                'label'       => __('GetResponse Enterprise Account', 'mailoptin'),
-                'description' => __('Check this only if you are a GetResponse Enterprise customer.', 'mailoptin'),
+                'label'       => __('GetResponse MAX Account', 'mailoptin'),
+                'description' => __('Check this only if you are a GetResponse MAX customer.', 'mailoptin'),
             ),
             'getresponse360_registered_domain' => array(
                 'type'        => 'text',
-                'label'       => __('GetResponse Enterprise Domain', 'mailoptin'),
-                'description' => __('Enter your GetResponse Enterprise account registered domain.', 'mailoptin')
+                'label'       => __('GetResponse MAX Domain', 'mailoptin'),
+                'description' => __('Enter your GetResponse MAX account registered domain.', 'mailoptin')
             ),
             'getresponse360_country'           => array(
                 'type'        => 'select',
-                'label'       => __('GetResponse Enterprise Country', 'mailoptin'),
+                'label'       => __('GetResponse MAX Country', 'mailoptin'),
                 'options'     => [
                     'none'   => __('Select...', 'mailoptin'),
                     'poland' => __('Poland', 'mailoptin'),
                     'others' => __('Others', 'mailoptin'),
                 ],
-                'description' => __('Select country your GetResponse Enterprise account is associated with.', 'mailoptin'),
+                'description' => __('Select country your GetResponse MAX account is associated with.', 'mailoptin'),
             )
         );
 

@@ -11,7 +11,7 @@ class ConnectSettingsPage
 {
     public function __construct()
     {
-        add_filter('mailoptin_connections_settings_page', array($this, 'connection_settings'), 10, 99);
+        add_filter('mailoptin_connections_settings_page', array($this, 'connection_settings'));
 
         add_filter('mailoptin_email_campaign_customizer_page_settings', array($this, 'campaign_customizer_settings'));
         add_filter('mailoptin_email_campaign_customizer_settings_controls', array($this, 'campaign_customizer_controls'), 10, 4);

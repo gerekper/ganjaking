@@ -75,19 +75,19 @@ if ( ! class_exists( 'Wbcr_Factory_Compatibility' ) ) {
 			$notice_text         = $notice_default_text = '';
 			$notice_default_text .= '<b>' . $this->plugin_title . ' ' . __( 'warning', '' ) . ':</b>' . '<br>';
 
-			$notice_default_text .= sprintf( __( 'The %s plugin has stopped.', 'wbcr_factory_clearfy_000' ), $this->plugin_title ) . ' ';
+			$notice_default_text .= sprintf( __( 'The %s plugin has stopped.', 'wbcr_factory_clearfy_227' ), $this->plugin_title ) . ' ';
 			$notice_default_text .= __( 'Possible reasons:', '' ) . ' <br>';
 
 			$has_one = false;
 
 			if ( ! $this->isPhpCompatibility() ) {
 				$has_one     = true;
-				$notice_text .= '- ' . sprintf( __( 'You need to update the PHP version to %s or higher!', 'wbcr_factory_429' ), $this->required_php_version ) . '<br>';
+				$notice_text .= '- ' . sprintf( __( 'You need to update the PHP version to %s or higher!', 'wbcr_factory_436' ), $this->required_php_version ) . '<br>';
 			}
 
 			if ( ! $this->isWpCompatibility() ) {
 				$has_one     = true;
-				$notice_text .= '- ' . sprintf( __( 'You need to update WordPress to %s or higher!', 'wbcr_factory_429' ), $this->required_wp_version ) . '<br>';
+				$notice_text .= '- ' . sprintf( __( 'You need to update WordPress to %s or higher!', 'wbcr_factory_436' ), $this->required_wp_version ) . '<br>';
 			}
 
 			if ( $has_one ) {

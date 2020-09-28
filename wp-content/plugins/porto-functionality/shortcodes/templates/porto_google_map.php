@@ -36,6 +36,11 @@ if ( ( ! isset( $content ) || empty( $content ) ) && isset( $atts['content'] ) &
 	$content = $atts['content'];
 }
 
+if ( empty( $zoomcontrolposition ) ) {
+	$zoomcontrolposition = 'RIGHT_BOTTOM';
+}
+
+wp_enqueue_script( 'googleapis' );
 wp_enqueue_script( 'porto_shortcodes_map_loader_js' );
 
 $vc_version    = ( defined( 'WPB_VC_VERSION' ) ) ? WPB_VC_VERSION : 0;

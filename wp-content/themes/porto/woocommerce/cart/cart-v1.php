@@ -60,9 +60,9 @@ $porto_woo_version = porto_get_woo_version_number();
 							<td class="product-name">
 								<?php
 								if ( ! $_product->is_visible() ) {
-									echo apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;';
+									echo apply_filters( 'woocommerce_cart_item_name', esc_html( $_product->get_name() ), $cart_item, $cart_item_key ) . '&nbsp;';
 								} else {
-									echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $_product->get_permalink( $cart_item ) ), $_product->get_name() ), $cart_item, $cart_item_key );
+									echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $_product->get_permalink( $cart_item ) ), esc_html( $_product->get_name() ) ), $cart_item, $cart_item_key );
 								}
 
 								do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );

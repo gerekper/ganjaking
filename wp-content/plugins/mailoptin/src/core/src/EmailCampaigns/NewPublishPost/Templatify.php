@@ -53,12 +53,12 @@ class Templatify implements TemplatifyInterface
 
         $replace = [
             $this->post->post_title,
-            wpautop($this->post_content($this->post)),
+            apply_filters('mo_new_publish_post_content', $this->post_content($this->post), $this->post, $this->email_campaign_id),
             $this->post_url($this->post),
             $this->post_meta($this->post)
         ];
 
-        return str_replace($search, $replace, $preview_structure);
+        return apply_filters('mo_new_post_notification_post_content_forge', str_replace($search, $replace, $preview_structure));
     }
 
     /**

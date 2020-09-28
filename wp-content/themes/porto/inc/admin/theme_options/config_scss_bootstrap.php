@@ -163,9 +163,9 @@ $dark-default-text: #808697;
 	$dropdown-link-hover-bg:         #f5f5f5 !default;
 
 	// Tabs
-	$nav-tabs-border-color:                     #ddd !default;
-	$nav-tabs-link-active-border-color:			#ddd !default;
-	$nav-tabs-link-hover-border-color:          #ddd !default;
+	$nav-tabs-border-color:                     #eee !default;
+	$nav-tabs-link-active-border-color:			#eee !default;
+	$nav-tabs-link-hover-border-color:          #eee !default;
 
 	// Pagination
 	$pagination-border-color:              #ddd !default;
