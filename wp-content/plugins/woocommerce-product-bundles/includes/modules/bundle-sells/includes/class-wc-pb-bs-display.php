@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Display-related functions and filters.
  *
  * @class    WC_PB_BS_Display
- * @version  6.1.5
+ * @version  6.4.0
  */
 class WC_PB_BS_Display {
 
@@ -136,7 +136,7 @@ class WC_PB_BS_Display {
 				}
 
 				?>
-				<div class="bundle_data bundle_data_<?php echo $bundle->get_id(); ?>" data-bundle_price_data="<?php echo esc_attr( json_encode( $bundle->get_bundle_price_data() ) ); ?>" data-bundle_id="<?php echo $bundle->get_id(); ?>">
+				<div class="bundle_data bundle_data_<?php echo $bundle->get_id(); ?>" data-bundle_form_data="<?php echo esc_attr( json_encode( $bundle->get_bundle_form_data() ) ); ?>" data-bundle_id="<?php echo $bundle->get_id(); ?>">
 					<div class="bundle_wrap">
 						<div class="bundle_error" style="display:none">
 							<div class="woocommerce-info">

@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The bunded item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  6.3.4
+ * @version  6.4.0
  */
 class WC_Bundled_Item {
 
@@ -87,6 +87,12 @@ class WC_Bundled_Item {
 	 * @var boolean
 	 */
 	private $quantity_max;
+
+	/**
+	 * Default quantity of the bundled item.
+	 * @var boolean
+	 */
+	private $quantity_default;
 
 	/**
 	 * Pricing scheme of the bundled item.
@@ -328,6 +334,7 @@ class WC_Bundled_Item {
 		$defaults = array(
 			'quantity_min'                          => 1,
 			'quantity_max'                          => 1,
+			'quantity_default'                      => 1,
 			'priced_individually'                   => 'no',
 			'shipped_individually'                  => 'no',
 			'override_title'                        => 'no',
@@ -1249,6 +1256,18 @@ class WC_Bundled_Item {
 	}
 
 	/**
+	 * Check if the item has a variable subscription price.
+	 *
+	 * @since  6.4.0
+	 *
+	 * @return boolean
+	 */
+	public function has_variable_subscription_price() {
+		return 'variable-subscription' === $this->product->get_type() && ( $this->product->get_variation_price( 'min' ) !== $this->product->get_variation_price( 'max' ) || $this->product->get_meta( '_min_variation_period', true ) !== $this->product->get_meta( '_max_variation_period', true ) || $this->product->get_meta( '_min_variation_period_interval', true ) !== $this->product->get_meta( '_max_variation_period_interval', true ) );
+
+	}
+
+	/**
 	 * Returns the variation attributes array if this product is variable.
 	 *
 	 * @since  5.8.0
@@ -1613,22 +1632,27 @@ class WC_Bundled_Item {
 			$variation_data[ 'recurring_key' ]  = str_replace( '_synced', '', WC_Subscriptions_Cart::get_recurring_cart_key( array( 'data' => $bundled_variation ), ' ' ) );
 		}
 
-		$quantity     = $this->get_quantity();
-		$quantity_max = $this->get_quantity( 'max', array( 'bound_by_stock' => true, 'product' => $bundled_variation ) );
+		// Modify availability data.
 
-		if ( ! $this->is_in_stock() || ! $bundled_variation->is_in_stock() || ! $bundled_variation->has_enough_stock( $quantity ) ) {
+		$quantity_min       = $this->get_quantity( 'min' );
+		$quantity_max       = $this->get_quantity( 'max' );
+		$quantity_available = $this->get_stock_quantity( $bundled_variation );
+
+		if ( ! $this->is_in_stock() || ! $bundled_variation->is_in_stock() || ! $bundled_variation->has_enough_stock( $quantity_min ) ) {
 			$variation_data[ 'is_in_stock' ] = false;
 		}
 
-		// Modify availability data.
-		$variation_data[ 'availability_html' ] = $this->get_availability_html( $bundled_variation );
+		$variation_data[ 'backorders_require_notification' ] = $bundled_variation->backorders_require_notification() ? 'yes' : 'no';
 
-		$variation_data[ 'min_qty' ] = $quantity;
-		$variation_data[ 'max_qty' ] = $quantity_max;
+		$variation_data[ 'min_qty' ]   = $quantity_min;
+		$variation_data[ 'max_qty' ]   = $quantity_max;
+		$variation_data[ 'avail_qty' ] = $quantity_available;
 
 		if ( $variation_data[ 'min_qty' ] !== $variation_data[ 'max_qty' ] ) {
 			$variation_data[ 'is_sold_individually' ] = false;
 		}
+
+		$variation_data[ 'availability_html' ] = $this->get_availability_html( $bundled_variation );
 
 		// Add flag for 3-p code.
 		$variation_data[ 'is_bundled' ] = true;
@@ -1794,11 +1818,34 @@ class WC_Bundled_Item {
 	}
 
 	/**
+	 * Retrieves the max remaining stock quantity directly from the product instance.
+	 *
+	 * @since  6.4.0
+	 *
+	 * @param  WC_Product|false  $product
+	 * @return int|''
+	 */
+	public function get_stock_quantity( $product = false ) {
+
+		$quantity_available = '';
+		$product            = $product ? $product : $this->get_product();
+
+		if ( $product && $product->managing_stock() ) {
+			$quantity_available = $product->get_stock_quantity();
+			$quantity_available = null !== $quantity_available && '' !== $quantity_available ? intval( $quantity_available ) : '';
+		}
+
+		return $quantity_available;
+	}
+
+	/**
 	 * Item min/max quantity.
 	 *
+	 * @param  string  $type
+	 * @param  array   $args
 	 * @return int
 	 */
-	public function get_quantity( $min_or_max = 'min', $args = array(), $deprecated = false ) {
+	public function get_quantity( $type = 'min', $args = array(), $deprecated = false ) {
 
 		if ( ! is_array( $args ) ) {
 			_deprecated_argument( __METHOD__ . '()', '5.5.0', 'Invalid argument: #2.' );
@@ -1819,23 +1866,22 @@ class WC_Bundled_Item {
 		$product        = isset( $args[ 'product' ] ) ? $args[ 'product' ] : false;
 		$check_optional = isset( $args[ 'check_optional' ] ) ? $args[ 'check_optional' ] : false;
 
-		$qty_min = $this->quantity_min;
-		$qty_min = $check_optional && $this->is_optional() ? 0 : $qty_min;
-		$qty_min = ( $qty_min > 1 && $this->is_sold_individually() ) ? 1 : $qty_min;
+		$qty = $this->quantity_min;
+		$qty = $check_optional && $this->is_optional() ? 0 : $qty;
+		$qty = ( $qty > 1 && $this->is_sold_individually() ) ? 1 : $qty;
 
 		/**
 		 * 'woocommerce_bundled_item_quantity' filter.
 		 *
-		 * @param  mixed            $qty_min
+		 * @param  mixed            $qty
 		 * @param  WC_Bundled_Item  $this
 		 * @param  array            $args
 		 */
-		$qty_min = apply_filters( 'woocommerce_bundled_item_quantity', $qty_min, $this, $args );
-		$qty     = $qty_min;
+		$qty = apply_filters( 'woocommerce_bundled_item_quantity', $qty, $this, $args );
 
-		if ( 'max' === $min_or_max ) {
+		if ( in_array( $type, array( 'max', 'default' ) ) ) {
 
-			$qty_max = $qty_min;
+			$qty_min = $qty_max = $qty;
 
 			if ( ! $product ) {
 				$product = $this->product;
@@ -1875,14 +1921,30 @@ class WC_Bundled_Item {
 				$qty_max = $qty_max_bound;
 			}
 
-			/**
-			 * 'woocommerce_bundled_item_quantity_max' filter.
-			 *
-			 * @param  mixed            $qty_max
-			 * @param  WC_Bundled_Item  $this
-			 * @param  array            $args
-			 */
-			$qty = apply_filters( 'woocommerce_bundled_item_quantity_max', $qty_max, $this, $args );
+			if ( 'max' === $type ) {
+
+				/**
+				 * 'woocommerce_bundled_item_quantity_max' filter.
+				 *
+				 * @param  mixed            $qty_max
+				 * @param  WC_Bundled_Item  $this
+				 * @param  array            $args
+				 */
+				$qty = apply_filters( 'woocommerce_bundled_item_quantity_max', $qty_max, $this, $args );
+
+			} elseif ( 'default' === $type ) {
+
+				$qty_default = '' !== $qty_max && $this->quantity_default > $qty_max ? $qty_max : $this->quantity_default;
+
+				/**
+				 * 'woocommerce_bundled_item_quantity_default' filter.
+				 *
+				 * @param  mixed            $qty_default
+				 * @param  WC_Bundled_Item  $this
+				 * @param  array            $args
+				 */
+				$qty = apply_filters( 'woocommerce_bundled_item_quantity_default', $qty_default, $this, $args );
+			}
 		}
 
 		return '' !== $qty ? absint( $qty ) : '';

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.3.4
+ * @version  6.4.0
  */
 class WC_PB_Compatibility {
 
@@ -85,7 +85,6 @@ class WC_PB_Compatibility {
 		$this->required = array(
 			'cp'     => '6.2.0',
 			'pao'    => '3.0.14',
-			'minmax' => '1.4.1',
 			'topatc' => '1.0.3',
 			'bd'     => '1.3.1'
 		);
@@ -141,6 +140,11 @@ class WC_PB_Compatibility {
 		// Bundle-Sells mini-extension was merged into PB.
 		if ( class_exists( 'WC_PB_Bundle_Sells' ) ) {
 			remove_action( 'plugins_loaded', array( 'WC_PB_Bundle_Sells', 'load_plugin' ), 10 );
+		}
+
+		// Bundle-Sells mini-extension was merged into PB.
+		if ( class_exists( 'WC_PB_Min_Max_Items' ) ) {
+			remove_action( 'plugins_loaded', array( 'WC_PB_Min_Max_Items', 'load_plugin' ), 10 );
 		}
 	}
 
@@ -242,7 +246,14 @@ class WC_PB_Compatibility {
 		$module_paths[ 'shipstation' ] = 'modules/class-wc-pb-shipstation-compatibility.php';
 
 		// Storefront compatibility.
-		$module_paths[ 'storefront' ] = 'modules/class-wc-pb-sf-compatibility.php';
+		if ( function_exists( 'wc_is_active_theme' ) && wc_is_active_theme( 'storefront' ) ) {
+			$module_paths[ 'storefront' ] = 'modules/class-wc-pb-sf-compatibility.php';
+		}
+
+		// Flatsome compatibility.
+		if ( function_exists( 'wc_is_active_theme' ) && wc_is_active_theme( 'flatsome' ) ) {
+			$module_paths[ 'flatsome' ] = 'modules/class-wc-pb-fs-compatibility.php';
+		}
 
 		// ThemeAlien Variation Swatches for WooCommerce compatibility.
 		$module_paths[ 'taws_variation_swatches' ] = 'modules/class-wc-pb-taws-variation-swatches-compatibility.php';
@@ -319,23 +330,16 @@ class WC_PB_Compatibility {
 			WC_PB_Admin_Notices::add_notice( $notice, 'warning' );
 		}
 
-		// Bundle-Sells mini-extension version check.
+		// Bundle-Sells mini-extension check.
 		if ( class_exists( 'WC_PB_Bundle_Sells' ) ) {
 			$notice = sprintf( __( 'The <strong>Bundle-Sells</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Bundle-Sells</strong> feature plugin.', 'woocommerce-product-bundles' ) );
 			WC_PB_Admin_Notices::add_notice( $notice, 'warning' );
 		}
 
-		// Min/Max Items mini-extension version check.
+		// Min/Max Items mini-extension check.
 		if ( class_exists( 'WC_PB_Min_Max_Items' ) ) {
-			$required_version = $this->required[ 'minmax' ];
-			if ( version_compare( WC_PB()->plugin_version( true, WC_PB_Min_Max_Items::$version ), $required_version ) < 0 ) {
-
-				$extension      = $extension_full = __( 'Product Bundles - Min/Max Items', 'woocommerce-product-bundles' );
-				$extension_url  = 'https://wordpress.org/plugins/product-bundles-minmax-items-for-woocommerce/';
-				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-bundles' ), $extension, $extension_url, $extension_full, $required_version );
-
-				WC_PB_Admin_Notices::add_notice( $notice, 'warning' );
-			}
+			$notice = sprintf( __( 'The <strong>Min/Max Items</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Min/Max Items</strong> feature plugin. If you have localized Min/Max Items in your language, please be aware that all localizable strings have been moved into the Product Bundles text domain.', 'woocommerce-product-bundles' ) );
+			WC_PB_Admin_Notices::add_notice( $notice, 'warning' );
 		}
 
 		// Top Add-to-Cart mini-extension version check.

@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Could be modified to extend WC_Data in the future. For now, all required functionality is self-contained to maintain WC back-compat.
  *
  * @class    WC_Bundled_Item_Data
- * @version  5.7.4
+ * @version  6.4.0
  */
 
 class WC_Bundled_Item_Data {
@@ -45,6 +45,7 @@ class WC_Bundled_Item_Data {
 	protected $meta_data = array(
 		'quantity_min'                          => 1,
 		'quantity_max'                          => 1,
+		'quantity_default'                      => 1,
 		'priced_individually'                   => 'no',
 		'shipped_individually'                  => 'no',
 		'override_title'                        => 'no',
@@ -76,6 +77,7 @@ class WC_Bundled_Item_Data {
 	protected $meta_data_type_fn = array(
 		'quantity_min'                          => 'absint',
 		'quantity_max'                          => 'absint_if_not_empty',
+		'quantity_default'                      => 'absint',
 		'priced_individually'                   => 'yes_or_no',
 		'shipped_individually'                  => 'yes_or_no',
 		'override_title'                        => 'yes_or_no',
@@ -359,11 +361,16 @@ class WC_Bundled_Item_Data {
 	 */
 	public function validate() {
 
-		$quantity_min = $this->get_meta( 'quantity_min' );
-		$quantity_max = $this->get_meta( 'quantity_max' );
+		$quantity_min     = $this->get_meta( 'quantity_min' );
+		$quantity_max     = $this->get_meta( 'quantity_max' );
+		$quantity_default = $this->get_meta( 'quantity_default' );
 
 		if ( $quantity_min > $quantity_max && '' !== $quantity_max ) {
 			$this->update_meta( 'quantity_max', $quantity_min );
+		}
+
+		if ( $quantity_default < $quantity_min || ( '' !== $quantity_max && $quantity_default > $quantity_max ) ) {
+			$this->update_meta( 'quantity_default', $quantity_min );
 		}
 	}
 
@@ -505,6 +512,11 @@ class WC_Bundled_Item_Data {
 					continue;
 				}
 				$this->meta_data[ $meta->meta_key ] = $this->sanitize_meta_value( $meta->meta_value, $meta->meta_key );
+			}
+
+			// Always make the 'quantity_default' meta mirror the 'quantity_min' meta.
+			if ( ! isset( $this->meta_data[ 'quantity_default' ] ) && isset( $this->meta_data[ 'quantity_min' ] ) ) {
+				$this->meta_data[ 'quantity_default' ] = $this->meta_data[ 'quantity_min' ];
 			}
 
 			if ( $use_cache ) {

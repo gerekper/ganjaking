@@ -21,6 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_PB_Product_Prices {
 
 	/**
+	 * Flag indicating whether 'filter_get_price_cart' is applied on a variable product price.
+	 *
+	 * @var boolean
+	 */
+	private static $filtering_variable_price_html = false;
+
+	/**
 	 * Bundled items whose prices are currently being filtered -- all states.
 	 *
 	 * @var WC_Bundled_Item
@@ -249,6 +256,7 @@ class WC_PB_Product_Prices {
 
 			add_filter( 'woocommerce_get_price_html', array( __CLASS__, 'filter_get_price_html' ), 10, 2 );
 			add_filter( 'woocommerce_get_children', array( __CLASS__, 'filter_children' ), 10, 2 );
+			add_filter( 'woocommerce_variable_price_html', array( __CLASS__, 'filter_variable_price_html' ), 10, 2 );
 			add_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_get_variation_prices' ), 15, 2 );
 			add_filter( 'woocommerce_show_variation_price', array( __CLASS__, 'filter_show_variation_price' ), 10, 3 );
 			add_filter( 'woocommerce_get_variation_prices_hash', array( __CLASS__, 'filter_variation_prices_hash' ), 10, 2 );
@@ -284,6 +292,7 @@ class WC_PB_Product_Prices {
 
 			remove_filter( 'woocommerce_get_price_html', array( __CLASS__, 'filter_get_price_html' ), 10, 2 );
 			remove_filter( 'woocommerce_get_children', array( __CLASS__, 'filter_children' ), 10, 2 );
+			remove_filter( 'woocommerce_variable_price_html', array( __CLASS__, 'filter_variable_price_html' ), 10, 2 );
 			remove_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_get_variation_prices' ), 15, 2 );
 			remove_filter( 'woocommerce_show_variation_price', array( __CLASS__, 'filter_show_variation_price' ), 10, 3 );
 			remove_filter( 'woocommerce_get_variation_prices_hash', array( __CLASS__, 'filter_variation_prices_hash' ), 10, 2 );
@@ -653,6 +662,22 @@ class WC_PB_Product_Prices {
 	}
 
 	/**
+	 * Wrapper of 'filter_get_price_html' for variable products.
+	 *
+	 * @param  string      $price_html
+	 * @param  WC_Product  $product
+	 * @return string
+	 */
+	public static function filter_variable_price_html( $price_html, $product ) {
+
+		self::$filtering_variable_price_html = true;
+		$price_html = self::filter_get_price_html( $price_html, $product );
+		self::$filtering_variable_price_html = false;
+
+		return $price_html;
+	}
+
+	/**
 	 * Filter the html price string of bundled items to show the correct price with discount and tax - needs to be hidden when the bundled item is priced individually.
 	 *
 	 * @param  string      $price_html
@@ -660,6 +685,10 @@ class WC_PB_Product_Prices {
 	 * @return string
 	 */
 	public static function filter_get_price_html( $price_html, $product ) {
+
+		if ( $product->is_type( 'variable' ) && false === self::$filtering_variable_price_html ) {
+			return $price_html;
+		}
 
 		$bundled_item = self::$bundled_item;
 
@@ -673,7 +702,7 @@ class WC_PB_Product_Prices {
 				return '';
 			}
 
-			$quantity = $bundled_item->get_quantity( 'max', array( 'bound_by_stock' => true ) );
+			$quantity = $bundled_item->get_quantity( 'max' );
 
 			/**
 			 * 'woocommerce_bundled_item_price_html' filter.

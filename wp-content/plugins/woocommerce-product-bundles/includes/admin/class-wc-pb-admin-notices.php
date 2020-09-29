@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin notices handling.
  *
  * @class    WC_PB_Admin_Notices
- * @version  6.3.1
+ * @version  6.4.0
  */
 class WC_PB_Admin_Notices {
 
@@ -453,7 +453,7 @@ class WC_PB_Admin_Notices {
 					}
 
 					var data = {
-						action: 'woocommerce_bundles_loopback_test',
+						action: 'woocommerce_bundles_health-check-loopback_test',
 						security: '" . wp_create_nonce( 'wc_pb_loopback_notice_nonce' ) . "'
 					};
 
@@ -670,37 +670,6 @@ class WC_PB_Admin_Notices {
 	 * @return array
 	 */
 	public static function get_note_args( $name ) {
-
-		if ( 'min-max' === $name ) {
-
-			ob_start();
-
-			?>
-			<p><?php _e( 'Want to sell cases of wine, combos of T-shirts, or cupcakes by the dozen?', 'woocommerce-product-bundles' ); ?></p>
-			<p><?php _e( 'Use the free <strong>Min/Max Items</strong> add-on to create personalized bundles with a fixed or flexible container size.', 'woocommerce-product-bundles' ); ?></p>
-			<?php
-
-			$content = ob_get_clean();
-
-			$args = array(
-				'name'         => 'wc-pb-min-max',
-				'title'        => __( 'Picking \'n mixing with Product Bundles', 'woocommerce-product-bundles' ),
-				'content'      => $content,
-				'type'         => Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_INFORMATIONAL,
-				'source'       => 'woocommerce-product-bundles',
-				'icon'         => 'plugins',
-				'check_plugin' => true,
-				'actions'      => array(
-					array(
-						'name'  => 'learn-more-min-max',
-						'label' => __( 'Learn more', 'woocommerce-product-bundles' ),
-						'url'   => WC_PB()->get_resource_url( 'min-max' )
-					)
-				)
-			);
-
-			return $args;
-		}
 
 		if ( 'bulk-discounts' === $name ) {
 

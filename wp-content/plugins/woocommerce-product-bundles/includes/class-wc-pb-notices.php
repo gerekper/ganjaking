@@ -40,10 +40,6 @@ class WC_PB_Notices {
 		self::$notice_options = get_option( 'wc_pb_notice_options', array() );
 
 		self::$plugin_data = array(
-			'wc-pb-min-max' => array(
-				'install_path'   => 'product-bundles-minmax-items-for-woocommerce/product-bundles-min-max-items-for-woocommerce.php',
-				'install_check'  => 'WC_PB_Min_Max_Items'
-			),
 			'wc-pb-bulk-discounts' => array(
 				'install_path'   => 'product-bundles-bulk-discounts-for-woocommerce/product-bundles-bulk-discounts-for-woocommerce.php',
 				'install_check'  => 'WC_PB_Bulk_Discounts'

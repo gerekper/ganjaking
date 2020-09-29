@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles installation and updating tasks.
  *
  * @class    WC_PB_Install
- * @version  6.3.0
+ * @version  6.4.0
  */
 class WC_PB_Install {
 
@@ -175,6 +175,10 @@ class WC_PB_Install {
 	 */
 	private static function must_update() {
 
+		if ( self::is_new_install() ) {
+			return false;
+		}
+
 		$db_update_versions = array_keys( self::$db_updates );
 		$db_version_target  = end( $db_update_versions );
 
@@ -224,7 +228,7 @@ class WC_PB_Install {
 					return;
 				}
 
-				if ( self::must_update() && ! self::is_new_install() ) {
+				if ( self::must_update() ) {
 
 					if ( ! class_exists( 'WC_PB_Admin_Notices' ) ) {
 						require_once( WC_PB_ABSPATH . 'includes/admin/class-wc-pb-admin-notices.php' );
@@ -296,7 +300,6 @@ class WC_PB_Install {
 		WC_PB_Admin_Notices::add_maintenance_notice( 'loopback' );
 
 		// Add feature plugin recommendations in the Inbox: These are only added once.
-		WC_PB_Admin_Notices::add_note( 'min-max' );
 		WC_PB_Admin_Notices::add_note( 'bulk-discounts' );
 
 		// Update plugin version - once set, 'maybe_install' will not call 'install' again.

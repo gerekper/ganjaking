@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  6.3.5
+ * @version  6.4.0
  */
 class WC_PB_Cart {
 
@@ -212,7 +212,7 @@ class WC_PB_Cart {
 
 			$defaults = array(
 				'product_id' => $strict_mode ? '' : $bundled_item->get_product_id(),
-				'quantity'   => $bundled_item->get_quantity( 'min' )
+				'quantity'   => $bundled_item->get_quantity( 'default' )
 			);
 
 			$parsed_configuration[ $bundled_item_id ] = wp_parse_args( $item_configuration, $defaults );
@@ -294,7 +294,7 @@ class WC_PB_Cart {
 					$is_optional          = $bundled_item->is_optional();
 
 					$bundled_item_quantity_request_key = $posted_field_prefix . 'bundle_quantity_' . $bundled_item_id;
-					$bundled_product_qty               = isset( $posted_data[ $bundled_item_quantity_request_key ] ) ? absint( $posted_data[ $bundled_item_quantity_request_key ] ) : $bundled_item->get_quantity();
+					$bundled_product_qty               = isset( $posted_data[ $bundled_item_quantity_request_key ] ) ? absint( $posted_data[ $bundled_item_quantity_request_key ] ) : $bundled_item->get_quantity( 'default' );
 
 					$posted_config[ $bundled_item_id ][ 'product_id' ] = $bundled_product_id;
 
@@ -550,7 +550,7 @@ class WC_PB_Cart {
 						}
 
 						// Check quantity.
-						$item_quantity_min = $bundled_item->get_quantity();
+						$item_quantity_min = $bundled_item->get_quantity( 'min' );
 						$item_quantity_max = $bundled_item->get_quantity( 'max' );
 
 						if ( isset( $configuration[ $bundled_item_id ][ 'quantity' ] ) ) {
@@ -1396,7 +1396,7 @@ class WC_PB_Cart {
 
 				$bundled_item_cart_data[ 'bundled_item_id' ] = $bundled_item_id;
 
-				$item_quantity = isset( $bundled_item_stamp[ 'quantity' ] ) ? absint( $bundled_item_stamp[ 'quantity' ] ) : $bundled_item->get_quantity();
+				$item_quantity = isset( $bundled_item_stamp[ 'quantity' ] ) ? absint( $bundled_item_stamp[ 'quantity' ] ) : $bundled_item->get_quantity( 'default' );
 				$quantity      = $bundled_item->is_sold_individually() ? 1 : $item_quantity * $bundle_quantity;
 				$product       = $bundled_item->get_product();
 				$product_id    = $bundled_item->get_product_id();

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_PB_REST_API
- * @version  6.3.4
+ * @version  6.4.0
  */
 class WC_PB_REST_API {
 
@@ -186,6 +186,11 @@ class WC_PB_REST_API {
 						),
 						'quantity_max'                          => array(
 							'description' => __( 'Maximum bundled item quantity.', 'woocommerce-product-bundles' ),
+							'type'        => WC_PB_Core_Compatibility::is_wp_version_gte( '5.5' ) ? array( 'integer', 'string' ) : '',
+							'context'     => array( 'view', 'edit' )
+						),
+						'quantity_default'                      => array(
+							'description' => __( 'Default bundled item quantity.', 'woocommerce-product-bundles' ),
 							'type'        => WC_PB_Core_Compatibility::is_wp_version_gte( '5.5' ) ? array( 'integer', 'string' ) : '',
 							'context'     => array( 'view', 'edit' )
 						),
@@ -571,6 +576,7 @@ class WC_PB_REST_API {
 								'menu_order'                            => $data_item->get_menu_order(),
 								'quantity_min'                          => $data_item->get_meta( 'quantity_min' ),
 								'quantity_max'                          => $data_item->get_meta( 'quantity_max' ),
+								'quantity_default'                      => $data_item->get_meta( 'quantity_default' ),
 								'priced_individually'                   => 'yes' === $data_item->get_meta( 'priced_individually' ),
 								'shipped_individually'                  => 'yes' === $data_item->get_meta( 'shipped_individually' ),
 								'override_title'                        => 'yes' === $data_item->get_meta( 'override_title' ),

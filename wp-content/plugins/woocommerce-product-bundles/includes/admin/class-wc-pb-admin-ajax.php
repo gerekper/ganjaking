@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin AJAX meta-box handlers.
  *
  * @class    WC_PB_Admin_Ajax
- * @version  6.3.0
+ * @version  6.4.0
  */
 class WC_PB_Admin_Ajax {
 
@@ -39,7 +39,7 @@ class WC_PB_Admin_Ajax {
 		add_action( 'wp_ajax_woocommerce_dismiss_bundle_notice', array( __CLASS__ , 'dismiss_notice' ) );
 
 		// Ajax handler for performing loopback tests.
-		add_action( 'wp_ajax_woocommerce_bundles_loopback_test', array( __CLASS__, 'ajax_loopback_test' ) );
+		add_action( 'wp_ajax_woocommerce_bundles_health-check-loopback_test', array( __CLASS__, 'ajax_loopback_test' ) );
 
 		/*
 		 * Edit-Product screens.

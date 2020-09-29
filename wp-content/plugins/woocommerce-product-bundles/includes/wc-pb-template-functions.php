@@ -67,13 +67,15 @@ function wc_pb_template_add_to_cart() {
 	}
 
 	if ( ! empty( $bundled_items ) ) {
+
 		wc_get_template( 'single-product/add-to-cart/bundle.php', array(
-			'availability_html' => wc_get_stock_html( $product ),
-			'bundle_price_data' => $product->get_bundle_price_data(),
 			'bundled_items'     => $bundled_items,
 			'product'           => $product,
+			'classes'           => implode( ' ', $form_classes ),
+			// Back-compat.
 			'product_id'        => $product->get_id(),
-			'classes'           => implode( ' ', $form_classes )
+			'availability_html' => wc_get_stock_html( $product ),
+			'bundle_price_data' => $product->get_bundle_form_data()
 		), false, WC_PB()->plugin_path() . '/templates/' );
 	}
 }
@@ -110,13 +112,17 @@ function wc_pb_template_add_to_cart_wrap( $product ) {
 		}
 	}
 
+	$form_data = $product->get_bundle_form_data();
+
 	wc_get_template( 'single-product/add-to-cart/bundle-add-to-cart-wrap.php', array(
 		'is_purchasable'     => $is_purchasable,
 		'purchasable_notice' => $purchasable_notice,
 		'availability_html'  => wc_get_stock_html( $product ),
-		'bundle_price_data'  => $product->get_bundle_price_data(),
+		'bundle_form_data'   => $form_data,
 		'product'            => $product,
-		'product_id'         => $product->get_id()
+		'product_id'         => $product->get_id(),
+		// Back-compat:
+		'bundle_price_data'  => $form_data,
 	), false, WC_PB()->plugin_path() . '/templates/' );
 }
 
@@ -148,7 +154,7 @@ function wc_pb_template_add_to_cart_button( $bundle = false ) {
  */
 function wc_pb_template_bundled_item_title( $bundled_item, $bundle ) {
 
-	$min_qty = $bundled_item->get_quantity();
+	$min_qty = $bundled_item->get_quantity( 'min' );
 	$max_qty = $bundled_item->get_quantity( 'max' );
 
 	$qty     = $min_qty > 1 && $min_qty === $max_qty ? $min_qty : '';
@@ -269,10 +275,11 @@ function wc_pb_template_tabular_bundled_item_qty( $bundled_item, $bundle ) {
 		/** Documented in 'WC_PB_Cart::get_posted_bundle_configuration'. */
 		$bundle_fields_prefix = apply_filters( 'woocommerce_product_bundle_field_prefix', '', $bundle->get_id() );
 
-		$quantity_min = $bundled_item->get_quantity();
-		$quantity_max = $bundled_item->get_quantity( 'max', array( 'bound_by_stock' => true ) );
-		$input_name   = $bundle_fields_prefix . 'bundle_quantity_' . $bundled_item->get_id();
-		$hide_input   = $quantity_min === $quantity_max || false === $bundled_item->is_in_stock();
+		$quantity_min     = $bundled_item->get_quantity( 'min' );
+		$quantity_max     = $bundled_item->get_quantity( 'max' );
+		$quantity_default = $bundled_item->get_quantity( 'default' );
+		$input_name       = $bundle_fields_prefix . 'bundle_quantity_' . $bundled_item->get_id();
+		$hide_input       = $quantity_min === $quantity_max;
 
 		echo '<td class="bundled_item_col bundled_item_qty_col">';
 
@@ -280,6 +287,7 @@ function wc_pb_template_tabular_bundled_item_qty( $bundled_item, $bundle ) {
 			'bundled_item'         => $bundled_item,
 			'quantity_min'         => $quantity_min,
 			'quantity_max'         => $quantity_max,
+			'quantity_default'     => $quantity_default,
 			'input_name'           => $input_name,
 			'layout'               => $layout,
 			'hide_input'           => $hide_input,
@@ -305,15 +313,16 @@ function wc_pb_template_default_bundled_item_qty( $bundled_item ) {
 		/** Documented in 'WC_PB_Cart::get_posted_bundle_configuration'. */
 		$bundle_fields_prefix = apply_filters( 'woocommerce_product_bundle_field_prefix', '', $bundle->get_id() );
 
-		$quantity_min = $bundled_item->get_quantity();
-		$quantity_max = $bundled_item->get_quantity( 'max', array( 'bound_by_stock' => true ) );
-		$input_name   = $bundle_fields_prefix . 'bundle_quantity_' . $bundled_item->get_id();
-		$hide_input   = $quantity_min === $quantity_max || false === $bundled_item->is_in_stock();
-
+		$quantity_min     = $bundled_item->get_quantity( 'min' );
+		$quantity_max     = $bundled_item->get_quantity( 'max' );
+		$quantity_default = $bundled_item->get_quantity( 'default' );
+		$input_name       = $bundle_fields_prefix . 'bundle_quantity_' . $bundled_item->get_id();
+		$hide_input       = $quantity_min === $quantity_max;
 		wc_get_template( 'single-product/bundled-item-quantity.php', array(
 			'bundled_item'         => $bundled_item,
 			'quantity_min'         => $quantity_min,
 			'quantity_max'         => $quantity_max,
+			'quantity_default'     => $quantity_default,
 			'input_name'           => $input_name,
 			'layout'               => $layout,
 			'hide_input'           => $hide_input,
@@ -404,12 +413,40 @@ function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
 
 		if ( $bundled_item->is_optional() ) {
 
+			$label_price = '';
+
+			if ( ( $price_html = $bundled_item->product->get_price_html() ) && $bundled_item->is_priced_individually() ) {
+
+				$label_price_format = __( ' for %s', 'woocommerce-product-bundles' );
+				$html_from_text_native = wc_get_price_html_from_text();
+
+				if ( false !== strpos( $price_html, $html_from_text_native ) ) {
+					$label_price_format = __( ' from %s', 'woocommerce-product-bundles' );
+					$price_html  = str_replace( $html_from_text_native, '', $price_html );
+				}
+
+				$label_price = sprintf( $label_price_format, '<span class="price">' . $price_html . '</span>' );
+			}
+
+			$label_title = '';
+
+			if ( $bundled_item->get_title() === '' ) {
+
+				$min_quantity = $bundled_item->get_quantity( 'min' );
+				$max_quantity = $bundled_item->get_quantity( 'max' );
+				$label_suffix = $min_quantity > 1 && $max_quantity === $min_quantity ? $min_quantity : '';
+				$label_title  = sprintf( __( ' &quot;%s&quot;', 'woocommerce-product-bundles' ), WC_PB_Helpers::format_product_shop_title( $bundled_item->get_raw_title(), $label_suffix ) );
+			}
+
 			// Optional checkbox template.
 			wc_get_template( 'single-product/bundled-item-optional.php', array(
-				'quantity'             => $bundled_item->get_quantity(),
+				'label_title'          => $label_title,
+				'label_price'          => $label_price,
 				'bundled_item'         => $bundled_item,
 				'bundle_fields_prefix' => $bundle_fields_prefix,
-				'availability_html'    => false === $bundled_item->is_in_stock() ? $bundled_item->get_availability_html() : ''
+				'availability_html'    => false === $bundled_item->is_in_stock() ? $bundled_item->get_availability_html() : '',
+				// Back-compat.
+				'quantity'             => $bundled_item->get_quantity( 'min' )
 			), false, WC_PB()->plugin_path() . '/templates/' );
 		}
 

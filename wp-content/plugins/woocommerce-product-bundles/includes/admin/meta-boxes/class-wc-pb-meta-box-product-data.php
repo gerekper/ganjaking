@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.3.0
+ * @version  6.4.0
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -52,7 +52,10 @@ class WC_PB_Meta_Box_Product_Data {
 		add_action( 'woocommerce_bundled_product_admin_advanced_html', array( __CLASS__, 'bundled_product_admin_advanced_item_id_html' ), 100, 4 );
 
 		// Bundle tab settings.
-		add_action( 'woocommerce_bundled_products_admin_config', array( __CLASS__, 'bundled_products_admin_config' ), 10 );
+		add_action( 'woocommerce_bundled_products_admin_config', array( __CLASS__, 'bundled_products_admin_config_layout' ), 5 );
+		add_action( 'woocommerce_bundled_products_admin_config', array( __CLASS__, 'bundled_products_admin_config_form_location' ), 10 );
+		add_action( 'woocommerce_bundled_products_admin_config', array( __CLASS__, 'bundled_products_admin_config_group_mode' ), 15 );
+		add_action( 'woocommerce_bundled_products_admin_config', array( __CLASS__, 'bundled_products_admin_config_edit_in_cart' ), 20 );
 		add_action( 'woocommerce_bundled_products_admin_contents', array( __CLASS__, 'bundled_products_admin_contents' ), 20 );
 
 		// Extended "Sold Individually" option.
@@ -497,16 +500,6 @@ class WC_PB_Meta_Box_Product_Data {
 
 			}
 
-			/*
-			 * Show non-mandatory bundle notice.
-			 */
-			if ( ! class_exists( 'WC_PB_Min_Max_Items' ) && 'none' !== $product->get_group_mode( 'edit' ) && $product->get_bundled_items() && ! $product->contains( 'mandatory' ) ) {
-
-				$notice = sprintf( __( 'Looking for a way to control the minimum or maximum number of items that customers must choose in this bundle? Check out the free <a href="%s" target="_blank">Min/Max Items</a> add-on!', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'min-max' ) );
-
-				self::add_admin_notice( $notice, array( 'dismiss_class' => 'process_data_min_max', 'type' => 'info' ) );
-			}
-
 			// Clear dismissible welcome notice.
 			WC_PB_Admin_Notices::remove_dismissible_notice( 'welcome' );
 		}
@@ -638,7 +631,7 @@ class WC_PB_Meta_Box_Product_Data {
 						$item_data[ 'shipped_individually' ] = 'no';
 					}
 
-					// Save quantity data.
+					// Save min quantity.
 					if ( isset( $data[ 'quantity_min' ] ) ) {
 
 						if ( is_numeric( $data[ 'quantity_min' ] ) ) {
@@ -648,14 +641,14 @@ class WC_PB_Meta_Box_Product_Data {
 							if ( $quantity >= 0 && $data[ 'quantity_min' ] - $quantity == 0 ) {
 
 								if ( $quantity !== 1 && $product->is_sold_individually() ) {
-									self::add_admin_error( sprintf( __( '<strong>%s</strong> is sold individually &ndash; its <strong>Quantity Min</strong> cannot be higher than 1.', 'woocommerce-product-bundles' ), $item_title ) );
+									self::add_admin_error( sprintf( __( '<strong>%s</strong> is sold individually &ndash; its <strong>Min Quantity</strong> cannot be higher than 1.', 'woocommerce-product-bundles' ), $item_title ) );
 									$item_data[ 'quantity_min' ] = 1;
 								} else {
 									$item_data[ 'quantity_min' ] = $quantity;
 								}
 
 							} else {
-								self::add_admin_error( sprintf( __( 'The minimum quantity of <strong>%s</strong> was not valid and has been reset. Please enter a non-negative integer <strong>Quantity Min</strong> value.', 'woocommerce-product-bundles' ), $item_title ) );
+								self::add_admin_error( sprintf( __( 'The minimum quantity of <strong>%s</strong> was not valid and has been reset. Please enter a non-negative integer <strong>Min Quantity</strong> value.', 'woocommerce-product-bundles' ), $item_title ) );
 								$item_data[ 'quantity_min' ] = 1;
 							}
 						}
@@ -666,7 +659,7 @@ class WC_PB_Meta_Box_Product_Data {
 
 					$quantity_min = $item_data[ 'quantity_min' ];
 
-					// Save max quantity data.
+					// Save max quantity.
 					if ( isset( $data[ 'quantity_max' ] ) && ( is_numeric( $data[ 'quantity_max' ] ) || '' === $data[ 'quantity_max' ] ) ) {
 
 						$quantity = '' !== $data[ 'quantity_max' ] ? absint( $data[ 'quantity_max' ] ) : '';
@@ -674,18 +667,15 @@ class WC_PB_Meta_Box_Product_Data {
 						if ( '' === $quantity || ( $quantity > 0 && $quantity >= $quantity_min && $data[ 'quantity_max' ] - $quantity == 0 ) ) {
 
 							if ( $quantity !== 1 && $product->is_sold_individually() ) {
-
-								self::add_admin_error( sprintf( __( '<strong>%s</strong> is sold individually &ndash; <strong>Quantity Max</strong> cannot be higher than 1.', 'woocommerce-product-bundles' ), $item_title ) );
-
+								self::add_admin_error( sprintf( __( '<strong>%s</strong> is sold individually &ndash; <strong>Max Quantity</strong> cannot be higher than 1.', 'woocommerce-product-bundles' ), $item_title ) );
 								$item_data[ 'quantity_max' ] = 1;
-
 							} else {
 								$item_data[ 'quantity_max' ] = $quantity;
 							}
 
 						} else {
 
-							self::add_admin_error( sprintf( __( 'The maximum quantity of <strong>%s</strong> was not valid and has been reset. Please enter a positive integer equal to or higher than <strong>Quantity Min</strong>, or leave the <strong>Quantity Max</strong> field empty for an unlimited maximum quantity.', 'woocommerce-product-bundles' ), $item_title ) );
+							self::add_admin_error( sprintf( __( 'The maximum quantity of <strong>%s</strong> was not valid and has been reset. Please enter a positive integer equal to or higher than <strong>Min Quantity</strong>, or leave the <strong>Max Quantity</strong> field empty for an unlimited maximum quantity.', 'woocommerce-product-bundles' ), $item_title ) );
 
 							if ( 0 === $quantity_min ) {
 								$item_data[ 'quantity_max' ] = 1;
@@ -696,6 +686,24 @@ class WC_PB_Meta_Box_Product_Data {
 
 					} else {
 						$item_data[ 'quantity_max' ] = max( $quantity_min, 1 );
+					}
+
+					$quantity_max = $item_data[ 'quantity_max' ];
+
+					// Save default quantity.
+					if ( isset( $data[ 'quantity_default' ] ) && is_numeric( $data[ 'quantity_default' ] ) ) {
+
+						$quantity = absint( $data[ 'quantity_default' ] );
+
+						if ( $quantity >= $quantity_min && ( $quantity <= $quantity_max || '' === $quantity_max ) ) {
+							$item_data[ 'quantity_default' ] = $quantity;
+						} else {
+							self::add_admin_error( sprintf( __( 'The default quantity of <strong>%s</strong> was not valid and has been reset. Please enter an integer between the <strong>Min Quantity</strong> and <strong>Max Quantity</strong>.', 'woocommerce-product-bundles' ), $item_title ) );
+							$item_data[ 'quantity_default' ] = $quantity_min;
+						}
+
+					} else {
+						$item_data[ 'quantity_default' ] = $quantity_min;
 					}
 
 					// Save sale price data.
@@ -1010,8 +1018,9 @@ class WC_PB_Meta_Box_Product_Data {
 			</div><?php
 		}
 
-		$item_quantity     = isset( $item_data[ 'quantity_min' ] ) ? absint( $item_data[ 'quantity_min' ] ) : 1;
-		$item_quantity_max = $item_quantity;
+		$item_quantity         = isset( $item_data[ 'quantity_min' ] ) ? absint( $item_data[ 'quantity_min' ] ) : 1;
+		$item_quantity_max     = $item_quantity;
+		$item_quantity_default = $item_quantity;
 
 		if ( isset( $item_data[ 'quantity_max' ] ) ) {
 			if ( '' !== $item_data[ 'quantity_max' ] ) {
@@ -1019,6 +1028,10 @@ class WC_PB_Meta_Box_Product_Data {
 			} else {
 				$item_quantity_max = '';
 			}
+		}
+
+		if ( isset( $item_data[ 'quantity_default' ] ) ) {
+			$item_quantity_default = absint( $item_data[ 'quantity_default' ] ) ;
 		}
 
 		$is_priced_individually  = isset( $item_data[ 'priced_individually' ] ) && 'yes' === $item_data[ 'priced_individually' ] ? 'yes' : '';
@@ -1041,17 +1054,25 @@ class WC_PB_Meta_Box_Product_Data {
 
 		<div class="quantity_min">
 			<div class="form-field">
-				<label><?php echo __( 'Quantity Min', 'woocommerce-product-bundles' ); ?></label>
+				<label><?php echo __( 'Min Quantity', 'woocommerce-product-bundles' ); ?></label>
 				<input type="number" class="item_quantity" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_min]" value="<?php echo $item_quantity; ?>" step="any" min="0" />
-				<?php echo wc_help_tip( __( 'The minimum/default quantity of this bundled product.', 'woocommerce-product-bundles' ) ); ?>
+				<?php echo wc_help_tip( __( 'The minimum quantity of this bundled product.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
 
 		<div class="quantity_max">
 			<div class="form-field">
-				<label><?php echo __( 'Quantity Max', 'woocommerce-product-bundles' ); ?></label>
+				<label><?php echo __( 'Max Quantity', 'woocommerce-product-bundles' ); ?></label>
 				<input type="number" class="item_quantity" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_max]" value="<?php echo $item_quantity_max; ?>" step="any" min="0" />
 				<?php echo wc_help_tip( __( 'The maximum quantity of this bundled product. Leave the field empty for an unlimited maximum quantity.', 'woocommerce-product-bundles' ) ); ?>
+			</div>
+		</div>
+
+		<div class="quantity_default">
+			<div class="form-field">
+				<label><?php echo __( 'Default Quantity', 'woocommerce-product-bundles' ); ?></label>
+				<input type="number" class="item_quantity" size="6" name="bundle_data[<?php echo $loop; ?>][quantity_default]" value="<?php echo $item_quantity_default; ?>" step="any" min="0" />
+				<?php echo wc_help_tip( __( 'The default quantity of this bundled product.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div>
 
@@ -1208,21 +1229,6 @@ class WC_PB_Meta_Box_Product_Data {
 				<?php echo sprintf( _x( 'Item ID: %s', 'bundled product id', 'woocommerce-product-bundles' ), $item_data[ 'bundled_item' ]->get_id() ); ?>
 			</span><?php
 		}
-	}
-
-	/**
-	 * Render top-level options on 'woocommerce_bundled_products_admin_config'.
-	 *
-	 * @since  5.8.0
-	 *
-	 * @param  WC_Product_Bundle  $product_bundle_object
-	 */
-	public static function bundled_products_admin_config( $product_bundle_object ) {
-
-		self::bundled_products_admin_config_layout( $product_bundle_object );
-		self::bundled_products_admin_config_form_location( $product_bundle_object );
-		self::bundled_products_admin_config_group_mode( $product_bundle_object );
-		self::bundled_products_admin_config_edit_in_cart( $product_bundle_object );
 	}
 
 	/**
@@ -1494,12 +1500,14 @@ class WC_PB_Meta_Box_Product_Data {
 	|--------------------------------------------------------------------------
 	*/
 
+	public static function bundled_products_admin_config( $product_bundle_object ) {
+		_deprecated_function( __METHOD__ . '()', '6.4.0' );
+	}
 	public static function form_location_option( $product_bundle_object ) {
 		_deprecated_function( __METHOD__ . '()', '5.8.0', __CLASS__ . '::bundled_products_admin_config_form_location()' );
 		global $product_bundle_object;
 		return self::bundled_products_admin_config_form_location( $product_bundle_object );
 	}
-
 	public static function build_bundle_config( $post_id, $posted_bundle_data ) {
 		_deprecated_function( __METHOD__ . '()', '4.11.7', __CLASS__ . '::process_posted_bundle_data()' );
 		return self::process_posted_bundle_data( $posted_bundle_data, $post_id );

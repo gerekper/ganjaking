@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * One Page Checkout Compatibility.
  *
- * @version  5.5.0
+ * @version  6.4.0
  */
 class WC_PB_OPC_Compatibility {
 
@@ -50,12 +50,13 @@ class WC_PB_OPC_Compatibility {
 				ob_start();
 
 				wc_get_template( 'single-product/add-to-cart/bundle.php', array(
-					'availability_html' => wc_get_stock_html( $product ),
-					'bundle_price_data' => $product->get_bundle_price_data(),
 					'bundled_items'     => $bundled_items,
 					'product'           => $product,
+					'classes'           => implode( ' ', $form_classes ),
+					// Back-compat.
 					'product_id'        => $product->get_id(),
-					'classes'           => implode( ' ', $form_classes )
+					'availability_html' => wc_get_stock_html( $product ),
+					'bundle_price_data' => $product->get_bundle_form_data()
 				), false, WC_PB()->plugin_path() . '/templates/' );
 
 				echo str_replace( array( '<form method="post" enctype="multipart/form-data"', '</form>' ), array( '<div', '</div>' ), ob_get_clean() );

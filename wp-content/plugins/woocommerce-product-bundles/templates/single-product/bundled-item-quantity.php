@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 5.8.0
+ * @version 6.4.0
  */
 
 // Exit if accessed directly.
@@ -35,7 +35,7 @@ if ( $hide_input ) {
 		'input_name'  => $input_name,
 		'min_value'   => $quantity_min,
 		'max_value'   => $quantity_max,
-		'input_value' => isset( $_REQUEST[ $input_name ] ) ? absint( $_REQUEST[ $input_name ] ) : apply_filters( 'woocommerce_bundled_product_quantity', $quantity_min, $quantity_min, $quantity_max, $bundled_item )
+		'input_value' => isset( $_REQUEST[ $input_name ] ) ? absint( $_REQUEST[ $input_name ] ) : apply_filters( 'woocommerce_bundled_product_quantity', $quantity_default, $quantity_min, $quantity_max, $bundled_item )
 	), $bundled_item->product );
 
 	echo preg_replace( '/(class=\"[^\"]*qty)([\"\ ])/', '$1 bundled_qty$2', ob_get_clean() );

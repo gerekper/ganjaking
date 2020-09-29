@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Hooks for DB lifecycle management of products, bundles, bundled items and their meta.
  *
  * @class    WC_PB_DB_Sync
- * @version  5.8.0
+ * @version  6.4.0
  */
 class WC_PB_DB_Sync {
 
@@ -58,13 +58,16 @@ class WC_PB_DB_Sync {
 
 		if ( ! defined( 'WC_PB_DEBUG_STOCK_SYNC' ) ) {
 
-			// Delete bundled item stock meta when stock changes.
+			// Schedule bundled item stock meta update when stock changes.
 			add_action( 'woocommerce_product_set_stock', array( __CLASS__, 'product_stock_changed' ), 100 );
 			add_action( 'woocommerce_variation_set_stock', array( __CLASS__, 'product_stock_changed' ), 100 );
 
-			// Delete bundled item stock meta when stock status changes.
+			// Schedule bundled item stock meta update when stock status changes.
 			add_action( 'woocommerce_product_set_stock_status', array( __CLASS__, 'product_stock_status_changed' ), 100, 3 );
 			add_action( 'woocommerce_variation_set_stock_status', array( __CLASS__, 'product_stock_status_changed' ), 100, 3 );
+
+			// Schedule bundled item stock meta update when the backorder prop changes.
+			add_action( 'woocommerce_product_object_updated_props', array( __CLASS__, 'backorder_prop_changed' ), 100, 2 );
 
 			// Set stock update pre-syncing flag.
 			add_action( 'woocommerce_init', array( __CLASS__, 'set_bundled_product_stock_pre_sync' ), 10 );
@@ -184,7 +187,7 @@ class WC_PB_DB_Sync {
 	}
 
 	/**
-	 * Delete bundled item stock meta cache when an associated product stock changes.
+	 * Delete bundled item stock meta cache when a linked product stock changes.
 	 *
 	 * @param  mixed   $product_id
 	 * @param  string  $stock_status
@@ -201,7 +204,20 @@ class WC_PB_DB_Sync {
 	}
 
 	/**
-	 * Delete bundled item stock meta cache when an associated product stock changes.
+	 * Delete bundled item stock meta cache when the 'backorders' prop of a linked product changes.
+	 *
+	 * @param  WC_Product  $product
+	 * @param  array       $changes
+	 * @return void
+	 */
+	public static function backorder_prop_changed( $product, $changes ) {
+		if ( in_array( 'backorders', $changes ) ) {
+			self::bundled_product_stock_changed( $product );
+		}
+	}
+
+	/**
+	 * Delete bundled item stock meta cache when a linked product stock changes.
 	 *
 	 * @param  WC_Product  $product
 	 * @return void

@@ -1,5 +1,12 @@
 *** WooCommerce Product Bundles ***
 
+2020.09.25 - version 6.4.0
+* Feature - Rolled 'Min/Max Items' feature plugin into Product Bundles.
+* Feature - Introduced 'Default Quantity' field.
+* Feature - Added Flatsome quickview support.
+* Tweak - Display running bundle total even if validation messages exist.
+* Tweak - Keep bundled product quantity selectors unconstrained by stock, and always visible.
+
 2020.08.21 - version 6.3.5
 * Fix - Fixed an edge-case issue that prevented Product Bundles with discounted, mandatory items from appearing as on sale in the catalog.
 * Tweak - Preserve runtime meta when cloning parent item in shipping packages.
