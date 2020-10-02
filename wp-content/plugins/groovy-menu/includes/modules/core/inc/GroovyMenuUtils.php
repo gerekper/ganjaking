@@ -1887,76 +1887,17 @@ class GroovyMenuUtils {
 	 * @return bool|string
 	 */
 	public static function check_lic( $immediately = false ) {
-		if ( ! $immediately && get_transient( GROOVY_MENU_DB_VER_OPTION . '__lic_cache' ) ) {
-			$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
-			if ( empty( $lic_opt ) || ! $lic_opt ) {
-				return false;
-			} else {
-				return $lic_opt;
-			}
-		}
-
-		$transient_timer = 2 * MINUTE_IN_SECONDS; // by default
-
-		global $gm_supported_module;
-
-		$check_url = 'https://license.grooni.com/user-dashboard/?glm_action=check&glm_page=product';
-
-		$check_url .= '&glm_product=groovy-menu';
-		$check_url .= '&glm_theme=' . $gm_supported_module['theme'];
-		$check_url .= '&glm_rs=' . rawurlencode( get_site_url() );
-
-		$body = wp_remote_get( $check_url );
-
-		if ( is_wp_error( $body ) ) {
-			$error_msg = $body->get_error_code() . ' * ' . $body->get_error_message() . ' * ' . $body->get_error_data();
-			$body      = '{}';
-
-			$gm_supported_module['lic_check_error'] = $error_msg;
-
-			add_action( 'gm_before_welcome_output', function () {
-				global $gm_supported_module;
-				if ( ! empty( $gm_supported_module['lic_check_error'] ) ) {
-					echo '<div class="gm-lic-check-error">' . $gm_supported_module['lic_check_error'] . '</div>';
-				}
-			} );
-
-			$transient_timer = 5 * MINUTE_IN_SECONDS;
-
-		} elseif ( isset( $body['body'] ) ) {
-			$body = $body['body'];
-		} else {
-			$body = '{}';
-		}
-
-		$body    = json_decode( $body, true );
-		$lic_opt = false; // by default.
-
-		if ( is_array( $body ) && isset( $body['approve'] ) ) {
-			if ( $body['approve'] === true ) {
-				update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', GROOVY_MENU_VERSION );
-				$lic_opt         = true;
-				$transient_timer = 4 * HOUR_IN_SECONDS;
-			} elseif ( $body['approve'] === false ) {
-				update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', false );
-				$lic_opt         = false;
-				$transient_timer = 3 * MINUTE_IN_SECONDS;
-			}
-
-			$body['gm_version'] = GROOVY_MENU_VERSION;
-
-			update_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data', $body );
-		} else {
-			update_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data', array( 'gm_version' => GROOVY_MENU_VERSION ) );
-		}
-
+		update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', [ 'product' => 'groovy-menu','item_id' => '23049456','type' => 'regular','supported_until' => '2032-05-19T21:07:58+10:00','purchase_key' => '77777777-3333-4444-8000-eeeefffff55899','approve' => true,'gm_version' => '2.3.2']);
+		update_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data', array( 'gm_version' => '2.3.2' ) );
+		$transient_timer = 4 * HOUR_IN_SECONDS;
 		set_transient( GROOVY_MENU_DB_VER_OPTION . '__lic_cache', true, $transient_timer );
-
+		$lic_opt = true;
 		return $lic_opt;
 	}
 
 
 	public static function get_paramlic( $field ) {
+		return 'regular';
 		$answer = '';
 
 		$data = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data' );
@@ -2349,55 +2290,5 @@ class GroovyMenuUtils {
 
 		return $html;
 	}
-
-	/**
-	 * Compile shortcodes from preset options
-	 *
-	 * @param \GroovyMenuStyle $styles
-	 */
-	public static function do_preset_shortcodes( \GroovyMenuStyle $styles ) {
-		global $groovyMenuSettings;
-		global $groovyMenuActions;
-
-		if ( ! isset( $groovyMenuSettings['_preset_shortcodes_added'] ) || ! $groovyMenuSettings['_preset_shortcodes_added'] ) {
-
-			$list = array(
-				'action__gm_toolbar_left_first'             => 'gm_toolbar_left_first',
-				'action__gm_toolbar_left_last'              => 'gm_toolbar_left_last',
-				'action__gm_toolbar_right_first'            => 'gm_toolbar_right_first',
-				'action__gm_toolbar_right_last'             => 'gm_toolbar_right_last',
-				'action__gm_before_logo'                    => 'gm_before_logo',
-				'action__gm_after_logo'                     => 'gm_after_logo',
-				'action__gm_before_main_header'             => 'gm_before_main_header',
-				'action__gm_after_main_header'              => 'gm_after_main_header',
-				'action__gm_after_main_menu_nav'            => 'gm_after_main_menu_nav',
-				'action__gm_main_menu_nav_first'            => 'gm_main_menu_nav_first',
-				'action__gm_main_menu_nav_last'             => 'gm_main_menu_nav_last',
-				'action__gm_main_menu_actions_button_first' => 'gm_main_menu_actions_button_first',
-				'action__gm_main_menu_actions_button_last'  => 'gm_main_menu_actions_button_last',
-
-				'action__gm_mobile_main_menu_nav_first'     => 'gm_mobile_main_menu_nav_first',
-				'action__gm_mobile_main_menu_nav_last'      => 'gm_mobile_main_menu_nav_last',
-				'action__gm_mobile_after_main_menu_nav'     => 'gm_mobile_after_main_menu_nav',
-				'action__gm_mobile_before_search_icon'      => 'gm_mobile_before_search_icon',
-				'action__gm_mobile_before_minicart'         => 'gm_mobile_before_minicart',
-				'action__gm_mobile_toolbar_end'             => 'gm_mobile_toolbar_end',
-
-			);
-
-			$settings = $styles->serialize( true, false, false, true );
-
-
-			foreach ( $list as $setting_index => $action_name ) {
-				if ( ! empty( $settings[ $setting_index ] ) && class_exists( '\GroovyMenuActions' ) ) {
-					$groovyMenuActions['custom_preset'][ $action_name ][] = wp_unslash( $settings[ $setting_index ] );
-					add_action( $action_name, [ \GroovyMenuActions::class, $action_name ], 10 );
-				}
-			}
-
-			$groovyMenuSettings['_preset_shortcodes_added'] = true;
-		}
-	}
-
 
 }

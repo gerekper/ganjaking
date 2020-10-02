@@ -4,10 +4,38 @@
  * @return string
  */
 function GroovyMenuPreviewModal() {
-	$lang            = [ ];
+	$lang            = [];
 	$lang['Preview'] = esc_html__( 'Preview', 'groovy-menu' );
 	$lang['Default'] = esc_html__( 'Default', 'groovy-menu' );
 	$lang['Sticky']  = esc_html__( 'Sticky', 'groovy-menu' );
+
+
+	$default_arr = array( 'default' => '--- ' . esc_html__( 'Nav menu', 'groovy-menu' ) . ': ' . esc_html__( 'Default', 'groovy-menu' ) . ' ---' );
+	$nav_menus   = $default_arr + GroovyMenuUtils::getNavMenus();
+
+	$current_nav_menu = 'default';
+
+	ob_start();
+	?>
+	<div class="preview-navmenu-change__tabs gm-gui__module__ui gm-gui__module__select-wrapper">
+		<select data-value="<?php echo esc_attr( $current_nav_menu ); ?>"
+			data-name="gm-preview-nav-menu"
+			class="gm-select" name="gm-preview-nav-menu"
+			data-default="default">
+			<?php
+			foreach ( $nav_menus as $key => $option ) {
+				$optionName = $option;
+				if ( is_array( $option ) ) {
+					$optionName = $option['title'];
+				}
+				?>
+				<option value="<?php echo esc_attr( $key ); ?>"
+					<?php echo ( strval( $current_nav_menu ) === strval( $key ) ) ? 'selected' : ''; ?>><?php echo esc_html( $optionName ); ?></option>
+			<?php } ?>
+		</select>
+	</div>
+	<?php
+	$select_nav_menus = ob_get_clean();
 
 	$html = <<<HTML
 	
@@ -62,6 +90,9 @@ function GroovyMenuPreviewModal() {
 				<a href="#" data-sticky="false" class="active">{$lang['Default']}</a>
 				<a href="#" data-sticky="true">{$lang['Sticky']}</a>
 			</div>
+			
+			{$select_nav_menus}
+			
 <!--			<span class="gm-close"></span>-->
 		</div>
 		<div class="gm-modal-body-iframe"></div>

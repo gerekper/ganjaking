@@ -34,7 +34,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.10.0';
+	const VERSION = '2.10.1';
 
 	/** @var WC_Social_Login single instance of this plugin */
 	protected static $instance;

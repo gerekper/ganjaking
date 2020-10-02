@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.5.1
-Stable tag: 2.3.0
+Stable tag: 2.3.2
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -60,6 +60,23 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.3.2 =
+* Add: New setting to set the top gap for the mobile menu "Mobile menu top gap".
+* Add: Added new action "gm_mobile_main_menu_top". It allows you to add content to the top of the mobile menu, before the "Mobile menu top gap".
+* Add: Added the ability to disable the default Groovy Menu output on all pages. At "Global settings > Taxonomies" you can select "Default preset for all content"  as "Hide Groovy menu".
+* Fix: Scrolling at vertical menu in the mobile version.
+* Fix: Canceled some functions for working with page content if the mobile menu is disabled.
+* Fix: Fixed bug when open the mobile site, the menu has been opened and then folded.
+
+
+= 2.3.1 =
+* Add: Added the new mobile menu open type, with Close "X" icon.
+* Add: Added the ability to set animated Hamburger and close button for mobile menu.
+* Add: New type of mobile menu with slide effect.
+* Add: Added ability to choise of Navigation menu to display in preview mode.
+* Add: New appearance style "Animate with scaling" in "General - Submenus - Submenu appearance style" section.
+* Add: Custom scroll speed options for onepage menus.
 
 = 2.3.0 =
 * Add: Ability to add a custom shortcode or HTML to the Action areas of Groovy Menu, direclty in the preset editor. The setting is available in the General preset editor > Custom code.

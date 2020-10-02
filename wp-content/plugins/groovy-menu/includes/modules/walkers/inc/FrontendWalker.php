@@ -31,6 +31,8 @@ class FrontendWalker extends WalkerNavMenu {
 	 * @param array  $args
 	 */
 	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+		$show_in_mobile = ( isset( $args->gm_navigation_mobile ) && $args->gm_navigation_mobile );
+
 		$indent = str_repeat( "\t", $depth );
 		$this->currentLvl ++;
 		$classes       = '';
@@ -59,7 +61,12 @@ class FrontendWalker extends WalkerNavMenu {
 			}
 		}
 
-		$output .= "\n$indent<div class=\"{$wrapper_class}\"><ul class=\"{$classes}\" {$styles}>\n";
+		$lvl_title_wrapper = '';
+		if ( $show_in_mobile ) {
+			$lvl_title_wrapper = '<div class="gm-dropdown-menu-title"></div>';
+		}
+
+		$output .= "\n$indent<div class=\"{$wrapper_class}\">{$lvl_title_wrapper}<ul class=\"{$classes}\" {$styles}>\n";
 	}
 
 
