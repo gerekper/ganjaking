@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.4
+ * @version     1.2.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -45,6 +45,8 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				add_filter( 'wc_sc_endpoint_account_settings_after_key', array( $this, 'endpoint_account_settings_after_key' ), 10, 2 );
 				add_filter( 'wc_sc_coupon_type', array( $this, 'valid_display_type' ), 11, 3 );
 				add_filter( 'wc_sc_coupon_amount', array( $this, 'valid_display_amount' ), 11, 2 );
+				add_filter( 'wc_sc_coupon_design_thumbnail_src_set', array( $this, 'coupon_design_thumbnail_src_set' ), 10, 2 );
+				add_filter( 'wc_sc_percent_discount_types', array( $this, 'percent_discount_types' ), 10, 2 );
 			}
 
 		}
@@ -839,11 +841,15 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 		 * @return array  $settings
 		 */
 		public function smart_coupons_settings( $settings = array() ) {
+			global $store_credit_label;
+
+			$singular = ( ! empty( $store_credit_label['singular'] ) ) ? $store_credit_label['singular'] : __( 'store credit', 'woocommerce-smart-coupons' );
 
 			$wc_subscriptions_options = array(
 				array(
-					'name'          => __( 'Recurring Subscriptions', 'woocommerce-smart-coupons' ),
-					'desc'          => __( 'Use store credit applied in first subscription order for subsequent renewals until credit reaches zero', 'woocommerce-smart-coupons' ),
+					'name'          => __( 'Recurring subscriptions', 'woocommerce-smart-coupons' ),
+					/* translators: %s: Label for store credit */
+					'desc'          => sprintf( __( 'Use %s applied in first subscription order for subsequent renewals until credit reaches zero', 'woocommerce-smart-coupons' ), strtolower( $singular ) ),
 					'id'            => 'pay_from_smart_coupon_of_original_order',
 					'type'          => 'checkbox',
 					'default'       => 'no',
@@ -1068,6 +1074,56 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				$coupon_amount = wc_price( $coupon_amount );
 			}
 			return $coupon_amount;
+		}
+
+		/**
+		 * Coupon design thumbnail src set for subscription coupons
+		 *
+		 * @param array $src_set Existing src set.
+		 * @param array $args Additional arguments.
+		 * @return array
+		 */
+		public function coupon_design_thumbnail_src_set( $src_set = array(), $args = array() ) {
+			$coupon = ( ! empty( $args['coupon_object'] ) ) ? $args['coupon_object'] : null;
+			if ( $this->is_wc_gte_30() ) {
+				$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
+			} else {
+				$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
+			}
+			if ( ! empty( $discount_type ) ) {
+				switch ( $discount_type ) {
+					case 'sign_up_fee':
+					case 'sign_up_fee_percent':
+						$src_set = array(
+							'subs-discount-voucher.svg',
+						);
+						break;
+
+					case 'recurring_fee':
+					case 'recurring_percent':
+						$src_set = array(
+							'subs-calendar-discount.svg',
+						);
+						break;
+				}
+			}
+			return $src_set;
+		}
+
+		/**
+		 * Get percent discount types fromm subscriptions
+		 *
+		 * @param array $discount_types Existing discount tyeps.
+		 * @param array $args Additional arguments.
+		 * @return array
+		 */
+		public function percent_discount_types( $discount_types = array(), $args = array() ) {
+			$subs_percent_discount_types = array(
+				'sign_up_fee_percent',
+				'recurring_percent',
+			);
+			$discount_types              = array_merge( $discount_types, $subs_percent_discount_types );
+			return $discount_types;
 		}
 
 		/**

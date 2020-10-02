@@ -1,5 +1,9 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2020.09.29 - version 9.1.0
+* New: Initial support for managing images included in the feed
+* Fix: Protect against bogus data from WC's product query when cache active
+
 2020.09.17 - version 9.0.4
 * New: Integration with the "Price by Country" extension
 * New: Integration with the "Mix and Match Products" extension

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.7.0
- * @version     1.0.1
+ * @version     1.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -61,6 +61,7 @@ if ( ! class_exists( 'WC_SC_Print_Coupon' ) ) {
 			add_filter( 'display_post_states', array( $this, 'display_post_states' ), 10, 2 );
 			add_filter( 'pre_delete_post', array( $this, 'prevent_deletion_of_terms_page' ), 10, 3 );
 			add_filter( 'pre_trash_post', array( $this, 'prevent_deletion_of_terms_page' ), 10, 2 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts_and_styles' ), 99 );
 		}
 
 		/**
@@ -362,10 +363,20 @@ if ( ! class_exists( 'WC_SC_Print_Coupon' ) ) {
 							}
 						}
 					}
-					$design           = get_option( 'wc_sc_setting_coupon_design', 'round-dashed' );
+					$design           = get_option( 'wc_sc_setting_coupon_design', 'basic' );
 					$background_color = get_option( 'wc_sc_setting_coupon_background_color', '#39cccc' );
 					$foreground_color = get_option( 'wc_sc_setting_coupon_foreground_color', '#30050b' );
-					$coupon_styles    = $woocommerce_smart_coupon->get_coupon_styles( $design );
+					$third_color      = get_option( 'wc_sc_setting_coupon_third_color', '#39cccc' );
+
+					$show_coupon_description = get_option( 'smart_coupons_show_coupon_description', 'no' );
+
+					$valid_designs = $this->get_valid_coupon_designs();
+
+					if ( ! in_array( $design, $valid_designs, true ) ) {
+						$design = 'basic';
+					}
+
+					$coupon_styles = $woocommerce_smart_coupon->get_coupon_styles( $design );
 
 					$default_path  = $this->template_base;
 					$template_path = $woocommerce_smart_coupon->get_template_base_dir( $this->template_html );
@@ -373,12 +384,15 @@ if ( ! class_exists( 'WC_SC_Print_Coupon' ) ) {
 					wc_get_template(
 						$this->template_html,
 						array(
-							'coupon_codes'       => $coupons_data,
-							'terms_page_title'   => $terms_page_title,
-							'terms_page_content' => $terms_page_content,
-							'background_color'   => $background_color,
-							'foreground_color'   => $foreground_color,
-							'coupon_styles'      => $coupon_styles,
+							'coupon_codes'            => $coupons_data,
+							'terms_page_title'        => $terms_page_title,
+							'terms_page_content'      => $terms_page_content,
+							'background_color'        => $background_color,
+							'foreground_color'        => $foreground_color,
+							'third_color'             => $third_color,
+							'coupon_styles'           => $coupon_styles,
+							'design'                  => $design,
+							'show_coupon_description' => $show_coupon_description,
 						),
 						$template_path,
 						$default_path
@@ -423,6 +437,30 @@ if ( ! class_exists( 'WC_SC_Print_Coupon' ) ) {
 				return false;
 			}
 			return $is_delete;
+		}
+
+		/**
+		 * Scripts & styles
+		 */
+		public function enqueue_scripts_and_styles() {
+			global $woocommerce_smart_coupon;
+
+			if ( empty( $_SERVER['QUERY_STRING'] ) ) {
+				return;
+			}
+
+			parse_str( wp_unslash( $_SERVER['QUERY_STRING'] ), $coupon_args ); // phpcs:ignore
+			$coupon_args = wc_clean( $coupon_args );
+
+			$design = get_option( 'wc_sc_setting_coupon_design', 'basic' );
+
+			if ( ! empty( $coupon_args['print-coupons'] ) && 'yes' === $coupon_args['print-coupons'] && ! empty( $coupon_args['source'] ) && 'wc-smart-coupons' === $coupon_args['source'] && ! empty( $coupon_args['coupon-codes'] ) ) {
+				if ( 'custom-design' !== $design ) {
+					if ( ! wp_style_is( 'smart-coupon-designs' ) ) {
+						wp_enqueue_style( 'smart-coupon-designs' );
+					}
+				}
+			}
 		}
 
 	}

@@ -2,8 +2,6 @@
 /**
  * Product Class
  *
- * @author   Kathy Darling
- * @category Classes
  * @package  WooCommerce Mix and Match Products/Classes/Products
  * @since    1.0.0
  * @version  1.10.0
@@ -99,7 +97,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		'max_container_size'    => null,
 		'contents'              => array(),
 		'priced_per_product'    => false,
-		'discount'				=> 0,
+		'discount'              => 0,
 		'shipped_per_product'   => false
 	);
 
@@ -278,7 +276,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	 */
 	public function get_discount( $context = 'any' ) {
 		$value = $this->get_prop( 'discount', $context );
-			
+
 		if ( 'edit' !== $context ) {
 			$value = floatval( $this->is_priced_per_product() ? $value : 0 );
 		}
@@ -311,9 +309,9 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		/**
 		 * Container minimum size.
 		 *
-		 * @param  str 				  $size
-		 * @param  obj WC_Product 	  $product
-	 	*/
+		 * @param  str                $size
+		 * @param  obj WC_Product     $product
+		*/
 		return 'view' === $context ? apply_filters( 'woocommerce_mnm_min_container_size', $value, $this ) : $value;
 	}
 
@@ -328,9 +326,9 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		/**
 		 * Container maximum size.
 		 *
-		 * @param  mixed			  $size
-		 * @param  obj WC_Product 	  $product
-	 	*/
+		 * @param  mixed              $size
+		 * @param  obj WC_Product     $product
+		*/
 		return 'view' === $context ? apply_filters( 'woocommerce_mnm_max_container_size', $value, $this ) : $value;
 	}
 
@@ -359,7 +357,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	 *
 	 * @param  string  $value
 	 */
-	public function	set_add_to_cart_form_location( $value ) {
+	public function set_add_to_cart_form_location( $value ) {
 		$value = in_array( $value, array_keys( self::get_add_to_cart_form_location_options() ) ) ? $value : 'default';
 		return $this->set_prop( 'add_to_cart_form_location', $value );
 	}
@@ -501,7 +499,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 		if ( is_array( $value ) ) {
 
-			foreach( $value as $id => $data ) {
+			foreach ( $value as $id => $data ) {
 
 				$child_item   = array();
 				$product_id   = $variation_id = 0;
@@ -510,19 +508,17 @@ class WC_Product_Mix_and_Match extends WC_Product {
 				$variation_id = isset( $data['variation_id'] ) ? intval( $data['variation_id'] ) : 0;
 				$child_id     = $variation_id > 0 ? $variation_id : $product_id;
 
-				// Maintain compatibility while waiting for upgrade routine. 
+				// Maintain compatibility while waiting for upgrade routine.
 				if ( 0 === $child_id && $id > 0 ) {
 					$child_id = $id;
 				}
 
 				if ( $child_id > 0 ) {
-					$new_contents[$child_id]['child_id']     = $child_id;
-					$new_contents[$child_id]['product_id']   = $product_id;
-					$new_contents[$child_id]['variation_id'] = $variation_id;
+					$new_contents[ $child_id ]['child_id']     = $child_id;
+					$new_contents[ $child_id ]['product_id']   = $product_id;
+					$new_contents[ $child_id ]['variation_id'] = $variation_id;
 				}
-
 			}
-
 		}
 
 		$this->set_prop( 'contents', $new_contents );
@@ -549,11 +545,11 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 			$cart_item = func_get_arg( 0 );
 
-			if ( is_array( $cart_item ) && isset( $cart_item[ 'mnm_config' ] ) && is_array( $cart_item[ 'mnm_config' ] ) ) {
+			if ( is_array( $cart_item ) && isset( $cart_item['mnm_config'] ) && is_array( $cart_item['mnm_config'] ) ) {
 
 				$container_quantity = isset( $cart_item['quantity'] ) ? intval( $cart_item['quantity'] ) : 0;
 
-				$qty_args = WC_Mix_and_Match()->cart->rebuild_posted_container_form_data( $cart_item[ 'mnm_config' ], $this );
+				$qty_args = WC_Mix_and_Match()->cart->rebuild_posted_container_form_data( $cart_item['mnm_config'], $this );
 
 				if ( ! empty( $qty_args ) ) {
 					$args = array_merge( $qty_args, array( 'quantity' => $container_quantity ) );
@@ -631,9 +627,9 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			/**
 			 * Container's children.
 			 *
-			 * @param  array			  $children
-			 * @param  obj WC_Product 	  $this
-		 	*/
+			 * @param  array              $children
+			 * @param  obj WC_Product     $this
+			*/
 			$this->children = apply_filters( 'woocommerce_mnm_get_children', $this->children, $this );
 
 			WC_Mix_and_Match_Helpers::cache_set( 'child_products_' . $this->get_id(), $this->children );
@@ -647,8 +643,8 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	/**
 	 * Get the product object of one of the child items.
 	 *
-	 * @param  int 		$child_id
-	 * @return object 	WC_Product or WC_Product_Variation
+	 * @param  int      $child_id
+	 * @return object   WC_Product or WC_Product_Variation
 	 */
 	public function get_child( $child_id ) {
 
@@ -662,8 +658,8 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		 * Individual child product.
 		 *
 		 * @param  obj WC_Product or WC_Product_Variation  $child The child product or variation.
-		 * @param  obj WC_Product 	  					   $this
-	 	*/
+		 * @param  obj WC_Product                          $this
+		*/
 		return apply_filters( 'woocommerce_mnm_get_child', $child, $this );
 	}
 
@@ -697,15 +693,15 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		}
 
 		return $available_children;
-    }
+	}
 
 
-    /**
-     * Is child item available for inclusion in container.
-     *
-     * @param  int 	$child_id
-     * @return bool
-     */
+	/**
+	 * Is child item available for inclusion in container.
+	 *
+	 * @param  int  $child_id
+	 * @return bool
+	 */
 	public function is_child_available( $child_id ) {
 
 		$this->sync();
@@ -728,9 +724,9 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	}
 
 
-    /**
-     * Sync child data such as price, availability, etc.
-     */
+	/**
+	 * Sync child data such as price, availability, etc.
+	 */
 	public function sync() {
 
 		if ( $this->is_synced() ) {
@@ -804,11 +800,9 @@ class WC_Product_Mix_and_Match extends WC_Product {
 					if ( $child->backorders_allowed() ) {
 						$backorders_allowed = $child_backorders_allowed = true;
 					}
-
 				} elseif ( $child->backorders_allowed() ) {
 					$backorders_allowed = $child_backorders_allowed = true;
 				}
-
 			} elseif ( $child->is_in_stock() ) {
 				$unlimited_stock_available = $unlimited_child_stock_available = true;
 			}
@@ -816,18 +810,18 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			// Set max number of slots according to stock status and max container size.
 			if ( $child_sold_individually ) {
 				$this->sold_individually = true;
-				$this->pricing_data[ $child_id ][ 'slots' ] = 1;
+				$this->pricing_data[ $child_id ]['slots'] = 1;
 			} else if ( $max_container_size > 0 ) {
 				if ( $unlimited_child_stock_available || $child_backorders_allowed ) {
-					$this->pricing_data[ $child_id ][ 'slots' ] = $max_container_size;
+					$this->pricing_data[ $child_id ]['slots'] = $max_container_size;
 				} else {
-					$this->pricing_data[ $child_id ][ 'slots' ] = $child_stock_available > $max_container_size ? $max_container_size : $child_stock_available;
+					$this->pricing_data[ $child_id ]['slots'] = $child_stock_available > $max_container_size ? $max_container_size : $child_stock_available;
 				}
 				// If max_container_size = 0, then unlimited so only limit by stock.
-			} else if ( $unlimited_child_stock_available || $child_backorders_allowed ){
-				$this->pricing_data[ $child_id ][ 'slots' ] = '';
+			} else if ( $unlimited_child_stock_available || $child_backorders_allowed ) {
+				$this->pricing_data[ $child_id ]['slots'] = '';
 			} else {
-				$this->pricing_data[ $child_id ][ 'slots' ] = $child_stock_available;
+				$this->pricing_data[ $child_id ]['slots'] = $child_stock_available;
 			}
 
 			// Store price and slots for the min/max price calculation.
@@ -835,15 +829,15 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 				$this->maybe_apply_discount_to_child( $child );
 
-				$this->pricing_data[ $child_id ][ 'price_raw' ]         = (double) $child->get_price( 'edit' );
-				$this->pricing_data[ $child_id ][ 'price' ]             = (double) $child->get_price();
-				$this->pricing_data[ $child_id ][ 'regular_price_raw' ] = (double) $child->get_regular_price( 'edit' );
-				$this->pricing_data[ $child_id ][ 'regular_price' ]     = (double) $child->get_regular_price();
+				$this->pricing_data[ $child_id ]['price_raw']         = (double) $child->get_price( 'edit' );
+				$this->pricing_data[ $child_id ]['price']             = (double) $child->get_price();
+				$this->pricing_data[ $child_id ]['regular_price_raw'] = (double) $child->get_regular_price( 'edit' );
+				$this->pricing_data[ $child_id ]['regular_price']     = (double) $child->get_regular_price();
 
 				// Amount used up in "cheapest" config.
-				$this->pricing_data[ $child_id ][ 'slots_filled_min' ] = 0;
+				$this->pricing_data[ $child_id ]['slots_filled_min'] = 0;
 				// Amount used up in "most expensive" config.
-				$this->pricing_data[ $child_id ][ 'slots_filled_max' ] = 0;
+				$this->pricing_data[ $child_id ]['slots_filled_max'] = 0;
 
 				// Save sale status for parent.
 				if ( $child->is_on_sale( 'edit' ) ) {
@@ -886,32 +880,31 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 					$slots_to_fill = $min_container_size - $filled_slots;
 
-					$items_to_use = $this->pricing_data[ $child_id ][ 'slots_filled_min' ] = $this->pricing_data[ $child_id ][ 'slots' ] !== '' ? min( $this->pricing_data[ $child_id ][ 'slots' ], $slots_to_fill ) : $slots_to_fill;
+					$items_to_use = $this->pricing_data[ $child_id ]['slots_filled_min'] = $this->pricing_data[ $child_id ]['slots'] !== '' ? min( $this->pricing_data[ $child_id ]['slots'], $slots_to_fill ) : $slots_to_fill;
 
 					$filled_slots += $items_to_use;
 
-					$min_raw_price         += $items_to_use * $this->pricing_data[ $child_id ][ 'price_raw' ];
-					$min_raw_regular_price += $items_to_use * $this->pricing_data[ $child_id ][ 'regular_price_raw' ];
+					$min_raw_price         += $items_to_use * $this->pricing_data[ $child_id ]['price_raw'];
+					$min_raw_regular_price += $items_to_use * $this->pricing_data[ $child_id ]['regular_price_raw'];
 
 					if ( $filled_slots >= $min_container_size ) {
 						break;
 					}
 				}
-
 			} else {
 
 				// In the unlikely even that stock is insufficient, just calculate the min price from the cheapest child
 				foreach ( $this->pricing_data as $child_id => $data ) {
-					$this->pricing_data[ $child_id ][ 'slots_filled_min' ] = 0;
+					$this->pricing_data[ $child_id ]['slots_filled_min'] = 0;
 				}
 
 				$cheapest_child_id   = current( array_keys( $this->pricing_data ) );
 				$cheapest_child_data = current( array_values( $this->pricing_data ) );
 
-				$this->pricing_data[ $cheapest_child_id ][ 'slots_filled_min' ] = $min_container_size;
+				$this->pricing_data[ $cheapest_child_id ]['slots_filled_min'] = $min_container_size;
 
-				$min_raw_price         += $cheapest_child_data[ 'price_raw' ] * $min_container_size;
-				$min_raw_regular_price += $cheapest_child_data[ 'regular_price_raw' ] * $min_container_size;
+				$min_raw_price         += $cheapest_child_data['price_raw'] * $min_container_size;
+				$min_raw_regular_price += $cheapest_child_data['regular_price_raw'] * $min_container_size;
 			}
 
 			/*-----------------------------------------------------------------------------------*/
@@ -931,23 +924,22 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 					$slots_to_fill = $max_container_size - $filled_slots;
 
-					$items_to_use = $this->pricing_data[ $child_id ][ 'slots_filled_max' ] = $this->pricing_data[ $child_id ][ 'slots' ] !== '' ? min( $this->pricing_data[ $child_id ][ 'slots' ], $slots_to_fill ) : $slots_to_fill;
+					$items_to_use = $this->pricing_data[ $child_id ]['slots_filled_max'] = $this->pricing_data[ $child_id ]['slots'] !== '' ? min( $this->pricing_data[ $child_id ]['slots'], $slots_to_fill ) : $slots_to_fill;
 
 					$filled_slots += $items_to_use;
 
-					$max_raw_price         += $items_to_use * $this->pricing_data[ $child_id ][ 'price_raw' ];
-					$max_raw_regular_price += $items_to_use * $this->pricing_data[ $child_id ][ 'regular_price_raw' ];
+					$max_raw_price         += $items_to_use * $this->pricing_data[ $child_id ]['price_raw'];
+					$max_raw_regular_price += $items_to_use * $this->pricing_data[ $child_id ]['regular_price_raw'];
 
 					if ( $filled_slots >= $max_container_size ) {
 						break;
 					}
 				}
-
 			} else {
 
 				// In the unlikely even that stock is insufficient, just calculate the max price from the most expensive child.
 				foreach ( $this->pricing_data as $child_id => $data ) {
-					$this->pricing_data[ $child_id ][ 'slots_filled_max' ] = 0;
+					$this->pricing_data[ $child_id ]['slots_filled_max'] = 0;
 				}
 
 				if ( $max_container_size !== '' && ! $this->is_nyp() ) {
@@ -955,10 +947,10 @@ class WC_Product_Mix_and_Match extends WC_Product {
 					$priciest_child_id   = current( array_keys( $this->pricing_data ) );
 					$priciest_child_data = current( array_values( $this->pricing_data ) );
 
-					$this->pricing_data[ $priciest_child_id ][ 'slots_filled_max' ] = $max_container_size;
+					$this->pricing_data[ $priciest_child_id ]['slots_filled_max'] = $max_container_size;
 
-					$max_raw_price         += $priciest_child_data[ 'price_raw' ] * $max_container_size;
-					$max_raw_regular_price += $priciest_child_data[ 'regular_price_raw' ] * $max_container_size;
+					$max_raw_price         += $priciest_child_data['price_raw'] * $max_container_size;
+					$max_raw_regular_price += $priciest_child_data['regular_price_raw'] * $max_container_size;
 
 				}
 			}
@@ -995,7 +987,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		 * @param  obj $product WC_Product
 		 */
 		do_action( 'woocommerce_mnm_synced', $this );
-    }
+	}
 
 
 	/**
@@ -1005,13 +997,13 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	 * @param  array $b
 	 * @return -1|0|1
 	 */
-    private function sort_by_price( $a, $b ) {
+	private function sort_by_price( $a, $b ) {
 
-	    if ( $a[ 'price' ] == $b[ 'price' ] ) {
-	        return 0;
-	    }
+		if ( $a['price'] == $b['price'] ) {
+			return 0;
+		}
 
-	    return ( $a[ 'price' ] < $b[ 'price' ] ) ? -1 : 1;
+		return ( $a['price'] < $b['price'] ) ? -1 : 1;
 	}
 
 
@@ -1027,11 +1019,19 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 			$this->sync();
 
-			$cache_key = md5( json_encode( apply_filters( 'woocommerce_mnm_prices_hash', array(
-				'type'       => 'price',
-				'display'    => $display,
-				'min_or_max' => $min_or_max
-			), $this ) ) );
+			$cache_key = md5(
+                json_encode(
+                    apply_filters(
+                        'woocommerce_mnm_prices_hash',
+                        array(
+                        'type'       => 'price',
+                        'display'    => $display,
+                        'min_or_max' => $min_or_max
+                        ),
+                        $this
+                    )
+                )
+            );
 
 			if ( isset( $this->mnm_price_cache[ $cache_key ] ) ) {
 				$price = $this->mnm_price_cache[ $cache_key ];
@@ -1050,9 +1050,9 @@ class WC_Product_Mix_and_Match extends WC_Product {
 							if ( $qty ) {
 								$child = $this->get_child( $child_id );
 								if ( $display ) {
-									$price += wc_get_price_to_display( $child, array( 'qty' => $qty, 'price' => $data[ 'price' ] ) );
+									$price += wc_get_price_to_display( $child, array( 'qty' => $qty, 'price' => $data['price'] ) );
 								} else {
-									$price += $qty * $data[ 'price' ];
+									$price += $qty * $data['price'];
 								}
 							}
 						}
@@ -1061,7 +1061,6 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 				$this->mnm_price_cache[ $cache_key ] = $price;
 			}
-
 		} else {
 
 			$price = $this->get_price();
@@ -1087,11 +1086,19 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 			$this->sync();
 
-			$cache_key = md5( json_encode( apply_filters( 'woocommerce_mnm_prices_hash', array(
-				'type'       => 'regular_price',
-				'display'    => $display,
-				'min_or_max' => $min_or_max
-			), $this ) ) );
+			$cache_key = md5(
+                json_encode(
+                    apply_filters(
+                        'woocommerce_mnm_prices_hash',
+                        array(
+                        'type'       => 'regular_price',
+                        'display'    => $display,
+                        'min_or_max' => $min_or_max
+                        ),
+                        $this
+                    )
+                )
+            );
 
 			if ( isset( $this->mnm_price_cache[ $cache_key ] ) ) {
 				$price = $this->mnm_price_cache[ $cache_key ];
@@ -1109,9 +1116,9 @@ class WC_Product_Mix_and_Match extends WC_Product {
 							if ( $qty ) {
 								$child = $this->get_child( $child_id );
 								if ( $display ) {
-									$price += wc_get_price_to_display( $child, array( 'qty' => $qty, 'price' => $data[ 'regular_price' ] ) );
+									$price += wc_get_price_to_display( $child, array( 'qty' => $qty, 'price' => $data['regular_price'] ) );
 								} else {
-									$price += $qty * $data[ 'regular_price' ];
+									$price += $qty * $data['regular_price'];
 								}
 							}
 						}
@@ -1120,7 +1127,6 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 				$this->mnm_price_cache[ $cache_key ] = $price;
 			}
-
 		} else {
 
 			$price = $this->get_regular_price();
@@ -1145,11 +1151,19 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 			$this->sync();
 
-			$cache_key = md5( json_encode( apply_filters( 'woocommerce_mnm_prices_hash', array(
-				'type'       => 'price_incl_tax',
-				'qty'        => $qty,
-				'min_or_max' => $min_or_max
-			), $this ) ) );
+			$cache_key = md5(
+                json_encode(
+                    apply_filters(
+                        'woocommerce_mnm_prices_hash',
+                        array(
+                        'type'       => 'price_incl_tax',
+                        'qty'        => $qty,
+                        'min_or_max' => $min_or_max
+                        ),
+                        $this
+                    )
+                )
+            );
 
 			if ( isset( $this->mnm_price_cache[ $cache_key ] ) ) {
 				$price = $this->mnm_price_cache[ $cache_key ];
@@ -1162,14 +1176,13 @@ class WC_Product_Mix_and_Match extends WC_Product {
 						$item_qty = $qty * $data[ 'slots_filled_' . $min_or_max ];
 						if ( $item_qty ) {
 							$child = $this->get_child( $child_id );
-							$price += wc_get_price_including_tax( $child, array( 'qty' => $item_qty, 'price' => $data[ 'price' ] ) );
+							$price += wc_get_price_including_tax( $child, array( 'qty' => $item_qty, 'price' => $data['price'] ) );
 						}
 					}
 				}
 
 				$this->mnm_price_cache[ $cache_key ] = $price;
 			}
-
 		} else {
 			$price = wc_get_price_including_tax( $this, array( 'qty' => $qty, 'price' => $this->get_price() ) );
 		}
@@ -1189,11 +1202,19 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 			$this->sync();
 
-			$cache_key = md5( json_encode( apply_filters( 'woocommerce_mnm_prices_hash', array(
-				'type'       => 'price_excl_tax',
-				'qty'        => $qty,
-				'min_or_max' => $min_or_max
-			), $this ) ) );
+			$cache_key = md5(
+                json_encode(
+                    apply_filters(
+                        'woocommerce_mnm_prices_hash',
+                        array(
+                        'type'       => 'price_excl_tax',
+                        'qty'        => $qty,
+                        'min_or_max' => $min_or_max
+                        ),
+                        $this
+                    )
+                )
+            );
 
 			if ( isset( $this->mnm_price_cache[ $cache_key ] ) ) {
 				$price = $this->mnm_price_cache[ $cache_key ];
@@ -1206,14 +1227,13 @@ class WC_Product_Mix_and_Match extends WC_Product {
 						$item_qty = $qty * $data[ 'slots_filled_' . $min_or_max ];
 						if ( $item_qty ) {
 							$child = $this->get_child( $child_id );
-							$price += wc_get_price_excluding_tax( $child, array( 'qty' => $item_qty, 'price' => $data[ 'price' ] ) );
+							$price += wc_get_price_excluding_tax( $child, array( 'qty' => $item_qty, 'price' => $data['price'] ) );
 						}
 					}
 				}
 
 				$this->mnm_price_cache[ $cache_key ] = $price;
 			}
-
 		} else {
 			$price = wc_get_price_excluding_tax( $this, array( 'qty' => $qty, 'price' => $this->get_price() ) );
 		}
@@ -1242,7 +1262,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 				 *
 				 * @param  str $empty_price
 				 * @param  obj WC_Product_Mix_and_Match $this
-			 	 */
+				 */
 				$price = apply_filters( 'woocommerce_mnm_empty_price_html', '', $this );
 
 			} else {
@@ -1267,7 +1287,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 					 *
 					 * @param  str $sale_price
 					 * @param  obj WC_Product_Mix_and_Match $this
-				 	 */
+					 */
 					$price = apply_filters( 'woocommerce_mnm_sale_price_html', $price, $this );
 
 				} elseif ( $this->get_max_container_size() && $this->get_mnm_price( 'min' ) == 0 && $this->get_mnm_price( 'max' ) == 0 ) {
@@ -1277,7 +1297,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 					 *
 					 * @param  str $free_string
 					 * @param  obj WC_Product_Mix_and_Match $this
-				 	 */
+					 */
 					$free_string = apply_filters( 'woocommerce_mnm_show_free_string', false, $this ) ? __( 'Free!', 'woocommerce-mix-and-match-products' ) : $price;
 
 					/**
@@ -1285,8 +1305,8 @@ class WC_Product_Mix_and_Match extends WC_Product {
 					 *
 					 * @param  str $free_price
 					 * @param  obj WC_Product_Mix_and_Match $this
-				 	 */
-			 		$price       = apply_filters( 'woocommerce_mnm_free_price_html', $free_string, $this );
+					 */
+					$price       = apply_filters( 'woocommerce_mnm_free_price_html', $free_string, $this );
 
 				} else {
 
@@ -1302,7 +1322,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 					 *
 					 * @param  str $price
 					 * @param  obj WC_Product_Mix_and_Match $this
-				 	 */
+					 */
 					$price = apply_filters( 'woocommerce_mnm_price_html', $price, $this );
 				}
 			}
@@ -1312,7 +1332,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			 *
 			 * @param  str $price
 			 * @param  obj WC_Product_Mix_and_Match $this
-		 	 */
+			 */
 			$price = apply_filters( 'woocommerce_get_mnm_price_html', $price, $this );
 
 			/**
@@ -1320,7 +1340,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			 *
 			 * @param  str $price
 			 * @param  obj WC_Product_Mix_and_Match $this
-		 	 */
+			 */
 			return apply_filters( 'woocommerce_get_price_html', $price, $this );
 
 		} else {
@@ -1362,7 +1382,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			 * @param  obj WC_Product_Mix_and_Match $this
 			 * @param  mixed              $price
 +			 * @param  int                $qty
-		 	 */
+			 */
 			return apply_filters( 'woocommerce_get_price_suffix', $price_suffix, $this, $price, $qty );
 
 		} else {
@@ -1380,7 +1400,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	public function is_purchasable() {
 
 		$is_purchasable = true;
-		
+
 		// Products must exist of course
 		if ( ! $this->exists() ) {
 			$is_purchasable = false;
@@ -1406,12 +1426,12 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		 *
 		 * @param  str $is_purchasable
 		 * @param  obj WC_Product_Mix_and_Match $this
-	 	 */
+		 */
 		return apply_filters( 'woocommerce_is_purchasable', $is_purchasable, $this );
 	}
 
 
-    /**
+	/**
 	 * Returns whether or not the product container has any available child items.
 	 *
 	 * @return bool
@@ -1421,7 +1441,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	}
 
 
-    /**
+	/**
 	 * Returns whether or not the product container's price is based on the included items.
 	 *
 	 * @return bool
@@ -1430,12 +1450,12 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		/**
 		 * @param  bool $is_purchasable
 		 * @param  obj WC_Product_Mix_and_Match $this
-	 	 */
+		 */
 		return apply_filters( 'woocommerce_mnm_priced_per_product', $this->get_priced_per_product(), $this );
 	}
 
 
-    /**
+	/**
 	 * Returns whether or not the product container's price is based on the included items.
 	 *
 	 * @since  1.4.0
@@ -1445,12 +1465,12 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		/**
 		 * @param  bool $has_discount
 		 * @param  obj WC_Product_Mix_and_Match $this
-	 	 */
+		 */
 		return apply_filters( 'woocommerce_mnm_has_discount', $this->get_priced_per_product() && $this->get_discount() > 0, $this );
 	}
 
 
-    /**
+	/**
 	 * Returns whether or not the product container's shipping cost is based on the included items.
 	 *
 	 * @return bool
@@ -1459,12 +1479,12 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		/**
 		 * @param  str $is_shipped_per_product
 		 * @param  obj WC_Product_Mix_and_Match $this
-	 	 */
+		 */
 		return apply_filters( 'woocommerce_mnm_shipped_per_product', $this->get_shipped_per_product(), $this );
 	}
 
 
-    /**
+	/**
 	 * Get availability of container.
 	 *
 	 * @return array
@@ -1502,7 +1522,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	}
 
 
-    /**
+	/**
 	 * Returns whether container is in stock
 	 *
 	 * @return bool
@@ -1549,7 +1569,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		 *
 		 * @param  str $is_on_sale
 		 * @param  obj WC_Product_Mix_and_Match $this
-	 	 */
+		 */
 		return 'view' === $context ? apply_filters( 'woocommerce_mnm_is_on_sale', $is_on_sale, $this ) : $is_on_sale;
 	}
 
@@ -1572,7 +1592,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		 *
 		 * @param  str $text
 		 * @param  obj WC_Product_Mix_and_Match $this
-	 	 */
+		 */
 		$text = apply_filters( 'mnm_add_to_cart_text', $text, $this );
 
 		/**
@@ -1580,7 +1600,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		 *
 		 * @param  str $text
 		 * @param  obj WC_Product_Mix_and_Match $this
-	 	 */
+		 */
 		return apply_filters( 'woocommerce_product_add_to_cart_text', $text, $this );
 	}
 
@@ -1594,9 +1614,9 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 		$text = __( 'Add to cart', 'woocommerce-mix-and-match-products' );
 
-		if ( isset( $_GET[ 'update-container' ] ) ) {
+		if ( isset( $_GET['update-container'] ) ) {
 
-			$updating_cart_key = wc_clean( $_GET[ 'update-container' ] );
+			$updating_cart_key = wc_clean( $_GET['update-container'] );
 
 			if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
 				$text = __( 'Update Cart', 'woocommerce-mix-and-match-products' );
@@ -1621,36 +1641,36 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 			$container_price_data = array();
 
-			$container_price_data[ 'per_product_pricing' ] = $this->is_priced_per_product() ? 'yes' : 'no';
+			$container_price_data['per_product_pricing'] = $this->is_priced_per_product() ? 'yes' : 'no';
 
-			$container_price_data[ 'raw_container_min_price' ] = wc_get_price_to_display( $this, array( 'price' => $this->get_min_raw_price() ) );
-			$container_price_data[ 'raw_container_regular_price' ] =  wc_get_price_to_display( $this, array( 'price' => $this->get_min_raw_regular_price() ) );
-			$container_price_data[ 'raw_container_price' ] = wc_get_price_to_display( $this, array( 'price' => $this->get_max_raw_price() ) );
-			$container_price_data[ 'raw_container_regular_price' ] =  wc_get_price_to_display( $this, array( 'price' => $this->get_max_raw_regular_price() ) );
+			$container_price_data['raw_container_min_price'] = wc_get_price_to_display( $this, array( 'price' => $this->get_min_raw_price() ) );
+			$container_price_data['raw_container_regular_price'] =  wc_get_price_to_display( $this, array( 'price' => $this->get_min_raw_regular_price() ) );
+			$container_price_data['raw_container_price'] = wc_get_price_to_display( $this, array( 'price' => $this->get_max_raw_price() ) );
+			$container_price_data['raw_container_regular_price'] =  wc_get_price_to_display( $this, array( 'price' => $this->get_max_raw_regular_price() ) );
 
-			$container_price_data[ 'price_string' ] = '%s';
-			$container_price_data[ 'is_purchasable' ] = $this->is_purchasable() ? 'yes' : 'no';
+			$container_price_data['price_string'] = '%s';
+			$container_price_data['is_purchasable'] = $this->is_purchasable() ? 'yes' : 'no';
 
-			$container_price_data[ 'show_free_string' ] =  ( $this->is_priced_per_product() ? apply_filters( 'wc_mnm_show_free_string', false, $this ) : true ) ? 'yes' : 'no';
+			$container_price_data['show_free_string'] =  ( $this->is_priced_per_product() ? apply_filters( 'wc_mnm_show_free_string', false, $this ) : true ) ? 'yes' : 'no';
 
-			$container_price_data[ 'prices' ] = array();
-			$container_price_data[ 'regular_prices' ] = array();
+			$container_price_data['prices'] = array();
+			$container_price_data['regular_prices'] = array();
 
-			$container_price_data[ 'prices_tax' ] = array();
+			$container_price_data['prices_tax'] = array();
 
-			$container_price_data[ 'quantities' ] = array();
+			$container_price_data['quantities'] = array();
 
-			$container_price_data[ 'product_ids' ] = array();
+			$container_price_data['product_ids'] = array();
 
-			$container_price_data[ 'is_sold_individually' ] = array();
+			$container_price_data['is_sold_individually'] = array();
 
-			$container_price_data[ 'base_price' ] = wc_get_price_to_display( $this, array( 'price' => $this->get_price() ) );
-			$container_price_data[ 'base_regular_price' ] =  wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) );
-			$container_price_data[ 'base_price_tax' ]     = wc_mnm_get_tax_ratios( $this );
+			$container_price_data['base_price'] = wc_get_price_to_display( $this, array( 'price' => $this->get_price() ) );
+			$container_price_data['base_regular_price'] =  wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) );
+			$container_price_data['base_price_tax']     = wc_mnm_get_tax_ratios( $this );
 
-			$container_price_data[ 'price' ] 	= $container_price_data[ 'base_price' ];
-			$container_price_data[ 'regular_price' ] = $container_price_data[ 'base_regular_price' ];
-			$container_price_data[ 'price_tax' ] 	= $container_price_data[ 'base_price_tax' ];
+			$container_price_data['price']  = $container_price_data['base_price'];
+			$container_price_data['regular_price'] = $container_price_data['base_regular_price'];
+			$container_price_data['price_tax']  = $container_price_data['base_price_tax'];
 
 			$totals = new stdClass;
 
@@ -1659,11 +1679,11 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			$totals->price_incl_tax = 0.0;
 			$totals->price_excl_tax = 0.0;
 
-			$container_price_data[ 'base_price_subtotals' ] = $totals;
-			$container_price_data[ 'base_price_totals' ]    = $totals;
+			$container_price_data['base_price_subtotals'] = $totals;
+			$container_price_data['base_price_totals']    = $totals;
 
-			$container_price_data[ 'subtotals' ] = $totals;
-			$container_price_data[ 'totals' ]    = $totals;
+			$container_price_data['subtotals'] = $totals;
+			$container_price_data['totals']    = $totals;
 
 			$children                           = $this->get_children();
 
@@ -1677,17 +1697,17 @@ class WC_Product_Mix_and_Match extends WC_Product {
 					continue;
 				}
 
-				$container_price_data[ 'is_sold_individually' ][ $child->get_id() ]   = $child->is_sold_individually() ? 'yes' : 'no';
-				$container_price_data[ 'product_ids' ][ $child->get_id() ] = $child->get_parent_id() > 0 ? $child->get_parent_id() : $child->get_id();
-				$container_price_data[ 'prices' ][ $child->get_id() ]         = $child->get_price();
-				$container_price_data[ 'regular_prices' ][ $child->get_id() ] = $child->get_regular_price();
+				$container_price_data['is_sold_individually'][ $child->get_id() ]   = $child->is_sold_individually() ? 'yes' : 'no';
+				$container_price_data['product_ids'][ $child->get_id() ] = $child->get_parent_id() > 0 ? $child->get_parent_id() : $child->get_id();
+				$container_price_data['prices'][ $child->get_id() ]         = $child->get_price();
+				$container_price_data['regular_prices'][ $child->get_id() ] = $child->get_regular_price();
 
-				$container_price_data[ 'prices_tax' ][ $child->get_id() ] = wc_mnm_get_tax_ratios( $child );
+				$container_price_data['prices_tax'][ $child->get_id() ] = wc_mnm_get_tax_ratios( $child );
 
-				$container_price_data[ 'quantities' ][ $child->get_id() ] = 0;
+				$container_price_data['quantities'][ $child->get_id() ] = 0;
 
-				$container_price_data[ 'child_item_subtotals' ][ $child->get_id() ] = $totals;
-				$container_price_data[ 'child_item_totals' ][ $child->get_id() ] = $totals;
+				$container_price_data['child_item_subtotals'][ $child->get_id() ] = $totals;
+				$container_price_data['child_item_totals'][ $child->get_id() ] = $totals;
 
 			}
 
@@ -1721,12 +1741,12 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		 *
 		 * @param  array $attributes
 		 * @param  obj WC_Product_Mix_and_Match $this
-	 	 */
+		 */
 		$attributes = (array) apply_filters( 'woocommerce_mix_and_match_data_attributes', $attributes, $this );
 
 		$data = '';
 
-		foreach ( $attributes as $a => $att ){
+		foreach ( $attributes as $a => $att ) {
 			$data .= sprintf( 'data-%s="%s" ', esc_attr( $a ), esc_attr( $att ) );
 		}
 
@@ -1754,8 +1774,8 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			} elseif ( 'step' === $value ) {
 				$qty = 1;
 			} else {
-				if ( isset( $this->pricing_data[ $child_id ][ 'slots' ] ) ) {
-					$qty = $this->pricing_data[ $child_id ][ 'slots' ];
+				if ( isset( $this->pricing_data[ $child_id ]['slots'] ) ) {
+					$qty = $this->pricing_data[ $child_id ]['slots'];
 				}
 			}
 
@@ -1765,7 +1785,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			 * @param  int $qty Quantity.
 			 * @param  obj WC_Product $product
 			 * @param  obj WC_Product_Mix_and_Match $this
-		 	 */
+			 */
 			$qty = apply_filters( 'woocommerce_mnm_quantity_input_' . $value, $qty, $mnm_product, $this );
 		}
 
@@ -1791,8 +1811,8 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			} else {
 
 				$availability      = $mnm_product->get_availability();
-				$availability_html = empty( $availability[ 'availability' ] ) ? '' : '<p class="stock ' . esc_attr( $availability[ 'class' ] ) . '">' . esc_html( $availability[ 'availability' ] ) . '</p>';
-				$availability_html = apply_filters( 'woocommerce_stock_html', $availability_html, $availability[ 'availability' ], $mnm_product );
+				$availability_html = empty( $availability['availability'] ) ? '' : '<p class="stock ' . esc_attr( $availability['class'] ) . '">' . esc_html( $availability['availability'] ) . '</p>';
+				$availability_html = apply_filters( 'woocommerce_stock_html', $availability_html, $availability['availability'], $mnm_product );
 			}
 		}
 
@@ -1809,7 +1829,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	 */
 	public function maybe_apply_discount_to_child( $child ) {
 
-		if( $child && $this->has_discount() ) {
+		if ( $child && $this->has_discount() ) {
 			// Apply discount to regular price and not sale price.
 			$price = apply_filters( 'woocommerce_mnm_item_discount_from_regular', true, $this ) ? $child->get_regular_price() : $child->get_price();
 			$discounted_price = round( (double) $price * ( 100 - $this->get_discount() ) / 100, wc_get_rounding_precision() );
@@ -1857,10 +1877,13 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	 */
 	public static function get_layout_options() {
 		if ( is_null( self::$layout_options_data ) ) {
-			self::$layout_options_data = apply_filters( 'woocommerce_mnm_supported_layouts', array(
+			self::$layout_options_data = apply_filters(
+                'woocommerce_mnm_supported_layouts',
+                array(
 				'tabular' => __( 'Tabular', 'woocommerce-mix-and-match-products' ),
 				'grid' => __( 'Grid', 'woocommerce-mix-and-match-products' )
-			) );
+                )
+            );
 		}
 		return self::$layout_options_data;
 	}

@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 4.4
-Tested up to: 5.5
+Tested up to: 5.5.1
 Requires PHP: 5.6
 
 Add dynamic notices above the cart and checkout to help increase your sales!

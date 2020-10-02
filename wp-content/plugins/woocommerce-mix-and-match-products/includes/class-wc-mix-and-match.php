@@ -2,7 +2,6 @@
 /**
  * The Main WC_Mix_and_Match class.
  *
- * @author   Kathy Darling
  * @class    WC_Mix_and_Match
  * @package  WooCommerce Mix and Match
  * @since    1.0.0
@@ -15,28 +14,28 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main WC_Mix_and_Match class.
  *
  * The main instance of the plugin.
- * 
+ *
  * @since  1.0.0
  */
 class WC_Mix_and_Match {
 
 	/**
 	 * The single instance of the class.
-	 * 
+	 *
 	 * @var obj The WC_Mix_and_Match object
 	 */
 	protected static $_instance = null;
 
 	/**
 	 * Plugin Version.
-	 * 
+	 *
 	 * @var str
 	 */
-	public $version      = '1.10.2';
+	public $version      = '1.10.3';
 
 	/**
 	 * Required Version of WooCommerce.
-	 * 
+	 *
 	 * @var str
 	 */
 	public $required_woo = '3.1.0';
@@ -85,7 +84,7 @@ class WC_Mix_and_Match {
 	/**
 	 * WC_Mix_and_Match Constructor
 	 *
-	 * @return 	WC_Mix_and_Match
+	 * @return  WC_Mix_and_Match
 	 */
 	public function __construct() {
 		$this->initialize_plugin();
@@ -117,7 +116,7 @@ class WC_Mix_and_Match {
 	 * Get the plugin base path name.
 	 *
 	 * @since  1.2.0
-	 * 
+	 *
 	 * @return string
 	 */
 	public function plugin_basename() {
@@ -134,13 +133,13 @@ class WC_Mix_and_Match {
 	public function initialize_plugin() {
 
 		// Load translation files.
-		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );	
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 		$this->define_constants();
 		$this->includes();
 
 		// Include admin class to handle all back-end functions.
-		if( is_admin() ){
+		if ( is_admin() ) {
 			$this->admin_includes();
 		}
 
@@ -194,7 +193,7 @@ class WC_Mix_and_Match {
 
 		// Product class.
 		require_once( 'class-wc-product-mix-and-match.php' );
-	
+
 		// Cart-related functions and hooks.
 		require_once( 'class-wc-mnm-cart.php' );
 
@@ -215,7 +214,7 @@ class WC_Mix_and_Match {
 
 		// Class containing extenstions compatibility functions and filters.
 		require_once( 'compatibility/class-wc-mnm-compatibility.php' );
-	
+
 	}
 
 	/**

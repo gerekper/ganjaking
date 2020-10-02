@@ -20,10 +20,19 @@ $woocommerce_gpf_di['WoocommerceGpfAdmin'] = function ( $c ) {
 		$c['WoocommerceGpfCommon'],
 		$c['WoocommerceGpfTemplateLoader'],
 		$c['WoocommerceGpfCache'],
-		$c['WoocommerceGpfCacheStatus']
+		$c['WoocommerceGpfCacheStatus'],
+		$c['WoocommerceProductFeedsFeedImageManager']
 	);
 
 	return $woocommerce_gpf_admin;
+};
+
+$woocommerce_gpf_di['WoocommerceProductFeedsFeedImageManager'] = function ( $c ) {
+	return new WoocommerceProductFeedsFeedImageManager(
+		$c['WoocommerceGpfCommon'],
+		$c['WoocommerceGpfDebugService'],
+		$c['WoocommerceGpfTemplateLoader']
+	);
 };
 
 $woocommerce_gpf_di['WoocommerceProductFeedsDbManager'] = function ( $c ) {

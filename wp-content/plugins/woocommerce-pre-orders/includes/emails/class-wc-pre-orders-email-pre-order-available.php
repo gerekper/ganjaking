@@ -96,6 +96,7 @@ class WC_Pre_Orders_Email_Pre_Order_Available extends WC_Email {
 			array(
 				'order'         => $this->object,
 				'email_heading' => $this->get_heading(),
+				'additional_content' => $this->get_additional_content(),
 				'message'       => $this->message,
 				'plain_text'    => false,
 				'email'         => $this,
@@ -121,6 +122,7 @@ class WC_Pre_Orders_Email_Pre_Order_Available extends WC_Email {
 			array(
 				'order'         => $this->object,
 				'email_heading' => $this->get_heading(),
+				'additional_content' => $this->get_additional_content(),
 				'message'       => $this->message,
 				'plain_text'    => true,
 				'sent_to_admin' => false,

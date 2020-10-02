@@ -196,7 +196,7 @@ class WC_Bookings_Menus {
 	public function settings_page() {
 		wp_enqueue_script( 'wc_bookings_admin_js' );
 
-		$tabs_metadata = array(
+		$tabs_metadata = apply_filters( 'woocommerce_bookings_settings_page', array(
 			'availability' => array(
 				'name'          => __( 'Store Availability', 'woocommerce-bookings' ),
 				'href'          => admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings&tab=availability' ),
@@ -233,7 +233,7 @@ class WC_Bookings_Menus {
 				'capability'    => 'manage_bookings_connection',
 				'generate_html' => 'WC_Bookings_Google_Calendar_Connection::generate_form_html',
 			),
-		);
+		) );
 
 		include 'views/html-settings-page.php';
 	}

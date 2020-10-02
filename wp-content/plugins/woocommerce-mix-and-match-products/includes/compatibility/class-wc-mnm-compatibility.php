@@ -2,8 +2,6 @@
 /**
  * Extension Compatibilty
  *
- * @author   Kathy Darling
- * @category Classes
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.0
  * @version  1.9.2
@@ -89,49 +87,49 @@ class WC_Mix_and_Match_Compatibility {
 
 		// Multiple Shipping Addresses support.
 		if ( class_exists( 'WC_Ship_Multiple' ) ) {
-			$module_paths[ 'multiple_shipping' ] = 'modules/class-wc-mnm-ship-multiple-compatibility.php';
+			$module_paths['multiple_shipping'] = 'modules/class-wc-mnm-ship-multiple-compatibility.php';
 		}
 
 		// Points and Rewards support.
 		if ( class_exists( 'WC_Points_Rewards_Product' ) ) {
-			$module_paths[ 'points_rewards' ] = 'modules/class-wc-mnm-pnr-compatibility.php';
+			$module_paths['points_rewards'] = 'modules/class-wc-mnm-pnr-compatibility.php';
 		}
 
 		// Pre-orders support.
 		if ( class_exists( 'WC_Pre_Orders' ) ) {
-			$module_paths[ 'pre_orders' ] = 'modules/class-wc-mnm-po-compatibility.php';
+			$module_paths['pre_orders'] = 'modules/class-wc-mnm-po-compatibility.php';
 		}
 
 		// Cost of Goods support.
 		if ( class_exists( 'WC_COG' ) ) {
-			$module_paths[ 'cog' ] = 'modules/class-wc-mnm-cog-compatibility.php';
+			$module_paths['cog'] = 'modules/class-wc-mnm-cog-compatibility.php';
 		}
 
 		// One Page Checkout support.
 		if ( function_exists( 'is_wcopc_checkout' ) ) {
-			$module_paths[ 'opc' ] = 'modules/class-wc-mnm-opc-compatibility.php';
+			$module_paths['opc'] = 'modules/class-wc-mnm-opc-compatibility.php';
 		}
 
 		// Wishlists support.
 		if ( class_exists( 'WC_Wishlists_Plugin' ) ) {
-			$module_paths[ 'wishlists' ] = 'modules/class-wc-mnm-wl-compatibility.php';
+			$module_paths['wishlists'] = 'modules/class-wc-mnm-wl-compatibility.php';
 		}
 
 		// PIP support.
 		if ( class_exists( 'WC_PIP' ) ) {
-			$module_paths[ 'pip' ] = 'modules/class-wc-mnm-pip-compatibility.php';
+			$module_paths['pip'] = 'modules/class-wc-mnm-pip-compatibility.php';
 		}
 
 		// Min Max Quantities integration.
 		if ( class_exists( 'WC_Min_Max_Quantities' ) ) {
-			$module_paths[ 'min_max_quantities' ] = 'modules/class-wc-mnm-min-max-compatibility.php';
+			$module_paths['min_max_quantities'] = 'modules/class-wc-mnm-min-max-compatibility.php';
 		}
 
 		// Shipstation integration.
-		$module_paths[ 'shipstation' ] = 'modules/class-wc-mnm-shipstation-compatibility.php';
+		$module_paths['shipstation'] = 'modules/class-wc-mnm-shipstation-compatibility.php';
 
 		if ( class_exists( 'CoCart' ) || defined( 'COCART_VERSION' ) ) {
-			$module_paths[ 'cocart' ] = 'modules/class-wc-mnm-cocart-compatibility.php';
+			$module_paths['cocart'] = 'modules/class-wc-mnm-cocart-compatibility.php';
 		}
 
 		/**

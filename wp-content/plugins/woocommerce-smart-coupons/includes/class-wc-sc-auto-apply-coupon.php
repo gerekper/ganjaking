@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     1.0.2
+ * @version     1.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -158,6 +158,8 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 
 			// Get list of ids of coupons to auto apply.
 			$auto_apply_coupon_ids = get_option( 'wc_sc_auto_apply_coupon_ids', array() );
+			$auto_apply_coupon_ids = array_map( 'absint', $auto_apply_coupon_ids );
+			$post_id               = absint( $post_id );
 			if ( isset( $_POST['wc_sc_auto_apply_coupon'] ) ) { // phpcs:ignore
 				$auto_apply_coupon = wc_clean( wp_unslash( $_POST['wc_sc_auto_apply_coupon'] ) ); // phpcs:ignore
 				update_post_meta( $post_id, 'wc_sc_auto_apply_coupon', $auto_apply_coupon );
@@ -228,9 +230,10 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 				$auto_apply_coupon = $meta_value;
 				if ( 'yes' === $auto_apply_coupon ) {
 					$auto_apply_coupon_ids = get_option( 'wc_sc_auto_apply_coupon_ids', array() );
-					$coupon_id             = ( isset( $args['post']['post_id'] ) ) ? $args['post']['post_id'] : 0;
+					$auto_apply_coupon_ids = array_map( 'absint', $auto_apply_coupon_ids );
+					$coupon_id             = ( isset( $args['post']['post_id'] ) ) ? absint( $args['post']['post_id'] ) : 0;
 					if ( ! empty( $coupon_id ) && ! in_array( $coupon_id, $auto_apply_coupon_ids, true ) ) {
-						$auto_apply_coupon_ids[] = $args['post']['post_id'];
+						$auto_apply_coupon_ids[] = $coupon_id;
 						update_option( 'wc_sc_auto_apply_coupon_ids', $auto_apply_coupon_ids );
 					}
 				}
@@ -265,13 +268,18 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 			if ( is_object( $cart ) && is_callable( array( $cart, 'is_empty' ) ) && ! $cart->is_empty() ) {
 				$auto_apply_coupon_ids = get_option( 'wc_sc_auto_apply_coupon_ids', array() );
 				if ( ! empty( $auto_apply_coupon_ids ) && is_array( $auto_apply_coupon_ids ) ) {
-					$valid_coupon_counter = 0;
+					$valid_coupon_counter         = 0;
+					$max_auto_apply_coupons_limit = apply_filters( 'wc_sc_max_auto_apply_coupons_limit', 5, array( 'source' => $this ) );
 					foreach ( $auto_apply_coupon_ids as $apply_coupon_id ) {
 						// Process only five coupons.
-						if ( apply_filters( 'wc_sc_max_auto_apply_coupons_limit', 5 ) === $valid_coupon_counter ) {
+						if ( absint( $max_auto_apply_coupons_limit ) === $valid_coupon_counter ) {
 							break;
 						}
-						$coupon = new WC_Coupon( get_the_title( $apply_coupon_id ) );
+						$coupon_status = get_post_status( $apply_coupon_id );
+						if ( 'publish' !== $coupon_status ) {
+							continue;
+						}
+						$coupon = new WC_Coupon( absint( $apply_coupon_id ) );
 						if ( $this->is_wc_gte_30() ) {
 							$coupon_id = ( ! empty( $coupon ) && is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
 						} else {

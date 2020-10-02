@@ -2,8 +2,6 @@
 /**
  * WC_MNM_Meta_Box_Order class
  *
- * @author   Kathy Darling
- * @category Admin
  * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Order
  * @since    1.7.0
  */
@@ -79,7 +77,11 @@ class WC_MNM_Meta_Box_Order {
 				 */
 				if ( apply_filters( 'wc_mnm_auto_add_child_items', false, $product, $item, $order ) ) {
 
-					$added_to_order = WC_Mix_and_Match()->order->add_container_to_order( $product, $order, $item->get_quantity(), array(
+					$added_to_order = WC_Mix_and_Match()->order->add_container_to_order(
+                        $product,
+                        $order,
+                        $item->get_quantity(),
+                        array(
 
 						/**
 						 * 'wc_mnm_auto_add_container_configuration' filter.
@@ -92,7 +94,8 @@ class WC_MNM_Meta_Box_Order {
 						 * @param  $order    WC_Order
 						 */
 						'configuration' => apply_filters( 'wc_mnm_auto_add_container_configuration', array(), $product, $item, $order )
-					) );
+                        )
+                    );
 
 					if ( $added_to_order ) {
 
@@ -164,7 +167,8 @@ class WC_MNM_Meta_Box_Order {
 
 					?>
 					<div class="configure_container_order_item">
-						<button class="<?php echo $is_configured ? 'edit_container' : 'configure_container' ?> button"><?php
+						<button class="<?php echo $is_configured ? 'edit_container' : 'configure_container'; ?> button">
+												  <?php
 
 						if ( $is_configured ) {
 							esc_html_e( 'Edit', 'woocommerce-mix-and-match-products' );
@@ -172,7 +176,8 @@ class WC_MNM_Meta_Box_Order {
 							esc_html_e( 'Configure', 'woocommerce-mix-and-match-products' );
 						}
 
-						?></button>
+						?>
+						</button>
 					</div>
 					<?php
 				}

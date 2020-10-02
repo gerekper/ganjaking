@@ -13,6 +13,11 @@ jQuery( document ).ready( function( $ ) {
 					escapeMarkup: function( m ) {
 						return m;
 					},
+					language: {
+						errorLoading: function() {
+							return sfn_product_search.errorLoading;
+						}
+					},
 					ajax: {
 						url:         ajaxurl,
 						dataType:    'json',

@@ -2,8 +2,6 @@
 /**
  * Product Export Class
  *
- * @author   SomewhereWarm
- * @category Admin
  * @package  WooCommerce Mix and Match Products/Admin/Export
  * @since    1.3.0
  */
@@ -48,14 +46,14 @@ class WC_MNM_Product_Export {
 	 */
 	public static function add_columns( $columns ) {
 
-		$columns[ 'wc_mnm_contents' ]  		           = __( 'MnM Contents (JSON-encoded)', 'woocommerce-mix-and-match-products' );
-		$columns[ 'wc_mnm_min_container_size' ]        = __( 'MnM Minimum Container Size', 'woocommerce-mix-and-match-products' );
-		$columns[ 'wc_mnm_max_container_size' ]        = __( 'MnM Maximum Container Size', 'woocommerce-mix-and-match-products' );
-		$columns[ 'wc_mnm_priced_per_product' ]        = __( 'MnM Per-Item Pricing', 'woocommerce-mix-and-match-products' );
-		$columns[ 'wc_mnm_shipped_per_product' ] 	   = __( 'MnM Per-Item Shipping', 'woocommerce-mix-and-match-products' );
-		$columns[ 'wc_mnm_discount' ] 	   = __( 'MnM Per-Item Discount', 'woocommerce-mix-and-match-products' );
-		$columns[ 'wc_mnm_layout' ] 	   			   = __( 'MnM Layout', 'woocommerce-mix-and-match-products' );
-		$columns[ 'wc_mnm_add_to_cart_form_location' ] = __( 'MnM Add to Cart Form Location', 'woocommerce-mix-and-match-products' );
+		$columns['wc_mnm_contents']                    = __( 'MnM Contents (JSON-encoded)', 'woocommerce-mix-and-match-products' );
+		$columns['wc_mnm_min_container_size']        = __( 'MnM Minimum Container Size', 'woocommerce-mix-and-match-products' );
+		$columns['wc_mnm_max_container_size']        = __( 'MnM Maximum Container Size', 'woocommerce-mix-and-match-products' );
+		$columns['wc_mnm_priced_per_product']        = __( 'MnM Per-Item Pricing', 'woocommerce-mix-and-match-products' );
+		$columns['wc_mnm_shipped_per_product']     = __( 'MnM Per-Item Shipping', 'woocommerce-mix-and-match-products' );
+		$columns['wc_mnm_discount']        = __( 'MnM Per-Item Discount', 'woocommerce-mix-and-match-products' );
+		$columns['wc_mnm_layout']                  = __( 'MnM Layout', 'woocommerce-mix-and-match-products' );
+		$columns['wc_mnm_add_to_cart_form_location'] = __( 'MnM Add to Cart Form Location', 'woocommerce-mix-and-match-products' );
 
 		/**
 		 * Mix and Match Export columns.
@@ -83,11 +81,11 @@ class WC_MNM_Product_Export {
 				$data = array();
 
 				foreach ( $mnm_contents as $mnm_item_id => $mnm_item_data ) {
-					
+
 					$mnm_item_data = array();
 
 					$mnm_product    = wc_get_product( $mnm_item_id );
-					
+
 					if ( ! $mnm_product ) {
 						return $value;
 					}
@@ -97,7 +95,7 @@ class WC_MNM_Product_Export {
 					$mnm_product_sku = $mnm_product->get_sku( 'edit' );
 
 					// Refer to exported products by their SKU, if present.
-					$mnm_item_data[ 'product_id' ] = $mnm_product_sku ? $mnm_product_sku : 'id:' . $mnm_product_id;
+					$mnm_item_data['product_id'] = $mnm_product_sku ? $mnm_product_sku : 'id:' . $mnm_product_id;
 
 					$data[ $mnm_item_id ] = $mnm_item_data;
 				}

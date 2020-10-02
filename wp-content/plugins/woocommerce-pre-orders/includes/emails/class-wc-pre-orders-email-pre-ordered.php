@@ -65,7 +65,7 @@ class WC_Pre_Orders_Email_Pre_Ordered extends WC_Email {
 
 			$this->object    = new WC_Order( $order_id );
 			$this->recipient = $pre_wc_30 ? $this->object->billing_email : $this->object->get_billing_email();
-			$this->availability_date = WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ) );
+			$this->availability_date = WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $this->object ), __( 'a future date', 'wc-pre-orders' ) );
 
 			$this->find[]    = '{order_date}';
 			$this->replace[] = date_i18n( wc_date_format(), strtotime( $pre_wc_30 ? $this->object->order_date : ( $this->object->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->object->get_date_created()->getOffsetTimestamp() ) : '' ) ) );
@@ -97,6 +97,7 @@ class WC_Pre_Orders_Email_Pre_Ordered extends WC_Email {
 			array(
 				'order'             => $this->object,
 				'email_heading'     => $this->get_heading(),
+				'additional_content' => $this->get_additional_content(),
 				'availability_date' => $this->availability_date,
 				'plain_text'        => false,
 				'email'             => $this,
@@ -121,6 +122,7 @@ class WC_Pre_Orders_Email_Pre_Ordered extends WC_Email {
 			array(
 				'order'             => $this->object,
 				'email_heading'     => $this->get_heading(),
+				'additional_content' => $this->get_additional_content(),
 				'availability_date' => $this->availability_date,
 				'plain_text'        => true
 			),

@@ -6,7 +6,7 @@
  * Description: Automatically change order status to complete for all orders or just virtual orders when payment is successful
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.13.0
+ * Version: 1.13.1
  * Text Domain: woocommerce-order-status-control
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 439037:32400e509c7c36dcc1cd368e8267d981
  * WC requires at least: 3.0.9
- * WC tested up to: 4.4.1
+ * WC tested up to: 4.5.2
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -92,7 +92,6 @@ class WC_Order_Status_Control_Loader {
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
-			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

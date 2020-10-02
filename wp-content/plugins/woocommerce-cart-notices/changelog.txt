@@ -1,5 +1,8 @@
 *** WooCommerce Cart Notices Changelog ***
 
+2020.09.29 - version 1.12.1
+ * Misc - Remove the SkyVerge help menu item as part of the plugin assets
+
 2020.08.13 - version 1.12.0
  * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
 

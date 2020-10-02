@@ -206,7 +206,7 @@ class WC_Bookings_Calendar {
 					$title           .= ' ' . __( '(From Google Calendar)', 'woocommerce-bookings' );
 					$detail_href     = admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings' );
 					if ( $availability->date_starts_today( $start ) ) {
-						$start_date = $availability->get_formatted_date( $start, '', wc_time_format() );
+						$start_date = $availability->get_formatted_date( $start, '', wc_bookings_time_format() );
 					} else {
 						$start_date = '';
 					}
@@ -257,7 +257,7 @@ class WC_Bookings_Calendar {
 				}
 
 				$product     = $booking->get_product();
-				$start_date  = $booking->get_start_date( '', wc_time_format() );
+				$start_date  = $booking->get_start_date( '', wc_bookings_time_format() );
 				$is_all_day  = $booking->is_all_day();
 				$detail_href = admin_url( 'post.php?post=' . $booking->get_id() . '&action=edit' );
 
@@ -281,7 +281,7 @@ class WC_Bookings_Calendar {
 				$event_classes[] = 'no_availability';
 				$id              = $event->get_gcal_event_id();
 				if ( $availability->date_starts_today( $start ) ) {
-					$start_date = $availability->get_formatted_date( $start, '', wc_time_format() );
+					$start_date = $availability->get_formatted_date( $start, '', wc_bookings_time_format() );
 				} else {
 					$start_date = '';
 				}
@@ -367,7 +367,7 @@ class WC_Bookings_Calendar {
 	 * @return array Hash event_id => color styles
 	 */
 	protected function get_event_color_styles( $events ) {
-		$colors                = array( '#d7f1bf', '#52d4ad', '#1dbcc0', '#227a95', '#205076', '#17295a', '#fedab9', '#feaa6e', '#ffe800', '#e67e22', '#fd8d67', '#ffb2d0', '#4a2f83', '#4b0057', '#64d72c' );
+		$colors                = array( '#d7f1bf', '#52d4ad', '#1dbcc0', '#227a95', '#fedab9', '#feaa6e', '#ffe800', '#e67e22', '#fd8d67', '#ffb2d0', '#64d72c', '#f2d7d5', '#e6b0aa', '#d98880', '#cd6155' );
 		$booked_product_colors = array();
 		$assigned_colors       = array();
 		$index                 = 0;
@@ -663,7 +663,7 @@ class WC_Bookings_Calendar {
 	 * @since 1.15.0
 	 */
 	protected function get_short_time( $timestamp ) {
-		$time_format = get_option( 'time_format' );
+		$time_format = wc_bookings_time_format();
 		// Remove spaces so AM/PM will be directly next to time.
 		$time_format = str_replace( ' ', '', $time_format );
 

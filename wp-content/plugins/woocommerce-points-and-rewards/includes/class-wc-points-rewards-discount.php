@@ -63,6 +63,11 @@ class WC_Points_Rewards_Discount {
 			return $data;
 		}
 
+		// Only filter for frontend cart calculations.
+		if ( ! WC()->cart || ! WC()->session ) {
+			return $data;
+		}
+
 		// Discount calculation is much simpler now. We just add a fixed_cart coupon
 		// to the cart with the amount determined by available points.
 		$amount = WC_Points_Rewards_Cart_Checkout::get_discount_for_redeeming_points( true, null, false, $code );

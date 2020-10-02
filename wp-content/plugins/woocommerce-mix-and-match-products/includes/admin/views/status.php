@@ -24,7 +24,8 @@ if ( ! isset( $debug_data ) || ! is_array( $debug_data ) ) {
 	</tr>
 	</thead>
 	<tbody>
-	<?php foreach ( $debug_data as $section => $data ) {
+	<?php
+	foreach ( $debug_data as $section => $data ) {
 		// Use mark key if available, otherwise default back to the success key.
 		if ( isset( $data['mark'] ) ) {
 			$mark = $data['mark'];
@@ -47,23 +48,27 @@ if ( ! isset( $debug_data ) || ! is_array( $debug_data ) ) {
 
 		?>
 		<tr>
-			<td data-export-label="<?php echo esc_attr( $data['name'] ) ?>"><?php echo esc_html( $data['name'] ) ?>:</td>
+			<td data-export-label="<?php echo esc_attr( $data['name'] ); ?>"><?php echo esc_html( $data['name'] ); ?>:</td>
 			<td class="help">&nbsp;</td>
 			<td>
 				<?php
 				// If this isn't theme overrides, keep it simple.
 				if ( 'mnm_theme_overrides' !== $section ) {
-					
+
 					if ( isset( $data['note'] ) ) {
 						if ( empty( $mark ) ) {
 							echo wp_kses_post( $data['note'] );
-						} else { ?>
-							<mark class="<?php echo esc_html( $mark ) ?>"><?php
+						} else {
+						?>
+							<mark class="<?php echo esc_html( $mark ); ?>">
+													<?php
 							if ( $mark_icon ) {
 								echo '<span class="dashicons dashicons-' . esc_attr( $mark_icon ) . '"></span> ';
 							}
-							echo wp_kses_post( $data['note'] );?>
-							</mark><?php
+							echo wp_kses_post( $data['note'] );
+							?>
+							</mark>
+							<?php
 						}
 					}
 					continue;

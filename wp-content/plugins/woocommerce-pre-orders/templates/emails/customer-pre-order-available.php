@@ -72,9 +72,20 @@ do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_
 
 ?>
 <p>
-<?php esc_html_e( 'Thanks for shopping with us.', 'wc-pre-orders' ); ?>
+<?php
+	/**
+	* Show user-defined additional content - this is set in each email's settings.
+	*/
+if ( $additional_content ) {
+	echo wp_kses_post( wpautop( wptexturize( $additional_content ) ) );
+} else {
+	esc_html_e( 'Thanks for shopping with us.', 'wc-pre-orders' );
+}
+?>
 </p>
 <?php
+
+
 
 /*
  * @hooked WC_Emails::email_footer() Output the email footer

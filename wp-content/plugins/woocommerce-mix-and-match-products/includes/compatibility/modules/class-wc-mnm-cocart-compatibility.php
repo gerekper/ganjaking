@@ -1,11 +1,9 @@
 <?php
 /**
  * CoCart Compatibility
- * 
+ *
  * Adds compatibility with CoCart.
  *
- * @author   Sébastien Dumont
- * @category Compatibility
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.10.0
  */
@@ -51,14 +49,12 @@ class WC_MNM_COCART_Compatibility {
 	/**
 	 * Overrides the handler used for adding a Mix and Match product.
 	 *
-	 * @access public
-	 * @static
 	 * @param  string     $handler - The name of the original handler to use when adding product to the cart.
 	 * @param  WC_Product $product
 	 * @return string     $handler - The name of the new handler to use when adding product to the cart.
 	 */
 	public static function add_to_cart_handler( $handler, $product ) {
-		switch( $handler ) {
+		switch ( $handler ) {
 			case 'mix-and-match':
 				$handler = 'simple';
 				break;
@@ -70,7 +66,6 @@ class WC_MNM_COCART_Compatibility {
 	/**
 	 * Validates the product before being added to the cart.
 	 *
-	 * @access public
 	 * @param  bool   $passed_validation - The current status of validation.
 	 * @param  int    $product_id        - Contains the ID of the product.
 	 * @param  float  $quantity          - Contains the quantity of the item.
@@ -109,7 +104,7 @@ class WC_MNM_COCART_Compatibility {
 			$cart_item_data = self::reconfigure_mnm_configuration( $cart_item_data );
 
 			// Count item total.
-			foreach ( $cart_item_data[ 'mnm_config' ] as $child_id => $child_item ) {
+			foreach ( $cart_item_data['mnm_config'] as $child_id => $child_item ) {
 				$child_quantity = $child_item['quantity'];
 				$total_qty +=$child_quantity;
 			}
@@ -132,7 +127,7 @@ class WC_MNM_COCART_Compatibility {
 			}
 
 			// Validate that a container has minimum number of items.
-			else if( $min_container_size > 0 && $total_qty < $min_container_size ) {
+			else if ( $min_container_size > 0 && $total_qty < $min_container_size ) {
 				$error_message = $min_container_size > 1 ? $strings['i18n_min_qty_error'] : $strings['i18n_min_qty_error_singular'];
 				$error_message = str_replace( '%min', $min_container_size, $error_message );
 
@@ -158,7 +153,7 @@ class WC_MNM_COCART_Compatibility {
 				return new WP_Error( $error['error_code'], $error['message'], array( 'status' => 403 ) );
 			}
 
-			foreach( $cart_item_data[ 'mnm_config' ] as $child_id => $child_item ) {
+			foreach ( $cart_item_data['mnm_config'] as $child_id => $child_item ) {
 
 				// Validate that the product is available for this container.
 				if ( ! $product->is_child_available( $child_id ) ) {
@@ -168,7 +163,6 @@ class WC_MNM_COCART_Compatibility {
 
 					return new WP_Error( 'wc_mnm_cocart_child_product_not_available_in_container.', $error_message, array( 'status' => 403 ) );
 				}
-
 			}
 
 			// Generate a ID based on product ID, variation ID, variation data, and other cart item data.
@@ -178,7 +172,7 @@ class WC_MNM_COCART_Compatibility {
 			$cart_item_key = WC()->cart->find_product_in_cart( $cart_id );
 
 			// Validate container.
-			if ( self::validate_container_configuration( $product, $quantity, $cart_item_data[ 'mnm_config' ] ) ) {
+			if ( self::validate_container_configuration( $product, $quantity, $cart_item_data['mnm_config'] ) ) {
 				return true;
 			} else {
 				return false;
@@ -191,35 +185,33 @@ class WC_MNM_COCART_Compatibility {
 	/**
 	 * Reconfigures the MNM configuration so cart item data is still valid for cart.
 	 *
-	 * @access public
-	 * @static
 	 * @param  array $cart_item_data
 	 * @return array $cart_item_data
 	 */
 	public static function reconfigure_mnm_configuration( $cart_item_data ) {
 		// If the cart item data does not have a MNM configuration then just return.
-		if ( ! isset( $cart_item_data[ 'mnm_config' ] ) ) {
+		if ( ! isset( $cart_item_data['mnm_config'] ) ) {
 			return $cart_item_data;
 		}
 
 		// Create temporary item data to re-organize data.
-		if ( ! isset( $cart_item_data[ 'new_mnm_config' ] ) ) {
-			$cart_item_data[ 'new_mnm_config' ] = array();
+		if ( ! isset( $cart_item_data['new_mnm_config'] ) ) {
+			$cart_item_data['new_mnm_config'] = array();
 		}
 
-		foreach ( $cart_item_data[ 'mnm_config' ] as $mnm_item_data ) {
+		foreach ( $cart_item_data['mnm_config'] as $mnm_item_data ) {
 			$child_id = $mnm_item_data['product_id'];
-			$cart_item_data[ 'new_mnm_config' ][ $child_id ] = $mnm_item_data;
+			$cart_item_data['new_mnm_config'][ $child_id ] = $mnm_item_data;
 		}
 
 		// Remove old MNM config.
-		unset( $cart_item_data[ 'mnm_config' ] );
+		unset( $cart_item_data['mnm_config'] );
 
 		// Set valid MNM config.
-		$cart_item_data[ 'mnm_config' ] = $cart_item_data[ 'new_mnm_config' ];
+		$cart_item_data['mnm_config'] = $cart_item_data['new_mnm_config'];
 
 		// Remove temporary item data.
-		unset( $cart_item_data[ 'new_mnm_config' ] );
+		unset( $cart_item_data['new_mnm_config'] );
 
 		return $cart_item_data;
 	} // END reconfigure_mnm_configuration()
@@ -259,7 +251,7 @@ class WC_MNM_COCART_Compatibility {
 
 				// Check that a product has been selected.
 				if ( isset( $configuration[ $id ] ) && $configuration[ $id ] !== '' ) {
-					$item_quantity = $configuration[ $id ][ 'quantity' ];
+					$item_quantity = $configuration[ $id ]['quantity'];
 				} else {
 					continue;
 				}
@@ -287,7 +279,7 @@ class WC_MNM_COCART_Compatibility {
 					$error_message = sprintf( __( 'The configuration you have selected cannot be added to the cart since you cannot select more than %d of &quot;%s&quot;.', 'woocommerce-mix-and-match-products' ), $max_quantity, $mnm_item->get_title() );
 
 					$error = array( 'error_code' => 'wc_mnm_cocart_configuration_cannot_select_more', 'message' => $error_message );
-				} elseif( $min_quantity && $item_quantity < $min_quantity ) {
+				} elseif ( $min_quantity && $item_quantity < $min_quantity ) {
 					// translators: %s is the product title. %d is the minimum quantity.
 					$error_message = sprintf( __( 'The configuration you have selected cannot be added to the cart since you must select at least %d of &quot;%s&quot;.', 'woocommerce-mix-and-match-products' ), $min_quantity, $mnm_item->get_title() );
 
@@ -325,9 +317,7 @@ class WC_MNM_COCART_Compatibility {
 					$is_configuration_valid = false;
 					break;
 				}
-
 			} // END foreach.
-
 		}
 
 		if ( $is_configuration_valid ) {
@@ -354,7 +344,6 @@ class WC_MNM_COCART_Compatibility {
 
 				return new WP_Error( $error['error_code'], $error['message'], array( 'status' => 403 ) );
 			}
-
 		}
 
 		return $is_configuration_valid;
@@ -363,8 +352,6 @@ class WC_MNM_COCART_Compatibility {
 	/**
 	 * Validates the item when being updated.
 	 *
-	 * @access public
-	 * @static
 	 * @param  bool   $passed_validation - The current status of validation.
 	 * @param  string $cart_item_key     - The item in the cart we are updating.
 	 * @param  array  $values            - Product data of item in cart.
@@ -372,13 +359,13 @@ class WC_MNM_COCART_Compatibility {
 	 * @return bool
 	 */
 	public static function update_cart_validation( $passed_validation, $cart_item_key, $values, $product_quantity ) {
-		$product = $values[ 'data' ];
+		$product = $values['data'];
 
 		if ( ! $product ) {
 			return false;
 		}
 
-		$existing_quantity   = $values[ 'quantity' ];
+		$existing_quantity   = $values['quantity'];
 		$additional_quantity = $product_quantity - $existing_quantity;
 
 		// Don't check child items individually, will be checked by parent container.
@@ -400,7 +387,7 @@ class WC_MNM_COCART_Compatibility {
 			$mnm_stock = new WC_Mix_and_Match_Stock_Manager( $product );
 
 			// Loop through the items.
-			foreach ( $values[ 'mnm_config' ] as $id => $data ) {
+			foreach ( $values['mnm_config'] as $id => $data ) {
 
 				// Double check it is an allowed item - is this needed? Wasn't it checked on its way into the cart?
 				if ( ! array_key_exists( $data['product_id'], $mnm_items ) ) {
@@ -408,7 +395,7 @@ class WC_MNM_COCART_Compatibility {
 				}
 
 				// Quantity per container.
-				$item_quantity = $data[ 'quantity' ];
+				$item_quantity = $data['quantity'];
 
 				// Total quantity.
 				$quantity = $item_quantity * $additional_quantity;
@@ -427,7 +414,6 @@ class WC_MNM_COCART_Compatibility {
 				} else {
 					$mnm_stock->add_item( $data['product_id'], false, $quantity );
 				}
-
 			} // End foreach.
 
 			// Check stock for stock-managed child items.
@@ -443,8 +429,6 @@ class WC_MNM_COCART_Compatibility {
 	/**
 	 * Returns the item quantity based on MNM settings.
 	 *
-	 * @access public
-	 * @static
 	 * @param  array  $cart_contents
 	 * @param  int    $item_key
 	 * @param  array  $cart_item
@@ -453,7 +437,7 @@ class WC_MNM_COCART_Compatibility {
 	 */
 	public static function cart_item_quantity( $cart_contents, $item_key, $cart_item, $_product ) {
 		if ( wc_mnm_get_cart_item_container( $cart_item ) ) {
-			$cart_contents[ $item_key ][ 'quantity' ] = $cart_item[ 'quantity' ];
+			$cart_contents[ $item_key ]['quantity'] = $cart_item['quantity'];
 		}
 
 		return $cart_contents;
@@ -462,8 +446,6 @@ class WC_MNM_COCART_Compatibility {
 	/**
 	 * Returns the item price based on MNM settings.
 	 *
-	 * @access public
-	 * @static
 	 * @param  array  $cart_contents
 	 * @param  int    $item_key
 	 * @param  array  $cart_item
@@ -471,29 +453,29 @@ class WC_MNM_COCART_Compatibility {
 	 * @return array  $cart_contents
 	 */
 	public static function cart_item_price( $cart_contents, $item_key, $cart_item, $_product ) {
-		$price = $cart_contents[ $item_key ]['line_total'] / $cart_item[ 'quantity' ];
+		$price = $cart_contents[ $item_key ]['line_total'] / $cart_item['quantity'];
 
 		// Child items.
 		if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
 
-			if ( ! $container_cart_item[ 'data' ]->is_priced_per_product() ) {
+			if ( ! $container_cart_item['data']->is_priced_per_product() ) {
 				$price = 0;
 			}
 
 		// Parent container.
 		} else if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 
-			if ( $cart_item[ 'data' ]->is_priced_per_product() ) {
+			if ( $cart_item['data']->is_priced_per_product() ) {
 
 				$mnm_items_price     = 0;
-				$mnm_container_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $cart_item[ 'data' ] ) : wc_get_price_including_tax( $cart_item[ 'data' ] );
+				$mnm_container_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $cart_item['data'] ) : wc_get_price_including_tax( $cart_item['data'] );
 
 				foreach ( wc_mnm_get_child_cart_items( $cart_item ) as $mnm_item_key => $mnm_item ) {
-					$child_item_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $mnm_item[ 'data' ], array( 'qty' => $mnm_item[ 'quantity' ] ) ) : wc_get_price_including_tax( $mnm_item[ 'data' ], array( 'qty' => $mnm_item[ 'quantity' ] ) );
+					$child_item_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $mnm_item['data'], array( 'qty' => $mnm_item['quantity'] ) ) : wc_get_price_including_tax( $mnm_item['data'], array( 'qty' => $mnm_item['quantity'] ) );
 					$mnm_items_price  += (double) $child_item_price;
 				}
 
-				$aggregate_price = $mnm_container_price + $mnm_items_price / $cart_item[ 'quantity' ];
+				$aggregate_price = $mnm_container_price + $mnm_items_price / $cart_item['quantity'];
 				$price = $aggregate_price;
 			}
 		}
@@ -506,8 +488,6 @@ class WC_MNM_COCART_Compatibility {
 	/**
 	 * Returns the item subtotal based on MNM configuration.
 	 *
-	 * @access public
-	 * @static
 	 * @param  array  $cart_contents
 	 * @param  int    $item_key
 	 * @param  array  $cart_item
@@ -521,20 +501,20 @@ class WC_MNM_COCART_Compatibility {
 		if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
 
 			// If not priced per product return zero.
-			if ( ! $container_cart_item[ 'data' ]->is_priced_per_product() ) {
+			if ( ! $container_cart_item['data']->is_priced_per_product() ) {
 				$subtotal = 0;
 			}
 
 		// Parent container.
 		} else if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 
-			if ( $cart_item[ 'data' ]->is_priced_per_product() ) {
+			if ( $cart_item['data']->is_priced_per_product() ) {
 
 				$mnm_items_price     = 0;
-				$mnm_container_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $cart_item[ 'data' ], array( 'qty' => $cart_item[ 'quantity' ] ) ) : wc_get_price_including_tax( $cart_item[ 'data' ], array( 'qty' => $cart_item[ 'quantity' ] ) );
+				$mnm_container_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'] ) ) : wc_get_price_including_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'] ) );
 
 				foreach ( wc_mnm_get_child_cart_items( $cart_item ) as $mnm_item_key => $mnm_item ) {
-					$child_item_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $mnm_item[ 'data' ], array( 'qty' => $mnm_item[ 'quantity' ] ) ) : wc_get_price_including_tax( $mnm_item[ 'data' ], array( 'qty' => $mnm_item[ 'quantity' ] ) );
+					$child_item_price = get_option( 'woocommerce_tax_display_cart' ) == 'excl' ? wc_get_price_excluding_tax( $mnm_item['data'], array( 'qty' => $mnm_item['quantity'] ) ) : wc_get_price_including_tax( $mnm_item['data'], array( 'qty' => $mnm_item['quantity'] ) );
 					$mnm_items_price  += (double) $child_item_price;
 				}
 
@@ -552,8 +532,6 @@ class WC_MNM_COCART_Compatibility {
 	/**
 	 * Adds Mix and Match Product schema to the cart.
 	 *
-	 * @access public
-	 * @static
 	 * @param  array $schema - Before schema is altered.
 	 * @return array $schema - After schema is altered.
 	 */
@@ -612,11 +590,9 @@ class WC_MNM_COCART_Compatibility {
 	} // END add_additional_cart_schema()
 
 	/**
-	 * Add Mix and Match Product data to products that 
+	 * Add Mix and Match Product data to products that
 	 * are a mix and match product only.
-	 * 
-	 * @access public
-	 * @static
+	 *
 	 * @param  object     $response
 	 * @param  WC_Product $object
 	 */
@@ -652,8 +628,6 @@ class WC_MNM_COCART_Compatibility {
 	/**
 	 * Returns Mix and Match Product data.
 	 *
-	 * @access public
-	 * @static
 	 * @param  WC_Product $object   - Returns product details of the parent product.
 	 * @param  array      $products - List of available products applied to the container.
 	 * @return array
@@ -687,8 +661,6 @@ class WC_MNM_COCART_Compatibility {
 	/**
 	 * Adds Mix and Match Product schema to Products.
 	 *
-	 * @access public
-	 * @static
 	 * @param  array $schema - Before schema is altered.
 	 * @return array $schema - After schema is altered.
 	 */

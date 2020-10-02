@@ -2,8 +2,6 @@
 /**
  * Wishlists Compatibility
  *
- * @author   Kathy Darling
- * @category Compatibility
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
  * @version  1.0.5
@@ -35,32 +33,31 @@ class WC_MNM_WL_Compatibility {
 	 */
 	public static function wishlist_after_list_item_name( $item, $wishlist ) {
 
-		if ( ! empty( $item[ 'mnm_config' ] ) ) {
+		if ( ! empty( $item['mnm_config'] ) ) {
 
 			echo '<div class="wishlist_mnm_items">';
 
-			foreach ( $item[ 'mnm_config' ] as $mnm_item => $mnm_item_data ) {
+			foreach ( $item['mnm_config'] as $mnm_item => $mnm_item_data ) {
 
-				$mnm_product = wc_get_product ( $mnm_item );
+				$mnm_product = wc_get_product( $mnm_item );
 
 				if ( ! $mnm_product->is_visible() ) {
 					// translators: %d child quantity in configuration.
 					echo apply_filters( 'woocommerce_cart_item_name', $mnm_product->get_title(), $mnm_item_data, false ) . ' ' . sprintf( __( '&times; %d', 'woocommerce-mix-and-match-products' ), $mnm_item_data['quantity'] );
 				} else {
 					// translators: %d child quantity in configuration.
-					echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', $mnm_product->get_permalink(), $mnm_product->get_title() ), $mnm_item_data, false ) . ' ' . sprintf( __( '&times; %d', 'woocommerce-mix-and-match-products' ), $mnm_item_data[ 'quantity' ] );
+					echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', $mnm_product->get_permalink(), $mnm_product->get_title() ), $mnm_item_data, false ) . ' ' . sprintf( __( '&times; %d', 'woocommerce-mix-and-match-products' ), $mnm_item_data['quantity'] );
 				}
 
 				// Variation Data.
-				if( $mnm_product->is_type( 'variation' ) ){
+				if ( $mnm_product->is_type( 'variation' ) ) {
 					echo wc_get_formatted_variation( $mnm_product->get_variation_attributes() );
 				}
-
 			}
 
 			$mnm_container = wc_get_product( $item['product_id'] );
 
-			if( $item[ 'data' ]->is_priced_per_product() ){
+			if ( $item['data']->is_priced_per_product() ) {
 				echo '<p class="wishlist_mnm_notice">' . __( '*', 'woocommerce-mix-and-match-products' ) . '&nbsp;&nbsp;<em>' . __( 'Accurate pricing info available in cart.', 'woocommerce-mix-and-match-products' ) . '</em></p>';
 			}
 
@@ -78,7 +75,7 @@ class WC_MNM_WL_Compatibility {
 	 */
 	public static function wishlist_list_item_price( $price, $item, $wishlist ) {
 
-		if ( ! empty( $item[ 'mnm_config' ] ) && $item[ 'data' ]->is_priced_per_product() ){
+		if ( ! empty( $item['mnm_config'] ) && $item['data']->is_priced_per_product() ) {
 			$price = __( '*', 'woocommerce-mix-and-match-products' );
 		}
 

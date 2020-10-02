@@ -2,8 +2,6 @@
 /**
  * Stock Manager
  *
- * @author   SomewhereWarm
- * @category Classes
  * @package  WooCommerce Mix and Match Products/Stock
  * @since    1.0.5
  * @version  1.7.0
@@ -32,7 +30,7 @@ class WC_Mix_and_Match_Stock_Manager {
 	 * @var str
 	 */
 	private $total_qty;
-	
+
 	/**
 	 * The Mix and Match Product Object.
 	 * @var obj WC_Product
@@ -51,7 +49,7 @@ class WC_Mix_and_Match_Stock_Manager {
 	 *
 	 * @param int          $product_id
 	 * @param false|int    $variation_id
-	 * @param int      	   $quantity
+	 * @param int          $quantity
 	 */
 	public function add_item( $product_id, $variation_id = false, $quantity = 1 ) {
 
@@ -132,17 +130,17 @@ class WC_Mix_and_Match_Stock_Manager {
 
 				if ( isset( $managed_items[ $managed_by_id ] ) ) {
 
-					$managed_items[ $managed_by_id ][ 'quantity' ] += $purchased_item->quantity;
+					$managed_items[ $managed_by_id ]['quantity'] += $purchased_item->quantity;
 
 				} else {
 
-					$managed_items[ $managed_by_id ][ 'quantity' ] = $purchased_item->quantity;
+					$managed_items[ $managed_by_id ]['quantity'] = $purchased_item->quantity;
 
 					if ( $purchased_item->variation_id && $purchased_item->variation_id == $managed_by_id ) {
-						$managed_items[ $managed_by_id ][ 'is_variation' ] = true;
-						$managed_items[ $managed_by_id ][ 'product_id' ]   = $purchased_item->product_id;
+						$managed_items[ $managed_by_id ]['is_variation'] = true;
+						$managed_items[ $managed_by_id ]['product_id']   = $purchased_item->product_id;
 					} else {
-						$managed_items[ $managed_by_id ][ 'is_variation' ] = false;
+						$managed_items[ $managed_by_id ]['is_variation'] = false;
 					}
 				}
 			}
@@ -164,30 +162,30 @@ class WC_Mix_and_Match_Stock_Manager {
 		$quantities_in_cart = WC()->cart->get_cart_item_quantities();
 
 		// If we are updating a container in-cart, subtract the child item cart quantites that belong to the bundle being updated, since it's going to be removed later on.
-		if ( isset( $_POST[ 'update-container' ] ) ) {
+		if ( isset( $_POST['update-container'] ) ) {
 
-			$updating_cart_key = wc_clean( $_POST[ 'update-container' ] );
+			$updating_cart_key = wc_clean( $_POST['update-container'] );
 
 			if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
 
 				$container_cart_item   = WC()->cart->cart_contents[ $updating_cart_key ];
 				$mnm_cart_items = wc_mnm_get_child_cart_items( $container_cart_item );
 
-				if ( isset( $quantities_in_cart[ $container_cart_item[ 'product_id' ] ] ) ) {
-					$quantities_in_cart[ $container_cart_item[ 'product_id' ] ] -= $container_cart_item[ 'quantity' ];
+				if ( isset( $quantities_in_cart[ $container_cart_item['product_id'] ] ) ) {
+					$quantities_in_cart[ $container_cart_item['product_id'] ] -= $container_cart_item['quantity'];
 					// Unset if 0.
-					if ( 0 === absint( $quantities_in_cart[ $container_cart_item[ 'product_id' ] ] ) ) {
-						unset( $quantities_in_cart[ $container_cart_item[ 'product_id' ] ] );
+					if ( 0 === absint( $quantities_in_cart[ $container_cart_item['product_id'] ] ) ) {
+						unset( $quantities_in_cart[ $container_cart_item['product_id'] ] );
 					}
 				}
 
 				if ( ! empty( $mnm_cart_items ) ) {
 					foreach ( $mnm_cart_items as $item_key => $item ) {
 
-						$mnm_product_id = $item[ 'data' ]->is_type( 'variation' ) && true === $item[ 'data' ]->managing_stock() ? $item[ 'variation_id' ] : $item[ 'product_id' ];
+						$mnm_product_id = $item['data']->is_type( 'variation' ) && true === $item['data']->managing_stock() ? $item['variation_id'] : $item['product_id'];
 
 						if ( isset( $quantities_in_cart[ $mnm_product_id ] ) ) {
-							$quantities_in_cart[ $mnm_product_id ] -= $item[ 'quantity' ];
+							$quantities_in_cart[ $mnm_product_id ] -= $item['quantity'];
 							// Unset if 0.
 							if ( 0 === absint( $quantities_in_cart[ $mnm_product_id ] ) ) {
 								unset( $quantities_in_cart[ $mnm_product_id ] );
@@ -216,8 +214,8 @@ class WC_Mix_and_Match_Stock_Manager {
 			$args = array( 'context' => 'cart' );
 		}
 
-		$context         = isset( $args[ 'context' ] ) ? $args[ 'context' ] : 'add-to-cart';
-		$throw_exception = isset( $args[ 'throw_exception' ] ) && $args[ 'throw_exception' ];
+		$context         = isset( $args['context'] ) ? $args['context'] : 'add-to-cart';
+		$throw_exception = isset( $args['throw_exception'] ) && $args['throw_exception'];
 
 		$managed_items = $this->get_managed_items();
 
@@ -239,7 +237,7 @@ class WC_Mix_and_Match_Stock_Manager {
 
 			try {
 
-				$quantity = $managed_item[ 'quantity' ];
+				$quantity = $managed_item['quantity'];
 
 				// Get the product.
 				$managed_product       = wc_get_product( $managed_item_id );
@@ -262,7 +260,7 @@ class WC_Mix_and_Match_Stock_Manager {
 					if ( 'add-to-cart' === $context ) {
 						// translators: %1$s product title. %2$s Error reason.
 						$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart as configued. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
-						
+
 					} else {
 						// translators: %1$s product title. %2$s Error reason.
 						$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
@@ -274,7 +272,7 @@ class WC_Mix_and_Match_Stock_Manager {
 				// In-stock check: a product may be marked as "Out of stock", but has_enough_stock() may still return a number.
 				// We also need to take into account the 'woocommerce_notify_no_stock_amount' setting.
 				if ( ! $managed_product->is_in_stock() ) {
-					// translators: %s product title.				
+					// translators: %s product title.
 					$reason = sprintf( __( '&quot;%s&quot; is out of stock.', 'woocommerce-mix-and-match-products' ), $managed_product_title );
 
 					if ( 'add-to-cart' === $context ) {
@@ -283,7 +281,7 @@ class WC_Mix_and_Match_Stock_Manager {
 					} else {
 						// translators: %1$s product title. %2$s Error reason.
 						$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased as configured. %2$s', 'woocommerce-mix-and-match-products' ), $container_title, $reason );
-					} 
+					}
 
 					throw new Exception( $notice );
 
@@ -302,7 +300,7 @@ class WC_Mix_and_Match_Stock_Manager {
 
 					throw new Exception( $notice );
 
-				} 
+				}
 
 				// Stock check - this time accounting for whats already in-cart.
 				if ( $managed_product->managing_stock() ) {
@@ -329,7 +327,6 @@ class WC_Mix_and_Match_Stock_Manager {
 
 					}
 				}
-
 			} catch ( Exception $e ) {
 
 				$error = $e->getMessage();
@@ -358,40 +355,40 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 
 	/**
 	 * Product ID.
-	 * 
+	 *
 	 * @var int
 	 */
 	public $product_id;
-	
+
 	/**
 	 * Varitation ID.
-	 * 
+	 *
 	 * @var int
 	 */
 	public $variation_id;
-	
+
 	/**
 	 * Quantity of Item in Container.
-	 * 
+	 *
 	 * @var int
 	 */
 	public $quantity;
 
 	/**
 	 * The variation or product ID that manages the stock for this item.
-	 * 
+	 *
 	 * @var int
-	 */	
+	 */
 	public $managed_by_id;
 
 	/**
 	 * __construct function.
-	 * 
+	 *
 	 * @param int $product_id
 	 * @param int $variation_id
 	 * @param int $quantity
 	 */
-	
+
 	public function __construct( $product_id, $variation_id = false, $quantity = 1 ) {
 
 		$this->product_id   = $product_id;
@@ -409,7 +406,6 @@ class WC_Mix_and_Match_Stock_Manager_Item {
 			} else {
 				$this->managed_by_id = $product_id;
 			}
-
 		} else {
 			$this->managed_by_id = $product_id;
 		}

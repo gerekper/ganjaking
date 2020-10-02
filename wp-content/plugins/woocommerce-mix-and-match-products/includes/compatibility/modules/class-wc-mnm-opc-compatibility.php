@@ -2,8 +2,6 @@
 /**
  * One Page Checkout Compatibility
  *
- * @author   Kathy Darling
- * @category Compatibility
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
  * @version  1.0.5
@@ -73,7 +71,7 @@ class WC_MNM_OPC_Compatibility {
 	 */
 	public static function opc_disallow_bundled_cart_item_modification( $allow, $cart_item, $cart_item_key, $opc_id ) {
 
-		if ( ! empty( $cart_item[ 'mnm_container' ] ) ) {
+		if ( ! empty( $cart_item['mnm_container'] ) ) {
 			return false;
 		}
 

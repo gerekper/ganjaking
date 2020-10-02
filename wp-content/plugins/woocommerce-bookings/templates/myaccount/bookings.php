@@ -83,7 +83,7 @@ if ( ! empty( $tables ) ) : ?>
 				<a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button" href="<?php echo esc_url( wc_get_endpoint_url( 'bookings', $page - 1 ) ); ?>"><?php esc_html_e( 'Previous', 'woocommerce-bookings' ); ?></a>
 			<?php endif; ?>
 
-			<?php if ( $count >= $bookings_per_page ) : ?>
+			<?php if ( $count > $bookings_per_page ) : ?>
 				<a class="woocommerce-button woocommerce-button--next woocommerce-Button woocommerce-Button--next button" href="<?php echo esc_url( wc_get_endpoint_url( 'bookings', $page + 1 ) ); ?>"><?php esc_html_e( 'Next', 'woocommerce-bookings' ); ?></a>
 			<?php endif; ?>
 		</div>

@@ -1,5 +1,13 @@
 *** WooCommerce Chase Paymentech Gateway Changelog ***
 
+2020.09.29 - version 1.15.1
+ * Misc - Remove the SkyVerge help menu item as part of the plugin assets
+
+2020.08.12 - version 1.15.0
+ * Tweak - Migrate payment tokens to be compatible with WooCommerce core payment tokens
+ * Fix - Unblock the UI when removing a token from the admin token editor that was just added but not saved yet
+ * Dev - Deprecate some filter hooks in the payment methods table
+
 2020.06.24 - version 1.14.7
  * Tweak - Update Callback.html file to version 1.6.4.1
 

@@ -182,6 +182,13 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 									$saved_value = empty( $saved_value ) ? false : true;
 								} elseif ( isset( $value['type'] ) && 'number' === $value['type'] ) {
 									$saved_value = intval( $saved_value );
+
+									// bugfix.
+									if ( ! empty( $value['range'] ) && isset( $value['range'][0] ) ) {
+										if ( $saved_value < intval( $value['range'][0] ) && isset( $value['default'] ) ) {
+											$saved_value = intval( $value['default'] );
+										}
+									}
 								}
 
 								if ( isset( $value['type'] ) && 'header' === $value['type'] ) {
@@ -189,6 +196,13 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 										$_val = json_decode( stripslashes( $saved_value ), true );
 										if ( is_array( $_val ) ) {
 											$saved_value = $_val;
+										}
+									}
+
+									// bugfix.
+									if ( ! empty( $saved_value['style'] ) && in_array( $saved_value['style'], [ 3, 4, 5 ], true ) ) {
+										if ( ! empty( $saved_value['align'] ) && 'center' === $saved_value['align'] ) {
+											$saved_value['align'] = 'left';
 										}
 									}
 								}
@@ -525,6 +539,11 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 			// Hide for mobile view.
 			if ( isset( $settings['mobileNavMenu'] ) && 'none' === $settings['mobileNavMenu'] ) {
 				$classes_navbar[] = 'gm-hide-on-mobile';
+			}
+
+			// Scrollbar.
+			if ( isset( $settings['scrollbarEnable'] ) && $settings['scrollbarEnable'] ) {
+				$classes_navbar[] = 'gm-dropdown-with-scrollbar';
 			}
 
 			return $classes_navbar;

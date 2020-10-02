@@ -2,8 +2,6 @@
 /**
  * ShipStation Compatibility
  *
- * @author   SomewhereWarm
- * @category Compatibility
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
  * @version  1.3.0

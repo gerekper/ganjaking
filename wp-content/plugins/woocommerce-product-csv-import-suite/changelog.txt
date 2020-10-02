@@ -1,5 +1,9 @@
 *** Product CSV Import Suite Changelog ***
 
+2020-09-29 - version 1.10.37
+* Fix   - Issue when exporting empty variations file.
+* Fix   - Fix Broken Import of 0 Value Attributes.
+
 2020-08-18 - version 1.10.36
 * Fix   - Replace deprecated jQuery methods.
 * Tweak - WordPress 5.5 compatibility.

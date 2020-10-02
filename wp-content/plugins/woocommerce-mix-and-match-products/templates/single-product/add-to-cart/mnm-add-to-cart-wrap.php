@@ -11,20 +11,20 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
- * @author  Kathy Darling
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
  * @version 1.9.5
  */
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ){
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
 
-<?php 
+<?php
 
-if ( $product->is_purchasable() && $product->is_in_stock() ) { ?>
+if ( $product->is_purchasable() && $product->is_in_stock() ) {
+?>
 
 	<div class="mnm_cart mnm_data cart" <?php echo $product->get_data_attributes(); ?>>
 
@@ -65,40 +65,42 @@ if ( $product->is_purchasable() && $product->is_in_stock() ) { ?>
 			/**
 			 * woocommerce_before_add_to_cart_button hook.
 			 */
-			do_action( 'woocommerce_before_add_to_cart_button' ); 
+			do_action( 'woocommerce_before_add_to_cart_button' );
 
 			/**
 			 * @since 1.4.0.
 			 */
 			do_action( 'woocommerce_before_add_to_cart_quantity' );
 
-	 		woocommerce_quantity_input( array(
-	 			'min_value' => $product->is_sold_individually() ? 1 : apply_filters( 'woocommerce_quantity_input_min', 1, $product ),
-	 			'max_value' => $product->is_sold_individually() ? 1 : apply_filters( 'woocommerce_quantity_input_max', $product->backorders_allowed() ? '' : $product->get_stock_quantity(), $product ),
-	 			'input_value' => isset( $_REQUEST['quantity'] ) ? wc_stock_amount( wp_unslash( $_REQUEST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
-	 			) );
+			woocommerce_quantity_input(
+                array(
+				'min_value' => $product->is_sold_individually() ? 1 : apply_filters( 'woocommerce_quantity_input_min', 1, $product ),
+				'max_value' => $product->is_sold_individually() ? 1 : apply_filters( 'woocommerce_quantity_input_max', $product->backorders_allowed() ? '' : $product->get_stock_quantity(), $product ),
+				'input_value' => isset( $_REQUEST['quantity'] ) ? wc_stock_amount( wp_unslash( $_REQUEST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
+                )
+            );
 
 			/**
 			 * @since 1.4.0.
 			 */
-	 		do_action( 'woocommerce_after_add_to_cart_quantity' );
-	 		?>
+			do_action( 'woocommerce_after_add_to_cart_quantity' );
+			?>
 
-	 		<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" />
+			 <input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" />
 
 			<button type="submit" class="single_add_to_cart_button mnm_add_to_cart_button button alt" value="<?php echo esc_attr( $product->get_id() ); ?>" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"><?php echo $product->single_add_to_cart_text(); ?></button>
 
-			<?php 
+			<?php
 			/**
 			 * woocommerce_after_add_to_cart_button hook.
 			 */
-			do_action( 'woocommerce_after_add_to_cart_button' ); 
+			do_action( 'woocommerce_after_add_to_cart_button' );
 			?>
 
 		</div>
 	
 
-		<?php 
+		<?php
 		/**
 		 * wc_mnm_after_add_to_cart_button_wrap hook.
 		 */
@@ -113,5 +115,3 @@ if ( $product->is_purchasable() && $product->is_in_stock() ) { ?>
 	<p class="mnm_container_unavailable stock out-of-stock"><?php esc_html_e( 'This product is currently unavailable.', 'woocommerce-mix-and-match-products' ); ?></p>
 
 <?php } ?>
-
-

@@ -592,4 +592,65 @@ class WC_Booking_Data_Store extends WC_Data_Store_WP {
 		) );
 		return array_map( 'get_wc_booking', $booking_ids );
 	}
+
+	/**
+	 * Search booking data for a term and return ids.
+	 *
+	 * @param  string $term Searched term.
+	 * @return array of ids
+	 */
+	public function search_bookings( $term ) {
+		global $wpdb;
+
+		$search_fields = array_map(
+			'wc_clean',
+			apply_filters( 'woocommerce_booking_search_fields', array() )
+		);
+		$booking_ids   = array();
+
+		if ( is_numeric( $term ) ) {
+			$booking_ids[] = absint( $term );
+		}
+
+		if ( ! empty( $search_fields ) ) {
+			$booking_ids = array_unique(
+				array_merge(
+					$booking_ids,
+					$wpdb->get_col(
+						$wpdb->prepare(
+							"SELECT DISTINCT p1.post_id FROM {$wpdb->postmeta} p1 WHERE p1.meta_value LIKE %s AND p1.meta_key IN ('" . implode( "','", array_map( 'esc_sql', $search_fields ) ) . "')", // @codingStandardsIgnoreLine
+							'%' . $wpdb->esc_like( wc_clean( $term ) ) . '%'
+						)
+					)
+				)
+			);
+		}
+
+		$booking_ids = array_unique(
+			array_merge(
+				$booking_ids,
+				$wpdb->get_col(
+					$wpdb->prepare(
+						"SELECT p.id
+						FROM {$wpdb->prefix}posts p
+						INNER JOIN {$wpdb->prefix}users u ON p.post_author = u.id
+						WHERE display_name LIKE %s OR user_nicename LIKE %s",
+						'%' . $wpdb->esc_like( wc_clean( $term ) ) . '%',
+						'%' . $wpdb->esc_like( wc_clean( $term ) ) . '%'
+					)
+				),
+				$wpdb->get_col(
+					$wpdb->prepare(
+						"SELECT pm.post_id
+						FROM {$wpdb->prefix}postmeta pm
+						INNER JOIN {$wpdb->prefix}posts p ON p.id = pm.meta_value
+						WHERE meta_key = '_booking_product_id' AND p.post_title LIKE %s",
+						'%' . $wpdb->esc_like( wc_clean( $term ) ) . '%'
+					)
+				)
+			)
+		);
+
+		return apply_filters( 'woocommerce_booking_search_results', $booking_ids, $term, $search_fields );
+	}
 }

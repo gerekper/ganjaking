@@ -34,7 +34,7 @@ class WC_Order_Status_Control extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.13.0';
+	const VERSION = '1.13.1';
 
 	/** @var WC_Order_Status_Control single instance of this plugin */
 	protected static $instance;

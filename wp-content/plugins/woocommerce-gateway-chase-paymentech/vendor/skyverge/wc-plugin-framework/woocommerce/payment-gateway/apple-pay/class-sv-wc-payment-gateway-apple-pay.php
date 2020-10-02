@@ -18,15 +18,15 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/Apple-Pay
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_5_1;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_8_1;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_5_1\\SV_WC_Payment_Gateway_Apple_Pay' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_8_1\\SV_WC_Payment_Gateway_Apple_Pay' ) ) :
 
 
 /**
@@ -37,19 +37,19 @@ if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_5_1\\SV_WC_Pa
 class SV_WC_Payment_Gateway_Apple_Pay {
 
 
-	/** @var \SV_WC_Payment_Gateway_Apple_Pay_Admin the admin instance */
+	/** @var SV_WC_Payment_Gateway_Apple_Pay_Admin the admin instance */
 	protected $admin;
 
-	/** @var \SV_WC_Payment_Gateway_Apple_Pay_Frontend the frontend instance */
+	/** @var SV_WC_Payment_Gateway_Apple_Pay_Frontend the frontend instance */
 	protected $frontend;
 
-	/** @var \SV_WC_Payment_Gateway_Apple_Pay_AJAX the AJAX instance */
+	/** @var SV_WC_Payment_Gateway_Apple_Pay_AJAX the AJAX instance */
 	protected $ajax;
 
-	/** @var \SV_WC_Payment_Gateway_Plugin the plugin instance */
+	/** @var SV_WC_Payment_Gateway_Plugin the plugin instance */
 	protected $plugin;
 
-	/** @var \SV_WC_Payment_Gateway_Apple_Pay_API the Apple Pay API */
+	/** @var SV_WC_Payment_Gateway_Apple_Pay_API the Apple Pay API */
 	protected $api;
 
 
@@ -58,7 +58,7 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 	 *
 	 * @since 4.7.0
 	 *
-	 * @param \SV_WC_Payment_Gateway_Plugin $plugin the plugin instance
+	 * @param SV_WC_Payment_Gateway_Plugin $plugin the plugin instance
 	 */
 	public function __construct( SV_WC_Payment_Gateway_Plugin $plugin ) {
 
@@ -80,11 +80,44 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 	protected function init() {
 
 		if ( is_admin() && ! is_ajax() ) {
-			$this->admin = new SV_WC_Payment_Gateway_Apple_Pay_Admin( $this );
+			$this->init_admin();
 		} else {
-			$this->ajax     = new SV_WC_Payment_Gateway_Apple_Pay_AJAX( $this );
-			$this->frontend = new SV_WC_Payment_Gateway_Apple_Pay_Frontend( $this->get_plugin(), $this );
+			$this->init_ajax();
+			$this->init_frontend();
 		}
+	}
+
+
+	/**
+	 * Initializes the admin handler.
+	 *
+	 * @since 5.6.0
+	 */
+	protected function init_admin() {
+
+		$this->admin = new SV_WC_Payment_Gateway_Apple_Pay_Admin( $this );
+	}
+
+
+	/**
+	 * Initializes the AJAX handler.
+	 *
+	 * @since 5.6.0
+	 */
+	protected function init_ajax() {
+
+		$this->ajax = new SV_WC_Payment_Gateway_Apple_Pay_AJAX( $this );
+	}
+
+
+	/**
+	 * Initializes the frontend handler.
+	 *
+	 * @since 5.6.0
+	 */
+	protected function init_frontend() {
+
+		$this->frontend = new SV_WC_Payment_Gateway_Apple_Pay_Frontend( $this->get_plugin(), $this );
 	}
 
 
@@ -134,7 +167,7 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 				$result = $this->get_processing_gateway()->process_payment( $order->get_id() );
 			}
 
-			if ( isset( $result['result'] ) && 'success' !== $result['result'] ) {
+			if ( ! isset( $result['result'] ) || 'success' !== $result['result'] ) {
 				throw new SV_WC_Payment_Gateway_Exception( 'Gateway processing error.' );
 			}
 
@@ -146,7 +179,7 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 
 			return $result;
 
-		} catch ( SV_WC_Payment_Gateway_Exception $e ) {
+		} catch ( \Exception $e ) {
 
 			if ( $order ) {
 
@@ -222,7 +255,7 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 	 * @param \WC_Product $product product object
 	 * @param bool $in_cart whether to generate a cart for this request
 	 * @return array
-	 * @throws SV_WC_Payment_Gateway_Exception
+	 * @throws \Exception
 	 */
 	public function get_product_payment_request( \WC_Product $product, $in_cart = false ) {
 
@@ -331,7 +364,7 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 	 * @since 4.7.0
 	 *
 	 * @return array
-	 * @throws SV_WC_Payment_Gateway_Exception
+	 * @throws \Exception
 	 */
 	public function recalculate_totals() {
 
@@ -359,6 +392,7 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 
 		if ( ! empty( $packages ) ) {
 
+			/** @var \WC_Shipping_Rate $method */
 			foreach ( $packages[0]['rates'] as $method ) {
 
 				/**
@@ -394,7 +428,7 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 	 * Gets the line totals for a cart.
 	 *
 	 * @since 4.7.0
-	 * @see \SV_WC_Payment_Gateway_Apple_Pay::build_payment_request_lines()
+	 * @see SV_WC_Payment_Gateway_Apple_Pay::build_payment_request_lines()
 	 *
 	 * @param \WC_Cart $cart cart object
 	 * @return array
@@ -435,7 +469,7 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 	 *
 	 * @return array
 	 */
-	public function build_payment_request( $amount, $args = array() ) {
+	public function build_payment_request( $amount, $args = [] ) {
 
 		$args = wp_parse_args( $args, array(
 			'currency_code'         => get_woocommerce_currency(),
@@ -615,12 +649,27 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 	public function get_stored_payment_response() {
 
 		$response_data = WC()->session->get( 'apple_pay_payment_response', array() );
+		$response      = null;
 
 		if ( ! empty( $response_data ) ) {
-			return new SV_WC_Payment_Gateway_Apple_Pay_Payment_Response( $response_data );
-		} else {
-			return false;
+			$response = $this->build_payment_response( $response_data );
 		}
+
+		return $response instanceof SV_WC_Payment_Gateway_Apple_Pay_Payment_Response ? $response : false;
+	}
+
+
+	/**
+	 * Builds a payment response object from an array of data.
+	 *
+	 * @since 5.6.0
+	 *
+	 * @param string $data response data, as a JSON string
+	 * @return SV_WC_Payment_Gateway_Apple_Pay_Payment_Response
+	 */
+	protected function build_payment_response( $data ) {
+
+		return new SV_WC_Payment_Gateway_Apple_Pay_Payment_Response( $data );
 	}
 
 
@@ -778,7 +827,12 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 
 		$is_available = wc_site_is_https() && $this->is_configured();
 
-		$is_available = $is_available && in_array( get_woocommerce_currency(), $this->get_accepted_currencies(), true );
+		$accepted_currencies = $this->get_accepted_currencies();
+
+		if ( ! empty( $accepted_currencies ) ) {
+
+			$is_available = $is_available && in_array( get_woocommerce_currency(), $accepted_currencies, true );
+		}
 
 		/**
 		 * Filters whether Apple Pay should be made available to users.
@@ -803,9 +857,15 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 			return false;
 		}
 
-		$is_configured = $this->is_enabled() && $this->get_merchant_id() && $this->get_processing_gateway()->is_enabled();
+		$is_configured = $this->is_enabled() && $this->get_processing_gateway()->is_enabled();
 
-		$is_configured = $is_configured && $this->is_cert_configured();
+		if ( $this->requires_merchant_id() ) {
+			$is_configured = $is_configured && (bool) $this->get_merchant_id();
+		}
+
+		if ( $this->requires_certificate() ) {
+			$is_configured = $is_configured && $this->is_cert_configured();
+		}
 
 		return $is_configured;
 	}
@@ -847,6 +907,32 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 	public function is_test_mode() {
 
 		return 'yes' === get_option( 'sv_wc_apple_pay_test_mode' );
+	}
+
+
+	/**
+	 * Determines if a merchant ID is required for configuration.
+	 *
+	 * @since 5.6.0
+	 *
+	 * @return bool
+	 */
+	public function requires_merchant_id() {
+
+		return true;
+	}
+
+
+	/**
+	 * Determines if a local Apple Pay certificate is required for configuration.
+	 *
+	 * @since 5.6.0
+	 *
+	 * @return bool
+	 */
+	public function requires_certificate() {
+
+		return true;
 	}
 
 
@@ -922,7 +1008,7 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 		 * @since 4.7.0
 		 *
 		 * @param array $capabilities the gateway capabilities
-		 * @param \SV_WC_Payment_Gateway_Apple_Pay $handler the Apple Pay handler
+		 * @param SV_WC_Payment_Gateway_Apple_Pay $handler the Apple Pay handler
 		 */
 		return apply_filters( 'sv_wc_apple_pay_capabilities', array_values( $capabilities ), $this );
 	}
@@ -939,7 +1025,7 @@ class SV_WC_Payment_Gateway_Apple_Pay {
 
 		$accepted_card_types = ( $this->get_processing_gateway() ) ? $this->get_processing_gateway()->get_card_types() : array();
 
-		$accepted_card_types = array_map( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_5_1\\SV_WC_Payment_Gateway_Helper::normalize_card_type', $accepted_card_types );
+		$accepted_card_types = array_map( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_8_1\\SV_WC_Payment_Gateway_Helper::normalize_card_type', $accepted_card_types );
 
 		$valid_networks = array(
 			SV_WC_Payment_Gateway_Helper::CARD_TYPE_AMEX       => 'amex',

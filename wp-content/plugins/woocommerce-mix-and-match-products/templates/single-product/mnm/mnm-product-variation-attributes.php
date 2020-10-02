@@ -11,12 +11,11 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
- * @author  Kathy Darling
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
  * @version 1.3.0
  */
-if ( ! defined( 'ABSPATH' ) ){
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 

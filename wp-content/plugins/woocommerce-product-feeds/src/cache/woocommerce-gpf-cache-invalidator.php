@@ -69,6 +69,9 @@ class WoocommerceGpfCacheInvalidator {
 		add_action( 'woocommerce_delete_product_variation', array( $this, 'remove_variation' ), 90 );
 		add_action( 'woocommerce_trash_product_variation', array( $this, 'remove_variation' ), 90 );
 
+		// When image exclusions are changed, rebuild the cache for the product.
+		add_action( 'woocommerce_gpf_media_ids_updated', [ $this, 'save_product' ] );
+
 		// When category / term / attribute updated, rebuild cache for affected products.
 		add_action( 'edited_term', array( $this, 'rebuild_term' ), 90, 3 );
 

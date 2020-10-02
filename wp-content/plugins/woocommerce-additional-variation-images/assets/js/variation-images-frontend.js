@@ -89,9 +89,15 @@ jQuery( document ).ready( function( $ ) {
 
 			} else {
 				if ( ! wc_additional_variation_images_local.bwc ) {
-					var parent = $( wc_additional_variation_images_local.main_images_class ).parent();
-					$( wc_additional_variation_images_local.main_images_class ).remove();
+					var gallery = $( wc_additional_variation_images_local.main_images_class ),
+					    parent  = gallery.parent(),
+					    height  = gallery.height();
+
+					gallery.remove();
 					parent.prepend( response.main_images );
+
+					// Temporarily set to previous height to avoid jumping when gallery hasn't been intialiazed yet.
+					$( wc_additional_variation_images_local.main_images_class ).height( height );
 				} else {
 					$( wc_additional_variation_images_local.gallery_images_class ).fadeOut( 50, function() {
 						$( this ).html( response.gallery_images ).hide().fadeIn( 100, function() {
@@ -103,8 +109,12 @@ jQuery( document ).ready( function( $ ) {
 
 			$( 'form.variations_form' ).trigger( 'wc_additional_variation_images_frontend_image_swap_done_callback', [ wc_additional_variation_images_local.gallery_images_class, wc_additional_variation_images_local.main_images_class, wcavi_original_gallery_images, wcavi_original_main_images ] );
 
-
 			$.wc_additional_variation_images_frontend.initProductGallery();
+
+			// Clear temporary height after gallery initialization.
+			setTimeout( function() {
+				$( wc_additional_variation_images_local.main_images_class ).height( 'auto' );
+			}, 250 );
 
 			if ( callback ) {
 				callback();
@@ -158,9 +168,18 @@ jQuery( document ).ready( function( $ ) {
 		},
 
 		init: function() {
+			wc_additional_variation_images_local.initial_reset = true;
+
 			// when variation changes trigger. this is used for WC 3.0 only.
 			if ( ! wc_additional_variation_images_local.bwc ) {
 				$( 'form.variations_form' ).on( 'reset_image', function( event, variation ) {
+
+					// Skip initial reset when product first loads.
+					if ( wc_additional_variation_images_local.initial_reset ) {
+						wc_additional_variation_images_local.initial_reset = false;
+						return;
+					}
+
 					$( 'form.variations_form' ).trigger( 'wc_additional_variation_images_frontend_reset_variation' );
 
 					$( wc_additional_variation_images_local.gallery_images_class ).block({

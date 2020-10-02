@@ -50,16 +50,19 @@ class WC_Additional_Variation_Images_Frontend {
 
 		$bwc = version_compare( WC_VERSION, '3.0', '<' );
 
-		$localized_vars = array(
-			'ajax_url'             => WC_AJAX::get_endpoint( '%%endpoint%%' ),
-			'ajaxImageSwapNonce'   => wp_create_nonce( '_wc_additional_variation_images_nonce' ),
-			'gallery_images_class' => apply_filters( 'wc_additional_variation_images_gallery_images_class', '.product .images .flex-control-nav, .product .images .thumbnails' ),
-			'main_images_class'    => apply_filters( 'wc_additional_variation_images_main_images_class', $bwc ? '.product .images > a' : '.woocommerce-product-gallery' ),
-			'lightbox_images'      => apply_filters( 'wc_additional_variation_images_main_lightbox_images_class', '.product .images a.zoom' ),
-			'custom_swap'          => apply_filters( 'wc_additional_variation_images_custom_swap', false ),
-			'custom_original_swap' => apply_filters( 'wc_additional_variation_images_custom_original_swap', false ),
-			'custom_reset_swap'    => apply_filters( 'wc_additional_variation_images_custom_reset_swap', false ),
-			'bwc'                  => $bwc,
+		$localized_vars = apply_filters(
+			'wc_ajax_wc_additional_variation_images_localized_vars',
+			array(
+				'ajax_url'             => WC_AJAX::get_endpoint( '%%endpoint%%' ),
+				'ajaxImageSwapNonce'   => wp_create_nonce( '_wc_additional_variation_images_nonce' ),
+				'gallery_images_class' => apply_filters( 'wc_additional_variation_images_gallery_images_class', '.product .images .flex-control-nav, .product .images .thumbnails' ),
+				'main_images_class'    => apply_filters( 'wc_additional_variation_images_main_images_class', $bwc ? '.product .images > a' : '.woocommerce-product-gallery' ),
+				'lightbox_images'      => apply_filters( 'wc_additional_variation_images_main_lightbox_images_class', '.product .images a.zoom' ),
+				'custom_swap'          => apply_filters( 'wc_additional_variation_images_custom_swap', false ),
+				'custom_original_swap' => apply_filters( 'wc_additional_variation_images_custom_original_swap', false ),
+				'custom_reset_swap'    => apply_filters( 'wc_additional_variation_images_custom_reset_swap', false ),
+				'bwc'                  => $bwc,
+			)
 		);
 
 		wp_localize_script( 'wc_additional_variation_images_script', 'wc_additional_variation_images_local', $localized_vars );
@@ -114,17 +117,16 @@ class WC_Additional_Variation_Images_Frontend {
 				array_unshift( $image_ids, $variation_main_image );
 		}
 
-		// If there are still no image IDs set, fallback to original main image
+		// If there are still no image IDs set, fallback to original main image.
 		if ( $product && empty( $image_ids ) ) {
- 			$main_image_id = $product->get_image_id();
- 
- 			if ( ! empty( $main_image_id ) ) {
- 				array_unshift( $image_ids, $main_image_id );
- 			}
+			$main_image_id = $product->get_image_id();
+
+			if ( ! empty( $main_image_id ) ) {
+				array_unshift( $image_ids, $main_image_id );
+			}
 		}
 
-
-		$main_images = '<div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-' . apply_filters( 'woocommerce_product_thumbnails_columns', 4 ) . ' images" data-columns="' . apply_filters( 'woocommerce_product_thumbnails_columns', 4 ) . '"><figure class="woocommerce-product-gallery__wrapper">';
+		$main_images = '<div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-' . apply_filters( 'woocommerce_product_thumbnails_columns', 4 ) . ' images" data-columns="' . apply_filters( 'woocommerce_product_thumbnails_columns', 4 ) . '" style="opacity: 0; transition: opacity .25s ease-in-out;"><figure class="woocommerce-product-gallery__wrapper">';
 
 		$loop = 0;
 
@@ -145,6 +147,7 @@ class WC_Additional_Variation_Images_Frontend {
 				$image_title     = esc_attr( get_the_title( $id ) );
 				$full_size_image = wp_get_attachment_image_src( $id, 'full' );
 				$thumbnail       = wp_get_attachment_image_src( $id, 'shop_thumbnail' );
+				$alt_text        = trim( wp_strip_all_tags( get_post_meta( $id, '_wp_attachment_image_alt', true ) ) );
 
 				$attributes = array(
 					'title'                   => $image_title,
@@ -157,7 +160,7 @@ class WC_Additional_Variation_Images_Frontend {
 				// only run one time.
 				if ( ( apply_filters( 'wc_additional_variation_images_get_first_image', false ) || $this->cloud_zoom_exists() ) && 0 === $loop ) {
 
-					$html  = '<div data-thumb="' . esc_url( $thumbnail[0] ) . '" class="woocommerce-product-gallery__image flex-active-slide">';
+					$html = '<div data-thumb="' . esc_url( $thumbnail[0] ) . '" data-thumb-alt="' . esc_attr( $alt_text ) . '" class="woocommerce-product-gallery__image">';
 
 					if ( $add_image_link ) {
 						$html .= '<a href="' . wp_get_attachment_url( $id ) . '">';
@@ -185,7 +188,7 @@ class WC_Additional_Variation_Images_Frontend {
 
 				// Build the list of variations as main images in case a custom
 				// theme has flexslider type lightbox.
-				$main_images .= apply_filters( 'woocommerce_single_product_image_html', sprintf( '<div data-thumb="%s" class="woocommerce-product-gallery__image flex-active-slide">%s</div>', esc_url( $thumbnail[0] ), $attach_image ), $post_id );
+				$main_images .= apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<div data-thumb="%s" data-thumb-alt="%s" class="woocommerce-product-gallery__image">%s</div>', esc_url( $thumbnail[0] ), esc_attr( $alt_text ), $attach_image ), $id );
 
 				$loop++;
 			}

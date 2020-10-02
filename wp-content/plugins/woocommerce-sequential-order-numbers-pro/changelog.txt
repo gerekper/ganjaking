@@ -1,5 +1,8 @@
 *** WooCommerce Sequential Order Numbers Pro Changelog ***
 
+2020.09.29 - version 1.16.1
+ * Misc - Remove the SkyVerge help menu item as part of the plugin assets
+
 2020.08.21 - version 1.16.0
  * Feature - Add onboarding tips for new users
  * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites

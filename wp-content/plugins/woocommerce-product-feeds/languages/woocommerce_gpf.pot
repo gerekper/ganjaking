@@ -1,9 +1,9 @@
 # Copyright (C) 2017 Ademti Software Ltd.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Product Feed 9.0.4\n"
+"Project-Id-Version: WooCommerce Google Product Feed 9.1.0\n"
 "Report-Msgid-Bugs-To: https://plugins.leewillis.co.uk/support\n"
-"POT-Creation-Date: 2020-09-16 11:58:33+00:00\n"
+"POT-Creation-Date: 2020-09-30 08:14:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: src/common/woocommerce-gpf-status-report.php:108
 #: src/common/woocommerce-gpf-status-report.php:113
-#: src/gpf/woocommerce-gpf-admin.php:1643
+#: src/gpf/woocommerce-gpf-admin.php:1654
 #: templates/woo-gpf-field-row-default-adult.php:4
 msgid "No"
 msgstr ""
@@ -116,72 +116,88 @@ msgstr ""
 msgid "%s meta field"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:144
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:133
+msgid "Set as product image"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:138
+msgid "Added via product gallery"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:143
+msgid "Attached as media to product"
+msgstr ""
+
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:148
+msgid "Added via filters"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:153
 msgid "Settings"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:188 src/gpf/woocommerce-gpf-admin.php:470
+#: src/gpf/woocommerce-gpf-admin.php:197 src/gpf/woocommerce-gpf-admin.php:479
 #: templates/woo-gpf-meta-edit-intro.php:3
 msgid "Product Feed Information"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:411 src/gpf/woocommerce-gpf-admin.php:597
+#: src/gpf/woocommerce-gpf-admin.php:420 src/gpf/woocommerce-gpf-admin.php:608
 msgid "Default: "
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:414 src/gpf/woocommerce-gpf-admin.php:518
-#: src/gpf/woocommerce-gpf-admin.php:600 src/gpf/woocommerce-gpf-admin.php:736
+#: src/gpf/woocommerce-gpf-admin.php:423 src/gpf/woocommerce-gpf-admin.php:527
+#: src/gpf/woocommerce-gpf-admin.php:611 src/gpf/woocommerce-gpf-admin.php:747
 msgid "Use default"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:474
+#: src/gpf/woocommerce-gpf-admin.php:483
 msgid ""
 "Set values here if you want to override the information for this specific "
 "variation. If information should apply to all variations, then set it "
 "against the main product."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:738
+#: src/gpf/woocommerce-gpf-admin.php:749
 msgid "No default"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:783
+#: src/gpf/woocommerce-gpf-admin.php:794
 msgid "Hide this product from the feed"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1588
+#: src/gpf/woocommerce-gpf-admin.php:1599
 msgid "Product Feeds"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1638
+#: src/gpf/woocommerce-gpf-admin.php:1649
 msgid "Use value from existing product field: "
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1714
+#: src/gpf/woocommerce-gpf-admin.php:1725
 #. Translators: %s is the name of the taxonomy
 msgid "<em>%s</em> taxonomy"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1720
+#: src/gpf/woocommerce-gpf-admin.php:1731
 #. Translators: %s is the name of the field
 msgid "<em>%s</em> field"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1725
+#: src/gpf/woocommerce-gpf-admin.php:1736
 #. Translators: %1$s is the name of the meta field, %2$s is the raw meta key
 msgid "<em>%1$s</em> meta (%2$s)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1734
+#: src/gpf/woocommerce-gpf-admin.php:1745
 #. Translators: %s is the description of where the data will be pulled from.
 msgid "Uses value from %s if set."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1847
+#: src/gpf/woocommerce-gpf-admin.php:1858
 msgid "Store default: <br>"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1970
+#: src/gpf/woocommerce-gpf-admin.php:1981
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
@@ -1089,6 +1105,7 @@ msgid "Excluded from Google funded promotions"
 msgstr ""
 
 #: templates/woo-gpf-field-row-default-iexists.php:3
+#: templates/woo-gpf-meta-field-image-info-exclude-action.php:2
 msgid "Included"
 msgstr ""
 
@@ -1243,6 +1260,14 @@ msgid ""
 "individual products if you want to."
 msgstr ""
 
+#: templates/woo-gpf-meta-field-image-info-header.php:3
+msgid "Images"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-include-action.php:2
+msgid "Excluded"
+msgstr ""
+
 #. Plugin Name of the plugin/theme
 msgid "WooCommerce Google Product Feed"
 msgstr ""
@@ -1263,4 +1288,24 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://www.ademti-software.co.uk/"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-exclude-action.php:5
+msgctxt "Button to exclude an image from being sent for a product in the feed"
+msgid "Exclude"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-footer.php:2
+msgctxt "Button to manage which images are used for items in the feed"
+msgid "Manage images"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-footer.php:3
+msgctxt "Button to collapse the area in which images are used for items in the feed"
+msgid "Collapse"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-include-action.php:6
+msgctxt "Button to include a specific image for a product in the feed"
+msgid "Include"
 msgstr ""

@@ -12,6 +12,7 @@ class WC_Bookings_Addons {
 		add_filter( 'woocommerce_product_addons_show_grand_total', array( $this, 'addons_show_grand_total' ), 20, 2 );
 		add_action( 'woocommerce_product_addons_panel_before_options', array( $this, 'addon_options' ), 20, 3 );
 		add_filter( 'woocommerce_product_addons_save_data', array( $this, 'save_addon_options' ), 20, 2 );
+		add_filter( 'woocommerce_product_addons_import_data', array( $this, 'save_addon_options' ), 20, 3 );
 		add_filter( 'woocommerce_product_addon_cart_item_data', array( $this, 'addon_price' ), 20, 4 );
 		add_filter( 'woocommerce_bookings_calculated_booking_cost_success_output', array( $this, 'filter_output_cost' ), 10, 3 );
 		add_filter( 'woocommerce_product_addons_adjust_price', array( $this, 'adjust_price' ), 20, 2 );
@@ -88,6 +89,20 @@ class WC_Bookings_Addons {
 		$data['wc_booking_block_qty_multiplier']  = isset( $_POST['addon_wc_booking_block_qty_multiplier'][ $i ] ) ? 1 : 0;
 
 		return $data;
+	}
+
+	/**
+	 * Sanitize imported options.
+	 *
+	 * @param array  $sanitized Addon as sanatized by plugin.
+	 * @param array  $addon     Original addon before sanitation.
+	 * @param string $key       Addon index in array.
+	 */
+	public function import_addon_options( $sanitized, $addon, $key ) {
+		$sanitized['wc_booking_person_qty_multiplier'] = ! empty( $addon['wc_booking_person_qty_multiplier'] ) ? 1 : 0;
+		$sanitized['wc_booking_block_qty_multiplier']  = ! empty( $addon['wc_booking_block_qty_multiplier'] ) ? 1 : 0;
+
+		return $sanitized;
 	}
 
 	/**

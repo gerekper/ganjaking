@@ -70,7 +70,7 @@ class WC_Bookings_Cache {
 	 * @param int $expiration When to expire the cache.
 	 * @return void
 	 */
-	public static function set( $name = '', $data = null, $expiration = null ) {
+	public static function set( $name = '', $data = null, $expiration = YEAR_IN_SECONDS ) {
 		set_transient( $name, $data, $expiration );
 	}
 

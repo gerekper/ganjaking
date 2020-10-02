@@ -1,5 +1,35 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2020.09.28 - version 4.9.1
+* Fix: Selected coupon design for email is not getting sent in the order received email
+* Fix: Width of checkbox in 'Bulk generate form'
+* Fix: Incorrectly selecting the colors setting for a coupon if the background & foreground color is already set
+* Fix: Coupons in the email are not center-aligned
+* Fix: Sometimes colors selected for coupons are not applying to coupons in the email
+* Fix: Empty description in some coupons on the frontend
+* Update: POT file
+
+2020.09.23 - version 4.9.0
+* New: Tested upto WooCommerce 4.5.2 & WordPress 5.5.1
+* New: New improved coupon designs with some predefined color schemes
+* New: Setting 'Include tax in the amount of the generated store credit'
+* Fix: Unnecessarily showing 'Coupon does not exist' notice when trying to auto-apply a coupon which is in draft status
+* Fix: Orders are not including generated coupon details when the setting 'Email auto generated coupons to recipients' is disabled
+* Fix: Smart Coupons' shortcode button not visible in classic editor
+* Update: Prevent querying the database if the store owner sets 0 coupons to show
+* Update: Remove usage of deprecated jQuery event 'ready' [WordPress 5.5]
+* Update: Additional information on 'Import CSV' page
+* Update: Expiry date format in the coupon displayed on the website
+* Update: Notice for minimum WooCommerce requirement
+* Update: Add additional params on using Smart Coupons' shortcode button
+* Tweak: Performance improvement in auto-apply coupon functionlity
+* Developer: Overridable template support for coupon designs
+* Developer: Additional arguments for hook 'wc_sc_before_shortcode_smart_coupons_html_start'
+* Developer: Additional arguments for hook 'wc_sc_max_coupon_to_show'
+* Developer: Additional arguments for hook 'wc_sc_max_auto_apply_coupons_limit'
+* Developer: Hook 'wc_sc_is_send_coupon_email'
+* Update: POT file
+
 2020.09.08 - version 4.8.1
 * Fix: Discount not applied on taxes when Apply before tax is disabled [WooCommerce AvaTax]
 * Update: Remove usage of deprecated jQuery event 'ready' & function 'load' [WordPress 5.5]

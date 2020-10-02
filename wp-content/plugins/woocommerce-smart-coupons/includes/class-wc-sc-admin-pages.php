@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.8
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -338,16 +338,14 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 					jQuery(function(){
 						let is_marketing = '<?php echo esc_js( ( $this->is_wc_gte_44() ) ? 'yes' : 'no' ); ?>';
 						// Highlight Coupons menu when visiting Bulk Generate/Import Coupons/Send Store Credit/Coupon category tab.
-						jQuery(document).on('ready', function() {
-							let sa_wc_menu_selector           = 'toplevel_page_woocommerce';
-							let sa_wc_marketing_menu_selector = 'toplevel_page_woocommerce-marketing';
-							let element = jQuery('li#' + sa_wc_menu_selector);
-							if ( 'yes' === is_marketing ) {
-								element = jQuery('li#' + sa_wc_marketing_menu_selector);
-							}
-							element.find('ul li a[href="edit.php?post_type=shop_coupon"]').addClass('current');
-							element.find('ul li a[href="edit.php?post_type=shop_coupon"]').parent().addClass('current');
-						});
+						let sa_wc_menu_selector           = 'toplevel_page_woocommerce';
+						let sa_wc_marketing_menu_selector = 'toplevel_page_woocommerce-marketing';
+						let element = jQuery('li#' + sa_wc_menu_selector);
+						if ( 'yes' === is_marketing ) {
+							element = jQuery('li#' + sa_wc_marketing_menu_selector);
+						}
+						element.find('ul li a[href="edit.php?post_type=shop_coupon"]').addClass('current');
+						element.find('ul li a[href="edit.php?post_type=shop_coupon"]').parent().addClass('current');
 						// Show notification about coupon CSV export
 						jQuery(window).on('load', function(){
 							let target_element = jQuery('#wc_sc_coupon_background_progress');
@@ -1275,9 +1273,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 						jQuery('.sc-email-content .discount-info').html(price_html + ' <?php echo ! empty( $store_credit_label['singular'] ) ? esc_html( ucwords( $store_credit_label['singular'] ) ) : esc_html__( 'Store Credit', 'woocommerce-smart-coupons' ); ?>');
 					});
 					setTimeout(wc_sc_bind_event_to_handle_changes_in_editor, 100);
-					jQuery(document).on('ready', function(){
-						jQuery('.sc-email-content #body_content_inner').prepend('<p class="sc-credit-message"></p>');
-					});
+					jQuery('.sc-email-content #body_content_inner').prepend('<p class="sc-credit-message"></p>');
 					jQuery('#' + editor_id).on('keyup change', function(){
 						var element = jQuery(this);
 						var content = '';

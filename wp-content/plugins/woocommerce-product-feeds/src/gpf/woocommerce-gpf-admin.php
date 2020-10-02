@@ -21,6 +21,10 @@ class WoocommerceGpfAdmin {
 	 * @var WoocommerceGpfCacheStatus
 	 */
 	protected $cache_status;
+	/**
+	 * @var WoocommerceProductFeedsFeedImageManager
+	 */
+	protected $feed_image_manager;
 
 	/**
 	 * @var array
@@ -50,17 +54,20 @@ class WoocommerceGpfAdmin {
 	 * @param WoocommerceGpfTemplateLoader $woocommerce_gpf_template_loader
 	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
 	 * @param WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status
+	 * @param WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager
 	 */
 	public function __construct(
 		WoocommerceGpfCommon $woocommerce_gpf_common,
 		WoocommerceGpfTemplateLoader $woocommerce_gpf_template_loader,
 		WoocommerceGpfCache $woocommerce_gpf_cache,
-		WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status
+		WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status,
+		WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager
 	) {
-		$this->common          = $woocommerce_gpf_common;
-		$this->template_loader = $woocommerce_gpf_template_loader;
-		$this->cache           = $woocommerce_gpf_cache;
-		$this->cache_status    = $woocommerce_gpf_cache_status;
+		$this->common             = $woocommerce_gpf_common;
+		$this->template_loader    = $woocommerce_gpf_template_loader;
+		$this->cache              = $woocommerce_gpf_cache;
+		$this->cache_status       = $woocommerce_gpf_cache_status;
+		$this->feed_image_manager = $woocommerce_product_feeds_feed_image_manager;
 	}
 
 	/**
@@ -91,6 +98,8 @@ class WoocommerceGpfAdmin {
 		add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_woocommerce_settings_tab' ), 99 );
 		add_action( 'woocommerce_settings_tabs_gpf', array( $this, 'config_page' ) );
 		add_action( 'woocommerce_update_options_gpf', array( $this, 'save_settings' ) );
+
+		$this->feed_image_manager->initialise();
 	}
 
 	/**
@@ -567,6 +576,8 @@ class WoocommerceGpfAdmin {
 			'exclude_product',
 			! empty( $current_data['exclude_product'] ) ? true : false
 		);
+
+		$this->feed_image_manager->render_summary( $post );
 
 		$this->template_loader->output_template_with_variables( 'woo-gpf', 'product-meta-edit-intro', array( 'loop_idx' => '' ) );
 		foreach ( $this->product_fields as $key => $fieldinfo ) {

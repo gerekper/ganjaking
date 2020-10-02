@@ -5,17 +5,17 @@
  * Description: Reward customers for purchases and other actions with points which can be redeemed for discounts
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.6.37
+ * Version: 1.6.38
  * Text Domain: woocommerce-points-and-rewards
  * Domain Path: /languages/
  * Tested up to: 5.5
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * WC requires at least: 2.6
  *
  * Copyright: © 2020 WooCommerce
  *
  * License: GNU General Public License v3.0
- * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  *
  * Woo: 210259:1649b6cca5da8b923b01ca56b5cdd246
  */
@@ -116,13 +116,6 @@ register_activation_hook( __FILE__, 'wc_points_rewards_activate' );
  *
  * + `_wc_points_earned` - the points earned when this product is purchased, this can be set at both the variable/variation level
  *
- *
- * ### User meta
- *
- * + `wc_points_balance` - the users total points balance.  This is the summation
- *   of all the user points records, and used solely for the purposes of sorting
- *   records in the manage user points table.
- *
  * ### Custom Table wc_points_rewards_user_points
  *
  * This table represents awarded user points and records are created each time
@@ -150,7 +143,7 @@ register_activation_hook( __FILE__, 'wc_points_rewards_activate' );
  */
 
 if ( ! class_exists( 'WC_Points_Rewards' ) ) :
-	define( 'WC_POINTS_REWARDS_VERSION', '1.6.37' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_POINTS_REWARDS_VERSION', '1.6.38' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_POINTS_REWARDS_ENDPOINT', 'points-and-rewards' );
 
 	class WC_Points_Rewards {
@@ -220,10 +213,8 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 			// display points on a separate tab on user's account page
 			add_action( 'init', array( $this, 'add_endpoints' ) );
 
-			// initialize user point balance on user create/update, and remove the user points record on user delete
-			add_action( 'user_register',  array( $this, 'refresh_user_points_balance' ) );
-			add_action( 'profile_update', array( $this, 'refresh_user_points_balance' ) );
-			add_action( 'delete_user',    array( $this, 'delete_user_points' ) );
+			// Remove the user points record on user delete.
+			add_action( 'delete_user', array( $this, 'delete_user_points' ) );
 
 			// Set up hooks and schedules for expirying points daily
 			register_deactivation_hook( __FILE__, array( $this, 'wc_points_rewards_expire_points_remove_schedule' ) );
@@ -291,28 +282,6 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 			$menu_items['customer-logout'] = $logout;
 
 			return $menu_items;
-		}
-
-		/**
-		 * Refreshes the user points balance.  This is called on user
-		 * create, as well as on user update giving the admin an (albeit simple)
-		 * means to refresh a users points balance if, for instance a user
-		 * was created while after the points & rewards plugin was installed, but
-		 * during a time when it was disabled, or the points balance got out of
-		 * whack somehow or other.
-		 *
-		 * @since 1.0
-		 * @param int $user_id user identifier
-		 */
-		public function refresh_user_points_balance( $user_id ) {
-
-			// do nothing if the identified user is not a customer
-			if ( ! user_can( $user_id, 'customer' ) ) {
-				return;
-			}
-
-			// refresh the points balance user meta
-			update_user_meta( $user_id, 'wc_points_balance', WC_Points_Rewards_Manager::get_users_points( $user_id ) );
 		}
 
 		/**
@@ -502,33 +471,6 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 			// install
 			if ( ! $installed_version ) {
 				require_once dirname( __FILE__ ) . '/includes/class-wc-points-rewards-admin.php';
-
-				// initial install, add the wc_points_balance user meta (of 0) to all users
-				$offset           = (int) get_option( 'wc_points_rewards_install_offset', 0 );
-				$records_per_page = 500;
-				do {
-					// grab a set of user ids
-					$user_ids = get_users( array( 'fields' => 'ID', 'offset' => $offset, 'number' => $records_per_page ) );
-
-					// iterate through the results and set the meta
-					if ( is_array( $user_ids ) ) {
-						foreach ( $user_ids as $user_id ) {
-
-							$wc_points_balance = get_user_meta( $user_id, 'wc_points_balance', true );
-
-							if ( '' === $wc_points_balance ) {
-								// need to create an empty balance for this customer
-								update_user_meta( $user_id, 'wc_points_balance', 0 );
-							}
-						}
-					}
-
-					// increment offset
-					$offset += $records_per_page;
-					// and keep track of how far we made it in case we hit a script timeout
-					update_option( 'wc_points_rewards_install_offset', $offset );
-
-				} while ( count( $user_ids ) == $records_per_page );  // while full set of results returned  (meaning there may be more results still to retrieve)
 
 				// install default settings, terms, etc
 				foreach ( WC_Points_Rewards_Admin::get_settings() as $setting ) {

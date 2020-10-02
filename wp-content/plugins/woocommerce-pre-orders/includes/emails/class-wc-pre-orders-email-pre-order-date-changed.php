@@ -113,6 +113,7 @@ class WC_Pre_Orders_Email_Pre_Order_Date_Changed extends WC_Email {
 			array(
 				'order'             => $this->object,
 				'email_heading'     => $this->get_heading(),
+				'additional_content' => $this->get_additional_content(),
 				'message'           => $this->message,
 				'availability_date' => $this->availability_date,
 				'plain_text'        => false,
@@ -138,6 +139,7 @@ class WC_Pre_Orders_Email_Pre_Order_Date_Changed extends WC_Email {
 			array(
 				'order'             => $this->object,
 				'email_heading'     => $this->get_heading(),
+				'additional_content' => $this->get_additional_content(),
 				'message'           => $this->message,
 				'availability_date' => $this->availability_date,
 				'plain_text'        => true

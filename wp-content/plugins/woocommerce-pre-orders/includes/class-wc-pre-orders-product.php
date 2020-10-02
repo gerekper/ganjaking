@@ -408,7 +408,7 @@ class WC_Pre_Orders_Product {
 			$datetime = new DateTime( "@{$timestamp}", new DateTimeZone( 'UTC' ) );
 
 			// Set the timezone to the site timezone
-			$datetime->setTimezone( new DateTimeZone( self::get_wp_timezone_string() ) );
+			$datetime->setTimezone( new DateTimeZone( wc_timezone_string() ) );
 
 			// Return the unix timestamp adjusted to reflect the site's timezone
 			return $timestamp + $datetime->getOffset();
@@ -431,39 +431,8 @@ class WC_Pre_Orders_Product {
 	 * @return string valid PHP timezone string
 	 */
 	public static function get_wp_timezone_string() {
-
-		// If site timezone string exists, return it
-		if ( $timezone = get_option( 'timezone_string' ) ) {
-			return $timezone;
-		}
-
-		// Get UTC offset, if it isn't set then return UTC
-		if ( 0 === ( $utc_offset = get_option( 'gmt_offset', 0 ) ) ) {
-			return 'UTC';
-		}
-
-		// Adjust UTC offset from hours to seconds
-		$utc_offset *= 3600;
-
-		// Attempt to guess the timezone string from the UTC offset
-		$timezone = timezone_name_from_abbr( '', $utc_offset );
-
-		// Last try, guess timezone string manually
-		if ( false === $timezone ) {
-
-			$is_dst = date( 'I' );
-
-			foreach ( timezone_abbreviations_list() as $abbr ) {
-				foreach ( $abbr as $city ) {
-					if ( $city['dst'] == $is_dst && $city['offset'] == $utc_offset && ! empty( $city['timezone_id'] ) ) {
-						return $city['timezone_id'];
-					}
-				}
-			}
-		}
-
-		// Fallback to UTC offset
-		return $utc_offset / 3600;
+		_deprecated_function( 'WC_Pre_Orders_Product::get_wp_timezone_string', '1.5.29', 'wc_timezone_string' );
+		return wc_timezone_string();
 	}
 
 	/**
@@ -486,12 +455,18 @@ class WC_Pre_Orders_Product {
 			", $product_id )
 		);
 
-		foreach ( $orders as $order_data ) {
-			$order = new WC_Order( $order_data->order_id );
-
-			if ( WC_Pre_Orders_Order::order_contains_pre_order( $order ) && WC_Pre_Orders_Manager::can_pre_order_be_changed_to( 'cancelled', $order ) ) {
-				WC_Pre_Orders_Order::update_pre_order_status( $order, 'cancelled' );
+		if ( is_array( $orders )) {
+			foreach ( $orders as $order_data ) {
+				$order = wc_get_order( $order_data->order_id );
+				if ( !$order ) {
+					continue;
+				}
+	
+				if ( WC_Pre_Orders_Order::order_contains_pre_order( $order ) && WC_Pre_Orders_Manager::can_pre_order_be_changed_to( 'cancelled', $order ) ) {
+					WC_Pre_Orders_Order::update_pre_order_status( $order, 'cancelled' );
+				}
 			}
 		}
+
 	}
 }

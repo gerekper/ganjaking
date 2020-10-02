@@ -281,10 +281,10 @@ class WC_Global_Availability extends WC_Bookings_Data implements ArrayAccess {
 	 */
 	public function get_formatted_date( $date_ts = null, $date_format= null, $time_format = null ) {
 		if ( is_null( $date_format ) ) {
-			$date_format = apply_filters( 'woocommerce_bookings_date_format', wc_date_format() );
+			$date_format = apply_filters( 'woocommerce_bookings_date_format', wc_bookings_date_format() );
 		}
 		if ( is_null( $time_format ) ) {
-			$time_format = apply_filters( 'woocommerce_bookings_time_format', ', ' . wc_time_format() );
+			$time_format = apply_filters( 'woocommerce_bookings_time_format', ', ' . wc_bookings_time_format() );
 		}
 
 		if ( $this->is_all_day() ) {

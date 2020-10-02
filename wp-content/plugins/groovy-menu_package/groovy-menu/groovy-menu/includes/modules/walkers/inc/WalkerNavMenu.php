@@ -17,6 +17,8 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 	const GM_NAV_MENU_META              = 'groovy_menu_nav_menu_meta';
 	const IS_MEGAMENU_META              = 'groovy_menu_is_megamenu';
 	const DO_NOT_SHOW_TITLE             = 'groovy_menu_do_not_show_title';
+	const USE_HTML_AS_ICON              = 'groovy_menu_use_html_as_icon';
+	const HTML_ICON_CONTENT             = 'groovy_menu_html_icon_content';
 	const MEGAMENU_META_COLS            = 'groovy_menu_megamenu_cols';
 	const MENU_BLOCK_URL                = 'groovy_menu_block_url';
 	const MEGAMENU_META_POST            = 'groovy_menu_megamenu_post';
@@ -67,164 +69,530 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 	 */
 	private $gm_google_fonts = array();
 
-	/**
-	 * Array with menu item options.
-	 *
-	 * @var array
-	 */
-	static $menu_item_options = array(
-		'groovymenu-megamenu'                 => array(
-			'meta_name' => self::IS_MEGAMENU_META,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'groovymenu-megamenu-cols'            => array(
-			'meta_name' => self::MEGAMENU_META_COLS,
-			'default'   => '5',
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'groovymenu-do-not-show-title'        => array(
-			'meta_name' => self::DO_NOT_SHOW_TITLE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'groovymenu-icon-class'               => array(
-			'meta_name' => self::ICON_CLASS,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'groovymenu-is-show-featured'         => array(
-			'meta_name' => self::IS_SHOW_FEATURED_IMAGE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'groovymenu-megamenu-bg'              => array(
-			'meta_name' => self::MEGAMENU_BACKGROUND,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'groovymenu-megamenu-bg-position'     => array(
-			'meta_name' => self::MEGAMENU_BACKGROUND_POSITION,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'groovymenu-megamenu-bg-repeat'       => array(
-			'meta_name' => self::MEGAMENU_BACKGROUND_REPEAT,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'groovymenu-megamenu-bg-size'         => array(
-			'meta_name' => self::MEGAMENU_BACKGROUND_SIZE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'groovymenu-block-url'                => array(
-			'meta_name' => self::MENU_BLOCK_URL,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'groovymenu-megamenu-post-not-mobile' => array(
-			'meta_name' => self::MEGAMENU_META_POST_NOT_MOBILE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		// Thumb
-		'gm-thumb-enable'                     => array(
-			'meta_name' => self::GM_THUMB_ENABLE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-thumb-position'                   => array(
-			'meta_name' => self::GM_THUMB_POSITION,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-thumb-max-height'                 => array(
-			'meta_name' => self::GM_THUMB_MAX_HEIGHT,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-thumb-with-url'                   => array(
-			'meta_name' => self::GM_THUMB_WITH_URL,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-thumb-image'                      => array(
-			'meta_name' => self::GM_THUMB_IMAGE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		// Badge.
-		'gm-badge-enable'                     => array(
-			'meta_name' => self::GM_BADGE_ENABLE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-type'                       => array(
-			'meta_name' => self::GM_BADGE_TYPE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-placement'                  => array(
-			'meta_name' => self::GM_BADGE_PLACEMENT,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-general-position'           => array(
-			'meta_name' => self::GM_BADGE_GENERAL_POSITION,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-y-position'                 => array(
-			'meta_name' => self::GM_BADGE_Y_POSITION,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-x-position'                 => array(
-			'meta_name' => self::GM_BADGE_X_POSITION,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		// Badge image.
-		'gm-badge-image'                      => array(
-			'meta_name' => self::GM_BADGE_IMAGE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-image-width'                => array(
-			'meta_name' => self::GM_BADGE_IMAGE_WIDTH,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-image-height'               => array(
-			'meta_name' => self::GM_BADGE_IMAGE_HEIGHT,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		// Badge icon.
-		'gm-badge-icon'                       => array(
-			'meta_name' => self::GM_BADGE_ICON,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-icon-size'                  => array(
-			'meta_name' => self::GM_BADGE_ICON_SIZE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-icon-color'                 => array(
-			'meta_name' => self::GM_BADGE_ICON_COLOR,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		// Badge text.
-		'gm-badge-text'                       => array(
-			'meta_name' => self::GM_BADGE_TEXT,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-text-font-family'           => array(
-			'meta_name' => self::GM_BADGE_TEXT_FONT_FAMILY,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-text-font-variant'          => array(
-			'meta_name' => self::GM_BADGE_TEXT_FONT_VARIANT,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-text-font-size'             => array(
-			'meta_name' => self::GM_BADGE_TEXT_FONT_SIZE,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-text-font-color'            => array(
-			'meta_name' => self::GM_BADGE_TEXT_FONT_COLOR,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-container-padding'          => array(
-			'meta_name' => self::GM_BADGE_CONTAINER_PADDING,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-container-radius'           => array(
-			'meta_name' => self::GM_BADGE_CONTAINER_RADIUS,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
-		'gm-badge-container-bg'               => array(
-			'meta_name' => self::GM_BADGE_CONTAINER_BG,
-			'mass'      => self::GM_NAV_MENU_META,
-		),
+	public static $grooniColsVariants = array(
+		'1'           => '100%', // 1
+		'2'           => '50% + 50%', // 2
+		'60-40'       => '60% + 40%',
+		'40-60'       => '40% + 60%',
+		'66-33'       => '66% + 33%',
+		'33-66'       => '33% + 66%',
+		'25-75'       => '25% + 75%',
+		'75-25'       => '75% + 25%',
+		'20-80'       => '20% + 80%',
+		'80-20'       => '80% + 20%',
+		'90-10'       => '90% + 10%',
+		'10-90'       => '10% + 90%',
+		'3'           => '33% + 33% + 33%', // 3
+		'50-25-25'    => '50% + 25% + 25%',
+		'25-25-50'    => '25% + 25% + 50%',
+		'60-20-20'    => '60% + 20% + 20%',
+		'20-60-20'    => '20% + 60% + 20%',
+		'20-20-60'    => '20% + 20% + 60%',
+		'20-30-50'    => '20% + 30% + 50%',
+		'50-30-20'    => '50% + 30% + 20%',
+		'4'           => '25% + 25% + 25% + 25%', // 4
+		'40-20-20-20' => '40% + 20% + 20% + 20%',
+		'20-20-20-40' => '20% + 20% + 20% + 40%',
+		'50-20-20-10' => '50% + 20% + 20% + 10%',
+		'10-20-20-50' => '10% + 20% + 20% + 50%',
+		'5'           => '5 Columns with 20% each', // 5
+		'6'           => '6 Columns with 16.6% each', // 6
+		'7'           => '7 Columns with 14.2% each', // 7
+		'8'           => '8 Columns with 12.5% each', // 8
+		'9'           => '9 Columns with 11.1% each', // 8
+		'10'          => '10 Columns with 10% each', // 10
 	);
 
+	public static $backgroundPositions = array(
+		'top left'      => 'top left',
+		'top center'    => 'top center',
+		'top right'     => 'top right',
+		'center left'   => 'center left',
+		'center center' => 'center center',
+		'center right'  => 'center right',
+		'bottom left'   => 'bottom left',
+		'bottom center' => 'bottom center',
+		'bottom right'  => 'bottom right',
+	);
+
+	public static $backgroundRepeats = array(
+		'no-repeat' => 'no-repeat',
+		'repeat'    => 'repeat',
+		'repeat-x'  => 'repeat-x',
+		'repeat-y'  => 'repeat-y',
+	);
+
+	/**
+	 * Menu admin walker fields.
+	 *
+	 * @access public
+	 * @return array.
+	 */
+	public function menu_walker_options() {
+		return apply_filters(
+			'groovy_menu_walker_options',
+			array(
+				'icon-class'               => [
+					'id'          => 'icon-class',
+					'label'       => esc_attr__( 'Icon', 'groovy-menu' ),
+					'description' => esc_attr__( 'Select an icon for your menu item.', 'groovy-menu' ),
+					'type'        => 'iconpicker',
+					'default'     => '',
+					'save_id'     => self::ICON_CLASS,
+				],
+				'use-html-as-icon'         => [
+					'id'          => 'use-html-as-icon',
+					'label'       => esc_attr__( 'Use HTML or shortcode as icon', 'groovy-menu' ),
+					'description' => esc_attr__( 'if checked, the following content will be added instead of the icon', 'groovy-menu' ),
+					'type'        => 'checkbox',
+					'default'     => false,
+					'save_id'     => self::USE_HTML_AS_ICON,
+				],
+				'html-icon-content'        => [
+					'id'          => 'html-icon-content',
+					'label'       => esc_attr__( 'HTML icon content', 'groovy-menu' ),
+					'description' => esc_attr__( '&lt;script&gt; tag not allowed', 'groovy-menu' ),
+					'type'        => 'textarea',
+					'default'     => '',
+					'save_id'     => self::HTML_ICON_CONTENT,
+					'field_class' => 'gm-html-icon-depend',
+				],
+				'do-not-show-title'        => [
+					'id'          => 'do-not-show-title',
+					'label'       => esc_attr__( 'Do not show menu item title and link', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'checkbox',
+					'default'     => false,
+					'save_id'     => self::DO_NOT_SHOW_TITLE,
+				],
+				'is-show-featured'         => [
+					'id'          => 'is-show-featured',
+					'label'       => esc_attr__( 'Show featured image on hover', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'checkbox',
+					'post_type'   => 'post_type',
+					'default'     => false,
+					'save_id'     => self::IS_SHOW_FEATURED_IMAGE,
+				],
+				// -------------------------------------------------------------------------------- MEGAMENU settings
+				'megamenu-post-not-mobile' => [
+					'id'          => 'megamenu-post-not-mobile',
+					'label'       => esc_attr__( 'Do not show Menu block content on mobile', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'checkbox',
+					'default'     => false,
+					'lver'        => false,
+					'save_id'     => self::MEGAMENU_META_POST_NOT_MOBILE,
+				],
+				'megamenu'                 => [
+					'id'          => 'megamenu',
+					'label'       => esc_attr__( 'Mega menu', 'groovy-menu' ),
+					'description' => esc_attr__( 'Applies to first level menu only.', 'groovy-menu' ),
+					'type'        => 'checkbox',
+					'default'     => false,
+					'save_id'     => self::IS_MEGAMENU_META,
+					'depth'       => 0,
+				],
+				'megamenu-cols'            => [
+					'id'          => 'megamenu-cols',
+					'label'       => esc_attr__( 'Mega menu columns', 'groovy-menu' ),
+					'choices'     => self::megaMenuColsVariants(),
+					'description' => '',
+					'type'        => 'select',
+					'default'     => '5',
+					'save_id'     => self::MEGAMENU_META_COLS,
+					'depth'       => 0,
+					'field_class' => 'megamenu-cols megamenu-options-depend',
+				],
+				'megamenu-bg'              => [
+					'id'          => 'megamenu-bg',
+					'label'       => esc_attr__( 'Mega menu background image', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'media',
+					'default'     => '',
+					'save_id'     => self::MEGAMENU_BACKGROUND,
+					'depth'       => 0,
+					'field_class' => 'megamenu-options-depend',
+				],
+				'megamenu-bg-position'     => [
+					'id'          => 'megamenu-bg-position',
+					'label'       => esc_attr__( 'Mega menu columns', 'groovy-menu' ),
+					'choices'     => self::$backgroundPositions,
+					'description' => '',
+					'type'        => 'select',
+					'default'     => 'top center',
+					'save_id'     => self::MEGAMENU_BACKGROUND_POSITION,
+					'depth'       => 0,
+					'field_class' => 'megamenu-options-depend',
+				],
+				'megamenu-bg-repeat'       => [
+					'id'          => 'megamenu-bg-repeat',
+					'label'       => esc_attr__( 'Background repeat', 'groovy-menu' ),
+					'choices'     => self::$backgroundRepeats,
+					'description' => '',
+					'type'        => 'select',
+					'default'     => 'repeat',
+					'save_id'     => self::MEGAMENU_BACKGROUND_REPEAT,
+					'depth'       => 0,
+					'field_class' => 'megamenu-options-depend',
+				],
+				'megamenu-bg-size'         => [
+					'id'          => 'megamenu-bg-size',
+					'label'       => esc_attr__( 'Background image size', 'groovy-menu' ),
+					'choices'     => GroovyMenuUtils::get_all_image_sizes_for_select(),
+					'description' => '',
+					'type'        => 'select',
+					'default'     => 'full',
+					'save_id'     => self::MEGAMENU_BACKGROUND_SIZE,
+					'depth'       => 0,
+					'field_class' => 'megamenu-options-depend',
+				],
+				// ------------------------------------------------------------------------------- Thumbnail settings
+				'thumb-enable'             => [
+					'id'          => 'thumb-enable',
+					'label'       => esc_attr__( 'Enable thumbnail', 'groovy-menu' ),
+					'description' => esc_attr__( 'Show thumbnail for post.', 'groovy-menu' ),
+					'type'        => 'checkbox',
+					'default'     => false,
+					'save_id'     => self::GM_THUMB_ENABLE,
+					'lver'        => false,
+				],
+				'thumb-position'           => [
+					'id'          => 'thumb-position',
+					'label'       => esc_attr__( 'Thumbnail position.', 'groovy-menu' ),
+					'choices'     => self::gmThumbPositionVariants(),
+					'description' => '',
+					'type'        => 'select',
+					'default'     => 'above',
+					'save_id'     => self::GM_THUMB_POSITION,
+					'lver'        => false,
+					'field_class' => 'gm-thumb-field',
+				],
+				'thumb-max-height'         => [
+					'id'          => 'thumb-max-height',
+					'label'       => esc_attr__( 'Thumbnail image maximum height.', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'number',
+					'default'     => '128',
+					'min-value'   => '0',
+					'max-value'   => '3200',
+					'value-type'  => 'px',
+					'save_id'     => self::GM_THUMB_MAX_HEIGHT,
+					'lver'        => false,
+					'field_class' => 'gm-thumb-field',
+				],
+				'thumb-with-url'           => [
+					'id'          => 'thumb-with-url',
+					'label'       => esc_attr__( 'Wrap thumbnail with menu item URL', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'checkbox',
+					'default'     => false,
+					'save_id'     => self::GM_THUMB_WITH_URL,
+					'lver'        => false,
+					'field_class' => 'gm-thumb-field',
+				],
+				'thumb-image'              => [
+					'id'          => 'thumb-image',
+					'label'       => esc_attr__( 'Thumbnail Image', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'media',
+					'default'     => '',
+					'save_id'     => self::GM_THUMB_IMAGE,
+					'lver'        => false,
+					'field_class' => 'gm-thumb-field gm-thumb--image',
+				],
+				// ------------------------------------------------------------------------------------------- BADGE
+				'badge-enable'             => [
+					'id'          => 'badge-enable',
+					'label'       => esc_attr__( 'Enable badge', 'groovy-menu' ),
+					'description' => esc_attr__( 'Show badge with menu item', 'groovy-menu' ),
+					'type'        => 'checkbox',
+					'default'     => false,
+					'save_id'     => self::GM_BADGE_ENABLE,
+					'lver'        => false,
+				],
+				'badge-placement'          => [
+					'id'          => 'badge-placement',
+					'label'       => esc_attr__( 'Badge placement', 'groovy-menu' ),
+					'choices'     => self::gmBadgePlacementVariants(),
+					'description' => '',
+					'type'        => 'select',
+					'default'     => 'left',
+					'save_id'     => self::GM_BADGE_PLACEMENT,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-field--shared',
+				],
+				'badge-general-position'   => [
+					'id'          => 'badge-general-position',
+					'label'       => esc_attr__( 'Badge position.', 'groovy-menu' ),
+					'choices'     => self::gmBadgeGeneralPositionVariants(),
+					'description' => esc_attr__( 'Absolutely positioned Badge take no space in the page layout. Relatively positioned Badge acts as normal element taking space.', 'groovy-menu' ),
+					'type'        => 'select',
+					'default'     => 'relative',
+					'save_id'     => self::GM_BADGE_GENERAL_POSITION,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-field--shared',
+				],
+				'badge-x-position'         => [
+					'id'          => 'badge-x-position',
+					'label'       => esc_attr__( 'Badge X offset.', 'groovy-menu' ),
+					'description' => esc_attr__( 'Negative value will push badge left, positive right.', 'groovy-menu' ) . ' ' . esc_attr__( 'Any valid CSS units accepted e.q. % or px.', 'groovy-menu' ),
+					'type'        => 'text',
+					'default'     => '',
+					'save_id'     => self::GM_BADGE_X_POSITION,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-field--shared',
+				],
+				'badge-y-position'         => [
+					'id'          => 'badge-y-position',
+					'label'       => esc_attr__( 'Badge Y offset.', 'groovy-menu' ),
+					'description' => esc_attr__( 'Negative value will push badge up, positive down.', 'groovy-menu' ) . ' ' . esc_attr__( 'Any valid CSS units accepted e.q. % or px.', 'groovy-menu' ),
+					'type'        => 'text',
+					'default'     => '',
+					'save_id'     => self::GM_BADGE_Y_POSITION,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-field--shared',
+				],
+				'badge-container-padding'  => [
+					'id'          => 'badge-container-padding',
+					'label'       => esc_attr__( 'Badge container padding.', 'groovy-menu' ),
+					'description' => esc_attr__( 'One, two, three or four values accepted.', 'groovy-menu' ) . ' ' . esc_attr__( 'Any valid CSS units accepted e.q. % or px.', 'groovy-menu' ),
+					'type'        => 'text',
+					'default'     => '',
+					'save_id'     => self::GM_BADGE_CONTAINER_PADDING,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-field--shared',
+				],
+				'badge-container-radius'   => [
+					'id'          => 'badge-container-radius',
+					'label'       => esc_attr__( 'Badge container border radius.', 'groovy-menu' ),
+					'description' => esc_attr__( 'One, two, three or four values accepted.', 'groovy-menu' ) . ' ' . esc_attr__( 'Any valid CSS units accepted e.q. % or px.', 'groovy-menu' ),
+					'type'        => 'text',
+					'default'     => '',
+					'save_id'     => self::GM_BADGE_CONTAINER_RADIUS,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-field--shared',
+				],
+				'badge-container-bg'       => [
+					'id'          => 'badge-container-bg',
+					'label'       => esc_attr__( 'Badge container background color', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'color',
+					'default'     => '',
+					'save_id'     => self::GM_BADGE_CONTAINER_BG,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-field--shared',
+				],
+				'badge-type'               => [
+					'id'          => 'badge-type',
+					'label'       => esc_attr__( 'Badge content type', 'groovy-menu' ),
+					'choices'     => self::gmBadgeTypeVariants(),
+					'description' => '',
+					'type'        => 'select',
+					'default'     => 'icon',
+					'save_id'     => self::GM_BADGE_TYPE,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-field--shared',
+				],
+				'badge-image'              => [
+					'id'          => 'badge-image',
+					'label'       => esc_attr__( 'Badge Image', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'media',
+					'default'     => '',
+					'save_id'     => self::GM_BADGE_IMAGE,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-type--image',
+				],
+				'badge-icon'               => [
+					'id'          => 'badge-icon',
+					'label'       => esc_attr__( 'Badge Icon', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'iconpicker',
+					'default'     => '',
+					'save_id'     => self::GM_BADGE_ICON,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-type--icon',
+				],
+				'badge-icon-size'          => [
+					'id'          => 'badge-icon-size',
+					'label'       => esc_attr__( 'Badge icon size', 'groovy-menu' ),
+					'description' => esc_attr__( 'If left blank, it will use the font size from the menu item', 'groovy-menu' ),
+					'type'        => 'number',
+					'default'     => '',
+					'min-value'   => '0',
+					'max-value'   => '2000',
+					'value-type'  => 'px',
+					'save_id'     => self::GM_BADGE_ICON_SIZE,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-type--icon',
+				],
+				'badge-icon-color'         => [
+					'id'          => 'badge-icon-color',
+					'label'       => esc_attr__( 'Badge icon color', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'color',
+					'default'     => '',
+					'save_id'     => self::GM_BADGE_ICON_COLOR,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-type--icon',
+				],
+				'badge-text'               => [
+					'id'          => 'badge-text',
+					'label'       => esc_attr__( 'Badge text', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'text',
+					'default'     => '',
+					'save_id'     => self::GM_BADGE_TEXT,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-type--text',
+				],
+				'badge-text-font-family'   => [
+					'id'          => 'badge-text-font-family',
+					'label'       => esc_attr__( 'Badge text font family', 'groovy-menu' ),
+					'choices'     => $this->gmGetFontArrayForSelect(),
+					'description' => '',
+					'type'        => 'font',
+					'default'     => 'inherit',
+					'save_id'     => self::GM_BADGE_TEXT_FONT_FAMILY,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-type--text',
+				],
+				'badge-text-font-variant'  => [
+					'id'          => 'badge-text-font-variant',
+					'label'       => esc_attr__( 'Badge text font variant', 'groovy-menu' ),
+					'choices'     => array( '' => esc_attr__( 'Inherit from parent', 'groovy-menu' ) ),
+					'description' => '',
+					'type'        => 'font_variant',
+					'default'     => 'inherit',
+					'save_id'     => self::GM_BADGE_TEXT_FONT_VARIANT,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-type--text',
+				],
+				'badge-text-font-size'     => [
+					'id'          => 'badge-text-font-size',
+					'label'       => esc_attr__( 'Badge text font size', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'number',
+					'default'     => '',
+					'min-value'   => '0',
+					'max-value'   => '512',
+					'value-type'  => 'px',
+					'save_id'     => self::GM_BADGE_TEXT_FONT_SIZE,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-type--text',
+				],
+				'badge-text-font-color'    => [
+					'id'          => 'badge-text-font-color',
+					'label'       => esc_attr__( 'Badge text font color', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'color',
+					'default'     => '',
+					'save_id'     => self::GM_BADGE_TEXT_FONT_COLOR,
+					'lver'        => false,
+					'field_class' => 'gm-badge-field gm-badge-type--text',
+				],
+
+			)
+		);
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function megaMenuColsVariants() {
+		$cols_variants = self::$grooniColsVariants;
+		if ( isset( $cols_variants['5'] ) ) {
+			$cols_variants['5'] = sprintf( esc_html__( '%1$d Columns with %2$s each', 'groovy-menu' ), '5', '20%' );
+		}
+		if ( isset( $cols_variants['6'] ) ) {
+			$cols_variants['6'] = sprintf( esc_html__( '%1$d Columns with %2$s each', 'groovy-menu' ), '6', '16.6%' );
+		}
+		if ( isset( $cols_variants['7'] ) ) {
+			$cols_variants['7'] = sprintf( esc_html__( '%1$d Columns with %2$s each', 'groovy-menu' ), '7', '14.2%' );
+		}
+		if ( isset( $cols_variants['8'] ) ) {
+			$cols_variants['8'] = sprintf( esc_html__( '%1$d Columns with %2$s each', 'groovy-menu' ), '8', '12.5%' );
+		}
+		if ( isset( $cols_variants['9'] ) ) {
+			$cols_variants['9'] = sprintf( esc_html__( '%1$d Columns with %2$s each', 'groovy-menu' ), '9', '11.1%' );
+		}
+		if ( isset( $cols_variants['10'] ) ) {
+			$cols_variants['10'] = sprintf( esc_html__( '%1$d Columns with %2$s each', 'groovy-menu' ), '10', '10%' );
+		}
+
+		return $cols_variants;
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function gmBadgeTypeVariants() {
+		$variants = array(
+			'icon'  => esc_html__( 'Icon Badge', 'groovy-menu' ),
+			'image' => esc_html__( 'Image Badge', 'groovy-menu' ),
+			'text'  => esc_html__( 'Text Badge', 'groovy-menu' ),
+		);
+
+		return $variants;
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function gmBadgePlacementVariants() {
+		$variants = array(
+			'left'  => esc_html__( 'Left', 'groovy-menu' ),
+			'right' => esc_html__( 'Right', 'groovy-menu' ),
+		);
+
+		return $variants;
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function gmThumbPositionVariants() {
+		$variants = array(
+			'above' => esc_html__( 'Above menu text item', 'groovy-menu' ),
+			'under' => esc_html__( 'Under menu text item', 'groovy-menu' ),
+		);
+
+		return $variants;
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function gmBadgeGeneralPositionVariants() {
+		$variants = array(
+			'relative' => esc_html__( 'Relative', 'groovy-menu' ),
+			'absolute' => esc_html__( 'Absolute', 'groovy-menu' ),
+		);
+
+		return $variants;
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function megaMenuPosts() {
+		$mm_posts = array( '' => '--- ' . esc_html__( 'none', 'groovy-menu' ) . ' ---' );
+
+		$args = array(
+			'posts_per_page' => - 1,
+			'post_type'      => 'gm_menu_block',
+			'post_status'    => 'publish',
+		);
+
+		$gm_menu_block = get_posts( $args );
+
+		foreach ( $gm_menu_block as $mega_menu_posts ) {
+			$mm_posts[ $mega_menu_posts->ID ] = $mega_menu_posts->post_title;
+		}
+
+		return $mm_posts;
+	}
 
 	/**
 	 * @param $item
@@ -267,6 +635,15 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 
 			if ( is_string( $meta_data ) ) {
 				$meta_data = json_decode( $meta_data, true );
+			}
+
+			$meta_data_options = $this->menu_walker_options();
+			foreach ( $meta_data_options as $index => $meta_datum ) {
+				if ( ! empty( $meta_datum['save_id'] ) && isset( $meta_datum['type'] ) && 'textarea' === $meta_datum['type'] ) {
+					if ( isset( $meta_data[ $meta_datum['save_id'] ] ) ) {
+						$meta_data[ $meta_datum['save_id'] ] = base64_decode( $meta_data[ $meta_datum['save_id'] ] );
+					}
+				}
 			}
 
 			if ( empty( $meta_data ) ) {
@@ -437,60 +814,86 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 	 * @return string
 	 */
 	public function getMenuBlockPostContent( $post_id ) {
-		global $post;
 		global $wp_filter;
 
 		$mm_content = '';
 
 		if ( $post_id ) {
 
-			$post_id = intval( $post_id );
+			$wp_builders = GroovyMenuUtils::check_wp_builders();
 
-			$wpml_gm_menu_block_id = apply_filters( 'wpml_object_id', $post_id, 'gm_menu_block', true );
+			$is_woocommerce_page = false;
+			if (
+				GroovyMenuUtils::is_shop_and_category_woocommerce_page() ||
+				GroovyMenuUtils::is_additional_woocommerce_page() ||
+				GroovyMenuUtils::is_product_woocommerce_page()
+			) {
+				$is_woocommerce_page = true;
+			}
 
 			// prevent conflict with Divi theme builder.
-			if ( 'divi_builder' === GroovyMenuUtils::check_wp_builders() ) {
-				return '[' . __( 'Divi Builder Conflict Prevention', 'groovy-menu' ) . ']';
+			if ( 'divi_builder' === $wp_builders ) {
+				return '[ ' . __( 'Divi Builder Conflict Prevention', 'groovy-menu' ) . ' ]';
 			}
 
 			// prevent conflict with Avada theme / Fusion builder.
-			if ( 'fusion_builder' === GroovyMenuUtils::check_wp_builders() ) {
-				return '[' . __( 'Fusion Builder Conflict Prevention', 'groovy-menu' ) . ']';
-			}
-
-			// Copy global $post exemplar.
-			$_post = $post;
-			$post  = get_post( $wpml_gm_menu_block_id ); // @codingStandardsIgnoreLine
-
-			if ( empty( $post->ID ) ) {
-				// Recovery global $post exemplar.
-				$post = $_post; // @codingStandardsIgnoreLine
-
-				return $mm_content;
+			if ( 'fusion_builder' === $wp_builders ) {
+				return '[ ' . __( 'Fusion Builder Conflict Prevention', 'groovy-menu' ) . ' ]';
 			}
 
 			// prevent conflict with cornerstone plugin.
 			if ( isset( $_POST['cs_preview_state'] ) && isset( $_POST['_cs_nonce'] ) ) { // @codingStandardsIgnoreLine
-				// Recovery global $post exemplar.
-				$post = $_post; // @codingStandardsIgnoreLine
-
-				return '[' . __( 'Cornerstone Conflict Prevention', 'groovy-menu' ) . ']';
+				return '[ ' . __( 'Cornerstone Conflict Prevention', 'groovy-menu' ) . ' ]';
 			}
 
 			if ( isset( $_GET['elementor-preview'] ) ) { // @codingStandardsIgnoreLine
-				// Recovery global $post exemplar.
-				$post = $_post; // @codingStandardsIgnoreLine
-
-				return '[' . __( 'Elementor Conflict Prevention', 'groovy-menu' ) . ']';
+				return '[ ' . __( 'Elementor Conflict Prevention', 'groovy-menu' ) . ' ]';
 			}
 
 			if ( isset( $_GET['page_id'] ) && ! empty( $_GET['et_fb'] ) ) { // @codingStandardsIgnoreLine
+				return '[ ' . __( 'Divi builder Conflict Prevention', 'groovy-menu' ) . ' ]';
+			}
+
+
+			$post_id = intval( $post_id );
+
+			$wpml_gm_menu_block_id = apply_filters( 'wpml_object_id', $post_id, 'gm_menu_block', true );
+
+			$divi_builder_flag = get_post_meta( $wpml_gm_menu_block_id, '_et_pb_use_builder', true );
+
+			// Post by default.
+			$post = null;
+			$_post = null;
+
+			// prevent conflict with Divi theme builder. But not at the Woocommerce pages.
+			if ( 'on' === $divi_builder_flag ) {
+				$post = null;
+
+				$query = new \WP_Query( 'post_type=gm_menu_block&p=' . $wpml_gm_menu_block_id );
+				if ( ! empty( $query->posts ) && ! empty( $query->posts[0] ) ) {
+					$post = $query->posts[0];
+				}
+			} else {
+				global $post;
+
+				// Copy global $post exemplar.
+				$_post = $post;
+				$post  = get_post( $wpml_gm_menu_block_id ); // @codingStandardsIgnoreLine
+			}
+
+			if ( empty( $post ) || empty( $post->ID ) ) {
 				// Recovery global $post exemplar.
 				$post = $_post; // @codingStandardsIgnoreLine
 
-				return '[' . __( 'Divi builder Conflict Prevention', 'groovy-menu' ) . ']';
+				/**
+				 * Reset the original query
+				 */
+				wp_reset_query();
+
+				return $mm_content;
 			}
 
+			// Beaver builder.
 			if (
 				class_exists( '\FLBuilder' ) &&
 				class_exists( '\FLBuilderModel' ) &&
@@ -512,18 +915,37 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 
 			} else {
 
-				$mm_content = apply_filters( 'the_content', $post->post_content );
+				$raw_content = empty( $post->post_content ) ? '' : $post->post_content;
 
 				// fix for bbPress function bbp_remove_all_filters('the_content').
 				if ( empty( $wp_filter['the_content'] ) ) {
-					$mm_content = do_shortcode( $mm_content );
+
+					$mm_content = do_shortcode( $raw_content );
+
+				} else {
+
+					if ( 'on' === $divi_builder_flag ) {
+						// Apply all filters for enqueue styles
+						$filtered_content = apply_filters( 'the_content', $raw_content );
+
+						$mm_content = do_shortcode( $raw_content );
+
+					} else {
+						$mm_content = apply_filters( 'the_content', $raw_content );
+					}
+
 				}
 
 			}
 
 
 			// Recovery global $post exemplar.
-			$post = $_post;
+			$post = $_post; // @codingStandardsIgnoreLine
+
+			/**
+			 * Reset the original query
+			 */
+			wp_reset_query();
 
 		}
 
@@ -561,6 +983,45 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 		}
 
 		return $this->getGMNavMenuMetaWithCheck( $item_id, self::ICON_CLASS, true );
+	}
+
+	/**
+	 * @param object $item Object with menu item meta data.
+	 *
+	 * @return mixed
+	 */
+	protected function getUseHtmlAsIcon( $item ) {
+		$item_id = $this->getId( $item );
+		if ( empty( $item_id ) ) {
+			return false;
+		}
+
+		$val = $this->getGMNavMenuMetaWithCheck( $item_id, self::USE_HTML_AS_ICON, true );
+		if ( '' === $val ) {
+			$val = false;
+		}
+
+		return $val;
+	}
+
+	/**
+	 * @param object $item Object with menu item meta data.
+	 *
+	 * @return mixed
+	 */
+	protected function getHtmlIconContent( $item ) {
+		$item_id = $this->getId( $item );
+		if ( empty( $item_id ) ) {
+			return '';
+		}
+
+		$content = $this->getGMNavMenuMetaWithCheck( $item_id, self::HTML_ICON_CONTENT, true );
+
+		if ( ! empty( $content ) ) {
+			$content = do_shortcode( $content );
+		}
+
+		return $content;
 	}
 
 	/**

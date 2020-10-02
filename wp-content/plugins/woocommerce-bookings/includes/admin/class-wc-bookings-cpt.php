@@ -420,70 +420,19 @@ class WC_Bookings_CPT {
 			return $wp;
 		}
 
-		$term = wc_clean( $_GET['s'] );
+		$booking_ids = array();
+		$term        = wc_clean( $_GET['s'] );
 
 		if ( is_numeric( $term ) ) {
-			$booking_ids = array( $term );
-		} elseif ( function_exists( 'wc_order_search' ) ) {
-			$order_ids   = wc_order_search( wc_clean( $_GET['s'] ) );
-			$booking_ids = $order_ids ? WC_Booking_Data_Store::get_booking_ids_from_order_id( $order_ids ) : array( 0 );
-		} else {
-			// @deprecated
-			$search_fields = array_map( 'wc_clean', array(
-				'_billing_first_name',
-				'_billing_last_name',
-				'_billing_company',
-				'_billing_address_1',
-				'_billing_address_2',
-				'_billing_city',
-				'_billing_postcode',
-				'_billing_country',
-				'_billing_state',
-				'_billing_email',
-				'_billing_phone',
-				'_shipping_first_name',
-				'_shipping_last_name',
-				'_shipping_address_1',
-				'_shipping_address_2',
-				'_shipping_city',
-				'_shipping_postcode',
-				'_shipping_country',
-				'_shipping_state',
-			) );
-
-			// Search orders
-			$order_ids = $wpdb->get_col(
-				$wpdb->prepare( "
-					SELECT post_id
-					FROM {$wpdb->postmeta}
-					WHERE meta_key IN ('" . implode( "','", $search_fields ) . "')
-					AND meta_value LIKE '%%%s%%'",
-					esc_attr( $_GET['s'] )
-				)
-			);
-			// ensure db query doesn't throw an error due to empty post_parent value
-			$order_ids = empty( $order_ids ) ? array( '-1' ) : $order_ids;
-
-			// so we know we're doing this
-			$booking_ids = array_merge(
-				$wpdb->get_col( "
-					SELECT ID FROM {$wpdb->posts}
-					WHERE post_parent IN (" . implode( ',', $order_ids ) . ');
-				'),
-				$wpdb->get_col(
-					$wpdb->prepare( "
-						SELECT ID
-							FROM {$wpdb->posts}
-							WHERE post_title LIKE '%%%s%%'
-							OR ID = %d
-						;",
-						esc_attr( $_GET['s'] ),
-						absint( $_GET['s'] )
-					)
-				),
-				array( 0 ) // so we don't get back all results for incorrect search
-			);
+			$booking_ids[] = $term;
 		}
+
+		$order_ids   = wc_order_search( wc_clean( $_GET['s'] ) );
+		$booking_ids = array_merge(
+			$booking_ids,
+			$order_ids ? WC_Booking_Data_Store::get_booking_ids_from_order_id( $order_ids ) : array( 0 ),
+			wc_booking_search( wc_clean( $_GET['s'] ) )
+		);
 
 		$wp->query_vars['s']              = false;
 		$wp->query_vars['post__in']       = $booking_ids;

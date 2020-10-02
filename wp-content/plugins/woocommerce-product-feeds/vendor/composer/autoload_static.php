@@ -83,6 +83,7 @@ class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
         'WoocommercePrfGoogleReviewFeed' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google-review-feed.php',
         'WoocommercePrfGoogleReviewProductInfo' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google-review-product-info.php',
         'WoocommerceProductFeedsDbManager' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-db-manager.php',
+        'WoocommerceProductFeedsFeedImageManager' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-feed-image-manager.php',
         'WoocommerceProductFeedsIntegrationManager' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-integration-manager.php',
         'WoocommerceProductFeedsMain' => __DIR__ . '/../..' . '/src/woocommerce-product-feeds-main.php',
         'WoocommerceProductFeedsTermDepthRepository' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-term-depth-repository.php',

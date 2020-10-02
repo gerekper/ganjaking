@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product CSV Import Suite 1.10.36\n"
+"Project-Id-Version: WooCommerce Product CSV Import Suite 1.10.37\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-csv-import-suite\n"
-"POT-Creation-Date: 2020-08-18 09:52:48+00:00\n"
+"POT-Creation-Date: 2020-09-29 08:35:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -685,67 +685,67 @@ msgid "Google Product Feed"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:126
-msgid "Exclude Product"
+msgid "Adwords grouping"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:127
-msgid "Availability"
+msgid "Adwords labels"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:128
-msgid "Condition"
+msgid "Adult content"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:129
-msgid "Brand"
-msgstr ""
-
-#: includes/importer/views/html-import-options.php:130
-msgid "Product Type"
-msgstr ""
-
-#: includes/importer/views/html-import-options.php:131
-msgid "Google Product Category"
-msgstr ""
-
-#: includes/importer/views/html-import-options.php:132
-msgid "Global Trade Item Number (GTIN)"
-msgstr ""
-
-#: includes/importer/views/html-import-options.php:133
-msgid "Manufacturer Part Number (MPN)"
-msgstr ""
-
-#: includes/importer/views/html-import-options.php:134
-msgid "Gender"
-msgstr ""
-
-#: includes/importer/views/html-import-options.php:135
 msgid "Age Group"
 msgstr ""
 
-#: includes/importer/views/html-import-options.php:136
+#: includes/importer/views/html-import-options.php:130
+msgid "Availability"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:131
+msgid "Availability date"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:132
+msgid "Brand"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:133
+msgid "Bundle indicator"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:134
 msgid "Color"
 msgstr ""
 
+#: includes/importer/views/html-import-options.php:135
+msgid "Condition"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:136
+msgid "Cost of goods sold"
+msgstr ""
+
 #: includes/importer/views/html-import-options.php:137
-msgid "Size"
+msgid "Custom label 0"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:138
-msgid "Size type"
+msgid "Custom label 1"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:139
-msgid "Size system"
+msgid "Custom label 2"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:140
-msgid "Material"
+msgid "Custom label 3"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:141
-msgid "Pattern"
+msgid "Custom label 4"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:142
@@ -753,38 +753,118 @@ msgid "Delivery label"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:143
-msgid "adwords_grouping"
+msgid "Energy efficiency class"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:144
-msgid "adwords_labels"
+msgid "Energy efficiency class (min)"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:145
-msgid "custom_label_0"
+msgid "Energy efficiency class (max)"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:146
-msgid "custom_label_1"
+msgid "Energy label image link"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:147
-msgid "custom_label_2"
+msgid "Excluded destination"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:148
-msgid "custom_label_3"
+msgid "Exclude Product"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:149
-msgid "custom_label_4"
+msgid "Gender"
 msgstr ""
 
 #: includes/importer/views/html-import-options.php:150
+msgid "Google-funded promotion eligibility"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:151
+msgid "Google Product Category"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:152
+msgid "Global Trade Item Number (GTIN)"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:153
+msgid "Included destination"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:154
+msgid "Handling time (min)"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:155
+msgid "Handling time (max)"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:156
+msgid "Manufacturer Part Number (MPN)"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:157
+msgid "Material"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:158
+msgid "Multipack"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:159
+msgid "Pattern"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:160
+msgid "Product Type"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:161
 msgid "Promotion ID"
 msgstr ""
 
+#: includes/importer/views/html-import-options.php:162
+msgid "Purchase quantity limit"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:163
+msgid "Return address label identifier"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:164
+msgid "Return policy label identifier"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:165
+msgid "Sell on Google quantity"
+msgstr ""
+
 #: includes/importer/views/html-import-options.php:166
+msgid "Size"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:167
+msgid "Size type"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:168
+msgid "Size system"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:169
+msgid "Unit pricing measure"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:170
+msgid "Unit pricing base measure"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:186
 msgid "Submit"
 msgstr ""
 

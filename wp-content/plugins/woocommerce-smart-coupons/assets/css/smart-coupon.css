@@ -3,7 +3,7 @@
 	line-height: 1.4em;
 	position: relative;
 	display: inline-table;
-	margin: 2px !important;
+	margin: 2px;
 	padding: .55em;
 	cursor: pointer;
 	text-align: center;
@@ -147,9 +147,6 @@ input#deliver_on_date {
 }
 
 /* Coupon generation form */
-form#generate_coupons p.form-field input[type=checkbox] {
-	width: 2%;
-}
 form#generate_coupons p.form-field input[type=text] {
 	width: 30%;
 }
@@ -319,6 +316,70 @@ input#credit_called {
 
 .wc-sc-description {
 	display: inline-block;
+}
+
+#sc-cc input {
+	border: 1px solid #7e8993;
+}
+
+#sc-cc .sc-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 2rem;
+}
+
+.forminp-wc_sc_radio_with_html {
+	border-collapse: initial;
+}
+
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design li {
+	padding: 10px 10px 5px 5px;
+}
+
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design li input,
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design_colors li input {
+	vertical-align: top;
+}
+
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design_colors.custom li input[type="color"] {
+	opacity: 0;
+	display: block;
+	width: 32px;
+	height: 20px;
+	border: none;
+	cursor: pointer;
+}
+
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design_colors li span {
+	display: inline-block;
+	width: 32px;
+	height: 20px;
+	vertical-align: middle;
+}
+
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design,
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design_colors {
+	margin-top: unset;
+}
+
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design li,
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design_colors li {
+	cursor: pointer;
+}
+
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design_colors li {
+	display: inline-block;
+	width: 150px;
+	padding: 5px;
+}
+
+.forminp-wc_sc_radio_with_html ul li:hover,
+.forminp-wc_sc_radio_with_html ul li.selected {
+	background: #ddd;
+}
+
+.forminp-wc_sc_radio_with_html .wc_sc_setting_coupon_design {
+	align-items: unset !important;
 }
 
 @media screen and (max-width: 767px) {

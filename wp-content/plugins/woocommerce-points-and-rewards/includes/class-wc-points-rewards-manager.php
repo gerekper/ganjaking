@@ -204,9 +204,6 @@ class WC_Points_Rewards_Manager {
 			}
 		}
 
-		// always make sure the user points balance meta is up to date
-		update_user_meta( $user_id, 'wc_points_balance', $points_balance );
-
 		// if there was a points change, log it
 		if ( $points_change ) {
 
@@ -295,10 +292,6 @@ class WC_Points_Rewards_Manager {
 
 		// log the event
 		WC_Points_Rewards_Points_Log::add_log_entry( $args );
-
-		// update the current points balance user meta
-		$points_balance = (int) get_user_meta( $user_id, 'wc_points_balance' );
-		update_user_meta( $user_id, 'wc_points_balance', $points_balance + $points );
 
 		do_action( 'wc_points_rewards_after_increase_points', $user_id, $points, $event_type, $data, $order_id );
 
@@ -405,10 +398,6 @@ class WC_Points_Rewards_Manager {
 			}
 		}
 
-		// update the current points balance user meta
-		$points_balance = (int) get_user_meta( $user_id, 'wc_points_balance' );
-		update_user_meta( $user_id, 'wc_points_balance', $points_balance - $points );
-
 		// log the points change
 		$args = array(
 			'user_id'    => $user_id,
@@ -427,7 +416,7 @@ class WC_Points_Rewards_Manager {
 		// log the event
 		WC_Points_Rewards_Points_Log::add_log_entry( $args );
 
-		do_action( 'wc_points_rewards_after_reduce_points', $user_id, $points_balance );
+		do_action( 'wc_points_rewards_after_reduce_points', $user_id, self::get_users_points( $user_id ) );
 
 		// always return true for now
 		return true;

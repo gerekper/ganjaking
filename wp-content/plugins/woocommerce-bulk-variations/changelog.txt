@@ -1,0 +1,121 @@
+*** WooCommerce Bulk Variations Changelog ***
+2020.05.06 - version 1.6.6
+    * Update:  Validate we have a product before getting the metadata.
+    * Fix:  Fix issue where we were not passing the product being added to the cart, to the add_to_cart_redirect filter.
+    * Version:  Version Bump for WP and WC
+
+2019.04.18 - version 1.6.5
+    * Update:  Ensure if Singular Form button is disabled, but show by default is enabled, the form is shown again when going back to the product singular form.
+    * Update:  Add new functions to allow developers to unbind the hooks for rendering the bulk form.
+
+2019.02.27 - version 1.6.4
+    * Update:  Version bump for WC and WP.
+    * Update:  Include option when configuring bulk forms to show the singular order form by default.
+    * Update:  Add option to show the singular order form by default.
+
+2018.08.22 - version 1.6.3
+    * Update:  Version bump for WC and WP.
+    * Update:  Include product in the bv_render_form filter.
+    * Update:  Disable submit button on bulk form until quantities entered.
+
+2018.05.29 - version 1.6.2
+    * Fix:  Show gravity form on single entry form in addition to the bulk form.
+
+2018.05.08 - version 1.6.1
+    * Fix:  Fix stock and price display when using attributes that contain special chars, such as a size of 15½
+    * New:  Move buttons to template file bulk-variable-buttons.php.  Copy and paste in your theme inside of /theme-name/woocommerce/single-product/
+
+2017.01.09 - version 1.6.0
+    * Update:  Include .pot translation file.
+    * Update:  Change text domain to match regular plugin conventions.  Plugin domain is now:  woocommerce-bulk-variations
+    * Update:  Update variable-grid.php to render the add to cart button outside of the table footer.
+    * Update:  Include support for WooCommerce Gravity Form Product Addons.  Note - you should disable the "Subtotal" and "Grand total" labels.
+    * Update:  Include support for WooCommerce Product Addons
+    * Update:  Include filter, 'woocommerce_bv_before_product_addons_text', for changing the text displayed before Product Addons or Gravity Forms.
+
+2017.05.09 - version 1.5.2
+    * Fix:  Correct logic for enabling and disabling the singular order form.
+
+2017.03.20 - version 1.5.1
+    * Update: Adds option when configuring bulk options to only show the bulk form.
+
+2017.01.18 - version 1.5.0
+    * Update:  WC 2.7 Ready
+    * Update:  Remove extremely old legacy code
+    * Update:  General code cleanup
+    * Update:  Sanitize input on admin screens better
+
+2016.08.02 - version 1.3.6
+    * Fix:  Correct issue with fatal error when not all variations are linked.
+
+2015.12.04 - version 1.3.5
+	* Fix:  Corrects issue with translation string for "%s products successfully added to your cart."  Text domain changed from woocommerce to wc_bulk_variations
+	* Fix:  Correct issue with redirecting to cart after adding from the bulk selection form. 
+	
+2015.07.29 - version 1.3.4
+	* 1.3.4 is WC 2.4 ready
+	* Update:  Compatibility updates for WC 2.4x.  Issue was with variations with custom product attributes with all variations linked. 
+	
+2015.06.11 - version 1.3.3
+	* Fix:  Add woocommerce_bv_render_form filter back in. 
+	* Update: Remove extra templates directory from template override path. 
+	
+2015.02.25 - version 1.3.2
+	* Fix: Compat issue resolved with WooCommerce >= 2.2
+	
+2014.12.06 - version 1.3.1
+	* Resolved issue where attributes on the form were listed using the attribute slug rather than the title. 
+	
+2014.11.24 - version 1.3.0
+	* Resolved issue where attributes were using the attribute slug rather than the attribute title when adding to the cart. 
+
+2014.08.28 - version 1.2.3
+	* Resolved error "Can't use function return value in write context"
+
+2014.08.27 - version 1.2.2
+	* Fixed problem with installer after update. 
+
+2014.08.19 - version 1.2.1
+	* Fixed some compatibility issues with WooCommerce Quick View 1.0.16+
+
+2014.08.19 - version 1.2.0
+	* Added compatibility for WooCommerce Quick View 1.0.16+
+
+2014.05.23 - version 1.1.3
+	* Fix syntax error. 
+
+2014.05.22 - version 1.1.2
+	* Update woocommerce_get_product_terms to fix a core bug where fields are not being sent to term filters properly. 
+
+2014.03.11 - version 1.1.1
+	* Modify CSS to use max-width: 50px instead of the hardcoded value. 
+	
+2014.01.22 - version 1.1.0
+	* 2.1 Compatibility Added
+		Modified uses of $woocommerce->add_message and $woocommerce->add_error.
+		Modified uses of $woocommerce->attribute_label.
+		Modified uses of $woocommerce->template_url
+	* Fixed a missing check for a $_POST value on new products that generated a warning. 
+
+2013.08.13 - version 1.0.6
+	* Update - Use product attribute sort order when rendering rows and columns. 
+
+2013.08.01 - version 1.0.5
+	* Fix: Missing row and column headings when not all variation attributes from a
+		taxonomy are in use on a product. 
+
+2013.07.15 - version 1.0.4
+	* Update:  CSS for Firefox
+
+2013.06.29 - version 1.0.3
+	* Update: Compatibility with Catalog Visibility Options
+
+2013.05.11 - version 1.0.2
+  *  Fix: for custom product attributes when uses as the column
+  * Update: Use term name when rows are a taxonomy
+
+2013.05.07 - version 1.0.1
+ * Update: Support for custom product attributes, not just taxonomy attributes. 
+
+2013.05.02 - version 1.0
+ * Initial Release

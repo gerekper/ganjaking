@@ -1,5 +1,12 @@
 *** WooCommerce Cart Add-ons ***
 
+2020-09-30 - version 1.15.32
+* Fix - Use proper initialization for activation hook.
+* Fix - Remove confusing searching message.
+* Tweak - Add order and orderby addons sorting hooks.
+* Update - Add automated translations.
+* Tweak - WC 4.5 compatibility.
+
 2020-08-19 - version 1.15.31
 * Tweak - WordPress 5.5 compatibility.
 

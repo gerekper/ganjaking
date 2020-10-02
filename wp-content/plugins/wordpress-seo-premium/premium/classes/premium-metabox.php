@@ -6,6 +6,7 @@
  */
 
 use Yoast\WP\SEO\Actions\Prominent_Words\Content_Action;
+use Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Indexation_Integration;
 
 /**
  * The metabox for premium.
@@ -92,20 +93,11 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 */
 	public function send_data_to_assets() {
 		$analysis_seo = new WPSEO_Metabox_Analysis_SEO();
-		$locale       = get_locale();
-		$language     = WPSEO_Language_Utils::get_language( $locale );
-		$current_user = wp_get_current_user();
 
 		$data = [
 			'restApi'            => $this->get_rest_api_config(),
 			'seoAnalysisEnabled' => $analysis_seo->is_enabled(),
 			'licensedURL'        => WPSEO_Utils::get_home_url(),
-			'languageBeacon'     => [
-				'show'           => $language !== 'pl',
-				'id'             => '1060600e-401f-4e6a-88b2-47429e942e74',
-				'name'           => trim( $current_user->user_firstname . ' ' . $current_user->user_lastname ),
-				'email'          => $current_user->user_email,
-			],
 			'settingsPageUrl'    => admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
 		];
 
@@ -136,6 +128,9 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			$insights_enabled = false;
 		}
 
+		$site_locale = \get_locale();
+		$language    = WPSEO_Language_Utils::get_language( $site_locale );
+
 		return [
 			'insightsEnabled'          => ( $insights_enabled ) ? 'enabled' : 'disabled',
 			'currentObjectId'          => $this->get_post_ID(),
@@ -143,6 +138,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'linkSuggestionsEnabled'   => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
 			'linkSuggestionsAvailable' => $prominent_words_support->is_post_type_supported( $post->post_type ),
 			'linkSuggestionsUnindexed' => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
+			'perIndexableLimit'        => $this->per_indexable_limit( $language ),
 		];
 	}
 
@@ -174,6 +170,9 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			$insights_enabled = false;
 		}
 
+		$site_locale = \get_locale();
+		$language    = WPSEO_Language_Utils::get_language( $site_locale );
+
 		return [
 			'insightsEnabled'          => ( $insights_enabled ) ? 'enabled' : 'disabled',
 			'currentObjectId'          => $term->term_id,
@@ -181,6 +180,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'linkSuggestionsEnabled'   => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
 			'linkSuggestionsAvailable' => $prominent_words_support->is_taxonomy_supported( $term->taxonomy ),
 			'linkSuggestionsUnindexed' => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
+			'perIndexableLimit'        => $this->per_indexable_limit( $language ),
 		];
 	}
 
@@ -346,5 +346,20 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		}
 
 		return $is_indexing_completed;
+	}
+
+	/**
+	 * Returns the number of prominent words to store for content written in the given language.
+	 *
+	 * @param string $language The current language.
+	 *
+	 * @return int The number of words to store.
+	 */
+	protected function per_indexable_limit( $language ) {
+		if ( YoastSEO()->helpers->language->has_function_word_support( $language ) ) {
+			return Indexation_Integration::PER_INDEXABLE_LIMIT;
+		}
+
+		return Indexation_Integration::PER_INDEXABLE_LIMIT_NO_FUNCTION_WORD_SUPPORT;
 	}
 }

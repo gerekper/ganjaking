@@ -212,7 +212,7 @@ $is_rrule           = 'rrule' === $availability['type'];
 					<div class="bookings-to-label-row">
 						<p>
 							<strong>
-								<?php echo esc_html( date_i18n( wc_time_format(), strtotime( $from_time ) ) ); ?>
+								<?php echo esc_html( date_i18n( wc_bookings_time_format(), strtotime( $from_time ) ) ); ?>
 							</strong>
 						</p>
 					</div>
@@ -286,7 +286,7 @@ $is_rrule           = 'rrule' === $availability['type'];
 					<div class="bookings-to-label-row">
 						<p>
 							<strong>
-								<?php echo esc_html( date_i18n( wc_time_format(), strtotime( $to_time ) ) ); ?>
+								<?php echo esc_html( date_i18n( wc_bookings_time_format(), strtotime( $to_time ) ) ); ?>
 							</strong>
 						</p>
 					</div>

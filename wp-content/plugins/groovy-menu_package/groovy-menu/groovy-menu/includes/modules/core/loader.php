@@ -7,6 +7,7 @@ require_once dirname( __FILE__ ) . '/inc/GroovyMenuSettings.php';
 require_once dirname( __FILE__ ) . '/inc/GroovyMenuStyle.php';
 require_once dirname( __FILE__ ) . '/inc/GroovyMenuPreset.php';
 require_once dirname( __FILE__ ) . '/inc/GroovyMenuUtils.php';
+require_once dirname( __FILE__ ) . '/inc/GroovyMenuActions.php';
 require_once dirname( __FILE__ ) . '/inc/GroovyMenuSingleMetaPreset.php';
 require_once dirname( __FILE__ ) . '/inc/GroovyMenuIcons.php';
 require_once dirname( __FILE__ ) . '/inc/GroovyMenuCategoryPreset.php';

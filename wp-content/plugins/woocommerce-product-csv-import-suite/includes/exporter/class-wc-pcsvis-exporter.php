@@ -21,6 +21,7 @@ class WC_PCSVIS_Exporter {
 		$include_hidden_meta         = ! empty( $_POST['include_hidden_meta'] ) ? true : false;
 		$product_limit               = ! empty( $_POST['product_limit'] ) ? sanitize_text_field( $_POST['product_limit'] ) : '';
 		$exclude_hidden_meta_columns = include( 'data/data-hidden-meta-columns.php' );
+		$sortby                      = array();
 
 		if ( $limit > $export_limit )
 			$limit = $export_limit;
@@ -117,32 +118,52 @@ class WC_PCSVIS_Exporter {
 		}
 
 		if ( function_exists( 'woocommerce_gpf_install' ) && ( ! $export_columns || in_array( 'gpf', $export_columns ) ) ) {
-			$row[] = 'gpf:exclude_product';
-			$row[] = 'gpf:availability';
-			$row[] = 'gpf:condition';
-			$row[] = 'gpf:brand';
-			$row[] = 'gpf:product_type';
-			$row[] = 'gpf:google_product_category';
-			$row[] = 'gpf:bing_category';
-			$row[] = 'gpf:gtin';
-			$row[] = 'gpf:mpn';
-			$row[] = 'gpf:gender';
-			$row[] = 'gpf:age_group';
-			$row[] = 'gpf:color';
-			$row[] = 'gpf:size';
-			$row[] = 'gpf:size_type';
-			$row[] = 'gpf:size_system';
-			$row[] = 'gpf:material';
-			$row[] = 'gpf:pattern';
-			$row[] = 'gpf:delivery_label';
 			$row[] = 'gpf:adwords_grouping';
 			$row[] = 'gpf:adwords_labels';
+			$row[] = 'gpf:adult';
+			$row[] = 'gpf:age_group';
+			$row[] = 'gpf:availability';
+			$row[] = 'gpf:availability_date';
+			$row[] = 'gpf:brand';
+			$row[] = 'gpf:is_bundle';
+			$row[] = 'gpf:color';
+			$row[] = 'gpf:condition';
+			$row[] = 'gpf:cost_of_goods_sold';
 			$row[] = 'gpf:custom_label_0';
 			$row[] = 'gpf:custom_label_1';
 			$row[] = 'gpf:custom_label_2';
 			$row[] = 'gpf:custom_label_3';
 			$row[] = 'gpf:custom_label_4';
+			$row[] = 'gpf:delivery_label';
+			$row[] = 'gpf:energy_efficiency_class';
+			$row[] = 'gpf:min_energy_efficiency_class';
+			$row[] = 'gpf:max_energy_efficiency_class';
+			$row[] = 'gpf:energy_label_image_link';
+			$row[] = 'gpf:excluded_destination';
+			$row[] = 'gpf:exclude_product';
+			$row[] = 'gpf:gender';
+			$row[] = 'gpf:google_funded_promotion_eligibility';
+			$row[] = 'gpf:google_product_category';
+			$row[] = 'gpf:gtin';
+			$row[] = 'gpf:included_destination';
+			$row[] = 'gpf:min_handling_time';
+			$row[] = 'gpf:max_handling_time';
+			$row[] = 'gpf:mpn';
+			$row[] = 'gpf:material';
+			$row[] = 'gpf:multipack';
+			$row[] = 'gpf:pattern';
+			$row[] = 'gpf:product_type';
 			$row[] = 'gpf:promotion_id';
+			$row[] = 'gpf:purchase_quantity_limit';
+			$row[] = 'gpf:return_address_label';
+			$row[] = 'gpf:return_policy_label';
+			$row[] = 'gpf:sell_on_google_quantity';
+			$row[] = 'gpf:size';
+			$row[] = 'gpf:size_type';
+			$row[] = 'gpf:size_system';
+			$row[] = 'gpf:bing_category';
+			$row[] = 'gpf:unit_pricing_measure';
+			$row[] = 'gpf:unit_pricing_base_measure';
 		}
 
 		$row = array_map( 'WC_PCSVIS_Exporter::wrap_column', $row );
@@ -182,7 +203,7 @@ class WC_PCSVIS_Exporter {
 					$sortby[ $key ] = $value->post_parent;
 				}
 
-				if ( sizeof( $sortby ) === sizeof( $products ) ) {
+				if ( count( $sortby ) === count( $products ) ) {
 					array_multisort( $sortby, SORT_ASC, $products );
 				}
 			}	
@@ -501,32 +522,52 @@ class WC_PCSVIS_Exporter {
 
 					$gpf_data = empty( $product->gpf_data ) ? '' : maybe_unserialize( $product->gpf_data );
 
-					$row[] = empty( $gpf_data['exclude_product'] ) ? '' : $gpf_data['exclude_product'];
-					$row[] = empty( $gpf_data['availability'] ) ? '' : $gpf_data['availability'];
-					$row[] = empty( $gpf_data['condition'] ) ? '' : $gpf_data['condition'];
-					$row[] = empty( $gpf_data['brand'] ) ? '' : $gpf_data['brand'];
-					$row[] = empty( $gpf_data['product_type'] ) ? '' : $gpf_data['product_type'];
-					$row[] = empty( $gpf_data['google_product_category'] ) ? '' : $gpf_data['google_product_category'];
-					$row[] = empty( $gpf_data['bing_category'] ) ? '' : $gpf_data['bing_category'];
-					$row[] = empty( $gpf_data['gtin'] ) ? '' : $gpf_data['gtin'];
-					$row[] = empty( $gpf_data['mpn'] ) ? '' : $gpf_data['mpn'];
-					$row[] = empty( $gpf_data['gender'] ) ? '' : $gpf_data['gender'];
-					$row[] = empty( $gpf_data['age_group'] ) ? '' : $gpf_data['age_group'];
-					$row[] = empty( $gpf_data['color'] ) ? '' : $gpf_data['color'];
-					$row[] = empty( $gpf_data['size'] ) ? '' : $gpf_data['size'];
-					$row[] = empty( $gpf_data['size_type'] ) ? '' : $gpf_data['size_type'];
-					$row[] = empty( $gpf_data['size_system'] ) ? '' : $gpf_data['size_system'];
-					$row[] = empty( $gpf_data['material'] ) ? '' : $gpf_data['material'];
-					$row[] = empty( $gpf_data['pattern'] ) ? '' : $gpf_data['pattern'];
-					$row[] = empty( $gpf_data['delivery_label'] ) ? '' : $gpf_data['delivery_label'];
 					$row[] = empty( $gpf_data['adwords_grouping'] ) ? '' : $gpf_data['adwords_grouping'];
 					$row[] = empty( $gpf_data['adwords_labels'] ) ? '' : $gpf_data['adwords_labels'];
+					$row[] = empty( $gpf_data['adult'] ) ? '' : $gpf_data['adult'];
+					$row[] = empty( $gpf_data['age_group'] ) ? '' : $gpf_data['age_group'];
+					$row[] = empty( $gpf_data['availability'] ) ? '' : $gpf_data['availability'];
+					$row[] = empty( $gpf_data['availability_date'] ) ? '' : $gpf_data['availability_date'];
+					$row[] = empty( $gpf_data['brand'] ) ? '' : $gpf_data['brand'];
+					$row[] = empty( $gpf_data['is_bundle'] ) ? '' : $gpf_data['is_bundle'];
+					$row[] = empty( $gpf_data['color'] ) ? '' : $gpf_data['color'];
+					$row[] = empty( $gpf_data['condition'] ) ? '' : $gpf_data['condition'];
+					$row[] = empty( $gpf_data['cost_of_goods_sold'] ) ? '' : $gpf_data['cost_of_goods_sold'];
 					$row[] = empty( $gpf_data['custom_label_0'] ) ? '' : $gpf_data['custom_label_0'];
 					$row[] = empty( $gpf_data['custom_label_1'] ) ? '' : $gpf_data['custom_label_1'];
 					$row[] = empty( $gpf_data['custom_label_2'] ) ? '' : $gpf_data['custom_label_2'];
 					$row[] = empty( $gpf_data['custom_label_3'] ) ? '' : $gpf_data['custom_label_3'];
 					$row[] = empty( $gpf_data['custom_label_4'] ) ? '' : $gpf_data['custom_label_4'];
+					$row[] = empty( $gpf_data['delivery_label'] ) ? '' : $gpf_data['delivery_label'];
+					$row[] = empty( $gpf_data['energy_efficiency_class'] ) ? '' : $gpf_data['energy_efficiency_class'];
+					$row[] = empty( $gpf_data['min_energy_efficiency_class'] ) ? '' : $gpf_data['min_energy_efficiency_class'];
+					$row[] = empty( $gpf_data['max_energy_efficiency_class'] ) ? '' : $gpf_data['max_energy_efficiency_class'];
+					$row[] = empty( $gpf_data['energy_label_image_link'] ) ? '' : $gpf_data['energy_label_image_link'];
+					$row[] = empty( $gpf_data['excluded_destination'] ) ? '' : $gpf_data['excluded_destination'];
+					$row[] = empty( $gpf_data['exclude_product'] ) ? '' : $gpf_data['exclude_product'];
+					$row[] = empty( $gpf_data['gender'] ) ? '' : $gpf_data['gender'];
+					$row[] = empty( $gpf_data['google_funded_promotion_eligibility'] ) ? '' : $gpf_data['google_funded_promotion_eligibility'];
+					$row[] = empty( $gpf_data['google_product_category'] ) ? '' : $gpf_data['google_product_category'];
+					$row[] = empty( $gpf_data['gtin'] ) ? '' : $gpf_data['gtin'];
+					$row[] = empty( $gpf_data['included_destination'] ) ? '' : $gpf_data['included_destination'];
+					$row[] = empty( $gpf_data['min_handling_time'] ) ? '' : $gpf_data['min_handling_time'];
+					$row[] = empty( $gpf_data['max_handling_time'] ) ? '' : $gpf_data['max_handling_time'];
+					$row[] = empty( $gpf_data['mpn'] ) ? '' : $gpf_data['mpn'];
+					$row[] = empty( $gpf_data['material'] ) ? '' : $gpf_data['material'];
+					$row[] = empty( $gpf_data['multipack'] ) ? '' : $gpf_data['multipack'];
+					$row[] = empty( $gpf_data['pattern'] ) ? '' : $gpf_data['pattern'];
+					$row[] = empty( $gpf_data['product_type'] ) ? '' : $gpf_data['product_type'];
 					$row[] = empty( $gpf_data['promotion_id'] ) ? '' : $gpf_data['promotion_id'];
+					$row[] = empty( $gpf_data['purchase_quantity_limit'] ) ? '' : $gpf_data['purchase_quantity_limit'];
+					$row[] = empty( $gpf_data['return_address_label'] ) ? '' : $gpf_data['return_address_label'];
+					$row[] = empty( $gpf_data['return_policy_label'] ) ? '' : $gpf_data['return_policy_label'];
+					$row[] = empty( $gpf_data['sell_on_google_quantity'] ) ? '' : $gpf_data['sell_on_google_quantity'];
+					$row[] = empty( $gpf_data['size'] ) ? '' : $gpf_data['size'];
+					$row[] = empty( $gpf_data['size_type'] ) ? '' : $gpf_data['size_type'];
+					$row[] = empty( $gpf_data['size_system'] ) ? '' : $gpf_data['size_system'];
+					$row[] = empty( $gpf_data['bing_category'] ) ? '' : $gpf_data['bing_category'];
+					$row[] = empty( $gpf_data['unit_pricing_measure'] ) ? '' : $gpf_data['unit_pricing_measure'];
+					$row[] = empty( $gpf_data['unit_pricing_base_measure'] ) ? '' : $gpf_data['unit_pricing_base_measure'];
 				}
 
 				// Add to csv

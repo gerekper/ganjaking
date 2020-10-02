@@ -85,13 +85,13 @@ class WC_Email_Admin_Booking_Cancelled extends WC_Email {
 					$order_date = $this->object->get_order()->get_date_created() ? $this->object->get_order()->get_date_created()->date( 'Y-m-d H:i:s' ) : '';
 				}
 				$this->find[]    = '{order_date}';
-				$this->replace[] = date_i18n( wc_date_format(), strtotime( $order_date ) );
+				$this->replace[] = date_i18n( wc_bookings_date_format(), strtotime( $order_date ) );
 
 				$this->find[]    = '{order_number}';
 				$this->replace[] = $this->object->get_order()->get_order_number();
 			} else {
 				$this->find[]    = '{order_date}';
-				$this->replace[] = date_i18n( wc_date_format(), strtotime( $this->object->booking_date ) );
+				$this->replace[] = date_i18n( wc_bookings_date_format(), strtotime( $this->object->booking_date ) );
 
 				$this->find[]    = '{order_number}';
 			}

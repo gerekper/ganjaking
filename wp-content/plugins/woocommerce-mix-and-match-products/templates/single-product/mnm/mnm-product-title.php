@@ -11,13 +11,12 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
- * @author  Kathy Darling
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
  * @version 1.9.0
  */
-if ( ! defined( 'ABSPATH' ) ){
-	exit; // Exit if accessed directly	
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
 }
 ?>
-<?php echo $mnm_item->is_visible() ? '<a href="' . $mnm_item->get_permalink() . '" target="_blank">' . $mnm_item->get_title() . '</a>' : $mnm_item->get_title(); ?>
+<?php echo $mnm_item->is_visible() ? '<a href="' . $mnm_item->get_permalink() . '" target="_blank">' . $mnm_item->get_title() . '</a>' : $mnm_item->get_title(); 

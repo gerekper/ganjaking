@@ -3,7 +3,7 @@
  * Coupon Email Content
  *
  * @author      StoreApps
- * @version     1.0.2
+ * @version     1.1.0
  * @package     woocommerce-smart-coupons/templates/plain/
  */
 
@@ -120,7 +120,7 @@ foreach ( $receiver_details as $receiver_data ) {
 		$expiry_date = $woocommerce_smart_coupon->get_expiration_format( $expiry_date );
 		echo esc_html( $expiry_date );
 	} else {
-		echo esc_html__( 'Never Expires ', 'woocommerce-smart-coupons' );
+		echo esc_html__( 'Never expires', 'woocommerce-smart-coupons' );
 	}
 	echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 }

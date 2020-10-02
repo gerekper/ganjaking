@@ -1,5 +1,12 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2020-09-29 - version 1.6.38
+* Fix - Prevent fatal error when viewing coupons in admin with Subscriptions.
+* Fix - Update reward messages when using a regular coupon.
+* Fix - Only apply points to previous orders which have been paid.
+* Tweak - Use standard format for help tips in settings.
+* Tweak - Remove legacy code for wc_points_balance.
+
 2020-08-25 - version 1.6.37
 * Fix - Update Min Points Discount tooltip to more accurately describe the setting.
 

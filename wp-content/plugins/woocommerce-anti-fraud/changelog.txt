@@ -1,6 +1,9 @@
 *** WooCommerce Anti Fraud ***
 
-2020-11-09 version 2.9
+2020-09-25 version 2.9.1
+* PLUGINS-712 - Fixed the Cron tasks issue.
+
+2020-09-11 version 2.9
 * PLUGINS-643 - Added cron scheduler that runs once every hour, for past 7 days orders which has not been checked, or orders which has, for some reason, been missed out.
 * PLUGINS-638 - Added description for "Device Tracking" settings option.
 * PLUGINS-637 - Update label for "Cancel Score" settings field.

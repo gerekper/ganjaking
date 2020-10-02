@@ -72,6 +72,8 @@
 		<div class="options_group show_if_ticket">
 			<?php woocommerce_wp_checkbox( array( 'id' => '_print_tickets', 'wrapper_class' => 'show_if_ticket', 'label' => __( 'Enable ticket printing', 'woocommerce-box-office' ), 'description' => __( 'This will enable the \'Print ticket\' button on the ticket edit page.', 'woocommerce-box-office' ) ) ); ?>
 
+			<?php woocommerce_wp_checkbox( array( 'id' => '_disable_edit_tickets', 'wrapper_class' => 'show_if_ticket', 'label' => __( 'Disable ticket editing', 'woocommerce-box-office' ), 'description' => __( 'This will disable customers to edit their purchased tickets.', 'woocommerce-box-office' ) ) ); ?>
+
 			<?php
 			if ( function_exists( 'WC_Order_Barcodes' ) ) {
 				woocommerce_wp_checkbox( array( 'id' => '_print_barcode', 'wrapper_class' => 'show_if_ticket', 'label' => __( 'Include barcode', 'woocommerce-box-office' ), 'description' => __( 'This will add the unique ticket barcode to the bottom of the ticket.', 'woocommerce-box-office' ) ) );
@@ -120,7 +122,7 @@
 
 	<div id="ticket_email_data" class="panel woocommerce_options_panel">
 		<div class="options_group show_if_ticket">
-			<?php woocommerce_wp_checkbox( array( 'id' => '_email_tickets', 'wrapper_class' => 'show_if_ticket', 'label' => __( 'Enable ticket emails', 'woocommerce-box-office' ), 'description' => __( 'This will send an email to the contact address for each ticket whenever it is changed.', 'woocommerce-box-office' ) ) ); ?>
+			<?php woocommerce_wp_checkbox( array( 'id' => '_email_tickets', 'wrapper_class' => 'show_if_ticket', 'label' => __( 'Enable ticket emails', 'woocommerce-box-office' ), 'description' => __( 'This will send an email to the contact address for each ticket whenever it is purchased or updated.', 'woocommerce-box-office' ) ) ); ?>
 
 			<?php woocommerce_wp_text_input( array( 'id' => '_email_ticket_subject', 'class' => 'full', 'label' => __( 'Email subject', 'woocommerce-box-office' ), 'description' => sprintf( __( 'Add ticket fields to the subject by inserting the field label like this: %1$s<br>e.g. %2$s', 'woocommerce-box-office' ), '<code>{Label}</code>', '<code>{First Name}</code>' ) ) ); ?>
 		</div>

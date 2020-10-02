@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
 
 /**
  * Main plugin class.
@@ -36,7 +36,7 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string version number */
-	const VERSION = '1.14.7';
+	const VERSION = '1.15.1';
 
 	/** @var WC_Chase_Paymentech single instance of this plugin */
 	protected static $instance;
@@ -168,7 +168,7 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 	 */
 	public function get_documentation_url() {
 
-		return 'http://docs.woocommerce.com/document/woocommerce-chase-paymentech/';
+		return 'https://docs.woocommerce.com/document/woocommerce-chase-paymentech/';
 	}
 
 

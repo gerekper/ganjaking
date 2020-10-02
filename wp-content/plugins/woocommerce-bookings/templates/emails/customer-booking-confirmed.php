@@ -117,7 +117,7 @@ if ( $order ) :
 	?>
 	(
 	<?php
-	echo wp_kses_post( sprintf( '<time datetime="%s">%s</time>', date_i18n( 'c', strtotime( $order_date ) ), date_i18n( wc_date_format(), strtotime( $order_date ) ) ) );
+	echo wp_kses_post( sprintf( '<time datetime="%s">%s</time>', date_i18n( 'c', strtotime( $order_date ) ), date_i18n( wc_bookings_date_format(), strtotime( $order_date ) ) ) );
 	?>
 	)</h2>
 

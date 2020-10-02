@@ -74,6 +74,7 @@ class WC_Box_Office_Ticket_Shortcode {
 					'ticket_form'          => $ticket_form,
 					'print_ticket_enabled' => is_ticket_ready_for_printing( $ticket ),
 					'print_ticket_url'     => wcbo_get_my_ticket_url( $ticket->id, true ),
+					'editable'             => is_ticket_editable( $ticket->product ),
 				),
 			)
 		);

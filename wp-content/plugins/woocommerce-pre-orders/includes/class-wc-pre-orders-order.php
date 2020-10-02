@@ -52,6 +52,7 @@ class WC_Pre_Orders_Order  {
 		// since we already reduced stock when they pre-ordered.
 		add_filter( 'woocommerce_pay_order_product_in_stock', array( $this, 'product_in_stock' ), 10, 3 );
 
+		add_filter( 'woocommerce_reports_order_statuses', array( $this, 'add_pre_orders_to_report_statuses') );
 	}
 
 	/**
@@ -91,6 +92,16 @@ class WC_Pre_Orders_Order  {
 	public function order_statuses( $order_statuses ) {
 		$order_statuses['wc-pre-ordered'] = _x( 'Pre ordered', 'Order status', 'wc-pre-orders' );
 
+		return $order_statuses;
+	}
+
+	/**
+	 * Add "pre-ordered" order status to WC Reports for tracking order revenue.
+	 * @param array $order_statuses
+	 * @return array
+	 */
+	public function add_pre_orders_to_report_statuses( $order_statuses ) {
+		$order_statuses[] = 'pre-ordered';
 		return $order_statuses;
 	}
 
@@ -267,7 +278,7 @@ class WC_Pre_Orders_Order  {
 	 * @since    1.0
 	 * @version  1.5.3
 	 * @param    object|int $order preferably the order object, or order ID if object is inconvenient to provide
-	 * @return   object|null the pre-ordered product object, or null if the cart does not contain a pre-order
+	 * @return   object|bool the pre-ordered product object, or false if the cart does not contain a pre-order
 	 */
 	public static function get_pre_order_product( $order ) {
 
@@ -284,7 +295,7 @@ class WC_Pre_Orders_Order  {
 					|| WC_Pre_Orders_Product::product_has_active_pre_orders( $order_item['product_id'] ) ) ) {
 
 					// return the product object
-					return $order->get_product_from_item( $order_item );
+					return $order_item->get_product();
 				}
 			}
 
@@ -354,7 +365,7 @@ class WC_Pre_Orders_Order  {
 	 */
 	public function auto_update_pre_order_status( $order_id, $old_order_status, $new_order_status ) {
 
-		if ( 'pre-ordered' === $new_order_status ) {
+		if ( 'pre-ordered' === $new_order_status && $this->order_contains_pre_order( $order_id ) ) {
 			$this->update_pre_order_status( $order_id, 'active' );
 		}
 

@@ -685,7 +685,7 @@ class WC_Points_Rewards_Admin {
 
 			array(
 				'title'       => __( 'Apply Points to Previous Orders', 'woocommerce-points-and-rewards' ),
-				'desc_tip'    => __( 'This will apply points to all previous orders (processing and completed) and cannot be reversed.', 'woocommerce-points-and-rewards' ),
+				'desc_tip'    => __( 'This will apply points to all previous orders (paid or completed) and cannot be reversed.', 'woocommerce-points-and-rewards' ),
 				'button_text' => __( 'Apply Points', 'woocommerce-points-and-rewards' ),
 				'type'        => 'apply_points',
 				'id'          => 'wc_points_rewards_apply_points_to_previous_orders',
@@ -738,8 +738,10 @@ class WC_Points_Rewards_Admin {
 			?>
 				<tr valign="top">
 					<th scope="row" class="titledesc">
-						<label for=""><?php echo wp_kses_post( $field['title'] ); ?></label>
-						<img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( $field['desc_tip'] ); ?>" src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
+						<label for="">
+							<?php echo wp_kses_post( $field['title'] ); ?>
+							<?php echo wc_help_tip( $field['desc_tip'] ); ?>
+						</label>
 					</th>
 					<td class="forminp forminp-text">
 						<fieldset>
@@ -771,8 +773,10 @@ class WC_Points_Rewards_Admin {
 			?>
 				<tr valign="top">
 					<th scope="row" class="titledesc">
-						<label for=""><?php echo wp_kses_post( $field['title'] ); ?></label>
-						<img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( $field['desc_tip'] ); ?>" src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
+						<label for="">
+							<?php echo wp_kses_post( $field['title'] ); ?>
+							<?php echo wc_help_tip( $field['desc_tip'] ); ?>
+						</label>
 					</th>
 					<td class="forminp forminp-text">
 						<fieldset>
@@ -801,7 +805,7 @@ class WC_Points_Rewards_Admin {
 				if ( isset( $_POST[ 'expire_points_since' ] ) && DateTime::createFromFormat( 'Y-m-d', $_POST[ 'expire_points_since' ] ) ) {
 					update_option( 'wc_points_rewards_points_expire_points_since', wc_clean( $_POST[ 'expire_points_since' ] ) );
 				}
-				
+
 				return wc_clean( $_POST[ $option['id'] . '_number' ] ) . ':' . wc_clean( $_POST[ $option['id'] . '_period' ] );
 			}
 			else {
@@ -810,7 +814,7 @@ class WC_Points_Rewards_Admin {
 			}
 		}
 	}
-	
+
 	/**
 	 * Backward compatible function to deal with deprecated actions in 2.4
 	 * @since 2.4
@@ -819,7 +823,7 @@ class WC_Points_Rewards_Admin {
 		$value = $this->save_points_expiry( null, $option, null );
 		update_option( $option['id'], $value );
 	}
-	
+
 	/**
 	 * Save the Earn Points/Redeem Points Conversion Ratio field
 	 *
@@ -875,10 +879,10 @@ class WC_Points_Rewards_Admin {
 	 */
 	public function render_points_expiry( $field ) {
 
-		if ( isset( $field['title'] ) && isset( $field['id'] ) ) :	
+		if ( isset( $field['title'] ) && isset( $field['id'] ) ) :
 
 			$expiry = get_option( $field['id'] );
-			
+
 			if ( ! $expiry ) {
 				$number = '';
 				$period = '';
@@ -886,20 +890,22 @@ class WC_Points_Rewards_Admin {
 			else {
 				list( $number, $period ) = explode( ':', $expiry );
 			}
-			
+
 			$periods = array(
 				'DAY'   => 'Day(s)',
 				'WEEK'  => 'Week(s)',
 				'MONTH' => 'Month(s)',
 				'YEAR'  => 'Year(s)'
 			);
-			
+
 			$expire_since = get_option( 'wc_points_rewards_points_expire_points_since', '' );
 			?>
 			<tr valign="top">
 				<th scope="row" class="titledesc">
-					<label for="expire_points"><?php echo wp_kses_post( $field['title'] ); ?></label>
-					<img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( $field['desc_tip'] ); ?>" src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
+					<label for="expire_points">
+						<?php echo wp_kses_post( $field['title'] ); ?>
+						<?php echo wc_help_tip( $field['desc_tip'] ); ?>
+					</label>
 				</th>
 				<td class="forminp forminp-text" style="width: 50%; float: left;">
 					<fieldset id="expire_points">
@@ -912,7 +918,7 @@ class WC_Points_Rewards_Admin {
 										$selected = ' selected="selected" ';
 									}
 							?>
-								<option value="<?php echo esc_attr( $num ); ?>" <?php echo $selected; ?>><?php echo $num; ?></option> 
+								<option value="<?php echo esc_attr( $num ); ?>" <?php echo $selected; ?>><?php echo $num; ?></option>
 							<?php endfor; ?>
 						</select>
 						<select name="<?php echo esc_attr( $field[ 'id' ] . '_period' ); ?>" id="<?php echo esc_attr( $field[ 'id' ] ); ?>_period">
@@ -942,7 +948,7 @@ class WC_Points_Rewards_Admin {
 		<?php
 		endif;
 	}
-	
+
 	/**
 	 * Render the 'Apply Points to all previous orders' section
 	 *
@@ -954,8 +960,10 @@ class WC_Points_Rewards_Admin {
 		?>
 			<tr valign="top">
 				<th scope="row" class="titledesc">
-					<label for="apply_points"><?php echo wp_kses_post( $field['title'] ); ?></label>
-					<img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( $field['desc_tip'] ); ?>" src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
+					<label for="apply_points">
+						<?php echo wp_kses_post( $field['title'] ); ?>
+						<?php echo wc_help_tip( $field['desc_tip'] ); ?>
+					</label>
 				</th>
 				<td class="forminp forminp-text" style="width:15%;">
 					<fieldset>
@@ -1049,14 +1057,19 @@ class WC_Points_Rewards_Admin {
 						return;
 					}
 
-					// otherwise go through the results and set the order numbers
+					// Otherwise go through the results and add the points earned.
 					if ( is_array( $order_ids ) ) {
-						foreach( $order_ids as $order_id ) {
+						foreach ( $order_ids as $order_id ) {
+							$order = wc_get_order( $order_id );
 
-							$order = new WC_Order( $order_id );
+							if ( ! $order ) {
+								continue;
+							}
 
-							// only add points to processing or completed orders
-							if ( 'processing' === $order->status || 'completed' === $order->status ) {
+							$paid = null !== $order->get_date_paid( 'edit' );
+
+							// Only add points to paid or completed orders.
+							if ( $paid || 'completed' === $order->get_status() ) {
 
 								$wc_points_rewards->order->add_points_earned( $order );
 
@@ -1172,7 +1185,7 @@ class WC_Points_Rewards_Admin {
 
 		$wc_max_points_earned = '';
 		$wc_min_points_earned = '';
-		
+
 		$variable_points = array();
 
 		foreach ( $children as $child ) {
@@ -1181,12 +1194,12 @@ class WC_Points_Rewards_Admin {
 				$variable_points[] = $earned;
 			}
 		}
-		
+
 		if ( count( $variable_points ) > 0 ) {
 			$wc_max_points_earned = max( $variable_points );
 			$wc_min_points_earned = min( $variable_points );
 		}
-		
+
 		update_post_meta( $variation_id, '_wc_max_points_earned', $wc_max_points_earned );
 		update_post_meta( $variation_id, '_wc_min_points_earned', $wc_min_points_earned );
 	}

@@ -963,6 +963,13 @@ class X509
             'children' => $AccessDescription
         );
 
+        $this->SubjectInfoAccessSyntax = array(
+            'type'     => ASN1::TYPE_SEQUENCE,
+            'min'      => 1,
+            'max'      => -1,
+            'children' => $AccessDescription
+        );
+
         $this->SubjectAltName = $GeneralNames;
 
         $this->PrivateKeyUsagePeriod = array(
@@ -1620,7 +1627,10 @@ class X509
                    corresponding to the extension type identified by extnID */
                 $map = $this->_getMapping($id);
                 if (!is_bool($map)) {
-                    $mapped = $asn1->asn1map($decoded[0], $map, array('iPAddress' => array($this, '_decodeIP')));
+                    $decoder = $id == 'id-ce-nameConstraints' ?
+                        array($this, '_decodeNameConstraintIP') :
+                        array($this, '_decodeIP');
+                    $mapped = $asn1->asn1map($decoded[0], $map, array('iPAddress' => $decoder));
                     $value = $mapped === false ? $decoded[0] : $mapped;
 
                     if ($id == 'id-ce-certificatePolicies') {
@@ -1889,6 +1899,8 @@ class X509
                 return $this->ExtKeyUsageSyntax;
             case 'id-pe-authorityInfoAccess':
                 return $this->AuthorityInfoAccessSyntax;
+            case 'id-pe-subjectInfoAccess':
+                return $this->SubjectInfoAccessSyntax;
             case 'id-ce-subjectAltName':
                 return $this->SubjectAltName;
             case 'id-ce-subjectDirectoryAttributes':
@@ -2167,7 +2179,11 @@ class X509
                 }
 
                 while (!feof($fsock)) {
-                    $data.= fread($fsock, 1024);
+                    $temp = fread($fsock, 1024);
+                    if ($temp === false) {
+                        return false;
+                    }
+                    $data.= $temp;
                 }
 
                 break;
@@ -2512,17 +2528,37 @@ class X509
     }
 
     /**
+     * Decodes an IP address in a name constraints extension
+     *
+     * Takes in a base64 encoded "blob" and returns a human readable IP address / mask
+     *
+     * @param string $ip
+     * @access private
+     * @return array
+     */
+    function _decodeNameConstraintIP($ip)
+    {
+        $ip = base64_decode($ip);
+        $size = strlen($ip) >> 1;
+        $mask = substr($ip, $size);
+        $ip = substr($ip, 0, $size);
+        return array(inet_ntop($ip), inet_ntop($mask));
+    }
+
+    /**
      * Encodes an IP address
      *
      * Takes a human readable IP address into a base64-encoded "blob"
      *
-     * @param string $ip
+     * @param string|array $ip
      * @access private
      * @return string
      */
     function _encodeIP($ip)
     {
-        return base64_encode(inet_pton($ip));
+        return is_string($ip) ?
+            base64_encode(inet_pton($ip)) :
+            base64_encode(inet_pton($ip[0]) . inet_pton($ip[1]));
     }
 
     /**
@@ -5018,7 +5054,9 @@ class X509
          * subject=/O=organization/OU=org unit/CN=common name
          * issuer=/O=organization/CN=common name
          */
-        $temp = preg_replace('#.*?^-+[^-]+-+[\r\n ]*$#ms', '', $str, 1);
+        $temp = strlen($str) <= ini_get('pcre.backtrack_limit') ?
+            preg_replace('#.*?^-+[^-]+-+[\r\n ]*$#ms', '', $str, 1) :
+            $str;
         // remove the -----BEGIN CERTIFICATE----- and -----END CERTIFICATE----- stuff
         $temp = preg_replace('#-+[^-]+-+#', '', $temp);
         // remove new lines

@@ -34,7 +34,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.16.0';
+	const VERSION = '1.16.1';
 
 	/** @var WC_Seq_Order_Number_Pro single instance of this plugin */
 	protected static $instance;

@@ -18,15 +18,15 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/Apple-Pay
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2016, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_5_1;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_8_1;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_5_1\\SV_WC_Payment_Gateway_Apple_Pay_Admin' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_8_1\\SV_WC_Payment_Gateway_Apple_Pay_Admin' ) ) :
 
 
 /**
@@ -143,8 +143,11 @@ class SV_WC_Payment_Gateway_Apple_Pay_Admin {
 				'title' => __( 'Connection Settings', 'woocommerce-plugin-framework' ),
 				'type'  => 'title',
 			),
+		);
 
-			array(
+		if ( $this->handler->requires_merchant_id() ) {
+
+			$connection_settings[] = [
 				'id'      => 'sv_wc_apple_pay_merchant_id',
 				'title'   => __( 'Apple Merchant ID', 'woocommerce-plugin-framework' ),
 				'type'    => 'text',
@@ -153,9 +156,12 @@ class SV_WC_Payment_Gateway_Apple_Pay_Admin {
 					__( 'This is found in your %1$sApple developer account%2$s', 'woocommerce-plugin-framework' ),
 					'<a href="https://developer.apple.com" target="_blank">', '</a>'
 				),
-			),
+			];
+		}
 
-			array(
+		if ( $this->handler->requires_certificate() ) {
+
+			$connection_settings[] = [
 				'id'       => 'sv_wc_apple_pay_cert_path',
 				'title'    => __( 'Certificate Path', 'woocommerce-plugin-framework' ),
 				'type'     => 'text',
@@ -165,8 +171,8 @@ class SV_WC_Payment_Gateway_Apple_Pay_Admin {
 					__( 'For reference, your current web root path is: %s', 'woocommerce-plugin-framework' ),
 					'<code>' . ABSPATH . '</code>'
 				),
-			),
-		);
+			];
+		}
 
 		$gateway_setting_id = 'sv_wc_apple_pay_payment_gateway';
 		$gateway_options    = $this->get_gateway_options();
@@ -307,9 +313,9 @@ class SV_WC_Payment_Gateway_Apple_Pay_Admin {
 		}
 
 		// Currency notice
-		if ( ! in_array( get_woocommerce_currency(), $this->handler->get_accepted_currencies(), true ) ) {
+		$accepted_currencies = $this->handler->get_accepted_currencies();
 
-			$accepted_currencies = $this->handler->get_accepted_currencies();
+		if ( ! empty( $accepted_currencies ) && ! in_array( get_woocommerce_currency(), $accepted_currencies, true ) ) {
 
 			$errors[] = sprintf(
 				/* translators: Placeholders: %1$s - plugin name, %2$s - a currency/comma-separated list of currencies, %3$s - <a> tag, %4$s - </a> tag */

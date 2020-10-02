@@ -4,8 +4,6 @@
  *
  * Functions used to upgrade to specific versions of Mix and Match.
  *
- * @author   SomewhereWarm
- * @category Core
  * @package  WooCommerce Mix and Match Products/Update
  * @since    1.2.0
  * @version  1.10.0
@@ -30,14 +28,19 @@ function wc_mnm_update_120_main( $updater ) {
 
 	if ( $mnm_term ) {
 
-		$mnms = $wpdb->get_results( $wpdb->prepare( "
+		$mnms = $wpdb->get_results(
+            $wpdb->prepare(
+                "
 			SELECT DISTINCT posts.ID AS mnm_id FROM {$wpdb->posts} AS posts
 			LEFT JOIN {$wpdb->term_relationships} AS rel ON ( posts.ID = rel.object_id )
 			LEFT JOIN {$wpdb->postmeta} AS postmeta ON posts.ID = postmeta.post_id AND postmeta.meta_key = '_mnm_base_price'
 			WHERE rel.term_taxonomy_id = %d
 			AND posts.post_type = 'product'
 			AND postmeta.meta_value IS NULL
-		", $mnm_term->term_taxonomy_id ) );
+		",
+                $mnm_term->term_taxonomy_id
+            )
+        );
 
 		if ( ! empty( $mnms ) ) {
 			foreach ( $mnms as $index => $mnm ) {
@@ -121,12 +124,14 @@ function wc_mnm_update_1x10_product_meta( $updater ) {
 	global $wpdb;
 
 	// Grab post ids to update.
-	$containers = $wpdb->get_results( "
+	$containers = $wpdb->get_results(
+        "
 		SELECT DISTINCT posts.ID AS container_id FROM {$wpdb->posts} AS posts
 		LEFT OUTER JOIN {$wpdb->postmeta} AS postmeta ON posts.ID = postmeta.post_id AND postmeta.meta_key = '_mnm_data'
 		WHERE posts.post_type = 'product'
 		AND postmeta.meta_value IS NOT NULL
-	" );
+	"
+    );
 
 	if ( ! empty( $containers ) ) {
 		foreach ( $containers as $index => $container ) {
@@ -152,12 +157,11 @@ function wc_mnm_update_1x10_product_meta( $updater ) {
 
 					$parent_id = wp_get_post_parent_id( $id );
 
-					$new_contents[$id]['child_id']     = intval( $id );
-					$new_contents[$id]['product_id']   = $parent_id > 0 ? $parent_id : $id;
-					$new_contents[$id]['variation_id'] = $parent_id > 0 ? $id : 0;
+					$new_contents[ $id ]['child_id']     = intval( $id );
+					$new_contents[ $id ]['product_id']   = $parent_id > 0 ? $parent_id : $id;
+					$new_contents[ $id ]['variation_id'] = $parent_id > 0 ? $id : 0;
 
 				}
-
 			}
 
 			update_post_meta( $container_id, '_mnm_data', $new_contents );
@@ -199,7 +203,7 @@ function wc_mnm_update_1x10_order_item_meta() {
 		array( 'meta_key' => __( 'Purchased with', 'woocommerce-mix-and-match-products' )
 		)
 	);
-	
+
 }
 
 /**

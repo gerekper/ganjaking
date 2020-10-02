@@ -1052,7 +1052,7 @@ function wc_bookings_get_posted_data( $posted = array(), $product ) {
 		$data['_month'] = absint( $posted['wc_bookings_field_start_date_month'] );
 		$data['_day']   = absint( $posted['wc_bookings_field_start_date_day'] );
 		$data['_date']  = $data['_year'] . '-' . $data['_month'] . '-' . $data['_day'];
-		$data['date']   = date_i18n( wc_date_format(), strtotime( $data['_date'] ) );
+		$data['date']   = date_i18n( wc_bookings_date_format(), strtotime( $data['_date'] ) );
 	}
 
 	// Get year month field
@@ -1072,9 +1072,9 @@ function wc_bookings_get_posted_data( $posted = array(), $product ) {
 		$data['_month'] = $date_time->format( 'm' );
 		$data['_day']   = $date_time->format( 'd' );
 		$data['_date']  = $data['_year'] . '-' . $data['_month'] . '-' . $data['_day'];
-		$data['date']   = date_i18n( wc_date_format(), strtotime( $data['_date'] ) );
+		$data['date']   = date_i18n( wc_bookings_date_format(), strtotime( $data['_date'] ) );
 		$data['_time']  = $date_time->format( 'G:i' );
-		$data['time']   = date_i18n( get_option( 'time_format' ), strtotime( "{$data['_year']}-{$data['_month']}-{$data['_day']} {$data['_time']}" ) );
+		$data['time']   = date_i18n( wc_bookings_time_format(), strtotime( "{$data['_year']}-{$data['_month']}-{$data['_day']} {$data['_time']}" ) );
 	} else {
 		$data['_time']  = '';
 	}
@@ -1257,4 +1257,33 @@ function wc_bookings_convert_to_moment_format( $format ) {
 	);
 
 	return strtr( $format, $replacements );
+}
+
+/**
+ * Return WP's time format, defaulting to a non-empty one if it is unset.
+ *
+ * @return string
+ */
+function wc_bookings_time_format() {
+	return wc_time_format() ?: 'g:i a';
+}
+
+/**
+ * Return WP's date format, defaulting to a non-empty one if it is unset.
+ *
+ * @return string
+ */
+function wc_bookings_date_format() {
+	return wc_date_format() ?: 'F j, Y';
+}
+
+/**
+ * Search bookings.
+ *
+ * @param  string $term Term to search.
+ * @return array List of bookings ID.
+ */
+function wc_booking_search( $term ) {
+	$data_store = WC_Data_Store::load( 'booking' );
+	return $data_store->search_bookings( str_replace( 'Booking #', '', wc_clean( $term ) ) );
 }

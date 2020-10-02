@@ -3,10 +3,10 @@
  * Plugin Name: WooCommerce Cart Add-Ons
  * Plugin URI: https://woocommerce.com/products/cart-add-ons/
  * Description: A tool for driving incremental and impulse purchases once customers are in the shopping cart. It extends the concept of upsells and cross-sells at the product level, and engages your customers at the moment they are most likely to increase spending.
- * Version: 1.15.31
+ * Version: 1.15.32
  * Author: WooCommerce
  * Tested up to: 5.5
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * Author URI: https://woocommerce.com/
  * Text domain: sfn_cart_addons
  * Woo: 18717:3a8ef25334396206f5da4cf208adeda3
@@ -33,14 +33,17 @@
  * Localisation
  **/
 load_plugin_textdomain( 'sfn_cart_addons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+add_filter( 'woocommerce_translations_updates_for_woocommerce-cart-add-ons', '__return_true' );
 
-define( 'WC_CART_ADDONS_VERSION', '1.15.31' ); // WRCS: DEFINED_VERSION.
+
+define( 'WC_CART_ADDONS_VERSION', '1.15.32' ); // WRCS: DEFINED_VERSION.
+
+// Activation.
+register_activation_hook( __FILE__, array( 'SFN_Cart_Addons', 'activate' ) );
 
 class SFN_Cart_Addons {
 
 	public function __construct() {
-		// Activation.
-		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
@@ -74,7 +77,7 @@ class SFN_Cart_Addons {
 		register_widget( 'cart_addons_widget' );
 	}
 
-	public function activate() {
+	public static function activate() {
 		$settings = get_option( 'sfn_cart_addons', false );
 
 		if ( ! $settings ) {
@@ -157,7 +160,8 @@ class SFN_Cart_Addons {
 				'sfn-product-search',
 				'sfn_product_search',
 				array(
-					'security' => wp_create_nonce( 'search-products' ),
+					'security'     => wp_create_nonce( 'search-products' ),
+					'errorLoading' => __( 'Searching...', 'sfn_cart_addons' ), // Workaround for https://github.com/select2/select2/issues/4355 instead of `the results could not be loaded` flash.
 				)
 			);
 
@@ -422,6 +426,8 @@ class SFN_Cart_Addons {
 					'post_type'      => array( 'product', 'product_variation' ),
 					'post__in'       => $addon_ids,
 					'posts_per_page' => $max,
+					'orderby'        => apply_filters( 'woocommerce_cart_add_ons_orderby', null ),
+					'order'          => apply_filters( 'woocommerce_cart_add_ons_order', null ),
 				);
 			} else {
 				$args = false;

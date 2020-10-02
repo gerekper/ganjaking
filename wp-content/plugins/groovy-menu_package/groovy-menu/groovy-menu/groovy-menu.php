@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 /*
 Plugin Name: Groovy Menu
-Version: 2.2.2
+Version: 2.3.2
 Description: Groovy menu is a modern adjustable and flexible menu designed for creating mobile-friendly menus with a lot of options.
 Plugin URI: https://groovymenu.grooni.com/
 Author: Grooni
@@ -11,7 +11,7 @@ Domain Path: /languages/
 */
 
 
-define( 'GROOVY_MENU_VERSION', '2.2.2' );
+define( 'GROOVY_MENU_VERSION', '2.3.2' );
 define( 'GROOVY_MENU_DB_VER_OPTION', 'groovy_menu_db_version' );
 define( 'GROOVY_MENU_PREFIX_WIM', 'groovy-menu-wim' );
 define( 'GROOVY_MENU_DIR', plugin_dir_path( __FILE__ ) );
@@ -94,6 +94,10 @@ if ( method_exists( 'GroovyMenuUtils', 'install_default_icon_packs' ) ) {
 
 if ( method_exists( 'GroovyMenuUtils', 'update_config_text_domain' ) && is_admin() ) {
 	add_action( 'wp_loaded', array( 'GroovyMenuUtils', 'update_config_text_domain' ), 1000 );
+}
+
+if ( method_exists( 'GroovyMenuUtils', 'load_font_awesome' ) ) {
+	GroovyMenuUtils::load_font_awesome();
 }
 
 function groovy_menu_activation() {
@@ -480,7 +484,7 @@ if ( ! function_exists( 'groovy_menu_scripts_admin' ) ) {
 
 		// For any admin page.
 		wp_enqueue_style( 'groovy-css-admin-menu', GROOVY_MENU_URL . 'assets/style/admin-common.css', [], GROOVY_MENU_VERSION );
-		wp_enqueue_script( 'groovy-js-admin', GROOVY_MENU_URL . 'assets/js/admin.js', [ 'jquery', 'wp-color-picker' ], GROOVY_MENU_VERSION, true );
+		wp_enqueue_script( 'groovy-js-admin', GROOVY_MENU_URL . 'assets/js/admin.js', [], GROOVY_MENU_VERSION, true );
 
 		// Only Welcome page.
 		if ( in_array( $hook_suffix, array(
@@ -490,7 +494,7 @@ if ( ! function_exists( 'groovy_menu_scripts_admin' ) ) {
 		), true ) ) {
 			wp_enqueue_style( 'groovy-menu-style-welcome', GROOVY_MENU_URL . 'assets/style/welcome.css', array(), GROOVY_MENU_VERSION );
 			wp_style_add_data( 'groovy-menu-style-welcome', 'rtl', 'replace' );
-			wp_enqueue_script( 'groovy-js-welcome', GROOVY_MENU_URL . 'assets/js/welcome.js', [ 'jquery' ], GROOVY_MENU_VERSION, true );
+			wp_enqueue_script( 'groovy-js-welcome', GROOVY_MENU_URL . 'assets/js/welcome.js', [], GROOVY_MENU_VERSION, true );
 		}
 
 		// Only integration.
@@ -526,12 +530,12 @@ if ( ! function_exists( 'groovy_menu_scripts_admin' ) ) {
 		// Only Appearance > Menus page.
 		if ( 'nav-menus.php' === $hook_suffix ) {
 			wp_enqueue_media();
-			wp_enqueue_script( 'groovy-menu-js-appearance', GROOVY_MENU_URL . 'assets/js/appearance.js', [ 'jquery', 'wp-color-picker' ], GROOVY_MENU_VERSION, true );
+			wp_enqueue_script( 'groovy-menu-js-appearance', GROOVY_MENU_URL . 'assets/js/appearance.js', [], GROOVY_MENU_VERSION, true );
 		}
 
 		// Only Debug page.
 		if ( 'tools_page_groovy_menu_debug_page' === $hook_suffix ) {
-			wp_enqueue_script( 'groovy-menu-js-appearance', GROOVY_MENU_URL . 'assets/js/debug.js', [ 'jquery' ], GROOVY_MENU_VERSION, true );
+			wp_enqueue_script( 'groovy-menu-js-appearance', GROOVY_MENU_URL . 'assets/js/debug.js', [], GROOVY_MENU_VERSION, true );
 		}
 
 		$allow_pages = array(
@@ -565,6 +569,13 @@ if ( ! function_exists( 'groovy_menu_scripts_admin' ) ) {
 			foreach ( \GroovyMenu\FieldIcons::getFonts() as $name => $icon ) {
 				wp_enqueue_style( 'groovy-menu-style-fonts-' . $name, GroovyMenuUtils::getUploadUri() . 'fonts/' . $name . '.css', [], GROOVY_MENU_VERSION );
 			}
+
+			/**
+			 * Fires when enqueue_script admin for Groovy Menu
+			 *
+			 * @since 2.2.13
+			 */
+			do_action( 'gm_enqueue_script_admin_actions' );
 		}
 
 	}

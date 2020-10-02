@@ -2,8 +2,6 @@
 /**
  * Points and Rewards Compatibility
  *
- * @author   SomewhereWarm
- * @category Compatibility
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
  * @version  1.7.0
@@ -57,17 +55,17 @@ class WC_MNM_PnR_Compatibility {
 	 */
 	public static function points_earned_for_bundled_cart_item( $points, $cart_item_key, $cart_item_values ) {
 
-		if ( isset( $cart_item_values[ 'mnm_container' ] ) ) {
+		if ( isset( $cart_item_values['mnm_container'] ) ) {
 
 			$cart_contents = WC()->cart->get_cart();
 
-			$container_cart_id = $cart_item_values[ 'mnm_container' ];
-			$container         = $cart_contents[ $container_cart_id ][ 'data' ];
+			$container_cart_id = $cart_item_values['mnm_container'];
+			$container         = $cart_contents[ $container_cart_id ]['data'];
 
 			if ( self::has_fixed_points( $container ) || false === $container->is_priced_per_product() ) {
 				$points = 0;
 			} else {
-				$points = WC_Points_Rewards_Manager::calculate_points( $cart_item_values[ 'data' ]->get_price() );
+				$points = WC_Points_Rewards_Manager::calculate_points( $cart_item_values['data']->get_price() );
 			}
 		}
 
@@ -85,19 +83,19 @@ class WC_MNM_PnR_Compatibility {
 	 */
 	public static function points_earned_for_bundled_order_item( $points, $product, $item_key, $item, $order ) {
 
-		if ( isset( $item[ 'mnm_container' ] ) ) {
+		if ( isset( $item['mnm_container'] ) ) {
 
 			// find container item
 			foreach ( $order->get_items() as $order_item ) {
 
-				$is_parent = ( isset( $order_item[ 'mnm_cart_key' ] ) && $item[ 'mnm_container' ] == $order_item[ 'mnm_cart_key' ] ) ? true : false;
+				$is_parent = ( isset( $order_item['mnm_cart_key'] ) && $item['mnm_container'] == $order_item['mnm_cart_key'] ) ? true : false;
 
 				if ( $is_parent ) {
 
 					$parent_item = $order_item;
-					$parent_obj  = wc_get_product( $parent_item[ 'product_id' ] );
+					$parent_obj  = wc_get_product( $parent_item['product_id'] );
 
-					$is_priced_per_product = isset( $parent_item[ 'per_product_pricing' ] ) ? ( 'yes' === $parent_item[ 'per_product_pricing' ] ) : $parent_obj->is_priced_per_product();
+					$is_priced_per_product = isset( $parent_item['per_product_pricing'] ) ? ( 'yes' === $parent_item['per_product_pricing'] ) : $parent_obj->is_priced_per_product();
 
 					if ( self::has_fixed_points( $parent_obj ) || ! $is_priced_per_product ) {
 						$points = 0;

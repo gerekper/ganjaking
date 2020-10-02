@@ -2,8 +2,6 @@
 /**
  * WC_MNM_PIP_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.gr>
- * @category Compatibility
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.4.0
  */
@@ -165,7 +163,7 @@ class WC_MNM_PIP_Compatibility {
 	 * @return array
 	 */
 	public static function row_item_data( $item_data, $item, $product, $order_id, $type ) {
-		$item_data[ 'wc_mnm_item_data' ] = $item;
+		$item_data['wc_mnm_item_data'] = $item;
 		return $item_data;
 	}
 
@@ -190,67 +188,66 @@ class WC_MNM_PIP_Compatibility {
 
 				$filtered_table_rows[ $table_row_key ] = $table_row_data;
 
-				if ( empty( $table_row_data[ 'items' ] ) ) {
+				if ( empty( $table_row_data['items'] ) ) {
 					continue;
 				}
 
 				$sorted_rows = array();
 
-				foreach ( $table_row_data[ 'items' ] as $row_item ) {
+				foreach ( $table_row_data['items'] as $row_item ) {
 
-					if ( isset( $row_item[ 'wc_mnm_item_data' ] ) && wc_mnm_is_container_order_item( $row_item[ 'wc_mnm_item_data' ] ) ) {
+					if ( isset( $row_item['wc_mnm_item_data'] ) && wc_mnm_is_container_order_item( $row_item['wc_mnm_item_data'] ) ) {
 
 						$virtual_parent = false;
 
 						// Virtual parent items should be hidden in packing lists when the corresponding PIP option is active.
 						if ( self::$document && 'packing-list' === self::$document->type ) {
-							if ( 'yes' === $row_item[ 'wc_mnm_item_data' ][ 'mnm_container_item_virtual' ] ) {
+							if ( 'yes' === $row_item['wc_mnm_item_data']['mnm_container_item_virtual'] ) {
 								$virtual_parent = true;
 							}
 						}
 
 						if ( $virtual_parent ) {
-							$row_item[ 'quantity' ] = str_replace( 'class="quantity', 'class="quantity virtual-container', $row_item[ 'quantity' ] );
-							$row_item[ 'weight' ] = str_replace( 'class="weight', 'class="weight virtual-container', $row_item[ 'weight' ] );
+							$row_item['quantity'] = str_replace( 'class="quantity', 'class="quantity virtual-container', $row_item['quantity'] );
+							$row_item['weight'] = str_replace( 'class="weight', 'class="weight virtual-container', $row_item['weight'] );
 						}
 
 						$sorted_rows[] = $row_item;
 
-						$children = wc_mnm_get_child_order_items( $row_item[ 'wc_mnm_item_data' ], $order );
+						$children = wc_mnm_get_child_order_items( $row_item['wc_mnm_item_data'], $order );
 
 						// Look for its children in all table rows and bring them over in the original order.
 						if ( ! empty( $children ) ) {
 							foreach ( $children as $child_order_item ) {
 
-								if ( empty( $child_order_item[ 'mnm_container' ] ) ) {
+								if ( empty( $child_order_item['mnm_container'] ) ) {
 									continue;
 								}
 
 								// Look for the child in all table rows and bring it over.
 								foreach ( $table_rows as $table_row_key_inner => $table_row_data_inner ) {
-									foreach ( $table_row_data_inner[ 'items' ] as $index => $row_item_inner ) {
+									foreach ( $table_row_data_inner['items'] as $index => $row_item_inner ) {
 
 										$is_child = false;
 
-										if ( isset( $row_item_inner[ 'wc_mnm_item_data' ] ) && isset( $row_item_inner[ 'wc_mnm_item_data' ][ 'mnm_container' ] ) ) {
-											$is_child = $row_item_inner[ 'wc_mnm_item_data' ][ 'mnm_container' ] === $child_order_item[ 'mnm_container' ];
+										if ( isset( $row_item_inner['wc_mnm_item_data'] ) && isset( $row_item_inner['wc_mnm_item_data']['mnm_container'] ) ) {
+											$is_child = $row_item_inner['wc_mnm_item_data']['mnm_container'] === $child_order_item['mnm_container'];
 										}
 
 										if ( $is_child ) {
 											$sorted_rows[] = $row_item_inner;
 
 											// Once sorted, don't sort again.
-											unset( $table_rows[$table_row_key_inner]['items'][$index] );
+											unset( $table_rows[ $table_row_key_inner ]['items'][ $index ] );
 										}
 									}
 								}
 							}
 						}
-
 					} else {
 
 						// Do not copy child items (will be looked up by their parents).
-						if ( ! isset( $row_item[ 'wc_mnm_item_data' ] ) || ! wc_mnm_is_child_order_item( $row_item[ 'wc_mnm_item_data' ] ) ) {
+						if ( ! isset( $row_item['wc_mnm_item_data'] ) || ! wc_mnm_is_child_order_item( $row_item['wc_mnm_item_data'] ) ) {
 							$sorted_rows[] = $row_item;
 						}
 					}
@@ -258,18 +255,18 @@ class WC_MNM_PIP_Compatibility {
 
 				// Unset our (now redundant) data.
 				foreach ( $sorted_rows as $sorted_row_item => $sorted_row_item_data ) {
-					if ( isset( $sorted_row_item_data[ 'wc_mnm_item_data' ] ) ) {
-						unset( $sorted_rows[ $sorted_row_item ][ 'wc_mnm_item_data' ]  );
+					if ( isset( $sorted_row_item_data['wc_mnm_item_data'] ) ) {
+						unset( $sorted_rows[ $sorted_row_item ]['wc_mnm_item_data'] );
 					}
 				}
 
-				$filtered_table_rows[ $table_row_key ][ 'items' ] = $sorted_rows;
+				$filtered_table_rows[ $table_row_key ]['items'] = $sorted_rows;
 			}
 
 			// Ensure empty categories are not displayed at all.
 			foreach ( $filtered_table_rows as $table_row_key => $table_row_data ) {
-				if ( empty( $table_row_data[ 'items' ] ) ) {
-					if ( isset( $table_row_data[ 'headings' ] ) && ! isset( $table_row_data[ 'headings' ][ 'order-number' ] ) ) {
+				if ( empty( $table_row_data['items'] ) ) {
+					if ( isset( $table_row_data['headings'] ) && ! isset( $table_row_data['headings']['order-number'] ) ) {
 						unset( $filtered_table_rows[ $table_row_key ] );
 					}
 				}
@@ -358,7 +355,6 @@ class WC_MNM_PIP_Compatibility {
 
 				$order_item->add_meta_data( '_mnm_container_item_virtual', 'yes', true );
 			}
-
 		} elseif ( wc_mnm_is_child_order_item( $order_item, $order ) ) {
 			if ( self::$document && 'packing-list' === self::$document->type && 'no' === $order_item->get_meta( '_mnm_item_needs_shipping', true ) ) {
 				$hide = true;

@@ -46,8 +46,6 @@ class AdminWalker extends WalkerNavMenu {
 		add_filter( 'wp_edit_nav_menu_walker', '\GroovyMenu\AdminWalker::get_edit_walker', $admin_walker_priority, 2 );
 		add_filter( 'wp_setup_nav_menu_item', '\GroovyMenu\AdminWalker::setup_fields' );
 
-		// Disable. Ajax modal options work.
-		//add_action( 'wp_update_nav_menu_item', '\GroovyMenu\AdminWalker::update_fields', 10, 2 );
 	}
 
 	/**
@@ -103,60 +101,6 @@ class AdminWalker extends WalkerNavMenu {
 		return $priorities;
 	}
 
-	/**
-	 * Update post meta fields
-	 *
-	 * @param string     $menu_id menu id.
-	 * @param string     $item_id item id.
-	 * @param null|array $args    arguments.
-	 */
-	public static function update_fields( $menu_id, $item_id, $args = null ) {
-
-		$priorities = self::getGroovyMenuWalkerPriority();
-
-		if ( $priorities['other'] && $priorities['gm_id'] ) {
-			return;
-		}
-		if ( isset( $_POST['wp_customize'] ) ) { // @codingStandardsIgnoreLine
-			return;
-		}
-
-		$meta_data = self::$menu_item_options;
-
-		$mass_meta = array();
-
-		foreach ( $meta_data as $index => $meta_datum ) {
-			// Get new value.
-			$new_val = isset( $meta_datum['default'] ) ? $meta_datum['default'] : '';
-
-			$meta_name = isset( $meta_datum['meta_name'] ) ? $meta_datum['meta_name'] : null;
-			if ( empty( $meta_name ) ) {
-				continue;
-			}
-
-			// @codingStandardsIgnoreStart
-			if ( isset( $_REQUEST[ $meta_name ][ $item_id ] ) ) {
-				$new_val = sanitize_text_field( wp_unslash( $_REQUEST[ $meta_name ][ $item_id ] ) );
-			}
-			// @codingStandardsIgnoreEnd
-
-			if ( ! empty( $meta_datum['mass'] ) ) {
-				$mass_meta[ $meta_datum['mass'] ][ $meta_name ] = $new_val;
-				continue;
-			}
-
-			// Update new value.
-			update_post_meta( $item_id, $meta_name, $new_val );
-		}
-
-		if ( ! empty( $mass_meta ) ) {
-			foreach ( $mass_meta as $meta_index => $meta_options ) {
-				$meta_opt_json = wp_json_encode( $meta_options );
-				update_post_meta( $item_id, $meta_index, $meta_opt_json );
-			}
-		}
-
-	}
 
 	/**
 	 * Get params from meta

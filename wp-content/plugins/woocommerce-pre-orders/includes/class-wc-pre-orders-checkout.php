@@ -181,24 +181,24 @@ class WC_Pre_Orders_Checkout {
 	/**
 	 * Update payment complete order status to pre-ordered for orders that are charged upfront. This handles gateways
 	 * that call payment_complete() and prevents an awkward status change from pending->processing->pre-ordered, instead
-	 * just showing a nice, clean pending->pre-ordered
+	 * just showing a nice, clean pending->pre-ordered.
 	 *
 	 * @since 1.0.0
 	 * @version 1.5.1
-	 * @param string $new_status the status to change the order to
-	 * @param int $order_id the post ID of the order
+	 * @param string $new_status the status to change the order to.
+	 * @param int $order_id the post ID of the order.
 	 * @return string
 	 */
 	public function update_payment_complete_order_status( $new_status, $order_id ) {
 
-		$order = new WC_Order( $order_id );
-		$zero_cost_order = WC_Pre_Orders_Manager::is_zero_cost_order( $order );
-
-		if ( ! WC_Pre_Orders_Order::order_contains_pre_order( $order ) ) {
+		$order = wc_get_order( $order_id );
+		if ( ! $order || ! WC_Pre_Orders_Order::order_contains_pre_order( $order ) )  {
 			return $new_status;
 		}
 
-		// don't change status if pre-order will be charged upon release
+		$zero_cost_order = WC_Pre_Orders_Manager::is_zero_cost_order( $order );
+
+		// Don't change status if pre-order will be charged upon release.
 		if ( WC_Pre_Orders_Order::order_will_be_charged_upon_release( $order ) && ! $zero_cost_order ) {
 			return $new_status;
 		}

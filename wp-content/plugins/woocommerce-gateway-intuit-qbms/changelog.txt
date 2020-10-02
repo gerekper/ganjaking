@@ -1,5 +1,13 @@
 *** WooCommerce Intuit QBMS Gateway Changelog ***
 
+2020.09.29 - version 2.8.1
+ * Fix - If a billing city field is not available for the selected billing country, do not send a city value
+ * Misc - Remove the SkyVerge help menu item as part of the plugin assets
+
+2020.08.10 - version 2.8.0
+ * Tweak - Migrate payment tokens to be compatible with WooCommerce core payment tokens
+ * Dev - Deprecate some filter hooks in the payment methods table
+
 2020.07.14 - version 2.7.5
  * Fix - Prevent JavaScript error triggered when a different payment method is being used and a required field is left empty
 

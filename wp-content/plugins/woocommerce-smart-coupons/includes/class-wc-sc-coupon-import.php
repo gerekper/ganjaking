@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0.5
+ * @version     1.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -891,6 +891,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 			<div class="woo-sc-form-wrapper">
 				<p><?php echo esc_html__( 'Hi there! Upload a CSV file with coupons details to import them into your shop.', 'woocommerce-smart-coupons' ); ?></p>
 				<p><?php echo esc_html__( 'The CSV must adhere to a specific format and include a header row.', 'woocommerce-smart-coupons' ) . '&nbsp;' . '<a href="' . esc_url( plugins_url( dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/sample.csv' ) ) . '">' . esc_html__( 'Click here to download a sample', 'woocommerce-smart-coupons' ) . '</a>, ' . esc_html__( 'and create your CSV based on that.', 'woocommerce-smart-coupons' );  // phpcs:ignore ?></p>
+				<p><?php echo esc_html__( 'Note: If any coupon from the CSV file already exists in the store, it will not update the existing coupon, instead a new coupon will be imported & the previous coupon with the same code will become inactive.', 'woocommerce-smart-coupons' );  // phpcs:ignore ?></p>
 				<p><?php echo esc_html__( 'Ready to import? Choose a .csv file, then click "Upload file".', 'woocommerce-smart-coupons' ); ?></p>
 				<div id="poststuff">
 					<div class="postbox sc-import-outer-box">

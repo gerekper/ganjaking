@@ -1,5 +1,11 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2020-09-29 - version 3.0.9
+* Fix: Offset subscription next payment date calculations based on site time. All dates still remain in UTC, but calculations on the 1st and last day of the month will now take into account the site timezone. PR#3708
+* Fix: Only attempt to display the customer notice when updating the default token from the My Account page. PR#3799
+* Fix: Prefix variation attributes with `attribute_` when setting up renewal carts. PR#3809
+* Dev: Add a new hook to the change_users_subscription() function - this hook is triggered before the status change. PR#3787
+
 2020-09-24 - version 3.0.8
 * Tweak: Remove the '$X now' from price string when synced product sign up date is today. PR#3797
 * Fix: Treat a subscription with a cancelled parent order as "needing payment". This ensures cancelling the subscription will go right to cancelled, rather than pending-cancellation. PR#3784

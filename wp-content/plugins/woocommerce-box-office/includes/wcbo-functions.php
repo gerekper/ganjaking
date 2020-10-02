@@ -407,7 +407,12 @@ function wc_box_office_send_ticket_email( $ticket_id = 0, $address = '', $subjec
 	}
 
 	// Check if email must be sent.
-	$send_email = apply_filters( 'woocommerce_box_office_send_ticket_email', 'yes' === get_post_meta( $product_id, '_email_tickets', true ), $ticket_id );
+	$send_email = apply_filters(
+		'woocommerce_box_office_send_ticket_email',
+		'yes' === get_post_meta( $product_id, '_email_tickets', true ) || 'yes' === get_option( 'box_office_enable_ticket_emails' ),
+		$ticket_id
+	);
+
 	if ( ! $send_email ) {
 		return;
 	}
@@ -772,8 +777,36 @@ function wcbo_esc_csv( $field ) {
 function is_ticket_ready_for_printing( $ticket ) {
 	// Check if printing is enabled for the ticket product.
 	$ticket_printing_enabled = get_post_meta( $ticket->product_id, '_print_tickets', true ) === 'yes' ? true : false;
+
+	if ( 'yes' === get_option( 'box_office_enable_ticket_printing' ) ) {
+		$ticket_printing_enabled = true;
+	}
+
 	// Check if order is in a state that allows printing the ticket.
 	$is_status_allowed_for_printing = 'publish' === $ticket->status;
 
 	return $ticket_printing_enabled && $is_status_allowed_for_printing;
+}
+
+/**
+ * Check if a ticket can be edited.
+ *
+ * @param mixed $object Ticket or product object.
+ *
+ * @return bool          Is ticket editable.
+ */
+function is_ticket_editable( $object ) {
+	$product_id = $object;
+
+	if ( 'yes' === get_option( 'box_office_disable_edit_tickets' ) ) {
+		return false;
+	}
+
+	if ( is_a( $object, 'WC_Box_Office_Ticket' ) ) {
+		$product_id = $object->product_id;
+	} else if ( is_a( $object, 'WC_Product' ) ) {
+		$product_id = $object->get_id();
+	}
+
+	return get_post_meta( $product_id, '_disable_edit_tickets', true ) === 'yes' ? false : true;
 }

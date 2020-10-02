@@ -11,13 +11,12 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
- * @author  Kathy Darling
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
  * @version 1.9.4
  */
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ){
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -26,7 +25,7 @@ global $product;
 $child_id = $mnm_item->get_id();
 
 if ( $product->is_in_stock() && $mnm_item->is_in_stock() ) {
-			
+
 	/**
 	 * The quantity input name.
 	 */
@@ -35,7 +34,7 @@ if ( $product->is_in_stock() && $mnm_item->is_in_stock() ) {
 	/**
 	 * The quantity input value.
 	 */
-	$quantity = isset( $_REQUEST[ $input_name ] ) && ! empty ( $_REQUEST[ $input_name ][ $child_id ] ) ? intval( $_REQUEST[ $input_name ][ $child_id ] ) : apply_filters( 'woocommerce_mnm_quantity_input', '', $mnm_item, $product );
+	$quantity = isset( $_REQUEST[ $input_name ] ) && ! empty( $_REQUEST[ $input_name ][ $child_id ] ) ? intval( $_REQUEST[ $input_name ][ $child_id ] ) : apply_filters( 'woocommerce_mnm_quantity_input', '', $mnm_item, $product );
 
 	/**
 	 * Filter woocommerce_mnm_child_quantity_input_args.
@@ -44,7 +43,8 @@ if ( $product->is_in_stock() && $mnm_item->is_in_stock() ) {
 	 * @param obj WC_Product
 	 * @param obj WC_Product_Mix_and_Match
 	 */
-	$input_args = apply_filters( 'woocommerce_mnm_child_quantity_input_args',
+	$input_args = apply_filters(
+        'woocommerce_mnm_child_quantity_input_args',
 		array(
 			'input_name'  => $input_name . '[' . $child_id . ']',
 			'input_value' => $quantity,
@@ -55,7 +55,8 @@ if ( $product->is_in_stock() && $mnm_item->is_in_stock() ) {
 			'classes'     => array( 'qty', 'mnm-quantity' ),
 		),
 		$mnm_item,
-		$product );
+        $product
+    );
 
 	woocommerce_quantity_input( $input_args, $mnm_item );
 

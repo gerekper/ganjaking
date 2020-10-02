@@ -63,12 +63,12 @@ function wc_mnm_number_format( number ) {
 	var decimal_sep 	= wc_mnm_params.currency_format_decimal_sep;
 	var thousands_sep 	= wc_mnm_params.currency_format_thousand_sep;
 
-	var n = number, c = isNaN(decimals = Math.abs(decimals)) ? 2 : decimals;
+	var n = number, c = isNaN( decimals = Math.abs( decimals ) ) ? 2 : decimals;
 	var d = decimal_sep === undefined ? ',' : decimal_sep;
 	var t = thousands_sep === undefined ? '.' : thousands_sep, s = n < 0 ? '-' : '';
-	var i = parseInt(n = Math.abs(+n || 0).toFixed(c), 10) + '', j = (j = i.length) > 3 ? j % 3 : 0;
+	var i = parseInt( n = Math.abs( +n || 0 ).toFixed( c ), 10 ) + '', j = (j = i.length) > 3 ? j % 3 : 0;
 
-	return s + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+	return s + (j ? i.substr( 0, j ) + t : '') + i.substr( j ).replace( /(\d{3})(?=\d)/g, '$1' + t ) + (c ? d + Math.abs( n - i ).toFixed( c ).slice( 2 ) : '');
 }
 
 /**
@@ -122,7 +122,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.$mnm_form            = data.$mnm_form;
 		this.$mnm_data            = data.$mnm_data;
 		this.$mnm_cart            = data.$mnm_data; // For backcompat.
-		
+
 		this.$mnm_items           =  data.$mnm_form.find( '.mnm_item' );
 		this.$mnm_price           =  data.$mnm_form.find( '.mnm_price' );
 		this.$mnm_reset           =  data.$mnm_form.find( '.mnm_reset' );
@@ -287,7 +287,10 @@ jQuery.fn.wc_get_mnm_script = function() {
 				/**
 				 * Update totals upon changing quantities.
 				 */
-				.on( 'input change', ':input', function( e ) {
+				.on(
+                    'input change',
+                    ':input',
+                    function( e ) {
 
 					// Restrict to min/max limits.
 					var $input = $( this ),
@@ -308,7 +311,8 @@ jQuery.fn.wc_get_mnm_script = function() {
 					}
 
 					container.update_container( child_item );
-				} );
+                    }
+                );
 
 		};
 
@@ -325,12 +329,14 @@ jQuery.fn.wc_get_mnm_script = function() {
 			container.$mnm_reset
 
 				// Upon clicking reset link.
-				.on( 'click', function( e ) {
+				.on(
+                    'click',
+                    function( e ) {
 					container.reset( e );
-				} );
+                    }
+                );
 
 		};
-
 
 		/**
 		 * Calculates child item subtotals (container totals) and updates the corresponding 'price_data' fields.
@@ -353,7 +359,9 @@ jQuery.fn.wc_get_mnm_script = function() {
 			}
 
 			// Items.
-			$.each( container.child_items, function( index, child_item ) {
+			$.each(
+                container.child_items,
+                function( index, child_item ) {
 
 				if ( false !== triggered_by && triggered_by.mnm_item_id !== child_item.mnm_item_id ) {
 					return true;
@@ -364,7 +372,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 					tax_ratios              = price_data.prices_tax[ mnm_item_id ],
 					regular_price           = price_data.regular_prices[ mnm_item_id ],
 					price                   = price_data.prices[ mnm_item_id ],
-	
+
 					totals                  = {
 						price:          0.0,
 						regular_price:  0.0,
@@ -397,10 +405,11 @@ jQuery.fn.wc_get_mnm_script = function() {
 					price_data.child_item_totals[ mnm_item_id ]    = totals;
 				}
 
-			} );
+                }
+            );
 
 			return price_data;
-			
+
 		};
 
 		/**
@@ -425,7 +434,9 @@ jQuery.fn.wc_get_mnm_script = function() {
 					price_excl_tax: price_data.base_price_totals.price_excl_tax
 			};
 
-			$.each( container.child_items, function( index, child_item ) {
+			$.each(
+                container.child_items,
+                function( index, child_item ) {
 
 				var mnm_item_id = child_item.get_item_id(),
 					item_totals    = price_data.child_item_totals[ mnm_item_id ],
@@ -447,7 +458,8 @@ jQuery.fn.wc_get_mnm_script = function() {
 					subtotals.price_excl_tax += item_subtotals.price_excl_tax;
 				}
 
-			} );
+                }
+            );
 
 			totals_changed = container.totals_changed( price_data.totals, totals ) || container.totals_changed( price_data.subtotals, subtotals );
 
@@ -662,13 +674,15 @@ jQuery.fn.wc_get_mnm_script = function() {
 		 */
 		this.init_child_items = function() {
 
-			container.$mnm_items.each( function( index ) {
+			container.$mnm_items.each(
+                function( index ) {
 
-				container.child_items[ index ] = new WC_MNM_Child_Item( container, $( this ), index );
+                container.child_items[ index ] = new WC_MNM_Child_Item( container, $( this ), index );
 
-				container.bind_child_item_event_handlers( container.child_items[ index ] );
+                container.bind_child_item_event_handlers( container.child_items[ index ] );
 
-			} );
+                }
+            );
 		};
 
 		/**
@@ -751,26 +765,29 @@ jQuery.fn.wc_get_mnm_script = function() {
 		 * Schedules an update of the container totals.
 		 */
 		this.update_container = function( triggered_by, config ) {
-			
+
 			clearTimeout( container.update_mnm_timer );
 
-			container.update_mnm_timer = setTimeout( function() {
-				container.update_container_task( triggered_by, config );
-			}, 10 );
+			container.update_mnm_timer = setTimeout(
+                function() {
+                container.update_container_task( triggered_by, config );
+                },
+                10
+            );
 
 		},
 
 		/**
 		 * Updates the container totals.
-		 */		
+		 */
 		this.update_container_task = function( triggered_by, config ) {
-	
+
 			// Reset status/error messages state.
 			this.reset_messages();
 
 			// Get config.
 			this.update_quantities( triggered_by, config );
-			
+
 			// Validate total quantites.
 			this.validate();
 
@@ -788,7 +805,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 		/**
 		 * Updates the container quantities.
-		 */		
+		 */
 		this.update_quantities = function( triggered_by, config ) {
 
 			var total_qty           = 0;
@@ -796,23 +813,29 @@ jQuery.fn.wc_get_mnm_script = function() {
 			if ( typeof( config ) === 'undefined' ) {
 
 				// Add up quantities.
-				$.each( container.child_items, function( index, child_item ) {
+				$.each(
+                    container.child_items,
+                    function( index, child_item ) {
 
 					var item_quantity = child_item.get_quantity();
 					var item_id = child_item.get_item_id();
-					
+
 					container.container_config[ item_id ] = item_quantity;
 					total_qty += item_quantity;
 
-				} );
+                    }
+                );
 
 			} else {
 
 				// Add up quantities.
-				$.each( config, function( item_id, item_quantity ) {
+				$.each(
+                    config,
+                    function( item_id, item_quantity ) {
 					container.container_config[ item_id ] = parseInt( item_quantity, 10 );
 					total_qty += item_quantity;
-				} );
+                    }
+                );
 
 			}
 
@@ -828,7 +851,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 		/**
 		 * Refresh totals after changes to addons.
-		 */	
+		 */
 		this.updated_addons_handler = function( triggered_by ) {
 			container.update_addons_totals( triggered_by );
 			triggered_by.stopPropagation();
@@ -841,9 +864,12 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			clearTimeout( container.update_price_timer );
 
-			container.update_price_timer = setTimeout( function() {
-				container.updated_totals_task();
-			}, 10 );
+			container.update_price_timer = setTimeout(
+                function() {
+                container.updated_totals_task();
+                },
+                10
+            );
 		};
 
 		/**
@@ -878,7 +904,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 		/**
 		 * Updates the container display.
-		 */		
+		 */
 		this.update_ui = function() {
 
 			if ( this.passes_validation() ) {
@@ -906,9 +932,12 @@ jQuery.fn.wc_get_mnm_script = function() {
 				var messages  = this.get_messages( 'all' );
 
 				if ( messages.length > 0 ) {
-					$.each( messages, function( i, message ) {
+					$.each(
+                        messages,
+                        function( i, message ) {
 						$messages.append( $( '<li/>' ).html( message ) );
-					} );
+                        }
+                    );
 				}
 
 				this.$mnm_message_content.html( $messages.html() );
@@ -936,9 +965,12 @@ jQuery.fn.wc_get_mnm_script = function() {
 			event.preventDefault();
 
 			// Loop through child items.
-			$.each( this.child_items, function( index, child_item ) {
+			$.each(
+                this.child_items,
+                function( index, child_item ) {
 				child_item.reset();
-			} );
+                }
+            );
 
 			container.$mnm_reset.trigger( 'wc-mnm-reset-configuration', [ container ] );
 
@@ -991,19 +1023,19 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.update_totals = function( triggered_by ) {
 
 			this.calculate_subtotals( triggered_by );
-			
+
 			if ( container.dirty_subtotals || false === container.is_initialized ) {
 				container.dirty_subtotals = false;
 				container.calculate_totals();
 			}
-	
+
 		};
 
 		/**
 		 * Validates if this container's requirements are met and can be added to the cart.
 		 */
 		this.validate = function() {
-			
+
 			var min_container_size = this.api.get_min_container_size();
 			var max_container_size = this.api.get_max_container_size();
 			var total_qty          = this.api.get_container_size();
@@ -1016,7 +1048,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 				error_message = error_message.replace( '%s', min_container_size );
 			}
 			// Validate a range.
-	    	else if( max_container_size > 0 && min_container_size > 0 && ( total_qty < min_container_size || total_qty > max_container_size ) ){
+			else if( max_container_size > 0 && min_container_size > 0 && ( total_qty < min_container_size || total_qty > max_container_size ) ){
 				error_message = wc_mnm_params.i18n_min_max_qty_error.replace( '%max', max_container_size ).replace( '%min', min_container_size );
 			}
 			// Validate that a container has minimum number of items.
@@ -1047,7 +1079,6 @@ jQuery.fn.wc_get_mnm_script = function() {
 			}
 
 		};
-
 
 		/*-----------------------------------------------------------------*/
 		/*  Deprecated    .                                                */
@@ -1087,8 +1118,8 @@ jQuery.fn.wc_get_mnm_script = function() {
 	} // End WC_MNM_Container.
 
 	/**
-     * Child Item object.
-     */
+	 * Child Item object.
+	 */
 	function WC_MNM_Child_Item( container, $mnm_item, index ) {
 
 		this.initialize = function() {
@@ -1112,8 +1143,8 @@ jQuery.fn.wc_get_mnm_script = function() {
 		};
 
 		this.get_quantity = function() {
-			var qty, 
-			    type = this.get_type();
+			var qty,
+				type = this.get_type();
 
 			switch( type ) {
 				case 'checkbox':
@@ -1148,8 +1179,8 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.reset = function() {
 
 			var original_value = this.get_original_quantity(),
-			    type           = this.get_type(),
-			    is_checked;
+				type           = this.get_type(),
+				is_checked;
 
 			switch( type ) {
 				case 'checkbox':
@@ -1183,9 +1214,11 @@ jQuery.fn.wc_get_mnm_script = function() {
 		 * Launch popups for child images.
 		 */
 		this.init_photoswipe = function() {
-			this.$mnm_item_images.each( function() {	
-				$(this).wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
-			} );
+			this.$mnm_item_images.each(
+                function() {
+                $( this ).wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
+                }
+            );
 		};
 
 		this.initialize();
@@ -1196,96 +1229,117 @@ jQuery.fn.wc_get_mnm_script = function() {
 	/*  Initialization.                                                */
 	/*-----------------------------------------------------------------*/
 
-	jQuery( document ).ready( function($) {
-
-		/**
-	 	 * Script initialization on '.mnm_form' jQuery objects.
-	 	 */
-		$.fn.wc_mnm_form = function() {
-
-			var $mnm_form = $( this ),
-				$mnm_data = $mnm_form.find( '.mnm_data' ),
-				container_id = $mnm_data.data( 'container_id' );
-
-			if( typeof( $mnm_data ) === 'undefined' ) {
-				return false;
-			}
-
-			if ( typeof( container_id ) === 'undefined' ) {
-				container_id = $mnm_data.attr( 'data-container_id' );
-
-				if ( container_id ) {
-					$mnm_data.data( 'container_id', container_id );
-				} else {
-					return false;
-				}
-			}
-
-			if ( typeof( wc_mnm_scripts[ container_id ] ) !== 'undefined' ) {
-				wc_mnm_scripts[ container_id ].shutdown();
-			}
-
-			wc_mnm_scripts[ container_id ] = new WC_MNM_Container( { $mnm_form: $mnm_form, $mnm_data: $mnm_data, container_id: container_id } );
-
-			$mnm_form.data( 'script_id', container_id );
-
-			wc_mnm_scripts[ container_id ].initialize();
-
-		};
-		
-		/*
-		 * Initialize form script.
-		 */
-		$( '.mnm_form' ).each( function() {
-			$(this).wc_mnm_form();
-		} );
-
-		/*-----------------------------------------------------------------*/
-		/*  Compatibility .                                                */
-		/*-----------------------------------------------------------------*/
-
-		/**
-		 * QuickView compatibility.
-		 */
-		$( 'body' ).on( 'quick-view-displayed', function() {
-
-			$( '.mnm_form' ).each( function() {
-				$(this).wc_mnm_form();
-			} );
-
-		} );
+	jQuery( document ).ready(
+        function($) {
 
         /**
-		 * PayPal Express Smart buttons compatibility.
-		 */
-		$( '.mnm_form' ).on( 'wc-mnm-initialized', function( e, wc_mnm ) {
+        * Script initialization on '.mnm_form' jQuery objects.
+        */
+        $.fn.wc_mnm_form = function() {
 
-			if( ! wc_mnm.passes_validation() ) {
-				$( '#woo_pp_ec_button_product' ).trigger( 'disable' );
-			}
-			
-			wc_mnm.$mnm_form.on( 'wc-mnm-display-add-to-cart-button', function() {
-				$( '#woo_pp_ec_button_product' ).trigger( 'enable' );
-			});
+           var $mnm_form = $( this ),
+               $mnm_data = $mnm_form.find( '.mnm_data' ),
+               container_id = $mnm_data.data( 'container_id' );
 
-			wc_mnm.$mnm_form.on( 'wc-mnm-hide-add-to-cart-button', function() {
-				$( '#woo_pp_ec_button_product' ).trigger( 'disable' );
-			});
+           if( typeof( $mnm_data ) === 'undefined' ) {
+               return false;
+           }
 
-			$( document ).on( 'wc_ppec_validate_product_form', function( e, is_valid, $form ) {
+           if ( typeof( container_id ) === 'undefined' ) {
+               container_id = $mnm_data.attr( 'data-container_id' );
 
-				var wc_mnm = $form.wc_get_mnm_script();
+               if ( container_id ) {
+                   $mnm_data.data( 'container_id', container_id );
+               } else {
+                   return false;
+               }
+           }
 
-				if ( 'object' === typeof wc_mnm ) {
-					is_valid = wc_mnm.passes_validation();
-				}
-				
-				return is_valid;
+           if ( typeof( wc_mnm_scripts[ container_id ] ) !== 'undefined' ) {
+               wc_mnm_scripts[ container_id ].shutdown();
+           }
 
-			});
+           wc_mnm_scripts[ container_id ] = new WC_MNM_Container( { $mnm_form: $mnm_form, $mnm_data: $mnm_data, container_id: container_id } );
 
-		});
+           $mnm_form.data( 'script_id', container_id );
 
-	} );
+           wc_mnm_scripts[ container_id ].initialize();
 
-} ) ( jQuery );
+        };
+
+        /*
+		 * Initialize form script.
+         */
+        $( '.mnm_form' ).each(
+            function() {
+            $( this ).wc_mnm_form();
+            }
+        );
+
+        /*-----------------------------------------------------------------*/
+        /*  Compatibility .                                                */
+        /*-----------------------------------------------------------------*/
+
+        /**
+        * QuickView compatibility.
+        */
+        $( 'body' ).on(
+            'quick-view-displayed',
+            function() {
+
+            $( '.mnm_form' ).each(
+                function() {
+                $( this ).wc_mnm_form();
+                }
+            );
+
+             }
+        );
+
+        /**
+        * PayPal Express Smart buttons compatibility.
+        */
+        $( '.mnm_form' ).on(
+            'wc-mnm-initialized',
+            function( e, wc_mnm ) {
+
+            if( ! wc_mnm.passes_validation() ) {
+                $( '#woo_pp_ec_button_product' ).trigger( 'disable' );
+            }
+
+            wc_mnm.$mnm_form.on(
+                'wc-mnm-display-add-to-cart-button',
+                function() {
+                $( '#woo_pp_ec_button_product' ).trigger( 'enable' );
+                }
+            );
+
+            wc_mnm.$mnm_form.on(
+                'wc-mnm-hide-add-to-cart-button',
+                function() {
+                $( '#woo_pp_ec_button_product' ).trigger( 'disable' );
+                }
+            );
+
+            $( document ).on(
+                'wc_ppec_validate_product_form',
+                function( e, is_valid, $form ) {
+
+                var wc_mnm = $form.wc_get_mnm_script();
+
+                if ( 'object' === typeof wc_mnm ) {
+                    is_valid = wc_mnm.passes_validation();
+                }
+
+                return is_valid;
+
+                }
+            );
+
+            }
+        );
+
+        }
+    );
+
+} )( jQuery );

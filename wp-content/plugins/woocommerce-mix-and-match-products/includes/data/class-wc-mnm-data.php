@@ -2,8 +2,6 @@
 /**
  * Mix and Match Register Data Store
  *
- * @author   SomewhereWarm
- * @category Data
  * @package  WooCommerce Mix and Match Products/Data
  * @since    1.2.0
  * @version  1.3.0
@@ -39,7 +37,7 @@ class WC_MNM_Data {
 	 */
 	public static function register_mnm_type_data_store( $stores ) {
 
-		$stores[ 'product-mix-and-match' ] = 'WC_Product_MNM_Data_Store_CPT';
+		$stores['product-mix-and-match'] = 'WC_Product_MNM_Data_Store_CPT';
 
 		return $stores;
 	}

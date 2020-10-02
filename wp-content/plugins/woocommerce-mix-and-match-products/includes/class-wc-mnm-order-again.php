@@ -2,8 +2,7 @@
 /**
  * WC_MNM_Order_Again class
  *
- * @author   SomewhereWarm <info@somewherewarm.gr>
- * @package  WooCommerce Mix and Match
+ * @package  WooCommerce Mix and Match/Order Again
  * @since    1.4.0
  */
 
@@ -37,7 +36,7 @@ class WC_MNM_Order_Again {
 			add_action( 'woocommerce_cart_loaded_from_session', array( __CLASS__, 'cart_loaded_from_session' ), -100 );
 
 		}
-	
+
 	}
 
 	/*
@@ -63,17 +62,16 @@ class WC_MNM_Order_Again {
 				return $cart_item;
 			}
 
-			$cart_item[ 'mnm_config' ]   = $order_item->get_meta( '_mnm_config', true );
-			$cart_item[ 'mnm_contents' ] = array();
+			$cart_item['mnm_config']   = $order_item->get_meta( '_mnm_config', true );
+			$cart_item['mnm_contents'] = array();
 
 			if ( ! WC_Mix_and_Match()->cart->is_cart_session_loaded() ) {
 
 				$cart_id = $order_item->get_meta( '_mnm_cart_key', true );
 
 				if ( ! empty( $cart_id ) ) {
-					$cart_item[ 'order_again_mnm_cart_key' ] = $cart_id;
+					$cart_item['order_again_mnm_cart_key'] = $cart_id;
 				}
-
 			}
 
 			// Will be added by parent.
@@ -81,7 +79,7 @@ class WC_MNM_Order_Again {
 
 			if ( WC_Mix_and_Match()->cart->is_cart_session_loaded() ) {
 
-				$mnm_item_id   = $order_item[ 'variation_id' ] > 0 ? $order_item[ 'variation_id' ] : $order_item[ 'product_id' ];
+				$mnm_item_id   = $order_item['variation_id'] > 0 ? $order_item['variation_id'] : $order_item['product_id'];
 				$modified_cart = false;
 
 				// Copy all cart data of the "orphaned" child cart item into the one already added by the container on 'woocommerce_add_to_cart'.
@@ -91,7 +89,7 @@ class WC_MNM_Order_Again {
 						continue;
 					}
 
-					$check_mnm_item_id = $check_cart_item_data[ 'variation_id' ] > 0 ? $check_cart_item_data[ 'variation_id' ] : $check_cart_item_data[ 'product_id' ];
+					$check_mnm_item_id = $check_cart_item_data['variation_id'] > 0 ? $check_cart_item_data['variation_id'] : $check_cart_item_data['product_id'];
 
 					if ( absint( $mnm_item_id ) !== absint( $check_mnm_item_id ) ) {
 						continue;
@@ -114,14 +112,14 @@ class WC_MNM_Order_Again {
 				}
 
 				// Identify this as a cart item that is originally part of a container. Will be removed since it has already been added to the cart by its container.
-				$cart_item[ 'is_order_again_mnm_item' ] = 'yes';
+				$cart_item['is_order_again_mnm_item'] = 'yes';
 
 			} else {
 
 				$container_item = $order_item->get_meta( '_mnm_container', true );
 
 				if ( ! empty( $container_item ) ) {
-					$cart_item[ 'order_again_mnm_container' ] = $container_item;
+					$cart_item['order_again_mnm_container'] = $container_item;
 				}
 			}
 		}
@@ -147,27 +145,27 @@ class WC_MNM_Order_Again {
 		}
 
 		// Add reference to parent key in child.
-		if ( ! empty( $cart_item[ 'order_again_mnm_container' ] ) ) {
-			
+		if ( ! empty( $cart_item['order_again_mnm_container'] ) ) {
+
 			// Always add this key so that WC_Mix_and_Match_Cart::cart_loaded_from_session() will clean up orphaned child items when parent cannot be ordered again.
-			$cart_item[ 'mnm_container' ] = '';
+			$cart_item['mnm_container'] = '';
 
 			foreach ( WC()->cart->cart_contents as $search_container_item_key => $search_container_item ) {
 
-				if ( empty( $search_container_item[ 'order_again_mnm_cart_key' ] ) ) {
+				if ( empty( $search_container_item['order_again_mnm_cart_key'] ) ) {
 					continue;
 				}
 
-				if ( $cart_session_item[ 'order_again_mnm_container' ] === $search_container_item[ 'order_again_mnm_cart_key' ] ) {
+				if ( $cart_session_item['order_again_mnm_container'] === $search_container_item['order_again_mnm_cart_key'] ) {
 					// Add reference to parent key in child.
-					$cart_item[ 'mnm_container' ] = $search_container_item_key;
+					$cart_item['mnm_container'] = $search_container_item_key;
 					// Break the search.
 					break;
 				}
 			}
 
 			// Clean up.
-			unset( $cart_item[ 'order_again_mnm_container' ] );
+			unset( $cart_item['order_again_mnm_container'] );
 		}
 
 		return $cart_item;
@@ -202,17 +200,17 @@ class WC_MNM_Order_Again {
 						continue;
 					}
 
-					if ( $search_child_item[ 'mnm_container' ] === $cart_item_key ) {
+					if ( $search_child_item['mnm_container'] === $cart_item_key ) {
 
 						// Add reference to child key in parent item.
-						WC()->cart->cart_contents[ $cart_item_key ][ 'mnm_contents' ][] = $search_child_key;
+						WC()->cart->cart_contents[ $cart_item_key ]['mnm_contents'][] = $search_child_key;
 						// Invalidate session data.
 						WC()->session->set( 'cart_totals', null );
 					}
 				}
 
 				// Clean up.
-				unset( WC()->cart->cart_contents[ $cart_item_key ][ 'order_again_mnm_cart_key' ] );
+				unset( WC()->cart->cart_contents[ $cart_item_key ]['order_again_mnm_cart_key'] );
 			}
 		}
 	}

@@ -1,5 +1,12 @@
 *** WooCommerce Additional Variation Images Changelog ***
 
+2020-09-29 - version 1.7.26
+* Fix - Add alt text for gallery thumbnails.
+* Fix - Apply transition when switching variation and replacing gallery images.
+* Fix - Adjusts the filter to use woocommerce_single_product_image_thumbnail_html.
+* Tweak - Add the filter wc_ajax_wc_additional_variation_images_localized_vars.
+* Tweak - WC 4.5 compatibility.
+
 2020-09-14 - version 1.7.25
 * Fix - Do not set a specific size for the main product image, instead rely on the theme to make the image responsive.
 

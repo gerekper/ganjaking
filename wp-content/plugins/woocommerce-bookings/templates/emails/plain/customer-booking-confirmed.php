@@ -87,7 +87,7 @@ if ( $order ) {
 	/* translators: 1: order number */
 	echo esc_html( sprintf( __( 'Order number: %s', 'woocommerce-bookings' ), $order->get_order_number() ) ) . "\n";
 	/* translators: 1: order date */
-	echo esc_html( sprintf( __( 'Order date: %s', 'woocommerce-bookings' ), date_i18n( wc_date_format(), strtotime( $order_date ) ) ) ) . "\n";
+	echo esc_html( sprintf( __( 'Order date: %s', 'woocommerce-bookings' ), date_i18n( wc_bookings_date_format(), strtotime( $order_date ) ) ) ) . "\n";
 
 	do_action( 'woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text, $email );
 

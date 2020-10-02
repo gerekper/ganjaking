@@ -2,8 +2,6 @@
 /**
  * Admin Class
  *
- * @author   Kathy Darling
- * @category Admin
  * @package  WooCommerce Mix and Match Products/Admin
  * @since    1.0.0
  * @version  1.3.3
@@ -128,7 +126,7 @@ class WC_Mix_and_Match_Admin {
 		/*
 		 * Enqueue styles.
 		 */
-		if ( in_array ( $screen_id, array( 'edit-shop_order', 'shop_order' ) ) ) {
+		if ( in_array( $screen_id, array( 'shop_order', 'shop_subscription' ) ) ) {
 			wp_enqueue_style( 'wc-mnm-admin-order-style' );
 		}
 
@@ -139,9 +137,9 @@ class WC_Mix_and_Match_Admin {
 
 			wp_enqueue_script( 'wc-mnm-admin-product-panel' );
 
-		} elseif ( in_array( $screen_id, array( 'shop_order' ) ) ) {
+		} elseif ( in_array( $screen_id, array( 'shop_order', 'shop_subscription' ) ) ) {
 
-			if( WC_MNM_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
+			if ( WC_MNM_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
 
 				wp_enqueue_script( 'wc-mnm-admin-order-panel' );
 
@@ -166,8 +164,8 @@ class WC_Mix_and_Match_Admin {
 	public static function admin_header() { ?>
 		<style>
 			#woocommerce-product-data ul.wc-tabs li.mnm_product_options a:before { content: "\f538"; font-family: "Dashicons"; }
-	    </style>
-	    <?php
+		</style>
+		<?php
 	}
 
 	/**
@@ -177,7 +175,7 @@ class WC_Mix_and_Match_Admin {
 	 * @return array
 	 */
 	public static function template_scan_path( $paths ) {
-		$paths[ 'WooCommerce Mix and Match Products' ] = WC_Mix_and_Match()->plugin_path() . '/templates/';
+		$paths['WooCommerce Mix and Match Products'] = WC_Mix_and_Match()->plugin_path() . '/templates/';
 		return $paths;
 	}
 
@@ -205,7 +203,7 @@ class WC_Mix_and_Match_Admin {
 			'data'      => $theme_overrides,
 		);
 
-		if( $theme_overrides['has_outdated_templates'] ) {
+		if ( $theme_overrides['has_outdated_templates'] ) {
 			$debug_data['mnm_outdated_templates'] = array(
 				'name'      => _x( 'Outdated Templates', 'label for the system status page', 'woocommerce-mix-and-match-products' ),
 				'mark'      => 'error',
@@ -222,7 +220,7 @@ class WC_Mix_and_Match_Admin {
 	/**
 	 * Determine which of our files have been overridden by the theme.
 	 *
-	 * @author Jeremy Pry
+	 * @props Jeremy Pry
 	 * @return array Theme override data.
 	 */
 	private static function get_theme_overrides() {
@@ -273,9 +271,9 @@ class WC_Mix_and_Match_Admin {
 	/**
 	 * Show row meta on the plugin screen.
 	 *
-	 * @param	mixed  $links
-	 * @param	mixed  $file
-	 * @return	array
+	 * @param   mixed  $links
+	 * @param   mixed  $file
+	 * @return  array
 	 */
 	public static function plugin_row_meta( $links, $file ) {
 

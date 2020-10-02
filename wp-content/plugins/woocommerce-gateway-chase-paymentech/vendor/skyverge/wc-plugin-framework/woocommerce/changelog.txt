@@ -1,5 +1,48 @@
 *** SkyVerge WooCommerce Plugin Framework Changelog ***
 
+2020.07.31 - version 5.8.1
+ * Fix - Ensure that some payment gateway scripts used for handling tokens reference the current version of the Framework
+
+2020.07.29 - version 5.8.0
+ * Tweak - Migrate payment tokens to be compatible with WooCommerce core payment tokens
+ * Fix - Unblock the UI when removing a token from the admin token editor that was just added but not saved yet
+ * Dev - Deprecate some filter hooks in the payment methods table
+
+2020.05.15 - version 5.7.1
+ * Fix - Prevent JavaScript error triggered when different versions of the framework are used at the same time
+ * Fix - Fix URL for the Configure link in the admin notes shown for payment gateways that are not configured
+
+2020.05.07 - version 5.7.0
+ * Feature - Add a Settings API for easily registering plugin settings for display and REST API handling
+ * Feature - Introduce a base script handler for enqueueing and loading JavaScript objects
+ * Tweak - Ensure payment gateway scripts can be used when certain script optimization plugins are delaying load
+ * Tweak - Improve the payment form display on mobile devices
+ * Tweak - Update Apple Pay to allow all currencies by default
+
+2020.03.09 - version 5.6.1
+ * Fix - Delete enhanced admin notes on plugin deactivation
+ * Fix - Prevent uncaught errors when creating notes when WC Admin is disabled
+
+2020.03.04 - version 5.6.0
+ * Feature - Add support for WooCommerce Admin enhanced notes
+ * Tweak - Refactor Apple Pay handler classes for greater flexibility
+ * Fix - Remove gateway payment field validation on initial page load
+
+2020.01.20 - version 5.5.4
+ * Tweak - Add a link to the site's terms and conditions page below Apple Pay buttons when available
+ * Tweak - Adjust the place order button label for redirect/hosted gateways
+ * Fix - Fix a JavaScript error triggered trying read the 'length' property of an undefined value in format_credit_card_inputs()
+
+2020.01.13 - version 5.5.3
+ * Fix - Fix a JavaScript error when instantiating a class that hasn't been loaded
+
+2020.01.09 - version 5.5.2
+ * Fix - `SV_WC_Payment_Gateway_Apple_Pay::process_payment()` now throws an exception if the result returned by the processing gateway doesn't indicate whether the transaction was successful or not
+ * Fix - Update `SV_WC_Payment_Gateway_Direct::process_payment()` to cover for and edge case in which `SV_WC_Payment_Gateway_Direct::do_transaction()` fails without throwing an exception
+ * Fix - On WooCommerce 3.9: prevent empty credit card fields from being marked as invalid before the user has entered any data
+ * Dev - TLS 1.2 helper methods moved from `SV_WC_API_Base` to `SV_WC_Plugin`
+ * Dev - Deprecated `SV_WC_API_Base::require_tls_1_2()`
+
 2019.11.14 - version 5.5.1
  * Tweak - Refactor Apple Pay order creation to support the same filters and actions that are fired during regular checkout
  * Tweak - Allow multiple old hooks to be mapped to a single new one via the hook deprecator

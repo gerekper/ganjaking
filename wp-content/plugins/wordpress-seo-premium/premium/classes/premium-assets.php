@@ -79,7 +79,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'components',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
-					WPSEO_Admin_Asset_Manager::PREFIX . 'help-scout-beacon',
 				],
 			],
 			[
@@ -153,7 +152,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-element',
 					'wp-i18n',
 					'yoast-seo-premium-metabox',
-					WPSEO_Admin_Asset_Manager::PREFIX . 'components',
 				],
 			],
 			[

@@ -4,16 +4,14 @@
  *
  * Action/filter hooks used for WooCommerce Mix and Match Products functions/templates.
  *
- * @author   Kathy Darling
- * @category Core
  * @package  WooCommerce Mix and Match Products/Templates
  * @since    1.0.0
  * @version  1.3.0
  */
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ){
-	exit; 	
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 // Single product template for Mix and Match products. Form location: Default.

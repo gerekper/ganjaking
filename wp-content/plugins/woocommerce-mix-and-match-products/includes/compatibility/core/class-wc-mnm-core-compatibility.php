@@ -2,8 +2,6 @@
 /**
  * WooCommerce Core Compatibilty
  *
- * @author   SomewhereWarm
- * @category Classes
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.2.0
  * @version  1.3.0
@@ -23,14 +21,14 @@ class WC_MNM_Core_Compatibility {
 
 	/**
 	 * Cache 'gte' >= comparison results.
-	 * 
+	 *
 	 * @var array
 	 */
 	private static $is_wc_version_gte = array();
 
 	/**
 	 * Cache 'gt' comparison results.
-	 * 
+	 *
 	 * @var array
 	 */
 	private static $is_wc_version_gt = array();
@@ -85,7 +83,7 @@ class WC_MNM_Core_Compatibility {
 	 * @param string $value Value to set.
 	 */
 	public static function set_loop_prop( $prop, $value = '' ) {
-		if( self::is_wc_version_gte( '3.3.0' ) ) {
+		if ( self::is_wc_version_gte( '3.3.0' ) ) {
 			wc_set_loop_prop( $prop, $value );
 		} else {
 			$GLOBALS['woocommerce_loop'][ $prop ] = $value;
@@ -272,7 +270,7 @@ class WC_MNM_Core_Compatibility {
 
 	/**
 	 * Get rounding precision.
-	 * Needed to avoid an infinite loop when filtering. 
+	 * Needed to avoid an infinite loop when filtering.
 	 *
 	 * @since  1.4.0
 	 *

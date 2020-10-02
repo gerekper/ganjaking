@@ -24,7 +24,7 @@ global $post, $woocommerce;
 			array(
 				'id'          => '_wc_pre_orders_enabled',
 				'label'       => __( 'Enable Pre-Orders', 'wc-pre-orders' ),
-				'description' => __( 'Enable pre-orders for this product. For variable products, pre-orders are enabled for each variation.', 'wc-pre-orders' ),
+				'description' => __( 'Enable pre-orders for this product.', 'wc-pre-orders' ),
 			)
 		);
 

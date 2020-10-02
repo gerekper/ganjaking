@@ -2,8 +2,6 @@
 /**
  * Multiple Shipping Addresses Compatibility
  *
- * @author   Kathy Darling
- * @category Compatibility
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
  * @version  1.0.5
@@ -35,17 +33,17 @@ class WC_MNM_Ship_Multiple_Compatibility {
 	 * @param  array  $item
 	 * @return string
 	 */
-	public static function add_mnm_config( $title, $item ){
-	    if( isset( $item['mnm_config'] ) && is_array( $item['mnm_config'] ) ){
-	        $list = '<ul class="wcsm-config">';
-	        foreach( $item['mnm_config'] as $mnm_id => $data ){
-	            $product = wc_get_product( $mnm_id );
-	            $list .= "<li>" . $product->get_title() . ' x ' . $data['quantity'] . '</li>';
-	        }
-	        $list .= '</ul>';
-	        $title .= $list;
-	    }
-	    return $title;
+	public static function add_mnm_config( $title, $item ) {
+		if ( isset( $item['mnm_config'] ) && is_array( $item['mnm_config'] ) ) {
+			$list = '<ul class="wcsm-config">';
+			foreach ( $item['mnm_config'] as $mnm_id => $data ) {
+				$product = wc_get_product( $mnm_id );
+				$list .= "<li>" . $product->get_title() . ' x ' . $data['quantity'] . '</li>';
+			}
+			$list .= '</ul>';
+			$title .= $list;
+		}
+		return $title;
 	}
 
 }

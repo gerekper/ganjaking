@@ -2,8 +2,6 @@
 /**
  * Mix and Match Product Data Store
  *
- * @author   SomewhereWarm
- * @category Class
  * @package  WooCommerce Mix and Match Products/Data
  * @since    1.2.0
  * @version  1.4.3
@@ -25,7 +23,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 	/**
 	 * Data stored in meta keys, but not considered "meta" for the MnM type.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $extended_internal_meta_keys = array(
@@ -46,7 +44,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 	/**
 	 * Maps extended properties to meta keys.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $props_to_meta_keys = array(
@@ -63,7 +61,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		'max_container_size'    => '_mnm_max_container_size',
 		'contents'              => '_mnm_data',
 		'priced_per_product'    => '_mnm_per_product_pricing',
-		'discount'				=> '_mnm_per_product_discount',
+		'discount'              => '_mnm_per_product_discount',
 		'shipped_per_product'   => '_mnm_per_product_shipping'
 	);
 
@@ -91,7 +89,6 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 			if ( is_callable( array( $product, $function ) ) ) {
 				$product->{$function}( get_post_meta( $product->get_id(), $meta_key, true ) );
 			}
-
 		}
 
 		// Base prices are overridden by NYP min price.

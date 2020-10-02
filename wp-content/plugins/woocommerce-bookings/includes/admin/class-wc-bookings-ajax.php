@@ -344,7 +344,7 @@ class WC_Bookings_Ajax {
 			foreach ( $query_orders as $item ) {
 				$order = wc_get_order( $item->ID );
 				if ( $order ) {
-					$found_orders[ ( is_callable( array( $order, 'get_id' ) ) ? $order->get_id() : $order->id ) ] = $order->get_order_number() . ' &ndash; ' . date_i18n( wc_date_format(), strtotime( is_callable( array( $order, 'get_date_created' ) ) ? $order->get_date_created() : $order->post_date ) );
+					$found_orders[ ( is_callable( array( $order, 'get_id' ) ) ? $order->get_id() : $order->id ) ] = $order->get_order_number() . ' &ndash; ' . date_i18n( wc_bookings_date_format(), strtotime( is_callable( array( $order, 'get_date_created' ) ) ? $order->get_date_created() : $order->post_date ) );
 				}
 			}
 		}

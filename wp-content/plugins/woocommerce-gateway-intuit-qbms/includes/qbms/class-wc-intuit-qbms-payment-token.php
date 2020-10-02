@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
 
 /**
  * WooCommerce Intuit QBMS Payment Token
@@ -37,7 +37,7 @@ class WC_Intuit_QBMS_Payment_Token extends Framework\SV_WC_Payment_Gateway_Payme
 
 
 	/**
-	 * Initialize a payment token where $token is a 24 digit globally unique id
+	 * Initializes a payment token where $token is a 24 digit globally unique id
 	 * provided by QBMS with a predetermined structure used to infer
 	 * certain information about the payment method. The WalletEntryID is
 	 * structured as follows:
@@ -48,41 +48,47 @@ class WC_Intuit_QBMS_Payment_Token extends Framework\SV_WC_Payment_Gateway_Payme
 	 * + Last 4 digits of the credit card or check account number.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param string $token the QBMS Wallet entry ID value
-	 * @param array $data associated data
+	 * @param array|\WC_Payment_Token $data associated data or the core token object
 	 */
 	public function __construct( $token, $data ) {
+
+		if ( $data instanceof \WC_Payment_Token ) {
+			$data = $data->get_data();
+		}
 
 		$data['type']      = $this->get_type_from_token( $token );
 		$data['last_four'] = $this->get_last_four_from_token( $token );
 
-		if ( 'credit_card' == $data['type'] )
+		if ( 'credit_card' === $data['type'] ) {
 			$data['card_type'] = $this->get_card_type_from_token( $token );
-
+		}
 
 		parent::__construct( $token, $data );
 	}
 
 
 	/**
-	 * Returns 'credit_card' or 'check' depending on the wallet type
+	 * Returns 'credit_card' or 'check' depending on the wallet type.
 	 *
 	 * @since 1.0.0
-	 * @param string $token payment token
+	 *
+	 * @param string $token payment token as a string
 	 * @return string one of 'credit_card' or 'check' depending on the payment type
 	 */
 	private function get_type_from_token( $token ) {
 
-		return '1' == substr( $token, 0, 1 ) ? 'credit_card' : 'check';
-
+		return strpos( $token, '1' ) === 0 ? 'credit_card' : 'check';
 	}
 
 
 	/**
-	 * Returns the payment type (visa, mc, amex, disc, diners, jcb, echeck, etc)
+	 * Returns the payment type (visa, mc, amex, disc, diners, jcb, echeck, etc).
 	 *
 	 * @since 1.0.0
-	 * @param string $token payment token
+	 *
+	 * @param string $token payment token as a string
 	 * @return string the payment type
 	 */
 	private function get_card_type_from_token( $token ) {
@@ -99,20 +105,20 @@ class WC_Intuit_QBMS_Payment_Token extends Framework\SV_WC_Payment_Gateway_Payme
 			case '06': return Framework\SV_WC_Payment_Gateway_Helper::CARD_TYPE_JCB;
 			case '00': return 'echeck';
 			default:   return 'unknown';
-
 		}
-
 	}
 
 
 	/**
-	 * Returns the last four digits of the credit card or check account number
+	 * Returns the last four digits of the credit card or check account number.
 	 *
 	 * @since 1.0.0
-	 * @param string $token payment token
+	 *
+	 * @param string $token payment token as a string
 	 * @return string last four of account
 	 */
 	private function get_last_four_from_token( $token ) {
+
 		return substr( $token, -4 );
 	}
 

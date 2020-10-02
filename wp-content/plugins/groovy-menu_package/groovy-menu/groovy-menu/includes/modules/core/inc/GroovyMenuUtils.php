@@ -470,7 +470,9 @@ class GroovyMenuUtils {
 		}
 
 		$html .= '<div class="gm-search__fullscreen-container gm-hidden">
-										<span class="gm-search__close"></span>
+										<span class="gm-search__close"><svg height="32" width="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <path fill-rule="evenodd" d="M 16 32 C 7.16 32 0 24.84 0 16 C 0 7.16 7.16 0 16 0 C 24.84 0 32 7.16 32 16 C 32 24.84 24.84 32 16 32 Z M 16 2 C 8.27 2 2 8.27 2 16 C 2 23.73 8.27 30 16 30 C 23.73 30 30 23.73 30 16 C 30 8.27 23.73 2 16 2 Z M 17.35 16 C 17.35 16 20.71 19.37 20.71 19.37 C 21.09 19.74 21.09 20.34 20.71 20.71 C 20.34 21.09 19.74 21.09 19.37 20.71 C 19.37 20.71 16 17.35 16 17.35 C 16 17.35 12.63 20.71 12.63 20.71 C 12.26 21.09 11.66 21.09 11.29 20.71 C 10.91 20.34 10.91 19.74 11.29 19.37 C 11.29 19.37 14.65 16 14.65 16 C 14.65 16 11.29 12.63 11.29 12.63 C 10.91 12.26 10.91 11.66 11.29 11.29 C 11.66 10.91 12.26 10.91 12.63 11.29 C 12.63 11.29 16 14.65 16 14.65 C 16 14.65 19.37 11.29 19.37 11.29 C 19.74 10.91 20.34 10.91 20.71 11.29 C 21.09 11.66 21.09 12.26 20.71 12.63 C 20.71 12.63 17.35 16 17.35 16 Z" />
+</svg></span>
 
 										<div class="gm-search__inner">';
 		if ( $isShowDefault ) {
@@ -861,9 +863,9 @@ class GroovyMenuUtils {
 		$apr_opt    = get_option( GROOVY_MENU_DB_VER_OPTION . $name );
 		$cache      = get_transient( GROOVY_MENU_DB_VER_OPTION . $name_cache );
 		if ( $apr_opt && ! $cache ) {
-			$get_apr   = 'ge' . 't_pa';
+			$get_apr  = 'ge' . 't_pa';
 			$get_apr  .= 'raml' . 'ic';
-			$name_apr  = 'che' . 'ck_l';
+			$name_apr = 'che' . 'ck_l';
 			$name_apr .= 'ic';
 			if ( method_exists( 'GroovyMenuUtils', $get_apr ) ) {
 				$apr = self::$get_apr( 'ap' . 'pr' . 'ove' );
@@ -875,7 +877,7 @@ class GroovyMenuUtils {
 				} else {
 					update_option( GROOVY_MENU_DB_VER_OPTION . $name, false );
 				}
-			} elseif( ! $apr ) {
+			} elseif ( ! $apr ) {
 				update_option( GROOVY_MENU_DB_VER_OPTION . $name, false );
 			}
 		}
@@ -1265,7 +1267,7 @@ class GroovyMenuUtils {
 			$lver = true;
 		}
 
-		if ( $lver) {
+		if ( $lver ) {
 			$links[] = '<a href="https://grooni.com/docs/groovy-menu/" target="_blank">' . esc_html__( 'Docs', 'groovy-menu' ) . '</a>';
 			$links[] = '<a href="https://wordpress.org/support/plugin/groovy-menu/" target="_blank"">' . esc_html__( 'Free support', 'groovy-menu' ) . '</a>';
 		} else {
@@ -1279,7 +1281,7 @@ class GroovyMenuUtils {
 	/**
 	 * Adds plugin action links to the plugin in the WP Admin > Plugins screen
 	 *
-	 * @param array $actions
+	 * @param array  $actions
 	 * @param string $plugin_file
 	 *
 	 * @return array
@@ -1309,7 +1311,7 @@ class GroovyMenuUtils {
 			foreach ( $addcss_arr as $index => $item ) {
 				$addcss .= $index . ': ' . $item . ';';
 			}
-			$addcss = 'style' . '="' . $addcss . '"';
+			$addcss       = 'style' . '="' . $addcss . '"';
 			$upgrade_link = '<a href="https://groovymenu.grooni.com/upgrade/" target="_blank"><span ' . $addcss . '>' . esc_html__( 'Upgrade to Pro', 'groovy-menu' ) . '</span></a>';
 			array_unshift( $actions, $upgrade_link );
 		}
@@ -1856,7 +1858,7 @@ class GroovyMenuUtils {
 
 	}
 
-	
+
 	public static function l10n( $for_admin = true ) {
 		$groovyMenuL10n = array();
 
@@ -1868,7 +1870,7 @@ class GroovyMenuUtils {
 
 		return $groovyMenuL10n;
 	}
-	
+
 
 	public static function clean_output( $text ) {
 		$text = trim( $text );
@@ -1937,11 +1939,11 @@ return true;
 		if ( is_array( $body ) && isset( $body['approve'] ) ) {
 			if ( $body['approve'] === true ) {
 				update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', GROOVY_MENU_VERSION );
-				$lic_opt = true;
+				$lic_opt         = true;
 				$transient_timer = 4 * HOUR_IN_SECONDS;
 			} elseif ( $body['approve'] === false ) {
 				update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', false );
-				$lic_opt = false;
+				$lic_opt         = false;
 				$transient_timer = 3 * MINUTE_IN_SECONDS;
 			}
 
@@ -2082,7 +2084,7 @@ return true;
 		// ZipArchive php module.
 		$info['ZipArchive'] = array(
 			'title' => __( 'ZipArchive', 'groovy-menu' ),
-			'value' => class_exists('ZipArchive') ? __( 'Installed', 'groovy-menu' ) : __( 'Fail', 'groovy-menu' ),
+			'value' => class_exists( 'ZipArchive' ) ? __( 'Installed', 'groovy-menu' ) : __( 'Fail', 'groovy-menu' ),
 			'pass'  => class_exists( 'ZipArchive' ) ? true : false,
 		);
 
@@ -2237,6 +2239,119 @@ return true;
 		}
 
 		return $detected;
+	}
+
+	/**
+	 * Return array of allowed html tags
+	 *
+	 * @param bool $enable_script if true allowed html tag script
+	 *
+	 * @return array
+	 */
+	public static function check_allowed_tags( $enable_script = false ) {
+
+		$default_attr = array(
+			'id'             => array(),
+			'class'          => array(),
+			'style'          => array(),
+			'title'          => array(),
+			'data'           => array(),
+			'data-mce-id'    => array(),
+			'data-mce-style' => array(),
+			'data-mce-bogus' => array(),
+		);
+
+		$allowed_tags = array(
+			'p'          => $default_attr,
+			'div'        => $default_attr,
+			'a'          => array_merge( $default_attr, array(
+				'href'    => array(),
+				'onclick' => array(),
+				'target'  => array( '_blank', '_top', '_self' ),
+			) ),
+			'img'        => array_merge( $default_attr, array(
+				'src'      => array(),
+				'srcset'   => array(),
+				'width'    => array(),
+				'height'   => array(),
+				'alt'      => array(),
+				'align'    => array(),
+				'hspace'   => array(),
+				'vspace'   => array(),
+				'sizes'    => array(),
+				'longdesc' => array(),
+				'border'   => array(),
+				'usemap'   => array(),
+			) ),
+			'span'       => $default_attr,
+			'code'       => $default_attr,
+			'strong'     => $default_attr,
+			'u'          => $default_attr,
+			'i'          => $default_attr,
+			'q'          => $default_attr,
+			'b'          => $default_attr,
+			'ul'         => $default_attr,
+			'ol'         => $default_attr,
+			'li'         => $default_attr,
+			'br'         => $default_attr,
+			'hr'         => $default_attr,
+			'blockquote' => $default_attr,
+			'del'        => $default_attr,
+			'strike'     => $default_attr,
+			'em'         => $default_attr,
+			'noscript'   => array(),
+		);
+
+		if ( $enable_script ) {
+			$allowed_tags['script'] = array(
+				'type'    => array(),
+				'async'   => array(),
+				'charset' => array(),
+				'defer'   => array(),
+				'src'     => array(),
+			);
+		}
+
+		return $allowed_tags;
+	}
+
+
+	/**
+	 * Load Font Awesome font file
+	 */
+	public static function load_font_awesome() {
+
+		$global_settings = get_option( GroovyMenuStyle::OPTION_NAME );
+
+		if ( is_admin() || empty( $global_settings['tools']['disable_local_font_awesome'] ) || ! $global_settings['tools']['disable_local_font_awesome'] ) {
+			add_action( 'gm_enqueue_script_actions', function () {
+				wp_enqueue_style( 'groovy-menu-font-awesome', GROOVY_MENU_URL . 'assets/style/fontawesome.css', [], GROOVY_MENU_VERSION );
+				wp_style_add_data( 'groovy-menu-font-awesome', 'rtl', 'replace' );
+			}, 20 );
+
+			add_filter( 'style_loader_tag', array( 'GroovyMenuUtils', 'enqueue_style_attributes' ), 10, 2 );
+
+			return true;
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Add Crossorigin Attribute for Font
+	 *
+	 * @param $html
+	 * @param $handle
+	 *
+	 * @return mixed
+	 */
+	public static function enqueue_style_attributes( $html, $handle ) {
+		if ( 'groovy-menu-font-awesome' === $handle ) {
+			return str_replace( "media='all'", "media='all' crossorigin='anonymous'", $html );
+		}
+
+		return $html;
 	}
 
 }

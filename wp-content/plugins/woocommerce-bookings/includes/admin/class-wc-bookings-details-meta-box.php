@@ -71,7 +71,7 @@ class WC_Bookings_Details_Meta_Box {
 			$max_date = strtotime( "+{$max['value']} {$max['unit']}", current_time( 'timestamp' ) );
 			if ( $booking->get_start() > $max_date || $booking->get_end() > $max_date ) {
 				/* translators: 1: maximum bookable date */
-				echo '<div class="notice notice-warning"><p>' . sprintf( esc_html__( 'This booking is scheduled over the product\'s allowed max booking date (%s). Please ensure this is correct.', 'woocommerce-bookings' ), esc_html( date_i18n( wc_date_format(), $max_date ) ) ) . '</p></div>';
+				echo '<div class="notice notice-warning"><p>' . sprintf( esc_html__( 'This booking is scheduled over the product\'s allowed max booking date (%s). Please ensure this is correct.', 'woocommerce-bookings' ), esc_html( date_i18n( wc_bookings_date_format(), $max_date ) ) ) . '</p></div>';
 			}
 		}
 
@@ -164,7 +164,7 @@ class WC_Bookings_Details_Meta_Box {
 							<?php else : ?>
 								<select name="_booking_order_id" id="_booking_order_id" data-placeholder="<?php esc_attr_e( 'N/A', 'woocommerce-bookings' ); ?>" data-allow_clear="true">
 									<?php if ( $booking->get_order_id() && $order ) : ?>
-										<option selected="selected" value="<?php echo esc_attr( $booking->get_order_id() ); ?>"><?php echo esc_html( $order->get_order_number() . ' &ndash; ' . date_i18n( wc_date_format(), strtotime( is_callable( array( $order, 'get_date_created' ) ) ? $order->get_date_created() : $order->post_date ) ) ); ?></option>
+										<option selected="selected" value="<?php echo esc_attr( $booking->get_order_id() ); ?>"><?php echo esc_html( $order->get_order_number() . ' &ndash; ' . date_i18n( wc_bookings_date_format(), strtotime( is_callable( array( $order, 'get_date_created' ) ) ? $order->get_date_created() : $order->post_date ) ) ); ?></option>
 									<?php endif; ?>
 								</select>
 							<?php endif; ?>

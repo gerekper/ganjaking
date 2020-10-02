@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Chase Paymentech Gateway
  * Plugin URI: https://woocommerce.com/products/chase-paymentech/
+ * Documentation URI: https://docs.woocommerce.com/document/woocommerce-chase-paymentech/
  * Description: Accept credit cards in WooCommerce with the Chase Paymentech gateway
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com/
- * Version: 1.14.7
+ * Version: 1.15.1
  * Text Domain: woocommerce-gateway-chase-paymentech
  * Domain Path: /i18n/languages/
  *
@@ -21,7 +22,7 @@
  *
  * Woo: 333964:167a54da3dfd72e35d61dc7bd810cb85
  * WC requires at least: 3.0.9
- * WC tested up to: 4.2.2
+ * WC tested up to: 4.5.2
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -56,7 +57,7 @@ class WC_Chase_Paymentech_Loader {
 	const MINIMUM_WC_VERSION = '3.0.9';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.5.1';
+	const FRAMEWORK_VERSION = '5.8.1';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Chase Paymentech Gateway';
@@ -82,6 +83,8 @@ class WC_Chase_Paymentech_Loader {
 		add_action( 'admin_init', array( $this, 'add_plugin_notices' ) );
 
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
+
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header') );
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
@@ -339,6 +342,24 @@ class WC_Chase_Paymentech_Loader {
 			</div>
 			<?php
 		}
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 1.15.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

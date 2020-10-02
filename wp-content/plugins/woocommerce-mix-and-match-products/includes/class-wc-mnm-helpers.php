@@ -2,8 +2,6 @@
 /**
  * Helper Functions
  *
- * @author   SomewhereWarm
- * @category Classes
  * @package  WooCommerce Mix and Match Products/Helpers
  * @since    1.0.0
  * @version  1.3.0
@@ -77,7 +75,7 @@ class WC_Mix_and_Match_Helpers {
 		 * Supported types.
 		 *
 		 * @param  array
-		 */	
+		 */
 		return apply_filters( 'woocommerce_mnm_supported_products', array( 'simple', 'variation' ) );
 	}
 
@@ -103,7 +101,7 @@ class WC_Mix_and_Match_Helpers {
 	 * @since 1.0.5
 	 * @deprecated 1.2.0
 	 * @see WC_MNM_Core_Compatibility::get_wc_version()
-	 * 
+	 *
 	 * @return string woocommerce version number or null
 	 */
 	private static function get_wc_version() {
@@ -117,7 +115,7 @@ class WC_Mix_and_Match_Helpers {
 	 * @since 1.0.5
 	 * @deprecated 1.2.0
 	 * @see WC_MNM_Core_Compatibility::get_wc_version()
-	 * 
+	 *
 	 * @return bool true if the installed version of WooCommerce is 2.2 or greater
 	 */
 	public static function is_wc_version_gte_2_4() {
@@ -148,7 +146,7 @@ class WC_Mix_and_Match_Helpers {
 	 * @since 1.0.4
 	 * @deprecated 1.2.0
 	 * @see wc_get_formatted_variation()
-	 * 
+	 *
 	 * @param  WC_Product_Variation  $variation   the variation
 	 * @return string                             formatted attributes
 	 */

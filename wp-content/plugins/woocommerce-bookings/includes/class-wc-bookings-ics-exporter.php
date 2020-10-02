@@ -62,7 +62,7 @@ class WC_Bookings_ICS_Exporter {
 	public function get_ics( $bookings, $filename = '' ) {
 		// Create a generic filename.
 		if ( '' == $filename ) {
-			$filename = 'bookings-' . date_i18n( get_option( 'date_format' ) . '-' . get_option( 'time_format' ), current_time( 'timestamp' ) );
+			$filename = 'bookings-' . date_i18n( 'Ymd-His', current_time( 'timestamp' ) );
 		}
 
 		$this->file_path = $this->get_file_path( $filename );
@@ -113,6 +113,7 @@ class WC_Bookings_ICS_Exporter {
 	 */
 	protected function format_date( $timestamp, $booking = null ) {
 		$pattern = 'Ymd\THis';
+		$old_ts  = $timestamp;
 
 		if ( $booking ) {
 			$pattern = ( $booking->is_all_day() ) ? 'Ymd' : $pattern;
@@ -126,7 +127,7 @@ class WC_Bookings_ICS_Exporter {
 			}
 		}
 
-		return date( $pattern, $timestamp );
+		return apply_filters( 'woocommerce_bookings_ics_format_date', date( $pattern, $timestamp ), $timestamp, $old_ts, $booking );
 	}
 
 	/**
@@ -158,7 +159,7 @@ class WC_Bookings_ICS_Exporter {
 		$ics .= 'PRODID:-//WooThemes//WooCommerce Bookings ' . WC_BOOKINGS_VERSION . '//EN' . $this->eol;
 		$ics .= 'CALSCALE:GREGORIAN' . $this->eol;
 		$ics .= 'X-WR-CALNAME:' . $this->sanitize_string( $sitename ) . $this->eol;
-		$ics .= 'X-ORIGINAL-URL:' . $this->sanitize_string( home_url( '/' ) ) . $this->eol;
+		$ics .= 'X-ORIGINAL-URL:' . $this->sanitize_string( get_site_url( get_current_blog_id(), '/' ) ) . $this->eol;
 		/* translators: 1: site name */
 		$ics .= 'X-WR-CALDESC:' . $this->sanitize_string( sprintf( __( 'Bookings from %s', 'woocommerce-bookings' ), $sitename ) ) . $this->eol;
 		$ics .= 'X-WR-TIMEZONE:' . wc_booking_get_timezone_string() . $this->eol;

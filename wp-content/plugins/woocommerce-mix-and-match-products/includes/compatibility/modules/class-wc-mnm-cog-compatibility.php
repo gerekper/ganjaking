@@ -2,8 +2,6 @@
 /**
  * Cost of Goods Compatibility
  *
- * @author   SomewhereWarm
- * @category Compatibility
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
  * @version  1.7.0
@@ -39,9 +37,9 @@ class WC_MNM_COG_Compatibility {
 
 		if ( $parent_item = wc_mnm_get_order_item_container( $item, $order ) ) {
 
-			$parent_obj = wc_get_product( $parent_item[ 'product_id' ] );
+			$parent_obj = wc_get_product( $parent_item['product_id'] );
 
-			$child_item_priced_individually = isset( $parent_item[ 'per_product_pricing' ] ) ? $parent_item[ 'per_product_pricing' ] : $parent_obj->is_priced_per_product();
+			$child_item_priced_individually = isset( $parent_item['per_product_pricing'] ) ? $parent_item['per_product_pricing'] : $parent_obj->is_priced_per_product();
 
 			if ( 'no' === $child_item_priced_individually ) {
 				return 0;

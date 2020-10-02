@@ -455,7 +455,12 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		}
 		// Refresh the token if it's expired. Note that we need a refresh token for this.
 		if ( $refresh_token && empty( $access_token ) ) {
-			$access_token = $this->renew_access_token( $refresh_token, $client );
+			try {
+				$access_token = $this->renew_access_token( $refresh_token, $client );
+			} catch ( Exception $e ) {
+				$access_token = null;
+			}
+
 			if ( $access_token && isset( $access_token['access_token'] ) ) {
 				unset( $access_token['refresh_token'] ); // unset this since we store it in an option.
 				set_transient( 'wc_bookings_gcalendar_access_token', $access_token, self::TOKEN_TRANSIENT_TIME );

@@ -1,0 +1,22 @@
+/* Coupon style for email-coupon */
+.coupon-container.email-coupon .coupon-content {
+	border: 1px solid !important;
+	border-style: dashed !important;
+}
+
+.coupon-container.email-coupon {
+	transition-duration: .3s !important;
+	transition-property: border-radius !important;
+	-webkit-transform: perspective(1px) translateZ(0) !important;
+			transform: perspective(1px) translateZ(0) !important;
+
+	border-radius: .8em !important;
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0) !important;
+	display: table;
+	margin: 0 auto;
+}
+.coupon-container.email-coupon:hover,
+.coupon-container.email-coupon:focus,
+.coupon-container.email-coupon:active {
+	border-radius: 0 !important;
+}

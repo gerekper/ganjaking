@@ -31,7 +31,6 @@ class WC_Points_Rewards_Cart_Checkout {
 		add_filter( 'woocommerce_cart_totals_coupon_label', array( $this, 'coupon_label' ) );
 		// Coupon loading
 		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'points_last' ) );
-		add_action( 'woocommerce_applied_coupon', array( $this, 'points_last' ) );
 
 		// add earn points/redeem points message above cart / checkout
 		add_action( 'woocommerce_before_cart', array( $this, 'render_earn_points_message' ), 15 );
@@ -56,8 +55,9 @@ class WC_Points_Rewards_Cart_Checkout {
 		// handle the apply discount AJAX submit on the checkout page
 		add_action( 'wp_ajax_wc_points_rewards_apply_discount', array( $this, 'ajax_maybe_apply_discount' ) );
 
-		// reshow messages on checkout if coupon was removed?
-		add_action( 'woocommerce_removed_coupon', array( $this, 'discount_removed' ) );
+		// Reshow messages on checkout if coupon was applied or removed.
+		add_action( 'woocommerce_applied_coupon', array( $this, 'discount_updated' ), 40 );
+		add_action( 'woocommerce_removed_coupon', array( $this, 'discount_updated' ), 40 );
 	}
 
 	/**
@@ -92,18 +92,19 @@ class WC_Points_Rewards_Cart_Checkout {
 	}
 
 	/**
-	 * Redisplays the redeem message after a discount is removed (if its a points discount)
-	 * @param  string $coupon_code
+	 * Redisplays the redeem and earn messages after a discount has been updated.
+	 *
+	 * @param string $coupon_code Coupon code which is removed.
 	 */
-	public function discount_removed( $coupon_code ) {
-		if ( ! strstr( $coupon_code, 'wc_points_redemption_' ) ) {
+	public function discount_updated( $coupon_code ) {
+		// Do not display messages on ajax requests from the cart page.
+		if ( is_cart() || wp_get_referer() === wc_get_cart_url() ) {
 			return;
 		}
 
-		// Show message on checkout if discount was removed
-		if ( is_checkout() ) {
-			$this->render_redeem_points_message();
-		}
+		WC()->cart->calculate_totals();
+		$this->render_earn_points_message();
+		$this->render_redeem_points_message();
 	}
 
 	/**
@@ -193,6 +194,20 @@ class WC_Points_Rewards_Cart_Checkout {
 		$message = '<div class="woocommerce-info wc_points_rewards_earn_points">' . $message . '</div>';
 
 		echo apply_filters( 'wc_points_rewards_earn_points_message', $message, $points_earned );
+
+		if ( is_checkout() ) {
+			wc_enqueue_js(
+				'$(function() {
+					var remove_earn_points_messages = function() {
+						$( ".wc_points_rewards_earn_points" ).remove();
+					}
+
+					$( "form.checkout_coupon" ).submit( remove_earn_points_messages );
+					$( document.body ).on( "click", ".woocommerce-remove-coupon", remove_earn_points_messages );
+
+				} );'
+			);
+		}
 	}
 
 	/**
@@ -281,7 +296,7 @@ class WC_Points_Rewards_Cart_Checkout {
 		 * Coupons are disabled OR
 		 * Points have already been applied for a discount.
 		 */
-		if ( $this->is_fully_discounted() || ! WC()->cart->coupons_enabled() || ( ! empty( $existing_discount ) && WC()->cart->has_discount( $existing_discount ) ) ) {
+		if ( $this->is_fully_discounted() || ! wc_coupons_enabled() || ( ! empty( $existing_discount ) && WC()->cart->has_discount( $existing_discount ) ) ) {
 			return;
 		}
 
@@ -463,13 +478,13 @@ class WC_Points_Rewards_Cart_Checkout {
 							success:  function( code ) {
 								points_applied = true;
 
-								$( ".woocommerce-error, .woocommerce-message" ).remove();
+								$( ".woocommerce-error, .woocommerce-message, .wc_points_rewards_earn_points" ).remove();
 								$section.removeClass( "processing" ).unblock();
 
 								if ( code ) {
 									$section.before( code );
 
-									$section.hide();
+									$section.remove();
 
 									$( "body" ).trigger( "update_checkout" );
 								}
@@ -482,6 +497,13 @@ class WC_Points_Rewards_Cart_Checkout {
 					return false;
 
 				});
+
+				var remove_redeem_points_messages = function() {
+					$( ".wc_points_redeem_earn_points" ).remove();
+				}
+
+				$( "form.checkout_coupon" ).submit( remove_redeem_points_messages );
+				$( document.body ).on( "click", ".woocommerce-remove-coupon", remove_redeem_points_messages );
 
 			});
 			' );

@@ -2,8 +2,6 @@
 /**
  * Front-End Display
  *
- * @author   Kathy Darling
- * @category Classes
  * @package  WooCommerce Mix and Match Products/Display
  * @since    1.0.0
  * @version  1.9.3
@@ -105,7 +103,7 @@ class WC_Mix_and_Match_Display {
 		wc_get_template(
 			'single-product/add-to-cart/mnm.php',
 			array(
-				'container'	      => $product,
+				'container'       => $product,
 				'min_container_size'  => $product->get_min_container_size(),
 				'max_container_size'  => $product->get_max_container_size(),
 				'mnm_products'    => $product->get_available_children(),
@@ -135,9 +133,9 @@ class WC_Mix_and_Match_Display {
 			$this->enqueue_table_item_js();
 		}
 
-		if( wc_mnm_is_container_cart_item( $cart_item ) ) {
+		if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 
-			$container = $cart_item[ 'data' ];
+			$container = $cart_item['data'];
 
 			if ( function_exists( 'is_cart' ) && is_cart() && ! $this->is_cart_widget() ) {
 
@@ -145,9 +143,8 @@ class WC_Mix_and_Match_Display {
 				$edit_in_cart_text = _x( 'Edit', 'edit in cart link text', 'woocommerce-mix-and-match-products' );
 				// translators: %1$d is the original product name. %2$s is the edit link url. %3$s is the 'Edit' string.
 				$content           = sprintf( _x( '%1$s<br/><a class="edit_container_in_cart_text edit_in_cart_text" href="%2$s"><small>%3$s</small></a>', 'edit in cart text', 'woocommerce-mix-and-match-products' ), $content, $edit_in_cart_link, $edit_in_cart_text );
-			
-			}
 
+			}
 		}
 
 		return $content;
@@ -168,13 +165,13 @@ class WC_Mix_and_Match_Display {
 	/**
 	 * Adds child item title preambles to order-details template.
 	 *
-	 * @param  string 	$content
-	 * @param  object 	$order_item
+	 * @param  string   $content
+	 * @param  object   $order_item
 	 * @return string
 	 */
 	public function order_table_item_title( $content, $order_item ) {
 
-		if ( ! empty( $order_item[ 'mnm_container' ] ) ) {
+		if ( ! empty( $order_item['mnm_container'] ) ) {
 			if ( did_action( 'woocommerce_view_order' ) || did_action( 'woocommerce_thankyou' ) || did_action( 'before_woocommerce_pay' ) || did_action( 'woocommerce_account_view-subscription_endpoint' ) ) {
 				$this->enqueue_table_item_js();
 			} else {
@@ -195,7 +192,8 @@ class WC_Mix_and_Match_Display {
 	private function enqueue_table_item_js() {
 
 		if ( ! $this->enqueued_table_item_js ) {
-			wc_enqueue_js( "
+			wc_enqueue_js(
+                "
 				var wc_mnm_wrap_mnm_table_item = function() {
 					jQuery( '.mnm_table_item td.product-name' ).wrapInner( '<div class=\"mnm_table_item_indent\"></div>' );
 				}
@@ -205,7 +203,8 @@ class WC_Mix_and_Match_Display {
 				} );
 
 				wc_mnm_wrap_mnm_table_item();
-			" );
+			"
+            );
 
 			$this->enqueued_table_item_js = true;
 		}
@@ -218,10 +217,10 @@ class WC_Mix_and_Match_Display {
 	 * @param  obj    $order
 	 * @return array
 	 */
-	public function order_item_meta( $formatted_meta, $order ){
-		foreach( $formatted_meta as $id => $meta ){
-			if ( $meta['key'] ==  __( 'Container size', 'woocommerce-mix-and-match-products' ) ){
-				unset( $formatted_meta[$id] );
+	public function order_item_meta( $formatted_meta, $order ) {
+		foreach ( $formatted_meta as $id => $meta ) {
+			if ( $meta['key'] ==  __( 'Container size', 'woocommerce-mix-and-match-products' ) ) {
+				unset( $formatted_meta[ $id ] );
 			}
 		}
 		return $formatted_meta;
@@ -242,7 +241,7 @@ class WC_Mix_and_Match_Display {
 		if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 			$class .= ' mnm_table_container';
 
-			if( $cart_item['data']->is_priced_per_product() ) {
+			if ( $cart_item['data']->is_priced_per_product() ) {
 				$class .= ' mnm_is_priced_per_product_container';
 			} else {
 				$class .= ' mnm_is_static_priced_container';
@@ -251,7 +250,7 @@ class WC_Mix_and_Match_Display {
 		} else if ( $container = wc_mnm_get_cart_item_container( $cart_item ) ) {
 			$class .= ' mnm_table_item';
 
-			if( $container['data']->is_priced_per_product() ) {
+			if ( $container['data']->is_priced_per_product() ) {
 				$class .= ' mnm_part_of_priced_per_product_container';
 			} else {
 				$class .= ' mnm_part_of_static_priced_container';
@@ -284,13 +283,12 @@ class WC_Mix_and_Match_Display {
 
 			foreach ( wc_mnm_get_child_order_items( $container, $order ) as $child_item ) {
 
-				if( wc_mnm_maybe_is_child_order_item( $child_item ) ) {
+				if ( wc_mnm_maybe_is_child_order_item( $child_item ) ) {
 					if ( $first_child === '' ) {
 						$first_child = $child_item;
 					}
 					$last_child = $child_item;
 				}
-
 			}
 
 			if ( $order_item == $first_child ) {
@@ -300,7 +298,6 @@ class WC_Mix_and_Match_Display {
 			if ( $order_item == $last_child ) {
 				$class .= ' mnm_table_item_last';
 			}
-
 		}
 
 		return $class;
@@ -326,7 +323,7 @@ class WC_Mix_and_Match_Display {
 		 * Trim Zeros setting.
 		 *
 		 * @param  array $params
-		 */	
+		 */
 		$trim_zeros = apply_filters( 'woocommerce_price_trim_zeros', false );
 
 		/**
@@ -343,43 +340,43 @@ class WC_Mix_and_Match_Display {
 	/**
 	 * Returns Add to Cart Parameters.
 	 *
-	 * @access public
-	 * @static
 	 * @param  bool $trim_zeros
 	 * @return array
 	 */
 	public static function get_add_to_cart_parameters( $trim_zeros ) {
-		return apply_filters( 'woocommerce_mnm_add_to_cart_parameters', array(
+		return apply_filters(
+            'woocommerce_mnm_add_to_cart_parameters',
+            array(
 			'addons_three_support'               => defined( 'WC_PRODUCT_ADDONS_VERSION' ) && version_compare( WC_PRODUCT_ADDONS_VERSION, '3.0', '>=' ) ? 'yes' : 'no',
 			'i18n_total'                         => __( 'Total: ', 'woocommerce-mix-and-match-products' ),
 			'i18n_subtotal'                      => __( 'Subtotal: ', 'woocommerce-mix-and-match-products' ),
 			'i18n_addon_total'                   => __( 'Options total:', 'woocommerce-mix-and-match-products' ),
 			'i18n_addons_total'                  => __( 'Grand total: ', 'woocommerce-mix-and-match-products' ),
-			// translators: Placeholders "Total/Subtotal" string followed by price followed by price suffix. %1$d is %t placeholder for subtotal. %2$d is %p placeholder for price. %3$d is %s placeholder for %s price suffix. 
+			// translators: Placeholders "Total/Subtotal" string followed by price followed by price suffix. %1$d is %t placeholder for subtotal. %2$d is %p placeholder for price. %3$d is %s placeholder for %s price suffix.
 			'i18n_price_format'                  => sprintf( _x( '%1$s%2$s%3$s', '"Total/Subtotal" string followed by price followed by price suffix', 'woocommerce-mix-and-match-products' ), '%t', '%p', '%s' ),
-			// translators: %1$d is 
+			// translators: %1$d is
 			'i18n_strikeout_price_string'        => sprintf( _x( '<del>%1$s</del> <ins>%2$s</ins>', 'Sale/strikeout price', 'woocommerce-mix-and-match-products' ), '%f', '%t' ),
 			'i18n_free'                          => __( 'Free!', 'woocommerce-mix-and-match-products' ),
-			// translators: %s is current selected quantity 
+			// translators: %s is current selected quantity
 			'i18n_qty_message'                   => __( 'You have selected %s items. ', 'woocommerce-mix-and-match-products' ),
-			// translators: %s is current selected quantity 
+			// translators: %s is current selected quantity
 			'i18n_qty_message_single'            => __( 'You have selected %s item. ', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %s is quantity left to be selected.  
+			// translators: %v is the error message. %s is quantity left to be selected.
 			'i18n_qty_error'                     => __( '%vPlease select %s items to continue&hellip;', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %s is quantity left to be selected. 
+			// translators: %v is the error message. %s is quantity left to be selected.
 			'i18n_qty_error_single'              => __( '%vPlease select %s item to continue&hellip;', 'woocommerce-mix-and-match-products' ),
-			'i18n_empty_error'   		         => __( 'Please select at least 1 item to continue&hellip;', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.  
+			'i18n_empty_error'                   => __( 'Please select at least 1 item to continue&hellip;', 'woocommerce-mix-and-match-products' ),
+			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_min_max_qty_error'             => __( '%vPlease choose between %min and %max items to continue&hellip;', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.  
+			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_min_qty_error_singular'        => __( '%vPlease choose at least %min item to continue&hellip;', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.  
+			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_min_qty_error'                 => __( '%vPlease choose at least %min items to continue&hellip;', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.  
+			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_max_qty_error_singular'        => __( '%vPlease choose fewer than %max item to continue&hellip;', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.  
+			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_max_qty_error'                 => __( '%vPlease choose fewer than %max items to continue&hellip;', 'woocommerce-mix-and-match-products' ),
-			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.  
+			// translators: %v is the error message. %min is the script placeholder for min quantity. %max is script placeholder for max quantity.
 			'i18n_validation_alert'              => __( 'Please resolve all pending configuration issues before adding this product to your cart.', 'woocommerce-mix-and-match-products' ),
 			'currency_symbol'                    => get_woocommerce_currency_symbol(),
 			'currency_position'                  => esc_attr( stripslashes( get_option( 'woocommerce_currency_pos' ) ) ),
@@ -393,7 +390,8 @@ class WC_Mix_and_Match_Display {
 			'tax_display_shop'                   => esc_attr( get_option( 'woocommerce_tax_display_shop' ) ),
 			'calc_taxes'                         => esc_attr( get_option( 'woocommerce_calc_taxes' ) ),
 			'photoswipe_enabled'                 => current_theme_supports( 'wc-product-gallery-lightbox' ) ? 'yes' : 'no',
-		) );
+            )
+        );
 	}
 
 	/**
@@ -431,7 +429,7 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Stop displaying the "Part of" meta key for MNM children.
-	 * 
+	 *
 	 * @param  obj[] $formatted_meta an array of objects indexed by meta key
 	 * @param  WC_Order_Item $order_item
 	 * @return  array
@@ -440,7 +438,7 @@ class WC_Mix_and_Match_Display {
 		/*
 		 * Version 1.5.0 stops saving this string by default, set filter to true to continue saving/displaying it.
 		*/
-		if( ! apply_filters( 'woocommerce_mnm_order_item_legacy_part_of_meta', false, $order_item ) ) {
+		if ( ! apply_filters( 'woocommerce_mnm_order_item_legacy_part_of_meta', false, $order_item ) ) {
 			$formatted_meta = wp_list_filter( $formatted_meta, array( 'key' => __( 'Purchased with', 'woocommerce-mix-and-match-products' ) ), 'NOT' );
 			$formatted_meta = wp_list_filter( $formatted_meta, array( 'key' => __( 'Part of', 'woocommerce-mix-and-match-products' ) ), 'NOT' );
 		}
@@ -449,7 +447,7 @@ class WC_Mix_and_Match_Display {
 
 	/**
 	 * Display mnm_container_size meta as Container size.
-	 * 
+	 *
 	 * @param  string $display_key The front-end label for the meta key.
 	 * @param  obj $meta Meta object with key and value properties.
 	 * @param  WC_Order_Item $order_item

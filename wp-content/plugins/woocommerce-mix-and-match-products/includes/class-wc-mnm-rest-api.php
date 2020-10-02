@@ -4,8 +4,6 @@
  *
  * Adds Mix and Match Product data to the WooCommerce REST API.
  *
- * @author   Kathy Darling
- * @category Classes
  * @package  WooCommerce Mix and Match Products/REST API
  * @since    1.10.0
  */
@@ -41,13 +39,13 @@ class WC_Mix_and_Match_REST_API {
 		// Order Response.
 		add_filter( 'woocommerce_rest_prepare_shop_order_object', array( __CLASS__, 'prepare_order_response' ), 10, 3 );
 		add_filter( 'woocommerce_rest_prepare_shop_subscription_object', array( __CLASS__, 'prepare_order_response' ), 10, 3 );
-		
+
 		// Add configuration data as meta for later post-processing.
 		add_action( 'woocommerce_rest_set_order_item', array( __CLASS__, 'set_order_item' ), 10, 2 );
 
 		// Add a configured container to order.
 		add_filter( 'woocommerce_rest_pre_insert_shop_order_object', array( __CLASS__, 'add_container_to_order' ), 10, 2 );
-		add_filter( 'woocommerce_rest_pre_insert_shop_subscription_object', array( __CLASS__, 'add_container_to_order' ), 10, 2 );	
+		add_filter( 'woocommerce_rest_pre_insert_shop_subscription_object', array( __CLASS__, 'add_container_to_order' ), 10, 2 );
 	}
 
 	/*
@@ -158,7 +156,7 @@ class WC_Mix_and_Match_REST_API {
 	 * @return WP_REST_Response $response The response object.
 	 */
 	public static function prepare_product_response( $response, $product ) {
-		
+
 		if ( $product->is_type( 'mix-and-match' ) ) {
 			$response->data['mnm_layout']              = $product->get_layout();
 			$response->data['mnm_min_container_size']  = $product->get_min_container_size();
@@ -214,9 +212,9 @@ class WC_Mix_and_Match_REST_API {
 			foreach ( $request['mnm_child_items'] as $data ) {
 
 				$action             = '';
-				$child_id           = isset( $data[ 'child_id' ] ) ? absint( $data[ 'child_id' ] ) : 0;						
-				$child_product_id   = isset( $data[ 'product_id' ] ) ? absint( $data[ 'product_id' ] ) : false;
-				$child_variation_id = isset( $data[ 'variation_id' ] ) ? absint( $data[ 'variation_id' ] ) : false;
+				$child_id           = isset( $data['child_id'] ) ? absint( $data['child_id'] ) : 0;
+				$child_product_id   = isset( $data['product_id'] ) ? absint( $data['product_id'] ) : false;
+				$child_variation_id = isset( $data['variation_id'] ) ? absint( $data['variation_id'] ) : false;
 				$child_item_id      = $child_variation_id ? $child_variation_id : $child_product_id;
 				$child_product      = wc_get_product( $child_item_id );
 
@@ -227,15 +225,15 @@ class WC_Mix_and_Match_REST_API {
 						throw new WC_REST_Exception( 'woocommerce_rest_invalid_child_id', sprintf( __( 'Child item ID #%s does not exist in mix and match container.', 'woocommerce-mix-and-match-products' ), $child_item_id ), 400 );
 					}
 
-					if ( isset( $data[ 'delete' ] ) && true === $data[ 'delete' ] ) {
+					if ( isset( $data['delete'] ) && true === $data['delete'] ) {
 						$action = 'delete';
-					}							
+					}
 
 				// Creating item.
 				} elseif ( $child_id === 0 ) {
 					$action = 'create';
 				}
-				
+
 				// Add item to 'deleted' array.
 				if ( 'delete' === $action ) {
 					$deleted[] = $child_id;
@@ -253,26 +251,25 @@ class WC_Mix_and_Match_REST_API {
 				}
 
 				// Ensure the product is a supported type.
-				if( ! WC_Mix_and_Match_Helpers::is_child_supported_product_type( $child_product ) ) {
+				if ( ! WC_Mix_and_Match_Helpers::is_child_supported_product_type( $child_product ) ) {
 					throw new WC_REST_Exception( 'woocommerce_rest_invalid_child_product_type', sprintf( __( 'Product or Variation ID #%s not a supported product type for Mix and Match contents.', 'woocommerce-mix-and-match-products' ), $child_item_id ), 400 );
 				}
 
 				// Not stored in meta if defined and other than true.
-				if ( isset( $data[ 'delete' ] ) ) {
-					unset( $data[ 'delete' ] );
+				if ( isset( $data['delete'] ) ) {
+					unset( $data['delete'] );
 				}
 
 				// Add item to 'new' array.
 				if ( 'create' === $action ) {
 											// Sanitize the input.
-					$child_data_item_array = array( 
+					$child_data_item_array = array(
 						'child_id'     => $child_product->get_id(),
 						'product_id'   => $child_product->get_parent_id() > 0 ? $child_product->get_parent_id() : $child_product->get_id(),
 						'variation_id' => $child_product->get_parent_id() > 0 ? $child_product->get_id() : 0,
 					);
-					$new[$child_product->get_id()] = $child_data_item_array;
+					$new[ $child_product->get_id() ] = $child_data_item_array;
 				}
-
 			}
 
 			$child_data_items       = $product->get_contents( 'edit' );
@@ -286,7 +283,7 @@ class WC_Mix_and_Match_REST_API {
 						continue;
 					// Preserve item unless updated/deleted.
 					} else {
-						$child_data_items_array[$child_id] = $child_data_item;
+						$child_data_items_array[ $child_id ] = $child_data_item;
 					}
 				}
 			}
@@ -370,7 +367,7 @@ class WC_Mix_and_Match_REST_API {
 	public static function filter_order_schema( $schema ) {
 
 		foreach ( self::get_extended_order_line_item_schema() as $field_name => $field_content ) {
-			$schema[ 'line_items' ][ 'properties' ][ $field_name ] = $field_content;
+			$schema['line_items']['properties'][ $field_name ] = $field_content;
 		}
 
 		return $schema;
@@ -388,18 +385,18 @@ class WC_Mix_and_Match_REST_API {
 	 * @return WP_REST_Response $response The response object.
 	 */
 	public static function prepare_order_response( $response, $order ) {
-		
-		if ( ! empty ( $response->data['line_items'] ) ) {
+
+		if ( ! empty( $response->data['line_items'] ) ) {
 
 			$order_items = $order->get_items();
 
 			foreach ( $response->data['line_items'] as $order_data_item_index => $order_data_item ) {
 
 				// Default values.
-				$response->data['line_items'][ $order_data_item_index ][ 'mnm_child_of' ]         = '';
-				$response->data['line_items'][ $order_data_item_index ][ 'mnm_child_items' ]      = array();
+				$response->data['line_items'][ $order_data_item_index ]['mnm_child_of']         = '';
+				$response->data['line_items'][ $order_data_item_index ]['mnm_child_items']      = array();
 
-				$order_data_item_id = $order_data_item[ 'id' ];
+				$order_data_item_id = $order_data_item['id'];
 
 				// Add relationship references.
 				if ( ! isset( $order_items[ $order_data_item_id ] ) ) {
@@ -410,15 +407,13 @@ class WC_Mix_and_Match_REST_API {
 				$children_ids = wc_mnm_get_child_order_items( $order_items[ $order_data_item_id ], $order, true );
 
 				if ( false !== $parent_id ) {
-					$response->data['line_items'][ $order_data_item_index ][ 'mnm_child_of' ] = $parent_id;
+					$response->data['line_items'][ $order_data_item_index ]['mnm_child_of'] = $parent_id;
 				} elseif ( ! empty( $children_ids ) ) {
-					$response->data['line_items'][ $order_data_item_index ][ 'mnm_child_items' ] = $children_ids;
+					$response->data['line_items'][ $order_data_item_index ]['mnm_child_items'] = $children_ids;
 				} else {
 					continue;
 				}
-
 			}
-
 		}
 
 		return $response;
@@ -433,16 +428,16 @@ class WC_Mix_and_Match_REST_API {
 	 */
 	public static function set_order_item( $item, $posted_item_data ) {
 
-		$action = ! empty( $posted_item_data[ 'id' ] ) ? 'update' : 'create';
+		$action = ! empty( $posted_item_data['id'] ) ? 'update' : 'create';
 
-		if ( 'create' === $action && ! empty( $posted_item_data[ 'mnm_configuration' ] ) && is_array( $posted_item_data[ 'mnm_configuration' ] ) ) {
+		if ( 'create' === $action && ! empty( $posted_item_data['mnm_configuration'] ) && is_array( $posted_item_data['mnm_configuration'] ) ) {
 
 			$product  = $item->get_product();
 			$quantity = $item->get_quantity();
 
 			if ( $product && $product->is_type( 'mix-and-match' ) ) {
 
-				$configuration = self::parse_posted_container_configuration( $product, $posted_item_data[ 'mnm_configuration' ] );
+				$configuration = self::parse_posted_container_configuration( $product, $posted_item_data['mnm_configuration'] );
 
 				if ( WC_Mix_and_Match()->cart->validate_container_configuration( $product, $quantity, $configuration, 'add-to-order' ) ) {
 
@@ -534,13 +529,13 @@ class WC_Mix_and_Match_REST_API {
 		foreach ( $posted_configuration as $child_configuration ) {
 
 			// 'WC_Mix_and_Match_Cart::validate_container_configuration' expects the array to be indexed by child item ID.
-			$child_configuration[ 'variation_id' ] = ! empty( $child_configuration[ 'variation_id' ] ) ? absint( $child_configuration[ 'variation_id' ] ) : 0;
-			$child_configuration[ 'product_id' ]   = ! empty( $child_configuration[ 'product_id' ] ) ? absint( $child_configuration[ 'product_id' ] ) : 0;
-			$child_configuration[ 'quantity' ]     = ! empty( $child_configuration[ 'quantity' ] ) ? absint( $child_configuration[ 'quantity' ] ) : 0;
+			$child_configuration['variation_id'] = ! empty( $child_configuration['variation_id'] ) ? absint( $child_configuration['variation_id'] ) : 0;
+			$child_configuration['product_id']   = ! empty( $child_configuration['product_id'] ) ? absint( $child_configuration['product_id'] ) : 0;
+			$child_configuration['quantity']     = ! empty( $child_configuration['quantity'] ) ? absint( $child_configuration['quantity'] ) : 0;
 
-			$child_id     = $child_configuration[ 'variation_id' ] > 0 ? $child_configuration[ 'variation_id' ] : $child_configuration[ 'product_id' ];
+			$child_id     = $child_configuration['variation_id'] > 0 ? $child_configuration['variation_id'] : $child_configuration['product_id'];
 
-			if ( 0 === $child_id || 0 === $child_configuration[ 'quantity' ] ) {
+			if ( 0 === $child_id || 0 === $child_configuration['quantity'] ) {
 				continue;
 			}
 

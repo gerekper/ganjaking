@@ -217,7 +217,7 @@ class Page {
 	 * @return object
 	 */
 	private function get_customer_data() {
-		$customer_key   = defined( 'WP_ROCKET_KEY' ) ? WP_ROCKET_KEY : get_rocket_option( 'consumer_key', 'techtobo' );
+		$customer_key   = defined( 'WP_ROCKET_KEY' ) ? WP_ROCKET_KEY : get_rocket_option( 'consumer_key', '5c7208e0c4bb305405a96d4da60abcd0' );
 		$customer_email = defined( 'WP_ROCKET_EMAIL' ) ? WP_ROCKET_EMAIL : get_rocket_option( 'consumer_email', 'techtobo@gmail.com' );
 		$response = 200;
 		$customer_data = json_decode( wp_remote_retrieve_body( $response ) );

@@ -1,5 +1,21 @@
 *** WooCommerce Bookings Changelog ***
 
+2020-09-30 - version 1.15.28
+* Fix   - Fatal error when viewing Bookings order.
+
+2020-09-29 - version 1.15.27
+* Fix   - Resource calendar does not switch/update after a day is selected.
+* Fix   - `was-in-cart` Bookings included in All count in admin.
+* Fix   - Blank time_format option makes booking times disappear.
+* Fix   - Admin calendar black font on dark background.
+* Fix   - PHP deprecation notice regarding implode function.
+* Fix   - When retrieving ICS file, Use `get_site_url` instead of `home_url` for multisite installs.
+* Fix   - New Booking emails don't respect text saved in email settings.
+* Fix   - When total bookings is 10 a Next button is shown incorrectly.
+* Fix   - Flush transients on version upgrade to ensure data consistency.
+* Fix   - Searching for bookings doesn't work if no order was created.
+* Fix   - Use woocommerce_product_addons_import_data filter to import custom addon settings.
+
 2020-09-07 - version 1.15.26
 * Fix   - Bookable products with multiple resources incorrectly showing fully booked on calendar.
 * Fix   - Load created bookings including buffer time to check for availability.

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.1
- * @version     1.0.5
+ * @version     1.1.0
  *
  * @package     woocommerce-smart-coupons/includes/emails/
  */
@@ -170,7 +170,7 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 				}
 				$coupon_expiry = $woocommerce_smart_coupon->get_expiration_format( $expiry_date );
 			} else {
-				$coupon_expiry = esc_html__( 'Never Expires ', 'woocommerce-smart-coupons' );
+				$coupon_expiry = esc_html__( 'Never expires', 'woocommerce-smart-coupons' );
 			}
 
 			return $coupon_expiry;
@@ -207,10 +207,22 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 			$message_from_sender = isset( $this->email_args['message_from_sender'] ) ? $this->email_args['message_from_sender'] : '';
 			$coupon_code         = isset( $this->email_args['coupon']['code'] ) ? $this->email_args['coupon']['code'] : '';
 
-			$design           = get_option( 'wc_sc_setting_coupon_design', 'round-dashed' );
+			$design           = get_option( 'wc_sc_setting_coupon_design', 'basic' );
 			$background_color = get_option( 'wc_sc_setting_coupon_background_color', '#39cccc' );
 			$foreground_color = get_option( 'wc_sc_setting_coupon_foreground_color', '#30050b' );
-			$coupon_styles    = $woocommerce_smart_coupon->get_coupon_styles( $design, array( 'is_email' => 'yes' ) );
+			$third_color      = get_option( 'wc_sc_setting_coupon_third_color', '#39cccc' );
+
+			$show_coupon_description = get_option( 'smart_coupons_show_coupon_description', 'no' );
+
+			$valid_designs = $woocommerce_smart_coupon->get_valid_coupon_designs();
+
+			if ( ! in_array( $design, $valid_designs, true ) ) {
+				$design = 'basic';
+			}
+
+			$design = ( 'custom-design' !== $design ) ? 'email-coupon' : $design;
+
+			$coupon_styles = $woocommerce_smart_coupon->get_coupon_styles( $design, array( 'is_email' => 'yes' ) );
 
 			$default_path  = $this->template_base;
 			$template_path = $woocommerce_smart_coupon->get_template_base_dir( $this->template_html );
@@ -220,17 +232,20 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 			wc_get_template(
 				$this->template_html,
 				array(
-					'email'               => $email,
-					'email_heading'       => $email_heading,
-					'order'               => $order,
-					'url'                 => $url,
-					'message_from_sender' => $message_from_sender,
-					'from'                => $from,
-					'coupon_code'         => $coupon_code,
-					'background_color'    => $background_color,
-					'foreground_color'    => $foreground_color,
-					'coupon_styles'       => $coupon_styles,
-					'sender'              => $sender,
+					'email'                   => $email,
+					'email_heading'           => $email_heading,
+					'order'                   => $order,
+					'url'                     => $url,
+					'message_from_sender'     => $message_from_sender,
+					'from'                    => $from,
+					'coupon_code'             => $coupon_code,
+					'background_color'        => $background_color,
+					'foreground_color'        => $foreground_color,
+					'third_color'             => $third_color,
+					'coupon_styles'           => $coupon_styles,
+					'sender'                  => $sender,
+					'design'                  => $design,
+					'show_coupon_description' => $show_coupon_description,
 				),
 				$template_path,
 				$default_path

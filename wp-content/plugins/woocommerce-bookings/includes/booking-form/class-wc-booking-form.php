@@ -97,7 +97,7 @@ class WC_Booking_Form {
 			'timezone_conversion'        => wc_should_convert_timezone(),
 			'client_firstday'            => 'yes' === WC_Bookings_Timezone_Settings::get( 'use_client_firstday' ),
 			'server_timezone'            => wc_booking_get_timezone_string(),
-			'server_time_format'         => wc_bookings_convert_to_moment_format( get_option( 'time_format' ) ),
+			'server_time_format'         => wc_bookings_convert_to_moment_format( wc_bookings_time_format() ),
 			'i18n_store_server_time'     => esc_js( __( 'Store server time: ', 'woocommerce-bookings' ) ),
 		);
 
@@ -503,9 +503,9 @@ class WC_Booking_Form {
 
 					if ( $quantity['booked'] ) {
 						/* translators: 1: quantity available */
-						$st_block_html .= '<option data-block="' . esc_attr( date( 'Hi', $block ) ) . '" data-remaining="' . sprintf( _n( '%d left', '%d left', $quantity['available'], 'woocommerce-bookings' ), absint( $quantity['available'] ) ) . '" value="' . esc_attr( get_time_as_iso8601( $block ) ) . '">' . date_i18n( get_option( 'time_format' ), $block ) . ' (' . sprintf( _n( '%d left', '%d left', $quantity['available'], 'woocommerce-bookings' ), absint( $quantity['available'] ) ) . ')</option>';
+						$st_block_html .= '<option data-block="' . esc_attr( date( 'Hi', $block ) ) . '" data-remaining="' . sprintf( _n( '%d left', '%d left', $quantity['available'], 'woocommerce-bookings' ), absint( $quantity['available'] ) ) . '" value="' . esc_attr( get_time_as_iso8601( $block ) ) . '">' . date_i18n( wc_bookings_time_format(), $block ) . ' (' . sprintf( _n( '%d left', '%d left', $quantity['available'], 'woocommerce-bookings' ), absint( $quantity['available'] ) ) . ')</option>';
 					} else {
-						$st_block_html .= '<option data-block="' . esc_attr( date( 'Hi', $block ) ) . '" value="' . esc_attr( get_time_as_iso8601( $block ) ) . '">' . date_i18n( get_option( 'time_format' ), $block ) . '</option>';
+						$st_block_html .= '<option data-block="' . esc_attr( date( 'Hi', $block ) ) . '" value="' . esc_attr( get_time_as_iso8601( $block ) ) . '">' . date_i18n( wc_bookings_time_format(), $block ) . '</option>';
 					}
 				}
 			}
@@ -628,7 +628,7 @@ class WC_Booking_Form {
 			$end_time = $booking_data['end_time'];
 			$duration = $booking_data['duration'];
 
-			$block_html .= '<option data-duration-display="' . esc_attr( $display ) . '" data-value="' . get_time_as_iso8601( $end_time ) . '" value="' . esc_attr( $duration ) . '">' . date_i18n( get_option( 'time_format' ), $end_time ) . $display . '</option>';
+			$block_html .= '<option data-duration-display="' . esc_attr( $display ) . '" data-value="' . get_time_as_iso8601( $end_time ) . '" value="' . esc_attr( $duration ) . '">' . date_i18n( wc_bookings_time_format(), $end_time ) . $display . '</option>';
 		}
 
 		$block_html .= '</select></div>';
@@ -661,9 +661,9 @@ class WC_Booking_Form {
 				if ( $quantity['available'] > 0 ) {
 					if ( $quantity['booked'] ) {
 						/* translators: 1: quantity available */
-						$block_html .= '<li class="block" data-block="' . esc_attr( date( 'Hi', $block ) ) . '" data-remaining="' . esc_attr( $quantity['available'] ) . '" ><a href="#" data-value="' . get_time_as_iso8601( $block ) . '">' . date_i18n( get_option( 'time_format' ), $block ) . ' <small class="booking-spaces-left">(' . sprintf( _n( '%d left', '%d left', $quantity['available'], 'woocommerce-bookings' ), absint( $quantity['available'] ) ) . ')</small></a></li>';
+						$block_html .= '<li class="block" data-block="' . esc_attr( date( 'Hi', $block ) ) . '" data-remaining="' . esc_attr( $quantity['available'] ) . '" ><a href="#" data-value="' . get_time_as_iso8601( $block ) . '">' . date_i18n( wc_bookings_time_format(), $block ) . ' <small class="booking-spaces-left">(' . sprintf( _n( '%d left', '%d left', $quantity['available'], 'woocommerce-bookings' ), absint( $quantity['available'] ) ) . ')</small></a></li>';
 					} else {
-						$block_html .= '<li class="block" data-block="' . esc_attr( date( 'Hi', $block ) ) . '"><a href="#" data-value="' . get_time_as_iso8601( $block ) . '">' . date_i18n( get_option( 'time_format' ), $block ) . '</a></li>';
+						$block_html .= '<li class="block" data-block="' . esc_attr( date( 'Hi', $block ) ) . '"><a href="#" data-value="' . get_time_as_iso8601( $block ) . '">' . date_i18n( wc_bookings_time_format(), $block ) . '</a></li>';
 					}
 				}
 			}

@@ -263,6 +263,16 @@ class WoocommerceGpfFeedItem {
 	private $calculate_prices;
 
 	/**
+	 * @var array
+	 */
+	private $image_sources = [];
+
+	/**
+	 * @var array
+	 */
+	private $ordered_images = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * Store dependencies.
@@ -412,10 +422,6 @@ class WoocommerceGpfFeedItem {
 			$this->is_variation ? $this->specific_id : null
 		);
 
-		$this->image_link = $this->get_the_product_thumbnail_src( $this->specific_product, $this->image_style );
-		if ( $this->is_variation && empty( $this->image_link ) ) {
-			$this->image_link = $this->get_the_product_thumbnail_src( $this->general_product, $this->image_style );
-		}
 		$this->purchase_link       = $this->specific_product->get_permalink();
 		$this->is_in_stock         = $this->specific_product->is_in_stock();
 		$this->stock_quantity      = $this->specific_product->get_stock_quantity();
@@ -425,8 +431,8 @@ class WoocommerceGpfFeedItem {
 
 		// Add other elements.
 		$this->general_elements();
+		$this->get_images();
 
-		$this->get_additional_images();
 		if ( 'google' === $this->feed_format ) {
 			$this->shipping_height_elements();
 			$this->shipping_width_elements();
@@ -801,22 +807,19 @@ class WoocommerceGpfFeedItem {
 	}
 
 	/**
-	 * Retrieve Post Thumbnail URL
+	 * Get the ID of the main product image.
 	 *
-	 * @param WC_Product $product The product to find the image for.
-	 * @param string $size (optional) Optional. Image size.  Defaults to 'post-thumbnail'.
+	 * @param $product
 	 *
-	 * @return string|bool         Image src, or false if the post does not have a thumbnail.
+	 * @return int|false
 	 */
-	private function get_the_product_thumbnail_src( $product, $size = 'post-thumbnail' ) {
-
+	private function get_the_product_thumbnail_id( $product ) {
 		$post_thumbnail_id = $product->get_image_id();
 		if ( ! $post_thumbnail_id ) {
 			return false;
 		}
-		list( $src ) = wp_get_attachment_image_src( $post_thumbnail_id, $size, false );
 
-		return $src;
+		return $post_thumbnail_id;
 	}
 
 	/**
@@ -945,89 +948,106 @@ class WoocommerceGpfFeedItem {
 	/**
 	 * Add additional images to the feed item.
 	 */
-	private function get_additional_images() {
+	private function get_images() {
+
+		// Grab the variation thumbnail if available.
+		if ( $this->is_variation ) {
+			$image_id           = $this->get_the_product_thumbnail_id( $this->general_product );
+			list( $image_link ) = wp_get_attachment_image_src( $image_id, $this->image_style, false );
+			if ( ! empty( $this->image_link ) ) {
+				$this->register_image_source( $image_id, $image_link, 'variation_image' );
+			}
+		}
+
+		// Grab the "product image" from main / parent product.
+		$image_id            = $this->get_the_product_thumbnail_id( $this->specific_product );
+		list ( $image_link ) = wp_get_attachment_image_src( $image_id, $this->image_style, false );
+		if ( ! empty( $image_link ) ) {
+			$this->register_image_source( $image_id, $image_link, 'product_image' );
+		}
 
 		// Get the product ID to inspect for additional images.
 		$product_id = $this->specific_id;
 
 		// Work out whether to include additional images on variations. Bail if not.
 		$include_on_variations = apply_filters( 'woocommerce_gpf_include_additional_images_on_variations', true, $product_id );
-		if ( $this->is_variation && ! $include_on_variations ) {
-			return;
-		}
-
-		// When processing additional images on variations, grab them from the main product.
-		if ( $this->is_variation ) {
-			$product_id = $this->general_id;
-		}
-
-		$excluded_ids = array();
-
-		// Add main product image.
-		$featured_image_id = $this->general_product->get_image_id();
-		if ( $featured_image_id ) {
-			$full_image_src            = wp_get_attachment_image_src( $featured_image_id, $this->image_style, false );
-			$this->additional_images[] = $full_image_src[0];
-			$excluded_ids[]            = $featured_image_id;
-		}
-
-		// List product gallery images first.
-		if ( apply_filters( 'woocommerce_gpf_include_product_gallery_images', true ) ) {
-			$product_gallery_images = get_post_meta( $product_id, '_product_image_gallery', true );
-			if ( ! empty( $product_gallery_images ) ) {
-				$product_gallery_images = explode( ',', $product_gallery_images );
-				foreach ( $product_gallery_images as $product_gallery_image_id ) {
-					// Skip it if we've already processed it.
-					if ( in_array( $product_gallery_image_id, $excluded_ids, true ) ) {
-						continue;
-					}
-					$full_image_src = wp_get_attachment_image_src( $product_gallery_image_id, $this->image_style, false );
-					// Skip if invalid / missing.
-					if ( ! $full_image_src ) {
-						continue;
-					}
-					$this->additional_images[] = $full_image_src[0];
-					$excluded_ids[]            = $product_gallery_image_id;
-				}
-			}
-		}
-		if ( apply_filters( 'woocommerce_gpf_include_attached_images', true ) ) {
-			$found = false;
+		if ( ! $this->is_variation || $include_on_variations ) {
+			// When processing additional images on variations, grab them from the main product.
 			if ( $this->is_variation ) {
-				$images = wp_cache_get( 'children_' . $product_id, 'woocommerce_gpf', false, $found );
+				$product_id = $this->general_id;
 			}
-			if ( false === $found ) {
-				$images = get_children(
-					array(
-						'post_parent'    => $product_id,
-						'post_status'    => 'inherit',
-						'post_type'      => 'attachment',
-						'post_mime_type' => 'image',
-						'order'          => 'ASC',
-						'orderby'        => 'menu_order',
-					)
-				);
-				if ( $this->is_variation ) {
-					wp_cache_set( 'children_' . $product_id, $images, 'woocommerce_gpf', 10 );
+
+			// List product gallery images first.
+			if ( apply_filters( 'woocommerce_gpf_include_product_gallery_images', true ) ) {
+				$product_gallery_images = get_post_meta( $product_id, '_product_image_gallery', true );
+				if ( ! empty( $product_gallery_images ) ) {
+					$product_gallery_images = explode( ',', $product_gallery_images );
+					foreach ( $product_gallery_images as $product_gallery_image_id ) {
+						$full_image_src = wp_get_attachment_image_src( $product_gallery_image_id, $this->image_style, false );
+						// Skip if invalid / missing.
+						if ( ! $full_image_src ) {
+							continue;
+						}
+						$this->register_image_source( $product_gallery_image_id, $full_image_src[0], 'product_gallery' );
+					}
 				}
 			}
 
-			if ( is_array( $images ) && count( $images ) ) {
-				foreach ( $images as $image ) {
-					if ( in_array( $image->ID, $excluded_ids, true ) ) {
-						continue;
+			// Then attached media.
+			if ( apply_filters( 'woocommerce_gpf_include_attached_images', true ) ) {
+				$found = false;
+				if ( $this->is_variation ) {
+					$images = wp_cache_get( 'children_' . $product_id, 'woocommerce_gpf', false, $found );
+				}
+				if ( false === $found ) {
+					$images = get_children(
+						array(
+							'post_parent'    => $product_id,
+							'post_status'    => 'inherit',
+							'post_type'      => 'attachment',
+							'post_mime_type' => 'image',
+							'order'          => 'ASC',
+							'orderby'        => 'menu_order',
+						)
+					);
+					if ( $this->is_variation ) {
+						wp_cache_set( 'children_' . $product_id, $images, 'woocommerce_gpf', 10 );
 					}
-					$full_image_src            = wp_get_attachment_image_src( $image->ID, $this->image_style, false );
-					$this->additional_images[] = $full_image_src[0];
-					$excluded_ids[]            = $image->ID;
+				}
+
+				if ( is_array( $images ) && count( $images ) ) {
+					foreach ( $images as $image ) {
+						$full_image_src = wp_get_attachment_image_src( $image->ID, $this->image_style, false );
+						$this->register_image_source( $image->ID, $full_image_src[0], 'attachment' );
+					}
 				}
 			}
 		}
 
-		// Filter out the main image from the additional image array.
-		foreach ( $this->additional_images as $key => $image_url ) {
-			if ( $image_url === $this->image_link ) {
-				unset( $this->additional_images[ $key ] );
+		// Uniquefy the ordered_image_sources array...
+		$this->ordered_images = array_unique( $this->ordered_images, SORT_REGULAR );
+
+		// Exclude any excluded images based on ID.
+		$excluded_ids = $this->general_product->get_meta( 'woocommerce_gpf_excluded_media_ids', true );
+		if ( empty( $excluded_ids ) && ! is_array( $excluded_ids ) ) {
+			$excluded_ids = [];
+		}
+
+		/**
+		 * Move the first found image into the primary image slot, and the
+		 * rest into the "additional images" list.
+		 */
+		$done_primary_image = false;
+		foreach ( $this->ordered_images as $image ) {
+			// Skip if excluded.
+			if ( in_array( $image['id'], $excluded_ids, true ) ) {
+				continue;
+			}
+			if ( $done_primary_image ) {
+				$this->additional_images[] = $image['url'];
+			} else {
+				$this->image_link   = $image['url'];
+				$done_primary_image = true;
 			}
 		}
 	}
@@ -1121,6 +1141,7 @@ class WoocommerceGpfFeedItem {
 				$results[ $gpf_key ] = $value;
 			}
 		}
+
 		return $this->common->remove_blanks( $results );
 	}
 
@@ -1350,5 +1371,72 @@ class WoocommerceGpfFeedItem {
 			$wc_class->countries->get_base_postcode(),
 			$wc_class->countries->get_base_city(),
 		);
+	}
+
+	/**
+	 * Generate an array of image URLs keyed by ID, showing how they were retrieved. Options are:
+	 * - 'product_image'   - the image is set as the product image on the product
+	 * - 'product_gallery' - the image is set in the product gallery
+	 * - 'attachment'      - the image is attached to the post via WordPress' media mechanism
+	 * @return array
+	 */
+	public function get_image_sources_by_id() {
+		return $this->image_sources;
+	}
+
+	/**
+	 * Generate an array of image URLs keyed by URL, showing how they were retrieved. Options are:
+	 * - 'product_image'   - the image is set as the product image on the product
+	 * - 'product_gallery' - the image is set in the product gallery
+	 * - 'attachment'      - the image is attached to the post via WordPress' media mechanism
+	 * @return array
+	 */
+	public function get_image_sources_by_url() {
+		$results = [];
+		foreach ( $this->image_sources as $id => $data ) {
+			$results[ $data['url'] ]       = $data;
+			$results[ $data['url'] ]['id'] = $id;
+		}
+
+		return $results;
+	}
+
+	/**
+	 * Register an image source for a URL.
+	 *
+	 * @param $image_id int The media ID
+	 * @param $image_link string The URL of the image
+	 * @param $source string     The source for that image. @see get_image_sources()
+	 */
+	private function register_image_source( $image_id, $image_link, $source ) {
+		if ( ! isset( $this->image_sources[ $image_id ] ) ) {
+			$this->image_sources[ $image_id ] = [
+				'url'     => $image_link,
+				'sources' => [
+					$source,
+				],
+			];
+			$this->ordered_images[]           = [
+				'id'  => (int) $image_id,
+				'url' => $image_link,
+			];
+
+			return;
+		}
+		$this->image_sources[ $image_id ]['sources'] = array_unique(
+			array_merge(
+				$this->image_sources[ $image_id ]['sources'],
+				[
+					$source,
+				]
+			)
+		);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_ordered_images() {
+		return $this->ordered_images;
 	}
 }

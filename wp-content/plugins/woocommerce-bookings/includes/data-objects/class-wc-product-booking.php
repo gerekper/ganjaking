@@ -1551,14 +1551,14 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 						/* translators: 1: available quantity 2: booking block date */
 						_n( 'There is a maximum of %1$d place remaining on %2$s', 'There are a maximum of %1$d places remaining on %2$s', $display_available_qty , 'woocommerce-bookings' ),
 						$display_available_qty,
-						date_i18n( wc_date_format(), $block )
+						date_i18n( wc_bookings_date_format(), $block )
 					) );
 				} else {
 					return new WP_Error( 'Error', sprintf(
 						/* translators: 1: available quantity 2: booking block date */
 						_n( 'There is a maximum of %1$d place remaining on %2$s', 'There are a maximum of %1$d places remaining on %2$s', $display_available_qty , 'woocommerce-bookings' ),
 						$display_available_qty,
-						date_i18n( wc_date_format(), $block )
+						date_i18n( wc_bookings_date_format(), $block )
 					) );
 				}
 			}
@@ -2312,7 +2312,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 
 			if ( strtotime( $data['_date'] . ' ' . $data['_time'] ) < $min_date ) {
 				/* translators: 1: minimum date */
-				return new WP_Error( 'Error', sprintf( __( 'The earliest booking possible is currently %s.', 'woocommerce-bookings' ), date_i18n( wc_date_format() . ' ' . get_option( 'time_format' ), $min_date ) ) );
+				return new WP_Error( 'Error', sprintf( __( 'The earliest booking possible is currently %s.', 'woocommerce-bookings' ), date_i18n( wc_bookings_date_format() . ' ' . wc_bookings_time_format(), $min_date ) ) );
 			}
 		}
 		$max = $this->get_max_date();
@@ -2321,7 +2321,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 			$max_date = strtotime( "+{$max['value']} {$max['unit']}", $now );
 			if ( strtotime( $data['_date'] . ' ' . $data['_time'] ) > $max_date ) {
 				/* translators: 1: maximum date */
-				return new WP_Error( 'Error', sprintf( __( 'The latest booking possible is currently %s.', 'woocommerce-bookings' ), date_i18n( wc_date_format() . ' ' . get_option( 'time_format' ), $max_date ) ) );
+				return new WP_Error( 'Error', sprintf( __( 'The latest booking possible is currently %s.', 'woocommerce-bookings' ), date_i18n( wc_bookings_date_format() . ' ' . wc_bookings_time_format(), $max_date ) ) );
 			}
 		}
 

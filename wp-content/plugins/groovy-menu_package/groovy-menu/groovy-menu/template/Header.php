@@ -158,6 +158,10 @@ function groovyMenu( $args = array() ) {
 		$args['gm_preset_id'] = null;
 	}
 
+	if ( 'none' === $args['gm_preset_id'] ) {
+		return null;
+	}
+
 
 	$styles = new GroovyMenuStyle( $args['gm_preset_id'] );
 
@@ -197,6 +201,12 @@ function groovyMenu( $args = array() ) {
 	$additional_html_class = '';
 	if ( ! empty( $groovyMenuSettings['extra_navbar_classes'] ) ) {
 		$additional_html_class = ' ' . implode( ' ', $groovyMenuSettings['extra_navbar_classes'] );
+	}
+
+
+	if ( class_exists( 'GroovyMenuActions' ) ) {
+		// Do custom shortcodes from preset.
+		GroovyMenuActions::do_preset_shortcodes( $styles );
 	}
 
 
@@ -334,6 +344,9 @@ function groovyMenu( $args = array() ) {
 		$show_mobile_menu = false;
 	}
 
+	$header_style = intval( $groovyMenuSettings['header']['style'] );
+
+
 	// Clean output, first level.
 	ob_start();
 
@@ -381,7 +394,7 @@ function groovyMenu( $args = array() ) {
 		}
 
 		$output_html .= '
-				<div class="gm-toolbar">
+				<div class="gm-toolbar" id="gm-toolbar">
 					<div class="gm-toolbar-bg"></div>
 					<div class="gm-container">
 						<div class="gm-toolbar-left">';
@@ -521,7 +534,6 @@ function groovyMenu( $args = array() ) {
 				<div class="gm-inner-bg"></div>
 				<div class="gm-container">';
 
-	$header_style = intval( $groovyMenuSettings['header']['style'] );
 	if ( 5 === $header_style ) {
 		$output_html .= '<span class="gm-menu-btn--expanded">
 						<span class="gm-menu-btn__inner">';
@@ -567,8 +579,6 @@ function groovyMenu( $args = array() ) {
 
 		$logo_arr  = array();
 		$logo_html = '';
-
-		$header_style = intval( $groovyMenuSettings['header']['style'] );
 
 		if ( in_array( $header_style, array( 4, 5 ), true ) ) {
 			$logo_arr['default'] = $styles->getGlobal( 'logo', 'logo_style_4' );
@@ -631,6 +641,7 @@ function groovyMenu( $args = array() ) {
 			$img_src    = $img;
 			$img_width  = '';
 			$img_height = '';
+			$img_alt    = '';
 
 			$filetype = wp_check_filetype( $img );
 
@@ -652,15 +663,21 @@ function groovyMenu( $args = array() ) {
 				$img_src = $img_src_wpml;
 			}
 
+			// Image Alt attribute.
+			if ( $groovyMenuSettings['logoShowAlt'] ) {
+				$img_alt = $groovyMenuSettings['logoShowTitleAsAlt'] ? get_the_title( $attach_id ) : get_post_meta( $attach_id, '_wp_attachment_image_alt', true );
+				$img_alt = esc_attr( $img_alt );
+			}
+
 			switch ( $key ) {
 				case 'default':
 					$additional_class = ( in_array( $header_style, array( 4, 5 ), true ) ) ? 'header-sidebar' : 'default';
 
-					$logo_html .= '<img src="' . $img_src . '"' . $img_width . $img_height . ' class="gm-logo__img gm-logo__img-' . $additional_class . '" alt="" />';
+					$logo_html .= '<img src="' . $img_src . '"' . $img_width . $img_height . ' class="gm-logo__img gm-logo__img-' . $additional_class . '" alt="' . $img_alt . '" />';
 					break;
 
 				default:
-					$logo_html .= '<img src="' . $img_src . '"' . $img_width . $img_height . ' class="gm-logo__img gm-logo__img-' . $key . '" alt="" />';
+					$logo_html .= '<img src="' . $img_src . '"' . $img_width . $img_height . ' class="gm-logo__img gm-logo__img-' . $key . '" alt="' . $img_alt . '" />';
 					break;
 			}
 		}
@@ -699,18 +716,52 @@ function groovyMenu( $args = array() ) {
 
 
 	$output_html .= '</div>';
-	$output_html .= '<span class="gm-menu-btn">
-						<span class="gm-menu-btn__inner">';
 
-	$menu_icon = 'fa fa-bars';
-	if ( ! empty( $styles->getGlobal( 'misc_icons', 'menu_icon' ) ) ) {
-		$menu_icon = $styles->getGlobal( 'misc_icons', 'menu_icon' );
+
+	// Woocomerce minicart for mobile top bar.
+	if (
+		$groovyMenuSettings['mobileShowWoominicart'] &&
+		! gm_get_shop_is_catalog() &&
+		$groovyMenuSettings['woocommerceCart'] &&
+		class_exists( 'WooCommerce' ) &&
+		function_exists( 'wc_get_page_id' )
+	) {
+		global $woocommerce;
+
+		$qty = 0;
+		if ( $woocommerce && isset( $woocommerce->cart ) ) {
+			$qty = $woocommerce->cart->get_cart_contents_count();
+		}
+		$cartIcon = 'gmi gmi-bag';
+		if ( $styles->getGlobal( 'misc_icons', 'cart_icon' ) ) {
+			$cartIcon = $styles->getGlobal( 'misc_icons', 'cart_icon' );
+		}
+
+		$output_html .= '
+				<div class="gm-menu-actions-wrapper">
+					<div class="gm-menu-action-btn gm-minicart">
+						<a href="' . get_permalink( wc_get_page_id( 'cart' ) ) . '" class="gm-minicart-link">
+							<div class="gm-badge">' . groovy_menu_woocommerce_mini_cart_counter( $qty ) . '</div>
+							<i class="gm-icon ' . esc_attr( $cartIcon ) . '"></i>
+						</a>
+					</div>
+				</div>';
 	}
 
-	$output_html .= '	<i class="' . esc_attr( $menu_icon ) . '"></i>
+
+	if ( $groovyMenuSettings['mobileIndependentCssHamburger'] && 2 !== $header_style ) {
+		// do nothing ...
+	} else {
+		$output_html .= '<span class="gm-menu-btn">
+						<span class="gm-menu-btn__inner">';
+		$menu_icon   = 'fa fa-bars';
+		if ( ! empty( $styles->getGlobal( 'misc_icons', 'menu_icon' ) ) ) {
+			$menu_icon = $styles->getGlobal( 'misc_icons', 'menu_icon' );
+		}
+		$output_html .= '	<i class="' . esc_attr( $menu_icon ) . '"></i>
 					</span>
 					</span>';
-
+	}
 
 	ob_start();
 	/**
@@ -793,14 +844,12 @@ function groovyMenu( $args = array() ) {
 
 
 		if ( $styles->get( 'general', 'show_divider' ) ) {
-			$header_style = $styles->get( 'general', 'header' );
-			if ( isset( $header_style['style'] ) && 1 === $header_style['style'] ) {
+			if ( 1 === $header_style ) {
 				$output_html .= '<span class="gm-nav-inline-divider"></span>';
 			}
 		}
 
 		if ( 'disable' !== $searchForm ) {
-
 			$searchIcon = 'gmi gmi-zoom-search';
 			if ( $styles->getGlobal( 'misc_icons', 'search_icon' ) ) {
 				$searchIcon = $styles->getGlobal( 'misc_icons', 'search_icon' );
@@ -809,8 +858,6 @@ function groovyMenu( $args = array() ) {
 			if ( method_exists( 'GroovyMenuUtils', 'getSearchBlock' ) ) {
 				$output_html .= GroovyMenuUtils::getSearchBlock( $searchIcon );
 			}
-
-
 		}
 
 		if ( ! gm_get_shop_is_catalog() && $groovyMenuSettings['woocommerceCart'] && class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_id' ) ) {
@@ -895,9 +942,30 @@ function groovyMenu( $args = array() ) {
 		if ( $custom_css_class ) {
 			$output_html .= ' ' . esc_attr( $custom_css_class );
 		}
+		if ( 'slider' === $styles->get( 'mobile', 'mobile_submenu_style' ) ) {
+			$output_html .= ' gm-mobile-submenu-style-slider';
+		}
 		$output_html .= '">';
-		$output_html .= '<div class="gm-grid-container d-flex flex-column h-100">
-			<div>';
+
+		if ( $groovyMenuSettings['mobileIndependentCssHamburger'] && 2 !== $header_style ) {
+			$output_html .= '<div class="gm-burger hamburger"><div class="hamburger-box"><div class="hamburger-inner"></div></div></div>';
+		}
+
+		$output_html .= '<div class="gm-grid-container d-flex flex-column h-100">';
+
+
+		ob_start();
+		/**
+		 * Fires at the mobile main menu top.
+		 *
+		 * @since 2.3.2
+		 */
+		do_action( 'gm_mobile_main_menu_top' );
+		$output_html .= ob_get_clean();
+
+
+		// Mobile Menu wrapper.
+		$output_html .= '<div class="gm-mobile-menu-container">';
 
 		$args['gm_navigation_mobile'] = true;
 
@@ -930,7 +998,7 @@ function groovyMenu( $args = array() ) {
 		$output_html .= ob_get_clean();
 
 
-		$output_html .= '</div>';
+		$output_html .= '</div>'; // .gm-mobile-menu-container
 		$output_html .= '<div class="flex-grow-1"></div>';
 
 
@@ -944,7 +1012,7 @@ function groovyMenu( $args = array() ) {
 		$output_html .= ob_get_clean();
 
 
-		$output_html .= '<div class="d-flex justify-content-center align-items-center text-center mb-4 mt-5">';
+		$output_html .= '<div class="gm-mobile-action-area-wrapper d-flex justify-content-center align-items-center text-center mb-4 mt-5">';
 
 		$searchForm = $groovyMenuSettings['searchForm'];
 		$searchIcon = 'gmi gmi-zoom-search';
@@ -1033,8 +1101,9 @@ function groovyMenu( $args = array() ) {
 		$output_html .= ob_get_clean();
 
 
-		$output_html .= '</div>';
-		$output_html .= '</div>';
+		$output_html .= '</div>'; // .gm-mobile-action-area-wrapper
+		$output_html .= '</div>'; // .gm-grid-container
+		$output_html .= '<div class="gm-mobile-postwrap"></div>';
 		$output_html .= '</aside>';
 	} // end of if $show_mobile_menu.
 

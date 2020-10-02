@@ -1,5 +1,5 @@
 {
-  "version": "14.9",
-  "release_description": "We now have Hebrew keyphrase recognition, Polish morphology and some great performance improvements!",
-  "shortlink": "https://yoa.st/14-9-premium"
+  "version": "15.0",
+  "release_description": "Arabic wordforms and readability analysis, a Table of Contents block, support for jump links and all settings are now in the Yoast sidebar for the block editor.",
+  "shortlink": "https://yoa.st/15-0-premium"
 }

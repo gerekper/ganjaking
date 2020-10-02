@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Intuit Payments Gateway
  * Plugin URI: https://woocommerce.com/products/intuit-qbms/
+ * Documentation URI: https://docs.woocommerce.com/document/woocommerce-intuit-qbms/
  * Description: Accept credit cards in WooCommerce with the Intuit Payments gateway
  * Author: SkyVerge
  * Author URI: https://woocommerce.com/
- * Version: 2.7.5
+ * Version: 2.8.1
  * Text Domain: woocommerce-gateway-intuit-payments
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +23,7 @@
  *
  * Woo: 272221:56ee7c24d725409e3244401ed625b4f3
  * WC requires at least: 3.0.9
- * WC tested up to: 4.3.0
+ * WC tested up to: 4.5.2
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -59,7 +60,7 @@ class WC_Intuit_Payments_Loader {
 	const MINIMUM_WC_VERSION = '3.0.9';
 
 	/** SkyVerge plugin framework version */
-	const FRAMEWORK_VERSION = '5.7.1';
+	const FRAMEWORK_VERSION = '5.8.1';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Intuit Payments Gateway';
@@ -85,6 +86,8 @@ class WC_Intuit_Payments_Loader {
 		add_action( 'admin_init', array( $this, 'add_plugin_notices' ) );
 
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
+
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
@@ -328,6 +331,8 @@ class WC_Intuit_Payments_Loader {
 	/**
 	 * Displays any admin notices added with \WC_Intuit_Payments_Loader::add_admin_notice()
 	 *
+	 * @internal
+	 *
 	 * @since 2.3.0
 	 */
 	public function admin_notices() {
@@ -342,6 +347,24 @@ class WC_Intuit_Payments_Loader {
 			</div>
 			<?php
 		}
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 
@@ -369,9 +392,7 @@ class WC_Intuit_Payments_Loader {
 	 */
 	protected function get_environment_message() {
 
-		$message = sprintf( 'The minimum PHP version required for this plugin is %1$s. You are running %2$s.', self::MINIMUM_PHP_VERSION, PHP_VERSION );
-
-		return $message;
+		return sprintf( 'The minimum PHP version required for this plugin is %1$s. You are running %2$s.', self::MINIMUM_PHP_VERSION, PHP_VERSION );
 	}
 
 

@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
 
 
 /**
@@ -286,14 +286,15 @@ class WC_Intuit_QBMS_API_Response implements Framework\SV_WC_Payment_Gateway_API
 
 
 	/**
-	 * Returns the main response element.  QBMS XML API responses consist of a
-	 * Signon response portion, as well as an action response portion.  Since
-	 * the element name of the action response portion varies depending upon
-	 * the particular response, yet they share a lot of commonalities, we take
-	 * a generic approach to retrieving that element
+	 * Gets the main response element.
+	 *
+	 * QBMS XML API responses consist of a Signon response portion, as well as an action response portion.
+	 * Since the element name of the action response portion varies depending upon the particular response, yet they share a lot of commonalities,
+	 * we take a generic approach to retrieving that element.
 	 *
 	 * @since 1.0
-	 * @return SimpleXMLElement the add response element, or null if there is none
+	 *
+	 * @return null|SimpleXMLElement the add response element, or null if there is none
 	 */
 	protected function get_action_response_element() {
 
@@ -301,6 +302,8 @@ class WC_Intuit_QBMS_API_Response implements Framework\SV_WC_Payment_Gateway_API
 		if ( $this->response_xml->QBMSXMLMsgsRs ) {
 			return current( $this->response_xml->QBMSXMLMsgsRs->children() );
 		}
+
+		return null;
 	}
 
 
@@ -318,7 +321,7 @@ class WC_Intuit_QBMS_API_Response implements Framework\SV_WC_Payment_Gateway_API
 	public function get_user_message() {
 
 		$message_helper = new Framework\SV_WC_Payment_Gateway_API_Response_Message_Helper( 'woocommerce-gateway-intuit-payments' );
-		$user_message = null;
+		$user_message   = null;
 
 		switch ( $this->get_status_code() ) {
 
@@ -326,7 +329,7 @@ class WC_Intuit_QBMS_API_Response implements Framework\SV_WC_Payment_Gateway_API
 				// just get the validation error
 				$user_message = preg_replace('/.*error:/', '', $this->get_transaction_status_message() );
 
-				if ( 'Card Verification Code not available.' == $message ) {
+				if ( 'Card Verification Code not available.' === $user_message ) {
 					$user_message = $message_helper->get_user_message( 'csc_missing' );
 				}
 				// otherwise just use the string from Intuit (ie "Incorrect Street Address and Zip Code", and who knows what else)

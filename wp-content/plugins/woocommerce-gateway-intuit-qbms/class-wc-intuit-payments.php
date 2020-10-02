@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
 
 /**
  * The main class for the Intuit Payments Gateway.  This class handles all the
@@ -42,7 +42,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string the plugin version number */
-	const VERSION = '2.7.5';
+	const VERSION = '2.8.1';
 
 	/** string the plugin id */
 	const PLUGIN_ID = 'intuit_payments';
@@ -173,22 +173,20 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 	 */
 	protected function get_deprecated_hooks() {
 
-		$hooks = array(
-			'wc_gateway_intuit_qbms_manage_my_payment_methods' => array(
+		return [
+			'wc_gateway_intuit_qbms_manage_my_payment_methods' => [
 				'version'     => '2.0.0',
 				'removed'     => true,
 				'replacement' => 'wc_' . $this->get_id() . '_my_payment_methods_table_title',
-				'map'         => true,
-			),
-			'wc_gateway_intuit_qbms_tokenize_payment_method_text' => array(
+				'map'         => false,
+			],
+			'wc_gateway_intuit_qbms_tokenize_payment_method_text' => [
 				'version'     => '2.0.0',
 				'removed'     => true,
 				'replacement' => 'wc_' . self::QBMS_CREDIT_CARD_ID . '_tokenize_payment_method_text',
 				'map'         => true,
-			),
-		);
-
-		return $hooks;
+			],
+		];
 	}
 
 

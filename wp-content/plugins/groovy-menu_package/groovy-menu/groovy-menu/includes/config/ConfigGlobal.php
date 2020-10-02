@@ -13,6 +13,9 @@ if ( ! empty( $gm_supported_module['post_types'] ) ) {
 
 $groovy_menu_preset_class = new GroovyMenuPreset();
 
+$default_arr = array( 'default' => esc_html__( 'First preset from Groovy Menu dashboard', 'groovy-menu' ) );
+$none_arr    = array( 'none' => '--- ' . esc_html__( 'Hide Groovy menu', 'groovy-menu' ) . ' ---' );
+
 return array(
 	'logo'        => array(
 		'title'  => esc_html__( 'Logo', 'groovy-menu' ),
@@ -483,6 +486,12 @@ return array(
 				'default'     => false,
 				'description' => esc_html__( 'For presets settings. When turning on, the Google fonts will be connected from local upload folder. Turning off option for use the Google CDN service.', 'groovy-menu' ),
 			),
+			'disable_local_font_awesome' => array(
+				'type'        => 'checkbox',
+				'title'       => esc_html__( 'Disable Font Awesome', 'groovy-menu' ),
+				'default'     => false,
+				'description' => esc_html__( 'Disable loading Font Awesome from Groovy menu at the front-end side of the site', 'groovy-menu' ),
+			),
 			'allow_import_online_library' => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Allow fetching presets from online library', 'groovy-menu' ),
@@ -503,7 +512,7 @@ return array(
 			'default_master_preset' => array(
 				'title'       => esc_html__( 'Default preset for all content', 'groovy-menu' ),
 				'type'        => 'select',
-				'options'     => array( 'default' => esc_html__( 'First preset from Groovy Menu dashboard', 'groovy-menu' ) ) + $groovy_menu_preset_class::getAll( true ),
+				'options'     => $default_arr + $none_arr + $groovy_menu_preset_class::getAll( true ),
 				'description' => '',
 				'default'     => strval( $groovy_menu_preset_class::getDefaultPreset( true ) ),
 			),

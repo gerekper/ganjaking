@@ -43,7 +43,7 @@ class WoocommerceProductFeedsDbManager {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 */
 	public function check_db() {
-		// FIXME - do we need locking?
+		// TODO - do we need locking?
 		$current_version = (int) get_option( 'woocommerce_gpf_db_version', 1 );
 		if ( $current_version >= WOOCOMMERCE_GPF_DB_VERSION ) {
 			return;

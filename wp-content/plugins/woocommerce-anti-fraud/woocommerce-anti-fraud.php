@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 2.9
+ * Version: 2.9.1
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * License: GPL v3
@@ -95,6 +95,8 @@ class WooCommerce_Anti_Fraud {
 			$this->init();
 		}
 		register_activation_hook( __FILE__, array($this,'save_default_settings' ) );
+		register_activation_hook( __FILE__, array($this,'deactivate_events_on_active_plugin' ) );
+		register_deactivation_hook( __FILE__, array($this,'deactivate_events' ) );
 		add_action( 'admin_init', array( $this, 'admin_scripts' ) );
 		add_action( 'wp_ajax_my_action',array($this, 'my_action' ));
 		add_action( 'wp_ajax_nopriv_my_action',array($this, 'my_action' ) );
@@ -109,6 +111,44 @@ class WooCommerce_Anti_Fraud {
 		add_action('admin_head', array( $this, 'get_device_tracking_script'), 100, 100);
 		add_action('wp_head', array( $this, 'get_device_tracking_script'), 100, 100);
 		
+	}
+
+	public function deactivate_events_on_active_plugin($hook) {
+
+		$crons = _get_cron_array();
+	    if ( empty( $crons ) ) {
+	        return;
+	    }
+	     
+	    foreach( $crons as $timestamp => $cron ) {
+	       	
+	        if ( ! empty( $cron['my_hourly_event'] ) )  {
+	            unset( $crons[$timestamp]['my_hourly_event'] );
+	        }
+	    }
+	    _set_cron_array( $crons );
+	}
+
+	public function deactivate_events($hook) {
+
+		$crons = _get_cron_array();
+	    if ( empty( $crons ) ) {
+	        return;
+	    }
+	    
+	    foreach( $crons as $timestamp => $cron ) {
+	       		
+	       	if ( ! empty( $cron['wc-af-check'] ) )  {
+	            unset( $crons[$timestamp]['wc-af-check'] );
+	        }
+	        if ( ! empty( $cron['wp_af_paypal_verification'] ) )  {
+	            unset( $crons[$timestamp]['wp_af_paypal_verification'] );
+	        }
+	        if ( ! empty( $cron['wp_af_my_hourly_event'] ) )  {
+	            unset( $crons[$timestamp]['wp_af_my_hourly_event'] );
+	        }
+	    }
+	    _set_cron_array( $crons );
 	}
 
 	/**

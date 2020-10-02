@@ -127,6 +127,13 @@ class WC_Box_Office_Settings {
 				'desc'    => __( 'This will send an email to the contact address for each ticket whenever it is changed.', 'woocommerce-box-office' ),
 				'id'      => 'box_office_enable_ticket_emails',
 			),
+			array(
+				'name'    => __( 'Disable Ticket Editing', 'woocommerce-box-office' ),
+				'type'    => 'checkbox',
+				'default' => 'no',
+				'desc'    => __( 'This will disable customers to edit their purchased tickets.', 'woocommerce-box-office' ),
+				'id'      => 'box_office_disable_edit_tickets',
+			),
 			array( 'type' => 'sectionend', 'id' => 'box_office_default_product_settings_title' ),
 
 			array(

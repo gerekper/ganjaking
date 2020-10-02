@@ -50,6 +50,11 @@ class WC_Points_Rewards_Discount {
 			return $data;
 		}
 
+		// Only filter for frontend cart calculations.
+		if ( ! WC()->cart || ! WC()->session ) {
+			return $data;
+		}
+
 		// note: we make our points discount "greedy" so as many points as possible are
 		//   applied to the order.  However we also want to play nice with other discounts
 		//   so if another coupon is applied we want to use less points than otherwise.

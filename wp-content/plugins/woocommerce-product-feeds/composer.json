@@ -19,6 +19,7 @@
             "./src/common/woocommerce-gpf-status-report.php",
             "./src/common/woocommerce-gpf-template-loader.class.php",
             "./src/common/woocommerce-product-feeds-db-manager.php",
+            "./src/common/woocommerce-product-feeds-feed-image-manager.php",
             "./src/common/woocommerce-product-feeds-integration-manager.php",
             "./src/common/woocommerce-product-feeds-term-depth-repository.php",
 

@@ -126,7 +126,7 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 		$settings = get_option( 'woocommerce_gpf_config', array() );
 
 		$woocommerce_product = wc_get_product( $product_id );
-		if ( ! $woocommerce_product ) {
+		if ( empty( $woocommerce_product ) ) {
 			// It is not a product. We are done.
 			return;
 		}

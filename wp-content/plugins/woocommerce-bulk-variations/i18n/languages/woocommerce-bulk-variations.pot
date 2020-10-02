@@ -1,0 +1,179 @@
+# Copyright (C) 2020 Lucas Stark
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Bulk Variations 1.6.6\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com\n"
+"POT-Creation-Date: 2020-05-06 12:48:49+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"X-Generator: grunt-wp-i18n1.0.0\n"
+
+#: dist/woocommerce-bulk-variations/templates/single-product/bulk-variable-buttons.php:5
+#: dist/woocommerce-bulk-variations/templates/single-product/bulk-variable-buttons.php:10
+#: templates/single-product/bulk-variable-buttons.php:5
+#: templates/single-product/bulk-variable-buttons.php:10
+msgid "Bulk Order Form"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/templates/single-product/bulk-variable-buttons.php:6
+#: templates/single-product/bulk-variable-buttons.php:6
+msgid "Singular Order Form"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/templates/single-product/variable-grid.php:55
+#: templates/single-product/variable-grid.php:55
+msgid "Only %s available"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/templates/single-product/variable-grid.php:55
+#: templates/single-product/variable-grid.php:55
+msgid "Currently unavailable"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/templates/single-product/variable-grid.php:66
+#: templates/single-product/variable-grid.php:66
+msgid "Enter Product Quantity"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/templates/single-product/variable-grid.php:119
+#: templates/single-product/variable-grid.php:119
+msgid "Add to cart"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/templates/single-product/variable-grid.php:130
+#: templates/single-product/variable-grid.php:130
+msgid "<-- Singular Order Form"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/templates/single-product/variable-grid.php:132
+#: templates/single-product/variable-grid.php:132
+msgid "<-- Product Page"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:31
+#: woocommerce-bulk-variations-admin.php:31
+msgid "Bulk Variation Input"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:70
+#: woocommerce-bulk-variations-admin.php:70
+msgid "Select Variation Attribute..."
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:76
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:81
+#: woocommerce-bulk-variations-admin.php:76
+#: woocommerce-bulk-variations-admin.php:81
+msgid "Bulk variation forms only support product with two variation attributes"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:89
+#: woocommerce-bulk-variations-admin.php:89
+msgid "Bulk Variation Form:"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:91
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:103
+#: woocommerce-bulk-variations-admin.php:91
+#: woocommerce-bulk-variations-admin.php:103
+msgid "Disabled"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:93
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:101
+#: woocommerce-bulk-variations-admin.php:93
+#: woocommerce-bulk-variations-admin.php:101
+msgid "Enabled"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:99
+#: woocommerce-bulk-variations-admin.php:99
+msgid "Singular Variation Form:"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:109
+#: woocommerce-bulk-variations-admin.php:109
+msgid "Show Singular Variation Form By Default:"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:112
+#: woocommerce-bulk-variations-admin.php:112
+msgid "No"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:114
+#: woocommerce-bulk-variations-admin.php:114
+msgid "Yes"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:119
+#: woocommerce-bulk-variations-admin.php:119
+msgid "Columns:"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-admin.php:130
+#: woocommerce-bulk-variations-admin.php:130
+msgid "Rows:"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-functions.php:191
+#: woocommerce-bulk-variations-functions.php:191
+msgid "Continue Shopping &rarr;"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-functions.php:191
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-functions.php:193
+#: woocommerce-bulk-variations-functions.php:191
+#: woocommerce-bulk-variations-functions.php:193
+msgid "%s products successfully added to your cart."
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations-functions.php:193
+#: woocommerce-bulk-variations-functions.php:193
+msgid "View Cart &rarr;"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations.php:232
+#: woocommerce-bulk-variations.php:232
+msgid "Additional Options"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations.php:370
+#: woocommerce-bulk-variations.php:370
+msgid ""
+"Unable to add %s to the cart.  Please check your quantities and make sure "
+"the item is available and in stock"
+msgstr ""
+
+#: dist/woocommerce-bulk-variations/woocommerce-bulk-variations.php:374
+#: woocommerce-bulk-variations.php:374
+msgid "No product quantities entered."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Bulk Variations"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.elementstark.com/solutions/woocommerce-bulk-variation-forms/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"WooCommerce Bulk Variations allows your shoppers to add more than one "
+"variation at a time to the cart.  Great for wholesales, B2B sites, and for "
+"easing the process of adding more than one variation at a time for anyone."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Lucas Stark"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://elementstark.com"
+msgstr ""

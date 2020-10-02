@@ -2,8 +2,6 @@
 /**
  * Install
  *
- * @author   SomewhereWarm
- * @category Classes
  * @package  WooCommerce Mix and Match Products/Install
  * @since    1.2.0
  * @version  1.10.0
@@ -87,19 +85,19 @@ class WC_MNM_Install {
 		self::$current_version    = get_option( 'wc_mix_and_match_version', null );
 		self::$current_db_version = get_option( 'wc_mix_and_match_db_version', null );
 
-		// Include the Updater class. 
+		// Include the Updater class.
 		include_once( 'class-wc-mnm-background-updater.php' );
 	}
 
 	/**
 	 * Adds support for the 'mix and match' product type.
 	 *
-	 * @param  array 	$options
+	 * @param  array    $options
 	 * @return array
 	 * @since  1.8.0
 	 */
 	public static function product_selector_filter( $options ) {
-		$options[ 'mix-and-match' ] = __( 'Mix and Match product', 'woocommerce-mix-and-match-products' );
+		$options['mix-and-match'] = __( 'Mix and Match product', 'woocommerce-mix-and-match-products' );
 		return $options;
 	}
 
@@ -198,18 +196,16 @@ class WC_MNM_Install {
 	 */
 	public static function maybe_update() {
 
-		if ( ! empty( $_GET[ 'force_wc_mnm_db_update' ] ) && isset( $_GET[ '_wc_mnm_admin_nonce' ] ) && wp_verify_nonce( wc_clean( $_GET[ '_wc_mnm_admin_nonce' ] ), 'wc_mnm_force_db_update_nonce' ) ) {
+		if ( ! empty( $_GET['force_wc_mnm_db_update'] ) && isset( $_GET['_wc_mnm_admin_nonce'] ) && wp_verify_nonce( wc_clean( $_GET['_wc_mnm_admin_nonce'] ), 'wc_mnm_force_db_update_nonce' ) ) {
 
 			if ( self::can_update() && self::must_update() ) {
 				self::force_update();
 			}
-
-		} elseif ( ! empty( $_GET[ 'trigger_wc_mnm_db_update' ] ) && isset( $_GET[ '_wc_mnm_admin_nonce' ] ) && wp_verify_nonce( wc_clean( $_GET[ '_wc_mnm_admin_nonce' ] ), 'wc_mnm_trigger_db_update_nonce' ) ) {
+		} elseif ( ! empty( $_GET['trigger_wc_mnm_db_update'] ) && isset( $_GET['_wc_mnm_admin_nonce'] ) && wp_verify_nonce( wc_clean( $_GET['_wc_mnm_admin_nonce'] ), 'wc_mnm_trigger_db_update_nonce' ) ) {
 
 			if ( self::can_update() && self::must_update() ) {
 				self::trigger_update();
 			}
-
 		} else {
 
 			// Queue upgrade tasks.
@@ -271,7 +267,7 @@ class WC_MNM_Install {
 		// Set a flag to indicate we're installing in the current request.
 		self::$is_install_request = true;
 
-		// if bundle type does not exist, create it.
+		// If mix and match type does not exist, create it.
 		if ( self::is_new_install() ) {
 			wp_insert_term( __( 'Mix and Match', 'woocommerce-mix-and-match-products' ), 'product_type', array( 'slug' => 'mix-and-match' ) );
 		}
@@ -414,7 +410,7 @@ class WC_MNM_Install {
 	 * True if an update process is running.
 	 *
 	 * @since  1.10.0
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public static function is_update_process_running() {

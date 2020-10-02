@@ -28,11 +28,20 @@ use Yoast\WP\SEO\Routes\Prominent_Words_Route;
 class Indexation_Integration implements Integration_Interface {
 
 	/**
-	 * Amount of prominent words to index per indexable.
+	 * Number of prominent words to index per indexable
+	 * when a language has function word support.
 	 *
 	 * @var int
 	 */
 	const PER_INDEXABLE_LIMIT = 20;
+
+	/**
+	 * Number of prominent words to index per indexable
+	 * when a language does not have function word support.
+	 *
+	 * @var int
+	 */
+	const PER_INDEXABLE_LIMIT_NO_FUNCTION_WORD_SUPPORT = 30;
 
 	/**
 	 * Holds the content action.
@@ -84,14 +93,14 @@ class Indexation_Integration implements Integration_Interface {
 	protected $options;
 
 	/**
-	 * Represents the languahe helper.
+	 * Represents the language helper.
 	 *
 	 * @var Language_Helper
 	 */
 	protected $language_helper;
 
 	/**
-	 * Holds the total amount of unindexed objects.
+	 * Holds the total number of unindexed objects.
 	 *
 	 * @var int
 	 */
@@ -177,6 +186,11 @@ class Indexation_Integration implements Integration_Interface {
 		$site_locale = \get_locale();
 		$language    = WPSEO_Language_Utils::get_language( $site_locale );
 
+		$per_indexable_limit = self::PER_INDEXABLE_LIMIT_NO_FUNCTION_WORD_SUPPORT;
+		if ( $this->language_helper->has_function_word_support( $language ) ) {
+			$per_indexable_limit = self::PER_INDEXABLE_LIMIT;
+		}
+
 		$indexation_data = [
 			'amount'              => $this->get_total_unindexed(),
 			'ids'                 => [
@@ -212,7 +226,7 @@ class Indexation_Integration implements Integration_Interface {
 			'language'            => $language,
 			'prominentWords'      => [
 				'endpoint'          => Prominent_Words_Route::FULL_SAVE_ROUTE,
-				'perIndexableLimit' => self::PER_INDEXABLE_LIMIT,
+				'perIndexableLimit' => $per_indexable_limit,
 			],
 			'morphologySupported' => $this->language_helper->is_word_form_recognition_active( $language ),
 		];
@@ -248,7 +262,7 @@ class Indexation_Integration implements Integration_Interface {
 	/**
 	 * Returns the total number of unindexed objects.
 	 *
-	 * @return int The total amount of indexables to recalculate.
+	 * @return int The total number of indexables to recalculate.
 	 */
 	protected function get_total_unindexed() {
 		if ( $this->total_unindexed === null ) {

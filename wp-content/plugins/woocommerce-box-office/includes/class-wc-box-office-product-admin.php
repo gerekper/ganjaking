@@ -49,7 +49,7 @@ class WC_Box_Office_Product_Admin {
 		);
 
 		$tabs['ticket-content'] = array(
-			'label'  => __( 'Ticket Printing', 'woocommerce-box-office' ),
+			'label'  => __( 'Ticket Printing and Options', 'woocommerce-box-office' ),
 			'target' => 'ticket_content_data',
 			'class'  => array( 'show_if_ticket' ),
 		);
@@ -118,6 +118,13 @@ class WC_Box_Office_Product_Admin {
 			update_post_meta( $post_id, '_print_tickets', $_POST['_print_tickets'] );
 		} else {
 			delete_post_meta( $post_id, '_print_tickets' );
+		}
+
+		// Ticket editable options
+		if ( isset( $_POST['_disable_edit_tickets'] ) ) {
+			update_post_meta( $post_id, '_disable_edit_tickets', $_POST['_disable_edit_tickets'] );
+		} else {
+			delete_post_meta( $post_id, '_disable_edit_tickets' );
 		}
 
 		if ( isset( $_POST['_print_barcode'] ) ) {

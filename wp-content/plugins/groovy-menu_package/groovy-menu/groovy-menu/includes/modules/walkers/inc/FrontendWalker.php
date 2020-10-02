@@ -31,6 +31,8 @@ class FrontendWalker extends WalkerNavMenu {
 	 * @param array  $args
 	 */
 	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+		$show_in_mobile = ( isset( $args->gm_navigation_mobile ) && $args->gm_navigation_mobile );
+
 		$indent = str_repeat( "\t", $depth );
 		$this->currentLvl ++;
 		$classes       = '';
@@ -59,7 +61,12 @@ class FrontendWalker extends WalkerNavMenu {
 			}
 		}
 
-		$output .= "\n$indent<div class=\"{$wrapper_class}\"><ul class=\"{$classes}\" {$styles}>\n";
+		$lvl_title_wrapper = '';
+		if ( $show_in_mobile ) {
+			$lvl_title_wrapper = '<div class="gm-dropdown-menu-title"></div>';
+		}
+
+		$output .= "\n$indent<div class=\"{$wrapper_class}\">{$lvl_title_wrapper}<ul class=\"{$classes}\" {$styles}>\n";
 	}
 
 
@@ -94,6 +101,12 @@ class FrontendWalker extends WalkerNavMenu {
 	 */
 	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 		global $groovyMenuSettings;
+
+		// Reset MegaMenu param if menu-item on the top level.
+		if ( 0 === $depth ) {
+			$this->isMegaMenu = false;
+		}
+
 		$item_output   = '';
 		$hiding_symbol = array( '-', '–', '&#8211;' );
 
@@ -240,7 +253,12 @@ class FrontendWalker extends WalkerNavMenu {
 						'right' => '',
 					);
 
-					if ( $this->getIcon( $item ) ) {
+					if ( $this->getUseHtmlAsIcon( $item ) ) {
+						$html_icon_content = $this->getHtmlIconContent( $item );
+						if ( ! empty( $html_icon_content ) ) {
+							$badge['left'] .= '<div class="gm-menu-item__icon">' . $html_icon_content . '</div>';
+						}
+					} elseif ( $this->getIcon( $item ) ) {
 						$badge['left'] .= '<span class="gm-menu-item__icon ' . $this->getIcon( $item ) . '"></span>';
 					}
 
@@ -433,6 +451,8 @@ class FrontendWalker extends WalkerNavMenu {
 			}
 
 			$classes[] = 'gm-menu-item';
+			$classes[] = 'gm-menu-item--lvl-' . $depth;
+
 			if ( $this->hasChildren( $classes ) ) {
 				$classes[] = 'gm-dropdown';
 			}
@@ -516,11 +536,23 @@ class FrontendWalker extends WalkerNavMenu {
 					'right' => '',
 				);
 
-				if ( $this->getIcon( $item ) ) {
+				// Icon
+				if ( $this->getUseHtmlAsIcon( $item ) ) {
+					$html_icon_content = $this->getHtmlIconContent( $item );
+					if ( ! empty( $html_icon_content ) ) {
+						$badge_content = '<div class="gm-menu-item__icon">' . $html_icon_content . '</div>';
+						if ( 0 === $depth && in_array( $headerStyle, array( 4 ), true ) ) {
+							$item_output .= $badge_content;
+						} else {
+							$badge['left'] .= $badge_content;
+						}
+					}
+				} elseif ( $this->getIcon( $item ) ) {
+					$badge_content = '<span class="gm-menu-item__icon ' . $this->getIcon( $item ) . '"></span>';
 					if ( 0 === $depth && in_array( $headerStyle, array( 4 ), true ) ) {
-						$item_output .= '<span class="gm-menu-item__icon ' . $this->getIcon( $item ) . '"></span>';
+						$item_output .= $badge_content;
 					} else {
-						$badge['left'] .= '<span class="gm-menu-item__icon ' . $this->getIcon( $item ) . '"></span>';
+						$badge['left'] .= $badge_content;
 					}
 				}
 

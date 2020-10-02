@@ -1,5 +1,20 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2020-09-30 - version 1.5.29
+* Fix   - Fatal Error when checking out with Checkout Field Editor extension active.
+* Fix   - Pre-Order fee not applying to variable products.
+* Fix   - Fatal error when trashing some products.
+* Fix   - Prevent fatal errors when switching an order to "Pre ordered" without a pre-order product.
+* Tweak - Fix wording of release date within confirmation emails when no release date is set.
+* Tweak - Add Additional Content text to applicable Pre-Order emails.
+* Tweak - Add "Pre-ordered" status to WC reports statuses for revenue reporting.
+* Tweak - Use native wp_timezone_string() to retrieve WP timezone setting.
+* Tweak - Check that order exists when updating payment complete status to avoid fatal errors.
+
+2020-08-20 - version 1.5.28
+* Fix   - Replace usage of deprecated get_product_from_item() method.
+* Tweak - WordPress 5.5 compatibility.
+
 2020-07-07 - version 1.5.27
 * Fix - Escape output for selectWoo fields.
 

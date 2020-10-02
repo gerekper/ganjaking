@@ -12,7 +12,7 @@ class WC_Bookings_Init {
 	 * @since 1.13.0
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'init_post_types' ) );
+		add_action( 'init', array( $this, 'init_post_types' ), 9 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'booking_form_styles' ) );
 		add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
 
@@ -181,7 +181,7 @@ class WC_Bookings_Init {
 			'label'                     => '<span class="status-incart tips" data-tip="' . wc_sanitize_tooltip( _x( 'In Cart', 'woocommerce-bookings', 'woocommerce-bookings' ) ) . '">' . _x( 'In Cart', 'woocommerce-bookings', 'woocommerce-bookings' ) . '</span>',
 			'public'                    => false,
 			'exclude_from_search'       => false,
-			'show_in_admin_all_list'    => true,
+			'show_in_admin_all_list'    => false,
 			'show_in_admin_status_list' => true,
 			/* translators: 1: count, 2: count */
 			'label_count'               => _n_noop( 'In Cart <span class="count">(%s)</span>', 'In Cart <span class="count">(%s)</span>', 'woocommerce-bookings' ),
@@ -190,7 +190,7 @@ class WC_Bookings_Init {
 			'label'                     => false,
 			'public'                    => false,
 			'exclude_from_search'       => false,
-			'show_in_admin_all_list'    => true,
+			'show_in_admin_all_list'    => false,
 			'show_in_admin_status_list' => false,
 			'label_count'               => false,
 		) );

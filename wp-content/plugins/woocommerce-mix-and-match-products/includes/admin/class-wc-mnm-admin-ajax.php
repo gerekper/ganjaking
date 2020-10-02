@@ -2,8 +2,6 @@
 /**
  * WC_MNM_Admin_Ajax class
  *
- * @author   Kathy Darling
- * @category Admin
  * @package  WooCommerce Mix and Match/Admin/Ajax
  * @since    1.7.0
  */
@@ -73,12 +71,12 @@ class WC_MNM_Admin_Ajax {
 			wp_send_json( $failure );
 		}
 
-		if ( empty( $_POST[ 'order_id' ] ) || empty( $_POST[ 'item_id' ] ) ) {
+		if ( empty( $_POST['order_id'] ) || empty( $_POST['item_id'] ) ) {
 			wp_send_json( $failure );
 		}
 
-		$order   = wc_get_order( wc_clean( $_POST[ 'order_id' ] ) );
-		$item_id = absint( wc_clean( $_POST[ 'item_id' ] ) );
+		$order   = wc_get_order( wc_clean( $_POST['order_id'] ) );
+		$item_id = absint( wc_clean( $_POST['item_id'] ) );
 
 		if ( ! ( $order instanceof WC_Order ) ) {
 			wp_send_json( $failure );
@@ -143,12 +141,12 @@ class WC_MNM_Admin_Ajax {
 			wp_send_json( $failure );
 		}
 
-		if ( empty( $_POST[ 'order_id' ] ) || empty( $_POST[ 'item_id' ] ) ) {
+		if ( empty( $_POST['order_id'] ) || empty( $_POST['item_id'] ) ) {
 			wp_send_json( $failure );
 		}
 
-		$order   = wc_get_order( wc_clean( $_POST[ 'order_id' ] ) );
-		$item_id = absint( wc_clean( $_POST[ 'item_id' ] ) );
+		$order   = wc_get_order( wc_clean( $_POST['order_id'] ) );
+		$item_id = absint( wc_clean( $_POST['item_id'] ) );
 
 		if ( ! ( $order instanceof WC_Order ) ) {
 			wp_send_json( $failure );
@@ -166,8 +164,8 @@ class WC_MNM_Admin_Ajax {
 			wp_send_json( $failure );
 		}
 
-		if ( ! empty( $_POST[ 'fields' ] ) ) {
-			parse_str( $_POST[ 'fields' ], $posted_form_fields );
+		if ( ! empty( $_POST['fields'] ) ) {
+			parse_str( $_POST['fields'], $posted_form_fields );
 			$_POST = array_merge( $_POST, $posted_form_fields );
 		}
 
@@ -177,9 +175,14 @@ class WC_MNM_Admin_Ajax {
 		// Compare posted against current configuration.
 		if ( $posted_configuration !== $current_configuration ) {
 
-			$added_to_order = WC_Mix_and_Match()->order->add_container_to_order( $product, $order, $item->get_quantity(), array(
+			$added_to_order = WC_Mix_and_Match()->order->add_container_to_order(
+                $product,
+                $order,
+                $item->get_quantity(),
+                array(
 				'configuration' => $posted_configuration
-			) );
+                )
+            );
 
 			// Invalid configuration?
 			if ( is_wp_error( $added_to_order ) ) {
@@ -188,14 +191,15 @@ class WC_MNM_Admin_Ajax {
 				$data    = $added_to_order->get_error_data( 'wc_mnm_container_configuration_invalid' );
 
 				$notice = '';
-				if ( isset( $data[ 'notices' ] ) ) {
-					$notices = current( $data[ 'notices' ] );
+				if ( isset( $data['notices'] ) ) {
+					$notices = current( $data['notices'] );
 					$notice = isset( $notices['notice'] ) ? html_entity_decode( $notices['notice'] ) : '';
 				}
 
 				if ( $notice ) {
 					// translators: %1$s is "The submitted configuration is invalid" %2$s is the error reason.
-					$message = sprintf( _x( '%1$s %2$s', 'edit container in order: formatted validation message', 'woocommerce-mix-and-match-products' ),
+					$message = sprintf(
+                        _x( '%1$s %2$s', 'edit container in order: formatted validation message', 'woocommerce-mix-and-match-products' ),
 						$message,
 						$notice
 					);
@@ -232,9 +236,9 @@ class WC_MNM_Admin_Ajax {
 				foreach ( $items_to_remove as $remove_item ) {
 
 					$changed_stock = wc_maybe_adjust_line_item_product_stock( $remove_item, 0 );
-					if ( $changed_stock && isset( $changed_stock[ 'from' ] ) ) {
+					if ( $changed_stock && isset( $changed_stock['from'] ) ) {
 						$child_item_id                   = $remove_item->get_id();
-						$pre_stock_map[ $child_item_id ] = $changed_stock[ 'from' ];
+						$pre_stock_map[ $child_item_id ] = $changed_stock['from'];
 					}
 
 					$order->remove_item( $remove_item->get_id() );
@@ -252,7 +256,7 @@ class WC_MNM_Admin_Ajax {
 						$new_stock       = wc_update_product_stock( $product, $qty, 'decrease' );
 
 						if ( $old_stock && $old_stock !== $new_stock ) {
-							// translators: %s formatted product name. 
+							// translators: %s formatted product name.
 							$order->add_order_note( sprintf( __( 'Adjusted %s stock', 'woocommerce-mix-and-match-products' ), $product->get_formatted_name() ) . ' (' . $old_stock . '&rarr;' . $new_stock . ')', false, true );
 						}
 
@@ -263,13 +267,13 @@ class WC_MNM_Admin_Ajax {
 
 				unset( $pre_stock_map );
 
-				if ( isset( $_POST[ 'country' ], $_POST[ 'state' ], $_POST[ 'postcode' ], $_POST[ 'city' ] ) ) {
+				if ( isset( $_POST['country'], $_POST['state'], $_POST['postcode'], $_POST['city'] ) ) {
 
 					$calculate_tax_args = array(
-						'country'  => strtoupper( wc_clean( $_POST[ 'country' ] ) ),
-						'state'    => strtoupper( wc_clean( $_POST[ 'state' ] ) ),
-						'postcode' => strtoupper( wc_clean( $_POST[ 'postcode' ] ) ),
-						'city'     => strtoupper( wc_clean( $_POST[ 'city' ] ) ),
+						'country'  => strtoupper( wc_clean( $_POST['country'] ) ),
+						'state'    => strtoupper( wc_clean( $_POST['state'] ) ),
+						'postcode' => strtoupper( wc_clean( $_POST['postcode'] ) ),
+						'city'     => strtoupper( wc_clean( $_POST['city'] ) ),
 					);
 
 					$order->calculate_taxes( $calculate_tax_args );
@@ -282,13 +286,13 @@ class WC_MNM_Admin_Ajax {
 		}
 
 		ob_start();
-		include ( WC_ABSPATH . 'includes/admin/meta-boxes/views/html-order-items.php' );
+		include( WC_ABSPATH . 'includes/admin/meta-boxes/views/html-order-items.php' );
 		$html = ob_get_clean();
 
 		// Update order notes.
 		ob_start();
 		$notes = wc_get_order_notes( array( 'order_id' => $order->get_id() ) );
-		include ( WC_ABSPATH . 'includes/admin/meta-boxes/views/html-order-notes.php' );
+		include( WC_ABSPATH . 'includes/admin/meta-boxes/views/html-order-notes.php' );
 		$notes_html = ob_get_clean();
 		$response = array(
 			'result'     => 'success',

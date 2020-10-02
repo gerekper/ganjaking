@@ -129,7 +129,7 @@ class WC_Pre_Orders_Admin {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			// Admin CSS
-			wp_enqueue_style( 'wc_pre_orders_admin', $wc_pre_orders->get_plugin_url() . '/assets/css/wc-pre-orders-admin.css', WC_PRE_ORDERS_VERSION );
+			wp_enqueue_style( 'wc_pre_orders_admin', $wc_pre_orders->get_plugin_url() . '/assets/css/wc-pre-orders-admin.css', array(), WC_PRE_ORDERS_VERSION );
 
 			// Admin JS
 			wp_enqueue_script( 'wc_pre_orders_admin', $wc_pre_orders->get_plugin_url() . '/assets/js/admin/wc-pre-orders-admin' . $suffix . '.js', WC_PRE_ORDERS_VERSION );

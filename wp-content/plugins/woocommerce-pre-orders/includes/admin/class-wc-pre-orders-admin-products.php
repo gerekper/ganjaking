@@ -104,7 +104,7 @@ class WC_Pre_Orders_Admin_Products {
 			try {
 
 				// Get datetime object from site timezone.
-				$datetime = new DateTime( $_POST['_wc_pre_orders_availability_datetime'], new DateTimeZone( WC_Pre_Orders_Product::get_wp_timezone_string() ) );
+				$datetime = new DateTime( $_POST['_wc_pre_orders_availability_datetime'], new DateTimeZone( wc_timezone_string() ) );
 
 				// Get the unix timestamp (adjusted for the site's timezone already).
 				$timestamp = $datetime->format( 'U' );

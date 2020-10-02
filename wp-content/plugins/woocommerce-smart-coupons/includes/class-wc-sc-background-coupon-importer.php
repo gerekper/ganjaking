@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     1.0.9
+ * @version     1.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -534,12 +534,10 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 								});
 							}
 
-							jQuery(document).on( 'ready', function( event, data, response ){
+							wc_sc_check_coupon_background_progress();
+							setInterval(function(){
 								wc_sc_check_coupon_background_progress();
-								setInterval(function(){
-									wc_sc_check_coupon_background_progress();
-								},5000);
-							});
+							},5000);
 
 							jQuery('body').on('click', '#wc-sc-stop-bulk-generate-import', function(e){
 								e.preventDefault();

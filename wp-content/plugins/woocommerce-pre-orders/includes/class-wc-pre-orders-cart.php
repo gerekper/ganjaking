@@ -246,7 +246,7 @@ class WC_Pre_Orders_Cart {
 				if ( WC_Pre_Orders_Product::product_can_be_pre_ordered( $cart_item['product_id'] ) ) {
 
 					// return the product object
-					return wc_get_product( $cart_item['variation_id'] ? $cart_item['variation_id'] : $cart_item['product_id'] );
+					return wc_get_product( $cart_item['product_id'] );
 				}
 			}
 

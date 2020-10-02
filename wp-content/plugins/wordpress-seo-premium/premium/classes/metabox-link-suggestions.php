@@ -25,6 +25,14 @@ class WPSEO_Metabox_Link_Suggestions implements WPSEO_WordPress_Integration {
 	 * @return void
 	 */
 	public function add_meta_boxes() {
+		/*
+		 * Since the link suggestions are already added in the Yoast sidebar.
+		 * Do not add them to the metabox when in the block editor.
+		 */
+		if ( WP_Screen::get()->is_block_editor() ) {
+			return;
+		}
+
 		$post_types = $this->get_post_types();
 
 		array_map( [ $this, 'add_meta_box' ], $post_types );

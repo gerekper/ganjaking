@@ -2,8 +2,6 @@
 /**
  * Background Updates
  *
- * @author   SomewhereWarm
- * @category Classes
  * @package  WooCommerce Mix and Match Products/Update
  * @since    1.2.0
  * @version  1.3.0
@@ -32,9 +30,9 @@ if ( ! class_exists( 'WP_Background_Process', false ) ) {
  */
 class WC_MNM_Background_Updater extends WP_Background_Process {
 
- 	/**
+	/**
 	 * Initiate new background process.
- 	 */
+	 */
 	public function __construct() {
 
 		// Uses unique prefix per blog so each blog has its own queue.
@@ -50,7 +48,7 @@ class WC_MNM_Background_Updater extends WP_Background_Process {
 	 * @since  1.3.0
 	 *
 	 * @return string
- 	 */
+	 */
 	public function get_cron_hook_identifier() {
 		return $this->cron_hook_identifier;
 	}
@@ -168,7 +166,7 @@ class WC_MNM_Background_Updater extends WP_Background_Process {
 
 		} else {
 
-			$result = false; 
+			$result = false;
 
 			wc_get_logger()->log( 'notice', sprintf( '- Could not find %s callback.', $callback ), 'wc_mnm_db_updates' );
 		}

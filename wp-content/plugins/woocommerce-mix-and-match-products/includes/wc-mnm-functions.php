@@ -4,8 +4,6 @@
  *
  * Cart/order item relationship functions.
  *
- * @author   SomewhereWarm
- * @category Core
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.2.0
  * @version  1.7.0
@@ -46,7 +44,7 @@ function wc_mnm_get_tax_ratios( $product ) {
 	$ref_price      = 1000.0;
 	$ref_price_incl = wc_get_price_including_tax( $product, array( 'qty' => 1, 'price' => $ref_price ) );
 	$ref_price_excl = wc_get_price_excluding_tax( $product, array( 'qty' => 1, 'price' => $ref_price ) );
-	
+
 	// Reset applied filters to the 'woocommerce_price_num_decimals' option.
 	remove_filter( 'option_woocommerce_price_num_decimals', array( 'WC_MNM_Core_Compatibility', 'wc_get_rounding_precision' ) );
 
@@ -67,7 +65,7 @@ function wc_mnm_get_tax_ratios( $product ) {
  */
 function wc_mnm_get_child_input_name( $container_id, $child_id = null ) {
 	$name = apply_filters( 'woocommerce_mnm_quantity_name_prefix', '', $container_id ) . 'mnm_quantity';
-	if( $child_id ) {
+	if ( $child_id ) {
 		$name .= '[' . $child_id . ']';
 	}
 	return $name;
@@ -88,7 +86,7 @@ function wc_mnm_get_quantity_message( $container ) {
 	$message = '';
 
 	// No items required.
-	if( $min_container_size === 0 ) {
+	if ( $min_container_size === 0 ) {
 		$message = '';
 		// Fixed container size.
 	} else if ( $min_container_size > 0 && $max_container_size > 0 && $min_container_size == $max_container_size ) {
@@ -142,7 +140,7 @@ function wc_mnm_get_cart_item_container( $child_cart_item, $cart_contents = fals
 
 	if ( wc_mnm_maybe_is_child_cart_item( $child_cart_item ) ) {
 
-		$possible_container = $child_cart_item[ 'mnm_container' ];
+		$possible_container = $child_cart_item['mnm_container'];
 
 		// Check the container is still in the cart contents.
 		if ( isset( $cart_contents[ $possible_container ] ) ) {
@@ -173,7 +171,7 @@ function wc_mnm_get_child_cart_items( $container_cart_item, $cart_contents = fal
 
 	if ( wc_mnm_is_container_cart_item( $container_cart_item ) ) {
 
-		$child_items = $container_cart_item[ 'mnm_contents' ];
+		$child_items = $container_cart_item['mnm_contents'];
 
 		// Check the children are still in the cart contents.
 		if ( ! empty( $child_items ) && is_array( $child_items ) ) {
@@ -222,7 +220,7 @@ function wc_mnm_maybe_is_child_cart_item( $cart_item ) {
 
 	$is_child = false;
 
-	if ( isset( $cart_item[ 'mnm_container' ] ) ) {
+	if ( isset( $cart_item['mnm_container'] ) ) {
 		$is_child = true;
 	}
 
@@ -241,7 +239,7 @@ function wc_mnm_is_container_cart_item( $cart_item ) {
 
 	$is_container = false;
 
-	if ( isset( $cart_item[ 'mnm_contents' ] ) && isset( $cart_item[ 'mnm_config' ] ) ) {
+	if ( isset( $cart_item['mnm_contents'] ) && isset( $cart_item['mnm_config'] ) ) {
 		$is_container = true;
 	}
 
@@ -259,8 +257,8 @@ function wc_mnm_is_container_cart_item( $cart_item ) {
  * @since  1.7.0
  *
  * @param  array     $child_order_item
- * @param  mixed 	 array|object $order array of order items or WC_Order
- * @param  bool   	 $return_id
+ * @param  mixed     array|object $order array of order items or WC_Order
+ * @param  bool      $return_id
  * @return mixed
  */
 function wc_mnm_get_order_item_container( $child_order_item, $order = false, $return_id = false ) {
@@ -279,7 +277,6 @@ function wc_mnm_get_order_item_container( $child_order_item, $order = false, $re
 					$order = $child_order_item->get_order();
 					WC_Mix_and_Match_Helpers::cache_set( 'order_' . $order_id, $order );
 				}
-
 			} else {
 				$msg = __( 'get_order() is not callable on the supplied $order_item. No $order object given.', 'woocommerce-mix-and-match-products' );
 				wc_doing_it_wrong( __FUNCTION__ . '()', $msg, '1.3.0' );
@@ -291,7 +288,7 @@ function wc_mnm_get_order_item_container( $child_order_item, $order = false, $re
 		if ( ! empty( $order_items ) ) {
 			foreach ( $order_items as $order_item_id => $order_item ) {
 
-				$is_container = isset( $order_item[ 'mnm_cart_key' ] ) && $child_order_item[ 'mnm_container' ] === $order_item[ 'mnm_cart_key' ];
+				$is_container = isset( $order_item['mnm_cart_key'] ) && $child_order_item['mnm_container'] === $order_item['mnm_cart_key'];
 
 				if ( $is_container ) {
 					$container = $return_id ? $order_item_id : $order_item;
@@ -308,9 +305,9 @@ function wc_mnm_get_order_item_container( $child_order_item, $order = false, $re
  *
  * @since  1.7.0
  *
- * @param  array     	$container_order_item
+ * @param  array        $container_order_item
  * @param  array|object $order array of order items or WC_Order
- * @param  bool   		$return_ids
+ * @param  bool         $return_ids
  * @return mixed
  */
 function wc_mnm_get_child_order_items( $container_order_item, $order = false, $return_ids = false ) {
@@ -329,7 +326,6 @@ function wc_mnm_get_child_order_items( $container_order_item, $order = false, $r
 					$order = $container_order_item->get_order();
 					WC_Mix_and_Match_Helpers::cache_set( 'order_' . $order_id, $order );
 				}
-
 			} else {
 				$msg = __( 'get_order() is not callable on the supplied $order_item. No $order object given.', 'woocommerce-mix-and-match-products' );
 				wc_doing_it_wrong( __FUNCTION__ . '()', $msg, '5.3.0' );
@@ -341,7 +337,7 @@ function wc_mnm_get_child_order_items( $container_order_item, $order = false, $r
 		if ( ! empty( $order_items ) ) {
 			foreach ( $order_items as $order_item_id => $order_item ) {
 
-				$is_child = ! empty( $order_item[ 'mnm_container' ] ) && isset( $container_order_item[ 'mnm_cart_key' ] ) && $order_item[ 'mnm_container' ] === $container_order_item[ 'mnm_cart_key' ];
+				$is_child = ! empty( $order_item['mnm_container'] ) && isset( $container_order_item['mnm_cart_key'] ) && $order_item['mnm_container'] === $container_order_item['mnm_cart_key'];
 
 				if ( $is_child ) {
 					$child_order_items[ $order_item_id ] = $order_item;
@@ -360,7 +356,7 @@ function wc_mnm_get_child_order_items( $container_order_item, $order = false, $r
  * @since  1.7.0
  *
  * @param  array     $order_item
- * @param  mixed 	 array|object $order array of order items or WC_Order
+ * @param  mixed     array|object $order array of order items or WC_Order
  * @return bool
  */
 function wc_mnm_is_child_order_item( $order_item, $order = false ) {
@@ -387,7 +383,7 @@ function wc_mnm_maybe_is_child_order_item( $order_item ) {
 
 	$is_child = false;
 
-	if ( ! empty( $order_item[ 'mnm_container' ] ) ) {
+	if ( ! empty( $order_item['mnm_container'] ) ) {
 		$is_child = true;
 	}
 
@@ -406,7 +402,7 @@ function wc_mnm_is_container_order_item( $order_item ) {
 
 	$is_child = false;
 
-	if ( isset( $order_item[ 'mnm_config' ] ) ) {
+	if ( isset( $order_item['mnm_config'] ) ) {
 		$is_child = true;
 	}
 
@@ -497,8 +493,8 @@ function wc_mnm_is_mnm_container_cart_item( $cart_item ) {
  * @deprecated 1.7.0
  *
  * @param  array     $child_order_item
- * @param  mixed 	 array|object $order array of order items or WC_Order
- * @param  bool   	 $return_id
+ * @param  mixed     array|object $order array of order items or WC_Order
+ * @param  bool      $return_id
  * @return mixed
  */
 function wc_mnm_get_mnm_order_item_container( $child_order_item, $order = false, $return_id = false ) {
@@ -511,9 +507,9 @@ function wc_mnm_get_mnm_order_item_container( $child_order_item, $order = false,
  * @since  1.2.0
  * @deprecated 1.7.0
  *
- * @param  array     	$container_order_item
+ * @param  array        $container_order_item
  * @param  array|object $order array of order items or WC_Order
- * @param  bool   		$return_ids
+ * @param  bool         $return_ids
  * @return mixed
  */
 function wc_mnm_get_mnm_order_items( $container_order_item, $order = false, $return_ids = false ) {
@@ -528,7 +524,7 @@ function wc_mnm_get_mnm_order_items( $container_order_item, $order = false, $ret
  * @deprecated 1.7.0
  *
  * @param  array     $order_item
- * @param  mixed 	 array|object $order array of order items or WC_Order
+ * @param  mixed     array|object $order array of order items or WC_Order
  * @return bool
  */
 function wc_mnm_is_mnm_order_item( $order_item, $order = false ) {

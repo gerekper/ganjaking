@@ -776,7 +776,7 @@ class WC_CSV_Parser {
 
 				} else {
 
-					if ( ! $value || ! $attribute_key ) {
+					if ( ! $attribute_key ) {
 						continue;
 					}
 

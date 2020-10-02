@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.0.0
- * @version     1.1.2
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -148,8 +148,9 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 			$is_show_review_notice = get_option( 'wc_sc_is_show_review_notice' );
 			$is_coupon_enabled     = get_option( 'woocommerce_enable_coupons' );
 			$get_post_type         = ( ! empty( $post->post_type ) ) ? $post->post_type : '';
-			$get_page              = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore
-			$get_tab               = ( ! empty( $_GET['tab'] ) ) ? wc_clean( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore
+			$get_page              = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : '';  // phpcs:ignore
+			$get_tab               = ( ! empty( $_GET['tab'] ) ) ? wc_clean( wp_unslash( $_GET['tab'] ) ) : '';    // phpcs:ignore
+			$design                = get_option( 'wc_sc_setting_coupon_design', 'basic' );
 
 			$is_page = ( in_array( $pagenow, $valid_pagenow, true ) || in_array( $get_post_type, $valid_post_types, true ) || ( 'admin.php' === $pagenow && ( 'wc-smart-coupons' === $get_page || 'wc-smart-coupons' === $get_tab ) ) );
 
@@ -237,6 +238,34 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 					</div>
 					<p>
 						<?php echo esc_html__( 'Awesome, you successfully auto-generated a coupon! Are you having a great experience with', 'woocommerce-smart-coupons' ) . ' <strong>' . esc_html__( 'WooCommerce Smart Coupons', 'woocommerce-smart-coupons' ) . '</strong> ' . esc_html__( 'so far?', 'woocommerce-smart-coupons' ) . '<br>' . esc_html__( 'Please consider', 'woocommerce-smart-coupons' ) . ' <a href="' . esc_url( 'https://woocommerce.com/products/smart-coupons/#reviews-start' ) . '">' . esc_html__( 'leaving a review', 'woocommerce-smart-coupons' ) . '</a> ' . esc_html__( '! If things aren\'t going quite as expected, we\'re happy to help -- please reach out to', 'woocommerce-smart-coupons' ) . ' <a href="' . esc_url( 'https://woocommerce.com/my-account/create-a-ticket/' ) . '">' . esc_html__( 'our support team', 'woocommerce-smart-coupons' ) . '</a>.'; ?>
+					</p>
+				</div>
+				<?php
+			}
+
+			if ( $is_page && 'custom-design' === $design ) {
+				?>
+				<div class="updated fade error" style="background-color: #f0fff0;">
+					<p>
+						<?php
+						echo sprintf(
+							/* translators: 1: WooCommerce Smart Coupons 2: Link for the Smart Coupons settings */
+							esc_html__( '%1$s: You are using a custom coupon style which is planned to be removed from the plugin in upcoming versions. New, improved styles & colors are added in the version 4.9.0. We would request you to choose a color scheme & a style for coupon from the newly added colors & styles. You can do this from %2$s.', 'woocommerce-smart-coupons' ),
+							'<strong>' . esc_html__( 'WooCommerce Smart Coupons', 'woocommerce-smart-coupons' ) . '</strong>',
+							'<a href="' . esc_url(
+								add_query_arg(
+									array(
+										'page' => 'wc-settings',
+										'tab'  => 'wc-smart-coupons',
+									),
+									admin_url( 'admin.php' )
+								)
+							) . '" target="_blank">' . esc_html__(
+								'Smart Coupons settings',
+								'woocommerce-smart-coupons'
+							) . '</a>'
+						);
+						?>
 					</p>
 				</div>
 				<?php

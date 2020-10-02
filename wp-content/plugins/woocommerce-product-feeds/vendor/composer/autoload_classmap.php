@@ -58,6 +58,7 @@ return array(
     'WoocommercePrfGoogleReviewFeed' => $baseDir . '/src/prf/woocommerce-prf-google-review-feed.php',
     'WoocommercePrfGoogleReviewProductInfo' => $baseDir . '/src/prf/woocommerce-prf-google-review-product-info.php',
     'WoocommerceProductFeedsDbManager' => $baseDir . '/src/common/woocommerce-product-feeds-db-manager.php',
+    'WoocommerceProductFeedsFeedImageManager' => $baseDir . '/src/common/woocommerce-product-feeds-feed-image-manager.php',
     'WoocommerceProductFeedsIntegrationManager' => $baseDir . '/src/common/woocommerce-product-feeds-integration-manager.php',
     'WoocommerceProductFeedsMain' => $baseDir . '/src/woocommerce-product-feeds-main.php',
     'WoocommerceProductFeedsTermDepthRepository' => $baseDir . '/src/common/woocommerce-product-feeds-term-depth-repository.php',

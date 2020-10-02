@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
 
 /**
  * Handle the Chase certification process.
@@ -67,7 +67,7 @@ class WC_Chase_Paymentech_Certification_Handler {
 		add_filter( 'wc_' . $this->get_gateway()->get_plugin()->get_id() . '_my_payment_methods_table_headers', array( $this, 'add_payment_method_ref_number_header' ), 10 );
 
 		// display the Customer Ref # in the My Payment Methods table
-		add_filter( 'wc_' . $this->get_gateway()->get_plugin()->get_id() . '_my_payment_methods_table_body_row_data', array( $this, 'add_payment_method_ref_number_data' ), 10, 2 );
+		add_action( 'woocommerce_account_payment_methods_column_certification_customer_ref_number', array( $this, 'add_payment_method_ref_number_data' ), 10, 2 );
 
 		/** Admin **/
 
@@ -341,15 +341,15 @@ class WC_Chase_Paymentech_Certification_Handler {
 	 * Display the Customer Ref # in the My Payment Methods table.
 	 *
 	 * @since 1.8.0
-	 * @param array $data the payment method data
-	 * @param Framework\SV_WC_Payment_Gateway_Payment_Token $token the method's token object
-	 * @return array
+	 *
+	 * @param array $method payment method
 	 */
-	public function add_payment_method_ref_number_data( $data, $token ) {
+	public function add_payment_method_ref_number_data( $method ) {
 
-		$data['certification_customer_ref_number'] = $token->get_id();
+		if ( ! empty( $token = $method['token'] ) ) {
 
-		return $data;
+			echo $token;
+		}
 	}
 
 

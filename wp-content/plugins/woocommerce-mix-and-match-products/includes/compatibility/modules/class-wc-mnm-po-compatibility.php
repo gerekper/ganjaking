@@ -2,8 +2,6 @@
 /**
  * Pre-Orders Compatibility
  *
- * @author   SomewhereWarm
- * @category Compatibility
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
  * @version  1.7.0
@@ -37,7 +35,7 @@ class WC_MNM_PO_Compatibility {
 	 */
 	public static function remove_bundled_pre_orders_cart_item_meta( $pre_order_meta, $cart_item_data ) {
 
-		if ( isset( $cart_item_data[ 'mnm_container' ] ) ) {
+		if ( isset( $cart_item_data['mnm_container'] ) ) {
 			$pre_order_meta = array();
 		}
 
@@ -54,7 +52,7 @@ class WC_MNM_PO_Compatibility {
 	 */
 	public static function remove_bundled_pre_orders_order_item_meta( $pre_order_meta, $order_item, $order ) {
 
-		if ( isset( $order_item[ 'mnm_container' ] ) ) {
+		if ( isset( $order_item['mnm_container'] ) ) {
 			$pre_order_meta = array();
 		}
 

@@ -1,0 +1,8 @@
+
+#product_views label {
+    display: block;
+}
+
+select.bv-select-max-width {
+    max-width: 175px;
+}

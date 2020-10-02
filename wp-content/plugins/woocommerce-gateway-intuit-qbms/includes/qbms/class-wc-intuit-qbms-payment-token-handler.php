@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
 
 /**
  * Handle the payment tokens.
@@ -39,15 +39,15 @@ class WC_Intuit_QBMS_Payment_Token_Handler extends Framework\SV_WC_Payment_Gatew
 	 * A factory method to build and return an Intuit QBMS payment token object.
 	 *
 	 * @since 1.9.0
-	 * @see Framework\SV_WC_Payment_Gateway_Payment_Tokens_Handler::build_token( $token, $data )
+	 * @see Framework\SV_WC_Payment_Gateway_Payment_Tokens_Handler::build_token()
 	 *
 	 * @param string $token payment token
-	 * @param array $data payment token data
+	 * @param array|Framework\SV_WC_Payment_Gateway_Payment_Token $data payment token data
 	 * @return WC_Intuit_QBMS_Payment_Token payment token
 	 */
 	public function build_token( $token, $data ) {
 
-		return new WC_Intuit_QBMS_Payment_Token( $token, $data );
+		return new \WC_Intuit_QBMS_Payment_Token( $token, $data );
 	}
 
 

@@ -11,14 +11,13 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
- * @author  Kathy Darling
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
  * @version 1.4.2
  */
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ){
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<tr class="<?php echo esc_attr( join( ' ', get_post_class( 'mnm_item', $mnm_id ) ) ); ?>" data-mnm_id="<?php echo esc_attr( $mnm_id ); ?>" data-regular_price="<?php echo esc_attr( $regular_price ); ?>" data-price="<?php echo esc_attr( $price );?>" >
+<tr class="<?php echo esc_attr( join( ' ', get_post_class( 'mnm_item', $mnm_id ) ) ); ?>" data-mnm_id="<?php echo esc_attr( $mnm_id ); ?>" data-regular_price="<?php echo esc_attr( $regular_price ); ?>" data-price="<?php echo esc_attr( $price ); ?>" >

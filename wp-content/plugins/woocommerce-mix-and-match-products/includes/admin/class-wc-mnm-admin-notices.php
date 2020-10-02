@@ -2,8 +2,6 @@
 /**
  * Admin Notices
  *
- * @author   Kathy Darling
- * @category Admin
  * @package  WooCommerce Mix and Match Products/Admin
  * @since    1.2.0
  * @version  1.2.0
@@ -23,28 +21,28 @@ class WC_MNM_Admin_Notices {
 
 	/**
 	 * Metabox Notices.
-	 * 
+	 *
 	 * @var array
 	 */
 	public static $meta_box_notices = array();
 
 	/**
 	 * Admin Notices.
-	 * 
+	 *
 	 * @var array
 	 */
 	public static $admin_notices    = array();
 
 	/**
 	 * Maintenance Notices.
-	 * 
+	 *
 	 * @var array
 	 */
 	public static $maintenance_notices = array();
 
 	/**
 	 * Array of maintenance notice types - name => callback.
-	 * 
+	 *
 	 * @var array
 	 */
 	private static $maintenance_notice_types = array(
@@ -78,8 +76,8 @@ class WC_MNM_Admin_Notices {
 	public static function add_notice( $text, $args, $save_notice = false ) {
 
 		if ( is_array( $args ) ) {
-			$type          = $args[ 'type' ];
-			$dismiss_class = isset( $args[ 'dismiss_class' ] ) ? $args[ 'dismiss_class' ] : false;
+			$type          = $args['type'];
+			$dismiss_class = isset( $args['dismiss_class'] ) ? $args['dismiss_class'] : false;
 		} else {
 			$type          = $args;
 			$dismiss_class = false;
@@ -142,16 +140,16 @@ class WC_MNM_Admin_Notices {
 
 			foreach ( $notices as $notice ) {
 
-				$dismiss_class = $notice[ 'dismiss_class' ] ? $notice[ 'dismiss_class' ] . ' is-persistent' : 'is-dismissible';
+				$dismiss_class = $notice['dismiss_class'] ? $notice['dismiss_class'] . ' is-persistent' : 'is-dismissible';
 
-				echo '<div class="wc-mnm-notice notice-' . $notice[ 'type' ] . ' notice ' . $dismiss_class . '">';
+				echo '<div class="wc-mnm-notice notice-' . $notice['type'] . ' notice ' . $dismiss_class . '">';
 
-				if ( $notice[ 'dismiss_class' ] ) {
-					$dismiss_url = esc_url( wp_nonce_url( add_query_arg( 'dismiss_wc_mnm_notice', $notice[ 'dismiss_class' ] ), 'wc_mnm_dismiss_notice_nonce', '_wc_mnm_admin_nonce' ) );
+				if ( $notice['dismiss_class'] ) {
+					$dismiss_url = esc_url( wp_nonce_url( add_query_arg( 'dismiss_wc_mnm_notice', $notice['dismiss_class'] ), 'wc_mnm_dismiss_notice_nonce', '_wc_mnm_admin_nonce' ) );
 					echo '<a class="wc-mnm-dismiss-notice notice-dismiss" href="' . $dismiss_url . '">' . __( 'Dismiss', 'woocommerce-mix-and-match-products' ) . '</a>';
 				}
 
-				echo '<p>' . wp_kses_post( $notice[ 'content' ] ) . '</p>';
+				echo '<p>' . wp_kses_post( $notice['content'] ) . '</p>';
 				echo '</div>';
 			}
 
@@ -249,7 +247,7 @@ class WC_MNM_Admin_Notices {
 				$notice = '<strong>' . __( 'WooCommerce Mix and Match Products Data Update', 'woocommerce-mix-and-match-products' ) . '</strong> &#8211; ' . $status;
 				self::add_notice( $notice, 'info' );
 			}
-	
+
 		// Show persistent notice to indicate that the updating process is complete.
 		} else {
 			$notice         = __( 'WooCommerce Mix and Match Products data update complete.', 'woocommerce-mix-and-match-products' );
@@ -337,8 +335,8 @@ class WC_MNM_Admin_Notices {
 	 * @deprecated 1.10.0
 	 */
 	public static function dismiss_notice_handler() {
-		if ( isset( $_GET[ 'dismiss_wc_mnm_notice' ] ) && isset( $_GET[ '_wc_mnm_admin_nonce' ] ) ) {
-			if ( ! wp_verify_nonce( $_GET[ '_wc_mnm_admin_nonce' ], 'wc_mnm_dismiss_notice_nonce' ) ) {
+		if ( isset( $_GET['dismiss_wc_mnm_notice'] ) && isset( $_GET['_wc_mnm_admin_nonce'] ) ) {
+			if ( ! wp_verify_nonce( $_GET['_wc_mnm_admin_nonce'], 'wc_mnm_dismiss_notice_nonce' ) ) {
 				wp_die( __( 'Action failed. Please refresh the page and retry.', 'woocommerce-mix-and-match-products' ) );
 			}
 
@@ -346,7 +344,7 @@ class WC_MNM_Admin_Notices {
 				wp_die( __( 'You do not have permission to dismiss this notice.', 'woocommerce-mix-and-match-products' ) );
 			}
 
-			$notice = sanitize_text_field( $_GET[ 'dismiss_wc_mnm_notice' ] );
+			$notice = sanitize_text_field( $_GET['dismiss_wc_mnm_notice'] );
 			self::dismiss_notice( $notice );
 		}
 	}

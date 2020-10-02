@@ -2,8 +2,6 @@
 /**
  * Order Functions and Filters
  *
- * @author   Kathy Darling
- * @category Classes
  * @package  WooCommerce Mix and Match Products/Orders
  * @since    1.0.0
  * @version  1.9.2
@@ -78,7 +76,7 @@ class WC_Mix_and_Match_Order {
 		add_filter( 'woocommerce_get_item_count', array( $this, 'order_item_count' ), 10, 3 );
 
 		// Filter admin dashboard item count and classes.
-		if( is_admin() ) {
+		if ( is_admin() ) {
 			add_filter( 'woocommerce_admin_html_order_item_class', array( $this, 'html_order_item_class' ), 10, 3 );
 			add_filter( 'woocommerce_admin_html_order_preview_item_class', array( $this, 'html_order_item_class' ), 10, 3 );
 		}
@@ -114,7 +112,7 @@ class WC_Mix_and_Match_Order {
 		$configuration       = $order_item->get_meta( '_mnm_config', true );
 
 		// This returns children that are actually in the ORDER right now.
-		$child_order_items = wc_mnm_get_child_order_items( $order_item, $order );		
+		$child_order_items = wc_mnm_get_child_order_items( $order_item, $order );
 
 		/*
 		 * There's no chance something might have been added to the stored configuration.
@@ -139,7 +137,7 @@ class WC_Mix_and_Match_Order {
 			}
 
 			// Normalize with the quantity of the parent.
-			$configuration[ $child_item_id ][ 'quantity' ] = $child_order_item_qty / $order_item->get_quantity();
+			$configuration[ $child_item_id ]['quantity'] = $child_order_item_qty / $order_item->get_quantity();
 		}
 
 		return $configuration;
@@ -178,14 +176,17 @@ class WC_Mix_and_Match_Order {
 
 		$added_to_order = false;
 
-		$args = wp_parse_args( $args, array(
+		$args = wp_parse_args(
+            $args,
+            array(
 			'configuration' => array(),
 			'silent'        => true
-		) );
+            )
+        );
 
 		if ( $container && $container->is_type( 'mix-and-match' ) ) {
 
-			$configuration = $args[ 'configuration' ];
+			$configuration = $args['configuration'];
 
 			if ( WC_Mix_and_Match()->cart->validate_container_configuration( $container, $quantity, $configuration, 'add-to-order' ) ) {
 
@@ -206,9 +207,9 @@ class WC_Mix_and_Match_Order {
 					foreach ( $child_items as $child_item_id => $child_product ) {
 
 						$child_item_configuration  = isset( $configuration[ $child_item_id ] ) ? $configuration[ $child_item_id ] : array();
-						$child_item_quantity       = isset( $child_item_configuration[ 'quantity' ] ) ? absint( $child_item_configuration[ 'quantity' ] ) : apply_filters( 'woocommerce_mnm_quantity_input', 0, $child_product, $container );
+						$child_item_quantity       = isset( $child_item_configuration['quantity'] ) ? absint( $child_item_configuration['quantity'] ) : apply_filters( 'woocommerce_mnm_quantity_input', 0, $child_product, $container );
 						$child_item_variation_data = $child_product->get_parent_id() > 0 ? $child_product->get_variation_attributes() : array();
-						$child_item_args           = isset( $child_item_configuration[ 'args' ] ) ? $child_item_configuration[ 'args' ] : array();
+						$child_item_args           = isset( $child_item_configuration['args'] ) ? $child_item_configuration['args'] : array();
 						// Unique hash to use in place of the cart item ID.
 						$child_item_hash           = md5( $child_item_id );
 
@@ -218,20 +219,20 @@ class WC_Mix_and_Match_Order {
 
 						if ( $container->is_priced_per_product() ) {
 							// @todo: are these subtotal/total amounts actually in the args?
-							$child_item_args[ 'subtotal' ]     = isset( $child_item_args[ 'subtotal' ] ) ? $child_item_args[ 'subtotal' ] : wc_get_price_excluding_tax( $child_product, array( 'qty' => $child_item_quantity * $quantity ) );
-							$child_item_args[ 'total' ]        = isset( $child_item_args[ 'total' ] ) ? $child_item_args[ 'total' ] : wc_get_price_excluding_tax( $child_product, array( 'qty' => $child_item_quantity * $quantity ) );
-							$child_item_args[ 'subtotal_tax' ] = isset( $child_item_args[ 'subtotal_tax' ] ) ? $child_item_args[ 'subtotal_tax' ] : 0;
-							$child_item_args[ 'total_tax' ]    = isset( $child_item_args[ 'total_tax' ] ) ? $child_item_args[ 'total_tax' ] : 0;
+							$child_item_args['subtotal']     = isset( $child_item_args['subtotal'] ) ? $child_item_args['subtotal'] : wc_get_price_excluding_tax( $child_product, array( 'qty' => $child_item_quantity * $quantity ) );
+							$child_item_args['total']        = isset( $child_item_args['total'] ) ? $child_item_args['total'] : wc_get_price_excluding_tax( $child_product, array( 'qty' => $child_item_quantity * $quantity ) );
+							$child_item_args['subtotal_tax'] = isset( $child_item_args['subtotal_tax'] ) ? $child_item_args['subtotal_tax'] : 0;
+							$child_item_args['total_tax']    = isset( $child_item_args['total_tax'] ) ? $child_item_args['total_tax'] : 0;
 
 						} else {
-							$child_item_args[ 'subtotal' ]     = 0;
-							$child_item_args[ 'total' ]        = 0;
-							$child_item_args[ 'subtotal_tax' ] = 0;
-							$child_item_args[ 'total_tax' ]    = 0;
+							$child_item_args['subtotal']     = 0;
+							$child_item_args['total']        = 0;
+							$child_item_args['subtotal_tax'] = 0;
+							$child_item_args['total_tax']    = 0;
 						}
 
 						// Args to pass into 'add_product()'.
-						$child_item_args[ 'variation' ] = $child_item_variation_data;
+						$child_item_args['variation'] = $child_item_variation_data;
 
 						// Add child item.
 						$child_order_item_id = $order->add_product( $child_product, $child_item_quantity * $quantity, $child_item_args );
@@ -250,11 +251,10 @@ class WC_Mix_and_Match_Order {
 						$child_order_item->add_meta_data( '_mnm_container', $container_item_hash, true );
 
 						// Old Part of: Meta
-						if( apply_filters( 'woocommerce_mnm_order_item_legacy_part_of_meta', false, $child_order_item ) ) {
+						if ( apply_filters( 'woocommerce_mnm_order_item_legacy_part_of_meta', false, $child_order_item ) ) {
 							// Use "Purchased with" to imply that item is physically shipped separately from its container.
 							// Use "Part of" to imply that item is physically assembled or packaged in its container.
 							$part_of_meta_name = $child_product->needs_shipping() ? 'mnm_purchased_with' : 'mnm_part_of';
-
 
 							if ( has_filter( 'woocommerce_mnm_order_item_part_of_meta_name' ) ) {
 
@@ -264,10 +264,10 @@ class WC_Mix_and_Match_Order {
 								/**
 								 * "Part Of" Meta Name.
 								 *
-								 * @param  string   	  $part_of_meta_name
+								 * @param  string         $part_of_meta_name
 								 * @param  array          $cart_item_values
-					 			 * @param  string         $cart_item_key
-								 */	
+								 * @param  string         $cart_item_key
+								 */
 								$part_of_meta_name = apply_filters( 'woocommerce_mnm_order_item_part_of_meta_name', $part_of_meta_name, $cart_item_values, $cart_item_key );
 
 							}
@@ -275,11 +275,10 @@ class WC_Mix_and_Match_Order {
 							if ( $part_of_meta_name ) {
 								$child_order_item->add_meta_data( $part_of_meta_name, $container->get_title(), true );
 							}
-	
-						}
+}
 
 						// If any children need processing, the container needs processing. Mimic mnm_items_need_processing without cart.
-						if( false == $items_need_processing ) {
+						if ( false == $items_need_processing ) {
 							if ( false === $child_product->is_downloadable() || false === $child_product->is_virtual() ) {
 								$processing_needed = true;
 							}
@@ -331,7 +330,7 @@ class WC_Mix_and_Match_Order {
 						 * @param  WC_Order           $order
 						 * @param  WC_Product         $child_product
 						 * @param  int                $child_item_quantity
-						 * @param  WC_Product    	  $child_product
+						 * @param  WC_Product         $child_product
 						 * @param  WC_Product_Bundle  $container
 						 * @param  int                $quantity
 						 * @param  array              $child_item_args
@@ -345,7 +344,6 @@ class WC_Mix_and_Match_Order {
 				$order_items          = $order->get_items( 'line_item' );
 				$container_order_item = $order_items[ $container_order_item_id ];
 
-
 				/*
 				 * Add container order item meta.
 				 */
@@ -356,10 +354,10 @@ class WC_Mix_and_Match_Order {
 				 * Allows changes to the order item object before it is saved.
 				 *
 				 * @param  str          $container_size_meta_value
-	 			 * @param  int 			$item_id
+				 * @param  int          $item_id
 				 * @param  array        $cart_item_values
-	 			 * @param  string       $cart_item_key
-				 */	
+				 * @param  string       $cart_item_key
+				 */
 				$container_size_meta_value = array_sum( wp_list_pluck( $configuration, 'quantity' ) );
 
 				$container_size_meta_value = apply_filters( 'woocommerce_mnm_order_item_container_size_meta_value', $container_size_meta_value, $container_order_item->get_id(), $child_item_args, $child_item_hash );
@@ -385,22 +383,22 @@ class WC_Mix_and_Match_Order {
 				 * Add initial item meta.
 				 */
 
-				if ( ! empty( $args[ 'meta_data' ] ) ) {
-					foreach ( $args[ 'meta_data' ] as $meta ) {
+				if ( ! empty( $args['meta_data'] ) ) {
+					foreach ( $args['meta_data'] as $meta ) {
 
 						if ( $meta instanceof WC_Meta_Data ) {
 							$meta = $meta->get_data();
 						}
 
-						if ( ! isset( $meta[ 'key' ] ) || ! isset( $meta[ 'value' ] ) ) {
+						if ( ! isset( $meta['key'] ) || ! isset( $meta['value'] ) ) {
 							continue;
 						}
 
-						if ( in_array( $meta[ 'key' ], array( '_mnm_container_size', '_mnm_config', '_mnm_cart_key', '_per_product_pricing','_bundle_weight' ) ) ) {
+						if ( in_array( $meta['key'], array( '_mnm_container_size', '_mnm_config', '_mnm_cart_key', '_per_product_pricing','_bundle_weight' ) ) ) {
 							continue;
 						}
 
-						$container_order_item->add_meta_data( $meta[ 'key' ], $meta[ 'value' ] );
+						$container_order_item->add_meta_data( $meta['key'], $meta['value'] );
 					}
 				}
 
@@ -424,14 +422,13 @@ class WC_Mix_and_Match_Order {
 				$error_data = array( 'notices' => wc_get_notices( 'error' ) );
 				$message    = __( 'The submitted container configuration could not be added to this order.', 'woocommerce-mix-and-match-products' );
 
-				if ( $args[ 'silent' ] ) {
+				if ( $args['silent'] ) {
 					wc_clear_notices();
 				}
 
 				$added_to_order = new WP_Error( 'wc_mnm_container_configuration_invalid', $message, $error_data );
 			}
-
-		} else {
+} else {
 			$message        = __( 'A Mix and Match product with this ID does not exist.', 'woocommerce-mix-and-match-products' );
 			$added_to_order = new WP_Error( 'wc_mnm_container_invalid', $message );
 		}
@@ -539,7 +536,7 @@ class WC_Mix_and_Match_Order {
 								);
 
 								foreach ( $meta_desc_array as $meta_desc_array_key => $meta_desc_array_value ) {
-									$meta_desc_array[ $meta_desc_array_key ][ 'description' ] = $meta_desc_array_value[ 'key' ] . ' - ' . $meta_desc_array_value [ 'value' ];
+									$meta_desc_array[ $meta_desc_array_key ]['description'] = $meta_desc_array_value['key'] . ' - ' . $meta_desc_array_value ['value'];
 								}
 
 								$contents[] = array(
@@ -547,34 +544,34 @@ class WC_Mix_and_Match_Order {
 									 * Child order item meta title.
 									 *
 									 * @param  str          $title
-						 			 * @param  int 			$item_id
+									 * @param  int          $item_id
 									 * @param  array        $cart_item_values
-						 			 * @param  string       $cart_item_key
-									 */	
+									 * @param  string       $cart_item_key
+									 */
 									'title'       => apply_filters( 'woocommerce_mnm_order_item_meta_title', $child->get_title(), $meta_desc_array, $child_item, $item, $order ),
 									/**
 									 * Child order item meta description
 									 *
-						 			 * @param  str 				  $description Comma delimited list.
-									 * @param  array        	  $meta_desc_array
-						 			 * @param  obj WC_Order_Item  $child_item
-						 			 * @param  obj WC_Order 	  $order
-									 */	
+									 * @param  str                $description Comma delimited list.
+									 * @param  array              $meta_desc_array
+									 * @param  obj WC_Order_Item  $child_item
+									 * @param  obj WC_Order       $order
+									 */
 									'description' => apply_filters( 'woocommerce_mnm_order_item_meta_description', implode( ', ', wp_list_pluck( $meta_desc_array, 'description' ) ), $meta_desc_array, $child_item, $item, $order )
 								);
 
 								/*
 								 * Add item totals to the container totals.
 								 */
-								$container_totals[ 'subtotal' ]     += $child_item->get_subtotal();
-								$container_totals[ 'total' ]        += $child_item->get_total();
-								$container_totals[ 'subtotal_tax' ] += $child_item->get_subtotal_tax();
-								$container_totals[ 'total_tax' ]    += $child_item->get_total_tax();
+								$container_totals['subtotal']     += $child_item->get_subtotal();
+								$container_totals['total']        += $child_item->get_total();
+								$container_totals['subtotal_tax'] += $child_item->get_subtotal_tax();
+								$container_totals['total_tax']    += $child_item->get_total_tax();
 
 								$child_item_tax_data = $child_item->get_taxes();
 
-								$container_totals[ 'taxes' ][ 'total' ]    = array_merge( $container_totals[ 'taxes' ][ 'total' ], $child_item_tax_data[ 'total' ] );
-								$container_totals[ 'taxes' ][ 'subtotal' ] = array_merge( $container_totals[ 'taxes' ][ 'subtotal' ], $child_item_tax_data[ 'subtotal' ] );
+								$container_totals['taxes']['total']    = array_merge( $container_totals['taxes']['total'], $child_item_tax_data['total'] );
+								$container_totals['taxes']['subtotal'] = array_merge( $container_totals['taxes']['subtotal'], $child_item_tax_data['subtotal'] );
 							}
 						}
 
@@ -624,8 +621,8 @@ class WC_Mix_and_Match_Order {
 							$added_keys = array();
 							// Create a meta field for each child item.
 							foreach ( $contents as $contained ) {
-								$item->add_meta_data( $contained[ 'title' ], $contained[ 'description' ] );
-								$added_keys[] = $contained[ 'title' ];
+								$item->add_meta_data( $contained['title'], $contained['description'] );
+								$added_keys[] = $contained['title'];
 							}
 							// Ensure meta objects have an 'id' prop so they can be picked up by 'get_formatted_meta_data'.
 							foreach ( $item->get_meta_data() as $item_meta ) {
@@ -770,13 +767,13 @@ class WC_Mix_and_Match_Order {
 				/**
 				 * Get SKU from order item.
 				 *
-	 			 * @param  str 				  $sku
-	 			 * @param  obj WC_Product 	  $product
-	 			 * @param  obj WC_Order_Item  $item
-	 			 * @param  obj WC_Order 	  $order
-	 			 * @param  array        	  $packaged_products
-	 			 * @param  array        	  $packaged_quantities
-				 */	
+				 * @param  str                $sku
+				 * @param  obj WC_Product     $product
+				 * @param  obj WC_Order_Item  $item
+				 * @param  obj WC_Order       $order
+				 * @param  array              $packaged_products
+				 * @param  array              $packaged_quantities
+				 */
 				$new_sku = apply_filters( 'woocommerce_mnm_sku_from_order_item', $sku, $product, $item, $order, $packaged_products, $packaged_quantities );
 
 				if ( $sku !== $new_sku ) {
@@ -974,10 +971,10 @@ class WC_Mix_and_Match_Order {
 		// Add metadata to child items.
 		if ( wc_mnm_is_child_cart_item( $cart_item_values ) ) {
 
-			$order_item->add_meta_data( '_mnm_container', $cart_item_values[ 'mnm_container' ], true );
+			$order_item->add_meta_data( '_mnm_container', $cart_item_values['mnm_container'], true );
 
 			// Store shipping data.
-			$needs_shipping = $cart_item_values[ 'data' ]->needs_shipping();
+			$needs_shipping = $cart_item_values['data']->needs_shipping();
 			$order_item->add_meta_data( '_mnm_item_needs_shipping', wc_bool_to_string( $needs_shipping, true ) );
 
 			if ( $container = wc_mnm_get_cart_item_container( $cart_item_values ) ) {
@@ -1002,16 +999,16 @@ class WC_Mix_and_Match_Order {
 					/**
 					 * "Part Of" Meta Name.
 					 *
-					 * @param  string   	  $part_of_meta_name
+					 * @param  string         $part_of_meta_name
 					 * @param  array          $cart_item_values
-		 			 * @param  string         $cart_item_key
-					 */	
+					 * @param  string         $cart_item_key
+					 */
 					$part_of_meta_name = apply_filters( 'woocommerce_mnm_order_item_part_of_meta_name', $part_of_meta_name, $cart_item_values, $cart_item_key );
 
 				}
 
 				if ( $part_of_meta_name ) {
-					$order_item->add_meta_data( $part_of_meta_name, $container[ 'data' ]->get_title(), true );
+					$order_item->add_meta_data( $part_of_meta_name, $container['data']->get_title(), true );
 				}
 			}
 
@@ -1021,15 +1018,15 @@ class WC_Mix_and_Match_Order {
 			 * Allows changes to the child order item object before it is saved.
 			 *
 			 * @param  array          $cart_item_values
- 			 * @param  string         $cart_item_key
- 			 * @param  int $item_id
- 			 * @param  obj WC_Order_Item $order_item
-			 */	
+			 * @param  string         $cart_item_key
+			 * @param  int $item_id
+			 * @param  obj WC_Order_Item $order_item
+			 */
 			do_action( 'woocommerce_mnm_item_add_order_item_meta', $cart_item_values, $cart_item_key, $order_item->get_id(), $order_item );
 		}
 
 		// Add data to the container item.
-		if ( wc_mnm_is_container_cart_item( $cart_item_values ) && $cart_item_values[ 'data' ]->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_container_cart_item( $cart_item_values ) && $cart_item_values['data']->is_type( 'mix-and-match' ) ) {
 
 			/**
 			 * "Container Size" meta data.
@@ -1037,11 +1034,11 @@ class WC_Mix_and_Match_Order {
 			 * Allows changes to the order item object before it is saved.
 			 *
 			 * @param  str          $container_size_meta_value
- 			 * @param  int 			$item_id
+			 * @param  int          $item_id
 			 * @param  array        $cart_item_values
- 			 * @param  string       $cart_item_key
+			 * @param  string       $cart_item_key
 			 */
-			$container_size_meta_value = array_sum( wp_list_pluck( $cart_item_values[ 'mnm_config' ], 'quantity' ) );
+			$container_size_meta_value = array_sum( wp_list_pluck( $cart_item_values['mnm_config'], 'quantity' ) );
 
 			$container_size_meta_value = apply_filters( 'woocommerce_mnm_order_item_container_size_meta_value', $container_size_meta_value, $order_item->get_id(), $cart_item_values, $cart_item_key );
 
@@ -1049,26 +1046,26 @@ class WC_Mix_and_Match_Order {
 				$order_item->add_meta_data( 'mnm_container_size', $container_size_meta_value, true );
 			}
 
-			$order_item->add_meta_data( '_mnm_config', $cart_item_values[ 'mnm_config' ], true );
+			$order_item->add_meta_data( '_mnm_config', $cart_item_values['mnm_config'], true );
 			$order_item->add_meta_data( '_mnm_cart_key', $cart_item_key, true );
 
-			$order_item->add_meta_data( '_per_product_pricing', wc_bool_to_string( $cart_item_values[ 'data' ]->is_priced_per_product() ), true );
+			$order_item->add_meta_data( '_per_product_pricing', wc_bool_to_string( $cart_item_values['data']->is_priced_per_product() ), true );
 
 			// Store shipping data.
 			// If it's a physical container item, grab its aggregate weight from the package data.
-			if ( $cart_item_values[ 'data' ]->needs_shipping() ) {
+			if ( $cart_item_values['data']->needs_shipping() ) {
 
 				$packaged_item_values = false;
 
 				foreach ( WC()->cart->get_shipping_packages() as $package ) {
-					if ( isset( $package[ 'contents' ][ $cart_item_key ] ) ) {
-						$packaged_item_values = $package[ 'contents' ][ $cart_item_key ];
+					if ( isset( $package['contents'][ $cart_item_key ] ) ) {
+						$packaged_item_values = $package['contents'][ $cart_item_key ];
 						break;
 					}
 				}
 
 				if ( ! empty( $packaged_item_values ) ) {
-					$aggregate_weight = $packaged_item_values[ 'data' ]->get_weight();
+					$aggregate_weight = $packaged_item_values['data']->get_weight();
 					$order_item->add_meta_data( '_bundle_weight', $aggregate_weight, true );
 				}
 
@@ -1083,10 +1080,10 @@ class WC_Mix_and_Match_Order {
 			 * Allows changes to the container's order item object before it is saved.
 			 *
 			 * @param  array          $cart_item_values
- 			 * @param  string         $cart_item_key
- 			 * @param  int $item_id
- 			 * @param  obj WC_Order_Item $order_item
-			 */	
+			 * @param  string         $cart_item_key
+			 * @param  int $item_id
+			 * @param  obj WC_Order_Item $order_item
+			 */
 			do_action( 'woocommerce_mnm_container_add_order_item_meta', $cart_item_values, $cart_item_key, $order_item->get_id(), $order_item );
 		}
 	}
@@ -1107,7 +1104,7 @@ class WC_Mix_and_Match_Order {
 
 		if ( ! empty( $child_keys ) && is_array( $child_keys ) ) {
 			foreach ( $child_keys as $child_key ) {
-				$child_product = WC()->cart->cart_contents[ $child_key ][ 'data' ];
+				$child_product = WC()->cart->cart_contents[ $child_key ]['data'];
 				if ( false === $child_product->is_downloadable() || false === $child_product->is_virtual() ) {
 					$processing_needed = true;
 					break;

@@ -88,6 +88,9 @@ class WC_Bookings_Install {
 			self::update_plugin_version();
 			self::update_db_version();
 
+			// Flush transients on update.
+			WC_Bookings_Cache::clear_cache();
+
 			global $wpdb, $wp_roles;
 
 			$wpdb->hide_errors();
@@ -361,7 +364,8 @@ class WC_Bookings_Install {
 				array(
 					'access_token' => $access_token,
 					'expires_in'   => 3600,
-				)
+				),
+				YEAR_IN_SECONDS
 			);
 		}
 	}

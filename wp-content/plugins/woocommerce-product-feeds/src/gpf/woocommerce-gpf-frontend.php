@@ -314,6 +314,10 @@ class WoocommerceGpfFrontend {
 		} else {
 			$woocommerce_product = $product;
 		}
+		// WC's product query can return IDs that don't resolve to actual products.
+		if ( empty( $woocommerce_product ) ) {
+			return false;
+		}
 		$product_type = $woocommerce_product->get_type();
 		$this->debug->log( 'Processing %s product (%d)', [ $product_type, $woocommerce_product->get_id() ] );
 		switch ( $product_type ) {
@@ -405,6 +409,7 @@ class WoocommerceGpfFrontend {
 		if ( WoocommerceGpfFeedItem::should_exclude( $woocommerce_product, $this->feed_format ) ) {
 			$this->cache->store( $woocommerce_product->get_id(), $this->feed_format, '' );
 			$this->debug->log( '%d excluded, skipping...', [ $woocommerce_product->get_id() ] );
+
 			return false;
 		}
 		$variations = $woocommerce_product->get_available_variations();

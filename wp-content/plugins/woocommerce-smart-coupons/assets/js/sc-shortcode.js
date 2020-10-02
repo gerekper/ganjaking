@@ -4,9 +4,8 @@
  * @package WooCommerce Smart Coupons/Assets/JS
  */
 
-jQuery( document ).ready(
-	function($) {
-
+jQuery(
+	function(){
 		tinymce.create(
 			'tinymce.plugins.smart_coupons_shortcode_plugin',
 			{

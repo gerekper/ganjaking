@@ -18,7 +18,7 @@
  *
  * @package   SkyVerge/WooCommerce/Plugin/Gateway/Admin/Views
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2019, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 ?>
@@ -76,6 +76,7 @@
 
 	<?php endforeach; ?>
 
+	<input name="<?php echo esc_attr( $token_input_name ); ?>[original_id]" value="<?php echo esc_attr( $token['id'] ); ?>" type="hidden" />
 	<input name="<?php echo esc_attr( $token_input_name ); ?>[type]" value="<?php echo esc_attr( $type ); ?>" type="hidden" />
 
 	<td class="token-default token-attribute">

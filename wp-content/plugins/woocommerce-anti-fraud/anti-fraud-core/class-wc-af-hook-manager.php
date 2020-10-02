@@ -48,7 +48,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			
 			//define cron job every hour for check risk score
             add_action('wp', array($this, 'check_risk_score_seven_days_scheduled'));
-			add_action('my_hourly_event', array($this, 'do_this_hourly'));
+			add_action('wp_af_my_hourly_event', array($this, 'do_this_hourly'));
 		}
 
 		/**
@@ -276,9 +276,9 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 					'interval'  => 86400*get_option('wc_settings_anti_fraud_time_paypal_attempts'),
 					'display'   => __( 'Antifraud paypal verification', 'textdomain' )
 			);
-			$schedules['every_hour'] = array(  // For fraud risk score check
-			    'interval'  => 3600,
-			    'display'   => __( 'Every hour', 'textdomain' )
+			$schedules['wp_af_every_hour'] = array(  // For fraud risk score check
+			    'interval'  => 60*60,
+			    'display'   => __( 'Check pending order fraud risk score', 'textdomain' )
 			);
 			return $schedules;
 		}
@@ -325,8 +325,8 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		* execute as cron job and check if any order not check within 7 days 
 		*/
 		public function check_risk_score_seven_days_scheduled() {
-		    if ( !wp_next_scheduled( 'every_hour' ) ) {
-		        wp_schedule_event( time(), 'every_hour', 'my_hourly_event');
+		    if ( !wp_next_scheduled( 'wp_af_my_hourly_event' ) ) {
+		        wp_schedule_event( time(), 'wp_af_every_hour', 'wp_af_my_hourly_event');
 		    }
 		}
 

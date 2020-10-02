@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.4
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -32,7 +32,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 		 */
 		private function __construct() {
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'smart_coupon_shortcode_button_init' ) );    // Use 'admin_enqueue_scripts' instead of 'init' // Credit: Jonathan Desrosiers <jdesrosiers@linchpinagency.com>.
+			add_action( 'admin_enqueue_scripts', array( $this, 'smart_coupon_shortcode_button_init' ), 20 );    // Use 'admin_enqueue_scripts' instead of 'init' // Credit: Jonathan Desrosiers <jdesrosiers@linchpinagency.com>.
 			add_action( 'init', array( $this, 'register_smart_coupon_shortcode' ) );
 			add_action( 'after_wp_tiny_mce', array( $this, 'smart_coupons_after_wp_tiny_mce' ) );
 
@@ -90,6 +90,10 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 
 			if ( ! wp_style_is( 'wp-jquery-ui-dialog' ) ) {
 				wp_enqueue_style( 'wp-jquery-ui-dialog' );
+			}
+
+			if ( ! wp_style_is( 'smart-coupon' ) ) {
+				wp_enqueue_style( 'smart-coupon' );
 			}
 
 			add_filter( 'mce_external_plugins', array( $this, 'smart_coupon_register_tinymce_plugin' ) );
@@ -431,56 +435,89 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 
 			$coupon_post = get_post( $coupon_id );
 
-			switch ( $discount_type ) {
-				case 'smart_coupon':
-					$coupon_type    = ! empty( $store_credit_label['singular'] ) ? ucwords( $store_credit_label['singular'] ) : __( 'Store Credit', 'woocommerce-smart-coupons' );
-					$_coupon_amount = wc_price( $coupon_amount );
-					break;
+			$coupon_data = $this->get_coupon_meta_data( $coupon );
 
-				case 'fixed_cart':
-					$coupon_type    = __( 'Cart Discount', 'woocommerce-smart-coupons' );
-					$_coupon_amount = wc_price( $coupon_amount );
-					break;
+			$design           = get_option( 'wc_sc_setting_coupon_design', 'basic' );
+			$background_color = get_option( 'wc_sc_setting_coupon_background_color', '#39cccc' );
+			$foreground_color = get_option( 'wc_sc_setting_coupon_foreground_color', '#30050b' );
+			$third_color      = get_option( 'wc_sc_setting_coupon_third_color', '#39cccc' );
 
-				case 'fixed_product':
-					$coupon_type    = __( 'Product Discount', 'woocommerce-smart-coupons' );
-					$_coupon_amount = wc_price( $coupon_amount );
-					break;
+			$show_coupon_description = get_option( 'smart_coupons_show_coupon_description', 'no' );
 
-				case 'percent_product':
-					$coupon_type    = __( 'Product Discount', 'woocommerce-smart-coupons' );
-					$_coupon_amount = $coupon_amount . '%';
-					break;
+			$valid_designs = $this->get_valid_coupon_designs();
 
-				case 'percent':
-					$coupon_type    = ( $this->is_wc_gte_30() ) ? __( 'Discount', 'woocommerce-smart-coupons' ) : __( 'Cart Discount', 'woocommerce-smart-coupons' );
-					$_coupon_amount = $coupon_amount . '%';
-					$max_discount   = get_post_meta( $coupon_id, 'wc_sc_max_discount', true );
-					if ( ! empty( $max_discount ) && is_numeric( $max_discount ) ) {
-						/* translators: %s: Maximum coupon discount amount */
-						$coupon_type .= ' ' . sprintf( __( ' upto %s', 'woocommerce-smart-coupons' ), wc_price( $max_discount ) );
-					}
-					break;
-
-				default:
-					$default_coupon_type = ( ! empty( $all_discount_types[ $discount_type ] ) ) ? $all_discount_types[ $discount_type ] : ucwords( str_replace( array( '_', '-' ), ' ', $discount_type ) );
-					$coupon_type         = apply_filters( 'wc_sc_coupon_type', $default_coupon_type, $coupon, $all_discount_types );
-					$_coupon_amount      = apply_filters( 'wc_sc_coupon_amount', $coupon_amount, $coupon );
-					break;
-
+			if ( ! in_array( $design, $valid_designs, true ) ) {
+				$design = 'basic';
 			}
-			if ( ! empty( $_coupon_amount ) || 0 !== $_coupon_amount ) {
-				$discount_text = $_coupon_amount . ' ' . $coupon_type;
-				if ( 'yes' === $is_free_shipping ) {
-					$discount_text .= __( ' &amp; ', 'woocommerce-smart-coupons' );
-				}
-			} else {
-				$discount_text = '';
+
+			if ( 'yes' === $is_email ) {
+				$design = ( 'custom-design' !== $design ) ? 'email-coupon' : $design;
 			}
+
+			?>
+			<style type="text/css"><?php echo $this->get_coupon_styles( $design, array( 'is_email' => $is_email ) ); // phpcs:ignore ?></style>
+			<?php
+			if ( 'custom-design' !== $design ) {
+				?>
+					<style type="text/css">
+						:root {
+							--sc-color1: <?php echo esc_html( $background_color ); ?>;
+							--sc-color2: <?php echo esc_html( $foreground_color ); ?>;
+							--sc-color3: <?php echo esc_html( $third_color ); ?>;
+						}
+					</style>
+					<?php
+			}
+			?>
+
+			<?php
+
+			$coupon_type = ( ! empty( $coupon_data['coupon_type'] ) ) ? $coupon_data['coupon_type'] : '';
+
 			if ( 'yes' === $is_free_shipping ) {
-				$discount_text .= __( 'Free Shipping', 'woocommerce-smart-coupons' );
+				if ( ! empty( $coupon_type ) ) {
+					$coupon_type .= __( ' & ', 'woocommerce-smart-coupons' );
+				}
+				$coupon_type .= __( 'Free Shipping', 'woocommerce-smart-coupons' );
 			}
-			$discount_text = wp_strip_all_tags( $discount_text );
+
+			if ( ! empty( $expiry_date ) ) {
+				$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
+				if ( ! empty( $expiry_time ) ) {
+					if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
+						$expiry_date = $expiry_date->getTimestamp();
+					} elseif ( ! is_int( $expiry_date ) ) {
+						$expiry_date = strtotime( $expiry_date );
+					}
+					$expiry_date += $expiry_time; // Adding expiry time to expiry date.
+				}
+			}
+
+			$coupon_description = '';
+			if ( ! empty( $coupon_post->post_excerpt ) && 'yes' === $show_coupon_description ) {
+				$coupon_description = $coupon_post->post_excerpt;
+			}
+
+			$is_percent = $this->is_percent_coupon( array( 'coupon_object' => $coupon ) );
+
+			$args = array(
+				'coupon_object'      => $coupon,
+				'coupon_amount'      => $coupon_amount,
+				'amount_symbol'      => ( true === $is_percent ) ? '%' : get_woocommerce_currency_symbol(),
+				'discount_type'      => wp_strip_all_tags( $coupon_type ),
+				'coupon_description' => ( ! empty( $coupon_description ) ) ? $coupon_description : wp_strip_all_tags( $this->generate_coupon_description( array( 'coupon_object' => $coupon ) ) ),
+				'coupon_code'        => $new_generated_coupon_code,
+				'coupon_expiry'      => ( ! empty( $expiry_date ) ) ? $this->get_expiration_format( $expiry_date ) : __( 'Never expires', 'woocommerce-smart-coupons' ),
+				'thumbnail_src'      => $this->get_coupon_design_thumbnail_src(
+					array(
+						'design'        => $design,
+						'coupon_object' => $coupon,
+					)
+				),
+				'classes'            => '',
+				'template_id'        => $design,
+				'is_percent'         => $is_percent,
+			);
 
 			$coupon_target              = '';
 			$wc_url_coupons_active_urls = get_option( 'wc_url_coupons_active_urls' ); // From plugin WooCommerce URL coupons.
@@ -495,67 +532,25 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 
 			$coupon_target = apply_filters( 'sc_coupon_url_in_email', $coupon_target, $coupon );
 
-			$design           = get_option( 'wc_sc_setting_coupon_design', 'round-dashed' );
-			$background_color = get_option( 'wc_sc_setting_coupon_background_color', '#39cccc' );
-			$foreground_color = get_option( 'wc_sc_setting_coupon_foreground_color', '#30050b' );
-
-			?>
-			<style type="text/css"><?php echo $this->get_coupon_styles( $design, array( 'is_email' => $is_email ) ); // phpcs:ignore ?></style>
-			<style type="text/css">
-				.coupon-container.left:before,
-				.coupon-container.bottom:before {
-					background: <?php echo esc_html( $foreground_color ); ?> !important;
-				}
-				.coupon-container.left:hover, .coupon-container.left:focus, .coupon-container.left:active,
-				.coupon-container.bottom:hover, .coupon-container.bottom:focus, .coupon-container.bottom:active {
-					color: <?php echo esc_html( $background_color ); ?> !important;
-				}
-			</style>
-
-			<?php
-
-			do_action( 'wc_sc_before_shortcode_smart_coupons_html_start', array( 'source' => $this ) );
+			do_action(
+				'wc_sc_before_shortcode_smart_coupons_html_start',
+				array(
+					'source'               => $this,
+					'shortcode_attributes' => $shortcode,
+					'coupon_object'        => $coupon,
+				)
+			);
 
 			if ( 'yes' === $is_email ) {
-				echo '<div style="margin: 10px 0; text-align: center;" title="' . esc_html__( 'Click to visit store. This coupon will be applied automatically.', 'woocommerce-smart-coupons' ) . '">';
+				echo '<div style="margin: 10px 0;" title="' . esc_html__( 'Click to visit store. This coupon will be applied automatically.', 'woocommerce-smart-coupons' ) . '">';
 			}
 			if ( 'yes' === $is_clickable ) {
 				echo '<a href="' . esc_url( $coupon_target ) . '" style="color: #444;">';
 			}
 
-			echo '<div class="coupon-container ' . esc_attr( $this->get_coupon_container_classes() ) . '" style="cursor:inherit; ' . esc_attr( $this->get_coupon_style_attributes() ) . '">
-						<div class="coupon-content ' . esc_attr( $this->get_coupon_content_classes() ) . '">
-							<div class="discount-info">'; // phpcs:ignore
-			if ( ! empty( $discount_text ) ) {
-				echo esc_html( $discount_text );
-			}
-			echo '</div>';
-
-			echo '<div class="code">' . esc_html( $new_generated_coupon_code ) . '</div>';
-
-			$show_coupon_description = get_option( 'smart_coupons_show_coupon_description', 'no' );
-			if ( ! empty( $coupon_post->post_excerpt ) && 'yes' === $show_coupon_description ) {
-				echo '<div class="discount-description">' . esc_html( $coupon_post->post_excerpt ) . '</div>';
-			}
-
-			if ( $this->is_wc_gte_30() ) {
-				$_expiry_date = intval( get_post_meta( $coupon_id, 'date_expires', true ) );
-			} else {
-				$_expiry_date = get_post_meta( $coupon_id, 'expiry_date', true );
-			}
-
-			if ( ! empty( $_expiry_date ) ) {
-				if ( ! $this->is_wc_gte_30() ) {
-					$_expiry_date = strtotime( $_expiry_date );
-				}
-				$_expiry_date_text = $this->get_expiration_format( $_expiry_date );
-				echo ' <div class="coupon-expire">' . esc_html( $_expiry_date_text ) . '</div>';
-			} else {
-				echo ' <div class="coupon-expire">' . esc_html__( 'Never Expires ', 'woocommerce-smart-coupons' ) . '</div>';
-			}
-
-			echo '</div>
-				</div>';
+			echo '<div id="sc-cc"><div class="sc-coupons-list">';
+			wc_get_template( 'coupon-design/' . $design . '.php', $args, '', plugin_dir_path( WC_SC_PLUGIN_FILE ) . 'templates/' );
+			echo '</div></div>';
 
 			if ( 'yes' === $is_clickable ) {
 				echo '</a>';
@@ -776,6 +771,9 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 								couponShortcode += ' coupon_code="'+couponCode.trim()+'"';
 							}
 
+							couponShortcode += ' is_clickable="yes"';
+							couponShortcode += ' is_email="yes"';
+
 							couponShortcode += ']';
 							tinyMCE.execCommand("mceInsertContent", false, couponShortcode);
 							emptyAllFormElement();
@@ -799,39 +797,54 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 							</div>
 						</div>
 					</div>
-					<div class="coupon-preview">
-						<div class="preview-heading">
-							<?php echo esc_html__( 'Preview', 'woocommerce-smart-coupons' ); ?>
-						</div>
-						<?php
-							$design           = get_option( 'wc_sc_setting_coupon_design', 'round-dashed' );
-							$background_color = get_option( 'wc_sc_setting_coupon_background_color', '#39cccc' );
-							$foreground_color = get_option( 'wc_sc_setting_coupon_foreground_color', '#30050b' );
-						?>
-						<style type="text/css"><?php echo $this->get_coupon_styles( $design ); // phpcs:ignore ?></style>
-						<style type="text/css">
-							.coupon-container.left:before,
-							.coupon-container.bottom:before {
-								background: <?php echo esc_html( $foreground_color ); ?> !important;
-							}
-							.coupon-container.left:hover, .coupon-container.left:focus, .coupon-container.left:active,
-							.coupon-container.bottom:hover, .coupon-container.bottom:focus, .coupon-container.bottom:active {
-								color: <?php echo esc_html( $background_color ); ?> !important;
-							}
-						</style>
-						<div class="coupon-container <?php echo esc_attr( $this->get_coupon_container_classes() ); ?>" style="<?php echo str_replace( '!important', '', $this->get_coupon_style_attributes() ); // phpcs:ignore ?>">
-							<div class="coupon-content <?php echo esc_attr( $this->get_coupon_content_classes() ); ?>">
-								<div class="discount-info"><?php echo esc_html__( 'XX Discount type', 'woocommerce-smart-coupons' ); ?></div>
-								<div class="code"><?php echo esc_html__( 'coupon-code', 'woocommerce-smart-coupons' ); ?></div>
-								<?php
-								$show_coupon_description = get_option( 'smart_coupons_show_coupon_description', 'no' );
-								if ( 'yes' === $show_coupon_description ) {
-									echo '<div class="discount-description">' . esc_html__( 'Description', 'woocommerce-smart-coupons' ) . '</div>';
-								}
-								?>
-								<div class="coupon-expire"><?php echo esc_html__( 'Expires on xx date', 'woocommerce-smart-coupons' ); ?></div>
-
+					<div id="sc-cc">
+						<div class="coupon-preview sc-coupons-list">
+							<div class="preview-heading">
+								<?php echo esc_html__( 'Preview', 'woocommerce-smart-coupons' ); ?>
 							</div>
+							<?php
+								$design           = get_option( 'wc_sc_setting_coupon_design', 'basic' );
+								$background_color = get_option( 'wc_sc_setting_coupon_background_color', '#39cccc' );
+								$foreground_color = get_option( 'wc_sc_setting_coupon_foreground_color', '#30050b' );
+								$third_color      = get_option( 'wc_sc_setting_coupon_third_color', '#39cccc' );
+
+								$show_coupon_description = get_option( 'smart_coupons_show_coupon_description', 'no' );
+
+								$valid_designs = $this->get_valid_coupon_designs();
+
+							if ( ! in_array( $design, $valid_designs, true ) ) {
+								$design = 'basic';
+							}
+							?>
+							<style type="text/css"><?php echo $this->get_coupon_styles( $design ); // phpcs:ignore ?></style>
+							<?php
+							if ( 'custom-design' !== $design ) {
+								?>
+									<style type="text/css">
+										:root {
+											--sc-color1: <?php echo esc_html( $background_color ); ?>;
+											--sc-color2: <?php echo esc_html( $foreground_color ); ?>;
+											--sc-color3: <?php echo esc_html( $third_color ); ?>;
+										}
+									</style>
+									<?php
+							}
+							?>
+							<?php
+								$args = array(
+									'coupon_amount'      => 'XX',
+									'amount_symbol'      => get_woocommerce_currency_symbol(),
+									'discount_type'      => 'Discount type',
+									'coupon_description' => 'Description',
+									'coupon_code'        => 'coupon-code',
+									'coupon_expiry'      => 'Expires on xx date',
+									'thumbnail_src'      => '',
+									'classes'            => '',
+									'template_id'        => $design,
+									'is_percent'         => false,
+								);
+								wc_get_template( 'coupon-design/' . $design . '.php', $args, '', plugin_dir_path( WC_SC_PLUGIN_FILE ) . 'templates/' );
+								?>
 						</div>
 					</div>
 					<div class="submitbox">

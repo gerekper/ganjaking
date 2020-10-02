@@ -69,9 +69,15 @@ class WoocommercePrfGoogleReviewProductInfo {
 	 * @return array
 	 */
 	protected function get_product_info_simple( $product_id ) {
-		$post          = get_post( $product_id );
+		$post = get_post( $product_id );
+		if ( empty( $post ) ) {
+			return [];
+		}
 		$gpf_feed_item = woocommerce_gpf_get_feed_item( $post );
-		$product_info  = array(
+		if ( $gpf_feed_item ) {
+			return [];
+		}
+		$product_info = array(
 			'gtins'  => array(),
 			'mpns'   => array(),
 			'brands' => array(),

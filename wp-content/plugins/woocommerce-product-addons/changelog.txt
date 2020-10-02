@@ -1,7 +1,11 @@
 *** Product Addons Changelog ***
 
-2020-07-07 - version 3.0.36
-* Fix - Escape output for selectWoo fields.
+2020-09-29 - version 3.1.0
+* Fix - Sanitize data when importing product addons.
+* Fix - Include quantity in calculation for customer defined price fields.
+* Tweak - Change quantity string for RTL languages.
+* Tweak - WC 4.5 compatibility.
+* Tweak - WP 5.5 compatibility.
 
 2020-06-23 - version 3.0.35
 * Fix - Update API.

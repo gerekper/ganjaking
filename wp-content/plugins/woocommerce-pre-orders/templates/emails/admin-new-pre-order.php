@@ -62,7 +62,7 @@ printf( __( 'Order: %s', 'wc-pre-orders' ), $order->get_order_number() ); ?> (<?
 	</tfoot>
 </table>
 
-<?php do_action( 'woocommerce_email_after_order_table', $order, true, $plain_text ); ?>
+<?php do_action( 'woocommerce_email_after_order_table', $order, true, $plain_text, $email ); ?>
 
 <?php do_action( 'woocommerce_email_order_meta', $order, true, $plain_text ); ?>
 

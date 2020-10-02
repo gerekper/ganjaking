@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.7.0
- * @version     1.0.0
+ * @version     1.1.0
  * @package     woocommerce-smart-coupons/templates/
  */
 
@@ -32,7 +32,6 @@ $bloginfo = get_bloginfo( 'name', 'display' );
 				background-color: unset;
 			}
 			.wc-sc-print-coupons-wrapper {
-				text-align: center;
 				padding: 4em 0;
 			}
 			.coupon-container {
@@ -70,22 +69,34 @@ $bloginfo = get_bloginfo( 'name', 'display' );
 				font-weight: 600;
 				padding-left: 1em;
 			}
+			#sc-cc .wc-sc-print-coupons-wrapper {
+				display: table;
+			}
+			#sc-cc .coupon-container {
+				display: inline-block;
+				page-break-inside: avoid;
+				margin: .8rem 1rem;
+				border: 1px solid #ccc !important;
+			}
 		</style>
 		<style type="text/css"><?php echo ( isset( $coupon_styles ) && ! empty( $coupon_styles ) ) ? $coupon_styles : ''; // phpcs:ignore ?></style>
-		<style type="text/css">
-			.coupon-container.left:before,
-			.coupon-container.bottom:before {
-				background: <?php echo esc_html( $foreground_color ); ?> !important;
-			}
-			.coupon-container.left:hover, .coupon-container.left:focus, .coupon-container.left:active,
-			.coupon-container.bottom:hover, .coupon-container.bottom:focus, .coupon-container.bottom:active {
-				color: <?php echo esc_html( $background_color ); ?> !important;
-			}
-		</style>
+		<?php
+		if ( 'custom-design' !== $design ) {
+			?>
+				<style type="text/css">
+					:root {
+						--sc-color1: <?php echo esc_html( $background_color ); ?>;
+						--sc-color2: <?php echo esc_html( $foreground_color ); ?>;
+						--sc-color3: <?php echo esc_html( $third_color ); ?>;
+					}
+				</style>
+				<?php
+		}
+		?>
 	</head>
 	<body <?php body_class(); ?>>
-		<div class="woocommerce wc-sc-print-coupons-container">
-			<div class="wc-sc-print-coupons-wrapper">
+		<div id="sc-cc" class="woocommerce wc-sc-print-coupons-container">
+			<div class="wc-sc-print-coupons-wrapper sc-coupons-list">
 			<?php
 			foreach ( $coupon_codes as $coupon_data ) {
 				$coupon = new WC_Coupon( $coupon_data['code'] );
@@ -120,66 +131,56 @@ $bloginfo = get_bloginfo( 'name', 'display' );
 
 				$coupon_meta = $woocommerce_smart_coupon->get_coupon_meta_data( $coupon );
 
-				?>
-						<div class="coupon-container <?php echo esc_attr( $woocommerce_smart_coupon->get_coupon_container_classes() ); ?>" style="<?php echo $woocommerce_smart_coupon->get_coupon_style_attributes(); // phpcs:ignore ?>">
-							<?php
-								echo '<div class="coupon-content ' . esc_attr( $woocommerce_smart_coupon->get_coupon_content_classes() ) . '">
-												<div class="discount-info">';
+				$coupon_type = ( ! empty( $coupon_meta['coupon_type'] ) ) ? $coupon_meta['coupon_type'] : '';
 
-							$discount_title = '';
+				if ( 'yes' === $is_free_shipping ) {
+					if ( ! empty( $coupon_type ) ) {
+						$coupon_type .= __( ' & ', 'woocommerce-smart-coupons' );
+					}
+					$coupon_type .= __( 'Free Shipping', 'woocommerce-smart-coupons' );
+				}
 
-							if ( ! empty( $coupon_meta['coupon_amount'] ) && ! empty( $coupon_amount ) ) {
-								$discount_title = $coupon_meta['coupon_amount'] . ' ' . $coupon_meta['coupon_type'];
-							}
+				if ( ! empty( $expiry_date ) ) {
+					$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
+					if ( ! empty( $expiry_time ) ) {
+						if ( $woocommerce_smart_coupon->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
+							$expiry_date = $expiry_date->getTimestamp();
+						} elseif ( ! is_int( $expiry_date ) ) {
+							$expiry_date = strtotime( $expiry_date );
+						}
+						$expiry_date += $expiry_time; // Adding expiry time to expiry date.
+					}
+				}
 
-							$discount_title = apply_filters( 'wc_smart_coupons_display_discount_title', $discount_title, $coupon );
+				$coupon_description = '';
 
-							if ( $discount_title ) {
+				if ( ! empty( $coupon_post->post_excerpt ) && 'yes' === $show_coupon_description ) {
+					$coupon_description = $coupon_post->post_excerpt;
+				}
 
-								// Not escaping because 3rd party developer can have HTML code in discount title.
-								echo $discount_title; // phpcs:ignore
+				$is_percent = $woocommerce_smart_coupon->is_percent_coupon( array( 'coupon_object' => $coupon ) );
 
-								if ( 'yes' === $is_free_shipping ) {
-									echo __( ' &amp; ', 'woocommerce-smart-coupons' ); // phpcs:ignore
-								}
-							}
+				$args = array(
+					'coupon_object'      => $coupon,
+					'coupon_amount'      => $coupon_amount,
+					'amount_symbol'      => ( true === $is_percent ) ? '%' : get_woocommerce_currency_symbol(),
+					'discount_type'      => wp_strip_all_tags( $coupon_type ),
+					'coupon_description' => ( ! empty( $coupon_description ) ) ? $coupon_description : wp_strip_all_tags( $woocommerce_smart_coupon->generate_coupon_description( array( 'coupon_object' => $coupon ) ) ),
+					'coupon_code'        => $coupon_code,
+					'coupon_expiry'      => ( ! empty( $expiry_date ) ) ? $woocommerce_smart_coupon->get_expiration_format( $expiry_date ) : __( 'Never expires', 'woocommerce-smart-coupons' ),
+					'thumbnail_src'      => $woocommerce_smart_coupon->get_coupon_design_thumbnail_src(
+						array(
+							'design'        => $design,
+							'coupon_object' => $coupon,
+						)
+					),
+					'classes'            => '',
+					'template_id'        => $design,
+					'is_percent'         => $is_percent,
+				);
 
-							if ( 'yes' === $is_free_shipping ) {
-								echo esc_html__( 'Free Shipping', 'woocommerce-smart-coupons' );
-							}
-								echo '</div>';
+				wc_get_template( 'coupon-design/' . $design . '.php', $args, '', plugin_dir_path( WC_SC_PLUGIN_FILE ) . 'templates/' );
 
-								echo '<div class="code">' . esc_html( $coupon_code ) . '</div>';
-
-								$show_coupon_description = get_option( 'smart_coupons_show_coupon_description', 'no' );
-							if ( ! empty( $coupon_post->post_excerpt ) && 'yes' === $show_coupon_description ) {
-								echo '<div class="discount-description">' . esc_html( $coupon_post->post_excerpt ) . '</div>';
-							}
-
-							if ( ! empty( $expiry_date ) ) {
-
-								$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
-								if ( ! empty( $expiry_time ) ) {
-									if ( $woocommerce_smart_coupon->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-										$expiry_date = $expiry_date->getTimestamp();
-									} elseif ( ! is_int( $expiry_date ) ) {
-										$expiry_date = strtotime( $expiry_date );
-									}
-									$expiry_date += $expiry_time; // Adding expiry time to expiry date.
-								}
-
-								$expiry_date = $woocommerce_smart_coupon->get_expiration_format( $expiry_date );
-
-								echo '<div class="coupon-expire">' . esc_html( $expiry_date ) . '</div>';
-							} else {
-
-								echo '<div class="coupon-expire">' . esc_html__( 'Never Expires ', 'woocommerce-smart-coupons' ) . '</div>';
-							}
-
-								echo '</div>';
-							?>
-							</div>
-							<?php
 			}
 			?>
 			</div>

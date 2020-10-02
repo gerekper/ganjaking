@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.1
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -230,10 +230,13 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 		 * Output the about screen.
 		 */
 		public function about_screen() {
+			if ( ! wp_script_is( 'jquery' ) ) {
+				wp_enqueue_script( 'jquery' );
+			}
 			?>
 
 			<script type="text/javascript">
-				jQuery(document).on('ready', function(){
+				jQuery(function(){
 					jQuery('#toplevel_page_woocommerce').find('a[href$=shop_coupon]').addClass('current');
 					jQuery('#toplevel_page_woocommerce').find('a[href$=shop_coupon]').parent().addClass('current');
 				});
@@ -327,10 +330,13 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 		 * Output the FAQ's screen.
 		 */
 		public function faqs_screen() {
+			if ( ! wp_script_is( 'jquery' ) ) {
+				wp_enqueue_script( 'jquery' );
+			}
 			?>
 
 			<script type="text/javascript">
-				jQuery(document).on('ready', function(){
+				jQuery(function(){
 					jQuery('#toplevel_page_woocommerce').find('a[href$=shop_coupon]').addClass('current');
 					jQuery('#toplevel_page_woocommerce').find('a[href$=shop_coupon]').parent().addClass('current');
 				});
