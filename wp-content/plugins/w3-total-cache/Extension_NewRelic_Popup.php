@@ -66,7 +66,7 @@ class Extension_NewRelic_Popup {
 			return;
 		}
 
-			$details['browser_disabled'] = false;
+		$details['browser_disabled'] = false;
 
 		include  W3TC_DIR . '/Extension_NewRelic_Popup_View_ListApplications.php';
 	}

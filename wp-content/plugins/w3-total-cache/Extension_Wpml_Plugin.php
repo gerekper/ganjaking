@@ -9,7 +9,7 @@ class Extension_Wpml_Plugin {
 	}
 
 	public function run() {
-		
+	
 			add_filter( 'w3tc_url_to_docroot_filename',
 				array( $this, 'w3tc_url_to_docroot_filename' ) );
 	

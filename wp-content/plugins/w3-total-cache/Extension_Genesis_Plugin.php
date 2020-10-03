@@ -22,7 +22,7 @@ class Extension_Genesis_Plugin {
 
 		$this->_config = Dispatcher::config();
 
-	
+		
 			if ( !is_admin() ) {
 				/**
 				 * Register the caching of content to specific hooks

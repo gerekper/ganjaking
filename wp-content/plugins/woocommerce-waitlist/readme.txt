@@ -1,10 +1,10 @@
 === WooCommerce Waitlist ===
 Requires at least: 4.2.0
-Tested up to: 5.4.1
+Tested up to: 5.4.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.0.0
-WC tested up to: 4.2.0
+WC tested up to: 4.3.0
 
 This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
 
@@ -44,6 +44,9 @@ Why does the Waitlist only show up for some products?
 If you’re using the Advanced Notifications extension make sure you disable the backorder setting.
 
 == Changelog ==
+
+2020.07.14 - version 2.1.24
+* Fix: waitlist elements not showing with events tickets (4.12)
 
 2020.07.07 - version 2.1.23
 * Fix: updated language.pot file

@@ -218,7 +218,7 @@ Util_Ui::config_item_engine( array(
 	) );
 ?>
 
-			<?php if ( is_network_admin() ): ?>
+			<?php if ( Util_Environment::is_w3tc_pro() && is_network_admin() ): ?>
 			<?php include W3TC_INC_OPTIONS_DIR . '/enterprise/dbcluster_general_section.php' ?>
 			<?php endif; ?>
 		</table>
@@ -504,16 +504,16 @@ Util_Ui::config_item( array(
 					<?php $this->checkbox_debug( 'minify.debug' ) ?> <?php Util_Ui::e_config_label( 'minify.debug' ) ?></label><br />
 					<?php $this->checkbox_debug( 'dbcache.debug' ) ?> <?php Util_Ui::e_config_label( 'dbcache.debug' ) ?></label><br />
 					<?php $this->checkbox_debug( 'objectcache.debug' ) ?> <?php Util_Ui::e_config_label( 'objectcache.debug' ) ?></label><br />
-					
+					<?php if ( Util_Environment::is_w3tc_pro( $this->_config ) ): ?>
 					<?php $this->checkbox_debug( array( 'fragmentcache', 'debug' ) ) ?> <?php _e( 'Fragment Cache', 'w3-total-cache' ) ?></label><br />
-				
+					<?php endif; ?>
 					<?php $this->checkbox_debug( 'cdn.debug' ) ?> <?php Util_Ui::e_config_label( 'cdn.debug' ) ?></label><br />
 					<?php $this->checkbox_debug( 'cdnfsd.debug' ) ?> <?php Util_Ui::e_config_label( 'cdnfsd.debug' ) ?></label><br />
 					<?php $this->checkbox_debug( 'varnish.debug' ) ?> <?php Util_Ui::e_config_label( 'varnish.debug' ) ?></label>
-					
+					<?php if ( Util_Environment::is_w3tc_pro() ): ?>
 						<br />
 						<?php $this->checkbox_debug( 'cluster.messagebus.debug' ) ?> <?php Util_Ui::e_config_label( 'cluster.messagebus.debug' ) ?></label>
-				
+					<?php endif ?>
 					<p class="description"><?php _e( 'If selected, detailed caching information will appear at the end of each page in a <acronym title="Hypertext Markup Language">HTML</acronym> comment. View a page\'s source code to review.', 'w3-total-cache' ); ?></p>
 				</td>
 			</tr>

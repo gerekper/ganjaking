@@ -15,9 +15,9 @@ $licensing_visible = ( ( !Util_Environment::is_wpmu() || is_network_admin() ) &&
 <?php do_action( 'w3tc-dashboard-head' ) ?>
 <div class="wrap" id="w3tc">
 	<h2 class="logo"><?php _e( 'W3 Total Cache <span>by W3 EDGE <sup>&reg;</sup></span>', 'w3-total-cache' ); ?></h2>
-
-
-
+<?php if ( !Util_Environment::is_w3tc_pro( $config ) ): ?>
+	<?php include W3TC_INC_OPTIONS_DIR . '/edd/buy.php' ?>
+<?php endif ?>
 	<?php
 	switch ( $page ) {
 	case 'w3tc_general':
@@ -31,14 +31,14 @@ $licensing_visible = ( ( !Util_Environment::is_wpmu() || is_network_admin() ) &&
 			array( 'id' => 'system_opcache', 'text' => __( 'Opcode Cache', 'w3-total-cache' ) ),
 			array( 'id' => 'database_cache', 'text' => __( 'Database Cache', 'w3-total-cache' ) ),
 			array( 'id' => 'object_cache', 'text' => __( 'Object Cache', 'w3-total-cache' ) ) );
-		
+		if ( Util_Environment::is_w3tc_pro( $config ) )
 			$anchors[] = array( 'id' => 'fragmentcache', 'text' => __( 'Fragment Cache', 'w3-total-cache' ) );
 
 		$anchors = array_merge( $anchors, array(
 				array( 'id' => 'browser_cache', 'text' => __( 'Browser Cache', 'w3-total-cache' ) ),
 				array( 'id' => 'cdn', 'text' => __( '<abbr title="Content Delivery Network">CDN</abbr>', 'w3-total-cache' ) ),
 				array( 'id' => 'reverse_proxy', 'text' => __( 'Reverse Proxy', 'w3-total-cache' ) ) ) );
-		
+		if ( Util_Environment::is_w3tc_pro() )
 			$anchors[] = array( 'id' => 'amazon_sns', 'text' => __( 'Message Bus', 'w3-total-cache' ) );
 		$anchors[] = array( 'id' => 'monitoring', 'text' => __( 'Monitoring', 'w3-total-cache' ) );
 		if ( $licensing_visible )

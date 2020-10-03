@@ -718,6 +718,8 @@ class WC_Order_Status_Manager_Order_Statuses {
 
 		if ( ! empty( $order_rows ) ) {
 
+			add_action( 'woocommerce_email', [ $this, 'disable_email_notifications' ] );
+
 			foreach ( $order_rows as $order_row ) {
 
 				$order = wc_get_order( $order_row['ID'] );
@@ -925,6 +927,21 @@ class WC_Order_Status_Manager_Order_Statuses {
 		}
 
 		return $custom_actions;
+	}
+
+
+	/**
+	 * Removes WooCommerce email actions to prevent notifications on manual order status updates.
+	 *
+	 * @internal
+	 *
+	 * @since 1.12.1
+	 *
+	 * @param WC_Emails $email_class the WooCommerce emails class instance
+	 */
+	public function disable_email_notifications( $email_class ) {
+
+		remove_action( 'woocommerce_order_status_completed_notification', [ $email_class->emails['WC_Email_Customer_Completed_Order'], 'trigger' ] );
 	}
 
 

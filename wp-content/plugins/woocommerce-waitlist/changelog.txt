@@ -1,5 +1,8 @@
 *** WooCommerce Waitlist Change Log ***
 
+2020.07.14 - version 2.1.24
+* Fix: waitlist elements not showing with events tickets (4.12)
+
 2020.07.07 - version 2.1.23
 * Fix: updated language.pot file
 

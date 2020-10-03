@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.5.1
-Stable tag: 2.3.2
+Stable tag: 2.3.4
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -53,6 +53,10 @@ perfect-scrollbar maintained by Hyunje Jun
 License: MIT
 Source: https://github.com/utatti/perfect-scrollbar
 
+hamburgers maintained by Jonathan Suh
+License: MIT
+Source: https://github.com/jonsuh/hamburgers/
+
 jQuery Select2, Maintained by Kevin Brown (https://github.com/kevin-brown) and Igor Vaynberg (https://github.com/ivaynberg) with the help of contributors (https://github.com/select2/select2/graphs/contributors)
 License: MIT
 Source: https://select2.github.io/
@@ -60,6 +64,23 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.3.4 =
+* Add: An additional option for "Mobile navigation drawer width" is "Dynamic minimum size"
+* Add: Added "Enable mobile menu scrollbar" setting. Is enabled by default.
+* Add: New option for mobile menu type "Slider mobile submenu opening style" - "Mobile submenu title height".
+* Add: New option for mobile menu type "Slider mobile submenu opening style" - "Mobile submenu title background color".
+* Fix: Improved animation for the "slider" type mobile menu. Second Revision. Reducing the number of calculations during the animation, which will speed up the display on slow smartphones.
+* Fix: Alignment open/close icon for Animated Hamburger.
+* Fix: Fixed a bug where not all menu items could be shown at "Slider mobile submenu opening style"
+* Fix: Added style which prevents mobile menu folding at scrolling the main content.
+* Fix: Added styles to prevent showing the mobile menu at page is loading.
+
+= 2.3.3 =
+* Add: Added the ability to implement a custom trigger to open a mobile menu. "Custom mobile menu open trigger".
+* Fix: The upper gap in the "slider" type mobile menu is now applied not only to the top level, but also to all submenus.
+* Fix: Fixed bug with hover color for "Top level hover Style 2".
+* Fix: Improved animation for the "slider" type mobile menu. Now it is smoother and without visible friezes.
 
 = 2.3.2 =
 * Add: New setting to set the top gap for the mobile menu "Mobile menu top gap".

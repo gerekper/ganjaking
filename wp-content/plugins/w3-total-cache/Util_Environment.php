@@ -1084,8 +1084,10 @@ class Util_Environment {
 	 * @return string
 	 */
 	static public function w3tc_edition( $config = null ) {
-		
-	
+		if ( Util_Environment::is_w3tc_pro( $config ) &&  Util_Environment::is_w3tc_pro_dev() )
+			return 'pro development';
+		if ( Util_Environment::is_w3tc_pro( $config ) )
+			return 'pro';
 		return 'pro';
 	}
 

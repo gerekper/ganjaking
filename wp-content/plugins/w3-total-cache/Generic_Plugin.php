@@ -27,6 +27,7 @@ class Generic_Plugin {
 				'init'
 			), 1 /* need that to run before wp-cron to issue w3tc redirect */ );
 		
+		
 
 		add_action( 'admin_bar_menu', array(
 				$this,

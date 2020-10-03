@@ -40,9 +40,8 @@ class Extension_Wpml_Plugin_Admin {
 		$requirements = array();
 		if ( !$base_plugin_active )
 			$requirements[] = 'Ensure "WPML" plugin compatibility, which is not currently active.';
-	
-	
-	
+		
+
 		$extensions['wpml'] = array(
 			'name' => 'WPML',
 			'author' => 'W3 EDGE',

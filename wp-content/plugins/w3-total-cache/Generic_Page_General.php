@@ -62,8 +62,7 @@ class Generic_Page_General extends Base_Page_Settings {
 
 		$licensing_visible = false;
 		$is_pro = true;
-		
-		
+
 		$custom_areas = apply_filters( "w3tc_settings_general_anchors", array() );
 		include W3TC_INC_DIR . '/options/general.php';
 	}

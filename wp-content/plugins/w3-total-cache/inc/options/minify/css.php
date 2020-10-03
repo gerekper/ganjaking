@@ -4,7 +4,7 @@ namespace W3TC;
 if ( !defined( 'W3TC' ) )
 	die();
 
-$is_pro = true;
+$is_pro = Util_Environment::is_w3tc_pro( $this->_config );
 
 ?>
 <?php $this->checkbox( 'minify.css.strip.comments', false, 'css_' ) ?> <?php Util_Ui::e_config_label( 'minify.css.strip.comments' ) ?></label><br />

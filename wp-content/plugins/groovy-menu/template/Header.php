@@ -749,7 +749,7 @@ function groovyMenu( $args = array() ) {
 	}
 
 
-	if ( $groovyMenuSettings['mobileIndependentCssHamburger'] && 2 !== $header_style ) {
+	if ( ( $groovyMenuSettings['mobileIndependentCssHamburger'] && 2 !== $header_style ) || $groovyMenuSettings['mobileCustomHamburger'] ) {
 		// do nothing ...
 	} else {
 		$output_html .= '<span class="gm-menu-btn">
@@ -947,7 +947,7 @@ function groovyMenu( $args = array() ) {
 		}
 		$output_html .= '">';
 
-		if ( $groovyMenuSettings['mobileIndependentCssHamburger'] && 2 !== $header_style ) {
+		if ( $groovyMenuSettings['mobileIndependentCssHamburger'] && 2 !== $header_style && ! $groovyMenuSettings['mobileCustomHamburger'] ) {
 			$output_html .= '<div class="gm-burger hamburger"><div class="hamburger-box"><div class="hamburger-inner"></div></div></div>';
 		}
 

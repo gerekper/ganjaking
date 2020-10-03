@@ -1891,13 +1891,13 @@ class GroovyMenuUtils {
 		update_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data', array( 'gm_version' => '2.3.2' ) );
 		$transient_timer = 4 * HOUR_IN_SECONDS;
 		set_transient( GROOVY_MENU_DB_VER_OPTION . '__lic_cache', true, $transient_timer );
-		$lic_opt = true;
+                $lic_opt = true;
 		return $lic_opt;
 	}
 
 
 	public static function get_paramlic( $field ) {
-		return 'regular';
+                return 'regular';
 		$answer = '';
 
 		$data = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data' );

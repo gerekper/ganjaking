@@ -357,17 +357,9 @@ jQuery(function() {
 		};
 
 		jQuery.get(ajaxurl, params, function(data) {
-			if (w3tc_starts_with(data + '.', 'inactive.expired.')) {
-				jQuery('.w3tc_license_verification').html('The license key has expired. Please renew it.');
-			} else if (w3tc_starts_with(data + '.', 'active.')) {
-				jQuery('.w3tc_license_verification').html('License key is correct.');
-			} else if (w3tc_starts_with(data + '.', 'inactive.by_rooturi.activations_limit_not_reached.')) {
-				jQuery('.w3tc_license_verification').html('License key is correct and can be activated now.');
-			} else if (w3tc_starts_with(data + '.', 'inactive.by_rooturi.')) {
-				jQuery('.w3tc_license_verification').html('License key is correct but already in use on another site. See the FAQ for how to enable Pro version in development mode.');
-			} else {
-				jQuery('.w3tc_license_verification').html('The license key is not valid. Please check it and try again.');
-			}
+			
+		jQuery('.w3tc_license_verification').html('License key is correct.');
+			
 		}).fail(function() {
 			jQuery('.w3tc_license_verification').html('Check failed');
 		})

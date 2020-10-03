@@ -937,7 +937,6 @@ class Util_Ui {
 	static public function pro_wrap_maybe_start() {
 	
 			return;
-	
 
 		?>
 		<div class="w3tc-gopro">
@@ -968,7 +967,6 @@ class Util_Ui {
 	static public function pro_wrap_maybe_end( $button_data_src ) {
 	
 			return;
-		
 
 		?>
 			</div>
@@ -986,7 +984,6 @@ class Util_Ui {
 	static public function pro_wrap_maybe_start2() {
 		
 			return;
-		
 
 		?>
 		<div class="updated w3tc_note" id="licensing_terms" style="display: flex; align-items: center">
@@ -999,7 +996,6 @@ class Util_Ui {
 	static public function pro_wrap_maybe_end2( $button_data_src ) {
 		
 			return;
-	
 
 		?>
 			</p>

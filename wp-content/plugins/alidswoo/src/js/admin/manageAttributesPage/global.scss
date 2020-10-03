@@ -1,0 +1,17 @@
+.alids-panel {
+  input[type=color], input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], select, textarea {
+    // box-shadow: 0 0 0 transparent;
+    border-radius: 3px;
+    //border: 1px solid #7e8993;
+    //background-color: #fff;
+    //color: #32373c;
+
+    &:focus{
+      border-color: #409EFF;
+      box-shadow: none;
+      outline: none;
+    }
+  }
+}
+
+

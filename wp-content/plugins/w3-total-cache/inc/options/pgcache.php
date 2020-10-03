@@ -259,7 +259,7 @@ Util_Ui::postbox_header( __( 'Purge Policy: ', 'w3-total-cache' ) . implode( ', 
 						'' => "Don't cache",
 						'cache' => array(
 							'label' => 'Cache',
-							'disabled' => false,
+							'disabled' => !Util_Environment::is_w3tc_pro( $this->_config ),
 							'pro_feature' => true,
 							'pro_excerpt' => __( 'If you’re using the WordPress API make sure to use caching to scale performance.', 'w3-total-cache'),
 							'pro_description' => array(

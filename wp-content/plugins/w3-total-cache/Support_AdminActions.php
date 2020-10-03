@@ -17,10 +17,9 @@ class Support_AdminActions {
 
 		$post['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
 		$post['version'] = W3TC_VERSION;
+
 		$license_level = 'pro';
 		
-		
-				
 
 		$post['license_level'] = $license_level . ' ' .
 			$c->get_string( 'plugin.license_key' );

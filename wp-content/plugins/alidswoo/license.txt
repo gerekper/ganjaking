@@ -1,0 +1,51 @@
+AliDropship WOO Plugin License Agreement
+
+This is an agreement between Licensor and Licensee, who is being 
+licensed to use AliDropship WOO Plugin. The products available from
+Sunshine Group LLC (United States of America) are governed by this 
+license agreement. By installing the Plugin, or any update to it, 
+you agree to the terms in this document.
+
+This License permits Licensee to install AliDropship WOO Plugin on 
+one single website/domain name. Licensee will not make copies of 
+AliDropship WOO Plugin or allow copies of the Plugin to be made by others.
+
+The Plugin is protected by the copyright laws of the European 
+community and all other countries.
+
+The Plugin and all associated elements such as copyrights, trade 
+names, intellectual property, and information with respect to the 
+software are owned by Sunshine Group LLC.
+
+You may not separately publish, sell, market, distribute, lend, 
+lease, rent, or sublicense the Plugin. Please help us avoid the 
+need for Plugin protection by respecting the major investment of 
+time and money that goes into developing quality software for you.
+
+We will not track or collect any information about your use of the 
+software or your data except as you specifically authorize. We will 
+not intentionally deprive you of your ability to use any features 
+of the software or access to your data.
+
+We will never give or sell to any third party any personal information 
+we collect without your consent, unless required to do so by law. 
+We respect your privacy and will protect it to the same extent we 
+protect our most valuable information.
+
+Licensor has the right to terminate this License Agreement and 
+Licensee's right to use this Plugin upon any material breach by Licensee.
+
+Licensee agrees to return to Licensor or to destroy all copies of the 
+Plugin upon termination of the License.
+
+This License Agreement is the entire and exclusive agreement between 
+Licensor and Licensee regarding AliDropship WOO Plugin. This License Agreement 
+replaces and supersedes all prior negotiations, dealings, and agreements 
+between Licensor and Licensee regarding this Plugin.
+
+This License Agreement is governed by the law of California 
+applicable to California contracts.
+
+This License Agreement is valid without Licensor's signature. It 
+becomes effective upon the earlier of Licensee's signature or 
+Licensee's use of the Plugin.

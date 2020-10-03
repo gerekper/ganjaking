@@ -77,6 +77,7 @@ class Licensing_AdminActions {
 			
 		
 
+
 		$r = Licensing_Core::reset_rooturi(
 			$this->_config->get_string( 'plugin.license_key' ), W3TC_VERSION );
 
@@ -111,7 +112,6 @@ class Licensing_AdminActions {
 				'notes' => array( 'Terms have been declined' )
 			), true );
 	}
-
 
 
 

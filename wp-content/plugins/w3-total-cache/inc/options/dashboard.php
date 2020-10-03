@@ -11,7 +11,7 @@ if ( !defined( 'W3TC' ) )
  * on pro. As of 0.14.3, the free version will instead show a really, really nice banner. Really terrific.
  * Just fantasic. Other banners, not so good. Everyone agrees, believe me.
  */
-
+if ( Util_Environment::is_w3tc_pro( Dispatcher::config() ) ) {
 	include W3TC_INC_DIR . '/options/common/header.php';
 
 	echo '<p>' .
@@ -20,7 +20,13 @@ if ( !defined( 'W3TC' ) )
 			, $enabled ? __( 'enabled', 'w3-total-cache' ) : __( 'disabled', 'w3-total-cache' )
 			, Util_Environment::w3tc_edition( $this->_config ) ) .
 	'</p>';
+} else {
+	// When header.php is not included (above), we need to do our head action and open the wrap.
+	do_action( 'w3tc-dashboard-head' );
+	echo '<div class="wrap" id="w3tc">';
 
+	include W3TC_INC_DIR . '/options/parts/dashboard_banner.php';
+}
 ?>
 
 <form id="w3tc_dashboard" action="admin.php?page=<?php echo $this->_page; ?>" method="post">

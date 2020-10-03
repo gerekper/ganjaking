@@ -58,10 +58,12 @@ class Extension_FragmentCache_Plugin {
 		}
 
 		// handle transients by own cache
+		
 			$wp_cache = Dispatcher::component( 'ObjectCache_WpObjectCache' );
 			$fc_cache = Dispatcher::component( 'Extension_FragmentCache_WpObjectCache' );
 			$wp_cache->register_cache( $fc_cache, array(
 					'transient', 'site-transient' ) );
+	
 
 		// flush operations
 		add_action( 'w3tc_flush_all',

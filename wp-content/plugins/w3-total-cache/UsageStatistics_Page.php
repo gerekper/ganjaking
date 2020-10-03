@@ -21,7 +21,6 @@ class UsageStatistics_Page {
 	public function render() {
 		$c = Dispatcher::config();
 		$enabled = true;
-	
 
 		if ( isset( $_REQUEST['view'] ) && $_REQUEST['view'] == 'db_requests' ) {
 			$storage = new UsageStatistics_StorageReader();

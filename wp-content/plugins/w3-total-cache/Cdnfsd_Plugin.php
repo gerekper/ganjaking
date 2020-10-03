@@ -20,7 +20,7 @@ class Cdnfsd_Plugin {
 	function run() {
 		$engine = $this->_config->get_string( 'cdnfsd.engine' );
 
-	
+		
 
 		add_filter( 'w3tc_footer_comment', array(
 				$this,
