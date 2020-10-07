@@ -242,7 +242,7 @@ class Custom_Settings_Page_Api
 
             do_action('wp_cspa_after_persist_settings', $sanitized_data, $this->option_name);
 
-            wp_redirect(esc_url_raw(add_query_arg('settings-updated', 'true')));
+            wp_safe_redirect(esc_url_raw(add_query_arg('settings-updated', 'true')));
             exit;
         }
     }

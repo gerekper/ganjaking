@@ -53,6 +53,7 @@ class CampaignLog extends AbstractSettingsPage
                 'default' => 10,
                 'option'  => 'campaign_log_per_page',
             );
+
             add_screen_option($option, $args);
 
             $this->campaign_instance = Campaign_Log_List::get_instance();

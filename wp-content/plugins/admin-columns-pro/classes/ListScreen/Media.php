@@ -14,7 +14,7 @@ class Media extends AC\ListScreen\Media
 	implements Sorting\ListScreen, Editing\ListScreen, Filtering\ListScreen, Export\ListScreen {
 
 	public function sorting( $model ) {
-		return new Sorting\Strategy\Post( $model, $this->get_post_type() );
+		return new Sorting\Strategy\Media( $model );
 	}
 
 	public function editing() {
@@ -37,6 +37,7 @@ class Media extends AC\ListScreen\Media
 
 		$this->register_column_type( new Column\CustomField );
 		$this->register_column_type( new Column\Actions );
+		$this->register_column_type( new Column\Post\TitleRaw );
 		$this->register_column_types_from_dir( 'ACP\Column\Media' );
 	}
 

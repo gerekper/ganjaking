@@ -893,7 +893,9 @@
 
 				if ( bundle.satt_schemes.length > 0 ) {
 					bundle.$bundle_data.on( 'woocommerce-product-bundle-updated-totals', self.update_subscription_totals );
-					bundle.$bundle_data.on( 'woocommerce-product-bundle-validation-status-changed', self.maybe_hide_subscription_options );
+					if ( 'no' !== bundle.price_data.hide_total_on_validation_fail ) {
+						bundle.$bundle_data.on( 'woocommerce-product-bundle-validation-status-changed', self.maybe_hide_subscription_options );
+					}
 				}
 			}
 		};
@@ -917,7 +919,7 @@
 		// Update totals displayed in SATT options.
 		this.update_subscription_totals = function( event, bundle ) {
 
-			if ( ! bundle.passes_validation() ) {
+			if ( ! bundle.passes_validation() && 'no' !== bundle.price_data.hide_total_on_validation_fail ) {
 				return;
 			}
 
@@ -1099,8 +1101,10 @@
 							composite.filters.add_filter( 'composite_price_html', self.filter_price_html, 10, self );
 						} else {
 							composite.actions.add_action( 'composite_totals_changed', self.update_subscription_totals, 101, self );
-							composite.actions.add_action( 'composite_validation_status_changed', self.maybe_hide_subscription_options, 101, self );
-							composite.actions.add_action( 'composite_initialized', self.maybe_hide_subscription_options, 101, self );
+							if ( 'no' !== composite.settings.hide_total_on_validation_fail ) {
+								composite.actions.add_action( 'composite_validation_status_changed', self.maybe_hide_subscription_options, 101, self );
+								composite.actions.add_action( 'composite_initialized', self.maybe_hide_subscription_options, 101, self );
+							}
 						}
 					}
 
@@ -1140,7 +1144,7 @@
 		// Update totals displayed in SATT options.
 		this.update_subscription_totals = function() {
 
-			if ( 'pass' !== composite.api.get_composite_validation_status() ) {
+			if ( 'pass' !== composite.api.get_composite_validation_status() && 'no' !== composite.settings.hide_total_on_validation_fail ) {
 				return;
 			}
 

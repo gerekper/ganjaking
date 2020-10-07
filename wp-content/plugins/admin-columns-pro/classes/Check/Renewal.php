@@ -8,6 +8,8 @@ use AC\Message;
 use AC\Registrable;
 use AC\Screen;
 use AC\Storage;
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
 use ACP\Entity\License;
 use ACP\LicenseKeyRepository;
 use ACP\LicenseRepository;
@@ -205,15 +207,14 @@ class Renewal
 	 * @return string
 	 */
 	protected function get_message( License $license ) {
-		$link = add_query_arg(
-			[
-				'subscription_key' => $license->get_key()->get_value(),
-				'site_url'         => $this->site_url->get_url(),
-			],
-			ac_get_site_utm_url( 'my-account/subscriptions', 'renewal' )
-		);
+		$url = new UtmTags( new Site( Site::PAGE_ACCOUNT_SUBSCRIPTIONS ), 'renewal' );
 
-		$renewal_link = sprintf( '<a href="%s">%s</a>', $link, __( 'Renew your license', 'codepress-admin-columns' ) );
+		$url->add( [
+			'subscription_key' => $license->get_key()->get_value(),
+			'site_url'         => $this->site_url->get_url(),
+		] );
+
+		$renewal_link = sprintf( '<a href="%s">%s</a>', $url->get_url(), __( 'Renew your license', 'codepress-admin-columns' ) );
 		$remaining_time = sprintf( '<strong>%s</strong>', $license->get_expiry_date()->get_human_time_diff() );
 		$expiry_date = sprintf( '<strong>%s</strong>', $this->localize_date( $license->get_expiry_date()->get_value() ) );
 

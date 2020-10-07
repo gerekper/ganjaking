@@ -1,5 +1,8 @@
 *** WooCommerce Customer/Order/Coupon Export Changelog ***
 
+2020.09.30 - version 5.1.2
+ * Misc - Remove the SkyVerge help menu item as part of the plugin assets
+
 2020.09.09 - version 5.1.1
  * Tweak - Add the 'item_price' column option to the order exporter
  * Tweak - Unify the custom formats list table to a single screen for all export types

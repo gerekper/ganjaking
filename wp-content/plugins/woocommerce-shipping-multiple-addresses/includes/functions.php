@@ -87,14 +87,6 @@ function wcms_get_real_cart_items() {
     return $items;
 }
 
-function wcms_get_product( $product_id ) {
-    if ( function_exists( 'get_product' ) ) {
-        return get_product( $product_id );
-    } else {
-        return new WC_Product( $product_id );
-    }
-}
-
 function wcms_session_get( $name ) {
 
     if ( isset( WC()->session ) ) {

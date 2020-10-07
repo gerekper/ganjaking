@@ -6,7 +6,7 @@ use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Strategy;
 use WP_Query;
 
-final class Post extends Strategy {
+class Post extends Strategy {
 
 	/**
 	 * @var WP_Query $wp_query
@@ -21,7 +21,7 @@ final class Post extends Strategy {
 	public function __construct( AbstractModel $model, $post_type ) {
 		parent::__construct( $model );
 
-		$this->post_type = $post_type;
+		$this->post_type = (string) $post_type;
 	}
 
 	public function manage_sorting() {
@@ -111,6 +111,10 @@ final class Post extends Strategy {
 		return [ $status ];
 	}
 
+	protected function get_pagination_per_page() {
+		return (int) get_user_option( 'edit_' . $this->post_type . '_per_page' );
+	}
+
 	/**
 	 * Handle the sorting request on the post-type listing screens
 	 *
@@ -127,11 +131,10 @@ final class Post extends Strategy {
 			return;
 		}
 
-		// set pagination vars
 		if ( ! is_post_type_hierarchical( $this->post_type ) ) {
-			$per_page = (int) get_user_option( 'edit_' . $this->post_type . '_per_page' );
+			$per_page = $this->get_pagination_per_page();
 
-			if ( ! $per_page ) {
+			if ( $per_page < 1 ) {
 				$per_page = 20;
 			}
 

@@ -22,13 +22,9 @@ class Options extends Option {
 		return $this->get_formatted_value( $value );
 	}
 
-	// Common
-
 	public function get_option_name() {
 		return $this->get_setting( 'field' )->get_value();
 	}
-
-	// Settings
 
 	public function register_settings() {
 		$this->add_setting( new Settings\Column\NetworkSite\Options( $this ) );

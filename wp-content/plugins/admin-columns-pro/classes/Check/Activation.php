@@ -8,6 +8,8 @@ use AC\Message;
 use AC\Registrable;
 use AC\Screen;
 use AC\Storage;
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
 use ACP\LicenseKeyRepository;
 use ACP\LicenseRepository;
 
@@ -109,7 +111,7 @@ class Activation
 		$message = sprintf(
 			__( "To enable automatic updates <a href='%s'>enter your license key</a>. If you don't have a license key, please see <a href='%s' target='_blank'>details & pricing</a>.", 'codepress_admin_columns' ),
 			acp_get_license_page_url(),
-			ac_get_site_utm_url( 'pricing-purchase', 'plugins' )
+			( new UtmTags( new Site( Site::PAGE_PRICING ), 'plugins' ) )->get_url()
 		);
 
 		return $message;

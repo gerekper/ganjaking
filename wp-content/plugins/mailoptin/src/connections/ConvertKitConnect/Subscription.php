@@ -33,12 +33,7 @@ class Subscription extends AbstractConvertKitConnect
                 $this->get_integration_data('ConvertKitConnect_subscriber_sequences')
             );
 
-            $subscriber_tags = $this->get_integration_data('ConvertKitConnect_subscriber_tags');
-
-            // from external service eg elementor form
-            if ( ! empty($this->extras['form_tags'])) {
-                $subscriber_tags = $this->extras['form_tags'];
-            }
+            $subscriber_tags = $this->get_integration_tags('ConvertKitConnect_subscriber_tags');
 
             $subscriber_tags = array_map('absint', $subscriber_tags);
 

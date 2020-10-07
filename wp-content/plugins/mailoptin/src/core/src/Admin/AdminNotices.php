@@ -150,7 +150,7 @@ class AdminNotices
         if ( ! empty($_GET['mo_admin_action']) && $_GET['mo_admin_action'] == 'dismiss_leave_review_forever') {
             update_option('mo_dismiss_leave_review_forever', true);
 
-            wp_redirect(esc_url_raw(remove_query_arg('mo_admin_action')));
+            wp_safe_redirect(esc_url_raw(remove_query_arg('mo_admin_action')));
             exit;
         }
     }

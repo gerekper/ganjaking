@@ -3,15 +3,15 @@
  * Plugin Name: WooCommerce Chained Products
  * Plugin URI: https://woocommerce.com/products/chained-products/
  * Description: Easily create chained products, product bundles and combo packs and boost your sales.
- * Version: 2.9.6
+ * Version: 2.9.8
  * Author: StoreApps
  * Author URI: https://www.storeapps.org/product/chained-products/
  * Developer: StoreApps
  * Developer URI: https://www.storeapps.org/
- * Requires at least: 4.1
- * Tested up to: 5.3.2
- * WC requires at least: 2.5.0
- * WC tested up to: 4.0.1
+ * Requires at least: 4.9.0
+ * Tested up to: 5.5.1
+ * WC requires at least: 3.0.0
+ * WC tested up to: 4.5.2
  * Text Domain: woocommerce-chained-products
  * Domain Path: /languages/
  * Woo: 18687:cc6e246e495745db10f9f7fddc5aa907

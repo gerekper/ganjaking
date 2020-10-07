@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 7.0.0
+ * @version 7.1.0
  */
 
 // Exit if accessed directly.
@@ -28,7 +28,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li id="component_option_thumbnail_container_{{ data[ index ].option_id }}" class="component_option_thumbnail_container {{ data[ index ].outer_classes }}">
 						<div id="component_option_thumbnail_{{ data[ index ].option_id }}" class="cp_clearfix component_option_thumbnail {{ data[ index ].inner_classes }}" data-val="{{ data[ index ].option_id }}">
 							<div class="image thumbnail_image">
-								{{{ data[ index ].option_thumbnail_html }}}
+								<a class="component_option_thumbnail_link" href="#">
+									{{{ data[ index ].option_thumbnail_html }}}
+								</a>
 							</div>
 							<div class="thumbnail_description">
 								<h5 class="thumbnail_title title">{{{ data[ index ].option_display_title }}}</h5>

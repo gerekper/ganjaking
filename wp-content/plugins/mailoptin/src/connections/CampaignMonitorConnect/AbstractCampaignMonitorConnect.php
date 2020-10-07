@@ -86,10 +86,11 @@ class AbstractCampaignMonitorConnect extends AbstractConnect
 
             $option_name = MAILOPTIN_CONNECTIONS_DB_OPTION_NAME;
             $old_data    = get_option($option_name, []);
+            $expires_at = $this->oauth_expires_at_transform($instance->getStorage()->get('campaignmonitor.expires_at'));
             $new_data    = [
                 'campaignmonitor_access_token'  => $instance->getStorage()->get('campaignmonitor.access_token'),
                 'campaignmonitor_refresh_token' => $instance->getStorage()->get('campaignmonitor.refresh_token'),
-                'campaignmonitor_expires_at'    => $instance->getStorage()->get('campaignmonitor.expires_at')
+                'campaignmonitor_expires_at'    => $expires_at
             ];
 
             update_option($option_name, array_merge($old_data, $new_data));
@@ -98,7 +99,7 @@ class AbstractCampaignMonitorConnect extends AbstractConnect
                 new OAuthCredentialStorage([
                     'campaignmonitor.access_token'  => $instance->getStorage()->get('campaignmonitor.access_token'),
                     'campaignmonitor.refresh_token' => $instance->getStorage()->get('campaignmonitor.refresh_token'),
-                    'campaignmonitor.expires_at'    => $instance->getStorage()->get('campaignmonitor.expires_at'),
+                    'campaignmonitor.expires_at'    => $expires_at,
                 ]));
         }
 

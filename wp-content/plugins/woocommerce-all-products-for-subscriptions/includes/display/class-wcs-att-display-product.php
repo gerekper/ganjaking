@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Single-product template modifications.
  *
  * @class    WCS_ATT_Display_Product
- * @version  3.1.17
+ * @version  3.1.18
  */
 class WCS_ATT_Display_Product {
 
@@ -311,6 +311,23 @@ class WCS_ATT_Display_Product {
 			$prompt_classes[] = 'wcsatt-options-product-prompt-' . $prompt_type;
 			$prompt_classes[] = 'wcsatt-options-product-prompt--' . ( $prompt ? 'visible' : 'hidden' );
 
+			// Hide options wrapper?
+			$hide_wrapper = false;
+
+			if ( count( $options ) === 1 ) {
+				$hide_wrapper = true;
+			} elseif ( $product->is_type( 'bundle' ) ) {
+				if ( method_exists( $product, 'get_bundle_form_data' ) ) {
+					$form_data    = $product->get_bundle_form_data();
+					$hide_wrapper = 'yes' === $form_data[ 'hide_total_on_validation_fail' ];
+				} else {
+					$hide_wrapper = $product->requires_input();
+				}
+			} elseif ( $product->is_type( 'composite' ) ) {
+				$form_data    = $product->add_to_cart_form_settings();
+				$hide_wrapper = ! isset( $form_data[ 'hide_total_on_validation_fail' ] ) || 'yes' === $form_data[ 'hide_total_on_validation_fail' ];
+			}
+
 			ob_start();
 
 			wc_get_template( 'single-product/product-subscription-options.php', array(
@@ -326,7 +343,7 @@ class WCS_ATT_Display_Product {
 				'allow_one_time'   => false === $force_subscription,
 				'sign_up_text'     => self::get_subscription_options_button_text( $parent_product ? $parent_product : $product ),
 				'dropdown_label'   => $force_subscription ? '' : self::get_subscription_options_dropdown_label( $product ),
-				'hide_wrapper'     => count( $options ) === 1 || ( $product->is_type( 'bundle' ) && $product->requires_input() ) || $product->is_type( 'composite' )
+				'hide_wrapper'     => $hide_wrapper
 			), false, WCS_ATT()->plugin_path() . '/templates/' );
 
 			$options_html = ob_get_clean();

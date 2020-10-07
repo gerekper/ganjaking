@@ -8,9 +8,9 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'WP_ROCKET_ADVANCED_CACHE', true );
 
-$rocket_path        = '/home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wp-rocket/';
-$rocket_config_path = '/home/gerekper/web/ganjaking.asia/public_html/wp-content/wp-rocket-config/';
-$rocket_cache_path  = '/home/gerekper/web/ganjaking.asia/public_html/wp-content/cache/wp-rocket/';
+$rocket_path        = '/home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/wp-rocket/';
+$rocket_config_path = '/home/ganja/web/ganjaking.asia/public_html/wp-content/wp-rocket-config/';
+$rocket_cache_path  = '/home/ganja/web/ganjaking.asia/public_html/wp-content/cache/wp-rocket/';
 
 if (
 	version_compare( phpversion(), '5.6', '<' )

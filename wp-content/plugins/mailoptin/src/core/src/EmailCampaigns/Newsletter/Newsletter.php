@@ -73,7 +73,7 @@ class Newsletter extends AbstractTriggers
             EmailCampaignMeta::update_meta_data($email_campaign_id, 'newsletter_date_sent', ER::NEWSLETTER_STATUS_FAILED);
         }
 
-        wp_redirect(MAILOPTIN_EMAIL_NEWSLETTERS_SETTINGS_PAGE);
+        wp_safe_redirect(MAILOPTIN_EMAIL_NEWSLETTERS_SETTINGS_PAGE);
         exit;
     }
 

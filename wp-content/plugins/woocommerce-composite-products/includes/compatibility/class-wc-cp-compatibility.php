@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_CP_Compatibility
- * @version  7.0.6
+ * @version  7.0.7
  */
 class WC_CP_Compatibility {
 
@@ -229,7 +229,14 @@ class WC_CP_Compatibility {
 		}
 
 		// Storefront compatibility.
-		$module_paths[ 'storefront' ] = 'modules/class-wc-cp-sf-compatibility.php';
+		if ( function_exists( 'wc_is_active_theme' ) && wc_is_active_theme( 'storefront' ) ) {
+			$module_paths[ 'storefront' ] = 'modules/class-wc-cp-sf-compatibility.php';
+		}
+
+		// Flatsome compatibility.
+		if ( function_exists( 'wc_is_active_theme' ) && wc_is_active_theme( 'flatsome' ) ) {
+			$module_paths[ 'flatsome' ] = 'modules/class-wc-cp-fs-compatibility.php';
+		}
 
 		// ThemeAlien Variation Swatches for WooCommerce compatibility.
 		$module_paths[ 'taws_variation_swatches' ] = 'modules/class-wc-cp-taws-variation-swatches-compatibility.php';

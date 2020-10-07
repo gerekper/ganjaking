@@ -26,7 +26,7 @@ class ConnectSettingsPage
         }
 
         $support_id_description = sprintf(
-            __('%sClick here to get it%s. This is only required to unlock our premium integration with Elementor Forms.', 'mailoptin'),
+            __('%sClick here to get it%s. This is only required to unlock our premium integration with Elementor Forms for free.', 'mailoptin'),
             '<a target="_blank" href="https://bit.ly/2ZTmjgH">',
             '</a>'
         );

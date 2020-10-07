@@ -470,11 +470,11 @@
     },
     {
         "name": "mailoptin/connections",
-        "version": "0.2.1601041900",
-        "version_normalized": "0.2.1601041900.0",
+        "version": "0.2.1601880598",
+        "version_normalized": "0.2.1601880598.0",
         "dist": {
             "type": "zip",
-            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1SJQwB/mailoptinconnections-0-2-1601041900.zip"
+            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_27qJmm/mailoptinconnections-0-2-1601880598.zip"
         },
         "require": {
             "composer/installers": "~1.0",
@@ -521,6 +521,7 @@
                 "MailOptin\\EmailOctopusConnect\\": "EmailOctopusConnect/",
                 "MailOptin\\GEMConnect\\": "GEMConnect/",
                 "MailOptin\\MailPoetConnect\\": "MailPoetConnect/",
+                "MailOptin\\FluentCRMConnect\\": "FluentCRMConnect/",
                 "MailOptin\\GetResponseConnect\\": "GetResponseConnect/",
                 "MailOptin\\KlaviyoConnect\\": "KlaviyoConnect/",
                 "MailOptin\\ElementorConnect\\": "ElementorConnect/",
@@ -542,17 +543,17 @@
     },
     {
         "name": "mailoptin/core",
-        "version": "0.1.0-alpha.1601062498",
-        "version_normalized": "0.1.0.0-alpha1601062498",
+        "version": "0.1.0-alpha.1601880584",
+        "version_normalized": "0.1.0.0-alpha1601880584",
         "source": {
             "type": "git",
             "url": "https://github.com/mailoptin/core.git",
-            "reference": "7381dee805f8bbd3d554e0541ed6b5b4b73d4257"
+            "reference": "87199e3c3da060c43085f8aa191c61055c214b86"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mailoptin/core/zipball/7381dee805f8bbd3d554e0541ed6b5b4b73d4257",
-            "reference": "7381dee805f8bbd3d554e0541ed6b5b4b73d4257",
+            "url": "https://api.github.com/repos/mailoptin/core/zipball/87199e3c3da060c43085f8aa191c61055c214b86",
+            "reference": "87199e3c3da060c43085f8aa191c61055c214b86",
             "shasum": ""
         },
         "require": {
@@ -564,7 +565,7 @@
             "pelago/emogrifier": "^1.0",
             "soundasleep/html2text": "~0.5"
         },
-        "time": "2020-09-25T19:32:13+00:00",
+        "time": "2020-10-05T06:48:35+00:00",
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "autoload": {
@@ -847,17 +848,17 @@
     },
     {
         "name": "symfony/translation",
-        "version": "v3.4.44",
-        "version_normalized": "3.4.44.0",
+        "version": "v3.4.45",
+        "version_normalized": "3.4.45.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/translation.git",
-            "reference": "0411f10409ca8a23b94613bb2008017f387bacf0"
+            "reference": "c826cb2216d1627d1882e212d2ac3ac13d8d5b78"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation/zipball/0411f10409ca8a23b94613bb2008017f387bacf0",
-            "reference": "0411f10409ca8a23b94613bb2008017f387bacf0",
+            "url": "https://api.github.com/repos/symfony/translation/zipball/c826cb2216d1627d1882e212d2ac3ac13d8d5b78",
+            "reference": "c826cb2216d1627d1882e212d2ac3ac13d8d5b78",
             "shasum": ""
         },
         "require": {
@@ -884,7 +885,7 @@
             "symfony/config": "",
             "symfony/yaml": ""
         },
-        "time": "2020-08-10T07:13:15+00:00",
+        "time": "2020-09-02T16:06:40+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

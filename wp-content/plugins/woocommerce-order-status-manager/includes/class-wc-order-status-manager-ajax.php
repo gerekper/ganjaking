@@ -53,6 +53,9 @@ class WC_Order_Status_Manager_AJAX {
 		add_action( 'wp_ajax_wc_order_status_manager_can_safely_delete_order_status', array( $this, 'can_safely_delete_order_status' ) );
 		add_action( 'wp_ajax_wc_order_status_manager_bulk_reassign_order_status',     array( $this, 'bulk_reassign_order_status' ) );
 
+		// Enables or disables the plugin deactivation confirmation modal
+		add_action( 'wp_ajax_wc_order_status_manager_set_deactivation_confirmation_state', [ $this, 'set_deactivation_confirmation_state' ] );
+
 		add_filter( 'woocommerce_admin_order_preview_actions', array( $this, 'custom_order_preview_actions' ), 10, 2 );
 	}
 
@@ -233,4 +236,27 @@ class WC_Order_Status_Manager_AJAX {
 
 		return $actions;
 	}
+
+
+	/**
+	 * Enables or disables the plugin deactivation confirmation modal.
+	 *
+	 * @internal
+	 *
+	 * @since 1.12.1-dev.1
+	 */
+	public function set_deactivation_confirmation_state() {
+
+		check_ajax_referer( 'set-deactivation-confirmation-state', 'security' );
+
+		if ( empty( $_POST['disabled'] ) ) {
+			die;
+		}
+
+		update_user_meta( get_current_user_id(), WC_Order_Status_Manager::PLUGIN_DEACTIVATION_MODAL_OPTION, $_POST['disabled'] );
+
+		wp_send_json_success();
+	}
+
+
 }

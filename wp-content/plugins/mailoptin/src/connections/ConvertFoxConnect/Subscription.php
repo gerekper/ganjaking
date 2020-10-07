@@ -63,12 +63,7 @@ class Subscription extends AbstractConvertFoxConnect
     {
         try {
 
-            $lead_tags = $this->get_integration_data('ConvertFoxConnect_lead_tags');
-
-            // from external service eg elementor form
-            if ( ! empty($this->extras['form_tags'])) {
-                $lead_tags = $this->extras['form_tags'];
-            }
+            $lead_tags = $this->get_integration_tags('ConvertFoxConnect_lead_tags');
 
             $lead_tags = array_map('trim', explode(',', $lead_tags));
 

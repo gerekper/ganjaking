@@ -22,9 +22,15 @@ class Export extends AC\Admin\Table {
 	 * @return ListScreenCollection
 	 */
 	public function get_rows() {
-		return $this->storage->find_all( [
+		$rows = $this->storage->find_all( [
 			'sort' => new AC\ListScreenRepository\Sort\Label(),
 		] );
+
+		if ( $rows->count() < 1 ) {
+			$this->message = __( 'No column settings available.', 'codepress-admin-columns' );
+		}
+
+		return $rows;
 	}
 
 	/**

@@ -34,7 +34,7 @@ class WC_Product_Retailers extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.14.0';
+	const VERSION = '1.14.1';
 
 	/** @var \WC_Product_Retailers single instance of this plugin */
 	protected static $instance;

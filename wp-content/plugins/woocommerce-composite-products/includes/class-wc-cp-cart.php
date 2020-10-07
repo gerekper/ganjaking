@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) )
  * Composite products cart API and hooks.
  *
  * @class    WC_CP_Cart
- * @version  7.0.1
+ * @version  7.0.7
  */
 
 class WC_CP_Cart {
@@ -1710,7 +1710,7 @@ class WC_CP_Cart {
 
 						if ( wc_cp_is_composite_container_cart_item( $cart_item_data ) ) {
 
-							$composite     = unserialize( serialize( $cart_item_data[ 'data' ] ) );
+							$composite     = WC_CP_Helpers::get_product_preserving_meta( $cart_item_data[ 'data' ] );
 							$composite_qty = $cart_item_data[ 'quantity' ];
 
 							/*

@@ -211,12 +211,7 @@ class Subscription extends AbstractInfusionsoftConnect
 
             if (isset($response->id)) {
 
-                $tags = $this->get_integration_data('InfusionsoftConnect_lead_tags');
-
-                // from external service eg elementor form
-                if ( ! empty($this->extras['form_tags'])) {
-                    $tags = $this->extras['form_tags'];
-                }
+                $tags = $this->get_integration_tags('InfusionsoftConnect_lead_tags');
 
                 $tags = array_map('absint', $tags);
 

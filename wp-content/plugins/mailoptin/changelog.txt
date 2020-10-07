@@ -1,9 +1,19 @@
-﻿== Changelog ==
+== Changelog ==
+
+= 1.2.31.4 =
+* Fixed fatal error that caused customizer not to work.
+
+= 1.2.31.3 =
+* Added missing tagging supports.
+
+= 1.2.31.2 =
+* Added FluentCRM integration.
+* Switched from wp_redirect to wp_safe_redirect for 302 redirects.
+* Improve oauth integrations token refreshing.
 
 = 1.2.31.1 =
 * Added weMail integration.
 * Fixed bug where customizer preview wasn't showing changes being made.
-* FFixed bug where country field wasn’t showing unless an alpha code type is selected.
 
 = 1.2.31.0 =
 * Added Formidable Forms integration.

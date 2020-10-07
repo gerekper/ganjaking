@@ -185,7 +185,7 @@ class CP_Admin_Welcome {
 		?>
 
 		<script type="text/javascript">
-			jQuery(document).on('ready', function(){
+			jQuery(function(){
 				jQuery('#menu-posts-product').find('a[href="edit.php?post_type=product"]').addClass('current');
 				jQuery('#menu-posts-product').find('a[href="edit.php?post_type=product"]').parent().addClass('current');
 			});
@@ -304,7 +304,7 @@ class CP_Admin_Welcome {
 	public function shortcode_screen() {
 		?>
 		<script type="text/javascript">
-			jQuery(document).on('ready', function(){
+			jQuery(function(){
 				jQuery('#menu-posts-product').find('a[href="edit.php?post_type=product"]').addClass('current');
 				jQuery('#menu-posts-product').find('a[href="edit.php?post_type=product"]').parent().addClass('current');
 			});
@@ -412,7 +412,7 @@ class CP_Admin_Welcome {
 	public function faqs_screen() {
 		?>
 		<script type="text/javascript">
-			jQuery(document).on('ready', function(){
+			jQuery(function(){
 				jQuery('#menu-posts-product').find('a[href="edit.php?post_type=product"]').addClass('current');
 				jQuery('#menu-posts-product').find('a[href="edit.php?post_type=product"]').parent().addClass('current');
 			});

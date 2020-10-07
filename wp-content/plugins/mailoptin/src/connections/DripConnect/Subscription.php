@@ -46,10 +46,7 @@ class Subscription extends AbstractDripConnect
         try {
             $name_split = self::get_first_last_names($this->name);
 
-            $lead_tags = $this->get_integration_data('DripConnect_lead_tags');
-            if ( ! empty($this->extras['form_tags'])) {
-                $lead_tags = $this->extras['form_tags'];
-            }
+            $lead_tags = $this->get_integration_tags('DripConnect_lead_tags');
 
             $firstname_key = $this->get_first_name_custom_field();
             $lastname_key  = $this->get_last_name_custom_field();

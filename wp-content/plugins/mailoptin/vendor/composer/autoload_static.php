@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite5730979662d6e66d06777312d7c5524
+class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -68,6 +68,7 @@ class ComposerStaticInite5730979662d6e66d06777312d7c5524
             'MailOptin\\GetResponseConnect\\' => 29,
             'MailOptin\\GEMConnect\\' => 21,
             'MailOptin\\FormidableFormConnect\\' => 32,
+            'MailOptin\\FluentCRMConnect\\' => 27,
             'MailOptin\\FacebookCustomAudienceConnect\\' => 40,
             'MailOptin\\EmmaConnect\\' => 22,
             'MailOptin\\EmailOctopusConnect\\' => 30,
@@ -253,6 +254,10 @@ class ComposerStaticInite5730979662d6e66d06777312d7c5524
         'MailOptin\\FormidableFormConnect\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/connections/FormidableFormConnect',
+        ),
+        'MailOptin\\FluentCRMConnect\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/connections/FluentCRMConnect',
         ),
         'MailOptin\\FacebookCustomAudienceConnect\\' => 
         array (
@@ -746,6 +751,8 @@ class ComposerStaticInite5730979662d6e66d06777312d7c5524
         'MailOptin\\FacebookCustomAudienceConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/FacebookCustomAudienceConnect/Connect.php',
         'MailOptin\\FacebookCustomAudienceConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/FacebookCustomAudienceConnect/ConnectSettingsPage.php',
         'MailOptin\\FacebookCustomAudienceConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/FacebookCustomAudienceConnect/Subscription.php',
+        'MailOptin\\FluentCRMConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/FluentCRMConnect/Connect.php',
+        'MailOptin\\FluentCRMConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/FluentCRMConnect/Subscription.php',
         'MailOptin\\FormidableFormConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/FormidableFormConnect/Connect.php',
         'MailOptin\\FormidableFormConnect\\FormidableForm' => __DIR__ . '/../..' . '/src/connections/FormidableFormConnect/FormidableForm.php',
         'MailOptin\\GEMConnect\\APIClass' => __DIR__ . '/../..' . '/src/connections/GEMConnect/APIClass.php',
@@ -1003,11 +1010,11 @@ class ComposerStaticInite5730979662d6e66d06777312d7c5524
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite5730979662d6e66d06777312d7c5524::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite5730979662d6e66d06777312d7c5524::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInite5730979662d6e66d06777312d7c5524::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInite5730979662d6e66d06777312d7c5524::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInite5730979662d6e66d06777312d7c5524::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150::$classMap;
 
         }, null, ClassLoader::class);
     }

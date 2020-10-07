@@ -34,12 +34,12 @@ class Post extends Meta
 	}
 
 	public function get_values( $search, $page ) {
-
 		$entities = new Select\Entities\Post( [
-			's'         => $search,
-			'paged'     => $page,
-			'post_type' => $this->post_type,
-			'tax_query' => $this->get_tax_query(),
+			's'             => $search,
+			'paged'         => $page,
+			'post_type'     => $this->post_type,
+			'tax_query'     => $this->get_tax_query(),
+			'search_fields' => [ 'post_title', 'ID' ],
 		] );
 
 		return new AC\Helper\Select\Options\Paginated(

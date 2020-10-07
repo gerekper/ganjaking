@@ -6,7 +6,7 @@
  * Description: Adds a product documents element to WooCommerce product pages
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.12.0
+ * Version: 1.12.1
  * Text Domain: woocommerce-product-documents
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +22,7 @@
  *
  * Woo: 238848:bc35cf9f51c735e4d6b2befe8ab048bb
  * WC requires at least: 3.0.9
- * WC tested up to: 4.3.3
+ * WC tested up to: 4.5.2
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -90,7 +90,6 @@ class WC_Product_Documents_Loader {
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
-			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

@@ -26,7 +26,7 @@ class WC_Conditional_Content_Input_Chosen_Select {
         $choices = $field['choices'];
         ?>
 
-        <select id="<?php echo $field['id']; ?>" name="<?php echo $field['name']; ?>[]" class="chosen_select <?php echo esc_attr($field['class']); ?>" multiple="multiple" data-placeholder="<?php echo (isset($field['placeholder']) ? $field['placeholder'] : __('Search...', 'wc_conditional_content')); ?>">
+        <select id="<?php echo $field['id']; ?>" name="<?php echo $field['name']; ?>[]" class="wc-enhanced-select <?php echo esc_attr($field['class']); ?>" multiple="multiple" data-placeholder="<?php echo (isset($field['placeholder']) ? $field['placeholder'] : __('Search...', 'wc_conditional_content')); ?>">
             <?php
             foreach ($choices as $choice => $title) {
                 $selected = in_array($choice, $current);

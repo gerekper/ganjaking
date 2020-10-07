@@ -1,5 +1,8 @@
 *** WooCommerce Order Status Manager Changelog ***
 
+2020.10.02 - version 1.12.2
+ * Tweak - Improve the confirmation popup when the plugin is about to be deactivated with custom statuses in use
+
 2020.09.30 - version 1.12.1
  * Fix - Email notifications won't be sent when deleting and reassigning custom order statuses
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets

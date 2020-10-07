@@ -191,30 +191,6 @@ if ( ! class_exists( 'WC_MS_Compatibility' ) ) :
             }
         }
 
-
-        /**
-         * Get the WC Product instance for a given product ID or post
-         *
-         * get_product() is soft-deprecated in WC 2.2
-         *
-         * @since 2.0.0
-         * @param bool|int|string|\WP_Post $the_product
-         * @param array $args
-         * @return WC_Product
-         */
-        public static function wc_get_product( $the_product = false, $args = array() ) {
-
-            if ( self::is_wc_version_gte_2_2() ) {
-
-                return wc_get_product( $the_product, $args );
-
-            } else {
-
-                return get_product( $the_product, $args );
-            }
-        }
-
-
         /**
          * Return an array of formatted item meta in format:
          *
@@ -363,36 +339,6 @@ if ( ! class_exists( 'WC_MS_Compatibility' ) ) :
             }
         }
 
-        /**
-         * Round to precision
-         * @param float $in
-         * @return float
-         */
-        public static function round_tax( $in ) {
-            if ( function_exists( 'wc_round_tax_total') ) {
-                return wc_round_tax_total( $in );
-            } else {
-                return woocommerce_round_tax_total( $in );
-            }
-        }
-
-        /**
-         * Get other templates (e.g. product attributes) passing attributes and including the file.
-         *
-         * @access public
-         * @param string $template_name
-         * @param array $args (default: array())
-         * @param string $template_path (default: '')
-         * @param string $default_path (default: '')
-         * @return void
-         */
-        public static function wc_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
-           if ( function_exists('wc_get_template') ) {
-               wc_get_template( $template_name, $args, $template_path, $default_path );
-           } else {
-               woocommerce_get_template( $template_name, $args, $template_path, $default_path );
-           }
-        }
 
         /**
          * Helper method to get the version of the currently installed WooCommerce

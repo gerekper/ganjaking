@@ -1,6 +1,6 @@
 <?php
 
-$dir = dirname( __FILE__, 2 );
+$dir = realpath( __DIR__ . '/..' );
 
 return array (
   'AC\\Addon' => $dir . '/classes/Addon.php',
@@ -405,6 +405,13 @@ return array (
   'AC\\Transient\\User' => $dir . '/classes/Transient/User.php',
   'AC\\Type\\DateRange' => $dir . '/classes/Type/DateRange.php',
   'AC\\Type\\ListScreenId' => $dir . '/classes/Type/ListScreenId.php',
+  'AC\\Type\\QueryAware' => $dir . '/classes/Type/QueryAware.php',
+  'AC\\Type\\QueryAwareTrait' => $dir . '/classes/Type/QueryAwareTrait.php',
+  'AC\\Type\\Url' => $dir . '/classes/Type/Url.php',
+  'AC\\Type\\Url\\Documentation' => $dir . '/classes/Type/Url/Documentation.php',
+  'AC\\Type\\Url\\Path' => $dir . '/classes/Type/Url/Path.php',
+  'AC\\Type\\Url\\Site' => $dir . '/classes/Type/Url/Site.php',
+  'AC\\Type\\Url\\UtmTags' => $dir . '/classes/Type/Url/UtmTags.php',
   'AC\\TypedArrayIterator' => $dir . '/classes/TypedArrayIterator.php',
   'AC\\View' => $dir . '/classes/View.php',
 );

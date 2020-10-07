@@ -83,7 +83,7 @@ class Campaign_Log_List extends \WP_List_Table
             NL::get_instance()->send_campaign($email_campaign_id, $campaign_log_id);
         }
 
-        wp_redirect(add_query_arg('failed-campaign', 'retried', MAILOPTIN_CAMPAIGN_LOG_SETTINGS_PAGE));
+        wp_safe_redirect(add_query_arg('failed-campaign', 'retried', MAILOPTIN_CAMPAIGN_LOG_SETTINGS_PAGE));
         exit;
     }
 
@@ -369,7 +369,7 @@ class Campaign_Log_List extends \WP_List_Table
                 self::delete_a_campaign_log(absint($_GET['campaign-log-id']));
                 // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
                 // add_query_arg() return the current url
-                wp_redirect(MAILOPTIN_CAMPAIGN_LOG_SETTINGS_PAGE);
+                wp_safe_redirect(MAILOPTIN_CAMPAIGN_LOG_SETTINGS_PAGE);
                 exit;
             }
         }
@@ -383,7 +383,7 @@ class Campaign_Log_List extends \WP_List_Table
                 self::resend_email_campaign(absint($_GET['campaign-log-id']));
                 // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
                 // add_query_arg() return the current url
-                wp_redirect(esc_url_raw(MAILOPTIN_CAMPAIGN_LOG_SETTINGS_PAGE));
+                wp_safe_redirect(esc_url_raw(MAILOPTIN_CAMPAIGN_LOG_SETTINGS_PAGE));
                 exit;
             }
         }
@@ -398,7 +398,7 @@ class Campaign_Log_List extends \WP_List_Table
             foreach ($delete_ids as $id) {
                 self::delete_a_campaign_log($id);
             }
-            wp_redirect(esc_url_raw(add_query_arg()));
+            wp_safe_redirect(esc_url_raw(add_query_arg()));
             exit;
         }
     }

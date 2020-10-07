@@ -4,7 +4,7 @@
  * Plugin Name: WooCommerce Conditional Content
  * Plugin URI: https://woocommerce.com/products/woocommerce-conditional-content/
  * Description: WooCommerce conditional content allows you to display additional or alternate content based on a set of criteria.  Criteria includes current users role, product categories, product tags, prices, cart contents, and many more.
- * Version: 2.1.3
+ * Version: 2.1.4
  * Author: Lucas Stark
  * Author URI: https://www.elementstark.com/
  * Requires at least: 3.1
@@ -15,7 +15,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
  * WC requires at least: 3.0.0
- * WC tested up to: 4.4.1
+ * WC tested up to: 4.5.2
  * Woo: 260119:015e3a0eb801d23217d6fecb97e1537b
  */
 

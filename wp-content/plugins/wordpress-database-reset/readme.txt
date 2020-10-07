@@ -1,10 +1,10 @@
 === WP Database Reset ===
-Contributors: WebFactory, wpreset, underconstructionpage, googlemapswidget
-Tags: database, reset, restore, database reset, wp reset, developer, development
+Contributors: WebFactory
+Tags: database, reset, restore, database reset, wp reset, reset wp, developer, development
 Requires at least: 4.2
 Requires PHP: 5.2
 Tested up to: 5.5
-Stable tag: 3.16
+Stable tag: 3.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,11 @@ WP Database Reset was originally developed in October 2011 by <a href="https://g
 1. The WP Database Reset plugin page
 
 == Changelog ==
+
+= 3.17 =
+* 2020/10/06
+* license fix
+* added promo for WP 301 Redirects
 
 = 3.16 =
 * 2020/09/01

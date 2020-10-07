@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Bundles and Composite Products.
  *
  * @class    WCS_ATT_Integration_PB_CP
- * @version  3.1.17
+ * @version  3.1.18
  */
 class WCS_ATT_Integration_PB_CP {
 
@@ -187,6 +187,9 @@ class WCS_ATT_Integration_PB_CP {
 		/*
 		 * Cart.
 		 */
+
+		// Add subscription details next to price of per-item-priced bundle-type container cart items.
+		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'filter_container_item_price' ), 1000, 3 );
 
 		// Add subscription details next to subtotal of per-item-priced bundle-type container cart items.
 		add_filter( 'woocommerce_cart_item_subtotal', array( __CLASS__, 'filter_container_item_subtotal' ), 1000, 3 );
@@ -875,6 +878,41 @@ class WCS_ATT_Integration_PB_CP {
 	*/
 
 	/**
+	 * Add subscription details next to price of per-item-priced bundle-type container cart items.
+	 *
+	 * @param  string  $price
+	 * @param  array   $cart_item
+	 * @param  string  $cart_item_key
+	 * @return string
+	 */
+	public static function filter_container_item_price( $price, $cart_item, $cart_item_key ) {
+
+		// MnM container subtotals originally modified by WCS are not overwritten by MnM.
+		if ( $cart_item[ 'data' ]->is_type( 'mix-and-match' ) ) {
+			return $price;
+		}
+
+		if ( self::is_bundle_type_container_cart_item( $cart_item ) && self::has_scheme_data( $cart_item ) ) {
+
+			// Not aggregating subtotals? Then PB/CP hasn't filtered 'woocommerce_cart_item_price'.
+			if ( function_exists( 'wc_pb_is_bundle_container_cart_item' ) && wc_pb_is_bundle_container_cart_item( $cart_item ) && ! WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'aggregated_subtotals' ) ) {
+				return $price;
+			/*
+			 * PB/CP has done something here, so unless APFS is adding plan options next to the cart item, the billing schedule might be missing.
+			 * See 'WCS_ATT_Display_Cart::show_cart_item_subscription_options'
+			 */
+			} elseif ( false === strpos( $price, 'subscription-details' ) && has_filter( 'woocommerce_cart_item_price',  array( 'WCS_ATT_Display_Cart', 'show_cart_item_subscription_options' ), 1000 ) ) {
+
+				$price = WCS_ATT_Product_Prices::get_price_string( $cart_item[ 'data' ], array(
+					'price' => $price
+				) );
+			}
+		}
+
+		return $price;
+	}
+
+	/**
 	 * Add subscription details next to subtotal of per-item-priced bundle-type container cart items.
 	 *
 	 * @param  string  $subtotal
@@ -891,15 +929,21 @@ class WCS_ATT_Integration_PB_CP {
 
 		if ( self::is_bundle_type_container_cart_item( $cart_item ) && self::has_scheme_data( $cart_item ) ) {
 
+			if ( function_exists( 'wc_pb_is_bundle_container_cart_item' ) && wc_pb_is_bundle_container_cart_item( $cart_item ) && ! WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'aggregated_subtotals' ) ) {
+				return $subtotal;
+			}
+
 			if ( $scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item[ 'data' ], 'object' ) ) {
 
 				if ( $scheme->is_synced() ) {
 					$subtotal = wc_price( self::calculate_container_item_subtotal( $cart_item, $scheme->get_key() ) );
 				}
 
-				$subtotal = WCS_ATT_Product_Prices::get_price_string( $cart_item[ 'data' ], array(
-					'price' => $subtotal
-				) );
+				if ( false === strpos( $subtotal, 'subscription-details' ) ) {
+					$subtotal = WCS_ATT_Product_Prices::get_price_string( $cart_item[ 'data' ], array(
+						'price' => $subtotal
+					) );
+				}
 			}
 
 			$subtotal = WC_Subscriptions_Switcher::add_cart_item_switch_direction( $subtotal, $cart_item, $cart_item_key );

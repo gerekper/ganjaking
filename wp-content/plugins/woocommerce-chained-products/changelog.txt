@@ -1,5 +1,20 @@
 *** WooCommerce Chained Products Changelog ***
 
+2020.10.03 - version 2.9.8
+* New: WooCommerce 4.5.2 compatible
+* Fix: Fatal error when updating existing orders with Chained Products
+* Fix: Fatal error when editing variable products in admin
+* Update: Check order instance before calling order functions
+
+2020.09.01 - version 2.9.7
+* New: WooCommerce 4.1.1, 4.2.2, 4.3.3, 4.4.1 compatible
+* New: WordPress 5.5 compatible
+* Fix: Warning: A non-numeric value encountered
+* Update: Housekeeping doc link in settings
+* Update: Minor update in admin
+* Update: Remove support for WooCommerce 2.5 and WooCommerce 2.6
+* Update: POT file
+
 2020.03.25 - version 2.9.6
 * New: WooCommerce 3.9.3 & 4.0.1 compatible
 * Fix: CSS showing in admin emails [WooCommerce Subscriptions]

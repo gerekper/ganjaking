@@ -13,8 +13,6 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 
 	/**
 	 * Class to handle display of Chained Products review notice.
-	 *
-	 * @author StoreApps
 	 */
 	class WC_CP_Admin_Notices {
 
@@ -144,7 +142,7 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 			$cp_show_review_notice = get_option( 'cp_show_review_notice', 'yes' );
 
 			if ( 'no' !== $cp_show_review_notice ) {
-				$this->msg = __( 'Glad you are using', 'woocommerce-chained-products' ) . '&nbsp;<strong>' . __( 'WooCommerce Chained Products.', 'woocommerce-chained-products' ) . '</strong><br>'; // Default msg.
+				$this->msg = __( 'Glad to see that you are using', 'woocommerce-chained-products' ) . '&nbsp;<strong>' . __( 'WooCommerce Chained Products.', 'woocommerce-chained-products' ) . '</strong><br>'; // Default msg.
 
 				if ( 'yes' === $cp_show_review_notice ) {
 					if ( true === $this->orders_has_chained_item() ) {

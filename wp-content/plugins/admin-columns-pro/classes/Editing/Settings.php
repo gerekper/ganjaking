@@ -8,10 +8,12 @@ use AC\View;
 class Settings extends AC\Settings\Column
 	implements AC\Settings\Header {
 
+	const NAME = 'edit';
+
 	private $edit;
 
 	protected function define_options() {
-		return [ 'edit' => 'off' ];
+		return [ self::NAME => 'off' ];
 	}
 
 	/**

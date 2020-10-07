@@ -6,6 +6,7 @@ use AC\Admin\Tooltip;
 use AC\Form\Element\Checkbox;
 use AC\Renderable;
 use AC\Settings\General;
+use AC\Type\Url;
 use ACP\Editing\Settings\CustomField;
 
 class CustomFieldEditing implements Renderable {
@@ -29,8 +30,8 @@ class CustomFieldEditing implements Renderable {
 			sprintf(
 				__( "Please read %s if you plan to use these fields.", 'codepress-admin-columns' ),
 				sprintf(
-					'<a href="%s">%s</a>',
-					ac_get_site_utm_url( 'documentation/faq/enable-inline-editing-custom-fields/', 'general-settings' ),
+					'<a href="%s" target="_blank">%s</a>',
+					( new Url\Documentation( Url\Documentation::ARTICLE_ENABLE_EDITING ) )->get_url(),
 					__( 'our documentation', 'codepress-admin-columns' )
 				)
 			)

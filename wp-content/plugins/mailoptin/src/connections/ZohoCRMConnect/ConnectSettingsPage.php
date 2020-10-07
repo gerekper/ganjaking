@@ -126,14 +126,13 @@ class ConnectSettingsPage extends AbstractZohoCRMConnect
 
             check_admin_referer('mo_save_oauth_credentials', 'nonce');
 
-            // subtracting 5 minute to account for any lag and to ensure token is refreshed before it expires.
-            $expire_at = absint($_GET['expires_at']) - (5 * MINUTE_IN_SECONDS);
+            $expires_at = $this->oauth_expires_at_transform($_GET['expires_at']);
 
             $old_data = get_option($option_name, []);
             $new_data = array_map('rawurldecode', [
                 'zohocrm_access_token'    => $_GET['access_token'],
                 'zohocrm_refresh_token'   => $_GET['refresh_token'],
-                'zohocrm_expires_at'      => $expire_at,
+                'zohocrm_expires_at'      => $expires_at,
                 'zohocrm_api_domain'      => $_GET['api_domain'],
                 'zohocrm_location'        => $_GET['location'],
                 'zohocrm_accounts_server' => $_GET['accounts_server']

@@ -8,6 +8,8 @@ use ACP;
 
 class BulkEditing extends AC\Settings\Column implements AC\Settings\Header {
 
+	const NAME = 'bulk_edit';
+
 	/**
 	 * @var string
 	 */

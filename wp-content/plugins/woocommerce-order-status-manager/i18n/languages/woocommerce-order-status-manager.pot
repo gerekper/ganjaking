@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Order Status Manager 1.12.1\n"
+"Project-Id-Version: WooCommerce Order Status Manager 1.12.2\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-10-01 00:18:50+00:00\n"
+"POT-Creation-Date: 2020-10-02 21:56:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: class-wc-order-status-manager.php:405
+#: class-wc-order-status-manager.php:411
 #. translators: 1$s - opening <a> link tag, 2$s - closing </a> link tag
 msgid ""
 "Thanks for installing Order Status Manager! Before you get started, please "
@@ -22,6 +22,38 @@ msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "WooCommerce Order Status Manager"
+msgstr ""
+
+#: class-wc-order-status-manager.php:554
+msgid "Heads up!"
+msgstr ""
+
+#: class-wc-order-status-manager.php:557
+msgid ""
+"When you deactivate Order Status Manager, all orders in a custom status "
+"will be hidden. If this deactivation is not temporary, please first:"
+msgstr ""
+
+#: class-wc-order-status-manager.php:564
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+msgid "%1$sReassign orders%2$s with a custom status to a WooCommerce core status."
+msgstr ""
+
+#: class-wc-order-status-manager.php:570
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+msgid "%1$sDelete custom statuses%2$s and select a replacement status for orders."
+msgstr ""
+
+#: class-wc-order-status-manager.php:581
+msgid "Don't show me this again"
+msgstr ""
+
+#: class-wc-order-status-manager.php:585
+msgid "Cancel"
+msgstr ""
+
+#: class-wc-order-status-manager.php:586
+msgid "Deactivate plugin"
 msgstr ""
 
 #: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:48
@@ -67,7 +99,7 @@ msgstr ""
 
 #: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:155
 #: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:152
-#: includes/admin/class-wc-order-status-manager-admin.php:398
+#: includes/admin/class-wc-order-status-manager-admin.php:399
 msgid "Name"
 msgstr ""
 
@@ -82,7 +114,7 @@ msgid "Optional email description. This is for informational purposes only."
 msgstr ""
 
 #: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:180
-#: includes/admin/class-wc-order-status-manager-admin.php:327
+#: includes/admin/class-wc-order-status-manager-admin.php:328
 msgid "Any"
 msgstr ""
 
@@ -91,17 +123,17 @@ msgid "When to dispatch"
 msgstr ""
 
 #: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:209
-#: includes/admin/class-wc-order-status-manager-admin.php:324
+#: includes/admin/class-wc-order-status-manager-admin.php:325
 msgid "From Status"
 msgstr ""
 
 #: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:210
-#: includes/admin/class-wc-order-status-manager-admin.php:325
+#: includes/admin/class-wc-order-status-manager-admin.php:326
 msgid "To Status"
 msgstr ""
 
 #: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:238
-#: includes/admin/class-wc-order-status-manager-admin.php:326
+#: includes/admin/class-wc-order-status-manager-admin.php:327
 msgid "Remove"
 msgstr ""
 
@@ -114,7 +146,7 @@ msgid "Dispatch when a new order is created"
 msgstr ""
 
 #: includes/admin/class-wc-order-status-manager-admin-order-status-emails.php:307
-#: includes/admin/class-wc-order-status-manager-admin.php:429
+#: includes/admin/class-wc-order-status-manager-admin.php:430
 msgid "Delete Permanently"
 msgstr ""
 
@@ -218,7 +250,7 @@ msgstr ""
 
 #: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:229
 #: includes/admin/class-wc-order-status-manager-admin-order-statuses.php:257
-#: includes/admin/class-wc-order-status-manager-admin.php:328
+#: includes/admin/class-wc-order-status-manager-admin.php:329
 msgid "Remove Icon"
 msgstr ""
 
@@ -385,56 +417,56 @@ msgstr ""
 msgid "Emails"
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:323
+#: includes/admin/class-wc-order-status-manager-admin.php:324
 msgid "Remove this condition?"
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:329
+#: includes/admin/class-wc-order-status-manager-admin.php:330
 msgid "Select Icon"
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:330
+#: includes/admin/class-wc-order-status-manager-admin.php:331
 msgid "All icon packages"
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:331
+#: includes/admin/class-wc-order-status-manager-admin.php:332
 msgid "Search Icons"
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:332
+#: includes/admin/class-wc-order-status-manager-admin.php:333
 msgid "Choose a file"
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:333
+#: includes/admin/class-wc-order-status-manager-admin.php:334
 msgid "Close"
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:334
+#: includes/admin/class-wc-order-status-manager-admin.php:335
 msgid ""
 "Emails will not be sent for dispatch conditions where the To and From "
 "statuses are both 'Any'. Continue anyway?"
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:335
+#: includes/admin/class-wc-order-status-manager-admin.php:336
 msgid ""
 "Please be sure to remove custom statuses from orders before deactivating "
 "the plugin. Continue?"
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:336
+#: includes/admin/class-wc-order-status-manager-admin.php:337
 msgid "Sorry, slugs can't begin with \"wc-\"."
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:427
+#: includes/admin/class-wc-order-status-manager-admin.php:428
 msgid "Delete this item permanently"
 msgstr ""
 
-#: includes/admin/class-wc-order-status-manager-admin.php:532
+#: includes/admin/class-wc-order-status-manager-admin.php:533
 #. translators: Placeholder: %s - custom order status slug
 msgid "Sorry, slugs can't begin with \"wc-\". Order status has been renamed \"%s\"."
 msgstr ""
 
-#: includes/class-wc-order-status-manager-ajax.php:225
+#: includes/class-wc-order-status-manager-ajax.php:228
 msgid "Change status: "
 msgstr ""
 

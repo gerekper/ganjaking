@@ -70,10 +70,11 @@ class AbstractJiltConnect extends AbstractConnect
 
             $option_name = MAILOPTIN_CONNECTIONS_DB_OPTION_NAME;
             $old_data    = get_option($option_name, []);
+            $expires_at  = $this->oauth_expires_at_transform($instance->getStorage()->get('jilt.expires_at'));
             $new_data    = [
                 'jilt_access_token'  => $instance->getStorage()->get('jilt.access_token'),
                 'jilt_refresh_token' => $instance->getStorage()->get('jilt.refresh_token'),
-                'jilt_expires_at'    => $instance->getStorage()->get('jilt.expires_at')
+                'jilt_expires_at'    => $expires_at
             ];
 
             update_option($option_name, array_merge($old_data, $new_data));
@@ -82,7 +83,7 @@ class AbstractJiltConnect extends AbstractConnect
                 new OAuthCredentialStorage([
                     'jilt.access_token'  => $instance->getStorage()->get('jilt.access_token'),
                     'jilt.refresh_token' => $instance->getStorage()->get('jilt.refresh_token'),
-                    'jilt.expires_at'    => $instance->getStorage()->get('jilt.expires_at'),
+                    'jilt.expires_at'    => $expires_at,
                 ]));
         }
 

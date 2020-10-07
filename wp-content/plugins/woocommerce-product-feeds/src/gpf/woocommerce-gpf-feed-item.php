@@ -1038,9 +1038,21 @@ class WoocommerceGpfFeedItem {
 		 * rest into the "additional images" list.
 		 */
 		$done_primary_image = false;
+
+		// Retrieve requested primary image ID from meta and use it if set.
+		$primary_media_id = $this->general_product->get_meta( 'woocommerce_gpf_primary_media_id', true );
+		if ( ! empty( $primary_media_id ) && ! empty( $this->image_sources[ $primary_media_id ] ) ) {
+			$this->image_link   = $this->image_sources[ $primary_media_id ]['url'];
+			$done_primary_image = true;
+		}
+
 		foreach ( $this->ordered_images as $image ) {
 			// Skip if excluded.
 			if ( in_array( $image['id'], $excluded_ids, true ) ) {
+				continue;
+			}
+			// Skip if this is the primary ID as we've already set it outside the loop.
+			if ( (int) $image['id'] === (int) $primary_media_id ) {
 				continue;
 			}
 			if ( $done_primary_image ) {

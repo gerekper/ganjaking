@@ -1,5 +1,6 @@
 <?php
 
+use AC\Type\Url\Documentation;
 use ACP\Migrate\Export;
 use ACP\Storage\ListScreen\SerializerTypes;
 
@@ -23,7 +24,7 @@ use ACP\Storage\ListScreen\SerializerTypes;
 				<button class="button button-primary" data-export="<?= SerializerTypes::JSON ?>"><?php _e( 'Export To JSON', 'codepress-admin-columns' ); ?></button>
 				<p class="php-export">
 					<?= __( 'Looking for PHP Export?', 'codepress-admin-columns' ); ?>
-					<a target="_blank" href="<?= ac_get_site_url( 'documentation/local-storage' ); ?>">
+					<a target="_blank" href="<?= esc_url( ( new Documentation( Documentation::ARTICLE_LOCAL_STORAGE ) )->get_url() ); ?>">
 						<?= sprintf( __( 'Read about its successor: %s', 'codepress-admin-columns' ), __( 'Local Storage', 'codepress-admin-columns' ) ); ?>
 					</a>
 				</p>

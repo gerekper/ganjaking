@@ -6,12 +6,12 @@ class Init
 {
     public static function select2_tag_connections()
     {
-        return ['GetResponseConnect', 'OntraportConnect', 'ConvertKitConnect', 'InfusionsoftConnect'];
+        return ['GetResponseConnect', 'OntraportConnect', 'ConvertKitConnect', 'InfusionsoftConnect', 'FluentCRMConnect'];
     }
 
     public static function text_tag_connections()
     {
-        return ['AweberConnect', 'MailChimpConnect', 'ConvertFoxConnect', 'SendlaneConnect', 'DripConnect', 'ActiveCampaignConnect', 'ZohoCRMConnect', 'JiltConnect'];
+        return ['AweberConnect', 'MailChimpConnect', 'ConvertFoxConnect', 'SendlaneConnect', 'DripConnect', 'ActiveCampaignConnect', 'ZohoCRMConnect', 'JiltConnect', 'WeMailConnect'];
     }
 
     public static function init()
@@ -38,6 +38,7 @@ class Init
         \MailOptin\JiltConnect\Connect::get_instance();
         \MailOptin\MailerliteConnect\Connect::get_instance();
         \MailOptin\EmailOctopusConnect\Connect::get_instance();
+        \MailOptin\FluentCRMConnect\Connect::get_instance();
         \MailOptin\GEMConnect\Connect::get_instance();
         \MailOptin\SendinblueConnect\Connect::get_instance();
         \MailOptin\SendGridConnect\Connect::get_instance();

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  7.0.0
+ * @version  7.1.0
  */
 class WC_Product_Composite extends WC_Product {
 
@@ -864,6 +864,10 @@ class WC_Product_Composite extends WC_Product {
 	 */
 	public function add_to_cart_form_settings() {
 
+		if ( isset( $this->form_settings ) ) {
+			return $this->form_settings;
+		}
+
 		$image_data               = array();
 		$pagination_data          = array();
 		$placeholder_option       = array();
@@ -900,6 +904,7 @@ class WC_Product_Composite extends WC_Product {
 			'selected_product_price_visibility_data' => $product_price_visibility,
 			'subtotal_visibility_data'               => $subtotal_visibility,
 			'price_display_data'                     => $price_display,
+			'hide_total_on_validation_fail'          => 'no',
 			'summary_carousel_autoscroll'            => 'yes',
 			'summary_carousel_scroll_coeff'          => 0.5,
 			'component_qty_restore'                  => apply_filters( 'woocommerce_composite_component_qty_restore', 'yes', $this ) /* yes | no */
@@ -911,7 +916,9 @@ class WC_Product_Composite extends WC_Product {
 		 * @param  array                 $settings
 		 * @param  WC_Product_Composite  $product
 		 */
-		return apply_filters( 'woocommerce_composite_add_to_cart_form_settings', $settings, $this );
+		$this->form_settings = apply_filters( 'woocommerce_composite_add_to_cart_form_settings', $settings, $this );
+
+		return $this->form_settings;
 	}
 
 	/**

@@ -3,14 +3,14 @@
  * Plugin Name: WooCommerce Shipment Tracking
  * Plugin URI: https://woocommerce.com/products/shipment-tracking/
  * Description: Add tracking numbers to orders allowing customers to track their orders via a link. Supports many shipping providers, as well as custom ones if neccessary via a regular link.
- * Version: 1.6.23
+ * Version: 1.6.25
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-shipment-tracking
  * Domain Path: /languages
  * WC requires at least: 2.6
- * WC tested up to: 4.2
- * Tested up to: 5.3
+ * WC tested up to: 4.5
+ * Tested up to: 5.5
  *
  * Copyright: © 2020 WooCommerce
  * License: GNU General Public License v3.0
@@ -40,7 +40,7 @@ function woocommerce_shipment_tracking_missing_wc_notice() {
  * WC_Shipment_Tracking class
  */
 if ( ! class_exists( 'WC_Shipment_Tracking' ) ) :
-	define( 'WC_SHIPMENT_TRACKING_VERSION', '1.6.23' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPMENT_TRACKING_VERSION', '1.6.25' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Plugin's main class.
@@ -284,11 +284,12 @@ function wc_st_add_tracking_number( $order_id, $tracking_number, $provider, $dat
 	$st            = WC_Shipment_Tracking_Actions::get_instance();
 	$provider_list = $st->get_providers();
 	$custom        = true;
+	$provider_slug = sanitize_title( str_replace( ' ', '', $provider ) );
 
 	// Check if a given `$provider` is predefined or custom.
 	foreach ( $provider_list as $country ) {
 		foreach ( $country as $provider_code => $url ) {
-			if ( sanitize_title( $provider ) === sanitize_title( $provider_code ) ) {
+			if ( sanitize_title( str_replace( ' ', '', $provider_code ) ) === $provider_slug ) {
 				$provider = sanitize_title( $provider_code );
 				$custom   = false;
 				break;

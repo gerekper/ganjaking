@@ -4,7 +4,7 @@
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-tab-manager/
  * Documentation URI: https://docs.woocommerce.com/document/tab-manager/
  * Description: A product tab manager for WooCommerce
- * Version: 1.13.0
+ * Version: 1.13.1
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
  * Text Domain: woocommerce-tab-manager
@@ -23,7 +23,7 @@
  *
  * Woo: 132195:89a9ac74850855cfe772b4b4ee1e31e0
  * WC requires at least: 3.0.9
- * WC tested up to: 4.3.3
+ * WC tested up to: 4.5.2
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -91,7 +91,6 @@ class WC_Tab_Manager_Loader {
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
-			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

@@ -124,7 +124,7 @@ class ConnectSettingsPage extends AbstractInfusionsoftConnect
             $new_data = array_map('rawurldecode', [
                 'infusionsoft_access_token'  => $_GET['access_token'],
                 'infusionsoft_refresh_token' => $_GET['refresh_token'],
-                'infusionsoft_expires_at'    => $_GET['expires_at']
+                'infusionsoft_expires_at'    => $this->oauth_expires_at_transform($_GET['expires_at'])
             ]);
 
             $new_data = array_filter($new_data, [$this, 'data_filter']);

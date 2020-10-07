@@ -128,13 +128,12 @@ class ConnectSettingsPage extends AbstractZohoCampaignsConnect
 
             $old_data = get_option($option_name, []);
 
-            // subtracting 5 minute to account for any lag and to ensure token is refreshed before it expires.
-            $expire_at = absint($_GET['expires_at']) - (5 * MINUTE_IN_SECONDS);
+            $expires_at = $this->oauth_expires_at_transform($_GET['expires_at']);
 
             $new_data = array_map('rawurldecode', [
                 'zohocampaigns_access_token'    => $_GET['access_token'],
                 'zohocampaigns_refresh_token'   => $_GET['refresh_token'],
-                'zohocampaigns_expires_at'      => $expire_at,
+                'zohocampaigns_expires_at'      => $expires_at,
                 'zohocampaigns_location'        => $_GET['location'],
                 'zohocampaigns_accounts_server' => $_GET['accounts_server'],
                 'zohocampaigns_api_domain'      => $_GET['api_domain']

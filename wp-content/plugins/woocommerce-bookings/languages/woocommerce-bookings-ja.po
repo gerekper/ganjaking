@@ -7,53 +7,53 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-09-30T12:08:48+00:00\n"
+"POT-Creation-Date: 2020-10-05T13:29:41+00:00\n"
 "PO-Revision-Date: 2020-09-11 08:21:44+0000\n"
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1185
+#: includes/class-wc-bookings-google-calendar-connection.php:1190
 msgid "Invalid request!"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:985
+#: includes/class-wc-bookings-google-calendar-connection.php:990
 msgid "To sync with Google Calendar using an app provided by WooCommerce.com, click the \"Connect with Google\" button below to authorize access to your Google calendar."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:874
+#: includes/class-wc-bookings-google-calendar-connection.php:879
 msgid "Connect with custom Google app"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:872
+#: includes/class-wc-bookings-google-calendar-connection.php:877
 msgid "Please fill out all required fields from above and save changes."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:778
+#: includes/class-wc-bookings-google-calendar-connection.php:783
 msgid "Select your Calendar."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:771
+#: includes/class-wc-bookings-google-calendar-connection.php:776
 msgid "Connected Calendar Settings"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:761
+#: includes/class-wc-bookings-google-calendar-connection.php:766
 msgid "Enter the Google Client Secret associated with your Calendar API app."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:759
+#: includes/class-wc-bookings-google-calendar-connection.php:764
 msgid "Client Secret"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:753
+#: includes/class-wc-bookings-google-calendar-connection.php:758
 msgid "Enter the Google Client ID associated with your Calendar API app."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:751
+#: includes/class-wc-bookings-google-calendar-connection.php:756
 msgid "Client ID"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:746
+#: includes/class-wc-bookings-google-calendar-connection.php:751
 msgid "Connect with a custom Google Calendar App"
 msgstr ""
 
@@ -511,18 +511,18 @@ msgctxt "woocommerce-bookings"
 msgid "Partially Paid"
 msgstr "一部支払い済み"
 
-#: includes/integrations/class-wc-bookings-addons.php:68
-#: includes/integrations/class-wc-bookings-addons.php:75
+#: includes/integrations/class-wc-bookings-addons.php:69
+#: includes/integrations/class-wc-bookings-addons.php:76
 msgid "Only applies to options which use quantity based prices."
 msgstr ""
 
-#: includes/integrations/class-wc-bookings-addons.php:57
-#: includes/integrations/class-wc-bookings-addons.php:74
+#: includes/integrations/class-wc-bookings-addons.php:58
+#: includes/integrations/class-wc-bookings-addons.php:75
 msgid "Bookings: Multiply cost by block count"
 msgstr "予約: ブロック数分の費用を乗じる"
 
-#: includes/integrations/class-wc-bookings-addons.php:53
-#: includes/integrations/class-wc-bookings-addons.php:67
+#: includes/integrations/class-wc-bookings-addons.php:54
+#: includes/integrations/class-wc-bookings-addons.php:68
 msgid "Bookings: Multiply cost by person count"
 msgstr "予約: 人数分の費用を乗じる"
 
@@ -1174,27 +1174,27 @@ msgstr "予約可能なリソース"
 msgid "Person Type"
 msgstr "お客様の種類"
 
-#: includes/class-wc-bookings-ics-exporter.php:195
+#: includes/class-wc-bookings-ics-exporter.php:196
 msgid "Booking description:"
 msgstr "予約概要:"
 
 #. translators: 1: site name
-#: includes/class-wc-bookings-ics-exporter.php:163
+#: includes/class-wc-bookings-ics-exporter.php:164
 msgid "Bookings from %s"
 msgstr "予約開始 %s"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1312
+#: includes/class-wc-bookings-google-calendar-connection.php:1317
 #: includes/class-wc-bookings-init.php:86
 #: includes/class-wc-bookings-init.php:89
 msgid "Booking"
 msgstr "予約"
 
 #. translators: %s URL to edit booking
-#: includes/class-wc-bookings-google-calendar-connection.php:1282
+#: includes/class-wc-bookings-google-calendar-connection.php:1287
 msgid "NOTE: this event cannot be edited in Google Calendar. If you need to make changes, <a href=\"%s\" target=\"_blank\">please edit this booking in WooCommerce</a>."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1266
+#: includes/class-wc-bookings-google-calendar-connection.php:1271
 #: includes/wc-bookings-functions.php:67
 #: templates/emails/admin-booking-cancelled.php:47
 #: templates/emails/admin-new-booking.php:70
@@ -1206,7 +1206,7 @@ msgstr ""
 msgid "Booking Type"
 msgstr "予約タイプ"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1265
+#: includes/class-wc-bookings-google-calendar-connection.php:1270
 #: templates/emails/admin-booking-cancelled.php:37
 #: templates/emails/admin-new-booking.php:60
 #: templates/emails/customer-booking-cancelled.php:44
@@ -1217,88 +1217,88 @@ msgstr "予約タイプ"
 msgid "Booking ID"
 msgstr "予約 ID"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1099
+#: includes/class-wc-bookings-google-calendar-connection.php:1104
 msgid "Failed to connect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "アカウントの連携に失敗しました。もう一度お試しください。問題が解決しない場合は、デバッグログオプションを有効にして何が起こっているか確認してみてください。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1079
+#: includes/class-wc-bookings-google-calendar-connection.php:1084
 msgid "Account connected successfully!"
 msgstr "アカウントの連携に成功しました。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1053
-#: includes/class-wc-bookings-google-calendar-connection.php:1137
+#: includes/class-wc-bookings-google-calendar-connection.php:1058
+#: includes/class-wc-bookings-google-calendar-connection.php:1142
 msgid "Permission denied!"
 msgstr "権限がありません。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1021
+#: includes/class-wc-bookings-google-calendar-connection.php:1026
 msgid "Account not properly connected, reset successfully!"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1018
+#: includes/class-wc-bookings-google-calendar-connection.php:1023
 msgid "Failed to disconnect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr "アカウント連携の解除に失敗しました、もう一度お試しください。問題が解決しない場合は、デバッグログオプションを有効にして何が起こっているか確認してみてください。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1016
+#: includes/class-wc-bookings-google-calendar-connection.php:1021
 msgid "Account disconnected successfully!"
 msgstr "アカウントの切断に成功しました!"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:877
-#: includes/class-wc-bookings-google-calendar-connection.php:973
+#: includes/class-wc-bookings-google-calendar-connection.php:882
+#: includes/class-wc-bookings-google-calendar-connection.php:978
 msgid "Disconnect"
 msgstr "切断する"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:876
-#: includes/class-wc-bookings-google-calendar-connection.php:972
+#: includes/class-wc-bookings-google-calendar-connection.php:881
+#: includes/class-wc-bookings-google-calendar-connection.php:977
 msgid "Successfully authenticated."
 msgstr "認証に成功しました。"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:968
+#: includes/class-wc-bookings-google-calendar-connection.php:973
 msgid "Connect with Google"
 msgstr "Google 連携"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:892
+#: includes/class-wc-bookings-google-calendar-connection.php:897
 msgid "Select a calendar from the list"
 msgstr ""
 
 #. translators: 1: log file path
-#: includes/class-wc-bookings-google-calendar-connection.php:802
+#: includes/class-wc-bookings-google-calendar-connection.php:807
 msgid "Log Google Calendar events, such as API requests, inside %s"
 msgstr "%s 内の API リクエストなどの Google カレンダーのイベントを記録する"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:799
+#: includes/class-wc-bookings-google-calendar-connection.php:804
 msgid "Enable logging"
 msgstr "ログを有効化"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:797
+#: includes/class-wc-bookings-google-calendar-connection.php:802
 msgid "Debug Log"
 msgstr "デバッグ用ログ"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:791
+#: includes/class-wc-bookings-google-calendar-connection.php:796
 msgid "Manage the sync flow between your Store calendar and Google calendar."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:789
+#: includes/class-wc-bookings-google-calendar-connection.php:794
 msgid "Sync one way - from Store to Google"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:788
+#: includes/class-wc-bookings-google-calendar-connection.php:793
 msgid "Sync both ways - between Store and Google"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:786
+#: includes/class-wc-bookings-google-calendar-connection.php:791
 msgid "Sync Preference"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:742
-#: includes/class-wc-bookings-google-calendar-connection.php:767
+#: includes/class-wc-bookings-google-calendar-connection.php:747
+#: includes/class-wc-bookings-google-calendar-connection.php:772
 msgid "Authorization"
 msgstr "承認"
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1016
-#: includes/class-wc-bookings-google-calendar-connection.php:1018
 #: includes/class-wc-bookings-google-calendar-connection.php:1021
-#: includes/class-wc-bookings-google-calendar-connection.php:1079
-#: includes/class-wc-bookings-google-calendar-connection.php:1099
+#: includes/class-wc-bookings-google-calendar-connection.php:1023
+#: includes/class-wc-bookings-google-calendar-connection.php:1026
+#: includes/class-wc-bookings-google-calendar-connection.php:1084
+#: includes/class-wc-bookings-google-calendar-connection.php:1104
 msgid "Google Calendar"
 msgstr "Google カレンダー"
 
@@ -2857,7 +2857,7 @@ msgstr "通知を送信"
 #: includes/admin/class-wc-bookings-menus.php:71
 #: includes/admin/views/html-calendar-day.php:2
 #: includes/admin/views/html-calendar-month.php:2
-#: includes/class-wc-bookings-google-calendar-connection.php:776
+#: includes/class-wc-bookings-google-calendar-connection.php:781
 msgid "Calendar"
 msgstr "カレンダー"
 
@@ -3169,7 +3169,7 @@ msgid "Person #%1$s - %2$s (%3$s)"
 msgstr ""
 
 #: includes/admin/class-wc-bookings-calendar.php:713
-#: includes/class-wc-bookings-ics-exporter.php:175
+#: includes/class-wc-bookings-ics-exporter.php:176
 msgid "Resource #"
 msgstr "リソース #"
 
@@ -3179,7 +3179,7 @@ msgstr "予約者"
 
 #. translators: 1: person type 2: quantity
 #: includes/admin/class-wc-bookings-calendar.php:586
-#: includes/class-wc-bookings-ics-exporter.php:186
+#: includes/class-wc-bookings-ics-exporter.php:187
 #: templates/emails/plain/admin-booking-cancelled.php:59
 #: templates/emails/plain/admin-new-booking.php:82
 #: templates/emails/plain/customer-booking-cancelled.php:64
@@ -3192,7 +3192,7 @@ msgstr "%1$s: %2$d"
 
 #: includes/admin/class-wc-bookings-calendar.php:584
 #: includes/admin/class-wc-bookings-details-meta-box.php:267
-#: includes/class-wc-bookings-ics-exporter.php:184
+#: includes/class-wc-bookings-ics-exporter.php:185
 #: includes/wc-bookings-functions.php:72
 #: templates/emails/admin-booking-cancelled.php:72
 #: templates/emails/admin-new-booking.php:95
@@ -3356,7 +3356,7 @@ msgstr "予約を更新しました。"
 #: includes/admin/class-wc-bookings-admin.php:645
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:256
-#: includes/class-wc-bookings-google-calendar-connection.php:1267
+#: includes/class-wc-bookings-google-calendar-connection.php:1272
 #: includes/wc-bookings-functions.php:1098
 msgid "Persons"
 msgstr "人"

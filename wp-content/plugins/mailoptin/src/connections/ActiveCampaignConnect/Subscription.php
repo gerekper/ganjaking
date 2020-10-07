@@ -32,11 +32,7 @@ class Subscription extends AbstractActiveCampaignConnect
         try {
             $name_split = self::get_first_last_names($this->name);
 
-            $lead_tags = $this->get_integration_data('ActiveCampaignConnect_lead_tags');
-
-            if ( ! empty($this->extras['form_tags'])) {
-                $lead_tags = $this->extras['form_tags'];
-            }
+            $lead_tags = $this->get_integration_tags('ActiveCampaignConnect_lead_tags');
 
             if (isset($this->extras['mo-acceptance']) && $this->extras['mo-acceptance'] == 'yes') {
                 $gdpr_tag  = apply_filters('mo_connections_activecampaign_acceptance_tag', 'gdpr');

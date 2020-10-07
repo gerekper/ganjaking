@@ -7,6 +7,7 @@ use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Style;
+use AC\Type\Url;
 use AC\View;
 use ACP;
 use ACP\LicenseKeyRepository;
@@ -73,16 +74,13 @@ class License extends AC\Admin\Section implements Enqueueables {
 			$license = $this->license_repository->find( $license_key );
 		}
 
-		$my_account_link = ac_get_site_utm_url( 'my-account/subscriptions', 'license-activation' );
+		$my_subscriptions_page = new Url\UtmTags( new Url\Site( Url\Site::PAGE_ACCOUNT_SUBSCRIPTIONS ), 'license-activation' );
 
 		if ( $license ) {
-			$my_account_link = add_query_arg(
-				[
-					'subscription_key' => $license->get_key()->get_value(),
-					'site_url'         => $this->site_url->get_url(),
-				],
-				$my_account_link
-			);
+			$my_subscriptions_page->add( [
+				'subscription_key' => $license->get_key()->get_value(),
+				'site_url'         => $this->site_url->get_url(),
+			] );
 		}
 
 		$license_info = new AC\View( [
@@ -90,7 +88,7 @@ class License extends AC\Admin\Section implements Enqueueables {
 			'license'            => $license,
 			'is_license_defined' => defined( 'ACP_LICENCE' ) && ACP_LICENCE,
 			'license_key_masked' => $license_key ? substr( $license_key->get_value(), 0, 7 ) : null,
-			'my_account_link'    => $my_account_link,
+			'my_account_link'    => $my_subscriptions_page->get_url(),
 		] );
 
 		$license_info->set_template( 'admin/section-license' );

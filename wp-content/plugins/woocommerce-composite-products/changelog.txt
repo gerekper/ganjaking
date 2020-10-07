@@ -1,5 +1,11 @@
 *** WooCommerce Composite Products ***
 
+2020.09.29 - version 7.1.0
+* Feature - Add Flatsome quickview support.
+* Tweak - Display running Composite total even if validation messages exist.
+* Tweak - Preserve runtime meta when cloning parent item in shipping packages.
+* Tweak - Handle clicks on images when 'Options Style > Thumbnails' is selected.
+
 2020.08.20 - version 7.0.6
 * Tweak - Backfill current component data in composite configurations extracted from orders.
 * Fix - Introduced integration with WooCommerce Services. When shipping an assembled Composite, WooCommerce Services will now see a single physical item that aggregates the weight and total of its contents.

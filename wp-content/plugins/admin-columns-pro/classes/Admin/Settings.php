@@ -11,6 +11,7 @@ use AC\ListScreenPost;
 use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\Storage;
 use AC\Registrable;
+use AC\Type\Url;
 use AC\View;
 use ACP\ListScreen\Media;
 use ACP\Settings\ListScreen\HideOnScreen;
@@ -278,10 +279,10 @@ class Settings implements Registrable {
 				<?php _e( "Available sets are selectable from the overview screen. Users can have their own column view preference.", 'codepress-admin-columns' ); ?>
 			<p>
 			<p>
-				<img src="<?php echo esc_url( $this->location->get_url() ); ?>assets/core/images/layout-selector.png" alt=""/>
+				<img src="<?= esc_url( $this->location->get_url() ); ?>assets/core/images/layout-selector.png" alt=""/>
 			</p>
 			<p>
-				<a href="<?php echo esc_url( ac_get_site_utm_url( 'documentation/how-to/make-multiple-column-sets', 'column-sets' ) ); ?>" target="_blank"><?php _e( 'Online documentation', 'codepress-admin-columns' ); ?></a>
+				<a href="<?= esc_url( ( new Url\Documentation( Url\Documentation::ARTICLE_COLUMN_SETS ) )->get_url() ); ?>" target="_blank"><?php _e( 'Online documentation', 'codepress-admin-columns' ); ?></a>
 			</p>
 		</div>
 		<?php

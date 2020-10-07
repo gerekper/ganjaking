@@ -121,10 +121,11 @@ class ConnectSettingsPage extends AbstractHubspotConnect
             check_admin_referer('mo_save_oauth_credentials', 'nonce');
 
             $old_data = get_option($option_name, []);
+
             $new_data = array_map('rawurldecode', [
                 'hubspot_access_token'  => $_GET['access_token'],
                 'hubspot_refresh_token' => $_GET['refresh_token'],
-                'hubspot_expires_at'    => $_GET['expires_at']
+                'hubspot_expires_at'    => $this->oauth_expires_at_transform($_GET['expires_at'])
             ]);
 
             $new_data = array_filter($new_data, [$this, 'data_filter']);

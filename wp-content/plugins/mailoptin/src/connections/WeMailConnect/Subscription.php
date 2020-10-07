@@ -23,7 +23,7 @@ class Subscription extends AbstractWeMailConnect
     {
         $name_split = self::get_first_last_names($this->name);
 
-        $lead_tags = $this->get_integration_data('WeMailConnect_lead_tags');
+        $lead_tags = $this->get_integration_tags('WeMailConnect_lead_tags');
 
         try {
 

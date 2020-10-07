@@ -1,5 +1,8 @@
 *** WooCommerce Bookings Changelog ***
 
+2020-10-05 - version 1.15.29
+* Fix   - Issue with API not returning all slots.
+
 2020-09-30 - version 1.15.28
 * Fix   - Fatal error when viewing Bookings order.
 

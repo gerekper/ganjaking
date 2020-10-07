@@ -6,7 +6,7 @@
  * Description: Easily create custom order statuses and trigger custom emails when order status changes
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.12.1
+ * Version: 1.12.2
  * Text Domain: woocommerce-order-status-manager
  * Domain Path: /i18n/languages/
  *

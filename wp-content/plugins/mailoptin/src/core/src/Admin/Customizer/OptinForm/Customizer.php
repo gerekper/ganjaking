@@ -529,7 +529,7 @@ class Customizer
             exit;
         }
 
-        wp_redirect(MAILOPTIN_OPTIN_CAMPAIGNS_SETTINGS_PAGE);
+        wp_safe_redirect(MAILOPTIN_OPTIN_CAMPAIGNS_SETTINGS_PAGE);
         exit;
     }
 
@@ -635,7 +635,7 @@ class Customizer
 
         // $result is false of optin form class do not exist.
         if ( ! $optin_class_instance) {
-            wp_redirect(add_query_arg('optin-error', 'class-not-found', MAILOPTIN_OPTIN_CAMPAIGNS_SETTINGS_PAGE));
+            wp_safe_redirect(add_query_arg('optin-error', 'class-not-found', MAILOPTIN_OPTIN_CAMPAIGNS_SETTINGS_PAGE));
             exit;
         }
 

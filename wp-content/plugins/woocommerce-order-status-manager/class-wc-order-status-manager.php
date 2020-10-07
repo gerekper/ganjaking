@@ -39,7 +39,7 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.12.1';
+	const VERSION = '1.12.2';
 
 	/** @var \WC_Order_Status_Manager single instance of this plugin */
 	protected static $instance;
@@ -49,6 +49,9 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 
 	/** plugin meta prefix */
 	const PLUGIN_PREFIX = 'wc_order_status_manager_';
+
+	/** plugin deactivation modal option name */
+	const PLUGIN_DEACTIVATION_MODAL_OPTION = self::PLUGIN_PREFIX . 'confirm_deactivation_modal_disabled';
 
 	/** @var \WC_Order_Status_Manager_Admin instance */
 	protected $admin;
@@ -102,6 +105,9 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 		// this needs to be in main class to hook early before init
 		add_filter( 'woocommerce_register_shop_order_post_statuses', array( $this, 'rename_core_order_status_labels' ), 20 );
 		add_filter( 'wc_order_statuses',                             array( $this, 'rename_core_order_status_labels' ), 20 );
+
+		// adds a confirmation modal to plugin deactivation
+		add_action( 'admin_footer', [ $this, 'add_plugin_deactivation_popup' ] );
 	}
 
 
@@ -529,6 +535,60 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 		}
 
 		return false;
+	}
+
+
+	/**
+	 * Adds a popup to confirm the deactivation of the plugin.
+	 *
+	 * @internal
+	 *
+	 * @since 1.12.1-dev.1
+	 */
+	public function add_plugin_deactivation_popup() {
+		global $pagenow;
+
+		if ( 'plugins.php' === $pagenow && ! wc_string_to_bool( get_user_meta( get_current_user_id(), self::PLUGIN_DEACTIVATION_MODAL_OPTION, true ) ) && $this->get_order_statuses_instance()->is_any_custom_status_in_use() ) : ?>
+
+			<div id="order-status-plugin-deactivation-popup" style="display: none;">
+				<h3><?php esc_html_e( 'Heads up!', 'woocommerce-order-status-manager' ); ?></h3>
+
+				<p>
+					<?php esc_html_e( 'When you deactivate Order Status Manager, all orders in a custom status will be hidden. If this deactivation is not temporary, please first:', 'woocommerce-order-status-manager' ); ?>
+				</p>
+
+				<ul>
+					<li>
+						<?php
+						/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag */
+						echo sprintf( __( '%1$sReassign orders%2$s with a custom status to a WooCommerce core status.', 'woocommerce-order-status-manager' ), '<a href="/wp-admin/edit.php?post_type=shop_order">', '</a>' );
+						?>
+					</li>
+					<li>
+						<?php
+						/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag */
+						echo sprintf( __( '%1$sDelete custom statuses%2$s and select a replacement status for orders.', 'woocommerce-order-status-manager' ), '<a href="/wp-admin/edit.php?post_type=wc_order_status">', '</a>' );
+						?>
+					</li>
+				</ul>
+
+				<p>
+					<input
+						id="order-status-plugin-deactivation-popup-dont-show-me-again"
+						type="checkbox" />
+
+					<em>
+						<label for="order-status-plugin-deactivation-popup-dont-show-me-again"><?php esc_html_e( 'Don\'t show me this again', 'woocommerce-order-status-manager' ) ?></label>
+					</em>
+				</p>
+
+				<button class="button cancel"><?php esc_html_e( 'Cancel', 'woocommerce-order-status-manager' ); ?></button>
+				<button class="button button-primary deactivate"><?php esc_html_e( 'Deactivate plugin', 'woocommerce-order-status-manager' ); ?></button>
+			</div>
+
+			<a href="#order-status-plugin-deactivation-popup" id="order-status-plugin-deactivation">&nbsp;</a><?php
+
+		endif;
 	}
 
 

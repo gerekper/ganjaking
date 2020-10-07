@@ -945,4 +945,35 @@ class WC_Order_Status_Manager_Order_Statuses {
 	}
 
 
+	/**
+	 * Determines whether at least one custom status is being used by any order.
+	 *
+	 * @since 1.12.1-dev.1
+	 *
+	 * @return bool true if at least one custom status is being used by any order
+	 */
+	public function is_any_custom_status_in_use() {
+
+		$order_with_custom_status_found = false;
+
+		foreach ( wc_get_order_statuses() as $slug => $name ) {
+
+			// core statuses are not considered in this method
+			if ( wc_order_status_manager()->get_order_statuses_instance()->is_core_status( $slug ) ) {
+				continue;
+			}
+
+			$status = new \WC_Order_Status_Manager_Order_Status( $slug );
+
+			// at least one custom status must be associated with an order to interrupt this method iteration and return true
+			if ( $existing_orders = $status->has_orders( [ 'posts_per_page' => 1 ] ) ) {
+				$order_with_custom_status_found = true;
+				break;
+			}
+		}
+
+		return $order_with_custom_status_found;
+	}
+
+
 }

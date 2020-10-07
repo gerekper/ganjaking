@@ -30,12 +30,7 @@ class Subscription extends AbstractSendlaneConnect
 
             $name_split = self::get_first_last_names($this->name);
 
-            $lead_tags = $this->get_integration_data('SendlaneConnect_lead_tags');
-
-            // from external service eg elementor form
-            if ( ! empty($this->extras['form_tags'])) {
-                $lead_tags = $this->extras['form_tags'];
-            }
+            $lead_tags = $this->get_integration_tags('SendlaneConnect_lead_tags');
 
             $lead_data = [
                 'first_name' => $name_split[0],

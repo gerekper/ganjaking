@@ -12,6 +12,7 @@ return array(
     'Imagify\\ThirdParty\\FormidablePro\\' => array($baseDir . '/inc/3rd-party/formidable-pro/classes'),
     'Imagify\\ThirdParty\\EnableMediaReplace\\' => array($baseDir . '/inc/3rd-party/enable-media-replace/classes'),
     'Imagify\\ThirdParty\\AS3CF\\' => array($baseDir . '/inc/3rd-party/amazon-s3-and-cloudfront/classes'),
+    'Imagify\\Tests\\' => array($baseDir . '/Tests'),
     'Imagify\\Deprecated\\Traits\\' => array($baseDir . '/inc/deprecated/Traits'),
     'Imagify\\' => array($baseDir . '/classes'),
     'Dangoodman\\ComposerForWordpress\\' => array($vendorDir . '/dangoodman/composer-for-wordpress'),

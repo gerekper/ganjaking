@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns Pro\n"
-"PO-Revision-Date: 2020-06-02 12:24+0000\n"
+"PO-Revision-Date: 2020-09-15 08:03+0000\n"
 "Last-Translator: Tobias Schutter <info@codepress.nl>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/codepress/admin-columns-pro/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: admin-columns-pro/admin-columns-pro.php:102
+#: admin-columns-pro/admin-columns-pro.php:111
 msgid ""
 "This plugin is not compatible with %s. We disabled it because it might stop "
 "the WordPress Admin from working properly. Try updating this plugin to the "
@@ -33,74 +33,74 @@ msgstr "このプラグインは %s と互換性がありません。WordPress�
 msgid "Settings"
 msgstr "設定"
 
-#: admin-columns-pro/classes/Admin/Settings.php:57
-msgid "(no name)"
-msgstr "(名称なし)"
-
-#: admin-columns-pro/classes/Admin/Settings.php:134
+#: admin-columns-pro/classes/Admin/Settings.php:138
 msgid "Select roles"
 msgstr "権限の選択"
 
-#: admin-columns-pro/classes/Admin/Settings.php:135
+#: admin-columns-pro/classes/Admin/Settings.php:139
 msgid "Select users"
 msgstr "ユーザー選択"
 
-#: admin-columns-pro/classes/Admin/Settings.php:144
+#: admin-columns-pro/classes/Admin/Settings.php:148
 msgid "Make horizontal scrolling the default when users visit the table."
 msgstr "ユーザーが一覧画面にアクセスしたときの水平方向のスクロールをデフォルトでオンにします。"
 
-#: admin-columns-pro/classes/Admin/Settings.php:145
+#: admin-columns-pro/classes/Admin/Settings.php:149
 msgid ""
 "Users can change this preference by opening “screen options” on the table "
 "screen."
 msgstr "ユーザーは、一覧画面で「スクリーンオプション」を開いて、この設定を変更できます。"
 
-#: admin-columns-pro/classes/Admin/Settings.php:148
+#: admin-columns-pro/classes/Admin/Settings.php:152
 msgid ""
 "This feature will automatically adjust the width of the columns based on the"
 " screen size."
 msgstr "画面サイズに基づいて列の幅を自動的に調整します。"
 
-#: admin-columns-pro/classes/Admin/Settings.php:149
+#: admin-columns-pro/classes/Admin/Settings.php:153
 msgid ""
 "When the columns do not fit on the screen you can horizontally scroll your "
 "columns by dragging the horizontal scrollbar or by swiping left or right "
 "with the mouse."
 msgstr "列が画面に収まらない場合は、横スクロールバーをドラッグするか、マウスで左または右にスワイプして、列を横にスクロールできます。"
 
-#: admin-columns-pro/classes/Admin/Settings.php175,
-#: admin-columns-pro/classes/Table/HorizontalScrolling.php87,
+#: admin-columns-pro/classes/Admin/Settings.php179,
+#: admin-columns-pro/classes/Table/HorizontalScrolling.php88,
 #: admin-columns-pro/templates/admin/list-screen-settings.php:73
 msgid "Horizontal Scrolling"
 msgstr "水平スクロール"
 
-#: admin-columns-pro/classes/Admin/Settings.php:249
+#: admin-columns-pro/classes/Admin/Settings.php:272
 msgid "Sets"
 msgstr "セット"
 
-#: admin-columns-pro/classes/Admin/Settings.php:252
+#: admin-columns-pro/classes/Admin/Settings.php:275
 msgid "Sets allow users to switch between different column views."
 msgstr "セットを使用すると、ユーザーは異なるカラムビューを切り替えることができます。"
 
-#: admin-columns-pro/classes/Admin/Settings.php:255
+#: admin-columns-pro/classes/Admin/Settings.php:278
 msgid ""
 "Available sets are selectable from the overview screen. Users can have their"
 " own column view preference."
 msgstr "利用可能なセットは、概要画面から選択できます。ユーザーは、独自のカラムビューの設定を保持することができます。"
 
-#: admin-columns-pro/classes/Admin/Settings.php:261
+#: admin-columns-pro/classes/Admin/Settings.php:284
 msgid "Online documentation"
 msgstr "オンラインドキュメント"
 
-#: admin-columns-pro/classes/Admin/Settings.php:305
+#: admin-columns-pro/classes/Admin/Settings.php:324
+msgid "Other"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php:328
 msgid "Default"
 msgstr "デフォルト"
 
-#: admin-columns-pro/classes/Admin/Settings.php:370
+#: admin-columns-pro/classes/Admin/Settings.php:393
 msgid "You can make an editable copy of this set by clicking %s on the right."
 msgstr "編集可能なコピーを作成するには、右側の %s をクリックします。"
 
-#: admin-columns-pro/classes/Admin/Settings.php370,
+#: admin-columns-pro/classes/Admin/Settings.php393,
 #: admin-columns-pro/templates/admin/list-screens-sidebar.php:18
 msgid "+ Add set"
 msgstr "+ セットの追加"
@@ -151,11 +151,11 @@ msgstr "フィードバックに返信できるように、有効なメールを
 msgid "Your feedback form is empty."
 msgstr "フィードバック フォームが空です。"
 
-#: admin-columns-pro/classes/Controller/License.php:120
+#: admin-columns-pro/classes/Controller/License.php:126
 msgid "License information has been updated."
 msgstr "ライセンス情報を更新しました。"
 
-#: admin-columns-pro/classes/Controller/License.php:141
+#: admin-columns-pro/classes/Controller/License.php:147
 msgid "Empty license."
 msgstr "空のライセンス。"
 
@@ -176,48 +176,35 @@ msgstr "編集を有効にする"
 msgid "Inline Editing"
 msgstr "インライン編集"
 
-#: admin-columns-pro/classes/Editing/TableScreen.php78,
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php82,
-#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/InlineEdit.php:10
-msgid "Inline Edit"
-msgstr "インラインで編集"
-
-#: admin-columns-pro/classes/Export/Admin.php:53
+#: admin-columns-pro/classes/Export/Admin.php:66
 msgid "The requested file does not exist."
 msgstr "要求されたファイルが存在しません。"
 
-#: admin-columns-pro/classes/Export/Admin.php:69
+#: admin-columns-pro/classes/Export/Admin.php:82
 msgid "The requested file could not be processed."
 msgstr "要求されたファイルを処理できませんでした。"
 
-#: admin-columns-pro/classes/Export/ExportDirectory.php:31
-msgid ""
-"Creation of Admin Columns export directory failed. Please make sure that "
-"your uploads folder is writable."
-msgstr "管理画面カラムの作成ディレクトリのエクスポートに失敗しました。アップロードフォルダが書き込み可能であることを確認してください。"
-
-#: admin-columns-pro/classes/Export/Strategy.php:74
+#: admin-columns-pro/classes/Export/Strategy.php:93
 msgid "Invalid value supplied for export counter."
 msgstr "エクスポート カウンタに指定された無効な値です。"
 
-#: admin-columns-pro/classes/Export/Strategy.php:78
+#: admin-columns-pro/classes/Export/Strategy.php:97
 msgid "Invalid value supplied for export hash."
 msgstr "エクスポート ハッシュに対して指定された無効な値です。"
 
-#: admin-columns-pro/classes/Export/TableScreenOptions.php:53
-msgid "Show Export Button"
-msgstr "エクスポート ボタンを表示する"
+#: admin-columns-pro/classes/Export/TableScreenOptions.php:56
+msgid "Export Button"
+msgstr ""
 
-#: admin-columns-pro/classes/Export/TableScreenOptions.php60,
+#: admin-columns-pro/classes/Export/TableScreenOptions.php63,
 #: admin-columns-pro/templates/admin/section-export.php9,
-#: admin-columns-pro/classes/Export/Settings/Column.php52,
-#: admin-columns-pro/classes/Export/Asset/Script/Table.php30,
-#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Export.php:10
+#: admin-columns-pro/classes/Export/HideOnScreen/Export.php10,
+#: admin-columns-pro/classes/Export/Settings/Column.php55,
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:32
 msgid "Export"
 msgstr "エクスポート"
 
-#: admin-columns-pro/classes/Export/TableScreenOptions.php59,
-#: admin-columns-pro/classes/Export/Asset/Script/Table.php:31
+#: admin-columns-pro/classes/Export/TableScreenOptions.php:62
 msgid "Export to CSV"
 msgstr "CSVにエクスポート"
 
@@ -327,68 +314,28 @@ msgstr "は設定されていません"
 msgid "is set"
 msgstr "が設定されています"
 
-#: admin-columns-pro/classes/Search/TableScreen.php144,
-#: admin-columns-pro/classes/Search/TableScreen.php:167
-msgid "Save Filters"
-msgstr "フィルターを保存"
+#: admin-columns-pro/classes/Search/TableScreenOptions.php75,
+#: admin-columns-pro/classes/Search/Settings/Column.php:55
+msgid "Smart Filtering"
+msgstr "スマートフィルタリング"
 
-#: admin-columns-pro/classes/Search/TableScreen.php150,
-#: admin-columns-pro/classes/Search/TableScreen.php152,
-#: admin-columns-pro/templates/admin/create-list-screen.php:36
-msgid "Instructions"
-msgstr "インストール手順"
-
-#: admin-columns-pro/classes/Search/TableScreen.php:154
-msgid "Save a set of custom smart filters for later use."
-msgstr "後で使用するためにカスタムスマートフィルタのセットを保存します。"
-
-#: admin-columns-pro/classes/Search/TableScreen.php:157
-msgid ""
-"This can be useful to group your WordPress content based on different "
-"criteria."
-msgstr "これは、さまざまな基準に基づいてWordPressコンテンツをグループ化するのに役立ちます。"
-
-#: admin-columns-pro/classes/Search/TableScreen.php:157
-msgid "Click on a segment to load the filtered list."
-msgstr "セグメントをクリックして、フィルタリングされたリストをロードします。"
-
-#: admin-columns-pro/classes/Search/TableScreen.php173,
-#: admin-columns-pro/templates/admin/create-list-screen.php22,
-#: admin-columns-pro/classes/Column/NetworkSite/Name.php9,
-#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:55
-msgid "Name"
-msgstr "名前"
-
-#: admin-columns-pro/classes/Search/TableScreen.php:183
-msgid "Save"
-msgstr "保存"
-
-#: admin-columns-pro/classes/Search/TableScreenOptions.php:64
-msgid "Enable Smart Filtering"
-msgstr "スマート フィルタリングを有効にする"
-
-#: admin-columns-pro/classes/Sorting/Settings.php:28
+#: admin-columns-pro/classes/Sorting/Settings.php:29
 msgid "Enable Sorting"
 msgstr "並べ替えを有効にする"
 
-#: admin-columns-pro/classes/Sorting/Settings.php46,
+#: admin-columns-pro/classes/Sorting/Settings.php47,
 #: admin-columns-pro/templates/admin/list-screen-settings.php:92
 msgid "Sorting"
 msgstr "並び替え"
 
-#: admin-columns-pro/classes/Table/HorizontalScrolling.php:90
+#: admin-columns-pro/classes/Table/HorizontalScrolling.php:91
 msgid "hold down SHIFT key"
 msgstr "Shiftキーを押したままにします"
 
-#: admin-columns-pro/classes/Table/Switcher.php60,
-#: admin-columns-pro/classes/Table/Switcher.php:75
+#: admin-columns-pro/classes/Table/Switcher.php64,
+#: admin-columns-pro/classes/Table/Switcher.php:79
 msgid "Switch View"
 msgstr "ビューの切り替え"
-
-#: admin-columns-pro/classes/Table/Switcher.php70,
-#: admin-columns-pro/classes/Storage/ListScreen/LegacyCollectionDecoder/Version332.php:39
-msgid "Original"
-msgstr "オリジナル"
 
 #: admin-columns-pro/classes/Updates/AddonInstaller.php:72
 msgid "License is not active."
@@ -412,6 +359,14 @@ msgid ""
 "Create new sets to switch between different column views on the %s screen."
 msgstr "%s 画面で異なるカラムビューを切り替える新しいセットを作成します。"
 
+#: admin-columns-pro/templates/admin/create-list-screen.php22,
+#: admin-columns-pro/templates/table/segment-modal.php41,
+#: admin-columns-pro/templates/table/segment-modal.php42,
+#: admin-columns-pro/classes/Column/NetworkSite/Name.php9,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:55
+msgid "Name"
+msgstr "名前"
+
 #: admin-columns-pro/templates/admin/create-list-screen.php:27
 msgid "Please enter a title."
 msgstr "タイトルを入力してください。"
@@ -420,8 +375,14 @@ msgstr "タイトルを入力してください。"
 msgid "Enter name"
 msgstr "名称を入力"
 
+#: admin-columns-pro/templates/admin/create-list-screen.php36,
+#: admin-columns-pro/templates/table/segment-modal.php18,
+#: admin-columns-pro/templates/table/segment-modal.php:20
+msgid "Instructions"
+msgstr "インストール手順"
+
 #: admin-columns-pro/templates/admin/create-list-screen.php39,
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:91
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:94
 msgid "Add"
 msgstr "追加"
 
@@ -471,28 +432,30 @@ msgid "Column Sets"
 msgstr "カラムセット"
 
 #: admin-columns-pro/templates/admin/list-screens-sidebar.php19,
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:88
+#: admin-columns-pro/templates/table/segment-modal.php55,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:91
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: admin-columns-pro/templates/admin/list-screens-sidebar.php:40
-msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to"
-" delete, 'Cancel' to stop"
-msgstr "警告！ %s カラムのデータが削除されます。これは、元に戻すことはできません。削除するには「OK」、停止するには「キャンセル」"
-
 #: admin-columns-pro/templates/admin/list-screens-sidebar.php84,
 #: admin-columns-pro/classes/Settings/Column/CustomFieldType.php67,
-#: admin-columns-pro/classes/Settings/Column/User.php:19
+#: admin-columns-pro/classes/Settings/Column/User.php:22
 msgid "User"
 msgstr "ユーザー"
 
-#: admin-columns-pro/templates/admin/list-screens-sidebar.php109,
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:74
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php101,
+#: admin-columns-pro/classes/Column/Taxonomy/ID.php17,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php56,
+#: ac-addon-buddypress/classes/Column/Group/Id.php:11
+msgid "ID"
+msgstr "ID"
+
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php110,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:77
 msgid "Delete"
 msgstr "削除"
 
-#: admin-columns-pro/templates/admin/list-screens-sidebar.php:115
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php:116
 msgid "Read Only"
 msgstr "読み取り専用"
 
@@ -522,9 +485,22 @@ msgid ""
 " uses Admin Columns Pro."
 msgstr "Admin Columns Proを使用するすべてのWordPressインストールでインポートできるJSONファイルです。"
 
-#: admin-columns-pro/templates/admin/section-export.php:22
+#: admin-columns-pro/templates/admin/section-export.php:23
 msgid "Export To JSON"
 msgstr "JSONで出力"
+
+#: admin-columns-pro/templates/admin/section-export.php:25
+msgid "Looking for PHP Export?"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-export.php:27
+msgid "Read about its successor: %s"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-export.php27,
+#: admin-columns-pro/templates/admin/section-local-storage.php:3
+msgid "Local Storage"
+msgstr ""
 
 #: admin-columns-pro/templates/admin/section-import.php:9
 msgid "Import"
@@ -552,39 +528,6 @@ msgstr "ネットワーク設定ページ"
 msgid "The license can be managed on the %s."
 msgstr "ライセンスは %s で管理できます。"
 
-#: admin-columns-pro/templates/admin/section-license.php18,
-#: admin-columns-pro/templates/admin/section-license.php:29
-msgid "Automatic updates are disabled."
-msgstr "自動更新は無効になっています。"
-
-#: admin-columns-pro/templates/admin/section-license.php:22
-msgid "License has expired on %s"
-msgstr "%s でライセンスの有効期限が切れています"
-
-#: admin-columns-pro/templates/admin/section-license.php:34
-msgid "Your subscription is cancelled."
-msgstr "サブスクリプションがキャンセルされました。"
-
-#: admin-columns-pro/templates/admin/section-license.php:41
-msgid "Automatic updates are enabled."
-msgstr "自動更新が有効になっています。"
-
-#: admin-columns-pro/templates/admin/section-license.php:46
-msgid "License is valid until %s"
-msgstr "ライセンスは %s まで有効です。"
-
-#: admin-columns-pro/templates/admin/section-license.php:54
-msgid "License key is defined in code."
-msgstr "ライセンスキーはコードで定義されています。"
-
-#: admin-columns-pro/templates/admin/section-license.php:61
-msgid "Activate license"
-msgstr "ライセンスを有効化"
-
-#: admin-columns-pro/templates/admin/section-license.php:64
-msgid "License key is defined in code but not yet activated."
-msgstr "ライセンスキーは入力されていますが、まだ有効化されていません。"
-
 #: admin-columns-pro/templates/admin/section-license.php:69
 msgid "Enter your license code"
 msgstr "ライセンス コードを入力する"
@@ -601,7 +544,79 @@ msgstr "ライセンスキーは %s で確認できます。"
 msgid "account page"
 msgstr "アカウント ページ"
 
-#: ac-addon-acf/classes/Column.php:19
+#: admin-columns-pro/templates/admin/section-license.php:61
+msgid "Activate license"
+msgstr "ライセンスを有効化"
+
+#: admin-columns-pro/templates/admin/section-license.php:64
+msgid "License key is defined in code but not yet activated."
+msgstr "ライセンスキーは入力されていますが、まだ有効化されていません。"
+
+#: admin-columns-pro/templates/admin/section-license.php:41
+msgid "Automatic updates are enabled."
+msgstr "自動更新が有効になっています。"
+
+#: admin-columns-pro/templates/admin/section-license.php:46
+msgid "License is valid until %s"
+msgstr "ライセンスは %s まで有効です。"
+
+#: admin-columns-pro/templates/admin/section-license.php29,
+#: admin-columns-pro/templates/admin/section-license.php:18
+msgid "Automatic updates are disabled."
+msgstr "自動更新は無効になっています。"
+
+#: admin-columns-pro/templates/admin/section-license.php:34
+msgid "Your subscription is cancelled."
+msgstr "サブスクリプションがキャンセルされました。"
+
+#: admin-columns-pro/templates/admin/section-license.php:22
+msgid "License has expired on %s"
+msgstr "%s でライセンスの有効期限が切れています"
+
+#: admin-columns-pro/templates/admin/section-license.php:54
+msgid "License key is defined in code."
+msgstr "ライセンスキーはコードで定義されています。"
+
+#: admin-columns-pro/templates/table/edit-button.php9,
+#: admin-columns-pro/classes/Editing/HideOnScreen/InlineEdit.php10,
+#: admin-columns-pro/classes/Editing/Admin/HideOnScreen/InlineEdit.php10,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:85
+msgid "Inline Edit"
+msgstr "インラインで編集"
+
+#: admin-columns-pro/templates/table/segment-modal.php5,
+#: admin-columns-pro/templates/table/segment-modal.php:35
+msgid "Save Filters"
+msgstr "フィルターを保存"
+
+#: admin-columns-pro/templates/table/segment-modal.php13,
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:47
+msgid "Available to all users"
+msgstr ""
+
+#: admin-columns-pro/templates/table/segment-modal.php:22
+msgid "Save a set of custom smart filters for later use."
+msgstr "後で使用するためにカスタムスマートフィルタのセットを保存します。"
+
+#: admin-columns-pro/templates/table/segment-modal.php:25
+msgid ""
+"This can be useful to group your WordPress content based on different "
+"criteria."
+msgstr "これは、さまざまな基準に基づいてWordPressコンテンツをグループ化するのに役立ちます。"
+
+#: admin-columns-pro/templates/table/segment-modal.php:25
+msgid "Click on a segment to load the filtered list."
+msgstr "セグメントをクリックして、フィルタリングされたリストをロードします。"
+
+#: admin-columns-pro/templates/table/segment-modal.php:45
+msgid "Make available to all users"
+msgstr ""
+
+#: admin-columns-pro/templates/table/segment-modal.php:56
+msgid "Save"
+msgstr "保存"
+
+#: ac-addon-acf/classes/Column.php:29
 msgid "Advanced Custom Fields"
 msgstr "高度なカスタムフィールド"
 
@@ -637,73 +652,73 @@ msgstr "ポッド"
 msgid "WooCommerce Subscriptions"
 msgstr "WooCommerceサブスクリプション"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:78
+#: ac-addon-woocommerce/classes/TableScreen.php:104
 msgid "Replace"
 msgstr "置換"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:79
+#: ac-addon-woocommerce/classes/TableScreen.php:105
 msgid "Increase by"
 msgstr "増加"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:80
+#: ac-addon-woocommerce/classes/TableScreen.php:106
 msgid "Decrease by"
 msgstr "減少"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:81
+#: ac-addon-woocommerce/classes/TableScreen.php:107
 msgid "Set New"
 msgstr "新規に設定"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:82
+#: ac-addon-woocommerce/classes/TableScreen.php:108
 msgid "Regular"
 msgstr "レギュラー"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:83
+#: ac-addon-woocommerce/classes/TableScreen.php:109
 msgid "Regular Price"
 msgstr "通常価格"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:86
+#: ac-addon-woocommerce/classes/TableScreen.php:112
 msgid "Sale from"
 msgstr "販売元"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:87
+#: ac-addon-woocommerce/classes/TableScreen.php:113
 msgid "Sale To"
 msgstr "販売先"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:88
+#: ac-addon-woocommerce/classes/TableScreen.php:114
 msgid "Set the sale price based on the regular price"
 msgstr "通常価格をもとにセール価格を設定"
 
-#: ac-addon-woocommerce/classes/TableScreen.php90,
+#: ac-addon-woocommerce/classes/TableScreen.php116,
 #: ac-addon-woocommerce/classes/Filtering/Product/Sale.php40,
 #: ac-addon-woocommerce/classes/Search/Product/Sale.php:26
 msgid "Scheduled"
 msgstr "予定済み"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:97
+#: ac-addon-woocommerce/classes/TableScreen.php:123
 msgid "No Rounding"
 msgstr "丸めなし"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:98
+#: ac-addon-woocommerce/classes/TableScreen.php:124
 msgid "Round up"
 msgstr "切り上げ"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:99
+#: ac-addon-woocommerce/classes/TableScreen.php:125
 msgid "Round down"
 msgstr "切り捨て"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:100
+#: ac-addon-woocommerce/classes/TableScreen.php:126
 msgid "Example:"
 msgstr "例："
 
-#: ac-addon-woocommerce/classes/TableScreen.php154,
-#: ac-addon-woocommerce/classes/WooCommerce.php102,
-#: ac-addon-woocommerce/classes/WooCommerce.php106,
+#: ac-addon-woocommerce/classes/TableScreen.php180,
+#: ac-addon-woocommerce/classes/WooCommerce.php119,
+#: ac-addon-woocommerce/classes/WooCommerce.php123,
 #: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:24
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: ac-addon-woocommerce/classes/TableScreen.php191,
-#: ac-addon-woocommerce/classes/TableScreen.php:216
+#: ac-addon-woocommerce/classes/TableScreen.php217,
+#: ac-addon-woocommerce/classes/TableScreen.php:242
 msgid "View Variations"
 msgstr "バリエーションの表示"
 
@@ -739,7 +754,7 @@ msgid "Post Type"
 msgstr "投稿タイプ"
 
 #: admin-columns-pro/classes/Column/Media/Image.php14,
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php84,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php87,
 #: ac-addon-woocommerce/classes/Filtering/Product/Thumb.php12,
 #: ac-addon-woocommerce/classes/Filtering/Product/Thumb.php:13
 msgid "Image"
@@ -794,13 +809,17 @@ msgstr "ストレージスペース"
 msgid "%s MB"
 msgstr "%s MB"
 
-#: admin-columns-pro/classes/Column/Post/Ancestors.php:20
+#: admin-columns-pro/classes/Column/Post/Ancestors.php:21
 msgid "Ancestors"
 msgstr "祖先"
 
 #: admin-columns-pro/classes/Column/Post/ChildPages.php:15
 msgid "Child Pages"
 msgstr "子ページ"
+
+#: admin-columns-pro/classes/Column/Post/GutenbergBlocks.php:15
+msgid "Gutenberg Blocks"
+msgstr ""
 
 #: admin-columns-pro/classes/Column/Post/Images.php:17
 msgid "Images"
@@ -840,15 +859,14 @@ msgid "%s revision"
 msgid_plural "%s revisions"
 msgstr[0] "%s リビジョン"
 
+#: admin-columns-pro/classes/Column/Post/Shortcode.php14,
+#: admin-columns-pro/classes/Settings/Column/Shortcodes.php:25
+msgid "Shortcode"
+msgstr ""
+
 #: admin-columns-pro/classes/Column/Taxonomy/Excerpt.php:16
 msgid "Excerpt"
 msgstr "抜粋"
-
-#: admin-columns-pro/classes/Column/Taxonomy/ID.php17,
-#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php56,
-#: ac-addon-buddypress/classes/Column/Group/Id.php:11
-msgid "ID"
-msgstr "ID"
 
 #: admin-columns-pro/classes/Column/Taxonomy/TaxonomyParent.php:14
 msgid "Parent"
@@ -858,7 +876,7 @@ msgstr "親"
 msgid "Profile Picture"
 msgstr "プロフィール画像"
 
-#: admin-columns-pro/classes/Column/User/UserPosts.php:12
+#: admin-columns-pro/classes/Column/User/UserPosts.php:13
 msgid "Posts by Author"
 msgstr "著者の投稿"
 
@@ -875,8 +893,8 @@ msgid "our documentation"
 msgstr "私達のドキュメント"
 
 #: admin-columns-pro/classes/Editing/Admin/CustomFieldEditing.php:44
-msgid "Enable inline editing for Custom Fields."
-msgstr "カスタム フィールドのインライン編集を有効にします。"
+msgid "Enable editing for Custom Fields."
+msgstr ""
 
 #: admin-columns-pro/classes/Editing/Admin/CustomFieldEditing.php46,
 #: admin-columns-pro/classes/Sorting/Admin/ShowAllResults.php:24
@@ -888,6 +906,12 @@ msgstr "デフォルトは %s です。"
 msgid "off"
 msgstr "オフ"
 
+#: admin-columns-pro/classes/Editing/HideOnScreen/BulkEdit.php10,
+#: admin-columns-pro/classes/Editing/Admin/HideOnScreen/BulkEdit.php10,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:97
+msgid "Bulk Edit"
+msgstr "一括編集"
+
 #: admin-columns-pro/classes/Editing/Model/CustomField.php:44
 msgid ""
 "Inline Editing for Custom Fields is not enabled. Enable inline editing for "
@@ -898,32 +922,31 @@ msgstr "カスタム フィールドのインライン編集が有効になっ�
 msgid "settings screen"
 msgstr "設定画面"
 
-#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:35
+#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:34
+msgid "Enable Bulk Editing"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:55
 msgid "Bulk Editing"
 msgstr "一括編集"
 
-#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php46,
-#: admin-columns-pro/classes/Export/Settings/Column.php63,
-#: admin-columns-pro/classes/Search/Settings/Column.php:35
-msgid "Enabled"
-msgstr "有効化"
-
-#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php47,
-#: admin-columns-pro/classes/Export/Settings/Column.php:64
-msgid "Disabled"
-msgstr "無効化"
-
+#: admin-columns-pro/classes/Editing/Settings/Content.php35,
 #: admin-columns-pro/classes/Editing/Settings/Excerpt.php:35
 msgid "Textarea"
 msgstr "テキストエリア"
 
-#: admin-columns-pro/classes/Editing/Settings/Excerpt.php:36
-msgid "Text"
-msgstr "テキスト"
+#: admin-columns-pro/classes/Editing/Settings/Content.php:36
+msgid "WYSIWYG"
+msgstr ""
 
+#: admin-columns-pro/classes/Editing/Settings/Content.php41,
 #: admin-columns-pro/classes/Editing/Settings/Excerpt.php:41
 msgid "Input Type"
 msgstr "入力の種類"
+
+#: admin-columns-pro/classes/Editing/Settings/Excerpt.php:36
+msgid "Text"
+msgstr "テキスト"
 
 #: admin-columns-pro/classes/Editing/Settings/Taxonomy.php:43
 msgid "Allow new %s to be created whilst editing"
@@ -936,6 +959,10 @@ msgstr "新しい %s を許可しますか?"
 #: admin-columns-pro/classes/Export/Exporter/CSV.php:48
 msgid "The requested file could not be downloaded."
 msgstr "要求されたファイルをダウンロードできませんでした。"
+
+#: admin-columns-pro/classes/Export/Settings/Column.php:27
+msgid "Enable Export"
+msgstr ""
 
 #: admin-columns-pro/classes/Filtering/Markup/Dropdown.php46,
 #: ac-addon-woocommerce/classes/Filtering/ShopOrder/CustomerMessage.php:30
@@ -991,8 +1018,8 @@ msgid "The uploaded file does not contain any column settings."
 msgstr "アップロードされたファイルにはカラム設定が含まれていません。"
 
 #: admin-columns-pro/classes/Migrate/Import/Request.php:148
-msgid "Columns settings with id %s could be saved."
-msgstr "id %sでのカラム設定を保存できるようになりました。"
+msgid "Columns settings with id %s could not be saved."
+msgstr ""
 
 #: admin-columns-pro/classes/Migrate/Import/Request.php:168
 msgid "Successfully imported %s for %s."
@@ -1004,21 +1031,10 @@ msgid_plural "sets"
 msgstr[0] "セット"
 
 #: admin-columns-pro/classes/QuickAdd/Table/Loader.php70,
-#: admin-columns-pro/classes/QuickAdd/Admin/HideOnScreen/QuickAdd.php:11
+#: admin-columns-pro/classes/QuickAdd/Admin/HideOnScreen/QuickAdd.php11,
+#: admin-columns-pro/classes/QuickAdd/Table/Checkbox/ShowButton.php:11
 msgid "Quick Add"
 msgstr "クイック追加"
-
-#: admin-columns-pro/classes/Search/Controller/Segment.php:63
-msgid "A segment with this name already exists."
-msgstr "この名前のセグメントは既に存在します。"
-
-#: admin-columns-pro/classes/Search/Controller/Segment.php:64
-msgid "Could not find current segment."
-msgstr "現在のセグメントが見つかりませんでした。"
-
-#: admin-columns-pro/classes/Search/Controller/Segment.php:65
-msgid "Could save the segment."
-msgstr "セグメントを保存できます。"
 
 #: admin-columns-pro/classes/Search/Labels/Date.php:12
 msgid "is after"
@@ -1052,15 +1068,16 @@ msgstr "以上"
 msgid "is within"
 msgstr "内にある"
 
-#: admin-columns-pro/classes/Search/Settings/Column.php:32
-msgid "Smart Filtering"
-msgstr "スマートフィルタリング"
+#: admin-columns-pro/classes/Search/Settings/Column.php:27
+msgid "Enable Smart Filtering"
+msgstr "スマート フィルタリングを有効にする"
 
 #: admin-columns-pro/classes/Settings/Column/CustomFieldType.php:66
 msgid "Post"
 msgstr "投稿"
 
 #: admin-columns-pro/classes/Settings/Column/FeaturedImage.php72,
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php30,
 #: ac-addon-acf/classes/Setting/FlexibleContent.php32,
 #: ac-addon-acf/classes/Setting/RepeaterDisplay.php46,
 #: ac-addon-buddypress/classes/Settings/Group.php56,
@@ -1073,8 +1090,8 @@ msgstr "投稿"
 #: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php30,
 #: ac-addon-woocommerce/classes/Settings/User/AddressType.php51,
 #: ac-addon-woocommerce/classes/Settings/User/Country.php50,
-#: ac-addon-woocommerce/classes/Settings/User/Order.php44,
-#: ac-addon-woocommerce/classes/Settings/User/Products.php33,
+#: ac-addon-woocommerce/classes/Settings/User/Order.php49,
+#: ac-addon-woocommerce/classes/Settings/User/Products.php35,
 #: ac-addon-woocommerce/classes/Settings/User/Ratings.php:33
 msgid "Display"
 msgstr "表示"
@@ -1091,14 +1108,22 @@ msgstr "○×問題"
 msgid "Field Type"
 msgstr "フィールドタイプ"
 
-#: admin-columns-pro/classes/Settings/Column/User.php:12
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php:25
+msgid "Block Count"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php:26
+msgid "Block Structure"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/User.php:15
 msgid "Gravatar"
 msgstr "Gravatar"
 
-#: admin-columns-pro/classes/Settings/Column/User.php23,
-#: admin-columns-pro/classes/Settings/Column/User.php24,
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php33,
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php:35
+#: admin-columns-pro/classes/Settings/Column/User.php26,
+#: admin-columns-pro/classes/Settings/Column/User.php27,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php39,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php:41
 msgid "Custom Field"
 msgstr "カスタムフィールド"
 
@@ -1110,17 +1135,33 @@ msgstr "並べ替え時にすべての結果を表示します。"
 msgid "All sorting preferences have been reset."
 msgstr "すべての並べ替え設定がリセットされました。"
 
-#: admin-columns-pro/classes/Sorting/Table/Screen.php:83
+#: admin-columns-pro/classes/Sorting/Table/Screen.php:90
 msgid "Reset Sorting"
 msgstr "並べ替えのリセット"
 
-#: admin-columns-pro/classes/Sorting/Table/Screen.php:81
+#: admin-columns-pro/classes/Sorting/Table/Screen.php:88
 msgid "Sorted by "
 msgstr "並替"
 
-#: admin-columns-pro/classes/ThirdParty/bbPress/Addon.php:84
+#: admin-columns-pro/classes/ThirdParty/bbPress/Addon.php:83
 msgid "bbPress"
 msgstr "bbPress"
+
+#: admin-columns-pro/classes/ThirdParty/YoastSeo/DeprecatedAddon.php:27
+msgid ""
+"You're using Yoast SEO columns. Support for these columns have been moved to"
+" the new Yoast SEO integration."
+msgstr ""
+
+#: admin-columns-pro/classes/ThirdParty/YoastSeo/DeprecatedAddon.php:28
+msgid ""
+"If you want to keep using Yoast SEO columns, please download and install the"
+" Yoast integration from %s."
+msgstr ""
+
+#: admin-columns-pro/classes/ThirdParty/YoastSeo/DeprecatedAddon.php:29
+msgid "the add-ons tab"
+msgstr ""
 
 #: admin-columns-pro/templates/admin/page/settings-section-sorting.php:3
 msgid "Reset sorting preferences"
@@ -1172,7 +1213,7 @@ msgstr "無効"
 msgid "True"
 msgstr "有効"
 
-#: ac-addon-acf/classes/Field/File.php:29
+#: ac-addon-acf/classes/Field/File.php:31
 msgid "Invalid attachment"
 msgstr "無効な添付ファイル"
 
@@ -1209,9 +1250,7 @@ msgstr "フィールド"
 msgid "The previous selected option %s no longer exists."
 msgstr "以前に選択したオプション %s は存在しません。"
 
-#: ac-addon-acf/classes/Setting/Field.php161,
-#: ac-addon-pods/classes/Setting/Field.php89,
-#: ac-addon-acf/classes/Free/Setting/Field.php:29
+#: ac-addon-acf/classes/Setting/Field.php:161
 msgid "empty label"
 msgstr "空のラベル"
 
@@ -1248,11 +1287,11 @@ msgstr "リピーターのサブフィールドを選択してください。"
 msgid "ACF Time Format"
 msgstr "ACF 時間形式"
 
-#: ac-addon-acf/classes/Setting/Unsupported.php:30
+#: ac-addon-acf/classes/Setting/Unsupported.php:31
 msgid "This ACF field is not supported"
 msgstr "この ACF フィールドはサポートされていません"
 
-#: ac-addon-acf/classes/Setting/Unsupported.php:34
+#: ac-addon-acf/classes/Setting/Unsupported.php:35
 msgid ""
 "This specific ACF field type is not supported in this integration. Although "
 "the column may work, it could lead to unexpected behavior. Sorting, "
@@ -1360,21 +1399,23 @@ msgid "Types"
 msgstr "タイプ"
 
 #: ac-addon-types/classes/Settings/Field.php38,
-#: ac-addon-woocommerce/classes/Column/Product/ProductType.php:17
+#: ac-addon-woocommerce/classes/Column/Product/ProductType.php:18
 msgid "Type"
 msgstr "タイプ"
+
+#: ac-addon-types/classes/Settings/IntermediaryRelationship.php23,
+#: ac-addon-types/classes/Settings/Relationship.php:27
+msgid "No relations available."
+msgstr "使用できるリレーションシップがありません。"
+
+#: ac-addon-types/classes/Settings/IntermediaryRelationship.php29,
+#: ac-addon-types/classes/Settings/Relationship.php:33
+msgid "Relationship"
+msgstr "関連"
 
 #: ac-addon-types/classes/Settings/ParentPostType.php:27
 msgid "No parent post types available."
 msgstr "使用できる親投稿の種類がありません。"
-
-#: ac-addon-types/classes/Settings/Relationship.php:26
-msgid "No relations available."
-msgstr "使用できるリレーションシップがありません。"
-
-#: ac-addon-types/classes/Settings/Relationship.php:30
-msgid "Relationship"
-msgstr "関連"
 
 #: ac-addon-woocommerce/classes/Editing/MetaCountry.php10,
 #: ac-addon-woocommerce/classes/Editing/Comment/Rating.php:22
@@ -1393,165 +1434,165 @@ msgstr "可変製品の検索"
 msgid "When you create a product variation, it will appear here."
 msgstr "製品バリエーションを作成すると、ここに表示されます。"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php45,
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:47
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php62,
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:64
 msgid "Product Variations"
 msgstr "製品バリエーション"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:46
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:63
 msgid "Product Variation"
 msgstr "製品バリエーション"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:48
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:65
 msgid "Add New"
 msgstr "新規追加"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:49
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:66
 msgid "Add new variation"
 msgstr "新しいバリエーションの追加"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:50
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:67
 msgid "Edit"
 msgstr "編集"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:51
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:68
 msgid "Edit variation"
 msgstr "バリエーションの編集"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:52
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:69
 msgid "New variation"
 msgstr "新しいバリエーション"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php53,
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:54
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php70,
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:71
 msgid "View variation"
 msgstr "バリエーションを表示"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:56
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:73
 msgid "No variations found"
 msgstr "バリエーションはありません。"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:57
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:74
 msgid "No variations found in trash"
 msgstr "ゴミの中にバリエーションは見当たりません。"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:58
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:75
 msgid "Insert into variation"
 msgstr "バリエーションに挿入"
 
-#: ac-addon-woocommerce/classes/Settings/Address.php:45
+#: ac-addon-woocommerce/classes/Settings/Address.php:43
 msgid "Full Address"
 msgstr "住所"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:69
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:72
 msgid "Select author"
 msgstr "著者の選択"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:71
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:74
 msgid "Redo"
 msgstr "やり直す"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:72
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:75
 msgid "Undo"
 msgstr "取り消し"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:75
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:78
 msgid "Download"
 msgstr "ダウンロード"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:77
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:80
 msgid "This field is required."
 msgstr "この項目は必須です。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:78
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:81
 msgid "Please enter a valid float value."
 msgstr "有効な浮動小数点数値を入力してください。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:79
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:82
 msgid "Please enter valid float values."
 msgstr "有効な浮動小数点数の値を入力してください。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:80
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:83
 msgid "Something went wrong."
 msgstr "何かが間違っていました"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:83
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:86
 msgid "Media"
 msgstr "メディア"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:85
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:88
 msgid "Audio"
 msgstr "オーディオ"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:86
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:89
 msgid "Time"
 msgstr "時間"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:87
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:90
 msgid "Update"
 msgstr "更新"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:89
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:92
 msgid "Done"
 msgstr "完了"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:90
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:93
 msgid "Replace with"
 msgstr "を"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:92
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:95
 msgid "Remove"
 msgstr "削除"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:95
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:99
 msgid "Select all {0} entries"
 msgstr "すべての {0} エントリを選択します。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:96
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:100
 msgid "<strong>{0} entries</strong> selected for Bulk Edit."
 msgstr "<strong>{0} エントリ</strong>一括編集用に選択されます。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:97
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:101
 msgid "Done & Deselect All"
 msgstr "完了し、選択されたすべてを解除"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:100
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:104
 msgid "This will update {0} entries."
 msgstr "これにより、{0} エントリが更新されます。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:101
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:105
 msgid "You are about to clear {0} entries."
 msgstr "{0} エントリをクリアします。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:102
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:106
 msgid "You are about to update {0} entries."
 msgstr "{0} エントリを更新します。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:103
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:107
 msgid "Are you sure?"
 msgstr "よろしいですか?"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:104
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:108
 msgid "Yes, Update"
 msgstr "はい、更新"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:107
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:111
 msgid "Processed {0} entries"
 msgstr "処理済み {0} エントリ"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:108
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:112
 msgid "Updating entries."
 msgstr "エントリを更新しています。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:109
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:113
 msgid "Processed {0} of {1} entries."
 msgstr "{1} エントリの {0} が処理されました。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:110
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:114
 msgid "Updating failed. Please try again."
 msgstr "更新に失敗しました。もう一度やり直してください。"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:111
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:115
 msgid "We have found <strong>{0} errors</strong> while processing."
 msgstr "処理中に</strong><strong>{0} エラーが見つかりました。"
 
@@ -1597,27 +1638,45 @@ msgstr "いいえ"
 msgid "Yes"
 msgstr "はい"
 
+#: admin-columns-pro/classes/Editing/Model/User/Fullname.php:19
+msgid "First Name"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Model/User/Fullname.php:20
+msgid "Last Name"
+msgstr ""
+
 #: admin-columns-pro/classes/Editing/Model/User/Username.php:36
 msgid "The username already exists."
 msgstr "ユーザー名は既に存在します。"
 
-#: admin-columns-pro/classes/Export/Asset/Script/Table.php:32
-msgid "Exporting current list of items."
-msgstr "アイテムの現在のリストをエクスポートしています。"
-
 #: admin-columns-pro/classes/Export/Asset/Script/Table.php:33
+msgid "Something went wrong during exporting. Please try again."
+msgstr ""
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:34
 msgid "Processed {0} of {1} items ({2}%)."
 msgstr "{1} 項目の {0} が処理されました ({2}%)。"
 
-#: admin-columns-pro/classes/Export/Asset/Script/Table.php:34
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:35
+msgid "Exporting current list of items."
+msgstr "アイテムの現在のリストをエクスポートしています。"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:36
 msgid ""
 "Export completed ({0} items). Your download will start automatically. If "
 "this does not happen, you can download the file again: "
 msgstr "エクスポート完了 ({0} 項目)。ダウンロードが自動的に開始されます。この問題が発生しない場合は、ファイルを再度ダウンロードできます。"
 
-#: admin-columns-pro/classes/Export/Asset/Script/Table.php:35
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:37
 msgid "Download File"
 msgstr "ダウンロードファイル"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:38
+msgid ""
+"You are currently generating an export file. Leaving the page will cancel "
+"this process. Are you sure you want to leave the page?"
+msgstr ""
 
 #: admin-columns-pro/classes/Filtering/Markup/Ranged/Date.php:12
 msgid "Start date"
@@ -1729,24 +1788,20 @@ msgstr "一覧表"
 msgid "No screens selected for export."
 msgstr "エクスポートに選択された画面はありません。"
 
-#: admin-columns-pro/classes/QuickAdd/Table/Checkbox/ShowButton.php:11
-msgid "Show Quick Add Button"
-msgstr "クイック追加ボタンの表示"
-
-#: admin-columns-pro/classes/Search/Asset/Script/Table.php:41
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:43
 msgctxt "select placeholder"
 msgid "Select"
 msgstr "選択"
 
-#: admin-columns-pro/classes/Search/Asset/Script/Table.php:42
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:44
 msgid "Add Filter"
 msgstr "フィルタの追加"
 
-#: admin-columns-pro/classes/Search/Asset/Script/Table.php:43
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:45
 msgid "days ago"
 msgstr "日前"
 
-#: admin-columns-pro/classes/Search/Asset/Script/Table.php:44
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:46
 msgid "days"
 msgstr "日"
 
@@ -1757,6 +1812,14 @@ msgstr "使用中"
 #: admin-columns-pro/classes/Search/Comparison/Media/UsedAsFeaturedImage.php:48
 msgid "Not used"
 msgstr "未使用"
+
+#: admin-columns-pro/classes/Search/Settings/HideOnScreen/SavedFilters.php:10
+msgid "Saved Filters"
+msgstr "保存済みフィルター"
+
+#: admin-columns-pro/classes/Search/Settings/HideOnScreen/SmartFilters.php:12
+msgid "Smart Filters"
+msgstr ""
 
 #: admin-columns-pro/classes/Settings/Column/NetworkSite/Options.php:17
 msgid "Option"
@@ -1810,29 +1873,41 @@ msgstr "許可されたテーマ"
 msgid "Available Themes"
 msgstr "利用可能なテーマ"
 
-#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:91
-msgid "Network Enabled"
-msgstr "ネットワークが有効"
-
 #: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:93
 msgid "Site Enabled"
 msgstr "サイトが有効"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:91
+msgid "Network Enabled"
+msgstr "ネットワークが有効"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/BulkActions.php:10
 msgid "Bulk Actions"
 msgstr "一括操作"
 
-#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/BulkEdit.php:10
-msgid "Bulk Edit"
-msgstr "一括編集"
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterCategory.php13,
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductCategory.php:12
+msgid "Category"
+msgstr ""
 
-#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Filters.php:10
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterMediaItem.php:13
+msgid "Media Items"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostDate.php13,
+#: ac-addon-events-calendar/classes/Column/Event/DisplayDate.php18,
+#: ac-addon-woocommerce/classes/Column/ShopSubscription/SubscriptionDate.php21,
+#: ac-addon-woocommerce/classes/Settings/User/Order.php:56
+msgid "Date"
+msgstr "日付"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostFormat.php:13
+msgid "Post Format"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Filters.php:12
 msgid "Filters"
 msgstr "フィルター"
-
-#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/SavedFilters.php:10
-msgid "Saved Filters"
-msgstr "保存済みフィルター"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Search.php:10
 msgid "Search"
@@ -1846,7 +1921,11 @@ msgstr "並べ替えの設定"
 msgid "This will reset the sorting preference for all users."
 msgstr "すべてのユーザーの並べ替え設定がリセットされます。"
 
-#: admin-columns-pro/classes/ThirdParty/YoastSeo/Column/IsIndexed.php:27
+#: admin-columns-pro/classes/Storage/ListScreen/LegacyCollectionDecoder/Version332.php:39
+msgid "Original"
+msgstr "オリジナル"
+
+#: admin-columns-pro/classes/ThirdParty/YoastSeo/Column/IsIndexed.php:28
 msgid "Implicit"
 msgstr "暗黙のうちに"
 
@@ -1910,16 +1989,11 @@ msgstr "最後に見たのは"
 msgid "Group"
 msgstr "グループ"
 
-#: ac-addon-events-calendar/classes/Column/Event/Costs.php:13
+#: ac-addon-events-calendar/classes/Column/Event/Costs.php:14
 msgid "Costs"
 msgstr "コスト"
 
-#: ac-addon-events-calendar/classes/Column/Event/DisplayDate.php17,
-#: ac-addon-woocommerce/classes/Column/ShopSubscription/SubscriptionDate.php:21
-msgid "Date"
-msgstr "日付"
-
-#: ac-addon-events-calendar/classes/Column/Event/Duration.php:11
+#: ac-addon-events-calendar/classes/Column/Event/Duration.php:15
 msgid "Duration"
 msgstr "期間"
 
@@ -1932,7 +2006,7 @@ msgstr "おすすめ"
 msgid "Hide from Event Listing"
 msgstr "イベント一覧から非表示にする"
 
-#: ac-addon-events-calendar/classes/Column/Event/Organizer.php:18
+#: ac-addon-events-calendar/classes/Column/Event/Organizer.php:19
 msgid "Organizer"
 msgstr "主催者"
 
@@ -2035,8 +2109,8 @@ msgid "Cross Sells"
 msgstr "クロスセル"
 
 #: ac-addon-woocommerce/classes/Column/Product/Customers.php:17
-msgid "Customers Purchased"
-msgstr "購入したお客様"
+msgid "Customers"
+msgstr ""
 
 #: ac-addon-woocommerce/classes/Column/Product/Dimensions.php:79
 msgid "Length"
@@ -2075,7 +2149,8 @@ msgstr "有効なレビュー"
 msgid "Sale"
 msgstr "セール"
 
-#: ac-addon-woocommerce/classes/Column/Product/Sale.php:98
+#: ac-addon-woocommerce/classes/Column/Product/Sale.php98,
+#: ac-addon-woocommerce/classes/Export/Product/Sale.php:30
 msgctxt "Product on sale from (date)"
 msgid "From"
 msgstr "から"
@@ -2089,15 +2164,19 @@ msgstr "まで"
 msgid "Sales"
 msgstr "セールス"
 
-#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php40,
+#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php36,
 #: ac-addon-woocommerce/classes/Search/Product/StockStatus.php:23
 msgid "In stock"
 msgstr "在庫あり"
 
-#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php44,
+#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php38,
 #: ac-addon-woocommerce/classes/Search/Product/StockStatus.php:24
 msgid "Out of stock"
 msgstr "在庫切れ"
+
+#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php:40
+msgid "On backorder"
+msgstr ""
 
 #: ac-addon-woocommerce/classes/Column/Product/Upsells.php:19
 msgid "Upsells"
@@ -2111,9 +2190,17 @@ msgstr "カタログの表示性"
 msgid "Price Period"
 msgstr "価格期間"
 
-#: ac-addon-woocommerce/classes/Column/ProductVariation/Stock.php:38
+#: ac-addon-woocommerce/classes/Column/ProductVariation/SKU.php:36
+msgid "SKU from product"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ProductVariation/Stock.php:39
 msgid "Stock managed by product"
 msgstr "製品別管理在庫"
+
+#: ac-addon-woocommerce/classes/Column/ProductVariation/Taxonomy.php:17
+msgid "Product Taxonomy"
+msgstr ""
 
 #: ac-addon-woocommerce/classes/Column/ShopCoupon/CouponDescription.php:19
 msgid "Description"
@@ -2145,15 +2232,15 @@ msgstr "送料無料の方法は、クーポン&quot;設定を使用する必要
 msgid "Included Products"
 msgstr "含まれる製品"
 
-#: ac-addon-woocommerce/classes/Column/ShopCoupon/Limit.php:14
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/Limit.php:15
 msgid "Coupon limit"
 msgstr "クーポン限度額"
 
-#: ac-addon-woocommerce/classes/Column/ShopCoupon/MaximumAmount.php:18
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/MaximumAmount.php:19
 msgid "Maximum Amount"
 msgstr "最大金額"
 
-#: ac-addon-woocommerce/classes/Column/ShopCoupon/MinimumAmount.php:18
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/MinimumAmount.php:19
 msgid "Minimum Amount"
 msgstr "最小額"
 
@@ -2194,15 +2281,19 @@ msgstr "注文番号"
 msgid "Payment Method"
 msgstr "支払い方法"
 
-#: ac-addon-woocommerce/classes/Column/ShopOrder/ProductCategories.php:19
+#: ac-addon-woocommerce/classes/Column/ShopOrder/ProductCategories.php:20
 msgid "Product Categories"
 msgstr "商品カテゴリ"
 
-#: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:19
+#: ac-addon-woocommerce/classes/Column/ShopOrder/ProductTags.php:17
+msgid "Product Tags"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:21
 msgid "Purchased"
 msgstr "購入済み"
 
-#: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:34
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:36
 msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] "%dアイテム"
@@ -2219,24 +2310,24 @@ msgstr "合計注文重量"
 msgid "Auto Renewal"
 msgstr "自動更新"
 
-#: ac-addon-woocommerce/classes/Column/User/CustomerSince.php17,
+#: ac-addon-woocommerce/classes/Column/User/CustomerSince.php16,
 #: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:15
 msgid "Customer Since"
 msgstr "お客様以降"
 
-#: ac-addon-woocommerce/classes/Column/User/FirstOrder.php:17
+#: ac-addon-woocommerce/classes/Column/User/FirstOrder.php:18
 msgid "First Order"
 msgstr "1番目"
 
-#: ac-addon-woocommerce/classes/Column/User/LastOrder.php:17
+#: ac-addon-woocommerce/classes/Column/User/LastOrder.php:19
 msgid "Last Order"
 msgstr "最近の注文"
 
-#: ac-addon-woocommerce/classes/Column/User/Orders.php:76
+#: ac-addon-woocommerce/classes/Column/User/Orders.php:80
 msgid "items"
 msgstr "アイテム"
 
-#: ac-addon-woocommerce/classes/Column/User/Products.php:18
+#: ac-addon-woocommerce/classes/Column/User/Products.php:21
 msgid "Products"
 msgstr "商品"
 
@@ -2269,17 +2360,18 @@ msgstr "個別に販売しない"
 msgid "Standard"
 msgstr "標準"
 
-#: ac-addon-woocommerce/classes/Editing/ProductVariation/Enabled.php:16
+#: ac-addon-woocommerce/classes/Editing/ProductVariation/Enabled.php:15
 msgid "Private"
 msgstr "プライベート"
 
-#: ac-addon-woocommerce/classes/Editing/ProductVariation/Enabled.php:17
+#: ac-addon-woocommerce/classes/Editing/ProductVariation/Enabled.php:16
 msgid "Published"
 msgstr "公開済み"
 
-#: ac-addon-woocommerce/classes/Export/ShopCoupon/Usage.php:20
-msgid "Infinity"
-msgstr "無限"
+#: ac-addon-woocommerce/classes/Export/Product/Sale.php:34
+msgctxt "Product on sale from (date)"
+msgid "Until"
+msgstr ""
 
 #: ac-addon-woocommerce/classes/Filtering/Comment/ProductReview.php:32
 msgid "Exclude Product Reviews"
@@ -2341,6 +2433,18 @@ msgstr "特集されている"
 msgid "Is not featured"
 msgstr "特集されていません"
 
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterOrderCustomer.php:12
+msgid "Registered Customer"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductStockStatus.php:12
+msgid "Stock Status"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductType.php:12
+msgid "Product Type"
+msgstr ""
+
 #: ac-addon-woocommerce/classes/Settings/Product/Attributes.php:30
 msgid "All attributes"
 msgstr "すべての属性"
@@ -2365,19 +2469,19 @@ msgstr "期間"
 msgid "Select the time period from now"
 msgstr "今から期間を選択します"
 
-#: ac-addon-woocommerce/classes/Settings/Product/Period.php:44
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:42
 msgid "Last year"
 msgstr "前年"
 
-#: ac-addon-woocommerce/classes/Settings/Product/Period.php:45
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:43
 msgid "Last quarter"
 msgstr "前期"
 
-#: ac-addon-woocommerce/classes/Settings/Product/Period.php:46
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:44
 msgid "Last month"
 msgstr "先月"
 
-#: ac-addon-woocommerce/classes/Settings/Product/Period.php:47
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:45
 msgid "Last week"
 msgstr "前週"
 
@@ -2389,11 +2493,11 @@ msgstr "アイコンを使用?"
 msgid "Use an icon instead of text for displaying the note."
 msgstr "メモを表示するには、テキストの代わりにアイコンを使用します。"
 
-#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:48
+#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:46
 msgid "Without label"
 msgstr "ラベルなし"
 
-#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:105
+#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:103
 msgid "Any"
 msgstr "任意"
 
@@ -2401,60 +2505,60 @@ msgstr "任意"
 msgid "Order Count"
 msgstr "注文数"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:42
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:40
 msgid "IP Address"
 msgstr "IPアドレス"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:43
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:41
 msgid "IP Country Code"
 msgstr "IP 国コード"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php:26
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php:32
 msgid "Product"
 msgstr "商品"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:39
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:37
 msgid "Total"
 msgstr "合計"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:40
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:38
 msgid "Subtotal"
 msgstr "小計"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:41
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:39
 msgid "Shipping Costs"
 msgstr "送料"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:42
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:40
 msgid "Tax"
 msgstr "税"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:43
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:41
 msgid "Refunds"
 msgstr "払戻し"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:44
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:42
 msgid "Discounts"
 msgstr "割引"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php45,
-#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Paid.php:16
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php43,
+#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Paid.php:17
 msgid "Paid"
 msgstr "支払い済み"
 
-#: ac-addon-woocommerce/classes/Settings/User/AddressType.php60,
+#: ac-addon-woocommerce/classes/Settings/User/AddressType.php58,
 #: ac-addon-woocommerce/classes/Settings/User/Country.php:37
 msgid "Shipping"
 msgstr "配送"
 
-#: ac-addon-woocommerce/classes/Settings/User/AddressType.php61,
+#: ac-addon-woocommerce/classes/Settings/User/AddressType.php59,
 #: ac-addon-woocommerce/classes/Settings/User/Country.php:38
 msgid "Billing"
 msgstr "請求処理"
 
-#: ac-addon-woocommerce/classes/Settings/User/Order.php:53
-msgid "Order number"
-msgstr "注文番号"
+#: ac-addon-woocommerce/classes/Settings/User/Order.php:57
+msgid "Amount"
+msgstr ""
 
 #: ac-addon-woocommerce/classes/Settings/User/Products.php:42
 msgid "Total products purchased"
@@ -2464,11 +2568,11 @@ msgstr "購入した製品の合計"
 msgid "Unique products purchased"
 msgstr "ユニークな製品を購入"
 
-#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:42
-msgid "Amount of ratings given"
-msgstr "指定された評価の量"
+#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:40
+msgid "Number of ratings"
+msgstr ""
 
-#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:43
+#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:41
 msgid "Average rating"
 msgstr "評価順"
 
@@ -2492,7 +2596,7 @@ msgstr "売却価格が0以下になることはありません。"
 msgid "Sale price can not be higher than the regular price."
 msgstr "セール価格は定価より高くすることはできません。"
 
-#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Completed.php:16
+#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Completed.php:18
 msgid "Completed"
 msgstr "完了"
 

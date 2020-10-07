@@ -5,6 +5,8 @@ namespace ACP\Check;
 use AC\Message\Notice;
 use AC\Registrable;
 use AC\Screen;
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
 use ACP\Admin\Feedback;
 
 class Beta
@@ -50,7 +52,7 @@ class Beta
 	 * @return string
 	 */
 	protected function get_feedback_link() {
-		return ac_get_site_utm_url( 'forums/forum/beta-feedback/', 'beta-notice' );
+		return ( new UtmTags( new Site( Site::PAGE_FORUM_BETA ), 'beta-notice' ) )->get_url();
 	}
 
 	/**

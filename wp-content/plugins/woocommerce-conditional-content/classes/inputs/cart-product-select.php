@@ -10,7 +10,7 @@ class WC_Conditional_Content_Input_Cart_Product_Select {
 			'allow_null'    => 0,
 			'choices'       => array(),
 			'default_value' => '',
-			'class'         => 'ajax_chosen_select_products'
+			'class'         => 'wc-product-select'
 		);
 	}
 
@@ -32,7 +32,12 @@ class WC_Conditional_Content_Input_Cart_Product_Select {
 
                 </td>
                 <td>
-                    <select id="<?php echo $field['id']; ?>" name="<?php echo $field['name']; ?>[products][]" class="ajax_chosen_select_products" multiple="multiple" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce' ); ?>">
+                    <select id="<?php echo $field['id']; ?>"
+                            name="<?php echo $field['name']; ?>[products][]"
+                            class="wc-product-search"
+                            data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>"
+                            data-action="woocommerce_json_search_products"
+                            multiple="multiple" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce' ); ?>">
 						<?php
 						$current     = isset( $value['products'] ) ? $value['products'] : array();
 						$product_ids = ! empty( $current ) ? array_map( 'absint', $current ) : null;

@@ -36,11 +36,7 @@ class Subscription extends AbstractGetResponseConnect
                 'tags'       => []
             );
 
-            $subscriber_tags = $this->get_integration_data('GetResponseConnect_subscriber_tags');
-            // from external service eg elementor form
-            if ( ! empty($this->extras['form_tags'])) {
-                $subscriber_tags = $this->extras['form_tags'];
-            }
+            $subscriber_tags = $this->get_integration_tags('GetResponseConnect_subscriber_tags');
 
             foreach ($subscriber_tags as $tag_id) {
                 $lead_data['tags'][] = ['tagId' => $tag_id];

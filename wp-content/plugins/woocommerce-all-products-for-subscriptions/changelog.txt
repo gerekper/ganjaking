@@ -1,5 +1,10 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2020.09.29 - version 3.1.18
+* Feature - Add quickview support in Flatsome.
+* Tweak - Keep subscription plan options visible in Bundles (version 6.4+) and Composites (version 7.1+) when form validation fails.
+* Fix - Fixed some issues with Bundle/Composite container cart item prices/subtotals when using 'Item Grouping > Flat/None'.
+
 2020.08.20 - version 3.1.17
 * Fix - Recurring coupons not applied to subscriptions that contain items purchased using a cart subscription plan when running manual AutomateWoo workflows.
 * Fix - Product Bundles and Composite Products with a fixed-length plan cannot be switched.

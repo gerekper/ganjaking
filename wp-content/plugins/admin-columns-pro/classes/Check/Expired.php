@@ -8,6 +8,8 @@ use AC\Message;
 use AC\Registrable;
 use AC\Screen;
 use AC\Storage;
+use AC\Type\Url\Site;
+use AC\Type\Url\UtmTags;
 use ACP\LicenseKeyRepository;
 use ACP\LicenseRepository;
 use ACP\Type\License\Key;
@@ -103,18 +105,17 @@ class Expired implements Registrable {
 	private function get_message( DateTime $expiration_date, Key $license_key ) {
 		$expired_on = ac_format_date( get_option( 'date_format' ), $expiration_date->getTimestamp() );
 
-		$link = add_query_arg(
-			[
-				'subscription_key' => $license_key->get_value(),
-				'site_url'         => $this->site_url->get_url(),
-			],
-			ac_get_site_utm_url( 'my-account/subscriptions', 'renewal' )
-		);
+		$url = new UtmTags( new Site( Site::PAGE_ACCOUNT_SUBSCRIPTIONS ), 'expired' );
+
+		$url->add( [
+			'subscription_key' => $license_key->get_value(),
+			'site_url'         => $this->site_url->get_url(),
+		] );
 
 		return sprintf(
 			__( 'Your Admin Columns Pro license has expired on %s. To receive updates, renew your license on the %s.', 'codepress-admin-columns' ),
 			'<strong>' . $expired_on . '</strong>',
-			sprintf( '<a href="%s">%s</a>', $link, __( 'My Account Page', 'codepress-admin-columns' ) )
+			sprintf( '<a href="%s">%s</a>', $url->get_url(), __( 'My Account Page', 'codepress-admin-columns' ) )
 		);
 	}
 

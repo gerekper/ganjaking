@@ -2,9 +2,8 @@
 /**
  * Compatibility file for WooCommerce Variation Swatches and Photos
  *
- * @author      StoreApps
  * @since       2.9.3
- * @version     1.0
+ * @version     1.0.1
  * @package     WooCommerce Chained Products
  */
 

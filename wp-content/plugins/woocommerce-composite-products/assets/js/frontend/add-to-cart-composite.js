@@ -785,7 +785,7 @@ jQuery.fn.wc_get_composite_script = function() {
 			 */
 			is_component_priced_individually: function( component_id ) {
 
-				return composite.data_model.price_data[ 'is_priced_individually' ][ component_id ] === 'yes';
+				return composite.data_model.price_data.is_priced_individually[ component_id ] === 'yes';
 			}
 		};
 
@@ -1786,13 +1786,13 @@ jQuery.fn.wc_get_composite_script = function() {
 							}, 10, this );
 						}
 
-						this.$nyp                       = $nyp;
-						this.price_data[ 'base_price' ] = $nyp.data( 'price' );
+						this.$nyp                  = $nyp;
+						this.price_data.base_price = $nyp.data( 'price' );
 
 						composite.$composite_data.on( 'woocommerce-nyp-updated-item', function() {
 
-							composite.data_model.price_data[ 'base_price' ]         = composite.data_model.$nyp.data( 'price' );
-							composite.data_model.price_data[ 'base_regular_price' ] = composite.data_model.$nyp.data( 'price' );
+							composite.data_model.price_data.base_price         = composite.data_model.$nyp.data( 'price' );
+							composite.data_model.price_data.base_regular_price = composite.data_model.$nyp.data( 'price' );
 
 							composite.data_model.update_validation();
 							composite.data_model.calculate_subtotals();
@@ -1995,7 +1995,7 @@ jQuery.fn.wc_get_composite_script = function() {
 				 */
 				is_purchasable: function() {
 
-					if ( this.price_data[ 'is_purchasable' ] === 'no' ) {
+					if ( this.price_data.is_purchasable === 'no' ) {
 						return false;
 					}
 
@@ -2104,13 +2104,13 @@ jQuery.fn.wc_get_composite_script = function() {
 					composite.console_log( 'debug:models', '\nAdding totals...' );
 
 					var totals = {
-						price:          price_data[ 'base_price_totals' ].price,
-						regular_price:  price_data[ 'base_price_totals' ].regular_price,
-						price_incl_tax: price_data[ 'base_price_totals' ].price_incl_tax,
-						price_excl_tax: price_data[ 'base_price_totals' ].price_excl_tax
+						price:          price_data.base_price_totals.price,
+						regular_price:  price_data.base_price_totals.regular_price,
+						price_incl_tax: price_data.base_price_totals.price_incl_tax,
+						price_excl_tax: price_data.base_price_totals.price_excl_tax
 					};
 
-					price_data[ 'base_display_price' ] = totals.price;
+					price_data.base_display_price = totals.price;
 
 					for ( var component_index = 0, components = composite.get_components(), components_length = components.length; component_index < components_length; component_index++ ) {
 
@@ -2149,11 +2149,11 @@ jQuery.fn.wc_get_composite_script = function() {
 					// Base.
 					if ( false === triggered_by ) {
 
-						var base_price            = Number( price_data[ 'base_price' ] ),
-							base_regular_price    = Number( price_data[ 'base_regular_price' ] ),
-							base_price_tax_ratios = price_data[ 'base_price_tax_ratios' ];
+						var base_price            = Number( price_data.base_price ),
+							base_regular_price    = Number( price_data.base_regular_price ),
+							base_price_tax_ratios = price_data.base_price_tax_ratios;
 
-						price_data[ 'base_price_totals' ] = this.get_taxed_totals( base_price, base_regular_price, base_price_tax_ratios, qty );
+						price_data.base_price_totals = this.get_taxed_totals( base_price, base_regular_price, base_price_tax_ratios, qty );
 					}
 
 					// Components.
@@ -2163,7 +2163,7 @@ jQuery.fn.wc_get_composite_script = function() {
 							continue;
 						}
 
-						var component_qty = price_data[ 'quantities' ][ components[ component_index ].component_id ] * qty,
+						var component_qty = price_data.quantities[ components[ component_index ].component_id ] * qty,
 							totals        = model.calculate_component_subtotals( components[ component_index ], price_data, component_qty );
 
 						if ( typeof( price_data_array ) === 'undefined' ) {
@@ -2192,9 +2192,9 @@ jQuery.fn.wc_get_composite_script = function() {
 					var model         = this,
 						price_data    = typeof( price_data_array ) === 'undefined' ? model.price_data : price_data_array,
 						product_id    = component.get_selected_product_type() === 'variable' ? component.get_selected_variation( false ) : component.get_selected_product( false ),
-						tax_ratios    = price_data[ 'price_tax_ratios' ][ component.component_id ],
-						regular_price = price_data[ 'regular_prices' ][ component.component_id ] + price_data[ 'addons_regular_prices' ][ component.component_id ],
-						price         = price_data[ 'prices' ][ component.component_id ] + price_data[ 'addons_prices' ][ component.component_id ],
+						tax_ratios    = price_data.price_tax_ratios[ component.component_id ],
+						regular_price = price_data.regular_prices[ component.component_id ] + price_data.addons_regular_prices[ component.component_id ],
+						price         = price_data.prices[ component.component_id ] + price_data.addons_prices[ component.component_id ],
 						totals        = {
 							price:          0.0,
 							regular_price:  0.0,
@@ -2233,19 +2233,19 @@ jQuery.fn.wc_get_composite_script = function() {
 					var quantity = component.get_selected_quantity();
 
 					// Copy prices.
-					this.price_data[ 'prices' ][ component.component_id ]           = component.component_selection_model.get_price();
-					this.price_data[ 'regular_prices' ][ component.component_id ]   = component.component_selection_model.get_regular_price();
-					this.price_data[ 'price_tax_ratios' ][ component.component_id ] = component.component_selection_model.get_tax_ratios();
+					this.price_data.prices[ component.component_id ]           = component.component_selection_model.get_price();
+					this.price_data.regular_prices[ component.component_id ]   = component.component_selection_model.get_regular_price();
+					this.price_data.price_tax_ratios[ component.component_id ] = component.component_selection_model.get_tax_ratios();
 
 
 					// Calculate addons price.
-					this.price_data[ 'addons_prices' ][ component.component_id ]         = Number( component.component_selection_model.get_addons_price() );
-					this.price_data[ 'addons_regular_prices' ][ component.component_id ] = Number( component.component_selection_model.get_addons_regular_price() );
+					this.price_data.addons_prices[ component.component_id ]         = Number( component.component_selection_model.get_addons_price() );
+					this.price_data.addons_regular_prices[ component.component_id ] = Number( component.component_selection_model.get_addons_regular_price() );
 
 					if ( quantity > 0 ) {
-						this.price_data[ 'quantities' ][ component.component_id ] = parseInt( quantity, 10 );
+						this.price_data.quantities[ component.component_id ] = parseInt( quantity, 10 );
 					} else {
-						this.price_data[ 'quantities' ][ component.component_id ] = 0;
+						this.price_data.quantities[ component.component_id ] = 0;
 					}
 				},
 
@@ -4406,8 +4406,8 @@ jQuery.fn.wc_get_composite_script = function() {
 
 						price_data = $.extend( true, {}, price_data );
 
-						var addons_raw_price         = price_data[ 'addons_price' ] ? price_data[ 'addons_price' ] : this.get_addons_raw_price(),
-							addons_raw_regular_price = price_data[ 'addons_regular_price' ] ? price_data[ 'addons_regular_price' ] : addons_raw_price;
+						var addons_raw_price         = price_data.addons_price ? price_data.addons_price : this.get_addons_raw_price(),
+							addons_raw_regular_price = price_data.addons_regular_price ? price_data.addons_regular_price : addons_raw_price;
 
 						// Recalculate price html with add-ons price embedded in base price.
 						if ( addons_raw_price || addons_raw_regular_price ) {
@@ -4425,7 +4425,7 @@ jQuery.fn.wc_get_composite_script = function() {
 						}
 					}
 
-					if ( composite_totals.price === 0.0 && price_data[ 'show_free_string' ] === 'yes' ) {
+					if ( composite_totals.price === 0.0 && price_data.show_free_string === 'yes' ) {
 
 						price_html = wc_composite_params.i18n_price_format.replace( '%t', total_string ).replace( '%p', wc_composite_params.i18n_free ).replace( '%s', '' );
 
@@ -4486,7 +4486,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 				render_task: function( model ) {
 
-					var show_price = model.get( 'passes_validation' ) && ( model.price_data[ 'total' ] !== model.price_data[ 'base_display_price' ] || 'yes' === model.price_data[ 'has_price_range' ] );
+					var show_price = ( model.get( 'passes_validation' ) || 'no' === composite.settings.hide_total_on_validation_fail ) && ( model.price_data.total !== model.price_data.base_display_price || 'yes' === model.price_data.has_price_range );
 
 					composite.console_log( 'debug:views', '\nUpdating composite price view' + ( this.is_in_widget ? ' (widget #' + this.is_in_widget + ')' : '' ) + '...' );
 
@@ -5229,7 +5229,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 							var component_totals = composite.data_model.get( 'component_' + component_id + '_totals' );
 
-							if ( price_data[ 'is_priced_individually' ][ component_id ] === 'no' && component_totals.price === 0.0 && component_totals.regular_price === 0.0 ) {
+							if ( price_data.is_priced_individually[ component_id ] === 'no' && component_totals.price === 0.0 && component_totals.regular_price === 0.0 ) {
 
 								price_html = '';
 
@@ -6970,6 +6970,7 @@ jQuery.fn.wc_get_composite_script = function() {
 					 */
 					if ( self.has_options_style( 'thumbnails' ) ) {
 						self.$el.on( 'click', '.component_option_thumbnail_select', { view: this }, this.selected_thumbnail );
+						self.$el.on( 'click', '.component_option_thumbnail_link', { view: this }, this.selected_thumbnail );
 					}
 
 					/**
@@ -12598,7 +12599,7 @@ jQuery.fn.wc_get_composite_script = function() {
 		 * True if the component is priced individually.
 		 */
 		WC_CP_Component.prototype.is_priced_individually = function() {
-			return 'yes' === this.composite.data_model.price_data[ 'is_priced_individually' ][ this.component_id ];
+			return 'yes' === this.composite.data_model.price_data.is_priced_individually[ this.component_id ];
 		};
 
 		/**

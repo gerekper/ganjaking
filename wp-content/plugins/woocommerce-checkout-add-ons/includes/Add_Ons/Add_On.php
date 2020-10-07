@@ -418,7 +418,11 @@ abstract class Add_On extends \WC_Data {
 
 		$cost_html = '';
 
-		$display_cost = 'incl' === WC()->cart->tax_display_cart ? $this->get_cost_including_tax( $cost ) : $cost;
+		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '4.4' ) ) {
+			$display_cost = 'incl' === WC()->cart->get_tax_price_display_mode() ? $this->get_cost_including_tax( $cost ) : $cost;
+		} else {
+			$display_cost = 'incl' === WC()->cart->tax_display_cart ? $this->get_cost_including_tax( $cost ) : $cost;
+		}
 
 		if ( $cost > 0 ) {
 

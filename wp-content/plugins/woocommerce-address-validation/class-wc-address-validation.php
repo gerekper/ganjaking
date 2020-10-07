@@ -34,7 +34,7 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.7.0';
+	const VERSION = '2.7.1';
 
 	/** @var \WC_Address_Validation single instance of this plugin */
 	protected static $instance;

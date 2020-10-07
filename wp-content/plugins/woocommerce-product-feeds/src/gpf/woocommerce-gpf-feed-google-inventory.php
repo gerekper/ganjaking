@@ -52,7 +52,7 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 		echo "<?xml version='1.0' encoding='UTF-8' ?>\n";
 		echo "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom' xmlns:g='http://base.google.com/ns/1.0'>\n";
 		echo "  <channel>\n";
-		echo '    <title><![CDATA[' . $this->store_info->blog_name . " Products]]></title>\n";
+		echo '    <title>' . $this->esc_xml( $this->store_info->blog_name . ' Products' ) . "</title>\n";
 		echo '    <link>' . $this->store_info->site_url . "</link>\n";
 		echo "    <description>This is the WooCommerce Product Inventory feed</description>\n";
 		echo '    <generator>WooCommerce Google Product Feed Plugin v' . WOOCOMMERCE_GPF_VERSION . " (https://plugins.leewillis.co.uk/downloads/woocommerce-google-product-feed/)</generator>\n";
@@ -110,7 +110,7 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 						}
 					}
 					$output .= '      <g:' . $element_name . '>';
-					$output .= '<![CDATA[' . $element_value . ']]>';
+					$output .= $this->esc_xml( $element_value );
 					$output .= '</g:' . $element_name . ">\n";
 				}
 			}

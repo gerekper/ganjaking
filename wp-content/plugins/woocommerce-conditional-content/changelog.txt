@@ -1,4 +1,9 @@
 *** WooCommerce Conditional Content Changelog ***
+2020.10.02 - version 2.1.4
+    * Fix:  Fix product search inputs when building rules.  Now uses WC's enhanced scripts.
+    * Fix:  Use H:i:s rather than h:i:s for current time when comparing the schedule rule.
+    * Fix:  Fix issue with the time comparision in time based rules.
+
 2020.08.25 - version 2.1.3
     * Update:  WP and WC Version Compatibility Updates
 

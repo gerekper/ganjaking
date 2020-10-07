@@ -1,9 +1,9 @@
 # Copyright (C) 2017 Ademti Software Ltd.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Product Feed 9.1.0\n"
+"Project-Id-Version: WooCommerce Google Product Feed 9.1.2\n"
 "Report-Msgid-Bugs-To: https://plugins.leewillis.co.uk/support\n"
-"POT-Creation-Date: 2020-09-30 08:14:19+00:00\n"
+"POT-Creation-Date: 2020-10-05 13:23:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -116,19 +116,19 @@ msgstr ""
 msgid "%s meta field"
 msgstr ""
 
-#: src/common/woocommerce-product-feeds-feed-image-manager.php:133
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:142
 msgid "Set as product image"
 msgstr ""
 
-#: src/common/woocommerce-product-feeds-feed-image-manager.php:138
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:147
 msgid "Added via product gallery"
 msgstr ""
 
-#: src/common/woocommerce-product-feeds-feed-image-manager.php:143
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:152
 msgid "Attached as media to product"
 msgstr ""
 
-#: src/common/woocommerce-product-feeds-feed-image-manager.php:148
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:157
 msgid "Added via filters"
 msgstr ""
 
@@ -1264,6 +1264,13 @@ msgstr ""
 msgid "Images"
 msgstr ""
 
+#: templates/woo-gpf-meta-field-image-info-header.php:6
+msgid ""
+"For simple products, the first image (below) will be used as the primary "
+"image unless a primary image is specifically chosen. For variable products, "
+"the primary image will be the variation image if available."
+msgstr ""
+
 #: templates/woo-gpf-meta-field-image-info-include-action.php:2
 msgid "Excluded"
 msgstr ""
@@ -1290,7 +1297,7 @@ msgstr ""
 msgid "https://www.ademti-software.co.uk/"
 msgstr ""
 
-#: templates/woo-gpf-meta-field-image-info-exclude-action.php:5
+#: templates/woo-gpf-meta-field-image-info-exclude-action.php:4
 msgctxt "Button to exclude an image from being sent for a product in the feed"
 msgid "Exclude"
 msgstr ""
@@ -1305,7 +1312,14 @@ msgctxt "Button to collapse the area in which images are used for items in the f
 msgid "Collapse"
 msgstr ""
 
-#: templates/woo-gpf-meta-field-image-info-include-action.php:6
+#: templates/woo-gpf-meta-field-image-info-include-action.php:4
 msgctxt "Button to include a specific image for a product in the feed"
 msgid "Include"
+msgstr ""
+
+#: templates/woo-gpf-meta-field-image-info-set-primary-action.php:3
+msgctxt ""
+"Button to set a specific image as the primary image for a product in the "
+"feed"
+msgid "Make primary"
 msgstr ""

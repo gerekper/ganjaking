@@ -13,8 +13,6 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 
 	/**
 	 * Class to handle all backend related functionalities
-	 *
-	 * @author StoreApps
 	 */
 	class WC_Admin_Chained_Products {
 
@@ -554,7 +552,7 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 		 * @param int      $qty Quantity to add.
 		 */
 		public function add_chained_item_in_order( $item_to_add = 0, $order = null, $chained_product_of = 0, $chained_product_detail = null, $qty = 1 ) {
-			if ( empty( $item_to_add ) || empty( $order ) || empty( $chained_product_of ) || empty( $chained_product_detail ) ) {
+			if ( empty( $item_to_add ) || empty( $order ) || ! $order instanceof WC_Order || empty( $chained_product_of ) || empty( $chained_product_detail ) ) {
 				return;
 			}
 
@@ -646,7 +644,7 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 		 * @param WC_Order $order Order object.
 		 */
 		public function grant_download_permission_for_chained_item( $chained_item_id = 0, $order = null ) {
-			if ( empty( $chained_item_id ) || empty( $order ) ) {
+			if ( empty( $chained_item_id ) || empty( $order ) || ! $order instanceof WC_Order ) {
 				return;
 			}
 
@@ -719,7 +717,10 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 					return;
 				}
 
-				$order       = wc_get_order( $order_id );
+				$order = wc_get_order( $order_id );
+				if ( ! $order instanceof WC_Order ) {
+					return;
+				}
 				$order_items = $order->get_items();
 
 				if ( empty( $order_items ) ) {
@@ -902,9 +903,9 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 
 			$product 	= !empty( $post ) ? wc_get_product( $post->ID ) : wc_get_product( $variation->ID );
 			$row_loop 	= 0;
-		    $chained_parent_id = empty( $variation ) ? $post->ID : $variation->ID;
+			$chained_parent_id = empty( $variation ) ? $post->ID : $variation->ID;
 
-		    $is_subscription = false;
+			$is_subscription = false;
 
 			$classes = array();
 			$wc_product_types = array_keys( wc_get_product_types() );
@@ -923,24 +924,24 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 				echo "</td></tr></tbody></table>";
 			}
 
-			if( $product->is_type('variable') ) {
+			if( $product instanceof WC_Product_Variable && $product->is_type('variable') ) {
 
 				$class = 'woocommerce_options_panel';
 				$style = 'style = "background: #f5f5f5; display: none; width: 100%; padding: 1px;"';
 				echo "</td></tr></tbody></table>";
 
-		 	}
+			}
 
-		    $exclude_query = "SELECT ID FROM {$wpdb->posts} WHERE post_parent = {$post->ID} AND post_type = 'product_variation'";
+			$exclude_query = "SELECT ID FROM {$wpdb->posts} WHERE post_parent = {$post->ID} AND post_type = 'product_variation'";
 			$exclude_ids = $wpdb->get_col( $exclude_query );
 
 			if ( ! empty( $exclude_ids ) && is_array( $exclude_ids ) ) {
-	 	        $total_ids_to_exclude = implode( ',', array_merge( array( $post->ID ), $exclude_ids ) );
-	        } else {
-	            $total_ids_to_exclude = $post->ID;
-	        }
+				$total_ids_to_exclude = implode( ',', array_merge( array( $post->ID ), $exclude_ids ) );
+			} else {
+				$total_ids_to_exclude = $post->ID;
+			}
 
-	        ?>
+			?>
 			<div id="chained_products_setting_fields_<?php echo $chained_parent_id; ?>" class="options_group grouping <?php if( isset( $class ) ) echo $class; ?> chained_products_admin_settings" <?php if( isset( $style ) ) echo $style; ?>>
 				<div id="chained_products_list_<?php echo $chained_parent_id; ?>">
 					<?php
@@ -956,26 +957,26 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 								</label>
 
 								<?php
-	                                $product      = wc_get_product( $product_id );
+									$product      = wc_get_product( $product_id );
 									$product_name = (!empty($product)) ? wp_kses_post( $product->get_formatted_name() ) : $product_id;
-	                            ?>
+								?>
 								<?php
 
 								if ( $this->is_wc_gte_30() ) { ?>
-	                                <select class="wc-product-search" style="width: 50%;" id="chained_products_ids_<?php echo $chained_parent_id . '_' . $row_loop; ?>" name="<?php if( ! isset( $product_detail[$product_id] ) ) echo 'nested_'; ?>chained_products_ids[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]" data-placeholder="<?php _e( 'Search for a product...', 'woocommerce-chained-products' ); ?>"
+									<select class="wc-product-search" style="width: 50%;" id="chained_products_ids_<?php echo $chained_parent_id . '_' . $row_loop; ?>" name="<?php if( ! isset( $product_detail[$product_id] ) ) echo 'nested_'; ?>chained_products_ids[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]" data-placeholder="<?php _e( 'Search for a product...', 'woocommerce-chained-products' ); ?>"
 										data-action="woocommerce_json_search_products_and_variations" data-allow_clear="true" data-exclude="<?php echo $chained_parent_id; ?>" <?php if( ! isset( $product_detail[$product_id] ) ) echo 'disabled';?> data-limit="00">
-									    <?php
-			                                echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . $product_name . '</option>';
-			                            ?>
-			                        </select> <?php
+										<?php
+											echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . $product_name . '</option>';
+										?>
+									</select> <?php
 
-			                        //Support for select2 verion 4 : The 'disabled' attribute didn't supported posting data so the nested products weren't getting added while updating existing order with the chained products
-			                        if ( ! isset( $product_detail[$product_id] ) ) { ?>
-			                            <input type="hidden" value="<?php if( ! isset( $product_detail[$product_id] ) ) echo $product_id; ?>" name="<?php if( ! isset( $product_detail[$product_id] ) ) echo 'nested_'; ?>chained_products_ids[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]"> <?php
-			                        }
+									// Support for select2 verion 4 : The 'disabled' attribute didn't supported posting data so the nested products weren't getting added while updating existing order with the chained products
+									if ( ! isset( $product_detail[$product_id] ) ) { ?>
+										<input type="hidden" value="<?php if( ! isset( $product_detail[$product_id] ) ) echo $product_id; ?>" name="<?php if( ! isset( $product_detail[$product_id] ) ) echo 'nested_'; ?>chained_products_ids[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]"> <?php
+									}
 
 								} else { ?>
-	                                <input type="hidden" class="wc-product-search" style="width: 50%;" id="chained_products_ids_<?php echo $chained_parent_id . '_' . $row_loop; ?>" name="<?php if( ! isset( $product_detail[$product_id] ) ) echo 'nested_'; ?>chained_products_ids[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]" data-placeholder="<?php _e( 'Search for a product...', 'woocommerce-chained-products' ); ?>"
+									<input type="hidden" class="wc-product-search" style="width: 50%;" id="chained_products_ids_<?php echo $chained_parent_id . '_' . $row_loop; ?>" name="<?php if( ! isset( $product_detail[$product_id] ) ) echo 'nested_'; ?>chained_products_ids[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]" data-placeholder="<?php _e( 'Search for a product...', 'woocommerce-chained-products' ); ?>"
 										data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo $total_ids_to_exclude; ?>" data-multiple="true"
 										data-selected="<?php
 											$json_ids    = array();
@@ -1017,15 +1018,15 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 							</label> <?php
 
 							if ( $this->is_wc_gte_30() ) { ?>
-							    <select class="wc-product-search" style="width: 50%;" id="chained_products_ids_<?php echo $chained_parent_id . '_' . $row_loop; ?>" name="chained_products_ids[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]" data-placeholder="<?php _e( 'Search for a product...', 'woocommerce-chained-products' ); ?>"
-	                                data-action="woocommerce_json_search_products_and_variations" data-allow_clear="true" data-exclude="<?php echo $chained_parent_id; ?>" data-limit="00"/></select> <?php
-	                        }
-	                        else { ?>
-		                        <input type="hidden" class="wc-product-search" style="width: 50%;" id="chained_products_ids_<?php echo $chained_parent_id . '_' . $row_loop; ?>" name="chained_products_ids[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]" data-placeholder="<?php _e( 'Search for a product...', 'woocommerce-chained-products' ); ?>"
+								<select class="wc-product-search" style="width: 50%;" id="chained_products_ids_<?php echo $chained_parent_id . '_' . $row_loop; ?>" name="chained_products_ids[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]" data-placeholder="<?php _e( 'Search for a product...', 'woocommerce-chained-products' ); ?>"
+									data-action="woocommerce_json_search_products_and_variations" data-allow_clear="true" data-exclude="<?php echo $chained_parent_id; ?>" data-limit="00"/></select> <?php
+							}
+							else { ?>
+								<input type="hidden" class="wc-product-search" style="width: 50%;" id="chained_products_ids_<?php echo $chained_parent_id . '_' . $row_loop; ?>" name="chained_products_ids[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]" data-placeholder="<?php _e( 'Search for a product...', 'woocommerce-chained-products' ); ?>"
 									data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo $total_ids_to_exclude; ?>" data-multiple="true"/> <?php
-	                        } ?>
+							} ?>
 
-					        <input type="number" class="chained_products_quantity short" name="chained_products_quantity[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]" value="1" placeholder="<?php _e( 'Qty', 'woocommerce-chained-products' ); ?>" min="1">
+							<input type="number" class="chained_products_quantity short" name="chained_products_quantity[<?php echo $chained_parent_id; ?>][<?php echo $row_loop; ?>]" value="1" placeholder="<?php _e( 'Qty', 'woocommerce-chained-products' ); ?>" min="1">
 
 							<?php
 								// Show priced individually checkbox only for WC > 3.0
@@ -1050,21 +1051,21 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 						<input type="checkbox" class="checkbox" name="chained_products_manage_stock[<?php echo $chained_parent_id; ?>]" id="chained_products_manage_stock_<?php echo $chained_parent_id; ?>" <?php if ( get_post_meta( $chained_parent_id, '_chained_product_manage_stock', true ) == 'yes' ) echo 'checked="checked"'; ?>>
 						<span style="display: inline;" class="description"><?php _e( 'Enable stock management for chained products', 'woocommerce-chained-products' ); ?></span>
 						<?php
-	                        echo wc_help_tip( __( 'Enable this option to manage stock for above listed chained products, uncheck otherwise. When enabled, if any of the above chained product is out of stock, then this product will not be allowed to added to cart.', 'woocommerce-chained-products' ) );
+							echo wc_help_tip( __( 'Enable this option to manage stock for above listed chained products, uncheck otherwise. When enabled, if any of the above chained product is out of stock, then this product will not be allowed to added to cart.', 'woocommerce-chained-products' ) );
 						?>
 					</p> <?php
-		        } ?>
+				} ?>
 
 				<p class="form-field chained_product_update_order">
 					<label for="chained_product_update_order_<?php echo $chained_parent_id; ?>"><?php _e( 'Update existing orders?', 'woocommerce-chained-products' ); ?></label>
 					<input type="checkbox" class="checkbox" name="chained_product_update_order[<?php echo $chained_parent_id;?>]" id="chained_product_update_order_<?php echo $chained_parent_id; ?>">
 					<span style="display: inline;" class="description"><?php _e( 'Update existing orders with above chained products', 'woocommerce-chained-products' ); ?></span>
 					<?php
-	                    echo wc_help_tip( __( 'Check to update existing orders containing this main product. Existing orders will be affected.', 'woocommerce-chained-products' ) );
+						echo wc_help_tip( __( 'Check to update existing orders containing this main product. Existing orders will be affected.', 'woocommerce-chained-products' ) );
 					?>
 					<br>
 					<span style=""><?php echo '<strong>' . esc_html__( 'Note: ', 'woocommerce-chained-products' ) . '</strong>' . esc_html__( 'Upating existing orders with chained products will not update the order total.', 'woocommerce-chained-products' ); ?></span>
-			    </p>
+				</p>
 				<div id="message" class="updated below-h2 chained_products_shortcode">
 					<p><?php _e( 'To show Chained Products on product page,', 'woocommerce-chained-products' ); ?>
 						<a class="insert_shortcode"><?php _e( 'click here to insert shortcode in the product description', 'woocommerce-chained-products' ); ?></a>
@@ -1083,52 +1084,50 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 			?>
 			jQuery( function() {
 
-				jQuery(document).on( 'ready', function() {
-	                    init_select2();
+				init_select2();
 
-						jQuery('select#product-type').on( 'change', function() {
-							productType = jQuery(this).find('option:selected').val();
+				jQuery('select#product-type').on( 'change', function() {
+					productType = jQuery(this).find('option:selected').val();
 
-							if ( 'external' === productType || 'variable' === productType ) {
-								jQuery('div#chained_products_setting_fields_<?php echo $chained_parent_id; ?>').hide();
-							} else {
-								var chained_post_id = jQuery('#post_ID').val();
+					if ( 'external' === productType || 'variable' === productType ) {
+						jQuery('div#chained_products_setting_fields_<?php echo $chained_parent_id; ?>').hide();
+					} else {
+						var chained_post_id = jQuery('#post_ID').val();
 
-								jQuery('div#chained_products_setting_fields_'+chained_post_id).show();
-								jQuery('span.chained_product_description').text('');
-							}
+						jQuery('div#chained_products_setting_fields_'+chained_post_id).show();
+						jQuery('span.chained_product_description').text('');
+					}
 
-							if ( 'subscription' === productType || 'variable-subscription' === productType ) {
-	                    		jQuery( 'span.cp_priced_individually').hide();
-	              			}
+					if ( 'subscription' === productType || 'variable-subscription' === productType ) {
+						jQuery( 'span.cp_priced_individually').hide();
+					}
 
-							init_select2();
+					init_select2();
 
+				});
+
+				jQuery( '#woocommerce-product-data' ).on( 'woocommerce_variations_added woocommerce_variations_loaded', function(){
+
+					setTimeout( function() {
+
+						init_select2();
+
+						jQuery('[id^="add_chained_products_row"]').each(function() {
+							var id_prefix = 'add_chained_products_row_',
+								chained_id = jQuery(this).attr('id').substr(id_prefix.length);
+								chained_products_add_row(chained_id);
 						});
 
-						jQuery( '#woocommerce-product-data' ).on( 'woocommerce_variations_added woocommerce_variations_loaded', function(){
+						// Tooltips
+						var tiptip_args = {
+							'attribute' : 'data-tip',
+							'fadeIn' : 50,
+							'fadeOut' : 50,
+							'delay' : 200
+						};
+						jQuery(".tips, .help_tip").tipTip( tiptip_args );
 
-							setTimeout( function() {
-
-								init_select2();
-
-								jQuery('[id^="add_chained_products_row"]').each(function() {
-									var id_prefix = 'add_chained_products_row_',
-									 	chained_id = jQuery(this).attr('id').substr(id_prefix.length);
-									 	chained_products_add_row(chained_id);
-								});
-
-								// Tooltips
-								var tiptip_args = {
-									'attribute' : 'data-tip',
-									'fadeIn' : 50,
-									'fadeOut' : 50,
-									'delay' : 200
-								};
-								jQuery(".tips, .help_tip").tipTip( tiptip_args );
-
-							}, 100);
-						});
+					}, 100);
 				});
 
 				jQuery('.wc-metaboxes-wrapper').on('click', '.wc-metabox h3', function(event){
@@ -1180,7 +1179,7 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 
 				function getEnhancedSelectFormatString() { <?php
 					if( $this->is_wc_gte_30() ) { ?>
-					    var formatString = {
+						var formatString = {
 							noResults: function() {
 								return wc_enhanced_select_params.i18n_no_matches;
 							},
@@ -1220,11 +1219,11 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 							}
 						};
 
-			            var language = { 'language' : formatString };
+						var language = { 'language' : formatString };
 
-					    return language; <?php
+						return language; <?php
 					} else { ?>
-				    	var formatString = {};
+						var formatString = {};
 
 						formatString = {
 							formatMatches: function( matches ) {
@@ -1281,7 +1280,7 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 
 					// Ajax product search box
 					jQuery( '[id^= "chained_products_ids"]' ).filter( ':not(.chained_enhanced)' ).each( function() { <?php
-	                    if ( $this->is_wc_gte_30() ) { ?>
+						if ( $this->is_wc_gte_30() ) { ?>
 							var select2_args = {
 								allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
 								placeholder: jQuery( this ).data( 'placeholder' ),
@@ -1291,46 +1290,46 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 								},
 								maximumSelectionSize : 1,
 								ajax: {
-							        url:         wc_enhanced_select_params.ajax_url,
-							        dataType:    'json',
-							        quietMillis: 250,
-							        data: function( params, page ) {
-							            return {
+									url:         wc_enhanced_select_params.ajax_url,
+									dataType:    'json',
+									quietMillis: 250,
+									data: function( params, page ) {
+										return {
 											term:     params.term,
 											action:   jQuery( this ).data( 'action' ) || 'woocommerce_json_search_products_and_variations',
 											security: wc_enhanced_select_params.search_products_nonce,
 											exclude:  jQuery( this ).data( 'exclude' ),
 											limit: jQuery( this ).data( 'limit' )
-							            };
-							        },
-							        processResults: function( data, page ) {
-							        	var terms = [];
+										};
+									},
+									processResults: function( data, page ) {
+										var terms = [];
 
 										jQuery.ajax({
-								            url: wc_enhanced_select_params.ajax_url,
-								            type: 'POST',
-								            async: false,
-								            dataType: 'json',
-								            data: {
-								                action: 'exclude_parent_variable_product_from_search',
-								                result: data
-								            },
-								            success: function( response ) {
-								            	if ( response ) {
+											url: wc_enhanced_select_params.ajax_url,
+											type: 'POST',
+											async: false,
+											dataType: 'json',
+											data: {
+												action: 'exclude_parent_variable_product_from_search',
+												result: data
+											},
+											success: function( response ) {
+												if ( response ) {
 													jQuery.each( response, function( id, text ) {
 														terms.push( { id: id, text: text } );
 													});
 												}
-								            },
-								        });
+											},
+										});
 
-							           	return { results: terms };
-							        },
-							        cache: true
-							    }
+										return { results: terms };
+									},
+									cache: true
+								}
 							}; <?php
 						} else { ?>
-	                        var select2_args = {
+							var select2_args = {
 								allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
 								placeholder: jQuery( this ).data( 'placeholder' ),
 								minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : '3',
@@ -1339,18 +1338,18 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 								},
 								maximumSelectionSize : 1,
 								ajax: {
-							        url:         wc_enhanced_select_params.ajax_url,
-							        dataType:    'json',
-							        quietMillis: 250,
-							        data: function( term, page ) {
+									url:         wc_enhanced_select_params.ajax_url,
+									dataType:    'json',
+									quietMillis: 250,
+									data: function( term, page ) {
 									return {
 									term:     term,
 									action:   jQuery( this ).data( 'action' ) || 'woocommerce_json_search_products_and_variations',
 									security: wc_enhanced_select_params.search_products_nonce,
 									exclude:  jQuery( this ).data( 'exclude' )
 									};
-							        },
-							        results: function( data, page ) {
+									},
+									results: function( data, page ) {
 									var terms = [];
 									if ( data ) {
 									jQuery.each( data, function( id, text ) {
@@ -1358,14 +1357,14 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 									});
 									}
 									return { results: terms };
-							        },
-							        cache: true
-							    }
+									},
+									cache: true
+								}
 							};
 
 
 							if ( jQuery( this ).data( 'multiple' ) === true ) {
-							    select2_args.multiple = true;
+								select2_args.multiple = true;
 								select2_args.initSelection = function( element, callback ) {
 									var data     = jQuery.parseJSON( element.attr( 'data-selected' ) );
 									var selected = [];
@@ -1386,7 +1385,7 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 							} <?php
 						} ?>
 
-				        select2_args = jQuery.extend( select2_args, getEnhancedSelectFormatString() );
+						select2_args = jQuery.extend( select2_args, getEnhancedSelectFormatString() );
 
 						jQuery( this ).select2( select2_args ).addClass( 'enhanced' ).addClass( 'chained_enhanced' );
 					});
@@ -1480,9 +1479,9 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 						if( des_content.indexOf( "[chained_products" ) == -1 ) { <?php
 							if (  $this->is_wc_gte_30() ) { ?>
 								if( jQuery('div[id^=chained_products_list_] span.select2-selection').length > 0  )
-						       	    jQuery('div.chained_products_shortcode').css( 'display', 'block' );
-							    else
-								    jQuery('div.chained_products_shortcode').css( 'display', 'none' ); <?php
+									jQuery('div.chained_products_shortcode').css( 'display', 'block' );
+								else
+									jQuery('div.chained_products_shortcode').css( 'display', 'none' ); <?php
 							} else { ?>
 								if( jQuery('div[id^=chained_products_list_] li.search-choice').length > 0 || jQuery('div[id^=chained_products_list_] li.select2-search-choice').length > 0 )
 									jQuery('div.chained_products_shortcode').css( 'display', 'block' );
@@ -2309,7 +2308,7 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 					array(
 						'title'    => __( 'Housekeeping', 'woocommerce-chained-products' ),
 						'desc'     => __( 'Enable housekeeping' ),
-						'desc_tip' => sprintf( '<strong>%s</strong> <a href="%s" target="_blank">%s</a>', esc_html__( 'Note: It is recommended to keep this option enabled.', 'woocommerce-chained-products' ), esc_url( 'https://docs.woocommerce.com/document/chained-products/#section-12' ), esc_html__( 'Know more about Housekeeping', 'woocommerce-chained-products' ) ),
+						'desc_tip' => sprintf( '<strong>%s</strong> <a href="%s" target="_blank">%s</a>', esc_html__( 'Note: It is recommended to keep this option enabled.', 'woocommerce-chained-products' ), esc_url( 'https://docs.woocommerce.com/document/chained-products/#section-13' ), esc_html__( 'Know more about Housekeeping', 'woocommerce-chained-products' ) ),
 						'id'       => 'sa_chained_products_housekeeping',
 						'default'  => 'yes',
 						'type'     => 'checkbox',

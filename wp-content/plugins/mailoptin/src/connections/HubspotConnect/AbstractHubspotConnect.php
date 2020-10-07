@@ -71,20 +71,17 @@ class AbstractHubspotConnect extends AbstractConnect
         if ($instance->hasAccessTokenExpired()) {
 
             try {
-                $response = wp_remote_get(MAILOPTIN_OAUTH_URL . '/hubspot/?refresh_token=' . $this->refresh_token);
-                $result   = json_decode(wp_remote_retrieve_body($response), true);
 
-                if ( ! isset($result['success']) || $result['success'] !== true) {
-                    self::save_optin_error_log('Error failed to refresh ' . json_encode($result), 'hubspot');
-                    throw new \Exception(__('Error failed to refresh', 'mailoptin'));
-                }
+                $result = $this->oauth_token_refresh('hubspot', $this->refresh_token);
 
                 $option_name = MAILOPTIN_CONNECTIONS_DB_OPTION_NAME;
                 $old_data    = get_option($option_name, []);
-                $new_data    = [
+
+                $expires_at = $this->oauth_expires_at_transform($result['data']['expires_at']);
+                $new_data  = [
                     'hubspot_access_token'  => $result['data']['access_token'],
                     'hubspot_refresh_token' => $result['data']['refresh_token'],
-                    'hubspot_expires_at'    => $result['data']['expires_at']
+                    'hubspot_expires_at'    => $expires_at
                 ];
 
                 update_option($option_name, array_merge($old_data, $new_data));
@@ -93,7 +90,7 @@ class AbstractHubspotConnect extends AbstractConnect
                     new OAuthCredentialStorage([
                         'hubspot.access_token'  => $result['data']['access_token'],
                         'hubspot.refresh_token' => $result['data']['refresh_token'],
-                        'hubspot.expires_at'    => $result['data']['expires_at'],
+                        'hubspot.expires_at'    => $expires_at,
                     ]));
 
             } catch (\Exception $e) {

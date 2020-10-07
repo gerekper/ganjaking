@@ -8,11 +8,10 @@ use ACP\Editing\Settings;
 class Text extends Model\CustomField {
 
 	public function get_view_settings() {
-		/* @var Settings\Excerpt $setting */
 		$setting = $this->column->get_setting( 'edit' );
 
 		return [
-			'type' => $setting ? $setting->get_editable_type() : 'text',
+			'type' => $setting instanceof Settings\Excerpt ? $setting->get_editable_type() : 'text',
 		];
 	}
 

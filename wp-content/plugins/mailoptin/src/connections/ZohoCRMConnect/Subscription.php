@@ -102,11 +102,7 @@ class Subscription extends AbstractZohoCRMConnect
 
             if (isset($response->data[0]->details->id)) {
                 $id      = $response->data[0]->details->id;
-                $db_tags = $this->get_integration_data('ZohoCRMConnect_tags');
-
-                if ( ! empty($this->extras['form_tags'])) {
-                    $db_tags = $this->extras['form_tags'];
-                }
+                $db_tags = $this->get_integration_tags('ZohoCRMConnect_tags');
 
                 $tags = [];
 

@@ -43,6 +43,7 @@ class WC_Shipment_Tracking_REST_API_Controller extends WC_REST_Controller {
 			array(
 				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $this, 'get_providers' ),
+				'permission_callback' => '__return_true',
 			),
 		) );
 	}

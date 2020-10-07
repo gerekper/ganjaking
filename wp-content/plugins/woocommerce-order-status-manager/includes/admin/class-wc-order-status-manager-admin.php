@@ -312,12 +312,13 @@ class WC_Order_Status_Manager_Admin {
 
 			$script_data = array(
 
-				'ajax_url'                           => admin_url( 'admin-ajax.php' ),
-				'sort_order_statuses_nonce'          => wp_create_nonce( 'sort-order-statuses' ),
-				'import_custom_order_statuses_nonce' => wp_create_nonce( 'import-custom-order-statuses' ),
-				'delete_order_status_nonce'          => wp_create_nonce( 'delete-order-status' ),
-				'bulk_reassign_order_status_nonce'   => wp_create_nonce( 'bulk-reassign-order-status' ),
-				'order_statuses'                     => $order_statuses,
+				'ajax_url'                            => admin_url( 'admin-ajax.php' ),
+				'sort_order_statuses_nonce'           => wp_create_nonce( 'sort-order-statuses' ),
+				'import_custom_order_statuses_nonce'  => wp_create_nonce( 'import-custom-order-statuses' ),
+				'delete_order_status_nonce'           => wp_create_nonce( 'delete-order-status' ),
+				'bulk_reassign_order_status_nonce'    => wp_create_nonce( 'bulk-reassign-order-status' ),
+				'set_deactivation_confirmation_state' => wp_create_nonce( 'set-deactivation-confirmation-state' ),
+				'order_statuses'                      => $order_statuses,
 
 				'i18n' => array(
 					'remove_this_condition' => __( 'Remove this condition?', 'woocommerce-order-status-manager' ),

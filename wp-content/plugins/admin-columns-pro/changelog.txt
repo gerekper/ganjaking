@@ -1,5 +1,23 @@
 == Changelog ==
 
+= 5.3.2 =
+Release Date: October 6th, 2020
+
+* [Added] New Media Column: Title Only
+* [Added] New filter to toggle between the new Inline Editing styling `acp/editing/inline/deprecated_style` (default:false)
+* [Fixed] The pagination when sorting on the Media list table was ignored
+* [Fixed] The Filter button was not visible on the Taxonomy list tables when the standard filter drop downs were used
+* [Fixed] The Bulk Edit setting is no longer available for unsupported column types
+* [Improved] URL's for link related columns are now displayed correctly (urldecode)
+* [Improved] The inline edit controls are not visible on hover instead of being always visible
+* [Improved] When enabling inline editing on the list table, the table row height is no longer affected
+* [Improved] We added a clear filter button which removes all filters
+* [Improved] You can now remove roles on the user list table when using inline or bulk edit
+* [Updated] Admin Columns Core changes ( 4.2.3 )
+* [Added] Title only column added to Media list table
+* [Improved] Dashicons updates for icon picker in column settings
+* [Improved] New icons for action column added
+
 = 5.3.1 =
 Release Date: August 21st, 2020
 

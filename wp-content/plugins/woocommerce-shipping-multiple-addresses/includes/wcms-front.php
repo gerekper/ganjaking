@@ -14,7 +14,7 @@ class WC_MS_Front {
 
 		// WCMS Front
 		add_filter( 'body_class', array( $this, 'output_body_class' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'front_scripts' ), 1 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'front_scripts' ), 11 );
 		add_action( 'woocommerce_view_order', array( $this, 'show_multiple_addresses_notice' ) );
 		add_action( 'woocommerce_email_after_order_table', array( $this, 'email_order_item_addresses' ) );
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'list_order_item_addresses' ) );
@@ -155,6 +155,7 @@ class WC_MS_Front {
 					)
 				)
 			);
+			wp_enqueue_script( 'wc-address-i18n' );
 			wp_enqueue_script( 'wcms-country-select' );
 			wp_enqueue_style( 'select2', WC()->plugin_url() . '/assets/css/select2.css', array(), WC_VERSION );
 		}
@@ -426,7 +427,7 @@ class WC_MS_Front {
 					foreach ( $field['validate'] as $rule ) {
 						switch ( $rule ) {
 							case 'postcode' :
-								$_POST[ $key ] = strtoupper( str_replace( ' ', '', $_POST[ $key ] ) );
+								$_POST[ $key ] = trim( $_POST[ $key ] );
 
 								if ( ! isset( $_POST[ $load_address . '_country' ] ) ) {
 									continue 2;

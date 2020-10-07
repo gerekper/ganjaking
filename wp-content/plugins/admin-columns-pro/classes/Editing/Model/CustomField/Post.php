@@ -21,7 +21,6 @@ class Post extends Model\CustomField
 		 */
 		$field_type = $this->column->get_setting( 'field_type' );
 
-		// Post ID's
 		$ids = $field_type->format( $raw, $object_id )->all();
 
 		$values = false;
@@ -42,8 +41,9 @@ class Post extends Model\CustomField
 
 	public function get_paginated_options( $s, $paged, $id = null ) {
 		$entities = new Select\Entities\Post( [
-			's'     => $s,
-			'paged' => $paged,
+			's'             => $s,
+			'paged'         => $paged,
+			'search_fields' => [ 'post_title', 'ID' ],
 		] );
 
 		return new AC\Helper\Select\Options\Paginated(

@@ -37,8 +37,8 @@ class ConnectSettingsPage extends AbstractWeMailConnect
 
         $settingsArg[] =
             [
-                'section_title_without_status' => __('WeMail', 'mailoptin'),
-                'section_title'                => __('WeMail', 'mailoptin') . " $status",
+                'section_title_without_status' => __('weMail', 'mailoptin'),
+                'section_title'                => __('weMail', 'mailoptin') . " $status",
                 'type'                         => AbstractConnect::EMAIL_MARKETING_TYPE,
                 'wemail_api_key'               => [
                     'type'          => 'text',

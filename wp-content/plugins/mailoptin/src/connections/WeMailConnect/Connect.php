@@ -91,7 +91,7 @@ class Connect extends AbstractWeMailConnect implements ConnectionInterface
      */
     public function register_connection($connections)
     {
-        $connections[self::$connectionName] = __('WeMail', 'mailoptin');
+        $connections[self::$connectionName] = __('weMail', 'mailoptin');
 
         return $connections;
     }

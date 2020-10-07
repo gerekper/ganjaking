@@ -1,7 +1,14 @@
 *** Shipment Tracking Changelog ***
 
+2020-09-30 - version 1.6.25
+* Fix - Match provider names without spaces to match ShipStation carrier string.
+* Tweak - WC 4.5 compatibility.
+
+2020-08-11 - version 1.6.24
+* Fix   - WordPress 5.5 REST API compatibility changes.
+
 2020-06-05 - version 1.6.23
-* Fix - Spaces in postal code prevents some tracking services to fail.
+* Fix   - Spaces in postal code prevents some tracking services to fail.
 * Tweak - WC 4.2 compatibility.
 
 2020-04-29 - version 1.6.22

@@ -78,15 +78,35 @@ class WC_Conditional_Content_Admin_Controller {
 			//Chosen
 			if ( WC_Conditional_Content_Compatibility::is_wc_version_gte_2_6() ) {
 				wp_enqueue_style( 'chosen', WC_Conditional_Content::plugin_url() . '/assets/css/chosen.css' );
-				
+
 				wp_register_script( 'chosen', WC_Conditional_Content::plugin_url() . '/assets/js/chosen/chosen.jquery' . $suffix . '.js', array('jquery'), WC_VERSION );
-				wp_register_script( 'ajax-chosen', WC_Conditional_Content::plugin_url() . '/assets/js/chosen/ajax-chosen.jquery' . $suffix . '.js', array('jquery', 'chosen'), WC_VERSION );
-				
 			}
-			
-			wp_enqueue_script('ajax-chosen');
-			
-			wp_enqueue_script( 'wccc-admin-app', WC_Conditional_Content::plugin_url() . '/assets/admin/js/wccc-admin-app.js', array('jquery', 'jquery-ui-datepicker', 'underscore', 'backbone', 'ajax-chosen') );
+
+			// enhanced dropdowns
+			wp_register_script( 'selectWoo', WC()->plugin_url() . '/assets/js/selectWoo/selectWoo.full.min.js', array( 'jquery' ), '1.0.0' );
+			wp_register_script( 'wc-enhanced-select', WC()->plugin_url() . '/assets/js/admin/wc-enhanced-select.min.js', array( 'jquery', 'selectWoo' ),WC_VERSION );
+			wp_localize_script(
+				'wc-enhanced-select',
+				'wc_enhanced_select_params',
+				array(
+					'i18n_no_matches'           => _x( 'No matches found', 'enhanced select', 'woocommerce-plugin-framework' ),
+					'i18n_ajax_error'           => _x( 'Loading failed', 'enhanced select', 'woocommerce-plugin-framework' ),
+					'i18n_input_too_short_1'    => _x( 'Please enter 1 or more characters', 'enhanced select', 'woocommerce-plugin-framework' ),
+					'i18n_input_too_short_n'    => _x( 'Please enter %qty% or more characters', 'enhanced select', 'woocommerce-plugin-framework' ),
+					'i18n_input_too_long_1'     => _x( 'Please delete 1 character', 'enhanced select', 'woocommerce-plugin-framework' ),
+					'i18n_input_too_long_n'     => _x( 'Please delete %qty% characters', 'enhanced select', 'woocommerce-plugin-framework' ),
+					'i18n_selection_too_long_1' => _x( 'You can only select 1 item', 'enhanced select', 'woocommerce-plugin-framework' ),
+					'i18n_selection_too_long_n' => _x( 'You can only select %qty% items', 'enhanced select', 'woocommerce-plugin-framework' ),
+					'i18n_load_more'            => _x( 'Loading more results&hellip;', 'enhanced select', 'woocommerce-plugin-framework' ),
+					'i18n_searching'            => _x( 'Searching&hellip;', 'enhanced select', 'woocommerce-plugin-framework' ),
+					'ajax_url'                  => admin_url( 'admin-ajax.php' ),
+					'search_products_nonce'     => wp_create_nonce( 'search-products' ),
+					'search_customers_nonce'    => wp_create_nonce( 'search-customers' ),
+				)
+			);
+
+
+			wp_enqueue_script( 'wccc-admin-app', WC_Conditional_Content::plugin_url() . '/assets/admin/js/wccc-admin-app.js', array('jquery', 'jquery-ui-datepicker', 'underscore', 'backbone', 'selectWoo', 'wc-enhanced-select', 'chosen'), WC_Conditional_Content::plugin_version() );
 
 			$data = array(
 			    'ajax_nonce' => wp_create_nonce( 'wcccaction-admin' ),

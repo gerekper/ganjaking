@@ -432,7 +432,7 @@ class Email_Campaign_List extends \WP_List_Table
                 self::delete_email_campaign($email_campaign_id);
                 // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
                 // add_query_arg() return the current url
-                wp_redirect(esc_url_raw($redirect_url));
+                wp_safe_redirect(esc_url_raw($redirect_url));
                 exit;
             }
         }
@@ -446,7 +446,7 @@ class Email_Campaign_List extends \WP_List_Table
                 wp_nonce_ays('mailoptin_clone_email_campaign');
             } else {
                 (new CloneEmailCampaign($email_campaign_id))->forge();
-                wp_redirect(esc_url_raw($redirect_url));
+                wp_safe_redirect(esc_url_raw($redirect_url));
                 exit;
             }
         }
@@ -462,7 +462,7 @@ class Email_Campaign_List extends \WP_List_Table
             foreach ($delete_ids as $id) {
                 self::delete_email_campaign($id);
             }
-            wp_redirect(esc_url_raw(add_query_arg()));
+            wp_safe_redirect(esc_url_raw(add_query_arg()));
             exit;
         }
     }

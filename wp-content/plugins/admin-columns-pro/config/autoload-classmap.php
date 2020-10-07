@@ -1,6 +1,6 @@
 <?php
 
-$dir = dirname( __FILE__, 2 );
+$dir = realpath( __DIR__ . '/..' );
 
 return array (
   'ACP\\API' => $dir . '/classes/API.php',
@@ -869,6 +869,7 @@ return array (
   'ACP\\Sorting\\Sorter' => $dir . '/classes/Sorting/Sorter.php',
   'ACP\\Sorting\\Strategy' => $dir . '/classes/Sorting/Strategy.php',
   'ACP\\Sorting\\Strategy\\Comment' => $dir . '/classes/Sorting/Strategy/Comment.php',
+  'ACP\\Sorting\\Strategy\\Media' => $dir . '/classes/Sorting/Strategy/Media.php',
   'ACP\\Sorting\\Strategy\\Post' => $dir . '/classes/Sorting/Strategy/Post.php',
   'ACP\\Sorting\\Strategy\\Taxonomy' => $dir . '/classes/Sorting/Strategy/Taxonomy.php',
   'ACP\\Sorting\\Strategy\\User' => $dir . '/classes/Sorting/Strategy/User.php',

@@ -19,18 +19,23 @@ namespace SkyVerge\WooCommerce\Jilt_Promotions\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
+use SkyVerge\WooCommerce\Jilt_Promotions\Handlers\Installation;
+use SkyVerge\WooCommerce\Jilt_Promotions\Handlers\Prompt;
 use SkyVerge\WooCommerce\Jilt_Promotions\Package;
 
 /**
  * The emails handler.
  */
-final class Emails {
+final class Emails extends Prompt {
 
 
 	/** @var string the "hide jilt prompt" meta key */
 	const META_KEY_HIDE_PROMPT = '_sv_wc_jilt_hide_emails_prompt';
 
-	/** @var string the AJAX action for installing Jilt */
+	/**
+	 * @var string the AJAX action for installing Jilt
+	 * @deprecated 1.1.0 Moved to Installation::AJAX_ACTION_INSTALL
+	 */
 	const AJAX_ACTION_INSTALL = 'sv_wc_jilt_install_jilt';
 
 	/** @var string the AJAX action for hiding the Jilt install prompt */
@@ -39,96 +44,85 @@ final class Emails {
 	/** @var string the option name to flag whether Jilt was installed via a prompt */
 	const OPTION_INSTALLED_FROM_PROMPT = 'sv_wc_jilt_installed_from_emails_prompt';
 
-	/** @var string the source value for the connection arguments */
-	const UTM_SOURCE = 'jilt-for-woocommerce';
-
-	/** @var string the medium value for the connection arguments */
-	const UTM_MEDIUM = 'oauth';
-
 	/** @var string the campaign value for the connection arguments */
 	const UTM_CAMPAIGN = 'wc-email-settings';
-
-	/** @var string the content value for the connection arguments */
-	const UTM_CONTENT = 'install-jilt-button';
 
 	/** @var string the global term value for the connection arguments */
 	const UTM_TERM_GLOBAL = 'global-email-settings';
 
 
 	/**
-	 * Emails constructor.
-	 *
-	 * @since 1.0.0
-	 */
-	public function __construct() {
-
-		$this->add_hooks();
-	}
-
-
-	/**
 	 * Adds the necessary action & filter hooks.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	private function add_hooks() {
+	protected function add_prompt_hooks() {
 
-		// add the Jilt install prompt hooks
-		if ( is_admin() && $this->should_display_prompt() ) {
+		// enqueue the assets
+		$this->enqueue_assets();
 
-			// enqueue the assets
-			$this->enqueue_assets();
+		// render the Jilt install prompt setting HTML for the general Emails settings page
+		add_action( 'woocommerce_admin_field_jilt_prompt', [ $this, 'render_general_setting_html'] );
 
-			// render the Jilt install prompt setting HTML for the general Emails settings page
-			add_action( 'woocommerce_admin_field_jilt_prompt', [ $this, 'render_general_setting_html'] );
+		// render the Jilt install prompt setting HTML for the individual email settings page
+		add_action( 'woocommerce_email_settings_after', [ $this, 'render_email_setting_html' ] );
 
-			// render the Jilt install prompt setting HTML for the individual email settings page
-			add_action( 'woocommerce_email_settings_after', [ $this, 'render_email_setting_html' ] );
+		// add the Jilt install "setting" to the existing general emails settings
+		add_filter( 'woocommerce_email_settings', [ $this, 'add_emails_setting' ] );
 
-			// add the Jilt install "setting" to the existing general emails settings
-			add_filter( 'woocommerce_email_settings', [ $this, 'add_emails_setting' ] );
-
-			// install Jilt via AJAX
-			add_action( 'wp_ajax_' . self::AJAX_ACTION_INSTALL, [ $this, 'ajax_install_plugin' ] );
-
-			// hide the Jilt install prompt via AJAX
-			add_action( 'wp_ajax_' . self::AJAX_ACTION_HIDE_PROMPT, [ $this, 'ajax_hide_prompt' ] );
-
-			// add the modal markup
-			add_action( 'admin_footer', function() {
-				include_once( Package::get_package_path() . '/views/admin/html-install-plugin-modal.php' );
-			} );
-		}
-
-		// add the connection redirect args if the plugin was installed from this prompt
-		add_filter( 'wc_jilt_app_connection_redirect_args', [ $this, 'add_connection_redirect_args' ] );
+		// hide the Jilt install prompt via AJAX
+		add_action( 'wp_ajax_' . self::AJAX_ACTION_HIDE_PROMPT, [ $this, 'ajax_hide_prompt' ] );
 	}
 
 
 	/**
-	 * Adds the connection redirect args if the plugin was installed from this prompt.
+	 * Gets the connection redirect args to attribute the plugin installation to this prompt.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 *
-	 * @param array $args redirect args
 	 * @return array
 	 */
-	public function add_connection_redirect_args( $args ) {
+	protected function get_connection_redirect_args() {
 
-		if ( $email_id = get_option( self::OPTION_INSTALLED_FROM_PROMPT, false ) ) {
+		$args = [];
 
-			$utm_term = str_replace( '_', '-', wc_clean( $email_id ) );
+		if ( $email_id = $this->get_installed_from_email_id() ) {
 
-			$args['utm_source']   = self::UTM_SOURCE;
-			$args['utm_medium']   = self::UTM_MEDIUM;
-			$args['utm_campaign'] = self::UTM_CAMPAIGN;
-			$args['utm_content']  = self::UTM_CONTENT;
-			$args['utm_term']     = $utm_term;
-			$args['partner']      = '1';
-			$args['campaign']     = self::UTM_CAMPAIGN;
+			$args = [
+				'utm_campaign' => self::UTM_CAMPAIGN,
+				'utm_term'     => $email_id,
+			];
 		}
 
 		return $args;
+	}
+
+
+	/**
+	 * Gets the ID of the email prompt that triggered the installation of Jilt for WooCommerce.
+	 *
+	 * The email ID will be used as the utm_term query parameter for the connection redirect.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return string
+	 */
+	private function get_installed_from_email_id() {
+
+		$email_id = '';
+
+		if ( $installed_from = get_option( self::OPTION_INSTALLED_FROM_PROMPT ) ) {
+
+			$email_id = $installed_from;
+
+		} elseif ( $installed_from = Installation::get_jilt_installed_from() ) {
+
+			if ( self::UTM_TERM_GLOBAL === $installed_from || 'emails:' === substr( $installed_from, 0, 7 ) ) {
+				$email_id = str_replace( 'emails:', '', $installed_from );
+			}
+		}
+
+		return $email_id;
 	}
 
 
@@ -152,79 +146,24 @@ final class Emails {
 		// admin styles
 		add_action( 'admin_init', function() {
 
-			wp_enqueue_style( 'sv-wc-jilt-prompt-email-styles', Package::get_assets_url() . '/css/admin/emails.css', [], Package::VERSION );
+			wp_enqueue_style( 'sv-wc-jilt-prompt-email-styles', Package::get_assets_url() . '/css/admin/emails.css', [ Installation::INSTALL_SCRIPT_HANDLE ], Package::VERSION );
 
 		} );
 
 		// admin scripts
 		add_action( 'admin_enqueue_scripts', function() {
 
-			wp_enqueue_script( 'wc-backbone-modal', null, [ 'backbone' ] );
-
-			wp_enqueue_script( 'sv-wc-jilt-prompt-email-scripts', Package::get_assets_url() . '/js/admin/emails.min.js', [ 'jquery', 'wc-backbone-modal' ], Package::VERSION );
+			wp_enqueue_script( 'sv-wc-jilt-prompt-email-scripts', Package::get_assets_url() . '/js/admin/emails.min.js', [ Installation::INSTALL_SCRIPT_HANDLE ], Package::VERSION );
 
 			wp_localize_script( 'sv-wc-jilt-prompt-email-scripts', 'sv_wc_jilt_email_prompt', [
-				'email_id' => ! empty( $_GET['section'] ) ? wc_clean( str_replace( '_', '-', $_GET['section'] ) ) : self::UTM_TERM_GLOBAL,
+				'prompt_id' => ! empty( $_GET['section'] ) ? 'emails:' . wc_clean( str_replace( '_', '-', $_GET['section'] ) ) : self::UTM_TERM_GLOBAL,
 				'nonces'   => [
 					'install_plugin' => wp_create_nonce( self::AJAX_ACTION_INSTALL ),
 					'hide_prompt'    => wp_create_nonce( self::AJAX_ACTION_HIDE_PROMPT ),
 				],
-				'i18n' => [
-					'install_error' => sprintf(
-						/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag */
-						__( 'Whoops, looks like there was an error installing Jilt for WooCommerce - please install manually %1$sfrom the Plugins menu%2$s.', 'sv-wc-jilt-promotions' ),
-						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=jilt+for+woocommerce&tab=search&type=term' ) ) . '">', '</a>'
-					),
-				],
 			] );
 
 		} );
-	}
-
-
-	/**
-	 * Installs Jilt via AJAX.
-	 *
-	 * @internal
-	 *
-	 * @since 1.0.0
-	 */
-	public function ajax_install_plugin() {
-
-		check_ajax_referer( self::AJAX_ACTION_INSTALL, 'nonce' );
-
-		try {
-
-			// sanity check, just in case a valid nonce is passed
-			if ( ! current_user_can( 'install_plugins' ) ) {
-				throw new \Exception( 'User cannot install plugins' );
-			}
-
-			\WC_Install::background_installer( 'jilt-for-woocommerce', [
-				'name'      => __( 'Jilt for WooCommerce', 'sv-wc-jilt-promotions' ),
-				'repo-slug' => 'jilt-for-woocommerce'
-			] );
-
-			$email_id = ! empty( $_POST['email_id'] ) ? $_POST['email_id'] : self::UTM_TERM_GLOBAL;
-
-			// flag the Jilt install as generated by the prompt
-			update_option( self::OPTION_INSTALLED_FROM_PROMPT, wc_clean( $email_id ) );
-
-			wp_send_json_success( [
-				'message'      => __( 'Jilt for WooCommerce successfully installed', 'sv-wc-jilt-promotions' ),
-				'redirect_url' => admin_url( 'admin.php?page=wc-jilt' ),
-			] );
-
-		} catch ( \Exception $exception ) {
-
-			wp_send_json_error( [
-				'message' => sprintf(
-					/* translators: Placeholders: %s - install error message */
-					__( 'Could not install Jilt for WooCommerce. %s', 'sv-wc-jilt-promotions' ),
-					$exception->getMessage()
-				),
-			] );
-		}
 	}
 
 
@@ -376,30 +315,6 @@ final class Emails {
 
 
 	/**
-	 * Whether the Jilt install prompt should be displayed.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-	private function should_display_prompt() {
-
-		$display = current_user_can( 'install_plugins' ) && ! $this->is_plugin_installed();
-
-		$display = $display && ! wc_string_to_bool( get_user_meta( get_current_user_id(), self::META_KEY_HIDE_PROMPT, true ) );
-
-		/**
-		 * Filters whether the Jilt install prompt should be displayed.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param bool $should_display whether the Jilt install prompt should be displayed
-		 */
-		return (bool) apply_filters( 'sv_wc_jilt_prompt_should_display', $display );
-	}
-
-
-	/**
 	 * Determines whether the Jilt install prompt should be shown in the given email's screen.
 	 *
 	 * @since 1.0.0
@@ -442,19 +357,6 @@ final class Emails {
 		 * @param \WC_Email $email email object
 		 */
 		return (bool) apply_filters( 'sv_wc_jilt_prompt_should_display_for_email', in_array( $email->id, $email_ids, true ), $email );
-	}
-
-
-	/**
-	 * Whether Jilt is already installed.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-	private function is_plugin_installed() {
-
-		return function_exists( 'wc_jilt' );
 	}
 
 

@@ -63,9 +63,8 @@ class Connect extends AbstractHubspotConnect implements ConnectionInterface
     {
         try {
 
-            if ( ! $this->hubspotInstance()) return [];
-
             $lists   = $this->hubspotInstance()->getEmailList();
+
             $default = [
                 'all' => __('All Contacts', 'mailoptin'),
             ];

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with other extensions.
  *
  * @class    WCS_ATT_Integrations
- * @version  3.1.7
+ * @version  3.1.18
  */
 class WCS_ATT_Integrations {
 
@@ -47,6 +47,11 @@ class WCS_ATT_Integrations {
 		if ( class_exists( 'WC_Name_Your_Price' ) ) {
 			require_once( 'integrations/class-wcs-att-integration-nyp.php' );
 			WCS_ATT_Integration_NYP::init();
+		}
+
+		// Flatsome compatibility.
+		if ( function_exists( 'wc_is_active_theme' ) && wc_is_active_theme( 'flatsome' ) ) {
+			require_once( 'integrations/class-wcs-att-integration-fs.php' );
 		}
 
 		// Define dependencies.

@@ -401,6 +401,8 @@ return array(
     'MailOptin\\FacebookCustomAudienceConnect\\Connect' => $baseDir . '/src/connections/FacebookCustomAudienceConnect/Connect.php',
     'MailOptin\\FacebookCustomAudienceConnect\\ConnectSettingsPage' => $baseDir . '/src/connections/FacebookCustomAudienceConnect/ConnectSettingsPage.php',
     'MailOptin\\FacebookCustomAudienceConnect\\Subscription' => $baseDir . '/src/connections/FacebookCustomAudienceConnect/Subscription.php',
+    'MailOptin\\FluentCRMConnect\\Connect' => $baseDir . '/src/connections/FluentCRMConnect/Connect.php',
+    'MailOptin\\FluentCRMConnect\\Subscription' => $baseDir . '/src/connections/FluentCRMConnect/Subscription.php',
     'MailOptin\\FormidableFormConnect\\Connect' => $baseDir . '/src/connections/FormidableFormConnect/Connect.php',
     'MailOptin\\FormidableFormConnect\\FormidableForm' => $baseDir . '/src/connections/FormidableFormConnect/FormidableForm.php',
     'MailOptin\\GEMConnect\\APIClass' => $baseDir . '/src/connections/GEMConnect/APIClass.php',

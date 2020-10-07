@@ -113,11 +113,13 @@ class Connections extends AbstractSettingsPage
                 <p><a href="%s" target="_blank">WordPress user registration</a></p>
                 <p><a href="%s" target="_blank">MailPoet email marketing plugin</a></p>
                 <p><a href="%s" target="_blank">Mailster email marketing plugin</a></p>
+                <p><a href="%s" target="_blank">FluentCRM plugin</a></p>
                 <p><a href="%s" target="_blank">Polylang, WPML & Weglot for multilingual support</a></p>
                 '),
                     'https://mailoptin.io/article/create-wordpress-user-registration-form/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=wp_user_registration',
-                    'https://mailoptin.io/article/create-mailpoet-opt-in-forms-wordpress/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=wp_user_registration',
-                    'https://mailoptin.io/article/create-mailster-optin-forms-wordpress/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=wp_user_registration',
+                    'https://mailoptin.io/article/create-mailpoet-opt-in-forms-wordpress/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=mailpoet',
+                    'https://mailoptin.io/article/create-mailster-optin-forms-wordpress/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=mailster',
+                    'https://mailoptin.io/article/create-fluent-crm-forms-wordpress/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=fluentcrm',
                     'https://mailoptin.io/article/create-multilingual-optin-campaigns/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=multilingual'
                 )
             ],

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Helper functions.
  *
  * @class    WC_CP_Helpers
- * @version  3.14.0
+ * @version  7.0.7
  */
 class WC_CP_Helpers {
 
@@ -316,5 +316,35 @@ class WC_CP_Helpers {
 		}
 
 		return $escaped_array;
+	}
+
+	/**
+	 * Get a new product instance, preserving runtime meta from another one.
+	 *
+	 * @since  7.0.7
+	 *
+	 * @param  WC_Product  $product
+	 * @return WC_Product
+	 */
+	public static function get_product_preserving_meta( $product ) {
+
+		$clone = wc_get_product( $product->get_id() );
+
+		$meta_data_to_set = array();
+
+		foreach ( $product->get_meta_data() as $meta ) {
+			if ( ! isset( $meta->id ) ) {
+				$meta_data_to_set[] = array(
+					'key'   => $meta->key,
+					'value' => $meta->value
+				);
+			}
+		}
+
+		foreach ( $meta_data_to_set as $meta ) {
+			$clone->add_meta_data( $meta[ 'key' ], $meta[ 'value' ], true );
+		}
+
+		return $clone;
 	}
 }

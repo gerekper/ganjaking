@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the MailOptin - Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailOptin - Lite 1.2.31.1\n"
+"Project-Id-Version: MailOptin - Lite 1.2.31.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
-"POT-Creation-Date: 2020-09-26 04:48:49+00:00\n"
+"POT-Creation-Date: 2020-10-05 07:07:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -226,40 +226,41 @@ msgstr ""
 msgid "Unexpected error. Please try again"
 msgstr ""
 
-#: src/connections/ActiveCampaignConnect/Subscription.php:112
-#: src/connections/ActiveCampaignConnect/Subscription.php:117
-#: src/connections/AweberConnect/Subscription.php:106
-#: src/connections/AweberConnect/Subscription.php:112
+#: src/connections/ActiveCampaignConnect/Subscription.php:108
+#: src/connections/ActiveCampaignConnect/Subscription.php:113
+#: src/connections/AweberConnect/Subscription.php:102
+#: src/connections/AweberConnect/Subscription.php:108
 #: src/connections/CampaignMonitorConnect/Subscription.php:77
 #: src/connections/CampaignMonitorConnect/Subscription.php:82
+#: src/connections/ConvertFoxConnect/Subscription.php:135
 #: src/connections/ConvertFoxConnect/Subscription.php:140
-#: src/connections/ConvertFoxConnect/Subscription.php:145
+#: src/connections/ConvertKitConnect/Subscription.php:81
 #: src/connections/ConvertKitConnect/Subscription.php:86
-#: src/connections/ConvertKitConnect/Subscription.php:91
 #: src/connections/CtctConnect/Subscription.php:42
 #: src/connections/CtctConnect/Subscription.php:47
-#: src/connections/DripConnect/Subscription.php:113
-#: src/connections/DripConnect/Subscription.php:118
+#: src/connections/DripConnect/Subscription.php:110
+#: src/connections/DripConnect/Subscription.php:115
 #: src/connections/EmailOctopusConnect/Subscription.php:95
 #: src/connections/EmailOctopusConnect/Subscription.php:100
 #: src/connections/EmmaConnect/Subscription.php:91
 #: src/connections/EmmaConnect/Subscription.php:97
 #: src/connections/FacebookCustomAudienceConnect/Subscription.php:47
 #: src/connections/FacebookCustomAudienceConnect/Subscription.php:52
+#: src/connections/FluentCRMConnect/Subscription.php:107
 #: src/connections/GEMConnect/Subscription.php:78
 #: src/connections/GEMConnect/Subscription.php:83
-#: src/connections/GetResponseConnect/Subscription.php:107
-#: src/connections/GetResponseConnect/Subscription.php:112
+#: src/connections/GetResponseConnect/Subscription.php:103
+#: src/connections/GetResponseConnect/Subscription.php:108
 #: src/connections/HubspotConnect/Subscription.php:115
 #: src/connections/HubspotConnect/Subscription.php:120
-#: src/connections/InfusionsoftConnect/Subscription.php:230
-#: src/connections/InfusionsoftConnect/Subscription.php:236
-#: src/connections/JiltConnect/Subscription.php:80
-#: src/connections/JiltConnect/Subscription.php:85
+#: src/connections/InfusionsoftConnect/Subscription.php:225
+#: src/connections/InfusionsoftConnect/Subscription.php:231
+#: src/connections/JiltConnect/Subscription.php:76
+#: src/connections/JiltConnect/Subscription.php:81
 #: src/connections/KlaviyoConnect/Subscription.php:94
 #: src/connections/KlaviyoConnect/Subscription.php:99
-#: src/connections/MailChimpConnect/Subscription.php:233
-#: src/connections/MailChimpConnect/Subscription.php:238
+#: src/connections/MailChimpConnect/Subscription.php:229
+#: src/connections/MailChimpConnect/Subscription.php:234
 #: src/connections/MailPoetConnect/Subscription.php:118
 #: src/connections/MailerliteConnect/Subscription.php:84
 #: src/connections/MailerliteConnect/Subscription.php:95
@@ -267,24 +268,24 @@ msgstr ""
 #: src/connections/MailjetConnect/Subscription.php:116
 #: src/connections/MailsterConnect/Subscription.php:95
 #: src/connections/MoosendConnect/Subscription.php:63
-#: src/connections/OntraportConnect/Subscription.php:104
-#: src/connections/OntraportConnect/Subscription.php:110
+#: src/connections/OntraportConnect/Subscription.php:99
+#: src/connections/OntraportConnect/Subscription.php:105
 #: src/connections/SendFoxConnect/Subscription.php:47
 #: src/connections/SendFoxConnect/Subscription.php:53
 #: src/connections/SendGridConnect/Subscription.php:83
 #: src/connections/SendGridConnect/Subscription.php:89
 #: src/connections/SendinblueConnect/Subscription.php:104
 #: src/connections/SendinblueConnect/Subscription.php:109
-#: src/connections/SendlaneConnect/Subscription.php:84
-#: src/connections/SendlaneConnect/Subscription.php:90
+#: src/connections/SendlaneConnect/Subscription.php:79
+#: src/connections/SendlaneConnect/Subscription.php:85
 #: src/connections/SendyConnect/Subscription.php:79
 #: src/connections/SendyConnect/Subscription.php:83
 #: src/connections/VerticalResponseConnect/Subscription.php:82
 #: src/connections/VerticalResponseConnect/Subscription.php:93
 #: src/connections/WeMailConnect/Subscription.php:61
 #: src/connections/WeMailConnect/Subscription.php:67
-#: src/connections/ZohoCRMConnect/Subscription.php:133
-#: src/connections/ZohoCRMConnect/Subscription.php:138
+#: src/connections/ZohoCRMConnect/Subscription.php:129
+#: src/connections/ZohoCRMConnect/Subscription.php:134
 #: src/connections/ZohoCampaignsConnect/Subscription.php:103
 #: src/connections/ZohoCampaignsConnect/Subscription.php:108
 msgid "There was an error saving your contact. Please try again."
@@ -496,6 +497,7 @@ msgstr ""
 #: src/connections/ContactForm7Connect/panel-settings-view.php:74
 #: src/connections/ElementorConnect/Elementor.php:98
 #: src/connections/ElementorConnect/Elementor.php:111
+#: src/connections/FluentCRMConnect/Connect.php:177
 #: src/connections/FormidableFormConnect/panel-settings-view.php:48
 #: src/connections/FormidableFormConnect/panel-settings-view.php:64
 #: src/connections/GravityFormsConnect/GFMailOptin.php:329
@@ -697,7 +699,7 @@ msgid ""
 msgstr ""
 
 #: src/connections/ConvertFoxConnect/Connect.php:112
-#: src/connections/HubspotConnect/Connect.php:70
+#: src/connections/HubspotConnect/Connect.php:69
 #: src/connections/InfusionsoftConnect/Connect.php:252
 #: src/connections/OntraportConnect/Connect.php:163
 #: src/connections/SendGridConnect/Connect.php:83
@@ -1127,6 +1129,93 @@ msgstr ""
 msgid "An error occurred. Please try again."
 msgstr ""
 
+#: src/connections/FluentCRMConnect/Connect.php:48
+msgid "FluentCRM"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:100
+msgid "Prefix"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:101
+#: src/connections/WeMailConnect/Connect.php:148
+msgid "Phone"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:102
+#: src/connections/WeMailConnect/Connect.php:149
+msgid "Address Line 1"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:103
+#: src/connections/WeMailConnect/Connect.php:150
+msgid "Address Line 2"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:104
+#: src/connections/GEMConnect/Connect.php:96
+#: src/connections/KlaviyoConnect/Connect.php:116
+#: src/connections/MailerliteConnect/Connect.php:106
+#: src/connections/VerticalResponseConnect/Connect.php:107
+#: src/connections/WeMailConnect/Connect.php:151
+#: src/core/src/Admin/SettingsPage/Settings.php:176
+msgid "City"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:105
+#: src/connections/GEMConnect/Connect.php:101
+#: src/connections/KlaviyoConnect/Connect.php:117
+#: src/connections/MailerliteConnect/Connect.php:108
+#: src/connections/VerticalResponseConnect/Connect.php:108
+#: src/connections/WeMailConnect/Connect.php:152
+msgid "State"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:106
+#: src/connections/GEMConnect/Connect.php:103
+#: src/connections/KlaviyoConnect/Connect.php:118
+#: src/connections/MailerliteConnect/Connect.php:105
+#: src/connections/VerticalResponseConnect/Connect.php:110
+#: src/connections/WeMailConnect/Connect.php:153
+#: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:593
+#: src/core/src/Admin/SettingsPage/Settings.php:188
+msgid "Country"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:107
+#: src/connections/VerticalResponseConnect/Connect.php:109
+msgid "Postal Code"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:108
+#: src/connections/WeMailConnect/Connect.php:155
+msgid "Date of Birth"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:178
+msgid "Select tags to assign to leads."
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:185
+#: src/connections/MailChimpConnect/Connect.php:381
+#: src/connections/MailsterConnect/Connect.php:175
+msgid "Disable Double Optin"
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:186
+#: src/connections/MailsterConnect/Connect.php:176
+msgid ""
+"Double optin requires users to confirm their email address before they are "
+"added or subscribed."
+msgstr ""
+
+#: src/connections/FluentCRMConnect/Connect.php:192
+#: src/connections/WeMailConnect/Connect.php:67
+msgid ""
+"Upgrade to %sMailOptin Premium%s to add custom fields and apply tags to "
+"subscribers."
+msgstr ""
+
 #: src/connections/FormidableFormConnect/FormidableForm.php:141
 msgid "Formidable Forms"
 msgstr ""
@@ -1149,15 +1238,6 @@ msgstr ""
 msgid "GoDaddy Email Marketing"
 msgstr ""
 
-#: src/connections/GEMConnect/Connect.php:96
-#: src/connections/KlaviyoConnect/Connect.php:116
-#: src/connections/MailerliteConnect/Connect.php:106
-#: src/connections/VerticalResponseConnect/Connect.php:107
-#: src/connections/WeMailConnect/Connect.php:151
-#: src/core/src/Admin/SettingsPage/Settings.php:176
-msgid "City"
-msgstr ""
-
 #: src/connections/GEMConnect/Connect.php:98
 #: src/connections/MailerliteConnect/Connect.php:104
 #: src/connections/VerticalResponseConnect/Connect.php:102
@@ -1178,26 +1258,8 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
-#: src/connections/GEMConnect/Connect.php:101
-#: src/connections/KlaviyoConnect/Connect.php:117
-#: src/connections/MailerliteConnect/Connect.php:108
-#: src/connections/VerticalResponseConnect/Connect.php:108
-#: src/connections/WeMailConnect/Connect.php:152
-msgid "State"
-msgstr ""
-
 #: src/connections/GEMConnect/Connect.php:102
 msgid "Zip"
-msgstr ""
-
-#: src/connections/GEMConnect/Connect.php:103
-#: src/connections/KlaviyoConnect/Connect.php:118
-#: src/connections/MailerliteConnect/Connect.php:105
-#: src/connections/VerticalResponseConnect/Connect.php:110
-#: src/connections/WeMailConnect/Connect.php:153
-#: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:593
-#: src/core/src/Admin/SettingsPage/Settings.php:188
-msgid "Country"
 msgstr ""
 
 #: src/connections/GEMConnect/ConnectSettingsPage.php:36
@@ -1359,13 +1421,6 @@ msgstr ""
 
 #: src/connections/HubspotConnect/AbstractHubspotConnect.php:54
 msgid "Hubspot access token not found."
-msgstr ""
-
-#: src/connections/HubspotConnect/AbstractHubspotConnect.php:79
-#: src/connections/InfusionsoftConnect/AbstractInfusionsoftConnect.php:77
-#: src/connections/ZohoCRMConnect/AbstractZohoCRMConnect.php:100
-#: src/connections/ZohoCampaignsConnect/AbstractZohoCampaignsConnect.php:121
-msgid "Error failed to refresh"
 msgstr ""
 
 #: src/connections/HubspotConnect/Connect.php:40
@@ -1811,11 +1866,6 @@ msgstr ""
 msgid "Comma-separated list of tags to assign to a new subscriber in MailChimp"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:381
-#: src/connections/MailsterConnect/Connect.php:175
-msgid "Disable Double Optin"
-msgstr ""
-
 #: src/connections/MailChimpConnect/Connect.php:382
 msgid ""
 "Double optin requires users to confirm their email address before they are "
@@ -2090,12 +2140,6 @@ msgstr ""
 
 #: src/connections/MailsterConnect/Connect.php:54
 msgid "Mailster"
-msgstr ""
-
-#: src/connections/MailsterConnect/Connect.php:176
-msgid ""
-"Double optin requires users to confirm their email address before they are "
-"added or subscribed."
 msgstr ""
 
 #: src/connections/MailsterConnect/Connect.php:182
@@ -2373,7 +2417,7 @@ msgstr ""
 #: src/connections/SendinblueConnect/ConnectSettingsPage.php:29
 msgid ""
 "%sClick here to get it%s. This is only required to unlock our premium "
-"integration with Elementor Forms."
+"integration with Elementor Forms for free."
 msgstr ""
 
 #: src/connections/SendinblueConnect/ConnectSettingsPage.php:35
@@ -2548,10 +2592,6 @@ msgstr ""
 msgid "Street Address 2"
 msgstr ""
 
-#: src/connections/VerticalResponseConnect/Connect.php:109
-msgid "Postal Code"
-msgstr ""
-
 #: src/connections/VerticalResponseConnect/Connect.php:111
 msgid "Mobile Phone Number"
 msgstr ""
@@ -2631,43 +2671,21 @@ msgid "Learn more about our %slead generation and email automation features%s"
 msgstr ""
 
 #: src/connections/WeMailConnect/AbstractWeMailConnect.php:82
-msgid "WeMail API Key not found."
-msgstr ""
-
-#: src/connections/WeMailConnect/Connect.php:67
-msgid ""
-"Upgrade to %sMailOptin Premium%s to add custom fields and apply tags to "
-"subscribers."
+msgid "weMail API Key not found."
 msgstr ""
 
 #: src/connections/WeMailConnect/Connect.php:94
 #: src/connections/WeMailConnect/ConnectSettingsPage.php:40
 #: src/connections/WeMailConnect/ConnectSettingsPage.php:41
-msgid "WeMail"
+msgid "weMail"
 msgstr ""
 
 #: src/connections/WeMailConnect/Connect.php:147
 msgid "Mobile"
 msgstr ""
 
-#: src/connections/WeMailConnect/Connect.php:148
-msgid "Phone"
-msgstr ""
-
-#: src/connections/WeMailConnect/Connect.php:149
-msgid "Address Line 1"
-msgstr ""
-
-#: src/connections/WeMailConnect/Connect.php:150
-msgid "Address Line 2"
-msgstr ""
-
 #: src/connections/WeMailConnect/Connect.php:154
 msgid "Zip Code"
-msgstr ""
-
-#: src/connections/WeMailConnect/Connect.php:155
-msgid "Date of Birth"
 msgstr ""
 
 #: src/connections/WeMailConnect/ConnectSettingsPage.php:32
@@ -4579,7 +4597,7 @@ msgstr ""
 
 #: src/core/src/Admin/Customizer/OptinForm/Customizer.php:759
 #: src/core/src/Admin/SettingsPage/Connections.php:50
-#: src/core/src/Admin/SettingsPage/Connections.php:171
+#: src/core/src/Admin/SettingsPage/Connections.php:173
 msgid "Integrations"
 msgstr ""
 
@@ -5501,16 +5519,18 @@ msgid ""
 "plugin</a></p>\n"
 "                <p><a href=\"%s\" target=\"_blank\">Mailster email marketing "
 "plugin</a></p>\n"
+"                <p><a href=\"%s\" target=\"_blank\">FluentCRM plugin</a></"
+"p>\n"
 "                <p><a href=\"%s\" target=\"_blank\">Polylang, WPML & Weglot "
 "for multilingual support</a></p>\n"
 "                "
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/Connections.php:125
+#: src/core/src/Admin/SettingsPage/Connections.php:127
 msgid "Integration with Form Plugins"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/Connections.php:126
+#: src/core/src/Admin/SettingsPage/Connections.php:128
 msgid ""
 "MailOptin integrates with popular WordPress form plugins to help save all "
 "contacts and subscribers from your forms submissions to your email marketing "
@@ -6071,36 +6091,40 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:217
+#: src/core/src/Connections/AbstractConnect.php:228
 msgid "%sView Error Log%s"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:281
+#: src/core/src/Connections/AbstractConnect.php:292
 msgid "Use the coupon %s on checkout to save 20%% off MailOptin premium (%s)"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:283
+#: src/core/src/Connections/AbstractConnect.php:294
 msgid "Get 20%% Discount Now (%s)"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:296
+#: src/core/src/Connections/AbstractConnect.php:307
 msgid "Warning! \"%s\" Optin Campaign Is Not Working"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:303
+#: src/core/src/Connections/AbstractConnect.php:314
 msgid ""
 "The optin campaign \"%s\" is failing to convert leads due to the following "
 "error \"%s\"."
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:310
+#: src/core/src/Connections/AbstractConnect.php:321
 msgid "This e-mail was sent by %s plugin on %s (%s)"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:334
+#: src/core/src/Connections/AbstractConnect.php:345
 msgid ""
 "The optin campaign \"%s\" is failing to convert leads due to the following "
 "error \"%s\". %6$s -- %6$sThis e-mail was sent by %s plugin on %s (%s)"
+msgstr ""
+
+#: src/core/src/Connections/AbstractConnect.php:472
+msgid "Error failed to refresh"
 msgstr ""
 
 #: src/core/src/EmailCampaigns/AbstractTemplate.php:429
@@ -7600,9 +7624,9 @@ msgstr ""
 msgid "MailOptin - Lite"
 msgstr ""
 
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.31.1)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.31.3)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.31.1)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.31.3)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://mailoptin.io"
 msgstr ""

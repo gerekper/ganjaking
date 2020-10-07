@@ -57,6 +57,17 @@ abstract class AbstractConnect
         return $data;
     }
 
+    public function get_integration_tags($data_key)
+    {
+        $lead_tags = $this->get_integration_data($data_key);
+
+        if ( ! empty($this->extras['form_tags'])) {
+            $lead_tags = $this->extras['form_tags'];
+        }
+
+        return $lead_tags;
+    }
+
     public function form_custom_fields()
     {
         return OptinCampaignsRepository::form_custom_fields($this->extras['optin_campaign_id']);
@@ -435,5 +446,45 @@ $footer_content";
                 $uuid
             )
         );
+    }
+
+    public function oauth_token_refresh($integration, $refresh_token, $args = [])
+    {
+        $url = sprintf(MAILOPTIN_OAUTH_URL . '/%s/?refresh_token=%s', $integration, $refresh_token);
+
+        if ( ! empty($args)) {
+            $url = add_query_arg($args, $url);
+        }
+
+        $response = wp_remote_get($url);
+
+        $result = json_decode(wp_remote_retrieve_body($response), true);
+
+        if ( ! isset($result['success']) || $result['success'] !== true) {
+
+            // try refresh twice before failing.
+
+            $response = wp_remote_get($url);
+            $result   = json_decode(wp_remote_retrieve_body($response), true);
+
+            if ( ! isset($result['success']) || $result['success'] !== true) {
+                self::save_optin_error_log('Error failed to refresh ' . json_encode($result), $integration);
+                throw new \Exception(__('Error failed to refresh', 'mailoptin'), 9990009909);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Subtracting 5 minute to account for any lag and to ensure token is refreshed before it expires.
+     *
+     * @param $expires_at
+     *
+     * @return float|int
+     */
+    public function oauth_expires_at_transform($expires_at)
+    {
+        return absint($expires_at) - (5 * MINUTE_IN_SECONDS);
     }
 }

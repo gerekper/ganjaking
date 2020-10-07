@@ -7,6 +7,7 @@ use AC\Asset\Location;
 use AC\Capabilities;
 use AC\ListScreenTypes;
 use AC\Request;
+use AC\Type\Url;
 use ACP\Admin;
 use ACP\Migrate;
 use ACP\Plugin;
@@ -57,7 +58,7 @@ final class AdminColumnsPro extends AC\Plugin {
 	private function __construct() {
 		$this->api = new API();
 		$this->api
-			->set_url( ac_get_site_url() )
+			->set_url( Url\Site::URL )
 			->set_proxy( 'https://api.admincolumns.com' )
 			->set_request_meta( [
 				'php_version' => PHP_VERSION,

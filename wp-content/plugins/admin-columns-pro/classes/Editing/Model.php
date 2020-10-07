@@ -160,8 +160,8 @@ abstract class Model extends ACP\Model {
 	 * Register column field settings
 	 */
 	public function register_settings() {
-		$this->column->add_setting( new Editing\Settings( $this->column ) )
-		             ->add_setting( new Editing\Settings\BulkEditing( $this->column ) );
+		$this->column->add_setting( new Editing\Settings( $this->column ) );
+		$this->column->add_setting( new Editing\Settings\BulkEditing( $this->column ) );
 	}
 
 }

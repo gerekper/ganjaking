@@ -30,11 +30,7 @@ class Subscription extends AbstractAweberConnect
     {
         try {
 
-            $lead_tags = $this->get_integration_data('AweberConnect_lead_tags');
-
-            if ( ! empty($this->extras['form_tags'])) {
-                $lead_tags = $this->extras['form_tags'];
-            }
+            $lead_tags = $this->get_integration_tags('AweberConnect_lead_tags');
 
             if (isset($this->extras['mo-acceptance']) && $this->extras['mo-acceptance'] == 'yes') {
                 $gdpr_tag  = apply_filters('mo_connections_aweber_acceptance_tag', 'gdpr');

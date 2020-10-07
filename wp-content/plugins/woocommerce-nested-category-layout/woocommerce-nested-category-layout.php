@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Nested Category Layout
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-nested-category-layout/
+ * Documentation URI: https://docs.woocommerce.com/document/woocommerce-nested-category-layout/
  * Description: WooCommerce Nested Category Catalog Page Layout
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.14.4
+ * Version: 1.15.1
  * Text Domain: woocommerce-nested-category-layout
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +23,7 @@
  *
  * Woo: 142840:60d07379d28e80cf143790b8aea869a7
  * WC requires at least: 3.0.9
- * WC tested up to: 4.1.0
+ * WC tested up to: 4.5.2
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -85,6 +86,8 @@ class WC_Nested_Category_Layout_Loader {
 		add_action( 'admin_init', array( $this, 'add_plugin_notices' ) );
 
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
+
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
@@ -329,6 +332,24 @@ class WC_Nested_Category_Layout_Loader {
 			</div>
 			<?php
 		}
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 1.15.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

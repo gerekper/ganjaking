@@ -20,6 +20,9 @@ if ( !class_exists( 'WC_Conditional_Content' ) ) {
 			}
 		}
 
+		private static $version = '2.1.4';
+
+
 		/**
 		 * Creates a new instance of the WC_Conditional_Content class.
 		 */
@@ -318,6 +321,10 @@ if ( !class_exists( 'WC_Conditional_Content' ) ) {
 			}
 
 			return false;
+		}
+
+		public static function plugin_version() {
+			return self::$version;
 		}
 
 		/**

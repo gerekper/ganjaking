@@ -86,31 +86,18 @@ class AbstractZohoCRMConnect extends AbstractConnect
 
             try {
 
-                $response = wp_remote_get(
-                    sprintf(MAILOPTIN_OAUTH_URL . '/zohocrm/?refresh_token=%s&location=%s',
-                        $this->refresh_token,
-                        $this->location
-                    )
-                );
-
-                $result = json_decode(wp_remote_retrieve_body($response), true);
-
-                if ( ! isset($result['success']) || $result['success'] !== true) {
-                    self::save_optin_error_log('Error failed to refresh ' . json_encode($result), 'zohocrm');
-                    throw new \Exception(__('Error failed to refresh', 'mailoptin'));
-                }
+                $result = $this->oauth_token_refresh('zohocrm', $this->refresh_token, ['location' => $this->location]);
 
                 $option_name = MAILOPTIN_CONNECTIONS_DB_OPTION_NAME;
                 $old_data    = get_option($option_name, []);
 
-                // subtracting 5 minute to account for any lag and to ensure token is refreshed before it expires.
-                $expire_at = absint($result['data']['expires_at']) - (5 * MINUTE_IN_SECONDS);
+                $expires_at = $this->oauth_expires_at_transform($result['data']['expires_at']);
 
                 $new_data = [
                     'zohocrm_access_token' => $result['data']['access_token'],
                     // when a token is refreshed, zoho doesn't include a new refresh token as it never expires unless it was revoked.
                     // And in that case, the user will re-authorize mailoptin to generate a new token
-                    'zohocrm_expires_at'   => $expire_at,
+                    'zohocrm_expires_at'   => $expires_at,
                     'zohocrm_api_domain'   => $result['data']['api_domain'],
                 ];
 
@@ -119,7 +106,7 @@ class AbstractZohoCRMConnect extends AbstractConnect
                 $instance = new Zoho($config, null,
                     new OAuthCredentialStorage([
                         'zoho.access_token'    => $result['data']['access_token'],
-                        'zoho.expires_at'      => $result['data']['expires_at'],
+                        'zoho.expires_at'      => $expires_at,
                         'zoho.api_domain'      => $result['data']['api_domain'],
                         'zoho.location'        => $this->location,
                         'zoho.refresh_token'   => $this->refresh_token,

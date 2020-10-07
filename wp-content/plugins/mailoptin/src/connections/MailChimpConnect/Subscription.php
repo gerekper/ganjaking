@@ -207,11 +207,7 @@ class Subscription extends AbstractMailChimpConnect
                 'ip_signup'     => \MailOptin\Core\get_ip_address()
             ];
 
-            $lead_tags = $this->get_integration_data('MailChimpConnect_lead_tags');
-
-            if ( ! empty($this->extras['form_tags'])) {
-                $lead_tags = $this->extras['form_tags'];
-            }
+            $lead_tags = $this->get_integration_tags('MailChimpConnect_lead_tags');
 
             if ( ! empty($lead_tags)) {
                 $parameters['tags'] = array_map('trim', explode(',', $lead_tags));

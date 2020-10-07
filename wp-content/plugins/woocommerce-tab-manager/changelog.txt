@@ -1,5 +1,8 @@
 *** WooCommerce Tab Manager Changelog ***
 
+2020.09.30 - version 1.13.1
+ * Misc - Remove the SkyVerge help menu item as part of the plugin assets
+
 2020.08.17 - version 1.13.0
  * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
 

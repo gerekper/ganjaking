@@ -195,23 +195,16 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		// Google do not allow free items in the feed.
 		if ( empty( $feed_item->price_inc_tax ) ) {
 			$this->debug->log( 'Empty price for %d, skipping...', [ $feed_item->specific_id ] );
+
 			return '';
 		}
 		// Google do not allow items without images.
 		if ( empty( $feed_item->image_link ) && $this->hide_if_no_images ) {
 			return '';
 		}
-		// Remove non-printable UTF-8 / CDATA escaping
-		$title = preg_replace(
-			'/[\x00-\x08\x0B\x0C\x0E-\x1F\x80-\x9F]/u',
-			'',
-			$feed_item->title
-		);
-		$title = str_replace( ']]>', ']]]]><![CDATA[>', $title );
 
 		// Strip out any disallowed tags, preserving their contents.
 		$product_description = wp_kses( $feed_item->description, $this->allowed_description_markup );
-		$product_description = str_replace( ']]>', ']]]]><![CDATA[>', $product_description );
 
 		$output  = '';
 		$output .= "    <item>\n";
@@ -219,12 +212,12 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		if ( isset( $this->settings['send_item_group_id'] ) && 'on' === $this->settings['send_item_group_id'] ) {
 			$output .= '      <g:item_group_id>' . $feed_item->item_group_id . "</g:item_group_id>\n";
 		}
-		$output .= '      <title><![CDATA[' . $title . "]]></title>\n";
+		$output .= '      <title>' . $this->esc_xml( $feed_item->title ) . "</title>\n";
 		$output .= $this->generate_link( $feed_item );
-		$output .= '      <description><![CDATA[' . $product_description . "]]></description>\n";
+		$output .= '      <description>' . $this->esc_xml( $product_description ) . "</description>\n";
 
 		if ( ! empty( $feed_item->image_link ) ) {
-			$output .= '      <g:image_link><![CDATA[' . $feed_item->image_link . "]]></g:image_link>\n";
+			$output .= '      <g:image_link>' . $this->esc_xml( $feed_item->image_link ) . "</g:image_link>\n";
 		}
 
 		$output .= $this->render_prices( $feed_item );
@@ -236,7 +229,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 				if ( 10 === $cnt ) {
 					break;
 				}
-				$output .= '      <g:additional_image_link><![CDATA[' . $image_url . "]]></g:additional_image_link>\n";
+				$output .= '      <g:additional_image_link>' . $this->esc_xml( $image_url ) . "</g:additional_image_link>\n";
 				$cnt ++;
 			}
 		}
@@ -285,11 +278,11 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 					if ( is_array( $element_value ) ) {
 						foreach ( $element_value as $sub_element_name => $sub_element_value ) {
 							$output .= '      <g:' . $sub_element_name . '>';
-							$output .= '<![CDATA[' . $sub_element_value . ']]>';
+							$output .= $this->esc_xml( $sub_element_value );
 							$output .= '</g:' . $sub_element_name . ">\n";
 						}
 					} else {
-						$output .= '<![CDATA[' . $element_value . ']]>';
+						$output .= $this->esc_xml( $element_value );
 					}
 					$output .= '</g:' . $element_name . ">\n";
 
@@ -402,7 +395,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	 * Output the "title" element in the feed intro.
 	 */
 	protected function render_feed_title() {
-		echo '    <title><![CDATA[' . $this->store_info->blog_name . " Products]]></title>\n";
+		echo '    <title>' . $this->esc_xml( $this->store_info->blog_name . ' Products' ) . "</title>\n";
 	}
 
 	/**

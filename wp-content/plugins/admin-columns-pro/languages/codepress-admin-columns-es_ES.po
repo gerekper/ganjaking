@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns Pro\n"
-"PO-Revision-Date: 2020-05-01 16:32+0000\n"
-"Last-Translator: Luciano Petrosini <petrosini@gmail.com>\n"
+"PO-Revision-Date: 2020-09-15 08:03+0000\n"
+"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/codepress/admin-columns-pro/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: admin-columns-pro/admin-columns-pro.php:102
+#: admin-columns-pro/admin-columns-pro.php:111
 msgid ""
 "This plugin is not compatible with %s. We disabled it because it might stop "
 "the WordPress Admin from working properly. Try updating this plugin to the "
@@ -33,74 +33,74 @@ msgstr "Este plugin no es compatible con %s . Lo deshabilitamos porque podría i
 msgid "Settings"
 msgstr "Configuración"
 
-#: admin-columns-pro/classes/Admin/Settings.php:57
-msgid "(no name)"
-msgstr "(sin nombre)"
-
-#: admin-columns-pro/classes/Admin/Settings.php:134
+#: admin-columns-pro/classes/Admin/Settings.php:138
 msgid "Select roles"
 msgstr "Seleccionar roles"
 
-#: admin-columns-pro/classes/Admin/Settings.php:135
+#: admin-columns-pro/classes/Admin/Settings.php:139
 msgid "Select users"
 msgstr "Seleccionar usuarios"
 
-#: admin-columns-pro/classes/Admin/Settings.php:144
+#: admin-columns-pro/classes/Admin/Settings.php:148
 msgid "Make horizontal scrolling the default when users visit the table."
 msgstr "Haga que el desplazamiento horizontal sea el valor predeterminado cuando los usuarios visiten la tabla."
 
-#: admin-columns-pro/classes/Admin/Settings.php:145
+#: admin-columns-pro/classes/Admin/Settings.php:149
 msgid ""
 "Users can change this preference by opening “screen options” on the table "
 "screen."
 msgstr "Los usuarios pueden cambiar esta preferencia abriendo \"opciones de pantalla\" en la pantalla de la tabla."
 
-#: admin-columns-pro/classes/Admin/Settings.php:148
+#: admin-columns-pro/classes/Admin/Settings.php:152
 msgid ""
 "This feature will automatically adjust the width of the columns based on the"
 " screen size."
 msgstr "Esta característica ajustará automáticamente el ancho de las columnas según el tamaño de la pantalla."
 
-#: admin-columns-pro/classes/Admin/Settings.php:149
+#: admin-columns-pro/classes/Admin/Settings.php:153
 msgid ""
 "When the columns do not fit on the screen you can horizontally scroll your "
 "columns by dragging the horizontal scrollbar or by swiping left or right "
 "with the mouse."
 msgstr "Cuando las columnas no caben en la pantalla, puede desplazar horizontalmente sus columnas arrastrando la barra de desplazamiento horizontal o deslizando hacia la izquierda o hacia la derecha con el ratón."
 
-#: admin-columns-pro/classes/Admin/Settings.php175,
-#: admin-columns-pro/classes/Table/HorizontalScrolling.php87,
+#: admin-columns-pro/classes/Admin/Settings.php179,
+#: admin-columns-pro/classes/Table/HorizontalScrolling.php88,
 #: admin-columns-pro/templates/admin/list-screen-settings.php:73
 msgid "Horizontal Scrolling"
 msgstr "Desplazamiento horizontal"
 
-#: admin-columns-pro/classes/Admin/Settings.php:249
+#: admin-columns-pro/classes/Admin/Settings.php:272
 msgid "Sets"
 msgstr "Conjuntos"
 
-#: admin-columns-pro/classes/Admin/Settings.php:252
+#: admin-columns-pro/classes/Admin/Settings.php:275
 msgid "Sets allow users to switch between different column views."
 msgstr "Los conjuntos permiten a los usuarios cambiar diferentes vistas de columnas."
 
-#: admin-columns-pro/classes/Admin/Settings.php:255
+#: admin-columns-pro/classes/Admin/Settings.php:278
 msgid ""
 "Available sets are selectable from the overview screen. Users can have their"
 " own column view preference."
 msgstr "Los conjuntos disponibles se pueden seleccionar desde la pantalla de resumen. Los usuarios pueden tener su propia preferencia de vista de columna."
 
-#: admin-columns-pro/classes/Admin/Settings.php:261
+#: admin-columns-pro/classes/Admin/Settings.php:284
 msgid "Online documentation"
 msgstr "Documentación en línea"
 
-#: admin-columns-pro/classes/Admin/Settings.php:305
+#: admin-columns-pro/classes/Admin/Settings.php:324
+msgid "Other"
+msgstr ""
+
+#: admin-columns-pro/classes/Admin/Settings.php:328
 msgid "Default"
 msgstr "Predeterminado"
 
-#: admin-columns-pro/classes/Admin/Settings.php:370
+#: admin-columns-pro/classes/Admin/Settings.php:393
 msgid "You can make an editable copy of this set by clicking %s on the right."
 msgstr "Puede hacer una copia editable de este set haciendo clic en %s a la derecha."
 
-#: admin-columns-pro/classes/Admin/Settings.php370,
+#: admin-columns-pro/classes/Admin/Settings.php393,
 #: admin-columns-pro/templates/admin/list-screens-sidebar.php:18
 msgid "+ Add set"
 msgstr "+ Agregar conjunto"
@@ -151,11 +151,11 @@ msgstr "Por favor, introduzca un correo electrónico válido para que podamos re
 msgid "Your feedback form is empty."
 msgstr "Su formulario de comentarios está vacío."
 
-#: admin-columns-pro/classes/Controller/License.php:120
+#: admin-columns-pro/classes/Controller/License.php:126
 msgid "License information has been updated."
 msgstr "La información de la licencia ha sido actualizada."
 
-#: admin-columns-pro/classes/Controller/License.php:141
+#: admin-columns-pro/classes/Controller/License.php:147
 msgid "Empty license."
 msgstr "Licencia vacía."
 
@@ -176,48 +176,35 @@ msgstr "Permitir la edición"
 msgid "Inline Editing"
 msgstr "Edición en línea"
 
-#: admin-columns-pro/classes/Editing/TableScreen.php78,
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php82,
-#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/InlineEdit.php:10
-msgid "Inline Edit"
-msgstr "Edición en linea"
-
-#: admin-columns-pro/classes/Export/Admin.php:53
+#: admin-columns-pro/classes/Export/Admin.php:66
 msgid "The requested file does not exist."
 msgstr "El archivo solicitado no existe."
 
-#: admin-columns-pro/classes/Export/Admin.php:69
+#: admin-columns-pro/classes/Export/Admin.php:82
 msgid "The requested file could not be processed."
 msgstr "El archivo solicitado no pudo ser procesado."
 
-#: admin-columns-pro/classes/Export/ExportDirectory.php:31
-msgid ""
-"Creation of Admin Columns export directory failed. Please make sure that "
-"your uploads folder is writable."
-msgstr "La creación del directorio de exportación de Admin Columns ha fallado. Por favor, asegúrese de que su carpeta de subidas es editable."
-
-#: admin-columns-pro/classes/Export/Strategy.php:74
+#: admin-columns-pro/classes/Export/Strategy.php:93
 msgid "Invalid value supplied for export counter."
 msgstr "Valor no válido suministrado para el contador de exportaciones."
 
-#: admin-columns-pro/classes/Export/Strategy.php:78
+#: admin-columns-pro/classes/Export/Strategy.php:97
 msgid "Invalid value supplied for export hash."
 msgstr "Se ha proporcionado un valor no válido para el hash de exportación."
 
-#: admin-columns-pro/classes/Export/TableScreenOptions.php:53
-msgid "Show Export Button"
-msgstr "Mostrar Botón de Exportación"
+#: admin-columns-pro/classes/Export/TableScreenOptions.php:56
+msgid "Export Button"
+msgstr ""
 
-#: admin-columns-pro/classes/Export/TableScreenOptions.php60,
+#: admin-columns-pro/classes/Export/TableScreenOptions.php63,
 #: admin-columns-pro/templates/admin/section-export.php9,
-#: admin-columns-pro/classes/Export/Settings/Column.php52,
-#: admin-columns-pro/classes/Export/Asset/Script/Table.php30,
-#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Export.php:10
+#: admin-columns-pro/classes/Export/HideOnScreen/Export.php10,
+#: admin-columns-pro/classes/Export/Settings/Column.php55,
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:32
 msgid "Export"
 msgstr "Exportar"
 
-#: admin-columns-pro/classes/Export/TableScreenOptions.php59,
-#: admin-columns-pro/classes/Export/Asset/Script/Table.php:31
+#: admin-columns-pro/classes/Export/TableScreenOptions.php:62
 msgid "Export to CSV"
 msgstr "Exportar a CSV"
 
@@ -327,68 +314,28 @@ msgstr "no está configurado"
 msgid "is set"
 msgstr "está configurado"
 
-#: admin-columns-pro/classes/Search/TableScreen.php144,
-#: admin-columns-pro/classes/Search/TableScreen.php:167
-msgid "Save Filters"
-msgstr "Guardar Filtros"
+#: admin-columns-pro/classes/Search/TableScreenOptions.php75,
+#: admin-columns-pro/classes/Search/Settings/Column.php:55
+msgid "Smart Filtering"
+msgstr "Filtrado inteligente"
 
-#: admin-columns-pro/classes/Search/TableScreen.php150,
-#: admin-columns-pro/classes/Search/TableScreen.php152,
-#: admin-columns-pro/templates/admin/create-list-screen.php:36
-msgid "Instructions"
-msgstr "Instrucciones"
-
-#: admin-columns-pro/classes/Search/TableScreen.php:154
-msgid "Save a set of custom smart filters for later use."
-msgstr "Guarde un conjunto de filtros inteligentes personalizados para su uso posterior."
-
-#: admin-columns-pro/classes/Search/TableScreen.php:157
-msgid ""
-"This can be useful to group your WordPress content based on different "
-"criteria."
-msgstr "Esto puede ser útil para agrupar su contenido de WordPress en función de diferentes criterios."
-
-#: admin-columns-pro/classes/Search/TableScreen.php:157
-msgid "Click on a segment to load the filtered list."
-msgstr "Haga clic en un segmento para cargar la lista filtrada."
-
-#: admin-columns-pro/classes/Search/TableScreen.php173,
-#: admin-columns-pro/templates/admin/create-list-screen.php22,
-#: admin-columns-pro/classes/Column/NetworkSite/Name.php9,
-#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:55
-msgid "Name"
-msgstr "Nombre"
-
-#: admin-columns-pro/classes/Search/TableScreen.php:183
-msgid "Save"
-msgstr "Guardar"
-
-#: admin-columns-pro/classes/Search/TableScreenOptions.php:64
-msgid "Enable Smart Filtering"
-msgstr "Habilitar Filtrado Inteligente"
-
-#: admin-columns-pro/classes/Sorting/Settings.php:28
+#: admin-columns-pro/classes/Sorting/Settings.php:29
 msgid "Enable Sorting"
 msgstr "Habilitar Ordenación"
 
-#: admin-columns-pro/classes/Sorting/Settings.php46,
+#: admin-columns-pro/classes/Sorting/Settings.php47,
 #: admin-columns-pro/templates/admin/list-screen-settings.php:92
 msgid "Sorting"
 msgstr "Ordenación"
 
-#: admin-columns-pro/classes/Table/HorizontalScrolling.php:90
+#: admin-columns-pro/classes/Table/HorizontalScrolling.php:91
 msgid "hold down SHIFT key"
 msgstr "mantenga presionada la tecla MAYÚSCULA"
 
-#: admin-columns-pro/classes/Table/Switcher.php60,
-#: admin-columns-pro/classes/Table/Switcher.php:75
+#: admin-columns-pro/classes/Table/Switcher.php64,
+#: admin-columns-pro/classes/Table/Switcher.php:79
 msgid "Switch View"
 msgstr "Cambiar Vista"
-
-#: admin-columns-pro/classes/Table/Switcher.php70,
-#: admin-columns-pro/classes/Storage/ListScreen/LegacyCollectionDecoder/Version332.php:39
-msgid "Original"
-msgstr "Original"
 
 #: admin-columns-pro/classes/Updates/AddonInstaller.php:72
 msgid "License is not active."
@@ -412,6 +359,14 @@ msgid ""
 "Create new sets to switch between different column views on the %s screen."
 msgstr "Cree nuevos conjuntos para cambiar entre diferentes vistas de columna en la pantalla %s."
 
+#: admin-columns-pro/templates/admin/create-list-screen.php22,
+#: admin-columns-pro/templates/table/segment-modal.php41,
+#: admin-columns-pro/templates/table/segment-modal.php42,
+#: admin-columns-pro/classes/Column/NetworkSite/Name.php9,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php:55
+msgid "Name"
+msgstr "Nombre"
+
 #: admin-columns-pro/templates/admin/create-list-screen.php:27
 msgid "Please enter a title."
 msgstr "Por favor, introduzca un título."
@@ -420,8 +375,14 @@ msgstr "Por favor, introduzca un título."
 msgid "Enter name"
 msgstr "Inserte un nombre"
 
+#: admin-columns-pro/templates/admin/create-list-screen.php36,
+#: admin-columns-pro/templates/table/segment-modal.php18,
+#: admin-columns-pro/templates/table/segment-modal.php:20
+msgid "Instructions"
+msgstr "Instrucciones"
+
 #: admin-columns-pro/templates/admin/create-list-screen.php39,
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:91
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:94
 msgid "Add"
 msgstr "Agregar"
 
@@ -471,28 +432,30 @@ msgid "Column Sets"
 msgstr "Conjunto de Columnas"
 
 #: admin-columns-pro/templates/admin/list-screens-sidebar.php19,
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:88
+#: admin-columns-pro/templates/table/segment-modal.php55,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:91
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: admin-columns-pro/templates/admin/list-screens-sidebar.php:40
-msgid ""
-"Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to"
-" delete, 'Cancel' to stop"
-msgstr "¡Advertencia! Los datos de las columnas %s serán eliminados. Esto no se puede deshacer. 'OK' para eliminar, 'Cancelar' para detener"
-
 #: admin-columns-pro/templates/admin/list-screens-sidebar.php84,
 #: admin-columns-pro/classes/Settings/Column/CustomFieldType.php67,
-#: admin-columns-pro/classes/Settings/Column/User.php:19
+#: admin-columns-pro/classes/Settings/Column/User.php:22
 msgid "User"
 msgstr "Usuario"
 
-#: admin-columns-pro/templates/admin/list-screens-sidebar.php109,
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:74
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php101,
+#: admin-columns-pro/classes/Column/Taxonomy/ID.php17,
+#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php56,
+#: ac-addon-buddypress/classes/Column/Group/Id.php:11
+msgid "ID"
+msgstr "ID"
+
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php110,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:77
 msgid "Delete"
 msgstr "Borrar"
 
-#: admin-columns-pro/templates/admin/list-screens-sidebar.php:115
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php:116
 msgid "Read Only"
 msgstr "Solo lectura"
 
@@ -522,9 +485,22 @@ msgid ""
 " uses Admin Columns Pro."
 msgstr "El resultado es un archivo JSON que se puede importar en cualquier instalación de WordPress que use Admin Columns Pro."
 
-#: admin-columns-pro/templates/admin/section-export.php:22
+#: admin-columns-pro/templates/admin/section-export.php:23
 msgid "Export To JSON"
 msgstr "Exportar a JSON"
+
+#: admin-columns-pro/templates/admin/section-export.php:25
+msgid "Looking for PHP Export?"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-export.php:27
+msgid "Read about its successor: %s"
+msgstr ""
+
+#: admin-columns-pro/templates/admin/section-export.php27,
+#: admin-columns-pro/templates/admin/section-local-storage.php:3
+msgid "Local Storage"
+msgstr ""
 
 #: admin-columns-pro/templates/admin/section-import.php:9
 msgid "Import"
@@ -552,39 +528,6 @@ msgstr "página de configuraciones de red"
 msgid "The license can be managed on the %s."
 msgstr "La licencia puede ser gestionada en el %s."
 
-#: admin-columns-pro/templates/admin/section-license.php18,
-#: admin-columns-pro/templates/admin/section-license.php:29
-msgid "Automatic updates are disabled."
-msgstr "Las actualizaciones automáticas están deshabilitadas."
-
-#: admin-columns-pro/templates/admin/section-license.php:22
-msgid "License has expired on %s"
-msgstr "La licencia ha expirado el %s"
-
-#: admin-columns-pro/templates/admin/section-license.php:34
-msgid "Your subscription is cancelled."
-msgstr "Su suscripción ha sido cancelada."
-
-#: admin-columns-pro/templates/admin/section-license.php:41
-msgid "Automatic updates are enabled."
-msgstr "Las actualizaciones automáticas están habilitadas."
-
-#: admin-columns-pro/templates/admin/section-license.php:46
-msgid "License is valid until %s"
-msgstr "La licencia es válida hasta el %s"
-
-#: admin-columns-pro/templates/admin/section-license.php:54
-msgid "License key is defined in code."
-msgstr "La clave de la licencia se define en el código."
-
-#: admin-columns-pro/templates/admin/section-license.php:61
-msgid "Activate license"
-msgstr "Activar licencia"
-
-#: admin-columns-pro/templates/admin/section-license.php:64
-msgid "License key is defined in code but not yet activated."
-msgstr "La clave de la licencia se define en el código pero aún no está activada."
-
 #: admin-columns-pro/templates/admin/section-license.php:69
 msgid "Enter your license code"
 msgstr "Inserte el código de su licencia"
@@ -601,7 +544,79 @@ msgstr "Usted puede encontrar su clave de licencia en su %s."
 msgid "account page"
 msgstr "página de cuenta"
 
-#: ac-addon-acf/classes/Column.php:19
+#: admin-columns-pro/templates/admin/section-license.php:61
+msgid "Activate license"
+msgstr "Activar licencia"
+
+#: admin-columns-pro/templates/admin/section-license.php:64
+msgid "License key is defined in code but not yet activated."
+msgstr "La clave de la licencia se define en el código pero aún no está activada."
+
+#: admin-columns-pro/templates/admin/section-license.php:41
+msgid "Automatic updates are enabled."
+msgstr "Las actualizaciones automáticas están habilitadas."
+
+#: admin-columns-pro/templates/admin/section-license.php:46
+msgid "License is valid until %s"
+msgstr "La licencia es válida hasta el %s"
+
+#: admin-columns-pro/templates/admin/section-license.php29,
+#: admin-columns-pro/templates/admin/section-license.php:18
+msgid "Automatic updates are disabled."
+msgstr "Las actualizaciones automáticas están deshabilitadas."
+
+#: admin-columns-pro/templates/admin/section-license.php:34
+msgid "Your subscription is cancelled."
+msgstr "Su suscripción ha sido cancelada."
+
+#: admin-columns-pro/templates/admin/section-license.php:22
+msgid "License has expired on %s"
+msgstr "La licencia ha expirado el %s"
+
+#: admin-columns-pro/templates/admin/section-license.php:54
+msgid "License key is defined in code."
+msgstr "La clave de la licencia se define en el código."
+
+#: admin-columns-pro/templates/table/edit-button.php9,
+#: admin-columns-pro/classes/Editing/HideOnScreen/InlineEdit.php10,
+#: admin-columns-pro/classes/Editing/Admin/HideOnScreen/InlineEdit.php10,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:85
+msgid "Inline Edit"
+msgstr "Edición en linea"
+
+#: admin-columns-pro/templates/table/segment-modal.php5,
+#: admin-columns-pro/templates/table/segment-modal.php:35
+msgid "Save Filters"
+msgstr "Guardar Filtros"
+
+#: admin-columns-pro/templates/table/segment-modal.php13,
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:47
+msgid "Available to all users"
+msgstr ""
+
+#: admin-columns-pro/templates/table/segment-modal.php:22
+msgid "Save a set of custom smart filters for later use."
+msgstr "Guarde un conjunto de filtros inteligentes personalizados para su uso posterior."
+
+#: admin-columns-pro/templates/table/segment-modal.php:25
+msgid ""
+"This can be useful to group your WordPress content based on different "
+"criteria."
+msgstr "Esto puede ser útil para agrupar su contenido de WordPress en función de diferentes criterios."
+
+#: admin-columns-pro/templates/table/segment-modal.php:25
+msgid "Click on a segment to load the filtered list."
+msgstr "Haga clic en un segmento para cargar la lista filtrada."
+
+#: admin-columns-pro/templates/table/segment-modal.php:45
+msgid "Make available to all users"
+msgstr ""
+
+#: admin-columns-pro/templates/table/segment-modal.php:56
+msgid "Save"
+msgstr "Guardar"
+
+#: ac-addon-acf/classes/Column.php:29
 msgid "Advanced Custom Fields"
 msgstr "Campos de Personalización Avanzada"
 
@@ -637,73 +652,73 @@ msgstr "Pods"
 msgid "WooCommerce Subscriptions"
 msgstr "Suscripciones WooCommerce"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:78
+#: ac-addon-woocommerce/classes/TableScreen.php:104
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:79
+#: ac-addon-woocommerce/classes/TableScreen.php:105
 msgid "Increase by"
 msgstr "Aumentar por"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:80
+#: ac-addon-woocommerce/classes/TableScreen.php:106
 msgid "Decrease by"
 msgstr "Disminuir por"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:81
+#: ac-addon-woocommerce/classes/TableScreen.php:107
 msgid "Set New"
 msgstr "Establecer Nuevo"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:82
+#: ac-addon-woocommerce/classes/TableScreen.php:108
 msgid "Regular"
 msgstr "Regular"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:83
+#: ac-addon-woocommerce/classes/TableScreen.php:109
 msgid "Regular Price"
 msgstr "Precio Normal"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:86
+#: ac-addon-woocommerce/classes/TableScreen.php:112
 msgid "Sale from"
 msgstr "Oferta desde"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:87
+#: ac-addon-woocommerce/classes/TableScreen.php:113
 msgid "Sale To"
 msgstr "Oferta hasta"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:88
+#: ac-addon-woocommerce/classes/TableScreen.php:114
 msgid "Set the sale price based on the regular price"
 msgstr "Establecer el precio de oferta basado en el precio normal"
 
-#: ac-addon-woocommerce/classes/TableScreen.php90,
+#: ac-addon-woocommerce/classes/TableScreen.php116,
 #: ac-addon-woocommerce/classes/Filtering/Product/Sale.php40,
 #: ac-addon-woocommerce/classes/Search/Product/Sale.php:26
 msgid "Scheduled"
 msgstr "Programado"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:97
+#: ac-addon-woocommerce/classes/TableScreen.php:123
 msgid "No Rounding"
 msgstr "Sin redondeo"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:98
+#: ac-addon-woocommerce/classes/TableScreen.php:124
 msgid "Round up"
 msgstr "Redondear"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:99
+#: ac-addon-woocommerce/classes/TableScreen.php:125
 msgid "Round down"
 msgstr "Redondear a la baja"
 
-#: ac-addon-woocommerce/classes/TableScreen.php:100
+#: ac-addon-woocommerce/classes/TableScreen.php:126
 msgid "Example:"
 msgstr "Ejemplo:"
 
-#: ac-addon-woocommerce/classes/TableScreen.php154,
-#: ac-addon-woocommerce/classes/WooCommerce.php102,
-#: ac-addon-woocommerce/classes/WooCommerce.php106,
+#: ac-addon-woocommerce/classes/TableScreen.php180,
+#: ac-addon-woocommerce/classes/WooCommerce.php119,
+#: ac-addon-woocommerce/classes/WooCommerce.php123,
 #: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:24
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: ac-addon-woocommerce/classes/TableScreen.php191,
-#: ac-addon-woocommerce/classes/TableScreen.php:216
+#: ac-addon-woocommerce/classes/TableScreen.php217,
+#: ac-addon-woocommerce/classes/TableScreen.php:242
 msgid "View Variations"
 msgstr "Ver Variaciones"
 
@@ -739,7 +754,7 @@ msgid "Post Type"
 msgstr "Tipo de publicación"
 
 #: admin-columns-pro/classes/Column/Media/Image.php14,
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php84,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php87,
 #: ac-addon-woocommerce/classes/Filtering/Product/Thumb.php12,
 #: ac-addon-woocommerce/classes/Filtering/Product/Thumb.php:13
 msgid "Image"
@@ -794,13 +809,17 @@ msgstr "Espacio de almacenamiento"
 msgid "%s MB"
 msgstr "%s MB"
 
-#: admin-columns-pro/classes/Column/Post/Ancestors.php:20
+#: admin-columns-pro/classes/Column/Post/Ancestors.php:21
 msgid "Ancestors"
 msgstr "Relacionados"
 
 #: admin-columns-pro/classes/Column/Post/ChildPages.php:15
 msgid "Child Pages"
 msgstr "Sub-páginas"
+
+#: admin-columns-pro/classes/Column/Post/GutenbergBlocks.php:15
+msgid "Gutenberg Blocks"
+msgstr ""
 
 #: admin-columns-pro/classes/Column/Post/Images.php:17
 msgid "Images"
@@ -842,15 +861,14 @@ msgid_plural "%s revisions"
 msgstr[0] "%s revisión"
 msgstr[1] "%s revisiones"
 
+#: admin-columns-pro/classes/Column/Post/Shortcode.php14,
+#: admin-columns-pro/classes/Settings/Column/Shortcodes.php:25
+msgid "Shortcode"
+msgstr ""
+
 #: admin-columns-pro/classes/Column/Taxonomy/Excerpt.php:16
 msgid "Excerpt"
 msgstr "Extracto"
-
-#: admin-columns-pro/classes/Column/Taxonomy/ID.php17,
-#: admin-columns-pro/classes/Migrate/Admin/Table/Export.php56,
-#: ac-addon-buddypress/classes/Column/Group/Id.php:11
-msgid "ID"
-msgstr "ID"
 
 #: admin-columns-pro/classes/Column/Taxonomy/TaxonomyParent.php:14
 msgid "Parent"
@@ -860,7 +878,7 @@ msgstr "Superior"
 msgid "Profile Picture"
 msgstr "Foto de Perfil"
 
-#: admin-columns-pro/classes/Column/User/UserPosts.php:12
+#: admin-columns-pro/classes/Column/User/UserPosts.php:13
 msgid "Posts by Author"
 msgstr "Publicaciones por Autor"
 
@@ -877,8 +895,8 @@ msgid "our documentation"
 msgstr "nuestra documentación"
 
 #: admin-columns-pro/classes/Editing/Admin/CustomFieldEditing.php:44
-msgid "Enable inline editing for Custom Fields."
-msgstr "Habilite la edición en línea para Campos Personalizados."
+msgid "Enable editing for Custom Fields."
+msgstr ""
 
 #: admin-columns-pro/classes/Editing/Admin/CustomFieldEditing.php46,
 #: admin-columns-pro/classes/Sorting/Admin/ShowAllResults.php:24
@@ -890,6 +908,12 @@ msgstr "El valor predeterminado es %s."
 msgid "off"
 msgstr "apagado"
 
+#: admin-columns-pro/classes/Editing/HideOnScreen/BulkEdit.php10,
+#: admin-columns-pro/classes/Editing/Admin/HideOnScreen/BulkEdit.php10,
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:97
+msgid "Bulk Edit"
+msgstr "Edición Masiva"
+
 #: admin-columns-pro/classes/Editing/Model/CustomField.php:44
 msgid ""
 "Inline Editing for Custom Fields is not enabled. Enable inline editing for "
@@ -900,32 +924,31 @@ msgstr "La edición en línea para campos personalizados no está habilitada. Ha
 msgid "settings screen"
 msgstr "pantalla de configuración"
 
-#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:35
+#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:34
+msgid "Enable Bulk Editing"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:55
 msgid "Bulk Editing"
 msgstr "Edición Masiva"
 
-#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php46,
-#: admin-columns-pro/classes/Export/Settings/Column.php63,
-#: admin-columns-pro/classes/Search/Settings/Column.php:35
-msgid "Enabled"
-msgstr "Habilitado"
-
-#: admin-columns-pro/classes/Editing/Settings/BulkEditing.php47,
-#: admin-columns-pro/classes/Export/Settings/Column.php:64
-msgid "Disabled"
-msgstr "Deshabilitado"
-
+#: admin-columns-pro/classes/Editing/Settings/Content.php35,
 #: admin-columns-pro/classes/Editing/Settings/Excerpt.php:35
 msgid "Textarea"
 msgstr "Área de texto"
 
-#: admin-columns-pro/classes/Editing/Settings/Excerpt.php:36
-msgid "Text"
-msgstr "Texto"
+#: admin-columns-pro/classes/Editing/Settings/Content.php:36
+msgid "WYSIWYG"
+msgstr ""
 
+#: admin-columns-pro/classes/Editing/Settings/Content.php41,
 #: admin-columns-pro/classes/Editing/Settings/Excerpt.php:41
 msgid "Input Type"
 msgstr "Tipo de entrada"
+
+#: admin-columns-pro/classes/Editing/Settings/Excerpt.php:36
+msgid "Text"
+msgstr "Texto"
 
 #: admin-columns-pro/classes/Editing/Settings/Taxonomy.php:43
 msgid "Allow new %s to be created whilst editing"
@@ -938,6 +961,10 @@ msgstr "Permitir nuevo %s?"
 #: admin-columns-pro/classes/Export/Exporter/CSV.php:48
 msgid "The requested file could not be downloaded."
 msgstr "El archivo solicitado no se pudo descargar."
+
+#: admin-columns-pro/classes/Export/Settings/Column.php:27
+msgid "Enable Export"
+msgstr ""
 
 #: admin-columns-pro/classes/Filtering/Markup/Dropdown.php46,
 #: ac-addon-woocommerce/classes/Filtering/ShopOrder/CustomerMessage.php:30
@@ -993,8 +1020,8 @@ msgid "The uploaded file does not contain any column settings."
 msgstr "El archivo cargado no contiene ninguna configuración de columna."
 
 #: admin-columns-pro/classes/Migrate/Import/Request.php:148
-msgid "Columns settings with id %s could be saved."
-msgstr "La configuración de columnas con id %s podría guardarse."
+msgid "Columns settings with id %s could not be saved."
+msgstr ""
 
 #: admin-columns-pro/classes/Migrate/Import/Request.php:168
 msgid "Successfully imported %s for %s."
@@ -1007,21 +1034,10 @@ msgstr[0] "conjunto"
 msgstr[1] "conjuntos"
 
 #: admin-columns-pro/classes/QuickAdd/Table/Loader.php70,
-#: admin-columns-pro/classes/QuickAdd/Admin/HideOnScreen/QuickAdd.php:11
+#: admin-columns-pro/classes/QuickAdd/Admin/HideOnScreen/QuickAdd.php11,
+#: admin-columns-pro/classes/QuickAdd/Table/Checkbox/ShowButton.php:11
 msgid "Quick Add"
 msgstr "Agregar Rápidamente"
-
-#: admin-columns-pro/classes/Search/Controller/Segment.php:63
-msgid "A segment with this name already exists."
-msgstr "Ya existe un segmento con este nombre."
-
-#: admin-columns-pro/classes/Search/Controller/Segment.php:64
-msgid "Could not find current segment."
-msgstr "No se pudo encontrar el segmento actual."
-
-#: admin-columns-pro/classes/Search/Controller/Segment.php:65
-msgid "Could save the segment."
-msgstr "Se pudo guardar el segmento."
 
 #: admin-columns-pro/classes/Search/Labels/Date.php:12
 msgid "is after"
@@ -1055,15 +1071,16 @@ msgstr "es más que"
 msgid "is within"
 msgstr "está dentro"
 
-#: admin-columns-pro/classes/Search/Settings/Column.php:32
-msgid "Smart Filtering"
-msgstr "Filtrado inteligente"
+#: admin-columns-pro/classes/Search/Settings/Column.php:27
+msgid "Enable Smart Filtering"
+msgstr "Habilitar Filtrado Inteligente"
 
 #: admin-columns-pro/classes/Settings/Column/CustomFieldType.php:66
 msgid "Post"
 msgstr "Entrada"
 
 #: admin-columns-pro/classes/Settings/Column/FeaturedImage.php72,
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php30,
 #: ac-addon-acf/classes/Setting/FlexibleContent.php32,
 #: ac-addon-acf/classes/Setting/RepeaterDisplay.php46,
 #: ac-addon-buddypress/classes/Settings/Group.php56,
@@ -1076,8 +1093,8 @@ msgstr "Entrada"
 #: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php30,
 #: ac-addon-woocommerce/classes/Settings/User/AddressType.php51,
 #: ac-addon-woocommerce/classes/Settings/User/Country.php50,
-#: ac-addon-woocommerce/classes/Settings/User/Order.php44,
-#: ac-addon-woocommerce/classes/Settings/User/Products.php33,
+#: ac-addon-woocommerce/classes/Settings/User/Order.php49,
+#: ac-addon-woocommerce/classes/Settings/User/Products.php35,
 #: ac-addon-woocommerce/classes/Settings/User/Ratings.php:33
 msgid "Display"
 msgstr "Mostrar"
@@ -1094,14 +1111,22 @@ msgstr "Verdadero / Falso"
 msgid "Field Type"
 msgstr "Tipo de campo"
 
-#: admin-columns-pro/classes/Settings/Column/User.php:12
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php:25
+msgid "Block Count"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/Gutenberg.php:26
+msgid "Block Structure"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/Column/User.php:15
 msgid "Gravatar"
 msgstr "Gravatar"
 
-#: admin-columns-pro/classes/Settings/Column/User.php23,
-#: admin-columns-pro/classes/Settings/Column/User.php24,
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php33,
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php:35
+#: admin-columns-pro/classes/Settings/Column/User.php26,
+#: admin-columns-pro/classes/Settings/Column/User.php27,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php39,
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php:41
 msgid "Custom Field"
 msgstr "Campo personalizado"
 
@@ -1113,17 +1138,33 @@ msgstr "Mostrar todos los resultados al ordenar."
 msgid "All sorting preferences have been reset."
 msgstr "Se han reseteado todas las preferencias de ordenación."
 
-#: admin-columns-pro/classes/Sorting/Table/Screen.php:83
+#: admin-columns-pro/classes/Sorting/Table/Screen.php:90
 msgid "Reset Sorting"
 msgstr "Restablecer la  ordenación"
 
-#: admin-columns-pro/classes/Sorting/Table/Screen.php:81
+#: admin-columns-pro/classes/Sorting/Table/Screen.php:88
 msgid "Sorted by "
 msgstr "Ordenado por"
 
-#: admin-columns-pro/classes/ThirdParty/bbPress/Addon.php:84
+#: admin-columns-pro/classes/ThirdParty/bbPress/Addon.php:83
 msgid "bbPress"
 msgstr "bbPress"
+
+#: admin-columns-pro/classes/ThirdParty/YoastSeo/DeprecatedAddon.php:27
+msgid ""
+"You're using Yoast SEO columns. Support for these columns have been moved to"
+" the new Yoast SEO integration."
+msgstr ""
+
+#: admin-columns-pro/classes/ThirdParty/YoastSeo/DeprecatedAddon.php:28
+msgid ""
+"If you want to keep using Yoast SEO columns, please download and install the"
+" Yoast integration from %s."
+msgstr ""
+
+#: admin-columns-pro/classes/ThirdParty/YoastSeo/DeprecatedAddon.php:29
+msgid "the add-ons tab"
+msgstr ""
 
 #: admin-columns-pro/templates/admin/page/settings-section-sorting.php:3
 msgid "Reset sorting preferences"
@@ -1175,7 +1216,7 @@ msgstr "Falso"
 msgid "True"
 msgstr "Verdadero"
 
-#: ac-addon-acf/classes/Field/File.php:29
+#: ac-addon-acf/classes/Field/File.php:31
 msgid "Invalid attachment"
 msgstr "Archivo adjunto no válido"
 
@@ -1212,9 +1253,7 @@ msgstr "Campo"
 msgid "The previous selected option %s no longer exists."
 msgstr "La opción seleccionada previamente %s ya no existe."
 
-#: ac-addon-acf/classes/Setting/Field.php161,
-#: ac-addon-pods/classes/Setting/Field.php89,
-#: ac-addon-acf/classes/Free/Setting/Field.php:29
+#: ac-addon-acf/classes/Setting/Field.php:161
 msgid "empty label"
 msgstr "etiqueta vacía"
 
@@ -1251,11 +1290,11 @@ msgstr "Seleccione un subcampo repetidor."
 msgid "ACF Time Format"
 msgstr "Formato de hora ACF"
 
-#: ac-addon-acf/classes/Setting/Unsupported.php:30
+#: ac-addon-acf/classes/Setting/Unsupported.php:31
 msgid "This ACF field is not supported"
 msgstr "Este campo ACF no es compatible"
 
-#: ac-addon-acf/classes/Setting/Unsupported.php:34
+#: ac-addon-acf/classes/Setting/Unsupported.php:35
 msgid ""
 "This specific ACF field type is not supported in this integration. Although "
 "the column may work, it could lead to unexpected behavior. Sorting, "
@@ -1363,21 +1402,23 @@ msgid "Types"
 msgstr "Tipos"
 
 #: ac-addon-types/classes/Settings/Field.php38,
-#: ac-addon-woocommerce/classes/Column/Product/ProductType.php:17
+#: ac-addon-woocommerce/classes/Column/Product/ProductType.php:18
 msgid "Type"
 msgstr "Tipo"
+
+#: ac-addon-types/classes/Settings/IntermediaryRelationship.php23,
+#: ac-addon-types/classes/Settings/Relationship.php:27
+msgid "No relations available."
+msgstr "No hay relaciones disponibles."
+
+#: ac-addon-types/classes/Settings/IntermediaryRelationship.php29,
+#: ac-addon-types/classes/Settings/Relationship.php:33
+msgid "Relationship"
+msgstr "Relación"
 
 #: ac-addon-types/classes/Settings/ParentPostType.php:27
 msgid "No parent post types available."
 msgstr "No hay tipos de entradas principales disponibles."
-
-#: ac-addon-types/classes/Settings/Relationship.php:26
-msgid "No relations available."
-msgstr "No hay relaciones disponibles."
-
-#: ac-addon-types/classes/Settings/Relationship.php:30
-msgid "Relationship"
-msgstr "Relación"
 
 #: ac-addon-woocommerce/classes/Editing/MetaCountry.php10,
 #: ac-addon-woocommerce/classes/Editing/Comment/Rating.php:22
@@ -1396,165 +1437,165 @@ msgstr "Buscar Producto Variable"
 msgid "When you create a product variation, it will appear here."
 msgstr "Cuando creas una variación de producto, aparecerá aquí."
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php45,
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:47
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php62,
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:64
 msgid "Product Variations"
 msgstr "Variaciones de Producto"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:46
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:63
 msgid "Product Variation"
 msgstr "Variación de Producto"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:48
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:65
 msgid "Add New"
 msgstr "Añadir nuevo"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:49
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:66
 msgid "Add new variation"
 msgstr "Agregar nueva variación"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:50
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:67
 msgid "Edit"
 msgstr "Editar"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:51
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:68
 msgid "Edit variation"
 msgstr "Editar variación"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:52
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:69
 msgid "New variation"
 msgstr "Nueva variación"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php53,
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:54
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php70,
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:71
 msgid "View variation"
 msgstr "Ver variación"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:56
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:73
 msgid "No variations found"
 msgstr "No se encontraron variaciones"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:57
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:74
 msgid "No variations found in trash"
 msgstr "No se encontraron variaciones en la papelera"
 
-#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:58
+#: ac-addon-woocommerce/classes/PostType/ProductVariation.php:75
 msgid "Insert into variation"
 msgstr "Insertar en la variación"
 
-#: ac-addon-woocommerce/classes/Settings/Address.php:45
+#: ac-addon-woocommerce/classes/Settings/Address.php:43
 msgid "Full Address"
 msgstr "Dirección completa"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:69
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:72
 msgid "Select author"
 msgstr "Seleccionar Autor"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:71
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:74
 msgid "Redo"
 msgstr "Rehacer"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:72
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:75
 msgid "Undo"
 msgstr "Deshacer"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:75
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:78
 msgid "Download"
 msgstr "Descargar"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:77
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:80
 msgid "This field is required."
 msgstr "Este campo es requerido"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:78
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:81
 msgid "Please enter a valid float value."
 msgstr "Por favor entre un valor float válido."
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:79
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:82
 msgid "Please enter valid float values."
 msgstr "Por favor entre valores float válidos."
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:80
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:83
 msgid "Something went wrong."
 msgstr "Algo salió mal."
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:83
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:86
 msgid "Media"
 msgstr "Medios"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:85
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:88
 msgid "Audio"
 msgstr "Audio"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:86
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:89
 msgid "Time"
 msgstr "Tiempo"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:87
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:90
 msgid "Update"
 msgstr "Actualizar"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:89
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:92
 msgid "Done"
 msgstr "Hecho"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:90
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:93
 msgid "Replace with"
 msgstr "Reemplazar con"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:92
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:95
 msgid "Remove"
 msgstr "Eliminar"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:95
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:99
 msgid "Select all {0} entries"
 msgstr "Seleccione todas las entradas {0}"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:96
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:100
 msgid "<strong>{0} entries</strong> selected for Bulk Edit."
 msgstr "<strong>{0} entradas </strong> seleccionadas para la Edición Masiva."
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:97
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:101
 msgid "Done & Deselect All"
 msgstr "Hacer & Deseleccionar Todo"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:100
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:104
 msgid "This will update {0} entries."
 msgstr "Esto actualizará {0} entradas."
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:101
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:105
 msgid "You are about to clear {0} entries."
 msgstr "Está a punto de borrar {0} entradas."
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:102
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:106
 msgid "You are about to update {0} entries."
 msgstr "Está a punto de actualizar {0} entradas."
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:103
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:107
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:104
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:108
 msgid "Yes, Update"
 msgstr "Sí, Actualizar"
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:107
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:111
 msgid "Processed {0} entries"
 msgstr "{0} entradas procesadas "
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:108
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:112
 msgid "Updating entries."
 msgstr "Actualizando entradas."
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:109
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:113
 msgid "Processed {0} of {1} entries."
 msgstr "Se procesaron {0} de {1} entradas."
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:110
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:114
 msgid "Updating failed. Please try again."
 msgstr "La actualización falló. Inténtelo de nuevo."
 
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:111
+#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:115
 msgid "We have found <strong>{0} errors</strong> while processing."
 msgstr "Hemos encontrado <strong> {0} </strong> errores durante el proceso."
 
@@ -1600,27 +1641,45 @@ msgstr "No"
 msgid "Yes"
 msgstr "Sí"
 
+#: admin-columns-pro/classes/Editing/Model/User/Fullname.php:19
+msgid "First Name"
+msgstr ""
+
+#: admin-columns-pro/classes/Editing/Model/User/Fullname.php:20
+msgid "Last Name"
+msgstr ""
+
 #: admin-columns-pro/classes/Editing/Model/User/Username.php:36
 msgid "The username already exists."
 msgstr "El nombre de usuario ya existe."
 
-#: admin-columns-pro/classes/Export/Asset/Script/Table.php:32
-msgid "Exporting current list of items."
-msgstr "Exportando lista actual de items."
-
 #: admin-columns-pro/classes/Export/Asset/Script/Table.php:33
+msgid "Something went wrong during exporting. Please try again."
+msgstr ""
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:34
 msgid "Processed {0} of {1} items ({2}%)."
 msgstr "Procesó {0} de {1} ítems ({2}%)."
 
-#: admin-columns-pro/classes/Export/Asset/Script/Table.php:34
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:35
+msgid "Exporting current list of items."
+msgstr "Exportando lista actual de items."
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:36
 msgid ""
 "Export completed ({0} items). Your download will start automatically. If "
 "this does not happen, you can download the file again: "
 msgstr "Exportación completada ({0} ítems). Su descarga comenzará automáticamente. Si esto no sucede, puedes descargar el archivo nuevamente:"
 
-#: admin-columns-pro/classes/Export/Asset/Script/Table.php:35
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:37
 msgid "Download File"
 msgstr "Descargar Archivo"
+
+#: admin-columns-pro/classes/Export/Asset/Script/Table.php:38
+msgid ""
+"You are currently generating an export file. Leaving the page will cancel "
+"this process. Are you sure you want to leave the page?"
+msgstr ""
 
 #: admin-columns-pro/classes/Filtering/Markup/Ranged/Date.php:12
 msgid "Start date"
@@ -1732,24 +1791,20 @@ msgstr "Tabla de Lista"
 msgid "No screens selected for export."
 msgstr "No hay pantallas seleccionadas para exportar."
 
-#: admin-columns-pro/classes/QuickAdd/Table/Checkbox/ShowButton.php:11
-msgid "Show Quick Add Button"
-msgstr "Mostrar Botón Agregar Rápidamente"
-
-#: admin-columns-pro/classes/Search/Asset/Script/Table.php:41
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:43
 msgctxt "select placeholder"
 msgid "Select"
 msgstr "Seleccionar"
 
-#: admin-columns-pro/classes/Search/Asset/Script/Table.php:42
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:44
 msgid "Add Filter"
 msgstr "Añadir filtro"
 
-#: admin-columns-pro/classes/Search/Asset/Script/Table.php:43
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:45
 msgid "days ago"
 msgstr "días atrás"
 
-#: admin-columns-pro/classes/Search/Asset/Script/Table.php:44
+#: admin-columns-pro/classes/Search/Asset/Script/Table.php:46
 msgid "days"
 msgstr "días"
 
@@ -1760,6 +1815,14 @@ msgstr "En uso"
 #: admin-columns-pro/classes/Search/Comparison/Media/UsedAsFeaturedImage.php:48
 msgid "Not used"
 msgstr "Sin usar"
+
+#: admin-columns-pro/classes/Search/Settings/HideOnScreen/SavedFilters.php:10
+msgid "Saved Filters"
+msgstr "Filtros Guardados"
+
+#: admin-columns-pro/classes/Search/Settings/HideOnScreen/SmartFilters.php:12
+msgid "Smart Filters"
+msgstr ""
 
 #: admin-columns-pro/classes/Settings/Column/NetworkSite/Options.php:17
 msgid "Option"
@@ -1813,29 +1876,41 @@ msgstr "Temas permitidos"
 msgid "Available Themes"
 msgstr "Temas disponibles"
 
-#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:91
-msgid "Network Enabled"
-msgstr "Red habilitada"
-
 #: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:93
 msgid "Site Enabled"
 msgstr "Sitio habilitado"
+
+#: admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:91
+msgid "Network Enabled"
+msgstr "Red habilitada"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/BulkActions.php:10
 msgid "Bulk Actions"
 msgstr "Acciones Masivas"
 
-#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/BulkEdit.php:10
-msgid "Bulk Edit"
-msgstr "Edición Masiva"
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterCategory.php13,
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductCategory.php:12
+msgid "Category"
+msgstr ""
 
-#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Filters.php:10
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterMediaItem.php:13
+msgid "Media Items"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostDate.php13,
+#: ac-addon-events-calendar/classes/Column/Event/DisplayDate.php18,
+#: ac-addon-woocommerce/classes/Column/ShopSubscription/SubscriptionDate.php21,
+#: ac-addon-woocommerce/classes/Settings/User/Order.php:56
+msgid "Date"
+msgstr "Fecha"
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostFormat.php:13
+msgid "Post Format"
+msgstr ""
+
+#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Filters.php:12
 msgid "Filters"
 msgstr "Filtros"
-
-#: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/SavedFilters.php:10
-msgid "Saved Filters"
-msgstr "Filtros Guardados"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Search.php:10
 msgid "Search"
@@ -1849,7 +1924,11 @@ msgstr "Preferencias de ordenación"
 msgid "This will reset the sorting preference for all users."
 msgstr "Esto restablecerá la preferencia de ordenación para todos los usuarios."
 
-#: admin-columns-pro/classes/ThirdParty/YoastSeo/Column/IsIndexed.php:27
+#: admin-columns-pro/classes/Storage/ListScreen/LegacyCollectionDecoder/Version332.php:39
+msgid "Original"
+msgstr "Original"
+
+#: admin-columns-pro/classes/ThirdParty/YoastSeo/Column/IsIndexed.php:28
 msgid "Implicit"
 msgstr "Implícito"
 
@@ -1913,16 +1992,11 @@ msgstr "Visto por última vez"
 msgid "Group"
 msgstr "Grupo"
 
-#: ac-addon-events-calendar/classes/Column/Event/Costs.php:13
+#: ac-addon-events-calendar/classes/Column/Event/Costs.php:14
 msgid "Costs"
 msgstr "Costes"
 
-#: ac-addon-events-calendar/classes/Column/Event/DisplayDate.php17,
-#: ac-addon-woocommerce/classes/Column/ShopSubscription/SubscriptionDate.php:21
-msgid "Date"
-msgstr "Fecha"
-
-#: ac-addon-events-calendar/classes/Column/Event/Duration.php:11
+#: ac-addon-events-calendar/classes/Column/Event/Duration.php:15
 msgid "Duration"
 msgstr "Duración"
 
@@ -1935,7 +2009,7 @@ msgstr "Destacado"
 msgid "Hide from Event Listing"
 msgstr "Ocultar de la lista de eventos"
 
-#: ac-addon-events-calendar/classes/Column/Event/Organizer.php:18
+#: ac-addon-events-calendar/classes/Column/Event/Organizer.php:19
 msgid "Organizer"
 msgstr "Organizador"
 
@@ -2038,8 +2112,8 @@ msgid "Cross Sells"
 msgstr "Venta cruzada"
 
 #: ac-addon-woocommerce/classes/Column/Product/Customers.php:17
-msgid "Customers Purchased"
-msgstr "Clientes compraron"
+msgid "Customers"
+msgstr ""
 
 #: ac-addon-woocommerce/classes/Column/Product/Dimensions.php:79
 msgid "Length"
@@ -2078,7 +2152,8 @@ msgstr "Comentarios habilitados"
 msgid "Sale"
 msgstr "Oferta"
 
-#: ac-addon-woocommerce/classes/Column/Product/Sale.php:98
+#: ac-addon-woocommerce/classes/Column/Product/Sale.php98,
+#: ac-addon-woocommerce/classes/Export/Product/Sale.php:30
 msgctxt "Product on sale from (date)"
 msgid "From"
 msgstr "Desde"
@@ -2092,15 +2167,19 @@ msgstr "Hasta"
 msgid "Sales"
 msgstr "Ofertas"
 
-#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php40,
+#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php36,
 #: ac-addon-woocommerce/classes/Search/Product/StockStatus.php:23
 msgid "In stock"
 msgstr "En stock"
 
-#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php44,
+#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php38,
 #: ac-addon-woocommerce/classes/Search/Product/StockStatus.php:24
 msgid "Out of stock"
 msgstr "Agotado"
+
+#: ac-addon-woocommerce/classes/Column/Product/StockStatus.php:40
+msgid "On backorder"
+msgstr ""
 
 #: ac-addon-woocommerce/classes/Column/Product/Upsells.php:19
 msgid "Upsells"
@@ -2114,9 +2193,17 @@ msgstr "Visibilidad de catálogo"
 msgid "Price Period"
 msgstr "Periodo de Precios"
 
-#: ac-addon-woocommerce/classes/Column/ProductVariation/Stock.php:38
+#: ac-addon-woocommerce/classes/Column/ProductVariation/SKU.php:36
+msgid "SKU from product"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ProductVariation/Stock.php:39
 msgid "Stock managed by product"
 msgstr "Stock gestionado por producto"
+
+#: ac-addon-woocommerce/classes/Column/ProductVariation/Taxonomy.php:17
+msgid "Product Taxonomy"
+msgstr ""
 
 #: ac-addon-woocommerce/classes/Column/ShopCoupon/CouponDescription.php:19
 msgid "Description"
@@ -2148,15 +2235,15 @@ msgstr "El método de envío gratuito debe estar habilitado con ela configuraci�
 msgid "Included Products"
 msgstr "Productos incluidos"
 
-#: ac-addon-woocommerce/classes/Column/ShopCoupon/Limit.php:14
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/Limit.php:15
 msgid "Coupon limit"
 msgstr "Límite del cupón"
 
-#: ac-addon-woocommerce/classes/Column/ShopCoupon/MaximumAmount.php:18
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/MaximumAmount.php:19
 msgid "Maximum Amount"
 msgstr "Cantidad máxima"
 
-#: ac-addon-woocommerce/classes/Column/ShopCoupon/MinimumAmount.php:18
+#: ac-addon-woocommerce/classes/Column/ShopCoupon/MinimumAmount.php:19
 msgid "Minimum Amount"
 msgstr "Cantidad minima"
 
@@ -2197,15 +2284,19 @@ msgstr "Número de pedido"
 msgid "Payment Method"
 msgstr "Método de pago"
 
-#: ac-addon-woocommerce/classes/Column/ShopOrder/ProductCategories.php:19
+#: ac-addon-woocommerce/classes/Column/ShopOrder/ProductCategories.php:20
 msgid "Product Categories"
 msgstr "Categorías de Producto"
 
-#: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:19
+#: ac-addon-woocommerce/classes/Column/ShopOrder/ProductTags.php:17
+msgid "Product Tags"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:21
 msgid "Purchased"
 msgstr "Comprado"
 
-#: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:34
+#: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:36
 msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] "%d ítem"
@@ -2223,24 +2314,24 @@ msgstr "Peso total del pedido"
 msgid "Auto Renewal"
 msgstr "Auto Renovación"
 
-#: ac-addon-woocommerce/classes/Column/User/CustomerSince.php17,
+#: ac-addon-woocommerce/classes/Column/User/CustomerSince.php16,
 #: ac-addon-woocommerce/classes/Settings/ShopOrder/Customer.php:15
 msgid "Customer Since"
 msgstr "Cliente desde"
 
-#: ac-addon-woocommerce/classes/Column/User/FirstOrder.php:17
+#: ac-addon-woocommerce/classes/Column/User/FirstOrder.php:18
 msgid "First Order"
 msgstr "Primer pedido"
 
-#: ac-addon-woocommerce/classes/Column/User/LastOrder.php:17
+#: ac-addon-woocommerce/classes/Column/User/LastOrder.php:19
 msgid "Last Order"
 msgstr "Último pedido"
 
-#: ac-addon-woocommerce/classes/Column/User/Orders.php:76
+#: ac-addon-woocommerce/classes/Column/User/Orders.php:80
 msgid "items"
 msgstr "artículos"
 
-#: ac-addon-woocommerce/classes/Column/User/Products.php:18
+#: ac-addon-woocommerce/classes/Column/User/Products.php:21
 msgid "Products"
 msgstr "Productos"
 
@@ -2273,17 +2364,18 @@ msgstr "No se vende individualmente"
 msgid "Standard"
 msgstr "Estándar"
 
-#: ac-addon-woocommerce/classes/Editing/ProductVariation/Enabled.php:16
+#: ac-addon-woocommerce/classes/Editing/ProductVariation/Enabled.php:15
 msgid "Private"
 msgstr "Privado"
 
-#: ac-addon-woocommerce/classes/Editing/ProductVariation/Enabled.php:17
+#: ac-addon-woocommerce/classes/Editing/ProductVariation/Enabled.php:16
 msgid "Published"
 msgstr "Publicado"
 
-#: ac-addon-woocommerce/classes/Export/ShopCoupon/Usage.php:20
-msgid "Infinity"
-msgstr "Infinito"
+#: ac-addon-woocommerce/classes/Export/Product/Sale.php:34
+msgctxt "Product on sale from (date)"
+msgid "Until"
+msgstr ""
 
 #: ac-addon-woocommerce/classes/Filtering/Comment/ProductReview.php:32
 msgid "Exclude Product Reviews"
@@ -2345,6 +2437,18 @@ msgstr "Está destacado"
 msgid "Is not featured"
 msgstr "No está destacado"
 
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterOrderCustomer.php:12
+msgid "Registered Customer"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductStockStatus.php:12
+msgid "Stock Status"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductType.php:12
+msgid "Product Type"
+msgstr ""
+
 #: ac-addon-woocommerce/classes/Settings/Product/Attributes.php:30
 msgid "All attributes"
 msgstr "Todos los atributos"
@@ -2369,19 +2473,19 @@ msgstr "Período"
 msgid "Select the time period from now"
 msgstr "Seleccione el período de tiempo a partir de ahora"
 
-#: ac-addon-woocommerce/classes/Settings/Product/Period.php:44
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:42
 msgid "Last year"
 msgstr "Último año"
 
-#: ac-addon-woocommerce/classes/Settings/Product/Period.php:45
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:43
 msgid "Last quarter"
 msgstr "Último cuarto"
 
-#: ac-addon-woocommerce/classes/Settings/Product/Period.php:46
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:44
 msgid "Last month"
 msgstr "Último mes"
 
-#: ac-addon-woocommerce/classes/Settings/Product/Period.php:47
+#: ac-addon-woocommerce/classes/Settings/Product/Period.php:45
 msgid "Last week"
 msgstr "Última semana"
 
@@ -2393,11 +2497,11 @@ msgstr "¿Usar un ícono?"
 msgid "Use an icon instead of text for displaying the note."
 msgstr "Use un ícono en lugar de texto para mostrar la nota."
 
-#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:48
+#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:46
 msgid "Without label"
 msgstr "Sin etiqueta"
 
-#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:105
+#: ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:103
 msgid "Any"
 msgstr "Cualquiera"
 
@@ -2405,60 +2509,60 @@ msgstr "Cualquiera"
 msgid "Order Count"
 msgstr "Orden de pedido"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:42
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:40
 msgid "IP Address"
 msgstr "Dirección IP"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:43
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:41
 msgid "IP Country Code"
 msgstr "Código IP de país"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php:26
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Product.php:32
 msgid "Product"
 msgstr "Producto"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:39
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:37
 msgid "Total"
 msgstr "Total"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:40
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:38
 msgid "Subtotal"
 msgstr "Subtotal"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:41
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:39
 msgid "Shipping Costs"
 msgstr "Costos de envío"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:42
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:40
 msgid "Tax"
 msgstr "Impuesto"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:43
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:41
 msgid "Refunds"
 msgstr "Reembolsos"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:44
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:42
 msgid "Discounts"
 msgstr "Descuentos"
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php45,
-#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Paid.php:16
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php43,
+#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Paid.php:17
 msgid "Paid"
 msgstr "Pagado"
 
-#: ac-addon-woocommerce/classes/Settings/User/AddressType.php60,
+#: ac-addon-woocommerce/classes/Settings/User/AddressType.php58,
 #: ac-addon-woocommerce/classes/Settings/User/Country.php:37
 msgid "Shipping"
 msgstr "Envío"
 
-#: ac-addon-woocommerce/classes/Settings/User/AddressType.php61,
+#: ac-addon-woocommerce/classes/Settings/User/AddressType.php59,
 #: ac-addon-woocommerce/classes/Settings/User/Country.php:38
 msgid "Billing"
 msgstr "Facturación"
 
-#: ac-addon-woocommerce/classes/Settings/User/Order.php:53
-msgid "Order number"
-msgstr "Número de pedido"
+#: ac-addon-woocommerce/classes/Settings/User/Order.php:57
+msgid "Amount"
+msgstr ""
 
 #: ac-addon-woocommerce/classes/Settings/User/Products.php:42
 msgid "Total products purchased"
@@ -2468,11 +2572,11 @@ msgstr "Total de productos comprados"
 msgid "Unique products purchased"
 msgstr "Productos únicos comprados"
 
-#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:42
-msgid "Amount of ratings given"
-msgstr "Cantidad de puntuaciones dadas"
+#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:40
+msgid "Number of ratings"
+msgstr ""
 
-#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:43
+#: ac-addon-woocommerce/classes/Settings/User/Ratings.php:41
 msgid "Average rating"
 msgstr "Puntuación media"
 
@@ -2496,7 +2600,7 @@ msgstr "El precio de oferta no puede ser cero o inferior."
 msgid "Sale price can not be higher than the regular price."
 msgstr "El precio de oferta no puede ser más alto que el precio normal."
 
-#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Completed.php:16
+#: ac-addon-woocommerce/classes/Field/ShopOrder/OrderDate/Completed.php:18
 msgid "Completed"
 msgstr "Completado"
 

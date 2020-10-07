@@ -715,7 +715,7 @@ class WC_MS_Checkout {
 
                     // Get base tax rates
                     if ( empty( $shop_tax_rates[ $_product->get_tax_class() ] ) ) {
-                        $shop_tax_rates[ $_product->get_tax_class() ] = WC_Tax::get_shop_base_rate( $_product->get_tax_class() );
+                        $shop_tax_rates[ $_product->get_tax_class() ] = WC_Tax::get_base_tax_rates( $_product->get_tax_class() );
                     }
 
                     // Get item tax rates
@@ -831,7 +831,7 @@ class WC_MS_Checkout {
                         $taxes             = WC_Tax::calc_tax( $line_price, $base_tax_rates, true, true );
 
                         // Now we have a new item price (excluding TAX)
-                        $line_subtotal     = WC_MS_Compatibility::round_tax( $line_price - array_sum( $taxes ) );
+                        $line_subtotal     = wc_round_tax_total( $line_price - array_sum( $taxes ) );
 
                         // Now add modifed taxes
                         $taxes             = WC_Tax::calc_tax( $line_subtotal, $item_tax_rates );
@@ -1004,9 +1004,11 @@ class WC_MS_Checkout {
         $subtotal   = $this->wcms->get_cart_item_subtotal( $cart_item );
         $taxable    = $cart_item['data']->is_taxable();
 
-        if ( $taxable && $subtotal !== ( $cart_item['line_total'] + $cart_item['line_tax'] ) ) {
-            if ( WC()->cart->tax_display_cart == 'excl' ) {
-                $row_price = $cart_item['line_total'];
+		if ( $taxable && $subtotal !== ( $cart_item['line_total'] + $cart_item['line_tax'] ) ) {
+			$tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_display_cart : WC()->cart->get_tax_price_display_mode();
+
+			if ( $tax_display_mode == 'excl' ) {
+				$row_price = $cart_item['line_total'];
 
                 $product_subtotal = wc_price( $row_price );
 

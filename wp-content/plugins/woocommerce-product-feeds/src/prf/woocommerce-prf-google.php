@@ -60,7 +60,7 @@ class WoocommercePrfGoogle {
 			header( 'Content-Disposition: inline; filename="woocommerce-review.xml"' );
 		}
 		$variables               = array();
-		$variables['store_name'] = $this->cdata_wrap( get_bloginfo( 'name' ) );
+		$variables['store_name'] = $this->esc_xml( get_bloginfo( 'name' ) );
 		$variables['version']    = WOOCOMMERCE_GPF_VERSION;
 		$this->tpl->output_template_with_variables( 'woo-prf', 'google-xml-header', $variables );
 	}
@@ -75,14 +75,14 @@ class WoocommercePrfGoogle {
 	public function render_item( $item ) {
 
 		$variables = array(
-			'user_id'           => $this->cdata_wrap( $item['user_id'] ),
-			'review_id'         => $this->cdata_wrap( $item['review_id'] ),
-			'reviewer_name'     => $this->cdata_wrap( $this->treat_name( $item['reviewer_name'] ) ),
-			'review_content'    => $this->cdata_wrap( $item['review_content'] ),
-			'product_url'       => $this->cdata_wrap( $item['product_url'] ),
-			'product_name'      => $this->cdata_wrap( $item['product_name'] ),
-			'review_rating'     => $this->cdata_wrap( $item['review_rating'] ),
-			'collection_method' => $this->cdata_wrap( $item['collection_method'] ),
+			'user_id'           => $this->esc_xml( $item['user_id'] ),
+			'review_id'         => $this->esc_xml( $item['review_id'] ),
+			'reviewer_name'     => $this->esc_xml( $this->treat_name( $item['reviewer_name'] ) ),
+			'review_content'    => $this->esc_xml( $item['review_content'] ),
+			'product_url'       => $this->esc_xml( $item['product_url'] ),
+			'product_name'      => $this->esc_xml( $item['product_name'] ),
+			'review_rating'     => $this->esc_xml( $item['review_rating'] ),
+			'collection_method' => $this->esc_xml( $item['collection_method'] ),
 			'reviewer'          => $this->render_reviewer( $item['reviewer_id'] ),
 			'product_ids'       => $this->render_product_ids( $item ),
 			'review_timestamp'  => $item['review_timestamp'],
@@ -134,7 +134,7 @@ class WoocommercePrfGoogle {
 		return $this->tpl->get_template_with_variables(
 			'woo-prf',
 			'google-xml-reviewer-id',
-			array( 'reviewer_id' => $this->cdata_wrap( (int) $user_id ) )
+			array( 'reviewer_id' => $this->esc_xml( (int) $user_id ) )
 		);
 	}
 
@@ -168,7 +168,11 @@ class WoocommercePrfGoogle {
 		}
 		$gtins = '';
 		foreach ( $item['gtins'] as $gtin ) {
-			$gtins .= $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-gtin', [ 'gtin' => $this->cdata_wrap( $gtin ) ] );
+			$gtins .= $this->tpl->get_template_with_variables(
+				'woo-prf',
+				'google-xml-gtin',
+				[ 'gtin' => $this->esc_xml( $gtin ) ]
+			);
 		}
 
 		return $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-gtins', [ 'gtins' => $gtins ] );
@@ -187,7 +191,11 @@ class WoocommercePrfGoogle {
 		}
 		$mpns = '';
 		foreach ( $item['mpns'] as $mpn ) {
-			$mpns .= $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-mpn', [ 'mpn' => $this->cdata_wrap( $mpn ) ] );
+			$mpns .= $this->tpl->get_template_with_variables(
+				'woo-prf',
+				'google-xml-mpn',
+				[ 'mpn' => $this->esc_xml( $mpn ) ]
+			);
 		}
 
 		return $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-mpns', [ 'mpns' => $mpns ] );
@@ -206,7 +214,11 @@ class WoocommercePrfGoogle {
 		}
 		$brands = '';
 		foreach ( $item['brands'] as $brand ) {
-			$brands .= $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-brand', [ 'brand' => $this->cdata_wrap( $brand ) ] );
+			$brands .= $this->tpl->get_template_with_variables(
+				'woo-prf',
+				'google-xml-brand',
+				[ 'brand' => $this->esc_xml( $brand ) ]
+			);
 		}
 
 		return $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-brands', [ 'brands' => $brands ] );
@@ -226,25 +238,37 @@ class WoocommercePrfGoogle {
 		}
 		$skus = '';
 		foreach ( $item['skus'] as $sku ) {
-			$skus .= $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-sku', [ 'sku' => $this->cdata_wrap( $sku ) ] );
+			$skus .= $this->tpl->get_template_with_variables(
+				'woo-prf',
+				'google-xml-sku',
+				[ 'sku' => $this->esc_xml( $sku ) ]
+			);
 		}
 
 		return $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-skus', [ 'skus' => $skus ] );
 	}
 
 	/**
-	 * Wrap a string in cdata markup for safe escaping.
+	 * Escape a value for use in XML.
 	 *
-	 * @param $string
+	 * Uses WordPress' esc_xml if available.
+	 *
+	 * @param $value
 	 *
 	 * @return string
 	 */
-	private function cdata_wrap( $string ) {
-		if ( empty( $string ) ) {
-			return $string;
+	private function esc_xml( $value ) {
+		if ( function_exists( 'esc_xml' ) ) {
+			return esc_xml( $value );
 		}
+		$value = preg_replace(
+			'/[\x00-\x08\x0B\x0C\x0E-\x1F\x80-\x9F]/u',
+			'',
+			$value
+		);
+		$value = str_replace( ']]>', ']]]]><![CDATA[>', $value );
 
-		return '<![CDATA[' . $string . ']]>';
+		return '<![CDATA[' . $value . ']]>';
 	}
 
 	/**

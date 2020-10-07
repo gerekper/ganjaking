@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Ship to Multiple Addresses
  * Plugin URI: https://woocommerce.com/products/shipping-multiple-addresses/
  * Description: Allow customers to ship orders with multiple products or quantities to separate addresses instead of forcing them to place multiple orders for different delivery addresses.
- * Version: 3.6.22
+ * Version: 3.6.23
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: wc_shipping_multiple_address
  * Domain Path: /languages
  * Tested up to: 5.5
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * WC requires at least: 3.0
  * Woo: 18741:aa0eb6f777846d329952d5b891d6f8cc
  *
@@ -33,7 +33,7 @@ function woocommerce_shipping_multiple_addresses_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
-	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.6.22' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.6.23' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Ship_Multiple {
 
@@ -1220,8 +1220,9 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 			$taxable    = $_product->is_taxable();
 
 			if ( $taxable ) {
+				$tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_display_cart : WC()->cart->get_tax_price_display_mode();
 
-				if ( WC()->cart->tax_display_cart == 'excl' ) {
+				if ( $tax_display_mode == 'excl' ) {
 					// WC 3.0 compatibility check
 					$row_price        = is_callable( 'wc_get_price_excluding_tax' ) ? wc_get_price_excluding_tax( $_product, array( 'qty' => $quantity ) ) : $_product->get_price_excluding_tax( $quantity );
 

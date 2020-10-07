@@ -40,7 +40,7 @@ class PrimaryTaxonomy extends Editing\Model\Meta
 
 	public function get_view_settings() {
 		return [
-			'type'                   => 'select2_dropdown',
+			self::VIEW_TYPE          => 'select2_dropdown',
 			'multiple'               => false,
 			'ajax_populate'          => true,
 			self::VIEW_BULK_EDITABLE => false,
@@ -59,6 +59,12 @@ class PrimaryTaxonomy extends Editing\Model\Meta
 			$entities,
 			new Select\Formatter\TermName( $entities )
 		);
+	}
+
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->column->remove_setting( Editing\Settings\BulkEditing::NAME );
 	}
 
 }

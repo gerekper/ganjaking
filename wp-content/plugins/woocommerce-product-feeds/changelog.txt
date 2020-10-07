@@ -1,5 +1,10 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2020.10.05 - version 9.1.2
+* New: Ability to choose primary image for products from available images
+* Change: Use WordPress' esc_xml() when available
+* Change: WordPress 4.6 compatibility
+
 2020.09.29 - version 9.1.0
 * New: Initial support for managing images included in the feed
 * Fix: Protect against bogus data from WC's product query when cache active

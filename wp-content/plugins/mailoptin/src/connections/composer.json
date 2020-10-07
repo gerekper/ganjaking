@@ -36,6 +36,7 @@
       "MailOptin\\EmailOctopusConnect\\": "EmailOctopusConnect/",
       "MailOptin\\GEMConnect\\": "GEMConnect/",
       "MailOptin\\MailPoetConnect\\": "MailPoetConnect/",
+      "MailOptin\\FluentCRMConnect\\": "FluentCRMConnect/",
       "MailOptin\\GetResponseConnect\\": "GetResponseConnect/",
       "MailOptin\\KlaviyoConnect\\": "KlaviyoConnect/",
       "MailOptin\\ElementorConnect\\": "ElementorConnect/",

@@ -1,5 +1,9 @@
 *** WooCommerce Checkout Add-Ons Changelog ***
 
+2020.10.02 - version 2.4.1
+ * Fix - Avoid accessing deprecated cart property that used to trigger a notice in WooCommerce 4.4+
+ * Misc - Remove the SkyVerge help menu item as part of the plugin assets
+
 2020.08.24 - version 2.4.0
  * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
  * Dev - Add filter `wc_checkout_add_ons_should_display` which allows merchants to override the displaying rules of an add-on

@@ -42,7 +42,7 @@ class Settings extends AbstractSettingsPage
 
         if (isset($_GET['clear-optin-cache']) && $_GET['clear-optin-cache'] == 'true') {
             OptinCampaignsRepository::burst_all_cache();
-            wp_redirect(add_query_arg('optin-cache', 'cleared', MAILOPTIN_SETTINGS_SETTINGS_PAGE));
+            wp_safe_redirect(add_query_arg('optin-cache', 'cleared', MAILOPTIN_SETTINGS_SETTINGS_PAGE));
             exit;
         }
     }

@@ -79,7 +79,7 @@ class AbstractWeMailConnect extends AbstractConnect
         $api_key = $this->connections_settings->wemail_api_key();
 
         if (empty($api_key)) {
-            throw new \Exception(__('WeMail API Key not found.', 'mailoptin'));
+            throw new \Exception(__('weMail API Key not found.', 'mailoptin'));
         }
 
         return new APIClass($api_key);

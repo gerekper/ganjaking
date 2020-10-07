@@ -150,10 +150,11 @@ class ConnectSettingsPage extends AbstractCampaignMonitorConnect
             check_admin_referer('mo_save_oauth_credentials', 'nonce');
 
             $old_data = get_option($option_name, []);
+            $expires_at = $this->oauth_expires_at_transform($_GET['expires_at']);
             $new_data = array_map('rawurldecode', [
                 'campaignmonitor_access_token'  => $_GET['access_token'],
                 'campaignmonitor_refresh_token' => $_GET['refresh_token'],
-                'campaignmonitor_expires_at'    => $_GET['expires_at']
+                'campaignmonitor_expires_at'    => $expires_at
             ]);
 
             $new_data = array_filter($new_data, [$this, 'data_filter']);

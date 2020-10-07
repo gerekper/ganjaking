@@ -15,8 +15,6 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 	/**
 	 * WC Chained Products Frontend
-	 *
-	 * @author StoreApps
 	 */
 	class WC_Chained_Products {
 
@@ -49,6 +47,8 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 			add_action( 'woocommerce_composited_add_to_cart', array( $this, 'add_chained_products_to_cart' ), 10, 7 );
 
 			// Action for updating chained product quantity in cart.
+			// TODO: Needs refactoring.
+			// Cannot use woocommerce_remove_cart_item for 3.7+, since it gives fatal error when trying to undo a chained product removed from cart.
 			if ( Chained_Products_WC_Compatibility::is_wc_gte_32() ) {
 				add_action( 'woocommerce_after_cart_item_quantity_update', array( $this, 'sa_after_cart_item_quantity_update' ), 1, 4 );
 				add_action( 'woocommerce_before_cart_item_quantity_zero', array( $this, 'sa_before_cart_item_quantity_zero' ), 1, 2 );
@@ -214,7 +214,11 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 								}
 								$chained_product_price = $chained_product->get_price();
 								if ( ! empty( $chained_product_price ) ) {
-									$prices[ $product_id ] += ( $chained_product_price * $chained_item_data['unit'] );
+									if ( ! empty( $prices[ $product_id ] ) ) {
+										$prices[ $product_id ] += ( $chained_product_price * $chained_item_data['unit'] );
+									} else {
+										$prices[ $product_id ] = ( $chained_product_price * $chained_item_data['unit'] );
+									}
 								}
 
 								$override_price = true;
@@ -1002,7 +1006,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 			$parent_product_id  = $wc_chained_products->get_parent( $product_id );
 			$is_chained_product = $wc_chained_products->is_chained_product( $parent_product_id );
-			$product = wc_get_product( $product_id );
+			$product            = wc_get_product( $product_id );
 			if ( $product instanceof WC_Product ) {
 				$product_visibility = ( Chained_Products_WC_Compatibility::is_wc_gte_30() ) ? $product->get_catalog_visibility() : $product->visibility;
 			}
@@ -1346,7 +1350,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 					$called_by  = current_filter();
 					$product_id = ( ! empty( $cart_item['variation_id'] ) ) ? $cart_item['variation_id'] : $cart_item['product_id'];
 					$product    = wc_get_product( $product_id );
-					$price = '';
+					$price      = '';
 					if ( $product instanceof WC_Product ) {
 						$price = $product->get_price();
 					}
@@ -1428,7 +1432,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 			if ( empty( $subtotal ) || empty( $order_item ) || empty( $order ) || empty( $order_item['chained_product_of'] ) ) {
 
-				$product = $order->get_product_from_item( $order_item );
+				$product = ( is_object( $order_item ) && is_callable( array( $order_item, 'get_product' ) ) ) ? $order_item->get_product() : $order->get_product_from_item( $order_item );
 
 				if ( $product instanceof WC_Product ) {
 
@@ -1469,7 +1473,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 			if ( $wc_chained_products->is_show_chained_item_price() ) {
 
 				if ( 'no' === $order_item['cp_priced_individually'] ) {
-					$product = $order->get_product_from_item( $order_item );
+					$product = ( is_object( $order_item ) && is_callable( array( $order_item, 'get_product' ) ) ) ? $order_item->get_product() : $order->get_product_from_item( $order_item );
 					$price   = $product->get_price();
 					$price   = $price * $order_item['qty'];
 

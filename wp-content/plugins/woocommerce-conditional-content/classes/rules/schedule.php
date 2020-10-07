@@ -131,7 +131,7 @@ class WC_Conditional_Content_Rule_Schedule_Time extends WC_Conditional_Content_R
 		$result = false;
 		if ( isset( $rule_data['condition'] ) && isset( $rule_data['operator'] ) ) {
 			$time = strtotime( $rule_data['condition'] );
-			$now  = strtotime( date( "h:i:s" ) );
+			$now  = strtotime( date_i18n( "H:i:s" ) );
 			switch ( $rule_data['operator'] ) {
 				case '==' :
 					$result = $time == $now;
@@ -140,13 +140,13 @@ class WC_Conditional_Content_Rule_Schedule_Time extends WC_Conditional_Content_R
 					$result = $time != $now;
 					break;
 				case '>' :
-					$result = $time > $now;
+					$result = $time < $now;
 					break;
 				case '<' :
 					$result = $now < $time;
 					break;
 				case '>=' :
-					$result = $time >= $now;
+					$result = $time <= $now;
 					break;
 				case '<=' :
 					$result = $now <= $time;

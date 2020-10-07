@@ -34,7 +34,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.14.4';
+	const VERSION = '1.15.1';
 
 	/** @var WC_Nested_Category_Layout single instance of this plugin */
 	protected static $instance;

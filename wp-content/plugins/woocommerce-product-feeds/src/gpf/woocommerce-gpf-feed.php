@@ -128,6 +128,29 @@ abstract class WoocommerceGpfFeed {
 	}
 
 	/**
+	 * Escape a value for use in XML.
+	 *
+	 * Uses WordPress' esc_xml if available.
+	 *
+	 * @param $value
+	 *
+	 * @return string
+	 */
+	protected function esc_xml( $value ) {
+		if ( function_exists( 'esc_xml' ) ) {
+			return esc_xml( $value );
+		}
+		$value = preg_replace(
+			'/[\x00-\x08\x0B\x0C\x0E-\x1F\x80-\x9F]/u',
+			'',
+			$value
+		);
+		$value = str_replace( ']]>', ']]]]><![CDATA[>', $value );
+
+		return '<![CDATA[' . $value . ']]>';
+	}
+
+	/**
 	 * Override this to generate output at the start of the file
 	 * Opening XML declarations, CSV header rows etc.
 	 *
@@ -153,5 +176,4 @@ abstract class WoocommerceGpfFeed {
 	 * @param  $store_info object Object containing information about the store
 	 */
 	abstract public function render_footer();
-
 }

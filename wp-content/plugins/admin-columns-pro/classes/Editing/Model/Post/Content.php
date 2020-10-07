@@ -4,16 +4,17 @@ namespace ACP\Editing\Model\Post;
 
 use ACP\Editing;
 use ACP\Editing\Model;
+use ACP\Editing\Settings\BulkEditing;
 
 class Content extends Model\Post {
 
 	public function get_view_settings() {
 		/* @var Editing\Settings\Content $setting */
-		$setting = $this->column->get_setting( 'edit' );
+		$setting = $this->column->get_setting( Editing\Settings\Content::NAME );
 
 		return [
-			'bulk_editable' => false,
-			'type'          => $setting->get_editable_type(),
+			self::VIEW_BULK_EDITABLE => false,
+			self::VIEW_TYPE          => $setting->get_editable_type(),
 		];
 	}
 
@@ -25,6 +26,7 @@ class Content extends Model\Post {
 		parent::register_settings();
 
 		$this->column->add_setting( new Editing\Settings\Content( $this->column ) );
+		$this->column->remove_setting( BulkEditing::NAME );
 	}
 
 }

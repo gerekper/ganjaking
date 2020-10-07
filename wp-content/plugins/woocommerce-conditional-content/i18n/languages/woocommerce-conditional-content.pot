@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Conditional Content 2.1.3\n"
+"Project-Id-Version: WooCommerce Conditional Content 2.1.4\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-conditional-content\n"
-"POT-Creation-Date: 2020-08-26 10:11:17+00:00\n"
+"POT-Creation-Date: 2020-10-02 11:50:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,27 +14,27 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n1.0.1\n"
 
-#: admin/class-wc-conditional-content-admin-controller.php:97
+#: admin/class-wc-conditional-content-admin-controller.php:117
 #: admin/views/metabox-rules.php:48
 #: back_compat_less_27/admin/class-wc-conditional-content-admin-controller.php:87
 #: back_compat_less_27/admin/views/metabox-rules.php:48
-#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:97
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:117
 #: dist/woocommerce-conditional-content/admin/views/metabox-rules.php:48
 #: dist/woocommerce-conditional-content/back_compat_less_27/admin/class-wc-conditional-content-admin-controller.php:87
 #: dist/woocommerce-conditional-content/back_compat_less_27/admin/views/metabox-rules.php:48
 msgid "or"
 msgstr ""
 
-#: admin/class-wc-conditional-content-admin-controller.php:98
+#: admin/class-wc-conditional-content-admin-controller.php:118
 #: back_compat_less_27/admin/class-wc-conditional-content-admin-controller.php:88
-#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:98
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:118
 #: dist/woocommerce-conditional-content/back_compat_less_27/admin/class-wc-conditional-content-admin-controller.php:88
 msgid "Apply this content when these conditions are matched"
 msgstr ""
 
-#: admin/class-wc-conditional-content-admin-controller.php:99
+#: admin/class-wc-conditional-content-admin-controller.php:119
 #: back_compat_less_27/admin/class-wc-conditional-content-admin-controller.php:89
-#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:99
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:119
 #: dist/woocommerce-conditional-content/back_compat_less_27/admin/class-wc-conditional-content-admin-controller.php:89
 msgid "test"
 msgstr ""
@@ -363,19 +363,21 @@ msgstr ""
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/inputs/cart-product-select.php:26
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:84
 #: dist/woocommerce-conditional-content/classes/inputs/cart-product-select.php:27
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:89
-#: woocommerce-conditional-content-main.php:89
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:92
+#: woocommerce-conditional-content-main.php:92
 msgid "Products"
 msgstr ""
 
 #: back_compat_less_27/classes/inputs/cart-product-select.php:34
 #: back_compat_less_27/classes/inputs/product-select.php:27
-#: classes/inputs/cart-product-select.php:35
-#: classes/inputs/product-select.php:27
+#: classes/inputs/cart-product-select.php:38
+#: classes/inputs/cart-product-select.php:40
+#: classes/inputs/product-select.php:28
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/inputs/cart-product-select.php:34
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/inputs/product-select.php:27
-#: dist/woocommerce-conditional-content/classes/inputs/cart-product-select.php:35
-#: dist/woocommerce-conditional-content/classes/inputs/product-select.php:27
+#: dist/woocommerce-conditional-content/classes/inputs/cart-product-select.php:38
+#: dist/woocommerce-conditional-content/classes/inputs/cart-product-select.php:40
+#: dist/woocommerce-conditional-content/classes/inputs/product-select.php:28
 msgid "Search for a product&hellip;"
 msgstr ""
 
@@ -423,8 +425,8 @@ msgstr ""
 #: dist/woocommerce-conditional-content/classes/rules/schedule.php:115
 #: dist/woocommerce-conditional-content/classes/rules/stock.php:58
 #: dist/woocommerce-conditional-content/classes/rules/store.php:11
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:143
-#: woocommerce-conditional-content-main.php:143
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:146
+#: woocommerce-conditional-content-main.php:146
 msgid "is equal to"
 msgstr ""
 
@@ -449,8 +451,8 @@ msgstr ""
 #: dist/woocommerce-conditional-content/classes/rules/schedule.php:116
 #: dist/woocommerce-conditional-content/classes/rules/stock.php:59
 #: dist/woocommerce-conditional-content/classes/rules/store.php:12
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:144
-#: woocommerce-conditional-content-main.php:144
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:147
+#: woocommerce-conditional-content-main.php:147
 msgid "is not equal to"
 msgstr ""
 
@@ -682,162 +684,162 @@ msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:80
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:80
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:85
-#: woocommerce-conditional-content-main.php:85
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:88
+#: woocommerce-conditional-content-main.php:88
 msgid "General"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:81
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:81
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:86
-#: woocommerce-conditional-content-main.php:86
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:89
+#: woocommerce-conditional-content-main.php:89
 msgid "Always"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:83
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:83
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:88
-#: woocommerce-conditional-content-main.php:88
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:91
+#: woocommerce-conditional-content-main.php:91
 msgid "Product"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:85
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:85
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:90
-#: woocommerce-conditional-content-main.php:90
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:93
+#: woocommerce-conditional-content-main.php:93
 msgid "Product Type"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:86
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:86
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:91
-#: woocommerce-conditional-content-main.php:91
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:94
+#: woocommerce-conditional-content-main.php:94
 msgid "Product Category"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:87
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:87
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:92
-#: woocommerce-conditional-content-main.php:92
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:95
+#: woocommerce-conditional-content-main.php:95
 msgid "Product Attributes"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:88
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:88
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:94
-#: woocommerce-conditional-content-main.php:94
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:97
+#: woocommerce-conditional-content-main.php:97
 msgid "Product Price"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:90
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:90
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:101
-#: woocommerce-conditional-content-main.php:101
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:104
+#: woocommerce-conditional-content-main.php:104
 msgid "Stock"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:91
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:91
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:102
-#: woocommerce-conditional-content-main.php:102
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:105
+#: woocommerce-conditional-content-main.php:105
 msgid "Stock Status"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:92
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:92
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:103
-#: woocommerce-conditional-content-main.php:103
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:106
+#: woocommerce-conditional-content-main.php:106
 msgid "Stock Level"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:94
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:94
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:105
-#: woocommerce-conditional-content-main.php:105
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:108
+#: woocommerce-conditional-content-main.php:108
 msgid "Sales"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:95
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:95
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:106
-#: woocommerce-conditional-content-main.php:106
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:109
+#: woocommerce-conditional-content-main.php:109
 msgid "Sale Date"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:96
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:96
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:107
-#: woocommerce-conditional-content-main.php:107
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:110
+#: woocommerce-conditional-content-main.php:110
 msgid "Sale Status"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:98
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:98
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:109
-#: woocommerce-conditional-content-main.php:109
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:112
+#: woocommerce-conditional-content-main.php:112
 msgid "Membership"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:99
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:99
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:110
-#: woocommerce-conditional-content-main.php:110
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:113
+#: woocommerce-conditional-content-main.php:113
 msgid "User"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:100
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:100
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:111
-#: woocommerce-conditional-content-main.php:111
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:114
+#: woocommerce-conditional-content-main.php:114
 msgid "Role"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:102
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:102
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:117
-#: woocommerce-conditional-content-main.php:117
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:120
+#: woocommerce-conditional-content-main.php:120
 msgid "Cart"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:103
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:103
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:118
-#: woocommerce-conditional-content-main.php:118
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:121
+#: woocommerce-conditional-content-main.php:121
 msgid "Cart Total"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:104
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:104
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:119
-#: woocommerce-conditional-content-main.php:119
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:122
+#: woocommerce-conditional-content-main.php:122
 msgid "Cart Products"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:105
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:105
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:120
-#: woocommerce-conditional-content-main.php:120
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:123
+#: woocommerce-conditional-content-main.php:123
 msgid "Cart Categories"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:107
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:107
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:124
-#: woocommerce-conditional-content-main.php:124
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:127
+#: woocommerce-conditional-content-main.php:127
 msgid "Geography"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:108
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:108
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:125
-#: woocommerce-conditional-content-main.php:125
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:128
+#: woocommerce-conditional-content-main.php:128
 msgid "Country"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:142
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:142
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:159
-#: woocommerce-conditional-content-main.php:159
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:162
+#: woocommerce-conditional-content-main.php:162
 msgid "WooCommerce"
 msgstr ""
 
@@ -847,54 +849,54 @@ msgstr ""
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:143
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:161
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:179
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:160
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:178
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:196
-#: woocommerce-conditional-content-main.php:160
-#: woocommerce-conditional-content-main.php:178
-#: woocommerce-conditional-content-main.php:196
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:163
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:181
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:199
+#: woocommerce-conditional-content-main.php:163
+#: woocommerce-conditional-content-main.php:181
+#: woocommerce-conditional-content-main.php:199
 msgid "The single product page"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:148
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:148
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:165
-#: woocommerce-conditional-content-main.php:165
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:168
+#: woocommerce-conditional-content-main.php:168
 msgid "Before main content"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:154
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:154
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:171
-#: woocommerce-conditional-content-main.php:171
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:174
+#: woocommerce-conditional-content-main.php:174
 msgid "After main content"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:160
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:160
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:177
-#: woocommerce-conditional-content-main.php:177
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:180
+#: woocommerce-conditional-content-main.php:180
 msgid "Shop"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:166
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:166
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:183
-#: woocommerce-conditional-content-main.php:183
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:186
+#: woocommerce-conditional-content-main.php:186
 msgid "Before shop loop"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:172
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:172
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:189
-#: woocommerce-conditional-content-main.php:189
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:192
+#: woocommerce-conditional-content-main.php:192
 msgid "After shop loop"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:178
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:178
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:195
-#: woocommerce-conditional-content-main.php:195
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:198
+#: woocommerce-conditional-content-main.php:198
 msgid "Single Product"
 msgstr ""
 
@@ -902,8 +904,8 @@ msgstr ""
 #: back_compat_less_27/woocommerce-conditional-content-main.php:190
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:184
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:190
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:201
-#: woocommerce-conditional-content-main.php:201
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:204
+#: woocommerce-conditional-content-main.php:204
 msgid "Before single product summary"
 msgstr ""
 
@@ -919,64 +921,64 @@ msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:208
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:208
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:225
-#: woocommerce-conditional-content-main.php:225
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:228
+#: woocommerce-conditional-content-main.php:228
 msgid "After product title"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:214
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:214
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:231
-#: woocommerce-conditional-content-main.php:231
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:234
+#: woocommerce-conditional-content-main.php:234
 msgid "After product price"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:220
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:220
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:237
-#: woocommerce-conditional-content-main.php:237
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:240
+#: woocommerce-conditional-content-main.php:240
 msgid "After product description"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:226
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:226
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:243
-#: woocommerce-conditional-content-main.php:243
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:246
+#: woocommerce-conditional-content-main.php:246
 msgid "After add to cart"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:232
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:232
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:249
-#: woocommerce-conditional-content-main.php:249
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:252
+#: woocommerce-conditional-content-main.php:252
 msgid "After product meta"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:238
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:238
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:255
-#: woocommerce-conditional-content-main.php:255
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:258
+#: woocommerce-conditional-content-main.php:258
 msgid "After product sharing"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:244
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:244
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:261
-#: woocommerce-conditional-content-main.php:261
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:264
+#: woocommerce-conditional-content-main.php:264
 msgid "After product data tabs"
 msgstr ""
 
 #: back_compat_less_27/woocommerce-conditional-content-main.php:250
 #: dist/woocommerce-conditional-content/back_compat_less_27/woocommerce-conditional-content-main.php:250
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:267
-#: woocommerce-conditional-content-main.php:267
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:270
+#: woocommerce-conditional-content-main.php:270
 msgid "After related products"
 msgstr ""
 
-#: classes/inputs/cart-product-select.php:42
-#: classes/inputs/cart-product-select.php:51
-#: dist/woocommerce-conditional-content/classes/inputs/cart-product-select.php:42
-#: dist/woocommerce-conditional-content/classes/inputs/cart-product-select.php:51
+#: classes/inputs/cart-product-select.php:47
+#: classes/inputs/cart-product-select.php:56
+#: dist/woocommerce-conditional-content/classes/inputs/cart-product-select.php:47
+#: dist/woocommerce-conditional-content/classes/inputs/cart-product-select.php:56
 msgid "Any"
 msgstr ""
 
@@ -1041,83 +1043,83 @@ msgstr ""
 msgid "Saturday"
 msgstr ""
 
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:93
-#: woocommerce-conditional-content-main.php:93
-msgid "Product Tag"
-msgstr ""
-
 #: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:96
 #: woocommerce-conditional-content-main.php:96
-msgid "Schedule"
-msgstr ""
-
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:97
-#: woocommerce-conditional-content-main.php:97
-msgid "Date"
-msgstr ""
-
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:98
-#: woocommerce-conditional-content-main.php:98
-msgid "Day"
+msgid "Product Tag"
 msgstr ""
 
 #: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:99
 #: woocommerce-conditional-content-main.php:99
+msgid "Schedule"
+msgstr ""
+
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:100
+#: woocommerce-conditional-content-main.php:100
+msgid "Date"
+msgstr ""
+
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:101
+#: woocommerce-conditional-content-main.php:101
+msgid "Day"
+msgstr ""
+
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:102
+#: woocommerce-conditional-content-main.php:102
 msgid "Time"
-msgstr ""
-
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:112
-#: woocommerce-conditional-content-main.php:112
-msgid "Authentication"
-msgstr ""
-
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:114
-#: woocommerce-conditional-content-main.php:114
-msgid "Store"
 msgstr ""
 
 #: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:115
 #: woocommerce-conditional-content-main.php:115
+msgid "Authentication"
+msgstr ""
+
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:117
+#: woocommerce-conditional-content-main.php:117
+msgid "Store"
+msgstr ""
+
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:118
+#: woocommerce-conditional-content-main.php:118
 msgid "Order Count and Status"
 msgstr ""
 
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:121
-#: woocommerce-conditional-content-main.php:121
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:124
+#: woocommerce-conditional-content-main.php:124
 msgid "Cart Line Item Product"
 msgstr ""
 
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:122
-#: woocommerce-conditional-content-main.php:122
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:125
+#: woocommerce-conditional-content-main.php:125
 msgid "Cart Line Item Quantity"
-msgstr ""
-
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:126
-#: woocommerce-conditional-content-main.php:126
-msgid "WPML Language Code"
-msgstr ""
-
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:128
-#: woocommerce-conditional-content-main.php:128
-msgid "Taxonomy"
 msgstr ""
 
 #: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:129
 #: woocommerce-conditional-content-main.php:129
+msgid "WPML Language Code"
+msgstr ""
+
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:131
+#: woocommerce-conditional-content-main.php:131
+msgid "Taxonomy"
+msgstr ""
+
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:132
+#: woocommerce-conditional-content-main.php:132
 msgid "Product Category Archive"
 msgstr ""
 
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:207
-#: woocommerce-conditional-content-main.php:207
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:210
+#: woocommerce-conditional-content-main.php:210
 msgid "After single product summary"
 msgstr ""
 
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:213
-#: woocommerce-conditional-content-main.php:213
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:216
+#: woocommerce-conditional-content-main.php:216
 msgid "Before sale flash"
 msgstr ""
 
-#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:219
-#: woocommerce-conditional-content-main.php:219
+#: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:222
+#: woocommerce-conditional-content-main.php:222
 msgid "Before product images"
 msgstr ""
 
@@ -1143,6 +1145,66 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://www.elementstark.com/"
+msgstr ""
+
+#: admin/class-wc-conditional-content-admin-controller.php:92
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:92
+msgctxt "enhanced select"
+msgid "No matches found"
+msgstr ""
+
+#: admin/class-wc-conditional-content-admin-controller.php:93
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:93
+msgctxt "enhanced select"
+msgid "Loading failed"
+msgstr ""
+
+#: admin/class-wc-conditional-content-admin-controller.php:94
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:94
+msgctxt "enhanced select"
+msgid "Please enter 1 or more characters"
+msgstr ""
+
+#: admin/class-wc-conditional-content-admin-controller.php:95
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:95
+msgctxt "enhanced select"
+msgid "Please enter %qty% or more characters"
+msgstr ""
+
+#: admin/class-wc-conditional-content-admin-controller.php:96
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:96
+msgctxt "enhanced select"
+msgid "Please delete 1 character"
+msgstr ""
+
+#: admin/class-wc-conditional-content-admin-controller.php:97
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:97
+msgctxt "enhanced select"
+msgid "Please delete %qty% characters"
+msgstr ""
+
+#: admin/class-wc-conditional-content-admin-controller.php:98
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:98
+msgctxt "enhanced select"
+msgid "You can only select 1 item"
+msgstr ""
+
+#: admin/class-wc-conditional-content-admin-controller.php:99
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:99
+msgctxt "enhanced select"
+msgid "You can only select %qty% items"
+msgstr ""
+
+#: admin/class-wc-conditional-content-admin-controller.php:100
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:100
+msgctxt "enhanced select"
+msgid "Loading more results&hellip;"
+msgstr ""
+
+#: admin/class-wc-conditional-content-admin-controller.php:101
+#: dist/woocommerce-conditional-content/admin/class-wc-conditional-content-admin-controller.php:101
+msgctxt "enhanced select"
+msgid "Searching&hellip;"
 msgstr ""
 
 #: back_compat_less_27/classes/class-wc-conditional-content-taxonomy.php:30

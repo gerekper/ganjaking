@@ -44,11 +44,7 @@ class Subscription extends AbstractJiltConnect
                 $customer_data['list_ids'] = [$list_id];
             }
 
-            $lead_tags = $this->get_integration_data('JiltConnect_lead_tags');
-
-            if ( ! empty($this->extras['form_tags'])) {
-                $lead_tags = $this->extras['form_tags'];
-            }
+            $lead_tags = $this->get_integration_tags('JiltConnect_lead_tags');
 
             if ( ! empty($lead_tags)) {
                 $customer_data['tags'] = array_map('trim', explode(',', $lead_tags));
