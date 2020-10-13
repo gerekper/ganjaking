@@ -48,9 +48,28 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			
 			//define cron job every hour for check risk score
             add_action('wp', array($this, 'check_risk_score_seven_days_scheduled'));
+
+			add_action('my_hourly_event', array($this, 'do_this_hourly'));
+			
+			add_action('valid-paypal-standard-ipn-request', array($this, 'preapproved_api_order'), 10, 1);
+			add_action('woocommerce_paypal_express_checkout_valid_ipn_request', array( $this, 'get_buyer_paypal_express_email'), 10, 1);
+
+			// For check Enable_whitelist_payment_method
+			$enable_settings = get_option( 'wc_af_enable_whitelist_payment_method' );
+			if( $enable_settings == 'yes' ) {
+
+				add_filter('manage_edit-shop_order_columns',  array( $this, 'af_payment_method_list_columns_function')); // Extra column title
+				add_action('manage_shop_order_posts_custom_column',  array( $this,'af_payment_method_value_list'), 2); // Extra column value
+			}
+
+      // TODO check this event
 			add_action('wp_af_my_hourly_event', array($this, 'do_this_hourly'));
+
+
 		}
 
+
+		
 		/**
 		 * The setup method // singleton initiator
 		 *
@@ -293,7 +312,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				$score_helper = new WC_AF_Score_Helper();
 				// Get orders payed by paypal.
 				$args = array(
-				    'payment_method' => 'paypal',
+				    'payment_method' => array('paypal','ppec_paypal'),
 				    'status'         => array('on-hold','pending'),
 				);
 				$orders = wc_get_orders( $args );
@@ -373,6 +392,66 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 			   	}
 			}
 		}
+
+		public function preapproved_api_order( $details ) {
+
+		    global $woocommerce;
+		    $payer_email = $details['payer_email'];
+		    //$order_id = $details['item_number1'];
+		    $data = json_decode($details['custom']);
+		    $score_helper = new WC_AF_Score_Helper();
+
+		    if(!empty($payer_email) && !empty($data)) {
+		    	$tmp_data  = (object)$data;
+				$order_id = $tmp_data ->order_id;  
+			    $order = new WC_Order( $order_id );
+			    add_post_meta( $order_id, '_paypal_payer_email',  $payer_email );
+			    $score_helper->paypal_email_verification($order, 10);	
+			}
+		}
+
+		public function get_buyer_paypal_express_email( $details ){
+
+			global $woocommerce;
+		    $payer_email = $details['payer_email'];
+		    $data = json_decode($details['custom']);
+		    $score_helper = new WC_AF_Score_Helper();
+
+		    if(!empty($payer_email) && !empty($data)) {
+		    	$tmp_data  = (object)$data;
+				$order_id = $tmp_data ->order_id;  
+			    $order = new WC_Order( $order_id );
+		    	add_post_meta( $order_id, '_paypal_express_payer_email',  $payer_email );
+		    	$score_helper->paypal_email_verification($order, 10);
+			    	  	
+		    }
+		}
+
+		function af_payment_method_list_columns_function( $columns ) {
+	
+		    $new_columns = ( is_array( $columns ) ) ? $columns : array();
+		    unset( $new_columns[ 'order_total' ] );
+		    // all of your columns will be added before the actions column
+		    $new_columns['wc_af_payment_method_list'] = 'Payment Method';
+		    //stop editing
+		    @$new_columns[ 'order_total' ] = @$columns[ 'order_total' ];
+		    return $new_columns;
+	
+		}
+
+		// Change order of columns (working)
+
+		function af_payment_method_value_list( $column ) {
+
+			global $post;
+	   		if ( 'wc_af_payment_method_list' === $column ) {
+		    	$order = wc_get_order( $post->ID );
+				$order_id = $order->get_id();
+				$payment_method = get_post_meta( $order_id, '_payment_method', true );
+				echo '<span class="wc_af_payment_method">'.$payment_method.' </span><br>';
+    		}	
+		}
+
 	}
 
 }

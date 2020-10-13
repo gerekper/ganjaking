@@ -1,5 +1,8 @@
 *** Shipping Per Product Changelog ***
 
+2020-10-06 - version 2.3.12
+* Tweak - WC 4.5 compatibility.
+
 2020-08-18 - version 2.3.11
 * Fix   - Replace deprecated jQuery methods.
 * Tweak - WordPress 5.5 compatibility.

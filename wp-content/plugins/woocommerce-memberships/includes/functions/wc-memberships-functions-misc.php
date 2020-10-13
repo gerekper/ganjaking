@@ -211,28 +211,3 @@ function wc_memberships_delete_content_meta( $object, $meta_key ) {
 		}
 	}
 }
-
-
-/**
- * Gets a variation product's parent, if any (compatibility template function).
- *
- * @since 1.12.0
- * @deprecated 1.16.0
- *
- * TODO remove this function by version 2.0.0 or by October 2020 {FN 2019-10-16}
- *
- * @param int|\WP_Post|\WC_Product|\WC_Product_Variation $product variation product ID, object or post object
- * @return null|\WC_Product
- */
-function wc_memberships_get_product_parent( $product ) {
-
-	wc_deprecated_function( 'wc_memberships_get_product_parent()', '1.16.0', 'wc_get_product()' );
-
-	if ( is_numeric( $product ) ) {
-		$product = wc_get_product( $product );
-	}
-
-	$parent = $product instanceof \WC_Product && $product->is_type( 'variation' ) ? wc_get_product( $product->get_parent_id( 'edit' ) ) : null;
-
-	return $parent ?: null;
-}

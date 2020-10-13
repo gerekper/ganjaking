@@ -49,33 +49,5 @@
             "source": "https://github.com/skyverge/wc-plugin-framework/tree/5.4.1",
             "issues": "https://github.com/skyverge/wc-plugin-framework/issues"
         }
-    },
-    {
-        "name": "skyverge/wordpress-plugin-admin",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "git@github.com:skyverge/wordpress-plugin-admin.git",
-            "reference": "b0e136b2c7b6a43c641fcfd253af500253c88b9b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/skyverge/wordpress-plugin-admin/zipball/b0e136b2c7b6a43c641fcfd253af500253c88b9b",
-            "reference": "b0e136b2c7b6a43c641fcfd253af500253c88b9b",
-            "shasum": ""
-        },
-        "require-dev": {
-            "lucatume/wp-browser": "2.2.37",
-            "skyverge/lumiere": "dev-master"
-        },
-        "time": "2020-08-10T19:37:09+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "description": "WordPress administrative area for SkyVerge plugins",
-        "support": {
-            "source": "https://github.com/skyverge/wordpress-plugin-admin/tree/master",
-            "issues": "https://github.com/skyverge/wordpress-plugin-admin/issues"
-        }
     }
 ]

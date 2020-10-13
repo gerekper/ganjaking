@@ -516,7 +516,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'type'    => 'checkbox',
 			),
 			array(
-				'title'   => esc_html__( 'Show description for radio buttons and checkboxes inline.', 'woocommerce-tm-extra-product-options' ),
+				'title'   => esc_html__( 'Show choice description inline.', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check this to disable showing descirption as a tooltip and show it inline instead.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_description_inline',
 				'class'   => 'tcdisplay',
@@ -525,7 +525,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 			array(
 				'title'   => esc_html__( 'Hide choice label when using the swatch mode for radio buttons and checkboxes.', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Check this to hdie the choice label when using the swatch mode for radio buttons and checkboxes.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to 44 the choice label when using the swatch mode for radio buttons and checkboxes.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_swatch_hide_label',
 				'class'   => 'tcdisplay',
 				'default' => 'yes',

@@ -273,6 +273,8 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
         $usr = new MeprUser();
         $usr->user_login = ($mepr_options->username_is_email)?sanitize_email($_POST['user_email']):sanitize_user($_POST['user_login']);
         $usr->user_email = sanitize_email($_POST['user_email']);
+        $usr->first_name = isset($_POST['user_first_name']) && !empty($_POST['user_first_name']) ? sanitize_text_field(wp_unslash($_POST['user_first_name'])) : '';
+        $usr->last_name = isset($_POST['user_last_name']) && !empty($_POST['user_last_name']) ? sanitize_text_field(wp_unslash($_POST['user_last_name'])) : '';
 
         $password = ($mepr_options->disable_checkout_password_fields === true) ? wp_generate_password() : $_POST['mepr_user_password'];
         //Have to use rec here because we unset user_pass on __construct

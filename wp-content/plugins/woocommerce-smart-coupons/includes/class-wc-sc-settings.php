@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -118,6 +118,94 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				jQuery(function(){
 					let root = document.documentElement;
 
+					if ( typeof getEnhancedSelectFormatString == "undefined" ) {
+						function getEnhancedSelectFormatString() {
+							return {
+								'language': {
+									errorLoading: function() {
+										// Workaround for https://github.com/select2/select2/issues/4355 instead of i18n_ajax_error.
+										return wc_enhanced_select_params.i18n_searching;
+									},
+									inputTooLong: function( args ) {
+										var overChars = args.input.length - args.maximum;
+
+										if ( 1 === overChars ) {
+											return wc_enhanced_select_params.i18n_input_too_long_1;
+										}
+
+										return wc_enhanced_select_params.i18n_input_too_long_n.replace( '%qty%', overChars );
+									},
+									inputTooShort: function( args ) {
+										var remainingChars = args.minimum - args.input.length;
+
+										if ( 1 === remainingChars ) {
+											return wc_enhanced_select_params.i18n_input_too_short_1;
+										}
+
+										return wc_enhanced_select_params.i18n_input_too_short_n.replace( '%qty%', remainingChars );
+									},
+									loadingMore: function() {
+										return wc_enhanced_select_params.i18n_load_more;
+									},
+									maximumSelected: function( args ) {
+										if ( args.maximum === 1 ) {
+											return wc_enhanced_select_params.i18n_selection_too_long_1;
+										}
+
+										return wc_enhanced_select_params.i18n_selection_too_long_n.replace( '%qty%', args.maximum );
+									},
+									noResults: function() {
+										return wc_enhanced_select_params.i18n_no_matches;
+									},
+									searching: function() {
+										return wc_enhanced_select_params.i18n_searching;
+									}
+								}
+							};
+						}
+					}
+
+					// Ajax coupon search box
+					jQuery( ':input.wc-sc-storewide-coupon-search' ).filter( ':not(.enhanced)' ).each( function() {
+						var select2_args = {
+							allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
+							placeholder: jQuery( this ).data( 'placeholder' ),
+							minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : '3',
+							escapeMarkup: function( m ) {
+								return m;
+							},
+							ajax: {
+								url:         wc_enhanced_select_params.ajax_url,
+								dataType:    'json',
+								delay:       250,
+								data:        function( params ) {
+									return {
+										term         : params.term,
+										action       : jQuery( this ).data( 'action' ) || 'woocommerce_json_search_products_and_variations',
+										security     : jQuery( this ).data( 'security' ) || wc_enhanced_select_params.search_products_nonce
+									};
+								},
+								processResults: function( data ) {
+									var terms = [];
+									if ( data ) {
+										jQuery.each( data, function( id, text ) {
+											terms.push( { id: id, text: text } );
+										});
+									}
+									return {
+										results: terms
+									};
+								},
+								cache: true
+							}
+						};
+
+						select2_args = jQuery.extend( select2_args, getEnhancedSelectFormatString() );
+
+						jQuery( this ).selectWoo( select2_args ).addClass( 'enhanced' );
+
+					});
+
 					jQuery('body .forminp-wc_sc_radio_with_html').on('click', '.wc_sc_setting_coupon_design_colors li', function(){
 						let color_string = jQuery(this).find('input[type="radio"]').val();
 						if ('custom' !== color_string) {
@@ -226,6 +314,17 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				}
 			}
 
+			$all_discount_types = wc_get_coupon_types();
+
+			$storewide_offer_coupon_option = array();
+			$storewide_offer_coupon_code   = get_option( 'smart_coupons_storewide_offer_coupon_code' );
+			if ( ! empty( $storewide_offer_coupon_code ) ) {
+				$coupon        = new WC_Coupon( $storewide_offer_coupon_code );
+				$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : 'percent';
+				/* translators: 1. The coupon code, 2. The discount type */
+				$storewide_offer_coupon_option[ $storewide_offer_coupon_code ] = sprintf( __( '%1$s (Type: %2$s)', 'woocommerce-smart-coupons' ), $storewide_offer_coupon_code, ( ( array_key_exists( $discount_type, $all_discount_types ) ) ? $all_discount_types[ $discount_type ] : $discount_type ) );
+			}
+
 			$sc_settings = array(
 				array(
 					'title' => __( 'Smart Coupons Settings', 'woocommerce-smart-coupons' ),
@@ -312,6 +411,24 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 					'args'     => array(
 						'html_callback' => array( $this, 'coupon_design_html' ),
 					),
+				),
+				array(
+					'name'              => __( 'Storewide offer coupon', 'woocommerce-smart-coupons' ),
+					'id'                => 'smart_coupons_storewide_offer_coupon_code',
+					'type'              => 'select',
+					'default'           => '',
+					'desc'              => __( 'Search & select a coupon which you want to display as storewide offer coupon. The selected coupon\'s description will be displayed along with the coupon code (if it is set) otherwise, a description will be generated automatically. To disable the feature, keep this field empty.', 'woocommerce-smart-coupons' ),
+					'desc_tip'          => true,
+					'class'             => 'wc-sc-storewide-coupon-search',
+					'css'               => 'min-width:300px;',
+					'autoload'          => false,
+					'custom_attributes' => array(
+						'data-placeholder' => __( 'Search for a coupon...', 'woocommerce-smart-coupons' ),
+						'data-action'      => 'sc_json_search_storewide_coupons',
+						'data-security'    => wp_create_nonce( 'search-coupons' ),
+						'data-allow_clear' => true,
+					),
+					'options'           => $storewide_offer_coupon_option,
 				),
 				array(
 					'name'     => __( 'Number of coupons to show', 'woocommerce-smart-coupons' ),
@@ -623,7 +740,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 					);
 				}
 
-				array_splice( $sc_settings, 14, 0, $before_tax_option );
+				array_splice( $sc_settings, 15, 0, $before_tax_option );
 			}
 
 			return apply_filters( 'wc_smart_coupons_settings', $sc_settings );
@@ -692,6 +809,25 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 			$color_scheme = str_replace( '#', '', $color_scheme );
 			if ( in_array( $color_scheme, $predefined_colors, true ) ) {
 				update_option( 'wc_sc_setting_coupon_design_colors', $color_scheme, 'no' );
+			}
+
+			$old_storewide_offer_coupon_code  = get_option( 'smart_coupons_storewide_offer_coupon_code' );
+			$post_storewide_offer_coupon_code = ( ! empty( $_POST['smart_coupons_storewide_offer_coupon_code'] ) ) ? wc_clean( wp_unslash( $_POST['smart_coupons_storewide_offer_coupon_code'] ) ) : ''; // phpcs:ignore
+			if ( $old_storewide_offer_coupon_code !== $post_storewide_offer_coupon_code ) {
+				update_option( 'smart_coupons_storewide_offer_coupon_code', $post_storewide_offer_coupon_code, 'no' );
+				if ( ! empty( $post_storewide_offer_coupon_code ) ) {
+					update_option( 'woocommerce_demo_store', 'yes' );
+					update_option( 'woocommerce_demo_store_notice', '', 'no' );
+					$notice = get_option( 'woocommerce_demo_store_notice' );
+					if ( empty( $notice ) ) {
+						$coupon = new WC_Coupon( $post_storewide_offer_coupon_code );
+						$notice = $this->generate_storewide_offer_coupon_description( array( 'coupon_object' => $coupon ) );
+						update_option( 'woocommerce_demo_store_notice', wp_filter_post_kses( $notice ), 'no' );
+					}
+				} else {
+					update_option( 'woocommerce_demo_store', 'no' );
+					update_option( 'woocommerce_demo_store_notice', '', 'no' );
+				}
 			}
 
 		}

@@ -1,5 +1,10 @@
 *** WooCommerce Force Sells ***
 
+2020-10-06 - version 1.1.26
+* Fix - Prevent variable products (not variations) from being linked as a force sell product.
+* Fix - Update deprecated hook woocommerce_before_cart_item_quantity_zero.
+* Tweak - WC 4.5 compatibility.
+
 2020-08-19 - version 1.1.25
 * Tweak - WordPress 5.5 compatibility.
 

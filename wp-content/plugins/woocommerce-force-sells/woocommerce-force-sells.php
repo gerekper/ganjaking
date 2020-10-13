@@ -3,10 +3,10 @@
  * Plugin Name: WooCommerce Force Sells
  * Plugin URI: https://woocommerce.com/products/force-sells/
  * Description: Allows you to select products which will be used as force-sells - items which get added to the cart along with other items.
- * Version: 1.1.25
+ * Version: 1.1.26
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * WC requires at least: 2.6
  * Tested up to: 5.5
  *
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'plugins_loaded', array( 'WC_Force_Sells', 'get_instance' ) );
 
 if ( ! class_exists( 'WC_Force_Sells' ) ) :
-	define( 'WC_FORCE_SELLS_VERSION', '1.1.25' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_FORCE_SELLS_VERSION', '1.1.26' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main plugin class.
@@ -63,7 +63,7 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'show_force_sell_products' ) );
 			add_action( 'woocommerce_add_to_cart', array( $this, 'add_force_sell_items_to_cart' ), 11, 6 );
 			add_action( 'woocommerce_after_cart_item_quantity_update', array( $this, 'update_force_sell_quantity_in_cart' ), 1, 2 );
-			add_action( 'woocommerce_before_cart_item_quantity_zero', array( $this, 'update_force_sell_quantity_in_cart' ), 1, 2 );
+			add_action( 'woocommerce_remove_cart_item', array( $this, 'update_force_sell_quantity_in_cart' ), 1, 1 );
 
 			// Keep force sell data in the cart.
 			add_filter( 'woocommerce_get_cart_item_from_session', array( $this, 'get_cart_item_from_session' ), 10, 2 );
@@ -222,7 +222,7 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 					$json_ids    = array();
 
 					if ( version_compare( WC_VERSION, '3.0', '>=' ) ) { ?>
-						<select id="force_sell_ids" class="wc-product-search" multiple="multiple" style="width: 50%;" name="force_sell_ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-force-sells' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
+						<select id="force_sell_ids" class="wc-product-search" multiple="multiple" style="width: 50%;" name="force_sell_ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-force-sells' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>" data-exclude_type="variable">
 
 						<?php
 							foreach ( $product_ids as $product_id ) {
@@ -261,7 +261,7 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 					$json_ids    = array();
 
 					if ( version_compare( WC_VERSION, '3.0', '>=' ) ) { ?>
-						<select id="force_sell_synced_ids" class="wc-product-search" multiple="multiple" style="width: 50%;" name="force_sell_synced_ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-force-sells' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
+						<select id="force_sell_synced_ids" class="wc-product-search" multiple="multiple" style="width: 50%;" name="force_sell_synced_ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-force-sells' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>" data-exclude_type="variable">
 
 						<?php
 							foreach ( $product_ids as $product_id ) {

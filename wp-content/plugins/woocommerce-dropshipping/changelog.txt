@@ -1,21 +1,38 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
-2020.08.19 -Version 2.6
+2020.10.06 - Version 2.7
+PLUGINS-613 - Remove Dropshipper capabilities to add a new post and view comments
+PLUGINS-584 - Hide all Wordpress notification on dropshipper dashboard
+PLUGINS-615 - Wrong text on help button for packing slip settings help icon
+PLUGINS-614 - Cost of Goods export/import bug
+PLUGINS-465 - Fix Email Logo and featured image to show on email
+PLUGINS-651 - jQuery conflict with other plugins
+PLUGINS-642 - Fetch "Taxes" word from tax settings
+PLUGINS-610 - Unwanted response shows when importing CSV file
+PLUGINS-169 - Added Feature -  Support for [Sequential Order Numbers] plugin.
+PLUGINS-716 - Fix bug "Cost of Goods" always shows on suppliers notifications when not empty
+PLUGINS-717 - Fix errors/notices/warnings on dropshipping 2.7
+PLUGINS-725 - Add admin notice on activation hook to save settings on dropshipping settings page
 
+2020.08.26 -Version 2.6
 PLUGINS-568 - Fixed the issue [permission_callback] after update wordpress version(v5.5).
 PLUGINS-574 - Removed the deprecated script [.live] after update the WordPress version(v5.5).
 
 2020.08.13 -Version 2.5
-
 PLUGINS-524 - Fixed the issues - Hide product price from the buyer, If product type Affiliates.
 PLUGINS-519 - Added Feature - Added option ["Hide Shipping Price in supplier email"].
 PLUGINS-257 - Added Feature - Added option ["Show Total Price in supplier email"].
 PLUGINS-338 - Added Feature - Added feature to support multisite network.
 PLUGINS-431 - Added Feature - Added Separate email template for "complete order" status.
-PLUGINS-493 - Fixed Bug - Show order date beside order number.
-PLUGINS-494 - Fixed Bug - Show user phone number to supplier.
-PLUGINS-484 - Added Feature - Added Price Calculator.
-PLUGINS-302 - Added Feature - Disable Aliexpress Support Settings.
+PLUGINS-493 - Fixed Bug - Show order date beside order number
+PLUGINS-494 - Fixed Bug - Show user phone number to supplier
+PLUGINS-484 - Added Feature - Added Price Calculator
+PLUGINS-410 - Added Feature - Cron jobs for checking Aliexpress product on Aliexpress
+PLUGINS-533 - Added Feature - Updated deactivation hook
+PLUGINS-302 - Added Feature - Disable Aliexpress Support Settings
+PLUGINS-525 - Added Feature - Added Meta Data for Aliexpress Product
+
+
 
 2020.06.24 -Version 2.4
 

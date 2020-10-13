@@ -75,7 +75,7 @@ function save_task_recurrence_data( $task, $request ) {
     if ( !isset( $request['recurrence_data'] ) ){
         return ;
     }
-    //pmpr($request['recurrence_data']);
+
     $meta = Meta::firstOrCreate([
         'entity_id'   => $task->id,
         'entity_type' => 'task',
@@ -451,7 +451,7 @@ function assign_employees_to_project( $response, $request_params ) {
         return;
     }
 
-    if ( ! empty( (int)$request_params['department_id'] ) ) {
+    if ( ! empty( $request_params['department_id'] ) ) {
         $department_id   = absint( $request_params['department_id'] );
         $project_id      = $response['data']['id'];
 
@@ -718,15 +718,22 @@ function pm_pro_task_filter_list_permission( $query, $request ) {
 }
 
 /**
- * [pm_get_milestones description]
- * @param  array|string $params
+ * [pm_pro_get_labels description]
+ * @param  array  $params
  * @return [type]
  */
 function pm_pro_get_labels( $params = [] ) {
      return \WeDevs\PM_Pro\Label\Helper\Label::get_results( $params );
 }
 
-
+/**
+ * [pm_pro_menu_access_capabilities description]
+ * @param  [type] $caps
+ * @return [type]
+ */
+function pm_pro_menu_access_capabilities( $caps ) {
+    return $caps;
+}
 
 
 

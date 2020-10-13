@@ -182,14 +182,14 @@ class Betterdocs_Pro {
 
 		$plugin_admin = new Betterdocs_Pro_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_filter( 'betterdocs_menu_slug', $plugin_admin, 'betterdocs_menu_slug' );
-		$this->loader->add_filter( 'betterdocs_admin_output', $plugin_admin, 'betterdocs_admin_output' );
-		$this->loader->add_action( 'betterdocs_listing_header', $plugin_admin, 'header_template' );
-		$this->loader->add_filter( 'parent_file', $plugin_admin, 'highlight_admin_menu', 11 );
-		$this->loader->add_filter( 'submenu_file', $plugin_admin, 'highlight_admin_submenu', 11, 2 );
-		$this->loader->add_filter( 'admin_body_class', $plugin_admin, 'body_classes' );
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+		$this->loader->add_action('betterdocs_listing_header', $plugin_admin, 'header_template');
+		$this->loader->add_filter('betterdocs_menu_slug', $plugin_admin, 'betterdocs_menu_slug');
+		$this->loader->add_filter('betterdocs_admin_output', $plugin_admin, 'betterdocs_admin_output');
+		$this->loader->add_filter('parent_file', $plugin_admin, 'highlight_admin_menu', 11);
+		$this->loader->add_filter('submenu_file', $plugin_admin, 'highlight_admin_submenu', 11, 2);
+		$this->loader->add_filter('admin_body_class', $plugin_admin, 'body_classes');
 
 	}
 

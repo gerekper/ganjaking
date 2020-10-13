@@ -1,5 +1,8 @@
 *** WooCommerce Products Compare Changelog ***
 
+2020-10-07 - version 1.0.22
+* Tweak - WC 4.5 compatibility.
+
 2020-08-19 - version 1.0.21
 * Tweak - WordPress 5.5 compatibility.
 

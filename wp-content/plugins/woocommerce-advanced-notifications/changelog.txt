@@ -1,5 +1,12 @@
 *** Advanced Notifications Changelog ***
 
+2020-10-06 - version 1.2.28
+* Tweak - WC 4.5 compatibility.
+
+2020-08-11 - version 1.2.27
+* Fix   - Remove usage of deprecated jQuery .live() method.
+* Tweak - WordPress 5.5 compatibility.
+
 2020-07-07 - version 1.2.26
 * Fix - Escape output for selectWoo fields.
 

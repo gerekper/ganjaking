@@ -14,19 +14,19 @@ class Menu {
 
 	public static function admin_menu( $home ) {
 
-        //if ( ! License::is_license_active()  ) {
-            //add_action( 'admin_print_styles-' . $home, array( 'WeDevs\\PM_Pro\\Core\WP\\Menu', 'scripts' ) );
-        //     return;
-        // }
-
 		global $submenu;
 
-        $has_manage_capability = pm_has_manage_capability();
-		$submenu['pm_projects']['calendar'] = [ __( 'Calendar', 'pm-pro' ), self::$capability, 'admin.php?page=pm_projects#/calendar' ];
+        $submenu['pm_projects']['calendar'] = [ __( 'Calendar', 'pm-pro' ), self::$capability, 'admin.php?page=pm_projects#/calendar' ];
 
-        if ( $has_manage_capability ) {
+        if ( pm_user_can_access( pm_manager_cap_slug() ) ) {
             $submenu['pm_projects'][] = [ __( 'Progress', 'pm-pro' ), self::$capability, 'admin.php?page=pm_projects#/progress' ];
+        }
+
+        if ( pm_user_can_access( pm_manager_cap_slug() ) ) {
             $submenu['pm_projects']['reports'] = [ __( 'Reports', 'pm-pro' ), self::$capability, 'admin.php?page=pm_projects#/reports' ];
+        }
+
+        if ( pm_user_can_access( pm_manager_cap_slug() ) ) {
             $submenu['pm_projects'][] = [ __( 'Modules', 'pm-pro' ), self::$capability, 'admin.php?page=pm_projects#/modules' ];
         }
 

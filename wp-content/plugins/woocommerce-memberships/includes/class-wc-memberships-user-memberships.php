@@ -1445,24 +1445,53 @@ class WC_Memberships_User_Memberships {
 
 		$this->prune_object_caches();
 
-		// delete scheduled events
-		if ( $user_membership = $this->get_user_membership( $post_id ) ) {
+		$user_membership = $this->get_user_membership( $post_id );
 
-			/**
-			 * Fires before a user membership is deleted.
-			 *
-			 * @since 1.11.0
-			 *
-			 * @param \WC_Memberships_User_Membership $user_membership membership object
-			 */
-			do_action( 'wc_memberships_user_membership_deleted', $user_membership );
-
-			$user_membership->unschedule_expiration_events();
-			$user_membership->unschedule_activation_events();
-
-			$this->prune_object_caches( $user_membership );
-
+		if ( ! $user_membership ) {
+			return;
 		}
+
+		/**
+		 * Fires before a user membership is deleted.
+		 *
+		 * @since 1.11.0
+		 *
+		 * @param \WC_Memberships_User_Membership $user_membership membership object
+		 */
+		do_action( 'wc_memberships_user_membership_deleted', $user_membership );
+
+		// delete scheduled events for the membership
+		$user_membership->unschedule_expiration_events();
+		$user_membership->unschedule_activation_events();
+
+		// delete profile fields (check if there are overlapping plans where the profile fields would still apply first)
+		$other_user_memberships = wc_memberships_get_user_memberships( $user_membership->get_user_id() );
+		$user_membership_plans  = [];
+
+		foreach ( $other_user_memberships as $other_user_membership ) {
+			$user_membership_plans[] = $other_user_membership->get_plan_id();
+		}
+
+		foreach ( $user_membership->get_profile_fields() as $profile_field ) {
+
+			$definition = $profile_field->get_definition();
+
+			if ( ! $definition ) {
+				$profile_field->delete();
+				continue;
+			}
+
+			$profile_field_plans = $definition->get_membership_plan_ids();
+
+			// delete profile field if:
+			// - profile field applies to all plans, but user only has access to the plan being deleted
+			// - profile field applies to some other plans the user has still access to
+			if ( ( empty( $profile_field_plans ) && 1 === count( $user_membership_plans ) ) || ( ! empty( $profile_field_plans ) && empty( array_diff( $profile_field_plans, $user_membership_plans ) ) ) ) {
+				$profile_field->delete();
+			}
+		}
+
+		$this->prune_object_caches( $user_membership );
 	}
 
 

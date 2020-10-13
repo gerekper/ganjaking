@@ -209,12 +209,13 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			$new_status = null;
 
 			//check payment method
-			$payment_method = get_post_meta( $order_id, '_payment_method', true );
+			/*$payment_method = get_post_meta( $order_id, '_payment_method', true );
 			
-			if('paypal' == $payment_method && null == get_post_meta($order_id,'wc_af_paypal_email_status')){
+			if('paypal' == $payment_method || 'ppec_paypal' == $payment_method && null == get_post_meta($order_id,'wc_af_paypal_email_status')) {
 				
 				$paypal_verification = $this->paypal_email_verification($order,10);
-			}
+			}*/
+
 			// If a payment for this order has already completed, use the payment requested
 			// status as the default
 			$payment_requested_status = get_post_meta( $order_id, '_wc_af_post_payment_status', true );
@@ -255,24 +256,60 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				$cancel_score = 0 >= intval( $cancel_score ) ? 0 : self::invert_score( $cancel_score );
 				$hold_score   = 0 >= intval( $hold_score ) ? 0 : self::invert_score( $hold_score );
 
-				// Check for automated action rules
-				if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
-					$new_status = 'cancelled';
-					$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress',false);
-					if($existing_blacklist_ip != '') {
-					$auto_blacklist_ip = explode( ",", $existing_blacklist_ip );
+				if(get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
+
+					if(get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
+
+						$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+						$payment_method = get_post_meta( $order_id, '_payment_method', true );
+							
+						$whitelist_payment_method = explode( ",", $whitelist_payment_method );
+
+						if( !in_array( $payment_method, $whitelist_payment_method ) ) {
+							// Check for automated action rules
+							if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
+								
+								$new_status = 'cancelled';
+								$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress',false);
+								if($existing_blacklist_ip != '') {
+								$auto_blacklist_ip = explode( ",", $existing_blacklist_ip );
+								
+									if(!in_array( $ip_address, $auto_blacklist_ip )){
+										$existing_blacklist_ip .= ','.$ip_address;
+										update_option('wc_settings_anti_fraudblacklist_ipaddress',$existing_blacklist_ip);
+									}
+								}else {
+									update_option('wc_settings_anti_fraudblacklist_ipaddress',$ip_address);
+								}
+								$is_whitelisted = false;
+							} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
+
+								$new_status = 'on-hold';
+							}
+						}
+					}
+				} else {
 					
-					if(!in_array( $ip_address, $auto_blacklist_ip )){
-						$existing_blacklist_ip .= ','.$ip_address;
-						update_option('wc_settings_anti_fraudblacklist_ipaddress',$existing_blacklist_ip);
+					if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
+								
+						$new_status = 'cancelled';
+						$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress',false);
+						if($existing_blacklist_ip != '') {
+						$auto_blacklist_ip = explode( ",", $existing_blacklist_ip );
+						
+							if(!in_array( $ip_address, $auto_blacklist_ip )){
+								$existing_blacklist_ip .= ','.$ip_address;
+								update_option('wc_settings_anti_fraudblacklist_ipaddress',$existing_blacklist_ip);
+							}
+						}else {
+							update_option('wc_settings_anti_fraudblacklist_ipaddress',$ip_address);
+						}
+						$is_whitelisted = false;
+					} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
+
+						$new_status = 'on-hold';
 					}
-					}else {
-						update_option('wc_settings_anti_fraudblacklist_ipaddress',$ip_address);
-					}
-					$is_whitelisted = false;
-				} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
-					$new_status = 'on-hold';
-				} 
+				}
 				
 				//Auto blacklist email with high risk
 				$enable_auto_blacklist = get_option('wc_settings_anti_fraudenable_automatic_blacklist');
@@ -362,9 +399,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				// Send admin email
 				$email->send_notification();
 
-				//cancel blacklisted order
 				$order->update_status( 'cancelled', __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
-
 			}
 			
 		}
@@ -397,10 +432,29 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			}else {
 				include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 			}
-			$orderemail = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email() ;
+
+			$order_details = new WC_Order( $order );
+			$order_id = $order_details->get_id();
+
+			$payment_method = get_post_meta( $order_id, '_payment_method', true );
+
+			if( $payment_method == 'ppec_paypal' ) {
+
+				$orderemail = get_post_meta( $order_id, '_paypal_express_payer_email', true );
+			
+			} else {
+
+				$orderemail = get_post_meta( $order_id, '_paypal_payer_email', true );
+
+			}
+
 			if(get_option('wc_settings_anti_fraud_paypal_verified_address') && null != get_option('wc_settings_anti_fraud_paypal_verified_address')){
-					$verified_paypal = explode( ",", $paypal_verified_emails );
-				if(!in_array($orderemail,$verified_paypal) ){
+
+				$paypal_verified_emails = get_option('wc_settings_anti_fraud_paypal_verified_address');
+
+				$verified_paypal = explode( ",", $paypal_verified_emails );
+				
+				if( !in_array( $orderemail,$verified_paypal ) ) {
 					// Setup admin email
 					$email = new WC_AF_Paypal_Email( $order, $score_points );
 

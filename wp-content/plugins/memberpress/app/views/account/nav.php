@@ -16,7 +16,7 @@
 </div>
 
 <?php
-if(isset($expired_subs) and !empty($expired_subs)) {
+if(isset($expired_subs) and !empty($expired_subs) && (empty($_GET['action']) || $_GET['action'] != 'update')) {
   // $account_url = MeprUtils::get_permalink(); // $mepr_options->account_page_url();
   $sub_label = MeprHooks::apply_filters('mepr-account-nav-subscriptions-label',_x('Subscriptions', 'ui', 'memberpress'));
   $delim = preg_match('#\?#',$account_url) ? '&' : '?';

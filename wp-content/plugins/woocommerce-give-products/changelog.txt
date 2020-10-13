@@ -1,5 +1,9 @@
 *** WooCommerce Give Products Changelog ***
 
+2020-10-07 - version 1.1.11
+* Fix - Include fourth $email variable for email actions to prevent errors.
+* Tweak - WC 4.5 compatibility.
+
 2020-08-19 - version 1.1.10
 * Tweak - WordPress 5.5 compatibility.
 

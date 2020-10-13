@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use memberpress\downloads as base,
     memberpress\downloads\lib as lib,
     memberpress\downloads\models as models,
-    memberpress\downloads\helpers\Files as Files;
+    memberpress\downloads\helpers\Files as FilesHelper;
 
 /**
  * This class handles the registrations and enqueues for MemberPress blocks
@@ -74,6 +74,8 @@ class Blocks extends lib\BaseCtrl {
 
     }
 
+    ob_start();
+
     echo do_shortcode( $shortcode );
 
     return ob_get_clean();
@@ -122,7 +124,7 @@ class Blocks extends lib\BaseCtrl {
     }
 
     wp_localize_script( 'memberpress/mpd-blocks', 'mpd', array(
-      'downloads' => Files::get_downloads( true ),
+      'downloads' => FilesHelper::get_downloads( true ),
       'categories' => $categories,
       'tags' => $tags
     ) );

@@ -135,7 +135,7 @@ class WC_Product_Finder_Widget extends WP_Widget {
 						$tax_name = $woocommerce->attribute_taxonomy_name( $att->attribute_name );
 					}
 					$field_id = 'use_att_' . $tax_name;
-					$instance[ $field_id ] = (bool) esc_attr( $new_instance[ $field_id ] );
+					$instance[ $field_id ] = isset( $new_instance[ $field_id ] ) ? (bool) esc_attr( $new_instance[ $field_id ] ) : false;
 				}
 			}
 		}

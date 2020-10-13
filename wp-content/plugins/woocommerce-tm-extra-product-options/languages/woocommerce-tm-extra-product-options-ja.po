@@ -4766,8 +4766,8 @@ msgstr "セレクトボックスを強制的に全幅で表示したい場合は
 
 #: include/classes/class-tm-epo-settings-base.php:519
 #, fuzzy
-msgid "Show description for radio buttons and checkboxes inline."
-msgstr "ラジオボタンとチェックボックスの説明をインラインで表示"
+msgid "Show choice description inline"
+msgstr ""
 
 #: include/classes/class-tm-epo-settings-base.php:520
 #, fuzzy
@@ -4784,7 +4784,7 @@ msgstr ""
 
 #: include/classes/class-tm-epo-settings-base.php:528
 msgid ""
-"Check this to hdie the choice label when using the swatch mode for radio "
+"Check this to hide the choice label when using the swatch mode for radio "
 "buttons and checkboxes."
 msgstr ""
 

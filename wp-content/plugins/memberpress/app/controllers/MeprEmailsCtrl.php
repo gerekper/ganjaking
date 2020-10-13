@@ -109,7 +109,7 @@ class MeprEmailsCtrl extends MeprBaseCtrl
         'reminder_trigger_event'    => 'sub-expires',
         'reminder_name'             => __('Subscription Expiring', 'memberpress'),
         'reminder_description'      => __('Subscription Expiring in 2 Days', 'memberpress'),
-        'blog_name'                 => get_bloginfo('name'),
+        'blog_name'                 => wp_specialchars_decode( get_bloginfo('name'), ENT_QUOTES ),
         'payment_subtotal'          => $subtotal,
         'tax_rate'                  => '10%',
         'tax_amount'                => $tax_amount,

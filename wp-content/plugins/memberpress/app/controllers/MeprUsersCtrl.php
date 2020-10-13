@@ -303,7 +303,9 @@ class MeprUsersCtrl extends MeprBaseCtrl {
           $filename = sanitize_file_name( $pathinfo['filename'] .'_'. uniqid() .'.'. $pathinfo['extension'] );
           $file = wp_upload_bits( $filename, null, @file_get_contents( $file['tmp_name'] ) );
 
-          update_user_meta($user_id, $line->field_key, esc_url($file['url']));
+          if(isset($file['url'])){
+            update_user_meta($user_id, $line->field_key, esc_url($file['url']));
+          }
 
           remove_filter( 'upload_mimes', 'MeprUsersHelper::get_allowed_mime_types' );
           remove_filter( 'upload_dir', 'MeprUsersHelper::get_upload_dir' );

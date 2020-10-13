@@ -86,65 +86,120 @@ class Files extends lib\BaseCtrl {
   */
   public static function render_file_links($attrs) {
     $files = array();
+
     $post_args = array(
       'post_type' => models\File::$cpt,
       'post_status' => 'publish',
       'posts_per_page' => isset( $attrs['limit'] ) && 0 < $attrs['limit'] ? $attrs['limit']  : -1
     );
-    if(isset($attrs['category'])) {
-      $post_args = \array_merge(
-        array('tax_query' => array(
-          'relation' => 'OR',
+
+    if(isset($attrs['category']) && !empty($attrs['category'])) {
+      $relation = isset( $attrs['category-relation'] ) && in_array( strtoupper( $attrs['category-relation'] ), array( 'IN', 'AND') )
+        ? strtoupper( $attrs['category-relation'] )
+        : 'IN';
+      if ( strpos( $attrs['category'], ',' ) !== false ) {
+        $terms = explode( ',', trim( $attrs['category'] ) );
+      } else {
+        $terms = trim( $attrs['category'] );
+      }
+      if(!is_numeric($attrs['category'])) { // Category is a slug or name
+        $post_args = \array_merge(
           array(
-            'taxonomy' => models\File::$file_category_ctax,
-            'field'    => 'name',
-            'terms'    => $attrs['category'],
+            'tax_query' => array(
+              'relation' => 'OR',
+              array(
+                'taxonomy' => models\File::$file_category_ctax,
+                'field'    => 'name',
+                'terms'    => $terms,
+                'operator' => $relation
+              ),
+              array(
+                'taxonomy' => models\File::$file_category_ctax,
+                'field'    => 'slug',
+                'terms'    => $terms,
+                'operator' => $relation
+              )
+            )
           ),
+          $post_args
+        );
+      }
+      else { // Category is an ID
+        $post_args = \array_merge(
           array(
-            'taxonomy' => models\File::$file_category_ctax,
-            'field'    => 'slug',
-            'terms'    => $attrs['category'],
+            'tax_query' => array(
+              array(
+                'taxonomy' => models\File::$file_category_ctax,
+                'field'    => 'term_id',
+                'terms'    => $terms,
+                'operator' => $relation
+              )
+            )
           ),
-          array(
-            'taxonomy' => models\File::$file_category_ctax,
-            'field'    => 'term_id',
-            'terms'    => $attrs['category'],
-          )
-        )),
-      $post_args);
+          $post_args
+        );
+      }
     }
-    elseif(isset($attrs['tag'])) {
-      $post_args = \array_merge(
-        array('tax_query' => array(
-          'relation' => 'OR',
+    elseif(isset($attrs['tag']) && !empty($attrs['tag'])) {
+      $relation = isset( $attrs['tag-relation'] ) && in_array( strtoupper( $attrs['tag-relation'] ), array( 'IN', 'AND' ) )
+        ? strtoupper( $attrs['tag-relation'] )
+        : 'IN';
+      if ( strpos( $attrs['tag'], ',' ) !== false ) {
+        $terms = explode( ',', trim( $attrs['tag'] ) );
+      } else {
+        $terms = trim( $attrs['tag'] );
+      }
+      if(!is_numeric($attrs['tag'])) {
+        $post_args = \array_merge( // Tag is slug or name
           array(
-            'taxonomy' => models\File::$file_tag_ctax,
-            'field'    => 'name',
-            'terms'    => $attrs['tag'],
+            'tax_query' => array(
+              'relation' => 'OR',
+              array(
+                'taxonomy' => models\File::$file_tag_ctax,
+                'field'    => 'name',
+                'terms'    => $terms,
+                'operator' => $relation
+              ),
+              array(
+                'taxonomy' => models\File::$file_tag_ctax,
+                'field'    => 'slug',
+                'terms'    => $terms,
+                'operator' => $relation
+              )
+            )
           ),
+          $post_args
+        );
+      }
+      else { // Tag is an ID
+        $post_args = \array_merge(
           array(
-            'taxonomy' => models\File::$file_tag_ctax,
-            'field'    => 'slug',
-            'terms'    => $attrs['tag'],
+            'tax_query' => array(
+              array(
+                'taxonomy' => models\File::$file_tag_ctax,
+                'field'    => 'term_id',
+                'terms'    => $terms,
+                'operator' => $relation
+              )
+            )
           ),
-          array(
-            'taxonomy' => models\File::$file_tag_ctax,
-            'field'    => 'term_id',
-            'terms'    => $attrs['tag'],
-          )
-        )),
-      $post_args);
+          $post_args
+        );
+      }
     }
+
     if(isset($attrs['class'])) {
       $link_class = $attrs['class'];
     }
+
     $file_posts = \get_posts($post_args);
+
     foreach($file_posts as $post) {
       $files[] = new models\File($post->ID);
     }
 
     \ob_start();
-      require(base\VIEWS_PATH . '/files/file_links.php');
+    require(base\VIEWS_PATH . '/files/file_links.php');
     return \ob_get_clean();
   }
 

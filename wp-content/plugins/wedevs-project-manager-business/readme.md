@@ -7,5 +7,5 @@ Navigate to the plugin directory and run the following commands
 3. `composer install` 
 4. `composer dumpautoload -o`
 5. `npm install`
-6. `npm run dev`
+6. `npm run start`
 7. Activate plugin

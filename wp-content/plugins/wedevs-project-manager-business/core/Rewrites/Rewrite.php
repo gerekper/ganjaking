@@ -138,6 +138,7 @@ class Rewrite {
 
         //Register pro scripts
         Pro_Register_Scripts::scripts();
+        Pro_Register_Scripts::styles();
 
 
         //Register free scripts

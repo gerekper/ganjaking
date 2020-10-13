@@ -1,0 +1,55 @@
+#message-purchased.wn-extended {
+    border-radius: 5px;
+    background-position: bottom right;
+    height: 96px;
+}
+
+#message-purchased .wn-notification-image-wrapper {
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+#message-purchased.wn-extended > img {
+    margin: 5px 5px 5px 0;
+    padding: 0;
+}
+
+#message-purchased.wn-extended .message-purchase-main::before {
+    right: 0;
+    position: absolute;
+    top: 0;
+    content: " ";
+    bottom: 0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+
+#message-purchased.wn-extended .message-purchase-main > * {
+    z-index: 1;
+}
+
+#message-purchased.wn-extended p a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 0;
+    white-space: nowrap;
+}
+
+#message-purchased.wn-extended a img {
+    padding: 0;
+    margin: 0;
+}
+
+#message-purchased p {
+    margin: 0;
+    padding: 0;
+    font: 300 12px/1.5 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#message-purchased.wn-extended p small, #message-purchased.wn-extended p span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+}

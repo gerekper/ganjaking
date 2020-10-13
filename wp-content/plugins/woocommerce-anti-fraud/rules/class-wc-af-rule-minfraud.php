@@ -15,7 +15,7 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 		$this->minimum_minfraud_score   = get_option('wc_settings_anti_fraud_minfraud_risk_score'); 
 		$this->is_enabled  =  get_option('wc_af_maxmind_type');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_minfraud_order_weight');
-		parent::__construct( 'minfraud', 'Minfraud score recieved is more than the allowed value', $this->rule_weight );
+		parent::__construct( 'minfraud', 'Score returned by Minfraud exceeds the allowed value.', $this->rule_weight );
 		
 	}
 

@@ -169,7 +169,7 @@ class MeprTransactionsHelper {
       'trans_status'     => ucfirst($txn->status),
       'user_remote_addr' => $_SERVER['REMOTE_ADDR'],
       'payment_amount'   => $payment_amount,
-      'blog_name'        => get_bloginfo('name'),
+      'blog_name'        => wp_specialchars_decode( get_bloginfo('name'), ENT_QUOTES ),
       'payment_subtotal' => $payment_subtotal,
       'tax_rate'         => $txn->tax_rate,
       'tax_amount'       => $tax_amount,

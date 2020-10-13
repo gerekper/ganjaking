@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.1
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -82,6 +82,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		private function __construct() {
 
 			$this->includes();
+
+			add_action( 'plugins_loaded', array( $this, 'load_action_scheduler' ), -1 );
 
 			add_action( 'init', array( $this, 'process_activation' ) );
 			add_action( 'init', array( $this, 'add_sc_options' ) );
@@ -244,6 +246,15 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			WC_SC_Act_Deact::process_activation();
 
+		}
+
+		/**
+		 * Load action scheduler
+		 */
+		public function load_action_scheduler() {
+			if ( ! class_exists( 'ActionScheduler' ) ) {
+				include_once 'libraries/action-scheduler/action-scheduler.php';
+			}
 		}
 
 		/**
@@ -1304,6 +1315,87 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$is_percent = true;
 			}
 			return $is_percent;
+		}
+
+		/**
+		 * Generate storewide offer coupon description
+		 *
+		 * @param array $args Arguments.
+		 * @return string
+		 */
+		public function generate_storewide_offer_coupon_description( $args = array() ) {
+			$coupon        = ( ! empty( $args['coupon_object'] ) ) ? $args['coupon_object'] : false;
+			$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
+			$coupon_code   = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
+
+			if ( empty( $coupon_amount ) || empty( $coupon_code ) ) {
+				return '';
+			}
+
+			$description = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_description' ) ) ) ? $coupon->get_description() : '';
+
+			if ( empty( $description ) ) {
+
+				$is_percent      = $this->is_percent_coupon( array( 'coupon_object' => $coupon ) );
+				$currency_symbol = get_woocommerce_currency_symbol();
+
+				$before_heading = array(
+					__( 'Great News!', 'woocommerce-smart-coupons' ),
+					__( 'Super Savings!', 'woocommerce-smart-coupons' ),
+					__( 'Ending Soon!', 'woocommerce-smart-coupons' ),
+					__( 'Limited Time Offer!', 'woocommerce-smart-coupons' ),
+					__( 'This Week Only!', 'woocommerce-smart-coupons' ),
+					__( 'Attention!', 'woocommerce-smart-coupons' ),
+					__( 'You don’t want to miss this...', 'woocommerce-smart-coupons' ),
+					__( 'This will be over soon! Hurry.', 'woocommerce-smart-coupons' ),
+					__( 'Act before the offer expires.', 'woocommerce-smart-coupons' ),
+					__( 'Don&#39;t Miss Out.', 'woocommerce-smart-coupons' ),
+				);
+
+				$heading = array(
+					/* translators: 1. The discount text */
+					__( '%s discount on anything you want.', 'woocommerce-smart-coupons' ),
+					/* translators: 1. The discount text */
+					__( '%s discount on entire store.', 'woocommerce-smart-coupons' ),
+					/* translators: 1. The discount text */
+					__( 'Pick any item today for %s off.', 'woocommerce-smart-coupons' ),
+					/* translators: 1. The discount text */
+					__( 'Buy as much as you want. Flat %s off everything.', 'woocommerce-smart-coupons' ),
+					/* translators: 1. The discount text */
+					__( 'Flat %s discount on everything today.', 'woocommerce-smart-coupons' ),
+				);
+
+				$before_heading_index = array_rand( $before_heading );
+				$heading_index        = array_rand( $heading );
+
+				if ( true === $is_percent ) {
+					$discount_text = $coupon_amount . '%';
+				} else {
+					$discount_text = $currency_symbol . $coupon_amount;
+				}
+
+				$description = sprintf( '%s ' . $heading[ $heading_index ] . ' %s: %s', $before_heading[ $before_heading_index ], '<strong style="font-size: 1.1rem;">' . $discount_text . '</strong>', __( 'Use code', 'woocommerce-smart-coupons' ), '<code>' . $coupon_code . '</code>' );
+
+				$description = apply_filters(
+					'wc_sc_storewide_offer_coupon_description',
+					$description,
+					array_merge(
+						$args,
+						array(
+							'before_heading' => $before_heading[ $before_heading_index ],
+							'heading'        => $heading,
+							'discount_text'  => $discount_text,
+						)
+					)
+				);
+
+			} else {
+				/* translators: 1. The coupon code */
+				$description .= ' ' . sprintf( __( 'Use code: %s', 'woocommerce-smart-coupons' ), '<code>' . $coupon_code . '</code>' );
+			}
+
+			return $description;
+
 		}
 
 		/**

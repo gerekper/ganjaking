@@ -13,6 +13,10 @@ class Edit_Sub_Task extends Abstract_Permission {
         $project_id = $this->request->get_param( 'project_id' );
         $user_id = get_current_user_id();
 
+        if ( pm_user_can_access( pm_manager_cap_slug() ) )  {
+            return true;
+        }
+
         if ( $user_id ) {
 
         	if ( $project_id && pm_is_manager( $project_id, $user_id ) ) {

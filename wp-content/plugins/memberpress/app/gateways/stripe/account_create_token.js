@@ -119,6 +119,10 @@
         } else if (response.requires_action) {
           handleAction(response);
         } else if (!stripePaymentForm.hasClass('mepr-payment-submitted')) {
+          if (response.is_payment) {
+            stripePaymentForm.append('<input type="hidden" name="mepr_stripe_update_is_payment" value="1">');
+          }
+
           stripePaymentForm.addClass('mepr-payment-submitted');
           stripePaymentForm[0].submit();
         }

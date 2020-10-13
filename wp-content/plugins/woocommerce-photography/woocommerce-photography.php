@@ -3,15 +3,15 @@
  * Plugin Name: WooCommerce Photography
  * Plugin URI: https://woocommerce.com/
  * Description: Provide a user experience for photographers to offer batches of images for order.
- * Version: 1.0.25
+ * Version: 1.0.27
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  *
  * Text Domain: woocommerce-photography
  * Domain Path: /languages
- * WC tested up to: 4.2
+ * WC tested up to: 4.4
  * WC requires at least: 2.6
- * Tested up to: 5.3
+ * Tested up to: 5.5
  *
  * @package  WC_Photography
  * @category Core
@@ -51,7 +51,7 @@ function woocommerce_photography_install() {
 register_activation_hook( __FILE__, 'woocommerce_photography_install' );
 
 if ( ! class_exists( 'WC_Photography' ) ) :
-	define( 'WC_PHOTOGRAPHY_VERSION', '1.0.25' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PHOTOGRAPHY_VERSION', '1.0.27' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * WooCommerce Photography main class.

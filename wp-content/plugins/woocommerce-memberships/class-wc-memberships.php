@@ -39,7 +39,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 
 
 	/** plugin version number */
-	const VERSION = '1.19.0';
+	const VERSION = '1.19.1';
 
 	/** @var \WC_Memberships single instance of this plugin */
 	protected static $instance;
@@ -270,8 +270,14 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 		$this->user_memberships = $this->load_class( '/includes/class-wc-memberships-user-memberships.php', 'WC_Memberships_User_Memberships' );
 		$this->capabilities     = $this->load_class( '/includes/class-wc-memberships-capabilities.php',     'WC_Memberships_Capabilities' );
 		$this->member_discounts = $this->load_class( '/includes/class-wc-memberships-member-discounts.php', 'WC_Memberships_Member_Discounts' );
-		$this->restrictions     = $this->load_class( '/includes/class-wc-memberships-restrictions.php',     'WC_Memberships_Restrictions' );
 		$this->shipping         = $this->load_class( '/includes/class-wc-memberships-shipping.php',         'WC_Memberships_Shipping' );
+
+		require_once( $this->get_plugin_path() . '/includes/Restrictions.php' );
+
+		$this->restrictions = new SkyVerge\WooCommerce\Memberships\Restrictions();
+
+		/** @deprecated remove legacy class aliases when the plugin has fully migrated to namespaces */
+		class_alias( \SkyVerge\WooCommerce\Memberships\Restrictions::class, 'WC_Memberships_Restrictions', false );
 
 		// frontend includes
 		if ( ! is_admin() ) {
@@ -417,7 +423,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 	 *
 	 * @since 1.9.0
 	 *
-	 * @return \WC_Memberships_Restrictions
+	 * @return \SkyVerge\WooCommerce\Memberships\Restrictions
 	 */
 	public function get_restrictions_instance() {
 

@@ -17,9 +17,16 @@ class Notification {
         new Comment_Mention_Notification();
         new Daily_Digest();
 
-        add_action( 'profile_update', array( $this, 'update_user_profile' ), 10, 2 );
-        add_action( 'show_user_profile', array( $this, 'user_parofile' ) );
-        add_action( 'edit_user_profile', array( $this, 'user_parofile' ) );
+        add_action( 'pm_user_profile', [$this, 'profile'] );
+        add_action( 'pm_update_profile', [$this, 'profile_update'], 10, 2 );
+    }
+
+    public function profile_update( $user_id, $prev_data ) {
+        $this->update_user_profile( $user_id, $prev_data );
+    }
+
+    public function profile( $profile_user ) {
+        $this->user_parofile( $profile_user );
     }
 
     /**
@@ -55,6 +62,7 @@ class Notification {
             update_user_meta( $user_id, '_cpm_email_notification_new_task', $email_notification_new_task_active_status );
             update_user_meta( $user_id, '_cpm_email_notification_update_task', $email_notification_update_task_active_status );
             update_user_meta( $user_id, '_cpm_email_notification_complete_task', $email_notification_complete_task_active_status );
+
         }
     }
 
@@ -74,6 +82,30 @@ class Notification {
         $this->email_notification_form( $user );
 
         $this->email_notification_settings_form( $user );
+
+        // if ( $this->hasPermissionUpdatePageAsess( $user ) ) {
+        //     $this->menu_access_form( $user );
+        // }
+    }
+
+    function hasPermissionUpdatePageAsess( $user ) {
+        if ( user_can( $user->ID, 'manage_options' ) ) {
+            return false;
+        }
+
+        if ( pm_has_manage_capability( $user->ID ) ) {
+            return false;
+        }
+
+        if ( $user->ID == get_current_user_id() ) {
+            //return false;
+        }
+
+        if ( current_user_can( 'manage_options' ) ) {
+            return true;
+        }
+
+        return false;
     }
 
     protected function daily_digest_form( $user ) {
@@ -181,7 +213,23 @@ class Notification {
         <?php
     }
 
-
-
-
+    function profile_settings( $profileuser ) {
+        $notification = get_user_meta( $profileuser->ID, 'erp_hr_disable_notification', true );
+        $checked      = ! empty( $notification ) ? 'checked' : '';
+        ?>
+        <h3><?php esc_html_e( 'ERP Profile Settings', 'erp' ); ?></h3>
+        <table class="form-table">
+            <tbody>
+            <tr>
+                <th><label for="erp-hr-disable-notification"><?php esc_html_e( 'Notification', 'erp' ); ?></label></th>
+                <td>
+                    <input type="checkbox" id="erp-hr-disable-notification" <?php echo esc_attr( $checked ); ?>
+                           name="erp_hr_disable_notification">
+                    <span class="description"><?php esc_html_e( 'Disable WP ERP email notifications', 'erp' ); ?></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <?php
+    }
 }

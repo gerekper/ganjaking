@@ -39,6 +39,14 @@ class MeprRule extends MeprCptModel {
       array(
         'label' => __('Member', 'memberpress'),
         'value' => 'member'
+      ),
+      array(
+        'label' => __('Role', 'memberpress'),
+        'value' => 'role'
+      ),
+      array(
+        'label' => __('Capability', 'memberpress'),
+        'value' => 'capability'
       )
     );
   }

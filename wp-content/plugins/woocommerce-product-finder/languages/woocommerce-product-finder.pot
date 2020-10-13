@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Finder 1.2.15\n"
+"Project-Id-Version: WooCommerce Product Finder 1.2.16\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-finder\n"
-"POT-Creation-Date: 2020-08-19 15:15:27+00:00\n"
+"POT-Creation-Date: 2020-10-06 09:34:05+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: classes/class-woocommerce-product-finder-admin.php:28
 #: classes/class-woocommerce-product-finder-admin.php:37
 #: classes/class-woocommerce-product-finder-widget.php:193
-#: classes/class-woocommerce-product-finder.php:327
+#: classes/class-woocommerce-product-finder.php:330
 msgid "Product Category"
 msgstr ""
 
@@ -83,47 +83,47 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:261
+#: classes/class-woocommerce-product-finder.php:264
 msgid "Min price"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:262
+#: classes/class-woocommerce-product-finder.php:265
 msgid "Max price"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:264
+#: classes/class-woocommerce-product-finder.php:267
 msgid "Price:"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:280
+#: classes/class-woocommerce-product-finder.php:283
 msgid "All"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:281
+#: classes/class-woocommerce-product-finder.php:284
 msgid "Any"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:284
+#: classes/class-woocommerce-product-finder.php:287
 msgid "Search for products that match %s of these criteria:"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:296
+#: classes/class-woocommerce-product-finder.php:299
 msgid "Is"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:297
+#: classes/class-woocommerce-product-finder.php:300
 msgid "Is not"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:316
+#: classes/class-woocommerce-product-finder.php:319
 msgid "Select criteria"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:375
+#: classes/class-woocommerce-product-finder.php:378
 msgid "Select criteria first"
 msgstr ""
 
-#: classes/class-woocommerce-product-finder.php:442
+#: classes/class-woocommerce-product-finder.php:445
 msgid "Remove row"
 msgstr ""
 

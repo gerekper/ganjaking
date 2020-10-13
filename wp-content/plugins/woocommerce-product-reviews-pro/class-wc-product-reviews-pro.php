@@ -34,7 +34,7 @@ class WC_Product_Reviews_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.16.1';
+	const VERSION = '1.16.2';
 
 	/** @var WC_Product_Reviews_Pro single instance of this plugin */
 	protected static $instance;

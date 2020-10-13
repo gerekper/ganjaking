@@ -1305,16 +1305,18 @@
 	/*******************************************************/
 	function place_order_automatically_meta_boxes() {
 		$options = get_option( 'wc_dropship_manager' );
-		$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
-		if (isset($ali_cbe_enable_setting)){
-			if ($ali_cbe_enable_setting == '1'){
-		    add_meta_box(
-		        'woocommerce',
-		        __( 'AliExpress Action' ),
-		        'place_Order_automatically_meta_box_content',
-		        'shop_order',
-		        'side'
-		    );
+		if(isset($options['ali_cbe_enable_name'])){
+			$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
+			if (isset($ali_cbe_enable_setting)){
+				if ($ali_cbe_enable_setting == '1'){
+			    add_meta_box(
+			        'woocommerce',
+			        __( 'AliExpress Action' ),
+			        'place_Order_automatically_meta_box_content',
+			        'shop_order',
+			        'side'
+			    );
+				}
 			}
 		}
 	}
@@ -1381,10 +1383,12 @@ function place_order_automatically_meta_box_content(){
 
 	function select_custom_order_status($post){
 		$options = get_option( 'wc_dropship_manager' );
+		if(isset($options['ali_cbe_enable_name'])){
 		$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
-		if (isset($ali_cbe_enable_setting)){
-			if ($ali_cbe_enable_setting == '1'){
-  			add_meta_box('opmc-aliExpress-modal', 'AliExpress Order Status', 'status_of_aliexpress', 'shop_order', 'side');
+			if (isset($ali_cbe_enable_setting)){
+				if ($ali_cbe_enable_setting == '1'){
+	  			add_meta_box('opmc-aliExpress-modal', 'AliExpress Order Status', 'status_of_aliexpress', 'shop_order', 'side');
+				}
 			}
 		}
 	}

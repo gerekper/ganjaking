@@ -131,7 +131,11 @@ class File extends lib\BaseCptModel {
   * @return void
   */
   public function send_download($filename) {
-    ob_clean(); // Clean the output buffer so we don't end up with corrupted files
+    // Clean the output buffer so we don't end up with corrupted files
+    if(ob_get_length()) {
+      ob_clean();
+    }
+
     header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
     header('X-Content-Type-Options: nosniff');
     header('X-Robots-Tag: noindex, nofollow', true);
@@ -143,7 +147,7 @@ class File extends lib\BaseCptModel {
     header("Content-Disposition:attachment; filename=\"{$filename}\"");
     header("Content-Length: {$this->filesize}");
     readfile(self::upload_dir() . $this->filename);
-    FileDownload::create_or_increment($this->ID);
+    FileStat::create($this->ID);
     exit();
   }
 

@@ -1,5 +1,11 @@
 *** WooCommerce Photography Changelog ***
 
+2020-10-07 - version 1.0.27
+* Tweak - WC 4.4 compatibility.
+
+2020-08-19 - version 1.0.26
+* Tweak - WordPress 5.5 compatibility.
+
 2020-06-10 - version 1.0.25
 * Tweak - WC 4.2 compatibility.
 

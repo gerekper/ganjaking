@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Downloads
 Plugin URI: http://www.memberpress.com/
 Description: Downloads Management features for MemberPress.
-Version: 1.0.5
+Version: 1.1.1
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress-downloads
@@ -75,7 +75,7 @@ define(ROOT_NAMESPACE . '\JS_URL', URL . '/public/js');
 define(ROOT_NAMESPACE . '\CSS_URL', URL . '/public/css');
 define(ROOT_NAMESPACE . '\IMAGES_URL', URL . '/public/images');
 define(ROOT_NAMESPACE . '\FONTS_URL', URL . '/public/fonts');
-define(ROOT_NAMESPACE . '\DB_VERSION', 1);
+define(ROOT_NAMESPACE . '\DB_VERSION', 2);
 
 // Autoload all the requisite classes
 function autoloader($class_name) {

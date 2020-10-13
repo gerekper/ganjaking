@@ -1,0 +1,17 @@
+div#mpcs-lesson-navigation {
+  display: block; }
+
+div#mpcs-lesson-navigation #previous_lesson_link {
+  float: left; }
+
+div#mpcs-lesson-navigation #next_lesson_link {
+  float: right; }
+
+div.mpcs-breadcrumbs span.mpcs-breadcrumb.mpcs-active a {
+  font-weight: bold; }
+
+div.mpcs-breadcrumbs span.mpcs-breadcrumb:not(:last-child)::after {
+  content: ' >'; }
+
+div.mpcs-breadcrumb {
+  font-weight: bold; }

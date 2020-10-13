@@ -163,13 +163,13 @@ class WC_Dropshipping_Orders {
 		$shipping_tax = $order_data['shipping_tax'];
 
 		$info['get_shipping_total'] = number_format( $shipping_total + $shipping_tax, 2 );
-		
+
         $info['qty'] = $item['qty'];
 
         $subtotal_tax = $item['subtotal_tax'];
 
         $info['subtotal_tax'] = number_format( $subtotal_tax, 2 );
-        
+
         $total = $item['total'];
 
         $info['total'] = number_format( $total, 2 );
@@ -178,10 +178,17 @@ class WC_Dropshipping_Orders {
 		$product = wc_get_product( $product->get_id() );
 		$product_get = wc_get_product( $item->get_product_id() );
 		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ) );
-		$info['imgurl'] = $thumbnail['0'];
+ 		$ali_image = wp_get_attachment_url( $product->get_image_id() );
+		$info['ali_image'] = $ali_image;
+		if (!empty($thumbnail)){
+			$info['imgurl'] = $thumbnail['0'];
+		}else{
+			$info['imgurl'] = plugin_dir_url( __FILE__ ).'no.png';
+		}
 		$currency_symbol = get_woocommerce_currency_symbol();
 		$costofgoods = get_post_meta($product->get_id(), 'custom_field', true);
 		$typeofpackage = get_post_meta($product->get_id(), 'custom_field_description', true);
+		$dropship_options = get_option( 'wc_dropship_manager' );
 
 		if($product_get->is_type('variable'))
 
@@ -210,10 +217,10 @@ class WC_Dropshipping_Orders {
 		}
 		else
 		{
-			$costofgoods = get_post_meta($product->get_id(), '_custom_product_text_field', true);
+			$costofgoods = get_post_meta($product->get_id(), '_cost_of_goods', true);
 		}
 
-		if(empty($costofgoods))
+		if(empty($costofgoods) || $dropship_options['cost_of_goods'] == '0')
 		{
 			$product_subtotal = $item->get_subtotal();
 			$product_subtotal = number_format( $product_subtotal, 2 );
@@ -288,8 +295,11 @@ class WC_Dropshipping_Orders {
 	    $hideorderdetail_suppliername = $options['hideorderdetail_suppliername'];
 		// gather some of the basic order info
 		$order_info = array();
-		/*$order_info['id'] = $order->get_order_number();*/
-		
+
+		$order_info['custom_order_number'] = $order->get_order_number();
+
+		$get_shipping_total = $order->get_shipping_total();
+		$order_info['get_shipping_total'] = number_format( $get_shipping_total, 2 );
 		$order_info['id'] = $order->get_id();
 		$order_info['number'] = $order->get_order_number();
 		$order_info['options'] = get_option( 'wc_dropship_manager' );
@@ -297,7 +307,7 @@ class WC_Dropshipping_Orders {
 		$order_info['billing_info'] = $this->get_order_billing_info($order);
 		$order_info['order'] = $order;
 		$order_info['customer_note'] = $order->get_customer_note();
-		
+
 		// for each item determine what products go to what suppliers.
 		// Build product/supplier lists so we can send send out our order emails
 		$order_info['suppliers'] = array();
@@ -328,6 +338,14 @@ class WC_Dropshipping_Orders {
 					$product = $item->get_product(); // get the product obj
 
 					$prod_info = $this->get_order_product_info($item,$product);
+
+					//Add tax label on order_info
+					if (class_exists('WC_Tax')){
+						$order_tax = new WC_Tax();
+						foreach($order_tax::get_rates() as $order_tax_key => $order_tax_value){
+							$order_info['tax_label'] = $order_tax_value['label'];
+						}
+					}
 
 
 					if(!array_key_exists($ds['slug'],$order_info['suppliers']))
@@ -405,7 +423,7 @@ class WC_Dropshipping_Orders {
 		}
 
 		// make a directory for the current order (if it doesn't already exist)
-		$pdf_path = $this->make_directory($order_info['id']);
+		$pdf_path = $this->make_directory($order_info['custom_order_number']);
 		// generate a pdf for the current order and the current supplier
 		$file = $pdf_path.'/'.$file_name;
 		// create new PDF document
@@ -450,7 +468,7 @@ class WC_Dropshipping_Orders {
 		$options = get_option( 'wc_dropship_manager' );
 		if($options['csv_inmail'] == '1') {
 			$order = new WC_Order( $order_info['id'] );
-			$csv_path = $this->make_directory($order_info['id']);
+			$csv_path = $this->make_directory($order_info['custom_order_number']);
 			$filepath = $csv_path.'/'.$file_name;
 			$file = fopen($filepath, 'w+');
 
@@ -462,7 +480,7 @@ class WC_Dropshipping_Orders {
 			}
 
 			if ($order_info['options']['store_address'] == 1){
-				
+
 				$store_address     = get_option( 'woocommerce_store_address' );
 				$store_address_2   = get_option( 'woocommerce_store_address_2' );
 				$store_city        = get_option( 'woocommerce_store_city' );
@@ -478,7 +496,7 @@ class WC_Dropshipping_Orders {
 				$store_country = $split_country[0];
 				$store_state   = $split_country[1];
 
-				
+
 				fputcsv($file, array('Website Address: '.$store_address . $store_address_2 . ', ' . $store_city . ', ' . $store_state . ' ' . $store_postcode . ', ' . $store_country));
 			}
 
@@ -579,11 +597,11 @@ class WC_Dropshipping_Orders {
 		$order = wc_get_order($order_info['id']);
 		if($order->get_status() == 'completed') {
 			if($complete_email == '1' ) {
-			
+
 				$filename = 'complete.html';
 			}
 		} else {
-			$filename = 'packingslip.html';	
+			$filename = 'packingslip.html';
 		}
 
 		/* if($callfrom === true){
@@ -633,11 +651,11 @@ class WC_Dropshipping_Orders {
 		if($order->get_status() == 'completed') {
 
 			if($complete_email == '1' ) {
-			
+
 				$filename = 'complete.html';
 			}
 		} else {
-			$filename = 'packingslip_text.html';	
+			$filename = 'packingslip_text.html';
 		}
 
 		if (file_exists(get_stylesheet_directory().'/woocommerce-dropshipping/'.$supplier_info['slug'].'_'.$filename))
@@ -742,13 +760,13 @@ class WC_Dropshipping_Orders {
 			$text = $this->get_packingslip_html($order_info,$supplier_info, false);
 			if($order->get_status() != 'completed') {
 
-				$text = $options['email_order_note'] . $text;
+				$text = $options['email_order_note'] . $text . '<img class="email_store_logo" src="'.$options['packing_slip_url_to_logo'].'" />';
 			}
-			
+
 			$html = apply_filters('wc_dropship_manager_send_order_email_html',$text);
 
 		 	if ($order->get_status() == 'completed') {
-		 		
+
 		  		$hdrs['Subject'] = 'Order #'.$order_info['number'].' is completed ';
 			}else {
 				$hdrs['Subject'] = 'New Order #'.$order_info['number'].' From '.$from_name;
@@ -761,7 +779,7 @@ class WC_Dropshipping_Orders {
 			}*/
 			$message = '';
 			if ($order->get_status() != 'completed') {
-				
+
 				if($cnf_mail == '1') {
 
 					$message .= '<img width="1" height="1" src="'.plugin_dir_url(__FILE__ ).'mail-track.php?orderid='.$order_info['id'].'&suppid='.$supplier_info['id'] . '&from='.$supplier_info['order_email_addresses'] .'&sup_name='.$supplier_info['name'] . '&random_value='.rand().'">';
@@ -786,7 +804,7 @@ class WC_Dropshipping_Orders {
 
 
 			if($order->get_status() == 'completed') {
-				
+
 				wp_mail($hdrs['To'], $hdrs['Subject'], $message, $headers);
 			} else {
 				wp_mail($hdrs['To'], $hdrs['Subject'], $message, $headers, $attachments);
@@ -850,7 +868,7 @@ class WC_Dropshipping_Orders {
 
 			if ($order_status != 'completed') {
 
-				$text = $options['email_order_note'] . $text;
+				$text = $options['email_order_note'] . $text . '<img class="email_store_logo" src="'.$options['packing_slip_url_to_logo'].'" />';
 			}
 
 			$html = apply_filters('wc_dropship_manager_send_order_email_html',$text);

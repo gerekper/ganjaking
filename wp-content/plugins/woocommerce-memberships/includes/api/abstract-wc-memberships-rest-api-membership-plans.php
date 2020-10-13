@@ -240,8 +240,8 @@ class Membership_Plans extends Controller {
 			// ensures this is always a standard membership plan object, which may be filtered later
 			$membership_plan    = new \WC_Memberships_Membership_Plan( $membership_plan->post );
 			$access_length_type = $membership_plan->get_access_length_type();
-
-			$data = array(
+			$datetime_format    = $this->get_datetime_format();
+			$data               = [
 				'id'                        => $membership_plan->get_id(),
 				'name'                      => $membership_plan->get_name(),
 				'slug'                      => $membership_plan->get_slug(),
@@ -250,20 +250,20 @@ class Membership_Plans extends Controller {
 				'access_product_ids'        => $membership_plan->get_product_ids(),
 				'access_length_type'        => $membership_plan->get_access_length_type(),
 				'access_length'             => $membership_plan->get_access_length_in_seconds(),
-				'access_start_date'         => 'fixed' === $access_length_type ? $membership_plan->get_local_access_start_date( DATE_ATOM ) : null,
-				'access_start_date_gmt'     => 'fixed' === $access_length_type ? $membership_plan->get_access_start_date( DATE_ATOM ) : null,
-				'access_end_date'           => 'fixed' === $access_length_type ? $membership_plan->get_local_access_end_date( DATE_ATOM ) : null,
-				'access_end_date_gmt'       => 'fixed' === $access_length_type ? $membership_plan->get_access_end_date( DATE_ATOM ) : null,
-				'date_created'              => wc_memberships_format_date( $membership_plan->post->post_date, DATE_ATOM ),
-				'date_created_gmt'          => wc_memberships_format_date( $membership_plan->post->post_date_gmt, DATE_ATOM ),
-				'date_modified'             => wc_memberships_format_date( $membership_plan->post->post_modified, DATE_ATOM ),
-				'date_modified_gmt'         => wc_memberships_format_date( $membership_plan->post->post_modified_gmt, DATE_ATOM ),
+				'access_start_date'         => 'fixed' === $access_length_type ? $membership_plan->get_local_access_start_date( $datetime_format ) : null,
+				'access_start_date_gmt'     => 'fixed' === $access_length_type ? $membership_plan->get_access_start_date( $datetime_format ) : null,
+				'access_end_date'           => 'fixed' === $access_length_type ? $membership_plan->get_local_access_end_date( $datetime_format ) : null,
+				'access_end_date_gmt'       => 'fixed' === $access_length_type ? $membership_plan->get_access_end_date( $datetime_format ) : null,
+				'date_created'              => wc_memberships_format_date( $membership_plan->post->post_date, $datetime_format ),
+				'date_created_gmt'          => wc_memberships_format_date( $membership_plan->post->post_date_gmt, $datetime_format ),
+				'date_modified'             => wc_memberships_format_date( $membership_plan->post->post_modified, $datetime_format ),
+				'date_modified_gmt'         => wc_memberships_format_date( $membership_plan->post->post_modified_gmt, $datetime_format ),
 				'meta_data'                 => $this->prepare_item_meta_data( $membership_plan ),
-			);
+			];
 
 		} else {
 
-			$data            = array();
+			$data            = [];
 			$membership_plan = null;
 		}
 

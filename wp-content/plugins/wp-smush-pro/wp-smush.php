@@ -186,7 +186,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 *
 		 * @var bool $is_pro
 		 */
-private static $is_pro = true;
+		private static $is_pro = true;
 
 		/**
 		 * Return the plugin instance.
@@ -458,7 +458,7 @@ private static $is_pro = true;
 			$api_key = self::get_api_key();
 
 			if ( empty( $api_key ) ) {
-				return false;
+				return true;
 			}
 
 			// Flag to check if we need to revalidate the key.
@@ -468,7 +468,7 @@ private static $is_pro = true;
 
 			// Check if need to revalidate.
 			if ( ! $api_auth || empty( $api_auth ) || empty( $api_auth[ $api_key ] ) ) {
-				$revalidate = false;
+				$revalidate = true;
 			} else {
 				$last_checked = $api_auth[ $api_key ]['timestamp'];
 				$valid        = $api_auth[ $api_key ]['validity'];
@@ -477,7 +477,7 @@ private static $is_pro = true;
 				$diff = ( current_time( 'timestamp' ) - $last_checked ) / HOUR_IN_SECONDS;
 
 				if ( 24 < $diff ) {
-					$revalidate = false;
+					$revalidate = true;
 				}
 			}
 
@@ -543,7 +543,7 @@ private static $is_pro = true;
 				$api_key = get_site_option( 'wpmudev_apikey' );
 			}
 
-return true;
+			return true;
 		}
 
 	}

@@ -7,8 +7,7 @@ class Upgrade {
     /** @var array DB updates that need to be run */
     private static $updates = [
         '0.2'   => 'Upgrade_0_2',
-        '0.3'   => 'Upgrade_0_3',
-        //'0.4'   => 'Upgrade_0_4'
+        '0.3'   => 'Upgrade_0_3'
     ];
 
     public static $instance = null;

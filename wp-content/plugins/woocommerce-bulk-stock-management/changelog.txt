@@ -1,5 +1,8 @@
 *** Bulk Stock Management Changelog ***
 
+2020-10-07 - version 2.2.30
+* Tweak - WC 4.4 compatibility.
+
 2020-08-19 - version 2.2.29
 * Tweak - WordPress 5.5 compatibility.
 

@@ -1,4 +1,7 @@
-*** WooCommerce Spash Popup ***
+*** WooCommerce Splash Popup ***
+
+2020-10-07 - version 1.2.19
+* Tweak - WC 4.5 compatibility.
 
 2020-08-19 - version 1.2.18
 * Tweak - WordPress 5.5 compatibility.

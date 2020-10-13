@@ -27,27 +27,6 @@ use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
 
 
 /**
- * Gets an order's date (compatibility function for template files).
- *
- * @since 1.12.0
- * @deprecated 1.16.0
- *
- * TODO remove this method when a) SV_WC_Order_Compatibility::get_date_prop is removed, b) by version 2.0.0, or c) by October 2020 {FN 2019-10-16}
- *
- * @param \WC_Order $order
- * @param string $date the date to retrieve
- * @param string $context WooCommerce context: 'view' or 'edit' (default)
- * @return null|\WC_DateTime
- */
-function wc_memberships_get_order_date( $order, $date, $context = 'edit' ) {
-
-	wc_deprecated_function( 'wc_memberships_get_order_date()', '1.16.0', '\\WC_Order dates getter methods' );
-
-	return Framework\SV_WC_Order_Compatibility::get_date_prop( $order, $date, $context );
-}
-
-
-/**
  * Returns memberships granted access meta from order.
  *
  * @since 1.7.0

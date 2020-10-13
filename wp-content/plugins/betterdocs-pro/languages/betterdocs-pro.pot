@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-07-27 05:17+0000\n"
+"POT-Creation-Date: 2020-09-17 10:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: betterdocs-pro\n"
@@ -23,77 +23,72 @@ msgstr ""
 msgid "Install Now!"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin.php:163
+#: admin/class-betterdocs-pro-admin.php:171
 msgid "Switch to BetterDocs UI"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin.php:175 
-#: public/partials/template-single/layout-3.php:162 
-#: public/partials/template-single/layout-2.php:160
+#: admin/class-betterdocs-pro-admin.php:183
+#: public/partials/template-single/layout-2.php:252
+#: public/partials/template-single/layout-3.php:170
 msgid "BetterDocs"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin.php:178
+#: admin/class-betterdocs-pro-admin.php:186
 msgid "Switch to Classic UI"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin.php:179
+#: admin/class-betterdocs-pro-admin.php:187
 msgid "Add New Doc"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin.php:263
+#: admin/class-betterdocs-pro-admin.php:276
 msgid "Multiple KB"
-msgstr ""
-
-#: public/class-betterdocs-pro-public.php:118 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:328 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:773
-msgid "How did you feel?"
-msgstr ""
-
-#: public/class-betterdocs-pro-public.php:119 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:337
-msgid "Thanks for your feedback"
 msgstr ""
 
 #: public/betterdocs-shortcodes.php:11 admin/customizer/defaults.php:54
 msgid "What are your Feelings"
 msgstr ""
 
-#: public/betterdocs-shortcodes.php:118 public/betterdocs-shortcodes.php:280 
-#: public/betterdocs-shortcodes.php:376
-msgid "articles"
+#: public/class-betterdocs-pro-public.php:118
+#: admin/includes/class-betterdocs-pro-instant-answer.php:328
+#: admin/includes/class-betterdocs-pro-instant-answer.php:773
+msgid "How did you feel?"
 msgstr ""
 
-#: admin/customizer/customizer.php:918
+#: public/class-betterdocs-pro-public.php:119
+#: admin/includes/class-betterdocs-pro-instant-answer.php:337
+msgid "Thanks for your feedback"
+msgstr ""
+
+#: admin/customizer/customizer.php:919
 msgid "Content Overlap"
 msgstr ""
 
-#: admin/customizer/customizer.php:942
+#: admin/customizer/customizer.php:943
 msgid "Top Box Icon Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:967
+#: admin/customizer/customizer.php:968
 msgid "Docs List Title Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:986
+#: admin/customizer/customizer.php:987
 msgid "Reactions"
 msgstr ""
 
-#: admin/customizer/customizer.php:1002
+#: admin/customizer/customizer.php:1003
 msgid "Enable Reactions?"
 msgstr ""
 
-#: admin/customizer/customizer.php:1020
+#: admin/customizer/customizer.php:1021
 msgid "Reactions Title"
 msgstr ""
 
-#: admin/customizer/customizer.php:1043
+#: admin/customizer/customizer.php:1044
 msgid "Reactions Text Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1064
+#: admin/customizer/customizer.php:1065
 msgid "Reactions Icon Color"
 msgstr ""
 
@@ -101,7 +96,7 @@ msgstr ""
 msgid "Views"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:106 
+#: admin/includes/class-betterdocs-analytics.php:106
 #: admin/includes/class-betterdocs-analytics.php:538
 msgid "Analytics"
 msgstr ""
@@ -134,38 +129,38 @@ msgstr ""
 msgid "Select if you want to exclude bot analytics."
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:245 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:245
 #: admin/includes/class-betterdocs-pro-instant-answer.php:680
 msgid "Answer"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:246 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:440 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:246
+#: admin/includes/class-betterdocs-pro-instant-answer.php:440
 #: admin/includes/class-betterdocs-pro-instant-answer.php:686
 msgid "Instant Answer"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:247 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:247
 #: admin/includes/class-betterdocs-pro-instant-answer.php:722
 msgid "Ask"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:248 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:248
 #: admin/includes/class-betterdocs-pro-instant-answer.php:728
 msgid "Stuck with something? Send us a message."
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:249 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:249
 #: admin/includes/class-betterdocs-pro-instant-answer.php:734
 msgid "Generally, we reply within 24-48 hours."
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:278 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:278
 #: admin/includes/class-betterdocs-pro-instant-answer.php:646
 msgid "Search..."
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:311 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:311
 #: admin/includes/class-betterdocs-pro-instant-answer.php:808
 msgid "Thanks for the feedback"
 msgstr ""
@@ -174,7 +169,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:344 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:344
 #: admin/includes/class-betterdocs-pro-instant-answer.php:586
 msgid "Email Address"
 msgstr ""
@@ -183,9 +178,7 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:346 
-#: public/partials/template-single/layout-3.php:123 
-#: public/partials/template-single/layout-2.php:121
+#: admin/includes/class-betterdocs-pro-instant-answer.php:346
 msgid "How can we help?"
 msgstr ""
 
@@ -201,7 +194,7 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:445 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:445
 #: admin/includes/class-betterdocs-pro-instant-answer.php:450
 msgid "Enable/Disable Instant Answer"
 msgstr ""
@@ -224,7 +217,7 @@ msgstr ""
 msgid "Instant Answer Settings"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:482 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:482
 #: admin/includes/class-betterdocs-pro-instant-answer.php:487
 msgid "Initial Content Settings"
 msgstr ""
@@ -241,7 +234,7 @@ msgstr ""
 msgid "Docs Categories"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:517 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:517
 #: admin/partials/betterdocs-pro-admin-analytics-display.php:180
 msgid "Select Docs"
 msgstr ""
@@ -266,7 +259,7 @@ msgstr ""
 msgid "Show on Single Pages"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:569 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:569
 #: admin/includes/class-betterdocs-pro-instant-answer.php:574
 msgid "Chat Settings"
 msgstr ""
@@ -291,7 +284,7 @@ msgstr ""
 msgid "Your Message Has Been Sent Successfully"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:605 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:605
 #: admin/includes/class-betterdocs-pro-instant-answer.php:610
 msgid "Appearance Settings"
 msgstr ""
@@ -388,7 +381,7 @@ msgstr ""
 msgid "Z-index"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:839 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:839
 #: admin/includes/class-betterdocs-pro-instant-answer.php:854
 msgid "Color Settings"
 msgstr ""
@@ -513,7 +506,7 @@ msgstr ""
 msgid "Ask Send Button Hover Background"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1000 
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1000
 #: admin/includes/class-betterdocs-pro-instant-answer.php:1005
 msgid "Cross Domain Settings"
 msgstr ""
@@ -522,7 +515,7 @@ msgstr ""
 msgid "Cross Domain Integration Snippet"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1365
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1368
 msgid "Copy Snippet"
 msgstr ""
 
@@ -534,12 +527,12 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:214 
+#: admin/partials/betterdocs-pro-admin-analytics-display.php:214
 #: admin/partials/betterdocs-pro-admin-analytics-display.php:215
 msgid "Start Date"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:218 
+#: admin/partials/betterdocs-pro-admin-analytics-display.php:218
 #: admin/partials/betterdocs-pro-admin-analytics-display.php:219
 msgid "End Date"
 msgstr ""
@@ -552,7 +545,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-sorting-display.php:83 
+#: admin/partials/betterdocs-pro-admin-sorting-display.php:83
 #: admin/partials/betterdocs-pro-admin-sorting-display.php:133
 msgid "Draft"
 msgstr ""
@@ -561,23 +554,38 @@ msgstr ""
 msgid "Uncategorized"
 msgstr ""
 
-#: public/partials/template-single/layout-3.php:118 
-#: public/partials/template-single/layout-2.php:116
-msgid "Still stuck? How can we help?"
+#: admin/includes/licensing/class-betterdocs-licensing.php:147
+msgid "Just one more step to go!"
 msgstr ""
 
-#: public/partials/template-single/layout-3.php:138 
-#: public/partials/template-single/layout-2.php:136
+#: admin/includes/licensing/class-betterdocs-licensing.php:173
+msgid "Auto Update"
+msgstr ""
+
+#: admin/includes/licensing/class-betterdocs-licensing.php:174
+msgid "Update the plugin right from your WordPress Dashboard."
+msgstr ""
+
+#: admin/includes/licensing/class-betterdocs-licensing.php:186
+msgid "Premium Support"
+msgstr ""
+
+#: admin/includes/licensing/class-betterdocs-licensing.php:187
+msgid "Supported by professional and courteous staff."
+msgstr ""
+
+#: public/partials/template-single/layout-2.php:213
+#: public/partials/template-single/layout-3.php:146
 #, php-format
 msgid "Updated on %s"
 msgstr ""
 
-#: public/partials/template-single/layout-3.php:162 
-#: public/partials/template-single/layout-2.php:160
+#: public/partials/template-single/layout-2.php:252
+#: public/partials/template-single/layout-3.php:170
 msgid "Powered by "
 msgstr ""
 
-#. Plugin Name of the plugin
+#. Name of the plugin
 msgid "BetterDocs Pro"
 msgstr ""
 
@@ -585,7 +593,7 @@ msgstr ""
 msgid "A better documentation and knowledgebase plugin for WordPress"
 msgstr ""
 
-#. Plugin URI of the plugin
+#. URI of the plugin
 msgid "https:/betterdocs.co"
 msgstr ""
 

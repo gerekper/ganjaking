@@ -24,7 +24,7 @@ class BetterDocs_Multiple_Kb {
 			add_filter( 'betterdocs_docs_rewrite', array( __CLASS__, 'docs_rewrite' ) );
 			add_filter( 'betterdocs_category_rewrite', array( __CLASS__, 'doc_category_rewrite' ) );
 			add_filter( 'post_type_link', array( __CLASS__, 'docs_show_permalinks'), 1, 3);
-			// add_filter( 'term_link', array( __CLASS__, 'doc_category_permalink'), 1, 3 );
+			add_filter('nav_menu_link_attributes', array(__CLASS__, 'doc_category_nav_menu_permalink'), 10, 3);
 
 			add_action( 'betterdocs_cat_template_multikb', array( __CLASS__, 'get_multiple_kb') );
 			add_action( 'betterdocs_postcount', array( __CLASS__, 'postcount'), 10, 5 );
@@ -189,23 +189,23 @@ class BetterDocs_Multiple_Kb {
 	}
 	
 	public static function breadcrumb_archive( $html, $delimiter ) {
-
 		global $wp_query;
-
+		$archive = '';
 		$kb_term = $wp_query->query_vars['knowledge_base'];
-		$get_kb_term = get_term_by('slug', $kb_term, 'knowledge_base');
-		$kb_term_id = $get_kb_term->term_id;
+
+		if ($kb_term != 'non-knowledgebase') {
+			$get_kb_term = get_term_by('slug', $kb_term, 'knowledge_base');
+			$kb_term_id = $get_kb_term->term_id;
+			$archive .= betterdocs_get_term_parents_list($kb_term_id, 'knowledge_base', $delimiter);
+			$archive .= '<li class="betterdocs-breadcrumb-item breadcrumb-delimiter"> ' . $delimiter . ' </li>';
+		}
 
 		$cat_term = $wp_query->query_vars['doc_category'];
 		$get_cat_term = get_term_by('slug', $cat_term, 'doc_category');
 		$cat_term_id = $get_cat_term->term_id;
+		$archive .= betterdocs_get_term_parents_list($cat_term_id, 'doc_category', $delimiter);
 
-		$html = betterdocs_get_term_parents_list( $kb_term_id, 'knowledge_base', $delimiter ) .
-		'<li class="betterdocs-breadcrumb-item breadcrumb-delimiter"> ' . $delimiter . ' </li>'
-		. betterdocs_get_term_parents_list( $cat_term_id, 'doc_category', $delimiter );
-
-		return $html;
-		
+		return $html = $archive;
 	}
 	
 	public static function breadcrumb_single( $html, $delimiter ) {
@@ -433,13 +433,18 @@ class BetterDocs_Multiple_Kb {
         return $kb_slug;
     }
 	
-	public static function breadcrumb_term_permalink( $term_permalink ) {
-        
-        $kb_slug = self::kb_slug();
-        $term_permalink = str_replace( '%knowledge_base%', $kb_slug, $term_permalink );
+	public static function breadcrumb_term_permalink($term_permalink)
+	{
+		$kb_slug = self::kb_slug();
 
-        return $term_permalink;
-    }
+		if ($kb_slug) {
+			$term_permalink = str_replace('%knowledge_base%', $kb_slug, $term_permalink);
+		} else {
+			$term_permalink = str_replace('%knowledge_base%', 'non-knowledgebase', $term_permalink);
+		}
+
+		return $term_permalink;
+	}
 	
 	public static function kb_uncategorized_tax_query( $tax_query, $wp_query ) {
 
@@ -496,25 +501,29 @@ class BetterDocs_Multiple_Kb {
 		  
 		return $actions;
 		  
-    }
+	}
+	
+	public static function doc_category_nav_menu_permalink($atts, $item, $args)
+	{
+		if ($item->type == 'taxonomy' && $item->object == 'doc_category') {
+			$atts['href'] = self::doc_category_permalink($atts['href'], $item->object_id);
+		}
+		return $atts;
+	}
 
-    public static function doc_category_permalink( $termlink, $term, $taxonomy ) {
-            
-        //If this term is not a basepress product return the $termlink unchanged
-        if ( 'doc_category' != $term->taxonomy ) {
-            return $termlink;
-        }
-
+	public static function doc_category_permalink($termlink, $term_id)
+	{
         $knowledgebase = 'knowledge_base';
         $knowledgebase_tag = '%' . $knowledgebase . '%';
-        
-        $knowledge_base = get_term_meta($term->term_id, 'doc_category_knowledge_base', true);
+        $kb_arr = get_term_meta($term_id, 'doc_category_knowledge_base', true);
 		
-		if( empty( $knowledge_base ) ) {
-            $knowledge_base = 'non-knowledgebase';
+		if (empty($kb_arr[0])) {
+			$knowledge_base = 'non-knowledgebase';
+		} else {
+			$knowledge_base = $kb_arr[0];
 		}
 		
-        $termlink = str_replace( $knowledgebase_tag, $knowledge_base , $termlink );
+        $termlink = str_replace($knowledgebase_tag, $knowledge_base, $termlink);
         
         return $termlink;
 	}

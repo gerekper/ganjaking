@@ -47,7 +47,7 @@ class MeprUsersHelper {
       'user_full_name'     => $usr->full_name(),
       'user_address'       => $usr->formatted_address(),
       'user_register_date' => $usr_date,
-      'blog_name'          => get_bloginfo('name'),
+      'blog_name'          => wp_specialchars_decode( get_bloginfo('name'), ENT_QUOTES ),
       'business_name'      => $mepr_options->attr('biz_name'),
       'biz_name'           => $mepr_options->attr('biz_name'),
       'biz_address1'       => $mepr_options->attr('biz_address1'),

@@ -359,7 +359,7 @@ return array(
 					'groovy-menu' ),
 				'type'        => 'checkbox',
 				'description' => esc_html__( 'You can switch between displaying or hiding icons added to menu items from &quot;Appearance > menus&quot;.', 'groovy-menu' ),
-				'default'     => true,
+				'default'     => false,
 			),
 			'menu_z_index'                                 => array(
 				'title'       => esc_html__( 'Menu z-index', 'groovy-menu' ),

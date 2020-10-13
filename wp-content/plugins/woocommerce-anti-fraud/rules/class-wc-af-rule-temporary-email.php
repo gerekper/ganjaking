@@ -14,7 +14,7 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 		$this->is_enabled  =  get_option('wc_af_suspecius_email');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_suspecious_email_weight');
 		
-		parent::__construct( 'temporary_email', 'Invalid Email address', $this->rule_weight );
+		parent::__construct( 'temporary_email', 'Email address is from a high-risk domain.', $this->rule_weight );
 	}
 
 	/**

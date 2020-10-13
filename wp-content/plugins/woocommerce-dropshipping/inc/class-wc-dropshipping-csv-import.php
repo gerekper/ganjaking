@@ -52,6 +52,7 @@ class WC_Dropshipping_CSV_Import {
 		$options = get_option( 'wc_dropship_manager' );
 		$instock = '';
 		$outofstock = '';
+		$supplier_info = '';
 		$temp = array();
 
 		$q_select_skus = " 	CREATE TEMPORARY TABLE %name AS (
@@ -78,14 +79,14 @@ class WC_Dropshipping_CSV_Import {
                                         AND post_id IN (
                                          SELECT post_id AS id
                                          FROM %name );";
-                                         
+
       /*$q_update_quantitystatus = " 	UPDATE ".$wpdb->postmeta."
                                         SET meta_value = %s
                                         WHERE meta_key = '_stock'
                                         AND post_id IN (
                                          SELECT post_id AS id
                                          FROM %name );";*/
-                                         
+
 		// process uploaded CSV
 		if(($_FILES['csv_file']['error'] == 0)&&(strlen($ds['csv_delimiter']) > 0)) {
 			$name = $_FILES['csv_file']['name'];
@@ -104,7 +105,7 @@ class WC_Dropshipping_CSV_Import {
 						// get the values from the csv
 						$temp['sku'] = $data[$ds['csv_column_sku']-1];
 						if($ds['csv_type'] === 'quantity') {
-							$temp['qty_remaining'] = preg_replace('/[^0-9]/', '', $data[$ds['csv_column_qty']-1]); 
+							$temp['qty_remaining'] = preg_replace('/[^0-9]/', '', $data[$ds['csv_column_qty']-1]);
 							// get rid of anything that is not a number.
 							$qty_remaining = $temp['qty_remaining'];
 							// All we care about is if there is enough product in the warehouse to ship orders
@@ -183,9 +184,20 @@ class WC_Dropshipping_CSV_Import {
 	// TODO: format this output
 	public function display_out_of_stock($outofstock,$supplier_info) {
 		$aSkus = explode(',',$outofstock);
-		echo '<div style="float:left;"><b>OUT OF STOCK: '.count($aSkus).'</b>';
-		echo '<ul>';
+		$new_skus = array();
 		foreach( $aSkus as $sku ) {
+			if (2 === strlen($sku)){
+				break;
+			}else{
+				$new_skus[] = $sku;
+			}
+		}
+		echo '<div style="float:left;"><b>OUT OF STOCK: '.count($new_skus).'</b>';
+		echo '<ul>';
+		foreach( $new_skus as $sku ) {
+			if (2 === strlen($sku)){
+				break;
+			}
 			echo '<li>'.$sku.'</li>';
 		}
 		echo '</ul></div>';
@@ -193,9 +205,17 @@ class WC_Dropshipping_CSV_Import {
 
 	public function display_in_stock($instock,$supplier_info) {
 		$aSkus = explode(',',$instock);
-		echo '<div style="float:right;"><b>IN STOCK: '.count($aSkus).'</b>';
+		$new_skus = array();
+		foreach( $aSkus as $sku ) {
+			if (2 === strlen($sku)){
+				break;
+			}else{
+				$new_skus[] = $sku;
+			}
+		}
+		echo '<div style="float:right;"><b>IN STOCK: '.count($new_skus).'</b>';
 		echo '<ul>';
-		foreach($aSkus as $sku)
+		foreach($new_skus as $sku)
 		{
 			echo '<li>'.$sku.'</li>';
 		}

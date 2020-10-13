@@ -1,0 +1,1108 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Notification Premium\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-21 03:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.0; wp-5.0.3"
+
+#: D:/git/woocommerce-notification/woocommerce-notification/woocommerce-notification.php:45
+msgid ""
+"Please install WooCommerce and active. WooCommerce Notification is going to "
+"working."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/admin.php:186
+msgid "Settings"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/admin.php:224
+msgid "WooCommerce Notification"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/admin.php:224
+msgid "Woo Notification"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:69
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:76
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:142
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:150
+msgid "Click"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:290
+msgid "WooCommerce Notification Reporting"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:293
+msgid "Clicks by date"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:295
+msgid "Clicks by product"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:303
+msgid "From"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:308
+msgid "To"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:313
+msgid "SUBMIT"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:323
+msgid "Top Click"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:327
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:328
+msgid "Products"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:329
+msgid "Clicked"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:369
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/report.php:370
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:343
+msgid "Report"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:313
+msgid "WooCommerce Notification Settings"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:319
+msgid "General"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:322
+msgid "Design"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:325
+msgid "Messages"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:331
+msgid "Product Detail"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:334
+msgid "Time"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:337
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1723
+msgid "Sound"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:340
+msgid "Assign"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:346
+msgid "Update"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:356
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1708
+msgid "Enable"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:372
+msgid "Mobile"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:396
+msgid "Show Products"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:402
+msgid "Get from Billing"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:404
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:668
+msgid "Select Products"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:406
+msgid "Latest Products"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:408
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:434
+msgid "Select Categories"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:410
+msgid "Recently Viewed Products"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:413
+msgid ""
+"You can arrange product order or special product which you want to up-sell."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:418
+msgid "Out-of-stock products"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:428
+msgid "Turn on to show out-of-stock products on notifications."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:442
+msgid "Please select category"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:464
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:539
+msgid "Exclude Products"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:521
+msgid "These products will not display on notification."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:526
+msgid "Product limit"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:534
+msgid "Product quantity will be got in list latest products."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:597
+msgid "These products will not show on notification."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:602
+msgid "External link"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:612
+msgid "Working with  External/Affiliate product. Product link is product URL."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:617
+msgid "Order Time"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:630
+msgid "Hours"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:632
+msgid "Days"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:634
+msgid "Minutes"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:638
+msgid "Products in this recently time will get from order.  "
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:643
+msgid "Order Status"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:676
+msgid "Please select products"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:722
+msgid "Virtual First Name"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:731
+msgid ""
+"Virtual first name what will show on notification. Each first name on a line."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:778
+msgid "Virtual Time"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:785
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:941
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1321
+msgid "hours"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:788
+msgid "Time will auto get random in this time threshold ago."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:793
+msgid "Auto change Virtual Time"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:803
+msgid "Auto change Virtual Time for site Timezone"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:808
+msgid "Address"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:812
+msgid "Auto Detect"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:814
+msgid "MaxMind Geolocation - WooCommerce"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:816
+msgid "Virtual"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:819
+msgid "You can use auto detect address or make virtual address of customer."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:824
+msgid "Virtual City"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:832
+msgid ""
+"Virtual city name what will show on notification. Each city name on a line."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:879
+msgid "Virtual Country"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:885
+msgid "Virtual country name what will show on notification."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:933
+msgid "Product image size"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:941
+msgid "shop_thumbnail"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:944
+msgid "shop_catalog"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:947
+msgid "shop_single"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:951
+msgid "Image size will get form your WordPress site."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:956
+msgid "Non Ajax"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:966
+msgid ""
+"Load popup will not use ajax. Your site will be load faster. It creates "
+"cache. It is not working with Get product from Billing feature and options "
+"of Product detail tab."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:979
+msgid "Run single product"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:989
+msgid ""
+"Notification will only display current product in product detail page that "
+"they are viewing."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:994
+msgid "Notification show"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1001
+msgid "Current product"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1003
+msgid "Products in the same category"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1006
+msgid ""
+"In product single page, Notification can only display current product or "
+"other products in the same category."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1011
+msgid "Show variation"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1021
+msgid "Show variation instead of product variable."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1035
+msgid "Highlight color"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1046
+msgid "Text color"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1058
+msgid "Background color"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1069
+msgid "Image padding"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1076
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1219
+msgid "px"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1078
+msgid "Gap between product image and notification's border"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1083
+msgid "Templates"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1093
+msgid "None"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1122
+msgid "Image Position"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1128
+msgid "Left"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1130
+msgid "Right"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1136
+msgid "Position"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1150
+msgid "Bottom left"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1163
+msgid "Bottom right"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1175
+msgid "Top left"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1187
+msgid "Top right"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1197
+msgid "Rounded corner style"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1208
+msgid "Message will be rounded and product image is round instead of square"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1213
+msgid "Custom Rounded corner"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1221
+msgid "This option is used only if you do not select any background templates"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1227
+msgid "Show Close Icon"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1243
+msgid "Time close"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1249
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:943
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1320
+msgid "hour"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1255
+msgid "Close icon color"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1268
+msgid "Image redirect"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1279
+msgid "When click image, you will redirect to product single page."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1285
+msgid "Link target"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1296
+msgid "Open link on new tab."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1303
+msgid "Message display effect"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1312
+msgid "bounceIn"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1314
+msgid "bounceInDown"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1316
+msgid "bounceInLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1318
+msgid "bounceInRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1320
+msgid "bounceInUp"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1324
+msgid "fadeIn"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1326
+msgid "fadeInDown"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1328
+msgid "fadeInDownBig"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1330
+msgid "fadeInLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1332
+msgid "fadeInLeftBig"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1334
+msgid "fadeInRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1336
+msgid "fadeInRightBig"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1338
+msgid "fadeInUp"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1340
+msgid "fadeInUpBig"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1344
+msgid "flipInX"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1346
+msgid "flipInY"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1350
+msgid "lightSpeedIn"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1354
+msgid "rotateIn"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1356
+msgid "rotateInDownLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1358
+msgid "rotateInDownRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1360
+msgid "rotateInUpLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1362
+msgid "rotateInUpRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1366
+msgid "slideInUp"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1368
+msgid "slideInDown"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1370
+msgid "slideInLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1372
+msgid "slideInRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1376
+msgid "zoomIn"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1378
+msgid "zoomInDown"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1380
+msgid "zoomInLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1382
+msgid "zoomInRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1384
+msgid "zoomInUp"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1388
+msgid "rollIn"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1396
+msgid "Message popup animation"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1405
+msgid "bounceOut"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1407
+msgid "bounceOutDown"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1409
+msgid "bounceOutLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1411
+msgid "bounceOutRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1413
+msgid "bounceOutUp"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1417
+msgid "fadeOut"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1419
+msgid "fadeOutDown"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1421
+msgid "fadeOutDownBig"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1423
+msgid "fadeOutLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1425
+msgid "fadeOutLeftBig"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1427
+msgid "fadeOutRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1429
+msgid "fadeOutRightBig"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1431
+msgid "fadeOutUp"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1433
+msgid "fadeOutUpBig"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1437
+msgid "flipOutX"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1439
+msgid "flipOutY"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1443
+msgid "lightSpeedOut"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1447
+msgid "rotateOut"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1449
+msgid "rotateOutDownLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1451
+msgid "rotateOutDownRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1453
+msgid "rotateOutUpLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1455
+msgid "rotateOutUpRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1459
+msgid "slideOutUp"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1461
+msgid "slideOutDown"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1463
+msgid "slideOutLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1465
+msgid "slideOutRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1469
+msgid "zoomOut"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1471
+msgid "zoomOutDown"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1473
+msgid "zoomOutLeft"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1475
+msgid "zoomOutRight"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1477
+msgid "zoomOutUp"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1481
+msgid "rollOut"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1489
+msgid "Custom CSS"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1549
+msgid "Loop"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1562
+msgid "Loop by session"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1573
+msgid ""
+"\"Next time display\" applies for notifications of the whole site instead of "
+"each page"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1574
+msgid ""
+"\"Initial time\" is applied only for the first notification of a session"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1575
+msgid ""
+"Count variable for \"Notifications per page\" is reset after a session "
+"expires"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1580
+msgid "Notifications per session"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1586
+msgid "Number of notifications in a session."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1591
+msgid "Session duration"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1603
+msgid "Hour"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1604
+msgid "Minute"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1605
+msgid "Second"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1610
+msgid "How long should a session last?"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1615
+msgid "Next time display"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1622
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1665
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:955
+msgid "seconds"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1625
+msgid "Time to show next notification "
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1630
+msgid "Notifications per page"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1637
+msgid "Number of notifications on a page."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1642
+msgid "Initial time random"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1652
+msgid "Initial time will be random from 0 to current value."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1657
+msgid "Minimum initial delay time"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1668
+msgid "Time will be random from Initial delay time min to Initial time."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1673
+msgid "Initial delay"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1679
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1693
+msgid "second"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1681
+msgid "When your site loads, notifications will show after this amount of time"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1687
+msgid "Display time"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1695
+msgid "Time your notification display."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1718
+#, php-format
+msgid ""
+"Modern browsers recently changed their policy to let users able to disable "
+"auto play audio so this option is not working correctly now. More details at "
+"<a href=\"%s\" target=\"_blank\">%s</a>"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1736
+msgid "Please select sound. Notification rings when show."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1749
+msgid "Message purchased"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1819
+msgid "Remove"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1826
+msgid "Add New"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1831
+msgid "Customer's first name"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1835
+msgid "Customer's city"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1839
+msgid "Customer's state"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1843
+msgid "Customer's country"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1847
+msgid "Product title"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1851
+msgid "Product title with link"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1855
+msgid "Time after purchase"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1859
+msgid "Use custom shortcode"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1877
+msgid "Custom"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1885
+msgid "This is {custom} shortcode content."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1938
+msgid "Min Number"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1949
+msgid "Max number"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1957
+msgid "Number will random from Min number to Max number"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1962
+msgid "Change low number"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1973
+msgid "Number will change in a reasonable way"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1986
+msgid "Home page"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:1996
+msgid "Turn on to hide notification on Home page"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2001
+msgid "Checkout page"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2011
+msgid "Turn on to hide notification on Checkout page"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2016
+msgid "Cart page"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2026
+msgid "Turn on to hide notification on Cart page"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2031
+msgid "Conditional Tags"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2034
+msgid "eg: !is_page(array(34,98,73))"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2039
+msgid "Let you adjust which pages will appear using WP's conditional tags."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2052
+msgid "Save Logs"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2066
+msgid "History time"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2073
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:932
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1319
+msgid "days"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2076
+msgid "Logs will be saved at "
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2076
+msgid " in time"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2089
+msgid "Auto Update Key"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2101
+msgid "Get Key"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2105
+msgid "Please fill your key what you get from "
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2105
+msgid "You can auto update WooCommerce Notification plugin. See guide "
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2113
+msgid "Save"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/settings.php:2117
+msgid "Save & Check Key"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/system.php:19
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/system.php:99
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/system.php:100
+msgid "System Status"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/system.php:24
+msgid "Log Directory Writable"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/system.php:30
+#, php-format
+msgid ""
+"To allow logging, make <code>%s</code> writable or define a custom <code>"
+"VI_WNOTIFICATION_CACHE</code>."
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/system.php:75
+msgid "PHP Time Limit"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/system.php:79
+msgid "PHP Max Input Vars"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/admin/system.php:84
+msgid "Memory Limit"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:934
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1318
+msgid "day"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:950
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1323
+msgid "minutes"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:952
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1322
+msgid "minute"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:958
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1325
+msgid "a few seconds"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1066
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1316
+msgid "About"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1067
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1317
+msgid "ago"
+msgstr ""
+
+#: D:/git/woocommerce-notification/woocommerce-notification/frontend/notify.php:1324
+msgid "secs"
+msgstr ""
+
+#. Name of the plugin
+msgid "WooCommerce Notification Premium"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Increase conversion rate by highlighting other customers that have bought "
+"products."
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "http://villatheme.com"
+msgstr ""
+
+#. Author of the plugin
+msgid "Andy Ha (villatheme.com)"
+msgstr ""

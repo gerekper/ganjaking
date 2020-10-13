@@ -77,7 +77,7 @@ class Profile_Fields_Area {
 	public function add_account_profile_fields_area_menu_item( $items ) {
 
 		// we grab again the endpoint option even if not using permalinks, to check if it's emptied by the admin
-		$profile_fields_area_endpoint = get_option( 'woocommerce_myaccount_members_area_endpoint', 'members-area' );
+		$profile_fields_area_endpoint = get_option( 'woocommerce_myaccount_profile_fields_area_endpoint', 'my-profile' );
 
 		// add new endpoint if there is at least one profile field visible in the Profile Fields Area
 		if ( ! empty( $profile_fields_area_endpoint ) && $this->get_profile_fields_for_user() ) {

@@ -289,13 +289,20 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 		$this->tm_plugin_settings = THEMECOMPLETE_EPO_SETTINGS()->plugin_settings();
 		$this->get_plugin_settings();
+		
+		THEMECOMPLETE_EPO_ORDER();
+		
+		if ( ! is_ajax() && is_admin() ){
+			return;
+		}
+
 		$this->get_override_settings();
 		$this->add_plugin_actions();
 
 		THEMECOMPLETE_EPO_SCRIPTS();
 		THEMECOMPLETE_EPO_DISPLAY();
 		THEMECOMPLETE_EPO_CART();
-		THEMECOMPLETE_EPO_ORDER();
+		
 		THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS();
 
 	}
@@ -1372,7 +1379,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			} else {
 				$price = $min_price !== $max_price
 					? ! $use_from
-						? sprintf( esc_html_x( '%1$s&ndash;%2$s', 'Price range: from-to', 'woocommerce' ), themecomplete_price( $min_price ), themecomplete_price( $max_price ) )
+						? sprintf( esc_html_x( '%1$s &ndash; %2$s', 'Price range: from-to', 'woocommerce' ), themecomplete_price( $min_price ), themecomplete_price( $max_price ) )
 						: ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() ) . themecomplete_price( $min_price )
 					: themecomplete_price( $min_price );
 				$price = $price . $product->get_price_suffix();
@@ -4051,21 +4058,27 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				if ( ! is_object( $price ) ) {
 					continue;
 				}
-
+				
 				$original_product_id = $price->ID;
+				$object =$price;
 				if ( THEMECOMPLETE_EPO_WPML()->is_active() ) {
 					$wpml_is_original_product = THEMECOMPLETE_EPO_WPML()->is_original_product( $price->ID, $price->post_type );
 					if ( ! $wpml_is_original_product ) {
 						$original_product_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $price->ID, $price->post_type ) );
+						if ( $price->post_type === 'product' ) {
+							$object = wc_get_product( $original_product_id );
+						} else {
+							$object = get_post( $original_product_id );
+						}
 					}
-				}
+				}				
 
 				$tmcp_id                     = absint( $original_product_id );
-				$tmcp_meta                   = themecomplete_get_post_meta( $tmcp_id, 'tm_meta', TRUE );
-				$enabled_roles               = themecomplete_get_post_meta( $tmcp_id, 'tm_meta_enabled_roles', TRUE );
-				$disabled_roles              = themecomplete_get_post_meta( $tmcp_id, 'tm_meta_disabled_roles', TRUE );
-				$tm_meta_product_ids         = themecomplete_get_post_meta( $tmcp_id, 'tm_meta_product_ids', TRUE );
-				$tm_meta_product_exclude_ids = themecomplete_get_post_meta( $tmcp_id, 'tm_meta_product_exclude_ids', TRUE );
+				$tmcp_meta                   = themecomplete_get_post_meta( $object, 'tm_meta', TRUE );
+				$enabled_roles               = themecomplete_get_post_meta( $object, 'tm_meta_enabled_roles', TRUE );
+				$disabled_roles              = themecomplete_get_post_meta( $object, 'tm_meta_disabled_roles', TRUE );
+				$tm_meta_product_ids         = themecomplete_get_post_meta( $object, 'tm_meta_product_ids', TRUE );
+				$tm_meta_product_exclude_ids = themecomplete_get_post_meta( $object, 'tm_meta_product_exclude_ids', TRUE );
 
 				if ( ! empty( $enabled_roles ) || ! empty( $disabled_roles ) ) {
 					$enable = FALSE;
@@ -4136,7 +4149,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					}
 				}
 
-				$current_builder = themecomplete_get_post_meta( $price->ID, 'tm_meta_wpml', TRUE );
+				$current_builder = themecomplete_get_post_meta( $price, 'tm_meta_wpml', TRUE );
 
 				if ( ! $current_builder ) {
 					$current_builder = array();

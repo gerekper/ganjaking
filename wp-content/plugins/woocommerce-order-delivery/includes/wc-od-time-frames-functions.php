@@ -309,3 +309,23 @@ function wc_od_get_time_frames_choices_for_date( $date, $args = array(), $contex
 
 	return wc_od_get_time_frames_choices( $time_frames, $context );
 }
+
+/**
+ * Checks if a given time frame in a certain date has room for more orders.
+ *
+ * @param int|string       $timestamp The date timestamp.
+ * @param WC_OD_Time_Frame $time_frame A time frame object.
+ *
+ * @return bool
+ */
+function wc_od_time_frame_is_full( $timestamp, $time_frame ) {
+	$orders           = wc_od_get_orders_to_deliver_in_time_frame( $timestamp, $time_frame->get_time_from(), $time_frame->get_time_to() );
+	$number_of_orders = $time_frame->get_number_of_orders();
+
+	// 0 means no limit
+	if ( $number_of_orders < 1 ) {
+		return false;
+	}
+
+	return $orders >= $number_of_orders;
+}

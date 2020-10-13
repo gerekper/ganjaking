@@ -98,8 +98,13 @@ class WC_OD_Settings_Time_Frame extends WC_OD_Settings_API {
 			),
 		);
 
-		$this->form_fields = array_merge( $this->form_fields, $this->get_shipping_methods_fields() );
+		$this->form_fields = array_merge(
+			$this->form_fields,
+			$this->get_number_of_orders_field(),
+			$this->get_shipping_methods_fields()
+		);
 
+		$this->form_fields['number_of_orders']['default']            = 0;
 		$this->form_fields['shipping_methods_option']['description'] = __( 'Choose the available shipping methods for this time frame.', 'woocommerce-order-delivery' );
 	}
 

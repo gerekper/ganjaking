@@ -31,7 +31,9 @@ class WC_AF_Rule_Country extends WC_AF_Rule {
 	public function is_risk( WC_Order $order ) {
 
 		// Orders from these countries are considered a risk unless the shop is located in the same country
-		$risk_countries = apply_filters( 'wc_af_rule_countries', $this->unsafe_countries );
+		//$risk_countries = apply_filters( 'wc_af_rule_countries', $this->unsafe_countries );
+		
+		$risk_countries = $this->unsafe_countries;
 
 		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
 			$billing_country = $order->billing_country;
@@ -44,8 +46,12 @@ class WC_AF_Rule_Country extends WC_AF_Rule {
 		// Default risk is false
 		$risk = false;
 		// Check if the billing or shipping country is considered a risk country
-		if ( ( true === in_array( $billing_country, $risk_countries ) ) || ( true === in_array( $shipping_country, $risk_countries ) ) ) {
-			$risk = true;
+		
+		if(!empty($risk_countries)) {
+
+			if ( ( true === in_array( $billing_country, $risk_countries ) ) || ( true === in_array( $shipping_country, $risk_countries ) ) ) {
+				$risk = true;
+			}
 		}
 
 		if ( true === $risk ) {

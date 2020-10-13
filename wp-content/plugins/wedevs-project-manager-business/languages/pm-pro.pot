@@ -2,9 +2,9 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Project Manager Pro 2.5.2\n"
+"Project-Id-Version: WP Project Manager Pro 2.5.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cpm-pro\n"
-"POT-Creation-Date: 2020-09-10 06:16:39+00:00\n"
+"POT-Creation-Date: 2020-10-08 12:48:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -99,58 +99,70 @@ msgstr ""
 msgid "[%s] Daily digest -"
 msgstr ""
 
-#: core/Notifications/Notification.php:86
+#: core/Notifications/Notification.php:118
 #: views/assets/src/components/settings/settings.vue:40
 #: views/emails/html/daily_digest.php:11
 msgid "Daily Digest"
 msgstr ""
 
-#: core/Notifications/Notification.php:91
+#: core/Notifications/Notification.php:123
 msgid "Enable project manager Daily Digest"
 msgstr ""
 
-#: core/Notifications/Notification.php:107
+#: core/Notifications/Notification.php:139
 msgid "Email Notification"
 msgstr ""
 
-#: core/Notifications/Notification.php:111
+#: core/Notifications/Notification.php:143
 msgid "Enable project manager email"
 msgstr ""
 
-#: core/Notifications/Notification.php:142
+#: core/Notifications/Notification.php:174
 msgid "Notifications for"
 msgstr ""
 
-#: core/Notifications/Notification.php:147
+#: core/Notifications/Notification.php:179
 msgid "New Projects "
 msgstr ""
 
-#: core/Notifications/Notification.php:151
+#: core/Notifications/Notification.php:183
 msgid "Update Projects "
 msgstr ""
 
-#: core/Notifications/Notification.php:155
+#: core/Notifications/Notification.php:187
 msgid "New Message "
 msgstr ""
 
-#: core/Notifications/Notification.php:159
+#: core/Notifications/Notification.php:191
 msgid "New Comment "
 msgstr ""
 
-#: core/Notifications/Notification.php:163
+#: core/Notifications/Notification.php:195
 msgid "Update Comment "
 msgstr ""
 
-#: core/Notifications/Notification.php:167
+#: core/Notifications/Notification.php:199
 msgid "New Task "
 msgstr ""
 
-#: core/Notifications/Notification.php:171
+#: core/Notifications/Notification.php:203
 msgid "Update Task "
 msgstr ""
 
-#: core/Notifications/Notification.php:175
+#: core/Notifications/Notification.php:207
 msgid "Complete Task "
+msgstr ""
+
+#: core/Notifications/Notification.php:220
+msgid "ERP Profile Settings"
+msgstr ""
+
+#: core/Notifications/Notification.php:224
+msgid "Notification"
+msgstr ""
+
+#: core/Notifications/Notification.php:228
+msgid "Disable WP ERP email notifications"
 msgstr ""
 
 #: core/Update/Update.php:86
@@ -279,19 +291,19 @@ msgstr ""
 msgid " Error: Please activate your license"
 msgstr ""
 
-#: core/Upgrades/Upgrade.php:104
+#: core/Upgrades/Upgrade.php:103
 msgid "WP Project Manager-Pro Data Update Required"
 msgstr ""
 
-#: core/Upgrades/Upgrade.php:105
+#: core/Upgrades/Upgrade.php:104
 msgid "&#8211; Please click the button below to update to the latest version."
 msgstr ""
 
-#: core/Upgrades/Upgrade.php:109
+#: core/Upgrades/Upgrade.php:108
 msgid "Run the Update"
 msgstr ""
 
-#: core/Upgrades/Upgrade.php:117
+#: core/Upgrades/Upgrade.php:116
 msgid ""
 "It is strongly recommended that you backup your database before proceeding. "
 "Are you sure you wish to run the updater now?"
@@ -318,28 +330,28 @@ msgstr ""
 msgid "Projects"
 msgstr ""
 
-#: core/WP/Menu.php:25 views/assets/js/pm-pro.js:1
+#: core/WP/Menu.php:19 views/assets/js/pm-pro.js:1
 #: views/assets/src/components/calendar/calendar.vue:17
 #: views/assets/src/components/calendar/router.js:22
 msgid "Calendar"
 msgstr ""
 
-#: core/WP/Menu.php:28 modules/sprint/views/assets/src/components/sprint.vue:77
+#: core/WP/Menu.php:22 modules/sprint/views/assets/src/components/sprint.vue:77
 #: modules/sprint/views/assets/src/components/sprint.vue:109
 #: modules/sprint/views/assets/src/components/sprint.vue:130
 #: views/assets/js/pm-pro.js:1
 #: views/assets/src/components/progress/progress.vue:15
-#: views/assets/src/components/progress/router.js:25
+#: views/assets/src/components/progress/router.js:29
 msgid "Progress"
 msgstr ""
 
-#: core/WP/Menu.php:29 views/assets/js/pm-pro.js:1
+#: core/WP/Menu.php:26 views/assets/js/pm-pro.js:1
 #: views/assets/src/components/reports/router.js:179
 msgid "Reports"
 msgstr ""
 
 #: core/WP/Menu.php:30 views/assets/js/pm-pro.js:1
-#: views/assets/src/components/module-lists/router.js:25
+#: views/assets/src/components/module-lists/router.js:29
 msgid "Modules"
 msgstr ""
 
@@ -544,6 +556,7 @@ msgid "No field found!"
 msgstr ""
 
 #: modules/custom_fields/views/assets/src/components/field-lists.vue:117
+#: modules/sub_tasks/views/assets/src/helpers/mixin/mixin.js:326
 #: modules/time_tracker/views/assets/js/time-tracker.js:1
 #: modules/time_tracker/views/assets/src/components/time-log.vue:391
 #: modules/time_tracker/views-d/assets/js/time-tracker.js:5382
@@ -741,7 +754,7 @@ msgstr ""
 #: modules/invoice/views/assets/js/invoice.js:1
 #: modules/invoice/views/assets/src/components/autocomplete.vue:123
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/import-task-modal.vue:76
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:78
 #: modules/sprint/views/assets/src/components/import-task-modal.vue:89
 #: modules/sprint/views/assets/src/components/tasks.vue:43
 msgid "No Task Found!"
@@ -1196,6 +1209,7 @@ msgstr ""
 #: modules/invoice/views/assets/src/components/single-invoice-content.vue:19
 #: modules/invoice/views/assets/src/components/single-invoice.vue:22
 #: views/assets/js/pm-pro.js:1
+#: views/assets/src/components/archive-list/back-list-page.vue:8
 #: views/assets/src/components/reports/advance-task.vue:7
 #: views/assets/src/components/reports/advance-task.vue:11
 #: views/assets/src/components/reports/project-tasks.vue:7
@@ -1453,53 +1467,53 @@ msgstr ""
 msgid "This task already exist in this board"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:109
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:111
 msgid "Open"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:116
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:118
 #: modules/kanboard/views/assets/js/kanboard.js:1
 #: modules/kanboard/views/assets/src/components/automation.vue:25
 msgid "In Progress"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:122
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:124
 #: modules/kanboard/views/assets/js/kanboard.js:1
 #: modules/kanboard/views/assets/src/components/automation.vue:26
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:134
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:156
 msgid "Done"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:130
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:132
 msgid "Overdue"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:487
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:489
 msgid "Plase remove the 'task lists' item from others column"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:492
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:494
 msgid "You have selectd 'Newlyadded' option for others column"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:509
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:511
 msgid "Please remove the 'Newlyadded' option from others column"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:543
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:545
 msgid "You have already selectd 'completed tasks' in others column"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:559
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:561
 msgid "You have selectd 'in progress' in others column"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:578
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:580
 msgid "You have already selectd 'completed task status' in others column"
 msgstr ""
 
-#: modules/kanboard/src/Controllers/Kanboard_Controller.php:592
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:594
 msgid "You have already selectd 'incomplete task status' in others column"
 msgstr ""
 
@@ -1514,69 +1528,69 @@ msgid "This task already included in others column."
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard-content.vue:836
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:476
 msgid "Search Task"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard-content.vue:837
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:477
 msgid "Add Task"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard-content.vue:838
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:478
 msgid "Remove task from this board"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard-content.vue:839
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:479
 #: modules/sprint/views/assets/src/components/tasks.vue:57
 msgid "Add New Task"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/import-task-modal.vue:483
-#: modules/kanboard/views/assets/src/components/kanboard-content.vue:840
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:132
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:480
 #: modules/sprint/views/assets/src/components/import-task-modal.vue:472
 #: modules/sub_tasks/views/assets/src/components/subtask-to-task-modal.vue:413
 msgid "Select Task List"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard-content.vue:841
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:481
 #: views/assets/js/pm-pro.js:1
 #: views/assets/src/components/reports/advance-task.vue:300
 #: views/assets/src/components/reports/completed-tasks.vue:150
 #: views/assets/src/components/reports/overdue-task.vue:156
 #: views/assets/src/components/reports/user-task.vue:160
-#: views/assets/src/components/reports/user-task.vue:302
+#: views/assets/src/components/reports/user-task.vue:303
 msgid "Select User"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard-content.vue:842
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:482
 #: modules/time_tracker/views/assets/js/time-tracker.js:1
 #: modules/time_tracker/views/assets/src/components/custom-time-log-form.vue:144
 msgid "Add"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard-content.vue:843
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:483
 msgid "Add new section"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard-content.vue:1095
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:743
 msgid "Set color successfully!"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard.vue:55
+#: modules/kanboard/views/assets/src/components/kanboard.vue:42
 msgid "List views"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard.vue:56
+#: modules/kanboard/views/assets/src/components/kanboard.vue:43
 msgid "Kanboard"
 msgstr ""
 
@@ -1586,7 +1600,7 @@ msgid "Activated automation for this column"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/import-task-modal.vue:686
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:334
 #: modules/sprint/views/assets/src/components/import-task-modal.vue:718
 msgid "You do not select any task for importing"
 msgstr ""
@@ -1597,12 +1611,12 @@ msgid "Kanban board"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard.vue:20
+#: modules/kanboard/views/assets/src/components/kanboard.vue:7
 msgid "Task Filter"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/kanboard.vue:24
+#: modules/kanboard/views/assets/src/components/kanboard.vue:11
 #: modules/sprint/views/assets/src/components/completed/sprints.vue:38
 #: modules/sprint/views/assets/src/components/sprints.vue:48
 #: modules/sprint/views/assets/src/components/sprints.vue:52
@@ -1784,14 +1798,14 @@ msgid "Loading Task Lists"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/import-task-modal.vue:34
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:36
 #: modules/sprint/views/assets/src/components/import-task-modal.vue:49
 msgid "All"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/import-task-modal.vue:37
-#: modules/kanboard/views/assets/src/components/import-task-modal.vue:66
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:39
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:68
 #: modules/sprint/views/assets/src/components/import-task-modal.vue:52
 #: modules/sprint/views/assets/src/components/import-task-modal.vue:81
 #: modules/sprint/views/assets/src/components/sprint.vue:118
@@ -1799,7 +1813,7 @@ msgid "Completed"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/import-task-modal.vue:40
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:42
 #: modules/sprint/views/assets/src/components/import-task-modal.vue:55
 #: modules/sub_tasks/views/assets/src/components/slack.vue:35
 #: views/assets/js/pm-pro.js:1
@@ -1809,13 +1823,13 @@ msgid "Incomplete"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/import-task-modal.vue:46
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:48
 #: modules/sprint/views/assets/src/components/import-task-modal.vue:61
 msgid "Select All"
 msgstr ""
 
 #: modules/kanboard/views/assets/js/kanboard.js:1
-#: modules/kanboard/views/assets/src/components/import-task-modal.vue:51
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:53
 #: modules/sprint/views/assets/src/components/import-task-modal.vue:66
 msgid "Loading Tasks"
 msgstr ""
@@ -1882,14 +1896,6 @@ msgstr ""
 #: views/reports/completed-tasks.php:66 views/reports/milestone-tasks.php:66
 #: views/reports/unassigned-tasks.php:58
 msgid "Due Date"
-msgstr ""
-
-#: modules/kanboard/views/assets/src/components/kanboard.vue:8
-msgid "List View"
-msgstr ""
-
-#: modules/kanboard/views/assets/src/components/kanboard.vue:14
-msgid "Kanban"
 msgstr ""
 
 #: modules/pm_buddypress/pm_buddypress.php:150
@@ -2060,7 +2066,6 @@ msgid "Are your sure!"
 msgstr ""
 
 #: modules/sprint/views/assets/src/router/router.js:11
-#: modules/sprint/views/assets/src/router/router.js:35
 msgid "sprint"
 msgstr ""
 
@@ -2104,8 +2109,8 @@ msgstr ""
 msgid "Live Publishable Key"
 msgstr ""
 
-#: modules/sub_tasks/Permissions/Create_Sub_Task.php:30
-#: modules/sub_tasks/Permissions/Edit_Sub_Task.php:33
+#: modules/sub_tasks/Permissions/Create_Sub_Task.php:34
+#: modules/sub_tasks/Permissions/Edit_Sub_Task.php:37
 msgid "You have no permission."
 msgstr ""
 
@@ -2284,128 +2289,160 @@ msgid "Pelase select task list"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:356
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:304
 msgid "Sunday"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:357
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:305
 msgid "Monday"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:358
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:306
 msgid "Tuesday"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:359
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:307
 msgid "Wednesday"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:360
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:308
 msgid "Thursday"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:361
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:309
 msgid "Friday"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:362
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:310
 msgid "Saturday"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:262
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:194
-msgid "Set Recurrence"
-msgstr ""
-
-#: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:198
-msgid "Weekly Recurrence"
-msgstr ""
-
-#: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:199
-msgid "Weeks"
-msgstr ""
-
-#: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:202
-msgid "Monthly Recurrence"
-msgstr ""
-
-#: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:203
-msgid "of a Month"
-msgstr ""
-
-#: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:206
-msgid "Yearly Recurrence"
-msgstr ""
-
-#: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:207
-msgid "of a Year"
-msgstr ""
-
-#: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:18
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:72
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:103
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:9
-msgid "Repeat:"
-msgstr ""
-
-#: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:13
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:222
 msgid "No"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:14
-msgid "Weekly"
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:226
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:259
+msgid "Day"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:183
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:15
-msgid "Monthly"
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:230
+msgid "Week"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:16
-msgid "Annualy"
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:234
+msgid "Month"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:27
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:238
+msgid "Year"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:186
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:243
+msgid "Set Recurrence"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:247
+msgid "Weekly Recurrence"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:248
+msgid "Weeks"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:251
+msgid "Monthly Recurrence"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:252
+msgid "of a Month"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:255
+msgid "Yearly Recurrence"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:256
+msgid "of a Year"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:5
+msgid "Recurrence"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:9
 msgid "Repeat Every:"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:71
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:38
+msgid "Start On:"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:39
+msgid "Repeat On:"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:59
+msgid "Repeat Days:"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:87
+msgid "Expires:"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:91
 msgid "Never"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:72
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:92
 msgid "On Date"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:73
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:93
 msgid "After Occurrence"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:81
-msgid " Occurrcence:"
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:101
+msgid "After:"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:109
+msgid "occurrcence"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/task-recurrent.vue:113
+msgid "Expire Date:"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
@@ -2414,73 +2451,70 @@ msgid "Recurring"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:165
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:48
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:69
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:94
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:124
+msgid "Every"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:48
+msgid "days"
+msgstr ""
+
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:51
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:72
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:101
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:131
 msgid "until "
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:169
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:193
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:212
-msgid "repeat once"
-msgstr ""
-
-#: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:174
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:198
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:217
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:56
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:81
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:111
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:141
 msgid "times"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:187
-msgid "Month on day "
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:61
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:76
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:106
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:136
+msgid "repeat once"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:206
-msgid "Annualy on "
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:69
+msgid "weeks on"
 msgstr ""
 
 #: modules/task_recurring/views/assets/js/task-recurrent.js:1
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:223
-msgid "Add Recurring"
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:90
+msgid "Monthly on"
 msgstr ""
 
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:23
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:82
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:113
-msgid "Expires:"
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:94
+msgid "months on"
 msgstr ""
 
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:30
-msgid "Expire Date:"
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:120
+msgid "Yearly on"
 msgstr ""
 
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:35
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:88
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:119
-msgid "Occurrcence:"
-msgstr ""
-
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:40
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:93
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
 #: modules/task_recurring/views/assets/src/components/recurrent-button.vue:124
-msgid "Duration (day):"
+msgid "years on"
 msgstr ""
 
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:46
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:77
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:108
-msgid "Every"
-msgstr ""
-
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:56
-msgid "Repeat Day:"
-msgstr ""
-
-#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:78
-msgid "th of the month"
+#: modules/task_recurring/views/assets/js/task-recurrent.js:1
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:147
+msgid "Add Recurring"
 msgstr ""
 
 #: modules/time_tracker/core/Permissions/Time_Add.php:26
@@ -2867,7 +2901,7 @@ msgstr ""
 #: views/assets/js/pm-pro.js:1
 #: views/assets/src/components/reports/advance-task.vue:302
 #: views/assets/src/components/reports/user-task.vue:138
-#: views/assets/src/components/reports/user-task.vue:309
+#: views/assets/src/components/reports/user-task.vue:310
 msgid "Select start date"
 msgstr ""
 
@@ -3609,7 +3643,7 @@ msgstr ""
 
 #: views/assets/js/pm-pro.js:1
 #: views/assets/src/components/archive-list/archive-list.vue:21
-#: views/assets/src/components/archive-list/archive-page-button.vue:5
+#: views/assets/src/components/archive-list/archive-page-button.vue:6
 msgid "Archive"
 msgstr ""
 
@@ -3621,7 +3655,7 @@ msgstr ""
 #: views/assets/js/pm-pro.js:1
 #: views/assets/src/components/reports/advance-task.vue:301
 #: views/assets/src/components/reports/project-tasks.vue:120
-#: views/assets/src/components/reports/user-task.vue:303
+#: views/assets/src/components/reports/user-task.vue:304
 msgid "Select Projects"
 msgstr ""
 
@@ -3640,7 +3674,7 @@ msgstr ""
 #: views/assets/src/components/reports/completed-tasks.vue:215
 #: views/assets/src/components/reports/overdue-task.vue:218
 #: views/assets/src/components/reports/project-tasks.vue:123
-#: views/assets/src/components/reports/user-task.vue:311
+#: views/assets/src/components/reports/user-task.vue:312
 msgid "Run Report"
 msgstr ""
 
@@ -3689,7 +3723,7 @@ msgid "Project Report"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/reports/user-task.vue:310
+#: views/assets/src/components/reports/user-task.vue:311
 msgid "Select end date"
 msgstr ""
 
@@ -3698,7 +3732,7 @@ msgid "Please Select user"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/reports/user-task.vue:424
+#: views/assets/src/components/reports/user-task.vue:425
 msgid "User Activity Report"
 msgstr ""
 
@@ -3877,7 +3911,7 @@ msgid "Milestone"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/project-settings/router.js:43
+#: views/assets/src/components/project-settings/router.js:42
 #: views/assets/src/components/project-settings/tab-menu.vue:12
 msgid "Settings"
 msgstr ""
@@ -3999,8 +4033,13 @@ msgid "+ Create label"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
-#: views/assets/src/components/archive-list/archive-page-button.vue:2
+#: views/assets/src/components/archive-list/archive-page-button.vue:3
 msgid "Archive List"
+msgstr ""
+
+#: views/assets/js/pm-pro.js:1
+#: views/assets/src/components/archive-list/back-list-page.vue:4
+msgid "Back to task list page"
 msgstr ""
 
 #: views/assets/js/pm-pro.js:1
@@ -4334,7 +4373,7 @@ msgstr ""
 msgid "Assign co-worker from departments"
 msgstr ""
 
-#: views/assets/src/components/front-end/frontend-menu.vue:65
+#: views/assets/src/components/front-end/frontend-menu.vue:20
 msgid "Categories"
 msgstr ""
 

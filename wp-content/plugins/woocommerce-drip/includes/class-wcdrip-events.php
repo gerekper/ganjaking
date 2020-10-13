@@ -145,10 +145,19 @@ if ( ! class_exists( 'WC_Drip_Events' ) ) {
 				__( 'Customer', 'woocommerce-drip' ),
 			) );
 
-			// Subscriber Parameters
+			// Subscriber parameters.
 			$subscriber_params = array(
 				'account_id'    => $wrapper['account'],
 				'email'         => $billing_email,
+				'first_name'    => $order->get_billing_first_name(),
+				'last_name'     => $order->get_billing_last_name(),
+				'address1'      => $order->get_billing_address_1(),
+				'address2'      => $order->get_billing_address_2(),
+				'city'          => $order->get_billing_city(),
+				'state'         => $order->get_billing_state(),
+				'zip'           => $order->get_billing_postcode(),
+				'phone'         => $order->get_billing_phone(),
+				'country'       => $order->get_billing_country(),
 				'custom_fields' => $this->custom_fields( $order, $customer_id ),
 				'tags'          => $tags,
 			);

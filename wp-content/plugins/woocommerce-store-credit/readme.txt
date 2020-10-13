@@ -24,6 +24,10 @@ Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-store-
 
 == Changelog ==
 
+= 3.2.2 October 01, 2020 =
+* Tweak - Added compatibility with WP 5.5.
+* Tweak - Added compatibility with WC 4.5.
+
 = 3.2.1 May 24, 2020 =
 * Tweak - Added compatibility with WC 4.2.
 

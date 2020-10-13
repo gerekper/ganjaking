@@ -26,5 +26,5 @@ $router->post( 'tasks/{task_id}/sub-tasks/{sub_task_id}/make-task', 'WeDevs\PM_P
 
 
 $router->post( 'sub-tasks/sorting', 'WeDevs\PM_Pro\Modules\sub_tasks\src\Controllers\Sub_Tasks_Controller@sorting' )
-    ->permission( ['WeDevs\PM\Core\Permissions\Create_Task'] );
+    ->permission( ['WeDevs\PM_Pro\Modules\sub_tasks\Permissions\Create_Sub_Task'] );
 

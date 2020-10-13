@@ -90,3 +90,123 @@ function wc_od_is_save_request_for_order( $order_id ) {
 
 	return $save_order;
 }
+
+/**
+ * Retrieves the number of orders to be delivered in a certain date (timestamp).
+ *
+ * @param string $timestamp Date to be checked.
+ *
+ * @return int
+ */
+function wc_od_get_orders_to_deliver( $timestamp ) {
+	global $wpdb;
+
+	/** @var WC_OD_Delivery_Cache $delivery_cache */
+	$delivery_cache = WC_OD_Delivery_Cache::instance();
+	$cache_key      = $delivery_cache->build_cache_key( WC_OD_Delivery_Cache::ORDER_CACHE_PREFIX, array( date( 'Y-m-d', $timestamp ) ) );
+	$cache_data     = $delivery_cache->read( $cache_key );
+
+	if ( false !== $cache_data && is_numeric( $cache_data ) ) {
+		return intval( $cache_data );
+	}
+
+	$result = $wpdb->get_var(
+		$wpdb->prepare(
+			"
+			SELECT COUNT(pm.meta_id) 
+			FROM {$wpdb->postmeta} pm
+			INNER JOIN {$wpdb->posts} p
+			ON p.ID = pm.post_id
+			INNER JOIN {$wpdb->prefix}wc_order_stats wcos
+		 	ON pm.post_id = wcos.order_id
+		 	WHERE p.post_type = 'shop_order'
+			AND p.post_status != 'trash' 
+			AND pm.meta_key = '_delivery_date' AND pm.meta_value = %s
+			AND wcos.status NOT IN ('wc-cancelled', 'wc-refunded', 'wc-failed')
+			",
+			date( 'Y-m-d', $timestamp )
+		)
+	);
+
+	$total = 0;
+	if ( null !== $result ) {
+		$total = intval( $result );
+	}
+
+	$delivery_cache->write( $cache_key, $total );
+
+	return $total;
+}
+
+/**
+ * Retrieves the number of orders to be delivered in a certain date and time frame.
+ *
+ * @todo Implement logic to filter the time frames (_delivery_time_frame).
+ *
+ * @param string $timestamp Timestamp of the date.
+ * @param string $from      Time from.
+ * @param string $to        Time to.
+ *
+ * @return int
+ */
+function wc_od_get_orders_to_deliver_in_time_frame( $timestamp, $from, $to ) {
+	global $wpdb;
+
+	/** @var WC_OD_Delivery_Cache $delivery_cache */
+	$delivery_cache = WC_OD_Delivery_Cache::instance();
+	$cache_key      = $delivery_cache->build_cache_key( WC_OD_Delivery_Cache::ORDER_CACHE_PREFIX, array( date( 'Y-m-d', $timestamp ), $from, $to ) );
+	$cache_data     = $delivery_cache->read( $cache_key );
+
+	if ( false !== $cache_data && is_numeric( $cache_data ) ) {
+		return intval( $cache_data );
+	}
+
+	$results = $wpdb->get_results(
+		$wpdb->prepare(
+			"
+			SELECT pm.post_id 
+			FROM {$wpdb->postmeta} pm
+			INNER JOIN {$wpdb->posts} p
+			ON p.ID = pm.post_id
+			INNER JOIN {$wpdb->prefix}wc_order_stats wcos
+		 	ON pm.post_id = wcos.order_id
+			WHERE p.post_type = 'shop_order' 
+			AND p.post_status != 'trash' 
+			AND pm.meta_key = '_delivery_date' AND pm.meta_value = %s
+			AND wcos.status NOT IN ('wc-cancelled', 'wc-refunded', 'wc-failed')
+			",
+			date( 'Y-m-d', $timestamp )
+		)
+	);
+
+	$count = 0;
+	if ( ! empty( $results ) ) {
+		foreach ( $results as $result ) {
+			$order      = wc_od_get_order( $result->post_id );
+			$time_frame = $order->get_meta( '_delivery_time_frame' );
+
+			if ( '' === $time_frame ) {
+				continue;
+			}
+
+			$order_time_from = date( 'H:i', strtotime( $time_frame['time_from'] ) );
+			$order_time_to   = date( 'H:i', strtotime( $time_frame['time_to'] ) );
+
+			/*
+			 * @todo Check if _delivery_time_frame should be updated when admin changes time frames.
+			 * How do we know between which time frame the order is if the admin changes the configuration of
+			 * the time frames?
+			 * Ex: Monday -> 08:00 to 12:00. Then changed to 08:00 to 10:00.
+			 * Orders placed using 08:00 to 12:00 will not be counted because the $order_time_from (12:00) is greater
+			 * than the new $to (10:00).
+			 */
+			if ( $order_time_from >= $from && $order_time_to <= $to ) {
+				$count++;
+			}
+		}
+	}
+
+	$delivery_cache->write( $cache_key, $count );
+
+	return $count;
+}

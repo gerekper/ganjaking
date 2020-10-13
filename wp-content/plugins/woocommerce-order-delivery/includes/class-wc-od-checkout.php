@@ -195,6 +195,8 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			);
 
 			if ( $delivery_date ) {
+				add_filter( 'wc_od_get_time_frames_for_date', array( $this, 'filter_unavailable_time_frames' ), 10, 2 );
+
 				$choices = wc_od_get_time_frames_choices_for_date(
 					$delivery_date,
 					array(
@@ -366,12 +368,19 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 				'checkout'
 			);
 
+			$disabled_dates = WC_OD_Delivery_Dates::get_disabled_dates(
+				array_merge(
+					$args,
+					array( 'disabled_dates' => wc_od_get_disabled_days( $args['disabled_days_args'] ) )
+				)
+			);
+
 			return wc_od_get_calendar_settings(
 				array(
 					'startDate'          => wc_od_localize_date( $args['start_date'], $date_format ),
 					'endDate'            => wc_od_localize_date( ( wc_od_get_timestamp( $args['end_date'] ) - DAY_IN_SECONDS ), $date_format ), // Inclusive.
 					'daysOfWeekDisabled' => array_keys( $delivery_days_status, 'no', true ),
-					'datesDisabled'      => array_map( 'wc_od_localize_date', wc_od_get_disabled_days( $args['disabled_days_args'], 'checkout' ) ),
+					'datesDisabled'      => array_map( 'wc_od_localize_date', $disabled_dates ),
 				),
 				'checkout'
 			);
@@ -757,6 +766,29 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			$max_delivery_days = apply_filters( 'wc_od_max_delivery_days', WC_OD()->settings()->get_setting( 'max_delivery_days' ) );
 
 			return intval( $max_delivery_days );
+		}
+
+		/**
+		 * Checks if the time frames have room for more orders. Otherwise the time frame will be removed.
+		 *
+		 * @since 1.8.0
+		 *
+		 * @param WC_OD_Collection_Time_Frames $time_frames A collection of time frames.
+		 * @param int|string                   $timestamp The timestamp date.
+		 *
+		 * @return WC_OD_Collection_Time_Frames
+		 */
+		public function filter_unavailable_time_frames( $time_frames, $timestamp ) {
+			$available_time_frames = new WC_OD_Collection_Time_Frames();
+
+			/* @var WC_OD_Time_Frame $time_frame A WC_OD_Time_Frame object. */
+			foreach ( $time_frames as $time_frame ) {
+				if ( ! wc_od_time_frame_is_full( $timestamp, $time_frame ) ) {
+					$available_time_frames->add( $time_frame );
+				}
+			}
+
+			return $available_time_frames;
 		}
 	}
 }

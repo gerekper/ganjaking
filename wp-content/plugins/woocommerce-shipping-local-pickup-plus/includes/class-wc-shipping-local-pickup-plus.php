@@ -1385,7 +1385,10 @@ class WC_Shipping_Local_Pickup_Plus extends \WC_Shipping_Method {
 		$cost  = 0;
 		$label = $this->get_method_title();
 
-		if ( 'POST' === $_SERVER['REQUEST_METHOD'] || is_cart() || is_checkout() || ( $wp_query && defined( 'WC_DOING_AJAX' ) && 'update_order_review' === $wp_query->get( 'wc-ajax' ) ) ) {
+		// the action of removing an item from the customer's cart is made by a GET request with remove_item as the query string
+		$is_remove_action = 'GET' === $_SERVER['REQUEST_METHOD'] && isset( $_SERVER['QUERY_STRING'] ) && strpos( $_SERVER['QUERY_STRING'], 'remove_item' ) !== false;
+
+		if ( $is_remove_action || 'POST' === $_SERVER['REQUEST_METHOD'] || is_cart() || is_checkout() || ( $wp_query && defined( 'WC_DOING_AJAX' ) && 'update_order_review' === $wp_query->get( 'wc-ajax' ) ) ) {
 
 			$pickup_location = wc_local_pickup_plus()->get_packages_instance()->get_package_pickup_location( $package );
 

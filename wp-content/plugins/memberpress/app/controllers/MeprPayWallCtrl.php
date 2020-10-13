@@ -90,7 +90,9 @@ class MeprPayWallCtrl extends MeprBaseCtrl {
         $num_views = base64_decode($num_views);
       }
 
-      setcookie(self::$cookie_name, base64_encode(($num_views + 1)), (time() + 60 * 60 * 24 * 30), '/');
+      $cookie_time = MeprHooks::apply_filters('mepr-paywall-cookie-time', (time() + 60 * 60 * 24 * 30), $num_views); ;
+
+      setcookie(self::$cookie_name, base64_encode(($num_views + 1)), $cookie_time, '/');
       $_COOKIE[self::$cookie_name] = base64_encode(($num_views + 1)); //Update the COOKIE global too for use later downstream
     }
   }

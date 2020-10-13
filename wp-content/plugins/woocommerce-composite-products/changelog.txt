@@ -1,5 +1,8 @@
 *** WooCommerce Composite Products ***
 
+2020.10.06 - version 7.1.1
+* Tweak - Handle missing '$.fn.wc_product_gallery' function on themes that declare support for PhotoSwipe.
+
 2020.09.29 - version 7.1.0
 * Feature - Add Flatsome quickview support.
 * Tweak - Display running Composite total even if validation messages exist.

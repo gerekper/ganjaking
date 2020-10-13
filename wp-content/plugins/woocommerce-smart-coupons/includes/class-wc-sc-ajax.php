@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0
+ * @version     1.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -33,6 +33,7 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 		private function __construct() {
 
 			add_action( 'wp_ajax_sc_json_search_coupons', array( $this, 'sc_json_search_coupons' ) );
+			add_action( 'wp_ajax_sc_json_search_storewide_coupons', array( $this, 'sc_json_search_storewide_coupons' ) );
 			add_action( 'wp_ajax_smart_coupons_json_search', array( $this, 'smart_coupons_json_search' ) );
 			add_action( 'wp_ajax_hide_notice_delete_after_usage', array( $this, 'hide_notice_delete_after_usage' ) );
 
@@ -135,6 +136,131 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 			}
 
 			wp_send_json( $found_products );
+
+		}
+
+		/**
+		 * Function to search storewide coupons
+		 *
+		 * @param string $x Search term.
+		 * @param array  $post_types Post types.
+		 */
+		public function sc_json_search_storewide_coupons( $x = '', $post_types = array( 'shop_coupon' ) ) {
+			global $wpdb;
+
+			check_ajax_referer( 'search-coupons', 'security' );
+
+			$term = (string) wc_clean( wp_unslash( $_GET['term'] ) ); // phpcs:ignore
+
+			if ( empty( $term ) ) {
+				die();
+			}
+
+			$found_coupons = array();
+			$coupon_posts  = array();
+
+			$posts = wp_cache_get( 'wc_sc_search_storewide_coupon_by_code_' . sanitize_title( $term ), 'woocommerce_smart_coupons' );
+
+			if ( false === $posts ) {
+				$posts = $wpdb->get_results( // phpcs:ignore
+					$wpdb->prepare(
+						"SELECT p.ID,
+								p.post_title,
+								pm.meta_key,
+								pm.meta_value
+							FROM {$wpdb->posts} AS p
+								JOIN {$wpdb->postmeta} AS pm
+									ON (p.ID = pm.post_id AND pm.meta_key IN (%s,%s,%s,%s,%s,%s,%s))
+							WHERE p.post_type = %s
+								AND p.post_title LIKE %s
+								AND p.post_status = %s",
+						'discount_type',
+						'coupon_amount',
+						'date_expires',
+						'auto_generate_coupon',
+						'customer_email',
+						'sc_disable_email_restriction',
+						'wc_sc_expiry_time',
+						'shop_coupon',
+						$wpdb->esc_like( $term ) . '%',
+						'publish'
+					),
+					ARRAY_A
+				);
+				wp_cache_set( 'wc_sc_search_storewide_coupon_by_code_' . sanitize_title( $term ), $posts, 'woocommerce_smart_coupons' );
+				$this->maybe_add_cache_key( 'wc_sc_search_storewide_coupon_by_code_' . sanitize_title( $term ) );
+			}
+
+			if ( ! empty( $posts ) ) {
+				foreach ( $posts as $post ) {
+					$post_id    = ( ! empty( $post['ID'] ) ) ? absint( $post['ID'] ) : 0;
+					$post_title = ( ! empty( $post['post_title'] ) ) ? $post['post_title'] : '';
+					if ( empty( $post_id ) || empty( $post_title ) ) {
+						continue;
+					}
+					if ( empty( $coupon_posts[ $post_id ] ) || ! is_array( $coupon_posts[ $post_id ] ) ) {
+						$coupon_posts[ $post_id ] = array();
+					}
+					$coupon_posts[ $post_id ]['post_id']    = $post_id;
+					$coupon_posts[ $post_id ]['post_title'] = $post_title;
+					switch ( $post['meta_key'] ) {
+						case 'discount_type':
+						case 'coupon_amount':
+						case 'date_expires':
+						case 'auto_generate_coupon':
+						case 'sc_disable_email_restriction':
+						case 'wc_sc_expiry_time':
+							$coupon_posts[ $post_id ][ $post['meta_key'] ] = $post['meta_value']; // phpcs:ignore
+							break;
+						case 'customer_email':
+							$coupon_posts[ $post_id ][ $post['meta_key'] ] = maybe_unserialize( $post['meta_value'] ); // phpcs:ignore
+							break;
+					}
+				}
+			}
+
+			$all_discount_types = wc_get_coupon_types();
+
+			if ( ! empty( $coupon_posts ) ) {
+				foreach ( $coupon_posts as $post_id => $coupon_post ) {
+					$discount_type                = ( ! empty( $coupon_post['discount_type'] ) ) ? $coupon_post['discount_type'] : '';
+					$coupon_amount                = ( ! empty( $coupon_post['coupon_amount'] ) ) ? $coupon_post['coupon_amount'] : 0;
+					$date_expires                 = ( ! empty( $coupon_post['date_expires'] ) ) ? absint( $coupon_post['date_expires'] ) : 0;
+					$wc_sc_expiry_time            = ( ! empty( $coupon_post['wc_sc_expiry_time'] ) ) ? absint( $coupon_post['wc_sc_expiry_time'] ) : 0;
+					$auto_generate_coupon         = ( ! empty( $coupon_post['auto_generate_coupon'] ) ) ? $coupon_post['auto_generate_coupon'] : '';
+					$sc_disable_email_restriction = ( ! empty( $coupon_post['sc_disable_email_restriction'] ) ) ? $coupon_post['sc_disable_email_restriction'] : '';
+					$customer_email               = ( ! empty( $coupon_post['customer_email'] ) ) ? $coupon_post['customer_email'] : array();
+
+					if ( empty( $discount_type ) || 'smart_coupon' === $discount_type ) {
+						continue;
+					}
+					if ( empty( $coupon_amount ) ) {
+						continue;
+					}
+					if ( ! empty( $date_expires ) ) {
+						$date_expires += $wc_sc_expiry_time;
+						if ( time() >= $date_expires ) {
+							continue;
+						}
+					}
+					if ( 'yes' === $auto_generate_coupon ) {
+						continue;
+					}
+					if ( 'yes' === $sc_disable_email_restriction ) {
+						continue;
+					}
+					if ( ! empty( $customer_email ) ) {
+						continue;
+					}
+
+					if ( ! empty( $all_discount_types[ $discount_type ] ) ) {
+						/* translators: 1. The coupon code, 2. The discount type */
+						$found_coupons[ $coupon_post['post_title'] ] = sprintf( __( '%1$s (Type: %2$s)', 'woocommerce-smart-coupons' ), $coupon_post['post_title'], $all_discount_types[ $discount_type ] );
+					}
+				}
+			}
+
+			wp_send_json( $found_coupons );
 
 		}
 

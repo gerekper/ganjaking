@@ -4,17 +4,13 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
-}
-
-if ( ! class_exists( 'ActionScheduler' ) ) {
-	include_once 'libraries/action-scheduler/action-scheduler.php';
 }
 
 if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {

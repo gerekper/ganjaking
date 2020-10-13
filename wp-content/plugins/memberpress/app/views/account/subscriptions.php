@@ -220,7 +220,7 @@ if(!empty($subscriptions)) {
   <?php
 }
 else {
-  _ex('You have no active subscriptions to display.', 'ui', 'memberpress');
+  echo '<div class="mepr-no-active-subscriptions">' . _x('You have no active subscriptions to display.', 'ui', 'memberpress') . '</div>';
 }
 
 MeprHooks::do_action('mepr_account_subscriptions', $mepr_current_user);

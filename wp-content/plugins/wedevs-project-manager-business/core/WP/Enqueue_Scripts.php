@@ -53,7 +53,10 @@ class Enqueue_Scripts {
             'wperp'              => class_exists('WeDevs_ERP'),
             'active_modules'     => pm_pro_get_active_modules(),
             'pages'              => get_pages(),
-            'page'               => get_option( 'pm_pages' )
+            'page'               => get_option( 'pm_pages' ),
+            // 'progress_page_slug' => pm_pro_progress_page_slug(),
+            // 'reports_page_slug'  => pm_pro_reports_page_slug(),
+            // 'modules_page_slug'  => pm_pro_modules_page_slug()
         ];
     }
 }

@@ -2,7 +2,10 @@
 class WC_Dropshipping_Product_Extra_Fields {
 
 	public function __construct() {
-
+		
+		add_action( 'woocommerce_after_shop_loop_item', array($this,'Show_Suppliername_On_Product_Page'), 9 );
+		add_action( 'woocommerce_single_product_summary', array($this,'Show_Suppliername_On_Product_Page'), 21, 10 );
+		
 		// For custom extra Amazon Affiliate fields.
 		add_action( 'woocommerce_product_options_general_product_data',array($this,'Woocommerce_Product_Custom_Fields_Amazon_Affiliate_ID' ),10); 
 		add_action( 'woocommerce_process_product_meta', array($this,'Woocommerce_Product_Custom_Fields_Amazon_Affiliate_ID_Save' ),10);
@@ -129,7 +132,34 @@ class WC_Dropshipping_Product_Extra_Fields {
 	public function slug_get_number_of_orders( $object ) {
 	    return get_post_meta( $object[ 'id' ], 'number_of_orders', true );
 	} */
+	
+	
+	/**
+	* Show supplier name on product page.
+	**/
+	function Show_Suppliername_On_Product_Page() {
+		global $product;
+		$options = get_option('wc_dropship_manager');
+		if (isset($options['hide_suppliername_on_product_page'])) {
 
+			$hide_suppliername_on_product_page = $options['hide_suppliername_on_product_page'];
+		
+		} else {
+
+			$hide_suppliername_on_product_page = '';
+		}
+
+		if ($hide_suppliername_on_product_page == '1' ) {
+			
+	   		$products_id = $product->get_id();
+			$s_name = get_post_meta($products_id, 'supplier', true);
+
+	   		if(!empty($s_name)) {
+	   			echo '<p id="supplier_product_page"> Supplier: '.$s_name.'</p>'.PHP_EOL;
+			 
+			}
+		}
+	}
 
 	/**
 	* Adding a Field for Amazon_Product_ID 
@@ -274,7 +304,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 	    echo '<div class=" product_custom_field ">';
 	    woocommerce_wp_text_input(
 	    	array(
-	        'id'          => '_custom_product_text_field',
+	        'id'          => '_cost_of_goods',
 	        'label'       => __( 'Cost of goods', 'woocommerce' ).' (' . get_woocommerce_currency_symbol().')',
 	        'desc_tip'    => 'true',
 			'description' => __( 'Cost of goods value included in the supplier email', 'woocommerce' )
@@ -287,9 +317,9 @@ class WC_Dropshipping_Product_Extra_Fields {
 
     function woocommerce_product_custom_fields_save($post_id) {
 	    // Custom Product Text Field
-	    $woocommerce_custom_product_text_field = $_POST['_custom_product_text_field'];
+	    $woocommerce_custom_product_text_field = $_POST['_cost_of_goods'];
 	    if(isset($woocommerce_custom_product_text_field))
-	        update_post_meta($post_id, '_custom_product_text_field', 
+	        update_post_meta($post_id, '_cost_of_goods', 
 	        esc_attr($woocommerce_custom_product_text_field));
 
     }

@@ -4660,6 +4660,7 @@ body[data-form-style="minimal"] .tc-extra-product-options .minimal-form-input la
 }
 
 /* Elementor and theme fixes */
+.woocommerce .oxy-woo-element div.product .woocommerce-variation-add-to-cart,
 .fullwidth-button .cart:not(.variations_form), .fullwidth-button .woocommerce-variation-add-to-cart.variations_button,
 .thb-product-main-row .summary form.cart,
 .single-product div.product form.cart,

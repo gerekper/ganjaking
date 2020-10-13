@@ -8008,7 +8008,11 @@ jQuery.fn.wc_get_composite_script = function() {
 
 							var $product_image = self.$component_summary_content.find( '.composited_product_images' );
 
-							$product_image.wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
+							if ( $.fn.wc_product_gallery ) {
+								$product_image.wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
+							} else {
+								composite.console_log( 'warning', 'Failed to initialize PhotoSwipe for composited product images. Your theme declares PhotoSwipe support, but function \'$.fn.wc_product_gallery\' is undefined.' );
+							}
 
 							var $placeholder = $product_image.find( 'a.placeholder_image' );
 

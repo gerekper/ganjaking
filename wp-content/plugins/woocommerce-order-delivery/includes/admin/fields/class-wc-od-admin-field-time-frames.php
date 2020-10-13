@@ -46,11 +46,14 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 		$this->init_day_id();
 
 		$columns = array(
-			'title'       => array(
+			'title'            => array(
 				'label' => __( 'Title', 'woocommerce-order-delivery' ),
 			),
-			'description' => array(
+			'description'      => array(
 				'label' => __( 'Description', 'woocommerce-order-delivery' ),
+			),
+			'number_of_orders' => array(
+				'label' => __( 'Number of orders', 'woocommerce-order-delivery' ),
 			),
 		);
 
@@ -202,6 +205,20 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 				esc_html( join( ' | ', array_map( 'wc_od_shipping_method_choice_label', $data['shipping_methods'] ) ) )
 			);
 		}
+	}
+
+	/**
+	 * Outputs the column 'number_of_orders'.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param int   $row  The row index.
+	 * @param array $data The row data.
+	 */
+	public function output_column_number_of_orders( $row, $data ) {
+		$number_of_orders = isset( $data['number_of_orders'] ) ? $data['number_of_orders'] : 0;
+
+		printf( '<p class="text-center">%1$s</p>', esc_html( $number_of_orders ) );
 	}
 
 	/**

@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Branding
  * Plugin URI: http://woocommerce.com/products/branding/
  * Description: Rebrand WooCommerce using your own brand name, colour scheme, and icon.
- * Version: 1.0.26
+ * Version: 1.0.28
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 3.1
- * Tested up to: 4.8
+ * Tested up to: 5.5
  * Woo: 19003:b57eb3de77456cf73ef6f7456a03ea83
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * WC requires at least: 2.6
  *
  * Copyright: © 2020 WooCommerce

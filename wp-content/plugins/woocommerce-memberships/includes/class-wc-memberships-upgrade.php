@@ -142,7 +142,7 @@ class WC_Memberships_Upgrade extends Framework\Plugin\Lifecycle {
 		update_option( 'woocommerce_myaccount_members_area_endpoint', 'members-area' );
 
 		// default option to the my account profile fields area endpoint
-		update_option( 'woocommerce_myaccount_profile_fields_area_endpoint', 'profile' );
+		update_option( 'woocommerce_myaccount_profile_fields_area_endpoint', 'my-profile' );
 
 		// load settings and install default values
 		include_once( WC()->plugin_path() . '/includes/admin/settings/class-wc-settings-page.php' );
@@ -669,7 +669,7 @@ class WC_Memberships_Upgrade extends Framework\Plugin\Lifecycle {
 
 		self::create_access_protected_uploads_dir( 'memberships_profile_fields' );
 
-		update_option( 'woocommerce_myaccount_profile_fields_area_endpoint', 'profile' );
+		update_option( 'woocommerce_myaccount_profile_fields_area_endpoint', 'my-profile' );
 	}
 
 

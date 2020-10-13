@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Dropshipping
  * Plugin URI: http://woocommerce.com/products/woocommerce-dropshipping/
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
- * Version: 2.6
+ * Version: 2.7
  * Author: WooCommerce
  * Author URI: http://woocommerce.com/
  * Developer: OPMC
@@ -88,6 +88,8 @@ final class WC_Dropshipping {
 
 	public $admin = null;
 
+	public $plugin_slug = '';
+
 	public function __construct() {
 		$this->version = '3';
 		$this->plugin_name = __( 'WooCommerce Dropshipping', 'woocommerce-dropshipping' );
@@ -104,6 +106,8 @@ final class WC_Dropshipping {
 		add_filter( 'manage_edit-product_sortable_columns', array( $this, 'make_dropship_supplier_column_sort' ) );
 		add_filter( 'posts_clauses', array($this,'dropship_supplier_column_orderby'),10,2 );
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
+		add_action( 'admin_init', array($this, 'change_cost_of_goods_key'));
+		add_action( 'admin_init', array($this, 'show_admin_notice_options'));
 	}
 
 	public function init () {
@@ -114,6 +118,9 @@ final class WC_Dropshipping {
 		}
 		require_once('inc/class-wc-dropshipping-orders.php');
 		$this->orders = new WC_Dropshipping_Orders();
+
+		// Limit Capabilities of Dropshipper
+		add_action( 'wp_before_admin_bar_render', array($this, 'limit_dropshipper_capabilities'), 99 );
 	}
 
 	public function activate() {
@@ -128,6 +135,7 @@ final class WC_Dropshipping {
 				'packing_slip_customer_service_phone' => '',
 				'packing_slip_thankyou' => sprintf( __( 'We hope you enjoy your order. Thank you for shopping with %s', 'woocommerce-dropshipping' ), get_bloginfo( 'name' ) ),
 				'url_product_feed' => '',
+				'show_admin_notice_option' => '1',
 				'version' => $this->version
 			);
 			update_option( 'wc_dropship_manager', $options );
@@ -135,6 +143,52 @@ final class WC_Dropshipping {
 		 	add_role( 'dropshipper', 'Dropshipper', array( 'read' => true, 'edit_posts' => true ) );
 		}
 	}
+
+
+	function show_admin_notice_options(){
+		$options = get_option( 'wc_dropship_manager' );
+		if (isset($options)){
+			if (!empty($options['show_admin_notice_option'])){
+				if ($options['show_admin_notice_option'] == '1'){
+					add_action( 'admin_notices', array($this, 'plugin_activation_notice' ));
+				}
+			}
+		}
+	}
+
+	function plugin_activation_notice(){
+		$class = 'notice notice-info';
+		$message = __( 'Woocommerce Dropshipping activated successfully! In order for the plugin to work correctly. Visit', 'woocommerce-dropshipping' );
+		$message2 = __( 'and hit the "Save Changes" button', 'woocommerce-dropshipping' );
+		$url = '/wp-admin/admin.php?page=wc-settings&tab=email&section=dropship_manager';
+		printf( '<div class="%1$s"><p>%2$s <a href="%3$s">Dropshipping Settings</a> %4$s.</p></div>', esc_attr( $class ), esc_html( $message ), esc_url( $url ), esc_html( $message2 ) );
+	}
+
+	// Get the current logged in user
+	public function get_current_user(){
+		if( is_user_logged_in() ) {
+ 			$user = wp_get_current_user();
+ 			$role = $user->roles;
+			return $role[0];
+		}else{
+			return false;
+		}
+	}
+
+	// Limit dropshipper capabilities
+	public function limit_dropshipper_capabilities(){
+		$role = $this->get_current_user();
+		if ($role !== false){
+			if ( $role === 'dropshipper') {
+				global $wp_admin_bar;
+				$wp_admin_bar->remove_node( 'new-content' );
+				$wp_admin_bar->remove_node( 'comments' );
+				remove_all_actions( 'admin_notices' );
+			}
+		}
+	}
+
+
 
 	public function init_supplier_taxonomy() {
 		$args = array(
@@ -193,6 +247,21 @@ final class WC_Dropshipping {
 			}
 		}
 		return $clauses;
+	}
+
+	public function uninstall(){
+		wp_unschedule_hook('ali_run_cron_prod_check');
+		update_option('cog_meta_key', 'incomplete');
+	}
+
+	public function change_cost_of_goods_key(){
+		if ( get_option('cog_meta_key') != 'completed' ){
+			global $wpdb;
+			$sql = "UPDATE $wpdb->postmeta SET meta_key = %s WHERE meta_key = %s";
+			$query = $wpdb->prepare( $sql, '_cost_of_goods',  '_custom_product_text_field');
+			$res = $wpdb->get_results($query);
+			update_option('cog_meta_key', 'completed');
+		}
 	}
 
 	/**

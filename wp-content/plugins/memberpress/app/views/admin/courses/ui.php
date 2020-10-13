@@ -2,18 +2,18 @@
 
 <div class="wrap">
 
-  <div class="mepr-sister-plugin mepr-sister-plugin-wp-mail-smtp" data-config="<?php echo esc_attr(wp_json_encode($plugin)); ?>">
+  <div class="mepr-sister-plugin mepr-sister-plugin-wp-mail-smtp">
 
     <div class="mepr-sister-plugin-image mp-courses-image">
       <img src="<?php echo esc_url(MEPR_IMAGES_URL . '/courses-logo.svg'); ?>" width="800" height="216" alt="">
     </div>
 
     <div class="mepr-sister-plugin-title">
-      <?php esc_html_e('The Easy Way to Make Courses with MemberPress', 'memberpress'); ?>
+      <?php esc_html_e('Build & Sell Courses Quickly & Easily with MemberPress', 'memberpress'); ?>
     </div>
 
     <div class="mepr-sister-plugin-description">
-      <?php esc_html_e('Use the MemberPress Courses Add-On to build out your online courses. Build your Curriculum visually and provide it to your Members beautifully.', 'memberpress'); ?>
+      <?php esc_html_e('Get all the ease of use you expect from MemberPress combined with powerful LMS features designed to make building online courses super simple. This add-on boils it down to a basic, click-and-go process.', 'memberpress'); ?>
     </div>
 
     <div class="mepr-sister-plugin-info mepr-clearfix">
@@ -24,10 +24,12 @@
       </div>
       <div class="mepr-sister-plugin-info-features">
         <ul>
-          <li><i class="mp-icon mp-icon-right-big"></i><?php esc_html_e('Build Courses Visually', 'memberpress'); ?></li>
-          <li><i class="mp-icon mp-icon-right-big"></i><?php esc_html_e('Showcase your Courses beautifully using Classroom Mode', 'memberpress'); ?></li>
-          <li><i class="mp-icon mp-icon-right-big"></i><?php esc_html_e('Customize the front end look & feel with the WordPress Customizer', 'memberpress'); ?></li>
-          <li><i class="mp-icon mp-icon-right-big"></i><?php esc_html_e('Track your learners\' progress', 'memberpress'); ?></li>
+          <li style="margin-bottom: 5px; font-size: 13px;"><i class="mp-icon mp-icon-right-big"></i><?php esc_html_e('Powerful LMS features', 'memberpress'); ?></li>
+          <li style="margin-bottom: 5px; font-size: 13px;"><i class="mp-icon mp-icon-right-big"></i><?php esc_html_e('Included with every MemberPress license', 'memberpress'); ?></li>
+          <li style="margin-bottom: 5px; font-size: 13px;"><i class="mp-icon mp-icon-right-big"></i><?php esc_html_e('Create beautiful courses out of the box w/ Classroom Mode', 'memberpress'); ?></li>
+          <li style="margin-bottom: 5px; font-size: 13px;"><i class="mp-icon mp-icon-right-big"></i><?php esc_html_e('Fully visual drag-and-drop curriculum builder', 'memberpress'); ?></li>
+          <li style="margin-bottom: 5px; font-size: 13px;"><i class="mp-icon mp-icon-right-big"></i><?php esc_html_e('Protect content with MemberPress access rules', 'memberpress'); ?></li>
+          <li style="margin-bottom: 5px; font-size: 13px;"><i class="mp-icon mp-icon-right-big"></i><?php esc_html_e('Track learners\' progress', 'memberpress'); ?></li>
         </ul>
       </div>
     </div>

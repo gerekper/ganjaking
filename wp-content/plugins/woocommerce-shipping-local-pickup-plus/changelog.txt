@@ -1,5 +1,9 @@
 *** WooCommerce Local Pickup Plus Changelog ***
 
+2020.10.07 - version 2.9.2
+ * Fix - Fix a bug when pickup fees occasionally vanished on cart update
+ * Fix - Avoid reloading the Checkout page when Pickup Location Tax is enabled
+
 2020.09.30 - version 2.9.1
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets
 

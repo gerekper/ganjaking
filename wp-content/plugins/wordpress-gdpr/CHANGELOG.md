@@ -1,5 +1,10 @@
 # Changelog
 ======
+1.9.8
+======
+- FIX:	First time allow all cookies did not allow declining single services afterwards
+
+======
 1.9.7
 ======
 - FIX:	Body script not loaded when service was set to enable by default

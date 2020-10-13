@@ -50,6 +50,12 @@ Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-order-
 
 == Changelog ==
 
+= 1.8.0 October 8, 2020 =
+* Fix - Compatibility with WooCommerce Subscriptions.
+
+= 1.8.0 October 7, 2020 =
+* Feature - Limit the number of orders per day or time frame.
+
 = 1.7.1 September 14, 2020 =
 * Tweak - Tested compatibility with WC 4.5.
 * Tweak - Tested compatibility with WP 5.5.

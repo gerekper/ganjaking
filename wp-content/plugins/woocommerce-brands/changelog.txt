@@ -1,5 +1,13 @@
 *** Brands Changelog ***
 
+2020-10-08 - version 1.6.20
+* Tweak - Validate coupons only if there are items in the cart.
+* Tweak - WC 4.5 compatibility.
+* Tweak - Enable automatic translations.
+
+2020-08-19 - version 1.6.19
+* Tweak - WordPress 5.5 compatibility.
+
 2020-06-10 - version 1.6.18
 * Tweak - WC 4.2 compatibility.
 

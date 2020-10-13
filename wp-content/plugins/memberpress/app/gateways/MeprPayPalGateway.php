@@ -863,6 +863,7 @@ class MeprPayPalGateway extends MeprBasePayPalGateway {
         'LANDINGPAGE' => 'Billing' */
       );
 
+      $args = MeprHooks::apply_filters('mepr_paypal_express_checkout_args', $args);
       $this->email_status( "MemberPress PayPal Request: \n" . MeprUtils::object_to_string($args, true) . "\n",
                            $this->settings->debug );
 

@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.5
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,9 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.3.3 - 12/10/2020 =
+- Fixed: Category Archive page URL for Non-Knowledgebase Docs
 
 = 1.3.2 - 09/09/2020 =
 - Fixed: 'Undefined Variables: Reactions' PHP error

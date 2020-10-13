@@ -15,7 +15,7 @@ echo __( "You've been gifted this order:", 'woocommerce-give-products' ) . "\n\n
 
 echo "****************************************************\n\n";
 
-do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text );
+do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text, $email );
 
 /* translators: 1: order number */
 echo sprintf( __( 'Order number: %s', 'woocommerce-give-products' ), $order->get_order_number() ) . "\n";
@@ -25,7 +25,7 @@ $order_date = version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : (
 /* translators: 1: order date */
 echo sprintf( __( 'Order date: %s', 'woocommerce-give-products' ), date_i18n( wc_date_format(), strtotime( $order_date ) ) ) . "\n";
 
-do_action( 'woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text );
+do_action( 'woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text, $email );
 
 if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
 	$billing_email = $order->billing_email;
@@ -49,7 +49,7 @@ if ( $totals ) {
 
 echo "\n****************************************************\n\n";
 
-do_action( 'woocommerce_email_after_order_table', $order, $sent_to_admin, $plain_text );
+do_action( 'woocommerce_email_after_order_table', $order, $sent_to_admin, $plain_text, $email );
 
 echo __( 'Your details', 'woocommerce-give-products' ) . "\n\n";
 

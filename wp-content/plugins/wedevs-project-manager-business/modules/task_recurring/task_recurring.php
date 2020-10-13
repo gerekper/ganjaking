@@ -9,8 +9,7 @@
  * Author URI: https://wedevs.com
  */
 
-use WeDevs\PM_Pro\Modules\task_recurring\CreateRecurrentTasks as CRT;
-use WeDevs\PM_Pro\Modules\task_recurring\FormatRecurrenceData as FRD;
+use WeDevs\PM_Pro\Modules\task_recurring\Create_Recurrent_Tasks as CRT;
 
 
 add_action( 'admin_enqueue_scripts', 'register_task_recurrent' );
@@ -23,7 +22,6 @@ add_action( 'pm_load_shortcode_script', 'pm_pro_enqueue_task_recurrent_script', 
 function register_task_recurrent() {
     $view_path = dirname (__FILE__) . '/views/assets/';
     wp_register_script( 'task-recurrent', plugins_url( 'views/assets/js/task-recurrent.js', __FILE__ ), array('pm-const'), filemtime( $view_path . 'js/task-recurrent.js' ), true );
-//    wp_register_style( 'task-recurrent', plugins_url( 'views/assets/css/task-recurrent.css', __FILE__ ), array(), config( 'app.version' ) );
 }
 
 function pm_pro_admin_load_task_recurrent() {

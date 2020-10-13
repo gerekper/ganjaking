@@ -3637,9 +3637,10 @@
 				setter.removeClass( 'tm-epo-late-field' ).removeData( 'tm-price-for-late islate' );
 			}
 		}
-
-		price = cleanPrice( price );
-		original_price = cleanPrice( original_price );
+		if ( pricetype !== 'math' ) {
+			price = cleanPrice( price );
+			original_price = cleanPrice( original_price );
+		}
 
 		switch ( pricetype ) {
 			case '':
@@ -3667,7 +3668,6 @@
 				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price;
 				break;
 			case 'percentcurrenttotal':
-				//price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd );
 				$.tcepo.lateFieldsPrices[ epoEventId ].push( {
 					setter: setter,
 					price: price,
@@ -4086,8 +4086,8 @@
 					price = ( parseFloat( tm_apply_dpd( price, epoObject.this_epo_totals_container, apply_dpd ) ) / 100 ) * parseFloat( productPrice + options_total );
 					originalPrice = ( parseFloat( tm_apply_dpd( originalPrice, epoObject.this_epo_totals_container, apply_dpd ) ) / 100 ) * parseFloat( productPrice + original_options_total );
 				} else if ( priceType === 'fixedcurrenttotal' ) {
-					price = parseFloat( tm_apply_dpd( price, epoObject.this_epo_totals_container, apply_dpd ) ) + parseFloat( productPrice + options_total );
-					originalPrice = parseFloat( tm_apply_dpd( originalPrice, epoObject.this_epo_totals_container, apply_dpd ) ) + parseFloat( productPrice + original_options_total );
+					price = parseFloat( tm_apply_dpd( price, epoObject.this_epo_totals_container, apply_dpd ) ) + parseFloat( options_total );
+					originalPrice = parseFloat( tm_apply_dpd( originalPrice, epoObject.this_epo_totals_container, apply_dpd ) ) + parseFloat( original_options_total );
 				}
 				if ( realSetter.data( 'tm-quantity' ) ) {
 					price = price * parseFloat( realSetter.data( 'tm-quantity' ) );
@@ -7463,12 +7463,7 @@
 
 				if ( checkedRadios.length ) {
 					checkedRadios.removeAttr( 'checked' ).prop( 'checked', false );
-					//checkedRadios.trigger( 'change.cpflogic' );
-					//checkedRadios.trigger( 'change.cpf' );
 					checkedRadios.trigger( 'change', { forced: 1 } );
-					if ( checkedRadios.is( '.tc-epo-field-product' ) ) {
-						//checkedRadios.trigger( 'change.cpfproduct', { forced: 1 } );
-					}
 				}
 
 				radioResetElement.addClass( 'tm-hidden' );
@@ -7502,6 +7497,9 @@
 				if ( cpfUploadContainer.length && name.length <= 0 ) {
 					name = $( '<span class="tm-filename"></span>' );
 					label.after( name );
+				}
+				if ( val === undefined || val === 'undefined' ) {
+					val = '';
 				}
 				name.html( val );
 				num_uploads = epoHolder.data( 'num_uploads' );
@@ -8518,8 +8516,6 @@
 						_f_regular_price = parseFloat( parseFloat( totalsHolder.data( 'regular-price' ) * cartQty ) + original_total_plus_fee + extraFee );
 					}
 
-					_f_regular_price = formatPrice( _f_regular_price );
-
 					if ( TMEPOJS.customer_price_format ) {
 						customer_price_format_wrap_start = TMEPOJS.customer_price_format_wrap_start;
 						customer_price_format_wrap_end = TMEPOJS.customer_price_format_wrap_end;
@@ -8531,8 +8527,9 @@
 					}
 
 					_fprice = $.epoAPI.applyFilter( 'tc_adjust_native_price', _fprice, product_total_price );
-					_f_regular_price = $.epoAPI.applyFilter( 'tc_adjust_native_regular_price', _f_regular_price, product_total_price );
 					_f_regular_price = tm_set_tax_price( _f_regular_price, totalsHolder );
+					_f_regular_price = formatPrice( _f_regular_price );
+					_f_regular_price = $.epoAPI.applyFilter( 'tc_adjust_native_regular_price', _f_regular_price, product_total_price );
 
 					if ( finalTotalBoxMode === 'disable_change' || TMEPOJS.tm_epo_change_variation_price === 'yes' ) {
 						if ( totalsHolder.data( 'is-on-sale' ) ) {
@@ -9787,6 +9784,13 @@
 	} );
 
 	jDocument.ready( function() {
+		// Remove accept attribute from upload buttons when in Facebook or Instagram internral browser
+		var ua = navigator.userAgent || navigator.vendor || window.opera;
+		ua = ( ua.indexOf( 'FBAN' ) > -1 ) || ( ua.indexOf( 'FBAV' ) > -1 ) || ( ua.indexOf( 'Instagram' ) > -1 );
+		if ( ua ) {
+			$( '.tmcp-upload' ).removeAttr( 'accept' );
+		}
+
 		// Fix several custom quantity buttons on themes
 		jDocument.on( 'click', '.quantity .jckqv-qty-spinner, .quantity .ui-spinner-button', function() {
 			$( this ).closest( '.quantity' ).find( 'input.qty' ).trigger( 'change' );

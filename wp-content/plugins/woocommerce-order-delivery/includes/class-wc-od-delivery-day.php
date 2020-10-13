@@ -30,8 +30,9 @@ class WC_OD_Delivery_Day extends WC_OD_Shipping_Methods_Data {
 	 * @var array
 	 */
 	protected $data = array(
-		'enabled'     => 'yes',
-		'time_frames' => array(),
+		'enabled'          => 'yes',
+		'number_of_orders' => 0,
+		'time_frames'      => array(),
 	);
 
 	/**
@@ -94,6 +95,19 @@ class WC_OD_Delivery_Day extends WC_OD_Shipping_Methods_Data {
 		return $this->get_prop( 'time_frames' );
 	}
 
+	/**
+	 * Gets the number of orders.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return int
+	 */
+	public function get_number_of_orders() {
+		$number_of_orders = $this->get_prop( 'number_of_orders' );
+
+		return ! is_numeric( $number_of_orders ) ? 0 : (int) $number_of_orders;
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Setters
@@ -120,6 +134,17 @@ class WC_OD_Delivery_Day extends WC_OD_Shipping_Methods_Data {
 	 */
 	public function set_time_frames( $time_frames = array() ) {
 		$this->set_prop( 'time_frames', $time_frames );
+	}
+
+	/**
+	 * Sets the number of orders.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param int $number_of_orders Number of orders. 0 means no limit.
+	 */
+	public function set_number_of_orders( $number_of_orders ) {
+		$this->set_prop( 'number_of_orders', $number_of_orders );
 	}
 
 	/**

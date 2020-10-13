@@ -1,0 +1,37 @@
+@font-face {
+    font-family: "VI_WN_ICON_CLOSE";
+    src: url("../fonts/icons-close.eot");
+    src: url("../fonts/icons-close.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/icons-close.woff2") format("woff2"),
+    url("../fonts/icons-close.woff") format("woff"),
+    url("../fonts/icons-close.ttf") format("truetype"),
+    url("../fonts/icons-close.svg#icons-close") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    @font-face {
+        font-family: "VI_WN_ICON_CLOSE";
+        src: local('VI_WN_ICON_CLOSE'),  url("../fonts/icons-close.svg#icons-close") format("svg");
+    }
+}
+
+[class^="vi-wn-icons-close-"]:before, [class*=" vi-wn-icons-close-"]:before,
+[class^="vi-wn-icons-close-"]:after, [class*=" vi-wn-icons-close-"]:after {
+    font-family: VI_WN_ICON_CLOSE;
+    font-size: 20px;
+    font-style: normal;
+}
+
+.vi-wn-icons-close-cancel:before {
+    content: "\f100";
+}
+
+.vi-wn-icons-close-cross:before {
+    content: "\f101";
+}
+
+.vi-wn-icons-close-close:before {
+    content: "\f102";
+}

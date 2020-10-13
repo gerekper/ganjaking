@@ -1,11 +1,11 @@
 <?php
-/*
+/**
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 2.9.1
- * Author: WooCommerce
- * Author URI: https://woocommerce.com/
+ * Version: 3.0
+ * Author: OPMC Australia Pty Ltd
+ * Author URI: https://opmc.biz/
  * License: GPL v3
  * WC tested up to: 3.6
  * WC requires at least: 2.6
@@ -24,8 +24,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (c) 2017 WooCommerce.
+ * Copyright (c) 2017 OPMC Australia Pty Ltd.
 */
+
 /**
  * Required functions
  */
@@ -43,9 +44,20 @@
 		exit;
 	} // Exit if accessed directly
 
+/**
+ * Plugin page links
+ */
+	function wc_antifraud_plugin_links( $links ) {
 
+		$plugin_links = array(
+			'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=wc_af' ) . '">' . __( 'Settings', 'woocommerce-anti-fraud' ) . '</a>',
+			'<a href="https://docs.woocommerce.com/document/woocommerce-anti-fraud/">' . __( 'Docs', 'woocommerce-anti-fraud' ) . '</a>',
+		);
 
+		return array_merge( $plugin_links, $links );
+	}
 
+	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wc_antifraud_plugin_links' );
 
 
 	define( 'WOOCOMMERCE_ANTI_FRAUD_VERSION', '2.7.5' );
@@ -95,9 +107,13 @@ class WooCommerce_Anti_Fraud {
 			$this->init();
 		}
 		register_activation_hook( __FILE__, array($this,'save_default_settings' ) );
+
 		register_activation_hook( __FILE__, array($this,'deactivate_events_on_active_plugin' ) );
+
 		register_deactivation_hook( __FILE__, array($this,'deactivate_events' ) );
 		add_action( 'admin_init', array( $this, 'admin_scripts' ) );
+		add_action('admin_enqueue_scripts', array( $this, 'switch_onoff') );
+
 		add_action( 'wp_ajax_my_action',array($this, 'my_action' ));
 		add_action( 'wp_ajax_nopriv_my_action',array($this, 'my_action' ) );
 		add_action('init',array( $this,'paypal_verification' ) );
@@ -111,6 +127,24 @@ class WooCommerce_Anti_Fraud {
 		add_action('admin_head', array( $this, 'get_device_tracking_script'), 100, 100);
 		add_action('wp_head', array( $this, 'get_device_tracking_script'), 100, 100);
 		
+	}
+
+	public function switch_onoff($hookget) {
+
+	    if ( 'woocommerce_page_wc-settings' != $hookget ) {
+	        return;
+	    }
+
+	    if(!isset($_REQUEST['section']) || $_REQUEST['section'] != "minfraud_settings")
+	    {
+	    	return;
+	    }
+	 
+	    wp_enqueue_style('on-off-switch', plugins_url('assets/css/on-off-switch.css',__FILE__ ));
+	    wp_enqueue_script('on-off-jqueryadd', plugins_url('assets/js/jquery-1.11.2.min.js',__FILE__ ));
+	    wp_enqueue_script('on-off-switch', plugins_url('assets/js/on-off-switch.js',__FILE__ ));
+	    wp_enqueue_script('on-off-switch-onload', plugins_url('assets/js/on-off-switch-onload.js',__FILE__ ));
+
 	}
 
 	public function deactivate_events_on_active_plugin($hook) {
@@ -198,7 +232,7 @@ class WooCommerce_Anti_Fraud {
 		update_option('wc_settings_anti_fraudblacklist_emails',$finalblocklist);
 
 		echo $finalblocklist;
-		die;
+		wp_die();
 		
 	} 
 
@@ -292,6 +326,7 @@ class WooCommerce_Anti_Fraud {
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_First_Order_Processing() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Ip_Multiple_Order_Details() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Velocities() );
+		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Billing_Phone_Matches_Billing_Country() );
 
 		// Check if admin
 		if ( is_admin() ) {
@@ -315,7 +350,7 @@ class WooCommerce_Anti_Fraud {
 	public function my_action(){
 		$help_class = new WC_AF_Score_Helper;
 		$help_class->do_check($_POST['order_id']);
-		die();
+		wp_die();
 	}
 	
 	//TO DO
@@ -325,9 +360,11 @@ class WooCommerce_Anti_Fraud {
 		wp_enqueue_script('tags_input', plugins_url( 'assets/js/tags-input.js', __FILE__ ) );
 		wp_enqueue_style('cal', plugins_url( 'assets/css/tags-input.css', __FILE__ ) );
 	}
+	
 	public function save_default_settings() {
 		// For Minfraud
-		//update_option('wc_af_minfrraud_order_score_enable','yes');
+		update_option('wc_af_fraud_check_before_payment','no');
+		update_option('wc_af_enable_whitelist_payment_method','no');
 		update_option('wc_settings_anti_fraud_minfraud_order_weight',30);
 		update_option('wc_settings_anti_fraud_minfraud_risk_score',30);
 
@@ -343,6 +380,8 @@ class WooCommerce_Anti_Fraud {
 		update_option('wc_af_international_order','yes');
 		update_option('wc_settings_anti_fraud_international_order_weight',10);
 		update_option('wc_af_ip_geolocation_order','yes');
+		update_option('wc_af_billing_phone_number_order','yes');
+		update_option('wc_settings_anti_fraud_billing_phone_number_order_weight',15);
 		update_option('wc_settings_anti_fraud_ip_geolocation_order_weight',50);
 		update_option('wc_af_bca_order','yes');
 		update_option('wc_settings_anti_fraud_bca_order_weight',20);
@@ -448,7 +487,7 @@ class WooCommerce_Anti_Fraud {
 	}
 
 	public function paypal_email_body(){
-		return "Hi! We have received your order on ".get_site_url().", but to complete, We have to verify your PayPal email address. If you haven't made or authorized any purchase, please, contact PayPal support service immediately, and email us to ". get_option("admin_email"). " for having your money back.";
+		return "Hi! We have received your order on ".get_site_url().", but to complete it, we have to verify your PayPal email address. If you haven't made or authorized any purchase, please, contact PayPal support immediately, and email us at ". get_option("admin_email"). ".";
 	}
 
 	public function paypal_email_subject(){
@@ -473,7 +512,7 @@ class WooCommerce_Anti_Fraud {
 		if('' != $blocked_email) {
 			foreach($array_mail as $single){
 				if($_POST[ 'billing_email' ] == $single){
-					$errors->add( 'validation', 'This email id is blocked please contact with admin' );
+					$errors->add( 'validation', 'This email id is blocked.' );
 				}
 			}
 		}else if('' != $blocked_ipaddress){
@@ -482,8 +521,95 @@ class WooCommerce_Anti_Fraud {
 			$array_ipaddress = explode(',',$blocked_ipaddress);
 			foreach($array_ipaddress as $singles){
 				if($userip == $singles){
-					$errors->add( 'validation', 'This IP Address is blocked please contact with admin' );
+					$errors->add( 'validation', 'This IP Address is blocked.' );
 				}
+			}
+		}
+	}
+
+
+	// wc_af_fraud_check_before_payment
+	
+	add_action( 'woocommerce_after_checkout_validation', 'wh_pre_paymentcall', 10, 2);
+	add_action( 'woocommerce_checkout_order_processed', 'wh_pre_paymentcall', 10, 2);
+	function wh_pre_paymentcall( $order_id, $errors ) {
+
+		$check_before_payment = get_option('wc_af_fraud_check_before_payment');
+		
+		if($check_before_payment == 'yes') {
+			$low_risk = get_option('wc_settings_anti_fraud_low_risk_threshold');
+			$high_risk = get_option('wc_settings_anti_fraud_higher_risk_threshold');
+
+
+			$score_points = get_post_meta( $order_id, 'wc_af_score', true );
+			$circle_points = WC_AF_Score_Helper::invert_score( $score_points );
+
+
+			if($high_risk <= $circle_points) {
+				
+				$errors->add( 'validation', 'Website Administrator does not allow you to place this order. Please contact our support team.  Sorry for any inconvenience.' );
+					
+			}
+		}
+	}
+
+
+	if(get_option('wc_af_billing_phone_number_order') == 'yes') {
+
+		add_action( 'wp_footer', 'callback_wp_footer' );
+		function callback_wp_footer(){
+		    ?>
+		    <script type="text/javascript">
+		        ( function( $ ) {
+		            $( document.body ).on( 'updated_checkout', function(data) {
+		                var ajax_url = "<?php echo admin_url('admin-ajax.php'); ?>",
+		                country_code = $('#billing_country').val();
+
+		                var ajax_data = {
+		                    action: 'append_country_prefix_in_billing_phone',
+		                    country_code: $('#billing_country').val()
+		                };
+
+		                $.post( ajax_url, ajax_data, function( response ) {
+
+		              		var old_phone = $('#billing_phone').val();
+							var new_phone = old_phone.replace(/\(.*?\)/, response);
+							if(new_phone == '' || new_phone == ' ') {
+								new_phone = response;
+							}
+							$('#billing_phone').val(new_phone);
+
+		                });
+		            } );
+		        } )( jQuery );
+		    </script>
+
+		    <?php
+		}
+
+		add_action( 'wp_ajax_nopriv_append_country_prefix_in_billing_phone', 'country_prefix_in_billing_phone' );
+		add_action( 'wp_ajax_append_country_prefix_in_billing_phone', 'country_prefix_in_billing_phone' );
+		function country_prefix_in_billing_phone() {
+		    $calling_code = '';
+		    $country_code = isset( $_POST['country_code'] ) ? $_POST['country_code'] : '';
+		    if( $country_code ){
+		        $calling_code = WC()->countries->get_country_calling_code( $country_code );
+		        $calling_code = is_array( $calling_code ) ? $calling_code[0] : $calling_code;
+
+		    }
+		    echo '('.$calling_code.')';
+		    wp_die();
+		}
+		
+		add_action('woocommerce_checkout_process', 'custom_validate_billing_phone');
+		function custom_validate_billing_phone() {
+			global $woocommerce;
+		    $trim_billing_phone = trim($_POST['billing_phone'] );
+			$str_billing_phone = substr($trim_billing_phone ,0 ,2);
+
+			if(! (preg_match('/^\(\+/',$str_billing_phone)) || ! (preg_match('!\(([^\)]+)\)!', $trim_billing_phone))) {
+
+		        	wc_add_notice( "Invalid Phone Number. Please specify phone number in correct format, e.g. (+1) 230 2345"  ,'error' );
 			}
 		}
 	}

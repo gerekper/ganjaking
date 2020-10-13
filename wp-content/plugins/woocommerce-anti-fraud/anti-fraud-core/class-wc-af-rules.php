@@ -49,7 +49,8 @@ if ( ! class_exists( 'WC_AF_Rules' ) ) {
 		 * @return array<WC_AF_Rule>
 		 */
 		public function get_rules() {
-			return apply_filters( 'wc_anti_fraud_rules', $this->rules );
+			//return apply_filters( 'wc_anti_fraud_rules', $this->rules );
+			return $this->rules;
 		}
 
 		/**

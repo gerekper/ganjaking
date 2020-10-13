@@ -235,7 +235,6 @@ class MeprRulesCtrl extends MeprCptCtrl {
   public static function redirect_unauthorized($post) {
     $mepr_options = MeprOptions::fetch();
     $uri          = urlencode(esc_url($_SERVER['REQUEST_URI']));
-    error_log(print_r($uri, true));
 
     if($mepr_options->redirect_on_unauthorized) {
       $delim = MeprAppCtrl::get_param_delimiter_char($mepr_options->unauthorized_redirect_url);
@@ -532,6 +531,18 @@ class MeprRulesCtrl extends MeprCptCtrl {
         'content_dropdown_nonce' => wp_create_nonce('content_dropdown'),
         'remove_access_condition_nonce' => wp_create_nonce('remove_access_condition'),
         'access_row' => array(
+          'role' => array(
+            'row_tpl' => MeprRulesHelper::access_row_string(new MeprRuleAccessCondition(array('access_type' => 'role')),1),
+            'types_tpl' => MeprRulesHelper::access_types_dropdown_string('role'),
+            'operator_tpl' => MeprRulesHelper::access_operators_dropdown_string('role'),
+            'condition_tpl' => MeprRulesHelper::access_conditions_dropdown_string('role')
+          ),
+          'capability' => array(
+            'row_tpl' => MeprRulesHelper::access_row_string(new MeprRuleAccessCondition(array('access_type' => 'capability')),1),
+            'types_tpl' => MeprRulesHelper::access_types_dropdown_string('capability'),
+            'operator_tpl' => MeprRulesHelper::access_operators_dropdown_string('capability'),
+            'condition_tpl' => MeprRulesHelper::access_conditions_dropdown_string('capability')
+          ),
           'membership' => array(
             'row_tpl' => MeprRulesHelper::access_row_string(new MeprRuleAccessCondition(array('access_type' => 'membership')),1),
             'types_tpl' => MeprRulesHelper::access_types_dropdown_string('membership'),

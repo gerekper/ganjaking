@@ -65,14 +65,15 @@ class Files extends lib\BaseCptCtrl {
         'post_id' => get_the_ID(),
       );
       wp_dequeue_script('autosave'); //Disable auto-saving
-      wp_enqueue_script('mpcs-files-js', base\JS_URL . '/admin_files.js', array('jquery'), base\VERSION);
-      wp_localize_script('mpcs-files-js', 'MpdlFile', $locals);
+      wp_enqueue_script('mpdl-files-js', base\JS_URL . '/admin_files.js', array('jquery'), base\VERSION);
+      wp_localize_script('mpdl-files-js', 'MpdlFile', $locals);
       wp_register_script('jquery-iframe-transport', base\JS_URL . '/vendor/jquery_file_upload/jquery.iframe-transport.min.js', array('jquery'), base\VERSION);
       wp_register_script('jquery-ui-widget', base\JS_URL . '/vendor/jquery_file_upload/jquery.ui.widget.min.js', array('jquery'), base\VERSION);
       wp_enqueue_script('jquery-fileupload', base\JS_URL . '/vendor/jquery_file_upload/jquery.fileupload.min.js', array('jquery', 'jquery-ui-widget', 'jquery-iframe-transport'), base\VERSION);
       wp_enqueue_script('jquery-form-validator', base\JS_URL . '/vendor/jquery.form-validator.min.js', array('jquery'), '2.3.79');
       wp_register_script('tooltipster-js', base\JS_URL . '/vendor/tooltipster.bundle.min.js', array('jquery'), base\VERSION);
       wp_enqueue_script('clipboard-js', base\JS_URL . '/vendor/clipboard.min.js', array('tooltipster-js'), base\VERSION);
+      wp_enqueue_script('mpdl-table-control-js', base\JS_URL . '/table-control.js', array(), base\VERSION);
       wp_enqueue_style('mpcs-files', base\CSS_URL . '/admin_files.css', array(), base\VERSION);
       wp_register_style('tooltipster-borderless-theme', base\CSS_URL . '/vendor/tooltipster-sideTip-borderless.min.css', array(), base\VERSION);
       wp_enqueue_style('tooltipster-css', base\CSS_URL . '/vendor/tooltipster.bundle.min.css', array('tooltipster-borderless-theme'), base\VERSION);
@@ -140,7 +141,7 @@ class Files extends lib\BaseCptCtrl {
   public static function custom_column_content($column, $post_id) {
     if($column === 'downloads') {
       $file = new models\File($post_id);
-      echo $file->download_count;
+      printf('<a href="%s">%s</a>', admin_url('admin.php?page=mpdl_stats&file_name='.$file->post_title), models\FileStat::download_count($file));
     }
   }
 
@@ -289,13 +290,13 @@ class Files extends lib\BaseCptCtrl {
 
   public function stats_meta_box($post) {
     $file = new models\File($post->ID);
-    require_once(base\VIEWS_PATH . '/admin/files/stats_meta_box.php');
+    require_once(base\VIEWS_PATH . '/admin/files/stats/meta_box.php');
   }
 
   public function admin_header() {
     global $current_screen;
 
-    if($current_screen->post_type === models\File::$cpt) {
+    if($current_screen->post_type === models\File::$cpt || $current_screen->id === 'mp-downloads_page_mpdl_stats') {
       ?>
       <div id="mpdl-admin-header"><img class="mpdl-logo" src="https://memberpress.com/wp-content/themes/mp-bb-child/assets/images/memberpress-logo-color.svg" /></div>
       <?php

@@ -4198,8 +4198,8 @@ msgid "Check this to force select boxes to be full width."
 msgstr "Vink dit aan om selectievakjes over de volledige breedte aan te geven."
 
 #: include/classes/class-tm-epo-settings-base.php:519
-msgid "Show description for radio buttons and checkboxes inline."
-msgstr "Beschrijving van keuzerondjes en selectievakjes inline weergeven."
+msgid "Show choice description inline"
+msgstr ""
 
 #: include/classes/class-tm-epo-settings-base.php:520
 msgid ""
@@ -4219,7 +4219,7 @@ msgstr ""
 
 #: include/classes/class-tm-epo-settings-base.php:528
 msgid ""
-"Check this to hdie the choice label when using the swatch mode for radio "
+"Check this to hide the choice label when using the swatch mode for radio "
 "buttons and checkboxes."
 msgstr ""
 "Vink dit aan om het keuzelabel te verbergen wanneer u de staalmodus gebruikt "

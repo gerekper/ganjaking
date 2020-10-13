@@ -39,8 +39,8 @@ class WC_AF_Admin_Email extends WC_Email {
 	private function init() {
 
 		// Subject & heading
-		$this->subject = __( 'Fraud notification of order #{order_id}', 'woocommerce-anti-fraud' );
-		$this->heading = __( 'Fraud notification of order #{order_id}', 'woocommerce-anti-fraud' );
+		$this->subject = __( 'Fraud notification for order #{order_id}', 'woocommerce-anti-fraud' );
+		$this->heading = __( 'Fraud notification for order #{order_id}', 'woocommerce-anti-fraud' );
 
 		// Set recipients
 		$this->recipient = apply_filters( 'wc_anti_fraud_email_recipient', get_option( 'admin_email', '' ) );

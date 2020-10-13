@@ -563,6 +563,29 @@ abstract class WC_OD_Settings_API extends WC_Settings_API {
 	}
 
 	/**
+	 * Gets the 'number_of_orders' field ready to be registered in the form fields.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return array
+	 */
+	protected function get_number_of_orders_field() {
+		return array(
+			'number_of_orders' => array(
+				'title'             => __( 'Number of orders', 'woocommerce-order-delivery' ),
+				'description'       => __( '0 means that there is no limit of orders.', 'woocommerce-order-delivery' ),
+				'desc_tip'          => __( 'Maximum number of orders that can be delivered on the day.', 'woocommerce-order-delivery' ),
+				'type'              => 'number',
+				'css'               => 'width: 50px;',
+				'custom_attributes' => array(
+					'min'  => 0,
+					'step' => 1,
+				),
+			),
+		);
+	}
+
+	/**
 	 * Outputs the HTML at the start of a field.
 	 *
 	 * @since 1.7.0

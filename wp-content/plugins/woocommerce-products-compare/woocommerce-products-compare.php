@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Products Compare
  * Plugin URI: https://woocommerce.com/products/woocommerce-products-compare/
  * Description: Have your customers to compare similar products side by side.
- * Version: 1.0.21
+ * Version: 1.0.22
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-products-compare
  * Domain Path: /languages
  * Tested up to: 5.5
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * WC requires at least: 2.6
  * Copyright: © 2020 WooCommerce
  * License: GNU General Public License v3.0
@@ -30,7 +30,7 @@ function woocommerce_products_compare_missing_wc_notice() {
 
 if ( ! class_exists( 'WC_Products_Compare' ) ) :
 
-	define( 'WC_PRODUCTS_COMPARE_VERSION', '1.0.21' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PRODUCTS_COMPARE_VERSION', '1.0.22' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * main class.

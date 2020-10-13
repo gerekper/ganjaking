@@ -55,6 +55,11 @@ class WC_Brands_Coupons {
 			}, array_keys( $discounts->get_items() ) );
 		}
 
+		// If we don't have items to work with we should just pass the original validity.
+		if ( empty( $items ) ) {
+			return $valid;
+		}
+
 		foreach( $items as $cart_item ) {
 			$product_brands = $this->get_product_brands( $cart_item['product_id'] );
 

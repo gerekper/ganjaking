@@ -16,12 +16,14 @@
 </div>
 <script type="text/javascript">
 
-	jQuery('a.submitdelete').live('click', function(){
-		var answer = confirm('<?php _e( 'Are you sure you want to delete this notification?', 'woocommerce-advanced-notifications' ); ?>');
-		if (answer){
-			return true;
-		}
-		return false;
+	jQuery(function () {
+		jQuery('a.submitdelete').off('click').on('click', function(){
+			var answer = confirm('<?php _e( 'Are you sure you want to delete this notification?', 'woocommerce-advanced-notifications' ); ?>');
+			if (answer){
+				return true;
+			}
+			return false;
+		});
 	});
 
 </script>

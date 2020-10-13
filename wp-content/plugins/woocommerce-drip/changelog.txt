@@ -1,5 +1,11 @@
 *** WooCommerce Drip Changelog ***
 
+2020-10-06 - version 1.2.23
+* Fix - Prevent warning in the debug log when requesting campaigns.
+* Fix - Prevent PHP 7.4 deprecation notice for unparenthesized usage with multiple inline if statements.
+* Fix - Send address details to drip when a purchase has been made.
+* Tweak - WC 4.5 compatibility.
+
 2020-08-19 - version 1.2.22
 * Tweak - WordPress 5.5 compatibility.
 

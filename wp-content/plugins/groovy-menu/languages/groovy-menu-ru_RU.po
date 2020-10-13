@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Groovy Menu 2.3.4\n"
-"POT-Creation-Date: 2020-10-02 18:32+0300\n"
-"PO-Revision-Date: 2020-10-02 18:32+0300\n"
+"Project-Id-Version: Groovy Menu 2.3.5\n"
+"POT-Creation-Date: 2020-10-08 17:33+0300\n"
+"PO-Revision-Date: 2020-10-08 17:34+0300\n"
 "Last-Translator: Di_Skyer <diskyer@gmail.com>\n"
 "Language-Team: Русский\n"
 "Language: ru_RU\n"
@@ -25,7 +25,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: assets\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 
-#: groovy-menu.php:368
+#: groovy-menu.php:373
 msgid "Groovy menu Primary"
 msgstr "Groovy основное меню"
 
@@ -34,7 +34,7 @@ msgid "Same as desktop"
 msgstr "Так же как и десктоп"
 
 #: includes/config/Config.php:10 includes/config/ConfigGlobal.php:17
-#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:104
+#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:108
 #: includes/modules/fields/inc/FieldTaxonomyPreset.php:23
 msgid "Hide Groovy menu"
 msgstr "Скрыть Groovy меню"
@@ -496,8 +496,8 @@ msgstr "Стиль наведения для появлении подменю"
 #: includes/config/Config.php:2455 includes/config/Config.php:3161
 #: includes/config/Config.php:3213 includes/config/Config.php:3414
 #: includes/config/Config.php:3454
-#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:102
-#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:121
+#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:106
+#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:125
 #: includes/modules/fields/inc/FieldTaxonomyPreset.php:22
 #: template/PreviewModal.php:9 template/PreviewModal.php:13
 msgid "Default"
@@ -749,7 +749,7 @@ msgid "Gap between Main menu and Mega menu"
 msgstr ""
 
 #: includes/config/Config.php:880
-#: includes/modules/core/inc/GroovyMenuUtils.php:443 template/Header.php:1051
+#: includes/modules/core/inc/GroovyMenuUtils.php:462 template/Header.php:1051
 msgid "Search"
 msgstr "Поиск"
 
@@ -855,7 +855,7 @@ msgstr "цвет текста"
 
 #: includes/config/Config.php:1105
 msgid "Dropdown background"
-msgstr ""
+msgstr "Цвет фона раскрывающегося списка"
 
 #: includes/config/Config.php:1115
 msgid "Dropdown search button"
@@ -863,7 +863,7 @@ msgstr ""
 
 #: includes/config/Config.php:1132
 msgid "hover background"
-msgstr ""
+msgstr "цвет фона при наведении"
 
 #: includes/config/Config.php:1147 includes/config/Config.php:1966
 #: includes/config/ConfigGlobal.php:21
@@ -1816,14 +1816,8 @@ msgid ""
 msgstr ""
 
 #: includes/config/Config.php:3096
-#, fuzzy
 msgid "For example"
-msgstr ""
-"Если вы используете более одноuj пресета меню в теме (например, одну для "
-"домашней страницы и любую другую для остальных страниц), вы можете добавить "
-"альтернативный логотип и установить его для любой страницы, а также логотип "
-"по умолчанию. Переключатель между стандартным и альтернативным логотипом "
-"находится в настройках пресета."
+msgstr "Для примера"
 
 #: includes/config/Config.php:3096
 msgid "This option will disable the output of Groovy Menu hamburger menu"
@@ -2453,15 +2447,25 @@ msgstr "Иконки"
 msgid "Icons"
 msgstr "Иконки"
 
-#: includes/config/ConfigGlobal.php:449
+#: includes/config/ConfigGlobal.php:445
+#, php-format
+msgid "Please upload .ZIP archive created with %1$s service only."
+msgstr ""
+
+#: includes/config/ConfigGlobal.php:446
+#, php-format
+msgid "How to create font icon package read in %1$s this article %2$s"
+msgstr ""
+
+#: includes/config/ConfigGlobal.php:451
 msgid "Permissions"
 msgstr "Разрешения"
 
-#: includes/config/ConfigGlobal.php:453
+#: includes/config/ConfigGlobal.php:455
 msgid "Allow for follow post types"
 msgstr "Разрешить для следующих типов постов"
 
-#: includes/config/ConfigGlobal.php:455
+#: includes/config/ConfigGlobal.php:457
 msgid ""
 "If enabled, it will allow you to display additional control (meta-box) over "
 "the Menu for each post. You will be able to assign individual Presets and "
@@ -2472,27 +2476,27 @@ msgstr ""
 "индивидуальные Пресет и Меню для отображения их на выбранной записи вместо "
 "назначенных глобально."
 
-#: includes/config/ConfigGlobal.php:460
+#: includes/config/ConfigGlobal.php:462
 msgid "Tools"
 msgstr "Инструменты"
 
-#: includes/config/ConfigGlobal.php:463
+#: includes/config/ConfigGlobal.php:465
 msgid "Wrapper HTML tag for Groovy Menu"
 msgstr "HTML-тег Wrapper для Groovy Menu"
 
-#: includes/config/ConfigGlobal.php:466
+#: includes/config/ConfigGlobal.php:468
 msgid "HEADER"
 msgstr "ЗАГОЛОВОК"
 
-#: includes/config/ConfigGlobal.php:467
+#: includes/config/ConfigGlobal.php:469
 msgid "DIV"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:473
+#: includes/config/ConfigGlobal.php:475
 msgid "Toggle visibility of Groovy menu settings at Appearance &gt; Menus"
 msgstr "Переключить видимость настроек меню Groovy в разделе Внешний вид> Меню"
 
-#: includes/config/ConfigGlobal.php:475
+#: includes/config/ConfigGlobal.php:477
 msgid ""
 "The theme or another plugin can override the visibility of the Groovy menu "
 "settings at Appearance &gt; Menus. To show up Groovy menus settings instead, "
@@ -2502,19 +2506,19 @@ msgstr ""
 "разделе «Внешний вид»> «Меню». Чтобы показать настройки меню Groovy, "
 "используйте эту опцию."
 
-#: includes/config/ConfigGlobal.php:479
+#: includes/config/ConfigGlobal.php:481
 msgid "Enable displaying the Groovy menu layout into Menu blocks post type"
 msgstr "Разрешить показывать Groovy Menu слой в редакторе Меню Блоков"
 
-#: includes/config/ConfigGlobal.php:481
+#: includes/config/ConfigGlobal.php:483
 msgid "Is also apply to not public post types"
 msgstr "Так же применяется для непубличных типов записей"
 
-#: includes/config/ConfigGlobal.php:485
+#: includes/config/ConfigGlobal.php:487
 msgid "Use local google fonts"
 msgstr "Использовать локальные шрифты Google"
 
-#: includes/config/ConfigGlobal.php:487
+#: includes/config/ConfigGlobal.php:489
 msgid ""
 "For presets settings. When turning on, the Google fonts will be connected "
 "from local upload folder. Turning off option for use the Google CDN service."
@@ -2522,47 +2526,47 @@ msgstr ""
 "При включении шрифты Google будут подключаться из локальной папки загрузки. "
 "Отключение опции для использования сервиса Google CDN."
 
-#: includes/config/ConfigGlobal.php:491
+#: includes/config/ConfigGlobal.php:493
 msgid "Disable Font Awesome"
 msgstr "Отключить Font Awesome"
 
-#: includes/config/ConfigGlobal.php:493
+#: includes/config/ConfigGlobal.php:495
 msgid ""
 "Disable loading Font Awesome from Groovy menu at the front-end side of the "
 "site"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:497
+#: includes/config/ConfigGlobal.php:499
 msgid "Allow fetching presets from online library"
 msgstr "Разрешить выбор пресетов из онлайн-библиотеки"
 
-#: includes/config/ConfigGlobal.php:503
+#: includes/config/ConfigGlobal.php:505
 msgid "Remove All Data after uninstall"
 msgstr "Удалить все данные после удаления"
 
-#: includes/config/ConfigGlobal.php:505
+#: includes/config/ConfigGlobal.php:507
 msgid ""
 "This tool will remove Groovy menu, Presets and other data when using the "
 "\"Delete\" link on the plugins screen."
 msgstr "Этот инструмент удалит Groovy меню, пресеты и другие данные"
 
-#: includes/config/ConfigGlobal.php:510
+#: includes/config/ConfigGlobal.php:512
 msgid "Taxonomies"
 msgstr "Таксономии"
 
-#: includes/config/ConfigGlobal.php:513
+#: includes/config/ConfigGlobal.php:515
 msgid "Default preset for all content"
 msgstr "Пресет по умолчанию для всего контента"
 
-#: includes/config/ConfigGlobal.php:520
+#: includes/config/ConfigGlobal.php:522
 msgid "Default navigation menu for all content"
 msgstr "Меню по умолчанию для всего контента"
 
-#: includes/config/ConfigGlobal.php:528
+#: includes/config/ConfigGlobal.php:530
 msgid "Override for particular taxonomies"
 msgstr "Переопределить для определенных таксономий"
 
-#: includes/config/ConfigGlobal.php:534
+#: includes/config/ConfigGlobal.php:536
 msgid "Presets for taxonomies"
 msgstr "Применять пресеты для таксономий"
 
@@ -2712,26 +2716,26 @@ msgstr "Данные журнала для версии миграции:"
 msgid "Available migrations"
 msgstr "Доступны миграции"
 
-#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:38
-#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:51
+#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:59
+#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:72
 #: includes/modules/core/inc/GroovyMenuSettings.php:360
 #: includes/theme_support/divi-grooni-groovymenu/includes/modules/DiviGrooniGroovyMenu/DiviGrooniGroovyMenu.php:17
 #: includes/theme_support/elementor-gm-widget.php:34
 msgid "Groovy Menu"
 msgstr "Groovy Menu"
 
-#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:38
+#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:59
 #: includes/modules/fields/inc/FieldTaxonomyPreset.php:49
 msgid "Preset"
 msgstr "Пресет"
 
-#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:41
-#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:54
+#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:62
+#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:75
 msgid "default"
 msgstr "по умолч."
 
-#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:51
-#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:116
+#: includes/modules/core/inc/GroovyMenuCategoryPreset.php:72
+#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:120
 msgid "Navigation menu (from Appearance > Menus)"
 msgstr "Меню навигации (из меню «Внешний вид»> «Меню»)"
 
@@ -2838,7 +2842,7 @@ msgid "Setting changed"
 msgstr "Настройки изменены"
 
 #: includes/modules/core/inc/GroovyMenuSettings.php:333
-#: includes/modules/core/inc/GroovyMenuUtils.php:1866
+#: includes/modules/core/inc/GroovyMenuUtils.php:1885
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr ""
 "Внесенные вами изменения будут потеряны, если вы уйдете с этой страницы."
@@ -2851,7 +2855,7 @@ msgstr "Блоки мега меню"
 #: includes/modules/core/inc/GroovyMenuSettings.php:546
 #: includes/modules/core/inc/GroovyMenuSettings.php:621
 #: includes/modules/core/inc/GroovyMenuSettings.php:622
-#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:71
+#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:75
 msgid "Groovy menu"
 msgstr "Groovy Menu"
 
@@ -2895,7 +2899,7 @@ msgid "Fail. Need more Capabilities."
 msgstr "Неудачно. Необходимо больше прав."
 
 #: includes/modules/core/inc/GroovyMenuSettings.php:895
-#: includes/modules/core/inc/GroovyMenuUtils.php:1422
+#: includes/modules/core/inc/GroovyMenuUtils.php:1441
 msgid "Wasn't able to work with Zip Archive. Missing php-zip extension."
 msgstr "Не смог обработать Zip архив. Отсутствует расширение php-zip."
 
@@ -3688,7 +3692,7 @@ msgstr ""
 msgid "Suggested file name"
 msgstr "Предлагаемое имя файла"
 
-#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:97
+#: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:101
 msgid "Menu preset"
 msgstr "Меню пресет"
 
@@ -3709,94 +3713,94 @@ msgstr "Редактировать пресет"
 msgid "View Groovy Menu Preset"
 msgstr "Посмотреть пресет"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:279
-#: includes/modules/core/inc/GroovyMenuUtils.php:289
+#: includes/modules/core/inc/GroovyMenuUtils.php:298
+#: includes/modules/core/inc/GroovyMenuUtils.php:308
 msgid "single pages"
 msgstr "отдельные страницы"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:282
+#: includes/modules/core/inc/GroovyMenuUtils.php:301
 msgid "Search page"
 msgstr "Страница поиска"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:283
+#: includes/modules/core/inc/GroovyMenuUtils.php:302
 msgid "404 Not Found Page"
 msgstr "404 Страница не найдена"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:330
-#: includes/modules/core/inc/GroovyMenuUtils.php:339
+#: includes/modules/core/inc/GroovyMenuUtils.php:349
+#: includes/modules/core/inc/GroovyMenuUtils.php:358
 msgid "Search in:"
 msgstr "Искать в:"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:458
+#: includes/modules/core/inc/GroovyMenuUtils.php:477
 msgid "Search..."
 msgstr "Искать..."
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:480
+#: includes/modules/core/inc/GroovyMenuUtils.php:499
 msgid "START TYPING AND PRESS ENTER TO SEARCH"
 msgstr "Начните вводить и нажмите ввод для поиска"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1063
+#: includes/modules/core/inc/GroovyMenuUtils.php:1082
 msgid "Original full size"
 msgstr "Ориг-ный размер"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1271
-#: includes/modules/core/inc/GroovyMenuUtils.php:1274
+#: includes/modules/core/inc/GroovyMenuUtils.php:1290
+#: includes/modules/core/inc/GroovyMenuUtils.php:1293
 msgid "Docs"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1272
+#: includes/modules/core/inc/GroovyMenuUtils.php:1291
 msgid "Free support"
 msgstr "Бесплатная поддержка"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1275
+#: includes/modules/core/inc/GroovyMenuUtils.php:1294
 msgid "Get Support"
 msgstr "Помощь"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1297
+#: includes/modules/core/inc/GroovyMenuUtils.php:1316
 msgid "Settings"
 msgstr "Настроить"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1315
+#: includes/modules/core/inc/GroovyMenuUtils.php:1334
 msgid "Upgrade to Pro"
 msgstr "Обновить до Pro"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1365
+#: includes/modules/core/inc/GroovyMenuUtils.php:1384
 msgid "WP_Filesystem() load library error"
 msgstr "WP_Filesystem() шибка загрузки библиотеки"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1730
+#: includes/modules/core/inc/GroovyMenuUtils.php:1749
 msgid "Plugin Groovy Menu  is deactivated. Minimum required version for PHP 7."
 msgstr "Плагин Groovy Menu деактивирован. Необходим PHP 7 версии минимум."
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1732
+#: includes/modules/core/inc/GroovyMenuUtils.php:1751
 msgid "Plugins page"
 msgstr "Страница плагинов"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2075
+#: includes/modules/core/inc/GroovyMenuUtils.php:2094
 msgid "PHP 7.0 or greater"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2082
+#: includes/modules/core/inc/GroovyMenuUtils.php:2101
 msgid "ZipArchive"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2083
+#: includes/modules/core/inc/GroovyMenuUtils.php:2102
 msgid "Installed"
 msgstr "Установлено"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2083
+#: includes/modules/core/inc/GroovyMenuUtils.php:2102
 msgid "Fail"
 msgstr "Ошибка"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2102
+#: includes/modules/core/inc/GroovyMenuUtils.php:2121
 msgid "PHP Max input vars"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2104
+#: includes/modules/core/inc/GroovyMenuUtils.php:2123
 msgid "Matters to the Appearance - Menus editor"
 msgstr "Важно для редактора навигационного меню"
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2105
+#: includes/modules/core/inc/GroovyMenuUtils.php:2124
 #, php-format
 msgid ""
 "Current Max input vars is OK, however %s is recommended for the correct "
@@ -3805,15 +3809,15 @@ msgstr ""
 "Текущие Max input vars  в порядке, однако  %s рекомендуется для правильной "
 "работы всех функций."
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2113
+#: includes/modules/core/inc/GroovyMenuUtils.php:2132
 msgid "PHP Max execution time"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2115
+#: includes/modules/core/inc/GroovyMenuUtils.php:2134
 msgid "php.ini values show above. Real values may vary."
 msgstr "Значения php.ini показаны выше. Реальные значения могут отличаться."
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2116
+#: includes/modules/core/inc/GroovyMenuUtils.php:2135
 msgid "Current max execution time is OK, however 180 is recommended."
 msgstr ""
 "Текущее максимальное время выполнения в порядке, однако рекомендуется 180."

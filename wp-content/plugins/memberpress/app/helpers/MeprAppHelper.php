@@ -423,6 +423,27 @@ class MeprAppHelper {
     <?php
   }
 
+  public static function roles_dropdown($field_name, $roles = array(), $classes = '') {
+    $roles = is_array($roles) ? $roles : array();
+    $contents = array();
+
+    $wp_roles = wp_roles();
+
+    foreach ( $wp_roles->roles as $key => $r ) {
+      $contents[$key] = $r['name'];
+    }
+
+    ?>
+      <select name="<?php echo $field_name; ?>" class="<?php echo $classes; ?>">
+      <?php
+        foreach($contents as $curr_type => $curr_label) {
+          ?><option value="<?php echo $curr_type; ?>" <?php selected(in_array($curr_type, $roles)); ?>><?php echo $curr_label; ?>&nbsp;</option><?php
+        }
+      ?>
+      </select>
+    <?php
+  }
+
   public static function export_table_link($action, $nonce_action, $nonce_name, $itemcount, $all=false) {
     $params = array('action' => $action);
 

@@ -6,7 +6,7 @@
  * Description: Sell memberships that provide access to restricted content, products, discounts, and more!
  * Author: SkyVerge
  * Author URI: https://www.woocommerce.com/
- * Version: 1.19.0
+ * Version: 1.19.1
  * Text Domain: woocommerce-memberships
  * Domain Path: /i18n/languages/
  *

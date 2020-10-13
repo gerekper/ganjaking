@@ -15,6 +15,7 @@ class Db {
 
     // Tables
     $this->file_downloads = "{$this->prefix}file_downloads";
+    $this->file_stats = "{$this->prefix}file_stats";
   }
 
   public static function fetch($force = false) {
@@ -81,6 +82,23 @@ class Db {
          KEY `updated_at` (`updated_at`)
        ) {$char_col};";
       dbDelta($downloads);
+
+      $stats = "
+      CREATE TABLE {$this->file_stats} (
+         `id` bigint(20) NOT NULL auto_increment,
+         `file_id` bigint(20) NOT NULL,
+         `user_id` bigint(20) NOT NULL,
+         `ip_address` INT UNSIGNED NOT NULL,
+          created_at datetime NOT NULL,
+          updated_at datetime NOT NULL,
+         PRIMARY KEY  (id),
+         KEY `user_id` (`user_id`),
+         KEY `file_id` (`file_id`),
+         KEY `ip_address` (`ip_address`),
+         KEY `created_at` (`created_at`),
+         KEY `updated_at` (`updated_at`)
+       ) {$char_col};";
+      dbDelta($stats);
 
       $this->after_upgrade($old_db_version);
 

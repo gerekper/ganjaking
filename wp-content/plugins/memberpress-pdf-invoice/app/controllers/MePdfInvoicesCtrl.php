@@ -74,8 +74,7 @@ class MePdfInvoicesCtrl extends MeprBaseCtrl {
   public function table_row( $payment ) {
     ?>
     <td data-label="<?php echo esc_html_x( 'Download', 'ui', 'memberpress-pdf-invoice' ); ?>">
-      <a href="
-      <?php
+      <a href="<?php
       echo MeprUtils::admin_url(
         'admin-ajax.php',
         array( 'download_invoice', 'mepr_invoices_nonce' ),
@@ -84,8 +83,7 @@ class MePdfInvoicesCtrl extends MeprBaseCtrl {
           'txn'    => $payment->id,
         )
       );
-      ?>
-      " target="_blank"><?php echo esc_html_x( 'PDF', 'ui', 'memberpress-pdf-invoice' ); ?></a>
+      ?>" target="_blank"><?php echo esc_html_x( 'PDF', 'ui', 'memberpress-pdf-invoice' ); ?></a>
     </td>
     <?php
   }
@@ -266,12 +264,7 @@ class MePdfInvoicesCtrl extends MeprBaseCtrl {
 
     if ( $sub = $txn->subscription() ) {
       if ( $sub->trial && $sub->txn_count < 1 ) {
-        $desc            = esc_html__( 'Initial Payment', 'memberpress-pdf-invoice' );
-        $txn             = new MeprTransaction();
-        $txn->user_id    = $sub->user_id;
-        $txn->product_id = $sub->product_id;
-        $txn->set_subtotal( $sub->trial_amount );
-
+        $desc = esc_html__( 'Initial Payment', 'memberpress-pdf-invoice' );
         // Must do this *after* apply tax so we don't screw up the invoice
         $txn->subscription_id = $sub->id;
       } elseif ( $sub->txn_count >= 1 ) {
@@ -379,6 +372,7 @@ class MePdfInvoicesCtrl extends MeprBaseCtrl {
     $created_ts   = strtotime( $txn->created_at );
 
     $params['user_address_single'] = str_replace( '<br/>', ', ', preg_replace( '/^(<br\s*\/?>)*|(<br\s*\/?>)*$/i', '', $usr->formatted_address() ) );
+    $params['invoice_num']         = $txn->id;
     $params['biz_phone']           = $mepr_options->attr( 'biz_phone' );
     $params['biz_email']           = $mepr_options->attr( 'biz_email' );
     $params['trans_date']          = date_i18n( get_option( 'date_format' ), $created_ts );

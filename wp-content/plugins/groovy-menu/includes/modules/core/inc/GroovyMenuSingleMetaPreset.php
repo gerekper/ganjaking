@@ -36,11 +36,13 @@ class GroovyMenuSingleMetaPreset {
 				$this->post_types = array( 'groovy_menu_empty' );
 			}
 
-			add_action( 'add_meta_boxes', array( $this, 'add_meta_box', ) );
+			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 
 		} else {
 			$this->post_types = apply_filters( 'groovy_menu_single_post_add_meta_box_post_types', $this->get_all_post_types() );
 		}
+
+		$this->post_types = apply_filters( 'groovy_menu_single_post_add_meta_box_post_types_final', $this->post_types );
 
 		add_action( 'save_post', array( $this, 'save_post_meta' ), 10, 2 );
 
@@ -66,11 +68,13 @@ class GroovyMenuSingleMetaPreset {
 			$this->post_types = array();
 		}
 
+		$post_types = $this->lver ? $this->get_all_post_types() : $this->post_types;
+
 		add_meta_box(
 			'groovy_menu_metabox',
 			__( 'Groovy menu', 'groovy-menu' ),
 			array( $this, 'meta_box_html' ),
-			$this->lver ? $this->get_all_post_types() : $this->post_types,
+			$post_types,
 			'side',
 			'default'
 		);
@@ -335,6 +339,27 @@ class GroovyMenuSingleMetaPreset {
 		if ( ! $post_id && ! empty( $wp_query ) && 'product' === get_query_var( 'post_type' ) ) {
 			if ( function_exists( 'wc_get_page_id' ) ) {
 				$post_id = wc_get_page_id( 'shop' );
+			}
+		}
+
+		if ( ! empty( $post_id ) && ! empty( $wp_query ) && 'job_listing' === get_query_var( 'post_type' ) ) {
+			$listing_type = get_post_meta( $post_id, '_case27_listing_type', true );
+
+			$cached_id = wp_cache_get( $listing_type, 'gm_cache__case27_listing_type' );
+			if ( $cached_id ) {
+				return $cached_id;
+			}
+
+			if ( ! empty( $listing_type ) ) {
+				global $wpdb;
+				$listing_post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type='case27_listing_type'", $listing_type ) );
+
+				if ( $listing_post_id ) {
+					$cached_id = get_post_meta( $listing_post_id, self::meta_name, true );
+					wp_cache_set( $listing_type, $cached_id, 'gm_cache__case27_listing_type', 500 );
+
+					return $cached_id;
+				}
 			}
 		}
 

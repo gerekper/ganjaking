@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Plus
 Plugin URI: http://www.memberpress.com/
 Description: The membership plugin that makes it easy to accept payments for access to your content and digital products.
-Version: 1.9.0
+Version: 1.9.3
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress
@@ -35,6 +35,7 @@ define('MEPR_CSS_PATH',MEPR_PATH.'/css');
 define('MEPR_JS_PATH',MEPR_PATH.'/js');
 define('MEPR_I18N_PATH',MEPR_PATH.'/i18n');
 define('MEPR_LIB_PATH',MEPR_PATH.'/app/lib');
+define('MEPR_INTEGRATIONS_PATH',MEPR_PATH.'/app/integrations');
 define('MEPR_INTERFACES_PATH',MEPR_PATH.'/app/lib/interfaces');
 define('MEPR_DATA_PATH',MEPR_PATH.'/app/data');
 define('MEPR_VENDOR_LIB_PATH',MEPR_PATH.'/vendor/lib');
@@ -159,6 +160,11 @@ if(is_array(spl_autoload_functions()) and in_array('__autoload', spl_autoload_fu
 
 // Add the autoloader
 spl_autoload_register('mepr_autoloader');
+
+// Load integration files
+foreach ( (array) glob( MEPR_INTEGRATIONS_PATH . '/*/Integration.php' ) as $file ) {
+  include_once $file;
+}
 
 // Load our controllers
 MeprCtrlFactory::all();

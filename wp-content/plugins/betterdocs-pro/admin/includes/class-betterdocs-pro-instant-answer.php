@@ -277,6 +277,10 @@ class BetterDocs_Pro_IA {
 
         $search_placeholder = $this->setNempty( 'search_placeholder_text', $settings ) ? $settings['search_placeholder_text'] : __( 'Search...', 'betterdocs-pro' );
         $search_settings['SEARCH_PLACEHOLDER'] = $search_placeholder;
+
+        $search_settings['OOPS'] = __( 'Opps...', 'betterdocs-pro' );
+        $search_settings['NOT_FOUND'] = __( 'We couldn’t find any articles that match your search. Try searching for a
+        new term.', 'betterdocs-pro' );
         
         $answer_tab_switch = $this->setNempty( 'answer_tab_visibility_switch', $settings ) ? $settings['answer_tab_visibility_switch'] : [];
         if( ! empty( $answer_tab_switch ) && $answer_tab_switch === '1' ) {
@@ -1185,14 +1189,17 @@ class BetterDocs_Pro_IA {
         register_rest_route( $this->namespace, '/ask', array(
             'methods'   => 'POST',
             'callback'  => array( $this, 'send_asked_mail' ),
+            'permission_callback' => '__return_true'
         ));
         register_rest_route( $this->namespace, '/feedback', array(
             'methods'   => [ 'PUT', 'POST' ],
             'callback'  => array( $this, 'save_global_response' ),
+            'permission_callback' => '__return_true'
         ));
         register_rest_route( $this->namespace, '/feedback/(?P<id>\d+)', array(
             'methods'   => [ 'PUT', 'POST' ],
             'callback'  => array( $this, 'save_response' ),
+            'permission_callback' => '__return_true',
             'args'      => array(
                 'id' => array(
                     'validate_callback' => function($param, $request, $key) {

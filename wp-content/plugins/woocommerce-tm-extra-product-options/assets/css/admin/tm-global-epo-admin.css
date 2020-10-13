@@ -1232,11 +1232,6 @@ button.tmicon {
 	color: #FFFFFF !important;
 }
 
-.builder_wrapper.tma-variations-wrap .builder-section-wrap {
-	background: #fff;
-	border: 2px solid #26a69a;
-}
-
 .builder_wrapper.tma-variations-wrap .bitem-inner {
 	box-shadow: none;
 	border-color: #26a69a;
@@ -1373,6 +1368,13 @@ button.tmicon {
 	animation: element-outline .75s;
 }
 
+.builder_wrapper.tma-variations-wrap .builder-section-wrap .bitem-inner:after {
+	border: 1px solid #26a69a;
+}
+.builder_wrapper.tma-variations-wrap .builder-section-wrap .section-inner:after {
+	border: 2px solid #26a69a;
+}
+
 .bitem.element_is_disabled .bitem-inner:after {
 	border: 1px dashed #d3d9e2;
 }
@@ -1383,7 +1385,9 @@ button.tmicon {
 }
 
 .bitem:hover .bitem-inner:after,
-.builder_wrapper:hover .section-inner:after {
+.builder_wrapper:hover .section-inner:after,
+.builder_wrapper.tma-variations-wrap .bitem:hover .bitem-inner:after,
+.builder_wrapper.tma-variations-wrap:hover .builder-section-wrap .section-inner:after {
 	border-color: #3d72de;
 	border-radius: 0 5px 5px 5px;
 }

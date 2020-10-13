@@ -5,7 +5,7 @@ if(! function_exists('generate_aliexpress_key')) {
 		$passphrase = '107029c9969d644eca7321f9c4df2e6b';
 		$key = md5($domain.$passphrase);
 		return $key;
-		
+
 	}
 } // Generate aliexpress api key and send to the admin mailbox.
 
@@ -24,7 +24,7 @@ if ( ! function_exists( 'update_dropship_option' ) ) {
 	function update_dropship_option($dOptions) {
 		if(is_array($dOptions)) {
 			update_option('opmc_dropshipping_options', $dOptions);
-		}		
+		}
 	}
 }
 
@@ -92,7 +92,7 @@ function woocommerce_dropshippers_mark_as_shipped_callback(){
 		$dFlag = true;
         $dFlag1 = "yes";
 		foreach($dOptions[$dKey] as $k => $v) {
-			//echo '-->'.$k.'<=='.$supplier_id.'==>'.$v; 
+			//echo '-->'.$k.'<=='.$supplier_id.'==>'.$v;
 			if($k != 'shipping_status' && $v == 'processing') {
 				$dFlag = false;
 				$dFlag1 = "no";
@@ -104,7 +104,7 @@ function woocommerce_dropshippers_mark_as_shipped_callback(){
 			$my_wc_order->update_status('completed');
 		}
 
-		update_dropship_option($dOptions);   
+		update_dropship_option($dOptions);
 	}
 
 	//$my_wc_order->update_status('completed');
@@ -113,7 +113,7 @@ function woocommerce_dropshippers_mark_as_shipped_callback(){
 
 	if(isset($_GET['return'])){
 		if($dFlag1 == 'no'){
-			
+
 			header('Location:'.$_GET['return'].'admin.php?page=dropshipper-order-list&success='.$dFlag1);
 		}
         else
@@ -122,7 +122,7 @@ function woocommerce_dropshippers_mark_as_shipped_callback(){
 
         }
 	}
-	
+
 
 
 	die;
@@ -136,13 +136,13 @@ function dropshipper_order_list() {
 	$uemail = $current_user->user_email;
 	$sid = get_user_meta($uid, 'supplier_id',true);
 
-	$term = get_term_by('id', $sid, 'dropship_supplier'); 
+	$term = get_term_by('id', $sid, 'dropship_supplier');
 
 	$post_status = array( 'wc-processing', 'wc-completed', 'wc-on-hold' );
 	$args = array(
 		'post_type' => 'shop_order',
 		'post_status' => $post_status,
-		'meta_query' => array( 
+		'meta_query' => array(
 			array(
 				'key' => 'supplier_'.$term->term_id,
 				'value' => $term->name
@@ -160,27 +160,28 @@ function dropshipper_order_list() {
 						<th scope="col" id="id" class="manage-column column-id column-primary sortable desc">ID</th>
 						<th scope="col" id="date" class="manage-column column-date">Date</th>
 						<th scope="col" id="product" class="manage-column column-product">Product</th>
-						<th scope="col" id="client" class="manage-column column-client-info">Client Info</th>	
-						<th scope="col" id="client" class="manage-column column-client-info">Contact Info</th>	
-						<th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>	
-						<th scope="col" id="status" class="manage-column column-status-info">Status</th>	
+						<th scope="col" id="client" class="manage-column column-client-info">Client Info</th>
+						<th scope="col" id="client" class="manage-column column-client-info">Contact Info</th>
+						<th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>
+						<th scope="col" id="status" class="manage-column column-status-info">Status</th>
 					</tr>
 				</thead>
 				<tbody id="the-list">';
 
 				$user_id = get_current_user_id();
 				$supplier_id = get_user_meta($user_id, 'supplier_id');
-                 
+
 
 				if ( $the_query->have_posts() ) {
 					while ( $the_query->have_posts() ) : $the_query->the_post();
 	      				$order = wc_get_order( get_the_ID() );
+								$new_order_id = $order->get_order_number();
 	      				$items = $order->get_items();
 	      				$fake_ajax_url = wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&return='.admin_url().'&orderid=' . get_the_ID() . '&supplierid=' . @$supplier_id[0]), 'woocommerce_dropshippers_mark_as_shipped' );
 	      				$upload_dir = wp_get_upload_dir();
-	      				$pdfpath =$upload_dir['baseurl'].'/'.get_the_ID().'/'.get_the_ID().'_'.$term->slug.'.pdf';
-	      				
-	      				$dropshipper_shipping_info = get_post_meta(get_the_ID(), 'dropshipper_shipping_info_'.get_current_user_id(), true);
+	      				$pdfpath =$upload_dir['baseurl'].'/'.$new_order_id.'/'.$new_order_id.'_'.$term->slug.'.pdf';
+
+	      				$dropshipper_shipping_info = get_post_meta($new_order_id, 'dropshipper_shipping_info_'.get_current_user_id(), true);
 						if(!$dropshipper_shipping_info){
 							$dropshipper_shipping_info = array(
 								'date' => '',
@@ -189,18 +190,18 @@ function dropshipper_order_list() {
 								'notes' => ''
 							);
 						}
-								
+
 							/*	$ds = wc_dropshipping_get_dropship_supplier_by_product_id( intval( $item['product_id'] ) );
 								if ($ds['order_email_addresses'] == $uemail) {*/
 									//$product = $order->get_product_from_item( $item );
-									
+
 									//$prod_info = WC_Dropshipping_Orders::get_order_product_info($item,$product);
 
-								
-							
-	      				
 
-					   echo '<tr><td class="id column-id" data-colname="id">'.get_the_ID().'</td>
+
+
+
+					   echo '<tr><td class="id column-id" data-colname="id">'.$new_order_id.'</td>
 						<td class="date column-date" data-colname="date">'.get_the_date().'</td>';
 
 						echo '<td class="product column-product" data-colname="product">';
@@ -211,7 +212,7 @@ function dropshipper_order_list() {
 							echo '<p>'. $product_name = $item->get_name(). '</p>';
 									}
 								}
-						}	
+						}
 						echo '</td>
 
 						<td class="client column-client" data-colname="client">'. $order->get_formatted_shipping_address() .'</td>
@@ -222,20 +223,20 @@ function dropshipper_order_list() {
 							<p>Shipping Company: '.$dropshipper_shipping_info['shipping_company'].'</p>
 							<p>Notes: '.$dropshipper_shipping_info['notes'].'</p>
 							<br>
-							<button id="open_dropshipper_dialog_'.get_the_ID().'" class="button button-primary" onclick="open_dropshipper_dialog('.get_the_ID().')" style="margin-top:2px">Edit Shipping Info</button>
+							<button id="open_dropshipper_dialog_'.$new_order_id.'" class="button button-primary" onclick="open_dropshipper_dialog('.$new_order_id.')" style="margin-top:2px">Edit Shipping Info</button>
 						</td>
 						<td class="status column-status" data-colname="status">'. $order->get_status().'<br>';
 							if($order->get_status() != 'completed') {
-							echo '<a id="mark_dropshipped_'.get_the_ID().'" class="button button-primary" href="'.$fake_ajax_url.'" style="margin-top:2px">Mark as Complete</a>
+							echo '<a id="mark_dropshipped_'.$new_order_id.'" class="button button-primary" href="'.$fake_ajax_url.'" style="margin-top:2px">Mark as Complete</a>
 							<br>';
 						}
-						echo '<a href="'.$pdfpath.'" target="blank" id="print_slip_'.get_the_ID().'" class="button button-primary" style="margin-top:2px">Download packing slip</a>
+						echo '<a href="'.$pdfpath.'" target="blank" id="print_slip_'.$new_order_id.'" class="button button-primary" style="margin-top:2px">Download packing slip</a>
 						</td></tr>';
 
 							/*}*/
-						
+
 					endwhile;
-					} 
+					}
 				wp_reset_postdata();
 
 			echo '</tbody>
@@ -244,17 +245,17 @@ function dropshipper_order_list() {
 						<th scope="col" id="id" class="manage-column column-id column-primary sortable desc">ID</th>
 						<th scope="col" id="date" class="manage-column column-date">Date</th>
 						<th scope="col" id="product" class="manage-column column-product">Product</th>
-						<th scope="col" id="client" class="manage-column column-client-info">Client Info</th>	
-						<th scope="col" id="client" class="manage-column column-client-info">Contact Info</th>	
-						<th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>	
-						<th scope="col" id="status" class="manage-column column-status-info">Status</th>	
+						<th scope="col" id="client" class="manage-column column-client-info">Client Info</th>
+						<th scope="col" id="client" class="manage-column column-client-info">Contact Info</th>
+						<th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>
+						<th scope="col" id="status" class="manage-column column-status-info">Status</th>
 					</tr>
 				</tfoot>
 			</table>
 		</div>';
 
 	echo '<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
-			
+
 
 			<div id="input-dialog-template" style="display:none">
 				<label for="input-dialog-date"><label for="input-dialog-date">Date</label></label>
@@ -268,34 +269,35 @@ function dropshipper_order_list() {
 			</div>'	;
 
 }
-if(@$_GET['success'] == 'no'){
 
-  	echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-		<!-- Modal -->
-		<div class="modal" id="complete_order_mark_Modal">
-		    <div class="modal-dialog">
-		      <div class="modal-content">
-		      
-		        <!-- Modal Header -->
-		        <div class="modal-header">
-		          <h4 class="modal-title"></h4>
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        </div>
-		        
-		        <!-- Modal body -->
-		        <div class="modal-body">
-		          Thank you for completing this order. It will be under process untill all other dropshippers mark this order as
-		          complete.
-		        </div>
-		        
-		        <!-- Modal footer -->
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-		        </div>
-		        
-		      </div>
-		    </div>
-		</div>';
+if (isset($_GET['success'])){
+	if(@$_GET['success'] == 'no'){
+
+	  	echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+			<!-- Modal -->
+			<div class="modal" id="complete_order_mark_Modal">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+
+			        <!-- Modal Header -->
+			        <div class="modal-header">
+			          <h4 class="modal-title"></h4>
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        </div>
+
+			        <!-- Modal body -->
+			        <div class="modal-body">
+			          Thank you for completing this order. It will be under process untill all other dropshippers mark this order as
+			          complete.
+			        </div>
+
+			        <!-- Modal footer -->
+			        <div class="modal-footer">
+			          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			        </div>
+
+			      </div>
+			    </div>
+			</div>';
+	}
 }
-
-

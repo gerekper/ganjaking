@@ -100,13 +100,13 @@ return array(
 	'social'      => array(
 		'title'  => esc_html__( 'Social', 'groovy-menu' ),
 		'fields' => array(
-			'social_set_nofollow'   => array(
+			'social_set_nofollow' => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Set social links rel as [ nofollow noopener ]', 'groovy-menu' ),
 				'description' => esc_html__( 'Rel "nofollow" is used by search engines, to specify that the Google search spider should not follow that link. Rel "noopener" requires that any browsing context created by following the hyperlink must not have an opener browsing context. Most people create external links as target="_blank" and don’t know one thing that the page get in this way will gain partial control over the page that links to it through the js window.opener property. Rel "noopener" prevents this behavior.', 'groovy-menu' ),
 				'default'     => false,
 			),
-			'social_set_blank'      => array(
+			'social_set_blank'    => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Set social links target as [ _blank ]', 'groovy-menu' ),
 				'description' => esc_html__( 'Opens the linked social in a new window or tab.', 'groovy-menu' ),
@@ -439,9 +439,11 @@ return array(
 		'title'  => esc_html__( 'Icon packs', 'groovy-menu' ),
 		'fields' => array(
 			'icons' => array(
-				'type'    => 'icons',
-				'title'   => esc_html__( 'Icons', 'groovy-menu' ),
-				'default' => '',
+				'type'        => 'icons',
+				'title'       => esc_html__( 'Icons', 'groovy-menu' ),
+				'default'     => '',
+				'description' => sprintf( esc_html__( 'Please upload .ZIP archive created with %1$s service only.', 'groovy-menu' ), '<a href="https://icomoon.io/app/#/select" title="icomoon.io" target="_blank">icomoon.io</a>' ) . ' ' .
+				                 sprintf( esc_html__( 'How to create font icon package read in %1$s this article %2$s', 'groovy-menu' ), '<a href="https://grooni.com/docs/groovy-menu/global-settings/managing-icon-packs/" title="Grooni docs" target="_blank">', '</a>' ),
 			),
 		),
 	),
@@ -459,7 +461,7 @@ return array(
 	'tools'       => array(
 		'title'  => esc_html__( 'Tools', 'groovy-menu' ),
 		'fields' => array(
-			'wrapper_tag'                 => array(
+			'wrapper_tag'                     => array(
 				'title'   => esc_html__( 'Wrapper HTML tag for Groovy Menu', 'groovy-menu' ),
 				'type'    => 'select',
 				'options' => array(
@@ -468,37 +470,37 @@ return array(
 				),
 				'default' => 'header',
 			),
-			'admin_walker_priority'       => array(
+			'admin_walker_priority'           => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Toggle visibility of Groovy menu settings at Appearance &gt; Menus', 'groovy-menu' ),
 				'default'     => false,
 				'description' => esc_html__( 'The theme or another plugin can override the visibility of the Groovy menu settings at Appearance &gt; Menus. To show up Groovy menus settings instead, use this option.', 'groovy-menu' ),
 			),
-			'display_gm_when_menu_block_edit'       => array(
+			'display_gm_when_menu_block_edit' => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Enable displaying the Groovy menu layout into Menu blocks post type', 'groovy-menu' ),
 				'default'     => false,
-				'description' => esc_html__('Is also apply to not public post types', 'groovy-menu' ),
+				'description' => esc_html__( 'Is also apply to not public post types', 'groovy-menu' ),
 			),
-			'google_fonts_local'          => array(
+			'google_fonts_local'              => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Use local google fonts', 'groovy-menu' ),
 				'default'     => false,
 				'description' => esc_html__( 'For presets settings. When turning on, the Google fonts will be connected from local upload folder. Turning off option for use the Google CDN service.', 'groovy-menu' ),
 			),
-			'disable_local_font_awesome' => array(
+			'disable_local_font_awesome'      => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Disable Font Awesome', 'groovy-menu' ),
 				'default'     => false,
 				'description' => esc_html__( 'Disable loading Font Awesome from Groovy menu at the front-end side of the site', 'groovy-menu' ),
 			),
-			'allow_import_online_library' => array(
+			'allow_import_online_library'     => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Allow fetching presets from online library', 'groovy-menu' ),
 				'default'     => false,
 				'description' => '',
 			),
-			'uninstall_data'              => array(
+			'uninstall_data'                  => array(
 				'type'        => 'checkbox',
 				'title'       => '<span class="gm-delete-warn">' . esc_html__( 'Remove All Data after uninstall', 'groovy-menu' ) . '</span>',
 				'default'     => false,

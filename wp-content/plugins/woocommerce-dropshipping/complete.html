@@ -47,7 +47,7 @@
 
 	<!-- Table for mail top header -->
 
-	
+
 
 	<table class="ordernum_date" border="0" align="center" style="width:180mm; <?php echo $base_color1; ?>" cellpadding="5" cellspacing="0"  >
 
@@ -55,21 +55,21 @@
 
 			<td align="center">
 
-				<h2 style="color: #fff;">[<?php echo 'Order #'.$order_info['id'] .' is completed'; ?>]
+				<h2 style="color: #fff;">[<?php echo 'Order #'.$order_info['custom_order_number'] .' is completed'; ?>]
 
-					<span> 
+					<span>
 
-						<?php if($order_info['options']['order_date'] == '1' && $order_info['options']['full_information'] == '1') {  ?> 
+						<?php if($order_info['options']['order_date'] == '1' && $order_info['options']['full_information'] == '1') {  ?>
 
 
 
-							(<?php echo date('F d,Y');  ?>) 
+							(<?php echo date('F d,Y');  ?>)
 
 						<?php } else { ?>
 
 							(<?php echo date('F d,Y');  ?>)
 
-						<?php }?> 
+						<?php }?>
 
 					</span>
 
@@ -85,11 +85,11 @@
 
      			<h2 style="color: #fff;">
 
-					<?php if($supplier_info['account_number']) { 
+					<?php if($supplier_info['account_number']) {
 
 						echo 'Supplier Account #'.$supplier_info['account_number'];}
 
-				    else{ 
+				    else{
 
 				    }?>
 
@@ -97,7 +97,7 @@
 
 			</td>
 
-		</tr>     
+		</tr>
 
 	</table>
 
@@ -140,32 +140,32 @@
 							echo @$order_info['options']['dropship_chosen_shipping_method'].':';
 							}
 
-							else{ 
+							else{
 
 								echo 'Chosen Shipping Method:';
 
-							}?> 
+							}?>
 
 								<?php echo @$order_info['shipping_info']['shipping_method']; ?></td>
 
 					</tr>
 
-	            <?php }   
+	            <?php }
 
 
 
 	            if( $order_info['options']['full_information'] == '1') { ?>
-				
+
 					<?php if( ($order_info['options']['show_pay_type'] == '1') || ($order_info['options']['show_pay_type'] == '') ) { ?>
 						<tr>
-						
+
 							<td class="payment_type" colspan="3" style="<?php echo $body_text_color; ?>">
 
-								<?php if($order_info['options']['dropship_payment_type']) { 
+								<?php if($order_info['options']['dropship_payment_type']) {
 
 									echo @$order_info['options']['dropship_payment_type'].':';
 
-								} else { 
+								} else {
 
 									echo 'Payment Type :';
 
@@ -187,7 +187,7 @@
 
 									echo @$order_info['options']['dropship_payment_type'].':';
 
-								} else { 
+								} else {
 
 									echo 'Payment Type :';
 
@@ -206,13 +206,13 @@
 						<?php if($order_info['options']['customer_note'] == '1') {
 
 							echo "Customer Order Note : " .$order_info['customer_note'];
-						}?> 
+						}?>
 
 					</td>
 
 				</tr>
 
-	        </tbody>        
+	        </tbody>
 
 	    </table>
 
@@ -246,19 +246,19 @@
 
 								'meta_value'	=>	$supplier_id
 
-							);	
+							);
 
 					$user_query = new WP_User_Query($arg);
 
 					$authors = $user_query->get_results();
 
-					
+
 
 					foreach ($authors as $author)  {
 
 						$arrayuser[] = $author->ID;
 
-				    }		
+				    }
 
 				}
 
@@ -295,7 +295,7 @@
 
 					<table><tr><td></td></tr></table>
 
-				<?php } 
+				<?php }
 
 			}
 
@@ -321,7 +321,7 @@
 	            	<!-- For Image Title -->
 
 
-	            	<?php if( $order_info['options']['full_information'] == '1' ) { 
+	            	<?php if( $order_info['options']['full_information'] == '1' ) {
 
 	            		if($order_info['options']['product_image'] == '1') {
 
@@ -329,7 +329,7 @@
 
 	            				<th border="0" align="left">
 
-	            					<b><u>         			
+	            					<b><u>
 
 	            						<?php echo @$order_info['options']['dropship_image']; ?>
 
@@ -341,7 +341,7 @@
 
 		            			<th border="0" align="left">
 
-		            				<b><u>            		
+		            				<b><u>
 
 	            						<?php echo 'Image'; ?>
 
@@ -349,7 +349,7 @@
 
 	                			</th>
 
-	            			<?php } 
+	            			<?php }
 
 	            		}
 
@@ -375,7 +375,7 @@
 
 	            				<th border="0" align="left">
 
-	            					<b><u>         			
+	            					<b><u>
 
 	            						<?php echo 'Image'; ?>
 
@@ -383,9 +383,9 @@
 
 	            				</th>
 
-		            		<?php } 
+		            		<?php }
 
-	            		} 
+	            		}
 
 	            	}?>	<!-- For Image Title End -->
 
@@ -458,16 +458,16 @@
 	                		</th>
 
 	                	<?php } ?>
-						
+
 						<!-- For Type of package Title -->
 
-						<?php if($order_info['options']['full_information'] == '1') { 
+						<?php if($order_info['options']['full_information'] == '1') {
 
 							if($order_info['options']['type_of_package'] == '1') {
 
 								if(!empty($order_info['options']['type_of_package_conversion'])) { ?>
 
-									
+
 									<th border="0" align="center">
 
 										<b><u>
@@ -488,13 +488,13 @@
 
 											</u></b>
 
-										</th> 
+										</th>
 
 								<?php }
 
-	                		} 
+	                		}
 
-						} else { 
+						} else {
 
 							if($order_info['options']['type_of_package'] == '1') {
 
@@ -520,18 +520,18 @@
 
 										</u></b>
 
-									</th> 
+									</th>
 
 								<?php }
 
-							} 
+							}
 
 						} ?> <!-- For type_of_package End-->
 
 
 	                <!-- For Price Title -->
 
-                	<?php if($order_info['options']['full_information'] == '1') { 
+                	<?php if($order_info['options']['full_information'] == '1') {
 
 	                	if($order_info['options']['product_price'] == '1') {
 
@@ -559,13 +559,13 @@
 
 		                		 	</u></b>
 
-		                		</th> 
+		                		</th>
 
 	                		<?php }
 
 	                	}
-							
-	            	} else { 
+
+	            	} else {
 
 	            		if($order_info['options']['product_price'] == '1') {
 
@@ -591,13 +591,13 @@
 
 	                				</u></b>
 
-                				</th> 
+                				</th>
 
-	                		
+
 
 		            		<?php }
 
-		            	} 
+		            	}
 
 		            } ?> <!-- For Price Title End-->
 
@@ -607,7 +607,7 @@
 
 	        <tbody border="0" style="<?php echo $body_text_color; ?>  <?php echo $body_bkg_color; ?>">
 
-			<?php 
+			<?php
 
 				$rows = '';
 
@@ -619,10 +619,12 @@
 					$order_data = $order->get_data();
 					$imgurl = $prod_info['imgurl'];
 
+					$ali_image = $prod_info['ali_image'];
+
 					$dummyimg = plugin_dir_url( __FILE__ ).'no.png';
 
 					$price = $prod_info['price'];
-					
+
 					$typeofpackage = $prod_info['typeofpackage'];
 
 					$currency_sym= get_woocommerce_currency_symbol();
@@ -631,19 +633,23 @@
 
 					$order_total_tax = $order_data['total_tax'];
 
-					
+
 					$rows .= '<tr border="0" style="'.$body_text_color.' '.$body_bkg_color.'">';
 
 
 
-						if($order_info['options']['full_information'] == '1') { 
+						if($order_info['options']['full_information'] == '1') {
 
 							if($order_info['options']['product_image'] == '1') {
 
-							
+
 								if($imgurl !='') {
 
 									$rows.='<td align="center"><img class="p_image" src="'.$imgurl.'"/></td>';
+
+								} elseif ($ali_image != ''){
+
+									$rows.='<td align="center"><img width="250" class="p_image" src="'.$ali_image.'"/></td>';
 
 								} else {
 
@@ -663,6 +669,10 @@
 
 									$rows.='<td align="center"><img class="p_image" src="'.$imgurl.'"/></td>';
 
+								} elseif ($ali_image != ''){
+
+									$rows.='<td align="center"><img width="250" class="p_image" src="'.$ali_image.'"/></td>';
+
 								} else {
 
 									$rows.='<td align="center"><img class="p_image" src="'.$dummyimg.'"/></td>';
@@ -679,11 +689,11 @@
 
 						<td align="left" >'.$prod_info['variation_name'].'<br/>';
 
-					
+
 
 						$rows .= ' '.$prod_info['variation_labels'];
 
-					
+
 
 					foreach($prod_info['order_item_meta'] as $meta)
 
@@ -700,16 +710,16 @@
 
 
 					<td align="center">'.$prod_info['qty'].'</td>';
-					
-					
-					
-					if($order_info['options']['full_information'] == '1') { 
+
+
+
+					if($order_info['options']['full_information'] == '1') {
 
 
 
 						if($order_info['options']['type_of_package'] == '1') {
 
-								
+
 							$rows .= '<td align="center">'.$typeofpackage.'</td>';
 						}
 
@@ -719,22 +729,22 @@
 
 						if($order_info['options']['type_of_package'] == '1') {
 
-								
+
 							$rows .= '<td align="center">'.$typeofpackage.'</td>';
 						}
 
 					}
 
-					
-					
 
-					if($order_info['options']['full_information'] == '1') { 
+
+
+					if($order_info['options']['full_information'] == '1') {
 
 
 
 						if($order_info['options']['product_price'] == '1') {
 
-							
+
 							$rows .= '<td align="center">'.$price.'</td>';
 						}
 
@@ -744,7 +754,7 @@
 
 						if($order_info['options']['product_price'] == '1') {
 
-							
+
 							$rows .= '<td align="center">'.$price.'</td>';
 						}
 
@@ -752,21 +762,21 @@
 
 					$rows .='</tr>';
 
-					
+
 
 					if($order_info['options']['cost_of_goods'] == '0') {
-					
+
 						$rows .= '<tr border="0" style="'.$body_text_color.' '.$body_bkg_color.'">';
 
 
-						if($order_info['options']['full_information'] == '1') { 
+						if($order_info['options']['full_information'] == '1') {
 
 								if($order_info['options']['cost_of_goods'] == '0') {
 
 									$rows .= '<td align="right" colspan="5">Shipping Cost</td>';
 
 									$rows .= '<td align="center">'.$currency_sym.$get_shipping_total.'</td>';
-													
+
 								}
 
 							} else {
@@ -790,14 +800,14 @@
 						$rows .= '<tr border="0" style="'.$body_text_color.' '.$body_bkg_color.'">';
 
 
-						if($order_info['options']['full_information'] == '1') { 
+						if($order_info['options']['full_information'] == '1') {
 
 								if($order_info['options']['cost_of_goods'] == '0') {
 
 									$rows .= '<td align="right" colspan="5">Taxes</td>';
 
 									$rows .= '<td align="center">'.$currency_sym.$order_total_tax.'</td>';
-													
+
 								}
 
 
@@ -820,7 +830,7 @@
 					}
 				}
 				echo $rows;
-				
+
 
 			?>
 
@@ -836,7 +846,7 @@
 
 	   <!-- Billing and Shipping Address -->
 
-	   <?php 
+	   <?php
 
 		   	$billing_add = get_post_meta($order_info['id'], '_billing_address', true);
 
@@ -852,7 +862,7 @@
 
 				<tr style="<?php echo $body_text_color; ?> <?php echo $body_bkg_color; ?>">
 
-				    
+
 
 				    <td width="30%">
 
@@ -943,7 +953,7 @@
 
 									<td width="100%" align="left" style="<?php echo $base_color2; ?>">
 
-										<b><?php if($order_info['options']['dropship_shipping_address_email']) { 
+										<b><?php if($order_info['options']['dropship_shipping_address_email']) {
 
 											echo $order_info['options']['dropship_shipping_address_email'];}
 
@@ -958,18 +968,18 @@
 									<td width="100%" align="left">
 
 										<?php echo @$shipping_add .'<br />';  ?>
-										
+
 
 										<?php if(@$order_info['options']['billing_phone'] == '1' ) {
 
-											echo @$order_info['shipping_info']['billing_phone'].'<br />'; 
+											echo @$order_info['shipping_info']['billing_phone'].'<br />';
 
 										} ?>
 									</td>
-								</tr>  
+								</tr>
 							</table>
 
-					    <?php 
+					    <?php
 
 						} ?>
 
@@ -980,7 +990,7 @@
 				<tr>
 				  	<td width="100%;" colspan="5" align="left">
 
-					  	<?php if($order_info['options']['dropship_additional_comment']) {				  	 
+					  	<?php if($order_info['options']['dropship_additional_comment']) {
 
 							echo @$order_info['options']['dropship_additional_comment'];
 
@@ -990,7 +1000,7 @@
 
 				</tr>
 
-	        </tbody> 
+	        </tbody>
 
 	    </table>
 
@@ -1071,7 +1081,7 @@
 
 												echo 'Billing Address';
 
-											}?>	
+											}?>
 
 										</b>:
 
@@ -1085,7 +1095,7 @@
 
 										<?php echo @$billing_add ?><br />
 
-										<?php echo @$order_info['billing_info']['phone']; ?><br />					
+										<?php echo @$order_info['billing_info']['phone']; ?><br />
 
 										<?php echo @$order_info['billing_info']['billing_email']; ?><br />
 
@@ -1099,11 +1109,11 @@
 
 						</td>
 
-						
+
 
 						<td width="5%">&nbsp;</td>
 
-						
+
 
 						<td width="30%">
 
@@ -1115,15 +1125,15 @@
 
 										<td width="100%" align="left" style="<?php echo $base_color2; ?>">
 
-											<b><?php if($order_info['options']['dropship_shipping_address_email']) { 
+											<b><?php if($order_info['options']['dropship_shipping_address_email']) {
 
 												echo $order_info['options']['dropship_shipping_address_email'];
 
-												} else { 
+												} else {
 
 													echo 'Shipping Address';
 
-												}?>	
+												}?>
 
 											</b>:
 
@@ -1137,17 +1147,17 @@
 
 											<?php echo @$shipping_add; ?><br /><br />
 
-											<?php if($order_info['options']['billing_phone'] == '1' ) 
+											<?php if($order_info['options']['billing_phone'] == '1' )
 
 											{ echo @$order_info['shipping_info']['billing_phone'].'<br /><br />'; } ?>
 
 										</td>
 
-									</tr>  
+									</tr>
 
 								</table>
 
-							<?php 
+							<?php
 
 							} ?>
 
@@ -1158,7 +1168,7 @@
 					<tr>
 						<td width="100%;" colspan="5" align="left">
 
-							<?php if($order_info['options']['dropship_additional_comment']) {				  	 
+							<?php if($order_info['options']['dropship_additional_comment']) {
 
 								echo @$order_info['options']['dropship_additional_comment'];
 
@@ -1167,7 +1177,7 @@
 						</td>
 					</tr>
 
-				</tbody> 
+				</tbody>
 
 			</table>
 
@@ -1179,7 +1189,7 @@
 
 	</td></tr></table>
 
-	
+
     <h4 align="center" style="<?php echo $body_text_color; ?>">
 
         <?php echo 'Thank you!'; ?>

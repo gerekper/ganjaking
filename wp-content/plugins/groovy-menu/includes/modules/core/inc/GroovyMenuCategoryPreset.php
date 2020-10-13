@@ -16,8 +16,29 @@ class GroovyMenuCategoryPreset {
 	 * @param $taxanonies
 	 */
 	public function __construct( $taxanonies ) {
-		$this->taxanomies = $taxanonies;
-		foreach ( $taxanonies as $tax ) {
+		global $gm_supported_module;
+
+		if ( ! is_array( $taxanonies ) ) {
+			$taxanonies = array();
+		}
+
+		if ( ! empty( $taxanonies ) && is_array( $taxanonies ) ) {
+			foreach ( $taxanonies as $tax ) {
+				if ( empty( $this->taxanomies[ $tax ] ) ) {
+					$this->taxanomies[ $tax ] = $tax;
+				}
+			}
+		}
+
+		if ( ! empty( $gm_supported_module['categories'] ) && is_array( $gm_supported_module['categories'] ) ) {
+			foreach ( $gm_supported_module['categories'] as $category ) {
+				if ( empty( $this->taxanomies[ $category ] ) ) {
+					$this->taxanomies[ $category ] = $category;
+				}
+			}
+		}
+
+		foreach ( $this->taxanomies as $tax ) {
 			add_action( $tax . '_edit_form_fields', array( $this, 'fields' ), 20 );
 			add_action( 'edited_' . $tax, array( $this, 'save' ) );
 		}

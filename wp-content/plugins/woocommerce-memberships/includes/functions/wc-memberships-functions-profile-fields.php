@@ -300,7 +300,7 @@ function wc_memberships_get_profile_fields_area_query_var() {
 function wc_memberships_get_profile_fields_area_endpoint() {
 
 	if ( get_option( 'permalink_structure' ) ) {
-		$endpoint = (string) get_option( 'woocommerce_myaccount_profile_fields_area_endpoint', 'profile' );
+		$endpoint = (string) get_option( 'woocommerce_myaccount_profile_fields_area_endpoint', 'my-profile' );
 	} else {
 		$endpoint = wc_memberships_get_profile_fields_area_query_var();
 	}

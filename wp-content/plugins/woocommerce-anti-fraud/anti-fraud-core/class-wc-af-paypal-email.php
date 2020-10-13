@@ -41,9 +41,6 @@ class WC_AF_Paypal_Email extends WC_Email {
 		$this->subject = get_option('wc_settings_anti_fraud_paypal_email_subject');
 		$this->heading = __( 'PayPal Verification notification of order #{order_id}', 'woocommerce-anti-fraud' );
 
-		// Set recipients
-		$this->recipient = apply_filters( 'wc_anti_fraud_email_recipient', $this->order->get_billing_email() );
-
 		// Set the template base path
 		$this->template_base = plugin_dir_path( WooCommerce_Anti_Fraud::get_plugin_file() ) . 'templates/';
 
@@ -67,6 +64,19 @@ class WC_AF_Paypal_Email extends WC_Email {
 
 		// All checks are done, initialize the object
 		$this->init();
+
+		// for paypal email
+		$order_ids = $this->order->get_order_number();
+		$payment_method = get_post_meta( $order_ids, '_payment_method', true );
+		// Set recipients
+		if($payment_method == 'ppec_paypal'){
+
+			$this->recipient = get_post_meta( $order_ids, '_paypal_express_payer_email', true);
+
+		} else {
+
+			$this->recipient = get_post_meta( $order_ids, '_paypal_payer_email', true);
+		}
 
 		// Add the 'woocommerce_locate_template' filter so we can load our plugin template file
 		add_filter( 'woocommerce_locate_template', array( $this, 'load_plugin_template' ), 10, 3 );

@@ -3,9 +3,9 @@
  * Plugin Name: WooCommerce Store Catalog PDF Download
  * Plugin URI: https://woocommerce.com/products/woocommerce-store-catalog-pdf-download/
  * Description: A WooCommerce plugin/extension that adds ability for users to download a PDF of your store catalog.
- * Version: 1.10.26
+ * Version: 1.10.27
  * WC requires at least: 2.6
- * WC tested up to: 4.2
+ * WC tested up to: 4.4
  * Tested up to: 5.5
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
@@ -60,7 +60,7 @@ function deactivate_woocommerce_store_catalog_pdf_download() {
 
 if ( ! class_exists( 'WC_Store_Catalog_PDF_Download' ) ) :
 
-	define( 'WC_STORE_CATALOG_PDF_DOWNLOAD_VERSION', '1.10.26' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_STORE_CATALOG_PDF_DOWNLOAD_VERSION', '1.10.27' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main class.

@@ -164,6 +164,8 @@ class Frontend {
         add_filter( 'pm_check_task_filter_list_permission', 'pm_pro_task_filter_list_permission', 10, 2 );
         add_filter( 'pm_task_join', 'pm_pro_task_join', 10 );
         add_filter( 'pm_task_where', 'pm_pro_task_where', 10, 2 );
+
+        add_filter( 'pm_access_capabilities', 'pm_pro_menu_access_capabilities' );
     }
 
     /**

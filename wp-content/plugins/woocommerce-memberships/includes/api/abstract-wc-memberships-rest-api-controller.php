@@ -41,6 +41,9 @@ abstract class Controller extends \WC_REST_Posts_Controller {
 	/** @var string REST API object name (e.g. Membership Plan or User Membership) */
 	protected $object_name;
 
+	/** @var string default datetime format for datetime payload properties */
+	protected $datetime_format = 'Y-m-d\TH:i:s';
+
 
 	/**
 	 * Memberships object REST API controller constructor.
@@ -397,6 +400,19 @@ abstract class Controller extends \WC_REST_Posts_Controller {
 		}
 
 		return $formatted;
+	}
+
+
+	/**
+	 * Gets the date format to be used in datetime properties.
+	 *
+	 * @since 1.19.1
+	 *
+	 * @return string
+	 */
+	protected function get_datetime_format() {
+
+		return $this->datetime_format;
 	}
 
 

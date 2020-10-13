@@ -14,7 +14,7 @@ class WC_AF_Rule_High_Amount extends WC_AF_Rule {
 		$this->is_enabled  =  get_option('wc_af_order_amount_check');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_order_amount_weight');
 		$this->amount      = get_option('wc_settings_anti_fraud_amount_limit'); 
-		parent::__construct( 'high_amount', sprintf( 'Order has more amount as specified.' ),$this->rule_weight );
+		parent::__construct( 'high_amount', sprintf( 'Order exceeds maximum amount.' ),$this->rule_weight );
 	}
 
 	/**

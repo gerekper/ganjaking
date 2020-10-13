@@ -78,7 +78,7 @@ final class THEMECOMPLETE_EPO_CP_composite {
 
 		if ( ( $product_type == 'bto' || $product_type == 'composite' )
 		     && ! THEMECOMPLETE_EPO_API()->is_valid_options( $has_epo )
-		     && TMEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all != "yes"
+		     && THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all != "yes"
 		) {
 
 			// search components for options

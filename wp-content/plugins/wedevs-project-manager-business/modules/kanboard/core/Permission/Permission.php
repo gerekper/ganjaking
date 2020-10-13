@@ -8,9 +8,9 @@ use WP_REST_Request;
 use WeDevs\PM\Common\Models\Boardable;
 
 class Kanboard extends Abstract_Permission {
-    
+
     public function check() {
-    	
+
     	$board_id   = $this->request->get_param( 'board_id' );
         $project_id = $this->request->get_param( 'project_id' );
         $task_id    = $this->request->get_param( 'task_id' );
@@ -21,7 +21,7 @@ class Kanboard extends Abstract_Permission {
             ->first();
 
         if ( $has_task ) {
-        
+
             return new \WP_Error( 'time_status', __( "This task already exist in this board", "pm" ) );
         }
 

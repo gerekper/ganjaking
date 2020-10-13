@@ -28,9 +28,10 @@ class WC_OD_Time_Frame extends WC_OD_Shipping_Methods_Data {
 	 * @var array
 	 */
 	protected $data = array(
-		'title'     => '',
-		'time_from' => '',
-		'time_to'   => '',
+		'title'            => '',
+		'time_from'        => '',
+		'time_to'          => '',
+		'number_of_orders' => 0,
 	);
 
 	/**
@@ -99,6 +100,17 @@ class WC_OD_Time_Frame extends WC_OD_Shipping_Methods_Data {
 		return $this->get_prop( 'time_to' );
 	}
 
+	/**
+	 * Gets the number of orders.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return int
+	 */
+	public function get_number_of_orders() {
+		return $this->get_prop( 'number_of_orders' );
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Setters
@@ -147,5 +159,16 @@ class WC_OD_Time_Frame extends WC_OD_Shipping_Methods_Data {
 	 */
 	public function set_time_to( $time_to ) {
 		$this->set_prop( 'time_to', $time_to );
+	}
+
+	/**
+	 * Sets the number of orders.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param int $number_of_orders The number of orders.
+	 */
+	public function set_number_of_orders( $number_of_orders ) {
+		$this->set_prop( 'number_of_orders', $number_of_orders );
 	}
 }

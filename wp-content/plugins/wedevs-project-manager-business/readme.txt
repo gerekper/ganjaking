@@ -121,6 +121,19 @@ A. Found any bugs? Please create an [issue](https://github.com/tareq1988/wp-proj
 
 == Changelog ==
 
+= v2.5.3 - Oct 08, 2020 =
+
+* **New** Add new permission for individual user.
+* **Update** Remove 'Project manager capability' from settings.
+* **Update** Remove 'Project create capability' from settings.
+* **Update** Task recurrence has been changed completely.
+* **Fix** User was landed on Kanban board by default and can not move to task list.
+* **Fix** When user go to archive it does not show in archive list that has been archived before.
+* **Fix** Pusher notification is not working for private task.
+* **Fix** ERP department’s users were not assigned the project automatically.
+* **Fix** Co-worker can not change the subtask as a task. Even the co-worker is the creator of that task.
+* **Fix** In kanban board user was not able to import single task.
+
 = v2.5.2 - Sep 10, 2020 =
 
 **Fix** After moving subtask, task estimation time does not updated in real time.

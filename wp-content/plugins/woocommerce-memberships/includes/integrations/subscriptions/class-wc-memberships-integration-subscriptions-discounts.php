@@ -60,7 +60,7 @@ class WC_Memberships_Integration_Subscriptions_Discounts {
 		add_filter( 'wc_memberships_price_adjustments_filter_priority', array( $this, 'adjust_price_filters_priority' ) );
 
 		// if using cart discounts, ensure renewals don't get double discounted
-		add_filter( 'wc_memberships_is_user_eligible_for_member_discounts', [ $this, 'disable_cart_discounts_for_renewals' ] );
+		add_filter( 'wc_memberships_exclude_product_from_member_discounts', [ $this, 'disable_cart_discounts_for_renewals' ], 999, 2 );
 	}
 
 
@@ -280,21 +280,42 @@ class WC_Memberships_Integration_Subscriptions_Discounts {
 
 
 	/**
-	 * Ensures that the cart does not contain a renewal to avoid double-discounting.
+	 * Avoids double-discounting when adding a product to cart intended for subscription's renewal.
+	 *
+	 * @internal
 	 *
 	 * @since 1.17.6
 	 *
-	 * @param bool $user_is_eligible whether the user should be eligible for cart discounts
+	 * @param bool $exclude_from_discounts whether the product should be excluded from discounts
+	 * @param null|int|\WC_Product $product the product object or ID (null value is for a legacy version of this callback)
 	 * @return bool
 	 */
-	public function disable_cart_discounts_for_renewals( $user_is_eligible ) {
+	public function disable_cart_discounts_for_renewals( $exclude_from_discounts, $product = null ) {
 
-		if ( $user_is_eligible && function_exists( 'wcs_cart_contains_renewal' ) ) {
+		if ( ! $exclude_from_discounts && \WC_Subscriptions_Product::is_subscription( $product ) && is_user_logged_in() ) {
 
-			$user_is_eligible = ! wcs_cart_contains_renewal();
+			$product_id = $product instanceof \WC_Product ? $product->get_id() : $product;
+
+			foreach ( wcs_get_users_subscriptions( get_current_user_id() ) as $subscription ) {
+
+				foreach ( $subscription->get_items( 'line_item' ) as $line_item ) {
+
+					if ( $line_item instanceof \WC_Order_Item_Product ) {
+
+						$subscription_product    = $line_item->get_product();
+						$subscription_product_id = $subscription_product ? $subscription_product->get_id() : 0;
+
+						if ( $subscription_product_id > 0 && $product_id === $subscription_product_id ) {
+
+							$exclude_from_discounts = true;
+							break 2;
+						}
+					}
+				}
+			}
 		}
 
-		return $user_is_eligible;
+		return $exclude_from_discounts;
 	}
 
 

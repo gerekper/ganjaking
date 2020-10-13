@@ -287,6 +287,15 @@ if ( ! function_exists( 'themecomplete_get_post_meta' ) ) {
 	 */
 	function themecomplete_get_post_meta( $post_id, $meta_key = '', $single = FALSE ) {
 		$meta = FALSE;
+
+		if ( $post_id instanceof WC_PRODUCT ){
+			return $post_id->get_meta( $meta_key, $single );
+		}
+
+		if ( $post_id instanceof WP_Post || ( is_object( $post_id ) && isset( $post_id->ID ) && isset( $post_id->post_type ) && $post_id->post_type !== 'product' ) ) {
+			return get_post_meta( $post_id->ID, $meta_key, $single );
+		}
+
 		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.7', '<' ) ) {
 			$meta = get_post_meta( $post_id, $meta_key, $single );
 		} else {

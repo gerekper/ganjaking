@@ -80,7 +80,8 @@ class WC_Given_Order extends WC_Email {
                 'order'         => $this->object,
                 'email_heading' => $this->get_heading(),
                 'sent_to_admin' => false,
-                'plain_text'    => false
+                'plain_text'    => false,
+                'email'         => $this->recipient,
             ),
             '',
             $this->template_base
@@ -102,7 +103,8 @@ class WC_Given_Order extends WC_Email {
                 'order'         => $this->object,
                 'email_heading' => $this->get_heading(),
                 'sent_to_admin' => false,
-                'plain_text'    => true
+                'plain_text'    => true,
+                'email'         => $this->recipient,
             ),
             '',
             $this->template_base

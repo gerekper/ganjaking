@@ -170,6 +170,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
     }
 
     if(!empty($errors)) {
+      do_action('wp_login_failed', $login, $errors[0]);
       $_REQUEST['errors'] = $errors;
       return;
     }
@@ -295,14 +296,8 @@ class MeprLoginCtrl extends MeprBaseCtrl {
     $user = new MeprUser();
     $user->load_user_data_by_login($mepr_screenname);
 
-    if($user->ID) {
-      if($user->reset_form_key_is_valid($mepr_key)) {
-        MeprView::render('/login/reset_password', get_defined_vars());
-      }
-      else {
-        $errors = array(__('This password reset link has expired. If you have requested a password reset multiple times, please use the link from the latest email received.', 'memberpress'));
-        MeprView::render('/shared/errors', get_defined_vars());
-      }
+    if($user->ID && $user->reset_form_key_is_valid($mepr_key)) {
+      MeprView::render('/login/reset_password', get_defined_vars());
     }
     else {
       MeprView::render('/shared/unauthorized', get_defined_vars());

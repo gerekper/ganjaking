@@ -154,7 +154,7 @@ class THEMECOMPLETE_EPO_WPML_base {
 					return (double) $id;
 				}
 			}
-			if ( $post_type == 'product' ) {
+			if ( $post_type === 'product' ) {
 				$trid = 0;
 				if ( $id ) {
 					global $wpdb;
@@ -187,7 +187,7 @@ class THEMECOMPLETE_EPO_WPML_base {
 				}
 
 				return (double) icl_object_id( $id, 'any', TRUE, $this->get_default_lang() );
-			} elseif ( $post_type == $basetype ) {
+			} elseif ( $post_type === $basetype ) {
 				if ( ! empty( $_GET['tmparentpostid'] ) && ! empty( $_GET['tmaddlang'] )
 				     && ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'add' )
 				) {

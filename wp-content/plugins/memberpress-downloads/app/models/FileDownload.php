@@ -26,11 +26,11 @@ class FileDownload extends lib\BaseModel {
   * @return true|null ValidationException raised on failure
   */
   public function validate() {
-    lib\Validate::not_empty($this->file_id, 'file_id');
-    lib\Validate::is_numeric($this->download_count, 'download_count');
-    lib\Validate::not_empty($this->created_at, 'created_at');
+    // lib\Validate::not_empty($this->file_id, 'file_id');
+    // lib\Validate::is_numeric($this->download_count, 'download_count');
+    // lib\Validate::not_empty($this->created_at, 'created_at');
 
-    return true;
+    // return true;
   }
 
   /**
@@ -39,10 +39,10 @@ class FileDownload extends lib\BaseModel {
   * @return integer id
   */
   public static function create($file_download) {
-    $db = new lib\Db;
-    $attrs = $file_download->get_values();
+    // $db = new lib\Db;
+    // $attrs = $file_download->get_values();
 
-    return $db->create_record($db->file_downloads, $attrs, false);
+    // return $db->create_record($db->file_downloads, $attrs, false);
   }
 
   /**
@@ -50,11 +50,11 @@ class FileDownload extends lib\BaseModel {
   * @return integer id
   */
   private function update() {
-    $db = new lib\Db;
-    $attrs = $this->get_values();
-    $attrs = \array_merge($attrs, array('updated_at' => lib\Utils::ts_to_mysql_date(time())));
+    // $db = new lib\Db;
+    // $attrs = $this->get_values();
+    // $attrs = \array_merge($attrs, array('updated_at' => lib\Utils::ts_to_mysql_date(time())));
 
-    return $db->update_record($db->file_downloads, $this->id, $attrs);
+    // return $db->update_record($db->file_downloads, $this->id, $attrs);
   }
 
   /**
@@ -62,9 +62,9 @@ class FileDownload extends lib\BaseModel {
   * @return integer|false Returns number of rows affected or false
   */
   public function destroy() {
-    $db = new lib\Db;
+    // $db = new lib\Db;
 
-    return $db->delete_records($db->file_downloads, array('id' => $this->id));
+    // return $db->delete_records($db->file_downloads, array('id' => $this->id));
   }
 
     /**
@@ -73,18 +73,18 @@ class FileDownload extends lib\BaseModel {
   * @return integer id
   */
   public function store($validate = true) {
-    if($validate) {
-      $this->validate();
-    }
+    // if($validate) {
+    //   $this->validate();
+    // }
 
-    if(isset($this->id) && (int) $this->id > 0) {
-      $this->update();
-    }
-    else {
-      $this->id = self::create($this);
-    }
+    // if(isset($this->id) && (int) $this->id > 0) {
+    //   $this->update();
+    // }
+    // else {
+    //   $this->id = self::create($this);
+    // }
 
-    return $this->id;
+    // return $this->id;
   }
 
   /**
@@ -93,13 +93,14 @@ class FileDownload extends lib\BaseModel {
   * @return FileDownload
   */
   public static function create_or_increment($file_id) {
-    $file_download = self::get_one(array('file_id' => $file_id));
-    if(!isset($file_download)) {
-      $file_download = new self(array('file_id' => $file_id));
-    }
-    $file_download->increment_download_count();
+    // $file_download = self::get_one(array('file_id' => $file_id));
+    // if(!isset($file_download)) {
+    //   $file_download = new self(array('file_id' => $file_id));
+    // }
 
-    return $file_download;
+    // $file_download->increment_download_count();
+
+    // return $file_download;
   }
 
   /**
@@ -107,7 +108,7 @@ class FileDownload extends lib\BaseModel {
   * @return void
   */
   private function increment_download_count() {
-    $this->download_count += 1;
-    $this->store();
+    // $this->download_count += 1;
+    // $this->store();
   }
 }

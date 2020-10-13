@@ -54,6 +54,8 @@ class MeprRulesHelper
   //Returns Access Rule Operators dropdown
   public static function access_operators_dropdown($type='',$selected='') {
     switch($type) {
+      case 'role':
+      case 'capability':
       case 'membership':
       case 'member':
         $access_operators = MeprRule::mepr_access_operators();
@@ -98,6 +100,9 @@ class MeprRulesHelper
     */
   public static function access_conditions_dropdown($type='', $selected='') {
     switch($type) {
+      case 'role':
+        MeprAppHelper::roles_dropdown("mepr_access_row[condition][]", array($selected), 'mepr-rule-access-condition-input');
+        break;
       case 'membership':
         MeprAppHelper::memberships_dropdown("mepr_access_row[condition][]", array($selected), 'mepr-rule-access-condition-input');
         break;
@@ -112,6 +117,17 @@ class MeprRulesHelper
             data-validation="length"
             data-validation-error-msg="<?php _e('Member Name must be between 1-100 characters', 'memberpress'); ?>"
             data-validation-length="1-100"
+          ></input>
+        <?php
+        break;
+      case 'capability':
+        ?>
+          <input
+            type="text"
+            name="mepr_access_row[condition][]"
+            class="mepr-rule-access-condition-input"
+            value="<?php echo $selected; ?>"
+            placeholder="<?php _e('Enter Capability', 'memberpress'); ?>"
           ></input>
         <?php
         break;
@@ -264,7 +280,7 @@ class MeprRulesHelper
     <select name="<?php echo $type; ?>" id="<?php echo $type; ?>">
       <option value="registers" <?php selected((($type == MeprRule::$drip_after_str && $rule->drip_after == 'registers') || ($type == MeprRule::$expires_after_str && $rule->expires_after == 'registers'))); ?>><?php _e('member registers', 'memberpress'); ?></option>
       <option value="fixed" <?php selected((($type == MeprRule::$drip_after_str && $rule->drip_after == 'fixed') || ($type == MeprRule::$expires_after_str && $rule->expires_after == 'fixed'))); ?>><?php _e('fixed date', 'memberpress'); ?></option>
-      <option value="rule-products" <?php selected((($type == MeprRule::$drip_after_str && $rule->drip_after == 'rule-products') || ($type == MeprRule::$expires_after_str && $rule->expires_after == 'rule-products'))); ?>><?php _e('member purchases any product for this rule', 'memberpress'); ?></option>
+      <option value="rule-products" <?php selected((($type == MeprRule::$drip_after_str && $rule->drip_after == 'rule-products') || ($type == MeprRule::$expires_after_str && $rule->expires_after == 'rule-products'))); ?>><?php _e('member purchases any membership for this rule', 'memberpress'); ?></option>
       <?php foreach($products as $p): ?>
         <?php if($type == MeprRule::$drip_after_str): ?>
         <option value="<?php echo $p->ID; ?>" <?php selected($p->ID, $rule->drip_after); ?>><?php echo __('member purchases', 'memberpress').' '.$p->post_title; ?></option>

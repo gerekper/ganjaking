@@ -3,11 +3,11 @@
  * Plugin Name: WooSlider - WooCommerce Products Slideshow
  * Plugin URI: https://woocommerce.com/products/wooslider-products-slideshow/
  * Description: Add slideshows of your WooCommerce products to WooSlider.
- * Version: 1.0.21
+ * Version: 1.0.22
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Woo: 82250:fb2387de8d3a8501dab2329290f9d22e
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * Tested up to: 5.5
  * License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  *
@@ -15,7 +15,7 @@
  */
 
 /*
-	Copyright 2019 WooCommerce
+	Copyright 2020 WooCommerce
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
 	published by the Free Software Foundation.

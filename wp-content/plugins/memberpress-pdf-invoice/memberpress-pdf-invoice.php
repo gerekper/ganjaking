@@ -3,7 +3,7 @@
 Plugin Name: MemberPress PDF Invoice
 Plugin URI: http://memberpress.com
 Description: Allows your customers to download PDF Invoice of their Payments
-Version: 1.0.9
+Version: 1.0.12
 Author: Caseproof, LLC
 Author URI: http://caseproof.com
 Text Domain: memberpress-pdf-invoice

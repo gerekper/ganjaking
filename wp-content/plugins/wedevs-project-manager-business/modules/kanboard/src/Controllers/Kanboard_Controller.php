@@ -64,7 +64,9 @@ class Kanboard_Controller {
         $project_id = $request->get_param( 'project_id' );
         $task_id    = $request->get_param( 'task_id' );
 
-        return $this->store_column_task( $board_id, $project_id, $task_id );
+        $this->store_column_task( $board_id, $project_id, $task_id );
+
+        wp_send_json_success();
     }
 
     public function store_column_task( $board_id, $project_id, $task_id ) {

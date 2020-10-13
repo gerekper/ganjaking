@@ -79,6 +79,7 @@ class MePdfInvoicesHelper {
     $vars = array_merge(
       MeprTransactionsHelper::get_email_vars(),
       array(
+        'invoice_num',
         'user_address_single',
         'biz_phone',
         'biz_email',

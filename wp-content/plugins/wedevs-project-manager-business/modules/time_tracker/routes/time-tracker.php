@@ -6,7 +6,7 @@ use WeDevs\PM_Pro\Modules\time_tracker\core\Permissions\Time_Start;
 use WeDevs\PM_Pro\Modules\time_tracker\core\Permissions\Time_Stop;
 use WeDevs\PM_Pro\Modules\time_tracker\core\Permissions\Time_Delete;
 use WeDevs\PM_Pro\Modules\time_tracker\core\Permissions\Time_Add;
-use WeDevs\PM\Core\Permissions\Project_Manage_Capability;
+use WeDevs\PM\Core\Permissions\Project_Create_Capability;
 use WeDevs\PM\Core\Permissions\Access_Project;
 
 $router = Router::singleton();

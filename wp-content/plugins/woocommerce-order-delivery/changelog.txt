@@ -1,5 +1,11 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2020.10.07 - version 1.8.1
+* Fix - Compatibility with WooCommerce Subscriptions.
+
+2020.10.07 - version 1.8.0
+* Feature - Limit the number of orders per day or time frame.
+
 2020.09.14 - version 1.7.1
 * Tweak - Tested compatibility with WC 4.5.
 * Tweak - Tested compatibility with WP 5.5.

@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Memberships 1.19.0\n"
+"Project-Id-Version: WooCommerce Memberships 1.19.1\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-09-24 00:45:53+00:00\n"
+"POT-Creation-Date: 2020-10-06 07:41:42+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,15 +17,15 @@ msgstr ""
 msgid "WooCommerce Memberships"
 msgstr ""
 
-#: class-wc-memberships.php:690
+#: class-wc-memberships.php:696
 msgid "You've created your first membership plan!"
 msgstr ""
 
-#: class-wc-memberships.php:700
+#: class-wc-memberships.php:706
 msgid "You've created your first user membership!"
 msgstr ""
 
-#: class-wc-memberships.php:722
+#: class-wc-memberships.php:728
 #. translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing
 #. </a> HTML link tag
 msgid ""
@@ -34,7 +34,7 @@ msgid ""
 "this short survey%2$s. Thanks in advance!"
 msgstr ""
 
-#: class-wc-memberships.php:749
+#: class-wc-memberships.php:755
 msgid ""
 "%1$sHeads up!%2$s We introduced a bug in version 1.16.0 of Memberships that "
 "caused issues with scheduled actions. We're so sorry for this issue! The "
@@ -42,19 +42,19 @@ msgid ""
 "support team immediately%4$s if you notice any further issues."
 msgstr ""
 
-#: class-wc-memberships.php:962 class-wc-memberships.php:1040
+#: class-wc-memberships.php:968 class-wc-memberships.php:1046
 msgid "User Memberships"
 msgstr ""
 
-#: class-wc-memberships.php:1013
+#: class-wc-memberships.php:1019
 msgid "Removed User Membership for \"%s\"."
 msgstr ""
 
-#: class-wc-memberships.php:1016
+#: class-wc-memberships.php:1022
 msgid "User Membership for \"%s\" has been retained."
 msgstr ""
 
-#: class-wc-memberships.php:1076 includes/Blocks.php:129
+#: class-wc-memberships.php:1082 includes/Blocks.php:129
 #: includes/admin/class-wc-memberships-admin-users.php:141
 #: includes/admin/class-wc-memberships-admin.php:1241
 #: includes/admin/class-wc-memberships-settings.php:44
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Memberships"
 msgstr ""
 
-#: class-wc-memberships.php:1100
+#: class-wc-memberships.php:1106
 #: includes/admin/class-wc-memberships-admin-user-memberships.php:120
 #: includes/admin/class-wc-memberships-import-export-handler.php:467
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rule.php:177
@@ -78,19 +78,19 @@ msgstr ""
 msgid "Plan"
 msgstr ""
 
-#: class-wc-memberships.php:1104
+#: class-wc-memberships.php:1110
 msgid "Start Date (UTC)"
 msgstr ""
 
-#: class-wc-memberships.php:1111
+#: class-wc-memberships.php:1117
 msgid "End Date (UTC)"
 msgstr ""
 
-#: class-wc-memberships.php:1118
+#: class-wc-memberships.php:1124
 msgid "Related Order"
 msgstr ""
 
-#: class-wc-memberships.php:1125
+#: class-wc-memberships.php:1131
 msgid "Related Product"
 msgstr ""
 
@@ -307,6 +307,21 @@ msgstr ""
 
 #: includes/Profile_Fields.php:256
 msgid "Registration form"
+msgstr ""
+
+#: includes/Restrictions.php:175
+#: includes/admin/class-wc-memberships-settings.php:529
+msgid "Hide completely"
+msgstr ""
+
+#: includes/Restrictions.php:176
+#: includes/admin/class-wc-memberships-settings.php:530
+msgid "Hide content only"
+msgstr ""
+
+#: includes/Restrictions.php:177
+#: includes/admin/class-wc-memberships-settings.php:531
+msgid "Redirect to page"
 msgstr ""
 
 #: includes/admin/Profile_Fields/Edit_Screen.php:60
@@ -1876,21 +1891,6 @@ msgstr ""
 msgid "Content restriction mode"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-settings.php:529
-#: includes/class-wc-memberships-restrictions.php:150
-msgid "Hide completely"
-msgstr ""
-
-#: includes/admin/class-wc-memberships-settings.php:530
-#: includes/class-wc-memberships-restrictions.php:151
-msgid "Hide content only"
-msgstr ""
-
-#: includes/admin/class-wc-memberships-settings.php:531
-#: includes/class-wc-memberships-restrictions.php:152
-msgid "Redirect to page"
-msgstr ""
-
 #: includes/admin/class-wc-memberships-settings.php:534
 msgid ""
 "Specifies the way content is restricted: whether to show nothing, excerpts, "
@@ -3334,23 +3334,23 @@ msgstr ""
 msgid "Create a new user to transfer this membership to"
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-controller.php:53
+#: includes/api/abstract-wc-memberships-rest-api-controller.php:56
 msgid "Memberships object"
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-controller.php:253
+#: includes/api/abstract-wc-memberships-rest-api-controller.php:256
 #. translators: Placeholders: %1$s - post ID, %2$s - membership object name
 #. (e.g. Membership Plan or User Membership)
 msgid "Object with ID %1$s is not a valid %2$s."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-controller.php:256
+#: includes/api/abstract-wc-memberships-rest-api-controller.php:259
 #. translators: Placeholder: %s - membership object name (e.g. Membership Plan
 #. or User Membership)
 msgid "%s invalid or not found."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-controller.php:334
+#: includes/api/abstract-wc-memberships-rest-api-controller.php:337
 #. translators: Placeholder: %s - object name (e.g. "User Membership")
 msgid "This %s cannot be deleted."
 msgstr ""
@@ -3435,17 +3435,17 @@ msgid "Membership plan additional meta data."
 msgstr ""
 
 #: includes/api/abstract-wc-memberships-rest-api-membership-plans.php:489
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1141
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1142
 msgid "Meta ID."
 msgstr ""
 
 #: includes/api/abstract-wc-memberships-rest-api-membership-plans.php:495
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1147
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1148
 msgid "Meta key."
 msgstr ""
 
 #: includes/api/abstract-wc-memberships-rest-api-membership-plans.php:500
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1152
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1153
 msgid "Meta value."
 msgstr ""
 
@@ -3586,101 +3586,101 @@ msgid ""
 "product (matched by ID)."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1019
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1020
 msgid "Unique identifier of the user membership."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1025
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1026
 msgid "Unique identifier of the user the membership belongs to."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1030
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1031
 msgid "Unique identifier of the plan the user membership grants access to."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1035
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1036
 msgid "User membership status."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1041
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1042
 msgid "Unique identifier of the order that grants access."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1046
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1047
 msgid ""
 "Unique identifier of the purchased product, or its variation, that grants "
 "access."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1051
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1052
 msgid "The date when the user membership is created, in the site timezone."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1057
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1058
 msgid "The date when the user membership is created, in UTC."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1063
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1064
 msgid "The date when the user membership starts being active, in the site timezone."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1069
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1070
 msgid "The date when the user membership starts being active, in UTC."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1074
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1075
 msgid "The date when the user membership ends, in the site timezone."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1080
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1081
 msgid "The date when the user membership ends, in UTC."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1085
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1086
 msgid "The date when the user membership was last paused, in the site timezone."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1091
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1092
 msgid "The date when the user membership was last paused, in UTC."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1096
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1097
 msgid "The date when the user membership was cancelled, in the site timezone."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1102
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1103
 msgid "The date when the user membership was cancelled, in UTC."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1107
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1108
 msgid "The URL pointing to the Members Area to view the membership."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1113
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1114
 msgid "User membership profile fields."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1120
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1121
 msgid "Profile field slug."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1126
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1127
 msgid "Profile field value."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1134
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1135
 msgid "User membership additional meta data."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1222
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1223
 msgid "List of user memberships created."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1226
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1227
 msgid "List of updated user memberships."
 msgstr ""
 
-#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1230
+#: includes/api/abstract-wc-memberships-rest-api-user-memberships.php:1231
 msgid "List of deleted user memberships."
 msgstr ""
 
@@ -4370,11 +4370,11 @@ msgstr[1] ""
 msgid "Membership status changed from %1$s to %2$s."
 msgstr ""
 
-#: includes/class-wc-memberships-user-memberships.php:1480
+#: includes/class-wc-memberships-user-memberships.php:1509
 msgid "Membership cancelled because the associated order was trashed."
 msgstr ""
 
-#: includes/class-wc-memberships-user-memberships.php:1495
+#: includes/class-wc-memberships-user-memberships.php:1524
 msgid "Membership cancelled because the associated order was refunded."
 msgstr ""
 
@@ -4966,16 +4966,16 @@ msgstr ""
 msgid "and"
 msgstr ""
 
-#: includes/functions/wc-memberships-functions-orders.php:306
+#: includes/functions/wc-memberships-functions-orders.php:285
 msgid "Thanks for purchasing a membership!"
 msgstr ""
 
-#: includes/functions/wc-memberships-functions-orders.php:311
+#: includes/functions/wc-memberships-functions-orders.php:290
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "You can view more details about your membership from %1$syour account%2$s."
 msgstr ""
 
-#: includes/functions/wc-memberships-functions-orders.php:315
+#: includes/functions/wc-memberships-functions-orders.php:294
 msgid "You can view details for each membership in your account:"
 msgstr ""
 
@@ -5523,21 +5523,21 @@ msgstr ""
 msgid "Uploaded file %s not found or not readable."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:369
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:370
 #. translators: Placeholder: %s - file path
 msgid "Could not find valid CSV headers in uploaded file to import from."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:713
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:714
 #. translators: Placeholder: %s - User display name
 msgid "Membership created from %s's import."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1149
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1150
 msgid "Could not find User Memberships to import from uploaded file."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1154
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1155
 #. translators: Placeholder: %s - User Memberships to import found in uploaded
 #. file
 msgid "%s record found in file."
@@ -5545,7 +5545,7 @@ msgid_plural "%s records found in file."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1159
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1160
 #. translators: Placeholder: %s - User Memberships processed during import from
 #. file
 msgid "%s row processed for import."
@@ -5553,49 +5553,49 @@ msgid_plural "%s rows processed for import."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1165
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1166
 #. translators: Placeholder: %s - User Memberships created in import
 msgid "%s new User Membership created."
 msgid_plural "%s new User Memberships created."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1170
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1171
 #. translators: Placeholder: %s - User Memberships updated during import
 msgid "%s existing User Membership updated."
 msgid_plural "%s existing User Memberships updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1175
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1176
 #. translators: Placeholder: %s - users created during import
 msgid "%s new user was created during import."
 msgid_plural "%s new users were created during import."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1180
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1181
 #. translators: Placeholder: %s - skipped User Memberships to import from file
 msgid "%s row skipped."
 msgid_plural "%s rows skipped."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1190
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1191
 msgid "Some required profile fields had empty values and were not imported."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1194
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1195
 msgid ""
 "Some profile fields could not be populated for users based on their "
 "assigned membership plans."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1198
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1199
 msgid "Some profile fields had invalid values and were not imported."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1208
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1209
 msgid "However, no User Memberships were created or updated with the given options."
 msgstr ""
 
@@ -5724,6 +5724,21 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://www.woocommerce.com/"
+msgstr ""
+
+#: includes/Restrictions/Posts.php:722
+msgctxt "REST API error message for restricted post comment requests"
+msgid "Invalid comment ID"
+msgstr ""
+
+#: includes/Restrictions/Posts.php:734
+msgctxt "REST API error message for restricted post requests"
+msgid "Invalid post ID"
+msgstr ""
+
+#: includes/Restrictions/Posts.php:746
+msgctxt "REST API error message for restricted term requests"
+msgid "Term does not exist."
 msgstr ""
 
 #: includes/admin/Profile_Fields/Edit_Screen.php:143

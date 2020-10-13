@@ -135,8 +135,9 @@
    * @return {object}
    */
   MeprStripeForm.prototype.getFormData = function () {
-    return this.$form.serializeArray().reduce(function(obj, item) {
-      obj[item.name] = item.value;
+    var formData = new FormData( this.$form.get(0) );
+    return Array.from(formData.entries()).reduce(function(obj, item) {
+      obj[item[0]] = item[1];
       return obj;
     }, {});
   };
@@ -380,12 +381,19 @@
     delete data.mepr_process_signup_form;
     delete data.mepr_process_payment_form;
 
+    var formData = new FormData();
+    for (let key in data) {
+      formData.append(key, data[key]);
+    }
+
     $.ajax({
       type: 'POST',
       url: MeprStripeGateway.ajax_url,
+      data: formData,
       dataType: 'json',
-      data: data,
       cache: false,
+      processData: false,
+      contentType: false,
       headers: {
         'cache-control': 'no-cache'
       }

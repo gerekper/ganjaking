@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Bulk Stock Management
  * Plugin URI: https://woocommerce.com/products/bulk-stock-management/
  * Description: Bulk edit stock levels and print out stock reports right from WooCommerce admin.
- * Version: 2.2.29
+ * Version: 2.2.30
  * Author: WooCommerce
  * Author URI: http://woocommerce.com
  * Text Domain: woocommerce-bulk-stock-management
  * Tested up to: 5.5
- * WC tested up to: 4.2
+ * WC tested up to: 4.4
  * WC requires at least: 2.6
  * Woo: 18670:02f4328d52f324ebe06a78eaaae7934f
  *
@@ -36,7 +36,7 @@ function wc_bulk_stock_management_init() {
 		return;
 	}
 
-	define( 'WC_BULK_STOCK_MANAGEMENT_VERSION', '2.2.29' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BULK_STOCK_MANAGEMENT_VERSION', '2.2.30' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * WC_Bulk_Stock_Management class

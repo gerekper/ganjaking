@@ -96,7 +96,7 @@ class MeprSubscriptionsHelper {
       'subscr_renew_url'            => $mepr_options->login_page_url( 'redirect_to=' . urlencode($prd->url()) ),
       'subscr_update_url'           => $mepr_options->login_page_url( 'redirect_to=' . urlencode($sub->update_url()) ),
       'subscr_upgrade_url'          => $mepr_options->login_page_url( 'redirect_to=' . urlencode($sub->upgrade_url()) ),
-      'blog_name'                   => get_bloginfo('name'),
+      'blog_name'                   => wp_specialchars_decode( get_bloginfo('name'), ENT_QUOTES ),
       'business_name'               => $mepr_options->attr('biz_name'),
       'biz_name'                    => $mepr_options->attr('biz_name'),
       'biz_address1'                => $mepr_options->attr('biz_address1'),

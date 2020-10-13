@@ -187,15 +187,15 @@ class WC_Dropshipping_Admin
 
 
 
-			//wp_enqueue_script('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js');
+			wp_enqueue_script( 'jquery' );
+			wp_enqueue_script("jquery-ui-datepicker");
+			wp_enqueue_script("jquery-blockui");
+			wp_enqueue_script("jquery-ui-sortable");
+			wp_enqueue_script("jquery-ui-widget");
+			wp_enqueue_script("jquery-ui-core");
+			wp_enqueue_script("jquery-tiptip");
+			wp_enqueue_script("jquery-ui-dialog");
 
-			wp_enqueue_script(
-				'jquery-ui',
-				plugins_url() . '/' . $base_name[0] . '/assets/js/jquery-ui.min.js',
-				array('jquery'),
-				'1.11.0',
-				true
-			);
 
 			wp_enqueue_script('my-great-script', plugins_url() . '/' . $base_name[0] . '/assets/js/myscript.js', array('jquery'), '1.0.1', true);
 		}
@@ -653,7 +653,10 @@ class WC_Dropshipping_Admin
 	{
 		$options = get_option('wc_dropship_manager');
 
-		$email_supplier = $options['email_supplier'];
+
+		if(isset($options['email_supplier'])){
+			$email_supplier = $options['email_supplier'];
+		}
 
 
 
@@ -690,10 +693,10 @@ class WC_Dropshipping_Admin
 				$email = @$_POST['order_email_addresses'];
 
 				/*$password = wp_generate_password();*/
-				
+
 				$the_user = get_user_by('email', $email);
 				$user_id = @$the_user->ID;
-				
+
 				update_user_meta($user_id, 'supplier_id', $term_id);
 
 				if (!empty($username) && !empty($email) && !$user_id && email_exists($email) == false) {
@@ -796,7 +799,7 @@ class WC_Dropshipping_Admin
 		if ($taxonomy != 'dropship_supplier' && !taxonomy_is_product_attribute($taxonomy)) return;
 
 		$meta_name = taxonomy_is_product_attribute($taxonomy) ? 'order_' . esc_attr($taxonomy) : 'order';
-		
+
 		$term_id = (int)$term_id;
 
 		update_term_meta($term_id, $meta_name, 0);
@@ -861,6 +864,13 @@ class WC_Dropshipping_Admin
 				$options['hide_suppliername'] = '1';
 			} else {
 				$options['hide_suppliername'] = '0';
+			}
+
+			if (isset($_POST['hide_suppliername_on_product_page'])) {
+				$options['hide_suppliername_on_product_page'] = '1';
+			} else {
+				$options['hide_suppliername_on_product_page'] = '0';
+
 			}
 
 			if (isset($_POST['hideorderdetail_suppliername'])) {
@@ -934,13 +944,13 @@ class WC_Dropshipping_Admin
 			} else {
 				$options['hide_shipping_price'] = '0';
 			}
-			
+
 			if (isset($_POST['total_price'])) {
 				$options['total_price'] = '1';
 			} else {
 				$options['total_price'] = '0';
 			}
-			
+
 			if (isset($_POST['product_price'])) {
 				$options['product_price'] = '1';
 			} else {
@@ -1117,7 +1127,7 @@ class WC_Dropshipping_Admin
 		} else {
 			$from_email = '';
 		}
-		
+
 		if (isset($options['hide_shipping_price'])) {
 			$hide_shipping_price = $options['hide_shipping_price'];
 		} else {
@@ -1176,6 +1186,12 @@ class WC_Dropshipping_Admin
 			$hide_suppliername = $options['hide_suppliername'];
 		} else {
 			$hide_suppliername = '';
+		}
+
+		if (isset($options['hide_suppliername_on_product_page'])) {
+			$hide_suppliername_on_product_page = $options['hide_suppliername_on_product_page'];
+		} else {
+			$hide_suppliername_on_product_page = '';
 		}
 
 		if (isset($options['hideorderdetail_suppliername'])) {
@@ -1372,6 +1388,12 @@ class WC_Dropshipping_Admin
 			$suppliername_hide = ' ';
 		}
 
+		if ($hide_suppliername_on_product_page == '1') {
+			$hide_suppliername_on_product_page = ' checked="checked" ';
+		} else {
+			$hide_suppliername_on_product_page = ' ';
+		}
+
 		if ($hideorderdetail_suppliername == '1') {
 			$suppliername_hideorderdetail = ' checked="checked" ';
 		} else {
@@ -1426,7 +1448,6 @@ class WC_Dropshipping_Admin
 			$customer_note = ' ';
 		}
 
-
 		// Aliexpress Settings for checkbox value
 		if ($ali_cbe_enable_setting == '1') {
 			$ali_cbe_enable_checkbox = ' checked="checked" ';
@@ -1434,8 +1455,10 @@ class WC_Dropshipping_Admin
 			$ali_cbe_enable_checkbox = ' ';
 		}
 
-		if($options['ali_cbe_price_rate_value_name'] < 1 || !is_numeric($options['ali_cbe_price_rate_value_name'])){
-			$options['ali_cbe_price_rate_value_name'] = 0;
+		if (isset($options['ali_cbe_price_rate_value_name'])){
+			if($options['ali_cbe_price_rate_value_name'] < 1 || !is_numeric($options['ali_cbe_price_rate_value_name'])){
+				$options['ali_cbe_price_rate_value_name'] = 0;
+			}
 		}
 
 		$woocommerce_url = plugins_url() . '/woocommerce/';
@@ -1993,7 +2016,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<img class="help_tip" data-tip="This shipping method will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"/>
+						<img class="help_tip" data-tip="This message will be displayed below the packing slip email and PDF notification." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"/>
 
 
 
@@ -2311,6 +2334,15 @@ class WC_Dropshipping_Admin
 
 
 
+			</table>';
+
+		echo '<p></p>
+			<table>
+				<tr>
+					<td><label for="hidesuppliername">Show Supplier name on product page:</label></td>
+
+					<td><input name="hide_suppliername_on_product_page" type="checkbox" ' . $hide_suppliername_on_product_page . ' /></td>
+				</tr>
 			</table>';
 
 		echo '<p></p>
@@ -2693,6 +2725,8 @@ class WC_Dropshipping_Admin
 
 							<input name="from_email" id="from_email" type="email" style="min-width:300px;" value="' . $from_email . '" class="" placeholder="" multiple="multiple">
 
+
+							<input type="hidden" name="show_admin_notice_option" value="0" />
 
 
 						</td>

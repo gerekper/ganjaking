@@ -357,6 +357,7 @@ class WC_Memberships_CSV_Import_User_Memberships extends \WC_Memberships_Job_Han
 		$current_position = $file_position;
 		$file_size        = max( 0, (int) $job->file_size );
 		$headers          = fgetcsv( $file_handle, 0, $this->get_csv_delimiter( $job ), $this->get_csv_delimiter( 'import' ) );
+		$headers          = is_array( $headers ) ? array_map( 'trim', $headers ) : $headers;
 		$headers_columns  = $headers ? count( $headers ) : 0;
 
 		// cannot parse headers

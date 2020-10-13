@@ -5,7 +5,7 @@ class MpDivi {
 
   public function __construct() {
     // Don't run in the Divi Role Editor
-    if ( ('et_divi_role_editor' !== $_GET['page'] ) ) {
+    if ( empty( $_GET['page'] ) || 'et_divi_role_editor' !== $_GET['page'] ) {
       add_filter( 'et_builder_main_tabs', array( $this, 'tab' ) );
       add_filter( 'et_builder_get_parent_modules', array( $this, 'toggle' ) );
       add_filter( 'et_pb_module_content', array( $this, 'shortcode' ), 10, 4 );

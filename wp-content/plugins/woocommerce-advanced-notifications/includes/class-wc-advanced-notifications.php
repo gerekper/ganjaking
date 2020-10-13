@@ -46,6 +46,7 @@ class WC_Advanced_Notifications {
 		add_action( 'woocommerce_product_on_backorder_notification', array( $this, 'backorder' ), 1, 2 );
 		add_action( 'woocommerce_order_fully_refunded_notification', array( $this, 'refund' ) );
 		add_action( 'woocommerce_order_partially_refunded_notification', array( $this, 'refund' ) );
+		add_filter( 'woocommerce_translations_updates_for_woocommerce_advanced_notifications', '__return_true' );
 	}
 
 	/**

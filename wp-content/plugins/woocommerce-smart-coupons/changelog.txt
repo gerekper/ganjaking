@@ -1,5 +1,12 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2020.10.09 - version 4.9.5
+* New: Set a coupon to display as storewide offer coupon. It will be displayed everywhere on the website.
+* Fix: Initialization of Action Scheduler package
+* Update: Action Scheduler package to version 3.1.6
+* Update: Delayed execution of function 'handle_coupon_process_on_3rd_party_order_statuses' to support necessary changes to take place
+* Update: POT file
+
 2020.09.28 - version 4.9.1
 * Fix: Selected coupon design for email is not getting sent in the order received email
 * Fix: Width of checkbox in 'Bulk generate form'

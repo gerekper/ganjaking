@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.5.1
-Stable tag: 2.3.4
+Stable tag: 2.3.5.1
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -64,6 +64,15 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.3.5.1 =
+* HotFix: Fix for auto-closing dropdown menus with an empty link.
+
+= 2.3.5 =
+* Fix:  Fixed the bug with saving menu items settings, when switching from Groovy Menu Free earlier versions to Pro.
+* Fix: Now are correct working custom empty links in the top level menu toghether with enabled setting opening the sub-menu on mouse click.
+* Fix: Fixed working with the Iconpack at loading and uninstalling the icon font pack in Global settings.
+* Fix: The initialization of the main Groovy Menu modules has been moved to the ‘init’ action. This avoids conflicts with some third-party plugins, and also allows you to dynamically add new integration capabilities with some themes. (include Zephyr 7.x).
 
 = 2.3.4 =
 * Add: An additional option for "Mobile navigation drawer width" is "Dynamic minimum size"

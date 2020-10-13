@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Order Delivery 1.7.1\n"
+"Project-Id-Version: WooCommerce Order Delivery 1.8.1\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/themesquad/woocommerce-order-delivery/issues\n"
-"POT-Creation-Date: 2020-09-14 10:00:32+00:00\n"
+"POT-Creation-Date: 2020-10-08 15:04:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,6 +35,19 @@ msgstr ""
 #: includes/abstracts/abstract-class-wc-od-settings-api.php:551
 #: includes/abstracts/abstract-class-wc-od-settings-api.php:559
 msgid "Only specific shipping methods"
+msgstr ""
+
+#: includes/abstracts/abstract-class-wc-od-settings-api.php:575
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:56
+msgid "Number of orders"
+msgstr ""
+
+#: includes/abstracts/abstract-class-wc-od-settings-api.php:576
+msgid "0 means that there is no limit of orders."
+msgstr ""
+
+#: includes/abstracts/abstract-class-wc-od-settings-api.php:577
+msgid "Maximum number of orders that can be delivered on the day."
 msgstr ""
 
 #: includes/admin/class-wc-od-admin-settings.php:247
@@ -216,12 +229,12 @@ msgid "Time frames:"
 msgstr ""
 
 #: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:145
-#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:194
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:197
 msgid "All shipping methods, except:"
 msgstr ""
 
 #: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:147
-#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:196
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:199
 msgid "Shipping methods:"
 msgstr ""
 
@@ -234,7 +247,7 @@ msgid "Set Up"
 msgstr ""
 
 #: includes/admin/fields/class-wc-od-admin-field-delivery-days.php:192
-#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:106
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:109
 msgid "Add time frame"
 msgstr ""
 
@@ -255,12 +268,12 @@ msgid "Shipping method(s)"
 msgstr ""
 
 #: includes/admin/fields/class-wc-od-admin-field-delivery-ranges.php:167
-#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:139
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:142
 msgid "Edit"
 msgstr ""
 
 #: includes/admin/fields/class-wc-od-admin-field-delivery-ranges.php:174
-#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:143
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:146
 #: includes/admin/wc-od-admin-calendars-settings.php:68
 msgid "Delete"
 msgstr ""
@@ -277,23 +290,23 @@ msgstr ""
 msgid "Add delivery range"
 msgstr ""
 
-#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:119
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:122
 msgid ""
 "You can split this delivery day into multiple intervals of time called "
 "\"time frames\"."
 msgstr ""
 
-#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:120
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:123
 msgid ""
 "This allows the customers to select one of these time frames in addition to "
 "the delivery date during checkout."
 msgstr ""
 
-#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:121
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:124
 msgid "Each time frame has its own configuration."
 msgstr ""
 
-#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:122
+#: includes/admin/fields/class-wc-od-admin-field-time-frames.php:125
 msgid ""
 "Once you define a time frame, some settings of this delivery day, like the "
 "\"Shipping methods\", will be ignored and the time frame settings will take "
@@ -348,11 +361,11 @@ msgstr ""
 msgid "Taking a while? Click here to run it now."
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:118
+#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:121
 msgid "Add Time Frame"
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:142
+#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:145
 msgid "Return to the delivery day settings"
 msgstr ""
 
@@ -364,16 +377,20 @@ msgstr ""
 msgid "Enable this day for delivery"
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-delivery-day.php:87
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:92
 msgid "Choose the available shipping methods for this delivery day."
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-delivery-day.php:91
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:96
 msgid "Time frames"
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-delivery-day.php:93
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:98
 msgid "Define the time frames for this delivery day."
+msgstr ""
+
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:199
+msgid "The field \"Number of orders\" cannot be a negative number."
 msgstr ""
 
 #: includes/admin/settings/class-wc-od-settings-delivery-days-time-frame.php:51
@@ -436,7 +453,7 @@ msgstr ""
 msgid "The ending time of this time frame."
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-time-frame.php:103
+#: includes/admin/settings/class-wc-od-settings-time-frame.php:108
 msgid "Choose the available shipping methods for this time frame."
 msgstr ""
 
@@ -515,11 +532,11 @@ msgstr ""
 msgid "Delivery Date"
 msgstr ""
 
-#: includes/class-wc-od-checkout.php:297 includes/wc-od-functions.php:312
+#: includes/class-wc-od-checkout.php:299 includes/wc-od-functions.php:312
 msgid "Shipping and delivery"
 msgstr ""
 
-#: includes/class-wc-od-checkout.php:462 includes/class-wc-od-checkout.php:477
+#: includes/class-wc-od-checkout.php:471 includes/class-wc-od-checkout.php:486
 #: includes/subscriptions/class-wc-od-subscription-delivery.php:412
 #: includes/subscriptions/class-wc-od-subscription-delivery.php:432
 #. translators: %s: field name
@@ -886,7 +903,7 @@ msgid ""
 "latest version!"
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:120
+#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:123
 msgctxt "time frame settings page title"
 msgid "Delivery days > [delivery_day] > [time_frame]"
 msgstr ""
@@ -896,12 +913,12 @@ msgctxt "time frame settings page title"
 msgid "Delivery days > Add Time Frame"
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:132
+#: includes/admin/settings/class-wc-od-settings-delivery-day-time-frame.php:135
 msgctxt "settings page description"
 msgid "Edit the time frame settings."
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-delivery-day.php:121
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:126
 msgctxt "settings page description"
 msgid "Edit the delivery day settings."
 msgstr ""
@@ -916,13 +933,13 @@ msgctxt "settings page description"
 msgid "Edit the delivery range settings."
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-delivery-day.php:108
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:113
 #. translators: %s: weekday name
 msgctxt "delivery day settings page title"
 msgid "Delivery days > %s"
 msgstr ""
 
-#: includes/admin/settings/class-wc-od-settings-delivery-day.php:130
+#: includes/admin/settings/class-wc-od-settings-delivery-day.php:135
 #: includes/admin/settings/class-wc-od-settings-delivery-days-time-frame.php:99
 #: includes/admin/settings/class-wc-od-settings-delivery-range.php:176
 msgctxt "settings back link label"
@@ -935,7 +952,7 @@ msgctxt "settings page title"
 msgid "Delivery ranges > %s"
 msgstr ""
 
-#: includes/class-wc-od-checkout.php:208
+#: includes/class-wc-od-checkout.php:210
 #: includes/subscriptions/wc-od-subscriptions-functions.php:733
 msgctxt "checkout field label"
 msgid "Time frame"

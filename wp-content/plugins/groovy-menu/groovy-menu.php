@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 /*
 Plugin Name: Groovy Menu
-Version: 2.3.4
+Version: 2.3.5.1
 Description: Groovy menu is a modern adjustable and flexible menu designed for creating mobile-friendly menus with a lot of options.
 Plugin URI: https://groovymenu.grooni.com/
 Author: Grooni
@@ -11,7 +11,7 @@ Domain Path: /languages/
 */
 
 
-define( 'GROOVY_MENU_VERSION', '2.3.4' );
+define( 'GROOVY_MENU_VERSION', '2.3.5.1' );
 define( 'GROOVY_MENU_DB_VER_OPTION', 'groovy_menu_db_version' );
 define( 'GROOVY_MENU_PREFIX_WIM', 'groovy-menu-wim' );
 define( 'GROOVY_MENU_DIR', plugin_dir_path( __FILE__ ) );
@@ -25,7 +25,7 @@ if ( ! defined( 'AUTH_COOKIE' ) && function_exists( 'is_multisite' ) && is_multi
 }
 
 $db_version = get_option( GROOVY_MENU_DB_VER_OPTION );
-if ( ! $db_version ) {
+if ( ! $db_version || version_compare( '2.0.0', $db_version, '>=' ) ) {
 	update_option( GROOVY_MENU_DB_VER_OPTION, GROOVY_MENU_VERSION );
 	$db_version = GROOVY_MENU_VERSION;
 }
@@ -36,7 +36,8 @@ if ( ! defined( 'GROOVY_MENU_LVER' ) ) {
 global $gm_supported_module;
 $gm_supported_module = array(
 	'theme'      => wp_get_theme()->get_template(),
-	'post_types' => array(),
+	'post_types' => empty( $gm_supported_module['post_types'] ) ? array() : $gm_supported_module['post_types'],
+	'categories' => empty( $gm_supported_module['categories'] ) ? array() : $gm_supported_module['categories'],
 	'activate'   => array(),
 	'deactivate' => array(),
 	'db_version' => $db_version,
@@ -59,25 +60,29 @@ add_action( 'init', array( 'GroovyMenuUtils', 'add_groovy_menu_preset_post_type'
 add_filter( 'plugin_row_meta', array( 'GroovyMenuUtils', 'gm_plugin_meta_links' ), 10, 2 );
 add_filter( 'plugin_action_links', array( 'GroovyMenuUtils', 'gm_plugin_page_links' ), 10, 2 );
 
+add_action( 'init', 'groovy_menu_init_classes', 2 );
+
 // Initialize Groovy Menu.
-if ( class_exists( 'GroovyMenuPreset' ) ) {
-	new GroovyMenuPreset( null, true );
-}
+function groovy_menu_init_classes() {
+	if ( class_exists( 'GroovyMenuPreset' ) ) {
+		new GroovyMenuPreset( null, true );
+	}
 
-if ( class_exists( 'GroovyMenuSettings' ) ) {
-	new GroovyMenuSettings();
-}
+	if ( class_exists( 'GroovyMenuSettings' ) ) {
+		new GroovyMenuSettings();
+	}
 
-if ( class_exists( 'GroovyMenuCategoryPreset' ) ) {
-	new GroovyMenuCategoryPreset( array( 'category', 'crane_portfolio_cats', 'post_tag', 'product_cat' ) );
-}
+	if ( class_exists( 'GroovyMenuCategoryPreset' ) ) {
+		new GroovyMenuCategoryPreset( array( 'category', 'crane_portfolio_cats', 'post_tag', 'product_cat' ) );
+	}
 
-if ( class_exists( 'GroovyMenuSingleMetaPreset' ) ) {
-	new GroovyMenuSingleMetaPreset();
-}
+	if ( class_exists( 'GroovyMenuSingleMetaPreset' ) ) {
+		new GroovyMenuSingleMetaPreset();
+	}
 
-if ( class_exists( '\GroovyMenu\AdminWalker' ) ) {
-	\GroovyMenu\AdminWalker::registerWalker();
+	if ( class_exists( '\GroovyMenu\AdminWalker' ) ) {
+		\GroovyMenu\AdminWalker::registerWalker();
+	}
 }
 
 if ( method_exists( 'GroovyMenuUtils', 'cache_pre_wp_nav_menu' ) ) {

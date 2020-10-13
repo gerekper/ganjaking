@@ -11,6 +11,10 @@ class Create_Sub_Task extends Abstract_Permission {
 		$id         = $this->request->get_param( 'task_id' );
 		$user_id    = get_current_user_id();
 
+        if ( pm_user_can_access( pm_manager_cap_slug() ) )  {
+            return true;
+        }
+
         if ( pm_is_manager( $project_id, $user_id ) ) {
             return true;
         }

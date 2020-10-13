@@ -4325,8 +4325,8 @@ msgstr ""
 "haben."
 
 #: include/classes/class-tm-epo-settings-base.php:519
-msgid "Show description for radio buttons and checkboxes inline."
-msgstr "Anzeige der Beschreibung für Radio-Buttons und Checkboxen inline."
+msgid "Show choice description inline."
+msgstr ""
 
 #: include/classes/class-tm-epo-settings-base.php:520
 msgid ""
@@ -4338,7 +4338,6 @@ msgstr ""
 
 #: include/classes/class-tm-epo-settings-base.php:527
 #, fuzzy
-#| msgid "Show description for radio buttons and checkboxes inline."
 msgid ""
 "Hide choice label when using the swatch mode for radio buttons and "
 "checkboxes."
@@ -4346,9 +4345,8 @@ msgstr "Anzeige der Beschreibung für Radio-Buttons und Checkboxen inline."
 
 #: include/classes/class-tm-epo-settings-base.php:528
 #, fuzzy
-#| msgid "Show description for radio buttons and checkboxes inline."
 msgid ""
-"Check this to hdie the choice label when using the swatch mode for radio "
+"Check this to hide the choice label when using the swatch mode for radio "
 "buttons and checkboxes."
 msgstr "Anzeige der Beschreibung für Radio-Buttons und Checkboxen inline."
 

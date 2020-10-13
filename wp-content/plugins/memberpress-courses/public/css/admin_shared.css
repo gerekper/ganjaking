@@ -1,0 +1,268 @@
+@media screen and (max-width: 600px) {
+  /* .hide-600 {
+    display: none !important;
+  } */
+}
+
+/* .show-600{
+  display: none !important;
+}
+@media screen and (max-width: 600px) {
+  .show-600 {
+    display: block !important;
+  }
+} */
+
+
+/* Simplegrid styles */
+.grid .content label {
+  font-weight: 600;
+}
+
+.grid .content {
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+.mpcs-info-icon {
+  cursor: pointer;
+}
+
+.mpcs-icon {
+  color: #666666;
+  font-size: 16px;
+}
+
+.mpcs-icon.mpcs-16 {
+  font-size: 16px !important;
+}
+
+.mpcs-icon.mpcs-18 {
+  font-size: 18px !important;
+}
+
+.mpcs-icon.mpcs-20 {
+  font-size: 20px !important;
+}
+
+.mpcs-icon.mpcs-22 {
+  font-size: 22px !important;
+}
+
+.mpcs-icon.mpcs-24 {
+  font-size: 24px !important;
+}
+
+.mpcs-icon.mpcs-32 {
+  font-size: 32px !important;
+}
+
+.mpcs-icon.mpcs-48 {
+  font-size: 48px !important;
+}
+
+.mpcs-icon.mpcs-64 {
+  font-size: 64px !important;
+}
+
+a i.mpcs-icon {
+  text-decoration: none;
+}
+
+a i.mpcs-icon:hover {
+  color: #aeaeae;
+}
+
+.mpcs-lesson-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.mpcs-callout-menu {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.mpcs-callout-menu .mpcs-cm-callout {
+  margin-left: 1px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #32373c;
+}
+
+.mpcs-callout-menu .mpcs-cm-menu {
+  margin-top: 0;
+  margin-left: -25px;
+  padding: 0;
+  background-color: #32373c;
+  width: 125px;
+}
+
+.mpcs-callout-menu .mpcs-cm-menu .mpcs-cm-item {
+  width: 100%;
+}
+.mpcs-callout-menu .mpcs-cm-menu .mpcs-cm-item a {
+  display: block;
+  padding: 10px;
+  cursor: pointer !important;
+  text-decoration: none;
+  color: #ededed;
+}
+
+.mpcs-callout-menu .mpcs-cm-menu .mpcs-cm-item a i {
+  color: #9ea3a8;
+}
+
+.mpcs-callout-menu .mpcs-cm-menu .mpcs-cm-item a:hover,
+.mpcs-callout-menu .mpcs-cm-menu .mpcs-cm-item a:hover i {
+  background-color: #191e23;
+  color: #09b9eb;
+}
+
+.mpcs-lesson-menu:hover .mpcs-callout-menu {
+  display: block;
+}
+
+
+.post-type-mpcs-course.is-fullscreen-mode #mpcs-admin-header,
+.post-type-mpcs-lesson.is-fullscreen-mode #mpcs-admin-header {
+  top: 0;
+  z-index: 9;
+}
+
+.post-type-mpcs-course.mobile .edit-post-layout {
+  /* padding-top: 160px; */
+}
+
+.post-type-mpcs-course .edit-post-layout {
+  /* padding-top: 100px; */
+}
+
+.post-type-mpcs-lesson .edit-post-layout {
+  /* padding-top: 140px; */
+}
+
+.post-type-mpcs-course .edit-post-header-toolbar__block-toolbar {
+  top: 157px;
+}
+
+.post-type-mpcs-lesson .edit-post-header-toolbar__block-toolbar {
+  top: 140px;
+}
+
+.post-type-mpcs-course.is-fullscreen-mode .edit-post-header-toolbar__block-toolbar{
+  top: 57px;
+}
+
+.edit-post-header {
+  /* border-top: 1px solid #eee; */
+}
+
+
+#mpcs-admin-header, .post-type-mpcs-course.mobile #mpcs-admin-header,
+.post-type-mpcs-lesson.mobile #mpcs-admin-header {
+  /* padding: 15px 0 0; */
+  background: #fff;
+  z-index: 999;
+  margin: 0 !important;
+  position: fixed;
+  width: 100%;
+  /* border-bottom: 1px solid #eee; */
+}
+
+@media screen and (max-width: 780px) {
+  #mpcs-admin-header, .post-type-mpcs-course.mobile.is-fullscreen-mode #mpcs-admin-header, .post-type-mpcs-lesson.mobile.is-fullscreen-mode #mpcs-admin-header {
+    top: 44px;
+  }
+}
+
+@media screen and (min-width: 780px) {
+  #mpcs-admin-header {
+    top: 30px;
+  }
+}
+
+.mpcs-header-nav {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+.mpcs-header-title {
+  display: inline-block;
+  line-height: 30px;
+  vertical-align: middle;
+  color: #777;
+  font-weight: 500;
+}
+.mpcs-header-title.inline {
+  padding-left: 1em;
+  margin-left: 1em;
+  border-left: 1px solid #f0f0f0;
+}
+.mpcs-header-title.block {
+  display: block;
+  /* display: inline-block;
+  line-height: 30px;
+  vertical-align: middle;
+  padding-left: 1em;
+  margin-left: 1em;
+  border-left: 1px solid #f0f0f0; */
+  margin: 0;
+  /* line-height: 50px; */
+  border-bottom: 1px solid #f0f0f0;
+
+}
+.mpcs-header-nav ul {
+  list-style-type: none;
+  margin: 0;
+  overflow: hidden;
+  flex-grow: 1;
+}
+@media screen and (min-width: 780px) {
+  .mpcs-header-nav ul {
+    padding: 0 1.5em;
+  }
+}
+.mpcs-header-nav > a {
+  line-height: 30px;
+  border-right: 1px solid #f0f0f0;
+  padding-right: 1.5em;
+}
+#mpcs-admin-header ul li.list-item {
+  display: inline-block;
+  line-height: 30px;
+  height: 30px;
+}
+#mpcs-admin-header ul li.list-item a {
+  display: block;
+  font-weight: bold;
+  padding: 1px 0px;
+  margin-right: 20px;
+  outline: none;
+  color: #333;
+}
+#mpcs-admin-header a,
+#mp-admin-header a {
+  text-decoration: none;
+}
+
+#mpcs-admin-header a i,
+#mp-admin-header a i {
+  color: inherit;
+}
+
+#mpcs-admin-header a i:before,
+#mp-admin-header a i:before {
+  margin: 0;
+  font-size: 14px;
+}
+#mpcs-admin-header ul li.list-item.active a {
+  color: #0073aa;
+  border-bottom: 4px solid #0073aa;
+}

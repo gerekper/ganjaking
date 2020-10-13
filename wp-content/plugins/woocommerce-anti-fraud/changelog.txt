@@ -1,5 +1,14 @@
 *** WooCommerce Anti Fraud ***
 
+2020-10-06 version 3.0
+* PLUGINS-640 - Replaced the checkbox with the switch button in the "Minfraud settings" section.
+* PLUGINS-709 - Added feature to bypass the "On-hold" and "Cancel" order rules.
+* PLUGINS-710 - Added new rule to check billing phone with Billing country.
+* PLUGINS-694 - Add quick links to Installed Plugins Screen.
+* PLUGINS-667 - Paypal Email address issues fixed and added a feature to starts supporting Paypal Express checkout process.
+* PLUGINS-671 - Add feature - added option Enable Fraud Check Before Payment.
+* PLUGINS-696 - Admin screen improvements
+
 2020-09-25 version 2.9.1
 * PLUGINS-712 - Fixed the Cron tasks issue.
 

@@ -79,6 +79,9 @@ class WC_OD_Settings_Delivery_Day_Time_Frame extends WC_OD_Settings_Time_Frame {
 			$settings['shipping_methods_option'] = $delivery_day->get_shipping_methods_option();
 			$settings['shipping_methods']        = $delivery_day->get_shipping_methods();
 
+			// Copy the value of number_of_orders.
+			$settings['number_of_orders'] = $delivery_day->get_number_of_orders();
+
 			// Backward compatibility.
 			$settings['delivery_days'] = array( (string) $this->day_id );
 		} else {
@@ -168,6 +171,10 @@ class WC_OD_Settings_Delivery_Day_Time_Frame extends WC_OD_Settings_Time_Frame {
 
 		// Reset the delivery day.
 		$this->delivery_day = null;
+
+		/** @var WC_OD_Delivery_Cache $delivery_cache */
+		$delivery_cache = WC_OD_Delivery_Cache::instance();
+		$delivery_cache->remove_order_cache();
 
 		return $saved;
 	}

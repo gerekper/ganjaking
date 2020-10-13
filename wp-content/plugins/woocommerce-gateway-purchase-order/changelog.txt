@@ -1,5 +1,8 @@
 ** WooCommerce Gateway Purchase Order Changelog **
 
+2020-10-06 - version 1.2.12
+* Tweak - WC 4.5 compatibility.
+
 2020-08-19 - version 1.2.11
 * Tweak - WordPress 5.5 compatibility.
 

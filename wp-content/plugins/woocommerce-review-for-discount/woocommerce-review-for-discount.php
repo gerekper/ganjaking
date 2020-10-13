@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Review for Discount
  * Plugin URI: https://woocommerce.com/products/review-for-discount/
  * Description: Provide discounts to incentivize users who submit reviews for specific or any products
- * Version: 1.6.18
+ * Version: 1.6.19
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Text domain: wc_review_discount
  * Requires at least: 4.4
  * Tested up to: 5.5
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * WC requires at least: 3.0
  *
  * Woo: 18671:67ae2070dd8d3f3624925857efda6117
@@ -50,7 +50,7 @@ function woocommerce_review_for_discount_missing_wc_notice() {
  */
 define( 'WC_REVIEW_FOR_DISCOUNT_DB_VERSION', '1.5.6' );
 
-define( 'WC_REVIEW_FOR_DISCOUNT_VERSION', '1.6.18' ); // WRCS: DEFINED_VERSION.
+define( 'WC_REVIEW_FOR_DISCOUNT_VERSION', '1.6.19' ); // WRCS: DEFINED_VERSION.
 
 register_activation_hook( __FILE__, 'woocommerce_review_for_discount_install' );
 
@@ -902,7 +902,7 @@ if ( ! class_exists( 'SFN_ReviewDiscount' ) ) :
 				$all_ids[]  = $product_id;
 				$product    = sfn_get_product( $product_id );
 
-				if ( $product->product_type == 'variation' ) {
+				if ( 'variation' === $product->get_type() ) {
 					$all_ids[] = $product->id;
 				}
 			}

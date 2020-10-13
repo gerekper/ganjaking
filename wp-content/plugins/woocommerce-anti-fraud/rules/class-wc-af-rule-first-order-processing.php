@@ -51,7 +51,7 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 
 		} elseif(($order_amount < 1) && ($order_count > 1)) {
 
-			parent::__construct( 'first_order', "Customer has ordered before, but has never completed their order", $this->rule_weight );
+			parent::__construct( 'first_order', "Customer has ordered before, but has never completed an order.", $this->rule_weight );
 			$risk = true;
 			
 		}

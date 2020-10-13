@@ -232,6 +232,8 @@ class MeprUser extends MeprBaseModel {
   public function has_access_from_rule($rule_id) {
     global $wpdb;
     $mepr_db = new MeprDb();
+    $rule = new MeprRule( $rule_id );
+    $user = new \WP_User( $this->ID );
 
     $where_clause = $wpdb->prepare("
       WHERE rule_id=%d
@@ -253,7 +255,21 @@ class MeprUser extends MeprBaseModel {
       LIMIT 1
     ";
 
-    $user_has_access = (1 === $wpdb->query($query));
+    // Check for role or capability
+    $has_role_or_cap = false;
+    foreach ( $rule->access_conditions() as $condition ) {
+      if ( 'role' === $condition->access_type ) {
+        if ( in_array( $condition->access_condition, (array) $user->roles ) ) {
+            $has_role_or_cap = true;
+            break;
+        }
+      } else if ( 'capability' === $condition->access_type && $user->has_cap( $condition->access_condition ) ) {
+        $has_role_or_cap = true;
+        break;
+      }
+    }
+
+    $user_has_access = (1 === $wpdb->query($query)) || $has_role_or_cap;
 
     return MeprHooks::apply_filters('mepr_user_has_access_from_rule', $user_has_access, $this, $rule_id);
   }
@@ -1479,8 +1495,8 @@ class MeprUser extends MeprBaseModel {
              preg_match('~\[mepr-login-form~', $post->post_content)));
   }
 
-  public function custom_profile_values() {
-    $fields = $this->custom_profile_fields();
+  public function custom_profile_values($force_all = false) {
+    $fields = $this->custom_profile_fields($force_all);
     $values = array();
 
     foreach($fields as $field) {
@@ -1490,7 +1506,7 @@ class MeprUser extends MeprBaseModel {
     return $values;
   }
 
-  public function custom_profile_fields() {
+  public function custom_profile_fields($force_all = false) {
     global $wpdb;
     $mepr_options = MeprOptions::fetch();
     $slugs = $rows = array();
@@ -1516,8 +1532,8 @@ class MeprUser extends MeprBaseModel {
 
     $count = $wpdb->get_var($q);
 
-    //If no memberships have customized fields, just return the MeprOptions->custom_fields
-    if(empty($count)) { return $mepr_options->custom_fields; }
+    //If force all fields enabled, or no memberships have customized fields, just return the MeprOptions->custom_fields
+    if($force_all || empty($count)) { return $mepr_options->custom_fields; }
 
     //If the user hasn't purchased anything, and at least one membership has customized fields just show all fields
     $prods = $this->active_product_subscriptions('products');

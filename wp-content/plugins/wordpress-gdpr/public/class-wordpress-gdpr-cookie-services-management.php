@@ -100,9 +100,9 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
         }
 
         setcookie('wordpress_gdpr_allowed_services', implode(',', array_keys($allowed_service_cookies)), $cookieLifetime, '/');
-        if(!$firstTime) {
+        // if(!$firstTime) {
             setcookie('wordpress_gdpr_cookies_allowed', 'true', $cookieLifetime, '/');
-        }
+        // } 
         setcookie('wordpress_gdpr_cookies_declined', 'false', $cookieLifetime, '/');
 
         $_COOKIE['wordpress_gdpr_cookies_declined'] = 'false';

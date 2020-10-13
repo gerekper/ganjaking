@@ -816,7 +816,8 @@ function betterdocs_customize_register_pro( $wp_customize ) {
 			'label'    => __( 'Content Space Between', 'betterdocs' ),
 			'priority' => 33,
 			'input_attrs' => array(
-				'class' => 'betterdocs_mkb_column_content_space betterdocs-dimension',
+				'id' => 'betterdocs_mkb_column_content_space',
+				'class' => 'betterdocs-dimension',
 			),
 		) ) );
 

@@ -82,8 +82,13 @@ class WC_OD_Settings_Delivery_Day extends WC_OD_Settings_API {
 		);
 
 		if ( ! $delivery_day->has_time_frames() ) {
-			$this->form_fields = array_merge( $this->form_fields, $this->get_shipping_methods_fields() );
+			$this->form_fields = array_merge(
+				$this->form_fields,
+				$this->get_number_of_orders_field(),
+				$this->get_shipping_methods_fields()
+			);
 
+			$this->form_fields['number_of_orders']['default']            = $delivery_day['number_of_orders'];
 			$this->form_fields['shipping_methods_option']['description'] = __( 'Choose the available shipping methods for this delivery day.', 'woocommerce-order-delivery' );
 		}
 
@@ -170,6 +175,32 @@ class WC_OD_Settings_Delivery_Day extends WC_OD_Settings_API {
 		// Reset the delivery day.
 		$this->delivery_day = null;
 
+		/** @var WC_OD_Delivery_Cache $delivery_cache */
+		$delivery_cache = WC_OD_Delivery_Cache::instance();
+		$delivery_cache->remove_order_cache();
+
 		return $saved;
+	}
+
+	/**
+	 * Validates the settings.
+	 *
+	 * The non-returned settings won't be updated.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param array $settings The settings to validate.
+	 * @return array
+	 */
+	public function validate_fields( $settings ) {
+		$settings = parent::validate_fields( $settings );
+
+		if ( isset( $settings['number_of_orders'] ) && $settings['number_of_orders'] < 0 ) {
+			$this->add_error( __( 'The field "Number of orders" cannot be a negative number.', 'woocommerce-order-delivery' ) );
+
+			unset( $settings['number_of_orders'] );
+		}
+
+		return $settings;
 	}
 }

@@ -832,25 +832,26 @@ class User_Memberships extends Controller {
 
 		if ( $user_membership instanceof \WC_Memberships_User_Membership ) {
 
-			$order   = $user_membership->get_order();
-			$product = $user_membership->get_product( true );
-			$data    = [
+			$datetime_format = $this->get_datetime_format();
+			$order           = $user_membership->get_order();
+			$product         = $user_membership->get_product( true );
+			$data            = [
 				'id'                 => $user_membership->get_id(),
 				'customer_id'        => $user_membership->get_user_id(),
 				'plan_id'            => $user_membership->get_plan_id(),
 				'status'             => $user_membership->get_status(),
 				'order_id'           => $order   ? $order->get_id()   : null,
 				'product_id'         => $product ? $product->get_id() : null,
-				'date_created'       => wc_memberships_format_date( $user_membership->post->post_date, DATE_ATOM ),
-				'date_created_gmt'   => wc_memberships_format_date( $user_membership->post->post_date_gmt, DATE_ATOM ),
-				'start_date'         => $user_membership->get_local_start_date( DATE_ATOM ),
-				'start_date_gmt'     => $user_membership->get_start_date( DATE_ATOM ),
-				'end_date'           => $user_membership->get_local_end_date( DATE_ATOM ),
-				'end_date_gmt'       => $user_membership->get_end_date( DATE_ATOM ),
-				'paused_date'        => $user_membership->get_local_paused_date( DATE_ATOM ),
-				'paused_date_gmt'    => $user_membership->get_paused_date( DATE_ATOM ),
-				'cancelled_date'     => $user_membership->get_local_cancelled_date( DATE_ATOM ),
-				'cancelled_date_gmt' => $user_membership->get_cancelled_date( DATE_ATOM ),
+				'date_created'       => wc_memberships_format_date( $user_membership->post->post_date, $datetime_format ),
+				'date_created_gmt'   => wc_memberships_format_date( $user_membership->post->post_date_gmt, $datetime_format ),
+				'start_date'         => $user_membership->get_local_start_date( $datetime_format ),
+				'start_date_gmt'     => $user_membership->get_start_date( $datetime_format ),
+				'end_date'           => $user_membership->get_local_end_date( $datetime_format ),
+				'end_date_gmt'       => $user_membership->get_end_date( $datetime_format ),
+				'paused_date'        => $user_membership->get_local_paused_date( $datetime_format ),
+				'paused_date_gmt'    => $user_membership->get_paused_date( $datetime_format ),
+				'cancelled_date'     => $user_membership->get_local_cancelled_date( $datetime_format ),
+				'cancelled_date_gmt' => $user_membership->get_cancelled_date( $datetime_format ),
 				'view_url'           => $user_membership->get_view_membership_url(),
 				'profile_fields'     => [],
 				'meta_data'          => $this->prepare_item_meta_data( $user_membership ),

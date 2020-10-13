@@ -10,6 +10,8 @@
 
 .product_table {background-color: #ccc;}
 
+.email_store_logo{float:none;display:block;margin:0 auto;max-width:12vw;padding-bottom:30px;}
+
 </style>
 
 <?php
@@ -55,7 +57,7 @@
 
 		<td align="center">
 
-			<h2 style="color: #fff;">[<?php echo 'Order #'.$order_info['id']; ?>]
+			<h2 style="color: #fff;">[<?php echo 'Order #'.$order_info['custom_order_number']; ?>]
 
 				<span>
 
@@ -199,19 +201,37 @@
 					</tr>
 
 				<?php } }?>
-			<tr>
+				<tr>
+					<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $body_text_color; ?>">
+
+						<?php if($order_info['options']['customer_note'] == '1') {
+
+							echo "Customer Order Note : " .$order_info['customer_note'];
+						}?>
+
+					</td>
+				</tr>
+				
+				<tr>
 				<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $body_text_color; ?>">
 
-					<?php if($order_info['options']['customer_note'] == '1') {
+					<?php 
+					$delivery_date_field = get_option( 'orddd_lite_delivery_date_field_label' );
 
-						echo "Customer Order Note : " .$order_info['customer_note'];
+					if(!empty($delivery_date_field)){
+
+						$Delivery = get_post_meta($order_info['id'], $delivery_date_field, true);
+							
+						if(!empty($Delivery)) {
+
+							echo $delivery_date_field .' : ' .$Delivery;
+
+						}
 					}?>
-
 				</td>
-
 			</tr>
 
-				</tbody>
+			</tbody>
 
 		</table>
 
@@ -621,8 +641,10 @@
 				$order_subtotal += $prod_info['total'];
 
 				$order = wc_get_order( $order_info['id']);
-				
+
 				$imgurl = $prod_info['imgurl'];
+
+				$ali_image = $prod_info['ali_image'];
 
 				$dummyimg = plugin_dir_url( __FILE__ ).'no.png';
 
@@ -645,6 +667,10 @@
 
 								$rows.='<td align="center"><img class="p_image" src="'.$imgurl.'"/></td>';
 
+							} elseif ($ali_image != ''){
+
+								$rows.='<td align="center"><img width="250" class="p_image" src="'.$ali_image.'"/></td>';
+
 							} else {
 
 								$rows.='<td align="center"><img class="p_image" src="'.$dummyimg.'"/></td>';
@@ -662,6 +688,10 @@
 							if($imgurl !='') {
 
 								$rows.='<td align="center"><img class="p_image" src="'.$imgurl.'"/></td>';
+
+							} elseif ($ali_image != ''){
+
+								$rows.='<td align="center"><img width="250" class="p_image" src="'.$ali_image.'"/></td>';
 
 							} else {
 
@@ -793,12 +823,17 @@
 
 					$rows .= '<tr border="0" style="'.$body_text_color.' '.$body_bkg_color.'">';
 
+					if(isset($order_info['tax_label'])){
+						$order_tax_label = $order_info['tax_label'];
+					}else{
+						$order_tax_label = 'taxes';
+					}
 
 					if($order_info['options']['full_information'] == '1') {
 
 							if($order_info['options']['cost_of_goods'] == '0') {
 
-								$rows .= '<td align="right" colspan="5">Taxes</td>';
+								$rows .= '<td align="right" colspan="5">'.$order_tax_label.'</td>';
 
 								$rows .= '<td align="center">'.$currency_sym.$order_total_tax.'</td>';
 
@@ -809,7 +844,7 @@
 
 							if($order_info['options']['cost_of_goods'] == '0') {
 
-								$rows .= '<td align="right" colspan="5">Taxes</td>';
+								$rows .= '<td align="right" colspan="5">'.$order_tax_label.'</td>';
 
 								$rows .= '<td align="center">'.$currency_sym.$order_total_tax .'</td>';
 
@@ -834,14 +869,14 @@
 
 					}
 
-					if($order_info['options']['full_information'] == '1') { 
+					if($order_info['options']['full_information'] == '1') {
 
 							if($order_info['options']['total_price'] == '1') {
 
 								$rows .= '<td align="right" colspan="5">Total</td>';
 
 								$rows .= '<td align="center">'.$currency_sym.$grandtotal.'</td>';
-												
+
 							}
 
 
@@ -861,7 +896,7 @@
 
 					$rows .='</tr>';
 				}
-			
+
 			echo $rows;
 
 

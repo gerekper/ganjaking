@@ -1644,6 +1644,9 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     $mepr_options = MeprOptions::fetch();
     $sub = new MeprSubscription($sub_id);
     $user = $sub->user();
+    if(MeprUtils::is_post_request() && empty($errors) && !empty($_POST['mepr_stripe_update_is_payment'])) {
+      $message = __('Update successful, please allow some time for the payment to process. Your account will reflect the updated payment soon.', 'memberpress');
+    }
     ?>
       <div class="mp_wrapper">
         <form action="" method="post" id="mepr-stripe-payment-form" data-sub-id="<?php echo esc_attr($sub->id); ?>">
@@ -1705,6 +1708,11 @@ class MeprStripeGateway extends MeprBaseRealGateway {
 
   /** Returns boolean ... whether or not we should be sending in test mode or not */
   public function is_test_mode() {
+    if (defined('MEMBERPRESS_STRIPE_TESTING') && MEMBERPRESS_STRIPE_TESTING == true) {
+      $this->settings->test_mode = true;
+      return true;
+    }
+
     return (isset($this->settings->test_mode) && $this->settings->test_mode);
   }
 
@@ -1981,20 +1989,21 @@ class MeprStripeGateway extends MeprBaseRealGateway {
         'currency' => $mepr_options->currency_code,
         'id' => $new_plan_id,
         'product' => array(
-          'name' => $prd->post_title,
-          'statement_descriptor' => $this->sanitize_statement_descriptor(get_option('blogname'))
+          'name' => $prd->post_title
         )
       ), $sub);
 
       // Prevent a Stripe error if the user is using the pre-1.6.0 method of setting the statement_descriptor
-      if (isset($args['statement_descriptor'])) {
-        $args['product']['statement_descriptor'] = $this->sanitize_statement_descriptor($args['statement_descriptor']);
+      if(array_key_exists('statement_descriptor', $args)) {
+        $statement_descriptor = $args['statement_descriptor'];
         unset($args['statement_descriptor']);
       }
+      else {
+        $statement_descriptor = $this->get_statement_descriptor($prd);
+      }
 
-      // Ensure that the statement_descriptor is not empty
-      if (isset($args['product']['statement_descriptor']) && (!is_string($args['product']['statement_descriptor']) || $args['product']['statement_descriptor'] === '')) {
-        $args['product']['statement_descriptor'] = $this->sanitize_statement_descriptor(parse_url(get_option('siteurl'), PHP_URL_HOST));
+      if(strlen($statement_descriptor) > 1) {
+        $args['product']['statement_descriptor'] = $statement_descriptor;
       }
 
       // Don't enclose this in try/catch ... we want any errors to bubble up
@@ -2013,7 +2022,11 @@ class MeprStripeGateway extends MeprBaseRealGateway {
    * @return string
    */
   private function sanitize_statement_descriptor($statement_descriptor) {
-    $statement_descriptor = str_replace(array("'", '"', '<', '>', '$', '®', '*', '\\', '&lt;', '&gt;', '&#039;', '&quot;'), '', $statement_descriptor);
+    if(!is_string($statement_descriptor)) {
+      return '';
+    }
+
+    $statement_descriptor = preg_replace('/[^a-zA-Z0-9.\-_ ]/', '', $statement_descriptor);
     $statement_descriptor = trim(substr($statement_descriptor, 0, 22));
 
     return $statement_descriptor;
@@ -2538,7 +2551,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     ], $sub);
 
     // Prevent a Stripe error if the user is using the pre-1.6.0 method of setting the statement_descriptor
-    if(isset($args['statement_descriptor'])) {
+    if(array_key_exists('statement_descriptor', $args)) {
       unset($args['statement_descriptor']);
     }
 
@@ -2564,8 +2577,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
   public function create_product(MeprProduct $prd) {
     $args = MeprHooks::apply_filters('mepr_stripe_create_product_args', [
       'name' => $prd->post_title,
-      'type' => 'service',
-      'statement_descriptor' => $this->get_statement_descriptor($prd),
+      'type' => 'service'
     ], $prd);
 
     // Prevent a Stripe error in the rare case that a membership has an empty title
@@ -2577,9 +2589,12 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       );
     }
 
-    // Prevent a Stripe error with an empty statement_descriptor
-    if(empty($args['statement_descriptor'])) {
-      unset($args['statement_descriptor']);
+    if(!array_key_exists('statement_descriptor', $args)) {
+      $statement_descriptor = $this->get_statement_descriptor($prd);
+
+      if(strlen($statement_descriptor) > 1) {
+        $args['statement_descriptor'] = $statement_descriptor;
+      }
     }
 
     $product = (object) $this->send_stripe_request('products', $args, 'post');
@@ -2681,10 +2696,10 @@ class MeprStripeGateway extends MeprBaseRealGateway {
    * @return string               The statement descriptor
    */
   private function get_statement_descriptor(MeprProduct $product) {
-    $descriptor = get_option('blogname');
+    $descriptor = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
     if(empty($descriptor)) {
-      parse_url(get_option('siteurl'), PHP_URL_HOST);
+      $descriptor = parse_url(get_option('siteurl'), PHP_URL_HOST);
     }
 
     $descriptor = MeprHooks::apply_filters('mepr_stripe_statement_descriptor', $descriptor, $product);
