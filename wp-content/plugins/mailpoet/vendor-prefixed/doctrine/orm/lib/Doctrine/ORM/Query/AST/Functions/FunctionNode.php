@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST\Functions; if (!defined('ABSPATH')) exit; use MailPoetVendor\Doctrine\ORM\Query\AST\Node; abstract class FunctionNode extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $name; public function __construct($name) { $this->name = $name; } public abstract function getSql(\MailPoetVendor\Doctrine\ORM\Query\SqlWalker $sqlWalker); public function dispatch($sqlWalker) { return $sqlWalker->walkFunction($this); } public abstract function parse(\MailPoetVendor\Doctrine\ORM\Query\Parser $parser); } 

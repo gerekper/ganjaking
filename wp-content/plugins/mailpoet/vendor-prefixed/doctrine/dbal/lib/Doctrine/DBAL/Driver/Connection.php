@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\DBAL\Driver; if (!defined('ABSPATH')) exit; use MailPoetVendor\Doctrine\DBAL\ParameterType; interface Connection { public function prepare($prepareString); public function query(); public function quote($input, $type = \MailPoetVendor\Doctrine\DBAL\ParameterType::STRING); public function exec($statement); public function lastInsertId($name = null); public function beginTransaction(); public function commit(); public function rollBack(); public function errorCode(); public function errorInfo(); } 

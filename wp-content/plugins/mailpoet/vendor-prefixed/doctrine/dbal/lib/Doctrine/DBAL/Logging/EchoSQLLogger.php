@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\DBAL\Logging; if (!defined('ABSPATH')) exit; use const PHP_EOL; use function var_dump; class EchoSQLLogger implements \MailPoetVendor\Doctrine\DBAL\Logging\SQLLogger { public function startQuery($sql, ?array $params = null, ?array $types = null) { echo $sql . \PHP_EOL; if ($params) { \var_dump($params); } if (!$types) { return; } \var_dump($types); } public function stopQuery() { } } 

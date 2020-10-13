@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\DBAL\Exception; if (!defined('ABSPATH')) exit; use MailPoetVendor\Doctrine\DBAL\DBALException; class InvalidArgumentException extends \MailPoetVendor\Doctrine\DBAL\DBALException { public static function fromEmptyCriteria() { return new self('Empty criteria was used, expected non-empty criteria'); } } 

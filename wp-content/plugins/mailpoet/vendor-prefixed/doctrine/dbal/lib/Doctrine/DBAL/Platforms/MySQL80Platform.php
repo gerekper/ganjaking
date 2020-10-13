@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\DBAL\Platforms; if (!defined('ABSPATH')) exit; class MySQL80Platform extends \MailPoetVendor\Doctrine\DBAL\Platforms\MySQL57Platform { protected function getReservedKeywordsClass() { return \MailPoetVendor\Doctrine\DBAL\Platforms\Keywords\MySQL80Keywords::class; } } 

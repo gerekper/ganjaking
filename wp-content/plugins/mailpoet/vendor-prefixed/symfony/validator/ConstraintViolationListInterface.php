@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\Validator; if (!defined('ABSPATH')) exit; interface ConstraintViolationListInterface extends \Traversable, \Countable, \ArrayAccess { public function add(\MailPoetVendor\Symfony\Component\Validator\ConstraintViolationInterface $violation); public function addAll(self $otherList); public function get($offset); public function has($offset); public function set($offset, \MailPoetVendor\Symfony\Component\Validator\ConstraintViolationInterface $violation); public function remove($offset); } 

@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor; if (!defined('ABSPATH')) exit; interface Swift_Signers_HeaderSigner extends \MailPoetVendor\Swift_Signer, \MailPoetVendor\Swift_InputByteStream { public function ignoreHeader($header_name); public function startBody(); public function endBody(); public function setHeaders(\MailPoetVendor\Swift_Mime_SimpleHeaderSet $headers); public function addSignature(\MailPoetVendor\Swift_Mime_SimpleHeaderSet $headers); public function getAlteredHeaders(); } 

@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST; if (!defined('ABSPATH')) exit; class InstanceOfExpression extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $not; public $identificationVariable; public $value; public function __construct($identVariable) { $this->identificationVariable = $identVariable; } public function dispatch($sqlWalker) { return $sqlWalker->walkInstanceOfExpression($this); } } 

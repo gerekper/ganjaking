@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\Validator; if (!defined('ABSPATH')) exit; interface ConstraintValidatorFactoryInterface { public function getInstance(\MailPoetVendor\Symfony\Component\Validator\Constraint $constraint); } 

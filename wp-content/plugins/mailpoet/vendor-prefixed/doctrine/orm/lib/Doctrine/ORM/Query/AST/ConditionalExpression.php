@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST; if (!defined('ABSPATH')) exit; class ConditionalExpression extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $conditionalTerms = []; public function __construct(array $conditionalTerms) { $this->conditionalTerms = $conditionalTerms; } public function dispatch($sqlWalker) { return $sqlWalker->walkConditionalExpression($this); } } 

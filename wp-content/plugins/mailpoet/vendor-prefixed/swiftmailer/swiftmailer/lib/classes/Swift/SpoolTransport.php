@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor; if (!defined('ABSPATH')) exit; class Swift_SpoolTransport extends \MailPoetVendor\Swift_Transport_SpoolTransport { public function __construct(\MailPoetVendor\Swift_Spool $spool) { $arguments = \MailPoetVendor\Swift_DependencyContainer::getInstance()->createDependenciesFor('transport.spool'); $arguments[] = $spool; \call_user_func_array([$this, 'MailPoetVendor\\Swift_Transport_SpoolTransport::__construct'], $arguments); } } 

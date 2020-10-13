@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST; if (!defined('ABSPATH')) exit; class JoinAssociationPathExpression extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $identificationVariable; public $associationField; public function __construct($identificationVariable, $associationField) { $this->identificationVariable = $identificationVariable; $this->associationField = $associationField; } public function dispatch($sqlWalker) { return $sqlWalker->walkPathExpression($this); } } 

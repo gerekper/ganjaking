@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\Common\Collections\Expr; if (!defined('ABSPATH')) exit; class Value implements \MailPoetVendor\Doctrine\Common\Collections\Expr\Expression { private $value; public function __construct($value) { $this->value = $value; } public function getValue() { return $this->value; } public function visit(\MailPoetVendor\Doctrine\Common\Collections\Expr\ExpressionVisitor $visitor) { return $visitor->walkValue($this); } } 

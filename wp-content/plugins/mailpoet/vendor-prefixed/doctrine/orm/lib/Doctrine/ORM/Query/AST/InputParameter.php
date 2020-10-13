@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST; if (!defined('ABSPATH')) exit; class InputParameter extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $isNamed; public $name; public function __construct($value) { if (\strlen($value) === 1) { throw \MailPoetVendor\Doctrine\ORM\Query\QueryException::invalidParameterFormat($value); } $param = \substr($value, 1); $this->isNamed = !\is_numeric($param); $this->name = $param; } public function dispatch($walker) { return $walker->walkInputParameter($this); } } 

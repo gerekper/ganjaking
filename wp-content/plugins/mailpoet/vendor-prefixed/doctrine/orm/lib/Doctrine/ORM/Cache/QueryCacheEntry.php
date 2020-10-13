@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Cache; if (!defined('ABSPATH')) exit; class QueryCacheEntry implements \MailPoetVendor\Doctrine\ORM\Cache\CacheEntry { public $result; public $time; public function __construct($result, $time = null) { $this->result = $result; $this->time = $time ?: \microtime(\true); } public static function __set_state(array $values) { return new self($values['result'], $values['time']); } } 

@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST; if (!defined('ABSPATH')) exit; class IndexBy extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $simpleStateFieldPathExpression = null; public function __construct($simpleStateFieldPathExpression) { $this->simpleStateFieldPathExpression = $simpleStateFieldPathExpression; } public function dispatch($sqlWalker) { return $sqlWalker->walkIndexBy($this); } } 

@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Psr\Log; if (!defined('ABSPATH')) exit; class NullLogger extends \MailPoetVendor\Psr\Log\AbstractLogger { public function log($level, $message, array $context = array()) { } } 

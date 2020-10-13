@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor; if (!defined('ABSPATH')) exit; interface Swift_Mime_ContentEncoder extends \MailPoetVendor\Swift_Encoder { public function encodeByteStream(\MailPoetVendor\Swift_OutputByteStream $os, \MailPoetVendor\Swift_InputByteStream $is, $firstLineOffset = 0, $maxLineLength = 0); public function getName(); } 

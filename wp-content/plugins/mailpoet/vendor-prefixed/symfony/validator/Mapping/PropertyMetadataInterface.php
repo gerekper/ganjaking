@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\Validator\Mapping; if (!defined('ABSPATH')) exit; interface PropertyMetadataInterface extends \MailPoetVendor\Symfony\Component\Validator\Mapping\MetadataInterface { public function getPropertyName(); public function getPropertyValue($containingValue); } 

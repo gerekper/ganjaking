@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; final class Entity implements \MailPoetVendor\Doctrine\ORM\Mapping\Annotation { public $repositoryClass; public $readOnly = \false; } 

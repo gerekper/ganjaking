@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor; if (!defined('ABSPATH')) exit; class Swift_Image extends \MailPoetVendor\Swift_EmbeddedFile { public function __construct($data = null, $filename = null, $contentType = null) { parent::__construct($data, $filename, $contentType); } public static function fromPath($path) { return (new self())->setFile(new \MailPoetVendor\Swift_ByteStream_FileByteStream($path)); } } 

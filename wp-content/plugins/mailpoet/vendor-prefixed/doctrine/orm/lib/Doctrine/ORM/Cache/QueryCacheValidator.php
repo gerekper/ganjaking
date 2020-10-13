@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Cache; if (!defined('ABSPATH')) exit; interface QueryCacheValidator { public function isValid(\MailPoetVendor\Doctrine\ORM\Cache\QueryCacheKey $key, \MailPoetVendor\Doctrine\ORM\Cache\QueryCacheEntry $entry); } 

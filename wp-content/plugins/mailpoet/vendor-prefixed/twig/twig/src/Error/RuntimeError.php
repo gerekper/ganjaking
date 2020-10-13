@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Twig\Error; if (!defined('ABSPATH')) exit; class RuntimeError extends \MailPoetVendor\Twig\Error\Error { } \class_alias('MailPoetVendor\\Twig\\Error\\RuntimeError', 'MailPoetVendor\\Twig_Error_Runtime'); 

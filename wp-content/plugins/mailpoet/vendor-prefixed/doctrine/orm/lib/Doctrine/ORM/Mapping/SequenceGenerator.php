@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; final class SequenceGenerator implements \MailPoetVendor\Doctrine\ORM\Mapping\Annotation { public $sequenceName; public $allocationSize = 1; public $initialValue = 1; } 

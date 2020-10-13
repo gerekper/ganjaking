@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor; if (!defined('ABSPATH')) exit; class Swift_Events_TransportExceptionEvent extends \MailPoetVendor\Swift_Events_EventObject { private $exception; public function __construct(\MailPoetVendor\Swift_Transport $transport, \MailPoetVendor\Swift_TransportException $ex) { parent::__construct($transport); $this->exception = $ex; } public function getException() { return $this->exception; } } 

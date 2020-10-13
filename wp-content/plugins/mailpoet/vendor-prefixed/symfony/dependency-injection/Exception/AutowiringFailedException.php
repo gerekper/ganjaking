@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Exception; if (!defined('ABSPATH')) exit; class AutowiringFailedException extends \MailPoetVendor\Symfony\Component\DependencyInjection\Exception\RuntimeException { private $serviceId; public function __construct($serviceId, $message = '', $code = 0, \Exception $previous = null) { $this->serviceId = $serviceId; parent::__construct($message, $code, $previous); } public function getServiceId() { return $this->serviceId; } } 

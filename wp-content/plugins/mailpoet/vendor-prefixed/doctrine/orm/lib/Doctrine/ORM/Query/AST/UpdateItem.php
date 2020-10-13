@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST; if (!defined('ABSPATH')) exit; class UpdateItem extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $pathExpression; public $newValue; public function __construct($pathExpression, $newValue) { $this->pathExpression = $pathExpression; $this->newValue = $newValue; } public function dispatch($sqlWalker) { return $sqlWalker->walkUpdateItem($this); } } 

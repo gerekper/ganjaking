@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Internal\Hydration; if (!defined('ABSPATH')) exit; class ScalarHydrator extends \MailPoetVendor\Doctrine\ORM\Internal\Hydration\AbstractHydrator { protected function hydrateAllData() { $result = []; while ($data = $this->_stmt->fetch(\PDO::FETCH_ASSOC)) { $this->hydrateRowData($data, $result); } return $result; } protected function hydrateRowData(array $data, array &$result) { $result[] = $this->gatherScalarRowData($data); } } 

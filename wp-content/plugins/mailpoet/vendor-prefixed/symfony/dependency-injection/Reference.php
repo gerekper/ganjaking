@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection; if (!defined('ABSPATH')) exit; class Reference { private $id; private $invalidBehavior; public function __construct($id, $invalidBehavior = \MailPoetVendor\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE) { $this->id = (string) $id; $this->invalidBehavior = $invalidBehavior; } public function __toString() { return $this->id; } public function getInvalidBehavior() { return $this->invalidBehavior; } } 

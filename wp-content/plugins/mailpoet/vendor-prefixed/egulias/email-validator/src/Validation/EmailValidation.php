@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Egulias\EmailValidator\Validation; if (!defined('ABSPATH')) exit; use MailPoetVendor\Egulias\EmailValidator\EmailLexer; use MailPoetVendor\Egulias\EmailValidator\Exception\InvalidEmail; use MailPoetVendor\Egulias\EmailValidator\Warning\Warning; interface EmailValidation { public function isValid($email, \MailPoetVendor\Egulias\EmailValidator\EmailLexer $emailLexer); public function getError(); public function getWarnings(); } 

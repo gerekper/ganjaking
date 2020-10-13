@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Cache; if (!defined('ABSPATH')) exit; class TimestampCacheKey extends \MailPoetVendor\Doctrine\ORM\Cache\CacheKey { public function __construct($space) { $this->hash = (string) $space; } } 

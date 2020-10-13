@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection; if (!defined('ABSPATH')) exit; @\trigger_error('The ' . __NAMESPACE__ . '\\DefinitionDecorator class is deprecated since Symfony 3.3 and will be removed in 4.0. Use the Symfony\\Component\\DependencyInjection\\ChildDefinition class instead.', \E_USER_DEPRECATED); \class_exists(\MailPoetVendor\Symfony\Component\DependencyInjection\ChildDefinition::class); if (\false) { class DefinitionDecorator extends \MailPoetVendor\Symfony\Component\DependencyInjection\Definition { } } 

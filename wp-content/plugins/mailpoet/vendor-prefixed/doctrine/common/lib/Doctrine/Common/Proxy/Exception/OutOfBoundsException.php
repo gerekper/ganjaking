@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\Common\Proxy\Exception; if (!defined('ABSPATH')) exit; use OutOfBoundsException as BaseOutOfBoundsException; class OutOfBoundsException extends \OutOfBoundsException implements \MailPoetVendor\Doctrine\Common\Proxy\Exception\ProxyException { public static function missingPrimaryKeyValue($className, $idField) { return new self(\sprintf("Missing value for primary key %s on %s", $idField, $className)); } } 

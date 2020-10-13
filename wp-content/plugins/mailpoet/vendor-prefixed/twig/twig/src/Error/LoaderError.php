@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Twig\Error; if (!defined('ABSPATH')) exit; class LoaderError extends \MailPoetVendor\Twig\Error\Error { } \class_alias('MailPoetVendor\\Twig\\Error\\LoaderError', 'MailPoetVendor\\Twig_Error_Loader'); 

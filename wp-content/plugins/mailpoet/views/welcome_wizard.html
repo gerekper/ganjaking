@@ -1,0 +1,60 @@
+<% extends 'layout.html' %>
+
+<% block content %>
+<script>
+  var mailpoet_logo_url = '<%= cdn_url('welcome-wizard/mailpoet-logo.20200623.png') %>';
+  var wizard_sender_illustration_url = '<%= cdn_url('welcome-wizard/sender.20200623.png') %>';
+  var wizard_email_course_illustration_url = '<%= cdn_url('welcome-wizard/email-course.20200623.png') %>';
+  var wizard_tracking_illustration_url = '<%= cdn_url('welcome-wizard/tracking.20200623.png') %>';
+  var wizard_woocommerce_illustration_url = '<%= cdn_url('welcome-wizard/woocommerce.20200623.png') %>';
+  var wizard_MSS_pitch_illustration_url = '<%= cdn_url('welcome-wizard/illu-pitch-mss.20190912.png') %>';
+  var is_mp2_migration_complete = <%=  json_encode(is_mp2_migration_complete) %>;
+  var is_woocommerce_active = <%= json_encode(is_woocommerce_active)  %>;
+  var finish_wizard_url = '<%= finish_wizard_url %>';
+  var sender_data = <%= json_encode(sender) %>;
+  var admin_email = <%= json_encode(admin_email) %>;
+  var hide_mailpoet_beacon = true;
+  var subscribers_count = <%= subscriber_count %>;
+  var mailpoet_account_url = '<%= add_referral_id("https://account.mailpoet.com/?s=" ~ subscriber_count ~ "&email=" ~ current_wp_user.user_email) | escape('js') %>';
+  var has_mss_key_specified = <%= json_encode(has_mss_key_specified) %>;
+  var mailpoet_feature_flags = <%= json_encode(mailpoet_feature_flags) %>;
+</script>
+
+<div id="mailpoet-wizard-container"></div>
+
+<div class="mailpoet-wizard-video">
+    <iframe width="1" height="1" src="https://player.vimeo.com/video/279123953" frameborder="0"></iframe>
+</div>
+
+<% endblock %>
+
+<% block translations %>
+<%= localize({
+'welcomeWizardLetsStartTitle': __('Welcome! Let’s get you started on the right foot.'),
+'welcomeWizardSenderText': __('Who is the sender of the emails you’ll be creating with MailPoet?'),
+'welcomeWizardSenderMigratedUserText': __('We have a few things to tell you before you begin to ensure you have a good experience.'),
+'welcomeWizardUsageTrackingStepTitle': __('Help MailPoet improve with anonymous usage tracking.'),
+'welcomeWizardUsageTrackingStepSubTitle': __('Data we don’t gather:'),
+'welcomeWizardTrackingText': __('Gathering usage data allows us to make MailPoet better — the way you use MailPoet will be considered as we evaluate new features, judge the quality of an update, or determine if an improvement makes sense.'),
+'welcomeWizardTrackingList1': __('Any personal data'),
+'welcomeWizardTrackingList2': __('Email addresses'),
+'welcomeWizardTrackingList3': __('Login and passwords'),
+'welcomeWizardTrackingList4': __('Content of your emails'),
+'welcomeWizardTrackingList5': __('Open and click rates'),
+'welcomeWizardTrackingLink': __('Read more about what we collect.'),
+'welcomeWizardEmailCourseTitle': __('Sign up to our 4-part email course'),
+'welcomeWizardEmailCourseText': __('A must for every beginner (in English only)'),
+'seeVideoGuide': _x('See video guide', 'A label on a button'),
+'skip': _x('Skip', 'A label on a skip button'),
+'finishLater': _x('Finish later', 'A label on a skip button'),
+'allowAndFinish': _x('Allow & Finish', 'A label on a button'),
+'allowAndContinue': _x('Allow & Continue', 'A label on a button'),
+'senderAddress': _x('From Address', 'A form field label'),
+'replyToAddress': _x('Reply-to Address', 'A form field label'),
+'senderName': _x('From Name', 'A form field label'),
+'next': _x('Next', 'A label on a button'),
+'continue': _x('Continue', 'A label on a button'),
+}) %>
+<% include('mss_pitch_translations.html') %>
+<% include('woocommerce_setup_translations.html') %>
+<% endblock %>

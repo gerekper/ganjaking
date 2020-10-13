@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; final class JoinColumn implements \MailPoetVendor\Doctrine\ORM\Mapping\Annotation { public $name; public $referencedColumnName = 'id'; public $unique = \false; public $nullable = \true; public $onDelete; public $columnDefinition; public $fieldName; } 

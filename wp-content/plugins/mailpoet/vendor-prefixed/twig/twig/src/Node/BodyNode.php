@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Twig\Node; if (!defined('ABSPATH')) exit; class BodyNode extends \MailPoetVendor\Twig\Node\Node { } \class_alias('MailPoetVendor\\Twig\\Node\\BodyNode', 'MailPoetVendor\\Twig_Node_Body'); 

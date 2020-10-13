@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Twig\TokenParser; if (!defined('ABSPATH')) exit; use MailPoetVendor\Twig\Parser; abstract class AbstractTokenParser implements \MailPoetVendor\Twig\TokenParser\TokenParserInterface { protected $parser; public function setParser(\MailPoetVendor\Twig\Parser $parser) { $this->parser = $parser; } } \class_alias('MailPoetVendor\\Twig\\TokenParser\\AbstractTokenParser', 'MailPoetVendor\\Twig_TokenParser'); 

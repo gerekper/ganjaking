@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor; if (!defined('ABSPATH')) exit; interface Swift_Events_SendListener extends \MailPoetVendor\Swift_Events_EventListener { public function beforeSendPerformed(\MailPoetVendor\Swift_Events_SendEvent $evt); public function sendPerformed(\MailPoetVendor\Swift_Events_SendEvent $evt); } 

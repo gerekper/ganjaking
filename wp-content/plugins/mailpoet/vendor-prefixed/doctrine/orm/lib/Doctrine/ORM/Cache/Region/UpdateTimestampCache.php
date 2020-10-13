@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Cache\Region; if (!defined('ABSPATH')) exit; use MailPoetVendor\Doctrine\ORM\Cache\TimestampCacheEntry; use MailPoetVendor\Doctrine\ORM\Cache\TimestampRegion; use MailPoetVendor\Doctrine\ORM\Cache\CacheKey; class UpdateTimestampCache extends \MailPoetVendor\Doctrine\ORM\Cache\Region\DefaultRegion implements \MailPoetVendor\Doctrine\ORM\Cache\TimestampRegion { public function update(\MailPoetVendor\Doctrine\ORM\Cache\CacheKey $key) { $this->put($key, new \MailPoetVendor\Doctrine\ORM\Cache\TimestampCacheEntry()); } } 

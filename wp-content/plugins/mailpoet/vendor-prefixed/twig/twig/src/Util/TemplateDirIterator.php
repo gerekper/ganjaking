@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Twig\Util; if (!defined('ABSPATH')) exit; class TemplateDirIterator extends \IteratorIterator { public function current() { return \file_get_contents(parent::current()); } public function key() { return (string) parent::key(); } } \class_alias('MailPoetVendor\\Twig\\Util\\TemplateDirIterator', 'MailPoetVendor\\Twig_Util_TemplateDirIterator'); 

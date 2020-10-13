@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\Validator\Exception; if (!defined('ABSPATH')) exit; class MissingOptionsException extends \MailPoetVendor\Symfony\Component\Validator\Exception\ValidatorException { private $options; public function __construct($message, array $options) { parent::__construct($message); $this->options = $options; } public function getOptions() { return $this->options; } } 

@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST; if (!defined('ABSPATH')) exit; class ParenthesisExpression extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $expression; public function __construct(\MailPoetVendor\Doctrine\ORM\Query\AST\Node $expression) { $this->expression = $expression; } public function dispatch($walker) { return $walker->walkParenthesisExpression($this); } } 

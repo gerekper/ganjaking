@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST; if (!defined('ABSPATH')) exit; class OrderByItem extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $expression; public $type; public function __construct($expression) { $this->expression = $expression; } public function isAsc() { return \strtoupper($this->type) == 'ASC'; } public function isDesc() { return \strtoupper($this->type) == 'DESC'; } public function dispatch($sqlWalker) { return $sqlWalker->walkOrderByItem($this); } } 

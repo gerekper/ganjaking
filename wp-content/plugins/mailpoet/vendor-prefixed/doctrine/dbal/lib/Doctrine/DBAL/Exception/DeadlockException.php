@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\DBAL\Exception; if (!defined('ABSPATH')) exit; class DeadlockException extends \MailPoetVendor\Doctrine\DBAL\Exception\ServerException implements \MailPoetVendor\Doctrine\DBAL\Exception\RetryableException { } 

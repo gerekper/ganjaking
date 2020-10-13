@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor; if (!defined('ABSPATH')) exit; interface Swift_Encoder extends \MailPoetVendor\Swift_Mime_CharsetObserver { public function encodeString($string, $firstLineOffset = 0, $maxLineLength = 0); } 

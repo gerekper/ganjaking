@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Cache\Persister; if (!defined('ABSPATH')) exit; interface CachedPersister { public function afterTransactionComplete(); public function afterTransactionRolledBack(); public function getCacheRegion(); } 

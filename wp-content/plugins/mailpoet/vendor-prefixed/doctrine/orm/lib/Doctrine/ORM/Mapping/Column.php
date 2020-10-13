@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; final class Column implements \MailPoetVendor\Doctrine\ORM\Mapping\Annotation { public $name; public $type = 'string'; public $length; public $precision = 0; public $scale = 0; public $unique = \false; public $nullable = \false; public $options = []; public $columnDefinition; } 

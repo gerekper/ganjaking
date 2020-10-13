@@ -305,3 +305,6 @@ input[type="checkbox"].attr-bulk-checkbox{
 .last-activity .label{
     font-weight: 500;
 }
+.modal .form-field .description{
+    display: block;
+}

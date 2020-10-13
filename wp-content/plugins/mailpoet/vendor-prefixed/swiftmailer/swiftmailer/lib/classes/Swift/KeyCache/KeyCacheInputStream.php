@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor; if (!defined('ABSPATH')) exit; interface Swift_KeyCache_KeyCacheInputStream extends \MailPoetVendor\Swift_InputByteStream { public function setKeyCache(\MailPoetVendor\Swift_KeyCache $keyCache); public function setNsKey($nsKey); public function setItemKey($itemKey); public function setWriteThroughStream(\MailPoetVendor\Swift_InputByteStream $is); public function __clone(); } 

@@ -1,0 +1,447 @@
+<% extends 'layout.html' %>
+
+<% block content %>
+  <div id="newsletters_container"></div>
+
+  <script type="text/javascript">
+    <% autoescape 'js' %>
+      var mailpoet_update_available = <%= is_mailpoet_update_available ? 'true' : 'false' %>
+      var mailpoet_listing_per_page = <%= items_per_page %>;
+      var mailpoet_display_nps_poll = <%= (sent_newsletters_count > 0 and settings.display_nps_poll) ? 'true' : 'false' %>;
+      var mailpoet_subscribers_limit = <%= subscribers_limit ? subscribers_limit : 'false'  %>;
+      var mailpoet_subscribers_limit_reached = <%= subscribers_limit_reached ? 'true' : 'false' %>;
+      var mailpoet_has_valid_api_key = <%= has_valid_api_key ? 'true' : 'false' %>;
+      var mailpoet_segments = <%= json_encode(segments) %>;
+      var mailpoet_show_congratulate_after_first_newsletter = <%= show_congratulate_after_first_newsletter %>;
+      var mailpoet_installed_days_ago = <%= installed_days_ago %>;
+      var mailpoet_current_wp_user = <%= json_encode(current_wp_user) %>;
+      var mailpoet_current_wp_user_firstname = '<%= current_wp_user_firstname %>';
+      var mailpoet_lists = <%= json_encode(lists) %>;
+      var mailpoet_roles = <%= json_encode(roles) %>;
+      var mailpoet_current_date = <%= json_encode(current_date) %>;
+      var mailpoet_current_time = <%= json_encode(current_time) %>;
+      var mailpoet_schedule_time_of_day = <%= json_encode(schedule_time_of_day) %>;
+      var mailpoet_date_display_format = "<%= wp_date_format() %>";
+      var mailpoet_start_of_week = "<%= wp_start_of_week() %>";
+      var mailpoet_site_url = "<%= site_url %>";
+      var mailpoet_date_storage_format = "Y-m-d";
+      var mailpoet_tracking_enabled = <%= json_encode(tracking_enabled) %>;
+      var mailpoet_premium_active = <%= json_encode(premium_plugin_active) %>;
+      var mailpoet_transactional_emails_opt_in_notice_dismissed = '<%= transactional_emails_opt_in_notice_dismissed %>';
+      var mailpoet_mss_key_invalid = <%= mss_key_invalid ? 'true' : 'false' %>;
+
+      var has_mss_key_specified = <%= json_encode(has_mss_key_specified) %>;
+      var mailpoet_account_url = '<%= add_referral_id("https://account.mailpoet.com/?s=" ~ subscriber_count ~ "&email=" ~ current_wp_user.user_email) | escape('js') %>';
+      var mailpoet_feature_flags = <%= json_encode(mailpoet_feature_flags) %>;
+
+      var mailpoet_woocommerce_active = <%= json_encode(is_woocommerce_active) %>;
+      var mailpoet_woocommerce_transactional_email_id = <%= json_encode(woocommerce_transactional_email_id) %>;
+      var mailpoet_display_detailed_stats = <%= json_encode(display_detailed_stats) %>;
+      var mailpoet_automatic_emails = <%= json_encode(automatic_emails) %>;
+      var mailpoet_feature_announcement_has_news = <%= json_encode(feature_announcement_has_news) %>;
+      var mailpoet_last_announcement_seen = <%= json_encode(last_announcement_seen) %>;
+      var mailpoet_user_locale = '<%= get_locale() %>';
+      var mailpoet_congratulations_success_images = [
+        '<%= cdn_url('newsletter/congratulate-1.png') %>',
+        '<%= cdn_url('newsletter/congratulate-2.png') %>',
+        '<%= cdn_url('newsletter/congratulate-3.png') %>',
+        '<%= cdn_url('newsletter/congratulate-4.png') %>',
+      ];
+      var mailpoet_congratulations_error_image = '<%= cdn_url('newsletter/error.png') %>';
+      var mailpoet_congratulations_loading_image = '<%= cdn_url('newsletter/congratulation-page-illustration-transparent-LQ.20181121-1440.png') %>';
+      var mailpoet_main_page = '<%= mailpoet_main_page %>';
+      var mailpoet_review_request_illustration_url = '<%= cdn_url('review-request/review-request-illustration.20190815-1427.svg') %>';
+      <% set newUser = (is_new_user == true) ? 'true' : 'false' %>
+      var mailpoet_is_new_user = <%= newUser %>;
+      var mailpoet_installed_at = '<%= settings.installed_at %>';
+      var mailpoet_mss_active = <%= json_encode(mss_active) %>;
+      var mailpoet_mta_method = '<%= settings.mta.method %>';
+      var mailpoet_editor_javascript_url = '<%= getJavascriptScriptUrl("newsletter_editor.js") %>';
+      var mailpoet_subscribers_count = <%= subscriber_count %>;
+      var mailpoet_newsletters_count = <%= newsletters_count %>;
+      var mailpoet_send_transactional_emails = <%= json_encode(settings.send_transactional_emails == '1') %>;
+      var settings = <%= json_encode(settings) %>;
+
+      <% if not(premium_plugin_active) %>
+        var mailpoet_free_premium_subscribers_limit = <%= free_premium_subscribers_limit %>;
+      <% endif %>
+    <% endautoescape %>
+    var mailpoet_beacon_articles = ['57fdc312c697911f2d324fd7', '5a0257ac2c7d3a272c0d7ad6', '58f671152c7d3a057f8858e8'];
+    var mailpoet_mss_key_pending_approval = '<%= mss_key_pending_approval %>';
+    var mailpoet_newsletters_templates_recently_sent_count = <%= json_decode(newsletters_templates_recently_sent_count) %>;
+  </script>
+<% endblock %>
+
+<% block translations %>
+  <%= localize({
+    'pageTitle': __('Emails'),
+
+    'stepNameTypeStandard': __('Newsletter'),
+    'stepNameTypeWelcome': __('Welcome Email'),
+    'stepNameTypeNotification': __('Post Notification'),
+    'stepNameTypeWooCommerce': __('WooCommerce'),
+    'stepNameTemplate': __('Template'),
+    'stepNameDesign': __('Design'),
+    'stepNameSend': __('Send'),
+
+    'dismissButton': __('Dismiss this notice.'),
+
+    'tabStandardTitle': __('Newsletters'),
+    'tabWelcomeTitle': __('Welcome Emails'),
+    'tabNotificationTitle': __('Post Notifications'),
+    'tabWoocommerceTitle': __('WooCommerce Emails'),
+    'tabBlankTitle': __('Simple text'),
+
+    'searchLabel': __('Search'),
+    'loadingItems': __('Loading emails...'),
+    'noItemsFound': __('No emails found.'),
+    'emptyListing': __("Nothing here yet! But, don't fret - there's no reason to get upset. Pretty soon, you’ll be sending emails faster than a turbo-jet."),
+    'selectAllLabel': __('All emails on this page are selected.'),
+    'selectedAllLabel': __('All %d emails are selected.'),
+    'selectAllLink': __('Select all emails on all pages'),
+    'clearSelection': __('Clear selection'),
+    'permanentlyDeleted': __('%d emails were permanently deleted.'),
+    'selectBulkAction': __('Select bulk action'),
+    'bulkActions': __('Bulk Actions'),
+    'apply': __('Apply'),
+    'filter': __('Filter'),
+    'emptyTrash': __('Empty Trash'),
+    'selectAll': __('Select All'),
+    'restore': __('Restore'),
+    'deletePermanently': __('Delete Permanently'),
+    'showMoreDetails': __('Show more details'),
+
+    'previousPage': __('Previous page'),
+    'firstPage': __('First page'),
+    'nextPage': __('Next page'),
+    'lastPage': __('Last page'),
+    'currentPage': __('Current page'),
+    'pageOutOf': __('of'),
+    'numberOfItemsSingular': __('1 item'),
+    'numberOfItemsMultiple': __('%$1d items'),
+
+    'selectType': __('Select type'),
+    'events': __('Events'),
+    'conditions': _x('Conditions', 'Configuration options for automatic email events'),
+    'template': __('Template'),
+    'designer': __('Designer'),
+    'send': __('Send'),
+
+    'subject': __('Subject'),
+    'status': __('Status'),
+    'statsListingActionTitle': __('Statistics'),
+    'statistics': __('Opened, Clicked'),
+    'lists': __('Lists'),
+    'settings': __('Settings'),
+    'history': __('History'),
+    'viewHistory': __('View history'),
+    'createdOn': __('Created on'),
+    'lastModifiedOn': __('Last modified on'),
+    'sentOn': __('Sent on'),
+    'oneNewsletterTrashed': __('1 email was moved to the trash.'),
+    'multipleNewslettersTrashed': __('%$1d emails were moved to the trash.'),
+    'oneNewsletterDeleted': __('1 email was permanently deleted.'),
+    'multipleNewslettersDeleted': __('%$1d emails were permanently deleted.'),
+    'oneNewsletterRestored': __('1 email has been restored from the Trash.'),
+    'multipleNewslettersRestored': __('%$1d emails have been restored from the Trash.'),
+    'trash': __('Trash'),
+    'moveToTrash': __('Move to trash'),
+    'edit': __('Edit'),
+    'duplicate': __('Duplicate'),
+    'newsletterDuplicated': __('Email "%$1s" has been duplicated.'),
+    'notSentYet': __('Not sent yet'),
+    'scheduledFor': __('Scheduled for'),
+    'scheduleIt': __('Schedule it'),
+    'active': __('Active'),
+    'inactive': __('Not Active'),
+    'newsletterQueueCompleted': __('Processed %$1d of %$2d'),
+    'sentToXSubscribers': _x('%$1d sent', 'number of welcome emails sent'),
+    'scheduledToXSubscribers': _x('%$1d scheduled', 'number of welcome emails scheduled to be sent'),
+    'resume': __('Resume'),
+    'pause': __('Pause'),
+    'paused': __('Paused'),
+    'new': __('Add New'),
+
+    'excellentBadgeName': __('Excellent'),
+    'excellentBadgeTooltip': __('Congrats!'),
+    'goodBadgeName': __('Good'),
+    'goodBadgeTooltip': __('Good stuff.'),
+    'averageBadgeName': __('Average'),
+    'averageBadgeTooltip': __('Something to improve.'),
+    'openedStatTooltipExcellent': _x('above 30%', 'Excellent open rate'),
+    'openedStatTooltipGood': _x('between 10 and 30%', 'Good open rate'),
+    'openedStatTooltipAverage': _x('under 10%', 'Average open rate'),
+    'clickedStatTooltipExcellent': _x('above 3%', 'Excellent click rate'),
+    'clickedStatTooltipGood': _x('between 1 and 3%', 'Good click rate'),
+    'clickedStatTooltipAverage': _x('under 1%', 'Average click rate'),
+    'revenueStatsTooltipShort': __('Revenues by customers who clicked on this email in the last 2 weeks.'),
+    'badBadgeName': __('Bad'),
+    'badBadgeTooltip': __('Something to improve.'),
+    'openedStatTooltip': __('Above 30% is excellent.\\nBetween 10 and 30% is good.\\nUnder 10% is bad.'),
+    'clickedStatTooltip': __('Above 3% is excellent.\\nBetween 1 and 3% is good.\\nUnder 1% is bad.'),
+    'unsubscribedStatTooltip': __('Under 1% is excellent.\\nBetween 1 and 3% is good.\\nOver 3% is bad.'),
+    'revenueStatsTooltip': __('Revenues generated by customers who made a purchase within two weeks after they clicked on this email. This is the sum of the order totals including shipping and taxes.'),
+    'checkBackInHours': __('Nice job! Check back in %$1d hour(s) for more stats.'),
+    'improveThisLinkText': __('What can I do to improve this?'),
+
+    'templateFileMalformedError': __('This template file appears to be damaged. Please try another one.'),
+    'importTemplateTitle': __('Import a template'),
+    'selectJsonFileToUpload': __('Select a .json file to upload'),
+    'helpTooltipTemplateUpload': __('You can only upload .json templates that were originally created with MailPoet 3.'),
+    'upload': __('Upload'),
+    'mailpoetGuideTemplateTitle': __("MailPoet's Guide"),
+    'confirmTemplateDeletion': __('You are about to delete the template named "%$1s".'),
+    'delete': __('Delete'),
+    'select': _x('Select', 'Verb'),
+    'preview': __('Preview'),
+    'selectTemplateTitle': __('Select a responsive template'),
+
+    'draftNewsletterTitle': __('Subject'),
+    'draftPostNotificationTitle': __('The last [newsletter:total] posts from our blog'),
+    'pickCampaignType': __('Select type of email'),
+    'createFirstEmailTitle': __('Create your first email'),
+    'seeVideoGuide': __('See video guide'),
+    'premiumFeature': __('This is a Premium feature'),
+    'learnMore': __('Learn more'),
+    'regularNewsletterTypeTitle': __('Newsletter'),
+    'regularNewsletterTypeDescription': __('Send a newsletter with images, buttons, dividers, and social bookmarks. Or, just send a basic text email.'),
+    'create': __('Create'),
+    'wooCommerceCustomizerTypeTitle': __('WooCommerce Emails Customizer'),
+    'wooCommerceCustomizerTypeDescription': __("Customize the template used for your WooCommerce emails using MailPoet's editor. Example of WooCommerce email: Order processing notification, Order failed notification, ..."),
+    'customize': 'Customize',
+    'welcomeNewsletterTypeTitle': __('Welcome Email'),
+    'welcomeNewsletterTypeDescription': __('Automatically send an email (or series of emails) to new subscribers or WordPress users. Send a day, a week, or a month after they sign up.'),
+    'premiumFeatureLink': __('This is a Premium feature'),
+    'setUp': __('Set up'),
+    'postNotificationNewsletterTypeTitle': __('Latest Post Notifications'),
+    'postNotificationNewsletterTypeDescription': __('Let MailPoet email your subscribers with your latest content. You can send daily, weekly, monthly, or even immediately after publication.'),
+    'selectFrequency': __('Select a frequency'),
+    'postNotificationSubjectLineTip': __("Insert [newsletter:total] to show number of posts, [newsletter:post_title] to show the latest post's title & [newsletter:number] to display the issue number."),
+    'activate': __('Activate'),
+    'sendWelcomeEmailWhen': __('Send this Welcome Email when...'),
+    'premiumBannerDescription': __('Learn more about your subscribers and optimize your campaigns. See who opened your emails, which links they clicked, and then use the data to make your emails even better. And if you run a WooCommerce store, you’ll also see the revenue earned per email.'),
+    'upgradeRequired': __('Upgrade required'),
+    'newsletterFreeVersionLimit': __('Congratulations, you now have [subscribersCount] subscribers! Our free version is limited to [subscribersLimit] subscribers. You need to upgrade now to be able to continue using MailPoet.'),
+    'newsletterYourPlanLimit': __('Congratulations, you now have [subscribersCount] subscribers! Your plan is limited to [subscribersLimit] subscribers. You need to upgrade now to be able to continue using MailPoet.'),
+
+    'daily': __('Once a day at...'),
+    'weekly': __('Weekly on...'),
+    'monthly': __('Monthly on the...'),
+    'monthlyEvery': __('Monthly every...'),
+    'immediately': __('Immediately'),
+    'sunday': __('Sunday'),
+    'monday': __('Monday'),
+    'tuesday': __('Tuesday'),
+    'wednesday': __('Wednesday'),
+    'thursday': __('Thursday'),
+    'friday': __('Friday'),
+    'saturday': __('Saturday'),
+    'first': __('1st'),
+    'second': __('2nd'),
+    'third': __('3rd'),
+    'nth': __('%$1dth'),
+    'last': _x('last', 'e.g. monthly every last Monday'),
+    'next': _x('Next', 'Button label: Next step'),
+
+    'selectEventToSendWelcomeEmail': __('When is this Welcome Email sent?'),
+
+    'onSubscriptionToList': __('When someone subscribes to the list...'),
+    'onWPUserRegistration': __('When a new WordPress user is added to your site...'),
+    'delayImmediately': __('immediately'),
+    'delayHoursAfter': __('hour(s) later'),
+    'delayDaysAfter': __('day(s) later'),
+    'delayWeeksAfter': __('week(s) later'),
+
+    'subjectLabel': __('Subject'),
+    'subjectLine': __('Type newsletter subject'),
+    'subjectLineTip': __("Be creative! It's the first thing that your subscribers see. Tempt them to open your email."),
+    'preheaderLabel': __('Preview text'),
+    'preheaderLine': __('Type preview text (usually displayed underneath the subject line in the inbox)'),
+    'preheaderLineTip1': __("This optional text will appear in your subscribers' inboxes, beside the subject line. Write something enticing!"),
+    'preheaderLineTip2': __("Max length is 250 characters, however, we recommend 80 characters on a single line."),
+    'emptySubjectLineError': __('Please specify a subject'),
+    'segments': __('Lists'),
+    'segmentsTip': __('Subscribers in multiple lists will only receive one email.'),
+    'selectSegmentPlaceholder': __('Select a list'),
+    'noSegmentsSelectedError': __('Please select a list'),
+    'sender': __('Sender'),
+    'senderTip': __('Your name and email'),
+    'senderNamePlaceholder': __('John Doe'),
+    'senderAddressPlaceholder': __('john.doe@email.com'),
+    'replyTo': __('Reply-to'),
+    'replyToTip': __('When your subscribers reply to your emails, their emails will go to this address.'),
+    'replyToNamePlaceholder': __('John Doe'),
+    'replyToAddressPlaceholder': __('john.doe@email.com'),
+    'newsletterUpdated': __('Email was updated successfully!'),
+    'newsletterAdded': __('Email was added successfully!'),
+    'newsletterSendingError': __('An error occurred while trying to send. <a href="%$1s">Please check your settings</a>.'),
+    'finalNewsletterStep': __('Final Step: Last Details'),
+    'saveDraftAndClose': __('Save as draft and close'),
+    'helpTooltipSendEmail': __('You cannot send the same email twice, as that would be considered spam. <br /> If you must send the same email more than one time, simply duplicate this email first.'),
+    'pendingKeyApprovalNotice': __('You’ll soon be able to send once our team reviews your account. In the meantime, you can send previews to [link]your authorized emails[/link].'),
+    'orSimply': __('or simply'),
+    'goBackToDesign': __('go back to the Design page'),
+    'websiteTimeIs': __("Your website’s time is"),
+    'noScheduledDateError': __('Please enter the scheduled date.'),
+    'schedule': __('Schedule'),
+
+    'allSendingPausedHeader': __('All sending is currently paused!'),
+    'allSendingPausedBody': __('Your key to send with MailPoet is invalid.'),
+    'allSendingPausedLink': __('Purchase a key'),
+
+    'close': __('Close'),
+    'today': __('Today'),
+    'january': __('January'),
+    'february': __('February'),
+    'march': __('March'),
+    'april': __('April'),
+    'may': __('May'),
+    'june': __('June'),
+    'july': __('July'),
+    'august': __('August'),
+    'september': __('September'),
+    'october': __('October'),
+    'november': __('November'),
+    'december': __('December'),
+    'januaryShort': __('Jan'),
+    'februaryShort': __('Feb'),
+    'marchShort': __('Mar'),
+    'aprilShort': __('Apr'),
+    'mayShort': __('May'),
+    'juneShort': __('Jun'),
+    'julyShort': __('Jul'),
+    'augustShort': __('Aug'),
+    'septemberShort': __('Sep'),
+    'octoberShort': __('Oct'),
+    'novemberShort': __('Nov'),
+    'decemberShort': __('Dec'),
+    'sundayShort': __('Sun'),
+    'mondayShort': __('Mon'),
+    'tuesdayShort': __('Tue'),
+    'wednesdayShort': __('Wed'),
+    'thursdayShort': __('Thu'),
+    'fridayShort': __('Fri'),
+    'saturdayShort': __('Sat'),
+    'sundayMin': _x('S', 'Sunday - one letter abbreviation'),
+    'mondayMin': _x('M', 'Monday - one letter abbreviation'),
+    'tuesdayMin': _x('T', 'Tuesday - one letter abbreviation'),
+    'wednesdayMin': _x('W', 'Wednesday - one letter abbreviation'),
+    'thursdayMin': _x('T', 'Thursday - one letter abbreviation'),
+    'fridayMin': _x('F', 'Friday - one letter abbreviation'),
+    'saturdayMin': _x('S', 'Saturday - one letter abbreviation'),
+    'next': __('Next'),
+    'previous': __('Previous'),
+    'newsletterBeingSent': __('The newsletter is being sent...'),
+    'newsletterHasBeenScheduled': __('The newsletter has been scheduled.'),
+    'newsletterSendingHasBeenResumed': __('The newsletter sending has been resumed.'),
+    'newsletterInvalidFromAddress': _x('You need to authorize the email address <i>%$1s</i> to be able to send with it. [link]Authorize my email address[/link]', 'Users need to confirm that they own the email address they want to use to send their newsletter'),
+    'welcomeEmailActivated': __('Your Welcome Email is now activated!'),
+    'welcomeEmailActivationFailed': __('Your Welcome Email could not be activated, please check the settings.'),
+    'postNotificationActivated': __('Your post notification is now active!'),
+    'postNotificationActivationFailed': __('Your Post Notification could not be activated, check the settings.'),
+    'welcomeEventSegment': __('This newsletter is sent when someone subscribes to the list: "%$1s".'),
+    'welcomeEventWPUserAnyRole': __('This newsletter is sent when a new WordPress user is added to your site.'),
+    'welcomeEventWPUserWithRole': __('This newsletter is sent when a new WordPress user with the role "%$1s" is added to your site.'),
+    'sendingDelayMinutes': __('%$1d minute(s) later'),
+    'sendingDelayHours': __('%$1d hour(s) later'),
+    'sendingDelayDays': __('%$1d day(s) later'),
+    'sendingDelayWeeks': __('%$1d week(s) later'),
+    'sendingDelayInvalid': __('Invalid sending delay.'),
+    'sendDaily': __('Send daily at %$1s'),
+    'sendWeekly': __('Send weekly on %$1s at %$2s'),
+    'sendMonthly': __('Send monthly on the %$1s at %$2s'),
+    'sendNthWeekDay': __('Send every %$1s %$2s of the month at %$3s'),
+    'sendImmediately': __('Send immediately'),
+    'ifNewContentToSegments': __("if there's new content to %$1s."),
+    'sendingToSegmentsNotSpecified': __('You need to select a list to send to.'),
+
+    'backToPostNotifications': __('Back to Post notifications'),
+    'noSubscribers': __('No subscribers!'),
+
+    'transactionalEmailNoticeTitle': __('Good news! MailPoet can now send your website’s emails too'),
+    'transactionalEmailNoticeBody': __('All of your WordPress and WooCommerce emails are sent with your hosting company, unless you have an SMTP plugin. Would you like such emails to be delivered with MailPoet’s active sending method for better deliverability?'),
+    'transactionalEmailNoticeBodyReadMore': _x('Read more.', 'This is a link that leads to more information about transactional emails'),
+    'transactionalEmailNoticeCTA': _x('Enable', 'Button, after clicking it we will enable transactional emails'),
+    'mailerSendErrorNotice': __('Sending has been paused due to a technical issue with %$1s'),
+    'mailerSendErrorCheckConfiguration': __('Please check your sending method configuration, you may need to consult with your hosting company.'),
+    'mailerSendErrorUseSendingService': __('The easy alternative is to <b>send emails with MailPoet Sending Service</b> instead, like thousands of other users do.'),
+    'mailerSendErrorSignUpForSendingService': __('Sign up for free in minutes'),
+    'mailerConnectionErrorNotice': __('Sending is paused because the following connection issue prevents MailPoet from delivering emails'),
+    'mailerErrorCode': __('Error code: %$1s'),
+    'mailerCheckSettingsNotice': __('Check your [link]sending method settings[/link].'),
+    'mailerResumeSendingButton': __('Resume sending'),
+    'confirmEdit': __('Sending is in progress. Do you want to pause sending and edit the newsletter?'),
+    'confirmTitle': __('Confirm to proceed'),
+    'confirmLabel': __('Confirm'),
+    'cancelLabel': __('Cancel'),
+
+    'recentlySent': __('Recently sent'),
+    'savedTemplates': __('Your saved templates'),
+    'templatePreview': __('Template preview'),
+    'zoom': __('Preview'),
+    'tabImportTitle': _x('Import', 'Importing template tab title'),
+    'noTemplates': __('This category does not contain any template yet!'),
+
+    'soon': __('Soon'),
+    'beta': __('Beta'),
+    'errorWhileTakingScreenshot': __('An error occurred while saving the template in "Recently sent"'),
+    'selectAutomaticEmailsEventsHeading': __('Select %$1s events'),
+    'cronNotAccessibleNotice': __('Oops! There seems to be an issue with the sending on your website. [link]See our guide[/link] to solve this yourself.'),
+
+    'whatsNew': __("What’s new"),
+    'updateMailPoetNotice': __('[link]Update MailPoet[/link] to see the latest changes'),
+
+    'congratulationsSuccessHeader': __('Congratulations!'),
+    'congratulationsSendSuccessBody': __('Your newsletter is being sent!'),
+    'congratulationsScheduleSuccessBody': __('Your newsletter is scheduled to be sent.'),
+    'congratulationsWooSuccessBody': __('Your WooCommerce email has been activated.'),
+    'congratulationsPostNotificationSuccessBody': __('Your Post Notification is now active.'),
+    'congratulationsWelcomeEmailSuccessBody': __('Your Welcome Email is now active.'),
+
+    'congratulationsSendFailHeader': __('Oops! We can’t send your newsletter'),
+    'congratulationsSendFailExplain': __('Rest assured, this is fairly common and is usually fixed quickly. [link]See our quick guide[/link] to help you solve this and get your website sending.'),
+    'congratulationsLoadingHeader': __('Verification'),
+    'congratulationsLoadingBody': __('Congrats, you’re sending your first newsletter! We’re doing a quick verification to make sure everything works fine.'),
+
+    'congratulationsMSSPitchHeader': __('Your email has been sent!'),
+    'congratulationsMSSPitchSubHeader': __('What’s next? Sign up to MailPoet Premium to see who clicked and opened your email. It’s entirely free for you!'),
+
+    'sendingStatusTitle': _x('Sending status', 'Page title. This page displays a list of emails along with their sending status: unprocessed, sent or failed.'),
+    'subscriber': __('Subscriber'),
+    'sendingStatus': _x('Sending status', 'an email sending status: unprocessed, sent or failed.'),
+    'failureReason': __('Failure reason (if applicable)'),
+    'resend': __('Resend'),
+    'unprocessed': _x('Unprocessed', 'status when the sending of a newsletter has not been processed'),
+    'sent': _x('Sent', 'status when a newsletter has been sent'),
+    'failed': _x('Failed', 'status when the sending of a newsletter has failed'),
+    'noSendingTaskFound': __('No sending task found.'),
+
+    'statsTitle': __('Stats'),
+    'loadingStats': __('Loading...'),
+    'backToList': __('Back'),
+    'statsPreviewNewsletter': __('Preview in browser'),
+    'statsDateSent': __('Date'),
+    'statsFromAddress': __('From'),
+    'statsToSegments': __('To'),
+    'statsReplyToAddress': __('Reply-to'),
+    'statsTotalSent': __('Sent to'),
+    'percentageOpened': _x('opened', 'Percentage of subscribers that opened a newsletter link'),
+    'percentageClicked': _x('clicked', 'Percentage of subscribers that clicked a newsletter link'),
+    'percentageUnsubscribed': _x('unsubscribed', 'Percentage of subscribers that unsubscribed from a newsletter'),
+    'readMoreOnStats': __('Read more on stats.'),
+    'clickedLinks': __('Clicked Links'),
+    'subscriberEngagement': __('Subscriber Engagement'),
+    'googleAnalytics': __('Google Analytics campaign name'),
+
+    'premiumBannerCtaFree': __('Sign Up for Free', 'mailpoet'),
+    'topBarLogoTitle': __('Back to section root'),
+
+    'gaCampaignLine': __('Google Analytics Campaign'),
+    'gaCampaignTip': __('For example, “Spring email”. [link]Read the guide.[/link]'),
+  }) %>
+  <% include('mss_pitch_translations.html') %>
+<% endblock %>
+
+<% block after_translations %>
+  <%= do_action('mailpoet_newsletters_translations_after') %>
+<% endblock %>

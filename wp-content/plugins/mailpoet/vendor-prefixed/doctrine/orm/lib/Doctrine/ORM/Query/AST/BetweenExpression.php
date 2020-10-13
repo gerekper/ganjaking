@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST; if (!defined('ABSPATH')) exit; class BetweenExpression extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $expression; public $leftBetweenExpression; public $rightBetweenExpression; public $not; public function __construct($expr, $leftExpr, $rightExpr) { $this->expression = $expr; $this->leftBetweenExpression = $leftExpr; $this->rightBetweenExpression = $rightExpr; } public function dispatch($sqlWalker) { return $sqlWalker->walkBetweenExpression($this); } } 

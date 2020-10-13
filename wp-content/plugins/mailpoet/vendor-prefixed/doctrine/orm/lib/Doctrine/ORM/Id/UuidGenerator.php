@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Id; if (!defined('ABSPATH')) exit; use MailPoetVendor\Doctrine\ORM\EntityManager; class UuidGenerator extends \MailPoetVendor\Doctrine\ORM\Id\AbstractIdGenerator { public function generate(\MailPoetVendor\Doctrine\ORM\EntityManager $em, $entity) { $conn = $em->getConnection(); $sql = 'SELECT ' . $conn->getDatabasePlatform()->getGuidExpression(); return $conn->query($sql)->fetchColumn(0); } } 

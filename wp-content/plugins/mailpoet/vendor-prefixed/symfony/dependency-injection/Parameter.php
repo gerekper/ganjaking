@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection; if (!defined('ABSPATH')) exit; class Parameter { private $id; public function __construct($id) { $this->id = $id; } public function __toString() { return (string) $this->id; } } 

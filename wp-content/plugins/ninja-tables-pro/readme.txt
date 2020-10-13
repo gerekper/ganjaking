@@ -5,7 +5,7 @@ Tags:  table, Data Tables, WP Data tables, WordPress table Plugin, Table Grid, w
 Requires at least: 4.5
 Requires PHP: 5.4 or greater
 Tested up to: 5.5.1
-Stable tag: 4.0.1
+Stable tag: 4.0.0
 
 == Description ==
 

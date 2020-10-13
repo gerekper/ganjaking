@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\Finder\Iterator; if (!defined('ABSPATH')) exit; use MailPoetVendor\Symfony\Component\Finder\Glob; class FilenameFilterIterator extends \MailPoetVendor\Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator { public function accept() { return $this->isAccepted($this->current()->getFilename()); } protected function toRegex($str) { return $this->isRegex($str) ? $str : \MailPoetVendor\Symfony\Component\Finder\Glob::toRegex($str); } } 

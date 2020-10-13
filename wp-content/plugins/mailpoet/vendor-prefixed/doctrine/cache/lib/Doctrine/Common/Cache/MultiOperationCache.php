@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\Common\Cache; if (!defined('ABSPATH')) exit; interface MultiOperationCache extends \MailPoetVendor\Doctrine\Common\Cache\MultiGetCache, \MailPoetVendor\Doctrine\Common\Cache\MultiDeleteCache, \MailPoetVendor\Doctrine\Common\Cache\MultiPutCache { } 

@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Cache; if (!defined('ABSPATH')) exit; class EntityCacheKey extends \MailPoetVendor\Doctrine\ORM\Cache\CacheKey { public $identifier; public $entityClass; public function __construct($entityClass, array $identifier) { \ksort($identifier); $this->identifier = $identifier; $this->entityClass = $entityClass; $this->hash = \str_replace('\\', '.', \strtolower($entityClass) . '_' . \implode(' ', $identifier)); } } 

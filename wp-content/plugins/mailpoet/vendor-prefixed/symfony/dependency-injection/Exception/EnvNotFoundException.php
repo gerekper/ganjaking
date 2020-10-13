@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Exception; if (!defined('ABSPATH')) exit; class EnvNotFoundException extends \MailPoetVendor\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException { public function __construct($name) { parent::__construct(\sprintf('Environment variable not found: "%s".', $name)); } } 

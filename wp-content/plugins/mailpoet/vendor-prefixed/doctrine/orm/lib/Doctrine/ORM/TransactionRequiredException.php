@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM; if (!defined('ABSPATH')) exit; class TransactionRequiredException extends \MailPoetVendor\Doctrine\ORM\ORMException { public static function transactionRequired() { return new self('An open transaction is required for this operation.'); } } 

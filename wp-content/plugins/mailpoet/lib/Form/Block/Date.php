@@ -1,0 +1,202 @@
+<?php
+
+namespace MailPoet\Form\Block;
+
+if (!defined('ABSPATH')) exit;
+
+
+use MailPoet\Form\BlockStylesRenderer;
+use MailPoet\Form\BlockWrapperRenderer;
+
+class Date {
+
+  /** @var BlockRendererHelper */
+  private $rendererHelper;
+
+  /** @var BlockWrapperRenderer */
+  private $wrapper;
+
+  /** @var BlockStylesRenderer */
+  private $blockStylesRenderer;
+
+  public function __construct(
+    BlockRendererHelper $rendererHelper,
+    BlockStylesRenderer $blockStylesRenderer,
+    BlockWrapperRenderer $wrapper
+  ) {
+    $this->rendererHelper = $rendererHelper;
+    $this->wrapper = $wrapper;
+    $this->blockStylesRenderer = $blockStylesRenderer;
+  }
+
+  public function render(array $block, array $formSettings): string {
+    $html = '';
+    $html .= $this->rendererHelper->renderLabel($block, $formSettings);
+    $html .= $this->renderDateSelect($block, $formSettings);
+    return $this->wrapper->render($block, $html);
+  }
+
+  private function renderDateSelect(array $block = [], $formSettings = []): string {
+    $html = '';
+
+    $fieldName = 'data[' . $this->rendererHelper->getFieldName($block) . ']';
+
+    $dateFormats = $this->getDateFormats();
+
+    // automatically select first date format
+    $dateFormat = $dateFormats[$block['params']['date_type']][0];
+
+    // set date format if specified
+    if (isset($block['params']['date_format'])
+    && strlen(trim($block['params']['date_format'])) > 0) {
+      $dateFormat = $block['params']['date_format'];
+    }
+
+    // generate an array of selectors based on date format
+    $dateSelectors = explode('/', $dateFormat);
+
+    foreach ($dateSelectors as $dateSelector) {
+      if ($dateSelector === 'DD') {
+        $html .= '<select class="mailpoet_date_day" ';
+        $html .= ' style="' . $this->blockStylesRenderer->renderForSelect([], $formSettings) . '"';
+        $html .= $this->rendererHelper->getInputValidation($block, [
+          'required-message' => __('Please select a day', 'mailpoet'),
+        ]);
+        $html .= 'name="' . $fieldName . '[day]" placeholder="' . __('Day', 'mailpoet') . '">';
+        $html .= $this->getDays($block);
+        $html .= '</select>';
+      } else if ($dateSelector === 'MM') {
+        $html .= '<select class="mailpoet_select mailpoet_date_month" ';
+        $html .= ' style="' . $this->blockStylesRenderer->renderForSelect([], $formSettings) . '"';
+        $html .= $this->rendererHelper->getInputValidation($block, [
+          'required-message' => __('Please select a month', 'mailpoet'),
+        ]);
+        $html .= 'name="' . $fieldName . '[month]" placeholder="' . __('Month', 'mailpoet') . '">';
+        $html .= $this->getMonths($block);
+        $html .= '</select>';
+      } else if ($dateSelector === 'YYYY') {
+        $html .= '<select class="mailpoet_date_year" ';
+        $html .= ' style="' . $this->blockStylesRenderer->renderForSelect([], $formSettings) . '"';
+        $html .= $this->rendererHelper->getInputValidation($block, [
+          'required-message' => __('Please select a year', 'mailpoet'),
+        ]);
+        $html .= 'name="' . $fieldName . '[year]" placeholder="' . __('Year', 'mailpoet') . '">';
+        $html .= $this->getYears($block);
+        $html .= '</select>';
+      }
+    }
+
+    $html .= '<span class="mailpoet_error_' . $block['id'] . '"></span>';
+
+    return $html;
+  }
+
+  public function getDateTypes(): array {
+    return [
+      'year_month_day' => __('Year, month, day', 'mailpoet'),
+      'year_month' => __('Year, month', 'mailpoet'),
+      'month' => __('Month (January, February,...)', 'mailpoet'),
+      'year' => __('Year', 'mailpoet'),
+    ];
+  }
+
+  public function getDateFormats(): array {
+    return [
+      'year_month_day' => ['MM/DD/YYYY', 'DD/MM/YYYY', 'YYYY/MM/DD'],
+      'year_month' => ['MM/YYYY', 'YYYY/MM'],
+      'year' => ['YYYY'],
+      'month' => ['MM'],
+    ];
+  }
+
+  public function getMonthNames(): array {
+    return [__('January', 'mailpoet'), __('February', 'mailpoet'), __('March', 'mailpoet'), __('April', 'mailpoet'),
+      __('May', 'mailpoet'), __('June', 'mailpoet'), __('July', 'mailpoet'), __('August', 'mailpoet'), __('September', 'mailpoet'),
+      __('October', 'mailpoet'), __('November', 'mailpoet'), __('December', 'mailpoet'),
+    ];
+  }
+
+  private function getMonths(array $block = []): string {
+    $defaults = [
+      'selected' => null,
+    ];
+
+    // is default today
+    if (!empty($block['params']['is_default_today'])) {
+      $defaults['selected'] = (int)strftime('%m');
+    }
+    // merge block with defaults
+    $block = array_merge($defaults, $block);
+
+    $monthNames = $this->getMonthNames();
+
+    $html = '';
+
+    // empty value label
+    $html .= '<option value="">' . __('Month', 'mailpoet') . '</option>';
+
+    for ($i = 1; $i < 13; $i++) {
+      $isSelected = ($i === $block['selected']) ? 'selected="selected"' : '';
+      $html .= '<option value="' . $i . '" ' . $isSelected . '>';
+      $html .= $monthNames[$i - 1];
+      $html .= '</option>';
+    }
+
+    return $html;
+  }
+
+  private function getYears(array $block = []): string {
+    $defaults = [
+      'selected' => null,
+      'from' => (int)strftime('%Y') - 100,
+      'to' => (int)strftime('%Y'),
+    ];
+
+    // is default today
+    if (!empty($block['params']['is_default_today'])) {
+      $defaults['selected'] = (int)strftime('%Y');
+    }
+
+    // merge block with defaults
+    $block = array_merge($defaults, $block);
+
+    $html = '';
+
+    // empty value label
+    $html .= '<option value="">' . __('Year', 'mailpoet') . '</option>';
+
+    // return years as an array
+    for ($i = (int)$block['to']; $i > (int)($block['from'] - 1); $i--) {
+      $isSelected = ($i === $block['selected']) ? 'selected="selected"' : '';
+      $html .= '<option value="' . $i . '" ' . $isSelected . '>' . $i . '</option>';
+    }
+
+    return $html;
+  }
+
+  private function getDays(array $block = []): string {
+    $defaults = [
+      'selected' => null,
+    ];
+    // is default today
+    if (!empty($block['params']['is_default_today'])) {
+      $defaults['selected'] = (int)strftime('%d');
+    }
+
+    // merge block with defaults
+    $block = array_merge($defaults, $block);
+
+    $html = '';
+
+    // empty value label
+    $html .= '<option value="">' . __('Day', 'mailpoet') . '</option>';
+
+    // return days as an array
+    for ($i = 1; $i < 32; $i++) {
+      $isSelected = ($i === $block['selected']) ? 'selected="selected"' : '';
+      $html .= '<option value="' . $i . '" ' . $isSelected . '>' . $i . '</option>';
+    }
+
+    return $html;
+  }
+}

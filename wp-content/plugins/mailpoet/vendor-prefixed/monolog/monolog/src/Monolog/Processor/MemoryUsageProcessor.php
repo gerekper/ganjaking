@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Monolog\Processor; if (!defined('ABSPATH')) exit; class MemoryUsageProcessor extends \MailPoetVendor\Monolog\Processor\MemoryProcessor { public function __invoke(array $record) { $bytes = \memory_get_usage($this->realUsage); $formatted = $this->formatBytes($bytes); $record['extra']['memory_usage'] = $formatted; return $record; } } 

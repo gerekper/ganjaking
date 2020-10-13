@@ -1,0 +1,111 @@
+<% extends 'layout.html' %>
+
+<% block content %>
+<div id="mailpoet_subscribers_export" class="wrap">
+  <h1 class="title">
+    <%= __('Export') %>
+    <a class="page-title-action" href="?page=mailpoet-subscribers#/"><%= __('Back to Subscribers') %></a>
+  </h1>
+  <% if segments is empty %>
+  <div class="error">
+    <p><%= __("Yikes! Couldn't find any subscribers") %></p>
+  </div>
+  <% endif %>
+  <div class="inside">
+    <!-- Template data -->
+  </div>
+</div>
+<script id="mailpoet_subscribers_export_template" type="text/x-handlebars-template">
+  <div id="export_result_notice" class="updated mailpoet_hidden">
+    <!-- Result message -->
+  </div>
+  <table class="form-table">
+    <tbody>
+    {{#if segments}}
+    <tr>
+      <th scope="row">
+        <label for="export_lists">
+          <%= __('Pick one or multiple lists') %>
+        </label>
+      </th>
+      <td>
+        <select id="export_lists" data-placeholder="<%= _x('Select', 'Verb') %>" multiple="multiple"></select>
+      </td>
+    </tr>
+    {{/if}}
+    <tr>
+      <th scope="row">
+        <label for="export_columns">
+          <%= __('List of fields to export') %>
+          <p class="description">
+            <%= __('[link]Read about the Global status.[/link]')
+            |replaceLinkTags('https://kb.mailpoet.com/article/245-what-is-global-status', {'target': '_blank', 'data-beacon-article': '5a9548782c7d3a75495122f9'})
+            |raw
+            %>
+          </p>
+        </label>
+      </th>
+      <td>
+        <select id="export_columns" data-placeholder="<%= _x('Select', 'Verb') %>" multiple="multiple"></select>
+      </td>
+    </tr>
+    {{#if groupBySegmentOption}}
+    <tr class="mailpoet_group_by_list mailpoet_hidden">
+      <th scope="row">
+        <%= __('Group subscribers by list') %>
+      </th>
+      <td>
+        <input type="checkbox" name="option_group_by_list" checked>
+      </td>
+    </tr>
+    {{/if}}
+    <tr>
+      <th scope="row">
+        <%= __('Format') %>
+      </th>
+      <td>
+        <label>
+          <input type="radio" name="option_format"
+           value="csv"
+           checked><%= __('CSV file') %>
+        </label>
+        &nbsp;<br>
+        <label>
+          <input type="radio" name="option_format"
+           value="xlsx" <%if not zipExtensionLoaded %> disabled="disabled" <%endif%>><%= __('Excel file') %>
+        </label>
+        <%if not zipExtensionLoaded %>
+          <div class="inline notice notice-warning">
+            <p><%= __('ZIP extension is required to create Excel files. Please refer to the [link]official PHP ZIP installation guide[/link] or contact your hosting provider’s technical support for instructions on how to install and load the ZIP extension.' | replaceLinkTags('http://php.net/manual/en/zip.installation.php')) %></p>
+          </div>
+        <%endif%>
+      </td>
+    </tr>
+    <tr class="mailpoet_export_process">
+      <th scope="row">
+        <a href="javascript:;"
+         class="button-primary button-disabled wysija mailpoet_export_process"><%= __('Export') %></a>
+      </th>
+    </tr>
+    </tbody>
+  </table>
+</script>
+</div>
+
+<script type="text/javascript">
+  var
+    segments = <%= segments|raw %>,
+    subscriberFieldsSelect2 =
+      <%= subscriberFieldsSelect2|raw %>,
+    exportData = {
+     segments: segments.length || null
+    };
+</script>
+<% endblock %>
+
+<% block translations %>
+<%= localize({
+  'serverError': __('Server error:'),
+  'exportMessage': __('%1$s subscribers were exported. Get the exported file [link]here[/link].')
+}) %>
+<% endblock %>

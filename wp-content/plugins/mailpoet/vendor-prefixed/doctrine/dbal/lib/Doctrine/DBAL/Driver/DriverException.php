@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\DBAL\Driver; if (!defined('ABSPATH')) exit; use Throwable; interface DriverException extends \Throwable { public function getErrorCode(); public function getMessage(); public function getSQLState(); } 

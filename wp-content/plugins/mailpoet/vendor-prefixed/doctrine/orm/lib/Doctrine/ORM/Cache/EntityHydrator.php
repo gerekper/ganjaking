@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Cache; if (!defined('ABSPATH')) exit; use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata; interface EntityHydrator { public function buildCacheEntry(\MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata $metadata, \MailPoetVendor\Doctrine\ORM\Cache\EntityCacheKey $key, $entity); public function loadCacheEntry(\MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata $metadata, \MailPoetVendor\Doctrine\ORM\Cache\EntityCacheKey $key, \MailPoetVendor\Doctrine\ORM\Cache\EntityCacheEntry $entry, $entity = null); } 

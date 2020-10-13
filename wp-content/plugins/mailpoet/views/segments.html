@@ -1,0 +1,167 @@
+<% extends 'layout.html' %>
+
+<% block content %>
+  <div id="segments_container"></div>
+
+  <script type="text/javascript">
+    var mailpoet_listing_per_page = <%= items_per_page %>;
+    var mailpoet_beacon_articles = [
+      '5d667fc22c7d3a7a4d77c426',
+      '57f47ca3c697914f21035256',
+      '5d4beee42c7d3a330e3c4207',
+      '5e187a3a2c7d3a7e9ae607ff',
+      '57ce079f903360649f6e56fc',
+      '5d722c7104286364bc8ecf19',
+      '5a574bd92c7d3a194368233e',
+      '59a89621042863033a1c82e6'
+    ];
+    var mailpoet_mss_active = <%= json_encode(mss_active) %>;
+    var mailpoet_subscribers_limit = <%= subscribers_limit ? subscribers_limit : 'false'  %>;
+    var mailpoet_subscribers_limit_reached = <%= subscribers_limit_reached ? 'true' : 'false' %>;
+    var mailpoet_has_valid_api_key = <%= has_valid_api_key ? 'true' : 'false' %>;
+    var mailpoet_mss_key_invalid = <%= mss_key_invalid ? 'true' : 'false' %>;
+    var mailpoet_subscribers_count = <%= subscriber_count %>;
+    var mailpoet_subscribers_in_plan_count = <%= subscriber_count %>;
+    var mailpoet_premium_subscribers_count = <%= premium_subscriber_count %>;
+    var mailpoet_has_premium_support = <%= has_premium_support ? 'true' : 'false' %>;
+    var mailpoet_wp_users_count = <%= wp_users_count ? wp_users_count : 'false' %>;
+    var wordpress_editable_roles_list = <%= json_encode(wordpress_editable_roles_list)  %>;
+    var mailpoet_newsletters_list = <%= json_encode(newsletters_list)  %>;
+    var mailpoet_product_categories = <%= json_encode(product_categories)  %>;
+    mailpoet_product_categories = mailpoet_product_categories.map(function(category) {
+      category.id = category.cat_ID;
+      return category;
+    });
+    var mailpoet_products = <%= json_encode(products) %>;
+    mailpoet_products = mailpoet_products.map(function(product) {
+      product.id = product.ID;
+      return product;
+    });
+    var is_woocommerce_active = <%= json_encode(is_woocommerce_active)  %>;
+
+  </script>
+<% endblock %>
+
+<% block translations %>
+  <%= localize({
+    'pageTitle': __('Lists'),
+    'searchLabel': __('Search'),
+    'loadingItems': __('Loading lists...'),
+    'noItemsFound': __('No lists found'),
+    'selectAllLabel': __('All lists on this page are selected.'),
+    'selectedAllLabel': __('All %d lists are selected.'),
+    'selectAllLink': __('Select all lists on all pages'),
+    'clearSelection': __('Clear selection'),
+    'permanentlyDeleted': __('%d lists were permanently deleted.'),
+    'selectBulkAction': __('Select bulk action'),
+    'bulkActions': __('Bulk Actions'),
+    'apply': __('Apply'),
+    'name': __('Name'),
+    'description': __('Description'),
+    'segmentUpdated': __('List successfully updated!'),
+    'segmentAdded': __('List successfully added!'),
+    'segment': __('List'),
+    'subscribed': __('Subscribed'),
+    'unconfirmed': __('Unconfirmed'),
+    'unsubscribed': __('Unsubscribed'),
+    'inactive': __('Inactive'),
+    'bounced': __('Bounced'),
+    'createdOn': __('Created on'),
+    'oneSegmentTrashed': __('1 list was moved to the trash. Note that deleting a list does not delete its subscribers.'),
+    'multipleSegmentsTrashed': __('%$1d lists were moved to the trash. Note that deleting a list does not delete its subscribers.'),
+    'oneSegmentDeleted': __('1 list was permanently deleted. Note that deleting a list does not delete its subscribers.'),
+    'multipleSegmentsDeleted': __('%$1d lists were permanently deleted. Note that deleting a list does not delete its subscribers.'),
+    'oneSegmentRestored': __('1 list has been restored from the Trash.'),
+    'multipleSegmentsRestored': __('%$1d lists have been restored from the Trash.'),
+    'duplicate': __('Duplicate'),
+    'listDuplicated': __('List "%$1s" has been duplicated.'),
+    'update': __('Update'),
+    'forceSync': __('Force Sync'),
+    'readMore': __('Read More'),
+    'listSynchronized': __('List "%$1s" has been synchronized.'),
+    'viewSubscribers': __('View Subscribers'),
+    'new': __('New List'),
+    'newSegment': __('New Segment'),
+    'edit': __('Edit'),
+    'trash': __('Trash'),
+    'moveToTrash': __('Move to trash'),
+    'emptyTrash': __('Empty Trash'),
+    'selectAll': __('Select All'),
+    'restore': __('Restore'),
+    'deletePermanently': __('Delete permanently'),
+    'save': __('Save'),
+    'trashDisallowed': _x('List cannot be deleted because it’s used for %$1s email', 'Alert shown when trying to delete segment, which is assigned to any automatic emails.'),
+
+    'previousPage': __('Previous page'),
+    'firstPage': __('First page'),
+    'nextPage': __('Next page'),
+    'lastPage': __('Last page'),
+    'currentPage': __('Current page'),
+    'pageOutOf': __('of'),
+    'numberOfItemsSingular': __('1 item'),
+    'numberOfItemsMultiple': __('%$1d items'),
+    'allSendingPausedHeader': __('All sending is currently paused!'),
+    'allSendingPausedBody': __('Your key to send with MailPoet is invalid.'),
+    'allSendingPausedLink': __('Purchase a key'),
+
+    'segmentDescriptionTip': __('This text box is for your own use and is never shown to your subscribers.'),
+    'backToList': __('Back'),
+
+    'subscribersInPlanCount': _x('%$1d / %$2d', 'count / total subscribers'),
+    'subscribersInPlan': _x('%s subscribers in your plan', 'number of subscribers in a sending plan'),
+    'subscribersInPlanTooltip': __('This is the total of subscribed, unconfirmed and inactive subscribers we count when you are sending with MailPoet Sending Service. The count excludes unsubscribed and bounced (invalid) email addresses.'),
+
+    'mailpoetSubscribers': _x('%s MailPoet subscribers', 'number of subscribers in the plugin'),
+    'mailpoetSubscribersTooltipFree': __('This is the total of all subscribers including %$1d WordPress users. To exclude WordPress users, please purchase one of our premium plans.'),
+    'mailpoetSubscribersTooltipPremium': __('This is the total of all subscribers excluding all WordPress users.'),
+
+    'pageTitleSegments': __('Segments'),
+    'formPageTitle': __('Segment'),
+    'formSegmentTitle': __('Segment'),
+    'descriptionTip': __('This text box is for your own use and is never shown to your subscribers.'),
+    'dynamicSegmentUpdated': __('Segment successfully updated!'),
+    'dynamicSegmentAdded': __('Segment successfully added!'),
+    'segmentType': __('Type'),
+    'wpUserRole': __('WordPress user roles'),
+    'email': __('Email'),
+    'nameColumn': __('Name'),
+    'subscribersCountColumn': __('Number of subscribers'),
+    'updatedAtColumn': __('Modified on'),
+    'loadingDynamicSegmentItems': __('Loading data…'),
+    'noDynamicSegmentItemsFound': __('No segments found'),
+    'numberOfItemsSingular': __('1 item'),
+    'numberOfItemsMultiple': __('%$1d items'),
+    'previousPage': __('Previous page'),
+    'firstPage': __('First page'),
+    'nextPage': __('Next page'),
+    'lastPage': __('Last page'),
+    'currentPage': __('Current page'),
+    'pageOutOf': _x('of', 'Page X of Y'),
+    'notSentYet': __('Not sent yet'),
+    'selectLinkPlaceholder': __('Select link'),
+    'selectNewsletterPlaceholder': __('Select email'),
+    'selectActionPlaceholder': __('Select action'),
+    'selectUserRolePlaceholder': __('Select user role'),
+    'emailActionOpened': _x('opened', 'Dynamic segment creation: when newsletter was opened'),
+    'emailActionNotOpened': _x('not opened', 'Dynamic segment creation: when newsletter was not opened'),
+    'emailActionClicked': _x('clicked', 'Dynamic segment creation: when a newsletter link was clicked'),
+    'emailActionNotClicked': _x('not clicked', 'Dynamic segment creation: when a newsletter link was not clicked'),
+    'searchLabel': __('Search'),
+    'segmentsTip': _x('Tip', 'A note about dynamic segments usage'),
+    'segmentsTipText': __('segments allow you to group your subscribers by other criteria, such as events and actions.'),
+    'segmentsTipLink': __('Read more.'),
+
+    'oneDynamicSegmentTrashed': __('1 segment was moved to the trash.'),
+    'multipleDynamicSegmentsTrashed': __('%$1d segments were moved to the trash.'),
+    'oneDynamicSegmentRestored': __('1 segment has been restored from the Trash.'),
+    'multipleDynamicSegmentsRestored': __('%$1d segments have been restored from the Trash.'),
+    'multipleDynamicSegmentsDeleted': __('%$1d segments were permanently deleted.'),
+    'oneDynamicSegmentDeleted': __('1 segment was permanently deleted.'),
+
+    'wooPurchasedCategory': __('Customers who have purchased in this category…'),
+    'wooPurchasedProduct': __('Customers who have purchased this product…'),
+    'selectWooPurchasedCategory': __('Search category'),
+    'selectWooPurchasedProduct': __('Search products'),
+    'woocommerce': _x('WooCommerce', 'Dynamic segment creation: User selects this to use any woocommerce filters'),
+  }) %>
+<% endblock %>

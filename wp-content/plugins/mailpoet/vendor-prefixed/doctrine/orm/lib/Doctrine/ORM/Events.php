@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM; if (!defined('ABSPATH')) exit; final class Events { private function __construct() { } const preRemove = 'preRemove'; const postRemove = 'postRemove'; const prePersist = 'prePersist'; const postPersist = 'postPersist'; const preUpdate = 'preUpdate'; const postUpdate = 'postUpdate'; const postLoad = 'postLoad'; const loadClassMetadata = 'loadClassMetadata'; const onClassMetadataNotFound = 'onClassMetadataNotFound'; const preFlush = 'preFlush'; const onFlush = 'onFlush'; const postFlush = 'postFlush'; const onClear = 'onClear'; } 

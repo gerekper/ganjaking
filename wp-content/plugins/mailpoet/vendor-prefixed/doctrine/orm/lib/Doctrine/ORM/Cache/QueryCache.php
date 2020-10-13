@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Cache; if (!defined('ABSPATH')) exit; use MailPoetVendor\Doctrine\ORM\Query\ResultSetMapping; interface QueryCache { public function clear(); public function put(\MailPoetVendor\Doctrine\ORM\Cache\QueryCacheKey $key, \MailPoetVendor\Doctrine\ORM\Query\ResultSetMapping $rsm, $result, array $hints = []); public function get(\MailPoetVendor\Doctrine\ORM\Cache\QueryCacheKey $key, \MailPoetVendor\Doctrine\ORM\Query\ResultSetMapping $rsm, array $hints = []); public function getRegion(); } 

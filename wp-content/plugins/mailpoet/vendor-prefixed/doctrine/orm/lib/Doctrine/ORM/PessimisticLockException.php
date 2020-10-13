@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM; if (!defined('ABSPATH')) exit; class PessimisticLockException extends \MailPoetVendor\Doctrine\ORM\ORMException { public static function lockFailed() { return new self("The pessimistic lock failed."); } } 

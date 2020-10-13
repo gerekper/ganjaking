@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\Expr; if (!defined('ABSPATH')) exit; class Andx extends \MailPoetVendor\Doctrine\ORM\Query\Expr\Composite { protected $separator = ' AND '; protected $allowedClasses = [\MailPoetVendor\Doctrine\ORM\Query\Expr\Comparison::class, \MailPoetVendor\Doctrine\ORM\Query\Expr\Func::class, \MailPoetVendor\Doctrine\ORM\Query\Expr\Orx::class, \MailPoetVendor\Doctrine\ORM\Query\Expr\Andx::class]; public function getParts() { return $this->parts; } } 

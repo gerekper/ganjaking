@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\Validator\Mapping\Cache; if (!defined('ABSPATH')) exit; use MailPoetVendor\Symfony\Component\Validator\Mapping\ClassMetadata; interface CacheInterface { public function has($class); public function read($class); public function write(\MailPoetVendor\Symfony\Component\Validator\Mapping\ClassMetadata $metadata); } 

@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Doctrine\ORM\Query\AST; if (!defined('ABSPATH')) exit; class ExistsExpression extends \MailPoetVendor\Doctrine\ORM\Query\AST\Node { public $not; public $subselect; public function __construct($subselect) { $this->subselect = $subselect; } public function dispatch($sqlWalker) { return $sqlWalker->walkExistsExpression($this); } } 
