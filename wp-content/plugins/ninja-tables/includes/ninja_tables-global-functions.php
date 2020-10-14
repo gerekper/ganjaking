@@ -151,7 +151,7 @@ if (!function_exists('ninja_table_is_in_production_mood')) {
 }
 
 
-function ninjaTablesGetTablesDataByID($tableId, $tableColumns, $defaultSorting = false, $disableCache = false, $limit = false, $skip = false, $ownOnly = false)
+function ninjaTablesGetTablesDataByID($tableId, $tableColumns = [], $defaultSorting = false, $disableCache = false, $limit = false, $skip = false, $ownOnly = false)
 {
     $providerName = ninja_table_get_data_provider($tableId);
     $providerName = in_array($providerName, array('csv', 'google-csv')) ? 'csv' : $providerName;
@@ -166,18 +166,29 @@ function ninjaTablesGetTablesDataByID($tableId, $tableColumns, $defaultSorting =
         $ownOnly
     );
 
-    foreach ($tableColumns as $column) {
-	    $transformValue = isset($column['transformed_value']) ? trim($column['transformed_value']) : null;
-
-	    if ($transformValue) {
-	        foreach ($data as &$item) {
-	            if (isset($item[$column['key']])) {
-	                $item[$column['key']] = ninjaTablesTransformer($transformValue, $item);
-                }
-            }
-        }
-    }
     return $data;
+
+    $transformed = [];
+
+	if (empty($tableColumns)) {
+		$transformed = $data;
+	} else {
+		foreach ($data as $item) {
+			$original = $item;
+
+			foreach ($tableColumns as $column) {
+				$transformValue = isset($column['transformed_value']) ? trim($column['transformed_value']) : null;
+
+				if ($transformValue && isset($item[$column['key']])) {
+					$item[$column['key']] = ninjaTablesTransformer($transformValue, $original);
+				}
+			}
+
+			$transformed[] = $item;
+		}
+    }
+
+	return $transformed;
 }
 
 function ninjaTablesClearTableDataCache($tableId)
@@ -921,10 +932,18 @@ function ninjaTablesAdminPrintStyles() {
     });
 }
 
-function ninjaTablesTransformer($string, $source, $regex = '/{+(.*?)}|}/') {
+function ninjaTablesTransformer($string, $source, $regex = '/{{([^}]*)}}/') {
 	return preg_replace_callback($regex, function($matches) use ($source) {
 		$key = substr($matches[1], strpos($matches[1], '.') + 1);
 
-		return isset($source[$key]) ? $source[$key] : '';
+		$value = '';
+
+		if (isset($source[$key])) {
+		    if (!is_array($source[$key])) {
+		        $value = $source[$key];
+            }
+        }
+
+		return $value;
 	}, $string);
 }

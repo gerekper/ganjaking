@@ -5,7 +5,7 @@ Tags:  table, Data Tables, WP Data tables, WordPress table Plugin, Table Grid, w
 Requires at least: 4.5
 Requires PHP: 5.4 or greater
 Tested up to: 5.5.1
-Stable tag: 4.0.0
+Stable tag: 4.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -249,6 +249,15 @@ Yes, For that please check pro add one <a href="https://wpmanageninja.com/downlo
 9. Import TablePress Tables in NinjaTables
 
 == Changelog ==
+
+=4.0.2 (Date: Sep 14, 2020)
+- Fixes client side value transformation module.
+
+=4.0.1 (Date: Sep 14, 2020)
+- Fixes transform value bug for Excel formula.
+- Fixes regular search bug for string value.
+- Fixes Semantic UI table's footer radius style.
+- Improves value transformation module.
 
 =4.0.0 (Date: Sep 12, 2020)
 - Adds special characters (diacritics) search.

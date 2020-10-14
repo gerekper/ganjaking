@@ -1,0 +1,2068 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Project Manager\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cpm\n"
+"POT-Creation-Date: 2018-07-11 06:41:04+00:00\n"
+"PO-Revision-Date: 2018-07-11 12:53+0600\n"
+"Last-Translator: Rizqy Hidayat <rizqy22@gmail.com>\n"
+"Language-Team: Tareq Hasan <tareq@wedevs.com>\n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _e;__;gettext_noop;esc_attr_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 2.0.8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: core/Notifications/Emails/Complete_Task_Notification.php:42
+msgid "[%s] %s Task mark as %s in %s"
+msgstr ""
+
+#: core/Notifications/Emails/New_Comment_Notification.php:53
+#: core/Notifications/Emails/Update_Comment_Notification.php:52
+#: views/emails/html/new-message.php:39 views/emails/mention.php:13
+msgid "Message"
+msgstr "Pesan"
+
+#: core/Notifications/Emails/New_Comment_Notification.php:58
+#: core/Notifications/Emails/Update_Comment_Notification.php:55
+#: views/emails/mention.php:20
+msgid "Task List"
+msgstr "Daftar Tugas"
+
+#: core/Notifications/Emails/New_Comment_Notification.php:63
+#: core/Notifications/Emails/Update_Comment_Notification.php:58
+#: views/assets/js/pm.js:18541
+#: views/assets/src/components/project-overview/directive.js:10
+#: views/emails/mention.php:25
+msgid "Task"
+msgstr "Tugas"
+
+#: core/Notifications/Emails/New_Comment_Notification.php:68
+#, fuzzy
+#| msgid "Files"
+msgid "File"
+msgstr "Berkas"
+
+#: core/Notifications/Emails/New_Comment_Notification.php:81
+msgid "[%s][%s] New Comment on: %s"
+msgstr ""
+
+#: core/Notifications/Emails/New_Message_Notification.php:47
+msgid "[%s][%s] New Message: %s"
+msgstr ""
+
+#: core/Notifications/Emails/New_Project_Notification.php:24
+msgid "[%s] New Project Invitation: %s"
+msgstr ""
+
+#: core/Notifications/Emails/New_Task_Notification.php:41
+msgid "[%s][%s] New Task Assigned: %s"
+msgstr ""
+
+#: core/Notifications/Emails/Update_Comment_Notification.php:49
+msgid "[%s][%s] Update Comment on: %s"
+msgstr ""
+
+#: core/Notifications/Emails/Update_Project_Notification.php:24
+#, fuzzy
+#| msgid "Update Project"
+msgid "[%s] Updated Project: %s"
+msgstr "Perbarui Proyek"
+
+#: core/Notifications/Emails/Update_Task_Notification.php:40
+msgid "[%s][%s] Update Task Assigned: %s"
+msgstr ""
+
+#: core/Permissions/Access_Project.php:22
+#: core/Permissions/Create_Discuss.php:17
+#: core/Permissions/Create_Milestone.php:16 core/Permissions/Create_Task.php:16
+#: core/Permissions/Create_Task_List.php:17
+#: core/Permissions/Edit_Comment.php:27 core/Permissions/Edit_Discuss.php:30
+#: core/Permissions/Edit_File.php:29 core/Permissions/Edit_Milestone.php:30
+#: core/Permissions/Edit_Task.php:32 core/Permissions/Edit_Task_List.php:30
+#: core/Permissions/Project_Manage_Capability.php:28
+msgid "You have no permission."
+msgstr ""
+
+#: core/Permissions/Complete_Task.php:36
+msgid "You have no permission to change task status."
+msgstr ""
+
+#: core/Permissions/Create_File.php:16
+msgid "You have no permission to create message."
+msgstr ""
+
+#: core/Permissions/Project_Craete_Capability.php:17
+msgid "You have no permission to create project."
+msgstr ""
+
+#: core/Upgrades/Upgrade.php:136
+msgid ""
+"<strong>WP Project Manager Data Update Required</strong> &#8211; Please "
+"click the button below to update to the latest version."
+msgstr ""
+
+#: core/Upgrades/Upgrade.php:139
+msgid "Run the Update"
+msgstr ""
+
+#: core/Upgrades/Upgrade.php:140
+#, fuzzy
+#| msgid "Load More..."
+msgid "Read More"
+msgstr "Muat Lebih Banyak..."
+
+#: core/Upgrades/Upgrade.php:148
+msgid ""
+"It is strongly recommended that you backup your database before proceeding. "
+"Are you sure you wish to run the updater now?"
+msgstr ""
+
+#: core/WP/Enqueue_Scripts.php:65
+msgid "Allowed Files"
+msgstr "Berkas yang Diperbolehkan"
+
+#: core/WP/Frontend.php:140
+msgid "Every %d Minutes PM schedule"
+msgstr ""
+
+#: core/WP/Frontend.php:167
+msgid "<h2>WP Project Manager Pro required version 2.0 or above.</span></h2>"
+msgstr ""
+
+#: core/WP/Frontend.php:168
+msgid "<p>To migrate version 2.0, Please read mmigration docs </p>"
+msgstr ""
+
+#: core/WP/Frontend.php:177
+msgid "Read Docs"
+msgstr ""
+
+#: core/WP/Frontend.php:284
+msgid "Get Pro"
+msgstr ""
+
+#: core/WP/Frontend.php:287 core/WP/Menu.php:36
+msgid "Settings"
+msgstr "Pengaturan"
+
+#: core/WP/Frontend.php:288
+msgid "Documentation"
+msgstr ""
+
+#: core/WP/Menu.php:16 views/assets/src/components/project-lists/header.vue:7
+msgid "Project Manager"
+msgstr "Manajer Proyek"
+
+#: core/WP/Menu.php:18
+msgid "Projects"
+msgstr "Proyek"
+
+#: core/WP/Menu.php:20 views/assets/src/components/categories/categories.vue:3
+msgid "Categories"
+msgstr ""
+
+#: core/WP/Menu.php:22
+msgid "My Tasks"
+msgstr ""
+
+#: core/WP/Menu.php:23
+msgid "Calendar"
+msgstr ""
+
+#: core/WP/Menu.php:26
+msgid "Reports"
+msgstr ""
+
+#: core/WP/Menu.php:27
+msgid "Progress"
+msgstr ""
+
+#: db/seeds/RoleTableSeeder.php:23
+msgid "Manager"
+msgstr ""
+
+#: db/seeds/RoleTableSeeder.php:25
+msgid "Manager is a person who manages the project."
+msgstr ""
+
+#: db/seeds/RoleTableSeeder.php:33
+msgid "Co-Worker"
+msgstr ""
+
+#: db/seeds/RoleTableSeeder.php:35
+msgid "Co-worker is person who works under a project."
+msgstr ""
+
+#: src/Category/Validators/Create_Category.php:10
+#: src/Category/Validators/Update_Category.php:10
+msgid "Category title is required."
+msgstr ""
+
+#: src/Category/Validators/Update_Category.php:11
+msgid "Category id is required."
+msgstr ""
+
+#: src/Category/Validators/Update_Category.php:12
+msgid "Category id must be greater than zero"
+msgstr ""
+
+#: src/Comment/Validators/Create_Comment.php:10
+#: src/Comment/Validators/Update_Comment.php:10
+msgid "Comment title is required."
+msgstr ""
+
+#: src/Comment/Validators/Create_Comment.php:11
+#: src/Discussion_Board/Validators/Create_Discussion_Board.php:11
+#: src/Milestone/Validators/Create_Milestone.php:11
+#: src/Project/Validators/Update_Project.php:11
+#: src/Task/Validators/Create_Task.php:11
+#: src/Task_List/Validators/Create_Task_List.php:11
+msgid "Project id is required."
+msgstr ""
+
+#: src/Comment/Validators/Update_Comment.php:11
+msgid "Comment id is required."
+msgstr ""
+
+#: src/Comment/Validators/Update_Comment.php:12
+msgid "Comment id must be greater than zero"
+msgstr ""
+
+#: src/Discussion_Board/Validators/Create_Discussion_Board.php:10
+msgid "Discussion title is required."
+msgstr ""
+
+#: src/Discussion_Board/Validators/Update_Discussion_Board.php:10
+msgid "Discuss title is required."
+msgstr ""
+
+#: src/Discussion_Board/Validators/Update_Discussion_Board.php:11
+msgid "Discuss id is required."
+msgstr ""
+
+#: src/Discussion_Board/Validators/Update_Discussion_Board.php:12
+msgid "Discuss id must be greater than zero"
+msgstr ""
+
+#: src/File/Controllers/File_Controller.php:97
+msgid "file not found"
+msgstr ""
+
+#: src/Milestone/Controllers/Milestone_Controller.php:58
+msgid "this is mishu"
+msgstr ""
+
+#: src/Milestone/Validators/Create_Milestone.php:10
+#: src/Milestone/Validators/Update_Milestone.php:10
+msgid "Milestone title is required."
+msgstr ""
+
+#: src/Milestone/Validators/Update_Milestone.php:11
+msgid "Milestone id is required."
+msgstr ""
+
+#: src/Milestone/Validators/Update_Milestone.php:12
+msgid "Milestone id must be greater than zero"
+msgstr ""
+
+#: src/Project/Validators/Create_Project.php:10
+#: src/Project/Validators/Update_Project.php:10
+msgid "Project title is required."
+msgstr ""
+
+#: src/Project/Validators/Update_Project.php:12
+msgid "Project id must be greater than zero"
+msgstr ""
+
+#: src/Role/Validators/Create_Role.php:10
+#: src/Role/Validators/Update_Role.php:10
+msgid "Role title is required."
+msgstr ""
+
+#: src/Role/Validators/Update_Role.php:11
+msgid "Role id is required."
+msgstr ""
+
+#: src/Role/Validators/Update_Role.php:12
+msgid "Role id must be greater than zero"
+msgstr ""
+
+#: src/Task/Validators/Create_Task.php:10
+#: src/Task/Validators/Update_Task.php:10
+msgid "Task title is required."
+msgstr ""
+
+#: src/Task/Validators/Update_Task.php:11
+msgid "Task id is required."
+msgstr ""
+
+#: src/Task/Validators/Update_Task.php:12
+msgid "Task id must be greater than zero"
+msgstr ""
+
+#: src/Task_List/Validators/Create_Task_List.php:10
+#: src/Task_List/Validators/Update_Task_List.php:10
+msgid "Task list title is required."
+msgstr ""
+
+#: src/Task_List/Validators/Update_Task_List.php:11
+#, fuzzy
+#| msgid "Tasklist detail"
+msgid "Task list id is required."
+msgstr "Detail daftar tugas"
+
+#: src/Task_List/Validators/Update_Task_List.php:12
+msgid "Task list id must be greater than zero"
+msgstr ""
+
+#: texts/activities.php:6
+msgid "%1$s has created a project titled as %2$s"
+msgstr ""
+
+#: texts/activities.php:10
+msgid "%1$s has updated project title from \"%2$s\" to \"%3$s\"."
+msgstr ""
+
+#: texts/activities.php:14
+msgid "%1$s has updated %2$s project description."
+msgstr ""
+
+#: texts/activities.php:18
+msgid "%1$s has updated project status from \"%2$s\" to \"%3$s\"."
+msgstr ""
+
+#: texts/activities.php:22
+msgid "%1$s has updated project budget from \"%2$s\" to \"%3$s\"."
+msgstr ""
+
+#: texts/activities.php:26
+msgid "%1$s has updated project pay rate from \"%2$s\" to \"%3$s\"."
+msgstr ""
+
+#: texts/activities.php:30
+msgid "%1$s has updated project est completion date from \"%2$s\" to \"%3$s\"."
+msgstr ""
+
+#: texts/activities.php:34
+msgid "%1$s has updated project color code from \"%2$s\" to \"%3$s\"."
+msgstr ""
+
+#: texts/activities.php:40
+msgid "%1$s has created a discussion board titled as %2$s."
+msgstr ""
+
+#: texts/activities.php:44
+msgid ""
+"%1$s has updated the title of a discussion board from \"%2$s\" to \"%3$s\"."
+msgstr ""
+
+#: texts/activities.php:48
+msgid "%1$s has updated the description of a discussion board, %2$s."
+msgstr ""
+
+#: texts/activities.php:52
+msgid "%1$s has updated the order of a discussion board, %2$s."
+msgstr ""
+
+#: texts/activities.php:58
+msgid "%1$s has created a task list titled as %2$s."
+msgstr ""
+
+#: texts/activities.php:62
+msgid "%1$s has updated the title of a task list from \"%2$s\" to \"%3$s\"."
+msgstr ""
+
+#: texts/activities.php:66
+msgid "%1$s has updated the description of a task list, %2$s."
+msgstr ""
+
+#: texts/activities.php:70
+msgid "%1$s has updated the order of a task list, %2$s."
+msgstr ""
+
+#: texts/activities.php:76
+msgid "%1$s has created a milestone, %2$s."
+msgstr ""
+
+#: texts/activities.php:80
+msgid "%1$s has updated the title of a milestone from \"%2$s\" to \"%3$s\"."
+msgstr ""
+
+#: texts/activities.php:84
+msgid "%1$s has updated the description of a milestone, %2$s."
+msgstr ""
+
+#: texts/activities.php:88
+msgid "%1$s has updated the order of a milestone, %2$s."
+msgstr ""
+
+#: texts/activities.php:94
+msgid "%1$s has created a task, %2$s."
+msgstr ""
+
+#: texts/activities.php:98
+msgid "%1$s has updated the title of a task from \"%2$s\" to \"%3$s\"."
+msgstr ""
+
+#: texts/activities.php:102
+msgid "%1$s has updated the description of a task, %2$s."
+msgstr ""
+
+#: texts/activities.php:106
+msgid "%1$s has updated the estimation of a task, %2$s, from %3$s to %4$s."
+msgstr ""
+
+#: texts/activities.php:110
+msgid "%1$s has updated the start date of a task, %2$s, from %3$s to %4$s."
+msgstr ""
+
+#: texts/activities.php:114
+msgid "%1$s has updated the due date of a task, %2$s, from %3$s to %4$s."
+msgstr ""
+
+#: texts/activities.php:118
+msgid "%1$s has updated the complexity of a task, %2$s, from %3$s to %4$s."
+msgstr ""
+
+#: texts/activities.php:122
+msgid "%1$s has updated the priority of a task, %2$s, from %3$s to %4$s."
+msgstr ""
+
+#: texts/activities.php:126
+msgid "%1$s has updated the payable status of a task, %2$s, from %3$s to %4$s."
+msgstr ""
+
+#: texts/activities.php:130
+msgid "%1$s has updated the recurrency of a task, %2$s, from %3$s to %4$s."
+msgstr ""
+
+#: texts/activities.php:134
+msgid "%1$s has updated the status of a task, %2$s, from %3$s to %4$s."
+msgstr ""
+
+#: texts/activities.php:140
+#, fuzzy
+#| msgid "%s commented on a %s"
+msgid "%1$s has commented on a task, %2$s."
+msgstr "%s berkomentar di %s"
+
+#: texts/activities.php:144
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a comment on a task, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:148
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has replied a comment on a task, %2$s"
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:152
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a reply comment on a task, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:158
+#, fuzzy
+#| msgid "%s commented on a %s"
+msgid "%1$s has commented on a task list, %2$s."
+msgstr "%s berkomentar di %s"
+
+#: texts/activities.php:162
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a comment on a task list, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:166
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has replied a comment on a task list, %2$s"
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:170
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a reply comment on a task list, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:176
+msgid "%1$s has commented on a discussion board, %2$s."
+msgstr ""
+
+#: texts/activities.php:180
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a comment on a discussion board, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:184
+msgid "%1$s has replied a comment on a discussion board, %2$s"
+msgstr ""
+
+#: texts/activities.php:188
+msgid "%1$s has updated a reply comment on a discussion board, %2$s."
+msgstr ""
+
+#: texts/activities.php:194
+#, fuzzy
+#| msgid "%s commented on a %s"
+msgid "%1$s has commented on a milestone, %2$s."
+msgstr "%s berkomentar di %s"
+
+#: texts/activities.php:198
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a comment on a milestone, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:202
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has replied a comment on a milestone, %2$s"
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:206
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a reply comment on a milestone, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:212
+#, fuzzy
+#| msgid "%s commented on a %s"
+msgid "%1$s has commented on the project, %2$s."
+msgstr "%s berkomentar di %s"
+
+#: texts/activities.php:216
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a comment on the project, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:220
+msgid "%1$s has replied a comment on the project, %2$s"
+msgstr ""
+
+#: texts/activities.php:224
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a reply comment on the project, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:230
+#, fuzzy
+#| msgid "%s commented on a %s"
+msgid "%1$s has commented on a file, %2$s."
+msgstr "%s berkomentar di %s"
+
+#: texts/activities.php:234
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a comment on a file, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:238
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has replied a comment on a file, %2$s"
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:242
+#, fuzzy
+#| msgid "%s updated comment on a %s"
+msgid "%1$s has updated a reply comment on a file, %2$s."
+msgstr "%s memperbarui komentar di %s"
+
+#: texts/activities.php:246
+msgid "%1$s has duplicated project from , %2$s."
+msgstr ""
+
+#: texts/resource_types.php:5
+#, fuzzy
+#| msgid "Project"
+msgid "project"
+msgstr "Proyek"
+
+#: texts/resource_types.php:8
+msgid "discussion board"
+msgstr ""
+
+#: texts/resource_types.php:11
+#, fuzzy
+#| msgid "Task List"
+msgid "task list"
+msgstr "Daftar Tugas"
+
+#: texts/resource_types.php:14
+msgid "task"
+msgstr ""
+
+#: texts/resource_types.php:17
+#, fuzzy
+#| msgid "Milestone"
+msgid "milestone"
+msgstr "Target"
+
+#: texts/resource_types.php:20
+#, fuzzy
+msgid "comment"
+msgstr "1 Komentar"
+
+#: texts/resource_types.php:23
+msgid "file"
+msgstr ""
+
+#: texts/success_messages.php:6
+msgid "A project has been created successfully."
+msgstr ""
+
+#: texts/success_messages.php:9
+msgid "A project has been updated successfully."
+msgstr ""
+
+#: texts/success_messages.php:12
+msgid "A project has been deleted successfully."
+msgstr ""
+
+#: texts/success_messages.php:16
+msgid "A category has been created successfully."
+msgstr ""
+
+#: texts/success_messages.php:19
+msgid "A category has been updated successfully."
+msgstr ""
+
+#: texts/success_messages.php:22
+msgid "A category has been deleted successfully."
+msgstr ""
+
+#: texts/success_messages.php:25
+msgid "All the selected categories has been deleted successfully."
+msgstr ""
+
+#: texts/success_messages.php:29
+msgid "Successfully commented."
+msgstr ""
+
+#: texts/success_messages.php:32
+msgid "A comment has been updated successfully."
+msgstr ""
+
+#: texts/success_messages.php:35
+msgid "A comment has been deleted successfully."
+msgstr ""
+
+#: texts/success_messages.php:39
+msgid "A new discussion has been created successfully."
+msgstr ""
+
+#: texts/success_messages.php:42
+msgid "A discussion has been updated successfully."
+msgstr ""
+
+#: texts/success_messages.php:45
+msgid "A discussion has been deleted successfully."
+msgstr ""
+
+#: texts/success_messages.php:49
+msgid "A new milestone has been created successfully."
+msgstr ""
+
+#: texts/success_messages.php:52
+msgid "A milestone has been updated successfully."
+msgstr ""
+
+#: texts/success_messages.php:55
+msgid "A milestone has been deleted successfully."
+msgstr ""
+
+#: texts/success_messages.php:59
+msgid "A new task list has been created successfully."
+msgstr ""
+
+#: texts/success_messages.php:62
+msgid "Task list has been updated successfully."
+msgstr ""
+
+#: texts/success_messages.php:65
+msgid "Task list has been deleted successfully."
+msgstr ""
+
+#: texts/success_messages.php:69
+msgid "A new task has been created successfully."
+msgstr ""
+
+#: texts/success_messages.php:72
+msgid "A Task has been updated successfully."
+msgstr ""
+
+#: texts/success_messages.php:75
+msgid "The task has been deleted successfully."
+msgstr ""
+
+#: texts/success_messages.php:78
+msgid "Settings has been changed successfully."
+msgstr ""
+
+#: texts/success_messages.php:81
+#, fuzzy
+#| msgid "No comments found"
+msgid "No element found"
+msgstr "Tidak ada komentar ditemukan"
+
+#: texts/success_messages.php:84
+#, fuzzy
+#| msgid "No Project Found"
+msgid "No Project found"
+msgstr "Tidak Ada Proyek Ditemukan"
+
+#: texts/success_messages.php:87
+msgid "Task marked as done"
+msgstr ""
+
+#: texts/success_messages.php:90
+msgid "Task reopened"
+msgstr ""
+
+#: vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php:425
+msgid "Every %d Minutes"
+msgstr ""
+
+#: views/assets/js/library.js:887 views/assets/js/library.js:1099
+#: views/assets/js/library.js:4869 views/assets/js/pm.js:887
+#: views/assets/js/pm.js:1099 views/assets/js/pm.js:5443
+#: views/assets/js/pm.js:5954 views/assets/js/pm.js:9713
+#: views/assets/js/pm.js:14773
+#: views/assets/src/components/categories/categories.vue:255
+#: views/assets/src/components/project-discussions/mixin.js:507
+#: views/assets/src/components/project-task-lists/list-comments.vue:111
+#: views/assets/src/components/project-task-lists/mixin.js:382
+#: views/assets/src/components/project-task-lists/mixin.js:602
+#: views/assets/src/components/project-task-lists/task-comments.vue:131
+#, fuzzy
+#| msgid "Are you sure?"
+msgid "Are you sure!"
+msgstr "Apakah Anda yakin?"
+
+#: views/assets/js/library.js:3158 views/assets/js/pm.js:3732
+#: views/assets/src/helpers/mixin/mixin.js:703
+#: views/assets/vendor/mixin/mixin.js:636
+msgid "Are you sure to delete this project?"
+msgstr "Apakah Anda yakin untuk mneghapus proyek ini?"
+
+#: views/assets/js/library.js:3841 views/assets/js/pm.js:4415
+#: views/assets/src/components/common/text-editor.vue:37
+msgid "Write a comment..."
+msgstr ""
+
+#: views/assets/js/library.js:4169 views/assets/js/pm.js:4743
+#: views/assets/src/components/project-task-lists/single-task.vue:295
+msgid "Update Description"
+msgstr ""
+
+#: views/assets/js/library.js:4632 views/assets/js/pm.js:5206
+#: views/assets/js/pm.js:10728 views/assets/js/pm.js:14513
+#: views/assets/src/components/project-discussions/comment-form.vue:39
+#: views/assets/src/components/project-task-lists/list-comment-form.vue:48
+#: views/assets/src/components/project-task-lists/task-comment-form.vue:64
+msgid "Add New Comment"
+msgstr ""
+
+#: views/assets/js/library.js:4633 views/assets/js/pm.js:5207
+#: views/assets/js/pm.js:10729 views/assets/js/pm.js:14514
+#: views/assets/src/components/project-discussions/comment-form.vue:40
+#: views/assets/src/components/project-task-lists/list-comment-form.vue:49
+#: views/assets/src/components/project-task-lists/task-comment-form.vue:65
+#: views/emails/html/update-comment.php:12
+msgid "Update Comment"
+msgstr ""
+
+#: views/assets/js/library.js:5620 views/assets/js/pm.js:7465
+msgid "textarea"
+msgstr ""
+
+#: views/assets/js/library.js:5661 views/assets/js/pm.js:7506
+#: views/assets/js/pm.js:25191
+msgid "form"
+msgstr ""
+
+#: views/assets/js/library.js:5753 views/assets/js/library.js:5843
+#: views/assets/js/library.js:6109 views/assets/js/library.js:6887
+#: views/assets/js/library.js:6964 views/assets/js/library.js:7110
+#: views/assets/js/library.js:10361 views/assets/js/library.js:10395
+#: views/assets/js/library.js:10440 views/assets/js/library.js:10498
+#: views/assets/js/library.js:10699 views/assets/js/library.js:10757
+#: views/assets/js/pm.js:7598 views/assets/js/pm.js:7688
+#: views/assets/js/pm.js:7954 views/assets/js/pm.js:8732
+#: views/assets/js/pm.js:8809 views/assets/js/pm.js:8955
+#: views/assets/js/pm.js:23547 views/assets/js/pm.js:23616
+#: views/assets/js/pm.js:23915 views/assets/js/pm.js:24205
+#: views/assets/js/pm.js:24239 views/assets/js/pm.js:24446
+#: views/assets/js/pm.js:24569 views/assets/js/pm.js:24729
+#: views/assets/js/pm.js:24763 views/assets/js/pm.js:25132
+#: views/assets/js/pm.js:25346 views/assets/js/pm.js:25862
+#: views/assets/js/pm.js:25896 views/assets/js/pm.js:25987
+#: views/assets/js/pm.js:26537 views/assets/js/pm.js:26640
+#: views/assets/js/pm.js:26731 views/assets/js/pm.js:26795
+#: views/assets/js/pm.js:26886 views/assets/js/pm.js:27157
+#: views/assets/js/pm.js:27200 views/assets/js/pm.js:27551
+#: views/assets/js/pm.js:27638 views/assets/js/pm.js:27777
+#: views/assets/js/pm.js:28558 views/assets/js/pm.js:28592
+#: views/assets/js/pm.js:28674 views/assets/js/pm.js:29193
+#: views/assets/js/pm.js:29234 views/assets/js/pm.js:29675
+#: views/assets/js/pm.js:29935 views/assets/js/pm.js:29969
+#: views/assets/js/pm.js:30251 views/assets/js/pm.js:30296
+#: views/assets/js/pm.js:30476 views/assets/js/pm.js:30954
+#: views/assets/js/pm.js:31165 views/assets/js/pm.js:31200
+#: views/assets/js/pm.js:31386 views/assets/js/pm.js:31477
+#: views/assets/js/pm.js:31586 views/assets/js/pm.js:31651
+#: views/assets/js/pm.js:31962 views/assets/js/pm.js:32460
+#: views/assets/js/pm.js:32830 views/assets/js/pm.js:33075
+#: views/assets/js/pm.js:33109 views/assets/js/pm.js:33209
+#: views/assets/js/pm.js:33376 views/assets/js/pm.js:33446
+#: views/assets/js/pm.js:33803 views/assets/js/pm.js:33846
+#: views/assets/js/pm.js:34055 views/assets/js/pm.js:34228
+#: views/assets/js/pm.js:34332 views/assets/js/pm.js:34372
+msgid "div"
+msgstr ""
+
+#: views/assets/js/library.js:6909 views/assets/js/pm.js:8754
+#: views/assets/js/pm.js:23525
+msgid "span"
+msgstr ""
+
+#: views/assets/js/library.js:6937 views/assets/js/pm.js:8782
+#: views/assets/js/pm.js:24537 views/assets/js/pm.js:26571
+#: views/assets/js/pm.js:28649 views/assets/js/pm.js:32805
+#: views/assets/js/pm.js:33414
+msgid "input"
+msgstr ""
+
+#: views/assets/js/pm.js:2326
+#: views/assets/src/components/project-milestones/mixin.js:316
+#, fuzzy
+#| msgid "Are you sure to delete this message?"
+msgid "Are you sure! Want to delete this milestones?"
+msgstr "Apakah Anda yakin untuk menghapus pesan ini?"
+
+#: views/assets/js/pm.js:5999
+#: views/assets/src/components/project-discussions/mixin.js:554
+#, fuzzy
+#| msgid "Are you sure to delete this project?"
+msgid "Are you sure to delete this comment?"
+msgstr "Apakah Anda yakin untuk mneghapus proyek ini?"
+
+#: views/assets/js/pm.js:9674
+#: views/assets/src/components/categories/categories.vue:23
+#: views/assets/src/components/categories/categories.vue:212
+#, fuzzy
+#| msgid "Add New Message"
+msgid "Add New Category"
+msgstr "Tambah Pesan Baru"
+
+#: views/assets/js/pm.js:9793
+#: views/assets/src/components/categories/edit-category-form.vue:42
+#, fuzzy
+#| msgid "Update Message"
+msgid "Update Category"
+msgstr "Perbarui Pesan"
+
+#: views/assets/js/pm.js:10288 views/assets/js/pm.js:12746
+#: views/assets/src/components/common/header.vue:81
+#: views/assets/src/components/project-lists/project-summary.vue:165
+#, fuzzy
+#| msgid "Project Activity"
+msgid "Project Actions"
+msgstr "Aktivitas Proyek"
+
+#: views/assets/js/pm.js:10314
+#: views/assets/src/components/common/header.vue:110
+msgid "Overview"
+msgstr ""
+
+#: views/assets/js/pm.js:10323
+#: views/assets/src/components/common/header.vue:121
+msgid "Activities"
+msgstr ""
+
+#: views/assets/js/pm.js:10332
+#: views/assets/src/components/common/header.vue:132
+#: views/assets/src/components/project-discussions/discussions.vue:20
+#: views/assets/src/components/project-lists/project-summary.vue:32
+#: views/assets/src/components/project-milestones/completed-milestones.vue:32
+#: views/assets/src/components/project-milestones/late-milestones.vue:39
+#: views/assets/src/components/project-milestones/upcoming-milestones.vue:42
+#: views/assets/src/components/project-overview/overview.vue:31
+msgid "Discussions"
+msgstr ""
+
+#: views/assets/js/pm.js:10341
+#: views/assets/src/components/common/header.vue:143
+#: views/assets/src/components/project-lists/project-summary.vue:48
+#: views/assets/src/components/project-milestones/completed-milestones.vue:23
+#: views/assets/src/components/project-milestones/late-milestones.vue:30
+#: views/assets/src/components/project-milestones/upcoming-milestones.vue:32
+#: views/assets/src/components/project-overview/overview.vue:46
+#: views/assets/src/components/project-task-lists/default-list-page.vue:4
+msgid "Task Lists"
+msgstr "Daftar Tugas"
+
+#: views/assets/js/pm.js:10350
+#: views/assets/src/components/common/header.vue:154
+#: views/assets/src/components/project-lists/project-summary.vue:78
+#: views/assets/src/components/project-milestones/milestones.vue:19
+#: views/assets/src/components/project-overview/overview.vue:97
+msgid "Milestones"
+msgstr "target"
+
+#: views/assets/js/pm.js:10359
+#: views/assets/src/components/common/header.vue:165
+#: views/assets/src/components/project-lists/project-summary.vue:93
+#: views/assets/src/components/project-overview/overview.vue:82
+msgid "Files"
+msgstr "Berkas"
+
+#: views/assets/js/pm.js:10975
+#: views/assets/src/components/categories/categories.vue:104
+#: views/assets/src/components/common/header.vue:10
+#: views/assets/src/components/project-discussions/discussions.vue:158
+#: views/assets/src/components/project-task-lists/incompleted-tasks.vue:71
+msgid "Edit"
+msgstr "Sunting"
+
+#: views/assets/js/pm.js:10976
+#: views/assets/src/components/project-discussions/discussions.vue:159
+msgid "Delete this message"
+msgstr "Hapus pesan ini"
+
+#: views/assets/js/pm.js:10977
+#: views/assets/src/components/project-discussions/discussions.vue:160
+msgid "Make it private"
+msgstr ""
+
+#: views/assets/js/pm.js:11351
+#: views/assets/src/components/project-discussions/new-discuss-form.vue:55
+msgid "Enter message title"
+msgstr "Masukkan judul pesan"
+
+#: views/assets/js/pm.js:11352
+#: views/assets/src/components/project-discussions/new-discuss-form.vue:56
+msgid "Add Message"
+msgstr "Tambah Pesan"
+
+#: views/assets/js/pm.js:11353
+#: views/assets/src/components/project-discussions/new-discuss-form.vue:57
+msgid "Update Message"
+msgstr "Perbarui Pesan"
+
+#: views/assets/js/pm.js:12089
+#: views/assets/src/components/project-lists/header.vue:69
+msgid "Start a new project"
+msgstr "Mulai proyek baru"
+
+#: views/assets/js/pm.js:12190
+#: views/assets/src/components/project-lists/project-create-form.vue:87
+msgid "Name of the project"
+msgstr "Nama proyek"
+
+#: views/assets/js/pm.js:12191
+#: views/assets/src/components/project-lists/project-create-form.vue:88
+msgid "Some details about the project (optional)"
+msgstr "Detail untuk proyek (opsional)"
+
+#: views/assets/js/pm.js:12192
+#: views/assets/src/components/project-lists/project-create-form.vue:89
+msgid "Type 3 or more characters to search users..."
+msgstr ""
+
+#: views/assets/js/pm.js:12193 views/assets/js/pm.js:18016
+#: views/assets/src/components/project-lists/directive.js:75
+#: views/assets/src/components/project-lists/project-create-form.vue:90
+msgid "Create a new user"
+msgstr ""
+
+#: views/assets/js/pm.js:12194
+#: views/assets/src/components/project-lists/project-create-form.vue:91
+msgid "Add New Project"
+msgstr "Tambah Proyek Baru"
+
+#: views/assets/js/pm.js:12195
+#: views/assets/src/components/project-lists/project-create-form.vue:92
+#: views/emails/html/update-project.php:9
+msgid "Update Project"
+msgstr "Perbarui Proyek"
+
+#: views/assets/js/pm.js:12536
+#: views/assets/src/components/project-lists/project-new-user-form.vue:43
+msgid "Create User"
+msgstr ""
+
+#: views/assets/js/pm.js:12853
+#: views/assets/src/components/project-lists/project-view.vue:17
+msgid "List View"
+msgstr ""
+
+#: views/assets/js/pm.js:12854
+#: views/assets/src/components/project-lists/project-view.vue:18
+msgid "Grid View"
+msgstr ""
+
+#: views/assets/js/pm.js:12946
+#: views/assets/src/components/project-milestones/action-milestones.vue:33
+msgid "Edit Milestone"
+msgstr "Sunting Target"
+
+#: views/assets/js/pm.js:12947
+#: views/assets/src/components/project-milestones/action-milestones.vue:34
+msgid "Delete milestone"
+msgstr "Hapus target"
+
+#: views/assets/js/pm.js:12948
+#: views/assets/src/components/project-milestones/action-milestones.vue:35
+msgid "Mark as incomplete"
+msgstr ""
+
+#: views/assets/js/pm.js:12949
+#: views/assets/src/components/project-milestones/action-milestones.vue:36
+msgid "Mark as complete"
+msgstr "Tandai selesai"
+
+#: views/assets/js/pm.js:13571 views/assets/js/pm.js:15563
+#: views/assets/src/components/project-milestones/new-milestone-form.vue:44
+#: views/assets/src/components/project-task-lists/new-task-form.vue:112
+msgid "Due Date"
+msgstr ""
+
+#: views/assets/js/pm.js:13572
+#: views/assets/src/components/project-milestones/new-milestone-form.vue:45
+msgid "Milestone name"
+msgstr "Nama target"
+
+#: views/assets/js/pm.js:13573
+#: views/assets/src/components/project-milestones/milestones.vue:24
+#: views/assets/src/components/project-milestones/milestones.vue:52
+#: views/assets/src/components/project-milestones/new-milestone-form.vue:46
+msgid "Add Milestone"
+msgstr "Tambah Target"
+
+#: views/assets/js/pm.js:13574
+#: views/assets/src/components/project-milestones/new-milestone-form.vue:47
+msgid "Update Milestone"
+msgstr "Perbarui Target"
+
+#: views/assets/js/pm.js:15560
+#: views/assets/src/components/project-task-lists/new-task-form.vue:109
+msgid "Add a new task"
+msgstr ""
+
+#: views/assets/js/pm.js:15561
+#: views/assets/src/components/project-task-lists/new-task-form.vue:110
+msgid "Add extra details about this task (optional)"
+msgstr ""
+
+#: views/assets/js/pm.js:15562
+#: views/assets/src/components/project-task-lists/new-task-form.vue:111
+msgid "Start Date"
+msgstr ""
+
+#: views/assets/js/pm.js:15564
+#: views/assets/src/components/project-task-lists/new-task-form.vue:113
+msgid "Select User"
+msgstr ""
+
+#: views/assets/js/pm.js:15565
+#: views/assets/src/components/project-task-lists/new-task-form.vue:114
+msgid "Update Task"
+msgstr ""
+
+#: views/assets/js/pm.js:15566
+#: views/assets/src/components/project-task-lists/new-task-btn.vue:3
+#: views/assets/src/components/project-task-lists/new-task-form.vue:115
+msgid "Add Task"
+msgstr "Tambah Tugas"
+
+#: views/assets/js/pm.js:15567
+#: views/assets/src/components/project-task-lists/new-task-form.vue:116
+msgid "Estimated hour to complete the task"
+msgstr ""
+
+#: views/assets/js/pm.js:15928
+#: views/assets/src/components/project-task-lists/new-task-list-form.vue:71
+msgid "Task list name"
+msgstr ""
+
+#: views/assets/js/pm.js:15929
+#: views/assets/src/components/project-task-lists/new-task-list-form.vue:72
+msgid "Task list details"
+msgstr ""
+
+#: views/assets/js/pm.js:15930
+#: views/assets/src/components/project-task-lists/new-task-list-form.vue:73
+msgid "Update List"
+msgstr "Perbarui Daftar"
+
+#: views/assets/js/pm.js:15931
+#: views/assets/src/components/project-discussions/discussions.vue:16
+#: views/assets/src/components/project-task-lists/new-task-list-form.vue:74
+msgid "Add List"
+msgstr "Tambah Daftar"
+
+#: views/assets/js/pm.js:16368
+#: views/assets/src/components/project-task-lists/single-list.vue:121
+#, fuzzy
+#| msgid "Delete milestone"
+msgid "Delete List"
+msgstr "Hapus target"
+
+#: views/assets/js/pm.js:16699 views/assets/js/pm.js:16847
+#: views/assets/src/components/settings/email.vue:82
+#: views/assets/src/components/settings/general.vue:116
+msgid "Save Changes"
+msgstr "Simpan Perubahan"
+
+#: views/assets/js/pm.js:18015
+#: views/assets/src/components/project-lists/directive.js:74
+msgid "No users found."
+msgstr ""
+
+#: views/assets/js/pm.js:18540
+#: views/assets/src/components/project-overview/directive.js:9
+msgid "Activity"
+msgstr "Aktivitas"
+
+#: views/assets/js/pm.js:23425 views/assets/js/pm.js:23847
+#: views/assets/js/pm.js:31861
+msgid "ul"
+msgstr ""
+
+#: views/assets/js/pm.js:26597
+msgid "a"
+msgstr ""
+
+#: views/assets/js/pm.js:30932 views/assets/js/pm.js:31629
+msgid "router-view"
+msgstr ""
+
+#: views/assets/js/pm.js:33541
+msgid "svg"
+msgstr ""
+
+#: views/assets/js/pm.js:33711
+msgid "vue-content-loading"
+msgstr ""
+
+#: views/assets/src/components/categories/categories.vue:27
+#: views/assets/src/components/categories/categories.vue:74
+#: views/assets/src/components/categories/categories.vue:130
+#: views/assets/src/components/categories/edit-category-form.vue:8
+msgid "Name"
+msgstr ""
+
+#: views/assets/src/components/categories/categories.vue:33
+#: views/assets/src/components/categories/categories.vue:79
+#: views/assets/src/components/categories/categories.vue:136
+#: views/assets/src/components/categories/edit-category-form.vue:14
+msgid "Description"
+msgstr ""
+
+#: views/assets/src/components/categories/categories.vue:54
+msgid "Select bulk action"
+msgstr ""
+
+#: views/assets/src/components/categories/categories.vue:56
+#: views/assets/src/components/categories/categories.vue:155
+msgid "Bulk Actions"
+msgstr ""
+
+#: views/assets/src/components/categories/categories.vue:57
+#: views/assets/src/components/categories/categories.vue:156
+#: views/assets/src/components/common/header.vue:29
+#: views/assets/src/components/project-lists/project-create-form.vue:36
+#: views/assets/src/components/project-lists/project-summary.vue:134
+#: views/assets/src/components/project-task-lists/incompleted-tasks.vue:74
+msgid "Delete"
+msgstr "Hapus"
+
+#: views/assets/src/components/categories/categories.vue:69
+#: views/assets/src/components/common/notify-user.vue:7
+msgid "Select all"
+msgstr "Pilih semua"
+
+#: views/assets/src/components/categories/edit-category-form.vue:5
+msgid "Quick Edit"
+msgstr ""
+
+#: views/assets/src/components/categories/edit-category-form.vue:23
+#: views/assets/src/components/project-discussions/new-discuss-form.vue:32
+#: views/assets/src/components/project-lists/project-create-form.vue:57
+#: views/assets/src/components/project-milestones/new-milestone-form.vue:18
+#: views/assets/src/components/project-task-lists/new-task-form.vue:51
+#: views/assets/src/components/project-task-lists/new-task-list-form.vue:27
+msgid "Cancel"
+msgstr "Kembali"
+
+#: views/assets/src/components/common/color-picker.vue:9
+#, fuzzy
+#| msgid "Select all"
+msgid "Select Color"
+msgstr "Pilih semua"
+
+#: views/assets/src/components/common/color-picker.vue:25
+msgid "Clear"
+msgstr ""
+
+#: views/assets/src/components/common/color-picker.vue:31
+msgid "Close"
+msgstr ""
+
+#: views/assets/src/components/common/file-uploader.vue:10
+msgid "Delete File"
+msgstr "Hapus Berkas"
+
+#: views/assets/src/components/common/file-uploader.vue:16
+msgid "To attach"
+msgstr ""
+
+#: views/assets/src/components/common/file-uploader.vue:17
+msgid "select files"
+msgstr ""
+
+#: views/assets/src/components/common/file-uploader.vue:18
+msgid "from your computer."
+msgstr ""
+
+#: views/assets/src/components/common/header.vue:17
+#: views/assets/src/components/project-lists/project-header-menu.vue:13
+#: views/assets/src/components/project-task-lists/lists.vue:92
+msgid "Completed"
+msgstr "Selesai"
+
+#: views/assets/src/components/common/header.vue:18
+#: views/assets/src/components/project-task-lists/lists.vue:102
+msgid "Incomplete"
+msgstr ""
+
+#: views/assets/src/components/common/header.vue:36
+#: views/assets/src/components/project-lists/project-summary.vue:141
+msgid "Complete"
+msgstr ""
+
+#: views/assets/src/components/common/header.vue:39
+#: views/assets/src/components/project-lists/project-summary.vue:144
+msgid "Restore"
+msgstr ""
+
+#: views/assets/src/components/common/notify-user.vue:4
+msgid "Notify users"
+msgstr "Informasikan pengguna"
+
+#: views/assets/src/components/project-activities/activities.vue:46
+#, fuzzy
+#| msgid "Load More..."
+msgid "Load More ..."
+msgstr "Muat Lebih Banyak..."
+
+#: views/assets/src/components/project-activities/activities.vue:48
+msgid "No activity fount"
+msgstr ""
+
+#: views/assets/src/components/project-discussions/discussions.vue:23
+msgid ""
+"Use our built in discussion panel to create an open discussion, a group "
+"discussion or a private conversation. Note that the Admin can always "
+"moderate these discussions."
+msgstr ""
+
+#: views/assets/src/components/project-discussions/discussions.vue:27
+#: views/assets/src/components/project-discussions/discussions.vue:54
+msgid "Add New Discussion"
+msgstr ""
+
+#: views/assets/src/components/project-discussions/discussions.vue:32
+#: views/assets/src/components/project-discussions/discussions.vue:59
+msgid "Create a new message"
+msgstr "Buat sebuah pesan baru"
+
+#: views/assets/src/components/project-discussions/discussions.vue:38
+msgid "When to use Discussions?"
+msgstr ""
+
+#: views/assets/src/components/project-discussions/discussions.vue:41
+msgid "To discuss a work matter privately."
+msgstr ""
+
+#: views/assets/src/components/project-discussions/discussions.vue:42
+msgid "To exchange files privately."
+msgstr ""
+
+#: views/assets/src/components/project-discussions/discussions.vue:43
+msgid "To discuss in a group."
+msgstr ""
+
+#: views/assets/src/components/project-discussions/discussions.vue:44
+msgid "To create an open discussion visible to all."
+msgstr ""
+
+#: views/assets/src/components/project-discussions/discussions.vue:68
+msgid "Discussion List"
+msgstr ""
+
+#: views/assets/src/components/project-discussions/discussions.vue:84
+#: views/assets/src/components/project-discussions/individual-discussions.vue:32
+#: views/assets/src/components/project-task-lists/list-comments.vue:15
+#: views/assets/src/components/project-task-lists/task-comments.vue:15
+#, fuzzy
+#| msgid "Body"
+msgid "By"
+msgstr "Isi"
+
+#: views/assets/src/components/project-discussions/discussions.vue:88
+#: views/assets/src/components/project-discussions/individual-discussions.vue:35
+#: views/assets/src/components/project-discussions/individual-discussions.vue:77
+#: views/assets/src/components/project-task-lists/list-comments.vue:22
+#: views/assets/src/components/project-task-lists/task-comments.vue:21
+msgid "on"
+msgstr ""
+
+#: views/assets/src/components/project-discussions/discussions.vue:110
+#: views/assets/src/components/project-discussions/individual-discussions.vue:61
+#: views/assets/src/components/project-lists/project-summary.vue:104
+#: views/assets/src/components/project-overview/overview.vue:68
+#: views/assets/src/components/project-task-lists/lists.vue:111
+#: views/assets/src/components/project-task-lists/single-task.vue:174
+msgid "Comments"
+msgstr ""
+
+#: views/assets/src/components/project-discussions/new-discuss-form.vue:16
+#: views/assets/src/components/project-task-lists/new-task-list-form.vue:16
+msgid "- Milestone -"
+msgstr ""
+
+#: views/assets/src/components/project-files/files.vue:36
+msgid "Attached to"
+msgstr ""
+
+#: views/assets/src/components/project-files/files.vue:38
+msgid "by"
+msgstr ""
+
+#: views/assets/src/components/project-files/files.vue:40
+msgid "admin"
+msgstr ""
+
+#: views/assets/src/components/project-files/files.vue:62
+#, fuzzy
+#| msgid "No users found"
+msgid "No result found!"
+msgstr "Pengguna tidak ditemukan"
+
+#: views/assets/src/components/project-lists/project-create-form.vue:13
+#: views/assets/src/components/project-lists/project-filter-by-category.vue:6
+msgid "- Project Category -"
+msgstr ""
+
+#: views/assets/src/components/project-lists/project-create-form.vue:50
+msgid "Notify Co-Workers"
+msgstr ""
+
+#: views/assets/src/components/project-lists/project-header-menu.vue:6
+msgid "Active"
+msgstr ""
+
+#: views/assets/src/components/project-lists/project-header-menu.vue:20
+msgid "All"
+msgstr ""
+
+#: views/assets/src/components/project-lists/project-new-project-btn.vue:3
+#: views/emails/html/new-project.php:10
+msgid "New Project"
+msgstr "Proyek Baru"
+
+#: views/assets/src/components/project-lists/project-new-user-form.vue:7
+msgid "Username"
+msgstr ""
+
+#: views/assets/src/components/project-lists/project-new-user-form.vue:12
+msgid "First Name"
+msgstr ""
+
+#: views/assets/src/components/project-lists/project-new-user-form.vue:17
+msgid "Last Name"
+msgstr ""
+
+#: views/assets/src/components/project-lists/project-new-user-form.vue:22
+msgid "Email"
+msgstr ""
+
+#: views/assets/src/components/project-lists/project-summary.vue:4
+msgid "No projects found."
+msgstr ""
+
+#: views/assets/src/components/project-lists/project-summary.vue:63
+#: views/assets/src/components/project-overview/overview.vue:57
+msgid "Tasks"
+msgstr "Tugas"
+
+#: views/assets/src/components/project-milestones/completed-milestones.vue:3
+msgid "Completed Milestones"
+msgstr "Target yang selesai"
+
+#: views/assets/src/components/project-milestones/completed-milestones.vue:43
+msgid "Completed on:"
+msgstr "Diselesaikan pada:"
+
+#: views/assets/src/components/project-milestones/late-milestones.vue:3
+msgid "Late Milestones"
+msgstr "Target yang terlambat"
+
+#: views/assets/src/components/project-milestones/milestones.vue:21
+msgid ""
+"Create a lifecycle of your projects using milestones. Time mark the "
+"different stages of your project with multiple milestones and also it will "
+"help the assigned people to aim for a date to complete the project according "
+"to those steps."
+msgstr ""
+
+#: views/assets/src/components/project-milestones/milestones.vue:37
+msgid "When to use Milestones?"
+msgstr ""
+
+#: views/assets/src/components/project-milestones/milestones.vue:40
+msgid "To set a target date for the project overall."
+msgstr ""
+
+#: views/assets/src/components/project-milestones/milestones.vue:41
+msgid "To divide a project into several development-time phases."
+msgstr ""
+
+#: views/assets/src/components/project-milestones/milestones.vue:42
+msgid "To coordinate projects and assigned persons timely."
+msgstr ""
+
+#: views/assets/src/components/project-milestones/upcoming-milestones.vue:3
+msgid "Upcoming Milestones"
+msgstr "Target yang akan datang"
+
+#: views/assets/src/components/project-milestones/upcoming-milestones.vue:10
+#, fuzzy
+#| msgid "left"
+msgid "left -"
+msgstr "kiri"
+
+#: views/assets/src/components/project-overview/overview.vue:107
+msgid "Last 30 days"
+msgstr ""
+
+#: views/assets/src/components/project-overview/overview.vue:116
+msgid "Users"
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/default-list-page.vue:6
+msgid ""
+"You can list all your Tasks in a single discussion using a Task list. Use "
+"these lists to divide a project into several sectors, assign co-workers and "
+"check progress."
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/default-list-page.vue:14
+msgid "When to use Task Lists?"
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/default-list-page.vue:17
+msgid "To partition a project internals."
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/default-list-page.vue:18
+msgid "To mark milestone points."
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/default-list-page.vue:19
+msgid "To assign people to tasks."
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/list-comments.vue:4
+msgid "Discuss this task list"
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/list-tasks.vue:9
+#: views/assets/src/components/project-task-lists/single-list-tasks.vue:12
+#: views/assets/src/components/project-task-lists/single-list-tasks.vue:29
+msgid "No tasks found."
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/lists.vue:77
+#: views/assets/src/components/project-task-lists/single-list-tasks.vue:14
+#: views/assets/src/components/project-task-lists/single-list-tasks.vue:32
+msgid "More Tasks"
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/new-task-list-btn.vue:7
+msgid "New Task List"
+msgstr "Daftar Tugas Baru"
+
+#: views/assets/src/components/project-task-lists/single-list-tasks.vue:5
+msgid "Incomplete Tasks"
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/single-list-tasks.vue:21
+msgid "Completed Tasks"
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/single-list.vue:29
+msgid "Back to Task Lists"
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/single-task.vue:203
+msgid "Shift+Enter for line break"
+msgstr ""
+
+#: views/assets/src/components/project-task-lists/task-comments.vue:4
+msgid "Discuss this task"
+msgstr ""
+
+#: views/assets/src/components/settings/email.vue:7
+#: views/assets/src/components/settings/header.vue:9
+msgid "E-Mail Settings"
+msgstr "Pengaturan E-Mail"
+
+#: views/assets/src/components/settings/email.vue:12
+msgid "From Email"
+msgstr ""
+
+#: views/assets/src/components/settings/email.vue:20
+msgid "Links in the Email"
+msgstr ""
+
+#: views/assets/src/components/settings/email.vue:25
+msgid "Link to Backend"
+msgstr ""
+
+#: views/assets/src/components/settings/email.vue:28
+msgid ""
+"Select where do you want to take the user. Notification emails contain links."
+msgstr ""
+
+#: views/assets/src/components/settings/email.vue:35
+msgid "E-Mail Type"
+msgstr "Tipe E-Mail"
+
+#: views/assets/src/components/settings/email.vue:39
+msgid "HTML Mail"
+msgstr "Model HTML"
+
+#: views/assets/src/components/settings/email.vue:40
+msgid "Plain Text"
+msgstr "Text Biasa"
+
+#: views/assets/src/components/settings/email.vue:46
+msgid "Send email via Bcc"
+msgstr ""
+
+#: views/assets/src/components/settings/email.vue:52
+msgid "Enable Bcc"
+msgstr ""
+
+#: views/assets/src/components/settings/general.vue:7
+#: views/assets/src/components/settings/header.vue:5
+msgid "General Settings"
+msgstr ""
+
+#: views/assets/src/components/settings/general.vue:12
+msgid "File Upload Limit"
+msgstr "Batasan Unggah Berkas"
+
+#: views/assets/src/components/settings/general.vue:16
+msgid "File Size in Megabytes. e.g: 2"
+msgstr ""
+
+#: views/assets/src/components/settings/general.vue:21
+msgid "Projects Per Page"
+msgstr ""
+
+#: views/assets/src/components/settings/general.vue:25
+msgid "-1 for unlimited"
+msgstr ""
+
+#: views/assets/src/components/settings/general.vue:31
+msgid "Task Lists Per Page"
+msgstr ""
+
+#: views/assets/src/components/settings/general.vue:39
+msgid "Incomplete Tasks Per Page"
+msgstr ""
+
+#: views/assets/src/components/settings/general.vue:47
+msgid "Completed Tasks Per Page"
+msgstr ""
+
+#: views/assets/src/components/settings/general.vue:55
+msgid "Project Managing Capability"
+msgstr ""
+
+#: views/assets/src/components/settings/general.vue:65
+#: views/assets/src/components/settings/general.vue:81
+msgid "Select the user roles who can see and manage all projects."
+msgstr ""
+
+#: views/assets/src/components/settings/general.vue:71
+msgid "Project Creation Capability"
+msgstr ""
+
+#: views/emails/html/complete-task.php:12
+msgid "Task status has been changed"
+msgstr ""
+
+#: views/emails/html/complete-task.php:25
+msgid "Changed by"
+msgstr ""
+
+#: views/emails/html/complete-task.php:31 views/emails/html/new-task.php:24
+#: views/emails/html/update-task.php:24
+#, fuzzy
+#| msgid "Due date"
+msgid "due date"
+msgstr "Tanggal penyelesaian"
+
+#: views/emails/html/complete-task.php:36 views/emails/html/new-task.php:29
+#: views/emails/html/update-task.php:29
+msgid "start at"
+msgstr ""
+
+#: views/emails/html/complete-task.php:54 views/emails/html/new-task.php:46
+#: views/emails/html/update-task.php:46
+msgid "View Task"
+msgstr "Lihat Tugas"
+
+#: views/emails/html/new-comment.php:12
+msgid "New Comment"
+msgstr ""
+
+#: views/emails/html/new-comment.php:19 views/emails/html/update-comment.php:19
+msgid "Commented By"
+msgstr ""
+
+#: views/emails/html/new-comment.php:23 views/emails/html/update-comment.php:23
+msgid "On"
+msgstr ""
+
+#: views/emails/html/new-comment.php:38 views/emails/html/update-comment.php:38
+#: views/emails/mention.php:47
+msgid "View Comment"
+msgstr ""
+
+#: views/emails/html/new-message.php:12
+msgid "New Message"
+msgstr "Pesan Baru"
+
+#: views/emails/html/new-message.php:19
+msgid "Message Created By"
+msgstr ""
+
+#: views/emails/html/new-message.php:28
+msgid "Title"
+msgstr ""
+
+#: views/emails/html/new-message.php:49
+msgid "View Message"
+msgstr "Lihat Pesan"
+
+#: views/emails/html/new-project.php:16
+msgid "Project Created By"
+msgstr ""
+
+#: views/emails/html/new-project.php:23 views/emails/html/update-project.php:22
+#: views/emails/mention.php:37
+msgid "Hello"
+msgstr ""
+
+#: views/emails/html/new-project.php:25
+msgid "You are assigned to a new project \"%s\" by %s."
+msgstr ""
+
+#: views/emails/html/new-project.php:26 views/emails/html/update-project.php:25
+msgid "You can see the project by going here:"
+msgstr ""
+
+#: views/emails/html/new-project.php:34 views/emails/html/update-project.php:35
+msgid "View Project"
+msgstr "Lihat Proyek"
+
+#: views/emails/html/new-task.php:12
+msgid "New task has been assigned to you"
+msgstr ""
+
+#: views/emails/html/new-task.php:18
+msgid "Created By"
+msgstr ""
+
+#: views/emails/html/update-project.php:15
+msgid "Project Updated By"
+msgstr ""
+
+#: views/emails/html/update-project.php:24
+msgid "You are assigned to a project \"%s\" by %s."
+msgstr ""
+
+#: views/emails/html/update-task.php:12
+msgid "Update task has been assigned to you"
+msgstr ""
+
+#: views/emails/html/update-task.php:18
+#, fuzzy
+#| msgid "Update List"
+msgid "Updated By"
+msgstr "Perbarui Daftar"
+
+#: views/emails/mention.php:39
+msgid "You are mentioned in a comment by"
+msgstr ""
+
+#: views/emails/mention.php:41
+msgid "Please click the link bellow to view the comment."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP Project Manager"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wedevs.com/wp-project-manager-pro/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"WordPress Project Management plugin. Manage your projects and tasks, get "
+"things done."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "weDevs"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wedevs.com"
+msgstr ""
+
+#~ msgid "Project created by %s"
+#~ msgstr "Proyek dibuat oleh %s"
+
+#~ msgid "Project details updated by %s"
+#~ msgstr "Detail proyek diperbarui oleh %s"
+
+#~ msgid "Message \"%s\" deleted by %s"
+#~ msgstr "Pesan \"%s\" dihapus oleh %s"
+
+#~ msgid "%s deleted a comment"
+#~ msgstr "%s menghapus sebuah komentar"
+
+#~ msgid "Add a comment..."
+#~ msgstr "Tambahkan sebuah komentar..."
+
+#~ msgid "Messages"
+#~ msgstr "Pesan"
+
+#~ msgid "message post type"
+#~ msgstr "tipe pos pesan"
+
+#~ msgid "Edit Message"
+#~ msgstr "Sunting Pesan"
+
+#~ msgid "Search Messages"
+#~ msgstr "Cari Pesan"
+
+#~ msgid "Parent Message"
+#~ msgstr "Induk Pesan"
+
+#~ msgid "Add New Milestone"
+#~ msgstr "Tambah Target Baru"
+
+#~ msgid "New Milestone"
+#~ msgstr "Target Baru"
+
+#~ msgid "View Milestone"
+#~ msgstr "Lihat target"
+
+#~ msgid "Search Milestone"
+#~ msgstr "Cari target"
+
+#~ msgid "Parent Milestone"
+#~ msgstr "Target Induk"
+
+#~ msgid "project manager post type"
+#~ msgstr "tipe pos manajer proyek"
+
+#~ msgid "Add Project"
+#~ msgstr "Tambah Proyek"
+
+#~ msgid "Edit Project"
+#~ msgstr "Sunting Proyek"
+
+#~ msgid "Search Project"
+#~ msgstr "Cari Proyek"
+
+#~ msgid "Parent Project"
+#~ msgstr "Proyek Induk"
+
+#~ msgid "Add Task List"
+#~ msgstr "Tambah Daftar Tugas"
+
+#~ msgid "Add New Task List"
+#~ msgstr "Tambah Daftar Tugas Baru"
+
+#~ msgid "Edit Task List"
+#~ msgstr "Sunting Daftar Tugas"
+
+#~ msgid "View Task List"
+#~ msgstr "Lihat Daftar Tugas"
+
+#~ msgid "Search Task List"
+#~ msgstr "Cari Daftar Tugas"
+
+#~ msgid "Parent Task List"
+#~ msgstr "Daftar Tugas Induk"
+
+#~ msgid "Add New Task"
+#~ msgstr "Tambah Tugas Baru"
+
+#~ msgid "Edit Task"
+#~ msgstr "Sunting Tugas"
+
+#~ msgid "New Task"
+#~ msgstr "Tugas Baru"
+
+#~ msgid "Search Task"
+#~ msgstr "Cari Tugas"
+
+#~ msgid "Parent Task"
+#~ msgstr "Tugas Induk"
+
+#~ msgid "Delete project"
+#~ msgstr "Hapus proyek"
+
+#~ msgid "Add this comment"
+#~ msgstr "Tambahkan komentar ini"
+
+#~ msgid "late"
+#~ msgstr "telat"
+
+#~ msgid "Attached to <a href=\"%s\">%s</a> by %s"
+#~ msgstr "Dilampirkan ke <a href=\"%s\">%s</a> oleh %s"
+
+#~ msgid "Error: Message not found"
+#~ msgstr "Kesalahan: Pesan tidak ditemukan"
+
+#~ msgid "Error: Project not found"
+#~ msgstr "Kesalahan: Proyek tidak ditemukan"
+
+#~ msgid "Error: Permission denied"
+#~ msgstr "Kesalahan: Izin ditolak"
+
+#~ msgid "Message %s created by %s"
+#~ msgstr "Pesan %s dibuat oleh %s"
+
+#~ msgid "Message %s updated by %s"
+#~ msgstr "Pesan %s diperbarui oleh %s"
+
+#~ msgid "To-do list %s created by %s"
+#~ msgstr "Daftar tugas %s dibuat oleh %s"
+
+#~ msgid "To-do list %s updated by %s"
+#~ msgstr "Daftar tugas %s diperbarui oleh %s"
+
+#~ msgid "To-do list \"%s\" deleted by %s"
+#~ msgstr "Daftar tugas \"%s\" dihapus oleh %s"
+
+#~ msgid "To-do %s added on to-do list %s by %s"
+#~ msgstr "Tugas %s ditambahkan ke daftar tugas %s oleh %s"
+
+#~ msgid "To-do %s updated by %s"
+#~ msgstr "Tugas %s diperbarui oleh %s"
+
+#~ msgid "To-do %s completed by %s"
+#~ msgstr "Tugas %s diselesaikan oleh %s"
+
+#~ msgid "Marked to-do as done"
+#~ msgstr "Tandai tugas sudah selesai"
+
+#~ msgid "To-do %s marked un-done by %s"
+#~ msgstr "Tugas %s ditandai belum selesai oleh %s"
+
+#~ msgid "Re-opened to-do"
+#~ msgstr "Tugas yang dibuka kembali"
+
+#~ msgid "To-do \"%s\" deleted from to-do list %s by %s"
+#~ msgstr "Tugas \"%s\" dihapus dari daftar tugas %s oleh %s"
+
+#~ msgid "Milestone \"%s\" added by %s "
+#~ msgstr "Target \"%s\" ditambahkan oleh %s "
+
+#~ msgid "Milestone \"%s\" updated by %s "
+#~ msgstr "Target \"%s\" diperbarui oleh %s "
+
+#~ msgid "Milestone \"%s\" deleted by %s "
+#~ msgstr "Target \"%s\" dihapus oleh %s "
+
+#~ msgid "Milestone \"%s\" marked as complete by %s "
+#~ msgstr "Target \"%s\" ditandai selesai oleh %s "
+
+#~ msgid "Milestone \"%s\" marked as incomplete by %s "
+#~ msgstr "Target \"%s\" ditandai belum selesai oleh %s "
+
+#~ msgid "General"
+#~ msgstr "Umum"
+
+#~ msgid "No Messages Found"
+#~ msgstr "Tidak Ada Pesan Ditemukan"
+
+#~ msgid "No Messages Found in Trash"
+#~ msgstr "Tidak Ada Pesan Ditemukan di Sampah"
+
+#~ msgid "No Milestone Found"
+#~ msgstr "Tidak Ada Taget Ditemukan"
+
+#~ msgid "No Milestone Found in Trash"
+#~ msgstr "Tidak Ada Target Ditemukan di Sampah"
+
+#~ msgid "No Project Found in Trash"
+#~ msgstr "Tidak Ada Proyek Ditemukan di Sampah"
+
+#~ msgid "No Task List Found"
+#~ msgstr "Tidak Ada Daftar Tugas Ditemukan"
+
+#~ msgid "No Task List Found in Trash"
+#~ msgstr "Tidak Ada Daftar Tugas Ditemukan di Sampah"
+
+#~ msgid "No Task Found"
+#~ msgstr "Tidak Ada Daftar Tugas Ditemukan"
+
+#~ msgid "No Task Found in Trash"
+#~ msgstr "Tidak Ada Daftar Tugas Ditemukan di Sampah"
+
+#~ msgid "Select co-workers"
+#~ msgstr "Pilih teman kerja"
+
+#~ msgid "Are you sure to delete this to-do?"
+#~ msgstr "Apakah Anda yakin untuk menghapus tugas ini?"
+
+#~ msgid "Add this to-do"
+#~ msgstr "Tambahkan tugas ini"
+
+#~ msgid "Add a new to-do"
+#~ msgstr "Tambah tugas baru"
+
+#~ msgid "-- milestone --"
+#~ msgstr "-- target --"
+
+#~ msgid "Are you sure to delete this to-do list?"
+#~ msgstr "Apakah Anda yakin untuk menghapus daftar tugas ini?"
+
+#~ msgid "Update comment"
+#~ msgstr "Perbarui komentar"
+
+#~ msgid "Edit milestone"
+#~ msgstr "Sunting target"
+
+#~ msgid "Mark un-complete"
+#~ msgstr "Tandai belum selesai"
+
+#~ msgid "To-do List"
+#~ msgstr "Daftar Tugas"
+
+#~ msgid "Notify Co-workers"
+#~ msgstr "Informasikan teman kerja"
+
+#~ msgid "thread"
+#~ msgstr "tulisan"
+
+#~ msgid "Discuss this to-do list"
+#~ msgstr "Diskusikan daftar tugas ini"
+
+#~ msgid "file size in Megabyte. e.g: 2"
+#~ msgstr "ukuran berkas dalam <em>Megabyte</em>, misal: 2"
+
+#~ msgid "New Project Subject"
+#~ msgstr "Subjek Proyek baru"
+
+#~ msgid "New Project Body"
+#~ msgstr "Konten Proyek Baru"
+
+#~ msgid "New Message Subject"
+#~ msgstr "Subjek Pesan Baru"
+
+#~ msgid "New Message Body"
+#~ msgstr "Isi Pesan Baru"
+
+#~ msgid "New Comment Subject"
+#~ msgstr "Subjek Komentar Baru"
+
+#~ msgid "New Assigned Task Subject"
+#~ msgstr "Subjek Tugas yang Ditugaskan  Baru"
+
+#~ msgid "-- assign to --"
+#~ msgstr "-- ditugaskan untuk --"
+
+#~ msgid ""
+#~ "To attach, <a id=\"cpm-upload-pickfiles%s\" href=\"#\">select files</a> "
+#~ "from your computer."
+#~ msgstr ""
+#~ "Untuk melampirkan, <a id=\"cpm-upload-pickfiles%s\" href=\"#\">pilih "
+#~ "berkas</a> dari komputer Anda."
+
+#~ msgid "%d Comments"
+#~ msgstr "%d Komentar"
+
+#~ msgid "(Completed by %s on %s)"
+#~ msgstr "(Dielesaikan oleh %s pada %s)"
+
+#~ msgid "Tasklist name"
+#~ msgstr "Nama daftar tugas"
+
+#~ msgid "Add a to-do"
+#~ msgstr "Tambah tugas"
+
+#~ msgid "Message details here"
+#~ msgstr "Detail pesan di sini"
+
+#~ msgid "Details about milestone (optional)"
+#~ msgstr "Detail target (opsional)"
+
+#~ msgid "Reopen"
+#~ msgstr "Buka kembali"
+
+#~ msgid ""
+#~ "<a href=\"%s\">Download</a> or go to the <a href=\"%s\">discussion</a>."
+#~ msgstr "<a href=\"%s\">Unduh</a> atau lihat <a href=\"%s\">diskusi</a>."
+
+#~ msgid "No Files Found!"
+#~ msgstr "Berkas Tidak Ditemukan!"
+
+#~ msgid "Add New"
+#~ msgstr "Tambah baru"
+
+#~ msgid "No messages found! How about adding one?"
+#~ msgstr "Tidak ada pesan ditemukan! Bagaimana jika mebuat satu baru?"
+
+#~ msgid "&larr; back"
+#~ msgstr "&larr; kembali"
+
+#~ msgid "No Milestone Found!"
+#~ msgstr "Target Tidak Ditemukan!"
+
+#~ msgid "Add new milestone"
+#~ msgstr "Tambah target baru"
+
+#~ msgid "Project Info"
+#~ msgstr "Info Proyek"
+
+#~ msgid "Oh dear, no To-do list found!"
+#~ msgstr "Tidak ada daftar tugas ditemukan!"
+
+#~ msgid "Discuss this to-do"
+#~ msgstr "Diskusikan tugas ini"

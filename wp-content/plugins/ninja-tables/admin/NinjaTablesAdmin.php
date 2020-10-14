@@ -57,7 +57,7 @@ class NinjaTablesAdmin
         $this->plugin_name = $plugin_name;
         $this->version = $version;
         $this->cpt_name = 'ninja-table';
-        update_option('_ninjatables_pro_license_status', 'valid');
+
         add_action('admin_enqueue_scripts', array($this, 'enqueue_data_tables_scripts'));
 
     }
