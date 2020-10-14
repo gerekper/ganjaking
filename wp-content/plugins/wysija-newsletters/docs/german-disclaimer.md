@@ -1,4 +1,0 @@
-### WICHTIG - HAFTUNGSAUSSCHLUSS
-
-Dieses Plugin trägt wesentlich dazu bei, Ihren Newsletter rechtssicher betreiben zu können.
-Es ist durch einen Rechtsanwalt geprüft worden, der ebenfalls die rechtlichen Hinweise & Muster erstellt hat. Sie entsprechen den rechtlichen Anforderungen eines typischen Newsletters. Jedoch kann die rechtliche Sicherheit eines Newsletters nur im Einzelfall geprüft und bestätigt werden, so dass insoweit keine Haftung übernommen werden kann. Daher sind auch die rechtliche Text- & Hinweismuster nur als Vorlagen zu verstehen, deren abschließende rechtliche Prüfung und ggf. Anpassung Ihnen obliegt. Falls Sie eine Prüfung Ihres Newsletters wünschen, können Sie sich an Rechtsanwalt Thomas Schwenke, LL.M. [http://rechtsanwalt-schwenke.de/kontakt](http://rechtsanwalt-schwenke.de/kontakt) wenden.

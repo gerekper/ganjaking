@@ -1,9 +1,0 @@
-<p class="wysija-paragraph">
-	{if !#params.label_within && #params.label}<label class="wysija-select-label">{#params.label}</label>{/if}
-    <select class="wysija-select {$validation}" name="{#field_prefix}[{#field}]">
-        {if #params.label_within && #params.label}<option value="">{#params.label}</option>{/if}
-        {loop name="#params.values"}
-            <option value="{#value}"{if #is_checked} selected="selected"{/if}>{#value}</option>
-        {/loop}
-    </select>
-</p>

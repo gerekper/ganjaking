@@ -1,9 +1,4 @@
 <?php
-/**
- * Reindexation action for post type archive indexables.
- *
- * @package Yoast\WP\SEO\Actions\Indexation
- */
 
 namespace Yoast\WP\SEO\Actions\Indexation;
 
@@ -13,7 +8,7 @@ use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
 /**
- * Indexation_Post_Type_Archive_Action class.
+ * Reindexation action for post type archive indexables.
  */
 class Indexable_Post_Type_Archive_Indexation_Action implements Indexation_Action_Interface {
 
@@ -163,6 +158,10 @@ class Indexable_Post_Type_Archive_Indexation_Action implements Indexation_Action
 			->select( 'object_sub_type' )
 			->where( 'object_type', 'post-type-archive' )
 			->find_array();
+
+		if ( $results === false ) {
+			return [];
+		}
 
 		$callback = function( $result ) {
 			return $result['object_sub_type'];

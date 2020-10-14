@@ -1,6 +1,0 @@
-{if #params.label}<p>{#params.label}</p>{/if}
-<p>
-	{loop name="#params.values"}
-        <label><input class="radio" type="radio" value="1"{if #is_checked} checked="checked"{/if} disabled="disabled" />{#value}</label>
-    {/loop}
-</p>

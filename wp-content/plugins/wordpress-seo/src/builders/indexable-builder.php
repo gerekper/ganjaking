@@ -1,9 +1,4 @@
 <?php
-/**
- * Builder for the indexables.
- *
- * @package Yoast\YoastSEO\Builders
- */
 
 namespace Yoast\WP\SEO\Builders;
 
@@ -11,6 +6,8 @@ use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
 /**
+ * Builder for the indexables.
+ *
  * Creates all the indexables.
  */
 class Indexable_Builder {
@@ -142,7 +139,9 @@ class Indexable_Builder {
 	 */
 	public function build_for_id_and_type( $object_id, $object_type, $indexable = false ) {
 		$indexable        = $this->ensure_indexable( $indexable );
-		$indexable_before = $indexable;
+		$indexable_before = $this->indexable_repository
+			->query()
+			->create( $indexable->as_array() );
 
 		switch ( $object_type ) {
 			case 'post':
@@ -180,11 +179,11 @@ class Indexable_Builder {
 			);
 		}
 
+		$indexable = $this->save_indexable( $indexable, $indexable_before );
+
 		if ( \in_array( $object_type, [ 'post', 'term' ], true ) && $indexable->post_status !== 'unindexed' ) {
 			$this->hierarchy_builder->build( $indexable );
 		}
-
-		$this->save_indexable( $indexable, $indexable_before );
 
 		return $indexable;
 	}
@@ -271,6 +270,10 @@ class Indexable_Builder {
 	 * @return Indexable The indexable.
 	 */
 	private function save_indexable( $indexable, $indexable_before = null ) {
+
+		// Save the indexable before running the WordPress hook.
+		$indexable->save();
+
 		if ( $indexable_before ) {
 			/**
 			 * Action: 'wpseo_save_indexable' - Allow developers to perform an action
@@ -282,8 +285,6 @@ class Indexable_Builder {
 			 */
 			\do_action( 'wpseo_save_indexable', $indexable, $indexable_before );
 		}
-
-		$indexable->save();
 
 		return $indexable;
 	}

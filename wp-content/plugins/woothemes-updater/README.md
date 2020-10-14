@@ -1,2 +1,0 @@
-woothemes-updater
-=================

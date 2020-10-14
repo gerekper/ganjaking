@@ -1,7 +1,0 @@
-<p class="wysija-paragraph">
-	{if #params.label}<label>{#params.label}</label>{/if}
-	<input type="hidden" name="{#field_prefix}[{#field}]" value="0" />
-    {loop name="#params.values"}
-    	<label class="wysija-checkbox-label"><input type="checkbox" class="wysija-checkbox {$validation}" name="{$field_prefix}[{$field}]" value="1" {if #is_checked}checked="checked"{/if} />{#value}</label>
-    {/loop}
-</p>

@@ -1,7 +1,0 @@
-{foreach name="#themes" key="j" value="theme"}
-    <li id="wysija-theme-{#theme.name}">
-        <a class="wysija_theme" href="javascript:;" rel="{#theme.name}" title="{#theme.name|ucfirst}"><img src="{#theme.thumbnail}" wysija_src="{#theme.screenshot}" wysija_width="{#theme.width}" wysija_height="{#theme.height}"/></a>
-        <span style="display: none;" class="delete-wrap"><span class="delete">{#theme.name}</span></span>
-        <span style="display: none;" class="default-wrap"><span title="{$i18n.theme_save_as_default}" class="default{if #theme.is_selected} selected{/if}">{#theme.name}</span></span>
-    </li>
-{/foreach}
