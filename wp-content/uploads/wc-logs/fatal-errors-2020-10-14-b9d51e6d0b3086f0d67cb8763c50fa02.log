@@ -160,3 +160,13 @@ Stack trace:
 #7 /home/ganja/web/ganjaking.asia/public_html/wp-config.php(92): require_once('/home/ganja/web...')
 #8  in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gwcommentblacklist/class-gp-blacklist.php on line 3
 
+2020-10-14T02:16:26+00:00 CRITICAL Uncaught Error: Class 'MPCA_Db' not found in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/memberpress-corporate/app/controllers/class-mpca-app-controller.php:35
+Stack trace:
+#0 /home/ganja/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): MPCA_App_Controller->upgrade_db()
+#1 /home/ganja/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters()
+#2 /home/ganja/web/ganjaking.asia/public_html/wp-includes/plugin.php(478): WP_Hook->do_action()
+#3 /home/ganja/web/ganjaking.asia/public_html/wp-admin/admin.php(175): do_action()
+#4 /home/ganja/web/ganjaking.asia/public_html/wp-admin/index.php(10): require_once('/home/ganja/web...')
+#5 {main}
+  thrown in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/memberpress-corporate/app/controllers/class-mpca-app-controller.php on line 35
+
