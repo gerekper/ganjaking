@@ -124,3 +124,39 @@ Stack trace:
 #6 /home/ganja/web/ganjaking.asia/public_html/wp-admin/includes/class-wp-list-table.php(1249): WP_List_Table->display_rows_or_placeholder()
 #7 /home/gan in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/searchwp-fuzzy-matches/searchwp-fuzzy.php on line 236
 
+2020-10-14T01:51:12+00:00 CRITICAL Uncaught Error: Class 'GP_Plugin' not found in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gwcommentblacklist/class-gp-blacklist.php:3
+Stack trace:
+#0 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gravityperks/model/perk.php(106): include_once()
+#1 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gravityperks/gravityperks.php(279): GP_Perk::get_perk()
+#2 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gravityperks/gravityperks.php(162): GravityPerks::initialize_perks()
+#3 /home/ganja/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): GravityPerks::init()
+#4 /home/ganja/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters()
+#5 /home/ganja/web/ganjaking.asia/public_html/wp-includes/plugin.php(478): WP_Hook->do_action()
+#6 /home/ganja/web/ganjaking.asia/public_html/wp-settings.php(546): do_action()
+#7 /home/ganja/web/ganjaking.asia/public_html/wp-config.php(92): require_once('/home/ganja/web...')
+#8  in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gwcommentblacklist/class-gp-blacklist.php on line 3
+
+2020-10-14T01:51:24+00:00 CRITICAL Uncaught Error: Class 'GP_Plugin' not found in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gwcommentblacklist/class-gp-blacklist.php:3
+Stack trace:
+#0 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gravityperks/model/perk.php(106): include_once()
+#1 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gravityperks/gravityperks.php(279): GP_Perk::get_perk()
+#2 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gravityperks/gravityperks.php(162): GravityPerks::initialize_perks()
+#3 /home/ganja/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): GravityPerks::init()
+#4 /home/ganja/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters()
+#5 /home/ganja/web/ganjaking.asia/public_html/wp-includes/plugin.php(478): WP_Hook->do_action()
+#6 /home/ganja/web/ganjaking.asia/public_html/wp-settings.php(546): do_action()
+#7 /home/ganja/web/ganjaking.asia/public_html/wp-config.php(92): require_once('/home/ganja/web...')
+#8  in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gwcommentblacklist/class-gp-blacklist.php on line 3
+
+2020-10-14T01:51:25+00:00 CRITICAL Uncaught Error: Class 'GP_Plugin' not found in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gwcommentblacklist/class-gp-blacklist.php:3
+Stack trace:
+#0 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gravityperks/model/perk.php(106): include_once()
+#1 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gravityperks/gravityperks.php(279): GP_Perk::get_perk()
+#2 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gravityperks/gravityperks.php(162): GravityPerks::initialize_perks()
+#3 /home/ganja/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): GravityPerks::init()
+#4 /home/ganja/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters()
+#5 /home/ganja/web/ganjaking.asia/public_html/wp-includes/plugin.php(478): WP_Hook->do_action()
+#6 /home/ganja/web/ganjaking.asia/public_html/wp-settings.php(546): do_action()
+#7 /home/ganja/web/ganjaking.asia/public_html/wp-config.php(92): require_once('/home/ganja/web...')
+#8  in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/gwcommentblacklist/class-gp-blacklist.php on line 3
+

@@ -1,5 +1,0 @@
-{% if more_url is defined and message != '' %}
-	<a href="{{ more_url }}" target="_blank">{{ message }}</a>
-{% else %}
-	{{ message ?: more_url }}
-{% endif %}
