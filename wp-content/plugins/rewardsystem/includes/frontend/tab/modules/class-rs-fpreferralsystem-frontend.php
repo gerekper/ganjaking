@@ -14,6 +14,8 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
 
             add_action( 'wp_head' , array( __CLASS__ , 'set_cookie_for_referral' ) ) ;
 
+            add_action( 'wp_head' , array( __CLASS__ , 'unset_cookie_based_on_referral_registration_date' ) ) ;
+
             add_action( 'wp_head' , array( __CLASS__ , 'link_referral_for_lifetime' ) ) ;
 
             add_action( 'user_register' , array( __CLASS__ , 'award_points_for_referral_account_signup' ) , 10 , 1 ) ;
@@ -313,21 +315,29 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
                                 <td>
                                     <div class="rs_social_buttons">      
                                         <?php
-                                        if ( get_option( 'rs_account_show_hide_facebook_share_button' ) == '1' ) {
+                                        if ( '1' == get_option( 'rs_account_show_hide_facebook_share_button' ) ) {
                                             ?>
                                             <div class="share_wrapper_default_url" id="share_wrapper_default_url" href="<?php echo $mainkey[ 0 ] ; ?>" data-image="<?php echo get_option( 'rs_fbshare_image_url_upload' ) ?>" data-title="<?php echo get_option( 'rs_facebook_title' ) ?>" data-description="<?php echo get_option( 'rs_facebook_description' ) ?>">
                                                 <img class='fb_share_img' src="<?php echo SRP_PLUGIN_URL ; ?>/assets/images/icon1.png"> <span class="label"><?php echo get_option( 'rs_fbshare_button_label' ) ; ?> </span>
                                             </div> 
                                             <?php
                                         }
-                                        if ( get_option( 'rs_account_show_hide_twitter_tweet_button' ) == '1' ) {
+                                        if ( '1' == get_option( 'rs_account_show_hide_twitter_tweet_button' ) ) {
                                             ?>
                                             <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-url="<?php echo $mainkey[ 0 ] ; ?>">Tweet</a><br>
                                             <?php
                                         }
-                                        if ( get_option( 'rs_acount_show_hide_google_plus_button' ) == '1' ) {
+                                        if ( '1' == get_option( 'rs_acount_show_hide_google_plus_button' ) ) {
                                             ?>
                                             <div class="g-plusone" data-action="share" data-annotation="none" data-href="<?php echo $mainkey[ 0 ] ; ?>"><g:plusone></g:plusone></div>
+                                            <?php
+                                        }
+                                        if ( '1' == get_option( 'rs_acount_show_hide_whatsapp_button' , '1' ) ) {
+                                            $key = isset( $mainkey[ 0 ] ) ? $mainkey[ 0 ] : '' ;
+                                            ?>                            
+                                            <a class="rs-whatsapp-share-button" href="<?php echo esc_url( "https://web.whatsapp.com://send?text=$key" ) ; ?>" target="_blank">
+                                                <img class='whatsapp_share_img' src="<?php echo SRP_PLUGIN_URL ; ?>/assets/images/whatsapp-icon.png"> <span class="rs_whatsapp_label"><?php esc_html_e( 'Share' , SRP_LOCALE ) ; ?> </span>
+                                            </a>
                                             <?php
                                         }
                                         ?>
@@ -409,6 +419,11 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
                             <?php if ( get_option( 'rs_acount_show_hide_google_plus_button' ) == '1' ) { ?>
                                 <div class="g-plusone" data-action="share" data-annotation="none" data-href="<?php echo $refurl ; ?>"><g:plusone></g:plusone></div>
                             <?php } ?>
+                            <?php if ( get_option( 'rs_acount_show_hide_whatsapp_button' , '1' ) == '1' ) { ?>
+                                <a class="rs-whatsapp-share-button" href="<?php echo esc_url( "https://web.whatsapp.com://send?text=$refurl" ) ; ?>">
+                                    <img class='whatsapp_share_img' src="<?php echo SRP_PLUGIN_URL ; ?>/assets/images/whatsapp-icon.png"> <span class="rs_whatsapp_label"><?php esc_html_e( 'Share' , SRP_LOCALE ) ; ?> </span>
+                                </a>
+                            <?php } ?> 
                         </td>
                     </tr>                    
                 </tbody>
@@ -463,6 +478,46 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
                     update_user_meta( $UserId , 'rsreferredusernameclickthrough' , ( float ) $previouscount + 1 ) ;
                 }
             }
+        }
+
+        /*
+         * Unset Cookie based on referral registration date.
+         * 
+         * @return void. 
+         */
+
+        public static function unset_cookie_based_on_referral_registration_date() {
+
+            if ( ! check_if_referral_is_restricted() ) {
+                return ;
+            }
+
+            if ( ! isset( $_COOKIE[ 'rsreferredusername' ] ) || ! is_user_logged_in() || ! self::check_limit_for_referral_link() ) {
+                return ;
+            }
+
+            // Referrer user object.
+            $referrer_user = ('1' == get_option( 'rs_generate_referral_link_based_on_user' ) ) ? get_user_by( 'login' , $_COOKIE[ 'rsreferredusername' ] ) : get_user_by( 'ID' , $_COOKIE[ 'rsreferredusername' ] ) ;
+            if ( ! is_object( $referrer_user ) || ! $referrer_user->exists() ) {
+                return ;
+            }
+
+            // Referred user object.
+            $referred_user = get_user_by( 'ID' , get_current_user_id() ) ;
+            if ( ! is_object( $referred_user ) || ! $referred_user->exists() ) {
+                return ;
+            }
+
+            $referrer_registered_date = ! empty( $referrer_user->user_registered ) ? strtotime( $referrer_user->user_registered ) : 0 ;
+            $referred_registered_date = ! empty( $referred_user->user_registered ) ? strtotime( $referred_user->user_registered ) : 0 ;
+            // Return if referrer registered date less than referred registered date.
+            if ( ! $referrer_registered_date || ! $referred_registered_date || $referrer_registered_date < $referred_registered_date ) {
+                return ;
+            }
+
+            // Unset cookie.
+            setcookie( 'rsreferredusername' , null , -1 , COOKIEPATH ? COOKIEPATH : '/' , COOKIE_DOMAIN , is_ssl() , true ) ;
+            wc_add_notice( esc_html__( 'You cannot use this referral link.' , SRP_LOCALE ) , 'error' ) ;
         }
 
         public static function referrer_name() {

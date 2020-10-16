@@ -185,28 +185,37 @@ class WC_Subscription_Downloads_Products {
 	protected function get_orders( $subscription_id ) {
 		global $wpdb;
 
-		$orders = array();
+		$orders   = array();
+		$meta_key = '_product_id';
 
-		// Check if subscription has parent (i.e. is a variable subscription)
-		$parent_id = $wpdb->get_var( $wpdb->prepare( "
-			SELECT post_parent AS parent_id
-			FROM {$wpdb->prefix}posts
-			WHERE ID = %d;
-		", $subscription_id ) );
+		// Check if subscription has parent (i.e. is a variable subscription).
+		$parent_id = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT post_parent AS parent_id
+				FROM {$wpdb->prefix}posts
+				WHERE ID = %d;
+				",
+				$subscription_id
+			)
+		);
 
-		// If the subscription has a parent, then get the related orders of the
-		// parent instead.
+		// If the subscription is a variation, use variation meta key to find related orders.
 		if ( ! empty( $parent_id ) ) {
-			$subscription_id = $parent_id;
+			$meta_key = '_variation_id';
 		}
 
-		$results = $wpdb->get_results( $wpdb->prepare( "
-			SELECT order_items.order_id AS id
-			FROM {$wpdb->prefix}woocommerce_order_items as order_items
+		$results = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT order_items.order_id AS id
+				FROM {$wpdb->prefix}woocommerce_order_items as order_items
 				LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS itemmeta ON order_items.order_item_id = itemmeta.order_item_id
-			WHERE itemmeta.meta_key = '_product_id'
-			AND itemmeta.meta_value = %d;
-		", $subscription_id ) );
+				WHERE itemmeta.meta_key = %s
+				AND itemmeta.meta_value = %d;
+				",
+				$meta_key,
+				$subscription_id
+			)
+		);
 
 		foreach ( $results as $order ) {
 			$orders[] = $order->id;

@@ -58,10 +58,12 @@ class WPSEO_Premium_Orphaned_Post_Query {
 			$query      = $repository->query()
 				->select( 'object_id' )
 				->where( 'object_type', 'post' )
-				->where_any_is( [
-					[ 'incoming_link_count' => 0 ],
-					[ 'incoming_link_count' => null ],
-				] );
+				->where_any_is(
+					[
+						[ 'incoming_link_count' => 0 ],
+						[ 'incoming_link_count' => null ],
+					]
+				);
 
 			$frontpage_id = self::get_frontpage_id();
 			if ( $frontpage_id ) {

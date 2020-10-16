@@ -238,3 +238,34 @@ a.rs_custom_social_icon_a .rs_custom_ok_button,a.rs_custom_social_icon_a rs_cust
 }
 
 /*Date Filter Section - End*/
+
+/*Whatsapp share Section - Start*/
+
+.rs-whatsapp-share-button{
+    display:inline-block !important;
+    background:#25d366;
+    width:59px;
+    border-radius:3px;
+    font-weight:bold;
+    font-size:14px;
+    cursor:pointer;
+    text-decoration: none !important;
+}
+
+.rs-whatsapp-share-button img
+{
+    display:inline-block !important;
+    margin-left:4px;
+    width:13px !important;
+}
+
+.rs-whatsapp-share-button span{
+    color:#fff !important ;
+}
+
+.rs-whatsapp-share-button:hover{
+    color:#fff !important;
+    text-decoration: none;
+}
+
+/*Whatsapp share Section - End*/

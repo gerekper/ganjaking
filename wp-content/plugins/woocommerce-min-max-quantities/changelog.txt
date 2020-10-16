@@ -1,5 +1,9 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2020-10-06 - version 2.4.20
+* Tweak - Set initial quantity to group of quantity when we don't have a minimum quantity.
+* Tweak - WC 4.5 compatibility.
+
 2020-08-19 - version 2.4.19
 * Tweak - WP 5.5 compatibility.
 

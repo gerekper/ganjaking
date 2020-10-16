@@ -520,6 +520,15 @@ Earning Points Conversion Settings given in the General Settings will consider o
                     'default' => 'no' ,
                     'newids'  => 'rs_restrict_days_for_product_purchase' ,
                 ) ,
+                 array(
+                    'name'    => __( 'Exclude Shipping Cost' , SRP_LOCALE ) ,
+                    'desc'    => __( 'By enabling this checkbox, you can exclude the shipping cost in product purchase points. <br/>Note: Works with WooCommerce v3.2.0 or Above', SRP_LOCALE ) ,
+                    'id'      => 'rs_exclude_shipping_cost_based_on_cart_total' ,
+                    'type'    => 'checkbox' ,
+                    'std'     => 'no' ,
+                    'default' => 'no' ,
+                    'newids'  => 'rs_exclude_shipping_cost_based_on_cart_total' ,
+                ) ,
                 array(
                     'name'     => __( 'Cron Type' , SRP_LOCALE ) ,
                     'id'       => 'rs_restrict_product_purchase_cron_type' ,

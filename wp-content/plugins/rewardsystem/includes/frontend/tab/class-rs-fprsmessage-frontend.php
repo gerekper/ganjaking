@@ -1,20 +1,20 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
+if( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'RSFunctionForMessage' ) ) {
+if( ! class_exists( 'RSFunctionForMessage' ) ) {
 
     class RSFunctionForMessage {
 
         public static function init() {
-            if ( get_option( 'rs_reward_table_position' ) == '1' ) {
+            if( get_option( 'rs_reward_table_position' ) == '1' ) {
                 add_action( 'woocommerce_after_my_account' , array( __CLASS__ , 'reawrd_log_in_my_account_page' ) ) ;
             } else {
                 add_action( 'woocommerce_before_my_account' , array( __CLASS__ , 'reawrd_log_in_my_account_page' ) ) ;
             }
 
-            if ( '1' == get_option( 'rs_show_or_hide_date_filter' ) ) {
+            if( '1' == get_option( 'rs_show_or_hide_date_filter' ) ) {
                 add_filter( 'rs_my_reward_date_filter' , array( __CLASS__ , 'my_reward_table_date_filter' ) ) ;
             }
         }
@@ -27,15 +27,15 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
 
         public static function my_reward_table_date_filter( $where ) {
 
-            if ( isset( $_REQUEST[ 'rs_duration_type' ] , $_REQUEST[ 'rs_submit' ] ) ) {
+            if( isset( $_REQUEST[ 'rs_duration_type' ] , $_REQUEST[ 'rs_submit' ] ) ) {
 
                 $to_date   = time() ;
                 $durations = wc_clean( wp_unslash( $_REQUEST[ 'rs_duration_type' ] ) ) ;
-                if ( '0' == $durations ) {
+                if( '0' == $durations ) {
                     return $where ;
                 }
 
-                switch ( $durations ) {
+                switch( $durations ) {
 
                     case '1':
 
@@ -70,10 +70,10 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
         }
 
         public static function reawrd_log_in_my_account_page() {
-            if ( get_option( 'rs_reward_content' ) != 'yes' )
+            if( get_option( 'rs_reward_content' ) != 'yes' )
                 return ;
 
-            if ( get_option( 'rs_my_reward_table' ) == 2 )
+            if( get_option( 'rs_my_reward_table' ) == 2 )
                 return ;
 
             self::reward_log() ;
@@ -109,6 +109,7 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
                 'label_total_points'     => get_option( 'rs_my_rewards_total_points_label' ) ,
                 'label_earned_date'      => get_option( 'rs_my_rewards_date_label' ) ,
                 'label_points_expiry'    => get_option( 'rs_my_rewards_points_expired_label' ) ,
+                'per_page'               => ('2' == get_option( 'rs_show_hide_page_size_my_rewards' , 1 )) ? get_option( 'rs_number_of_page_size_in_myaccount' , 5 ) : 5 ,
                     ) ;
             echo self::reward_log_table( $TableData ) ;
         }
@@ -117,7 +118,7 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
             ob_start() ;
             $UserId  = get_current_user_id() ;
             $BanType = check_banning_type( $UserId ) ;
-            if ( $BanType == 'redeemingonly' || $BanType == 'both' )
+            if( $BanType == 'redeemingonly' || $BanType == 'both' )
                 return ;
 
             global $wpdb ;
@@ -126,13 +127,13 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
             $where   = apply_filters( 'rs_my_reward_date_filter' , '' ) ;
             $UserLog = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $LogTable WHERE userid = %d AND showuserlog = false $where " , $UserId ) , ARRAY_A ) ;
             $UserLog = $UserLog + ( array ) get_user_meta( $UserId , '_my_points_log' , true ) ;
-            if ( ! srp_check_is_array( $UserLog ) )
+            if( ! srp_check_is_array( $UserLog ) )
                 return ;
 
             $selected_duration_earned_point   = 0 ;
             $selected_duration_redeemed_point = 0 ;
-            if ( isset( $_REQUEST[ 'rs_duration_type' ] ) ) {
-                foreach ( $UserLog as $log ) {
+            if( isset( $_REQUEST[ 'rs_duration_type' ] ) ) {
+                foreach( $UserLog as $log ) {
                     $selected_duration_earned_point   = isset( $log[ 'earnedpoints' ] ) ? $selected_duration_earned_point + $log[ 'earnedpoints' ] : 0 ;
                     $selected_duration_redeemed_point = isset( $log[ 'redeempoints' ] ) ? $selected_duration_redeemed_point + $log[ 'redeempoints' ] : 0 ;
                 }
@@ -142,23 +143,23 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
             $PointData       = new RS_Points_Data( $UserId ) ;
             $AvailablePoints = $PointData->total_available_points() ;
             $DisplayCurrency = $TableData[ 'display_currency_value' ] ;
-            if ( $DisplayCurrency == '1' ) {
+            if( $DisplayCurrency == '1' ) {
                 $msg = '(' . $PointData->total_available_points_as_currency() . ')' ;
             } else {
                 $msg = '' ;
             }
-            if ( $TableData[ 'points_label_position' ] == '1' ) {
-                echo "<h4 class=my_reward_total> " . $TableData[ 'total_points_label' ] . " " . $AvailablePoints . " " . $msg . "</h4>" ;
+            if( $TableData[ 'points_label_position' ] == '1' ) {
+                echo "<h4 class=my_reward_total> " . $TableData[ 'total_points_label' ] . " " . round_off_type( $AvailablePoints ) . " " . $msg . "</h4>" ;
             } else {
-                echo "<h4 class=my_reward_total> " . $AvailablePoints . " " . $msg . $TableData[ 'total_points_label' ] . "</h4>" ;
+                echo "<h4 class=my_reward_total> " . round_off_type( $AvailablePoints ) . " " . $msg . $TableData[ 'total_points_label' ] . "</h4>" ;
             }
 
             $outputtablefields = apply_filters( 'srp_above_reward_table' , '' ) ;
             $outputtablefields .= '<p> ' ;
-            if ( $TableData[ 'search_box' ] == '1' )
+            if( $TableData[ 'search_box' ] == '1' )
                 $outputtablefields .= __( 'Search:' , SRP_LOCALE ) . '<input id="filters" type="text"/> ' ;
 
-            if ( $TableData[ 'page_size' ] == '1' ) {
+            if( $TableData[ 'page_size' ] == '1' ) {
                 $outputtablefields .= __( 'Page Size:' , SRP_LOCALE ) . '<select id="change-page-sizes"><option value="5">5</option><option value="10">10</option><option value="50">50</option>
                     <option value="100">100</option>
                 </select>' ;
@@ -174,7 +175,9 @@ if ( ! class_exists( 'RSFunctionForMessage' ) ) {
                 'total_points' ,
                 'earned_date' ,
                     ) ;
-            $SortedColumn      = srp_check_is_array( get_option( 'sorted_settings_list' ) ) ? get_option( 'sorted_settings_list' ) : $DefaultColumn ;
+
+            $SortedColumn = srp_check_is_array( get_option( 'sorted_settings_list' ) ) ? get_option( 'sorted_settings_list' ) : $DefaultColumn ;
+            $per_page     = isset( $TableData[ 'per_page' ] ) ? $TableData[ 'per_page' ] : '5' ;
 
             include SRP_PLUGIN_PATH . '/includes/frontend/views/class-rs-frontend-my-reward-table.php' ;
             $content = ob_get_contents() ;

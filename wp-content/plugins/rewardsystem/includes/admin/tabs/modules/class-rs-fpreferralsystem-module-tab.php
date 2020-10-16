@@ -4,10 +4,10 @@
  */
 
 
-if ( ! defined( 'ABSPATH' ) ) {
+if( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly.
 }
-if ( ! class_exists( 'RSReferralSystemModule' ) ) {
+if( ! class_exists( 'RSReferralSystemModule' ) ) {
 
     class RSReferralSystemModule {
 
@@ -59,13 +59,26 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
         public static function reward_system_admin_fields() {
             global $woocommerce ;
             global $wp_roles ;
-            foreach ( $wp_roles->roles as $values => $key ) {
+            foreach( $wp_roles->roles as $values => $key ) {
                 $userroleslug[] = $values ;
                 $userrolename[] = $key[ 'name' ] ;
             }
-            $newcombineduserrole = array_combine( ( array ) $userroleslug , ( array ) $userrolename ) ;
-            $categorylist        = fp_product_category() ;
-            $newcombinedarray    = fp_order_status() ;
+            $newcombineduserrole       = array_combine( ( array ) $userroleslug , ( array ) $userrolename ) ;
+            $categorylist              = fp_product_category() ;
+            $newcombinedarray          = fp_order_status() ;
+            $referral_product_purchase = get_option( 'rs_enable_product_category_level_for_referral_product_purchase' ) ;
+            $send_mail_for_referral    = get_option( 'rs_send_mail_pdt_purchase_referral' ) ;
+            $send_mail_for_referrer    = get_option( 'rs_send_mail_pdt_purchase_referrer' ) ;
+            if( $referral_product_purchase == 'yes' && $send_mail_for_referral == 'yes' ) {
+                $referral_mail = 'yes' ;
+            } else {
+                $referral_mail = 'no' ;
+            }
+            if( $referral_product_purchase == 'yes' && $send_mail_for_referrer == 'yes' ) {
+                $refered_mail = 'yes' ;
+            } else {
+                $refered_mail = 'no' ;
+            }
             return apply_filters( 'woocommerce_fpreferralsystem' , array(
                 array(
                     'type' => 'rs_modulecheck_start' ,
@@ -297,7 +310,7 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                     'name'     => __( 'Referral Reward Type' , SRP_LOCALE ) ,
                     'desc'     => __( 'Select Reward Type by Points/Percentage' , SRP_LOCALE ) ,
                     'id'       => 'rs_global_referral_reward_type' ,
-                    'class'    => 'show_if_enable_in_referral' ,
+                    'class'    => 'rs_global_referral_reward_type show_if_enable_in_referral' ,
                     'std'      => '1' ,
                     'default'  => '1' ,
                     'newids'   => 'rs_global_referral_reward_type' ,
@@ -311,7 +324,7 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                 array(
                     'name'        => __( 'Referral Reward Points' , SRP_LOCALE ) ,
                     'id'          => 'rs_global_referral_reward_point' ,
-                    'class'       => 'show_if_enable_in_referral' ,
+                    'class'       => 'rs_global_referral_reward_point show_if_enable_in_referral' ,
                     'std'         => '' ,
                     'default'     => '' ,
                     'type'        => 'text' ,
@@ -324,7 +337,7 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                 array(
                     'name'        => __( 'Referral Reward Points in Percent %' , SRP_LOCALE ) ,
                     'id'          => 'rs_global_referral_reward_percent' ,
-                    'class'       => 'show_if_enable_in_referral' ,
+                    'class'       => 'rs_global_referral_reward_percent show_if_enable_in_referral' ,
                     'std'         => '' ,
                     'default'     => '' ,
                     'type'        => 'text' ,
@@ -335,10 +348,38 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                     'desc_tip'    => true ,
                 ) ,
                 array(
+                    'name'    => __( 'Enable to Send Email for Referral Product Purchase Reward Points' , SRP_LOCALE ) ,
+                    'desc'    => __( 'Enabling this option will send Referral Product Purchase Points through Email' , SRP_LOCALE ) ,
+                    'id'      => 'rs_send_mail_pdt_purchase_referral' ,
+                    'class'   => 'rs_send_mail_pdt_purchase_referral show_if_enable_in_referral' ,
+                    'type'    => 'checkbox' ,
+                    'std'     => $referral_mail ,
+                    'default' => $referral_mail ,
+                    'newids'  => 'rs_send_mail_pdt_purchase_referral' ,
+                ) ,
+                array(
+                    'name'    => __( 'Email Subject for Referral Product Purchase Points' , SRP_LOCALE ) ,
+                    'id'      => 'rs_email_subject_pdt_purchase_referral' ,
+                    'class'   => 'rs_email_subject_pdt_purchase_referral show_if_enable_in_referral' ,
+                    'std'     => 'Product Purchase Referral - Notification' ,
+                    'default' => 'Product Purchase Referral - Notification' ,
+                    'type'    => 'textarea' ,
+                    'newids'  => 'rs_email_subject_pdt_purchase_referral' ,
+                ) ,
+                array(
+                    'name'    => __( 'Email Message for Referral Product Purchase Points' , SRP_LOCALE ) ,
+                    'id'      => 'rs_email_message_pdt_purchase_referral' ,
+                    'class'   => 'rs_email_message_pdt_purchase_referral show_if_enable_in_referral' ,
+                    'std'     => 'You have earned [rs_earned_points] points and currently you have [rs_available_points] in your account' ,
+                    'default' => 'You have earned [rs_earned_points] points and currently you have [rs_available_points] in your account' ,
+                    'type'    => 'textarea' ,
+                    'newids'  => 'rs_email_message_pdt_purchase_referral' ,
+                ) ,
+                array(
                     'name'     => __( 'Getting Referred Reward Type' , SRP_LOCALE ) ,
                     'desc'     => __( 'Select Reward Type by Points/Percentage' , SRP_LOCALE ) ,
                     'id'       => 'rs_global_referral_reward_type_refer' ,
-                    'class'    => 'show_if_enable_in_referral' ,
+                    'class'    => 'rs_global_referral_reward_type_refer show_if_enable_in_referral' ,
                     'std'      => '1' ,
                     'default'  => '1' ,
                     'newids'   => 'rs_global_referral_reward_type_refer' ,
@@ -352,7 +393,7 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                 array(
                     'name'        => __( 'Reward Points for Getting Referred' , SRP_LOCALE ) ,
                     'id'          => 'rs_global_referral_reward_point_get_refer' ,
-                    'class'       => 'show_if_enable_in_referral' ,
+                    'class'       => 'rs_global_referral_reward_point_get_refer show_if_enable_in_referral' ,
                     'std'         => '' ,
                     'default'     => '' ,
                     'type'        => 'text' ,
@@ -365,7 +406,7 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                 array(
                     'name'     => __( 'Reward Points in Percent % For Getting Referred' , SRP_LOCALE ) ,
                     'id'       => 'rs_global_referral_reward_percent_get_refer' ,
-                    'class'    => 'show_if_enable_in_referral' ,
+                    'class'    => 'rs_global_referral_reward_percent_get_refer show_if_enable_in_referral' ,
                     'std'      => '' ,
                     'default'  => '' ,
                     'type'     => 'text' ,
@@ -373,6 +414,34 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                     'desc'     => __( 'When left empty, Category and Product Settings will be considered in the same order and Current Settings (Global Settings) will be ignored. '
                             . 'When value greater than or equal to 0 is entered then Current Settings (Global Settings) will be considered and Category/Global Settings will be ignored.' , SRP_LOCALE ) ,
                     'desc_tip' => true ,
+                ) ,
+                array(
+                    'name'    => __( 'Enable to Send Email for Getting Referred Product Purchase Reward Points' , SRP_LOCALE ) ,
+                    'desc'    => __( 'Enabling this option will send Getting Referred Product Purchase Points through Email' , SRP_LOCALE ) ,
+                    'id'      => 'rs_send_mail_pdt_purchase_referrer' ,
+                    'class'   => 'rs_send_mail_pdt_purchase_referrer show_if_enable_in_referral' ,
+                    'type'    => 'checkbox' ,
+                    'std'     => $refered_mail ,
+                    'default' => $refered_mail ,
+                    'newids'  => 'rs_send_mail_pdt_purchase_referrer' ,
+                ) ,
+                array(
+                    'name'    => __( 'Email Subject for Getting Referred Product Purchase Points' , SRP_LOCALE ) ,
+                    'id'      => 'rs_email_subject_pdt_purchase_referrer' ,
+                    'class'   => 'rs_email_subject_pdt_purchase_referrer show_if_enable_in_referral' ,
+                    'std'     => 'Product Purchase Getting Referred - Noification' ,
+                    'default' => 'Product Purchase Getting Referred - Noification' ,
+                    'type'    => 'textarea' ,
+                    'newids'  => 'rs_email_subject_pdt_purchase_referrer' ,
+                ) ,
+                array(
+                    'name'    => __( 'Email Message for Getting Referred Product Purchase Points' , SRP_LOCALE ) ,
+                    'id'      => 'rs_email_message_pdt_purchase_referrer' ,
+                    'class'   => 'rs_email_message_pdt_purchase_referrer show_if_enable_in_referral' ,
+                    'std'     => 'You have earned [rs_earned_points] points and currently you have [rs_available_points] in your account' ,
+                    'default' => 'You have earned [rs_earned_points] points and currently you have [rs_available_points] in your account' ,
+                    'type'    => 'textarea' ,
+                    'newids'  => 'rs_email_message_pdt_purchase_referrer' ,
                 ) ,
                 array( 'type' => 'sectionend' , 'id' => '_rs_global_referral_reward_points' ) ,
                 array(
@@ -478,31 +547,6 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                     'desc_tip'    => true ,
                 ) ,
                 array(
-                    'name'    => __( 'Enable To Send Mail For Product Purchase Referral Reward Points' , SRP_LOCALE ) ,
-                    'desc'    => __( 'Enabling this option will send Product Purchase Referral Points through Mail' , SRP_LOCALE ) ,
-                    'id'      => 'rs_send_mail_pdt_purchase_referral' ,
-                    'type'    => 'checkbox' ,
-                    'std'     => 'no' ,
-                    'default' => 'no' ,
-                    'newids'  => 'rs_send_mail_pdt_purchase_referral' ,
-                ) ,
-                array(
-                    'name'    => __( 'Email Subject For Product Purchase Referral Points' , SRP_LOCALE ) ,
-                    'id'      => 'rs_email_subject_pdt_purchase_referral' ,
-                    'std'     => 'Product Purchase Referral - Notification' ,
-                    'default' => 'Product Purchase Referral - Notification' ,
-                    'type'    => 'textarea' ,
-                    'newids'  => 'rs_email_subject_pdt_purchase_referral' ,
-                ) ,
-                array(
-                    'name'    => __( 'Email Message For Product Purchase Referral Points' , SRP_LOCALE ) ,
-                    'id'      => 'rs_email_message_pdt_purchase_referral' ,
-                    'std'     => 'You have earned [rs_earned_points] points and currently you have [rs_available_points] in your account' ,
-                    'default' => 'You have earned [rs_earned_points] points and currently you have [rs_available_points] in your account' ,
-                    'type'    => 'textarea' ,
-                    'newids'  => 'rs_email_message_pdt_purchase_referral' ,
-                ) ,
-                array(
                     'name'     => __( 'Getting Referred Reward Type' , SRP_LOCALE ) ,
                     'id'       => 'rs_local_referral_reward_type_get_refer' ,
                     'class'    => 'show_if_enable_in_update_referral' ,
@@ -543,31 +587,6 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                     'desc'        => __( 'When left empty, Category and Product Settings will be considered in the same order and Current Settings (Global Settings) will be ignored. '
                             . 'When value greater than or equal to 0 is entered then Current Settings (Global Settings) will be considered and Category/Global Settings will be ignored.' , SRP_LOCALE ) ,
                     'desc_tip'    => true ,
-                ) ,
-                array(
-                    'name'    => __( 'Enable To Send Mail For Product Purchase Getting Referred Reward Points' , SRP_LOCALE ) ,
-                    'desc'    => __( 'Enabling this option will send Product Purchase Getting Referred Points through Mail' , SRP_LOCALE ) ,
-                    'id'      => 'rs_send_mail_pdt_purchase_referrer' ,
-                    'type'    => 'checkbox' ,
-                    'std'     => 'no' ,
-                    'default' => 'no' ,
-                    'newids'  => 'rs_send_mail_pdt_purchase_referrer' ,
-                ) ,
-                array(
-                    'name'    => __( 'Email Subject For Product Purchase Getting Referred Points' , SRP_LOCALE ) ,
-                    'id'      => 'rs_email_subject_pdt_purchase_referrer' ,
-                    'std'     => 'Product Purchase Getting Referred - Noification' ,
-                    'default' => 'Product Purchase Getting Referred - Noification' ,
-                    'type'    => 'textarea' ,
-                    'newids'  => 'rs_email_subject_pdt_purchase_referrer' ,
-                ) ,
-                array(
-                    'name'    => __( 'Email Message For Product Purchase Getting Referred Points' , SRP_LOCALE ) ,
-                    'id'      => 'rs_email_message_pdt_purchase_referrer' ,
-                    'std'     => 'You have earned [rs_earned_points] points and currently you have [rs_available_points] in your account' ,
-                    'default' => 'You have earned [rs_earned_points] points and currently you have [rs_available_points] in your account' ,
-                    'type'    => 'textarea' ,
-                    'newids'  => 'rs_email_message_pdt_purchase_referrer' ,
                 ) ,
                 array(
                     'type' => 'referral_button' ,
@@ -1102,6 +1121,19 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                     'default'  => '1' ,
                     'desc_tip' => true ,
                     'newids'   => 'rs_acount_show_hide_google_plus_button' ,
+                    'type'     => 'select' ,
+                    'options'  => array(
+                        '1' => __( 'Show' , SRP_LOCALE ) ,
+                        '2' => __( 'Hide' , SRP_LOCALE ) ,
+                    ) ,
+                ) ,
+                array(
+                    'name'     => __( 'Whatsapp Button' , SRP_LOCALE ) ,
+                    'id'       => 'rs_acount_show_hide_whatsapp_button' ,
+                    'std'      => '1' ,
+                    'default'  => '1' ,
+                    'desc_tip' => true ,
+                    'newids'   => 'rs_acount_show_hide_whatsapp_button' ,
                     'type'     => 'select' ,
                     'options'  => array(
                         '1' => __( 'Show' , SRP_LOCALE ) ,
@@ -1801,46 +1833,46 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
          */
         public static function reward_system_update_settings() {
             woocommerce_update_options( RSReferralSystemModule::reward_system_admin_fields() ) ;
-            if ( isset( $_POST[ 'rs_select_exclude_users_list_for_show_referral_link' ] ) ) {
+            if( isset( $_POST[ 'rs_select_exclude_users_list_for_show_referral_link' ] ) ) {
                 update_option( 'rs_select_exclude_users_list_for_show_referral_link' , $_POST[ 'rs_select_exclude_users_list_for_show_referral_link' ] ) ;
             } else {
                 update_option( 'rs_select_exclude_users_list_for_show_referral_link' , '' ) ;
             }
-            if ( isset( $_POST[ 'rs_select_include_users_for_show_referral_link' ] ) ) {
+            if( isset( $_POST[ 'rs_select_include_users_for_show_referral_link' ] ) ) {
                 update_option( 'rs_select_include_users_for_show_referral_link' , $_POST[ 'rs_select_include_users_for_show_referral_link' ] ) ;
             } else {
                 update_option( 'rs_select_include_users_for_show_referral_link' , '' ) ;
             }
-            if ( isset( $_POST[ 'rs_fbshare_image_url_upload' ] ) ) {
+            if( isset( $_POST[ 'rs_fbshare_image_url_upload' ] ) ) {
                 update_option( 'rs_fbshare_image_url_upload' , $_POST[ 'rs_fbshare_image_url_upload' ] ) ;
             } else {
                 update_option( 'rs_fbshare_image_url_upload' , '' ) ;
             }
-            if ( isset( $_POST[ 'rs_referral_module_checkbox' ] ) ) {
+            if( isset( $_POST[ 'rs_referral_module_checkbox' ] ) ) {
                 update_option( 'rs_referral_activated' , $_POST[ 'rs_referral_module_checkbox' ] ) ;
             } else {
                 update_option( 'rs_referral_activated' , 'no' ) ;
             }
-            if ( isset( $_POST[ 'rs_include_products_for_referral_product_purchase' ] ) ) {
+            if( isset( $_POST[ 'rs_include_products_for_referral_product_purchase' ] ) ) {
                 update_option( 'rs_include_products_for_referral_product_purchase' , $_POST[ 'rs_include_products_for_referral_product_purchase' ] ) ;
             } else {
                 update_option( 'rs_include_products_for_referral_product_purchase' , '' ) ;
             }
-            if ( isset( $_POST[ 'rs_exclude_products_for_referral_product_purchase' ] ) ) {
+            if( isset( $_POST[ 'rs_exclude_products_for_referral_product_purchase' ] ) ) {
                 update_option( 'rs_exclude_products_for_referral_product_purchase' , $_POST[ 'rs_exclude_products_for_referral_product_purchase' ] ) ;
             } else {
                 update_option( 'rs_exclude_products_for_referral_product_purchase' , '' ) ;
             }
 
-            if ( isset( $_POST[ 'rewards_dynamic_rule_manual' ] ) ) {
+            if( isset( $_POST[ 'rewards_dynamic_rule_manual' ] ) ) {
 
                 $manual_link_rules = get_option( 'rewards_dynamic_rule_manual' , array() ) ;
-                foreach ( $_POST[ 'rewards_dynamic_rule_manual' ] as $key => $values ) {
+                foreach( $_POST[ 'rewards_dynamic_rule_manual' ] as $key => $values ) {
 
                     $manual_link_rules[ $key ] = $values ;
 
-                    if ( isset( $_POST[ 'rs_removed_link_rule' ][ $key ] ) ) {
-                        if ( 'yes' == $_POST[ 'rs_removed_link_rule' ][ $key ] ) {
+                    if( isset( $_POST[ 'rs_removed_link_rule' ][ $key ] ) ) {
+                        if( 'yes' == $_POST[ 'rs_removed_link_rule' ][ $key ] ) {
                             $manual_link_rules[ $key ] = '' ;
                         }
                     }
@@ -1856,8 +1888,8 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
          * Initialize the Default Settings by looping this function
          */
         public static function set_default_value() {
-            foreach ( RSReferralSystemModule::reward_system_admin_fields() as $setting )
-                if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+            foreach( RSReferralSystemModule::reward_system_admin_fields() as $setting )
+                if( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
                     add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
                 }
         }
@@ -1944,7 +1976,7 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
             // Search User filter.
             $searched_user     = isset( $_REQUEST[ 'rs_search_user' ] ) ? sanitize_title( $_REQUEST[ 'rs_search_user' ] ) : '' ;
 
-            if ( ! $searched_user ) {
+            if( ! $searched_user ) {
                 $chunk_rules             = array_chunk( $manual_link_rules , $per_page ) ;
                 $current_page            = isset( $_REQUEST[ 'page_no' ] ) ? wc_clean( wp_unslash( absint( $_REQUEST[ 'page_no' ] ) ) ) : '1' ;
                 $rules_based_on_per_page = isset( $chunk_rules[ $current_page - 1 ] ) ? $chunk_rules[ $current_page - 1 ] : array() ;
@@ -1960,18 +1992,18 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
             include SRP_PLUGIN_PATH . '/includes/admin/views/manual-referral-link-rules.php' ;
             ?>
             <script>
-                jQuery( document ).ready( function () {
+                jQuery( document ).ready( function() {
                     var countrewards_dynamic_rule = <?php echo $i ; ?> ;
-                    jQuery( ".add" ).click( function () {
+                    jQuery( ".add" ).click( function() {
                         countrewards_dynamic_rule = countrewards_dynamic_rule + 1 ;
-            <?php if ( ( float ) $woocommerce->version <= ( float ) ('2.2.0') ) { ?>
+            <?php if( ( float ) $woocommerce->version <= ( float ) ('2.2.0') ) { ?>
 
                             jQuery( '#here' ).append( '<tr><td><select name="rewards_dynamic_rule_manual[' + countrewards_dynamic_rule + '][referer]" class="short rs_manual_linking_referer"><option value=""></option></select></td>\n\
                                                                                                                                                                                                                         \n\<td><select name="rewards_dynamic_rule_manual[' + countrewards_dynamic_rule + '][refferal]" class="short rs_manual_linking_referral"><option value=""></option></select></td>\n\
                                                                                                                                                                                                                         \n\<td class="column-columnname-link" ><span><input type="hidden" name="rewards_dynamic_rule_manual[' + countrewards_dynamic_rule + '][type]"  value="" class="short "/><b>Manual</b></span></td>\n\
                                                                                                                                                                                                                         \n\
                                                                                                                                                                                                                         <td class="num"><span class="remove button-secondary">Remove Linking</span></td></tr><hr>' ) ;
-                            jQuery( function () {
+                            jQuery( function() {
                                 // Ajax Chosen Product Selectors
                                 jQuery( "select.rs_manual_linking_referer" ).ajaxChosen( {
                                     method : 'GET' ,
@@ -1982,16 +2014,16 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                                         action : 'woocommerce_json_search_customers' ,
                                         security : '<?php echo wp_create_nonce( "search-customers" ) ; ?>'
                                     }
-                                } , function ( data ) {
+                                } , function( data ) {
                                     var terms = { } ;
 
-                                    jQuery.each( data , function ( i , val ) {
+                                    jQuery.each( data , function( i , val ) {
                                         terms[i] = val ;
                                     } ) ;
                                     return terms ;
                                 } ) ;
                             } ) ;
-                            jQuery( function () {
+                            jQuery( function() {
                                 // Ajax Chosen Product Selectors
                                 jQuery( "select.rs_manual_linking_referral" ).ajaxChosen( {
                                     method : 'GET' ,
@@ -2002,10 +2034,10 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                                         action : 'woocommerce_json_search_customers' ,
                                         security : '<?php echo wp_create_nonce( "search-customers" ) ; ?>'
                                     }
-                                } , function ( data ) {
+                                } , function( data ) {
                                     var terms = { } ;
 
-                                    jQuery.each( data , function ( i , val ) {
+                                    jQuery.each( data , function( i , val ) {
                                         terms[i] = val ;
                                     } ) ;
                                     return terms ;
@@ -2013,7 +2045,7 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                             } ) ;
                 <?php
             } else {
-                if ( ( float ) $woocommerce->version >= ( float ) ('3.0.0') ) {
+                if( ( float ) $woocommerce->version >= ( float ) ('3.0.0') ) {
                     ?>
                                 jQuery( '#here' ).append( '<tr><td><select class="wc-customer-search" style="width:250px;" name="rewards_dynamic_rule_manual[' + countrewards_dynamic_rule + '][referer]" data-placeholder="<?php _e( "Search for a customer" , "rewardsystem" ) ; ?>" data-allow_clear="true"><option value=""></option></select></td>\n\
                                                                                                                                                                                                                             \n\<td><select class="wc-customer-search" style="width:250px;" name="rewards_dynamic_rule_manual[' + countrewards_dynamic_rule + '][refferal]" data-placeholder="<?php _e( "Search for a customer" , "rewardsystem" ) ; ?>" data-allow_clear="true"><option value=""></option></select></td>\n\
@@ -2034,7 +2066,7 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
             ?>
                         return false ;
                     } ) ;
-                    jQuery( document ).on( 'click' , '.remove' , function () {
+                    jQuery( document ).on( 'click' , '.remove' , function() {
                         jQuery( this ).parent().parent().hide() ;
                         var $row = jQuery( this ).closest( 'tr' ).data( 'row' ) ;
                         jQuery( this ).closest( 'tr' ).find( 'span.rs_removed_rule' ).append( '<input type="hidden" name="rs_removed_link_rule[' + $row + ']" value="yes">' ) ;
@@ -2046,7 +2078,7 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
         }
 
         public static function rs_list_referral_rewards_log() {
-            if ( ! (isset( $_GET[ 'view' ] )) ) {
+            if( ! (isset( $_GET[ 'view' ] )) ) {
                 $newwp_list_table_for_users = new WP_List_Table_for_Referral_Table() ;
                 $newwp_list_table_for_users->prepare_items() ;
                 $newwp_list_table_for_users->search_box( 'Search Users' , 'search_id' ) ;
@@ -2099,28 +2131,28 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
 
         public static function manual_referral_link_user_search_filter( $manual_link_rules ) {
 
-            if ( ! srp_check_is_array( $manual_link_rules ) ) {
+            if( ! srp_check_is_array( $manual_link_rules ) ) {
                 return array() ;
             }
 
-            if ( ! isset( $_REQUEST[ 'rs_search_user_action' ] ) ) {
+            if( ! isset( $_REQUEST[ 'rs_search_user_action' ] ) ) {
                 return $manual_link_rules ;
             }
 
             $searched_user = isset( $_REQUEST[ 'rs_search_user' ] ) ? sanitize_text_field( $_REQUEST[ 'rs_search_user' ] ) : '' ;
-            if ( ! $searched_user ) {
+            if( ! $searched_user ) {
                 return $manual_link_rules ;
             }
 
             $user    = is_object( get_user_by( 'ID' , $searched_user ) ) ? get_user_by( 'ID' , $searched_user ) : get_user_by( 'login' , $searched_user ) ;
             $user    = is_object( $user ) ? $user : get_user_by( 'email' , $searched_user ) ;
             $user_id = is_object( $user ) ? $user->ID : false ;
-            if ( ! $user_id ) {
+            if( ! $user_id ) {
                 return array() ;
             }
 
-            foreach ( $manual_link_rules as $key => $values ) {
-                if ( isset( $values[ "referer" ] , $values[ "refferal" ] ) && $user_id == $values[ "referer" ] || $user_id == $values[ "refferal" ] ) {
+            foreach( $manual_link_rules as $key => $values ) {
+                if( isset( $values[ "referer" ] , $values[ "refferal" ] ) && $user_id == $values[ "referer" ] || $user_id == $values[ "refferal" ] ) {
                     $manual_link_rules[ $key ] = $values ;
                 } else {
                     $manual_link_rules[ $key ] = '' ;

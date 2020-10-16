@@ -93,6 +93,7 @@ if ( ! class_exists( 'RS_Export_Log' ) ) {
                             'points'    => empty( $earnpoints ) ? $redeempoints : $earnpoints ,
                             'event'     => $eventname ,
                             'date'      => date_display_format( $values[ 'earneddate' ] ) ,
+                            'expiry_date' => 999999999999 != $values[ 'expirydate' ] ? date_display_format( $values[ 'expirydate' ] ) : '-' ,
                                 ) ;
                     }
                 }

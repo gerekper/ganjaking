@@ -6,7 +6,11 @@
  */
 
 use Yoast\WP\SEO\Config\Schema_Types;
+use Yoast\WP\SEO\Exceptions\OAuth\Authentication_Failed_Exception;
+use Yoast\WP\SEO\Exceptions\SEMrush\Tokens\Empty_Token_Exception;
 use Yoast\WP\SEO\Helpers\Options_Helper;
+use Yoast\WP\SEO\Config\SEMrush_Client;
+use Yoast\WP\SEO\Exceptions\SEMrush\Tokens\Empty_Property_Exception;
 
 /**
  * This class forces needed methods for the metabox localization.
@@ -49,7 +53,6 @@ class WPSEO_Metabox_Formatter {
 	private function get_defaults() {
 		$analysis_seo         = new WPSEO_Metabox_Analysis_SEO();
 		$analysis_readability = new WPSEO_Metabox_Analysis_Readability();
-		$options              = new Options_Helper();
 		$schema_types         = new Schema_Types();
 		$options              = new Options_Helper();
 
@@ -74,13 +77,16 @@ class WPSEO_Metabox_Formatter {
 			'contentAnalysisActive'     => $analysis_readability->is_enabled() ? 1 : 0,
 			'keywordAnalysisActive'     => $analysis_seo->is_enabled() ? 1 : 0,
 			'cornerstoneActive'         => WPSEO_Options::get( 'enable_cornerstone_content', false ) ? 1 : 0,
+			'semrushIntegrationActive'  => WPSEO_Options::get( 'semrush_integration_active', true ) ? 1 : 0,
 			'intl'                      => $this->get_content_analysis_component_translations(),
 			'isRtl'                     => is_rtl(),
 			'isPremium'                 => WPSEO_Utils::is_yoast_seo_premium(),
 			'addKeywordUpsell'          => $this->get_add_keyword_upsell_translations(),
 			'wordFormRecognitionActive' => YoastSEO()->helpers->language->is_word_form_recognition_active( WPSEO_Language_Utils::get_language( get_locale() ) ),
 			'siteIconUrl'               => get_site_icon_url(),
+			'countryCode'               => WPSEO_Options::get( 'semrush_country_code', false ),
 			'twitterCardType'           => $options->get( 'twitter_card_type' ),
+			'SEMrushLoginStatus'        => WPSEO_Options::get( 'semrush_integration_active', true ) ? $this->get_semrush_login_status( $options ) : false,
 			'showSocial'                => [
 				'facebook' => WPSEO_Options::get( 'opengraph', false ),
 				'twitter'  => WPSEO_Options::get( 'twitter', false ),
@@ -282,5 +288,32 @@ class WPSEO_Metabox_Formatter {
 		 * @param array $is_markdown Is markdown support for Yoast SEO active.
 		 */
 		return apply_filters( 'wpseo_is_markdown_enabled', $is_markdown );
+	}
+
+	/**
+	 * Checks if the user is logged in to SEMrush.
+	 *
+	 * @param {Options_Helper} $options_helper The Options Helper object.
+	 *
+	 * @return boolean The SEMrush login status.
+	 */
+	private function get_semrush_login_status( $options_helper ) {
+		try {
+			$semrush_client = new SEMrush_Client( $options_helper );
+		} catch ( Empty_Property_Exception $e ) {
+			// return false if token is malformed (empty property).
+			return false;
+		}
+
+		// Get token (and refresh it if it's expired).
+		try {
+			$semrush_client->get_tokens();
+		} catch ( Authentication_Failed_Exception $e ) {
+			return false;
+		} catch ( Empty_Token_Exception $e ) {
+			return false;
+		}
+
+		return $semrush_client->has_valid_tokens();
 	}
 }

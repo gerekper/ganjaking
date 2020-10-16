@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Loads admin tabs and adds related hooks / filters.
  *
- * @version  1.8.5
+ * @version  1.8.6
  */
 class WC_CSP_Admin {
 
@@ -285,6 +285,7 @@ class WC_CSP_Admin {
 			'wc_plugin_url'               => WC()->plugin_url(),
 			'is_wc_version_gte_3_0'       => WC_CSP_Core_Compatibility::is_wc_version_gte( '3.0' ) ? 'yes' : 'no',
 			'is_wc_version_gte_3_2'       => WC_CSP_Core_Compatibility::is_wc_version_gte( '3.2' ) ? 'yes' : 'no',
+			'billing_states_data'         => WC()->countries->get_allowed_country_states(),
 			'shipping_states_data'        => WC()->countries->get_shipping_country_states(),
 			'i18n_delete_rule_warning'    => __('This rule will be permanently deleted from your system. Are you sure?', 'woocommerce-conditional-shipping-and-payments'),
 			'i18n_toggle_session_expired' => _x( 'Something went wrong. Please refresh your browser and try again.', 'active toggler', 'woocommerce' ),

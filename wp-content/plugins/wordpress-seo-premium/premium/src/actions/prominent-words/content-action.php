@@ -5,6 +5,7 @@ namespace Yoast\WP\SEO\Actions\Prominent_Words;
 use WPSEO_Premium_Prominent_Words_Support;
 use WPSEO_Premium_Prominent_Words_Versioning;
 use Yoast\WP\Lib\ORM;
+use Yoast\WP\SEO\Actions\Indexation\Indexation_Action_Interface;
 use Yoast\WP\SEO\Context\Meta_Tags_Context;
 use Yoast\WP\SEO\Helpers\Meta_Helper;
 use Yoast\WP\SEO\Memoizers\Meta_Tags_Context_Memoizer;
@@ -17,7 +18,7 @@ use Yoast\WP\SEO\Repositories\Indexable_Repository;
  *
  * @package Yoast\WP\SEO\Actions\Prominent_Words
  */
-class Content_Action {
+class Content_Action implements Indexation_Action_Interface {
 
 	const TRANSIENT_CACHE_KEY = 'total_unindexed_prominent_words';
 
@@ -123,9 +124,22 @@ class Content_Action {
 	/**
 	 * Retrieves a batch of indexables, to be indexed for internal linking suggestions.
 	 *
+	 * @deprecated 15.1
+	 * @codeCoverageIgnore
+	 *
 	 * @return array The indexables data to use for generating prominent words.
 	 */
 	public function get() {
+		\_deprecated_function( __METHOD__, '15.1', 'Content_Action::index' );
+		return $this->index();
+	}
+
+	/**
+	 * Retrieves a batch of indexables, to be indexed for internal linking suggestions.
+	 *
+	 * @return array The indexables data to use for generating prominent words.
+	 */
+	public function index() {
 		$object_sub_types = $this->get_object_sub_types();
 		if ( empty( $object_sub_types ) ) {
 			return [];

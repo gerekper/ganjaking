@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product-related functions and filters.
  *
  * @class    WC_PB_MMI_Product
- * @version  6.0.0
+ * @version  6.4.0
  */
 class WC_PB_MMI_Product {
 
@@ -31,7 +31,7 @@ class WC_PB_MMI_Product {
 
 		// When min/max qty constraints are present, require input.
 		add_filter( 'woocommerce_bundle_requires_input', array( __CLASS__, 'min_max_bundle_requires_input' ), 10, 2 );
-}
+	}
 
 	/*
 	|--------------------------------------------------------------------------

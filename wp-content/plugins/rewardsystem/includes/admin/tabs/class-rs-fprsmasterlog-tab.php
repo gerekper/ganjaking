@@ -126,7 +126,7 @@ if ( ! class_exists( 'RSMasterLog' ) ) {
                 header( "Content-Disposition: attachment; filename=reward_points_masterlog " . date_i18n( 'Y-m-d' ) . ".csv" ) ;
                 header( "Pragma: no-cache" ) ;
                 header( "Expires: 0" ) ;
-                echo "Username,Points,Event,Date" . "\n" ;
+                echo "Username,Points,Event,Date,Expiry Date" . "\n" ;
                 self::outputCSV( get_option( 'rs_data_to_export' ) ) ;
                 delete_option( 'rs_data_to_export' ) ;
                 exit() ;

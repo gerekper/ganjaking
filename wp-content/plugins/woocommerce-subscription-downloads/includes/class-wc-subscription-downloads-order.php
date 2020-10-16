@@ -18,6 +18,9 @@ class WC_Subscription_Downloads_Order {
 	public function __construct() {
 		add_action( 'woocommerce_subscription_status_changed', array( $this, 'download_permissions' ), 10, 4 );
 		add_action( 'woocommerce_email_after_order_table', array( $this, 'email_list_downloads' ), 10, 3 );
+		add_action( 'woocommerce_subscriptions_switched_item', array( $this, 'handle_download_switch' ), 10, 3 );
+		add_filter( 'woocommerce_order_get_downloadable_items', array( $this, 'remove_subscription_download_duplicates' ), 1, 2 );
+		add_filter( 'woocommerce_customer_available_downloads', array( $this, 'remove_customer_download_duplicates' ), 10, 2 );
 	}
 
 	/**
@@ -62,23 +65,57 @@ class WC_Subscription_Downloads_Order {
 
 						foreach ( array_keys( $downloads ) as $download_id ) {
 							wc_downloadable_file_permission( $download_id, $product_id, $subscription );
+						}
 
-							if ( ! in_array( $_product->get_id(), $product_item_ids ) ) {
-								// Skip wrong recalculation of totals by adding a 0 amount Subscriptions.
-								$totals = array(
-									'subtotal'     => wc_format_decimal( 0 ),
-									'total'        => wc_format_decimal( 0 ),
-									'subtotal_tax' => wc_format_decimal( 0 ),
-									'tax'          => wc_format_decimal( 0 ),
-								);
+						if ( ! in_array( $_product->get_id(), $product_item_ids ) ) {
+							// Skip wrong recalculation of totals by adding a 0 amount Subscriptions.
+							$totals = array(
+								'subtotal'     => wc_format_decimal( 0 ),
+								'total'        => wc_format_decimal( 0 ),
+								'subtotal_tax' => wc_format_decimal( 0 ),
+								'tax'          => wc_format_decimal( 0 ),
+							);
 
-								$subscription->add_product( $_product, 1, array( 'totals' => $totals ) );
-							}
+							$subscription->add_product( $_product, 1, array( 'totals' => $totals ) );
 						}
 					}
 				}
 			}
 		}
+	}
+
+	/**
+	 * Remove downloads duplicates on subscriptions.
+	 *
+	 * @since 1.1.29
+	 *
+	 * @param  array    $downloads List of downloads.
+	 * @param  WC_Order $order     The order.
+	 *
+	 * @return $downloads Array of downloads.
+	 */
+	public static function remove_subscription_download_duplicates( $downloads = array(), $order ) {
+		if ( is_a( $order, 'WC_Subscription' ) ) {
+			$downloads = array_unique( $downloads, SORT_REGULAR );
+		}
+		return $downloads;
+	}
+
+	/**
+	 * Remove customer download duplicates that were added to the same order.
+	 *
+	 * @since 1.1.30
+	 *
+	 * @param  array $downloads   List of downloads.
+	 * @param  int   $customer_id The customer id.
+	 *
+	 * @return $downloads Array of downloads.
+	 */
+	public static function remove_customer_download_duplicates( $downloads = array(), $customer_id ) {
+		// As downloads have an order_id, the following only removes download duplicates from the same order.
+		$downloads = array_unique( $downloads, SORT_REGULAR );
+
+		return $downloads;
 	}
 
 	/**
@@ -129,6 +166,41 @@ class WC_Subscription_Downloads_Order {
 
 			echo $html;
 		}
+	}
+
+	/**
+	* Revoke download permissions granted on the old switch item.
+	*
+	* @param WC_Subscription $subscription
+	* @param array $new_item
+	* @param array $old_item
+	*/
+	public function handle_download_switch( $subscription, $new_item, $old_item ) {
+		if ( ! is_object( $subscription ) ) {
+			$subscription = wcs_get_subscription( $subscription );
+		}
+
+		$subscription_id       = $subscription->get_id();
+		$downloadable_products = WC_Subscription_Downloads::get_downloadable_products( $old_item['product_id'], $old_item['variation_id'] );
+		$subscription_items    = $subscription->get_items();
+
+		// Remove old item attached to the subscription.
+		foreach ( $subscription_items as $item ) {
+			if ( in_array( $item['product_id'], $downloadable_products ) || in_array( $item['variation_id'], $downloadable_products ) ) {
+				$item = $subscription->get_item( $item );
+				if ( $item ) {
+					$item->delete();
+				}
+			}
+		}
+
+		// Further, remove all attached downloadable products to the subscription.
+		foreach ( $downloadable_products as $product_id ) {
+			WCS_Download_Handler::revoke_downloadable_file_permission( $product_id, $subscription_id, $subscription->get_user_id() );
+		}
+
+		// Re-trigger download permissions. It will automatically add permissions to the new items.
+		$this->download_permissions( $subscription_id, '', 'active', $subscription );
 	}
 }
 

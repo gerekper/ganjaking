@@ -1,5 +1,10 @@
 *** WooCommerce Product Bundles ***
 
+2020.09.06 - version 6.4.1
+* Fix - Bundled product add-on prices for some add-on types are preserved when 'Priced Individually' is not enabled.
+* Tweak - Handle missing '$.fn.wc_product_gallery' function on themes that declare support for PhotoSwipe.
+* Tweak - Use 'woocommerce_bundle_price_data' filter to pass min/max bundle size params to the frontend.
+
 2020.09.25 - version 6.4.0
 * Feature - Rolled 'Min/Max Items' feature plugin into Product Bundles.
 * Feature - Introduced 'Default Quantity' field.

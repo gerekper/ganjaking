@@ -2306,7 +2306,11 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 		this.init_photoswipe = function() {
 
-			this.$bundled_item_image.wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
+			if ( $.fn.wc_product_gallery ) {
+				this.$bundled_item_image.wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
+			} else {
+				window.console.warn( 'Failed to initialize PhotoSwipe for bundled item images. Your theme declares PhotoSwipe support, but function \'$.fn.wc_product_gallery\' is undefined.' );
+			}
 
 			var $placeholder = this.$bundled_item_image.find( 'a.placeholder_image' );
 

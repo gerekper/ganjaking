@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Shipping Country/State Condition.
  *
  * @class    WC_CSP_Condition_Shipping_Country_State
- * @version  1.5.1
+ * @version  1.8.6
  */
 class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 
@@ -56,7 +56,7 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 
 		} else {
 
-			$shipping_packages = WC()->shipping->get_packages();
+			$shipping_packages = $this->get_packages();
 
 			if ( ! empty( $shipping_packages ) ) {
 
@@ -151,8 +151,11 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 
 				// No states defined in condition?
 				if ( empty( $data[ 'states' ][ $country ] ) ) {
+
 					$is_matching = true;
+
 				} else {
+
 					// No state selected?
 					if ( empty( $state ) ) {
 						$is_matching = ! $showing_excluded && apply_filters( 'woocommerce_csp_shipping_country_condition_match_empty_state', false, $data, $args );
@@ -175,7 +178,7 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 
 				// No state selected?
 				if ( empty( $state ) ) {
-					$is_matching = ! $showing_excluded && apply_filters( 'woocommerce_csp_shipping_country_condition_match_empty_state', false, $data, $args );
+					$is_matching = ! $showing_excluded && apply_filters( 'woocommerce_csp_shipping_country_condition_match_empty_state', true, $data, $args );
 				// State selected is not in those defined in condition?
 				} elseif ( ! in_array( $state, $data[ 'states' ][ $country ] ) ) {
 					$is_matching = true;
@@ -187,7 +190,7 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 	}
 
 	/**
-	 * Validate, process and return condition fields.
+	 * Validate, process and return condition field data.
 	 *
 	 * @param  array  $posted_condition_data
 	 * @return array
@@ -284,7 +287,7 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 			<div class="condition_modifier">
 			</div>
 			<div class="condition_value excluded_states select-field">
-				<select class="csp_shipping_states multiselect sw-select2" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][states][]" multiple="multiple" data-placeholder="<?php _e( 'Limit restriction to specific States/Regions?', 'woocommerce-conditional-shipping-and-payments' ); ?>">
+				<select class="csp_shipping_states multiselect sw-select2" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][states][]" multiple="multiple" data-placeholder="<?php _e( 'Limit restriction to specific states or regions&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
 						if ( ! empty( $countries ) ) {
 							foreach ( $countries as $country_key ) {
@@ -293,9 +296,14 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 									continue;
 								}
 
-								$country_value = $shipping_countries[ $country_key ];
+								if ( empty( $shipping_states[ $country_key ] ) ) {
+									continue;
+								}
 
 								if ( $country_states = $shipping_states[ $country_key ] ) {
+
+									$country_value = $shipping_countries[ $country_key ];
+
 									echo '<optgroup label="' . esc_attr( $country_value ) . '">';
 										foreach ( $country_states as $state_key => $state_value ) {
 											echo '<option value="' . esc_attr( $country_key ) . ':' . $state_key . '"';

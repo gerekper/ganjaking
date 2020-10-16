@@ -2197,6 +2197,14 @@ if ( ! class_exists( 'RSMessage' ) ) {
                     ) ,
                 ) ,
                 array(
+                    'name'    => __( 'Number of Page Size in My Reward Table' , SRP_LOCALE ) ,
+                    'id'      => 'rs_number_of_page_size_in_myaccount' ,
+                    'std'     => '5' ,
+                    'default' => '5' ,
+                    'newids'  => 'rs_number_of_page_size_in_myaccount' ,
+                    'type'    => 'number' ,
+                ) ,
+                array(
                     'name'     => __( 'Reward Table Position' , SRP_LOCALE ) ,
                     'id'       => 'rs_reward_table_position' ,
                     'std'      => '1' ,
@@ -2503,6 +2511,14 @@ if ( ! class_exists( 'RSMessage' ) ) {
                         '1' => __( 'Show' , SRP_LOCALE ) ,
                         '2' => __( 'Hide' , SRP_LOCALE ) ,
                     ) ,
+                ) ,
+                array(
+                    'name'    => __( 'Number of Page Size in My Reward Table' , SRP_LOCALE ) ,
+                    'id'      => 'rs_number_of_page_size_in_myrewards_shortcode' ,
+                    'std'     => '5' ,
+                    'default' => '5' ,
+                    'newids'  => 'rs_number_of_page_size_in_myrewards_shortcode' ,
+                    'type'    => 'number' ,
                 ) ,
                 array(
                     'name'     => __( 'Display Reward Points Label Position' , SRP_LOCALE ) ,

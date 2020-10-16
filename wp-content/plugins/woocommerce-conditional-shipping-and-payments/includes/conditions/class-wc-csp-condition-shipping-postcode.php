@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Zip Code Condition.
  *
  * @class    WC_CSP_Condition_Shipping_Postcode
- * @version  1.5.7
+ * @version  1.8.6
  */
-class WC_CSP_Condition_Shipping_Postcode extends WC_CSP_Condition {
+class WC_CSP_Condition_Shipping_Postcode extends WC_CSP_Package_Condition {
 
 	/**
 	 * Constructor.
@@ -89,13 +89,13 @@ class WC_CSP_Condition_Shipping_Postcode extends WC_CSP_Condition {
 				}
 
 				if ( ! $is_matching_package ) {
-					$is_matching_package = ! $showing_excluded && apply_filters( 'woocommerce_csp_shipping_postcode_condition_match_empty_postcode', false, $data, $args );
+					$is_matching_package = ! $showing_excluded && apply_filters( 'woocommerce_csp_shipping_postcode_condition_match_empty_postcode', $this->modifier_is( $data[ 'modifier' ], array( 'not-in' ) ), $data, $args );
 				}
 			}
 
 		} else {
 
-			$shipping_packages = WC()->shipping->get_packages();
+			$shipping_packages = $this->get_packages();
 
 			if ( ! empty( $shipping_packages ) ) {
 				foreach ( $shipping_packages as $shipping_package ) {
@@ -103,7 +103,7 @@ class WC_CSP_Condition_Shipping_Postcode extends WC_CSP_Condition {
 					$postcode = WC_CSP_Core_Compatibility::wc_normalize_postcode( wc_clean( $shipping_package[ 'destination' ][ 'postcode' ] ) );
 
 					if ( empty( $postcode ) ) {
-						$is_matching_package = apply_filters( 'woocommerce_csp_shipping_postcode_condition_match_empty_postcode', false, $data, $args );
+						$is_matching_package = apply_filters( 'woocommerce_csp_shipping_postcode_condition_match_empty_postcode', $this->modifier_is( $data[ 'modifier' ], array( 'not-in' ) ), $data, $args );
 					} elseif ( $this->is_matching_package( $postcode, $shipping_package[ 'destination' ][ 'country' ], $data ) ) {
 						$is_matching_package = true;
 					}

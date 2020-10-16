@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Package Item Quantity Condition.
  *
  * @class    WC_CSP_Condition_Package_Item_Quantity
- * @version  1.7.5
+ * @version  1.8.6
  */
-class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Condition {
+class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Package_Condition {
 
 	/**
 	 * Constructor.
@@ -44,13 +44,19 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Condition {
 		}
 
 		$message         = false;
-		$package_count   = isset( $args[ 'package_count' ] ) ? $args[ 'package_count' ] : sizeof( WC()->shipping->get_packages() );
+		$package_count   = $this->get_package_count( $args );
 		$condition_value = absint( $data[ 'value' ] );
 
 		if ( $this->modifier_is( $data[ 'modifier' ], array( 'min' ) ) ) {
 
 			if ( $package_count > 1 ) {
-				$message = sprintf( __( 'make sure that there are no more than %s items in it', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+
+				if ( isset( $args[ 'restriction_data' ][ 'restriction_id' ] ) && 'payment_gateways' === $args[ 'restriction_data' ][ 'restriction_id' ] ) {
+					$message = sprintf( __( 'make sure that there are no shipping packages with more than %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+				} else {
+					$message = sprintf( __( 'make sure that there are no more than %s items in it', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+				}
+
 			} else {
 				$message = sprintf( __( 'make sure that there are no more than %s items in your cart', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
 			}
@@ -58,7 +64,13 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Condition {
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'max' ) ) ) {
 
 			if ( $package_count > 1 ) {
-				$message = sprintf( __( 'make sure it contains at least %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+
+				if ( isset( $args[ 'restriction_data' ][ 'restriction_id' ] ) && 'payment_gateways' === $args[ 'restriction_data' ][ 'restriction_id' ] ) {
+					$message = sprintf( __( 'make sure there are at least %s items in every shipping package', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+				} else {
+					$message = sprintf( __( 'make sure it contains at least %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+				}
+
 			} else {
 				$message = sprintf( __( 'make sure that your cart contains at least %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
 			}
@@ -89,7 +101,7 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Condition {
 
 		} else {
 
-			$shipping_packages = WC()->shipping->get_packages();
+			$shipping_packages = $this->get_packages();
 
 			if ( ! empty( $shipping_packages ) ) {
 				foreach ( $shipping_packages as $shipping_package ) {

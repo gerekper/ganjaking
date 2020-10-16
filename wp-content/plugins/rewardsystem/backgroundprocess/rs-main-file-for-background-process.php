@@ -219,16 +219,18 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
 
             try {
                 $values = array(
-                    'usertype'   => isset( $_POST[ 'usertype' ] ) ? $_POST[ 'usertype' ] : '' ,
-                    'incuser'    => isset( $_POST[ 'includeuser' ] ) ? $_POST[ 'includeuser' ] : '' ,
-                    'excuser'    => isset( $_POST[ 'excludeuser' ] ) ? $_POST[ 'excludeuser' ] : '' ,
-                    'enablemail' => isset( $_POST[ 'sendmail_to_add_points' ] ) ? $_POST[ 'sendmail_to_add_points' ] : 'no' ,
-                    'subject'    => isset( $_POST[ 'email_subject_to_add_points' ] ) ? $_POST[ 'email_subject_to_add_points' ] : '' ,
-                    'message'    => isset( $_POST[ 'email_message_to_add_points' ] ) ? $_POST[ 'email_message_to_add_points' ] : '' ,
-                    'points'     => isset( $_POST[ 'points' ] ) ? $_POST[ 'points' ] : 0 ,
-                    'reason'     => isset( $_POST[ 'reason' ] ) ? $_POST[ 'reason' ] : '' ,
-                    'state'      => isset( $_POST[ 'state' ] ) ? $_POST[ 'state' ] : 'no' ,
-                    'expdate'    => isset( $_POST[ 'expireddate' ] ) ? $_POST[ 'expireddate' ] : ''
+                    'usertype'    => isset( $_POST[ 'usertype' ] ) ? $_POST[ 'usertype' ] : '' ,
+                    'incuser'     => isset( $_POST[ 'includeuser' ] ) ? $_POST[ 'includeuser' ] : '' ,
+                    'excuser'     => isset( $_POST[ 'excludeuser' ] ) ? $_POST[ 'excludeuser' ] : '' ,
+                    'incuserrole' => isset( $_POST[ 'includeuserrole' ] ) ? $_POST[ 'includeuserrole' ] : '' ,
+                    'excuserrole' => isset( $_POST[ 'excludeuserrole' ] ) ? $_POST[ 'excludeuserrole' ] : '' ,
+                    'enablemail'  => isset( $_POST[ 'sendmail_to_add_points' ] ) ? $_POST[ 'sendmail_to_add_points' ] : 'no' ,
+                    'subject'     => isset( $_POST[ 'email_subject_to_add_points' ] ) ? $_POST[ 'email_subject_to_add_points' ] : '' ,
+                    'message'     => isset( $_POST[ 'email_message_to_add_points' ] ) ? $_POST[ 'email_message_to_add_points' ] : '' ,
+                    'points'      => isset( $_POST[ 'points' ] ) ? $_POST[ 'points' ] : 0 ,
+                    'reason'      => isset( $_POST[ 'reason' ] ) ? $_POST[ 'reason' ] : '' ,
+                    'state'       => isset( $_POST[ 'state' ] ) ? $_POST[ 'state' ] : 'no' ,
+                    'expdate'     => isset( $_POST[ 'expireddate' ] ) ? $_POST[ 'expireddate' ] : ''
                         ) ;
 
                 $current_user_id = get_current_user_id() ;
@@ -244,22 +246,8 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
             if ( ! get_transient( 'fp_background_process_transient_for_add_points_' . $current_user_id ) )
                 return ;
 
-            $data = get_transient( 'fp_background_process_transient_for_add_points_' . $current_user_id ) ;
-            if ( $data[ 'usertype' ] == '1' ) {
-                $args   = array( 'fields' => 'ID' ) ;
-                $UserId = get_users( $args ) ;
-            } else if ( $data[ 'usertype' ] == '2' ) {
-                $UserId = is_array( $data[ 'incuser' ] ) ? $data[ 'incuser' ] : explode( ',' , $data[ 'incuser' ] ) ;
-            } else if ( $data[ 'usertype' ] == '3' ) {
-                $ExcludedId = is_array( $data[ 'excuser' ] ) ? $data[ 'excuser' ] : explode( ',' , $data[ 'excuser' ] ) ;
-                $args       = array( 'fields' => 'ID' ) ;
-                $AllUsers   = get_users( $args ) ;
-                foreach ( $AllUsers as $User ) {
-                    if ( ! in_array( $User , $ExcludedId ) ) {
-                        $UserId[] = $User ;
-                    }
-                }
-            }
+            $data         = get_transient( 'fp_background_process_transient_for_add_points_' . $current_user_id ) ;
+            $UserId       = self::get_user_ids( $data ) ;
             update_user_meta( $current_user_id , 'selected_user' , $UserId ) ;
             update_user_meta( $current_user_id , 'selected_options' , $data ) ;
             delete_transient( 'fp_background_process_transient_for_add_points_' . $current_user_id ) ;
@@ -290,6 +278,41 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
             self::$add_points_for_user->save()->dispatch() ;
         }
 
+        /* Search User and User Role Filter Options get User Ids */
+
+        public static function get_user_ids( $data ) {
+            if ( empty( $data[ 'usertype' ] ) )
+                return array() ;
+
+            $args = array() ;
+            switch ( $data[ 'usertype' ] ) {
+
+                case '2':
+                    $args = array(
+                        'include' => srp_check_is_array( $data[ 'incuser' ] ) ? $data[ 'incuser' ] : explode( ',' , $data[ 'incuser' ] ) ,
+                            ) ;
+                    break ;
+                case '3':
+                    $args = array(
+                        'exclude' => srp_check_is_array( $data[ 'excuser' ] ) ? $data[ 'excuser' ] : explode( ',' , $data[ 'excuser' ] ) ,
+                            ) ;
+                    break ;
+                case '4':
+                    $args = array(
+                        'role__in' => srp_check_is_array( $data[ 'incuserrole' ] ) ? $data[ 'incuserrole' ] : explode( ',' , $data[ 'incuserrole' ] ) ,
+                            ) ;
+                    break ;
+                case '5':
+                    $args = array(
+                        'role__not_in' => srp_check_is_array( $data[ 'excuserrole' ] ) ? $data[ 'excuserrole' ] : explode( ',' , $data[ 'excuserrole' ] ) ,
+                            ) ;
+                    break ;
+            }
+
+            $args = array_merge( array( 'fields' => 'ids' ) , $args ) ;
+            return get_users( $args ) ;
+        }
+
         /* Initializing Background Process for Remove Points */
 
         public static function set_transient_for_remove_points() {
@@ -297,15 +320,17 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
 
             try {
                 $values = array(
-                    'usertype'   => isset( $_POST[ 'usertype' ] ) ? $_POST[ 'usertype' ] : '' ,
-                    'incuser'    => isset( $_POST[ 'includeuser' ] ) ? $_POST[ 'includeuser' ] : '' ,
-                    'excuser'    => isset( $_POST[ 'excludeuser' ] ) ? $_POST[ 'excludeuser' ] : '' ,
-                    'enablemail' => isset( $_POST[ 'sendmail_to_remove_points' ] ) ? $_POST[ 'sendmail_to_remove_points' ] : 'no' ,
-                    'subject'    => isset( $_POST[ 'email_subject_to_remove_points' ] ) ? $_POST[ 'email_subject_to_remove_points' ] : '' ,
-                    'message'    => isset( $_POST[ 'email_message_to_remove_points' ] ) ? $_POST[ 'email_message_to_remove_points' ] : '' ,
-                    'points'     => isset( $_POST[ 'points' ] ) ? $_POST[ 'points' ] : 0 ,
-                    'reason'     => isset( $_POST[ 'reason' ] ) ? $_POST[ 'reason' ] : '' ,
-                    'state'      => isset( $_POST[ 'state' ] ) ? $_POST[ 'state' ] : 'no' ,
+                    'usertype'    => isset( $_POST[ 'usertype' ] ) ? $_POST[ 'usertype' ] : '' ,
+                    'incuser'     => isset( $_POST[ 'includeuser' ] ) ? $_POST[ 'includeuser' ] : '' ,
+                    'excuser'     => isset( $_POST[ 'excludeuser' ] ) ? $_POST[ 'excludeuser' ] : '' ,
+                    'incuserrole' => isset( $_POST[ 'includeuserrole' ] ) ? $_POST[ 'includeuserrole' ] : '' ,
+                    'excuserrole' => isset( $_POST[ 'excludeuserrole' ] ) ? $_POST[ 'excludeuserrole' ] : '' ,
+                    'enablemail'  => isset( $_POST[ 'sendmail_to_remove_points' ] ) ? $_POST[ 'sendmail_to_remove_points' ] : 'no' ,
+                    'subject'     => isset( $_POST[ 'email_subject_to_remove_points' ] ) ? $_POST[ 'email_subject_to_remove_points' ] : '' ,
+                    'message'     => isset( $_POST[ 'email_message_to_remove_points' ] ) ? $_POST[ 'email_message_to_remove_points' ] : '' ,
+                    'points'      => isset( $_POST[ 'points' ] ) ? $_POST[ 'points' ] : 0 ,
+                    'reason'      => isset( $_POST[ 'reason' ] ) ? $_POST[ 'reason' ] : '' ,
+                    'state'       => isset( $_POST[ 'state' ] ) ? $_POST[ 'state' ] : 'no' ,
                         ) ;
 
                 $current_user_id = get_current_user_id() ;
@@ -321,22 +346,8 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
             if ( ! get_transient( 'fp_background_process_transient_for_remove_points_' . $current_user_id ) )
                 return ;
 
-            $data = get_transient( 'fp_background_process_transient_for_remove_points_' . $current_user_id ) ;
-            if ( $data[ 'usertype' ] == '1' ) {
-                $args   = array( 'fields' => 'ID' ) ;
-                $UserId = get_users( $args ) ;
-            } else if ( $data[ 'usertype' ] == '2' ) {
-                $UserId = is_array( $data[ 'incuser' ] ) ? $data[ 'incuser' ] : explode( ',' , $data[ 'incuser' ] ) ;
-            } else if ( $data[ 'usertype' ] == '3' ) {
-                $ExcludedId = is_array( $data[ 'excuser' ] ) ? $data[ 'excuser' ] : explode( ',' , $data[ 'excuser' ] ) ;
-                $args       = array( 'fields' => 'ID' ) ;
-                $AllUsers   = get_users( $args ) ;
-                foreach ( $AllUsers as $User ) {
-                    if ( ! in_array( $User , $ExcludedId ) ) {
-                        $UserId[] = $User ;
-                    }
-                }
-            }
+            $data         = get_transient( 'fp_background_process_transient_for_remove_points_' . $current_user_id ) ;
+            $UserId       = self::get_user_ids( $data ) ;
             update_user_meta( $current_user_id , 'selected_user' , $UserId ) ;
             update_user_meta( $current_user_id , 'selected_options' , $data ) ;
             delete_transient( 'fp_background_process_transient_for_remove_points_' . $current_user_id ) ;

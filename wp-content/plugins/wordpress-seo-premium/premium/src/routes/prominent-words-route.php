@@ -2,12 +2,17 @@
 
 namespace Yoast\WP\SEO\Routes;
 
+use Exception;
+use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
+use Yoast\WP\SEO\Actions\Indexation\Indexation_Action_Interface;
 use Yoast\WP\SEO\Actions\Prominent_Words\Complete_Action;
 use Yoast\WP\SEO\Actions\Prominent_Words\Content_Action;
 use Yoast\WP\SEO\Actions\Prominent_Words\Save_Action;
 use Yoast\WP\SEO\Conditionals\No_Conditionals;
+use Yoast\WP\SEO\Helpers\Options_Helper;
+use Yoast\WP\SEO\Integrations\Admin\Indexing_Notification_Integration;
 use Yoast\WP\SEO\Main;
 
 /**
@@ -15,7 +20,7 @@ use Yoast\WP\SEO\Main;
  *
  * @package Yoast\WP\SEO\Routes
  */
-class Prominent_Words_Route implements Route_Interface {
+class Prominent_Words_Route extends Abstract_Indexation_Route {
 
 	use No_Conditionals;
 
@@ -90,20 +95,30 @@ class Prominent_Words_Route implements Route_Interface {
 	protected $save_action;
 
 	/**
+	 * The options helper.
+	 *
+	 * @var Options_Helper
+	 */
+	protected $options_helper;
+
+	/**
 	 * Prominent_Words_Route constructor.
 	 *
 	 * @param Content_Action  $content_action  The content action.
 	 * @param Save_Action     $save_action     The save action.
 	 * @param Complete_Action $complete_action The complete action.
+	 * @param Options_Helper  $options_helper  The options helper.
 	 */
 	public function __construct(
 		Content_Action $content_action,
 		Save_Action $save_action,
-		Complete_Action $complete_action
+		Complete_Action $complete_action,
+		Options_Helper $options_helper
 	) {
 		$this->content_action  = $content_action;
 		$this->save_action     = $save_action;
 		$this->complete_action = $complete_action;
+		$this->options_helper  = $options_helper;
 	}
 
 	/**
@@ -117,7 +132,7 @@ class Prominent_Words_Route implements Route_Interface {
 			self::GET_CONTENT_ROUTE,
 			[
 				'methods'             => 'POST',
-				'callback'            => [ $this, 'run_indexation_action' ],
+				'callback'            => [ $this, 'run_content_action' ],
 				'permission_callback' => [ $this, 'can_retrieve_data' ],
 			]
 		);
@@ -161,24 +176,12 @@ class Prominent_Words_Route implements Route_Interface {
 	}
 
 	/**
-	 * Runs the content action and returns the response.
+	 * Retrieves the content that needs to be analyzed for prominent words.
 	 *
-	 * @return WP_REST_Response The response.
+	 * @return WP_REST_Response Response with the content that needs to be analyzed for prominent words.
 	 */
-	public function run_indexation_action() {
-		$post_data = $this->content_action->get();
-
-		$next_url = false;
-		if ( \count( $post_data ) >= $this->content_action->get_limit() ) {
-			$next_url = \rest_url( self::FULL_GET_CONTENT_ROUTE );
-		}
-
-		return new WP_REST_Response(
-			[
-				'objects'  => $post_data,
-				'next_url' => $next_url,
-			]
-		);
+	public function run_content_action() {
+		return $this->run_indexation_action( $this->content_action, self::FULL_GET_CONTENT_ROUTE );
 	}
 
 	/**
@@ -188,13 +191,7 @@ class Prominent_Words_Route implements Route_Interface {
 	 */
 	public function run_complete_action() {
 		$this->complete_action->complete();
-
-		return new WP_REST_Response(
-			[
-				'objects'  => [],
-				'next_url' => false,
-			]
-		);
+		return $this->respond_with( [], false );
 	}
 
 	/**
@@ -226,5 +223,23 @@ class Prominent_Words_Route implements Route_Interface {
 	 */
 	public function can_retrieve_data() {
 		return \current_user_can( 'edit_posts' );
+	}
+
+	/**
+	 * Runs an indexation action and returns the response.
+	 *
+	 * @param Indexation_Action_Interface $indexation_action The indexation action.
+	 * @param string                      $url               The url of the indexation route.
+	 *
+	 * @return WP_REST_Response|WP_Error The response, or an error when running the indexing action failed.
+	 */
+	protected function run_indexation_action( Indexation_Action_Interface $indexation_action, $url ) {
+		try {
+			return parent::run_indexation_action( $indexation_action, $url );
+		} catch ( Exception $exception ) {
+			$this->options_helper->set( 'indexing_reason', Indexing_Notification_Integration::REASON_INDEXING_FAILED );
+
+			return new WP_Error( 'wpseo_error_indexing', $exception->getMessage() );
+		}
 	}
 }

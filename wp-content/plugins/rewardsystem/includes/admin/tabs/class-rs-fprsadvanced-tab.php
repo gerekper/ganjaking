@@ -3,10 +3,10 @@
  * Advanced Tab
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly.
 }
-if ( ! class_exists( 'RSAdvancedSetting' ) ) {
+if( ! class_exists( 'RSAdvancedSetting' ) ) {
 
     class RSAdvancedSetting {
 
@@ -30,6 +30,8 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
             add_action( 'woocommerce_admin_field_rs_administrator_wrapper_start' , array( __CLASS__ , 'rs_wrapper_administrator_start' ) ) ;
 
             add_action( 'woocommerce_admin_field_rs_administrator_wrapper_end' , array( __CLASS__ , 'rs_wrapper_administrator_close' ) ) ;
+
+            add_action( 'woocommerce_admin_field_rs_points_earned_in_specific_duration_shortcode' , array( __CLASS__ , 'rs_points_earned_in_specific_duration_shortcode' ) ) ;
 
             add_action( 'rs_display_save_button_fprsadvanced' , array( 'RSTabManagement' , 'rs_display_save_button' ) ) ;
 
@@ -476,6 +478,26 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
                     'std'               => '' ,
                     'default'           => '' ,
                 ) ,
+                array(
+                    'name'    => __( 'User Reward Points display based on specific duration' , SRP_LOCALE ) ,
+                    'id'      => 'rs_points_earned_in_specific_duration_is_enabled' ,
+                    'newids'  => 'rs_points_earned_in_specific_duration_is_enabled' ,
+                    'type'    => 'checkbox' ,
+                    'std'     => 'no' ,
+                    'default' => 'no' ,
+                    'desc'    => 'By enabling this checkbox, you can display the table which shows the points earned by the users in a specific duration' ,
+                ) ,
+                array(
+                    'type' => 'rs_points_earned_in_specific_duration_shortcode' ,
+                ) ,
+                array(
+                    'name'    => __( 'Pagination' , SRP_LOCALE ) ,
+                    'id'      => 'rs_points_earned_in_specific_duration_pagination' ,
+                    'newids'  => 'rs_points_earned_in_specific_duration_pagination' ,
+                    'type'    => 'number' ,
+                    'std'     => '5' ,
+                    'default' => '5' ,
+                ) ,
                 array( 'type' => 'sectionend' , 'id' => '_rs_short_code_settings_rank' ) ,
                 array(
                     'type' => 'rs_wrapper_end' ,
@@ -872,7 +894,7 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
             </div>
             <?php
             $user_roles = rs_get_current_user_role() ;
-            if ( ! in_array( 'administrator' , $user_roles ) ) {
+            if( ! in_array( 'administrator' , $user_roles ) ) {
                 ?>
                 <style type="text/css">
                     .rs_adminstrator_wrapper{
@@ -890,11 +912,19 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
 
         public static function reward_system_update_settings() {
             woocommerce_update_options( RSAdvancedSetting::reward_system_admin_fields() ) ;
+
+            if( isset( $_POST[ 'rs_points_earned_in_specific_duration_from_date' ] ) ) {
+                update_option( 'rs_points_earned_in_specific_duration_from_date' , sanitize_text_field( $_POST[ 'rs_points_earned_in_specific_duration_from_date' ] ) ) ;
+            }
+
+            if( isset( $_POST[ 'rs_points_earned_in_specific_duration_to_date' ] ) ) {
+                update_option( 'rs_points_earned_in_specific_duration_to_date' , sanitize_text_field( $_POST[ 'rs_points_earned_in_specific_duration_to_date' ] ) ) ;
+            }
         }
 
         public static function set_default_value() {
-            foreach ( RSAdvancedSetting::reward_system_admin_fields() as $setting )
-                if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+            foreach( RSAdvancedSetting::reward_system_admin_fields() as $setting )
+                if( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
                     add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
                 }
         }
@@ -920,13 +950,13 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
         public static function rs_add_date_picker() {
             ?>
             <script type="text/javascript">
-                jQuery( function () {
+                jQuery( function() {
                     jQuery( "#rs_from_date" ).datepicker( {
                         defaultDate : "+1w" ,
                         changeMonth : true ,
                         dateFormat : 'yy-mm-dd' ,
                         numberOfMonths : 1 ,
-                        onClose : function ( selectedDate ) {
+                        onClose : function( selectedDate ) {
                             jQuery( "#to" ).datepicker( "option" , "minDate" , selectedDate ) ;
                         }
                     } ) ;
@@ -936,7 +966,7 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
                         changeMonth : true ,
                         dateFormat : 'yy-mm-dd' ,
                         numberOfMonths : 1 ,
-                        onClose : function ( selectedDate ) {
+                        onClose : function( selectedDate ) {
                             jQuery( "#from" ).datepicker( "option" , "maxDate" , selectedDate ) ;
                         }
 
@@ -975,11 +1005,11 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
             $mainvariable     = array() ;
             global $woocommerce ;
             $newcombinedarray = RSAdminAssets::list_of_tabs() ;
-            foreach ( $settings as $section ) {
-                if ( isset( $section[ 'id' ] ) && '_rs_user_role_menu_restriction_reward_points' == $section[ 'id' ] &&
+            foreach( $settings as $section ) {
+                if( isset( $section[ 'id' ] ) && '_rs_user_role_menu_restriction_reward_points' == $section[ 'id' ] &&
                         isset( $section[ 'type' ] ) && 'sectionend' == $section[ 'type' ] ) {
-                    foreach ( $wp_roles->role_names as $value => $key ) {
-                        if ( $key != 'Administrator' && $key != 'Customer' ) {
+                    foreach( $wp_roles->role_names as $value => $key ) {
+                        if( $key != 'Administrator' && $key != 'Customer' ) {
                             $updated_settings[] = array(
                                 'name'     => __( 'Reward Points Menu Restriction For ' . $key . ' User Role' , SRP_LOCALE ) ,
                                 'desc'     => __( 'Restrict the Reward Points Menus For ' . $key . ' User role' , SRP_LOCALE ) ,
@@ -1004,6 +1034,46 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
             }
 
             return $updated_settings ;
+        }
+
+        public static function rs_points_earned_in_specific_duration_shortcode() {
+            ?>         
+            <script type="text/javascript">
+                jQuery( function( ) {
+                    jQuery( "#rs_points_earned_in_specific_duration_from_date" ).datepicker( {
+                        dateFormat : 'yy-mm-dd' ,
+                    } ) ;
+                    jQuery( "#rs_points_earned_in_specific_duration_to_date" ).datepicker( {
+                        dateFormat : 'yy-mm-dd' ,
+                    } ) ;
+                } ) ;
+            </script>
+
+            <tr valign="top">
+                <th class="titledesc" scope="row">
+                    <label><?php esc_html_e( 'From Date' , SRP_LOCALE ) ; ?></label>
+                </th>
+                <td class="forminp forminp-select">
+                    <input type="text" 
+                           class="rs_points_earned_in_specific_duration_from_date srp_datepicker" 
+                           name="rs_points_earned_in_specific_duration_from_date" id="rs_points_earned_in_specific_duration_from_date"
+                           value="<?php echo esc_html( get_option( 'rs_points_earned_in_specific_duration_from_date' ) ) ?>" />
+                </td>                
+            </tr>                
+
+            <tr valign="top">
+                <th class="titledesc" scope="row">
+                    <label><?php esc_html_e( 'To Date' , SRP_LOCALE ) ; ?></label>
+                </th>
+                <td class="forminp forminp-select">
+                    <input type="text" 
+                           class="rs_points_earned_in_specific_duration_to_date srp_datepicker"
+                           name="rs_points_earned_in_specific_duration_to_date" 
+                           id="rs_points_earned_in_specific_duration_to_date" 
+                           value="<?php echo esc_html( get_option( 'rs_points_earned_in_specific_duration_to_date' ) ) ?>" />                                
+                </td>                
+            </tr>
+            <?php
         }
 
     }

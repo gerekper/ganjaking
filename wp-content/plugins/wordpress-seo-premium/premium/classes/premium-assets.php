@@ -69,6 +69,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'path'         => 'assets/js/dist/',
 				'filename'     => 'wp-seo-premium-metabox-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
 				'dependencies' => [
+					'clipboard',
 					'jquery',
 					'wp-util',
 					'underscore',
@@ -79,6 +80,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'components',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'classic-editor',
 				],
 			],
 			[
@@ -151,7 +153,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-dom-ready',
 					'wp-element',
 					'wp-i18n',
-					'yoast-seo-premium-metabox',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'components',
 				],
 			],
 			[

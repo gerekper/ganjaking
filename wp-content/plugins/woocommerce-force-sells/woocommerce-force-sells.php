@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Force Sells
  * Plugin URI: https://woocommerce.com/products/force-sells/
  * Description: Allows you to select products which will be used as force-sells - items which get added to the cart along with other items.
- * Version: 1.1.26
+ * Version: 1.1.27
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * WC tested up to: 4.5
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'plugins_loaded', array( 'WC_Force_Sells', 'get_instance' ) );
 
 if ( ! class_exists( 'WC_Force_Sells' ) ) :
-	define( 'WC_FORCE_SELLS_VERSION', '1.1.26' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_FORCE_SELLS_VERSION', '1.1.27' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main plugin class.
@@ -383,6 +383,11 @@ if ( ! class_exists( 'WC_Force_Sells' ) ) :
 				if ( isset( WC()->cart->cart_contents[ $forced_by_key ] ) ) {
 					return;
 				}
+			}
+
+			// Don't force products on the manual payment page (they are already forced when creating the order).
+			if ( is_checkout_pay_page() ) {
+				return;
 			}
 
 			$product = wc_get_product( $product_id );

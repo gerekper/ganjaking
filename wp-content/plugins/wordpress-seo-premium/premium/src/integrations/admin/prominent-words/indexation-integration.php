@@ -2,7 +2,6 @@
 
 namespace Yoast\WP\SEO\Integrations\Admin\Prominent_Words;
 
-use WPSEO_Admin_Asset_Manager;
 use WPSEO_Language_Utils;
 use Yoast\WP\SEO\Actions\Indexation\Indexable_General_Indexation_Action;
 use Yoast\WP\SEO\Actions\Indexation\Indexable_Post_Indexation_Action;
@@ -15,9 +14,6 @@ use Yoast\WP\SEO\Conditionals\Yoast_Tools_Page_Conditional;
 use Yoast\WP\SEO\Helpers\Language_Helper;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
-use Yoast\WP\SEO\Presenters\Admin\Prominent_Words\Indexation_List_Item_Presenter;
-use Yoast\WP\SEO\Presenters\Admin\Prominent_Words\Indexation_Modal_Presenter;
-use Yoast\WP\SEO\Routes\Indexable_Indexation_Route;
 use Yoast\WP\SEO\Routes\Prominent_Words_Route;
 
 /**
@@ -48,42 +44,35 @@ class Indexation_Integration implements Integration_Interface {
 	 *
 	 * @var Content_Action
 	 */
-	protected $content_action;
+	protected $content_indexation_action;
 
 	/**
 	 * The post indexation action.
 	 *
 	 * @var Indexable_Post_Indexation_Action
 	 */
-	protected $post_indexation;
+	protected $post_indexation_action;
 
 	/**
 	 * The term indexation action.
 	 *
 	 * @var Indexable_Term_Indexation_Action
 	 */
-	protected $term_indexation;
+	protected $term_indexation_action;
 
 	/**
 	 * The post type archive indexation action.
 	 *
 	 * @var Indexable_Post_Type_Archive_Indexation_Action
 	 */
-	protected $post_type_archive_indexation;
+	protected $post_type_archive_indexation_action;
 
 	/**
-	 * Represents the general indexation.
+	 * Represents the general indexation action.
 	 *
 	 * @var Indexable_General_Indexation_Action
 	 */
-	protected $general_indexation;
-
-	/**
-	 * Represents the admin asset manager.
-	 *
-	 * @var WPSEO_Admin_Asset_Manager
-	 */
-	protected $asset_manager;
+	protected $general_indexation_action;
 
 	/**
 	 * Represents the options helper.
@@ -109,33 +98,30 @@ class Indexation_Integration implements Integration_Interface {
 	/**
 	 * WPSEO_Premium_Prominent_Words_Recalculation constructor.
 	 *
-	 * @param WPSEO_Admin_Asset_Manager                     $asset_manager                The asset manager.
-	 * @param Content_Action                                $content_action               The content action.
-	 * @param Indexable_Post_Indexation_Action              $post_indexation              The post indexation action.
-	 * @param Indexable_Term_Indexation_Action              $term_indexation              The term indexation action.
-	 * @param Indexable_Post_Type_Archive_Indexation_Action $post_type_archive_indexation The archive indexation action.
-	 * @param Indexable_General_Indexation_Action           $general_indexation           The general indexation action.
-	 * @param Options_Helper                                $options                      The options helper.
-	 * @param Language_Helper                               $language_helper              The language helper.
+	 * @param Content_Action                                $content_indexation_action           The content indexation action.
+	 * @param Indexable_Post_Indexation_Action              $post_indexation_action              The post indexation action.
+	 * @param Indexable_Term_Indexation_Action              $term_indexation_action              The term indexation action.
+	 * @param Indexable_General_Indexation_Action           $general_indexation_action           The general indexation action.
+	 * @param Indexable_Post_Type_Archive_Indexation_Action $post_type_archive_indexation_action The post type archive indexation action.
+	 * @param Options_Helper                                $options                             The options helper.
+	 * @param Language_Helper                               $language_helper                     The language helper.
 	 */
 	public function __construct(
-		WPSEO_Admin_Asset_Manager $asset_manager,
-		Content_Action $content_action,
-		Indexable_Post_Indexation_Action $post_indexation,
-		Indexable_Term_Indexation_Action $term_indexation,
-		Indexable_Post_Type_Archive_Indexation_Action $post_type_archive_indexation,
-		Indexable_General_Indexation_Action $general_indexation,
+		Content_Action $content_indexation_action,
+		Indexable_Post_Indexation_Action $post_indexation_action,
+		Indexable_Term_Indexation_Action $term_indexation_action,
+		Indexable_General_Indexation_Action $general_indexation_action,
+		Indexable_Post_Type_Archive_Indexation_Action $post_type_archive_indexation_action,
 		Options_Helper $options,
 		Language_Helper $language_helper
 	) {
-		$this->asset_manager                = $asset_manager;
-		$this->content_action               = $content_action;
-		$this->post_indexation              = $post_indexation;
-		$this->term_indexation              = $term_indexation;
-		$this->post_type_archive_indexation = $post_type_archive_indexation;
-		$this->general_indexation           = $general_indexation;
-		$this->options                      = $options;
-		$this->language_helper              = $language_helper;
+		$this->content_indexation_action           = $content_indexation_action;
+		$this->post_indexation_action              = $post_indexation_action;
+		$this->term_indexation_action              = $term_indexation_action;
+		$this->general_indexation_action           = $general_indexation_action;
+		$this->post_type_archive_indexation_action = $post_type_archive_indexation_action;
+		$this->options                             = $options;
+		$this->language_helper                     = $language_helper;
 	}
 
 	/**
@@ -146,8 +132,24 @@ class Indexation_Integration implements Integration_Interface {
 	 * @return void
 	 */
 	public function register_hooks() {
-		\add_action( 'wpseo_tools_overview_list_items', [ $this, 'render_indexation_list_item' ], 11 );
-		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ], 10 );
+		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+
+		\add_filter( 'wpseo_indexing_data', [ $this, 'adapt_indexing_data' ] );
+		\add_filter( 'wpseo_indexing_get_unindexed_count', [ $this, 'get_unindexed_count' ] );
+		\add_filter( 'wpseo_indexing_endpoints', [ $this, 'add_endpoints' ] );
+	}
+
+	/**
+	 * Registers the instance.
+	 *
+	 * @param Indexing_Interface[] $instances The interfaces to extend.
+	 *
+	 * @return Indexing_Interface[] The extended instances.
+	 */
+	public function register_instance( $instances ) {
+		$instances[] = $this;
+
+		return $instances;
 	}
 
 	/**
@@ -164,117 +166,78 @@ class Indexation_Integration implements Integration_Interface {
 	}
 
 	/**
-	 * Enqueues the required scripts.
+	 * Retrieves the endpoints to call.
 	 *
-	 * @return void
+	 * @param array $endpoints The endpoints to extend.
+	 *
+	 * @return array The endpoints.
 	 */
-	public function enqueue_scripts() {
-		/*
-		 * We aren't able to determine whether or not anything needs to happen at register_hooks,
-		 * as indexable object types aren't registered yet. So we do most of our add_action calls here.
-		 */
-		if ( $this->get_total_unindexed() === 0 ) {
-			$this->options->set( 'prominent_words_indexation_completed', true );
+	public function add_endpoints( $endpoints ) {
+		$endpoints['get_content']    = Prominent_Words_Route::FULL_GET_CONTENT_ROUTE;
+		$endpoints['complete_words'] = Prominent_Words_Route::FULL_COMPLETE_ROUTE;
 
-			return;
-		}
+		return $endpoints;
+	}
 
-		$this->options->set( 'prominent_words_indexation_completed', false );
-
-		\add_action( 'admin_footer', [ $this, 'render_indexation_modal' ], 20 );
-
+	/**
+	 * Adapts the indexing data as sent to the JavaScript side of the
+	 * indexing process.
+	 *
+	 * Adds the appropriate prominent words endpoints and other settings.
+	 *
+	 * @param array $data The data to be adapted.
+	 *
+	 * @return array The adapted indexing data.
+	 */
+	public function adapt_indexing_data( $data ) {
 		$site_locale = \get_locale();
 		$language    = WPSEO_Language_Utils::get_language( $site_locale );
+
+		$data['locale']   = $site_locale;
+		$data['language'] = $language;
+
+		$data['morphologySupported'] = $this->language_helper->is_word_form_recognition_active( $language );
 
 		$per_indexable_limit = self::PER_INDEXABLE_LIMIT_NO_FUNCTION_WORD_SUPPORT;
 		if ( $this->language_helper->has_function_word_support( $language ) ) {
 			$per_indexable_limit = self::PER_INDEXABLE_LIMIT;
 		}
 
-		$indexation_data = [
-			'amount'              => $this->get_total_unindexed(),
-			'ids'                 => [
-				'count'    => '#yoast-prominent-words-indexation-current-count',
-				'progress' => '#yoast-prominent-words-indexation-progress-bar',
-				'modal'    => 'yoast-prominent-words-indexation-wrapper',
-				'message'  => '#yoast-prominent-words-indexation',
-			],
-			'restApi'             => [
-				'root'      => \esc_url_raw( \rest_url() ),
-				'endpoints' => [
-					'prepare'        => Indexable_Indexation_Route::FULL_PREPARE_ROUTE,
-					'posts'          => Indexable_Indexation_Route::FULL_POSTS_ROUTE,
-					'terms'          => Indexable_Indexation_Route::FULL_TERMS_ROUTE,
-					'archives'       => Indexable_Indexation_Route::FULL_POST_TYPE_ARCHIVES_ROUTE,
-					'general'        => Indexable_Indexation_Route::FULL_GENERAL_ROUTE,
-					'complete'       => Indexable_Indexation_Route::FULL_COMPLETE_ROUTE,
-					'get_content'    => Prominent_Words_Route::FULL_GET_CONTENT_ROUTE,
-					'complete_words' => Prominent_Words_Route::FULL_COMPLETE_ROUTE,
-				],
-				'nonce'     => \wp_create_nonce( 'wp_rest' ),
-			],
-			'message'             => [
-				'indexingCompleted' => '<span class="wpseo-checkmark-ok-icon"></span>' . \esc_html__( 'Good job! All your internal linking suggestions are up to date. These suggestions appear alongside your content when you are writing or editing. We will notify you the next time you need to update your internal linking suggestions.', 'wordpress-seo-premium' ),
-				'indexingFailed'    => \__( 'Something went wrong while calculating the internal linking suggestions of your site. Please try again later.', 'wordpress-seo-premium' ),
-			],
-			'l10n'                => [
-				'calculationInProgress' => \__( 'Calculation in progress...', 'wordpress-seo-premium' ),
-				'calculationCompleted'  => \__( 'Calculation completed.', 'wordpress-seo-premium' ),
-				'calculationFailed'     => \__( 'Calculation failed, please try again later.', 'wordpress-seo-premium' ),
-			],
-			'locale'              => $site_locale,
-			'language'            => $language,
-			'prominentWords'      => [
-				'endpoint'          => Prominent_Words_Route::FULL_SAVE_ROUTE,
-				'perIndexableLimit' => $per_indexable_limit,
-			],
-			'morphologySupported' => $this->language_helper->is_word_form_recognition_active( $language ),
+		$data['prominentWords'] = [
+			'endpoint'          => Prominent_Words_Route::FULL_SAVE_ROUTE,
+			'perIndexableLimit' => $per_indexable_limit,
 		];
 
-		\wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'indexation', 'yoastProminentWordsIndexationData', $indexation_data );
-		$this->asset_manager->enqueue_script( 'indexation' );
-		$this->asset_manager->enqueue_style( 'admin-css' );
+		return $data;
+	}
+
+	/**
+	 * Enqueues the required scripts.
+	 *
+	 * @return void
+	 */
+	public function enqueue_scripts() {
+		$is_completed = ( (int) $this->get_unindexed_count( 0 ) === 0 );
+		$this->options->set( 'prominent_words_indexation_completed', $is_completed );
+
 		\wp_enqueue_script( 'yoast-premium-prominent-words-indexation' );
-	}
-
-	/**
-	 * Renders the indexation list item.
-	 *
-	 * @return void
-	 */
-	public function render_indexation_list_item() {
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Reason: Indexation_List_Item_Presenter::present is properly escaped.
-		echo new Indexation_List_Item_Presenter( $this->get_total_unindexed() );
-	}
-
-	/**
-	 * Renders the indexation modal.
-	 *
-	 * @return void
-	 */
-	public function render_indexation_modal() {
-		\add_thickbox();
-
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Reason: Indexation_Modal_Presenter::present is properly escaped.
-		echo new Indexation_Modal_Presenter( $this->get_total_unindexed() );
 	}
 
 	/**
 	 * Returns the total number of unindexed objects.
 	 *
+	 * @param int $unindexed_count The unindexed count.
+	 *
 	 * @return int The total number of indexables to recalculate.
 	 */
-	protected function get_total_unindexed() {
-		if ( $this->total_unindexed === null ) {
-			$this->total_unindexed = $this->content_action->get_total_unindexed();
+	public function get_unindexed_count( $unindexed_count ) {
+		$unindexed_count += $this->content_indexation_action->get_total_unindexed();
+		// Take posts and terms into account that do not have indexables yet.
+		$unindexed_count += $this->post_indexation_action->get_total_unindexed();
+		$unindexed_count += $this->term_indexation_action->get_total_unindexed();
+		$unindexed_count += $this->general_indexation_action->get_total_unindexed();
+		$unindexed_count += $this->post_type_archive_indexation_action->get_total_unindexed();
 
-			// Count objects which have no indexable twice. Once to create the indexable and once to create the prominent words.
-			$this->total_unindexed += ( 2 * $this->post_indexation->get_total_unindexed() );
-			$this->total_unindexed += ( 2 * $this->term_indexation->get_total_unindexed() );
-			$this->total_unindexed += ( 2 * $this->general_indexation->get_total_unindexed() );
-			$this->total_unindexed += ( 2 * $this->post_type_archive_indexation->get_total_unindexed() );
-		}
-
-		return $this->total_unindexed;
+		return $unindexed_count;
 	}
 }

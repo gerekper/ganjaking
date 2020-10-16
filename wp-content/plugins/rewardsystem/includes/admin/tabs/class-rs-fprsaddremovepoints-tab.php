@@ -48,9 +48,11 @@ if ( ! class_exists( 'RSAddorRemovePoints' ) ) {
                     'newids'  => 'rs_select_user_type' ,
                     'class'   => 'rs_select_user_type' ,
                     'options' => array(
-                        '1' => __( 'All User' , SRP_LOCALE ) ,
-                        '2' => __( 'Include User' , SRP_LOCALE ) ,
-                        '3' => __( 'Exclude User' , SRP_LOCALE ) ,
+                        '1' => __( 'All Users' , SRP_LOCALE ) ,
+                        '2' => __( 'Include User(s)' , SRP_LOCALE ) ,
+                        '3' => __( 'Exclude User(s)' , SRP_LOCALE ) ,
+                        '4' => __( 'Include User Role(s)' , SRP_LOCALE ) ,
+                        '5' => __( 'Exclude User Role(s)' , SRP_LOCALE ) ,
                     ) ,
                     'std'     => '1' ,
                     'default' => '1' ,
@@ -60,6 +62,29 @@ if ( ! class_exists( 'RSAddorRemovePoints' ) ) {
                 ) ,
                 array(
                     'type' => 'rs_exc_user_to_add_remove_points' ,
+                ) ,
+                array(
+                    'name'        => __( 'Select User role(s) to Include' , SRP_LOCALE ) ,
+                    'id'          => 'rs_select_to_include_customers_role' ,
+                    'css'         => 'min-width:343px;' ,
+                    'std'         => '' ,
+                    'default'     => '' ,
+                    'placeholder' => 'Search for a User Role' ,
+                    'type'        => 'multiselect' ,
+                    'options'     => fp_user_roles() ,
+                    'newids'      => 'rs_select_to_include_customers_role' ,
+                    'desc_tip'    => false ,
+                ) ,
+                array(
+                    'name'     => __( 'Select User role(s) to Exclude' , SRP_LOCALE ) ,
+                    'id'       => 'rs_select_to_exclude_customers_role' ,
+                    'css'      => 'min-width:343px;' ,
+                    'std'      => '' ,
+                    'default'  => '' ,
+                    'type'     => 'multiselect' ,
+                    'options'  => fp_user_roles() ,
+                    'newids'   => 'rs_select_to_exclude_customers_role' ,
+                    'desc_tip' => false ,
                 ) ,
                 array(
                     'name'              => __( 'Points to Update' , SRP_LOCALE ) ,
@@ -186,7 +211,7 @@ if ( ! class_exists( 'RSAddorRemovePoints' ) ) {
         public static function rs_inc_user_to_add_remove_points() {
             echo rs_common_ajax_function_to_select_user( 'rs_select_to_include_customers' ) ;
             $incfield_id    = "rs_select_to_include_customers" ;
-            $incfield_label = "Select to Include Username/Email" ;
+            $incfield_label = esc_html__( 'Select User(s) to Include' , SRP_LOCALE ) ;
             $getincuser     = get_option( 'rs_select_to_include_customers' ) ;
             echo user_selection_field( $incfield_id , $incfield_label , $getincuser ) ;
         }
@@ -194,7 +219,7 @@ if ( ! class_exists( 'RSAddorRemovePoints' ) ) {
         public static function rs_exc_user_to_add_remove_points() {
             echo rs_common_ajax_function_to_select_user( 'rs_select_to_exclude_customers' ) ;
             $excfield_id    = "rs_select_to_exclude_customers" ;
-            $excfield_label = "Select to Exclude Username/Email" ;
+            $excfield_label = esc_html__( 'Select User(s) to Exclude' , SRP_LOCALE ) ;
             $getexcuser     = get_option( 'rs_select_to_exclude_customers' ) ;
             echo user_selection_field( $excfield_id , $excfield_label , $getexcuser ) ;
         }

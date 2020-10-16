@@ -88,9 +88,12 @@ class woocommerce_msrp_frontend {
 		if ( empty( $msrp ) ) {
 			return $variation_data;
 		}
+		// Adjust for tax input/display settings.
+		$msrp = wc_get_price_to_display( $variation, [ 'price' => $msrp ] );
+		// Add the data to the JS data array.
 		$variation_data['msrp']           = $msrp;
 		$variation_data['msrp_html']      = wc_price( $msrp );
-		$variation_data['non_msrp_price'] = $variation->get_price();
+		$variation_data['non_msrp_price'] = wc_get_price_to_display( $variation, [ 'price' => $variation->get_price() ] );
 		$variation_data['msrp_saving']    = $this->msrp_saving_html( $variation_data['msrp'], $variation_data['non_msrp_price'] );
 
 		return $variation_data;
@@ -294,6 +297,7 @@ class woocommerce_msrp_frontend {
 			if ( false === $child_msrp || '' === $child_msrp ) {
 				continue;
 			}
+			$child_msrp = wc_get_price_to_display( $current_product, [ 'price' => $child_msrp ] );
 			if ( empty( $lowest_msrp ) || $child_msrp < $lowest_msrp ) {
 				$lowest_msrp = $child_msrp;
 			}
@@ -333,9 +337,15 @@ class woocommerce_msrp_frontend {
 			if ( false === $msrp || '' === $msrp ) {
 				continue;
 			}
+
 			$child_product = wc_get_product( $child_id );
+			// Adjust MSRP for input/display preferences
+			$msrp = wc_get_price_to_display( $child_product, [ 'price' => $msrp ] );
 			// Grab the child's price.
-			$selling_price = $child_product->get_price();
+			$selling_price = wc_get_price_to_display(
+				$child_product,
+				[ 'price' => $child_product->get_price() ]
+			);
 
 			// Calculate the saving.
 			if ( 'amount' === $type ) {
@@ -437,7 +447,13 @@ class woocommerce_msrp_frontend {
 			if ( empty( $msrp ) ) {
 				return;
 			}
-			$selling_price = $current_product->get_price();
+			// Adjust MSRP for input/display preferences
+			$msrp = wc_get_price_to_display( $current_product, [ 'price' => $msrp ] );
+
+			$selling_price = wc_get_price_to_display(
+				$current_product,
+				[ ' price' => $current_product->get_price() ]
+			);
 
 			$show_msrp = false;
 			if ( 'always' === $msrp_status ) {

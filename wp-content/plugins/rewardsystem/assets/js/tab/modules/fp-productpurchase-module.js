@@ -103,6 +103,7 @@ jQuery( function ( $ ) {
         show_or_hide_for_award_point_based_on : function () {
             if ( $( '#rs_award_points_for_cart_or_product_total' ).val() == '1' ) {
                 $( '#rs_enable_disable_reward_point_based_coupon_amount' ).closest( 'tr' ).show() ;
+                $( '#rs_exclude_shipping_cost_based_on_cart_total' ).closest( 'tr' ).hide() ;
                 $( '#rs_enable_cart_total_reward_points' ).closest( 'tr' ).hide() ;
                 $( '#rs_reward_type_for_cart_total' ).closest( 'tr' ).hide() ;
                 $( '#rs_product_purchase_global_level_applicable_for' ).closest( 'tr' ).show() ;
@@ -125,6 +126,7 @@ jQuery( function ( $ ) {
                 $( '#rs_enable_disable_reward_point_based_coupon_amount' ).closest( 'tr' ).hide() ;
                 $( '#rs_enable_cart_total_reward_points' ).closest( 'tr' ).show() ;
                 $( '#rs_reward_type_for_cart_total' ).closest( 'tr' ).show() ;
+                $( '#rs_exclude_shipping_cost_based_on_cart_total' ).closest( 'tr' ).show() ; 
                 ProductPurchaseScripts.show_or_hide_for_enable_cart_total_based_points() ;
                 $( '#rs_product_purchase_global_level_applicable_for' ).closest( 'tr' ).hide() ;
                 $( '#rs_include_products_for_product_purchase' ).closest( 'tr' ).hide() ;

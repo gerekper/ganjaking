@@ -28,6 +28,7 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_earn_points_msg_for_each_variant_in_product_page() ;
             this.show_or_hide_for_purchase_message_in_cart_page() ;
             this.show_or_hide_for_buy_points_message_in_cart_page() ;
+            this.page_size_for_my_reward_table() ;
             this.show_or_hide_for_first_purchase_message_in_cart_page() ;
             this.show_or_hide_for_total_points_message_in_cart_page() ;
             this.show_or_hide_for_my_reward_message_in_cart_page() ;
@@ -62,6 +63,7 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_msg_for_percent_cart_based_points_in_shop_page() ;
             this.show_or_hide_for_msg_for_fixed_cart_based_points_in_custom_page() ;
             this.show_or_hide_for_msg_for_percent_cart_based_points_in_custom_page() ;
+            this.show_or_hide_for_msg_for_page_size_my_reward_table_shortcode() ;
             $( document ).on( 'change' , '#rs_my_reward_table_shortcode' , this.show_or_hide_for_reward_shortcode ) ;
             $( document ).on( 'change' , '#rs_enable_display_earn_message_for_variation' , this.show_or_hide_for_position_for_var ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_single_product' , this.single_product_page ) ;
@@ -86,6 +88,7 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_show_hide_message_for_variable_product' , this.earn_points_msg_for_each_variant_in_product_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_each_products' , this.purchase_message_in_cart_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_buy_point_message_for_each_products' , this.buy_points_message_in_cart_page ) ;
+            $( document ).on( 'change' , '#rs_show_hide_page_size_my_rewards' , this.my_reward_table_page_size ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_first_purchase_points' , this.first_purchase_message_in_cart_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_total_points' , this.total_points_message_in_cart_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_my_rewards' , this.my_reward_message_in_cart_page ) ;
@@ -120,6 +123,7 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_enable_msg_for_percent_cart_total_based_product_purchase_in_shop' , this.msg_for_percent_cart_based_points_in_shop_page ) ;
             $( document ).on( 'change' , '#rs_enable_msg_for_fixed_cart_total_based_product_purchase_in_custom' , this.msg_for_fixed_cart_based_points_in_custom_page ) ;
             $( document ).on( 'change' , '#rs_enable_msg_for_percent_cart_total_based_product_purchase_in_custom' , this.msg_for_percent_cart_based_points_in_custom_page ) ;
+            $( document ).on( 'change' , '#rs_show_hide_page_size_my_rewards_shortcode' , this.msg_for_page_size_my_reward_table_shortcode ) ;
         } ,
         msg_for_fixed_cart_based_points_in_product_page : function () {
             MessageTabScripts.show_or_hide_for_msg_for_fixed_cart_based_points_in_product_page() ;
@@ -179,6 +183,16 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_msg_for_percent_cart_total_based_product_purchase_in_custom' ).parent().parent().show() ;
             } else {
                 jQuery( '#rs_msg_for_percent_cart_total_based_product_purchase_in_custom' ).parent().parent().hide() ;
+            }
+        } ,
+        msg_for_page_size_my_reward_table_shortcode : function () {
+            MessageTabScripts.show_or_hide_for_msg_for_page_size_my_reward_table_shortcode() ;
+        } ,
+        show_or_hide_for_msg_for_page_size_my_reward_table_shortcode : function () {
+            if ( jQuery( '#rs_show_hide_page_size_my_rewards_shortcode' ).val() == '1' ) {
+                jQuery( '#rs_number_of_page_size_in_myrewards_shortcode' ).parent().parent().hide() ;
+            } else {
+                jQuery( '#rs_number_of_page_size_in_myrewards_shortcode' ).parent().parent().show() ;
             }
         } ,
         single_product_page : function () {
@@ -419,7 +433,16 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_message_for_first_purchase' ).parent().parent().hide() ;
             }
         } ,
-
+        my_reward_table_page_size : function () {
+            MessageTabScripts.page_size_for_my_reward_table() ;
+        } ,
+        page_size_for_my_reward_table : function () {
+            if ( jQuery( '#rs_show_hide_page_size_my_rewards' ).val() == '2' ) {
+                jQuery( '#rs_number_of_page_size_in_myaccount' ).parent().parent().show() ;
+            } else {
+                jQuery( '#rs_number_of_page_size_in_myaccount' ).parent().parent().hide() ;
+            }
+        } ,
         total_points_message_in_cart_page : function () {
             MessageTabScripts.show_or_hide_for_total_points_message_in_cart_page() ;
         } ,
@@ -737,6 +760,7 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_my_reward_points_s_no_shortcode' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_my_reward_points_user_name_hide_shortcode' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_show_hide_page_size_my_rewards_shortcode' ).closest( 'tr' ).show() ;
+                MessageTabScripts.show_or_hide_for_msg_for_page_size_my_reward_table_shortcode() ;
                 jQuery( '#rs_reward_table_position_shortcode' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_reward_point_label_position_shortcode' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_my_rewards_total_shortcode' ).closest( 'tr' ).show() ;
@@ -757,6 +781,7 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_my_reward_points_s_no_shortcode' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_my_reward_points_user_name_hide_shortcode' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_show_hide_page_size_my_rewards_shortcode' ).closest( 'tr' ).hide() ;
+                jQuery( '#rs_number_of_page_size_in_myrewards_shortcode' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_reward_table_position_shortcode' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_reward_point_label_position_shortcode' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_my_rewards_total_shortcode' ).closest( 'tr' ).hide() ;

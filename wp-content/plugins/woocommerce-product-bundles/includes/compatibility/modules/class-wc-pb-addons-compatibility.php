@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Product Addons Compatibility.
  *
- * @version  6.2.4
+ * @version  6.4.1
  */
 class WC_PB_Addons_Compatibility {
 
@@ -458,6 +458,7 @@ class WC_PB_Addons_Compatibility {
 	public static function add_addon_price_zero_filter( $bundled_item ) {
 
 		if ( ! $bundled_item->is_priced_individually() ) {
+			add_filter( 'woocommerce_product_addons_price_raw', array( __CLASS__, 'option_price_raw_zero_filter' ) );
 			add_filter( 'woocommerce_product_addons_option_price_raw', array( __CLASS__, 'option_price_raw_zero_filter' ) );
 		}
 	}
@@ -472,6 +473,7 @@ class WC_PB_Addons_Compatibility {
 	public static function remove_addon_price_zero_filter( $bundled_item ) {
 
 		if ( ! $bundled_item->is_priced_individually() ) {
+			remove_filter( 'woocommerce_product_addons_price_raw', array( __CLASS__, 'option_price_raw_zero_filter' ) );
 			remove_filter( 'woocommerce_product_addons_option_price_raw', array( __CLASS__, 'option_price_raw_zero_filter' ) );
 		}
 	}

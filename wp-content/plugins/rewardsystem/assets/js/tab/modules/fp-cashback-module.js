@@ -6,16 +6,28 @@ jQuery( function ( $ ) {
         init : function () {
             this.show_or_hide_for_enable_cashback_reward_points() ;
             this.show_or_hide_for_enable_recaptcha_reward_points() ;
+            this.show_or_hide_for_enable_userrole_based_redeem_cashback() ;
             this.email_notification_for_cashback_admin() ;
             this.show_or_hide_for_cashback_table() ;
             this.show_or_hide_for_cashback_table_shortcode() ;
+            $( document ).on( 'change' , '#rs_enable_user_role_based_reward_points_for_redeem_cashback' , this.enable_userrole_based_redeem ) ;
             $( document ).on( 'change' , '#rs_enable_disable_encashing' , this.enable_cashback_reward_points ) ;
             $( document ).on( 'change' , '#rs_enable_recaptcha_to_display' , this.enable_recaptcha_reward_points ) ;
             $( document ).on( 'change' , '#rs_my_cashback_table' , this.show_or_hide_for_cashback_table ) ;
             $( document ).on( 'change' , '#rs_my_cashback_table_shortcode' , this.show_or_hide_for_cashback_table_shortcode ) ;
             $( document ).on( 'change' , '#rs_email_notification_for_Admin_cashback' , this.email_notification_for_cashback ) ;
         } ,
-        enable_recaptcha_reward_points : function () {
+        enable_userrole_based_redeem : function() {
+            CashbackModule.show_or_hide_for_enable_userrole_based_redeem_cashback() ;
+        } ,
+        show_or_hide_for_enable_userrole_based_redeem_cashback : function() {
+            if( jQuery( '#rs_enable_user_role_based_reward_points_for_redeem_cashback' ).is( ':checked' ) ) {
+                jQuery( '.rewardpoints_userrole_for_redeem_cashback' ).parent().parent().show() ;
+            } else {
+                jQuery( '.rewardpoints_userrole_for_redeem_cashback' ).parent().parent().hide() ;
+            }
+        } ,
+        enable_recaptcha_reward_points : function() {
             CashbackModule.show_or_hide_for_enable_recaptcha_reward_points() ;
         } ,
         show_or_hide_for_enable_recaptcha_reward_points : function () {

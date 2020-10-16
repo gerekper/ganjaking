@@ -94,7 +94,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </tbody>
         </table>
     <?php } ?>
-    <table class = "my_reward_table demo shop_table my_account_orders table-bordered" data-filter = "#filters" data-page-size="5" data-page-previous-text = "prev" data-filter-text-only = "true" data-page-next-text = "next">
+    <table class = "my_reward_table demo shop_table my_account_orders table-bordered" data-filter = "#filters" data-page-size="<?php echo esc_attr($per_page); ?>" data-page-previous-text = "prev" data-filter-text-only = "true" data-page-next-text = "next">
         <thead>
             <tr>
                 <?php if ( $TableData[ "sno" ] == '1' ) : ?>

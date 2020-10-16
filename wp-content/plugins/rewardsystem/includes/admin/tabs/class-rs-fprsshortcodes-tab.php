@@ -51,6 +51,7 @@ if ( ! class_exists( 'RSShortcode' ) ) {
                     . '<b>[rs_my_current_redeem_level_name]</b> - Use this Shortcode to display current Member Level of the User in Redeeming<br><br>'
                     . '<b>[rs_rank_based_current_reward_points]</b> - Use this Shortcode to display Current Earned Points of all User<br><br>'
                     . '<b>[rs_rank_based_total_earned_points]</b> - Use this Shortcode to display Total Earned Points of all User<br><br>'
+                    . '<b>[rs_points_earned_in_a_specific_duration]</b> - Use this Shortcode to display users earned points in a specific duration.<br><br>'
                     . '<b>[rs_total_earned_points_by_all_users]</b> - Use this shortcode to display total earned points by all your users<br><br>'
                     . '<b>[rs_total_available_points_of_all_users]</b> - Use this Shortcode to display total available points of all your users<br><br> '
                     . '<h3>Unsubscribe Email Shortcode</h3><br><br>'

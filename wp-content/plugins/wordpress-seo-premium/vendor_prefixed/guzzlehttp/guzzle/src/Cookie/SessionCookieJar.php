@@ -21,7 +21,6 @@ class SessionCookieJar extends \YoastSEO_Vendor\GuzzleHttp\Cookie\CookieJar
      */
     public function __construct($sessionKey, $storeSessionCookies = \false)
     {
-        parent::__construct();
         $this->sessionKey = $sessionKey;
         $this->storeSessionCookies = $storeSessionCookies;
         $this->load();

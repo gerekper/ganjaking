@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Condition class.
  *
  * @class    WC_CSP_Condition
- * @version  1.4.0
+ * @version  1.8.6
  */
 class WC_CSP_Package_Condition extends WC_CSP_Condition {
 
@@ -27,7 +27,18 @@ class WC_CSP_Package_Condition extends WC_CSP_Condition {
 	 * @return int
 	 */
 	protected function get_package_count( $args ) {
-		return isset( $args[ 'package_count' ] ) ? absint( $args[ 'package_count' ] ) : sizeof( WC()->shipping->get_packages() );
+		return isset( $args[ 'package_count' ] ) ? absint( $args[ 'package_count' ] ) : sizeof( $this->get_packages() );
+	}
+
+	/**
+	 * Shipping packages getter.
+	 *
+	 * @since  1.8.6
+	 *
+	 * @return array
+	 */
+	protected function get_packages() {
+		return apply_filters( 'woocommerce_csp_shipping_packages', WC()->shipping->get_packages() );
 	}
 
 	/**
@@ -49,7 +60,7 @@ class WC_CSP_Package_Condition extends WC_CSP_Condition {
 			} else {
 
 				$package_hash      = md5( json_encode( $package ) );
-				$shipping_packages = WC()->shipping->get_packages();
+				$shipping_packages = $this->get_packages();
 				$loop              = 1;
 
 				foreach ( $shipping_packages as $shipping_package ) {

@@ -36,107 +36,110 @@ class WC_Shipment_Tracking_Actions {
 	 * @return array
 	 */
 	public function get_providers() {
-		return apply_filters( 'wc_shipment_tracking_get_providers', array(
-			'Australia' => array(
-				'Australia Post'   => 'http://auspost.com.au/track/track.html?id=%1$s',
-				'Fastway Couriers' => 'http://www.fastway.com.au/courier-services/track-your-parcel?l=%1$s',
-			),
-			'Austria' => array(
-				'post.at' => 'https://www.post.at/sv/sendungsdetails?snr=%1$s',
-				'dhl.at'  => 'http://www.dhl.at/content/at/de/express/sendungsverfolgung.html?brand=DHL&AWB=%1$s',
-				'DPD.at'  => 'https://tracking.dpd.de/parcelstatus?locale=de_AT&query=%1$s',
-			),
-			'Brazil' => array(
-				'Correios' => 'http://websro.correios.com.br/sro_bin/txect01$.QueryList?P_LINGUA=001&P_TIPO=001&P_COD_UNI=%1$s',
-			),
-			'Belgium' => array(
-				'bpost' => 'https://track.bpost.be/btr/web/#/search?itemCode=%1$s',
-			),
-			'Canada' => array(
-				'Canada Post' => 'http://www.canadapost.ca/cpotools/apps/track/personal/findByTrackNumber?trackingNumber=%1$s',
-			),
-			'Czech Republic' => array(
-				'PPL.cz'      => 'http://www.ppl.cz/main2.aspx?cls=Package&idSearch=%1$s',
-				'Česká pošta' => 'https://www.postaonline.cz/trackandtrace/-/zasilka/cislo?parcelNumbers=%1$s',
-				'DHL.cz'      => 'http://www.dhl.cz/cs/express/sledovani_zasilek.html?AWB=%1$s',
-				'DPD.cz'      => 'https://tracking.dpd.de/parcelstatus?locale=cs_CZ&query=%1$s',
-			),
-			'Finland' => array(
-				'Itella' => 'http://www.posti.fi/itemtracking/posti/search_by_shipment_id?lang=en&ShipmentId=%1$s',
-			),
-			'France' => array(
-				'Colissimo' => 'http://www.colissimo.fr/portail_colissimo/suivre.do?language=fr_FR&colispart=%1$s',
-			),
-			'Germany' => array(
-				'DHL Intraship (DE)' => 'http://nolp.dhl.de/nextt-online-public/set_identcodes.do?lang=de&idc=%1$s&rfn=&extendedSearch=true',
-				'Hermes'             => 'https://tracking.hermesworld.com/?TrackID=%1$s',
-				'Deutsche Post DHL'  => 'http://nolp.dhl.de/nextt-online-public/set_identcodes.do?lang=de&idc=%1$s',
-				'UPS Germany'        => 'http://wwwapps.ups.com/WebTracking/processInputRequest?sort_by=status&tracknums_displayed=1&TypeOfInquiryNumber=T&loc=de_DE&InquiryNumber1=%1$s',
-				'DPD.de'             => 'https://tracking.dpd.de/parcelstatus?query=%1$s&locale=en_DE',
-			),
-			'Ireland' => array(
-				'DPD.ie'  => 'http://www2.dpd.ie/Services/QuickTrack/tabid/222/ConsignmentID/%1$s/Default.aspx',
-				'An Post' => 'https://track.anpost.ie/TrackingResults.aspx?rtt=1&items=%1$s',
-			),
-			'Italy' => array(
-				'BRT (Bartolini)' => 'http://as777.brt.it/vas/sped_det_show.hsm?referer=sped_numspe_par.htm&Nspediz=%1$s',
-				'DHL Express'     => 'http://www.dhl.it/it/express/ricerca.html?AWB=%1$s&brand=DHL',
-			),
-			'India' => array(
-				'DTDC' => 'http://www.dtdc.in/tracking/tracking_results.asp?Ttype=awb_no&strCnno=%1$s&TrkType2=awb_no',
-			),
-			'Netherlands' => array(
-				'PostNL' => 'https://postnl.nl/tracktrace/?B=%1$s&P=%2$s&D=%3$s&T=C',
-				'DPD.NL' => 'http://track.dpdnl.nl/?parcelnumber=%1$s',
-				'UPS Netherlands'        => 'http://wwwapps.ups.com/WebTracking/processInputRequest?sort_by=status&tracknums_displayed=1&TypeOfInquiryNumber=T&loc=nl_NL&InquiryNumber1=%1$s',
-			),
-			'New Zealand' => array(
-				'Courier Post' => 'http://trackandtrace.courierpost.co.nz/Search/%1$s',
-				'NZ Post'      => 'http://www.nzpost.co.nz/tools/tracking?trackid=%1$s',
-				'Fastways'     => 'http://www.fastway.co.nz/courier-services/track-your-parcel?l=%1$s',
-				'PBT Couriers' => 'http://www.pbt.com/nick/results.cfm?ticketNo=%1$s',
-			),
-			'Poland' => array(
-				'InPost' => 'https://inpost.pl/sledzenie-przesylek?number=%1$s',
-				'DPD.PL' => 'https://tracktrace.dpd.com.pl/parcelDetails?p1=%1$s',
-				'Poczta Polska' => 'https://emonitoring.poczta-polska.pl/?numer=%1$s',
-			),
-			'Romania' => array(
-				'Fan Courier'      => 'https://www.fancourier.ro/awb-tracking/?xawb=%1$s',
-				'DPD Romania'     => 'https://tracking.dpd.de/parcelstatus?query=%1$s&locale=ro_RO',
-				'Urgent Cargus' => 'https://app.urgentcargus.ro/Private/Tracking.aspx?CodBara=%1$s',
-			),
-			'South African' => array(
-				'SAPO' => 'http://sms.postoffice.co.za/TrackingParcels/Parcel.aspx?id=%1$s',
-				'Fastway' => 'http://www.fastway.co.za/our-services/track-your-parcel?l=%1$s',
-			),
-			'Sweden' => array(
-				'PostNord Sverige AB' => 'http://www.postnord.se/sv/verktyg/sok/Sidor/spara-brev-paket-och-pall.aspx?search=%1$s',
-				'DHL.se'              => 'http://www.dhl.se/content/se/sv/express/godssoekning.shtml?brand=DHL&AWB=%1$s',
-				'Bring.se'            => 'http://tracking.bring.se/tracking.html?q=%1$s',
-				'UPS.se'              => 'http://wwwapps.ups.com/WebTracking/track?track=yes&loc=sv_SE&trackNums=%1$s',
-				'DB Schenker'         => 'http://privpakportal.schenker.nu/TrackAndTrace/packagesearch.aspx?packageId=%1$s',
-			),
-			'United Kingdom' => array(
-				'DHL'                       => 'http://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=%1$s',
-				'DPD.co.uk'                 => 'http://www.dpd.co.uk/tracking/trackingSearch.do?search.searchType=0&search.parcelNumber=%1$s',
-				'InterLink'                 => 'http://www.interlinkexpress.com/apps/tracking/?reference=%1$s&postcode=%2$s#results',
-				'ParcelForce'               => 'http://www.parcelforce.com/portal/pw/track?trackNumber=%1$s',
-				'Royal Mail'                => 'https://www.royalmail.com/track-your-item/?trackNumber=%1$s',
-				'TNT Express (consignment)' => 'http://www.tnt.com/webtracker/tracking.do?requestType=GEN&searchType=CON&respLang=en&respCountry=GENERIC&sourceID=1&sourceCountry=ww&cons=%1$s&navigation=1&g
-enericSiteIdent=',
-				'TNT Express (reference)'   => 'http://www.tnt.com/webtracker/tracking.do?requestType=GEN&searchType=REF&respLang=en&respCountry=GENERIC&sourceID=1&sourceCountry=ww&cons=%1$s&navigation=1&genericSiteIdent=',
-				'DHL Parcel UK'             => 'https://track.dhlparcel.co.uk/?con=%1$s',
-			),
-			'United States' => array(
-				'Fedex'         => 'http://www.fedex.com/Tracking?action=track&tracknumbers=%1$s',
-				'FedEx Sameday' => 'https://www.fedexsameday.com/fdx_dotracking_ua.aspx?tracknum=%1$s',
-				'OnTrac'        => 'http://www.ontrac.com/trackingdetail.asp?tracking=%1$s',
-				'UPS'           => 'http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=%1$s',
-				'USPS'          => 'https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=%1$s',
-				'DHL US'        => 'https://www.logistics.dhl/us-en/home/tracking/tracking-ecommerce.html?tracking-id=%1$s',
-			),
-		) );
+		return apply_filters(
+			'wc_shipment_tracking_get_providers',
+			array(
+				'Australia'      => array(
+					'Australia Post'   => 'https://auspost.com.au/mypost/track/#/details/%1$s',
+					'Fastway Couriers' => 'https://www.fastway.com.au/tools/track/?l=%1$s',
+				),
+				'Austria'        => array(
+					'post.at' => 'https://www.post.at/sv/sendungsdetails?snr=%1$s',
+					'dhl.at'  => 'https://www.dhl.at/content/at/de/express/sendungsverfolgung.html?brand=DHL&AWB=%1$s',
+					'DPD.at'  => 'https://tracking.dpd.de/parcelstatus?locale=de_AT&query=%1$s',
+				),
+				'Brazil'         => array(
+					'Correios' => 'http://websro.correios.com.br/sro_bin/txect01$.QueryList?P_LINGUA=001&P_TIPO=001&P_COD_UNI=%1$s',
+				),
+				'Belgium'        => array(
+					'bpost' => 'https://track.bpost.be/btr/web/#/search?itemCode=%1$s',
+				),
+				'Canada'         => array(
+					'Canada Post' => 'https://www.canadapost.ca/cpotools/apps/track/personal/findByTrackNumber?trackingNumber=%1$s',
+					'Purolator'   => 'https://www.purolator.com/purolator/ship-track/tracking-summary.page?pin=%1$s',
+				),
+				'Czech Republic' => array(
+					'PPL.cz'      => 'https://www.ppl.cz/main2.aspx?cls=Package&idSearch=%1$s',
+					'Česká pošta' => 'https://www.postaonline.cz/trackandtrace/-/zasilka/cislo?parcelNumbers=%1$s',
+					'DHL.cz'      => 'https://www.dhl.cz/cs/express/sledovani_zasilek.html?AWB=%1$s',
+					'DPD.cz'      => 'https://tracking.dpd.de/parcelstatus?locale=cs_CZ&query=%1$s',
+				),
+				'Finland'        => array(
+					'Itella' => 'https://www.posti.fi/itemtracking/posti/search_by_shipment_id?lang=en&ShipmentId=%1$s',
+				),
+				'France'         => array(
+					'Colissimo' => 'https://www.laposte.fr/outils/suivre-vos-envois?code=%1$s',
+				),
+				'Germany'        => array(
+					'DHL Intraship (DE)' => 'https://www.dhl.de/de/privatkunden/pakete-empfangen/verfolgen.html?lang=de&idc=%1$s&rfn=&extendedSearch=true',
+					'Hermes'             => 'https://tracking.hermesworld.com/?TrackID=%1$s',
+					'Deutsche Post DHL'  => 'https://www.dhl.de/de/privatkunden/pakete-empfangen/verfolgen.html?lang=de&idc=%1$s',
+					'UPS Germany'        => 'https://wwwapps.ups.com/WebTracking?sort_by=status&tracknums_displayed=1&TypeOfInquiryNumber=T&loc=de_DE&InquiryNumber1=%1$s',
+					'DPD.de'             => 'https://tracking.dpd.de/parcelstatus?query=%1$s&locale=en_DE',
+				),
+				'Ireland'        => array(
+					'DPD.ie'  => 'https://dpd.ie/tracking?deviceType=5&consignmentNumber=%1$s',
+					'An Post' => 'https://track.anpost.ie/TrackingResults.aspx?rtt=1&items=%1$s',
+				),
+				'Italy'          => array(
+					'BRT (Bartolini)' => 'https://as777.brt.it/vas/sped_det_show.hsm?referer=sped_numspe_par.htm&Nspediz=%1$s',
+					'DHL Express'     => 'https://www.dhl.it/it/express/ricerca.html?AWB=%1$s&brand=DHL',
+				),
+				'India'          => array(
+					'DTDC' => 'https://www.dtdc.in/tracking/tracking_results.asp?Ttype=awb_no&strCnno=%1$s&TrkType2=awb_no',
+				),
+				'Netherlands'    => array(
+					'PostNL'          => 'https://postnl.nl/tracktrace/?B=%1$s&P=%2$s&D=%3$s&T=C',
+					'DPD.NL'          => 'https://tracking.dpd.de/status/en_US/parcel/%1$s',
+					'UPS Netherlands' => 'https://wwwapps.ups.com/WebTracking?sort_by=status&tracknums_displayed=1&TypeOfInquiryNumber=T&loc=nl_NL&InquiryNumber1=%1$s',
+				),
+				'New Zealand'    => array(
+					'Courier Post' => 'https://trackandtrace.courierpost.co.nz/Search/%1$s',
+					'NZ Post'      => 'https://www.nzpost.co.nz/tools/tracking?trackid=%1$s',
+					'Aramex'       => 'https://www.aramex.co.nz/tools/track?l=%1$s',
+					'PBT Couriers' => 'http://www.pbt.com/nick/results.cfm?ticketNo=%1$s',
+				),
+				'Poland'         => array(
+					'InPost'        => 'https://inpost.pl/sledzenie-przesylek?number=%1$s',
+					'DPD.PL'        => 'https://tracktrace.dpd.com.pl/parcelDetails?p1=%1$s',
+					'Poczta Polska' => 'https://emonitoring.poczta-polska.pl/?numer=%1$s',
+				),
+				'Romania'        => array(
+					'Fan Courier'   => 'https://www.fancourier.ro/awb-tracking/?xawb=%1$s',
+					'DPD Romania'   => 'https://tracking.dpd.de/parcelstatus?query=%1$s&locale=ro_RO',
+					'Urgent Cargus' => 'https://app.urgentcargus.ro/Private/Tracking.aspx?CodBara=%1$s',
+				),
+				'South African' => array(
+					'SAPO'    => 'http://sms.postoffice.co.za/TrackingParcels/Parcel.aspx?id=%1$s',
+					'Fastway' => 'https://fastway.co.za/our-services/track-your-parcel?l=%1$s',
+				),
+				'Sweden'         => array(
+					'PostNord Sverige AB' => 'https://portal.postnord.com/tracking/details/%1$s',
+					'DHL.se'              => 'https://www.dhl.se/content/se/sv/express/godssoekning.shtml?AWB=%1$s&brand=DHL',
+					'Bring.se'            => 'https://tracking.bring.se/tracking/%1$s',
+					'UPS.se'              => 'https://www.ups.com/track?loc=sv_SE&tracknum=%1$s&requester=WT/',
+					'DB Schenker'         => 'http://privpakportal.schenker.nu/TrackAndTrace/packagesearch.aspx?packageId=%1$s',
+				),
+				'United Kingdom' => array(
+					'DHL'                       => 'https://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=%1$s',
+					'DPD.co.uk'                 => 'https://www.dpd.co.uk/apps/tracking/?reference=%1$s#results',
+					'InterLink'                 => 'https://www.dpdlocal.co.uk/apps/tracking/?reference=%1$s&postcode=%2$s#results',
+					'ParcelForce'               => 'https://www.parcelforce.com/track-trace?trackNumber=%1$s',
+					'Royal Mail'                => 'https://www3.royalmail.com/track-your-item#/tracking-results/%1$s',
+					'TNT Express (consignment)' => 'https://www.tnt.com/express/en_gb/site/shipping-tools/tracking.html?searchType=con&cons=%1$s',
+					'TNT Express (reference)'   => 'https://www.tnt.com/express/en_gb/site/shipping-tools/tracking.html?searchType=ref&cons=%1$s',
+					'DHL Parcel UK'             => 'https://track.dhlparcel.co.uk/?con=%1$s',
+				),
+				'United States'  => array(
+					'Fedex'         => 'https://www.fedex.com/apps/fedextrack/?action=track&action=track&tracknumbers=%1$s',
+					'FedEx Sameday' => 'https://www.fedexsameday.com/fdx_dotracking_ua.aspx?tracknum=%1$s',
+					'OnTrac'        => 'http://www.ontrac.com/trackingdetail.asp?tracking=%1$s',
+					'UPS'           => 'https://www.ups.com/track?loc=en_US&tracknum=%1$s',
+					'USPS'          => 'https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=%1$s',
+					'DHL US'        => 'https://www.logistics.dhl/us-en/home/tracking/tracking-ecommerce.html?tracking-id=%1$s',
+				),
+			)
+		);
 	}
 
 	/**

@@ -217,7 +217,7 @@ class WC_Deposits_Cart_Manager {
 	 * @return string
 	 */
 	public static function generate_cart_id( $cart_item ) {
-		if( is_null( $cart_item ) ) {
+		if ( is_null( $cart_item ) || is_null( WC()->cart ) ) {
 			return null;
 		}
 		return WC()->cart->generate_cart_id( $cart_item['product_id'], $cart_item['variation_id'], $cart_item['variation'] );

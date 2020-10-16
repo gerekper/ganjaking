@@ -1,5 +1,12 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2020.10.13 - version 1.8.6
+* Feature - Add states/regions support in 'Billing Country' condition.
+* Fix - 'Shipping Postcode' condition did not work in 'Payment Gateway' restrictions when attempting to purchase a synchronized subscription product.
+* Fix - Resolved 'get_cart() on null' error triggered under some... pretty interesting circumstances.
+* Tweak - Match 'Shipping Postcode' condition when using the 'is not' modifier and and the 'Postcode' checkout field is empty.
+* Tweak - Match 'Shipping/Billing Country' condition when using the 'is not' modifier and and the 'State/Region' checkout field is empty.
+
 2020.09.07 - version 1.8.5
 * Fix - 'Product on Subscription' condition not working during manual renewals.
 * Tweak - Updated the 'Settings > Restrictions' page layout.

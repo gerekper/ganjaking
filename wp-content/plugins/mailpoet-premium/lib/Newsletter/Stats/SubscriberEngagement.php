@@ -22,8 +22,6 @@ use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Doctrine\DBAL\Driver\Statement;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
-use function MailPoetVendor\array_column;
-
 class SubscriberEngagement {
   const STATUS_OPENED = 'opened';
   const STATUS_CLICKED = 'clicked';

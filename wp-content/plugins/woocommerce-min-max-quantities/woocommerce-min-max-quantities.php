@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Min/Max Quantities
  * Plugin URI: https://woocommerce.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 2.4.19
+ * Version: 2.4.20
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 4.0
  * Tested up to: 5.5
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * WC requires at least: 2.6
  *
  * Text Domain: woocommerce-min-max-quantities
@@ -24,7 +24,7 @@
 
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
-	define( 'WC_MIN_MAX_QUANTITIES', '2.4.19' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '2.4.20' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.
@@ -764,7 +764,12 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
 			// Don't apply for cart or checkout as cart/checkout form has qty already pre-filled.
 			if ( ! is_cart() && ! is_checkout() ) {
-				$data['input_value'] = ! empty( $minimum_quantity ) ? $minimum_quantity : $data['input_value'];
+				// If we have a group of quantity and no minimum then set the quantity to the group of quantity.
+				if ( ! empty( $minimum_quantity ) ) {
+					$data['input_value'] = $minimum_quantity;
+				} elseif ( ! empty( $group_of_quantity ) ) {
+					$data['input_value'] = $group_of_quantity;
+				}
 			}
 
 			return $data;

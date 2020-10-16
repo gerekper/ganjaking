@@ -19,13 +19,11 @@ jQuery( function ( $ ) {
             var maxredeempoint = parseFloat( fp_redeem_frontend_params.maxredeempoint ) ;
             maxredeempoint = Math.round( maxredeempoint * 100 ) / 100 ;
             var getvalue = jQuery( '#rs_apply_coupon_code_field' ).val() ;
+            
             if ( getvalue === '' ) {
                 jQuery( '.rs_warning_message' ).html( fp_redeem_frontend_params.emptyerr ) ;
                 return false ;
-            } else if ( jQuery.isNumeric( getvalue ) == false ) {
-                jQuery( '.rs_warning_message' ).html( fp_redeem_frontend_params.numericerr ) ;
-                return false ;
-            } else if ( getvalue > availablepoints ) {
+            }  else if ( getvalue > availablepoints ) {
                 jQuery( '.rs_warning_message' ).html( fp_redeem_frontend_params.maxredeemederr ) ;
                 return false ;
             } else if ( jQuery.isNumeric( getvalue ) == true ) {

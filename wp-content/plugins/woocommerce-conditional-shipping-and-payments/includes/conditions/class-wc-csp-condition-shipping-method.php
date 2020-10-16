@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Shipping Method Condition.
  *
  * @class    WC_CSP_Condition_Shipping_Method
- * @version  1.7.3
+ * @version  1.8.6
  */
-class WC_CSP_Condition_Shipping_Method extends WC_CSP_Condition {
+class WC_CSP_Condition_Shipping_Method extends WC_CSP_Package_Condition {
 
 	/**
 	 * Constructor.
@@ -92,7 +92,7 @@ class WC_CSP_Condition_Shipping_Method extends WC_CSP_Condition {
 
 		$message        = false;
 		$chosen_methods = WC()->session->get( 'chosen_shipping_methods' );
-		$packages       = WC()->shipping->get_packages();
+		$packages       = $this->get_packages();
 		$package_count  = sizeof( $packages );
 		$bad_packages   = array();
 		$package_index  = 0;
@@ -169,7 +169,7 @@ class WC_CSP_Condition_Shipping_Method extends WC_CSP_Condition {
 		} else {
 
 			$chosen_methods    = WC()->session->get( 'chosen_shipping_methods' );
-			$shipping_packages = WC()->shipping->get_packages();
+			$shipping_packages = $this->get_packages();
 		}
 
 		$rates_in_condition = $data[ 'value' ];

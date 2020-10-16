@@ -2,8 +2,8 @@
 
 namespace YoastSEO_Vendor\GuzzleHttp;
 
-use YoastSEO_Vendor\GuzzleHttp\Exception\GuzzleException;
 use YoastSEO_Vendor\GuzzleHttp\Promise\PromiseInterface;
+use YoastSEO_Vendor\GuzzleHttp\Exception\GuzzleException;
 use YoastSEO_Vendor\Psr\Http\Message\RequestInterface;
 use YoastSEO_Vendor\Psr\Http\Message\ResponseInterface;
 use YoastSEO_Vendor\Psr\Http\Message\UriInterface;
@@ -12,10 +12,7 @@ use YoastSEO_Vendor\Psr\Http\Message\UriInterface;
  */
 interface ClientInterface
 {
-    /**
-     * @deprecated Will be removed in Guzzle 7.0.0
-     */
-    const VERSION = '6.5.3';
+    const VERSION = '6.3.3';
     /**
      * Send an HTTP request.
      *

@@ -420,8 +420,6 @@ class Link_Suggestions_Action {
 					return $taxonomy->labels->singular_name;
 				}
 				break;
-			default:
-				return '';
 		}
 
 		return '';
@@ -450,16 +448,14 @@ class Link_Suggestions_Action {
 				continue;
 			}
 
-			$sub_type_label = $this->get_sub_type_singular_label( $indexable->object_type, $indexable->object_sub_type );
-
 			$link_suggestions[] = [
-				'object_type'           => $indexable->object_type,
-				'object_sub_type_label' => $sub_type_label,
-				'id'                    => (int) ( $indexable->object_id ),
-				'title'                 => $objects[ $indexable->object_type ][ $indexable->object_id ]['title'],
-				'link'                  => $indexable->permalink,
-				'isCornerstone'         => (bool) $indexable->is_cornerstone,
-				'score'                 => \round( (float) ( $scores[ $indexable->id ] ), 2 ),
+				'object_type'   => $indexable->object_type,
+				'id'            => (int) ( $indexable->object_id ),
+				'title'         => $objects[ $indexable->object_type ][ $indexable->object_id ]['title'],
+				'link'          => $indexable->permalink,
+				'isCornerstone' => (bool) $indexable->is_cornerstone,
+				'labels'        => $this->get_labels( $indexable ),
+				'score'         => \round( (float) ( $scores[ $indexable->id ] ), 2 ),
 			];
 		}
 
@@ -467,17 +463,65 @@ class Link_Suggestions_Action {
 		 * Because the request to the indexables table messes up with the ordering of the suggestions,
 		 * we have to sort again.
 		 */
+		$this->sort_suggestions_by_field( $link_suggestions, 'score' );
+
+		$cornerstone_suggestions     = $this->filter_suggestions( $link_suggestions, true );
+		$non_cornerstone_suggestions = $this->filter_suggestions( $link_suggestions, false );
+
+		return \array_merge_recursive( [], $cornerstone_suggestions, $non_cornerstone_suggestions );
+	}
+
+	/**
+	 * Retrieves the labels for the link suggestion.
+	 *
+	 * @param Indexable $indexable The indexable to determine the labels for.
+	 *
+	 * @return array The labels.
+	 */
+	protected function get_labels( Indexable $indexable ) {
+		$labels = [];
+		if ( $indexable->is_cornerstone ) {
+			$labels[] = 'cornerstone';
+		}
+
+		$labels[] = $this->get_sub_type_singular_label( $indexable->object_type, $indexable->object_sub_type );
+
+		return $labels;
+	}
+
+	/**
+	 * Sorts the given link suggestion by field.
+	 *
+	 * @param array  $link_suggestions The link suggestions to sort.
+	 * @param string $field            The field to sort suggestions by.
+	 */
+	protected function sort_suggestions_by_field( array &$link_suggestions, $field ) {
 		\usort(
 			$link_suggestions,
-			static function( $suggestion_1, $suggestion_2 ) {
-				if ( $suggestion_1['score'] === $suggestion_2['score'] ) {
+			static function( $suggestion_1, $suggestion_2 ) use ( $field ) {
+				if ( $suggestion_1[ $field ] === $suggestion_2[ $field ] ) {
 					return 0;
 				}
 
-				return ( ( $suggestion_1['score'] < $suggestion_2['score'] ) ? 1 : -1 );
+				return ( ( $suggestion_1[ $field ] < $suggestion_2[ $field ] ) ? 1 : -1 );
 			}
 		);
+	}
 
-		return $link_suggestions;
+	/**
+	 * Filters the suggestions by cornerstone status.
+	 *
+	 * @param array $link_suggestions The suggestions to filter.
+	 * @param bool  $cornerstone      Whether or not to include the cornerstone suggestions.
+	 *
+	 * @return array The filtered suggestions.
+	 */
+	protected function filter_suggestions( $link_suggestions, $cornerstone ) {
+		return \array_filter(
+			$link_suggestions,
+			static function( $suggestion ) use ( $cornerstone ) {
+				return (bool) $suggestion['isCornerstone'] === $cornerstone;
+			}
+		);
 	}
 }

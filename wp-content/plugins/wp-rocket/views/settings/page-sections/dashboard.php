@@ -68,12 +68,24 @@ defined( 'ABSPATH' ) || exit;
 			</div>
 
 			<div class="wpr-field wpr-field-account">
-				<div class="wpr-flex wpr-flex--egal">
-					<div>
+				<div class="wpr-flex">
+					<div class="wpr-infoAccount-License">
 						<span class="wpr-title3"><?php esc_html_e( 'License', 'rocket' ); ?></span>
-						<span class="wpr-infoAccount wpr-isValid" id="wpr-account-data"><?php echo esc_html( 'Infinite' ); ?></span><br>
-						<span class="wpr-title3"><?php esc_html_e( 'Expiration Date', 'rocket' ); ?></span>
-						<span class="wpr-infoAccount wpr-isValid" id="wpr-expiration-data"><?php echo esc_html( 'July 24, 2091' ); ?></span>
+						<span class="wpr-infoAccount wpr-isValid" id="wpr-account-data">
+							<?php echo esc_html( 'Infinite' ); ?>
+						</span><br>
+						<?php
+						/**
+						 * Fires when displaying the license information
+						 *
+						 * @since 3.7.3
+						 */
+						do_action( 'rocket_dashboard_license_info' );
+						?>
+						<p>
+							<span class="wpr-title3"><?php esc_html_e( 'Expiration Date', 'rocket' ); ?></span>
+							<span class="wpr-infoAccount wpr-isValid" id="wpr-expiration-data"><?php echo esc_html( 'July 24, 2091' ); ?></span>
+						</p>
 					</div>
 					<div>
 						<?php

@@ -79,11 +79,12 @@ class WP_List_Table_for_Master_Log extends WP_List_Table {
                 }
 
                 $data[] = array(
-                    'sno'       => $i ,
-                    'user_name' => $getuserbyid->user_login ,
-                    'points'    => round_off_type( $total ) ,
-                    'event'     => $eventname == '' ? '-' : $eventname ,
-                    'date'      => date_display_format( $values[ 'earneddate' ]  ) ,
+                    'sno'         => $i ,
+                    'user_name'   => $getuserbyid->user_login ,
+                    'points'      => round_off_type( $total ) ,
+                    'event'       => $eventname == '' ? '-' : $eventname ,
+                    'date'        => date_display_format( $values[ 'earneddate' ] ) ,
+                    'expiry_date' => 999999999999 != $values[ 'expirydate' ] ? date_display_format( $values[ 'expirydate' ] ) : '-' ,
                         ) ;
                 $i ++ ;
             }
@@ -93,11 +94,12 @@ class WP_List_Table_for_Master_Log extends WP_List_Table {
 
     public function get_columns() {
         $columns = array(
-            'sno'       => __( 'S.No' , SRP_LOCALE ) ,
-            'user_name' => __( 'Username' , SRP_LOCALE ) ,
-            'points'    => __( 'Points' , SRP_LOCALE ) ,
-            'event'     => __( 'Event' , SRP_LOCALE ) ,
-            'date'      => __( 'Date' , SRP_LOCALE ) ,
+            'sno'         => __( 'S.No' , SRP_LOCALE ) ,
+            'user_name'   => __( 'Username' , SRP_LOCALE ) ,
+            'points'      => __( 'Points' , SRP_LOCALE ) ,
+            'event'       => __( 'Event' , SRP_LOCALE ) ,
+            'date'        => __( "Earned/Redeemed Date" , SRP_LOCALE ) ,
+            'expiry_date' => __( 'Expiry Date' , SRP_LOCALE ) ,
                 ) ;
 
         return $columns ;
@@ -109,9 +111,10 @@ class WP_List_Table_for_Master_Log extends WP_List_Table {
 
     public function get_sortable_columns() {
         return array(
-            'points' => array( 'points' , false ) ,
-            'sno'    => array( 'sno' , false ) ,
-            'date'   => array( 'date' , false ) ,
+            'points'      => array( 'points' , false ) ,
+            'sno'         => array( 'sno' , false ) ,
+            'date'        => array( 'date' , false ) ,
+            'expiry_date' => array( 'expiry_date' , false ) ,
                 ) ;
     }
 
@@ -150,11 +153,12 @@ class WP_List_Table_for_Master_Log extends WP_List_Table {
 
                 if ( $getuserbyid != '' ) {
                     $data[] = array(
-                        'sno'       => $i ,
-                        'user_name' => $getuserbyid->user_login ,
-                        'points'    => round_off_type( $total ) ,
-                        'event'     => $eventname == '' ? '-' : $eventname ,
-                        'date'      => date_display_format( $values[ 'earneddate' ]  ) ,
+                        'sno'         => $i ,
+                        'user_name'   => $getuserbyid->user_login ,
+                        'points'      => round_off_type( $total ) ,
+                        'event'       => $eventname == '' ? '-' : $eventname ,
+                        'date'        => date_display_format( $values[ 'earneddate' ] ) ,
+                        'expiry_date' => 999999999999 != $values[ 'expirydate' ] ? date_display_format( $values[ 'expirydate' ] ) : '-' ,
                             ) ;
                 }
                 $i ++ ;
@@ -174,6 +178,7 @@ class WP_List_Table_for_Master_Log extends WP_List_Table {
             case 'points':
             case 'event':
             case 'date':
+            case 'expiry_date':
                 return $item[ $column_name ] ;
             default:
                 return print_r( $item , true ) ;

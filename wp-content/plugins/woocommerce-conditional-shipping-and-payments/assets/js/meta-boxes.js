@@ -200,15 +200,17 @@ jQuery( function($) {
 			return false;
 		} )
 
-		// Countries Changed? Updates states selector
-		.on( 'change', 'select.csp_shipping_countries', function() {
+		// Countries Changed? Updates states selector!
+		.on( 'change', 'select.csp_shipping_countries, select.csp_billing_countries', function() {
 
 			var $countries_selector = $( this ),
+				selector_type       = $countries_selector.hasClass( 'csp_shipping_countries' ) ? 'shipping' : 'billing',
 				selected_countries  = get_selections( $countries_selector ),
-				$states_selector    = $countries_selector.closest( '.condition_content, .woocommerce_restriction_form' ).find( 'select.csp_shipping_states' ),
+				$restriction_form   = $countries_selector.closest( '.condition_content, .woocommerce_restriction_form' ),
+				$states_selector    = 'shipping' === selector_type ? $restriction_form.find( 'select.csp_shipping_states' ) : $restriction_form.find( 'select.csp_billing_states' ),
 				$selected_states    = $states_selector.find( ':selected' ),
 				selected_states     = [],
-				states_data         = wc_restrictions_admin_params.shipping_states_data,
+				states_data         = 'shipping' === selector_type ? wc_restrictions_admin_params.shipping_states_data : wc_restrictions_admin_params.billing_states_data,
 				state_options       = [];
 
 			// Save chosen states.
@@ -349,7 +351,7 @@ jQuery( function($) {
 			var $show_excluded         = $( this ),
 			    $show_excluded_checked = $show_excluded.is( ':checked' ),
 			    $restriction_data      = $show_excluded.closest( '.woocommerce_restriction_data' ),
-			    $show_if_excluded  = $restriction_data.find( '.show-excluded-checked' );
+			    $show_if_excluded      = $restriction_data.find( '.show-excluded-checked' );
 
 
 			if ( $show_excluded_checked ) {
@@ -552,9 +554,11 @@ jQuery( function($) {
 		var woocommerce_checkout_restrictions = $restrictions_wrapper.find( '.woocommerce_restriction' ).get();
 
 		woocommerce_checkout_restrictions.sort( function( a, b ) {
-		   var compA = parseInt( $(a).attr( 'data-index' ) );
-		   var compB = parseInt( $(b).attr( 'data-index' ) );
-		   return ( compA < compB ) ? -1 : ( compA > compB ) ? 1 : 0;
+
+			var compA = parseInt( $(a).attr( 'data-index' ) ),
+			    compB = parseInt( $(b).attr( 'data-index' ) );
+
+			return ( compA < compB ) ? -1 : ( compA > compB ) ? 1 : 0;
 		} );
 
 		$( woocommerce_checkout_restrictions ).each( function( idx, itm ) {

@@ -5,7 +5,6 @@
  * @package WPSEO\Premium|Classes
  */
 
-use Yoast\WP\SEO\Actions\Prominent_Words\Content_Action;
 use Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Indexation_Integration;
 
 /**
@@ -339,8 +338,8 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	protected function is_prominent_words_indexing_completed() {
 		$is_indexing_completed = YoastSEO()->helpers->options->get( 'prominent_words_indexation_completed' );
 		if ( $is_indexing_completed === null ) {
-			$post_data             = YoastSEO()->classes->get( Content_Action::class );
-			$is_indexing_completed = $post_data->get_total_unindexed() === 0;
+			$indexation_integration = YoastSEO()->classes->get( Indexation_Integration::class );
+			$is_indexing_completed  = $indexation_integration->get_unindexed_count( 0 ) === 0;
 
 			YoastSEO()->helpers->options->set( 'prominent_words_indexation_completed', $is_indexing_completed );
 		}

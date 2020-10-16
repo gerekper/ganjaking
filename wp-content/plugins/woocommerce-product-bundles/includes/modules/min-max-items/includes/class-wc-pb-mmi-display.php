@@ -30,8 +30,7 @@ class WC_PB_MMI_Display {
 		add_action( 'woocommerce_composite_add_to_cart', array( __CLASS__, 'enqueue_script' ) );
 
 		// Add min/max data to template for use by validation script.
-		add_action( 'woocommerce_before_bundled_items', array( __CLASS__, 'script_data' ) );
-		add_action( 'woocommerce_before_composited_bundled_items', array( __CLASS__, 'script_data' ) );
+		add_filter( 'woocommerce_bundle_price_data', array( __CLASS__, 'script_data' ), 10, 2 );
 	}
 
 	/*
@@ -69,24 +68,22 @@ class WC_PB_MMI_Display {
 	/**
 	 * Pass min/max container values to the single-product script.
 	 *
-	 * @param  WC_Product  $product
+	 * @param  array              $data
+	 * @param  WC_Product_Bundle  $product
 	 * @return void
 	 */
-	public static function script_data( $the_product = false ) {
+	public static function script_data( $data, $product ) {
 
-		global $product;
+		if ( $product->meta_exists( '_wcpb_min_qty_limit' ) || $product->meta_exists( '_wcpb_max_qty_limit' ) ) {
 
-		if ( ! $the_product ) {
-			$the_product = $product;
+			$min = $product->get_meta( '_wcpb_min_qty_limit', true );
+			$max = $product->get_meta( '_wcpb_max_qty_limit', true );
+
+			$data[ 'size_min' ] = $min > 0 ? absint( $min ) : '';
+			$data[ 'size_max' ] = $max > 0 ? absint( $max ) : '';
 		}
 
-		if ( is_object( $the_product ) && $the_product->is_type( 'bundle' ) ) {
-
-			$min = $the_product->get_meta( '_wcpb_min_qty_limit', true );
-			$max = $the_product->get_meta( '_wcpb_max_qty_limit', true );
-
-			?><div class="min_max_items" data-min="<?php echo $min > 0 ? esc_attr( absint( $min ) ) : ''; ?>" data-max="<?php echo $max > 0 ? esc_attr( absint( $max ) ) : ''; ?>"></div><?php
-		}
+		return $data;
 	}
 }
 

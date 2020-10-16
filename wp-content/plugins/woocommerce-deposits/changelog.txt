@@ -1,5 +1,10 @@
 *** WooCommerce Deposits Changelog ***
 
+2020-10-14 - version 1.5.5
+* Fix   - Uncaught error when viewing order with a payment gateway based fee.
+* Tweak - WC 4.5 compatibility.
+* Tweak - Automatic translations.
+
 2020-08-25 - version 1.5.4
 * Fix   - Fatal Error when checking out with WooCommerce PoS extension.
 

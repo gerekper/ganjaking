@@ -1,4 +1,10 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2020.10.15 - version 3.3.16
+    * Update:  WC and WP Tags
+    * Update: Add support for woocommerce_one_page_checkout
+    * Update:  New filter to allow product_page and woocommerce_one_page_checkout shortcode to be inside of meta fields.
+                    add_filter('woocommerce_gforms_get_post_content', function($content, $post) {  return get_post_meta($post, 'my_meta_field') }, 10, 2);
+
 2020.08.18 - version 3.3.15
     * New:  Added filter, woocommerce_gforms_script_params, to allow modification of the script params object enqueued for the forms front end.
     * Update:  Added additional logging when an order is being created.

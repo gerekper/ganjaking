@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Payment Gateways.
  *
  * @class    WC_CSP_Restrict_Payment_Gateways
- * @version  1.8.0
+ * @version  1.8.6
  */
 class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction {
 
@@ -513,22 +513,17 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 				}
 			}
 
-		} else {
+		} elseif ( ! empty( WC()->cart ) && ( $cart_contents = WC()->cart->get_cart() ) ) {
 
-			$cart_contents = WC()->cart->get_cart();
+			foreach ( $cart_contents as $cart_item_key => $cart_item_data ) {
 
-			if ( ! empty( $cart_contents ) ) {
+				$product = $cart_item_data[ 'data' ];
 
-				foreach ( $cart_contents as $cart_item_key => $cart_item_data ) {
+				$product_restriction_data = $this->get_product_restriction_data( $product );
+				$map                      = $this->get_matching_rules_map( $product_restriction_data, $gateways, array_merge( $args, array( 'cart_item_data' => $cart_item_data ) ) );
 
-					$product = $cart_item_data[ 'data' ];
-
-					$product_restriction_data = $this->get_product_restriction_data( $product );
-					$map                      = $this->get_matching_rules_map( $product_restriction_data, $gateways, array_merge( $args, array( 'cart_item_data' => $cart_item_data ) ) );
-
-					if ( ! empty( $map ) ) {
-						$maps[] = $map;
-					}
+				if ( ! empty( $map ) ) {
+					$maps[] = $map;
 				}
 			}
 		}

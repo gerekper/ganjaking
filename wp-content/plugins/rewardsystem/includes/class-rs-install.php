@@ -3,11 +3,11 @@
  * Trigger this upon plugin install
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'RSInstall' ) ) {
+if( ! class_exists( 'RSInstall' ) ) {
 
     class RSInstall {
 
@@ -37,10 +37,10 @@ if ( ! class_exists( 'RSInstall' ) ) {
                     ) ;
 
             $tabs = apply_filters( 'rs_default_value_tabs' , $tabs ) ;
-            if ( ! srp_check_is_array( $tabs ) )
+            if( ! srp_check_is_array( $tabs ) )
                 return ;
 
-            foreach ( $tabs as $tab ) {
+            foreach( $tabs as $tab ) {
 
                 include_once SRP_PLUGIN_PATH . '/includes/admin/tabs/class-rs-' . $tab . '-tab.php' ;
 
@@ -65,10 +65,10 @@ if ( ! class_exists( 'RSInstall' ) ) {
                     ) ;
 
             $modules = apply_filters( 'rs_default_value_modules' , $modules ) ;
-            if ( ! srp_check_is_array( $modules ) )
+            if( ! srp_check_is_array( $modules ) )
                 return ;
 
-            foreach ( $modules as $module ) {
+            foreach( $modules as $module ) {
                 //include current page functionality.
                 include_once SRP_PLUGIN_PATH . '/includes/admin/tabs/modules/class-rs-' . $module . '-module-tab.php' ;
 
@@ -79,78 +79,92 @@ if ( ! class_exists( 'RSInstall' ) ) {
         /* Award Points for Product Purchase based on Cron Time */
 
         public static function award_product_purchase_points_based_on_cron( $order_id ) {
-            if ( get_post_meta( $order_id , 'rs_order_status_reached' , true ) == 'yes' )
+            if( get_post_meta( $order_id , 'rs_order_status_reached' , true ) == 'yes' )
                 award_points_for_product_purchase_based_on_cron( $order_id ) ;
         }
 
         /* Point Expiry Cron callback. */
 
-        public function point_expiry_cron_callback() {
+        public static function point_expiry_cron_callback() {
 
-            if ( 'yes' != get_option( 'rs_email_template_expire_activated' ) ) {
+            if( 'yes' != get_option( 'rs_email_template_expire_activated' ) ) {
                 return ;
             }
 
             $TemplateName = get_option( 'rs_select_template' ) ;
-            if ( empty( $TemplateName ) ) {
+            if( empty( $TemplateName ) ) {
                 return ;
             }
 
             $no_of_days = ( int ) days_from_point_expiry_email() ;
-            if ( ! $no_of_days ) {
+            if( ! $no_of_days ) {
                 return ;
             }
 
             global $wpdb ;
             $tablename = $wpdb->prefix . 'rs_expiredpoints_email' ;
             $templates = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $tablename WHERE template_name=%s AND rs_status='ACTIVE'" , $TemplateName ) , ARRAY_A ) ;
-            if ( ! srp_check_is_array( $templates ) ) {
+            if( ! srp_check_is_array( $templates ) ) {
                 return ;
             }
 
             $table_name         = $wpdb->prefix . 'rspointexpiry' ;
             $overall_point_data = $wpdb->get_results( $wpdb->prepare( "SELECT * , SUM(earnedpoints) as points FROM $table_name WHERE expirydate > %d AND expirydate NOT IN(999999999999) AND expiredpoints IN(0) GROUP BY expirydate" , time() ) , ARRAY_A ) ;
-            if ( ! srp_check_is_array( $overall_point_data ) ) {
+            if( ! srp_check_is_array( $overall_point_data ) ) {
                 return ;
             }
 
-            $timestamp = array() ;
-
-            foreach ( $overall_point_data as $value ) {
+            $expiry_dates = array() ;
+            $current_time = strtotime( date( 'd-m-Y' ) ) ;
+            foreach( $overall_point_data as $value ) {
 
                 $expiry_date = isset( $value[ 'expirydate' ] ) ? absint( $value[ 'expirydate' ] ) : 0 ;
                 $user_id     = isset( $value[ 'userid' ] ) ? absint( $value[ 'userid' ] ) : 0 ;
-
-                if ( ! $expiry_date || ! $user_id ) {
+		
+		// Validate if expiry date/userid exists.
+                if( ! $expiry_date || ! $user_id ) {
                     continue ;
                 }
 
-                if ( 'yes' == get_user_meta( $user_id , 'unsub_value' , true ) ) {
+		// Validate if user is subscribed to email.
+                if( 'yes' == get_user_meta( $user_id , 'unsub_value' , true ) ) {
                     continue ;
                 }
 
-                $date_to_send_mail = strtotime( '-' . $no_of_days . 'days' , $expiry_date ) ;
-                if ( in_array( $date_to_send_mail , ( array ) get_option( 'rs_point_expiry_email_send_based_on_date' ) ) ) {
+                //Datetime.
+                $legacy_date_to_send_mail = strtotime( '-' . $no_of_days . 'days' , $expiry_date ) ;
+                // Backward Compatibility for Expiry Date.
+                if( in_array( $legacy_date_to_send_mail , ( array ) get_option( 'rs_point_expiry_email_send_based_on_date' ) ) ) {
                     continue ;
                 }
 
-                if ( time() >= $date_to_send_mail ) {
+                //Only date.
+                $date_to_send_mail = strtotime( date( 'd-m-Y' , $legacy_date_to_send_mail ) ) ;
+                $user_expiry_dates = get_user_meta( $user_id , 'rs_point_expiry_email_send_based_on_date' , true ) ;
+                // Validate if email is already sent for the user.
+                if( srp_check_is_array( $user_expiry_dates ) && in_array( $date_to_send_mail , ( array ) $user_expiry_dates ) ) {
+                    continue ;
+                }
 
-                    $timestamp[]     = $date_to_send_mail ;
-                    $user_point_data = $wpdb->get_results( $wpdb->prepare( "SELECT *,SUM(earnedpoints) as points FROM $table_name WHERE expirydate > %d  AND expirydate NOT IN(999999999999) AND expiredpoints IN(0) AND userid = %d GROUP BY expirydate " , time() , $user_id ) , ARRAY_A ) ;
+		// Validate current date with the expiry date.
+                if( $current_time >= $date_to_send_mail ) {
+
+                    $expiry_dates[ $user_id ][] = $date_to_send_mail ;
+                    $user_point_data            = $wpdb->get_results( $wpdb->prepare( "SELECT *,SUM(earnedpoints) as points FROM $table_name WHERE expirydate > %d  AND expirydate NOT IN(999999999999) AND expiredpoints IN(0) AND userid = %d GROUP BY expirydate " , time() , $user_id ) , ARRAY_A ) ;
+                    // Send email.
                     self::send_mail( $user_point_data , $user_id , $templates ) ;
                 }
-            }
 
-            if ( srp_check_is_array( $timestamp ) ) {
-                $timestamp = array_merge( $timestamp , ( array ) get_option( 'rs_check_expiry_email_send_based_on_date' ) ) ;
-                update_option( 'rs_point_expiry_email_send_based_on_date' , $timestamp ) ;
+                if( isset( $expiry_dates[ $user_id ] ) && srp_check_is_array( $expiry_dates[ $user_id ] ) ) {
+                    // Update expiry dates for the user when the email is triggered.
+                    update_user_meta( $user_id , 'rs_point_expiry_email_send_based_on_date' , array_filter( array_unique( array_merge( $expiry_dates[ $user_id ] , ( array ) $user_expiry_dates ) ) ) ) ;
+                }
             }
         }
 
         public static function send_mail( $newdata , $userid , $Templates ) {
 
-            if ( ! srp_check_is_array( $newdata ) ) {
+            if( ! srp_check_is_array( $newdata ) ) {
                 return ;
             }
 
@@ -176,15 +190,15 @@ if ( ! class_exists( 'RSInstall' ) ) {
             $headers      = "MIME-Version: 1.0\r\n" ;
             $headers      .= "Content-Type: text/html; charset=UTF-8\r\n" ;
 
-            if ( $Templates[ 0 ][ 'sender_opt' ] == 'local' ) {
+            if( $Templates[ 0 ][ 'sender_opt' ] == 'local' ) {
                 FPRewardSystem::$rs_from_email_address = $Templates[ 0 ][ 'from_email' ] ;
                 FPRewardSystem::$rs_from_name          = $Templates[ 0 ][ 'from_name' ] ;
             }
             add_filter( 'woocommerce_email_from_address' , 'rs_alter_from_email_of_woocommerce' , 10 , 2 ) ;
             add_filter( 'woocommerce_email_from_name' , 'rs_alter_from_name_of_woocommerce' , 10 , 2 ) ;
 
-            if ( WC_VERSION <= ( float ) ('2.2.0') ) {
-                if ( wp_mail( $user->user_email , $subject , $woo_temp_msg , $headers = '' ) ) {
+            if( WC_VERSION <= ( float ) ('2.2.0') ) {
+                if( wp_mail( $user->user_email , $subject , $woo_temp_msg , $headers = '' ) ) {
                     
                 }
             } else {
@@ -212,7 +226,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
                 <tbody>
                     <?php
                     $i            = 1 ;
-                    foreach ( $sliced_array as $data ) {
+                    foreach( $sliced_array as $data ) {
                         ?>
                         <tr>
                             <td><?php echo $i ; ?></td>
@@ -240,7 +254,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
         public static function create_table_for_point_expiry() {
             global $wpdb ;
             $table_name = $wpdb->prefix . 'rspointexpiry' ;
-            if ( self::rs_check_table_exists( $table_name ) ) {
+            if( self::rs_check_table_exists( $table_name ) ) {
                 $charset_collate = self::get_charset_table() ;
                 $sql             = "CREATE TABLE IF NOT EXISTS $table_name (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -261,11 +275,11 @@ if ( ! class_exists( 'RSInstall' ) ) {
                 dbDelta( $sql ) ;
                 add_option( 'rs_point_expiry' , self::$dbversion ) ;
             }
-            if ( ! self::rs_check_table_exists( $table_name ) ) {
-                if ( ! self::rs_check_column_exists( $table_name , 'totalearnedpoints' ) ) {
+            if( ! self::rs_check_table_exists( $table_name ) ) {
+                if( ! self::rs_check_column_exists( $table_name , 'totalearnedpoints' ) ) {
                     $wpdb->query( "ALTER TABLE $table_name MODIFY totalearnedpoints FLOAT " ) ;
                 }
-                if ( ! self::rs_check_column_exists( $table_name , 'totalredeempoints' ) ) {
+                if( ! self::rs_check_column_exists( $table_name , 'totalredeempoints' ) ) {
                     $wpdb->query( "ALTER TABLE $table_name MODIFY totalredeempoints FLOAT " ) ;
                 }
             }
@@ -275,7 +289,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
             global $wpdb ;
             $table_name = $wpdb->prefix . 'rspointexpiry' ;
             $querys     = $wpdb->get_results( "SELECT id,usedpoints FROM $table_name WHERE usedpoints IS NULL" , ARRAY_A ) ;
-            foreach ( $querys as $query ) {
+            foreach( $querys as $query ) {
                 $wpdb->update( $table_name , array( 'usedpoints' => 0 ) , array( 'id' => $query[ 'id' ] ) ) ;
             }
         }
@@ -285,7 +299,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
             global $wpdb ;
             $getdbversiondata = get_option( "rs_record_points" ) != 'false' ? get_option( 'rs_record_points' ) : "0" ;
             $table_name       = $wpdb->prefix . 'rsrecordpoints' ;
-            if ( self::rs_check_table_exists( $table_name ) ) {
+            if( self::rs_check_table_exists( $table_name ) ) {
                 $charset_collate = self::get_charset_table() ;
                 $sql             = "CREATE TABLE IF NOT EXISTS $table_name (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -313,14 +327,14 @@ if ( ! class_exists( 'RSInstall' ) ) {
                 dbDelta( $sql ) ;
                 add_option( 'rs_record_points' , self::$dbversion ) ;
             }
-            if ( ! self::rs_check_table_exists( $table_name ) ) {
-                if ( ! self::rs_check_column_exists( $table_name , 'redeemequauivalentamount' ) ) {
+            if( ! self::rs_check_table_exists( $table_name ) ) {
+                if( ! self::rs_check_column_exists( $table_name , 'redeemequauivalentamount' ) ) {
                     $wpdb->query( "ALTER TABLE $table_name MODIFY redeemequauivalentamount FLOAT " ) ;
                 }
-                if ( ! self::rs_check_column_exists( $table_name , 'totalpoints' ) ) {
+                if( ! self::rs_check_column_exists( $table_name , 'totalpoints' ) ) {
                     $wpdb->query( "ALTER TABLE $table_name MODIFY totalpoints FLOAT " ) ;
                 }
-                if ( ! self::rs_check_column_exists( $table_name , 'earnedequauivalentamount' ) ) {
+                if( ! self::rs_check_column_exists( $table_name , 'earnedequauivalentamount' ) ) {
                     $wpdb->query( "ALTER TABLE $table_name MODIFY earnedequauivalentamount FLOAT " ) ;
                 }
             }
@@ -329,7 +343,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
         public static function create_table_for_gift_voucher() {
             global $wpdb ;
             $table_name = $wpdb->prefix . 'rsgiftvoucher' ;
-            if ( self::rs_check_table_exists( $table_name ) ) {
+            if( self::rs_check_table_exists( $table_name ) ) {
                 $charset_collate = self::get_charset_table() ;
                 $sql             = "CREATE TABLE IF NOT EXISTS $table_name (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -343,14 +357,14 @@ if ( ! class_exists( 'RSInstall' ) ) {
                 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' ) ;
                 dbDelta( $sql ) ;
             }
-            if ( ! self::rs_check_table_exists( $table_name ) ) {
-                if ( self::rs_check_column_exists( $table_name , 'voucher_code_usage' ) ) {
+            if( ! self::rs_check_table_exists( $table_name ) ) {
+                if( self::rs_check_column_exists( $table_name , 'voucher_code_usage' ) ) {
                     $wpdb->query( "ALTER TABLE $table_name ADD voucher_code_usage VARCHAR(20) NOT NULL" ) ;
                 }
-                if ( self::rs_check_column_exists( $table_name , 'voucher_code_usage_limit' ) ) {
+                if( self::rs_check_column_exists( $table_name , 'voucher_code_usage_limit' ) ) {
                     $wpdb->query( "ALTER TABLE $table_name ADD voucher_code_usage_limit VARCHAR(20) NOT NULL" ) ;
                 }
-                if ( self::rs_check_column_exists( $table_name , 'voucher_code_usage_limit_val' ) ) {
+                if( self::rs_check_column_exists( $table_name , 'voucher_code_usage_limit_val' ) ) {
                     $wpdb->query( "ALTER TABLE $table_name ADD voucher_code_usage_limit_val INT(20) NOT NULL" ) ;
                 }
             }
@@ -360,7 +374,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
             global $wpdb ;
             $getdbversiondata = get_option( "rs_email_template_version" ) != 'false' ? get_option( 'rs_email_template_version' ) : "0" ;
             $table_name       = $wpdb->prefix . 'rs_templates_email' ;
-            if ( self::rs_check_table_exists( $table_name ) ) {
+            if( self::rs_check_table_exists( $table_name ) ) {
                 $charset_collate = self::get_charset_table() ;
                 $sql             = "CREATE TABLE IF NOT EXISTS $table_name (
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -385,7 +399,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
                 dbDelta( $sql ) ;
                 add_option( 'rs_email_template_version' , self::$dbversion ) ;
             }
-            if ( ! self::rs_check_table_exists( $table_name ) && self::rs_check_column_exists( $table_name , 'rs_status' ) ) {
+            if( ! self::rs_check_table_exists( $table_name ) && self::rs_check_column_exists( $table_name , 'rs_status' ) ) {
                 $wpdb->query( "ALTER TABLE $table_name ADD rs_status VARCHAR(20) NOT NULL DEFAULT 'DEACTIVATE' " ) ;
             }
         }
@@ -394,7 +408,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
             global $wpdb ;
             $getdbversiondata = get_option( "rs_encash_version" ) != 'false' ? get_option( 'rs_encash_version' ) : "0" ;
             $table_name       = $wpdb->prefix . 'sumo_reward_encashing_submitted_data' ;
-            if ( self::rs_check_table_exists( $table_name ) ) {
+            if( self::rs_check_table_exists( $table_name ) ) {
                 $charset_collate = self::get_charset_table() ;
                 $sql             = "CREATE TABLE IF NOT EXISTS $table_name (
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -421,7 +435,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
             global $wpdb ;
             $getdbversiondata = get_option( "rs_send_points_version" ) != 'false' ? get_option( 'rs_send_points_version' ) : "0" ;
             $table_name       = $wpdb->prefix . 'sumo_reward_send_point_submitted_data' ;
-            if ( self::rs_check_table_exists( $table_name ) ) {
+            if( self::rs_check_table_exists( $table_name ) ) {
                 $charset_collate = self::get_charset_table() ;
                 $sql             = "CREATE TABLE IF NOT EXISTS $table_name (
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -444,7 +458,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
             global $wpdb ;
             $table_name       = $wpdb->prefix . 'rs_templates_email' ;
             $email_temp_check = $wpdb->get_results( "SELECT * FROM $table_name" , ARRAY_A ) ;
-            if ( srp_check_is_array( $email_temp_check ) )
+            if( srp_check_is_array( $email_temp_check ) )
                 return ;
 
             return $wpdb->insert( $table_name , array(
@@ -484,7 +498,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
         public static function create_table_for_email_template_expired_point() {
             global $wpdb ;
             $table_name = $wpdb->prefix . 'rs_expiredpoints_email' ;
-            if ( self::rs_check_table_exists( $table_name ) ) {
+            if( self::rs_check_table_exists( $table_name ) ) {
                 $charset_collate = self::get_charset_table() ;
                 $sql             = "CREATE TABLE IF NOT EXISTS $table_name (
                 id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -507,7 +521,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
             global $wpdb ;
             $table_name       = $wpdb->prefix . 'rs_expiredpoints_email' ;
             $email_temp_check = $wpdb->get_results( "SELECT * FROM $table_name" , OBJECT ) ;
-            if ( empty( $email_temp_check ) ) {
+            if( empty( $email_temp_check ) ) {
                 return $wpdb->insert( $table_name , array(
                             'template_name' => 'Default' ,
                             'sender_opt'    => 'woo' ,
@@ -523,46 +537,46 @@ if ( ! class_exists( 'RSInstall' ) ) {
         }
 
         public static function send_mail_based_on_cron() {
-            if ( get_option( 'rs_email_activated' ) != "yes" )
+            if( get_option( 'rs_email_activated' ) != "yes" )
                 return ;
 
             global $wpdb ;
             $tablename       = $wpdb->prefix . 'rs_templates_email' ;
             $email_templates = $wpdb->get_results( "SELECT * FROM $tablename" ) ; //all email templates
-            if ( ! srp_check_is_array( $email_templates ) )
+            if( ! srp_check_is_array( $email_templates ) )
                 return ;
 
-            foreach ( $email_templates as $emails ) {
-                if ( $emails->rs_status != "ACTIVE" )
+            foreach( $email_templates as $emails ) {
+                if( $emails->rs_status != "ACTIVE" )
                     continue ;
 
-                if ( $emails->rsmailsendingoptions != 3 )
+                if( $emails->rsmailsendingoptions != 3 )
                     continue ;
 
                 $SiteUrl = "<a href=" . site_url() . ">" . site_url() . "</a>" ;
-                if ( $emails->mailsendingoptions == '1' ) { //Send Mail Only Once
+                if( $emails->mailsendingoptions == '1' ) { //Send Mail Only Once
                     $maindata = ( int ) get_option( 'rscheckcronsafter' ) + 1 ;
                     update_option( 'rscheckcronsafter' , $maindata ) ;
 
-                    if ( get_option( 'rscheckcronsafter' ) > 1 )
+                    if( get_option( 'rscheckcronsafter' ) > 1 )
                         continue ;
 
-                    if ( $emails->sendmail_options == '1' ) { //Send Mail for All User
-                        foreach ( get_users() as $myuser ) {
-                            if ( get_user_meta( $myuser->ID , 'unsub_value' , true ) == 'yes' )
+                    if( $emails->sendmail_options == '1' ) { //Send Mail for All User
+                        foreach( get_users() as $myuser ) {
+                            if( get_user_meta( $myuser->ID , 'unsub_value' , true ) == 'yes' )
                                 continue ;
 
-                            if ( get_option( 'rsemailtemplates' . $myuser->ID ) == 1 )
+                            if( get_option( 'rsemailtemplates' . $myuser->ID ) == 1 )
                                 continue ;
 
                             $PointsData = new RS_Points_data( $myuser->ID ) ;
                             $userpoint  = $PointsData->total_available_points() ;
 
-                            if ( empty( $userpoint ) )
+                            if( empty( $userpoint ) )
                                 continue ;
 
                             $minimumuserpoints = empty( $emails->minimum_userpoints ) ? 0 : $emails->minimum_userpoints ;
-                            if ( $minimumuserpoints > $userpoint )
+                            if( $minimumuserpoints > $userpoint )
                                 continue ;
 
                             self::available_points_mail_based_on_cron( $myuser->ID , $emails , $SiteUrl , $userpoint ) ;
@@ -570,24 +584,24 @@ if ( ! class_exists( 'RSInstall' ) ) {
                         }
                     } else { // Send Mail for Selected User
                         $selected_users = maybe_unserialize( $emails->sendmail_to ) ;
-                        if ( ! srp_check_is_array( $selected_users ) )
+                        if( ! srp_check_is_array( $selected_users ) )
                             continue ;
 
-                        foreach ( $selected_users as $myuser ) {
-                            if ( get_user_meta( $myuser , 'unsub_value' , true ) == 'yes' )
+                        foreach( $selected_users as $myuser ) {
+                            if( get_user_meta( $myuser , 'unsub_value' , true ) == 'yes' )
                                 continue ;
 
-                            if ( get_option( 'rsemailtemplates' . $myuser ) == 1 )
+                            if( get_option( 'rsemailtemplates' . $myuser ) == 1 )
                                 continue ;
 
                             $PointsData = new RS_Points_data( $myuser ) ;
                             $userpoint  = $PointsData->total_available_points() ;
 
-                            if ( empty( $userpoint ) )
+                            if( empty( $userpoint ) )
                                 continue ;
 
                             $minimumuserpoints = empty( $emails->minimum_userpoints ) ? 0 : $emails->minimum_userpoints ;
-                            if ( $minimumuserpoints > $userpoint )
+                            if( $minimumuserpoints > $userpoint )
                                 continue ;
 
                             self::available_points_mail_based_on_cron( $myuser , $emails , $SiteUrl , $userpoint ) ;
@@ -595,40 +609,40 @@ if ( ! class_exists( 'RSInstall' ) ) {
                         }
                     }
                 } else { // Send Mail Always
-                    if ( $emails->sendmail_options == '1' ) {//Send Mail for All User
-                        foreach ( get_users() as $myuser ) {
-                            if ( get_user_meta( $myuser->ID , 'unsub_value' , true ) == 'yes' )
+                    if( $emails->sendmail_options == '1' ) {//Send Mail for All User
+                        foreach( get_users() as $myuser ) {
+                            if( get_user_meta( $myuser->ID , 'unsub_value' , true ) == 'yes' )
                                 continue ;
 
                             $PointsData = new RS_Points_data( $myuser->ID ) ;
                             $userpoint  = $PointsData->total_available_points() ;
 
-                            if ( empty( $userpoint ) )
+                            if( empty( $userpoint ) )
                                 continue ;
 
                             $minimumuserpoints = empty( $emails->minimum_userpoints ) ? 0 : $emails->minimum_userpoints ;
-                            if ( $minimumuserpoints > $userpoint )
+                            if( $minimumuserpoints > $userpoint )
                                 continue ;
 
                             self::available_points_mail_based_on_cron( $myuser->ID , $emails , $SiteUrl , $userpoint ) ;
                         }
                     } else {//Send Mail for Selected User
                         $selected_users = maybe_unserialize( $emails->sendmail_to ) ;
-                        if ( ! srp_check_is_array( $selected_users ) )
+                        if( ! srp_check_is_array( $selected_users ) )
                             continue ;
 
-                        foreach ( $selected_users as $myuser ) {
-                            if ( get_user_meta( $myuser , 'unsub_value' , true ) == 'yes' )
+                        foreach( $selected_users as $myuser ) {
+                            if( get_user_meta( $myuser , 'unsub_value' , true ) == 'yes' )
                                 continue ;
 
                             $PointsData = new RS_Points_data( $myuser ) ;
                             $userpoint  = $PointsData->total_available_points() ;
 
-                            if ( empty( $userpoint ) )
+                            if( empty( $userpoint ) )
                                 continue ;
 
                             $minimumuserpoints = empty( $emails->minimum_userpoints ) ? 0 : $emails->minimum_userpoints ;
-                            if ( $minimumuserpoints > $userpoint )
+                            if( $minimumuserpoints > $userpoint )
                                 continue ;
 
                             self::available_points_mail_based_on_cron( $myuser , $emails , $SiteUrl , $userpoint ) ;
@@ -642,7 +656,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
             $user              = get_userdata( $userid ) ;
             $user_wmpl_lang    = empty( get_user_meta( $userid , 'rs_wpml_lang' , true ) ) ? 'en' : get_user_meta( $userid , 'rs_wpml_lang' , true ) ;
             $subject           = RSWPMLSupport::fp_wpml_text( 'rs_template_' . $emails->id . '_subject' , $user_wmpl_lang , $emails->subject ) ;
-            $PointsValue       = redeem_point_conversion( $userpoint , $userid , 'price') ;
+            $PointsValue       = redeem_point_conversion( $userpoint , $userid , 'price' ) ;
             $PointsValue       = srp_formatted_price( round_off_type( $PointsValue ) ) ;
             $referral_url      = get_option( 'rs_referral_link_refer_a_friend_form' ) != '' ? get_option( 'rs_referral_link_refer_a_friend_form' ) : site_url() ;
             $site_referral_url = get_option( 'rs_restrict_referral_points_for_same_ip' ) == 'yes' ? esc_url_raw( add_query_arg( array( 'ref' => $user->user_login , 'ip' => base64_encode( get_referrer_ip_address() ) ) , $referral_url ) ) : esc_url_raw( add_query_arg( array( 'ref' => $user->user_login ) , $referral_url ) ) ;
@@ -650,7 +664,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
             $message           = RSWPMLSupport::fp_wpml_text( 'rs_template_' . $emails->id . '_message' , $user_wmpl_lang , $emails->message ) ;
             $message           = str_replace( array( '{rssitelink}' , '{rsfirstname}' , '{rslastname}' , '{site_referral_url}' , '{rspoints}' , '{rs_points_in_currency}' ) , array( $SiteUrl , $user->user_firstname , $user->user_lastname , $site_referral_url , $userpoint , $PointsValue ) , $message ) ;
             $message           = do_shortcode( $message ) ; //shortcode feature
-            if ( $emails->sender_opt == 'local' ) {
+            if( $emails->sender_opt == 'local' ) {
                 FPRewardSystem::$rs_from_email_address = $emails->from_email ;
                 FPRewardSystem::$rs_from_name          = $emails->from_name ;
             }
@@ -674,7 +688,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
             global $wpdb ;
             $data_base     = constant( 'DB_NAME' ) ;
             $column_exists = $wpdb->query( "select * from information_schema.columns where table_schema='$data_base' and table_name = '$table_name'" ) ;
-            if ( $column_exists === 0 ) {
+            if( $column_exists === 0 ) {
                 add_option( 'rs_new_update_user' , true ) ;
                 return true ; //if not exists return true
             }
@@ -692,11 +706,11 @@ if ( ! class_exists( 'RSInstall' ) ) {
 
         public static function enable_newly_added_module() {
             global $wpdb ;
-            if ( self::rs_check_table_exists( $wpdb->prefix . 'rspointexpiry' ) )
+            if( self::rs_check_table_exists( $wpdb->prefix . 'rspointexpiry' ) )
                 return ;
 
             $enabledcount = self::is_buying_enabled() ;
-            if ( $enabledcount > 0 && ! (get_option( 'rs_buyingpoints_activated' )) )
+            if( $enabledcount > 0 && ! (get_option( 'rs_buyingpoints_activated' )) )
                 update_option( 'rs_buyingpoints_activated' , 'yes' ) ;
         }
 

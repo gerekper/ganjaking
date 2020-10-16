@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Conditions class.
  *
  * @class    WC_CSP_Conditions
- * @version  1.4.0
+ * @version  1.8.6
  */
 class WC_CSP_Conditions {
 
@@ -29,7 +29,7 @@ class WC_CSP_Conditions {
 			'WC_CSP_Condition_Cart_Total',
 			'WC_CSP_Condition_Order_Total',
 			'WC_CSP_Condition_Cart_Item_Quantity',
-			'WC_CSP_Condition_Billing_Country',
+			'WC_CSP_Condition_Billing_Country_State',
 			'WC_CSP_Condition_Shipping_Country_State',
 			'WC_CSP_Condition_Shipping_Postcode',
 			'WC_CSP_Condition_Shipping_Method',

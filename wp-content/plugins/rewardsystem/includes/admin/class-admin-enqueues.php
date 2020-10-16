@@ -205,13 +205,15 @@ if ( ! class_exists( 'RSAdminEnqueues' ) ) {
             $isadmin      = is_admin() ? 'yes' : 'no' ;
             wp_enqueue_script( 'fp_addremovepoints_tab' , SRP_PLUGIN_DIR_URL . "assets/js/tab/fp-addremovepoints-tab.js" , array( 'jquery' ) , SRP_VERSION ) ;
             wp_localize_script( 'fp_addremovepoints_tab' , 'fp_addremovepoints_tab_params' , array(
-                'ajaxurl'          => SRP_ADMIN_AJAX_URL ,
-                'pointerrormsg'    => 'Please Enter Points' ,
-                'reasomerrormsg'   => 'Please Enter Reason' ,
-                'fp_add_points'    => wp_create_nonce( 'fp-add-points' ) ,
-                'fp_remove_points' => wp_create_nonce( 'fp-remove-points' ) ,
-                'isadmin'          => $isadmin ,
-                'redirect'         => $redirect_url
+                'ajaxurl'            => SRP_ADMIN_AJAX_URL ,
+                'pointerrormsg'      => esc_html__( 'Please Enter Points' , SRP_LOCALE ) ,
+                'reasomerrormsg'     => esc_html__( 'Please Enter Reason' , SRP_LOCALE ) ,
+                'expirydateerrormsg' => esc_html__( 'Please enter the valid expiry date' , SRP_LOCALE ) ,
+                'current_date'       => date( 'Y-m-d' ) ,
+                'fp_add_points'      => wp_create_nonce( 'fp-add-points' ) ,
+                'fp_remove_points'   => wp_create_nonce( 'fp-remove-points' ) ,
+                'isadmin'            => $isadmin ,
+                'redirect'           => $redirect_url
             ) ) ;
         }
 

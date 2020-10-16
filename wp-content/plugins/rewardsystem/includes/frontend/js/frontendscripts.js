@@ -1,9 +1,9 @@
 
-jQuery( function ( $ ) {
+jQuery( function( $ ) {
 
     var FPFrontendScripts = {
-        init : function ( ) {
-            if ( frontendscripts_params.enqueue_footable === '1' ) {
+        init : function( ) {
+            if( frontendscripts_params.enqueue_footable === '1' ) {
                 this.table_as_footable( ) ;
             }
 
@@ -24,9 +24,9 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_duration_type' , this.toggle_my_reward_table_date_filter ) ;
             $( document ).on( 'click' , '#rs_submit' , this.prevent_submit_in_my_reward_table ) ;
         } ,
-        trigger_on_page_load : function ( ) {
+        trigger_on_page_load : function( ) {
 
-            if ( '1' == frontendscripts_params.is_date_filter_enabled ) {
+            if( '1' == frontendscripts_params.is_date_filter_enabled ) {
                 // Date picker for my reward table date filter.
                 $( '#rs_custom_from_date_field' ).datepicker( { dateFormat : 'yy-mm-dd' } ) ;
                 $( '#rs_custom_to_date_field' ).datepicker( { dateFormat : 'yy-mm-dd' } ) ;
@@ -34,7 +34,7 @@ jQuery( function ( $ ) {
                 FPFrontendScripts.toggle_my_reward_table_date_filter() ;
             }
 
-            if ( frontendscripts_params.variable_product_earnmessage == 'no' && '1' == frontendscripts_params.is_product_page ) {
+            if( frontendscripts_params.variable_product_earnmessage == 'no' && '1' == frontendscripts_params.is_product_page ) {
                 $( '.variableshopmessage' ).next( 'br' ).hide() ;
                 $( '.variableshopmessage' ).hide( ) ;
             } else {
@@ -42,56 +42,59 @@ jQuery( function ( $ ) {
                 $( '.variableshopmessage' ).show( ) ;
             }
         } ,
-        table_as_footable : function ( ) {
-            jQuery( '.my_reward_table' ).footable( ).bind( 'footable_filtering' , function ( e ) {
+        table_as_footable : function( ) {
+            jQuery( '.my_reward_table' ).footable( ).bind( 'footable_filtering' , function( e ) {
                 var selected = jQuery( '.filter-status' ).find( ':selected' ).text( ) ;
-                if ( selected && selected.length > 0 ) {
+                if( selected && selected.length > 0 ) {
                     e.filter += ( e.filter && e.filter.length > 0 ) ? ' ' + selected : selected ;
-                    e.clear = ! e.filter ;
+                    e.clear = !e.filter ;
                 }
             } ) ;
-            jQuery( '#change-page-sizes' ).change( function ( e ) {
+            jQuery( '#change-page-sizes' ).change( function( e ) {
                 e.preventDefault( ) ;
                 var pageSize = jQuery( this ).val( ) ;
                 jQuery( '.footable' ).data( 'page-size' , pageSize ) ;
                 jQuery( '.footable' ).trigger( 'footable_initialized' ) ;
             } ) ;
-            jQuery( '.srp_rank_based_points' ).footable() ;
-            jQuery( '#page_size_for_points' ).change( function ( e ) {
+            jQuery( '#page_size_for_points' ).change( function( e ) {
                 e.preventDefault( ) ;
                 var pageSize = jQuery( this ).val( ) ;
                 jQuery( '.footable' ).data( 'page-size' , pageSize ) ;
                 jQuery( '.footable' ).trigger( 'footable_initialized' ) ;
             } ) ;
+            
+            // Footable for Shortcode 'rs_points_earned_in_a_specific_duration'.
+            jQuery( '.rs_points_earned_in_specific_duration' ).footable() ;
+
         } ,
-        display_social_icons_reward_table : function ( ) {
+        display_social_icons_reward_table : function( ) {
             jQuery( '.rs_social_buttons .fb-share-button span' ).css( "width" , "60px" ) ;
             jQuery( '.rs_social_buttons .fb-share-button span iframe' ).css( { "width" : "59px" , "height" : "29px" , "visibility" : "visible" } ) ;
             jQuery( '.rs_social_buttons iframe.twitter-share-button' ).css( { "width" : "59px" , "height" : "29px" , "visibility" : "visible" } ) ;
         } ,
-        generated_referral_link : function ( ) {
+        generated_referral_link : function( ) {
             var urlstring = jQuery( '#generate_referral_field' ).val( ) ;
             var data = ( {
                 action : 'generate_referral_link' ,
                 url : urlstring ,
                 sumo_security : frontendscripts_params.generate_referral
             } ) ;
-            $.post( frontendscripts_params.ajaxurl , data , function ( response ) {
-                if ( true === response.success ) {
+            $.post( frontendscripts_params.ajaxurl , data , function( response ) {
+                if( true === response.success ) {
                     window.location.reload( ) ;
                 } else {
                     window.alert( response.data.error ) ;
                 }
             } ) ;
         } ,
-        fb_share : function ( evt ) {
+        fb_share : function( evt ) {
             evt.preventDefault( ) ;
             var a = document.getElementById( 'share_wrapper' )
             var url = a.getAttribute( 'href' ) ;
             var image = a.getAttribute( 'data-image' ) ;
             var title = a.getAttribute( 'data-title' ) ;
             var description = a.getAttribute( 'data-description' ) ;
-            if ( image == '' ) {
+            if( image == '' ) {
                 FB.ui( {
                     method : 'share_open_graph' ,
                     action_type : 'og.shares' ,
@@ -102,9 +105,9 @@ jQuery( function ( $ ) {
                             'og:description' : description ,
                         }
                     } )
-                } , function ( response ) {
+                } , function( response ) {
                     // Action after response
-                    if ( response != null ) {
+                    if( response != null ) {
                         alert( 'Sucessfully Shared' ) ;
                     } else {
                         alert( 'Cancelled' ) ;
@@ -122,9 +125,9 @@ jQuery( function ( $ ) {
                             'og:image' : image
                         }
                     } )
-                } , function ( response ) {
+                } , function( response ) {
                     // Action after response
-                    if ( response != null ) {
+                    if( response != null ) {
                         alert( 'Sucessfully Shared' ) ;
                     } else {
                         alert( 'Cancelled' ) ;
@@ -133,23 +136,23 @@ jQuery( function ( $ ) {
             }
             return false ;
         } ,
-        unset_removed_free_products : function ( evt ) {
+        unset_removed_free_products : function( evt ) {
             var data = {
                 action : 'unsetproduct' ,
                 sumo_security : frontendscripts_params.unset_product ,
                 key_to_remove : $( evt.target ).data( 'cartkey' ) ,
             } ;
-            $.post( frontendscripts_params.ajaxurl , data , function ( response ) {
-                if ( true === response.success ) {
+            $.post( frontendscripts_params.ajaxurl , data , function( response ) {
+                if( true === response.success ) {
                     window.location.reload( ) ;
                 } else {
                     window.alert( response.data.error ) ;
                 }
             } ) ;
         } ,
-        message_for_booking : function ( ) {
+        message_for_booking : function( ) {
             var xhr ;
-            if ( xhr )
+            if( xhr )
                 xhr.abort() ;
             var form = jQuery( this ).closest( 'form' ) ;
             var data = ( {
@@ -157,9 +160,9 @@ jQuery( function ( $ ) {
                 form : form.serialize() ,
                 sumo_security : frontendscripts_params.booking_msg
             } ) ;
-            $.post( frontendscripts_params.ajaxurl , data , function ( response ) {
-                if ( true === response.success ) {
-                    if ( ( response.data.sumorewardpoints !== 0 ) && ( response.data.sumorewardpoints !== '' ) ) {
+            $.post( frontendscripts_params.ajaxurl , data , function( response ) {
+                if( true === response.success ) {
+                    if( ( response.data.sumorewardpoints !== 0 ) && ( response.data.sumorewardpoints !== '' ) ) {
                         $( '.woocommerce_booking_variations' ).addClass( 'woocommerce-info' ) ;
                         $( '.woocommerce_booking_variations' ).show() ;
                         $( '.sumobookingpoints' ).html( response.data.sumorewardpoints ) ;
@@ -171,20 +174,20 @@ jQuery( function ( $ ) {
                 }
             } ) ;
         } ,
-        message_for_variations : function ( ) {
-            if ( ! $( this ).closest( 'div.single_variation_wrap' ).find( 'input:hidden[name=variation_id], input.variation_id' ).length )
+        message_for_variations : function( ) {
+            if( !$( this ).closest( 'div.single_variation_wrap' ).find( 'input:hidden[name=variation_id], input.variation_id' ).length )
                 return false ;
 
-            if ( 'no' === frontendscripts_params.check_purchase_notice_for_variation && 'no' === frontendscripts_params.check_referral_notice_for_variation && 'no' === frontendscripts_params.check_buying_notice_for_variation ) {
+            if( 'no' === frontendscripts_params.check_purchase_notice_for_variation && 'no' === frontendscripts_params.check_referral_notice_for_variation && 'no' === frontendscripts_params.check_buying_notice_for_variation ) {
                 return false ;
             }
 
             var variationid = $( this ).closest( 'div.single_variation_wrap' ).find( 'input:hidden[name=variation_id], input.variation_id' ).val() ;
-            if ( variationid === '' || variationid === 0 || variationid === undefined ) {
+            if( variationid === '' || variationid === 0 || variationid === undefined ) {
                 $( '#value_variable_product' ).hide() ;
                 $( '#buy_Point_value_variable_product' ).hide() ;
                 $( '.rs_variable_earn_messages' ).hide() ;
-                if ( frontendscripts_params.variable_product_earnmessage === 'no' ) {
+                if( frontendscripts_params.variable_product_earnmessage === 'no' ) {
                     $( '.variableshopmessage' ).hide( ) ;
                     $( '.variableshopmessage' ).next( 'br' ).hide() ;
                 }
@@ -197,14 +200,14 @@ jQuery( function ( $ ) {
                     variationid : variationid ,
                     sumo_security : frontendscripts_params.variation_msg
                 } ) ;
-                $.post( frontendscripts_params.ajaxurl , data , function ( response ) {
-                    if ( true === response.success ) {
-                        if ( response.data.showmsg ) {
-                            if ( frontendscripts_params.productpurchasecheckbox == 'yes' ) {
-                                if ( frontendscripts_params.showreferralmsg == '1' ) {
-                                    if ( response.data.earnpointmsg != '' ) {
-                                        if ( frontendscripts_params.loggedinuser == "yes" ) {
-                                            if ( frontendscripts_params.showearnmsg == '1' ) {
+                $.post( frontendscripts_params.ajaxurl , data , function( response ) {
+                    if( true === response.success ) {
+                        if( response.data.showmsg ) {
+                            if( frontendscripts_params.productpurchasecheckbox == 'yes' ) {
+                                if( frontendscripts_params.showreferralmsg == '1' ) {
+                                    if( response.data.earnpointmsg != '' ) {
+                                        if( frontendscripts_params.loggedinuser == "yes" ) {
+                                            if( frontendscripts_params.showearnmsg == '1' ) {
                                                 $( '.variableshopmessage' ).show() ;
                                                 $( '.variableshopmessage' ).next( 'br' ).show() ;
                                                 $( '.variableshopmessage' ).html( response.data.earnpointmsg ) ;
@@ -214,7 +217,7 @@ jQuery( function ( $ ) {
                                                 $( '.rs_variable_earn_messages' ).html( response.data.earnpointmsg ) ;
                                             }
                                         } else {
-                                            if ( frontendscripts_params.showearnmsg_guest == '1' ) {
+                                            if( frontendscripts_params.showearnmsg_guest == '1' ) {
                                                 $( '.variableshopmessage' ).show() ;
                                                 $( '.variableshopmessage' ).next( 'br' ).show() ;
                                                 $( '.variableshopmessage' ).html( response.data.earnpointmsg ) ;
@@ -236,18 +239,18 @@ jQuery( function ( $ ) {
                                     $( '#referral_value_variable_product' ).show() ;
                                     $( '#referral_value_variable_product' ).html( response.data.refmsg ) ;
                                 }
-                                if ( frontendscripts_params.showbuyingmsg == '1' && response.data.buymsg != '' ) {
+                                if( frontendscripts_params.showbuyingmsg == '1' && response.data.buymsg != '' ) {
                                     $( '.variableshopmessage' ).show() ;
                                     $( '.variableshopmessage' ).next( 'br' ).show() ;
-                                    if ( response.data.earnpointmsg != '' ) {
-                                        if ( frontendscripts_params.loggedinuser == "yes" ) {
-                                            if ( frontendscripts_params.showearnmsg == '1' ) {
+                                    if( response.data.earnpointmsg != '' ) {
+                                        if( frontendscripts_params.loggedinuser == "yes" ) {
+                                            if( frontendscripts_params.showearnmsg == '1' ) {
                                                 $( '.variableshopmessage' ).append( '<br>' + response.data.buymsg + '</br>' ) ;
                                             } else {
                                                 $( '.variableshopmessage' ).html( '<br>' + response.data.buymsg + '</br>' ) ;
                                             }
                                         } else {
-                                            if ( frontendscripts_params.showearnmsg_guest == '1' ) {
+                                            if( frontendscripts_params.showearnmsg_guest == '1' ) {
                                                 $( '.variableshopmessage' ).append( '<br>' + response.data.buymsg + '</br>' ) ;
                                             } else {
                                                 $( '.variableshopmessage' ).html( '<br>' + response.data.buymsg + '</br>' ) ;
@@ -257,19 +260,19 @@ jQuery( function ( $ ) {
                                         $( '.variableshopmessage' ).html( '<br>' + response.data.buymsg + '</br>' ) ;
                                     }
                                 }
-                                if ( frontendscripts_params.showpurchasemsg == '1' && response.data.purchasemsg ) {
+                                if( frontendscripts_params.showpurchasemsg == '1' && response.data.purchasemsg ) {
                                     $( '#value_variable_product' ).addClass( 'woocommerce-info rs_message_for_single_product' ) ;
                                     $( '#value_variable_product' ).show() ;
                                     $( '#value_variable_product' ).html( response.data.purchasemsg ) ;
-                                    if ( response.data.earnpointmsg != '' ) {
-                                        if ( frontendscripts_params.loggedinuser == "yes" ) {
-                                            if ( frontendscripts_params.showearnmsg == '1' ) {
+                                    if( response.data.earnpointmsg != '' ) {
+                                        if( frontendscripts_params.loggedinuser == "yes" ) {
+                                            if( frontendscripts_params.showearnmsg == '1' ) {
                                                 $( '.variableshopmessage' ).show() ;
                                                 $( '.variableshopmessage' ).next( 'br' ).show() ;
                                                 $( '.variableshopmessage' ).html( response.data.earnpointmsg ) ;
                                             }
                                         } else {
-                                            if ( frontendscripts_params.showearnmsg_guest == '1' ) {
+                                            if( frontendscripts_params.showearnmsg_guest == '1' ) {
                                                 $( '.variableshopmessage' ).show() ;
                                                 $( '.variableshopmessage' ).next( 'br' ).show() ;
                                                 $( '.variableshopmessage' ).html( response.data.earnpointmsg ) ;
@@ -277,15 +280,15 @@ jQuery( function ( $ ) {
                                         }
                                     }
                                 }
-                                if ( response.data.earnpointmsg != '' ) {
-                                    if ( frontendscripts_params.loggedinuser == "yes" ) {
-                                        if ( frontendscripts_params.showearnmsg == '1' ) {
+                                if( response.data.earnpointmsg != '' ) {
+                                    if( frontendscripts_params.loggedinuser == "yes" ) {
+                                        if( frontendscripts_params.showearnmsg == '1' ) {
                                             $( '.variableshopmessage' ).show() ;
                                             $( '.variableshopmessage' ).next( 'br' ).show() ;
                                             $( '.variableshopmessage' ).html( response.data.earnpointmsg ) ;
                                         }
                                     } else {
-                                        if ( frontendscripts_params.showearnmsg_guest == '1' ) {
+                                        if( frontendscripts_params.showearnmsg_guest == '1' ) {
                                             $( '.variableshopmessage' ).show() ;
                                             $( '.variableshopmessage' ).next( 'br' ).show() ;
                                             $( '.variableshopmessage' ).html( response.data.earnpointmsg ) ;
@@ -293,32 +296,32 @@ jQuery( function ( $ ) {
                                     }
                                 }
                             } else {
-                                if ( frontendscripts_params.showreferralmsg == '1' ) {
+                                if( frontendscripts_params.showreferralmsg == '1' ) {
                                     $( '#referral_value_variable_product' ).addClass( 'woocommerce-info rs_message_for_single_product' ) ;
                                     $( '#referral_value_variable_product' ).show() ;
                                     $( '#referral_value_variable_product' ).html( response.data.refmsg ) ;
                                 }
                             }
-                            if ( frontendscripts_params.buyingpointscheckbox == 'yes' ) {
-                                if ( frontendscripts_params.buyingmsg == '1' && response.data.showbuypoint == '1' && response.data.buying_msg != '' ) {
+                            if( frontendscripts_params.buyingpointscheckbox == 'yes' ) {
+                                if( frontendscripts_params.buyingmsg == '1' && response.data.showbuypoint == '1' && response.data.buying_msg != '' ) {
                                     $( '#buy_Point_value_variable_product' ).addClass( 'woocommerce-info rs_message_for_single_product' ) ;
                                     $( '#buy_Point_value_variable_product' ).show() ;
                                     $( '#buy_Point_value_variable_product' ).html( response.data.buying_msg ) ;
                                 } else {
                                     $( '#buy_Point_value_variable_product' ).hide() ;
                                 }
-                                if ( frontendscripts_params.showbuyingmsg == '1' && response.data.buymsg != '' ) {
+                                if( frontendscripts_params.showbuyingmsg == '1' && response.data.buymsg != '' ) {
                                     $( '.variableshopmessage' ).show() ;
                                     $( '.variableshopmessage' ).next( 'br' ).show() ;
-                                    if ( response.data.earnpointmsg != '' && frontendscripts_params.productpurchasecheckbox == 'yes' ) {
-                                        if ( frontendscripts_params.loggedinuser == "yes" ) {
-                                            if ( frontendscripts_params.showearnmsg == '1' ) {
+                                    if( response.data.earnpointmsg != '' && frontendscripts_params.productpurchasecheckbox == 'yes' ) {
+                                        if( frontendscripts_params.loggedinuser == "yes" ) {
+                                            if( frontendscripts_params.showearnmsg == '1' ) {
                                                 $( '.variableshopmessage' ).append( '<br>' + response.data.buymsg + '</br>' ) ;
                                             } else {
                                                 $( '.variableshopmessage' ).html( '<br>' + response.data.buymsg + '</br>' ) ;
                                             }
                                         } else {
-                                            if ( frontendscripts_params.showearnmsg_guest == '1' ) {
+                                            if( frontendscripts_params.showearnmsg_guest == '1' ) {
                                                 $( '.variableshopmessage' ).append( '<br>' + response.data.buymsg + '</br>' ) ;
                                             } else {
                                                 $( '.variableshopmessage' ).html( '<br>' + response.data.buymsg + '</br>' ) ;
@@ -339,7 +342,7 @@ jQuery( function ( $ ) {
                 } ) ;
             }
         } ,
-        copy_to_clipboard : function () {
+        copy_to_clipboard : function() {
 
             /* Code Improvement for Copy Link Functionality in V23.8 */
 
@@ -369,12 +372,12 @@ jQuery( function ( $ ) {
 
             input.remove() ;
         } ,
-        toggle_my_reward_table_date_filter : function ( ) {
-            if ( '5' == $( '#rs_duration_type' ).val( ) ) {
+        toggle_my_reward_table_date_filter : function( ) {
+            if( '5' == $( '#rs_duration_type' ).val( ) ) {
                 $( 'table.rs-my-reward-date-filter' ).find( '#rs_submit' ).removeClass( 'rs_disabled' ) ;
                 $( '#rs_custom_from_date_field' ).closest( 'tr' ).show( ) ;
                 $( '#rs_custom_to_date_field' ).closest( 'tr' ).show( ) ;
-            } else if ( '0' == $( '#rs_duration_type' ).val( ) ) {
+            } else if( '0' == $( '#rs_duration_type' ).val( ) ) {
                 $( 'table.rs-my-reward-date-filter' ).find( '#rs_submit' ).addClass( 'rs_disabled' ) ;
                 $( '#rs_custom_from_date_field' ).closest( 'tr' ).hide( ) ;
                 $( '#rs_custom_to_date_field' ).closest( 'tr' ).hide( ) ;
@@ -384,29 +387,29 @@ jQuery( function ( $ ) {
                 $( '#rs_custom_to_date_field' ).closest( 'tr' ).hide( ) ;
             }
         } ,
-        prevent_submit_in_my_reward_table : function () {
+        prevent_submit_in_my_reward_table : function() {
 
             var $error_message = false ;
 
-            if ( '0' == $( '#rs_duration_type' ).val( ) ) {
+            if( '0' == $( '#rs_duration_type' ).val( ) ) {
                 $error_message = frontendscripts_params.default_selection_error_message ;
             }
 
-            if ( '5' == $( '#rs_duration_type' ).val( ) ) {
+            if( '5' == $( '#rs_duration_type' ).val( ) ) {
                 var $from_date = $( '#rs_custom_from_date_field' ).val() ;
                 var $to_date = $( '#rs_custom_to_date_field' ).val() ;
 
-                if ( ! $from_date || ! $to_date ) {
+                if( !$from_date || !$to_date ) {
                     $error_message = frontendscripts_params.custom_date_error_message ;
                 }
             }
 
-            if ( $error_message ) {
+            if( $error_message ) {
                 alert( $error_message )
                 return false ;
             }
         } ,
-        block : function ( id ) {
+        block : function( id ) {
             $( id ).block( {
                 message : null ,
                 overlayCSS : {
@@ -415,7 +418,7 @@ jQuery( function ( $ ) {
                 }
             } ) ;
         } ,
-        unblock : function ( id ) {
+        unblock : function( id ) {
             $( id ).unblock( ) ;
         } ,
     } ;

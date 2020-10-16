@@ -1,5 +1,8 @@
 *** WooCommerce MSRP Pricing ***
 
+2020.10.12 - version 3.0.2
+* Fix: Correctly handle some combinations of tax settings
+
 2020.10.05 - version 3.0.1
 * Change: WooCommerce 4.6 compatibility
 

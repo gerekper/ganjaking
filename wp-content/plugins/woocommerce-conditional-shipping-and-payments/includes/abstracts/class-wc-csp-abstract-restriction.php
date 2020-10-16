@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Restriction class.
  *
  * @class    WC_CSP_Restriction
- * @version  1.8.5
+ * @version  1.8.6
  */
 class WC_CSP_Restriction extends WC_Settings_API {
 
@@ -593,8 +593,8 @@ class WC_CSP_Restriction extends WC_Settings_API {
 			return false;
 		}
 
-		$conditions = $restriction_data[ 'conditions' ];
-
+		$conditions  = $restriction_data[ 'conditions' ];
+		$args        = array_merge( $args, array( 'restriction_data' => $restriction_data ) );
 		$resolutions = array();
 		$string      = '';
 

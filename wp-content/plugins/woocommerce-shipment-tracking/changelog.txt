@@ -1,7 +1,11 @@
 *** Shipment Tracking Changelog ***
 
+2020-10-12 - version 1.6.26
+* Add   - Purolator shipping for Canada.
+* Fix   - Fastway Couriers NZ is now Aramex.
+
 2020-09-30 - version 1.6.25
-* Fix - Match provider names without spaces to match ShipStation carrier string.
+* Fix   - Match provider names without spaces to match ShipStation carrier string.
 * Tweak - WC 4.5 compatibility.
 
 2020-08-11 - version 1.6.24

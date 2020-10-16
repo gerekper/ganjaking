@@ -3,13 +3,14 @@
  * Plugin Name: WooCommerce Subscription Downloads
  * Plugin URI: https://woocommerce.com/products/woocommerce-subscription-downloads/
  * Description: Associate downloadable products with a Subscription product in WooCommerce, and grant subscribers access to the associated downloads for the downloadable products.
- * Version: 1.1.26
+ * Version: 1.1.30
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-subscription-downloads
  * Domain Path: /languages
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * WC requires at least: 2.6
+ * Tested up to: 5.5
  *
  * Copyright: © 2020 WooCommerce
  * License: GNU General Public License v3.0
@@ -24,9 +25,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_SUBSCRIPTION_DOWNLOADS_VERSION', '1.1.26' ); // WRCS: DEFINED_VERSION.
+define( 'WC_SUBSCRIPTION_DOWNLOADS_VERSION', '1.1.30' ); // WRCS: DEFINED_VERSION.
 
 if ( ! class_exists( 'WC_Subscription_Downloads' ) ) :
+
+	// Subscribe to automated translations.
+	add_action( 'woocommerce_translations_updates_for_woocommerce-subscription-downloads', '__return_true' );
 
 	class WC_Subscription_Downloads {
 
@@ -75,9 +79,6 @@ if ( ! class_exists( 'WC_Subscription_Downloads' ) ) :
 		 * @return void
 		 */
 		public function load_plugin_textdomain() {
-			$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-subscription-downloads' );
-
-			load_textdomain( 'woocommerce-subscription-downloads', trailingslashit( WP_LANG_DIR ) . 'woocommerce-subscription-downloads/woocommerce-subscription-downloads-' . $locale . '.mo' );
 			load_plugin_textdomain( 'woocommerce-subscription-downloads', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		}
 
@@ -183,7 +184,11 @@ if ( ! class_exists( 'WC_Subscription_Downloads' ) ) :
 								$_downloads = $order->get_item_downloads( $_item );
 							} else {
 								$order_item = new WC_Order_Item_Product();
-								$order_item->set_product( wc_get_product( $product_id ) );
+								$product    = wc_get_product( $product_id );
+								if ( empty( $product ) ) {
+									continue;
+								}
+								$order_item->set_product( $product );
 								$order_item->set_order_id( $order->get_id() );
 								$_downloads = $order_item->get_item_downloads();
 							}

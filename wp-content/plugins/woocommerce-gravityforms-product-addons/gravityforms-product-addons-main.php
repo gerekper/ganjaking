@@ -218,6 +218,16 @@ class WC_GFPA_Main {
 					$product_ids = array_merge( $product_ids, array_map( 'trim', explode( ',', $product_id ) ) );
 				}
 			}
+		} elseif ( $post && preg_match_all( '/\[woocommerce_one_page_checkout +.*?((ids=.+?)|(name=.+?))\]/is', $post->post_content, $matches, PREG_SET_ORDER ) ) {
+			$ajax = false;
+			foreach ( $matches as $match ) {
+				//parsing shortcode attributes
+				$attr       = shortcode_parse_atts( $match[1] );
+				$product_id = isset( $attr['ids'] ) ? $attr['ids'] : false;
+				if ( !empty( $product_id ) ) {
+					$product_ids = array_merge( $product_ids, array_map( 'trim', explode( ',', $product_id ) ) );
+				}
+			}
 		} elseif ( $wp_query && !empty( $wp_query->posts ) ) {
 			$product_ids = wp_list_pluck( $wp_query->posts, 'ID' );
 		}
@@ -278,7 +288,7 @@ class WC_GFPA_Main {
 				'use_ajax'                     => $use_ajax,
 			);
 
-			$wc_gravityforms_params = apply_filters('woocommerce_gforms_quickview_script_params', $wc_gravityforms_params, $product_ids);
+			$wc_gravityforms_params = apply_filters( 'woocommerce_gforms_quickview_script_params', $wc_gravityforms_params, $product_ids );
 
 			wp_localize_script( 'wc-gravityforms-product-addons', 'wc_gravityforms_params', $wc_gravityforms_params );
 		}
@@ -288,21 +298,54 @@ class WC_GFPA_Main {
 	public function woocommerce_gravityform_enqueue_scripts() {
 		global $post;
 
-
 		if ( is_product() ) {
 			$product           = wc_get_product( get_the_ID() );
 			$gravity_form_data = $this->get_gravity_form_data( $post->ID );
 			if ( $gravity_form_data && is_array( $gravity_form_data ) ) {
 				$this->__do_enqueue( $product, $gravity_form_data );
 			}
-		} elseif ( is_object( $post ) && isset( $post->post_content ) && !empty( $post->post_content ) ) {
-			if ( preg_match_all( '/\[product_page[s]? +.*?((id=.+?)|(name=.+?))\]/is', $post->post_content, $matches, PREG_SET_ORDER ) ) {
+		} else {
+			$post_content = apply_filters( 'woocommerce_gforms_get_post_content', ( $post instanceof WP_Post ? $post->post_content : '' ), $post );
+			if ( $post_content && preg_match_all( '/\[product_page[s]? +.*?((id=.+?)|(name=.+?))\]/is', $post_content, $matches, PREG_SET_ORDER ) ) {
 				foreach ( $matches as $match ) {
 					//parsing shortcode attributes
 					$attr       = shortcode_parse_atts( $match[1] );
 					$product_id = isset( $attr['id'] ) ? $attr['id'] : false;
 
 					if ( !empty( $product_id ) ) {
+						$gravity_form_data = $this->get_gravity_form_data( $product_id );
+
+						if ( $gravity_form_data && is_array( $gravity_form_data ) ) {
+							$p = wc_get_product( $product_id );
+							$this->__do_enqueue( $p, $gravity_form_data );
+						}
+					}
+				}
+			} elseif ( $post_content && preg_match_all( '/\[woocommerce_one_page_checkout +.*?((product_ids=.+?)|(name=.+?))\]/is', $post_content, $matches, PREG_SET_ORDER ) ) {
+				foreach ( $matches as $match ) {
+					//parsing shortcode attributes
+					$attr        = shortcode_parse_atts( $match[1] );
+					$product_id  = isset( $attr['product_ids'] ) ? $attr['product_ids'] : false;
+					$product_ids = array();
+					if ( !empty( $product_id ) ) {
+						$product_ids = array_merge( $product_ids, array_map( 'trim', explode( ',', $product_id ) ) );
+					}
+
+					if ( !empty( $product_ids ) ) {
+						foreach ( $product_ids as $product_id ) {
+							$gravity_form_data = $this->get_gravity_form_data( $product_id );
+
+							if ( $gravity_form_data && is_array( $gravity_form_data ) ) {
+								$p = wc_get_product( $product_id );
+								$this->__do_enqueue( $p, $gravity_form_data );
+							}
+						}
+					}
+				}
+			} else {
+				$product_ids = apply_filters( 'woocommerce_gforms_get_products_to_enqueue_for', array() );
+				if ( !empty( $product_ids ) ) {
+					foreach ( $product_ids as $product_id ) {
 						$gravity_form_data = $this->get_gravity_form_data( $product_id );
 
 						if ( $gravity_form_data && is_array( $gravity_form_data ) ) {
@@ -368,7 +411,7 @@ class WC_GFPA_Main {
 			'use_ajax'                     => array( $product->get_id() => apply_filters( 'woocommerce_gforms_use_ajax', isset( $gravity_form_data['use_ajax'] ) ? ( $gravity_form_data['use_ajax'] == 'yes' ) : false ) )
 		);
 
-		$wc_gravityforms_params = apply_filters('woocommerce_gforms_script_params', $wc_gravityforms_params, $product->get_id());
+		$wc_gravityforms_params = apply_filters( 'woocommerce_gforms_script_params', $wc_gravityforms_params, $product->get_id() );
 
 		wp_localize_script( 'wc-gravityforms-product-addons', 'wc_gravityforms_params', $wc_gravityforms_params );
 	}

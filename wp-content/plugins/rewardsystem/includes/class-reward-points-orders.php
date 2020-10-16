@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'RewardPointsOrder' ) ) {
+if( ! class_exists( 'RewardPointsOrder' ) ) {
 
     class RewardPointsOrder {
 
@@ -16,15 +16,15 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 
         private function check_point_restriction_of_user( $getpaymentgatewayused , $pointsredeemed , $event_slug , $orderuserid , $nomineeid , $referrer_id , $productid , $variationid , $reasonindetail ) {
             $restrictuserpoints = get_option( 'rs_max_earning_points_for_user' ) ;
-            if ( ! empty( $restrictuserpoints ) ) {
+            if( ! empty( $restrictuserpoints ) ) {
                 $PointsData   = new RS_Points_Data( $orderuserid ) ;
                 $getoldpoints = $PointsData->total_available_points() ;
-                if ( $getoldpoints <= $restrictuserpoints ) {
+                if( $getoldpoints <= $restrictuserpoints ) {
                     $totalpointss = $getoldpoints + $getpaymentgatewayused ;
-                    if ( $totalpointss <= $restrictuserpoints ) {
+                    if( $totalpointss <= $restrictuserpoints ) {
                         $valuestoinsert = array( 'pointstoinsert' => $getpaymentgatewayused , 'event_slug' => $event_slug , 'user_id' => $orderuserid , 'referred_id' => $referrer_id , 'product_id' => $productid , 'variation_id' => $variationid , 'reasonindetail' => $reasonindetail , 'nominee_id' => $nomineeid , 'totalearnedpoints' => $getpaymentgatewayused ) ;
                         $this->total_points_management( $valuestoinsert ) ;
-                        if ( $nomineeid != '' ) {
+                        if( $nomineeid != '' ) {
                             $table_args = array(
                                 'user_id'       => $nomineeid ,
                                 'checkpoints'   => 'PPRPFNP' ,
@@ -33,25 +33,25 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                                     ) ;
                             RSPointExpiry::record_the_points( $table_args ) ;
                         }
-                        if ( $referrer_id != '' && $event_slug != 'PPRRPG' ) {
+                        if( $referrer_id != '' && $event_slug != 'PPRRPG' ) {
                             $previouslog = get_option( 'rs_referral_log' ) ;
                             RS_Referral_Log::update_referral_log( $orderuserid , $referrer_id , $getpaymentgatewayused , array_filter( ( array ) $previouslog ) ) ;
                         }
-                        if ( $event_slug == 'RRRP' ) {
+                        if( $event_slug == 'RRRP' ) {
                             $previouslog = get_option( 'rs_referral_log' ) ;
                             RS_Referral_Log::update_referral_log( $orderuserid , $referrer_id , $getpaymentgatewayused , array_filter( ( array ) $previouslog ) ) ;
                             update_user_meta( $referrer_id , '_rs_i_referred_by' , $orderuserid ) ;
                         }
-                        if ( $event_slug == 'RPCPAR' || $event_slug == 'RPFPAC' )
+                        if( $event_slug == 'RPCPAR' || $event_slug == 'RPFPAC' )
                             update_user_meta( $orderuserid , 'usercommentpage' . $productid , '1' ) ;
 
-                        if ( $event_slug == 'RPCPR' || $event_slug == 'RPFPOC' )
+                        if( $event_slug == 'RPCPR' || $event_slug == 'RPFPOC' )
                             update_user_meta( $orderuserid , 'usercommentpost' . $productid , '1' ) ;
 
-                        if ( $event_slug == 'RPPR' )
+                        if( $event_slug == 'RPPR' )
                             update_user_meta( $orderuserid , 'userreviewed' . $productid , '1' ) ;
 
-                        if ( $event_slug == 'RPGV' ) {
+                        if( $event_slug == 'RPGV' ) {
                             $Msg = str_replace( "[giftvoucherpoints]" , $getpaymentgatewayused , get_option( 'rs_voucher_redeem_success_message' ) ) ;
                             echo addslashes( $Msg ) ;
                         }
@@ -65,7 +65,7 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
             } else {
                 $valuestoinsert = array( 'pointstoinsert' => $getpaymentgatewayused , 'event_slug' => $event_slug , 'user_id' => $orderuserid , 'referred_id' => $referrer_id , 'product_id' => $productid , 'variation_id' => $variationid , 'nominee_id' => $nomineeid , 'totalearnedpoints' => $getpaymentgatewayused ) ;
                 $this->total_points_management( $valuestoinsert ) ;
-                if ( $nomineeid != '' ) {
+                if( $nomineeid != '' ) {
                     $table_args = array(
                         'user_id'       => $nomineeid ,
                         'checkpoints'   => 'PPRPFNP' ,
@@ -74,25 +74,25 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                             ) ;
                     RSPointExpiry::record_the_points( $table_args ) ;
                 }
-                if ( $referrer_id != '' && $event_slug != 'PPRRPG' ) {
+                if( $referrer_id != '' && $event_slug != 'PPRRPG' ) {
                     $previouslog = get_option( 'rs_referral_log' ) ;
                     RS_Referral_Log::update_referral_log( $orderuserid , $referrer_id , $getpaymentgatewayused , array_filter( ( array ) $previouslog ) ) ;
                 }
-                if ( $event_slug == 'RRRP' ) {
+                if( $event_slug == 'RRRP' ) {
                     $previouslog = get_option( 'rs_referral_log' ) ;
                     RS_Referral_Log::update_referral_log( $orderuserid , $referrer_id , $getpaymentgatewayused , array_filter( ( array ) $previouslog ) ) ;
                     update_user_meta( $referrer_id , '_rs_i_referred_by' , $orderuserid ) ;
                 }
-                if ( $event_slug == 'RPCPAR' )
+                if( $event_slug == 'RPCPAR' )
                     update_user_meta( $orderuserid , 'usercommentpage' . $productid , '1' ) ;
 
-                if ( $event_slug == 'RPCPR' )
+                if( $event_slug == 'RPCPR' )
                     update_user_meta( $orderuserid , 'usercommentpost' . $productid , '1' ) ;
 
-                if ( $event_slug == 'RPPR' )
+                if( $event_slug == 'RPPR' )
                     update_user_meta( $orderuserid , 'userreviewed' . $productid , '1' ) ;
 
-                if ( $event_slug == 'RPGV' ) {
+                if( $event_slug == 'RPGV' ) {
                     $Msg = str_replace( "[giftvoucherpoints]" , $getpaymentgatewayused , get_option( 'rs_voucher_redeem_success_message' ) ) ;
                     echo addslashes( $Msg ) ;
                 }
@@ -108,30 +108,30 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
         }
 
         public function update_earning_points_for_user( $Method = '' ) {
-            if ( ! $this->is_user_banned() )
+            if( ! $this->is_user_banned() )
                 return ;
 
-            if ( ! $this->check_restriction() )
+            if( ! $this->check_restriction() )
                 return ;
 
-            if ( ! $this->award_earning_point_only_once() )
+            if( ! $this->award_earning_point_only_once() )
                 return ;
 
-            if ( ! $this->award_points_only_once_for_referral_system() )
+            if( ! $this->award_points_only_once_for_referral_system() )
                 return ;
 
-            if ( $this->check_redeeming_in_order() )
+            if( $this->check_redeeming_in_order() )
                 return ;
 
             $order_id = $this->order_id ;
-            if ( get_post_meta( $order_id , 'rs_prevent_point_for_first_purchase' , true ) == 'yes' )
+            if( get_post_meta( $order_id , 'rs_prevent_point_for_first_purchase' , true ) == 'yes' )
                 return ;
 
             /* Restrict Earn points for Selected Payment Gateway */
             $payment_method                     = get_post_meta( $order_id , '_payment_method' , true ) ;
             $default_value_for_restrict_payment = get_option( 'rs_disable_point_if_reward_points_gateway' , 'no' ) == 'yes' ? array( 'reward_gateway' ) : array() ;
             $selected_payment_method            = ( array ) get_option( 'rs_select_payment_gateway_for_restrict_reward' , $default_value_for_restrict_payment ) ;
-            if ( ! empty( $selected_payment_method ) && in_array( $payment_method , $selected_payment_method ) ) {
+            if( ! empty( $selected_payment_method ) && in_array( $payment_method , $selected_payment_method ) ) {
                 return ;
             }
 
@@ -144,11 +144,11 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 
             do_action( 'rs_perform_action_for_order' , $order_id ) ;
             /* Reward Points For Using Payment Gateway Method - Start */
-            if ( get_option( 'rs_reward_action_activated' ) == 'yes' ) {
+            if( get_option( 'rs_reward_action_activated' ) == 'yes' && 'yes' != get_post_meta( $order_id , 'srp_gateway_points_awarded' , true ) ) {
                 $payment_method = $orderobj[ 'payment_method' ] ;
                 $GatewayPoints  = points_for_payment_gateways( $order_id , $orderuserid , $payment_method ) ;
-                if ( ! empty( $GatewayPoints ) ) {
-                    if ( $enabledisablemaxpoints == 'yes' ) {
+                if( ! empty( $GatewayPoints ) ) {
+                    if( $enabledisablemaxpoints == 'yes' ) {
                         $this->check_point_restriction( $GatewayPoints , 0 , 'RPG' , $orderuserid , '' , '' , '' , '' , '' ) ;
                     } else {
                         $valuestoinsert = array( 'pointstoinsert' => $GatewayPoints , 'event_slug' => 'RPG' , 'user_id' => $orderuserid , 'totalearnedpoints' => $GatewayPoints ) ;
@@ -162,28 +162,28 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 
             /* Reward Points For Purchasing the Product - Start */
             $AwardPointsForRenewalOrder = block_points_for_renewal_order( $order_id , get_option( 'rs_award_point_for_renewal_order' ) ) ;
-            if ( $AwardPointsForRenewalOrder == true ) {
+            if( $AwardPointsForRenewalOrder == true ) {
                 $RewardPointsBasedOn = get_option( 'rs_award_points_for_cart_or_product_total' ) ;
                 $points_refer        = array() ;
-                foreach ( $order->get_items() as $item ) {
+                foreach( $order->get_items() as $item ) {
                     $Productid     = $item[ 'product_id' ] ;
                     $Variationid   = $item[ 'variation_id' ] ;
                     $itemquantity  = $item[ 'qty' ] ;
                     $ProductObj    = srp_product_object( $Productid ) ;
                     $payment_price = 0 ;
                     $AwardPoints   = true ;
-                    if ( class_exists( 'SUMOPaymentPlans' ) ) {
+                    if( class_exists( 'SUMOPaymentPlans' ) ) {
                         $Id            = empty( $item[ 'variation_id' ] ) ? $item[ 'product_id' ] : $item[ 'variation_id' ] ;
                         $payment_price = (is_payment_product( $order_id , $Id ) && is_final_payment( $order_id )) ? get_payment_product_price( $order_id ) : 0 ;
                         $AwardPoints   = (is_payment_product( $order_id , $Id ) && is_final_payment( $order_id )) ? true : false ;
                     }
-                    if ( ($AwardPoints === true ) ) {
-                        if ( get_option( 'rs_product_purchase_activated' ) == 'yes' ) {
+                    if( ($AwardPoints === true ) ) {
+                        if( get_option( 'rs_product_purchase_activated' ) == 'yes' ) {
                             $reasonindetail = $this->apply_previous_order_points == 'yes' ? $Method : '' ;
-                            if ( get_option( 'rs_enable_product_category_level_for_product_purchase' ) == 'yes' ) {
+                            if( get_option( 'rs_enable_product_category_level_for_product_purchase' ) == 'yes' ) {
                                 $this->rs_insert_the_selected_level_in_reward_points( $enabledisablemaxpoints , 0 , $Productid , $Variationid , $itemquantity , $orderuserid , $equearnamt   = '' , $equredeemamt = '' , $order_id , $item , $reasonindetail , $payment_price ) ;
                             } else {
-                                if ( $RewardPointsBasedOn == '1' )
+                                if( $RewardPointsBasedOn == '1' )
                                     $this->rs_insert_the_selected_level_in_reward_points( $enabledisablemaxpoints , 0 , $Productid , $Variationid , $itemquantity , $orderuserid , $equearnamt   = '' , $equredeemamt = '' , $order_id , $item , $reasonindetail , $payment_price ) ;
                             }
                             do_action( 'fp_reward_point_for_product_purchase' ) ;
@@ -191,11 +191,11 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 
                         /* Referral Reward Points For Purchasing the Product - Start */
                         $AwardRefPointsForRenewalOrder = block_points_for_renewal_order( $order_id , get_option( 'rs_award_referral_point_for_renewal_order' ) ) ;
-                        if ( $AwardRefPointsForRenewalOrder == true && get_option( 'rs_referral_activated' ) == 'yes' ) {
+                        if( $AwardRefPointsForRenewalOrder == true && get_option( 'rs_referral_activated' ) == 'yes' ) {
                             $OrderStatus     = array() ;
                             $orderstatuslist = get_option( 'rs_order_status_control' ) ;
-                            if ( srp_check_is_array( $orderstatuslist ) ) {
-                                foreach ( $orderstatuslist as $value ) {
+                            if( srp_check_is_array( $orderstatuslist ) ) {
+                                foreach( $orderstatuslist as $value ) {
                                     $OrderStatus[] = 'wc-' . $value ;
                                 }
                             }
@@ -206,15 +206,15 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                             $CheckOrderCountLimit = RSPointExpiry::check_order_count_limit( $OrderCount , 'no' ) ;
                             $CheckIfMultiReferrer = RSPointExpiry::check_if_user_has_multiple_referrer( $BillingEmail , $orderobj ) ;
                             $CheckIfSameIP        = RSPointExpiry::check_if_referrer_and_referral_from_same_ip( $order ) ;
-                            if ( ! $CheckOrderCountLimit && $CheckIfMultiReferrer && $CheckIfSameIP ) {
+                            if( ! $CheckOrderCountLimit && $CheckIfMultiReferrer && $CheckIfSameIP ) {
                                 $ReferIdFromPaymentPlan = get_referrer_id_from_payment_plan( $order_id ) ;
                                 $ReferrerId             = empty( $ReferIdFromPaymentPlan ) ? $ReferrerName : $ReferIdFromPaymentPlan ;
-                                if ( ! empty( $ReferrerId ) && ($ReferrerEmail != $BillingEmail) ) {
+                                if( ! empty( $ReferrerId ) && ($ReferrerEmail != $BillingEmail) ) {
                                     $points_refer[ $Productid ] = $this->rs_insert_the_selected_level_in_referral_reward_points( $enabledisablemaxpoints , $ReferrerId , $orderuserid , $Productid , $Variationid , $item , 'yes' , $payment_price ) ;
                                     $this->rs_insert_the_selected_level_in_referral_reward_points( $enabledisablemaxpoints , $ReferrerId , $orderuserid , $Productid , $Variationid , $item , 'no' , $payment_price ) ;
                                 } else {
                                     $ReferrerId = check_if_referrer_has_manual_link( $orderuserid ) ;
-                                    if ( $ReferrerId )
+                                    if( $ReferrerId )
                                         $this->rs_insert_the_selected_level_in_referral_reward_points( $enabledisablemaxpoints , $ReferrerId , $orderuserid , $Productid , $Variationid , $item , 'no' , $payment_price ) ;
                                 }
                             }
@@ -223,36 +223,36 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                     /* Referral Reward Points For Purchasing the Product - End */
                 }
 
-                if ( get_option( 'rs_product_purchase_activated' ) == 'yes' ) {
-                    if ( get_option( 'rs_enable_first_purchase_reward_points' ) == 'yes' )
+                if( get_option( 'rs_product_purchase_activated' ) == 'yes' ) {
+                    if( get_option( 'rs_enable_first_purchase_reward_points' ) == 'yes' )
                         $this->rs_insert_points_based_on_first_purchase( $enabledisablemaxpoints , $orderuserid ) ;
 
                     //Award Points Based on Cart Total
-                    if ( $RewardPointsBasedOn == '2' )
+                    if( $RewardPointsBasedOn == '2' )
                         $this->rs_insert_points_based_on_cart_total( $enabledisablemaxpoints , 0 , $Productid , $Variationid , $itemquantity , $orderuserid , '' , '' , $order_id , $item , $reasonindetail , $payment_price ) ;
                 }
 
-                if ( $this->apply_previous_order_points == 'no' && get_post_meta( $order_id , 'reward_points_awarded' , true ) ) {
+                if( $this->apply_previous_order_points == 'no' && get_post_meta( $order_id , 'reward_points_awarded' , true ) ) {
                     $PointsData = new RS_Points_Data( $orderuserid ) ;
                     $Points     = $PointsData->total_available_points() ;
-                    if ( ! empty( $Points ) ) {
-                        if ( get_option( 'rs_sms_activated' ) == 'yes' && get_option( 'rs_enable_send_sms_to_user' ) == 'yes' ) {
-                            if ( get_option( 'rs_send_sms_earning_points' ) == 'yes' ) {
+                    if( ! empty( $Points ) ) {
+                        if( get_option( 'rs_sms_activated' ) == 'yes' && get_option( 'rs_enable_send_sms_to_user' ) == 'yes' ) {
+                            if( get_option( 'rs_send_sms_earning_points' ) == 'yes' ) {
                                 $PhoneNumber = ! empty( get_user_meta( $orderuserid , 'rs_phone_number_value_from_signup' , true ) ) ? get_user_meta( $orderuserid , 'rs_phone_number_value_from_signup' , true ) : get_user_meta( $orderuserid , 'rs_phone_number_value_from_account_details' , true ) ;
                                 $PhoneNumber = ! empty( $PhoneNumber ) ? $PhoneNumber : get_user_meta( $orderuserid , 'billing_phone' , true ) ;
-                                if ( get_option( 'rs_sms_sending_api_option' ) == '1' ) {
+                                if( get_option( 'rs_sms_sending_api_option' ) == '1' ) {
                                     RSFunctionForSms::send_sms_twilio_api( $order_id , 'earning' , '' , $PhoneNumber ) ;
-                                } elseif ( get_option( 'rs_sms_sending_api_option' ) == '2' ) {
+                                } elseif( get_option( 'rs_sms_sending_api_option' ) == '2' ) {
                                     RSFunctionForSms::send_sms_nexmo_api( $order_id , 'earning' , '' , $PhoneNumber ) ;
                                 }
                             }
                         }
                     }
 
-                    if ( get_option( 'rs_referral_activated' ) == 'yes' )
+                    if( get_option( 'rs_referral_activated' ) == 'yes' )
                         update_post_meta( $order_id , 'rsgetreferalpoints' , $points_refer ) ;
 
-                    if ( get_option( 'rs_email_activated' ) == 'yes' )
+                    if( get_option( 'rs_email_activated' ) == 'yes' )
                         send_mail_for_product_purchase( $orderuserid , $order_id ) ;
                 }
             }
@@ -261,7 +261,7 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 
         public function rs_insert_points_based_on_first_purchase( $enabledisablemaxpoints , $orderuserid ) {
 
-            if ( ! $orderuserid )
+            if( ! $orderuserid )
                 return ;
 
             $OrderCount = get_posts( array(
@@ -272,14 +272,14 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                 'post_status' => array( 'wc-pending' , 'wc-processing' , 'wc-on-hold' , 'wc-completed' ) ,
                     ) ) ;
 
-            if ( count( $OrderCount ) > 1 )
+            if( count( $OrderCount ) > 1 )
                 return ;
 
             $PointsForFristPurchase = get_option( 'rs_reward_points_for_first_purchase_in_fixed' ) ;
-            if ( empty( $PointsForFristPurchase ) )
+            if( empty( $PointsForFristPurchase ) )
                 return ;
 
-            if ( $enabledisablemaxpoints == 'yes' ) {
+            if( $enabledisablemaxpoints == 'yes' ) {
                 $this->check_point_restriction( $PointsForFristPurchase , 0 , 'PFFP' , $orderuserid , '' , '' , '' , '' , '' ) ;
             } else {
                 $valuestoinsert = array(
@@ -294,27 +294,28 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 
         public function rs_insert_points_based_on_cart_total( $enabledisablemaxpoints , $pointsredeemed , $productid , $variationid , $itemquantity , $orderuserid , $equearnamt , $equredeemamt , $order_id , $item , $reasonindetail , $payment_price ) {
 
-            if ( ! $orderuserid )
+            if( ! $orderuserid )
                 return ;
 
-            if ( get_option( 'rs_enable_product_category_level_for_product_purchase' ) == 'yes' )
+            if( get_option( 'rs_enable_product_category_level_for_product_purchase' ) == 'yes' )
                 return ;
 
-            if ( get_option( 'rs_enable_cart_total_reward_points' ) == '2' )
+            if( get_option( 'rs_enable_cart_total_reward_points' ) == '2' )
                 return ;
 
             $event_slug                = 'PPRPBCT' ;
             $NomineeIdsinMyaccount     = (get_option( 'rs_nominee_activated' ) == 'yes') ? get_user_meta( $orderuserid , 'rs_selected_nominee' , true ) : '' ;
             $EnableNomineeinMyaccount  = (get_option( 'rs_nominee_activated' ) == 'yes') ? get_user_meta( $orderuserid , 'rs_enable_nominee' , true ) : 'no' ;
             $NomineeIdsinCheckout      = (get_option( 'rs_nominee_activated' ) == 'yes') ? get_post_meta( $order_id , 'rs_selected_nominee_in_checkout' , true ) : '' ;
-            $productlevelrewardpointss = get_reward_points_based_on_cart_total( $this->order->get_total() ) ;
+            $shipping_cost             = $this->order->shipping_total + $this->order->shipping_tax ;
+            $productlevelrewardpointss = get_reward_points_based_on_cart_total( $this->order->get_total() , $shipping_cost ) ;
 
-            if ( $productlevelrewardpointss != 0 )
+            if( $productlevelrewardpointss != 0 )
                 include ('frontend/rs_insert_points_for_product_purchase.php') ;
         }
 
         public function rs_insert_the_selected_level_in_reward_points( $enabledisablemaxpoints , $pointsredeemed , $productid , $variationid , $itemquantity , $orderuserid , $equearnamt , $equredeemamt , $order_id , $item , $reasonindetail , $payment_price ) {
-            if ( block_points_for_salepriced_product( $productid , $variationid ) == 'yes' )
+            if( block_points_for_salepriced_product( $productid , $variationid ) == 'yes' )
                 return ;
 
             $NomineeIdsinMyaccount    = (get_option( 'rs_nominee_activated' ) == 'yes') ? get_user_meta( $orderuserid , 'rs_selected_nominee' , true ) : '' ;
@@ -325,23 +326,23 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
             $minimum_cart_total       = get_option( 'rs_minimum_cart_total_for_earning' ) ;
             $maximum_cart_total       = get_option( 'rs_maximum_cart_total_for_earning' ) ;
 
-            if ( get_option( 'rs_enable_disable_reward_point_based_coupon_amount' ) == 'yes' && $this->apply_previous_order_points == 'no' ) {
+            if( get_option( 'rs_enable_disable_reward_point_based_coupon_amount' ) == 'yes' && $this->apply_previous_order_points == 'no' ) {
 
                 $UsedCoupons = ( float ) WC()->version < ( float ) ('3.7') ? $order->get_used_coupons() : $order->get_coupon_codes() ;
 
-                if ( srp_check_is_array( $UsedCoupons ) ) {
+                if( srp_check_is_array( $UsedCoupons ) ) {
                     $productidss               = empty( $variationid ) ? $productid : $variationid ;
                     $modified_point_list       = get_post_meta( $order_id , 'points_for_current_order' , true ) ;
                     $productlevelrewardpointss = ( $payment_price == 0 ) ? ( ! empty( $modified_point_list[ $productidss ] ) ? $modified_point_list[ $productidss ] : 0 ) : $payment_price ;
-                    if ( $minimum_cart_total != '' && $minimum_cart_total != 0 ) {
-                        if ( $order_total < $minimum_cart_total )
+                    if( $minimum_cart_total != '' && $minimum_cart_total != 0 ) {
+                        if( $order_total < $minimum_cart_total )
                             $productlevelrewardpointss = 0 ;
                     }
-                    if ( $maximum_cart_total != '' && $maximum_cart_total != 0 ) {
-                        if ( $order_total > $maximum_cart_total )
+                    if( $maximum_cart_total != '' && $maximum_cart_total != 0 ) {
+                        if( $order_total > $maximum_cart_total )
                             $productlevelrewardpointss = 0 ;
                     }
-                    if ( ! empty( $productlevelrewardpointss ) )
+                    if( ! empty( $productlevelrewardpointss ) )
                         include ('frontend/rs_insert_points_for_product_purchase.php') ;
                 } else {
                     $args                      = array(
@@ -351,15 +352,15 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                         'payment_price' => $payment_price
                             ) ;
                     $productlevelrewardpointss = check_level_of_enable_reward_point( $args ) ;
-                    if ( $minimum_cart_total != '' && $minimum_cart_total != 0 ) {
-                        if ( $order_total < $minimum_cart_total )
+                    if( $minimum_cart_total != '' && $minimum_cart_total != 0 ) {
+                        if( $order_total < $minimum_cart_total )
                             $productlevelrewardpointss = 0 ;
                     }
-                    if ( $maximum_cart_total != '' && $maximum_cart_total != 0 ) {
-                        if ( $order_total > $maximum_cart_total )
+                    if( $maximum_cart_total != '' && $maximum_cart_total != 0 ) {
+                        if( $order_total > $maximum_cart_total )
                             $productlevelrewardpointss = 0 ;
                     }
-                    if ( ! empty( $productlevelrewardpointss ) )
+                    if( ! empty( $productlevelrewardpointss ) )
                         include ('frontend/rs_insert_points_for_product_purchase.php') ;
                 }
             } else {
@@ -370,16 +371,16 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                     'payment_price' => $payment_price
                         ) ;
                 $productlevelrewardpointss = check_level_of_enable_reward_point( $args ) ;
-                if ( $minimum_cart_total != '' && $minimum_cart_total != 0 ) {
-                    if ( $order_total < $minimum_cart_total )
+                if( $minimum_cart_total != '' && $minimum_cart_total != 0 ) {
+                    if( $order_total < $minimum_cart_total )
                         $productlevelrewardpointss = 0 ;
                 }
 
-                if ( $maximum_cart_total != '' && $maximum_cart_total != 0 ) {
-                    if ( $order_total > $maximum_cart_total )
+                if( $maximum_cart_total != '' && $maximum_cart_total != 0 ) {
+                    if( $order_total > $maximum_cart_total )
                         $productlevelrewardpointss = 0 ;
                 }
-                if ( ! empty( $productlevelrewardpointss ) )
+                if( ! empty( $productlevelrewardpointss ) )
                     include ('frontend/rs_insert_points_for_product_purchase.php') ;
             }
         }
@@ -388,7 +389,7 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
             //User Info who placed the order
             $limitation = false ;
             $myid       = '' ;
-            if ( $orderuserid == 0 && get_option( 'rs_referrer_earn_point_purchase_by_guest_users' ) == 'yes' ) {
+            if( $orderuserid == 0 && get_option( 'rs_referrer_earn_point_purchase_by_guest_users' ) == 'yes' ) {
                 $order            = new WC_Order( $this->order_id ) ;
                 $referral_info    = (WC_VERSION <= ( float ) ('3.0')) ? $order->billing_email : $order->get_billing_email() ;
                 $strtotimeregdate = time() ;
@@ -409,14 +410,14 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
             $modified_current_date = strtotime( $current_date ) ;
             $pointsredeemed        = 0 ;
             //Is for Immediatly
-            if ( get_option( '_rs_select_referral_points_referee_time' ) == '1' ) {
+            if( get_option( '_rs_select_referral_points_referee_time' ) == '1' ) {
                 $limitation = true ;
             } else {
                 // Is for Limited Time with Number of Days
                 $limitation = ( $modified_current_date > $modifiedcheckingdate ) ? true : false ;
             }
             $CheckIfReferredAlreadyExist = $strtotimeregdate ? ($strtotimeregdate > $strtotimerefregdate) : false ;
-            if ( $limitation == true && $CheckIfReferredAlreadyExist ) {
+            if( $limitation == true && $CheckIfReferredAlreadyExist ) {
                 $refuser = get_user_by( 'login' , $referrer_id ) ;
                 $myid    = is_object( $refuser ) ? $refuser->ID : $referrer_id ;
             }
@@ -433,48 +434,48 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 
             $event_slug = ( $getting_referrer == 'no' ) ? 'PPRRP' : 'PPRRPG' ;
 
-            if ( 'yes' === get_option( 'rs_referral_points_after_discounts' ) && 'PPRRP' === $event_slug ) {
+            if( 'yes' === get_option( 'rs_referral_points_after_discounts' ) && 'PPRRP' === $event_slug ) {
                 $points_after_discounts = get_post_meta( $this->order_id , 'rs_referrer_points_after_discounts' , true ) ;
                 $item_product_id        = 'variable' == wc_get_product( $productid )->get_type() ? $item[ 'variation_id' ] : $item[ 'product_id' ] ;
                 $pointstoinsert         = isset( $points_after_discounts[ $item_product_id ] ) ? $points_after_discounts[ $item_product_id ] : 0 ;
             }
 
-            if ( empty( $pointstoinsert ) )
+            if( empty( $pointstoinsert ) )
                 return ;
 
-            if ( $enabledisablemaxpoints == 'yes' ) {
-                if ( $event_slug == 'PPRRP' ) {
+            if( $enabledisablemaxpoints == 'yes' ) {
+                if( $event_slug == 'PPRRP' ) {
                     $this->check_point_restriction( $pointstoinsert , $pointsredeemed , $event_slug , $myid , $nomineeid = '' , $orderuserid , $productid , $variationid , $reasonindetail ) ;
-                } else if ( $event_slug == 'PPRRPG' ) {
+                } else if( $event_slug == 'PPRRPG' ) {
                     $this->check_point_restriction( $pointstoinsert , $pointsredeemed , $event_slug , $orderuserid , $nomineeid = '' , $myid , $productid , $variationid , $reasonindetail ) ;
                 }
             } else {
-                if ( $event_slug == 'PPRRP' ) {
+                if( $event_slug == 'PPRRP' ) {
                     $valuestoinsert = array( 'pointstoinsert' => $pointstoinsert , 'event_slug' => $event_slug , 'user_id' => $myid , 'referred_id' => $orderuserid , 'product_id' => $productid , 'variation_id' => $variationid , 'totalearnedpoints' => $pointstoinsert ) ;
-                } else if ( $event_slug == 'PPRRPG' ) {
+                } else if( $event_slug == 'PPRRPG' ) {
                     $valuestoinsert = array( 'pointstoinsert' => $pointstoinsert , 'event_slug' => $event_slug , 'user_id' => $orderuserid , 'referred_id' => $myid , 'product_id' => $productid , 'variation_id' => $variationid , 'totalearnedpoints' => $pointstoinsert ) ;
                 }
                 $this->total_points_management( $valuestoinsert ) ;
-                if ( $event_slug != 'PPRRPG' ) {
+                if( $event_slug != 'PPRRPG' ) {
                     $previouslog = get_option( 'rs_referral_log' ) ;
                     RS_Referral_Log::update_referral_log( $myid , $referral_info , $pointstoinsert , array_filter( ( array ) $previouslog ) ) ;
                 }
             }
 
-            if ( $event_slug == 'PPRRP' ) {
+            if( $event_slug == 'PPRRP' ) {
                 do_action( 'fp_product_purchase_points_for_referrer' , $myid , $orderuserid , $pointstoinsert ) ;
             } else {
                 do_action( 'fp_product_purchase_points_for_getting_referred' , $orderuserid , $myid , $pointstoinsert ) ;
             }
 
             update_post_meta( $this->order_id , 'referralsystem_earning_once' , '1' ) ;
-            if ( $getting_referrer == 'yes' )
+            if( $getting_referrer == 'yes' )
                 return $pointstoinsert ;
         }
 
         public function insert_points_for_product( $enabledisablemaxpoints , $order_id , $orderuserid , $nomineeid , $productlevelrewardpointss , $productid , $variationid , $reasonindetail ) {
             $event_slug = 'PPRPFN' ;
-            if ( $enabledisablemaxpoints == 'yes' ) {
+            if( $enabledisablemaxpoints == 'yes' ) {
                 $this->check_point_restriction( $productlevelrewardpointss , $pointsredeemed = 0 , $event_slug , $orderuserid , $nomineeid , '' , $productid , $variationid , $reasonindetail ) ;
             } else {
                 $valuestoinsert = array( 'pointstoinsert' => $productlevelrewardpointss , 'event_slug' => $event_slug , 'user_id' => $orderuserid , 'product_id' => $productid , 'variation_id' => $variationid , 'reasonindetail' => $reasonindetail , 'nominee_id' => $nomineeid , 'nominee_points' => $productlevelrewardpointss , 'totalearnedpoints' => $productlevelrewardpointss ) ;
@@ -491,13 +492,13 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
 
         public function check_restriction() {
 
-            if ( get_option( 'rs_reward_action_activated' ) != 'yes' )
+            if( get_option( 'rs_reward_action_activated' ) != 'yes' )
                 return true ;
 
             $order         = $this->order ;
             $order_user_id = srp_order_obj( $order ) ;
             $order_user_id = $order_user_id[ 'order_userid' ] ;
-            if ( ! $order_user_id )
+            if( ! $order_user_id )
                 return true ;
 
             $OrderCount = get_posts( array(
@@ -508,8 +509,8 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                 'post_status' => implode( "','" , array_keys( wc_get_order_statuses() ) ) ,
                     ) ) ;
 
-            if ( count( $OrderCount ) == 1 && get_option( '_rs_enable_signup' ) == 'yes' ) {
-                if ( get_option( 'rs_reward_signup_after_first_purchase' ) == 'yes' && get_option( 'rs_signup_points_with_purchase_points' ) == 'yes' ) {
+            if( count( $OrderCount ) == 1 && get_option( '_rs_enable_signup' ) == 'yes' ) {
+                if( get_option( 'rs_reward_signup_after_first_purchase' ) == 'yes' && get_option( 'rs_signup_points_with_purchase_points' ) == 'yes' ) {
                     update_post_meta( $this->order_id , 'rs_prevent_point_for_first_purchase' , 'yes' ) ;
                     return false ;
                 }
@@ -546,34 +547,34 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
             $auto_redeem_name    = 'auto_redeem_' . strtolower( $getusernickname ) ;
             $sumo_coupon_name    = array( $maincouponchecker , $auto_redeem_name ) ;
 
-            if ( get_option( 'rs_disable_point_if_coupon' ) == 'yes' ) {
-                if ( ! empty( $rewardpointscoupons ) ) {
-                    foreach ( $rewardpointscoupons as $array ) {
+            if( get_option( 'rs_disable_point_if_coupon' ) == 'yes' ) {
+                if( ! empty( $rewardpointscoupons ) ) {
+                    foreach( $rewardpointscoupons as $array ) {
                         $applied_coupons[] = $array[ 'code' ] ;
                     }
                     $diff_array = array_diff( $applied_coupons , $sumo_coupon_name ) ;
-                    if ( is_array( $diff_array ) && ! empty( $diff_array ) ) {
+                    if( is_array( $diff_array ) && ! empty( $diff_array ) ) {
                         return true ;
                     }
                 }
             }
-            if ( get_option( 'rs_enable_redeem_for_order' ) == 'yes' ) {
-                if ( ! empty( $rewardpointscoupons ) ) {
-                    foreach ( $rewardpointscoupons as $array ) {
+            if( get_option( 'rs_enable_redeem_for_order' ) == 'yes' ) {
+                if( ! empty( $rewardpointscoupons ) ) {
+                    foreach( $rewardpointscoupons as $array ) {
                         $applied_coupons[] = $array[ 'code' ] ;
                     }
-                    if ( in_array( $maincouponchecker , $applied_coupons ) || in_array( $auto_redeem_name , $applied_coupons ) ) {
+                    if( in_array( $maincouponchecker , $applied_coupons ) || in_array( $auto_redeem_name , $applied_coupons ) ) {
                         return true ;
                     }
                 }
             }
-            if ( get_option( 'rs_coupon_compatability_activated' ) == 'yes' && get_option( '_rs_not_allow_earn_points_if_sumo_coupon' ) == 'yes' ) {
-                foreach ( $rewardpointscoupons as $couponcode => $value ) {
+            if( get_option( 'rs_coupon_compatability_activated' ) == 'yes' && get_option( '_rs_not_allow_earn_points_if_sumo_coupon' ) == 'yes' ) {
+                foreach( $rewardpointscoupons as $couponcode => $value ) {
                     $coupon_id_array   = new WC_Coupon( $value[ 'name' ] ) ;
                     $coupon_id         = srp_coupon_obj( $coupon_id_array ) ;
                     $coupon_id         = $coupon_id[ 'coupon_id' ] ;
                     $sumo_coupon_check = get_post_meta( $coupon_id , 'sumo_coupon_check' , true ) ;
-                    if ( $sumo_coupon_check == 'yes' ) {
+                    if( $sumo_coupon_check == 'yes' ) {
                         return true ;
                     }
                 }
@@ -597,30 +598,30 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                     ) ;
             $valuestoinsert = wp_parse_args( $args , $default_args ) ;
             $user_id        = $valuestoinsert[ 'user_id' ] ;
-            if ( empty( $user_id ) )
+            if( empty( $user_id ) )
                 return ;
 
-            if ( ! allow_reward_points_for_user( $user_id ) )
+            if( ! allow_reward_points_for_user( $user_id ) )
                 return ;
 
-            if ( check_if_discount_applied() )
+            if( check_if_discount_applied() )
                 return ;
 
             global $wpdb ;
             $table_name = $wpdb->prefix . 'rspointexpiry' ;
             $date       = expiry_date_for_points() ;
-            if ( isset( $valuestoinsert[ 'manualaddpoints' ] ) )
+            if( isset( $valuestoinsert[ 'manualaddpoints' ] ) )
                 $date       = ! empty( $valuestoinsert[ 'expireddate' ] ) ? $valuestoinsert[ 'expireddate' ] : 999999999999 ;
 
             $user_name      = ! empty( $valuestoinsert[ 'referred_id' ] ) ? get_user_by( 'id' , $valuestoinsert[ 'referred_id' ] )->user_login : '' ;
             $pointstoinsert = ($valuestoinsert[ 'event_slug' ] == 'MAP') ? $valuestoinsert[ 'pointstoinsert' ] : RSMemberFunction::earn_points_percentage( $user_id , ( float ) $valuestoinsert[ 'pointstoinsert' ] ) ;
 
-            if ( $valuestoinsert[ 'event_slug' ] == 'PFFP' ) {
+            if( $valuestoinsert[ 'event_slug' ] == 'PFFP' ) {
                 update_post_meta( $this->order_id , 'rs_first_purchase_points' , $pointstoinsert ) ;
             }
 
             // Update Referrer points after discounts meta.
-            if ( 'yes' === get_option( 'rs_referral_points_after_discounts' ) && 'PPRRP' == $valuestoinsert[ 'event_slug' ] ) {
+            if( 'yes' === get_option( 'rs_referral_points_after_discounts' ) && 'PPRRP' == $valuestoinsert[ 'event_slug' ] ) {
                 $ProductId = ! empty( $valuestoinsert[ 'variation_id' ] ) ? $valuestoinsert[ 'variation_id' ] : $valuestoinsert[ 'product_id' ] ;
                 update_post_meta( $this->order_id , 'rs_referrer_points_after_discounts' , array( $ProductId => $pointstoinsert ) ) ;
             }
@@ -663,7 +664,7 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
         }
 
         public function rs_send_mail_for_reaching_maximum_threshold( $user_id ) {
-            if ( get_option( 'rs_mail_for_reaching_maximum_threshold' ) == 'yes' ) {
+            if( get_option( 'rs_mail_for_reaching_maximum_threshold' ) == 'yes' ) {
                 $PointsData     = new RS_Points_Data( $user_id ) ;
                 $totalpoints    = $PointsData->total_available_points() ;
                 $user_data      = get_user_by( 'ID' , $user_id ) ;
@@ -675,7 +676,7 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                 $Email_message  = do_shortcode( $Email_message ) ;
                 $admin_email_id = get_option( 'admin_email' ) ;
                 $admin_name     = get_bloginfo( 'name' , 'display' ) ;
-                if ( $admin_email_id != '' && $admin_name != '' && $receiver_name != '' && $totalpoints != '' && $receiver_mail != '' ) {
+                if( $admin_email_id != '' && $admin_name != '' && $receiver_name != '' && $totalpoints != '' && $receiver_mail != '' ) {
                     add_filter( 'woocommerce_email_footer_text' , 'srp_footer_link' ) ;
                     ob_start() ;
                     wc_get_template( 'emails/email-header.php' , array( 'email_heading' => $Email_subject ) ) ;
@@ -687,7 +688,7 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                     $message_headers              .= "Reply-To: " . $receiver_name . " <" . $receiver_mail . ">\r\n" ;
                     FPRewardSystem::$rs_from_name = $admin_name ;
                     add_filter( 'woocommerce_email_from_name' , 'rs_alter_from_name_of_woocommerce' , 10 , 2 ) ;
-                    if ( WC_VERSION <= ( float ) ('2.2.0') ) {
+                    if( WC_VERSION <= ( float ) ('2.2.0') ) {
                         wp_mail( $receiver_mail , $Email_subject , $Email_message , $message_headers ) ;
                     } else {
                         $mailer = WC()->mailer() ;
