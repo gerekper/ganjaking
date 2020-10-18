@@ -3,9 +3,9 @@ Contributors: helgatheviking, SomewhereWarm
 Tags: woocommerce, product, container
 Requires at least: 4.0
 Tested up to: 5.5.0
-Stable tag: 1.10.3
+Stable tag: 1.10.4
 WC requires at least: 3.1.0
-WC tested up to: 4.5.0
+WC tested up to: 4.6.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

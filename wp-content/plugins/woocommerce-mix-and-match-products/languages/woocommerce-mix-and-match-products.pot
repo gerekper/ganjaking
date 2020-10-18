@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Mix and Match Products 1.10.3\n"
+"Project-Id-Version: WooCommerce Mix and Match Products 1.10.4\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
-"POT-Creation-Date: 2020-09-29 19:51:55+00:00\n"
+"POT-Creation-Date: 2020-10-16 17:39:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -425,7 +425,7 @@ msgid "Grand total: "
 msgstr ""
 
 #: includes/class-wc-mnm-display.php:359
-#: includes/class-wc-product-mix-and-match.php:1301
+#: includes/class-wc-product-mix-and-match.php:1317
 msgid "Free!"
 msgstr ""
 
@@ -679,58 +679,58 @@ msgstr ""
 msgid "View Cart"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1507
+#: includes/class-wc-product-mix-and-match.php:1523
 msgid "Insufficient stock"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1512
+#: includes/class-wc-product-mix-and-match.php:1528
 msgid "Available on backorder"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1584
+#: includes/class-wc-product-mix-and-match.php:1600
 msgid "Read More"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1587
+#: includes/class-wc-product-mix-and-match.php:1603
 msgid "Select options"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1615
+#: includes/class-wc-product-mix-and-match.php:1631
 msgid "Add to cart"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1622
+#: includes/class-wc-product-mix-and-match.php:1638
 msgid "Update Cart"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1810
+#: includes/class-wc-product-mix-and-match.php:1826
 msgid "Temporarily unavailable"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1859
+#: includes/class-wc-product-mix-and-match.php:1875
 msgid "Default"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1860
+#: includes/class-wc-product-mix-and-match.php:1876
 msgid "The add-to-cart form is displayed inside the single-product summary."
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1863
+#: includes/class-wc-product-mix-and-match.php:1879
 msgid "After summary"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1864
+#: includes/class-wc-product-mix-and-match.php:1880
 msgid ""
 "The add-to-cart form is displayed after the single-product summary. Usually "
 "allocates the entire page width for displaying form content. Note that some "
 "themes may not support this option."
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1883
+#: includes/class-wc-product-mix-and-match.php:1899
 msgid "Tabular"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1884
+#: includes/class-wc-product-mix-and-match.php:1900
 msgid "Grid"
 msgstr ""
 
@@ -1092,8 +1092,8 @@ msgctxt "child order item SKU meta key"
 msgid "SKU"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1280
-#: includes/class-wc-product-mix-and-match.php:1315
+#: includes/class-wc-product-mix-and-match.php:1296
+#: includes/class-wc-product-mix-and-match.php:1331
 #. translators: %1$s "From string: %2$s min container price with price suffix.
 msgctxt "Price range: from"
 msgid "%1$s%2$s"

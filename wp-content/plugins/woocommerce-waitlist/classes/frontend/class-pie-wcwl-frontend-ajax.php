@@ -33,11 +33,11 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		 * Required for simple/variable products
 		 */
 		public function process_user_waitlist_request() {
-			$product_id = absint( $_POST['product_id'] );
+			$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
 			$this->verify_product( $product_id );
-			$lang    = sanitize_text_field( $_POST['language'] );
-			$email   = sanitize_email( $_POST['email'] );
-			$context = sanitize_text_field( $_POST['context'] );
+			$lang    = isset( $_POST['language'] ) ? sanitize_text_field( $_POST['language'] ) : '';
+			$email   = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
+			$context = isset( $_POST['context'] ) ? sanitize_text_field( $_POST['context'] ) : '';
 			if ( 'leave' === $context ) {
 				$response = wcwl_remove_user_from_waitlist( $email, $product_id );
 				$context  = '';
@@ -68,8 +68,8 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 			if ( ! isset( $_POST['products'] ) || empty( $_POST['products'] ) ) {
 				return new WP_Error( 'wcwl_error', __( 'No products selected', 'woocommerce-waitlist' ) );
 			}
-			$products = $_POST['products'];
-			$lang     = sanitize_text_field( $_POST['language'] );
+			$products = isset( $_POST['products'] ) && is_array( $_POST['products'] ) ? $_POST['products'] : array();
+			$lang     = isset( $_POST['language'] ) ? sanitize_text_field( $_POST['language'] ) : '';
 			foreach ( $products as $product_id => $data ) {
 				if ( 'true' === $data['checked'] ) {
 					wcwl_add_user_to_waitlist( $email, $product_id, $data['lang'] );
@@ -109,16 +109,12 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 				$message     = $this->nonce_not_verified_text;
 				$notice_type = 'error';
 			}
-			$product = wc_get_product( absint( $_POST['product_id'] ) );
-			$user    = get_user_by( 'id', absint( $_POST['user_id'] ) );
+			$product = isset( $_POST['product_id'] ) ? wc_get_product( absint( $_POST['product_id'] ) ) : false;
 			if ( ! $product ) {
 				$message     = $this->invalid_product_text;
 				$notice_type = 'error';
 			}
-			if ( ! $user ) {
-				$message     = $this->invalid_user_text;
-				$notice_type = 'error';
-			}
+			$user = isset( $_POST['user_id'] ) ? get_user_by( 'id', absint( $_POST['user_id'] ) ) : 0;
 			if ( ! $message ) {
 				$message = wcwl_remove_user_from_waitlist( $user->user_email, $product->get_id() );
 				if ( is_wp_error( $message ) ) {
@@ -152,13 +148,9 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 				$message     = $this->nonce_not_verified_text;
 				$notice_type = 'error';
 			}
-			$user_id = absint( $_POST['user_id'] );
-			if ( ! $user_id ) {
-				$message     = $this->invalid_user_text;
-				$notice_type = 'error';
-			}
-			$archives = WooCommerce_Waitlist_Plugin::get_waitlist_archives_by_user_id( $user_id );
-			WooCommerce_Waitlist_Plugin::remove_user_from_archives( $archives, $user_id );
+			$user     = isset( $_POST['user_id'] ) ? get_user_by( 'id', absint( $_POST['user_id'] ) ) : 0;
+			$archives = WooCommerce_Waitlist_Plugin::get_waitlist_archives_for_user( $user );
+			WooCommerce_Waitlist_Plugin::remove_user_from_archives( $archives, $user );
 			wc_get_template(
 				"notices/{$notice_type}.php",
 				array(

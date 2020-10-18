@@ -1,0 +1,135 @@
+/**
+ * Style to handle the variation selection in cart.
+ */
+.wc_fgc_cart {
+	padding: 10px;
+	&:after {
+		clear: both;
+    }
+	.flex-viewport {
+		height: auto !important;
+	}
+	.onsale, .woocommerce-variation-price {
+		display: none;
+	}
+}
+
+.wc-fgc-product-detail-container {
+	.type-product {
+		>div {
+			display: inline-block !important;
+			vertical-align: top !important;
+		}
+	}
+}
+
+#wc-fgc-variation-container {
+	.woocommerce-variation-add-to-cart.variations_button {
+		>div {
+			display: inline-block !important;
+		}
+	}
+	button {
+		display: inline-block !important;
+	}
+	table.variations {
+		max-width: 400px;
+		width: 100%;
+		tr {
+			td.value {
+				padding-top: 0px !important;
+			}
+		}
+	}
+}
+
+.wc-fgc-close-section {
+	display: block;
+	text-align: right;
+}
+.wc-fgc-close-btn {
+	text-decoration: none !important;
+	.dashicons {
+		font-size: 25px;
+	}
+}
+
+/*--Cart Page--*/
+.wc-fgc-edit-var-link {
+	margin-top: 20px;
+	transition: ease-in-out all .2s;
+	&:link {
+		margin-top: 20px;
+		transition: ease-in-out all .2s;
+	}
+	.dashicons {
+		vertical-align: middle;
+		margin-left: 4px;
+		position: relative;
+		top: -3px;
+	}
+}
+
+/*Error message*/
+.wc-fgc-stock-error {
+	display: none;
+	background: #dd3333 none repeat scroll 0 0;
+	color: #ffffff;
+	padding: 5px 10px;
+	text-align: center;
+}
+
+.wc_fgc_updatenow {
+	cursor: pointer;
+}
+
+/*=====================================
+=            RESPONSIVE TABLE        =
+=====================================*/
+.woocommerce {
+	table.shop_table_responsive {
+		tr.wc-fgc-new-row {
+			td {
+				text-align: left !important;
+				&::before {
+					display: block;
+					content: "";
+				}
+			}
+			.variations {
+				tr {
+					border: 0;
+				}
+			}
+		}
+	}
+}
+
+.woocommerce-page {
+	table.shop_table_responsive {
+		tr.wc-fgc-new-row {
+			td {
+				text-align: left !important;
+				&::before {
+					display: block;
+					content: "";
+				}
+			}
+			.variations {
+				tr {
+					border: 0;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.woocommerce-cart-form {
+		img {
+			max-width: 100% !important;
+			height: auto !important;
+			display: block;
+		}
+	}
+}

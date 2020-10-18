@@ -2,7 +2,6 @@
 /**
  * Free Gift Coupos DB update functions
  *
- * @author   Kathy Darling <kathy@kathyisawesome.com>
  * @package  WooCommerce Free Gift Coupons
  * @since    2.0.0
  */

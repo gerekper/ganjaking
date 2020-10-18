@@ -8,12 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div id="wcwl_waitlist_data" class="panel woocommerce_options_panel">
 	<?php
-	$children = $this->product->get_children();
+	$children = Pie_WCWL_Custom_Tab::$product->get_children();
 	foreach ( $children as $product_id ) { ?>
 		<div class="wcwl_variation_tab" id="wcwl_variation_<?php echo $product_id; ?>">
 			<div class="wcwl_header_wrap">
 				<h3>
-					<?php echo $this->return_variation_tab_title( $product_id ); ?>
+					<?php echo Pie_WCWL_Custom_Tab::return_variation_tab_title( $product_id ); ?>
 				</h3>
 			</div>
 			<div class="wcwl_body_wrap" data-product-id="<?php echo $product_id ?>">

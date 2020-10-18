@@ -21,7 +21,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 		public function __construct() {
 			$this->customer_email = false;
 			$this->setup_mailout();
-			add_action( 'wcwl_new_signup_send_email', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'wcwl_new_signup_send_admin_email', array( $this, 'trigger' ), 10, 2 );
 			parent::__construct();
 		}
 
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 			$this->template_plain = 'emails/plain/waitlist-new-signup.php';
 			$this->subject        = $this->get_option( 'subject', $this->get_default_subject() );
 			$this->heading        = $this->get_option( 'heading', $this->get_default_heading() );
-			$this->recipient      = $this->get_option( 'recipient', $this->get_admin_email() );
+			$this->recipient      = apply_filters( 'wcwl_admin_email_recipients', $this->get_option( 'recipient', $this->get_admin_email() ) );
 		}
 
 		/**
@@ -100,18 +100,17 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 		/**
 		 * Trigger function for the mailout class
 		 *
-		 * @param int $user_id    ID of user to send the mail to
+		 * @param int $email    email of user to send the mail to
 		 * @param int $product_id ID of product that email refers to
 		 *
 		 * @return bool success
 		 *
 		 * @access public
 		 */
-		public function trigger( $user_id, $product_id ) {
+		public function trigger( $email, $product_id ) {
 			$product          = wc_get_product( $product_id );
-			$user             = get_user_by( 'id', $user_id );
 			$this->object     = $product;
-			$this->user_email = $user->user_email;
+			$this->user_email = $email;
 			if ( ! $this->is_enabled() || ! $this->get_recipient() ) {
 				return false;
 			}
@@ -150,6 +149,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 					'email_heading' => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->heading ),
 					'user_email'    => $this->user_email,
 					'admin_email'   => $this->get_admin_email(),
+					'count'         => get_post_meta( $post_id, '_' . WCWL_SLUG . '_count', true ),
 				),
 				false,
 				$this->template_base
@@ -177,6 +177,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Signup_Email' ) ) {
 					'email_heading' => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->heading ),
 					'user_email'    => $this->user_email,
 					'admin_email'   => $this->get_admin_email(),
+					'count'         => get_post_meta( $post_id, '_' . WCWL_SLUG . '_count', true ),
 				),
 				false,
 				$this->template_base

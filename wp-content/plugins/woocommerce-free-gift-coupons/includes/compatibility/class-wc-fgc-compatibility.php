@@ -2,7 +2,6 @@
 /**
  * Extension Compatibilty
  *
- * @author   Kathy Darling
  * @package  WooCommerce Free Gift Coupons/Compatibility
  * @since    2.1.0
  * @version  2.1.0
@@ -41,6 +40,22 @@ class WC_Free_Gift_Coupons_Compatibility {
 			include_once  'modules/class-wc-fgc-subscriptions-compatibility.php' ;
 		}
 
+		// Deactivate functionality from mini-extensions.
+		self::unload();
+
+
+	}
+
+	/**
+	 * Unload mini-extensions.
+	 * 
+	 * @since 3.0.0
+	 */
+	public static function unload() {
+		// Deactivate functionality added by WC Free Gift Coupons - Choose Variation mini-extension.
+		if ( class_exists( 'WC_FGC_Choose_Variation' ) ) {
+			remove_action( 'plugins_loaded', array( 'WC_FGC_Choose_Variation', 'init' ) );
+		}
 	}
 
 }

@@ -11,12 +11,6 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_User_Waitlist' ) ) {
 	class Pie_WCWL_Frontend_User_Waitlist {
 
 		/**
-		 * Current user object
-		 *
-		 * @var
-		 */
-		public $user;
-		/**
 		 * Products the user is currently on a waitlist for
 		 *
 		 * @var
@@ -28,31 +22,6 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_User_Waitlist' ) ) {
 		 * @var
 		 */
 		public $archives;
-
-		/**
-		 * Pie_WCWL_Frontend_User_Waitlist constructor.
-		 */
-		public function __construct() {
-			$this->user = get_user_by( 'id', get_current_user_id() );
-			if ( ! $this->user ) {
-				return;
-			}
-		}
-
-		/**
-		 * Output the HTML to display a list of products the current user is on the waitlist for
-		 */
-		public function display_users_waitlists() {
-			if ( ! is_user_logged_in() ) {
-				return;
-			}
-			$user_id = get_current_user_id();
-			wc_get_template( 'waitlist-user-waitlist.php', array(
-				'title'    => __( 'Your Waitlists', 'woocommerce-waitlist' ),
-				'products' => WooCommerce_Waitlist_Plugin::get_waitlist_products_by_user_id( $user_id ),
-				'archives' => WooCommerce_Waitlist_Plugin::get_waitlist_archives_by_user_id( $user_id ),
-			), '', WooCommerce_Waitlist_Plugin::$path . 'templates/' );
-		}
 
 		/**
 		 * Initialise frontend waitlist for user
@@ -75,10 +44,30 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_User_Waitlist' ) ) {
 			$data = array(
 				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 				'user_id'          => get_current_user_id(),
-				'no_waitlist_html' => '<p>' . apply_filters( 'wcwl_shortcode_no_waitlists_text', __( 'You have not yet joined the waitlist for any products.', 'woocommerce-waitlist' ) ) . '</p><p>' . apply_filters( 'wcwl_shortcode_visit_shop_text', sprintf( __( '%sVisit shop now!%s', 'woocommerce-waitlist' ), '<a href="' . wc_get_page_permalink( 'shop' ) . '">', '</a>' ) ) . '</p><hr>',
+				'no_waitlist_html' => '<p>' . apply_filters( 'wcwl_shortcode_no_waitlists_text', __( 'You have not yet joined the waitlist for any products.', 'woocommerce-waitlist' ) ) . '</p><p>' . apply_filters( 'wcwl_shortcode_visit_shop_text', sprintf( __( '%1$sVisit shop now!%2$s', 'woocommerce-waitlist' ), '<a href="' . wc_get_page_permalink( 'shop' ) . '">', '</a>' ) ) . '</p><hr>',
 
-);
+			);
 			wp_localize_script( 'wcwl_frontend_account', 'wcwl_account', $data );
+		}
+
+		/**
+		 * Output the HTML to display a list of products the current user is on the waitlist for
+		 */
+		public function display_users_waitlists() {
+			if ( ! is_user_logged_in() ) {
+				return;
+			}
+			$user = get_user_by( 'id', get_current_user_id() );
+			wc_get_template(
+				'waitlist-user-waitlist.php',
+				array(
+					'title'    => __( 'Your Waitlists', 'woocommerce-waitlist' ),
+					'products' => WooCommerce_Waitlist_Plugin::get_waitlist_products_for_user( $user ),
+					'archives' => WooCommerce_Waitlist_Plugin::get_waitlist_archives_for_user( $user ),
+				),
+				'',
+				WooCommerce_Waitlist_Plugin::$path . 'templates/'
+			);
 		}
 
 		/**

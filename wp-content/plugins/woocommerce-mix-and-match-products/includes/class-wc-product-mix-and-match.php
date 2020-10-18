@@ -592,6 +592,22 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		return $this->is_nyp;
 	}
 
+	/**
+	 * Tell One Page Checkout there are no children.
+	 *
+	 * If we pass an empty array we can prevent it from trying to use get_children() 
+	 * get_children() is not currently core compatible and due to be replaced.
+	 *
+	 * This is a temporarily solution to compatibility. Please avoid using it.
+	 *
+	 * @since  1.10.4
+	 * @deprecated 1.10.4
+	 *
+	 * @return array
+	 */
+	public function get_visible_children() {
+		return array();
+	}
 
 	/**
 	 * Mimics the return of the product's children posts.

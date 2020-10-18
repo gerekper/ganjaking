@@ -22,7 +22,7 @@ echo _x( "Hi There,", 'Email salutation', 'woocommerce-waitlist' ) . "\n\n";
 printf( __( '%s is now back in stock at %s. ', 'woocommerce-waitlist' ), $product_title, get_bloginfo( 'title' ) );
 _e( 'You have been sent this email because your email address was registered on a waitlist for this product.', 'woocommerce-waitlist' );
 echo "\n\n";
-printf( __( 'If you would like to purchase %s please visit the following link: %s', 'woocommerce-waitlist' ), $product_title, '<a href="' . $product_link . '">' . $product_link . '<a>'  );
+printf( __( 'If you would like to purchase %s please visit the following link: %s', 'woocommerce-waitlist' ), $product_title, '<a href="' . $product_link . '">' . $product_link . '</a>'  );
 
 if ( WooCommerce_Waitlist_Plugin::persistent_waitlists_are_disabled( $product_id ) && ! $triggered_manually )
 	echo "\n\n";

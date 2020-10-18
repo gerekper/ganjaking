@@ -28,8 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$waitlist = new Pie_WCWL_Waitlist( $product );
 		$users    = $waitlist->waitlist;
 		$errors   = get_post_meta( $product_id, 'wcwl_mailout_errors', true );
-		foreach ( $users as $user_id => $date ) {
-			$user = get_user_by( 'id', $user_id );
+		foreach ( $users as $user => $date ) {
 			if ( $user ) {
 				include apply_filters( 'wcwl_include_path_admin_panel_table_row', Pie_WCWL_Custom_Tab::$component_path . 'panel-table-row.php' );
 			}

@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 wc_print_notices();
-$languages = get_user_meta( get_current_user_id(), 'wcwl_languages', true );
+$user = get_user_by( 'id', get_current_user_id() );
 ?>
 <noscript>
 	<p><?php printf( __( 'It appears you have disabled Javascript. To use the waitlist features you must %1$senable Javascript in your browser%2$s' ), '<a href="https://www.enable-javascript.com/">', '</a>' ); ?></p>
@@ -32,15 +32,13 @@ $languages = get_user_meta( get_current_user_id(), 'wcwl_languages', true );
 			foreach ( $products as $product ) {
 				$product_name = $product->get_name();
 				$product_id   = $product->get_id();
-				if ( $languages ) {
-					$lang = isset( $languages[ $product_id ] ) ? $languages[ $product_id ] : '';
-					if ( $lang ) {
-						global $sitepress;
-						$translated_products = $sitepress->get_element_translations( $product_id, 'post_product' );
-						if ( isset( $translated_products[ $lang ] ) ) {
-							$product_name = $translated_products[ $lang ]->post_title;
-							$product_id   = $translated_products[ $lang ]->translation_id;
-						}
+				$language     = wcwl_get_user_language( $user->user_email, $product_id );
+				global $sitepress;
+				if ( $sitepress && $language ) {
+					$translated_products = $sitepress->get_element_translations( $product_id, 'post_product' );
+					if ( isset( $translated_products[ $language ] ) ) {
+						$product_name = $translated_products[ $language ]->post_title;
+						$product_id   = $translated_products[ $language ]->translation_id;
 					}
 				}
 				?>
@@ -73,17 +71,15 @@ $languages = get_user_meta( get_current_user_id(), 'wcwl_languages', true );
 		<ul class="waitlist-archives">
 			<?php
 			foreach ( $archives as $archive ) {
-				$product      = wc_get_product( $archive->post_id );
-				$product_name = $product->get_name();
-				$product_id   = $product->get_id();
-				if ( $languages ) {
-					$lang = isset( $languages[ $product_id ] ) ? $languages[ $product_id ] : '';
-					if ( $lang ) {
-						global $sitepress;
-						$translated_products = $sitepress->get_element_translations( $product_id, 'post_product' );
-						if ( isset( $translated_products[ $lang ] ) ) {
-							$product_name = $translated_products[ $lang ]->post_title;
-						}
+				$product       = wc_get_product( $archive->post_id );
+				$product_name  = $product->get_name();
+				$product_id    = $product->get_id();
+				$language      = wcwl_get_user_language( $user->user_email, $product_id );
+				global $sitepress;
+				if ( $sitepress && $language ) {
+					$translated_products = $sitepress->get_element_translations( $product_id, 'post_product' );
+					if ( isset( $translated_products[ $language ] ) ) {
+						$product_name = $translated_products[ $language ]->post_title;
 					}
 				}
 				?>

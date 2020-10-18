@@ -1,4 +1,7 @@
 *** Dynamic Pricing Changelog ***
+2020.10.15 - version 3.1.22
+    * Update: WP and WC Version
+
 2020.08.21 - version 3.1.21
     * Fix:  Remove hardcoded value for num_decimals.
     * Update: Remove old compatibility file from the admin directory.

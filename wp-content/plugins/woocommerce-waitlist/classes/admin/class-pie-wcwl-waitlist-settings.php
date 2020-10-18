@@ -136,6 +136,21 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Settings' ) ) {
 					'type'    => 'checkbox',
 				),
 				array(
+					'title'   => __( 'Force account creation', 'woocommerce-waitlist' ),
+					'desc'    => __( 'Automatically create an account for users that join a waitlist', 'woocommerce-waitlist' ),
+					'id'      => WCWL_SLUG . '_create_account',
+					'default' => 'yes',
+					'type'    => 'checkbox',
+				),
+				array(
+					'title'   => __( 'Auto-Login users', 'woocommerce-waitlist' ),
+					'desc'    => __( 'Automatically login users when an account is created for them', 'woocommerce-waitlist' ),
+					'id'      => WCWL_SLUG . '_auto_login',
+					'default' => 'no',
+					'type'    => 'checkbox',
+					'class'   => 'wcwl_hidden',
+				),
+				array(
 					'title'   => __( 'Display opt-in for new users', 'woocommerce-waitlist' ),
 					'desc'    => __( 'Display a checkbox to logged out users to get consent for creating an account and using their email address', 'woocommerce-waitlist' ),
 					'id'      => 'woocommerce_waitlist_new_user_opt-in',

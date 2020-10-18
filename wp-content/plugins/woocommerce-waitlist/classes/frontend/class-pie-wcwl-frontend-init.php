@@ -22,6 +22,9 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 			$this->has_wpml = isset( $sitepress );
 			add_action( 'wp', array( $this, 'frontend_init' ) );
 			add_shortcode( 'woocommerce_waitlist', array( $this, 'output_waitlist_elements' ) );
+			if ( isset( $_GET['wcwl_remove_user'] ) && isset( $_GET['product_id'] ) && isset( $_GET['key'] ) && is_email( $_GET['wcwl_remove_user'] )  ) {
+				add_action( 'wp', array( $this, 'remove_user_from_waitlist' ) );
+			}
 			// Compatibility.
 			add_filter( 'wc_get_template', array( $this, 'check_theme_directory_for_waitlist_template' ), 10, 5 );
 			// Login Redirects.
@@ -64,12 +67,13 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 		 * Load required frontend files
 		 */
 		public function load_files() {
-			require_once 'class-pie-wcwl-frontend-product.php';
 			require_once 'account/class-pie-wcwl-frontend-user-waitlist.php';
 			require_once 'account/class-pie-wcwl-frontend-shortcode.php';
 			require_once 'product-types/class-pie-wcwl-frontend-simple.php';
 			require_once 'product-types/class-pie-wcwl-frontend-variable.php';
 			require_once 'product-types/class-pie-wcwl-frontend-grouped.php';
+			$class = new Pie_WCWL_Frontend_Shortcode();
+			$class->init();
 		}
 
 		/**
@@ -110,10 +114,6 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 					}
 				}
 				if ( isset( $post->post_content ) && ! empty( $post->post_content ) ) {
-					if ( strstr( $post->post_content, '[woocommerce_my_waitlist]' ) ) {
-						$class = new Pie_WCWL_Frontend_Shortcode();
-						$class->init();
-					}
 					if ( strstr( $post->post_content, '[product_page' ) ) {
 						$wc_product = $this->find_product_from_shortcode( $post->post_content );
 						if ( $wc_product ) {
@@ -136,7 +136,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 
 		/**
 		 * Load required class for product type
-		 * 
+		 *
 		 * @param WC_Product $product
 		 */
 		public function load_class( WC_Product $product ) {
@@ -223,6 +223,27 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 			} else {
 				$this->load_class( $product );
 				return wcwl_get_waitlist_fields( $product_id );
+			}
+		}
+
+		/**
+		 * Remove user from waitlist when requested via email
+		 *
+		 * @return void
+		 */
+		public function remove_user_from_waitlist() {
+			$email      = $_GET['wcwl_remove_user'];
+			$product_id = absint( $_GET['product_id'] );
+			if ( ! hash_equals( hash_hmac( 'sha256', $email . '|' . $product_id, get_the_guid( $product_id ) . $email . 'woocommerce-waitlist' ), $_GET['key'] ) ) {
+				wc_add_notice( __( 'Sorry, there was a problem with your request, please contact a site administrator for assistance.', 'woocommerce-waitlist' ), 'error' );
+			}
+			$response = wcwl_remove_user_from_waitlist( sanitize_email( $_GET['wcwl_remove_user'] ), absint( $_GET['product_id'] ) );
+			if ( is_wp_error( $response ) ) {
+				wc_add_notice( sprintf( __( 'Sorry, there was a problem with your request: %s', 'woocommerce-waitlist' ), $response->get_error_message() ), 'error' );
+			} else {
+				WC_Emails::instance();
+				do_action( 'wcwl_left_mailout_send_email', $email, $product_id );
+				wc_add_notice( __( 'You have successfully been removed from the waitlist for this product.', 'woocommerce-waitlist' ) );
 			}
 		}
 

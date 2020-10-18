@@ -14,7 +14,6 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Account' ) ) {
 		 * Pie_WCWL_Frontend_Account constructor.
 		 */
 		public function __construct() {
-			parent::__construct();
 			$this->endpoint = apply_filters( 'wcwl_waitlist_endpoint', get_option( 'woocommerce_myaccount_waitlist_endpoint', 'woocommerce-waitlist' ) );
 			$this->setup_account_tab();
 		}

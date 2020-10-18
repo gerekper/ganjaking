@@ -2,10 +2,9 @@
 /**
  * Subscriptions Compatibility
  *
- * @author   Kathy Darling
  * @package  WooCommerce Free Gift Coupons/Compatibility
  * @since    2.1.2
- * @version  2.1.2
+ * @version  3.0.0
  */
 
 // Exit if accessed directly.
@@ -29,7 +28,7 @@ class WC_FGC_Subscriptions_Compatibility {
 		add_filter( 'wcs_bypass_coupon_removal', array( __CLASS__, 'bypass_coupon_removal' ), 10, 2 );
 
 		// Save FGC gifts for subscriptions coupons.
-		add_filter( 'woocommerce_free_gift_coupon_types', array( __CLASS__, 'add_supported_coupon_types' ) );
+		add_filter( 'wc_free_gift_coupon_types', array( __CLASS__, 'add_supported_coupon_types' ) );
 
 	}
 

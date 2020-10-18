@@ -1,5 +1,8 @@
 *** WooCommerce Cart Notices Changelog ***
 
+2020.10.16 - version 1.12.2
+ * Fix - Address a possible PHP error while editing content that includes the shortcode for the minimum amount notice
+
 2020.09.29 - version 1.12.1
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets
 

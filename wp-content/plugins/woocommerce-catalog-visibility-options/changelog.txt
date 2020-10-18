@@ -1,4 +1,11 @@
 *** Catalog Visibility Options Changelog ***
+2020.10.15 - version 3.2.12
+    * Update:  WP and WC version compatibility tags.
+    * Update:  Added several checks inside of the filters so that page builders who call actions and filters incorrectly with missing variables will not break.
+
+2020.08.25 - version 3.2.11
+    * Update:  WP and WC version compatibility tags.
+
 2020.06.25 - version 3.2.10
     * Update: Make sure that the cb column exists before trying to unset it.  Prevents warnings in the product category admin on some sites.
 

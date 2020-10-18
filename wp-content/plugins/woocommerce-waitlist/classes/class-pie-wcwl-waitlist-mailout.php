@@ -28,7 +28,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		public function __construct() {
 			$this->customer_email = true;
 			$this->wcwl_setup_mailout();
-			add_action( 'wcwl_mailout_send_email', array( $this, 'trigger' ), 10, 3 );
+			add_action( 'wcwl_mailout_send_customer_email', array( $this, 'trigger' ), 10, 3 );
 			parent::__construct();
 		}
 
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		/**
 		 * Trigger function for the mailout class
 		 *
-		 * @param int  $user_id    ID of user to send the mail to
+		 * @param int  $email      email of user to send the mail to
 		 * @param int  $product_id ID of product that email refers to
 		 * @param bool $manual     was the email triggered manually?
 		 *
@@ -85,21 +85,18 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		 *
 		 * @access public
 		 */
-		public function trigger( $user_id, $product_id, $manual = false ) {
-			$this->triggered_manually = $manual;
-			$user                     = get_user_by( 'id', $user_id );
-			$languages                = get_user_meta( $user_id, 'wcwl_languages', true );
+		public function trigger( $email, $product_id, $manual = false ) {
 			global $woocommerce_wpml;
-			if ( is_array( $languages ) && $woocommerce_wpml ) {
-				$this->language = $languages[ $product_id ];
-				$product        = wc_get_product( wpml_object_id_filter( $product_id, 'product', true, $languages[ $product_id ] ) );
-				$this->setup_wpml_email( $languages[ $product_id ] );
-			} else {
-				$product = wc_get_product( $product_id );
+			$this->triggered_manually = $manual;
+			$product                  = wc_get_product( $product_id );
+			if ( $woocommerce_wpml ) {
+				$this->language = wcwl_get_user_language( $email, $product_id );
+				$product        = wc_get_product( wpml_object_id_filter( $product_id, 'product', true, $this->language ) );
+				$this->setup_wpml_email( $this->language );
 			}
-			$this->setup_required_data( $product, $user );
+			$this->setup_required_data( $product, $email );
 			if ( ! $this->is_enabled() || ! $this->get_recipient() ) {
-				return new WP_Error( 'woocommerce_waitlist', sprintf( __( 'Failed to send in stock notification on %s. Is the email address valid and waitlist mailouts enabled?' ), date( 'd M, y' ) ) );
+				return new WP_Error( 'woocommerce_waitlist', sprintf( __( 'Failed to send in stock notification on %s. Is the email address valid and waitlist mailouts enabled?' ), gmdate( 'd M, y' ) ) );
 			}
 
 			return $this->send_email();
@@ -117,8 +114,8 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 				$strings     = new WCML_WC_Strings( $woocommerce_wpml, $sitepress, $wpdb );
 				$wcml_emails = new WCML_Emails( $strings, $sitepress, $woocommerce, $wpdb );
 				$wcml_emails->change_email_language( $language );
-				$this->subject  = apply_filters( 'wcwl_waitlist_mailout_subject_translated', 'A product you are waiting for is back in stock', $language );
-				$this->heading  = apply_filters( 'wcwl_waitlist_mailout_heading_translated', '{product_title} is now back in stock at {blogname}', $language );
+				$this->subject = apply_filters( 'wcwl_waitlist_mailout_subject_translated', 'A product you are waiting for is back in stock', $language );
+				$this->heading = apply_filters( 'wcwl_waitlist_mailout_heading_translated', '{product_title} is now back in stock at {blogname}', $language );
 			}
 		}
 
@@ -126,13 +123,13 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		 * Load generic data into the email class
 		 *
 		 * @param $product
-		 * @param $user
+		 * @param $email
 		 */
-		protected function setup_required_data( $product, $user ) {
+		protected function setup_required_data( $product, $email ) {
 			$this->object                          = $product;
 			$this->placeholders['{product_title}'] = $product->get_title();
 			$this->placeholders['{blogname}']      = $this->get_blogname();
-			$this->recipient                       = $user->user_email;
+			$this->recipient                       = $email;
 		}
 
 		/**
@@ -156,7 +153,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		 * @return false|string
 		 */
 		protected function get_translated_string( $string, $language_code ) {
-			if ( $language_code ) {
+			if ( $language_code && function_exists( 'icl_get_string_id' ) ) {
 				$string_id   = icl_get_string_id( $string, 'woocommerce-waitlist' );
 				$translation = icl_get_string_by_id( $string_id, $language_code );
 				if ( $translation ) {
@@ -176,14 +173,19 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		public function get_content_html() {
 			ob_start();
 			$product_id = $this->object->get_id();
-			wc_get_template( $this->template_html, array(
-				'product_title'           => get_the_title( $product_id ),
-				'product_link'            => $this->generate_product_link( $this->object ),
-				'email_heading'           => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->get_translated_string( $this->heading, $this->language ) ),
-				'product_id'              => $product_id,
-				'user'                    => get_user_by( 'email', $this->recipient ),
-				'triggered_manually'      => $this->triggered_manually,
-			), false, $this->template_base );
+			wc_get_template(
+				$this->template_html,
+				array(
+					'product_title'      => get_the_title( $product_id ),
+					'product_link'       => $this->generate_product_link( $this->object ),
+					'email_heading'      => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->get_translated_string( $this->heading, $this->language ) ),
+					'product_id'         => $product_id,
+					'email'              => $this->recipient,
+					'triggered_manually' => $this->triggered_manually,
+				),
+				false,
+				$this->template_base
+			);
 
 			return ob_get_clean();
 		}
@@ -197,13 +199,19 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Mailout' ) ) {
 		public function get_content_plain() {
 			ob_start();
 			$product_id = $this->object->get_id();
-			wc_get_template( $this->template_plain, array(
-				'product_title'           => get_the_title( $product_id ),
-				'product_link'            => $this->generate_product_link( $this->object ),
-				'product_id'              => $product_id,
-				'user'                    => get_user_by( 'email', $this->recipient ),
-				'triggered_manually'      => $this->triggered_manually,
-			), false, $this->template_base );
+			wc_get_template(
+				$this->template_plain,
+				array(
+					'product_title'      => get_the_title( $product_id ),
+					'product_link'       => $this->generate_product_link( $this->object ),
+					'email_heading'      => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->get_translated_string( $this->heading, $this->language ) ),
+					'product_id'         => $product_id,
+					'email'              => $email,
+					'triggered_manually' => $this->triggered_manually,
+				),
+				false,
+				$this->template_base
+			);
 
 			return ob_get_clean();
 		}

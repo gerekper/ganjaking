@@ -61,7 +61,7 @@ var WC_Free_Gift_Coupons = {};
 		removeProduct: function(e) { 
 			e.preventDefault();
 			this.model.destroy();
-			WC_Free_Gift_Coupons.productList.render(); // manually calling instead of listening since listening interferes with sorting
+			WC_Free_Gift_Coupons.productList.render(); // Manually calling instead of listening since listening interferes with sorting.
 		},
 
 		// Persist the quantity in the model.
@@ -132,12 +132,11 @@ var WC_Free_Gift_Coupons = {};
 
 	};
 
-
 	/*-----------------------------------------------------------------------------------*/
 	/* Execute the above methods in the WC_Free_Gift_Coupons object.
 	/*-----------------------------------------------------------------------------------*/
 
-	jQuery(document).ready(function($) {
+	jQuery(function($) {
 
 		WC_Free_Gift_Coupons.initApplication();
 
@@ -189,7 +188,7 @@ var WC_Free_Gift_Coupons = {};
 			// Check if coupon type is in supported type list.
 			if ( $.inArray( select_val, coupon_types ) !== -1 ) {
 				$( '.show_if_free_gift' ).show();
-				
+
 				// Only hide the price field for Free Gift type
 				if ( 'free_gift' == select_val ) {
 					$toggle_fields.hide();

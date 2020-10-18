@@ -33,7 +33,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
 class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 
 
-	const VERSION = '1.12.1';
+	const VERSION = '1.12.2';
 
 	/** @var WC_Cart_Notices single instance of this plugin */
 	protected static $instance;
@@ -174,15 +174,17 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 	 */
 	public function add_cart_notice() {
 
-		$messages = array();
+		$messages = [];
 
 		foreach ( $this->get_notices() as $notice ) {
-			// build the notices based on the notice types.  Any notices that require arguments are handled specially
-			$args = array();
+
+			$args = [];
+
 			if ( 'minimum_amount' === $notice->type ) {
 				$args['cart_contents_total']        = $this->get_cart_total();
 				$args['cart_free_shipping_minimum'] = $this->get_cart_free_shipping_minimum();
 			}
+
 			if ( $notice->enabled && method_exists( $this, 'get_' . $notice->type . '_notice' ) && ( $message = $this->{ 'get_' . $notice->type . '_notice' }( $notice, $args ) ) ) {
 				$messages[] = $message;
 			}
@@ -223,11 +225,19 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 
 		foreach ( $this->get_notices() as $notice ) {
 
+			/**
+			 * Fires before processing a notice.
+			 *
+			 * @since 1.1
+			 *
+			 * @param \stdClass $notice the notice
+			 */
 			do_action( 'wc_cart_notices_process_notice_before', $notice );
 
 			if ( 'all' === $type || $type === $notice->type || 0 === strcasecmp( $name, $notice->name ) ) {
-				// build the notices based on the notice types.  Any notices that require arguments are handled specially
-				$args = array();
+
+				$args = [];
+
 				if ( 'minimum_amount' === $notice->type ) {
 					$args['cart_contents_total']        = $this->get_cart_total();
 					$args['cart_free_shipping_minimum'] = $this->get_cart_free_shipping_minimum();
@@ -283,16 +293,16 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 	 *
 	 * @since 1.0
 	 *
-	 * @return string formatted price
+	 * @return int|float price amount
 	 */
 	private function get_cart_total() {
 
 		if ( 'incl' !== get_option( 'woocommerce_tax_display_cart' ) ) {
 			// if prices don't include tax, just return the subtotal excluding tax
-			$cart_contents_total = WC()->cart->cart_contents_total;
+			$cart_contents_total = $this->is_cart_available( [ 'cart_contents_total' ] ) ? WC()->cart->cart_contents_total : 0;
 		} else {
 			// if prices do include tax, add the tax amount back in
-			$cart_contents_total = WC()->cart->cart_contents_total + WC()->cart->tax_total;
+			$cart_contents_total = $this->is_cart_available( [ 'cart_contents_total', 'tax_total' ] ) ? WC()->cart->cart_contents_total + WC()->cart->tax_total : 0;
 		}
 
 		/**
@@ -319,7 +329,7 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 
 		// we only need this check if zones are available and the cart is shipped
 		// as a configured notice amount would have been check already when this is called
-		if ( ! WC()->cart->needs_shipping() ) {
+		if ( ! $this->is_cart_available() || ! WC()->cart->needs_shipping() ) {
 			return $minimum;
 		}
 
@@ -399,6 +409,15 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 			'threshold_order_amount' => $threshold_order_amount,
 		);
 
+		/**
+		 * Filters the notice order thresholds.
+		 *
+		 * @since 1.1
+		 *
+		 * @param array $order_thresholds notice thresholds
+		 * @param \stdClass $notice the notice object
+		 * @param array $args notice arguments
+		 */
 		$order_thresholds = apply_filters( 'wc_cart_notices_order_thresholds', $order_thresholds, $notice, $args );
 
 		$minimum_order_amount   = $order_thresholds['minimum_order_amount'];
@@ -441,7 +460,15 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 		// add the message variables for the benefit of the filter
 		$args['amount_under'] = $amount_under;
 
-		// return the notice
+		/**
+		 * Filters the minimum cart notice.
+		 *
+		 * @since 1.0.6
+		 *
+		 * @param string $notice_html the notice content
+		 * @param \stdClass $notice the notice object
+		 * @param array $args notice arguments
+		 */
 		return apply_filters( 'woocommerce_cart_notice_minimum_amount_notice', '<div id="woocommerce-cart-notice-' . sanitize_title( $notice->name ) . '" class="woocommerce-cart-notice woocommerce-cart-notice-minimum-amount woocommerce-info">' . wp_kses_post( $message ) . $action . '</div>', $notice, $args );
 	}
 
@@ -510,7 +537,15 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 		$args['time']              = $deadline_amount;   // the formatted string
 		$args['minutes_remaining'] = $minutes_remaining; // the number of minutes, for more advanced usage
 
-		// return the notice
+		/**
+		 * Filters the deadline notice.
+		 *
+		 * @since 1.0.6
+		 *
+		 * @param string $notice_html the notice content
+		 * @param \stdClass $notice the notice object
+		 * @param array $args notice arguments
+		 */
 		return apply_filters( 'woocommerce_cart_notice_deadline_notice', '<div id="woocommerce-cart-notice-' . sanitize_title( $notice->name ) . '" class="woocommerce-cart-notice woocommerce-cart-notice-deadline woocommerce-info">' . wp_kses_post( $message ) . $action . '</div>', $notice, $args );
 	}
 
@@ -553,7 +588,14 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 			$action = ' <a class="button" href="' . esc_url( $notice->action_url ) . '">' . esc_html__( $notice->action, 'woocommerce-cart-notices' ) . '</a>';
 		}
 
-		// return the notice (simple message, no args for this one)
+		/**
+		 * Filters the referer notice.
+		 *
+		 * @since 1.0.6
+		 *
+		 * @param string $notice_html the notice content
+		 * @param \stdClass $notice the notice object
+		 */
 		return apply_filters( 'woocommerce_cart_notice_referer_notice', '<div id="woocommerce-cart-notice-' . sanitize_title( $notice->name ) . '" class="woocommerce-cart-notice woocommerce-cart-notice-referer woocommerce-info">' . wp_kses_post( $message ) . $action . '</div>', $notice );
 	}
 
@@ -569,11 +611,19 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 	public function get_products_notice( $notice ) {
 
 		// anything in the cart?
-		if ( empty( WC()->cart->cart_contents ) ) {
+		if ( ! $this->is_cart_available( [ 'cart_contents' ] ) || empty( WC()->cart->cart_contents ) ) {
 			return false;
 		}
 
-		$all_products = apply_filters( 'wc_cart_notices_products_notice_all_products', false, $notice );
+		/**
+		 * Filters whether the products notice should apply to all products.
+		 *
+		 * @since 1.2.1
+		 *
+		 * @param bool $all_products default false
+		 * @param \stdClass $notice the notice object
+		 */
+		$all_products = (bool) apply_filters( 'wc_cart_notices_products_notice_all_products', false, $notice );
 
 		// mis-configured?
 		if ( ! $notice->message || ( empty( $notice->data['product_ids'] ) && ! $all_products ) ) {
@@ -686,7 +736,15 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 		$args['shipping_country_code'] = $shipping_country_code;
 		$args['shipping_country_name'] = $shipping_country_name;
 
-		// return the notice
+		/**
+		 * Filters the products notice.
+		 *
+		 * @since 1.0.6
+		 *
+		 * @param string $notice_html the notice content
+		 * @param \stdClass $notice the notice object
+		 * @param array $args notice args
+		 */
 		return apply_filters( 'woocommerce_cart_notice_products_notice', '<div id="woocommerce-cart-notice-' . sanitize_title( $notice->name ) . '" class="woocommerce-cart-notice woocommerce-cart-notice-products woocommerce-info">' . wp_kses_post( $message ) . $action . '</div>', $notice, $args );
 	}
 
@@ -702,7 +760,7 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 	public function get_categories_notice( $notice ) {
 
 		// anything in the cart?
-		if ( empty( WC()->cart->cart_contents ) ) {
+		if ( ! $this->is_cart_available( [ 'cart_contents' ] ) || empty( WC()->cart->cart_contents ) ) {
 			return false;
 		}
 
@@ -790,7 +848,15 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 		$args['categories']     = $categories;     // the formatted string
 		$args['the_categories'] = $the_categories; // the category objects, for more advanced usage
 
-		// return the notice
+		/**
+		 * Filters the categories notice.
+		 *
+		 * @since 1.0.6
+		 *
+		 * @param string $notice_html the notice content
+		 * @param \stdClass $notice the notice object
+		 * @param array $args notice arguments
+		 */
 		return apply_filters( 'woocommerce_cart_notice_categories_notice', '<div id="woocommerce-cart-notice-' . sanitize_title( $notice->name ) . '" class="woocommerce-cart-notice woocommerce-cart-notice-categories woocommerce-info">' . wp_kses_post( $message ) . $action . '</div>', $notice, $args );
 	}
 
@@ -903,9 +969,37 @@ class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 		 *
 		 * @param string $message the notice message
 		 * @param string $type the notice type
-		 * @param stdClass $notice the notice settings object
+		 * @param \stdClass $notice the notice settings object
 		 */
 		return apply_filters( 'wc_cart_notices_notice_message', $notice->message, $notice->type, $notice );
+	}
+
+
+	/**
+	 * Checks if the cart instance is available.
+	 *
+	 * @since 1.12.2
+	 *
+	 * @param array $cart_props optional cart props to check if set
+	 * @return bool
+	 */
+	private function is_cart_available( array $cart_props = [] ) {
+
+		$is_available = is_callable( 'WC' ) && ! empty( WC()->cart );
+
+		if ( $is_available && ! empty( $cart_props ) ) {
+
+			foreach ( $cart_props as $cart_prop ) {
+
+				if ( ! isset( WC()->cart->$cart_prop ) ) {
+
+					$is_available = false;
+					break;
+				}
+			}
+		}
+
+		return $is_available;
 	}
 
 

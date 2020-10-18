@@ -5,7 +5,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-$product_id = $this->product->get_id(); ?>
+$product_id = Pie_WCWL_Custom_Tab::$product->get_id(); ?>
 
 <div id="wcwl_waitlist_data" class="panel woocommerce_options_panel">
 		<div class="wcwl_body_wrap" data-product-id="<?php echo $product_id ?>">

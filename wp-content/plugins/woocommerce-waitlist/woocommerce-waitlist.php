@@ -3,16 +3,16 @@
  * Plugin Name: WooCommerce Waitlist
  * Plugin URI: http://www.woothemes.com/products/woocommerce-waitlist/
  * Description: This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
- * Version: 2.1.24
+ * Version: 2.2.0
  * Author: Neil Pie
  * Author URI: https://pie.co.de/
  * Developer: Neil Pie
  * Developer URI: https://pie.co.de/
  * Woo: 122144:55d9643a241ecf5ad501808c0787483f
  * WC requires at least: 3.0.0
- * WC tested up to: 4.3.0
+ * WC tested up to: 4.5.2
  * Requires at least: 4.2.0
- * Tested up to: 5.4.2
+ * Tested up to: 5.5.1
  * Text Domain: woocommerce-waitlist
  * Domain Path: /assets/languages/
  * License: GNU General Public License v3.0
@@ -42,7 +42,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 	 * Only start us up if WC is running
 	 */
 	if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ||
-		array_key_exists( 'woocommerce/woocommerce.php', get_site_option( 'active_sitewide_plugins' ) ) ) {
+		( is_array( get_site_option( 'active_sitewide_plugins' ) ) && array_key_exists( 'woocommerce/woocommerce.php', get_site_option( 'active_sitewide_plugins' ) ) ) ) {
 		add_action( 'plugins_loaded', 'WooCommerce_Waitlist_Plugin::instance' );
 	} else {
 		add_action( 'admin_notices', array( 'WooCommerce_Waitlist_Plugin', 'output_waitlist_not_active_notice' ) );
@@ -158,6 +158,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 			// Global.
 			add_action( 'woocommerce_checkout_order_processed', array( $this, 'remove_user_from_waitlist_on_product_purchase' ), 10, 3 );
 			add_action( 'delete_user', array( $this, 'unregister_user_when_deleted' ) );
+			add_action( 'user_register', array( $this, 'check_new_user_for_waitlist_entries' ) );
 			// Mailout hooks.
 			add_action( 'woocommerce_product_set_stock_status', array( $this, 'perform_api_mailout_stock_status' ), 10, 2 );
 			add_action( 'woocommerce_product_set_stock', array( $this, 'perform_api_mailout_stock' ) );
@@ -168,7 +169,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 			add_action( 'woocommerce_product_object_updated_props', array( $this, 'perform_api_mailout_bundles' ), 10, 2 );
 			add_action( 'transition_post_status', array( $this, 'perform_api_mailout_on_publish' ), 10, 3 );
 			// Events (ticket stock status is updated directly in postmeta so does not trigger WC hooks above).
-			if ( function_exists( 'tribe_is_event' ) && 'yes' == get_option( 'woocommerce_waitlist_events' ) ) {
+			if ( function_exists( 'tribe_is_event' ) && 'yes' === get_option( 'woocommerce_waitlist_events' ) ) {
 				add_action( 'updated_postmeta', array( $this, 'perform_mailout_if_ticket_stock_updated' ), 10, 4 );
 				add_action( 'tribe_tickets_ticket_add', array( $this, 'trigger_waitlist_mailouts_for_events' ), 10, 3 );
 			}
@@ -250,7 +251,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 *
 		 * @todo refactor to waitlist class
 		 *
-		 * @param WC_Product/int $product updated product/product ID
+		 * @param WC_Product/int $product updated product/product ID.
 		 */
 		public function perform_api_mailout_stock( $product ) {
 			$product = wc_get_product( $product );
@@ -355,9 +356,9 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Trigger mailouts when post status is updated
 		 *
-		 * @param string $new_status
-		 * @param string $old_status
-		 * @param object $post
+		 * @param string $new_status post status updated to.
+		 * @param string $old_status post status updated from.
+		 * @param object $post       post object.
 		 * @return void
 		 *
 		 * @todo figure clever way to force mailout on post transition, maybe a refactor needed to avoid stock requirements here
@@ -410,8 +411,8 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Check the minimum stock requirements are met for the current waitlist before processing mailouts
 		 *
-		 * @param $product
-		 * @param $stock_level_required
+		 * @param object $product              product object.
+		 * @param int    $stock_level_required minimum stock required to trigger waitlist mailout.
 		 *
 		 * @return bool
 		 * @since  1.8.0
@@ -455,7 +456,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Check to see if product is of type "variable"
 		 *
-		 * @param $product
+		 * @param object $product product object.
 		 *
 		 * @return bool
 		 */
@@ -470,7 +471,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Check to see if product is of type "variation"
 		 *
-		 * @param $product
+		 * @param object $product product object.
 		 *
 		 * @return bool
 		 */
@@ -485,7 +486,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Check to see if product is of type "simple"
 		 *
-		 * @param $product
+		 * @param object $product product object.
 		 *
 		 * @return bool
 		 */
@@ -500,56 +501,82 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Get the user object, check which products they are on the waitlist for and unregister them from each one when deleted
 		 *
-		 * @param  int $user_id id of the user that is being deleted
+		 * @param int $user_id id of the user that is being deleted.
 		 *
 		 * @access public
 		 * @return void
 		 * @since  1.3
 		 */
 		public function unregister_user_when_deleted( $user_id ) {
-			$waitlists = self::get_waitlist_products_by_user_id( $user_id );
 			$user      = get_user_by( 'id', $user_id );
+			$waitlists = self::get_waitlist_products_for_user( $user );
 			if ( $user && $waitlists ) {
 				foreach ( $waitlists as $product ) {
 					if ( $product ) {
 						$waitlist = new Pie_WCWL_Waitlist( $product );
-						$waitlist->unregister_user( $user );
+						$waitlist->unregister_user( $user->user_email );
 					}
 				}
 			}
-			$archives = self::get_waitlist_archives_by_user_id( $user_id );
-			self::remove_user_from_archives( $archives, $user_id );
+			$archives = self::get_waitlist_archives_for_user( $user );
+			self::remove_user_from_archives( $archives, $user );
+		}
+
+		/**
+		 * When a new user registers check waitlists for the email used and adjust this to IDs
+		 *
+		 * @param int $user_id
+		 */
+		public function check_new_user_for_waitlist_entries( $user_id ) {
+			  $user = get_user_by( 'id', $user_id );
+				if ( ! $user ) {
+						return;
+				}
+			  $products = self::get_waitlist_products_for_user( $user );
+				foreach ( $products as $product ) {
+					  $waitlist = new Pie_WCWL_Waitlist( $product );
+						if ( isset( $waitlist->waitlist[ $user->user_email ] ) ) {
+								$waitlist->waitlist[ $user_id ] = $waitlist->waitlist[ $user->user_email ];
+								unset( $waitlist->waitlist[ $user->user_email ] );
+								asort( $waitlist->waitlist );
+								$waitlist->save_waitlist();
+						}
+				}
 		}
 
 		/**
 		 * Return all the products that the user is on the waitlist for
 		 *
-		 * @access public
+		 * @param object $user user object.
+		 *
 		 * @return array
 		 *
 		 * @since  1.6.2
 		 */
-		public static function get_waitlist_products_by_user_id( $user_id ) {
+		public static function get_waitlist_products_for_user( $user ) {
 			global $wpdb;
-			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key = '" . WCWL_SLUG . "' AND meta_value LIKE '%i:{$user_id};%'", OBJECT );
-			$results = self::return_products_user_is_registered_on( $results, $user_id );
-
+			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key = '" . WCWL_SLUG . "' AND (meta_value LIKE '%i:{$user->ID};%' OR meta_value LIKE '%{$user->user_email}%')", OBJECT );
+			$results = self::return_products_user_is_registered_on( $results, $user );
 			return $results;
 		}
 
 		/**
 		 * Integrity check on data to ensure users are on the waitlists for the returned products
 		 *
-		 * @param $products
+		 * @param array  $products products to check.
+		 * @param object $user     user object.
 		 *
 		 * @return array
 		 */
-		public static function return_products_user_is_registered_on( $products, $user_id ) {
+		public static function return_products_user_is_registered_on( $products, $user ) {
 			$waitlist_products = array();
 			foreach ( $products as $product ) {
 				$product  = wc_get_product( $product->post_id );
+				if ( ! $product ) {
+					continue;
+				}
 				$waitlist = new Pie_WCWL_Waitlist( $product );
-				if ( $waitlist->user_is_registered( $user_id ) ) {
+				if ( $waitlist->user_is_registered( $user->user_email ) ) {
 					$waitlist_products[] = $product;
 				}
 			}
@@ -560,30 +587,30 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Return all the products that the user is on a waitlist archive for
 		 *
-		 * @access public
-		 *
-		 * @param $user_id
+		 * @param object $user user object.
 		 *
 		 * @return array
 		 * @since  1.6.2
 		 */
-		public static function get_waitlist_archives_by_user_id( $user_id ) {
+		public static function get_waitlist_archives_for_user( $user ) {
 			if ( ! get_option( '_' . WCWL_SLUG . '_metadata_updated' ) ) {
 				return array();
 			}
 			global $wpdb;
-			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key = 'wcwl_waitlist_archive' AND meta_value LIKE '%i:{$user_id};i:{$user_id};%'", OBJECT );
+			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}postmeta WHERE meta_key = 'wcwl_waitlist_archive' AND (meta_value LIKE '%i:{$user->ID};i:{$user->ID};%' OR meta_value LIKE '%{$user->user_email}%')", OBJECT );
 
 			return $results;
 		}
 
 		/**
 		 * Remove user from all archives
-		 *
 		 * If an admin removes the user they are deleted, if a user removes themselves the User ID is stored as 0 so we can track it
+		 *
+		 * @param array  $archives archives to check.
+		 * @param object $user user object.
 		 */
-		public static function remove_user_from_archives( $archives, $user_id ) {
-			if ( ! $user_id || empty( $archives ) ) {
+		public static function remove_user_from_archives( $archives, $user ) {
+			if ( ! $user || empty( $archives ) ) {
 				return;
 			}
 			foreach ( $archives as $archive ) {
@@ -594,11 +621,8 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 					if ( empty( $users ) ) {
 						unset( $new_archive[ $timestamp ] );
 					} else {
-						if ( get_current_user_id() != $user_id ) {
-							unset( $new_archive[ $timestamp ][ $user_id ] );
-						} else {
-							$new_archive[ $timestamp ][ $user_id ] = 0;
-						}
+						unset( $new_archive[ $timestamp ][ $user->ID ] );
+						unset( $new_archive[ $timestamp ][ $user->user_email ] );
 					}
 				}
 				update_post_meta( $product_id, 'wcwl_waitlist_archive', $new_archive );
@@ -608,9 +632,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Return all product posts
 		 *
-		 * @static
-		 * @access public
-		 * @return array all product posts
+		 * @return array all product posts.
 		 * @since  1.7.0
 		 */
 		public static function return_all_product_ids() {
@@ -625,32 +647,6 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		}
 
 		/**
-		 * Checks if user is registered, if not creates a new customer and sends welcome email
-		 *
-		 * This function overrides woocommerce options to ensure that the user is created when joining the waitlist,
-		 * options are reset afterwards
-		 *
-		 * @param  string $email users email address
-		 *
-		 * @access public
-		 * @return object $current_user the customer's user object
-		 * @since  1.3
-		 */
-		public static function create_new_customer_from_email( $email ) {
-			if ( email_exists( $email ) ) {
-				$current_user = email_exists( $email );
-			} else {
-				add_filter( 'pre_option_woocommerce_registration_generate_password', array( self::instance(), 'return_option_setting_yes' ), 10 );
-				add_filter( 'pre_option_woocommerce_registration_generate_username', array( self::instance(), 'return_option_setting_yes' ), 10 );
-				$current_user = self::create_new_customer( $email );
-				remove_filter( 'pre_option_woocommerce_registration_generate_password', array( self::instance(), 'return_option_setting_yes' ), 10 );
-				remove_filter( 'pre_option_woocommerce_registration_generate_username', array( self::instance(), 'return_option_setting_yes' ), 10 );
-			}
-
-			return $current_user;
-		}
-
-		/**
 		 * A function to easily add and remove hooks pertaining to creating a user and forcing options
 		 *
 		 * @return string
@@ -660,56 +656,23 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		}
 
 		/**
-		 * Create new customer using the given email and send user a welcome email with login details
-		 *
-		 * This function is required before woocommerce v2.1 as handling user creation is handled differently from then
-		 *
-		 * @access     public
-		 *
-		 * @param  string $email users email address
-		 *
-		 * @return int $user_id current user ID
-		 * @since      1.3
-		 */
-		private static function create_new_customer( $email ) {
-			$username = sanitize_user( current( explode( '@', $email ) ) );
-			// Ensure username is unique
-			$append     = 1;
-			$o_username = $username;
-			while ( username_exists( $username ) ) {
-				$username = $o_username . $append;
-				$append ++;
-			}
-			$password = wp_generate_password();
-			$userdata = array(
-				'user_login' => $username,
-				'user_email' => $email,
-				'user_pass'  => $password,
-				'role'       => 'customer',
-			);
-			$user_id  = wp_insert_user( $userdata );
-			if ( is_wp_error( $user_id ) ) {
-				return $user_id;
-			}
-			do_action( 'woocommerce_created_customer', $user_id, $userdata, true );
-
-			return $user_id;
-		}
-
-		/**
 		 * Appends our Pie_WCWL_Waitlist_Mailout class to the array of WC_Email objects.
 		 *
 		 * @static
 		 *
-		 * @param  array $emails the woocommerce array of email objects
+		 * @param array $emails the woocommerce array of email objects.
 		 *
 		 * @access public
 		 * @return array         the woocommerce array of email objects with our email appended
 		 */
 		public static function initialise_waitlist_email_class( $emails ) {
 			require_once 'classes/class-pie-wcwl-waitlist-mailout.php';
+			require_once 'classes/class-pie-wcwl-waitlist-joined-email.php';
+			require_once 'classes/class-pie-wcwl-waitlist-left-email.php';
 			require_once 'classes/class-pie-wcwl-waitlist-signup-email.php';
 			$emails['Pie_WCWL_Waitlist_Mailout']      = new Pie_WCWL_Waitlist_Mailout();
+			$emails['Pie_WCWL_Waitlist_Joined_Email'] = new Pie_WCWL_Waitlist_Joined_Email();
+			$emails['Pie_WCWL_Waitlist_Left_Email']   = new Pie_WCWL_Waitlist_Left_Email();
 			$emails['Pie_WCWL_Waitlist_Signup_Email'] = new Pie_WCWL_Waitlist_Signup_Email();
 
 			return $emails;
@@ -737,10 +700,8 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 			$options = get_option( WCWL_SLUG );
 			if ( ! isset( $options['version'] ) ) {
 				$this->set_default_options();
+				update_option( 'woocommerce_queue_flush_rewrite_rules', 'true' );
 			} else {
-				if ( version_compare( $options['version'], '1.1.0' ) < 0 ) {
-					$this->move_variable_product_waitlist_entries_to_first_out_of_stock_variation();
-				}
 				if ( version_compare( $options['version'], '1.7.0' ) < 0 ) {
 					update_option( 'woocommerce_queue_flush_rewrite_rules', 'true' );
 				}
@@ -762,58 +723,9 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 			update_option( '_' . WCWL_SLUG . '_version_2_warning', true );
 			update_option( WCWL_SLUG . '_archive_on', 'yes' );
 			update_option( WCWL_SLUG . '_registration_needed', 'no' );
+			update_option( WCWL_SLUG . '_create_account', 'yes' );
+			update_option( WCWL_SLUG . '_auto_login', 'no' );
 			update_option( WCWL_SLUG . '_minimum_stock', 1 );
-		}
-
-		/**
-		 * Moves all waitlist entries on variable products to one of their variations
-		 *
-		 * This function is necessary when upgrading to version 1.1.0 - Prior to 1.1.0, waitlists for variable
-		 * products were tracked against the parent product, and it was not possible to register for a waitlist on
-		 * a product variation. This missing feature caused problems when one variation was out of stock and another
-		 * in stock.
-		 *
-		 * In version 1.1.0, this feature has been added. Product variations can now hold their own waitlist, and
-		 * the variable product parents now hold a waitlist containing all registrations for their child products.
-		 * To bridge this upgrade gap, any waitlist registrations for a variable product will be moved to the first
-		 * product variation that is out of stock.
-		 *
-		 * @access public
-		 * @return void
-		 * @since  1.1.0
-		 */
-		public function move_variable_product_waitlist_entries_to_first_out_of_stock_variation() {
-			global $wpdb;
-			$products                         = $wpdb->get_col( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_key = '" . WCWL_SLUG . "' and meta_value <> 'a:0:{}'" );
-			$moved_waitlists_at_1_0_4_upgrade = array();
-			foreach ( $products as $product_id ) {
-				$product = wc_get_product( $product_id );
-				if ( $product->is_type( 'variable' ) ) {
-					$waitlist                                        = get_post_meta( $product_id, WCWL_SLUG, true );
-					$moved_waitlists_at_1_0_4_upgrade[ $product_id ] = array(
-						'origin'   => $product_id,
-						'user_ids' => $waitlist,
-						'target'   => 0,
-					);
-					foreach ( $product->get_children() as $variation_id ) {
-						$variation = wc_get_product( $variation_id );
-						if ( $variation && ! $variation->is_in_stock() ) {
-							$variation->waitlist = new Pie_WCWL_Waitlist( $variation );
-							foreach ( $waitlist as $user_id ) {
-								$variation->waitlist->register_user( get_user_by( 'id', $user_id ) );
-							}
-							$moved_waitlists_at_1_0_4_upgrade[ $product_id ]['target'] = $variation_id;
-							break;
-						}
-					}
-				}
-			}
-			if ( ! empty( $moved_waitlists_at_1_0_4_upgrade ) ) {
-				$options                                     = get_option( WCWL_SLUG );
-				$options['moved_waitlists_at_1_0_4_upgrade'] = $moved_waitlists_at_1_0_4_upgrade;
-				update_option( WCWL_SLUG, $options );
-				add_action( 'admin_notices', self::$Pie_WCWL_Admin_Init->alert_user_of_moved_waitlists_at_1_0_4_upgrade() );
-			}
 		}
 
 		/**
@@ -828,7 +740,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * @since  1.0.1
 		 */
 		public static function users_must_be_logged_in_to_join_waitlist() {
-			if ( 'yes' == get_option( 'woocommerce_waitlist_registration_needed' ) ) {
+			if ( 'yes' === get_option( 'woocommerce_waitlist_registration_needed' ) ) {
 				return true;
 			}
 
@@ -844,7 +756,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * @static
 		 * @access public
 		 *
-		 * @param $product_id
+		 * @param $product_id product ID.
 		 *
 		 * @return bool
 		 * @since  1.1.1
@@ -860,7 +772,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * @static
 		 * @access public
 		 *
-		 * @param $product_id
+		 * @param $product_id product ID.
 		 *
 		 * @return bool
 		 * @since  1.1.8
@@ -875,7 +787,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * @static
 		 * @access public
 		 *
-		 * @param $product_id
+		 * @param $product_id product ID.
 		 *
 		 * @return bool
 		 * @since  2.0.14
@@ -887,9 +799,9 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Removes user from waitlist on purchase if persistent waitlists are enabled
 		 *
-		 * @param  int         $order_id
-		 * @param      $posted_data
-		 * @param      $order
+		 * @param int    $order_id    order ID.
+		 * @param array  $posted_data form data.
+		 * @param object $order       order object.
 		 *
 		 * @access public
 		 */
@@ -897,11 +809,8 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 			foreach ( $order->get_items() as $item ) {
 				$product = $item->get_product();
 				if ( $product ) {
-					$user = get_user_by( 'email', $order->get_billing_email() );
-					if ( $user ) {
-						$waitlist = new Pie_WCWL_Waitlist( $product );
-						$waitlist->unregister_user( $user );
-					}
+					$waitlist = new Pie_WCWL_Waitlist( $product );
+					$waitlist->unregister_user( $order->get_billing_email() );
 				}
 			}
 		}
@@ -909,7 +818,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Register any required query variables. Currently, just the account tab endpoint is required
 		 *
-		 * @param $vars
+		 * @param array $vars query variables.
 		 *
 		 * @return array
 		 */
@@ -922,7 +831,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		/**
 		 * Include links to the documentation and settings page on the plugin screen
 		 *
-		 * @param mixed $links
+		 * @param mixed $links plugin links.
 		 *
 		 * @since 1.7.3
 		 * @return array

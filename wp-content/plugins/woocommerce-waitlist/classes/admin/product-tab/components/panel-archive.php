@@ -20,10 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<th><?php _e( 'Removed', 'woocommerce-waitlist' ); ?></th>
 		</tr>
 		<?php
-		$archives = $this->retrieve_and_sort_archives( $product_id );
+		$archives = Pie_WCWL_Custom_Tab::retrieve_and_sort_archives( $product_id );
 		foreach ( $archives as $date => $users ) { ?>
-			<?php foreach ( $users as $user_id ) {
-				$user = get_user_by( 'id', $user_id );
+			<?php foreach ( $users as $user ) {
 				include apply_filters( 'wcwl_include_path_admin_panel_table_row', Pie_WCWL_Custom_Tab::$component_path . 'panel-table-row.php' );
 			}
 		} ?>

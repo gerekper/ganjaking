@@ -14,7 +14,6 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Shortcode' ) ) {
 		 * Pie_WCWL_Frontend_Shortcode constructor.
 		 */
 		public function __construct() {
-			parent::__construct();
 			$this->init();
 			$this->load_shortcode();
 		}

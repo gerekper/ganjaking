@@ -30,7 +30,7 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 			}
 			$waitlist_setting = array(
 				'desc'          => __( 'Remove personal data for waitlists', 'woocommerce-waitlist' ),
-				'desc_tip'      => sprintf( __( 'When handling an %saccount erasure request%s, should personal data for waitlists be retained or removed?', 'woocommerce-waitlist' ), '<a href="' . esc_url( admin_url( 'tools.php?page=remove_personal_data' ) ) . '">', '</a>' ),
+				'desc_tip'      => sprintf( __( 'When handling an %1$saccount erasure request%2$s, should personal data for waitlists be retained or removed?', 'woocommerce-waitlist' ), '<a href="' . esc_url( admin_url( 'tools.php?page=remove_personal_data' ) ) . '">', '</a>' ),
 				'id'            => 'woocommerce_erasure_request_removes_waitlist_data',
 				'type'          => 'checkbox',
 				'default'       => 'no',
@@ -84,19 +84,18 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 		 * Generate data to add to the export file
 		 *
 		 * @param     $email
-		 * @param int $page
+		 * @param int   $page
 		 *
 		 * @return array
 		 */
 		public function generate_export_data( $email, $page ) {
-			$user         = get_user_by( 'email', $email );
 			$number       = 10;
 			$products     = $this->get_waitlist_products( $number, $page );
 			$export_items = array();
 			foreach ( $products as $post ) {
 				$waitlist = get_post_meta( $post->ID, 'woocommerce_waitlist', true );
 				$archive  = get_post_meta( $post->ID, 'wcwl_waitlist_archive', true );
-				if ( ! $this->user_is_on_waitlist( $user->ID, $waitlist ) && ! $this->user_is_on_archive( $user->ID, $archive ) ) {
+				if ( ! $this->user_is_on_waitlist( $email, $waitlist ) && ! $this->user_is_on_archive( $email, $archive ) ) {
 					continue;
 				}
 				$product     = wc_get_product( $post->ID );
@@ -104,12 +103,12 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 				$group_id    = 'waitlists';
 				$group_label = __( 'Waitlist Data', 'woocommerce-waitlist' );
 				$data        = $this->get_product_info( $product );
-				if ( $this->user_is_on_waitlist( $user->ID, $waitlist ) ) {
-					$data = array_merge( $data, $this->get_waitlist_info( 'Yes', $waitlist, $user->ID ) );
+				if ( $this->user_is_on_waitlist( $email, $waitlist ) ) {
+					$data = array_merge( $data, $this->get_waitlist_info( 'Yes', $waitlist, $email ) );
 				} else {
 					$data = array_merge( $data, $this->get_waitlist_info() );
 				}
-				if ( $this->user_is_on_archive( $user->ID, $archive ) ) {
+				if ( $this->user_is_on_archive( $email, $archive ) ) {
 					$data = array_merge( $data, $this->get_archive_info( 'Yes' ) );
 				} else {
 					$data = array_merge( $data, $this->get_archive_info() );
@@ -153,11 +152,11 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 		 *
 		 * @param string $on_waitlist
 		 * @param array  $waitlist
-		 * @param int    $user_id
+		 * @param int    $email
 		 *
 		 * @return array
 		 */
-		protected function get_waitlist_info( $on_waitlist = 'No', $waitlist = array(), $user_id = 0 ) {
+		protected function get_waitlist_info( $on_waitlist = 'No', $waitlist = array(), $email = '' ) {
 			$data      = array(
 				array(
 					'name'  => __( 'Currently on Waitlist', 'woocommerce-waitlist' ),
@@ -168,7 +167,7 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 			if ( 'Yes' === $on_waitlist ) {
 				$data[] = array(
 					'name'  => $join_text,
-					'value' => $this->get_join_date( $waitlist, $user_id ),
+					'value' => $this->get_join_date( $waitlist, $email ),
 				);
 			} else {
 				$data[] = array(
@@ -232,23 +231,22 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 			if ( ! wc_string_to_bool( get_option( 'woocommerce_erasure_request_removes_waitlist_data', 'no' ) ) ) {
 				return $this->get_retention_data_array();
 			}
-			$user         = get_user_by( 'email', $email );
 			$number       = 10;
 			$products     = $this->get_waitlist_products( $number, $page );
 			$data_removed = false;
 			foreach ( $products as $post ) {
 				$waitlist = get_post_meta( $post->ID, 'woocommerce_waitlist', true );
 				$archive  = get_post_meta( $post->ID, 'wcwl_waitlist_archive', true );
-				if ( ! $this->user_is_on_waitlist( $user->ID, $waitlist ) && ! $this->user_is_on_archive( $user->ID, $archive ) ) {
+				if ( ! $this->user_is_on_waitlist( $email, $waitlist ) && ! $this->user_is_on_archive( $email, $archive ) ) {
 					continue;
 				}
 				$product = wc_get_product( $post->ID );
-				if ( $product && $this->user_is_on_waitlist( $user->ID, $waitlist ) ) {
-					$this->remove_user_from_waitlist( $product, $user );
+				if ( $product && $this->user_is_on_waitlist( $email, $waitlist ) ) {
+					$this->remove_user_from_waitlist( $product, $email );
 					$data_removed = true;
 				}
-				if ( $product && $this->user_is_on_archive( $user->ID, $archive ) ) {
-					$this->remove_user_from_archive( $archive, $user, $post->ID );
+				if ( $product && $this->user_is_on_archive( $email, $archive ) ) {
+					$this->remove_user_from_archive( $archive, $email, $post->ID );
 				}
 			}
 
@@ -273,26 +271,33 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 		 * Removes given user from given product's waitlist
 		 *
 		 * @param $product
-		 * @param $user
+		 * @param $email
 		 */
-		protected function remove_user_from_waitlist( $product, $user ) {
+		protected function remove_user_from_waitlist( $product, $email ) {
 			$waitlist = new Pie_WCWL_Waitlist( $product );
-			$waitlist->unregister_user( $user );
+			$waitlist->unregister_user( $email );
+			WC_Emails::instance();
+			do_action( 'wcwl_left_mailout_send_email', $email, $product->get_id() );
 		}
 
 		/**
 		 * Removes given user from given archive
 		 *
 		 * @param $archive
-		 * @param $user
+		 * @param $email
 		 * @param $product_id
 		 */
-		protected function remove_user_from_archive( $archive, $user, $product_id ) {
+		protected function remove_user_from_archive( $archive, $email, $product_id ) {
 			foreach ( $archive as $timestamp => $users ) {
 				if ( empty( $users ) ) {
 					unset( $archive[ $timestamp ] );
-				} elseif ( isset( $archive[ $timestamp ][ $user->ID ] ) ) {
-					unset( $archive[ $timestamp ][ $user->ID ] );
+				} elseif ( isset( $archive[ $timestamp ][ $email ] ) ) {
+					unset( $archive[ $timestamp ][ $email ] );
+				} else {
+					$user = get_user_by( 'email', $email );
+					if ( isset( $archive[ $timestamp ][ $user->ID ] ) ) {
+						unset( $archive[ $timestamp ][ $user->ID ] );
+					}
 				}
 			}
 			update_post_meta( $product_id, 'wcwl_waitlist_archive', $archive );
@@ -301,16 +306,20 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 		/**
 		 * Check if the given user is on the given waitlist
 		 *
-		 * @param $user_id
+		 * @param $email
 		 * @param $waitlist
 		 *
 		 * @return bool
 		 */
-		protected function user_is_on_waitlist( $user_id, $waitlist ) {
+		protected function user_is_on_waitlist( $email, $waitlist ) {
 			if ( ! $waitlist ) {
 				return false;
 			}
-			if ( key_exists( $user_id, $waitlist ) ) {
+			$user = get_user_by( 'email', $email );
+			if ( $user && key_exists( $user->ID, $waitlist ) ) {
+				return true;
+			}
+			if ( key_exists( $email, $waitlist ) ) {
 				return true;
 			}
 
@@ -320,17 +329,21 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 		/**
 		 * Check if given user is contained in the given archives
 		 *
-		 * @param $user_id
+		 * @param $email
 		 * @param $archive
 		 *
 		 * @return bool
 		 */
-		protected function user_is_on_archive( $user_id, $archive ) {
+		protected function user_is_on_archive( $email, $archive ) {
 			if ( ! $archive ) {
 				return false;
 			}
-			foreach ( $archive as $timestamp => $user_ids ) {
-				if ( key_exists( $user_id, $user_ids ) ) {
+			foreach ( $archive as $timestamp => $users ) {
+				if ( key_exists( $email, $users ) ) {
+					return true;
+				}
+				$user = get_user_by( 'email', $email );
+				if ( $user && key_exists( $user->ID, $users ) ) {
 					return true;
 				}
 			}
@@ -342,12 +355,17 @@ if ( ! class_exists( 'Pie_WCWL_Exporter' ) ) {
 		 * Retrieve and format join date for user
 		 *
 		 * @param $waitlist
-		 * @param $user_id
+		 * @param $email
 		 *
 		 * @return bool|string
 		 */
-		protected function get_join_date( $waitlist, $user_id ) {
-			$timestamp = $waitlist[ $user_id ];
+		protected function get_join_date( $waitlist, $email ) {
+			if ( ! isset( $waitlist[ $email ] ) ) {
+				$user      = get_user_by( 'email', $email );
+				$timestamp = $waitlist[ $user->ID ];
+			} else {
+				$timestamp = $waitlist[ $email ];
+			}
 
 			return date( 'l jS \of F Y h:i:s A', $timestamp );
 		}

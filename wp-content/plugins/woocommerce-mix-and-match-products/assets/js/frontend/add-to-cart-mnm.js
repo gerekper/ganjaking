@@ -845,7 +845,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			// Serialize the config to the Add to cart button for ajax add to cart compat.
 			this.$mnm_button.data( this.$mnm_data.data( 'input_name' ), this.api.get_container_config() );
 
-			this.$mnm_form.trigger( 'wc-mnm-container-quantities-updated', [ this ] );
+			this.$mnm_form.trigger( 'wc-mnm-container-quantities-updated', [ this, triggered_by ] );
 
 		};
 

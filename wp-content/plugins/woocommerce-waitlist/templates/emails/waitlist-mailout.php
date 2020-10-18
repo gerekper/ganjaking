@@ -16,7 +16,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-do_action( 'woocommerce_email_header', $email_heading, $user->user_email ); ?>
+do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <p><?php echo _x( 'Hi There,', 'Email salutation', 'woocommerce-waitlist' ); ?></p>
 
@@ -27,10 +27,10 @@ do_action( 'woocommerce_email_header', $email_heading, $user->user_email ); ?>
 	?>
 </p>
 <p>
-	<?php printf( __( 'If you would like to purchase %1$s please visit the following link: %2$s', 'woocommerce-waitlist' ), $product_title, '<a href="' . $product_link . '">' . $product_link . '<a>' ); ?>
+	<?php printf( __( 'If you would like to purchase %1$s please visit the following link: %2$s', 'woocommerce-waitlist' ), $product_title, '<a href="' . $product_link . '">' . $product_link . '</a>' ); ?>
 </p>
 
 <?php if ( WooCommerce_Waitlist_Plugin::persistent_waitlists_are_disabled( $product_id ) && ! $triggered_manually ) {
 	echo '<p>' . __( 'You have been removed from the waitlist for this product', 'woocommerce-waitlist' ) . '</p>';
 }
-do_action( 'woocommerce_email_footer', $user->user_email ); ?>
+do_action( 'woocommerce_email_footer', $email ); ?>

@@ -1,5 +1,11 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2020.10.16 - version 1.10.4
+* Update: Tested up to WooCommerce 4.6.0.
+* Fix: Restore compatibility with One Page Check single product template.
+* Fix: Harden is_child_supported_product_type() helper in case $product is false (ie, product no longer exists,etc)
+* Fix: pass container object to wc-mnm-container-quantities-updated trigger in front end script
+
 2020.09.29 - version 1.10.3
 * New: Add ability to configure the contents of a Mix and Match container in editable/manually-created subscriptions.
 * Fix: PHP notice when adding to cart with any child products out of stock.

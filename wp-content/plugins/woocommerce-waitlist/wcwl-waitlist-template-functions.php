@@ -2,15 +2,16 @@
 /**
  * Helper functions for accessing waitlist elements
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 /**
  * Add given email to the waiting list for the given product ID
  *
- * @param string $email
- * @param int    $product_id simple/variation product ID
- * @param string $lang language code of user
+ * @param string $email      user's email.
+ * @param int    $product_id simple/variation product ID.
+ * @param string $lang       user's language (if applicable).
  *
  * @return string|WP_Error
  */
@@ -28,40 +29,19 @@ function wcwl_add_user_to_waitlist( $email, $product_id, $lang = '' ) {
 
 		return new WP_Error( 'woocommerce-waitlist', wcwl_get_generic_error_message( $error ) );
 	}
-	if ( ! email_exists( $email ) ) {
-		add_filter( 'pre_option_woocommerce_registration_generate_password', array( WooCommerce_Waitlist_Plugin::instance(), 'return_option_setting_yes' ), 10 );
-		add_filter( 'pre_option_woocommerce_registration_generate_username', array( WooCommerce_Waitlist_Plugin::instance(), 'return_option_setting_yes' ), 10 );
-		$user_id = wc_create_new_customer( $email );
-		remove_filter( 'pre_option_woocommerce_registration_generate_password', array( WooCommerce_Waitlist_Plugin::instance(), 'return_option_setting_yes' ), 10 );
-		remove_filter( 'pre_option_woocommerce_registration_generate_username', array( WooCommerce_Waitlist_Plugin::instance(), 'return_option_setting_yes' ), 10 );
-
-		if ( is_wp_error( $user_id ) ) {
-			return $user_id;
-		}
-		do_action( 'wcwl_customer_created', $user_id );
-	}
 	$waitlist = new Pie_WCWL_Waitlist( $product );
-	$user     = get_user_by( 'email', $email );
-
-	return $waitlist->register_user( $user, $lang );
+	return $waitlist->register_user( $email, $lang );
 }
 
 /**
  * Remove given email from waiting list from given product ID
  *
- * @param string $email
- * @param int    $product_id simple/variation product ID
+ * @param string $email      user's email.
+ * @param int    $product_id simple/variation product ID.
  *
  * @return string|WP_Error
  */
 function wcwl_remove_user_from_waitlist( $email, $product_id ) {
-	$user = get_user_by( 'email', $email );
-	if ( ! $user ) {
-		$error = 'Failed to remove user from waitlist: User not found';
-		wcwl_add_log( $error, $product_id, $email );
-
-		return new WP_Error( 'woocommerce-waitlist', wcwl_get_generic_error_message( $error ) );
-	}
 	global $sitepress;
 	if ( isset( $sitepress ) ) {
 		$product_id = wcwl_get_translated_main_product_id( $product_id );
@@ -75,15 +55,15 @@ function wcwl_remove_user_from_waitlist( $email, $product_id ) {
 	}
 	$waitlist = new Pie_WCWL_Waitlist( $product );
 
-	return $waitlist->unregister_user( $user );
+	return $waitlist->unregister_user( $email );
 }
 
 /**
  * Returns the HTML markup for the waitlist elements for the given product ID
  *
- * @param int    $product_id simple/variation/grouped product ID
- * @param string $context    join/leave/update - determines which button to show
- * @param string $notice     notice to display as the intro text (useful after button is pressed)
+ * @param int    $product_id simple/variation/grouped product ID.
+ * @param string $context    join/leave/update - determines which button to show.
+ * @param string $notice     notice to display as the intro text (useful after button is pressed).
  *
  * @return string|WP_Error
  */
@@ -114,9 +94,9 @@ function wcwl_get_waitlist_fields( $product_id, $context = '', $notice = '', $la
 /**
  * Retrieve template for displaying waitlist elements on archive pages (e.g. shop, product-category pages)
  *
- * @param int    $product_id
- * @param string $context
- * @param string $notice
+ * @param int    $product_id product ID.
+ * @param string $context    join/leave etc.
+ * @param string $notice     notice to display.
  *
  * @return string|WP_Error
  */
@@ -148,9 +128,9 @@ function wcwl_get_waitlist_for_archive( $product_id, $context = '', $notice = ''
 /**
  * Retrieve template for displaying waitlist elements on event pages
  *
- * @param int    $event_id
- * @param string $context
- * @param string $notice
+ * @param int    $event_id event ID.
+ * @param string $context  join/leave etc.
+ * @param string $notice   notice to display.
  *
  * @return string|WP_Error
  */
@@ -178,7 +158,8 @@ function wcwl_get_waitlist_for_event( $event_id, $context = 'update', $notice = 
  * Used in conjunction with "wcwl_get_waitlist_fields( $product_id, 'update' )" to handle grouped products
  * Can be used for any page that displays a list of products (user checks desired products and can sign up to multiple waitlists)
  *
- * @param WC_Product $product
+ * @param WC_Product $product product object.
+ * @param string     $lang    user's language (if applicable).
  *
  * @return string
  */
@@ -189,7 +170,7 @@ function wcwl_get_waitlist_checkbox( WC_Product $product, $lang ) {
 	$user     = get_user_by( 'id', get_current_user_id() );
 	$waitlist = new Pie_WCWL_Waitlist( $product );
 	$checked  = '';
-	if ( $user && $waitlist->user_is_registered( $user->ID ) ) {
+	if ( $user && $waitlist->user_is_registered( $user->user_email ) ) {
 		$checked = 'checked';
 	}
 	ob_start();
@@ -212,16 +193,16 @@ function wcwl_get_waitlist_checkbox( WC_Product $product, $lang ) {
 /**
  * Return waitlist data required for template
  *
- * @param WC_Product $product
- * @param string     $context
- * @param string     $notice
+ * @param WC_Product $product product object.
+ * @param string     $context join/leave etc.
+ * @param string     $notice  notice to display.
  *
  * @return array
  */
 function wcwl_get_data_for_template( $product, $context, $notice ) {
 	$waitlist            = new Pie_WCWL_Waitlist( $product );
 	$user                = get_user_by( 'id', get_current_user_id() );
-	$user_is_on_waitlist = $user ? $waitlist->user_is_registered( $user->ID ) : false;
+	$user_is_on_waitlist = $user ? $waitlist->user_is_registered( $user->user_email ) : false;
 	$on_waitlist         = $product->is_type( 'grouped' ) ? false : $user_is_on_waitlist;
 	if ( ! $context ) {
 		$context = $on_waitlist ? 'leave' : 'join';
@@ -237,9 +218,9 @@ function wcwl_get_data_for_template( $product, $context, $notice ) {
 /**
  * Return waitlist data required for template when displaying elements on an event page
  *
- * @param int    $event_id
- * @param string $context
- * @param string $notice
+ * @param int    $event_id event ID.
+ * @param string $context  join/leave etc.
+ * @param string $notice   notice to display.
  *
  * @return array
  */
@@ -261,10 +242,10 @@ function wcwl_get_data_for_event_template( $event_id, $context = 'update', $noti
 /**
  * Get default shared values for waitlist template
  *
- * @param        WP_User /false $user
- * @param int            $id
- * @param string         $context
- * @param string         $notice
+ * @param WP_User/false $user    user object.
+ * @param int           $id      product ID.
+ * @param string        $context join/leave etc.
+ * @param string        $notice  notice to display.
  *
  * @return array
  */
@@ -277,7 +258,7 @@ function wcwl_get_default_template_values( $user, $id, $context, $notice ) {
 		'email_class'                    => $user ? 'wcwl_hide' : '',
 		'product_id'                     => $id,
 		'context'                        => $context,
-		'url'                            => wcwl_get_waitlist_action_url( $context, $id ),
+		'url'                            => apply_filters( 'wcwl_waitlist_button_url', '#', $id ),
 		'notice'                         => $notice,
 		'opt_in'                         => wcwl_is_optin_enabled( $user ),
 		'opt_in_text'                    => wcwl_get_optin_text( $user ),
@@ -292,7 +273,7 @@ function wcwl_get_default_template_values( $user, $id, $context, $notice ) {
 /**
  * Get the text to display on the waitlist button
  *
- * @param string $context join/leave/update depending on product type and user
+ * @param string $context join/leave/update depending on product type and user.
  *
  * @return mixed|void
  */
@@ -320,8 +301,8 @@ function wcwl_get_button_text( $context = 'join' ) {
 /**
  * Get the default intro text to display above the waitlist dependent on product type
  *
- * @param string $product_type simple/variation/grouped (variation is the same as simple by default)
- * @param bool   $user_is_on_waitlist
+ * @param string $product_type        simple/variation/grouped (variation is the same as simple by default).
+ * @param bool   $user_is_on_waitlist is user on waitlist.
  *
  * @return mixed|void
  */
@@ -340,39 +321,9 @@ function wcwl_get_intro_text( $product_type = 'simple', $user_is_on_waitlist = f
 }
 
 /**
- * Return the URL required to process the waitlist request for the given product ID and current user
- *
- * Added in case users have customised the plugin using the button URL but this is no longer required since 2.0
- * and switching to AJAX
- *
- * @param string $context    join/leave/update
- * @param int    $product_id current product/event ID
- *
- * @deprecated   No longer used as of 2.0
- *
- * @return mixed|void
- */
-function wcwl_get_waitlist_action_url( $context, $product_id ) {
-	global $wp;
-	$request_url = home_url( add_query_arg( array(), trailingslashit( $wp->request ) ) );
-	$url         = add_query_arg(
-		array(
-			WCWL_SLUG             => $product_id,
-			WCWL_SLUG . '_action' => $context,
-			WCWL_SLUG . '_nonce'  => wp_create_nonce( __FILE__ ),
-		),
-		$request_url
-	);
-	wc_get_logger();
-	$url = apply_filters( 'wcwl_toggle_waitlist_url', $url, $product_id );
-
-	return apply_filters( 'wcwl_toggle_waitlist_' . $context . '_url', $url, $product_id );
-}
-
-/**
  * Are all conditions met to show the waitlist for the given product?
  *
- * @param WC_Product $product
+ * @param WC_Product $product product object.
  */
 function wcwl_waitlist_should_show( $product ) {
 	$waitlist_is_required = false;
@@ -392,14 +343,14 @@ function wcwl_waitlist_should_show( $product ) {
 /**
  * Is waitlist enabled for the given product ID?
  *
- * @param int $product_id
+ * @param int $product_id product ID.
  *
  * @return bool
  */
 function wcwl_waitlist_is_enabled_for_product( $product_id ) {
 	$enabled = true;
 	$options = get_post_meta( $product_id, 'wcwl_options', true );
-	if ( isset( $options['enable_waitlist'] ) && 'false' == $options['enable_waitlist'] ) {
+	if ( isset( $options['enable_waitlist'] ) && 'false' === $options['enable_waitlist'] ) {
 		$enabled = false;
 	}
 
@@ -409,7 +360,7 @@ function wcwl_waitlist_is_enabled_for_product( $product_id ) {
 /**
  * Is the opt-in functionality currently enabled?
  *
- * @param $user
+ * @param object $user user object.
  *
  * @return bool
  */
@@ -424,7 +375,7 @@ function wcwl_is_optin_enabled( $user ) {
 /**
  * Get the text to display for the opt-in checkbox
  *
- * @param $user
+ * @param object $user user object.
  *
  * @return mixed|void
  */
@@ -440,7 +391,7 @@ function wcwl_get_optin_text( $user ) {
  * Return the main product for the given translated product ID
  * Required to support WPML as all meta data is saved to the original/main product
  *
- * @param $product_id
+ * @param int $product_id product ID.
  *
  * @return int
  */
@@ -455,9 +406,34 @@ function wcwl_get_translated_main_product_id( $product_id ) {
 }
 
 /**
+ * Get the language required for the given email address
+ *
+ * @param  string/int $user      user's email address or ID
+ * @param  int        $product_id legacy method for finding language per product.
+ * @return string             language code
+ */
+function wcwl_get_user_language( $user, $product_id = 0 ) {
+	if ( ! function_exists( 'wpml_get_default_language' ) ) {
+		return '';
+	}
+	$lang_option = get_option( '_' . WCWL_SLUG . '_languages' );
+	$user_object = get_user_by( 'id', $user );
+	if ( $user_object && $product_id ) {
+			$languages = get_user_meta( $user_object->ID, 'wcwl_languages', true );
+			if ( isset( $languages[ $product_id ] ) ) {
+					return $languages[ $product_id ];
+			}
+	}
+	if ( isset( $lang_option[ $user ] ) ) {
+		return $lang_option[ $user ];
+	}
+	return wpml_get_default_language();
+}
+
+/**
  * Check whether given post ID is of type "event"
  *
- * @param $post_id
+ * @param int $post_id post ID.
  *
  * @return bool
  */
@@ -472,7 +448,7 @@ function wcwl_is_event( $post_id ) {
 /**
  * Return a generic, filterable message for the given error
  *
- * @param string $error
+ * @param string $error error message.
  *
  * @return mixed|void
  */
@@ -483,9 +459,9 @@ function wcwl_get_generic_error_message( $error ) {
 /**
  * Add a message to the WC logs
  *
- * @param string $message
- * @param int    $product_id
- * @param string $email
+ * @param string $message    error message.
+ * @param int    $product_id product ID.
+ * @param string $email      user email.
  */
 function wcwl_add_log( $message, $product_id = 0, $email = '' ) {
 	$logger = wc_get_logger();

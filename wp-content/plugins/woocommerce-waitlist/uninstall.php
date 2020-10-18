@@ -25,6 +25,7 @@ if ( 'yes' === get_option( WCWL_SLUG . '_remove_all_data' ) ) {
 	delete_option( WCWL_SLUG . '_registration_needed' );
 	delete_option( WCWL_SLUG . '_archive_on' );
 	delete_option( WCWL_SLUG . '_remove_all_data' );
+	delete_option( '_' . WCWL_SLUG . '_languages' );
 	delete_option( '_' . WCWL_SLUG . '_counts_updated' );
 	delete_option( '_' . WCWL_SLUG . '_metadata_updated' );
 	delete_option( '_' . WCWL_SLUG . '_corrupt_data' );

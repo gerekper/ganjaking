@@ -88,7 +88,7 @@ class WC_Mix_and_Match_Helpers {
 	 * @return  boolean
 	 */
 	public static function is_child_supported_product_type( $product ) {
-		return in_array( $product->get_type(), self::get_supported_product_types() ) || ( $product->is_type( 'variation' ) && WC_MNM_Core_Compatibility::has_all_attributes_set( $product ) );
+		return $product instanceOf WC_Product && ( in_array( $product->get_type(), self::get_supported_product_types() ) || ( $product->is_type( 'variation' ) && WC_MNM_Core_Compatibility::has_all_attributes_set( $product ) ) );
 	}
 
 	/*-----------------------------------------------------------------------------------*/

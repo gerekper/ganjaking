@@ -12,8 +12,7 @@ if ( class_exists( 'WC_Free_Gift_Coupons' ) ) {
  *
  * @class WC_Free_Gift_Coupons
  * @package Class
- * @author   Kathy Darling
- * @version	2.0.0
+ * @version	3.0.0
  */
 class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
@@ -22,7 +21,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 *
 	 * @var string
 	 */
-	public static $version = '2.5.2';
+	public static $version = '3.0.0';
 
 	/**
 	 * The required WooCommerce version
@@ -30,6 +29,14 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 * @var string
 	 */
 	public static $required_woo = '3.1.0';
+
+	/**
+	 * Array of deprecated hook handlers.
+	 *
+	 * @var array of WC_FGC_Deprecated_Hooks
+	 * @since 3.0
+	 */
+	public static $deprecated_hook_handlers = array();
 
 	/**
 	 * Free Gift Coupons pseudo constructor
@@ -44,6 +51,10 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		// Make translation-ready.
 		add_action( 'init', array( __CLASS__, 'load_textdomain_files' ) );
 
+		// Prepare handling of deprecated filters/actions.
+		self::$deprecated_hook_handlers['actions'] = new WC_FGC_Deprecated_Action_Hooks();
+		self::$deprecated_hook_handlers['filters'] = new WC_FGC_Deprecated_Filter_Hooks();
+
 		// Add the free_gift coupon type.
 		add_filter( 'woocommerce_coupon_discount_types', array( __CLASS__, 'discount_types' ) );
 
@@ -53,6 +64,14 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		// Change the price to ZERO/Free on gift item.
 		add_filter( 'woocommerce_add_cart_item', array( __CLASS__, 'add_cart_item' ), 15 );
 		add_filter( 'woocommerce_get_cart_item_from_session', array( __CLASS__, 'get_cart_item_from_session' ), 15, 2 );
+
+		add_filter('woocommerce_product_get_price', array( __CLASS__, 'filter_gift_price' ), 999, 2 );
+		add_filter('woocommerce_product_variation_get_price', array( __CLASS__, 'filter_gift_price' ), 999, 2 );
+
+		// Sync gift item quantity with actual product.
+		add_filter( 'woocommerce_add_cart_item', array( __CLASS__, 'sync_add_cart_item' ), 20 );
+		add_filter( 'woocommerce_get_cart_item_from_session', array( __CLASS__, 'sync_get_cart_item_from_session' ), 20, 2 );
+		add_filter( 'woocommerce_coupon_is_valid', array( __CLASS__, 'coupon_sync_validation' ), 10, 2 );
 
 		// Validate quantity on update_cart in case sneaky folks mess with the markup.
 		add_filter( 'woocommerce_update_cart_validation', array( __CLASS__, 'update_cart_validation' ), 10, 4 );
@@ -79,6 +98,11 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		add_filter( 'woocommerce_shipping_free_shipping_is_available', array( __CLASS__, 'enable_free_shipping'), 20, 2 );
 		add_filter( 'woocommerce_shipping_legacy_free_shipping_is_available', array( __CLASS__, 'enable_free_shipping'), 20, 2 );
 
+		// Add custom class in cart and in orders.
+		add_filter( 'woocommerce_cart_item_class', array( __CLASS__, 'cart_item_class' ), 10, 3 );
+		add_filter( 'woocommerce_mini_cart_item_class', array( __CLASS__, 'cart_item_class' ), 10, 3 );
+		add_filter( 'woocommerce_order_item_class', array( __CLASS__, 'order_item_class' ), 10, 3 );
+
 		// Add order item meta.
 		add_action( 'woocommerce_checkout_create_order_line_item', array( __CLASS__, 'add_order_item_meta' ), 10, 3 );
 
@@ -97,13 +121,41 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		// Compatibility.
 		include_once  'compatibility/class-wc-fgc-compatibility.php' ;
 
+		// Support deprecated filter hooks and actions.
+		include_once  'compatibility/backcompatibility/class-wc-fgc-deprecated-action-hooks.php' ;
+		include_once  'compatibility/backcompatibility/class-wc-fgc-deprecated-filter-hooks.php' ;
+
+		// Variation editing feature in cart.
+		if ( self::is_request( 'frontend' ) ) {
+			include_once  'class-wc-fgc-update-variation-cart.php' ;
+		}
+
 		// Admin includes.
-		if ( is_admin() ) {
+		if ( self::is_request( 'admin' ) ) {
 			self::admin_includes();
 		}
 
 	}
 
+	/**
+	 * Check request
+	 *
+	 * @param string $type admin|ajax|cron|frontend.
+	 * @return bool
+	 * @since 3.0.0
+	 */
+	private static function is_request( $type ) {
+		switch ( $type ) {
+			case 'admin':
+				return is_admin();
+			case 'ajax':
+				return defined( 'DOING_AJAX' );
+			case 'cron':
+				return defined( 'DOING_CRON' );
+			case 'frontend':
+				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! WC()->is_rest_api_request();
+		}
+	}
 
 	/**
 	 * Admin & AJAX functions and hooks.
@@ -172,10 +224,10 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		$gift_data = self::get_gift_data( $coupon_code );
 
 		if ( ! empty ( $gift_data ) ) {
-			
+
 			foreach ( $gift_data as $gift_id => $data ) {
-						
-				$data = apply_filters( 'woocommerce_free_gift_coupon_apply_coupon_data', $data, $coupon_code );
+
+				$data = apply_filters( 'wc_fgc_apply_coupon_data', $data, $coupon_code );
 
 				if ( $data['product_id'] > 0 && isset( $data['data'] ) && $data['data'] instanceof WC_Product && $data['data']->is_purchasable() ) { 
 					$key = WC()->cart->add_to_cart( 
@@ -192,7 +244,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 				}
 			}
 
-			do_action( 'woocommerce_free_gift_coupon_applied', $coupon_code );
+			do_action( 'wc_fgc_applied', $coupon_code );
 
 		}
 
@@ -225,9 +277,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
 		// Adjust price in cart if bonus item.
 		if ( ! empty ( $cart_item['free_gift'] ) ) {
-			$cart_item['data']->set_price( 0 );
-			$cart_item['data']->set_regular_price( 0 );
-			$cart_item['data']->set_sale_price( 0 );
+			$cart_item['data']->free_gift = $cart_item['free_gift'];
 		}
 
 		// Strictly enforce original quantity.
@@ -251,6 +301,8 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		if ( ! empty( $values['free_gift'] ) ) {
 			$cart_item['free_gift'] = $values['free_gift'];
 
+			$cart_item['data']->free_gift = $cart_item['free_gift'];
+
 			if ( ! empty ( $values['fgc_quantity'] ) ) {
 				$cart_item['fgc_quantity'] = $values['fgc_quantity'];
 			}
@@ -258,10 +310,29 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 			if ( ! empty ( $values['fgc_type'] ) ) {
 				$cart_item['fgc_type'] = $values['fgc_type'];
 			}
-			$cart_item = self::add_cart_item( $cart_item );
+
 		}
 
 		return $cart_item;
+
+	}
+
+
+	/**
+	 * Adjust price of the gift item
+	 *
+	 * @param string $price
+	 * @param WC_Product $product
+	 * @return string
+	 * @since 3.0.0
+	 */
+	public static function filter_gift_price( $price, $product ) {
+
+		if ( property_exists( $product, 'free_gift' ) ) {
+			$price = 0;
+		}
+
+		return $price;
 
 	}
 
@@ -588,7 +659,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 			}
 		}
 
-		return apply_filters( 'woocommerce_free_gift_coupon_data', $gift_data, $code );
+		return apply_filters( 'wc_fgc_data', $gift_data, $code );
 
 	}
 
@@ -599,7 +670,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 * @since   3.0.0
 	 */
 	public static function get_gift_coupon_types() {
-		return apply_filters( 'woocommerce_free_gift_coupon_types', array( 'free_gift', 'percent', 'fixed_cart', 'fixed_product' ) );
+		return apply_filters( 'wc_fgc_types', array( 'free_gift', 'percent', 'fixed_cart', 'fixed_product' ) );
 	}
 
 	/**
@@ -640,5 +711,161 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
 	}
 
-} // End class.
 
+	/**
+	 * Adjusts cart item class.
+	 *
+	 * @param  string $class The class name(s).
+	 * @param  array  $cart_item Cart item.
+	 * @param  string $cart_item_key The key.
+	 * @return string
+	 * @since 3.0.0
+	 */
+	public static function cart_item_class( $class, $cart_item, $cart_item_key ) {
+		// Add class if it's our very own :).
+		if ( ! empty ( $cart_item['free_gift'] ) ) {
+			$class .= ' wc-fgc-cart-item';
+		}
+		return $class;
+	}
+
+	/**
+	 * Adjusts order item class.
+	 *
+	 * @param  string   $class The class name(s).
+	 * @param  Object   $item Cart item.
+	 * @param  WC_order $order The key.
+	 * @return string
+	 * @since 3.0.0
+	 */
+	public static function order_item_class( $class, $item, $order ) {
+		// Add class if it's our very own :).
+		if ( ! empty ( $item->get_meta( '_free_gift' ) ) ) {
+			$class .= ' wc-fgc-order-item';
+		}
+		return $class;
+
+	}
+
+
+	/**
+	 * Change the gift item qty to synced product qty.
+	 *
+	 * @param array $cart_item
+	 * @return array
+	 * @since 3.0.0
+	 * @hook woocommerce_add_cart_item
+	 * @priority 20
+	 */
+	public static function sync_add_cart_item( $cart_item ) {
+
+		// Adjust quantity in cart if bonus item.
+		if ( ! empty ( $cart_item['free_gift'] ) ) {
+
+			$coupon = new WC_Coupon( $cart_item['free_gift'] );
+
+			if ( $coupon instanceof WC_Coupon && $coupon->get_object_read() ) {
+
+				$cart_contents    = WC()->cart->get_cart_contents();
+				$sync_to_products = $coupon->get_meta( '_wc_fgc_product_sync_ids', true, 'edit' );
+				$multiply_factor  = 1;
+
+				// Is there anything to sync? if not, please don't waste resources.
+				if ( empty( $sync_to_products ) ) {
+					return $cart_item;
+				}
+
+				foreach ( $sync_to_products as $array_key => $sync_to ) {
+					foreach ( $cart_contents as $per_cart_item ) {
+						if ( $sync_to === $per_cart_item['product_id'] ) {
+							$multiply_factor = $per_cart_item['quantity'];
+							break;
+						}
+					}
+				}
+
+				// Stash the original quantity.
+				if ( ! isset( $cart_item['fgc_synced_original_qty'] ) ) {
+					$cart_item['fgc_synced_original_qty'] = $cart_item['quantity'];
+				}
+
+				$cart_item['quantity'] = $cart_item['fgc_synced_original_qty'] * $multiply_factor;
+
+			}
+
+		}
+
+		return $cart_item;
+	}
+
+
+	/**
+	 * Adjust session values on the gift item.
+	 *
+	 * @param array $cart_item
+	 * @param array $values
+	 * @return array
+	 * @since 3.0.0
+	 * @hook woocommerce_get_cart_item_from_session
+	 * @priority 20
+	 */
+	public static function sync_get_cart_item_from_session( $cart_item, $values ) {
+
+		if ( ! empty( $values['fgc_synced_original_qty'] ) ) {
+			$cart_item['fgc_synced_original_qty'] = $values['fgc_synced_original_qty'];
+
+			$cart_item = self::sync_add_cart_item( $cart_item );
+		}
+
+		return $cart_item;
+
+	}
+
+	/**
+	 * Validates coupon for synced products.
+	 *
+	 * Checks if a gift coupon has a synced product
+	 * and makes sure it can only be added if the product is in the cart.
+	 * This is necessary because WooCommerce 
+	 *
+	 * @param  bool      $is_valid To mark valid or not.
+	 * @param  WC_Coupon $coupon Coupon object.
+	 * @return bool
+	 * @since  3.0.0
+	 */
+	public static function coupon_sync_validation( $is_valid, $coupon ) {
+		$sync_to_products = $coupon->get_meta( '_wc_fgc_product_sync_ids', true, 'edit' );
+
+		// Is there anything to sync? if not, please don't waste resources.
+		if ( empty( $sync_to_products ) ) {
+			return $is_valid;
+		}
+
+		$cart_contents       = WC()->cart->get_cart_contents();
+		$sync_products_found = false;
+
+		foreach ( $cart_contents as $per_cart_item ) {
+
+			// Stop looping if synced product has been found already.
+			if ( $sync_products_found ) {
+				break;
+			}
+
+			foreach ( $sync_to_products as $array_key => $sync_to ) {
+				// Set to true if we found a sync product in the cart.
+				if ( $sync_to === $per_cart_item['product_id'] ) {
+					$sync_products_found = true;
+					break; // since its just one product sync currently.
+				}
+			}
+		}
+
+		if ( ! $sync_products_found ) {
+			$is_valid = false;
+		}
+
+		return $is_valid;
+
+	}
+
+} // End class.

@@ -1,5 +1,11 @@
 === WooCommerce Free Gift Coupons ===
 
+2020.10.15 - version 3.0.0
+* New: Gift Variation Selection/Editing in Cart.
+* New: Gift product(s) quantity syncing with a real product in the cart.
+* Update: Set prices via woocommerce_product_get_price and woocommerce_product_variation_get_price filters. 
+* Update: Unified all custom hooks with prefix 'wc_fgc_'.
+
 2020.07.22 - version 2.5.2
 * Fix: Move environment testing to before including any other files. Fixes fatal error when WooCommerce is not active.
 

@@ -2,7 +2,6 @@
 /**
  * Smart Coupons Compatibility
  *
- * @author   Kathy Darling
  * @package  WooCommerce Free Gift Coupons/Compatibility
  * @since    2.1.0
  * @version  2.1.0

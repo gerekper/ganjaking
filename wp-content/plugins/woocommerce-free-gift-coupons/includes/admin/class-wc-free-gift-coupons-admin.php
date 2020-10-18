@@ -20,7 +20,15 @@ class WC_Free_Gift_Coupons_Admin {
 	 * 
 	 * @var string
 	 */
-	public static $version = '2.5.2';
+	public static $version = '3.0.0';
+
+	/** 
+	 * Coupon Product ids list
+	 * 
+	 * @var array
+	 * @since 3.0.0 
+	 */
+	protected static $coupon_product_ids = array();
 
 	/**
 	 * Initialize
@@ -35,7 +43,7 @@ class WC_Free_Gift_Coupons_Admin {
 		
 		// Add and save coupon meta.
 		add_action( 'woocommerce_coupon_options', array( __CLASS__, 'coupon_options' ), 10, 2 );
-		add_action( 'woocommerce_coupon_options_save', array( __CLASS__, 'process_shop_coupon_meta' ), 20, 2 );
+		add_action( 'woocommerce_before_data_object_save', array( __CLASS__, 'process_shop_coupon_meta' ), 20, 2 );
 
 		// Show row meta on the plugin screen.
 		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
@@ -49,7 +57,6 @@ class WC_Free_Gift_Coupons_Admin {
 	 * @since 1.0
 	 */
 	public static function admin_scripts() {
-
 
 		// Coupon styles.
 		wp_register_style( 'woocommerce_free_gift_coupon_meta', plugins_url( '../assets/css/free-gift-coupons-meta-box.css' , __DIR__ ), array(), WC_Free_Gift_Coupons::$version );
@@ -94,7 +101,6 @@ class WC_Free_Gift_Coupons_Admin {
 	 * @since 1.0
 	 */
 	public static function coupon_options( $coupon_id, $coupon ) {
-
 		self::load_scripts( $coupon_id );
 		?>
 
@@ -102,7 +108,7 @@ class WC_Free_Gift_Coupons_Admin {
 
 			<label for="free_gift_ids"><?php esc_html_e( 'Free Gifts', 'wc_free_gift_coupons' ) ?></label>
 
-			<span class="description"><?php esc_html_e( 'These are the products you are giving away with this coupon. They will automatically be added to the cart.', 'wc_free_gift_coupons' ); ?></span>		
+			<span class="description"><?php esc_html_e( 'These are the products you are giving away with this coupon. They will automatically be added to the cart.', 'wc_free_gift_coupons' ); ?></span>
 
 		</p>
 
@@ -121,7 +127,38 @@ class WC_Free_Gift_Coupons_Admin {
 			<noscript><?php esc_html_e( 'Javascript is required for product selection to work.', 'wc_free_gift_coupons' );?></noscript>
 		</div>
 
-		<?php 
+		<!-- Sync Quantities -->
+		<p class="form-field show_if_free_gift">
+
+			<label for="_wc_fgc_product_sync_ids"><?php esc_html_e( 'Sync Quantities', 'wc_free_gift_coupons' ) ?></label>
+
+			<span class="description"><?php esc_html_e( 'Sync the gift products\' quantities to the quantity of a product in the cart.', 'wc_free_gift_coupons' ); ?></span>
+
+		</p>
+
+		<p class="form-field show_if_free_gift">
+
+			<select id="_wc_fgc_product_sync_ids" style="width:80%;" class="wc-product-search" name="_wc_fgc_product_sync_ids" data-sortable="sortable" data-allow-clear="tru" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wc_free_gift_coupons' ); ?>" data-action="woocommerce_json_search_products_and_variations">
+				<option></option>
+				<?php
+				$product_ids = $coupon->get_meta( '_wc_fgc_product_sync_ids', true, 'edit' );
+
+				foreach ( $product_ids as $row => $product_id ) {
+					$product = wc_get_product( $product_id );
+					if ( is_object( $product ) ) {
+						echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) . '</option>';
+					}
+				}
+				?>
+			</select>			
+			<?php
+			echo wc_help_tip(
+				__( 'This adds the Synced Product to the required Product List, if it is not already added. If changed, the previously synced product remains in your required products list.', 'wc_free_gift_coupons' )
+			);
+			?>
+		</p>
+
+		<?php
 		// Free shipping for free gift.
 		if ( function_exists( 'wc_shipping_enabled' ) && wc_shipping_enabled() ) {
 			woocommerce_wp_checkbox( array(
@@ -188,21 +225,47 @@ class WC_Free_Gift_Coupons_Admin {
 	}
 
 	/**
-	 * Save the new coupon metabox field data
+	 * Save the new coupon metabox field data.
+	 * 
+	 * This hooking was adjusted in v3.0.0
 	 *
-	 * @param integer $post_id
-	 * @param object WC_Coupon $coupon
+	 * @param WC_Data          $coupon The object being saved.
+	 * @param WC_Data_Store_WP $data_store The data store persisting the data.
 	 * @return void
 	 * @since 1.0
 	 */
-	public static function process_shop_coupon_meta( $post_id, $coupon ) {
+	public static function process_shop_coupon_meta( $coupon, $data_store ) {
+		// Run only when it's coupon.
+		if ( ! ( $coupon instanceof WC_Coupon ) ) {
+			return;
+		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce check handled by WooCommerce core.
 		if ( isset( $_POST['discount_type'] ) && in_array( $_POST['discount_type'], WC_Free_Gift_Coupons::get_gift_coupon_types(), true ) ) { 
 
 			// Sanitize gift products.
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- Nonce check handled by WooCommerce core.
-			$gift_data = isset( $_POST['wc_free_gift_coupons_data'] ) ? self::sanitize_free_gift_meta( $_POST['wc_free_gift_coupons_data'] ) : array(); 
+			$gift_data = isset( $_POST['wc_free_gift_coupons_data'] ) ? self::sanitize_free_gift_meta( $_POST['wc_free_gift_coupons_data'] ) : array();
+		
+			// If discount type is free gift, free gift is important.
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce check handled by WooCommerce core.
+			if ( 'free_gift' === $_POST['discount_type'] ) {
+
+				// Do not allow, a free gift is a must.
+				if ( empty( $gift_data ) ) {
+					$notice = __( 'Please select at least one product to give away with this coupon.', 'wc_free_gift_coupons' );
+					WC_Free_Gift_Coupons_Admin_Notices::add_notice( $notice, 'error', true );
+					return;
+				}
+
+			}
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- Nonce check handled by WooCommerce core.
+			$synced_products       = isset( $_POST['_wc_fgc_product_sync_ids'] ) ? array_filter( array_map( 'intval', (array) $_POST['_wc_fgc_product_sync_ids'] ) ) : array();
+			$clear_old_synced_prod = false;
+			$save_coupon           = false; // $coupon->save() gives issue, so leave as false for now, till further notice.
+
+			// Add the synced product to list of required products. Stealth way of making sure the sync doesn't malfunction!
+			self::sort_synced_products_for_coupon( $coupon, $synced_products, $clear_old_synced_prod, $save_coupon );
 
 			// Sanitize free shipping option.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce check handled by WooCommerce core.
@@ -211,11 +274,68 @@ class WC_Free_Gift_Coupons_Admin {
 			// Save.
 			$coupon->update_meta_data( '_wc_free_gift_coupon_data', $gift_data );
 			$coupon->update_meta_data( '_wc_free_gift_coupon_free_shipping', $free_gift_shipping );
+			$coupon->update_meta_data( '_wc_fgc_product_sync_ids', $synced_products );
 			$coupon->save_meta_data();
 		}
 
 	}
 
+	/**
+	 * Sorts/Clears old Synced products from Coupon's product id list.
+	 *
+	 * Clears the old synced data is $clear_old_synced_products is true,
+	 * And adds the new set.
+	 *
+	 * @param  WC_Coupon  $coupon The coupon object.
+	 * @param  array      $new_synced_products New synced product to be added to product_ids list.
+	 * @param  bool       $clear_old_synced_products Removes old synced products if true, default is true.
+	 * @param  bool       $save If true, runs the save method, default is false. 
+	 * @return array The flushed array of product_ids
+	 */
+	public static function sort_synced_products_for_coupon( $coupon, $new_synced_products, $clear_old_synced_products = true, $save = false ) {
+		// First get list of products already added, if any.
+		self::$coupon_product_ids = $coupon->get_product_ids();
+
+		// Get old synced product data.
+		$old_synced_products = $coupon->get_meta( '_wc_fgc_product_sync_ids' );
+
+		// Should we clear old data? if no, let's save stress.
+		if ( true === $clear_old_synced_products ) {
+			// Check if old synced products are in product ids data.
+			foreach ( $old_synced_products as $old_data ) {
+				if ( in_array( $old_data, self::$coupon_product_ids, true ) ) {
+					// Remove old synced products from product_ids, incase there's a change.
+					unset( self::$coupon_product_ids[ array_search( $old_data, self::$coupon_product_ids, true ) ] );
+				}
+			}
+				
+		} else {
+			// Show notice only when new synced product is different from old.
+			if ( ! empty( $old_synced_products ) && $old_synced_products !== $new_synced_products ) {
+				// Show notice
+				$notice = __( 'The previously synced product might still be in your required product list, if it has not been removed by you already.', 'wc_free_gift_coupons' );
+				WC_Free_Gift_Coupons_Admin_Notices::add_notice(
+					$notice,
+					array(
+						'type'          => 'info',
+						'dismiss_class' => 'yes',
+					),
+					true
+				);
+			}
+		}
+
+		// Set new, and no need to check for duplicates, WC does that by default :).
+		$merged = array_merge( self::$coupon_product_ids, $new_synced_products );
+
+		$coupon->set_product_ids( $merged );
+
+		if ( true === $save ) {
+			// This gives an issue, which is from WC Core, so till it's fixed :).
+			$coupon->save();
+		}
+		return $coupon->get_product_ids();
+	}
 
 	/**
 	 * Sanitize separately so we can re-use this method for compatibility reasons.

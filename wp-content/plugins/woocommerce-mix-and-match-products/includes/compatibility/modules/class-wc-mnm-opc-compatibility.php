@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.5
- * @version  1.0.5
+ * @version  1.10.4
  */
 
 // Exit if accessed directly.
@@ -50,7 +50,8 @@ class WC_MNM_OPC_Compatibility {
 					'container'          => $product,
 					'min_container_size' => $product->get_min_container_size(),
 					'max_container_size' => $product->get_max_container_size(),
-					'mnm_products'       => $product->get_available_children()
+					'mnm_products'       => $product->get_available_children(),
+					'classes'           => 'layout_' . $product->get_layout(),
 				),
 				'',
 				WC_Mix_and_Match()->plugin_path() . '/templates/'

@@ -5,18 +5,18 @@
  * Woo: 18643:9a41775bb33843f52c93c922b0053986
  * Plugin URI: https://woocommerce.com/products/dynamic-pricing/
  * Description: WooCommerce Dynamic Pricing lets you configure dynamic pricing rules for products, categories and members.
- * Version: 3.1.21
+ * Version: 3.1.22
  * Author: Lucas Stark
  * Author URI: https://elementstark.com
  * Requires at least: 3.3
- * Tested up to: 5.5.0
+ * Tested up to: 5.5
  * Text Domain: woocommerce-dynamic-pricing
  * Domain Path: /i18n/languages/
  * Copyright: © 2009-2020 Lucas Stark.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * WC requires at least: 3.0.0
- * WC tested up to: 4.4.1
+ * WC tested up to: 4.6
  */
 
 
