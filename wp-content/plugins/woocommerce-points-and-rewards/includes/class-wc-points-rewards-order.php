@@ -38,6 +38,8 @@ class WC_Points_Rewards_Order {
 		add_action( 'woocommerce_order_status_refunded', array( $this, 'handle_cancelled_refunded_order' ) );
 		add_action( 'woocommerce_order_status_failed', array( $this, 'handle_cancelled_refunded_order' ) );
 		add_action( 'woocommerce_order_partially_refunded', array( $this, 'handle_partially_refunded_order' ), 10, 2 );
+
+		add_filter( 'wcs_renewal_order_meta_query', array( $this, 'exclude_meta_from_renewal_order' ) );
 	}
 
 	/**
@@ -177,25 +179,27 @@ class WC_Points_Rewards_Order {
 	 *
 	 * @since 1.6.1
 	 * @version 1.6.1
-	 * @param int $order_id
+	 * @param int $order_id Order ID.
 	 */
 	public function log_redemption_points( $order_id ) {
-		// First check if points already logged
-		$logged_points = get_post_meta( $order_id, '_wc_points_logged_redemption', true );
-
-		if ( ! empty( $logged_points ) ) {
+		$order = wc_get_order( $order_id );
+		if ( ! $order ) {
 			return;
 		}
 
-		$order = wc_get_order( $order_id );
-
-		$discount_code = WC_Points_Rewards_Discount::get_discount_code();
-
+		$discount_code   = WC_Points_Rewards_Discount::get_discount_code();
 		$discount_amount = $this->get_discount_from_code( $discount_code );
-
 		$points_redeemed = WC_Points_Rewards_Manager::calculate_points_for_discount( $discount_amount );
 
-		update_post_meta( $order_id, '_wc_points_logged_redemption', array( 'points' => $points_redeemed, 'amount' => $discount_amount, 'discount_code' => $discount_code ) );
+		$order->update_meta_data(
+			'_wc_points_logged_redemption',
+			array(
+				'points'        => $points_redeemed,
+				'amount'        => $discount_amount,
+				'discount_code' => $discount_code,
+			)
+		);
+		$order->save();
 	}
 
 	/**
@@ -373,6 +377,18 @@ class WC_Points_Rewards_Order {
 			/* translators: 1: points earned 2: points earned label */
 			$order->add_order_note( sprintf( __( '%1$d %2$s removed.', 'woocommerce-points-and-rewards' ), $points_refunded, $wc_points_rewards->get_points_label( $points_refunded ) ) );
 		}
+	}
+
+	/**
+	 * Exclude any metadata from being passed on to subscription renewal orders.
+	 *
+	 * @since 1.6.40
+	 * @param string $meta_query Query string for copying meta data.
+	 * @return string The modified query.
+	 */
+	public function exclude_meta_from_renewal_order( $meta_query ) {
+		$meta_query .= " AND `meta_key` NOT IN ( '_wc_points_earned', '_wc_points_logged_redemption', '_wc_points_redeemed' )";
+		return $meta_query;
 	}
 
 } // end \WC_Points_Rewards_Order class

@@ -71,11 +71,11 @@
     animation: ult-blink .7s infinite;
 }
 .ultimate-typed-main {
-    font-family: inherit!important;
-    font-weight: inherit !important;
-    font-size: inherit!important;
-    font-style: inherit !important;
-    line-height: inherit !important;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    line-height: inherit;
 }
 @keyframes ult-blink {
     0 {

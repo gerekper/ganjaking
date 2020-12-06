@@ -1,0 +1,219 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: LoginPress - Social Login\n"
+"POT-Creation-Date: 2019-07-15 11:30+0500\n"
+"PO-Revision-Date: 2019-07-15 11:30+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress-social-login.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: classes/loginpress-social-check.php:28
+msgid ""
+"The Facebook SDK requires PHP version 5.4 or higher. Please notify about "
+"this error to site admin."
+msgstr ""
+
+#: classes/loginpress-utilities.php:211
+#, php-format
+msgid "%1$sERROR%2$s: Invalid `Client ID` or `Client Secret` combination?"
+msgstr ""
+
+#: loginpress-social-login.php:103
+msgid "Facebook Login"
+msgstr ""
+
+#: loginpress-social-login.php:104
+msgid "Enable Facebook Login"
+msgstr ""
+
+#: loginpress-social-login.php:109
+msgid "Facebook App ID"
+msgstr ""
+
+#: loginpress-social-login.php:110
+msgid "Enter your facebook App ID."
+msgstr ""
+
+#: loginpress-social-login.php:115
+msgid "Facebook App Secret"
+msgstr ""
+
+#: loginpress-social-login.php:116
+msgid "Enter your facebook App Secret."
+msgstr ""
+
+#: loginpress-social-login.php:121
+msgid "Twitter Login"
+msgstr ""
+
+#: loginpress-social-login.php:122
+msgid "Enable Twitter Login"
+msgstr ""
+
+#: loginpress-social-login.php:127
+msgid "Twitter API key"
+msgstr ""
+
+#: loginpress-social-login.php:128
+msgid "Enter Your Consumer API key."
+msgstr ""
+
+#: loginpress-social-login.php:133
+msgid "Twitter API secret key"
+msgstr ""
+
+#: loginpress-social-login.php:134
+msgid "Enter Your Consumer API secret key."
+msgstr ""
+
+#: loginpress-social-login.php:139
+msgid "Twitter Callback URL"
+msgstr ""
+
+#: loginpress-social-login.php:140
+msgid "Enter Your Callback URL "
+msgstr ""
+
+#: loginpress-social-login.php:145
+msgid "Google Login"
+msgstr ""
+
+#: loginpress-social-login.php:146
+msgid "Enable Google Login"
+msgstr ""
+
+#: loginpress-social-login.php:151 loginpress-social-login.php:175
+msgid "Client ID"
+msgstr ""
+
+#: loginpress-social-login.php:152 loginpress-social-login.php:176
+msgid "Enter Your Client ID."
+msgstr ""
+
+#: loginpress-social-login.php:157 loginpress-social-login.php:181
+msgid "Client Secret"
+msgstr ""
+
+#: loginpress-social-login.php:158 loginpress-social-login.php:182
+msgid "Enter Your Client Secret."
+msgstr ""
+
+#: loginpress-social-login.php:163 loginpress-social-login.php:187
+msgid "Redirect URI"
+msgstr ""
+
+#: loginpress-social-login.php:164
+msgid "Enter Your Redirect URI:"
+msgstr ""
+
+#: loginpress-social-login.php:169
+msgid "LinkedIn Login"
+msgstr ""
+
+#: loginpress-social-login.php:170
+msgid "Enable LinkedIn Login"
+msgstr ""
+
+#: loginpress-social-login.php:188
+msgid "Enter Your Redirect URI: "
+msgstr ""
+
+#: loginpress-social-login.php:193
+msgid "Enable Social Login on"
+msgstr ""
+
+#: loginpress-social-login.php:194
+msgid "Enable Social Login on Login and Register form"
+msgstr ""
+
+#: loginpress-social-login.php:204
+msgid "Remove Record On Uninstall"
+msgstr ""
+
+#: loginpress-social-login.php:205
+msgid ""
+"This tool will remove all LoginPress - Social Logins record upon uninstall."
+msgstr ""
+
+#: loginpress-social-login.php:229
+msgid "Social Login"
+msgstr ""
+
+#: loginpress-social-login.php:230
+#, php-format
+msgid "%1$s%3$sSettings%4$s %5$sHelp%4$s%2$s"
+msgstr ""
+
+#: loginpress-social-login.php:395
+msgid "or"
+msgstr ""
+
+#: loginpress-social-login.php:406 loginpress-social-login.php:411
+msgid "Login with Google"
+msgstr ""
+
+#: loginpress-social-login.php:426 loginpress-social-login.php:431
+msgid "Login with Facebook"
+msgstr ""
+
+#: loginpress-social-login.php:446 loginpress-social-login.php:451
+msgid "Login with Twitter"
+msgstr ""
+
+#: loginpress-social-login.php:466 loginpress-social-login.php:471
+msgid "Login with LinkedIn"
+msgstr ""
+
+#: loginpress-social-login.php:504
+msgid "Vote!"
+msgstr ""
+
+#: loginpress-social-login.php:654
+msgid ""
+"Please Install LoginPress Pro to use \"LoginPress Social Login\" add-on."
+msgstr ""
+
+#: loginpress-social-login.php:682
+msgid "The following required plugin is currently inactive &mdash; "
+msgstr ""
+
+#: loginpress-social-login.php:684
+msgid "Click here to activate LoginPress Pro"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Social Login"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.WPBrigade.com/wordpress/plugins/loginpress/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This is a premium add-on of LoginPress WordPress plugin by <a href=\"https://"
+"wpbrigade.com/\">WPBrigade</a> which allows you to login using social media "
+"accounts like Facebook, Twitter and Google/G+ etc"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.WPBrigade.com/"
+msgstr ""

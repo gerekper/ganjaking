@@ -106,7 +106,7 @@ class Data extends Meta_Box {
 			],
 			'membership_plan_ids'  => [
 				'id'                     => 'membership_plan_ids',
-				'type'                   => 'select',
+				'type'                   => 'select_membership_plans', /** @see Data::render_select_membership_plans_field() */
 				'label'                  => __( 'Membership plans', 'woocommerce-memberships' ),
 				'description'            => __( 'This field will only be applied to prospective or current members of the selected plans. Leave blank to apply to all plans.', 'woocommerce-memberships' ),
 				'value'                  => $profile_field_definition->get_membership_plan_ids( 'edit' ),
@@ -166,7 +166,7 @@ class Data extends Meta_Box {
 			],
 			'options'              => [
 				'id'                     => 'options',
-				'type'                   => 'options_repeater',
+				'type'                   => 'options_repeater', /** @see Data::render_options_repeater_field() */
 				'label'                  => __( 'Options', 'woocommerce-memberships' ),
 				'description'            => $is_in_use ? __( "Changing or removing options won't impact this field on an existing member's profile until an admin or the member attempts to edit the field.", 'woocommerce-memberships' ) : '',
 				'value'                  => $profile_field_definition->has_options() ? array_filter( array_map( 'stripslashes', (array) $profile_field_definition->get_options( 'edit' ) ) ) : [],
@@ -539,6 +539,64 @@ class Data extends Meta_Box {
 					<?php echo esc_html( $option_label ); ?>
 				</option>
 			<?php endforeach; ?>
+		</select>
+		<?php
+	}
+
+
+	/**
+	 * Renders a select membership plans field.
+	 *
+	 * @since 1.19.2
+	 *
+	 * @param array $field_data initialized field data
+	 */
+	private function render_select_membership_plans_field( array $field_data ) {
+
+		?>
+		<select
+			id="<?php echo esc_attr( $field_data['id'] ); ?>"
+			name="<?php echo esc_attr( $field_data['name'] . '[]' ); ?>"
+			class="<?php echo esc_attr( $field_data['class'] ); ?>"
+			style="<?php echo esc_attr( $field_data['style'] ); ?>"
+			<?php echo implode( ' ', $this->get_field_custom_attributes( $field_data ) ); ?>>
+
+			<?php foreach ( wc_memberships_get_membership_plans() as $membership_plan ) : ?>
+
+				<?php
+
+				$selected = is_array( $field_data['value'] ) ? in_array( $membership_plan->get_id(), array_map( 'intval', $field_data['value'] ), false ) : $membership_plan->get_id() === (int) $field_data['value'];
+				$access   = [ Profile_Fields::VISIBILITY_PROFILE_FIELDS_AREA ];
+
+				switch ( $membership_plan->get_access_method() ) {
+					case 'signup' :
+						$access[] = Profile_Fields::VISIBILITY_REGISTRATION_FORM;
+					break;
+					case 'purchase' :
+						$access[] = Profile_Fields::VISIBILITY_PRODUCT_PAGE;
+					break;
+				}
+
+				/**
+				 * Filters a plan's visibility options by access method for profile fields.
+				 *
+				 * @since 1.19.2
+				 *
+				 * @param string[] $visibility_by_access_method visibility options
+				 * @param \WC_Memberships_Membership_Plan $membership_plan the membership plan
+				 */
+				$visibility_by_access_method = (array) apply_filters( 'wc_memberships_profile_fields_membership_plan_visibility_options', $access, $membership_plan );
+
+				?>
+				<option
+					value="<?php echo esc_attr( $membership_plan->get_id() ); ?>"
+					data-visibility-options="<?php echo esc_attr( implode( ',', $visibility_by_access_method ) ); ?>"
+					<?php selected( $selected ); ?>>
+					<?php echo esc_html( $membership_plan->get_formatted_name() ); ?>
+				</option>
+
+			<?php endforeach; ?>
+
 		</select>
 		<?php
 	}

@@ -214,20 +214,17 @@ class WC_COG_Admin_Products {
 	/**
 	 * Add cost field to variable products under the 'Variations' tab after the shipping class dropdown
 	 *
+	 * @internal
+	 *
 	 * @since 1.0
+	 *
 	 * @param int $loop loop counter
 	 * @param array $variation_data array of variation data
 	 * @param \WP_Post $variation product variation post
 	 */
 	public function add_cost_field_to_product_variation( $loop, $variation_data, $variation ) {
 
-		$default_cost = get_post_meta( $variation->post_parent, '_wc_cog_cost_variable', true );
-		$cost         = get_post_meta( $variation->ID,          '_wc_cog_cost', true );
-
-		// if the variation cost is actually the default variable product cost
-		if ( 'yes' === get_post_meta( $variation->ID, '_wc_cog_default_cost', true ) ) {
-			$cost = '';
-		}
+		$cost_data = $this->get_cost_data( $variation );
 
 		?>
 		<div class="_wc_cog_variation_cost">
@@ -240,9 +237,9 @@ class WC_COG_Admin_Products {
 					type="text"
 					size="6"
 					name="variable_cost_of_good[<?php echo esc_attr( $loop ); ?>]"
-					value="<?php echo esc_attr( $cost ); ?>"
+					value="<?php echo esc_attr( $cost_data['cost'] ); ?>"
 					class="wc_input_price"
-					placeholder="<?php echo esc_attr( $default_cost ); ?>"
+					placeholder="<?php echo esc_attr( $cost_data['default_cost'] ); ?>"
 				/>
 			</p>
 		</div>
@@ -454,6 +451,87 @@ class WC_COG_Admin_Products {
 				}
 			}
 		}
+	}
+
+
+	/**
+	 * Gets the cost and default cost for a variation.
+	 *
+	 * @since 2.9.9
+	 *
+	 * @param \WP_Post $variation product variation post
+	 * @return string[] formatted cost and default_cost
+	 */
+	private function get_cost_data( $variation ) {
+
+		$default_cost = '';
+		$cost         = '';
+
+		if ( $variation instanceof \WP_Post ) {
+
+			$default_cost = $this->get_formatted_default_cost( $variation );
+			$cost         = $this->get_formatted_cost( $variation );
+
+			// if the variation cost is actually the default variable product cost
+			if ( ! empty( $cost ) && 'yes' === get_post_meta( $variation->ID, '_wc_cog_default_cost', true ) ) {
+				$cost = '';
+			}
+		}
+
+		return [
+			'cost'         => $cost,
+			'default_cost' => $default_cost,
+		];
+	}
+
+
+	/**
+	 * Gets the formatted cost using the store decimal separator.
+	 *
+	 * @since 2.9.9
+	 *
+	 * @param \WP_Post $variation product variation post
+	 * @return string the variation cost using the store decimal separator
+	 */
+	private function get_formatted_cost( \WP_Post $variation ) {
+
+		$cost = get_post_meta( $variation->ID, '_wc_cog_cost', true );
+
+		// formats the cost with the store decimal settings
+		return $this->cost_format( $cost );
+	}
+
+
+	/**
+	 * Gets the formatted default cost using the store decimal separator.
+	 *
+	 * @since 2.9.9
+	 *
+	 * @param \WP_Post $variation product variation post
+	 * @return string the variation default cost using the store decimal separator
+	 */
+	private function get_formatted_default_cost( \WP_Post $variation ) {
+
+		$default_cost = isset( $variation->post_parent ) ? get_post_meta( $variation->post_parent, '_wc_cog_cost_variable', true ) : '';
+
+		// formats the default cost with the store decimal settings
+		return $this->cost_format( $default_cost );
+	}
+
+
+	/**
+	 * Gets the formatted cost using the store decimal separator.
+	 *
+	 * This method comes to fix an issue where the cost format using the store price decimal separator wasn't being applied properly.
+	 *
+	 * @since 2.9.9
+	 *
+	 * @param string|float $number
+	 * @return string a proper formatted version of number
+	 */
+	private function cost_format( $number ) {
+
+		return ! empty( $number ) ? number_format( $number, wc_get_price_decimals(), wc_get_price_decimal_separator(), '' ) : '';
 	}
 
 

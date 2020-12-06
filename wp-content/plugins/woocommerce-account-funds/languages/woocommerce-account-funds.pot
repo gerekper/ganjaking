@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Account Funds 2.3.1\n"
+"Project-Id-Version: WooCommerce Account Funds 2.3.4\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/woocommerce/woocommerce-account-funds/issues\n"
-"POT-Creation-Date: 2020-09-07 15:05:23+00:00\n"
+"POT-Creation-Date: 2020-11-16 10:46:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,12 +21,12 @@ msgstr ""
 #: includes/admin/class-wc-account-funds-admin.php:107
 #: includes/admin/class-wc-account-funds-admin.php:137
 #: includes/admin/class-wc-account-funds-admin.php:265
-#: includes/class-wc-account-funds-cart-manager.php:230
+#: includes/class-wc-account-funds-cart-manager.php:234
 #: includes/class-wc-account-funds-my-account.php:76
 #: includes/class-wc-account-funds-my-account.php:90
 #: includes/class-wc-account-funds-privacy.php:12
 #: includes/class-wc-gateway-account-funds.php:18
-#: includes/class-wc-gateway-account-funds.php:119
+#: includes/class-wc-gateway-account-funds.php:130
 msgid "Account Funds"
 msgstr ""
 
@@ -118,46 +118,46 @@ msgid ""
 "payment gateway."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:176
+#: includes/class-wc-account-funds-cart-manager.php:180
 msgid "Use Account Funds"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:177
+#: includes/class-wc-account-funds-cart-manager.php:181
 msgid "You have <strong>%s</strong> worth of funds on your account."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:179
+#: includes/class-wc-account-funds-cart-manager.php:183
 #: includes/class-wc-gateway-account-funds.php:46
 msgid "Use your account funds and get a %s discount on your order."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:231
+#: includes/class-wc-account-funds-cart-manager.php:235
 msgid "[Remove]"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:243
+#: includes/class-wc-account-funds-cart-manager.php:247
 #. translators: 1: funds available 2: discount
 msgid "Use <strong>%1$s</strong> from your funds and get a %2$s discount."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:250
+#: includes/class-wc-account-funds-cart-manager.php:254
 #. translators: %s: funds available
 msgid "Use <strong>%s</strong> from your funds."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:256
+#: includes/class-wc-account-funds-cart-manager.php:260
 msgid "Account funds"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:378
+#: includes/class-wc-account-funds-cart-manager.php:382
 msgid "Discount applied for using account funds!"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:395
+#: includes/class-wc-account-funds-cart-manager.php:399
 msgid "Discount"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:489
+#: includes/class-wc-account-funds-cart-manager.php:493
 msgid "%s (with tax, discount, and account funds applied)"
 msgstr ""
 
@@ -241,24 +241,24 @@ msgstr ""
 msgid "Removed %s funds from user #%d"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:156
+#: includes/class-wc-account-funds-order-manager.php:158
 msgid "Restored %s funds to user #%d"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:210
+#: includes/class-wc-account-funds-order-manager.php:212
 msgid "Added %s funds to user #%d"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:236
+#: includes/class-wc-account-funds-order-manager.php:238
 msgid "Funds Used:"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:379
-#: includes/class-wc-account-funds-order-manager.php:406
+#: includes/class-wc-account-funds-order-manager.php:381
+#: includes/class-wc-account-funds-order-manager.php:408
 msgid "Funds Used"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:413
+#: includes/class-wc-account-funds-order-manager.php:415
 msgid "Order Total after Funds Used"
 msgstr ""
 
@@ -309,52 +309,52 @@ msgstr ""
 msgid "Remaining balance: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:110
+#: includes/class-wc-gateway-account-funds.php:121
 msgid "Enable/Disable"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:112
+#: includes/class-wc-gateway-account-funds.php:123
 msgid "Enable"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:116
+#: includes/class-wc-gateway-account-funds.php:127
 msgid "Title"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:118
+#: includes/class-wc-gateway-account-funds.php:129
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:132
-#: includes/class-wc-gateway-account-funds.php:141
+#: includes/class-wc-gateway-account-funds.php:143
+#: includes/class-wc-gateway-account-funds.php:152
 msgid "Payment error:"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:132
+#: includes/class-wc-gateway-account-funds.php:143
 msgid "You must be logged in to use this payment method"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:141
+#: includes/class-wc-gateway-account-funds.php:152
 msgid "Insufficient account balance"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:185
+#: includes/class-wc-gateway-account-funds.php:196
 msgid "Customer not found."
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:190
+#: includes/class-wc-gateway-account-funds.php:201
 msgid "Insufficient funds (amount to pay = %s; available funds = %s)."
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:197
+#: includes/class-wc-gateway-account-funds.php:208
 msgid "Account funds payment applied: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:279
+#: includes/class-wc-gateway-account-funds.php:290
 msgid "Account Funds subscription payment completed"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:291
+#: includes/class-wc-gateway-account-funds.php:302
 msgid "Via %s"
 msgstr ""
 

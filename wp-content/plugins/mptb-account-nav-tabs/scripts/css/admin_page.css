@@ -1,0 +1,43 @@
+.mant-tab {
+  padding:15px;
+  border:1px solid lightgrey;
+  margin-bottom:15px;
+}
+
+.mant-hidden {
+  display:none;
+}
+
+.mant-hidden-content-area {
+  margin-left:25px;
+}
+
+.mant-new-tab,
+.mant-tab-remove {
+  cursor:pointer;
+}
+
+.mant-tab-text {
+  width:40%;
+  min-width:250px;
+}
+
+.mant-tab-main-label {
+  font-weight:bold;
+}
+
+.mant-tab-main-label small {
+  font-weight:normal;
+}
+
+.mant-new-tab-spinner {
+  vertical-align:middle;
+}
+
+.mant-tab hr {
+  display:block;
+  height:1px;
+  border:0;
+  border-top:1px solid #999;
+  padding:0;
+}

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.4.0
+ * @version  6.4.3
  */
 class WC_PB_Display {
 
@@ -90,8 +90,8 @@ class WC_PB_Display {
 	protected function __construct() {
 
 		// Single product template functions and hooks.
-		require_once( 'wc-pb-template-functions.php' );
-		require_once( 'wc-pb-template-hooks.php' );
+		require_once( WC_PB_ABSPATH . 'includes/wc-pb-template-functions.php' );
+		require_once( WC_PB_ABSPATH . 'includes/wc-pb-template-hooks.php' );
 
 		// Front end bundle add-to-cart script.
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ), 100 );
@@ -391,7 +391,16 @@ class WC_PB_Display {
 	public function structured_product_data( $data, $product ) {
 
 		if ( is_object( $product ) && $product->is_type( 'bundle' ) ) {
-			$data[ 'price' ] = $product->get_bundle_price();
+
+			$bundle_price = $product->get_bundle_price();
+
+			if ( isset( $data[ 'price' ] ) ) {
+				$data[ 'price' ] = $bundle_price;
+			}
+
+			if ( isset( $data[ 'priceSpecification' ][ 'price' ] ) ) {
+				$data[ 'priceSpecification' ][ 'price' ] = $bundle_price;
+			}
 		}
 
 		return $data;
@@ -1029,7 +1038,7 @@ class WC_PB_Display {
 	}
 
 	/**
-	 * Add "Part of" and "Purchased with" cart item data to bundled items.
+	 * Add "Part of" cart item data to bundled items.
 	 *
 	 * @param  array  $data
 	 * @param  array  $cart_item

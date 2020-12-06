@@ -1,5 +1,5 @@
 <form name="edit-ticket" action="" method="post" class="edit-ticket">
-	<?php $ticket_form->render(); ?>
+	<?php $ticket_form->render( array( 'editable' => $editable ) ); ?>
 
 	<div class="clear"></div>
 

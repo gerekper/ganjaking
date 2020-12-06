@@ -55,7 +55,7 @@ $is_ajax = isset( $scenario_data[ 'is_ajax' ] ) && true === $scenario_data[ 'is_
 	</h3><?php
 
 	ob_start();
-	include( 'html-scenario-contents.php' );
+	include( WC_CP_ABSPATH . 'includes/admin/meta-boxes/views/html-scenario-contents.php' );
 	$scenario_content = ob_get_clean();
 
 	?><div class="bto_scenario_data wc-metabox-content" data-scenario_content="<?php echo $render_on_toggle ? htmlspecialchars( $scenario_content ) : ''; ?>"><?php

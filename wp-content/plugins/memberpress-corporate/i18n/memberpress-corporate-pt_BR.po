@@ -1,0 +1,379 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-"
+"corporate\n"
+"POT-Creation-Date: 2017-01-28 21:24-0200\n"
+"PO-Revision-Date: 2017-01-29 13:58-0200\n"
+"Last-Translator: \n"
+"Language-Team: Celso Coslop Barbante <celsocos@yahoo.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: app/controllers/class-mpca-account-controller.php:32
+#: app/controllers/class-mpca-account-controller.php:64
+#: app/controllers/class-mpca-export-controller.php:10
+msgid "No corporate account specified"
+msgstr "Nenhuma conta corporativa especificada"
+
+#: app/controllers/class-mpca-account-controller.php:36
+msgid "No sub account specified"
+msgstr "Nenhuma subconta especificada"
+
+#: app/controllers/class-mpca-account-controller.php:42
+msgid "Invalid corporate account"
+msgstr "Conta empresarial inválida"
+
+#: app/controllers/class-mpca-account-controller.php:46
+#: app/controllers/class-mpca-account-controller.php:74
+#: app/controllers/class-mpca-export-controller.php:24
+msgid "Forbidden"
+msgstr "Proibido"
+
+#: app/controllers/class-mpca-account-controller.php:70
+msgid "This is an invalid corporate account"
+msgstr "Esta é uma conta corporativa inválida"
+
+#: app/controllers/class-mpca-account-controller.php:148
+msgid "Sub accounts imported successfully"
+msgstr "Subcontas importadas com êxito"
+
+#: app/controllers/class-mpca-account-controller.php:167
+msgid "Sub Accounts"
+msgstr "Subcontas"
+
+#: app/controllers/class-mpca-account-controller.php:177
+msgid "This action can only happen from the Manage Sub Account page"
+msgstr "Esta ação só pode acontecer a partir da página Gerenciar Subconta"
+
+#: app/controllers/class-mpca-account-controller.php:181
+msgid "There was an issue uploading your CSV file"
+msgstr "Houve um problema ao carregar seu arquivo CSV"
+
+#: app/controllers/class-mpca-account-controller.php:209
+msgid "Row %1$d: %2$s"
+msgstr "Linha %1$d: %2$s"
+
+#: app/controllers/class-mpca-account-controller.php:248
+msgid "Failed Row: %s"
+msgstr "Linha com falha: %s"
+
+#: app/controllers/class-mpca-account-controller.php:303
+msgid "You successfully added a sub account"
+msgstr "Você adicionou com êxito uma subconta"
+
+#: app/controllers/class-mpca-export-controller.php:18
+msgid "Unable to export due to Invalid corporate account"
+msgstr "Não é possível exportar devido a conta corporativa inválida"
+
+#: app/controllers/class-mpca-import-controller.php:32
+#: app/helpers/class-mpca-admin-helper.php:56
+msgid "Active"
+msgstr "Ativo"
+
+#: app/controllers/class-mpca-import-controller.php:32
+#: app/helpers/class-mpca-admin-helper.php:56
+msgid "Inactive"
+msgstr "Inativo"
+
+#: app/controllers/class-mpca-signup-controller.php:46
+msgid "Invalid corporate account (2)"
+msgstr "Conta empresarial inválida (2)"
+
+#: app/controllers/class-mpca-signup-controller.php:66
+msgid "Invalid corporate account (3)"
+msgstr "Conta empresarial inválida (3)"
+
+#: app/helpers/class-mpca-admin-helper.php:19
+msgid "Unknown"
+msgstr "Desconhecido"
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:17
+msgid "Parent User"
+msgstr "Usuário pai"
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:28
+msgid "Corporate Account"
+msgstr "Conta empresarial"
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:35
+#: app/views/mpca-manage-account-template.php:129
+msgid ""
+"Send NEW members a password reset link (does not email existing members)"
+msgstr ""
+"Enviar a NOVOS assinantes um link de redefinição de senha (não enviar para "
+"assinantes existentes)"
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:39
+#: app/views/mpca-manage-account-template.php:132
+msgid ""
+"Send NEW members the welcome email if they haven't received it already for "
+"the membership."
+msgstr ""
+"Envie a NOVOS assinantes o e-mail de boas vindas, se eles ainda não o "
+"receberam para a associação."
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:45
+msgid "A corporate parent account is required for import."
+msgstr "Uma conta corporativa pai é necessária para importação."
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:60
+msgid ""
+"Corporate Account Sub User (username=%1$s, ID=%2$s) was removed successfully"
+msgstr ""
+"Usuário de subconta corporativa (username=%1$s, ID=%2$s) foi removido com "
+"êxito"
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:67
+msgid "Corporate Account Sub User (email=%1$s) was not found"
+msgstr "Usuário de subconta corporativa (e-mail=%1$s) não foi encontrado"
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:99
+msgid ""
+"Corporate Account User (username=%1$s, ID=%2$s, transaction_id=%3$s, "
+"corporate_account_id=%4$s, parent_transaction_id=%5$s) already existed and "
+"was updated successfully"
+msgstr ""
+"Conta de Usuário Corporativo (username=%1$s, ID=%2$s, transaction_id=%3$s, "
+"corporate_account_id=%4$s, parent_transaction_id=5%$s) já existia e foi "
+"atualizada com sucesso"
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:109
+msgid ""
+"Corporate Account User (username=%1$s, ID=%2$s, transaction_id=%3$s, "
+"corporate_account_id=%4$s, parent_transaction_id=%5$s) was created "
+"successfully"
+msgstr ""
+"Conta de Usuário Corporativo (username=%1$s, ID=%2$s, transaction_id=%3$s, "
+"corporate_account_id=%4$s, parent_transaction_id=5%$s) foi criado com "
+"sucesso"
+
+#: app/jobs/MeprSyncSubAccountJob.php:7
+msgid "\"user_id\" can't be blank"
+msgstr "\"user_id\" não pode ser branco"
+
+#: app/jobs/MeprSyncSubAccountJob.php:11
+msgid "\"parent_transaction_id\" can't be blank"
+msgstr "\"parent_transaction_id\" não pode ser branco"
+
+#: app/models/class-mpca-corporate-account.php:22
+msgid "Max sub-accounts"
+msgstr "Max de subcontas"
+
+#: app/models/class-mpca-corporate-account.php:25
+msgid "Exceeded number of allowed sub-accounts"
+msgstr "Excedido número máximo de subcontas permitidas"
+
+#: app/views/mpca-edit-membership-template.php:12
+msgid "Subscribers to this Membership are Corporate Accounts"
+msgstr "Assinantes desta associação são Usuários Corporativos"
+
+#: app/views/mpca-edit-membership-template.php:14
+#: app/views/mpca-edit-user-template.php:6
+msgid "Corporate Accounts"
+msgstr "Contas Corporativas"
+
+#: app/views/mpca-edit-membership-template.php:15
+msgid "Corporate accounts allow your members to manage their own members."
+msgstr ""
+"Contas corporativas permitem que alguns usuários gerenciem seus próprios "
+"assinantes."
+
+#: app/views/mpca-edit-membership-template.php:21
+msgid "Max Sub-accounts"
+msgstr "Max de subcontas"
+
+#: app/views/mpca-edit-membership-template.php:23
+msgid "Sub-account Limit"
+msgstr "Limite de subcontas"
+
+#: app/views/mpca-edit-membership-template.php:24
+msgid "The number of allowed sub-accounts for this membership"
+msgstr "O número de subcontas permitidos para esta associação"
+
+#: app/views/mpca-edit-user-template.php:18
+msgid "Corporate Account?"
+msgstr "Conta empresarial?"
+
+#: app/views/mpca-edit-user-template.php:32
+msgid "Max Sub Accounts"
+msgstr "Max de subcontas"
+
+#: app/views/mpca-edit-user-template.php:47
+msgid "Sub Account Usage"
+msgstr "Uso de subconta"
+
+#: app/views/mpca-edit-user-template.php:51
+#: app/views/mpca-manage-account-template.php:5
+msgid "%1$s of %2$s Sub Accounts Used"
+msgstr "%1$s de %2$s subcontas usadas"
+
+#: app/views/mpca-edit-user-template.php:59
+msgid "Actions"
+msgstr "Ações"
+
+#: app/views/mpca-edit-user-template.php:61
+msgid "Manage Sub Accounts"
+msgstr "Gerenciar subcontas"
+
+#: app/views/mpca-edit-user-template.php:62
+msgid "Import Sub Accounts"
+msgstr "Importar subcontas"
+
+#: app/views/mpca-edit-user-template.php:63
+#: app/views/mpca-manage-account-template.php:103
+msgid "Export Sub Accounts"
+msgstr "Exportar subcontas"
+
+#: app/views/mpca-manage-account-template.php:2
+msgid "Corporate account for %s"
+msgstr "Conta Corporativa para %s"
+
+#: app/views/mpca-manage-account-template.php:23
+msgid "Username"
+msgstr "Usuário"
+
+#: app/views/mpca-manage-account-template.php:28
+msgid "Email"
+msgstr "E-mail"
+
+#: app/views/mpca-manage-account-template.php:34
+msgid "Send NEW members a password reset link"
+msgstr "Enviar a novos assinantes um link de redefinição de senha"
+
+#: app/views/mpca-manage-account-template.php:39
+msgid "Send NEW members the welcome email"
+msgstr "Envie a novos membros o e-mail de boas vindas"
+
+#: app/views/mpca-manage-account-template.php:49
+msgid "Search Sub Accounts..."
+msgstr "Buscar subcontas..."
+
+#: app/views/mpca-manage-account-template.php:56
+msgid "Page %1$s of %2$s (%3$s Sub Accounts)"
+msgstr "Página %1$s de %2$s (%3$s subcontas)"
+
+#: app/views/mpca-manage-account-template.php:61
+msgctxt "ui"
+msgid "Username"
+msgstr "Usuário"
+
+#: app/views/mpca-manage-account-template.php:62
+msgctxt "ui"
+msgid "Email"
+msgstr "E-mail"
+
+#: app/views/mpca-manage-account-template.php:63
+msgctxt "ui"
+msgid "First Name"
+msgstr "Nome"
+
+#: app/views/mpca-manage-account-template.php:64
+msgctxt "ui"
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: app/views/mpca-manage-account-template.php:78
+msgid "Remove"
+msgstr "Remover"
+
+#: app/views/mpca-manage-account-template.php:90
+msgctxt "ui"
+msgid "Previous Page"
+msgstr "Página anterior"
+
+#: app/views/mpca-manage-account-template.php:93
+msgctxt "ui"
+msgid "Next Page"
+msgstr "Próxima página"
+
+#: app/views/mpca-manage-account-template.php:99
+msgctxt "ui"
+msgid "You have no sub accounts to display."
+msgstr "Você não tem subcontas para exibir."
+
+#: app/views/mpca-manage-account-template.php:107
+msgid "Signup URL"
+msgstr "URL de inscrição"
+
+#: app/views/mpca-manage-account-template.php:108
+msgid ""
+"People signing up with this link will be automatically added to your account"
+msgstr ""
+"Pessoas se inscrevendo com este link serão automaticamente adicionadas à "
+"sua conta"
+
+#: app/views/mpca-manage-account-template.php:115
+msgid "Import Sub Accounts via CSV"
+msgstr "Importar subcontas via CSV"
+
+#: app/views/mpca-manage-account-template.php:116
+msgid "(Maximum 200 Sub Accounts per CSV file)"
+msgstr "(Máximo de 200 subcontas por arquivo CSV)"
+
+#: app/views/mpca-manage-account-template.php:135
+msgid "Upload CSV"
+msgstr "Carregar CSV"
+
+#: app/views/mpca-manage-account-template.php:138
+msgid "Importing sub accounts..."
+msgstr "Importando subcontas..."
+
+#: main.php:32 main.php:57
+msgid ""
+"The MemberPress Corporate Accounts plugin requires %1$sthe MemberPress "
+"Importer to be installed and activated%2$s."
+msgstr ""
+"O plugin MemberPress Contas Corporativas requer %1$so Importador MemberPress"
+"%2$s para ser instalado e ativado."
+
+#. Plugin Name of the plugin/theme
+#: main.php:207
+msgid "MemberPress Corporate Accounts"
+msgstr "MemberPress Contas Corporativas"
+
+#: main.php:208
+msgid "Corporate (aka Group, Parent or Umbrella) Accounts for MemberPress."
+msgstr ""
+"Contas Corporativas (também conhecido como pai, grupo, ou gerente) para "
+"MemberPress."
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr "Bem-vindo %s!"
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr "Um texto com baixa prioridade!"
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr "Adeus\n"
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.memberpress.com/"
+msgstr "https://www.memberpress.com/"
+
+#. Description of the plugin/theme
+msgid ""
+"The MemberPress Corporate Accounts add-on will allow you to allow some of "
+"your members to add and manage sub-members. Sometimes these \"super\" "
+"members are called \"Parent\", \"Umbrella\", \"Group\" or \"Corporate\" "
+"Account members."
+msgstr ""
+"O MemberPress Corporate Accounts permitirá que você deixe que alguns de "
+"seus usuários adicionem e gerenciem subcontas. Estes \"super usuários\" são "
+"chamados de \"Pai\", \"Mestres\", \"Gerentes\" ou \"Membros Corporativos\"."
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr "Caseproof, LLC"
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com/"
+msgstr "http://caseproof.com/"

@@ -5,7 +5,7 @@ namespace Yoast\WP\SEO\Actions\Prominent_Words;
 use WPSEO_Premium_Prominent_Words_Support;
 use WPSEO_Premium_Prominent_Words_Versioning;
 use Yoast\WP\Lib\ORM;
-use Yoast\WP\SEO\Actions\Indexation\Indexation_Action_Interface;
+use Yoast\WP\SEO\Actions\Indexing\Indexation_Action_Interface;
 use Yoast\WP\SEO\Context\Meta_Tags_Context;
 use Yoast\WP\SEO\Helpers\Meta_Helper;
 use Yoast\WP\SEO\Memoizers\Meta_Tags_Context_Memoizer;
@@ -99,9 +99,9 @@ class Content_Action implements Indexation_Action_Interface {
 	}
 
 	/**
-	 * The total number of unindexed indexables.
+	 * The total number of indexables without prominent words.
 	 *
-	 * @return int|false The amount of unindexed indexables. False if the query fails.
+	 * @return int|false The total number of indexables without prominent words. False if the query fails.
 	 */
 	public function get_total_unindexed() {
 		$object_sub_types = $this->get_object_sub_types();
@@ -109,13 +109,20 @@ class Content_Action implements Indexation_Action_Interface {
 			return 0;
 		}
 
+		// This prevents an expensive query.
 		$total_unindexed = \get_transient( static::TRANSIENT_CACHE_KEY );
 		if ( $total_unindexed !== false ) {
 			return (int) $total_unindexed;
 		}
 
-		$total_unindexed = $this->query()->count();
+		// Try a less expensive query first: check if the indexable table holds any indexables.
+		// If not, no need to perform a query on the prominent words version and more.
+		if ( ! $this->at_least_one_indexable() ) {
+			return 0;
+		}
 
+		// Run the expensive query to find out the exact number and store it for later use.
+		$total_unindexed = $this->query()->count();
 		\set_transient( static::TRANSIENT_CACHE_KEY, $total_unindexed, \DAY_IN_SECONDS );
 
 		return $total_unindexed;
@@ -174,6 +181,18 @@ class Content_Action implements Indexation_Action_Interface {
 			->where_in( 'object_sub_type', $this->get_object_sub_types() )
 			->where_raw( '(`prominent_words_version` IS NULL OR `prominent_words_version` != ' . $updated_version . ')' )
 			->where_raw( '((`post_status` IS NULL AND `object_type` = \'term\') OR (`post_status` = \'publish\' AND `object_type` = \'post\'))' );
+	}
+
+	/**
+	 * Creates a query that checks whether the indexable table holds at least one record.
+	 *
+	 * @return bool true if at the database contains at least one indexable.
+	 */
+	protected function at_least_one_indexable() {
+		return $this->indexable_repository
+			->query()
+			->select( 'id' )
+			->find_one() !== false;
 	}
 
 	/**

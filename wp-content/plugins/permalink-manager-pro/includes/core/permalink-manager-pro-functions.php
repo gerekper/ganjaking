@@ -38,10 +38,12 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	 * Get license key
 	 */
 	public function get_license_key() {
+		return true;
 		$permalink_manager_options = get_option('permalink-manager', array());
 
 		// Network licence key (multisite)
 		if(is_multisite()) {
+			return true;
 			// A. Move the license key to site options
 			if(!empty($_POST['licence']['licence_key'])) {
 				$site_licence_key = sanitize_text_field($_POST['licence']['licence_key']);
@@ -52,6 +54,7 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		}
 		// Single website licence key
 		else {
+			return true;
 			$this->license_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";
 		}
 
@@ -64,7 +67,6 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	 * Update check
 	 */
 	public function check_for_updates($flush_exp_date = false) {
-		return;
 		$license_key = $this->get_license_key();
 
 		// Load Plugin Update Checker by YahnisElsts
@@ -116,12 +118,10 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		global $permalink_manager_options;
 
 		// Get expiration info & the licence key
-		// $exp_date = (!empty($permalink_manager_options['licence']['expiration_date'])) ? $permalink_manager_options['licence']['expiration_date'] : false;
-		$exp_date = time() + ( 36 * 36000000 );
-
+		$exp_date = (!empty($permalink_manager_options['licence']['expiration_date'])) ? $permalink_manager_options['licence']['expiration_date'] : false;
 		$license_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";
 
-	//	$license_info_page = (!empty($license_key)) ? sprintf("https://permalinkmanager.pro/license-info/%s", trim($license_key)) : "";
+		$license_info_page = (!empty($license_key)) ? sprintf("https://permalinkmanager.pro/license-info/%s", trim($license_key)) : "";
 
 		// There is no key defined
 		if(empty($license_key)) {

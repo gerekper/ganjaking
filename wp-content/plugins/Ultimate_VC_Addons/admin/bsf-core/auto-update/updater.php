@@ -125,6 +125,8 @@ if ( ! function_exists( 'bsf_check_product_update' ) ) {
 							// Deregister status for plugin.
 							if ( isset( $remote_data->status ) && 0 === $remote_data->status ) {
 								$brainstrom_products['plugins'][ $key ]['status'] = 'not-registered';
+							} else {
+								$brainstrom_products['plugins'][ $key ]['status'] = 'registered';
 							}
 
 							$is_update = true;
@@ -152,6 +154,8 @@ if ( ! function_exists( 'bsf_check_product_update' ) ) {
 							// Deregister status for theme.
 							if ( isset( $remote_data->status ) && 0 === $remote_data->status ) {
 								$brainstrom_products['themes'][ $key ]['status'] = 'not-registered';
+							} else {
+								$brainstrom_products['themes'][ $key ]['status'] = 'registered';
 							}
 						}
 					}

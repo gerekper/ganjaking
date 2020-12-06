@@ -73,12 +73,12 @@ function vc_gitem_post_data_get_link_real_link_woocommerce( $link, $atts, $post,
 		$css_class .= ' add_to_cart_button vc-gitem-link-ajax product_type_simple';
 
 		$link = 'a href="' . esc_url( do_shortcode( '[add_to_cart_url id="' . $post->ID . '"]' ) ) . '" class="' . esc_attr( $css_class ) . '" data-product_id="' . esc_attr( vc_gitem_template_attribute_woocommerce_product( '', array(
-				'post' => $post,
-				'data' => 'id',
-			) ) ) . '"' . ' data-product_sku="' . esc_attr( vc_gitem_template_attribute_woocommerce_product( '', array(
-				'post' => $post,
-				'data' => 'sku',
-			) ) ) . '" data-product-quantity="1"';
+			'post' => $post,
+			'data' => 'id',
+		) ) ) . '"' . ' data-product_sku="' . esc_attr( vc_gitem_template_attribute_woocommerce_product( '', array(
+			'post' => $post,
+			'data' => 'sku',
+		) ) ) . '" data-product-quantity="1"';
 	}
 
 	return $link;

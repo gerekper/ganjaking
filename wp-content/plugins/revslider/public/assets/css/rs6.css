@@ -55,6 +55,9 @@ body>rs-modal-cover { position: fixed; z-index: 9999995 !important; }
 
 rs-sbg-px { pointer-events: none }
 
+.rs-forceuntouchable,
+.rs-forceuntouchable * { pointer-events: none !important; }
+
 .rs-forcehidden * { visibility: hidden !important; }
 
 /*rs-modal rs-fullwidth-wrap rs-module-wrap { transform: translateY(-50%) !important; top: 50% !important; }*/
@@ -527,6 +530,7 @@ May need to keep in eye the Carousel and Modal sliders in Fullscreen / Fullwidth
 
 .rev_row_zone_top 				{	top:0px;}
 .rev_row_zone_bottom 			{	bottom:0px;}
+.rev_row_zone_middle			{ top: 50%; transform: perspective(1px) translateY(-50%); }
 
 rs-column-wrap .rs-parallax-wrap  { vertical-align: top }
 
@@ -1094,7 +1098,7 @@ rs-progress-vis 				{ 	display:block;width: 100%;height: 100%; position: absolut
 	background: transparent;
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);
-	zoom:1;
+	/*zoom:1;*/
 }
 
 
@@ -1400,7 +1404,9 @@ rs-poster 						 { cursor:pointer; z-index:3; }
 **************************/
 
 .rs-layer [class^="pe-7s-"]:before, 
-.rs-layer [class*=" pe-7s-"]:before {
+.rs-layer [class*=" pe-7s-"]:before,
+.rs-layer [class^="pe-7s-"], 
+.rs-layer [class*=" pe-7s-"] {
 	width: auto;
 	margin: 0;
 	line-height: inherit;

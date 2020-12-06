@@ -1,0 +1,55 @@
+.ui-autocomplete {
+	float: left;
+	background-color: #fff ;
+	border:1px solid rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	max-height:250px;
+	overflow:auto;
+	overflow-x: hidden;
+}
+
+.ui-menu-item {
+	list-style-type: none;
+	padding: 6px 12px !important;
+	border: 0;
+}
+.ui-menu-item:hover {
+	background: #F1F1F1;
+	border: 0;
+}
+.loginpress_user_highlighted{
+	background: rgba(255, 215, 0, 0.47);
+}
+.autologin-sniper{
+	padding: 5px;
+	display: none;
+}
+.loginpress-del-link{
+	background-color: #0085ba !important;
+	color: #fff !important;
+	border: none !important;
+	margin-top: 5px !important;
+}
+/**********autologin-settings**********/
+.loginpress_autologin_users{
+	width: 100%;
+	text-align: left;
+	border-collapse: collapse;
+	border-bottom: 1px solid #ccc;
+}
+.loginpress_autologin_users tr th,.loginpress_autologin_users tr td{
+	text-align: left;
+	padding: 5px 10px;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+}
+.loginpress_autologin_users tr th:last-child,.loginpress_autologin_users tr td:last-child{
+	text-align: right;
+	border-right: 1px solid #ccc;
+}
+input[name="loginpress_autologin_search"]{
+	width: 275px;
+}
+/**********autologin-settings**********/

@@ -52,7 +52,7 @@ class WoocommerceGpfAbstractCacheRebuildBatchJob extends WoocommerceGpfAbstractC
 			apply_filters(
 				'woocommerce_gpf_wc_get_products_args',
 				$args,
-				'feed'
+				get_class( $this )
 			)
 		);
 		remove_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $this, 'filter_query' ], 10 );

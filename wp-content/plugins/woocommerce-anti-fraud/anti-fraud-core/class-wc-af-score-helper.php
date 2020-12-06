@@ -67,7 +67,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		 * @since  1.0.0
 		 * @access public
 		 */
-		public function schedule_fraud_check( $order_id ) {
+		public function schedule_fraud_check( $order_id, $checknow = false ) {
 
 			// Try to get the Anti Fraud score
 			$score = get_post_meta( $order_id, 'wc_af_score', true );
@@ -79,11 +79,15 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 			// Get the order
 			$order = wc_get_order( $order_id );
-
 			update_post_meta( $order_id, '_wc_af_waiting', true );
 
-			// Schedule the anti fraud check
-			wp_schedule_single_event( time(), 'wc-af-check', array( 'order_id' => $order_id ) );
+			if( $checknow ) {
+
+				$this->do_check( $order_id );							
+			} else {							
+				// Schedule the anti fraud check				
+				wp_schedule_single_event( time(), 'wc-af-check', array( 'order_id' => $order_id ) );
+			}
 		}
 
 		/**
@@ -159,12 +163,12 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 			$is_enable_blacklist = get_option('wc_settings_anti_fraudenable_automatic_email_blacklist');
 			
-			if('yes' == $is_enable_blacklist){
+			if ('yes' == $is_enable_blacklist) {
 
 				$email_blacklist = get_option('wc_settings_anti_fraudblacklist_emails');
-				if('' != $email_blacklist ){
+				if ('' != $email_blacklist ) {
 					// String to array
-					$blacklist = explode( ",", $email_blacklist );
+					$blacklist = explode( ',', $email_blacklist );
 					// Check if is valid array
 					if ( is_array( $blacklist ) && count( $blacklist ) > 0 ) {
 
@@ -184,10 +188,10 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 			$is_enable_whitelist = get_option('wc_settings_anti_fraud_whitelist');
 			
-			if('' != $is_enable_whitelist){
+			if ('' != $is_enable_whitelist) {
 
 				$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
-				if('' != $email_whitelist ){
+				if ('' != $email_whitelist ) {
 					// String to array
 					
 					$whitelist = explode( "\n", $email_whitelist );
@@ -256,30 +260,30 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				$cancel_score = 0 >= intval( $cancel_score ) ? 0 : self::invert_score( $cancel_score );
 				$hold_score   = 0 >= intval( $hold_score ) ? 0 : self::invert_score( $hold_score );
 
-				if(get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
+				if (get_option( 'wc_af_enable_whitelist_payment_method' ) == 'yes') {
 
-					if(get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
+					if (get_option('wc_settings_anti_fraud_whitelist_payment_method') && null != get_option('wc_settings_anti_fraud_whitelist_payment_method')) {
 
 						$whitelist_payment_method = get_option('wc_settings_anti_fraud_whitelist_payment_method');
 						$payment_method = get_post_meta( $order_id, '_payment_method', true );
 							
-						$whitelist_payment_method = explode( ",", $whitelist_payment_method );
+						$whitelist_payment_method = explode( ',', $whitelist_payment_method );
 
-						if( !in_array( $payment_method, $whitelist_payment_method ) ) {
+						if ( !in_array( $payment_method, $whitelist_payment_method ) ) {
 							// Check for automated action rules
 							if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
 								
 								$new_status = 'cancelled';
-								$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress',false);
-								if($existing_blacklist_ip != '') {
-								$auto_blacklist_ip = explode( ",", $existing_blacklist_ip );
+								$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress', false);
+								if ($existing_blacklist_ip != '') {
+									$auto_blacklist_ip = explode( ',', $existing_blacklist_ip );
 								
-									if(!in_array( $ip_address, $auto_blacklist_ip )){
-										$existing_blacklist_ip .= ','.$ip_address;
-										update_option('wc_settings_anti_fraudblacklist_ipaddress',$existing_blacklist_ip);
+									if (!in_array( $ip_address, $auto_blacklist_ip )) {
+										$existing_blacklist_ip .= ',' . $ip_address;
+										update_option('wc_settings_anti_fraudblacklist_ipaddress', $existing_blacklist_ip);
 									}
-								}else {
-									update_option('wc_settings_anti_fraudblacklist_ipaddress',$ip_address);
+								} else {
+									update_option('wc_settings_anti_fraudblacklist_ipaddress', $ip_address);
 								}
 								$is_whitelisted = false;
 							} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
@@ -293,16 +297,16 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 					if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
 								
 						$new_status = 'cancelled';
-						$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress',false);
-						if($existing_blacklist_ip != '') {
-						$auto_blacklist_ip = explode( ",", $existing_blacklist_ip );
+						$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress', false);
+						if ($existing_blacklist_ip != '') {
+							$auto_blacklist_ip = explode( ',', $existing_blacklist_ip );
 						
-							if(!in_array( $ip_address, $auto_blacklist_ip )){
-								$existing_blacklist_ip .= ','.$ip_address;
-								update_option('wc_settings_anti_fraudblacklist_ipaddress',$existing_blacklist_ip);
+							if (!in_array( $ip_address, $auto_blacklist_ip )) {
+								$existing_blacklist_ip .= ',' . $ip_address;
+								update_option('wc_settings_anti_fraudblacklist_ipaddress', $existing_blacklist_ip);
 							}
-						}else {
-							update_option('wc_settings_anti_fraudblacklist_ipaddress',$ip_address);
+						} else {
+							update_option('wc_settings_anti_fraudblacklist_ipaddress', $ip_address);
 						}
 						$is_whitelisted = false;
 					} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
@@ -316,14 +320,14 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				
 				$new_score_points = self::invert_score( $score_points );
 				
-				if('yes' == $enable_auto_blacklist && $new_score_points > get_option('wc_settings_anti_fraud_higher_risk_threshold')){
-					$existing_blacklist_emails = get_option('wc_settings_anti_fraudblacklist_emails',false);
-					$auto_blacklist_emails = explode( ",", $existing_blacklist_emails );
+				if ('yes' == $enable_auto_blacklist && $new_score_points > get_option('wc_settings_anti_fraud_higher_risk_threshold')) {
+					$existing_blacklist_emails = get_option('wc_settings_anti_fraudblacklist_emails', false);
+					$auto_blacklist_emails = explode( ',', $existing_blacklist_emails );
 					
-					if(!in_array( $orderemail, $auto_blacklist_emails )){
-						$existing_blacklist_emails .= ','.$orderemail;
+					if (!in_array( $orderemail, $auto_blacklist_emails )) {
+						$existing_blacklist_emails .= ',' . $orderemail;
 						
-						update_option('wc_settings_anti_fraudblacklist_emails',$existing_blacklist_emails);
+						update_option('wc_settings_anti_fraudblacklist_emails', $existing_blacklist_emails);
 					}
 				}
 			}
@@ -361,15 +365,15 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			$score_points = self::invert_score( $score_points );
 			$email_nofication_status = get_option('wc_af_email_notification');
 			
-			if( ( $email_nofication_status == 'yes' ) && ( $score_points > $email_score ) ) {
+			if ( ( $email_nofication_status == 'yes' ) && ( $score_points > $email_score ) ) {
 
 				// This is unfortunately needed in the current WooCommerce email setup
 				if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
 					include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-				} else if(version_compare( WC_VERSION, '2.2.11', '>=' ) && (version_compare( WC_VERSION, '4.0.1', '<=' ))) {
+				} else if (version_compare( WC_VERSION, '2.2.11', '>=' ) && ( version_compare( WC_VERSION, '4.0.1', '<=' ) )) {
 					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 					include_once( WC()->plugin_path() . '/includes/libraries/class-emogrifier.php' );
-				}else {
+				} else {
 					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 				}
 
@@ -386,10 +390,10 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				// This is unfortunately needed in the current WooCommerce email setup
 				if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
 					include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-				} else if(version_compare( WC_VERSION, '2.2.11', '>=' ) && (version_compare( WC_VERSION, '4.0.1', '<=' ))) {
+				} else if (version_compare( WC_VERSION, '2.2.11', '>=' ) && ( version_compare( WC_VERSION, '4.0.1', '<=' ) )) {
 					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 					include_once( WC()->plugin_path() . '/includes/libraries/class-emogrifier.php' );
-				}else {
+				} else {
 					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 				}
 
@@ -421,15 +425,15 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 		/**
 		  *Function to send email if payment is done via papal		
 		*/
-		function paypal_email_verification($order,$score_points ) {
+		function paypal_email_verification( $order, $score_points ) {
 			
 			// This is unfortunately needed in the current WooCommerce email setup
 			if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
 				include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-			} else if(version_compare( WC_VERSION, '2.2.11', '>=' ) && (version_compare( WC_VERSION, '4.0.1', '<=' ))) {
+			} else if (version_compare( WC_VERSION, '2.2.11', '>=' ) && ( version_compare( WC_VERSION, '4.0.1', '<=' ) )) {
 				include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 				include_once( WC()->plugin_path() . '/includes/libraries/class-emogrifier.php' );
-			}else {
+			} else {
 				include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 			}
 
@@ -438,7 +442,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 			$payment_method = get_post_meta( $order_id, '_payment_method', true );
 
-			if( $payment_method == 'ppec_paypal' ) {
+			if ( $payment_method == 'ppec_paypal' ) {
 
 				$orderemail = get_post_meta( $order_id, '_paypal_express_payer_email', true );
 			
@@ -448,33 +452,32 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 			}
 
-			if(get_option('wc_settings_anti_fraud_paypal_verified_address') && null != get_option('wc_settings_anti_fraud_paypal_verified_address')){
+			if (get_option('wc_settings_anti_fraud_paypal_verified_address') && null != get_option('wc_settings_anti_fraud_paypal_verified_address')) {
 
 				$paypal_verified_emails = get_option('wc_settings_anti_fraud_paypal_verified_address');
 
-				$verified_paypal = explode( ",", $paypal_verified_emails );
+				$verified_paypal = explode( ',', $paypal_verified_emails );
 				
-				if( !in_array( $orderemail,$verified_paypal ) ) {
+				if ( !in_array( $orderemail, $verified_paypal ) ) {
 					// Setup admin email
 					$email = new WC_AF_Paypal_Email( $order, $score_points );
 
 					// Send admin email
 					$email_status = $email->send_notification();
 					
-					if($email_status){
-						update_post_meta($order,'wc_af_paypal_email_status',true);
+					if ($email_status) {
+						update_post_meta($order, 'wc_af_paypal_email_status', true);
 					}
 				}	
-			}
-			else{
+			} else {
 				// Setup admin email
 				$email = new WC_AF_Paypal_Email( $order, $score_points );
 
 				// Send admin email
 				$email_status = $email->send_notification();
 				
-				if($email_status){
-					update_post_meta($order,'wc_af_paypal_email_status',true);
+				if ($email_status) {
+					update_post_meta($order, 'wc_af_paypal_email_status', true);
 				}
 			}
 		}

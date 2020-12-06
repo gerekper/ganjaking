@@ -2,7 +2,7 @@
 /**
  * @package   Revolution Slider
  * @author    ThemePunch <info@themepunch.com>
- * @link      https://revolution.themepunch.com/
+ * @link      https://www.sliderrevolution.com/
  * @copyright 2019 ThemePunch
  */
  

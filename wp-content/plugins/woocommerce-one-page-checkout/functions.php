@@ -223,3 +223,21 @@ function wcopc_get_visible_children( $product ) {
 
 	return is_callable( array( $product, 'get_visible_children', ) ) ? $product->get_visible_children() : $product->get_children( true );
 }
+
+/**
+ * Determines if customer registration is enabled on checkout.
+ *
+ * A WC pre 3.0 compatibility wrapper for @see WC_Checkout::is_registration_enabled().
+ *
+ * @since 1.7.10
+ * @return bool Whether registration is enabled on the checkout page.
+ */
+function wcopc_is_checkout_registration_enabled() {
+
+	if ( is_callable( array( WC()->checkout(), 'is_registration_enabled' ) ) ) {
+		return WC()->checkout()->is_registration_enabled();
+	} else {
+		// WC pre 3.0 compat.
+		return 'yes' === get_option( 'woocommerce_enable_signup_and_login_from_checkout' );
+	}
+}

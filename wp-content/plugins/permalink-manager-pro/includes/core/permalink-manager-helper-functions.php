@@ -179,7 +179,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 	static function get_disabled_post_types($include_user_excluded = true) {
 		global $wp_post_types, $permalink_manager_options;
 
-		$disabled_post_types = array('revision', 'algolia_task', 'fl_builder', 'fl-builder', 'fl-builder-template', 'fl-theme-layout', 'wc_product_tab', 'wc_voucher', 'wc_voucher_template', 'sliders', 'thirstylink', 'elementor_library', 'cms_block');
+		$disabled_post_types = array('revision', 'algolia_task', 'fl_builder', 'fl-builder', 'fl-builder-template', 'fl-theme-layout', 'fusion_tb_layout', 'fusion_tb_section', 'fusion_template', 'fusion_element', 'wc_product_tab', 'wc_voucher', 'wc_voucher_template', 'sliders', 'thirstylink', 'elementor_library', 'cms_block');
 
 		// 1. Disable post types that are not publicly_queryable
 		foreach($wp_post_types as $post_type) {
@@ -478,7 +478,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 
 		// Remove special characters
 		if($sanitize_slugs !== false) {
-			$clean = preg_replace("/[\s_|+-]+/", "-", $clean);
+			$clean = preg_replace("/[\s|+-]+/", "-", $clean);
 			$clean = preg_replace("/[,]+/", "", $clean);
 			$clean = preg_replace('/([\.]+)(?![a-z]{3,4}$)/i', '', $clean);
 			$clean = preg_replace('/([-\s+]\/[-\s+])/', '-', $clean);

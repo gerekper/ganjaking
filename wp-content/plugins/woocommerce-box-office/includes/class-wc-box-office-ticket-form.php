@@ -80,13 +80,12 @@ class WC_Box_Office_Ticket_Form {
 	}
 
 	public function render( $args = array() ) {
-		$editable = is_ticket_editable( $this->product );
-
 		$args = wp_parse_args(
 			$args,
 			array(
 				'field_name_prefix' => $this->field_name_prefix,
 				'multiple_tickets'  => false,
+				'editable'          => true,
 			)
 		);
 
@@ -109,7 +108,7 @@ class WC_Box_Office_Ticket_Form {
 				$field['value'] = $customer[ $field['autofill'] ];
 			}
 
-			$field['disabled'] = ! $editable;
+			$field['disabled'] = ! $args['editable'];
 
 			switch ( $field['type'] ) {
 				case 'text':
@@ -310,10 +309,6 @@ class WC_Box_Office_Ticket_Form {
 		// No need to do anything if no fields or no data.
 		if ( empty( $this->fields ) || empty( $posted_data['ticket_fields'] ) ) {
 			return;
-		}
-
-		if ( ! is_ticket_editable( $this->product ) ) {
-			throw new Exception( __( 'Ticket is not editable.', 'woocommerce-box-office' ) );
 		}
 
 		foreach ( $posted_data['ticket_fields'] as $key => $val ) {

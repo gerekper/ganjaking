@@ -100,7 +100,7 @@ class WC_Box_Office {
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	private function __construct( $file = '', $version ) {
+	private function __construct( $file, $version ) {
 		$this->_version      = $version;
 		$this->_token        = 'woocommerce_box_office';
 		$this->file          = $file;

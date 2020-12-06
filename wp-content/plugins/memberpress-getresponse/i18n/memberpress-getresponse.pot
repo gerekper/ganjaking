@@ -1,0 +1,106 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress GetResponse plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress GetResponse 1.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-getresponse\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-04-22T15:28:45-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-getresponse\n"
+
+#. Plugin Name of the plugin
+#: main.php:35
+msgid "MemberPress GetResponse"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "GetResponse Autoresponder integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: main.php:36
+msgid "GetResponse Autoresponder Integration for MemberPress."
+msgstr ""
+
+#: MpGetResponse.php:59
+msgid "Enable GetResponse"
+msgstr ""
+
+#: MpGetResponse.php:66
+msgid "GetResponse API Key:"
+msgstr ""
+
+#: MpGetResponse.php:73
+msgid "You can find your API key under your Account settings at GetResponse.com."
+msgstr ""
+
+#: MpGetResponse.php:81
+msgid "GetResponse List:"
+msgstr ""
+
+#: MpGetResponse.php:89
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: MpGetResponse.php:93
+msgid "If checked, an opt-in checkbox will appear on all of your membership registration pages."
+msgstr ""
+
+#: MpGetResponse.php:98
+msgid "Signup Checkbox Label:"
+msgstr ""
+
+#: MpGetResponse.php:101
+msgid "This is the text that will display on the signup page next to your mailing list opt-in checkbox."
+msgstr ""
+
+#: MpGetResponse.php:151
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: MpGetResponse.php:211
+msgid "GetResponse list for this Membership"
+msgstr ""
+
+#: MpGetResponse.php:214
+msgid "Enable Membership GetResponse List"
+msgstr ""
+
+#: MpGetResponse.php:215
+msgid "If this is set the member will be added to this list when their payment is completed for this membership. If the member cancels or you refund their subscription, they will be removed from the list automatically. You must have your GetResponse API key set in the Options before this will work."
+msgstr ""
+
+#: MpGetResponse.php:219
+msgid "GetResponse List: "
+msgstr ""
+
+#: MpGetResponse.php:245
+#: MpGetResponse.php:263
+msgid "Hey yo, why you creepin'?"
+msgstr ""
+
+#: MpGetResponse.php:250
+#: MpGetResponse.php:268
+msgid "No apikey code was sent"
+msgstr ""
+
+#: MpGetResponse.php:369
+msgid "Sign Up for the %s Newsletter"
+msgstr ""

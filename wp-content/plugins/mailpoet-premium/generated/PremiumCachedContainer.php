@@ -12,51 +12,21 @@ use MailPoetVendor\Symfony\Component\DependencyInjection\Exception\InvalidArgume
 use MailPoetVendor\Symfony\Component\DependencyInjection\Exception\LogicException;
 use MailPoetVendor\Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use MailPoetVendor\Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
+use MailPoetVendor\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 /**
  * This class has been auto-generated
  * by the Symfony Dependency Injection Component.
  *
- * @final since Symfony 3.3
+ * @final
  */
 class PremiumCachedContainer extends Container
 {
     private $parameters = [];
-    private $targetDirs = [];
 
     public function __construct()
     {
-        $this->parameters = $this->getDefaultParameters();
-
-        $this->services = [];
-        $this->normalizedIds = [
-            'mailpoet\\config\\accesscontrol' => 'MailPoet\\Config\\AccessControl',
-            'mailpoet\\config\\renderer' => 'MailPoet\\Config\\Renderer',
-            'mailpoet\\cron\\workers\\statsnotifications\\newsletterlinkrepository' => 'MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository',
-            'mailpoet\\features\\featurescontroller' => 'MailPoet\\Features\\FeaturesController',
-            'mailpoet\\listing\\handler' => 'MailPoet\\Listing\\Handler',
-            'mailpoet\\listing\\pagelimit' => 'MailPoet\\Listing\\PageLimit',
-            'mailpoet\\newsletter\\newslettersrepository' => 'MailPoet\\Newsletter\\NewslettersRepository',
-            'mailpoet\\newsletter\\statistics\\newsletterstatisticsrepository' => 'MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository',
-            'mailpoet\\premium\\api\\json\\v1\\responsebuilders\\statsresponsebuilder' => 'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder',
-            'mailpoet\\premium\\api\\json\\v1\\responsebuilders\\subscriberdetailedstatsresponsebuilder' => 'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder',
-            'mailpoet\\premium\\api\\json\\v1\\stats' => 'MailPoet\\Premium\\API\\JSON\\v1\\Stats',
-            'mailpoet\\premium\\api\\json\\v1\\subscriberdetailedstats' => 'MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats',
-            'mailpoet\\premium\\config\\hooks' => 'MailPoet\\Premium\\Config\\Hooks',
-            'mailpoet\\premium\\config\\initializer' => 'MailPoet\\Premium\\Config\\Initializer',
-            'mailpoet\\premium\\config\\renderer' => 'MailPoet\\Premium\\Config\\Renderer',
-            'mailpoet\\premium\\newsletter\\statisticsclicksrepository' => 'MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository',
-            'mailpoet\\premium\\newsletter\\statisticsopensrepository' => 'MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository',
-            'mailpoet\\premium\\newsletter\\statisticsunsubscribesrepository' => 'MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository',
-            'mailpoet\\premium\\newsletter\\stats\\purchasedproducts' => 'MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts',
-            'mailpoet\\premium\\newsletter\\stats\\subscriberengagement' => 'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement',
-            'mailpoet\\premium\\subscriber\\stats\\subscribernewsletterstatsrepository' => 'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository',
-            'mailpoet\\statistics\\statisticswoocommercepurchasesrepository' => 'MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository',
-            'mailpoet\\util\\cdnasseturl' => 'MailPoet\\Util\\CdnAssetUrl',
-            'mailpoet\\woocommerce\\helper' => 'MailPoet\\WooCommerce\\Helper',
-            'mailpoet\\wp\\functions' => 'MailPoet\\WP\\Functions',
-            'mailpoetvendor\\doctrine\\orm\\entitymanager' => 'MailPoetVendor\\Doctrine\\ORM\\EntityManager',
-        ];
+        $this->services = $this->privates = [];
         $this->syntheticIds = [
             'free_container' => true,
         ];
@@ -71,36 +41,32 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Newsletter\\NewslettersRepository' => 'getNewslettersRepositoryService',
             'MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository' => 'getNewsletterStatisticsRepositoryService',
             'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder' => 'getStatsResponseBuilderService',
-            'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder' => 'getSubscriberDetailedStatsResponseBuilderService',
             'MailPoet\\Premium\\API\\JSON\\v1\\Stats' => 'getStatsService',
             'MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats' => 'getSubscriberDetailedStatsService',
-            'MailPoet\\Premium\\Config\\Hooks' => 'getHooksService',
             'MailPoet\\Premium\\Config\\Initializer' => 'getInitializerService',
             'MailPoet\\Premium\\Config\\Renderer' => 'getRenderer2Service',
             'MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository' => 'getStatisticsClicksRepositoryService',
-            'MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository' => 'getStatisticsOpensRepositoryService',
-            'MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository' => 'getStatisticsUnsubscribesRepositoryService',
-            'MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts' => 'getPurchasedProductsService',
             'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement' => 'getSubscriberEngagementService',
-            'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository' => 'getSubscriberNewsletterStatsRepositoryService',
             'MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository' => 'getStatisticsWooCommercePurchasesRepositoryService',
             'MailPoet\\Util\\CdnAssetUrl' => 'getCdnAssetUrlService',
             'MailPoet\\WP\\Functions' => 'getFunctionsService',
             'MailPoet\\WooCommerce\\Helper' => 'getHelperService',
         ];
-        $this->privates = [
-            'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder' => true,
-            'MailPoet\\Premium\\Config\\Hooks' => true,
-            'MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository' => true,
-            'MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository' => true,
-            'MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts' => true,
-            'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository' => true,
-        ];
 
         $this->aliases = [];
     }
 
-    public function getRemovedIds()
+    public function compile(): void
+    {
+        throw new LogicException('You cannot compile a dumped container that was already compiled.');
+    }
+
+    public function isCompiled(): bool
+    {
+        return true;
+    }
+
+    public function getRemovedIds(): array
     {
         return [
             'MailPoetVendor\\Psr\\Container\\ContainerInterface' => true,
@@ -114,23 +80,6 @@ class PremiumCachedContainer extends Container
         ];
     }
 
-    public function compile()
-    {
-        throw new LogicException('You cannot compile a dumped container that was already compiled.');
-    }
-
-    public function isCompiled()
-    {
-        return true;
-    }
-
-    public function isFrozen()
-    {
-        @trigger_error(sprintf('The %s() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the isCompiled() method instead.', __METHOD__), E_USER_DEPRECATED);
-
-        return true;
-    }
-
     /**
      * Gets the public 'MailPoetVendor\Doctrine\ORM\EntityManager' shared service.
      *
@@ -138,7 +87,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getEntityManagerService()
     {
-        return $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoetVendor\\Doctrine\\ORM\\EntityManager');
+        return $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoetVendor\\Doctrine\\ORM\\EntityManager');
     }
 
     /**
@@ -148,7 +97,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getAccessControlService()
     {
-        return $this->services['MailPoet\\Config\\AccessControl'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\Config\\AccessControl');
+        return $this->services['MailPoet\\Config\\AccessControl'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Config\\AccessControl');
     }
 
     /**
@@ -158,7 +107,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getRendererService()
     {
-        return $this->services['MailPoet\\Config\\Renderer'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\Config\\Renderer');
+        return $this->services['MailPoet\\Config\\Renderer'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Config\\Renderer');
     }
 
     /**
@@ -168,7 +117,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getNewsletterLinkRepositoryService()
     {
-        return $this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository');
+        return $this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository');
     }
 
     /**
@@ -178,7 +127,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getFeaturesControllerService()
     {
-        return $this->services['MailPoet\\Features\\FeaturesController'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\Features\\FeaturesController');
+        return $this->services['MailPoet\\Features\\FeaturesController'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Features\\FeaturesController');
     }
 
     /**
@@ -188,7 +137,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getHandlerService()
     {
-        return $this->services['MailPoet\\Listing\\Handler'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\Listing\\Handler');
+        return $this->services['MailPoet\\Listing\\Handler'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Listing\\Handler');
     }
 
     /**
@@ -198,7 +147,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getPageLimitService()
     {
-        return $this->services['MailPoet\\Listing\\PageLimit'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\Listing\\PageLimit');
+        return $this->services['MailPoet\\Listing\\PageLimit'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Listing\\PageLimit');
     }
 
     /**
@@ -208,7 +157,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getNewslettersRepositoryService()
     {
-        return $this->services['MailPoet\\Newsletter\\NewslettersRepository'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\Newsletter\\NewslettersRepository');
+        return $this->services['MailPoet\\Newsletter\\NewslettersRepository'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Newsletter\\NewslettersRepository');
     }
 
     /**
@@ -218,7 +167,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getNewsletterStatisticsRepositoryService()
     {
-        return $this->services['MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository');
+        return $this->services['MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository');
     }
 
     /**
@@ -238,7 +187,9 @@ class PremiumCachedContainer extends Container
      */
     protected function getStatsService()
     {
-        return $this->services['MailPoet\\Premium\\API\\JSON\\v1\\Stats'] = new \MailPoet\Premium\API\JSON\v1\Stats(${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts']) ? $this->services['MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts'] : $this->getPurchasedProductsService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Newsletter\\NewslettersRepository']) ? $this->services['MailPoet\\Newsletter\\NewslettersRepository'] : $this->getNewslettersRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder']) ? $this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder'] : ($this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder'] = new \MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder())) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository']) ? $this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] : $this->getStatisticsClicksRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement']) ? $this->services['MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement'] : $this->getSubscriberEngagementService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository']) ? $this->services['MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository'] : $this->getNewsletterStatisticsRepositoryService()) && false ?: '_'});
+        $a = ($this->services['MailPoet\\Newsletter\\NewslettersRepository'] ?? $this->getNewslettersRepositoryService());
+
+        return $this->services['MailPoet\\Premium\\API\\JSON\\v1\\Stats'] = new \MailPoet\Premium\API\JSON\v1\Stats(new \MailPoet\Premium\Newsletter\Stats\PurchasedProducts(($this->services['MailPoet\\WooCommerce\\Helper'] ?? $this->getHelperService()), ($this->services['MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository'] ?? $this->getStatisticsWooCommercePurchasesRepositoryService()), $a, ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService())), $a, ($this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder'] ?? ($this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder'] = new \MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder())), ($this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] ?? $this->getStatisticsClicksRepositoryService()), ($this->services['MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement'] ?? $this->getSubscriberEngagementService()), ($this->services['MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository'] ?? $this->getNewsletterStatisticsRepositoryService()));
     }
 
     /**
@@ -248,7 +199,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getSubscriberDetailedStatsService()
     {
-        return $this->services['MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats'] = new \MailPoet\Premium\API\JSON\v1\SubscriberDetailedStats(${($_ = isset($this->services['MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository']) ? $this->services['MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository'] : $this->getSubscriberNewsletterStatsRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder']) ? $this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder'] : $this->getSubscriberDetailedStatsResponseBuilderService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Listing\\Handler']) ? $this->services['MailPoet\\Listing\\Handler'] : $this->getHandlerService()) && false ?: '_'});
+        return $this->services['MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats'] = new \MailPoet\Premium\API\JSON\v1\SubscriberDetailedStats(new \MailPoet\Premium\Subscriber\Stats\SubscriberNewsletterStatsRepository(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService())), new \MailPoet\Premium\API\JSON\v1\ResponseBuilders\SubscriberDetailedStatsResponseBuilder(($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()), ($this->services['MailPoet\\WooCommerce\\Helper'] ?? $this->getHelperService())), ($this->services['MailPoet\\Listing\\Handler'] ?? $this->getHandlerService()));
     }
 
     /**
@@ -258,7 +209,9 @@ class PremiumCachedContainer extends Container
      */
     protected function getInitializerService()
     {
-        return $this->services['MailPoet\\Premium\\Config\\Initializer'] = new \MailPoet\Premium\Config\Initializer(${($_ = isset($this->services['MailPoet\\WP\\Functions']) ? $this->services['MailPoet\\WP\\Functions'] : $this->getFunctionsService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Config\\Hooks']) ? $this->services['MailPoet\\Premium\\Config\\Hooks'] : $this->getHooksService()) && false ?: '_'});
+        $a = ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService());
+
+        return $this->services['MailPoet\\Premium\\Config\\Initializer'] = new \MailPoet\Premium\Config\Initializer($a, new \MailPoet\Premium\Config\Hooks($a));
     }
 
     /**
@@ -278,7 +231,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getStatisticsClicksRepositoryService()
     {
-        return $this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] = new \MailPoet\Premium\Newsletter\StatisticsClicksRepository(${($_ = isset($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager']) ? $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] : $this->getEntityManagerService()) && false ?: '_'});
+        return $this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] = new \MailPoet\Premium\Newsletter\StatisticsClicksRepository(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()));
     }
 
     /**
@@ -288,7 +241,9 @@ class PremiumCachedContainer extends Container
      */
     protected function getSubscriberEngagementService()
     {
-        return $this->services['MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement'] = new \MailPoet\Premium\Newsletter\Stats\SubscriberEngagement(${($_ = isset($this->services['MailPoet\\Listing\\Handler']) ? $this->services['MailPoet\\Listing\\Handler'] : $this->getHandlerService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager']) ? $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] : $this->getEntityManagerService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository']) ? $this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] : $this->getStatisticsClicksRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository']) ? $this->services['MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository'] : $this->getStatisticsOpensRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository']) ? $this->services['MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository'] : $this->getStatisticsUnsubscribesRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository']) ? $this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository'] : $this->getNewsletterLinkRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Newsletter\\NewslettersRepository']) ? $this->services['MailPoet\\Newsletter\\NewslettersRepository'] : $this->getNewslettersRepositoryService()) && false ?: '_'});
+        $a = ($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService());
+
+        return $this->services['MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement'] = new \MailPoet\Premium\Newsletter\Stats\SubscriberEngagement(($this->services['MailPoet\\Listing\\Handler'] ?? $this->getHandlerService()), $a, ($this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] ?? $this->getStatisticsClicksRepositoryService()), new \MailPoet\Premium\Newsletter\StatisticsOpensRepository($a), new \MailPoet\Premium\Newsletter\StatisticsUnsubscribesRepository($a), ($this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository'] ?? $this->getNewsletterLinkRepositoryService()), ($this->services['MailPoet\\Newsletter\\NewslettersRepository'] ?? $this->getNewslettersRepositoryService()));
     }
 
     /**
@@ -298,7 +253,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getStatisticsWooCommercePurchasesRepositoryService()
     {
-        return $this->services['MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository');
+        return $this->services['MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository');
     }
 
     /**
@@ -308,7 +263,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getCdnAssetUrlService()
     {
-        return $this->services['MailPoet\\Util\\CdnAssetUrl'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\Util\\CdnAssetUrl');
+        return $this->services['MailPoet\\Util\\CdnAssetUrl'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Util\\CdnAssetUrl');
     }
 
     /**
@@ -318,7 +273,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getFunctionsService()
     {
-        return $this->services['MailPoet\\WP\\Functions'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\WP\\Functions');
+        return $this->services['MailPoet\\WP\\Functions'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\WP\\Functions');
     }
 
     /**
@@ -328,154 +283,6 @@ class PremiumCachedContainer extends Container
      */
     protected function getHelperService()
     {
-        return $this->services['MailPoet\\WooCommerce\\Helper'] = ${($_ = isset($this->services['free_container']) ? $this->services['free_container'] : $this->get('free_container', 1)) && false ?: '_'}->get('MailPoet\\WooCommerce\\Helper');
-    }
-
-    /**
-     * Gets the private 'MailPoet\Premium\API\JSON\v1\ResponseBuilders\SubscriberDetailedStatsResponseBuilder' shared autowired service.
-     *
-     * @return \MailPoet\Premium\API\JSON\v1\ResponseBuilders\SubscriberDetailedStatsResponseBuilder
-     */
-    protected function getSubscriberDetailedStatsResponseBuilderService()
-    {
-        return $this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder'] = new \MailPoet\Premium\API\JSON\v1\ResponseBuilders\SubscriberDetailedStatsResponseBuilder(${($_ = isset($this->services['MailPoet\\WP\\Functions']) ? $this->services['MailPoet\\WP\\Functions'] : $this->getFunctionsService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\WooCommerce\\Helper']) ? $this->services['MailPoet\\WooCommerce\\Helper'] : $this->getHelperService()) && false ?: '_'});
-    }
-
-    /**
-     * Gets the private 'MailPoet\Premium\Config\Hooks' shared autowired service.
-     *
-     * @return \MailPoet\Premium\Config\Hooks
-     */
-    protected function getHooksService()
-    {
-        return $this->services['MailPoet\\Premium\\Config\\Hooks'] = new \MailPoet\Premium\Config\Hooks(${($_ = isset($this->services['MailPoet\\WP\\Functions']) ? $this->services['MailPoet\\WP\\Functions'] : $this->getFunctionsService()) && false ?: '_'});
-    }
-
-    /**
-     * Gets the private 'MailPoet\Premium\Newsletter\StatisticsOpensRepository' shared autowired service.
-     *
-     * @return \MailPoet\Premium\Newsletter\StatisticsOpensRepository
-     */
-    protected function getStatisticsOpensRepositoryService()
-    {
-        return $this->services['MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository'] = new \MailPoet\Premium\Newsletter\StatisticsOpensRepository(${($_ = isset($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager']) ? $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] : $this->getEntityManagerService()) && false ?: '_'});
-    }
-
-    /**
-     * Gets the private 'MailPoet\Premium\Newsletter\StatisticsUnsubscribesRepository' shared autowired service.
-     *
-     * @return \MailPoet\Premium\Newsletter\StatisticsUnsubscribesRepository
-     */
-    protected function getStatisticsUnsubscribesRepositoryService()
-    {
-        return $this->services['MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository'] = new \MailPoet\Premium\Newsletter\StatisticsUnsubscribesRepository(${($_ = isset($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager']) ? $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] : $this->getEntityManagerService()) && false ?: '_'});
-    }
-
-    /**
-     * Gets the private 'MailPoet\Premium\Newsletter\Stats\PurchasedProducts' shared autowired service.
-     *
-     * @return \MailPoet\Premium\Newsletter\Stats\PurchasedProducts
-     */
-    protected function getPurchasedProductsService()
-    {
-        return $this->services['MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts'] = new \MailPoet\Premium\Newsletter\Stats\PurchasedProducts(${($_ = isset($this->services['MailPoet\\WooCommerce\\Helper']) ? $this->services['MailPoet\\WooCommerce\\Helper'] : $this->getHelperService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository']) ? $this->services['MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository'] : $this->getStatisticsWooCommercePurchasesRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Newsletter\\NewslettersRepository']) ? $this->services['MailPoet\\Newsletter\\NewslettersRepository'] : $this->getNewslettersRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\WP\\Functions']) ? $this->services['MailPoet\\WP\\Functions'] : $this->getFunctionsService()) && false ?: '_'});
-    }
-
-    /**
-     * Gets the private 'MailPoet\Premium\Subscriber\Stats\SubscriberNewsletterStatsRepository' shared autowired service.
-     *
-     * @return \MailPoet\Premium\Subscriber\Stats\SubscriberNewsletterStatsRepository
-     */
-    protected function getSubscriberNewsletterStatsRepositoryService()
-    {
-        return $this->services['MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository'] = new \MailPoet\Premium\Subscriber\Stats\SubscriberNewsletterStatsRepository(${($_ = isset($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager']) ? $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] : $this->getEntityManagerService()) && false ?: '_'});
-    }
-
-    public function getParameter($name)
-    {
-        $name = (string) $name;
-        if (!(isset($this->parameters[$name]) || isset($this->loadedDynamicParameters[$name]) || array_key_exists($name, $this->parameters))) {
-            $name = $this->normalizeParameterName($name);
-
-            if (!(isset($this->parameters[$name]) || isset($this->loadedDynamicParameters[$name]) || array_key_exists($name, $this->parameters))) {
-                throw new InvalidArgumentException(sprintf('The parameter "%s" must be defined.', $name));
-            }
-        }
-        if (isset($this->loadedDynamicParameters[$name])) {
-            return $this->loadedDynamicParameters[$name] ? $this->dynamicParameters[$name] : $this->getDynamicParameter($name);
-        }
-
-        return $this->parameters[$name];
-    }
-
-    public function hasParameter($name)
-    {
-        $name = (string) $name;
-        $name = $this->normalizeParameterName($name);
-
-        return isset($this->parameters[$name]) || isset($this->loadedDynamicParameters[$name]) || array_key_exists($name, $this->parameters);
-    }
-
-    public function setParameter($name, $value)
-    {
-        throw new LogicException('Impossible to call set() on a frozen ParameterBag.');
-    }
-
-    public function getParameterBag()
-    {
-        if (null === $this->parameterBag) {
-            $parameters = $this->parameters;
-            foreach ($this->loadedDynamicParameters as $name => $loaded) {
-                $parameters[$name] = $loaded ? $this->dynamicParameters[$name] : $this->getDynamicParameter($name);
-            }
-            $this->parameterBag = new FrozenParameterBag($parameters);
-        }
-
-        return $this->parameterBag;
-    }
-
-    private $loadedDynamicParameters = [];
-    private $dynamicParameters = [];
-
-    /**
-     * Computes a dynamic parameter.
-     *
-     * @param string $name The name of the dynamic parameter to load
-     *
-     * @return mixed The value of the dynamic parameter
-     *
-     * @throws InvalidArgumentException When the dynamic parameter does not exist
-     */
-    private function getDynamicParameter($name)
-    {
-        throw new InvalidArgumentException(sprintf('The dynamic parameter "%s" must be defined.', $name));
-    }
-
-    private $normalizedParameterNames = [];
-
-    private function normalizeParameterName($name)
-    {
-        if (isset($this->normalizedParameterNames[$normalizedName = strtolower($name)]) || isset($this->parameters[$normalizedName]) || array_key_exists($normalizedName, $this->parameters)) {
-            $normalizedName = isset($this->normalizedParameterNames[$normalizedName]) ? $this->normalizedParameterNames[$normalizedName] : $normalizedName;
-            if ((string) $name !== $normalizedName) {
-                @trigger_error(sprintf('Parameter names will be made case sensitive in Symfony 4.0. Using "%s" instead of "%s" is deprecated since Symfony 3.4.', $name, $normalizedName), E_USER_DEPRECATED);
-            }
-        } else {
-            $normalizedName = $this->normalizedParameterNames[$normalizedName] = (string) $name;
-        }
-
-        return $normalizedName;
-    }
-
-    /**
-     * Gets the default parameters.
-     *
-     * @return array An array of the default parameters
-     */
-    protected function getDefaultParameters()
-    {
-        return [
-            'container.autowiring.strict_mode' => true,
-        ];
+        return $this->services['MailPoet\\WooCommerce\\Helper'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\WooCommerce\\Helper');
     }
 }

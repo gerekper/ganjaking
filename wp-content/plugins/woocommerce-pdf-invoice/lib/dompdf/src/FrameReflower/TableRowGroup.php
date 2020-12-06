@@ -20,7 +20,7 @@ class TableRowGroup extends AbstractFrameReflower
 
     /**
      * TableRowGroup constructor.
-     * @param \WooCommercePDFInvoice\Frame $frame
+     * @param \Dompdf\Frame $frame
      */
     function __construct($frame)
     {

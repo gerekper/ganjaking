@@ -964,11 +964,7 @@ class WooCommerce_Product_Search_Filter {
 			do_action( "woocommerce_after_{$loop_name}_loop", $atts );
 		}
 
-		if ( function_exists( 'wc_reset_loop' ) ) {
-			wc_reset_loop();
-		} else {
-			woocommerce_reset_loop();
-		}
+		wc_reset_loop();
 		wp_reset_postdata();
 
 		$output = apply_filters( 'woocommerce_product_search_filter_product_loop_prefix', sprintf( '<div class="woocommerce columns-%d">', $columns ) );

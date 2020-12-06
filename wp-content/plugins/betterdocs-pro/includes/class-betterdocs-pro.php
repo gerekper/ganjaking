@@ -27,7 +27,8 @@
  * @subpackage Betterdocs_Pro/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
-class Betterdocs_Pro {
+class Betterdocs_Pro
+{
 
 	public $multiple_kb = '';
 
@@ -68,8 +69,9 @@ class Betterdocs_Pro {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct() {
-		if ( defined( 'BETTERDOCS_PRO_VERSION' ) ) {
+	public function __construct()
+	{
+		if (defined('BETTERDOCS_PRO_VERSION')) {
 			$this->version = BETTERDOCS_PRO_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -82,7 +84,6 @@ class Betterdocs_Pro {
 		$this->define_public_hooks();
 
 		$this->multiple_kb = $this->get_multiple_kb();
-
 	}
 
 	/**
@@ -101,57 +102,61 @@ class Betterdocs_Pro {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function load_dependencies() {
+	private function load_dependencies()
+	{
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-betterdocs-pro-loader.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-betterdocs-pro-loader.php';
 		/**
 		 * Extend post type Class
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-multiple-kb.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-multiple-kb.php';
+		/**
+		 * Extend post type Class
+		 */
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-elementor-extender.php';
 		/**
 		 * Role Management Class
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/includes/class-betterdocs-role-management.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-role-management.php';
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-betterdocs-pro-i18n.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-betterdocs-pro-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-betterdocs-pro-admin.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/includes/class-betterdocs-pro-settings.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/includes/class-betterdocs-analytics.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-betterdocs-pro-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-pro-settings.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-analytics.php';
 		/**
 		 * The class responsible for defining all IA actions that occur in the settings area
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/includes/class-betterdocs-pro-instant-answer.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-pro-instant-answer.php';
 
 		/**
 		 * The functions responsible for betterdocs pro shortcodes
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/betterdocs-shortcodes.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/betterdocs-shortcodes.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-betterdocs-pro-public.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-betterdocs-pro-public.php';
 
 		/**
 		 * The functions responsible for betterdocs customizer
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/customizer/customizer.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/customizer/defaults.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/customizer/customizer.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/customizer/defaults.php';
 
 		$this->loader = new Betterdocs_Pro_Loader();
-
 	}
 
 	/**
@@ -163,12 +168,12 @@ class Betterdocs_Pro {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function set_locale() {
+	private function set_locale()
+	{
 
 		$plugin_i18n = new Betterdocs_Pro_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
+		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
 
 	/**
@@ -178,9 +183,10 @@ class Betterdocs_Pro {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	private function define_admin_hooks()
+	{
 
-		$plugin_admin = new Betterdocs_Pro_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Betterdocs_Pro_Admin($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
@@ -190,7 +196,6 @@ class Betterdocs_Pro {
 		$this->loader->add_filter('parent_file', $plugin_admin, 'highlight_admin_menu', 11);
 		$this->loader->add_filter('submenu_file', $plugin_admin, 'highlight_admin_submenu', 11, 2);
 		$this->loader->add_filter('admin_body_class', $plugin_admin, 'body_classes');
-
 	}
 
 	/**
@@ -200,13 +205,13 @@ class Betterdocs_Pro {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks() {
+	private function define_public_hooks()
+	{
 
-		$plugin_public = new Betterdocs_Pro_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Betterdocs_Pro_Public($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 	}
 
 	/**
@@ -214,7 +219,8 @@ class Betterdocs_Pro {
 	 *
 	 * @since    1.0.0
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->loader->run();
 	}
 
@@ -225,7 +231,8 @@ class Betterdocs_Pro {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
+	public function get_plugin_name()
+	{
 		return $this->plugin_name;
 	}
 
@@ -235,7 +242,8 @@ class Betterdocs_Pro {
 	 * @since     1.0.0
 	 * @return    Betterdocs_Pro_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
+	public function get_loader()
+	{
 		return $this->loader;
 	}
 
@@ -245,15 +253,16 @@ class Betterdocs_Pro {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function get_version()
+	{
 		return $this->version;
 	}
 
-	public static function get_multiple_kb() {
+	public static function get_multiple_kb()
+	{
 
-        $get_multiple_kb = BetterDocs_DB::get_settings('multiple_kb');
-        $multiple_kb = apply_filters( 'betterdocs_get_multiple_kb', $get_multiple_kb );
-        return $multiple_kb;
-    }
-
+		$get_multiple_kb = BetterDocs_DB::get_settings('multiple_kb');
+		$multiple_kb = apply_filters('betterdocs_get_multiple_kb', $get_multiple_kb);
+		return $multiple_kb;
+	}
 }

@@ -199,7 +199,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		$description = (isset($args['before_description'])) ? $args['before_description'] : "";
 		$description .= (isset($args['description'])) ? "<p class=\"field-description description\">{$args['description']}</p>" : "";
 		$description .= (isset($args['after_description'])) ? $args['after_description'] : "";
-		$description .= (isset($args['pro'])) ? sprintf("<p class=\"field-description description alert info\">%s</p>", (Permalink_Manager_Admin_Functions::pro_text(true))) : "";
+		$description .= (isset($args['pro'])) ? sprintf("<p class=\"field-description description alert info\">%s</p>", (self::pro_text(true))) : "";
 		$append_content = (isset($args['append_content'])) ? "{$args['append_content']}" : "";
 
 		// Input attributes
@@ -553,7 +553,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 
 		$html = "<div id=\"permalink-manager\" class=\"wrap\">";
 
-		$donate_link = (Permalink_Manager_Admin_Functions::is_pro_active()) ? "" : sprintf("<a href=\"%s\" target=\"_blank\" class=\"page-title-action\">%s</a>", PERMALINK_MANAGER_DONATE, __("Donate", "permalink-manager"));
+		$donate_link = (self::is_pro_active()) ? "" : sprintf("<a href=\"%s\" target=\"_blank\" class=\"page-title-action\">%s</a>", PERMALINK_MANAGER_DONATE, __("Donate", "permalink-manager"));
 		$html .= sprintf("<h2 id=\"plugin-name-heading\">%s <a href=\"http://maciejbis.net\" class=\"author-link\" target=\"_blank\">%s</a> %s</h2>", PERMALINK_MANAGER_PLUGIN_NAME, __("by Maciej Bis", "permalink-manager"), $donate_link);
 
 		// Display the tab navigation
@@ -566,7 +566,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		}
 
 		// Upgrade to Pro version
-		$html .= (Permalink_Manager_Admin_Functions::is_pro_active() == false) ? sprintf("<a href=\"%s\" target=\"_blank\" class=\"nav-tab section_upgrade\">%s</a>", 'https://permalinkmanager.pro/buy-permalink-manager-pro/?utm_source=plugin_upgrade', __('Upgrade to PRO', 'permalink-manager')) : '';
+		$html .= (self::is_pro_active() == false) ? sprintf("<a href=\"%s\" target=\"_blank\" class=\"nav-tab section_upgrade\">%s</a>", 'https://permalinkmanager.pro/buy-permalink-manager-pro/?utm_source=plugin_upgrade', __('Upgrade to PRO', 'permalink-manager')) : '';
 		$html .= "</div>";
 
 		// Now display the active section
@@ -689,9 +689,9 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 				$alert_content = sprintf( _n( '<strong class="updated_count">%d</strong> slug was updated!', '<strong class="updated_count">%d</strong> slugs were updated!', $updated_slugs_count, 'permalink-manager' ), $updated_slugs_count ) . ' ';
 				$alert_content .= sprintf( __( '<a %s>Click here</a> to go to the list of updated slugs', 'permalink-manager' ), "href=\"#updated-list\"");
 
-				$alert = Permalink_Manager_Admin_Functions::get_alert_message($alert_content, 'updated updated_slugs');
+				$alert = self::get_alert_message($alert_content, 'updated updated_slugs');
 			} else {
-				$alert = Permalink_Manager_Admin_Functions::get_alert_message(__( '<strong>No slugs</strong> were updated!', 'permalink-manager' ), 'error updated_slugs');
+				$alert = self::get_alert_message(__( '<strong>No slugs</strong> were updated!', 'permalink-manager' ), 'error updated_slugs');
 			}
 		}
 
@@ -725,7 +725,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		$html .= "</fieldset>";
 
 		// Append nonce field & element ID
-		$html .= Permalink_Manager_Admin_Functions::generate_option_field("permalink-manager-edit-uri-element-id", array("type" => "hidden", "input_class" => "permalink-manager-edit-uri-element-id", "value" => ""));
+		$html .= self::generate_option_field("permalink-manager-edit-uri-element-id", array("type" => "hidden", "input_class" => "permalink-manager-edit-uri-element-id", "value" => ""));
 		$html .= wp_nonce_field( 'permalink-manager-edit-uri-box', 'permalink-manager-nonce', true, false );
 
 		return $html;
@@ -810,25 +810,25 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 
 		// 4. Custom URI
 		if(!empty($is_front_page)) {
-			$custom_uri_field = Permalink_Manager_Admin_Functions::generate_option_field("custom_uri", array("type" => "hidden", "extra_atts" => "data-default=\"{$default_uri}\" data-element-id=\"{$element_id}\"", "input_class" => "widefat custom_uri", "value" => rawurldecode($uri)));
+			$custom_uri_field = self::generate_option_field("custom_uri", array("type" => "hidden", "extra_atts" => "data-default=\"{$default_uri}\" data-element-id=\"{$element_id}\"", "input_class" => "widefat custom_uri", "value" => rawurldecode($uri)));
 			$custom_uri_field .= __("The custom URI cannot be edited on frontpage.", "permalink-manager");
 		} else {
-			$custom_uri_field = Permalink_Manager_Admin_Functions::generate_option_field("custom_uri", array("extra_atts" => "data-default=\"{$default_uri}\" data-element-id=\"{$element_id}\"", "input_class" => "widefat custom_uri", "value" => rawurldecode($uri)));
+			$custom_uri_field = self::generate_option_field("custom_uri", array("extra_atts" => "data-default=\"{$default_uri}\" data-element-id=\"{$element_id}\"", "input_class" => "widefat custom_uri", "value" => rawurldecode($uri)));
 		}
 
 		$html .= sprintf("<div class=\"custom_uri_container\"><p><label for=\"custom_uri\" class=\"strong\">%s %s</label></p><span>%s</span><span class=\"duplicated_uri_alert\"></span></div>",
 			__("Current URI", "permalink-manager"),
-			($element->ID) ? Permalink_Manager_Admin_Functions::help_tooltip(__("If custom URI is not defined, a default URI will be set (see below). The custom URI can be edited only if 'Auto-update the URI' feature is not enabled.", "permalink-manager")) : "",
+			($element->ID) ? self::help_tooltip(__("If custom URI is not defined, a default URI will be set (see below). The custom URI can be edited only if 'Auto-update the URI' feature is not enabled.", "permalink-manager")) : "",
 			$custom_uri_field
 		);
 
 		// 5. Native slug
 		if(!empty($element->ID) && !empty($permalink_manager_options["general"]["show_native_slug_field"])) {
-			$native_slug_field = Permalink_Manager_Admin_Functions::generate_option_field("native_slug", array("extra_atts" => "data-default=\"{$native_slug}\" data-element-id=\"{$element_id}\"", "input_class" => "widefat native_slug", "value" => rawurldecode($native_slug)));
+			$native_slug_field = self::generate_option_field("native_slug", array("extra_atts" => "data-default=\"{$native_slug}\" data-element-id=\"{$element_id}\"", "input_class" => "widefat native_slug", "value" => rawurldecode($native_slug)));
 
 			$html .= sprintf("<div class=\"native_slug_container\"><p><label for=\"native_slug\" class=\"strong\">%s %s</label></p><span>%s</span></div>",
 				__("Native slug", "permalink-manager"),
-				Permalink_Manager_Admin_Functions::help_tooltip(__("The native slug is by default automatically used in native permalinks (when Permalink Manager is disabled).", "permalink-manager")),
+				self::help_tooltip(__("The native slug is by default automatically used in native permalinks (when Permalink Manager is disabled).", "permalink-manager")),
 				$native_slug_field
 			);
 		}
@@ -839,8 +839,8 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 			if(!empty($auto_update_choices)) {
 				$html .= sprintf("<div><p><label for=\"auto_auri\" class=\"strong\">%s %s</label></p><span>%s</span></div>",
 					__("Auto-update the URI", "permalink-manager"),
-					Permalink_Manager_Admin_Functions::help_tooltip(__("If enabled, the 'Current URI' field will be automatically changed to 'Default URI' (displayed below) after the post is saved or updated.", "permalink-manager")),
-					Permalink_Manager_Admin_Functions::generate_option_field("auto_update_uri", array("type" => "select", "input_class" => "widefat auto_update", "value" => $auto_update_val, "choices" => $auto_update_choices))
+					self::help_tooltip(__("If enabled, the 'Current URI' field will be automatically changed to 'Default URI' (displayed below) after the post is saved or updated.", "permalink-manager")),
+					self::generate_option_field("auto_update_uri", array("type" => "select", "input_class" => "widefat auto_update", "value" => $auto_update_val, "choices" => $auto_update_choices))
 				);
 			}
 
@@ -866,7 +866,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		}
 
 		// 10. Extra discount
-		if(Permalink_Manager_Admin_Functions::is_pro_active() == false) {
+		if(self::is_pro_active() == false) {
 			$html .= sprintf(
 				"<div class=\"default-permalink-row save-row columns-container hidden\"><div>%s</div></div>",
 				__('<span><strong>Need more functionalities and dedicated support?</strong> Buy Permalink Manager Pro and apply <a href="https://permalinkmanager.pro/buy-permalink-manager-pro/">PMLITE coupon code</a> to get 10% off.</a></span>', 'permalink-manager')
@@ -889,8 +889,8 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		$html .= "</div>";
 
 		// 11. Append nonce field, element ID & native slug
-		$html .= Permalink_Manager_Admin_Functions::generate_option_field("permalink-manager-edit-uri-element-slug", array("type" => "hidden", "value" => $native_slug));
-		$html .= Permalink_Manager_Admin_Functions::generate_option_field("permalink-manager-edit-uri-element-id", array("type" => "hidden", "value" => $element_id));
+		$html .= self::generate_option_field("permalink-manager-edit-uri-element-slug", array("type" => "hidden", "value" => $native_slug));
+		$html .= self::generate_option_field("permalink-manager-edit-uri-element-id", array("type" => "hidden", "value" => $element_id));
 		$html .= wp_nonce_field('permalink-manager-edit-uri-box', 'permalink-manager-nonce', true, false);
 
 		return $html;
@@ -911,7 +911,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		);
 
 		$html .= "<div id=\"redirect-panel-inside\">";
-		if(Permalink_Manager_Admin_Functions::is_pro_active() && class_exists('Permalink_Manager_Pro_Addons')) {
+		if(self::is_pro_active() && class_exists('Permalink_Manager_Pro_Addons')) {
 			$html .= Permalink_Manager_Pro_Addons::display_redirect_form($element_id);
 		} else {
 			$html .= self::pro_text(true);

@@ -1,0 +1,529 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Subscriptions Gifting\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-08 18:28+0100\n"
+"PO-Revision-Date: 2018-02-23 10:48+0000\n"
+"Last-Translator: Kai Mindermann\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: __;__e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_html__;"
+"esc_attr__;esc_html_e;esc_attr_e\n"
+"X-Poedit-SearchPath-0: ."
+
+#: includes/class-wcsg-admin.php:54
+#, php-format
+msgctxt ""
+"Subscription title on admin table. (e.g.: #211 for John Doe Purchased by: "
+"Jane Doe)"
+msgid "%1$s for %2$s purchased by %3$s"
+msgstr "%1$s für %2$s gekauft von %3$s"
+
+#: includes/class-wcsg-admin.php:94
+msgid "Gifting Subscriptions"
+msgstr "Abonnements verschenken"
+
+#: includes/class-wcsg-admin.php:99
+msgid "Gifting Checkbox Text"
+msgstr "Geschenk Auswahlfeld Text"
+
+#: includes/class-wcsg-admin.php:100
+msgid ""
+"Customise the text displayed on the front-end next to the checkbox to select "
+"the product/cart item as a gift."
+msgstr ""
+"Passe den erscheinenden Text im Front-End neben dem Auswahlfeld, zur Auswahl "
+"ob dieses Produkt oder Warenkorb Artikel ein Geschenk ist, an."
+
+#: includes/class-wcsg-admin.php:102 templates/html-add-recipient.php:4
+msgid "This is a gift"
+msgstr "Das hier ist ein Geschenk"
+
+#: includes/class-wcsg-cart.php:79 includes/class-wcsg-checkout.php:115
+#: includes/class-wcsg-product.php:38
+msgid "There was an error with your request. Please try again.."
+msgstr "Es gab einen Fehler bei der Anfrage. Bitte versuche es erneut."
+
+#: includes/class-wcsg-cart.php:93
+msgid "Recipient: "
+msgstr "Empfänger: "
+
+#: includes/class-wcsg-cart.php:108
+msgid ""
+"You cannot add additional products to the cart. Please pay for the "
+"subscription renewal first."
+msgstr ""
+"Du kannst keine weiteren Produkte zum Warenkorb hinzufügen. Bitte bezahle "
+"zuerst für die Verlängerung des Abonnements."
+
+#: includes/class-wcsg-checkout.php:178
+msgid "Shipping to the subscription recipient."
+msgstr "Lieferung an den Abonnement-Empfänger."
+
+#: includes/class-wcsg-download-handler.php:104
+msgid "Downloadable Products"
+msgstr "Herunterladbare Produkte"
+
+#: includes/class-wcsg-download-handler.php:105
+msgid "Allow both purchaser and recipient to download subscription products."
+msgstr ""
+"Erlaube sowohl dem Käufer als auch dem Geschenk-Empfänger die Abonemment-"
+"Produkte herunterzuladen."
+
+#: includes/class-wcsg-download-handler.php:109
+msgid ""
+"If you want both the recipient and purchaser of a subscription to have "
+"access to downloadable products."
+msgstr ""
+"Wenn du möchtest, dass sowohl der Empfänger als auch der Käufer eines "
+"Abonnements Zugriff auf herunterladbare Produkte hat."
+
+#: includes/class-wcsg-download-handler.php:155
+msgid "Recipient"
+msgstr "Empfänger"
+
+#: includes/class-wcsg-download-handler.php:155
+msgid "Purchaser"
+msgstr "Käufer"
+
+#: includes/class-wcsg-download-handler.php:295
+#, php-format
+msgid "File %d"
+msgstr "Datei %d"
+
+#: includes/class-wcsg-query.php:48
+msgid "Account Details"
+msgstr "Konto-Details"
+
+#: includes/class-wcsg-recipient-addresses.php:63
+#, php-format
+msgid ""
+"%1$sNote:%2$s This will not update the shipping address of subscriptions you "
+"have purchased for others."
+msgstr ""
+"%1$sHinweis:%2$s Das wird die Lieferadresse für Abonnements die du für "
+"jemand anderen bezahlst nicht ändern."
+
+#: includes/class-wcsg-recipient-addresses.php:66
+#, php-format
+msgid ""
+"%1$sNote:%2$s This will not update the billing address of subscriptions "
+"purchased for you by someone else."
+msgstr ""
+"%1$sHinweis:%2$s Das wird die Rechnungsadresse von Abonemments die von "
+"jemand anderem für dich bezahlt werden nicht ändern."
+
+#: includes/class-wcsg-recipient-details.php:62
+msgid "Please enter your name."
+msgstr "Bitte gib deinen Namen ein."
+
+#: includes/class-wcsg-recipient-details.php:66
+msgid "Please enter both password fields."
+msgstr "Bitte fülle beide Passwort-Felder aus."
+
+#: includes/class-wcsg-recipient-details.php:68
+msgid "Passwords do not match."
+msgstr "Passwörter stimmen nicht überein."
+
+#: includes/class-wcsg-recipient-details.php:73
+msgid "is a required field."
+msgstr "ist ein erforderliches Feld."
+
+#: includes/class-wcsg-recipient-details.php:78
+msgid "Please enter a valid postcode/ZIP."
+msgstr "Bitte gib eine gültige Postleitzahl ein."
+
+#: includes/class-wcsg-recipient-details.php:112
+msgid "Your account has been updated."
+msgstr "Dein Benutzerkonto wurde aktualisiert."
+
+#: includes/class-wcsg-recipient-details.php:117
+msgid ""
+"There was an error with your request to update your account. Please try "
+"again.."
+msgstr ""
+"Es gab einen Fehler bei der Anfrage dein Benutzerkonto zu aktualisieren. "
+"Bitte versuche es erneut."
+
+#: includes/class-wcsg-recipient-details.php:140
+msgid "New Password"
+msgstr "Neues Passwort"
+
+#: includes/class-wcsg-recipient-details.php:147
+msgid "Confirm New Password"
+msgstr "Neues Passwort bestätigen"
+
+#: includes/class-wcsg-recipient-details.php:154
+msgid "Set my billing address to the same as above."
+msgstr "Setze meine Rechnungsadresse auf das gleiche wie hier oben angegeben."
+
+#: includes/class-wcsg-recipient-management.php:109
+msgid "Suspend"
+msgstr "Unterbrechen"
+
+#: includes/class-wcsg-recipient-management.php:114
+msgid "Reactivate"
+msgstr "Wiederaktivieren"
+
+#: includes/class-wcsg-recipient-management.php:121
+msgid "Cancel"
+msgstr "Kündigen"
+
+#: includes/class-wcsg-recipient-management.php:463
+msgid "WARNING:"
+msgstr "WARNUNG:"
+
+#: includes/class-wcsg-recipient-management.php:464
+msgid "The following recipient will be removed from their subscriptions:"
+msgid_plural ""
+"The following recipients will be removed from their subscriptions:"
+msgstr[0] "Der folgende Empfänger wird von seinen Abonnements entfernt:"
+msgstr[1] "Die folgenden Empfänger werden von ihren Abonnements entfernt:"
+
+#: includes/class-wcsg-recipient-management.php:477
+msgid "Subscription"
+msgstr "Abonnement"
+
+#: includes/emails/class-wcsg-email-completed-renewal-order.php:13
+msgid "Completed Renewal Order - Recipient"
+msgstr "Verlängerungs-Bestellung fertiggestellt - Empfänger"
+
+#: includes/emails/class-wcsg-email-completed-renewal-order.php:14
+msgid ""
+"Renewal order complete emails are sent to the recipient when a subscription "
+"renewal order is marked complete and usually indicates that the item for "
+"that renewal period has been shipped."
+msgstr ""
+"Verlängerungs-Bestellung Komplett E-Mails werden an den Empfänger gesendet, "
+"wenn eine Verlängerungs-Bestellung als fertiggestellt markiert wurde und das "
+"bedeutet häufig, dass der Artikel für diesen Verlängerungszeitraum verschickt "
+"wurde."
+
+#: includes/emails/class-wcsg-email-completed-renewal-order.php:17
+msgid "Your renewal order is complete"
+msgstr "Deine Verlängerungs-Bestllung ist fertiggestellt"
+
+#: includes/emails/class-wcsg-email-completed-renewal-order.php:18
+msgid "Your {blogname} renewal order from {order_date} is complete"
+msgstr ""
+"Deine Verlängerungs-Bestllung bei {blogname} vom {order_date} ist "
+"fertiggestellt"
+
+#: includes/emails/class-wcsg-email-completed-renewal-order.php:21
+msgid "Your subscription renewal order is complete - download your files"
+msgstr ""
+"Deine Verlängerungs-Bestellung ist fertiggestellt - lade deine Dateien herunter"
+
+#: includes/emails/class-wcsg-email-completed-renewal-order.php:22
+msgid ""
+"Your {blogname} subscription renewal order from {order_date} is complete - "
+"download your files"
+msgstr ""
+"Deine Verlängerungs-Bestllung bei {blogname} vom {order_date} ist "
+"fertiggestellt - lade deine Dateien herunter"
+
+#: includes/emails/class-wcsg-email-customer-new-account.php:17
+msgid "New Recipient Account"
+msgstr "Neues Empfänger-Benutzer-Konto"
+
+#: includes/emails/class-wcsg-email-customer-new-account.php:18
+msgid ""
+"New account notification emails are sent to the subscription recipient when "
+"an account is created for them."
+msgstr ""
+"Hinweis-E-Mails für neue Benutzerkonten werden an den Abonnement-Empfänger "
+"gesendet, wenn das Konto für diesen erstellt wird."
+
+#: includes/emails/class-wcsg-email-customer-new-account.php:21
+msgid "Your account on {site_title}"
+msgstr "Dein Benutzerkonto bei {site_title}"
+
+#: includes/emails/class-wcsg-email-customer-new-account.php:22
+msgid "Welcome to {site_title}"
+msgstr "Willkommen zu {site_title}"
+
+#: includes/emails/class-wcsg-email-processing-renewal-order.php:13
+msgid "Processing Renewal Order - Recipient"
+msgstr "Verarbeite Eneuerungs-Bestellung - Empfänger"
+
+#: includes/emails/class-wcsg-email-processing-renewal-order.php:14
+msgid ""
+"This is an order notification sent to the recipient after payment for a "
+"subscription renewal order is completed. It contains the renewal order "
+"details."
+msgstr ""
+"Das hier ist eine Bestellbestätigung die an den Empfänger gesendet wird, "
+"sobald die Bezahlung für die Verlängerung des Abonnements fertiggestellt wurde."
+" Sie enthält Details zur Verlängerungs-Bestellung."
+
+#: includes/emails/class-wcsg-email-processing-renewal-order.php:17
+msgid "Thank you for your order"
+msgstr "Vielen Dank für Deine Bestellung"
+
+#: includes/emails/class-wcsg-email-processing-renewal-order.php:18
+msgid "Your {blogname} renewal order receipt from {order_date}"
+msgstr ""
+"Der Beleg für die Verlängerungs-Bestellung bei {blogname} vom {order_date}"
+
+#: includes/emails/class-wcsg-email-recipient-new-initial-order.php:15
+msgid "New Initial Order - Recipient"
+msgstr "Neue Erste Bestellung - Empfänger"
+
+#: includes/emails/class-wcsg-email-recipient-new-initial-order.php:16
+msgid ""
+"This email is sent to recipients notifying them of subscriptions purchased "
+"for them."
+msgstr ""
+"Diese E-mail wird zu Empfängern geschickt, um sie über das für sie gekaufte "
+"Abonnement zu informieren."
+
+#: includes/emails/class-wcsg-email-recipient-new-initial-order.php:19
+msgid "New Order"
+msgstr "Neue Bestellung"
+
+#: includes/emails/class-wcsg-email-recipient-new-initial-order.php:20
+msgid "Your new subscriptions at {site_title}"
+msgstr "Dein neues Abonnement bei {site_title}"
+
+#: templates/emails/new-recipient-customer.php:16
+#: templates/emails/plain/new-recipient-customer.php:14
+#: templates/emails/plain/recipient-new-initial-order.php:12
+#: templates/emails/recipient-new-initial-order.php:16
+msgid "Hi there,"
+msgstr "Hallo,"
+
+#: templates/emails/new-recipient-customer.php:17
+#: templates/emails/plain/new-recipient-customer.php:15
+#, php-format
+msgid ""
+"%1$s just purchased a subscription for you at %2$s so we've created an "
+"account for you to manage the subscription."
+msgstr ""
+"%1$s hat gerade ein Abonnement für dich bei %2$s gekauft. Deshalb haben wir "
+"ein Benutzerkonto für dich zur Verwaltung des Abonnements erstellt."
+
+#: templates/emails/new-recipient-customer.php:19
+#: templates/emails/plain/new-recipient-customer.php:17
+#, php-format
+msgid "Your username is: %s"
+msgstr "Dein Benutzername ist: %s"
+
+#: templates/emails/new-recipient-customer.php:20
+#: templates/emails/plain/new-recipient-customer.php:18
+#, php-format
+msgid "Your password has been automatically generated: %s"
+msgstr "Dein Passwort wurde automatisch generiert: %s"
+
+#: templates/emails/new-recipient-customer.php:22
+#: templates/emails/plain/new-recipient-customer.php:20
+#, php-format
+msgid ""
+"To complete your account we just need you to fill in your shipping address "
+"and you to change your password here: %s."
+msgstr ""
+"Um dein Benutzerkonto zu vervollständigen, musst du deine Lieferadresse "
+"angeben und das Passwort hier ändern: %s."
+
+#: templates/emails/new-recipient-customer.php:23
+msgid "My Account Details"
+msgstr "Meine Konto-Details"
+
+#: templates/emails/new-recipient-customer.php:25
+#: templates/emails/plain/new-recipient-customer.php:21
+#, php-format
+msgid ""
+"Once completed you may access your account area to view your subscription "
+"here: %s."
+msgstr ""
+"Sobald du das erledigt hast, bekommst du Zugriff auf deinen Benutzer-Konten-"
+"Bereich um dein Abonnement hier anschauen zu können: %s."
+
+#: templates/emails/new-recipient-customer.php:26
+msgid "My Account"
+msgstr "Mein Konto"
+
+#: templates/emails/plain/recipient-new-initial-order.php:14
+#: templates/emails/recipient-new-initial-order.php:17
+#, php-format
+msgid "%1$s just purchased %2$s for you at %3$s."
+msgstr "%1$s hat gerade %2$s für dich bei %3$s gekauft."
+
+#: templates/emails/plain/recipient-new-initial-order.php:14
+#: templates/emails/recipient-new-initial-order.php:17
+msgid "a subscription"
+msgid_plural "subscriptions"
+msgstr[0] "ein Abonnement"
+msgstr[1] "Abonnements"
+
+#: templates/emails/plain/recipient-new-initial-order.php:15
+#: templates/emails/recipient-new-initial-order.php:18
+#, php-format
+msgid " Details of the %s are shown below."
+msgstr " Details zum %s werden unten angezeigt."
+
+#: templates/emails/plain/recipient-new-initial-order.php:15
+#: templates/emails/plain/recipient-new-initial-order.php:22
+#: templates/emails/recipient-new-initial-order.php:18
+#: templates/emails/recipient-new-initial-order.php:31
+msgid "subscription"
+msgid_plural "subscriptions"
+msgstr[0] "Abonnement"
+msgstr[1] ""
+
+#: templates/emails/plain/recipient-new-initial-order.php:20
+#: templates/emails/recipient-new-initial-order.php:26
+msgid ""
+"We noticed you didn't have an account so we created one for you. Your "
+"account login details will have been sent to you in a separate email."
+msgstr ""
+"Wir haben bemerkt, dass du noch kein Benutzerkonto hast, deshalb haben wir "
+"eins für dich erstellt. Deine Anmelde-Daten für das Konto werden in einer "
+"separate E-mail an dich gesendet."
+
+#: templates/emails/plain/recipient-new-initial-order.php:22
+#, php-format
+msgid "You may access your account area to view your new %1$s here: %2$s."
+msgstr ""
+"Du kannst deinen Benutzer-Konten-Bereich, um dein neues %1$s anzusehen, "
+"hier erreichen: %2$s."
+
+#: templates/emails/plain/recipient-new-initial-order.php:27
+#: templates/emails/recipient-new-initial-order.php:46
+#, php-format
+msgid "Subscription #%s"
+msgstr "Abonnement #%s"
+
+#: templates/emails/recipient-new-initial-order.php:30
+#, php-format
+msgid ""
+"You may access your account area to view your new %1$s here: %2$sMy "
+"Account%3$s."
+msgstr ""
+"Du kannst deinen Benutzer-Konten-Bereich, um dein neues %1$s anzusehen, "
+"hier erreichen: %2$sMein Konto%3$s."
+
+#: templates/emails/recipient-new-initial-order.php:50
+msgid "Product"
+msgstr "Produkt"
+
+#: templates/emails/recipient-new-initial-order.php:51
+msgid "Quantity"
+msgstr "Anzahl"
+
+#: templates/emails/recipient-new-initial-order.php:52
+msgid "Price"
+msgstr "Preis"
+
+#: templates/html-add-recipient.php:8
+msgid "Recipient's Email Address:"
+msgstr "Empfänger E-Mail-Adresse:"
+
+#: templates/new-recipient-account.php:4
+msgid "We just need a few details from you to complete your account creation."
+msgstr ""
+"Wir brauchen nur ein paar Details von dir um die Benutzerkontenerstellung "
+"fertigstellen zu können."
+
+#: templates/new-recipient-account.php:6
+#, php-format
+msgid "(not %1$s? %2$sSign out%3$s)"
+msgstr "(Du bist nicht %1$s? %2$s abmelden %3$s)"
+
+#: templates/new-recipient-account.php:19
+msgid "Shipping Address"
+msgstr "Lieferadresse"
+
+#: templates/new-recipient-account.php:32
+msgid "Save"
+msgstr "Speichern"
+
+#: templates/related-orders.php:2
+msgid "Related Orders"
+msgstr "Zusammenhängende Bestellungen"
+
+#: templates/related-orders.php:9
+msgid "Order"
+msgstr "Bestellung"
+
+#: templates/related-orders.php:10 templates/related-orders.php:32
+msgid "Date"
+msgstr "Datum"
+
+#: templates/related-orders.php:11 templates/related-orders.php:35
+msgid "Status"
+msgstr "Status"
+
+#: templates/related-orders.php:12 templates/related-orders.php:45
+msgid "Total"
+msgstr "Summe"
+
+#: templates/related-orders.php:23
+msgid "Order Number"
+msgstr "Bestellnummer"
+
+#: templates/related-orders.php:48
+#, php-format
+msgid "%1$s for %2$s item"
+msgid_plural "%1$s for %2$s items"
+msgstr[0] "%1$s für %2$s Artikel"
+msgstr[1] "%1$s für %2$s Artikel"
+
+#: templates/related-orders.php:78
+msgctxt "view a subscription"
+msgid "View"
+msgstr "Anzeigen"
+
+#: woocommerce-subscriptions-gifting.php:178
+msgid "Please enter someone else's email address."
+msgstr "Bitte gib die E-Mail-Adresse von jemandem anderen als dir ein."
+
+#: woocommerce-subscriptions-gifting.php:182
+msgid " Invalid email address."
+msgstr "Ungültige E-Mail-Adresse."
+
+#: woocommerce-subscriptions-gifting.php:373
+#, php-format
+msgid ""
+"%1$sWooCommerce Subscriptions Gifting Membership integration is inactive."
+"%2$s In order to integrate with WooCommerce Memberships, WooCommerce "
+"Subscriptions Gifting requires %3$s %4$s or newer. %5$sPlease update &raquo;"
+"%6$s %7$s%8$sNote: All other WooCommerce Subscriptions Gifting features will "
+"remain available, however purchasing membership plans for recipients will "
+"fail to grant the membership to the gift recipient.%9$s"
+msgstr ""
+"%1$sWooCommerce Subscriptions Gifting Membership integration ist inaktiv."
+"%2$s Zur Integration mit WooCommerce Memberships, WooCommerce Subscriptions "
+"Gifting benötigt %3$s %4$s oder höher. %5$sBitte aktualisiere &raquo;%6$s "
+"%7$s%8$sHinweis: Alle weiteren WooCommerce Subscriptions Gifting Funktionen "
+"bleiben weiterhin verfügbar, jedoch werden für Geschenk-Empfänger gekaufte "
+"Mitgliedschafts-Pläne dem Geschenk-Empfänger so nicht die Mitgliedschaft "
+"ermöglichen.%9$s"
+
+#: woocommerce-subscriptions-gifting.php:376
+#, php-format
+msgid ""
+"%1$sWooCommerce Subscriptions Gifting is inactive.%2$s This version of "
+"WooCommerce Subscriptions Gifting requires %3$s %4$s or newer. %5$sPlease "
+"update &raquo;%6$s"
+msgstr ""
+"%1$sWooCommerce Subscriptions Gifting ist inaktiv.%2$s Diese Version von "
+"WooCommerce Subscriptions Gifting benötigt %3$s %4$s oder höher. %5$sBitte "
+"aktualisiere &raquo;%6$s"
+
+#: woocommerce-subscriptions-gifting.php:394
+#, php-format
+msgid ""
+"%1$sWooCommerce Subscriptions Gifting is inactive.%2$s WooCommerce "
+"Subscriptions Gifting requires the %4$s%3$s%6$s plugin to be active to work "
+"correctly. Please %5$sinstall & activate %3$s &raquo;%6$s"
+msgstr ""
+"%1$sWooCommerce Subscriptions Gifting ist inaktiv.%2$s WooCommerce "
+"Subscriptions Gifting erfordert, dass das Plugin %4$s%3$s%6$s aktiv ist, um "
+"korrekt zu funktionieren. Bitte %5$s installiere und aktiviere %3$s &raquo;"
+"%6$s"

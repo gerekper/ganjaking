@@ -147,7 +147,7 @@ class WC_PB_Background_Updater extends WP_Background_Process {
 	 */
 	protected function task( $callback ) {
 
-		include_once( 'wc-pb-update-functions.php' );
+		include_once( WC_PB_ABSPATH . 'includes/wc-pb-update-functions.php' );
 
 		if ( is_callable( $callback ) ) {
 

@@ -49,7 +49,6 @@ class WC_Bookings_Calendar {
 		$day   = isset( $_REQUEST['calendar_day'] ) ? wc_clean( $_REQUEST['calendar_day'] ) : current_time( 'Y-m-d' );
 
 		if ( 'day' === $view ) {
-			$day          = isset( $_REQUEST['calendar_day'] ) ? wc_clean( $_REQUEST['calendar_day'] ) : date( 'Y-m-d' );
 			$day_start    = strtotime( 'midnight', strtotime( $day ) );
 			$day_end      = strtotime( 'midnight +1 day', strtotime( $day ) ) - 1;
 			$this->events = WC_Global_Availability_Data_Store::get_events_in_date_range(

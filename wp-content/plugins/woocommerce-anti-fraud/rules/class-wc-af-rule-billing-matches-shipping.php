@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WC_AF_Rule_Billing_Matches_Shipping' ) ) {
 	class WC_AF_Rule_Billing_Matches_Shipping extends WC_AF_Rule {
 		private $is_enabled  = false;
-    	private $rule_weight = 0;	
+		private $rule_weight = 0;	
 		/**
 		 * The constructor
 		 */
@@ -15,7 +15,7 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Matches_Shipping' ) ) {
 			$this->is_enabled  =  get_option('wc_af_bca_order');
 			$this->rule_weight = get_option('wc_settings_anti_fraud_bca_order_weight');
 
-			parent::__construct( 'billing_matches_shipping', 'Billing address does not match shipping address',$this->rule_weight );
+			parent::__construct( 'billing_matches_shipping', 'Billing address does not match shipping address', $this->rule_weight );
 		}
 
 		/**
@@ -46,7 +46,7 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Matches_Shipping' ) ) {
 		 *
 		 * @param WC_Order $order
 		 * @return bool
-	 	 */
+		 */
 		protected function has_shipping_address( $order ) {
 			if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
 				return $order->shipping_address_1 || $order->shipping_address_2;
@@ -55,8 +55,8 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Matches_Shipping' ) ) {
 			return $order->has_shipping_address();
 		}
 		//Enable rule check
-		public function is_enabled(){
-			if('yes' == $this->is_enabled){
+		public function is_enabled() {
+			if ('yes' == $this->is_enabled) {
 				return true;
 			}
 			return false;

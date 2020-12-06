@@ -200,7 +200,7 @@ class WC_MNM_COCART_Compatibility {
 		}
 
 		foreach ( $cart_item_data['mnm_config'] as $mnm_item_data ) {
-			$child_id = $mnm_item_data['product_id'];
+			$child_id = $mnm_item_data['variation_id'] > 0 ? $mnm_item_data['variation_id'] : $mnm_item_data['product_id'];
 			$cart_item_data['new_mnm_config'][ $child_id ] = $mnm_item_data;
 		}
 

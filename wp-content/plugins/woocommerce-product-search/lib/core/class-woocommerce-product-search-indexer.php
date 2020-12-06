@@ -732,6 +732,19 @@ class WooCommerce_Product_Search_Indexer {
 
 			$this->delete_indexes( $post_id, $object_type );
 
+			if ( $product->is_type( 'variable' ) ) {
+
+				$variation_ids = $wpdb->get_col( $wpdb->prepare(
+					"SELECT ID FROM $wpdb->posts WHERE post_parent = %d AND post_type = 'product_variation'",
+					intval( $post_id )
+				) );
+				if ( is_array( $variation_ids ) ) {
+					foreach( $variation_ids as $variation_id ) {
+						$this->delete_indexes( $variation_id, 'product_variation' );
+					}
+				}
+			}
+
 			$ids = array();
 			$titles = array();
 			$descriptions = array();

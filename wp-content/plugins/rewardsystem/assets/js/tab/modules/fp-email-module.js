@@ -10,12 +10,16 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_mailsending_option() ;
             this.show_or_hide_for_user_option() ;
             this.add_note() ;
-            $( document ).on( 'change' , '#rs_pagination' , this.pagination_for_template ) ;
+
+            if ( '1' == fp_email_params.enable_footable ) {
+                $( document ).on( 'change' , '#rs_pagination' , this.pagination_for_template ) ;
+                $( '#rs_email_templates_table' ).footable( ).on( 'click' , '.rs_delete' , this.delete_template ) ;
+            }
+
             this.show_or_hide_for_enable_mail_for_thershold_points() ;
             $( document ).on( 'change' , '#rs_mail_enable_threshold_points' , this.enable_mail_for_thershold_points ) ;
             $( '#rs_email_templates_table' ).on( 'click' , '.rs_mail_active' , this.activate_or_deactivate_email_template ) ;
             $( document ).on( 'click' , '.rs_unsubscribe_user' , this.unsubscribe_selected_user ) ;
-            $( '#rs_email_templates_table' ).footable( ).on( 'click' , '.rs_delete' , this.delete_template ) ;
             $( document ).on( 'click' , '#rs_save_new_template' , this.save_template ) ;
             $( document ).on( 'click' , '#rs_save_new_template' , this.edit_template ) ;
             $( document ).on( 'change' , '.rs_sender_opt' , this.show_or_hide_for_sender_option ) ;

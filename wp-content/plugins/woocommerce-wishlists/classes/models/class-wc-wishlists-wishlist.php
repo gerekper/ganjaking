@@ -81,7 +81,7 @@ class WC_Wishlists_Wishlist {
 	}
 
 	public static function get_the_wishlist_owner( $id ) {
-		return get_post_meta( $id, '_wishlist_owner', true );
+					return get_post_meta( $id, '_wishlist_owner', true );
 	}
 
 	public static function get_the_url_edit( $id ) {

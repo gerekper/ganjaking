@@ -1,6 +1,6 @@
 <?php
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -21,7 +21,7 @@ function redsys_is_private_product( $user_id, $product_id ) {
 }
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_make_private() {
 	global $post, $wp_query;
@@ -49,7 +49,7 @@ add_action( 'wp', 'redsys_make_private' );
 * Adding a custom tab
 */
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_private_product_tab( $tabs ) {
 	
@@ -64,7 +64,7 @@ add_filter( 'woocommerce_product_data_tabs', 'redsys_private_product_tab' );
 
 // Adding content to custom panel
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_private_product_tab_panel() {
 	
@@ -99,7 +99,7 @@ add_action( 'woocommerce_product_data_panels', 'redsys_private_product_tab_panel
 	
 // Saving data
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_save_private_product( $post_id ) {
 	
@@ -113,7 +113,7 @@ function redsys_save_private_product( $post_id ) {
 add_action( 'woocommerce_process_product_meta', 'redsys_save_private_product' );
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_load_scripts_product() {
 	global $current_screen;
@@ -124,7 +124,7 @@ function redsys_load_scripts_product() {
 add_action('admin_enqueue_scripts', 'redsys_load_scripts_product');
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_private_product_query( $q ){
 	

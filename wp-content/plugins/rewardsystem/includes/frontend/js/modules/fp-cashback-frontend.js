@@ -2,6 +2,7 @@
  * Cashback - Module
  */
 jQuery( function ( $ ) {
+    var $form = $( 'form.encashing_form' ) ;
     var RSCashbackFrontend = {
         init : function ( ) {
             this.show_or_hide_for_payment_method() ;
@@ -9,6 +10,16 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_encash_payment_method' , this.show_or_hide_for_payment_method ) ;
             $( document.body ).on( 'click' , '.cancelbutton' , this.cancel_cashback_request ) ;
             $( document.body ).on( 'click' , '#submit_cashback' , this.submit_cashback_request ) ;
+            $form.on( 'change keyup' , '#rs_encash_points_value' , this.encash_currency_points ) ;
+        } ,
+        encash_currency_points : function ( event ) {
+            var $this = $( event.currentTarget ) ,
+                    $encash_currency = 0 ;
+            if ( $this.val() ) {
+                var $user_role_percent = fp_cashback_action_params.user_role_percentage ;
+                var $encash_currency = $.isNumeric( $this.val() ) ? ( parseFloat( $user_role_percent ) / 100 ) * $this.val( ) : 0 ;
+            }
+            $form.find( '#rs_encash_currency_value' ).val( $encash_currency ) ;
         } ,
         hide_err_msgs : function () {
             $( "#points_empty_error" ).hide() ;
@@ -94,7 +105,7 @@ jQuery( function ( $ ) {
                 }
             }
             var reason_to_encash = jQuery( "#rs_encash_points_reason" ).val() ;
-            if ( reason_to_encash == "" ) {
+            if( 'yes' == fp_cashback_action_params.cash_back_reason && "" == reason_to_encash ) {
                 jQuery( "#reason_empty_error" ).fadeIn().delay( 5000 ).fadeOut() ;
                 return false ;
             } else {

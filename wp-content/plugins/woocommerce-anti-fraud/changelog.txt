@@ -1,5 +1,15 @@
 *** WooCommerce Anti Fraud ***
 
+2020-11-23 version 3.3
+* PLUGINS-809 - Bug fixed: Changes order status from completed to processing.
+
+2020-11-03 version 3.2
+* PLUGINS-752 - jQuery-ui conflict with other plugins (jQuery-Knob)
+
+2020-10-30 version 3.1
+* PLUGINS-746 - Per-Payment fraud check issue fixed.
+* PLUGINS-758 - Updated the logic for checking of billing phone with Billing country rule.
+
 2020-10-06 version 3.0
 * PLUGINS-640 - Replaced the checkbox with the switch button in the "Minfraud settings" section.
 * PLUGINS-709 - Added feature to bypass the "On-hold" and "Cancel" order rules.
@@ -44,7 +54,7 @@
 * PLUGINS-258 - Fixed automatic blacklist of email
 
 2019-12-28 version 2.7
-*Fixed the paypal verify email issue. 
+*Fixed the paypal verify email issue.
 
 2019-11-06 version 2.6
 * fixed the issue in rule ip geolocation check getting error usage_limit_reached.
@@ -76,7 +86,7 @@
 * Add Rule enable & disabled check.
 * Add Email blacklist.
 * Add Paypal Address Verification
-  
+
 2019-04-30 - version 1.0.20
 * Fix - ipstack Api upgrade.
 

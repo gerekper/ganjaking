@@ -480,12 +480,15 @@ if ( ! class_exists( 'WC_Instagram_Settings_API', false ) ) {
 
 			$data = wp_parse_args( $data, $defaults );
 
-			ob_start();
-			?>
-            <input class="input-text regular-input <?php echo esc_attr( $data['class'] ); ?>" type="<?php echo esc_attr( $data['type'] ); ?>" name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" value="<?php echo esc_attr( $this->get_option( $key ) ); ?>" <?php disabled( $data['disabled'], true ); ?> <?php echo $this->get_custom_attribute_html( $data ); // phpcs:ignore Standard.Category.SniffName.ErrorCode. ?> />
-			<?php
-
-			return ob_get_clean();
+			return sprintf(
+				'<input class="input-text regular-input %1$s" type="%2$s" name="%3$s" id="%3$s" value="%4$s" %5$s %6$s />',
+				esc_attr( $data['class'] ),
+				esc_attr( $data['type'] ),
+				esc_attr( $field_key ),
+				esc_attr( $this->get_option( $key ) ),
+				disabled( $data['disabled'], true, false ),
+				$this->get_custom_attribute_html( $data )
+			);
 		}
 
 		/**

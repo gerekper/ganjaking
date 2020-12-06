@@ -5669,7 +5669,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 							if ( image_data.image_src && $image.is( ':visible' ) ) {
 
-								if ( $image.height() === 0 && async_task.get_async_time() < 5000 ) {
+								if ( $image.height() === 0 && false === $image.get( 0 ).complete && async_task.get_async_time() < 5000 ) {
 									wait = true;
 									return false;
 								}
@@ -6379,7 +6379,8 @@ jQuery.fn.wc_get_composite_script = function() {
 				render_html:  false,
 				template:     false,
 
-				event_type: '',
+				event_type:       '',
+				rendered_product: '',
 
 				initialize: function() {
 
@@ -6404,6 +6405,8 @@ jQuery.fn.wc_get_composite_script = function() {
 							}
 
 							view.render();
+
+							view.rendered_product = self.component_selection_view.get_rendered_product();
 
 						}, 10 );
 					} );
@@ -6511,6 +6514,8 @@ jQuery.fn.wc_get_composite_script = function() {
 					if ( false === this.render_html ) {
 						this.render();
 					}
+
+					this.rendered_product = self.component_selection_view.get_rendered_product();
 				},
 
 				/**
@@ -6526,6 +6531,8 @@ jQuery.fn.wc_get_composite_script = function() {
 						clearTimeout( this.render_timer );
 						this.render();
 					}
+
+					this.rendered_product = self.component_selection_view.get_rendered_product();
 				},
 
 				/**
@@ -6607,7 +6614,7 @@ jQuery.fn.wc_get_composite_script = function() {
 								$el    = $( el ),
 								is_top = $el.hasClass( 'top' );
 
-							var delay = is_top && 'change' === view.event_type && self.component_selection_view.is_relocated() ? self.component_selection_view.get_animation_duration( 'close' ) + 50 : 0;
+							var delay = is_top && 'change' === view.event_type && self.component_selection_view.is_relocated() && view.rendered_product !== self.component_selection_view.get_rendered_product() ? self.component_selection_view.get_animation_duration( 'close' ) + 50 : 0;
 
 							setTimeout( function() {
 
@@ -7763,7 +7770,10 @@ jQuery.fn.wc_get_composite_script = function() {
 
 						if ( $thumbnail_images.length > 0 && $thumbnails_container.is( ':visible' ) ) {
 							$thumbnail_images.each( function() {
-								if ( $( this ).height() === 0 && async_task.get_async_time() < 20000 ) {
+
+								var $img = $( this );
+
+								if ( $img.height() === 0 && false === $img.get( 0 ).complete && async_task.get_async_time() < 20000 ) {
 									wait = true;
 									return false;
 								}
@@ -8923,7 +8933,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 									var $image = $( this );
 
-									if ( $image.is( ':visible' ) && $image.height() === 0 && async_task.get_async_time() < 10000 ) {
+									if ( $image.is( ':visible' ) && $image.height() === 0 && false === $image.get( 0 ).complete && async_task.get_async_time() < 10000 ) {
 										wait = true;
 										return false;
 									}
@@ -11754,7 +11764,6 @@ jQuery.fn.wc_get_composite_script = function() {
 				}
 
 				if ( ! this.is_in_stock() ) {
-					this.add_validation_message( wc_composite_params.i18n_selected_product_stock_insufficient );
 					is_in_stock = false;
 				}
 			}

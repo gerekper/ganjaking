@@ -6,7 +6,7 @@
  * Description: Extend WooCommerce product reviews to add video, photo, comment, and question contribution types, as well as review filtering, voting, and flagging.
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.16.2
+ * Version: 1.17.0
  * Text Domain: woocommerce-product-reviews-pro
  * Domain Path: /i18n/languages/
  *
@@ -22,8 +22,8 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 570800:43662c2508f9242c6ba1da8c535510a0
- * WC requires at least: 3.0.9
- * WC tested up to: 4.5.2
+ * WC requires at least: 3.5
+ * WC tested up to: 4.7.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -50,13 +50,13 @@ class WC_Product_Reviews_Pro_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '5.6.0';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '4.4';
+	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.0.9';
+	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version used by this plugin */
 	const FRAMEWORK_VERSION = '5.5.0';
@@ -90,8 +90,6 @@ class WC_Product_Reviews_Pro_Loader {
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
-
-			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

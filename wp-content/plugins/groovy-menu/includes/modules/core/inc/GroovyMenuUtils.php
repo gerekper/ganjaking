@@ -245,6 +245,25 @@ class GroovyMenuUtils {
 			}
 		}
 
+		global $gm_supported_module;
+		if ( ! empty( $gm_supported_module['post_types'] ) && is_array( $gm_supported_module['post_types'] ) ) {
+			if ( $name_as_key ) {
+				foreach ( $gm_supported_module['post_types'] as $post_name => $post_label ) {
+					if ( isset( $post_types[ $post_name ] ) ) {
+						continue;
+					}
+					$post_types[ $post_name ] = $post_label;
+				}
+			} else {
+				foreach ( $gm_supported_module['post_types'] as $post_name => $post_label ) {
+					if ( isset( $post_types[ $post_label ] ) ) {
+						continue;
+					}
+					$post_types[ $post_label ] = $post_name;
+				}
+			}
+		}
+
 		return $post_types;
 
 	}
@@ -432,7 +451,7 @@ class GroovyMenuUtils {
 
 		$searchFilter = apply_filters( 'gm_search_filter_hidden_input', $searchFilter );
 
-		$home_url = trailingslashit( network_site_url() );
+		$home_url = trailingslashit( home_url() );
 		if ( defined( 'WPML_PLUGIN_FOLDER' ) && WPML_PLUGIN_FOLDER ) {
 			$home_url = apply_filters( 'wpml_home_url', $home_url );
 		}
@@ -1351,8 +1370,13 @@ class GroovyMenuUtils {
 
 				global $wp_filesystem;
 				if ( empty( $wp_filesystem ) ) {
-					if ( file_exists( ABSPATH . '/wp-admin/includes/file.php' ) ) {
-						require_once ABSPATH . '/wp-admin/includes/file.php';
+					$file_path = str_replace( array(
+						'\\',
+						'/'
+					), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/file.php' );
+
+					if ( file_exists( $file_path ) ) {
+						require_once $file_path;
 						WP_Filesystem();
 					}
 				}
@@ -1793,7 +1817,7 @@ class GroovyMenuUtils {
 
 
 	public static function update_config_text_domain() {
-		$config_global   = include GROOVY_MENU_DIR . 'includes/config/ConfigGlobal.php';
+		$config_global   = include GROOVY_MENU_DIR . 'includes' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'ConfigGlobal.php';
 		$settings_global = \GroovyMenu\StyleStorage::getInstance()->get_global_settings();
 
 		$updated = false;
@@ -1887,17 +1911,76 @@ class GroovyMenuUtils {
 	 * @return bool|string
 	 */
 	public static function check_lic( $immediately = false ) {
-		update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', [ 'product' => 'groovy-menu','item_id' => '23049456','type' => 'regular','supported_until' => '2032-05-19T21:07:58+10:00','purchase_key' => '77777777-3333-4444-8000-eeeefffff55899','approve' => true,'gm_version' => '2.3.5.1']);
-		update_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data', array( 'gm_version' => '2.3.2' ) );
-		$transient_timer = 4 * HOUR_IN_SECONDS;
+		if ( ! $immediately && get_transient( GROOVY_MENU_DB_VER_OPTION . '__lic_cache' ) ) {
+			$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
+			if ( empty( $lic_opt ) || ! $lic_opt ) {
+				return false;
+			} else {
+				return $lic_opt;
+			}
+		}
+
+		$transient_timer = 2 * MINUTE_IN_SECONDS; // by default
+
+		global $gm_supported_module;
+
+		$check_url = 'https://license.grooni.com/user-dashboard/?glm_action=check&glm_page=product';
+
+		$check_url .= '&glm_product=groovy-menu';
+		$check_url .= '&glm_theme=' . $gm_supported_module['theme'];
+		$check_url .= '&glm_rs=' . rawurlencode( get_site_url() );
+
+		$body = wp_remote_get( $check_url );
+
+		if ( is_wp_error( $body ) ) {
+			$error_msg = $body->get_error_code() . ' * ' . $body->get_error_message() . ' * ' . $body->get_error_data();
+			$body      = '{}';
+
+			$gm_supported_module['lic_check_error'] = $error_msg;
+
+			add_action( 'gm_before_welcome_output', function () {
+				global $gm_supported_module;
+				if ( ! empty( $gm_supported_module['lic_check_error'] ) ) {
+					echo '<div class="gm-lic-check-error">' . $gm_supported_module['lic_check_error'] . '</div>';
+				}
+			} );
+
+			$transient_timer = 5 * MINUTE_IN_SECONDS;
+
+		} elseif ( isset( $body['body'] ) ) {
+			$body = $body['body'];
+		} else {
+			$body = '{}';
+		}
+
+		$body    = json_decode( $body, true );
+		$lic_opt = false; // by default.
+
+		if ( is_array( $body ) && isset( $body['approve'] ) ) {
+			if ( $body['approve'] === true ) {
+				update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', GROOVY_MENU_VERSION );
+				$lic_opt         = true;
+				$transient_timer = 4 * HOUR_IN_SECONDS;
+			} elseif ( $body['approve'] === false ) {
+				update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', false );
+				$lic_opt         = false;
+				$transient_timer = 3 * MINUTE_IN_SECONDS;
+			}
+
+			$body['gm_version'] = GROOVY_MENU_VERSION;
+
+			update_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data', $body );
+		} else {
+			update_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data', array( 'gm_version' => GROOVY_MENU_VERSION ) );
+		}
+
 		set_transient( GROOVY_MENU_DB_VER_OPTION . '__lic_cache', true, $transient_timer );
-		$lic_opt = true;
+
 		return $lic_opt;
 	}
 
 
 	public static function get_paramlic( $field ) {
-		return 'regular';
 		$answer = '';
 
 		$data = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data' );
@@ -2175,6 +2258,11 @@ class GroovyMenuUtils {
 			$detected = 'fusion_builder';
 		}
 
+		// Cornerstone builder (example: Pro theme)
+		if ( isset( $_POST['cs_preview_state'] ) && $_POST['cs_preview_state'] && 'off' !== $_POST['cs_preview_state'] ) {
+			$detected = 'cornerstone_builder';
+		}
+
 		return $detected;
 	}
 
@@ -2254,24 +2342,47 @@ class GroovyMenuUtils {
 
 
 	/**
-	 * Load Font Awesome font file
+	 * Load Font Awesome, Crane font, and other font files
 	 */
-	public static function load_font_awesome() {
+	public static function load_font_internal() {
 
 		$global_settings = get_option( GroovyMenuStyle::OPTION_NAME );
+		$return_flag     = false;
 
-		if ( is_admin() || empty( $global_settings['tools']['disable_local_font_awesome'] ) || ! $global_settings['tools']['disable_local_font_awesome'] ) {
+		if ( empty( $global_settings['tools']['disable_local_font_awesome'] ) || ! $global_settings['tools']['disable_local_font_awesome'] ) {
 			add_action( 'gm_enqueue_script_actions', function () {
+				$global_settings = get_option( GroovyMenuStyle::OPTION_NAME );
 				wp_enqueue_style( 'groovy-menu-font-awesome', GROOVY_MENU_URL . 'assets/style/fontawesome.css', [], GROOVY_MENU_VERSION );
 				wp_style_add_data( 'groovy-menu-font-awesome', 'rtl', 'replace' );
+
+				if ( ! isset( $global_settings['tools']['allow_use_font_preloader'] ) || $global_settings['tools']['allow_use_font_preloader'] ) {
+					wp_enqueue_style( 'groovy-menu-font-awesome-file', GROOVY_MENU_URL . 'assets/fonts/fontawesome-webfont.woff2?v=4.7.0', [], null );
+				}
 			}, 20 );
 
-			add_filter( 'style_loader_tag', array( 'GroovyMenuUtils', 'enqueue_style_attributes' ), 10, 2 );
+			add_filter( 'style_loader_tag', array( 'GroovyMenuUtils', 'font_enqueue_style_attributes' ), 10, 2 );
 
-			return true;
+			$return_flag = true;
 		}
 
-		return false;
+		if ( empty( $global_settings['tools']['disable_local_font_internal'] ) || ! $global_settings['tools']['disable_local_font_internal'] ) {
+			add_action( 'gm_enqueue_script_actions', function () {
+				$global_settings = get_option( GroovyMenuStyle::OPTION_NAME );
+				wp_enqueue_style( 'groovy-menu-font-internal', GROOVY_MENU_URL . 'assets/style/font-internal.css', [], GROOVY_MENU_VERSION );
+				wp_style_add_data( 'groovy-menu-font-internal', 'rtl', 'replace' );
+
+				if ( ! isset( $global_settings['tools']['allow_use_font_preloader'] ) || $global_settings['tools']['allow_use_font_preloader'] ) {
+					wp_enqueue_style( 'groovy-menu-font-internal-file', GROOVY_MENU_URL . 'assets/fonts/crane-font.woff?hhxb42', [], null );
+				}
+			}, 20 );
+
+			add_filter( 'style_loader_tag', array( 'GroovyMenuUtils', 'font_enqueue_style_attributes' ), 10, 2 );
+
+			$return_flag = true;
+		}
+
+
+		return $return_flag;
 	}
 
 
@@ -2283,9 +2394,25 @@ class GroovyMenuUtils {
 	 *
 	 * @return mixed
 	 */
-	public static function enqueue_style_attributes( $html, $handle ) {
+	public static function font_enqueue_style_attributes( $html, $handle ) {
 		if ( 'groovy-menu-font-awesome' === $handle ) {
 			return str_replace( "media='all'", "media='all' crossorigin='anonymous'", $html );
+		}
+
+		if ( 'groovy-menu-font-awesome-file' === $handle ) {
+			$replaced_string = str_replace( "rel='stylesheet'", "rel='preload' as='font' crossorigin='anonymous'", $html );
+
+			return str_replace( "type='text/css'", "type='font/woff2'", $replaced_string );
+		}
+
+		if ( 'groovy-menu-font-internal' === $handle ) {
+			return str_replace( "media='all'", "media='all' crossorigin='anonymous'", $html );
+		}
+
+		if ( 'groovy-menu-font-internal-file' === $handle ) {
+			$replaced_string = str_replace( "rel='stylesheet'", "rel='preload' as='font' crossorigin='anonymous'", $html );
+
+			return str_replace( "type='text/css'", "type='font/woff'", $replaced_string );
 		}
 
 		return $html;

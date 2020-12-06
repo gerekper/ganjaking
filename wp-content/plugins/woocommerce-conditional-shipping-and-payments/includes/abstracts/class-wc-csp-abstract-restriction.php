@@ -161,7 +161,7 @@ class WC_CSP_Restriction extends WC_Settings_API {
 		$data_hash = md5( json_encode( $global_restrictions ) );
 
 		?><tr><td>
-		<div id="restrictions_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper postbox <?php echo WC_CSP_Core_Compatibility::get_versions_class(); ?>">
+		<div id="restrictions_data" class="panel csp_global_panel woocommerce_options_panel wc-metaboxes-wrapper postbox <?php echo WC_CSP_Core_Compatibility::get_versions_class(); ?>">
 			<div class="inside">
 				<p class="toolbar">
 					<select style="display:none;" name="_restriction_type" class="restriction_type">

@@ -1,0 +1,36 @@
+label {
+  width: 100%;
+  display: block;
+  font-size: 125%;
+}
+
+.icon32 {
+  background:url('../memberpress/images/memberpress-32.png') !important;
+  width: 267px !important;
+  height: 32px !important;
+}
+
+@media all and (-webkit-min-device-pixel-ratio: 1.5) {
+  .icon32 {
+    background-image: url('../memberpress/images/memberpress-32@2x.png') !important;
+    background-size: 267px 32px !important;
+  }
+}
+
+.mepr-import {
+  margin: 25px 0 0 0;
+}
+
+.mpimp-return-link, .mpimp-processing-complete {
+  display: none;
+}
+
+.mpimp-messages, .mpimp-errors, .mpimp-error-rows {
+  width: 95%;
+  height: 150px;
+}
+
+.mpimp-summary h3 span {
+  font-weight: bold;
+}
+

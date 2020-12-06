@@ -1,4 +1,9 @@
 *** PayPal Pro Changelog ***
+2020-11-30 - version 4.5.1
+* Fix - Set session cookie if not present while processing payment.
+* Fix - Add correct number formatting to AMT in Payflow.
+* Fix - Fix rounding issues caused by decimal place store setting and rounding caused by tax calculations.
+* Tweak - PHP 8 compatibility.
 
 2020-03-09 - version 4.5.0
 * Add - SCA support via new 3D Secure 2 setting for modal authentication. (Contact Cardinal to upgrade to Cardinal Cruise before enabling.)

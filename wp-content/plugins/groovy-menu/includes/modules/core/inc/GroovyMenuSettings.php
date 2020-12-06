@@ -782,7 +782,7 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 			wp_enqueue_style( 'groovy-style', get_stylesheet_directory_uri() . '/assets/style/frontend.css', [], GROOVY_MENU_VERSION );
 			wp_style_add_data( 'groovy-style', 'rtl', 'replace' );
 
-			include_once GROOVY_MENU_DIR . 'template/Preview.php';
+			include_once GROOVY_MENU_DIR . 'template' . DIRECTORY_SEPARATOR . 'Preview.php';
 			exit;
 		}
 
@@ -793,8 +793,13 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 				global $gm_supported_module;
 				global $wp_filesystem;
 				if ( empty( $wp_filesystem ) ) {
-					if ( file_exists( ABSPATH . '/wp-admin/includes/file.php' ) ) {
-						require_once ABSPATH . '/wp-admin/includes/file.php';
+					$file_path = str_replace( array(
+						'\\',
+						'/'
+					), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/file.php' );
+
+					if ( file_exists( $file_path ) ) {
+						require_once $file_path;
 						WP_Filesystem();
 					}
 				}
@@ -962,8 +967,13 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 			if ( isset( $_FILES['import'] ) && isset( $_FILES['import']['tmp_name'] ) ) {
 				global $wp_filesystem;
 				if ( empty( $wp_filesystem ) ) {
-					if ( file_exists( ABSPATH . '/wp-admin/includes/file.php' ) ) {
-						require_once ABSPATH . '/wp-admin/includes/file.php';
+					$file_path = str_replace( array(
+						'\\',
+						'/'
+					), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/file.php' );
+
+					if ( file_exists( $file_path ) ) {
+						require_once $file_path;
 						WP_Filesystem();
 					}
 				}
@@ -1007,7 +1017,13 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 					);
 
 					$value = wp_insert_attachment( $attachment, $filename );
-					require_once ABSPATH . 'wp-admin/includes/image.php';
+
+					$file_path = str_replace( array(
+						'\\',
+						'/'
+					), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/image.php' );
+
+					require_once $file_path;
 
 					$attachData = wp_generate_attachment_metadata( $value, $tmpFile );
 					wp_update_attachment_metadata( $value, $attachData );
@@ -2847,8 +2863,13 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 			global $wp_filesystem;
 			if ( empty( $wp_filesystem ) ) {
-				if ( file_exists( ABSPATH . '/wp-admin/includes/file.php' ) ) {
-					require_once ABSPATH . '/wp-admin/includes/file.php';
+				$file_path = str_replace( array(
+					'\\',
+					'/'
+				), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/file.php' );
+
+				if ( file_exists( $file_path ) ) {
+					require_once $file_path;
 					WP_Filesystem();
 				}
 			}
@@ -2967,7 +2988,7 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST ) && isset( $_POST['action'] ) && $_POST['action'] === 'gm_get_google_fonts' ) {
 
-				$googleFonts = include GROOVY_MENU_DIR . 'includes/fonts-google.php';
+				$googleFonts = include GROOVY_MENU_DIR . 'includes' . DIRECTORY_SEPARATOR . 'fonts-google.php';
 
 				wp_send_json_success( $googleFonts );
 

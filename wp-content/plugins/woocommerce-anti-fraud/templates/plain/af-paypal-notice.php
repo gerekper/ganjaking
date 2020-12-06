@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 echo $email_heading . "\n\n";
 
 printf( __(get_option('wc_settings_anti_fraud_email_body') ) ) . "\r\n\r\n";
-printf( __( '%sClick here to view the order.%s.', 'woocommerce-anti-fraud' ), '<a href="' . $url . '">', '</a>' ) . "\r\n\r\n";
+printf( __( '%1$sClick here to view the order.%2$s.', 'woocommerce-anti-fraud' ), '<a href="' . $url . '">', '</a>' ) . "\r\n\r\n";
 
 echo "\n****************************************************\n\n";
 

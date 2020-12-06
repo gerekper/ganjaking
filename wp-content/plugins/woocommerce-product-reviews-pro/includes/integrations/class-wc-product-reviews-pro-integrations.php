@@ -24,7 +24,6 @@
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
-use SkyVerge\WooCommerce\Product_Reviews_Pro\Integrations\Jilt_Promotions\Reviews;
 
 /**
  * Class handling integrations with other plugins:
@@ -90,9 +89,6 @@ class WC_Product_Reviews_Pro_Integrations {
 		if ( $this->is_tab_manager_active() ) {
 			$this->tab_manager = wc_product_reviews_pro()->load_class( '/includes/integrations/woocommerce-tab-manager/class-wc-product-reviews-pro-integration-tab-manager.php', 'WC_Product_Reviews_Pro_Integration_Tab_Manager' );
 		}
-
-		// Jilt Promotions
-		add_action( 'init', [ $this, 'load_jilt_promotions_handlers' ] );
 	}
 
 
@@ -103,13 +99,16 @@ class WC_Product_Reviews_Pro_Integrations {
 	 *
 	 * Consider creating a Jilt Promotions integrations handler if we start adding more prompt handlers here.
 	 *
+	 * TODO: remove this method by version 2.0.0 or by 2021-11-16 {DM 2020-11-16}
+	 *
 	 * @internal
 	 *
 	 * @since 1.5.15-dev.1
+	 * @deprecated 1.17.0
 	 */
 	public function load_jilt_promotions_handlers() {
 
-		wc_product_reviews_pro()->load_class( '/includes/integrations/Jilt_Promotions/Reviews.php', Reviews::class );
+		wc_deprecated_function( __METHOD__, '1.17.0' );
 	}
 
 

@@ -52,8 +52,8 @@ class WCS_ATT_Product {
 	 */
 	public static function init() {
 
-		require_once( 'product/class-wcs-att-product-schemes.php' );
-		require_once( 'product/class-wcs-att-product-prices.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/product/class-wcs-att-product-schemes.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/product/class-wcs-att-product-prices.php' );
 
 		self::add_hooks();
 	}
@@ -110,6 +110,10 @@ class WCS_ATT_Product {
 	public static function supports_feature( $product, $feature, $args = array() ) {
 
 		$is_feature_supported = false;
+
+		if ( empty( $product ) || ! ( $product instanceof WC_Product ) ) {
+			return $is_feature_supported;
+		}
 
 		switch ( $feature ) {
 

@@ -41,18 +41,27 @@
 			$this->default_remoteid				= '';
 			$this->default_remotepw				= '';
 			$this->default_worldpaymd5			= '';
+			$this->default_signaturefields		= 'instId:amount:currency:cartId';
 			$this->default_debug 				= false;
 			$this->default_dynamiccallback 		= false;
 			$this->default_submission			= 'form';
 			$this->default_method 				= 'alltransactions';
 
-			$this->version						= '4.1.2';
-
-			// Load the form fields
-			$this->init_form_fields();
+			$this->version						= '4.1.6';
 
 			// Load the settings.
 			$this->init_settings();
+
+			// Backwards compatibilty
+			// Use old default fields if site is already using MD5
+			if( isset( $this->settings['worldpaymd5'] ) && $this->settings['worldpaymd5'] != '' ) {
+				$this->default_signaturefields = 'instId:amount:currency:cartId:name:email:address1:postcode';
+			}
+
+			define( 'DEFAULT_WORLDPAY_SIGNATURE_FIELDS', $this->default_signaturefields );
+
+			// Load the form fields
+			$this->init_form_fields();
 
 			// Get setting values
 			$this->enabled						= isset( $this->settings['enabled'] ) && $this->settings['enabled'] == 'yes' ? 'yes' : $this->default_enabled;
@@ -76,6 +85,7 @@
 			$this->remoteid						= isset( $this->settings['remoteid'] ) ? $this->settings['remoteid'] : $this->default_remoteid;
 			$this->remotepw						= isset( $this->settings['remotepw'] ) ? $this->settings['remotepw'] : $this->default_remotepw;
 			$this->worldpaymd5					= isset( $this->settings['worldpaymd5'] ) ? $this->settings['worldpaymd5'] : $this->default_worldpaymd5;
+			$this->signaturefields				= isset( $this->settings['signaturefields'] ) ? $this->settings['signaturefields'] : $this->default_signaturefields;
 			$this->dynamiccallback				= isset( $this->settings['dynamiccallback'] ) && $this->settings['dynamiccallback'] == 'yes' ? true : $this->default_dynamiccallback;
 			$this->submission					= isset( $this->settings['submission'] ) ? $this->settings['submission'] : $this->default_submission;
 			$this->method						= isset( $this->settings['method'] ) ? $this->settings['method'] : $this->default_method;
@@ -324,7 +334,7 @@
 					} else {
 
 						if( '' != get_option( 'permalink_structure' ) ) {
-							echo '<strong>Payment Response URL :</strong>  ' . home_url( '/wc-api/WC_Gateway_WorldPay_Form' );
+							echo '<strong>Payment Response URL :</strong>  ' . home_url( '/wc-api/WC_Gateway_WorldPay_Form/' );
 						} else {
 							echo '<strong>Payment Response URL :</strong>  ' . home_url( '/?wc-api=WC_Gateway_WorldPay_Form' );
 						}
@@ -336,7 +346,7 @@
 			   		<br />
 			   		<strong>MD5 secret for transactions :</strong>  <?php echo $this->worldpaymd5;?>
 			   		<?php if ( '' != $this->worldpaymd5 ) {
-			   			echo '<br /><strong>Signature Fields :</strong> ' . apply_filters( 'woocommerce_worldpay_signature_fields', 'instId:amount:currency:cartId:name:email:address1:postcode' ); 
+			   			echo '<br /><strong>Signature Fields :</strong> ' . apply_filters( 'woocommerce_worldpay_signature_fields', $this->signaturefields ); 
 			   			echo '<br /><i>Please enter this list exactly as it appears here making sure there are no leading or trailing spaces</i>'; 
 			   		} ?>
 			   		</p>
@@ -1000,8 +1010,6 @@
 					print_r( $api_request,TRUE ) . '</pre>. The returned error is <pre>' . 
 					print_r( $res['body'],TRUE ) . '</pre>. You may need to contact WorldPay for more information about this error.';
 
-				wp_mail( $this->worldpaydebugemail ,'WorldPay FuturePay Cancellation Failure 01 ' . time(), $content );
-
 			} else {
 
 				if ( !$this->startsWith( $res['body'], 'Y' ) ) {
@@ -1011,8 +1019,6 @@
 						print_r( $res['body'],TRUE ) . '</pre> The full returned array is <pre>' . 
 						print_r( $res,TRUE ) . '</pre>. Please login to WorldPay and cancel the subscription manually. Please check your Remote Administration Installation ID and Remote Administration Installation Password in your settings.';
 					
-					wp_mail( $this->worldpaydebugemail ,'WorldPay FuturePay Cancellation Failure 02 ' . time(), $content );
-
 				}
 
 			}
@@ -1038,8 +1044,8 @@
 			endif;
 
 			// New API Request for cancellations
-			$api_request['instId'] 				= urlencode( $this->remoteid );
-			$api_request['authPW'] 				= urlencode( $this->remotepw );
+			$api_request['instId'] 				= $this->remoteid;
+			$api_request['authPW'] 				= $this->remotepw;
 			$api_request['cartId']   			= 'Refund';
 			$api_request['transId'] 			= get_post_meta( $order_id, '_transaction_id', true );
 			$api_request['amount']   			= $amount;

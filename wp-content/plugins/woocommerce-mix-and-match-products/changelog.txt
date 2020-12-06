@@ -1,5 +1,11 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2020.11.18 - version 1.10.5
+* Update: Tested up to WooCommerce 4.7.0.
+* Fix: Support Min/Max Quantities Variation level min/max rules.
+* Fix: CoCart integration configuration support for variation IDs in container.
+* Fix: Fix compatibility with Validate by Weight mini-extension.
+
 2020.10.16 - version 1.10.4
 * Update: Tested up to WooCommerce 4.6.0.
 * Fix: Restore compatibility with One Page Check single product template.

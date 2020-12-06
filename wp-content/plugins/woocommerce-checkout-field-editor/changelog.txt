@@ -1,5 +1,10 @@
 *** Checkout Field Editor Changelog ***
 
+2020-11-25 - version 1.5.38
+* Fix - Add plugin page to new WooCommerce Navigation.
+* Tweak - WC 4.7 compatibility.
+* Tweak - WP 5.6 compatibility.
+
 2020-09-21 - version 1.5.37
 * Fix   - First option is shown instead of placeholder text in Select field.
 * Fix   - Extra empty boxes in Order emails.

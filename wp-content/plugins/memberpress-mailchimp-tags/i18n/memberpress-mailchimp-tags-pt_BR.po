@@ -1,0 +1,202 @@
+# Copyright (C) 2016 MemberPress MailChimp 3.0
+# This file is distributed under the same license as the MemberPress MailChimp 3.0 package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress MailChimp 3.0 1.0.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-"
+"mailchimp-tags\n"
+"POT-Creation-Date: 2016-05-31 22:24-0300\n"
+"PO-Revision-Date: 2016-06-14 15:26-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: MpMailChimpTags.php:118 MpMailChimpTags.php:138 MpMailChimpTags.php:163
+msgid "Hey yo, why you creepin'?"
+msgstr "Ei, por que você está sacaneando?"
+
+#: MpMailChimpTags.php:123 MpMailChimpTags.php:143 MpMailChimpTags.php:168
+msgid "No apikey code was sent"
+msgstr "Nenhum código APIkey foi enviado"
+
+#: MpMailChimpTags.php:129
+msgid "Everything's Chimpy!."
+msgstr "Tudo Chimpy!"
+
+#: MpMailChimpTags.php:132
+msgid "Something went wrong. Double check your input."
+msgstr "Algo deu errado. Verifique sua entrada."
+
+#: MpMailChimpTags.php:157 MpMailChimpTags.php:186
+msgid "An unknown error occured"
+msgstr "Ocorreu um erro desconhecido."
+
+#: MpMailChimpTags.php:171
+msgid "No listid present"
+msgstr "Nenhuma listid presente"
+
+#: MpMailChimpTags.php:407
+msgid "Sign Up for the %s Newsletter"
+msgstr "Inscreva-se para receber o Boletim Informativo %s"
+
+#. Plugin Name of the plugin/theme
+#: main.php:34
+msgid "MemberPress MailChimp 3.0"
+msgstr "MemberPress MailChimp 3.0"
+
+#: main.php:35
+msgid "MailChimp Autoresponder Integration for MemberPress."
+msgstr "Integração do autoresponder MailChimp para MemberPress."
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr "Bem-vindo(a) %s"
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr "Um texto com baixa prioridade!"
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr "Adeus\n"
+
+#: views/membership.php:3
+msgid "MailChimp Merge Tag for this Membership"
+msgstr "Tag de Mescla Global MailChimp para esta associação"
+
+#: views/membership.php:6
+msgid "Enable MailChimp Merge Tag for this Membership"
+msgstr "Habilitar Tag de Mescla Global MailChimp para esta associação"
+
+#: views/membership.php:7
+msgid ""
+"If this is set then anyone who is active will have this tag applied and set "
+"to \"active\" in your MailChimp list. If the user becomes inactive on this "
+"membership then the tag will be set to \"inactive\"."
+msgstr ""
+"Se isto for selecionado, quem é ativo terá essa tag aplicada e definida como "
+"\"ativa\" em sua lista MailChimp. Se o usuário tornar-se inativo nesta "
+"associação, então a tag será definida como \"inativa\"."
+
+#: views/membership.php:7
+msgid ""
+"You can then create segments in your MailChimp list based on who is and who "
+"is not active for this membership level."
+msgstr ""
+"Você pode então criar segmentos em sua lista MailChimp baseada em quem está "
+"e quem não está ativo para esse nível de associação."
+
+#: views/membership.php:7
+msgid ""
+"Note: Changing the tag values here after some are applied to contact records "
+"in MailChimp, will prevent them from being removed later from those records "
+"if they become inactive."
+msgstr ""
+"Nota: Alterar os valores de tag aqui depois que alguns são marcados para "
+"registro no MailChimp irá impedir que eles sejam removidos posteriormente "
+"caso esses registros se tornem-se inativos mais tarde."
+
+#: views/membership.php:11
+msgid "MailChimp Merge Tag: "
+msgstr "MailChimp Tag de Mescla Global:"
+
+#: views/opt-in.php:9
+msgid "We Respect Your Privacy"
+msgstr "Nós respeitamos a sua privacidade"
+
+#: views/options.php:3
+msgid "Enable MailChimp 3.0"
+msgstr "Habilitar o MailChimp 3.0"
+
+#: views/options.php:8
+msgid "MailChimp API Key:"
+msgstr "API Key do MailChimp"
+
+#: views/options.php:15
+msgid "You can find your API key under your Account settings at mailchimp.com."
+msgstr ""
+"Você pode encontrar sua API Key sob suas configurações de conta no MailChimp."
+"com."
+
+#: views/options.php:22
+msgid "MailChimp List:"
+msgstr "Lista do MailChimp"
+
+#: views/options.php:26
+msgid "This is the list you want associated with your members."
+msgstr "Esta é a lista que você deseja associar a seus assinantes."
+
+#: views/options.php:32
+msgid "MailChimp Global Merge Tag:"
+msgstr "MailChimp Tag de Mescla Global:"
+
+#: views/options.php:36
+msgid ""
+"This merge tag will be set to a value of \"1\" for all MemberPress "
+"subscribers."
+msgstr ""
+"Essa tag de mesclagem será definida para o valor de \"1\" para todos os "
+"assinantes do MemberPress."
+
+#: views/options.php:43
+msgid "Enable Double Opt-In Email"
+msgstr "Habilitar o Cadastro Duplo"
+
+#: views/options.php:46
+msgid ""
+"When enabled, the member must click a confirmation link in their email "
+"before they will be subscribed to your list. (Recommended)"
+msgstr ""
+"Quando habilitado, os membros devem clicar em um link de confirmação em seu "
+"e-mail antes de serem inscritos em sua lista. (Recomendado)"
+
+#: views/options.php:53
+msgid "Enable Opt-In Checkbox"
+msgstr "Habilitar a Opção de Confirmação"
+
+#: views/options.php:57
+msgid ""
+"If checked, an opt-in checkbox will appear on all of your membership "
+"registration forms. If the user does not opt-in, they will be added to your "
+"list with the Global Merge Tag value of 0 instead of 1."
+msgstr ""
+"Se marcada, uma caixa de seleção aparecerá em todas as suas páginas de "
+"registro. Se o usuário não confirmar a inscrição, eles serão adicionados na "
+"sua lista com a tag de Mescla Global com o valor 0 ao invés de 1."
+
+#: views/options.php:62
+msgid "Signup Checkbox Label:"
+msgstr "Texto do Checkbox de Entrada:"
+
+#: views/options.php:67
+msgid ""
+"This is the text that will display on the signup form next to your mailing "
+"list opt-in checkbox."
+msgstr ""
+"Este é o texto que será exibido na página de inscrição, ao lado da caixa de "
+"seleção para sua lista de e-mail."
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.memberpress.com/"
+msgstr "http://www.memberpress.com/"
+
+#. Description of the plugin/theme
+msgid ""
+"MailChimp Autoresponder integration for MemberPress. Uses only 1 List and "
+"segments your members by Merge Tags."
+msgstr ""
+"Integração do Autorresponder MailChimp para MemberPress. Usa apenas uma "
+"lista e segmenta seus membros por Tags de Mescla."
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr "Caseproof, LLC"
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com/"
+msgstr "http://caseproof.com/"

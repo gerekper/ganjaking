@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Generates requests to send to WorldPay
  */
-class WC_Gateway_WorldPay_Request {
+class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 
 	/**
 	 * Pointer to gateway making the request
@@ -29,6 +29,8 @@ class WC_Gateway_WorldPay_Request {
 	 * @param WC_Gateway_WorldPay $gateway
 	 */
 	public function __construct( $gateway ) {
+		parent::__construct();
+
 		$this->gateway     = $gateway;
 		$this->notify_url  = WC()->api_request_url( 'WC_Gateway_Worldpay_Form' );
 	}
@@ -44,7 +46,7 @@ class WC_Gateway_WorldPay_Request {
      * Replace unwanted characters
      */
     protected static function unwanted_array() {
-        return array('Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E', 'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U', 'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c', 'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o','ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+        return array("'" => "", 'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E', 'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U', 'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c', 'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o','ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
     }
 
 	/**
@@ -236,10 +238,7 @@ class WC_Gateway_WorldPay_Request {
 		 */
 		if ( self::get_md5_secret( $settings['worldpaymd5'] ) != '' ) {
 
-			$worldpay_args['signatureFields'] = apply_filters( 'woocommerce_worldpay_signature_fields', 'instId:amount:currency:cartId:name:email:address1:postcode' );
-
-			$build_signature = self::get_md5_secret( $settings['worldpaymd5'] ).':'.$worldpay_args['instId'].':'.$worldpay_args['amount'].':'.$worldpay_args['currency'].':'.$worldpay_args['cartId'].':'.$worldpay_args['name'].':'.$worldpay_args['email'].':'.$worldpay_args['address1'].':'.$worldpay_args['postcode'];
-
+			$worldpay_args['signatureFields'] = apply_filters( 'woocommerce_worldpay_signature_fields', self::get_signaturefields() );
 			$worldpay_args['signature'] = md5( self::build_signature( $worldpay_args, $settings['worldpaymd5'] ) );
 
 		}
@@ -733,8 +732,6 @@ class WC_Gateway_WorldPay_Request {
 	 * Set a default city if city field is empty
 	 */
 	protected static function city( $city, $order ) {
-		// Check WC version - changes for WC 3.0.0
-		$pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
 		
 		if ( '' != $city ) {
 			return $city;
@@ -758,10 +755,21 @@ class WC_Gateway_WorldPay_Request {
 			return $string;
 		}
 
-	    $string = htmlentities( $string, ENT_QUOTES, "UTF-8" );
+		$string = htmlentities( $string, ENT_QUOTES, "UTF-8" );
 	    $string = str_replace( '&rsquo;', "'", $string );
 
 	    return $string;
+
+	}
+
+	protected static function get_signaturefields() {
+		$settings = get_option( 'woocommerce_worldpay_settings' );
+
+		if( isset( $settings['signaturefields'] ) && $settings['signaturefields'] != '' ) {
+			return $settings['signaturefields'];
+		}
+
+		return DEFAULT_WORLDPAY_SIGNATURE_FIELDS;
 
 	}
 

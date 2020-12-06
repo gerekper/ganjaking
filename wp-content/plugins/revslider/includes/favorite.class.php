@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RevSliderFavorite extends RevSliderFunctions {
 	
-	public $allowed	= array(
+	/*public $allowed	= array(
 		'moduletemplates',
 		'moduletemplateslides',
 		'modules',
@@ -19,7 +19,7 @@ class RevSliderFavorite extends RevSliderFunctions {
 		'videos',
 		'objects',
 		'fonticons'
-	);
+	);*/
 	
 	/**
 	 * change the setting of a favorization
@@ -28,7 +28,7 @@ class RevSliderFavorite extends RevSliderFunctions {
 		$fav = get_option('rs_favorite', array());
 		$id	 = esc_attr($id);
 		
-		if(in_array($type, $this->allowed)){
+		//if(in_array($type, $this->allowed)){
 			if(!isset($fav[$type])) $fav[$type] = array();
 			
 			$key = array_search($id, $fav[$type]);
@@ -40,7 +40,7 @@ class RevSliderFavorite extends RevSliderFunctions {
 					unset($fav[$type][$key]);
 				}
 			}
-		}
+		//}
 		update_option('rs_favorite', $fav);
 		
 		return $fav;
@@ -53,9 +53,9 @@ class RevSliderFavorite extends RevSliderFunctions {
 	public function get_favorite($type){
 		$fav = get_option('rs_favorite', array());
 		$list = array();
-		if(in_array($type, $this->allowed)){
+		//if(in_array($type, $this->allowed)){
 			$list = $this->get_val($fav, $type, array());
-		}
+		//}
 		
 		return $list;
 	}

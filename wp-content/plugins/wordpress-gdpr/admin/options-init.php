@@ -26,7 +26,7 @@ if (! class_exists('Redux')) {
         'use_cdn' => true,
         'dev_mode' => false,
         'display_name' => __('WordPress GDPR', 'wordpress-gdpr'),
-        'display_version' => '1.9.8',
+        'display_version' => '1.9.9',
         'page_title' => __('WordPress GDPR', 'wordpress-gdpr'),
         'update_notice' => true,
         'intro_text' => '',
@@ -300,6 +300,7 @@ if (! class_exists('Redux')) {
                 'title'    => __('Popup Style', 'wordpress-gdpr'),
                 'options' => array(
                     'wordpress-gdpr-popup-full-width' => __('Full Width', 'wordpress-gdpr'),
+                    'wordpress-gdpr-popup-full-width-buttons-right' => __('Full Width Buttons Right', 'wordpress-gdpr'),
                     'wordpress-gdpr-popup-small' => __('Small Width', 'wordpress-gdpr'),
                     'wordpress-gdpr-popup-overlay' => __('Overlay', 'wordpress-gdpr'),
                 ),

@@ -513,7 +513,7 @@ class WC_CP_Admin_Ajax {
 		$product->set_layout( 'single' );
 
 		ob_start();
-		include( 'meta-boxes/views/html-composite-edit-form.php' );
+		include( WC_CP_ABSPATH . 'includes/admin/meta-boxes/views/html-composite-edit-form.php' );
 		$html = ob_get_clean();
 
 		$response = array(

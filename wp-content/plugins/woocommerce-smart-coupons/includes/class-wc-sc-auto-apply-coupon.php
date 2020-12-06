@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     1.1.0
+ * @version     1.1.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -97,17 +97,17 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 		public function usage_restriction( $coupon_id = 0, $coupon = null ) {
 			?>
 			<script type="text/javascript">
-				jQuery(function(){
+				jQuery(function() {
 					let show_hide_auto_apply_field = function() {
 						let discount_type = jQuery('select#discount_type').val();
-						if ( 'smart_coupon' === discount_type ) {
-							jQuery( '.wc_sc_auto_apply_coupon_field' ).hide();
+						if ('smart_coupon' === discount_type) {
+							jQuery('.wc_sc_auto_apply_coupon_field').hide();
 						} else {
-							jQuery( '.wc_sc_auto_apply_coupon_field' ).show();
+							jQuery('.wc_sc_auto_apply_coupon_field').show();
 						}
 					}
 					show_hide_auto_apply_field();
-					jQuery('select#discount_type').on('change', function(){
+					jQuery('select#discount_type').on('change', function() {
 						show_hide_auto_apply_field();
 					});
 				});

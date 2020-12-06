@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Instagram 3.3.1\n"
+"Project-Id-Version: WooCommerce Instagram 3.4.1\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/themesquad/woocommerce-instagram/issues\n"
-"POT-Creation-Date: 2020-07-28 07:39:29+00:00\n"
+"POT-Creation-Date: 2020-11-26 11:08:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -127,11 +127,11 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: includes/class-wc-instagram-singleton.php:50
+#: includes/class-wc-instagram-singleton.php:49
 msgid "Cloning is forbidden."
 msgstr ""
 
-#: includes/class-wc-instagram-singleton.php:59
+#: includes/class-wc-instagram-singleton.php:58
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 

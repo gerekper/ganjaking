@@ -270,7 +270,7 @@ class WC_Deposits_Order_Manager {
 				$deferred_discount = ( empty( $item['deposit_deferred_discount'] ) ) ? 0 : $item['deposit_deferred_discount'];
 				$deferred_discount_ex_tax = ( empty( $item['deposit_deferred_discount_ex_tax'] ) ) ? 0 : $item['deposit_deferred_discount_ex_tax'];
 				WC_Deposits_Scheduled_Order_Manager::schedule_orders_for_plan( $payment_plan, $order_id, array(
-					'product'                          => $order->get_product_from_item( $item ),
+					'product'                          => $item->get_product(),
 					'qty'                              => $item['qty'],
 					'price_excluding_tax'              => $item['deposit_full_amount_ex_tax'],
 					'deposit_deferred_discount'        => $deferred_discount,
@@ -663,7 +663,7 @@ class WC_Deposits_Order_Manager {
 				}
 				// And then create an order with this item
 				$create_item = array(
-					'product'   => $order->get_product_from_item( $item ),
+					'product'   => $item->get_product(),
 					'qty'       => $item['qty'],
 					'subtotal'  => $subtotal,
 					'total'     => $total

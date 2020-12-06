@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Shipping Methods.
  *
  * @class    WC_CSP_Restrict_Shipping_Methods
- * @version  1.7.7
+ * @version  1.8.7
  */
 class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction {
 
@@ -184,12 +184,19 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 			echo '<optgroup label="' . $method->get_method_title() . '">';
 			echo '<option value="' . esc_attr( $method_id ) . '" ' . selected( in_array( $method_id, $selected_methods ), true, false ) . '>' . sprintf( __( 'All &quot;%s&quot; Method Instances', 'woocommerce-conditional-shipping-and-payments' ), $method->get_method_title() ) . '</option>';
 
-			$zones = WC_Shipping_Zones::get_zones();
+			$zones = WC_CSP_Helpers::cache_get( 'wc_shipping_zones' );
 
-			if ( ! isset( $zones[ 0 ] ) ) {
-				$rest_of_world = WC_Shipping_Zones::get_zone_by();
-				$zones[ 0 ]                       = $rest_of_world->get_data();
-				$zones[ 0 ][ 'shipping_methods' ] = $rest_of_world->get_shipping_methods();
+			if ( is_null( $zones ) ) {
+
+				$zones = WC_Shipping_Zones::get_zones();
+
+				if ( ! isset( $zones[ 0 ] ) ) {
+					$rest_of_world = WC_Shipping_Zones::get_zone_by();
+					$zones[ 0 ]                       = $rest_of_world->get_data();
+					$zones[ 0 ][ 'shipping_methods' ] = $rest_of_world->get_shipping_methods();
+				}
+
+				WC_CSP_Helpers::cache_set( 'wc_shipping_zones', $zones );
 			}
 
 			foreach ( $zones as $zone ) {
@@ -365,7 +372,12 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 			$show_excluded_notices = true;
 		}
 
-		$shipping_methods = WC()->shipping->load_shipping_methods();
+		$shipping_methods = WC_CSP_Helpers::cache_get( 'wc_shipping_methods' );
+
+		if ( is_null( $shipping_methods ) ) {
+			$shipping_methods = WC()->shipping->load_shipping_methods();
+			WC_CSP_Helpers::cache_set( 'wc_shipping_methods', $shipping_methods );
+		}
 
 		?>
 		<div class="woocommerce_restriction_form">
@@ -548,7 +560,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 			// If there's a delimiter escape it for the explode to work.
 			if ( strpos( $posted_data[ 'custom_rates' ], '%' . WC_DELIMITER . '%' ) ) {
-				$posted_data[ 'custom_rates' ] = str_replace( '%' . WC_DELIMITER . '%', '%d%', $posted_data[ 'custom_rates' ] );
+				$posted_data[ 'custom_rates' ] = str_replace( '%' . WC_DELIMITER . '%', '_d_', $posted_data[ 'custom_rates' ] );
 			}
 
 			// Explode.
@@ -556,8 +568,8 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 			// Revert delimiter value.
 			foreach ( $processed_data[ 'custom_rates' ] as $i => $rate_id ) {
-				if ( strpos( $rate_id, '%d%' ) ) {
-					$processed_data[ 'custom_rates' ][ $i ] = str_replace( '%d%', WC_DELIMITER, $rate_id );
+				if ( strpos( $rate_id, '_d_' ) ) {
+					$processed_data[ 'custom_rates' ][ $i ] = str_replace( '_d_', WC_DELIMITER, $rate_id );
 				}
 			}
 

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add stuff to existing subscriptions.
  *
  * @class    WCS_ATT_Manage_Add
- * @version  3.1.6
+ * @version  3.1.19
  */
 class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 
@@ -26,9 +26,9 @@ class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 	protected function register_modules() {
 
 		// Add product to susbcription hooks.
-		require_once( 'add/class-wcs-att-manage-add-product.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/modules/management/add/class-wcs-att-manage-add-product.php' );
 		// Add cart to susbcription hooks.
-		require_once( 'add/class-wcs-att-manage-add-cart.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/modules/management/add/class-wcs-att-manage-add-cart.php' );
 
 		// Initialize modules.
 		$this->modules = array(
@@ -318,8 +318,9 @@ class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 				 * @param  array                        $cart_item
 				 * @param  WC_Cart                      $cart
 				 * @param  WC_Subscription              $subscription
+				 * @param  WC_Order_Item                $item
 				 */
-				$found_item = apply_filters( 'wcsatt_add_cart_to_subscription_found_item', $found_item, $cart_item, $cart, $subscription );
+				$found_item = apply_filters( 'wcsatt_add_cart_to_subscription_found_item', $found_item, $cart_item, $cart, $subscription, $item );
 
 				if ( $found_item ) {
 					// Save.

@@ -56,11 +56,12 @@ class WC_Conditional_Content_Rule_Base {
 	 * Helper function to wrap the return value from is_match and apply filters or other modifications in sub classes. 
 	 * 
 	 * @param boolean $result The result that should be returned. 
-	 * @param array $rule_data The array config object for the current rule. 
+	 * @param array $rule_data The array config object for the current rule.
+	 * @param array $arguments Any arguments to pass to the match filter.
 	 * @return boolean
 	 */
-	public function return_is_match( $result, $rule_data ) {
-		return apply_filters( 'woocommerce_conditional_content_is_match', $result, $rule_data );
+	public function return_is_match( $result, $rule_data, $arguments = null ) {
+		return apply_filters( 'woocommerce_conditional_content_is_match', $result, $rule_data, $arguments );
 	}
 
 }

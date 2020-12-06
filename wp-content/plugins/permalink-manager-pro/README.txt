@@ -6,10 +6,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permalinks
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 5.5.1
-Stable tag: 2.2.9.0
+Tested up to: 5.5.3
+Stable tag: 2.2.9.2
 
-Permalink Manager Pro allows to easily change full URL addresses of posts, pages, custom post types, terms and WooCommerce links. You can also set different permalink formats per language or bulk change the URLs.
+Permalink Manager allows to easily change full URL addresses of posts, pages, custom post types, terms and WooCommerce links. You can also set different permalink formats per language or bulk change the URLs.
 
 == Description ==
 
@@ -103,369 +103,374 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 
 == Changelog ==
 
+= 2.2.9.2 =
+* Dev | Improvements for Permalink_Manager_Core_Functions::control_trailing_slashes() function
+* Dev | Minor codebase improvements
+* Fix | Hotfix for "Automatically fix broken URIs" function
+* Fix | Underscores are now by default allowed in the custom permalinks
+* Enhancement | Better support for GeoDirectory plugin
+* Fix | 'permalink_manager_allow_new_post_uri' & 'permalink_manager_allow_update_post_uri' filter replaced 'permalink_manager_new_post_uri_{$post_object->post_type}' and 'permalink_manager_update_post_uri_{$post->post_type}'
+
 = 2.2.9.0/2.2.9.1 =
-* Basic support for BasePress added
-* Added support for custom product attributes in products' permalinks (WooCommerce)
-* "Trailing slash redirect" is now disabled on front pages (to prevent redirect loop on Polylang/WPML language front pages)
-* The taxonomy term used in custom permalinks is selected differently
-* Performance improvements (duplicate-check function)
-* Further improvements for the function used to sanitize the custom permalinks
-* Codebase improvements
+* Enhancement - Basic support for BasePress added
+* Enhancement - Added support for custom product attributes in products' permalinks (WooCommerce)
+* Fix - "Trailing slash redirect" is now disabled on front pages (to prevent redirect loop on Polylang/WPML language front pages)
+* Dev - The taxonomy term used in custom permalinks is selected differently
+* Dev - Performance improvements (duplicate-check function)
+* Dev - Further improvements for the function used to sanitize the custom permalinks
+* Dev - Codebase improvements
 
 = 2.2.8.8/2.2.8.9 =
-* Hotfix for 'redirect_canonical' function (causing a redirect loop)
-* The custom canonical permalink set with Yoast SEO is now no longer overwriten
-* The custom permalinks are no longer saved if the post/term has no title
-* Hotfix for Gutenberg related JS errors
-* Hotfix for Groundhogg plugin
-* Hotfix for "Customize" admin bar menu link
-* Hotfix for WPML's language switcher on posts page
-* Hotfixes for WP 5.5 - blog/posts page + draft template is now loaded correctly
-* Trailing slash redirect code adjustments
-* Added support for GeoDirectory plugin
+* Fix - Hotfix for 'redirect_canonical' function (causing a redirect loop)
+* Fix - The custom canonical permalink set with Yoast SEO is now no longer overwriten
+* Fix - The custom permalinks are no longer saved if the post/term has no title
+* Fix - Hotfix for Gutenberg related JS errors
+* Fix - Hotfix for Groundhogg plugin
+* Fix - Hotfix for "Customize" admin bar menu link
+* Fix - Hotfix for WPML's language switcher on posts page
+* Fix - Hotfixes for WP 5.5 - blog/posts page + draft template is now loaded correctly
+* Dev - Trailing slash redirect code adjustments
+* Enhancement - Added support for GeoDirectory plugin
 
 = 2.2.8.7 =
-* Improved breadcrumbs hook (better compatibility with WPML/Polylang)
-* Hotfix for permalinks used in language switcher on blog/posts page (WPML)
-* Hotfix for cart URL in WooCommerce's mini-cart widget (now the permalink is translated correctly when WPML/Polylang is used)
-* Improved support for WPML's Advanced Translation
-* Improved support for pagination & embed endpoints
-* Hotfix for attachments permalinks
-* Improved url_to_postid() hook
-* Added support for Dokan /edit/ endpoint
+* Dev - Improved breadcrumbs hook (better compatibility with WPML/Polylang)
+* Fix - Hotfix for permalinks used in language switcher on blog/posts page (WPML)
+* Fix - Hotfix for cart URL in WooCommerce's mini-cart widget (now the permalink is translated correctly when WPML/Polylang is used)
+* Dev - Improved support for WPML's Advanced Translation
+* Dev - Improved support for pagination & embed endpoints
+* Fix - Hotfix for attachments permalinks
+* Fix - Improved url_to_postid() hook
+* Fix - Added support for Dokan /edit/ endpoint
 
 = 2.2.8.6 =
-* Hotfix for Permalink_Manager_Helper_Functions::get_disabled_taxonomies() function
-* New wrapper function with filter 'permalink_manager_post_statuses' for get_post_statuses()
-* Extended support for "My Listing" theme (by 27collective)
-* Hotfix for Gutenberg editor (broken HTML output)
-* Extended support for permalinks stored in Yoast SEO database tables (Indexables)
+* Fix - Hotfix for Permalink_Manager_Helper_Functions::get_disabled_taxonomies() function
+* Dev - New wrapper function with filter 'permalink_manager_post_statuses' for get_post_statuses()
+* Enhancement - Extended support for "My Listing" theme (by 27collective)
+* Fix - Hotfix for Gutenberg editor (broken HTML output)
+* Dev - Extended support for permalinks stored in Yoast SEO database tables (Indexables)
 
 = 2.2.8.4/2.2.8.5 =
-* Hotfix for Permastructures (now the permalink formats are saved correctly)
-* Hotfix for trailing slashes settings
-* Improved setting fields descriptions
-* Adjustments for search functionality in Bulk URI Editor
-* Support for WPML Classic Translation Editor
-* Adjustments for "Auto-update URI"
-* Improvements for get_post_types_array() & get_taxonomies_array() functions used to list the content types supported by Permalink Manager
+* Fix - Hotfix for Permastructures (now the permalink formats are saved correctly)
+* Fix - Hotfix for trailing slashes settings
+* Dev - Improved setting fields descriptions
+* Dev - Adjustments for search functionality in Bulk URI Editor
+* Enhancement - Support for WPML Classic Translation Editor
+* Dev - Adjustments for "Auto-update URI"
+* Dev - Improvements for get_post_types_array() & get_taxonomies_array() functions used to list the content types supported by Permalink Manager
 
 = 2.2.8.2/2.2.8.3 =
-* Improved descriptions in the plugin settings
-* Hotfix for endpoint redirect
+* Dev - Improved descriptions in the plugin settings
+* Fix - Hotfix for endpoint redirect
 
 = 2.2.8.1 =
-* Hotfix for stop-words (now, the stop-words can be saved again)
-* Support for Duplicate Page plugin
+* Fix - Hotfix for stop-words (now, the stop-words can be saved again)
+* Enhancement - Support for Duplicate Page plugin
 
 = 2.2.8.0 =
-* Hotfix for multisite/network installations. Now, the plugin globals are reloaded whenever switch_blog() function is called.
-* Hotfix for url_to_postid() function. The $pm_query global will no longer be altered.
-* Hotfix for post/page revisions in custom permalink detect function
-* Improved WP All Import Pro integration (better support for taxonomies)
-* A different approach for WP Customize URLs
-* New option available - "Old slug redirect"
+* Fix - Hotfix for multisite/network installations. Now, the plugin globals are reloaded whenever switch_blog() function is called.
+* Fix - Hotfix for url_to_postid() function. The $pm_query global will no longer be altered.
+* Fix - Hotfix for post/page revisions in custom permalink detect function
+* Dev - Improved WP All Import Pro integration (better support for taxonomies)
+* Dev - A different approach for WP Customize URLs
+* Enhancement - New option added: "Old slug redirect"
 
 = 2.2.7.6 =
-* Code optimization for Bulk URI Editor
-* Support for WooCommerce breadcrumbs
-* A hotfix for WPForo plugin
-* New filter "permalink_manager_chunk_size" that allows to control the chunk size in bulk tools ("Regenerate/reset", "Find & Replace")
-* New filter "permalink_manager_sanitize_regex" that allows to adjust the function that sanitizes the custom permalinks
-* Autoload for backup arrays is now disabled
-* New option available - "Convert accented letters"
+* Dev - Code optimization for Bulk URI Editor
+* Enhancement - Support for WooCommerce breadcrumbs
+* Fix - A hotfix for WPForo plugin
+* Enhancement - New filter "permalink_manager_chunk_size" that allows to control the chunk size in bulk tools ("Regenerate/reset", "Find & Replace")
+* Enhancement - New filter "permalink_manager_sanitize_regex" that allows to adjust the function that sanitizes the custom permalinks
+* Dev - Autoload for backup arrays is now disabled
+* Enhancement - New option added: "Convert accented letters"
 
 = 2.2.7.5 =
-* CSS Hotfix. Now the redirects box is displayed correctly in the URI editor
+* Fix - CSS adjustments. Now the redirects box is displayed correctly in the URI editor
 
 = 2.2.7.4 =
-* Support for "Primary category" set with SEOPress & RankMath plugins
-* Support for breadcrumbs added by SEOPress & RankMath plugins
-* Improved "trailing slashes" functionality - untrailingslashit() & trailingslashit() replaced with REGEX based functions
-* Possibility to remove custom permalinks, redirects, permastructure settings directly from "Debug" section
-* New filter "permalink_manager_duplicates_priority" that allows to decide what content type ("posts" or "terms") should be loaded when the custom permalink is duplicated
-* A minor fix for url_to_postid() function
+* Enhancement - Support for "Primary category" set with SEOPress & RankMath plugins
+* Enhancement - Support for breadcrumbs added by SEOPress & RankMath plugins
+* Dev - Improved "trailing slashes" functionality - untrailingslashit() & trailingslashit() replaced with REGEX based functions
+* Enhancement - Possibility to remove custom permalinks, redirects, permastructure settings directly from "Debug" section
+* Enhancement - New filter "permalink_manager_duplicates_priority" that allows to decide what content type ("posts" or "terms") should be loaded when the custom permalink is duplicated
+* Fix - A minor fix for url_to_postid() function
 
 = 2.2.7.3 =
-* Support for "Primary category" set with The SEO Framework
-* Changes for URI Editor section backend (SQL queries + improvements for search box)
-* Improved support for WooCommerce Wishlist plugin
-* Improvements for slugs sanitization functions
-* Possibility to exclude posts from bulk tools added to "Auto-update the URI" dropdown in URI Editor
+* Enhancement - Support for "Primary category" set with The SEO Framework
+* Dev - Changes for URI Editor section backend (SQL queries + improvements for search box)
+* Enhancement - Improved support for WooCommerce Wishlist plugin
+* Dev - Improvements for slugs sanitization functions
+* Enhancement - Possibility to exclude posts from bulk tools added to "Auto-update the URI" dropdown in URI Editor
 
 = 2.2.7.1 =
-* Hotfix for PHP Fatal error in permalink-manager-admin-functions.php file
+* Fix - Hotfix for PHP Fatal error in permalink-manager-admin-functions.php file
 
 = 2.2.7 =
-* Force 404 for draft posts (for non-logged-in users)
-* New feature: Force HTTPs/WWW in URLs
-* New setting fields: "URI Editor role capability" & "Force HTTPS in URLs"
-* Minor improvements
+* Dev - Force 404 for draft posts (for non-logged-in users)
+* Enhancement - New setting fields: "URI Editor role capability" & "Force HTTPS in URLs"
+* Dev - Minor improvements
 
 = 2.2.6 =
-* More debug functions added
-* Better support for Hebrew letters
-* Support for location custom fields in WP Store Locator - CSV Manager plugin
-* Improved support for Gutenberg editor (reported by Cedric Busuttil)
+* Dev - More debug functions added
+* Dev - Better support for Hebrew letters
+* Enhancement - Support for location custom fields in WP Store Locator - CSV Manager plugin
+* Enhancement - Improved support for Gutenberg editor (reported by Cedric Busuttil)
 
 = 2.2.4/2.2.5 =
-* Minor code improvements
-* Yoast SEO Breadcrumbs - further improvements
-* Hotfix for Toolset custom fields support (Permalink Manager Pro)
-* Hotfix for Polylang URL modes
+* Dev - Minor code improvements
+* Dev - Yoast SEO Breadcrumbs - further improvements
+* Fix - Hotfix for Toolset custom fields support (Permalink Manager Pro)
+* Fix - Hotfix for Polylang URL modes
 
 = 2.2.3 =
-* Code improvements for WP All Import integration functions
-* Hotfix for Elementor conflict with custom redirects function (Permalink Manager Pro)
-* New field ("Do not automatically append the slug") in Permastructure settings added to each post type & taxonomy
-* Basic support added for Mailster plugin
-* New permastructure tag: "%monthname%"
+* Dev - Code improvements for WP All Import integration functions
+* Fix - Hotfix for Elementor conflict with custom redirects function (Permalink Manager Pro)
+* Enhancement - New field ("Do not automatically append the slug") in Permastructure settings added to each post type & taxonomy
+* Enhancement - Basic support added for Mailster plugin
+* Enhancement - New permastructure tag: "%monthname%"
 
 = 2.2.2 =
-* Code improvement for "Quick Edit" inline form
-* Support for Yoast SEO breadcrumbs added
-* Hotfix for Elementor
+* Dev - Code improvement for "Quick Edit" inline form
+* Enhancement - Support for Yoast SEO breadcrumbs added
+* Fix - Hotfix for Elementor
 
 = 2.2.1.1/2.2.1.2/2.2.1.3/2.2.1.4 =
-* Hotfix for function that detects custom URIs
-* Custom URIs for WP All Import inported posts are now generated 30 seconds after the import job is completed
+* Fix - Hotfix for function that detects custom URIs
+* Dev - Custom URIs for WP All Import inported posts are now generated 30 seconds after the import job is completed
 
 = 2.2.1 =
-* Hotfix for Customizer (custom permalinks filters are disabled in admin panel)
-* Minor UX improvements
-* Partial support for TranslatePress plugin added
-* Term permalinks are processed correctly when WPML enabled and "Adjust IDs for multilingual functionality" mode is activated
-* New setting field separated from "Force custom slugs" - now, both the native slugs and special characters (.|_+) can be kept inside the slugs
-* New filter - "permalink_manager_force_custom_slugs"
+* Fix - Hotfix for Customizer (custom permalinks filters are disabled in admin panel)
+* Dev - Minor UX improvements
+* Enhancement - Partial support for TranslatePress plugin added
+* Fix - Term permalinks are processed correctly when WPML enabled and "Adjust IDs for multilingual functionality" mode is activated
+* Enhancement - New setting field separated from "Force custom slugs" - now, both the native slugs and special characters (.|_+) can be kept inside the slugs
+* Enhancement - "permalink_manager_force_custom_slugs" filter added
 
 = 2.2.0 =
-* Hotfix for WPML - ?lang query parameter is now appended correctly
-* Support for comment pages endpoint
-* Minor code adjustments
-* Metabox for Gutenberg enabled also for CPT
-* Further improvements for redirect hooks
-* Hotfix for WP Customizer
-* Native slugs are saved correctly in Gutenberg editor
-* New filter - "permalink_manager_filter_permastructure" + Permastructures can be now translated from admin panel
+* Fix - Hotfix for WPML - ?lang query parameter is now appended correctly
+* Fix - Support for comment pages endpoint
+* Dev - Minor code adjustments
+* Enhancement - Metabox for Gutenberg enabled also for CPT
+* Dev - Further improvements for redirect hooks
+* Fix - Hotfix for WP Customizer
+* Fix - Native slugs are saved correctly in Gutenberg editor
+* Enhancement - "permalink_manager_filter_permastructure" filter added
+* Enhancement - Permastructures can be now translated from admin panel
 
 = 2.1.2.1/2.1.2.2 =
-* Hotfix for "Force custom slugs" option - now special characters are not removed if "Yes, use post/term titles + do not strip special characters: .|-+" mode is set.
-* Hotfix for custom fields support in custom permalinks
+* Fix - Hotfix for "Force custom slugs" option - now special characters are not removed if "Yes, use post/term titles + do not strip special characters: .|-+" mode is set.
+* Fix - Hotfix for custom fields support in custom permalinks
 
 = 2.1.2 =
-* Hotfix for WP All Import - default permalinks are now assigned correctly to imported posts + possibility to disable WP All Import custom URI functions in Permalink Manager settings
-* Hotfix for Yoast SEO - notice displayed on author pages
-* Adjustments for sanitize slug functions
-* Basic support for Gutenberg added
+* Fix - Hotfix for WP All Import - default permalinks are now assigned correctly to imported posts + possibility to disable WP All Import custom URI functions in Permalink Manager settings
+* Fix - Hotfix for Yoast SEO - notice displayed on author pages
+* Dev - Adjustments for sanitize slug functions
+* Enhancement - Basic support for Gutenberg added
 
 = 2.1.1 =
-* Support for draft custom permalinks
-* Support for WP All Import plugin, now the custom permalinks can be defined directly in XML, CSV, ZIP, GZIP, GZ, JSON, SQL, TXT, DAT or PSV import files.
-* Hotfix for Permalink_Manager_Pro_Functions::save_redirects() method - now the custom redirects are correctly saved when a custom permalink is updated.
-* Hotfix for "Language name added as a parameter" mode in "WPML Language URL format" settings.
-* Hotfix for canonical redirect triggered by WPML.
-* Better support for non-latin letters in custom URIs & redirects
-* Better support for endpoints
-* Searchbox in URI Editors
+* Enhancement - Support for draft custom permalinks
+* Enhancement - Support for WP All Import plugin, now the custom permalinks can be defined directly in XML, CSV, ZIP, GZIP, GZ, JSON, SQL, TXT, DAT or PSV import files.
+* Fix - Permalink_Manager_Pro_Functions::save_redirects() method - now the custom redirects are correctly saved when a custom permalink is updated.
+* Fix - Hotfix for "Language name added as a parameter" mode in "WPML Language URL format" settings.
+* Fix - Hotfix for canonical redirect triggered by WPML.
+* Dev - Better support for non-latin letters in custom URIs & redirects
+* Dev - Better support for endpoints
+* Enhancement - Searchbox in URI Editors
 
 = 2.1.0 =
-* Support for "url_to_postid" function
-* Bulk tools use now AJAX & transients to prevent timeout when large number of posts/terms is processed
-* Fix for multi-domain language setup in WPML
+* Enhancement - Support for "url_to_postid" function
+* Dev - Bulk tools use now AJAX & transients to prevent timeout when large number of posts/terms is processed
+* Fix - Fix for multi-domain language setup in WPML
 
 = 2.0.6.5 =
-* Support for %__sku% permastructure tag (WooCommerce) added - now SKU number can be added to the custom permalinks (Permalink Manager Pro)
-* Hotfix for license validation system
+* Enhancement - Support for %__sku% permastructure tag (WooCommerce) added - now SKU number can be added to the custom permalinks (Permalink Manager Pro)
 
 = 2.0.6.4 =
-* Code optimization
-* New filter: permalink_manager_fix_uri_duplicates
-* Possibility to display the native slug field
-* Hotfix for license validation functions
+* Dev - Code optimization
+* Enhancement - 'permalink_manager_fix_uri_duplicates' filter added
+* Enhancement - Possibility to display the native slug field
+* Fix - License validation functions fixed
 
 = 2.0.6.3.2 =
-* Support added for Revisionize plugin
-* Minor tweaks
+* Enhancement - Support added for Revisionize plugin
+* Fix - Minor tweaks
 
 = 2.0.6.2/2.0.6.3 =
-* Japaneese translation added
-* Some minor improvements
-* New filters: permalink_manager_hide_uri_editor_term_{$term->taxonomy}, permalink_manager_hide_uri_editor_post_{$post->post_type} & permalink_manager_update_term_uri_{$this_term->taxonomy}, permalink_manager_update_post_uri_{$post->post_type}, permalink_manager_new_post_uri_{$post_object->post_type}
-* Hotfix for default permalinks (no-hierarchical post types)
-* Hotfix for attachments default permalinks + URI detect function
+* Enhancement - Japaneese translation added
+* Dev - Some minor improvements
+* Enhancement - New filters: permalink_manager_hide_uri_editor_term_{$term->taxonomy}, permalink_manager_hide_uri_editor_post_{$post->post_type} & permalink_manager_update_term_uri_{$this_term->taxonomy}, permalink_manager_update_post_uri_{$post->post_type}, permalink_manager_new_post_uri_{$post_object->post_type}
+* Fix - Hotfix for default permalinks (no-hierarchical post types)
+* Fix - Hotfix for attachments default permalinks + URI detect function
 
 = 2.0.6.1 =
-* Hotfix for endpoints in REGEX
-* Minor bug fixed - native slugs are now correctly regenerated
-* Hotfix for URI sanitization functions
-* Hotfix for AMP plugin
-* Full support for WPML multi-domain language setup
-* Hotfix for VisualComposer + Yoast SEO JS functions
-* Hotfix for WPML String Translation
+* Fix - Hotfix for endpoints in REGEX
+* Fix - Minor bug fixed - native slugs are now correctly regenerated
+* Fix - Hotfix for URI sanitization functions
+* Fix - Hotfix for AMP plugin
+* Enhancement - Full support for WPML multi-domain language setup
+* Fix - Hotfix for VisualComposer + Yoast SEO JS functions
+* Fix - Hotfix for WPML String Translation
 
 = 2.0.6.0 =
-* Minor bugs fixed
-* New permastrutcure tag - %native_slug%
-* "Force custom slugs" feature enhanced with new options
-* Possibility to redirect the posts & terms to external URL (Permalink Manager Pro)
+* Fix - Minor bugs fixed
+* Enhancement - New permastrutcure tag - %native_slug%
+* Enhancement - "Force custom slugs" feature enhanced with new options
+* Enhancement - Possibility to redirect the posts & terms to external URL (Permalink Manager Pro)
 
 = 2.0.5.9 =
-* New permastructure tags - %post_type% & %taxonomy%
-* Support for "Taxonomy" custom field in ACF (Advanced Custom Fields)
-* Minor fix for endpoints
-* New hook - "permalink_manager-filter-permalink-base" used instead of "permalink-manager-post-permalink-prefix" & "permalink-manager-term-permalink-prefix"
+* Enhancement - New permastructure tags - %post_type% & %taxonomy%
+* Enhancement- Support for "Taxonomy" custom field in ACF (Advanced Custom Fields)
+* Fix - Minor fix for endpoints
+* Enhancement - New hooks: "permalink_manager-filter-permalink-base" used instead of "permalink-manager-post-permalink-prefix" & "permalink-manager-term-permalink-prefix"
 
 = 2.0.5.7/2.0.5.8 =
-* Hotfix for MultilingualPress plugin
-* Hotfix & better support for attachment post type (Media Library)
-* Custom redirects for old permalinks are now correctly saved in Permalink Manager Pro
-* Support for WooCommerce Wishlist plugin
+* Fix - MultilingualPress plugin
+* Fix - Hotfix & better support for attachment post type (Media Library)
+* Fix - Custom redirects for old permalinks are now correctly saved in Permalink Manager Pro
+* Enhancement - Support for WooCommerce Wishlist plugin
 
 = 2.0.5.6 =
-* The URIs for trashed posts are now correctly removed
-* Better support for non-ASCII characters in URIs
-* Minor fix for hierarchical post types
-* Fix for coupon URL redirect
-* New filter - "permalink-manager-force-hyphens"
+* Fix - The URIs for trashed posts are now correctly removed
+* Dev - Better support for non-ASCII characters in URIs
+* Fix - Minor fix for hierarchical post types
+* Fix Fix for coupon URL redirect
+* Enhancement - New filter - "permalink-manager-force-hyphens"
 
 = 2.0.5.5 =
-* Discount URLs for WooCommerce - now the shop clients can use coupons' custom URIs to easily apply the discount to the cart
-* Extra AJAX check for duplicated URIs in "Edit URI" box
-* Wordpress CronJobs for "Automatically remove duplicates" functionality
-* Extra improvements in "save_post/update_term" hooks
-* Fix for terms permalinks added via "Edit post" page
-* New filter - "permalink-manager-force-lowercase-uris"
+* Enhancement - Discount URLs for WooCommerce - now the shop clients can use coupons' custom URIs to easily apply the discount to the cart
+* Enhancement - Extra AJAX check for duplicated URIs in "Edit URI" box
+* Enhancement - Wordpress CronJobs for "Automatically remove duplicates" functionality
+* Dev - Extra improvements in "save_post/update_term" hooks
+* Fix - Terms permalinks added via "Edit post" page
+* Enhancement - "permalink-manager-force-lowercase-uris" filter added
 
 = 2.0.5.4 =
-* New filter - "permalink_manager_empty_tag_replacement"
-* Fix for term placeholder tags in taxonomies permastructures
-* Page pagination improvement (404 error page for non-existing pages)
-* New settings field for pagination redirect
-* Trailing slashes are no longer added to custom permalinks ended with extension, eg. .html, or .php
+* Enhancement - "permalink_manager_empty_tag_replacement" filter added
+* Enhancement - New settings field for pagination redirect
+* Enhancement - Trailing slashes are no longer added to custom permalinks ended with extension, eg. .html, or .php
+* Fix - Term placeholder tags in taxonomies permastructures
+* Fix - Page pagination improvement (404 error page for non-existing pages)
 
 = 2.0.5.3 =
-* Hotfix for redirects - redirect chain no longer occurs (WPML)
-* Now $wp_query->is_404() is set to false when custom URI is detected
-* Hotfix for ACF custom fields in terms
-* Fix for trailing slash (in admin dashboard), also the trailing slashes are removed from permalinks containing GET parameters or hastags (often used by 3rd party plugins)
+* Fix - Hotfix for redirects - redirect chain no longer occurs (WPML)
+* Fix - Hotfix for ACF custom fields in terms
+* Fix - "Trailling slashes" mode setting added, also the trailing slashes are removed from permalinks containing GET parameters or anchors (often used by 3rd party plugins)
 
 = 2.0.5.2.2 =
-* Hotfix for admin requests (+ compatibility with WooCommerce TM Extra Product Options)
-* Hotfix for no-ASCII characters in custom URIs
-* Hotfix for attachments
+* Fix - Hotfix for admin requests (+ compatibility with WooCommerce TM Extra Product Options)
+* Fix - Hotfix for no-ASCII characters in custom URIs
+* Fix - Hotfix for attachments
 
 = 2.0.5.2.1 =
-* Hotfix for endpoints redirect
+* Fix - Hotfix for endpoints redirect
 
 = 2.0.5.1/2.0.5.2 =
-* Hotfix for REGEX rule
-* yoast_attachment_redirect setting removed (it is no longer needed)
-* yoast_primary_term setting replaced with "permalink-manager-primary-term" filter
-* Hotfix for WP All Import
-* Hotfix for WooCommerce endpoints
-* Better support for Polylang
-* Support for Theme My Login plugin
+* Dev - yoast_attachment_redirect setting removed (it is no longer needed)
+* Dev - "yoast_primary_term" setting replaced with "permalink-manager-primary-term" filter
+* Fix - REGEX rules
+* Fix - Hotfix for WP All Import
+* Fix - Hotfix for WooCommerce endpoints
+* Dev - Better support for Polylang
+* Enhancement - Support for Theme My Login plugin
 
 = 2.0.5 =
-* Now, the duplicates and unused custom permalinks can be automatically removed
-* Better support for endpoints
-* "Disable slug appendix" field is no longer needed
-* %{taxonomy}_flat% tag enhanced for post types permastructures
-* Fix for WPML language prefixes in REGEX rule used to detect URIs
-* Possibility to disable Permalink Manager functions for particular post types or taxonomies
+* Enhancement - Now, the duplicates and unused custom permalinks can be automatically removed
+* Enhancement - %{taxonomy}_flat% tag enhanced for post types permastructures
+* Enhancement - Possibility to disable Permalink Manager functions for particular post types or taxonomies
+* Dev - Better support for endpoints
+* Dev - "Disable slug appendix" field is no longer needed
+* Fix - Fix for WPML language prefixes in REGEX rule used to detect URIs
 
 = 2.0.4.3 =
-* Hotfix for problem with custom URIs for new terms & posts
+* Fix - Hotfix for problem with custom URIs for new terms & posts
 
 = 2.0.4.2 =
 * Trailing slashes redirect adjustment
 
 = 2.0.4.1 =
-* Hotfix for Elementor and another visual editor plugins
-* Support for endpoints parsed as $_GET parameters
+* Fix - Hotfix for Elementor and another visual editor plugins
+* Dev - Support for endpoints parsed as $_GET parameters
 
 = 2.0.4 =
-* New settings field - "Deep detect"
+* Enhancement - New settings field - "Deep detect"
 
 = 2.0.3.1 =
-* Fix for Custom Fields tag in permastructures
+* Enhancement - Custom fields tags in permastructures settings
 
 = 2.0.3 =
-* Custom URI editor in "Quick Edit"
-* "Quick/Bulk Edit" hotfix
-* New permastrutcure tag %category_custom_uri%
+* Enhancement - Custom URI editor in "Quick Edit"
+* Enhancement - New permastrutcure tag %category_custom_uri%
+* Fix - "Quick/Bulk Edit" hotfix
 
 = 2.0.2 =
-* WooCommerce search redirect loop - hotfix
+* Fix - WooCommerce search redirect loop - hotfix
 
 = 2.0.1 =
-* WooCommerce endpoints hotfix
-* Redirects save notices - hotfix
+* Fix - WooCommerce endpoints hotfix
+* Fix - Redirects save notices - hotfix
 
 = 2.0.0 =
-* Extra Redirects - possibility to define extra redirects for each post/term
-* New "Tools" section - "Permalink Duplicates"
-* UI improvements for taxonomies ("Custom URI" panel)
-* Fixes for reported bugs
+* Enhancement - Extra Redirects - possibility to define extra redirects for each post/term
+* Enhancement - New "Tools" section - "Permalink Duplicates"
+* Enhancement - UI improvements for taxonomies ("Custom URI" panel)
+* Fix - Fixes for user reported bugs
 
 = 1.11.6.3 =
-* Slug appendix fix
-* Hotfix for WooCommerce checkkout
+* Fix - Slug appendix fix
+* Fix - Hotfix for WooCommerce checkout
 
 = 1.11.6 =
-* Hotfix for taxonomy tags
-* Hotfix for custom field tags
-* Hotfix for Jetpack
-* Suuport for WP All Import
-* Support for Custom Permalinks
+* Fix - Hotfix for taxonomy tags
+* Fix - Hotfix for custom field tags
+* Fix - Hotfix for Jetpack
+* Enhancement - Suuport for WP All Import
+* Enhancement - Support for Custom Permalinks
 
 = 1.11.5.1 =
-* Hotfix for "Custom URI" form
-* Hotfix for Yoast SEO & Visual Composer
-* Now it is possible to disable slugs appendix
+* Fix - "Custom URI" form issues
+* Fix - for Yoast SEO & Visual Composer
+* Enhancement - Possibility to choose if slugs should or should not be added to the default custom permalinks
 
 = 1.11.4 =
-* Hotfix for RSS feeds URLs
+* Fix - Hotfix for RSS feeds URLs
 
 = 1.11.1 =
-* Trailing slashes & Decode URIs - new settings
-* Fix for "Bulk Edit" URI reset
-* Partial code refactoring
+* Enhancement - Trailing slashes & Decode URIs - new settings
+* Fix - "Bulk Edit" URI reset
+* Dev - Partial code refactoring
 
 = 1.11.0 =
-* Hierarchical taxonomies fix
-* New hook: "permalink_manager_filter_final_term_permalink"
+* Fix - Hierarchical taxonomies fix
+* Enhancement - 'permalink_manager_filter_final_term_permalink' filter added
 
 = 1.10.2 =
-* Taxonomies & permastructures fix
+* Fix - Taxonomies & permastructures fix
 
 = 1.1.1 =
-* Typo fix
-* UI improvements
-* Fix for canonical redirects in WPML
+* Dev - UI improvements
+* Fix - Fix for canonical redirects in WPML
 
 = 1.1.0 =
-* Partial code refactoring
-* "Auto-update" feature
-* UI/UX improvements
-* Support for AMP plugin by Automattic
+* Dev - Partial code refactoring
+* Dev - UI/UX improvements
+* Enhancement - "Auto-update" feature
+* Enhancement - Support for AMP plugin by Automattic
 
 = 1.0.3 =
-* Another pagination issue - hotfix
+* Fix - Another pagination issue - hotfix
 
 = 1.0.2 =
-* Post pagination fix
-* Basic REGEX support
-* 'permalink_manager_filter_final_post_permalink' filter added
+* Fix - Post pagination fix
+* Enhancement - Basic REGEX support
+* Enhancement - 'permalink_manager_filter_final_post_permalink' filter added
 
 = 1.0.1 =
-* WPML support fixes
+* Fix - WPML support fixes
 
 = 1.0.0 =
-* Further refactoring
-* WPML support added
-* Some minor issues fixed
-* "Sample permalink" support added
+* Dev - Further refactoring
+* Dev - Some minor issues fixed
+* Enhancement - WPML support added
+* Enhancement - "Sample permalink" support added
 
 = 0.5.2/0.5.3 =
 * Another hotfix

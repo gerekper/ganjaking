@@ -315,13 +315,13 @@ class Add_Ons_List_Table extends \WP_List_Table {
 
 			foreach ( $item->get_options( 'edit' ) as $option ) {
 
-				$lowest  = $option['adjustment'] < $lowest['adjustment'] || null === $lowest ? $option : $lowest;
-				$highest = $option['adjustment'] > $highest['adjustment'] || null === $highest ? $option : $highest;
+				$lowest  = null === $lowest  || ( isset( $option['adjustment'], $lowest['adjustment'] )  && $option['adjustment'] < $lowest['adjustment']  ) ? $option : $lowest;
+				$highest = null === $highest || ( isset( $option['adjustment'], $highest['adjustment'] ) && $option['adjustment'] > $highest['adjustment'] ) ? $option : $highest;
 			}
 
 			$adjustment_content = $this->format_adjustment( $lowest['adjustment'], $lowest['adjustment_type'] );
 
-			if ( $lowest['adjustment'] !== $highest['adjustment'] || $lowest['adjustment_type'] !== $highest['adjustment_type'] ) {
+			if ( $lowest && $highest && ( $lowest['adjustment'] !== $highest['adjustment'] || $lowest['adjustment_type'] !== $highest['adjustment_type'] ) ) {
 
 				$adjustment_content .= ' to ' . $this->format_adjustment( $highest['adjustment'], $highest['adjustment_type'] );
 			}

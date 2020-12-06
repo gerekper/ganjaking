@@ -1,5 +1,10 @@
 *** WooCommerce Checkout Add-Ons Changelog ***
 
+2020.11.25 - version 2.4.2
+ * Fix - Ensure that Checkout Add Ons fields descriptions are displayed at checkout
+ * Fix - Prevent a possible PHP Notice to be triggered on the Add Ons admin list screen
+ * Misc - Add PHP 8 support
+
 2020.10.02 - version 2.4.1
  * Fix - Avoid accessing deprecated cart property that used to trigger a notice in WooCommerce 4.4+
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets

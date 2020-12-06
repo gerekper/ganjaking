@@ -88,22 +88,27 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 
 
 	/**
-	 * Parse line items from raw CSV data
+	 * Parses line items from raw CSV data.
 	 *
-	 * In 3.3.0 moved to \WC_CSV_Import_Suite_Order_Items_Parser from \WC_CSV_Import_Suite_Order_Import and changed from private to public
+	 * In v3.3.0 moved to {@see \WC_CSV_Import_Suite_Order_Items_Parser} from {@see \WC_CSV_Import_Suite_Order_Import} and changed from private to public.
 	 *
 	 * @since 3.0.0
-	 * @param array $item Raw order data from CSV file
+	 *
+	 * @param array $item raw order data from CSV file
 	 * @param string $format CSV file format
-	 * @param bool $allow_unknown_products. Optional. Defaults to false.
-	 * @param array $tax_items Parsed tax items
-	 * @param bool $merging Optional. Whether we are merging or inserting a new order. Defaults to false.
+	 * @param bool $allow_unknown_products optional, defaults to false
+	 * @param array $tax_items parsed tax items
+	 * @param bool $merging optional: whether we are merging or inserting a new order (defaults to false)
+	 * @return array parsed line item data
 	 * @throws \WC_CSV_Import_Suite_Import_Exception validation, parsing errors
-	 * @return array Parsed line item data
 	 */
-	public function parse_line_items( $item = array(), $format, $allow_unknown_products = false, $tax_items, $merging = false ) {
+	public function parse_line_items( $item, $format, $allow_unknown_products = false, $tax_items = [], $merging = false ) {
 
-		$line_items = $raw_line_items = array();
+		$line_items = $raw_line_items = [];
+
+		if ( empty( $item ) ) {
+			$item = [];
+		}
 
 		switch ( $format ) {
 
@@ -327,25 +332,26 @@ class WC_CSV_Import_Suite_Order_Items_Parser {
 
 
 	/**
-	 * Parse a line item - expects it to be in the default CSV format
+	 * Parses a line item - expects it to be in the default CSV format.
 	 *
-	 * In 3.3.0 moved to \WC_CSV_Import_Suite_Order_Items_Parser from \WC_CSV_Import_Suite_Order_Import
+	 * In v3.3.0 moved to {@see \WC_CSV_Import_Suite_Order_Items_Parser} from {@see \WC_CSV_Import_Suite_Order_Import}.
 	 *
 	 * @since 3.0.0
-	 * @param array $item Raw item data
-	 * @param bool $allow_unknown_products Optional. Defaults to false
-	 * @param array $tax_items Parsed tax items
+	 *
+	 * @param array $item raw item data
+	 * @param bool $allow_unknown_products optional, defaults to false
+	 * @param array $tax_items parsed tax items
+	 * @return array parsed item data
 	 * @throws \WC_CSV_Import_Suite_Import_Exception validation, parsing errors
-	 * @return array Parsed item data
 	 */
-	private function parse_line_item( $item, $allow_unknown_products = false, $tax_items ) {
+	private function parse_line_item( $item, $allow_unknown_products = false, $tax_items = [] ) {
 
 		$product_id = $this->get_array_key_value( $item, 'product_id' );
 		$sku        = $this->get_array_key_value( $item, 'sku' );
 		$qty        = $this->get_array_key_value( $item, 'quantity' );
 		$total      = $this->get_array_key_value( $item, 'total' );
 
-		$product_identifier = $product_id ? $product_id : $sku;
+		$product_identifier = $product_id ?: $sku;
 
 		if ( ! $product_identifier || ! $qty || ! is_numeric( $total ) ) {
 

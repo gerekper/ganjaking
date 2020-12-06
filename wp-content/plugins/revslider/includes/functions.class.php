@@ -229,7 +229,11 @@ class RevSliderFunctions extends RevSliderData {
 		$json = '';
 		
 		if(!empty($arr)){
-			$json = json_encode($arr);
+			if(defined('JSON_INVALID_UTF8_IGNORE')){
+				$json = json_encode($arr, JSON_INVALID_UTF8_IGNORE);
+			}else{
+				$json = json_encode($arr);
+			}
 			$json = addslashes($json);
 		}
 
@@ -383,7 +387,8 @@ class RevSliderFunctions extends RevSliderData {
 	/**
 	 * Check if Path is a Valid Image File	 	
 	 **/	 
-	public function check_valid_image($url){		
+	public function check_valid_image($url){
+		if(empty($url)) return false;
 		$pos = strrpos($url, '.', -1);
 	    if($pos === false) return false;
 	    $ext = strtolower(substr($url, $pos));
@@ -1258,15 +1263,18 @@ class RevSliderFunctions extends RevSliderData {
 		switch($special){
 			case 'http':
 				$url = str_replace('https://', 'http://', $url);
+				if(strpos($url, 'http://') === false) $url = 'http://'.$url;
 			break;
 			case 'https':
 				$url = str_replace('http://', 'https://', $url);
+				if(strpos($url, 'https://') === false) $url = 'https://'.$url;
 			break;
 			case 'keep': //do nothing
 			break;
 			case 'auto':
 			default:
 				$url = str_replace(array('http://', 'https://'), '//' , $url);
+				//if(strpos($url, '//') === false) $url = '//'.$url;
 			break;
 		}
 		return $url;

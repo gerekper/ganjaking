@@ -38,13 +38,17 @@ abstract class WC_OD_Delivery_Dates {
 
 		$disabled_dates = array();
 		$index          = 0;
+
 		do {
 			$timestamp     = strtotime( "+{$index} days", $args['start_date'] );
 			$weekday       = date( 'w', $timestamp );
 			$delivery_day  = new WC_OD_Delivery_Day( $args['delivery_days'][ $weekday ], $weekday );
 			$delivery_date = new WC_OD_Delivery_Date( $timestamp, $delivery_day );
 
-			if ( in_array( $timestamp, $args['disabled_dates'], true ) || ! $delivery_date->is_valid() ) {
+			if (
+				in_array( date( 'Y-m-d', $timestamp ), $args['disabled_dates'], true ) ||
+				! $delivery_date->is_valid()
+			) {
 				$disabled_dates[] = $timestamp;
 			}
 

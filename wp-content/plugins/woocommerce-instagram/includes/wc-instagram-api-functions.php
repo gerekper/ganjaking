@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  * @param string $version  Optional. The API version.
  * @return mixed The request response. WP_Error on failure.
  */
-function wc_instagram_api_request( $endpoint = '', $args = array(), $method = 'get', $version = 'v4.0' ) {
+function wc_instagram_api_request( $endpoint = '', $args = array(), $method = 'get', $version = 'v8.0' ) {
 	// The Instagram Graph API uses the Facebook Graph API.
 	$url = 'https://graph.facebook.com/' . wp_unslash( $version ) . '/' . wp_unslash( $endpoint );
 

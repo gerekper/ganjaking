@@ -15,15 +15,15 @@
 			<?php foreach ( $lists as $list ) : ?>
 				<?php $sharing = $list->get_wishlist_sharing(); ?>
                 <tr class="cart_table_item">
-                    <td class="product-name">
+                    <td class="product-name"  data-title="<?php _e( 'Product', 'wc_wishlist' ); ?>">
                         <a href="<?php $list->the_url_edit(); ?>"><?php $list->the_title(); ?></a>
                         <div class="row-actions"></div>
 						<?php if ( $sharing == 'Public' || $sharing == 'Shared' ) : ?>
 							<?php woocommerce_wishlists_get_template( 'wishlist-sharing-menu.php', array( 'id' => $list->id ) ); ?>
 						<?php endif; ?>
                     </td>
-                    <td class="wl-date-added"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $list->post->post_date ) ); ?></td>
-                    <td class="wl-privacy-col">
+                    <td class="wl-date-added"  data-title="<?php _e( 'Date Added', 'wc_wishlist' ); ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $list->post->post_date ) ); ?></td>
+                    <td class="wl-privacy-col"  data-title="<?php _e( 'Privacy', 'wc_wishlist' ); ?>">
 						<?php echo $list->get_wishlist_sharing( true ); ?>
                     </td>
                 </tr>

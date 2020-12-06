@@ -1,12 +1,12 @@
 <?php
 /**
- * Trait used by all bookings CRUD controllers.
+ * Trait used by some bookings CRUD controllers.
  *
  * @package WooCommerce\Bookings\Rest\Controller
  */
 
 /**
- * Trait WC_Bookings_Rest_Permission_Check
+ * Trait WC_Bookings_Rest_Permission_Check.
  */
 trait WC_Bookings_Rest_Permission_Check {
 

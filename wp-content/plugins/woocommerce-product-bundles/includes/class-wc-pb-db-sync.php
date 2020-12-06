@@ -74,7 +74,7 @@ class WC_PB_DB_Sync {
 
 			if ( ! defined( 'WC_PB_DEBUG_STOCK_PARENT_SYNC' ) ) {
 
-				include_once( 'class-wc-pb-db-sync-task-runner.php' );
+				include_once( WC_PB_ABSPATH . 'includes/class-wc-pb-db-sync-task-runner.php' );
 
 				// Spawn task runner.
 				add_action( 'init', array( __CLASS__, 'initialize_sync_task_runner' ), 5 );
@@ -344,10 +344,17 @@ class WC_PB_DB_Sync {
 				// The product is in stock and stock is being managed: Compare with the min item quantity.
 				foreach ( $bundled_item_ids as $bundled_item_index => $bundled_item_id ) {
 
-					if ( '' === $stock_quantity || $stock_quantity >= max( 1, absint( $bundled_item_min_qty[ $bundled_item_index ] ) ) ) {
+					$item_qty = max( 1, absint( $bundled_item_min_qty[ $bundled_item_index ] ) );
+					$item_stock_qty = $stock_quantity;
+
+					if ( '' !== $item_stock_qty ) {
+						$item_stock_qty = intval( floor( $item_stock_qty / $item_qty ) * $item_qty );
+					}
+
+					if ( '' === $stock_quantity || $stock_quantity >= $item_qty ) {
 
 						$stock_status = 'in_stock';
-						$max_stock    = $backorders_allowed ? '' : $stock_quantity;
+						$max_stock    = $backorders_allowed ? '' : $item_stock_qty;
 
 					} elseif ( $backorders_allowed ) {
 
@@ -357,7 +364,7 @@ class WC_PB_DB_Sync {
 					} else {
 
 						$stock_status = 'out_of_stock';
-						$max_stock    = '' !== $stock_quantity ? $stock_quantity : 0;
+						$max_stock    = '' !== $item_stock_qty ? $item_stock_qty : 0;
 					}
 
 					$data = array(
@@ -471,7 +478,7 @@ class WC_PB_DB_Sync {
 			WC_PB_Core_Compatibility::log( 'Scheduling sync...', 'info', 'wc_pb_db_sync_tasks' );
 
 			$data_store = WC_Data_Store::load( 'product-bundle' );
-			$ids        = $data_store->get_bundled_items_stock_status_ids( 'unsynced' );
+			$ids        = $data_store->get_bundled_items_stock_sync_status_ids( 'unsynced' );
 
 			if ( ! empty( $ids ) ) {
 

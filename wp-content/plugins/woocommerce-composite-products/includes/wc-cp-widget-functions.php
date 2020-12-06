@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function wc_cp_register_widgets() {
 
 	// Include widget classes.
-	include_once( 'widgets/class-wc-widget-composite.php' );
+	include_once( WC_CP_ABSPATH . 'includes/widgets/class-wc-widget-composite.php' );
 
 	register_widget( 'WC_Widget_Composite' );
 }

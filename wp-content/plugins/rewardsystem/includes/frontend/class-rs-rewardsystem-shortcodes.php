@@ -2,10 +2,10 @@
 /**
  * Shortcodes
  */
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly.
 }
-if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
+if ( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
 
     /**
      * Class.
@@ -102,7 +102,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                 'sumo_current_balance'
                     ) ;
 
-            foreach( $shortcodes as $shortcode_name ) {
+            foreach ( $shortcodes as $shortcode_name ) {
                 add_shortcode( $shortcode_name , array( __CLASS__ , 'display_shortcode' ) ) ;
             }
         }
@@ -112,7 +112,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
          */
         public static function display_shortcode( $atts , $content , $tag ) {
             $function = 'shortcode_' . $tag ;
-            switch( $tag ) {
+            switch ( $tag ) {
                 case 'facebook_like_reward_points':
                 case 'facebook_share_reward_points':
                 case 'twitter_tweet_reward_points':
@@ -300,9 +300,9 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Reward Points as Currency Value for Variable Product */
 
         public static function shortcode_variationpointsvalue() {
-            if( get_option( 'woocommerce_currency_pos' ) == 'right' || get_option( 'woocommerce_currency_pos' ) == 'right_space' ) {
+            if ( get_option( 'woocommerce_currency_pos' ) == 'right' || get_option( 'woocommerce_currency_pos' ) == 'right_space' ) {
                 return "<div class='variationrewardpointsamount' style='display:inline-block'></div>" . get_woocommerce_currency_symbol() ;
-            } elseif( get_option( 'woocommerce_currency_pos' ) == 'left' || get_option( 'woocommerce_currency_pos' ) == 'left_space' ) {
+            } elseif ( get_option( 'woocommerce_currency_pos' ) == 'left' || get_option( 'woocommerce_currency_pos' ) == 'left_space' ) {
                 return get_woocommerce_currency_symbol() . "<div class='variationrewardpointsamount' style='display:inline-block'></div>" ;
             }
         }
@@ -310,10 +310,10 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Referal Reward Points as Currency Value for Variable Product */
 
         public static function shortcode_variationreferralpointsamount() {
-            if( isset( $_COOKIE[ 'rsreferredusername' ] ) ) {
-                if( get_option( 'woocommerce_currency_pos' ) == 'right' || get_option( 'woocommerce_currency_pos' ) == 'right_space' ) {
+            if ( isset( $_COOKIE[ 'rsreferredusername' ] ) ) {
+                if ( get_option( 'woocommerce_currency_pos' ) == 'right' || get_option( 'woocommerce_currency_pos' ) == 'right_space' ) {
                     return "<div class='variationreferralpointsamount' style='display:inline-block'></div>" . get_woocommerce_currency_symbol() ;
-                } elseif( get_option( 'woocommerce_currency_pos' ) == 'left' || get_option( 'woocommerce_currency_pos' ) == 'left_space' ) {
+                } elseif ( get_option( 'woocommerce_currency_pos' ) == 'left' || get_option( 'woocommerce_currency_pos' ) == 'left_space' ) {
                     return get_woocommerce_currency_symbol() . "<div class='variationreferralpointsamount' style='display:inline-block'></div>" ;
                 }
             }
@@ -322,16 +322,16 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Social Buttons Reward Points */
 
         public static function shortcode_for_social_actions( $tag ) {
-            if( get_option( 'rs_social_reward_activated' ) != 'yes' )
+            if ( get_option( 'rs_social_reward_activated' ) != 'yes' )
                 return ;
 
             global $post ;
-            if( ! is_object( $post ) )
+            if ( ! is_object( $post ) )
                 return ;
 
             $item   = array( 'qty' => '1' ) ;
             $postid = $post->ID ;
-            switch( $tag ) {
+            switch ( $tag ) {
                 case 'facebook_like_reward_points':
                     $args   = array(
                         'productid'    => $postid ,
@@ -418,10 +418,10 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Earned, Redeemed and Expired Reward Points */
 
         public static function shortcode_for_points( $atts , $content , $tag ) {
-            if( is_user_logged_in() ) {
+            if ( is_user_logged_in() ) {
                 $UserId     = get_current_user_id() ;
                 $PointsData = new RS_Points_Data( $UserId ) ;
-                switch( $tag ) {
+                switch ( $tag ) {
                     case 'rs_user_total_earned_points':
                         $TotalEarnedPoints   = $PointsData->total_earned_points() ;
                         return round_off_type( $TotalEarnedPoints ) ;
@@ -519,16 +519,16 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
 
         public static function shortcode_points_earned_in_a_specific_duration() {
 
-            if( 'yes' != get_option( 'rs_reward_content_shortcode' ) || 'yes' != get_option( 'rs_points_earned_in_specific_duration_is_enabled' ) ) {
+            if ( 'yes' != get_option( 'rs_reward_content_shortcode' ) || 'yes' != get_option( 'rs_points_earned_in_specific_duration_is_enabled' ) ) {
                 return ;
             }
 
             $from_date = strtotime( get_option( 'rs_points_earned_in_specific_duration_from_date' ) ) ;
             $to_date   = strtotime( get_option( 'rs_points_earned_in_specific_duration_to_date' ) ) ;
-            if( empty( $from_date ) || empty( $to_date ) ) {
+            if ( empty( $from_date ) || empty( $to_date ) ) {
                 return ;
             }
-            
+
             global $wpdb ;
             $userids = implode( ',' , get_users( array( 'fields' => 'ID' ) ) ) ;
 
@@ -553,7 +553,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
             $PointsTable    = $wpdb->prefix . 'rspointexpiry' ;
             $overall_points = 0 ;
 
-            if( 'rs_total_earned_points_by_all_users' == $tag ) {
+            if ( 'rs_total_earned_points_by_all_users' == $tag ) {
                 /* For Displaying Total Points of all Users */
                 $overall_total_points = $wpdb->get_results( "SELECT SUM(earnedpoints) as total_points_of_users FROM $PointsTable WHERE earnedpoints NOT IN(0) and expiredpoints IN(0) ORDER BY earnedpoints DESC" , ARRAY_A ) ;
                 $overall_points       = isset( $overall_total_points[ 0 ][ 'total_points_of_users' ] ) ? $overall_total_points[ 0 ][ 'total_points_of_users' ] : 0 ;
@@ -570,7 +570,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
             ob_start() ;
             $Pagination      = $type == 'available' ? get_option( 'rs_select_pagination_for_available_points' ) : get_option( 'rs_select_pagination_for_total_earned_points' ) ;
             $PaginationValue = $type == 'available' ? get_option( 'rs_value_without_pagination_for_available_points' ) : get_option( 'rs_value_without_pagination_for_total_earned_points' ) ;
-            if( $Pagination == '1' ) {
+            if ( $Pagination == '1' ) {
                 $TableFields = '<p>' . __( 'Page Size:' , SRP_LOCALE ) . '<select id="page_size_for_points">
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -591,13 +591,13 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                 </thead>
                 <tbody>
                     <?php
-                    if( srp_check_is_array( $UserData ) ) {
+                    if ( srp_check_is_array( $UserData ) ) {
                         $i = 1 ;
-                        foreach( $UserData as $Data ) {
+                        foreach ( $UserData as $Data ) {
                             $UserObj = get_user_by( 'id' , $Data[ 'userid' ] ) ;
                             $Points  = round_off_type( isset( $Data[ 'availablepoints' ] ) ? $Data[ 'availablepoints' ] : $Data[ 'earnedpoints' ] ) ;
-                            if( $Pagination == '2' ) {
-                                if( $i <= $PaginationValue ) {
+                            if ( $Pagination == '2' ) {
+                                if ( $i <= $PaginationValue ) {
                                     ?>
                                     <tr>
                                         <td data-value="<?php echo $i ; ?>"><?php echo $i ; ?></td>                                     
@@ -641,7 +641,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Redeeming Level Name */
 
         public static function redeem_level_name( $UserId ) {
-            if( get_option( 'rs_enable_redeem_level_based_reward_points' ) != 'yes' )
+            if ( get_option( 'rs_enable_redeem_level_based_reward_points' ) != 'yes' )
                 return ;
 
             $Pointsdata = new RS_Points_Data( $UserId ) ;
@@ -661,7 +661,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Points to reach next level in redeeming */
 
         public static function points_to_reach_next_redeem_level( $UserId ) {
-            if( get_option( 'rs_enable_redeem_level_based_reward_points' ) != 'yes' )
+            if ( get_option( 'rs_enable_redeem_level_based_reward_points' ) != 'yes' )
                 return ;
 
             $Pointsdata = new RS_Points_Data( $UserId ) ;
@@ -669,7 +669,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
             $RuleId     = FPRewardSystem_Free_Product::earning_and_redeeming_level_id( $Points , 'redeeming' ) ;
             $Rules      = get_option( 'rewards_dynamic_rule_for_redeem' ) ;
             $LevelName  = isset( $Rules[ $RuleId ][ 'name' ] ) ? $Rules[ $RuleId ][ 'name' ] : "" ;
-            if( ! isset( $Rules[ $RuleId ][ 'rewardpoints' ] ) )
+            if ( ! isset( $Rules[ $RuleId ][ 'rewardpoints' ] ) )
                 return ;
 
             $NextLevelPoints = $Rules[ $RuleId ][ 'rewardpoints' ] - $Points ;
@@ -680,19 +680,19 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Referrer name */
 
         public static function shortcode_for_referrer_name( $tag ) {
-            if( get_option( 'rs_referral_activated' ) != 'yes' )
+            if ( get_option( 'rs_referral_activated' ) != 'yes' )
                 return ;
 
             /* Cookie 'rsreferredusername' for Signup Email  */
             $cookie_value = isset( $_COOKIE[ 'rsreferredusername' ] ) ? $_COOKIE[ 'rsreferredusername' ] : '' ;
             /* ref - To display the Message to Referral Person  */
             $referrer     = isset( $_GET[ 'ref' ] ) ? $_GET[ 'ref' ] : $cookie_value ;
-            if( ! $referrer )
+            if ( ! $referrer )
                 return ;
 
             $LinkType = get_option( 'rs_generate_referral_link_based_on_user' ) ;
             $UserInfo = $LinkType == '1' ? get_user_by( 'login' , $referrer ) : get_userdata( $referrer ) ;
-            switch( $tag ) {
+            switch ( $tag ) {
                 case 'rs_referrer_name':
                     $UserName  = is_object( $UserInfo ) ? (get_option( 'rs_send_message_by_referrer' ) == '1' ? $UserInfo->user_login : $UserInfo->first_name) : 'Guest' ;
                     return $UserName ;
@@ -716,7 +716,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
 
         public static function shortcode_for_name( $tag ) {
             $UserInfo = get_user_by( 'id' , get_current_user_id() ) ;
-            switch( $tag ) {
+            switch ( $tag ) {
                 case 'rsfirstname':
                     $UserName = is_object( $UserInfo ) ? $UserInfo->first_name : 'Guest' ;
                     return $UserName ;
@@ -731,14 +731,14 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Refer A Friend Form */
 
         public static function form_for_refer_a_friend() {
-            if( get_option( 'rs_referral_activated' ) != 'yes' )
+            if ( get_option( 'rs_referral_activated' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
+            if ( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
                 return ;
 
-            if( is_account_page() )
-                if( get_option( 'rs_reward_content' ) != 'yes' )
+            if ( is_account_page() )
+                if ( get_option( 'rs_reward_content' ) != 'yes' )
                     return ;
 
             return self::display_refer_a_friend_form() ;
@@ -748,18 +748,18 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
 
         public static function display_refer_a_friend_form() {
 
-            if( get_option( 'rs_enable_message_for_friend_form' ) == '2' )
+            if ( get_option( 'rs_enable_message_for_friend_form' ) == '2' )
                 return ;
 
-            if( ! check_if_referral_is_restricted() )
-                if( get_option( 'rs_display_msg_when_access_is_prevented' ) === '1' )
+            if ( ! check_if_referral_is_restricted() )
+                if ( get_option( 'rs_display_msg_when_access_is_prevented' ) === '1' )
                     echo '<br>' . get_option( 'rs_msg_for_restricted_user' ) ;
 
             $UserId = get_current_user_id() ;
-            if( ! check_referral_count_if_exist( $UserId ) )
+            if ( ! check_referral_count_if_exist( $UserId ) )
                 _e( "<p>Since you have reached the referral link usage, you don't have the access to refer anymore</p>" , SRP_LOCALE ) ;
 
-            if( ! check_if_referral_is_restricted_based_on_history() )
+            if ( ! check_if_referral_is_restricted_based_on_history() )
                 return ;
 
             wp_enqueue_script( 'fp_referafriend_from' , SRP_PLUGIN_DIR_URL . "includes/frontend/js/fp-referafriend-form.js" , array( 'jquery' ) , SRP_VERSION ) ;
@@ -814,7 +814,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                             <h3><?php echo (get_option( 'rs_my_rewards_friend_subject_label' )) ; ?></h3>
                         </td>
                         <td>
-                            <input type="text" name="rs_friend_subject" id="rs_friend_subject" placeholder ="<?php echo ( get_option( 'rs_my_rewards_friend_email_subject_placeholder' ) ) ; ?>" <?php if( get_option( 'rs_allow_user_to_request_prefilled_subject' , '1' ) == '2' ) { ?> readonly="readonly" <?php } ?> value="<?php echo esc_html( get_option( 'rs_subject_field' , 'Referral Link' ) ) ; ?>" />
+                            <input type="text" name="rs_friend_subject" id="rs_friend_subject" placeholder ="<?php echo ( get_option( 'rs_my_rewards_friend_email_subject_placeholder' ) ) ; ?>" <?php if ( get_option( 'rs_allow_user_to_request_prefilled_subject' , '1' ) == '2' ) { ?> readonly="readonly" <?php } ?> value="<?php echo esc_html( get_option( 'rs_subject_field' , 'Referral Link' ) ) ; ?>" />
                             <br>
                             <div class="rs_notification"></div>
                         </td>
@@ -824,13 +824,13 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                             <h3><?php echo (get_option( 'rs_my_rewards_friend_message_label' )) ; ?></h3>
                         </td>
                         <td>
-                            <textarea rows="5" cols="35" id="rs_your_message" placeholder ="<?php echo ( get_option( 'rs_my_rewards_friend_email_message_placeholder' ) ) ; ?>"  <?php if( get_option( 'rs_allow_user_to_request_prefilled_message' ) == '2' ) { ?> readonly="readonly" <?php } ?> name="rs_your_message"><?php echo $RefURL ; ?></textarea>
+                            <textarea rows="5" cols="35" id="rs_your_message" placeholder ="<?php echo ( get_option( 'rs_my_rewards_friend_email_message_placeholder' ) ) ; ?>"  <?php if ( get_option( 'rs_allow_user_to_request_prefilled_message' ) == '2' ) { ?> readonly="readonly" <?php } ?> name="rs_your_message"><?php echo $RefURL ; ?></textarea>
                             <br>
                             <div class="rs_notification"></div>
                         </td>
                     </tr>
                     <?php
-                    if( get_option( 'rs_show_hide_iagree_termsandcondition_field' ) == '2' ) {
+                    if ( get_option( 'rs_show_hide_iagree_termsandcondition_field' ) == '2' ) {
                         ?>    
                         <tr>
                             <td colspan="2">
@@ -853,14 +853,14 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Generate Referral Link Button */
 
         public static function generate_referral_shortcode( $atts ) {
-            if( get_option( 'rs_referral_activated' ) != 'yes' )
+            if ( get_option( 'rs_referral_activated' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
+            if ( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
                 return ;
 
-            if( ! check_if_referral_is_restricted() )
-                if( get_option( 'rs_display_msg_when_access_is_prevented' ) === '1' )
+            if ( ! check_if_referral_is_restricted() )
+                if ( get_option( 'rs_display_msg_when_access_is_prevented' ) === '1' )
                     echo '<br>' . get_option( 'rs_msg_for_restricted_user' ) ;
 
             ob_start() ;
@@ -869,12 +869,12 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                 'referraltable'  => 'show' ,
                             ) , $atts ) ) ;
 
-            if( $referralbutton == 'show' )
-                if( check_if_referral_is_restricted_based_on_history() )
+            if ( $referralbutton == 'show' )
+                if ( check_if_referral_is_restricted_based_on_history() )
                     RSFunctionForReferralSystem::field_to_generate_referral_link() ;
 
-            if( $referraltable == 'show' )
-                if( check_if_referral_is_restricted_based_on_history() )
+            if ( $referraltable == 'show' )
+                if ( check_if_referral_is_restricted_based_on_history() )
                     RSFunctionForReferralSystem::list_of_generated_link() ;
 
             $content = ob_get_contents() ;
@@ -885,13 +885,13 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Cashback Log Table */
 
         public static function cash_back_log() {
-            if( get_option( 'rs_cashback_activated' ) != 'yes' )
+            if ( get_option( 'rs_cashback_activated' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_my_cashback_table_shortcode' ) == '2' )
+            if ( get_option( 'rs_my_cashback_table_shortcode' ) == '2' )
                 return ;
 
-            if( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
+            if ( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
                 return ;
 
             $TableData = array(
@@ -908,24 +908,24 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Cashback Form */
 
         public static function shortcode_rsencashform() {
-            if( get_option( 'rs_cashback_activated' ) != 'yes' )
+            if ( get_option( 'rs_cashback_activated' ) != 'yes' )
                 return ;
 
-            if( is_user_logged_in() ) {
-                if( ! self::check_if_cashback_form_is_restricted() ) {
+            if ( is_user_logged_in() ) {
+                if ( ! self::check_if_cashback_form_is_restricted() ) {
                     echo '<p><b>' . __( 'Cashback Form is currently restricted for your account' , SRP_LOCALE ) . '</b></p>' ;
                     return ;
                 }
 
-                if( get_option( 'rs_enable_disable_encashing' ) == '2' )
+                if ( get_option( 'rs_enable_disable_encashing' ) == '2' )
                     return ;
 
                 $userid          = get_current_user_id() ;
                 $PointsData      = new RS_Points_Data( $userid ) ;
                 $AvailablePoints = $PointsData->total_available_points() ;
-                if( $AvailablePoints > 0 ) {
+                if ( $AvailablePoints > 0 ) {
                     $BanningType = check_banning_type( $userid ) ;
-                    if( $BanningType != 'earningonly' && $BanningType != 'both' ) {
+                    if ( $BanningType != 'earningonly' && $BanningType != 'both' ) {
                         wp_enqueue_script( 'wp_google_recaptcha' , 'https://www.google.com/recaptcha/api.js' , array( 'jquery' ) , SRP_VERSION ) ;
                         $MinPointsToReqCashback  = get_option( 'rs_minimum_points_encashing_request' ) == '' ? 0 : get_option( 'rs_minimum_points_encashing_request' ) ;
                         $MaxPointsToReqCashback  = get_option( 'rs_maximum_points_encashing_request' ) == '' ? $AvailablePoints : get_option( 'rs_maximum_points_encashing_request' ) ;
@@ -949,8 +949,8 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                         <?php
                         echo get_option( 'rs_encash_form_inbuilt_design' ) == '1' ? get_option( 'rs_encash_form_default_css' ) : get_option( 'rs_encash_form_custom_css' ) ;
                         ?>
-                        </style>
-                        <form id="encashing_form" method="post" enctype="multipart/form-data">
+                        </style>                        
+                        <form id="encashing_form" class="encashing_form" method="post" enctype="multipart/form-data">
                             <div class="rs_current_points_value">
                                 <p>
                                     <label><?php echo addslashes( get_option( "rs_total_points_for_cashback_request" ) ) ; ?></label>
@@ -964,9 +964,24 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                                     <label><?php echo addslashes( get_option( "rs_encashing_points_label" ) ) ; ?></label>
                                 </p>
                                 <p>
-                                    <input type="number" step="any" min="1" id="rs_encash_points_value" name="rs_encash_points_value" <?php if( get_option( 'rs_allow_user_to_request_cashback' ) == '2' ) { ?>readonly="readonly"<?php } ?> value="<?php if( get_option( 'rs_allow_user_to_request_cashback' ) == '2' ) echo $AvailablePoints ; ?>"/>
+                                    <input type="number" step="any" min="1" id="rs_encash_points_value" name="rs_encash_points_value" <?php if ( get_option( 'rs_allow_user_to_request_cashback' ) == '2' ) { ?>readonly="readonly"<?php } ?> value="<?php if ( get_option( 'rs_allow_user_to_request_cashback' ) == '2' ) echo $AvailablePoints ; ?>"/>
                                 </p>
                             </div>
+                            <?php
+                            $user  = wp_get_current_user() ;
+                            $roles = is_object( $user ) ? $user->roles : '' ;
+                            $role  = isset( $roles[ 0 ] ) ? $roles[ 0 ] : '' ;
+                            if ( get_option( 'rs_cashback_' . $role . '_for_redeem_percentage' , 100 ) ) {
+                                ?>
+                                <div class="rs_encash_currency_value">
+                                    <p>
+                                        <label><?php echo wp_kses_post( get_option( "rs_encashing_currency_label" , "Currency Value" ) ) ; ?></label>
+                                    </p>
+                                    <p>                                    
+                                        <input type="text" id="rs_encash_currency_value" class ="rs_encash_currency_value" readonly="readonly"/>
+                                    </p>
+                                </div>
+                            <?php } ?>
                             <div class="error" id="points_empty_error" style="display:none;">
                                 <?php echo addslashes( get_option( "rs_error_message_points_empty_encash" ) ) ; ?>
                             </div>
@@ -990,17 +1005,17 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                             <div class="error" id ="reason_empty_error" style="display:none;">
                                 <?php echo addslashes( get_option( "rs_error_message_reason_encash_empty" ) ) ; ?>
                             </div>
-                            <?php if( get_option( 'rs_select_payment_method' ) == '3' ) { ?>
+                            <?php if ( get_option( 'rs_select_payment_method' ) == '3' ) { ?>
                                 <div class ="rs_encash_payment_method">
                                     <p>
                                         <label><?php echo addslashes( get_option( "rs_encashing_payment_method_label" ) ) ; ?></label>
                                     </p>
                                     <p>
                                         <select id= "rs_encash_payment_method">
-                                            <option value="encash_through_paypal_method" <?php if( $AllowToSavePaymentMethod == 'yes' && get_user_meta( get_current_user_id() , 'rs_cashback_previous_payment_method' , true ) == 'encash_through_paypal_method' ) { ?>selected="selected"<?php } ?>><?php _e( 'PayPal' , SRP_LOCALE ) ; ?></option>
-                                            <option value="encash_through_custom_payment" <?php if( $AllowToSavePaymentMethod == 'yes' && get_user_meta( get_current_user_id() , 'rs_cashback_previous_payment_method' , true ) == 'encash_through_custom_payment' ) { ?>selected="selected"<?php } ?>><?php _e( 'Custom Payment' , SRP_LOCALE ) ; ?></option>
+                                            <option value="encash_through_paypal_method" <?php if ( $AllowToSavePaymentMethod == 'yes' && get_user_meta( get_current_user_id() , 'rs_cashback_previous_payment_method' , true ) == 'encash_through_paypal_method' ) { ?>selected="selected"<?php } ?>><?php _e( 'PayPal' , SRP_LOCALE ) ; ?></option>
+                                            <option value="encash_through_custom_payment" <?php if ( $AllowToSavePaymentMethod == 'yes' && get_user_meta( get_current_user_id() , 'rs_cashback_previous_payment_method' , true ) == 'encash_through_custom_payment' ) { ?>selected="selected"<?php } ?>><?php _e( 'Custom Payment' , SRP_LOCALE ) ; ?></option>
                                             <?php
-                                            if( check_whether_hoicker_is_active() ) {
+                                            if ( check_whether_hoicker_is_active() ) {
                                                 $WalletLabel = ! empty( get_option( 'rs_encashing_wallet_menu_label' ) ) ? get_option( 'rs_encashing_wallet_menu_label' ) : __( 'Hoicker Wallet' , SRP_LOCALE ) ;
                                                 ?>
                                                 <option value="<?php echo $WalletLabel ; ?>"><?php echo $WalletLabel ; ?></option>
@@ -1010,7 +1025,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                                 </div>
                                 <?php
                             }
-                            if( check_whether_hoicker_is_active() ) {
+                            if ( check_whether_hoicker_is_active() ) {
                                 $WalletLabel = ! empty( get_option( 'rs_encashing_wallet_menu_label' ) ) ? get_option( 'rs_encashing_wallet_menu_label' ) : __( 'Hoicker Wallet' , SRP_LOCALE ) ;
                                 ?>
                                 <input type="hidden" value="<?php echo $WalletLabel ; ?>" id="is_walletia_selected" class="is_walletia_selected" name="is_walletia_selected">
@@ -1021,7 +1036,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                                 </div>
                                 <?php
                             }
-                            if( get_option( 'rs_select_payment_method' ) == '1' || get_option( 'rs_select_payment_method' ) == '3' ) {
+                            if ( get_option( 'rs_select_payment_method' ) == '1' || get_option( 'rs_select_payment_method' ) == '3' ) {
                                 ?>
                                 <div class ="rs_encash_paypal_address">
                                     <p>
@@ -1029,7 +1044,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                                     </p>
                                     <p>
                                         <input type = "text" id = "rs_encash_paypal_address" name = "rs_encash_paypal_address" value="<?php
-                                        if( $AllowToSavePaymentMethod == 'yes' && get_user_meta( get_current_user_id() , 'rs_paypal_payment_details' , true ) != '' )
+                                        if ( $AllowToSavePaymentMethod == 'yes' && get_user_meta( get_current_user_id() , 'rs_paypal_payment_details' , true ) != '' )
                                             echo get_user_meta( get_current_user_id() , 'rs_paypal_payment_details' , true ) ;
                                         ?>"/>
                                     </p>
@@ -1042,7 +1057,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                                 </div>
                                 <?php
                             }
-                            if( get_option( 'rs_select_payment_method' ) == '2' || get_option( 'rs_select_payment_method' ) == '3' ) {
+                            if ( get_option( 'rs_select_payment_method' ) == '2' || get_option( 'rs_select_payment_method' ) == '3' ) {
                                 ?>
                                 <div class ="rs_encash_custom_payment_option_value">
                                     <p>
@@ -1051,7 +1066,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                                     <p>
                                         <textarea name ="rs_encash_custom_payment_option_value" id="rs_encash_custom_payment_option_value" rows= "3" cols= "50">
                                             <?php
-                                            if( $AllowToSavePaymentMethod == 'yes' && get_user_meta( get_current_user_id() , 'rs_custom_payment_details' , true ) != '' )
+                                            if ( $AllowToSavePaymentMethod == 'yes' && get_user_meta( get_current_user_id() , 'rs_custom_payment_details' , true ) != '' )
                                                 echo get_user_meta( get_current_user_id() , 'rs_custom_payment_details' , true ) ;
                                             ?>
                                         </textarea>
@@ -1062,7 +1077,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                                 </div>
                                 <?php
                             }
-                            if( get_option( 'rs_enable_recaptcha_to_display' ) == 'yes' && get_option( 'rs_google_recaptcha_site_key' ) != '' ) {
+                            if ( get_option( 'rs_enable_recaptcha_to_display' ) == 'yes' && get_option( 'rs_google_recaptcha_site_key' ) != '' ) {
                                 ?>
                                 <div class="rs_enable_recaptcha_to_display">
                                     <p>
@@ -1114,12 +1129,12 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         public static function get_cashback_value_based_on_user_role( $userid ) {
 
             $pointvalue = wc_format_decimal( get_option( 'rs_redeem_point_value_for_cash_back' ) ) ;
-            if( ! $userid ) {
+            if ( ! $userid ) {
                 return $pointvalue ;
             }
 
             $user_info = get_user_by( 'ID' , $userid ) ;
-            if( ! is_object( $user_info ) ) {
+            if ( ! is_object( $user_info ) ) {
                 return ;
             }
 
@@ -1134,37 +1149,37 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
             $UserRole        = wp_get_current_user() ;
             $UserRole        = $UserRole->roles[ 0 ] ;
             $RestrictionType = get_option( 'rs_user_selection_type_for_cashback' ) ;
-            if( $RestrictionType == '1' || $RestrictionType == '4' ) {
+            if ( $RestrictionType == '1' || $RestrictionType == '4' ) {
                 return true ;
-            } elseif( $RestrictionType == '2' ) {
+            } elseif ( $RestrictionType == '2' ) {
                 $IncUser = get_option( 'rs_select_inc_user_search' ) ;
-                if( empty( $IncUser ) )
+                if ( empty( $IncUser ) )
                     return true ;
 
                 $UserIds = srp_check_is_array( $IncUser ) ? $IncUser : array_filter( array_map( 'absint' , ( array ) explode( ',' , $IncUser ) ) ) ;
-                if( in_array( get_current_user_id() , $UserIds ) )
+                if ( in_array( get_current_user_id() , $UserIds ) )
                     return true ;
-            } elseif( $RestrictionType == '3' ) {
+            } elseif ( $RestrictionType == '3' ) {
                 $ExcUser = get_option( 'rs_select_exc_user_search' ) ;
-                if( empty( $ExcUser ) )
+                if ( empty( $ExcUser ) )
                     return true ;
 
                 $UserIds = srp_check_is_array( $ExcUser ) ? $ExcUser : array_filter( array_map( 'absint' , ( array ) explode( ',' , $ExcUser ) ) ) ;
-                if( ! in_array( get_current_user_id() , $UserIds ) )
+                if ( ! in_array( get_current_user_id() , $UserIds ) )
                     return true ;
-            } elseif( $RestrictionType == '5' ) {
+            } elseif ( $RestrictionType == '5' ) {
                 $IncUserRole = get_option( 'rs_select_inc_userrole' ) ;
-                if( ! srp_check_is_array( $IncUserRole ) )
+                if ( ! srp_check_is_array( $IncUserRole ) )
                     return true ;
 
-                if( in_array( $UserRole , $IncUserRole ) )
+                if ( in_array( $UserRole , $IncUserRole ) )
                     return true ;
             } else {
                 $ExcUserRole = get_option( 'rs_select_exc_userrole' ) ;
-                if( ! srp_check_is_array( $ExcUserRole ) )
+                if ( ! srp_check_is_array( $ExcUserRole ) )
                     return true ;
 
-                if( srp_check_is_array( $ExcUserRole ) && ! in_array( $UserRole , $ExcUserRole ) )
+                if ( srp_check_is_array( $ExcUserRole ) && ! in_array( $UserRole , $ExcUserRole ) )
                     return true ;
             }
             return false ;
@@ -1173,10 +1188,10 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display GiftVocuher */
 
         public static function shortcode_rs_redeem_vouchercode() {
-            if( get_option( 'rs_gift_voucher_activated' ) != 'yes' )
+            if ( get_option( 'rs_gift_voucher_activated' ) != 'yes' )
                 return ;
 
-            if( is_user_logged_in() ) {
+            if ( is_user_logged_in() ) {
                 RSGiftVoucherFrontend::giftvoucherfield() ;
             } else {
                 $MyAcclink = get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) ;
@@ -1209,15 +1224,15 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Booking Points */
 
         public static function shortcode_sumobookingpoints() {
-            if( ! class_exists( 'WC_Bookings' ) )
+            if ( ! class_exists( 'WC_Bookings' ) )
                 return ;
 
             global $post ;
             $ProductObj = srp_product_object( $post->ID ) ;
-            if( ! is_object( $ProductObj ) )
+            if ( ! is_object( $ProductObj ) )
                 return ;
 
-            if( srp_product_type( $post->ID ) != 'booking' )
+            if ( srp_product_type( $post->ID ) != 'booking' )
                 return ;
 
             $args   = array(
@@ -1236,13 +1251,13 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
             global $producttitle ;
             global $bookingvalue ;
             $ProductObj = srp_product_object( $producttitle ) ;
-            if( ! is_object( $ProductObj ) )
+            if ( ! is_object( $ProductObj ) )
                 return ;
 
-            if( srp_product_type( $producttitle ) != 'booking' )
+            if ( srp_product_type( $producttitle ) != 'booking' )
                 return ;
 
-            if( get_post_meta( $bookingvalue[ 'product_id' ] , '_rewardsystemcheckboxvalue' , true ) != 'yes' ) {
+            if ( get_post_meta( $bookingvalue[ 'product_id' ] , '_rewardsystemcheckboxvalue' , true ) != 'yes' ) {
                 return "<strong>0</strong>" ;
             } else {
                 return round_off_type( $totalrewardpoints ) ;
@@ -1263,20 +1278,20 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
             global $producttitle ;
             global $bookingvalue ;
             $ProductObj = srp_product_object( $producttitle ) ;
-            if( is_object( $ProductObj ) && srp_product_type( $producttitle ) == 'booking' )
+            if ( is_object( $ProductObj ) && srp_product_type( $producttitle ) == 'booking' )
                 return "<strong>" . get_the_title( $bookingvalue[ 'product_id' ] ) . "</strong>" ;
         }
 
         /* Shortcode to display Subscribe Field */
 
         public static function subscribe_field() {
-            if( get_option( 'rs_email_activated' ) != 'yes' )
+            if ( get_option( 'rs_email_activated' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
+            if ( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_show_hide_your_subscribe_link_shortcode' ) == 2 )
+            if ( get_option( 'rs_show_hide_your_subscribe_link_shortcode' ) == 2 )
                 return ;
 
             RSFunctionForEmailTemplate::field_for_subcribe( true ) ;
@@ -1285,10 +1300,10 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Reward Log */
 
         public static function reward_log() {
-            if( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
+            if ( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_my_reward_table_shortcode' ) == 2 )
+            if ( get_option( 'rs_my_reward_table_shortcode' ) == 2 )
                 return ;
 
             $TableData = array(
@@ -1323,13 +1338,13 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Nominee Tabel */
 
         public static function nominee_field() {
-            if( get_option( 'rs_nominee_activated' ) != 'yes' )
+            if ( get_option( 'rs_nominee_activated' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
+            if ( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_show_hide_nominee_field_shortcode' ) == 2 )
+            if ( get_option( 'rs_show_hide_nominee_field_shortcode' ) == 2 )
                 return ;
 
             $NomineeData = array(
@@ -1347,13 +1362,13 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         public static function shortcode_rs_order_status() {
 
             $earning_order_statuses = get_option( 'rs_order_status_control' ) ;
-            if( ! srp_check_is_array( $earning_order_statuses ) ) {
+            if ( ! srp_check_is_array( $earning_order_statuses ) ) {
                 return '' ;
             }
 
             $wc_order_statuses = fp_order_status() ;
             $selected_statues  = array() ;
-            foreach( $earning_order_statuses as $order_status ) {
+            foreach ( $earning_order_statuses as $order_status ) {
                 $selected_statues[] = isset( $wc_order_statuses[ $order_status ] ) ? $wc_order_statuses[ $order_status ] : '' ;
             }
 
@@ -1365,60 +1380,60 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         public static function shortcode_rs_list_enable_options() {
             global $wpdb ;
             $TableName = $wpdb->prefix . 'postmeta' ;
-            if( get_option( 'rs_product_purchase_activated' ) == 'yes' ) {
+            if ( get_option( 'rs_product_purchase_activated' ) == 'yes' ) {
                 $CheckIfProductPurchaseEnabled = $wpdb->get_results( "SELECT meta_value FROM $TableName WHERE meta_key='_rewardsystemcheckboxvalue' AND meta_value='yes' " , ARRAY_A ) ;
-                if( ! empty( $CheckIfProductPurchaseEnabled ) )
+                if ( ! empty( $CheckIfProductPurchaseEnabled ) )
                     echo '<br>' . get_option( 'rs_msg_for_product_puchase' ) . '<br>' ;
 
                 $CheckIfBuyPointsEnabled = $wpdb->get_results( "SELECT meta_value FROM $TableName WHERE meta_key='_rewardsystem_buying_reward_points' AND meta_value='yes' " , ARRAY_A ) ;
-                if( ! empty( $CheckIfBuyPointsEnabled ) )
+                if ( ! empty( $CheckIfBuyPointsEnabled ) )
                     echo '<br>' . get_option( 'rs_msg_for_buying_reward_points' ) . '<br>' ;
             }
-            if( get_option( 'rs_referral_activated' ) == 'yes' ) {
+            if ( get_option( 'rs_referral_activated' ) == 'yes' ) {
                 $CheckIfRefProductPurchaseEnabled = $wpdb->get_results( "SELECT meta_value FROM $TableName WHERE meta_key='_rewardsystemreferralcheckboxvalue' AND meta_value='yes' " , ARRAY_A ) ;
-                if( ! empty( $CheckIfRefProductPurchaseEnabled ) ) {
+                if ( ! empty( $CheckIfRefProductPurchaseEnabled ) ) {
                     echo '<br>' . get_option( 'rs_msg_for_referral_system_product_purcase' ) . '<br>' ;
                     echo '<br>' . get_option( 'rs_msg_for_getting_refer_product_purchase' ) . '<br>' ;
                 }
             }
-            if( get_option( 'rs_social_reward_activated' ) == 'yes' ) {
+            if ( get_option( 'rs_social_reward_activated' ) == 'yes' ) {
                 $CheckIfSocialActionEnabled = $wpdb->get_results( "SELECT meta_value FROM $TableName WHERE meta_key='_socialrewardsystemcheckboxvalue' AND meta_value='yes' " , ARRAY_A ) ;
-                if( ! empty( $CheckIfSocialActionEnabled ) )
+                if ( ! empty( $CheckIfSocialActionEnabled ) )
                     echo '<br>' . get_option( 'rs_msg_for_social_promotion' ) . '<br>' ;
 
-                if( get_option( 'rs_global_social_enable_disable_reward_post' ) == '1' )
+                if ( get_option( 'rs_global_social_enable_disable_reward_post' ) == '1' )
                     echo '<br>' . get_option( 'rs_msg_for_social_promotion_for_post' ) . '<br>' ;
             }
-            if( get_option( 'rs_reward_action_activated' ) == 'yes' ) {
-                if( get_option( '_rs_enable_signup' ) == 'yes' && get_option( 'rs_reward_signup' ) != '' ) {
+            if ( get_option( 'rs_reward_action_activated' ) == 'yes' ) {
+                if ( get_option( '_rs_enable_signup' ) == 'yes' && get_option( 'rs_reward_signup' ) != '' ) {
                     $SignUpMsg = str_replace( '[rssignuppoints]' , round_off_type( get_option( 'rs_reward_signup' ) ) , get_option( 'rs_msg_for_account_signup' ) ) ;
                     echo '<br>' . $SignUpMsg . '<br>' ;
                 }
-                if( get_option( 'rs_enable_product_review_points' ) == 'yes' && get_option( 'rs_reward_product_review' ) != '' ) {
+                if ( get_option( 'rs_enable_product_review_points' ) == 'yes' && get_option( 'rs_reward_product_review' ) != '' ) {
                     $ProReviewMsg = str_replace( '[rsreviewpoints]' , round_off_type( get_option( 'rs_reward_product_review' ) ) , get_option( 'rs_msg_for_product_review' ) ) ;
                     echo '<br>' . $ProReviewMsg . '<br>' ;
                 }
-                if( get_option( 'rs_reward_for_comment_Post' ) == 'yes' && get_option( 'rs_reward_post_review' ) != '' ) {
+                if ( get_option( 'rs_reward_for_comment_Post' ) == 'yes' && get_option( 'rs_reward_post_review' ) != '' ) {
                     $PostCommentmsg = str_replace( '[rspostpoints]' , round_off_type( get_option( 'rs_reward_post_review' ) ) , get_option( 'rs_msg_for_post_review' ) ) ;
                     echo '<br>' . $PostCommentmsg . '<br>' ;
                 }
-                if( get_option( 'rs_reward_for_Creating_Post' ) == 'yes' && get_option( 'rs_reward_post' ) != '' ) {
+                if ( get_option( 'rs_reward_for_Creating_Post' ) == 'yes' && get_option( 'rs_reward_post' ) != '' ) {
                     $PostCreationMsg = str_replace( '[rspostcreationpoints]' , round_off_type( get_option( 'rs_reward_post' ) ) , get_option( 'rs_msg_for_post_creation' ) ) ;
                     echo '<br>' . $PostCreationMsg . '<br>' ;
                 }
-                if( get_option( 'rs_reward_for_comment_Page' ) == 'yes' && get_option( 'rs_reward_page_review' ) != '' ) {
+                if ( get_option( 'rs_reward_for_comment_Page' ) == 'yes' && get_option( 'rs_reward_page_review' ) != '' ) {
                     $PageCommentMsg = str_replace( '[rspagecommentpoints]' , round_off_type( get_option( 'rs_reward_page_review' ) ) , get_option( 'rs_msg_for_page_comment' ) ) ;
                     echo '<br>' . $PageCommentMsg . '<br>' ;
                 }
-                if( get_option( 'rs_reward_for_enable_product_create' ) == 'yes' && get_option( 'rs_reward_Product_create' ) != '' ) {
+                if ( get_option( 'rs_reward_for_enable_product_create' ) == 'yes' && get_option( 'rs_reward_Product_create' ) != '' ) {
                     $ProductCreationMsg = str_replace( '[rsproductcreatepoints]' , round_off_type( get_option( 'rs_reward_Product_create' ) ) , get_option( 'rs_msg_for_create_product' ) ) ;
                     echo '<br>' . $ProductCreationMsg . '<br>' ;
                 }
-                if( get_option( 'rs_enable_reward_points_for_login' ) == 'yes' && get_option( 'rs_enable_reward_points_for_login' ) != '' ) {
+                if ( get_option( 'rs_enable_reward_points_for_login' ) == 'yes' && get_option( 'rs_enable_reward_points_for_login' ) != '' ) {
                     $LoginMsg = str_replace( '[rsloginpoints]' , round_off_type( get_option( 'rs_reward_points_for_login' ) ) , get_option( 'rs_msg_for_daily_login' ) ) ;
                     echo '<br>' . $LoginMsg . '<br>' ;
                 }
-                if( get_option( 'rs_referral_reward_signup' ) != '' ) {
+                if ( get_option( 'rs_referral_reward_signup' ) != '' ) {
                     $RefSignUpMsg = str_replace( '[rsreferralpoints]' , round_off_type( get_option( 'rs_referral_reward_signup' ) ) , get_option( 'rs_msg_for_referral_system_login' ) ) ;
                     echo '<br>' . $RefSignUpMsg . '<br>' ;
                 }
@@ -1428,7 +1443,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Redeemed Points */
 
         public static function shortcode_for_redeemedpoints( $tag ) {
-            if( ! is_user_logged_in() )
+            if ( ! is_user_logged_in() )
                 return ;
 
             $UserInfo   = get_user_by( 'id' , get_current_user_id() ) ;
@@ -1437,11 +1452,11 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
             $Points     = $PointsData->total_available_points() ;
             $AutoRedeem = 'auto_redeem_' . strtolower( $UserName ) ;
             $Redeem     = 'sumo_' . strtolower( "$UserName" ) ;
-            if( isset( WC()->cart->coupon_discount_amounts[ "$Redeem" ] ) ) {
+            if ( isset( WC()->cart->coupon_discount_amounts[ "$Redeem" ] ) ) {
                 $CouponAmnt = WC()->cart->coupon_discount_amounts[ "$Redeem" ] ;
                 $TaxAmnt    = isset( WC()->cart->coupon_discount_tax_amounts[ "$Redeem" ] ) ? WC()->cart->coupon_discount_tax_amounts[ "$Redeem" ] : 0 ;
             }
-            if( isset( WC()->cart->coupon_discount_amounts[ "$AutoRedeem" ] ) ) {
+            if ( isset( WC()->cart->coupon_discount_amounts[ "$AutoRedeem" ] ) ) {
                 $CouponAmnt = WC()->cart->coupon_discount_amounts[ "$AutoRedeem" ] ;
                 $TaxAmnt    = isset( WC()->cart->coupon_discount_tax_amounts[ "$AutoRedeem" ] ) ? WC()->cart->coupon_discount_tax_amounts[ "$AutoRedeem" ] : 0 ;
             }
@@ -1475,12 +1490,12 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         public static function shortcode_buypoints() {
             global $post ;
             $variation_ids = get_variation_id( $post->ID ) ;
-            if( srp_check_is_array( $variation_ids ) ) {
-                foreach( $variation_ids as $eachvariation ) {
-                    if( get_post_meta( $eachvariation , '_rewardsystem_buying_reward_points' , true ) != '1' )
+            if ( srp_check_is_array( $variation_ids ) ) {
+                foreach ( $variation_ids as $eachvariation ) {
+                    if ( get_post_meta( $eachvariation , '_rewardsystem_buying_reward_points' , true ) != '1' )
                         continue ;
 
-                    if( get_post_meta( $eachvariation , '_rewardsystem_assign_buying_points' , true ) == '' )
+                    if ( get_post_meta( $eachvariation , '_rewardsystem_assign_buying_points' , true ) == '' )
                         continue ;
 
                     $buying_points = get_post_meta( $eachvariation , '_rewardsystem_assign_buying_points' , true ) ;
@@ -1538,7 +1553,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         public static function shortcode_titleofproduct() {
             global $producttitle ;
             $ProductObj = srp_product_object( $producttitle ) ;
-            if( ! is_object( $ProductObj ) )
+            if ( ! is_object( $ProductObj ) )
                 return ;
 
             return "<strong>" . get_the_title( $producttitle ) . "</strong>" ;
@@ -1604,9 +1619,9 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                     $SUMOOrderStatus = get_option( 'rs_order_status_control' ) ;
                     $SUMOOrderStatus = (srp_check_is_array( $SUMOOrderStatus )) ? $SUMOOrderStatus : array() ;
                     $Status          = array() ;
-                    foreach( $WCOrderStatus as $WCStatus ) {
+                    foreach ( $WCOrderStatus as $WCStatus ) {
                         $WCStatus = str_replace( 'wc-' , '' , $WCStatus ) ;
-                        if( ! in_array( $WCStatus , $SUMOOrderStatus ) )
+                        if ( ! in_array( $WCStatus , $SUMOOrderStatus ) )
                             $Status[] = 'wc-' . $WCStatus ;
                     }
                     $args      = array(
@@ -1633,13 +1648,13 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                         'cache_results' => false
                             ) ;
                     $OrderList = get_posts( $args ) ;
-                    foreach( $OrderList as $OrderId ) {
+                    foreach ( $OrderList as $OrderId ) {
                         $OrderObj    = new WC_Order( $OrderId ) ;
                         $OrderObj    = srp_order_obj( $OrderObj ) ;
                         $OrderStatus = $OrderObj[ 'order_status' ] ;
                         $Firstname   = $OrderObj[ 'first_name' ] ;
                         $Points      = ( float ) get_post_meta( $OrderId , 'rs_points_for_current_order_as_value' , true ) ;
-                        if( $Points > 0 ) {
+                        if ( $Points > 0 ) {
                             echo self::order_status_settings( $OrderId , $OrderStatus , $Firstname , $i , $Points , $SUMOOrderStatus ) ;
                             $i ++ ;
                         }
@@ -1655,9 +1670,9 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                 </tfoot>
             </table>
             <script type="text/javascript">
-                jQuery( document ).ready( function() {
+                jQuery( document ).ready( function () {
                     jQuery( '.list_of_orders' ).footable() ;
-                    jQuery( '#change-page-sizesss' ).change( function( e ) {
+                    jQuery( '#change-page-sizesss' ).change( function ( e ) {
                         e.preventDefault() ;
                         var pageSize = jQuery( this ).val() ;
                         jQuery( '.footable' ).data( 'page-size' , pageSize ) ;
@@ -1744,13 +1759,13 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Referral List */
 
         public static function shortcode_for_referral_list_table() {
-            if( get_option( 'rs_referral_activated' ) != 'yes' )
+            if ( get_option( 'rs_referral_activated' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
+            if ( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
                 return ;
 
-            if( check_if_referral_is_restricted() ) {
+            if ( check_if_referral_is_restricted() ) {
                 $TableData = array(
                     'show_table'           => get_option( 'rs_show_hide_referal_table_shortcode' ) ,
                     'sno_label'            => get_option( 'rs_my_referal_sno_label_shortcode' ) ,
@@ -1762,7 +1777,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                         ) ;
                 RSFunctionForReferralSystem::referral_list_table( $TableData , true ) ;
             } else {
-                if( get_option( 'rs_display_msg_when_access_is_prevented' ) === '1' )
+                if ( get_option( 'rs_display_msg_when_access_is_prevented' ) === '1' )
                     echo '<br>' . get_option( 'rs_msg_for_restricted_user' ) ;
             }
         }
@@ -1770,14 +1785,14 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         /* Shortcode to display Static Referral Link */
 
         public static function shortcode_for_static_referral_link() {
-            if( get_option( 'rs_referral_activated' ) != 'yes' )
+            if ( get_option( 'rs_referral_activated' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
+            if ( get_option( 'rs_reward_content_shortcode' ) != 'yes' )
                 return ;
 
-            if( check_if_referral_is_restricted() ) {
-                if( ! check_referral_count_if_exist( get_current_user_id() ) ) {
+            if ( check_if_referral_is_restricted() ) {
+                if ( ! check_referral_count_if_exist( get_current_user_id() ) ) {
                     _e( "<p>Since you have reached the referral link usage, you don't have the access to refer anymore</p>" , SRP_LOCALE ) ;
                 } else {
                     ob_start() ;
@@ -1785,7 +1800,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                     return ob_get_contents() ;
                 }
             } else {
-                if( get_option( 'rs_display_msg_when_access_is_prevented' ) === '1' )
+                if ( get_option( 'rs_display_msg_when_access_is_prevented' ) === '1' )
                     echo '<br>' . get_option( 'rs_msg_for_restricted_user' ) ;
             }
         }
@@ -1795,7 +1810,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
             ob_start() ;
             $PointsData       = new RS_Points_Data( get_current_user_id() ) ;
             $Points           = $PointsData->total_available_points() ;
-            if( 'yes' != $enable_round_off ) {
+            if ( 'yes' != $enable_round_off ) {
                 return get_option( 'rs_my_rewards_total' ) . " " . ( float ) $Points ;
             }
 
@@ -1804,12 +1819,12 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         }
 
         public static function shortcode_fppoint() {
-            $Points = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) get_option( 'rs_reward_points_for_first_purchase_in_fixed' ) ) ;
+            $Points = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) rs_get_first_purchase_point() ) ;
             return round_off_type( $Points ) ;
         }
 
         public static function shortcode_fppointvalue() {
-            $Points = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) get_option( 'rs_reward_points_for_first_purchase_in_fixed' ) ) ;
+            $Points = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) rs_get_first_purchase_point() ) ;
 
             /* Commented this code when thousand separator value given as '.' causes display issue */
 //            $Points         = str_replace( wc_get_price_thousand_separator() , '' , $Points ) ;
@@ -1819,7 +1834,7 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
         }
 
         public static function shortcode_redeeming_threshold_value() {
-            if( get_option( 'rs_redeeming_activated' ) == 'no' && get_option( 'rs_max_redeem_discount' ) == '1' && get_option( 'rs_percent_max_redeem_discount' ) == '' )
+            if ( get_option( 'rs_redeeming_activated' ) == 'no' && get_option( 'rs_max_redeem_discount' ) == '1' && get_option( 'rs_percent_max_redeem_discount' ) == '' )
                 return ;
 
             $PointsData      = new RS_Points_Data( get_current_user_id() ) ;
@@ -1827,22 +1842,22 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
             $RedeemPercent   = RSMemberFunction::redeem_points_percentage( get_current_user_id() ) ;
             $PriceValue      = srp_cart_subtotal() * ( float ) get_option( 'rs_percent_max_redeem_discount' ) / 100 ;
             $Value           = $PriceValue / $RedeemPercent ;
-            if( $Value <= $AvailablePoints )
+            if ( $Value <= $AvailablePoints )
                 return '<b>' . $Value . '</b>' . '( ' . wc_price( $PriceValue ) . ')' ;
         }
 
         /* Shortcode to display Send Points form */
 
         public static function shortcode_for_send_points() {
-            if( get_option( 'rs_send_points_activated' ) != 'yes' )
+            if ( get_option( 'rs_send_points_activated' ) != 'yes' )
                 return ;
 
-            if( get_option( 'rs_enable_msg_for_send_point' ) == 2 )
+            if ( get_option( 'rs_enable_msg_for_send_point' ) == 2 )
                 return ;
 
             $PointsData = new RS_Points_Data( get_current_user_id() ) ;
             $Points     = $PointsData->total_available_points() ;
-            if( $Points == 0 )
+            if ( $Points == 0 )
                 return get_option( 'rs_msg_when_user_have_no_points' ) ;
 
             wp_enqueue_script( 'formforsendpoints' , false , array() , '' , true ) ;
@@ -1861,14 +1876,14 @@ if( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                         </td>
                     </tr>
                     <tr>
-                        <?php if( '1' == get_option( 'rs_send_points_user_selection_field' , 1 ) ) : ?>
+                        <?php if ( '1' == get_option( 'rs_send_points_user_selection_field' , 1 ) ) : ?>
                             <th>
                                 <label><?php echo get_option( "rs_select_user_label" ) ; ?></label>
                             </th>
                             <td style="border:none;padding: 6px 10px 6px 10px;">
                                 <?php
                                 global $woocommerce ;
-                                if( ( float ) $woocommerce->version < ( float ) '3.0' ) {
+                                if ( ( float ) $woocommerce->version < ( float ) '3.0' ) {
                                     ?>
                                     <input id="select_user_ids" type="text" placeholder="<?php echo get_option( 'rs_select_user_placeholder' ) ; ?>" style="font-size:14px;min-width:250px !important;height:30px !important;"/>
                                 <?php } else { ?>

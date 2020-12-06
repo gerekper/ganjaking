@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add hooks to the edit posts view for the 'product' post type.
  *
  * @class    WC_PB_Admin_Post_Types
- * @version  5.9.2
+ * @version  6.5.0
  */
 class WC_PB_Admin_Post_Types {
 
@@ -42,14 +42,18 @@ class WC_PB_Admin_Post_Types {
 	public static function admin_stock_html( $stock_status, $product ) {
 
 		if ( 'bundle' === $product->get_type() ) {
-			if ( $product->is_parent_in_stock() && $product->contains( 'out_of_stock_strict' ) ) {
+			if ( $product->is_parent_in_stock() && ( $product->contains( 'out_of_stock_strict' ) || 'outofstock' === $product->get_bundled_items_stock_status() ) ) {
 
 				ob_start();
 
-				?><mark class="outofstock insufficient_stock"><?php _e( 'Insufficient stock', 'woocommerce-product-bundles' ); ?></mark>
-				<div class="row-actions">
-					<span class="view"><a href="<?php echo admin_url( 'admin.php?page=wc-reports&tab=stock&report=insufficient_stock&bundle_id=' . $product->get_id() ) ?>" rel="bookmark" aria-label="<?php _e( 'View Report', 'woocommerce-product-bundles' ); ?>"><?php _e( 'View Report', 'woocommerce-product-bundles' ); ?></a></span>
-				</div><?php
+				?><mark class="outofstock insufficient_stock"><?php _e( 'Insufficient stock', 'woocommerce-product-bundles' ); ?></mark><?php
+
+				if ( $product->contains( 'out_of_stock_strict' ) ) {
+
+					?><div class="row-actions">
+						<span class="view"><a href="<?php echo admin_url( 'admin.php?page=wc-reports&tab=stock&report=insufficient_stock&bundle_id=' . $product->get_id() ) ?>" rel="bookmark" aria-label="<?php _e( 'View Report', 'woocommerce-product-bundles' ); ?>"><?php _e( 'View Report', 'woocommerce-product-bundles' ); ?></a></span>
+					</div><?php
+				}
 
 				$stock_status = ob_get_clean();
 			}

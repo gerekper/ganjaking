@@ -19,7 +19,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 		'revslider-sharing-addon' => '2.0.0',
 		'revslider-maintenance-addon' => '2.0.0',
 		'revslider-snow-addon' => '2.0.0',
-		'revslider-particles-addon' => '2.0.0',
+		'revslider-particles-addon' => '2.3.1',
 		'revslider-polyfold-addon' => '2.0.0',
 		'revslider-404-addon' => '2.0.0',
 		'revslider-prevnext-posts-addon' => '2.0.0',
@@ -27,7 +27,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 		'revslider-login-addon' => '2.0.0',
 		'revslider-featured-addon' => '2.0.0',
 		'revslider-slicey-addon' => '2.0.0',
-		'revslider-beforeafter-addon' => '2.0.0',
+		'revslider-beforeafter-addon' => '2.0.9',
 		'revslider-weather-addon' => '2.0.0',
 		'revslider-panorama-addon' => '2.0.0',
 		'revslider-duotonefilters-addon' => '2.0.0',
@@ -109,7 +109,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 		//check if downloaded already
 		$plugins	= get_plugins();
 		$addon_path = $addon.'/'.$addon.'.php';
-		if(!array_key_exists($addon_path, $plugins) || $force == true){
+		if(!array_key_exists($addon_path, $plugins) || $force == true || !file_exists(WP_PLUGIN_DIR.'/'.$addon_path)){
 			//download if nessecary
 			return $this->download_addon($addon);
 		}

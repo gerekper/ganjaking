@@ -62,7 +62,7 @@ class WC_Product_Addons_Display {
 			is_shop() ||
 			( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'product_page') )
 		) {
-			wp_enqueue_style( 'woocommerce-addons-css', plugins_url( basename( dirname( dirname( __FILE__ ) ) ) ) . '/assets/css/frontend.css', array( 'dashicons' ), WC_PRODUCT_ADDONS_VERSION );
+			wp_enqueue_style( 'woocommerce-addons-css', WC_PRODUCT_ADDONS_PLUGIN_URL . '/assets/css/frontend.css', array( 'dashicons' ), WC_PRODUCT_ADDONS_VERSION );
 			wp_enqueue_script( 'jquery-tiptip', WC()->plugin_url() . '/assets/js/jquery-tiptip/jquery.tipTip.min.js', array( 'jquery' ), WC_VERSION, true );
 		}
 	}
@@ -75,7 +75,7 @@ class WC_Product_Addons_Display {
 
 		wp_register_script( 'accounting', WC()->plugin_url() . '/assets/js/accounting/accounting' . $suffix . '.js', array( 'jquery' ), '0.4.2' );
 
-		wp_enqueue_script( 'woocommerce-addons', plugins_url( basename( dirname( dirname( __FILE__ ) ) ) ) . '/assets/js/addons' . $suffix . '.js', array( 'jquery', 'accounting' ), WC_PRODUCT_ADDONS_VERSION, true );
+		wp_enqueue_script( 'woocommerce-addons', WC_PRODUCT_ADDONS_PLUGIN_URL . '/assets/js/addons' . $suffix . '.js', array( 'jquery', 'accounting' ), WC_PRODUCT_ADDONS_VERSION, true );
 
 		$params = array(
 			'price_display_suffix'         => esc_attr( get_option( 'woocommerce_price_display_suffix' ) ),
@@ -84,7 +84,7 @@ class WC_Product_Addons_Display {
 			'display_include_tax'          => ( wc_tax_enabled() && 'incl' === esc_attr( get_option( 'woocommerce_tax_display_shop' ) ) ) ? true : false,
 			'ajax_url'                     => WC()->ajax_url(),
 			'i18n_sub_total'               => __( 'Subtotal', 'woocommerce-product-addons' ),
-			'i18n_remaining'               => __( 'characters remaining', 'woocommerce-product-addons' ),
+			'i18n_remaining'               => sprintf( __( '%s characters remaining', 'woocommerce-product-addons' ), '<span></span>' ),
 			'currency_format_num_decimals' => absint( get_option( 'woocommerce_price_num_decimals' ) ),
 			'currency_format_symbol'       => get_woocommerce_currency_symbol(),
 			'currency_format_decimal_sep'  => esc_attr( stripslashes( get_option( 'woocommerce_price_decimal_sep' ) ) ),
@@ -140,7 +140,7 @@ class WC_Product_Addons_Display {
 	public function quick_view_single_compat() {
 		if ( is_singular( 'product' ) && class_exists( 'WC_Quick_View' ) ) {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			wp_enqueue_script( 'woocommerce-addons-quickview-compat', plugins_url( basename( dirname( dirname( __FILE__ ) ) ) ) . '/assets/js/quickview' . $suffix . '.js', array( 'jquery' ), WC_PRODUCT_ADDONS_VERSION, true );
+			wp_enqueue_script( 'woocommerce-addons-quickview-compat', WC_PRODUCT_ADDONS_PLUGIN_URL . '/assets/js/quickview' . $suffix . '.js', array( 'jquery' ), WC_PRODUCT_ADDONS_VERSION, true );
 		}
 	}
 
@@ -175,7 +175,7 @@ class WC_Product_Addons_Display {
 					continue;
 				}
 
-				wc_get_template( 
+				wc_get_template(
 					'addons/addon-start.php',
 					array(
 						'addon'               => $addon,

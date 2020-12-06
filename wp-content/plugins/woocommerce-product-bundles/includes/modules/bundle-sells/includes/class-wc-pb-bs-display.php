@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Display-related functions and filters.
  *
  * @class    WC_PB_BS_Display
- * @version  6.4.0
+ * @version  6.6.0
  */
 class WC_PB_BS_Display {
 
@@ -27,6 +27,9 @@ class WC_PB_BS_Display {
 
 		// Add hooks to display Bundle-Sells.
 		add_action( 'woocommerce_before_add_to_cart_form', array( __CLASS__, 'add_bundle_sells_display_hooks' ) );
+
+		// Item data.
+		add_filter( 'woocommerce_get_item_data', array( __CLASS__, 'bundle_sell_data' ), 10, 2 );
 	}
 
 	/*
@@ -97,8 +100,6 @@ class WC_PB_BS_Display {
 				return;
 			}
 
-			do_action( 'woocommerce_before_bundled_items', $bundle );
-
 			if ( false === wp_style_is( 'wc-bundle-css', 'enqueued' ) ) {
 				wp_enqueue_style( 'wc-bundle-css' );
 			}
@@ -121,6 +122,8 @@ class WC_PB_BS_Display {
 					'title' => wpautop( do_shortcode( wp_kses( $bundle_sells_title, WC_PB_Helpers::get_allowed_html( 'inline' ) ) ) )
 				), false, WC_PB()->plugin_path() . '/includes/modules/bundle-sells/templates/' );
 			}
+
+			do_action( 'woocommerce_before_bundled_items', $bundle );
 
 			/*
 			 * Show Bundle-Sells.
@@ -186,6 +189,53 @@ class WC_PB_BS_Display {
 		}
 
 		return $template;
+	}
+
+	/**
+	 * Add "Discount applied:" cart item data to bundle sells.
+	 *
+	 * @param  array  $data
+	 * @param  array  $cart_item
+	 * @return array
+	 */
+	public static function bundle_sell_data( $data, $cart_item ) {
+
+		if ( $parent_item_key = wc_pb_get_bundle_sell_cart_item_container( $cart_item, false, true ) ) {
+
+			if ( ! empty( $cart_item[ 'bundle_sell_discount' ] ) ) {
+
+				$parent_item           = WC()->cart->cart_contents[ $parent_item_key ];
+				$parent_item_permalink = apply_filters( 'woocommerce_cart_item_permalink', $parent_item[ 'data' ]->is_visible() ? $parent_item[ 'data' ]->get_permalink( $parent_item ) : '', $parent_item, $parent_item_key );
+				$parent_item_name      = $parent_item[ 'data' ]->get_title();
+
+				if ( $parent_item_permalink ) {
+					$parent_item_name = wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $parent_item_permalink ), $parent_item_name ), $parent_item, $parent_item_key ) );
+				} else {
+					$parent_item_name = wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $parent_item_name, $parent_item, $parent_item_key ) );
+				}
+
+				/**
+				 * Filter bundle-sell discount value.
+				 *
+				 * @since  6.6.0
+				 *
+				 * @param  array   $cart_item
+				 * @param  array   $parent_item
+				 * @param  string  $parent_item_name
+				 */
+				$bundle_sell_discount = apply_filters( 'wc_pb_bundle_sell_discount_cart_item_meta_value', sprintf( _x( '%s&#37; (applied by %2$s)', 'bundle-sell discount', 'woocommerce-product-bundles' ), round( ( float ) $cart_item[ 'bundle_sell_discount' ], 1 ), $parent_item_name ), $cart_item, $parent_item, $parent_item_name );
+
+				if ( $bundle_sell_discount ) {
+
+					$data[] = array(
+						'key'   => __( 'Discount', 'woocommerce-product-bundles' ),
+						'value' => $bundle_sell_discount
+					);
+				}
+			}
+		}
+
+		return $data;
 	}
 }
 

@@ -220,7 +220,7 @@ if ( ! class_exists( 'NS_FBA_Inventory' ) ) {
 				// if the manual sync button was used, adjust the timeframe to include all inventory
 				// default is updates within the last day
 				$timeframe = ' - 1 days';
-				if ( isset( $_POST['ns_fba_sync_inventory_manually'] ) ) {
+				if ( isset( $_POST['ns_fba_sync_inventory_manually'] ) || (isset( $_POST['action'] ) && 'ns_fba_sync_inventory_manually' === $_POST['action']) ) {
 					$timeframe = ' - 365 days';
 				}
 				// ISO 8601 date

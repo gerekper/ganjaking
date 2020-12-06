@@ -1,0 +1,105 @@
+.mpca-fat-bottom {
+  margin-bottom: 50px;
+}
+
+input[type=text][readonly].mpca-readonly {
+  color: #aaa;
+  pointer-events: none;
+}
+
+.mpca-hidden {
+  display: none;
+}
+
+.mpca-table-overflow {
+  overflow: auto;
+}
+
+/* Used for suggest.js */
+.ac_results {
+  display: none;
+  margin: -1px 0 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  z-index: 10000;
+  border: 1px solid #5b9dd9;
+  background-color: #fff;
+}
+.ac_results {
+  z-index: 500000;
+}
+
+.ac_results li {
+  margin: 0;
+  padding: 5px 10px;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.ac_results .ac_over,
+.ac_over .ac_match {
+  background-color: #0073aa;
+  color: #fff;
+  cursor: pointer;
+}
+
+.ac_match {
+  text-decoration: underline;
+}
+
+.mpca-clipboard-input {
+  display: inline-block !important;
+  width: 85% !important;
+}
+
+.mpca-clipboard {
+  cursor: pointer !important;
+}
+
+.mpca-icon {
+  color: #666666;
+  font-size: 16px;
+}
+
+.mpca-icon.mpca-16 {
+  font-size: 16px !important;
+}
+
+.mpca-icon.mpca-18 {
+  font-size: 18px !important;
+}
+
+.mpca-icon.mpca-20 {
+  font-size: 20px !important;
+}
+
+.mpca-icon.mpca-22 {
+  font-size: 22px !important;
+}
+
+.mpca-icon.mpca-24 {
+  font-size: 24px !important;
+}
+
+.mpca-icon.mpca-32 {
+  font-size: 32px !important;
+}
+
+.mpca-icon.mpca-48 {
+  font-size: 48px !important;
+}
+
+.mpca-icon.mpca-64 {
+  font-size: 64px !important;
+}
+
+a i.mpca-icon {
+  text-decoration: none;
+}
+
+a i.mpca-icon:hover {
+  color: #aeaeae;
+}
+
+/* End suggest.js */

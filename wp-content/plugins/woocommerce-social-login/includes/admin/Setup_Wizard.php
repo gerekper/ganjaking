@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\Social_Login\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
 use SkyVerge\WooCommerce\Social_Login\AJAX;
 
 /**
@@ -683,17 +683,16 @@ class Setup_Wizard extends Framework\Admin\Setup_Wizard {
 	 */
 	protected function render_after_next_steps() {
 
-		$email = wp_get_current_user()->user_email;
-
 		?>
 		<div class="newsletter-prompt">
-			<p>
-				<?php printf(
-					/* translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag */
-					'<small>' . esc_html__( 'Want to keep learning? Check out our %1$smonthly newsletter%2$s where we share updates, tutorials, and sneak peeks for new development. %1$sSign up &rarr;%2$s', 'woocommerce-social-login' ) . '</small>',
-					'<a href="https://www.skyverge.com/newsletter/?email=' . $email . '&mc_ref=SOCIAL_LOGIN_ONBOARDING">', '</a>'
-				); ?>
-			</p>
+			<h2><?php esc_html_e( 'Want to keep learning?', 'woocommerce-social-login' ); ?></h2>
+			<p><?php esc_html_e( 'Check out our monthly newsletter where we share updates, tutorials, and sneak peeks for new development!', 'woocommerce-social-login' ); ?></p>
+			<button
+				class="button button-primary newsletter-signup"
+				data-user-email="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>"
+				data-thank-you="<?php esc_attr_e( 'Thanks for signing up! Keep an eye on your inbox for product updates and helpful tips!', 'woocommerce-social-login' ); ?>"
+			><?php echo esc_html_x( 'Sign up', 'Newsletter sign up', 'woocommerce-social-login' ); ?></button>
+			<span class="spinner" style="display:inline-block; position: absolute;"></span>
 		</div>
 		<?php
 	}

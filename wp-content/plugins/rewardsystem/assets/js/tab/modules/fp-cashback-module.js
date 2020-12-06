@@ -6,10 +6,10 @@ jQuery( function ( $ ) {
         init : function () {
             this.show_or_hide_for_enable_cashback_reward_points() ;
             this.show_or_hide_for_enable_recaptcha_reward_points() ;
-            this.show_or_hide_for_enable_userrole_based_redeem_cashback() ;
             this.email_notification_for_cashback_admin() ;
             this.show_or_hide_for_cashback_table() ;
             this.show_or_hide_for_cashback_table_shortcode() ;
+            this.enable_userrole_based_redeem() ;
             $( document ).on( 'change' , '#rs_enable_user_role_based_reward_points_for_redeem_cashback' , this.enable_userrole_based_redeem ) ;
             $( document ).on( 'change' , '#rs_enable_disable_encashing' , this.enable_cashback_reward_points ) ;
             $( document ).on( 'change' , '#rs_enable_recaptcha_to_display' , this.enable_recaptcha_reward_points ) ;
@@ -17,17 +17,10 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_my_cashback_table_shortcode' , this.show_or_hide_for_cashback_table_shortcode ) ;
             $( document ).on( 'change' , '#rs_email_notification_for_Admin_cashback' , this.email_notification_for_cashback ) ;
         } ,
-        enable_userrole_based_redeem : function() {
-            CashbackModule.show_or_hide_for_enable_userrole_based_redeem_cashback() ;
+        enable_userrole_based_redeem : function () {
+            jQuery( '.rewardpoints_userrole_for_redeem_cashback' ).parent().parent().show() ;
         } ,
-        show_or_hide_for_enable_userrole_based_redeem_cashback : function() {
-            if( jQuery( '#rs_enable_user_role_based_reward_points_for_redeem_cashback' ).is( ':checked' ) ) {
-                jQuery( '.rewardpoints_userrole_for_redeem_cashback' ).parent().parent().show() ;
-            } else {
-                jQuery( '.rewardpoints_userrole_for_redeem_cashback' ).parent().parent().hide() ;
-            }
-        } ,
-        enable_recaptcha_reward_points : function() {
+        enable_recaptcha_reward_points : function () {
             CashbackModule.show_or_hide_for_enable_recaptcha_reward_points() ;
         } ,
         show_or_hide_for_enable_recaptcha_reward_points : function () {
@@ -57,6 +50,7 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_select_payment_method' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_select_type_to_redirect' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_allow_admin_to_save_previous_payment_method' ).closest( 'tr' ).show() ;
+                jQuery( '#rs_encashing_currency_label' ).closest( 'tr' ).show() ;
 
                 if ( jQuery( '#rs_select_type_to_redirect' ).val() == '1' ) {
                     jQuery( '#rs_custom_page_url_after_submit' ).closest( 'tr' ).hide() ;
@@ -184,6 +178,7 @@ jQuery( function ( $ ) {
                         jQuery( '#rs_select_exc_userrole' ).closest( 'tr' ).show() ;
                     }
                 } ) ;
+                jQuery( '#rs_reason_mandatory_for_cashback_form' ).closest( 'tr' ).show() ;
                 /*Show or hide Settings for Payment Method Display - End*/
             } else {
                 jQuery( '#rs_minimum_points_encashing_request' ).closest( 'tr' ).hide() ;
@@ -202,11 +197,13 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_select_type_to_redirect' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_custom_page_url_after_submit' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_allow_admin_to_save_previous_payment_method' ).closest( 'tr' ).hide() ;
+                jQuery( '#rs_encashing_currency_label' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_select_inc_user_search' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_select_exc_user_search' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_select_inc_userrole' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_select_exc_userrole' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_user_selection_type_for_cashback' ).closest( 'tr' ).hide() ;
+                jQuery( '#rs_reason_mandatory_for_cashback_form' ).closest( 'tr' ).hide() ;
             }
         } ,
         email_notification_for_cashback : function () {

@@ -178,7 +178,7 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @return array
+	 * @return string
 	 */
 	protected function get_stock_status_query_var() {
 		$query_var  = '';
@@ -205,14 +205,12 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 			return array();
 		}
 
-		$tax_query = array(
+		return array(
 			'taxonomy'         => 'product_cat',
 			'field'            => 'term_id',
 			'terms'            => $query_vars['product_cats'],
 			'include_children' => true,
 			'operator'         => ( 'specific' === $query_vars['product_cats_option'] ? 'IN' : 'NOT IN' ),
 		);
-
-		return $tax_query;
 	}
 }

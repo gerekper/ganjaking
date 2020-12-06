@@ -1,0 +1,152 @@
+Plugin Name: WP Smush Pro
+Author: WPMU DEV
+Tested up to: 5.5
+
+Change Log:
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+= 3.8.1 ( 2020-12-03 ) =
+
+- Fix: Error when querying stats from Hub
+
+= 3.8.0 ( 2020-12-03 ) =
+
+- New: Local WebP support
+- Enhance: Plugin performance
+- Enhance: Lazy load module will properly distinguish between single/double quotes
+- Enhance: srcset generation speed
+- Fix: Image resize detection flagging images that have been auto resized by CDN
+- Fix: Lazy Load conflicting with Maintenance plugin
+- Fix: PHP warning when saving lazy load settings
+- Fix: Copy URL functionality in media library
+- Fix: Whitelabel branding
+- Fix: Tools link in network admin Settings page
+- Fix: Upsell notice breaking after re-checking images
+- Fix: smush_check_for_conflicts cron running on every page load
+- Fix: Compatibility with SupportCandy plugin
+- Fix: Minor UI issues in Tutorials module
+- Fix: Minor UI issues in NextGen Smush page
+- Fix: CDN image paths on sub-directory installs
+
+= 3.7.3 ( 2020-11-23 ) =
+
+- Enhance: Minor UI/UX details
+
+= 3.7.2 ( 2020-11-10 ) =
+
+- Enhance: Plugin UI/UX
+- Enhance: Compatibility with NextGen
+- Fix: CDN parsing of background images
+- Fix: Image counter when re-checking images
+- Fix: Bulk Smush counter going over total number of images
+- Fix: Bulk Smush counter on network admin
+
+= 3.7.1 ( 2020-09-24 ) =
+
+- New: Tutorials sections
+- Enhance: Update the modal that displays the highlights of this release
+- Enhance: Compatibility with NextGen
+- Enhance: Compatibility with SVG images
+- Fix: Image resize detection styles
+- Fix: Tracking option on network subsites
+- Fix: Lazy load placeholder background colors
+- Fix: Lazy load custom placeholders on network installs
+- Fix: Jetpack CDN compatibility
+- Fix: Notice on CDN page
+
+= 3.7.0 ( 2020-09-03 ) =
+
+- New: Option to disable noscript in lazy load
+- New: WordPress 5.5 lazy load compatibility
+- New: Integration with Translate Press
+- New: WP_SMUSH_CDN_DELAY_SRCSET constant to delay wp_calculate_image_srcset filter
+- New: WP_SMUSH_ASYNC_LAZY constant to utilize async loading for lazy load scripts
+- Enhance: Compatibility with S3-Uploads plugin
+- Enhance: Disable CDN and lazy load modules on customizer pages
+- Enhance: CDN parsing of background images
+- Enhance: Allow directory Smush in site directories
+- Enhance: Improve wording in directory Smush notices
+- Enhance: Async load lazy load scripts
+- Fix: Image resize detection styles
+- Fix: Fix errors detecting mime type of remote streams
+- Fix: Lazy loading integration with fusion galleries (Avada)
+- Fix: Lazy loading not working with images that have GET parameters
+- Fix: Lazy loading placeholders not visible on some themes
+- Fix: CDN background images not working with images that have GET parameters
+- Fix: CDN usage of content_width global
+- Fix: Skip iframes with invalid URLs from lazy loading
+- Fix: W3C validation warnings with CDN
+- Fix: Compatibility with Vimeography plugin
+- Fix: Soliloquy slider images' incorrect source
+- Fix: Soliloquy navigation misalignment when lazy loading
+- Fix: Smush page in NextGen Gallery plugin looking unstyled
+
+= 3.6.3 ( 2020-05-06 ) =
+
+- Fix: CDN auto resize option causing issues with images
+
+= 3.6.2 ( 2020-05-04 ) =
+
+- New: CDN and lazy load integration with Soliloquy slider
+- Enhance: Native lazy loading disabled by default, added option to enable it
+- Enhance: Lazy load and CDN page parsing
+- Enhance: Summary module layout
+- Enhance: Image resize detection highlighting
+- Fix: Images with relative paths not processing by CDN
+- Fix: Object cache not clearing out stats during Re-Check Images action
+- Fix: Pages with lazy loading showing errors during W3C validation
+- Fix: Multiple noscript tags when lazy loading duplicate images
+- Fix: NextGen Re-Smush UI
+- Fix: Image resize settings not respecting the largest dimension
+
+= 3.6.1 ( 2020-03-06 ) =
+
+- Enhance: Directory Smush image processing
+- Enhance: CDN background image processing performance
+- Fix: Lazy loading breaking visual editors (Oxygen, Thrive Architect, Tatsu)
+- Fix: WooCommerce breaking Smush onboarding dialog
+- Fix: CDN processing of background images with spaces
+- Fix: REST API errors
+
+= 3.6.0 ( 2020-02-25 ) =
+
+- New: CDN support for images in REST API responses
+- New: Media library filter to show uncompressed images
+- New: Native lazy loading support
+- Enhance: Image resize detection functionality
+- Enhance: Allow excluding images from lazy loading with data-skip-lazy attribute
+- Enhance: Improve restore backup UI
+- Enhance: Bulk smush UI
+- Fix: NextGEN Gallery integration
+- Fix: Error detecting language error on Settings page
+- Fix: "Choose directory" button disabled state after first click
+- Fix: Some notices not being dismissible
+- Fix: Image restore
+
+= 3.5.1 ( 2020-02-10 ) =
+
+- Fix: Browser console errors on pages without Backbone js scripts
+- Fix: Lazy load compatibility with Beaver Builder
+- Fix: Lazy load breaking videos
+
+= 3.5.0 ( 2020-02-03 ) =
+
+- New: Add custom post types to include/exclude filters in the lazy load module
+- New: CDN support for source in the picture element
+- New: Lazy loading for WebP images
+- New: Lazy loading support for picture element
+- Enhance: Page parsing performance
+- Enhance: Media library UI
+- Enhance: CDN compatibility with empty srcset and sizes image attributes
+- Enhance: CDN support for background images
+- Enhance: Lazy load compatibility with Envira Gallery plugin
+- Enhance: Plugins page links
+- Fix: CDN not detecting background images surrounded by HTML entities
+- Fix: CDN not replacing srcset in some cases
+- Fix: Lazy load Gravatars
+- Fix: WPBakery Page Builder integration
+- Fix: Typos in the lazy load module
+
+
+

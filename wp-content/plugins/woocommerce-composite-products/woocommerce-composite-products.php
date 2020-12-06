@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Composite Products
 * Plugin URI: https://woocommerce.com/products/composite-products/
 * Description: Create personalized product kits and configurable products.
-* Version: 7.1.1
+* Version: 7.1.3
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -18,7 +18,7 @@
 * Tested up to: 5.5
 *
 * WC requires at least: 3.1
-* WC tested up to: 4.6
+* WC tested up to: 4.8
 *
 * Copyright: © 2017-2020 SomewhereWarm SMPC.
 * License: GNU General Public License v3.0
@@ -34,11 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Composite_Products
- * @version  7.1.1
+ * @version  7.1.3
  */
 class WC_Composite_Products {
 
-	public $version  = '7.1.1';
+	public $version  = '7.1.3';
 	public $required = '3.1.0';
 
 	/**
@@ -196,7 +196,7 @@ class WC_Composite_Products {
 		// WC version sanity check.
 		if ( ! function_exists( 'WC' ) || version_compare( WC()->version, $this->required ) < 0 ) {
 			$notice = sprintf( __( 'WooCommerce Composite Products requires at least WooCommerce <strong>%s</strong>.', 'woocommerce-composite-products' ), $this->required );
-			require_once( 'includes/admin/class-wc-cp-admin-notices.php' );
+			require_once( WC_CP_ABSPATH . 'includes/admin/class-wc-cp-admin-notices.php' );
 			WC_CP_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
 		}
@@ -204,7 +204,7 @@ class WC_Composite_Products {
 		// PHP version check.
 		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '5.6.20', '<' ) ) {
 			$notice = sprintf( __( 'WooCommerce Composite Products requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-composite-products' ), '5.6.20', 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' );
-			require_once( 'includes/admin/class-wc-cp-admin-notices.php' );
+			require_once( WC_CP_ABSPATH . 'includes/admin/class-wc-cp-admin-notices.php' );
 			WC_CP_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
 		}
@@ -267,83 +267,83 @@ class WC_Composite_Products {
 	public function includes() {
 
 		// Class containing extensions compatibility functions and filters.
-		require_once( 'includes/compatibility/class-wc-cp-compatibility.php' );
+		require_once( WC_CP_ABSPATH . 'includes/compatibility/class-wc-cp-compatibility.php' );
 
 		// Install.
-		require_once( 'includes/class-wc-cp-install.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-install.php' );
 
 		// CRUD.
-		require_once( 'includes/data/class-wc-cp-data.php' );
+		require_once( WC_CP_ABSPATH . 'includes/data/class-wc-cp-data.php' );
 
 		// CP functions.
-		require_once( 'includes/wc-cp-functions.php' );
-		require_once( 'includes/wc-cp-deprecated-functions.php' );
+		require_once( WC_CP_ABSPATH . 'includes/wc-cp-functions.php' );
+		require_once( WC_CP_ABSPATH . 'includes/wc-cp-deprecated-functions.php' );
 
 		// Composite widget.
-		require_once( 'includes/wc-cp-widget-functions.php' );
+		require_once( WC_CP_ABSPATH . 'includes/wc-cp-widget-functions.php' );
 
 		// PHP 5.5+ cartesian product generator function.
 		if ( WC_CP_Compatibility::php_version_gte( '5.5.0' ) ) {
-			require_once( 'includes/wc-cp-generator-functions.php' );
+			require_once( WC_CP_ABSPATH . 'includes/wc-cp-generator-functions.php' );
 		}
 
 		// Handles component option queries.
-		require_once( 'includes/class-wc-cp-query.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-query.php' );
 
 		// Component abstraction.
-		require_once( 'includes/class-wc-cp-component.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-component.php' );
 
 		// Component view state.
-		require_once( 'includes/class-wc-cp-component-view.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-component-view.php' );
 
 		// Query string compressor and expanded.
-		require_once( 'includes/class-wc-cp-query-string.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-query-string.php' );
 
 		// Composited product wrapper.
-		require_once( 'includes/class-wc-cp-product.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-product.php' );
 
 		// Filters and functions to support the "composited product" concept.
-		require_once( 'includes/class-wc-cp-products.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-products.php' );
 
 		// Composite products Scenarios API.
-		require_once( 'includes/class-wc-cp-scenario.php' );
-		require_once( 'includes/class-wc-cp-scenarios-manager.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-scenario.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-scenarios-manager.php' );
 
 		// Legacy Scenarios API - deprecated.
-		require_once( 'includes/legacy/class-wc-cp-scenarios.php' );
+		require_once( WC_CP_ABSPATH . 'includes/legacy/class-wc-cp-scenarios.php' );
 
 		// Helper functions.
-		require_once( 'includes/class-wc-cp-helpers.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-helpers.php' );
 
 		// Composite products AJAX handlers.
-		require_once( 'includes/class-wc-cp-ajax.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-ajax.php' );
 
 		// Composite product class.
-		require_once( 'includes/class-wc-product-composite.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-product-composite.php' );
 
 		// Stock manager.
-		require_once( 'includes/class-wc-cp-stock-manager.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-stock-manager.php' );
 
 		// Cart-related functions and filters.
-		require_once( 'includes/class-wc-cp-cart.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-cart.php' );
 
 		// Order-related functions and filters.
-		require_once( 'includes/class-wc-cp-order.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-order.php' );
 
 		// Order-again functions and filters.
-		require_once( 'includes/class-wc-cp-order-again.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-order-again.php' );
 
 		// Coupon-related composite functions and hooks.
-		require_once( 'includes/class-wc-cp-coupon.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-coupon.php' );
 
 		// Front-end functions and filters.
-		require_once( 'includes/class-wc-cp-display.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-display.php' );
 
 		// REST API hooks.
-		require_once( 'includes/class-wc-cp-rest-api.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-rest-api.php' );
 
 		// Notices handling.
-		require_once( 'includes/class-wc-cp-notices.php' );
+		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-notices.php' );
 
 		// Admin functions and meta-boxes.
 		if ( is_admin() ) {
@@ -357,10 +357,10 @@ class WC_Composite_Products {
 	private function admin_includes() {
 
 		// Admin notices handling.
-		require_once( 'includes/admin/class-wc-cp-admin-notices.php' );
+		require_once( WC_CP_ABSPATH . 'includes/admin/class-wc-cp-admin-notices.php' );
 
 		// Admin hooks.
-		require_once( 'includes/admin/class-wc-cp-admin.php' );
+		require_once( WC_CP_ABSPATH . 'includes/admin/class-wc-cp-admin.php' );
 	}
 
 	/**

@@ -1,9 +1,28 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2020.11.11 - version 9.3.2
+* Change: WooCommerce 4.7 compatibility
+
+2020.11.02 - version 9.3.1
+* Fix: Resolve issue where out of stock variations would be excluded if "Hide out of stock items from the catalog" was enabled.
+* Fix: Make sure shipping dimensions are sent in a Google-supported unit-of-measure
+
+2020.10.23 - version 9.3.0
+* New: Integration with "WooCommerce Min Max Quantity & Step Control Single" extension
+* Change: Improvements to Composite product support to avoid issues with 3rd party extensions that register the same product types
+* Change: Internal refactoring of product bundles support
+* Fix: Resolve issue where descriptions were sometimes incorrect with page builder plugins active
+
+2020.10.19 - version 9.2.0
+* New: Support for "Currency Switcher for WooCommerce" extension
+* New: Support for title pre-population & custom titles
+* Change: Shipping dimensions & weights are sent as-is and not rounded or converted unless requested via filtering the units
+* Fix: Product IDs in review feed are no longer missing
+
 2020.10.05 - version 9.1.2
 * New: Ability to choose primary image for products from available images
 * Change: Use WordPress' esc_xml() when available
-* Change: WordPress 4.6 compatibility
+* Change: WooCommerce 4.6 compatibility
 
 2020.09.29 - version 9.1.0
 * New: Initial support for managing images included in the feed

@@ -182,7 +182,7 @@ class WoocommerceGpfFrontend {
 			0;
 		$args   = array(
 			'status'  => array( 'publish' ),
-			'type'    => array( 'simple', 'variable', 'composite', 'bundle' ),
+			'type'    => array( 'simple', 'variable' ),
 			'limit'   => $chunk_size,
 			'offset'  => $offset,
 			'orderby' => 'ID',
@@ -337,12 +337,6 @@ class WoocommerceGpfFrontend {
 					return $this->process_simple_product( $woocommerce_product );
 				}
 				break;
-			case 'composite':
-				return $this->process_composite_product( $woocommerce_product );
-				break;
-			case 'bundle':
-				return $this->process_bundle_product( $woocommerce_product );
-				break;
 			default:
 				// Unknown product type. Try and process as a simple product.
 				return $this->process_simple_product( $woocommerce_product );
@@ -412,11 +406,10 @@ class WoocommerceGpfFrontend {
 
 			return false;
 		}
-		$variations = $woocommerce_product->get_available_variations();
-		$output     = '';
-		foreach ( $variations as $variation ) {
+		$variation_ids = $woocommerce_product->get_children();
+		$output        = '';
+		foreach ( $variation_ids as $variation_id ) {
 			// Get the variation product.
-			$variation_id      = $variation['variation_id'];
 			$variation_product = wc_get_product( $variation_id );
 			$feed_item         = new WoocommerceGpfFeedItem(
 				$variation_product,
@@ -442,29 +435,5 @@ class WoocommerceGpfFrontend {
 		echo $output;
 
 		return ! empty( $output );
-	}
-
-	/**
-	 * Process a composite product.
-	 *
-	 * @param object $woocommerce_product WooCommerce Product Object
-	 *
-	 * @return bool                          True if one or more products were output, false
-	 *                                       otherwise.
-	 */
-	private function process_composite_product( $woocommerce_product ) {
-		return $this->process_simple_product( $woocommerce_product );
-	}
-
-	/**
-	 * Process a bundle product.
-	 *
-	 * @param object $woocommerce_product WooCommerce Product Object
-	 *
-	 * @return bool                          True if one or more products were output, false
-	 *                                       otherwise.
-	 */
-	private function process_bundle_product( $woocommerce_product ) {
-		return $this->process_simple_product( $woocommerce_product );
 	}
 }

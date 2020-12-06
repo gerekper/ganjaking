@@ -26,7 +26,7 @@ class WPSEO_Premium_Option extends WPSEO_Option {
 	 */
 	protected $defaults = [
 		// Form fields.
-		'prominent_words_indexation_completed' => null,
+		'prominent_words_indexing_completed' => null,
 	];
 
 	/**
@@ -62,7 +62,7 @@ class WPSEO_Premium_Option extends WPSEO_Option {
 	protected function validate_option( $dirty, $clean, $old ) {
 		foreach ( $clean as $key => $value ) {
 			switch ( $key ) {
-				case 'prominent_words_indexation_completed':
+				case 'prominent_words_indexing_completed':
 					if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== null ) {
 						$clean[ $key ] = WPSEO_Utils::validate_bool( $dirty[ $key ] );
 					}

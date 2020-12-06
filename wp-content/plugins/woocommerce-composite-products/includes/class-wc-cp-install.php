@@ -73,7 +73,7 @@ class WC_CP_Install {
 		self::$current_version    = get_option( 'woocommerce_composite_products_version', null );
 		self::$current_db_version = get_option( 'woocommerce_composite_products_db_version', null );
 
-		include_once( 'class-wc-cp-background-updater.php' );
+		include_once( WC_CP_ABSPATH . 'includes/class-wc-cp-background-updater.php' );
 	}
 
 	/**

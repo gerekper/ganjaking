@@ -30,7 +30,7 @@ class WC_PB_CLI {
 	 * Load command files.
 	 */
 	private function includes() {
-		require_once( 'cli/class-wc-pb-cli-update.php' );
+		require_once( WC_PB_ABSPATH . 'includes/cli/class-wc-pb-cli-update.php' );
 	}
 
 	/**

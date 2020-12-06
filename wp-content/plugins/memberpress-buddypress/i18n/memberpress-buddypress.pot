@@ -1,0 +1,160 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress + BuddyPress Integration plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress + BuddyPress Integration 1.1.8\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-buddypress\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-10-08T14:37:43-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-buddypress\n"
+
+#. Plugin Name of the plugin
+msgid "MemberPress + BuddyPress Integration"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Integrates MemberPress with BuddyPress"
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: main.php:35
+msgid "MemberPress + BuddyPress"
+msgstr ""
+
+#: main.php:36
+msgid "BuddyPress Integration for MemberPress."
+msgstr ""
+
+#: MpBuddyPress.php:87
+msgid "BuddyPress"
+msgstr ""
+
+#: MpBuddyPress.php:103
+msgid "BuddyPress Integration"
+msgstr ""
+
+#: MpBuddyPress.php:106
+msgid "Enable BuddyPress Integration"
+msgstr ""
+
+#: MpBuddyPress.php:112
+msgid "BuddyPress Integration is activated. For further integration options - enable BuddyPress Groups."
+msgstr ""
+
+#: MpBuddyPress.php:116
+msgid "Default Free Membership"
+msgstr ""
+
+#: MpBuddyPress.php:119
+msgid "None"
+msgstr ""
+
+#: MpBuddyPress.php:125
+msgid "If the user signs up via BuddyPress's signup page, then no payment can be collected. Therefore the member will get lifetime free access to the default Membership you choose here. If you need to charge your users, then we recommend that you disable signups via BuddyPress and instead force the users to signup via MemberPress instead."
+msgstr ""
+
+#: MpBuddyPress.php:132
+#: MpBuddyPress.php:184
+msgid "Default Group(s) for ALL Members"
+msgstr ""
+
+#: MpBuddyPress.php:140
+#: MpBuddyPress.php:192
+msgid "Hold the Control Key (Command Key on the Mac) in order to select or deselect multiple groups."
+msgstr ""
+
+#: MpBuddyPress.php:140
+msgid "Select a default BuddyPress Group(s) that every member should be added to when signing up. Please note, ALL members are added to this group whether they're active and paid or not. Please see the per-Membership Groups if you want to add/remove members to/from Groups automatically based on their status."
+msgstr ""
+
+#: MpBuddyPress.php:176
+msgid "BuddyPress Groups for this Membership"
+msgstr ""
+
+#: MpBuddyPress.php:179
+msgid "Enable BuddyPress Groups"
+msgstr ""
+
+#: MpBuddyPress.php:180
+msgid "If enabled, and Groups are selected - members will be added to and removed from these groups based on their subscription status to this membership level. These Groups should be unique to this Membership and should also be different from the default Group set in the MemberPress Options for BuddyPress settings."
+msgstr ""
+
+#: MpBuddyPress.php:384
+msgid "MemberPress BuddyPress Groups"
+msgstr ""
+
+#: MpBuddyPress.php:389
+msgid "Sync BuddyPress Groups"
+msgstr ""
+
+#: MpBuddyPress.php:392
+msgid "Sync the BuddyPress groups for this user based on their active subscriptions."
+msgstr ""
+
+#: MpBuddyPress.php:404
+msgid "Bad request."
+msgstr ""
+
+#: MpBuddyPress.php:408
+msgid "Sorry, you don't have permission to do this."
+msgstr ""
+
+#: MpBuddyPress.php:412
+msgid "Security check failed."
+msgstr ""
+
+#: MpBuddyPress.php:418
+msgid "User not found."
+msgstr ""
+
+#: MpBuddyPress.php:479
+msgctxt "ui"
+msgid "Membership"
+msgstr ""
+
+#: MpBuddyPress.php:492
+msgctxt "ui"
+msgid "Info"
+msgstr ""
+
+#: MpBuddyPress.php:507
+msgctxt "ui"
+msgid "Subscriptions"
+msgstr ""
+
+#: MpBuddyPress.php:522
+msgctxt "ui"
+msgid "Payments"
+msgstr ""
+
+#: MpBuddyPress.php:548
+msgctxt "ui"
+msgid "Membership Info"
+msgstr ""
+
+#: MpBuddyPress.php:589
+msgctxt "ui"
+msgid "Membership Subscriptions"
+msgstr ""
+
+#: MpBuddyPress.php:631
+msgctxt "ui"
+msgid "Membership Payments"
+msgstr ""

@@ -156,6 +156,7 @@ class CT_Ultimate_GDPR_Model_Services {
 				'CT_Ultimate_GDPR_Service_Yith_Woocommerce_Wishlist',
 				'CT_Ultimate_GDPR_Service_Formcraft_Form_Builder',
 				'CT_Ultimate_GDPR_Service_Youtube',
+				'CT_Ultimate_GDPR_Service_Post_SMTP',
 			)
 		);
 

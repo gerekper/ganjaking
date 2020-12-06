@@ -37,12 +37,17 @@ if ( $add_on_fields ) :
 	?>
 	<div id="wc_checkout_add_ons">
 		<?php
+
 		foreach ( $add_on_fields as $key => $field ) :
+
 			// add price adjustment to label
 			$add_on         = \SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory::get_add_on( $key );
 			$field['label'] = wc_checkout_add_ons()->get_frontend_instance()->get_formatted_label( $add_on->get_name(), $add_on->get_label(), $add_on->get_cost_html() );
+
 			woocommerce_form_field( $key, $field, WC()->checkout()->get_value( $key ) );
+
 		endforeach;
+
 		?>
 	</div>
 	<?php

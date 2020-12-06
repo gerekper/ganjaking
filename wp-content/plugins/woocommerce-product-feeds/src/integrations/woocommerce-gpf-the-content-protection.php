@@ -12,44 +12,33 @@ class WoocommerceGpfTheContentProtection {
 	 * Add filters to populate and restore postdata.
 	 */
 	public function run() {
-		add_filter( 'woocommerce_gpf_title', array( $this, 'before_processing' ), 10, 2 );
-		add_filter( 'woocommerce_gpf_description', array( $this, 'after_processing' ), 10, 3 );
+		add_action( 'woocommerce_gpf_before_description_generation', array( $this, 'before_processing' ), 10, 1 );
+		add_action( 'woocommerce_gpf_after_description_generation', array( $this, 'after_processing' ), 10, 0 );
 	}
 
 	/**
 	 * Setup postdata before we grab info so that plugins that expect it set when the_content filter called still work.
 	 *
-	 * @param $title string Returned unmodified.
-	 * @param $specific_id int Unused.
-	 *
-	 * @return string
+	 * @param $specific_id int
 	 */
-	public function before_processing( $title, $specific_id ) {
+	public function before_processing( $specific_id ) {
 		global $post, $gpf_original_post;
 		$gpf_original_post = $post;
 		$post              = get_post( $specific_id );
 		setup_postdata( $post );
-
-		return $title;
 	}
 
 	/**
 	 * Restore postdata after the_content has been used.
 	 *
-	 * @param $description string Return unmodified.
-	 * @param $specific_id int Unused.
-	 * @param $general_id int Unused.
-	 *
 	 * @return mixed
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	public function after_processing( $description, $specific_id, $general_id ) {
+	public function after_processing() {
 		global $post, $gpf_original_post;
 		$post = $gpf_original_post;
 		wp_reset_postdata();
-
-		return $description;
 	}
 }
 

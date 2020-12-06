@@ -36,7 +36,7 @@ class WC_COG extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.9.8';
+	const VERSION = '2.9.10';
 
 	/** @var WC_COG single instance of this plugin */
 	protected static $instance;
@@ -301,7 +301,7 @@ class WC_COG extends Framework\SV_WC_Plugin {
 		if ( $item instanceof \WC_Order_Item_Product && $item->get_product() ) {
 
 			$cost     = (float) \WC_COG_Product::get_cost( $item->get_product() );
-			$quantity = (float) $item->get_quantity();
+			$quantity = $this->get_item_quantity( $item );
 			$order    = wc_get_order( $order_id );
 
 			/**
@@ -398,7 +398,11 @@ class WC_COG extends Framework\SV_WC_Plugin {
 	 * @param float|string $item_cost item cost
 	 * @param float $quantity item quantity
 	 */
-	protected function set_item_cost_meta( $item_id, $item_cost = '0', $quantity ) {
+	protected function set_item_cost_meta( $item_id, $item_cost, $quantity ) {
+
+		if ( empty( $item_cost ) || ! is_numeric( $item_cost ) ) {
+			$item_cost = '0';
+		}
 
 		// format the single item cost
 		$formatted_cost = wc_format_decimal( $item_cost );
@@ -496,6 +500,29 @@ class WC_COG extends Framework\SV_WC_Plugin {
 
 		// update the refund total cost
 		Framework\SV_WC_Order_Compatibility::update_meta_data( $refund, '_wc_cog_order_total_cost', wc_format_decimal( $refund_total_cost, wc_get_price_decimals() ) );
+	}
+
+
+	/**
+	 * Gets the item quantity.
+	 *
+	 * @since 2.9.9
+	 *
+	 * @param WC_Order_Item_Product $item item object
+	 * @return float item quantity
+	 */
+	private function get_item_quantity( \WC_Order_Item_Product $item ) {
+
+		/**
+		 * Filters the item quantity, allowing integrations to override it if necessary.
+		 *
+		 * @since 2.9.9
+		 *
+		 * @param float|string $item_quantity item quantity
+		 * @param \WC_Order_Item_Product $item item object
+		 * @param \WC_COG $cost_of_goods Cost of Goods main plugin class instance
+		 */
+		return (float) apply_filters( 'wc_cost_of_goods_get_item_quantity', $item->get_quantity(), $item, $this );
 	}
 
 

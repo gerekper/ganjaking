@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon Fulfillment (FBA) with WooCommerce.
- * Version: 3.3.2
+ * Version: 3.3.5
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 4.7
- * Tested up to: 5.3.2
+ * Tested up to: 5.5.3
  * WC requires at least: 3.0.0
- * WC tested up to: 4.0.0
+ * WC tested up to: 4.7.0
  * Woo: 669839:b73d2c19a6ff0f06485e0f11eb4bf922
  *
  * Text Domain: ns-fba-for-woocommerce
@@ -43,7 +43,12 @@ if ( ! class_exists( 'Kint', false ) ) {
 // phpmailer for mail handling - primarily for notifications if shipment fails
 // see: https://github.com/PHPMailer/PHPMailer
 // use WP built in version to prevent issues with WP include not checking if it already exists
-require_once( ABSPATH . 'wp-includes/class-phpmailer.php' );
+if ( file_exists( ABSPATH . 'wp-includes/PHPMailer/PHPMailer.php' ) ) {
+	require_once( ABSPATH . 'wp-includes/PHPMailer/PHPMailer.php' );
+	require_once( ABSPATH . 'wp-includes/PHPMailer/Exception.php' );
+} else {
+	require_once( ABSPATH . 'wp-includes/class-phpmailer.php' );
+}
 
 // register our deactivation handler so that we can clear any scheduled syncs
 register_deactivation_hook( __FILE__, array( 'NS_FBA', 'on_deactivation' ) );
@@ -69,7 +74,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 * @var string The options string name for this plugin
 			 * @var string $text_domain Domain used for localization
 			 */
-			public $version = '3.3.2';
+			public $version = '3.3.4';
 			public $app_name = 'WooCommerceMCF';
 			private $options_name = 'woocommerce_fba_settings';
 			public $text_domain = 'ns-fba-for-woocommerce';
@@ -260,6 +265,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					add_action( 'woocommerce_order_actions', array( $this->wc, 'add_order_meta_box_actions' ) );
 					// process 'Send to Amazon FBA' order meta box order action
 					add_action( 'woocommerce_order_action_ns_fba_send_to_fulfillment', array( $this->wc, 'process_order_meta_box_actions' ) );
+					// process 'Check Amazon Tracking Info' order action
+					add_action( 'woocommerce_order_action_ns_fba_check_tracking', function( $order ) {
+						if ( empty( get_post_meta( $order->get_id(), '_sent_to_fba', true ) ) ) {
+							wp_die( __( 'This order has not been sent to Amazon for fulfillment.', 'ns-fba-for-woocommerce' ) );
+						}
+						ob_start();
+						$this->outbound->get_fulfillment_order_shipping_info( $order->get_id() );
+						ob_end_clean();
+					} );
 					// view order page hook to get and display order shipping and tracking data from Amazon
 					// only activate the hook if the option is turned ON
 					if ( $this->utils->isset_on( $this->options['ns_fba_display_order_tracking'] ) ) {

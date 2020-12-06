@@ -36,8 +36,12 @@ if ( ! class_exists( 'RSFrontendEnqueues' ) ) {
                 wp_enqueue_script( 'wp_reward_footable_paging' , SRP_PLUGIN_DIR_URL . "assets/js/footable.paginate.js" , array() , SRP_VERSION , self::$in_footer ) ;
                 wp_enqueue_script( 'wp_reward_footable_filter' , SRP_PLUGIN_DIR_URL . "assets/js/footable.filter.js" , array() , SRP_VERSION , self::$in_footer ) ;
             }
-
-            wp_enqueue_script( 'wp_jscolor_rewards' , SRP_PLUGIN_DIR_URL . "assets/js/jscolor/jscolor.js" , array( 'jquery' ) , SRP_VERSION , self::$in_footer ) ;
+            
+            /* Enqueue JSColor */
+            if('1' == get_option('rs_enable_jscolor_js',1)){
+                wp_enqueue_script( 'wp_jscolor_rewards' , SRP_PLUGIN_DIR_URL . "assets/js/jscolor/jscolor.js" , array( 'jquery' ) , SRP_VERSION , self::$in_footer ) ;
+            }
+            
             wp_enqueue_script( 'frontendscripts' , SRP_PLUGIN_DIR_URL . "includes/frontend/js/frontendscripts.js" , array( 'jquery' ) , SRP_VERSION , self::$in_footer ) ;
             wp_localize_script( 'frontendscripts' , 'frontendscripts_params' , array(
                 'ajaxurl'                             => SRP_ADMIN_AJAX_URL ,
@@ -182,19 +186,24 @@ if ( ! class_exists( 'RSFrontendEnqueues' ) ) {
         public static function enqueue_for_cashback_module() {
             $PointsData      = new RS_Points_Data( get_current_user_id() ) ;
             $AvailablePoints = $PointsData->total_available_points() ;
+            $user            = wp_get_current_user() ;
+            $roles           = is_object( $user ) ? $user->roles : '' ;
+            $role            = isset( $roles[ 0 ] ) ? $roles[ 0 ] : '' ;
             $LocalizedScript = array(
-                'ajaxurl'             => SRP_ADMIN_AJAX_URL ,
-                'fp_cashback_request' => wp_create_nonce( 'fp-cashback-request' ) ,
-                'fp_cancel_request'   => wp_create_nonce( 'fp-cancel-request' ) ,
-                'available_points'    => $AvailablePoints ,
-                'minpointstoreq'      => get_option( 'rs_minimum_points_encashing_request' ) == '' ? 0 : get_option( 'rs_minimum_points_encashing_request' ) ,
-                'maxpointstoreq'      => get_option( 'rs_maximum_points_encashing_request' ) == '' ? $AvailablePoints : get_option( 'rs_maximum_points_encashing_request' ) ,
-                'paymentmethod'       => get_option( 'rs_select_payment_method' ) ,
-                'conversionrate'      => get_option( 'rs_redeem_point_for_cash_back' ) ,
-                'conversionvalue'     => get_option( 'rs_redeem_point_value_for_cash_back' ) ,
-                'redirection_type'    => get_option( 'rs_select_type_to_redirect' ) ,
-                'redirection_url'     => get_option( 'rs_custom_page_url_after_submit' ) ,
-                'enable_recaptcha'    => get_option( 'rs_enable_recaptcha_to_display' ) ,
+                'ajaxurl'              => SRP_ADMIN_AJAX_URL ,
+                'fp_cashback_request'  => wp_create_nonce( 'fp-cashback-request' ) ,
+                'fp_cancel_request'    => wp_create_nonce( 'fp-cancel-request' ) ,
+                'available_points'     => $AvailablePoints ,
+                'minpointstoreq'       => get_option( 'rs_minimum_points_encashing_request' ) == '' ? 0 : get_option( 'rs_minimum_points_encashing_request' ) ,
+                'maxpointstoreq'       => get_option( 'rs_maximum_points_encashing_request' ) == '' ? $AvailablePoints : get_option( 'rs_maximum_points_encashing_request' ) ,
+                'paymentmethod'        => get_option( 'rs_select_payment_method' ) ,
+                'conversionrate'       => get_option( 'rs_redeem_point_for_cash_back' ) ,
+                'conversionvalue'      => get_option( 'rs_redeem_point_value_for_cash_back' ) ,
+                'redirection_type'     => get_option( 'rs_select_type_to_redirect' ) ,
+                'redirection_url'      => get_option( 'rs_custom_page_url_after_submit' ) ,
+                'enable_recaptcha'     => get_option( 'rs_enable_recaptcha_to_display' ) ,
+                'user_role_percentage' => get_option( 'rs_cashback_' . $role . '_for_redeem_percentage' , 100 ) ,
+                'cash_back_reason'     => get_option( 'rs_reason_mandatory_for_cashback_form' , 'yes' ) ,
                     ) ;
             wp_enqueue_script( 'fp_cashback_action' , SRP_PLUGIN_DIR_URL . "includes/frontend/js/modules/fp-cashback-frontend.js" , array( 'jquery' ) , SRP_VERSION , self::$in_footer ) ;
             wp_localize_script( 'fp_cashback_action' , 'fp_cashback_action_params' , $LocalizedScript ) ;

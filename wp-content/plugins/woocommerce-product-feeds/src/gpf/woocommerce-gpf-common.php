@@ -66,13 +66,24 @@ class WoocommerceGpfCommon {
 		$this->product_fields = apply_filters(
 			'woocommerce_gpf_all_product_fields',
 			[
+				'title'                               => [
+					'desc'                   => __( 'Title', 'woocommerce_gpf' ),
+					'full_desc'              => __( 'What to send as the title for this product in the feed.', 'woocommerce_gpf' ),
+					'can_prepopulate'        => true,
+					'feed_types'             => [ 'google', 'googlelocalproducts', 'bing' ],
+					'mandatory'              => true,
+					'skip_on_category_pages' => true,
+					'callback'               => 'render_title',
+				],
 				'description'                         => [
-					'desc'            => __( 'Product description', 'woocommerce_gpf' ),
-					'full_desc'       => __( 'Which description text to send in the feed for products.', 'woocommerce_gpf' ),
-					'callback'        => 'render_description',
-					'can_prepopulate' => true,
-					'feed_types'      => [ 'google', 'googlelocalproducts', 'bing' ],
-					'mandatory'       => true,
+					'desc'                   => __( 'Product description', 'woocommerce_gpf' ),
+					'full_desc'              => __( 'Which description text to send in the feed for products.', 'woocommerce_gpf' ),
+					'callback'               => 'render_description',
+					'can_prepopulate'        => true,
+					'feed_types'             => [ 'google', 'googlelocalproducts', 'bing' ],
+					'mandatory'              => true,
+					'skip_on_product_pages'  => true,
+					'skip_on_category_pages' => true,
 				],
 				'availability'                        => [
 					'desc'        => __( 'Availability', 'woocommerce_gpf' ),

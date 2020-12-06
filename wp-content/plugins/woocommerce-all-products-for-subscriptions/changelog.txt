@@ -1,5 +1,12 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2020.11.10 - version 3.1.19
+* Feature - Let customers add carts to subscriptions without necessarily offering cart plans using `add_filter( 'wcsatt_add_cart_to_subscription_supported', '__return_true' );`.
+* Fix - Cart-level plan selector is unresponsive when ordering again.
+* Fix - Bundle/composite container price appears empty in mini-cart widget when making a one-time purchase.
+* Fix - Ensure that the product object exists when restoring the subscription state of bundled products from order items.
+* Fix - Fatal error when trying to switch a deleted product.
+
 2020.09.29 - version 3.1.18
 * Feature - Add quickview support in Flatsome.
 * Tweak - Keep subscription plan options visible in Bundles (version 6.4+) and Composites (version 7.1+) when form validation fails.

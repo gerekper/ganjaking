@@ -280,8 +280,8 @@ if(!defined('ABSPATH')) exit();
 					<longoption><i class="material-icons">stop</i><label_a ><?php _e('Stop Other Media', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="media.stopAllVideo"></longoption>
 					<longoption class="_nsfa_"><i class="material-icons">fullscreen</i><label_a ><?php _e('Allow Fullscreen', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="media.allowFullscreen"></longoption>
 					<longoption><i class="material-icons">pause</i><label_a ><?php _e('Pause Timer during Play', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="media.pausetimer"></longoption>
-					<longoption><i class="material-icons">loop</i><label_a ><?php _e('Loop Media', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="media.loop" id="layer_media_loop" data-change="#layer_media_nextslideaten" data-changeto="false" data-changewhennot="false"></longoption>					
-					<longoption><i class="material-icons">skip_next</i><label_a ><?php _e('Next Slide at End', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="media.nextSlideAtEnd" id="layer_media_nextslideaten" data-change="#layer_media_loop" data-changeto="false" data-changewhennot="false"></longoption>
+					<longoption><i class="material-icons">loop</i><label_a ><?php _e('Loop Media', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="media.loop" id="layer_media_loop" data-change="layer_media_nextslideaten" data-changeto="false" data-changewhennot="false"></longoption>					
+					<longoption><i class="material-icons">skip_next</i><label_a ><?php _e('Next Slide at End', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="media.nextSlideAtEnd" id="layer_media_nextslideaten" data-change="layer_media_loop" data-changeto="false" data-changewhennot="false"></longoption>
 					<longoption><i class="material-icons">fast_rewind</i><label_a ><?php _e('Rewind at Start', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="media.forceRewind"></longoption>
 					<longoption class="_nsfa_"><i class="material-icons">play_for_work</i><label_a><?php _e('No Interaction', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput callEvent" data-updateviaevt="true" data-evt="disableAllMediaControls" data-r="media.nointeraction" data-showhide="#mediacontroloptions" data-showhidedep="false"></longoption>
 					<div id="mediacontroloptions">
@@ -409,6 +409,13 @@ if(!defined('ABSPATH')) exit();
 	<div class="form_collector layer_settings_collector" data-type="layersconfig" data-pcontainer="#layer_settings" data-offset="#rev_builder_wrapper">
 		<div id="form_layer_position"  class="formcontainer form_menu_inside collapsed" data-select="#gst_layer_2" data-unselect=".layer_submodule_trigger">			
 			
+			<!-- LAYER POSITION basic -->
+			<div id="form_staticlayerposition_basic" class="form_inner open _nsfc_ _nsfr_ _nflic_">
+				<div class="form_inner_header"><i class="material-icons">zoom_out_map</i><?php _e('Static Layer Depth', 'revslider');?></div>
+				<div class="collapsable ">
+					<label_a><?php _e('Force Z Depth', 'revslider');?></label_a><select id="staticlayer_zposition" class="layerinput tos2 nosearchbox easyinit"  data-r="position.staticZ"><option value="default" selected="selected"><?php _e('Static Slide based', 'revslider');?></option><option value="front"><?php _e('Force Front', 'revslider');?></option><option value="back"><?php _e('Force Back', 'revslider');?></option></select>
+				</div>
+			</div>
 
 			<!-- LAYER POSITION basic -->
 			<div id="form_layerposition_basic" class="form_inner open _nsfc_">
@@ -433,7 +440,7 @@ if(!defined('ABSPATH')) exit();
 						<oneshort class="layersize_wrap layersize_wrap_height layersize_fullheight layersize_cover layersize_cover-proportional"><label_icon class="ui_height"></label_icon><input data-numeric="true" data-allowed="%,px,auto,#/#" data-min="0" data-max="10000" data-updateviaevt="true" data-evt="layerSizeChange" data-evtparam="height" data-presets_text="Auto!100%!200px!#1/3#!#2/3#" data-responsive="true" data-presets_val="auto!100%!200px!#1/3#!#2/3#" data-r="size.height.#size#.v" type="text" id="layer_height"  class="layerinput smallinput easyinit input_with_presets callEvent"></oneshort>
 						<div id="reset_lock_media_size_layer" class="_nsft_ _nsfa_ _nsfb_">
 							<div class="icon_trigger_wrap">
-								<div id="layer_scaleprop_iconswitch" class="icon_switcher _nfr_ _nfc_ _nft_ _nfa_ _nsfsvg_" data-ref="#size_scaleProportional"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="size_scaleProportional" data-updateviaevt="true" data-evt="lockLayerRatio" data-setclasson="#layer_scaleprop_iconswitch" data-class="icsw_on" type="checkbox" data-r="size.scaleProportional"></div>
+								<div id="layer_scaleprop_iconswitch" class="icon_switcher _nfr_ _nfc_ _nft_ _nfa_ _nsfsvg_" data-ref="#size_scaleProportional"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="size_scaleProportional" data-updateviaevt="true" data-evt="lockLayerRatio" data-setclasson="layer_scaleprop_iconswitch" data-class="icsw_on" type="checkbox" data-r="size.scaleProportional"></div>
 								<div class="triggerEvent icon_trigger" data-evt="restoreLayersSize"><i class="material-icons mirrorhorizontal">refresh</i></div>
 							</div>
 						</div>
@@ -514,6 +521,7 @@ if(!defined('ABSPATH')) exit();
 			<div id="form_layerstyle_font" class="form_inner open _shft_">
 				<div class="form_inner_header"><i class="material-icons">title</i><?php _e('Font & Icon', 'revslider');?></div>
 				<div class="collapsable">
+
 					<row class="directrow __idle__">
 						<onelong><label_icon class="ui_fontsize"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-responsive="true" data-r="idle.fontSize.#size#.v"  data-max="500" type="text" id="layer_font_size_idle"></onelong>
 						<oneshort><label_icon class="ui_lineheight"></label_icon><input data-evt="updateLayerPosition" class="layerinput valueduekeyboard smallinput easyinit callEvent" data-allowed="px"  data-numeric="true" data-responsive="true" data-r="idle.lineHeight.#size#.v" data-max="500" type="text" id="layer_line_height_idle"></oneshort>
@@ -522,6 +530,9 @@ if(!defined('ABSPATH')) exit();
 						<onelong><label_icon class="ui_fontweight"></label_icon><select id="layer_fontweight_idle" data-theme="min120" data-evt="updateFontFamily" data-evtparam="fontweight" class="layerinput tos2 nosearchbox easyinit" data-responsive="true" data-r="idle.fontWeight.#size#.v"><option value="100">100 Thin</option><option value="200">200 Extra-Light</option><option value="300">300 Light</option><option selected="selected" value="400">400 Regular</option><option value="500">500 Medium</option><option value="600">600 Semi-Bold </option><option value="700">700 Bold</option><option value="800">800 Extra-Bold</option><option value="900">900 Black</option></select></onelong>
 						<oneshort><label_icon class="ui_letterspacing"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-responsive="true" data-r="idle.letterSpacing.#size#.v" data-min="-100" data-max="100" type="text" id="layer_letter_spacing_idle"></oneshort>
 					</row>
+					<div class="div10"></div>
+					<label_a></label_a><div id="quick_style_trigger" data-evt="quickstyletrigger" class="longbutton basic_action_button callEventButton"><i class="toptoolbaricon material-icons">invert_colors</i><?php _e('Quick Style', 'revslider');?></div>
+					<div class="div10"></div>
 					<div class="show_more_toggle" data-toggle="#more_font_style"><div class="shmt_bar"></div><div class="shmt_textmore"><?php _e('More', 'revslider');?><i class="material-icons">add</i></div><div class="shmt_textless"><?php _e('Less', 'revslider');?><i class="material-icons">remove</i></div></div>
 					<div id="more_font_style" style="display:none">
 						<div class="div15"></div>
@@ -549,16 +560,20 @@ if(!defined('ABSPATH')) exit();
 				<div class="collapsable">
 					<!-- SVG IDLE STYLE-->
 					<div class="__idle__">
-						<div><label_a><?php _e('SVG Color', 'revslider');?></label_a><input type="text" data-editing="SVG Color" data-mode="single" name="layerSVGColor" id="layerSVGColor" class="my-color-field layerinput easyinit" data-visible="true" data-r="idle.svg.color.#size#.v" value="transparent"></div>
-						<div><label_a><?php _e('Stroke Color', 'revslider');?></label_a><input type="text" data-editing="Stroke Color" data-mode="single" name="layerStrokeColor" id="layerStrokeColor" class="my-color-field layerinput easyinit" data-visible="true" data-r="idle.svg.strokeColor" value="transparent"></div>
-						<row class="directrow">
-							<onelong><label_icon class="ui_strokewidth"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="idle.svg.strokeWidth" data-min="-1" data-max="500" type="text"></onelong>
-							<oneshort><label_icon class="ui_strokedasharray"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-r="idle.svg.strokeDashArray" type="text"></oneshort>
-						</row>
-						<row class="directrow">
-							<onelong><label_icon class="ui_strokedashoffset"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="idle.svg.strokeDashOffset" data-min="0" data-max="500" type="text"></onelong>
-							<oneshort></oneshort>
-						</row>
+						<longoption><i class="material-icons">trip_origin</i><label_a><?php _e('Keep Original Colors', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-showhide=".svglayer_simplecoloring" data-showhidedep="false" data-r="idle.svg.originalColor"></longoption>
+						<div class="svglayer_simplecoloring">
+							<div class="div15"></div>
+							<div><label_a><?php _e('SVG Color', 'revslider');?></label_a><input type="text" data-editing="SVG Color" data-mode="single" name="layerSVGColor" id="layerSVGColor" class="my-color-field layerinput easyinit" data-visible="true" data-r="idle.svg.color.#size#.v" value="transparent"></div>
+							<div><label_a><?php _e('Stroke Color', 'revslider');?></label_a><input type="text" data-editing="Stroke Color" data-mode="single" name="layerStrokeColor" id="layerStrokeColor" class="my-color-field layerinput easyinit" data-visible="true" data-r="idle.svg.strokeColor" value="transparent"></div>
+							<row class="directrow">
+								<onelong><label_icon class="ui_strokewidth"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="idle.svg.strokeWidth" data-min="-1" data-max="500" type="text"></onelong>
+								<oneshort><label_icon class="ui_strokedasharray"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-r="idle.svg.strokeDashArray" type="text"></oneshort>
+							</row>
+							<row class="directrow">
+								<onelong><label_icon class="ui_strokedashoffset"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="idle.svg.strokeDashOffset" data-min="0" data-max="500" type="text"></onelong>
+								<oneshort></oneshort>
+							</row>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -639,7 +654,7 @@ if(!defined('ABSPATH')) exit();
 				<div class="form_inner_header"><i class="material-icons">more_horiz</i><?php _e('Spacings', 'revslider');?></div>
 				<div class="collapsable">
 					<row class="directrow">
-						<oneabsolute><div id="layer_marginlock_iconswitch" class="icon_switcher" data-ref="#layer_margin_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_margin_lock" data-updateviaevt="true" data-evt="lockMargin" data-setclasson="#layer_marginlock_iconswitch" data-class="icsw_on" type="checkbox" data-r="idle.marginLock"></div></oneabsolute>
+						<oneabsolute><div id="layer_marginlock_iconswitch" class="icon_switcher" data-ref="#layer_margin_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_margin_lock" data-updateviaevt="true" data-evt="lockMargin" data-setclasson="layer_marginlock_iconswitch" data-class="icsw_on" type="checkbox" data-r="idle.marginLock"></div></oneabsolute>
 						<onelong><label_icon class="ui_margin_top"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateMarginInput" data-evtparam="0" data-allowed="px"  data-responsive="true" data-numeric="true" data-r="idle.margin.#size#.v.0" data-min="-500" data-max="2000" type="text"></onelong>
 						<oneshort><label_icon class="ui_margin_right"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateMarginInput" data-evtparam="1" data-allowed="px"  data-responsive="true" data-numeric="true" data-r="idle.margin.#size#.v.1" data-min="-500" data-max="2000" type="text"></oneshort>
 					</row>
@@ -649,7 +664,7 @@ if(!defined('ABSPATH')) exit();
 					</row>
 
 					<row class="directrow">
-						<oneabsolute><div id="layer_paddinglock_iconswitch" class="icon_switcher" data-ref="#layer_padding_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_padding_lock" data-updateviaevt="true" data-evt="lockPadding" data-setclasson="#layer_paddinglock_iconswitch" data-class="icsw_on" type="checkbox" data-r="idle.paddingLock"></div></oneabsolute>
+						<oneabsolute><div id="layer_paddinglock_iconswitch" class="icon_switcher" data-ref="#layer_padding_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_padding_lock" data-updateviaevt="true" data-evt="lockPadding" data-setclasson="layer_paddinglock_iconswitch" data-class="icsw_on" type="checkbox" data-r="idle.paddingLock"></div></oneabsolute>
 						<onelong><label_icon class="ui_padding_top"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" id="idle_layer_padding_top" data-updateviaevt="true" data-evt="updatePaddingInput" data-evtparam="0" data-allowed="px"  data-responsive="true" data-numeric="true" data-r="idle.padding.#size#.v.0" data-min="0" data-max="1000" type="text"></onelong>
 						<oneshort><label_icon class="ui_padding_right"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updatePaddingInput" data-evtparam="1" data-allowed="px"  data-numeric="true" data-responsive="true" data-r="idle.padding.#size#.v.1" data-min="0" data-max="1000" type="text"></oneshort>
 					</row>
@@ -678,7 +693,7 @@ if(!defined('ABSPATH')) exit();
 						<div class="div10"></div>
 						<div id="border_style_none" class="border_style_advanced">
 							<row class="directrow">
-								<oneabsolute><div id="layer_borderlock_iconswitch" class="icon_switcher" data-ref="#layer_border_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_border_lock" data-updateviaevt="true" data-evt="lockBorder" data-setclasson="#layer_borderlock_iconswitch" data-class="icsw_on" type="checkbox" data-r="idle.borderWidthLock"></div></oneabsolute>
+								<oneabsolute><div id="layer_borderlock_iconswitch" class="icon_switcher" data-ref="#layer_border_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_border_lock" data-updateviaevt="true" data-evt="lockBorder" data-setclasson="layer_borderlock_iconswitch" data-class="icsw_on" type="checkbox" data-r="idle.borderWidthLock"></div></oneabsolute>
 								<onelong><label_icon class="ui_border_top"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateBorderInput" data-evtparam="0" data-allowed="px"  data-numeric="true" data-r="idle.borderWidth.0" data-min="-500" data-max="500" type="text"></onelong>
 								<oneshort><label_icon class="ui_border_right"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateBorderInput" data-evtparam="1" data-allowed="px"  data-numeric="true" data-r="idle.borderWidth.1" data-min="-500" data-max="500" type="text"></oneshort>
 							</row>
@@ -689,7 +704,7 @@ if(!defined('ABSPATH')) exit();
 						</div>
 
 						<row class="directrow">
-							<oneabsolute><div id="layer_borderRadiuslock_iconswitch" class="icon_switcher" data-ref="#layer_borderRadius_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_borderRadius_lock" data-updateviaevt="true" data-evt="lockBorderRadius" data-setclasson="#layer_borderRadiuslock_iconswitch" data-class="icsw_on" type="checkbox" data-r="idle.borderRadiusLock"></div></oneabsolute>
+							<oneabsolute><div id="layer_borderRadiuslock_iconswitch" class="icon_switcher" data-ref="#layer_borderRadius_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_borderRadius_lock" data-updateviaevt="true" data-evt="lockBorderRadius" data-setclasson="layer_borderRadiuslock_iconswitch" data-class="icsw_on" type="checkbox" data-r="idle.borderRadiusLock"></div></oneabsolute>
 							<onelong><label_icon class="ui_bradius_topleft"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateBorderRadiusInput" data-evtparam="0" data-allowed="px,%"  data-numeric="true" data-r="idle.borderRadius.v.0" data-min="-500" data-max="500" type="text"></onelong>
 							<oneshort><label_icon class="ui_bradius_topright"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateBorderRadiusInput" data-evtparam="1" data-allowed="px,%"  data-numeric="true" data-r="idle.borderRadius.v.1" data-min="-500" data-max="500" type="text"></oneshort>
 						</row>
@@ -783,7 +798,7 @@ if(!defined('ABSPATH')) exit();
 						<oneshort></oneshort>
 					</row>
 					<row class="direktrow">
-						<onelong><label_icon class="ui_border_right"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="500" data-responsive="true" data-r="idle.textStroke.width" type="text"></onelong>
+						<onelong><label_icon class="ui_border_right"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="500" data-responsive="true" data-r="idle.textStroke.width.#size#.v" type="text"></onelong>
 						<oneshort></oneshort>
 					</row>					
 					<label_a><?php _e('Stroke Color', 'revslider');?></label_a><input type="text" data-mode="single" data-editing="Text Shadow Color" name="textStrokeColor" id="textStrokeColor" class="my-color-field layerinput easyinit" data-visible="true" data-r="idle.textStroke.color" value="transparent"><div class="linebreak"></div>
@@ -858,7 +873,7 @@ if(!defined('ABSPATH')) exit();
 				<div id="form_layercontent_pddd" class="form_inner open">
 					<div class="form_inner_header"><i class="material-icons">system_update_alt</i><?php _e('Parallax & 3D', 'revslider');?></div>
 					<div class="collapsable">						
-						<label_a><?php _e('Level', 'revslider');?></label_a><select data-theme="dark" data-change="#parallax_3d_on_bg" data-changeto='false' data-evt="enablePXModule" data-changewhennot="-" id="layer_parallax_level" class="layerinput tos2 nosearchbox easyinit prallaxlevelselect"  data-r="effects.parallax">
+						<label_a><?php _e('Level', 'revslider');?></label_a><select data-theme="dark" data-change="parallax_3d_on_bg" data-changeto='false' data-evt="enablePXModule" data-changewhennot="-" id="layer_parallax_level" class="layerinput tos2 nosearchbox easyinit prallaxlevelselect"  data-r="effects.parallax">
 							<option value="-">No Parallax</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -879,7 +894,7 @@ if(!defined('ABSPATH')) exit();
 						<label_a><?php _e('Under Mask', 'revslider');?></label_a><input  class="easyinit layerinput"  id="parallax_undermask" type="checkbox" data-r="effects.pxmask">
 						
 						<div class="slider_ddd_subsettings">
-							<label_a><?php _e('Attach to BG', 'revslider');?></label_a><input data-change="#layer_parallax_level" data-changeto='-' data-changewhen="true" class="easyinit layerinput"  id="parallax_3d_on_bg" type="checkbox" data-r="effects.attachToBg">
+							<label_a><?php _e('Attach to BG', 'revslider');?></label_a><input data-change="layer_parallax_level" data-changeto='-' data-changewhen="true" class="easyinit layerinput"  id="parallax_3d_on_bg" type="checkbox" data-r="effects.attachToBg">
 						</div>
 						
 					</div>
@@ -1038,7 +1053,7 @@ if(!defined('ABSPATH')) exit();
 						<div class="div10"></div>
 						<div id="border_style_none_hover" class="border_style_advanced_hover" >
 							<row class="directrow">
-								<oneabsolute><div id="hover_layer_borderlock_iconswitch" class="icon_switcher" data-ref="#hover_layer_border_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="hover_layer_border_lock" data-updateviaevt="true" data-evt="lockBorderHover" data-setclasson="#hover_layer_borderlock_iconswitch" data-class="icsw_on" type="checkbox" data-r="hover.borderWidthLock"></div></oneabsolute>
+								<oneabsolute><div id="hover_layer_borderlock_iconswitch" class="icon_switcher" data-ref="#hover_layer_border_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="hover_layer_border_lock" data-updateviaevt="true" data-evt="lockBorderHover" data-setclasson="hover_layer_borderlock_iconswitch" data-class="icsw_on" type="checkbox" data-r="hover.borderWidthLock"></div></oneabsolute>
 								<onelong><label_icon class="ui_border_top"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateBorderInputHover" data-evtparam="0" data-allowed="px"  data-numeric="true" data-r="hover.borderWidth.0" data-min="-500" data-max="500" type="text"></onelong>
 								<oneshort><label_icon class="ui_border_right"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateBorderInputHover" data-evtparam="1" data-allowed="px"  data-numeric="true" data-r="hover.borderWidth.1" data-min="-500" data-max="500" type="text"></oneshort>
 							</row>
@@ -1048,7 +1063,7 @@ if(!defined('ABSPATH')) exit();
 							</row>
 						</div>
 						<row class="directrow">
-							<oneabsolute><div id="hover_layer_borderRadiuslock_iconswitch" class="icon_switcher" data-ref="#hover_layer_borderRadius_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="hover_layer_borderRadius_lock" data-updateviaevt="true" data-evt="lockBorderRadiusHover" data-setclasson="#hover_layer_borderRadiuslock_iconswitch" data-class="icsw_on" type="checkbox" data-r="hover.borderRadiusLock"></div></oneabsolute>
+							<oneabsolute><div id="hover_layer_borderRadiuslock_iconswitch" class="icon_switcher" data-ref="#hover_layer_borderRadius_lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="hover_layer_borderRadius_lock" data-updateviaevt="true" data-evt="lockBorderRadiusHover" data-setclasson="hover_layer_borderRadiuslock_iconswitch" data-class="icsw_on" type="checkbox" data-r="hover.borderRadiusLock"></div></oneabsolute>
 							<onelong><label_icon class="ui_bradius_topleft"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateBorderRadiusInputHover" data-evtparam="0" data-allowed="px,%"  data-numeric="true" data-r="hover.borderRadius.v.0" data-min="-500" data-max="500" type="text"></onelong>
 							<oneshort><label_icon class="ui_bradius_topright"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateBorderRadiusInputHover" data-evtparam="1" data-allowed="px,%"  data-numeric="true" data-r="hover.borderRadius.v.1" data-min="-500" data-max="500" type="text"></oneshort>
 						</row>
@@ -1063,21 +1078,24 @@ if(!defined('ABSPATH')) exit();
 				</div>
 
 				<div class="form_inner open _shfsvg_">
-					<div class="form_inner_header"><i class="material-icons">title</i><?php _e('Style', 'revslider');?></div>
-					<div class="collapsable">						
-						<!-- SVG HOVER STYLE -->
-						<label_a><?php _e('SVG Color', 'revslider');?></label_a><input type="text" data-editing="SVG Hover Color" data-mode="single" name="layerSVGColorHover" id="layerSVGColorHover" class="my-color-field layerinput easyinit" data-visible="true" data-r="hover.svg.color" value="transparent">
-						<div class="div5"></div>
-						<label_a><?php _e('Stroke Color', 'revslider');?></label_a><input type="text" data-editing="Stroke Hover Color" data-mode="single" name="layerStrokeColorHover" id="layerStrokeColorHover" class="my-color-field layerinput easyinit" data-visible="true" data-r="hover.svg.strokeColor" value="transparent">
-						<div class="div5"></div>
-						<row class="directrow">
-							<onelong><label_icon class="ui_strokewidth"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="hover.svg.strokeWidth" data-min="-1" data-max="500" type="text"></onelong>
-							<oneshort><label_icon class="ui_strokedasharray"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-r="hover.svg.strokeDashArray" type="text"></oneshort>
-						</row>
-						<row class="directrow">
-							<onelong><label_icon class="ui_strokedashoffset"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="hover.svg.strokeDashOffset" data-min="0" data-max="500" type="text"></onelong>
-							<oneshort></oneshort>
-						</row>						
+					<div class="svglayer_simplecoloring">
+						<div class="form_inner_header"><i class="material-icons">title</i><?php _e('SVG Style', 'revslider');?></div>
+						<div class="collapsable">						
+							<!-- SVG HOVER STYLE -->
+							
+							<label_a><?php _e('SVG Color', 'revslider');?></label_a><input type="text" data-editing="SVG Hover Color" data-mode="single" name="layerSVGColorHover" id="layerSVGColorHover" class="my-color-field layerinput easyinit" data-visible="true" data-r="hover.svg.color" value="transparent">
+							<div class="div5"></div>
+							<label_a><?php _e('Stroke Color', 'revslider');?></label_a><input type="text" data-editing="Stroke Hover Color" data-mode="single" name="layerStrokeColorHover" id="layerStrokeColorHover" class="my-color-field layerinput easyinit" data-visible="true" data-r="hover.svg.strokeColor" value="transparent">
+							<div class="div5"></div>
+							<row class="directrow">
+								<onelong><label_icon class="ui_strokewidth"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="hover.svg.strokeWidth" data-min="-1" data-max="500" type="text"></onelong>
+								<oneshort><label_icon class="ui_strokedasharray"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-r="hover.svg.strokeDashArray" type="text"></oneshort>
+							</row>
+							<row class="directrow">
+								<onelong><label_icon class="ui_strokedashoffset"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="hover.svg.strokeDashOffset" data-min="0" data-max="500" type="text"></onelong>
+								<oneshort></oneshort>
+							</row>						
+						</div>
 					</div>
 				</div>
 

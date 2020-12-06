@@ -451,7 +451,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 				$native_uri = self::get_default_post_uri($row['ID'], true);
 				$default_uri = self::get_default_post_uri($row['ID']);
 
-				$old_post_name = $row['post_name'];
+				$old_post_name = $old_slug = $row['post_name'];
 				$old_uri = (isset($permalink_manager_uris[$row['ID']])) ? $permalink_manager_uris[$row['ID']] : $native_uri;
 
 				// Do replacement on slugs (non-REGEX)
@@ -471,12 +471,12 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 
 				// Check if native slug should be changed
 				if(($mode == 'slugs') && ($old_post_name != $new_post_name)) {
-					self::update_slug_by_id($new_post_name, $row['ID']);
+					$new_slug = self::update_slug_by_id($new_post_name, $row['ID']);
 				}
 
 				if(($old_uri != $new_uri) || ($old_post_name != $new_post_name) && !(empty($new_uri))) {
 					$permalink_manager_uris[$row['ID']] = $new_uri;
-					$updated_array[] = array('item_title' => $row['post_title'], 'ID' => $row['ID'], 'old_uri' => $old_uri, 'new_uri' => $new_uri, 'old_slug' => $old_post_name, 'new_slug' => $new_post_name);
+					$updated_array[] = array('item_title' => $row['post_title'], 'ID' => $row['ID'], 'old_uri' => $old_uri, 'new_uri' => $new_uri, 'old_slug' => $old_slug, 'new_slug' => $new_slug);
 					$updated_slugs_count++;
 				}
 
@@ -732,11 +732,11 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		$post_object = get_post($post_id);
 
 		// Check if post type is allowed
-		if(Permalink_Manager_Helper_Functions::is_disabled($post_object->post_type, 'post_type') || empty($post_object->post_type)) { return $post_id; };
+		if(empty($post_object->post_type) || Permalink_Manager_Helper_Functions::is_disabled($post_object->post_type, 'post_type')) { return $post_id; };
 
 		// Stop the hook (if needed)
-		$allow_update_post_type = apply_filters("permalink_manager_new_post_uri_{$post_object->post_type}", true);
-		if(!$allow_update_post_type) { return $post_id; }
+		$allow_new_uri = apply_filters("permalink_manager_allow_new_post_uri", true, $post_object);
+		if(!$allow_new_uri) { return $post_id; }
 
 		// Ignore menu items
 		if($post_object->post_type == 'nav_menu_item') { return $post_id; }
@@ -780,11 +780,11 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		$post = get_post($post_id);
 
 		// Check if post type is allowed
-		if(Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type') || empty($post->post_type)) { return $post_id; };
+		if(empty($post->post_type) || Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type')) { return $post_id; };
 
 		// Stop the hook (if needed)
-		$allow_update_post_type = apply_filters("permalink_manager_update_post_uri_{$post->post_type}", true);
-		if(!$allow_update_post_type) { return $post_id; }
+		$allow_update_uri = apply_filters("permalink_manager_allow_update_post_uri", true, $post);
+		if(!$allow_update_uri) { return $post_id; }
 
 		// Hotfix for menu items
 		if($post->post_type == 'nav_menu_item') { return $post_id; }

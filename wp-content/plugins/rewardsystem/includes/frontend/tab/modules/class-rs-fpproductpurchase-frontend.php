@@ -56,6 +56,11 @@ if ( ! class_exists( 'RSProductPurchaseFrontend' ) ) {
                         update_post_meta( $order_id , 'points_for_current_order_based_on_cart_total' , $CartTotalPoints ) ;
                 }
             }
+            /* First Purchase Point Meta Update. */
+            $first_purchase = rs_get_first_purchase_point() ;
+            if ( ! empty( $first_purchase ) ) {
+                update_post_meta( $order_id , 'rs_first_purchase_point_for_order' , $first_purchase ) ;
+            }
             update_post_meta( $order_id , 'frontendorder' , 1 ) ;
         }
 
@@ -229,7 +234,7 @@ if ( ! class_exists( 'RSProductPurchaseFrontend' ) ) {
                 return ;
 
             $PointForCartTotal = get_reward_points_based_on_cart_total( WC()->cart->total ) ;
-            $PointToReturn     = round_off_type( $PointForCartTotal ) ;
+            $PointToReturn     = round_off_type( $PointForCartTotal , array() , false ) ;
             $PointToReturn     = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) $PointToReturn ) ;
 
             if ( empty( $PointToReturn ) )
@@ -257,7 +262,7 @@ if ( ! class_exists( 'RSProductPurchaseFrontend' ) ) {
             if ( get_option( 'rs_show_hide_message_for_first_purchase_points' ) == '2' )
                 return ;
 
-            if ( empty( get_option( 'rs_reward_points_for_first_purchase_in_fixed' ) ) )
+            if ( empty( rs_get_first_purchase_point() ) )
                 return ;
 
             $OrderCount = get_posts( array(

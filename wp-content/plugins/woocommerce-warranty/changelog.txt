@@ -1,5 +1,8 @@
 *** Warranty Requests Changelog ***
 
+2020-11-24 - version 1.9.20
+* Fix - Replace deprecated jQuery functions.
+
 2020-10-06 - version 1.9.19
 * Tweak - WC 4.5 compatibility.
 

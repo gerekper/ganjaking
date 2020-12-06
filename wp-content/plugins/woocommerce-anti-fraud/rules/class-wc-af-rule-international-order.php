@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_AF_Rule_International_Order extends WC_AF_Rule {
 	private $is_enabled  = false;
-    private $rule_weight = 0;
+	private $rule_weight = 0;
 	/**
 	 * The constructor
 	 */
@@ -14,7 +14,7 @@ class WC_AF_Rule_International_Order extends WC_AF_Rule {
 		$this->is_enabled  =  get_option('wc_af_international_order');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_international_order_weight');
 		
-		parent::__construct( 'international_order', 'Order is an international order.',$this->rule_weight );
+		parent::__construct( 'international_order', 'Order is an international order.', $this->rule_weight );
 	}
 
 	/**
@@ -44,15 +44,15 @@ class WC_AF_Rule_International_Order extends WC_AF_Rule {
 		}
 
 		// Check if store country differs from billing or shipping country
-		if ( ($store_country != $billing_country && !empty($billing_country))  || ($store_country != $shipping_country && !empty($shipping_country) ) ) {
+		if ( ( $store_country != $billing_country && !empty($billing_country) )  || ( $store_country != $shipping_country && !empty($shipping_country) ) ) {
 			$risk = true;
 		}
 
 		return $risk;
 	}
 	//Enable rule check
-	public function is_enabled(){
-		if('yes' == $this->is_enabled){
+	public function is_enabled() {
+		if ('yes' == $this->is_enabled) {
 			return true;
 		}
 		return false;

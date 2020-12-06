@@ -1,126 +1,131 @@
 <?php
 if(!defined('ABSPATH')) exit();
 ?>
-	<rs-module-wrap id="rev_slider_734_1_wrapper" data-alias="rvsldr_templates" data-source="gallery" style="background:#2a2c2f;padding:0px;margin:0px auto;margin-top:0px;margin-bottom:0px;">
-							<rs-module id="rev_slider_734_1" class="feature_slider" style="display:none;" data-version="6.0.0">
-								<rs-slides>
-									<rs-slide data-key="rs-2448" data-title="Slide" data-anim="ei:d;eo:d;s:300;r:0;t:fade;sl:d;">
-										<img src="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/dummy.png" data-lazyload="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/transparent.png" data-bg="p:center center;c:#2a2c2f;" class="rev-slidebg" data-no-retina>
-						<!--
-										--><rs-layer
-											id="slide-2448-layer-1" 
-											data-type="image"
-											data-rsp_ch="on"
-											data-xy="x:c;y:b;"
-											data-text="l:22;a:inherit;"
-											data-dim="w:380px;h:207px;"
-											data-border="bow:0px;"
-											data-frame_0="y:bottom;rX:90deg;"
-											data-frame_1="e:power4.out;st:100;sp:2000;sR:100;"
-											data-frame_999="y:bottom;o:0;rX:90deg;st:a;sp:700;sR:6900;"
-											style="z-index:5;"
-										><img src="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/dummy.png" data-ww="380px" data-hh="207px" width="440" height="240" data-lazyload="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/premade_smallgird.jpg" data-no-retina> 
-										</rs-layer><!--
+	<rs-module-wrap id="rev_slider_1027_1_wrapper" data-alias="benefit_templates" data-source="gallery" style="background:transparent;padding:0;margin:0px auto;margin-top:0;margin-bottom:0;">
+				<rs-module id="rev_slider_1027_1" class="feature_slider" style="" data-version="6.2.50">
+					<rs-slides>
+						<rs-slide data-key="rs-2088" data-title="Slide" data-anim="ei:d;eo:d;s:1000;r:0;t:fade;sl:0;">
+							<img src="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/transparent.png" alt="Slide" class="rev-slidebg" data-no-retina>
+<!--
+							--><rs-group
+								id="slider-1027-slide-2088-layer-6" 
+								data-type="group"
+								data-rsp_ch="on"
+								data-xy="x:c;"
+								data-text="w:normal;"
+								data-dim="w:380px;h:330px;"
+								data-clip="u:true;t:circle;o:clr;"
+								data-frame_0="o:1;cp:0%;"
+								data-frame_1="sp:1000;cp:75%;"
+								data-frame_999="o:0;st:w;sR:8000;sA:9000;"
+								style="z-index:14;"
+							><!--
+								--><rs-layer
+									id="slider-1027-slide-2088-layer-0" 
+									class="rs-noevents rs-nolc rs-layer-video intrinsic-ignore"
+									data-type="video"
+									data-rsp_ch="on"
+									data-xy="x:c;y:-1px;"
+									data-text="w:normal;"
+									data-dim="w:380px;h:215px;"
+									data-video="ap:false;vd:100;noint:t;l:true;ptimer:false;nse:f;sav:f;"
+									data-mp4="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/templatesvideo.mp4"
+									data-frame_1="st:800;sR:800;"
+									data-frame_999="o:0;st:w;sR:7900;"
+									style="z-index:9;"
+								>
+								</rs-layer><!--
 
-										--><rs-layer
-											id="slide-2448-layer-11" 
-											data-type="image"
-											data-rsp_ch="on"
-											data-xy="x:-20px;y:c;"
-											data-text="l:22;a:inherit;"
-											data-dim="w:200px;h:240px;"
-											data-border="bow:0px;"
-											data-frame_0="x:left;rY:90deg;"
-											data-frame_1="e:power4.out;st:a;sp:2000;sR:100;"
-											data-frame_999="auto:true;st:a;sp:700;sR:6900;"
-											style="z-index:10;"
-										><img src="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/dummy.png" data-ww="200px" data-hh="240px" width="250" height="300" data-lazyload="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/premade_left.png" data-no-retina> 
-										</rs-layer><!--
+								--><a
+									id="slider-1027-slide-2088-layer-1" 
+									class="rs-layer"
+									href="https://www.sliderrevolution.com/examples/" target="_blank" rel="nofollow noopener"
+									data-type="shape"
+									data-rsp_ch="on"
+									data-xy="x:c;"
+									data-text="w:normal;"
+									data-dim="w:100%;h:100%;"
+									data-actions='o:mouseenter;a:gotoframe;layer:slider-1027-slide-2088-layer-3;f:frame_2;ch:true;||o:mouseleave;a:gotoframe;layer:slider-1027-slide-2088-layer-3;f:frame_3;ch:true;||o:mouseenter;a:playvideo;layer:slider-1027-slide-2088-layer-0;||o:mouseleave;a:stopvideo;layer:slider-1027-slide-2088-layer-0;||o:mouseenter;a:gotoframe;layer:slider-1027-slide-2088-layer-4;f:frame_2;ch:true;||o:mouseleave;a:gotoframe;layer:slider-1027-slide-2088-layer-4;f:frame_3;ch:true;||o:mouseenter;a:gotoframe;layer:slider-1027-slide-2088-layer-5;f:frame_2;ch:true;||o:mouseleave;a:gotoframe;layer:slider-1027-slide-2088-layer-5;f:frame_3;ch:true;'
+									data-frame_1="sp:600;"
+									data-frame_999="o:0;st:w;sR:8400;"
+									data-frame_hover="bgc:#006dd2;sp:200ms;e:power1.inOut;"
+									style="z-index:8;background-color:#2a2c2f;cursor:pointer;"
+								> 
+								</a><!--
 
-										--><rs-layer
-											id="slide-2448-layer-13" 
-											data-type="image"
-											data-rsp_ch="on"
-											data-xy="x:r;xo:-20px;y:c;"
-											data-text="l:22;a:inherit;"
-											data-dim="w:200px;h:240px;"
-											data-border="bow:0px;"
-											data-frame_0="x:right;rY:-90deg;"
-											data-frame_1="e:power4.out;st:a;sp:2000;sR:100;"
-											data-frame_999="auto:true;st:a;sp:700;sR:6900;"
-											style="z-index:11;"
-										><img src="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/dummy.png" data-ww="200px" data-hh="240px" width="250" height="300" data-lazyload="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/premade_right.png" data-no-retina> 
-										</rs-layer><!--
+								--><rs-layer
+									id="slider-1027-slide-2088-layer-2" 
+									class="rs-noevents"
+									data-type="text"
+									data-color="#ffffff"
+									data-rsp_ch="on"
+									data-xy="x:c;y:235px;"
+									data-text="w:normal;fw:700;a:center;"
+									data-dim="w:100%;"
+									data-padding="r:20;l:20;"
+									data-frame_1="sp:600;"
+									data-frame_999="o:0;st:w;sR:8400;"
+									style="z-index:10;font-family:Roboto;"
+								>200+ Ready To Go Templates 
+								</rs-layer><!--
 
-										--><rs-layer
-											id="slide-2448-layer-2" 
-											data-type="text"
-											data-color="#ffffff"
-											data-rsp_ch="on"
-											data-xy="x:c;y:c;yo:-20px;"
-											data-text="s:25;l:30;fw:700;a:center;"
-											data-border="bow:0px;"
-											data-frame_0="y:-50;"
-											data-frame_1="e:power4.out;st:100;sp:1000;sR:100;"
-											data-frame_999="y:50;o:0;e:power4.out;st:a;sp:600;sR:7900;"
-											style="z-index:12;font-family:Roboto;"
-										>200+<br/>
-						Premade Templates 
-										</rs-layer><!--
+								--><rs-layer
+									id="slider-1027-slide-2088-layer-3" 
+									class="rev-btn rs-noevents"
+									data-type="button"
+									data-color="#b7bbc0"
+									data-rsp_ch="on"
+									data-xy="x:c;y:270px;"
+									data-text="w:normal;s:15;l:32;fw:500;"
+									data-dim="minh:0px;"
+									data-padding="r:35;l:35;"
+									data-border="bor:3px,3px,3px,3px;"
+									data-ford="frame_0;frame_1;frame_2;frame_3;frame_999;"
+									data-frame_1="sp:600;"
+									data-frame_999="o:0;st:w;sR:7300;"
+									data-frame_2="oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:200;sR:400;c:#ffffff;bgc:#005db3;"
+									data-frame_3="oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:200;sR:300;"
+									style="z-index:11;background-color:#3a3e44;font-family:Roboto;"
+								>Preview Templates 
+								</rs-layer><!--
 
-										--><rs-layer
-											id="slide-2448-layer-12" 
-											data-type="text"
-											data-color="#ffffff"
-											data-rsp_ch="on"
-											data-xy="x:c;y:c;yo:-20px;"
-											data-text="s:25;l:30;fw:700;a:center;"
-											data-border="bow:0px;"
-											data-frame_0="y:-50;"
-											data-frame_1="e:power4.out;st:a;sp:1000;sR:100;"
-											data-frame_999="y:50px;o:0;e:power4.out;st:a;sp:600;sR:7900;"
-											style="z-index:13;font-family:Roboto;"
-										>Ready to Go!<br/>
-						Pick a Template Now 
-										</rs-layer><!--
+								--><rs-layer
+									id="slider-1027-slide-2088-layer-4" 
+									class="rs-noevents"
+									data-type="shape"
+									data-rsp_ch="on"
+									data-xy="x:c;y:1px;"
+									data-text="w:normal;"
+									data-dim="w:380px;h:215px;"
+									data-ford="frame_0;frame_1;frame_2;frame_3;frame_999;"
+									data-frame_1="sp:600;"
+									data-frame_999="o:0;st:w;sR:7300;"
+									data-frame_2="o:0;oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:200;sR:400;"
+									data-frame_3="o:1;oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:200;sR:300;"
+									style="z-index:13;background:linear-gradient(rgba(32,34,36,0) 0%, rgba(32,34,36,0.01) 6.67%, rgba(32,34,36,0.04) 13.34%, rgba(32,34,36,0.1) 20.01%, rgba(32,34,36,0.17) 26.68%, rgba(32,34,36,0.25) 33.35%, rgba(32,34,36,0.35) 40.02%, rgba(32,34,36,0.45) 46.69%, rgba(32,34,36,0.55) 53.36%, rgba(32,34,36,0.65) 60.03%, rgba(32,34,36,0.75) 66.70%, rgba(32,34,36,0.83) 73.37%, rgba(32,34,36,0.9) 80.04%, rgba(32,34,36,0.96) 86.71%, rgba(32,34,36,0.99) 93.38%, rgba(32,34,36,1) 100%);"
+								> 
+								</rs-layer><!--
 
-										--><rs-layer
-											id="slide-2448-layer-4" 
-											class="rev-btn"
-											data-type="button"
-											data-color="rgba(255,255,255,1)"
-											data-xy="x:c;y:c;yo:40px;"
-											data-text="s:15;l:34;fw:500;a:inherit;"
-											data-rsp_bd="off"
-											data-padding="r:35;l:35;"
-											data-border="bos:solid;boc:rgba(0,0,0,1);bow:0px;bor:3px,3px,3px,3px;"
-											data-frame_0="y:50;"
-											data-frame_1="e:power4.out;st:500;sp:1000;sR:500;"
-											data-frame_999="o:0;e:power4.inOut;st:w;sp:1000;sR:7500;"
-											data-frame_hover="c:rgba(255,255,255,1);bgc:#0a447a;boc:rgba(0,0,0,1);bor:3px,3px,3px,3px;bos:solid;oX:50;oY:50;sp:300;"
-											style="z-index:14;background-color:#006dd2;font-family:Roboto;"
-										>Template Library 
-										</rs-layer><!--
-
-										--><a
-											href="//revolution.themepunch.com/examples/"
-											target="_blank"											
-											class="tp-shape tp-shapewrapper rs-layer"
-											data-type="shape"
-											data-rsp_ch="on"
-											data-xy="x:c;y:c;"
-											data-text="fw:700;a:inherit;"
-											data-dim="w:100%;h:100%;"
-											data-actions='o:mouseenter;a:stoplayer;layer:slide-2448-layer-2;||o:mouseenter;a:stoplayer;layer:slide-2448-layer-1;||o:mouseenter;a:startlayer;layer:slide-2448-layer-12;||o:mouseenter;a:startlayer;layer:slide-2448-layer-11;||o:mouseenter;a:startlayer;layer:slide-2448-layer-13;||o:mouseleave;a:stoplayer;layer:slide-2448-layer-12;||o:mouseleave;a:stoplayer;layer:slide-2448-layer-11;||o:mouseleave;a:stoplayer;layer:slide-2448-layer-13;||o:mouseleave;a:startlayer;layer:slide-2448-layer-2;||o:mouseleave;a:startlayer;layer:slide-2448-layer-1;'
-											data-basealign="slide"
-											data-border="bos:solid;boc:rgba(0,0,0,0.5);bow:0px;"
-											data-frame_1="sR:10;"
-											data-frame_999="o:0;st:w;sR:8690;"
-											style="z-index:15;"
-											id="2448a"
-										> 
-										</a><!--
-									--></rs-slide>
-								</rs-slides>								
-							</rs-module>
-						</rs-module-wrap>
+								--><rs-layer
+									id="slider-1027-slide-2088-layer-5" 
+									class="rs-noevents"
+									data-type="image"
+									data-rsp_ch="on"
+									data-xy="x:c;"
+									data-text="w:normal;"
+									data-dim="w:380px;h:215px;"
+									data-ford="frame_0;frame_1;frame_2;frame_3;frame_999;"
+									data-frame_0="sX:0.6;sY:0.6;"
+									data-frame_0_mask="u:t;"
+									data-frame_1="st:200;sp:600;sR:200;"
+									data-frame_999="o:0;st:w;sR:7100;"
+									data-frame_2="y:top;oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:400;sR:200;"
+									data-frame_3="y:0px;oX:50%;oY:50%;oZ:0;tp:600;e:power1.inOut;st:a;sp:400;sR:100;"
+									style="z-index:12;"
+								><img src="<?php echo RS_PLUGIN_URL;?>admin/views/features/assets/cover_templates2.jpg" width="760" height="428" data-no-retina> 
+								</rs-layer><!--
+							--></rs-group><!--
+-->						</rs-slide>
+					</rs-slides>
+				</rs-module>		
+			</rs-module-wrap>

@@ -68,19 +68,24 @@ function woocommerce_recommender_record_product_ordered( $order_id, $product_id,
 function woocommerce_recommender_record_product( $product_id, $session_id, $user_id, $order_id, $activity_type, $activity_date ) {
 	global $wpdb, $woocommerce_recommender;
 
-	$data = array(
-		'session_id'    => $session_id,
-		'activity_type' => $activity_type,
-		'product_id'    => $product_id,
-		'user_id'       => $user_id,
-		'order_id'      => $order_id,
-		'activity_date' => $activity_date
-	);
+	if (apply_filters('wc_recommender_record_product', true, $product_id, $session_id, $user_id, $order_id, $activity_type)) {
 
-	$format = array( '%s', '%s', '%d', '%d', '%d', '%s' );
-	$result = $wpdb->insert( $woocommerce_recommender->db_tbl_session_activity, $data, $format );
+		$data = array(
+			'session_id'    => $session_id,
+			'activity_type' => $activity_type,
+			'product_id'    => $product_id,
+			'user_id'       => $user_id,
+			'order_id'      => $order_id,
+			'activity_date' => $activity_date
+		);
 
-	return $result;
+		$format = array( '%s', '%s', '%d', '%d', '%d', '%s' );
+		$result = $wpdb->insert( $woocommerce_recommender->db_tbl_session_activity, $data, $format );
+
+		return $result;
+	} else {
+		return 0;
+	}
 }
 
 /**

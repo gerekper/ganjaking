@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The bunded item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  6.4.0
+ * @version  6.5.0
  */
 class WC_Bundled_Item {
 
@@ -398,7 +398,7 @@ class WC_Bundled_Item {
 	 * @since 5.5.0
 	 */
 	private function maybe_sync_stock() {
-		if ( is_null( $this->stock_status ) ) {
+		if ( is_null( $this->stock_status ) || is_null( $this->max_stock ) ) {
 			$this->sync_stock();
 		}
 	}
@@ -428,8 +428,14 @@ class WC_Bundled_Item {
 
 				$stock_quantity = $bundled_product->managing_stock() ? $bundled_product->get_stock_quantity() : '';
 
+				if ( is_null( $stock_quantity ) ) {
+					$stock_quantity = 0;
+				} elseif ( '' !== $stock_quantity ) {
+					$stock_quantity = intval( floor( $stock_quantity / $quantity ) * $quantity );
+				}
+
 				$this->stock_status = 'out_of_stock';
-				$this->max_stock    = ! is_null( $stock_quantity ) ? $stock_quantity : 0;
+				$this->max_stock    = $stock_quantity;
 
 			} elseif ( $bundled_product->is_on_backorder( $quantity ) ) {
 
@@ -445,8 +451,14 @@ class WC_Bundled_Item {
 
 				$stock_quantity = $bundled_product->managing_stock() ? $bundled_product->get_stock_quantity() : '';
 
+				if ( is_null( $stock_quantity ) ) {
+					$stock_quantity = '';
+				} elseif ( '' !== $stock_quantity ) {
+					$stock_quantity = intval( floor( $stock_quantity / $quantity ) * $quantity );
+				}
+
 				$this->stock_status = 'in_stock';
-				$this->max_stock    = ! is_null( $stock_quantity ) ? $stock_quantity : '';
+				$this->max_stock    = $stock_quantity;
 			}
 
 		/*------------------------------*/
@@ -459,7 +471,8 @@ class WC_Bundled_Item {
 			$variation_on_backorder_exists = false;
 			$all_variations_on_backorder   = true;
 
-			$variation_ids = $this->get_children();
+			$variation_ids    = $this->get_children();
+			$manage_stock_ids = array();
 
 			// Lighten subsequent calls to 'wc_get_product'.
 			if ( is_callable( '_prime_post_caches' ) ) {
@@ -473,6 +486,13 @@ class WC_Bundled_Item {
 				if ( ! $variation ) {
 					continue;
 				}
+
+				// Already counted this stock?
+				if ( in_array( $variation_id, $manage_stock_ids ) ) {
+					continue;
+				}
+
+				$manage_stock_ids[] = $variation->get_stock_managed_by_id();
 
 				if ( false === $variation->is_in_stock() ) {
 
@@ -506,11 +526,16 @@ class WC_Bundled_Item {
 				if ( '' === $variation_stock_qty ) {
 					$this->max_stock = '';
 					continue;
+				} else {
+					$variation_stock_qty = intval( floor( $variation_stock_qty / $quantity ) * $quantity );
 				}
 
+				// First iteration?
+				if ( is_null( $this->max_stock ) ) {
+					$this->max_stock = $variation_stock_qty;
 				// Only calculate max stock if not already found infinite.
-				if ( '' !== $this->max_stock ) {
-					$this->max_stock = is_null( $this->max_stock ) ? $variation_stock_qty : max( $this->max_stock, $variation_stock_qty );
+				} elseif ( '' !== $this->max_stock ) {
+					$this->max_stock += $variation_stock_qty;
 				}
 			}
 
@@ -533,7 +558,7 @@ class WC_Bundled_Item {
 
 			$bundle = $this->get_bundle();
 
-			if ( $bundle && $bundle->is_type( 'bundle' ) && $bundle->get_type() === $bundle->get_data_store_type() && ! $bundle->has_bundled_data_item_changes() ) {
+			if ( $bundle && $bundle->is_type( 'bundle' ) && 'bundle' === $bundle->get_data_store_type() && ! $bundle->has_bundled_data_item_changes() ) {
 				$this->data->save();
 			}
 		}

@@ -1,0 +1,438 @@
+# Copyright (C) 2015 MemberPress Importer
+# This file is distributed under the same license as the MemberPress Importer package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Importer 1.2.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-"
+"importer\n"
+"POT-Creation-Date: 2017-01-29 01:09-0200\n"
+"PO-Revision-Date: 2017-01-29 14:00-0200\n"
+"Last-Translator: \n"
+"Language-Team: Celso Coslop Barbante <celsocos@yahoo.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: MpimpBaseImporter.php:27
+msgid ""
+"Your CSV file is misconfigured for %s ... please check the importer "
+"documentation and try again"
+msgstr ""
+"Seu arquivo CSV está configurado incorretamente para %s... por favor, "
+"verifique a documentação do importador e tente novamente"
+
+#: MpimpBaseImporter.php:50
+msgid ""
+"%1$s not found in the %2$s CSV file ... processing has been halted ... CSV "
+"must contain a '%1$s' column"
+msgstr ""
+"%1$s não encontrado no arquivo CSV %2$s... O processamento foi interrompido. "
+"O CSV deve conter uma coluna '%1$s'"
+
+#: MpimpBaseImporter.php:62
+msgid "%1$s cannot be blank"
+msgstr "%1$s não pode estar em branco"
+
+#: MpimpBaseImporter.php:67
+msgid "%1$s must be a number"
+msgstr "%1$s deve ser um número"
+
+#: MpimpBaseImporter.php:72
+msgid "%1$s must be an integer (whole number)"
+msgstr "%1$s deve ser um número inteiro"
+
+#: MpimpBaseImporter.php:77
+msgid "%1$s must be a float (decimal)"
+msgstr "%1$s deve ser um número decimal"
+
+#: MpimpBaseImporter.php:82
+msgid "%1$s must be boolean (a 1 for true or a 0 for false)"
+msgstr "%1$s deve ser booleano (1 para verdadeiro ou 0 para falso)"
+
+#: MpimpBaseImporter.php:87
+msgid "%1$s can only be one of the following values: %2$s"
+msgstr "%1$s só pode ser um dos seguintes valores: %2$s"
+
+#: MpimpBaseImporter.php:92
+msgid "%1$s \"%2$s\" must be formatted like this: \"####-##-## ##:##:##\""
+msgstr "%1$s \"%2$s\" deve ser formatado como este: \"###-##-####:##:##\""
+
+#: MpimpBaseImporter.php:98
+msgid "Product (ID = %1$s) was not found"
+msgstr "Produto (ID = %1$s) não foi encontrado"
+
+#: MpimpBaseImporter.php:104
+msgid "Group (ID = %1$s) was not found"
+msgstr "Grupo (ID = %1$s) não foi encontrado"
+
+#: MpimpBaseImporter.php:114
+msgid "User (username = %1$s) was not found"
+msgstr "Usuário (username = %1$s) não foi encontrado"
+
+#: MpimpBaseImporter.php:122
+msgid "Email (email = %1$s) isn't a real email address"
+msgstr "E-mail (e-mail = %1$s) não é um endereço de email real"
+
+#: MpimpBaseImporter.php:127
+msgid "Subscription (sub_num = %1$s) was not found"
+msgstr "Assinatura (sub_num = %1$s) não foi encontrada"
+
+#: MpimpBaseImporter.php:132
+msgid "Coupon (coupon_code = %1$s) was not found"
+msgstr "Cupom (coupon_code = %1$s) não foi encontrado"
+
+#: MpimpBaseImporter.php:139
+msgid ""
+"Payment Method (payment_method = %1$s) was not found, must be one of the "
+"following values: %2$s"
+msgstr ""
+"Método de pagamento (payment_method = %1$s) foi não encontrado, deve ser um "
+"dos seguintes valores: %2$s"
+
+#: MpimpBaseImporter.php:144
+msgid "User (%1$s) is an Administrator and was not modified"
+msgstr "O usuário (%1$s) é um administrador e não foi modificado"
+
+#: MpimpImporterFactory.php:21
+msgid "This type of import file is not yet supported."
+msgstr "Este tipo de arquivo não é suportado ainda."
+
+#: MpimpMagicMembersController.php:27
+msgid "Credit Card"
+msgstr "Cartão de Crédito"
+
+#: MpimpMagicMembersController.php:46
+msgid "PayPal"
+msgstr "PayPal"
+
+#: MpimpUpdateController.php:160
+msgid "Membership"
+msgstr "Associação"
+
+#: MpimpUpdateController.php:161
+msgid "Membership Software"
+msgstr "Software de Associação"
+
+#: MpimpUpdateController.php:162
+msgid "Members"
+msgstr "Membros"
+
+#: MpimpUpdateController.php:163
+msgid "Payment"
+msgstr "Pagamento"
+
+#: MpimpUpdateController.php:164
+msgid "Protection"
+msgstr "Proteção"
+
+#: MpimpUpdateController.php:165
+msgid "Rule"
+msgstr "Regra"
+
+#: MpimpUpdateController.php:166
+msgid "Lock"
+msgstr "Trava"
+
+#: MpimpUpdateController.php:167
+msgid "Access"
+msgstr "Acesso"
+
+#: MpimpUpdateController.php:168
+msgid "Community"
+msgstr "Comunidade"
+
+#: MpimpUpdateController.php:169
+msgid "Admin"
+msgstr "Admin"
+
+#: MpimpUpdateController.php:170
+msgid "Pages"
+msgstr "Páginas"
+
+#: MpimpUpdateController.php:171
+msgid "Posts"
+msgstr "Posts"
+
+#: MpimpUpdateController.php:172
+msgid "Plugin"
+msgstr "Plugin"
+
+#: MpimpUpdateController.php:173
+msgid ""
+"MemberPress importer allows you to import all your data into MemberPress"
+msgstr ""
+"O importador do MemberPress permite que você importe todos os seus dados no "
+"MemberPress"
+
+#: MpimpUpdateController.php:174
+msgid ""
+"You can access in-depth information about MemberPress at %1$sthe MemberPress "
+"User Manual%2$s."
+msgstr ""
+"Você pode acessar informações detalhadas sobre o MemberPress no %1$sManual "
+"de Usuário MemberPress%2$s."
+
+#: MpimpUpdateController.php:174
+msgid "No Additional information right now"
+msgstr "Nenhuma informação adicional agora"
+
+#: MpimpUpdateController.php:203
+msgid "You had an HTTP error connecting to Caseproof's Mothership API"
+msgstr "Você teve um erro HTTP na conexão com a API principal da Caseproof"
+
+#: MpimpUpdateController.php:214
+msgid "Your License Key was invalid"
+msgstr "Sua chave de licença é inválida."
+
+#: cli.php:7
+msgid "Usage: php memberpress-importer-cli.php <importer> <filepath> <args>"
+msgstr "Uso: php memberpress-importer-cli.php <importer> <filepath> <args>"
+
+#: importers/MpimpCouponsImporter.php:81
+msgid "Coupon (ID = %s) was created successfully"
+msgstr "Cupom (ID = %s) foi criado com sucesso"
+
+#: importers/MpimpCouponsImporter.php:83
+msgid "Coupon failed to be created"
+msgstr "Cupom não conseguiu ser criado"
+
+#: importers/MpimpPostsImporter.php:73
+msgid "Post failed to be created: %s"
+msgstr "Post não pôde ser criado: %s"
+
+#: importers/MpimpPostsImporter.php:84
+msgid "Post (ID = %d) was created successfully"
+msgstr "Post (ID = %d) foi criado com sucesso"
+
+#: importers/MpimpProductsImporter.php:58
+msgid "Product (ID = %d) was created successfully"
+msgstr "Produto (ID = %d) foi criado com sucesso"
+
+#: importers/MpimpProductsImporter.php:60
+msgid "Product failed to be created"
+msgstr "Produto não pôde ser criado"
+
+#: importers/MpimpRulesImporter.php:85
+msgid ""
+"%1$s must be the word \"registers\", \"fixed\", \"rule-products\" or a valid "
+"product_id"
+msgstr ""
+"%1$s deve ter as palavras \"registers\", \"fixed\", \"rule-products\" ou "
+"\"valid product_id\""
+
+#: importers/MpimpRulesImporter.php:105
+msgid "Rule (ID = %d) was created successfully"
+msgstr "Regra (ID = %d) foi criada com sucesso"
+
+#: importers/MpimpRulesImporter.php:107
+msgid "Rule failed to be created"
+msgstr "Regra não pôde ser criada"
+
+#: importers/MpimpSubscriptionsImporter.php:51
+#: importers/MpimpTransactionsImporter.php:53
+msgid "username=%1$s wasn't found so couldn't create transaction"
+msgstr "username = %1$s não foi encontrado, então não foi criada a transação"
+
+#: importers/MpimpSubscriptionsImporter.php:109
+msgid "Subscription (ID = %s) was created successfully"
+msgstr "Assinatura (ID = %s) foi criada com sucesso"
+
+#: importers/MpimpSubscriptionsImporter.php:111
+msgid "Subscription failed to be created"
+msgstr "Assinatura não pôde ser criada"
+
+#: importers/MpimpTermsImporter.php:49
+msgid ""
+"Term (term=%1$s, term_id=%2$s) already existed and was updated successfully"
+msgstr ""
+"Termo (term=%1$s, term_id=%2$s) já existia e foi atualizado com sucesso"
+
+#: importers/MpimpTermsImporter.php:52
+msgid "Term existed and failed to be updated"
+msgstr "Termo existia e falhou ao ser atualizado"
+
+#: importers/MpimpTermsImporter.php:58
+msgid "Term (term=%1$s, term_id=%2$s) was created successfully"
+msgstr "Termo (term=%1$s, term_id=%2$s) foi criado com sucesso"
+
+#: importers/MpimpTermsImporter.php:61
+msgid "Term failed to be created"
+msgstr "Termo não pôde ser criado"
+
+#: importers/MpimpTransactionsImporter.php:8
+msgid "Send a Welcome Email with each new transaction"
+msgstr "Enviar e-mail de boas-vindas para cada nova transação"
+
+#: importers/MpimpTransactionsImporter.php:58
+msgid "email=%1$s wasn't found so couldn't create transaction"
+msgstr "e-mail=%1$s não foi encontrado, então não foi criada a transação"
+
+#: importers/MpimpTransactionsImporter.php:147
+msgid "Transaction (id = %s) was created successfully"
+msgstr "Transação (id=%s) foi criada com sucesso"
+
+#: importers/MpimpTransactionsImporter.php:150
+msgid "Transaction failed to be created"
+msgstr "Transação não pôde ser criada"
+
+#: importers/MpimpUsersImporter.php:8
+msgid ""
+"Send NEW members a password reset link (does not email existing members)"
+msgstr ""
+"Enviar a NOVOS assinantes um link de redefinição de senha (não enviar para "
+"assinantes existentes)"
+
+#: importers/MpimpUsersImporter.php:17
+msgid ""
+"User (username=%1$s, ID=%2$s) already existed and was updated successfully"
+msgstr ""
+"Usuário (username=%1$s, ID=%2$s) já existia e foi atualizado com sucesso"
+
+#: importers/MpimpUsersImporter.php:20
+msgid "User (username=%1$s, ID=%2$s) was created successfully"
+msgstr "Usuário (username=%1$s, ID=%2$s) foi criado com sucesso"
+
+#: memberpress-importer.php:76 memberpress-importer.php:77
+#: memberpress-importer.php:164 memberpress-importer.php:217
+msgid "Import"
+msgstr "Importar"
+
+#: memberpress-importer.php:90 memberpress-importer.php:246
+#: memberpress-importer.php:269
+msgid "You don't have sufficient privileges for this"
+msgstr "Você não tem privilégios suficientes para isso"
+
+#: memberpress-importer.php:103
+msgid ""
+"There was a system error processing your file. You may want to check the "
+"write permissions on your WordPress uploads directory"
+msgstr ""
+"Houve um erro de sistema ao processar seu arquivo. Você pode querer "
+"verificar as permissões no seu diretório de upload do WordPress"
+
+#: memberpress-importer.php:146
+msgid "Forbidden"
+msgstr "Proibido"
+
+#: memberpress-importer.php:150
+msgid "You must select a file before uploading"
+msgstr "Você deve selecionar um arquivo antes de carregar"
+
+#: memberpress-importer.php:168
+msgid "Before importing for the first time go to the %1$s to get instructions."
+msgstr ""
+"Antes de importar pela primeira vez, vá para o %1$s para obter instruções."
+
+#: memberpress-importer.php:168
+msgid "User Manual Page on Importing"
+msgstr "Página Manual do Usuário na Importação"
+
+#: memberpress-importer.php:169
+msgid ""
+"Note: Make sure your database is backed up before running any MemberPress "
+"import."
+msgstr ""
+"Nota: Certifique-se que seu banco de dados possui backup antes de executar "
+"qualquer importação."
+
+#: memberpress-importer.php:172
+msgid "Select the type of file to import:"
+msgstr "Selecione o tipo de arquivo a importar:"
+
+#: memberpress-importer.php:189
+msgid "%s CSV File:"
+msgstr "Arquivo CSV de %s:"
+
+#: memberpress-importer.php:195
+msgid "Upload"
+msgstr "Enviar"
+
+#: memberpress-importer.php:219
+msgid "Processing %s CSV File..."
+msgstr "Processando arquivo CSV %s..."
+
+#: memberpress-importer.php:220
+msgid "%s CSV File Processing Complete"
+msgstr "Processamento do arquivo CSV %s completo"
+
+#: memberpress-importer.php:221
+msgid "Import Another File"
+msgstr "Importar outro arquivo"
+
+#: memberpress-importer.php:223
+msgid "Rows Successfully Imported"
+msgstr "As linhas foram devidamente importadas."
+
+#: memberpress-importer.php:224
+msgid "Rows Failed to be Imported"
+msgstr "As linhas não conseguiram ser importadas"
+
+#: memberpress-importer.php:225
+msgid "Total Rows Processed"
+msgstr "Total de linhas processadas"
+
+#: memberpress-importer.php:227
+msgid "Row Success Messages:"
+msgstr "Mensagens de sucesso na linha:"
+
+#: memberpress-importer.php:230
+msgid "Row Errors:"
+msgstr "Erros nas linhas:"
+
+#: memberpress-importer.php:233
+msgid "CSV for failed rows ... copy these, fix and reimport:"
+msgstr "CSV para linhas com falha... copie estes, corrija e reimporte:"
+
+#: memberpress-importer.php:243 memberpress-importer.php:266
+msgid "Why You Creepin'?"
+msgstr "Por que você está sacaneando?"
+
+#: memberpress-importer.php:272
+msgid "No file was specified"
+msgstr "Nenhum arquivo foi especificado"
+
+#: memberpress-importer.php:311
+msgid "Row %1$d: %2$s"
+msgstr "Linha %1$ d: %2$s"
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr "Olá %s!"
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr "Um texto com baixa prioridade!"
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr "Adeus\n"
+
+#. Plugin Name of the plugin/theme
+msgid "MemberPress Importer"
+msgstr "Importador MemberPress"
+
+#. Plugin URI of the plugin/theme
+msgid "http://memberpress.com"
+msgstr "http://memberpress.com"
+
+#. Description of the plugin/theme
+msgid ""
+"Allows you to import Users, Products, Subscriptions, Transactions, Coupons "
+"and Rules from a csv file"
+msgstr ""
+"Permite importar usuários, produtos, assinaturas, transações, cupons e "
+"regras de um arquivo CSV"
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr "Caseproof, LLC"
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com"
+msgstr "http://caseproof.com"
+
+#~ msgid "Send new members their usernames &amp; passwords"
+#~ msgstr "Enviar a novos membros seus nomes de usuário e senhas"

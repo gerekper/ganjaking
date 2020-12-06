@@ -1,3 +1,10 @@
+3.19.7 - 09 Nov 2020
+- Improvement: Updated the jparallax.js library for the parallax effect.
+﻿- Improvement: Updated the strings into the backend.
+﻿- Fix - Console warning jquery-fn-load-is-deprecated.
+﻿- Fix - Interactive Mouse Parallax row background not working.
+﻿- Fix - Typography is not applied to prefix into the Fancy text element.
+
 3.19.6 - 12 Aug 2020
 - Improvement: Compatibility to WordPress 5.5.
 - Fix: Google Fonts are not loading into the Google Font Manager tab for WordPress 5.5.

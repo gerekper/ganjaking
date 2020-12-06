@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.7
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -122,7 +122,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 				$product_id = ( ! empty( $product->id ) ) ? $product->id : 0;
 			}
 
-			$coupons = get_post_meta( $product_id, '_coupon_title', true );
+			$coupons = $this->get_coupon_titles( array( 'product_object' => $product ) );
 
 			if ( ! function_exists( 'is_plugin_active' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -292,7 +292,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 			} else {
 				$product_id = ( ! empty( $product->id ) ) ? $product->id : 0;
 			}
-			$coupons = get_post_meta( $product_id, '_coupon_title', true );
+			$coupons = $this->get_coupon_titles( array( 'product_object' => $product ) );
 
 			if ( ! empty( $coupons ) && $product instanceof WC_Product && $product->get_price() === '' && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ! ( $product->get_price() > 0 ) ) {
 				return true;
@@ -315,7 +315,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 			} else {
 				$product_id = ( ! empty( $product->id ) ) ? $product->id : 0;
 			}
-			$coupons = get_post_meta( $product_id, '_coupon_title', true );
+			$coupons = $this->get_coupon_titles( array( 'product_object' => $product ) );
 
 			$is_product            = is_a( $product, 'WC_Product' );
 			$is_purchasable_credit = $this->is_coupon_amount_pick_from_product_price( $coupons );
@@ -349,7 +349,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 					$product_price = ( ! empty( $product->price ) ) ? $product->price : 0;
 				}
 
-				$coupons = get_post_meta( $product_id, '_coupon_title', true );
+				$coupons = $this->get_coupon_titles( array( 'product_object' => $product ) );
 
 				if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ! ( $product_price > 0 ) ) {
 
@@ -390,7 +390,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 					$product_id = ( ! empty( $product->id ) ) ? $product->id : 0;
 				}
 
-				$coupons = get_post_meta( $product_id, '_coupon_title', true );
+				$coupons = $this->get_coupon_titles( array( 'product_object' => $product ) );
 
 				// Override product price only if product contains coupon and price is already an empty string.
 				if ( ! empty( $coupons ) && '' === $price ) {
@@ -590,17 +590,15 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 
 			foreach ( WC()->cart->cart_contents as $product ) {
 
-				if ( empty( $product['product_id'] ) ) {
-					$product['product_id'] = ( ! empty( $product['variation_id'] ) ) ? wp_get_post_parent_id( $product['variation_id'] ) : 0;
-				}
-
-				if ( empty( $product['product_id'] ) ) {
+				if ( ! empty( $product['variation_id'] ) ) {
+					$_product = wc_get_product( $product['variation_id'] );
+				} elseif ( ! empty( $product['product_id'] ) ) {
+					$_product = wc_get_product( $product['product_id'] );
+				} else {
 					continue;
 				}
 
-				$coupon_titles = get_post_meta( $product['product_id'], '_coupon_title', true );
-
-				$_product = wc_get_product( $product['product_id'] );
+				$coupon_titles = $this->get_coupon_titles( array( 'product_object' => $_product ) );
 
 				$price = $_product->get_price();
 
@@ -872,7 +870,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 						$qty = 1;
 					}
 
-					$coupon_titles = get_post_meta( $product_id, '_coupon_title', true );
+					$coupon_titles = $this->get_coupon_titles( array( 'product_object' => $product ) );
 
 					if ( $coupon_titles ) {
 
@@ -971,7 +969,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 				return;
 			}
 
-			$coupon_titles = get_post_meta( $product_id, '_coupon_title', true );
+			$coupon_titles = $this->get_coupon_titles( array( 'product_object' => $product ) );
 
 			if ( $this->is_coupon_amount_pick_from_product_price( $coupon_titles ) && $product_price > 0 ) {
 				if ( $this->is_wc_gte_30() ) {
@@ -1012,6 +1010,8 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 		/**
 		 * Save entered credit value by customer in cart item data
 		 *
+		 * This function is only for simple products.
+		 *
 		 * @param array $cart_item_data The cart item data.
 		 * @param int   $product_id The product id.
 		 * @param int   $variation_id The variation id.
@@ -1049,6 +1049,8 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 
 		/**
 		 * Save entered credit value by customer in session
+		 *
+		 * This function is only for simple products.
 		 *
 		 * @param string $cart_item_key The cart item key.
 		 * @param int    $product_id The product id.

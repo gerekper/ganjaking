@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 
 class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
@@ -20,7 +20,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function __construct() {
 		global $woocommerce, $checkfor254;
@@ -81,7 +81,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @return bool
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function is_valid_for_use() {
 
@@ -97,7 +97,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @since 1.0.0
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function admin_options() {
 		?>
@@ -138,7 +138,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function init_form_fields() {
 		$this->form_fields = array(
@@ -278,7 +278,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function get_redsys_args( $order ) {
 		global $woocommerce;
@@ -356,7 +356,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function generate_redsys_form( $order_id ) {
 		global $woocommerce;
@@ -436,7 +436,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function process_payment( $order_id ) {
 		$order = new WC_Order( $order_id );
@@ -452,7 +452,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function receipt_page( $order ) {
 		echo '<p>' . esc_html__( 'Thank you for your order, please click the button below to pay by Bank Transfer.', 'woocommerce-redsys' ) . '</p>';
@@ -462,7 +462,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * Check redsys IPN validity
 	 **/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function check_ipn_request_is_valid() {
 		global $woocommerce;
@@ -514,7 +514,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function check_ipn_response() {
 		@ob_clean();
@@ -534,7 +534,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function successful_request( $posted ) {
 		global $woocommerce;
@@ -633,7 +633,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function get_redsys_order( $order_id ) {
 		$order = new WC_Order( $order_id );
@@ -641,7 +641,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	}
 }
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function woocommerce_add_gateway_bank_transfer_gateway( $methods ) {
 	$methods[] = 'WC_Gateway_Redsys_Bank_Transfer';

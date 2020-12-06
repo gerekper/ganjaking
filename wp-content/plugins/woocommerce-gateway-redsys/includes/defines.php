@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 
 if ( ! defined( 'ABSPATH' ) ) {

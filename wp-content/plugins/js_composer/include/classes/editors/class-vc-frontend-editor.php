@@ -135,7 +135,6 @@ class Vc_Frontend_Editor {
 			'renderRowAction',
 		) );
 		add_shortcode( 'vc_container_anchor', 'vc_container_anchor' );
-
 	}
 
 	/**
@@ -147,6 +146,15 @@ class Vc_Frontend_Editor {
 			'adminInit',
 		) );
 		do_action( 'vc_frontend_editor_hook_load_edit' );
+		add_action( 'admin_head', array(
+			$this,
+			'disableBlockEditor',
+		) );
+	}
+
+	public function disableBlockEditor() {
+		global $current_screen;
+		$current_screen->is_block_editor( false );
 	}
 
 	/**

@@ -118,7 +118,8 @@ if ( !class_exists( 'WC_Conditional_Content' ) ) {
 					'store_order_count' => __( "Order Count and Status", 'wc_conditional_content' ),
 				),
 				__( "Cart", 'wc_conditional_content' ) => array(
-					'cart_total' => __( "Cart Total", 'wc_conditional_content' ),
+					'cart_quantity' => __( "Cart Total Quantity", 'wc_conditional_content' ),
+					'cart_total' => __( "Cart Total Monetary Amount", 'wc_conditional_content' ),
 					'cart_product' => __( "Cart Products", 'wc_conditional_content' ),
 					'cart_category' => __( "Cart Categories", 'wc_conditional_content' ),
 					'cart_line_item_product' => __("Cart Line Item Product", 'wc_conditional_content'),

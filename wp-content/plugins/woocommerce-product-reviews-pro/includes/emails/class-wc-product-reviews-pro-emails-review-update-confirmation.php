@@ -61,14 +61,9 @@ class WC_Product_Reviews_Pro_Emails_Review_Update_Confirmation extends \WC_Email
 
 		$site_title = $this->get_blogname();
 
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.2' ) ) {
-			$this->placeholders['{blogname}']     = $site_title;
-			$this->placeholders['{site_title}']   = $site_title;
-			$this->placeholders['{product_name}'] = '';
-		} else {
-			$this->find    = array( '{blogname}', '{site_title}' );
-			$this->replace = array( $site_title, $site_title );
-		}
+		$this->placeholders['{blogname}']     = $site_title;
+		$this->placeholders['{site_title}']   = $site_title;
+		$this->placeholders['{product_name}'] = '';
 
 		// triggers
 		add_action( "{$this->id}_notification", array( $this, 'trigger' ), 10, 3 );
@@ -163,12 +158,7 @@ class WC_Product_Reviews_Pro_Emails_Review_Update_Confirmation extends \WC_Email
 						continue;
 					}
 
-					if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.2' ) ) {
-						$this->placeholders['{product_name}'] = $this->product->get_title();
-					} else {
-						$this->find['product-name']    = '{product_name}';
-						$this->replace['product-name'] = $this->product->get_title();
-					}
+					$this->placeholders['{product_name}'] = $this->product->get_title();
 
 					$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 				}

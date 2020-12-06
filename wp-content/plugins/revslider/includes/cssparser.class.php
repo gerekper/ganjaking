@@ -639,9 +639,13 @@ class RevSliderCssParser extends RevSliderFunctions {
 	public function clear_media_block($css){
 		$start = 0;
 		
+		if(empty($css)) return $css;
+		
 		if(strpos($css, '@media', $start) !== false){
 			$start	= strpos($css, '@media', 0);
-			$i		= strpos($css, '{', $start) + 1;
+			$i		= strpos($css, '{', $start);
+			if($i === false) return $css;
+			$i += 1;
 			$remove	= substr($css, $start - 1, $i - $start + 1); //remove @media ... first {
 			$css	= str_replace($remove, '', $css);
 			$css	= preg_replace('/}$/', '', $css); //remove last }

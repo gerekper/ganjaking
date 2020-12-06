@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Bundle data stored as Custom Post Type. For use with the WC 2.7+ CRUD API.
  *
  * @class    WC_Product_Bundle_Data_Store_CPT
- * @version  6.3.0
+ * @version  6.6.0
  */
 class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
@@ -26,12 +26,16 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 * @var array
 	 */
 	protected $extended_internal_meta_keys = array(
+		'_wcpb_min_qty_limit',
+		'_wcpb_max_qty_limit',
+		'_wc_pb_layout_style',
 		'_wc_pb_group_mode',
+		'_wc_pb_bundle_stock_quantity',
 		'_wc_pb_bundled_items_stock_status',
+		'_wc_pb_bundled_items_stock_sync_status',
 		'_wc_pb_base_price',
 		'_wc_pb_base_regular_price',
 		'_wc_pb_base_sale_price',
-		'_wc_pb_layout_style',
 		'_wc_pb_edit_in_cart',
 		'_wc_pb_aggregate_weight',
 		'_wc_pb_sold_individually_context',
@@ -45,20 +49,24 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 * @var array
 	 */
 	protected $props_to_meta_keys = array(
-		'group_mode'                 => '_wc_pb_group_mode',
-		'bundled_items_stock_status' => '_wc_pb_bundled_items_stock_status',
-		'price'                      => '_wc_pb_base_price',
-		'regular_price'              => '_wc_pb_base_regular_price',
-		'sale_price'                 => '_wc_pb_base_sale_price',
-		'layout'                     => '_wc_pb_layout_style',
-		'editable_in_cart'           => '_wc_pb_edit_in_cart',
-		'aggregate_weight'           => '_wc_pb_aggregate_weight',
-		'sold_individually_context'  => '_wc_pb_sold_individually_context',
-		'add_to_cart_form_location'  => '_wc_pb_add_to_cart_form_location',
-		'min_raw_price'              => '_price',
-		'min_raw_regular_price'      => '_regular_price',
-		'max_raw_price'              => '_wc_sw_max_price',
-		'max_raw_regular_price'      => '_wc_sw_max_regular_price'
+		'min_bundle_size'                 => '_wcpb_min_qty_limit',
+		'max_bundle_size'                 => '_wcpb_max_qty_limit',
+		'layout'                          => '_wc_pb_layout_style',
+		'group_mode'                      => '_wc_pb_group_mode',
+		'bundle_stock_quantity'           => '_wc_pb_bundle_stock_quantity',
+		'bundled_items_stock_status'      => '_wc_pb_bundled_items_stock_status',
+		'bundled_items_stock_sync_status' => '_wc_pb_bundled_items_stock_sync_status',
+		'price'                           => '_wc_pb_base_price',
+		'regular_price'                   => '_wc_pb_base_regular_price',
+		'sale_price'                      => '_wc_pb_base_sale_price',
+		'editable_in_cart'                => '_wc_pb_edit_in_cart',
+		'aggregate_weight'                => '_wc_pb_aggregate_weight',
+		'sold_individually_context'       => '_wc_pb_sold_individually_context',
+		'add_to_cart_form_location'       => '_wc_pb_add_to_cart_form_location',
+		'min_raw_price'                   => '_price',
+		'min_raw_regular_price'           => '_regular_price',
+		'max_raw_price'                   => '_wc_sw_max_price',
+		'max_raw_regular_price'           => '_wc_sw_max_regular_price'
 	);
 
 	/**
@@ -116,6 +124,11 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		$props_to_update    = $force ? $meta_keys_to_props : $this->get_props_to_update( $product, $meta_keys_to_props );
 
 		foreach ( $props_to_update as $meta_key => $property ) {
+
+			// Don't update props that are handled via sync functions that run on sync() and save().
+			if ( in_array( $property, array( 'bundle_stock_quantity', 'bundled_items_stock_status', 'min_raw_price', 'min_raw_regular_price', 'max_raw_price', 'max_raw_regular_price' ) ) ) {
+				continue;
+			}
 
 			$property_get_fn = 'get_' . $property;
 
@@ -177,45 +190,65 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	}
 
 	/**
-	 * Writes the bundled items stock status meta to the DB.
+	 * Writes the stock sync meta to the DB.
 	 *
 	 * @param  WC_Product_Bundle  $product
+	 * @param  array              $props_to_save
 	 */
-	public function save_bundled_items_stock_status( &$product ) {
+	public function save_stock_sync_props( &$product, $props_to_save ) {
 
-		$id = $product->get_id();
+		$id            = $product->get_id();
+		$updated_props = array();
 
-		$bundled_items_stock_status = $product->get_bundled_items_stock_status( 'edit' );
+		if ( in_array( 'bundled_items_stock_status', $props_to_save ) ) {
 
-		if ( update_post_meta( $id, '_wc_pb_bundled_items_stock_status', $bundled_items_stock_status ) ) {
+			$bundled_items_stock_status = $product->get_bundled_items_stock_status( 'edit' );
 
-			// Update WC 3.6+ lookup table.
-			if ( WC_PB_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
-				$this->update_lookup_table( $product->get_id(), 'wc_product_meta_lookup' );
-			}
+			if ( update_post_meta( $id, '_wc_pb_bundled_items_stock_status', $bundled_items_stock_status ) ) {
 
-			$resync_visibility = ! defined( 'WC_PB_DEBUG_STOCK_SYNC' ) && ! defined( 'WC_PB_DEBUG_STOCK_PARENT_SYNC' );
+				// Update WC 3.6+ lookup table.
+				if ( WC_PB_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
+					$this->update_lookup_table( $product->get_id(), 'wc_product_meta_lookup' );
+				}
 
-			if ( $resync_visibility ) {
+				$resync_visibility = ! defined( 'WC_PB_DEBUG_STOCK_SYNC' ) && ! defined( 'WC_PB_DEBUG_STOCK_PARENT_SYNC' );
 
-				if ( 'instock' === $product->get_stock_status() ) {
+				if ( $resync_visibility ) {
 
-					$modified_visibility = false;
+					if ( 'instock' === $product->get_stock_status() ) {
 
-					if ( 'instock' === $bundled_items_stock_status ) {
-						$modified_visibility = ! is_wp_error( wp_remove_object_terms( $id, 'outofstock', 'product_visibility' ) );
-					} else {
-						$modified_visibility = ! is_wp_error( wp_set_post_terms( $id, 'outofstock', 'product_visibility', true ) );
-					}
+						$modified_visibility = false;
 
-					if ( $modified_visibility ) {
-						delete_transient( 'wc_featured_products' );
-						do_action( 'woocommerce_product_set_visibility', $product->get_id(), $product->get_catalog_visibility() );
+						if ( 'instock' === $bundled_items_stock_status ) {
+							$modified_visibility = ! is_wp_error( wp_remove_object_terms( $id, 'outofstock', 'product_visibility' ) );
+						} else {
+							$modified_visibility = ! is_wp_error( wp_set_post_terms( $id, 'outofstock', 'product_visibility', true ) );
+						}
+
+						if ( $modified_visibility ) {
+							delete_transient( 'wc_featured_products' );
+							do_action( 'woocommerce_product_set_visibility', $product->get_id(), $product->get_catalog_visibility() );
+						}
 					}
 				}
-			}
 
-			do_action( 'woocommerce_product_object_updated_props', $product, array( 'bundled_items_stock_status' ) );
+				$updated_props[] = 'bundled_items_stock_status';
+			}
+		}
+
+		if ( in_array( 'bundle_stock_quantity', $props_to_save ) ) {
+			if ( update_post_meta( $id, '_wc_pb_bundle_stock_quantity', $product->get_bundle_stock_quantity( 'edit' ) ) ) {
+				$updated_props[] = 'bundle_stock_quantity';
+			}
+		}
+
+		if ( in_array( 'bundled_items_stock_sync_status', $props_to_save ) ) {
+			// Does not trigger 'woocommerce_product_object_updated_props'.
+			update_post_meta( $id, '_wc_pb_bundled_items_stock_sync_status', $product->get_bundled_items_stock_sync_status( 'edit' ) );
+		}
+
+		if ( ! empty( $updated_props ) ) {
+			do_action( 'woocommerce_product_object_updated_props', $product, $updated_props );
 		}
 	}
 
@@ -274,9 +307,11 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	/**
 	 * Writes bundle raw price meta to the DB.
 	 *
+	 * @since  6.5.0
+	 *
 	 * @param  WC_Product_Bundle  $product
 	 */
-	public function save_raw_prices( &$product ) {
+	public function save_raw_price_props( &$product ) {
 
 		if ( defined( 'WC_PB_UPDATING' ) ) {
 			return;
@@ -337,7 +372,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	}
 
 	/**
-	 * Sets the bundled items stock status meta of the specified IDs to the 'unsynced' value.
+	 * Prepares the specified bundle IDs for re-syncing.
 	 *
 	 * @param  array  $bundle_ids
 	 * @return void
@@ -351,7 +386,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 			$wpdb->query( "
 				UPDATE {$wpdb->postmeta}
 				SET meta_value = 'unsynced'
-				WHERE meta_key = '_wc_pb_bundled_items_stock_status'
+				WHERE meta_key = '_wc_pb_bundled_items_stock_sync_status'
 			" );
 
 			WC_PB_Core_Compatibility::invalidate_cache_group( 'bundled_data_items' );
@@ -361,7 +396,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 			$wpdb->query( "
 				UPDATE {$wpdb->postmeta}
 				SET meta_value = 'unsynced'
-				WHERE meta_key = '_wc_pb_bundled_items_stock_status'
+				WHERE meta_key = '_wc_pb_bundled_items_stock_sync_status'
 				AND post_id IN (" . implode( ',', $bundle_ids ) . ")
 			" );
 
@@ -374,6 +409,51 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 				wp_cache_delete( $cache_key, 'bundled_data_items' );
 			}
 		}
+	}
+
+	/**
+	 * Deletes the bundled items stock status sync meta of the specified IDs.
+	 *
+	 * @since  6.5.0
+	 *
+	 * @param  array  $ids
+	 * @return void
+	 */
+	public function delete_bundled_items_stock_sync_status( $ids ) {
+
+		global $wpdb;
+
+		if ( ! empty( $ids ) ) {
+			$wpdb->query( "
+				DELETE FROM {$wpdb->postmeta}
+				WHERE meta_key = '_wc_pb_bundled_items_stock_sync_status'
+				AND post_id IN (" . implode( ',', $ids ) . ")
+			" );
+
+			foreach ( $ids as $id ) {
+				wp_cache_delete( $id, 'post_meta' );
+			}
+		}
+	}
+
+	/**
+	 * Gets bundle IDs having a bundled items stock sync status.
+	 *
+	 * @since  6.5.0
+	 *
+	 * @return array
+	 */
+	public function get_bundled_items_stock_sync_status_ids( $status ) {
+
+		global $wpdb;
+
+		$results = $wpdb->get_results( "
+			SELECT meta.post_id as id FROM {$wpdb->postmeta} AS meta
+			WHERE meta.meta_key = '_wc_pb_bundled_items_stock_sync_status' AND meta.meta_value = '$status'
+			GROUP BY meta.post_id;
+		" );
+
+		return is_array( $results ) ? wp_list_pluck( $results, 'id' ) : array();
 	}
 
 	/**
@@ -405,6 +485,10 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 * @return array
 	 */
 	public function get_bundled_items_stock_status_ids( $status ) {
+
+		if ( 'unsynced' === $status ) {
+			return $this->get_bundled_items_stock_sync_status_ids( $status );
+		}
 
 		global $wpdb;
 
@@ -445,5 +529,24 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 			WC_PB_Helpers::cache_set( $cache_key, $data );
 		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Deprecated methods.
+	|--------------------------------------------------------------------------
+	*/
+
+	public function save_bundled_items_stock_sync_status( &$product ) {
+		_deprecated_function( __METHOD__ . '()', '6.5.0', __CLASS__ . '::save_stock_sync_props()' );
+		$this->save_stock_sync_props( $product, array( 'bundled_items_stock_sync_status' ) );
+	}
+	public function save_bundled_items_stock_status( &$product ) {
+		_deprecated_function( __METHOD__ . '()', '6.5.0', __CLASS__ . '::save_stock_sync_props()' );
+		$this->save_stock_sync_props( $product, array( 'bundled_items_stock_status' ) );
+	}
+	public function save_raw_prices( &$product ) {
+		_deprecated_function( __METHOD__ . '()', '6.5.0', __CLASS__ . '::save_raw_price_props()' );
+		$this->save_raw_price_props( $product );
 	}
 }

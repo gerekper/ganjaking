@@ -6,16 +6,20 @@
 
 "use strict";
 
-intuit.ipp.anywhere.setup( {
-	grantUrl:    wc_intuit_payments.connect_url,
-	datasources: {
-		quickbooks: false,
-		payments:   true
-	},
-	paymentOptions: {
-		intuitReferred: true
-	}
-} );
+if ( typeof intuit !== "undefined" ) {
+
+	intuit.ipp.anywhere.setup( {
+		grantUrl:    wc_intuit_payments.connect_url,
+		datasources: {
+			quickbooks: false,
+			payments:   true
+		},
+		paymentOptions: {
+			intuitReferred: true
+		}
+	} );
+
+}
 
 
 jQuery( document ).ready( $ => {
@@ -125,4 +129,27 @@ jQuery( document ).ready( $ => {
 			} );
 		} );
 	}
+
+	// handle newsletter sign up
+	let button = $( 'button.newsletter-signup' ),
+		requestURL  = 'https://api.jilt.com/v2/shops/0f017a8a-d26a-4572-81fd-c9364ae30f90/customer_sessions',
+		requestData = {
+			customer: {
+				email:             button.data( 'user-email' ),
+				accepts_marketing: true,
+				contact_source:    'onboarding-intuit',
+				tags:              [ 'customer', 'gateway-intuit-payments' ]
+			}
+		};
+
+	button.on( 'click', function( e ) {
+		e.preventDefault();
+
+		$( '.wc-intuit-payments-newsletter-prompt .spinner' ).css( 'visibility', 'visible' );
+
+		$.post( requestURL, requestData, function() { } ).always( function() {
+			$( '.wc-intuit-payments-newsletter-prompt div' ).html( '<p>' + button.data( 'thank-you' ) + '</p>' );
+		} );
+	} );
+
 } );

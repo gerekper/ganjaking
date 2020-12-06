@@ -116,10 +116,10 @@ if ( ! class_exists( 'WC_OD_Admin', false ) ) {
 					),
 					'whatsnew' => sprintf(
 						'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-						esc_url( 'https://docs.woocommerce.com/document/woocommerce-order-delivery/version-1-7/' ),
+						esc_url( 'https://docs.woocommerce.com/document/woocommerce-order-delivery/version-1-8/' ),
 						esc_attr(
 							/* translators: %s plugin version */
-							sprintf( _x( 'What\'s New in WooCommerce Order Delivery %s', 'aria-label: what\'s new link', 'woocommerce-order-delivery' ), '1.7' )
+							sprintf( _x( 'What\'s New in WooCommerce Order Delivery %s', 'aria-label: what\'s new link', 'woocommerce-order-delivery' ), '1.8' )
 						),
 						esc_html_x( 'What\'s New', 'plugin row link', 'woocommerce-order-delivery' )
 					),

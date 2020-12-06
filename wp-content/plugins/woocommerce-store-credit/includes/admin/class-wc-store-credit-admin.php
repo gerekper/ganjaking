@@ -41,9 +41,8 @@ class WC_Store_Credit_Admin {
 		include_once 'wc-store-credit-admin-functions.php';
 		include_once 'wc-store-credit-meta-box-functions.php';
 		include_once 'class-wc-store-credit-admin-notices.php';
+		include_once 'class-wc-store-credit-admin-meta-boxes.php';
 		include_once 'class-wc-store-credit-admin-send-credit-page.php';
-		include_once 'meta-boxes/class-wc-store-credit-meta-box-coupon-data.php';
-		include_once 'meta-boxes/class-wc-store-credit-meta-box-product-data.php';
 	}
 
 	/**
@@ -123,6 +122,7 @@ class WC_Store_Credit_Admin {
 		}
 
 		if ( 'shop_coupon' === $screen_id ) {
+			wp_enqueue_style( 'wc-store-credit-admin', WC_STORE_CREDIT_URL . 'assets/css/admin.css', array(), WC_STORE_CREDIT_VERSION );
 			wp_enqueue_script( 'wc-store-credit-admin-meta-boxes-coupon', WC_STORE_CREDIT_URL . "assets/js/admin/meta-boxes-coupon{$suffix}.js", array( 'wc-admin-coupon-meta-boxes' ), WC_STORE_CREDIT_VERSION, true );
 		}
 
@@ -131,9 +131,8 @@ class WC_Store_Credit_Admin {
 			wp_enqueue_script( 'wc-store-credit-admin-meta-boxes-product', WC_STORE_CREDIT_URL . "assets/js/admin/meta-boxes-product{$suffix}.js", array( 'wc-admin-product-meta-boxes' ), WC_STORE_CREDIT_VERSION, true );
 		}
 
-		// Register script for backward compatibility.
 		if ( $send_credit_screen_id ) {
-			wp_register_script( 'wc-store-credit-admin-send-credit', WC_STORE_CREDIT_URL . "assets/js/admin/send-credit{$suffix}.js", array( 'wc-store-credit-admin-customer-search' ), WC_STORE_CREDIT_VERSION, true );
+			wp_enqueue_script( 'wc-store-credit-admin-send-credit', WC_STORE_CREDIT_URL . "assets/js/admin/send-credit{$suffix}.js", array( 'wc-store-credit-admin-customer-search', 'jquery-ui-datepicker' ), WC_STORE_CREDIT_VERSION, true );
 		}
 	}
 

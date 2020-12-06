@@ -21,6 +21,7 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 	 * Constructor.
 	 */
 	public function __construct() {
+		$this->api_url            = 'https://api.helpscout.net/v2/';
 		// Customer "My Orders" actions.
 		add_action( 'woocommerce_view_order', array( $this, 'view_order_create_conversation' ), 40 );
 		add_action( 'woocommerce_my_account_my_orders_actions', array( $this, 'orders_actions' ), 10, 2 );
@@ -32,7 +33,273 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 		add_filter( 'woocommerce_account_menu_items', array( $this, 'my_support_conversations_menu_items' ) );
 		add_action( 'woocommerce_account_support-conversations_endpoint', array( $this, 'my_support_conversations_content' ) );
 		add_filter( 'the_title', array( $this, 'my_support_conversations_title' ) );
+		
+		// hooks for update/create customer data at helpscout
+		add_action( 'woocommerce_save_account_details', array( $this, 'update_profile_fields_helpscout' ));
+		add_action( 'woocommerce_customer_save_address', array( $this, 'update_profile_fields_helpscout' ), 10, 2 );
+		add_action( 'woocommerce_new_order',  array( $this,'update_profile_fields_helpscout_after_new_order'),  1, 1  );
+		add_action( 'user_register',  array( $this,'update_profile_fields_helpscout_after_user_register'));
 	}
+	
+	/**
+	 * update profile fields on helpscout
+	 *
+	 * @param int $user_id User ID.
+	 *
+	 */
+	public function update_profile_fields_helpscout($user_id){
+		
+		$customer_id = get_user_meta( $user_id, '_help_scout_customer_id', true );
+		$fname = get_user_meta($user_id,'first_name',true);
+		$lname = get_user_meta($user_id,'last_name',true);
+		$email = get_user_meta($user_id,'billing_email',true);
+		$user_info = get_userdata($user_id);		
+		$user_email = $user_info->user_email;
+		$user_roles = $user_info->roles;		
+		// Check for user role customer
+		if(in_array("customer", $user_roles)){
+			if(!empty($customer_id)){
+				// If customer id exist then directely update customer data
+				$this->update_customer($customer_id,$user_id);			
+				if ( 'yes' == $this->debug ) {
+					$this->log->add( $this->id, 'update_profile_fields_helpscout => Condition one ' );
+				}
+			}else{
+				// If customer id not exist then search customer data by using email
+				$customers_url = $this->api_url . 'customers/';
+				$params = array(
+					'timeout' => 60,
+					'headers' => array(
+						'Content-Type'  => 'application/json;charset=UTF-8',
+						'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
+					)
+				);
+				$search_customers = wp_safe_remote_get( $customers_url . '?query=(email:'. $user_email.')', $params );
+				//echo '<pre>'; print_r($search_customers); echo '</pre>';
+				if (
+				! is_wp_error( $search_customers )
+				&& 200 == $search_customers['response']['code']
+				&& ( 0 == strcmp( $search_customers['response']['message'], 'OK' ) )
+				) {
+					
+					$search_customers_data = json_decode( $search_customers['body'], true );
+
+					if (
+						isset( $search_customers_data['_embedded']['customers'][0]['id'] )
+						&& ! empty( $search_customers_data['_embedded']['customers'][0]['id'] )
+					) {
+						$customer_id = intval( $search_customers_data['_embedded']['customers'][0]['id'] );
+						// If customer id found then update customer data by using customer id
+						update_user_meta( $user_id, '_help_scout_customer_id', $customer_id );
+						$this->update_customer($customer_id,$user_id);
+					}else{
+						// Create new customer
+						$this->create_customer($user_id,$user_email);
+						if ( 'yes' == $this->debug ) {
+							$this->log->add( $this->id, 'update_profile_fields_helpscout => Condition four ' );
+						}
+					}
+					if ( 'yes' == $this->debug ) {
+						$this->log->add( $this->id, 'update_profile_fields_helpscout => Condition two ' );
+					}
+				}else{
+					// Create new customer
+					$this->create_customer($user_id,$user_email);
+					if ( 'yes' == $this->debug ) {
+						$this->log->add( $this->id, 'update_profile_fields_helpscout => Condition three ' );
+					}
+				}
+			}
+		}
+	}
+	/**
+	 * update customer profile fields on helpscout
+	 *
+	 * @param int $customer_id Helpscout Customer ID.
+	 * @param int $user_id User ID.
+	 *
+	 */
+	public function update_customer($customer_id,$user_id){
+		
+		$fname = get_user_meta($user_id,'first_name',true);
+		$lname = get_user_meta($user_id,'last_name',true);
+		$billing_first_name = get_user_meta( $user_id, 'billing_first_name', true );
+		$billing_last_name = get_user_meta( $user_id, 'billing_last_name', true );
+		$billing_address_1 = get_user_meta( $user_id, 'billing_address_1', true );
+		$billing_address_2 = get_user_meta( $user_id, 'billing_address_2', true );
+		$billing_city      = get_user_meta( $user_id, 'billing_city', true );
+		$billing_state     = get_user_meta( $user_id, 'billing_state', true );
+		$billing_postcode  = get_user_meta( $user_id, 'billing_postcode', true );
+		$billing_country   = get_user_meta( $user_id, 'billing_country', true );	
+		$billing_phone   = get_user_meta( $user_id, 'billing_phone', true );	
+		
+		// Set billing first name if default name is empty 
+		if(empty($fname)){
+			$fname = $billing_first_name;
+		}
+		// Set billing last name if default name is empty
+		if(empty($lname)){
+			$lname = $billing_last_name;
+		}
+		
+		// Set connection params.
+		$params = array(
+			'timeout' => 60,
+			'headers' => array(
+				'Content-Type'  => 'application/json;charset=UTF-8',
+				'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
+			)
+		);
+		// Search customer by helpscout customer id api url
+		$customers_url_by_id = $this->api_url . 'customers/'.$customer_id;
+		
+		$search_customers = wp_safe_remote_get( $customers_url_by_id, $params );
+		$search_customers_data = json_decode( $search_customers['body'], true );
+		
+		// Get Customer phone number id stored in helpscut
+		$phone = $search_customers_data['_embedded']['phones'][0]['id'];
+		
+		// Make update customer details array to process into api
+		$customer_data = array( 
+							array("op"=>"replace","path"=>"/firstName","value"=>$fname), 
+							array("op"=>"replace","path"=>"/lastName","value"=>$lname), 
+							array("op"=>"replace","path"=>"/address/city","value"=>$billing_city), 
+							array("op"=>"replace","path"=>"/address/country","value"=>$billing_country), 
+							array("op"=>"replace","path"=>"/address/lines","value"=>array($billing_address_1,$billing_address_2)), 
+							array("op"=>"replace","path"=>"/address/postalCode","value"=>$billing_postcode), 
+							array("op"=>"replace","path"=>"/address/state","value"=>$billing_state)							
+						);
+		
+		// Replace phone number if phone id exist	
+		if(isset($phone) && !empty($phone) && !empty($billing_phone)){				
+			$customer_data[] = array("op"=>"replace","path"=>"/phones/".$phone."/type","value"=>"work");
+			$customer_data[] = array("op"=>"replace","path"=>"/phones/".$phone."/value","value"=>$billing_phone);		
+		}elseif(!empty($billing_phone)){
+			// Add new phone number
+			$customer_data[] = array("op"=>"add","path"=>"/phones","value"=>array('type'=>'work','value'=>$billing_phone));	
+		}
+		$customer_data = apply_filters( 'woocommerce_help_scout_customer_args', $customer_data, $user_id, $email );
+		
+		$params['method'] = 'PATCH';
+		$params['body']   = stripslashes(json_encode( $customer_data ) );
+		$update_customer = wp_safe_remote_post( $customers_url_by_id , $params ); //echo '<pre>'; print_r($update_customer); echo '</pre>'; exit;
+		
+		if ( 'yes' == $this->debug ) {
+			$this->log->add( $this->id, 'update_customer => Customer ID for the user ' . $user_id . ' is ' . $customer_id );
+		}
+		return $customer_id;
+	}
+	
+	/**
+	 * create customer on helpscout
+	 *
+	 * @param int $user_id User ID.
+	 * @param string $user_email User email ID.
+	 *
+	 */
+	public function create_customer($user_id,$user_email=''){
+		$fname = get_user_meta($user_id,'first_name',true);
+		$lname = get_user_meta($user_id,'last_name',true);
+		$billing_address_1 = get_user_meta( $user_id, 'billing_address_1', true );
+		$billing_address_2 = get_user_meta( $user_id, 'billing_address_2', true );
+		$billing_city      = get_user_meta( $user_id, 'billing_city', true );
+		$billing_state     = get_user_meta( $user_id, 'billing_state', true );
+		$billing_postcode  = get_user_meta( $user_id, 'billing_postcode', true );
+		$billing_country   = get_user_meta( $user_id, 'billing_country', true );
+		$billing_phone   = get_user_meta( $user_id, 'billing_phone', true );
+		
+		// Customers API.
+		$customers_url = $this->api_url . 'customers';
+
+		// Set connection params.
+		$params = array(
+			'timeout' => 60,
+			'headers' => array(
+				'Content-Type'  => 'application/json;charset=UTF-8',
+				'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
+			)
+		);
+		// Create/update customer.
+		$customer_data = array(
+			'emails'    => array(
+				array(
+					'type'  => 'work',
+					'value' => $user_email
+				)
+			)
+		);
+		if(!empty($fname)){
+			$customer_data['firstName'] = $fname;
+		}
+		if(!empty($fname)){
+			$customer_data['lastName'] = $lname;
+		}
+		
+		if (
+			( $billing_address_1 || $billing_address_2 )
+			&& $billing_city
+			&& $billing_state
+			&& $billing_postcode
+			&& $billing_country
+		) {
+			$customer_data['address'] = array(
+				'lines'      => array( $billing_address_1, $billing_address_2 ),
+				'city'       => $billing_city,
+				'state'      => $billing_state,
+				'postalCode' => $billing_postcode,
+				'country'    => $billing_country 
+			);
+		}
+		if(!empty($billing_phone)){
+			$customer_data['phone'] = $billing_phone;
+			$customer_data['phones'] = array(array("type" => "work", "value" => $billing_phone));
+		}
+
+		$customer_data = apply_filters( 'woocommerce_help_scout_customer_args', $customer_data, $user_id, $user_email );
+		$params['method'] = 'POST';
+		$params['body']   = json_encode( $customer_data );
+		//echo '<pre>'; print_r($params); exit;
+		$create_customer  = wp_safe_remote_post( $customers_url, $params );
+		//echo '<pre>'; print_r($create_customer); exit;
+		if (
+			! is_wp_error( $create_customer )
+			&& 201 == $create_customer['response']['code']
+			&& ( 0 == strcmp( $create_customer['response']['message'], 'Created' ) )
+			&& isset( $create_customer['headers']['location'] )
+		) {
+			$customer_id = str_replace( array( $this->api_url, 'customers/', '.json' ), '', $create_customer['headers']['location'] );
+			$customer_id = intval( $customer_id );
+
+			update_user_meta( $user_id, '_help_scout_customer_id', $customer_id );
+
+			if ( 'yes' == $this->debug ) {
+				$this->log->add( $this->id, 'create_customer => Customer ID for the user ' . $user_id . ' is ' . $customer_id );
+			}
+		}
+		return $customer_id;
+	}
+	
+	/**
+	 * update customer profile fields on helpscout after new order
+	 *
+	 * @param int $order_get_id Order ID.
+	 *
+	 */
+	public function update_profile_fields_helpscout_after_new_order($order_get_id){
+		$user_id = get_post_meta($order_get_id,'_customer_user',true);
+		$this->update_profile_fields_helpscout($user_id);
+	}
+	
+	/**
+	 * update customer profile fields on helpscout after new user register
+	 *
+	 * @param int $user_id User ID.
+	 *
+	 */
+	public function update_profile_fields_helpscout_after_user_register($user_id){
+		$this->update_profile_fields_helpscout($user_id);
+	}
+	
 
 	/**
 	 * Create conversation form.
@@ -123,7 +390,11 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 			)
 		);
 
-		$default_path = WC_Help_Scout::get_instance()->plugin_path() . '/templates/';
+		if(file_exists(get_stylesheet_directory().'/woocommerce-help-scout/templates/myaccount/conversations.php')){
+			$default_path = get_stylesheet_directory().'/woocommerce-help-scout/templates/';
+		}else {
+			$default_path = WC_Help_Scout::get_instance()->plugin_path() . '/templates/';
+		}
 
 		return wc_get_template_html( 'myaccount/conversations.php', $vars, 'woocommerce-help-scout', $default_path );
 	}

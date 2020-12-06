@@ -74,5 +74,5 @@ defined( 'ABSPATH' ) || exit;
 		?>
 	</div>
 
-	<?php echo WC_Instagram_Admin_Field_Google_Product_Categories::render( $category_id ); ?>
+	<?php echo WC_Instagram_Admin_Field_Google_Product_Categories::render( $category_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 </div>

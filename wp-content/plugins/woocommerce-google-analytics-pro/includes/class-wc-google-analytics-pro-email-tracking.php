@@ -23,8 +23,6 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
-
 /**
  * The email tracking class.
  *
@@ -60,23 +58,18 @@ class WC_Google_Analytics_Pro_Email_Tracking {
 	 */
 	public function get_emails() {
 
-		if ( ! isset( $this->emails ) ) {
+		if ( null === $this->emails ) {
 
-			$mailer     = WC()->mailer();
-			$all_emails = $mailer->get_emails();
-
+			$all_emails   = WC()->mailer()->get_emails();
 			$track_emails = [];
 
 			// only track customer emails
 			if ( ! empty( $all_emails ) ) {
-				foreach ( $all_emails as $key => $email ) {
 
-					$pos = strpos( $email->id, 'customer_' );
+				$track_emails = array_filter( $all_emails, static function ( $email ) {
 
-					if ( $pos !== false && $pos === 0 ) {
-						$track_emails[ $key ] = $email;
-					}
-				}
+					return 0 === strpos( $email->id, 'customer_' );
+				} );
 			}
 
 			/**
@@ -143,7 +136,7 @@ class WC_Google_Analytics_Pro_Email_Tracking {
 
 		// skip if no tracking ID
 		if ( ! $tracking_id ) {
-			return;
+			return $content;
 		}
 
 		$email_id = str_replace( 'woocommerce_email_additional_content_', '', current_filter() );
@@ -151,13 +144,13 @@ class WC_Google_Analytics_Pro_Email_Tracking {
 
 		// skip if we're not tracking this email
 		if ( ! $email ) {
-			return;
+			return $content;
 		}
 
 		// skip if plain email
 		$email_type = ! empty( $email->settings['email_type'] ) ? $email->settings['email_type'] : null;
 		if ( 'html' !== $email_type ) {
-			return;
+			return $content;
 		}
 
 		$cid = $uid = null;
@@ -183,7 +176,7 @@ class WC_Google_Analytics_Pro_Email_Tracking {
 
 		// skip tracking email open if not enabled for the user's role
 		if ( null !== $uid && ! $integration->is_tracking_enabled_for_user_role( $uid ) ) {
-			return;
+			return $content;
 		}
 
 		$track_user_id = 'yes' === $integration->get_option( 'track_user_id' );
@@ -201,8 +194,8 @@ class WC_Google_Analytics_Pro_Email_Tracking {
 
 		// bail out if tracking user ID is enabled and we don't have a proper user ID nor client ID (registered users/guests)
 		// or tracking user ID is disabled and we don't have proper CID
-		if ( ! $track_user_id && ! $cid || $track_user_id && ! $cid && ! $uid ) {
-			return;
+		if ( ( ! $track_user_id && ! $cid ) || ( $track_user_id && ! $cid && ! $uid ) ) {
+			return $content;
 		}
 
 		$url   = 'https://www.google-analytics.com/collect?';

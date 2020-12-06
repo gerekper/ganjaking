@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce All Products For Subscriptions
 * Plugin URI: https://woocommerce.com/products/all-products-for-woocommerce-subscriptions/
 * Description: Make existing products available on subscription, and give customers the freedom to add products to their existing subscriptions. WooCommerce Subscriptions add-on formerly known as Subscribe All The Things.
-* Version: 3.1.18
+* Version: 3.1.19
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -18,7 +18,7 @@
 * Tested up to: 5.5
 *
 * WC requires at least: 3.3
-* WC tested up to: 4.6
+* WC tested up to: 4.7
 *
 * Copyright: © 2017-2020 SomewhereWarm SMPC.
 * License: GNU General Public License v3.0
@@ -43,12 +43,12 @@ require_once( 'includes/modules/abstract/class-wcs-att-abstract-module.php' );
  * Main plugin class.
  *
  * @class    WCS_ATT
- * @version  3.1.18
+ * @version  3.1.19
  */
 class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 	/* Plugin version. */
-	const VERSION = '3.1.18';
+	const VERSION = '3.1.19';
 
 	/* Required WC version. */
 	const REQ_WC_VERSION = '3.3.0';
@@ -196,7 +196,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 		// Subs version check.
 		if ( ! class_exists( 'WC_Subscriptions' ) || ! defined( 'WCS_INIT_TIMESTAMP' ) || version_compare( WC_Subscriptions::$version, self::REQ_WCS_VERSION ) < 0 ) {
 			$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires at least <a href="%1$s" target="_blank">WooCommerce Subscriptions</a> version <strong>%2$s</strong>.', 'woocommerce-all-products-for-subscriptions' ), self::WCS_URL, self::REQ_WCS_VERSION );
-			require_once( 'includes/admin/class-wcs-att-admin-notices.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/admin/class-wcs-att-admin-notices.php' );
 			WCS_ATT_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
 		}
@@ -204,7 +204,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 		// PHP version check.
 		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '5.6.20', '<' ) ) {
 			$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-all-products-for-subscriptions' ), '5.6.20', 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' );
-			require_once( 'includes/admin/class-wcs-att-admin-notices.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/admin/class-wcs-att-admin-notices.php' );
 			WCS_ATT_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
 		}
@@ -217,7 +217,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 			} else {
 				$notice = sprintf( $notice, self::REQ_WC_VERSION, __( 'Please update WooCommerce.', 'woocommerce-all-products-for-subscriptions' ) );
 			}
-			require_once( 'includes/admin/class-wcs-att-admin-notices.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/admin/class-wcs-att-admin-notices.php' );
 			WCS_ATT_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
 		}
@@ -248,28 +248,28 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	public function includes() {
 
 		// Classes.
-		require_once( 'includes/class-wcs-att-core-compatibility.php' );
-		require_once( 'includes/class-wcs-att-integrations.php' );
-		require_once( 'includes/class-wcs-att-helpers.php' );
-		require_once( 'includes/class-wcs-att-scheme.php' );
-		require_once( 'includes/class-wcs-att-product.php' );
-		require_once( 'includes/class-wcs-att-cart.php' );
-		require_once( 'includes/class-wcs-att-order.php' );
-		require_once( 'includes/class-wcs-att-sync.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-core-compatibility.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-integrations.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-helpers.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-scheme.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-product.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-cart.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-order.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-sync.php' );
 
 		// Modules.
 		$this->register_modules();
 		$this->initialize_modules();
 
 		// Load display components.
-		require_once( 'includes/class-wcs-att-display.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/class-wcs-att-display.php' );
 		$this->register_component_hooks( 'display' );
 
 		// Load form handling components.
 		$this->register_component_hooks( 'form' );
 
 		// Legacy stuff.
-		require_once( 'includes/legacy/class-wcs-att-schemes.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/legacy/class-wcs-att-schemes.php' );
 
 		// Admin includes.
 		if ( is_admin() ) {
@@ -286,7 +286,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	 */
 	protected function register_modules() {
 
-		require_once( 'includes/modules/class-wcs-att-management.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/modules/class-wcs-att-management.php' );
 
 		$this->modules = apply_filters( 'wcsatt_modules', array(
 			'WCS_ATT_Management'
@@ -314,9 +314,9 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	 */
 	public function admin_includes() {
 		// Admin notices handling.
-		require_once( 'includes/admin/class-wcs-att-admin-notices.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/admin/class-wcs-att-admin-notices.php' );
 		// Addmin settings/metaboxes.
-		require_once( 'includes/admin/class-wcs-att-admin.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/admin/class-wcs-att-admin.php' );
 	}
 
 	/**

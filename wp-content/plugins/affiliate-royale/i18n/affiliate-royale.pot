@@ -1,0 +1,2448 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the Affiliate Royale plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Affiliate Royale 1.4.15\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/affiliate-royale\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-05-06T11:57:57-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: affiliate-royale\n"
+
+#. Plugin Name of the plugin
+#: app/controllers/WafpAppController.php:59
+#: app/controllers/WafpAppController.php:60
+msgid "Affiliate Royale"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.affiliateroyale.com"
+msgstr ""
+
+#. Description of the plugin
+msgid "A complete Affiliate Program plugin for WordPress. Use it to start an Affiliate Program for your products to dramatically increase traffic, attention and sales."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:67
+#: app/controllers/WafpAppController.php:68
+#: app/controllers/WafpReportsController.php:6
+msgid "Reports"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:74
+#: app/controllers/WafpAppController.php:75
+#: app/views/affiliates/list.php:5
+#: app/views/options/form.php:22
+msgid "Affiliates"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:81
+#: app/controllers/WafpAppController.php:82
+#: app/views/dashboard/stats.php:6
+#: app/views/dashboard/stats.php:116
+#: app/views/payments/owed.php:89
+#: app/views/reports/stats.php:5
+#: app/views/reports/stats.php:115
+#: app/views/reports/top.php:8
+#: app/views/shared/flot_chart.php:3
+msgid "Clicks"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:88
+#: app/controllers/WafpAppController.php:89
+#: app/views/dashboard/stats.php:118
+#: app/views/reports/stats.php:117
+#: app/views/reports/top.php:9
+msgid "Transactions"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:95
+#: app/controllers/WafpAppController.php:96
+#: app/models/WafpSubscription.php:15
+msgid "Subscriptions"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:102
+#: app/controllers/WafpAppController.php:103
+msgid "Payments"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:109
+#: app/controllers/WafpAppController.php:110
+#: app/helpers/WafpDashboardHelper.php:103
+#: app/views/links/list.php:3
+msgid "Links &amp; Banners"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:116
+#: app/controllers/WafpAppController.php:117
+#: app/views/payments/owed.php:8
+msgid "Pay Affiliates"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:123
+#: app/controllers/WafpAppController.php:124
+#: app/views/options/form.php:3
+msgid "Options"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:134
+#: app/controllers/WafpAppController.php:135
+#: app/views/update/ui.php:4
+msgid "Activate"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:402
+#: app/views/transactions/edit.php:43
+msgid "Commission Level"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:403
+#: app/lib/WafpClicksTable.php:25
+#: app/lib/WafpPaymentsTable.php:26
+#: app/lib/WafpSubscriptionsTable.php:26
+#: app/lib/WafpTransactionsTable.php:25
+#: app/views/options/memberpress_coupon_meta_box.php:8
+#: app/views/payments/owed.php:16
+#: app/views/payments/receipt.php:7
+#: app/views/reports/top.php:7
+#: app/views/shared/leaderboard_display.php:6
+#: app/views/transactions/edit.php:51
+#: app/views/transactions/row.php:89
+msgid "Affiliate"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:404
+#: app/views/options/commission.php:8
+#: app/views/transactions/edit.php:59
+msgid "Commission Type"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:406
+msgid "Percentage"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:407
+msgid "Fixed Amount"
+msgstr ""
+
+#: app/controllers/WafpAppController.php:408
+#: app/lib/WafpTransactionsTable.php:31
+#: app/views/dashboard/payments.php:13
+#: app/views/options/form.php:20
+msgid "Commission"
+msgstr ""
+
+#: app/controllers/WafpAuthorizeController.php:143
+#: app/controllers/WafpPayPalController.php:106
+msgid "Subscription Payment"
+msgstr ""
+
+#: app/controllers/WafpAuthorizeController.php:143
+#: app/controllers/WafpPayPalController.php:106
+msgid "Standard Payment"
+msgstr ""
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/controllers/WafpAuthorizeController.php:270
+msgid "[%s] Authorize.Net Debug Email"
+msgstr ""
+
+#: app/controllers/WafpAweberController.php:30
+msgid "AWeber Signup Integration"
+msgstr ""
+
+#: app/controllers/WafpAweberController.php:40
+msgid "Enter the AWeber mailing list name that you want users signed up for when they sign up for your affiliate program."
+msgstr ""
+
+#: app/controllers/WafpAweberController.php:55
+msgid "This is the text that will display on the signup page next to your mailing list opt-out checkbox."
+msgstr ""
+
+#: app/controllers/WafpAweberController.php:101
+msgid "Sign Up for the %s Newsletter"
+msgstr ""
+
+#: app/controllers/WafpAweberController.php:107
+#: app/controllers/WafpConvertKitController.php:147
+#: app/controllers/WafpGetResponseController.php:104
+#: app/controllers/WafpMailChimpController.php:121
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: app/controllers/WafpAweberController.php:135
+msgid "You're Almost Done - Activate Your Newsletter Subscription!"
+msgstr ""
+
+#: app/controllers/WafpAweberController.php:136
+msgid "You've just been sent an email that contains a <strong>confirm link</strong>."
+msgstr ""
+
+#: app/controllers/WafpAweberController.php:137
+msgid ""
+"In order to activate your subscription, check your email and click on the link in that email.\n"
+"           You will not receive your subscription until you <strong>click that link to activate it</strong>."
+msgstr ""
+
+#: app/controllers/WafpAweberController.php:139
+msgid "If you don't see that email in your inbox shortly, fill out the form again to have another copy of it sent to you."
+msgstr ""
+
+#: app/controllers/WafpConvertKitController.php:22
+msgid "ConvertKit Signup Integration"
+msgstr ""
+
+#: app/controllers/WafpConvertKitController.php:27
+msgid "ConvertKit API Secret"
+msgstr ""
+
+#: app/controllers/WafpConvertKitController.php:32
+msgid "You can find your API secret under your Account settings at ConvertKit.com."
+msgstr ""
+
+#: app/controllers/WafpConvertKitController.php:43
+msgid "ConvertKit Tag"
+msgstr ""
+
+#: app/controllers/WafpConvertKitController.php:48
+msgid "You can find your Tag under your settings at ConvertKit.com."
+msgstr ""
+
+#: app/controllers/WafpConvertKitController.php:58
+#: app/controllers/WafpGetResponseController.php:56
+#: app/controllers/WafpMailChimpController.php:72
+msgid "Signup Checkbox Label"
+msgstr ""
+
+#: app/controllers/WafpConvertKitController.php:63
+#: app/controllers/WafpGetResponseController.php:61
+#: app/controllers/WafpMailChimpController.php:77
+msgid "This is the text that will display on the signup page next to your mailing list opt-in checkbox."
+msgstr ""
+
+#: app/controllers/WafpConvertKitController.php:137
+#: app/controllers/WafpGetResponseController.php:94
+#: app/controllers/WafpMailChimpController.php:111
+msgid "Sign Up for our newsletter"
+msgstr ""
+
+#: app/controllers/WafpDigLabsStripePaymentsController.php:21
+#: app/controllers/WafpDigLabsStripePaymentsController.php:32
+msgid "DigLabs Stripe Payment"
+msgstr ""
+
+#: app/controllers/WafpDigLabsStripePaymentsController.php:21
+#: app/models/WafpSubscription.php:16
+msgid "Subscription"
+msgstr ""
+
+#: app/controllers/WafpEasyDigitalDownloadsController.php:54
+msgid "EDD Purchase"
+msgstr ""
+
+#: app/controllers/WafpECommerceController.php:39
+msgid "E-Commerce Purchase"
+msgstr ""
+
+#: app/controllers/WafpGetResponseController.php:21
+msgid "GetResponse Signup Integration"
+msgstr ""
+
+#: app/controllers/WafpGetResponseController.php:26
+msgid "GetResponse API Key"
+msgstr ""
+
+#: app/controllers/WafpGetResponseController.php:31
+msgid "You can find your API key under your Account settings at GetResponse.com."
+msgstr ""
+
+#: app/controllers/WafpGetResponseController.php:41
+msgid "GetResponse Campaign Token"
+msgstr ""
+
+#: app/controllers/WafpGetResponseController.php:46
+msgid "You can find your Campaign Token under your Campaign settings at GetResponse.com."
+msgstr ""
+
+#: app/controllers/WafpJigoshopController.php:46
+msgid "Jigoshop Purchase"
+msgstr ""
+
+#: app/controllers/WafpMailChimpController.php:22
+msgid "Mailchimp Signup Integration"
+msgstr ""
+
+#: app/controllers/WafpMailChimpController.php:27
+msgid "Mailchimp API Key"
+msgstr ""
+
+#: app/controllers/WafpMailChimpController.php:32
+msgid "You can find your API key under your Account settings at Mailchimp.com."
+msgstr ""
+
+#: app/controllers/WafpMailChimpController.php:42
+msgid "Mailchimp List ID"
+msgstr ""
+
+#: app/controllers/WafpMailChimpController.php:47
+msgid "You can find your List ID under your list's settings."
+msgstr ""
+
+#: app/controllers/WafpMailChimpController.php:57
+msgid "Enable Double Opt-in"
+msgstr ""
+
+#: app/controllers/WafpMailChimpController.php:62
+msgid "Members will have to click a confirmation link in an email before being added to your list."
+msgstr ""
+
+#: app/controllers/WafpMarketPressController.php:56
+msgid "MarketPress Purchase"
+msgstr ""
+
+#: app/controllers/WafpMemberPressController.php:79
+msgid "Affiliate Royale Commissions"
+msgstr ""
+
+#: app/controllers/WafpMemberPressController.php:143
+msgid "%s Commission Group"
+msgstr ""
+
+#: app/controllers/WafpMemberPressController.php:179
+#: app/controllers/WafpUsersController.php:453
+#: app/helpers/WafpOptionsHelper.php:14
+msgid "None"
+msgstr ""
+
+#: app/controllers/WafpMemberPressController.php:195
+msgid "Products"
+msgstr ""
+
+#: app/controllers/WafpMemberPressController.php:229
+msgid "Associate Affiliate"
+msgstr ""
+
+#: app/controllers/WafpOptionsController.php:37
+#: app/views/options/commission.php:38
+msgid "Level %d:"
+msgstr ""
+
+#: app/controllers/WafpPayPalController.php:20
+#: app/views/options/paypal_integration.php:10
+#: app/views/options/wishlist_integration.php:10
+msgid "Make Sure You Uncheck \"Save Button at PayPal\" in Step 2"
+msgstr ""
+
+#: app/controllers/WafpPayPalController.php:21
+#: app/views/options/paypal_integration.php:11
+msgid "Make Sure \"Add advanced variables\" is checked in Step 3 and add the following text into the \"Advanced Variables\" text area:"
+msgstr ""
+
+#: app/controllers/WafpPayPalController.php:24
+#: app/views/options/paypal_integration.php:16
+#: app/views/options/wishlist_integration.php:14
+msgid "Click \"Create Button\""
+msgstr ""
+
+#: app/controllers/WafpPayPalController.php:25
+#: app/views/options/paypal_integration.php:17
+#: app/views/options/wishlist_integration.php:15
+msgid "Click \"Remove code protection\""
+msgstr ""
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/controllers/WafpPayPalController.php:265
+msgid "[%s] PayPal Debug Email"
+msgstr ""
+
+#: app/controllers/WafpShoppController.php:68
+#: app/controllers/WafpShoppController.php:77
+msgid "Shopp Purchase"
+msgstr ""
+
+#: app/controllers/WafpSubscriptionsController.php:17
+#: app/controllers/WafpTransactionsController.php:255
+#: app/controllers/WafpTransactionsController.php:267
+#: app/controllers/WafpUpdateController.php:399
+msgid "You do not have access."
+msgstr ""
+
+#: app/controllers/WafpSubscriptionsController.php:20
+msgid "Could not delete subscription"
+msgstr ""
+
+#: app/controllers/WafpSubscriptionsController.php:30
+msgid "This Subscription cannot be deleted."
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:59
+msgid "Affiliate referrer must not be empty"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:64
+msgid "Affiliate referrer must be a valid, wordpress user"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:67
+msgid "Product name must not be empty"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:70
+msgid "Unique Order ID must not be empty"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:73
+msgid "Amount must not be empty"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:76
+msgid "Amount must be formatted #.##"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:79
+msgid "Refund Amount must not be empty"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:82
+msgid "Refund amount must be formatted #.##"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:97
+msgid "Commission Levels within a transaction must be unique"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:100
+msgid "Commission levels must be numbers"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:103
+msgid "Commission level must be a number greater than zero"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:106
+msgid "Commission level cannot be empty"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:109
+msgid "Commission must not be empty"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:112
+msgid "Commission must be formatted #.##"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:131
+msgid "There was an error creating your affiliate transaction."
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:137
+msgid "Your transaction was created successfully"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:224
+msgid "Your transaction was updated successfully"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:258
+msgid "Could not delete transaction"
+msgstr ""
+
+#: app/controllers/WafpTransactionsController.php:270
+msgid "Could not delete commission"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:46
+msgid "Why you creepin'?"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:236
+msgid "Check for Update"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:319
+msgid "Membership"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:320
+msgid "Membership Software"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:321
+msgid "Members"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:322
+#: app/views/dashboard/payments.php:15
+msgid "Payment"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:323
+msgid "Protection"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:324
+msgid "Rule"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:325
+msgid "Lock"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:326
+msgid "Access"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:327
+msgid "Community"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:328
+msgid "Admin"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:329
+#: app/views/options/form.php:19
+msgid "Pages"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:330
+msgid "Posts"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:331
+msgid "Plugin"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:333
+msgid "You can access in-depth information about Affiliate Royale at %1$sthe Affiliate Royale User Manual%2$s."
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:333
+msgid "No Additional information right now"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:360
+msgid "You had an HTTP error connecting to Caseproof's Mothership API"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:371
+msgid "Your License Key was invalid"
+msgstr ""
+
+#: app/controllers/WafpUpdateController.php:402
+msgid "Edge updates couldn't be updated."
+msgstr ""
+
+#: app/controllers/WafpUsersController.php:81
+msgid "Login failed. Please double check your username and password."
+msgstr ""
+
+#: app/controllers/WafpUsersController.php:434
+msgid "Is Affiliate"
+msgstr ""
+
+#: app/controllers/WafpUsersController.php:435
+#: app/views/users/admin_profile.php:54
+msgid "Affiliate Referrer"
+msgstr ""
+
+#: app/controllers/WafpUsersController.php:459
+#: app/models/WafpUser.php:946
+msgid "Yes"
+msgstr ""
+
+#: app/controllers/WafpUsersController.php:459
+#: app/models/WafpUser.php:946
+msgid "No"
+msgstr ""
+
+#: app/controllers/WafpUsersController.php:473
+msgid "Message Sent"
+msgstr ""
+
+#: app/controllers/WafpUsersController.php:476
+msgid "Unauthorized to resend message"
+msgstr ""
+
+#: app/controllers/WafpUsersController.php:479
+msgid "Cannot resend message"
+msgstr ""
+
+#: app/controllers/WafpWooCommerceController.php:88
+#: app/controllers/WafpWooCommerceController.php:91
+msgid "Woo Commerce Purchase"
+msgstr ""
+
+#: app/helpers/WafpAppHelper.php:94
+msgid "Never"
+msgstr ""
+
+#: app/helpers/WafpAppHelper.php:120
+msgid "Commissions (%s)"
+msgstr ""
+
+#: app/helpers/WafpAppHelper.php:125
+#: app/views/dashboard/stats.php:119
+#: app/views/payments/owed.php:22
+#: app/views/reports/stats.php:118
+#: app/views/transactions/edit.php:72
+#: app/views/transactions/row.php:90
+msgid "Commissions"
+msgstr ""
+
+#: app/helpers/WafpAppHelper.php:133
+msgid "Level %s"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:17
+msgid "Affiliate: <b>%s</b>"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:17
+msgid "info"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:26
+#: app/views/dashboard/payments.php:12
+#: app/views/transactions/row.php:88
+msgid "Level"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:29
+#: app/views/payments/owed.php:17
+#: app/views/payments/receipt.php:8
+msgid "Name"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:32
+msgid "Affiliate?"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:35
+#: app/views/dashboard/referrals.php:8
+msgid "Id"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:38
+#: app/lib/WafpAffiliatesTable.php:24
+#: app/views/dashboard/referrals.php:12
+#: app/views/shared/login_form.php:4
+msgid "Username"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:41
+#: app/lib/WafpAffiliatesTable.php:33
+#: app/lib/WafpClicksTable.php:28
+#: app/lib/WafpTransactionsTable.php:32
+msgid "Referrer"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:44
+#: app/views/dashboard/referrals.php:16
+msgid "Email"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:47
+#: app/views/dashboard/stats.php:8
+#: app/views/payments/owed.php:89
+#: app/views/reports/stats.php:7
+#: app/views/reports/top.php:10
+#: app/views/shared/flot_chart.php:5
+msgid "Sales"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:50
+msgid "Field"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:98
+msgid "Home"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:99
+msgid "Stats"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:100
+msgid "Payment History"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:101
+msgid "Account"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:106
+msgid "Referrals"
+msgstr ""
+
+#: app/helpers/WafpDashboardHelper.php:114
+msgid "Logout"
+msgstr ""
+
+#: app/helpers/WafpOptionsHelper.php:17
+msgid "- Auto Create New Page -"
+msgstr ""
+
+#: app/helpers/WafpOptionsHelper.php:37
+#: app/views/transactions/row.php:72
+msgid "Edit"
+msgstr ""
+
+#: app/helpers/WafpOptionsHelper.php:39
+msgid "View"
+msgstr ""
+
+#: app/helpers/WafpOptionsHelper.php:46
+msgid "PayPal"
+msgstr ""
+
+#: app/helpers/WafpOptionsHelper.php:47
+msgid "Other"
+msgstr ""
+
+#: app/lib/WafpAffiliatesTable.php:25
+#: app/views/dashboard/account.php:11
+#: app/views/shared/signup_form.php:6
+msgid "First Name"
+msgstr ""
+
+#: app/lib/WafpAffiliatesTable.php:26
+#: app/views/dashboard/account.php:15
+#: app/views/shared/signup_form.php:10
+msgid "Last Name"
+msgstr ""
+
+#: app/lib/WafpAffiliatesTable.php:27
+msgid "ID"
+msgstr ""
+
+#: app/lib/WafpAffiliatesTable.php:28
+msgid "MTD Clicks"
+msgstr ""
+
+#: app/lib/WafpAffiliatesTable.php:29
+msgid "YTD Clicks"
+msgstr ""
+
+#: app/lib/WafpAffiliatesTable.php:30
+msgid "MTD Commissions"
+msgstr ""
+
+#: app/lib/WafpAffiliatesTable.php:31
+msgid "YTD Commissions"
+msgstr ""
+
+#: app/lib/WafpAffiliatesTable.php:32
+msgid "Signup Date"
+msgstr ""
+
+#: app/lib/WafpClicksTable.php:24
+#: app/lib/WafpPaymentsTable.php:24
+#: app/lib/WafpTransactionsTable.php:24
+msgid "Time"
+msgstr ""
+
+#: app/lib/WafpClicksTable.php:26
+msgid "URL"
+msgstr ""
+
+#: app/lib/WafpClicksTable.php:27
+msgid "IP"
+msgstr ""
+
+#: app/lib/WafpPaymentsTable.php:25
+msgid "Amount"
+msgstr ""
+
+#: app/lib/WafpSubscriptionsTable.php:24
+msgid "Start Date"
+msgstr ""
+
+#: app/lib/WafpSubscriptionsTable.php:25
+msgid "Subscription ID"
+msgstr ""
+
+#: app/lib/WafpSubscriptionsTable.php:27
+msgid "Subscription Type"
+msgstr ""
+
+#: app/lib/WafpTransactionsTable.php:26
+msgid "Invoice"
+msgstr ""
+
+#: app/lib/WafpTransactionsTable.php:27
+msgid "Product"
+msgstr ""
+
+#: app/lib/WafpTransactionsTable.php:30
+#: app/views/dashboard/stats.php:121
+#: app/views/reports/stats.php:120
+#: app/views/reports/top.php:12
+msgid "Total"
+msgstr ""
+
+#: app/lib/WafpTransactionsTable.php:33
+msgid "Actions"
+msgstr ""
+
+#: app/models/WafpClick.php:134
+msgid "Unknown"
+msgstr ""
+
+#: app/models/WafpLink.php:121
+msgid "Target URL can't be blank"
+msgstr ""
+
+#: app/models/WafpLink.php:126
+msgid "Target URL must be a valid URL"
+msgstr ""
+
+#: app/models/WafpLink.php:131
+msgid "The slug must be unique to this link"
+msgstr ""
+
+#: app/models/WafpLink.php:238
+msgid "Affiliate Link"
+msgstr ""
+
+#: app/models/WafpOptions.php:172
+msgid "Welcome to the Affiliate Program on {$site_name}!"
+msgstr ""
+
+#: app/models/WafpOptions.php:194
+msgid "** Affiliate Sale"
+msgstr ""
+
+#: app/models/WafpOptions.php:222
+msgid "** Affiliate Commission"
+msgstr ""
+
+#: app/models/WafpOptions.php:339
+msgid "Welcome to %s's Affiliate Program."
+msgstr ""
+
+#: app/models/WafpOptions.php:411
+msgid "Your Payment Integration Must Not Be Blank."
+msgstr ""
+
+#: app/models/WafpOptions.php:414
+msgid "The Commission Amount Must Not Be Blank."
+msgstr ""
+
+#: app/models/WafpOptions.php:420
+msgid "The commission amount in level %d must be a number."
+msgstr ""
+
+#: app/models/WafpOptions.php:422
+msgid "The commission amount in level %d is a percentage so it must be a number from 0 to 100."
+msgstr ""
+
+#: app/models/WafpOptions.php:439
+msgid "One or more of your paypal email addresses is not a valid email."
+msgstr ""
+
+#: app/models/WafpOptions.php:454
+msgid "One or more of the PayPal source IPN source is not a valid ip address."
+msgstr ""
+
+#: app/models/WafpOptions.php:467
+msgid "One or more of the PayPal destination IPN URLs is not a valid URL."
+msgstr ""
+
+#: app/models/WafpSubscription.php:17
+msgid "Add New Subscription"
+msgstr ""
+
+#: app/models/WafpSubscription.php:18
+msgid "Edit Subscription"
+msgstr ""
+
+#: app/models/WafpSubscription.php:19
+msgid "New Subscription"
+msgstr ""
+
+#: app/models/WafpSubscription.php:20
+msgid "View Subscription"
+msgstr ""
+
+#: app/models/WafpSubscription.php:21
+msgid "Search Subscription"
+msgstr ""
+
+#: app/models/WafpSubscription.php:22
+msgid "No Subscription found"
+msgstr ""
+
+#: app/models/WafpSubscription.php:23
+msgid "No Subscription found in Trash"
+msgstr ""
+
+#: app/models/WafpSubscription.php:24
+msgid "Parent Subscription:"
+msgstr ""
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/models/WafpUser.php:377
+msgid "[%s] New Affiliate Signup"
+msgstr ""
+
+#. translators: In this string, %1$s is the blog's name/title, %2$s is the user's real name, %3$s is the user's username and %4$s is the user's email
+#: app/models/WafpUser.php:380
+msgid ""
+"A new user just joined your Affiliate Program at %1$s!\n"
+"\n"
+"Name: %2$s\n"
+"Username: %3$s\n"
+"E-Mail: %4$s"
+msgstr ""
+
+#: app/models/WafpUser.php:398
+msgid "*** The password you created at signup ***"
+msgstr ""
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/models/WafpUser.php:436
+msgid "[%s] Affiliate Password Reset"
+msgstr ""
+
+#. translators: In this string, %1$s is the user's username, %2$s is the blog's name/title, %3$s is the blog's url, %4$s the reset password link
+#: app/models/WafpUser.php:439
+msgid ""
+"Someone requested to reset your password for %1$s on the Affiliate Program at %2$s at %3$s\n"
+"\n"
+"To reset your password visit the following address, otherwise just ignore this email and nothing will happen.\n"
+"\n"
+"%4$s"
+msgstr ""
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/models/WafpUser.php:464
+msgid "[%s] Affiliate Password Lost/Changed"
+msgstr ""
+
+#. translators: In this string, %1$s is the user's username
+#: app/models/WafpUser.php:467
+msgid "Affiliate Password Lost and Changed for user: %1$s"
+msgstr ""
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/models/WafpUser.php:480
+msgid "[%s] Your new Affiliate Password"
+msgstr ""
+
+#. translators: In this string, %1$s is the user's first name, %2$s is the blog's name/title, %3$s is the user's username, %4$s is the user's password, and %5$s is the blog's URL...
+#: app/models/WafpUser.php:483
+msgid ""
+"%1$s,\n"
+"\n"
+"Your Affiliate Password was successfully reset on %2$s!\n"
+"\n"
+"Username: %3$s\n"
+"Password: %4$s\n"
+"\n"
+"You can login here: %5$s"
+msgstr ""
+
+#: app/models/WafpUser.php:521
+msgid "User Override"
+msgstr ""
+
+#: app/models/WafpUser.php:524
+msgid "Global"
+msgstr ""
+
+#: app/models/WafpUser.php:781
+#: app/models/WafpUser.php:836
+msgid "Username must not be blank"
+msgstr ""
+
+#: app/models/WafpUser.php:784
+msgid "Username must only contain letters, numbers and/or underscores"
+msgstr ""
+
+#: app/models/WafpUser.php:787
+msgid "Username is Already Taken."
+msgstr ""
+
+#: app/models/WafpUser.php:790
+msgid "PayPal email address is required and must be a real and properly formatted email address"
+msgstr ""
+
+#: app/models/WafpUser.php:793
+msgid "Email must be a real and properly formatted email address"
+msgstr ""
+
+#: app/models/WafpUser.php:796
+msgid "Email Address has already been used by another user."
+msgstr ""
+
+#: app/models/WafpUser.php:799
+#: app/models/WafpUser.php:867
+msgid "You must enter a Password."
+msgstr ""
+
+#: app/models/WafpUser.php:802
+#: app/models/WafpUser.php:870
+msgid "You must enter a Password Confirmation."
+msgstr ""
+
+#: app/models/WafpUser.php:805
+#: app/models/WafpUser.php:873
+msgid "Your Password and Password Confirmation don't match."
+msgstr ""
+
+#: app/models/WafpUser.php:808
+msgid "You must enter an Address"
+msgstr ""
+
+#: app/models/WafpUser.php:811
+msgid "You must enter a City"
+msgstr ""
+
+#: app/models/WafpUser.php:814
+msgid "You must enter a State/Province"
+msgstr ""
+
+#: app/models/WafpUser.php:817
+msgid "You must enter a Zip/Postal Code"
+msgstr ""
+
+#: app/models/WafpUser.php:820
+msgid "You must enter a Country"
+msgstr ""
+
+#: app/models/WafpUser.php:823
+msgid "You must be a human to signup for this site"
+msgstr ""
+
+#: app/models/WafpUser.php:826
+msgid "You must agree to the Affiliate Signup Agreement"
+msgstr ""
+
+#: app/models/WafpUser.php:839
+msgid "Username was not found"
+msgstr ""
+
+#: app/models/WafpUser.php:849
+msgid "You must enter a Username or Email"
+msgstr ""
+
+#: app/models/WafpUser.php:856
+msgid "That Username or Email wasn't found."
+msgstr ""
+
+#: app/models/WafpUser.php:889
+msgid "You must fill out the tax ID field before you can begin promoting"
+msgstr ""
+
+#: app/models/WafpUser.php:892
+msgid "You must enter your PayPal Email before you can begin promoting"
+msgstr ""
+
+#: app/views/clicks/list.php:4
+msgid "Clicks referred by affiliates"
+msgstr ""
+
+#: app/views/dashboard/account.php:4
+msgid "Your account was successfully saved!"
+msgstr ""
+
+#: app/views/dashboard/account.php:6
+msgid "Affiliate Profile"
+msgstr ""
+
+#: app/views/dashboard/account.php:21
+#: app/views/payments/owed.php:20
+#: app/views/payments/receipt.php:9
+msgid "PayPal Email"
+msgstr ""
+
+#: app/views/dashboard/account.php:28
+#: app/views/shared/signup_form.php:25
+msgid "Address Line 1"
+msgstr ""
+
+#: app/views/dashboard/account.php:32
+#: app/views/shared/signup_form.php:29
+msgid "Address Line 2"
+msgstr ""
+
+#: app/views/dashboard/account.php:36
+#: app/views/shared/signup_form.php:33
+#: app/views/users/admin_profile.php:17
+msgid "City"
+msgstr ""
+
+#: app/views/dashboard/account.php:40
+#: app/views/shared/signup_form.php:37
+msgid "State/Province"
+msgstr ""
+
+#: app/views/dashboard/account.php:44
+#: app/views/shared/signup_form.php:41
+msgid "Zip/Postal Code"
+msgstr ""
+
+#: app/views/dashboard/account.php:48
+#: app/views/shared/signup_form.php:45
+#: app/views/users/admin_profile.php:29
+msgid "Country"
+msgstr ""
+
+#: app/views/dashboard/account.php:55
+#: app/views/shared/signup_form.php:53
+#: app/views/users/admin_profile.php:41
+msgid "SSN / Tax ID"
+msgstr ""
+
+#: app/views/dashboard/account.php:56
+msgid "US Residents"
+msgstr ""
+
+#: app/views/dashboard/account.php:59
+msgid "Intern'l Tax ID"
+msgstr ""
+
+#: app/views/dashboard/account.php:60
+#: app/views/shared/signup_form.php:58
+msgid "Non-US Residents"
+msgstr ""
+
+#: app/views/dashboard/account.php:67
+msgid "Save Profile"
+msgstr ""
+
+#: app/views/dashboard/become.php:2
+msgid "Only affiliates can access this page. If you would like to become an affiliate, please click the button below:"
+msgstr ""
+
+#: app/views/dashboard/become.php:4
+msgid "By clicking the button below, you agree to the %1$sAffiliate Sign-up Agreement%2$s."
+msgstr ""
+
+#: app/views/dashboard/become.php:11
+msgid "Become an Affiliate"
+msgstr ""
+
+#: app/views/dashboard/blocked.php:1
+msgid "Your Affiliate Account Has Been Blocked"
+msgstr ""
+
+#: app/views/dashboard/home.php:2
+msgid "My Affiliate Dashboard"
+msgstr ""
+
+#: app/views/dashboard/home.php:10
+msgid "Quick Stats"
+msgstr ""
+
+#: app/views/dashboard/home.php:13
+msgid "Clicks Referred: %d"
+msgstr ""
+
+#: app/views/dashboard/home.php:14
+msgid "Sales Referred: %s"
+msgstr ""
+
+#: app/views/dashboard/home.php:15
+msgid "Revenues from Referred Sales: %s"
+msgstr ""
+
+#: app/views/dashboard/home.php:16
+msgid "Commissions from Referred Sales: %s"
+msgstr ""
+
+#: app/views/dashboard/links.php:2
+msgid "My Links &amp; Banners"
+msgstr ""
+
+#: app/views/dashboard/links.php:11
+msgid "Target URL:"
+msgstr ""
+
+#: app/views/dashboard/links.php:14
+msgid "Code:"
+msgstr ""
+
+#: app/views/dashboard/links.php:26
+msgid "Preview:"
+msgstr ""
+
+#: app/views/dashboard/links.php:41
+msgid "Additional Info:"
+msgstr ""
+
+#: app/views/dashboard/memberpress-coupons.php:2
+msgid "My Coupons"
+msgstr ""
+
+#: app/views/dashboard/memberpress-coupons.php:8
+msgid "Coupon Code"
+msgstr ""
+
+#: app/views/dashboard/memberpress-coupons.php:11
+msgid "Valid Products"
+msgstr ""
+
+#: app/views/dashboard/nav.php:15
+msgid "My Affiliate link:"
+msgstr ""
+
+#: app/views/dashboard/payments.php:2
+msgid "My Payment History"
+msgstr ""
+
+#: app/views/dashboard/payments.php:4
+msgid "Your Current Balance"
+msgstr ""
+
+#: app/views/dashboard/payments.php:5
+msgid "Amount Paid To Date"
+msgstr ""
+
+#: app/views/dashboard/payments.php:10
+#: app/views/dashboard/stats.php:115
+#: app/views/reports/stats.php:114
+msgid "Date"
+msgstr ""
+
+#: app/views/dashboard/payments.php:11
+msgid "Sale"
+msgstr ""
+
+#: app/views/dashboard/payments.php:14
+msgid "Correction"
+msgstr ""
+
+#: app/views/dashboard/payments.php:16
+msgid "Owed"
+msgstr ""
+
+#: app/views/dashboard/payments.php:17
+#: app/views/payments/owed.php:25
+#: app/views/payments/receipt.php:10
+msgid "Paid"
+msgstr ""
+
+#: app/views/dashboard/payments.php:27
+msgid "PAYMENT"
+msgstr ""
+
+#: app/views/dashboard/payments.php:33
+msgid "PAID"
+msgstr ""
+
+#: app/views/dashboard/payments.php:39
+msgid "PENDING"
+msgstr ""
+
+#: app/views/dashboard/referrals.php:4
+msgid "Affiliate Referrer:"
+msgstr ""
+
+#: app/views/dashboard/referrals.php:23
+msgid "Affiliate Referrals:"
+msgstr ""
+
+#: app/views/dashboard/referrals.php:25
+msgid "Sorry, you haven't had any referrals yet."
+msgstr ""
+
+#: app/views/dashboard/referrals.php:28
+msgid "Download as CSV"
+msgstr ""
+
+#: app/views/dashboard/stats.php:3
+msgid "My Stats"
+msgstr ""
+
+#: app/views/dashboard/stats.php:4
+#: app/views/payments/owed.php:12
+#: app/views/reports/stats.php:3
+#: app/views/reports/top.php:3
+msgid "Select the period you want to view"
+msgstr ""
+
+#: app/views/dashboard/stats.php:4
+#: app/views/payments/owed.php:12
+#: app/views/reports/stats.php:3
+#: app/views/reports/top.php:3
+#: app/views/update/edge_updates.php:3
+#: app/views/users/admin_profile.php:108
+msgid "Loading..."
+msgstr ""
+
+#: app/views/dashboard/stats.php:7
+#: app/views/dashboard/stats.php:117
+#: app/views/reports/stats.php:6
+#: app/views/reports/stats.php:116
+#: app/views/shared/flot_chart.php:4
+msgid "Uniques"
+msgstr ""
+
+#: app/views/dashboard/stats.php:120
+#: app/views/payments/owed.php:23
+#: app/views/reports/stats.php:119
+msgid "Corrections"
+msgstr ""
+
+#: app/views/dashboard/stats.php:166
+#: app/views/reports/stats.php:159
+msgid "Totals"
+msgstr ""
+
+#: app/views/integration/form.php:3
+msgid "Affiliate Program: Integration"
+msgstr ""
+
+#: app/views/integration/form.php:5
+msgid "Tracking Pixel"
+msgstr ""
+
+#: app/views/integration/form.php:8
+msgid "Copy this code and paste it onto your product's website. You should also add code to dynamically set the \"amount\", \"payment_id\" and \"affiliate_id\" (affiliate_id only needs to be set if your payment system pushes this across as a post back url) variables."
+msgstr ""
+
+#: app/views/links/links_saved.php:2
+msgid "Links and Banners saved."
+msgstr ""
+
+#: app/views/links/list.php:4
+msgid "To create a banner just hit \"Add New\" enter a Target URL and hit \"Update Links &amp; Banners.\" To create a simple link just hit \"Add New,\" enter a Target URL &amp; an image file and then hit \"Update Links &amp; Banners.\""
+msgstr ""
+
+#: app/views/links/list.php:12
+msgid "Link Type"
+msgstr ""
+
+#: app/views/links/list.php:13
+msgid "Target URL"
+msgstr ""
+
+#: app/views/links/list.php:14
+msgid "Slug"
+msgstr ""
+
+#: app/views/links/list.php:15
+msgid "Text/Image"
+msgstr ""
+
+#: app/views/links/list.php:16
+#: app/views/transactions/row.php:72
+msgid "Info"
+msgstr ""
+
+#: app/views/links/list.php:42
+#: app/views/links/list.php:77
+msgid "Choose..."
+msgstr ""
+
+#: app/views/links/list.php:44
+#: app/views/links/list.php:79
+msgid "Enter an URL or choose an image for the banner."
+msgstr ""
+
+#: app/views/links/list.php:49
+#: app/views/links/list.php:72
+msgid "Enter a link description for your URL."
+msgstr ""
+
+#: app/views/links/list.php:54
+msgid "Are you sure you want to delete this link?"
+msgstr ""
+
+#: app/views/links/list.php:59
+msgid "Text"
+msgstr ""
+
+#: app/views/links/list.php:59
+msgid "Banner"
+msgstr ""
+
+#: app/views/links/list.php:62
+msgid "Default link"
+msgstr ""
+
+#: app/views/links/list.php:91
+msgid "Default affiliate link:"
+msgstr ""
+
+#: app/views/links/list.php:95
+msgid "Standard (%s)"
+msgstr ""
+
+#: app/views/links/list.php:103
+msgid "Custom Standard Link Redirection"
+msgstr ""
+
+#: app/views/links/list.php:105
+msgid "This will override the default behavior of the standard link (%s) so it will redirect to a custom url rather than it's default behavior to just track and then pass-through."
+msgstr ""
+
+#: app/views/links/list.php:107
+msgid "Standard Link Redirect URL:"
+msgstr ""
+
+#: app/views/links/list.php:107
+msgid "The Standard Link Redirect URL must be a properly formatted URL"
+msgstr ""
+
+#: app/views/links/list.php:111
+msgid "Update Links &amp; Banners"
+msgstr ""
+
+#: app/views/options/affiliates.php:2
+#: app/views/users/admin_profile.php:2
+msgid "Affiliate Settings"
+msgstr ""
+
+#: app/views/options/affiliates.php:7
+msgid "Payment Method"
+msgstr ""
+
+#: app/views/options/affiliates.php:12
+msgid "What method will you use to pay your affiliates?"
+msgstr ""
+
+#: app/views/options/affiliates.php:22
+msgid "Show Address Fields"
+msgstr ""
+
+#: app/views/options/affiliates.php:27
+msgid "Collect address information from your affiliates?"
+msgstr ""
+
+#: app/views/options/affiliates.php:37
+msgid "Show Tax ID Field"
+msgstr ""
+
+#: app/views/options/affiliates.php:41
+msgid "Collect Tax ID?"
+msgstr ""
+
+#: app/views/options/affiliates.php:42
+msgid "Collect Tax ID #'s from your affiliates?"
+msgstr ""
+
+#: app/views/options/affiliates.php:52
+msgid "Force Required Fields"
+msgstr ""
+
+#: app/views/options/affiliates.php:56
+msgid "Force Required"
+msgstr ""
+
+#: app/views/options/affiliates.php:57
+msgid "Force required fields to be completed before promoting?"
+msgstr ""
+
+#: app/views/options/affiliates.php:67
+msgid "Auto-Add Users"
+msgstr ""
+
+#: app/views/options/affiliates.php:71
+msgid "Auto-Add Users as Affiliates"
+msgstr ""
+
+#: app/views/options/affiliates.php:72
+msgid "Automatically make each new user an Affiliate?"
+msgstr ""
+
+#: app/views/options/affiliates.php:82
+#: app/views/options/affiliates.php:86
+msgid "Show Affiliate Agreement"
+msgstr ""
+
+#: app/views/options/affiliates.php:87
+msgid "Enable The Affiliate Signup Agreement"
+msgstr ""
+
+#: app/views/options/affiliates.php:116
+#: app/views/options/affiliates.php:120
+msgid "Expire Cookie"
+msgstr ""
+
+#: app/views/options/affiliates.php:121
+msgid "The length of time that you'll allow before the affiliate cookie expires"
+msgstr ""
+
+#: app/views/options/affiliates.php:126
+msgid "Days"
+msgstr ""
+
+#: app/views/options/affiliates.php:131
+msgid "Pretty Affiliate Links"
+msgstr ""
+
+#: app/views/options/affiliates.php:135
+msgid "Affiliate Link Settings"
+msgstr ""
+
+#: app/views/options/affiliates.php:136
+msgid "Enable Pretty Affiliate Links"
+msgstr ""
+
+#: app/views/options/authorize_config.php:7
+msgid "Process silent posts with cron"
+msgstr ""
+
+#: app/views/options/authorize_config.php:18
+msgid "Debug mode"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:4
+msgid "Setting up Affiliate Royale and Authorize.Net ARB to work together involves configuring Authorize's Silent Post URL and MD5 Hash. Here are the steps you'll need to follow:"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:5
+msgid "Put a Tracking Code on your Payment Thank You Pages:"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:7
+msgid "You'll want to fill in a value for prod_id which can be the name of the product and the subscr_id which is the subscription id for the new ARB subscription."
+msgstr ""
+
+#: app/views/options/authorize_integration.php:10
+msgid "Configure the Silent Post URL:"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:12
+msgid "The Silent Post URL sends data back to Affiliate Royale about each transaction made through Authorize.Net:"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:14
+#: app/views/options/authorize_integration.php:25
+msgid "Log on to the Merchant Interface at https://account.authorize.net"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:15
+#: app/views/options/authorize_integration.php:26
+msgid "Click Settings under Account in the main menu on the left"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:16
+msgid "Click Silent Post URL in the Transaction Format Settings section"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:17
+msgid "Enter the following URL"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:18
+#: app/views/options/authorize_integration.php:29
+msgid "Click Submit"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:21
+msgid "Configure the MD5 Hash:"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:23
+msgid "The MD5 Hash feature allows you to authenticate that transaction responses are securely received from Authorize.Net."
+msgstr ""
+
+#: app/views/options/authorize_integration.php:27
+msgid "Click MD5-Hash in the Security Settings section"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:28
+msgid "Enter the following value into the \"New Hash Value\" and \"Confirm Hash Value\" fields:"
+msgstr ""
+
+#: app/views/options/authorize_integration.php:29
+msgid "Note: the MD5 Hash value is not displayed on the screen once submitted."
+msgstr ""
+
+#: app/views/options/cart66_integration.php:4
+msgid "Affiliate Royale automatically integrates with Cart66 Lite and Cart66 Pro ... so there's no additional configuration!"
+msgstr ""
+
+#: app/views/options/cart66_integration.php:5
+msgid "Note:"
+msgstr ""
+
+#: app/views/options/cart66_integration.php:5
+msgid "This \"Zero Config\" integration with Cart66 only works with Cart66 version 1.3.2 and above"
+msgstr ""
+
+#: app/views/options/commission.php:3
+msgid "Commission Settings"
+msgstr ""
+
+#: app/views/options/commission.php:12
+msgid "Base commissions on fixed amounts or on percentages of sales."
+msgstr ""
+
+#: app/views/options/commission.php:18
+#: app/views/options/memberpress_product_meta_box.php:13
+#: app/views/transactions/edit.php:63
+#: app/views/users/admin_profile.php:83
+msgid "Percentages"
+msgstr ""
+
+#: app/views/options/commission.php:19
+#: app/views/options/memberpress_product_meta_box.php:14
+#: app/views/transactions/edit.php:64
+#: app/views/users/admin_profile.php:84
+msgid "Fixed Amounts"
+msgstr ""
+
+#: app/views/options/commission.php:25
+msgid "Commission Levels"
+msgstr ""
+
+#: app/views/options/commission.php:29
+msgid "Configure what percentage or fixed amount you want to pay your affiliates per sale."
+msgstr ""
+
+#: app/views/options/commission.php:42
+#: app/views/options/memberpress_product_meta_box.php:19
+#: app/views/users/admin_profile.php:90
+msgid "add level"
+msgstr ""
+
+#: app/views/options/commission.php:42
+#: app/views/options/memberpress_product_meta_box.php:20
+#: app/views/users/admin_profile.php:91
+msgid "remove level"
+msgstr ""
+
+#: app/views/options/commission.php:49
+msgid "Recurring Commissions"
+msgstr ""
+
+#: app/views/options/commission.php:53
+msgid "Pay commissions on recurring transactions. If checked, Easy Affiliate will record commisssions on recurring rebill transactions -- otherwise it will only record commissions on the first transaction of a subscription."
+msgstr ""
+
+#: app/views/options/commission.php:64
+msgid "Require Minimum Payout"
+msgstr ""
+
+#: app/views/options/commission.php:69
+msgid "If this box is checked, an affiliate won't be elligible to get commissions until they've acquired a minimum amount of commissions"
+msgstr ""
+
+#: app/views/options/dashboard.php:3
+msgid "Dashboard Settings"
+msgstr ""
+
+#: app/views/options/dashboard.php:10
+msgid "Welcome Message"
+msgstr ""
+
+#: app/views/options/dashboard.php:14
+msgid "This is the customized message your affiliates will see on their Affiliate Dashboard welcome page."
+msgstr ""
+
+#: app/views/options/dashboard.php:27
+msgid "Show Referrals"
+msgstr ""
+
+#: app/views/options/dashboard.php:32
+msgid "Show Affiliates their referral (genealogy) information?"
+msgstr ""
+
+#: app/views/options/dashboard.php:44
+msgid "Custom Nav Pages"
+msgstr ""
+
+#: app/views/options/dashboard.php:47
+msgid "Custom Dashboard Nav Pages"
+msgstr ""
+
+#: app/views/options/dashboard.php:48
+msgid "Customize Nav page links that will appear on the Affiliate Dashboard."
+msgstr ""
+
+#: app/views/options/dashboard.php:55
+msgid "add page"
+msgstr ""
+
+#: app/views/options/dashboard.php:56
+msgid "remove page"
+msgstr ""
+
+#: app/views/options/diglabs_stripe_payments_integration.php:4
+msgid "Affiliate Royale automatically integrates with DigLabs Stripe Payments ... so there's no additional configuration!"
+msgstr ""
+
+#: app/views/options/easy_digital_downloads_integration.php:4
+msgid "Affiliate Royale automatically integrates with Easy Digital Downloads ... so there's no additional configuration!"
+msgstr ""
+
+#: app/views/options/ecommerce_integration.php:4
+msgid "Affiliate Royale automatically integrates with WP E-Commerce ... so there's no additional configuration!"
+msgstr ""
+
+#: app/views/options/emails.php:3
+msgid "Email Notifications"
+msgstr ""
+
+#: app/views/options/form.php:4
+msgid "User Manual"
+msgstr ""
+
+#: app/views/options/form.php:21
+msgid "Dashboard"
+msgstr ""
+
+#: app/views/options/form.php:23
+msgid "Integrations"
+msgstr ""
+
+#: app/views/options/form.php:24
+msgid "Emails"
+msgstr ""
+
+#: app/views/options/form.php:25
+msgid "I18n"
+msgstr ""
+
+#: app/views/options/form.php:26
+msgid "Marketing"
+msgstr ""
+
+#: app/views/options/form.php:69
+msgid "Update Options"
+msgstr ""
+
+#: app/views/options/general_integration.php:4
+msgid "You can configure Affiliate Royale to work with most Shopping Carts and payment systems with the use of a tracking pixel"
+msgstr ""
+
+#: app/views/options/general_integration.php:6
+msgid "If your \"Thank You\" page is on a page on this website:"
+msgstr ""
+
+#: app/views/options/general_integration.php:7
+msgid "You can just use the Affiliate Royale shortcode to pass static values like so. <b>Note:</b> this method should only be used for tracking manual or offline commissions. When you use static values like this you have to omit the order_id. Since the order_id must be unique, Affiliate Royale automatically creates a unique order_id for you -- this means that you'll want to probably disable the \"Affiliate Commission Notification\" and prevent your thank you page from being refreshed when using this method. This is because Affiliate Royale will track each page load as a new affiliate transaction."
+msgstr ""
+
+#: app/views/options/general_integration.php:9
+msgid "Or, you can tell the Affiliate Royale shortcode to read in GET / POST variables. For instance if your shopping cart redirects users to this thank you page 'http://example.com/thank-you/?awesome_amount=100.00&sweet_order_id=175FJS3H&prod_id=Awesome+Cool+Product' then you'd want the following shortcode installed:"
+msgstr ""
+
+#: app/views/options/general_integration.php:11
+msgid "If your \"Thank You\" page is on another website, part of a customized theme on this site or a page on this site outside of WordPress:"
+msgstr ""
+
+#: app/views/options/general_integration.php:12
+msgid "In this case you can use the Affiliate Royale tracking pixel to pass static values like so. <b>Note:</b> as with the shortcode, this method should only be used for tracking manual or offline commissions. When you use static values like this you have to omit the order_id. Since the order_id must be unique, Affiliate Royale automatically creates a unique order_id for you -- this means that you'll want to probably disable the \"Affiliate Commission Notification\" and prevent your thank you page from being refreshed when using this method. This is because Affiliate Royale will track each page load as a new affiliate transaction."
+msgstr ""
+
+#: app/views/options/general_integration.php:14
+msgid "Or, you can tell the Affiliate Royale tracking pixel to read in GET / POST variables if your tracking pixel is on a PHP page. For instance if your shopping cart redirects users to this thank you page 'http://examplecart.com/thank-you.php?awesome_amount=100.00&sweet_order_id=175FJS3H&prod_id=Awesome+Cool+Product' then you'd want the following shortcode installed:"
+msgstr ""
+
+#: app/views/options/general_integration.php:17
+msgid "More Information:"
+msgstr ""
+
+#: app/views/options/general_integration.php:18
+msgid "For instructions on integrating Affiliate Royale with your specific Shopping Cart or Payment Gateway can be found <a href=\"http://affiliateroyale.com/user-manual/generic-integration-options/\">here</a>."
+msgstr ""
+
+#: app/views/options/i18n.php:3
+msgid "International Settings"
+msgstr ""
+
+#: app/views/options/integration.php:3
+msgid "Payment Integration"
+msgstr ""
+
+#: app/views/options/jigoshop_integration.php:4
+msgid "Affiliate Royale automatically integrates with Jigoshop ... so there's no additional configuration!"
+msgstr ""
+
+#: app/views/options/marketpress_integration.php:4
+msgid "Affiliate Royale automatically integrates with MarketPress ... so there's no additional configuration!"
+msgstr ""
+
+#: app/views/options/memberpress_coupon_meta_box.php:5
+msgid "Associate an Affiliate"
+msgstr ""
+
+#: app/views/options/memberpress_integration.php:4
+msgid "Affiliate Royale automatically integrates with Memberpress ... so there's no additional configuration!"
+msgstr ""
+
+#: app/views/options/memberpress_product_meta_box.php:5
+msgid "Enable Commission Group"
+msgstr ""
+
+#: app/views/options/memberpress_product_meta_box.php:11
+#: app/views/users/admin_profile.php:81
+msgid "Commission Type:"
+msgstr ""
+
+#: app/views/options/memberpress_product_meta_box.php:17
+#: app/views/users/admin_profile.php:88
+msgid "Commission Levels:"
+msgstr ""
+
+#: app/views/options/memberpress_product_meta_box.php:23
+#: app/views/users/admin_profile.php:95
+msgid "Recurring Commissions:"
+msgstr ""
+
+#: app/views/options/memberpress_product_meta_box.php:26
+#: app/views/users/admin_profile.php:98
+msgid "Pay Recurring Commissions"
+msgstr ""
+
+#: app/views/options/options_saved.php:2
+msgid "Options saved."
+msgstr ""
+
+#: app/views/options/pages.php:4
+msgid "Affiliate Pages"
+msgstr ""
+
+#: app/views/options/pages.php:10
+msgid "Dashboard Page*"
+msgstr ""
+
+#: app/views/options/pages.php:14
+msgid "This is the WordPress page that Easy Affiliate will use as the Affiliate's Dashboard."
+msgstr ""
+
+#: app/views/options/pages.php:23
+msgid "Affiliate Dashboard"
+msgstr ""
+
+#: app/views/options/pages.php:30
+msgid "Signup Page*"
+msgstr ""
+
+#: app/views/options/pages.php:34
+msgid "This is the WordPress page that Easy Affiliate will use as the affiliate signup page."
+msgstr ""
+
+#: app/views/options/pages.php:43
+msgid "Affiliate Signup"
+msgstr ""
+
+#: app/views/options/pages.php:50
+msgid "Login Page*"
+msgstr ""
+
+#: app/views/options/pages.php:54
+msgid "This is the WordPress page that Easy Affiliate will use as the affiliate login page."
+msgstr ""
+
+#: app/views/options/pages.php:63
+msgid "Affiliate Login"
+msgstr ""
+
+#: app/views/options/paypal_config.php:4
+msgid "Valid PayPal Email Addresses (recommended)"
+msgstr ""
+
+#: app/views/options/paypal_config.php:6
+msgid "This is a list of valid paypal email addresses that IPN requests can be recieved from. If this is left blank then any valid IPN request will be recorded as a transaction. It is recommended that you enter all the paypal email addresses (comma separated) that could be used to send IPN requests to your affiliate commission tracker to prevent fraud."
+msgstr ""
+
+#: app/views/options/paypal_config.php:7
+msgid "Use PayPal Sandbox"
+msgstr ""
+
+#: app/views/options/paypal_config.php:8
+msgid "Recieve IPN Requests from hosts other than PayPal:"
+msgstr ""
+
+#: app/views/options/paypal_config.php:10
+msgid "Please enter the IP Addresses, separated by commas, of hosts authorized for Affiliate Royale to receive IPN requests from. If this is left blank then only IPN requests coming directly from PayPal will be recorded."
+msgstr ""
+
+#: app/views/options/paypal_config.php:11
+msgid "Forward IPN Requests to additional URLs:"
+msgstr ""
+
+#: app/views/options/paypal_config.php:13
+msgid "Please enter URLs to forward IPN requests to. Each URL should be on its own line. If this is left blank then IPN requests will not be forwarded."
+msgstr ""
+
+#: app/views/options/paypal_integration.php:4
+msgid "Here are the steps you'll need to follow to integrate Affiliate Royale with PayPal"
+msgstr ""
+
+#: app/views/options/paypal_integration.php:5
+#: app/views/options/wishlist_integration.php:5
+msgid "To create your payment button:"
+msgstr ""
+
+#: app/views/options/paypal_integration.php:7
+#: app/views/options/wishlist_integration.php:7
+msgid "Log Into Your PayPal Account"
+msgstr ""
+
+#: app/views/options/paypal_integration.php:8
+#: app/views/options/wishlist_integration.php:8
+msgid "Go to \"Merchant Services\" -> \"Create Buttons\""
+msgstr ""
+
+#: app/views/options/paypal_integration.php:9
+#: app/views/options/wishlist_integration.php:9
+msgid "Create either a \"Buy Now\" or \"Subscribe\" Button"
+msgstr ""
+
+#: app/views/options/paypal_integration.php:18
+#: app/views/options/wishlist_integration.php:16
+msgid "Now you can copy your button's code and paste it somewhere on this site. Note: the button must reside on this site in a page or post in order for the affiliate tracking to work properly."
+msgstr ""
+
+#: app/views/options/paypal_integration.php:19
+msgid "Lastly you'll need to edit the HTML you copied onto your page and replace <pre>&lt;input type=\"hidden\" name=\"custom\" value=\"[wafp_custom_args]\"&gt;</pre> with just <pre>[wafp_custom_args]</pre> and <pre>&lt;input type=\"hidden\" name=\"notify_url\" value=\"[wafp_ipn]\"&gt;</pre> with just <pre>[wafp_ipn]</pre>. This is required to get around a change made to shortcode processing in WordPress 4.2.3 and later."
+msgstr ""
+
+#: app/views/options/paypal_integration.php:21
+#: app/views/options/wishlist_integration.php:19
+msgid "(Optional) Setup Affiliate Royale to automatically record refunds and process recurring payments:"
+msgstr ""
+
+#: app/views/options/paypal_integration.php:23
+#: app/views/options/wishlist_integration.php:21
+msgid "Go to \"My Account\" -> \"Profile\" -> \"Instant Payment Notification Preferences\" in PayPal"
+msgstr ""
+
+#: app/views/options/paypal_integration.php:24
+#: app/views/options/wishlist_integration.php:22
+msgid "Make sure IPN is enabled"
+msgstr ""
+
+#: app/views/options/paypal_integration.php:25
+#: app/views/options/wishlist_integration.php:23
+msgid "Paste the following URL into the Notification URL text field and hit save:"
+msgstr ""
+
+#: app/views/options/shopp_integration.php:4
+msgid "Affiliate Royale automatically integrates with Shopp ... so there's no additional configuration!"
+msgstr ""
+
+#: app/views/options/super_stripe_integration.php:4
+msgid "Affiliate Royale automatically integrates with Super Stripe ... so there's no additional configuration!"
+msgstr ""
+
+#: app/views/options/wishlist_integration.php:4
+msgid "Here are the steps you'll need to follow to integrate Affiliate Royale with Wishlist Member when its using PayPal to process payments"
+msgstr ""
+
+#: app/views/options/wishlist_integration.php:11
+msgid "Make Sure \"Add advanced variables\" is checked in Step 3 and add the following text into the \"Advanced Variables\" text area underneath your custom variables for Wishlist Member:"
+msgstr ""
+
+#: app/views/options/wishlist_integration.php:17
+msgid "Lastly you'll need to edit the HTML you copied onto your page and replace <b>&lt;input type=\"hidden\" name=\"custom\" value=\"[wafp_custom_args]\"&gt;</b> with just <b>[wafp_custom_args]</b>. This is required to get around a change made to shortcode processing in WordPress 4.2.3 and later."
+msgstr ""
+
+#: app/views/options/woocommerce_integration.php:4
+msgid "Affiliate Royale automatically integrates with WooCommerce ... so there's no additional configuration!"
+msgstr ""
+
+#: app/views/payments/list.php:4
+msgid "Payments made to affiliates"
+msgstr ""
+
+#: app/views/payments/owed.php:18
+msgid "Status"
+msgstr ""
+
+#: app/views/payments/owed.php:24
+msgid "To Payout"
+msgstr ""
+
+#: app/views/payments/owed.php:33
+msgid "No Payments are due for this period."
+msgstr ""
+
+#: app/views/payments/owed.php:65
+msgid "Not Affiliate"
+msgstr ""
+
+#: app/views/payments/owed.php:68
+msgid "Blocked"
+msgstr ""
+
+#: app/views/payments/owed.php:71
+msgid "No PayPal Email"
+msgstr ""
+
+#: app/views/payments/owed.php:74
+msgid "Below Minimum"
+msgstr ""
+
+#: app/views/payments/owed.php:77
+msgid "Eligible"
+msgstr ""
+
+#: app/views/payments/owed.php:93
+#: app/views/payments/receipt.php:24
+msgid "none"
+msgstr ""
+
+#: app/views/payments/owed.php:105
+msgid "Mark Checked Commissions as Paid"
+msgstr ""
+
+#: app/views/payments/owed.php:112
+msgid "Previous Payments"
+msgstr ""
+
+#: app/views/payments/owed.php:119
+msgid "Next Payments"
+msgstr ""
+
+#: app/views/payments/receipt.php:3
+msgid "Affiliate Commission Summary"
+msgstr ""
+
+#: app/views/payments/receipt.php:31
+msgid "Download PayPal Mass Payment File"
+msgstr ""
+
+#: app/views/payments/receipt.php:37
+msgid "Newer Clicks"
+msgstr ""
+
+#: app/views/payments/receipt.php:44
+msgid "Older Clicks"
+msgstr ""
+
+#: app/views/reports/nav.php:3
+msgid "Affiliate Stats"
+msgstr ""
+
+#: app/views/reports/nav.php:4
+msgid "Top Referrers"
+msgstr ""
+
+#: app/views/reports/top.php:11
+msgid "Refunds"
+msgstr ""
+
+#: app/views/reports/top.php:38
+msgid "Next Page"
+msgstr ""
+
+#: app/views/reports/top.php:45
+msgid "Prev Page"
+msgstr ""
+
+#: app/views/reports/weekly_stats.php:4
+msgid "Your 7 day Affiliate activity:"
+msgstr ""
+
+#: app/views/reports/weekly_stats.php:11
+msgid "View More Affiliate Royale Reports"
+msgstr ""
+
+#: app/views/shared/already_logged_in.php:7
+msgid "You're already logged in. %1$sLogout.%2$s"
+msgstr ""
+
+#: app/views/shared/errors.php:7
+msgid "ERROR"
+msgstr ""
+
+#: app/views/shared/leaderboard_display.php:10
+msgid "Sales Referred"
+msgstr ""
+
+#: app/views/shared/leaderboard_display.php:32
+msgid "No data available"
+msgstr ""
+
+#: app/views/shared/login_form.php:6
+#: app/views/users/reset_password.php:5
+msgid "Password"
+msgstr ""
+
+#: app/views/shared/login_form.php:8
+msgid "Remember Me"
+msgstr ""
+
+#: app/views/shared/login_form.php:11
+msgid "Log In"
+msgstr ""
+
+#: app/views/shared/login_form.php:18
+msgid "Register"
+msgstr ""
+
+#: app/views/shared/login_form.php:19
+msgid "Lost Password?"
+msgstr ""
+
+#: app/views/shared/must_configure.php:3
+msgid "Your Affiliate Program must be configured. Go to the %s to set it up."
+msgstr ""
+
+#: app/views/shared/must_configure.php:3
+msgid "Affiliate Program Page"
+msgstr ""
+
+#: app/views/shared/no_registration.php:2
+msgid "Registration is currently not allowed on this site."
+msgstr ""
+
+#: app/views/shared/signup_form.php:14
+msgid "Choose a Username"
+msgstr ""
+
+#: app/views/shared/signup_form.php:18
+msgid "E-mail"
+msgstr ""
+
+#: app/views/shared/signup_form.php:54
+msgid "US Residents (###-##-#### or ##-#######)"
+msgstr ""
+
+#: app/views/shared/signup_form.php:57
+msgid "International Tax ID"
+msgstr ""
+
+#: app/views/shared/signup_form.php:65
+msgid "PayPal E-mail"
+msgstr ""
+
+#: app/views/shared/signup_form.php:73
+msgid "Create a Password"
+msgstr ""
+
+#: app/views/shared/signup_form.php:77
+#: app/views/users/reset_password.php:9
+msgid "Password Confirmation"
+msgstr ""
+
+#: app/views/shared/signup_form.php:87
+msgid "I agree to the %1$sAffiliate Sign-up Agreement%2$s."
+msgstr ""
+
+#: app/views/shared/signup_form.php:102
+msgid "Sign Up"
+msgstr ""
+
+#: app/views/shared/table-controls.php:3
+msgid "Search ..."
+msgstr ""
+
+#: app/views/shared/table-controls.php:5
+msgid "Display"
+msgstr ""
+
+#: app/views/shared/table-controls.php:12
+msgid "entries"
+msgstr ""
+
+#: app/views/shared/unauthorized.php:2
+msgid "You're unauthorized to view this page. Why don't you %1$sLogin%2$s and try again."
+msgstr ""
+
+#: app/views/shared/unknown_error.php:2
+msgid "An Unknown Error Occurred"
+msgstr ""
+
+#: app/views/shared/wp_cant_register.php:3
+msgid "Your WordPress registration settings do not currently allow user registrations.. Go to the %s to enable registrations."
+msgstr ""
+
+#: app/views/shared/wp_cant_register.php:3
+msgid "General Wordpress Settings Page"
+msgstr ""
+
+#: app/views/subscriptions/list.php:4
+msgid "Subscriptions referred by affiliates"
+msgstr ""
+
+#: app/views/subscriptions/row.php:46
+msgid "Delete this Subscription."
+msgstr ""
+
+#: app/views/transactions/edit.php:5
+msgid "Edit Transaction"
+msgstr ""
+
+#: app/views/transactions/edit.php:17
+msgid "Transaction ID:"
+msgstr ""
+
+#: app/views/transactions/edit.php:18
+msgid "Created:"
+msgstr ""
+
+#: app/views/transactions/edit.php:23
+msgid "Edit Commission Payouts"
+msgstr ""
+
+#: app/views/transactions/edit.php:33
+msgid "Payed on %s"
+msgstr ""
+
+#: app/views/transactions/edit.php:80
+#: app/views/transactions/row.php:92
+msgid "Correction Amount"
+msgstr ""
+
+#: app/views/transactions/edit.php:84
+#: app/views/transactions/row.php:91
+msgid "Commission Amount"
+msgstr ""
+
+#: app/views/transactions/edit.php:97
+msgid "Update"
+msgstr ""
+
+#: app/views/transactions/list.php:4
+msgid "Transactions referred by Affiliates"
+msgstr ""
+
+#: app/views/transactions/new.php:5
+msgid "Add New Affiliate Transaction"
+msgstr ""
+
+#: app/views/transactions/new.php:10
+msgid "Creating a new transaction here will calculate and record commissions based on the affiliate selected. Also, any commission notification emails that are enabled will be sent out."
+msgstr ""
+
+#: app/views/transactions/new.php:19
+msgid "Create"
+msgstr ""
+
+#: app/views/transactions/row.php:72
+msgid "Delete this Transaction."
+msgstr ""
+
+#: app/views/transactions/row.php:72
+msgid "Delete"
+msgstr ""
+
+#: app/views/transactions/row.php:84
+msgid "Commission Payouts"
+msgstr ""
+
+#: app/views/transactions/_form.php:4
+msgid "Affiliate*:"
+msgstr ""
+
+#: app/views/transactions/_form.php:8
+msgid "The affiliate who referred this transaction."
+msgstr ""
+
+#: app/views/transactions/_form.php:13
+msgid "Customer Name (optional):"
+msgstr ""
+
+#: app/views/transactions/_form.php:16
+msgid "The Customer's Full Name. Not required."
+msgstr ""
+
+#: app/views/transactions/_form.php:21
+msgid "Customer Email (optional):"
+msgstr ""
+
+#: app/views/transactions/_form.php:24
+msgid "The Customer's Email Address. Not required."
+msgstr ""
+
+#: app/views/transactions/_form.php:29
+msgid "Product*:"
+msgstr ""
+
+#: app/views/transactions/_form.php:32
+msgid "The product that was purchased"
+msgstr ""
+
+#: app/views/transactions/_form.php:37
+msgid "Unique Order ID*:"
+msgstr ""
+
+#: app/views/transactions/_form.php:40
+msgid "The unique order id of this transaction."
+msgstr ""
+
+#: app/views/transactions/_form.php:45
+msgid "Amount*:"
+msgstr ""
+
+#: app/views/transactions/_form.php:49
+msgid "The sale amount of this transaction"
+msgstr ""
+
+#: app/views/transactions/_form.php:54
+msgid "Refund Amount*:"
+msgstr ""
+
+#: app/views/transactions/_form.php:58
+msgid "The refund amount of this transaction"
+msgstr ""
+
+#: app/views/update/activation_warning.php:3
+msgid "Error with AFFILIATE_ROYALE_LICENSE_KEY: %s"
+msgstr ""
+
+#: app/views/update/activation_warning.php:5
+msgid "<b>Affiliate Royale hasn't been activated yet.</b> Go to the Affiliate Royale %1$sactivation page%2$s to activate it."
+msgstr ""
+
+#: app/views/update/edge_updates.php:3
+msgid "Include Affiliate Royale edge (development) releases in automatic updates (not recommended for production websites)"
+msgstr ""
+
+#: app/views/update/ui.php:8
+msgid "You must have a License Key to enable automatic updates for Affiliate Royale.<br/><br/>If you don't have a license please go to %1$s or %2$s to get one.<br/><br/>If you don't have a license you can login at %3$s or %4$s to manage your licenses and site activations."
+msgstr ""
+
+#: app/views/update/ui.php:14
+msgid "Enter Your Affiliate Royale or MemberPress License Key:"
+msgstr ""
+
+#: app/views/update/ui.php:21
+msgid "Activate License Key on %s"
+msgstr ""
+
+#: app/views/update/ui.php:26
+msgid "Active License Key Information:"
+msgstr ""
+
+#: app/views/update/ui.php:29
+msgid "License Key:"
+msgstr ""
+
+#: app/views/update/ui.php:33
+msgid "Status:"
+msgstr ""
+
+#: app/views/update/ui.php:34
+msgid "<b>Active on %s</b>"
+msgstr ""
+
+#: app/views/update/ui.php:37
+msgid "Product:"
+msgstr ""
+
+#: app/views/update/ui.php:41
+msgid "Activations:"
+msgstr ""
+
+#: app/views/update/ui.php:45
+msgid "Are you sure? Automatic updates of Affiliate Royale will not be available on %s if this License Key is deactivated."
+msgstr ""
+
+#: app/views/update/ui.php:45
+msgid "Deactivate License Key on %s"
+msgstr ""
+
+#: app/views/users/admin_profile.php:9
+msgid "Address 1"
+msgstr ""
+
+#: app/views/users/admin_profile.php:13
+msgid "Address 2"
+msgstr ""
+
+#: app/views/users/admin_profile.php:21
+msgid "State"
+msgstr ""
+
+#: app/views/users/admin_profile.php:25
+msgid "Zip"
+msgstr ""
+
+#: app/views/users/admin_profile.php:45
+msgid "Int'l Tax ID"
+msgstr ""
+
+#: app/views/users/admin_profile.php:54
+msgid "(login name)"
+msgstr ""
+
+#: app/views/users/admin_profile.php:58
+msgid "User is an Affiliate"
+msgstr ""
+
+#: app/views/users/admin_profile.php:59
+msgid "Is this user an Affiliate?"
+msgstr ""
+
+#: app/views/users/admin_profile.php:62
+msgid "User is Blocked"
+msgstr ""
+
+#: app/views/users/admin_profile.php:65
+msgid "Is this user blocked?"
+msgstr ""
+
+#: app/views/users/admin_profile.php:67
+msgid "Affiliate Blocked Message:"
+msgstr ""
+
+#: app/views/users/admin_profile.php:73
+msgid "Commission Override"
+msgstr ""
+
+#: app/views/users/admin_profile.php:74
+msgid "Enable Commission Override for this User."
+msgstr ""
+
+#: app/views/users/admin_profile.php:108
+msgid "Resend Affiliate Program Welcome Email"
+msgstr ""
+
+#: app/views/users/forgot_password.php:2
+msgid "Request a Password Reset"
+msgstr ""
+
+#: app/views/users/forgot_password.php:5
+msgid "Enter Your Username or Email Address"
+msgstr ""
+
+#: app/views/users/forgot_password.php:9
+msgid "Request Password Reset"
+msgstr ""
+
+#: app/views/users/forgot_password_requested.php:2
+msgid "Successfully requested password reset"
+msgstr ""
+
+#: app/views/users/forgot_password_requested.php:3
+msgid "Please click on the confirmation link that was just sent to your email address."
+msgstr ""
+
+#: app/views/users/reset_password.php:2
+msgid "Enter your new password"
+msgstr ""
+
+#: app/views/users/reset_password.php:13
+msgid "Reset Password"
+msgstr ""
+
+#: app/views/users/reset_password_thankyou.php:2
+msgid "Password successfully reset"
+msgstr ""
+
+#: app/views/users/reset_password_thankyou.php:3
+msgid "Your new password has been emailed to you."
+msgstr ""
+
+#: app/views/users/signup_thankyou.php:2
+msgid "Thanks for Registering for %s!"
+msgstr ""
+
+#: app/views/users/signup_thankyou.php:3
+msgid "You should shortly receive a confirmation email with your login information."
+msgstr ""
+
+#: app/views/users/signup_thankyou.php:4
+msgid "Login to your Affiliate Dashboard"
+msgstr ""

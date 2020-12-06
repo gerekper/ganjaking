@@ -264,7 +264,12 @@ class WidgetInMenu {
 			wp_die( - 1 );
 		}
 
-		require_once ABSPATH . 'wp-admin/includes/nav-menu.php';
+		$file_path = str_replace( array(
+			'\\',
+			'/'
+		), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/nav-menu.php' );
+
+		require_once $file_path;
 
 		// For performance reasons, we omit some object properties from the checklist.
 		// The following is a hacky way to restore them when adding non-custom items.

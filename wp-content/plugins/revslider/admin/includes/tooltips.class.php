@@ -30,7 +30,7 @@ class RevSliderTooltips {
 				'margin' => '20px 0 0 0',
 				'text' => 'Get information about the different options available for your Slider',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/support/'
+				'link' => 'https://www.sliderrevolution.com/help-center/'
 				
 			),
 			'slides' => array(
@@ -41,7 +41,7 @@ class RevSliderTooltips {
 				'margin' => '20px 0 0 0',
 				'text' => "Add new Slides, reorder your current Slides and manage the Module's global content",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/slide-management/'
+				'link' => 'https://www.sliderrevolution.com/documentation/slide-management/'
 				
 			),
 			'add_layer' => array(
@@ -178,7 +178,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover',
 				'text' => 'Add a new Slide to the Slider',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/slide-management/'
+				'link' => 'https://www.sliderrevolution.com/documentation/slide-management/'
 			
 			),
 			'global_layers' => array(
@@ -191,7 +191,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-staticlayers',
 				'text' => 'Content that should always be visible throughout the life-cycle of your Slider exists here',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/global-layers/'
+				'link' => 'https://www.sliderrevolution.com/documentation/global-layers/'
 			
 			),
 			'slide_order' => array(
@@ -204,7 +204,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-slideorder',
 				'text' => 'Drag these menu items on top of one another to change the order of your Slides',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/slide-management/#switch-reorder-slides'
+				'link' => 'https://www.sliderrevolution.com/documentation/slide-management/#switch-reorder-slides'
 			
 			),
 			'add_layer_text' => array(
@@ -217,7 +217,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-text',
 				'text' => 'Add a text element to the current Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-content/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-content/'
 			
 			),
 			'add_layer_image' => array(
@@ -230,7 +230,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-image',
 				'text' => 'Add an image to the current Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-content/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-content/'
 			
 			),
 			'add_layer_button' => array(
@@ -243,7 +243,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-button',
 				'text' => 'Add a pre-styled button to the current Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-content/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-content/'
 			
 			),
 			'add_layer_shape' => array(
@@ -256,7 +256,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-shape',
 				'text' => 'Shapes are elements with a background colors but not content',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-content/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-content/'
 			
 			),
 			'add_layer_video' => array(
@@ -269,7 +269,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-video',
 				'text' => 'Add a YouTube, Vimeo or HTML5 video to the current Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-content/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-content/'
 			
 			),
 			'add_layer_audio' => array(
@@ -282,7 +282,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-audio',
 				'text' => 'Add sound to the current Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-content/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-content/'
 			
 			),
 			'add_layer_object' => array(
@@ -295,7 +295,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-object',
 				'text' => 'Add a simple icon or SVG element to the current Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-content/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-content/'
 			
 			),
 			'add_layer_row' => array(
@@ -308,7 +308,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-row',
 				'text' => 'Add a new Row to the current Slide to allow for Rows/Column-based content',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/rows-columns/'
+				'link' => 'https://www.sliderrevolution.com/documentation/rows-columns/'
 			
 			),
 			'add_layer_group' => array(
@@ -321,7 +321,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-group',
 				'text' => 'Add a special container to the Slide that can then include multiple Layers grouped together',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-groups/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-groups/'
 			
 			),
 			'add_layer_layerlibrary' => array(
@@ -334,7 +334,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-layerlibrary',
 				'text' => 'Add a text-based template that includes a predefined style and animation',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-content/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-content/'
 			
 			),
 			'add_layer_importlayer' => array(
@@ -347,7 +347,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-importlayer',
 				'text' => 'Import a Layer from another Slider or Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-content/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-content/'
 			
 			),
 			'delete_layer' => array(
@@ -359,7 +359,7 @@ class RevSliderTooltips {
 				'trigger' => array('#module_layers_trigger'),
 				'text' => 'Delete the currently selected Layer',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/editor-overview/'
+				'link' => 'https://www.sliderrevolution.com/documentation/editor-overview/'
 				
 			),
 			'duplicate_layer' => array(
@@ -373,7 +373,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-duplicate',
 				'text' => 'Duplicate the currently selected Layer',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/editor-overview/'
+				'link' => 'https://www.sliderrevolution.com/documentation/editor-overview/'
 				
 			),
 			'copy_layer' => array(
@@ -387,7 +387,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-copy',
 				'text' => 'Copy the current Layer and paste it into another Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/editor-overview/'
+				'link' => 'https://www.sliderrevolution.com/documentation/editor-overview/'
 				
 			),
 			'paste_layer' => array(
@@ -401,7 +401,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-paste',
 				'text' => 'Paste a copied Layer into the current Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/editor-overview/'
+				'link' => 'https://www.sliderrevolution.com/documentation/editor-overview/'
 				
 			),
 			'lock_layers' => array(
@@ -415,7 +415,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-lock',
 				'text' => 'Lock the currently selected Layer(s) from being edited',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/editor-overview/'
+				'link' => 'https://www.sliderrevolution.com/documentation/editor-overview/'
 				
 			),
 			'unlock_layers' => array(
@@ -429,7 +429,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-unlock',
 				'text' => 'Unlock the currently selected Layers so they can be edited',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/editor-overview/'
+				'link' => 'https://www.sliderrevolution.com/documentation/editor-overview/'
 				
 			),
 			'hide_highlight_boxes' => array(
@@ -443,7 +443,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-highlightboxes',
 				'text' => "Hide the editor's outline guide markers",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/editor-overview/'
+				'link' => 'https://www.sliderrevolution.com/documentation/editor-overview/'
 				
 			),
 			'show_hide_selected' => array(
@@ -457,7 +457,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-showhide',
 				'text' => "Show the editor's outline guide markers for the selected Layers",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/editor-overview/'
+				'link' => 'https://www.sliderrevolution.com/documentation/editor-overview/'
 				
 			),
 			'set_all_visible' => array(
@@ -471,7 +471,7 @@ class RevSliderTooltips {
 				'cssClass' => 'tip-hover tip-hover-setallvisible',
 				'text' => "Show all outline guide markers for the editor",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/editor-overview/'
+				'link' => 'https://www.sliderrevolution.com/documentation/editor-overview/'
 				
 			),
 			'change_layer_order' => array(
@@ -483,7 +483,7 @@ class RevSliderTooltips {
 				'trigger' => array('#module_layers_trigger'),
 				'text' => 'Use these arrows to adjust the z-index/stacking order of the currently selected Layer',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/editor-overview/'
+				'link' => 'https://www.sliderrevolution.com/documentation/editor-overview/'
 				
 			),
 			'layout_type' => array(
@@ -499,7 +499,7 @@ class RevSliderTooltips {
 				'scrollTo' => '#form_slider_layout_layout',
 				'text' => "Optionally set your Slider to display as a carousel or a Hero Scene",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/module-layout/'
+				'link' => 'https://www.sliderrevolution.com/documentation/module-layout/'
 			
 			),
 			'layout_sizing' => array(
@@ -515,7 +515,7 @@ class RevSliderTooltips {
 				'scrollTo' => '#form_slider_layout_layout',
 				'text' => 'Choose how the Slider should be displayed on your web page',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/module-layout/'
+				'link' => 'https://www.sliderrevolution.com/documentation/module-layout/'
 			
 			),
 			'breakpoints' => array(
@@ -531,7 +531,7 @@ class RevSliderTooltips {
 				'scrollTo' => '#form_slider_layout_bpoints',
 				'text' => "Enable device breakpoints and edit your content's size and position for each viewport",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/module-layout/'
+				'link' => 'https://www.sliderrevolution.com/documentation/module-layout/'
 			
 			),
 			'module_content' => array(
@@ -545,7 +545,7 @@ class RevSliderTooltips {
 				'section' => 'Module General Options -> Content',
 				'text' => 'Choose if your Slider should be auto-populated with content from your blog or a social channel',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/module-content/'
+				'link' => 'https://www.sliderrevolution.com/documentation/module-content/'
 			
 			),
 			'auto_rotate' => array(
@@ -561,7 +561,7 @@ class RevSliderTooltips {
 				'scrollTo' => '#form_slidergeneral_general',
 				'text' => 'Enable/disable autoplay for the Slider',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/module-general-settings/'
+				'link' => 'https://www.sliderrevolution.com/documentation/module-general-settings/'
 			
 			),
 			'lazy_loading' => array(
@@ -577,7 +577,7 @@ class RevSliderTooltips {
 				'scrollTo' => '#form_module_advanced',
 				'text' => "Enable LazyLoading for your Slider's images for faster page loading",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/advanced-module-settings/'
+				'link' => 'https://www.sliderrevolution.com/documentation/advanced-module-settings/'
 			
 			),
 			'progress_bar' => array(
@@ -593,7 +593,7 @@ class RevSliderTooltips {
 				'section' => 'Navigation Options -> Progress',
 				'text' => "Display the Slider's progress with an animated horizontal bar",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/progress-bar/'
+				'link' => 'https://www.sliderrevolution.com/documentation/progress-bar/'
 			
 			),
 			'navigation_arrows' => array(
@@ -609,7 +609,7 @@ class RevSliderTooltips {
 				'section' => 'Navigation Options -> Arrows',
 				'text' => "Switch between Slides with navigation Arrows",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/navigation-arrows/'
+				'link' => 'https://www.sliderrevolution.com/documentation/navigation-arrows/'
 			
 			),
 			'navigation_bullets' => array(
@@ -625,7 +625,7 @@ class RevSliderTooltips {
 				'section' => 'Navigation Options -> Bullets',
 				'text' => 'Switch between Slides with navigation Bullets',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/navigation-bullets/'
+				'link' => 'https://www.sliderrevolution.com/documentation/navigation-bullets/'
 			
 			),
 			'navigation_tabs' => array(
@@ -641,7 +641,7 @@ class RevSliderTooltips {
 				'section' => 'Navigation Options -> Tabs',
 				'text' => 'Switch between Slides with navigation Tabs',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/navigation-tabs/'
+				'link' => 'https://www.sliderrevolution.com/documentation/navigation-tabs/'
 			
 			),
 			'navigation_thumbs' => array(
@@ -657,7 +657,7 @@ class RevSliderTooltips {
 				'section' => 'Navigation Options -> Thumbs',
 				'text' => 'Switch between Slides with navigation Thumbnails',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/navigation-thumbnails/'
+				'link' => 'https://www.sliderrevolution.com/documentation/navigation-thumbnails/'
 			
 			),
 			'slide_background' => array(
@@ -673,7 +673,7 @@ class RevSliderTooltips {
 				'section' => 'Slide Options -> Background',
 				'text' => "Set/change the current Slide's main background to an image, video or color",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/slide-background/'
+				'link' => 'https://www.sliderrevolution.com/documentation/slide-background/'
 			
 			),
 			'slide_animation' => array(
@@ -689,7 +689,7 @@ class RevSliderTooltips {
 				'section' => 'Slide Options -> Title',
 				'text' => "Set the animation for the Slide's main background image when the Slides change",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/slide-animation/'
+				'link' => 'https://www.sliderrevolution.com/documentation/slide-animation/'
 			
 			),
 			'background_filter' => array(
@@ -706,7 +706,7 @@ class RevSliderTooltips {
 				'section' => 'Slide Options -> Title',
 				'text' => "Add a CSS image filter to the Slide's main background",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/slide-filters/'
+				'link' => 'https://www.sliderrevolution.com/documentation/slide-filters/'
 			
 			),
 			'slide_duration' => array(
@@ -723,7 +723,7 @@ class RevSliderTooltips {
 				'section' => 'Slide Options -> Title',
 				'text' => 'Adjust the total duration for the current Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/slide-progress/'
+				'link' => 'https://www.sliderrevolution.com/documentation/slide-progress/'
 			
 			),
 			'slide_link' => array(
@@ -740,7 +740,7 @@ class RevSliderTooltips {
 				'scrollTo' => '#form_slidegeneral_linkseo',
 				'text' => 'Add a link to the entire Slide',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/tags-link/'
+				'link' => 'https://www.sliderrevolution.com/documentation/tags-link/'
 			
 			),
 			'edit_text' => array(
@@ -755,7 +755,7 @@ class RevSliderTooltips {
 				'section' => 'Layer Options -> Title',
 				'text' => 'Edit the content of your text Layers here',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-content/#edit-set-content'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-content/#edit-set-content'
 			
 			),
 			'font_size' => array(
@@ -771,7 +771,7 @@ class RevSliderTooltips {
 				'scrollTo' => '#form_layer_style',
 				'text' => 'Set the font-size for your text Layers here',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/font-colors-styling/'
+				'link' => 'https://www.sliderrevolution.com/documentation/font-colors-styling/'
 			
 			),
 			'font_family' => array(
@@ -787,7 +787,7 @@ class RevSliderTooltips {
 				'scrollTo' => '#form_layer_style',
 				'text' => 'Set the font-family for your text Layers here',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/font-colors-styling/'
+				'link' => 'https://www.sliderrevolution.com/documentation/font-colors-styling/'
 			
 			),
 			'font_color' => array(
@@ -803,7 +803,7 @@ class RevSliderTooltips {
 				'scrollTo' => '#form_layer_style',
 				'text' => 'Set the text color for your Layers here',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/font-colors-styling/'
+				'link' => 'https://www.sliderrevolution.com/documentation/font-colors-styling/'
 			
 			),
 			'layer_position' => array(
@@ -818,7 +818,7 @@ class RevSliderTooltips {
 				'section' => 'Layer Options -> Title',
 				'text' => "Adjust the Layer's position inside the current Slide",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/size-position/'
+				'link' => 'https://www.sliderrevolution.com/documentation/size-position/'
 			
 			),
 			'layer_animations' => array(
@@ -834,7 +834,7 @@ class RevSliderTooltips {
 				'section' => 'Layer Options -> Title',
 				'text' => 'Set the in/out animations for your Layer content here',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/layer-animations/'
+				'link' => 'https://www.sliderrevolution.com/documentation/layer-animations/'
 			
 			),
 			'layer_hover' => array(
@@ -850,7 +850,7 @@ class RevSliderTooltips {
 				'section' => 'Layer Options -> Title',
 				'text' => 'Apply hover styles to your Layers',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/mouse-hover-settings/'
+				'link' => 'https://www.sliderrevolution.com/documentation/mouse-hover-settings/'
 			
 			),
 			'edit_layer_name' => array(
@@ -877,7 +877,7 @@ class RevSliderTooltips {
 				'section' => 'Layer Options -> Title',
 				'text' => 'Adjust the responsive behavior of your content here',
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/responsive-settings/'
+				'link' => 'https://www.sliderrevolution.com/documentation/responsive-settings/'
 			
 			),
 			'timeline_preview' => array(
@@ -890,7 +890,7 @@ class RevSliderTooltips {
 				'cssClass' => 'rb-tooltip-timeline',
 				'text' => "Preview the current Slide's animations",
 				'linkText' => 'Learn More',
-				'link' => 'http://docs.themepunch.com/slider-revolution/slide-timeline/'
+				'link' => 'https://www.sliderrevolution.com/documentation/slide-timeline/'
 			
 			),
 			'save_module' => array(

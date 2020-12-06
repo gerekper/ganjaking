@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Conditional Shipping and Payments
 * Plugin URI: https://woocommerce.com/products/woocommerce-conditional-shipping-and-payments
 * Description: Exclude shipping methods, payment gateways and shipping countries/states using conditional logic.
-* Version: 1.8.6
+* Version: 1.8.9
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -16,7 +16,7 @@
 * Tested up to: 5.5
 *
 * WC requires at least: 2.6
-* WC tested up to: 4.6
+* WC tested up to: 4.7
 *
 * Copyright: © 2017-2020 SomewhereWarm SMPC.
 * License: GNU General Public License v3.0
@@ -76,7 +76,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Multiple restriction instances can be added to implement OR-related rules.
  *
  * @class    WC_Conditional_Shipping_Payments
- * @version  1.8.6
+ * @version  1.8.9
  */
 
 if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
@@ -84,7 +84,7 @@ if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
 class WC_Conditional_Shipping_Payments {
 
 	/* Plugin version */
-	const VERSION = '1.8.6';
+	const VERSION = '1.8.9';
 
 	/* Required WC version */
 	const REQ_WC_VERSION = '2.6.0';
@@ -240,7 +240,7 @@ class WC_Conditional_Shipping_Payments {
 
 		// WC version check.
 		if ( ! function_exists( 'WC' ) || version_compare( WC()->version, self::REQ_WC_VERSION ) < 0 ) {
-			require_once( 'includes/admin/class-wc-csp-admin-notices.php' );
+			require_once( WC_CSP_ABSPATH . 'includes/admin/class-wc-csp-admin-notices.php' );
 			$notice = sprintf( __( 'WooCommerce Conditional Shipping and Payments requires at least WooCommerce <strong>%s</strong>.', 'woocommerce-conditional-shipping-and-payments' ), self::REQ_WC_VERSION );
 			WC_CSP_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
@@ -271,26 +271,29 @@ class WC_Conditional_Shipping_Payments {
 	public function includes() {
 
 		// Class autoloader.
-		require_once( 'includes/class-wc-csp-autoloader.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/class-wc-csp-autoloader.php' );
 
-		// CP functions.
-		require_once( 'includes/wc-csp-functions.php' );
+		// Helpers.
+		require_once( WC_CSP_ABSPATH . 'includes/class-wc-csp-helpers.php' );
+
+		// Global functions.
+		require_once( WC_CSP_ABSPATH . 'includes/wc-csp-functions.php' );
 
 		// Compatibility.
-		require_once( 'includes/compatibility/class-wc-csp-compatibility.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/compatibility/class-wc-csp-compatibility.php' );
 
 		// Abstract restriction class extended by the included restriction classes.
-		require_once( 'includes/abstracts/class-wc-csp-abstract-restriction.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/abstracts/class-wc-csp-abstract-restriction.php' );
 
 		// Restriction type interfaces implemented by the included restriction classes.
-		require_once( 'includes/types/class-wc-csp-checkout-restriction.php' );
-		require_once( 'includes/types/class-wc-csp-cart-restriction.php' );
-		require_once( 'includes/types/class-wc-csp-update-cart-restriction.php' );
-		require_once( 'includes/types/class-wc-csp-add-to-cart-restriction.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/types/class-wc-csp-checkout-restriction.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/types/class-wc-csp-cart-restriction.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/types/class-wc-csp-update-cart-restriction.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/types/class-wc-csp-add-to-cart-restriction.php' );
 
 		// Abstract condition classes extended by the included condition classes.
-		require_once( 'includes/abstracts/class-wc-csp-abstract-condition.php' );
-		require_once( 'includes/abstracts/class-wc-csp-abstract-package-condition.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/abstracts/class-wc-csp-abstract-condition.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/abstracts/class-wc-csp-abstract-package-condition.php' );
 
 		// Admin functions and meta-boxes.
 		if ( is_admin() ) {
@@ -310,7 +313,7 @@ class WC_Conditional_Shipping_Payments {
 	 * @return void
 	 */
 	public function admin_includes() {
-		require_once( 'includes/admin/class-wc-csp-admin.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/admin/class-wc-csp-admin.php' );
 		$this->admin = new WC_CSP_Admin();
 	}
 

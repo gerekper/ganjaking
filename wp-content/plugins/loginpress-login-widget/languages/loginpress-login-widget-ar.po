@@ -1,0 +1,268 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LoginPress - Login Widget v1.0.2\n"
+"POT-Creation-Date: 2018-09-26 09:33+0500\n"
+"PO-Revision-Date: 2019-08-02 22:45+0300\n"
+"Last-Translator: \n"
+"Language-Team: Moqbel BJ <moqbelbj@gmail.com>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress-login-widget.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: classes/class-loginpress-widget.php:25
+msgid "Displays a login widget in the sidebar."
+msgstr "عرض عنصر واجهة مستخدم لتسجيل الدخول في الشريط الجانبي."
+
+#: classes/class-loginpress-widget.php:29
+msgid "LoginPress: Login Widget"
+msgstr "لوجن بريس LoginPress: عنصر واجهة مستخدم لتسجيل الدخول Login Widget"
+
+#: classes/class-loginpress-widget.php:57
+msgid "Logged-out Title"
+msgstr "عنوان مسجل خروج"
+
+#: classes/class-loginpress-widget.php:58
+#: classes/class-loginpress-widget.php:286
+msgid "Login"
+msgstr "تسجيل دخول"
+
+#: classes/class-loginpress-widget.php:62
+msgid "Logged-out Links (Text | href)"
+msgstr "روابط تسجيل الخروج (النص | href)"
+
+#: classes/class-loginpress-widget.php:67
+msgid "Show lost password link"
+msgstr "عرض رابط فقدان كلمة المرور"
+
+#: classes/class-loginpress-widget.php:72
+msgid "Lost password text"
+msgstr "نص فقدان كلمة المرور"
+
+#: classes/class-loginpress-widget.php:73
+#: classes/class-loginpress-widget.php:249
+msgid "Lost your password?"
+msgstr "فقدت كلمة مرورك؟"
+
+#: classes/class-loginpress-widget.php:77
+msgid "Show register link"
+msgstr "عرض رابط التسجيل"
+
+#: classes/class-loginpress-widget.php:79
+#, php-format
+msgid "%1$sAnyone can register%2$s must be enabled."
+msgstr "%1$sأي أحد بإمكانه التسجيل%2$s لابد أن يكون ممكّن."
+
+#: classes/class-loginpress-widget.php:83
+msgid "Register text"
+msgstr "نص التسجيل"
+
+#: classes/class-loginpress-widget.php:84
+#: classes/class-loginpress-widget.php:231
+msgid "Register"
+msgstr "سجّل"
+
+#: classes/class-loginpress-widget.php:88
+msgid "Show \"Remember me\" checkbox"
+msgstr "عرض صندوق الاختيار \"تذكرني\""
+
+#: classes/class-loginpress-widget.php:93
+msgid "Login Redirect URL"
+msgstr "رابط إعادة توجيه تسجيل الدخول"
+
+#: classes/class-loginpress-widget.php:96
+#: classes/class-loginpress-widget.php:125
+msgid "Current page URL"
+msgstr "رابط الصفحة الحالي"
+
+#: classes/class-loginpress-widget.php:102
+msgid "Logged-in title"
+msgstr "عنوان مسجل دخول"
+
+#: classes/class-loginpress-widget.php:103
+#: classes/class-loginpress-widget.php:285
+msgid "Welcome %username%"
+msgstr "مرحباً %username%"
+
+#: classes/class-loginpress-widget.php:107
+msgid "Logged-in Links (Text | HREF | Capability)"
+msgstr "روابط المسجل دخول (النص | HREF | الإمكانية)"
+
+#: classes/class-loginpress-widget.php:108
+#, php-format
+msgid ""
+"%1$sCapability%2$s (optional) refers to the type of user who can view the "
+"link."
+msgstr ""
+"%1$sالإمكانية%2$s (إختياري) يشير إلى نوع المستخدم الذي يمكنه مشاهدة الرابط."
+
+#: classes/class-loginpress-widget.php:109
+msgid ""
+"Dashboard | %admin_url%\n"
+"Profile | %admin_url%/profile.php\n"
+"Logout | %logout_url%"
+msgstr ""
+"لوحة الواجهة | %admin_url%\n"
+"الملف الشخصي | %admin_url%/profile.php\n"
+"تسجيل خروج | %logout_url%"
+
+#: classes/class-loginpress-widget.php:113
+msgid "Show logged-in user avatar"
+msgstr "عرض الصورة الرمزية للمستخدم المسجل دخول"
+
+#: classes/class-loginpress-widget.php:118
+msgid "Logged-in user avatar size"
+msgstr "حجم الصورة الرمزية للمستخدم المسجل دخول"
+
+#: classes/class-loginpress-widget.php:123
+msgid "Logout Redirect URL"
+msgstr "رابط إعادة التوجيه لتسجيل الخروج"
+
+#: classes/class-loginpress-widget.php:131
+msgid "Error Messages"
+msgstr "رسائل الخطأ"
+
+#: classes/class-loginpress-widget.php:132
+#, php-format
+msgid "You can change the Error messages from %1$sLoginPress Customizer%2$s"
+msgstr "باستطاعتك تغيير رسائل الخطأ من %1$sمخصص لوجن بريس LoginPress%2$s"
+
+#: classes/class-loginpress-widget.php:136
+msgid "Error Background Color"
+msgstr "لون خلفية الخطأ"
+
+#: classes/class-loginpress-widget.php:141
+msgid "Error Text Color"
+msgstr "لون نص الخطأ"
+
+#: classes/class-loginpress-widget.php:368
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: classes/class-loginpress-widget.php:370
+msgid "Email Address"
+msgstr "البريد الالكتروني"
+
+#: classes/class-loginpress-widget.php:372
+msgid "Username or Email Address"
+msgstr "اسم المستخدم أو البريد الالكتروني"
+
+#: classes/class-loginpress-widget.php:379
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: classes/class-loginpress-widget.php:380
+msgid "Remember Me"
+msgstr "تذكرني"
+
+#: classes/class-loginpress-widget.php:381
+msgid "Login &rarr;"
+msgstr "دخول &larr;"
+
+#: loginpress-login-widget.php:62
+msgid "or"
+msgstr "أو"
+
+#: loginpress-login-widget.php:69
+msgid "Login with Google Plus"
+msgstr "تسجيل دخول مع جوجل +"
+
+#: loginpress-login-widget.php:71
+msgid "Login with Google"
+msgstr "تسجيل دخول مع جوجل"
+
+#: loginpress-login-widget.php:82 loginpress-login-widget.php:84
+msgid "Login with Facebook"
+msgstr "تسجيل دخول مع فيسبوك"
+
+#: loginpress-login-widget.php:95 loginpress-login-widget.php:97
+msgid "Login with Twitter"
+msgstr "تسجيل دخول مع تويتر"
+
+#: loginpress-login-widget.php:108 loginpress-login-widget.php:110
+msgid "Login with LinkedIn"
+msgstr "تسجيل دخول مع لينكدإن"
+
+#: loginpress-login-widget.php:173
+#, php-format
+msgid "%1$sError:%2$s Invalid Username."
+msgstr "%1$sخطأ:%2$s اسم مستخدم غير صحيح."
+
+#: loginpress-login-widget.php:175
+#, php-format
+msgid "%1$sError:%2$s Invalid Password."
+msgstr "%1$sخطأ:%2$s كلمة مرور غير صحيحة."
+
+#: loginpress-login-widget.php:177
+#, php-format
+msgid "%1$sError:%2$s The username field is empty."
+msgstr "%1$sخطأ:%2$s حقل اسم المستخدم فارغ."
+
+#: loginpress-login-widget.php:179
+#, php-format
+msgid "%1$sError:%2$s The password field is empty."
+msgstr "%1$sخطأ:%2$s حقل كلمة المرور فارغ."
+
+#: loginpress-login-widget.php:181
+#, php-format
+msgid "%1$sError:%2$s The email address isn't correct.."
+msgstr "%1$sخطأ:%2$s عنوان البريد الالكتروني غير صحيح."
+
+#: loginpress-login-widget.php:302
+msgid "Please enter your username and password to login."
+msgstr "الرجاء أدخل اسم المستخدم وكلمة المرور الخاص بك للدخول."
+
+#: loginpress-login-widget.php:346
+msgid ""
+"Please Install LoginPress Pro to use \"LoginPress Login Widget\" add-on."
+msgstr ""
+"الرجاء تركيب نسخة لوجن بريس المحترفة LoginPress Pro لتتمكن من استخدام "
+"الملحق \"لوجن بريس LoginPress عنصر واجهة مستخدم لتسجيل الدخول Login Widget"
+"\"."
+
+#: loginpress-login-widget.php:363
+msgid "LoginPress Login Widget required LoginPress Pro activation &mdash; "
+msgstr ""
+"يتطلب لوجن بريس عنصر واجهة المستخدم لتسجيل الدخول LoginPress Login Widget "
+"أن يكون لديك نسخة لوجن بريس المحترفة LoginPress Pro منشطة &mdash; "
+
+#: loginpress-login-widget.php:363
+msgid "Click here to activate LoginPress Pro"
+msgstr "اضغط هنا لتنشيط نسخة لوجن بريس المحترفة LoginPress Pro"
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Login Widget"
+msgstr "لوجن بريس LoginPress - عنصر واجهة مستخدم لتسجيل الدخول Login Widget"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.WPBrigade.com/wordpress/plugins/loginpress/"
+msgstr "http://www.WPBrigade.com/wordpress/plugins/loginpress/"
+
+#. Description of the plugin/theme
+msgid ""
+"LoginPress -Login widget is the best Login plugin by <a href=\"https://"
+"wpbrigade.com/\">WPBrigade</a> which allows you to login from front end."
+msgstr ""
+"لوجن بريس LoginPress - عنصر واجهة مستخدم لتسجيل الدخول هو أفضل إضافة لتسجيل "
+"الدخول بواسطة <a href=\"https://wpbrigade.com/\">WPBrigade</a> والذي يسمح "
+"لك بتسجيل الدخول من واجهة الموقع الأمامية."
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr "WPBrigade"
+
+#. Author URI of the plugin/theme
+msgid "http://www.WPBrigade.com/"
+msgstr "http://www.WPBrigade.com/"

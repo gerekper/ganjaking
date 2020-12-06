@@ -140,16 +140,37 @@ class WCS_ATT_Cart {
 			}
 		}
 
+		if ( 'raw' === $context ) {
+			return $cart_level_schemes;
+		}
+
+		if ( ! self::supports_cart_subscription_schemes( $context ) ) {
+			return false;
+		}
+
+		if ( in_array( $context, array( 'cart', 'display', 'cart-display' ) ) ) {
+			// Last chance to turn off or otherwise modify cart level plans.
+			$cart_level_schemes = apply_filters( 'wcsatt_cart_subscription_schemes', $cart_level_schemes, $context );
+		}
+
+		return $cart_level_schemes;
+	}
+
+	/**
+	 * Whether cart-level subscription schemes are supported.
+	 *
+	 * @since  3.1.19
+	 *
+	 * @return boolean
+	 */
+	public static function supports_cart_subscription_schemes( $context ) {
+
 		if ( $context instanceof WC_Product ) {
 
 			// Unsupported product type?
 			if ( ! self::is_supported_product_type( $context ) ) {
 				return false;
 			}
-
-		} elseif ( 'raw' === $context ) {
-
-			return $cart_level_schemes;
 
 		} elseif ( in_array( $context, array( 'cart', 'display', 'cart-display' ) ) ) {
 
@@ -177,12 +198,9 @@ class WCS_ATT_Cart {
 					}
 				}
 			}
-
-			// Last chance to turn off or otherwise modify cart level plans.
-			$cart_level_schemes = apply_filters( 'wcsatt_cart_subscription_schemes', $cart_level_schemes, $context );
 		}
 
-		return $cart_level_schemes;
+		return true;
 	}
 
 	/**

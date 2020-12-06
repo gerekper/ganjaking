@@ -1,5 +1,14 @@
 *** Product Addons Changelog ***
 
+2020-11-25 - version 3.2.0
+* Fix - Add plugin page to new WooCommerce Navigation.
+* Tweak - WC 4.7 compatibility.
+* Tweak - WP 5.6 compatibility.
+
+2020-11-14 - version 3.1.1
+* Fix - Calculate the selected addons subtotal, even if the date for a bookable product hasn't been chosen yet.
+* Fix - Change field name upon selection when there is a description.
+
 2020-09-29 - version 3.1.0
 * Fix - Sanitize data when importing product addons.
 * Fix - Include quantity in calculation for customer defined price fields.

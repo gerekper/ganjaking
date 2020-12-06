@@ -1,0 +1,141 @@
+# Copyright (C) 2017 MemberPress Math CAPTCHA
+# This file is distributed under the same license as the MemberPress Math CAPTCHA package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Math CAPTCHA 1.0.9\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-math-"
+"captcha\n"
+"POT-Creation-Date: 2017-05-10 20:11:01+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-08-10 01:50+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it_IT\n"
+"X-Generator: Poedit 2.0.2\n"
+
+#: MpmathUpdateController.php:166
+msgid "Membership"
+msgstr "Abbonamento"
+
+#: MpmathUpdateController.php:167
+msgid "Membership Software"
+msgstr "Applicazione Abbonamento"
+
+#: MpmathUpdateController.php:168
+msgid "Members"
+msgstr "Utenti"
+
+#: MpmathUpdateController.php:169
+msgid "Payment"
+msgstr "Pagamento"
+
+#: MpmathUpdateController.php:170
+msgid "Protection"
+msgstr "Protezione"
+
+#: MpmathUpdateController.php:171
+msgid "Rule"
+msgstr "Regola"
+
+#: MpmathUpdateController.php:172
+msgid "Lock"
+msgstr "Blocco"
+
+#: MpmathUpdateController.php:173
+msgid "Access"
+msgstr "Accesso"
+
+#: MpmathUpdateController.php:174
+msgid "Community"
+msgstr "Community"
+
+#: MpmathUpdateController.php:175
+msgid "Admin"
+msgstr "Amministratore"
+
+#: MpmathUpdateController.php:176
+msgid "Pages"
+msgstr "Pagine"
+
+#: MpmathUpdateController.php:177
+msgid "Posts"
+msgstr "Articoli"
+
+#: MpmathUpdateController.php:178
+msgid "Plugin"
+msgstr "Plugin"
+
+#: MpmathUpdateController.php:179
+msgid ""
+"MemberPress helps you place a simple math captcha on your MemberPress "
+"registration forms."
+msgstr ""
+"MemberPress ti aiuta a inserire una semplice captcha matematico sui moduli "
+"di iscrizione di MemberPress."
+
+#: MpmathUpdateController.php:180
+msgid ""
+"You can access in-depth information about MemberPress at %1$sthe MemberPress "
+"User Manual%2$s."
+msgstr ""
+"È possibile accedere a informazioni approfondite su MemberPress "
+"all'indirizzo %1$sdel Manuale di MemberPress%2$s."
+
+#: MpmathUpdateController.php:180
+msgid "No Additional information right now"
+msgstr "Nessuna informazione aggiuntiva in questo momento"
+
+#: MpmathUpdateController.php:209
+msgid "You had an HTTP error connecting to Caseproof's Mothership API"
+msgstr "Hai avuto un errore di connessione con Caseproof's Mothership API"
+
+#: MpmathUpdateController.php:220
+msgid "Your License Key was invalid"
+msgstr "Il tuo codice di licenza non è valido"
+
+#: memberpress-math-captcha.php:109
+msgid "%s equals?"
+msgstr "%s uguale a?"
+
+#: memberpress-math-captcha.php:123 memberpress-math-captcha.php:128
+#: memberpress-math-captcha.php:136
+msgid "You must fill out the Math Quiz correctly."
+msgstr "Devi compilare correttamente il quiz di matematica."
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr "Benvenuto %s!"
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr "Una stringa con bassa priorità!"
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr "Ciao\n"
+
+#. Plugin Name of the plugin/theme
+msgid "MemberPress Math CAPTCHA"
+msgstr "MemberPress Math CAPTCHA"
+
+#. Plugin URI of the plugin/theme
+msgid "http://memberpress.com"
+msgstr "http://memberpress.com"
+
+#. Description of the plugin/theme
+msgid ""
+"Shows a Math question on the signup forms to prevent bots from signing up "
+"SPAM accounts."
+msgstr ""
+"Mostra una domanda di matematica sui moduli di iscrizione per impedire ai "
+"bots di eseguire la registrazione di account SPAM."
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr "Caseproof, LLC"
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com"
+msgstr "http://caseproof.com"

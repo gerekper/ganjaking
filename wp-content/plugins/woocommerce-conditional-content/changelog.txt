@@ -1,4 +1,8 @@
 *** WooCommerce Conditional Content Changelog ***
+2020.11.27 - version 2.1.5
+    * Enhancement: Add Cart Total Quantity rule to target specific cart quantity regardless of the product(s) being purchased.
+    * Update:  WP and WC compatibility tags.
+
 2020.10.02 - version 2.1.4
     * Fix:  Fix product search inputs when building rules.  Now uses WC's enhanced scripts.
     * Fix:  Use H:i:s rather than h:i:s for current time when comparing the schedule rule.

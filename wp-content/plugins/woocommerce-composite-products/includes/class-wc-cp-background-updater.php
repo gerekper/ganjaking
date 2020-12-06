@@ -145,7 +145,7 @@ class WC_CP_Background_Updater extends WP_Background_Process {
 	 */
 	protected function task( $callback ) {
 
-		include_once( 'wc-cp-update-functions.php' );
+		include_once( WC_CP_ABSPATH . 'includes/wc-cp-update-functions.php' );
 
 		if ( is_callable( $callback ) ) {
 

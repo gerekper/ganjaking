@@ -76,22 +76,22 @@ class WC_PB_Admin {
 
 		// Product Import/Export.
 		if ( WC_PB_Core_Compatibility::is_wc_version_gte( '3.1' ) ) {
-			require_once( 'export/class-wc-pb-product-export.php' );
-			require_once( 'import/class-wc-pb-product-import.php' );
+			require_once( WC_PB_ABSPATH . 'includes/admin/export/class-wc-pb-product-export.php' );
+			require_once( WC_PB_ABSPATH . 'includes/admin/import/class-wc-pb-product-import.php' );
 		}
 
 		// Product Metaboxes.
-		require_once( 'meta-boxes/class-wc-pb-meta-box-product-data.php' );
+		require_once( WC_PB_ABSPATH . 'includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php' );
 
 		// Post type stuff.
-		require_once( 'class-wc-pb-admin-post-types.php' );
+		require_once( WC_PB_ABSPATH . 'includes/admin/class-wc-pb-admin-post-types.php' );
 
 		// Admin AJAX.
-		require_once( 'class-wc-pb-admin-ajax.php' );
+		require_once( WC_PB_ABSPATH . 'includes/admin/class-wc-pb-admin-ajax.php' );
 
 		// Admin edit-order screen.
 		if ( WC_PB_Core_Compatibility::is_wc_version_gte( '3.2' ) ) {
-			require_once( 'class-wc-pb-admin-order.php' );
+			require_once( WC_PB_ABSPATH . 'includes/admin/class-wc-pb-admin-order.php' );
 		}
 	}
 
@@ -350,7 +350,7 @@ class WC_PB_Admin {
 			'overrides'            => self::get_template_overrides()
 		);
 
-		include( 'views/html-admin-page-status-report.php' );
+		include( WC_PB_ABSPATH . 'includes/admin/views/html-admin-page-status-report.php' );
 	}
 
 	/**
@@ -432,7 +432,7 @@ class WC_PB_Admin {
 	 */
 	public static function get_insufficient_stock_report_content( $name ) {
 
-		require_once( 'reports/class-wc-pb-report-insufficient-stock.php' );
+		require_once( WC_PB_ABSPATH . 'includes/admin/reports/class-wc-pb-report-insufficient-stock.php' );
 
 		$report = new WC_PB_Report_Insufficient_Stock;
 		$report->output_report();

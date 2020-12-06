@@ -105,12 +105,13 @@ class WC_Memberships_Meta_Box_User_Membership_Member_Details extends \WC_Members
 			<br><br>
 			<?php if ( $member_since = wc_memberships()->get_user_memberships_instance()->get_user_member_since_local_date( $user->ID, 'timestamp' ) ) : ?>
 
-				<span class="member-since"><?php
-
-					/* translators: Placeholder: %s - date */
-					printf( __( 'Member since %s', 'woocommerce-memberships' ),
+				<span class="member-since">
+					<?php printf(
+						/* translators: Placeholder: %s - date */
+						esc_html__( 'Member since %s', 'woocommerce-memberships' ),
 						date_i18n( wc_date_format(), $member_since )
-					); ?></span>
+					); ?>
+				</span>
 
 			<?php endif; ?>
 		</p>
@@ -145,6 +146,22 @@ class WC_Memberships_Meta_Box_User_Membership_Member_Details extends \WC_Members
 		</address>
 		<br>
 		<?php
+
+		$last_active = get_user_meta( $user->ID, 'wc_last_active', true );
+
+		if ( is_numeric( $last_active ) ) :
+
+			?>
+			<span class="last-login">
+				<?php printf(
+					/* translators: Placeholder: %s last login since */
+					esc_html__( 'Last login: %s ago', 'woocommerce-memberships' ),
+					human_time_diff( (int) $last_active )
+				); ?>
+			</span>
+			<?php
+
+		endif;
 
 		/**
 		 * Fires at the end of the member detail meta box.

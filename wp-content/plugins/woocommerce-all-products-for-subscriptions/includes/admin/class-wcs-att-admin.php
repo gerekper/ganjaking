@@ -96,12 +96,12 @@ class WCS_ATT_Admin {
 	public static function includes() {
 
 		if ( WCS_ATT_Core_Compatibility::is_wc_version_gte( '3.1' ) ) {
-			require_once( 'export/class-wcs-att-product-export.php' );
-			require_once( 'import/class-wcs-att-product-import.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/admin/export/class-wcs-att-product-export.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/admin/import/class-wcs-att-product-import.php' );
 		}
 
-		require_once( 'class-wcs-att-admin-ajax.php' );
-		require_once( 'meta-boxes/class-wcs-att-meta-box-product-data.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/admin/class-wcs-att-admin-ajax.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php' );
 	}
 
 	/**
@@ -458,7 +458,7 @@ class WCS_ATT_Admin {
 			'overrides' => self::get_template_overrides()
 		);
 
-		include( 'views/html-admin-page-status-report.php' );
+		include( WCS_ATT_ABSPATH . 'includes/admin/views/html-admin-page-status-report.php' );
 	}
 
 	/**

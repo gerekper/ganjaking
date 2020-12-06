@@ -381,7 +381,7 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		if(isset($sitepress_settings['language_negotiation_type']) && $sitepress_settings['language_negotiation_type'] == 3) {
 			if($default_language_code == $language_code) {
 				return $permalink;
-			} else {
+			} else if(strpos($permalink, "lang=") === false) {
 				$permalink .= "?lang={$language_code}";
 			}
 		}

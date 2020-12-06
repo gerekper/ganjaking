@@ -3,10 +3,11 @@
  * Plugin Name: WooCommerce Cart Add-Ons
  * Plugin URI: https://woocommerce.com/products/cart-add-ons/
  * Description: A tool for driving incremental and impulse purchases once customers are in the shopping cart. It extends the concept of upsells and cross-sells at the product level, and engages your customers at the moment they are most likely to increase spending.
- * Version: 1.15.32
+ * Version: 1.15.34
  * Author: WooCommerce
- * Tested up to: 5.5
- * WC tested up to: 4.5
+ * Tested up to: 5.6
+ * WC requires at least: 4.0
+ * WC tested up to: 4.7
  * Author URI: https://woocommerce.com/
  * Text domain: sfn_cart_addons
  * Woo: 18717:3a8ef25334396206f5da4cf208adeda3
@@ -32,11 +33,14 @@
 /**
  * Localisation
  **/
+
+use \Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+
 load_plugin_textdomain( 'sfn_cart_addons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 add_filter( 'woocommerce_translations_updates_for_woocommerce-cart-add-ons', '__return_true' );
 
 
-define( 'WC_CART_ADDONS_VERSION', '1.15.32' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CART_ADDONS_VERSION', '1.15.34' ); // WRCS: DEFINED_VERSION.
 
 // Activation.
 register_activation_hook( __FILE__, array( 'SFN_Cart_Addons', 'activate' ) );
@@ -112,6 +116,19 @@ class SFN_Cart_Addons {
 
 		// Register our help tab.
 		add_action( 'load-' . $admin_page, array( $this, 'register_help_tab' ) );
+
+		if ( ! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ) {
+			return;
+		}
+
+		Menu::add_plugin_item(
+			array(
+				'id'         => 'sfn-cart-addons',
+				'title'      => __( 'Cart Add-Ons', 'sfn_cart_addons' ),
+				'url'        => 'sfn-cart-addons',
+				'capability' => 'manage_woocommerce',
+			)
+		);
 	}
 
 	/**
@@ -714,8 +731,6 @@ if ( ! function_exists( 'sfn_get_product' ) ) {
 	function sfn_get_product( $id ) {
 		if ( function_exists( 'wc_get_product' ) ) {
 			return wc_get_product( $id );
-		} elseif ( function_exists( 'get_product' ) ) {
-			return get_product( $id );
 		} else {
 			$product_post = get_post( $id );
 

@@ -1,12 +1,12 @@
 <?php
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 class WC_Settings_Tab_Redsys_Sort_Invoices {
 
@@ -15,7 +15,7 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 *
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public static function init() {
 		add_filter( 'woocommerce_settings_tabs_array', __CLASS__ . '::add_settings_tab', 50 );
@@ -31,7 +31,7 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 * @return array $settings_tabs Array of WooCommerce setting tabs & their labels, including the Subscription tab.
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public static function add_settings_tab( $settings_tabs ) {
 		$settings_tabs['settings_tab_redsys_invoices'] = __( 'Sequential Invoice Numbers', 'woocommerce-redsys' );
@@ -46,7 +46,7 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 * @uses self::get_settings()
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public static function settings_tab() {
 		woocommerce_admin_fields( self::get_settings() );
@@ -60,7 +60,7 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 * @uses self::get_settings()
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public static function update_settings() {
 		woocommerce_update_options( self::get_settings() );
@@ -72,7 +72,7 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	* @return array Array of settings for @see woocommerce_admin_fields() function.
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public static function get_settings() {
 
@@ -159,7 +159,7 @@ if ( 'yes' === get_option( 'wc_settings_tab_redsys_sort_invoices_is_active' ) ) 
 	}
 }
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_add_invoice_number( $columns ) {
 
@@ -177,7 +177,7 @@ function redsys_add_invoice_number( $columns ) {
 
 // render the values
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_add_invoice_number_value( $column ) {
 	global $post;
@@ -191,7 +191,7 @@ function redsys_add_invoice_number_value( $column ) {
 
 // sort invoice order colum
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_add_invoice_number_sortable_colum( $columns ) {
 
@@ -202,7 +202,7 @@ function redsys_add_invoice_number_sortable_colum( $columns ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_sort_invoice_orders( $order_id ) {
 
@@ -249,7 +249,7 @@ function redsys_sort_invoice_orders( $order_id ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_sort_invoice_orders_admin( $order_id ) {
 
@@ -296,7 +296,7 @@ function redsys_sort_invoice_orders_admin( $order_id ) {
 }
 // We hook to WooCommerce payment function
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_add_invoice_number_to_customer_email( $order ) {
 
@@ -311,7 +311,7 @@ function redsys_add_invoice_number_to_customer_email( $order ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_check_add_invoice_number( $order ) {
 	global $woocommerce, $post;
@@ -355,7 +355,7 @@ function redsys_check_add_invoice_number( $order ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_show_invoice_number( $oldnumber, $order ) {
 	$preorderprefix = get_option( 'wc_settings_tab_redsys_sort_invoices_prefix_order_number' );
@@ -378,7 +378,7 @@ function redsys_show_invoice_number( $oldnumber, $order ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_use_patterns( $string ) {
 	$Numericzero                   = preg_replace( '/(\{d\})/', date_i18n( 'd' ), $string );
@@ -405,7 +405,7 @@ function redsys_use_patterns( $string ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_check_current_year() {
 		$current_year = date_i18n( 'Y' );

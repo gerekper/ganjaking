@@ -121,6 +121,7 @@ class WC_Memberships_Admin_User_Memberships {
 		$columns['status']       = __( 'Status', 'woocommerce-memberships' );       // user membership status
 		$columns['member_since'] = __( 'Member since', 'woocommerce-memberships' ); // membership created
 		$columns['expires']      = __( 'Expires', 'woocommerce-memberships' );      // expiration date-time
+		$columns['last_login']   = __( 'Last login', 'woocommerce-memberships' );   // last login since
 
 		return $columns;
 	}
@@ -391,6 +392,19 @@ class WC_Memberships_Admin_User_Memberships {
 
 			break;
 
+			case 'last_login' :
+
+				$last_active = $user instanceof \WP_User ? get_user_meta( $user->ID, 'wc_last_active', true ) : null;
+
+				echo is_numeric( $last_active ) ? sprintf(
+					/* translators: Placeholder: %s last login since */
+					esc_html__( '%s ago', 'woocommerce-memberships' ),
+					human_time_diff( (int) $last_active )
+				) : '&mdash;';
+
+			break;
+
+			// variable profile fields
 			default:
 
 				$user_id = $user_membership->get_user_id();

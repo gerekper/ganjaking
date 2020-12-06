@@ -1,0 +1,426 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: LoginPress Pro\n"
+"POT-Creation-Date: 2019-07-15 11:55+0500\n"
+"PO-Revision-Date: 2019-07-15 11:54+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress-pro.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: classes/loginpress-addon-updater.php:154
+#, php-format
+msgid ""
+"There is a new version of %1$s availablee. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr ""
+
+#: classes/loginpress-addon-updater.php:161
+#, php-format
+msgid ""
+"There is a new version of %1$s availablee. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a href=\"%4$s"
+"\">update now</a>."
+msgstr ""
+
+#: classes/loginpress-addon-updater.php:235
+#: lib/LOGINPRESS_PRO_SL_Plugin_Updater.php:399
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: classes/loginpress-addon-updater.php:235
+#: lib/LOGINPRESS_PRO_SL_Plugin_Updater.php:399
+msgid "Error"
+msgstr ""
+
+#: classes/loginpress-customize.php:38
+msgid "reCAPTCHA"
+msgstr ""
+
+#: classes/loginpress-customize.php:45 classes/loginpress-recaptcha.php:505
+msgid "<strong>ERROR:</strong> Please verify reCAPTCHA"
+msgstr ""
+
+#: classes/loginpress-customize.php:53
+msgid "reCAPTCHA Error Message:"
+msgstr ""
+
+#: classes/loginpress-customize.php:70
+msgid "Select reCAPTCHA size:"
+msgstr ""
+
+#: classes/loginpress-customize.php:75
+msgid "Size is only apply on \"V2-I'm not robot\" reCaptcha type."
+msgstr ""
+
+#: classes/loginpress-customize.php:94
+msgid "Google Fonts"
+msgstr ""
+
+#: classes/loginpress-customize.php:109
+msgid "Select Google Font"
+msgstr ""
+
+#: classes/loginpress-customize.php:133
+msgid ""
+"Hint: The password should be at least twelve characters long. To make it "
+"stronger, use upper and lower case letters, numbers, and symbols like ! \" ? "
+"$ % ^ &amp; )."
+msgstr ""
+
+#: classes/loginpress-customize.php:142
+msgid "Reset Password Hint:"
+msgstr ""
+
+#: classes/loginpress-customize.php:147
+msgid "You can change the Hint text that is comes on reset password page."
+msgstr ""
+
+#: classes/loginpress-main.php:194
+msgid ""
+"Activate your license to get automatic plugin updates and premium support."
+msgstr ""
+
+#: classes/loginpress-main.php:195
+msgid "License Manager"
+msgstr ""
+
+#: classes/loginpress-main.php:353 classes/loginpress-main.php:360
+msgid "Company"
+msgstr ""
+
+#: classes/loginpress-main.php:354 classes/loginpress-main.php:365
+msgid "Persona"
+msgstr ""
+
+#: classes/loginpress-main.php:355 classes/loginpress-main.php:356
+msgid "Corporate"
+msgstr ""
+
+#: classes/loginpress-main.php:357
+msgid "Startup"
+msgstr ""
+
+#: classes/loginpress-main.php:358
+msgid "Wedding"
+msgstr ""
+
+#: classes/loginpress-main.php:359
+msgid "Wedding #2"
+msgstr ""
+
+#: classes/loginpress-main.php:361
+msgid "Bikers"
+msgstr ""
+
+#: classes/loginpress-main.php:362
+msgid "Fitness"
+msgstr ""
+
+#: classes/loginpress-main.php:363
+msgid "Shopping"
+msgstr ""
+
+#: classes/loginpress-main.php:364
+msgid "Writers"
+msgstr ""
+
+#: classes/loginpress-main.php:366
+msgid "Geek"
+msgstr ""
+
+#: classes/loginpress-main.php:367
+msgid "Innovation"
+msgstr ""
+
+#: classes/loginpress-main.php:368
+msgid "Photographers"
+msgstr ""
+
+#: classes/loginpress-main.php:369
+msgid "Animated Wapo"
+msgstr ""
+
+#: classes/loginpress-main.php:388
+msgid "Custom Design"
+msgstr ""
+
+#: classes/loginpress-main.php:501 classes/loginpress-main.php:597
+msgid ""
+"If this error keeps displaying, please contact our support at wpbrigade.com!"
+msgstr ""
+
+#: classes/loginpress-main.php:508 classes/loginpress-main.php:557
+#: classes/loginpress-main.php:604 classes/loginpress-main.php:653
+msgid "An error occurred, please try again."
+msgstr ""
+
+#: classes/loginpress-main.php:508 classes/loginpress-main.php:604
+msgid ""
+"An error occurred, please try again. If this error keeps displaying, please "
+"contact our support at wpbrigade.com!"
+msgstr ""
+
+#: classes/loginpress-main.php:524 classes/loginpress-main.php:620
+#, php-format
+msgid "Your license key expired on %s."
+msgstr ""
+
+#: classes/loginpress-main.php:531 classes/loginpress-main.php:627
+#: classes/loginpress-main.php:847
+msgid "Your license key has been disabled."
+msgstr ""
+
+#: classes/loginpress-main.php:536 classes/loginpress-main.php:632
+msgid "Your license key is Invalid."
+msgstr ""
+
+#: classes/loginpress-main.php:542 classes/loginpress-main.php:638
+msgid "Your license is not active for this URL."
+msgstr ""
+
+#: classes/loginpress-main.php:547 classes/loginpress-main.php:643
+#, php-format
+msgid "This appears to be an invalid license key for %s."
+msgstr ""
+
+#: classes/loginpress-main.php:552 classes/loginpress-main.php:648
+msgid "Your license key has reached its activation limit."
+msgstr ""
+
+#: classes/loginpress-main.php:839
+#, php-format
+msgid ""
+"Your license key has been deactivated on %s. Please Activate your license "
+"key to continue using Automatic Updates and Premium Support."
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:97
+msgid "Force Login"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:98
+msgid "Force user to login before viewing the site?"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:103
+msgid "Enable reCAPTCHA"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:104
+msgid "Enable LoginPress reCaptcha"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:122
+msgid "Site Key"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:123
+msgid ""
+"Get <a href=\"https://www.google.com/recaptcha/admin\" target=\"_blank\"> "
+"reCaptcha</a> site key.<br> <span class=\"alert-note\">Make sure you are "
+"adding right  site key for this domain. If it's incorrect may be you'r not "
+"able to access your website.</span>"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:129
+msgid "Secret Key"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:130
+msgid ""
+"Get <a href=\"https://www.google.com/recaptcha/admin\" target=\"_blank\"> "
+"reCaptcha</a> secret key. <br> <span class=\"alert-note\">Make sure you are "
+"adding right  secret key for this domain. If it's incorrect may be you'r not "
+"able to access your website.</span>"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:136
+msgid "Select reCaptcha score"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:137
+msgid ""
+"Minimum level of score if some one less than it will show error message."
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:155
+msgid "Choose theme"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:156
+msgid "Select a theme for reCAPTCHA"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:166
+msgid "Choose language"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:167
+msgid "Select a language for reCAPTCHA"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:221
+msgid "Enable reCAPTCHA on"
+msgstr ""
+
+#: classes/loginpress-recaptcha.php:222
+msgid "Choose the form to enable google recaptcha on that"
+msgstr ""
+
+#: includes/license-manager.php:8
+msgid "Activate your License"
+msgstr ""
+
+#: includes/license-manager.php:17
+msgid "License Key"
+msgstr ""
+
+#: includes/license-manager.php:21
+msgid ""
+"Validating license key is mandatory to use automatic updates and plugin "
+"support."
+msgstr ""
+
+#: includes/license-manager.php:32
+msgid "Deactivate License"
+msgstr ""
+
+#: includes/license-manager.php:35
+msgid "Activate License"
+msgstr ""
+
+#: includes/license-manager.php:46
+msgid "You have a lifetime licenses, it will never expire."
+msgstr ""
+
+#: includes/license-manager.php:50
+#, php-format
+msgid "Your (%2$s) license key is valid until %s."
+msgstr ""
+
+#: includes/license-manager.php:57
+#, php-format
+msgid ""
+"The license will automatically renew, if you have an active subscription to "
+"the LoginPress Pro - at %s"
+msgstr ""
+
+#: includes/license-manager.php:66
+#, php-format
+msgid ""
+"Your license key expired on %s. Please input a valid non-expired license "
+"key. If you think, that this license has not yet expired (was renewed "
+"already), then please save the settings, so that the license will verify "
+"again and get the up-to-date expiration date."
+msgstr ""
+
+#: includes/require-free.php:262
+msgid "LoginPress - Rebranding your boring WordPress Login pages"
+msgstr ""
+
+#: includes/require-free.php:271
+msgid "Downloading LoginPress..."
+msgstr ""
+
+#: includes/require-free.php:280
+msgid "Activating LoginPress..."
+msgstr ""
+
+#: includes/require-free.php:288
+msgid "LoginPress Activated."
+msgstr ""
+
+#: includes/require-free.php:297
+#, php-format
+msgid ""
+"%1$sI am innovating WordPress login page. I will help you to customize your "
+"boring login page into a stylish login landing page.%2$s%1$sLoginPress "
+"(Free) is essential for Pro version. %3$sJust click the install button and "
+"enjoy the Pro Features.%2$s%4$sCreated by %5$sWPBrigade%6$s%2$s"
+msgstr ""
+
+#: includes/require-free.php:300
+msgid "Install"
+msgstr ""
+
+#: includes/require-free.php:311
+#, php-format
+msgid ""
+"LoginPress (Free) is essential for Pro version. %1$sJust click the Activate "
+"button and enjoy the Pro Features."
+msgstr ""
+
+#: includes/require-free.php:312
+msgid "Activate"
+msgstr ""
+
+#: lib/LOGINPRESS_PRO_SL_Plugin_Updater.php:201
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+
+#: lib/LOGINPRESS_PRO_SL_Plugin_Updater.php:209
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+
+#: lib/wp-updates-plugin.php:88
+msgid ""
+"An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?"
+"\" onclick=\"document.location.reload(); return false;\">Try again</a>"
+msgstr ""
+
+#: lib/wp-updates-plugin.php:92
+msgid "An unknown error occurred"
+msgstr ""
+
+#: loginpress-pro.php:72
+msgid "LoginPress"
+msgstr ""
+
+#: loginpress-pro.php:99
+msgid ""
+"Please update LoginPress to latest Free version to enable PRO features "
+"&mdash; "
+msgstr ""
+
+#: loginpress-pro.php:101
+msgid "Update now"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress Pro"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.WPBrigade.com/wordpress/plugins/loginpress-pro/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "This plugin adds premium features in your LoginPress plugin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.WPBrigade.com/"
+msgstr ""

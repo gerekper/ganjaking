@@ -1,0 +1,13 @@
+/* Simplegrid styles */
+.grid .content label {
+  font-weight: 600;
+}
+.grid .content {
+  font-size: 14px;
+}
+.hidden {
+  display: none;
+}
+.info-icon::before {
+  content: "\f348";
+}

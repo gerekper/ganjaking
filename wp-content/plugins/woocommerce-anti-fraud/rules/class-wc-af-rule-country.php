@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_AF_Rule_Country extends WC_AF_Rule {
 	private $is_enabled  = null;
-    private $rule_weight = 0;
-    private $unsafe_countries;
+	private $rule_weight = 0;
+	private $unsafe_countries;
 	/**
 	 * The constructor
 	 */
@@ -47,7 +47,7 @@ class WC_AF_Rule_Country extends WC_AF_Rule {
 		$risk = false;
 		// Check if the billing or shipping country is considered a risk country
 		
-		if(!empty($risk_countries)) {
+		if (!empty($risk_countries)) {
 
 			if ( ( true === in_array( $billing_country, $risk_countries ) ) || ( true === in_array( $shipping_country, $risk_countries ) ) ) {
 				$risk = true;
@@ -69,8 +69,8 @@ class WC_AF_Rule_Country extends WC_AF_Rule {
 	}
 
 	//Enable rule check
-	public function is_enabled(){
-		if('yes' == $this->is_enabled){
+	public function is_enabled() {
+		if ('yes' == $this->is_enabled) {
 			return true;
 		}
 		return false;

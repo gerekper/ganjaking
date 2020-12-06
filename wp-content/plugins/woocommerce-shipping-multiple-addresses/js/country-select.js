@@ -22,14 +22,14 @@ jQuery( document ).ready( function( $ ) {
 
         wc_country_select_select2();
 
-        $( 'body' ).bind( 'country_to_state_changed', function() {
+        $( 'body' ).on( 'country_to_state_changed', function() {
             wc_country_select_select2();
         } );
     }
 
     // State/Country select boxes.
     var states_json = wcms_country_select_params.countries.replace( /&quot;/g, '"' );
-    var states = $.parseJSON( states_json );
+    var states = JSON.parse( states_json );
 
 	$( document.body ).on( 'change refresh', 'select.country_to_state, input.country_to_state', function() {
 

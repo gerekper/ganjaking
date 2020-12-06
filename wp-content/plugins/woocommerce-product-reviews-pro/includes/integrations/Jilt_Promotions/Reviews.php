@@ -25,59 +25,26 @@ namespace SkyVerge\WooCommerce\Product_Reviews_Pro\Integrations\Jilt_Promotions;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\Jilt_Promotions\Handlers\Installation;
-use SkyVerge\WooCommerce\Jilt_Promotions\Handlers\Prompt;
-use SkyVerge\WooCommerce\Jilt_Promotions\Messages;
-use SkyVerge\WooCommerce\Jilt_Promotions\Notices\Notice;
-
 /**
  * WooCommerce Product Vendors integration.
  *
+ * TODO: remove this class by version 2.0.0 or by 2021-11-16 {DM 2020-11-16}
+ *
  * @since 1.16.0
+ * @deprecated 1.17.0
  */
-final class Reviews extends Prompt {
-
-
-	/** @var string the ID of the message shown in the Reviews page */
-	private $reviews_message_id = 'product-reviews-pro-reviews';
-
-	/** @var string the screen ID for the Reviews page */
-	private $reviews_screen_id = 'woocommerce_page_reviews';
+final class Reviews {
 
 
 	/**
-	 * Adds the necessary action & filter hooks.
+	 * Reviews constructor.
 	 *
-	 * @since 1.16.0
+	 * @since 1.17.0
+	 * @deprecated 1.17.0
 	 */
-	protected function add_prompt_hooks() {
+	public function __construct() {
 
-		if ( ! Messages::is_message_enabled( $this->reviews_message_id ) ) {
-			add_action( "load-{$this->reviews_screen_id}", [ $this, 'maybe_enable_reviews_message' ] );
-		}
-
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
-
-		add_action( 'admin_notices', [ $this, 'add_admin_notices' ] );
-	}
-
-
-	/**
-	 * Gets the connection redirect args to attribute the plugin installation to this prompt.
-	 *
-	 * @since 1.16.0
-	 *
-	 * @return array
-	 */
-	protected function get_connection_redirect_args() {
-
-		$args = [];
-
-		if ( $this->reviews_message_id === Installation::get_jilt_installed_from() ) {
-			$args = [ 'utm_term' => $this->reviews_message_id ];
-		}
-
-		return $args;
+		wc_deprecated_function( __METHOD__, '1.17.0' );
 	}
 
 
@@ -87,10 +54,11 @@ final class Reviews extends Prompt {
 	 * @internal
 	 *
 	 * @since 1.16.0
+	 * @deprecated 1.17.0
 	 */
 	public function maybe_enable_reviews_message() {
 
-		Messages::enable_message( $this->reviews_message_id );
+		wc_deprecated_function( __METHOD__, '1.17.0' );
 	}
 
 
@@ -100,14 +68,11 @@ final class Reviews extends Prompt {
 	 * @internal
 	 *
 	 * @since 1.16.0
+	 * @deprecated 1.17.0
 	 */
 	public function enqueue_assets() {
 
-		if ( Messages::is_message_enabled( $this->reviews_message_id ) ) {
-
-			wp_enqueue_style( Installation::INSTALL_SCRIPT_HANDLE );
-			wp_enqueue_script( Installation::INSTALL_SCRIPT_HANDLE );
-		}
+		wc_deprecated_function( __METHOD__, '1.17.0' );
 	}
 
 
@@ -117,33 +82,11 @@ final class Reviews extends Prompt {
 	 * @internal
 	 *
 	 * @since 1.16.0
+	 * @deprecated 1.17.0
 	 */
 	public function add_admin_notices() {
 
-		if ( Messages::is_message_enabled( $this->reviews_message_id ) ) {
-
-			$notice = new Notice();
-
-			$notice->set_message_id( $this->reviews_message_id );
-			$notice->set_title( __( 'More reviews mean more sales.', 'woocommerce-product-reviews-pro' ) );
-			$notice->set_content( __( "With Jilt, it's easy to request product reviews from your customers and offer discounts as a reward.", 'woocommerce-product-reviews-pro' ) );
-			$notice->set_actions( [
-				[
-					'name'  => 'learn-more',
-					'label' => __( 'Learn more', 'woocommerce-product-reviews-pro' ),
-					'url'   => 'https://www.skyverge.com/go/get-reviews',
-					'type'  => Notice::ACTION_TYPE_LINK,
-				],
-				[
-					'name'    => 'start-getting-more-reviews',
-					'label'   => __( 'Start getting more reviews', 'woocommerce-product-reviews-pro' ),
-					'primary' => true,
-					'type'    => Notice::ACTION_TYPE_BUTTON,
-				],
-			] );
-
-			$notice->render();
-		}
+		wc_deprecated_function( __METHOD__, '1.17.0' );
 	}
 
 

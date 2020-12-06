@@ -5,43 +5,43 @@ msgstr ""
 "Project-Id-Version: WooCommerce Checkout Add-Ons 2.0.2-dev.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
 "form/\n"
-"POT-Creation-Date: 2019-12-16 14:57:38+00:00\n"
-"PO-Revision-Date: 2019-12-25 10:31+0800\n"
+"POT-Creation-Date: 2020-10-02 16:30:43+00:00\n"
+"PO-Revision-Date: 2020-10-08 09:59+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/Add_Ons/Add_On.php:232
+#: includes/Add_Ons/Add_On.php:238
 msgid "(no name)"
 msgstr "(senza nome)"
 
-#: includes/Add_Ons/Add_On.php:445
+#: includes/Add_Ons/Add_On.php:455
 msgid "Free!"
 msgstr "Gratis!"
 
-#: includes/Add_Ons/Add_On.php:844 includes/Admin/Add_Ons_List_Table.php:70
+#: includes/Add_Ons/Add_On.php:854 includes/Admin/Add_Ons_List_Table.php:70
 #: includes/Admin/Add_Ons_List_Table.php:591
 msgid "Required"
 msgstr "Richiesto"
 
-#: includes/Add_Ons/Add_On.php:845
+#: includes/Add_Ons/Add_On.php:855
 msgid "Display in View Orders screen"
 msgstr "Mostra nella schermata degli ordini"
 
-#: includes/Add_Ons/Add_On.php:846
+#: includes/Add_Ons/Add_On.php:856
 msgid "Allow Sorting on View Orders screen"
 msgstr "Consenti ordinamento nella schermata degli ordini"
 
-#: includes/Add_Ons/Add_On.php:847
+#: includes/Add_Ons/Add_On.php:857
 msgid "Allow Filtering on View Orders screen"
 msgstr "Consenti filtraggio nella schermata degli ordini"
 
-#: includes/Add_Ons/Add_On.php:851
+#: includes/Add_Ons/Add_On.php:861
 msgid "Renew with Subscriptions"
 msgstr "Rinnova con abbonamenti"
 
@@ -408,17 +408,29 @@ msgstr ""
 msgid "Checkout Add-ons display"
 msgstr "Apparenze campi aggiuntivi cassa"
 
-#: includes/Admin/Admin.php:783
+#: includes/Admin/Admin.php:768
+msgid "Calculate add-on percentage-based prices from"
+msgstr "Calcola percentuale prezzo del campo aggiuntivo in base a"
+
+#: includes/Admin/Admin.php:805
 msgid "Before Billing Details"
 msgstr "Prima dei dettagli di fatturazione"
 
-#: includes/Admin/Admin.php:784
+#: includes/Admin/Admin.php:806
 msgid "After Billing Details"
 msgstr "Dopo i dettagli di fatturazione"
 
-#: includes/Admin/Admin.php:785
+#: includes/Admin/Admin.php:807
 msgid "Before Order Summary"
 msgstr "Prima del riepilogo ordine"
+
+#: includes/Admin/Admin.php:842
+msgid "Order subtotal"
+msgstr "Subtotale carrello"
+
+#: includes/Admin/Admin.php:843
+msgid "Order total"
+msgstr "Totale ordine"
 
 #: includes/Admin/Handlers/Shop_Order.php:164
 msgid "%d file"
@@ -612,36 +624,36 @@ msgstr "Valore"
 msgid "Add-on name (internal)"
 msgstr "Nome campo aggiuntivo (uso interno)"
 
-#: includes/Frontend/Frontend.php:246
+#: includes/Frontend/Frontend.php:250
 msgid "Select an Option"
 msgstr "Seleziona un'opzione"
 
-#: includes/Frontend/Frontend.php:247
+#: includes/Frontend/Frontend.php:251
 msgid "Select Some Options"
 msgstr "Seleziona alcune opzioni"
 
-#: includes/Frontend/Frontend.php:248
+#: includes/Frontend/Frontend.php:252
 msgid "No results match"
 msgstr "Nessun risultato trovato"
 
 #. translators: Placeholders: %s - the required field name
-#: includes/Frontend/Frontend.php:506
+#: includes/Frontend/Frontend.php:512
 msgid "%s is a required field."
 msgstr "%s è un campo richiesto."
 
-#: includes/Frontend/Frontend.php:929
+#: includes/Frontend/Frontend.php:935
 msgid "required"
 msgstr "richiesto"
 
-#: includes/Frontend/Frontend.php:1066
+#: includes/Frontend/Frontend.php:1072
 msgid "Drag file here or click to upload"
 msgstr "Trascina il file qui o clicca per caricarlo"
 
-#: includes/Frontend/Frontend.php:1072
+#: includes/Frontend/Frontend.php:1078
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: includes/Frontend/Frontend.php:1077
+#: includes/Frontend/Frontend.php:1083
 msgid "You need to enable Javascript to upload files"
 msgstr "È necessario abilitare JavaScript per caricare file"
 

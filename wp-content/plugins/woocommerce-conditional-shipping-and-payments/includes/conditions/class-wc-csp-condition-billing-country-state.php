@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Billing Country Condition.
  *
  * @class    WC_CSP_Condition_Billing_Country_State
- * @version  1.8.6
+ * @version  1.8.9
  */
 class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 
@@ -25,7 +25,7 @@ class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 	 */
 	public function __construct() {
 		$this->id                             = 'billing_country';
-		$this->title                          = __( 'Billing Country', 'woocommerce-conditional-shipping-and-payments' );
+		$this->title                          = __( 'Billing Country/State', 'woocommerce-conditional-shipping-and-payments' );
 		$this->supported_global_restrictions  = array( 'shipping_methods', 'payment_gateways' );
 		$this->supported_product_restrictions = array( 'shipping_methods', 'payment_gateways' );
 	}

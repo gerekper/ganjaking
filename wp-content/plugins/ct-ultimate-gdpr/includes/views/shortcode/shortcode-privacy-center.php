@@ -129,29 +129,34 @@ if ( ! defined( 'ABSPATH' ) ) {
                             ?>"><?php echo esc_html__( 'Read more', 'ct-ultimate-gdpr' ); ?> <span class="fa fa-list"></span></a></div>
             </div>
 
-            <div class="feature"><a href="<?php
-		            echo esc_url(
-			            add_query_arg(
-				            array(
-					            '#tabs-4' => '',
-				            ),
-				            $url
-			            )
-		            );
-		            ?>" target="_blank" class="ct-full-link"></a>
-					<div class="icon-wrapper section"><span class="fa fa-envelope" style="color:<?php echo esc_attr( $options['icon_color'] ); ?>"></span></div>
-					<div class="text section text-capitalize"><?php echo esc_html__( 'Unsubscribe', 'ct-ultimate-gdpr' ); ?></div>
-					<div class="ct-btn section text-uppercase"><a href="<?php
-						echo esc_url(
-							add_query_arg(
-								array(
-									'#tabs-4' => '',
-								),
-								$url
-							)
-						);
-						?>"><?php echo esc_html__( 'Read more', 'ct-ultimate-gdpr' ); ?> <span class="fa fa-list"></span></a></div>
-			</div>
+
+            <?php if ( ct_ultimate_gdpr_get_value( 'unsubscribe_hide_unsubscribe_tab', $options ) ) : ?>
+
+                <div class="feature"><a href="<?php
+                        echo esc_url(
+                            add_query_arg(
+                                array(
+                                    '#tabs-4' => '',
+                                ),
+                                $url
+                            )
+                        );
+                        ?>" target="_blank" class="ct-full-link"></a>
+                        <div class="icon-wrapper section"><span class="fa fa-envelope" style="color:<?php echo esc_attr( $options['icon_color'] ); ?>"></span></div>
+                        <div class="text section text-capitalize"><?php echo esc_html__( 'Unsubscribe', 'ct-ultimate-gdpr' ); ?></div>
+                        <div class="ct-btn section text-uppercase"><a href="<?php
+                            echo esc_url(
+                                add_query_arg(
+                                    array(
+                                        '#tabs-4' => '',
+                                    ),
+                                    $url
+                                )
+                            );
+                            ?>"><?php echo esc_html__( 'Read more', 'ct-ultimate-gdpr' ); ?> <span class="fa fa-list"></span></a></div>
+                </div>
+
+            <?php endif; ?>
 
 		<?php endif; ?>
 

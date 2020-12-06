@@ -2,13 +2,13 @@
 
 global $gm_supported_module;
 
-require_once dirname( __FILE__ ) . '/inc/GroovyMenuRoleCapabilities.php';
-require_once dirname( __FILE__ ) . '/inc/GroovyMenuSettings.php';
-require_once dirname( __FILE__ ) . '/inc/GroovyMenuStyle.php';
-require_once dirname( __FILE__ ) . '/inc/GroovyMenuPreset.php';
-require_once dirname( __FILE__ ) . '/inc/GroovyMenuUtils.php';
-require_once dirname( __FILE__ ) . '/inc/GroovyMenuActions.php';
-require_once dirname( __FILE__ ) . '/inc/GroovyMenuSingleMetaPreset.php';
-require_once dirname( __FILE__ ) . '/inc/GroovyMenuIcons.php';
-require_once dirname( __FILE__ ) . '/inc/GroovyMenuCategoryPreset.php';
-require_once dirname( __FILE__ ) . '/inc/GroovyMenuGFonts.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'GroovyMenuRoleCapabilities.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'GroovyMenuSettings.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'GroovyMenuStyle.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'GroovyMenuPreset.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'GroovyMenuUtils.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'GroovyMenuActions.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'GroovyMenuSingleMetaPreset.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'GroovyMenuIcons.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'GroovyMenuCategoryPreset.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'GroovyMenuGFonts.php';

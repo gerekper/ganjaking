@@ -3,10 +3,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Customer/Order/Coupon CSV Import Suite "
-"3.9.0\n"
+"3.9.2\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-08-18 00:28:10+00:00\n"
+"POT-Creation-Date: 2020-11-25 07:57:58+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1374,121 +1374,121 @@ msgstr ""
 msgid "Invalid date format %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:122
+#: includes/class-wc-csv-import-suite-order-items-parser.php:127
 msgid "Error while parsing line items for line %d: %s"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:166
+#: includes/class-wc-csv-import-suite-order-items-parser.php:171
 msgid "Missing SKU, quantity or total for %s on line %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:186
-#: includes/class-wc-csv-import-suite-order-items-parser.php:368
-#: includes/class-wc-csv-import-suite-order-items-parser.php:414
+#: includes/class-wc-csv-import-suite-order-items-parser.php:191
+#: includes/class-wc-csv-import-suite-order-items-parser.php:374
+#: includes/class-wc-csv-import-suite-order-items-parser.php:420
 #. translators: Placeholders: %s - order item SKU
 msgid "Unknown order item: %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:353
+#: includes/class-wc-csv-import-suite-order-items-parser.php:359
 msgid "Missing product ID/SKU, quantity or total for order item on line %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:405
+#: includes/class-wc-csv-import-suite-order-items-parser.php:411
 msgid "Missing SKU, quantity or total for order item on line %s"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:473
+#: includes/class-wc-csv-import-suite-order-items-parser.php:479
 msgid "Error while parsing shipping items for line %d: %s"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:649
+#: includes/class-wc-csv-import-suite-order-items-parser.php:655
 msgid "Error while parsing taxes for line %d: %s"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:704
-#: includes/class-wc-csv-import-suite-order-items-parser.php:796
+#: includes/class-wc-csv-import-suite-order-items-parser.php:710
+#: includes/class-wc-csv-import-suite-order-items-parser.php:802
 msgid "Tax"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:863
+#: includes/class-wc-csv-import-suite-order-items-parser.php:869
 msgid "Error while parsing fees for line %d: %s"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:897
-#: includes/class-wc-csv-import-suite-order-items-parser.php:941
+#: includes/class-wc-csv-import-suite-order-items-parser.php:903
+#: includes/class-wc-csv-import-suite-order-items-parser.php:947
 msgid "Fee"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:974
+#: includes/class-wc-csv-import-suite-order-items-parser.php:980
 msgid "Error while parsing coupons for line %d: %s"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:984
+#: includes/class-wc-csv-import-suite-order-items-parser.php:990
 msgid "Missing coupon code on line %d"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1019
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1025
 msgid "Error while parsing refunds for line %d: %s"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1291
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1297
 msgid "> > Cannot update product \"%s\" without order item ID. Inserting instead."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1295
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1301
 msgid "> > Cannot update coupon \"%s\" without order item ID. Inserting instead."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1299
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1305
 msgid "> > Cannot update fee \"%s\" without order item ID. Inserting instead."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1303
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1309
 msgid ""
 "> > Cannot update shipping method \"%s\" without order item ID. Inserting "
 "instead."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1307
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1313
 msgid "> > Cannot update tax rate \"%s\" without order item ID. Inserting instead."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1471
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1477
 msgid ""
 "> > Cannot update product \"%s\" without order item ID, as multiple similar "
 "products exist for the order and no direct match could be determined. "
 "Skipping merging line items."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1475
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1481
 msgid ""
 "> > Cannot update coupon \"%s\" without order item ID, as multiple similar "
 "coupons exist for the order and no direct match could be determined. "
 "Skipping merging coupons."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1479
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1485
 msgid ""
 "> > Cannot update fee \"%s\" without order item ID, as multiple similar "
 "fees exist for the order and no direct match could be determined. Skipping "
 "merging fees."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1483
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1489
 msgid ""
 "> > Cannot update shipping method \"%s\" without order item ID, as multiple "
 "similar shipping methods exist for the order and no direct match could be "
 "determined. Skipping merging shipping methods."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1487
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1493
 msgid ""
 "> > Cannot update tax rate \"%s\" without order item ID, as multiple "
 "similar tax rates exist for the order and no direct match could be "
 "determined. Skipping merging tax rates."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-items-parser.php:1491
+#: includes/class-wc-csv-import-suite-order-items-parser.php:1497
 msgid "Cannot determine a unique match for order item"
 msgstr ""
 

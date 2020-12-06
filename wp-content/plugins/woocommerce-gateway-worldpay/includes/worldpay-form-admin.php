@@ -71,6 +71,12 @@
 												'description' 	=> __( 'Optional, this must match your entry in the WorldPay Installation. Must be between 20 and 30 characters long with no white space and contain at least one upper case letter, one lower case letter, one number and one symbol (<strong>do not use *</strong>). See docs for more information : <a href="http://docs.woothemes.com/document/worldpay/" target="_blank">http://docs.woothemes.com/document/worldpay/</a><br /><strong>Here is a unique MD5 that will work ' . $this->generate_md5() . '</strong>', 'woocommerce_worlday' ),
 												'default' 		=> $this->default_worldpaymd5
 												),
+				'signaturefields'		=> array(
+												'title' 		=> __( 'Signature Fields used to verify transaction', 'woocommerce_worlday' ),
+												'type' 			=> 'text',
+												'description' 	=> __( 'This is required if you are using an MD5 password and must match your entry in the WorldPay Installation. See docs for more information on what fields can be used and how to build your list: <a href="https://docs.woocommerce.com/document/worldpay/#section-3" target="_blank">https://docs.woocommerce.com/document/worldpay/#section-3</a><br />', 'woocommerce_worlday' ),
+												'default' 		=> $this->default_signaturefields
+												),
 				'dynamiccallback'		=> array(
 				    							'title'         => __( 'Dynamic Callback', 'woocommerce_worlday' ),
 				    							'type'          => 'checkbox',

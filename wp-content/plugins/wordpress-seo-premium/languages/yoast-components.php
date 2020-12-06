@@ -146,34 +146,32 @@ $generated_i18n_strings = array(
 	/* translators: %s expands to Twitter, %s expands to the 5MB size. */
 	__( 'The file size of the uploaded image is too large for %s. File size must be less than %s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/ModeSwitcher.js:107
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/ModeSwitcher.js:104
 	__( 'Desktop result', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/ModeSwitcher.js:78
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/ModeSwitcher.js:79
 	__( 'Preview as:', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/ModeSwitcher.js:92
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/ModeSwitcher.js:91
 	__( 'Mobile result', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SettingsSnippetEditorFields.js:136
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditorFields.js:181
-	__( 'SEO title', 'wordpress-seo' ),
-
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SettingsSnippetEditorFields.js:151
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditorFields.js:224
-	__( 'Meta description', 'wordpress-seo' ),
-
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditor.js:255
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditor.js:256
 	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditor.js:275
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditor.js:279
 	__( 'Close snippet editor', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditor.js:559
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditor.js:568
 	__( 'Edit snippet', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditorFields.js:203
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditorFields.js:182
+	__( 'SEO title', 'wordpress-seo' ),
+
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditorFields.js:204
 	__( 'Slug', 'wordpress-seo' ),
+
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-editor/SnippetEditorFields.js:225
+	__( 'Meta description', 'wordpress-seo' ),
 
 	// Reference: node_modules/@yoast/search-metadata-previews/snippet-preview/FixedWidthContainer.js:133
 	__( 'Scroll to see the preview content.', 'wordpress-seo' ),

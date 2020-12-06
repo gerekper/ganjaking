@@ -27,8 +27,14 @@ defined( 'ABSPATH' ) or exit;
 use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
 
 /**
- * Integrations class
- * for third party extensions and plugins compatibility
+ * Integrations handler for third party extensions and plugins compatibility.
+ *
+ * Adds integrations for:
+ *
+ * - WooCommerce Measurement Price Calculator
+ * - WooCommerce Products Add-Ons
+ * - WooCommerce Subscriptions
+ * - Multiple VAT number plugins
  *
  * @since 3.0.0
  */
@@ -41,12 +47,15 @@ class WC_PIP_Integrations {
 	/** @var null|\SkyVerge\WooCommerce\PIP\Integration\Product_Add_Ons instance */
 	private $add_ons;
 
+	/** @var null|\SkyVerge\WooCommerce\PIP\Integration\Measurement_Price_Calculator instance */
+	private $measurement_price_calculator;
+
 	/** @var null|\WC_PIP_Integration_VAT_Number instance */
 	private $vat_numbers;
 
 
 	/**
-	 * Load integrations
+	 * Loads integrations.
 	 *
 	 * @since 3.0.0
 	 */
@@ -57,11 +66,20 @@ class WC_PIP_Integrations {
 			$this->subscriptions = wc_pip()->load_class( '/includes/integrations/woocommerce-subscriptions/class-wc-pip-integration-subscriptions.php', 'WC_PIP_Integration_Subscriptions' );
 		}
 
+		// Product Add Ons
 		if ( wc_pip()->is_plugin_active( 'woocommerce-product-addons.php' ) ) {
 
 			require_once( wc_pip()->get_plugin_path() . '/includes/integrations/woocommerce-product-addons/class-wc-pip-integration-product-add-ons.php' );
 
 			$this->add_ons = new \SkyVerge\WooCommerce\PIP\Integration\Product_Add_Ons();
+		}
+
+		// Measurement Price Calculator
+		if ( wc_pip()->is_plugin_active( 'woocommerce-measurement-price-calculator.php' ) ) {
+
+			require_once( wc_pip()->get_plugin_path() . '/includes/integrations/woocommerce-measurement-price-calculator/Measurement_Price_Calculator.php' );
+
+			$this->measurement_price_calculator = new \SkyVerge\WooCommerce\PIP\Integration\Measurement_Price_Calculator();
 		}
 
 		// VAT Number Plugins
@@ -70,7 +88,7 @@ class WC_PIP_Integrations {
 
 
 	/**
-	 * Returns the Subscriptions integration handler instance.
+	 * Gets the Subscriptions integration handler instance.
 	 *
 	 * @since 3.6.1
 	 *
@@ -83,7 +101,7 @@ class WC_PIP_Integrations {
 
 
 	/**
-	 * Returns the Product Add Ons integration handler instance.
+	 * Gets the Product Add Ons integration handler instance.
 	 *
 	 * @since 3.6.2
 	 *
@@ -96,7 +114,20 @@ class WC_PIP_Integrations {
 
 
 	/**
-	 * Returns the VAT Numbers integration handler instance.
+	 * Gets the Measurement Price Calculator integration handler instance.
+	 *
+	 * @since 3.9.2
+	 *
+	 * @return null|\SkyVerge\WooCommerce\PIP\Integration\Measurement_Price_Calculator
+	 */
+	public function get_measurement_price_calculator_instance() {
+
+		return $this->measurement_price_calculator;
+	}
+
+
+	/**
+	 * Gets the VAT Numbers integration handler instance.
 	 *
 	 * @since 3.6.1
 	 *

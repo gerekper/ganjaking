@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
 
 /**
  * The main class for the Intuit Payments Gateway.  This class handles all the
@@ -42,7 +42,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string the plugin version number */
-	const VERSION = '2.8.1';
+	const VERSION = '2.8.3';
 
 	/** string the plugin id */
 	const PLUGIN_ID = 'intuit_payments';
@@ -200,11 +200,12 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 	 */
 	public function register_connection_scripts() {
 
+		// the fourth parameter ($ver) must be explicit null to fully remove it from the script import URL
 		wp_register_script(
 			'wc-intuit-payments-connect',
 			'https://js.appcenter.intuit.com/Content/IA/intuit.ipp.anywhere-1.3.3.js',
 			[],
-			$this->get_version()
+			null
 		);
 	}
 

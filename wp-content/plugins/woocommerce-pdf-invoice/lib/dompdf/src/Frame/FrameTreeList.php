@@ -13,12 +13,12 @@ use WooCommercePDFInvoice\Frame;
 class FrameTreeList implements IteratorAggregate
 {
     /**
-     * @var \WooCommercePDFInvoice\Frame
+     * @var \Dompdf\Frame
      */
     protected $_root;
 
     /**
-     * @param \WooCommercePDFInvoice\Frame $root
+     * @param \Dompdf\Frame $root
      */
     public function __construct(Frame $root)
     {

@@ -5,13 +5,13 @@ namespace Yoast\WP\SEO\Commands;
 use WP_CLI;
 use WP_CLI\Utils;
 use Yoast\WP\Lib\Model;
-use Yoast\WP\SEO\Actions\Indexation\Indexable_Indexing_Complete_Action;
-use Yoast\WP\SEO\Actions\Indexation\Indexable_General_Indexation_Action;
-use Yoast\WP\SEO\Actions\Indexation\Indexable_Post_Indexation_Action;
-use Yoast\WP\SEO\Actions\Indexation\Indexable_Post_Type_Archive_Indexation_Action;
-use Yoast\WP\SEO\Actions\Indexation\Indexable_Prepare_Indexation_Action;
-use Yoast\WP\SEO\Actions\Indexation\Indexable_Term_Indexation_Action;
-use Yoast\WP\SEO\Actions\Indexation\Indexation_Action_Interface;
+use Yoast\WP\SEO\Actions\Indexing\Indexable_General_Indexation_Action;
+use Yoast\WP\SEO\Actions\Indexing\Indexable_Indexing_Complete_Action;
+use Yoast\WP\SEO\Actions\Indexing\Indexable_Post_Indexation_Action;
+use Yoast\WP\SEO\Actions\Indexing\Indexable_Post_Type_Archive_Indexation_Action;
+use Yoast\WP\SEO\Actions\Indexing\Indexable_Prepare_Indexation_Action;
+use Yoast\WP\SEO\Actions\Indexing\Indexable_Term_Indexation_Action;
+use Yoast\WP\SEO\Actions\Indexing\Indexation_Action_Interface;
 use Yoast\WP\SEO\Main;
 
 /**
@@ -156,11 +156,21 @@ class Index_Command implements Command_Interface {
 	 * @return void
 	 */
 	protected function run_indexation_actions( $assoc_args ) {
+		// See if we need to clear all indexables before repopulating.
 		if ( isset( $assoc_args['reindex'] ) ) {
+
+			// Argument --skip-confirmation to prevent confirmation (for automated systems).
 			if ( ! isset( $assoc_args['skip-confirmation'] ) ) {
 				WP_CLI::confirm( 'This will clear all previously indexed objects. Are you certain you wish to proceed?' );
 			}
+
+			// Truncate the tables.
 			$this->clear();
+
+			// Delete the transients to make sure re-indexing runs every time.
+			\delete_transient( Indexable_Post_Indexation_Action::TRANSIENT_CACHE_KEY );
+			\delete_transient( Indexable_Post_Type_Archive_Indexation_Action::TRANSIENT_CACHE_KEY );
+			\delete_transient( Indexable_Term_Indexation_Action::TRANSIENT_CACHE_KEY );
 		}
 
 		$indexation_actions = [

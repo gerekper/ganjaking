@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 4.4
-Tested up to: 5.4.1
+Tested up to: 5.5.3
 Requires PHP: 5.6
 
 A full-featured cost of goods management extension for WooCommerce, with detailed reporting for total cost and profit

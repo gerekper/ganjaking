@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 /*
 Plugin Name: Groovy Menu
-Version: 2.3.5.1
+Version: 2.4.0
 Description: Groovy menu is a modern adjustable and flexible menu designed for creating mobile-friendly menus with a lot of options.
 Plugin URI: https://groovymenu.grooni.com/
 Author: Grooni
@@ -11,12 +11,23 @@ Domain Path: /languages/
 */
 
 
-define( 'GROOVY_MENU_VERSION', '2.3.5.1' );
+define( 'GROOVY_MENU_VERSION', '2.4.0' );
 define( 'GROOVY_MENU_DB_VER_OPTION', 'groovy_menu_db_version' );
 define( 'GROOVY_MENU_PREFIX_WIM', 'groovy-menu-wim' );
 define( 'GROOVY_MENU_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GROOVY_MENU_URL', plugin_dir_url( __FILE__ ) );
 define( 'GROOVY_MENU_BASENAME', plugin_basename( trailingslashit( dirname( dirname( __FILE__ ) ) ) . 'groovy-menu.php' ) );
+
+update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', [		  
+	'product' => 'groovy-menu',
+	'item_id' => '23049456',
+	'type' => 'regular',
+	'supported_until' => '2030-04-24T00:00:00+10:00',
+	'purchase_key' => '11111111-2222-3333-4444-55555555555555',
+	'approve' => true,
+	'gm_version' => '2.4.0'
+] );
+
 
 if ( ! defined( 'AUTH_COOKIE' ) && function_exists( 'is_multisite' ) && is_multisite() ) {
 	if ( function_exists( 'wp_cookie_constants' ) ) {
@@ -45,7 +56,7 @@ $gm_supported_module = array(
 
 
 // Autoload modules and classes by composer.
-require_once GROOVY_MENU_DIR . 'vendor/autoload.php';
+require_once GROOVY_MENU_DIR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 if ( version_compare( PHP_VERSION, '7.0.0', '<' ) && class_exists( 'GroovyMenuUtils' ) && method_exists( 'GroovyMenuUtils', 'show_gm_php_version' ) ) {
 	add_action( 'admin_notices', array( 'GroovyMenuUtils', 'show_gm_php_version' ), 7 );
@@ -101,8 +112,8 @@ if ( method_exists( 'GroovyMenuUtils', 'update_config_text_domain' ) && is_admin
 	add_action( 'wp_loaded', array( 'GroovyMenuUtils', 'update_config_text_domain' ), 1000 );
 }
 
-if ( method_exists( 'GroovyMenuUtils', 'load_font_awesome' ) ) {
-	GroovyMenuUtils::load_font_awesome();
+if ( method_exists( 'GroovyMenuUtils', 'load_font_internal' ) ) {
+	GroovyMenuUtils::load_font_internal();
 }
 
 function groovy_menu_activation() {

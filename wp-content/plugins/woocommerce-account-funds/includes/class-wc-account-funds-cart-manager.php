@@ -48,12 +48,14 @@ class WC_Account_Funds_Cart_Manager {
 	 * @return bool
 	 */
 	private static function can_use_funds() {
-		$funds = WC_Account_Funds::get_account_funds( get_current_user_id(), false );
+		$use_funds = false;
 
-		$use_funds = ( $funds > 0 && ( WC()->cart->total <= $funds || 'yes' === get_option( 'account_funds_partial_payment' ) ) );
+		if ( is_user_logged_in() && ! self::cart_contains_deposit() ) {
+			$funds = WC_Account_Funds::get_account_funds( get_current_user_id(), false );
 
-		if ( self::cart_contains_deposit() || ! is_user_logged_in() ) {
-			$use_funds = false;
+			if ( $funds > 0 ) {
+				$use_funds = ( WC()->cart->total <= $funds || 'yes' === get_option( 'account_funds_partial_payment' ) );
+			}
 		}
 
 		/**
@@ -90,9 +92,11 @@ class WC_Account_Funds_Cart_Manager {
 
 	/**
 	 * Using funds right now?
+	 *
+	 * @return bool
 	 */
 	public static function using_funds() {
-		return ! is_null( WC()->session ) && WC()->session->get( 'use-account-funds' ) && self::can_use_funds();
+		return ( WC()->session && WC()->session->get( 'use-account-funds' ) );
 	}
 
 	/**
@@ -128,11 +132,11 @@ class WC_Account_Funds_Cart_Manager {
 	 * Use funds
 	 */
 	public function maybe_use_funds() {
-		if ( ! self::can_use_funds() ) {
+		if ( ! WC()->cart || ! self::can_use_funds() ) {
 			return;
 		}
 
-		if ( ! empty( $_POST['wc_account_funds_apply'] ) && self::can_use_funds() ) {
+		if ( ! empty( $_POST['wc_account_funds_apply'] ) ) {
 			WC()->session->set( 'use-account-funds', true );
 		}
 

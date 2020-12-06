@@ -1,5 +1,41 @@
 *** Redsys Gateway Change Log ***
 
+2020.11.14 - version 12.1.0
+
+* NEW: Added official InSite plugin to Health Check.
+* NEW: Added a warning if WooCommerce is not connected to WooCommerce.com.
+* NEW: Added date, hour, Commerce name, and FUC to the thank you page.
+* NEW: Added a Redsys meta tab to the product edit page with options. Now you can get a Token for some products. 
+
+2020.11.14 - version 12.0.3
+
+* Removed ghost button at the receipt page when is Browser iFrame.
+* Fixed a problem related to Tokenization and Pay with 1 clic.
+
+2020.11.11 - version 12.0.2
+
+* Extended explanations in Health Site to better explain the problems that cause the errors.
+* Fixed a bug in Credit card Widget with "height"
+* Fixed a problem related to receip page
+* Fixed a problem related to Subscriptions
+* Fixed a problem related to old tokens and PSD2
+* Declared compatibility with WooCommerce 4.7
+
+2020.11.10 - version 12.0.1
+
+* Fixed a problem with PSD2 when a user has never bought in the store.
+* Fixed a strange problem in some servers where there is a 500 server error in the notification end-point.
+* Fixed a problem with an array() in logs.
+* Updated a variable name from capital letters to lowercase
+
+2020.11.06 - version 12.0.0
+
+* NEW: Now is PSD2 Ready. Check Redsys (by Jose Conti) settings.
+* NEW: Added items to Site Health.
+* Redsys Browser iframe. Check Redsys (by Jose Conti) settings.
+* Declared compatibility with WooCommerce 4.6
+
+
 2020.08.06 - version 9.4.0
 
 * NEW: Now you can select what to show in Redsys Description

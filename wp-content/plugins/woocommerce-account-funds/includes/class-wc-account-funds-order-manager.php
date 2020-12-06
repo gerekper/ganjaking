@@ -13,7 +13,7 @@ class WC_Account_Funds_Order_Manager {
 	 */
 	public function __construct() {
 		add_action( 'woocommerce_before_checkout_process', array( $this, 'force_registration_during_checkout' ), 10 );
-		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'woocommerce_checkout_update_order_meta' ), 10, 2 );
+		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'woocommerce_checkout_update_order_meta' ) );
 		add_filter( 'woocommerce_order_item_needs_processing', array( $this, 'order_item_needs_processing' ), 10, 2 );
 		add_action( 'woocommerce_payment_complete', array( $this, 'maybe_remove_funds' ) );
 		add_action( 'woocommerce_order_status_processing', array( $this, 'maybe_remove_funds' ) );
@@ -117,14 +117,16 @@ class WC_Account_Funds_Order_Manager {
 	/**
 	 * Remove user funds when an order is created
 	 * 
-	 * @param  int $order_id
+	 * @param int $order_id
 	 */
-	public function woocommerce_checkout_update_order_meta( $order_id, $posted ) {
-		if ( $posted['payment_method'] !== 'accountfunds' && WC_Account_Funds_Cart_Manager::using_funds() ) {
-			$used_funds = WC_Account_Funds_Cart_Manager::used_funds_amount();
-			update_post_meta( $order_id, '_funds_used', $used_funds );
-			update_post_meta( $order_id, '_funds_removed', 0 ); // The meta may exist if it's a failed subscription renewal.
+	public function woocommerce_checkout_update_order_meta( $order_id ) {
+		if ( ! WC_Account_Funds_Cart_Manager::using_funds() ) {
+			return;
 		}
+
+		$used_funds = WC_Account_Funds_Cart_Manager::used_funds_amount();
+		update_post_meta( $order_id, '_funds_used', $used_funds );
+		update_post_meta( $order_id, '_funds_removed', 0 ); // The meta may exist if it's a failed subscription renewal.
 	}
 
 	/**

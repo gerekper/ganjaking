@@ -111,7 +111,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 			
 			update_option('revslider-templates-check', time());
 
-			$hash = get_option('revslider-templates-hash', '');
+			$hash = ($force === true) ? '' : get_option('revslider-templates-hash', '');
 			$code = (get_option('revslider-valid', 'false') == 'false') ? '' : get_option('revslider-code', '');
 			$data = array(
 				'code'		=> urlencode($code),

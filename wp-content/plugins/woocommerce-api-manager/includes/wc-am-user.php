@@ -370,7 +370,7 @@ class WC_AM_User {
             <table class="form-table">
                 <tbody>
                 <tr>
-                    <th><label for="software_store_keys"><?php esc_html_e( 'API Mananger API Key', 'woocommerce-api-manager' ); ?></label></th>
+                    <th><label for="software_store_keys"><?php esc_html_e( 'API Manager API Key', 'woocommerce-api-manager' ); ?></label></th>
                     <td>
 						<?php if ( empty( $user->wc_am_master_api_key ) ) : ?>
                             <input name="generate_master_api_key" type="checkbox"

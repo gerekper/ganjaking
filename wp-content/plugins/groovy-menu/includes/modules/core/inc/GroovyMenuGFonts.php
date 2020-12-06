@@ -673,8 +673,10 @@ class GroovyMenuGFonts {
 
 		global $wp_filesystem;
 		if ( empty( $wp_filesystem ) ) {
-			if ( file_exists( ABSPATH . '/wp-admin/includes/file.php' ) ) {
-				require_once ABSPATH . '/wp-admin/includes/file.php';
+			$file_path = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/file.php' );
+
+			if ( file_exists( $file_path ) ) {
+				require_once $file_path;
 				WP_Filesystem();
 			}
 		}

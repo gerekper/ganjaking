@@ -1,5 +1,11 @@
 *** WooCommerce Measurement Price Calculator Changelog ***
 
+2020.11.24 - version 3.18.3
+ * Misc - Add PHP 8 support
+
+2020.11.13 - version 3.18.2
+ * Fix - Enable "Calculated Inventory" setting only if a variable product has at least one variation with stock management enabled
+
 2020.09.30 - version 3.18.1
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets
 

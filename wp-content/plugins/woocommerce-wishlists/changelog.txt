@@ -1,4 +1,12 @@
 *** WooCommerce Wishlist Changelog ***
+2020.11.27 - version 2.2.3
+    * Update: Add data-title attributes to some additional columns on the list templates.
+    * Update: Add wc_wishlists_create_list_args filter on the create list page, so that when used the UI matches any modified defaults.
+    * Update: Added filters to modify the share via twitter and share via facebook message.  Filters are passed the message, the wishlist object, and is_users_list
+                woocommerce_wishlists_share_twitter
+                woocommerce_wishlists_share_fb
+    * Update:  Add the Add all to cart button to the wishlist edit template.
+
 2020.08.26 - version 2.2.2
     * Fix:  Fix warning on settings screen about missing tab information.
 

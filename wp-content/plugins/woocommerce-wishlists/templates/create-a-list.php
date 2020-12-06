@@ -21,6 +21,7 @@ $defaults = array(
 	'wishlist_last_name'           => is_user_logged_in() ? $current_user->user_lastname : '',
 );
 
+$defaults = apply_filters('wc_wishlists_create_list_args', $defaults);
 $args = wp_parse_args( $post_args, $defaults );
 
 ?>

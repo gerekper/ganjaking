@@ -153,12 +153,17 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 			'setupnotes' => __('Setup Notes', 'revslider'),
 			'requirements' => __('Requirements', 'revslider'),
 			'installedversion' => __('Installed Version', 'revslider'),
-			'availableversion' => __('Available Version', 'revslider'),
-			'installpackage' => __('Installing Template Package', 'revslider'),
+			'availableversion' => __('Available Version', 'revslider'),			
+			'installpackage' => __('Installing Template Package', 'revslider'),			
+			'doinstallpackage' => __('Install Template Package', 'revslider'),
 			'installtemplate' => __('Install Template', 'revslider'),
+			'installingaddon' => __('Installing Add-on', 'revslider'),
+			'installpackageandaddons' => __('Install Template Package & Addon(s)', 'revslider'),
+			'installtemplateandaddons' => __('Install Template & Addon(s)', 'revslider'),
 			'licencerequired' => __('Activate License', 'revslider'),
 			'redownloadTemplate' => __('Re-Download Online', 'revslider'),
 			'createBlankPage' => __('Create Blank Page', 'revslider'),
+			'pluginsmustbeupdated' => __('Plugin Outdated. Please Update', 'revslider'),
 			'please_wait_a_moment' => __('Please Wait a Moment', 'revslider'),
 			'search' => __('Search', 'revslider'),
 			'folderBIG' => __('FOLDER', 'revslider'),
@@ -202,7 +207,7 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 			'active_sr_plg_activ' => __('Register Purchase Code', 'revslider'),
 			'active_sr_plg_activ_key' => __('Register License Key', 'revslider'),
 			'getpurchasecode' => __('Get a Purchase Code', 'revslider'),
-			'getlicensekey' => __('Licensing Options', 'revslider'),
+			'getlicensekey' => __('Get a License Key', 'revslider'),
 			'ihavepurchasecode' => __('I have a Purchase Code', 'revslider'),
 			'ihavelicensekey' => __('I have a License Key', 'revslider'),
 			'enterlicensekey' => __('Enter License Key', 'revslider'),
@@ -220,6 +225,9 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 		$rs_compression = $rsaf->compression_settings();
 		$favs = get_option('rs_favorite', array());
 		$favs = !empty($favs) ? $rsaf->json_encode_client_side($favs) : false;
+		
+		$rs_color_picker_presets = RSColorpicker::get_color_presets();
+		
 		?>
 		<script type="text/javascript">
 			window.RVS = window.RVS === undefined ? {F:{}, C:{}, ENV:{}, LIB:{}, V:{}, S:{}} : window.RVS;
@@ -235,6 +243,7 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 			RVS.ENV.activated	= '<?php echo (get_option('revslider-valid', 'false')) == 'true' ? 'true' : 'false'; ?>';
 			RVS.ENV.activated	= RVS.ENV.activated == 'true' || RVS.ENV.activated == true ? true : false;
 			RVS.ENV.selling		= <?php echo ($rsaf->get_addition('selling') === true) ? 'true' : 'false'; ?>;
+			RVS.LIB.COLOR_PRESETS	= <?php echo (!empty($rs_color_picker_presets)) ? 'JSON.parse('. $rsaf->json_encode_client_side($rs_color_picker_presets) .')' : '{}'; ?>;
 			
 			window.addEventListener('load', function(){
 				RVS.ENV.output_compress	= <?php echo (!empty($rs_compression)) ? 'JSON.parse('. $rsaf->json_encode_client_side($rs_compression) .')' : '[]'; ?>;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yoast\WP\SEO\Actions\Indexation;
+namespace Yoast\WP\SEO\Actions\Indexing;
 
 use wpdb;
 use Yoast\WP\Lib\Model;
@@ -9,7 +9,7 @@ use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
 /**
- * Reindexation action for post indexables.
+ * Reindexing action for post indexables.
  */
 class Indexable_Post_Indexation_Action implements Indexation_Action_Interface {
 

@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use \Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+
 /**
  * Product_Addon_Admin class.
  */
@@ -39,6 +41,19 @@ class WC_Product_Addons_Admin {
 	 */
 	public function admin_menu() {
 		$page = add_submenu_page( 'edit.php?post_type=product', __( 'Add-ons', 'woocommerce-product-addons' ), __( 'Add-ons', 'woocommerce-product-addons' ), 'manage_woocommerce', 'addons', array( $this, 'global_addons_admin' ) );
+
+		if ( ! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ) {
+			return;
+		}
+
+		Menu::add_plugin_item(
+			array(
+				'id'         => 'woocommerce-product-addons',
+				'title'      => __( 'Product Add-ons', 'woocommerce-product-addons' ),
+				'url'        => 'edit.php?post_type=product&page=addons',
+				'capability' => 'manage_woocommerce',
+			)
+		);
 	}
 
 	/**

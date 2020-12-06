@@ -57,7 +57,7 @@ class WC_Subscription_Downloads_Order {
 
 					if ( 'expired' === $new_status || 'cancelled' === $new_status ) {
 						WCS_Download_Handler::revoke_downloadable_file_permission( $product_id, $subscription_id, $subscription->get_user_id() );
-					} 
+					}
 					// Adds the downloadable files to the subscription.
 					else if ( $_product && $_product->exists() && $_product->is_downloadable() && 'publish' === $product_status ) {
 						WCS_Download_Handler::revoke_downloadable_file_permission( $product_id, $subscription_id, $subscription->get_user_id() );
@@ -94,7 +94,7 @@ class WC_Subscription_Downloads_Order {
 	 *
 	 * @return $downloads Array of downloads.
 	 */
-	public static function remove_subscription_download_duplicates( $downloads = array(), $order ) {
+	public static function remove_subscription_download_duplicates( $downloads, $order ) {
 		if ( is_a( $order, 'WC_Subscription' ) ) {
 			$downloads = array_unique( $downloads, SORT_REGULAR );
 		}
@@ -111,7 +111,7 @@ class WC_Subscription_Downloads_Order {
 	 *
 	 * @return $downloads Array of downloads.
 	 */
-	public static function remove_customer_download_duplicates( $downloads = array(), $customer_id ) {
+	public static function remove_customer_download_duplicates( $downloads, $customer_id ) {
 		// As downloads have an order_id, the following only removes download duplicates from the same order.
 		$downloads = array_unique( $downloads, SORT_REGULAR );
 

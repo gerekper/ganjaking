@@ -1,0 +1,182 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LoginPress - Limit Login Attempts\n"
+"POT-Creation-Date: 2020-04-11 15:33+0500\n"
+"PO-Revision-Date: 2020-04-11 15:46+0500\n"
+"Last-Translator: \n"
+"Language-Team: RMC Brothers www.rmcbrothers.com.br\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress-limit-login-attempts.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: classes/class-ajax.php:184
+msgid "Your Ip format is not correct."
+msgstr ""
+
+#: classes/class-ajax.php:196
+msgid "IP Already exist successfully move blacklist to whitelist."
+msgstr ""
+
+#: classes/class-ajax.php:206
+msgid "Successfully added in white list"
+msgstr ""
+
+#: classes/class-ajax.php:214
+msgid "IP Already in whitelist."
+msgstr ""
+
+#: classes/class-ajax.php:227
+msgid "IP Already exist successfully move whitelist to blacklist."
+msgstr ""
+
+#: classes/class-ajax.php:237
+msgid "Successfully added in blacklist"
+msgstr ""
+
+#: classes/class-ajax.php:245
+msgid "IP Already in blacklist."
+msgstr ""
+
+#: classes/class-attempts.php:141 classes/class-attempts.php:145
+msgid "You are not allowed to access admin panel"
+msgstr "Você não tem permissão para acessar o painel de administrativo"
+
+#: classes/class-attempts.php:277
+#, php-format
+msgid "%1$sERROR:%2$s You have only %3$s attempts"
+msgstr ""
+
+#: classes/class-attempts.php:290
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: classes/class-attempts.php:292
+msgid "XMLRPC"
+msgstr "XMLRPC"
+
+#: classes/class-attempts.php:295
+msgid "WP Login"
+msgstr "Login no Sistema"
+
+#: classes/class-loginpress-limit-login-attempts.php:133
+msgid "Limit Login Attempts"
+msgstr "Limitar Tentativas de Login"
+
+#: classes/class-loginpress-limit-login-attempts.php:134
+#, php-format
+msgid ""
+"%1$s%3$sSettings%4$s %5$sAttempt Details%4$s %6$sWhitelist%4$s %7$sBlacklist"
+"%4$s%2$s"
+msgstr ""
+"%1$s%3$sConfigurações%4$s %5$sDetalhes da Tentativa%4$s %6$sLista Branca%4$s "
+"%7$sLista Negra%4$s%2$s"
+
+#: classes/class-loginpress-limit-login-attempts.php:154
+msgid "Attempts Allowed"
+msgstr "Tentativas Permitidas"
+
+#: classes/class-loginpress-limit-login-attempts.php:155
+#, fuzzy
+#| msgid "Attempts Allowed"
+msgid "How many attempts allows"
+msgstr "Tentativas Permitidas"
+
+#: classes/class-loginpress-limit-login-attempts.php:162
+msgid "Minutes Lockout"
+msgstr "Minutos de Bloqueio"
+
+#: classes/class-loginpress-limit-login-attempts.php:163
+msgid "Description."
+msgstr "Descrição."
+
+#: classes/class-loginpress-limit-login-attempts.php:170
+msgid "IP"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:176
+msgid "Disable XML RPC Request"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:187
+msgid "Remove Record On Uninstall"
+msgstr "Remover Registros na Desinstalação"
+
+#: classes/class-loginpress-limit-login-attempts.php:188
+msgid ""
+"This tool will remove all LoginPress - Limit Login Attempts record upon "
+"uninstall."
+msgstr ""
+"Esta ferramenta removerá todos os registros de tentativas do plugin após sua "
+"desinstalação."
+
+#: classes/class-loginpress-limit-login-attempts.php:387
+msgid ""
+"<p class=\"description\"><button class=\"button loginpress-attempts-"
+"whitelist add_white_list\" data-action=\"white_list\" type=\"button\" data-"
+"nonce=\""
+msgstr ""
+
+#: loginpress-limit-login-attempts.php:80
+msgid ""
+"Please Install LoginPress Pro to use \"LoginPress - Limit Login Attempts\" "
+"add-on."
+msgstr ""
+"Por favor, instale o LoginPress Pro para utilizar o complement \"LoginPress "
+"- Limitador de Tentativas de Login\"."
+
+#: loginpress-limit-login-attempts.php:97
+msgid ""
+"LoginPress - Limit Login Attempts required LoginPress Pro activation &mdash; "
+msgstr ""
+"LoginPress - Limitador de Tentativas de Login requer uma ativação do "
+"LoginPress Pro &mdash; "
+
+#: loginpress-limit-login-attempts.php:97
+msgid "Click here to activate LoginPress Pro"
+msgstr "Clique aqui para ativar o LoginPress Pro"
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Limit Login Attempts"
+msgstr "LoginPress - Limitador de Tentativas de Login"
+
+#. Plugin URI of the plugin/theme
+#, fuzzy
+#| msgid "http://www.WPBrigade.com/"
+msgid "https://www.loginpress.pro/"
+msgstr "http://www.WPBrigade.com/"
+
+#. Description of the plugin/theme
+msgid ""
+"LoginPress - Limit Login Attempts is the best for <code>wp-login</code> "
+"Login Attemps plugin by <a href=\"https://wpbrigade.com/\">WPBrigade</a> "
+"which allows you to restrict user attempts."
+msgstr ""
+"LoginPress - Limitador de Tentativas de Login é o melhor para <code>wp-"
+"login</code> Limitador de Tentativas de Login, um plugin desenvolvido pela "
+"<a href=\"https://wpbrigade.com/\">WPBrigade</a> que permite restringir as "
+"tentativas dos usuários."
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr "WPBrigade"
+
+#. Author URI of the plugin/theme
+#, fuzzy
+#| msgid "http://www.WPBrigade.com/"
+msgid "https://www.WPBrigade.com/"
+msgstr "http://www.WPBrigade.com/"
+
+#~ msgid "http://www.WPBrigade.com/wordpress/plugins/limit-login-attempts/"
+#~ msgstr "http://www.WPBrigade.com/wordpress/plugins/limit-login-attempts/"

@@ -22,6 +22,16 @@ echo "\n----------------------------------------\n\n";
 
 echo esc_html( $coupon->get_code() ) . "\n";
 
+if ( $coupon->get_date_expires() ) :
+	echo "\n----------------------------------------\n\n";
+
+	printf(
+		/* translators: %s expiration date */
+		esc_html_x( 'This credit can be redeemed until %s.', 'email text', 'woocommerce-store-credit' ) . "\n",
+		esc_html( wc_format_datetime( $coupon->get_date_expires() ) )
+	);
+endif;
+
 echo "\n----------------------------------------\n\n";
 
 if ( $additional_content ) :

@@ -21,7 +21,7 @@ class WC_Gateway_PayPal_Pro extends WC_Payment_Gateway {
 		$this->method_description   = __( 'PayPal Pro works by adding credit card fields on the checkout and then sending the details to PayPal for verification.', 'woocommerce-gateway-paypal-pro' );
 		$this->icon                 = apply_filters('woocommerce_paypal_pro_icon', plugins_url( '/assets/images/cards.png', plugin_basename( dirname( __FILE__ ) ) ) );
 		$this->has_fields           = true;
-		$this->view_transaction_url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_view-a-trans&id=%s';
+		$this->view_transaction_url = $this->get_option( 'testmode', "no" ) === "yes" ? 'https://www.sandbox.paypal.com/activity/payment/%s' : 'https://www.paypal.com/cgi-bin/webscr?cmd=_view-a-trans&id=%s';
 		$this->supports             = array(
 			'products',
 			'refunds',
@@ -642,7 +642,7 @@ class WC_Gateway_PayPal_Pro extends WC_Payment_Gateway {
 			$this->centinel_client->add( 'Version', '1.7' );
 			$this->centinel_client->add( 'TransactionType', $this->enable_3dsecure_centinel ? 'CC' : 'C' );
 			$this->centinel_client->add( 'OrderNumber', $order_id );
-			$this->centinel_client->add( 'Amount', $order->get_total() * 100 );
+			$this->centinel_client->add( 'Amount', $this->decimal_to_cents( $order->get_total() ) );
 			$this->centinel_client->add( 'CurrencyCode', $this->iso4217[ ( $pre_wc_30 ? $order->get_order_currency() : $order->get_currency() ) ] );
 			$this->centinel_client->add( 'TransactionMode', 'S' );
 			$this->centinel_client->add( 'ProductCode', 'PHY' );
@@ -677,7 +677,7 @@ class WC_Gateway_PayPal_Pro extends WC_Payment_Gateway {
 				foreach ( $order->get_items() as $item ) {
 					$item_loop++;
 					$this->centinel_client->add( 'Item_Name_' . $item_loop, $item['name'] );
-					$this->centinel_client->add( 'Item_Price_' . $item_loop, number_format( $order->get_item_total( $item, true, true ) * 100 ), 2, '.', '' );
+					$this->centinel_client->add( 'Item_Price_' . $item_loop, $this->decimal_to_cents( $order->get_item_total( $item, true ) ) );
 					$this->centinel_client->add( 'Item_Quantity_' . $item_loop, $item['qty'] );
 					$this->centinel_client->add( 'Item_Desc_' . $item_loop, $item['name'] );
 				}
@@ -722,6 +722,11 @@ class WC_Gateway_PayPal_Pro extends WC_Payment_Gateway {
 			WC()->session->set( 'Centinel_ACSUrl', $this->get_centinel_value( 'ACSUrl' ) );
 			WC()->session->set( 'Centinel_Payload', $this->get_centinel_value( 'Payload' ) );
 			WC()->session->set( 'Centinel_EciFlag', $this->get_centinel_value( 'EciFlag' ) );
+
+			// If session cookie has not been set, set it now.
+			if ( ! WC()->session->has_session() ) {
+				WC()->session->set_customer_session_cookie( true );
+			}
 
 			if ( $this->get_centinel_value( 'ErrorNo' ) ) {
 				wc_add_notice( __( 'Error in 3D secure authentication: ', 'woocommerce-gateway-paypal-pro' ) . $this->get_centinel_value( 'ErrorDesc' ), 'error' );
@@ -830,7 +835,7 @@ class WC_Gateway_PayPal_Pro extends WC_Payment_Gateway {
 		);
 
 		if ( ! is_null( $amount ) ) {
-			$post_data['AMT']          = number_format( $amount, 2, '.', '' );
+			$post_data['AMT']          = wc_format_decimal( $amount, 2 );
 			$post_data['CURRENCYCODE'] = ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_order_currency() : $order->get_currency() );
 		}
 
@@ -1033,7 +1038,7 @@ class WC_Gateway_PayPal_Pro extends WC_Payment_Gateway {
 				'METHOD'            => 'DoDirectPayment',
 				'PAYMENTACTION'     => $this->paymentaction,
 				'IPADDRESS'         => $this->get_user_ip(),
-				'AMT'               => number_format( $order->get_total(), 2, '.', ',' ),
+				'AMT'               => wc_format_decimal( $order->get_total(), 2 ),
 				'INVNUM'            => $order->get_order_number(),
 				'CURRENCYCODE'      => $pre_wc_30 ? $order->get_order_currency() : $order->get_currency(),
 				'CREDITCARDTYPE'    => $card->type,
@@ -1065,17 +1070,12 @@ class WC_Gateway_PayPal_Pro extends WC_Payment_Gateway {
 
 			/* Send Item details - thanks Harold Coronado */
 			if ( $this->send_items ) {
-
-				/* Send Item details */
 				$item_loop = 0;
 
-				if ( sizeof( $order->get_items() ) > 0 ) {
+				if ( count( $order->get_items() ) > 0 ) {
 					$ITEMAMT = 0;
-					$fee_total = 0;
 
 					foreach ( $order->get_items() as $item ) {
-						$_product = $order->get_product_from_item( $item );
-
 						if ( $item['qty'] ) {
 							$item_name = $item['name'];
 
@@ -1089,69 +1089,66 @@ class WC_Gateway_PayPal_Pro extends WC_Payment_Gateway {
 								$item_meta = new WC_Order_Item_Product( $item );
 
 								if ( $formatted_meta = $item_meta->get_formatted_meta_data() ) {
-									foreach ( $formatted_meta as $meta_key => $meta ) {
+									foreach ( $formatted_meta as $meta ) {
 										$item_name .= ' ( ' . $meta->display_key . ': ' . $meta->value . ' )';
 									}
 								}
 							}
 
+							$item_price                           = $this->round( $order->get_item_subtotal( $item, false, false ) );
 							$post_data[ 'L_NUMBER' . $item_loop ] = $item_loop;
 							$post_data[ 'L_NAME' . $item_loop ]   = $item_name;
-							$post_data[ 'L_AMT' . $item_loop ]    = $order->get_item_subtotal( $item, false );
+							$post_data[ 'L_AMT' . $item_loop ]    = $item_price;
 							$post_data[ 'L_QTY' . $item_loop ]    = $item['qty'];
 
-							$ITEMAMT += round( $order->get_item_total( $item, true, false ) * $item['qty'], wc_get_price_decimals() );
+							$ITEMAMT += $item_price * $item['qty'];
 							$item_loop++;
 						}
 					}
 
 					// Fees
 					foreach ( $order->get_fees() as $fee ) {
+						$fee_amount                           = $this->round( $fee['line_total'] );
 						$post_data[ 'L_NUMBER' . $item_loop ] = $item_loop;
-						$post_data[ 'L_NAME' . $item_loop ] = trim( substr( $fee['name'], 0, 127 ) );
-						$post_data[ 'L_AMT' . $item_loop ] = $fee['line_total'];
-						$post_data[ 'L_QTY' . $item_loop ] = 1;
-
-						$ITEMAMT += $fee['line_total'];
-						$fee_total += $fee['line_total'];
-
-						$item_loop++;
-					}
-
-					// Shipping
-					if ( ( $order->get_total_shipping() + $order->get_shipping_tax() ) > 0 ) {
-						$post_data[ 'L_NUMBER' . $item_loop ] = $item_loop;
-						$post_data[ 'L_NAME' . $item_loop ]   = 'Shipping';
-						$post_data[ 'L_AMT' . $item_loop ]    = round( $order->get_total_shipping(), 2 );
+						$post_data[ 'L_NAME' . $item_loop ]   = trim( substr( $fee['name'], 0, 127 ) );
+						$post_data[ 'L_AMT' . $item_loop ]    = $fee_amount;
 						$post_data[ 'L_QTY' . $item_loop ]    = 1;
 
-						$ITEMAMT += round( $order->get_total_shipping() + $order->get_shipping_tax(), 2 );
+						$ITEMAMT += $fee_amount;
 
 						$item_loop++;
 					}
 
 					// Discount
 					if ( $order->get_total_discount() > 0 ) {
+						$discount_total                       = $this->round( $order->get_total_discount() );
 						$post_data[ 'L_NUMBER' . $item_loop ] = $item_loop;
-						$post_data[ 'L_NAME' . $item_loop ]   = 'Order Discount';
-						$post_data[ 'L_AMT' . $item_loop ]    = '-' . round( $order->get_total_discount(), 2 );
+						$post_data[ 'L_NAME' . $item_loop ]   = __( 'Order Discount', 'woocommerce-gateway-paypal-pro' ) ;
+						$post_data[ 'L_AMT' . $item_loop ]    = "-$discount_total";
 						$post_data[ 'L_QTY' . $item_loop ]    = 1;
 
+						$ITEMAMT -= $discount_total;
 						$item_loop++;
 					}
 
-					$ITEMAMT = round( $ITEMAMT, 2 );
+					// Shipping
+					if ( $order->get_total_shipping() > 0 ) {
+						$post_data['SHIPPINGAMT'] = $this->round( $order->get_total_shipping() );
+					}
 
-					// Fix rounding
-					if ( absint( $order->get_total() * 100 ) !== absint( $ITEMAMT * 100 ) ) {
+					// Shipping and tax charges are listed seperatly so subtract them from the expected item total.
+					$item_subtotal = $this->round( $order->get_total() ) - $this->round( $order->get_total_shipping() ) - $this->round( $order->get_total_tax() );
+
+					// Fix rounding by ensureing the combined item total is equal to the order item subtotal.
+					if ( absint( $item_subtotal * 100 ) !== absint( $ITEMAMT * 100 ) ) {
 						$post_data[ 'L_NUMBER' . $item_loop ] = $item_loop;
-						$post_data[ 'L_NAME' . $item_loop ]   = 'Rounding amendment';
-						$post_data[ 'L_AMT' . $item_loop ]    = ( absint( $order->get_total() * 100 ) - absint( $ITEMAMT * 100 ) ) / 100;
+						$post_data[ 'L_NAME' . $item_loop ]   = __( 'Rounding Amendment', 'woocommerce-gateway-paypal-pro' );
+						$post_data[ 'L_AMT' . $item_loop ]    = ( absint( $item_subtotal * 100 ) - absint( $ITEMAMT * 100 ) ) / 100;
 						$post_data[ 'L_QTY' . $item_loop ]    = 1;
 					}
 
-					$post_data['ITEMAMT'] = round( ( $order->get_subtotal() + $order->get_total_shipping() + $fee_total ) - $order->get_total_discount(), 2 );
-					$post_data['TAXAMT']  = round( $order->get_total_tax(), 2 );
+					$post_data['ITEMAMT'] = $this->round( $item_subtotal );
+					$post_data['TAXAMT']  = $this->round( $order->get_total_tax() );
 				}
 			}
 
@@ -1417,5 +1414,34 @@ class WC_Gateway_PayPal_Pro extends WC_Payment_Gateway {
 			}
 			$this->log->add( 'paypal-pro', $message );
 		}
+	}
+
+	/**
+	 * Rounds a float value.
+	 *
+	 * @param float   $number The number to round.
+	 * @param integer $precision The number of decimal places to round to. Optional. Default is 2. PayPal's default behaviour for a majority of currencies, is 2.
+	 * @return float The number rounded to the given number of deicmals.
+	 */
+	protected function round( $number, $precision = 2 ) {
+		return round( (float) $number, $precision );
+	}
+
+	/**
+	 * Converts a 2 decimal float into cents (undecimalised format).
+	 *
+	 * Useful for converting order amounts into the required format for Centinel.
+	 *
+	 * @param float  $amount A float value to convert into undecimalised format.
+	 * @param string $rounding_behaviour Whether to round the amount or not. Optional. Default is 'round' which will round the amount to 2 decimal places and return a value in the format required by Centinel.
+	 *
+	 * @return int The given amount in cents (undecimalised format).
+	 */
+	protected function decimal_to_cents( $amount, $rounding_behaviour = 'round' ) {
+		if ( 'round' === $rounding_behaviour ) {
+			$amount = $this->round( $amount );
+		}
+
+		return $amount * 100;
 	}
 }

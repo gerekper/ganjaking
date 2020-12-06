@@ -66,14 +66,42 @@ function wc_measurement_price_calculator_admin_enqueue_scripts() {
 		wp_enqueue_script( 'wc-price-calculator-admin', wc_measurement_price_calculator()->get_plugin_url() . '/assets/js/admin/wc-measurement-price-calculator.min.js', array(), \WC_Measurement_Price_Calculator::VERSION );
 
 		// Variables for JS scripts
-		$wc_price_calculator_admin_params = array(
-			'woocommerce_currency_symbol'  => get_woocommerce_currency_symbol(),
-			'woocommerce_weight_unit'      => 'no' !== get_option( 'woocommerce_enable_weight', true ) ? get_option( 'woocommerce_weight_unit' ) : '',
-			'pricing_rules_enabled_notice' => __( 'Cannot edit price while a pricing table is active', 'woocommerce-measurement-price-calculator' ),
-		);
+		$wc_price_calculator_admin_params = [
+			'woocommerce_currency_symbol'            => get_woocommerce_currency_symbol(),
+			'woocommerce_weight_unit'                => 'no' !== get_option( 'woocommerce_enable_weight', true ) ? get_option( 'woocommerce_weight_unit' ) : '',
+			'pricing_rules_enabled_notice'           => __( 'Cannot edit price while a pricing table is active', 'woocommerce-measurement-price-calculator' ),
+			'is_variable_product_with_stock_managed' => wc_measurement_price_calculator_is_variable_product_with_stock_managed( wc_get_product( $post ) ),
+		];
 
 		wp_localize_script( 'wc-price-calculator-admin', 'wc_price_calculator_admin_params', $wc_price_calculator_admin_params );
 	}
+}
+
+
+/**
+ * Checks if a given product is variable and has at least one variation with sock management enabled.
+ *
+ * @since 3.18.2
+ *
+ * @param \WC_Product $product
+ * @return bool
+ */
+function wc_measurement_price_calculator_is_variable_product_with_stock_managed( $product ) {
+
+	if ( ! $product instanceof \WC_Product || ! $product->is_type( 'variable' ) ) {
+		return false;
+	}
+
+	foreach ( $product->get_children() as $variation_id ) {
+
+		$variation = wc_get_product( $variation_id );
+
+		if ( $variation && $variation->get_manage_stock() ) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 

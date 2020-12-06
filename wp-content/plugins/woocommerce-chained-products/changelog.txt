@@ -1,5 +1,10 @@
 *** WooCommerce Chained Products Changelog ***
 
+2020.11.27 - version 2.9.9
+* New: WooCommerce 4.6.2, 4.7.1 compatible
+* Developer: Filter 'chained_products_show_for_variable'
+* Update: POT file
+
 2020.10.03 - version 2.9.8
 * New: WooCommerce 4.5.2 compatible
 * Fix: Fatal error when updating existing orders with Chained Products

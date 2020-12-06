@@ -45,6 +45,9 @@
 			});	
 		}
 		wp.customize.bind( 'ready', function() {
+			wp.customize( 'betterdocs_mkb_desc', function( setting ) {
+				customizer_conditional_setting_return_toggle_pro(setting,'betterdocs_mkb_desc_color',true);
+			});
 			wp.customize( 'betterdocs_multikb_layout_select', function( setting ) {
 				customizer_controls_show_pro(setting,'betterdocs_doc_page_cat_icon_size_layout2','layout-1');
 				customizer_controls_show_pro(setting,'betterdocs_doc_page_item_count_color_layout2','layout-1,layout-2');

@@ -113,7 +113,6 @@ return array(
 				'default'     => false,
 			),
 
-
 			'social_twitter'        => array(
 				'type'    => 'checkbox',
 				'title'   => esc_html__( 'Twitter', 'groovy-menu' ),
@@ -442,8 +441,7 @@ return array(
 				'type'        => 'icons',
 				'title'       => esc_html__( 'Icons', 'groovy-menu' ),
 				'default'     => '',
-				'description' => sprintf( esc_html__( 'Please upload .ZIP archive created with %1$s service only.', 'groovy-menu' ), '<a href="https://icomoon.io/app/#/select" title="icomoon.io" target="_blank">icomoon.io</a>' ) . ' ' .
-				                 sprintf( esc_html__( 'How to create font icon package read in %1$s this article %2$s', 'groovy-menu' ), '<a href="https://grooni.com/docs/groovy-menu/global-settings/managing-icon-packs/" title="Grooni docs" target="_blank">', '</a>' ),
+				'description' => '',
 			),
 		),
 	),
@@ -494,17 +492,30 @@ return array(
 				'default'     => false,
 				'description' => esc_html__( 'Disable loading Font Awesome from Groovy menu at the front-end side of the site', 'groovy-menu' ),
 			),
+			'disable_local_font_internal'     => array(
+				'type'        => 'checkbox',
+				'title'       => esc_html__( 'Disable internal Font', 'groovy-menu' ),
+				'default'     => false,
+				'description' => esc_html__( 'Disable loading internal Font from Groovy menu (search, mini-cart icons) at the front-end side of the site', 'groovy-menu' ),
+			),
+			'allow_use_font_preloader'     => array(
+				'type'        => 'checkbox',
+				'title'       => esc_html__( 'Allow use preloader for internal fonts', 'groovy-menu' ),
+				'default'     => true,
+				'description' => esc_html__( 'Add preload link tag', 'groovy-menu' ),
+			),
 			'allow_import_online_library'     => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Allow fetching presets from online library', 'groovy-menu' ),
 				'default'     => false,
 				'description' => '',
 			),
-			'uninstall_data'                  => array(
+			'uninstall_data' => array(
 				'type'        => 'checkbox',
-				'title'       => '<span class="gm-delete-warn">' . esc_html__( 'Remove All Data after uninstall', 'groovy-menu' ) . '</span>',
+				'title'       => esc_html__( 'Remove All Data after uninstall', 'groovy-menu' ),
 				'default'     => false,
 				'description' => esc_html__( 'This tool will remove Groovy menu, Presets and other data when using the "Delete" link on the plugins screen.', 'groovy-menu' ),
+				'title_class' => 'gm-delete-warn',
 			),
 		),
 	),

@@ -1,5 +1,14 @@
 *** WooCommerce Composite Products ***
 
+2020.11.25 - version 7.1.3
+* Fix - Select button alignment in 'Options Style > Thumbnail' grids.
+
+2020.11.09 - version 7.1.2
+* Fix - Adjust the 'priceSpecification' structured data property based on the mininum Composite price.
+* Fix - Reviewed Elementor Pro for compatibility. Added 'grouped_form' class to composite-type forms to prevent issues with Elementor's flex.
+* Fix - Reviewed Divi for compatibility. Prevented duplicate forms from displaying in Composite product pages and disabled the 'Form Location' option when using the Divi builder.
+* Tweak - Remove stray component notice for bundles with insufficient stock.
+
 2020.10.06 - version 7.1.1
 * Tweak - Handle missing '$.fn.wc_product_gallery' function on themes that declare support for PhotoSwipe.
 

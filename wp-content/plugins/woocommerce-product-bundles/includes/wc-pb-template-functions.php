@@ -62,7 +62,7 @@ function wc_pb_template_add_to_cart() {
 		$form_classes[] = 'bundle_out_of_stock';
 	}
 
-	if ( $product->contains( 'out_of_stock' ) ) {
+	if ( 'outofstock' === $product->get_bundled_items_stock_status() ) {
 		$form_classes[] = 'bundle_insufficient_stock';
 	}
 
@@ -71,7 +71,7 @@ function wc_pb_template_add_to_cart() {
 		wc_get_template( 'single-product/add-to-cart/bundle.php', array(
 			'bundled_items'     => $bundled_items,
 			'product'           => $product,
-			'classes'           => implode( ' ', $form_classes ),
+			'classes'           => implode( ' ', apply_filters( 'woocommerce_bundle_form_classes', $form_classes, $product ) ),
 			// Back-compat.
 			'product_id'        => $product->get_id(),
 			'availability_html' => wc_get_stock_html( $product ),
@@ -196,14 +196,22 @@ function wc_pb_template_bundled_item_thumbnail( $bundled_item, $bundle ) {
 			 */
 			$gallery_classes = apply_filters( 'woocommerce_bundled_product_gallery_classes', array( 'bundled_product_images', 'images' ), $bundled_item );
 
-			wc_get_template( 'single-product/bundled-item-image.php', array(
+			/**
+			 * 'woocommerce_bundled_item_image_tmpl_params' filter.
+			 *
+			 * @param  array            $params
+			 * @param  WC_Bundled_Item  $bundled_item
+			 */
+			$bundled_item_image_tmpl_params = apply_filters( 'woocommerce_bundled_item_image_tmpl_params', array(
 				'post_id'         => $product_id,
 				'product_id'      => $product_id,
 				'bundled_item'    => $bundled_item,
 				'gallery_classes' => $gallery_classes,
 				'image_size'      => $bundled_item->get_bundled_item_thumbnail_size(),
 				'image_rel'       => current_theme_supports( 'wc-product-gallery-lightbox' ) ? 'photoSwipe' : 'prettyPhoto',
-			), false, WC_PB()->plugin_path() . '/templates/' );
+			), $bundled_item );
+
+			wc_get_template( 'single-product/bundled-item-image.php', $bundled_item_image_tmpl_params, false, WC_PB()->plugin_path() . '/templates/' );
 		}
 	}
 

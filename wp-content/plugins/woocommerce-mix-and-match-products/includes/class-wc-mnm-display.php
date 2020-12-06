@@ -320,18 +320,11 @@ class WC_Mix_and_Match_Display {
 		wp_register_script( 'wc-add-to-cart-mnm', WC_Mix_and_Match()->plugin_url() . '/assets/js/frontend/add-to-cart-mnm' . $suffix . '.js', array( 'jquery', 'jquery-blockui' ), WC_Mix_and_Match()->version, true );
 
 		/**
-		 * Trim Zeros setting.
-		 *
-		 * @param  array $params
-		 */
-		$trim_zeros = apply_filters( 'woocommerce_price_trim_zeros', false );
-
-		/**
 		 * Javascript strings.
 		 *
 		 * @param  array $params
 		 */
-		$params = $this->get_add_to_cart_parameters( $trim_zeros );
+		$params = $this->get_add_to_cart_parameters();
 
 		wp_localize_script( 'wc-add-to-cart-mnm', 'wc_mnm_params', $params );
 
@@ -340,10 +333,15 @@ class WC_Mix_and_Match_Display {
 	/**
 	 * Returns Add to Cart Parameters.
 	 *
-	 * @param  bool $trim_zeros
+	 * @param  bool $trim_zeros - Deprecated 1.10.5.
 	 * @return array
 	 */
-	public static function get_add_to_cart_parameters( $trim_zeros ) {
+	public static function get_add_to_cart_parameters( $deprecated = false ) {
+
+		if ( $deprecated ) {
+			wc_deprecated_argument( 'args', '1.10.5', 'Passing args to the get_add_to_cart_parameters() method is deprecated.' );
+		}
+
 		return apply_filters(
             'woocommerce_mnm_add_to_cart_parameters',
             array(
@@ -384,7 +382,7 @@ class WC_Mix_and_Match_Display {
 			'currency_format_precision_decimals' => absint( wc_get_rounding_precision() ),
 			'currency_format_decimal_sep'        => esc_attr( stripslashes( get_option( 'woocommerce_price_decimal_sep' ) ) ),
 			'currency_format_thousand_sep'       => esc_attr( stripslashes( get_option( 'woocommerce_price_thousand_sep' ) ) ),
-			'currency_format_trim_zeros'         => false == $trim_zeros ? 'no' : 'yes',
+			'currency_format_trim_zeros'         => false === apply_filters( 'woocommerce_price_trim_zeros', false ) ? 'no' : 'yes',
 			'price_display_suffix'               => esc_attr( get_option( 'woocommerce_price_display_suffix' ) ),
 			'prices_include_tax'                 => esc_attr( get_option( 'woocommerce_prices_include_tax' ) ),
 			'tax_display_shop'                   => esc_attr( get_option( 'woocommerce_tax_display_shop' ) ),

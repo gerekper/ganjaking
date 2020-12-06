@@ -1,14 +1,14 @@
 <?php
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_oficial_woocommerce_gateway_redsys_init_check() {
 	$class   = 'error';
@@ -17,7 +17,7 @@ function redsys_oficial_woocommerce_gateway_redsys_init_check() {
 }
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_admin_notice_lite_version() {
 	if ( is_plugin_active( 'woo-redsys-gateway-light/woocommerce-redsys.php' )|| is_plugin_active( 'redsys/wc-redsys.php' ) || is_plugin_active( 'redsysoficial/wc-redsys.php' ) || is_plugin_active( 'bizum/class-wc-bizum.php' ) ) {
@@ -27,7 +27,7 @@ function redsys_admin_notice_lite_version() {
 add_action( 'admin_init', 'redsys_admin_notice_lite_version', 0 );
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_add_notice_intalled_new() {
 
@@ -80,7 +80,7 @@ function redsys_add_notice_intalled_new() {
 add_action( 'admin_notices', 'redsys_add_notice_intalled_new' );
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_add_notice_new_version() {
 
@@ -122,7 +122,7 @@ function redsys_add_notice_new_version() {
 add_action( 'admin_notices', 'redsys_add_notice_new_version' );
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_installation_notice() {
 
@@ -164,7 +164,7 @@ function redsys_installation_notice() {
 //add_action( 'admin_notices', 'redsys_installation_notice' );
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_deprecated_authorization() {
 	
@@ -179,10 +179,23 @@ function redsys_deprecated_authorization() {
 add_action( 'admin_notices', 'redsys_deprecated_authorization' );
 
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_notice_style() {
 	wp_register_style( 'redsys_notice_css', REDSYS_PLUGIN_URL . 'assets/css/redsys-notice.css', false, REDSYS_VERSION );
 	wp_enqueue_style( 'redsys_notice_css' );
 }
 add_action( 'admin_enqueue_scripts', 'redsys_notice_style' );
+
+function check_redsys_connected() {
+	
+	$auth = WC_Helper_Options::get( 'auth' );
+	if ( empty( $auth['access_token'] ) ) {
+		$class   = 'notice notice-error';
+		$link    =  admin_url( 'admin.php?page=wc-addons&section=helper' );
+		$message = __( '<a href="' . esc_html( $link ) . '">Connect WooCommerce with WooCommerce.com</a> to get WooCommerce Redsys Gateway updates. This connection will allow you to update the plugin automatically and be advised of new updates<br />If you don\'t connect it, you could be with an old plugin version and maybe with some bugs.', 'woocommerce-redsys' );
+		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+	}
+}
+
+add_action( 'admin_notices', 'check_redsys_connected' );

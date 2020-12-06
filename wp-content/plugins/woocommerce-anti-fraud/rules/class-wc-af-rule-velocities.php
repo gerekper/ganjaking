@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_AF_Rule_Velocities extends WC_AF_Rule {
 
 	private $is_enabled  = false;
-    private $rule_weight = 0;
+	private $rule_weight = 0;
 
 	/**
 	 * The constructor
@@ -17,7 +17,7 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 		$this->rule_weight = get_option('wc_settings_anti_fraud_order_attempt_weight');
 		$this->time_stamp  = get_option('wc_settings_anti_fraud_attempt_time_span');
 		$this->max_orders = get_option('wc_settings_anti_fraud_max_order_attempt_time_span');
-		parent::__construct( 'velocities', 'IP address ordered multiple orders in the last '.$this->time_stamp.' hours.', $this->rule_weight );
+		parent::__construct( 'velocities', 'IP address ordered multiple orders in the last ' . $this->time_stamp . ' hours.', $this->rule_weight );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 
 		// Calculate the new datetime
 		$dt = new DateTime( $order_date );
-		$dt->modify( '-'.$this->time_stamp.' hours' );
+		$dt->modify( '-' . $this->time_stamp . ' hours' );
 
 		// Set the start and send datetime strings
 		$this->start_datetime_string = $dt->format( 'Y-m-d H:i:s' );
@@ -99,8 +99,8 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 		return $risk;
 	}
 	//Enable rule check
-	public function is_enabled(){
-		if('yes' == $this->is_enabled){
+	public function is_enabled() {
+		if ('yes' == $this->is_enabled) {
 			return true;
 		}
 		return false;

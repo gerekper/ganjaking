@@ -2,10 +2,10 @@
 
 namespace Yoast\WP\SEO\Integrations\Admin;
 
-use Yoast\WP\SEO\Actions\Indexation\Indexable_General_Indexation_Action;
-use Yoast\WP\SEO\Actions\Indexation\Indexable_Post_Indexation_Action;
-use Yoast\WP\SEO\Actions\Indexation\Indexable_Post_Type_Archive_Indexation_Action;
-use Yoast\WP\SEO\Actions\Indexation\Indexable_Term_Indexation_Action;
+use Yoast\WP\SEO\Actions\Indexing\Indexable_General_Indexation_Action;
+use Yoast\WP\SEO\Actions\Indexing\Indexable_Post_Indexation_Action;
+use Yoast\WP\SEO\Actions\Indexing\Indexable_Post_Type_Archive_Indexation_Action;
+use Yoast\WP\SEO\Actions\Indexing\Indexable_Term_Indexation_Action;
 use Yoast\WP\SEO\Actions\Prominent_Words\Content_Action;
 use Yoast\WP\SEO\Conditionals\Admin_Conditional;
 use Yoast\WP\SEO\Helpers\Capability_Helper;
@@ -42,10 +42,10 @@ class Prominent_Words_Notification implements Integration_Interface {
 	 *
 	 * @param Yoast_Notification_Center                     $notification_center          The notification center.
 	 * @param Content_Action                                $content_action               The content action.
-	 * @param Indexable_Post_Indexation_Action              $post_indexation              The post indexation action.
-	 * @param Indexable_Term_Indexation_Action              $term_indexation              The term indexation action.
-	 * @param Indexable_General_Indexation_Action           $general_indexation           The general indexation action.
-	 * @param Indexable_Post_Type_Archive_Indexation_Action $post_type_archive_indexation The post type indexation action.
+	 * @param Indexable_Post_Indexation_Action              $post_indexation              The post indexing action.
+	 * @param Indexable_Term_Indexation_Action              $term_indexation              The term indexing action.
+	 * @param Indexable_General_Indexation_Action           $general_indexation           The general indexing action.
+	 * @param Indexable_Post_Type_Archive_Indexation_Action $post_type_archive_indexation The post type indexing action.
 	 * @param Capability_Helper                             $capability                   The capability helper.
 	 * @param Options_Helper                                $options                      The options helper.
 	 */

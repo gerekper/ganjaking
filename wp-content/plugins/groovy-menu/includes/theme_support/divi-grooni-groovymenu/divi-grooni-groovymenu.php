@@ -33,7 +33,7 @@ if ( ! function_exists( 'groovymenu_initialize_extension' ) ) {
 	 * @since 1.0.0
 	 */
 	function groovymenu_initialize_extension() {
-		require_once plugin_dir_path( __FILE__ ) . 'includes/DiviGrooniGroovyMenu_init.php';
+		require_once plugin_dir_path( __FILE__ ) . 'includes' . DIRECTORY_SEPARATOR . 'DiviGrooniGroovyMenu_init.php';
 	}
 
 	add_action( 'divi_extensions_init', 'groovymenu_initialize_extension' );

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Display-related functions and filters.
  *
  * @class    WC_PB_MMI_Display
- * @version  6.4.0
+ * @version  6.6.0
  */
 class WC_PB_MMI_Display {
 
@@ -74,13 +74,12 @@ class WC_PB_MMI_Display {
 	 */
 	public static function script_data( $data, $product ) {
 
-		if ( $product->meta_exists( '_wcpb_min_qty_limit' ) || $product->meta_exists( '_wcpb_max_qty_limit' ) ) {
+		$min = $product->get_min_bundle_size();
+		$max = $product->get_max_bundle_size();
 
-			$min = $product->get_meta( '_wcpb_min_qty_limit', true );
-			$max = $product->get_meta( '_wcpb_max_qty_limit', true );
-
-			$data[ 'size_min' ] = $min > 0 ? absint( $min ) : '';
-			$data[ 'size_max' ] = $max > 0 ? absint( $max ) : '';
+		if ( '' !== $min || '' !== $max ) {
+			$data[ 'size_min' ] = $min;
+			$data[ 'size_max' ] = $max;
 		}
 
 		return $data;

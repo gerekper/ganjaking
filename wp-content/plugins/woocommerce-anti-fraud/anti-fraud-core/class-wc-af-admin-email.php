@@ -79,7 +79,7 @@ class WC_AF_Admin_Email extends WC_Email {
 		}
 
 		// Send the emails
-		$this->send( $this->get_recipient().','.$this->customemail, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+		$this->send( $this->get_recipient() . ',' . $this->customemail, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 
 		// Remove the woocommerce_locate_template filter
 		remove_filter( 'woocommerce_locate_template', array( $this, 'load_plugin_templates' ), 10 );

@@ -55,21 +55,23 @@ class WoocommerceGpfFeedItem {
 	private $description_type = 'full';
 
 	/**
-	 * Unit of measurement to use when generating shipping height/width/length.
+	 * Unit of measurement that the shipping height/width/length are in
 	 *
+	 * Defaults to the standard store dimension unit.
 	 * Override by using the filter 'woocommerce_gpf_shipping_dimension_unit'.
 	 * Valid values are 'in', or 'cm'.
 	 *
 	 * @var string
 	 */
-	private $shipping_dimension_unit = 'cm';
+	private $shipping_dimension_unit = '';
 
 	/**
-	 * Unit of measure to use when submitting shipping weights.
+	 * Unit of measure that shipping weights are in.
 	 *
+	 * Defaults to the standard store weight unit.
 	 * Override by using the filter 'woocommerce_gpf_shipping_weight_unit'.
 	 *
-	 * Valid values are lb, oz, g, kg
+	 * Valid values are lbs, oz, g, kg
 	 *
 	 * @var string
 	 */
@@ -272,6 +274,7 @@ class WoocommerceGpfFeedItem {
 	 */
 	private $ordered_images = [];
 
+
 	/**
 	 * Constructor.
 	 *
@@ -307,14 +310,8 @@ class WoocommerceGpfFeedItem {
 			'woocommerce_gpf_description_type',
 			$this->description_type
 		);
-		$this->shipping_dimension_unit = apply_filters(
-			'woocommerce_gpf_shipping_dimension_unit',
-			'cm'
-		);
-		$this->shipping_weight_unit    = apply_filters(
-			'woocommerce_gpf_shipping_weight_unit',
-			'g'
-		);
+		$this->shipping_dimension_unit = get_option( 'woocommerce_dimension_unit' );
+		$this->shipping_weight_unit    = get_option( 'woocommerce_weight_unit' );
 		$this->is_variation            = $this->specific_product instanceof WC_Product_Variation;
 		$this->specific_id             = $this->specific_product->get_id();
 		$this->general_id              = $this->general_product->get_id();
@@ -400,20 +397,7 @@ class WoocommerceGpfFeedItem {
 		$this->ID            = $this->specific_id;
 		$this->guid          = 'woocommerce_gpf_' . $this->ID;
 		$this->item_group_id = 'woocommerce_gpf_' . $this->general_id;
-		$this->title         = $this->specific_product->get_title();
-		if ( $this->is_variation ) {
-			$include_labels = apply_filters( 'woocommerce_gpf_include_attribute_labels_in_title', true );
-			$suffix         = wc_get_formatted_variation( $this->specific_product, true, $include_labels );
-			if ( ! empty( $suffix ) ) {
-				$this->title .= ' (' . $suffix . ')';
-			}
-		}
-		// Include item_group_id.
-		$this->title       = apply_filters(
-			'woocommerce_gpf_title',
-			$this->title,
-			$this->specific_id
-		);
+		do_action( 'woocommerce_gpf_before_description_generation', $this->specific_id, $this->general_id );
 		$this->description = $this->get_product_description();
 		$this->description = apply_filters(
 			'woocommerce_gpf_description',
@@ -421,6 +405,7 @@ class WoocommerceGpfFeedItem {
 			$this->general_id,
 			$this->is_variation ? $this->specific_id : null
 		);
+		do_action( 'woocommerce_gpf_after_description_generation', $this->specific_id, $this->general_id );
 
 		$this->purchase_link       = $this->specific_product->get_permalink();
 		$this->is_in_stock         = $this->specific_product->is_in_stock();
@@ -433,10 +418,31 @@ class WoocommerceGpfFeedItem {
 		$this->general_elements();
 		$this->get_images();
 
+		// Move title out of additional_elements, and back into the main property if set
+		// or fall back to the product_title if not populated.
+		if ( ! empty( $this->additional_elements['title'][0] ) ) {
+			$this->title = $this->additional_elements['title'][0];
+		} else {
+			$this->title = $this->specific_product->get_title();
+		}
+		unset( $this->additional_elements['title'] );
+
+		if ( $this->is_variation ) {
+			$include_labels = apply_filters( 'woocommerce_gpf_include_attribute_labels_in_title', true );
+			$suffix         = wc_get_formatted_variation( $this->specific_product, true, $include_labels );
+			if ( ! empty( $suffix ) ) {
+				$this->title .= ' (' . $suffix . ')';
+			}
+		}
+		$this->title = apply_filters(
+			'woocommerce_gpf_title',
+			$this->title,
+			$this->specific_id,
+			$this->general_id
+		);
+
 		if ( 'google' === $this->feed_format ) {
-			$this->shipping_height_elements();
-			$this->shipping_width_elements();
-			$this->shipping_length_elements();
+			$this->shipping_dimensions();
 			$this->all_or_nothing_shipping_elements();
 		}
 		$this->force_stock_status();
@@ -615,15 +621,22 @@ class WoocommerceGpfFeedItem {
 		// Find out the product type.
 		$product_type = $product->get_type();
 
+		// Allow custom price calculators.
+		$price_calculator = apply_filters(
+			'woocommerce_gpf_product_price_calculator_callback',
+			null,
+			$product_type,
+			$product
+		);
+		if ( null !== $price_calculator && is_callable( $price_calculator ) ) {
+			return $price_calculator( $product, $prices );
+		}
+
+		// Standard price calculator functions.
 		if ( 'variable' === $product_type ) {
 			// Variable products shouldn't have prices. Works around issue in WC
 			// core : https://github.com/woocommerce/woocommerce/issues/16145
 			return $prices;
-		} elseif ( 'bundle' === $product_type ) {
-			// Bundle products require their own logic.
-			return $this->generate_prices_for_bundle_product( $product, $prices );
-		} elseif ( 'composite' === $product_type ) {
-			return $this->generate_prices_for_composite_product( $product, $prices );
 		}
 
 		// Grab the regular price of the base product.
@@ -693,74 +706,6 @@ class WoocommerceGpfFeedItem {
 			$prices['sale_price_end_date']->add( new DateInterval( 'P1D' ) );
 		}
 
-		// Populate a "price", using the sale price if there is one, the actual price if not.
-		if ( null !== $prices['sale_price_ex_tax'] ) {
-			$prices['price_ex_tax']  = $prices['sale_price_ex_tax'];
-			$prices['price_inc_tax'] = $prices['sale_price_inc_tax'];
-		} else {
-			$prices['price_ex_tax']  = $prices['regular_price_ex_tax'];
-			$prices['price_inc_tax'] = $prices['regular_price_inc_tax'];
-		}
-
-		return $prices;
-	}
-
-	/**
-	 * @param $product
-	 * @param $prices
-	 *
-	 * @return array
-	 */
-	private function generate_prices_for_bundle_product( $product, $prices ) {
-		// Use tax-specific functions if available.
-		if ( is_callable( array( $product, 'get_bundle_regular_price_including_tax' ) ) ) {
-			$prices['regular_price_ex_tax']  = $product->get_bundle_regular_price_excluding_tax();
-			$prices['regular_price_inc_tax'] = $product->get_bundle_regular_price_including_tax();
-			$current_price_ex_tax            = $product->get_bundle_price_excluding_tax();
-			if ( $current_price_ex_tax < $prices['regular_price_ex_tax'] ) {
-				$prices['sale_price_ex_tax']  = $product->get_bundle_price_excluding_tax();
-				$prices['sale_price_inc_tax'] = $product->get_bundle_price_including_tax();
-			}
-		} else {
-			// Just take the current price as the regular price since its
-			// the only one we can reliably get.
-			$prices['regular_price_ex_tax']  = $product->get_bundle_price_excluding_tax();
-			$prices['regular_price_inc_tax'] = $product->get_bundle_price_including_tax();
-		}
-		// Populate a "price", using the sale price if there is one, the actual price if not.
-		if ( null !== $prices['sale_price_ex_tax'] ) {
-			$prices['price_ex_tax']  = $prices['sale_price_ex_tax'];
-			$prices['price_inc_tax'] = $prices['sale_price_inc_tax'];
-		} else {
-			$prices['price_ex_tax']  = $prices['regular_price_ex_tax'];
-			$prices['price_inc_tax'] = $prices['regular_price_inc_tax'];
-		}
-
-		return $prices;
-	}
-
-	/**
-	 * @param $product
-	 * @param $prices
-	 *
-	 * @return array
-	 */
-	private function generate_prices_for_composite_product( $product, $prices ) {
-		// Use tax-specific functions if available.
-		if ( is_callable( array( $product, 'get_composite_regular_price_including_tax' ) ) ) {
-			$prices['regular_price_ex_tax']  = $product->get_composite_regular_price_excluding_tax();
-			$prices['regular_price_inc_tax'] = $product->get_composite_regular_price_including_tax();
-			$current_price_ex_tax            = $product->get_composite_price_excluding_tax();
-			if ( $current_price_ex_tax < $prices['regular_price_ex_tax'] ) {
-				$prices['sale_price_ex_tax']  = $product->get_composite_price_excluding_tax();
-				$prices['sale_price_inc_tax'] = $product->get_composite_price_including_tax();
-			}
-		} else {
-			// Just take the current price as the regular price since its
-			// the only one we can reliably get.
-			$prices['regular_price_ex_tax']  = $product->get_composite_price_excluding_tax();
-			$prices['regular_price_inc_tax'] = $product->get_composite_price_including_tax();
-		}
 		// Populate a "price", using the sale price if there is one, the actual price if not.
 		if ( null !== $prices['sale_price_ex_tax'] ) {
 			$prices['price_ex_tax']  = $prices['sale_price_ex_tax'];
@@ -852,62 +797,37 @@ class WoocommerceGpfFeedItem {
 	}
 
 	/**
-	 * Retrieve a measurement for a product in inches.
+	 * Add the measurements for a product in the store base unit.
 	 *
-	 * @param string $dimension The dimension to retrieve. "length", "width" or "height"
-	 *
-	 * @return float                The requested dimension for the given product.
+	 * @return void
 	 */
-	private function get_shipping_dimension( $dimension ) {
-		if ( 'width' !== $dimension &&
-			 'length' !== $dimension &&
-			 'height' !== $dimension ) {
-			return null;
-		}
-		$function    = 'get_' . $dimension;
-		$measurement = $this->specific_product->{$function}();
-		if ( empty( $measurement ) ) {
-			return null;
-		}
-		$measurement = wc_get_dimension( $measurement, $this->shipping_dimension_unit );
+	private function shipping_dimensions() {
+		$length = $this->specific_product->get_length();
+		$width  = $this->specific_product->get_width();
+		$height = $this->specific_product->get_height();
 
-		return $measurement;
-	}
-
-	/**
-	 * Add shipping_length to the elements array if the product has a length
-	 * configured.
-	 */
-	private function shipping_length_elements() {
-		$length = $this->get_shipping_dimension( 'length' );
-		if ( empty( $length ) ) {
-			return;
+		// Work out the target UOM.
+		$this->shipping_dimension_unit = apply_filters(
+			'woocommerce_gpf_shipping_dimension_unit',
+			$this->shipping_dimension_unit
+		);
+		// Use cm if the unit isn't supported.
+		if ( ! in_array( $this->shipping_dimension_unit, [ 'in', 'cm' ], true ) ) {
+			$this->shipping_dimension_unit = 'cm';
 		}
-		$this->additional_elements['shipping_length'] = array( (int) ceil( $length ) . ' ' . $this->shipping_dimension_unit );
-	}
+		$length = wc_get_dimension( (float) $length, $this->shipping_dimension_unit );
+		$width  = wc_get_dimension( (float) $width, $this->shipping_dimension_unit );
+		$height = wc_get_dimension( (float) $height, $this->shipping_dimension_unit );
 
-	/**
-	 * Add shipping_width to the elements array if the product has a width
-	 * configured.
-	 */
-	private function shipping_width_elements() {
-		$width = $this->get_shipping_dimension( 'width' );
-		if ( empty( $width ) ) {
-			return;
+		if ( $length > 0 ) {
+			$this->additional_elements['shipping_length'] = [ $length . ' ' . $this->shipping_dimension_unit ];
 		}
-		$this->additional_elements['shipping_width'] = array( (int) ceil( $width ) . ' ' . $this->shipping_dimension_unit );
-	}
-
-	/**
-	 * Add shipping_height to the elements array if the product has a height
-	 * configured.
-	 */
-	private function shipping_height_elements() {
-		$height = $this->get_shipping_dimension( 'height' );
-		if ( empty( $height ) ) {
-			return;
+		if ( $width > 0 ) {
+			$this->additional_elements['shipping_width'] = [ $width . ' ' . $this->shipping_dimension_unit ];
 		}
-		$this->additional_elements['shipping_height'] = array( (int) ceil( $height ) . ' ' . $this->shipping_dimension_unit );
+		if ( $height > 0 ) {
+			$this->additional_elements['shipping_height'] = [ $height . ' ' . $this->shipping_dimension_unit ];
+		}
 	}
 
 	/**
@@ -1362,7 +1282,18 @@ class WoocommerceGpfFeedItem {
 			$this->ID
 		);
 
-		return wc_get_weight( $raw_weight, $this->shipping_weight_unit );
+		$override_unit = apply_filters(
+			'woocommerce_gpf_shipping_weight_unit',
+			null
+		);
+
+		if ( null !== $override_unit ) {
+			$this->shipping_weight_unit = $override_unit;
+
+			return wc_get_weight( $raw_weight, $override_unit );
+		}
+
+		return $raw_weight;
 	}
 
 	/**

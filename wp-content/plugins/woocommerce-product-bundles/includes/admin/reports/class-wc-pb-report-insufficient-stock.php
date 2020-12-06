@@ -21,7 +21,7 @@ if ( ! class_exists( 'WC_Report_Stock' ) ) {
  *
  * Handles reporting of bundles with an "Insufficient stock" status.
  *
- * @version  5.10.0
+ * @version  6.5.0
  */
 class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 
@@ -57,7 +57,7 @@ class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 		if ( ! defined( 'WC_PB_DEBUG_STOCK_PARENT_SYNC' ) && ! defined( 'WC_PB_DEBUG_STOCK_SYNC' ) ) {
 
 			$data_store = WC_Data_Store::load( 'product-bundle' );
-			$sync_ids   = $data_store->get_bundled_items_stock_status_ids( 'unsynced' );
+			$sync_ids   = $data_store->get_bundled_items_stock_sync_status_ids( 'unsynced' );
 
 		} elseif ( ! defined( 'WC_PB_DEBUG_STOCK_SYNC' ) ) {
 
@@ -81,9 +81,7 @@ class WC_PB_Report_Insufficient_Stock extends WC_Report_Stock {
 		if ( ! empty( $sync_ids ) ) {
 			foreach ( $sync_ids as $id ) {
 				if ( ( $product = wc_get_product( $id ) ) && $product->is_type( 'bundle' ) ) {
-					if ( $product->sync_bundled_items_stock_status() ) {
-						$product->get_data_store()->save_bundled_items_stock_status( $product );
-					}
+					$product->sync_stock();
 				}
 			}
 		}

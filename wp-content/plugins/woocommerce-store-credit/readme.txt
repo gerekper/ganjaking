@@ -2,12 +2,12 @@
 Contributors: woocommerce, themesquad
 Tags: woocommerce, credit, coupons
 Requires at least: 4.7
-Tested up to: 5.4
-Stable tag: 3.2.1
+Tested up to: 5.6
+Stable tag: 3.4.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.4
-WC tested up to: 4.2
+WC tested up to: 4.8
 Woo: 18609:c4bf3ecec4146cb69081e5b28b6cdac4
 
 Create 'Store Credit' coupons for customers which are redeemable at checkout.
@@ -23,6 +23,21 @@ Create 'Store Credit' coupons for customers which are redeemable at checkout.
 Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-store-credit/) to read the documentation and get support.
 
 == Changelog ==
+
+= 3.4.1 November 26, 2020 =
+* Tweak - Improved PHP 8 support.
+* Tweak - Replaced deprecated jQuery functionality.
+* Tweak - Added compatibility with WP 5.6.
+* Tweak - Added compatibility with WC 4.8.
+
+= 3.4.0 November 05, 2020 =
+* Feature - Define a coupon expiration date when sending credit to customers.
+* Tweak - Added column 'Expiry date' to the Store Credit coupons table on the 'My Account' page.
+
+= 3.3.0 November 03, 2020 =
+* Feature - List the orders where the Store Credit has been used when editing a coupon.
+* Tweak - Create the purchased Store Credit coupons when the Order Status changes to `Processing` or `Completed`.
+* Tweak - Tested compatibility up to WC 4.7.
 
 = 3.2.2 October 01, 2020 =
 * Tweak - Added compatibility with WP 5.5.

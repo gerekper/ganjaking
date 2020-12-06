@@ -804,7 +804,7 @@ class WalkerHelper extends WalkerNavMenu {
 
 			if ( ! empty( $mass_meta ) ) {
 				foreach ( $mass_meta as $meta_index => $meta_options ) {
-					$meta_opt_json = wp_json_encode( $meta_options );
+					$meta_opt_json = wp_json_encode( $meta_options, JSON_UNESCAPED_UNICODE );
 					update_post_meta( $item_id, $meta_index, $meta_opt_json );
 				}
 			}

@@ -655,6 +655,12 @@ class WC_Memberships_AJAX {
 
 				$profile_field->set_user_id( $user_membership->get_user_id() );
 				$profile_field->set_slug( $slug );
+
+				// single checkbox fields (TYPE_CHECKBOX) may arrive here as an array with its only option while it expects a string
+				if ( $profile_field->get_definition()->is_type( Profile_Fields::TYPE_CHECKBOX ) && is_array( $value ) && isset( $value[0] ) ) {
+					$value = $value[0];
+				}
+
 				$profile_field->set_value( $value );
 				$profile_field->save();
 

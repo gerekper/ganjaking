@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.5.0
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -552,9 +552,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 				}
 				$add_product_details = array();
 				if ( ! empty( $product_ids ) ) {
+					$quantity        = ( isset( $post['wc_sc_add_product_qty'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_add_product_qty'] ) ) : 1;
 					$discount_amount = ( isset( $post['wc_sc_product_discount_amount'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_product_discount_amount'] ) ) : '';
 					$discount_type   = ( isset( $post['wc_sc_product_discount_type'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_product_discount_type'] ) ) : '';
-					$quantity        = 1;
 					foreach ( $product_ids as $id ) {
 						$product_data                    = array();
 						$product_data['product_id']      = $id;

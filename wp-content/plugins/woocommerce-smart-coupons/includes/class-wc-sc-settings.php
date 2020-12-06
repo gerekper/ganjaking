@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.0
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -206,6 +206,8 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 
 					});
 
+					jQuery('select#smart_coupons_storewide_offer_coupon_code').parent().append( '&nbsp;<a class="thickbox smart_coupons_storewide_offer_coupon_code" href="https://docs.woocommerce.com/wp-content/uploads/2012/08/smart-coupons-enable-store-notice-for-coupon.png?TB_iframe=true"><small>[<?php echo esc_html__( 'Preview', 'woocommerce-smart-coupons' ); ?>]</small></a>' );
+
 					jQuery('body .forminp-wc_sc_radio_with_html').on('click', '.wc_sc_setting_coupon_design_colors li', function(){
 						let color_string = jQuery(this).find('input[type="radio"]').val();
 						if ('custom' !== color_string) {
@@ -253,6 +255,9 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 					width: 50%;
 					box-sizing: border-box;
 					background-color: transparent !important; 
+				}
+				a.smart_coupons_storewide_offer_coupon_code small {
+					vertical-align: sub;
 				}
 			</style>
 			<style type="text/css">
@@ -325,6 +330,14 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				$storewide_offer_coupon_option[ $storewide_offer_coupon_code ] = sprintf( __( '%1$s (Type: %2$s)', 'woocommerce-smart-coupons' ), $storewide_offer_coupon_code, ( ( array_key_exists( $discount_type, $all_discount_types ) ) ? $all_discount_types[ $discount_type ] : $discount_type ) );
 			}
 
+			$valid_designs = $this->get_valid_coupon_designs();
+
+			$coupon_design         = get_option( 'wc_sc_setting_coupon_design' );
+			$default_coupon_design = 'basic';
+			if ( ! empty( $coupon_design ) && 'custom-design' === $coupon_design ) {
+				$default_coupon_design = $coupon_design;
+			}
+
 			$sc_settings = array(
 				array(
 					'title' => __( 'Smart Coupons Settings', 'woocommerce-smart-coupons' ),
@@ -375,7 +388,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				array(
 					'title'    => __( 'Styles', 'woocommerce-smart-coupons' ),
 					'id'       => 'wc_sc_setting_coupon_design',
-					'default'  => 'basic',
+					'default'  => $default_coupon_design,
 					'type'     => 'wc_sc_radio_with_html',
 					'desc_tip' => __( 'Choose a style for coupon on the website.', 'woocommerce-smart-coupons' ),
 					'class'    => 'sc-coupons-list wc_sc_setting_coupon_design',
@@ -411,24 +424,6 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 					'args'     => array(
 						'html_callback' => array( $this, 'coupon_design_html' ),
 					),
-				),
-				array(
-					'name'              => __( 'Storewide offer coupon', 'woocommerce-smart-coupons' ),
-					'id'                => 'smart_coupons_storewide_offer_coupon_code',
-					'type'              => 'select',
-					'default'           => '',
-					'desc'              => __( 'Search & select a coupon which you want to display as storewide offer coupon. The selected coupon\'s description will be displayed along with the coupon code (if it is set) otherwise, a description will be generated automatically. To disable the feature, keep this field empty.', 'woocommerce-smart-coupons' ),
-					'desc_tip'          => true,
-					'class'             => 'wc-sc-storewide-coupon-search',
-					'css'               => 'min-width:300px;',
-					'autoload'          => false,
-					'custom_attributes' => array(
-						'data-placeholder' => __( 'Search for a coupon...', 'woocommerce-smart-coupons' ),
-						'data-action'      => 'sc_json_search_storewide_coupons',
-						'data-security'    => wp_create_nonce( 'search-coupons' ),
-						'data-allow_clear' => true,
-					),
-					'options'           => $storewide_offer_coupon_option,
 				),
 				array(
 					'name'     => __( 'Number of coupons to show', 'woocommerce-smart-coupons' ),
@@ -468,6 +463,24 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 						'data-placeholder' => __( 'Select order status&hellip;', 'woocommerce-smart-coupons' ),
 					),
 					'autoload'          => false,
+				),
+				array(
+					'name'              => __( 'Enable store notice for the coupon', 'woocommerce-smart-coupons' ),
+					'id'                => 'smart_coupons_storewide_offer_coupon_code',
+					'type'              => 'select',
+					'default'           => '',
+					'desc'              => __( 'Search & select a coupon which you want to display as store notice. The selected coupon\'s description will be displayed along with the coupon code (if it is set) otherwise, a description will be generated automatically. To disable the feature, keep this field empty.', 'woocommerce-smart-coupons' ),
+					'desc_tip'          => true,
+					'class'             => 'wc-sc-storewide-coupon-search',
+					'css'               => 'min-width:300px;',
+					'autoload'          => false,
+					'custom_attributes' => array(
+						'data-placeholder' => __( 'Search for a coupon...', 'woocommerce-smart-coupons' ),
+						'data-action'      => 'sc_json_search_storewide_coupons',
+						'data-security'    => wp_create_nonce( 'search-coupons' ),
+						'data-allow_clear' => true,
+					),
+					'options'           => $storewide_offer_coupon_option,
 				),
 				array(
 					/* translators: %s: Label for store credit */
@@ -816,7 +829,13 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 			if ( $old_storewide_offer_coupon_code !== $post_storewide_offer_coupon_code ) {
 				update_option( 'smart_coupons_storewide_offer_coupon_code', $post_storewide_offer_coupon_code, 'no' );
 				if ( ! empty( $post_storewide_offer_coupon_code ) ) {
-					update_option( 'woocommerce_demo_store', 'yes' );
+					$coupon_id     = wc_get_coupon_id_by_code( $post_storewide_offer_coupon_code );
+					$coupon_status = get_post_status( $coupon_id );
+					if ( 'publish' === $coupon_status ) {
+						update_option( 'woocommerce_demo_store', 'yes' );
+					} else {
+						update_option( 'woocommerce_demo_store', 'no' );
+					}
 					update_option( 'woocommerce_demo_store_notice', '', 'no' );
 					$notice = get_option( 'woocommerce_demo_store_notice' );
 					if ( empty( $notice ) ) {

@@ -7,68 +7,68 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-10-05T13:29:41+00:00\n"
-"PO-Revision-Date: 2020-09-11 08:49:02+0000\n"
+"POT-Creation-Date: 2020-11-25T10:38:45+00:00\n"
+"PO-Revision-Date: 2020-11-24 15:54:11+0000\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1190
 msgid "Invalid request!"
-msgstr ""
+msgstr "请求无效！"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:990
 msgid "To sync with Google Calendar using an app provided by WooCommerce.com, click the \"Connect with Google\" button below to authorize access to your Google calendar."
-msgstr ""
+msgstr "要使用 WooCommerce.com 提供的应用程序与 Google 日历同步，请点击下方的“连接 Google”按钮进行授权以访问您的 Google 日历。"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:879
 msgid "Connect with custom Google app"
-msgstr ""
+msgstr "连接自定义 Google 应用程序"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:877
 msgid "Please fill out all required fields from above and save changes."
-msgstr ""
+msgstr "请填写上方所有的必需字段并保存所做更改。"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:783
 msgid "Select your Calendar."
-msgstr ""
+msgstr "选择您的日历。"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:776
 msgid "Connected Calendar Settings"
-msgstr ""
+msgstr "已连接日历设置"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:766
 msgid "Enter the Google Client Secret associated with your Calendar API app."
-msgstr ""
+msgstr "输入与您的日历 API 应用程序关联的 Google 客户端密钥。"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:764
 msgid "Client Secret"
-msgstr ""
+msgstr "客户端密钥"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:758
 msgid "Enter the Google Client ID associated with your Calendar API app."
-msgstr ""
+msgstr "输入与您的日历 API 应用程序关联的 Google 客户端 ID。"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:756
 msgid "Client ID"
-msgstr ""
+msgstr "客户端 ID"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:751
 msgid "Connect with a custom Google Calendar App"
-msgstr ""
+msgstr "连接自定义 Google 日历应用程序"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:224
 msgid "Metadata:"
-msgstr ""
+msgstr "元数据："
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
 #: woocommerce-bookings.php:286
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
-msgstr ""
+msgstr "<a href=\"%1$s\">添加或编辑产品</a>以管理产品数据区域中的单个产品预订，然后前往<a href=\"%2$s\" target=\"_blank\">“预订”页面</a> 对它们进行单独管理。"
 
 #: woocommerce-bookings.php:284
 msgid "Bookings has been activated!"
-msgstr ""
+msgstr "已激活预订！"
 
 #: woocommerce-bookings.php:181
 msgid "Unserializing instances of this class is forbidden."
@@ -84,7 +84,7 @@ msgstr "付费支持"
 
 #: woocommerce-bookings.php:141
 msgid "Visit Premium Customer Support"
-msgstr ""
+msgstr "查看高级版顾客支持"
 
 #: woocommerce-bookings.php:140
 msgid "Docs"
@@ -97,7 +97,7 @@ msgstr "查看文档"
 #. translators: %s WC download URL link.
 #: woocommerce-bookings.php:35
 msgid "Bookings requires WooCommerce to be installed and active. You can download %s here."
-msgstr ""
+msgstr "需要安装并激活 WooCommerce 才可进行预订。 您可以在此处下载 %s。"
 
 #: templates/single-product/add-to-cart/booking.php:33
 msgid "Your browser must support JavaScript in order to make a booking."
@@ -106,7 +106,7 @@ msgstr "看起来您的浏览器不支持Javascript."
 #. translators: 1: person count
 #: templates/order/booking-summary-list.php:75
 msgid "%d Persons"
-msgstr ""
+msgstr "%d 个人"
 
 #. translators: 1: label 2: resource name
 #: templates/order/booking-summary-list.php:47
@@ -116,11 +116,11 @@ msgstr "%1$s：%2$s"
 #. translators: %s: timezone name
 #: templates/order/booking-summary-list.php:38
 msgid "in timezone: %s"
-msgstr ""
+msgstr "所属时区： %s"
 
 #: templates/order/booking-display.php:44
 msgid "View my bookings &rarr;"
-msgstr ""
+msgstr "查看我的预订 &rarr;"
 
 #: templates/order/admin/booking-display.php:46
 msgid "View booking &rarr;"
@@ -130,19 +130,19 @@ msgstr "查看预订&rarr;"
 #: templates/order/admin/booking-display.php:33
 #: templates/order/booking-display.php:35
 msgid "Booking #%s"
-msgstr ""
+msgstr "预订编号%s"
 
 #: templates/myaccount/my-bookings.php:25
 msgid "My Bookings"
-msgstr ""
+msgstr "我的预订"
 
 #: templates/myaccount/bookings.php:100
 msgid "No bookings available yet."
-msgstr ""
+msgstr "尚无预订可用。"
 
 #: templates/myaccount/bookings.php:98
 msgid "Go Shop"
-msgstr ""
+msgstr "前往购买"
 
 #: templates/myaccount/bookings.php:71
 #: templates/myaccount/my-bookings.php:62
@@ -157,7 +157,7 @@ msgstr "已预订"
 #. translators: 1: booking start date
 #: templates/emails/plain/customer-booking-reminder.php:31
 msgid "This is a reminder that your booking will take place on %1$s. The details of your booking are shown below."
-msgstr ""
+msgstr "请注意，您的预订将于 %1$s开始。 下方显示了您的预订的详细信息。"
 
 #: templates/emails/plain/customer-booking-notification.php:27
 msgid "The details of your booking are shown below."
@@ -182,7 +182,7 @@ msgstr "订单编号：%s"
 #: templates/emails/plain/customer-booking-pending-confirmation.php:53
 #: templates/emails/plain/customer-booking-reminder.php:54
 msgid "Time Zone: %s"
-msgstr ""
+msgstr "时区： %s"
 
 #. translators: 1: booking end date
 #: templates/emails/plain/admin-booking-cancelled.php:44
@@ -237,21 +237,21 @@ msgstr "预订 ID： %s"
 #: templates/emails/plain/customer-booking-pending-confirmation.php:35
 #: templates/emails/plain/customer-booking-reminder.php:36
 msgid "Booked: %s"
-msgstr ""
+msgstr "已预订： %s"
 
 #: templates/emails/plain/admin-booking-cancelled.php:25
 msgid "The following booking has been cancelled by the customer. The details of the cancelled booking can be found below."
-msgstr ""
+msgstr "客户取消了以下预订。 您可在下方查看已取消预订的详细信息。"
 
 #. translators: 1: booking start date
 #: templates/emails/customer-booking-reminder.php:38
 msgid "This is a reminder that your booking will take place on %1$s."
-msgstr ""
+msgstr "请注意，您的预订将于 %1$s开始。"
 
 #: templates/emails/customer-booking-pending-confirmation.php:35
 #: templates/emails/plain/customer-booking-pending-confirmation.php:30
 msgid "Your booking has been received and it's pending confirmation. The details of your booking are shown below."
-msgstr ""
+msgstr "已收到您的预订，正在等待确认。 下方显示了您的预订的详细信息。"
 
 #: templates/emails/customer-booking-confirmed.php:129
 msgid "Price"
@@ -345,7 +345,7 @@ msgstr "预订开始日期"
 
 #: templates/emails/admin-booking-cancelled.php:26
 msgid "The following booking has been cancelled. The details of the cancelled booking can be found below."
-msgstr ""
+msgstr "以下预订已取消。 您可在下方查看已取消预订的详细信息。"
 
 #: templates/booking-form/datetime-picker.php:71
 #: templates/booking-form/datetime-picker.php:76
@@ -354,7 +354,7 @@ msgstr "请在上面选择一个日期以查看可用时间"
 
 #: templates/booking-form/datetime-picker.php:30
 msgid "Times are in "
-msgstr ""
+msgstr "时间在"
 
 #: templates/booking-form/date-picker.php:68
 msgid "End"
@@ -402,7 +402,7 @@ msgstr "Y年n月j日"
 #: includes/wc-bookings-functions.php:1138
 msgid "night"
 msgid_plural "nights"
-msgstr[0] ""
+msgstr[0] "夜"
 
 #: includes/wc-bookings-functions.php:1135
 msgid "minute"
@@ -426,15 +426,15 @@ msgstr[0] "个月"
 
 #: includes/wc-bookings-functions.php:425
 msgid "Rules with lower priority numbers will override rules with a higher priority (e.g. 9 overrides 10 ). Global rules take priority over product rules which take priority over resource rules. By using priority numbers you can execute rules in different orders."
-msgstr ""
+msgstr "低优先级数字表示的规则将覆盖高优先级数字表示的规则（例如，9 将覆盖 10）。 通用规则优先于产品规则，而产品规则又优先于资源规则。 通过使用优先级数字，您可以按不同的顺序执行规则。"
 
 #: includes/wc-bookings-functions.php:416
 msgid "Rules with lower priority numbers will override rules with a higher priority (e.g. 9 overrides 10 ). Ordering is only applied within the same priority and higher order overrides lower order."
-msgstr ""
+msgstr "低优先级数字表示的规则将覆盖高优先级数字表示的规则（例如，9 将覆盖 10）。 仅在优先级相同时才应用排序，优先级较高的订单会覆盖优先级较低的订单。"
 
 #: includes/wc-bookings-functions.php:146
 msgid "In Cart"
-msgstr ""
+msgstr "在购物车中"
 
 #: includes/wc-bookings-functions.php:96
 #: includes/wc-bookings-functions.php:125
@@ -468,7 +468,7 @@ msgstr "已确认"
 #: includes/wc-bookings-functions.php:130
 #: includes/wc-bookings-functions.php:142
 msgid "Pending Confirmation"
-msgstr ""
+msgstr "待确认"
 
 #: includes/wc-bookings-functions.php:91
 #: includes/wc-bookings-functions.php:120
@@ -498,23 +498,23 @@ msgstr "预订日期"
 
 #: includes/integrations/class-wc-bookings-deposits.php:149
 msgid "Partially Paid"
-msgstr ""
+msgstr "部分已付款"
 
 #. translators: 1: count, 2: count
 #: includes/integrations/class-wc-bookings-deposits.php:136
 msgid "Partially Paid <span class=\"count\">(%s)</span>"
 msgid_plural "Partially Paid <span class=\"count\">(%s)</span>"
-msgstr[0] ""
+msgstr[0] "部分已付款 <span class=\"count\">(%s)</span>"
 
 #: includes/integrations/class-wc-bookings-deposits.php:130
 msgctxt "woocommerce-bookings"
 msgid "Partially Paid"
-msgstr ""
+msgstr "部分已付款"
 
 #: includes/integrations/class-wc-bookings-addons.php:69
 #: includes/integrations/class-wc-bookings-addons.php:76
 msgid "Only applies to options which use quantity based prices."
-msgstr ""
+msgstr "仅应用于按数量计价的选项。"
 
 #: includes/integrations/class-wc-bookings-addons.php:58
 #: includes/integrations/class-wc-bookings-addons.php:75
@@ -574,7 +574,7 @@ msgstr "标题 (待审信息)"
 
 #: includes/emails/class-wc-email-new-booking.php:31
 msgid "[{blogname}] A new booking for {product_title} (Order {order_number}) is awaiting your approval - {order_date}"
-msgstr ""
+msgstr "[{blogname}] 新的 {product_title} 预订（订单 {order_number}）正等待您的批准 - {order_date}"
 
 #: includes/emails/class-wc-email-new-booking.php:30
 msgid "[{blogname}] New booking for {product_title} (Order {order_number}) - {order_date}"
@@ -608,16 +608,16 @@ msgstr "预订提示"
 
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:22
 msgid "[{blogname}] Your booking of {product_title} has been received, and it's pending confirmation (Order {order_number}) - {order_date}"
-msgstr ""
+msgstr "[{blogname}] 已收到您的 {product_title} 预订，正在等待确认（订单 {order_number}）- {order_date}"
 
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:20
 msgid "Booking pending confirmation emails are sent when the status of a booking goes to pending confirmation."
-msgstr ""
+msgstr "当预订状态变成待确认时，系统将会发送预订待确认电子邮件。"
 
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:19
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:21
 msgid "Booking Pending Confirmation"
-msgstr ""
+msgstr "预订待确认"
 
 #: includes/emails/class-wc-email-booking-notification.php:20
 msgid "Booking notification emails are sent manually from WooCommerce > Bookings > Send Notification."
@@ -756,7 +756,7 @@ msgstr "启用/禁用"
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:21
 msgid "[{blogname}] A booking of {product_title} has been cancelled"
-msgstr ""
+msgstr "[{blogname}] {product_title} 的预订已经取消"
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:20
 #: includes/emails/class-wc-email-booking-cancelled.php:18
@@ -771,11 +771,11 @@ msgstr "预订与取消邮件将会在预订是已取消状态时被发送。"
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:18
 msgid "Admin Booking Cancelled"
-msgstr ""
+msgstr "管理员预订已取消"
 
 #: includes/data-stores/class-wc-product-booking-person-type-data-store-cpt.php:49
 msgid "Invalid booking person type."
-msgstr ""
+msgstr "预订人类型无效。"
 
 #. translators: 1: person type sort order
 #: includes/data-stores/class-wc-product-booking-person-type-data-store-cpt.php:16
@@ -785,13 +785,13 @@ msgstr "人员类型 #%d"
 
 #: includes/data-stores/class-wc-global-availability-data-store.php:105
 msgid "Invalid event."
-msgstr ""
+msgstr "事件无效。"
 
 #. translators: Booking date format parsed by strftime
 #: includes/data-stores/class-wc-booking-data-store.php:50
 msgctxt "Booking date format parsed by strftime"
 msgid "%b %d, %Y @ %I:%M %p"
-msgstr ""
+msgstr "%b %d, %Y，%I:%M %p"
 
 #. translators: %s: Booking date
 #: includes/data-stores/class-wc-booking-data-store.php:48
@@ -805,12 +805,12 @@ msgstr "抱歉，您选定的块不可用。"
 #. translators: 1: person name 2: minimum persons
 #: includes/data-objects/class-wc-product-booking.php:2362
 msgid "The minimum %1$s per group is %2$d"
-msgstr ""
+msgstr "每个群组的最小 %1$s 是 %2$d"
 
 #. translators: 1: person name 2: maximum persons
 #: includes/data-objects/class-wc-product-booking.php:2356
 msgid "The maximum %1$s per group is %2$d"
-msgstr ""
+msgstr "每个群组的最大 %1$s 是 %2$d"
 
 #. translators: 1: minimum persons
 #: includes/data-objects/class-wc-product-booking.php:2347
@@ -824,7 +824,7 @@ msgstr "每组的最大人数是 %d"
 
 #: includes/data-objects/class-wc-product-booking.php:2333
 msgid "Sorry, bookings cannot start on this day."
-msgstr ""
+msgstr "抱歉，无法在此日期开始预订。"
 
 #. translators: 1: maximum date
 #: includes/data-objects/class-wc-product-booking.php:2324
@@ -861,7 +861,7 @@ msgstr "最大周期为 %d"
 
 #: includes/data-objects/class-wc-product-booking.php:2274
 msgid "Duration is required - please enter a duration greater than zero"
-msgstr ""
+msgstr "持续时间为必填 - 请输入大于零的持续时间"
 
 #: includes/data-objects/class-wc-product-booking.php:2263
 msgid "Please choose a resource type"
@@ -876,13 +876,13 @@ msgstr "此块不可被预订"
 #: includes/data-objects/class-wc-product-booking.php:1559
 msgid "There is a maximum of %1$d place remaining on %2$s"
 msgid_plural "There are a maximum of %1$d places remaining on %2$s"
-msgstr[0] ""
+msgstr[0] "%2$s最多剩余 %1$d 个位置"
 
 #. translators: 1: available quantity
 #: includes/data-objects/class-wc-product-booking.php:1546
 msgid "There is a maximum of %d place remaining"
 msgid_plural "There are a maximum of %d places remaining"
-msgstr[0] ""
+msgstr[0] "最多剩余 %d 个位置"
 
 #: includes/data-objects/class-wc-product-booking.php:142
 msgid "Free"
@@ -905,17 +905,17 @@ msgstr "检查"
 #: includes/data-objects/class-wc-booking.php:880
 msgctxt "Guest string with name from booking order in brackets"
 msgid "%s (Guest)"
-msgstr ""
+msgstr "%s （访客）"
 
 #. translators: 1: booking id 2: old status 3: new status
 #: includes/data-objects/class-wc-booking.php:284
 msgid "Booking #%1$d status changed from \"%2$s\" to \"%3$s\""
-msgstr ""
+msgstr "预订 #%1$d 的状态已从“%2$s”更改为“%3$s”"
 
 #: includes/data-objects/class-wc-booking.php:230
 #: includes/data-objects/class-wc-booking.php:1045
 msgid "Was In Cart"
-msgstr ""
+msgstr "在购物车中"
 
 #: includes/compatibility/class-wc-product-data-store-cpt.php:116
 msgid "Invalid product."
@@ -934,51 +934,51 @@ msgstr "无效的数据存储。"
 
 #: includes/class-wc-product-booking-manager.php:55
 msgid "You cannot trash/delete a resource that has Bookings associated with it."
-msgstr ""
+msgstr "您不能将已关联预订的资源放入回收站/删除。"
 
 #: includes/class-wc-product-booking-manager.php:44
 #: includes/class-wc-product-booking-manager.php:60
 msgid "Please visit our Bookings FAQs for more information"
-msgstr ""
+msgstr "请查看我们的预订常见问题解答，了解更多信息"
 
 #: includes/class-wc-product-booking-manager.php:39
 msgid "You cannot trash/delete a bookable product that has Bookings associated with it."
-msgstr ""
+msgstr "您不能将已关联预订的可预订产品放入回收站/删除。"
 
 #. translators: 1: URL to Firstday settings 2: first day of week
 #: includes/class-wc-bookings-timezone-settings.php:132
 msgid "Set start day from <a href=\"%1$s\">WordPress settings</a> (%2$s)"
-msgstr ""
+msgstr "在 <a href=\"%1$s\">WordPress 设置</a>中设置开始日期 (%2$s)"
 
 #: includes/class-wc-bookings-timezone-settings.php:130
 msgid "Set start day from visitor's locale"
-msgstr ""
+msgstr "在访客区域中设置开始日期"
 
 #: includes/class-wc-bookings-timezone-settings.php:126
 msgid "Calendar start day"
-msgstr ""
+msgstr "日历开始日期"
 
 #: includes/class-wc-bookings-timezone-settings.php:121
 msgid "Whether to display the current timezone on the calendar frontend"
-msgstr ""
+msgstr "是否在日历前端显示当前时区"
 
 #: includes/class-wc-bookings-timezone-settings.php:120
 msgid "Display a timezone"
-msgstr ""
+msgstr "显示时区"
 
 #. translators: 1: URL to Timezone String settings
 #: includes/class-wc-bookings-timezone-settings.php:116
 msgid "<div>Due to the sites current UTC offset selection the timezone above is displaying an estimation.</div><div>To ensure accurate timezone setups, select a location based timezone in the <a href=\"%1$s\">WordPress settings</a>.</div>"
-msgstr ""
+msgstr "<div>由于站点当前的 UTC 偏移量选择，上方时区显示的仅为预估值。</div><div>要保证时区设置准确，请在 <a href=\"%1$s\">WordPress </a>设置中根据位置选择时区。</div>"
 
 #. translators: 1: URL to Timezone String settings 2: server timezone
 #: includes/class-wc-bookings-timezone-settings.php:111
 msgid "Display your local time from <a href=\"%1$s\">WordPress settings</a> (%2$s)"
-msgstr ""
+msgstr "在 <a href=\"%1$s\">WordPress 设置</a>中显示当地时间 (%2$s)"
 
 #: includes/class-wc-bookings-timezone-settings.php:109
 msgid "Display visitor's local time"
-msgstr ""
+msgstr "显示访问者的当地时间"
 
 #: includes/class-wc-bookings-timezone-settings.php:105
 msgid "Timezone"
@@ -986,11 +986,11 @@ msgstr "时区"
 
 #: includes/class-wc-bookings-timezone-settings.php:100
 msgid "Schedule Bookings events, such as reminder emails and auto-completions of bookings, using your site’s configured timezone."
-msgstr ""
+msgstr "使用您站点已配置的时区计划预订事件，例如提醒电子邮件和自动完成预订。"
 
 #: includes/class-wc-bookings-timezone-settings.php:99
 msgid "Enable Bookings Timezone Calculation"
-msgstr ""
+msgstr "启用预订时区计算"
 
 #. translators: 1: count, 2: count
 #: includes/class-wc-bookings-init.php:187
@@ -1192,7 +1192,7 @@ msgstr "预订"
 #. translators: %s URL to edit booking
 #: includes/class-wc-bookings-google-calendar-connection.php:1287
 msgid "NOTE: this event cannot be edited in Google Calendar. If you need to make changes, <a href=\"%s\" target=\"_blank\">please edit this booking in WooCommerce</a>."
-msgstr ""
+msgstr "注意：此事件无法在 Google 日历中进行编辑。 如果您需要进行更改，<a href=\"%s\" target=\"_blank\">请在 WooCommerce 中编辑此预订</a>。"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1271
 #: includes/wc-bookings-functions.php:67
@@ -1232,7 +1232,7 @@ msgstr "没有权限！"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1026
 msgid "Account not properly connected, reset successfully!"
-msgstr ""
+msgstr "帐户未正确连接，已成功重置连接！"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1023
 msgid "Failed to disconnect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
@@ -1258,7 +1258,7 @@ msgstr "连接到Google"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:897
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "从列表中选择日历"
 
 #. translators: 1: log file path
 #: includes/class-wc-bookings-google-calendar-connection.php:807
@@ -1275,19 +1275,19 @@ msgstr "调试日志"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:796
 msgid "Manage the sync flow between your Store calendar and Google calendar."
-msgstr ""
+msgstr "管理您的商店日历和 Google 日历之间的同步流程。"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:794
 msgid "Sync one way - from Store to Google"
-msgstr ""
+msgstr "单向同步 - 从商店至 Google"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:793
 msgid "Sync both ways - between Store and Google"
-msgstr ""
+msgstr "双向同步 - 商店和 Google 之间"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:791
 msgid "Sync Preference"
-msgstr ""
+msgstr "同步偏好设置"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:747
 #: includes/class-wc-bookings-google-calendar-connection.php:772
@@ -1309,53 +1309,53 @@ msgstr "设置已保存"
 #. translators: 1: block duration days
 #: includes/class-wc-bookings-cost-calculation.php:105
 msgid "The duration of this booking must be at least %s days."
-msgstr ""
+msgstr "预订的持续时间必须至少为 %s 天。"
 
 #: includes/class-wc-booking-privacy.php:139
 msgid "WooCommerce Bookings Data Erased."
-msgstr ""
+msgstr "已清除 WooCommerce Bookings 数据。"
 
 #: includes/class-wc-booking-privacy.php:82
 msgid "Booked order ID"
-msgstr ""
+msgstr "预订的订单 ID"
 
 #: includes/class-wc-booking-privacy.php:74
 msgid "Booking end"
-msgstr ""
+msgstr "预订结束"
 
 #: includes/class-wc-booking-privacy.php:70
 msgid "Booking start"
-msgstr ""
+msgstr "预订开始"
 
 #: includes/class-wc-booking-privacy.php:66
 msgid "Booking Number"
-msgstr ""
+msgstr "预订编号"
 
 #. translators: %s: documentation link
 #: includes/class-wc-booking-privacy.php:39
 msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
-msgstr ""
+msgstr "通过使用该扩展程序，您可以储存个人数据或与外部服务共享数据。<a href=\"%s\" target=\"_blank\">详细了解其工作原理，包括您想在隐私政策中包含的内容。</a>"
 
 #: includes/class-wc-booking-privacy.php:11
 #: includes/class-wc-booking-privacy.php:12
 msgid "WooCommerce Bookings Data"
-msgstr ""
+msgstr "WooCommerce Bookings 数据"
 
 #: includes/class-wc-booking-order-manager.php:287
 msgid "Past Bookings"
-msgstr ""
+msgstr "过往预订"
 
 #: includes/class-wc-booking-order-manager.php:281
 msgid "Upcoming Bookings"
-msgstr ""
+msgstr "近期预订"
 
 #: includes/class-wc-booking-order-manager.php:275
 msgid "Today's Bookings"
-msgstr ""
+msgstr "今日预订"
 
 #: includes/class-wc-booking-order-manager.php:202
 msgid "All bookings start and end times except where stated differently are displayed in the following timezone: "
-msgstr ""
+msgstr "除非特殊说明，否则所有预订开始和结束时间均按以下时区显示："
 
 #: includes/class-wc-booking-order-manager.php:156
 #: includes/class-wc-booking-order-manager.php:178
@@ -1380,7 +1380,7 @@ msgstr "您的预订已取消"
 
 #: includes/class-wc-booking-coupon.php:43
 msgid "Booking Person Discount (Amount Off Per Person)"
-msgstr ""
+msgstr "预订个人折扣（每人折扣量）"
 
 #: includes/class-wc-booking-cart-manager.php:476
 msgid "A booking that requires confirmation has been removed from your cart. It is not possible to complete the purchased along with a booking that doesn't require confirmation."
@@ -1390,7 +1390,7 @@ msgstr "一个需要确认的预订已经被从您的购物车移除。因为它
 #. removed from cart.
 #: includes/class-wc-booking-cart-manager.php:255
 msgid "Bookings for %s have been removed from your cart due to inactivity."
-msgstr ""
+msgstr "由于预订处于非活动状态，已经从您的购物车中移除了 %s 的预订。"
 
 #. translators: Admin notice with title and link to bookable product removed
 #. from cart.
@@ -1400,43 +1400,43 @@ msgstr "一个闲置的 %s 预订已经从您的购物车移除。"
 
 #: includes/booking-form/class-wc-booking-form.php:622
 msgid "End time"
-msgstr ""
+msgstr "结束时间"
 
 #: includes/booking-form/class-wc-booking-form.php:620
 msgid "Ends"
-msgstr ""
+msgstr "结束"
 
 #. translators: %d: booking duration in hours
 #: includes/booking-form/class-wc-booking-form.php:591
 msgid "%d Hour"
 msgid_plural "%d Hours"
-msgstr[0] ""
+msgstr[0] "%d 小时"
 
 #. translators: %d: booking duration in minutes
 #: includes/booking-form/class-wc-booking-form.php:587
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] ""
+msgstr[0] "%d 分钟"
 
 #. translators: 1: quantity available
 #: includes/booking-form/class-wc-booking-form.php:506
 #: includes/booking-form/class-wc-booking-form.php:664
 msgid "%d left"
 msgid_plural "%d left"
-msgstr[0] ""
+msgstr[0] "%d 剩余"
 
 #: includes/booking-form/class-wc-booking-form.php:478
 msgid "Start time"
-msgstr ""
+msgstr "开始时间"
 
 #: includes/booking-form/class-wc-booking-form.php:476
 msgid "Starts"
-msgstr ""
+msgstr "开始"
 
 #. translators: 1: block cost 2: duration unit
 #: includes/booking-form/class-wc-booking-form.php:308
 msgid "+%1$1s per %2$2s"
-msgstr ""
+msgstr "每 %2$2s 增加 %1$1s"
 
 #: includes/booking-form/class-wc-booking-form.php:294
 #: includes/wc-bookings-functions.php:1125
@@ -1447,7 +1447,7 @@ msgstr[0] "天"
 #: includes/booking-form/class-wc-booking-form.php:292
 msgid "block"
 msgid_plural "blocks"
-msgstr[0] ""
+msgstr[0] "区块"
 
 #. translators: %s: product duration in minutes
 #: includes/booking-form/class-wc-booking-form.php:203
@@ -1461,12 +1461,12 @@ msgstr "&times; %s 小时"
 
 #: includes/booking-form/class-wc-booking-form.php:189
 msgid "Night(s)"
-msgstr ""
+msgstr "夜"
 
 #. translators: %s: product duration in nights
 #: includes/booking-form/class-wc-booking-form.php:187
 msgid "&times; %s nights"
-msgstr ""
+msgstr "&times;  %s 夜"
 
 #. translators: %s product duration in days
 #: includes/booking-form/class-wc-booking-form.php:171
@@ -1486,15 +1486,15 @@ msgstr "&times; %s 个月"
 
 #: includes/booking-form/class-wc-booking-form.php:101
 msgid "Store server time: "
-msgstr ""
+msgstr "商店服务器时间："
 
 #: includes/booking-form/class-wc-booking-form.php:94
 msgid "To clear selection, pick a new start date"
-msgstr ""
+msgstr "要清空选择，请选取新的开始日期"
 
 #: includes/booking-form/class-wc-booking-form.php:93
 msgid "Please select the options for your booking and make sure duration rules apply."
-msgstr ""
+msgstr "请为您的预订选择选项并确保应用了持续时间规则。"
 
 #: includes/booking-form/class-wc-booking-form.php:92
 msgid "Dates"
@@ -1510,15 +1510,15 @@ msgstr "选择一个开始日期"
 
 #: includes/booking-form/class-wc-booking-form.php:89
 msgid "This date is available"
-msgstr ""
+msgstr "此日期可用"
 
 #: includes/booking-form/class-wc-booking-form.php:88
 msgid "This date is partially booked - but bookings still remain"
-msgstr ""
+msgstr "此日期的部分时间已预订 - 但仍有剩余预订"
 
 #: includes/booking-form/class-wc-booking-form.php:87
 msgid "This date is fully booked and unavailable"
-msgstr ""
+msgstr "此日期的预订已满，不可用"
 
 #: includes/booking-form/class-wc-booking-form.php:86
 msgid "This date is unavailable"
@@ -1545,67 +1545,67 @@ msgstr "日期"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:165
 msgid "Sorting order."
-msgstr ""
+msgstr "排序。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:159
 msgid "Quantity of resource."
-msgstr ""
+msgstr "资源数量。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:153
 msgid "ID of parent bookable product."
-msgstr ""
+msgstr "父级可预订产品 ID。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:147
 msgid "Name of resource."
-msgstr ""
+msgstr "资源名称。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:141
 msgid "Cost per block of resource."
-msgstr ""
+msgstr "每个资源区块的成本。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:135
 msgid "Base cost for resource."
-msgstr ""
+msgstr "资源基础成本。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:128
 msgid "To date for availability range."
-msgstr ""
+msgstr "可用范围的结束日期。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:122
 msgid "From date for availability range."
-msgstr ""
+msgstr "可用范围的开始日期。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:116
 msgid "To time for availability range."
-msgstr ""
+msgstr "可用范围的结束时间。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:110
 msgid "From time for availability range."
-msgstr ""
+msgstr "可用范围的开始时间。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:104
 msgid "Priority for how availability rule is applied."
-msgstr ""
+msgstr "已应用可用性规则的优先级。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:98
 msgid "Whether or not the resource is bookable during the time range."
-msgstr ""
+msgstr "无论资源在时间范围内是否可预订。"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:92
 msgid "Availability date/time range type string."
-msgstr ""
+msgstr "可用日期/时间范围类型字符串。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:496
 msgid "Booking can be cancelled by customer."
-msgstr ""
+msgstr "客户可以取消预订。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:487
 msgid "Days days of week bookings cannot start. Array of numeric day indexes with 0 being Sunday."
-msgstr ""
+msgstr "天数：不能作为预订开始日期的每周日期。 数字日索引数组，其中 0 为星期日。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:482
 msgid "Booking require confirmation."
-msgstr ""
+msgstr "预订需要进行确认。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:477
 msgid "Max bookings per block."
@@ -1617,7 +1617,7 @@ msgstr "基本价格"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:458
 msgid "How the base cost should be modified."
-msgstr ""
+msgstr "应当如何调整基础成本。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:453
 msgid "Block cost."
@@ -1625,190 +1625,190 @@ msgstr "块价格"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:447
 msgid "How the block cost should be modified."
-msgstr ""
+msgstr "应当如何调整区块成本。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:422
 msgid "Date range type."
-msgstr ""
+msgstr "日期范围类型。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:415
 msgid "Pricing rules."
-msgstr ""
+msgstr "价格规则。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:410
 msgid "Min persons which can be booked per booking."
-msgstr ""
+msgstr "单次预订中的最小预订人数。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:405
 msgid "Max persons which can be booked per booking."
-msgstr ""
+msgstr "单次预订中的最大预订人数。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:400
 msgid "Min duration of units a booking can be."
-msgstr ""
+msgstr "预订的最短持续时间单位。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:395
 msgid "Max duration of units a booking can be."
-msgstr ""
+msgstr "预定的最长持续时间单位。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:389
 msgid "Units for min_date_value."
-msgstr ""
+msgstr "min_date_value 的单位。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:384
 msgid "Min amount af min_date_units into the future a block is bookable."
-msgstr ""
+msgstr "将来可预订区块的 min_date_units 最小量。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:379
 msgid "Min date value combined with min date unit."
-msgstr ""
+msgstr "最小日期值与最小日期单位结合使用。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:373
 msgid "Units for max_date_value."
-msgstr ""
+msgstr "max_date_value 的单位。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:368
 msgid "Max amount af max_date_units into the future a block is bookable."
-msgstr ""
+msgstr "将来可预订区块的 max_date_units 最大量。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:363
 msgid "Max date value combined with max date unit."
-msgstr ""
+msgstr "最大日期值与最大日期单位结合使用。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:358
 msgid "Product has restricted days."
-msgstr ""
+msgstr "产品具有限制天数。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:353
 msgid "Product has resources defined."
-msgstr ""
+msgstr "产品具有已定义资源。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:348
 msgid "Product has persons defined."
-msgstr ""
+msgstr "产品具有已定义人群。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:343
 msgid "Product has different types of persons."
-msgstr ""
+msgstr "产品具有不同预订人类型。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:338
 msgid "Each person counts as a booking."
-msgstr ""
+msgstr "每一个人都计算为一次预订。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:333
 msgid "Will multiply cost by number of persons."
-msgstr ""
+msgstr "成本乘以人数。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:328
 msgid "Time of day first block starts."
-msgstr ""
+msgstr "首个区块开始的时间。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:323
 msgid "Customer can pick a range of days on calendar."
-msgstr ""
+msgstr "客户可以在日历上选取日期范围。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:318
 msgid "Size in duration units of each block."
-msgstr ""
+msgstr "每个区块的持续时间单位的大小。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:312
 msgid "Unit duration is defined in."
-msgstr ""
+msgstr "单位持续时间使用以下单位定义。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:306
 msgid "How duration is defined."
-msgstr ""
+msgstr "如何定义持续时间。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:301
 msgid "Product cost displayed."
-msgstr ""
+msgstr "已显示产品成本。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:295
 msgid "If 'available' product is bookable unless made unbookable by availability rules."
-msgstr ""
+msgstr "除了按照可用性规则不可预订的产品外，“可用”的产品均可预订。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:290
 msgid "Product cost."
-msgstr ""
+msgstr "产品成本。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:285
 msgid "If true only the first block in checked for availability."
-msgstr ""
+msgstr "如果为“true”，则仅检查第一个区块的可用性。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:280
 msgid "How many limit units in advance users are allowed to cancel bookings."
-msgstr ""
+msgstr "用户可提前多少限制单位取消预订。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:274
 msgid "The unit limit is defined in. Valid values are 'month', 'day', 'hour', and 'minute'."
-msgstr ""
+msgstr "单位限制使用以下单位定义。 有效值为“month”、“day”、“hour”和“minute”。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:268
 msgid "How the calendar will display on the product page. Valid values are 'always_visible' or ''."
-msgstr ""
+msgstr "日历如何在产品页上显示。 有效值为“always_visible”或“”。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:263
 msgid "Required buffer Period between bookings."
-msgstr ""
+msgstr "预订之间必需的缓冲期。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:258
 msgid "Base cost of each block."
-msgstr ""
+msgstr "每一区块的基础成本。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:250
 #: includes/api/class-wc-bookings-rest-products-controller.php:469
 msgid "Priority of rule."
-msgstr ""
+msgstr "规则优先级。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:245
 msgid "Rule marks things as bookable or not, 'yes' or 'no'."
-msgstr ""
+msgstr "规则标记产品是否可以预订（“是”或“否”）。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:240
 #: includes/api/class-wc-bookings-rest-products-controller.php:442
 msgid "Ending day if 'to' is a time."
-msgstr ""
+msgstr "如果时间描述为“至”，则为结束日期。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:235
 #: includes/api/class-wc-bookings-rest-products-controller.php:437
 msgid "Starting day if 'from' is a time.,"
-msgstr ""
+msgstr "如果时间描述为“从”，则为起始日期。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:230
 #: includes/api/class-wc-bookings-rest-products-controller.php:432
 msgid "Ending month/day/week inclusive."
-msgstr ""
+msgstr "包含结束月份/日期/周。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:225
 #: includes/api/class-wc-bookings-rest-products-controller.php:427
 msgid "Starting month/day/week inclusive."
-msgstr ""
+msgstr "包含开始月份/日期/周。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:220
 msgid "Availability type."
-msgstr ""
+msgstr "可用性类型。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:213
 msgid "Availability rules defined on product level."
-msgstr ""
+msgstr "在产品级别定义可用性规则。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:208
 msgid "Apply adjacent buffers."
-msgstr ""
+msgstr "应用临近的缓冲期。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:160
 msgid "Limit result set to products assigned a specific resource ID."
-msgstr ""
+msgstr "限定结果设置为分配给特定资源 ID 的产品。"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:95
 #: includes/api/class-wc-bookings-rest-products-controller.php:188
 #: includes/api/class-wc-bookings-rest-products-slots-controller.php:133
 msgid "Not a bookable product"
-msgstr ""
+msgstr "不是可预订产品"
 
 #: includes/api/class-wc-bookings-rest-crud-controller.php:80
 msgid "Whether to bypass trash and force deletion."
-msgstr ""
+msgstr "是否绕过回收站强制删除。"
 
 #: includes/api/class-wc-bookings-rest-crud-controller.php:51
 msgid "Unique identifier for the resource."
@@ -1816,12 +1816,12 @@ msgstr "该资源的唯一标识符。"
 
 #: includes/admin/views/html-settings-page.php:29
 msgid "Sorry, you are not allowed to access this tab."
-msgstr ""
+msgstr "抱歉，您不能访问此选项卡。"
 
 #. translators: %s: file extension
 #: includes/admin/views/html-notifications-page.php:51
 msgid "Attach %s file"
-msgstr ""
+msgstr "附上 %s 文件"
 
 #: includes/admin/views/html-notifications-page.php:46
 msgid "Attachment"
@@ -1865,7 +1865,7 @@ msgstr "预订产品"
 #. tag 4: closing a href tag
 #: includes/admin/views/html-notifications-page.php:7
 msgid "You may send an email notification to all customers who have a %1$sfuture%2$s booking for a particular product. This will use the default template specified under %3$sWooCommerce > Settings > Emails%4$s."
-msgstr ""
+msgstr "您可以向所有在%1$s将来%2$s预定了特定产品的客户发送电子邮件通知。 这将使用到在%3$s“WooCommerce”>“设置”>“电子邮件”%4$s下指定的默认模板。"
 
 #: includes/admin/views/html-create-booking-page.php:76
 #: includes/booking-form/class-wc-booking-form.php:37
@@ -1913,7 +1913,7 @@ msgstr "保存更改"
 
 #: includes/admin/views/html-classic-availability-settings.php:188
 msgid "Past availability are hidden from this list."
-msgstr ""
+msgstr "本列表中不会显示过往的可用性。"
 
 #: includes/admin/views/html-classic-availability-settings.php:149
 msgid "Title"
@@ -1922,7 +1922,7 @@ msgstr "标题"
 #: includes/admin/views/html-classic-availability-settings.php:131
 #: includes/admin/views/html-store-availability-settings.php:70
 msgid "This section will set the availability of your store (ie Open and closed hours). All bookable products will adopt your store's availability."
-msgstr ""
+msgstr "此部分将设置您商店的可用性（即营业和休息时长）。 所有可预订产品都将采用您商店的可用性。"
 
 #: includes/admin/views/html-classic-availability-settings.php:119
 #: includes/class-wc-bookings-timezone-settings.php:82
@@ -1932,11 +1932,11 @@ msgstr "设置已保存"
 #. translators: %s: Additional note added to a booking.
 #: includes/admin/views/html-calendar-schedule.php:65
 msgid "Note: %s"
-msgstr ""
+msgstr "备注： %s"
 
 #: includes/admin/views/html-calendar-schedule.php:43
 msgid "Resources: "
-msgstr ""
+msgstr "资源："
 
 #: includes/admin/views/html-calendar-nav.php:158
 #: templates/booking-form/date-picker.php:50
@@ -1972,21 +1972,21 @@ msgstr "今天"
 
 #: includes/admin/views/html-calendar-nav.php:32
 msgid "All Resources"
-msgstr ""
+msgstr "全部资源"
 
 #: includes/admin/views/html-calendar-nav.php:14
 msgid "All Products"
-msgstr ""
+msgstr "全部产品"
 
 #: includes/admin/views/html-calendar-nav.php:11
 msgid "Filter By"
-msgstr ""
+msgstr "过滤依据"
 
 #: includes/admin/views/html-calendar-month.php:43
 #: includes/admin/views/html-store-availability-settings.php:105
 msgctxt "date format"
 msgid "D"
-msgstr ""
+msgstr "12"
 
 #: includes/admin/views/html-booking-resources.php:83
 msgid "Manage Resources"
@@ -2082,7 +2082,7 @@ msgstr "基本价格"
 
 #: includes/admin/views/html-booking-pricing-fields.php:69
 msgid "Date Range with time"
-msgstr ""
+msgstr "包含具体时间的日期范围"
 
 #: includes/admin/views/html-booking-pricing-fields.php:66
 msgid "Block count"
@@ -2125,7 +2125,7 @@ msgstr "启用人员类型"
 
 #: includes/admin/views/html-booking-persons.php:56
 msgid "Enable this to count each person as a booking until the max bookings per block (in availability) is reached."
-msgstr ""
+msgstr "启用此功能，将每一个人计算为一次预订，直至达到每一区块的最大预订数（在可用性中）。"
 
 #: includes/admin/views/html-booking-persons.php:55
 msgid "Count persons as bookings"
@@ -2274,15 +2274,15 @@ msgstr "预订周期"
 
 #: includes/admin/views/html-booking-availability.php:105
 msgid "Restrict the days of the week that are able to be selected on the calendar; this will not affect your availability. For more information on restricting start and end days you can"
-msgstr ""
+msgstr "限制一周内可在日历上选择的日期；这不会影响您的可用性。 要了解有关限制开始和结束日期的更多信息，您可以"
 
 #: includes/admin/views/html-booking-availability.php:104
 msgid "Restrict selectable days?"
-msgstr ""
+msgstr "限制可选日期？"
 
 #: includes/admin/views/html-booking-availability.php:99
 msgid "view our documentation here."
-msgstr ""
+msgstr "在此处查看我们的文档。"
 
 #: includes/admin/views/html-booking-availability.php:94
 msgid "First block starts at..."
@@ -2322,19 +2322,19 @@ msgstr "全部日期是..."
 
 #: includes/admin/views/html-booking-availability.php:61
 msgid "By default buffer period applies forward into the future of a booking. Enabling this option will apply adjacently (before and after Bookings)."
-msgstr ""
+msgstr "默认情况下，缓冲期可应用至预订后的将来。 启用该选项将应用临近的缓冲区（预定前和预订后）。"
 
 #: includes/admin/views/html-booking-availability.php:60
 msgid "Adjacent Buffering?"
-msgstr ""
+msgstr "临近的缓冲期？"
 
 #: includes/admin/views/html-booking-availability.php:52
 msgid "between bookings"
-msgstr ""
+msgstr "预订之间"
 
 #: includes/admin/views/html-booking-availability.php:49
 msgid "Require a buffer period of"
-msgstr ""
+msgstr "需要缓冲期"
 
 #: includes/admin/views/html-booking-availability.php:39
 msgid "Maximum block bookable"
@@ -2399,15 +2399,15 @@ msgstr "不"
 
 #: includes/admin/views/html-booking-availability-fields.php:153
 msgid "Invalid recurring rule"
-msgstr ""
+msgstr "定期重复规则无效"
 
 #: includes/admin/views/html-booking-availability-fields.php:138
 msgid ", except "
-msgstr ""
+msgstr "，除了"
 
 #: includes/admin/views/html-booking-availability-fields.php:133
 msgid "Repeating "
-msgstr ""
+msgstr "重复"
 
 #: includes/admin/views/html-booking-availability-fields.php:128
 #: includes/admin/views/html-booking-availability-fields.php:227
@@ -2419,7 +2419,7 @@ msgstr "to"
 
 #: includes/admin/views/html-booking-availability-fields.php:92
 msgid "Date Range with recurring time"
-msgstr ""
+msgstr "包含定期重复时间的日期范围"
 
 #: includes/admin/views/html-booking-availability-fields.php:91
 #: includes/admin/views/html-booking-pricing-fields.php:68
@@ -2448,20 +2448,20 @@ msgstr "月份范围"
 
 #: includes/admin/views/html-booking-availability-fields.php:86
 msgid "Date range with time"
-msgstr ""
+msgstr "包含具体时间的日期范围"
 
 #: includes/admin/views/html-booking-availability-fields.php:85
 #: includes/admin/views/html-booking-pricing-fields.php:60
 msgid "Date range"
-msgstr ""
+msgstr "日期范围"
 
 #: includes/admin/views/html-booking-availability-fields.php:70
 msgid "Google Event"
-msgstr ""
+msgstr "Google 事件"
 
 #: includes/admin/views/html-booking-availability-fields.php:68
 msgid "Google Recurring Event"
-msgstr ""
+msgstr "Google 定期重复事件"
 
 #. translators: 1: week number
 #: includes/admin/views/html-booking-availability-fields.php:37
@@ -2573,16 +2573,16 @@ msgstr "一月"
 
 #: includes/admin/views/html-availability-views-nav.php:15
 msgid "Classic Mode"
-msgstr ""
+msgstr "经典模式"
 
 #: includes/admin/views/html-availability-views-nav.php:9
 msgid "Calendar Mode"
-msgstr ""
+msgstr "日历模式"
 
 #. translators: %s: Number of posts that have expired
 #: includes/admin/class-wc-bookings-tools.php:90
 msgid "Removed %s expired In Cart booking(s)."
-msgstr ""
+msgstr "已移除“在购物车中”预订中过期的 %s。"
 
 #: includes/admin/class-wc-bookings-save-meta-box.php:62
 msgid "Save/update the booking"
@@ -2598,60 +2598,60 @@ msgstr "移动到回收站"
 
 #: includes/admin/class-wc-bookings-save-meta-box.php:47
 msgid "Booking actions"
-msgstr ""
+msgstr "预订操作"
 
 #. translators: 0: number of bookings that require confirmation, 1: number of
 #. bookings that require confirmation
 #: includes/admin/class-wc-bookings-report-dashboard.php:55
 msgid "<strong>%s booking(s)</strong> require confirmation"
 msgid_plural "<strong>%s booking(s)</strong> require confirmation"
-msgstr[0] ""
+msgstr[0] "<strong>%s 个预订</strong>需要进行确认"
 
 #. translators: 0: number of bookings, 1: number of bookings
 #: includes/admin/class-wc-bookings-report-dashboard.php:47
 msgid "<strong>%s booking(s)</strong> new bookings this month"
 msgid_plural "<strong>%s booking(s)</strong> new bookings this month"
-msgstr[0] ""
+msgstr[0] "本月的 <strong>%s 个新预订</strong>"
 
 #: includes/admin/class-wc-bookings-products-export.php:71
 #: includes/admin/class-wc-bookings-products-import.php:72
 msgid "User_can_cancel"
-msgstr ""
+msgstr "User_can_cancel"
 
 #: includes/admin/class-wc-bookings-products-export.php:70
 #: includes/admin/class-wc-bookings-products-import.php:71
 msgid "Restricted_days"
-msgstr ""
+msgstr "Restricted_days"
 
 #: includes/admin/class-wc-bookings-products-export.php:69
 #: includes/admin/class-wc-bookings-products-import.php:70
 msgid "Resources_assignment"
-msgstr ""
+msgstr "Resources_assignment"
 
 #: includes/admin/class-wc-bookings-products-export.php:68
 #: includes/admin/class-wc-bookings-products-import.php:69
 msgid "Resource_ids"
-msgstr ""
+msgstr "Resource_ids"
 
 #: includes/admin/class-wc-bookings-products-export.php:67
 #: includes/admin/class-wc-bookings-products-import.php:68
 msgid "Resource_block_costs"
-msgstr ""
+msgstr "Resource_block_costs"
 
 #: includes/admin/class-wc-bookings-products-export.php:66
 #: includes/admin/class-wc-bookings-products-import.php:67
 msgid "Resource_base_costs"
-msgstr ""
+msgstr "Resource_base_costs"
 
 #: includes/admin/class-wc-bookings-products-export.php:65
 #: includes/admin/class-wc-bookings-products-import.php:66
 msgid "Resource_label"
-msgstr ""
+msgstr "Resource_label"
 
 #: includes/admin/class-wc-bookings-products-export.php:64
 #: includes/admin/class-wc-bookings-products-import.php:65
 msgid "Requires_confirmation"
-msgstr ""
+msgstr "Requires_confirmation"
 
 #: includes/admin/class-wc-bookings-products-export.php:63
 #: includes/admin/class-wc-bookings-products-import.php:64
@@ -2666,87 +2666,87 @@ msgstr "定价"
 #: includes/admin/class-wc-bookings-products-export.php:61
 #: includes/admin/class-wc-bookings-products-import.php:62
 msgid "Person_types"
-msgstr ""
+msgstr "Person_types"
 
 #: includes/admin/class-wc-bookings-products-export.php:60
 #: includes/admin/class-wc-bookings-products-import.php:61
 msgid "Min_persons"
-msgstr ""
+msgstr "Min_persons"
 
 #: includes/admin/class-wc-bookings-products-export.php:59
 #: includes/admin/class-wc-bookings-products-import.php:60
 msgid "Min_duration"
-msgstr ""
+msgstr "Min_duration"
 
 #: includes/admin/class-wc-bookings-products-export.php:58
 #: includes/admin/class-wc-bookings-products-import.php:59
 msgid "Min_date_value"
-msgstr ""
+msgstr "Min_date_value"
 
 #: includes/admin/class-wc-bookings-products-export.php:57
 #: includes/admin/class-wc-bookings-products-import.php:58
 msgid "Min_date_unit"
-msgstr ""
+msgstr "Min_date_unit"
 
 #: includes/admin/class-wc-bookings-products-export.php:56
 #: includes/admin/class-wc-bookings-products-import.php:57
 msgid "Max_persons"
-msgstr ""
+msgstr "Max_persons"
 
 #: includes/admin/class-wc-bookings-products-export.php:55
 #: includes/admin/class-wc-bookings-products-import.php:56
 msgid "Max_duration"
-msgstr ""
+msgstr "Max_duration"
 
 #: includes/admin/class-wc-bookings-products-export.php:54
 #: includes/admin/class-wc-bookings-products-import.php:55
 msgid "Max_date_value"
-msgstr ""
+msgstr "Max_date_value"
 
 #: includes/admin/class-wc-bookings-products-export.php:53
 #: includes/admin/class-wc-bookings-products-import.php:54
 msgid "Max_date_unit"
-msgstr ""
+msgstr "Max_date_unit"
 
 #: includes/admin/class-wc-bookings-products-export.php:52
 #: includes/admin/class-wc-bookings-products-import.php:53
 msgid "Has_restricted_days"
-msgstr ""
+msgstr "Has_restricted_days"
 
 #: includes/admin/class-wc-bookings-products-export.php:51
 #: includes/admin/class-wc-bookings-products-import.php:52
 msgid "Has_resources"
-msgstr ""
+msgstr "Has_resources"
 
 #: includes/admin/class-wc-bookings-products-export.php:50
 #: includes/admin/class-wc-bookings-products-import.php:51
 msgid "Has_persons"
-msgstr ""
+msgstr "Has_persons"
 
 #: includes/admin/class-wc-bookings-products-export.php:49
 #: includes/admin/class-wc-bookings-products-import.php:50
 msgid "Has_person_types"
-msgstr ""
+msgstr "Has_person_types"
 
 #: includes/admin/class-wc-bookings-products-export.php:48
 #: includes/admin/class-wc-bookings-products-import.php:49
 msgid "Has_person_qty_multiplier"
-msgstr ""
+msgstr "Has_person_qty_multiplier"
 
 #: includes/admin/class-wc-bookings-products-export.php:47
 #: includes/admin/class-wc-bookings-products-import.php:48
 msgid "Has_person_cost_multiplier"
-msgstr ""
+msgstr "Has_person_cost_multiplier"
 
 #: includes/admin/class-wc-bookings-products-export.php:46
 #: includes/admin/class-wc-bookings-products-import.php:47
 msgid "First_block_time"
-msgstr ""
+msgstr "First_block_time"
 
 #: includes/admin/class-wc-bookings-products-export.php:45
 #: includes/admin/class-wc-bookings-products-import.php:46
 msgid "Enable_range_picker"
-msgstr ""
+msgstr "Enable_range_picker"
 
 #: includes/admin/class-wc-bookings-products-export.php:44
 #: includes/admin/class-wc-bookings-products-import.php:45
@@ -2758,22 +2758,22 @@ msgstr "持续周期"
 #: includes/admin/class-wc-bookings-products-export.php:43
 #: includes/admin/class-wc-bookings-products-import.php:44
 msgid "Duration_unit"
-msgstr ""
+msgstr "Duration_unit"
 
 #: includes/admin/class-wc-bookings-products-export.php:42
 #: includes/admin/class-wc-bookings-products-import.php:43
 msgid "Duration_type"
-msgstr ""
+msgstr "Duration_type"
 
 #: includes/admin/class-wc-bookings-products-export.php:41
 #: includes/admin/class-wc-bookings-products-import.php:42
 msgid "Display_cost"
-msgstr ""
+msgstr "Display_cost"
 
 #: includes/admin/class-wc-bookings-products-export.php:40
 #: includes/admin/class-wc-bookings-products-import.php:41
 msgid "Default_date_availability"
-msgstr ""
+msgstr "Default_date_availability"
 
 #: includes/admin/class-wc-bookings-products-export.php:39
 #: includes/admin/class-wc-bookings-products-import.php:40
@@ -2783,49 +2783,49 @@ msgstr "成本"
 #: includes/admin/class-wc-bookings-products-export.php:38
 #: includes/admin/class-wc-bookings-products-import.php:39
 msgid "Check_start_block_only"
-msgstr ""
+msgstr "Check_start_block_only"
 
 #: includes/admin/class-wc-bookings-products-export.php:37
 #: includes/admin/class-wc-bookings-products-import.php:38
 msgid "Cancel_limit"
-msgstr ""
+msgstr "Cancel_limit"
 
 #: includes/admin/class-wc-bookings-products-export.php:36
 #: includes/admin/class-wc-bookings-products-import.php:37
 msgid "Cancel_limit_unit"
-msgstr ""
+msgstr "Cancel_limit_unit"
 
 #: includes/admin/class-wc-bookings-products-export.php:35
 #: includes/admin/class-wc-bookings-products-import.php:36
 msgid "Calendar_display_mode"
-msgstr ""
+msgstr "Calendar_display_mode"
 
 #: includes/admin/class-wc-bookings-products-export.php:34
 #: includes/admin/class-wc-bookings-products-import.php:35
 msgid "Buffer_period"
-msgstr ""
+msgstr "Buffer_period"
 
 #: includes/admin/class-wc-bookings-products-export.php:33
 #: includes/admin/class-wc-bookings-products-import.php:34
 msgid "Block_cost"
-msgstr ""
+msgstr "Block_cost"
 
 #: includes/admin/class-wc-bookings-products-export.php:31
 #: includes/admin/class-wc-bookings-products-import.php:32
 msgid "Apply_adjacent_buffer"
-msgstr ""
+msgstr "Apply_adjacent_buffer"
 
 #: includes/admin/class-wc-bookings-menus.php:231
 msgid "Calendar Connection"
-msgstr ""
+msgstr "日历连接"
 
 #: includes/admin/class-wc-bookings-menus.php:225
 msgid "Timezones"
-msgstr ""
+msgstr "时区"
 
 #: includes/admin/class-wc-bookings-menus.php:201
 msgid "Store Availability"
-msgstr ""
+msgstr "商店可用性"
 
 #: includes/admin/class-wc-bookings-menus.php:167
 msgid "Notification sent successfully"
@@ -2871,35 +2871,35 @@ msgstr "添加预订"
 
 #: includes/admin/class-wc-bookings-inbox-notices.php:49
 msgid "Add a bookable product"
-msgstr ""
+msgstr "添加可预订产品"
 
 #: includes/admin/class-wc-bookings-inbox-notices.php:44
 msgid "Set my availability"
-msgstr ""
+msgstr "设置我的可用性"
 
 #: includes/admin/class-wc-bookings-inbox-notices.php:30
 msgid "To get set up, you'll need to set your availability or add a bookable product."
-msgstr ""
+msgstr "要进行设置，您需要设置您的可用性或添加可预订产品。"
 
 #: includes/admin/class-wc-bookings-inbox-notices.php:28
 msgid "You're almost ready to take bookings!"
-msgstr ""
+msgstr "您就快准备好接受预订了！"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:384
 msgid "End time (local timezone):"
-msgstr ""
+msgstr "结束时间（当地时区）："
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:375
 msgid "Start time (local timezone):"
-msgstr ""
+msgstr "开始时间（当地时区）："
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:366
 msgid "End time:"
-msgstr ""
+msgstr "结束时间："
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:358
 msgid "Start time:"
-msgstr ""
+msgstr "开始时间："
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:352
 msgid "Check this box if the booking is for all day."
@@ -2907,7 +2907,7 @@ msgstr "如果该预订是全天的请选中此栏。"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:351
 msgid "All day booking:"
-msgstr ""
+msgstr "全天预订："
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:343
 msgid "End date:"
@@ -2919,15 +2919,15 @@ msgstr "开始日期："
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:331
 msgid "Booking date &amp; time"
-msgstr ""
+msgstr "预定日期和时间"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:257
 msgid "Parent booking ID:"
-msgstr ""
+msgstr "父级预订 ID："
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:250
 msgid "Booked product:"
-msgstr ""
+msgstr "已预订产品："
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:243
 msgid "Booking specification"
@@ -2942,7 +2942,7 @@ msgstr "%1$s (#%2$s &ndash; %3$s)"
 #: includes/admin/class-wc-bookings-details-meta-box.php:196
 msgctxt "Admin booking guest placeholder"
 msgid "Guest (%s)"
-msgstr ""
+msgstr "访客 (%s)"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:193
 #: includes/admin/views/html-create-booking-page.php:22
@@ -2981,26 +2981,26 @@ msgstr "一般详情"
 #. translators: 1: bookings addon title
 #: includes/admin/class-wc-bookings-details-meta-box.php:151
 msgid "Booking type: %s"
-msgstr ""
+msgstr "预订类型： %s"
 
 #. translators: 1: href to order id
 #: includes/admin/class-wc-bookings-details-meta-box.php:146
 msgid "Linked to order %s."
-msgstr ""
+msgstr "已连接至订单 %s。"
 
 #. translators: 1: booking id
 #: includes/admin/class-wc-bookings-details-meta-box.php:139
 msgid "Booking #%s details"
-msgstr ""
+msgstr "预订 #%s 详细信息"
 
 #. translators: 1: product type
 #: includes/admin/class-wc-bookings-details-meta-box.php:89
 msgid "This booking is missing a required add-on (product type: %s). Some information is shown below but might be incomplete. Please install the missing add-on through the plugins screen."
-msgstr ""
+msgstr "该预订缺少必需的加载项（产品类型：%s）。 下面显示了部分信息，但可能不完整。 请通过插件页面安装缺少的加载项。"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:83
 msgid "It appears the booking product associated with this booking has been removed."
-msgstr ""
+msgstr "与此预订关联的预订产品似乎已被移除。"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:79
 msgid "This booking has an end date set before the start date."
@@ -3108,7 +3108,7 @@ msgstr "预订者"
 
 #: includes/admin/class-wc-bookings-cpt.php:172
 msgid "# of Persons"
-msgstr ""
+msgstr "人数"
 
 #: includes/admin/class-wc-bookings-cpt.php:171
 #: templates/emails/admin-booking-cancelled.php:32
@@ -3141,7 +3141,7 @@ msgstr "预订标题"
 #: includes/admin/class-wc-bookings-cpt.php:138
 msgid "%1$s booking status changed."
 msgid_plural "%1$s booking statuses changed."
-msgstr[0] ""
+msgstr[0] "%1$s 预定状态已更改。"
 
 #: includes/admin/class-wc-bookings-cpt.php:66
 msgid "Mark bookings as unpaid"
@@ -3166,7 +3166,7 @@ msgstr "确定预订"
 #. translators: 1: person id 2: person name 3: person count
 #: includes/admin/class-wc-bookings-calendar.php:722
 msgid "Person #%1$s - %2$s (%3$s)"
-msgstr ""
+msgstr "人数 #%1$s - %2$s (%3$s)"
 
 #: includes/admin/class-wc-bookings-calendar.php:713
 #: includes/class-wc-bookings-ics-exporter.php:176
@@ -3188,7 +3188,7 @@ msgstr "预订者"
 #: templates/emails/plain/customer-booking-pending-confirmation.php:64
 #: templates/emails/plain/customer-booking-reminder.php:65
 msgid "%1$s: %2$d"
-msgstr ""
+msgstr "%1$s： %2$d"
 
 #: includes/admin/class-wc-bookings-calendar.php:584
 #: includes/admin/class-wc-bookings-details-meta-box.php:267
@@ -3214,20 +3214,20 @@ msgstr "人员(数量)"
 #. translators: 1: number of bookings that are not displayed on calendar day
 #: includes/admin/class-wc-bookings-calendar.php:318
 msgid "%d more"
-msgstr ""
+msgstr "%d 更多"
 
 #: includes/admin/class-wc-bookings-calendar.php:206
 #: includes/admin/class-wc-bookings-calendar.php:279
 #: includes/admin/class-wc-bookings-calendar.php:624
 msgid "(From Google Calendar)"
-msgstr ""
+msgstr "（来自 Google 日历）"
 
 #. translators: 1: start time 2: end time
 #: includes/admin/class-wc-bookings-calendar.php:204
 #: includes/admin/class-wc-bookings-calendar.php:594
 #: includes/admin/class-wc-bookings-calendar.php:616
 msgid "%1$s — %2$s"
-msgstr ""
+msgstr "%1$s — %2$s"
 
 #: includes/admin/class-wc-bookings-calendar.php:204
 #: includes/admin/class-wc-bookings-calendar.php:594
@@ -3238,7 +3238,7 @@ msgstr "全天"
 
 #: includes/admin/class-wc-bookings-ajax.php:303
 msgid "Cheatin&#8217; huh?"
-msgstr ""
+msgstr "开玩笑，呵？"
 
 #: includes/admin/class-wc-bookings-ajax.php:286
 msgid "No blocks available."
@@ -3246,7 +3246,7 @@ msgstr "暂无可用块。"
 
 #: includes/admin/class-wc-bookings-ajax.php:237
 msgid "Please enter a valid date."
-msgstr ""
+msgstr "请输入有效的日期。"
 
 #: includes/admin/class-wc-bookings-ajax.php:201
 msgid "Booking cost"
@@ -3290,7 +3290,7 @@ msgstr "有人员"
 
 #: includes/admin/class-wc-bookings-admin.php:644
 msgid "Resource"
-msgstr ""
+msgstr "资源"
 
 #: includes/admin/class-wc-bookings-admin.php:643
 #: includes/admin/views/html-create-booking-page.php:18
@@ -3383,7 +3383,7 @@ msgstr "资源"
 
 #: includes/admin/class-wc-bookings-admin.php:66
 msgid "This tool will clear all expired In Cart bookings."
-msgstr ""
+msgstr "此工具将清理所有过期的“在购物车中”预订。"
 
 #: includes/admin/class-wc-bookings-admin.php:65
 msgid "Clear"
@@ -3391,27 +3391,27 @@ msgstr "清空"
 
 #: includes/admin/class-wc-bookings-admin.php:64
 msgid "Clear expired In Cart bookings"
-msgstr ""
+msgstr "清理过期的“在购物车中”预订"
 
 #: includes/admin/class-wc-bookings-admin.php:60
 msgid "This tool will clean the person types that are not used by any booking or a product."
-msgstr ""
+msgstr "该工具将清除无任何预定或产品使用的预订人类型。"
 
 #: includes/admin/class-wc-bookings-admin.php:59
 msgid "Clean Person Types"
-msgstr ""
+msgstr "清除预订人类型"
 
 #: includes/admin/class-wc-bookings-admin.php:58
 msgid "Clean unused Person Types from DB"
-msgstr ""
+msgstr "从 DB 中清除未使用的预订人类型"
 
 #: includes/admin/class-wc-bookings-addons.php:21
 msgid "Bookings Addons"
-msgstr ""
+msgstr "预订加载项"
 
 #: includes/admin/class-wc-bookings-addons.php:20
 msgid "bookings-extensions"
-msgstr ""
+msgstr "bookings-extensions"
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:115
 #: includes/admin/views/html-booking-availability.php:166
@@ -3443,7 +3443,7 @@ msgstr "可预订的"
 #: includes/admin/views/html-booking-pricing.php:62
 #: includes/admin/views/html-classic-availability-settings.php:145
 msgid "Range"
-msgstr ""
+msgstr "范围"
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:98
 #: includes/admin/views/html-booking-availability.php:149

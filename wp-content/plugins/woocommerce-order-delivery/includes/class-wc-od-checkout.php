@@ -782,9 +782,9 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			$available_time_frames = new WC_OD_Collection_Time_Frames();
 
 			/* @var WC_OD_Time_Frame $time_frame A WC_OD_Time_Frame object. */
-			foreach ( $time_frames as $time_frame ) {
+			foreach ( $time_frames as $index => $time_frame ) {
 				if ( ! wc_od_time_frame_is_full( $timestamp, $time_frame ) ) {
-					$available_time_frames->add( $time_frame );
+					$available_time_frames->set( $index, $time_frame );
 				}
 			}
 

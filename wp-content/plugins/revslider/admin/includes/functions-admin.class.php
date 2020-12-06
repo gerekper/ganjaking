@@ -80,6 +80,10 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			if(!isset($object['svgs'])) $object['svgs'] = array();
 			$object['svgs']['items'] = $library->get_svg_sets_full();
 		}
+		if(in_array('svgcustom', $include) || in_array('all', $include)){
+			if(!isset($object['svgcustom'])) $object['svgcustom'] = array();
+			$object['svgcustom']['items'] = $library->get_custom_svgs();
+		}
 		if(in_array('fonticons', $include) || in_array('all', $include)){
 			if(!isset($object['fonticons'])) $object['fonticons'] = array();
 			$object['fonticons']['items'] = $library->get_font_icons();
@@ -147,6 +151,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		$oc4 = $library->get_objects_categories('4');
 		$t_cat = $template->get_template_categories();
 		$font_cat = $library->get_font_tags();
+		$custom = $library->get_custom_tags();
 		
 		$wpi = array('jpg' => 'jpg', 'png' => 'png');
 		$wpv = array('mpeg' => 'mpeg', 'mp4' => 'mp4', 'ogv' => 'ogv');
@@ -171,6 +176,13 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'wpimages'	=> array('tags' => $wpi),
 			'wpvideos'	=> array('tags' => $wpv)*/
 		);
+		
+		if(!empty($custom)){
+			foreach($custom as $tag_name => $tag_value){
+				$tags[$tag_name] = array('tags' => $tag_value);
+			}
+		}
+		
 		return apply_filters('revslider_get_short_library', $tags, $library, $this);
 	}
 	
@@ -685,7 +697,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'folders' => __('Folder', 'revslider'),
 			'rename' => __('Rename', 'revslider'),
 			'root' => __('Root Level', 'revslider'),
-			'simproot' => __('Root', 'revslider'),
+			'addcategory' => __('Add Category', 'revslider'),
 			'show' => __('Show', 'revslider'),
 			'perpage' => __('Per Page', 'revslider'),
 			'convertedlayer' => __('Layer converted Successfully', 'revslider'),
@@ -699,6 +711,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'dismissmessages' => __('Dismiss Messages', 'revslider'),
 			'someAddonnewVersionAvailable' => __('Some AddOns have new versions available', 'revslider'),
 			'newVersionAvailable' => __('New Version Available. Please Update', 'revslider'),
+			'pluginsmustbeupdated' => __('Plugin Outdated. Please Update', 'revslider'),
 			'addonsmustbeupdated' => __('AddOns Outdated. Please Update', 'revslider'),
 			'notRegistered' => __('Plugin is not Registered', 'revslider'),
 			'notRegNoPremium' => __('Register to unlock Premium Features', 'revslider'),
@@ -709,7 +722,14 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'notRegNoUpdates' => __('Register to unlock Updates', 'revslider'),
 			'notRegNoTemplates' => __('Register to unlock Templates', 'revslider'),
 			'areyousureupdateplugin' => __('Do you want to start the Update process?', 'revslider'),
+			'arereadytoimport' => __('are ready for import!', 'revslider'),
+			'addtocustomornew' => __('Do you want to add them to the "custom" category or create a new category?', 'revslider'),
+			'addtocustom' => __('Add To Custom', 'revslider'),
+			'addto' => __('Add To', 'revslider'),
+			'createnewcategory' => __('Create New Category', 'revslider'),
 			'updatenow' => __('Update Now', 'revslider'),
+			'updateNow' => __('Update Now', 'revslider'),
+			'securityupdate' => __('Install Critical Update', 'revslider'),
 			'toplevels' => __('Higher Level', 'revslider'),
 			'siblings' => __('Current Level', 'revslider'),
 			'otherfolders' => __('Other Folders', 'revslider'),
@@ -738,6 +758,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'loadingthumbs' => __('Loading Thumbnails...', 'revslider'),
 			'jquerytriggered' => __('jQuery Triggered', 'revslider'),
 			'atriggered' => __('&lt;a&gt; Tag Link', 'revslider'),
+			'randomslide' => __('Random Slide', 'revslider'),
 			'firstslide' => __('First Slide', 'revslider'),
 			'lastslide' => __('Last Slide', 'revslider'),
 			'nextslide' => __('Next Slide', 'revslider'),
@@ -793,7 +814,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'importfailure' => __('An Error Occured while importing', 'revslider'),
 			'successImportFile' => __('File Succesfully Imported', 'revslider'),
 			'importReport' => __('Import Report', 'revslider'),
-			'updateNow' => __('Update Now', 'revslider'),
+			
 			'activateToUpdate' => __('Activate To Update', 'revslider'),
 			'activated' => __('Activated', 'revslider'),
 			'notActivated' => __('Not Activated', 'revslider'),			
@@ -866,9 +887,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'requirements' => __('Requirements', 'revslider'),
 			'installedversion' => __('Installed Version', 'revslider'),
 			'cantpulllinebreakoutside' => __('Use LineBreaks only in Columns', 'revslider'),
-			'availableversion' => __('Available Version', 'revslider'),
-			'installpackage' => __('Installing Template Package', 'revslider'),
-			'installtemplate' => __('Install Template', 'revslider'),
+			'availableversion' => __('Available Version', 'revslider'),			
 			'installingtemplate' => __('Installing Template', 'revslider'),
 			'search' => __('Search', 'revslider'),
 			'publish' => __('Publish', 'revslider'),
@@ -923,6 +942,11 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'shortcode_parsing_successfull' => __('Shortcode parsing successfull. Items can be found in step 3', 'revslider'),
 			'shortcode_could_not_be_correctly_parsed' => __('Shortcode could not be parsed.', 'revslider'),
 			'addonrequired' => __('Addon Required', 'revslider'),
+			'installpackage' => __('Installing Template Package', 'revslider'),			
+			'doinstallpackage' => __('Install Template Package', 'revslider'),
+			'installtemplate' => __('Install Template', 'revslider'),
+			'installpackageandaddons' => __('Install Template Package & Addon(s)', 'revslider'),
+			'installtemplateandaddons' => __('Install Template & Addon(s)', 'revslider'),
 			'licencerequired' => __('Activate License', 'revslider'),
 			'searcforicon' => __('Search Icons...', 'revslider'),
 			'savecurrenttemplate' => __('Save Current Template', 'revslider'),
@@ -975,7 +999,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'openInEditor' => __('Open in Editor', 'revslider'),
 			'openFolder' => __('Open Folder', 'revslider'),
 			'moveToFolder' => __('Move to Folder', 'revslider'),
-			'loadingcodemirror' => __('Loading CodeMirror Library...', 'revslider'),
+			'loadingRevMirror' => __('Loading RevMirror Library...', 'revslider'),
 			'lockunlocklayer' => __('Lock / Unlock Selected', 'revslider'),
 			'nrlayersimporting' => __('Layers Importing', 'revslider'),
 			'nothingselected' => __('Nothing Selected', 'revslider'),
@@ -990,6 +1014,8 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'exitwihoutchangesornot' => __('Are you sure you want to continue?', 'revslider'),
 			'areyousuretoexport' => __('Are you sure you want to export ', 'revslider'),
 			'areyousuretodelete' => __('Are you sure you want to delete ', 'revslider'),
+			'deletecustomcategory' => __('Delete Custom Category ', 'revslider'),
+			'deletecustomitem' => __('Delete Custom Item ', 'revslider'),
 			'areyousuretodeleteeverything' => __('Delete All Sliders and Folders included in ', 'revslider'),
 			'leavewithoutsave' => __('Leave without Save', 'revslider'), 
 			'updatingtakes' => __('Updating the Plugin may take a few moments.', 'revslider'),
@@ -997,16 +1023,21 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'exportslider' => __('Export Slider', 'revslider'),
 			'yesexport' => __('Yes, Export Slider', 'revslider'),
 			'yesdelete' => __('Yes, Delete Slider', 'revslider'),
+			'yesdeleteit' => __('Yes, Delete', 'revslider'),
 			'yesdeleteslide' => __('Yes, Delete Slide', 'revslider'),
 			'yesdeleteall' => __('Yes, Delete All Slider(s)', 'revslider'),
 			'stayineditor' => __('Stay in Edior', 'revslider'),
 			'redirectingtooverview' => __('Redirecting to Overview Page', 'revslider'),
 			'leavingpage' => __('Leaving current Page', 'revslider'),
 			'ashtmlexport' => __('as HTML Document', 'revslider'),
+			'preparingNextSlide' => __('Preparing Slide...', 'revslider'),
+			'updatingfields' => __('Preparing Fields...', 'revslider'),
 			'preparingdatas' => __('Preparing Data...', 'revslider'),
 			'loadingcontent' => __('Loading Content...', 'revslider'),
 			'copy' => __('Copy', 'revslider'),
 			'paste' => __('Paste', 'revslider'),
+			'thiswilldeletecustomitem' => __('This will delete the selected item. Items already embedded in modules will remain there.', 'revslider'),
+			'thiswilldeletecustomcategory' => __('This will delete the Category and move the elements in the default "All" category.', 'revslider'),
 			'framewait' => __('WAIT', 'revslider'),
 			'frstframe' => __('1st Frame', 'revslider'),
 			'lastframe' => __('Last Frame', 'revslider'),
@@ -1054,7 +1085,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'active_sr_plg_activ' => __('Register Purchase Code', 'revslider'),
 			'active_sr_plg_activ_key' => __('Register License Key', 'revslider'),
 			'getpurchasecode' => __('Get a Purchase Code', 'revslider'),
-			'getlicensekey' => __('Licensing Options', 'revslider'),
+			'getlicensekey' => __('Get a License Key', 'revslider'),
 			'ihavepurchasecode' => __('I have a Purchase Code', 'revslider'),
 			'ihavelicensekey' => __('I have a License Key', 'revslider'),
 			'enterlicensekey' => __('Enter License Key', 'revslider'),
@@ -1063,7 +1094,13 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'deleteskin' => __('Delete Skin', 'revslider'),
 			'references' => __('References', 'revslider'),
 			'colorwillkept' => __('The References will keep their colors after deleting Skin.', 'revslider'),
-			'areyousuredeleteskin' => __('Are you sure to delete Color Skin?', 'revslider'),
+			'areyousuredeleteskin' => __('Are you sure to delete Color Skin?', 'revslider'),			
+			'svgcustomimport' => __('Lottie Files Import', 'revslider'),
+			'importsvgfiles' => __('Import SVG Files', 'revslider'),
+			'customsvgfile' => __('Custom SVG File', 'revslider'),
+			'savecustomfile' => __('Import File', 'revslider'),
+			'customfile' => __('Custom  File', 'revslider'),
+			'uploadfirstitem' => __('Upload Your 1st Item', 'revslider')
 
 			
 		);

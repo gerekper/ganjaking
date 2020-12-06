@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.4.0
+ * @version  6.6.0
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -262,7 +262,7 @@ class WC_PB_Meta_Box_Product_Data {
 		</div>
 		<div class="options_group bundle_type show_if_bundle">
 			<div class="form-field">
-				<label for="_bundle_type">Bundle type</label>
+				<label><?php _e( 'Bundle type', 'woocommerce-product-bundles' ); ?></label>
 				<ul class="bundle_type_options">
 					<?php
 					foreach ( $bundle_type_options as $type ) {
@@ -272,7 +272,7 @@ class WC_PB_Meta_Box_Product_Data {
 						}
 						?>
 						<li class="<?php echo implode( ' ', $classes ); ?>" >
-							<input type="radio"<?php echo $type[ 'checked' ] ?> name="_bundle_type" id="_bundle_type" value="<?php echo $type[ 'value' ] ?>">
+							<input type="radio"<?php echo $type[ 'checked' ] ?> name="_bundle_type" class="bundle_type_option" value="<?php echo $type[ 'value' ] ?>">
 							<?php echo wc_help_tip( '<strong>' . $type[ 'title' ] . '</strong> &ndash; ' . $type[ 'description' ] ); ?>
 						</li>
 						<?php
@@ -329,9 +329,9 @@ class WC_PB_Meta_Box_Product_Data {
 					if ( 'bundle' === select_val ) {
 
 						// Force virtual container to always show the shipping tab.
-						virtual_checkbox.removeAttr( 'checked' ).change();
+						virtual_checkbox.prop( 'checked', false ).change();
 
-						if ( 'unassembled' === bundle_type_options.find( 'input#_bundle_type:checked' ).first().val() ) {
+						if ( 'unassembled' === bundle_type_options.find( 'input.bundle_type_option:checked' ).first().val() ) {
 							shipping_product_data.addClass( 'bundle_unassembled' );
 							bundled_product_data.addClass( 'bundle_unassembled' );
 						}
@@ -640,7 +640,7 @@ class WC_PB_Meta_Box_Product_Data {
 
 							if ( $quantity >= 0 && $data[ 'quantity_min' ] - $quantity == 0 ) {
 
-								if ( $quantity !== 1 && $product->is_sold_individually() ) {
+								if ( $quantity > 1 && $product->is_sold_individually() ) {
 									self::add_admin_error( sprintf( __( '<strong>%s</strong> is sold individually &ndash; its <strong>Min Quantity</strong> cannot be higher than 1.', 'woocommerce-product-bundles' ), $item_title ) );
 									$item_data[ 'quantity_min' ] = 1;
 								} else {
@@ -1396,7 +1396,7 @@ class WC_PB_Meta_Box_Product_Data {
 								$stock_status_label = __( 'On backorder', 'woocommerce' );
 							}
 
-							include( 'views/html-bundled-product.php' );
+							include( WC_PB_ABSPATH . 'includes/admin/meta-boxes/views/html-bundled-product.php' );
 
 							$loop++;
 						}

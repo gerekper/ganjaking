@@ -227,7 +227,7 @@ if ( ! class_exists( 'RSFrontendAssets' ) ) {
                         'post_type'   => wc_get_order_types() ,
                         'post_status' => array( 'wc-processing' , 'wc-on-hold' , 'wc-completed' ) ,
                             ) ) ;
-                    $FirstPurchasePoints = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) get_option( 'rs_reward_points_for_first_purchase_in_fixed' ) ) ;
+                    $FirstPurchasePoints = RSMemberFunction::earn_points_percentage( get_current_user_id() , (float) rs_get_first_purchase_point() ) ;                   
                     $Points              = (count( $OrderCount ) == 0) ? ($Points + $FirstPurchasePoints) : $Points ;
                 }
             } elseif ( get_option( 'rs_buyingpoints_activated' ) == 'yes' ) {
@@ -280,7 +280,7 @@ if ( ! class_exists( 'RSFrontendAssets' ) ) {
                         'post_type'   => wc_get_order_types() ,
                         'post_status' => array( 'wc-processing' , 'wc-on-hold' , 'wc-completed' ) ,
                             ) ) ;
-                    $FirstPurchasePoints = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) get_option( 'rs_reward_points_for_first_purchase_in_fixed' ) ) ;
+                    $FirstPurchasePoints = RSMemberFunction::earn_points_percentage( get_current_user_id() , (float) rs_get_first_purchase_point() ) ;
                     $Points              = (count( $OrderCount ) == 0) ? ($Points + $FirstPurchasePoints) : $Points ;
                 }
             } elseif ( get_option( 'rs_buyingpoints_activated' ) == 'yes' ) {
@@ -343,7 +343,7 @@ if ( ! class_exists( 'RSFrontendAssets' ) ) {
                     'post_type'   => wc_get_order_types() ,
                     'post_status' => array( 'wc-processing' , 'wc-on-hold' , 'wc-completed' ) ,
                         ) ) ;
-                $FirstPurchasePoints = RSMemberFunction::earn_points_percentage( get_current_user_id() , ( float ) get_option( 'rs_reward_points_for_first_purchase_in_fixed' ) ) ;
+                $FirstPurchasePoints = RSMemberFunction::earn_points_percentage( get_current_user_id() , (float)rs_get_first_purchase_point($order) ) ;
                 $Points              = (count( $OrderCount ) == 1) ? ($Points + $FirstPurchasePoints) : $Points ;
             }
             if ( empty( $Points ) )

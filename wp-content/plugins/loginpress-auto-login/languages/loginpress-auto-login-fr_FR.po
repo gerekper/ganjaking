@@ -1,0 +1,124 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LoginPress - Auto Login\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-16 22:18+0000\n"
+"PO-Revision-Date: 2019-03-17 10:50+0000\n"
+"Last-Translator: Jean SCHEIDER <jean.scheider@expertum.fr>\n"
+"Language-Team: Français\n"
+"Language: fr-FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.1; wp-5.1.1"
+
+#: loginpress-auto-login.php:182
+msgid "Action"
+msgstr "Action"
+
+#: loginpress-auto-login.php:127
+msgid "Auto Login"
+msgstr "Connexion automatique"
+
+#: loginpress-auto-login.php:128
+#, php-format
+msgid ""
+"Autologin lets you (Adminstrator) generates a unique URL for your certain "
+"users who you don't want to provide a password to login into your site. You "
+"will get a list of all the users who you have given auto generated login "
+"links. You can disable someones access by deleting that user from the list. "
+"%3$s %3$s WordPress Login Screen is customizable through %1$sWordPress "
+"Customizer%2$s."
+msgstr ""
+"La connexion automatique vous permet (administrateur) de générer une URL "
+"unique pour certains utilisateurs auxquels vous ne souhaitez pas fournir un "
+"mot de passe pour vous connecter à votre site. Vous obtiendrez une liste de "
+"tous les utilisateurs auxquels vous avez attribué des liens de connexion "
+"générés automatiquement. Vous pouvez désactiver l’accès de certains en "
+"supprimant cet utilisateur de la liste. L’écran de connexion WordPress% 3 $ "
+"s% 3 $ s est personnalisable via% 1 $ sWordPress Customizer% 2 $ s."
+
+#: loginpress-auto-login.php:181
+msgid "Autologin URL"
+msgstr "Connexion automatique URL"
+
+#: loginpress-auto-login.php:405
+msgid "Click here to activate LoginPress Pro"
+msgstr "Cliquez ici pour activer LoginPress Pro"
+
+#: loginpress-auto-login.php:198 loginpress-auto-login.php:289
+msgid "Delete"
+msgstr "Effacer"
+
+#: loginpress-auto-login.php:180
+msgid "Email"
+msgstr "Email"
+
+#. Author URI of the plugin
+msgid "http://www.WPBrigade.com/"
+msgstr "http://www.WPBrigade.com/"
+
+#. URI of the plugin
+msgid "http://www.WPBrigade.com/wordpress/plugins/loginpress/"
+msgstr "http://www.WPBrigade.com/wordpress/plugins/loginpress/"
+
+#. Name of the plugin
+msgid "LoginPress - Auto Login"
+msgstr ""
+"\n"
+"23/5000\n"
+"LoginPress - Connexion automatique"
+
+#. Description of the plugin
+msgid ""
+"LoginPress -Auto Login is the best Login plugin by <a href=\"https:"
+"//wpbrigade.com/\">WPBrigade</a> which allows you to login without Username "
+"and Password."
+msgstr ""
+"LoginPress -Auto Login est le meilleur plug-in de connexion de <a "
+"href=\"https://wpbrigade.com/\"> WPBrigade </a> qui vous permet de vous "
+"connecter sans nom d'utilisateur ni mot de passe."
+
+#: loginpress-auto-login.php:405
+msgid "LoginPress Auto Login required LoginPress Pro activation &mdash; "
+msgstr ""
+"LoginPress: connexion automatique requise. Activation de LoginPress Pro & "
+"mdash;"
+
+#: loginpress-auto-login.php:198 loginpress-auto-login.php:289
+msgid "New"
+msgstr "Nouveau"
+
+#: loginpress-auto-login.php:201
+msgid "No user found"
+msgstr "Aucun utilisateur trouvé"
+
+#: loginpress-auto-login.php:388
+msgid "Please Install LoginPress Pro to use \"LoginPress Auto Login\" add-on."
+msgstr ""
+"Veuillez installer LoginPress Pro pour utiliser le module complémentaire "
+"\"LoginPress Auto Login\"."
+
+#: loginpress-auto-login.php:146
+msgid "Search Username"
+msgstr "Recherche Nom d'utilisateur"
+
+#: loginpress-auto-login.php:147
+msgid "Search Username for making a login magic link for that user."
+msgstr ""
+"Rechercher Nom d'utilisateur permettant de créer un lien magique de "
+"connexion pour cet utilisateur."
+
+#: loginpress-auto-login.php:178
+msgid "User ID"
+msgstr "Utilisateur ID"
+
+#: loginpress-auto-login.php:179
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#. Author of the plugin
+msgid "WPBrigade"
+msgstr "WPBrigade"

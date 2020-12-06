@@ -166,6 +166,7 @@ h2.wordpress-gdpr-privacy-center-item-headline {
   text-align: center;
 }
 
+
 .wordpress-gdpr-popup-privacy-center, .wordpress-gdpr-popup-read-more, .wordpress-gdpr-popup-privacy-settings-text {
     display: block;
     float: none;
@@ -196,6 +197,40 @@ a.wordpress-gdpr-popup-agree:hover, a.wordpress-gdpr-popup-decline:hover, a.word
     float: left;
 }
 
+.wordpress-gdpr-popup-full-width-buttons-right {
+  width: 100%;
+  text-align: center;
+}
+
+.wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-text {
+  width: 80%;
+  text-align: left;
+  float: left;
+}
+
+
+.wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-actions {
+  width: 20%;
+  text-align: center;
+  float: left;
+}
+
+.wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-actions a {
+	width: 100%;
+}
+
+.wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-agree {
+    float: left;
+}
+
+.wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-actions-links {
+	margin-top: 10px;
+}
+
+.wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-actions {
+	margin-top: 0;
+}
+
 .wordpress-gdpr-popup-full-width .wordpress-gdpr-popup-agree, .wordpress-gdpr-popup-full-width .wordpress-gdpr-popup-decline{
 	float: none;
 }
@@ -206,6 +241,7 @@ a.wordpress-gdpr-popup-agree:hover, a.wordpress-gdpr-popup-decline:hover, a.word
 
 .wordpress-gdpr-popup-actions-links a {
     display: inline;
+    margin-right: 10px;
 }
 
 .wordpress-gdpr-popup-overlay .wordpress-gdpr-popup-container {
@@ -262,9 +298,14 @@ a.wordpress-gdpr-popup-agree:hover, a.wordpress-gdpr-popup-decline:hover, a.word
 	border-radius: 50%;
 }
 
-.wordpress-gdpr-popup-full-width .wordpress-gdpr-popup-close {
+.wordpress-gdpr-popup-full-width .wordpress-gdpr-popup-close{
   top: 10px;
   right: 10px;
+}
+
+.wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-close {
+  top: -15px;
+  right: 0px;
 }
 
 /***********************
@@ -554,6 +595,7 @@ a.wordpress-gdpr-popup-privacy-settings-service-category:hover, a.wordpress-gdpr
     color: #ffffff;
     font-size: 13px;
     cursor: pointer;
+    white-space: normal;
 }
 
 .wordpress-gdpr-privacy-settings-popup-services-decline-all {

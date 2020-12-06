@@ -2,9 +2,9 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Drip 1.2.23\n"
+"Project-Id-Version: WooCommerce Drip 1.2.24\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-drip\n"
-"POT-Creation-Date: 2020-10-06 10:12:40+00:00\n"
+"POT-Creation-Date: 2020-12-01 20:24:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -60,7 +60,7 @@ msgid "API Token"
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:122
-msgid "Go the your %s and copy the API Token provided. %s"
+msgid "Go to your %s and copy the API Token provided. %s"
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:122
@@ -103,7 +103,7 @@ msgid "Campaign"
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:152
-msgid "Which campaign do you want to the subscribe box to sign a user up for?"
+msgid "Which campaign do you want the subscribe box to sign a user up for?"
 msgstr ""
 
 #: includes/class-wcdrip-settings.php:152

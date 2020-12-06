@@ -923,7 +923,8 @@ Selected only "Pending Payment, On-Hold, Processing & Completed" statuses in thi
                     'desc_tip' => true ,
                 ) ,
                 array(
-                    'name'    => __( 'Enable to hide available reward points message in cart and checkout page when points used in any one of the pages' , SRP_LOCALE ) ,
+                    'name'    => __('Hide Available Balance Points',SRP_LOCALE),
+                    'desc'    => __( 'By enabling this checkbox, available reward points message will be hidden in the cart and checkout page when points redeemed on any one of the pages' , SRP_LOCALE ) ,
                     'id'      => 'rs_available_points_display' ,
                     'std'     => '' ,
                     'default' => '' ,

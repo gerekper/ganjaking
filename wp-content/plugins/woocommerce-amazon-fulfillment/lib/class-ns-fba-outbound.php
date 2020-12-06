@@ -114,13 +114,13 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 			 */
 		function create_fulfillment_address( $order_id ) {
 			// set initial address parameters and a copy to compare converted versus original (raw)
-			$shipping_name = get_post_meta( $order_id, '_shipping_first_name', true ) .
-							 ' ' . get_post_meta( $order_id, '_shipping_last_name', true );
-			$company_name = get_post_meta( $order_id, '_shipping_company', true );
-			$address_line1 = get_post_meta( $order_id, '_shipping_address_1', true );
-			$address_line2 = get_post_meta( $order_id, '_shipping_address_2', true );
-			$address_city = get_post_meta( $order_id, '_shipping_city', true );
-			$address_state = get_post_meta( $order_id, '_shipping_state', true );
+			$shipping_name = trim( get_post_meta( $order_id, '_shipping_first_name', true ) .
+							 ' ' . get_post_meta( $order_id, '_shipping_last_name', true ) );
+			$company_name = trim( get_post_meta( $order_id, '_shipping_company', true ) );
+			$address_line1 = trim( get_post_meta( $order_id, '_shipping_address_1', true ) );
+			$address_line2 = trim( get_post_meta( $order_id, '_shipping_address_2', true ) );
+			$address_city = trim( get_post_meta( $order_id, '_shipping_city', true ) );
+			$address_state = trim( get_post_meta( $order_id, '_shipping_state', true ) );
 
 			$shipping_name_raw = $shipping_name;
 			$company_name_raw = $company_name;
@@ -244,8 +244,8 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 		}
 
 		/**
-			 * Send a fulfillment order to FBA
-			 */
+		 * Send a fulfillment order to FBA
+		 */
 		function send_fulfillment_order( $order_id, $is_manual_send = false ) {
 			try {
 				if ( $this->ns_fba->is_debug ) {
@@ -326,11 +326,28 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 						// required for international orders
 						$item_price	= new FBAOutboundServiceMWS_Model_Currency();
 						$marketplace_id = $this->get_marketplace_id_for_order( $order, NS_MARKETPLACE_ID );
-						// handle custom currency override
+						// Handle custom currency override.
 						if ( isset( $this->ns_fba->options['ns_fba_currency_code'] ) && $this->ns_fba->options['ns_fba_currency_code'] !== '' ) {
+							/**
+							 * Apply a custom programmatic currency conversion rate
+							 *
+							 * Useful for orders made in different currency than Amazon seller account currency
+							 *
+							 * @param float|int Currency conversion rate
+							 * @param string From currency
+							 * @param string To Currency
+							 * @param int ID of order
+							 */
+							$conversion_rate = apply_filters(
+								'ns_fba_currency_conversion_rate',
+								$this->ns_fba->options['ns_fba_currency_conversion'],
+								$order->get_currency(),
+								$this->ns_fba->options['ns_fba_currency_code'],
+								$order_id
+							);
 							$item_price->setCurrencyCode( $this->ns_fba->options['ns_fba_currency_code'] );
 							$order_item->setPerUnitDeclaredValue( $item_price );
-							$item_price->setValue( $item_product->get_price() * intval( $this->ns_fba->options['ns_fba_currency_conversion'] ) );
+							$item_price->setValue( $item_product->get_price() * floatval( $conversion_rate ) );
 						} elseif ( 'A1F83G8C2ARO7P' == $marketplace_id ) {
 							// handle auto currency override for UK in EU region
 							$item_price->setCurrencyCode( 'GBP' );
@@ -521,7 +538,8 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 					// -----------------------------------------------------------------------------------------------------------------
 					// send the request and capture the response
 					// -----------------------------------------------------------------------------------------------------------------
-					$response = $service->CreateFulfillmentOrder( $request );
+					$parameters = null;
+					$response = $service->CreateFulfillmentOrder( $request, $parameters );
 					$dom = new DOMDocument();
 					$dom->loadXML( $response->toXML() );
 					$dom->preserveWhiteSpace = false;
@@ -561,6 +579,7 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 					error_log( @Kint::dump( $order_items ), 3, $this->ns_fba->log_path );
 					error_log( @Kint::dump( $service ), 3, $this->ns_fba->log_path );
 					error_log( @Kint::dump( $request ), 3, $this->ns_fba->log_path );
+					error_log( @Kint::dump( $parameters ), 3, $this->ns_fba->log_path );
 					error_log( @Kint::dump( $response ), 3, $this->ns_fba->log_path );
 					error_log( @Kint::dump( $dom->saveXML() ), 3, $this->ns_fba->log_path );
 					// fulfillment order request was successfully sent, update the status, add order note
@@ -597,6 +616,7 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 				error_log( @Kint::dump( $order_items ), 3, $this->ns_fba->err_log_path );
 				error_log( @Kint::dump( $service ), 3, $this->ns_fba->err_log_path );
 				error_log( @Kint::dump( $request ), 3, $this->ns_fba->err_log_path );
+				error_log( @Kint::dump( $parameters ), 3, $this->ns_fba->err_log_path );
 				error_log( @Kint::dump( $this->ns_fba->options ), 3, $this->ns_fba->err_log_path );
 
 				// TODO: Build a scalable mechanism to allow individual settings to trigger a FAIL or be bypassed.
@@ -802,6 +822,30 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 					$order->add_order_note( $order_note );
 				}// End try().
 			}// End foreach().
+
+			if ( $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_sync_ship_retry'] ) ) {
+				$failed_orders = get_posts(array(
+					'numberposts' => 20,
+					'order' => 'ASC',
+					'post_type' => wc_get_order_types(),
+					'post_status' => array('wc-fail-to-fba'),
+					'meta_query' => [
+						[
+							'key' => 'ns_fba_retried',
+							'compare' => 'NOT EXISTS',
+						]
+					]
+				));
+				foreach ( $failed_orders as $f_order ) {
+					$order_id = $f_order->ID;
+					if ( ! get_post_meta( $order_id, 'ns_fba_retried', true ) ) {
+						$order = new WC_Order($f_order->ID);
+						add_post_meta($order_id, 'ns_fba_retried', time());
+						$order->add_order_note('Retrying to submit order to Amazon');
+						$this->send_fulfillment_order($order_id);
+					}
+				}
+			}
 		}
 
 		function set_order_status_safe( $order_id, $status ) {

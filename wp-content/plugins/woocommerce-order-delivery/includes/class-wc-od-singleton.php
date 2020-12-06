@@ -17,15 +17,15 @@ if ( ! class_exists( 'WC_OD_Singleton' ) ) {
 	abstract class WC_OD_Singleton {
 
 		/**
-		 * Gets the *Singleton* instance of this class.
+		 * Gets the single instance of the class.
 		 *
 		 * @since 1.1.0
 		 *
-		 * @staticvar WC_OD_Singleton $instance The *Singleton* instances of this class.
-		 * @return WC_OD_Singleton The *Singleton* instance.
+		 * @return mixed The class instance.
 		 */
-		public static function instance() {
+		final public static function instance() {
 			static $instance = null;
+
 			if ( null === $instance ) {
 				$instance = new static();
 			}
@@ -41,24 +41,21 @@ if ( ! class_exists( 'WC_OD_Singleton' ) ) {
 		protected function __construct() {}
 
 		/**
-		 * Throw error on object clone.
+		 * Prevents cloning.
 		 *
 		 * @since 1.1.0
 		 */
 		private function __clone() {
-			// Cloning instances of the class is forbidden.
-			wc_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce-order-delivery' ), '1.0.0' );
+			wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce-order-delivery' ), '1.0.0' );
 		}
 
 		/**
-		 * Disable unserializing of the class.
+		 * Prevents unserializing.
 		 *
 		 * @since 1.1.0
 		 */
-		private function __wakeup() {
-			// Unserializing instances of the class is forbidden.
-			wc_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce-order-delivery' ), '1.0.0' );
+		final public function __wakeup() {
+			wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce-order-delivery' ), '1.0.0' );
 		}
-
 	}
 }

@@ -1877,7 +1877,7 @@ function wc_measurement_price_calculator_get_accepted_input_post( $measurement_t
 function wc_measurement_price_calculator_get_input_attributes_post( $measurement_type, $input_name ) {
 
 	$post_name        = $measurement_type === $input_name ? "_measurement_{$measurement_type}_input_attributes" : "_measurement_{$measurement_type}_{$input_name}_input_attributes";
-	$input_attributes = isset( $_POST[ $post_name ] ) && is_array( $_POST[ $post_name ] ) ? array_map( 'abs', $_POST[ $post_name ] ) : array();
+	$input_attributes = isset( $_POST[ $post_name ] ) && is_array( $_POST[ $post_name ] ) ? array_map( 'abs', array_map( 'floatval', $_POST[ $post_name ] ) ) : array();
 
 	return wp_parse_args( array_filter( $input_attributes ), array(
 		'min'  => '',

@@ -1597,18 +1597,19 @@ abstract class WC_PIP_Document {
 
 			$item_quantity   = isset( $item['qty'] ) ? max( 0, (int) $item['qty'] ) : 0;
 			$refund_quantity = $this->may_have_refunds ? absint( $this->order->get_qty_refunded_for_item( $item_id ) ) : 0;
+			$item_weight     = max( 0, (float) ( $product_weight * max( 0, $item_quantity - $refund_quantity ) ) );
 
 			/**
 			 * Filters the weight of the order item.
 			 *
 			 * @since 3.0.0
-			 * @param float $items_weight Total weight of the item by its quantity
+			 * @param float $item_weight Total weight of the item by its quantity
 			 * @param string $item_id Item id
 			 * @param array $item Item
 			 * @param \WC_Product $product WC Product object
 			 * @param \WC_Order $order WC Order object
 			 */
-			$item_weight = apply_filters( 'wc_pip_order_item_weight', max( 0, (float) ( $product_weight * max( 0, $item_quantity - $refund_quantity ) ) ), $item_id, $item, $product, $this->order );
+			$item_weight = apply_filters( 'wc_pip_order_item_weight', (float) $item_weight, $item_id, $item, $product, $this->order );
 		}
 
 		return '<span class="weight">' . $item_weight . '</span>';

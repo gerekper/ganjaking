@@ -552,7 +552,7 @@ class WooCommerce_Product_Search_Filter_Category_Widget extends WP_Widget {
 		echo '</p>';
 		echo '</div>'; 
 
-		echo '<div class="woocommerce-product-search-filter-category-widget-style-select-only woocommerce-product-search-filter-category-widget-style-dropdown-only">';
+		echo '<div class="woocommerce-product-search-filter-category-widget-style-select-dropdown-only">';
 		$none_selected = !empty( $instance['none_selected'] ) ? $instance['none_selected'] : __( 'Any Category', 'woocommerce-product-search' );
 		echo '<p>';
 		printf(
@@ -1081,6 +1081,12 @@ class WooCommerce_Product_Search_Filter_Category_Widget extends WP_Widget {
 					' } else {' .
 						' dropdown_only_containers.hide();' .
 						' dropdown_excluded_containers.show();' .
+					' }' .
+					'var select_dropdown_only_containers = jQuery( this ).closest( ".woocommerce-product-search-filter-category-widget-settings" ).find( ".woocommerce-product-search-filter-category-widget-style-select-dropdown-only" );' .
+					'if ( jQuery( this ).val() === "select" || jQuery( this ).val() === "dropdown" ) {' .
+						' select_dropdown_only_containers.show();' .
+					' } else {' .
+						' select_dropdown_only_containers.hide();' .
 					' }' .
 				'} );' .
 				'jQuery( "#%s" ).trigger( "change" );',

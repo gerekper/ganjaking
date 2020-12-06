@@ -11,19 +11,23 @@ jQuery( function ( $ ) {
         } ,
         trigger_on_load : function () {
             jQuery( '#rs_expiry_time_for_pointurl' ).datepicker( { dateFormat : 'yy-mm-dd' , minDate : 0 } ) ;
-            jQuery( '#rs_table_for_point_url' ).footable().bind( 'footable_filtering' , function ( e ) {
-                var selected = jQuery( '.filter-status' ).find( ':selected' ).text() ;
-                if ( selected && selected.length > 0 ) {
-                    e.filter += ( e.filter && e.filter.length > 0 ) ? ' ' + selected : selected ;
-                    e.clear = ! e.filter ;
-                }
-            } ) ;
+            if ( '1' == fp_pointurl_module_params.enable_footable ) {
+                jQuery( '#rs_table_for_point_url' ).footable().bind( 'footable_filtering' , function ( e ) {
+                    var selected = jQuery( '.filter-status' ).find( ':selected' ).text() ;
+                    if ( selected && selected.length > 0 ) {
+                        e.filter += ( e.filter && e.filter.length > 0 ) ? ' ' + selected : selected ;
+                        e.clear = ! e.filter ;
+                    }
+                } ) ;
+            }
         } ,
         pagination_for_pointurl : function ( e ) {
             e.preventDefault() ;
             var pageSize = jQuery( this ).val() ;
-            jQuery( '.footable' ).data( 'page-size' , pageSize ) ;
-            jQuery( '.footable' ).trigger( 'footable_initialized' ) ;
+            if ( '1' == fp_pointurl_module_params.enable_footable ) {
+                jQuery( '.footable' ).data( 'page-size' , pageSize ) ;
+                jQuery( '.footable' ).trigger( 'footable_initialized' ) ;
+            }
         } ,
         generate_point_url : function () {
             PointURLModule.block( '.form-table' ) ;

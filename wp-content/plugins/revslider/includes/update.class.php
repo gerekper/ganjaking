@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RevSliderUpdate {
 
-	private $plugin_url	 = 'https://www.themepunch.com/links/slider_revolution_wordpress';
+	private $plugin_url	 = 'https://www.sliderrevolution.com/';
 	private $remote_url	 = 'check_for_updates.php';
 	private $remote_url_info = 'revslider/revslider.php';
 	private $plugin_slug = 'revslider';

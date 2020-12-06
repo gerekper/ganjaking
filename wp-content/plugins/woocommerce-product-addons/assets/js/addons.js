@@ -363,7 +363,7 @@ jQuery( function( $ ) {
 						if ( 'undefined' !== typeof product_price && product_id ) {
 							// If it is a bookable product.
 							if ( $( '.wc-bookings-booking-form' ).length ) {
-								product_total_price = parseFloat( product_price );
+								product_total_price = ! isNaN( product_price ) ? parseFloat( product_price ) : 0;
 							} else {
 								product_total_price = parseFloat( product_price * qty );
 							}
@@ -521,7 +521,7 @@ jQuery( function( $ ) {
 					}
 				} )
 
-				.on( 'click touchstart', '.wc-pao-addon-image-swatch', function( e ) {
+				.on( 'click touchend', '.wc-pao-addon-image-swatch', function( e ) {
 					e.preventDefault();
 
 					var selectedValue = $( this ).data( 'value' ),
@@ -529,7 +529,7 @@ jQuery( function( $ ) {
 						label = $.parseHTML( $( this ).data( 'price' ) );
 
 					// Clear selected swatch label.
-					parent.prev( 'label' ).find( '.wc-pao-addon-image-swatch-price' ).remove();
+					parent.prevAll( 'label' ).find( '.wc-pao-addon-image-swatch-price' ).remove();
 
 					// Clear all selected.
 					parent.find( '.wc-pao-addon-image-swatch' ).removeClass( 'selected' );
@@ -541,14 +541,14 @@ jQuery( function( $ ) {
 					parent.find( '.wc-pao-addon-image-swatch-select' ).val( selectedValue );
 
 					// Display selected swatch next to label.
-					parent.prev( 'label' ).append( $( label ) );
+					parent.prevAll( 'label' ).append( $( label ) );
 
 					$cart.trigger( 'woocommerce-product-addons-update' );
 				} );
 
 			$cart.find( ' .wc-pao-addon-custom-text, .wc-pao-addon-custom-textarea' ).each( function() {
 				if ( $( this ).attr( 'maxlength' ) > 0 ) {
-					$( this ).after( '<small class="wc-pao-addon-chars-remaining"><span>' + $( this ).attr( 'maxlength' ) + '</span> ' + woocommerce_addons_params.i18n_remaining + '</small>' );
+					$( this ).after( '<small class="wc-pao-addon-chars-remaining">' + woocommerce_addons_params.i18n_remaining + '</small>' );
 				}
 			} );
 

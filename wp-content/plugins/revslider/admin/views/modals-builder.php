@@ -70,19 +70,19 @@ if(!defined('ABSPATH')) exit();
 						</div>			
 						<div class="mcg_option_third_wraps">
 							<div class="st_slider mcg_guide_optionwrap mcg_option_third">
-								<input data-unavailable=".standardunavailable" data-available=".standardavailable" data-disable=".standarddisable" data-enable=".standardenable" data-select=".st_slider" data-unselect=".st_scene, .st_carousel" data-r="type" data-evt="updatesliderlayout"  data-evtparam="slidertype" type="radio" value="standard" name="slidertype_guide" class="sliderinput" data-show="" data-hide="">
+								<input data-unavailable=".standardunavailable" data-available=".standardavailable" data-disable=".standarddisable" data-enable=".standardenable" data-select=".st_slider" data-unselect=".st_scene, .st_carousel" data-r="type" data-evt="updatesliderlayout"  data-evtparam="slidertype" type="radio" value="standard" id="slidertype_guide_standard" name="slidertype_guide" class="sliderinput easyinit" data-show="" data-hide="">
 								<mcg_guide_image class="guide_slider"></mcg_guide_image>
 								<div class="mcg_o_title"><?php _e('Slider');?></div>
 								<div class="mcg_o_descp"><?php _e('A Slider consists of multiple Slides.<br>Each Slide has its own content and can be<br>navigated to with various optional<br>navigation elements.');?></div>
 							</div>
 							<div class="st_scene mcg_guide_optionwrap mcg_option_third">
-								<input data-unavailable=".sceneunavailable" data-available=".sceneavailable" data-disable=".herodisable" data-enable=".heroenable" data-select=".st_scene" data-unselect=".st_slider, .st_carousel" data-r="type" data-evt="updatesliderlayout" data-evtparam="slidertype" type="radio" value="hero" name="slidertype_guide" class="sliderinput" data-show="" data-hide="">
+								<input data-unavailable=".sceneunavailable" data-available=".sceneavailable" data-disable=".herodisable" data-enable=".heroenable" data-select=".st_scene" data-unselect=".st_slider, .st_carousel" data-r="type" data-evt="updatesliderlayout" data-evtparam="slidertype" type="radio" value="hero" id="slidertype_guide_hero"  name="slidertype_guide" class="sliderinput easyinit" data-show="" data-hide="">
 								<mcg_guide_image class="guide_scene"></mcg_guide_image>
 								<div class="mcg_o_title"><?php _e('Scene');?></div>
 								<div class="mcg_o_descp"><?php _e('A Scene is essentially a Slider with a single<br>Slide and no navigation elements.<br>Best used for content modules that require<br>no additional depth.');?></div>
 							</div>
 							<div class="st_carousel mcg_guide_optionwrap mcg_option_third last">
-								<input data-unavailable=".carouselunavailable" data-available=".carouselavailable" data-disable=".carouseldisable" data-enable=".carouselenable" data-select=".st_carousel" data-unselect=".st_slider, .st_scene" data-r="type" data-evt="updatesliderlayout"  data-evtparam="slidertype" type="radio" value="carousel" name="slidertype_guide" class="sliderinput" data-show="" data-hide="">
+								<input data-unavailable=".carouselunavailable" data-available=".carouselavailable" data-disable=".carouseldisable" data-enable=".carouselenable" data-select=".st_carousel" data-unselect=".st_slider, .st_scene" data-r="type" data-evt="updatesliderlayout"  data-evtparam="slidertype" type="radio" value="carousel" id="slidertype_guide_carousel"  name="slidertype_guide" class="sliderinput easyinit" data-show="" data-hide="">
 								<mcg_guide_image class="guide_carousel"></mcg_guide_image>
 								<div class="mcg_o_title"><?php _e('Carousel');?></div>
 								<div class="mcg_o_descp"><?php _e('A Carousel is a Slider with multiple Slides<br>visible at the same time.<br>There are lots of options to customize the Carousel.');?></div>
@@ -105,19 +105,19 @@ if(!defined('ABSPATH')) exit();
 						</div>
 						<div class="mcg_option_third_wraps">				
 							<div class="sl_auto mcg_guide_optionwrap mcg_option_third">
-								<input data-select=".sl_auto" data-unselect=".sl_fullwidth, .sl_fullscreen" data-r="layouttype" data-evt="updatesliderlayout" type="radio" value="auto" name="sliderlayouttype_guide" class="sliderinput" data-show="#sr_size_minheight" data-hide=".sliderminheights,.decreaseheights">
+								<input data-select=".sl_auto" data-unselect=".sl_fullwidth, .sl_fullscreen" data-r="layouttype" data-evt="updatesliderlayout" type="radio" value="auto" id="sliderlayouttype_guide_auto" name="sliderlayouttype_guide" class="sliderinput easyinit" data-show="#sr_size_minheight" data-hide=".sliderminheights,.decreaseheights">
 								<mcg_guide_image class="guide_auto"></mcg_guide_image>
 								<div class="mcg_o_title"><?php _e('Auto');?></div>
 								<div class="mcg_o_descp"><?php _e('The module dimensions will automatically<br>adjust to the surrounding container width,<br>keeping its aspect ratio.');?></div>
 							</div>
 							<div class="sl_fullwidth mcg_guide_optionwrap mcg_option_third">
-								<input data-select=".sl_fullwidth" data-unselect=".sl_auto, .sl_fullscreen" data-r="layouttype" data-evt="updatesliderlayout" type="radio" value="fullwidth" name="sliderlayouttype_guide" class="sliderinput" data-show="#sr_size_minheight" data-hide=".sliderminheights,.decreaseheights">
+								<input data-select=".sl_fullwidth" data-unselect=".sl_auto, .sl_fullscreen" data-r="layouttype" data-evt="updatesliderlayout" type="radio" value="fullwidth" id="sliderlayouttype_guide_fullwidth" name="sliderlayouttype_guide" class="sliderinput easyinit" data-show="#sr_size_minheight" data-hide=".sliderminheights,.decreaseheights">
 								<mcg_guide_image class="guide_fullwidth"></mcg_guide_image>
 								<div class="mcg_o_title"><?php _e('Full-Width');?></div>
 								<div class="mcg_o_descp"><?php _e('The module will always span across the<br>full-width of the web-page. The height can<br>be flexible depending on other settings.');?></div>
 							</div>
 							<div class="sl_fullscreen mcg_guide_optionwrap mcg_option_third last">
-								<input data-select=".sl_fullscreen" data-unselect=".sl_auto, .sl_fullwidth" data-r="layouttype" data-evt="updatesliderlayout" type="radio" value="fullscreen" name="sliderlayouttype_guide" class="sliderinput" data-show="#sr_size_minheight_fs, .decreaseheights" data-hide=".sliderminheights">
+								<input data-select=".sl_fullscreen" data-unselect=".sl_auto, .sl_fullwidth" data-r="layouttype" data-evt="updatesliderlayout" type="radio" value="fullscreen" id="sliderlayouttype_guide_fullscreen" name="sliderlayouttype_guide" class="sliderinput easyinit" data-show="#sr_size_minheight_fs, .decreaseheights" data-hide=".sliderminheights">
 								<mcg_guide_image class="guide_fullscreen"></mcg_guide_image>
 								<div class="mcg_o_title"><?php _e('Full-Screen');?></div>
 								<div class="mcg_o_descp"><?php _e('The module will always fit the full area<br>within the web-page.');?></div>

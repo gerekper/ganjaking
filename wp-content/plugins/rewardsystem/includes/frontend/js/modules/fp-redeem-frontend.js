@@ -4,9 +4,14 @@
 jQuery( function ( $ ) {
     var RSRedeemFrontend = {
         init : function () {
+	    RSRedeemFrontend.trigger_on_page_load() ;
             $( document ).on( 'click' , '#mainsubmi' , this.validation_in_cart_and_checkout ) ;
             $( document ).on( 'click' , '.woocommerce-info a.redeemit' , this.toggle_redeem_field ) ;
             $( '.checkout_redeeming' ).css( "display" , "none" ) ;
+        } ,
+ 	trigger_on_page_load : function() {
+            // Hide Curent Available points message.
+            $( '.woocommerce' ).find( '.rs_hide_available_points_info' ).hide() ;
         } ,
         toggle_redeem_field : function () {
             $( '.checkout_redeeming' ).toggle() ;

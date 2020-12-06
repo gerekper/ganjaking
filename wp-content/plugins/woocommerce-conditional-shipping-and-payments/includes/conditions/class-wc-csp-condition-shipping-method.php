@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Shipping Method Condition.
  *
  * @class    WC_CSP_Condition_Shipping_Method
- * @version  1.8.6
+ * @version  1.8.7
  */
 class WC_CSP_Condition_Shipping_Method extends WC_CSP_Package_Condition {
 
@@ -232,7 +232,12 @@ class WC_CSP_Condition_Shipping_Method extends WC_CSP_Package_Condition {
 			$methods = $condition_data[ 'value' ];
 		}
 
-		$shipping_methods = WC()->shipping->load_shipping_methods();
+		$shipping_methods = WC_CSP_Helpers::cache_get( 'wc_shipping_methods' );
+
+		if ( is_null( $shipping_methods ) ) {
+			$shipping_methods = WC()->shipping->load_shipping_methods();
+			WC_CSP_Helpers::cache_set( 'wc_shipping_methods', $shipping_methods );
+		}
 
 		?>
 		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />

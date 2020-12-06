@@ -5,7 +5,7 @@ namespace Yoast\WP\SEO\Presenters\Admin\Prominent_Words;
 use Yoast\WP\SEO\Presenters\Abstract_Presenter;
 
 /**
- * Represents the list item presenter for the prominent words indexation.
+ * Represents the list item presenter for the prominent words indexing.
  *
  * @deprecated 15.1
  * @codeCoverageIgnore

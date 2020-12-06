@@ -12,8 +12,10 @@ $overview_data	= $rs_slider->get_slider_overview();
 
 $system_config	= $rs_slider->get_system_requirements();
 $current_user	= wp_get_current_user();
+$revslider_valid = get_option('revslider-valid', 'false');
 $latest_version	= get_option('revslider-latest-version', RS_REVISION);
 $stable_version	= get_option('revslider-stable-version', '4.2');
+$latest_version	= ($revslider_valid !== 'true' && version_compare($latest_version, $stable_version, '<')) ? $stable_version : $latest_version;
 $code			= get_option('revslider-code', '');
 $time			= date('H');
 $timezone		= date('e');/* Set the $timezone variable to become the current timezone */
@@ -42,9 +44,10 @@ $rs_languages	= $rs_slider->get_available_languages();
 	<div class="rso_scrollmenuitem" data-ref="#plugin_update_row" ><i class="material-icons">update</i><?php _e('Updates', 'revslider');?></div>
 	<div class="rso_scrollmenuitem" data-ref="#plugin_activation_row"><i class="material-icons">vpn_key</i><?php _e('Activation', 'revslider');?></div>
 	<div class="rso_scrollmenuitem" data-ref="#plugin_news_row"><i class="material-icons">library_books</i><?php _e('News', 'revslider');?></div>
-	<div id="globalsettings" class="rso_scrollmenuitem"><i class="material-icons">settings</i><?php _e('Globals', 'revslider');?></div>
-	<div id="linktodocumentation" class="rso_scrollmenuitem"><i class="material-icons">chrome_reader_mode</i><?php _e('FAQ\'s', 'revslider');?></div>
-	<div id="contactsupport" class="rso_scrollmenuitem"><i class="material-icons">contact_support</i><?php _e('Support', 'revslider');?></div>
+	<div class="rso_scrollmenuitem" id="globalsettings" ><i class="material-icons">settings</i><?php _e('Globals', 'revslider');?></div>
+	<div class="rso_scrollmenuitem" id="linktodocumentation" ><i class="material-icons">chrome_reader_mode</i><?php _e('FAQ\'s', 'revslider');?></div>
+	<div class="rso_scrollmenuitem" id="contactsupport" ><i class="material-icons">contact_support</i><?php _e('Support', 'revslider');?></div>
+	<!--<div class="rso_scrollmenuitem lilabuybutton" id="buynow_notregistered"><?php _e('Buy Now', 'revslider');?></div>-->
 	<div class="rso_scrollmenuitem" id="rso_menu_notices"><div id="rs_notice_bell" class="notice_level_2"><i id="rs_notice_the_bell" class="material-icons">notifications_active</i></div><div class="notice_level_2" id="rs_notice_counter">0</div><ul id="rs_notices_wrapper"></ul></div>
 </div>
 <div id="rs_overview" class="rs_overview _TPRB_">
@@ -54,8 +57,8 @@ $rs_languages	= $rs_slider->get_available_languages();
 		<h2 id="rs_welcome_h2" class="title"><?php echo $hi; echo $current_user->display_name; echo '!'; ?></h2>
 		<h3 id="rs_welcome_h3" class="subtitle"><?php _e('You are running Slider Revolution ', 'revslider'); echo RS_REVISION; ?></h3>
 		<?php if ($selling === true) { ?>	
-			<a href="https://sliderrevolution.com/members-login/" target="_blank" id="rs_memarea_registered" class="basic_action_button longbutton basic_action_lilabutton"><i class="material-icons">person_outline</i><?php _e('Members Area', 'revslider');?></a>
-			<!-- <a href="https://sliderrevolution.com/members-login/" target="_blank" id="rs_memarea"></a>					  -->
+			<a href="https://account.sliderrevolution.com/portal/" target="_blank" id="rs_memarea_registered" class="basic_action_button longbutton basic_action_lilabutton"><i class="material-icons">person_outline</i><?php _e('Members Area', 'revslider');?></a>
+			<!-- <a href="https://account.sliderrevolution.com/portal/" target="_blank" id="rs_memarea"></a>					  -->
 		<?php } ?>		
 	</div>
 
@@ -71,7 +74,7 @@ $rs_languages	= $rs_slider->get_available_languages();
 	<div id="existing_sliders" class="overview_wrap">
 		<div id="modulesoverviewheader" class="overview_header">
 			<div class="rs_fh_left"><input class="flat_input" id="searchmodules" type="text" placeholder="<?php _e('Search Modules...', 'revslider');?>"/></div>
-			<div class="rs_fh_right">
+			<div class="rs_fh_right" style="margin-right:-5px">
 				<i class="material-icons reset_select" id="reset_sorting">replay</i><select id="sel_overview_sorting" data-evt="updateSlidersOverview" data-evtparam="#reset_sorting" class="overview_sortby tos2 nosearchbox callEvent" data-theme="autowidth"><option value="datedesc"><?php _e('Sort by Creation', 'revslider');?></option><option value="date"><?php _e('Creation Ascending', 'revslider');?></option><option value="title"><?php _e('Sort by Title', 'revslider');?></option><option value="titledesc"><?php _e('Title Descending', 'revslider');?></option></select>
 				<i class="material-icons reset_select" id="reset_filtering">replay</i><select id="sel_overview_filtering" data-evt="updateSlidersOverview" data-evtparam="#reset_filtering" class="overview_filterby tos2 nosearchbox callEvent" data-theme="autowidth"><option value="all"><?php _e('Show all Modules', 'revslider');?></option></select>
 				<div data-evt="updateSlidersOverview" id="add_folder" class="action_button"><?php _e('Add Folder', 'revslider');?><i class="material-icons">add</i></div>
@@ -82,7 +85,7 @@ $rs_languages	= $rs_slider->get_available_languages();
 		<div class="overview_elements" style="z-index:2"><div class="overview_elements_overlay"></div></div>
 		<div class="overview_slide_elements" style="z-index:1"><div class="overview_slide_elements_overlay"></div>
 		<div id="modulesoverviewfooter" class="overview_header_footer">
-			<div class="rs_fh_right">
+			<div class="rs_fh_right" style="margin-right:23px">
 				<div class="ov-pagination"></div>			
 				<select id="pagination_select_2" data-evt="updateSlidersOverview" class="overview_pagination tos2 nosearchbox callEvent" data-theme="nomargin"><option id="page_per_page_0" value="4"></option><option id="page_per_page_1" selected="selected" value="8"></option><option id="page_per_page_2" value="16"></option><option id="page_per_page_3" value="32"></option><option id="page_per_page_4" value="64"></option><option value="all"><?php _e('Show All', 'revslider');?></option></select>				
 			</div>
@@ -133,8 +136,9 @@ $rs_languages	= $rs_slider->get_available_languages();
 		<div id="activation_area" class="pli_left">	
 			<h3 id="activateplugintitle" class="pli_title"><?php echo ($selling === true) ? __('Register License Key', 'revslider') : __('Register Purchase Code', 'revslider');?></h3>
 			<row>
+
 				<onehalf style="padding-right:5px"><div id="activated_ornot_box" class="box_with_icon"><i class="material-icons">done</i><?php _e('Registered', 'revslider');?></div></onehalf>
-				<onehalf style="padding-left:5px"><a target="_blank" href="<?php echo ($selling === true) ? 'https://sliderrevolution.com/pricing/' : 'https://themepunch.com/faq/where-to-find-the-purchase-code/'; ?>" class="box_with_icon"><i class="material-icons">vpn_key</i><?php echo ($selling === true) ? __('Find My Key', 'revslider') : __('Find My Code', 'revslider');?></a></onehalf>
+				<onehalf style="padding-left:5px"><a target="_blank" href="<?php echo ($selling === true) ? 'https://www.sliderrevolution.com/faq/where-to-find-purchase-code/' : 'https://themepunch.com/faq/where-to-find-the-purchase-code/'; ?>" class="box_with_icon"><i class="material-icons">vpn_key</i><?php echo ($selling === true) ? __('Find My Key', 'revslider') : __('Find My Code', 'revslider');?></a></onehalf>
 			</row>
 			<div class="div10"></div>
 			<div id="purchasekey_wrap" class="activated">
@@ -145,18 +149,28 @@ $rs_languages	= $rs_slider->get_available_languages();
 			<bluebutton id="activateplugin"><?php echo ($selling === true) ? __('Deregister this Key', 'revslider') : __('Deregister this Code', 'revslider');?></bluebutton>
 			<div class="div25"></div>
 			<div class="infobox">
-				<div class="bluetitle"><?php echo ($selling === true) ? __('1 License Key per Website', 'revslider') : __('1 Purchase Code per Website', 'revslider');?></div>
+				<div class="whitetitle"><?php echo ($selling === true) ? __('1 License Key per Website', 'revslider') : __('1 Purchase Code per Website', 'revslider');?></div>
 				<?php if ($selling === true) { ?>
-				<div class="simpletext"><?php _e('If you want to use Slider Revolution on another domain, please deregister it in the <a href="https://sliderrevolution.com/members-login/" target="_blank">members area</a> or get <a href="https://sliderrevolution.com/pricing/" target="_blank">more license keys</a>', 'revslider');?></div>
+				<div class="simpletext"><?php _e('If you want to use Slider Revolution on another domain, you need to use a different license key.', 'revslider');?></div>
 				<?php } else { ?>
-				<div class="simpletext"><?php _e('If you want to use Slider Revolution on another domain, please <a href="https://www.themepunch.com/links/slider_revolution_wordpress_regular_license" target="_blank">purchase another license</a>', 'revslider');?></div>
+				<div class="simpletext"><?php _e('If you want to use Slider Revolution on another domain, you need to use a different license key.', 'revslider');?></div>
 				<?php } ?>
-				
+				<div class="div25"></div>
+				<a class="lilabuybutton" href="https://account.sliderrevolution.com/portal/pricing/" target="_blank"><?php _e('Buy License Key', 'revslider');?></a>
+			</div>
+			<div class="div25"></div>
+			<div class="infobox">
+				<div class="whitetitle" style="display:inline-block"><?php _e('Manage Your Licenses', 'revslider');?></div><div class="rs_new"><?php _e('NEW', 'revslider');?></div>			
+				<div class="simpletext"><?php _e('Switch license key registrations, download plugins and get discounts!', 'revslider');?></div>				
+				<div class="div25"></div>
+				<a class="lilabuybutton" href="https://account.sliderrevolution.com/portal" target="_blank"><?php _e('Go To My Dashboard', 'revslider');?></a>
+				<div class="div10"></div>
+				<a class="simpletext smalllink" target="_blank" href="https://www.sliderrevolution.com/get-on-board-the-slider-revolution-dashboard/" ><?php _e('I don‘t have a login. How to get access?', 'revslider');?></a>
 			</div>
 		</div>
 		<!-- PLUGIN FEATURES -->
 		<div class="pli_right">
-			<h3 class="pli_title" id="rs_register_to_unlock"><?php _e('Register to unlock all Premium Features', 'revslider');?></h3>
+			<h3 class="pli_title" id="rs_register_to_unlock"><?php _e('Register to Unlock All Premium Features', 'revslider');?></h3>
 			<div class="features_wrapper">				
 				<!-- TEMPLATE LIBRARY -->
 				<div class="featurebox">
@@ -166,11 +180,7 @@ $rs_languages	= $rs_slider->get_available_languages();
 				--><div class="featurebox">
 					<div class="box_with_icon not_activated activate_to_unlock"><i class="material-icons">do_not_disturb</i><?php _e('Register to Unlock', 'revslider');?></div>
 					<?php require_once(RS_PLUGIN_PATH . 'admin/views/features/object_library.php'); ?>
-				</div><!--
-				--><div class="featurebox">
-					<div class="box_with_icon not_activated activate_to_unlock"><i class="material-icons">do_not_disturb</i><?php _e('Register to Unlock', 'revslider');?></div>
-					<?php require_once(RS_PLUGIN_PATH . 'admin/views/features/layer_animations.php'); ?>
-				</div><!--
+				</div><!--				
 				--><div class="featurebox">
 					<div class="box_with_icon not_activated activate_to_unlock"><i class="material-icons">do_not_disturb</i><?php _e('Register to Unlock', 'revslider');?></div>
 					<?php require_once(RS_PLUGIN_PATH . 'admin/views/features/add_ons.php'); ?>

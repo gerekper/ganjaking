@@ -11,6 +11,13 @@ class RevSliderEventsManager extends RevSliderFunctions {
 	
 	
 	public function __construct(){
+		$this->init_em();
+	}
+	
+	/**
+	 *
+	 **/
+	public function init_em(){
 		add_filter('revslider_get_posts_by_category', array($this, 'add_post_query'), 10, 2);
 	}
 	

@@ -1,0 +1,392 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress Downloads plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Downloads 1.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-downloads\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-09-10T12:50:54-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-downloads\n"
+
+#. Plugin Name of the plugin
+msgid "MemberPress Downloads"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Downloads Management features for MemberPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: app/controllers/admin/FileCategories.php:25
+#: app/controllers/admin/FileCategories.php:27
+#: app/controllers/admin/FileCategories.php:57
+msgid "File Categories"
+msgstr ""
+
+#: app/controllers/admin/FileCategories.php:28
+msgid "File Category"
+msgstr ""
+
+#: app/controllers/admin/FileCategories.php:58
+msgid "Categories"
+msgstr ""
+
+#: app/controllers/admin/Files.php:212
+msgid "Copy URL"
+msgstr ""
+
+#: app/controllers/admin/Files.php:213
+msgid "Copy Shortcode"
+msgstr ""
+
+#: app/controllers/admin/Files.php:226
+#: app/controllers/App.php:220
+msgid "Downloads"
+msgstr ""
+
+#: app/controllers/admin/Files.php:248
+msgid "Files"
+msgstr ""
+
+#: app/controllers/admin/Files.php:249
+msgid "File"
+msgstr ""
+
+#: app/controllers/admin/Files.php:250
+msgid "Add New File"
+msgstr ""
+
+#: app/controllers/admin/Files.php:251
+msgid "Edit File"
+msgstr ""
+
+#: app/controllers/admin/Files.php:252
+msgid "New File"
+msgstr ""
+
+#: app/controllers/admin/Files.php:253
+msgid "View File"
+msgstr ""
+
+#: app/controllers/admin/Files.php:254
+msgid "Search Files"
+msgstr ""
+
+#: app/controllers/admin/Files.php:255
+msgid "No Files found"
+msgstr ""
+
+#: app/controllers/admin/Files.php:256
+msgid "No Files found in Trash"
+msgstr ""
+
+#: app/controllers/admin/Files.php:257
+msgid "Parent File:"
+msgstr ""
+
+#: app/controllers/admin/Files.php:281
+msgid "Stats"
+msgstr ""
+
+#: app/controllers/admin/Files.php:282
+msgid "File Options"
+msgstr ""
+
+#: app/controllers/admin/FileTags.php:25
+#: app/controllers/admin/FileTags.php:27
+#: app/controllers/admin/FileTags.php:57
+msgid "File Tags"
+msgstr ""
+
+#: app/controllers/admin/FileTags.php:28
+msgid "File Tag"
+msgstr ""
+
+#: app/controllers/admin/FileTags.php:58
+msgid "Tags"
+msgstr ""
+
+#: app/controllers/App.php:117
+#: app/controllers/App.php:118
+msgid "MP Downloads"
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:36
+msgid "%1$s updated. <a href=\"%2$s\">View %3$s</a>"
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:40
+msgid "%1$s updated."
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:43
+msgid "Custom field updated."
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:44
+msgid "Custom field deleted."
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:45
+msgid "%s updated."
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:46
+msgid "%1$s restored to revision from %2$s"
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:49
+msgid "%1$s published. <a href=\"%2$s\">View %3$s</a>"
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:53
+msgid "%1$s published."
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:56
+msgid "%s saved."
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:59
+msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:61
+msgid "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Preview %4$s</a>"
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:64
+msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:69
+msgid "%s submitted."
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:70
+msgid "%1$s scheduled for: <strong>%2$s</strong>."
+msgstr ""
+
+#: app/lib/BaseCptCtrl.php:72
+msgid "%s draft updated."
+msgstr ""
+
+#: app/lib/BaseCptModel.php:180
+#: app/lib/BaseCtaxModel.php:165
+msgid "This was unable to be deleted."
+msgstr ""
+
+#: app/lib/BaseCtaxModel.php:108
+#: app/lib/BaseCtaxModel.php:130
+msgid "%s was unable to be saved: %s"
+msgstr ""
+
+#: app/lib/BaseModel.php:309
+#: app/lib/BaseModel.php:315
+#: app/lib/Validate.php:11
+#: app/lib/Validate.php:17
+msgid "%s must not be empty"
+msgstr ""
+
+#: app/lib/BaseModel.php:321
+#: app/lib/Validate.php:23
+msgid "%s must be true or false"
+msgstr ""
+
+#: app/lib/BaseModel.php:327
+#: app/lib/Validate.php:29
+msgid "%s must be an array"
+msgstr ""
+
+#: app/lib/BaseModel.php:333
+#: app/lib/Validate.php:35
+msgid "%1$s must be %2$s NOT %3$s"
+msgstr ""
+
+#: app/lib/BaseModel.php:333
+#: app/lib/Validate.php:35
+#: app/views/admin/files/options_meta_box.php:31
+msgid "or"
+msgstr ""
+
+#: app/lib/BaseModel.php:339
+#: app/lib/Validate.php:41
+msgid "%1$s (%2$s) must be a valid url"
+msgstr ""
+
+#: app/lib/BaseModel.php:345
+#: app/lib/Validate.php:47
+msgid "%1$s (%2$s) must be a valid representation of currency"
+msgstr ""
+
+#: app/lib/BaseModel.php:351
+#: app/lib/Validate.php:53
+msgid "%1$s (%2$s) must be a valid number"
+msgstr ""
+
+#: app/lib/BaseModel.php:357
+#: app/lib/Validate.php:59
+msgid "%1$s (%2$s) must be a valid email"
+msgstr ""
+
+#: app/lib/BaseModel.php:363
+#: app/lib/Validate.php:65
+msgid "%1$s (%2$s) must be a valid phone number"
+msgstr ""
+
+#: app/lib/BaseModel.php:369
+#: app/lib/Validate.php:71
+msgid "%1$s (%2$s) must be a valid IP Address"
+msgstr ""
+
+#: app/lib/BaseModel.php:375
+#: app/lib/Validate.php:77
+msgid "%1$s (%2$s) must be a valid date"
+msgstr ""
+
+#: app/lib/BaseModel.php:382
+#: app/lib/Validate.php:84
+msgid "%1$s (%2$s) must be a valid timestamp"
+msgstr ""
+
+#: app/lib/BaseModel.php:388
+#: app/lib/Validate.php:90
+msgid "%1$s (%2$s) must match the regex pattern: %3$s"
+msgstr ""
+
+#: app/lib/Config.php:15
+msgid "A config file for %s wasn\\'t found"
+msgstr ""
+
+#: app/lib/CtrlFactory.php:28
+msgid "Ctrl: %s wasn't found"
+msgstr ""
+
+#: app/lib/FileStatsTable.php:33
+msgid "Username"
+msgstr ""
+
+#: app/lib/FileStatsTable.php:34
+msgid "User Email"
+msgstr ""
+
+#: app/lib/ModelFactory.php:14
+msgid "A model for %s wasn't found"
+msgstr ""
+
+#: app/lib/ModelFactory.php:22
+#: app/lib/ModelFactory.php:25
+#: app/lib/ModelFactory.php:28
+msgid "There was no %s with an id of %d found"
+msgstr ""
+
+#: app/lib/Utils.php:357
+msgid ""
+"*** MemberPress Downloads Error\n"
+"==========\n"
+"%s\n"
+"==========\n"
+""
+msgstr ""
+
+#: app/lib/Utils.php:367
+msgid "*** MemberPress Downloads Debug: %s"
+msgstr ""
+
+#: app/models/File.php:51
+msgid "%s exceeds the maximum upload size for this site."
+msgstr ""
+
+#: app/views/admin/files/options_meta_box.php:5
+msgid "You cannot publish without uploading a file"
+msgstr ""
+
+#: app/views/admin/files/options_meta_box.php:21
+msgid "Replace File"
+msgstr ""
+
+#: app/views/admin/files/options_meta_box.php:30
+msgid "Drop file here to upload"
+msgstr ""
+
+#: app/views/admin/files/options_meta_box.php:33
+msgid "Select File"
+msgstr ""
+
+#: app/views/admin/files/options_meta_box.php:37
+msgid "Cancel"
+msgstr ""
+
+#: app/views/admin/files/options_meta_box.php:40
+msgid "Maximum upload file size: %s."
+msgstr ""
+
+#: app/views/admin/files/options_meta_box.php:47
+msgid "Due to an issue with your web host configuration this file will not be downloadable until you fix your web host configuration."
+msgstr ""
+
+#: app/views/admin/files/options_meta_box.php:55
+msgid "Uploading file..."
+msgstr ""
+
+#: app/views/admin/files/stats/meta_box.php:5
+msgid "# of Downloads"
+msgstr ""
+
+#: app/views/admin/files/stats/row.php:43
+msgid "Guest"
+msgstr ""
+
+#: app/views/admin/files/stats/search_box.php:12
+msgid "File Name"
+msgstr ""
+
+#: app/views/admin/files/stats/search_box.php:21
+msgid "Start Date"
+msgstr ""
+
+#: app/views/admin/files/stats/search_box.php:30
+msgid "End Date"
+msgstr ""
+
+#: app/views/admin/files/stats/search_box.php:35
+msgid "Go"
+msgstr ""
+
+#: app/views/admin/options/form.php:9
+msgid "General"
+msgstr ""
+
+#: app/views/admin/options/form.php:14
+msgid "General Options"
+msgstr ""
+
+#: app/views/admin/options/general.php:6
+#: app/views/admin/options/general.php:8
+msgid "Option 1"
+msgstr ""
+
+#: app/views/admin/options/general.php:9
+msgid "This is a tooltip. Use it wisely"
+msgstr ""
+
+#: app/views/admin/options/general.php:20
+msgid "Option 2"
+msgstr ""

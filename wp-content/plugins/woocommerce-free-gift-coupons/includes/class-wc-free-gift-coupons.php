@@ -21,7 +21,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 *
 	 * @var string
 	 */
-	public static $version = '3.0.0';
+	public static $version = '3.0.4';
 
 	/**
 	 * The required WooCommerce version
@@ -31,10 +31,26 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	public static $required_woo = '3.1.0';
 
 	/**
+	 * Coupon code to remove.
+	 * 
+	 * @var string
+	 * @since 3.1.0
+	 */
+	private static $coupon_to_remove = '';
+
+	/**
+	 * Coupon removed directly.
+	 * 
+	 * @var bool
+	 * @since 3.1.0
+	 */
+	private static $coupon_removed_directly = false;
+
+	/**
 	 * Array of deprecated hook handlers.
 	 *
 	 * @var array of WC_FGC_Deprecated_Hooks
-	 * @since 3.0
+	 * @since 3.0.0
 	 */
 	public static $deprecated_hook_handlers = array();
 
@@ -42,7 +58,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 * Free Gift Coupons pseudo constructor
 	 *
 	 * @return WC_Free_Gift_Coupons
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static function init() {
 
@@ -50,6 +66,9 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
 		// Make translation-ready.
 		add_action( 'init', array( __CLASS__, 'load_textdomain_files' ) );
+
+		// Include theme-level hooks and actions files.
+		add_action( 'after_setup_theme', array( __CLASS__, 'theme_includes' ) );
 
 		// Prepare handling of deprecated filters/actions.
 		self::$deprecated_hook_handlers['actions'] = new WC_FGC_Deprecated_Action_Hooks();
@@ -85,6 +104,15 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		// Remove Bonus item if coupon code conditions are no longer valid.
 		add_action( 'woocommerce_check_cart_items', array( __CLASS__, 'check_cart_items' ) );
 
+		// Remove gift items, check if last folk standing, to prepare removal of coupon.
+		add_action( 'woocommerce_remove_cart_item', array( __CLASS__, 'check_remaining_product' ), 10, 2 );
+
+		/* 
+		 * The coupon removal must be delayed so that you don't end up in a loop
+		 * since FGC checks cart items when coupons are removed.
+		*/
+		add_action( 'woocommerce_cart_item_removed', array( __CLASS__, 'delayed_coupon_removal' ), 10, 2 );
+
 		// Free Gifts should not count one way or the other towards product validations.
 		add_action( 'woocommerce_coupon_get_items_to_validate', array( __CLASS__, 'exclude_free_gifts_from_coupon_validation' ), 10, 2 );
 
@@ -107,7 +135,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		add_action( 'woocommerce_checkout_create_order_line_item', array( __CLASS__, 'add_order_item_meta' ), 10, 3 );
 
 	}
-	
+
 
 	/**
 	 * Includes.
@@ -125,36 +153,14 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		include_once  'compatibility/backcompatibility/class-wc-fgc-deprecated-action-hooks.php' ;
 		include_once  'compatibility/backcompatibility/class-wc-fgc-deprecated-filter-hooks.php' ;
 
-		// Variation editing feature in cart.
-		if ( self::is_request( 'frontend' ) ) {
-			include_once  'class-wc-fgc-update-variation-cart.php' ;
-		}
-
-		// Admin includes.
-		if ( self::is_request( 'admin' ) ) {
+		if ( is_admin() ) {
+			// Admin includes.
 			self::admin_includes();
-		}
+		} 
+			
+		// Variation editing feature in cart.
+		include_once  'class-wc-fgc-update-variation-cart.php';
 
-	}
-
-	/**
-	 * Check request
-	 *
-	 * @param string $type admin|ajax|cron|frontend.
-	 * @return bool
-	 * @since 3.0.0
-	 */
-	private static function is_request( $type ) {
-		switch ( $type ) {
-			case 'admin':
-				return is_admin();
-			case 'ajax':
-				return defined( 'DOING_AJAX' );
-			case 'cron':
-				return defined( 'DOING_CRON' );
-			case 'frontend':
-				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! WC()->is_rest_api_request();
-		}
 	}
 
 	/**
@@ -163,10 +169,10 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	public static function admin_includes() {
 
 		// Admin notices handling.
-		include_once  'admin/class-wc-free-gift-coupons-admin-notices.php' ;
+		include_once  'admin/class-wc-free-gift-coupons-admin-notices.php';
 
 		// Admin functions and hooks.
-		include_once  'admin/class-wc-free-gift-coupons-admin.php' ;
+		include_once  'admin/class-wc-free-gift-coupons-admin.php';
 	}
 
 	/**
@@ -185,6 +191,15 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		load_plugin_textdomain( 'wc_free_gift_coupons', false, 'woocommerce-free-gift-coupons/languages' );
 	}
 
+	/**
+	 * Get the plugin path.
+	 *
+	 * @return string
+	 * @since 3.1.0
+	 */
+	public static function plugin_path() {
+		return untrailingslashit( plugin_dir_path( WC_FGC_PLUGIN_FILE ) );
+	}
 
 	/**
 	 * Displays a warning message if version check fails.
@@ -195,6 +210,17 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		wc_deprecated_function( 'WC_Free_Gift_Coupons::admin_notice()', '1.6.0', 'Function is no longer used.' );
 		/* translators: %s: Required version of WooCommerce */
 		echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Free Gift Coupons requires at least WooCommerce %s in order to function. Please upgrade WooCommerce.', 'wc_free_gift_coupons' ), self::$required_woo ) . '</p></div>';
+	}
+
+
+	/**
+	 * Include template functions and hooks.
+	 * 
+	 * @since 3.1.0
+	 */
+	public static function theme_includes() {
+		include_once 'wc-fgc-template-functions.php';
+		include_once 'wc-fgc-template-hooks.php';
 	}
 
 
@@ -238,7 +264,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 						array(
 							'free_gift'    => $coupon_code,
 							'fgc_quantity' => isset( $data['quantity'] ) && $data['quantity'] > 0 ? intval( $data['quantity'] ) : 1,
-							'fgc_type'     => $data['data'] instanceof WC_Product_Variable ? 'variable' : 'not-variable',
+							'fgc_type'     => $data['data']->is_type( 'variable' ) ? 'variable' : 'not-variable',
 						)
 					);
 				}
@@ -392,6 +418,8 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 * @since 1.2.0
 	 */
 	public static function remove_free_gift_from_cart( $coupon ) {
+		// Removed directly.
+		self::$coupon_removed_directly = true;
 
 		// If the coupon still applies to the initial cart, the free product can remain. WC Subscriptions removes coupons from recurring cart objects. This condition bypasses that.
 		if ( WC()->cart->has_discount( $coupon ) ) {
@@ -796,8 +824,8 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		}
 
 		return $cart_item;
-	}
 
+	}
 
 	/**
 	 * Adjust session values on the gift item.
@@ -855,7 +883,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 				// Set to true if we found a sync product in the cart.
 				if ( $sync_to === $per_cart_item['product_id'] ) {
 					$sync_products_found = true;
-					break; // since its just one product sync currently.
+					break; // Since its just one product sync currently.
 				}
 			}
 		}
@@ -865,6 +893,77 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		}
 
 		return $is_valid;
+
+	}
+
+	/**
+	 * Remove the coupon code if no free gifts left in cart.
+	 * 
+	 * @hook woocommerce_remove_cart_item
+	 * @param string $cart_item_key The cart item key.
+	 * @param  WC_Cart $cart The cart object.
+	 * @since 3.1.0
+	 */
+	public static function check_remaining_product( $cart_item_key, $cart ) { 
+	
+		$cart_contents = $cart->get_cart_contents();
+
+		$cart_item = isset( $cart_contents[$cart_item_key] ) ?  $cart_contents[$cart_item_key] : array();
+
+		// Removed a free gift.
+		if ( isset( $cart_item['free_gift'] ) ) {
+
+			unset( $cart_contents[$cart_item_key] );
+
+			$coupon_code = $cart_item['free_gift'];
+			$has_gifts   = false;
+
+			foreach ( $cart_contents as $cart_item_key => $values ) {
+				if ( isset( $values['free_gift'] ) && $values['free_gift'] === $coupon_code ) {
+					$has_gifts = true;
+					break;
+				}
+			}
+
+			// If no matching gifts left, and no need to prevent removal, remove code.
+			if ( ! $has_gifts && ! WC_FGC_Update_Variation_Cart::prevent_coupon_flushing() ) {
+				self::$coupon_to_remove = $coupon_code;				
+			}
+		}
+
+	}
+
+	/**
+	 * Remove the coupon code if no free gifts left in cart.
+	 * 
+	 * @hook woocommerce_cart_item_removed
+	 * @param string $cart_item_key Cart item key.
+	 * @param  WC_Cart $cart Cart object.
+	 * @since 3.1.0
+	 */
+	public static function delayed_coupon_removal( $cart_item_key, $cart ) { 
+		$coupon = new WC_Coupon( self::$coupon_to_remove );
+
+		if ( ! empty( self::$coupon_to_remove ) ) {
+			// Check if it's an only "free gift" coupon.
+			$coupon = new WC_Coupon( self::$coupon_to_remove );
+
+			// Is it our very own free gift?
+			if ( $coupon->is_type( 'free_gift' ) ) {
+
+				// Don't keep the user confused if the coupon was not removed directly by user.
+				if ( ! self::$coupon_removed_directly ) {
+					// Translators: %s is the coupon code/name.
+					wc_add_notice( sprintf( __( 'Coupon "%s" has been removed.', 'wc_free_gift_coupons' ), self::$coupon_to_remove ) );
+
+					// Remove "item removed notice" for last item, when coupon is automatically removed.
+					add_filter( 'woocommerce_cart_item_removed_notice_type', '__return_null' );
+				}
+
+				$cart->remove_coupon( self::$coupon_to_remove );
+				self::$coupon_to_remove = '';
+			}
+		}
 
 	}
 

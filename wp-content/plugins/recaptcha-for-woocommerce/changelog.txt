@@ -1,5 +1,27 @@
 *** Changelog ***
 
+2020-11-27 - version 2.3
+
+* Fixed reCaptcha not working for IE 11.
+
+
+2020-11-18 - version 2.2
+
+* Fixed reCaptcha v2 disable submit button on reCaptcha reset problem
+
+
+2020-10-29 - version 2.1
+
+* Fixed Uncaught SyntaxError: Unexpected string error after updates 2.0
+
+
+2020-10-27 - version 2.0
+
+* Now "recaptcha for woocommerce" support google latest version of greCAPTCHA V3
+* This version never disturb user, ReCaptcha V3 Uses a behind-the-scenes scoring system to detect abusive traffic, and lets you decide the minimum passing score. Please note that there is no user interaction shown in reRecapcha V3 meaning that no recaptcha challenge is shown to solve. 
+
+
+
 2020-09-17 - version 1.0.17
 
 * Added captcha protection for WooCommerce Pay For Order (This is only used when your order is failed. WooCommerce allow failed order to repay using this page.

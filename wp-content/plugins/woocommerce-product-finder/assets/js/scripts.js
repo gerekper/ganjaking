@@ -55,7 +55,7 @@ jQuery( document ).ready( function() {
 	                    if( response ) {
 	                        jQuery( '#val_' + row + ' option' ).remove();
 	                        jQuery( '#val_' + row ).append( response );
-	                        jQuery( '#val_' + row ).removeAttr( 'disabled' );
+	                        jQuery( '#val_' + row ).prop( 'disabled', false );
 	                    } else {
 	                        jQuery( '#val_' + row + ' option' ).remove();
 	                        jQuery( '#val_' + row ).append( '<option value="none" selected="selected">No options found</option>' );

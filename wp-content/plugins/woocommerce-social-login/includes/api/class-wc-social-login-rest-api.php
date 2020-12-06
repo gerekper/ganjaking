@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\Social_Login;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
 
 /**
  * Social Login REST API handler.

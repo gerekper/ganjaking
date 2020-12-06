@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Measurement Price Calculator 3.18.1\n"
+"Project-Id-Version: WooCommerce Measurement Price Calculator 3.18.3\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-09-30 20:49:36+00:00\n"
+"POT-Creation-Date: 2020-11-24 19:04:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -129,7 +129,7 @@ msgstr ""
 
 #: i18n/languages/strings.php:55
 #: includes/admin/post-types/writepanels/writepanels-init.php:191
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:174
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:202
 msgid "cup"
 msgstr ""
 
@@ -662,7 +662,7 @@ msgstr ""
 
 #: includes/admin/post-types/writepanels/writepanel-product_data-calculator.php:390
 #: includes/admin/post-types/writepanels/writepanel-product_data-calculator.php:1100
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:136
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:164
 msgid "Area Unit"
 msgstr ""
 
@@ -713,7 +713,7 @@ msgid "Volume input field label to display on the frontend"
 msgstr ""
 
 #: includes/admin/post-types/writepanels/writepanel-product_data-calculator.php:861
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:160
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:188
 msgid "Volume Unit"
 msgstr ""
 
@@ -905,13 +905,13 @@ msgstr ""
 msgid "Cannot edit price while a pricing table is active"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:137
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:165
 msgid ""
 "This controls what unit you can define areas in for the Measurements Price "
 "Calculator."
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:161
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:189
 msgid ""
 "This controls what unit you can define volumes in for the Measurements "
 "Price Calculator."
@@ -1118,132 +1118,132 @@ msgstr ""
 msgid "http://www.woocommerce.com"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:100
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:128
 msgctxt "metric ton"
 msgid "t"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:103
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:131
 msgctxt "english ton"
 msgid "tn"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:115
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:143
 msgctxt "kilometer"
 msgid "km"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:119
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:147
 msgctxt "foot"
 msgid "ft"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:120
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:148
 msgctxt "yard"
 msgid "yd"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:121
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:149
 msgctxt "mile"
 msgid "mi"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:144
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:172
 msgctxt "hectare"
 msgid "ha"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:145
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:173
 msgctxt "square kilometer"
 msgid "sq km"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:146
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:174
 msgctxt "square meter"
 msgid "sq m"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:147
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:175
 msgctxt "square centimeter"
 msgid "sq cm"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:148
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:176
 msgctxt "square millimeter"
 msgid "sq mm"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:149
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:177
 msgctxt "acre"
 msgid "acs"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:150
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:178
 msgctxt "square mile"
 msgid "sq. mi."
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:151
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:179
 msgctxt "square yard"
 msgid "sq. yd."
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:152
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:180
 msgctxt "square foot"
 msgid "sq. ft."
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:153
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:181
 msgctxt "square inch"
 msgid "sq. in."
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:168
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:196
 msgctxt "cubic meter"
 msgid "cu m"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:169
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:197
 msgctxt "liter"
 msgid "l"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:170
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:198
 msgctxt "milliliter"
 msgid "ml"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:171
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:199
 msgctxt "gallon"
 msgid "gal"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:172
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:200
 msgctxt "quart"
 msgid "qt"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:173
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:201
 msgctxt "pint"
 msgid "pt"
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:175
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:203
 msgctxt "fluid ounce"
 msgid "fl. oz."
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:176
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:204
 msgctxt "cubic yard"
 msgid "cu. yd."
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:177
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:205
 msgctxt "cubic foot"
 msgid "cu. ft."
 msgstr ""
 
-#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:178
+#: includes/admin/woocommerce-measurement-price-calculator-admin-init.php:206
 msgctxt "cubic inch"
 msgid "cu. in."
 msgstr ""

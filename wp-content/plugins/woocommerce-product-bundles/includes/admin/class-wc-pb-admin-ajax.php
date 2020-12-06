@@ -245,7 +245,7 @@ class WC_PB_Admin_Ajax {
 				}
 
 				ob_start();
-				include( 'meta-boxes/views/html-bundled-product.php' );
+				include( WC_PB_ABSPATH . 'includes/admin/meta-boxes/views/html-bundled-product.php' );
 				$response[ 'markup' ] = ob_get_clean();
 
 			} else {
@@ -333,7 +333,7 @@ class WC_PB_Admin_Ajax {
 		add_filter( 'woocommerce_bundled_item_is_priced_individually', '__return_false' );
 
 		ob_start();
-		include( 'meta-boxes/views/html-bundle-edit-form.php' );
+		include( WC_PB_ABSPATH . 'includes/admin/meta-boxes/views/html-bundle-edit-form.php' );
 		$html = ob_get_clean();
 
 		$response = array(

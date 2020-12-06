@@ -18,6 +18,7 @@ if ( ! class_exists( 'WC_AF_Rules' ) ) {
 
 		/**
 		 * Returns the only possible instance of WC_AF_Rules
+		 *
 		 * @return WC_AF_Rules
 		 */
 		public static function get() {
@@ -87,7 +88,7 @@ if ( ! class_exists( 'WC_AF_Rules' ) ) {
 			if ( class_exists( $class_name ) ) {
 
 				// Create Rule object
-				$rule = new $class_name;
+				$rule = new $class_name();
 
 				// Check if need to set a label
 				if ( isset( $generic_object->label ) ) {

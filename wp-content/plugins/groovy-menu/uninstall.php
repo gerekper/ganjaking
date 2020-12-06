@@ -176,8 +176,9 @@ if ( ! function_exists( 'gm_delete_groovy_uploads_dir' ) ) {
 	 */
 	function gm_delete_groovy_uploads_dir() {
 
-		$_cpath       = ABSPATH . 'wp-content/uploads/';
-		$_groovy_path = $_cpath . 'groovy/';
+		$upload_dir   = wp_get_upload_dir();
+		$_cpath       = trailingslashit( $upload_dir['basedir'] );
+		$_groovy_path = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, $_cpath . 'groovy/' );
 
 		$tmp_dir_i   = new RecursiveDirectoryIterator( $_groovy_path, RecursiveDirectoryIterator::SKIP_DOTS );
 		$tmp_files_i = new RecursiveIteratorIterator( $tmp_dir_i, RecursiveIteratorIterator::CHILD_FIRST );

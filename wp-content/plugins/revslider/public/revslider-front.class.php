@@ -190,8 +190,8 @@ class RevSliderFront extends RevSliderFunctions {
 					if(aliases.length > 0){
 						jQuery('#wp-admin-bar-revslider-default li').each(function(){
 							var li = jQuery(this),
-								t = jQuery.trim(li.find('.ab-item .rs-label').data('alias')); //text()
-							
+								t = li.find('.ab-item .rs-label').data('alias'); //text()
+							t = t!==undefined && t!==null ? t.trim() : t;
 							if(jQuery.inArray(t,aliases)!=-1){
 							}else{
 								li.remove();

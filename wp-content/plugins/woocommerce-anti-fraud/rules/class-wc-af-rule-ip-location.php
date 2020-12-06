@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_AF_Rule_Ip_Location extends WC_AF_Rule {
 	private $is_enabled  = false;
-    private $rule_weight = 0;
+	private $rule_weight = 0;
 	/**
 	 * The constructor
 	 */
@@ -35,13 +35,13 @@ class WC_AF_Rule_Ip_Location extends WC_AF_Rule {
 		// Set IP address in var
 		$ip_address = $order->get_customer_ip_address();
 		$billing_country = $order->get_billing_country();
-		$contents = @file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip_address);
+		$contents = @file_get_contents('http://www.geoplugin.net/json.gp?ip=' . $ip_address);
 			 
 		if ( $contents !== false ) {
 
-		    $ipdat = @json_decode($contents);
+			$ipdat = @json_decode($contents);
 			
-		    if(json_last_error() === JSON_ERROR_NONE) {
+			if (json_last_error() === JSON_ERROR_NONE) {
 				
 				// We can only do this check if there is an IP address
 				if ( empty( $ip_address ) ) {
@@ -49,11 +49,11 @@ class WC_AF_Rule_Ip_Location extends WC_AF_Rule {
 					return false;
 				}
 
-     			$objectTostring = json_decode(json_encode($ipdat), true);
+				$objectTostring = json_decode(json_encode($ipdat), true);
 
-     			if(array_key_exists( 'geoplugin_countryCode', $objectTostring )) {
+				if (array_key_exists( 'geoplugin_countryCode', $objectTostring )) {
 
-					$risk = ($objectTostring['geoplugin_countryCode'] == $billing_country) ? false : true;
+					$risk = ( $objectTostring['geoplugin_countryCode'] == $billing_country ) ? false : true;
 				} else {
 
 					$risk = false;
@@ -65,12 +65,12 @@ class WC_AF_Rule_Ip_Location extends WC_AF_Rule {
 			
 		}
 
-    	return $risk;
+		return $risk;
 	}
 	
 	//Enable rule check
-	public function is_enabled(){
-		if('yes' == $this->is_enabled){
+	public function is_enabled() {
+		if ('yes' == $this->is_enabled) {
 			return true;
 		}
 		return false;

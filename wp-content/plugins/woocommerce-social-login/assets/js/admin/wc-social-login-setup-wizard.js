@@ -112,4 +112,27 @@ jQuery( document ).ready( function( $ ) {
 		}
 	} );
 
+
+	// handle newsletter signups
+	let button = $( 'button.newsletter-signup' ),
+	    requestURL = 'https://api.jilt.com/v2/shops/0f017a8a-d26a-4572-81fd-c9364ae30f90/customer_sessions',
+	    requestData = {
+			customer: {
+				email:             button.data( 'user-email' ),
+				accepts_marketing: true,
+				contact_source:    'onboarding-social-login',
+				tags:              [ 'customer', 'social-login' ]
+			}
+		};
+
+	button.on( 'click', function( e ) {
+		e.preventDefault();
+
+		$( '.newsletter-prompt .spinner' ).css( 'visibility', 'visible' );
+
+		$.post( requestURL, requestData, function() { } ).always( function() {
+			$( 'div.newsletter-prompt' ).html( '<p>' + button.data( 'thank-you' ) + '</p>' );
+		} );
+	} );
+
 } );

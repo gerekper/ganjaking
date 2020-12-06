@@ -42,13 +42,13 @@ jQuery(document).ready(function($) {
         var fields      = [];
 
         $("#warranty_form").find("input[type=text], input[type=file], textarea, select").each(function() {
-            if ( $(this).hasClass("wfb-field") && $(this).data("required") && !$.trim( $(this).val() ) ) {
+            if ( $(this).hasClass("wfb-field") && $(this).data("required") && ! $(this).val().trim() ) {
                 is_error = true;
 
                 var id = $(this).attr("id") + "-div";
                 var $label = $("#"+id+" label").clone();
                 $label.find('span.required').remove();
-                fields.push( $.trim( $label.text() ) );
+                fields.push( $label.text().trim() );
             }
         });
 

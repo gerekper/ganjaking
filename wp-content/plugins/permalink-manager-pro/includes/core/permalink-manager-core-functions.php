@@ -222,7 +222,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 				$term_taxonomy = (!empty($term->taxonomy)) ? $term->taxonomy : false;
 
 				// Check if taxonomy is allowed
-				$disabled = (Permalink_Manager_Helper_Functions::is_disabled($term_taxonomy, 'taxonomy')) ? true : false;
+				$disabled = ($term_taxonomy && Permalink_Manager_Helper_Functions::is_disabled($term_taxonomy, 'taxonomy')) ? true : false;
 
 				// Proceed only if the term is not removed and its taxonomy is not disabled
 				if(!$disabled && $term_taxonomy) {
@@ -252,8 +252,10 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 					$query["term"] = $term->slug;
 					//$query[$query_parameter] = $final_uri;
 					$query[$query_parameter] = $term->slug;
-				} else {
+				} else if($disabled) {
 					$broken_uri = true;
+					$query = $old_query;
+				} else {
 					$query = $old_query;
 				}
 			}
@@ -276,7 +278,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 				$post_type = (!empty($post_to_load->post_type)) ? $post_to_load->post_type : false;
 
 				// Check if post type is allowed
-				$disabled = (Permalink_Manager_Helper_Functions::is_disabled($post_type, 'post_type')) ? true : false;
+				$disabled = ($post_type && Permalink_Manager_Helper_Functions::is_disabled($post_type, 'post_type')) ? true : false;
 
 				// Proceed only if the term is not removed and its taxonomy is not disabled
 				if(!$disabled && $post_type) {
@@ -326,8 +328,10 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 						$query['post_type'] = $post_type;
 						$query[$query_var] = $final_uri;
 					}
-				} else {
+				} else if($disabled) {
 					$broken_uri = true;
+					$query = $old_query;
+				} else {
 					$query = $old_query;
 				}
 			}
@@ -440,21 +444,29 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 		$trailing_slash_setting = (!empty($permalink_manager_options['general']['trailing_slashes'])) ? $permalink_manager_options['general']['trailing_slashes'] : "";
 
-		if(preg_match("/.*\.([a-zA-Z]{3,4})\/?$/", $permalink)) {
-			$permalink = preg_replace('/(.+?)([\/]*)(\?[^\/]+|\#[^\/]+|$)/', '$1$3', $permalink); // Instead of untrailingslashit()
-		} else if(in_array($trailing_slash_setting, array(1, 10))) {
-			$permalink = preg_replace('/(.+?)([\/]*)(\?[^\/]+|\#[^\/]+|$)/', '$1/$3', $permalink); // Instead of trailingslashit()
-		} else if(in_array($trailing_slash_setting, array(2, 20))) {
-			$permalink = preg_replace('/(.+?)([\/]*)(\?[^\/]+|\#[^\/]+|$)/', '$1$3', $permalink); // Instead of untrailingslashit()
+		// Remove trailing slashes from URLs that end with file extension (eg. .html)
+		if(preg_match('/.*\.([a-zA-Z]{3,4})\/?$/', $permalink)) {
+			$permalink = preg_replace('/^(?!http(?:s):\/\/[^\/]+\/$)(.+?)([\/]*)(\[\?\#][^\/]+|$)/', '$1$3', $permalink); // Instead of untrailingslashit()
 		} else {
-			$permalink = user_trailingslashit($permalink);
+			// Add trailing slashes
+			if(in_array($trailing_slash_setting, array(1, 10))) {
+				$permalink = preg_replace('/(.+?)([\/]*)(\[\?\#][^\/]+|$)/', '$1/$3', $permalink); // Instead of trailingslashit()
+			}
+			// Remove trailing slashes
+			else if(in_array($trailing_slash_setting, array(2, 20))) {
+				$permalink = preg_replace('/(.+?)([\/]*)(\[\?\#][^\/]+|$)/', '$1$3', $permalink); // Instead of untrailingslashit()
+			}
+			// Default settings
+			else {
+				$permalink = user_trailingslashit($permalink);
+			}
 		}
 
 		// Remove double slashes
 		$permalink = preg_replace('/([^:])(\/{2,})/', '$1/', $permalink);
 
-		// Remove trailing slashes from URLs with extensions
-		$permalink = preg_replace("/(\.[a-z]{3,4})\/$/i", "$1", $permalink);
+		// Remove trailing slashes from URLs that end with query string or anchors
+		$permalink = preg_replace('/([\?\#]{1}[^\/]+)([\/]+)$/', '$1', $permalink);
 
 		return $permalink;
 	}

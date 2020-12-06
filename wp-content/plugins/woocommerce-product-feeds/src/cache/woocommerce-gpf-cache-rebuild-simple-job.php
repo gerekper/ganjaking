@@ -13,5 +13,5 @@ class WoocommerceGpfRebuildSimpleJob extends WoocommerceGpfAbstractCacheRebuildB
 	 *
 	 * @var array
 	 */
-	protected $product_types = [ 'simple', 'composite', 'bundle' ];
+	protected $product_types = [ 'simple' ];
 }

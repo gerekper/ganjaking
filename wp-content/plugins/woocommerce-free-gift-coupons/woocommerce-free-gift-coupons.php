@@ -3,14 +3,14 @@
  * Plugin Name: WooCommerce Free Gift Coupons
  * Plugin URI: http://www.woocommerce.com/products/free-gift-coupons/
  * Description: Add a free product to the cart when a coupon is entered
- * Version: 3.0.0
+ * Version: 3.0.4
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com
  * Woo: 414577:e1c4570bcc412b338635734be0536062
  * Requires at least: 4.4
  * Tested up to: 5.5.1
  * WC requires at least: 3.1.0
- * WC tested up to: 4.6.0
+ * WC tested up to: 4.7.0
  *
  * Text Domain: wc_free_gift_coupons
  * Domain Path: /languages/
@@ -60,8 +60,13 @@ function wc_free_gift_coupons_init() {
 	}
 
 	if ( ! defined( 'WC_FGC_PLUGIN_NAME' ) ) {
-		define( 'WC_FGC_PLUGIN_NAME', plugin_basename( __FILE__ ));
+		define( 'WC_FGC_PLUGIN_NAME', plugin_basename( __FILE__ ) );
 	}
+
+	if ( ! defined( 'WC_FGC_PLUGIN_FILE' ) ) {
+		define( 'WC_FGC_PLUGIN_FILE', __FILE__ );
+	}
+	
 	require_once  'includes/legacy/class-wc-free-gift-coupons-legacy.php' ;
 	require_once  'includes/class-wc-free-gift-coupons.php' ;
 	WC_Free_Gift_Coupons::init();

@@ -1,0 +1,7 @@
+<wpml-config>
+  <admin-texts>
+    <key name="mant_tabs">
+      <key name="*"/>
+    </key>
+  </admin-texts>
+</wpml-config>

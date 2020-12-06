@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Composite Products Compatibility.
  *
- * @version  6.4.0
+ * @version  6.5.0
  */
 class WC_PB_CP_Compatibility {
 
@@ -538,7 +538,7 @@ class WC_PB_CP_Compatibility {
 			$form_classes[] = 'bundle_out_of_stock';
 		}
 
-		if ( $product->contains( 'out_of_stock' ) ) {
+		if ( 'outofstock' === $product->get_bundled_items_stock_status() ) {
 			$form_classes[] = 'bundle_insufficient_stock';
 		}
 

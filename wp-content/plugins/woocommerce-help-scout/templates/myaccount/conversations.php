@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					?>
 					</td>
 					<td><?php echo esc_html( $integration->get_conversation_status( $conversation['status'] ) ); ?></td>
-					<td style="text-align: right;"><a href="#" data-conversation-id="<?php echo esc_attr( $conversation_id ); ?>" class="button conversation-view"><?php _e( 'View', 'woocommerce-help-scout' ); ?></a> <a href="#" data-conversation-id="<?php echo esc_attr( $conversation_id ); ?>" data-subject="<?php echo esc_attr( $subject ); ?>" class="button conversation-reply"><?php _e( 'Reply', 'woocommerce-help-scout' ); ?></a></td>
+					<td style="text-align: right;"><a href="#" data-conversation-id="<?php echo esc_attr( $conversation_id ); ?>" class="button conversation-view" data-subject="<?php echo esc_attr( $subject ); ?>" ><?php _e( 'View', 'woocommerce-help-scout' ); ?></a> <a href="#" data-conversation-id="<?php echo esc_attr( $conversation_id ); ?>" data-subject="<?php echo esc_attr( $subject ); ?>" class="button conversation-reply"><?php _e( 'Reply', 'woocommerce-help-scout' ); ?></a></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
@@ -74,5 +74,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p><?php _e( 'You have no support conversations.', 'woocommerce-help-scout' ); ?></p>
 
 <?php endif; ?>
+<div id="support-conversation-wrap">
+</div>
+<div id="support-conversation-wrap-reply" style="display:none;">
+<h3 id="support-conversation-thread-head-reply"></h3>
+<form id="support-conversation-reply" action="" method="post">
+<p class="form-row form-row-wide">
+<label for="conversation-message">Message <span class="required">*</span></label>
+<textarea id="conversation-message" class="conversation-field" name="conversation_message" cols="25" rows="5"></textarea>
+</p>
+<div id="my-account-conversation-file-1" class="pluploder-ui-input">
+	<p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+</div>
+<br>
+<p class="form-row">
+<input type="hidden" name="uploaded_files" id="my_account_conversation_uploaded_files_1" value="" >
+<input type="hidden" name="conversation_id" id="reply_conversation_id" value="">
+<input type="hidden" name="user_id" id="reply_user_id" value="">
+<input type="submit" id="reply_submit_btn" class="button alt" value="">
+</p>
+</form>
+</div>
 
-<div id="support-conversation-wrap"></div>

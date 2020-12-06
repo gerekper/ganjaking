@@ -4,6 +4,9 @@ REQUIRED: WooCommerce 3.4.
 REQUIRED: PHP 7.0.
 REQUIRED: WooCommerce Subscriptions 2.3, if it is installed and active.
 
+2020.11.18 - version 2.3.5
+ * Fix: get_endpoint_title() warning.
+
 2020.9.12 - version 2.3.4
  * Tweak: Clear API cache for single activation deleted in Admin dashboard and My Account dashboard.
  * Tweak: Removed get_magic_quotes_runtime() check, and set_magic_quotes_runtime() as it was removed in PHP version 7.0.

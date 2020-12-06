@@ -59,6 +59,7 @@ if ( ! class_exists( 'WC_Store_Credit_Autoloader' ) ) {
 					'wc_store_credit_coupon_discount' => $include_path . 'coupon-discounts/',
 					'wc_store_credit_item_discount'   => $include_path . 'item-discounts/',
 					'wc_store_credit_discounts'       => $include_path . 'discounts/',
+					'wc_store_credit_meta_box'        => $include_path . 'admin/meta-boxes/',
 					'wc_store_credit_admin_'          => $include_path . 'admin/',
 					'wc_store_credit_'                => $include_path,
 				)

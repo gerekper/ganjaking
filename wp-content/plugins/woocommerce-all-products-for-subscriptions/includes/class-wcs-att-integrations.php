@@ -33,25 +33,25 @@ class WCS_ATT_Integrations {
 
 		// Product Bundles and Composite Products support.
 		if ( class_exists( 'WC_Bundles' ) || class_exists( 'WC_Composite_Products' ) || class_exists( 'WC_Mix_and_Match' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 			WCS_ATT_Integration_PB_CP::init();
 		}
 
 		// Product Add-Ons support.
 		if ( class_exists( 'WC_Product_Addons' ) && defined( 'WC_PRODUCT_ADDONS_VERSION' ) && version_compare( WC_PRODUCT_ADDONS_VERSION, '3.0.14' ) >= 0 ) {
-			require_once( 'integrations/class-wcs-att-integration-pao.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pao.php' );
 			WCS_ATT_Integration_PAO::init();
 		}
 
 		// Name Your Price support.
 		if ( class_exists( 'WC_Name_Your_Price' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-nyp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-nyp.php' );
 			WCS_ATT_Integration_NYP::init();
 		}
 
 		// Flatsome compatibility.
 		if ( function_exists( 'wc_is_active_theme' ) && wc_is_active_theme( 'flatsome' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-fs.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-fs.php' );
 		}
 
 		// Define dependencies.
@@ -140,7 +140,7 @@ class WCS_ATT_Integrations {
 	public static function is_bundle_type_product( $product ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::is_bundle_type_product()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::is_bundle_type_product( $product );
 	}
@@ -158,7 +158,7 @@ class WCS_ATT_Integrations {
 	public static function get_bundle_type_cart_item_container( $cart_item, $cart_contents = false, $return_id = false ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::get_bundle_type_cart_item_container()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::get_bundle_type_cart_item_container( $cart_item, $cart_contents, $return_id );
 	}
@@ -176,7 +176,7 @@ class WCS_ATT_Integrations {
 	public static function get_bundle_type_cart_items( $cart_item, $cart_contents = false, $return_ids = false ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::get_bundle_type_cart_items()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::get_bundle_type_cart_items( $cart_item, $cart_contents, $return_ids );
 	}
@@ -192,7 +192,7 @@ class WCS_ATT_Integrations {
 	public static function is_bundle_type_container_cart_item( $cart_item ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::is_bundle_type_container_cart_item()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::is_bundle_type_container_cart_item( $cart_item );
 	}
@@ -209,7 +209,7 @@ class WCS_ATT_Integrations {
 	public static function is_bundle_type_cart_item( $cart_item, $cart_contents = false ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::is_bundle_type_cart_item()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::is_bundle_type_cart_item( $cart_item, $cart_contents );
 	}
@@ -227,7 +227,7 @@ class WCS_ATT_Integrations {
 	public static function get_bundle_type_order_item_container( $order_item, $order = false, $return_id = false ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::get_bundle_type_order_item_container()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::get_bundle_type_order_item_container( $order_item, $order, $return_id );
 	}
@@ -245,7 +245,7 @@ class WCS_ATT_Integrations {
 	public static function get_bundle_type_order_items( $order_item, $order = false, $return_ids = false ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::get_bundle_type_order_items()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::get_bundle_type_order_items( $order_item, $order, $return_ids );
 	}
@@ -262,7 +262,7 @@ class WCS_ATT_Integrations {
 	public static function is_bundle_type_container_order_item( $order_item, $order = false ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::is_bundle_type_container_order_item()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::is_bundle_type_container_order_item( $order_item, $order );
 	}
@@ -279,7 +279,7 @@ class WCS_ATT_Integrations {
 	public static function is_bundle_type_order_item( $order_item, $order = false ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::is_bundle_type_order_item()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::is_bundle_type_order_item( $order_item, $order );
 	}
@@ -293,7 +293,7 @@ class WCS_ATT_Integrations {
 	public static function set_bundled_item_scheme( $bundled_item, $bundle ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::set_bundled_item_scheme()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::set_bundled_item_scheme( $bundled_item, $bundle );
 	}
@@ -310,7 +310,7 @@ class WCS_ATT_Integrations {
 	public static function add_bundle_to_order( $subscription, $cart_item, $recurring_cart ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::add_bundle_to_order()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::add_bundle_to_order( $subscription, $cart_item, $recurring_cart );
 	}
@@ -327,7 +327,7 @@ class WCS_ATT_Integrations {
 	public static function add_composite_to_order( $subscription, $cart_item, $recurring_cart ) {
 		_deprecated_function( __METHOD__ . '()', '2.3.0', 'WCS_ATT_Integration_PB_CP::add_composite_to_order()' );
 		if ( ! class_exists( 'WCS_ATT_Integration_PB_CP' ) ) {
-			require_once( 'integrations/class-wcs-att-integration-pb-cp.php' );
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-pb-cp.php' );
 		}
 		return WCS_ATT_Integration_PB_CP::add_composite_to_order( $subscription, $cart_item, $recurring_cart );
 	}

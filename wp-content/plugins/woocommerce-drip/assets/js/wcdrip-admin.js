@@ -64,7 +64,7 @@
 				});
 
 				// On Check Hiding
-				$( checkbox_var ).click(function() {
+				$( checkbox_var ).on( 'click', function() {
 					if ( $(this).is(':checked') ) {
 						$( child_var ).show();
 					} else {
@@ -101,7 +101,7 @@ jQuery.fn.wcdripselectText = function(){
 
 // Highlight text on sleect for template tags
 jQuery(function() {
-	jQuery('span.wcdrip-tag').click(function() {
+	jQuery('span.wcdrip-tag').on( 'click', function() {
     	jQuery(this).wcdripselectText();
 	});
 });

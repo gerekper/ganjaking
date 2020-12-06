@@ -19,7 +19,7 @@
 				this.addShowHideClasses();
 
 				// Trigger the initial change event.
-				$( 'select#product-type' ).change();
+				$( 'select#product-type' ).trigger( 'change' );
 			},
 
 			/**

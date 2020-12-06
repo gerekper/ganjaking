@@ -51,11 +51,6 @@
 				});
 			}
 		});
-
-		$(".betterdocs-single-layout2 .betterdocs-toc,.betterdocs-single-layout3 .betterdocs-toc")
-			.clone()
-				.appendTo(".right-sidebar-toc-container");
-
 	});
 
 })( jQuery );

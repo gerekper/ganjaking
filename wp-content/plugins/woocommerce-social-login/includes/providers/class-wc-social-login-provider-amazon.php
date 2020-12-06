@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
 
 /**
  * Amazon social login provider class
@@ -110,7 +110,7 @@ class WC_Social_Login_Provider_Amazon extends \WC_Social_Login_Provider {
 				'path'  => wc_social_login()->get_plugin_path() . '/includes/hybridauth/class-sv-hybrid-providers-amazon.php',
 				'class' => 'SV_Hybrid_Providers_Amazon',
 			),
-			'scope' => 'profile postal_code',
+			'scope' => 'profile postal_code payments:widget',
 		) );
 	}
 

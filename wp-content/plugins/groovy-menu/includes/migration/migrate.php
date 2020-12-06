@@ -84,7 +84,7 @@ class GM_Migration {
 	public function migrate_debug() {
 		// Load debug data.
 		if ( class_exists( '\GroovyMenu\DebugPage' ) ) {
-			require_once __DIR__ . '/migrate_debug.php';
+			require_once __DIR__ . DIRECTORY_SEPARATOR . 'migrate_debug.php';
 			new GM_MigrationDebug( self::$migrate_version_points, $this->identifier );
 		}
 	}
@@ -377,8 +377,9 @@ class GM_Migration {
 
 		global $wp_filesystem;
 		if ( empty( $wp_filesystem ) ) {
-			if ( file_exists( ABSPATH . '/wp-admin/includes/file.php' ) ) {
-				require_once ABSPATH . '/wp-admin/includes/file.php';
+			$file_path = $path = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/file.php' );
+			if ( file_exists( $file_path ) ) {
+				require_once $file_path;
 				WP_Filesystem();
 			}
 		}
@@ -386,7 +387,7 @@ class GM_Migration {
 			return null;
 		}
 
-		$migration_file = __DIR__ . '/migrate__v' . $version_str . '.php';
+		$migration_file = __DIR__ . DIRECTORY_SEPARATOR . 'migrate__v' . $version_str . '.php';
 		// check for existence.
 		if ( $wp_filesystem->exists( $migration_file ) ) {
 			include_once $migration_file;

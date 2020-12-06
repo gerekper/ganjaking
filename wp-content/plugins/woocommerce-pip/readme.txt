@@ -2,7 +2,7 @@
 Author: skyverge
 Tags: woocommerce
 Requires at least: 4.4
-Tested up to: 5.5
+Tested up to: 5.5.3
 Requires PHP: 5.6
 
 This plugin adds order invoice, packing list, and pick list printing support to WooCommerce.

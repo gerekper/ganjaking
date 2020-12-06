@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_AF_Rule_High_Amount extends WC_AF_Rule {
 	private $is_enabled  = false;
-    private $rule_weight = 0;
+	private $rule_weight = 0;
 	/**
 	 * The constructor
 	 */
@@ -14,7 +14,7 @@ class WC_AF_Rule_High_Amount extends WC_AF_Rule {
 		$this->is_enabled  =  get_option('wc_af_order_amount_check');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_order_amount_weight');
 		$this->amount      = get_option('wc_settings_anti_fraud_amount_limit'); 
-		parent::__construct( 'high_amount', sprintf( 'Order exceeds maximum amount.' ),$this->rule_weight );
+		parent::__construct( 'high_amount', sprintf( 'Order exceeds maximum amount.' ), $this->rule_weight );
 	}
 
 	/**
@@ -44,8 +44,8 @@ class WC_AF_Rule_High_Amount extends WC_AF_Rule {
 		return $risk;
 	}
 	//Enable rule check
-	public function is_enabled(){
-		if('yes' == $this->is_enabled){
+	public function is_enabled() {
+		if ('yes' == $this->is_enabled) {
 			return true;
 		}
 		return false;

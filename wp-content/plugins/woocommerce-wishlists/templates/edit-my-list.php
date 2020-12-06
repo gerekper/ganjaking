@@ -257,6 +257,27 @@ endif;
 							}
 						}
 						?>
+
+                        <tr>
+
+                            <td class="check-column"></td>
+                            <td class="product-remove">&nbsp;</td>
+                            <td class="product-thumbnail">&nbsp;</td>
+                            <td class="product-name"></td>
+                            <td class="product-price"></td>
+                            <td class="product-quantity ctr"></td>
+	                        <?php if ( WC_Wishlists_Settings::get_setting( 'wc_wishlist_show_previously_ordered', 'no' ) == 'yes' ): ?>
+                                <td class="product-quantity ctr"></td>
+	                        <?php endif; ?>
+	                        <?php if ( ( apply_filters( 'woocommerce_wishlist_purchases_enabled', true, $wishlist ) ) ): ?>
+                                    <td class="product-purchase">
+                                        <a rel="nofollow"
+                                           href="<?php echo woocommerce_wishlist_url_add_all_to_cart( $wishlist->id, $wishlist->get_wishlist_sharing() == 'Shared' ? $wishlist->get_wishlist_sharing_key() : false ); ?>"
+                                           class="button alt wl-add-all"><?php _e( 'Add All To Cart', 'wc_wishlist' ); ?></a>
+                                    </td>
+	                        <?php endif; ?>
+                        </tr>
+
                         </tbody>
                     </table>
                     <div class="wl-row">
@@ -291,6 +312,9 @@ endif;
                                     <button class="button small wl-but wl-add-to btn-apply"><?php _e( 'Apply Action', 'wc_wishlist' ); ?></button>
                                 </td>
                             </tr>
+
+
+
                             </tbody>
                         </table>
 

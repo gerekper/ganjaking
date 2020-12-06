@@ -69,7 +69,7 @@ class WC_CP_Products {
 		// Delete meta reserved to the composite/bundle types.
 		add_action( 'woocommerce_before_product_object_save', array( __CLASS__, 'before_product_object_save' ) );
 
-		include_once( 'class-wc-cp-price-calc-task-runner.php' );
+		include_once( WC_CP_ABSPATH . 'includes/class-wc-cp-price-calc-task-runner.php' );
 
 		// Spawn task runner.
 		add_action( 'init', array( __CLASS__, 'initialize_price_calc_task_runner' ), 5 );

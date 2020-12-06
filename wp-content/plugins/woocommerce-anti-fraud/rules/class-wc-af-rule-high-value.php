@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_AF_Rule_High_Value extends WC_AF_Rule {
 	private $is_enabled  = false;
-    private $rule_weight = 0;
+	private $rule_weight = 0;
 	/**
 	 * The constructor
 	 */
@@ -48,8 +48,8 @@ class WC_AF_Rule_High_Value extends WC_AF_Rule {
 		return $risk;
 	}
 	//Enable rule check
-	public function is_enabled(){
-		if('yes' == $this->is_enabled){
+	public function is_enabled() {
+		if ('yes' == $this->is_enabled) {
 			return true;
 		}
 		return false;

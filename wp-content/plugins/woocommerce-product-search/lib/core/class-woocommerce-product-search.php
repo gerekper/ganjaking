@@ -130,6 +130,7 @@ class WooCommerce_Product_Search {
 		if ( self::check_dependencies() ) {
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-cache.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-controller.php';
+			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-guardian.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-indexer.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-worker.php';
 			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {

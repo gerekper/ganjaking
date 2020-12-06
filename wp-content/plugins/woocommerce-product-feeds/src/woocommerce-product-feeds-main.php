@@ -149,7 +149,10 @@ class WoocommerceProductFeedsMain {
 			if ( null === $plugins ) {
 				return $request;
 			}
-			unset( $plugins['active'][ array_search( $my_plugin, $plugins['active'], true ) ] );
+			// Freemius updater creates a request without the active array set.
+			if ( isset( $plugins['active'] ) && is_array( $plugins['active'] ) ) {
+				unset( $plugins['active'][ array_search( $my_plugin, $plugins['active'], true ) ] );
+			}
 			unset( $plugins['plugins'][ $my_plugin ] );
 			$request['body']['plugins'] = wp_json_encode( $plugins );
 		}

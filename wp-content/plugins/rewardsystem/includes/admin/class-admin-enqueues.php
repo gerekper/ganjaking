@@ -268,7 +268,7 @@ if ( ! class_exists( 'RSAdminEnqueues' ) ) {
                 'fp_apply_points' => wp_create_nonce( 'fp-apply-points' ) ,
                 'fp_old_points'   => wp_create_nonce( 'fp-old-points' ) ,
                     ) ;
-            wp_enqueue_script( 'fp_advance_tab' , SRP_PLUGIN_DIR_URL . "assets/js/tab/fp-advance-tab.js" , array( 'jquery' ) , SRP_VERSION ) ;
+            wp_enqueue_script( 'fp_advance_tab' , SRP_PLUGIN_DIR_URL . "assets/js/tab/fp-advance-tab.js" , array( 'jquery' , 'jquery-ui-sortable' ) , SRP_VERSION ) ;
             wp_localize_script( 'fp_advance_tab' , 'fp_advance_params' , $localize_script ) ;
         }
 
@@ -368,7 +368,8 @@ if ( ! class_exists( 'RSAdminEnqueues' ) ) {
                 'admin_email'          => get_option( 'admin_email' ) ,
                 'fp_send_mail'         => wp_create_nonce( 'fp-send-mail' ) ,
                 'save_new_template'    => isset( $_GET[ 'rs_new_email' ] ) ,
-                'save_edited_template' => isset( $_GET[ 'rs_edit_email' ] )
+                'save_edited_template' => isset( $_GET[ 'rs_edit_email' ] ) ,
+                'enable_footable'      => get_option( 'rs_enable_footable_js' , 1 ) ,
                     ) ;
             wp_enqueue_script( 'fp_email_module' , SRP_PLUGIN_DIR_URL . "assets/js/tab/modules/fp-email-module.js" , array( 'jquery' ) , SRP_VERSION ) ;
             wp_localize_script( 'fp_email_module' , 'fp_email_params' , $localize_script ) ;
@@ -483,7 +484,8 @@ if ( ! class_exists( 'RSAdminEnqueues' ) ) {
                 'fp_wc_version'   => WC_VERSION ,
                 'fp_generate_url' => wp_create_nonce( 'fp-generate-url' ) ,
                 'fp_remove_url'   => wp_create_nonce( 'fp-remove-url' ) ,
-                'date'            => date( 'Y-m-d' )
+                'date'            => date( 'Y-m-d' ) ,
+                'enable_footable' => get_option( 'rs_enable_footable_js' , 1 ) ,
                     ) ;
             wp_enqueue_script( 'fp_pointurl_module' , SRP_PLUGIN_DIR_URL . "assets/js/tab/modules/fp-pointurl-module.js" , array( 'jquery' ) , SRP_VERSION ) ;
             wp_localize_script( 'fp_pointurl_module' , 'fp_pointurl_module_params' , $localize_script ) ;
@@ -499,7 +501,8 @@ if ( ! class_exists( 'RSAdminEnqueues' ) ) {
                 'template_id'          => isset( $_GET[ 'rs_edit_email_expired' ] ) ? $_GET[ 'rs_edit_email_expired' ] : 0 ,
                 'admin_email'          => get_option( 'admin_email' ) ,
                 'save_new_template'    => isset( $_GET[ 'rs_new_email_expired' ] ) ,
-                'save_edited_template' => isset( $_GET[ 'rs_edit_email_expired' ] )
+                'save_edited_template' => isset( $_GET[ 'rs_edit_email_expired' ] ) ,
+                'enable_footable'      => get_option( 'rs_enable_footable_js' , 1 ) ,
                     ) ;
             wp_enqueue_script( 'fp_emailexpired_module' , SRP_PLUGIN_DIR_URL . "assets/js/tab/modules/fp-emailexpired-module.js" , array( 'jquery' ) , SRP_VERSION ) ;
             wp_localize_script( 'fp_emailexpired_module' , 'fp_emailexpired_params' , $localize_script ) ;

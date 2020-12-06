@@ -212,6 +212,7 @@ if ( ! class_exists( 'NS_FBA_WooCommerce' ) ) {
 		 */
 		public function add_order_meta_box_actions( $actions ) {
 			$actions['ns_fba_send_to_fulfillment'] = __( 'Send to Amazon FBA', $this->ns_fba->text_domain );
+			$actions['ns_fba_check_tracking']      = __( 'Check Amazon Tracking Info', $this->ns_fba->text_domain );
 			return $actions;
 		}
 

@@ -1,5 +1,13 @@
 *** WooCommerce Cart Add-ons ***
 
+2020-11-25 - version 1.15.34
+* Fix - Support for the upcoming changes to WooCommerce admin navigation sidebar.
+* Tweak - WC 4.7 compatibility.
+* Tweak - WP 5.6 compatibility.
+
+2020-11-03 - version 1.15.33
+- Fix - Remove fallback use of deprecated get_product().
+
 2020-09-30 - version 1.15.32
 * Fix - Use proper initialization for activation hook.
 * Fix - Remove confusing searching message.

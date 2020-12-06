@@ -123,7 +123,7 @@ $end_time               = strtotime( "+{$end_padding} day midnight", strtotime( 
 					} elseif ( false ) {
 						$class_names_list[] = 'wc-bookings-unavailable-day';
 					}
-					$class_names = join( $class_names_list, ' ' );
+					$class_names = join( ' ', $class_names_list );
 
 					$rules = WC_Data_Store::load( 'booking-global-availability' )->get_all_as_array(
 						array( array(

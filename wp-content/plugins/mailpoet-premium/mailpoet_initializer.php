@@ -12,8 +12,11 @@ if (empty($mailpoetPremium)) exit;
 
 require_once($mailpoetPremium['autoloader']);
 
+preg_match('/(\d+\.\d+)\.\d+/i', $mailpoetPremium['version'], $matches);
+$requiredVersion = end($matches);
+
 define('MAILPOET_PREMIUM_VERSION', $mailpoetPremium['version']);
-define('MAILPOET_VERSION_REQUIRED', $mailpoetPremium['free_version_required']);
+define('MAILPOET_VERSION_REQUIRED', $requiredVersion);
 define('MAILPOET_PREMIUM_LICENSE', true);
 
 if (is_plugin_active(plugin_basename($mailpoetPremium['filename']))) {

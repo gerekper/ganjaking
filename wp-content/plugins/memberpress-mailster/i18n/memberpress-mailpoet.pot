@@ -1,0 +1,137 @@
+# Copyright (C) 2017 MemberPress Mailster
+# This file is distributed under the same license as the MemberPress Mailster package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Mailster 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-"
+"mailster\n"
+"POT-Creation-Date: 2017-05-18 22:55:21+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: MpMailster.php:40
+msgid "Enable Mailster"
+msgstr ""
+
+#: MpMailster.php:48
+msgid "Global Mailster List:"
+msgstr ""
+
+#: MpMailster.php:60
+msgid "Enable Double Opt-In Email"
+msgstr ""
+
+#: MpMailster.php:64
+msgid "Member must verify their email address before being subscribed."
+msgstr ""
+
+#: MpMailster.php:72
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: MpMailster.php:76
+msgid ""
+"If checked, an opt-in checkbox will appear on all of your membership "
+"registration pages."
+msgstr ""
+
+#: MpMailster.php:81
+msgid "Signup Checkbox Label:"
+msgstr ""
+
+#: MpMailster.php:84
+msgid ""
+"This is the text that will display on the signup page next to your mailing "
+"list opt-in checkbox."
+msgstr ""
+
+#: MpMailster.php:90
+msgid ""
+"Nothing to configure here as Mailster is already configured to \"Add people "
+"who are added via the backend or any third party plugin\". You can still "
+"configure per-membership lists though. Just be sure to save the MemberPress "
+"options with the \"Enable Mailster\" box checked."
+msgstr ""
+
+#: MpMailster.php:92
+msgid ""
+"To configure the Global list settings, either %sdisable that setting%s in "
+"Mailster, or make sure none of your per-membership lists are selected there "
+"-- otherwise you may have issues with users getting added to lists they "
+"should not be on."
+msgstr ""
+
+#: MpMailster.php:97
+msgid ""
+"Mailster Plugin not found. You must install the %sMailster Plugin%s to use "
+"this integration."
+msgstr ""
+
+#: MpMailster.php:137
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: MpMailster.php:234
+msgid "Mailster list for this Membership"
+msgstr ""
+
+#: MpMailster.php:237
+msgid "Enable Membership Mailster List"
+msgstr ""
+
+#: MpMailster.php:238
+msgid ""
+"If this is set the member will be added to this list when their payment is "
+"completed for this membership. If the member cancels or you refund their "
+"subscription, they will be removed from the list automatically."
+msgstr ""
+
+#: MpMailster.php:242
+msgid "Mailster List: "
+msgstr ""
+
+#: MpMailster.php:329
+msgid "Sign Up for the %s Newsletter"
+msgstr ""
+
+#. #-#-#-#-#  memberpress-mailpoet.pot (MemberPress Mailster 1.0.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: main.php:35
+msgid "MemberPress Mailster"
+msgstr ""
+
+#: main.php:36
+msgid "Mailster Autoresponder Integration for MemberPress."
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Mailster Autoresponder integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com/"
+msgstr ""

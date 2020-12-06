@@ -24,11 +24,11 @@ class InstagramBasicDisplay
 
     private $_scopes = ['user_profile', 'user_media'];
 
-    private $_userFields = 'account_type, id, media_count, username';
+    private $_userFields = 'account_type,id,media_count,username';
 
-    private $_mediaFields = 'caption, id, media_type, media_url, permalink, thumbnail_url, timestamp, username, children{id, media_type, media_url, permalink, thumbnail_url, timestamp, username}';
+    private $_mediaFields = 'caption,id,media_type,media_url,thumbnail_url,timestamp,username';
 
-    private $_mediaChildrenFields = 'id, media_type, media_url, permalink, thumbnail_url, timestamp, username';
+    private $_mediaChildrenFields = 'id,media_type,media_url,thumbnail_url,timestamp,username';
 
     private $_timeout = 90000;
 
@@ -184,6 +184,8 @@ class InstagramBasicDisplay
         }
 
         $apiCall = self::API_URL . $function . $authMethod . (('GET' === $method) ? $paramString : null);
+        //replace encoded comma since api return error if not
+        $apiCall = str_replace('%2C', ',', $apiCall);
 
         $headerData = array('Accept: application/json');
 

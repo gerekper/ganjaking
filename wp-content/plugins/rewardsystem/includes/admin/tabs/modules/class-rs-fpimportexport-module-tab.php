@@ -52,12 +52,16 @@ if ( ! class_exists( 'RSImportExport' ) ) {
                 ) ,
                 array(
                     'name'     => __( 'Export available Points for' , SRP_LOCALE ) ,
-                    'desc'     => __( 'Here you can set whether to Export Reward Points for All Users or Selected Users' , SRP_LOCALE ) ,
+                    'desc'     => __( 'Here you can set whether to Export Reward Points for All Users / Selected User(s ) / Selected User Role(s)' , SRP_LOCALE ) ,
                     'id'       => 'rs_export_import_user_option' ,
                     'std'      => '1' ,
                     'default'  => '1' ,
                     'type'     => 'radio' ,
-                    'options'  => array( '1' => 'All Users' , '2' => 'Selected Users' ) ,
+                    'options'  => array(
+                        '1' => esc_html__( 'All Users', SRP_LOCALE) , 
+                        '2' => esc_html__( 'Selected User(s)', SRP_LOCALE) , 
+                        '3' => esc_html__( 'Selected User Role(s)', SRP_LOCALE) 
+                        ) ,
                     'newids'   => 'rs_export_import_user_option' ,
                     'desc_tip' => true ,
                 ) ,
@@ -70,6 +74,18 @@ if ( ! class_exists( 'RSImportExport' ) ) {
                     'type'     => 'rs_import_export_selected_user' ,
                     'newids'   => 'rs_import_export_users_list' ,
                     'desc_tip' => true ,
+                ) ,
+                array(
+                    'name'        => __( 'Select the User Role(s)' , SRP_LOCALE ) ,
+                    'id'          => 'rs_export_user_roles' ,
+                    'css'         => 'min-width:343px;' ,
+                    'std'         => '' ,
+                    'default'     => '' ,
+                    'placeholder' => 'Search for a User Role' ,
+                    'type'        => 'multiselect' ,
+                    'options'     => fp_user_roles() ,
+                    'newids'      => 'rs_export_user_roles' ,
+                    'desc_tip'    => false ,
                 ) ,
                 array(
                     'name'     => __( 'Users are identified based on' , SRP_LOCALE ) ,

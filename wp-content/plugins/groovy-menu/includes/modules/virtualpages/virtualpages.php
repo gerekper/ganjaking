@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 
 
-require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 
 $gm_vp_controller = new \GroovyMenu\VirtualPagesController( new \GroovyMenu\VirtualPagesTemplateLoader() );
@@ -56,9 +56,9 @@ add_action( 'gm_add_virtual_page', function ( $controller ) {
 	if ( $gm_action && $gm_action_preview && $gm_preset_id ) {
 		$controller->addPage(
 			new \GroovyMenu\VirtualPagesPage(
-				'/',
+				DIRECTORY_SEPARATOR,
 				esc_html__( 'Preset Preview', 'groovy-menu' ) . ' #' . $gm_preset_id,
-				'template/Preview.php'
+				'template' . DIRECTORY_SEPARATOR . 'Preview.php'
 			)
 		);
 	}

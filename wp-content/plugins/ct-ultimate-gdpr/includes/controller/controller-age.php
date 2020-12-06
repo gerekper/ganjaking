@@ -131,6 +131,8 @@ class CT_Ultimate_GDPR_Controller_Age extends CT_Ultimate_GDPR_Controller_Abstra
         if (!$is_user_from_ca || $preview) {
 
             $user_ip = ct_ultimate_gdpr_get_user_ip();
+
+            // get region/location of a current user
             try {
 
                 $db          = new \IP2Location\Database(ct_ultimate_gdpr_path('vendor/GeoIP/IP2LOCATION-LITE-DB3.BIN'), \IP2Location\Database::FILE_IO);
@@ -139,7 +141,7 @@ class CT_Ultimate_GDPR_Controller_Age extends CT_Ultimate_GDPR_Controller_Abstra
             } catch (Exception $e) {
                 $region_name = '';
             }
-
+            // $region_name
             if ($region_name === 'California') {
                 $is_user_from_ca = true;
             }
@@ -433,7 +435,11 @@ class CT_Ultimate_GDPR_Controller_Age extends CT_Ultimate_GDPR_Controller_Abstra
     private function should_display_on_page($page_id)
     {
 
-        if(empty($this->get_option('age_display_all')) && empty($this->get_option('age_enabled'))){
+      if($this->get_option('age_check_if_user_is_from_ca') && empty($this->get_option('age_enabled'))){
+        return false;
+      }
+
+      if(empty($this->get_option('age_display_all')) && empty($this->get_option('age_enabled'))){
           return false;
         }
 
@@ -1528,7 +1534,7 @@ class CT_Ultimate_GDPR_Controller_Age extends CT_Ultimate_GDPR_Controller_Abstra
         return apply_filters("ct_ultimate_gdpr_controller_{$this->get_id()}_default_options", array(
             'age_enabled'                                   => false,
             'age_box_style'                                 => "classic_dark",
-            'age_display_all'                               => true,
+            'age_display_all'                               => false,
             'age_style'                                     => '',
             'age_expire'                                    => 31536000,
             'age_whitelist'                                 => 'PHPSESSID, wordpress, wp-settings-, __cfduid, ct-ultimate-gdpr-age',

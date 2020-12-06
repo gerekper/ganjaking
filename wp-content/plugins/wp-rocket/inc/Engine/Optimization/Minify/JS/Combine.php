@@ -202,7 +202,7 @@ class Combine extends AbstractJSOptimization implements ProcessorInterface {
 						return;
 					}
 
-					$file_path = $this->get_file_path( $matches['url'] );
+					$file_path = $this->get_file_path( strtok( $matches['url'], '?' ) );
 
 					if ( ! $file_path ) {
 						return;
@@ -652,6 +652,26 @@ class Combine extends AbstractJSOptimization implements ProcessorInterface {
 			'aepro',
 			'cdn.jst.ai',
 			'w2dc_fields_in_categories',
+			'aepc_pixel',
+			'avadaWooCommerceVars',
+			'var isb',
+			'fcaPcPost',
+			'csrf_token',
+			'icwp_wpsf_vars_lpantibot',
+			'wpvViewHead',
+			'ed_school_plugin',
+			'aps_comp_',
+			'guaven_woos',
+			'__lm_redirect_to',
+			'__wpdm_view_count',
+			'bookacti.booking_system',
+			'nfFrontEnd',
+			'view_quote_cart_link',
+			'__eae_decode_emails',
+			'divioverlays_ajaxurl',
+			'var _EPYT_',
+			'#ins-heading-',
+			'#ins-button-',
 		];
 
 		$excluded_inline = array_merge( $defaults, $this->options->get( 'exclude_inline_js', [] ) );
@@ -780,6 +800,7 @@ class Combine extends AbstractJSOptimization implements ProcessorInterface {
 			').countdowntimer(',
 			'jQuery("#td_uid_',
 			'find(\'#td_uid_',
+			'variation_estimate_msg',
 		];
 
 		/**

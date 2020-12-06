@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce All Products For Subscriptions 3.1.18\n"
+"Project-Id-Version: WooCommerce All Products For Subscriptions 3.1.19\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2020-09-29 10:56:01+00:00\n"
+"POT-Creation-Date: 2020-11-10 10:40:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -278,27 +278,27 @@ msgstr ""
 msgid "%1$s version %2$s (out of date)"
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:596
+#: includes/class-wcs-att-cart.php:614
 msgid "Please choose a new subscription plan."
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:602
+#: includes/class-wcs-att-cart.php:620
 msgid ""
 "The &quot;%1$s&quot; subscription that you signed up for is no longer "
 "available. %2$s"
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:609 includes/class-wcs-att-cart.php:630
+#: includes/class-wcs-att-cart.php:627 includes/class-wcs-att-cart.php:648
 msgid ""
 "The &quot;%s&quot; subscription that you signed up for has changed. Please "
 "remove the product from your cart and try again."
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:617
+#: includes/class-wcs-att-cart.php:635
 msgid "Please choose a plan to proceed."
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:623
+#: includes/class-wcs-att-cart.php:641
 msgid "&quot;%1$s&quot; is only available with a subscription plan. %2$s"
 msgstr ""
 
@@ -389,22 +389,22 @@ msgstr ""
 msgid "Select options"
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1202
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1211
 msgid "Between Product Bundle Configurations"
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1216
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1225
 msgid "Between Composite Product Configurations"
 msgstr ""
 
-#: includes/modules/management/add/class-wcs-att-manage-add-cart.php:232
+#: includes/modules/management/add/class-wcs-att-manage-add-cart.php:278
 #: includes/modules/management/add/class-wcs-att-manage-add-product.php:286
 msgid ""
 "Subscription #%d cannot be edited. Please get in touch with us for "
 "assistance."
 msgstr ""
 
-#: includes/modules/management/add/class-wcs-att-manage-add-cart.php:241
+#: includes/modules/management/add/class-wcs-att-manage-add-cart.php:308
 msgid ""
 "Your cart cannot be added to subscription #%d. Please get in touch with us "
 "for assistance."
@@ -429,25 +429,25 @@ msgstr ""
 msgid "Action failed. Please get in touch with us for assistance."
 msgstr ""
 
-#: includes/modules/management/class-wcs-att-manage-add.php:446
+#: includes/modules/management/class-wcs-att-manage-add.php:447
 msgid "There was a problem adding \"%1$s\" to subscription %2$s."
 msgstr ""
 
-#: includes/modules/management/class-wcs-att-manage-add.php:483
+#: includes/modules/management/class-wcs-att-manage-add.php:484
 msgid "You have successfully added \"%1$s\" to subscription %2$s."
 msgstr ""
 
-#: includes/modules/management/class-wcs-att-manage-add.php:485
+#: includes/modules/management/class-wcs-att-manage-add.php:486
 msgid "You have successfully added the contents of your cart to subscription %s."
 msgstr ""
 
-#: includes/modules/management/class-wcs-att-manage-switch.php:402
+#: includes/modules/management/class-wcs-att-manage-switch.php:406
 msgid ""
 "Switching product options is not allowed. You may only switch to a "
 "different subscription plan."
 msgstr ""
 
-#: includes/modules/management/class-wcs-att-manage-switch.php:410
+#: includes/modules/management/class-wcs-att-manage-switch.php:414
 msgid "Switching to a different subscription plan is not allowed."
 msgstr ""
 
@@ -654,28 +654,28 @@ msgctxt "dropdown option sale price"
 msgid "%1$s (was %2$s)"
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1118
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1127
 msgctxt "used in order note"
 msgid ""
 "\"%1$s\" (Product ID: #%2$d) removal triggered by \"%3$s\" via the My "
 "Account page."
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1173
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1182
 msgctxt "used in order note"
 msgid ""
 "\"%1$s\" (Product ID: #%2$d) removal un-done by \"%3$s\" via the My Account "
 "page."
 msgstr ""
 
-#: includes/modules/management/class-wcs-att-manage-add.php:377
+#: includes/modules/management/class-wcs-att-manage-add.php:378
 msgctxt "used in order note"
 msgid ""
 "Customer increased the quantity of \"%1$s\" (Product ID: #%2$d) from %3$s "
 "to %4$s."
 msgstr ""
 
-#: includes/modules/management/class-wcs-att-manage-add.php:456
+#: includes/modules/management/class-wcs-att-manage-add.php:457
 msgctxt "used in order note"
 msgid "Customer added \"%1$s\" (Product ID: #%2$d)."
 msgstr ""

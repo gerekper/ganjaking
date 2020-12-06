@@ -3,10 +3,10 @@
  * Advanced Tab
  */
 
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly.
 }
-if( ! class_exists( 'RSAdvancedSetting' ) ) {
+if ( ! class_exists( 'RSAdvancedSetting' ) ) {
 
     class RSAdvancedSetting {
 
@@ -22,6 +22,8 @@ if( ! class_exists( 'RSAdvancedSetting' ) ) {
             add_action( 'woocommerce_admin_field_rs_add_old_version_points' , array( __CLASS__ , 'add_old_points_for_all_user' ) ) ;
 
             add_action( 'woocommerce_admin_field_previous_order_button_range' , array( __CLASS__ , 'rs_add_date_picker' ) ) ;
+
+            add_action( 'woocommerce_admin_field_reward_page_menu_sorting' , array( __CLASS__ , 'reward_page_menu_sorting' ) ) ;
 
             add_action( 'woocommerce_admin_field_previous_order_button' , array( __CLASS__ , 'rs_apply_points_for_previous_order_button' ) ) ;
 
@@ -343,6 +345,9 @@ if( ! class_exists( 'RSAdvancedSetting' ) ) {
                         '1' => __( 'Show' , SRP_LOCALE ) ,
                         '2' => __( 'Hide' , SRP_LOCALE ) ,
                     ) ,
+                ) ,
+                array(
+                    'type' => 'reward_page_menu_sorting' ,
                 ) ,
                 array( 'type' => 'sectionend' , 'id' => '_rs_my_acccount_menu_page_show_hide_settings' ) ,
                 array(
@@ -785,6 +790,20 @@ if( ! class_exists( 'RSAdvancedSetting' ) ) {
                     'desc_tip' => true ,
                 ) ,
                 array(
+                    'name'     => __( 'Enqueue JSColor in SUMO Reward Points' , SRP_LOCALE ) ,
+                    'id'       => 'rs_enable_jscolor_js' ,
+                    'std'      => '1' ,
+                    'default'  => '1' ,
+                    'type'     => 'radio' ,
+                    'newids'   => 'rs_enable_jscolor_js' ,
+                    'options'  => array(
+                        '1' => __( 'Enqueue' , SRP_LOCALE ) ,
+                        '2' => __( 'Do not Enqueue' , SRP_LOCALE )
+                    ) ,
+                    'desc'     => __( 'Here you can dequeue the JSColor within SUMO Reward Points' , SRP_LOCALE ) ,
+                    'desc_tip' => true ,
+                ) ,
+                array(
                     'name'     => __( 'Include Header' , SRP_LOCALE ) ,
                     'id'       => 'rs_enable_get_header' ,
                     'std'      => '1' ,
@@ -894,7 +913,7 @@ if( ! class_exists( 'RSAdvancedSetting' ) ) {
             </div>
             <?php
             $user_roles = rs_get_current_user_role() ;
-            if( ! in_array( 'administrator' , $user_roles ) ) {
+            if ( ! in_array( 'administrator' , $user_roles ) ) {
                 ?>
                 <style type="text/css">
                     .rs_adminstrator_wrapper{
@@ -913,18 +932,23 @@ if( ! class_exists( 'RSAdvancedSetting' ) ) {
         public static function reward_system_update_settings() {
             woocommerce_update_options( RSAdvancedSetting::reward_system_admin_fields() ) ;
 
-            if( isset( $_POST[ 'rs_points_earned_in_specific_duration_from_date' ] ) ) {
+            $sorted_menu_data = isset( $_POST[ 'rs_sorted_reward_menu_list' ] ) ? array_filter( wc_clean( wp_unslash( $_POST[ 'rs_sorted_reward_menu_list' ] ) ) ) : array() ;
+            if ( srp_check_is_array( $sorted_menu_data ) ) {
+                update_option( 'rs_sorted_menu_settings_list' , $sorted_menu_data ) ;
+            }
+
+            if ( isset( $_POST[ 'rs_points_earned_in_specific_duration_from_date' ] ) ) {
                 update_option( 'rs_points_earned_in_specific_duration_from_date' , sanitize_text_field( $_POST[ 'rs_points_earned_in_specific_duration_from_date' ] ) ) ;
             }
 
-            if( isset( $_POST[ 'rs_points_earned_in_specific_duration_to_date' ] ) ) {
+            if ( isset( $_POST[ 'rs_points_earned_in_specific_duration_to_date' ] ) ) {
                 update_option( 'rs_points_earned_in_specific_duration_to_date' , sanitize_text_field( $_POST[ 'rs_points_earned_in_specific_duration_to_date' ] ) ) ;
             }
         }
 
         public static function set_default_value() {
-            foreach( RSAdvancedSetting::reward_system_admin_fields() as $setting )
-                if( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+            foreach ( RSAdvancedSetting::reward_system_admin_fields() as $setting )
+                if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
                     add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
                 }
         }
@@ -950,13 +974,13 @@ if( ! class_exists( 'RSAdvancedSetting' ) ) {
         public static function rs_add_date_picker() {
             ?>
             <script type="text/javascript">
-                jQuery( function() {
+                jQuery( function () {
                     jQuery( "#rs_from_date" ).datepicker( {
                         defaultDate : "+1w" ,
                         changeMonth : true ,
                         dateFormat : 'yy-mm-dd' ,
                         numberOfMonths : 1 ,
-                        onClose : function( selectedDate ) {
+                        onClose : function ( selectedDate ) {
                             jQuery( "#to" ).datepicker( "option" , "minDate" , selectedDate ) ;
                         }
                     } ) ;
@@ -966,7 +990,7 @@ if( ! class_exists( 'RSAdvancedSetting' ) ) {
                         changeMonth : true ,
                         dateFormat : 'yy-mm-dd' ,
                         numberOfMonths : 1 ,
-                        onClose : function( selectedDate ) {
+                        onClose : function ( selectedDate ) {
                             jQuery( "#from" ).datepicker( "option" , "maxDate" , selectedDate ) ;
                         }
 
@@ -999,17 +1023,21 @@ if( ! class_exists( 'RSAdvancedSetting' ) ) {
             <?php
         }
 
+        public static function reward_page_menu_sorting() {
+            include SRP_PLUGIN_PATH . '/includes/admin/views/myreward-page-menu-sorting.php' ;
+        }
+
         public static function reward_system_add_settings_based_on_user_role( $settings ) {
             global $wp_roles ;
             $updated_settings = array() ;
             $mainvariable     = array() ;
             global $woocommerce ;
             $newcombinedarray = RSAdminAssets::list_of_tabs() ;
-            foreach( $settings as $section ) {
-                if( isset( $section[ 'id' ] ) && '_rs_user_role_menu_restriction_reward_points' == $section[ 'id' ] &&
+            foreach ( $settings as $section ) {
+                if ( isset( $section[ 'id' ] ) && '_rs_user_role_menu_restriction_reward_points' == $section[ 'id' ] &&
                         isset( $section[ 'type' ] ) && 'sectionend' == $section[ 'type' ] ) {
-                    foreach( $wp_roles->role_names as $value => $key ) {
-                        if( $key != 'Administrator' && $key != 'Customer' ) {
+                    foreach ( $wp_roles->role_names as $value => $key ) {
+                        if ( $key != 'Administrator' && $key != 'Customer' ) {
                             $updated_settings[] = array(
                                 'name'     => __( 'Reward Points Menu Restriction For ' . $key . ' User Role' , SRP_LOCALE ) ,
                                 'desc'     => __( 'Restrict the Reward Points Menus For ' . $key . ' User role' , SRP_LOCALE ) ,
@@ -1039,7 +1067,7 @@ if( ! class_exists( 'RSAdvancedSetting' ) ) {
         public static function rs_points_earned_in_specific_duration_shortcode() {
             ?>         
             <script type="text/javascript">
-                jQuery( function( ) {
+                jQuery( function ( ) {
                     jQuery( "#rs_points_earned_in_specific_duration_from_date" ).datepicker( {
                         dateFormat : 'yy-mm-dd' ,
                     } ) ;

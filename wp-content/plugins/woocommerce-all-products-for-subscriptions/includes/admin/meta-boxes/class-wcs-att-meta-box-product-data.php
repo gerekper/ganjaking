@@ -218,7 +218,7 @@ class WCS_ATT_Meta_Box_Product_Data {
 	 * @return void
 	 */
 	public static function subscription_scheme( $index, $scheme_data, $post_id ) {
-		include( 'views/subscription-scheme.php' );
+		include( WCS_ATT_ABSPATH . 'includes/admin/meta-boxes/views/subscription-scheme.php' );
 	}
 
 	/**

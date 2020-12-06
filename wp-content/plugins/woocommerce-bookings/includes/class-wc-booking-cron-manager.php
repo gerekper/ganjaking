@@ -18,6 +18,11 @@ class WC_Booking_Cron_Manager {
 	 * Send booking reminder email
 	 */
 	public function send_booking_reminder( $booking_id ) {
+		$booking = get_wc_booking( $booking_id );
+		if ( ! is_a( $booking, 'WC_Booking' ) || ! $booking->is_active() ) {
+			return;
+		}
+
 		$mailer   = WC()->mailer();
 		$reminder = $mailer->emails['WC_Email_Booking_Reminder'];
 		$reminder->trigger( $booking_id );

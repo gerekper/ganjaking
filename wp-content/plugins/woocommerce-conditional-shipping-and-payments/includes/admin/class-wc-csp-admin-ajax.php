@@ -74,7 +74,7 @@ class WC_CSP_Admin_Ajax {
 
 			// Get flat data.
 			$rules = WC_CSP_Core_Compatibility::is_wc_version_gte( '2.7' ) && $product ? $product->get_meta( '_wccsp_restrictions', true ) : get_post_meta( $post_id, '_wccsp_restrictions', true );
-			$rules = WC_CSP()->restrictions->maybe_update_restriction_data( $restriction_meta, 'product' );
+			$rules = WC_CSP()->restrictions->maybe_update_restriction_data( $rules, 'product' );
 
 		}
 

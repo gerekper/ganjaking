@@ -413,7 +413,12 @@ class WC_Brands {
 
 		<?php endif;
 
-		woocommerce_reset_loop();
+		if ( version_compare( WC_VERSION, '3.3', '>=' ) ) {
+			wc_reset_loop();
+		} else {
+			woocommerce_reset_loop();
+		}
+
 		wp_reset_postdata();
 
 		return '<div class="woocommerce columns-' . $columns . '">' . ob_get_clean() . '</div>';

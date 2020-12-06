@@ -1,0 +1,272 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LoginPress - Login Widget\n"
+"POT-Creation-Date: 2018-09-26 09:33+0500\n"
+"PO-Revision-Date: 2019-08-29 15:30+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress-login-widget.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: it\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: classes/class-loginpress-widget.php:25
+msgid "Displays a login widget in the sidebar."
+msgstr "Mostra il login widget nella sidebar."
+
+#: classes/class-loginpress-widget.php:29
+msgid "LoginPress: Login Widget"
+msgstr "LoginPress: Login Widget"
+
+#: classes/class-loginpress-widget.php:57
+msgid "Logged-out Title"
+msgstr "Logged-out Title"
+
+#: classes/class-loginpress-widget.php:58
+#: classes/class-loginpress-widget.php:286
+msgid "Login"
+msgstr "Login"
+
+#: classes/class-loginpress-widget.php:62
+msgid "Logged-out Links (Text | href)"
+msgstr "Logged-out Links (Text | href)"
+
+#: classes/class-loginpress-widget.php:67
+msgid "Show lost password link"
+msgstr "Mostra il link password dimenticata"
+
+#: classes/class-loginpress-widget.php:72
+msgid "Lost password text"
+msgstr "Password dimenticata text"
+
+#: classes/class-loginpress-widget.php:73
+#: classes/class-loginpress-widget.php:249
+msgid "Lost your password?"
+msgstr "Password dimenticata?"
+
+#: classes/class-loginpress-widget.php:77
+msgid "Show register link"
+msgstr "Mostra il link registra"
+
+#: classes/class-loginpress-widget.php:79
+#, php-format
+msgid "%1$sAnyone can register%2$s must be enabled."
+msgstr "%1$sTutti possono registrarsir%2$s deve essere abilitato."
+
+#: classes/class-loginpress-widget.php:83
+msgid "Register text"
+msgstr "Registrati text"
+
+#: classes/class-loginpress-widget.php:84
+#: classes/class-loginpress-widget.php:231
+msgid "Register"
+msgstr "Registrati"
+
+#: classes/class-loginpress-widget.php:88
+msgid "Show \"Remember me\" checkbox"
+msgstr "Mostra “ricordami” Checkbox"
+
+#: classes/class-loginpress-widget.php:93
+msgid "Login Redirect URL"
+msgstr "Login Redirect URL"
+
+#: classes/class-loginpress-widget.php:96
+#: classes/class-loginpress-widget.php:125
+msgid "Current page URL"
+msgstr "Pagina corrente URL"
+
+#: classes/class-loginpress-widget.php:102
+msgid "Logged-in title"
+msgstr "Logged-in title"
+
+#: classes/class-loginpress-widget.php:103
+#: classes/class-loginpress-widget.php:285
+msgid "Welcome %username%"
+msgstr "Benvenuto %username%"
+
+#: classes/class-loginpress-widget.php:107
+msgid "Logged-in Links (Text | HREF | Capability)"
+msgstr "Logged-in Links (Text | HREF | Capability)"
+
+#: classes/class-loginpress-widget.php:108
+#, php-format
+msgid ""
+"%1$sCapability%2$s (optional) refers to the type of user who can view the "
+"link."
+msgstr ""
+"%1$sCapacità%2$s (optional) invia al tipo di utenti che possono vedere il "
+"link\n"
+"\n"
+"."
+
+#: classes/class-loginpress-widget.php:109
+msgid ""
+"Dashboard | %admin_url%\n"
+"Profile | %admin_url%/profile.php\n"
+"Logout | %logout_url%"
+msgstr ""
+"Dashboard | %admin_url%\n"
+"Profilo | %admin_url%/profile.php\n"
+"Esci\n"
+" | %logout_url%"
+
+#: classes/class-loginpress-widget.php:113
+msgid "Show logged-in user avatar"
+msgstr "Mostra logged-in user avatar"
+
+#: classes/class-loginpress-widget.php:118
+msgid "Logged-in user avatar size"
+msgstr "Dimensioni Logged-in user avatar"
+
+#: classes/class-loginpress-widget.php:123
+msgid "Logout Redirect URL"
+msgstr "Logout Redirect URL"
+
+#: classes/class-loginpress-widget.php:131
+msgid "Error Messages"
+msgstr "Messaggi di errore"
+
+#: classes/class-loginpress-widget.php:132
+#, php-format
+msgid "You can change the Error messages from %1$sLoginPress Customizer%2$s"
+msgstr "Puoi cambiare i messaggi di errore da %1$sLoginPress Customizer%2$s"
+
+#: classes/class-loginpress-widget.php:136
+msgid "Error Background Color"
+msgstr "Errore Background Color"
+
+#: classes/class-loginpress-widget.php:141
+msgid "Error Text Color"
+msgstr "Errore Text Color"
+
+#: classes/class-loginpress-widget.php:368
+msgid "Username"
+msgstr "Username"
+
+#: classes/class-loginpress-widget.php:370
+msgid "Email Address"
+msgstr "Indirizzo Email"
+
+#: classes/class-loginpress-widget.php:372
+msgid "Username or Email Address"
+msgstr "Username o Indirizzo Email"
+
+#: classes/class-loginpress-widget.php:379
+msgid "Password"
+msgstr "Password"
+
+#: classes/class-loginpress-widget.php:380
+msgid "Remember Me"
+msgstr "Ricordami"
+
+#: classes/class-loginpress-widget.php:381
+msgid "Login &rarr;"
+msgstr "Login &rarr;"
+
+#: loginpress-login-widget.php:62
+msgid "or"
+msgstr "Oppure\n"
+
+#: loginpress-login-widget.php:69
+msgid "Login with Google Plus"
+msgstr "Login con Google Plus"
+
+#: loginpress-login-widget.php:71
+msgid "Login with Google"
+msgstr "Login con Google"
+
+#: loginpress-login-widget.php:82 loginpress-login-widget.php:84
+msgid "Login with Facebook"
+msgstr "Login con Facebook"
+
+#: loginpress-login-widget.php:95 loginpress-login-widget.php:97
+msgid "Login with Twitter"
+msgstr ""
+"Login con\n"
+" Twitter"
+
+#: loginpress-login-widget.php:108 loginpress-login-widget.php:110
+msgid "Login with LinkedIn"
+msgstr "Login con LinkedIn"
+
+#: loginpress-login-widget.php:173
+#, php-format
+msgid "%1$sError:%2$s Invalid Username."
+msgstr "%1$sErrore:%2$s Username non valido."
+
+#: loginpress-login-widget.php:175
+#, php-format
+msgid "%1$sError:%2$s Invalid Password."
+msgstr ""
+"%1$sErrore:%2$s Password nnn valida\n"
+"."
+
+#: loginpress-login-widget.php:177
+#, php-format
+msgid "%1$sError:%2$s The username field is empty."
+msgstr "%1$sErrore:%2$s Il campo Username è vuoto."
+
+#: loginpress-login-widget.php:179
+#, php-format
+msgid "%1$sError:%2$s The password field is empty."
+msgstr "%1$sErrore:%2$s Il campo password è vuoto."
+
+#: loginpress-login-widget.php:181
+#, php-format
+msgid "%1$sError:%2$s The email address isn't correct.."
+msgstr "%1$sErrore:%2$s  L’indirizzo mail non è corretto."
+
+#: loginpress-login-widget.php:302
+msgid "Please enter your username and password to login."
+msgstr "Per favore inserisci il tuo Username e Password per entrare."
+
+#: loginpress-login-widget.php:346
+msgid ""
+"Please Install LoginPress Pro to use \"LoginPress Login Widget\" add-on."
+msgstr ""
+"Per favore installa Login Press Pro per usare “LoginPress Login Widget” "
+"add-on."
+
+#: loginpress-login-widget.php:363
+msgid "LoginPress Login Widget required LoginPress Pro activation &mdash; "
+msgstr "LoginPress Login Widget richiede LoginPress Pro attivato &mdash; "
+
+#: loginpress-login-widget.php:363
+msgid "Click here to activate LoginPress Pro"
+msgstr "Clicca qui per attivare LoginPress Pro"
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Login Widget"
+msgstr "LoginPress - Login Widget"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.WPBrigade.com/wordpress/plugins/loginpress/"
+msgstr "http://www.WPBrigade.com/wordpress/plugins/loginpress/"
+
+#. Description of the plugin/theme
+msgid ""
+"LoginPress -Login widget is the best Login plugin by <a href=\"https://"
+"wpbrigade.com/\">WPBrigade</a> which allows you to login from front end."
+msgstr ""
+"LoginPress -Login widget is the best Login plugin by <a href=“https://"
+"wpbrigade.com/“>WPBrigade</a> which allows you to login from front end."
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr "WPBrigade"
+
+#. Author URI of the plugin/theme
+msgid "http://www.WPBrigade.com/"
+msgstr "http://www.WPBrigade.com/"
+

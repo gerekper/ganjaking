@@ -1,0 +1,21 @@
+.wafp_leaderboard_wrapper {
+  background:white;
+  padding:5px;
+}
+
+.wafp_leaderboard_affiliate,
+.wafp_leaderboard_stats {
+  width:45%;
+  float:left;
+  padding:5px;
+  margin:0;
+}
+
+.wafp_leaderboard_header {
+  font-weight:bold;
+  border-bottom:1px solid #333;
+}
+
+.wafp_leaderboard_alt {
+  background:#ECECEC;
+}

@@ -226,7 +226,7 @@ class WC_COG_Admin {
 									id="wc_cog_apply_costs"
 									checked="checked"
 									value="orders-without-costs"
-								/><?php esc_html_e( 'Apply costs to orders that do not have costs set', 'woocommerce-cost-of-goods' );?>
+								/><?php esc_html_e( 'Apply costs to orders placed before activating Cost of Goods', 'woocommerce-cost-of-goods' );?>
 							</label>
 						</li>
 						<li>

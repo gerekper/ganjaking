@@ -3,16 +3,16 @@
  * Plugin Name: WooCommerce Account Funds
  * Plugin URI: https://woocommerce.com/products/account-funds/
  * Description: Allow customers to deposit funds into their accounts and pay with account funds during checkout.
- * Version: 2.3.1
+ * Version: 2.3.4
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires at least: 4.4
- * Tested up to: 5.4
+ * Tested up to: 5.5
  * Text Domain: woocommerce-account-funds
  * Domain Path: /languages/
  *
  * WC requires at least: 2.6
- * WC tested up to: 4.3
+ * WC tested up to: 4.7
  * Woo: 18728:a6fcf35d3297c328078dfe822e00bd06
  *
  * Copyright: 2009-2020 WooCommerce.
@@ -63,7 +63,7 @@ class WC_Account_Funds {
 	 *
 	 * @var string
 	 */
-	public $version = '2.3.1';
+	public $version = '2.3.4';
 
 	/**
 	 * Constructor.
@@ -230,48 +230,51 @@ class WC_Account_Funds {
 	 * @return string
 	 */
 	public static function get_account_funds( $user_id = null, $formatted = true, $exclude_order_id = 0 ) {
-		$user_id = $user_id ? $user_id : get_current_user_id();
+		$funds   = 0;
+		$user_id = ( $user_id ? $user_id : get_current_user_id() );
 
 		if ( $user_id ) {
 			$funds = max( 0, get_user_meta( $user_id, 'account_funds', true ) );
 
-			// Account for pending orders
-			$orders_with_pending_funds = get_posts( array(
-				'numberposts' => -1,
-				'post_type'   => 'shop_order',
-				'post_status' => array_keys( wc_get_order_statuses() ),
-				'fields'      => 'ids',
-				'meta_query'  => array(
-					array(
-						'key'   => '_customer_user',
-						'value' => $user_id
+			// Orders with pending funds.
+			$orders_ids = get_posts(
+				array(
+					'numberposts' => -1,
+					'post_type'   => 'shop_order',
+					'post_status' => array_keys( wc_get_order_statuses() ),
+					'fields'      => 'ids',
+					'meta_query'  => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+						array(
+							'key'   => '_customer_user',
+							'value' => $user_id,
+						),
+						array(
+							'key'   => '_funds_removed',
+							'value' => '0',
+						),
+						array(
+							'key'     => '_funds_used',
+							'value'   => '0',
+							'compare' => '>',
+						),
 					),
-					array(
-						'key'   => '_funds_removed',
-						'value' => '0',
-					),
-					array(
-						'key'     => '_funds_used',
-						'value'   => '0',
-						'compare' => '>'
-					)
 				)
-			) );
+			);
 
-			foreach ( $orders_with_pending_funds as $order_id ) {
-				if ( null !== WC()->session && ! empty( WC()->session->order_awaiting_payment ) && $order_id == WC()->session->order_awaiting_payment ) {
-					continue;
-				}
+			foreach ( $orders_ids as $order_id ) {
 				if ( $exclude_order_id === $order_id ) {
 					continue;
 				}
+
+				if ( WC()->session && ! empty( WC()->session->order_awaiting_payment ) && $order_id == WC()->session->order_awaiting_payment ) {
+					continue;
+				}
+
 				$funds = $funds - floatval( get_post_meta( $order_id, '_funds_used', true ) );
 			}
-		} else {
-			$funds = 0;
 		}
 
-		return $formatted ? wc_price( $funds ) : $funds;
+		return ( $formatted ? wc_price( $funds ) : $funds );
 	}
 
 	/**

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Bundles and Composite Products.
  *
  * @class    WCS_ATT_Integration_PB_CP
- * @version  3.1.18
+ * @version  3.1.19
  */
 class WCS_ATT_Integration_PB_CP {
 
@@ -271,7 +271,7 @@ class WCS_ATT_Integration_PB_CP {
 		add_action( 'wcsatt_post_add_product_to_subscription_validation', array( __CLASS__, 'reset_bundle_type_validation_context' ), 10 );
 
 		// Don't attempt to increment the quantity of bundle-type subscription items when adding to an existing subscription.
-		add_filter( 'wcsatt_add_cart_to_subscription_found_item', array( __CLASS__, 'found_bundle_in_subscription' ), 10, 4 );
+		add_filter( 'wcsatt_add_cart_to_subscription_found_item', array( __CLASS__, 'found_bundle_in_subscription' ), 10, 5 );
 
 		// Add bundles/composites to subscriptions.
 		add_filter( 'wscatt_add_cart_item_to_subscription_callback', array( __CLASS__, 'add_bundle_to_subscription_callback' ), 10, 3 );
@@ -894,14 +894,21 @@ class WCS_ATT_Integration_PB_CP {
 
 		if ( self::is_bundle_type_container_cart_item( $cart_item ) && self::has_scheme_data( $cart_item ) ) {
 
-			// Not aggregating subtotals? Then PB/CP hasn't filtered 'woocommerce_cart_item_price'.
+			if ( ! WCS_ATT_Product_Schemes::get_subscription_scheme( $cart_item[ 'data' ] ) ) {
+				return $price;
+			}
+
+			// Not aggregating subtotals? Then PB hasn't filtered 'woocommerce_cart_item_price'.
 			if ( function_exists( 'wc_pb_is_bundle_container_cart_item' ) && wc_pb_is_bundle_container_cart_item( $cart_item ) && ! WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'aggregated_subtotals' ) ) {
+				return $price;
+			// Not aggregating subtotals? Then CP hasn't filtered 'woocommerce_cart_item_price'.
+			} elseif ( function_exists( 'wc_cp_is_composite_container_cart_item' ) && wc_cp_is_composite_container_cart_item( $cart_item ) && ! apply_filters( 'woocommerce_add_composited_cart_item_subtotals', true, $cart_item, $cart_item_key ) ) {
 				return $price;
 			/*
 			 * PB/CP has done something here, so unless APFS is adding plan options next to the cart item, the billing schedule might be missing.
 			 * See 'WCS_ATT_Display_Cart::show_cart_item_subscription_options'
 			 */
-			} elseif ( false === strpos( $price, 'subscription-details' ) && has_filter( 'woocommerce_cart_item_price',  array( 'WCS_ATT_Display_Cart', 'show_cart_item_subscription_options' ), 1000 ) ) {
+			} elseif ( false === strpos( $price, 'subscription-details' ) && has_filter( 'woocommerce_cart_item_price', array( 'WCS_ATT_Display_Cart', 'show_cart_item_subscription_options' ), 1000 ) ) {
 
 				$price = WCS_ATT_Product_Prices::get_price_string( $cart_item[ 'data' ], array(
 					'price' => $price
@@ -930,6 +937,8 @@ class WCS_ATT_Integration_PB_CP {
 		if ( self::is_bundle_type_container_cart_item( $cart_item ) && self::has_scheme_data( $cart_item ) ) {
 
 			if ( function_exists( 'wc_pb_is_bundle_container_cart_item' ) && wc_pb_is_bundle_container_cart_item( $cart_item ) && ! WC_Product_Bundle::group_mode_has( $cart_item[ 'data' ]->get_group_mode(), 'aggregated_subtotals' ) ) {
+				return $subtotal;
+			} elseif ( function_exists( 'wc_cp_is_composite_container_cart_item' ) && wc_cp_is_composite_container_cart_item( $cart_item ) && ! apply_filters( 'woocommerce_add_composited_cart_item_subtotals', true, $cart_item, $cart_item_key ) ) {
 				return $subtotal;
 			}
 
@@ -1656,14 +1665,17 @@ class WCS_ATT_Integration_PB_CP {
 	 * @param  array                        $matching_cart_item
 	 * @param  WC_Cart                      $recurring_cart
 	 * @param  WC_Subscription              $subscription
+	 * @param  WC_Order_Item                $order_item
 	 * @return false|WC_Order_Item_Product
 	 */
-	public static function found_bundle_in_subscription( $found_order_item, $matching_cart_item, $recurring_cart, $subscription ) {
+	public static function found_bundle_in_subscription( $found_order_item, $matching_cart_item, $recurring_cart, $subscription, $order_item ) {
 
 		if ( $found_order_item ) {
 			if ( self::is_bundle_type_product( $matching_cart_item[ 'data' ] ) ) {
 				$found_order_item = false;
 			} elseif ( self::is_bundle_type_cart_item( $matching_cart_item,$recurring_cart->cart_contents ) ) {
+				$found_order_item = false;
+			} elseif ( self::is_bundle_type_order_item( $order_item, $subscription ) ) {
 				$found_order_item = false;
 			}
 		}
@@ -1866,6 +1878,10 @@ class WCS_ATT_Integration_PB_CP {
 	 * @return WC_Product
 	 */
 	public static function restore_bundle_type_product_from_order_item( $product, $order_item ) {
+
+		if ( empty( $product ) || ! ( $product instanceof WC_Product ) ) {
+			return $product;
+		}
 
 		$parent_product = $order_item->get_id() ? WCS_ATT_Helpers::cache_get( 'order_item_parent_product_' . $order_item->get_id() ) : false;
 

@@ -109,7 +109,7 @@ class WooCommerce_Product_Finder {
 	public static function search_form( $atts = array(), $show_cat = false ) {
 		$action = get_permalink( wc_get_page_id( 'shop' ) );
 
-		$att_string = implode( $atts , ',' );
+		$att_string = implode( ',', $atts );
 
 		$html = '<form name="wc_product_finder" id="wc_product_finder" class="woocommerce" action="' . esc_url( $action ) . '" method="get">
 					<fieldset>

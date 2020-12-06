@@ -19,11 +19,6 @@ class ContainerConfigurator implements IContainerConfigurator {
   }
 
   public function configure(ContainerBuilder $container) {
-    // Every service must be registered
-    // Strict mode disables magical loading services by looking for an instance within other services
-    // see https://symfonycasts.com/screencast/symfony4-upgrade/service-deprecations#strict-autowiring-mode
-    $container->setParameter('container.autowiring.strict_mode', true);
-
     // Factory for free deps
     $container->register(IContainerConfigurator::FREE_CONTAINER_SERVICE_SLUG)
       ->setSynthetic(true)

@@ -18,15 +18,21 @@
  *
  * @package   SkyVerge/WooCommerce/Plugin/Classes
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2019, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_4_2\Plugin;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_1\Plugin;
+
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1\Admin\Notes_Helper;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1\SV_WC_Payment_Gateway_Plugin;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1\SV_WC_Plugin;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1\SV_WC_Plugin_Compatibility;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_4_2\\Plugin\\Lifecycle' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_1\\Plugin\\Lifecycle' ) ) :
+
 
 /**
  * Plugin lifecycle handler.
@@ -40,12 +46,12 @@ class Lifecycle {
 
 
 	/** @var array the version numbers that have an upgrade routine */
-	protected $upgrade_versions = array();
+	protected $upgrade_versions = [];
 
 	/** @var string minimum milestone version */
 	private $milestone_version;
 
-	/** @var \SkyVerge\WooCommerce\PluginFramework\v5_4_2\SV_WC_Plugin plugin instance */
+	/** @var SV_WC_Plugin plugin instance */
 	private $plugin;
 
 
@@ -54,9 +60,9 @@ class Lifecycle {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param \SkyVerge\WooCommerce\PluginFramework\v5_4_2\SV_WC_Plugin $plugin plugin instance
+	 * @param SV_WC_Plugin $plugin plugin instance
 	 */
-	public function __construct( \SkyVerge\WooCommerce\PluginFramework\v5_4_2\SV_WC_Plugin $plugin ) {
+	public function __construct( SV_WC_Plugin $plugin ) {
 
 		$this->plugin = $plugin;
 
@@ -188,6 +194,20 @@ class Lifecycle {
 	 * @since 5.2.0
 	 */
 	public function handle_deactivation() {
+
+		// if the enhanced admin is available, delete all of this plugin's notes on deactivation
+		if ( SV_WC_Plugin_Compatibility::is_enhanced_admin_available() ) {
+
+			Notes_Helper::delete_notes_with_source( $this->get_plugin()->get_id_dasherized() );
+
+			// if this is a gateway plugin, also delete the plugin's individual gateway notes
+			if ( $this->get_plugin() instanceof SV_WC_Payment_Gateway_Plugin ) {
+
+				foreach ( $this->get_plugin()->get_gateways() as $gateway ) {
+					Notes_Helper::delete_notes_with_source( $gateway->get_id_dasherized() );
+				}
+			}
+		}
 
 		$this->deactivate();
 
@@ -634,7 +654,7 @@ class Lifecycle {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @return \SkyVerge\WooCommerce\PluginFramework\v5_4_2\SV_WC_Plugin
+	 * @return SV_WC_Plugin|SV_WC_Payment_Gateway_Plugin
 	 */
 	protected function get_plugin() {
 
@@ -654,10 +674,11 @@ class Lifecycle {
 	 */
 	public function do_update() {
 
-		\SkyVerge\WooCommerce\PluginFramework\v5_4_2\SV_WC_Plugin_Compatibility::wc_deprecated_function( __METHOD__, '5.2.0' );
+		wc_deprecated_function( __METHOD__, '5.2.0' );
 	}
 
 
 }
+
 
 endif;

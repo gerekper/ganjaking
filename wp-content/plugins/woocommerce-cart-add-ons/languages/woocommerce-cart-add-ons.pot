@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Cart Add-Ons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Cart Add-Ons 1.15.32\n"
+"Project-Id-Version: WooCommerce Cart Add-Ons 1.15.34\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-cart-add-ons\n"
-"POT-Creation-Date: 2020-09-30 08:06:49+00:00\n"
+"POT-Creation-Date: 2020-11-25 11:26:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,8 @@ msgstr ""
 msgid "Add to Cart"
 msgstr ""
 
-#: settings.php:25 woocommerce-cart-add-ons.php:111
+#: settings.php:25 woocommerce-cart-add-ons.php:115
+#: woocommerce-cart-add-ons.php:127
 msgid "Cart Add-Ons"
 msgstr ""
 
@@ -123,7 +124,7 @@ msgid "Update Settings"
 msgstr ""
 
 #: settings.php:256 settings.php:276 settings.php:283
-#: woocommerce-cart-add-ons.php:170
+#: woocommerce-cart-add-ons.php:187
 msgid "Search for a product &hellip;"
 msgstr ""
 
@@ -183,57 +184,57 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:85
+#: woocommerce-cart-add-ons.php:89
 msgid "Product Add-ons"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:125
+#: woocommerce-cart-add-ons.php:142
 msgid "Use shortcodes on any page or post"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:126
+#: woocommerce-cart-add-ons.php:143
 msgid "Will use your theme's template"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:126
+#: woocommerce-cart-add-ons.php:143
 msgid "Shows the product image along with the product name"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:126
+#: woocommerce-cart-add-ons.php:143
 msgid "Will display product images with name and price"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:127
+#: woocommerce-cart-add-ons.php:144
 msgid "Use directly in your theme"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:128
+#: woocommerce-cart-add-ons.php:145
 msgid "%s is the maximum number of add-ons to display."
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:128
+#: woocommerce-cart-add-ons.php:145
 msgid ""
 "%s can be one of the following: 'loop', 'images', 'images_name', "
 "'images_name_price', 'names', 'names_price'"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:134
+#: woocommerce-cart-add-ons.php:151
 msgid "Using Cart Add-ons"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:164
+#: woocommerce-cart-add-ons.php:181
 msgid "Searching..."
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:169
+#: woocommerce-cart-add-ons.php:186
 msgid "All categories have been used"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:642
+#: woocommerce-cart-add-ons.php:659
 msgid "%s%s"
 msgstr ""
 
-#: woocommerce-cart-add-ons.php:702
+#: woocommerce-cart-add-ons.php:719
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Cart Add-ons requires %s to be installed and active."
 msgstr ""

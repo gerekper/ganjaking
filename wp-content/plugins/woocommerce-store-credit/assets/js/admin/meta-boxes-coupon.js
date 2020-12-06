@@ -18,11 +18,11 @@
 			init: function() {
 				$( 'select#discount_type' )
 					.on( 'change', this.typeOptions )
-					.change();
+					.trigger( 'change' );
 
 				$( 'input#free_shipping' )
 					.on( 'change', this.shippingField )
-					.change();
+					.trigger( 'change' );
 			},
 
 			/**

@@ -45,11 +45,14 @@ if ( ! class_exists( 'RS_Export_Points_For_User' ) ) {
             $Selecteduser      = get_option( 'rs_selected_user_to_export_points' ) ;
             if ( $UserSelectionType == '1' ) {
                 $args   = array( 'fields' => 'ID' ) ;
-                $UserId = get_users( $args ) ;
+                $UserIds = get_users( $args ) ;
             } else if ( $UserSelectionType == '2' ) {
-                $UserId = is_array( $Selecteduser ) ? $Selecteduser : explode( ',' , $Selecteduser ) ;
+                $UserIds = is_array( $Selecteduser ) ? $Selecteduser : explode( ',', $Selecteduser ) ;
+            } else {
+            	$selected_user_roles  = get_option( 'rs_selected_user_role_to_export_points' ) ;
+                $UserIds              = srp_check_is_array( $selected_user_roles ) ? get_users( array( 'fields' => 'ids', 'role__in' => $selected_user_roles ) ) : array() ;
             }
-            $SlicedArray = array_slice( $UserId , $offset , 1000 ) ;
+            $SlicedArray = array_slice( $UserIds , $offset , 1000 ) ;
             if ( srp_check_is_array( $SlicedArray ) ) {
                 RS_Main_Function_for_Background_Process::callback_to_export_points_for_user( $offset ) ;
                 RS_Main_Function_for_Background_Process::$rs_progress_bar->fp_increase_progress( 75 ) ;

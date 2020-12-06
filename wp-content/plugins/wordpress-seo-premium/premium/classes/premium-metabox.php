@@ -5,7 +5,8 @@
  * @package WPSEO\Premium|Classes
  */
 
-use Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Indexation_Integration;
+use Yoast\WP\SEO\Helpers\Prominent_Words_Helper;
+use Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Indexing_Integration;
 
 /**
  * The metabox for premium.
@@ -20,16 +21,28 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	protected $link_suggestions;
 
 	/**
+	 * The prominent words helper.
+	 *
+	 * @var Prominent_Words_Helper
+	 */
+	protected $prominent_words_helper;
+
+	/**
 	 * Creates the meta box class.
 	 *
-	 * @param WPSEO_Metabox_Link_Suggestions|null $link_suggestions The link suggestions meta box.
+	 * @param Prominent_Words_Helper              $prominent_words_helper The prominent words helper.
+	 * @param WPSEO_Metabox_Link_Suggestions|null $link_suggestions       The link suggestions meta box.
 	 */
-	public function __construct( WPSEO_Metabox_Link_Suggestions $link_suggestions = null ) {
+	public function __construct(
+		Prominent_Words_Helper $prominent_words_helper,
+		WPSEO_Metabox_Link_Suggestions $link_suggestions = null
+	) {
 		if ( $link_suggestions === null ) {
 			$link_suggestions = new WPSEO_Metabox_Link_Suggestions();
 		}
 
-		$this->link_suggestions = $link_suggestions;
+		$this->prominent_words_helper = $prominent_words_helper;
+		$this->link_suggestions       = $link_suggestions;
 	}
 
 	/**
@@ -98,6 +111,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'seoAnalysisEnabled' => $analysis_seo->is_enabled(),
 			'licensedURL'        => WPSEO_Utils::get_home_url(),
 			'settingsPageUrl'    => admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
+			'integrationsTabURL' => admin_url( 'admin.php?page=wpseo_dashboard#top#integrations' ),
 		];
 
 		if ( WPSEO_Metabox::is_post_edit( $this->get_current_page() ) ) {
@@ -331,17 +345,17 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	}
 
 	/**
-	 * Returns whether or not we need to index more posts for correct link suggestion functionality
+	 * Returns whether or not we need to index more posts for correct link suggestion functionality.
 	 *
 	 * @return bool Whether or not we need to index more posts.
 	 */
 	protected function is_prominent_words_indexing_completed() {
-		$is_indexing_completed = YoastSEO()->helpers->options->get( 'prominent_words_indexation_completed' );
+		$is_indexing_completed = $this->prominent_words_helper->is_indexing_completed();
 		if ( $is_indexing_completed === null ) {
-			$indexation_integration = YoastSEO()->classes->get( Indexation_Integration::class );
+			$indexation_integration = YoastSEO()->classes->get( Indexing_Integration::class );
 			$is_indexing_completed  = $indexation_integration->get_unindexed_count( 0 ) === 0;
 
-			YoastSEO()->helpers->options->set( 'prominent_words_indexation_completed', $is_indexing_completed );
+			$this->prominent_words_helper->set_indexing_completed( $is_indexing_completed );
 		}
 
 		return $is_indexing_completed;
@@ -356,9 +370,9 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 */
 	protected function per_indexable_limit( $language ) {
 		if ( YoastSEO()->helpers->language->has_function_word_support( $language ) ) {
-			return Indexation_Integration::PER_INDEXABLE_LIMIT;
+			return Indexing_Integration::PER_INDEXABLE_LIMIT;
 		}
 
-		return Indexation_Integration::PER_INDEXABLE_LIMIT_NO_FUNCTION_WORD_SUPPORT;
+		return Indexing_Integration::PER_INDEXABLE_LIMIT_NO_FUNCTION_WORD_SUPPORT;
 	}
 }

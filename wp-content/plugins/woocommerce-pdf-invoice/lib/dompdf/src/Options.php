@@ -13,7 +13,7 @@ class Options
     /**
      * The location of a temporary directory.
      *
-     * The directory specified must be writeable by the webserver process.
+     * The directory specified must be writable by the webserver process.
      * The temporary directory is required to download remote images and when
      * using the PFDLib back end.
      *
@@ -84,7 +84,7 @@ class Options
      * The default paper size.
      *
      * North America standard is "letter"; other countries generally "a4"
-     * @see \WooCommercePDFInvoice\Adapter\CPDF::PAPER_SIZES for valid sizes
+     * @see \Dompdf\Adapter\CPDF::PAPER_SIZES for valid sizes
      *
      * @var string
      */
@@ -112,7 +112,7 @@ class Options
      * Image DPI setting
      *
      * This setting determines the default DPI setting for images and fonts.  The
-     * DPI may be overridden for inline images by explictly setting the
+     * DPI may be overridden for inline images by explicitly setting the
      * image's width & height style attributes (i.e. if the image's native
      * width is 600 pixels and you specify the image's width as 72 points,
      * the image will have a DPI of 600 in the rendered PDF.  The DPI of
@@ -203,7 +203,7 @@ class Options
      *
      * @var bool
      */
-    private $isFontSubsettingEnabled = false;
+    private $isFontSubsettingEnabled = true;
 
     /**
      * @var bool
@@ -250,7 +250,7 @@ class Options
      *
      * Valid settings are 'PDFLib', 'CPDF', 'GD', and 'auto'. 'auto' will
      * look for PDFLib and use it if found, or if not it will fall back on
-     * CPDF. 'GD' renders PDFs to graphic files. {@link WooCommercePDFInvoice\CanvasFactory}
+     * CPDF. 'GD' renders PDFs to graphic files. {@link Dompdf\CanvasFactory}
      * ultimately determines which rendering class to instantiate
      * based on this setting.
      *
@@ -267,7 +267,7 @@ class Options
      *
      * @link http://www.pdflib.com
      *
-     * If pdflib present in web server and auto or selected explicitely above,
+     * If pdflib present in web server and auto or selected explicitly above,
      * a real license code must exist!
      *
      * @var string
@@ -291,12 +291,12 @@ class Options
      */
     public function __construct(array $attributes = null)
     {
-        $this->setChroot( realpath(__DIR__ . "/../") );
-        $this->setRootDir( $this->getChroot() );
-        $this->setTempDir( ( null != ini_get('upload_tmp_dir') || '' != ini_get('upload_tmp_dir') ) ? ini_get('upload_tmp_dir') : sys_get_temp_dir() );
-        $this->setFontDir( $this->chroot . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR . "fonts" );
-        $this->setFontCache( $this->getFontDir() );
-        $this->setLogOutputFile( $this->getTempDir() . DIRECTORY_SEPARATOR . "log.htm" );
+        $this->setChroot(realpath(__DIR__ . "/../"));
+        $this->setRootDir($this->getChroot());
+        $this->setTempDir(sys_get_temp_dir());
+        $this->setFontDir( PDFFONTSPATH );
+        $this->setFontCache($this->getFontDir());
+        $this->setLogOutputFile($this->getTempDir() . "/log.htm");
 
         if (null !== $attributes) {
             $this->set($attributes);
@@ -311,7 +311,7 @@ class Options
     public function set($attributes, $value = null)
     {
         if (!is_array($attributes)) {
-            $attributes = array($attributes => $value);
+            $attributes = [$attributes => $value];
         }
         foreach ($attributes as $key => $value) {
             if ($key === 'tempDir' || $key === 'temp_dir') {

@@ -858,6 +858,13 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 			global $woocommerce, $product;
 
+			// Adding filter to prevent executing following code as it needs re-factoring.
+			// Possible approach to handle would be to check if CP shortcode is present in the product description. If yes then only js code should execute.
+			$trigger = apply_filters( 'chained_products_show_for_variable', true, array( 'source' => $this ) );
+			if ( false === $trigger ) {
+				return;
+			}
+
 			$children                  = ( Chained_Products_WC_Compatibility::is_wc_gte_30() && $product instanceof WC_Product_Variable ) ? $product->get_visible_children() : $product->get_children( true );
 			$is_chained_product_parent = false;
 			if ( ! empty( $children ) ) {

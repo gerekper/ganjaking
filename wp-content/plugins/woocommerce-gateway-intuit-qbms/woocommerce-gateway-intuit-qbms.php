@@ -6,7 +6,7 @@
  * Description: Accept credit cards in WooCommerce with the Intuit Payments gateway
  * Author: SkyVerge
  * Author URI: https://woocommerce.com/
- * Version: 2.8.1
+ * Version: 2.8.3
  * Text Domain: woocommerce-gateway-intuit-payments
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 272221:56ee7c24d725409e3244401ed625b4f3
  * WC requires at least: 3.0.9
- * WC tested up to: 4.5.2
+ * WC tested up to: 4.7.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -60,7 +60,7 @@ class WC_Intuit_Payments_Loader {
 	const MINIMUM_WC_VERSION = '3.0.9';
 
 	/** SkyVerge plugin framework version */
-	const FRAMEWORK_VERSION = '5.8.1';
+	const FRAMEWORK_VERSION = '5.10.1';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Intuit Payments Gateway';

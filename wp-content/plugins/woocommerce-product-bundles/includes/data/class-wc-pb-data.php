@@ -25,13 +25,13 @@ class WC_PB_Data {
 	public static function init() {
 
 		// DB API for custom PB tables.
-		require_once( 'class-wc-pb-db.php' );
+		require_once( WC_PB_ABSPATH . 'includes/data/class-wc-pb-db.php' );
 
 		// Bundled Item Data CRUD class.
-		require_once( 'class-wc-bundled-item-data.php' );
+		require_once( WC_PB_ABSPATH . 'includes/data/class-wc-bundled-item-data.php' );
 
 		// Product Bundle CPT data store.
-		require_once( 'class-wc-product-bundle-data-store-cpt.php' );
+		require_once( WC_PB_ABSPATH . 'includes/data/class-wc-product-bundle-data-store-cpt.php' );
 
 		// Register the Product Bundle Custom Post Type data store.
 		add_filter( 'woocommerce_data_stores', array( __CLASS__, 'register_bundle_type_data_store' ), 10 );

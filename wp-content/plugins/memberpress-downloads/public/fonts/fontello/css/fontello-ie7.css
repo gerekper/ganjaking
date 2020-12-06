@@ -1,0 +1,23 @@
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'fontello';
+  font-style: normal;
+  font-weight: normal;
+
+  /* fix buttons height */
+  line-height: 1em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+}
+
+.icon-doc { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
+.icon-doc-text { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0f6;&nbsp;'); }
+.icon-file-pdf { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c1;&nbsp;'); }
+.icon-file-word { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c2;&nbsp;'); }
+.icon-file-excel { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c3;&nbsp;'); }
+.icon-file-powerpoint { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c4;&nbsp;'); }
+.icon-file-image { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c5;&nbsp;'); }
+.icon-file-archive { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c6;&nbsp;'); }
+.icon-file-audio { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c7;&nbsp;'); }
+.icon-file-video { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c8;&nbsp;'); }
+.icon-file-code { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf1c9;&nbsp;'); }

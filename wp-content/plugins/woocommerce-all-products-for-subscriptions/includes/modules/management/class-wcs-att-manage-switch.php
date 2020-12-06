@@ -136,6 +136,10 @@ class WCS_ATT_Manage_Switch extends WCS_ATT_Abstract_Module {
 	 */
 	public static function is_product_switchable( $is_switchable, $product ) {
 
+		if ( empty( $product ) || ! ( $product instanceof WC_Product ) ) {
+			return $is_switchable;
+		}
+
 		if ( ! $is_switchable ) {
 			$is_switchable = WCS_ATT_Product::supports_feature( $product, 'subscription_scheme_switching' ) || WCS_ATT_Product::supports_feature( $product, 'subscription_content_switching' );
 		}

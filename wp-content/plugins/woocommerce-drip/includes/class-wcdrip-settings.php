@@ -119,7 +119,7 @@ if ( ! class_exists( 'WC_Drip_Settings' ) && class_exists( 'WC_Integration' ) ) 
 				'api_key' => array(
 					'title'       => __( 'API Token', 'woocommerce-drip' ),
 					'type'        => 'text',
-					'description' => sprintf( __( 'Go the your %s and copy the API Token provided. %s', 'woocommerce-drip' ), '<a href="https://www.getdrip.com/user/edit" target="_blank"><strong>' . __( 'Drip User Account Settings', 'woocommerce-drip' ) . '</strong></a>', '<a href="' . get_admin_url() . 'admin.php?page=wc-settings&tab=integration&section=wcdrip&wcdrip_clear_api_key=1">' . __( 'Clear API Token?', 'woocommerce-drip' ) . '</a>' ),
+					'description' => sprintf( __( 'Go to your %s and copy the API Token provided. %s', 'woocommerce-drip' ), '<a href="https://www.getdrip.com/user/edit" target="_blank"><strong>' . __( 'Drip User Account Settings', 'woocommerce-drip' ) . '</strong></a>', '<a href="' . get_admin_url() . 'admin.php?page=wc-settings&tab=integration&section=wcdrip&wcdrip_clear_api_key=1">' . __( 'Clear API Token?', 'woocommerce-drip' ) . '</a>' ),
 					'default'     => '',
 				),
 				'account' => array(
@@ -149,7 +149,7 @@ if ( ! class_exists( 'WC_Drip_Settings' ) && class_exists( 'WC_Integration' ) ) 
 				'subscribe-campaign' => array(
 					'title'       => __( 'Campaign', 'woocommerce-drip' ),
 					'type'        => 'select',
-					'description' => __( 'Which campaign do you want to the subscribe box to sign a user up for?', 'woocommerce-drip' ) . '<br />' . '<strong>' . __( 'Note:', 'woocommerce-drip' ) . '</strong> ' . __( 'After saving a new account above, please use the Reload Data option below.', 'woocommerce-drip' ),
+					'description' => __( 'Which campaign do you want the subscribe box to sign a user up for?', 'woocommerce-drip' ) . '<br />' . '<strong>' . __( 'Note:', 'woocommerce-drip' ) . '</strong> ' . __( 'After saving a new account above, please use the Reload Data option below.', 'woocommerce-drip' ),
 					'options'     => $this->campaigns(),
 					'class'       => 'wcdrip-subscribe-field',
 				),

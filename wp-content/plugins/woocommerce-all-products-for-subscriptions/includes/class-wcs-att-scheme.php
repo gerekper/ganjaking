@@ -237,7 +237,7 @@ class WCS_ATT_Scheme implements ArrayAccess {
 	 * Returns the pricing mode of the scheme - 'inherit' or 'override'.
 	 * Indicates how the subscription scheme modifies the price of a product when active.
 	 *
-	 * @return int  String with values 'inherit' or 'override'.
+	 * @return string  String with values 'inherit' or 'override'.
 	 */
 	public function get_pricing_mode() {
 		return $this->data[ 'pricing_mode' ];

@@ -40,9 +40,12 @@ class WC_COG_MPC_Integration {
 	 */
 	public function __construct() {
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
-		add_filter( 'wc_cost_of_goods_set_order_item_cost_meta_item_cost', array( $this, 'adjust_order_line_item_cost' ), 10, 2 );
+		add_filter( 'wc_cost_of_goods_set_order_item_cost_meta_item_cost', [ $this, 'adjust_order_line_item_cost' ], 10, 2 );
+
+		// adds a filter to return the original item quantity regardless of plugin is calculating inventory based on the product measurement
+		add_filter( 'wc_cost_of_goods_get_item_quantity', [ $this, 'get_original_item_quantity' ], 10, 2 );
 	}
 
 
@@ -95,6 +98,30 @@ class WC_COG_MPC_Integration {
 		}
 
 		return $item_cost;
+	}
+
+
+	/**
+	 * Gets the original item quantity for a given order item product.
+	 *
+	 * Due to the cart flows for stock calculation based on measurement data (when it's available), the cart quantity may be
+	 * different from the original quantity when calculating the total cost of goods.
+	 *
+	 * @internal
+	 *
+	 * @since 2.9.9
+	 *
+	 * @param float|string $item_quantity item quantity
+	 * @param \WC_Order_Item_Product $item item object
+	 * @return float
+	 */
+	public function get_original_item_quantity( $item_quantity, $item ) {
+
+		$measurement_data = $item->get_meta( '_measurement_data' );
+
+		return (float) isset( $measurement_data, $measurement_data['_quantity'] )
+			? $measurement_data['_quantity']
+			: $item_quantity;
 	}
 
 

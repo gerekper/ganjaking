@@ -1,0 +1,51 @@
+
+.seedprod-mode-active a{
+    background: #DD4A1F !important;
+    color: #fff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.seedprod-mode-active a:hover{
+background-color: #f15d32 !important;
+}
+
+.seedprod-mode-active img{
+    margin-right: 5px !important;
+    margin-top: 5px !important;
+}
+
+
+.sp-is-logged-in.sp-seedprod{
+    padding-top:32px;
+    margin-top:0px !important;
+} 
+
+.seedprod-mb-icon{
+    margin-top:17px !important;
+    margin-right: 5px !important;
+    height: 34px !important;
+}
+
+.seedprod-mode-active .ab-sub-wrapper a{
+    justify-content: left !important;
+}
+
+.toplevel_page_seedprod_pro div.wp-menu-image.svg , .toplevel_page_seedprod_lite div.wp-menu-image.svg {
+    background-size: 16px auto !important;
+}
+
+.seedprod-menu-notification-counter {
+    margin-left: 7px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 18px !important;
+    height: 18px !important;
+    border-radius: 9px !important;
+    background-color: #ca4a1f !important;
+    color: #fff !important;
+    font-size: 11px !important;
+    line-height: 0 !important;
+    text-align: center !important;
+}

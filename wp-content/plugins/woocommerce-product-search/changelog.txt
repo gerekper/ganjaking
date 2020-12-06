@@ -1,5 +1,30 @@
 *** WooCommerce Product Search ***
 
+2020.11.13 - version 3.3.0
+* WordPress 5.5 compatible.
+* WooCommerce 4.7 compatible.
+* Requires at least WooCommerce 3.3.
+* Added the WPS_DEFER_VARIATIONS_THRESHOLD constant that regulates the maximum number of variations processed at save.
+* Solved issues when indexing variable products with many variations by using deferred processing of the bulk of variations.
+* Fixed "Text for no selection" option was not visible when Select was chosen as Style in Category and Attribute filter widgets.
+
+2020.11.01 - version 3.2.0
+* WordPress 5.5 compatible.
+* WooCommerce 4.6 compatible.
+* Added support for filtering the results presented by the [products] shortcode.
+* Added the WPS_SHORTCODES_PRODUCTS_FILTER constant which when set as true enables automatic filtering of all instances of the [products] shortcode.
+* Added the [woocommerce_product_search_filter_shortcode_products] shortcode.
+* Added the woocommerce_product_search_filter_shortcode_products() API function.
+* Added the woocommerce_product_search_filter_shortcode_products_enable() API function.
+* Added the woocommerce_product_search_filter_shortcode_products_disable() API function.
+* Added the woocommerce_product_search_filter_shortcode_products filter.
+* Added automatic support for filtering the results presented by the Divi Shop module.
+* Added the WPS_DIVI_SHOP_FILTER constant which when set as false disables automatic filtering of all instances of the Divi Shop module.
+* Added the woocommerce_product_search_filter_divi_shop filter.
+* Fixed issues with our price filter and WPML multicurrency.
+* Fixed price filter range issues for variable products so that in-between values are treated correctly and bring up results.
+* Fixed a missing check for array type to prevent warning related to Countable.
+
 2020.08.22 - version 3.1.1
 * Substantially improved query processing performance with a revised algorithm, fixed overhead in conjunctive term query.
 * Added automatic database update path for minor revisions.

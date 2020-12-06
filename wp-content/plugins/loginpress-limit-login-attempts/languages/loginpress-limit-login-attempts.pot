@@ -1,0 +1,161 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: LoginPress - Limit Login Attempts\n"
+"POT-Creation-Date: 2020-04-11 15:33+0500\n"
+"PO-Revision-Date: 2019-07-15 11:28+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress-limit-login-attempts.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: classes/class-ajax.php:184
+msgid "Your Ip format is not correct."
+msgstr ""
+
+#: classes/class-ajax.php:196
+msgid "IP Already exist successfully move blacklist to whitelist."
+msgstr ""
+
+#: classes/class-ajax.php:206
+msgid "Successfully added in white list"
+msgstr ""
+
+#: classes/class-ajax.php:214
+msgid "IP Already in whitelist."
+msgstr ""
+
+#: classes/class-ajax.php:227
+msgid "IP Already exist successfully move whitelist to blacklist."
+msgstr ""
+
+#: classes/class-ajax.php:237
+msgid "Successfully added in blacklist"
+msgstr ""
+
+#: classes/class-ajax.php:245
+msgid "IP Already in blacklist."
+msgstr ""
+
+#: classes/class-attempts.php:141 classes/class-attempts.php:145
+msgid "You are not allowed to access admin panel"
+msgstr ""
+
+#: classes/class-attempts.php:277
+#, php-format
+msgid "%1$sERROR:%2$s You have only %3$s attempts"
+msgstr ""
+
+#: classes/class-attempts.php:290
+msgid "WooCommerce"
+msgstr ""
+
+#: classes/class-attempts.php:292
+msgid "XMLRPC"
+msgstr ""
+
+#: classes/class-attempts.php:295
+msgid "WP Login"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:133
+msgid "Limit Login Attempts"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:134
+#, php-format
+msgid ""
+"%1$s%3$sSettings%4$s %5$sAttempt Details%4$s %6$sWhitelist%4$s %7$sBlacklist"
+"%4$s%2$s"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:154
+msgid "Attempts Allowed"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:155
+msgid "How many attempts allows"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:162
+msgid "Minutes Lockout"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:163
+msgid "Description."
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:170
+msgid "IP"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:176
+msgid "Disable XML RPC Request"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:187
+msgid "Remove Record On Uninstall"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:188
+msgid ""
+"This tool will remove all LoginPress - Limit Login Attempts record upon "
+"uninstall."
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:387
+msgid ""
+"<p class=\"description\"><button class=\"button loginpress-attempts-"
+"whitelist add_white_list\" data-action=\"white_list\" type=\"button\" data-"
+"nonce=\""
+msgstr ""
+
+#: loginpress-limit-login-attempts.php:80
+msgid ""
+"Please Install LoginPress Pro to use \"LoginPress - Limit Login Attempts\" "
+"add-on."
+msgstr ""
+
+#: loginpress-limit-login-attempts.php:97
+msgid ""
+"LoginPress - Limit Login Attempts required LoginPress Pro activation &mdash; "
+msgstr ""
+
+#: loginpress-limit-login-attempts.php:97
+msgid "Click here to activate LoginPress Pro"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Limit Login Attempts"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.loginpress.pro/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"LoginPress - Limit Login Attempts is the best for <code>wp-login</code> "
+"Login Attemps plugin by <a href=\"https://wpbrigade.com/\">WPBrigade</a> "
+"which allows you to restrict user attempts."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.WPBrigade.com/"
+msgstr ""

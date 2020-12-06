@@ -360,3 +360,53 @@ function wc_store_credit_get_time_period_choices( $form = 'singular' ) {
 	 */
 	return apply_filters( 'wc_store_credit_time_period_choices', $periods, $form );
 }
+
+/**
+ * Converts the value to a WC_DateTime.
+ *
+ * @since 3.3.0
+ *
+ * @param mixed $value String, timestamp or a Datetime object.
+ * @return WC_DateTime|false Datetime object, false on failure.
+ */
+function wc_store_credit_get_datetime( $value ) {
+	if ( $value instanceof WC_DateTime ) {
+		return $value;
+	}
+
+	if ( $value instanceof DateTime ) {
+		$value = ( method_exists( 'DateTime', 'getTimestamp' ) ? $value->getTimestamp() : $value->format( 'U' ) );
+	}
+
+	if ( is_numeric( $value ) ) {
+		try {
+			$datetime = new WC_DateTime( "@{$value}", new DateTimeZone( 'UTC' ) );
+		} catch ( Exception $e ) {
+			$datetime = false;
+		}
+	} else {
+		$datetime = wc_string_to_datetime( $value );
+	}
+
+	return $datetime;
+}
+
+/**
+ * Gets the HTML markup for a datetime.
+ *
+ * @since 3.3.0
+ *
+ * @param mixed $value String, timestamp or a Datetime object.
+ * @return string
+ */
+function wc_store_credit_get_datetime_html( $value ) {
+	$datetime    = wc_store_credit_get_datetime( $value );
+	$date_format = wc_date_format();
+
+	return sprintf(
+		'<time datetime="%1$s" title="%2$s">%3$s</time>',
+		esc_attr( $datetime->date( 'c' ) ),
+		esc_html( $datetime->date_i18n( $date_format . ' ' . wc_time_format() ) ),
+		esc_html( $datetime->date_i18n( $date_format ) )
+	);
+}

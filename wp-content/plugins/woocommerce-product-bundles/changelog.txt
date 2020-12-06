@@ -1,6 +1,33 @@
 *** WooCommerce Product Bundles ***
 
-2020.09.06 - version 6.4.1
+2020.11.25 - version 6.6.0
+* Important - Min/Max bundle size post meta are no longer available via 'WC_Product::get_meta'! Please update your code to use 'WC_Product_Bundle::get_min_bundle_size' and 'WC_Product_Bundle::get_max_bundle_size'.
+* Feature - Introduced props for Min/Max Bundle Size fields and made them available in the core Importer/Exporter and REST API.
+* Feature - Auto-apply bundle-sells discounts in cart.
+* Fix - Fixed broken bundle-sells layout when using Elementor Pro.
+* Fix - Bundle catalog price incorrect when using a 'Min Bunde Size' with 'Item Grouping > None'.
+* Tweak - Moved 'woocommerce_before_bundled_items' action after bundle-sells title.
+
+2020.11.10 - version 6.5.1
+* Tweak - Introduce 'bundle_stock_quantity' prop to track the quantity of bundles that are available for purchase, taking bundled item stock limitations into account.
+
+2020.11.08 - version 6.5.0
+* Fix - Adjusted the 'priceSpecification' structured data property based on the mininum bundle price.
+* Fix - Prevented frequent term cache flushes when updating bundle container stock data.
+* Fix - Fixed incorrect 'XXX is sold individually - its Minimum Quantity cannot be higher than 1' notice when setting the Minimum Quantity of a Sold Individually bundled item equal to 0.
+* Fix - Reviewed Elementor Pro for compatibility. Added 'grouped_form' class to bundle-type forms to prevent issues with Elementor's flex.
+* Fix - Reviewed Divi for compatibility. Prevented duplicate forms from displaying in product bundle pages and disabled the 'Form Location' option when using the Divi builder.
+* Fix - Prevented 'Add to cart' buttons in the catalog from turning into 'Select options' buttons when the min bundle size, max bundle size, min item count, and max item count are equal.
+* Tweak - Prevented 'draft' products from showing up as bundled items.
+* Tweak - Improved the way bundle containers are synchronized to be aware of their contents' availability. A new 'bundled_items_stock_sync_status' meta is now used as a data store synchronization flag instead of assigning an 'unsynced' value to the 'bundled_items_stock_status' prop.
+* Tweak - Improved the 'Min/Max Bundle Size' module integration to ensure that bundle-size constraints affect the state of the 'bundled_items_stock_status' prop.
+
+2020.10.26 - version 6.4.2
+* Fix - Fixed an edge-case issue that may make a Product Bundle appear with an 'Insufficient stock' status even though all items are in stock.
+* Fix - Ensure that the tax suffix is appended to the catalog price unless it's in range format.
+* Tweak - Added 'woocommerce_bundled_item_image_tmpl_params' filter.
+
+2020.10.06 - version 6.4.1
 * Fix - Bundled product add-on prices for some add-on types are preserved when 'Priced Individually' is not enabled.
 * Tweak - Handle missing '$.fn.wc_product_gallery' function on themes that declare support for PhotoSwipe.
 * Tweak - Use 'woocommerce_bundle_price_data' filter to pass min/max bundle size params to the frontend.

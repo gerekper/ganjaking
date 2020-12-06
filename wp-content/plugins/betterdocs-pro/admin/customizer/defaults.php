@@ -46,6 +46,8 @@ if ( ! function_exists( 'betterdocs_get_option_defaults_pro' ) ) :
 			'betterdocs_mkb_cat_title_hover_color' => '',
 			'betterdocs_mkb_item_count_color' => '#707070',
 			'betterdocs_mkb_item_count_font_size' => '15',
+			'betterdocs_mkb_desc' => false,
+			'betterdocs_mkb_desc_color' => '#566e8b',
 			'betterdocs_doc_page_content_overlap' => '135',
 			'betterdocs_doc_page_cat_icon_size_l_3_4' => '60',
 			'betterdocs_doc_page_cat_title_font_size2' => '18',
@@ -54,6 +56,9 @@ if ( ! function_exists( 'betterdocs_get_option_defaults_pro' ) ) :
 			'betterdocs_post_reactions_text' => esc_html__('What are your Feelings', 'betterdocs-pro'),
 			'betterdocs_post_reactions_text_color' => '#566e8b',
 			'betterdocs_post_reactions_icon_color' => '#00b88a',
+			'betterdocs_post_reactions_icon_svg_color' => '#fff',
+			'betterdocs_post_reactions_icon_hover_bg_color' => '#fff',
+			'betterdocs_post_reactions_icon_hover_svg_color' => '#00b88a',
 			'betterdocs_doc_single_content_area_bg_color' => '', // from free
 			'betterdocs_doc_single_content_area_padding_right' => '25', // from free
 			'betterdocs_doc_single_content_area_padding_left' => '25', // from free

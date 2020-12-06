@@ -299,18 +299,19 @@ class WC_Instagram_Product_Catalog_Item {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string $price        Optional. The price type. Accepts 'regular', 'sale' and empty. Default empty.
+	 * @param string $price        Optional. The price type. Default empty.
 	 * @param string $tax          Optional. Include tax in price?. Accepts 'excl', 'incl. Default 'excl.
 	 * @param array  $tax_location Optional. The tax location. Default: empty.
 	 * @return float
 	 */
 	public function get_price( $price = '', $tax = 'excl', $tax_location = array() ) {
-		if ( ! in_array( $price, array( 'regular', 'sale' ), true ) ) {
-			$price = '';
-		}
-
 		$product = $this->get_product();
 		$getter  = 'get_' . ( $price ? "{$price}_" : '' ) . 'price';
+
+		// Fallback for invalid getter.
+		if ( ! method_exists( $product, $getter ) ) {
+			$getter = 'get_price';
+		}
 
 		$args = array(
 			'price' => call_user_func( array( $product, $getter ) ),

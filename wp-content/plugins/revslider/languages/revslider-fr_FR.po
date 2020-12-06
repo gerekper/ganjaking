@@ -402,12 +402,10 @@ msgstr "Choisissez un modèle de Slide"
 
 #: admin/revslider-admin.class.php:404
 msgid ""
-"Activate Slider Revolution for <a href=\"https://revolution.themepunch.com/"
-"direct-customer-benefits/\" target=\"_blank\">Premium Benefits (e.g. Live "
+"Activate Slider Revolution for <a href=\"https://www.sliderrevolution.com/premium-slider-revolution/\" target=\"_blank\">Premium Benefits (e.g. Live "
 "Updates)</a>."
 msgstr ""
-"Activez le Slider Revolution pour <a href=\"https://revolution.themepunch."
-"com/direct-customer-benefits/\" target=\"_blank\"> avantages Premium (pour "
+"Activez le Slider Revolution pour <a href=\"hhttps://www.sliderrevolution.com/premium-slider-revolution/\" target=\"_blank\"> avantages Premium (pour "
 "les mises à jour en direct par exemple) </a>."
 
 #: admin/revslider-admin.class.php:415
@@ -1971,8 +1969,8 @@ msgid "Audio Wave Library is Loading..."
 msgstr "La bibliothèque Audio Wave est en cours de chargement..."
 
 #: admin/revslider-admin.class.php:2056
-msgid "Loading CodeMirror Library..."
-msgstr "Chargement de la bibliothèque CodeMirror..."
+msgid "Loading RevMirror Library..."
+msgstr "Chargement de la bibliothèque RevMirror..."
 
 #: admin/revslider-admin.class.php:2057
 msgid "Lock / Unlock Selected"
@@ -7665,7 +7663,7 @@ msgid "Slider Revolution - Premium responsive slider"
 msgstr ""
 
 #. URI of the plugin
-msgid "https://revolution.themepunch.com/"
+msgid "https://www.sliderrevolution.com/"
 msgstr ""
 
 #. Author URI of the plugin

@@ -1,0 +1,136 @@
+# Copyright (C) 2015 MemberPress Math CAPTCHA
+# This file is distributed under the same license as the MemberPress Math CAPTCHA package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Math CAPTCHA 1.0.8\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-math-"
+"captcha\n"
+"POT-Creation-Date: 2017-02-16 14:47+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-10-12 09:22-0600\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.0.4\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: he_IL\n"
+
+#: MpmathUpdateController.php:166
+msgid "Membership"
+msgstr ""
+
+#: MpmathUpdateController.php:167
+msgid "Membership Software"
+msgstr ""
+
+#: MpmathUpdateController.php:168
+msgid "Members"
+msgstr ""
+
+#: MpmathUpdateController.php:169
+msgid "Payment"
+msgstr ""
+
+#: MpmathUpdateController.php:170
+msgid "Protection"
+msgstr ""
+
+#: MpmathUpdateController.php:171
+msgid "Rule"
+msgstr ""
+
+#: MpmathUpdateController.php:172
+msgid "Lock"
+msgstr ""
+
+#: MpmathUpdateController.php:173
+msgid "Access"
+msgstr ""
+
+#: MpmathUpdateController.php:174
+msgid "Community"
+msgstr ""
+
+#: MpmathUpdateController.php:175
+msgid "Admin"
+msgstr ""
+
+#: MpmathUpdateController.php:176
+msgid "Pages"
+msgstr ""
+
+#: MpmathUpdateController.php:177
+msgid "Posts"
+msgstr ""
+
+#: MpmathUpdateController.php:178
+msgid "Plugin"
+msgstr ""
+
+#: MpmathUpdateController.php:179
+msgid ""
+"MemberPress helps you place a simple math captcha on your MemberPress "
+"registration forms."
+msgstr ""
+
+#: MpmathUpdateController.php:180
+msgid ""
+"You can access in-depth information about MemberPress at %1$sthe MemberPress "
+"User Manual%2$s."
+msgstr ""
+
+#: MpmathUpdateController.php:180
+msgid "No Additional information right now"
+msgstr ""
+
+#: MpmathUpdateController.php:209
+msgid "You had an HTTP error connecting to Caseproof's Mothership API"
+msgstr ""
+
+#: MpmathUpdateController.php:220
+msgid "Your License Key was invalid"
+msgstr ""
+
+#: memberpress-math-captcha.php:108
+msgid "%s equals?"
+msgstr "%s כמה זה?"
+
+#: memberpress-math-captcha.php:121 memberpress-math-captcha.php:126
+#: memberpress-math-captcha.php:134
+msgid "You must fill out the Math Quiz correctly."
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "MemberPress Math CAPTCHA"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://memberpress.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Shows a Math question on the signup forms to prevent bots from signing up "
+"SPAM accounts."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com"
+msgstr ""

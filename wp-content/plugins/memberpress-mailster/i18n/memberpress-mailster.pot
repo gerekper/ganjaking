@@ -1,0 +1,108 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress Mailster plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Mailster 1.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-mailster\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-03-24T12:48:15-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-mailster\n"
+
+#. Plugin Name of the plugin
+#: main.php:35
+msgid "MemberPress Mailster"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Mailster Autoresponder integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: main.php:36
+msgid "Mailster Autoresponder Integration for MemberPress."
+msgstr ""
+
+#: MpMailster.php:54
+msgid "Enable Mailster"
+msgstr ""
+
+#: MpMailster.php:62
+msgid "Global Mailster List:"
+msgstr ""
+
+#: MpMailster.php:74
+msgid "Enable Double Opt-In Email"
+msgstr ""
+
+#: MpMailster.php:78
+msgid "Member must verify their email address before being subscribed."
+msgstr ""
+
+#: MpMailster.php:86
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: MpMailster.php:90
+msgid "If checked, an opt-in checkbox will appear on all of your membership registration pages."
+msgstr ""
+
+#: MpMailster.php:95
+msgid "Signup Checkbox Label:"
+msgstr ""
+
+#: MpMailster.php:98
+msgid "This is the text that will display on the signup page next to your mailing list opt-in checkbox."
+msgstr ""
+
+#: MpMailster.php:104
+msgid "Nothing to configure here as Mailster is already configured to \"Add people who are added via the backend or any third party plugin\". You can still configure per-membership lists though. Just be sure to save the MemberPress options with the \"Enable Mailster\" box checked."
+msgstr ""
+
+#: MpMailster.php:106
+msgid "To configure the Global list settings, either %sdisable that setting%s in Mailster, or make sure none of your per-membership lists are selected there -- otherwise you may have issues with users getting added to lists they should not be on."
+msgstr ""
+
+#: MpMailster.php:111
+msgid "Mailster Plugin not found. You must install the %sMailster Plugin%s to use this integration."
+msgstr ""
+
+#: MpMailster.php:151
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: MpMailster.php:216
+msgid "Mailster list for this Membership"
+msgstr ""
+
+#: MpMailster.php:219
+msgid "Enable Membership Mailster List"
+msgstr ""
+
+#: MpMailster.php:220
+msgid "If this is set the member will be added to this list when their payment is completed for this membership. If the member cancels or you refund their subscription, they will be removed from the list automatically."
+msgstr ""
+
+#: MpMailster.php:224
+msgid "Mailster List: "
+msgstr ""
+
+#: MpMailster.php:311
+msgid "Sign Up for the %s Newsletter"
+msgstr ""

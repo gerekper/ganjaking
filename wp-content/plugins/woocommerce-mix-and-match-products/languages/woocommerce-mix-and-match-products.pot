@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Mix and Match Products 1.10.4\n"
+"Project-Id-Version: WooCommerce Mix and Match Products 1.10.5\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
-"POT-Creation-Date: 2020-10-16 17:39:39+00:00\n"
+"POT-Creation-Date: 2020-11-18 18:39:42+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -382,7 +382,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-mnm-cart.php:681
+#: includes/class-wc-mnm-cart.php:682
 #. translators: %1$d is the minimum container quantity. %2$s is the container
 #. product title.
 msgid ""
@@ -394,96 +394,96 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-mnm-cart.php:764
+#: includes/class-wc-mnm-cart.php:771
 msgid "Cart updated."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:1224
+#: includes/class-wc-mnm-cart.php:1231
 #. translators: %s is subtotal price.
 msgid "Subtotal: %s"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:222 includes/class-wc-mnm-display.php:460
+#: includes/class-wc-mnm-display.php:222 includes/class-wc-mnm-display.php:458
 #: includes/updates/wc-mnm-update-functions.php:187
 msgid "Container size"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:351
+#: includes/class-wc-mnm-display.php:349
 msgid "Total: "
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:352
+#: includes/class-wc-mnm-display.php:350
 msgid "Subtotal: "
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:353
+#: includes/class-wc-mnm-display.php:351
 msgid "Options total:"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:354
+#: includes/class-wc-mnm-display.php:352
 msgid "Grand total: "
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:359
+#: includes/class-wc-mnm-display.php:357
 #: includes/class-wc-product-mix-and-match.php:1317
 msgid "Free!"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:361
+#: includes/class-wc-mnm-display.php:359
 #. translators: %s is current selected quantity
 msgid "You have selected %s items. "
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:363
+#: includes/class-wc-mnm-display.php:361
 #. translators: %s is current selected quantity
 msgid "You have selected %s item. "
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:365
+#: includes/class-wc-mnm-display.php:363
 #. translators: %v is the error message. %s is quantity left to be selected.
 msgid "%vPlease select %s items to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:367
+#: includes/class-wc-mnm-display.php:365
 #. translators: %v is the error message. %s is quantity left to be selected.
 msgid "%vPlease select %s item to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:368
+#: includes/class-wc-mnm-display.php:366
 msgid "Please select at least 1 item to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:370
+#: includes/class-wc-mnm-display.php:368
 #. translators: %v is the error message. %min is the script placeholder for min
 #. quantity. %max is script placeholder for max quantity.
 msgid "%vPlease choose between %min and %max items to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:372
+#: includes/class-wc-mnm-display.php:370
 #. translators: %v is the error message. %min is the script placeholder for min
 #. quantity. %max is script placeholder for max quantity.
 msgid "%vPlease choose at least %min item to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:374
+#: includes/class-wc-mnm-display.php:372
 #. translators: %v is the error message. %min is the script placeholder for min
 #. quantity. %max is script placeholder for max quantity.
 msgid "%vPlease choose at least %min items to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:376
+#: includes/class-wc-mnm-display.php:374
 #. translators: %v is the error message. %min is the script placeholder for min
 #. quantity. %max is script placeholder for max quantity.
 msgid "%vPlease choose fewer than %max item to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:378
+#: includes/class-wc-mnm-display.php:376
 #. translators: %v is the error message. %min is the script placeholder for min
 #. quantity. %max is script placeholder for max quantity.
 msgid "%vPlease choose fewer than %max items to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:380
+#: includes/class-wc-mnm-display.php:378
 #. translators: %v is the error message. %min is the script placeholder for min
 #. quantity. %max is script placeholder for max quantity.
 msgid ""
@@ -491,12 +491,12 @@ msgid ""
 "to your cart."
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:442 includes/class-wc-mnm-display.php:466
+#: includes/class-wc-mnm-display.php:440 includes/class-wc-mnm-display.php:464
 #: includes/updates/wc-mnm-update-functions.php:203
 msgid "Purchased with"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:443 includes/class-wc-mnm-display.php:463
+#: includes/class-wc-mnm-display.php:441 includes/class-wc-mnm-display.php:461
 #: includes/class-wc-mnm-order.php:519
 #: includes/updates/wc-mnm-update-functions.php:195
 msgid "Part of"
@@ -913,25 +913,25 @@ msgstr ""
 msgid "Shipping per product."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-min-max-compatibility.php:84
+#: includes/compatibility/modules/class-wc-mnm-min-max-compatibility.php:90
 msgid "WooCommmerce Min/Max Quantities compatibility"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-min-max-compatibility.php:86
+#: includes/compatibility/modules/class-wc-mnm-min-max-compatibility.php:92
 msgid ""
 "Select ignore to disregard the Min/Max Quantities plugin's rules for "
 "products in this container."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-min-max-compatibility.php:88
+#: includes/compatibility/modules/class-wc-mnm-min-max-compatibility.php:94
 msgid "Apply rules in container"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-min-max-compatibility.php:89
+#: includes/compatibility/modules/class-wc-mnm-min-max-compatibility.php:95
 msgid "Ignore rules in container"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-min-max-compatibility.php:136
+#: includes/compatibility/modules/class-wc-mnm-min-max-compatibility.php:142
 #. translators: %s product title.
 msgid "&quot;%s&quot; cannot  be added to the cart as configured."
 msgstr ""
@@ -1068,7 +1068,7 @@ msgid ""
 "href=\"%2$s\"><small>%3$s</small></a>"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:356
+#: includes/class-wc-mnm-display.php:354
 #. translators: Placeholders "Total/Subtotal" string followed by price followed
 #. by price suffix. %1$d is %t placeholder for subtotal. %2$d is %p placeholder
 #. for price. %3$d is %s placeholder for %s price suffix.
@@ -1076,7 +1076,7 @@ msgctxt "\"Total/Subtotal\" string followed by price followed by price suffix"
 msgid "%1$s%2$s%3$s"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:358
+#: includes/class-wc-mnm-display.php:356
 #. translators: %1$d is
 msgctxt "Sale/strikeout price"
 msgid "<del>%1$s</del> <ins>%2$s</ins>"

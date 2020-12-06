@@ -25,7 +25,7 @@ class WC_CP_Data {
 	public static function init() {
 
 		// Composite Product CPT data store.
-		require_once( 'class-wc-product-composite-data-store-cpt.php' );
+		require_once( WC_CP_ABSPATH . 'includes/data/class-wc-product-composite-data-store-cpt.php' );
 
 		// Register the Composite Product Custom Post Type data store.
 		add_filter( 'woocommerce_data_stores', array( __CLASS__, 'register_composite_type_data_store' ), 10 );

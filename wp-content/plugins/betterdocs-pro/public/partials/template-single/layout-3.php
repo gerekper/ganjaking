@@ -8,6 +8,12 @@
 
 get_header();
 
+$enable_toc = BetterDocs_DB::get_settings('enable_toc');
+$toc_hierarchy = BetterDocs_DB::get_settings('toc_hierarchy');
+$toc_list_number = BetterDocs_DB::get_settings('toc_list_number');
+$collapsible_toc_mobile = BetterDocs_DB::get_settings('collapsible_toc_mobile');
+$supported_tag = BetterDocs_DB::get_settings('supported_heading_tag');
+$htags = implode(',', $supported_tag);
 ?>
 
 <div class="betterdocs-single-wraper betterdocs-single-bg full-wrapper betterdocs-single-layout3">
@@ -81,7 +87,14 @@ get_header();
 						</div>
 						<?php 
 						}
-						the_content(); 
+						
+						/* post content */
+						$content = apply_filters('the_content', get_the_content());
+						echo BetterDocs_Public::betterdocs_the_content(
+							$content,
+							$htags,
+							$enable_toc
+						);
 						?>
 					</div><!-- .entry-content -->
 					<div class="betterdocs-entry-footer">
@@ -102,9 +115,22 @@ get_header();
 
 						do_action( 'betterdocs_docs_before_social' );
 
-						$social_sharing_text = get_theme_mod('betterdocs_post_social_share', true);
-						if($social_sharing_text == true){
-							echo do_shortcode( '[betterdocs_social_share]' );
+						$post_social_share = get_theme_mod('betterdocs_post_social_share', true);
+						if ($post_social_share == true) {
+							$social_sharing_text = get_theme_mod('betterdocs_social_sharing_text', 'Share This Article :');
+							$facebook_sharing = get_theme_mod('betterdocs_post_social_share_facebook', true);
+							$twitter_sharing = get_theme_mod('betterdocs_post_social_share_twitter', true);
+							$linkedin_sharing = get_theme_mod('betterdocs_post_social_share_linkedin', true);
+							$pinterest_sharing = get_theme_mod('betterdocs_post_social_share_pinterest', true);
+
+							echo do_shortcode(
+								"[betterdocs_social_share
+								title='{$social_sharing_text}'
+								facebook_sharing='{$facebook_sharing}'
+								twitter_sharing='{$twitter_sharing}'
+								linkedin_sharing='{$linkedin_sharing}'
+								pinterest_sharing='{$pinterest_sharing}']" 
+							);
 						}
 						?>
 						<div class="feedback-update-form">
@@ -153,8 +179,9 @@ get_header();
 					</div><!-- .entry-footer -->
 					<?php
 				endwhile; // End of the loop.
+
 				$enable_navigation = BetterDocs_DB::get_settings('enable_navigation');
-				if($enable_navigation == 1){
+				if ($enable_navigation == 1) {
 				?>
 				<div class="docs-navigation">
 					<?php previous_post_link( '%link', '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="42px" viewBox="0 0 50 50" version="1.1"><g id="surface1"><path style=" " d="M 11.957031 13.988281 C 11.699219 14.003906 11.457031 14.117188 11.28125 14.308594 L 1.015625 25 L 11.28125 35.691406 C 11.527344 35.953125 11.894531 36.0625 12.242188 35.976563 C 12.589844 35.890625 12.867188 35.625 12.964844 35.28125 C 13.066406 34.933594 12.972656 34.5625 12.71875 34.308594 L 4.746094 26 L 48 26 C 48.359375 26.003906 48.695313 25.816406 48.878906 25.503906 C 49.058594 25.191406 49.058594 24.808594 48.878906 24.496094 C 48.695313 24.183594 48.359375 23.996094 48 24 L 4.746094 24 L 12.71875 15.691406 C 13.011719 15.398438 13.09375 14.957031 12.921875 14.582031 C 12.753906 14.203125 12.371094 13.96875 11.957031 13.988281 Z "></path></g></svg> %title', TRUE, ' ', 'doc_category' ); ?>
@@ -185,7 +212,15 @@ get_header();
 		<?php if ($enable_toc == 1) { ?>
 		<aside id="betterdocs-sidebar-right"  class="betterdocs-full-sidebar-right right-sidebar-toc-wrap">
 	        <div data-simplebar class="layout3-toc-container right-sidebar-toc-container">
-	        
+				<?php 
+				echo do_shortcode(
+					"[betterdocs_toc
+					htags='{$htags}'
+					hierarchy='{$toc_hierarchy}'
+					list_number='{$toc_list_number}'
+					collapsible='{$collapsible_toc_mobile}']"
+				);
+				?>
 			</div><!-- #sticky toc -->
         </aside><!-- #sidebar -->
 		<?php } ?>

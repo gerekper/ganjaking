@@ -90,10 +90,21 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 				return false;
 			}
 
-			$available_funds = WC_Account_Funds::get_account_funds( null, false );
-			$cart_total      = $this->get_order_total();
+			// We need to check if the cart contains a subscription because in that case the total
+			// will always be greater than 0. The recurring payment is always kept with the same value
+			// of the subscription.
+			// @todo Check if there's an option to set the total to 0 without breaking recurrent orders.
+			if ( WC_Account_Funds_Cart_Manager::cart_contains_subscription() ) {
+				$available_funds = WC_Account_Funds::get_account_funds( null, false );
+				$cart_total      = $this->get_order_total();
 
-			if ( $available_funds <= $cart_total ) {
+				if ( $available_funds >= $cart_total ) {
+					return true;
+				}
+			}
+
+
+			if ( WC_Account_Funds_Cart_Manager::using_funds() && $this->get_order_total() > 0 ) {
 				return false;
 			}
 		}

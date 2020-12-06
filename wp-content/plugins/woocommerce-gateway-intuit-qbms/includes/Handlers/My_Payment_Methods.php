@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Intuit\Handlers;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
 
 /**
  * The My Payment Methods handler.
@@ -48,7 +48,7 @@ class My_Payment_Methods extends Framework\SV_WC_Payment_Gateway_My_Payment_Meth
 		parent::maybe_enqueue_styles_scripts();
 
 		if ( $this->has_tokens ) {
-			wp_enqueue_script( 'wc-intuit-payments-my-payment-methods', $this->get_plugin()->get_plugin_url() . '/assets/js/frontend/wc-intuit-payments-my-payment-methods.min.js', [ 'sv-wc-payment-gateway-my-payment-methods-v5_8_1' ], $this->get_plugin()->get_version() );
+			wp_enqueue_script( 'wc-intuit-payments-my-payment-methods', $this->get_plugin()->get_plugin_url() . '/assets/js/frontend/wc-intuit-payments-my-payment-methods.min.js', [ 'sv-wc-payment-gateway-my-payment-methods-v5_10_1' ], $this->get_plugin()->get_version() );
 		}
 	}
 

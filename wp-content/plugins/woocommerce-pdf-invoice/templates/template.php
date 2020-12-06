@@ -5,7 +5,7 @@
   <style>
 
    body {
-      font-family: "DejaVu Sans", "DejaVu Sans Mono", "DejaVu", sans-serif, monospace;
+      font-family: [[PDFFONTFAMILY]];
       font-size: 11px;
     }
     @page { 
@@ -48,7 +48,7 @@
     [[PDFCURRENCYSYMBOLFONT]]
   </style> 
 </head>
-  <body> 
+  <body[[PDFRTL]]> 
   <div id="header"> 
   <table table width="100%">
 	<tr>

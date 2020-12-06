@@ -8,6 +8,7 @@ jQuery( function ( $ ) {
             this.update_end_date() ;
             this.update_date_type() ;
             this.export_user_based_on() ;
+            this.trigger_on_page_load() ;
             $( '#rs_point_export_start_date' ).datepicker( { dateFormat : 'yy-mm-dd' } ) ;
             $( '#rs_point_export_end_date' ).datepicker( { dateFormat : 'yy-mm-dd' } ) ;
             $( document ).on( 'change' , '#rs_point_export_start_date' , this.update_start_date ) ;
@@ -16,7 +17,14 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '.rs_csv_format' , this.export_user_based_on ) ;
             $( document ).on( 'click' , '#rs_export_user_points_csv' , this.export_points_as_csv ) ;
         } ,
-        export_points_as_csv : function () {
+        trigger_on_page_load : function() {
+            if( fp_impexp_module_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
+                $( '#rs_export_user_roles' ).chosen() ;
+            } else {
+                $( '#rs_export_user_roles' ).select2() ;
+            }
+        } ,
+        export_points_as_csv : function() {
             var block = $( this ).closest( '.rs_section_wrapper' ) ;
             RSImpExp.block( block ) ;
             var usertype = $( "input:radio[name=rs_export_import_user_option]:checked" ).val() ;
@@ -25,6 +33,7 @@ jQuery( function ( $ ) {
                 action : 'exportpoints' ,
                 usertype : usertype ,
                 selecteduser : selecteduser ,
+                selected_user_roles : $( "#rs_export_user_roles" ).val() ,
                 sumo_security : fp_impexp_module_params.fp_export_points ,
             } ) ;
             $.post( fp_impexp_module_params.ajaxurl , data , function ( response ) {

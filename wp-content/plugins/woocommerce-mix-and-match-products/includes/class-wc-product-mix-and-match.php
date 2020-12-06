@@ -787,7 +787,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		foreach ( $children as $child_id => $child ) {
 
 			// Skip any item that isn't in stock/purchasable.
-			if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && ! $child->is_in_stock() ) {
+			if ( apply_filters( 'wc_mnm_hide_out_of_stock_items', 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ), $this ) && ! $child->is_in_stock() ) {
 				continue;
 			}
 

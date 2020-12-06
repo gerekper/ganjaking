@@ -47,18 +47,18 @@ if(!defined('ABSPATH')) exit();
 							<label_a><?php _e('Gap', 'revslider');?></label_a><input type="checkbox" class="easyinit sliderinput" data-evt="sliderProgressUpdate" id="sr_pb_separator" data-showhide=".separatorpb" data-showhidedep="true" data-r="general.progressbar.gap"><span class="linebreak"></span>						
 							<div class="separatorpb">
 								<label_a><?php _e('Gap Size', 'revslider');?></label_a><input class="sliderinput valueduekeyboard easyinit" data-numeric="true" data-allowed="" data-evt="sliderProgressUpdate" data-r="general.progressbar.gapsize" type="text" id="sr_pb_gaps" ><span class="linebreak"></span>						
-								<label_a><?php _e('Gap Color', 'revslider');?></label_a><input type="text" data-editing="Gap Color" data-evt="sliderProgressUpdate" name="progressgapcolor" data-visible="true" id="progressgapcolor" class="my-color-field sliderinput" data-r="general.progressbar.gapcolor" value="transparent">							
+								<label_a><?php _e('Gap Color', 'revslider');?></label_a><input type="text" data-editing="Gap Color" data-evt="sliderProgressUpdate" name="progressgapcolor" data-visible="true" id="progressgapcolor" class="my-color-field sliderinput easyinit" data-r="general.progressbar.gapcolor" value="transparent">							
 							</div>
 						</div>
 					</div>
 					<div class="div5"></div>										
-					<label_a><?php _e('Progress Bar', 'revslider');?></label_a><input type="text" data-editing="Progressbar Color" data-evt="sliderProgressUpdate" name="sliderprogresscolor" data-visible="true" id="sliderprogresscolor" class="my-color-field sliderinput" data-r="general.progressbar.color" value="transparent">
-					<label_a><?php _e('Background', 'revslider');?></label_a><input type="text" data-editing="Progressbar Color BG" data-evt="sliderProgressUpdate" name="sliderprogresscolorbg" data-visible="true" id="sliderprogresscolorbg" class="my-color-field sliderinput" data-r="general.progressbar.bgcolor" value="transparent">
+					<label_a><?php _e('Progress Bar', 'revslider');?></label_a><input type="text" data-editing="Progressbar Color" data-evt="sliderProgressUpdate" name="sliderprogresscolor" data-visible="true" id="sliderprogresscolor" class="my-color-field sliderinput easyinit" data-r="general.progressbar.color" value="transparent">
+					<label_a><?php _e('Background', 'revslider');?></label_a><input type="text" data-editing="Progressbar Color BG" data-evt="sliderProgressUpdate" name="sliderprogresscolorbg" data-visible="true" id="sliderprogresscolorbg" class="my-color-field sliderinput easyinit" data-r="general.progressbar.bgcolor" value="transparent">
 					<div class="div5"></div>
 					<label_a>Aligned by</label_a>
-					<div class="radiooption">
-						<div><input class="sliderinput easyinit" data-evt="sliderProgressUpdate" type="radio" value="slider" name="sr_pr_alignscene" data-r="general.progressbar.alignby"><label_sub>Module Dimension</label_sub></div>
-						<div><input class="sliderinput easyinit" data-evt="sliderProgressUpdate" type="radio" value="grid" name="sr_pr_alignscene" data-r="general.progressbar.alignby"><label_sub>Content</label_sub></div>
+					<div class="radiooption">						
+						<div><input class="sliderinput easyinit" data-evt="sliderProgressUpdate" type="radio" value="grid" id="sr_pr_alignscene_grid" name="sr_pr_alignscene" data-r="general.progressbar.alignby"><label_sub><?php _e('Layer Area', 'revslider');?></label_sub></div>
+						<div><input class="sliderinput easyinit" data-evt="sliderProgressUpdate" type="radio" value="slider" id="sr_pr_alignscene_slider" name="sr_pr_alignscene" data-r="general.progressbar.alignby"><label_sub><?php _e('Scene', 'revslider');?></label_sub></div>
 					</div>
 					<div class="div20"></div>
 					<div class="div5"></div>					
@@ -283,7 +283,7 @@ if(!defined('ABSPATH')) exit();
 				<div class="form_inner_header"><i class="material-icons">palette</i><?php _e('Global Style Presets', 'revslider');?></div>
 				<!--<div class="form_intoaccordion" data-trigger="#sr_na_arr_2"><i class="material-icons">arrow_drop_down</i></div>-->
 				<div class="collapsable">
-					<label_a><?php _e('Preset', 'revslider');?></label_a><select id="sr_arrows_style_preset" data-r="nav.arrows.preset" class="sliderinput tos2" ></select><span class="linebreak"></span>
+					<label_a><?php _e('Preset', 'revslider');?></label_a><select id="sr_arrows_style_preset" data-r="nav.arrows.preset" class="sliderinput tos2 easyinit" ></select><span class="linebreak"></span>
 					<label_a></label_a><div data-evt="sliderNavPreset" data-evtparam="arrows" class="callEventButton basic_action_button autosize"><i class="material-icons">save</i><?php _e('Load', 'revslider');?></div>
 					<div data-evt="saveNavPreset" data-evtparam="arrows" class="callEventButton basic_action_button autosize"><i class="material-icons">save</i><?php _e('Save', 'revslider');?></div><span class="linebreak"></span>
 					<label_a></label_a><div data-evt="deleteNavPreset" data-evtparam="arrows" class="callEventButton basic_action_button autosize"><i class="material-icons">delete</i><?php _e('Delete', 'revslider');?></div>
@@ -423,7 +423,7 @@ if(!defined('ABSPATH')) exit();
 				<div class="form_inner_header"><i class="material-icons">palette</i><?php _e('Global Style Presets', 'revslider');?></div>
 				<!--<div class="form_intoaccordion" data-trigger="#sr_na_arr_2"><i class="material-icons">arrow_drop_down</i></div>-->
 				<div class="collapsable">
-					<label_a><?php _e('Preset', 'revslider');?></label_a><select id="sr_bullets_style_preset" data-r="nav.bullets.preset" class="sliderinput tos2" ></select>
+					<label_a><?php _e('Preset', 'revslider');?></label_a><select id="sr_bullets_style_preset" data-r="nav.bullets.preset" class="sliderinput tos2 easyinit" ></select>
 					<label_a></label_a><div data-evt="sliderNavPreset" data-evtparam="bullets" class="callEventButton basic_action_button autosize"><i class="material-icons">save</i><?php _e('Load', 'revslider');?></div>
 					<div data-evt="saveNavPreset" data-evtparam="bullets" class="callEventButton basic_action_button autosize"><i class="material-icons">save</i><?php _e('Save', 'revslider');?></div><span class="linebreak"></span>
 					<label_a></label_a><div data-evt="deleteNavPreset" data-evtparam="bullets" class="callEventButton basic_action_button autosize"><i class="material-icons">delete</i><?php _e('Delete', 'revslider');?></div>
@@ -555,7 +555,7 @@ if(!defined('ABSPATH')) exit();
 				<!--<div class="form_intoaccordion" data-trigger="#sr_na_tab_13"><i class="material-icons">arrow_drop_down</i></div>-->
 				<div class="collapsable">
 					<!-- WRAPPER -->
-					<label_a style="padding:0px"><label_icon class="ui_bg"></label_icon></label_a><input type="text" data-editing="Tab Wrapper BG Color" data-evt="sliderTabBgColor" name="sliderTabBgColor" id="sliderTabBgColor" data-visible="true" class="my-color-field sliderinput" data-r="nav.tabs.wrapperColor" value="transparent">
+					<label_a style="padding:0px"><label_icon class="ui_bg"></label_icon></label_a><input type="text" data-editing="Tab Wrapper BG Color" data-evt="sliderTabBgColor" name="sliderTabBgColor" id="sliderTabBgColor" data-visible="true" class="my-color-field sliderinput easyinit" data-r="nav.tabs.wrapperColor" value="transparent">
 					<div class="div10"></div>
 					<label_a style="padding:0px"><label_icon class="ui_padding"></label_icon></label_a><input class="sliderinput valueduekeyboard  easyinit" data-evt="sliderNavPositionUpdate" data-evtparam="tabs" data-r="nav.tabs.padding" data-min="0" data-max="5000" type="text" id="nav_tabs_padding" >
 					<span class="linebreak"></span>
@@ -610,7 +610,7 @@ if(!defined('ABSPATH')) exit();
 			<div id="form_nav_tabs_style" class="form_inner open">
 				<div class="form_inner_header"><i class="material-icons">palette</i><?php _e('Global Style Presets', 'revslider');?></div>
 				<div class="collapsable">
-					<label_a><?php _e('Preset', 'revslider');?></label_a><select id="sr_tabs_style_preset" data-r="nav.tabs.preset" class="sliderinput tos2" ></select>
+					<label_a><?php _e('Preset', 'revslider');?></label_a><select id="sr_tabs_style_preset" data-r="nav.tabs.preset" class="sliderinput tos2 easyinit" ></select>
 					<label_a></label_a><div data-evt="sliderNavPreset" data-evtparam="tabs" class="callEventButton basic_action_button autosize"><i class="material-icons">save</i><?php _e('Load', 'revslider');?></div>
 					<div data-evt="saveNavPreset" data-evtparam="tabs" class="callEventButton basic_action_button autosize"><i class="material-icons">save</i><?php _e('Save', 'revslider');?></div><span class="linebreak"></span>
 					<label_a></label_a><div data-evt="deleteNavPreset" data-evtparam="tabs" class="callEventButton basic_action_button autosize"><i class="material-icons">delete</i><?php _e('Delete', 'revslider');?></div>
@@ -737,7 +737,7 @@ if(!defined('ABSPATH')) exit();
 				<!--<div class="form_intoaccordion" data-trigger="#sr_na_thumb_13"><i class="material-icons">arrow_drop_down</i></div>-->
 				<div class="collapsable">
 					<!-- WRAPPER -->
-					<label_a style="padding:0px"><label_icon class="ui_bg"></label_icon></label_a><input type="text" data-editing="Thumb Wrapper BG Color" data-evt="sliderThumbBgColor" data-visible="true"  name="sliderThumbBgColor" id="sliderThumbBgColor" class="my-color-field sliderinput" data-r="nav.thumbs.wrapperColor" value="transparent">
+					<label_a style="padding:0px"><label_icon class="ui_bg"></label_icon></label_a><input type="text" data-editing="Thumb Wrapper BG Color" data-evt="sliderThumbBgColor" data-visible="true"  name="sliderThumbBgColor" id="sliderThumbBgColor" class="my-color-field sliderinput easyinit" data-r="nav.thumbs.wrapperColor" value="transparent">
 					<div class="div10"></div>
 					<label_a style="padding:0px"><label_icon class="ui_padding"></label_icon></label_a><input class="sliderinput valueduekeyboard  easyinit" data-evt="sliderNavPositionUpdate" data-evtparam="thumbs" data-r="nav.thumbs.padding" data-min="0" data-max="5000" type="text" id="nav_thumbs_padding">
 					<span class="linebreak"></span>
@@ -794,7 +794,7 @@ if(!defined('ABSPATH')) exit();
 			<div id="form_nav_thumbs_style" class="form_inner open">
 				<div class="form_inner_header"><i class="material-icons">palette</i><?php _e('Global Style Presets', 'revslider');?></div>
 				<div class="collapsable">
-					<label_a><?php _e('Preset', 'revslider');?></label_a><select id="sr_thumbs_style_preset" data-r="nav.thumbs.preset" class="sliderinput tos2" ></select>
+					<label_a><?php _e('Preset', 'revslider');?></label_a><select id="sr_thumbs_style_preset" data-r="nav.thumbs.preset" class="sliderinput tos2 easyinit" ></select>
 					<label_a></label_a><div data-evt="sliderNavPreset" data-evtparam="thumbs" class="callEventButton basic_action_button autosize"><i class="material-icons">save</i><?php _e('Load', 'revslider');?></div>
 					<div data-evt="saveNavPreset" data-evtparam="thumbs" class="callEventButton basic_action_button autosize"><i class="material-icons">save</i><?php _e('Save', 'revslider');?></div><span class="linebreak"></span>
 					<label_a></label_a><div data-evt="deleteNavPreset" data-evtparam="thumbs" class="callEventButton basic_action_button autosize"><i class="material-icons">delete</i><?php _e('Delete', 'revslider');?></div>
@@ -884,27 +884,34 @@ if(!defined('ABSPATH')) exit();
 
 		<!-- MOUSE  SETTINGS -->
 		<div id="form_nav_mousescroll" data-select="#gst_nav_9" data-unselect=".nav_submodule_trigger" class="formcontainer form_menu_inside collapsed carouselenable standardenable herodisable">
-			<div class="collectortabwrap"><div id="collectortab_form_misc" class="collectortab form_menu_inside" data-forms='["#form_nav_mousescroll"]'><i class="material-icons">mouse</i><?php _e('Mouse Scroll Settings', 'revslider');?></div></div>
+			<div class="collectortabwrap"><div id="collectortab_form_misc" class="collectortab form_menu_inside" data-forms='["#form_nav_mousescroll"]'><i class="material-icons">mouse</i><?php _e('Mouse Wheel Navigation', 'revslider');?></div></div>
 			<!--<div class="form_intoaccordion"><i class="material-icons">arrow_drop_down</i></div>-->
 			<div class="form_inner">
-				<div class="form_inner_header"><i class="material-icons">mouse</i><?php _e('Mouse Scroll Navigation', 'revslider');?></div>
+				<div class="form_inner_header"><i class="material-icons">mouse</i><?php _e('Mouse Wheel Navigation', 'revslider');?></div>
 				<!--<div class="form_intoaccordion" data-trigger="#sr_na_thumb_11"><i class="material-icons">arrow_drop_down</i></div>				-->
 				<div class="collapsable" style="display:block">
-					<label_a><?php _e('Enabled', 'revslider');?></label_a>
-					<div class="radiooption">
-						<input type="radio" name="sr_mousenavigation" class="sliderinput easyinit" data-r="nav.mouse.set" value="on"><label_sub><?php _e('On', 'revslider');?></label_sub><span class="linebreak"></span>
-						<input type="radio" name="sr_mousenavigation" class="sliderinput easyinit" data-r="nav.mouse.set" value="off"><label_sub><?php _e('Off', 'revslider');?></label_sub><span class="linebreak"></span>
-						<input type="radio" name="sr_mousenavigation" class="sliderinput easyinit" data-r="nav.mouse.set" value="carousel"><label_sub><?php _e('Carousel', 'revslider');?></label_sub>
+					<label_a><?php _e('Wheel Listener', 'revslider');?></label_a><select class="sliderinput tos2 nosearchbox easyinit"  name="sr_mousenavigation" class="sliderinput easyinit" data-r="nav.mouse.set" data-show=".sr_mousenavigation_*val*" data-hide=".sr_mousenavigationsettings"><option value="on"><?php _e('On', 'revslider');?></option><option value="carousel"><?php _e('Infinity', 'revslider');?></option><option value="off"><?php _e('Off', 'revslider');?></option></select><span class="linebreak"></span>
+					<div class="sr_mousenavigation_on sr_mousenavigation_carousel sr_mousenavigationsettings">																				
+						<label_a><?php _e('Reverse Scroll', 'revslider');?></label_a><select class="sliderinput tos2 nosearchbox easyinit"  name="sr_reversemousenavigation" class="sliderinput easyinit" data-r="nav.mouse.reverse"><option value="reverse"><?php _e('Reverse', 'revslider');?></option><option value="default"><?php _e('Default', 'revslider');?></option></select><span class="linebreak"></span>						
+						<div class="div10"></div>				
+						<longoption><i class="material-icons">visibility</i><label_a><?php _e('In ViewPort (%)', 'revslider');?></label_a><input class="sliderinput valueduekeyboard easyinit"  data-r="nav.mouse.viewport" data-min="0" data-max="100" type="text" id="wheelifvisible" ></longoption>
+						<longoption><i class="material-icons">schedule</i><label_a><?php _e('Call Delay', 'revslider');?></label_a><input class="sliderinput valueduekeyboard easyinit"  data-r="nav.mouse.calldelay" data-min="100" data-max="3000" data-allowed="ms" type="text" id="wheelcalldelay" ></longoption>
+						
 					</div>
-					<div class="div10"></div>
-					<label_a><?php _e('Reverse Scroll', 'revslider');?></label_a>
-					<div class="radiooption">
-						<input type="radio" name="sr_reversemousenavigation" class="sliderinput easyinit" data-r="nav.mouse.reverse" value="reverse"><label_sub><?php _e('Reverse', 'revslider');?></label_sub><span class="linebreak"></span>
-						<input type="radio" name="sr_reversemousenavigation" class="sliderinput easyinit" data-r="nav.mouse.reverse" value="default"><label_sub><?php _e('Default', 'revslider');?></label_sub>
+				</div>		
+				<!--<div class="sr_mousenavigation_on sr_mousenavigationsettings">			
+					<div class="form_inner">					
+						<div class="collectortabwrap " style="display:block"><div class="collectortab form_inner_header" style="display:block"><i class="material-icons">mouse</i><?php _e('Stop Page Scrolling', 'revslider');?></div></div>
+						<div class="collapsable" style="display:block">																													
+							<label_a><?php _e('Way Up at', 'revslider');?></label_a><select id="wheelwayup" class="sliderinput tos2 nosearchbox easyinit"  data-show=".msWayUpOffset" data-hide=".msWayUp_*val*" data-showprio="hide" data-r="nav.mouse.msWayUp"><option value="top"><?php _e('Top', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option><option value="ignore"><?php _e('Ignore', 'revslider');?></option></select><span class="linebreak"></span>
+							<div class="msWayUp_ignore msWayUpOffset"><label_a><?php _e('Offset', 'revslider');?></label_a><input class="sliderinput valueduekeyboard easyinit"  data-r="nav.mouse.msWayUpOffset" data-min="0" data-max="1500" type="text" id="msWayUpOffset" ></div>
+							<label_a><?php _e('Way Down at', 'revslider');?></label_a><select id="wheelwaydown" class="sliderinput tos2 nosearchbox easyinit" data-show=".msWayDownOffset" data-hide=".msWayDown_*val*" data-showprio="hide" data-r="nav.mouse.msWayDown"><option value="top"><?php _e('Top', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option><option value="ignore"><?php _e('Ignore', 'revslider');?></option></select><span class="linebreak"></span>
+							<div class="msWayDown_ignore msWayDownOffset"><label_a><?php _e('Offset', 'revslider');?></label_a><input class="sliderinput valueduekeyboard easyinit"  data-r="nav.mouse.msWayDownOffset" data-min="0" data-max="1500" type="text" id="msWayDownOffset" ></div>
+						</div>
 					</div>
-
-				</div>
-			</div>
-		</div><!-- MOUSE SETTINGS END -->
+				</div>-->
+			</div>				
+									
+		</div><!-- MOUSE SETTINGS END -->		
 	</div>
 </div><!-- END OF SLIDER SETTINGS-->

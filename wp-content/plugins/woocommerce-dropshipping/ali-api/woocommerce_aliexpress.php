@@ -25,6 +25,34 @@
 	}
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/product
 
+	add_action( 'rest_api_init', 'import_image_base64' );
+	function import_image_base64() {
+	    register_rest_route(
+	    	'woo-aliexpress/v1',
+	    	'import_image_base64',
+    		array(
+                'methods' => WP_REST_Server::CREATABLE,
+                'permission_callback' => '__return_true',
+                'callback' => 'import_image_base64_in_woo',
+            )
+        );
+	}
+	// http://mytestsite.com/wp-json/woo-aliexpress/v1/import_image_base64
+
+	add_action( 'rest_api_init', 'get_product_details_by_sku' );
+	function get_product_details_by_sku() {
+	    register_rest_route(
+	    	'woo-aliexpress/v1',
+	    	'get_product_details_by_sku',
+    		array(
+                'methods' => WP_REST_Server::CREATABLE,
+                'permission_callback' => '__return_true',
+                'callback' => 'get_product_details_by_sku_in_woo',
+            )
+        );
+	}
+	// http://mytestsite.com/wp-json/woo-aliexpress/v1/get_product_details_by_sku
+
 	add_action( 'rest_api_init', 'get_list_of_product_category_from_woo_callback' );
 	function get_list_of_product_category_from_woo_callback() {
 	    register_rest_route(
@@ -169,8 +197,8 @@
 
 			function getPriceRate() {
 				$options = get_option( 'wc_dropship_manager' );
-				$ali_cbe_price_rate_type = $options['ali_cbe_price_rate_name'];
-				$ali_cbe_price_rate_value = $options['ali_cbe_price_rate_value_name'];
+				$ali_cbe_price_rate_type = isset($options['ali_cbe_price_rate_name']) ? $options['ali_cbe_price_rate_name'] : '';
+				$ali_cbe_price_rate_value = isset($options['ali_cbe_price_rate_value_name']) ? $options['ali_cbe_price_rate_value_name'] : '';
 				if($options['ali_cbe_enable_name'] == '0'){
 					$ali_cbe_price_rate_value = 0;
 				}
@@ -240,13 +268,13 @@
          	return new WP_Error( 'fail', esc_html__( 'The Sale Price parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
         }
 
-        /* if(!isset($inputParams['description'])){
+         if(!isset($inputParams['description'])){
          	return new WP_Error( 'fail', esc_html__( 'The Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
         }
 
         if(!isset($inputParams['short_description'])){
          	return new WP_Error( 'fail', esc_html__( 'The Short Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
-        } */
+        }
 
         if( isset($inputParams['categories']) ){
 
@@ -269,7 +297,7 @@
 	    	}
 
         }
-
+        $inputParamsImg = []; $inputParamsImgInvalid = [];
         if( isset($inputParams['images']) ){
 
 			if( !is_array($inputParams['images']) || empty($inputParams['images']) ){
@@ -277,19 +305,38 @@
 			}
 
 			$imagesFlag = false;
-
+            $mn = 1;
 	    	foreach ($inputParams['images'] as $value){
+    	    		if( !is_array($value) || empty($value) || count($value) > 1 || !isset($value['src']) ){
+    	    			$imagesFlag = true;
+    	    		}
 
-	    		if( !is_array($value) || empty($value) || count($value) > 1 || !isset($value['src']) ){
-	    			$imagesFlag = true;
-	    		}
+    				$exts = array('jpg', 'gif', 'png', 'jpeg', 'webp');
+    	    		if( !( filter_var($value['src'], FILTER_VALIDATE_URL) && in_array(strtolower(pathinfo($value['src'], PATHINFO_EXTENSION)), $exts) ) )
+    	    		{
+    	    			$imagesFlag = true;
+    	    		}else{
+    	    		    if(strtolower(pathinfo($value['src'], PATHINFO_EXTENSION))=='webp'){
+    	    		        $wp_upload_dir = wp_upload_dir();
+    	    		        $name = time();
+                            $upload = file_put_contents($wp_upload_dir['basedir'].'/droptmp/'.$name.'_'.$mn.'_.webp',file_get_contents(htmlspecialchars($value['src'])));
+                            $convert = file_put_contents($wp_upload_dir['basedir'].'/droptmp/convert/'.$name.'_'.$mn.'_.jpg',file_get_contents($wp_upload_dir['basedir'].'/droptmp/'.$name.'_'.$mn.'_.webp'));
+                            $uploadedWebp = $wp_upload_dir['basedir'].'/droptmp/'.$name.'_'.$mn.'_.webp';
+                            if(isset($uploadedWebp)){
+                                unlink($wp_upload_dir['basedir'].'/droptmp/'.$name.'_'.$mn.'_.webp');
+                            }
+                            $a = getimagesize($wp_upload_dir['basedir'].'/droptmp/convert/'.$name.'_'.$mn.'_.jpg');
+                            $image_type = $a[2];
+                            if(in_array($image_type , array(IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP))){
+                            	array_push($inputParamsImg,array('src'=>$wp_upload_dir['baseurl'].'/droptmp/convert/'.$name.'_'.$mn.'_.jpg'));
+                            }else{
+                                array_push($inputParamsImgInvalid,array('src'=>$wp_upload_dir['baseurl'].'/droptmp/convert/'.$name.'_'.$mn.'_.jpg'));
+                            }
 
-				$exts = array('jpg', 'gif', 'png', 'jpeg');
-	    		if( !( filter_var($value['src'], FILTER_VALIDATE_URL) && in_array(strtolower(pathinfo($value['src'], PATHINFO_EXTENSION)), $exts) ) )
-	    		{
-	    			$imagesFlag = true;
-	    		}
-
+    	    		    }else{
+    	    		        array_push($inputParamsImg,array('src'=>$value['src']));
+    	    		    }
+    	    		} $mn++;
 	    	}
 
 	    	if($imagesFlag){
@@ -389,7 +436,7 @@
     	}*/
 
         if( empty($inputParams['ali_store_name']) ){
-         	return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Name for this product!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	//return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Name for this product!', 'my-text-domain' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['ali_product_url']) || !preg_match( '/^(http|https):\\/\\/[a-z0-9_]+([\\-\\.]{1}[a-z_0-9]+)*\\.[_a-z]{2,5}'.'((:[0-9]{1,5})?\\/.*)?$/i' , $inputParams['ali_product_url']) ){
@@ -412,10 +459,11 @@
 		$price 				= $inputParams['price'];
 		$regular_price 		= $inputParams['regular_price'];
 		$sale_price 		= $inputParams['sale_price'];
-		$description 		= $inputParams['description'];
+		$description 	= $inputParams['description'];
 		$short_description 	= $inputParams['short_description'];
 		$categories 		= $inputParams['categories'];
-		$images 			= $inputParams['images'];
+		$images 			= $inputParamsImg;
+		//$images 			= array(array('src'=>'https://dev-wptest.nicer8.com/wp-content/uploads/droptmp/1601978101_6_.jpeg'),array('src'=>'https://dev-wptest.nicer8.com/wp-content/uploads/droptmp/1601978099_5_.jpeg'),array('src'=>'https://dev-wptest.nicer8.com/wp-content/uploads/droptmp/1601978098_4_.jpeg'));
 		$manage_stock 		= $inputParams['manage_stock'];
 		$stock_quantity 	= $inputParams['stock_quantity'];
 		$tags 				= $inputParams['tags'];
@@ -448,7 +496,7 @@
 
 		if(!empty($product_id)) { /** if product already exits **/
 
-			$response = new WP_Error( 'fail', esc_html__( 'Product already exists. Please select another product.', 'my-text-domain' ), array( 'status' => 400 ) );
+			$response = new WP_Error( 'fail', esc_html__( 'Product already exists. Please select another product.', 'my-text-domain' ), array( 'status' => 400, 'sku' => $sku, 'imgarray' => $inputParamsImg ) );
 
 		} else {
 
@@ -477,8 +525,8 @@
 
 			$woorequest = new WP_REST_Request( 'POST' );
 			$woorequest->set_body_params( $inputs_new );
-			$products_controller = new WC_REST_Products_Controller;
-			$response = $products_controller->create_item( $woorequest );
+			$products_controller = new WC_REST_Products_Controller; //echo '<pre>'; print_r($woorequest); echo '</pre>';
+			$response = $products_controller->create_item( $woorequest ); //echo '<pre>'; print_r($response); echo '</pre>';
 			$res = $response->data;
 			//return $res;
 
@@ -532,18 +580,40 @@
 			fclose($fp); */
 
 			if(isset($response->status) && $response->status <= 201) {
-
+                foreach($inputParamsImg as $value){
+                    $wp_upload_dir = wp_upload_dir();
+                    $fileUrl = $value['src'];
+                    if(strpos($fileUrl, 'convert') !== false){
+                        $fileDetails = explode("convert/",$fileUrl);
+                        $realPath = $wp_upload_dir['basedir'].'/droptmp/convert/'.$fileDetails[1];
+                        if(isset($realPath)){
+                            unlink($wp_upload_dir['basedir'].'/droptmp/convert/'.$fileDetails[1]);
+                        }
+                    }
+                }
+                foreach($inputParamsImgInvalid as $value){
+                    $wp_upload_dir = wp_upload_dir();
+                    $fileUrl = $value['src'];
+                    if(strpos($fileUrl, 'convert') !== false){
+                        $fileDetails = explode("convert/",$fileUrl);
+                        $realPath = $wp_upload_dir['basedir'].'/droptmp/convert/'.$fileDetails[1];
+                        if(isset($realPath)){
+                            unlink($wp_upload_dir['basedir'].'/droptmp/convert/'.$fileDetails[1]);
+                        }
+                    }
+                }
 				// Following should be used whenever we want to return success:
 				$response = array(
 					"code" => 'success',
 					"message" => 'Product created successfully.',
+					'imgarray' => $inputParamsImg,
 					"data" => array(
 						"status" => 200
 					)
 				);
 
 			} else {
-				$response = new WP_Error( 'fail', esc_html__( 'Oops! Something went wrong. Please try again!', 'my-text-domain' ), array( 'status' => 400 ) );
+				$response = new WP_Error( 'fail', esc_html__( 'Oops! Something went wrong. Please try again!', 'my-text-domain' ), array( 'status' => 400, 'imgarray' => $inputParamsImg) );
 			}
 		}
 
@@ -555,6 +625,171 @@
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/product
 
 
+    function import_image_base64_in_woo(WP_REST_Request $request) {
+
+		$inputParams = $request->get_json_params();
+
+		/**********PRODUCT VALIDATIONS STARTS HERE***/
+        if( empty($inputParams['imgdata']) ){
+         	return new WP_Error( 'fail', esc_html__( 'Image data is empty!', 'my-text-domain' ), array( 'status' => 400 ) );
+        }else{
+            $upload_dir   = wp_upload_dir();
+            define('UPLOAD_DIR', $upload_dir['basedir'].'/droptmp/');
+            $image_parts = explode(";base64,", $inputParams['imgdata']);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $filename = uniqid() . '.png';
+            $file = UPLOAD_DIR . $filename;
+            file_put_contents($file, $image_base64);
+        }
+        $response = array(
+			"code" => 'success',
+			"message" => 'THis is test message',
+			"data" => array(
+				"status" => 200
+			),
+			"content" => $upload_dir['baseurl'].'/droptmp/'.$filename
+		);
+		return $response;
+    }
+
+    function get_product_details_by_sku_in_woo(WP_REST_Request $request) {
+
+		$inputParams = $request->get_json_params();
+		/**********PRODUCT VALIDATIONS STARTS HERE***/
+        if( empty($inputParams['sku']) ){
+            $status = 400;
+            $code = 'failed';
+            $content = array(123);
+        }else{
+              global $wpdb;
+              global $product;
+              $product_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_sku' AND meta_value='%s' LIMIT 1", $inputParams['sku'] ) );
+              if( $product_id ){
+                 $product = new WC_Product( $product_id );
+                 $productV = wc_get_product($product_id);
+                 $image_id  = $product->get_image();
+                 //$image_url = wp_get_attachment_image_url( $image_id, 'full' );
+                 $image_url = get_the_post_thumbnail_url($product_id,'full');
+                 $product_full_description = $productV->get_description();
+                 //$product_full_description = "";
+                 $product_short_description = $productV->get_short_description();
+                 //$product_short_description = "";
+                 $title = $product->get_name();
+                 $ali_product_url = get_post_meta($product_id,'ali_product_url',true);
+                 $ali_store_name = get_post_meta($product_id,'ali_store_name',true);
+                 $ali_store_price_range = get_post_meta($product_id,'ali_store_price_range',true);
+                 $ali_store_url = get_post_meta($product_id,'ali_store_url',true);
+                 $attributes = get_post_meta($product_id,'_product_attributes',false);
+
+
+                 $type = $productV->get_type();
+                 $variations = $productV->get_available_variations();
+                 $variationArr = [];
+                 if(!empty($variations)){
+                    foreach($variations as $single){
+                        $attrArr = [];
+                        foreach($single['attributes'] as $attr=>$v){
+                            $option = $v;
+                            $name = ucfirst(str_replace("attribute_","",$attr));
+                            $attrArr[] = array('name'=>$name,'option'=>$option);
+                        }
+                        $variationArr[] = array('attributes'=>$attrArr,'manage_stock'=>$single['is_in_stock'],'regular_price'=>$single['display_regular_price'],'sale_price'=>$single['display_price'],'stock_quantity'=>$single['max_qty']);
+                    }
+                 }
+
+                 $attributesArr = [];
+                 $attributesArrD = [];
+                 if(!empty($attributes)){
+                    foreach($attributes as $attr){
+                        if(!empty($attr)){
+                            foreach($attr as $at=>$v){
+                                $options = [];
+                                if(!empty($v['value'])){
+                                    $options = explode("|",$v['value']);
+                                }
+                                $is_variation = false;
+                                if(isset($v['is_variation']) && $v['is_variation']==1){
+                                    $is_variation = true;
+                                }
+                                $is_visible = false;
+                                if(isset($v['is_visible']) && $v['is_visible']==1){
+                                    $is_visible = true;
+                                }
+                                $attra = array('name'=>$v['name'],'options'=>$options,'position'=>$v['position'],'variation'=>$is_variation,'visible'=>$is_visible);
+                                $attraD = array('name'=>$v['name'],'options'=>$options[0]);
+                                $attributesArr[] = $attra;
+                                $attributesArrD[] = $attraD;
+                            }
+                        }
+                    }
+                 }
+
+                 $categories = "";
+                 $default_attributes = $attributesArrD;
+
+                 $imageArr = get_post_meta($product_id,'_product_image_gallery',true);
+                 $imageArr = explode(",",$imageArr);
+                 if(!empty($image_url)){
+                     $imgUrls = array(array('src'=>$image_url));
+                 }else{
+                    $imgUrls = array();
+                 }
+                 if(!empty($imageArr)){
+                    foreach($imageArr as $img){
+                         $image_urls = wp_get_attachment_image_url( $img, 'full' );
+                         array_push($imgUrls,array('src'=>$image_urls));
+                    }
+                 }
+                 $images = $imgUrls;
+                 $is_ali_prod = get_post_meta($product_id,'_is_ali_product',true);
+                 $manage_stock = true;
+                 $number_of_orders = get_post_meta($product_id,'number_of_orders',true);
+                 $price = $productV->get_price();
+
+                 if($type=='variable'){
+                    $regular_price = $productV->get_variation_regular_price( 'min' );
+                 }else{
+                    $regular_price = $productV->get_regular_price();
+                 }
+
+                 if($type=='variable'){
+                    $sale_price = $productV->get_variation_sale_price( 'min' );
+                 }else{
+                    $sale_price = $productV->get_sale_price();
+                 }
+
+                 $sku = $product->get_sku();
+                 $stock_quantity = $product->get_stock_quantity();
+                 $tagsIds = $productV->get_tag_ids();
+                 $tags = [];
+                 foreach($tagsIds as $tid){
+                    $tags[] = array('id'=>$tid);
+                 }
+                 $catIds = $productV->get_category_ids();
+                 $cats = [];
+                 foreach($catIds as $cid){
+                    $cats[] = array('id'=>$cid);
+                 }
+                 $status = 200;
+                 $code = 'success';
+                 $content = array('title'=>$title,'ali_product_url'=>$ali_product_url,'ali_store_name'=>$ali_store_name,'ali_store_price_range'=>$ali_store_price_range,'ali_store_url'=>$ali_store_url,'attributes'=>$attributesArr,'categories'=>$cats,'default_attributes'=>$default_attributes,'description'=>$product_full_description,'short_description'=>$product_short_description,'images'=>$images,'is_ali_prod'=>$is_ali_prod,'manage_stock'=>$manage_stock,'number_of_orders'=>$number_of_orders,'price'=>$price,'regular_price'=>$regular_price,'sale_price'=>$sale_price,'sku'=>$sku,'stock_quantity'=>$stock_quantity,'tags'=>$tags,'type'=>$type,'variations'=>$variationArr);
+              //print_r($content);
+                 //$content = array('title'=>$title);
+              }else{
+                 $status = 400;
+                 $content = array();
+                 $code = 'failed';
+              }
+        }
+        $response = array(
+			"code" => $code,
+			"status" => $status,
+			"content" => $content
+		);
+		return $response;
+    }
 
 
 	if (!function_exists('get_product_category_from_woo')) {
@@ -994,7 +1229,7 @@
 	    	}
 
         }
-
+        $inputParamsImg = []; $inputParamsImgInvalid = [];
         if( isset($inputParams['images']) ){
 
 			if( !is_array($inputParams['images']) || empty($inputParams['images']) ){
@@ -1002,19 +1237,38 @@
 			}
 
 			$imagesFlag = false;
-
+            $mn = 1;
 	    	foreach ($inputParams['images'] as $value){
+    	    		if( !is_array($value) || empty($value) || count($value) > 1 || !isset($value['src']) ){
+    	    			$imagesFlag = true;
+    	    		}
 
-	    		if( !is_array($value) || empty($value) || count($value) > 1 || !isset($value['src']) ){
-	    			$imagesFlag = true;
-	    		}
+    				$exts = array('jpg', 'gif', 'png', 'jpeg', 'webp');
+    	    		if( !( filter_var($value['src'], FILTER_VALIDATE_URL) && in_array(strtolower(pathinfo($value['src'], PATHINFO_EXTENSION)), $exts) ) )
+    	    		{
+    	    			$imagesFlag = true;
+    	    		}else{
+    	    		    if(strtolower(pathinfo($value['src'], PATHINFO_EXTENSION))=='webp'){
+    	    		        $wp_upload_dir = wp_upload_dir();
+    	    		        $name = time();
+                            $upload = file_put_contents($wp_upload_dir['basedir'].'/droptmp/'.$name.'_'.$mn.'_.webp',file_get_contents(htmlspecialchars($value['src'])));
+                            $convert = file_put_contents($wp_upload_dir['basedir'].'/droptmp/convert/'.$name.'_'.$mn.'_.jpg',file_get_contents($wp_upload_dir['basedir'].'/droptmp/'.$name.'_'.$mn.'_.webp'));
+                            $uploadedWebp = $wp_upload_dir['basedir'].'/droptmp/'.$name.'_'.$mn.'_.webp';
+                            if(isset($uploadedWebp)){
+                                unlink($wp_upload_dir['basedir'].'/droptmp/'.$name.'_'.$mn.'_.webp');
+                            }
+                            $a = getimagesize($wp_upload_dir['basedir'].'/droptmp/convert/'.$name.'_'.$mn.'_.jpg');
+                            $image_type = $a[2];
+                            if(in_array($image_type , array(IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP))){
+                            	array_push($inputParamsImg,array('src'=>$wp_upload_dir['baseurl'].'/droptmp/convert/'.$name.'_'.$mn.'_.jpg'));
+                            }else{
+                                array_push($inputParamsImgInvalid,array('src'=>$wp_upload_dir['baseurl'].'/droptmp/convert/'.$name.'_'.$mn.'_.jpg'));
+                            }
 
-				$exts = array('jpg', 'gif', 'png', 'jpeg');
-	    		if( !( filter_var($value['src'], FILTER_VALIDATE_URL) && in_array(strtolower(pathinfo($value['src'], PATHINFO_EXTENSION)), $exts) ) )
-	    		{
-	    			$imagesFlag = true;
-	    		}
-
+    	    		    }else{
+    	    		        array_push($inputParamsImg,array('src'=>$value['src']));
+    	    		    }
+    	    		} $mn++;
 	    	}
 
 	    	if($imagesFlag){
@@ -1140,7 +1394,7 @@
 		$description 		= $inputParams['description'];
 		$short_description 	= $inputParams['short_description'];
 		$categories 		= $inputParams['categories'];
-		$images 			= $inputParams['images'];
+		$images 			= $inputParamsImg;
 		$manage_stock 		= $inputParams['manage_stock'];
 		$stock_quantity 	= $inputParams['stock_quantity'];
 		$tags 				= $inputParams['tags'];
@@ -1251,6 +1505,29 @@
 
 			if(isset($response->status) && $response->status <= 201) {
 
+			    foreach($inputParamsImg as $value){
+                    $wp_upload_dir = wp_upload_dir();
+                    $fileUrl = $value['src'];
+                    if(strpos($fileUrl, 'convert') !== false){
+                        $fileDetails = explode("convert/",$fileUrl);
+                        $realPath = $wp_upload_dir['basedir'].'/droptmp/convert/'.$fileDetails[1];
+                        if(isset($realPath)){
+                            unlink($wp_upload_dir['basedir'].'/droptmp/convert/'.$fileDetails[1]);
+                        }
+                    }
+                }
+                foreach($inputParamsImgInvalid as $value){
+                    $wp_upload_dir = wp_upload_dir();
+                    $fileUrl = $value['src'];
+                    if(strpos($fileUrl, 'convert') !== false){
+                        $fileDetails = explode("convert/",$fileUrl);
+                        $realPath = $wp_upload_dir['basedir'].'/droptmp/convert/'.$fileDetails[1];
+                        if(isset($realPath)){
+                            unlink($wp_upload_dir['basedir'].'/droptmp/convert/'.$fileDetails[1]);
+                        }
+                    }
+                }
+
 				// Following should be used whenever we want to return success:
 				$response = array(
 					"code" => 'success',
@@ -1261,7 +1538,7 @@
 				);
 
 			} else {
-				$response = new WP_Error( 'fail', esc_html__( 'Something went wrong. Please try again!', 'my-text-domain' ), array( 'status' => 400 ) );
+				$response = new WP_Error( 'fail', esc_html__( 'Something went wrong. Please try again!', 'my-text-domain' ), array( 'status' => 400, 'imgarray' => $inputParamsImg ) );
 			}
 		}
 
@@ -1305,18 +1582,18 @@
 	/*******************************************************/
 	function place_order_automatically_meta_boxes() {
 		$options = get_option( 'wc_dropship_manager' );
-		if(isset($options['ali_cbe_enable_name'])){
+		if (isset($options['ali_cbe_enable_name'])) {
 			$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
-			if (isset($ali_cbe_enable_setting)){
-				if ($ali_cbe_enable_setting == '1'){
-			    add_meta_box(
-			        'woocommerce',
-			        __( 'AliExpress Action' ),
-			        'place_Order_automatically_meta_box_content',
-			        'shop_order',
-			        'side'
-			    );
-				}
+		}
+		if (isset($ali_cbe_enable_setting)){
+			if ($ali_cbe_enable_setting == '1'){
+		    add_meta_box(
+		        'woocommerce',
+		        __( 'AliExpress Action' ),
+		        'place_Order_automatically_meta_box_content',
+		        'shop_order',
+		        'side'
+		    );
 			}
 		}
 	}
@@ -1383,12 +1660,12 @@ function place_order_automatically_meta_box_content(){
 
 	function select_custom_order_status($post){
 		$options = get_option( 'wc_dropship_manager' );
-		if(isset($options['ali_cbe_enable_name'])){
-		$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
-			if (isset($ali_cbe_enable_setting)){
-				if ($ali_cbe_enable_setting == '1'){
-	  			add_meta_box('opmc-aliExpress-modal', 'AliExpress Order Status', 'status_of_aliexpress', 'shop_order', 'side');
-				}
+		if (isset($options['ali_cbe_enable_name'])) {
+			$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
+		}
+		if (isset($ali_cbe_enable_setting)){
+			if ($ali_cbe_enable_setting == '1'){
+  			add_meta_box('opmc-aliExpress-modal', 'AliExpress Order Status', 'status_of_aliexpress', 'shop_order', 'side');
 			}
 		}
 	}
@@ -1614,13 +1891,21 @@ function place_order_automatically_meta_box_content(){
 					"data" => array(
 						"status" => 200
 					),
-					"content" => $product_id
+					"content" => $sku
 				);
 
 			} else {
 					// Following should be used whenever we want to return success:
+				$response = array(
+					"code" => 'fail',
+					"message" => 'Product does not exist in your Woo store. Please add this product to your Woo store.',
+					"data" => array(
+						"status" => 400
+					),
+					"content" => $sku
+				);
 
-				$response = new WP_Error( 'fail', esc_html__( 'Product does not exist in your Woo store. Please add this product to your Woo store.', 'my-text-domain' ), array( 'status' => 400 ) );
+				//$response = new WP_Error( 'fail', esc_html__( 'Product does not exist in your Woo store. Please add this product to your Woo store.', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
 
 		    return $response;
@@ -1753,6 +2038,7 @@ function place_order_automatically_meta_box_content(){
 	    } // function get_order_status_by_id()
 	}
 	// http://localhost/mywpsite/wp-json/woo-aliexpress/v1/order-status
+
 
 	/***********/
 	/*  END    *

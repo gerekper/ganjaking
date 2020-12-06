@@ -2,12 +2,12 @@
 Contributors: woocommerce, themesquad
 Tags: woocommerce, delivery, date
 Requires at least: 4.4
-Tested up to: 5.4
-Stable tag: 1.7.0
+Tested up to: 5.6
+Stable tag: 1.8.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.0
-WC tested up to: 4.3
+WC tested up to: 4.8
 Woo: 976514:beaa91b8098712860ec7335d3dca61c0
 
 Choose a delivery date during checkout for the order.
@@ -50,7 +50,19 @@ Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-order-
 
 == Changelog ==
 
-= 1.8.0 October 8, 2020 =
+= 1.8.4 November 26, 2020 =
+* Tweak - Improved PHP 8 support.
+* Tweak - Tested compatibility with WC 4.8.
+* Tweak - Tested compatibility with WP 5.6.
+* Fix - Fixed "What's new" link on the plugin list page.
+
+= 1.8.3 November 5, 2020 =
+* Fix - Wrong time frame assigned on checkout.
+
+= 1.8.2 November 3, 2020 =
+* Fix - Disabled delivery dates were enabled in the checkout calendar.
+
+= 1.8.1 October 8, 2020 =
 * Fix - Compatibility with WooCommerce Subscriptions.
 
 = 1.8.0 October 7, 2020 =

@@ -25,15 +25,15 @@ newSlider.snap = _d(obj.snap,{
 	<!-- LAYERS LIST -->
 	<div id="timeline">
 		<div id="timeline_collapser"><i class="material-icons">close</i></div>
-		<div id="timeline_top_toolbar">
-			<div class="timeline_left_container">
+		<div id="timeline_top_toolbar"><!--			
+			--><div class="timeline_left_container">
 				<div class="layer_group_filter_wrap">
 					<div class="layer_g_filter"><label_icon class="selected ui_free_layers" data-realref="hide_all_nonezone" data-ref="hide_free_layers"></label_icon></div><!--
 					--><div class="layer_g_filter"><label_icon class="selected ui_top_row_layers" data-realref="hide_all_zone" data-ref="hide_top_row_layers hide_middle_row_layers hide_bottom_row_layers"></label_icon></div><!--
 					--><div class="layer_allcollaps"><i class="material-icons lacoll_open">folder_open</i></div>
-				</div><!--
+				</div><!--				
 				--><div id="tl_gridmanagement_wrap" class="tl_gridmanagement_wrap">
-						<div id="general_gridmanagement_wrap">															
+						<div id="general_gridmanagement_wrap" class="sliderconfig_forms">															
 							<label_a><?php _e('Adjust by', 'revslider');?></label_a><select id="snap_to_what" class="sliderinput tos2 nosearchbox easyinit callEvent" data-r="snap.adjust" data-show="" data-hide="" data-theme="dark" data-evt="updateSnapVisual">
 									<option value="none"><?php _e('None', 'revslider');?></option>
 									<option value="grid"><?php _e('Grid', 'revslider');?></option>
@@ -74,17 +74,17 @@ newSlider.snap = _d(obj.snap,{
 				</div>-->
 			</div>
 			<div class="timeline_right_container">
-				<div id="time_linear"><div class="slidelooptimemarker"></div></div>
+				<div id="time_linear"><canvas id="time_linear_canvas"></canvas><div class="slidelooptimemarker"></div></div>
 				<div id="fixedscroll_linear"><div class="fixedscrolltimemarker"></div></div>
-				<div id="hovertime"><div class="timebox"><span class="cth">00</span>:<span class="ctm">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
-				<div id="frametime"><div class="timebox"><span class="cth">00</span>:<span class="ctm">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
-				<div id="currenttime"><div class="timebox"><span class="cth">00</span>:<span class="ctm">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
-				<div id="maxtime"><div class="timebox"><span class="cth">00</span>:<span class="ctm">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
-				<div id="slidelooptimestart"><div class="timebox"><span class="cth">00</span>:<span class="ctm">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
-				<div id="slidelooptimeend"><div class="timebox"><span class="cth">00</span>:<span class="ctm">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
+				<div id="hovertime"><div class="timebox"><span class="ctm">00</span>:<span class="cts">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
+				<div id="frametime"><div class="timebox"><span class="ctm">00</span>:<span class="cts">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
+				<div id="currenttime"><div class="timebox_idle">EDITOR</div><div class="timebox"><span class="ctm">00</span>:<span class="cts">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
+				<div id="maxtime"><div class="timebox"><span class="ctm">00</span>:<span class="cts">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
+				<div id="slidelooptimestart"><div class="timebox"><span class="ctm">00</span>:<span class="cts">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
+				<div id="slidelooptimeend"><div class="timebox"><span class="ctm">00</span>:<span class="cts">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
 
-				<div id="fixedscrolltimestart"><div class="timebox"><span class="cth">00</span>:<span class="ctm">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
-				<div id="fixedscrolltimeend"><div class="timebox"><span class="cth">00</span>:<span class="ctm">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
+				<div id="fixedscrolltimestart"><div class="timebox"><span class="ctm">00</span>:<span class="cts">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
+				<div id="fixedscrolltimeend"><div class="timebox"><span class="ctm">00</span>:<span class="cts">00</span>:<span class="ctms">00</span></div><div class="timebox_marker"></div></div>
 			</div>
 		</div>
 

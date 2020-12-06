@@ -23,6 +23,18 @@ endif;
 </p>
 
 <?php
+if ( $coupon->get_date_expires() ) :
+	echo '<p style="text-align: center;">';
+	echo wp_kses_post(
+		sprintf(
+			/* translators: %s expiration date */
+			_x( 'This credit can be redeemed until %s.', 'email text', 'woocommerce-store-credit' ),
+			'<strong>' . esc_html( wc_format_datetime( $coupon->get_date_expires() ) ) . '</strong>'
+		)
+	);
+	echo '</p>';
+endif;
+
 if ( $additional_content ) :
 	echo wp_kses_post( wpautop( wptexturize( $additional_content ) ) );
 endif;

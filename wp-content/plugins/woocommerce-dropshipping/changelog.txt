@@ -1,6 +1,23 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
-2020.10.06 - Version 2.7
+2020.12.03 version 2.11
+PLUGINS-822 - Fix - Update complete orders email format for supplier
+PLUGINS-762 - Fix - Update proper html-coding for link for "Mark as Shipped" email link
+
+2020.11.20 - version 2.10
+PLUGINS-800 - Fix - Fix bugs and improvements on Suppliers Email Notification
+
+2020.11.12 - version 2.9
+PLUGINS-563 - CBE - Image editor
+PLUGINS-564 - CBE - Button at top to compare changes on products on uploaded products on Woo and Aliexpress
+PLUGINS-785 - Fix php notice and new CBE features.
+
+2020.10.23 - version 2.8
+PLUGINS-713  - Support webp format from importing products from Aliexpress
+PLUGINS-685  - Bug on hiding price when product is not an Amazon affiliate
+PLUGINS-726  - fix admin menu gap when plugin is activated
+
+2020.08.31 - Version 2.7
 PLUGINS-613 - Remove Dropshipper capabilities to add a new post and view comments
 PLUGINS-584 - Hide all Wordpress notification on dropshipper dashboard
 PLUGINS-615 - Wrong text on help button for packing slip settings help icon

@@ -58,6 +58,8 @@ var ix_dropdown_thumbnails = [],
 			var unpage_regex = new RegExp( '\\/page\\/[0-9]+', 'gi' );
 			var unpage_href = href.replace( unpage_regex, '' );
 			unpage_href = ixwpsf.updateQueryArg( 'paged', '', unpage_href );
+
+			unpage_href = ixwpsf.updateQueryArg( 'product-page', '', unpage_href );
 			href = unpage_href;
 		}
 
@@ -72,6 +74,8 @@ var ix_dropdown_thumbnails = [],
 				var unpage_regex = new RegExp( '\\/page\\/[0-9]+', 'gi' );
 				reset_href = reset_href.replace( unpage_regex, '' );
 				reset_href = ixwpsf.updateQueryArg( 'paged', '', reset_href );
+
+				reset_href = ixwpsf.updateQueryArg( 'product-page', '', reset_href );
 			}
 		}
 

@@ -572,28 +572,30 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
             return $price ;
         }
 
-        public static function get_point_price( $post_id ) {
+        public static function get_point_price( $parent_id ) {
 
-            if ( get_option( 'rs_point_price_activated' ) != 'yes' )
+            if ( ! $parent_id ) {
                 return ;
+            }
+
+            if ( 'yes' != get_option( 'rs_point_price_activated' ) ) {
+                return ;
+            }
+
+            if ( '2' == get_option( 'rs_point_price_visibility' ) && ! is_user_logged_in() ) {
+                return ;
+            }
 
             $enabledpoints1 = array() ;
-            $args           = array(
-                'post_parent' => $post_id ,
-                'post_type'   => 'product_variation' ,
-                'orderby'     => 'menu_order' ,
-                'order'       => 'ASC' ,
-                'fields'      => 'ids' ,
-                'post_status' => 'publish' ,
-                'numberposts' => -1
-                    ) ;
-            $variation_ids  = get_posts( $args ) ;
+            $product        = wc_get_product( $parent_id ) ;
+            $variation_ids  = is_object( $product ) ? $product->get_children() : '' ;
             foreach ( $variation_ids as $key ) {
                 $enabledpoints = calculate_point_price_for_products( $key ) ;
                 if ( $enabledpoints[ $key ] != '' ) {
                     $enabledpoints1[ $key ] = $enabledpoints[ $key ] ;
                 }
             }
+
             return $enabledpoints1 ;
         }
 

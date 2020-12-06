@@ -15,6 +15,7 @@ RVS.V = RVS.V === undefined ? {} : RVS.V;
 RVS.S = RVS.S === undefined ? {} : RVS.S;
 RVS.C = RVS.C === undefined ? {} : RVS.C;
 RVS.WIN = RVS.WIN === undefined ? jQuery(window) : RVS.WIN;
+
 RVS.DOC = RVS.DOC === undefined ? jQuery(document) : RVS.DOC;
 RVS.OZ = RVS.OZ === undefined ? {} : RVS.OZ;
 RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
@@ -193,10 +194,15 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 			if(!RVS.SC.libraryInited) {				
 				RVS.SC.libraryInited = true;
 				RVS.F.initObjectLibrary(true); 
-				RVS.F.initOnOff(jQuery('#obj_addsliderasmodal').css('display', 'inline-block'));				
+				var oas = document.getElementById('obj_addsliderasmodal');
+				if (oas!==null) {
+					oas.style.display = 'inline-block';
+					RVS.F.initOnOff(oas);	
+				}
 				
 				
-				jQuery('body').on('change', '#sel_olibrary_sorting', function() {										
+				
+				jQuery(document.body).on('change', '#sel_olibrary_sorting', function() {										
 					jQuery('#reset_objsorting').css((this.value === 'datedesc' ? {display: 'none'} : {display: 'inline-block', opacity: '1', visibility: 'visible'} ));
 					if(this.dataset.evt!==undefined) RVS.DOC.trigger(this.dataset.evt, this.dataset.evtparam);					
 				}).on('change', '#ol_pagination', function(e) {					
@@ -205,7 +211,7 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 			}
 			
 			var successObj = {modules: 'addRevSliderShortcode', event: 'selectRevSliderItem'};						
-			jQuery('#obj_addsliderasmodal .tponoffwrap').addClass('off').find('input').removeAttr('checked').prop('checked', false);
+			jQuery('#obj_addsliderasmodal .tponoffwrap').addClass('off').find('input').prop('checked', false);
 			RVS.F.openObjectLibrary({types: ['modules'], filter: 'all', selected: ['modules'], success: successObj});
 			
 			var folder = RVS.F.getCookie('rs6_wizard_folder');
@@ -231,13 +237,14 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 			          		 RVS.SC.BLOCK.slidertitle = response.slidertitle!==undefined ? response.slidertitle : response.sliderTitle!==undefined ? response.sliderTitle : response.title!==undefined ? response.title : RVS.SC.BLOCK.slidertitle;			  
 			                if(typeof RVS.SC.BLOCK.layout === "undefined" || RVS.SC.BLOCK.layout==="") RVS.SC.BLOCK.layout = RVS.SC.BLOCK.origlayout;
 			          	}          			             
-			            RVS.F.showWaitAMinute({fadeIn:0,text:RVS_LANG.loadingcontent});				
-						RVS.F.initOnOff(jQuery('#rbm_blocksettings'));
+			            RVS.F.showWaitAMinute({fadeIn:0,text:RVS_LANG.loadingcontent});
+			            RVS.C.RBBS = jQuery('#rbm_blocksettings');				
+						RVS.F.initOnOff(RVS.C.RBBS);
 						RVS.F.RSDialog.create({modalid:'#rbm_blocksettings', bgopacity:0.5});
-						jQuery('#rbm_blocksettings').RSScroll({wheelPropagation:false, suppressScrollX:true});
+						RVS.C.RBBS.RSScroll({wheelPropagation:false, suppressScrollX:true});
 						RVS.F.RSDialog.center();			
-						jQuery('#rbm_blocksettings .origlayout').hide();
-						jQuery('#rbm_blocksettings .origlayout.origlayout_'+RVS.SC.BLOCK.origlayout).show();		
+						RVS.C.RBBS.find('.origlayout').hide();
+						RVS.C.RBBS.find('.origlayout.origlayout_'+RVS.SC.BLOCK.origlayout).show();		
 						
 						if (RVS.SC.type==="wpbackery") {			
 							setTimeout(RVS.F.RSDialog.center,19);
@@ -368,7 +375,7 @@ ELEMENTOR HOOKS
 			});
 
 			// BASIC LISTENER
-			window.elementorSelectRevSlider = function(e) {	if (e) RVS.SC.openTemplateLibrary('elementor'); else jQuery('button[data-event="themepunch.selectslider"]').click();}
+			window.elementorSelectRevSlider = function(e) {	if (e) RVS.SC.openTemplateLibrary('elementor'); else jQuery('button[data-event="themepunch.selectslider"]').trigger('click');}
 			/*
 			 FURTHER LISTNERS
 			*/
@@ -432,7 +439,7 @@ VISUAL COMPOSER HOOKS
 		if(typeof(window.InlineShortcodeView) !== 'undefined') {			
 			var rs_show_frontend_overlay = false;
 			jQuery(window).on('vc_build', function() {				
-				vc.add_element_block_view.$el.find('[data-element="rev_slider"]').click(function() {
+				vc.add_element_block_view.$el.find('[data-element="rev_slider"]').on('click',function() {
 					rs_show_frontend_overlay = true;
 				});				
 			});		
@@ -486,10 +493,14 @@ VISUAL COMPOSER HOOKS
 		RVS.S.shortCodeListener = true;
 
 		// COOKIE HANDLING
-		jQuery('body').on('click', '#objectlibrary *[data-folderid]', function() {RVS.F.setCookie("rs6_wizard_folder",this.dataset.folderid,360);});
+		jQuery(document.body).on('click', '#objectlibrary *[data-folderid]', function() {RVS.F.setCookie("rs6_wizard_folder",this.dataset.folderid,360);});
 
 		// 
-		RVS.F.initOnOff(jQuery('#slide_template_row').css('display', 'inline-block'));	
+		var _str = document.getElementById('slide_template_row') ;
+		if (_str!==null) {		
+			_str.style.display = 'inline-block';
+			RVS.F.initOnOff(_str);
+		}
 		
 		RVS.DOC.on('registrationdone',function() {
 			if (RVS.ENV.activated===false) {
@@ -524,7 +535,7 @@ VISUAL COMPOSER HOOKS
 		});			
 
 		// Page Template , Color Picker, checkbox check only when RevSlider Blank Template
-		jQuery('body').on('change', '.editor-page-attributes__template select', function() {
+		jQuery(document.body).on('change', '.editor-page-attributes__template select', function() {
 			if(jQuery(this).val() === "../public/views/revslider-page-template.php"){
 				jQuery('#rs_page_bg_color_column').show(); 
 				jQuery('#rs_blank_template').prop('checked', true);
@@ -536,7 +547,7 @@ VISUAL COMPOSER HOOKS
 		});
 		
 		// Page Template , checkbox check sync Page Template Selectbox
-		jQuery('body').on('change', '#rs_blank_template', function() {
+		jQuery(document.body).on('change', '#rs_blank_template', function() {
 			if(jQuery(this).prop('checked')){
 				jQuery('.editor-page-attributes__template select').val("../public/views/revslider-page-template.php").change(); 
 				jQuery('#rs_page_bg_color_column').show(); 

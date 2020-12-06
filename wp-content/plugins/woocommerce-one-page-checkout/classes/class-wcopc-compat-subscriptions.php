@@ -27,12 +27,11 @@ class WCOPC_Compat_Subscriptions {
 	/**
 	 * Override subsbcriptions setting of enable_guest_checkout to false and set to true - we will hide it using JS
 	 *
-	 * @param  array 
+	 * @param  array
 	 * @return void
 	 */
 	public static function set_checkout_registration( $checkout = '' ) {
-
-		if ( ! is_user_logged_in() && PP_One_Page_Checkout::is_any_form_of_opc_page() ) {
+		if ( ! is_user_logged_in() && PP_One_Page_Checkout::is_any_form_of_opc_page() && WC_Subscriptions_Cart::cart_contains_subscription() && wcopc_is_checkout_registration_enabled() ) {
 			$checkout->enable_guest_checkout = true;
 		}
 	}

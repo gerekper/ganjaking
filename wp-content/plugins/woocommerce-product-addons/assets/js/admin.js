@@ -175,7 +175,7 @@ jQuery( function( $ ) {
 				.on( 'change', 'select.wc-pao-addon-type-select', function() {
 					var selectedValue = $( this ).val(),
 						parent        = $( this ).parents( '.wc-pao-addon' ),
-						selectedName  = $( this ).context.selectedOptions[0].innerHTML,
+						selectedName  = $( this ).find( 'option[value="' + selectedValue + '"]' ).text(),
 						restrictionName;
 
 					// Update selected type label.

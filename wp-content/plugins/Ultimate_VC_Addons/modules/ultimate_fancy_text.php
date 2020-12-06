@@ -569,6 +569,7 @@ if ( ! class_exists( 'Ultimate_FancyText' ) ) {
 			$is_vc_49_plus = ( version_compare( 4.9, $vc_version, '<=' ) ) ? 'ult-adjust-bottom-margin' : '';
 
 			$string_inline_style = '';
+			$string_align_style  = '';
 			$vticker_inline      = '';
 			$valign              = '';
 			$prefsuf_style       = '';
@@ -639,7 +640,7 @@ if ( ! class_exists( 'Ultimate_FancyText' ) ) {
 			}
 
 			if ( '' != $ult_ft_settings['fancytext_align'] ) {
-				$string_inline_style .= 'text-align:' . $ult_ft_settings['fancytext_align'] . ';';
+				$string_align_style .= 'text-align:' . $ult_ft_settings['fancytext_align'] . ';';
 			}
 
 			// Order of replacement.
@@ -680,7 +681,7 @@ if ( ! class_exists( 'Ultimate_FancyText' ) ) {
 
 			$ultimate_js = get_option( 'ultimate_js' );
 
-			$output = '<' . $ult_ft_settings['fancytext_tag'] . ' id="' . esc_attr( $fancy_text_id ) . '" ' . $data_list . ' class="uvc-type-wrap ' . esc_attr( $css_design_style ) . ' ' . esc_attr( $is_vc_49_plus ) . ' ult-responsive ' . esc_attr( $ult_ft_settings['ex_class'] ) . ' uvc-wrap-' . esc_attr( $id ) . '" style="' . esc_attr( $string_inline_style ) . '">';
+			$output = '<' . $ult_ft_settings['fancytext_tag'] . ' id="' . esc_attr( $fancy_text_id ) . '" ' . $data_list . ' class="uvc-type-wrap ' . esc_attr( $css_design_style ) . ' ' . esc_attr( $is_vc_49_plus ) . ' ult-responsive ' . esc_attr( $ult_ft_settings['ex_class'] ) . ' uvc-wrap-' . esc_attr( $id ) . '" style="' . esc_attr( $string_align_style ) . '">';
 
 			if ( '' != trim( $ult_ft_settings['fancytext_prefix'] ) ) {
 				$output .= '<span ' . $prefsuf_data_list . ' class="ultimate-' . esc_attr( $ult_ft_settings['fancytext_effect'] ) . '-prefix mycustfancy ult-responsive" style="' . esc_attr( $prefsuf_style ) . ' ' . esc_attr( $fancy_trans ) . '">' . esc_html( ltrim( $ult_ft_settings['fancytext_prefix'] ) ) . '</span>';
@@ -704,7 +705,7 @@ if ( ! class_exists( 'Ultimate_FancyText' ) ) {
 				} else {
 					$direction = 'up';
 				}
-				$output .= '<div id="vticker-' . esc_attr( $id ) . '" ' . $data_list . ' class="ultimate-vticker ' . esc_attr( $ult_ft_settings['fancytext_effect'] ) . ' ' . esc_attr( $valign ) . ' ' . esc_attr( $inherit_font_size ) . '" style="' . esc_attr( $vticker_inline ) . ' ' . esc_attr( $fancyt_trans ) . '"><ul>';
+				$output .= '<div id="vticker-' . esc_attr( $id ) . '" ' . $data_list . ' class="ultimate-vticker ' . esc_attr( $ult_ft_settings['fancytext_effect'] ) . ' ' . esc_attr( $valign ) . ' ' . esc_attr( $inherit_font_size ) . '" style="' . esc_attr( $vticker_inline ) . ' ' . esc_attr( $string_inline_style ) . ' ' . esc_attr( $fancyt_trans ) . '"><ul>';
 				foreach ( $lines as $key => $line ) {
 					if ( 0 == $key ) {
 						$style = 'style="opacity:1"';
@@ -732,7 +733,7 @@ if ( ! class_exists( 'Ultimate_FancyText' ) ) {
 					}
 				}
 					$strings .= ']';
-					$output  .= '<span id="typed-' . esc_attr( $id ) . '" class="ultimate-typed-main ' . esc_attr( $valign ) . '" style="' . esc_attr( $vticker_inline ) . ' ' . esc_attr( $fancyt_trans ) . '"></span>';
+					$output  .= '<span id="typed-' . esc_attr( $id ) . '" class="ultimate-typed-main ' . esc_attr( $valign ) . '" style="' . esc_attr( $vticker_inline ) . ' ' . esc_attr( $string_inline_style ) . ' ' . esc_attr( $fancyt_trans ) . '"></span>';
 			}
 			if ( '' != trim( $ult_ft_settings['fancytext_suffix'] ) ) {
 				$output .= '<span ' . $prefsuf_data_list . ' class="ultimate-' . esc_attr( $ult_ft_settings['fancytext_effect'] ) . '-suffix mycustfancy ult-responsive" style="' . esc_attr( $prefsuf_style ) . ' ' . esc_attr( $fancy_trans ) . '">' . esc_html( rtrim( $ult_ft_settings['fancytext_suffix'] ) ) . '</span>';

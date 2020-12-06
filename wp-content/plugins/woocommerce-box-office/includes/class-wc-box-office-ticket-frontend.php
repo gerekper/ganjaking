@@ -70,6 +70,10 @@ class WC_Box_Office_Ticket_Frontend {
 				throw new Exception( __( 'Invalid ticket.', 'woocommerce-box-office' ) );
 			}
 
+			if ( ! is_ticket_editable( $ticket ) ) {
+				throw new Exception( __( 'Ticket is not editable.', 'woocommerce-box-office' ) );
+			}
+
 			$ticket_form = new WC_Box_Office_Ticket_Form( $ticket->product );
 			$ticket_form->validate( $_POST );
 

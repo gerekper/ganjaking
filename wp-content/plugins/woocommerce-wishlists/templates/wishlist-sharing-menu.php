@@ -25,6 +25,7 @@ if ( $wishlist_items && count( $wishlist_items ) ) :
 
 	$is_users_list   = $wishlist->get_wishlist_owner() == WC_Wishlists_User::get_wishlist_key();
 	$twitter_message = $is_users_list ? __( 'Check out my wishlist at ', 'wc_wishlist' ) . get_bloginfo( 'name' ) . ' ' : __( 'Found an interesting list of products at ', 'wc_wishlist' ) . get_bloginfo( 'name' ) . ' ';
+	$twitter_message =  apply_filters('woocommerce_wishlists_share_twitter', $twitter_message, $wishlist, $is_users_list);
 	$facebook_url    = 'https://www.facebook.com/sharer.php?u=' . urlencode($wishlist->get_the_url_view( $id, true ));
 	$twitter_url     = 'http://twitter.com/intent/tweet?text=' . $twitter_message . '&url=' . urlencode($wishlist->get_the_url_view( $id, true ));
 	$pinterest_url   = '#';

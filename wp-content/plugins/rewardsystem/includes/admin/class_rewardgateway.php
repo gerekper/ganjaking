@@ -2,7 +2,7 @@
 
 function init_reward_gateway_class() {
 
-    if( ! class_exists( 'WC_Payment_Gateway' ) )
+    if ( ! class_exists( 'WC_Payment_Gateway' ) )
         return ;
 
     class WC_Reward_Gateway extends WC_Payment_Gateway {
@@ -23,7 +23,7 @@ function init_reward_gateway_class() {
             add_action( 'woocommerce_update_options_payment_gateways_' . $this->id , array( $this , 'process_admin_options' ) ) ;
             add_action( 'woocommerce_after_checkout_validation' , array( $this , 'rs_remove_pending_order' ) , 11 , 2 ) ;
 
-            if( is_sumosubscriptions_active() )
+            if ( is_sumosubscriptions_active() )
                 add_action( 'admin_head' , array( $this , 'perform_script' ) ) ;
         }
 
@@ -65,7 +65,7 @@ function init_reward_gateway_class() {
                 ) ,
                     ) ;
 
-            if( is_sumosubscriptions_active() ) {
+            if ( is_sumosubscriptions_active() ) {
                 $this->form_fields[ 'rs_subscription_based_payment_option' ] = array(
                     'title'    => __( 'Remove the option for the Subscriber to choose Automatic/Manual Payment when placed using SUMO Reward Points Payment Gateway' , SRP_LOCALE ) ,
                     'type'     => 'checkbox' ,
@@ -90,19 +90,19 @@ function init_reward_gateway_class() {
         }
 
         function perform_script() {
-            if( isset( $_GET[ 'page' ] ) && isset( $_GET[ 'tab' ] ) && isset( $_GET[ 'section' ] ) &&
+            if ( isset( $_GET[ 'page' ] ) && isset( $_GET[ 'tab' ] ) && isset( $_GET[ 'section' ] ) &&
                     $_GET[ 'page' ] == "wc-settings" && $_GET[ 'tab' ] == "checkout" && $_GET[ 'section' ] == "reward_gateway" ) {
                 ?>
                 <script type="text/javascript">
-                    jQuery( document ).ready( function() {
-                        if( jQuery( "#woocommerce_reward_gateway_rs_subscription_based_payment_option" ).is( ":checked" ) ) {
+                    jQuery( document ).ready( function () {
+                        if ( jQuery( "#woocommerce_reward_gateway_rs_subscription_based_payment_option" ).is( ":checked" ) ) {
                             jQuery( "#woocommerce_reward_gateway_rs_force_auto_r_manual_subscription_payment" ).closest( 'tr' ).show() ;
                         } else {
                             jQuery( "#woocommerce_reward_gateway_rs_force_auto_r_manual_subscription_payment" ).closest( 'tr' ).hide() ;
                         }
 
-                        jQuery( "#woocommerce_reward_gateway_rs_subscription_based_payment_option" ).change( function() {
-                            if( this.checked ) {
+                        jQuery( "#woocommerce_reward_gateway_rs_subscription_based_payment_option" ).change( function () {
+                            if ( this.checked ) {
                                 jQuery( "#woocommerce_reward_gateway_rs_force_auto_r_manual_subscription_payment" ).closest( 'tr' ).show() ;
                             } else {
                                 jQuery( "#woocommerce_reward_gateway_rs_force_auto_r_manual_subscription_payment" ).closest( 'tr' ).hide() ;
@@ -125,10 +125,10 @@ function init_reward_gateway_class() {
             //For SUMOSubscriptions, Automatic Subscription Payment Compatibility.
             $parent_id      = get_post_parent( $order ) > 0 ? get_post_parent( $order ) : $order_id ;
 
-            if( is_sumosubscriptions_active() ) {
-                if( (isset( $_POST[ 'rs_reward_points_payment_selection' ] ) && $_POST[ 'rs_reward_points_payment_selection' ] == '1') || $this->is_forced_automatic_subscription_payment ) {
+            if ( is_sumosubscriptions_active() ) {
+                if ( (isset( $_POST[ 'rs_reward_points_payment_selection' ] ) && $_POST[ 'rs_reward_points_payment_selection' ] == '1') || $this->is_forced_automatic_subscription_payment ) {
 
-                    if( function_exists( 'sumo_save_subscription_payment_info' ) ) {
+                    if ( function_exists( 'sumo_save_subscription_payment_info' ) ) {
                         sumo_save_subscription_payment_info( $order_id , array(
                             'payment_type'         => 'auto' ,
                             'payment_method'       => $payment_method ,
@@ -140,7 +140,7 @@ function init_reward_gateway_class() {
                         update_post_meta( $parent_id , 'sumo_totalamount' , $order->get_total() ) ;
                     }
                 } else {
-                    if( function_exists( 'sumo_save_subscription_payment_info' ) ) {
+                    if ( function_exists( 'sumo_save_subscription_payment_info' ) ) {
                         sumo_save_subscription_payment_info( $order_id , array(
                             'payment_type'         => 'manual' ,
                             'payment_method'       => $payment_method ,
@@ -173,14 +173,14 @@ function init_reward_gateway_class() {
         }
 
         function rs_remove_pending_order( $data , $error ) {
-            if( ! is_user_logged_in() )
+            if ( ! is_user_logged_in() )
                 return ;
 
-            if( isset( $_POST [ "payment_method" ] ) && $_POST [ "payment_method" ] != 'reward_gateway' )
+            if ( isset( $_POST [ "payment_method" ] ) && $_POST [ "payment_method" ] != 'reward_gateway' )
                 return ;
 
             global $woocommerce ;
-            if( ! srp_check_is_array( $woocommerce->cart->cart_contents ) )
+            if ( ! srp_check_is_array( $woocommerce->cart->cart_contents ) )
                 return ;
 
             $MaxDiscount     = get_option( 'rs_max_redeem_discount_for_sumo_reward_points' ) ;
@@ -192,17 +192,17 @@ function init_reward_gateway_class() {
             $Price           = array() ;
             $tax_display     = get_option( 'woocommerce_tax_display_cart' ) ;
 
-            foreach( $woocommerce->cart->cart_contents as $item ) {
+            foreach ( $woocommerce->cart->cart_contents as $item ) {
                 $product_id     = ! empty( $item[ 'variation_id' ] ) ? $item[ 'variation_id' ] : $item[ 'product_id' ] ;
                 $bundledproduct = isset( $item[ '_bundled_by' ] ) ? $item[ '_bundled_by' ] : 0 ;
                 $enable         = calculate_point_price_for_products( $product_id ) ;
-                if( ! empty( $enable[ $product_id ] ) && $bundledproduct == null ) {
+                if ( ! empty( $enable[ $product_id ] ) && $bundledproduct == null ) {
                     $PointPriceValue[] = $enable[ $product_id ] * $item[ 'quantity' ] ;
-                    if( get_option( 'woocommerce_prices_include_tax' ) == 'no' )
+                    if ( get_option( 'woocommerce_prices_include_tax' ) == 'no' )
                         $PointPriceTax[]   = $item[ 'line_subtotal_tax' ] ;
                 } else {
                     $Price[] = get_post_meta( $product_id , '_price' , true ) ;
-                    if( 'incl' == $tax_display ) {
+                    if ( 'incl' == $tax_display ) {
                         $LineTotal[] = $item[ 'line_subtotal' ] + $item[ 'line_subtotal_tax' ] ;
                     } else {
                         $LineTotal[] = $item[ 'line_subtotal' ] ;
@@ -218,12 +218,12 @@ function init_reward_gateway_class() {
             $AutoRedeem = 'auto_redeem_' . strtolower( "$Username" ) ;
 
             $redeeming_coupon = 0 ;
-            if( srp_check_is_array( $woocommerce->cart->get_applied_coupons() ) ) {
-                foreach( $woocommerce->cart->get_applied_coupons() as $Coupon ) {
+            if ( srp_check_is_array( $woocommerce->cart->get_applied_coupons() ) ) {
+                foreach ( $woocommerce->cart->get_applied_coupons() as $Coupon ) {
                     $CouponObj    = new WC_Coupon( $Coupon ) ;
                     $CouponAmnt[] = ( float ) $woocommerce->version >= ( float ) '3.0' ? $CouponObj->get_amount() : $CouponObj->coupon_amount ;
 
-                    if( $Coupon == $Redeem || $Coupon == $AutoRedeem ) {
+                    if ( $Coupon == $Redeem || $Coupon == $AutoRedeem ) {
                         $redeeming_coupon = ( float ) $woocommerce->version >= ( float ) '3.0' ? $CouponObj->get_amount() : $CouponObj->coupon_amount ;
                     }
                 }
@@ -239,13 +239,13 @@ function init_reward_gateway_class() {
 
             $Points = $Points != 0 ? $Points - $redeeming_coupon : $Points ;
 
-            if( $Points < $redeemedpoints ) {
+            if ( $Points < $redeemedpoints ) {
                 $error_msg    = $this->get_option( 'error_payment_gateway' ) ;
                 $finalreplace = str_replace( array( '[userpoints]' , '[needpoints]' ) , array( '<b>' . $Points . '</b>' , '<b>' . round_off_type( $redeemedpoints ) . '</b>' ) , $error_msg ) ;
                 $error->add( 'error' , __( $finalreplace , SRP_LOCALE ) ) ;
             } else {
-                if( ! empty( $MaxDiscount ) ) {
-                    if( $MaxDiscount > $BalancePoints ) {
+                if ( ! empty( $MaxDiscount ) ) {
+                    if ( $MaxDiscount > $BalancePoints ) {
                         $error_msg    = $this->get_option( 'error_message_for_payment_gateway' ) ;
                         $finalreplace = str_replace( '[maximum_cart_total]' , get_woocommerce_currency_symbol() . round_off_type( $MaxDiscount ) , $error_msg ) ;
                         $error->add( 'error' , __( $finalreplace , SRP_LOCALE ) ) ;
@@ -262,12 +262,12 @@ function init_reward_gateway_class() {
 
     function get_yith_gift_card_value() {
 
-        if( ! isset( WC()->cart->applied_gift_cards ) )
+        if ( ! isset( WC()->cart->applied_gift_cards ) )
             return 0 ;
 
         $amount = 0 ;
 
-        foreach( WC()->cart->applied_gift_cards as $code ):
+        foreach ( WC()->cart->applied_gift_cards as $code ):
             $amount = isset( WC()->cart->applied_gift_cards_amounts[ $code ] ) ? WC()->cart->applied_gift_cards_amounts[ $code ] : 0 ;
         endforeach ;
 
@@ -283,16 +283,16 @@ function init_reward_gateway_class() {
         $fee_total       = 0 ;
         $tax_display     = get_option( 'woocommerce_tax_display_cart' ) ;
 
-        foreach( $order->get_items() as $item ) {
+        foreach ( $order->get_items() as $item ) {
             $product_id     = ! empty( $item[ 'variation_id' ] ) ? $item[ 'variation_id' ] : $item[ 'product_id' ] ;
             $bundledproduct = isset( $item[ '_bundled_by' ] ) ? $item[ '_bundled_by' ] : 0 ;
             $enable         = calculate_point_price_for_products( $product_id ) ;
-            if( ! empty( $enable[ $product_id ] ) && $bundledproduct == null ) {
+            if ( ! empty( $enable[ $product_id ] ) && $bundledproduct == null ) {
                 $PointPriceValue[] = $enable[ $product_id ] * $item[ 'qty' ] ;
-                if( $tax_display == 'incl' )
+                if ( $tax_display == 'incl' )
                     $PointPriceTax[]   = $item[ 'line_subtotal_tax' ] ;
             } else {
-                if( 'incl' == $tax_display ) {
+                if ( 'incl' == $tax_display ) {
                     $LineTotal[] = $item[ 'line_subtotal' ] + $item[ 'line_subtotal_tax' ] ;
                 } else {
                     $LineTotal[] = $item[ 'line_subtotal' ] ;
@@ -301,8 +301,8 @@ function init_reward_gateway_class() {
         }
 
         // The fee total amount
-        foreach( $order->get_items( 'fee' ) as $item_fee ) {
-            if( 'incl' == $tax_display ) {
+        foreach ( $order->get_items( 'fee' ) as $item_fee ) {
+            if ( 'incl' == $tax_display ) {
                 $fee_total = $fee_total + $item_fee->get_total() + $item_fee->get_total_tax() ;
             } else {
                 $fee_total += $item_fee->get_total() ;
@@ -314,8 +314,8 @@ function init_reward_gateway_class() {
         $shipping_tax   = $tax_display == 'excl' ? $order->get_total_shipping() : $order->get_total_shipping() + $order->get_shipping_tax() ;
         $Points         = $shipping_tax + array_sum( $LineTotal ) + array_sum( $PointPriceTax ) + apply_filters( 'rs_points_for_additional_fee' , $fee_total ) + $excl_tax_total ;
         $AppliedCoupons = $order->get_items( array( 'coupon' ) ) ;
-        if( srp_check_is_array( $AppliedCoupons ) ) {
-            foreach( $AppliedCoupons as $Coupon ) {
+        if ( srp_check_is_array( $AppliedCoupons ) ) {
+            foreach ( $AppliedCoupons as $Coupon ) {
                 $CouponAmnt[] = $Coupon[ 'discount_amount' ] ;
             }
         }
@@ -330,84 +330,64 @@ function init_reward_gateway_class() {
     function filter_gateway( $gateways ) {
         global $woocommerce ;
 
-        if( ! is_object( $woocommerce->cart ) || ! srp_check_is_array( $woocommerce->cart->cart_contents ) )
+        if ( ! is_object( $woocommerce->cart ) || ! srp_check_is_array( $woocommerce->cart->cart_contents ) )
             return $gateways ;
 
         $PointsData = new RS_Points_Data( get_current_user_id() ) ;
-        if( empty( $PointsData->total_available_points() ) ) {
-            foreach( WC()->payment_gateways->payment_gateways() as $gateway ) {
-                if( $gateway->id != 'reward_gateway' )
+        if ( empty( $PointsData->total_available_points() ) ) {
+            foreach ( WC()->payment_gateways->payment_gateways() as $gateway ) {
+                if ( $gateway->id != 'reward_gateway' )
                     continue ;
 
                 unset( $gateways[ $gateway->id ] ) ;
             }
         }
 
-        foreach( $woocommerce->cart->cart_contents as $key => $values ) {
-            $gateways = show_reward_gateway( $values[ 'product_id' ] , false , $gateways ) ;
+        foreach ( $woocommerce->cart->cart_contents as $key => $values ) {
+            $gateways = show_reward_gateway( $values[ 'product_id' ] , $gateways ) ;
         }
         return $gateways != 'NULL' ? $gateways : array() ;
     }
 
-    function show_reward_gateway( $ProductId , $condition , $gateways ) {
-        if( get_option( 'rs_show_hide_reward_points_gateway' ) == '1' ) {
-            if( (get_option( 'rs_enable_selected_product_for_purchase_using_points' ) == 'yes') && get_option( 'rs_select_product_for_purchase_using_points' ) != '' ) {
-                $IDs = srp_check_is_array( get_option( 'rs_select_product_for_purchase_using_points' ) ) ? get_option( 'rs_select_product_for_purchase_using_points' ) : explode( ',' , get_option( 'rs_select_product_for_purchase_using_points' ) ) ;
-                if( in_array( $ProductId , $IDs ) ) {
-                    foreach( WC()->payment_gateways->payment_gateways() as $gateway ) {
-                        if( $gateway->id != 'reward_gateway' )
-                            unset( $gateways[ $gateway->id ] ) ;
-                    }
-                    $condition = true ;
-                }
-            }
-            if( (get_option( 'rs_enable_selected_category_for_purchase_using_points' ) == 'yes' && get_option( 'rs_select_category_for_purchase_using_points' ) != '' ) ) {
-                $IncCat       = get_option( 'rs_select_category_for_purchase_using_points' ) ;
-                $CategoryList = get_the_terms( $ProductId , 'product_cat' ) ;
-
-                if( srp_check_is_array( $CategoryList ) ) {
-                    foreach( $CategoryList as $Category ) {
-                        $termid = $Category->term_id ;
-                        if( in_array( $Category->term_id , $IncCat ) ) {
-                            foreach( WC()->payment_gateways->payment_gateways() as $gateway ) {
-                                if( $gateway->id != 'reward_gateway' )
-                                    unset( $gateways[ $gateway->id ] ) ;
-                            }
-                            $condition = true ;
-                        }
-                    }
-                }
-            }
-            
-            if( ! $condition ) {
-                if( get_option( 'rs_enable_gateway_visible_to_all_product' ) == 'no' ) {
-                    foreach( WC()->payment_gateways->payment_gateways() as $gateway ) {
-                        if( $gateway->id == 'reward_gateway' ) {
+    function show_reward_gateway( $ProductId , $gateways ) {
+        if ( get_option( 'rs_show_hide_reward_points_gateway' ) == '1' ) {
+            $show_reward_gateway = validate_product_category_filter( $ProductId ) ;
+            if ( $show_reward_gateway ) {
+                if('1'!=check_display_price_type($ProductId)){
+                  foreach ( WC()->payment_gateways->payment_gateways() as $gateway ) {
+                    if ( $gateway->id != 'reward_gateway' )
+                        unset( $gateways[ $gateway->id ] ) ;
+                  }
+              }
+            } else {
+                if ( get_option( 'rs_enable_gateway_visible_to_all_product' ) == 'no' ) {
+                    foreach ( WC()->payment_gateways->payment_gateways() as $gateway ) {
+                        if ( $gateway->id == 'reward_gateway' ) {
                             unset( $gateways[ $gateway->id ] ) ;
                         }
                     }
                 }
             }
         } else {
-            if( (get_option( 'rs_enable_selected_product_for_hide_gateway' ) == 'yes' ) && get_option( 'rs_select_product_for_hide_gateway' ) != '' ) {
+            if ( (get_option( 'rs_enable_selected_product_for_hide_gateway' ) == 'yes' ) && get_option( 'rs_select_product_for_hide_gateway' ) != '' ) {
                 $IDs = srp_check_is_array( get_option( 'rs_select_product_for_hide_gateway' ) ) ? get_option( 'rs_select_product_for_hide_gateway' ) : explode( ',' , get_option( 'rs_select_product_for_hide_gateway' ) ) ;
-                if( in_array( $ProductId , $IDs ) ) {
-                    foreach( WC()->payment_gateways->payment_gateways() as $gateway ) {
-                        if( $gateway->id == 'reward_gateway' )
+                if ( in_array( $ProductId , $IDs ) ) {
+                    foreach ( WC()->payment_gateways->payment_gateways() as $gateway ) {
+                        if ( $gateway->id == 'reward_gateway' )
                             unset( $gateways[ $gateway->id ] ) ;
                     }
                 }
             }
-            if( (get_option( 'rs_enable_selected_category_to_hide_gateway' ) == 'yes' ) ) {
+            if ( (get_option( 'rs_enable_selected_category_to_hide_gateway' ) == 'yes' ) ) {
                 $IncCat       = get_option( 'rs_select_category_to_hide_gateway' ) ;
                 $CategoryList = get_the_terms( $ProductId , 'product_cat' ) ;
 
-                if( srp_check_is_array( $CategoryList ) ) {
-                    foreach( $CategoryList as $Category ) {
+                if ( srp_check_is_array( $CategoryList ) ) {
+                    foreach ( $CategoryList as $Category ) {
                         $termid = $Category->term_id ;
-                        if( in_array( $Category->term_id , $IncCat ) ) {
-                            foreach( WC()->payment_gateways->payment_gateways() as $gateway ) {
-                                if( $gateway->id == 'reward_gateway' )
+                        if ( in_array( $Category->term_id , $IncCat ) ) {
+                            foreach ( WC()->payment_gateways->payment_gateways() as $gateway ) {
+                                if ( $gateway->id == 'reward_gateway' )
                                     unset( $gateways[ $gateway->id ] ) ;
                             }
                         }
@@ -418,10 +398,38 @@ function init_reward_gateway_class() {
         return $gateways ;
     }
 
+    function validate_product_category_filter( $ProductId ) {
+
+        $condition = true ;
+        if ( (get_option( 'rs_enable_selected_product_for_purchase_using_points' ) == 'yes') && get_option( 'rs_select_product_for_purchase_using_points' ) != '' ) {
+            $IDs       = srp_check_is_array( get_option( 'rs_select_product_for_purchase_using_points' ) ) ? get_option( 'rs_select_product_for_purchase_using_points' ) : explode( ',' , get_option( 'rs_select_product_for_purchase_using_points' ) ) ;
+            $condition = false ;
+            if ( in_array( $ProductId , $IDs ) ) {
+                return true ;
+            }
+        }
+
+        if ( (get_option( 'rs_enable_selected_category_for_purchase_using_points' ) == 'yes' && get_option( 'rs_select_category_for_purchase_using_points' ) != '' ) ) {
+            $IncCat       = get_option( 'rs_select_category_for_purchase_using_points' ) ;
+            $CategoryList = get_the_terms( $ProductId , 'product_cat' ) ;
+            $condition    = false ;
+            if ( srp_check_is_array( $CategoryList ) ) {
+                foreach ( $CategoryList as $Category ) {
+                    $termid = $Category->term_id ;
+                    if ( in_array( $Category->term_id , $IncCat ) ) {
+                        return true ;
+                    }
+                }
+            }
+        }
+
+        return $condition ;
+    }
+
     function add_your_gateway_class( $methods ) {
-        if( is_user_logged_in() ) {
+        if ( is_user_logged_in() ) {
             $banning_type = check_banning_type( get_current_user_id() ) ;
-            if( $banning_type != 'redeemingonly' && $banning_type != 'both' )
+            if ( $banning_type != 'redeemingonly' && $banning_type != 'both' )
                 $methods[]    = 'WC_Reward_Gateway' ;
         }
         return $methods ;
@@ -432,14 +440,14 @@ function init_reward_gateway_class() {
     function rs_force_auto_r_manual_adaptive_payment( $description , $gateway_id ) {
         $reward_points_gateway = new WC_Reward_Gateway() ;
 
-        if( $reward_points_gateway->get_option( 'rs_subscription_based_payment_option' ) == 'no' && $gateway_id == 'reward_gateway' ) {
-            if( is_checkout_pay_page() && isset( $_GET[ 'key' ] ) ) {
+        if ( $reward_points_gateway->get_option( 'rs_subscription_based_payment_option' ) == 'no' && $gateway_id == 'reward_gateway' ) {
+            if ( is_checkout_pay_page() && isset( $_GET[ 'key' ] ) ) {
                 $order_id = wc_get_order_id_by_order_key( $_GET[ 'key' ] ) ;
 
-                if( function_exists( 'sumo_is_order_contains_subscriptions' ) && sumo_is_order_contains_subscriptions( $order_id ) ) {
+                if ( function_exists( 'sumo_is_order_contains_subscriptions' ) && sumo_is_order_contains_subscriptions( $order_id ) ) {
                     return $description . rs_display_adaptive_payment_selection_checkbox() ;
                 }
-            } else if( function_exists( 'sumo_is_cart_contains_subscription_items' ) && function_exists( 'sumo_is_order_subscription' ) &&
+            } else if ( function_exists( 'sumo_is_cart_contains_subscription_items' ) && function_exists( 'sumo_is_order_subscription' ) &&
                     is_checkout() && (sumo_is_cart_contains_subscription_items() || sumo_is_order_subscription()) ) {
                 return $description . rs_display_adaptive_payment_selection_checkbox() ;
             }
@@ -459,23 +467,23 @@ function init_reward_gateway_class() {
     }
 
     function is_sumosubscriptions_active() {
-        if( is_multisite() && ! is_plugin_active_for_network( 'sumosubscriptions/sumosubscriptions.php' ) && ! is_plugin_active( 'sumosubscriptions/sumosubscriptions.php' ) ) {
+        if ( is_multisite() && ! is_plugin_active_for_network( 'sumosubscriptions/sumosubscriptions.php' ) && ! is_plugin_active( 'sumosubscriptions/sumosubscriptions.php' ) ) {
             return false ;
-        } else if( ! is_plugin_active( 'sumosubscriptions/sumosubscriptions.php' ) ) {
+        } else if ( ! is_plugin_active( 'sumosubscriptions/sumosubscriptions.php' ) ) {
             return false ;
         }
         return true ;
     }
 
     function sumosubscription_is_preapproval_status_valid( $PostId , $ParentOrderId ) {
-        if( ! is_sumosubscriptions_active() )
+        if ( ! is_sumosubscriptions_active() )
             return false ;
 
         $PaymentMethod = function_exists( 'sumo_get_subscription_payment_method' ) ? sumo_get_subscription_payment_method( $PostId ) : get_post_meta( $ParentOrderId , 'sumo_order_payment_method' , true ) ;
 
         $RenewalOrderId = get_post_meta( $PostId , 'sumo_get_renewal_id' , true ) ;
 
-        if( $PaymentMethod != "reward_gateway" )
+        if ( $PaymentMethod != "reward_gateway" )
             return false ;
 
         $Order          = new WC_Order( $RenewalOrderId ) ;
@@ -485,27 +493,27 @@ function init_reward_gateway_class() {
         $PointsData     = new RS_Points_Data( $OrderObj[ 'order_userid' ] ) ;
         $Points         = $PointsData->total_available_points() ;
 
-        if( $PointsRedeemed > $Points )
+        if ( $PointsRedeemed > $Points )
             return false ;
 
-        if( empty( $MaxCartTotal ) )
+        if ( empty( $MaxCartTotal ) )
             return true ;
 
-        if( $Order->get_total() > $MaxCartTotal )
+        if ( $Order->get_total() > $MaxCartTotal )
             return true ;
 
         return false ;
     }
 
     function sumosubscription_get_preapproval_status( $subscription_post_id , $parent_order_id ) {
-        if( sumosubscription_is_preapproval_status_valid( $subscription_post_id , $parent_order_id ) ) {
+        if ( sumosubscription_is_preapproval_status_valid( $subscription_post_id , $parent_order_id ) ) {
             $preapproval_status = 'valid' ;
             update_post_meta( $subscription_post_id , 'sumo_subscription_preapproval_status' , $preapproval_status ) ;
         }
     }
 
     function sumosubscription_preapproved_recurring_payment_transaction( $PostId , $ParentOrderId ) {
-        if( ! sumosubscription_is_preapproval_status_valid( $PostId , $ParentOrderId ) )
+        if ( ! sumosubscription_is_preapproval_status_valid( $PostId , $ParentOrderId ) )
             return ;
 
         $RenewalOrderId = get_post_meta( $PostId , 'sumo_get_renewal_id' , true ) ;
@@ -527,11 +535,11 @@ function init_reward_gateway_class() {
     }
 
     function rs_payment_complete( $args ) {
-        if( ! $renewal_order = wc_get_order( $args[ 'renewal_order_id' ] ) ) {
+        if ( ! $renewal_order = wc_get_order( $args[ 'renewal_order_id' ] ) ) {
             return ;
         }
 
-        if( function_exists( 'sumo_get_subscription_payment_method' ) && 'reward_gateway' === sumo_get_subscription_payment_method( $args[ 'subscription_id' ] ) ) {
+        if ( function_exists( 'sumo_get_subscription_payment_method' ) && 'reward_gateway' === sumo_get_subscription_payment_method( $args[ 'subscription_id' ] ) ) {
             //Update new Order status to Renew the Subscription.
             $renewal_order->update_status( 'completed' ) ;
         }
@@ -558,18 +566,18 @@ function init_reward_gateway_class() {
 
     function sumosubscriptions_process_force_auto_renewals( $order_id , $order ) {
 
-        if( isset( $_POST[ 'sumorewardsystem_subsc_payment_mode' ] ) && 'on' === $_POST[ 'sumorewardsystem_subsc_payment_mode' ] ) {
+        if ( isset( $_POST[ 'sumorewardsystem_subsc_payment_mode' ] ) && 'on' === $_POST[ 'sumorewardsystem_subsc_payment_mode' ] ) {
             $order = wc_get_order( $order_id ) ;
 
-            if( defined( 'WC_VERSION' ) && version_compare( WC_VERSION , '3.0' , '<' ) ) {
+            if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION , '3.0' , '<' ) ) {
                 $payment_method = $order->payment_method ;
             } else {
                 $payment_method = $order->get_payment_method() ;
             }
 
-            if( function_exists( 'sumo_is_order_contains_subscriptions' ) && function_exists( 'sumo_save_subscription_payment_info' ) ) {
+            if ( function_exists( 'sumo_is_order_contains_subscriptions' ) && function_exists( 'sumo_save_subscription_payment_info' ) ) {
                 //Check it is valid Subscription Order.
-                if( 'reward_gateway' === $payment_method && sumo_is_order_contains_subscriptions( $order_id ) ) {
+                if ( 'reward_gateway' === $payment_method && sumo_is_order_contains_subscriptions( $order_id ) ) {
                     //Save default payment information.
                     sumo_save_subscription_payment_info( $order_id , array(
                         'payment_type'         => 'auto' ,
@@ -581,7 +589,7 @@ function init_reward_gateway_class() {
         }
     }
 
-    if( is_sumosubscriptions_active() ) {
+    if ( is_sumosubscriptions_active() ) {
         add_filter( 'woocommerce_gateway_description' , 'rs_force_auto_r_manual_adaptive_payment' , 10 , 2 ) ;
         add_action( 'sumosubscriptions_process_preapproval_status' , 'sumosubscription_get_preapproval_status' , 10 , 2 ) ;
         add_action( 'sumosubscriptions_process_preapproved_payment_transaction' , 'sumosubscription_preapproved_recurring_payment_transaction' , 10 , 2 ) ;

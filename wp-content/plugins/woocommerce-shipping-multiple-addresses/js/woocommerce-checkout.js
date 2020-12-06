@@ -93,7 +93,7 @@ jQuery(document).ready(function($) {
         return [true];
     }
 
-    $('body').bind('updated_checkout', function() {
+    $('body').on('updated_checkout', function() {
 
         if ( _multi_shipping ) {
             $("tr.shipping").remove();
@@ -160,7 +160,7 @@ jQuery(document).ready(function($) {
         var data = $(this).serialize() + "&action=wc_save_to_address_book";
 
         $.post(WCMS.ajaxurl, data, function(resp) {
-            var data = $.parseJSON(resp);
+            var data = JSON.parse(resp);
 
             if (data.ack == "OK") {
                 // reset form
@@ -191,7 +191,7 @@ jQuery(document).ready(function($) {
         var data = $(this).serialize() + "&action=wc_duplicate_cart";
 
         $.post(WCMS.ajaxurl, data, function(resp) {
-            var data = $.parseJSON(resp);
+            var data = JSON.parse(resp);
 
             if (data.ack == "OK") {
                 tb_remove();
@@ -280,7 +280,7 @@ jQuery(document).ready(function($) {
     });
 
     $('.address-use').click(function() {
-        var address = $.parseJSON($(this).parents('p').prev('textarea').val());
+        var address = JSON.parse($(this).parents('p').prev('textarea').val());
         $(this).prop('disabled', true);
 
         $(".add-address").click();
@@ -421,7 +421,7 @@ jQuery(document).ready(function($) {
 
     /* State/Country select boxes */
     var states_json = WCMS.countries.replace(/&quot;/g, '"');
-    var states = jQuery.parseJSON( states_json );
+    var states = JSON.parse( states_json );
 
     jQuery('select.country_to_state').on("change", function(){
 

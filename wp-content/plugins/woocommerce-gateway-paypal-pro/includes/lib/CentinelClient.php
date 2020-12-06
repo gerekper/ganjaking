@@ -10,7 +10,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-require( 'XMLParser.php' );
+require( 'XMLMessageParser.php' );
 include( 'CentinelErrors.php' );
 
 class CentinelClient {
@@ -213,7 +213,7 @@ class CentinelClient {
 		} else {
 			$result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8000, CENTINEL_ERROR_CODE_8000_DESC);
 		}
-		$parser = new XMLParser;
+		$parser = new XMLMessageParser;
 		$parser->deserializeXml($result);
 		$this->response = $parser->deserializedResponse;
 	}

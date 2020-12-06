@@ -38,7 +38,6 @@ jQuery( function ( $ ) {
         remove_coupon: function (e) {
             e.preventDefault();
             var $datacoupon = $(e.target).data('coupon');
-            var available_msg_check = checkoutscript_variable_js.rs_available_message_check;
             var redeem_restriction = checkoutscript_variable_js.redeem_restriction;
             var checkout_redeem_check = checkoutscript_variable_js.checkout_redeem_check;
             //console.log($datacoupon);
@@ -54,9 +53,9 @@ jQuery( function ( $ ) {
                     }
                     $('.sumo_reward_points_manual_redeem_error_message').hide();
                     $('.sumo_reward_points_auto_redeem_error_message').remove();
-                    if (available_msg_check == 'yes') {
-                        $('.sumo_available_points').show();
-                    }
+		    
+		    // Show Curent Available points message.
+                    $( '.woocommerce' ).find( '.rs_hide_available_points_info' ).show() ;
                     if (response.data.showredeemfield) {
                         if (redeem_restriction == 1 || redeem_restriction == 2 || redeem_restriction == 5) {
                             if (checkout_redeem_check == 1) {

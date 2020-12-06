@@ -5,7 +5,7 @@
  * Description: A full-featured cost of goods management extension for WooCommerce, with detailed reporting for total cost and profit
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.9.8
+ * Version: 2.9.10
  * Text Domain: woocommerce-cost-of-goods
  * Domain Path: /i18n/languages/
  *
@@ -21,7 +21,7 @@
  *
  * Woo: 185438:9908a60a5feefec5e33b38359f5f6964
  * WC requires at least: 3.0.9
- * WC tested up to: 4.2.0
+ * WC tested up to: 4.7.1
  */
 
 defined( 'ABSPATH' ) or exit;

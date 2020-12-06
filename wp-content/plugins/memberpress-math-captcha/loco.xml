@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle name="MemberPress Math Captcha">
+  <domain name="memberpress-math-captcha">
+    <project name="MemberPress Math Captcha" slug="memberpress-math-captcha">
+      <source>
+        <directory>.</directory>
+      </source>
+      <target>
+        <directory>i18n</directory>
+      </target>
+      <template>
+        <file>i18n/memberpress-math-captcha.pot</file>
+      </template>
+    </project>
+  </domain>
+  <exclude>
+    <file>.gitignore</file>
+  </exclude>
+</bundle>

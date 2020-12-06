@@ -1,23 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "886d80a0f715aefb98fcc326c7ea467b",
     "packages": [
         {
             "name": "kint-php/kint",
-            "version": "3.2.2",
+            "version": "3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kint-php/kint.git",
-                "reference": "c332db9529fdce74ae6a347f97a1e7395e76ced8"
+                "reference": "335ac1bcaf04d87df70d8aa51e8887ba2c6d203b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kint-php/kint/zipball/c332db9529fdce74ae6a347f97a1e7395e76ced8",
-                "reference": "c332db9529fdce74ae6a347f97a1e7395e76ced8",
+                "url": "https://api.github.com/repos/kint-php/kint/zipball/335ac1bcaf04d87df70d8aa51e8887ba2c6d203b",
+                "reference": "335ac1bcaf04d87df70d8aa51e8887ba2c6d203b",
                 "shasum": ""
             },
             "require": {
@@ -55,12 +55,12 @@
             ],
             "authors": [
                 {
-                    "name": "Rokas Šleinius",
-                    "homepage": "https://github.com/raveren"
-                },
-                {
                     "name": "Jonathan Vollebregt",
                     "homepage": "https://github.com/jnvsor"
+                },
+                {
+                    "name": "Rokas Šleinius",
+                    "homepage": "https://github.com/raveren"
                 },
                 {
                     "name": "Contributors",
@@ -74,7 +74,7 @@
                 "kint",
                 "php"
             ],
-            "time": "2019-05-03T16:49:16+00:00"
+            "time": "2019-10-17T18:05:24+00:00"
         }
     ],
     "packages-dev": [],
@@ -84,5 +84,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

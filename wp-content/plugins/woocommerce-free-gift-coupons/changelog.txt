@@ -1,5 +1,21 @@
 === WooCommerce Free Gift Coupons ===
 
+2020.11.17 - version 3.0.4
+* Update: Tested against WooCommerce 4.7.0.
+* Fix: Exclude "edit in cart" feature from gifts that are specific variations.
+
+2020.10.28 - version 3.0.3
+* Fix: Load minified script if not in SCRIPT_DEBUG mode.
+* Fix: Converted cart styles from px to em
+* Fix: Fatal error WooCommerce::is_rest_api_request() does not exist until Woo 3.6.
+* Fix: Remove woocommerce_get_product_schema which is deprecated.
+
+2020.10.16 - version 3.0.2
+* Fix: Missing minified stylesheets.
+
+2020.10.16 - version 3.0.1
+* Fix: Undefined $suffix variable when loading stylesheet.
+
 2020.10.15 - version 3.0.0
 * New: Gift Variation Selection/Editing in Cart.
 * New: Gift product(s) quantity syncing with a real product in the cart.

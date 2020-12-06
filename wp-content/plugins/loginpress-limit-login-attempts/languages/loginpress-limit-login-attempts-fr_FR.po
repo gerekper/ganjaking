@@ -1,0 +1,169 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LoginPress - Limit Login Attempts\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-11 15:33+0500\n"
+"PO-Revision-Date: 2020-04-11 15:44+0500\n"
+"Last-Translator: Jean SCHEIDER <jean.scheider@expertum.fr>\n"
+"Language-Team: Français\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Loco-Version: 2.2.1; wp-5.1.1\n"
+
+#: classes/class-ajax.php:184
+msgid "Your Ip format is not correct."
+msgstr ""
+
+#: classes/class-ajax.php:196
+msgid "IP Already exist successfully move blacklist to whitelist."
+msgstr ""
+
+#: classes/class-ajax.php:206
+msgid "Successfully added in white list"
+msgstr ""
+
+#: classes/class-ajax.php:214
+msgid "IP Already in whitelist."
+msgstr ""
+
+#: classes/class-ajax.php:227
+msgid "IP Already exist successfully move whitelist to blacklist."
+msgstr ""
+
+#: classes/class-ajax.php:237
+msgid "Successfully added in blacklist"
+msgstr ""
+
+#: classes/class-ajax.php:245
+msgid "IP Already in blacklist."
+msgstr ""
+
+#: classes/class-attempts.php:141 classes/class-attempts.php:145
+msgid "You are not allowed to access admin panel"
+msgstr "Vous n'êtes pas autorisé à accéder au panneau d'administration"
+
+#: classes/class-attempts.php:277
+#, php-format
+msgid "%1$sERROR:%2$s You have only %3$s attempts"
+msgstr ""
+
+#: classes/class-attempts.php:290
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: classes/class-attempts.php:292
+msgid "XMLRPC"
+msgstr "XMLRPC"
+
+#: classes/class-attempts.php:295
+msgid "WP Login"
+msgstr "WP Login"
+
+#: classes/class-loginpress-limit-login-attempts.php:133
+msgid "Limit Login Attempts"
+msgstr "Limiter les tentatives de connexion"
+
+#: classes/class-loginpress-limit-login-attempts.php:134
+#, php-format
+msgid ""
+"%1$s%3$sSettings%4$s %5$sAttempt Details%4$s %6$sWhitelist%4$s %7$sBlacklist"
+"%4$s%2$s"
+msgstr ""
+"%1$s%3$sSettings%4$s %5$sAttempt Details%4$s %6$sWhitelist%4$s %7$sBlacklist"
+"%4$s%2$s"
+
+#: classes/class-loginpress-limit-login-attempts.php:154
+msgid "Attempts Allowed"
+msgstr "Essais permis"
+
+#: classes/class-loginpress-limit-login-attempts.php:155
+msgid "How many attempts allows"
+msgstr "Combien de tentatives permettent"
+
+#: classes/class-loginpress-limit-login-attempts.php:162
+msgid "Minutes Lockout"
+msgstr "Minutes Lockout"
+
+#: classes/class-loginpress-limit-login-attempts.php:163
+msgid "Description."
+msgstr "Description."
+
+#: classes/class-loginpress-limit-login-attempts.php:170
+msgid "IP"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:176
+msgid "Disable XML RPC Request"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:187
+msgid "Remove Record On Uninstall"
+msgstr ""
+
+#: classes/class-loginpress-limit-login-attempts.php:188
+msgid ""
+"This tool will remove all LoginPress - Limit Login Attempts record upon "
+"uninstall."
+msgstr ""
+"Cet outil supprimera tous les enregistrements LoginPress - Limit Login "
+"Attempts lors de la désinstallation."
+
+#: classes/class-loginpress-limit-login-attempts.php:387
+msgid ""
+"<p class=\"description\"><button class=\"button loginpress-attempts-"
+"whitelist add_white_list\" data-action=\"white_list\" type=\"button\" data-"
+"nonce=\""
+msgstr ""
+
+#: loginpress-limit-login-attempts.php:80
+msgid ""
+"Please Install LoginPress Pro to use \"LoginPress - Limit Login Attempts\" "
+"add-on."
+msgstr ""
+"Veuillez installer LoginPress Pro pour utiliser le module complémentaire "
+"\"LoginPress - Limit Login Attempts\"."
+
+#: loginpress-limit-login-attempts.php:97
+msgid ""
+"LoginPress - Limit Login Attempts required LoginPress Pro activation &mdash; "
+msgstr ""
+"LoginPress - Limiter le nombre de tentatives de connexion requises "
+"Activation de LoginPress Pro &mdash; "
+
+#: loginpress-limit-login-attempts.php:97
+msgid "Click here to activate LoginPress Pro"
+msgstr "Cliquez ici pour activer LoginPress Pro"
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Limit Login Attempts"
+msgstr "LoginPress - Limiter les tentatives de connexion"
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.loginpress.pro/"
+msgstr "https://www.loginpress.pro/"
+
+#. Description of the plugin/theme
+msgid ""
+"LoginPress - Limit Login Attempts is the best for <code>wp-login</code> "
+"Login Attemps plugin by <a href=\"https://wpbrigade.com/\">WPBrigade</a> "
+"which allows you to restrict user attempts."
+msgstr ""
+"LoginPress - Limiter les tentatives de connexion est le meilleur choix pour "
+"<code> wp-login </ code> Le plug-in Limiter les tentatives de connexion de "
+"<a href=\"https://wpbrigade.com/\"> WPBrigade </a>, qui vous permet de "
+"limiter les tentatives d'utilisateur ."
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr "WPBrigade"
+
+#. Author URI of the plugin/theme
+msgid "https://www.WPBrigade.com/"
+msgstr "https://www.WPBrigade.com/"
+
+#~ msgid "http://www.WPBrigade.com/wordpress/plugins/limit-login-attempts/"
+#~ msgstr "http://www.WPBrigade.com/wordpress/plugins/limit-login-attempts/"

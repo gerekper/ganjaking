@@ -64,6 +64,7 @@ return array(
     'CT_Ultimate_GDPR_Service_Ninja_Forms' => $baseDir . '/includes/service/service-ninja-forms.php',
     'CT_Ultimate_GDPR_Service_Order_Delivery_Date_For_Woocommerce' => $baseDir . '/includes/service/service-order-delivery-date-for-woocommerce.php',
     'CT_Ultimate_GDPR_Service_Polylang' => $baseDir . '/includes/service/service-polylang.php',
+    'CT_Ultimate_GDPR_Service_Post_SMTP' => $baseDir . '/includes/service/service-post-smtp.php',
     'CT_Ultimate_GDPR_Service_Quform' => $baseDir . '/includes/service/service-quform.php',
     'CT_Ultimate_GDPR_Service_Sell_Personal_Data' => $baseDir . '/includes/service/service-sell-personal-data.php',
     'CT_Ultimate_GDPR_Service_Ultimate_Member' => $baseDir . '/includes/service/service-ultimate-member.php',

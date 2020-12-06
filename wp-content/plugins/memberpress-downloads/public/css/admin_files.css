@@ -1,0 +1,114 @@
+#mpdl-file-meta .drop-zone {
+  text-align: center;
+  border-width: medium;
+  border-style: dashed;
+  border-color: #e5e5e5;
+  padding: 50px 0;
+}
+#mpdl-file-meta .drop-zone h2 {
+  font-size: 20px;
+  font-weight: 400;
+}
+#mpdl-file-meta .hidden {
+  display: none;
+}
+#mpdl-file-meta .file-upload-notice {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.125);
+  border-left: 4px solid #dc3232;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+  margin: 5px 0 15px;
+  padding: 1px 12px;
+}
+#mpdl-file-meta .drop-zone.hover {
+  background-color: rgb(0,103,153); /* Fallback for safari */
+  background-color: rgba(0,103,153,0.8);
+  color: #fafafa;
+}
+#mpdl-file-meta #upload-progress {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #444;
+  padding: 20px 5px 20px 20px;
+}
+#mpdl-file-meta #upload-progress #uploading-filename p {
+  font-weight: 600;
+  font-size: 22px;
+}
+#mpdl-file-meta #progress {
+  background-color: #dadada;
+  border-radius: 4px;
+  display:inline-flex;
+  width: 100%;
+}
+#mpdl-file-meta #progress .bar {
+  width: 0px;
+  border-radius: 4px;
+  background-color: #0173aa;
+  color: #fff;
+  text-align: center;
+  display: block;
+  height: 1.5em;
+}
+#mpdl-file-meta #flexbox-container {
+  display: flex;
+  flex-direction: row;
+}
+#mpdl-file-meta #file-details {
+  text-align: center;
+  flex: 1;
+}
+#mpdl-file-meta #file-options {
+  border-left: 1px solid #e5e5e5;
+  padding-left: 20px;
+  flex: 1;
+}
+#mpdl-file-meta #file-details #file-thumb {
+  margin: 20px 0;
+}
+#mpdl-file-meta .mpdl-icon.large {
+  font-size: 150px;
+}
+div a#mpdl-replace-file {
+  margin-top: 7px;
+}
+.mpdl-info-box {
+  margin: auto;
+  width: 150px;
+  display: block;
+  padding: 0;
+  border: 1px solid #e1e1e1;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.mpdl-info-box .mpdl-info-box-header {
+  text-align: center;
+  padding: 15px 0 15px 0;
+  border-bottom: 1px solid #e1e1e1;
+  background-color: #efefef;
+}
+.mpdl-info-box .mpdl-info-box-body {
+  padding: 20px 15px 25px 15px;
+  font-size: 32px;
+  font-weight: 400;
+}
+#mpdl-file-meta #upload-file #drop-zone input[type="file"] {
+  display: none;
+}
+#mpdl-file-meta #upload-file #drop-zone label.button {
+  margin: 8px 0;
+}
+#wpcontent #mpdl-admin-header {
+  margin-left: -20px;
+  padding: 15px;
+  padding-left: 22px;
+  background-color: #fff;
+  height: 36px;
+  border-bottom: 2px solid #00cee6;
+}
+#wpcontent #mpdl-admin-header img.mpdl-logo {
+  height: 36px;
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle name="MemberPress Corporate Accounts">
+  <domain name="memberpress-corporate">
+    <project name="MemberPress Corporate Accounts" slug="memberpress-corporate">
+      <source>
+        <directory>.</directory>
+      </source>
+      <target>
+        <directory>i18n</directory>
+      </target>
+      <template>
+        <file>i18n/memberpress-corporate.pot</file>
+      </template>
+    </project>
+  </domain>
+  <exclude>
+    <directory>.git</directory>
+    <directory>docs</directory>
+    <file>.gitignore</file>
+    <file>changelog.md</file>
+    <file>description.md</file>
+    <file>faq.md</file>
+    <file>gulpfile.js</file>
+    <file>README.md</file>
+    <file>readme.txt</file>
+  </exclude>
+</bundle>

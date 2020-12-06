@@ -1791,6 +1791,10 @@ jQuery.fn.wc_get_bundle_script = function() {
 		 */
 		this.show_price_html = function() {
 
+			if ( bundle.showing_price_html ) {
+				return true;
+			}
+
 			var show_price = wc_pb_number_round( bundle.price_data.totals.price ) !== wc_pb_number_round( bundle.price_data.raw_bundle_price_min ) || bundle.price_data.raw_bundle_price_min !== bundle.price_data.raw_bundle_price_max;
 
 			if ( bundle.get_bundled_subscriptions() ) {
@@ -1836,6 +1840,10 @@ jQuery.fn.wc_get_bundle_script = function() {
 						show_price = false;
 					}
 				}
+			}
+
+			if ( show_price ) {
+				bundle.showing_price_html = true;
 			}
 
 			return show_price;

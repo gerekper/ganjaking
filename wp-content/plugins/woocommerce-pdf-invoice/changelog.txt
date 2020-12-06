@@ -1,4 +1,33 @@
 *** WooCommerce PDF Invoice Changelog ***
+2020.11.11 - version 4.9.2
+ * New filter for invoice date apply_filters( 'woocommerce_pdf_nvoices_set_invoice_date', $return, $order_id );
+
+2020.11.08 - version 4.9.1
+ * Add option for RTL
+ * New template placeholder for RTL
+ * Filter for RTL placeholder
+
+2020.10.28 - version 4.9.0
+ * Add mPDF and option to choose between DomPDF and mPDF
+ * Combine font folders for DomPDF and mPDF
+
+2020.10.23 - version 4.8.1
+ * Fix Logo not showing
+ * Remove deprecate WC function 
+
+2020.10.21 - version 4.8.0
+ * Fix Remote Logo setting
+ * Fix for PHP 7.4 deprecated function
+ * Update to DOMPDF 0.8.6
+ * Basic RTL support
+
+2020.08.27 - version 4.7.4
+ * Version bump
+
+2020.08.27 - version 4.7.3
+ * Make sure shop_manager can save PDF Invoice options.
+ * test for deprecated function $order->get_product_from_item( $item )
+
 2020.08.11 - version 4.7.2
  * Fix compatibility with order export plugin.
  * Add invoice details to XML order export plugin.

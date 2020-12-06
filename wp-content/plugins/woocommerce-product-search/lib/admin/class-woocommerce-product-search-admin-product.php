@@ -29,6 +29,14 @@ if ( !defined( 'ABSPATH' ) ) {
 class WooCommerce_Product_Search_Admin_Product {
 
 	/**
+	 * Variation processing threshold.
+	 *
+	 * @var int
+	 */
+	const THRESHOLD = 3;
+
+
+	/**
 	 * Hooks.
 	 */
 	public static function init() {
@@ -76,6 +84,8 @@ class WooCommerce_Product_Search_Admin_Product {
 		} else {
 			$post_type = get_post_type( $post_id );
 			if ( $post_type === 'product' ) {
+				$guardian = new WooCommerce_Product_Search_Guardian();
+				$guardian->start();
 				$indexer = new WooCommerce_Product_Search_Indexer();
 				$post_status = get_post_status( $post_id );
 				switch ( $post_status ) {
@@ -90,8 +100,39 @@ class WooCommerce_Product_Search_Admin_Product {
 							intval( $post_id )
 						) );
 						if ( is_array( $variation_ids ) ) {
-							foreach( $variation_ids as $variation_id ) {
-								$indexer->index( $variation_id );
+							$variation_ids = array_unique( array_map( 'intval', $variation_ids ) );
+							$threshold = is_numeric( WPS_DEFER_VARIATIONS_THRESHOLD ) ? intval( WPS_DEFER_VARIATIONS_THRESHOLD ) : self::THRESHOLD;
+							if ( $threshold < 0 ) {
+								$threshold = 0;
+							}
+							if ( $threshold > 0 ) {
+								$processed = 0;
+								foreach( $variation_ids as $variation_id ) {
+									if ( $guardian->is_ok() ) {
+										$indexer->index( $variation_id );
+										$processed++;
+										if ( $processed >= $threshold ) {
+											wps_log_info(
+												'WooCommerce Product Search - ' .
+												esc_html__( 'Info', 'woocommerce-product-search' ) .
+												' : ' .
+												sprintf(
+													esc_html__( 'Deferred further variation processing on reaching threshold (%d).', 'woocommerce-product-search' ),
+													$threshold
+												)
+											);
+											break;
+										}
+									} else {
+										wps_log_info(
+											'WooCommerce Product Search - ' .
+											esc_html__( 'Info', 'woocommerce-product-search' ) .
+											' : ' .
+											esc_html__( 'Deferred variation processing to avoid PHP resource limit issues.', 'woocommerce-product-search' )
+										);
+										break;
+									}
+								}
 							}
 						}
 						break;

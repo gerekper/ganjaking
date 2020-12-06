@@ -49,6 +49,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 					'data'          => $_product,
 					'wl_price'      => isset( $values['wl_price'] ) ? $values['wl_price'] : false,
 					'date'          => isset( $values['date'] ) ? $values['date'] : strtotime( 'now' ),
+					'wl_date'          => isset( $values['wl_date'] ) ? $values['wl_date'] : strtotime( 'now' ),
 					'ordered_total' => isset( $values['ordered_total'] ) ? $values['ordered_total'] : 0,
 					'orders'        => isset( $values['orders'] ) ? $values['orders'] : array(),
 				);

@@ -449,7 +449,7 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
                 return $valid ;
 
             $ProductIdAdded = isset( $variation_id ) ? $variation_id : $product_id ;
-            if ( ! is_user_logged_in() && check_display_price_type( $ProductIdAdded ) ) {
+            if ( ! is_user_logged_in() && '2' != get_option('rs_point_price_visibility') && check_display_price_type( $ProductIdAdded ) ) {
                 wc_add_notice( do_shortcode( get_option( 'rs_point_price_product_added_to_cart_guest_errmsg' , 'Only registered users can purchase this product. Click the link to create an account ([loginlink]).' ) ) , 'error' ) ;
                 return ;
             }

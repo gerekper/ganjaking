@@ -1,0 +1,165 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LoginPress - Hide Login\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-17 09:41+0000\n"
+"PO-Revision-Date: 2019-03-17 10:42+0000\n"
+"Last-Translator: Jean SCHEIDER <jean.scheider@expertum.fr>\n"
+"Language-Team: Français\n"
+"Language: fr-FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.1; wp-5.1.1"
+
+#: loginpress-hide-login.php:114
+msgid "Click here to activate LoginPress Pro"
+msgstr "Cliquez ici pour activer LoginPress Pro"
+
+#: classes/class-loginpress-hidelogin.php:444
+msgid "Disabled Admin Access"
+msgstr "Accès administrateur désactivé"
+
+#: classes/class-loginpress-hidelogin.php:143
+msgid "Email Address"
+msgstr "Adresse Email"
+
+#: classes/class-loginpress-hidelogin.php:394
+msgid "Email sent."
+msgstr "Email envoyé"
+
+#: classes/class-loginpress-hidelogin.php:370
+msgid "Email will be sent to the address defined below."
+msgstr "Un email sera envoyé à l'adresse définie ci-dessous."
+
+#: classes/class-loginpress-hidelogin.php:285
+msgid "Generate Slug (Randomly)"
+msgstr "Générer un slug (au hasard)"
+
+#: classes/class-loginpress-hidelogin.php:312
+#, php-format
+msgid "Here is your login page now: %1$s. Bookmark this page!"
+msgstr "Voici votre page de connexion maintenant:% 1 $ s. Marquer cette page!"
+
+#: classes/class-loginpress-hidelogin.php:111
+msgid "Hide Login"
+msgstr "Masquer Connexion"
+
+#: classes/class-loginpress-hidelogin.php:253
+msgid ""
+"Hide login lets you change the login page URL to anything you want. It will "
+"give a hard time to spammers who keep hitting to your login page. This is "
+"helpful for Brute force attacks. One caution to use this add-on is you need "
+"to remember the custom login url after you change it. We have an option to "
+"email your custom login url so you remember it."
+msgstr ""
+"Masquer la connexion vous permet de modifier l'URL de la page de connexion "
+"en tout ce que vous voulez. Cela va donner du fil à retordre aux spammeurs "
+"qui ne cessent de frapper votre page de connexion. Ceci est utile pour les "
+"attaques par force brute. Une précaution à prendre pour utiliser ce module "
+"est que vous devez vous rappeler l'URL de connexion personnalisée après "
+"l'avoir modifiée. Nous avons la possibilité d'envoyer par courrier "
+"électronique votre URL de connexion personnalisée afin que vous puissiez "
+"vous en souvenir."
+
+#. Author URI of the plugin
+msgid "http://www.WPBrigade.com/"
+msgstr "http://www.WPBrigade.com"
+
+#. URI of the plugin
+msgid "http://www.WPBrigade.com/wordpress/plugins/hidelogin/"
+msgstr "http://www.WPBrigade.com/wordpress/plugins/hidelogin"
+
+#. Name of the plugin
+msgid "LoginPress - Hide Login"
+msgstr "LoginPress - Masquer la connexion"
+
+#: loginpress-hide-login.php:86
+msgid ""
+"LoginPress Hide Login could not be activated because you already have active "
+". Please uninstall Login Rename Plugin to use LoginPress Hide Login"
+msgstr ""
+"LoginPress masquer la connexion n'a pas pu être activée car vous êtes déjà "
+"actif. Veuillez désinstaller Login Rename Plugin pour utiliser LoginPress "
+"Hide Hide Login"
+
+#: loginpress-hide-login.php:114
+msgid "LoginPress Hide Login required LoginPress Pro activation &mdash; "
+msgstr "LoginPressPress Cacher Login requis Activation LoginPress Pro & mdash;"
+
+#. Description of the plugin
+msgid ""
+"LoginPress is the best <code>wp-login</code> Hide Login plugin by <a "
+"href=\"https://wpbrigade.com/\">WPBrigade</a> which allows you to hide the "
+"wp-login.php."
+msgstr ""
+"155/5000\n"
+"LoginPress est le meilleur <code> wp-login </ code> masquer le plug-in de "
+"connexion par <a href=\"https://wpbrigade.com/\"> WPBrigade </a>, qui vous "
+"permet de masquer le fichier wp-login.php."
+
+#: classes/class-loginpress-hidelogin.php:130
+msgid "mylogin"
+msgstr "mon identifiant"
+
+#: loginpress-hide-login.php:97
+msgid "Please Install LoginPress Pro to use \"LoginPress Hide Login\" add-on."
+msgstr ""
+"Veuillez installer LoginPress Pro pour utiliser le module complémentaire "
+"\"LoginPress masquer login\"."
+
+#: classes/class-loginpress-hidelogin.php:373
+msgid "Please write down the correct email for sending the email."
+msgstr "S'il vous plaît écrivez le bon email pour envoyer l'email."
+
+#: classes/class-loginpress-hidelogin.php:129
+msgid "Rename Login Slug"
+msgstr "Renommer Login Slug"
+
+#: classes/class-loginpress-hidelogin.php:318
+msgid "Rename your wp-login.php"
+msgstr "Renommez votre wp-login.php"
+
+#: classes/class-loginpress-hidelogin.php:287
+msgid "Reset Login Slug"
+msgstr "Réinitialiser Login Slug"
+
+#: classes/class-loginpress-hidelogin.php:137
+msgid "Send Email"
+msgstr ""
+"10/5000\n"
+"Envoyer un email"
+
+#: classes/class-loginpress-hidelogin.php:376
+msgid "Send email after changing the wp-login.php slug?"
+msgstr "Envoyer un email après avoir changé le slug wp-login.php?"
+
+#: classes/class-loginpress-hidelogin.php:415
+msgid "This feature is not enabled."
+msgstr ""
+"28/5000\n"
+"Cette fonctionnalité n'est pas activée."
+
+#: classes/class-loginpress-hidelogin.php:257
+#, php-format
+msgid ""
+"To set a networkwide default, go to <a href=\"%s\">Network Settings</a>."
+msgstr ""
+"Pour définir une valeur par défaut pour l'ensemble du réseau, accédez à <a "
+"href=\"%s\"> Paramètres réseau </a>."
+
+#. Author of the plugin
+msgid "WPBrigade"
+msgstr "WPBrigade"
+
+#: classes/class-loginpress-hidelogin.php:397
+msgid "Write a Email\tAddress where send the New generated URL"
+msgstr "Écrivez une adresse email où envoyer l'URL générée"
+
+#: classes/class-loginpress-hidelogin.php:307 
+#: classes/class-loginpress-hidelogin.php:309
+#, php-format
+msgid "Your default login page: %1$s. Bookmark this page!"
+msgstr "Votre page de connexion par défaut:% 1 $ s. Marquer cette page!"

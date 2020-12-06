@@ -175,7 +175,7 @@ class WC_Dropshipping_Admin
 	{
 		$base_name = explode('/', plugin_basename(__FILE__));
 
-		if (@$_GET['success'] == 'no') {
+		if(array_key_exists("success", $_GET) && trim($_GET['success']) == 'no'){
 			wp_enqueue_script('my-jquery-min-script', plugins_url() . '/' . $base_name[0] . '/assets/js/jquery.min.js', array('jquery'), true);
 
 			wp_enqueue_script('popper.min.js.map', plugins_url() . '/' . $base_name[0] . '/assets/js/popper.min.js', array('jquery'), true);

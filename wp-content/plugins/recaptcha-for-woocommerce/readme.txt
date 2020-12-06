@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recpatcha
 Requires at least:3.0
-Tested up to:5.5.1
-Version:1.0.17
-Stable tag:1.0.17
+Tested up to:5.5.3
+Version:2.3
+Stable tag:2.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -58,6 +58,25 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.3 =
+
+* Fixed reCaptcha not working for IE 11.
+
+
+= 2.2 =
+
+* Fixed reCaptcha v2 disable submit button on reCaptcha reset problem
+
+
+= 2.1 =
+
+* Fixed Uncaught SyntaxError: Unexpected string error after updates 2.0
+
+= 2.0 =
+
+* Now "recaptcha for woocommerce" support google latest version of greCAPTCHA V3
+* This version never disturb user, ReCaptcha V3 Uses a behind-the-scenes scoring system to detect abusive traffic, and lets you decide the minimum passing score. Please note that there is no user interaction shown in reRecapcha V3 meaning that no recaptcha challenge is shown to solve. 
 
 = 1.0.17 =
 

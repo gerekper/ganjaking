@@ -4,10 +4,10 @@
  */
 
 
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly.
 }
-if( ! class_exists( 'RSCashbackModule' ) ) {
+if ( ! class_exists( 'RSCashbackModule' ) ) {
 
     class RSCashbackModule {
 
@@ -39,7 +39,7 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
 
             add_action( 'rs_display_reset_button_fpcashback' , array( 'RSTabManagement' , 'rs_display_reset_button' ) ) ;
 
-            if( check_whether_hoicker_is_active() ) {
+            if ( check_whether_hoicker_is_active() ) {
                 add_filter( 'woocommerce_fpcashback' , array( __CLASS__ , 'rs_function_to_add_label_for_wallet' ) ) ;
             }
         }
@@ -56,12 +56,12 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
 
             $updated_settings = array() ;
 
-            foreach( $settings as $section ) {
+            foreach ( $settings as $section ) {
 
-                if( isset( $section[ 'id' ] ) && 'rs_user_role_reward_points_for_redeem_cashback' == $section[ 'id' ] &&
+                if ( isset( $section[ 'id' ] ) && 'rs_user_role_reward_points_for_redeem_cashback' == $section[ 'id' ] &&
                         isset( $section[ 'type' ] ) && 'sectionend' == $section[ 'type' ] ) {
 
-                    foreach( $wp_roles->role_names as $role_name_key => $role_name_value ) {
+                    foreach ( $wp_roles->role_names as $role_name_key => $role_name_value ) {
 
                         $updated_settings[] = array(
                             'name'     => esc_html__( 'Reward Points Cashback Percentage for ' . $role_name_value . ' User Role' , SRP_LOCALE ) ,
@@ -77,7 +77,7 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
                                 ) ;
                     }
                     $updated_settings[] = array(
-                        'type' => 'sectionend' , 
+                        'type' => 'sectionend' ,
                         'id'   => 'rs_user_role_reward_points_for_redeem_cashback' ,
                             ) ;
                 }
@@ -96,7 +96,7 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
             global $woocommerce ;
             $walletia_label     = get_option( 'rs_encashing_wallet_menu_label' ) ? get_option( 'rs_encashing_wallet_menu_label' ) : 'Hoicker Wallet' ;
             $list_of_user_roles = fp_user_roles() ;
-            if( check_whether_hoicker_is_active() ) {
+            if ( check_whether_hoicker_is_active() ) {
                 $payment_method = array(
                     '1' => __( 'PayPal' , SRP_LOCALE ) ,
                     '2' => __( 'Custom Payment' , SRP_LOCALE ) ,
@@ -109,7 +109,7 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
                     '2' => __( 'Custom Payment' , SRP_LOCALE ) ,
                     '3' => __( 'All' , SRP_LOCALE ) ,
                         ) ;
-                if( get_option( 'rs_select_payment_method' ) === '4' ) {
+                if ( get_option( 'rs_select_payment_method' ) === '4' ) {
                     update_option( 'rs_select_payment_method' , 3 ) ;
                 }
             }
@@ -256,6 +256,15 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
                     'desc_tip' => true ,
                 ) ,
                 array(
+                    'name'     => __( 'Currency Value Label' , SRP_LOCALE ) ,
+                    'id'       => 'rs_encashing_currency_label' ,
+                    'std'      => 'Currency Value' ,
+                    'default'  => 'Currency Value' ,
+                    'type'     => 'text' ,
+                    'newids'   => 'rs_encashing_currency_label' ,
+                    'desc_tip' => true ,
+                ) ,
+                array(
                     'name'     => __( 'Reason for Cashback Label' , SRP_LOCALE ) ,
                     'desc'     => __( 'Please Enter label for Reason Cashback' , SRP_LOCALE ) ,
                     'id'       => 'rs_encashing_reason_label' ,
@@ -264,6 +273,15 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
                     'type'     => 'text' ,
                     'newids'   => 'rs_encashing_reason_label' ,
                     'desc_tip' => true ,
+                ) ,
+                array(
+                    'name'    => __( 'Reason Field' , SRP_LOCALE ) ,
+                    'desc'    => __( 'By enabling this checkbox, reason field will be displayed as Mandatory in the Cashback Form' , SRP_LOCALE ) ,
+                    'id'      => 'rs_reason_mandatory_for_cashback_form' ,
+                    'type'    => 'checkbox' ,
+                    'std'     => 'yes' ,
+                    'default' => 'yes' ,
+                    'newids'  => 'rs_reason_mandatory_for_cashback_form' ,
                 ) ,
                 array(
                     'name'     => __( 'Payment Method Label' , SRP_LOCALE ) ,
@@ -406,16 +424,6 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
                     'name' => __( 'Cashback Percentage based on User Role' , SRP_LOCALE ) ,
                     'type' => 'title' ,
                     'id'   => 'rs_user_role_reward_points_for_redeem_cashback' ,
-                ) ,
-                array(
-                    'name'    => __( 'User Role based Cashback Percentage' , SRP_LOCALE ) ,
-                    'desc'    => __( 'Enable this option to modify the cashback percentage based on user role' , SRP_LOCALE ) ,
-                    'id'      => 'rs_enable_user_role_based_reward_points_for_redeem_cashback' ,
-                    'css'     => 'min-width:150px;' ,
-                    'std'     => 'yes' ,
-                    'default' => 'yes' ,
-                    'type'    => 'checkbox' ,
-                    'newids'  => 'rs_enable_user_role_based_reward_points_for_redeem_cashback' ,
                 ) ,
                 array( 'type' => 'sectionend' , 'id' => 'rs_user_role_reward_points_for_redeem_cashback' ) ,
                 array(
@@ -915,27 +923,27 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
          */
         public static function reward_system_update_settings() {
             woocommerce_update_options( RSCashbackModule::reward_system_admin_fields() ) ;
-            if( isset( $_POST[ 'rs_select_inc_user_search' ] ) ) {
+            if ( isset( $_POST[ 'rs_select_inc_user_search' ] ) ) {
                 update_option( 'rs_select_inc_user_search' , $_POST[ 'rs_select_inc_user_search' ] ) ;
             } else {
                 update_option( 'rs_select_inc_user_search' , '' ) ;
             }
-            if( isset( $_POST[ 'rs_select_exc_user_search' ] ) ) {
+            if ( isset( $_POST[ 'rs_select_exc_user_search' ] ) ) {
                 update_option( 'rs_select_exc_user_search' , $_POST[ 'rs_select_exc_user_search' ] ) ;
             } else {
                 update_option( 'rs_select_exc_user_search' , '' ) ;
             }
-            if( isset( $_POST[ 'rs_redeem_point_for_cash_back' ] ) ) {
+            if ( isset( $_POST[ 'rs_redeem_point_for_cash_back' ] ) ) {
                 update_option( 'rs_redeem_point_for_cash_back' , $_POST[ 'rs_redeem_point_for_cash_back' ] ) ;
             } else {
                 update_option( 'rs_redeem_point_for_cash_back' , '' ) ;
             }
-            if( isset( $_POST[ 'rs_redeem_point_value_for_cash_back' ] ) ) {
+            if ( isset( $_POST[ 'rs_redeem_point_value_for_cash_back' ] ) ) {
                 update_option( 'rs_redeem_point_value_for_cash_back' , $_POST[ 'rs_redeem_point_value_for_cash_back' ] ) ;
             } else {
                 update_option( 'rs_redeem_point_value_for_cash_back' , '' ) ;
             }
-            if( isset( $_POST[ 'rs_cashback_module_checkbox' ] ) ) {
+            if ( isset( $_POST[ 'rs_cashback_module_checkbox' ] ) ) {
                 update_option( 'rs_cashback_activated' , $_POST[ 'rs_cashback_module_checkbox' ] ) ;
             } else {
                 update_option( 'rs_cashback_activated' , 'no' ) ;
@@ -963,8 +971,8 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
          * Initialize the Default Settings by looping this function
          */
         public static function set_default_value() {
-            foreach( RSCashbackModule::reward_system_admin_fields() as $setting )
-                if( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+            foreach ( RSCashbackModule::reward_system_admin_fields() as $setting )
+                if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
                     add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
                 }
         }
@@ -978,8 +986,8 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
 
         public static function rs_function_to_add_label_for_wallet( $settings ) {
             $updated_settings = array() ;
-            foreach( $settings as $section ) {
-                if( isset( $section[ 'id' ] ) && '_rs_reward_point_encashing_settings' == $section[ 'id' ] &&
+            foreach ( $settings as $section ) {
+                if ( isset( $section[ 'id' ] ) && '_rs_reward_point_encashing_settings' == $section[ 'id' ] &&
                         isset( $section[ 'type' ] ) && 'sectionend' == $section[ 'type' ] ) {
                     $updated_settings[] = array(
                         'name'     => __( 'Hoicker Wallet Label' , SRP_LOCALE ) ,
@@ -1014,10 +1022,10 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
 
             $testListTable = new FPRewardSystemEncashTabList() ;
             $testListTable->prepare_items() ;
-            if( ! isset( $_REQUEST[ 'encash_application_id' ] ) ) {
+            if ( ! isset( $_REQUEST[ 'encash_application_id' ] ) ) {
                 $array_list = array() ;
                 $message    = '' ;
-                if( 'encash_application_delete' === $testListTable->current_action() ) {
+                if ( 'encash_application_delete' === $testListTable->current_action() ) {
                     $message = '<div class="updated below-h2" id="message"><p>' . sprintf( __( 'Items deleted: %d' ) , count( $_REQUEST[ 'id' ] ) ) . '</p></div>' ;
                 }
                 echo $message ;
@@ -1042,15 +1050,15 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
                 'status'                => '' ,
                     ) ;
 
-            if( isset( $_REQUEST[ 'nonce' ] ) ) {
-                if( wp_verify_nonce( $_REQUEST[ 'nonce' ] , basename( __FILE__ ) ) ) {
+            if ( isset( $_REQUEST[ 'nonce' ] ) ) {
+                if ( wp_verify_nonce( $_REQUEST[ 'nonce' ] , basename( __FILE__ ) ) ) {
                     $item       = shortcode_atts( $default , $_REQUEST ) ;
                     $item_valid = self::encash_validation( $item ) ;
-                    if( $item_valid === true ) {
-                        if( $item[ 'id' ] == 0 ) {
+                    if ( $item_valid === true ) {
+                        if ( $item[ 'id' ] == 0 ) {
                             $result       = $wpdb->insert( $table_name , $item ) ;
                             $item[ 'id' ] = $wpdb->insert_id ;
-                            if( $result ) {
+                            if ( $result ) {
                                 $message = __( 'Item was successfully saved' ) ;
                             } else {
                                 $notice = __( 'There was an error while saving item' ) ;
@@ -1060,7 +1068,7 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
 
 
 
-                            if( $result ) {
+                            if ( $result ) {
                                 $message = __( 'Item was successfully updated' ) ;
                             } else {
                                 $notice = __( 'There was an error while updating item' ) ;
@@ -1075,10 +1083,10 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
                 // if this is not post back we load item to edit or give new one to create
                 $item = $default ;
 
-                if( isset( $_REQUEST[ 'encash_application_id' ] ) ) {
+                if ( isset( $_REQUEST[ 'encash_application_id' ] ) ) {
                     $item = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE id = %d" , $_REQUEST[ 'encash_application_id' ] ) , ARRAY_A ) ;
 
-                    if( ! $item ) {
+                    if ( ! $item ) {
                         $item   = $default ;
                         $notice = __( 'Item not found' ) ;
                     }
@@ -1086,25 +1094,25 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
             }
             ?>
             <?php
-            if( isset( $_REQUEST[ 'encash_application_id' ] ) ) {
+            if ( isset( $_REQUEST[ 'encash_application_id' ] ) ) {
                 ?>
                 <script type="text/javascript">
-                    jQuery( document ).ready( function() {
+                    jQuery( document ).ready( function () {
                         var currentvalue = jQuery( '#encashpaymentmethod' ).val() ;
-                        if( currentvalue === '1' ) {
+                        if ( currentvalue === '1' ) {
                             jQuery( '.paypalemailid' ).parent().parent().css( 'display' , 'table-row' ) ;
                             jQuery( '.otherpaymentdetails' ).parent().parent().css( 'display' , 'none' ) ;
                         } else {
                             jQuery( '.otherpaymentdetails' ).parent().parent().css( 'display' , 'table-row' ) ;
                             jQuery( '.paypalemailid' ).parent().parent().css( 'display' , 'none' ) ;
                         }
-                        jQuery( '#encashpaymentmethod' ).change( function() {
+                        jQuery( '#encashpaymentmethod' ).change( function () {
                             var thisvalue = jQuery( this ).val() ;
-                            if( thisvalue === '1' ) {
+                            if ( thisvalue === '1' ) {
                                 jQuery( '.paypalemailid' ).parent().parent().css( 'display' , 'table-row' ) ;
                                 jQuery( '.otherpaymentdetails' ).parent().parent().css( 'display' , 'none' ) ;
                             } else {
-                                if( thisvalue === '2' ) {
+                                if ( thisvalue === '2' ) {
                                     jQuery( '.paypalemailid' ).parent().parent().css( 'display' , 'none' ) ;
                                     jQuery( '.otherpaymentdetails' ).parent().parent().css( 'display' , 'table-row' ) ;
                                 }
@@ -1122,10 +1130,10 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
                     <h3><?php _e( 'Edit Cashback Status' , SRP_LOCALE ) ; ?><a class="add-new-h2"
                                                                                href="<?php echo get_admin_url( get_current_blog_id() , 'admin.php?page=rewardsystem_callback&tab=encash_applications' ) ; ?>"><?php _e( 'Back to list' ) ?></a>
                     </h3>
-                    <?php if( ! empty( $notice ) ): ?>
+                    <?php if ( ! empty( $notice ) ): ?>
                         <div id="notice" class="error"><p><?php echo $notice ?></p></div>
                     <?php endif ; ?>
-                    <?php if( ! empty( $message ) ): ?>
+                    <?php if ( ! empty( $message ) ): ?>
                         <div id="message" class="updated"><p><?php echo $message ?></p></div>
                     <?php endif ; ?>
                     <form id="form" method="POST">
@@ -1206,7 +1214,7 @@ if( ! class_exists( 'RSCashbackModule' ) ) {
 
         public static function encash_validation( $item ) {
             $messages = array() ;
-            if( empty( $messages ) )
+            if ( empty( $messages ) )
                 return true ;
             return implode( '<br />' , $messages ) ;
         }

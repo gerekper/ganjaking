@@ -64,7 +64,7 @@ class WC_Memberships_Integrations {
 	/** @var null|\WC_Memberships_Integration_Subscriptions instance */
 	private $subscriptions;
 
-	/** @var null|\WC_Memberships_Integration_User_Switching instance */
+	/** @var null|\SkyVerge\WooCommerce\Memberships\Integrations\User_Switching instance */
 	private $user_switching;
 
 
@@ -116,7 +116,13 @@ class WC_Memberships_Integrations {
 
 		// User Switching
 		if ( $this->is_user_switching_active() ) {
-			$this->user_switching = wc_memberships()->load_class( '/includes/integrations/user-switching/class-wc-memberships-integration-user-switching.php', 'WC_Memberships_Integration_User_Switching' );
+
+			require_once( wc_memberships()->get_plugin_path() . '/includes/integrations/User_Switching.php' );
+
+			$this->user_switching = new \SkyVerge\WooCommerce\Memberships\Integrations\User_Switching();
+
+			/** @deprecated remove legacy class aliases when the plugin has fully migrated to namespaces */
+			class_alias( \SkyVerge\WooCommerce\Memberships\Integrations\User_Switching::class, 'WC_Memberships_Integration_User_Switching', false );
 		}
 
 		// Jilt Promotions -- can't use admin_init because that's too late to be able to add connection redirect args
@@ -217,9 +223,10 @@ class WC_Memberships_Integrations {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @return null|\WC_Memberships_Integration_User_Switching
+	 * @return null|\SkyVerge\WooCommerce\Memberships\Integrations\User_Switching
 	 */
 	public function get_user_switching_instance() {
+
 		return $this->user_switching;
 	}
 

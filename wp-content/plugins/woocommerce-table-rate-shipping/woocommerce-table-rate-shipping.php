@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Table Rate Shipping
  * Plugin URI: https://woocommerce.com/products/table-rate-shipping/
  * Description: Table rate shipping lets you define rates depending on location vs shipping class, price, weight, or item count.
- * Version: 3.0.29
+ * Version: 3.0.30
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0
@@ -12,7 +12,7 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Domain Path: /languages/
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  * WC requires at least: 2.6
  *
  * Woo: 18718:3034ed8aff427b0f635fe4c86bbf008a
@@ -40,7 +40,7 @@ class WC_Table_Rate_Shipping {
 	 * Constructor.
 	 */
 	public function __construct() {
-		define( 'TABLE_RATE_SHIPPING_VERSION', '3.0.29' ); // WRCS: DEFINED_VERSION.
+		define( 'TABLE_RATE_SHIPPING_VERSION', '3.0.30' ); // WRCS: DEFINED_VERSION.
 		define( 'TABLE_RATE_SHIPPING_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG && ( ! defined( 'WP_DEBUG_DISPLAY' ) || WP_DEBUG_DISPLAY ) );
 		define( 'WC_TABLE_RATE_SHIPPING_MAIN_FILE', __FILE__ );
 
@@ -120,6 +120,7 @@ class WC_Table_Rate_Shipping {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
+		add_filter( 'woocommerce_translations_updates_for_woocommerce_table_rate_shipping', '__return_true' );
 		add_action( 'woocommerce_shipping_init', array( $this, 'shipping_init' ) );
 		add_action( 'delete_product_shipping_class', array( $this, 'update_deleted_shipping_class' ) );
 		add_action( 'woocommerce_before_cart', array( $this, 'maybe_show_abort' ), 1 );

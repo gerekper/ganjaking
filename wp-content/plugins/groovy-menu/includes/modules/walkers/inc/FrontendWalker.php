@@ -470,7 +470,7 @@ class FrontendWalker extends WalkerNavMenu {
 			$class_names = trim( $class_names ) ? ' class="' . esc_attr( $class_names ) . '"' : '';
 
 			$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
-			$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
+			$id = $id ? ' id="' . esc_attr( $id ) . '"' : ' id="menu-item-' . esc_attr( $item->ID ) . '"';
 
 			$output .= $indent . '<li' . $id . $class_names . '>';
 

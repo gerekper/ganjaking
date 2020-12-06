@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 	private $is_enabled  = false;
-    private $rule_weight = 0;
+	private $rule_weight = 0;
 	/**
 	 * The constructor
 	 */
@@ -48,15 +48,15 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 				 
 		if ( $contents !== false ) {
 
-		    $res = @json_decode($contents);
+			$res = @json_decode($contents);
 			
-		    if(json_last_error() === JSON_ERROR_NONE) {
+			if (json_last_error() === JSON_ERROR_NONE) {
 				
-				$array_data = (array)$res;
+				$array_data = (array) $res;
 
-				if(array_key_exists('vpn_or_proxy', $array_data)) {
+				if (array_key_exists('vpn_or_proxy', $array_data)) {
 
-					if($res->vpn_or_proxy == 'yes'){
+					if ($res->vpn_or_proxy == 'yes') {
 
 						$risk = true;
 					}
@@ -68,11 +68,11 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 		}
 
 		return $risk;
-   	}
-   	
+	}
+	
 	//Enable rule check
-	public function is_enabled(){
-		if('yes' == $this->is_enabled){
+	public function is_enabled() {
+		if ('yes' == $this->is_enabled) {
 			return true;
 		}
 		return false; 

@@ -436,7 +436,10 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
                 if ( isset( $_POST[ 'selecteduser' ] ) )
                     update_option( 'rs_selected_user_to_export_points' , $_POST[ 'selecteduser' ] ) ;
 
-                set_transient( 'fp_background_process_transient_for_export_points' , true , 30 ) ;
+                if ( isset( $_POST[ 'selected_user_roles' ] ) )
+                    update_option( 'rs_selected_user_role_to_export_points', wc_clean( wp_unslash( $_POST[ 'selected_user_roles' ] ) ) ) ;
+
+                set_transient( 'fp_background_process_transient_for_export_points', true, 30 ) ;
                 wp_send_json_success() ;
             } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
@@ -459,11 +462,14 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
             $Selecteduser      = get_option( 'rs_selected_user_to_export_points' ) ;
             if ( $UserSelectionType == '1' ) {
                 $args   = array( 'fields' => 'ID' ) ;
-                $UserId = get_users( $args ) ;
+                $UserIds = get_users( $args ) ;
             } else if ( $UserSelectionType == '2' ) {
-                $UserId = is_array( $Selecteduser ) ? $Selecteduser : explode( ',' , $Selecteduser ) ;
+                $UserIds = is_array( $Selecteduser ) ? $Selecteduser : explode( ',', $Selecteduser ) ;
+            } else {
+            	$selected_user_roles  = get_option( 'rs_selected_user_role_to_export_points' ) ;
+                $UserIds              = srp_check_is_array( $selected_user_roles ) ? get_users( array( 'fields' => 'ids', 'role__in' => $selected_user_roles ) ) : array() ;
             }
-            $SlicedArray = array_slice( $UserId , $offset , 1000 ) ;
+            $SlicedArray = array_slice( $UserIds , $offset , 1000 ) ;
             if ( srp_check_is_array( $SlicedArray ) ) {
                 foreach ( $SlicedArray as $id ) {
                     self::$export_points_for_user->push_to_queue( $id ) ;

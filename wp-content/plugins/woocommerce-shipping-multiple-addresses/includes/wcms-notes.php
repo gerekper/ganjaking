@@ -95,7 +95,7 @@ class WC_MS_Notes {
                         localStorage["ms_note_"+ index] = note;
                     });
 
-                    $("body").bind("updated_checkout", function() {
+                    $("body").on("updated_checkout", function() {
                         apply_notes();
                     })
 

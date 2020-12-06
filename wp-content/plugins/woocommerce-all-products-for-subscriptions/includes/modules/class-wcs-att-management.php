@@ -26,9 +26,9 @@ class WCS_ATT_Management extends WCS_ATT_Abstract_Module {
 	protected function register_modules() {
 
 		// Line item switching module.
-		require_once( 'management/class-wcs-att-manage-switch.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/modules/management/class-wcs-att-manage-switch.php' );
 		// Add-to-subscription module.
-		require_once( 'management/class-wcs-att-manage-add.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/modules/management/class-wcs-att-manage-add.php' );
 
 		// Initialize modules.
 		$this->modules = apply_filters( 'wcsatt_management_modules', array(

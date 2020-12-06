@@ -6,7 +6,7 @@
  * Description: WooCommerce plugin to provide price and quantity calculations based on product measurements
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 3.18.1
+ * Version: 3.18.3
  * Text Domain: woocommerce-measurement-price-calculator
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 18735:be4679e3d3b24f513b2266b79e859bab
  * WC requires at least: 3.0.9
- * WC tested up to: 4.5.2
+ * WC tested up to: 4.7.0
  */
 
 defined( 'ABSPATH' ) or exit;

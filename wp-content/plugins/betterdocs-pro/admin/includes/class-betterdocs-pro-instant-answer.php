@@ -396,7 +396,8 @@ class BetterDocs_Pro_IA {
 	}
 
     public static function make_url( $settings, $base = false ) {
-        $site_url = get_bloginfo('url');
+        $site_url = get_site_url();
+
         $base_url = $site_url . '?rest_route=/wp/v2/docs';
 
         if( $base == true ) {
@@ -407,7 +408,13 @@ class BetterDocs_Pro_IA {
             $base_url = $site_url . '?rest_route=/wp/v2/doc_category';
         }
 
+        if ( has_filter('wpml_current_language') ) {
+            $lang = apply_filters( 'wpml_current_language', NULL );
+            $base_url = $base_url . '&lang=' . $lang;
+        }
+
         $url = $base_url . '&per_page=10';
+
         $query_string_as_array = [];
         $sub_string_url = '';
 

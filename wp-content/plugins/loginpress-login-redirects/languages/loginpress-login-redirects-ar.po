@@ -1,0 +1,132 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n"
+"%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Project-Id-Version: LoginPress - Redirect Login v1.1.1\n"
+"POT-Creation-Date: 2019-07-15 11:29+0500\n"
+"PO-Revision-Date: 2019-08-02 22:14+0300\n"
+"Language-Team: Moqbel BJ <moqbelbj@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress-login-redirects.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: ar\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: classes/class-loginpress-login-redirects.php:115
+msgid "Login Redirects"
+msgstr "إعادة توجيه تسجيل الدخول"
+
+#: classes/class-loginpress-login-redirects.php:116
+#, php-format
+msgid "%1$s%3$sSpecific User%4$s %5$sSpecific Roles%4$s%2$s "
+msgstr "%1$s%3$sمستخدم محدد%4$s %5$sدور محدد%4$s%2$s "
+
+#: classes/class-loginpress-login-redirects.php:133
+msgid "Search Username"
+msgstr "بحث اسم المستخدم"
+
+#: classes/class-loginpress-login-redirects.php:134
+msgid "Search Username for apply redirects on that."
+msgstr "ابحث باسم المستخدم لتطبيق إعادة التوجيه عليه."
+
+#: classes/class-loginpress-login-redirects.php:165
+msgid "User ID"
+msgstr "معرّف المستخدم"
+
+#: classes/class-loginpress-login-redirects.php:166
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: classes/class-loginpress-login-redirects.php:167
+msgid "Email"
+msgstr "البريد الالكتروني"
+
+#: classes/class-loginpress-login-redirects.php:168
+#: classes/class-loginpress-login-redirects.php:205
+msgid "Login URL"
+msgstr "رابط تسجيل الدخول"
+
+#: classes/class-loginpress-login-redirects.php:169
+#: classes/class-loginpress-login-redirects.php:206
+msgid "Logout URL"
+msgstr "رابط تسجيل الخروج"
+
+#: classes/class-loginpress-login-redirects.php:170
+#: classes/class-loginpress-login-redirects.php:207
+msgid "Action"
+msgstr "الإجراء"
+
+#: classes/class-loginpress-login-redirects.php:193
+#: classes/class-loginpress-login-redirects.php:220
+#: classes/class-loginpress-login-redirects.php:265
+#: classes/class-loginpress-login-redirects.php:309
+msgid "Update"
+msgstr "تحديث"
+
+#: classes/class-loginpress-login-redirects.php:193
+#: classes/class-loginpress-login-redirects.php:220
+#: classes/class-loginpress-login-redirects.php:265
+#: classes/class-loginpress-login-redirects.php:309
+msgid "Delete"
+msgstr "حذف"
+
+#: classes/class-loginpress-login-redirects.php:203
+msgid "No"
+msgstr "لا"
+
+#: classes/class-loginpress-login-redirects.php:204
+msgid "Role"
+msgstr "الدور"
+
+#: loginpress-login-redirects.php:66
+msgid ""
+"Please Install LoginPress Pro to use \"LoginPress Redirect Login\" add-on."
+msgstr ""
+"الرجاء تركيب نسخة لوجن بريس المحترفة LoginPress Pro لتتمكن من استخدام "
+"الملحق \"لوجن بريس - إعادة توجيه تسجيل الدخول\"."
+
+#: loginpress-login-redirects.php:83
+msgid "LoginPress Redirect Login required LoginPress Pro activation &mdash; "
+msgstr ""
+"يتطلب لوجن بريس إعادة توجيه تسجيل الدخول LoginPress Redirect login أن يكون "
+"لديك نسخة لوجن بريس المحترفة LoginPress Pro منشطة &mdash; "
+
+#: loginpress-login-redirects.php:83
+msgid "Click here to activate LoginPress Pro"
+msgstr "اضغط هنا لتنشيط نسخة لوجن بريس المحترفة LoginPress Pro"
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Redirect Login"
+msgstr "لوجن بريس LoginPress - إعادة توجيه تسجيل الدخول Redirect Login"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.WPBrigade.com/wordpress/plugins/login-redirects/"
+msgstr "http://www.WPBrigade.com/wordpress/plugins/login-redirects/"
+
+#. Description of the plugin/theme
+msgid ""
+"LoginPress is the best <code>wp-login</code> Login Redirects plugin by <a "
+"href=\"https://wpbrigade.com/\">WPBrigade</a> which allows you to redirect "
+"user after login."
+msgstr ""
+"لوجن بريس LoginPress هو أفضل <code>wp-login</code> إضافة لإعادة تسجيل "
+"الدخول بواسطة <a href=\"https://wpbrigade.com/\">WPBrigade</a> والتي تسمح "
+"لك لإعادة توجيه المستخدم بعد تسجيل الدخول."
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr "WPBrigade"
+
+#. Author URI of the plugin/theme
+msgid "http://www.WPBrigade.com/"
+msgstr "http://www.WPBrigade.com/"

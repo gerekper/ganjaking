@@ -1,5 +1,7 @@
 <?php
 
+use \Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+
 /**
  * WC_Checkout_Field_Editor class.
  */
@@ -48,6 +50,19 @@ class WC_Checkout_Field_Editor {
 		$this->screen_id = add_submenu_page( 'woocommerce', __( 'WooCommerce Checkout Field Editor', 'woocommerce-checkout-field-editor' ),  __( 'Checkout Fields', 'woocommerce-checkout-field-editor' ), 'manage_woocommerce', 'checkout_field_editor', array( $this, 'the_editor' ) );
 
 		add_action( 'admin_print_scripts-' . $this->screen_id, array( $this, 'scripts' ) );
+
+		if ( ! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ) {
+			return;
+		}
+
+		Menu::add_plugin_item(
+			array(
+				'id'         => 'checkout_field_editor',
+				'title'      => __( 'Checkout Field Editor', 'woocommerce-checkout-field-editor' ),
+				'url'        => 'checkout_field_editor',
+				'capability' => 'manage_woocommerce',
+			)
+		);
 	}
 
 	/**

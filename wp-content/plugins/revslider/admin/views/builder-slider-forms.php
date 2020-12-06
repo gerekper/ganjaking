@@ -74,7 +74,7 @@ $api = 'revapi'; // . $slider_id;
 			<div class="form_inner">
 				<div class="form_inner_header"><i class="material-icons">title</i><?php _e('Module Naming', 'revslider');?></div>
 				<div class="collapsable" style="display:block !important">
-					<label_a><?php _e('Title', 'revslider');?></label_a><input type="text" id="sr_title" data-updatetext="#slider_title" class="sliderinput easyinit" data-r="title" placeholder="<?php _e('Enter a Module name', 'revslider')?>"/><span class="linebreak"></span>
+					<label_a><?php _e('Title', 'revslider');?></label_a><input type="text" id="sr_title" class="sliderinput easyinit" data-r="title" placeholder="<?php _e('Enter a Module name', 'revslider')?>"/><span class="linebreak"></span>
 					<label_a><?php _e('Alias', 'revslider');?></label_a><input type="text" id="sr_alias" data-evt="updateShortCode" class="sliderinput easyinit" data-r="alias" placeholder="<?php _e('enter-a-module-name', 'revslider')?>"/><span class="linebreak"></span>
 					<label_a id="rs_shortcode_label"><?php _e('Shortcode', 'revslider');?></label_a><input readonly type="text" id="sr_shortcode" class="sliderinput easyinit" data-r="shortcode"/><span class="linebreak"></span>
 					<label_a></label_a><div class="basic_action_button longbutton copyclipboard" data-clipboard-action="copy" data-clipboard-target="#sr_shortcode"><i class="material-icons">content_copy</i><?php _e('Copy Shortcode', 'revslider');?></div>
@@ -159,10 +159,11 @@ $api = 'revapi'; // . $slider_id;
 
 					<div class="slider_modal_coversettings">
 						<div class="div5"></div>
-						<label_a><?php _e('Cover Color', 'revslider');?></label_a><input type="text" data-editing="Modal Background Color" name="slidermodalcolor" id="slidermodalcolor" class="my-color-field sliderinput" data-visible="true" data-mode="single" data-r="modal.coverColor" value="rgba(0,0,0,0.5)">
+						<label_a><?php _e('Cover Color', 'revslider');?></label_a><input type="text" data-editing="Modal Background Color" name="slidermodalcolor" id="slidermodalcolor" class="my-color-field sliderinput easyinit" data-visible="true" data-mode="single" data-r="modal.coverColor" value="rgba(0,0,0,0.5)">						
 					</div>
 					<div class="div10"></div>
-
+					<label_a><?php _e('General Speed', 'revslider');?></label_a><input type="text" id="sr_modal_fadespeed" class="sliderinput easyinit" data-numeric="true" data-allowed="ms" data-min="300" data-max="3000" data-r="modal.coverSpeed"/><span class="linebreak"></span>
+					<div class="div10"></div>
 					<label_a><?php _e('Body Class', 'revslider');?></label_a><input type="text" id="sr_modalbodyclass" class="sliderinput easyinit" data-r="modal.bodyclass"/><span class="linebreak"></span>
 					<row class="direktrow">
 						<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
@@ -198,9 +199,9 @@ $api = 'revapi'; // . $slider_id;
 					<div id="rs-layout-type">
 						<label_a><?php _e('Type', 'revslider');?></label_a>
 						<div class="radiooption">
-							<div class="st_slider"><input data-unavailable=".standardunavailable" data-available=".standardavailable" data-disable=".standarddisable" data-enable=".standardenable" data-select=".st_slider" data-unselect=".st_scene, .st_carousel" data-r="type" data-evt="updatesliderlayout"  data-evtparam="slidertype" type="radio" value="standard" name="slidertype" class="sliderinput" data-show="" data-hide=""><label_sub><?php _e('Slider', 'revslider');?></label_sub></div>
-							<div class="st_scene"><input data-unavailable=".sceneunavailable" data-available=".sceneavailable" data-disable=".herodisable" data-enable=".heroenable" data-select=".st_scene" data-unselect=".st_slider, .st_carousel" data-r="type" data-evt="updatesliderlayout" data-evtparam="slidertype" type="radio" value="hero" name="slidertype" class="sliderinput" data-show="" data-hide=""><label_sub><?php _e('Scene', 'revslider');?></label_sub></div>
-							<div class="st_carousel"><input data-unavailable=".carouselunavailable" data-available=".carouselavailable" data-disable=".carouseldisable" data-enable=".carouselenable" data-select=".st_carousel" data-unselect=".st_slider, .st_scene" data-r="type" data-evt="updatesliderlayout"  data-evtparam="slidertype" type="radio" value="carousel" name="slidertype" class="sliderinput" data-show="" data-hide=""><label_sub><?php _e('Carousel', 'revslider');?></label_sub></div>
+							<div class="st_slider"><input data-unavailable=".standardunavailable" data-available=".standardavailable" data-disable=".standarddisable" data-enable=".standardenable" data-select=".st_slider" data-unselect=".st_scene, .st_carousel" data-r="type" data-evt="updatesliderlayout"  data-evtparam="slidertype" type="radio" value="standard" id="slidertype_standard" name="slidertype" class="sliderinput easyinit" data-show="" data-hide=""><label_sub><?php _e('Slider', 'revslider');?></label_sub></div>
+							<div class="st_scene"><input data-unavailable=".sceneunavailable" data-available=".sceneavailable" data-disable=".herodisable" data-enable=".heroenable" data-select=".st_scene" data-unselect=".st_slider, .st_carousel" data-r="type" data-evt="updatesliderlayout" data-evtparam="slidertype" type="radio" value="hero" id="slidertype_hero" name="slidertype" class="sliderinput easyinit" data-show="" data-hide=""><label_sub><?php _e('Scene', 'revslider');?></label_sub></div>
+							<div class="st_carousel"><input data-unavailable=".carouselunavailable" data-available=".carouselavailable" data-disable=".carouseldisable" data-enable=".carouselenable" data-select=".st_carousel" data-unselect=".st_slider, .st_scene" data-r="type" data-evt="updatesliderlayout"  data-evtparam="slidertype" type="radio" value="carousel" id="slidertype_carousel" name="slidertype" class="sliderinput easyinit" data-show="" data-hide=""><label_sub><?php _e('Carousel', 'revslider');?></label_sub></div>
 						</div>
 					</div>
 					<div class="div15"></div>
@@ -208,9 +209,9 @@ $api = 'revapi'; // . $slider_id;
 					<div id="rs-layout-sizing">
 						<label_a><?php _e('Sizing', 'revslider');?></label_a>
 						<div class="radiooption">
-							<div class="sl_auto"><input data-select=".sl_auto" data-unselect=".sl_fullwidth, .sl_fullscreen" data-r="layouttype" data-enable="" data-disable=".fixedscrollonoff" data-evt="updatesliderlayout_main" type="radio" value="auto" name="sliderlayouttype" class="sliderinput" data-show=".topbottommargins, .fixedscrollsettingsinfo, .sliderminheight,.slidermaxwidth, #sr_size_minheight, .modalaligns" data-hide=".sliderfsminheight, .fixedscrollsettings,.decreaseheights,.usefullheight,#layersupscaling"><label_sub><?php _e('Auto', 'revslider');?></label_sub></div>
-							<div class="sl_fullwidth"><input data-select=".sl_fullwidth" data-unselect=".sl_auto, .sl_fullscreen" data-r="layouttype" data-enable=".fixedscrollonoff" data-evt="updatesliderlayout_main" type="radio" value="fullwidth" name="sliderlayouttype" class="sliderinput" data-show=".topbottommargins, .fixedscrollsettings,#sr_size_minheight .modalaligns,#layersupscaling" data-hide=".fixedscrollsettingsinfo,.sliderfsminheight, .slidermaxwidth, .sliderminheight,.decreaseheights,.usefullheight"><label_sub><?php _e('Full-Width', 'revslider');?></label_sub></div>
-							<div class="sl_fullscreen"><input data-select=".sl_fullscreen" data-unselect=".sl_auto, .sl_fullwidth" data-r="layouttype" data-enable=".fixedscrollonoff" data-evt="updatesliderlayout_main" type="radio" value="fullscreen" name="sliderlayouttype" class="sliderinput" data-show="#sr_size_minheight_fs,.fixedscrollsettings, .decreaseheights, .sliderfsminheight,.usefullheight" data-hide=".topbottommargins, .fixedscrollsettingsinfo,.slidermaxwidth,  .sliderminheight, .modalaligns,#layersupscaling"><label_sub><?php _e('Full-Screen', 'revslider');?></label_sub></div>
+							<div class="sl_auto"><input data-select=".sl_auto" data-unselect=".sl_fullwidth, .sl_fullscreen" data-r="layouttype" data-enable="" data-disable=".fixedscrollonoff" data-evt="updatesliderlayout_main" type="radio" value="auto" id="sliderlayouttype_auto" name="sliderlayouttype" class="sliderinput easyinit" data-show=".topbottommargins, .fixedscrollsettingsinfo, .sliderminheight,.slidermaxwidth, #sr_size_minheight, .modalaligns" data-hide=".sliderfsminheight, .fixedscrollsettings,.decreaseheights,.usefullheight,#layersupscaling"><label_sub><?php _e('Auto', 'revslider');?></label_sub></div>
+							<div class="sl_fullwidth"><input data-select=".sl_fullwidth" data-unselect=".sl_auto, .sl_fullscreen" data-r="layouttype" data-enable=".fixedscrollonoff" data-evt="updatesliderlayout_main" type="radio" value="fullwidth" id="sliderlayouttype_fullwidth" name="sliderlayouttype" class="sliderinput easyinit" data-show=".topbottommargins, .fixedscrollsettings,#sr_size_minheight .modalaligns,#layersupscaling" data-hide=".fixedscrollsettingsinfo,.sliderfsminheight, .slidermaxwidth, .sliderminheight,.decreaseheights,.usefullheight"><label_sub><?php _e('Full-Width', 'revslider');?></label_sub></div>
+							<div class="sl_fullscreen"><input data-select=".sl_fullscreen" data-unselect=".sl_auto, .sl_fullwidth" data-r="layouttype" data-enable=".fixedscrollonoff" data-evt="updatesliderlayout_main" type="radio" value="fullscreen" id="sliderlayouttype_fullscreen" name="sliderlayouttype" class="sliderinput easyinit" data-show="#sr_size_minheight_fs,.fixedscrollsettings, .decreaseheights, .sliderfsminheight,.usefullheight" data-hide=".topbottommargins, .fixedscrollsettingsinfo,.slidermaxwidth,  .sliderminheight, .modalaligns,#layersupscaling"><label_sub><?php _e('Full-Screen', 'revslider');?></label_sub></div>
 						</div>
 					</div>
 					<div class="div10"></div>
@@ -224,32 +225,32 @@ $api = 'revapi'; // . $slider_id;
 
 					<row style="margin-bottom:5px"><label_a><i class="material-icons bpdevices">desktop_mac</i><?php _e('Browser Width', 'revslider');?> <div class="global_size_miniinfo" id="global_size_desktop">1240px</div></label_a></row>
 					<row class="direktrow">
-						<onelong><label_icon class="ui_width"></label_icon><input data-numeric="true" id="sr_size_width_d" data-r="size.width.d" data-screen="d" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard"></onelong>
-						<oneshort><label_icon class="ui_height"></label_icon><input data-numeric="true"  id="sr_size_height_d" data-r="size.height.d" data-screen="d" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard "><div class="fake_on_button"><div class="fake_on_button_inner"><div class="fake_onff_on">On</div></div></div></oneshort>
+						<onelong><label_icon class="ui_width"></label_icon><input data-numeric="true" id="sr_size_width_d" data-r="size.width.d" data-screen="d" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard easyinit"></onelong>
+						<oneshort><label_icon class="ui_height"></label_icon><input data-numeric="true"  id="sr_size_height_d" data-r="size.height.d" data-screen="d" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard easyinit"><div class="fake_on_button"><div class="fake_on_button_inner"><div class="fake_onff_on">On</div></div></div></oneshort>
 					</row>
 					<div class="div10"></div>
 
 					<div id="rs-laptop-breakpoint">
 						<row style="margin-bottom:5px"><label_a id="rs-laptop-label"><i class="material-icons bpdevices" style="transform: scale(0.9);">laptop</i><?php _e('Browser Width', 'revslider');?> <div class="global_size_miniinfo" id="global_size_notebook">1240px</div></label_a></row>
 						<row class="direktrow">
-							<onelong><label_icon class="ui_width"></label_icon><input data-numeric="true" id="sr_size_width_n" data-r="size.width.n" data-screen="n" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard"></onelong>
-							<oneshort><label_icon class="ui_height"></label_icon><input data-numeric="true"  id="sr_size_height_n" data-r="size.height.n" data-screen="n" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard "><input type="checkbox" id="sr_custom_n" class="sliderinput" data-evt="device_area_availibity" data-r="size.custom.n"></oneshort>
+							<onelong><label_icon class="ui_width"></label_icon><input data-numeric="true" id="sr_size_width_n" data-r="size.width.n" data-screen="n" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard easyinit"></onelong>
+							<oneshort><label_icon class="ui_height"></label_icon><input data-numeric="true"  id="sr_size_height_n" data-r="size.height.n" data-screen="n" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard easyinit"><input type="checkbox" id="sr_custom_n" class="sliderinput easyinit" data-evt="device_area_availibity" data-r="size.custom.n"></oneshort>
 						</row>
 					</div>
 
 					<div class="div10"></div>
 					<row style="margin-bottom:5px"><label_a><i class="material-icons bpdevices" style="transform: scale(0.8);">tablet_android</i><?php _e('Browser Width', 'revslider');?> <div class="global_size_miniinfo" id="global_size_tablet">1240px</div></label_a></row>
 					<row class="direktrow">
-						<onelong><label_icon class="ui_width"></label_icon><input data-numeric="true" id="sr_size_width_t" data-r="size.width.t" data-screen="t" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard"></onelong>
-						<oneshort><label_icon class="ui_height"></label_icon><input data-numeric="true"  id="sr_size_height_t" data-r="size.height.t" data-screen="t" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard "><input type="checkbox" id="sr_custom_t" class="sliderinput" data-evt="device_area_availibity" data-r="size.custom.t"></oneshort>
+						<onelong><label_icon class="ui_width"></label_icon><input data-numeric="true" id="sr_size_width_t" data-r="size.width.t" data-screen="t" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard easyinit"></onelong>
+						<oneshort><label_icon class="ui_height"></label_icon><input data-numeric="true"  id="sr_size_height_t" data-r="size.height.t" data-screen="t" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard easyinit"><input type="checkbox" id="sr_custom_t" class="sliderinput easyinit" data-evt="device_area_availibity" data-r="size.custom.t"></oneshort>
 					</row>
 
 
 					<div class="div10"></div>
 					<row style="margin-bottom:5px"><label_a><i class="material-icons bpdevices" style="transform: scale(0.7);">phone_iphone</i><?php _e('Browser Width', 'revslider');?> <div class="global_size_miniinfo" id="global_size_mobile">1240px</div></label_a></row>
 					<row class="direktrow">
-						<onelong><label_icon class="ui_width"></label_icon><input data-numeric="true" id="sr_size_width_m" data-r="size.width.m" data-screen="t" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard"></onelong>
-						<oneshort><label_icon class="ui_height"></label_icon><input data-numeric="true"  id="sr_size_height_m" data-r="size.height.m" data-screen="t" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard "><input type="checkbox" id="sr_custom_m" class="sliderinput" data-evt="device_area_availibity" data-r="size.custom.m"></oneshort>
+						<onelong><label_icon class="ui_width"></label_icon><input data-numeric="true" id="sr_size_width_m" data-r="size.width.m" data-screen="t" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard easyinit"></onelong>
+						<oneshort><label_icon class="ui_height"></label_icon><input data-numeric="true"  id="sr_size_height_m" data-r="size.height.m" data-screen="t" data-evt="device_area_dimension_update" type="text"  class="sliderinput valueduekeyboard easyinit"><input type="checkbox" id="sr_custom_m" class="sliderinput easyinit" data-evt="device_area_availibity" data-r="size.custom.m"></oneshort>
 					</row>
 
 				</div>
@@ -279,10 +280,10 @@ $api = 'revapi'; // . $slider_id;
 
 					<div class="_nvojcm_ carouselunavailable standardavailable sceneavailable">
 						<!-- SLIDER MIN HEIGHT AND MAX WIDTH -->
-						<longoption class="slidermaxwidth"><i class="material-icons rcw">unfold_more</i><label_a><?php _e('Max Width', 'revslider');?></label_a><input data-allowed="px,%,none" data-min="0" data-numeric="true"  id="sr_size_maxwidth" data-r="size.maxWidth" data-evt="updatesliderlayout"  type="text"  class="sliderinput valueduekeyboard " placeholder="none"></longoption>
-						<longoption class="sliderminheight"><i class="material-icons">unfold_less</i><label_a><?php _e('Min Height', 'revslider');?></label_a><input data-min="0" data-numeric="true"  data-allowed="px,%,none" id="sr_size_minheight" data-r="size.minHeight" data-evt="updatesliderlayout"  type="text" class="sliderinput valueduekeyboard smallinput" placeholder="none"></longoption>
-						<longoption class="sliderfsminheight"><i class="material-icons">unfold_less</i><label_a><?php _e('Min Height', 'revslider');?></label_a><input data-min="0" data-numeric="true" data-allowed="none,px,%" id="sr_size_minheight_fs" data-r="size.minHeightFullScreen" placeholder="none" data-evt="updatesliderlayout"  type="text"  class="sliderinput valueduekeyboard "></longoption>
-						<longoption><i class="material-icons">unfold_more</i><label_a><?php _e('Wrapper Max Height', 'revslider');?></label_a><input data-allowed="px,%,none" data-min="0" data-numeric="true"  id="sr_size_maxheight" data-r="size.maxHeight"  type="text"  class="sliderinput valueduekeyboard " placeholder="none"></longoption>
+						<longoption class="slidermaxwidth"><i class="material-icons rcw">unfold_more</i><label_a><?php _e('Max Width', 'revslider');?></label_a><input data-allowed="px,%,none" data-min="0" data-numeric="true"  id="sr_size_maxwidth" data-r="size.maxWidth" data-evt="updatesliderlayout"  type="text"  class="sliderinput valueduekeyboard easyinit" placeholder="none"></longoption>
+						<longoption class="sliderminheight"><i class="material-icons">unfold_less</i><label_a><?php _e('Min Height', 'revslider');?></label_a><input data-min="0" data-numeric="true"  data-allowed="px,%,none" id="sr_size_minheight" data-r="size.minHeight" data-evt="updatesliderlayout"  type="text" class="sliderinput valueduekeyboard smallinput easyinit" placeholder="none"></longoption>
+						<longoption class="sliderfsminheight"><i class="material-icons">unfold_less</i><label_a><?php _e('Min Height', 'revslider');?></label_a><input data-min="0" data-numeric="true" data-allowed="none,px,%" id="sr_size_minheight_fs" data-r="size.minHeightFullScreen" placeholder="none" data-evt="updatesliderlayout"  type="text"  class="sliderinput valueduekeyboard easyinit"></longoption>
+						<longoption><i class="material-icons">unfold_more</i><label_a><?php _e('Wrapper Max Height', 'revslider');?></label_a><input data-allowed="px,%,none" data-min="0" data-numeric="true"  id="sr_size_maxheight" data-r="size.maxHeight"  type="text"  class="sliderinput valueduekeyboard easyinit" placeholder="none"></longoption>
 
 						<div class="div20"></div>
 						<longoption><i class="material-icons">devices</i><label_a><?php _e('Keep Breakpoint Heights', 'revslider');?></label_a><input type="checkbox"  id="sr_breakpoint_heights" class="easyinit sliderinput" data-r="size.keepBPHeight"/></longoption>
@@ -303,7 +304,7 @@ $api = 'revapi'; // . $slider_id;
 					<div class="carouselavailable standardavailable sceneavailable">
 						<label_a><?php _e('Perspective', 'revslider');?></label_a><select data-evt="updatePerspective" id="global_pers_type" class="sliderinput tos2 nosearchbox easyinit" data-r="general.perspectiveType" data-show=".global_perspecitve_*val*_settings" data-hide=".global_perspective_settings"> <option value="isometric"><?php _e('Isometric (Global)', 'revslider');?></option><option value="global"><?php _e('3D Uniform (Global)', 'revslider');?></option><option value="local"><?php _e('3D Individual (Local)', 'revslider');?></option></select>
 						<div class="global_perspecitve_global_settings global_perspective_settings">
-							<longoption><label_icon class="ui_perspective"></label_icon><label_a><?php _e('Layer Perspective Globally', 'revslider');?></label_a><input data-allowed="px" data-min="0" data-numeric="true"  id="global_layers_perspectives" data-r="general.perspective"  type="text"  class="sliderinput valueduekeyboard callEvent"  data-evt="updatePerspective" placeholder="none"></longoption>
+							<longoption><label_icon class="ui_perspective"></label_icon><label_a><?php _e('Layer Perspective Globally', 'revslider');?></label_a><input data-allowed="px" data-min="0" data-numeric="true"  id="global_layers_perspectives" data-r="general.perspective"  type="text"  class="sliderinput valueduekeyboard callEvent easyinit"  data-evt="updatePerspective" placeholder="none"></longoption>
 						</div>
 					</div>
 				</div>
@@ -348,7 +349,7 @@ $api = 'revapi'; // . $slider_id;
 						<onelong><label_a><?php _e('Use Image', 'revslider');?></label_a><input type="checkbox"  id="sr_usebgimage" class="sliderinput easyinit" data-evt="sliderBGUpdate" data-r="layout.bg.useImage" data-showhide=".slider_bg_moresettings_wr" data-showhidedep="true"/></onelong>
 						<oneshort></oneshort>
 					</row>
-					<label_a><?php _e('BG Color', 'revslider');?></label_a><input type="text" data-editing="Slider Background Color" data-evt="sliderBGUpdate" name="sliderbgcolor" id="sliderbgcolor" class="my-color-field sliderinput" data-visible="true" data-r="layout.bg.color" value="transparent">
+					<label_a><?php _e('BG Color', 'revslider');?></label_a><input type="text" data-editing="Slider Background Color" data-evt="sliderBGUpdate" name="sliderbgcolor" id="sliderbgcolor" class="my-color-field sliderinput easyinit" data-visible="true" data-r="layout.bg.color" value="transparent">
 					<div class="div5"></div>
 					<div class="sublabels_wrapper slider_bg_moresettings_wr">
 						<row class="direktrow">
@@ -432,9 +433,9 @@ $api = 'revapi'; // . $slider_id;
 					<div class="div20"></div>
 					<div class="nojustifywall">
 						<row class="directrow">
-							<onelong><label_a><?php _e('Max. Visible', 'revslider');?></label_a><select data-change="#sr_ca_stretch" data-changeto='false' data-changewhennot="1" data-evt="updatesliderlayout" id="sr_ca_mitems" class="sliderinput tos2 nosearchbox easyinit" data-r="carousel.maxItems" ><option value="1">1</option><option value="3">3</option><option value="5">5</option><option value="7">7</option><option value="9">9</option><option value="11">11</option><option value="13">13</option><option value="15">15</option><option value="17">17</option></select></onelong>
+							<onelong><label_a><?php _e('Max. Visible', 'revslider');?></label_a><select data-change="sr_ca_stretch" data-changeto='false' data-changewhennot="1" data-evt="updatesliderlayout" id="sr_ca_mitems" class="sliderinput tos2 nosearchbox easyinit" data-r="carousel.maxItems" ><option value="1">1</option><option value="3">3</option><option value="5">5</option><option value="7">7</option><option value="9">9</option><option value="11">11</option><option value="13">13</option><option value="15">15</option><option value="17">17</option></select></onelong>
 						</row>
-						<label_a><?php _e('Stretch Slides', 'revslider');?></label_a><input type="checkbox"  data-evt="updatesliderlayout" id="sr_ca_stretch" data-change="#sr_ca_mitems" data-changeto="1" data-changewhen='true' class="sliderinput easyinit" data-evt="" data-r="carousel.stretch"/><span class="linebreak"></span>
+						<label_a><?php _e('Stretch Slides', 'revslider');?></label_a><input type="checkbox"  data-evt="updatesliderlayout" id="sr_ca_stretch" data-change="sr_ca_mitems" data-changeto="1" data-changewhen='true' class="sliderinput easyinit" data-evt="" data-r="carousel.stretch"/><span class="linebreak"></span>
 					</div>
 					<row class="directrow">
 						<onelong><label_icon class="ui_bradius"></label_icon><input data-allowed="px,%" data-evt="updatesliderlayout" data-r="carousel.borderRadius" type="text" id="sr_ca_br" data-numeric="true" class="sliderinput  easyinit valueduekeyboard"></onelong>
@@ -751,15 +752,33 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 					<div class="collapsable">
 						<label_a><?php _e('Slides(<=33):', 'revslider');?></label_a><input placeholder="<?php _e('Amount of Slides', 'revslider');?>" class="sliderinput valueduekeyboard  easyinit" data-r="source.instagram.count" data-min="0" data-max="500" type="text" id="sr_source_instagram_count"><span class="linebreak"></span>
 						<label_a><?php _e('Cache (sec):', 'revslider');?></label_a><input placeholder="<?php _e('i.e. 1200', 'revslider');?>" class="sliderinput valueduekeyboard  easyinit" data-r="source.instagram.transient" data-min="0" data-max="500" type="text" id="sr_source_instagram_transient"><span class="linebreak"></span>
-						<label_a><?php _e('Source:', 'revslider');?></label_a><select id="instagram-type" data-evt="instagramsourcechange" data-theme="wideopentos2" class="sliderinput tos2 nosearchbox easyinit" data-r="source.instagram.type">
-							<option value="user" title="<?php _e('Display a user\'s public photos', 'revslider');?>"><?php _e('User Public Photos', 'revslider');?></option>
+						<input type="text" id="instagram-type" class="sliderinput valueduekeyboard easyinit" data-r="source.instagram.type" style="display: none;" />
+						<label_a><?php _e('Token Source', 'revslider')?></label_a><select id="sr_source_instagram_token_source"  class="sliderinput easyinit tos2 nosearchbox" data-show=".token_source_*val*" data-hide=".token_source_container" data-r="source.instagram.token_source">
+							<option value="account" selected="selected"><?php _e('From Account', 'revslider');?></option>
+							<option value="manual"><?php _e('Manual', 'revslider');?></option>
 						</select><span class="linebreak"></span>
-						 <label_a><?php _e('Access Token', 'revslider');?></label_a><input placeholder="<?php _e('Enter the Access Token', 'revslider');?>" data-r="source.instagram.token" type="text" name="sr_src_instagram_token" class="easyinit sliderinput"><span class="linebreak"></span>
-                        <div class="div10"></div>
-                        <row>
-                            <labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
-                            <contenthalf><div class="function_info"><?php _e('Please <a target="_blank" href="https://www.themepunch.com/faq/instagram-stream-setup-instructions-with-access-token/">generate</a> your Instagram Access Token in Facebook.', 'revslider');?></div></contenthalf>
-                        </row>
+						<div class="token_source_container token_source_account">
+							<label_a><?php _e('Connected To', 'revslider');?></label_a><input type="text" placeholder="<?php _e('Not yet Connected', 'revslider');?>" id="intagram_connect_with" class="sliderinput valueduekeyboard easyinit" data-r="source.instagram.connect_with" disabled />
+							<row>
+								<div id="get_insta_token" class="basic_action_button fullbutton" data-goto="<?php echo RevSliderInstagram::get_login_url(); ?>"><i class="material-icons">person_add</i><?php _e('Connect an Instagram Account', 'revslider' ); ?></div>
+								<!--<a href="<?php echo RevSliderInstagram::get_login_url(); ?>" class="basic_action_button fullbutton">
+									<i class="material-icons">person_add</i><?php _e('Connect an Instagram Account', 'revslider' ); ?>
+								</a>-->
+							</row>
+							<row>
+								<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
+								<contenthalf><div class="function_info"><?php _e('You will be redirected to Instagram and then back to the editor. Your current settings will be auto saved.', 'revslider');?></div></contenthalf>							
+							</row>
+						</div>
+						<div class="token_source_container token_source_manual">
+							<label_a><?php _e('Access Token', 'revslider');?></label_a><input placeholder="<?php _e('Enter the Access Token', 'revslider');?>" data-r="source.instagram.token" type="text" name="sr_src_instagram_token" class="easyinit sliderinput"><span class="linebreak"></span>
+							<div class="div10"></div>
+							<row>
+								<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
+																																	  
+								<contenthalf><div class="function_info"><?php _e('Please check this FAQ on how to <a target="_blank" href="https://www.sliderrevolution.com/faq/instagram-stream-setup-instructions-with-access-token/">generate</a> your Instagram Access Token in Facebook manually.', 'revslider');?></div></contenthalf>
+							</row>
+						</div>
 					</div><!-- END OF COLLAPSABLE -->
 				</div> <!-- END OF INSTAGRAM SETTINGS -->
 			</div><!-- END OF INSTAGRAM VISIVBILTY -->
@@ -812,7 +831,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 						<div class="div10"></div>
 						<row >
 							<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
-							<contenthalf><div class="function_info"><?php _e('Please <a target="_blank" href="https://www.themepunch.com/faq/facebook-stream-setup-instructions-access-token/">generate</a> your Access Token in Facebook.', 'revslider');?></div></contenthalf>
+							<contenthalf><div class="function_info"><?php _e('Please <a target="_blank" href="https://www.sliderrevolution.com/faq/instagram-stream-setup-instructions-with-access-token/">generate</a> your Access Token in Facebook.', 'revslider');?></div></contenthalf>
 						</row>
 					</div><!-- END OF COLLAPSABLE -->
 				</div><!-- END OF FACEBOOK SETTINGS -->
@@ -905,6 +924,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 				<div class="collapsable" style="display:block !important">
 					<longoption><label_a><?php _e('ViewPort Stop', 'revslider');?></label_a><input type="checkbox"  id="sr_viewport" class="sliderinput easyinit" data-r="general.slideshow.viewPort" data-showhide=".slider_stopslider_viewport" data-showhidedep="true"/></longoption>
 					<div class="slider_stopslider_viewport">
+						<div class="div10"></div>
 						<row class="direktrow">
 							<onelong><label_icon class="ui_outofviewport"></label_icon><select id="sr_sshow_outviewport" class="sliderinput tos2 nosearchbox easyinit" data-r="general.slideshow.viewPortStart"><option value="wait"><?php _e('Wait', 'revslider');?></option><option value="pause"><?php _e('Pause', 'revslider');?></option></select></onelong>
 							<oneshort><label_icon class="ui_viewportpercent"></label_icon><input data-numeric="true" data-allowed="%,px" class="sliderinput valueduekeyboard input_with_presets easyinit" data-presets_text="$C$px!$C$%!" data-presets_val="100px!20%!" data-responsive="true" data-r="general.slideshow.viewPortArea.#size#.v" data-min="-1500" data-max="1500" type="text" id="sr_viewport_area"></oneshort>
@@ -1000,6 +1020,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 					<!-- SLIDER MISC. SETTINGS -->
 					<longoption><label_a ><?php _e('Next on Browser Focus', 'revslider');?></label_a><input type="checkbox"  id="sr_gen_nextSlideOnFocus" class="sliderinput easyinit" data-r="general.nextSlideOnFocus" /></longoption>
 					<longoption><label_a ><?php _e('Disable Blur/Focus behav.', 'revslider');?></label_a><input type="checkbox"  id="sr_gen_disableFocusListener" class="sliderinput easyinit" data-r="general.disableFocusListener" /></longoption>
+					<longoption><label_a ><?php _e('Set Deeplink Hash in URL', 'revslider');?></label_a><input type="checkbox"  id="sr_gen_enableurlhash" class="sliderinput easyinit" data-r="general.enableurlhash" /></longoption>
 				</div><!-- END OF COLLAPSABLE-->
 				<div class="div5"></div>
 			</div>
@@ -1086,7 +1107,7 @@ if ($wpml->wpml_exists()) {
 								<label_a><?php _e('Speed', 'revslider');?></label_a><input data-allowed="ms" data-min="0"  id="scrolltimeline_speed" data-r="scrolltimeline.speed" data-numeric="true" data-evt=""  type="text"  class="sliderinput valueduekeyboard  easyinit">
 								<div class="div20"></div>
 								<div class="fixedscrollonoff">
-									<longoption><label_a><?php _e('Fix during Scroll', 'revslider');?></label_a><input type="checkbox"  id="sr_sbt_ge_fix_enabled" class="sliderinput easyinit"  data-setclasson="#timeline" data-class="fixedscrollon" data-evt="updateFixedScrollRange" data-showhide=".all_sbt_fix_dependencies" data-showhidedep="true"  data-r="scrolltimeline.fixed"/></longoption>
+									<longoption><label_a><?php _e('Fix during Scroll', 'revslider');?></label_a><input type="checkbox"  id="sr_sbt_ge_fix_enabled" class="sliderinput easyinit"  data-setclasson="timeline" data-class="fixedscrollon" data-evt="updateFixedScrollRange" data-showhide=".all_sbt_fix_dependencies" data-showhidedep="true"  data-r="scrolltimeline.fixed"/></longoption>
 								</div>
 								<div class="fixedscrollsettings">
 									<div class="all_sbt_fix_dependencies">
@@ -1174,7 +1195,7 @@ if ($wpml->wpml_exists()) {
 								<onethird><label_a class="short"><?php _e('15.', 'revslider');?></label_a><input type="text"  id="sr_paralaxlevel_15" class="sliderinput easyinit smallinput" data-evt="updateParallaxLevelTexts" data-r="parallax.levels.14"/><span class="linebreak"></span></onethird>
 							</row>
 						</div>
-					</div><!-- END OF COLLAPSABLE  data-updatetext="#slide_ddd_depth_info"  -->
+					</div><!-- END OF COLLAPSABLE  data-updatetext="slide_ddd_depth_info"  -->
 				</div>
 			</div><!-- END OF PARALLAX SETTINGS -->
 			<!-- TIMELINE SCROLL BASED SETTINGS -->

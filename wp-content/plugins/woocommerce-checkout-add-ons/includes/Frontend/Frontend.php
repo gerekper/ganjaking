@@ -328,11 +328,13 @@ class Frontend {
 					case 'file':
 
 						$checkout_fields['add_ons'][ $add_on->get_id() ] = [
-							'type'        => 'wc_checkout_add_ons_file',
+							'type'              => 'wc_checkout_add_ons_file',
 							// cost is added in the template, so it is not included in validation messages
-							'label'       => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
-							'required'    => $add_on->is_required(),
-							'description' => $add_on->get_description(),
+							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
+							'required'          => $add_on->is_required(),
+							'custom_attributes' => [
+								'data-description' => $add_on->get_description(),
+							],
 						];
 
 					break;
@@ -341,13 +343,15 @@ class Frontend {
 					case 'textarea':
 
 						$checkout_fields['add_ons'][ $add_on->get_id() ] = [
-							'type'        => $add_on->get_type(),
+							'type'              => $add_on->get_type(),
 							// cost is added in the template, so it is not included in validation messages
-							'label'       => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
-							'required'    => $add_on->is_required(),
-							'description' => $add_on->get_description(),
+							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
+							'required'          => $add_on->is_required(),
 							// load from session or use default
-							'default'     => $this->checkout_get_add_on_value( $add_on->get_default_value(), $add_on->get_id() ),
+							'default'           => $this->checkout_get_add_on_value( $add_on->get_default_value(), $add_on->get_id() ),
+							'custom_attributes' => [
+								'data-description' => $add_on->get_description(),
+							],
 						];
 
 					break;
@@ -357,14 +361,16 @@ class Frontend {
 						$checkbox_default = 'yes' === $add_on->get_default_value() ? 1 : 0;
 
 						$checkout_fields['add_ons'][ $add_on->get_id() ] = [
-							'type'             => 'wc_checkout_add_ons_checkbox',
+							'type'              => 'wc_checkout_add_ons_checkbox',
 							// cost is added in the template, so it is not included in validation messages
-							'label'            => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
-							'required'         => $add_on->is_required(),
-							'description'      => $add_on->get_description(),
-							'default'          => 'default',
+							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
+							'required'          => $add_on->is_required(),
+							'default'           => 'default',
 							// load from session or use default
-							'checkbox_default' => $this->checkout_get_add_on_value( $checkbox_default, $add_on->get_id() ),
+							'checkbox_default'  => $this->checkout_get_add_on_value( $checkbox_default, $add_on->get_id() ),
+							'custom_attributes' => [
+								'data-description' => $add_on->get_description(),
+							],
 						];
 
 					break;
@@ -399,16 +405,18 @@ class Frontend {
 						}
 
 						$checkout_fields['add_ons'][ $add_on->get_id() ] = [
-							'type'        => 'radio' === $add_on->get_type() ? 'wc_checkout_add_ons_radio' : $add_on->get_type(),
-							'label'       => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
-							'required'    => $add_on->is_required(),
-							'options'     => $options,
+							'type'              => 'radio' === $add_on->get_type() ? 'wc_checkout_add_ons_radio' : $add_on->get_type(),
+							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
+							'required'          => $add_on->is_required(),
+							'options'           => $options,
 							// load from session or use default
-							'default'     => $this->checkout_get_add_on_value( $default, $add_on->get_id() ),
-							'placeholder' => $default,
-							'description' => $add_on->get_description(),
+							'default'           => $this->checkout_get_add_on_value( $default, $add_on->get_id() ),
+							'placeholder'       => $default,
 							// this class is used to prevent errors before triggering update_checkout
-							'input_class' => [ 'select2-search__field' ],
+							'input_class'       => [ 'select2-search__field' ],
+							'custom_attributes' => [
+								'data-description' => $add_on->get_description(),
+							],
 						];
 
 					break;
@@ -444,13 +452,15 @@ class Frontend {
 						}
 
 						$checkout_fields['add_ons'][ $add_on->get_id() ] = [
-							'type'        => "wc_checkout_add_ons_{$add_on->get_type()}",
-							'label'       => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
-							'required'    => $add_on->is_required(),
-							'options'     => $options,
+							'type'              => "wc_checkout_add_ons_{$add_on->get_type()}",
+							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
+							'required'          => $add_on->is_required(),
+							'options'           => $options,
 							// load from session or use default
-							'default'     => $this->checkout_get_add_on_value( $defaults, $add_on->get_id() ),
-							'description' => $add_on->get_description(),
+							'default'           => $this->checkout_get_add_on_value( $defaults, $add_on->get_id() ),
+							'custom_attributes' => [
+								'data-description' => $add_on->get_description(),
+							],
 						];
 
 					break;
@@ -957,9 +967,7 @@ class Frontend {
 						$field .= '<label for="' . esc_attr( current( array_keys( $args['options'] ) ) ) . '" class="' . implode( ' ', $args['label_class'] ) .'">' . $args['label']. $required  . '</label>';
 					}
 
-					if ( isset( $args['description'] ) && '' !== $args['description'] ) {
-						$field .= '<span class="description" id="' . esc_attr( $key . '-description' ) . '">' . esc_html( $args['description'] ) . '</span>';
-					}
+					$field .= '<span class="woocommerce-input-wrapper"><input type="hidden" ' . implode( $custom_attributes ) . ' />';
 
 					foreach ( $args['options'] as $option_key => $option_text ) {
 
@@ -968,6 +976,8 @@ class Frontend {
 						$field .= '<label for="' . esc_attr( $key ) . '_' . esc_attr( $option_key ) . '" class="checkbox ' . implode( ' ', $args['label_class'] ) .'">' . $option_text . '</label><br>';
 
 					}
+
+					$field .= '</span>';
 
 					$field .= '</p>' . $after;
 				}
@@ -995,13 +1005,13 @@ class Frontend {
 						$field .= '<label for="' . esc_attr( $key ) . '" class="' . implode( ' ', $args['label_class'] ) .'">' . $args['label']. $required . '</label>';
 					}
 
+					$field .= '<span class="woocommerce-input-wrapper">';
+
 					$field .= '<select name="' . esc_attr( $key ) . '[]" id="' . esc_attr( $key ) . '" class="select select2-search__field" multiple="multiple" ' . implode( ' ', $custom_attributes ) . '>'
 							. $options
 							. ' </select>';
 
-					if ( isset( $args['description'] ) && '' !== $args['description'] ) {
-						$field .= '<span class="description" id="' . esc_attr( $key . '-description' ) . '">' . esc_html( $args['description'] ) . '</span>';
-					}
+					$field .= '</span>';
 
 					$field .= '</p>' . $after;
 				}
@@ -1023,15 +1033,15 @@ class Frontend {
 						$field .= '<label for="' . esc_attr( current( array_keys( $args['options'] ) ) ) . '" class="' . implode( ' ', $args['label_class'] ) .'">' . $args['label']. $required  . '</label>';
 					}
 
-					if ( isset( $args['description'] ) && '' !== $args['description'] ) {
-						$field .= '<span class="description" id="' . esc_attr( $key . '-description' ) . '">' . esc_html( $args['description'] ) . '</span>';
-					}
+					$field .= '<span class="woocommerce-input-wrapper"><input type="hidden" ' . implode( $custom_attributes ) . ' />';
 
 					foreach ( $args['options'] as $option_key => $option_text ) {
 
 						$field .= '<input type="checkbox" class="input-checkbox" value="' . esc_attr( $option_key ) . '" name="' . esc_attr( $key ) . '[]" id="' . esc_attr( $key ) . '_' . esc_attr( $option_key ) . '"' . checked( in_array( $option_key, $value ), 1, false ) . ' />';
 						$field .= '<label for="' . esc_attr( $key ) . '_' . esc_attr( $option_key ) . '" class="checkbox ' . implode( ' ', $args['label_class'] ) .'">' . $option_text . '</label><br>';
 					}
+
+					$field .= '</span>';
 
 					$field .= '</p>' . $after;
 				}
@@ -1079,7 +1089,7 @@ class Frontend {
 				$field .= '</div>';
 
 				$field .= '<div class="wc-checkout-add-ons-feedback hide"></div>';
-				$field .= '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . $value . '" />';
+				$field .= '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . $value . '" ' . implode( $custom_attributes ) . ' />';
 				$field .= '<noscript>' . __( 'You need to enable Javascript to upload files', 'woocommerce-checkout-add-ons' ) . '</noscript>';
 				$field .= '</div>';
 
@@ -1106,8 +1116,8 @@ class Frontend {
 					$value = isset( $args['checkbox_default'] ) ? $args['checkbox_default'] : 0;
 				}
 
-				$field .= '<label class="checkbox ' . implode( ' ', $args['label_class'] ) . '" ' . implode( ' ', $custom_attributes ) . '>
-						<input type="checkbox" class="input-checkbox ' . esc_attr( implode( ' ', $args['input_class'] ) ) . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" value="1" ' . checked( $value, 1, false ) . ' /> ' . $args['label'] . $required . '</label>';
+				$field .= '<label class="checkbox ' . implode( ' ', $args['label_class'] ) . '">
+						<span class="woocommerce-input-wrapper"><input type="checkbox" class="input-checkbox ' . esc_attr( implode( ' ', $args['input_class'] ) ) . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" value="1" ' . checked( $value, 1, false ) . ' ' . implode( ' ', $custom_attributes ) . ' /></span> ' . $args['label'] . $required . '</label>';
 
 				$field .= '</p>' . $after;
 

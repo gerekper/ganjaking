@@ -9,7 +9,7 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 	private $start_datetime_string = '';
 	private $end_datetime_string = '';
 	private $is_enabled  = false;
-    private $rule_weight = 0;
+	private $rule_weight = 0;
 	/**
 	 * The constructor
 	 */
@@ -18,7 +18,7 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 		$this->rule_weight = get_option('wc_settings_anti_fraud_ip_multiple_weight');
 		$this->time_span = get_option('wc_settings_anti_fraud_ip_multiple_time_span');
 
-		parent::__construct( 'ip_multiple_order_Details', 'IP address ordered with multiple order details in the past '.$this->time_span.' days', $this->rule_weight );
+		parent::__construct( 'ip_multiple_order_Details', 'IP address ordered with multiple order details in the past ' . $this->time_span . ' days', $this->rule_weight );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 
 		// Calculate the new datetime
 		$dt = new DateTime( $order_date );
-		$dt->modify( '-'.$this->time_span.'days' );
+		$dt->modify( '-' . $this->time_span . 'days' );
 
 		// Set the start and send datetime strings
 		$this->start_datetime_string = $dt->format( 'Y-m-d H:i:s' );
@@ -116,8 +116,8 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 		return $risk;
 	}
 	//Enable rule check
-	public function is_enabled(){
-		if('yes' == $this->is_enabled){
+	public function is_enabled() {
+		if ('yes' == $this->is_enabled) {
 			return true;
 		}
 		return false;

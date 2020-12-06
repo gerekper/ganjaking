@@ -2,7 +2,7 @@
 /**
  * Meta Box: Product Data
  *
- * Updates the Coupon Data meta box.
+ * Updates the Product Data meta box.
  *
  * @package WC_Store_Credit/Admin/Meta_Boxes
  * @since   3.2.0

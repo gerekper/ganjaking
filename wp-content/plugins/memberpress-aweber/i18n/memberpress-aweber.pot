@@ -1,0 +1,143 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress AWeber plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress AWeber 1.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-aweber\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-03-24T12:46:06-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-aweber\n"
+
+#. Plugin Name of the plugin
+#: main.php:35
+msgid "MemberPress AWeber"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "AWeber Autoresponder integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: main.php:36
+msgid "AWeber Autoresponder Integration for MemberPress."
+msgstr ""
+
+#: MpAWeber.php:56
+msgid "Are you sure you want to deauthorize your AWeber account on this site?"
+msgstr ""
+
+#: MpAWeber.php:70
+msgid "Please install CURL on your webserver to enable MemberPress's AWeber Integration."
+msgstr ""
+
+#: MpAWeber.php:88
+#: MpAWeber.php:556
+msgid "Sign Up for the %s Newsletter"
+msgstr ""
+
+#: MpAWeber.php:96
+msgid "Enable AWeber"
+msgstr ""
+
+#: MpAWeber.php:103
+msgid "Connect to AWeber's API"
+msgstr ""
+
+#: MpAWeber.php:104
+msgid "Click \"Connect to AWeber's API\" then copy the unique authorization code, paste it here and then click the \"Authorize\" button."
+msgstr ""
+
+#: MpAWeber.php:106
+msgid "Authorize"
+msgstr ""
+
+#: MpAWeber.php:111
+msgid "AWeber is Currently Authorized:"
+msgstr ""
+
+#: MpAWeber.php:112
+msgid "Deauthorize"
+msgstr ""
+
+#: MpAWeber.php:117
+msgid "Global AWeber List:"
+msgstr ""
+
+#: MpAWeber.php:121
+msgid "Select the AWeber mailing list name that you want users signed up for when they sign up for Memberpress."
+msgstr ""
+
+#: MpAWeber.php:126
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: MpAWeber.php:129
+msgid "If checked, an opt-in checkbox will appear on all of your membership registration pages."
+msgstr ""
+
+#: MpAWeber.php:132
+msgid "Opt-In Checkbox Label:"
+msgstr ""
+
+#: MpAWeber.php:135
+msgid "This is the text that will display on the signup page next to your mailing list opt-out checkbox."
+msgstr ""
+
+#: MpAWeber.php:173
+#: MpAWeber.php:209
+#: MpAWeber.php:226
+msgid "Hey yo, why you creepin'?"
+msgstr ""
+
+#: MpAWeber.php:178
+msgid "No auth code was sent"
+msgstr ""
+
+#: MpAWeber.php:194
+msgid "MemberPress was successfully authenticated with AWeber"
+msgstr ""
+
+#: MpAWeber.php:197
+msgid "There was an error authenticating MemberPress with AWeber"
+msgstr ""
+
+#: MpAWeber.php:217
+msgid "Your AWeber credentials were successfully deleted from MemberPress"
+msgstr ""
+
+#: MpAWeber.php:458
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: MpAWeber.php:497
+msgid "AWeber list for this Membership"
+msgstr ""
+
+#: MpAWeber.php:501
+msgid "Enable AWeber List"
+msgstr ""
+
+#: MpAWeber.php:502
+msgid "If this is set the member will be added to this list when their payment is completed for this membership. If the member cancels their subscription, they will be removed from the list automatically. You must have AWeber configured in the MemberPress options before this will work."
+msgstr ""
+
+#: MpAWeber.php:506
+msgid "AWeber List:"
+msgstr ""

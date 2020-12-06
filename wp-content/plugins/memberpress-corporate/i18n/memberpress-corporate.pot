@@ -1,0 +1,473 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress Corporate Accounts plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Corporate Accounts 1.5.15\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-corporate\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-10-21T13:39:45-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-corporate\n"
+
+#. Plugin Name of the plugin
+#: main.php:212
+msgid "MemberPress Corporate Accounts"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "The MemberPress Corporate Accounts add-on will allow you to allow some of your members to add and manage sub-members. Sometimes these \"super\" members are called \"Parent\", \"Umbrella\", \"Group\" or \"Corporate\" Account members."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:33
+msgid "Are you sure you want to remove this sub-account?"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:42
+#: app/controllers/class-mpca-account-controller.php:74
+#: app/controllers/class-mpca-export-controller.php:10
+msgid "No corporate account specified"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:46
+msgid "No sub account specified"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:52
+msgid "Invalid corporate account"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:56
+#: app/controllers/class-mpca-account-controller.php:84
+#: app/controllers/class-mpca-export-controller.php:24
+msgid "Forbidden"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:80
+msgid "This is an invalid corporate account"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:88
+msgid "Cannot manage sub-accounts. Account disabled."
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:168
+msgid "Error uploading file"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:194
+msgid "Sub Accounts"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:204
+msgid "This action can only happen from the Manage Sub Account page"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:208
+msgid "There was an issue uploading your CSV file"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:258
+msgid "Row %d failed for reason: %s"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:273
+msgid "Imported: %d successful. %d failed"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:306
+msgid "Cannot Add Existing User"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:312
+#: app/controllers/class-mpca-signup-controller.php:37
+msgid "Cannot Add Yourself as Sub Account"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:317
+msgid "Existing User Not Found"
+msgstr ""
+
+#: app/controllers/class-mpca-account-controller.php:355
+msgid "You successfully added a sub account"
+msgstr ""
+
+#: app/controllers/class-mpca-export-controller.php:18
+msgid "Unable to export due to Invalid corporate account"
+msgstr ""
+
+#: app/controllers/class-mpca-import-controller.php:32
+#: app/helpers/class-mpca-admin-helper.php:56
+msgid "Active"
+msgstr ""
+
+#: app/controllers/class-mpca-import-controller.php:32
+#: app/helpers/class-mpca-admin-helper.php:56
+msgid "Inactive"
+msgstr ""
+
+#: app/controllers/class-mpca-member-controller.php:9
+msgid "Role"
+msgstr ""
+
+#: app/controllers/class-mpca-member-controller.php:18
+msgid "None"
+msgstr ""
+
+#: app/controllers/class-mpca-member-controller.php:21
+msgid "Sub Account"
+msgstr ""
+
+#: app/controllers/class-mpca-member-controller.php:25
+msgid "Corp Account"
+msgstr ""
+
+#: app/controllers/class-mpca-signup-controller.php:55
+msgid "Invalid corporate account (2)"
+msgstr ""
+
+#: app/controllers/class-mpca-signup-controller.php:87
+msgid "Invalid corporate account (3)"
+msgstr ""
+
+#: app/controllers/class-mpca-subscription-controller.php:81
+msgid "Parent"
+msgstr ""
+
+#: app/controllers/class-mpca-subscription-controller.php:102
+msgid "View parent's profile"
+msgstr ""
+
+#: app/emails/Mepr_Sub_Account_Signup_Email.php:6
+msgid "<b>Sub Account Signup Email</b>"
+msgstr ""
+
+#: app/emails/Mepr_Sub_Account_Signup_Email.php:7
+msgid "This email is sent when a new sub account signs up using the signup URL."
+msgstr ""
+
+#: app/emails/Mepr_Sub_Account_Welcome_Email.php:6
+msgid "<b>Sub Account Welcome Email</b>"
+msgstr ""
+
+#: app/emails/Mepr_Sub_Account_Welcome_Email.php:7
+msgid "This email is sent when a new sub account is added through the manage sub accounts page."
+msgstr ""
+
+#: app/helpers/class-mpca-admin-helper.php:19
+msgid "Unknown"
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:17
+msgid "Parent User"
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:28
+msgid "Corporate Account"
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:35
+#: app/views/mpca-manage-account-template.php:151
+msgid "Send NEW members a password reset link (does not email existing members)"
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:39
+#: app/views/mpca-manage-account-template.php:154
+msgid "Send NEW members the welcome email if they haven't received it already for the membership."
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:45
+msgid "A corporate parent account is required for import."
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:71
+msgid "Corporate Account Sub User (username=%1$s, ID=%2$s) was removed successfully"
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:78
+msgid "Corporate Account Sub User (email=%1$s) was not found"
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:92
+msgid "Admin users cannot be imported as sub accounts"
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:99
+msgid "User (email=%s, username=%s) already exists with this username. Please choose a different USERNAME."
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:101
+msgid "User (username=%s) already exists. Please choose a different USERNAME."
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:106
+msgid "User (email=%s, username=%s) already exists with this email. Please choose a different EMAIL."
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:109
+msgid "User (email=%s) already exists. Please choose a different EMAIL."
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:135
+msgid "Corporate Account User (username=%1$s, ID=%2$s, transaction_id=%3$s, corporate_account_id=%4$s, parent_transaction_id=%5$s) already existed and was updated successfully"
+msgstr ""
+
+#: app/importers/MpimpCorporateSubAccountsImporter.php:145
+msgid "Corporate Account User (username=%1$s, ID=%2$s, transaction_id=%3$s, corporate_account_id=%4$s, parent_transaction_id=%5$s) was created successfully"
+msgstr ""
+
+#: app/jobs/MeprSyncSubAccountJob.php:7
+msgid "\"user_id\" can't be blank"
+msgstr ""
+
+#: app/jobs/MeprSyncSubAccountJob.php:11
+msgid "\"parent_transaction_id\" can't be blank"
+msgstr ""
+
+#: app/models/class-mpca-corporate-account.php:22
+msgid "Max sub-accounts"
+msgstr ""
+
+#: app/models/class-mpca-corporate-account.php:25
+msgid "Exceeded number of allowed sub-accounts"
+msgstr ""
+
+#: app/views/emails/sub_account_signup.php:3
+#: app/views/emails/sub_account_welcome.php:3
+msgctxt "welcome-email"
+msgid "Hi {$user_first_name}!"
+msgstr ""
+
+#: app/views/emails/sub_account_signup.php:7
+msgctxt "welcome-email"
+msgid "Welcome to <strong>{$blog_name}</strong>. You now have access to the {$product_name} membership content."
+msgstr ""
+
+#: app/views/emails/sub_account_signup.php:8
+#: app/views/emails/sub_account_welcome.php:9
+msgctxt "welcome-email"
+msgid "Use the info below to access your account."
+msgstr ""
+
+#: app/views/emails/sub_account_signup.php:9
+#: app/views/emails/sub_account_welcome.php:10
+msgctxt "welcome-email"
+msgid "You can login here: <a href=\"{$login_page}\">{$login_page}</a>"
+msgstr ""
+
+#: app/views/emails/sub_account_signup.php:10
+#: app/views/emails/sub_account_welcome.php:11
+msgctxt "welcome-email"
+msgid "Account Info:"
+msgstr ""
+
+#: app/views/emails/sub_account_signup.php:13
+#: app/views/emails/sub_account_welcome.php:14
+msgctxt "welcome-email"
+msgid "Membership:"
+msgstr ""
+
+#: app/views/emails/sub_account_welcome.php:7
+msgctxt "welcome-email"
+msgid "Welcome to <strong>{$blog_name}</strong>. <br><strong>{$corporate_name}</strong> has setup your account and you now have access to the {$product_name} membership content."
+msgstr ""
+
+#: app/views/emails/sub_account_welcome.php:8
+msgctxt "welcome-email"
+msgid "Before you can access your account, you will need to setup a new password. You can use this link to <a href=\"{$reset_password_link}\">reset your password now.</a>"
+msgstr ""
+
+#: app/views/mpca-edit-membership-template.php:12
+msgid "Subscribers to this Membership are Corporate Accounts"
+msgstr ""
+
+#: app/views/mpca-edit-membership-template.php:14
+#: app/views/mpca-edit-user-template.php:6
+msgid "Corporate Accounts"
+msgstr ""
+
+#: app/views/mpca-edit-membership-template.php:15
+msgid "Corporate accounts allow your members to manage their own members."
+msgstr ""
+
+#: app/views/mpca-edit-membership-template.php:21
+msgid "Max Sub-accounts"
+msgstr ""
+
+#: app/views/mpca-edit-membership-template.php:23
+msgid "Sub-account Limit"
+msgstr ""
+
+#: app/views/mpca-edit-membership-template.php:24
+msgid "The number of allowed sub-accounts for this membership"
+msgstr ""
+
+#: app/views/mpca-edit-user-template.php:24
+msgid "Corporate Account?"
+msgstr ""
+
+#: app/views/mpca-edit-user-template.php:38
+msgid "Max Sub Accounts"
+msgstr ""
+
+#: app/views/mpca-edit-user-template.php:53
+msgid "Sub Account Usage"
+msgstr ""
+
+#: app/views/mpca-edit-user-template.php:57
+#: app/views/mpca-manage-account-template.php:5
+msgid "%1$s of %2$s Sub Accounts Used"
+msgstr ""
+
+#: app/views/mpca-edit-user-template.php:65
+msgid "Actions"
+msgstr ""
+
+#: app/views/mpca-edit-user-template.php:67
+msgid "Manage Sub Accounts"
+msgstr ""
+
+#: app/views/mpca-edit-user-template.php:68
+msgid "Import Sub Accounts"
+msgstr ""
+
+#: app/views/mpca-edit-user-template.php:69
+#: app/views/mpca-manage-account-template.php:125
+msgid "Export Sub Accounts"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:2
+msgid "Corporate account for %s"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:17
+msgid "Add Sub Account"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:24
+msgid "Existing Username"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:32
+msgid "OR"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:36
+msgid "Username"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:42
+msgid "Email"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:48
+msgid "First Name"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:52
+msgid "Last Name"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:59
+msgid "Send NEW members the welcome email"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:62
+msgid "Submit"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:69
+msgid "Search Sub Accounts..."
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:76
+msgid "Page %1$s of %2$s (%3$s Sub Accounts)"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:82
+msgctxt "ui"
+msgid "Username"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:83
+msgctxt "ui"
+msgid "Email"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:84
+msgctxt "ui"
+msgid "First Name"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:85
+msgctxt "ui"
+msgid "Last Name"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:99
+msgid "Remove"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:112
+msgctxt "ui"
+msgid "Previous Page"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:115
+msgctxt "ui"
+msgid "Next Page"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:121
+msgctxt "ui"
+msgid "You have no sub accounts to display."
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:129
+msgid "Signup URL"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:130
+msgid "People signing up with this link will be automatically added to your account"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:137
+msgid "Import Sub Accounts via CSV"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:138
+msgid "(Maximum 200 Sub Accounts per CSV file)"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:157
+msgid "Upload CSV"
+msgstr ""
+
+#: app/views/mpca-manage-account-template.php:160
+msgid "Importing sub accounts..."
+msgstr ""
+
+#: main.php:32
+#: main.php:57
+msgid "The MemberPress Corporate Accounts plugin requires %1$sthe MemberPress Importer to be installed and activated%2$s."
+msgstr ""
+
+#: main.php:213
+msgid "Corporate (aka Group, Parent or Umbrella) Accounts for MemberPress."
+msgstr ""

@@ -234,6 +234,7 @@ abstract class WC_Instagram_Product_Catalog_Format {
 	 */
 	protected function get_item_value( $product_item, $prop ) {
 		$product_catalog = $this->get_product_catalog();
+		$product         = $product_item->get_product();
 
 		switch ( $prop ) {
 			case 'id':
@@ -251,22 +252,27 @@ abstract class WC_Instagram_Product_Catalog_Format {
 				break;
 			case 'price':
 			case 'sale_price':
-				$price        = ( 'sale_price' === $prop ? 'sale' : 'regular' );
+				if ( $product instanceof WC_Product_Bundle ) {
+					$price = 'bundle';
+				} else {
+					$price = ( 'sale_price' === $prop ? 'sale' : 'regular' );
+				}
+
 				$tax          = ( $product_catalog->get_include_tax() ? 'incl' : 'excl' );
 				$tax_location = $product_catalog->get_tax_location();
 
 				$value = '';
 
-				if ( 'sale' !== $price || $product_item->get_product()->is_on_sale() ) {
+				if ( 'sale' !== $price || $product->is_on_sale() ) {
 					$value = $this->format_price( $product_item->get_price( $price, $tax, $tax_location ) );
 				}
 				break;
 			case 'sale_price_effective_date':
 				$value = '';
 
-				if ( $product_item->get_product()->is_on_sale() ) {
-					$from = $product_item->get_product()->get_date_on_sale_from();
-					$to   = $product_item->get_product()->get_date_on_sale_to();
+				if ( $product->is_on_sale() ) {
+					$from = $product->get_date_on_sale_from();
+					$to   = $product->get_date_on_sale_to();
 
 					if ( $from && $to ) {
 						$value = sprintf(
@@ -300,7 +306,7 @@ abstract class WC_Instagram_Product_Catalog_Format {
 						$value  = ( 'parent_description' === $desc_field ? $parent->get_description() : $parent->get_short_description() );
 					}
 				} elseif ( 'short_description' === $product_catalog->get_description_field() ) {
-					$value = $product_item->get_product()->get_short_description();
+					$value = $product->get_short_description();
 				}
 
 				// Use the 'description' field as a fallback.

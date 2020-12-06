@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 echo $email_heading . "\n\n";
 
-printf( __( 'Hi there. Order with ID #%s scored a Risk Score of %s.', 'woocommerce-anti-fraud' ), $order_id, $score ) . "\r\n\r\n";
-printf( __( '%sClick here to view the order.%s.', 'woocommerce-anti-fraud' ), '<a href="' . $order_url . '">', '</a>' ) . "\r\n\r\n";
+printf( __( 'Hi there. Order with ID #%1$s scored a Risk Score of %2$s.', 'woocommerce-anti-fraud' ), $order_id, $score ) . "\r\n\r\n";
+printf( __( '%1$sClick here to view the order.%2$s.', 'woocommerce-anti-fraud' ), '<a href="' . $order_url . '">', '</a>' ) . "\r\n\r\n";
 
 echo "\n****************************************************\n\n";
 

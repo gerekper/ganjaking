@@ -17,14 +17,13 @@ if ( ! class_exists( 'WC_Instagram_Singleton' ) ) {
 	abstract class WC_Instagram_Singleton {
 
 		/**
-		 * Gets the *Singleton* instance of this class.
+		 * Gets the single instance of the class.
 		 *
 		 * @since 2.0.0
 		 *
-		 * @staticvar WC_Instagram_Singleton $instance The *Singleton* instances of this class.
-		 * @return mixed The *Singleton* instance.
+		 * @return mixed The class instance.
 		 */
-		public static function instance() {
+		final public static function instance() {
 			static $instance = null;
 
 			if ( null === $instance ) {
@@ -42,22 +41,21 @@ if ( ! class_exists( 'WC_Instagram_Singleton' ) ) {
 		protected function __construct() {}
 
 		/**
-		 * Cloning instances of the class is forbidden.
+		 * Prevents cloning.
 		 *
 		 * @since 2.0.0
 		 */
 		private function __clone() {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning is forbidden.', 'woocommerce-instagram' ), '2.0.0' );
+			wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce-instagram' ), '2.0.0' );
 		}
 
 		/**
-		 * Unserializing instances of this class is forbidden.
+		 * Prevents unserializing.
 		 *
 		 * @since 2.0.0
 		 */
-		private function __wakeup() {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'woocommerce-instagram' ), '2.0.0' );
+		final public function __wakeup() {
+			wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce-instagram' ), '2.0.0' );
 		}
-
 	}
 }

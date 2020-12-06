@@ -24,7 +24,7 @@ class WC_AF_Paypal_Email extends WC_Email {
 		
 		$this->score = $score;
 		$this->email_template = get_option('wc_settings_anti_fraud_paypal_email_format');
-		$this->verification_url = site_url().'/?order_id='.base64_encode($this->order_id).'&paypal_verification=true';
+		$this->verification_url = site_url() . '/?order_id=' . base64_encode($this->order_id) . '&paypal_verification=true';
 		parent::__construct();
 
 	}
@@ -69,7 +69,7 @@ class WC_AF_Paypal_Email extends WC_Email {
 		$order_ids = $this->order->get_order_number();
 		$payment_method = get_post_meta( $order_ids, '_payment_method', true );
 		// Set recipients
-		if($payment_method == 'ppec_paypal'){
+		if ($payment_method == 'ppec_paypal') {
 
 			$this->recipient = get_post_meta( $order_ids, '_paypal_express_payer_email', true);
 
@@ -88,9 +88,9 @@ class WC_AF_Paypal_Email extends WC_Email {
 		}
 
 		// Send the emails
-		if(get_option('wc_af_paypal_verification') == 'yes'){
-		$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
-      }
+		if (get_option('wc_af_paypal_verification') == 'yes') {
+			$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+		}
 		// Remove the woocommerce_locate_template filter
 		remove_filter( 'woocommerce_locate_template', array( $this, 'load_plugin_templates' ), 10 );
 
@@ -159,7 +159,7 @@ class WC_AF_Paypal_Email extends WC_Email {
 		ob_start();
 		$template_name = $this->template_html;
 		$plain_text    = false;
-		if('text' == $this->email_template){
+		if ('text' == $this->email_template) {
 			$template_name = $this->template_plain;
 			$plain_text	   = true;		
 		}

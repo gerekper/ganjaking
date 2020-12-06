@@ -1,5 +1,19 @@
 *** WooCommerce Account Funds ***
 
+2020-11-16 - version 2.3.4
+* Tweak - Tested compatibility with WC 4.7.
+* Fix - Funds were not being deducted from the account on fully paid orders with funds in WC 4.7.
+
+2020-10-27 - version 2.3.3
+* Tweak - Improved performance when applying account funds to the cart.
+* Tweak - Tested compatibility with WC 4.6.
+* Fix - Fixed warning when trying to apply funds on pages where the cart hasn't been initialized.
+
+2020-09-17 - version 2.3.2
+* Fix - Using funds to partially pay the order.
+* Update - WC 4.5 compatibility.
+* Update - WP 5.5 compatibility.
+
 2020-09-07 - version 2.3.1
 * Fix - Compatibility issue with WooCommerce Subscriptions.
 

@@ -285,9 +285,25 @@ Earning Points Conversion Settings given in the General Settings will consider o
                     'type'    => 'checkbox' ,
                 ) ,
                 array(
-                    'name'              => __( 'Reward Points' , SRP_LOCALE ) ,
+                    'name'     => __( 'Reward Type' , SRP_LOCALE ) ,
+                    'desc'     => __( 'Select Reward Type by Points/Percentage' , SRP_LOCALE ) ,
+                    'id'       => 'rs_global_reward_points_type' ,
+                    'class'    => 'rs_global_reward_points_type' ,
+                    'std'      => '1' ,
+                    'default'  => '1' ,
+                    'newids'   => 'rs_global_reward_points_type' ,
+                    'type'     => 'select' ,
+                    'desc_tip' => true ,
+                    'options'  => array(
+                        '1' => __( 'Fixed Reward Points' , SRP_LOCALE ) ,
+                        '2' => __( 'Percentage of Cart Subtotal' , SRP_LOCALE ) ,
+                        '3' => __( 'Percentage of Cart Total' , SRP_LOCALE ) ,
+                    ) ,
+                ) ,
+                array(
+                    'name'              => __( 'Enter the fixed value' , SRP_LOCALE ) ,
                     'id'                => 'rs_reward_points_for_first_purchase_in_fixed' ,
-                    'class'             => 'show_if_first_purchase' ,
+                    'class'             => 'rs_reward_points_for_first_purchase_in_fixed show_if_first_purchase' ,
                     'std'               => '' ,
                     'default'           => '' ,
                     'type'              => 'number' ,
@@ -295,6 +311,24 @@ Earning Points Conversion Settings given in the General Settings will consider o
                     'custom_attributes' => array(
                         'min' => '0'
                     ) ,
+                ) ,
+                array(
+                    'name'    => __( 'Enter the percentage value' , SRP_LOCALE ) ,
+                    'id'      => 'rs_reward_points_for_first_purchase_in_sub_total' ,
+                    'class'   => 'rs_reward_points_for_first_purchase_in_sub_total show_if_first_purchase' ,
+                    'std'     => '' ,
+                    'default' => '' ,
+                    'type'    => 'number' ,
+                    'newids'  => 'rs_reward_points_for_first_purchase_in_sub_total' ,
+                ) ,
+                array(
+                    'name'    => __( 'Enter the percentage value' , SRP_LOCALE ) ,
+                    'id'      => 'rs_reward_points_for_first_purchase_in_cart_total' ,
+                    'class'   => 'rs_reward_points_for_first_purchase_in_cart_total show_if_first_purchase' ,
+                    'std'     => '' ,
+                    'default' => '' ,
+                    'type'    => 'number' ,
+                    'newids'  => 'rs_reward_points_for_first_purchase_in_cart_total' ,
                 ) ,
                 array( 'type' => 'sectionend' , 'id' => 'rs_first_purchase_module' ) ,
                 array(
@@ -520,9 +554,9 @@ Earning Points Conversion Settings given in the General Settings will consider o
                     'default' => 'no' ,
                     'newids'  => 'rs_restrict_days_for_product_purchase' ,
                 ) ,
-                 array(
+                array(
                     'name'    => __( 'Exclude Shipping Cost' , SRP_LOCALE ) ,
-                    'desc'    => __( 'By enabling this checkbox, you can exclude the shipping cost in product purchase points. <br/>Note: Works with WooCommerce v3.2.0 or Above', SRP_LOCALE ) ,
+                    'desc'    => __( 'By enabling this checkbox, you can exclude the shipping cost in product purchase points. <br/>Note: Works with WooCommerce v3.2.0 or Above' , SRP_LOCALE ) ,
                     'id'      => 'rs_exclude_shipping_cost_based_on_cart_total' ,
                     'type'    => 'checkbox' ,
                     'std'     => 'no' ,

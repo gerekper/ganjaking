@@ -29,7 +29,7 @@ class WC_CP_Meta_Box_Product_Data {
 	/**
 	 * Runtime caching of the category hierarchical tree.
 	 *
-	 * @since 7.0.0
+	 * @since 7.1.2
 	 *
 	 * @var array
 	 */
@@ -64,7 +64,7 @@ class WC_CP_Meta_Box_Product_Data {
 		/*  Composite writepanel options.   */
 		/*----------------------------------*/
 
-		add_action( 'woocommerce_composite_admin_options_html', array( __CLASS__, 'composite_options' ), 10, 2 );
+		add_action( 'woocommerce_composite_admin_options_html', array( __CLASS__, 'composite_options' ), 10 );
 		add_action( 'woocommerce_composite_admin_html', array( __CLASS__, 'composite_component_options' ), 15, 2 );
 
 		/*---------------------------------*/
@@ -470,7 +470,7 @@ class WC_CP_Meta_Box_Product_Data {
 		</div>
 		<div class="options_group composite_type show_if_composite">
 			<div class="form-field">
-				<label for="_composite_type">Composite type</label>
+				<label><?php _e( 'Composite type', 'woocommerce-composite-products' ); ?></label>
 				<ul class="bto_type_options">
 					<?php
 					foreach ( $composite_type_options as $type ) {
@@ -480,7 +480,7 @@ class WC_CP_Meta_Box_Product_Data {
 						}
 						?>
 						<li class="<?php echo implode( ' ', $classes ); ?>" >
-							<input type="radio"<?php echo $type[ 'checked' ] ?> name="_composite_type" id="_composite_type" value="<?php echo $type[ 'value' ] ?>">
+							<input type="radio"<?php echo $type[ 'checked' ] ?> name="_composite_type" class="composite_type_option" value="<?php echo $type[ 'value' ] ?>">
 							<?php echo wc_help_tip( '<strong>' . $type[ 'title' ] . '</strong> &ndash; ' . $type[ 'description' ] ); ?>
 						</li>
 						<?php
@@ -536,9 +536,9 @@ class WC_CP_Meta_Box_Product_Data {
 					if ( 'composite' === select_val ) {
 
 						// Force virtual container to always show the shipping tab.
-						virtual_checkbox.removeAttr( 'checked' ).change();
+						virtual_checkbox.prop( 'checked', false ).change();
 
-						if ( 'unassembled' === bto_type_options.find( 'input#_composite_type:checked' ).first().val() ) {
+						if ( 'unassembled' === bto_type_options.find( 'input.composite_type_option:checked' ).first().val() ) {
 							shipping_product_data.addClass( 'composite_unassembled' );
 							bto_product_data.addClass( 'composite_unassembled' );
 						}
@@ -593,7 +593,7 @@ class WC_CP_Meta_Box_Product_Data {
 
 		$tabs = self::get_component_tabs();
 
-		include( 'views/html-component.php' );
+		include( WC_CP_ABSPATH . 'includes/admin/meta-boxes/views/html-component.php' );
 	}
 
 	/**
@@ -608,7 +608,7 @@ class WC_CP_Meta_Box_Product_Data {
 	 */
 	public static function scenario_admin_html( $id, $scenario_data, $composite_data, $composite_id, $toggle = 'closed' ) {
 
-		include( 'views/html-scenario.php' );
+		include( WC_CP_ABSPATH . 'includes/admin/meta-boxes/views/html-scenario.php' );
 	}
 
 	/**

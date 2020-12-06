@@ -26,7 +26,7 @@ if ( ! class_exists( 'WP_Background_Process', false ) ) {
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle tasks in the background.
  *
  * @class    WC_PB_DB_Sync_Task_Runner
- * @version  5.7.1
+ * @version  6.5.0
  */
 class WC_PB_DB_Sync_Task_Runner extends WP_Background_Process {
 
@@ -154,7 +154,7 @@ class WC_PB_DB_Sync_Task_Runner extends WP_Background_Process {
 				WC_PB_Core_Compatibility::log( sprintf( 'Discarding invalid IDs: [%s]', implode( ', ', $data[ 'delete_ids' ] ) ), 'notice', 'wc_pb_db_sync_tasks' );
 
 				$data_store = WC_Data_Store::load( 'product-bundle' );
-				$data_store->delete_bundled_items_stock_status( array_map( 'absint', $data[ 'delete_ids' ] ) );
+				$data_store->delete_bundled_items_stock_sync_status( array_map( 'absint', $data[ 'delete_ids' ] ) );
 			}
 
 			$processed_ids = array();
@@ -169,9 +169,7 @@ class WC_PB_DB_Sync_Task_Runner extends WP_Background_Process {
 				foreach ( $sync_ids as $id ) {
 
 					if ( ( $product = wc_get_product( $id ) ) && $product->is_type( 'bundle' ) ) {
-						if ( $product->sync_bundled_items_stock_status() ) {
-							$product->get_data_store()->save_bundled_items_stock_status( $product );
-						}
+						$product->sync_stock();
 						$processed_ids[] = $id;
 					} else {
 						$delete_ids[] = $id;
@@ -202,7 +200,7 @@ class WC_PB_DB_Sync_Task_Runner extends WP_Background_Process {
 					WC_PB_Core_Compatibility::log( sprintf( 'Discarding invalid IDs: [%s]', implode( ', ', $delete_ids ) ), 'notice', 'wc_pb_db_sync_tasks' );
 
 					$data_store = WC_Data_Store::load( 'product-bundle' );
-					$data_store->delete_bundled_items_stock_status( $delete_ids );
+					$data_store->delete_bundled_items_stock_sync_status( $delete_ids );
 				}
 
 				if ( sizeof( $processed_ids ) + sizeof( $delete_ids ) === sizeof( $sync_ids ) ) {

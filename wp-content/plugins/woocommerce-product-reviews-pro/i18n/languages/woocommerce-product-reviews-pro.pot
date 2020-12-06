@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Reviews Pro 1.16.2\n"
+"Project-Id-Version: WooCommerce Product Reviews Pro 1.17.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-09-30 17:18:32+00:00\n"
+"POT-Creation-Date: 2020-11-17 19:03:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1193,11 +1193,11 @@ msgstr ""
 msgid "A {contribution_type} for {product_name} was marked as inappropriate."
 msgstr ""
 
-#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:226
+#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:221
 msgid "Recipients"
 msgstr ""
 
-#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:227
+#: includes/emails/class-wc-product-reviews-pro-emails-flagged-contribution.php:222
 msgid ""
 "The recipients that will be notified whenever a contribution is flagged for "
 "removal."
@@ -1385,24 +1385,6 @@ msgstr ""
 
 #: includes/functions/wc-product-reviews-pro-functions-template.php:518
 msgid "contributions"
-msgstr ""
-
-#: includes/integrations/Jilt_Promotions/Reviews.php:128
-msgid "More reviews mean more sales."
-msgstr ""
-
-#: includes/integrations/Jilt_Promotions/Reviews.php:129
-msgid ""
-"With Jilt, it's easy to request product reviews from your customers and "
-"offer discounts as a reward."
-msgstr ""
-
-#: includes/integrations/Jilt_Promotions/Reviews.php:133
-msgid "Learn more"
-msgstr ""
-
-#: includes/integrations/Jilt_Promotions/Reviews.php:139
-msgid "Start getting more reviews"
 msgstr ""
 
 #: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:84

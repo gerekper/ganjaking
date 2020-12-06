@@ -760,7 +760,8 @@ class WC_Dropshipping_Orders {
 			$text = $this->get_packingslip_html($order_info,$supplier_info, false);
 			if($order->get_status() != 'completed') {
 
-				$text = $options['email_order_note'] . $text . '<img class="email_store_logo" src="'.$options['packing_slip_url_to_logo'].'" />';
+				$text = '<img style="max-width:150px;" class="email_store_logo" src="'.$options['packing_slip_url_to_logo'].'" />' . $options['email_order_note'] . $text;
+
 			}
 
 			$html = apply_filters('wc_dropship_manager_send_order_email_html',$text);
@@ -793,7 +794,7 @@ class WC_Dropshipping_Orders {
 				if($complete_url == '1') {
 
 					$message .= '<table cellpadding="8" cellspacing="0" style="width:100%;" >
-			    	<tr><td style="text-align: center;">To mark this order as shipped please click the following link:<br/>'.get_home_url().'/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid='.$order_info["id"].'&supplierid='.$supplier_info["id"].'</td></tr></table>';
+			    	<tr><td style="text-align: center;">To mark this order as shipped please click the following link:<br/><a href="'.get_home_url().'/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid='.$order_info["id"].'&supplierid='.$supplier_info["id"].'">Mark as shipped</a></td></tr></table>';
 			    }
 			}
 
@@ -868,7 +869,7 @@ class WC_Dropshipping_Orders {
 
 			if ($order_status != 'completed') {
 
-				$text = $options['email_order_note'] . $text . '<img class="email_store_logo" src="'.$options['packing_slip_url_to_logo'].'" />';
+				$text = '<img style="max-width:150px;" class="email_store_logo" src="'.$options['packing_slip_url_to_logo'].'" />' . $options['email_order_note'] . $text;
 			}
 
 			$html = apply_filters('wc_dropship_manager_send_order_email_html',$text);

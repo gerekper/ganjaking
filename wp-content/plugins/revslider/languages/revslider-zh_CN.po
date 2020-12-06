@@ -393,12 +393,10 @@ msgstr "选择 Slide 模板"
 
 #: admin/revslider-admin.class.php:404
 msgid ""
-"Activate Slider Revolution for <a href=\"https://revolution.themepunch."
-"com/direct-customer-benefits/\" target=\"_blank\">Premium Benefits (e.g. "
+"Activate Slider Revolution for <a href=\"https://www.sliderrevolution.com/premium-slider-revolution//\" target=\"_blank\">Premium Benefits (e.g. "
 "Live Updates)</a>."
 msgstr ""
-"启用 Slider Revolution 对于 <a href=\"https://revolution.themepunch.com/direct-"
-"customer-benefits/\" target=\"_blank\">优惠（eg. 实时更新）</a>."
+"启用 Slider Revolution 对于 <a href=\"https://www.sliderrevolution.com/premium-slider-revolution/\" target=\"_blank\">优惠（eg. 实时更新）</a>."
 
 #: admin/revslider-admin.class.php:415
 msgid "A new version of Slider Revolution is available."
@@ -1900,8 +1898,8 @@ msgid "Audio Wave Library is Loading..."
 msgstr "音频波库正在加载......"
 
 #: admin/revslider-admin.class.php:2056
-msgid "Loading CodeMirror Library..."
-msgstr "加载CodeMirror库..."
+msgid "Loading RevMirror Library..."
+msgstr "加载RevMirror库..."
 
 #: admin/revslider-admin.class.php:2057
 msgid "Lock / Unlock Selected"
@@ -7583,8 +7581,8 @@ msgid "Slider Revolution - Premium responsive slider"
 msgstr "Slider Revolution - Premium responsive slider"
 
 #. URI of the plugin
-msgid "https://revolution.themepunch.com/"
-msgstr "https://revolution.themepunch.com/"
+msgid "https://www.sliderrevolution.com/"
+msgstr "https://www.sliderrevolution.com/"
 
 #. Author URI of the plugin
 msgid "https://themepunch.com/"

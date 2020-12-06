@@ -219,7 +219,7 @@ final class Elementor_Groovy_Menu_Plugin_Extension {
 	public function init_widgets() {
 
 		// Include Widget files
-		require_once( __DIR__ . '/elementor-gm-widget.php' );
+		require_once __DIR__ . DIRECTORY_SEPARATOR . 'elementor-gm-widget.php';
 
 		// Register widget
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Groovy_Menu_Plugin() );

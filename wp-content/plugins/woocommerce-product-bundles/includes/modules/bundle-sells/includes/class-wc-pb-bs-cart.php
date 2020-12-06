@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart-related functions and filters.
  *
  * @class    WC_PB_BS_Cart
- * @version  6.0.0
+ * @version  6.6.0
  */
 class WC_PB_BS_Cart {
 
@@ -43,7 +43,7 @@ class WC_PB_BS_Cart {
 
 		if ( 'filters' === WC_PB_Product_Prices::get_bundled_cart_item_discount_method() ) {
 			// Allow bundle-sells discounts to be applied.
-			add_filter( 'woocommerce_cart_loaded_from_session', array( __CLASS__, 'load_bundle_sells_from_session' ), 10 );
+			add_filter( 'woocommerce_cart_loaded_from_session', array( __CLASS__, 'load_bundle_sells_into_session' ), 10 );
 		}
 	}
 
@@ -168,23 +168,12 @@ class WC_PB_BS_Cart {
 
 		if ( ! empty( $bundle_sells_configuration ) ) {
 			foreach ( $bundle_sells_configuration as $bundle_sell_configuration ) {
-
-				// Unique way to identify bundle-sells in the cart.
-				$bundle_sell_cart_data = array( 'bundle_sell_of' => $parent_cart_item_key );
-
 				// Add the bundle-sell to the cart.
-				$bundle_sell_cart_item_key = WC()->cart->add_to_cart( $bundle_sell_configuration[ 'product_id' ], $bundle_sell_configuration[ 'quantity' ], '', '', $bundle_sell_cart_data );
-
-				// Add a reference in the parent cart item.
-				if ( isset( WC()->cart->cart_contents[ $parent_cart_item_key ] ) ) {
-					if ( ! isset( WC()->cart->cart_contents[ $parent_cart_item_key ][ 'bundle_sells' ] ) ) {
-						WC()->cart->cart_contents[ $parent_cart_item_key ][ 'bundle_sells' ] = array( $bundle_sell_cart_item_key );
-					} else {
-						WC()->cart->cart_contents[ $parent_cart_item_key ][ 'bundle_sells' ][] = $bundle_sell_cart_item_key;
-					}
-				}
+				$bundle_sell_cart_item_key = WC()->cart->add_to_cart( $bundle_sell_configuration[ 'product_id' ], $bundle_sell_configuration[ 'quantity' ] );
 			}
 		}
+
+		self::load_bundle_sells_into_session( WC()->cart );
 	}
 
 	/**
@@ -227,45 +216,161 @@ class WC_PB_BS_Cart {
 	 * @param  array  $cart
 	 * @return array
 	 */
-	public static function load_bundle_sells_from_session( $cart ) {
+	public static function load_bundle_sells_into_session( $cart ) {
 
 		if ( empty( $cart->cart_contents ) ) {
 			return;
 		}
 
+		$bundle_sells_by_id       = array();
+		$cart_item_parent_product = array();
+		$search_cart_item_keys    = array();
+		$apply_to_cart_item_keys  = array();
+
+		// Identify items to search for bundle-sells and items to apply bundle sells to.
 		foreach ( $cart->cart_contents as $cart_item_key => $cart_item ) {
 
-			$parent_item = wc_pb_get_bundle_sell_cart_item_container( $cart_item );
-
-			if ( empty( $parent_item ) ) {
+			if ( wc_pb_maybe_is_bundled_cart_item( $cart_item ) || wc_pb_is_bundle_container_cart_item( $cart_item ) ) {
 				continue;
 			}
 
-			$product = $parent_item[ 'data' ];
+			if ( function_exists( 'wc_cp_maybe_is_composited_cart_item' ) && function_exists( 'wc_cp_is_composite_container_cart_item' ) && ( wc_cp_maybe_is_composited_cart_item( $cart_item ) || wc_cp_is_composite_container_cart_item( $cart_item ) ) ) {
+				continue;
+			}
+
+			$search_cart_item_keys[] = $cart_item_key;
+
+			if ( ! $cart_item[ 'data' ]->is_type( array( 'simple', 'subscription' ) ) ) {
+				continue;
+			}
+
+			$apply_to_cart_item_keys[] = $cart_item_key;
+		}
+
+		/**
+		 * 'woocommerce_bundle_sells_search_cart_items' filter.
+		 *
+		 * @since  6.6.0
+		 *
+		 * @param  array   $cart_item_keys
+		 * @param  string  $parent_item
+		 * @param  array   $parent_item_name
+		 */
+		$search_cart_item_keys = apply_filters( 'woocommerce_bundle_sells_search_cart_items', $search_cart_item_keys );
+
+		/**
+		 * 'woocommerce_bundle_sells_apply_to_cart_items' filter.
+		 *
+		 * @since  6.6.0
+		 *
+		 * @param  bool    $cart_item
+		 * @param  string  $parent_item
+		 * @param  array  $parent_item_name
+		 */
+		$apply_to_cart_item_keys = apply_filters( 'woocommerce_bundle_sells_apply_to_cart_items', $apply_to_cart_item_keys );
+
+		// Identify potential bundle-sells, keeping associations to parents with highest discounts.
+		foreach ( $cart->cart_contents as $cart_item_key => $cart_item ) {
+
+			if ( ! in_array( $cart_item_key, $search_cart_item_keys ) ) {
+				continue;
+			}
+
+			$product = $cart_item[ 'data' ];
 
 			if ( $product->is_type( 'variation' ) ) {
-				$product = wc_get_product( $parent_item[ 'data' ]->get_parent_id() );
+				$product = wc_get_product( $product->get_parent_id() );
 			}
 
-			$bundle_sell_ids = WC_PB_BS_Product::get_bundle_sell_ids( $product );
+			$cart_item_bundle_sells          = WC_PB_BS_Product::get_bundle_sell_ids( $product );
+			$cart_item_bundle_sells_discount = WC_PB_BS_Product::get_bundle_sells_discount( $product );
 
-			if ( empty( $bundle_sell_ids ) ) {
-				continue;
-			}
+			if ( ! empty( $cart_item_bundle_sells ) ) {
 
-			$bundle             = WC_PB_BS_Product::get_bundle( $bundle_sell_ids, $product );
-			$bundled_data_items = $bundle->get_bundled_data_items();
-			$bundled_item       = null;
+				$cart_item_parent_product[ $cart_item_key ] = $product;
 
-			foreach ( $bundled_data_items as $bundled_data_item ) {
-				if ( $bundled_data_item->get_product_id() === $cart_item[ 'product_id' ] ) {
-					$bundled_item = $bundle->get_bundled_item( $bundled_data_item );
-					break;
+				foreach ( $cart_item_bundle_sells as $bundle_sell_id ) {
+
+					if ( ! isset( $bundle_sells_by_id[ $bundle_sell_id ] ) ) {
+
+						$bundle_sells_by_id[ $bundle_sell_id ] = array(
+							'parent_key' => $cart_item_key,
+							'discount'   => $cart_item_bundle_sells_discount
+						);
+
+					// Keep the highest discount.
+					} elseif ( $cart_item_bundle_sells_discount > $bundle_sells_by_id[ $bundle_sell_id ][ 'discount' ] ) {
+
+						$bundle_sells_by_id[ $bundle_sell_id ] = array(
+							'parent_key' => $cart_item_key,
+							'discount'   => $cart_item_bundle_sells_discount
+						);
+					}
 				}
 			}
 
+			// Clean up keys.
+			if ( isset( $cart_item[ 'bundle_sells' ] ) ) {
+				unset( WC()->cart->cart_contents[ $cart_item_key ][ 'bundle_sells' ] );
+			}
+			if ( isset( $cart_item[ 'bundle_sell_of' ] ) ) {
+				unset( WC()->cart->cart_contents[ $cart_item_key ][ 'bundle_sell_of' ] );
+			}
+			if ( isset( $cart_item[ 'bundle_sell_discount' ] ) ) {
+				unset( WC()->cart->cart_contents[ $cart_item_key ][ 'bundle_sell_discount' ] );
+			}
+		}
+
+		if ( empty( $bundle_sells_by_id ) ) {
+			return;
+		}
+
+		// Scan cart for bundle-sells and apply cart item data and associations.
+		foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
+
+			if ( ! in_array( $cart_item_key, $apply_to_cart_item_keys ) ) {
+				continue;
+			}
+
+			// Found a new bundle-sell?
+			if ( isset( $bundle_sells_by_id[ $cart_item[ 'product_id' ] ] ) ) {
+
+				$parent_cart_item_key = $bundle_sells_by_id[ $cart_item[ 'product_id' ] ][ 'parent_key' ];
+
+				WC()->cart->cart_contents[ $cart_item_key ][ 'bundle_sell_of' ] = $parent_cart_item_key;
+
+				if ( $bundle_sells_by_id[ $cart_item[ 'product_id' ] ][ 'discount' ] ) {
+					WC()->cart->cart_contents[ $cart_item_key ][ 'bundle_sell_discount' ] = $bundle_sells_by_id[ $cart_item[ 'product_id' ] ][ 'discount' ];
+				}
+
+				if ( ! isset( WC()->cart->cart_contents[ $cart_item_key ][ 'bundle_sells' ] ) ) {
+					WC()->cart->cart_contents[ $parent_cart_item_key ][ 'bundle_sells' ] = array( $cart_item_key );
+				} elseif ( ! in_array( $cart_item_key, WC()->cart->cart_contents[ $parent_cart_item_key ][ 'bundle_sells' ] ) ) {
+					WC()->cart->cart_contents[ $parent_cart_item_key ][ 'bundle_sells' ][] = $cart_item_key;
+				}
+			}
+		}
+
+		// Apply bundle-sell discounts.
+		foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
+
+			if ( ! $parent_item_key = wc_pb_get_bundle_sell_cart_item_container( $cart_item, false, true ) ) {
+				continue;
+			}
+
+			if ( empty( $cart_item_parent_product[ $parent_item_key ] ) ) {
+				continue;
+			}
+
+			$bundle        = WC_PB_BS_Product::get_bundle( array( $cart_item[ 'product_id' ] ), $cart_item_parent_product[ $parent_item_key ] );
+			$bundled_items = $bundle->get_bundled_items();
+			$bundled_item  = ! empty( $bundled_items ) ? current( $bundled_items ) : false;
+
 			if ( $bundled_item ) {
-				$cart_item[ 'data' ]->bundled_cart_item = $bundled_item;
+
+				if ( 'filters' === WC_PB_Product_Prices::get_bundled_cart_item_discount_method() ) {
+					$cart_item[ 'data' ]->bundled_cart_item = $bundled_item;
+				}
 			}
 		}
 	}

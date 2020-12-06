@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Gamajo_Template_Loader' => $baseDir . '/src/common/gamajo-template-loader.class.php',
     'MockWcProduct' => $baseDir . '/tests/unit/mocks/MockWcProduct.php',
     'MockWoocommerceGpfCommon' => $baseDir . '/tests/unit/mocks/MockWoocommerceGpfCommon.php',
@@ -24,6 +25,7 @@ return array(
     'WoocommerceGpfClearAllJob' => $baseDir . '/src/cache/woocommerce-gpf-cache-clear-all-job.php',
     'WoocommerceGpfClearProductJob' => $baseDir . '/src/cache/woocommerce-gpf-cache-clear-product-job.php',
     'WoocommerceGpfCommon' => $baseDir . '/src/gpf/woocommerce-gpf-common.php',
+    'WoocommerceGpfCurrencySwitcherForWooCommerce' => $baseDir . '/src/integrations/woocommerce-gpf-currency-switcher-for-woocommerce.php',
     'WoocommerceGpfDebugService' => $baseDir . '/src/common/woocommerce-gpf-debug-service.php',
     'WoocommerceGpfFeed' => $baseDir . '/src/gpf/woocommerce-gpf-feed.php',
     'WoocommerceGpfFeedBing' => $baseDir . '/src/gpf/woocommerce-gpf-feed-bing.php',
@@ -49,7 +51,10 @@ return array(
     'WoocommerceGpfTestAbstract' => $baseDir . '/tests/unit/WoocommerceGpfTestAbstract.php',
     'WoocommerceGpfTheContentProtection' => $baseDir . '/src/integrations/woocommerce-gpf-the-content-protection.php',
     'WoocommerceGpfWcMocks' => $baseDir . '/tests/unit/mocks/WoocommerceGpfWcMocks.php',
+    'WoocommerceGpfWoocommerceCompositeProducts' => $baseDir . '/src/integrations/woocommerce-gpf-woocommerce-composite-products.php',
+    'WoocommerceGpfWoocommerceMinMaxQuantityStepControlSingle' => $baseDir . '/src/integrations/woocommerce-gpf-woocommerce-min-max-quantity-step-control-single.php',
     'WoocommerceGpfWoocommerceMixAndMatchProducts' => $baseDir . '/src/integrations/woocommerce-gpf-woocommerce-mix-and-match-products.php',
+    'WoocommerceGpfWoocommerceProductBundles' => $baseDir . '/src/integrations/woocommerce-gpf-woocommerce-product-bundles.php',
     'WoocommerceGpfWpMocks' => $baseDir . '/tests/unit/mocks/WoocommerceGpfWpMocks.php',
     'WoocommerceGpfYoastWoocommerceSeo' => $baseDir . '/src/integrations/yoast-woocommerce-seo.php',
     'WoocommerceMinMaxQuantities' => $baseDir . '/src/integrations/woocommerce-min-max-quantities.php',

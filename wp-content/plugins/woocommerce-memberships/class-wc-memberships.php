@@ -1,7 +1,4 @@
 <?php
-
-use SkyVerge\WooCommerce\Memberships\Profile_Fields;
-
 /**
  * WooCommerce Memberships
  *
@@ -25,6 +22,7 @@ use SkyVerge\WooCommerce\Memberships\Profile_Fields;
  */
 
 use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\Memberships\Profile_Fields;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -39,7 +37,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 
 
 	/** plugin version number */
-	const VERSION = '1.19.1';
+	const VERSION = '1.19.2';
 
 	/** @var \WC_Memberships single instance of this plugin */
 	protected static $instance;

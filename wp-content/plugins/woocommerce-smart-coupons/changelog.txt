@@ -1,5 +1,54 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2020.11.09 - version 4.12.2
+* Fix: Uncaught ReferenceError: sc_coupon_message_ajax is not defined
+* Fix: Uncaught ReferenceError: sc_available_coupons_ajax is not defined
+* Update: POT file
+
+2020.11.07 - version 4.12.1
+* New: Tested upto WooCommerce 4.6.2
+* Fix: Email not sending for purchased coupons which are scheduled to be sent 'LATER'
+* Fix: Not checking order statuses while validating new user coupon in the case of guest users
+* Fix: Sometimes showing fatal error if a coupon which is about to be displayed is deleted
+* Fix: Uncaught Error: Using $this when not in object context from 2 templates: email.php & combined-email.php
+* Fix: JavaScript error: Trying to declare the variable a second time
+* Update: Hook 'wc_sc_max_coupon_to_show_on_myaccount' & setting 'wc_sc_setting_max_coupon_to_show_on_myaccount'
+* Update: Limit on the number of coupons to be loaded in the coupons tab on the my account page
+* Update: Improvements in coupon tabs on the my account page such that segments will get loaded only if it has some data
+* Update: Use coupon setting 'Exclude sale items' during generation of coupon description
+* Update: Set the position of Print button to right on my account page
+* Update: Minor change in logic of displaying coupon to ensure correct number of coupons to display as per setting
+* Update: POT file
+
+2020.11.02 - version 4.12.0
+* New: Tested upto WooCommerce 4.6.1 & WordPress 5.5.3
+* New: Usage restriction to exclude user roles
+* New: Feature to select quantity of the products which will be added to cart on applying a coupon (under Coupon data > Actions tab)
+* Fix: Incorrectly showing description of one coupon as description of other coupons
+* Fix: Remove unnecessary CSS from styles of coupons which are going in the email
+* Update: sample.csv file
+* Update: POT file
+
+2020.10.26 - version 4.11.0
+* New: Allow linking of coupon to variations as well
+* Developer: Hook 'wc_sc_is_filter_content_coupon_message'
+* Update: Highlight Smart Coupons' field under product
+* Update: Coupon design templates for handling empty coupon amount
+* Update: API namespace
+* Update: POT file
+
+2020.10.19 - version 4.10.0
+* New: Tested upto WooCommerce 4.6.0
+* New: API support for generating coupons
+* Fix: Incorrectly overriding 'custom-design' for coupon on saving the settings
+* Fix: Incorrectly adding 'is_email' attribute when adding shortcode using WP editor button
+* Fix: Reduce multiple AJAX request on the cart & the checkout page to one (happens only in some cases) (Thanks to: BuildWooFunnels)
+* Fix: Links added in the message, which will be sent along with the coupon, those links are broken in the received email
+* Update: Display store notice for coupon based on the coupon's status
+* Update: Provide support for selecting order statuses to consider during the validation of new user coupons
+* Developer: Hook 'wc_sc_should_coupon_auto_generate'
+* Update: POT file
+
 2020.10.09 - version 4.9.5
 * New: Set a coupon to display as storewide offer coupon. It will be displayed everywhere on the website.
 * Fix: Initialization of Action Scheduler package

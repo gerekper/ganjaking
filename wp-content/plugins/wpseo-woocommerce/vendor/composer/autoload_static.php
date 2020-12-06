@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit48632f8a23a409a9d660d686eab8e994
+class ComposerStaticInit0d1e74c185d5b4cfb4b9afb4543729d1
 {
     public static $classMap = array (
         'WPSEO_Option_Woo' => __DIR__ . '/../..' . '/classes/option-woo.php',
@@ -20,6 +20,7 @@ class ComposerStaticInit48632f8a23a409a9d660d686eab8e994
         'WPSEO_WooCommerce_Product_Price_Currency_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-product-price-currency-presenter.php',
         'WPSEO_WooCommerce_Product_Retailer_Item_ID_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-product-retailer-item-id-presenter.php',
         'WPSEO_WooCommerce_Schema' => __DIR__ . '/../..' . '/classes/woocommerce-schema.php',
+        'WPSEO_WooCommerce_Slack' => __DIR__ . '/../..' . '/classes/woocommerce-slack.php',
         'WPSEO_WooCommerce_Twitter' => __DIR__ . '/../..' . '/classes/woocommerce-twitter.php',
         'WPSEO_WooCommerce_Utils' => __DIR__ . '/../..' . '/classes/woocommerce-utils.php',
         'WPSEO_WooCommerce_Yoast_Tab' => __DIR__ . '/../..' . '/classes/woocommerce-yoast-tab.php',
@@ -33,7 +34,7 @@ class ComposerStaticInit48632f8a23a409a9d660d686eab8e994
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit48632f8a23a409a9d660d686eab8e994::$classMap;
+            $loader->classMap = ComposerStaticInit0d1e74c185d5b4cfb4b9afb4543729d1::$classMap;
 
         }, null, ClassLoader::class);
     }

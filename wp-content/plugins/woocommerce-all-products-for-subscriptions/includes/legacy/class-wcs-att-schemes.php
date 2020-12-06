@@ -24,7 +24,7 @@ class WCS_ATT_Schemes {
 	 * Initialize.
 	 */
 	public static function init() {
-		require_once( 'class-wcs-att-scheme-prices.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/legacy/class-wcs-att-scheme-prices.php' );
 	}
 
 	/*

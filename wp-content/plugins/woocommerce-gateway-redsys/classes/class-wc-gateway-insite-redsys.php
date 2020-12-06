@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * Gateway class
 */
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
@@ -23,7 +23,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function __construct() {
 		global $woocommerce;
@@ -99,7 +99,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @return bool
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function is_valid_for_use() {
 		
@@ -118,7 +118,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @since 1.0.0
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function admin_options() {
 			?>
@@ -157,7 +157,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function init_form_fields() {
 		$this->form_fields = array(
@@ -336,7 +336,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function add_insite_redsys2() {
 		
@@ -352,7 +352,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function add_insite_on_loadform() {
 		
@@ -369,7 +369,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @return array
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function process_payment( $order_id ) {
 		
@@ -380,7 +380,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		);
 	}
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public static function check_token_insite_from_action() {
 		
@@ -389,7 +389,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $redsys_insite->debug ) {
 			$redsys_insite->log->add( 'insite', ' ' );
 			$redsys_insite->log->add( 'insite', '/******************************/' );
-			$redsys_insite->log->add( 'insite', '  Llega a la función de InSite    ' );
+			$redsys_insite->log->add( 'insite', '  Llega a la función de InSite  ' );
 			$redsys_insite->log->add( 'insite', '/******************************/' );
 			$redsys_insite->log->add( 'insite', ' ' );
 			$redsys_insite->log->add( 'insite', 'El token que hay que enviar a Redsys es:' . $_POST['token'] );
@@ -549,7 +549,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function receipt_page( $order ) {
 		global $woocommerce;
@@ -955,7 +955,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* Check redsys IPN validity
 	**/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function check_ipn_request_is_valid() {
 		global $woocommerce;
@@ -1008,7 +1008,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function check_ipn_response() {
 		
@@ -1030,7 +1030,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function successful_request( $posted ) {
 		global $woocommerce;
@@ -1158,7 +1158,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function get_insite_order( $order_id ) {
 		$order = new WC_Order( $order_id );
@@ -1166,7 +1166,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	}
 }
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function woocommerce_add_gateway_insite_gateway( $methods ) {
 	$methods[] = 'WC_Gateway_InSite_Redsys';

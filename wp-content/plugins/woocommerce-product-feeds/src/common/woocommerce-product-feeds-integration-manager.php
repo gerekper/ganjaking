@@ -31,6 +31,10 @@ class WoocommerceProductFeedsIntegrationManager {
 		$this->product_brands_for_woocommerce_integration();
 		$this->woocommerce_mix_and_match_products_integration();
 		$this->price_by_country_integration();
+		$this->currency_switcher_for_woocommerce_integration();
+		$this->woocommerce_composite_products_integration();
+		$this->product_bundles_integration();
+		$this->woocommerce_min_max_quantity_step_control_single_integration();
 	}
 
 	private function product_brands_for_woocommerce_integration() {
@@ -102,5 +106,44 @@ class WoocommerceProductFeedsIntegrationManager {
 			return;
 		}
 		$this->container['WoocommerceGpfWoocommerceMixAndMatchProducts']->run();
+	}
+
+	private function currency_switcher_for_woocommerce_integration() {
+		if ( ! defined( 'WCCS_VERSION' ) ||
+			 version_compare( WCCS_VERSION, '1.2.2', 'lt' ) ) {
+			return;
+		}
+		$this->container['WoocommerceGpfCurrencySwitcherForWooCommerce']->run();
+	}
+
+	private function woocommerce_composite_products_integration() {
+		if ( ! class_exists( 'WC_Composite_Products' ) ||
+			 ! is_callable( 'WC_Composite_Products::instance' ) ) {
+			return;
+		}
+		$wc_cp = WC_Composite_Products::instance();
+		if ( empty( $wc_cp->version ) || version_compare( $wc_cp->version, '7.0.0', 'lt' ) ) {
+			return;
+		}
+		$this->container['WoocommerceGpfWoocommerceCompositeProducts']->run();
+	}
+
+	private function product_bundles_integration() {
+		if ( ! class_exists( 'WC_Bundles' ) ||
+			 ! is_callable( 'WC_Bundles::instance' ) ) {
+			return;
+		}
+		$wc_pb = WC_Bundles::instance();
+		if ( empty( $wc_pb->version ) || version_compare( $wc_pb->version, '6.2.4', 'lt' ) ) {
+			return;
+		}
+		$this->container['WoocommerceGpfWoocommerceProductBundles']->run();
+	}
+
+	private function woocommerce_min_max_quantity_step_control_single_integration() {
+		if ( ! defined( 'WC_MMQ_S_PLUGIN_BASE_FILE' ) ) {
+			return;
+		}
+		$this->container['WoocommerceGpfWoocommerceMinMaxQuantityStepControlSingle']->run();
 	}
 }

@@ -4,10 +4,10 @@
  */
 
 
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly.
 }
-if( ! class_exists( 'RSReferralSystemModule' ) ) {
+if ( ! class_exists( 'RSReferralSystemModule' ) ) {
 
     class RSReferralSystemModule {
 
@@ -59,7 +59,7 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
         public static function reward_system_admin_fields() {
             global $woocommerce ;
             global $wp_roles ;
-            foreach( $wp_roles->roles as $values => $key ) {
+            foreach ( $wp_roles->roles as $values => $key ) {
                 $userroleslug[] = $values ;
                 $userrolename[] = $key[ 'name' ] ;
             }
@@ -69,12 +69,12 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
             $referral_product_purchase = get_option( 'rs_enable_product_category_level_for_referral_product_purchase' ) ;
             $send_mail_for_referral    = get_option( 'rs_send_mail_pdt_purchase_referral' ) ;
             $send_mail_for_referrer    = get_option( 'rs_send_mail_pdt_purchase_referrer' ) ;
-            if( $referral_product_purchase == 'yes' && $send_mail_for_referral == 'yes' ) {
+            if ( $referral_product_purchase == 'yes' && $send_mail_for_referral == 'yes' ) {
                 $referral_mail = 'yes' ;
             } else {
                 $referral_mail = 'no' ;
             }
-            if( $referral_product_purchase == 'yes' && $send_mail_for_referrer == 'yes' ) {
+            if ( $referral_product_purchase == 'yes' && $send_mail_for_referrer == 'yes' ) {
                 $refered_mail = 'yes' ;
             } else {
                 $refered_mail = 'no' ;
@@ -1833,46 +1833,46 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
          */
         public static function reward_system_update_settings() {
             woocommerce_update_options( RSReferralSystemModule::reward_system_admin_fields() ) ;
-            if( isset( $_POST[ 'rs_select_exclude_users_list_for_show_referral_link' ] ) ) {
+            if ( isset( $_POST[ 'rs_select_exclude_users_list_for_show_referral_link' ] ) ) {
                 update_option( 'rs_select_exclude_users_list_for_show_referral_link' , $_POST[ 'rs_select_exclude_users_list_for_show_referral_link' ] ) ;
             } else {
                 update_option( 'rs_select_exclude_users_list_for_show_referral_link' , '' ) ;
             }
-            if( isset( $_POST[ 'rs_select_include_users_for_show_referral_link' ] ) ) {
+            if ( isset( $_POST[ 'rs_select_include_users_for_show_referral_link' ] ) ) {
                 update_option( 'rs_select_include_users_for_show_referral_link' , $_POST[ 'rs_select_include_users_for_show_referral_link' ] ) ;
             } else {
                 update_option( 'rs_select_include_users_for_show_referral_link' , '' ) ;
             }
-            if( isset( $_POST[ 'rs_fbshare_image_url_upload' ] ) ) {
+            if ( isset( $_POST[ 'rs_fbshare_image_url_upload' ] ) ) {
                 update_option( 'rs_fbshare_image_url_upload' , $_POST[ 'rs_fbshare_image_url_upload' ] ) ;
             } else {
                 update_option( 'rs_fbshare_image_url_upload' , '' ) ;
             }
-            if( isset( $_POST[ 'rs_referral_module_checkbox' ] ) ) {
+            if ( isset( $_POST[ 'rs_referral_module_checkbox' ] ) ) {
                 update_option( 'rs_referral_activated' , $_POST[ 'rs_referral_module_checkbox' ] ) ;
             } else {
                 update_option( 'rs_referral_activated' , 'no' ) ;
             }
-            if( isset( $_POST[ 'rs_include_products_for_referral_product_purchase' ] ) ) {
+            if ( isset( $_POST[ 'rs_include_products_for_referral_product_purchase' ] ) ) {
                 update_option( 'rs_include_products_for_referral_product_purchase' , $_POST[ 'rs_include_products_for_referral_product_purchase' ] ) ;
             } else {
                 update_option( 'rs_include_products_for_referral_product_purchase' , '' ) ;
             }
-            if( isset( $_POST[ 'rs_exclude_products_for_referral_product_purchase' ] ) ) {
+            if ( isset( $_POST[ 'rs_exclude_products_for_referral_product_purchase' ] ) ) {
                 update_option( 'rs_exclude_products_for_referral_product_purchase' , $_POST[ 'rs_exclude_products_for_referral_product_purchase' ] ) ;
             } else {
                 update_option( 'rs_exclude_products_for_referral_product_purchase' , '' ) ;
             }
 
-            if( isset( $_POST[ 'rewards_dynamic_rule_manual' ] ) ) {
+            if ( isset( $_POST[ 'rewards_dynamic_rule_manual' ] ) ) {
 
                 $manual_link_rules = get_option( 'rewards_dynamic_rule_manual' , array() ) ;
-                foreach( $_POST[ 'rewards_dynamic_rule_manual' ] as $key => $values ) {
+                foreach ( $_POST[ 'rewards_dynamic_rule_manual' ] as $key => $values ) {
 
                     $manual_link_rules[ $key ] = $values ;
 
-                    if( isset( $_POST[ 'rs_removed_link_rule' ][ $key ] ) ) {
-                        if( 'yes' == $_POST[ 'rs_removed_link_rule' ][ $key ] ) {
+                    if ( isset( $_POST[ 'rs_removed_link_rule' ][ $key ] ) ) {
+                        if ( 'yes' == $_POST[ 'rs_removed_link_rule' ][ $key ] ) {
                             $manual_link_rules[ $key ] = '' ;
                         }
                     }
@@ -1888,8 +1888,8 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
          * Initialize the Default Settings by looping this function
          */
         public static function set_default_value() {
-            foreach( RSReferralSystemModule::reward_system_admin_fields() as $setting )
-                if( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
+            foreach ( RSReferralSystemModule::reward_system_admin_fields() as $setting )
+                if ( isset( $setting[ 'newids' ] ) && isset( $setting[ 'std' ] ) ) {
                     add_option( $setting[ 'newids' ] , $setting[ 'std' ] ) ;
                 }
         }
@@ -1976,7 +1976,7 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
             // Search User filter.
             $searched_user     = isset( $_REQUEST[ 'rs_search_user' ] ) ? sanitize_title( $_REQUEST[ 'rs_search_user' ] ) : '' ;
 
-            if( ! $searched_user ) {
+            if ( ! $searched_user ) {
                 $chunk_rules             = array_chunk( $manual_link_rules , $per_page ) ;
                 $current_page            = isset( $_REQUEST[ 'page_no' ] ) ? wc_clean( wp_unslash( absint( $_REQUEST[ 'page_no' ] ) ) ) : '1' ;
                 $rules_based_on_per_page = isset( $chunk_rules[ $current_page - 1 ] ) ? $chunk_rules[ $current_page - 1 ] : array() ;
@@ -1992,18 +1992,18 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
             include SRP_PLUGIN_PATH . '/includes/admin/views/manual-referral-link-rules.php' ;
             ?>
             <script>
-                jQuery( document ).ready( function() {
+                jQuery( document ).ready( function () {
                     var countrewards_dynamic_rule = <?php echo $i ; ?> ;
-                    jQuery( ".add" ).click( function() {
+                    jQuery( ".add" ).click( function () {
                         countrewards_dynamic_rule = countrewards_dynamic_rule + 1 ;
-            <?php if( ( float ) $woocommerce->version <= ( float ) ('2.2.0') ) { ?>
+            <?php if ( ( float ) $woocommerce->version <= ( float ) ('2.2.0') ) { ?>
 
                             jQuery( '#here' ).append( '<tr><td><select name="rewards_dynamic_rule_manual[' + countrewards_dynamic_rule + '][referer]" class="short rs_manual_linking_referer"><option value=""></option></select></td>\n\
                                                                                                                                                                                                                         \n\<td><select name="rewards_dynamic_rule_manual[' + countrewards_dynamic_rule + '][refferal]" class="short rs_manual_linking_referral"><option value=""></option></select></td>\n\
                                                                                                                                                                                                                         \n\<td class="column-columnname-link" ><span><input type="hidden" name="rewards_dynamic_rule_manual[' + countrewards_dynamic_rule + '][type]"  value="" class="short "/><b>Manual</b></span></td>\n\
                                                                                                                                                                                                                         \n\
                                                                                                                                                                                                                         <td class="num"><span class="remove button-secondary">Remove Linking</span></td></tr><hr>' ) ;
-                            jQuery( function() {
+                            jQuery( function () {
                                 // Ajax Chosen Product Selectors
                                 jQuery( "select.rs_manual_linking_referer" ).ajaxChosen( {
                                     method : 'GET' ,
@@ -2014,16 +2014,16 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
                                         action : 'woocommerce_json_search_customers' ,
                                         security : '<?php echo wp_create_nonce( "search-customers" ) ; ?>'
                                     }
-                                } , function( data ) {
+                                } , function ( data ) {
                                     var terms = { } ;
 
-                                    jQuery.each( data , function( i , val ) {
+                                    jQuery.each( data , function ( i , val ) {
                                         terms[i] = val ;
                                     } ) ;
                                     return terms ;
                                 } ) ;
                             } ) ;
-                            jQuery( function() {
+                            jQuery( function () {
                                 // Ajax Chosen Product Selectors
                                 jQuery( "select.rs_manual_linking_referral" ).ajaxChosen( {
                                     method : 'GET' ,
@@ -2034,10 +2034,10 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
                                         action : 'woocommerce_json_search_customers' ,
                                         security : '<?php echo wp_create_nonce( "search-customers" ) ; ?>'
                                     }
-                                } , function( data ) {
+                                } , function ( data ) {
                                     var terms = { } ;
 
-                                    jQuery.each( data , function( i , val ) {
+                                    jQuery.each( data , function ( i , val ) {
                                         terms[i] = val ;
                                     } ) ;
                                     return terms ;
@@ -2045,7 +2045,7 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
                             } ) ;
                 <?php
             } else {
-                if( ( float ) $woocommerce->version >= ( float ) ('3.0.0') ) {
+                if ( ( float ) $woocommerce->version >= ( float ) ('3.0.0') ) {
                     ?>
                                 jQuery( '#here' ).append( '<tr><td><select class="wc-customer-search" style="width:250px;" name="rewards_dynamic_rule_manual[' + countrewards_dynamic_rule + '][referer]" data-placeholder="<?php _e( "Search for a customer" , "rewardsystem" ) ; ?>" data-allow_clear="true"><option value=""></option></select></td>\n\
                                                                                                                                                                                                                             \n\<td><select class="wc-customer-search" style="width:250px;" name="rewards_dynamic_rule_manual[' + countrewards_dynamic_rule + '][refferal]" data-placeholder="<?php _e( "Search for a customer" , "rewardsystem" ) ; ?>" data-allow_clear="true"><option value=""></option></select></td>\n\
@@ -2066,7 +2066,7 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
             ?>
                         return false ;
                     } ) ;
-                    jQuery( document ).on( 'click' , '.remove' , function() {
+                    jQuery( document ).on( 'click' , '.remove' , function () {
                         jQuery( this ).parent().parent().hide() ;
                         var $row = jQuery( this ).closest( 'tr' ).data( 'row' ) ;
                         jQuery( this ).closest( 'tr' ).find( 'span.rs_removed_rule' ).append( '<input type="hidden" name="rs_removed_link_rule[' + $row + ']" value="yes">' ) ;
@@ -2078,7 +2078,7 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
         }
 
         public static function rs_list_referral_rewards_log() {
-            if( ! (isset( $_GET[ 'view' ] )) ) {
+            if ( ! (isset( $_GET[ 'view' ] )) ) {
                 $newwp_list_table_for_users = new WP_List_Table_for_Referral_Table() ;
                 $newwp_list_table_for_users->prepare_items() ;
                 $newwp_list_table_for_users->search_box( 'Search Users' , 'search_id' ) ;
@@ -2131,28 +2131,28 @@ if( ! class_exists( 'RSReferralSystemModule' ) ) {
 
         public static function manual_referral_link_user_search_filter( $manual_link_rules ) {
 
-            if( ! srp_check_is_array( $manual_link_rules ) ) {
+            if ( ! srp_check_is_array( $manual_link_rules ) ) {
                 return array() ;
             }
 
-            if( ! isset( $_REQUEST[ 'rs_search_user_action' ] ) ) {
+            if ( ! isset( $_REQUEST[ 'rs_search_user_action' ] ) ) {
                 return $manual_link_rules ;
             }
 
             $searched_user = isset( $_REQUEST[ 'rs_search_user' ] ) ? sanitize_text_field( $_REQUEST[ 'rs_search_user' ] ) : '' ;
-            if( ! $searched_user ) {
+            if ( ! $searched_user ) {
                 return $manual_link_rules ;
             }
 
             $user    = is_object( get_user_by( 'ID' , $searched_user ) ) ? get_user_by( 'ID' , $searched_user ) : get_user_by( 'login' , $searched_user ) ;
             $user    = is_object( $user ) ? $user : get_user_by( 'email' , $searched_user ) ;
             $user_id = is_object( $user ) ? $user->ID : false ;
-            if( ! $user_id ) {
+            if ( ! $user_id ) {
                 return array() ;
             }
 
-            foreach( $manual_link_rules as $key => $values ) {
-                if( isset( $values[ "referer" ] , $values[ "refferal" ] ) && $user_id == $values[ "referer" ] || $user_id == $values[ "refferal" ] ) {
+            foreach ( $manual_link_rules as $key => $values ) {
+                if ( isset( $values[ "referer" ] , $values[ "refferal" ] ) && $user_id == $values[ "referer" ] || $user_id == $values[ "refferal" ] ) {
                     $manual_link_rules[ $key ] = $values ;
                 } else {
                     $manual_link_rules[ $key ] = '' ;

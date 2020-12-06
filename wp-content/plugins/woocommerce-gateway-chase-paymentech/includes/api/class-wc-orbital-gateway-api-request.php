@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
 
 /**
  * Chase Paymentech Orbital Gateway API Class
@@ -361,7 +361,7 @@ class WC_Orbital_Gateway_API_Request extends XMLWriter implements Framework\SV_W
 			// do not send MIT elements for American Express cards
 			$type = '';
 
-		} elseif ( $order->payment->recurring ) {
+		} elseif ( ! empty( $order->payment->recurring ) ) {
 
 			$type = 'CREC';
 

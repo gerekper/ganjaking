@@ -80,6 +80,61 @@ jQuery( document ).ready( function( $ ) {
 
 		} );
 
+		// adjust "Show on" options based on chosen plans
+		$( '#membership_plan_ids' ).on( 'change', function( e ) {
+
+			var $visibility          = $( '#visibility' ),
+			    $membershipPlans     = $( '#membership_plan_ids' ),
+			    $selectedPlans       = $membershipPlans.find( 'option:selected' ),
+			    allVisibilityOptions = window.wc_memberships_admin.profile_fields_visibility_options,
+			    availableOptions     = [],
+				$option;
+
+			// if no plan is selected (== any plans) make all visibility options available
+			if ( ! $selectedPlans || 0 === $selectedPlans.length ) {
+
+				for ( var optionValue in allVisibilityOptions ) {
+
+					$option = $visibility.find( 'option[value="' + optionValue + '"]' );
+
+					if ( allVisibilityOptions.hasOwnProperty( optionValue ) && ( ! $option || 0 === $option.length ) ) {
+						$visibility.append( '<option value="' + optionValue + '">' + allVisibilityOptions[ optionValue ] + '</option>' );
+					}
+				}
+
+				$visibility.trigger( 'change' );
+
+				return;
+			}
+
+			// grab the visibility options matching the chosen plans
+			$selectedPlans.each( function() {
+
+				var options = $( this ).data( 'visibility-options' ).split( ',' );
+
+				$( options ).each( function( i, option ) {
+					availableOptions.push( option );
+				} );
+			} )
+
+			// add visibility options made available by the chosen plans
+			for ( var visibilityOptionValue in allVisibilityOptions ) {
+
+				$option = $visibility.find( 'option[value="' + visibilityOptionValue + '"]' );
+
+				if ( allVisibilityOptions.hasOwnProperty( visibilityOptionValue ) && availableOptions.includes( visibilityOptionValue ) ) {
+					if ( ! $option || 0 === $option.length ) {
+						$visibility.append( '<option value="' + visibilityOptionValue + '">' + allVisibilityOptions[ visibilityOptionValue ] + '</option>' );
+					}
+				} else if ( $option && $option.length > 0 ) {
+					$option.remove();
+				}
+			}
+
+			$visibility.trigger( 'change' );
+
+		} ).trigger( 'change' );
+
 		// toggles meta boxes collapsing and expanding
 		$( '.handlediv' ).on( 'click', function( e ) {
 			e.preventDefault()

@@ -514,10 +514,16 @@ function wc_store_credit_create_coupon( $amount, $args = array(), $code_args = a
 	// Set expiration date.
 	if ( isset( $args['expiration'] ) ) {
 		if ( is_array( $args['expiration'] ) && ! empty( $args['expiration']['number'] ) ) {
-			$period     = ( ! empty( $args['expiration']['period'] ) ? $args['expiration']['period'] : 'day' );
-			$expires_at = wc_string_to_timestamp( "+ {$args['expiration']['number']} {$period}" );
+			$unit = ( isset( $args['expiration']['unit'] ) ? $args['expiration']['unit'] : 'day' );
+			$unit = ( isset( $args['expiration']['period'] ) ? $args['expiration']['period'] : $unit );
 
-			$args['date_expires'] = $expires_at;
+			$args['date_expires'] = wc_string_to_timestamp( "+ {$args['expiration']['number']} {$unit}" );
+		}
+
+		if ( $args['expiration'] instanceof DateTime ) {
+			$args['date_expires'] = $args['expiration']->getTimestamp();
+		} elseif ( is_string( $args['expiration'] ) ) {
+			$args['date_expires'] = wc_string_to_timestamp( $args['expiration'] );
 		}
 
 		unset( $args['expiration'] );

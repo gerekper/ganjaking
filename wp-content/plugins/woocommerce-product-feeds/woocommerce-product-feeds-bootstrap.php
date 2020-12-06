@@ -220,7 +220,11 @@ $woocommerce_gpf_di['WoocommercePrfGoogleReviewFeed'] = function ( $c ) {
 };
 
 $woocommerce_gpf_di['WoocommercePrfGoogleReviewProductInfo'] = function ( $c ) {
-	return new WoocommercePrfGoogleReviewProductInfo( $c['WoocommerceGpfCache'] );
+	return new WoocommercePrfGoogleReviewProductInfo(
+		$c['WoocommerceGpfCache'],
+		$c['WoocommerceGpfCommon'],
+		$c['WoocommerceGpfDebugService']
+	);
 };
 
 $woocommerce_gpf_di['WoocommerceProductFeedsIntegrationManager'] = function ( $c ) {
@@ -244,42 +248,54 @@ $woocommerce_gpf_di['WoocommerceProductFeedsTermDepthRepository'] = function ( $
  * Integrations
  */
 
-$woocommerce_gpf_di['WoocommerceGpfProductBrandsForWooCommerce']    = function ( $c ) {
+$woocommerce_gpf_di['WoocommerceGpfProductBrandsForWooCommerce']                = function ( $c ) {
 	return new WoocommerceGpfProductBrandsForWooCommerce();
 };
-$woocommerce_gpf_di['WoocommerceCostOfGoods']                       = function ( $c ) {
+$woocommerce_gpf_di['WoocommerceCostOfGoods']                                   = function ( $c ) {
 	global $woocommerce_gpf_cost_of_goods;
 	$woocommerce_gpf_cost_of_goods = new WoocommerceCostOfGoods();
 
 	return $woocommerce_gpf_cost_of_goods;
 };
-$woocommerce_gpf_di['WoocommerceGpfMulticurrency']                  = function ( $c ) {
+$woocommerce_gpf_di['WoocommerceGpfMulticurrency']                              = function ( $c ) {
 	global $woocommerce_gpf_multicurrency;
 	$woocommerce_gpf_multicurrency = new WoocommerceGpfMulticurrency();
 
 	return $woocommerce_gpf_multicurrency;
 };
-$woocommerce_gpf_di['WoocommerceMinMaxQuantities']                  = function ( $c ) {
+$woocommerce_gpf_di['WoocommerceMinMaxQuantities']                              = function ( $c ) {
 	global $woocommerce_gpf_min_max_quantities;
 	$woocommerce_gpf_min_max_quantities = new WoocommerceMinMaxQuantities();
 
 	return $woocommerce_gpf_min_max_quantities;
 };
-$woocommerce_gpf_di['WoocommerceProductVendors']                    = function ( $c ) {
+$woocommerce_gpf_di['WoocommerceProductVendors']                                = function ( $c ) {
 	global $woocommerce_gpf_product_vendors;
 	$woocommerce_gpf_product_vendors = new WoocommerceProductVendors();
 
 	return $woocommerce_gpf_product_vendors;
 };
-$woocommerce_gpf_di['WoocommerceGpfTheContentProtection']           = function ( $c ) {
+$woocommerce_gpf_di['WoocommerceGpfTheContentProtection']                       = function ( $c ) {
 	global $woocommerce_gpf_the_content_protection;
 	$woocommerce_gpf_the_content_protection = new WoocommerceGpfTheContentProtection();
 
 	return $woocommerce_gpf_the_content_protection;
 };
-$woocommerce_gpf_di['WoocommerceGpfWoocommerceMixAndMatchProducts'] = function ( $c ) {
+$woocommerce_gpf_di['WoocommerceGpfWoocommerceMixAndMatchProducts']             = function ( $c ) {
 	return new WoocommerceGpfWoocommerceMixAndMatchProducts();
 };
-$woocommerce_gpf_di['WoocommerceGpfPriceByCountry']                 = function ( $c ) {
+$woocommerce_gpf_di['WoocommerceGpfPriceByCountry']                             = function ( $c ) {
 	return new WoocommerceGpfPriceByCountry();
+};
+$woocommerce_gpf_di['WoocommerceGpfCurrencySwitcherForWooCommerce']             = function ( $c ) {
+	return new WoocommerceGpfCurrencySwitcherForWooCommerce();
+};
+$woocommerce_gpf_di['WoocommerceGpfWoocommerceCompositeProducts']               = function ( $c ) {
+	return new WoocommerceGpfWoocommerceCompositeProducts();
+};
+$woocommerce_gpf_di['WoocommerceGpfWoocommerceProductBundles']                  = function ( $c ) {
+	return new WoocommerceGpfWoocommerceProductBundles();
+};
+$woocommerce_gpf_di['WoocommerceGpfWoocommerceMinMaxQuantityStepControlSingle'] = function ( $c ) {
+	return new WoocommerceGpfWoocommerceMinMaxQuantityStepControlSingle();
 };

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -457,7 +457,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			?>
 			<style type="text/css"><?php echo $this->get_coupon_styles( $design, array( 'is_email' => $is_email ) ); // phpcs:ignore ?></style>
 			<?php
-			if ( 'custom-design' !== $design ) {
+			if ( ! in_array( $design, array( 'custom-design', 'email-coupon' ), true ) ) {
 				?>
 					<style type="text/css">
 						:root {
@@ -772,7 +772,6 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 							}
 
 							couponShortcode += ' is_clickable="yes"';
-							couponShortcode += ' is_email="yes"';
 
 							couponShortcode += ']';
 							tinyMCE.execCommand("mceInsertContent", false, couponShortcode);

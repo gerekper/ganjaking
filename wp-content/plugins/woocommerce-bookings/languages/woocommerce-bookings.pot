@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WooCommerce Bookings plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Bookings 1.15.29\n"
+"Project-Id-Version: WooCommerce Bookings 1.15.31\n"
 "Report-Msgid-Bugs-To: https://docs.woocommerce.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-10-05T13:28:43+00:00\n"
+"POT-Creation-Date: 2020-11-25T10:37:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: woocommerce-bookings\n"
@@ -184,7 +184,7 @@ msgstr ""
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:256
 #: includes/class-wc-bookings-google-calendar-connection.php:1272
-#: includes/wc-bookings-functions.php:1098
+#: includes/wc-bookings-functions.php:1101
 msgid "Persons"
 msgstr ""
 
@@ -304,32 +304,32 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:204
-#: includes/admin/class-wc-bookings-calendar.php:594
-#: includes/admin/class-wc-bookings-calendar.php:602
-#: includes/admin/class-wc-bookings-calendar.php:620
+#: includes/admin/class-wc-bookings-calendar.php:203
+#: includes/admin/class-wc-bookings-calendar.php:593
+#: includes/admin/class-wc-bookings-calendar.php:601
+#: includes/admin/class-wc-bookings-calendar.php:619
 msgid "All Day"
 msgstr ""
 
 #. translators: 1: start time 2: end time
-#: includes/admin/class-wc-bookings-calendar.php:204
-#: includes/admin/class-wc-bookings-calendar.php:594
-#: includes/admin/class-wc-bookings-calendar.php:616
+#: includes/admin/class-wc-bookings-calendar.php:203
+#: includes/admin/class-wc-bookings-calendar.php:593
+#: includes/admin/class-wc-bookings-calendar.php:615
 msgid "%1$s — %2$s"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:206
-#: includes/admin/class-wc-bookings-calendar.php:279
-#: includes/admin/class-wc-bookings-calendar.php:624
+#: includes/admin/class-wc-bookings-calendar.php:205
+#: includes/admin/class-wc-bookings-calendar.php:278
+#: includes/admin/class-wc-bookings-calendar.php:623
 msgid "(From Google Calendar)"
 msgstr ""
 
 #. translators: 1: number of bookings that are not displayed on calendar day
-#: includes/admin/class-wc-bookings-calendar.php:318
+#: includes/admin/class-wc-bookings-calendar.php:317
 msgid "%d more"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:584
+#: includes/admin/class-wc-bookings-calendar.php:583
 #: includes/admin/class-wc-bookings-details-meta-box.php:267
 #: includes/class-wc-bookings-ics-exporter.php:185
 #: includes/wc-bookings-functions.php:72
@@ -351,7 +351,7 @@ msgid "Person(s)"
 msgstr ""
 
 #. translators: 1: person type 2: quantity
-#: includes/admin/class-wc-bookings-calendar.php:586
+#: includes/admin/class-wc-bookings-calendar.php:585
 #: includes/class-wc-bookings-ics-exporter.php:187
 #: templates/emails/plain/admin-booking-cancelled.php:59
 #: templates/emails/plain/admin-new-booking.php:82
@@ -363,17 +363,17 @@ msgstr ""
 msgid "%1$s: %2$d"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:707
+#: includes/admin/class-wc-bookings-calendar.php:706
 msgid "Booked by"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:713
+#: includes/admin/class-wc-bookings-calendar.php:712
 #: includes/class-wc-bookings-ics-exporter.php:176
 msgid "Resource #"
 msgstr ""
 
 #. translators: 1: person id 2: person name 3: person count
-#: includes/admin/class-wc-bookings-calendar.php:722
+#: includes/admin/class-wc-bookings-calendar.php:721
 msgid "Person #%1$s - %2$s (%3$s)"
 msgstr ""
 
@@ -1516,7 +1516,7 @@ msgstr ""
 
 #: includes/admin/views/html-booking-resources.php:8
 #: includes/booking-form/class-wc-booking-form.php:320
-#: includes/wc-bookings-functions.php:847
+#: includes/wc-bookings-functions.php:850
 msgid "Type"
 msgstr ""
 
@@ -2105,7 +2105,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: includes/booking-form/class-wc-booking-form.php:294
-#: includes/wc-bookings-functions.php:1125
+#: includes/wc-bookings-functions.php:1128
 msgid "day"
 msgid_plural "days"
 msgstr[0] ""
@@ -3180,31 +3180,31 @@ msgstr ""
 msgid "Rules with lower priority numbers will override rules with a higher priority (e.g. 9 overrides 10 ). Global rules take priority over product rules which take priority over resource rules. By using priority numbers you can execute rules in different orders."
 msgstr ""
 
-#: includes/wc-bookings-functions.php:1121
+#: includes/wc-bookings-functions.php:1124
 msgid "month"
 msgid_plural "months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-bookings-functions.php:1128
+#: includes/wc-bookings-functions.php:1131
 msgid "week"
 msgid_plural "weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-bookings-functions.php:1132
+#: includes/wc-bookings-functions.php:1135
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-bookings-functions.php:1135
+#: includes/wc-bookings-functions.php:1138
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-bookings-functions.php:1138
+#: includes/wc-bookings-functions.php:1141
 msgid "night"
 msgid_plural "nights"
 msgstr[0] ""

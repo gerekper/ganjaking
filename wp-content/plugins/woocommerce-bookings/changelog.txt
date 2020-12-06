@@ -1,5 +1,21 @@
 *** WooCommerce Bookings Changelog ***
 
+2020-11-25 - version 1.15.31
+* Add - Action Scheduler version 3.1.6.
+* Fix - Calendar day view showing bookings for the following day.
+* Fix - Fix/issue 2991.
+* Fix - Only send out a reminder email if the booking is active.
+* Tweak - Improve performance when loading hourly bookable product.
+* Tweak - WC 4.7 compatibility.
+* Tweak - WP 5.5 compatibility.
+
+2020-11-11 - version 1.15.30
+* Fix - PHP 8 compatibility: Convert optional-before-required arguments to required.
+* Fix - PHP 8 compatibility: Fix "join" function used with inverted arguments.
+* Fix - Remove trait from bookings controller as its not needed there.
+* Tweak - WC 4.6 compatibility.
+* Tweak - WP 5.5 compatibility.
+
 2020-10-05 - version 1.15.29
 * Fix   - Issue with API not returning all slots.
 

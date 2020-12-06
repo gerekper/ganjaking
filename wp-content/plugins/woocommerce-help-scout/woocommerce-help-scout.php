@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Help Scout
  * Plugin URI: https://woocommerce.com/products/woocommerce-help-scout/
  * Description: A Help Scout integration plugin for WooCommerce.
- * Version: 2.3
+ * Version: 2.6
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-help-scout
  * Domain Path: /languages
  * Woo: 395318:1f5df97b2bc60cdb3951b72387ec2e28
- * WC tested up to: 3.6
+ * WC tested up to: 4.6.1
  * WC requires at least: 2.6
  *
  * Copyright (c) 2018 WooCommerce.
@@ -37,7 +37,7 @@ woothemes_queue_update( plugin_basename( __FILE__ ), '1f5df97b2bc60cdb3951b72387
 
 if ( ! class_exists( 'WC_Help_Scout' ) ) :
 
-define( 'WC_HELP_SCOUT_VERSION', '2.3' );
+define( 'WC_HELP_SCOUT_VERSION', '2.5' );
 define( 'WC_HELP_SCOUT_PLUGINURL', plugin_dir_url( __FILE__ ) );
 /**
  * WooCommerce Help Scout main class.
@@ -79,14 +79,18 @@ class WC_Help_Scout {
 			// Register the integration.
 			add_filter( 'woocommerce_integrations', array( $this, 'add_integration' ) );
 
-			// Register API for Help Scout APP.
-			add_action( 'woocommerce_api_loaded', array( $this, 'load_api' ) );
-			add_filter( 'woocommerce_api_classes', array( $this, 'add_api' ) );
+			$integration = new WC_Help_Scout_Integration();
+			// Instantiate components if API creds are defined
+			if($integration->are_credentials_defined()) {
+				// Register API for Help Scout APP.
+				add_action( 'woocommerce_api_loaded', array( $this, 'load_api' ) );
+				add_filter( 'woocommerce_api_classes', array( $this, 'add_api' ) );
 
-			// Instantiate components.
-			$this->_components['ajax']       = new WC_Help_Scout_Ajax();
-			$this->_components['my_account'] = new WC_Help_Scout_My_Account();
-			$this->_components['shortcodes'] = new WC_Help_Scout_Shortcodes();
+					
+				$this->_components['ajax']       = new WC_Help_Scout_Ajax();
+				$this->_components['my_account'] = new WC_Help_Scout_My_Account();
+				$this->_components['shortcodes'] = new WC_Help_Scout_Shortcodes();
+			}
 
 		} else {
 			add_action( 'admin_notices', array( $this, 'woocommerce_missing_notice' ) );
@@ -154,8 +158,14 @@ class WC_Help_Scout {
 
 		load_textdomain( 'woocommerce-help-scout', trailingslashit( WP_LANG_DIR ) . 'woocommerce-help-scout/woocommerce-help-scout-' . $locale . '.mo' );
 		load_plugin_textdomain( 'woocommerce-help-scout', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
-
+		
+		// Make temporary folder for uploading attachments after that files get auto remove after base64 encode 
+		$upload = wp_upload_dir();
+		$upload_dir = $upload['basedir'];
+		$upload_dir = $upload_dir . '/hstmp';
+		if (! is_dir($upload_dir)) {
+			mkdir( $upload_dir, 0777 );
+		}
 		
 	}
 
@@ -224,6 +234,8 @@ class WC_Help_Scout {
 	function plugin_uninstall () {
 		delete_option('woocommerce_help-scout_settings');
 	    delete_option('helpscout_access_refresh_token');
+	    delete_option('helpscout_expires_in');
+		wp_clear_scheduled_hook('my_task_hook');
 	}
 }
 

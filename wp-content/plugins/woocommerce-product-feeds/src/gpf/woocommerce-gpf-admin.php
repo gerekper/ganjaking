@@ -398,9 +398,15 @@ class WoocommerceGpfAdmin {
 		$this->template_loader->output_template_with_variables( 'woo-gpf', 'meta-edit-intro', array( 'loop_idx' => '' ) );
 
 		foreach ( $this->product_fields as $key => $fieldinfo ) {
-			// Skip fields which haven't been enabled in the main settings.
-			if ( ! isset( $this->{'settings'}['product_fields'][ $key ] ) ||
-				 'description' === $key
+			// Skip if not enabled & not mandatory.
+			if ( ! isset( $this->settings['product_fields'][ $key ] ) &&
+				 ( ! isset( $this->product_fields[ $key ]['mandatory'] ) || ! $this->product_fields[ $key ]['mandatory'] )
+			) {
+				continue;
+			}
+			// Skip if not to be shown on product pages.
+			if ( isset( $this->product_fields[ $key ]['skip_on_category_pages'] ) &&
+				 $this->product_fields[ $key ]['skip_on_category_pages']
 			) {
 				continue;
 			}
@@ -581,7 +587,16 @@ class WoocommerceGpfAdmin {
 
 		$this->template_loader->output_template_with_variables( 'woo-gpf', 'product-meta-edit-intro', array( 'loop_idx' => '' ) );
 		foreach ( $this->product_fields as $key => $fieldinfo ) {
-			if ( ! isset( $this->settings['product_fields'][ $key ] ) || 'description' === $key ) {
+			// Skip if not enabled & not mandatory.
+			if ( ! isset( $this->settings['product_fields'][ $key ] ) &&
+				 ( ! isset( $this->product_fields[ $key ]['mandatory'] ) || ! $this->product_fields[ $key ]['mandatory'] )
+			) {
+				continue;
+			}
+			// Skip if not to be shown on product pages.
+			if ( isset( $this->product_fields[ $key ]['skip_on_product_pages'] ) &&
+				 $this->product_fields[ $key ]['skip_on_product_pages']
+			) {
 				continue;
 			}
 
@@ -916,6 +931,33 @@ class WoocommerceGpfAdmin {
 		);
 	}
 
+	/**
+	 * Render large text box for title field.
+	 *
+	 * @access private
+	 *
+	 * @param string $key The key being processed
+	 * @param string $current_data The current value of this key
+	 *
+	 * @return string
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 */
+	private function render_title( $key, $current_data = null, $placeholder = '', $loop_idx = null ) {
+		$variables = $this->default_field_variables( $key, $loop_idx );
+		if ( ! empty( $placeholder ) ) {
+			$variables['placeholder'] = ' placeholder="' . esc_attr( $placeholder ) . '"';
+		} else {
+			$variables['placeholder'] = '';
+		}
+		$variables['current_data'] = esc_attr( $current_data );
+
+		return $this->template_loader->get_template_with_variables(
+			'woo-gpf',
+			'field-row-default-title',
+			$variables
+		);
+	}
 	/**
 	 *  NULL render since we can't (yet) override description.
 	 *
@@ -1544,7 +1586,6 @@ class WoocommerceGpfAdmin {
 		} else {
 			$variables['placeholder'] = '';
 		}
-		$variables['current_data'] = esc_attr( $current_data );
 		$variables['current_data'] = esc_attr( $current_data );
 
 		return $this->template_loader->get_template_with_variables(

@@ -28,6 +28,11 @@
              */
             add_action( 'admin_menu', array( $this, 'pdf_invoice_admin_menu_item' ) );
 
+            /**
+             * Make sure shop_manager can save the settings
+             */
+            add_filter( 'option_page_capability_woocommerce_pdf_invoice_settings_group', array( $this, 'pdf_invoice_save_settings_capability' ) );
+
         }
 
         /**
@@ -72,10 +77,23 @@
             return $woocommerce_screen_ids;
         }
 
-        // Media Uploader Script
+        /**
+         * Media Uploader Script
+         * [pdf_media_assets description]
+         * @return [type] [description]
+         */
         function pdf_media_assets() {
             wp_enqueue_media();
             wp_enqueue_script( 'pdf-invoice-media-loader', $this->get_plugin_url() . '/assets/js/media-upload.js', array( 'jquery' ), '1.0', true  );
+        }
+
+        /**
+         * [pdf_invoice_save_settings_capability description]
+         * @param  [type] $capability [description]
+         * @return [type]             [description]
+         */
+        function pdf_invoice_save_settings_capability( $capability ) {
+            return 'manage_woocommerce';
         }
 
         /**
@@ -85,35 +103,40 @@
             global $wpdb;
 
             $woocommerce_pdf_invoice_options = get_option('woocommerce_pdf_invoice_settings');
-            $defaults = array( 
-                    'attach_neworder' => '',
-                    'attach_multiple' => array(),
-                    'create_invoice' => 'completed',
-                    'link_thanks' => 'true',
-                    'paper_size' => 'a4',
+            $defaults = array(
+                    'pdf_generator'     => 'DOMPDF', 
+                    'attach_neworder'   => '',
+                    'attach_multiple'   => array(),
+                    'create_invoice'    => 'completed',
+                    'link_thanks'       => 'true',
+                    'paper_size'        => 'a4',
                     'paper_orientation' => 'portrait',
-                    'logo_file' => '',
-                    'enable_remote' => 'false',
+                    'logo_file'         => '',
+                    'enable_remote'     => 'false',
                     'enable_subsetting' => 'true',
-                    'pdf_company_name' => '',
+                    'pdf_company_name'  => '',
                     'pdf_registered_name' => '',
                     'pdf_company_number' => '',
-                    'pdf_tax_number' => '',
-                    'sequential' => 'true',
-                    'annual_restart' => 'false',
-                    'start_number' => '',
-                    'padding' => '',
-                    'pdf_prefix' => '',
-                    'pdf_sufix' => '',
-                    'pdf_filename' => '{{company}}-{{invoicenumber}}',
-                    'pdf_date' => 'completed',
-                    'pdf_date_format' => 'j F, Y',
-                    'pdf_termsid' => '',
-                    'pdf_creation' => 'file',
-                    'pdf_cache' => 'false',
-                    'pdf_debug' => 'false'
+                    'pdf_tax_number'    => '',
+                    'sequential'        => 'true',
+                    'annual_restart'    => 'false',
+                    'start_number'      => '',
+                    'padding'           => '',
+                    'pdf_prefix'        => '',
+                    'pdf_sufix'         => '',
+                    'pdf_filename'      => '{{company}}-{{invoicenumber}}',
+                    'pdf_date'          => 'completed',
+                    'pdf_date_format'   => 'j F, Y',
+                    'pdf_termsid'       => '',
+                    'pdf_creation'      => 'file',
+                    'pdf_cache'         => 'false',
+                    'pdf_debug'         => 'false',
+                    'pdf_font'          => 'Default',
+                    'pdf_currency_font' => 'false',
+                    'pdf_rtl'           => 'false'
                 );
-    
+            
+            $woocommerce_pdf_invoice_options['pdf_generator']       = isset($woocommerce_pdf_invoice_options['pdf_generator']) ? $woocommerce_pdf_invoice_options['pdf_generator'] : $defaults['pdf_generator'];
             $woocommerce_pdf_invoice_options['attach_neworder']     = isset($woocommerce_pdf_invoice_options['attach_neworder']) ? $woocommerce_pdf_invoice_options['attach_neworder'] : $defaults['attach_neworder'];
             $woocommerce_pdf_invoice_options['attach_multiple']     = isset($woocommerce_pdf_invoice_options['attach_multiple']) ? $woocommerce_pdf_invoice_options['attach_multiple'] : $defaults['attach_multiple'];
             $woocommerce_pdf_invoice_options['create_invoice']      = isset($woocommerce_pdf_invoice_options['create_invoice']) ? $woocommerce_pdf_invoice_options['create_invoice'] : $defaults['create_invoice'];
@@ -121,7 +144,7 @@
             $woocommerce_pdf_invoice_options['paper_size']          = isset($woocommerce_pdf_invoice_options['paper_size']) ? $woocommerce_pdf_invoice_options['paper_size'] : $defaults['paper_size'];
             $woocommerce_pdf_invoice_options['paper_orientation']   = isset($woocommerce_pdf_invoice_options['paper_orientation']) ? $woocommerce_pdf_invoice_options['paper_orientation'] : $defaults['paper_orientation'];
             $woocommerce_pdf_invoice_options['logo_file']           = isset($woocommerce_pdf_invoice_options['logo_file']) ? $woocommerce_pdf_invoice_options['logo_file'] : $defaults['logo_file'];
-            $woocommerce_pdf_invoice_options['enable_remote']       = isset($woocommerce_pdf_invoice_options['enable_remote']) ? $woocommerce_pdf_invoice_options['attach_neworder'] : $defaults['enable_remote'];
+            $woocommerce_pdf_invoice_options['enable_remote']       = isset($woocommerce_pdf_invoice_options['enable_remote']) ? $woocommerce_pdf_invoice_options['enable_remote'] : $defaults['enable_remote'];
             $woocommerce_pdf_invoice_options['enable_subsetting']   = isset($woocommerce_pdf_invoice_options['enable_subsetting']) ? $woocommerce_pdf_invoice_options['enable_subsetting'] : $defaults['enable_subsetting'];
             $woocommerce_pdf_invoice_options['pdf_company_name']    = isset($woocommerce_pdf_invoice_options['pdf_company_name']) ? $woocommerce_pdf_invoice_options['pdf_company_name'] : $defaults['pdf_company_name'];
             $woocommerce_pdf_invoice_options['pdf_registered_name'] = isset($woocommerce_pdf_invoice_options['pdf_registered_name']) ? $woocommerce_pdf_invoice_options['pdf_registered_name'] : $defaults['pdf_registered_name'];
@@ -140,7 +163,8 @@
             $woocommerce_pdf_invoice_options['pdf_creation']        = isset($woocommerce_pdf_invoice_options['pdf_creation']) ? $woocommerce_pdf_invoice_options['pdf_creation'] : $defaults['pdf_creation'];
             $woocommerce_pdf_invoice_options['pdf_cache']           = isset($woocommerce_pdf_invoice_options['pdf_cache']) ? $woocommerce_pdf_invoice_options['pdf_cache'] : $defaults['pdf_cache'];
             $woocommerce_pdf_invoice_options['pdf_debug']           = isset($woocommerce_pdf_invoice_options['pdf_debug']) ? $woocommerce_pdf_invoice_options['pdf_debug'] : $defaults['pdf_debug'];
-
+            $woocommerce_pdf_invoice_options['pdf_currency_font']   = isset($woocommerce_pdf_invoice_options['pdf_currency_font']) ? $woocommerce_pdf_invoice_options['pdf_currency_font'] : $defaults['pdf_currency_font'];
+            $woocommerce_pdf_invoice_options['pdf_rtl']             = isset($woocommerce_pdf_invoice_options['pdf_rtl']) ? $woocommerce_pdf_invoice_options['pdf_rtl'] : $defaults['pdf_rtl'];
 
             do_action( 'woocommerce_pdf_invoice_settings_action' );
 
@@ -203,9 +227,9 @@
                         </div>
                     <?php } ?>
 
-                    <?php if ( !is_writable( PDFPLUGINPATH . "lib/dompdf/lib/fonts/" ) || !is_writable( PDFPLUGINPATH . "lib/dompdf/lib/fonts/dompdf_font_family_cache.dist.php" ) ) { ?>
+                    <?php if ( !is_writable( PDFFONTSPATH ) || !is_writable( PDFFONTSPATH . "dompdf_font_family_cache.dist.php" ) ) { ?>
                         <div class="error">
-                        <p>Please make the DOMPDF font directory (<strong><?php echo str_replace( ABSPATH , '' , PDFPLUGINPATH . "lib/dompdf/lib/fonts/"); ?></strong>) and <br >font cache file (<strong><?php echo str_replace( ABSPATH , '' , PDFPLUGINPATH . "lib/dompdf/lib/fonts/") . 'dompdf_font_family_cache.dist.php'; ?></strong>) are writable. Please use 777 for the file permissions</p>
+                        <p>Please make the DOMPDF font directory (<strong><?php echo str_replace( ABSPATH , '' , PDFFONTSPATH ); ?></strong>) and <br >font cache file (<strong><?php echo str_replace( ABSPATH , '' , PDFFONTSPATH ) . 'dompdf_font_family_cache.dist.php'; ?></strong>) are writable. Please use 777 for the file permissions</p>
                         </div>
                     <?php } ?>
 
@@ -239,6 +263,21 @@
                         $woocommerce_pdf_invoice_options['pdf_currency_font'] = 'false';
                     }
                     ?>
+
+                    <?php $pdf_generator_array = array( 'DOMPDF' => 'DOMPDF' , 'MPDF' => 'MPDF' ); ?>
+                    <tr valign="top">
+                        <th scope="row" class="titledesc">
+                            <label for="woocommerce_pdf_invoice_settings[pdf_generator]"><?php _e('Choose which PDF Generator to use.', 'woocommerce-pdf-invoice' ); ?></label>
+                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e('By default the PDF Invoice extension will DOMPDF. DOMPDF does not support RTL invoices. If you are using RTL in your invoice then switch to MPDF. See docs for more information.', 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
+                        </th>
+                        <td class="forminp forminp-number">
+                        <select name="woocommerce_pdf_invoice_settings[pdf_generator]" id="woocommerce_pdf_invoice_settings[pdf_generator]" style="width: 350px;">
+                            <?php foreach ( $pdf_generator_array as $key => $value ) { ?>
+                                <option value="<?php echo $key; ?>" <?php selected( $woocommerce_pdf_invoice_options['pdf_generator'], $key ); ?>><?php echo $value; ?></option>
+                            <?php } ?>
+                        </select>
+                        </td>
+                    </tr>
 
                     <tr valign="top">
                         <th scope="row" class="titledesc">
@@ -771,6 +810,22 @@
                         <select name="woocommerce_pdf_invoice_settings[pdf_currency_font]" id="woocommerce_pdf_invoice_settings[pdf_currency_font]" style="width: 350px;">
                             <?php foreach ( $currency_font_array as $key => $value ) { ?>
                                 <option value="<?php echo $key; ?>" <?php selected( $woocommerce_pdf_invoice_options['pdf_currency_font'], $key ); ?>><?php echo $value; ?></option>
+                            <?php } ?>
+                        </select>
+                        </td>
+                    </tr>
+
+                    <!-- PDF Invoice RTL -->
+                    <?php $rtl_array = array( 'false' => 'No' , 'true' => 'Yes' ); ?>
+                    <tr valign="top">
+                        <th scope="row" class="titledesc">
+                            <label for="woocommerce_pdf_invoice_settings[pdf_rtl]"><?php _e('Use RTL layout?', 'woocommerce-pdf-invoice' ); ?></label>
+                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e("Set this to 'Yes' of you want the PDF in RTL layout", 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
+                        </th>
+                        <td class="forminp forminp-number">
+                        <select name="woocommerce_pdf_invoice_settings[pdf_rtl]" id="woocommerce_pdf_invoice_settings[pdf_rtl]" style="width: 350px;">
+                            <?php foreach ( $rtl_array as $key => $value ) { ?>
+                                <option value="<?php echo $key; ?>" <?php selected( $woocommerce_pdf_invoice_options['pdf_rtl'], $key ); ?>><?php echo $value; ?></option>
                             <?php } ?>
                         </select>
                         </td>

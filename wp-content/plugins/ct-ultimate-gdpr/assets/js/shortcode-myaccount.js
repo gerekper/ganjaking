@@ -56,6 +56,8 @@ jQuery(document).ready(function ($) {
         var action = form.attr('id').split('-').join('_');
         var data = form.serialize();
         data += "&action=" + action + '&' + form.attr('id') + '-submit=Submit';
+        var targetUserAge = form.parent().parent().parent().find('#tabs-5 #ct-ultimate-gdpr-age-date').val();
+        var targetGuardAge = form.parent().parent().parent().find('#tabs-5 #ct-ultimate-gdpr-age-guard-date').val();
 
         form.find('input[type=submit]').attr('disabled', true);
         form.find('input[type=submit]').after('<i class="fa fa-spinner"></i>');
@@ -74,8 +76,18 @@ jQuery(document).ready(function ($) {
             return age;
         }
 
-        var userAge = getAge(form.find('#ct-ultimate-gdpr-age-date').val());
-        var guardAge = getAge(form.find('#ct-ultimate-gdpr-age-guard-date').val());
+        var getuserAge = getAge(targetUserAge);
+        var getguardAge = getAge(targetGuardAge);
+
+        //check if GDPR AGE VERIFICATION is ENABLED/Disabled
+        //set age default to 20
+        if(isNaN(getuserAge) || isNaN(getuserAge)){
+            userAge = 20;
+            guardAge = 20;
+        }else{
+            userAge = getuserAge;
+            guardAge = getguardAge
+        }
 
         jQuery.post(url, data,
             function(res) {

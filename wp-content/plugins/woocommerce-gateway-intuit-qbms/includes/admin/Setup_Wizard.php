@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Intuit\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
 
 /**
  * The plugin Setup Wizard class.
@@ -451,7 +451,7 @@ class Setup_Wizard extends Framework\Payment_Gateway\Admin\Setup_Wizard {
 				<?php
 				printf(
 					/* translators: Placeholders: %1$s - opening <a> HTML tag, %2$s - closing </a> HTML tag */
-					'<li>' . esc_html__( '%1$sConfirm that the Intuit app was set up correctly%2$S.', 'woocommerce-gateway-intuit-payments' ) . '</li>',
+					'<li>' . esc_html__( '%1$sConfirm that the Intuit app was set up correctly%2$s.', 'woocommerce-gateway-intuit-payments' ) . '</li>',
 					sprintf( '<a href="%s">', esc_url( $this->get_step_url( 'create-app' ) ) ),
 					'</a>'
 				);
@@ -611,25 +611,23 @@ class Setup_Wizard extends Framework\Payment_Gateway\Admin\Setup_Wizard {
 	 */
 	protected function render_after_next_steps() {
 
-		$email = wp_get_current_user()->user_email;
-
 		?>
-
 		<ul class="wc-wizard-next-steps wc-intuit-payments-newsletter-prompt">
 			<li class="wc-wizard-next-step-item">
 				<div class="wc-wizard-next-step-description">
+					<h3><?php esc_html_e( 'Want to keep learning?', 'woocommerce-gateway-intuit-payments' ); ?></h3>
 					<p class="wc-intuit-payments-newsletter-prompt-description">
-						<?php printf(
-							/* translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag */
-							esc_html__( 'Want to keep learning? %1$sSign up%2$s for our newsletter where we share updates, tutorials, and sneak peeks for new development.', 'woocommerce-gateway-intuit-payments' ),
-							'<a href="' . esc_url( add_query_arg( 'email', rawurlencode( $email ), 'https://www.skyverge.com/newsletter/?mc_ref=INTUIT_ONBOARDING' ) ) . '" target="_blank">',
-							'</a>'
-						); ?>
+						<?php esc_html_e( 'Check out our monthly newsletter where we share updates, tutorials, and sneak peeks for new development!', 'woocommerce-memberships' ); ?>
 					</p>
+					<button
+						class="button button-primary newsletter-signup"
+						data-user-email="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>"
+						data-thank-you="<?php esc_attr_e( 'Thanks for signing up! Keep an eye on your inbox for product updates and helpful tips!', 'woocommerce-gateway-intuit-payments' ); ?>"
+					><?php echo esc_html_x( 'Sign up', 'Newsletter sign up', 'woocommerce-gateway-intuit-payments' ); ?></button>
+					<span class="spinner" style="display:inline-block; position: absolute;"></span>
 				</div>
 			</li>
 		</ul>
-
 		<?php
 	}
 

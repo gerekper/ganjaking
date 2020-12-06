@@ -1,5 +1,19 @@
 *** WooCommerce Instagram Changelog ***
 
+2020-11-26 - version 3.4.1
+* Tweak - Improved PHP 8 support.
+* Tweak - Tested compatibility with WC 4.8.
+* Tweak - Tested compatibility with WP 5.6.
+
+2020-11-18 - version 3.4.0
+* Feature - Added compatibility with WooCommerce Product Bundles extension.
+* Tweak - Tested compatibility up to WC 4.7.
+* Tweak - Tested compatibility up to WP 5.5.
+
+2020-10-28 - version 3.3.2
+* Tweak - Tested compatibility up to WC 4.6.
+* Dev - Updated Instagram Graph API version to v8.0.
+
 2020-07-28 - version 3.3.1
 * Tweak - Use the full-size image instead of the thumbnail as the primary image in the catalog products.
 

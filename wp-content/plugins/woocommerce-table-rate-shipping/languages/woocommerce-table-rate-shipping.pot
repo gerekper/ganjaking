@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Table Rate Shipping 3.0.29\n"
+"Project-Id-Version: WooCommerce Table Rate Shipping 3.0.30\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-table-rate-shipping\n"
-"POT-Creation-Date: 2020-08-19 17:32:21+00:00\n"
+"POT-Creation-Date: 2020-10-06 20:12:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -315,7 +315,7 @@ msgstr ""
 msgid "No shipping classes exist - you can ignore this option :)"
 msgstr ""
 
-#: includes/functions-admin.php:148 woocommerce-table-rate-shipping.php:189
+#: includes/functions-admin.php:148 woocommerce-table-rate-shipping.php:190
 msgid "Class"
 msgstr ""
 
@@ -638,51 +638,51 @@ msgstr ""
 msgid "Add To Zone"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:146
+#: woocommerce-table-rate-shipping.php:147
 msgid "View Documentation"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:146
+#: woocommerce-table-rate-shipping.php:147
 msgid "Docs"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:147
+#: woocommerce-table-rate-shipping.php:148
 msgid "Visit Premium Customer Support Forum"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:147
+#: woocommerce-table-rate-shipping.php:148
 msgid "Premium Support"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:166
+#: woocommerce-table-rate-shipping.php:167
 msgid "Setup Zones"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:166
+#: woocommerce-table-rate-shipping.php:167
 msgid "Documentation"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:186
+#: woocommerce-table-rate-shipping.php:187
 msgid "Order"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:187
+#: woocommerce-table-rate-shipping.php:188
 msgid "Item"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:188
+#: woocommerce-table-rate-shipping.php:189
 msgid "Line Item"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:190
+#: woocommerce-table-rate-shipping.php:191
 msgid "Delete the selected rates?"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:191
+#: woocommerce-table-rate-shipping.php:192
 msgid "Duplicate the selected rates?"
 msgstr ""
 
-#: woocommerce-table-rate-shipping.php:260
+#: woocommerce-table-rate-shipping.php:261
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Table Rate Shipping requires %s to be installed and active."
 msgstr ""

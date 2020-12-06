@@ -162,7 +162,7 @@ $wlitemcat  = isset( $_GET['wlitemcat'] ) ? $_GET['wlitemcat'] : 0;
 						if ( $_product->exists() && $item['quantity'] > 0 ) :
 							?>
                             <tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item cart_table_item', $item, $wishlist_item_key ) ); ?>">
-                                <td class="product-thumbnail">
+                                <td class="product-thumbnail" data-title="product-thumbnail">
 									<?php
 									printf( '<a href="%s">%s</a>', esc_url( get_permalink( apply_filters( 'woocommerce_in_cart_product_id', $item['product_id'] ) ) ), $_product->get_image() );
 									?>

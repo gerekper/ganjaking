@@ -19,9 +19,9 @@ class Vc_Vendor_ContactForm7 {
 	public function load() {
 
 		vc_lean_map( 'contact-form-7', array(
-				$this,
-				'addShortcodeSettings',
-			) );
+			$this,
+			'addShortcodeSettings',
+		) );
 	}
 
 	/**

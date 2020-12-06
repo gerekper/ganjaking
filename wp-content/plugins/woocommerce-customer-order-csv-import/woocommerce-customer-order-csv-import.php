@@ -6,7 +6,7 @@
  * Description: Import customers, coupons and orders straight from the WordPress admin
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 3.9.0
+ * Version: 3.9.2
  * Text Domain: woocommerce-csv-import-suite
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 18709:eb00ca8317a0f64dbe185c995e5ea3df
  * WC requires at least: 3.0.9
- * WC tested up to: 4.3.3
+ * WC tested up to: 4.7.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -92,7 +92,6 @@ class WC_CSV_Import_Suite_Loader {
 		if ( $this->is_environment_compatible() ) {
 
 			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
-			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

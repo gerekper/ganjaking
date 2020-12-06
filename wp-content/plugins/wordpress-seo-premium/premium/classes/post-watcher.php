@@ -602,7 +602,7 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	 */
 	protected function set_undo_slug_notification( WPSEO_Redirect $redirect ) {
 
-		if ( ! $this->is_rest_request() ) {
+		if ( ! $this->is_rest_request() && ! \wp_doing_ajax() ) {
 			parent::set_undo_slug_notification( $redirect );
 
 			return;

@@ -68,7 +68,7 @@ class WoocommerceGpfCacheStatus {
 		// Work out the total number of eligible products.
 		$args = array(
 			'status'   => array( 'publish' ),
-			'type'     => array( 'simple', 'composite', 'variable', 'bundle' ),
+			'type'     => array( 'simple', 'variable', 'bundle' ),
 			'limit'    => 1,
 			'offset'   => 0,
 			'return'   => 'ids',
@@ -76,7 +76,7 @@ class WoocommerceGpfCacheStatus {
 		);
 
 		$results     = wc_get_products(
-			apply_filters( 'woocommerce_gpf_wc_get_products_args', $args )
+			apply_filters( 'woocommerce_gpf_wc_get_products_args', $args, 'status' )
 		);
 		$total_cache = $results->total;
 		$rebuild_url = wp_nonce_url(

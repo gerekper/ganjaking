@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 	private $is_enabled  = false;
-    private $rule_weight = 0;
-    private $free_email;
+	private $rule_weight = 0;
+	private $free_email;
 	/**
 	 * The constructor
 	 */
@@ -31,14 +31,14 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
-		$domains = explode( ",", $this->free_email );
+		$domains = explode( ',', $this->free_email );
 		$free_email_domains = apply_filters( 'wc_af_temporary_email_domains', $domains );
 		
 		// Default risk is false
 		$risk = false;
 
 		// Do the regex
-		$regex_result = preg_match( "`@([a-zA-z0-9\-\_]+)(?:\.[a-zA-Z]{0,5}){0,2}$`", ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email() ), $email_domain );
+		$regex_result = preg_match( '`@([a-zA-z0-9\-\_]+)(?:\.[a-zA-Z]{0,5}){0,2}$`', ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email() ), $email_domain );
 
 		// Check if we've got a result
 		if ( 1 === $regex_result ) {
@@ -53,8 +53,8 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 		return $risk;
 	}
 	//Enable rule check
-	public function is_enabled(){
-		if('yes' == $this->is_enabled){
+	public function is_enabled() {
+		if ('yes' == $this->is_enabled) {
 			return true;
 		}
 		return false;

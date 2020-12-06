@@ -25,10 +25,13 @@ class WC_Store_Credit_Products {
 		add_action( 'woocommerce_store_credit_add_to_cart', 'woocommerce_simple_add_to_cart' );
 
 		add_action( 'woocommerce_order_status_pending', array( $this, 'copy_coupon_data' ), 10, 2 );
-		add_action( 'woocommerce_order_status_processing', array( $this, 'copy_coupon_data' ), 10, 2 );
 		add_action( 'woocommerce_order_status_on-hold', array( $this, 'copy_coupon_data' ), 10, 2 );
+		add_action( 'woocommerce_order_status_processing', array( $this, 'copy_coupon_data' ), 5, 2 );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'copy_coupon_data' ), 5, 2 );
-		add_action( 'woocommerce_order_status_completed', array( $this, 'process_purchased_credit' ), 7, 2 ); // Before sending the email.
+
+		// Before sending the email with priority 10.
+		add_action( 'woocommerce_order_status_processing', array( $this, 'process_purchased_credit' ), 7, 2 );
+		add_action( 'woocommerce_order_status_completed', array( $this, 'process_purchased_credit' ), 7, 2 );
 	}
 
 	/**

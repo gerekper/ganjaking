@@ -167,6 +167,7 @@ class WC_Integration_FBA extends WC_Integration {
 		$this->ns_fba_encode_check_override		= $this->get_option( 'ns_fba_encode_check_override' );
 		$this->ns_fba_automatic_completion		= $this->get_option( 'ns_fba_automatic_completion' );
 		$this->ns_fba_sync_ship_status			= $this->get_option( 'ns_fba_sync_ship_status' );
+		$this->ns_fba_sync_ship_retry			= $this->get_option( 'ns_fba_sync_ship_retry' );
 		$this->ns_fba_disable_shipping_email	= $this->get_option( 'ns_fba_disable_shipping_email' );
 		$this->ns_fba_display_order_tracking	= $this->get_option( 'ns_fba_display_order_tracking' );
 		$this->ns_fba_debug_mode				= $this->get_option( 'ns_fba_debug_mode' );
@@ -247,7 +248,7 @@ class WC_Integration_FBA extends WC_Integration {
 	function inventory_test_results() {
 		check_ajax_referer( 'ns-fba-ajax', 'nonce' );
 		parse_str( $_REQUEST['options'], $options );
-		$sku       = $options['woocommerce_fba_ns_fba_test_inventory_sku'];
+		$sku       = stripslashes( $options['woocommerce_fba_ns_fba_test_inventory_sku'] );
 		$service   = $this->nsfba->inventory->create_service_inventory();
 		$inventory = $this->nsfba->inventory->get_sku_inventory( $service, $sku );
 		if ( -1 != $inventory['number'] ) {
@@ -648,6 +649,15 @@ class WC_Integration_FBA extends WC_Integration {
 					'title'             => __( 'Sync Shipping Status', $this->text_domain ),
 					'label'             => __( 'Automatically sync order status based on Amazon shipping status', $this->text_domain ),
 					'description'       => __( 'Check for updates to shipping status once per hour on orders that have been successfully Sent to FBA (including Partial to FBA). This will also automatically update the order status to Completed if FBA reports the order has shipped. If this option is ON then the Mark Orders Complete option should be OFF.', $this->text_domain ),
+					'desc_tip'          => true,
+					'default'           => 'no',
+					'type'              => 'checkbox',
+				),
+
+				'ns_fba_sync_ship_retry' => array(
+					'title'             => __( 'Retry Failed Orders', $this->text_domain ),
+					'label'             => __( 'Automatically re-submit failed orders when syncing shipping status', $this->text_domain ),
+					'description'       => __( 'Retry each failed order a maximum of one time during scheduled shipping status sync. This will only take effect if Sync Shipping Status is ON.', $this->text_domain ),
 					'desc_tip'          => true,
 					'default'           => 'no',
 					'type'              => 'checkbox',

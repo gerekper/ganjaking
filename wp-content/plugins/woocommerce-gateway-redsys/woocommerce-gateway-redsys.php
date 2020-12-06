@@ -4,22 +4,22 @@
 * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 * Description: Extends WooCommerce with RedSys gateway.
-* Version: 9.4.0
+* Version: 12.1.0
 * Author: José Conti
 * Author URI: https://www.joseconti.com/
-* Tested up to: 5.4
+* Tested up to: 5.5
 * WC requires at least: 3.0
-* WC tested up to: 4.4
+* WC tested up to: 4.7
 * Woo: 187871:50392593e834002d8bee386333d1ed3c
 * Text Domain: woocommerce-redsys
 * Domain Path: /languages/
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 **/
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '9.4.0' );
+	define( 'REDSYS_VERSION', '12.1.0' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_URL' ) ) {
@@ -31,7 +31,7 @@ if ( ! defined( 'REDSYS_PLUGIN_PATH' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/08/06/woocommerce-redsys-gateway-11-2-x/' );
+	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/11/30/woocommerce-redsys-gateway-12-1-x/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -62,19 +62,30 @@ require_once REDSYS_PLUGIN_PATH . 'includes/defines.php';
 
 /**
  * Required functions
- * Copyright: (C) 2013 - 2020 José Conti
+ * Copyright: (C) 2013 - 2021 José Conti
  */
 if ( ! function_exists( 'woothemes_queue_update' ) ) {
 	require_once REDSYS_PLUGIN_PATH . 'woo-includes/woo-functions.php';
 }
 
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
+*/
+function WCPSD2() {
+	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys-psd2.php'; // PSD2 class for Redsys
+	return new WC_Gateway_Redsys_PSD2();
+}
+
+/**
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function WCRed() {
 	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys-global.php'; // Global class for global functions
 	return new WC_Gateway_Redsys_Global();
 }
+
+// Site Health
+require_once REDSYS_PLUGIN_CLASS_PATH . 'class-redsys-site-health.php';
 
 require_once REDSYS_PLUGIN_NOTICE_PATH . 'notices.php';
 require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-settings-tab-redsys-sort-invoices.php';
@@ -110,7 +121,7 @@ add_action( 'plugins_loaded', 'woocommerce_gateway_redsys_premium_init', 0 );
 
 /**
  * Plugin updates
- * Copyright: (C) 2013 - 2020 José Conti
+ * Copyright: (C) 2013 - 2021 José Conti
  */
 woothemes_queue_update( plugin_basename( __FILE__ ), '50392593e834002d8bee386333d1ed3c', '187871' );
 function woocommerce_gateway_redsys_premium_init() {
@@ -121,7 +132,7 @@ function woocommerce_gateway_redsys_premium_init() {
 
 	/**
 	 * Localisation
-	 * Copyright: (C) 2013 - 2020 José Conti
+	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	load_plugin_textdomain( 'woocommerce-redsys', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
@@ -154,7 +165,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	<?php
 	}
 	/*
-	 * Copyright: (C) 2013 - 2020 José Conti
+	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function redsys_add_select2_to_users_test() {
 		global $current_screen;
@@ -164,7 +175,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	}
 
 	/*
-	 * Copyright: (C) 2013 - 2020 José Conti
+	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function redsys_get_users_settings_ajax_callback() {
 
@@ -195,7 +206,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	add_action( 'wp_ajax_redsys_get_users_settings_search_users', 'redsys_get_users_settings_ajax_callback' );
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 
 	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys.php';
@@ -205,7 +216,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	});
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function woocommerce_add_gateway_redsys_gateway( $methods ) {
 		$methods[] = 'WC_Gateway_redsys';
@@ -217,7 +228,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	require_once  REDSYS_PLUGIN_METABOXES_PATH . 'metaboxes.php';
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_add_to_cart_redirect( $checkout_url ) {
 		global $woocommerce;
@@ -237,7 +248,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	require_once REDSYS_PLUGIN_STATUS_PATH . 'status.php';
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_preauthorized_is_editable( $editable, $order ) {
 
@@ -249,7 +260,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	add_filter( 'wc_order_is_editable', 'redsys_preauthorized_is_editable', 10, 2 );
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_add_buttom_preauthorization_ok( $order ) {
 		if ( 'redsys-pre' === $order->get_status() ) {
@@ -261,7 +272,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	add_action( 'woocommerce_order_item_add_action_buttons', 'redsys_add_buttom_preauthorization_ok' );
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_add_buttom_charge_deposits( $order ) {
 		if ( 'partial-payment' === $order->get_status() ) {
@@ -281,7 +292,7 @@ function woocommerce_gateway_redsys_premium_init() {
 					}
 				}
 			}
-			$total = $order->get_total();
+			$total     = $order->get_total();
 			$remainder = $amount - $total;
 
 			echo '<button type="button" class="button redsys-charge-full-deposit">' . esc_html__( 'Collect the remainder With Redsys: ' . $remainder, 'woocommerce-redsys' ) . '</button>';
@@ -292,7 +303,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	add_action( 'woocommerce_order_item_add_action_buttons', 'redsys_add_buttom_charge_deposits' );
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_css() {
 		global $post_type;
@@ -308,7 +319,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	add_action( 'admin_enqueue_scripts', 'redsys_css' );
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_add_front_css() {
 
@@ -321,7 +332,7 @@ function woocommerce_gateway_redsys_premium_init() {
 
 	//public static
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_preauthorized_js() {
 		global $post;
@@ -347,7 +358,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	add_action( 'admin_enqueue_scripts', 'redsys_preauthorized_js' );
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_charge_deposit_js() {
 		global $post;
@@ -425,7 +436,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	//require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-googlepay-redsys.php'; // Google Pay version 12.0
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_add_actions() {
 		if ( ! is_checkout() && ! is_wc_endpoint_url() ) {
@@ -447,7 +458,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	//add_filter( 'handle_bulk_actions-edit-shop_order', array( 'WC_Gateway_Redsys', 'redsys_bulk_actions_handler'), 10, 3 );
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_woo_add_head_text() {
 		echo '<!-- This site is powered by WooCommerce Redsys Gateway v.' . REDSYS_VERSION . ' - https://woocommerce.com/products/redsys-gateway/ -->';
@@ -455,7 +466,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	add_action( 'wp_head', 'redsys_woo_add_head_text' );
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_chekout_button_text( $order_button_text ) {
 
@@ -536,7 +547,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	// Peronalización de los colores según la pasrela en el checkout
 		
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function redsys_color_button_text( $html ) {
 

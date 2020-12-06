@@ -1,10 +1,18 @@
 *** WooCommerce Memberships Changelog ***
 
+2020.10.21 - version 1.19.2
+ * Tweak - Display the last login information in members admin screens
+ * Tweak - When importing memberships and notifying users, have WooCommerce generate the new user's password, if the corresponding option is set in "Account creation"
+ * Tweak - Improve the User Switching integration by reducing the length of the transient used to store a temporary user ID and deleting it when the admin user switches back
+ * Tweak - Only show visibility options for profile fields based on the chosen membership plans to associate the profile field with
+ * Fix - Fix an error that was preventing checkbox profile fields saving in the membership admin page
+ * Dev - Add a filter to define a temporary user to be used with the User Switching plugin instead of generating one every time
+
 2020.10.06 - version 1.19.1
  * Tweak - Introduce some performance optimization when querying products that grant access during the output of restriction messages
  * Fix - Ensure restrict content rules to be enforced while accessing content through the REST API
  * Fix - Trim any whitespace found in the headers of import CSV files
- * Fix - Ensures that the datetime strings in Memberships REST API payloads are consistent with WooCommerce core and do not include an incorrect timezone component
+ * Fix - Ensure that the datetime strings in Memberships REST API payloads are consistent with WooCommerce core and do not include an incorrect timezone component
  * Fix - When deleting a user membership, ensure that associated profile fields data is deleted as well (as long as profile fields don't overlap with other plans the user is member of)
  * Fix - Do not exclude all products from discounts when a subscription renewal is in cart and should be excluded from discounts
  * Fix - Default new installations to use 'my-profile' as the profile fields area endpoint to avoid conflicts with BuddyPress or BuddyBoss

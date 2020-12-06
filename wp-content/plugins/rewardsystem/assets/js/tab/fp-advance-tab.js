@@ -1,9 +1,9 @@
 /*
  * Advance Tab
  */
-jQuery( function( $ ) {
+jQuery( function ( $ ) {
     var AdvanceTabScript = {
-        init : function() {
+        init : function () {
             this.trigger_on_page_load() ;
             this.show_or_hide_for_my_account_menu_page() ;
             this.show_or_hide_for_apply_previous_order_range() ;
@@ -13,6 +13,8 @@ jQuery( function( $ ) {
             this.show_or_hide_for_enable_msg_to_participate_in_reward_prgm() ;
             this.show_or_hide_for_coupon_restriction() ;
             this.toggle_points_earned_in_specific_duration() ;
+            jQuery( ".sortable_menu" ).sortable( { items : 'tr' , handle : '.myrewards_sortable_menu_data' } ) ;
+            jQuery( ".sortable_menu" ).disableSelection() ;
             $( document ).on( 'change' , '#rs_reward_content_menu_page' , this.my_account_menu_page ) ;
             $( document ).on( 'change' , '#rs_sumo_select_order_range' , this.apply_previous_order_range ) ;
             $( document ).on( 'change' , '#rs_menu_restriction_based_on_user_role' , this.menu_restriction_based_on_userrole ) ;
@@ -24,18 +26,18 @@ jQuery( function( $ ) {
             $( document ).on( 'click' , '#_rs_enable_coupon_restriction' , this.show_or_hide_for_coupon_restriction ) ;
             $( document ).on( 'click' , '#rs_points_earned_in_specific_duration_is_enabled' , this.toggle_points_earned_in_specific_duration ) ;
         } ,
-        trigger_on_page_load : function() {
-            if( fp_advance_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
+        trigger_on_page_load : function () {
+            if ( fp_advance_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
                 $( '.rewardpoints_userrole_menu_restriction' ).chosen() ;
             } else {
                 $( '.rewardpoints_userrole_menu_restriction' ).select2() ;
             }
         } ,
-        my_account_menu_page : function() {
+        my_account_menu_page : function () {
             AdvanceTabScript.show_or_hide_for_my_account_menu_page() ;
         } ,
-        show_or_hide_for_my_account_menu_page : function() {
-            if( jQuery( '#rs_reward_content_menu_page' ).is( ':checked' ) == true ) {
+        show_or_hide_for_my_account_menu_page : function () {
+            if ( jQuery( '#rs_reward_content_menu_page' ).is( ':checked' ) == true ) {
                 jQuery( '#rs_my_reward_table_menu_page' ).parent().parent().show() ;
                 jQuery( '#rs_show_hide_generate_referral_menu_page' ).parent().parent().show() ;
                 jQuery( '#rs_show_hide_referal_table_menu_page' ).parent().parent().show() ;
@@ -45,6 +47,8 @@ jQuery( function( $ ) {
                 jQuery( '#rs_show_hide_your_subscribe_link_menu_page' ).parent().parent().show() ;
                 jQuery( '#rs_my_reward_content_title' ).parent().parent().show() ;
                 jQuery( '#rs_my_reward_url_title' ).parent().parent().show() ;
+                jQuery( '.rs_myrewards_menu_sorting' ).show() ;
+                jQuery( '.rs_myrewards_menu_heading' ).show() ;
                 jQuery( '#rs_show_hide_refer_a_friend_menu_page' ).parent().parent().show() ;
             } else {
                 jQuery( '#rs_my_reward_table_menu_page' ).parent().parent().hide() ;
@@ -56,54 +60,56 @@ jQuery( function( $ ) {
                 jQuery( '#rs_show_hide_your_subscribe_link_menu_page' ).parent().parent().hide() ;
                 jQuery( '#rs_my_reward_content_title' ).parent().parent().hide() ;
                 jQuery( '#rs_my_reward_url_title' ).parent().parent().hide() ;
+                jQuery( '.rs_myrewards_menu_sorting' ).hide() ;
+                jQuery( '.rs_myrewards_menu_heading' ).hide() ;
                 jQuery( '#rs_show_hide_refer_a_friend_menu_page' ).parent().parent().hide() ;
             }
         } ,
-        apply_previous_order_range : function() {
+        apply_previous_order_range : function () {
             AdvanceTabScript.show_or_hide_for_apply_previous_order_range() ;
         } ,
-        show_or_hide_for_apply_previous_order_range : function() {
-            if( jQuery( '#rs_sumo_select_order_range' ).val() === '1' ) {
+        show_or_hide_for_apply_previous_order_range : function () {
+            if ( jQuery( '#rs_sumo_select_order_range' ).val() === '1' ) {
                 jQuery( '#rs_from_date' ).parent().parent().hide() ;
             } else {
                 jQuery( '#rs_from_date' ).parent().parent().show() ;
             }
         } ,
-        menu_restriction_based_on_userrole : function() {
+        menu_restriction_based_on_userrole : function () {
             AdvanceTabScript.show_or_hide_for_menu_restriction_based_on_userrole() ;
         } ,
-        show_or_hide_for_menu_restriction_based_on_userrole : function() {
-            if( jQuery( '#rs_menu_restriction_based_on_user_role' ).is( ':checked' ) == true ) {
+        show_or_hide_for_menu_restriction_based_on_userrole : function () {
+            if ( jQuery( '#rs_menu_restriction_based_on_user_role' ).is( ':checked' ) == true ) {
                 jQuery( '.rewardpoints_userrole_menu_restriction' ).parent().parent().show() ;
             } else {
                 jQuery( '.rewardpoints_userrole_menu_restriction' ).parent().parent().hide() ;
             }
         } ,
-        pagination_for_total_earned_points : function() {
+        pagination_for_total_earned_points : function () {
             AdvanceTabScript.show_or_hide_for_pagination_for_total_earned_points() ;
         } ,
-        show_or_hide_for_pagination_for_total_earned_points : function() {
-            if( jQuery( '#rs_select_pagination_for_total_earned_points' ).val() == '1' ) {
+        show_or_hide_for_pagination_for_total_earned_points : function () {
+            if ( jQuery( '#rs_select_pagination_for_total_earned_points' ).val() == '1' ) {
                 jQuery( '#rs_value_without_pagination_for_total_earned_points' ).closest( 'tr' ).hide() ;
             } else {
                 jQuery( '#rs_value_without_pagination_for_total_earned_points' ).closest( 'tr' ).show() ;
             }
         } ,
-        pagination_for_total_available_points : function() {
+        pagination_for_total_available_points : function () {
             AdvanceTabScript.show_or_hide_for_pagination_for_total_available_points() ;
         } ,
-        show_or_hide_for_pagination_for_total_available_points : function() {
-            if( jQuery( '#rs_select_pagination_for_available_points' ).val() == '1' ) {
+        show_or_hide_for_pagination_for_total_available_points : function () {
+            if ( jQuery( '#rs_select_pagination_for_available_points' ).val() == '1' ) {
                 jQuery( '#rs_value_without_pagination_for_available_points' ).closest( 'tr' ).hide() ;
             } else {
                 jQuery( '#rs_value_without_pagination_for_available_points' ).closest( 'tr' ).show() ;
             }
         } ,
-        enable_msg_to_participate_in_reward_prgm : function() {
+        enable_msg_to_participate_in_reward_prgm : function () {
             AdvanceTabScript.show_or_hide_for_enable_msg_to_participate_in_reward_prgm() ;
         } ,
-        show_or_hide_for_enable_msg_to_participate_in_reward_prgm : function() {
-            if( jQuery( '#rs_enable_reward_program' ).is( ':checked' ) == true ) {
+        show_or_hide_for_enable_msg_to_participate_in_reward_prgm : function () {
+            if ( jQuery( '#rs_enable_reward_program' ).is( ':checked' ) == true ) {
                 jQuery( '#rs_msg_in_reg_page' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_msg_in_acc_page_when_checked' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_msg_in_acc_page_when_unchecked' ).closest( 'tr' ).show() ;
@@ -117,18 +123,18 @@ jQuery( function( $ ) {
                 jQuery( '#rs_alert_msg_in_acc_page_when_unchecked' ).closest( 'tr' ).hide() ;
             }
         } ,
-        show_or_hide_for_coupon_restriction : function() {
-            if( jQuery( '#_rs_enable_coupon_restriction' ).is( ':checked' ) == true ) {
+        show_or_hide_for_coupon_restriction : function () {
+            if ( jQuery( '#_rs_enable_coupon_restriction' ).is( ':checked' ) == true ) {
                 jQuery( '#_rs_restrict_coupon' ).closest( 'tr' ).show() ;
-                if( jQuery( '#_rs_restrict_coupon' ).val() == '2' ) {
+                if ( jQuery( '#_rs_restrict_coupon' ).val() == '2' ) {
                     jQuery( '#rs_delete_coupon_by_cron_time' ).closest( 'tr' ).show() ;
                     jQuery( '#rs_delete_coupon_specific_time' ).closest( 'tr' ).show() ;
                 } else {
                     jQuery( '#rs_delete_coupon_by_cron_time' ).closest( 'tr' ).hide() ;
                     jQuery( '#rs_delete_coupon_specific_time' ).closest( 'tr' ).hide() ;
                 }
-                jQuery( '#_rs_restrict_coupon' ).change( function() {
-                    if( jQuery( '#_rs_restrict_coupon' ).val() == '2' ) {
+                jQuery( '#_rs_restrict_coupon' ).change( function () {
+                    if ( jQuery( '#_rs_restrict_coupon' ).val() == '2' ) {
                         jQuery( '#rs_delete_coupon_by_cron_time' ).closest( 'tr' ).show() ;
                         jQuery( '#rs_delete_coupon_specific_time' ).closest( 'tr' ).show() ;
                     } else {
@@ -142,8 +148,8 @@ jQuery( function( $ ) {
                 jQuery( '#rs_delete_coupon_specific_time' ).closest( 'tr' ).hide() ;
             }
         } ,
-        toggle_points_earned_in_specific_duration : function() {
-            if( $( '#rs_points_earned_in_specific_duration_is_enabled' ).is( ':checked' ) ) {
+        toggle_points_earned_in_specific_duration : function () {
+            if ( $( '#rs_points_earned_in_specific_duration_is_enabled' ).is( ':checked' ) ) {
                 $( '#rs_points_earned_in_specific_duration_from_date' ).closest( 'tr' ).show() ;
                 $( '#rs_points_earned_in_specific_duration_to_date' ).closest( 'tr' ).show() ;
                 $( '#rs_points_earned_in_specific_duration_pagination' ).closest( 'tr' ).show() ;
@@ -153,9 +159,9 @@ jQuery( function( $ ) {
                 $( '#rs_points_earned_in_specific_duration_pagination' ).closest( 'tr' ).hide() ;
             }
         } ,
-        apply_points_for_previous_order : function() {
+        apply_points_for_previous_order : function () {
             var rsconfirm = confirm( "It is strongly recommended that you do not reload or refresh page. Are you sure you wish to update now?" ) ;
-            if( rsconfirm === true ) {
+            if ( rsconfirm === true ) {
                 var fromdate = jQuery( '#rs_from_date' ).val() ;
                 var todate = jQuery( '#rs_to_date' ).val() ;
                 var previous_order_points_for = jQuery( '#rs_award_previous_order_points' ).val() ;
@@ -168,8 +174,8 @@ jQuery( function( $ ) {
                     previousorderpointsfor : previous_order_points_for ,
                     sumo_security : fp_advance_params.fp_apply_points
                 } ) ;
-                $.post( fp_advance_params.ajaxurl , dataparam , function( response ) {
-                    if( true === response.success ) {
+                $.post( fp_advance_params.ajaxurl , dataparam , function ( response ) {
+                    if ( true === response.success ) {
                         console.log( 'Ajax Done Successfully' ) ;
                         window.location.href = fp_advance_params.redirecturl ;
                     } else {
@@ -179,15 +185,15 @@ jQuery( function( $ ) {
             }
             return false ;
         } ,
-        add_old_points_for_user : function() {
+        add_old_points_for_user : function () {
             var rsconfirm = confirm( "It is strongly recommended that you do not reload or refresh page. Are you sure you wish to Add Existing Points for User(s)?" ) ;
-            if( rsconfirm === true ) {
+            if ( rsconfirm === true ) {
                 var dataparam = ( {
                     action : 'addoldpoints' ,
                     sumo_security : fp_advance_params.fp_old_points
                 } ) ;
-                $.post( fp_advance_params.ajaxurl , dataparam , function( response ) {
-                    if( true === response.success ) {
+                $.post( fp_advance_params.ajaxurl , dataparam , function ( response ) {
+                    if ( true === response.success ) {
                         console.log( 'Ajax Done Successfully' ) ;
                         window.location.href = fp_advance_params.redirecturl ;
                     } else {

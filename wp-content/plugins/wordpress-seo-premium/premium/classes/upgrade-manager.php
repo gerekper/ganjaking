@@ -11,7 +11,7 @@
 class WPSEO_Upgrade_Manager {
 
 	/**
-	 * Option key to save the version of Premium
+	 * Option key to save the version of Premium.
 	 */
 	const VERSION_OPTION_KEY = 'wpseo_premium_version';
 
@@ -35,7 +35,7 @@ class WPSEO_Upgrade_Manager {
 	}
 
 	/**
-	 * Run the specific updates when it is necessary.
+	 * Runs the specific updates when it is necessary.
 	 *
 	 * @param string $version_number The version number that will be compared.
 	 */
@@ -84,6 +84,20 @@ class WPSEO_Upgrade_Manager {
 		if ( version_compare( $version_number, '13.0-RC0', '<' ) ) {
 			add_action( 'init', [ 'WPSEO_Redirect_Upgrade', 'upgrade_13_0' ], 12 );
 		}
+
+		if ( version_compare( $version_number, '15.3-RC0', '<' ) ) {
+			add_action( 'init', [ $this, 'upgrade_15_3' ], 12 );
+		}
+	}
+
+	/**
+	 * Renames the `prominent_words_indexation_completed` option.
+	 *
+	 * @return void
+	 */
+	public function upgrade_15_3() {
+		$old_value = WPSEO_Options::get( 'prominent_words_indexation_completed' );
+		WPSEO_Options::set( 'prominent_words_indexing_completed', $old_value );
 	}
 
 	/**
@@ -119,7 +133,7 @@ class WPSEO_Upgrade_Manager {
 	}
 
 	/**
-	 * Returns whether or not we should retry the 31 upgrade
+	 * Returns whether or not we should retry the 31 upgrade.
 	 *
 	 * @return bool
 	 */

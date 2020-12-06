@@ -6,9 +6,13 @@ jQuery( function ( $ ) {
         init : function ( ) {
             this.default_value_for_templates() ;
             this.show_or_hide_for_sender_option() ;
-            $( document ).on( 'change' , '#rs_pagination' , this.pagination_for_template ) ;
+
+            if ( '1' == fp_emailexpired_params.enable_footable ) {
+                $( document ).on( 'change' , '#rs_pagination' , this.pagination_for_template ) ;
+                $( '#rs_email_templates_table_expired' ).footable( ).on( 'click' , '.rs_delete_expired' , this.delete_template ) ;
+            }
+
             $( '#rs_email_templates_table_expired' ).on( 'click' , '.rs_expired_mail_active' , this.activate_or_deactivate_emailexpiry_template ) ;
-            $( '#rs_email_templates_table_expired' ).footable( ).on( 'click' , '.rs_delete_expired' , this.delete_template ) ;
             $( document ).on( 'click' , '#rs_save_new_expired_template' , this.save_template ) ;
             $( document ).on( 'click' , '#rs_save_new_expired_template' , this.edit_template ) ;
             $( document ).on( 'change' , '.rs_sender_opt_expired' , this.show_or_hide_for_sender_option ) ;

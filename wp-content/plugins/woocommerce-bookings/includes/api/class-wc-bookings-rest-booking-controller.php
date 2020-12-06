@@ -12,8 +12,6 @@
  */
 class WC_Bookings_REST_Booking_Controller extends WC_Bookings_REST_CRUD_Controller {
 
-	use WC_Bookings_Rest_Permission_Check;
-
 	/**
 	 * Route base.
 	 *

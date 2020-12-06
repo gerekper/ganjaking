@@ -27,7 +27,7 @@ final class WC_Store_Credit extends WC_Store_Credit_Singleton {
 	 *
 	 * @var string
 	 */
-	public $version = '3.2.2';
+	public $version = '3.4.1';
 
 	/**
 	 * Constructor.

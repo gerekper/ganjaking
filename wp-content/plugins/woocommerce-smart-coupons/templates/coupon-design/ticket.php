@@ -5,12 +5,14 @@
  * @author      StoreApps
  * @package     WooCommerce Smart Coupons/Templates
  *
- * @version     1.0.0
+ * @version     1.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+global $woocommerce_smart_coupon;
 
 ?>
 <div class="max-w-xs transition duration-100 ease-in-out transform rounded-md sc-coupon hover:-translate-y-1 hover:shadow <?php echo esc_attr( $classes ); ?>"
@@ -35,15 +37,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</svg>
 	<div class="relative flex items-center my-5 mx-1/12 p-0.5 gap-2">
 		<div class="flex-1 text-xs leading-tight -mt-0.5" style="color: var(--sc-color1)">
-			<div class="text-sm font-bold uppercase"><?php echo esc_html( $discount_type ); ?></div>
+			<div class="text-sm font-bold uppercase"><?php echo wp_kses_post( ( ! empty( $coupon_amount ) ) ? $discount_type : __( 'Coupon', 'woocommerce-smart-coupons' ) ); ?></div>
 			<div><?php echo esc_html( $coupon_description ); ?></div>
 		</div>
 		<div class="leading-none text-center" style="color: var(--sc-color3)">
 			<div class="inline-block">
 				<div
 					class="flex <?php echo esc_attr( ( true === $is_percent ) ? '' : 'flex-row-reverse' ); ?> items-center">
-					<span class="text-4xl font-bold"><?php echo esc_html( $coupon_amount ); ?></span>
-					<sup class="text-lg"><?php echo esc_html( $amount_symbol ); ?></sup>
+					<span class="text-4xl font-bold"><?php echo esc_html( ( ! empty( $coupon_amount ) ) ? $coupon_amount : $woocommerce_smart_coupon->get_emoji() ); ?></span>
+					<sup class="text-lg"><?php echo esc_html( ( ! empty( $coupon_amount ) ) ? $amount_symbol : '' ); ?></sup>
 				</div>
 			</div>
 		</div>

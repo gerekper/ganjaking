@@ -34,7 +34,7 @@ class WC_Product_Reviews_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.16.2';
+	const VERSION = '1.17.0';
 
 	/** @var WC_Product_Reviews_Pro single instance of this plugin */
 	protected static $instance;
@@ -476,40 +476,6 @@ class WC_Product_Reviews_Pro extends Framework\SV_WC_Plugin {
 		return 'https://woocommerce.com/products/woocommerce-product-reviews-pro/';
 	}
 
-
-	/** Deprecated methods ******************************************************/
-
-
-	/**
-	 * Handles deprecated methods for backward compatibility.
-	 *
-	 * TODO progressively remove deprecated methods once they are at least 3 version older than the current minor x.Y.z version {FN 2018-01-25}
-	 *
-	 * @internal
-	 *
-	 * @since 1.10.0
-	 *
-	 * @param string $method method name being called
-	 * @param array $args optional args passed to called $method
-	 * @return null|mixed
-	 */
-	public function __call( $method, $args ) {
-
-		$deprecated = __CLASS__ . '::' . $method . '()';
-
-		switch ( $method ) {
-
-			/** @deprecated since 1.13.0 - TODO remove this by version 2.0.0 or by March 2020 {FN 2019-03-25} */
-			case 'includes' :
-				_deprecated_function( $deprecated, '1.13.0' );
-				return null;
-
-			default :
-				// you're probably doing it wrong
-				trigger_error( "Call to undefined method $deprecated", E_USER_ERROR );
-				return null;
-		}
-	}
 
 }
 

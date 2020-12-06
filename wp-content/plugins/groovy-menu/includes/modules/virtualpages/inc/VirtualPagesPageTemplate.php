@@ -105,7 +105,10 @@ class VirtualPagesPageTemplate {
 			$plugin_dir = GROOVY_MENU_DIR;
 		}
 
-		$file = $plugin_dir . $page_template;
+		$file = str_replace( array(
+			'\\',
+			'/',
+		), DIRECTORY_SEPARATOR, $plugin_dir . $page_template );
 
 		// Just to be safe, we check if the file exist first.
 		if ( file_exists( $file ) ) {

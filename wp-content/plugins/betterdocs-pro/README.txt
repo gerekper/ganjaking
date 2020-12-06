@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.5
-Stable tag: 1.3.3
+Stable tag: 1.3.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,25 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.3.7 - 24/11/2020 =
+- Fixed: Reaction color not changing on 'Hello Elementor' theme
+- Few minor bug fix and improvements
+
+= 1.3.6 - 19/11/2020 =
+- Fixed: Table of Contents issue with Elementor Theme Builder
+- Few minor bug fix and improvements
+
+= 1.3.5 - 17/11/2020 =
+- Fixed: Third-party shortcode not working
+- Fixed: Instant Answer 'Search' placeholder not changing
+- Few minor bug fix and improvements
+
+= 1.3.4 - 16/11/2020 =
+- Fixed: Instant Answer throwing console error with Multi Language
+- Fixed: Instant Answer not working correctly with WPML
+- Fixed: Style Control missing when Shortcode is used
+- Few minor bug fix and improvements
 
 = 1.3.3 - 12/10/2020 =
 - Fixed: Category Archive page URL for Non-Knowledgebase Docs

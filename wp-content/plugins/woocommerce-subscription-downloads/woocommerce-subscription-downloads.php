@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Subscription Downloads
  * Plugin URI: https://woocommerce.com/products/woocommerce-subscription-downloads/
  * Description: Associate downloadable products with a Subscription product in WooCommerce, and grant subscribers access to the associated downloads for the downloadable products.
- * Version: 1.1.30
+ * Version: 1.1.31
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-subscription-downloads
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_SUBSCRIPTION_DOWNLOADS_VERSION', '1.1.30' ); // WRCS: DEFINED_VERSION.
+define( 'WC_SUBSCRIPTION_DOWNLOADS_VERSION', '1.1.31' ); // WRCS: DEFINED_VERSION.
 
 if ( ! class_exists( 'WC_Subscription_Downloads' ) ) :
 

@@ -1,0 +1,119 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress Drip - Tags Version plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Drip - Tags Version 1.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-drip-tags\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-03-24T12:49:58-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-drip-tags\n"
+
+#. Plugin Name of the plugin
+msgid "MemberPress Drip - Tags Version"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Drip Autoresponder integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: main.php:35
+msgid "MemberPress Drip - Tags"
+msgstr ""
+
+#: main.php:36
+msgid "Drip Autoresponder Integration for MemberPress. Based on Tags."
+msgstr ""
+
+#: MpDripTags.php:95
+msgid "Enable Drip - Tags"
+msgstr ""
+
+#: MpDripTags.php:103
+msgid "Drip API Token:"
+msgstr ""
+
+#: MpDripTags.php:110
+msgid "You can find your API Token under Settings > My User Settings at getdrip.com."
+msgstr ""
+
+#: MpDripTags.php:117
+msgid "Drip Account:"
+msgstr ""
+
+#: MpDripTags.php:124
+msgid "Global Tag(s):"
+msgstr ""
+
+#: MpDripTags.php:129
+msgid "Comma Separated list of tags. These tags will be added to all subscribers regardless of membership level."
+msgstr ""
+
+#: MpDripTags.php:136
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: MpDripTags.php:140
+msgid "If checked, an opt-in checkbox will appear on all of your product registration pages."
+msgstr ""
+
+#: MpDripTags.php:144
+msgid "Signup Checkbox Label:"
+msgstr ""
+
+#: MpDripTags.php:149
+msgid "This is the text that will display on the signup page next to your mailing list opt-in checkbox."
+msgstr ""
+
+#: MpDripTags.php:197
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: MpDripTags.php:263
+msgid "Enable Drip Tags"
+msgstr ""
+
+#: MpDripTags.php:266
+msgid "Enable Membership Specific Tags"
+msgstr ""
+
+#: MpDripTags.php:267
+msgid "When enabled these tags will be automatically added/removed from the subscriber based on their subscription status to this membership level. These tags should be different than the Global Tag(s) you have defined in the MemberPress Options. Active Tags are tags that the subscriber will have when they are active on this membership. Inactive Tags are added when the subscriber is no longer active on the membership. These tags are toggled, so both will not be added at the same time."
+msgstr ""
+
+#: MpDripTags.php:271
+msgid "Active Tags: "
+msgstr ""
+
+#: MpDripTags.php:274
+msgid "Inactive Tags: "
+msgstr ""
+
+#: MpDripTags.php:305
+msgid "Hey yo, why you creepin'?"
+msgstr ""
+
+#: MpDripTags.php:310
+msgid "No apikey code was sent"
+msgstr ""
+
+#: MpDripTags.php:413
+msgid "Sign Up for the %s Newsletter"
+msgstr ""

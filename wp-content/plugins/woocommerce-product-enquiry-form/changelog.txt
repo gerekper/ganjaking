@@ -1,5 +1,12 @@
 *** Product Enquiry Form Changelog ***
 
+2020-12-01 - version 1.2.17
+* Tweak - WC 4.7 compatibility.
+* Tweak - WordPress 5.6 compatibility.
+
+2020-10-06 - version 1.2.16
+* Tweak - WC 4.5 compatibility.
+
 2020-08-19 - version 1.2.15
 * Tweak - WordPress 5.5 compatibility.
 

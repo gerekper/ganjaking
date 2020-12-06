@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Helper Functions.
  *
  * @class    WC_PB_Helpers
- * @version  6.2.4
+ * @version  6.5.0
  */
 class WC_PB_Helpers {
 
@@ -106,9 +106,11 @@ class WC_PB_Helpers {
 	 * @param  mixed   $value
 	 * @return void
 	 */
-	public static function cache_invalidate( $group_key ) {
+	public static function cache_invalidate( $group_key = '' ) {
 
-		if ( $group_id = self::cache_get( $group_key . '_id' ) ) {
+		if ( '' === $group_key ) {
+			self::$cache = array();
+		} elseif ( $group_id = self::cache_get( $group_key . '_id' ) ) {
 			$group_id = md5( $group_key . '_' . $group_id );
 			self::cache_set( $group_key . '_id', $group_id );
 		}

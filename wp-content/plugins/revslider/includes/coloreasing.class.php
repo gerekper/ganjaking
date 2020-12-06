@@ -207,7 +207,6 @@ if(!class_exists('RSColorEasing')) {
 				case 'expo':
 					
 					switch($easing[1]) {
-				
 						case 'easein':
 							return 0===$n?$t:$e*pow(2,10*($n/$u-1))+$t;
 						break;
@@ -215,7 +214,17 @@ if(!class_exists('RSColorEasing')) {
 							return $n===$u?$t+$e:$e*(1-pow(2,-10*$n/$u))+$t;
 						break;
 						case 'easeinout':
-							return 0===$n?$t:$n===$u?$t+$e:($n/=$u/2)<1?$e/2*pow(2,10*($n-1))+$t:$e/2*(2-pow(2,-10*--$n))+$t;
+							if(0===$n){
+								return $t;
+							}elseif($n===$u){
+								return $t+$e;
+							}elseif(($n/=$u/2)<1){
+								return $e/2*pow(2,10*($n-1))+$t;
+							}else{
+								return $e/2*(2-pow(2,-10*--$n))+$t;
+							}
+							
+							//return 0===$n?$t:$n===$u?$t+$e:($n/=$u/2)<1?$e/2*pow(2,10*($n-1))+$t:$e/2*(2-pow(2,-10*--$n))+$t;
 						break;
 						
 					}

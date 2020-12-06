@@ -1,5 +1,5 @@
 /*
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 jQuery( function ( $ ) {
 	var redsys_buttom_charge_depo = {

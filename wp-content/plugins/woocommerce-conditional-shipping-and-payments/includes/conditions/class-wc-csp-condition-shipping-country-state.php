@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Shipping Country/State Condition.
  *
  * @class    WC_CSP_Condition_Shipping_Country_State
- * @version  1.8.6
+ * @version  1.8.9
  */
 class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 
@@ -25,7 +25,7 @@ class WC_CSP_Condition_Shipping_Country_State extends WC_CSP_Package_Condition {
 	 */
 	public function __construct() {
 		$this->id                             = 'shipping_country';
-		$this->title                          = __( 'Shipping Country', 'woocommerce-conditional-shipping-and-payments' );
+		$this->title                          = __( 'Shipping Country/State', 'woocommerce-conditional-shipping-and-payments' );
 		$this->supported_global_restrictions  = array( 'shipping_methods', 'payment_gateways' );
 		$this->supported_product_restrictions = array( 'shipping_methods', 'payment_gateways' );
 	}

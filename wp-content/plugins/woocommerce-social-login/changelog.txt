@@ -1,5 +1,11 @@
 *** WooCommerce Social Login Changelog ***
 
+2020.11.26 - version 2.10.3
+ * Misc - Add PHP 8 Support
+
+2020.10.23 - version 2.10.2
+ * Tweak - Update Amazon login app scope to include `payments:widget` to ensure continued compatibility with Login with Amazon
+
 2020.09.30 - version 2.10.1
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets
 

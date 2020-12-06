@@ -1,0 +1,118 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress ConvertKit plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress ConvertKit 1.2.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-convertkit\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-03-24T12:42:40-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-convertkit\n"
+
+#. Plugin Name of the plugin
+#: main.php:35
+msgid "MemberPress ConvertKit"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "ConvertKit Autoresponder integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: main.php:36
+msgid "ConvertKit Autoresponder Integration for MemberPress."
+msgstr ""
+
+#: MpConvertKit.php:72
+msgid "Enable ConvertKit"
+msgstr ""
+
+#: MpConvertKit.php:79
+msgid "ConvertKit API Secret:"
+msgstr ""
+
+#: MpConvertKit.php:86
+msgid "You can find your API Secret under your Account settings at ConvertKit.com."
+msgstr ""
+
+#: MpConvertKit.php:94
+msgid "ConvertKit Tag:"
+msgstr ""
+
+#: MpConvertKit.php:102
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: MpConvertKit.php:106
+msgid "If checked, an opt-in checkbox will appear on all of your membership registration pages."
+msgstr ""
+
+#: MpConvertKit.php:111
+msgid "Signup Checkbox Label:"
+msgstr ""
+
+#: MpConvertKit.php:114
+msgid "This is the text that will display on the signup page next to your mailing tag opt-in checkbox."
+msgstr ""
+
+#: MpConvertKit.php:161
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: MpConvertKit.php:180
+msgid "ConvertKit Tag for this Membership"
+msgstr ""
+
+#: MpConvertKit.php:183
+msgid "Enable Membership ConvertKit Tag"
+msgstr ""
+
+#: MpConvertKit.php:184
+msgid "The user will have the Active Tag on their subscriber account at ConvertKit when they are active on this Membership. They will have the Inactive Tag set in their subscriber account when they are inactive on this Membership. You must have your ConvertKit API Secret set in the Options before this will work."
+msgstr ""
+
+#: MpConvertKit.php:188
+msgid "Active ConvertKit Tag: "
+msgstr ""
+
+#: MpConvertKit.php:191
+msgid "Inactive ConvertKit Tag: "
+msgstr ""
+
+#: MpConvertKit.php:269
+#: MpConvertKit.php:299
+msgid "Hey yo, why you creepin'?"
+msgstr ""
+
+#: MpConvertKit.php:274
+#: MpConvertKit.php:304
+msgid "No API Secret was sent"
+msgstr ""
+
+#: MpConvertKit.php:283
+msgid "API Secret incorrect"
+msgstr ""
+
+#: MpConvertKit.php:286
+msgid "All set!"
+msgstr ""
+
+#: MpConvertKit.php:417
+msgid "Sign Up for the %s Newsletter"
+msgstr ""

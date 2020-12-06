@@ -1,0 +1,108 @@
+/** Style to handle the variation selection in cart. */
+.wc_fgc_cart {
+	padding: 0.625em;
+	&:after {
+		clear: both;
+	}
+	.product {
+		&:after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+	}
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+	.woocommerce-variation-price {
+		display: none;
+	}
+	.quantity {
+		display: none !important;
+	}
+}
+.wc-fgc-close-section {
+	display: block;
+	text-align: right;
+	margin: 1.25em 0;
+}
+.wc-fgc-close-btn {
+	.dashicons {
+		font-size: 1.5em;
+	}
+}
+
+/*--Cart Page--*/
+.wc-fgc-edit-var-link {
+	margin-top: 1.25em;
+	transition: ease-in-out all .2s;
+	&:link {
+		margin-top: 1.25em;
+		transition: ease-in-out all .2s;
+	}
+	.dashicons {
+		vertical-align: middle;
+		position: relative;
+		top: -.15em;
+	}
+}
+
+/*Error message*/
+.wc-fgc-stock-error {
+	display: none;
+	background: #dd3333 none repeat scroll 0 0;
+	color: #ffffff;
+	padding: 0.3125em 0.625em;
+	text-align: center;
+}
+.wc_fgc_updatenow {
+	cursor: pointer;
+}
+
+/*=====================================
+=            RESPONSIVE TABLE        =
+=====================================*/
+.woocommerce {
+	table.shop_table_responsive {
+		tr.wc-fgc-new-row {
+			td {
+				text-align: left;
+				&::before {
+					display: block;
+					content: "";
+				}
+			}
+			.variations {
+				tr {
+					border: 0;
+				}
+			}
+		}
+	}
+}
+@media only screen and (min-width: 768px) {
+	.wc_fgc_cart {
+		.product {
+			.woocommerce-product-gallery {
+				width: 48%;
+				float: left;
+			}
+			.summary {
+				width: 48%;
+				float: right;
+			}
+		}
+	}
+}
+@media only screen and (max-width:768px) {
+	.wc_fgc_cart {
+		a.reset_variations {
+			&:before {
+				content: '';
+				display: block;
+				margin-top: 0.1em;
+			}
+		}
+	}
+}

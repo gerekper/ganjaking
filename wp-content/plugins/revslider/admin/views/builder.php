@@ -144,14 +144,14 @@ require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 						</div><!--
 						--><div id="do_delete_layer" class="toolbar_btn justicon"><i class="norightmargin material-icons">delete</i></div><!--
 						--><div id="do_lock_layer" class="toolbar_btn justicon tool_drop">
-							<div id="layer_lock_iconswitch" class="icon_switcher" data-ref="#layer_Lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_Lock" data-updateviaevt="true" data-evt="lockLayer" data-setclasson="#layer_lock_iconswitch" data-class="icsw_on" type="checkbox" data-r="visibility.lock"></div>
+							<div id="layer_lock_iconswitch" class="icon_switcher" data-ref="#layer_Lock"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_Lock" data-updateviaevt="true" data-evt="lockLayer" data-setclasson="layer_lock_iconswitch" data-class="icsw_on" type="checkbox" data-r="visibility.lock"></div>
 							<div id="locked_layers_list" class="tool_dd_wrap outicon_dd_rwap">
 								<div id="toggle_lock_layer" class="lockstep_main"><i class="material-icons">radio_button_checked</i><?php _e('Lock/Unlock Selected', 'revslider');?></div>
 								<div id="unlock_all_layer" class="lockstep_main"><i class="material-icons">lock_open</i><?php _e('Unlock All', 'revslider');?></div>
 							</div>
 						</div><!--
 						--><div id="do_show_layer" class="toolbar_btn justicon">
-							<div id="layer_visibility_iconswitch" class="norightmargin icon_switcher icsw_on" data-ref="#layer_Visibility"><i class="material-icons icon_state_off">visibility_off</i><i class="material-icons icon_state_on">visibility</i><input class="easyinit layerinput callEvent" id="layer_Visibility" data-updateviaevt="true" data-evt="showHideLayer" data-setclasson="#layer_visibility_iconswitch" data-class="icsw_on" type="checkbox" checked="checked" data-default="true" data-r="visibility.visible" ></div>
+							<div id="layer_visibility_iconswitch" class="norightmargin icon_switcher icsw_on" data-ref="#layer_Visibility"><i class="material-icons icon_state_off">visibility_off</i><i class="material-icons icon_state_on">visibility</i><input class="easyinit layerinput callEvent" id="layer_Visibility" data-updateviaevt="true" data-evt="showHideLayer" data-setclasson="layer_visibility_iconswitch" data-class="icsw_on" type="checkbox" checked="checked" data-default="true" data-r="visibility.visible" ></div>
 							<div id="unvisible_layers_list" class="tool_dd_wrap outicon_dd_rwap">
 								<div id="hide_highlight_boxes" class="visiblestep_main"><i class="hhb_a material-icons">border_all</i><i class="hhb_b material-icons">border_clear</i><span class="hhb_a"><?php _e('Hide Highlight Boxes', 'revslider');?></span><span class="hhb_b"><?php _e('Show Highlight Boxes', 'revslider');?></span></div>
 								<div id="toggle_visible_layer" class="visiblestep_main"><i class="material-icons">radio_button_checked</i><?php _e('Show/Hide Selected', 'revslider');?></div>
@@ -171,8 +171,25 @@ require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 						--><div id="current_sel_display" class="selected_placeholder"><i id="screen_selector_ph_icon_sr" class="toptoolbaricon material-icons">desktop_windows</i></div><!--
 						--><div id="current_width_height"><i class="material-icons rotateleft">unfold_more</i><span id="show_c_width">1920px</span><i class="material-icons">unfold_more</i><span id="show_c_height">1920px</span></div><!--
 					--></div>
-					<div id="right_top_toolbar_wrap" class="toolbar_rightoriented">
-						<div class="drawselector_wrap toolbar_selector_icons" id="toolkit_selector_wrap">
+					<div id="right_top_toolbar_wrap" class="toolbar_rightoriented"><!--
+						--><div id="zoomer_wrap_toolbar" class="zoomer_wrap toolbar_selector_icons">
+							<div class="selected_placeholder"><i id="zoomer_icon" style="font-size: 17px;margin-top: -2px;"class="toptoolbaricon material-icons">search</i><div id="zoomer_factor">100%</div></div>
+							<div class="tool_dd_wrap"><!--
+								--><div id="ezoomer_wrap">
+									
+									<div id="ezoomer">
+										<div id="ezoomer_pin"></div>
+										<div class="ezzomer_marks" style="left:0px"></div>
+										<div class="ezzomer_marks" style="left:50px"></div>
+										<div class="ezzomer_marks" style="left:100px"></div>
+										<div class="ezzomer_marks" style="left:150px"></div>
+										<div class="ezzomer_marks" style="left:200px"></div>									
+									</div>
+									
+								</div><!--
+							--></div>
+						</div><!--
+						--><div class="drawselector_wrap toolbar_selector_icons" id="toolkit_selector_wrap">
 							<div class="selected_placeholder"><i id="toolkit_selector_ph_icon" class="toptoolbaricon material-icons mirrorhorizontal">near_me</i><i id="toolkit_selector_ph_icon_sub" class="material-icons near_me_addon"></i></div>
 							<div class="tool_dd_wrap">
 								<div class="toolkit_selector callEvent selected" id="select_by_cursor" data-toolkiticon="near_me" data-toolkiticonsub=" " data-evt="cursorselection"><i class="material-icons mirrorhorizontal">near_me</i><?php _e('Single Select', 'revslider');?></div>
@@ -198,21 +215,21 @@ require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 							<div class="selected_placeholder"><i id="screen_selector_ph_icon" class="toptoolbaricon material-icons">desktop_windows</i><span class="highlight_arrow"></span></div>
 							<div id="screen_selector_top_list" class="tool_dd_wrap">
 								<div id="screen_selecotr_ss_d" class="screen_selector ss_d selected callEvent" data-evt="screenSelectorChanged"  data-screenicon="desktop_windows" data-triggerinp="#screenselector" data-triggerinpval="d"><i class="material-icons">desktop_windows</i><?php _e('Desktop', 'revslider');?></div>
-								<div id="screen_selecotr_ss_n" class="screen_selector ss_n callEvent" data-evt="screenSelectorChanged"  data-screenicon="laptop" data-triggerinp="#screenselector" data-triggerinpval="n"><i class="material-icons">laptop</i><?php _e('Notebook', 'revslider');?><input type="checkbox" id="sr_custom_n_opt" class="sliderinput" data-evt="device_area_availibity" data-r="size.custom.n"></div>
-								<div id="screen_selecotr_ss_t" class="screen_selector ss_t callEvent" data-evt="screenSelectorChanged"  data-screenicon="tablet_mac" data-triggerinp="#screenselector" data-triggerinpval="t"><i class="material-icons">tablet_mac</i><?php _e('Tablet', 'revslider');?><input type="checkbox" id="sr_custom_t_opt" class="sliderinput" data-evt="device_area_availibity" data-r="size.custom.t"></div>
-								<div id="screen_selecotr_ss_m" class="screen_selector ss_m no_rm callEvent" data-evt="screenSelectorChanged"  data-screenicon="phone_android" data-triggerinp="#screenselector" data-triggerinpval="m"><i class="material-icons">phone_android</i><?php _e('Mobile', 'revslider');?><input type="checkbox" id="sr_custom_m_opt" class="sliderinput" data-evt="device_area_availibity" data-r="size.custom.m"></div>
+								<div id="screen_selecotr_ss_n" class="screen_selector ss_n callEvent" data-evt="screenSelectorChanged"  data-screenicon="laptop" data-triggerinp="#screenselector" data-triggerinpval="n"><i class="material-icons">laptop</i><?php _e('Notebook', 'revslider');?><input type="checkbox" id="sr_custom_n_opt" class="sliderinput easyinit" data-evt="device_area_availibity" data-r="size.custom.n"></div>
+								<div id="screen_selecotr_ss_t" class="screen_selector ss_t callEvent" data-evt="screenSelectorChanged"  data-screenicon="tablet_mac" data-triggerinp="#screenselector" data-triggerinpval="t"><i class="material-icons">tablet_mac</i><?php _e('Tablet', 'revslider');?><input type="checkbox" id="sr_custom_t_opt" class="sliderinput easyinit" data-evt="device_area_availibity" data-r="size.custom.t"></div>
+								<div id="screen_selecotr_ss_m" class="screen_selector ss_m no_rm callEvent" data-evt="screenSelectorChanged"  data-screenicon="phone_android" data-triggerinp="#screenselector" data-triggerinpval="m"><i class="material-icons">phone_android</i><?php _e('Mobile', 'revslider');?><input type="checkbox" id="sr_custom_m_opt" class="sliderinput easyinit" data-evt="device_area_availibity" data-r="size.custom.m"></div>
 							</div>
 						</div><!--
 						--><div class="toolbar_btn help_wrap"><i class="toptoolbaricon material-icons">help_outline</i></div><!--<div class="toolbar_btn tooltip_wrap"><i class="toptoolbaricon material-icons">comment</i></div>--><!--
-						--><div id="quick_style_trigger" class="toolbar_btn quick_style_wrap"><i class="toptoolbaricon material-icons">invert_colors</i></div>		<!--<span class="toolbar_btn_txt"><?php _e('Quick Style', 'revslider');?></span>-->
-					</div>
+					--></div>
 				</div><!-- END OF MAIN HORIZONTAL TOOLBAR -->
 				<div id="rev_builder_wrapper">
 					<!-- HORIZONTAL AND VERTICAL RULERS -->
 					<div id="ruler_hor_marker"></div>
 					<div id="ruler_ver_marker"></div>
-					<div id="ruler_top"><div id="ruler_top_offset"></div></div>
-					<div id="ruler_left"><div id="ruler_left_offset"></div></div>
+					<div id="ruler_top"><canvas id="ruler_top_offset"></canvas></div>
+					<div id="ruler_left"><canvas id="ruler_left_offset"></canvas></div>
+					<div id="ruler_left_top_cover"></div>
 					<!-- REV BUILDER CONTAINER -->
 					<div id="rev_builder">
 						<div id="rev_builder_inner">

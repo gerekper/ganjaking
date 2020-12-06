@@ -1,0 +1,2 @@
+<?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');} ?>
+<h3><?php _e('Registration is currently not allowed on this site.', 'affiliate-royale', 'easy-affiliate'); ?></h3>

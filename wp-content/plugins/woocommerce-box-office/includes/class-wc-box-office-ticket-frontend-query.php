@@ -75,10 +75,11 @@ class WC_Box_Office_Ticket_Frontend_Query extends WC_Query {
 	/**
 	 * Get endpoint title.
 	 *
-	 * @param  string $endpoint Endpoint name
-	 * @return string           Endpoint title
+	 * @param  string $endpoint Endpoint name.
+	 * @param  string $action   Optional action or variation within the endpoint.
+	 * @return string           Endpoint title.
 	 */
-	public function get_endpoint_title( $endpoint ) {
+	public function get_endpoint_title( $endpoint, $action = '' ) {
 		$title = '';
 		if ( 'my-tickets' === $endpoint ) {
 			$title = __( 'My Tickets', 'woocommerce-box-office' );

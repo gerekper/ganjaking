@@ -1,0 +1,86 @@
+.facebook_app_id, .facebook_app_secret, .twitter_oauth_token, .twitter_token_secret, .twitter_callback_url, .gplus_client_id, .gplus_client_secret, .gplus_redirect_uri, .linkedin_client_id, .linkedin_client_secret, .linkedin_redirect_uri{
+  display: none;
+}
+
+.loginpress-social-login-tab-wrapper:after{
+	content: '';
+	display: table;
+	clear: both;
+}
+
+.loginpress-social-login-tab-wrapper{
+	border-bottom: 1px solid #ccc;
+}
+.loginpress-social-login-tab{
+	    float: left;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    margin-left: .5em;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 24px;
+    background: #e5e5e5;
+    color: #555;
+		text-decoration: none;
+}
+
+.loginpress-social-login-tab:focus{
+	outline: none;
+	box-shadow: none;
+}
+.loginpress-social-login-tab.loginpress-social-login-active,
+.loginpress-social-login-tab:hover{
+	border-bottom: 1px solid #f1f1f1;
+	background: #f1f1f1;
+	color: #000;
+	text-decoration: none;
+}
+
+#loginpress_social_login_help{
+  display: none;
+}
+.loginpress-social-tabs {
+	display: none;
+    border: 1px solid #ccc;
+    background: #f2f2f2;
+    padding: 15px;
+    border-top: 0;
+    background: #fff;
+}
+.loginpress-tabs.loginpress-social-active{
+	display: block;
+}
+.loginpress-accordions{
+	display: block;
+    width: 100%;
+    padding: 10px;
+    background: #e5e5e5;
+    color: #000;
+    font-size: 19px;
+    font-weight: bold;
+    line-height: 26px;
+	text-decoration: none;
+	position: relative;
+	border:1px solid #ccc;
+}
+.loginpress-accordions:focus{
+	outline: none;
+	box-shadow: none;
+}
+.loginpress-accordions .loginpress-arrow{
+	position: absolute;
+    font-size: 40px;
+    top: 3px;
+    right: 3px;
+    width: 40px;
+	height: 40px;
+	-webkit-transition: all  0.3s ease-in-out;
+	transition:  all 0.3s ease-in-out;
+}
+.loginpress-accordions.loginpress-accordions-acive .loginpress-arrow{
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+.loginpress-social-accordions{
+	margin-top: 20px;
+}

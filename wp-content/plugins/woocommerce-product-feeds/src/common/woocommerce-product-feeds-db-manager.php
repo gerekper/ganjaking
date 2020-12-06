@@ -197,4 +197,19 @@ class WoocommerceProductFeedsDbManager {
 			$this->cache->flush_all();
 		}
 	}
+
+	/**
+	 * Upgrade the DB schema to v9.
+	 *
+	 * Set the description setting to "varfull".
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 */
+	private function upgrade_db_to_9() {
+		$this->settings['product_fields']['title'] = 'on';
+		if ( empty( $this->settings['product_prepopulate']['title'] ) ) {
+			$this->settings['product_prepopulate']['title'] = 'field:product_title';
+		}
+		update_option( 'woocommerce_gpf_config', $this->settings );
+	}
 }

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -530,7 +530,14 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 			$is_recursive = false;
 			if ( ! empty( $order_items ) ) {
 				foreach ( $order_items as $order_item ) {
-					$send_coupons_on_renewals = ( ! empty( $order_item['product_id'] ) ) ? get_post_meta( $order_item['product_id'], 'send_coupons_on_renewals', true ) : 'no';
+					$send_coupons_on_renewals = 'no';
+					if ( ! empty( $order_item['variation_id'] ) ) {
+						$send_coupons_on_renewals = get_post_meta( $order_item['variation_id'], 'send_coupons_on_renewals', true );
+					} elseif ( ! empty( $order_item['product_id'] ) ) {
+						$send_coupons_on_renewals = get_post_meta( $order_item['product_id'], 'send_coupons_on_renewals', true );
+					} else {
+						continue;
+					}
 					if ( 'yes' === $send_coupons_on_renewals ) {
 						$is_recursive = true;
 						break;  // if in any order item recursive is enabled, it will set coupon_sent as 'no'.

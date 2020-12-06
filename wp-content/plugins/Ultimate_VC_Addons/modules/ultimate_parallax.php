@@ -707,7 +707,7 @@ if ( ! class_exists( 'VC_Ultimate_Parallax' ) ) {
 					array(
 						'type'        => 'textfield',
 						'class'       => '',
-						'heading'     => __( 'Background Image Posiiton', 'ultimate_vc' ),
+						'heading'     => __( 'Background Image Position', 'ultimate_vc' ),
 						'param_name'  => 'bg_image_posiiton',
 						'value'       => '',
 						'description' => __( 'You can use any number with px, em, %, etc. Example- 100px 100px.', 'ultimate_vc' ),

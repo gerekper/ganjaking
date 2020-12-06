@@ -1,5 +1,11 @@
 *** WooCommerce Google Analytics Pro ***
 
+2020.11.24 - version 1.9.3
+ * Misc - Add PHP 8 support
+
+2020.11.12 - version 1.9.2
+ * Fix - Ensure New Account email "Additional Content" gets displayed
+
 2020.09.30 - version 1.9.1
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets
 

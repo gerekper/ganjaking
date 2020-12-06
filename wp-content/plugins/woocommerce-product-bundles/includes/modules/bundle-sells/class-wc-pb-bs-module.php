@@ -26,14 +26,14 @@ class WC_PB_BS_Module extends WCS_PB_Abstract_Module {
 
 		// Admin.
 		if ( is_admin() ) {
-			require_once( 'includes/admin/class-wc-pb-bs-admin.php' );
+			require_once( WC_PB_ABSPATH . 'includes/modules/bundle-sells/includes/admin/class-wc-pb-bs-admin.php' );
 		}
 
 		// Global-scope functions.
-		require_once( 'includes/wc-pb-bs-functions.php' );
+		require_once( WC_PB_ABSPATH . 'includes/modules/bundle-sells/includes/wc-pb-bs-functions.php' );
 
 		// Product-related functions and hooks.
-		require_once( 'includes/class-wc-pb-bs-product.php' );
+		require_once( WC_PB_ABSPATH . 'includes/modules/bundle-sells/includes/class-wc-pb-bs-product.php' );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class WC_PB_BS_Module extends WCS_PB_Abstract_Module {
 	 */
 	public function load_cart() {
 		// Cart-related functions and hooks.
-		require_once( 'includes/class-wc-pb-bs-cart.php' );
+		require_once( WC_PB_ABSPATH . 'includes/modules/bundle-sells/includes/class-wc-pb-bs-cart.php' );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class WC_PB_BS_Module extends WCS_PB_Abstract_Module {
 	 */
 	public function load_order() {
 		// Order-related functions and hooks.
-		require_once( 'includes/class-wc-pb-bs-order.php' );
+		require_once( WC_PB_ABSPATH . 'includes/modules/bundle-sells/includes/class-wc-pb-bs-order.php' );
 	}
 
 	/**
@@ -57,6 +57,6 @@ class WC_PB_BS_Module extends WCS_PB_Abstract_Module {
 	 */
 	public function load_display() {
 		// Display-related functions and hooks.
-		require_once( 'includes/class-wc-pb-bs-display.php' );
+		require_once( WC_PB_ABSPATH . 'includes/modules/bundle-sells/includes/class-wc-pb-bs-display.php' );
 	}
 }

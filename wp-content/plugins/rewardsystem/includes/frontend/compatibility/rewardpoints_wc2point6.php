@@ -147,7 +147,7 @@ if ( ! class_exists( 'FP_Reward_Points_WC_2P6' ) ) {
                 if ( is_checkout() && is_user_logged_in() ) {
                     wp_enqueue_script( 'jquery' ) ;
                     wp_register_script( 'checkoutscript' , SRP_PLUGIN_DIR_URL . "assets/js/checkoutscript.js" ) ;
-                    $global_variable_for_js = array( 'wp_ajax_url' => SRP_ADMIN_AJAX_URL , 'user_id' => get_current_user_id() , 'redeem_it_link' => get_option( 'rs_show_hide_redeem_it_field_checkout' ) , 'redeem_restriction' => get_option( 'rs_show_hide_redeem_field' ) , 'checkout_redeem_check' => get_option( 'rs_show_hide_redeem_field_checkout' ) , 'rs_available_message_check' => get_option( 'rs_available_points_display' ) , '_rs_storefront_redeem_button' => $redeem_buton_display ) ;
+                    $global_variable_for_js = array( 'wp_ajax_url' => SRP_ADMIN_AJAX_URL , 'user_id' => get_current_user_id() , 'redeem_it_link' => get_option( 'rs_show_hide_redeem_it_field_checkout' ) , 'redeem_restriction' => get_option( 'rs_show_hide_redeem_field' ) , 'checkout_redeem_check' => get_option( 'rs_show_hide_redeem_field_checkout' ) , '_rs_storefront_redeem_button' => $redeem_buton_display ) ;
                     wp_localize_script( 'checkoutscript' , 'checkoutscript_variable_js' , $global_variable_for_js ) ;
                     wp_enqueue_script( 'checkoutscript' , false , array() , '' , true ) ;
                 }

@@ -65,7 +65,7 @@ class WC_CSP_Compatibility {
 	 * @return void
 	 */
 	public static function core_includes() {
-		require_once( 'core/class-wc-csp-core-compatibility.php' );
+		require_once( WC_CSP_ABSPATH . 'includes/compatibility/core/class-wc-csp-core-compatibility.php' );
 	}
 
 	/**
@@ -79,47 +79,47 @@ class WC_CSP_Compatibility {
 
 		// Stripe support.
 		if ( class_exists( 'WC_Stripe' ) ) {
-			$module_paths[ 'stripe' ] = 'modules/class-wc-csp-stripe-compatibility.php';
+			$module_paths[ 'stripe' ] = WC_CSP_ABSPATH . 'includes/compatibility/modules/class-wc-csp-stripe-compatibility.php';
 		}
 
 		// PayPal Express support.
 		if ( function_exists( 'wc_gateway_ppec' ) ) {
-			$module_paths[ 'paypal_ppec' ] = 'modules/class-wc-csp-ppe-compatibility.php';
+			$module_paths[ 'paypal_ppec' ] = WC_CSP_ABSPATH . 'includes/compatibility/modules/class-wc-csp-ppe-compatibility.php';
 		}
 
 		// Klarna Checkout support.
 		if ( class_exists( 'Klarna_Checkout_For_WooCommerce' ) ) {
-			$module_paths[ 'klarna_checkout' ] = 'modules/class-wc-csp-klc-compatibility.php';
+			$module_paths[ 'klarna_checkout' ] = WC_CSP_ABSPATH . 'includes/compatibility/modules/class-wc-csp-klc-compatibility.php';
 		}
 
 		// Klarna Payments support.
 		if ( class_exists( 'WC_Klarna_Payments' ) ) {
-			$module_paths[ 'klarna_payments' ] = 'modules/class-wc-csp-klp-compatibility.php';
+			$module_paths[ 'klarna_payments' ] = WC_CSP_ABSPATH . 'includes/compatibility/modules/class-wc-csp-klp-compatibility.php';
 		}
 
 		// Amazon Pay support.
 		if ( class_exists( 'WC_Amazon_Payments_Advanced' ) ) {
-			$module_paths[ 'amazon_payments' ] = 'modules/class-wc-csp-ap-compatibility.php';
+			$module_paths[ 'amazon_payments' ] = WC_CSP_ABSPATH . 'includes/compatibility/modules/class-wc-csp-ap-compatibility.php';
 		}
 
 		// Woocommerce Memberships support.
 		if ( class_exists( 'WC_Memberships' ) ) {
-			$module_paths[ 'memberships' ] = 'modules/class-wc-csp-memberships-compatibility.php';
+			$module_paths[ 'memberships' ] = WC_CSP_ABSPATH . 'includes/compatibility/modules/class-wc-csp-memberships-compatibility.php';
 		}
 
 		// Woocommerce Subscriptions support.
 		if ( class_exists( 'WC_Subscriptions' ) ) {
-			$module_paths[ 'subscriptions' ] = 'modules/class-wc-csp-wcs-compatibility.php';
+			$module_paths[ 'subscriptions' ] = WC_CSP_ABSPATH . 'includes/compatibility/modules/class-wc-csp-wcs-compatibility.php';
 		}
 
 		// Woocommerce MultiCurrency support.
 		if ( defined( 'WOOCOMMERCE_MULTICURRENCY_VERSION' ) ) {
-			$module_paths[ 'currency' ] = 'modules/class-wc-csp-multicurrency-compatibility.php';
+			$module_paths[ 'currency' ] = WC_CSP_ABSPATH . 'includes/compatibility/modules/class-wc-csp-multicurrency-compatibility.php';
 		}
 
 		// Woocommerce Gift Cards support.
 		if ( class_exists( 'WC_GC_Gift_Cards' ) && function_exists( 'WC_GC' ) && version_compare( WC_GC()->get_plugin_version( true ), self::$required[ 'gc' ] ) >= 0 ) {
-			$module_paths[ 'giftcards' ] = 'modules/class-wc-csp-gc-compatibility.php';
+			$module_paths[ 'giftcards' ] = WC_CSP_ABSPATH . 'includes/compatibility/modules/class-wc-csp-gc-compatibility.php';
 		}
 
 		/**

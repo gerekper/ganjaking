@@ -27,23 +27,84 @@ class WC_Help_Scout_Ajax {
 		// Create threads.
 		add_action( 'wp_ajax_wc_help_scout_create_thread', array( $this, 'create_thread' ) );
 		add_action( 'wp_ajax_nopriv_wc_help_scout_create_thread', array( $this, 'create_thread' ) );
+		
+		// Uploads temporary attachments
+		add_action( 'wp_ajax_wc_help_scout_upload_attachments', array( $this, 'wc_help_scout_upload_attachments' ) );
+		add_action( 'wp_ajax_nopriv_wc_help_scout_upload_attachments', array( $this, 'wc_help_scout_upload_attachments' ) );
+		
 	}
+	
+	/**
+	 * Uploads temporary attachments
+	 * 
+	 */
+	function wc_help_scout_upload_attachments(){
+		$upload_dir = wp_upload_dir();
+		$dir = $upload_dir['basedir'];
+        $target_path_sia = $_FILES["file"]["name"];
+		move_uploaded_file($_FILES["file"]["tmp_name"],$dir. "/hstmp/" . $target_path_sia);
+		die();
+	}
+	
+	
 
 	/**
 	 * Create conversations.
 	 *
 	 * @return string JSON data.
 	 */
-	public function create_conversation() {
+	public function create_conversation() { //print_r($_REQUEST); exit;
 		check_ajax_referer( 'woocommerce_help_scout_ajax', 'security' );
-
-		// Get the conversation data.
+		$upload_dir = wp_upload_dir();
+		$dir = $upload_dir['basedir'];
+		$tmpUploads = $dir. "/hstmp/";
+		$uploadedFiles = $_REQUEST['uploaded_files'];
+		$fileData = [];
+		if(!empty($uploadedFiles)){		
+			$uploadedFiles = explode(',',$uploadedFiles);
+			foreach($uploadedFiles as $singleFile){
+				$data = file_get_contents($tmpUploads.''.$singleFile);
+				$filename = basename($tmpUploads.''.$singleFile); 
+				$filetype = mime_content_type($tmpUploads.''.$singleFile);
+				$base64 = stripslashes(base64_encode($data));	
+				$fileData[] = array('name'=>$filename,'type'=>$filename,'data'=>$base64);
+				unlink($tmpUploads.''.$singleFile);
+			}
+		}
 		$integration = new WC_Help_Scout_Integration();
-
+		//return if Authrorization has failed
+		if(!$integration->check_authorization_still_valid()) { 
+			return false;
+		}
 		// Sets the conversation params.
-		$order_id    = isset( $_POST['order_id'] ) ? absint( $_POST['order_id'] ) : '';
-		$subject     = isset( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : '';
-		$description = isset( $_POST['description'] ) ? $_POST['description'] : '';
+	    $order_id    = isset( $_POST['order_id'] ) ? absint( $_POST['order_id'] ) : $_POST['conversation_order_id'];
+		$subject     = isset( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : $_POST['conversation_subject'];
+		$description = isset( $_POST['description'] ) ? $_POST['description'] : $_POST['conversation_description'];
+		
+		if(isset( $_POST['customer_name'])){
+		    $customer_name = $_POST['customer_name'];
+		}elseif(isset( $_POST['conversation_customer_name'])){
+		    $customer_name = $_POST['conversation_customer_name'];
+		}else{
+		    $customer_name = '';
+		}
+		
+		if(isset( $_POST['email'])){
+		    $customer_email = $_POST['email'];
+		}elseif(isset( $_POST['conversation_email'])){
+		    $customer_email = $_POST['conversation_email'];
+		}else{
+		    $customer_email = '';
+		}
+		
+		if(isset( $_POST['from'])){
+		    $from = $_POST['from'];
+		}elseif(isset( $_POST['conversation_from'])){
+		    $from = $_POST['conversation_from'];
+		}else{
+		    $from = '';
+		}
+		
 		$first_name  = null;
 		$last_name   = null;
 
@@ -107,24 +168,24 @@ class WC_Help_Scout_Ajax {
 			}
 		}
 
-		if ( isset( $_POST['from'] ) && 'customer' !== $_POST['from'] ) {
-			$user       = get_user_by( 'id', absint( $_POST['from'] ) );
+		if ( ! empty( $from ) && 'customer' !== $from ) {
+			$user       = get_user_by( 'id', absint( $from ) );
 			$user_id    = $user->ID;
 			$user_email = $user->user_email;
 		}
 
-		if ( ! empty( $_POST['customer_name'] ) && ! empty( $_POST['email'] ) ) {
+		if ( ! empty( $customer_name ) && ! empty( $customer_email ) ) {
 			$user_id    = 0;
-			$name       = explode( ' ', sanitize_text_field( $_POST['customer_name'] ) );
+			$name       = explode( ' ', sanitize_text_field( $customer_name ) );
 			$first_name = $name[0];
 			unset( $name[0] );
 			$last_name  = trim( implode( ' ', $name ) );
-			$user_email = sanitize_email( $_POST['email'] );
+			$user_email = sanitize_email( $customer_email );
 		}
-
+		
 		$customer_id = $integration->get_customer_id( $user_id, $user_email, $first_name, $last_name );
 		
-		$response    = $integration->create_conversation( $subject, $description, $customer_id, $user_email );
+		$response    = $integration->create_conversation( $subject, $description, $customer_id, $user_email, $fileData, $user_id );
 
 		wp_send_json( $response );
 	}
@@ -139,7 +200,10 @@ class WC_Help_Scout_Ajax {
 
 		// Get the conversation data.
 		$integration = new WC_Help_Scout_Integration();
-
+		//return if Authrorization has failed.
+		if(!$integration->check_authorization_still_valid()) { 
+			return false;
+		}
 		// Sets the conversation params.
 		$conversation_id = isset( $_GET['conversation_id'] ) ? intval( $_GET['conversation_id'] ) : 0;
 
@@ -194,12 +258,30 @@ class WC_Help_Scout_Ajax {
 	 *
 	 * @return string JSON data.
 	 */
-	public function create_thread() {
+	public function create_thread() { //print_r($_REQUEST); exit;
 		check_ajax_referer( 'woocommerce_help_scout_ajax', 'security' );
-
+		$upload_dir = wp_upload_dir();
+		$dir = $upload_dir['basedir'];
+		$tmpUploads = $dir. "/hstmp/";
+		$uploadedFiles = $_REQUEST['uploaded_files'];
+		$fileData = [];
+		if(!empty($uploadedFiles)){		
+			$uploadedFiles = explode(',',$uploadedFiles);
+			foreach($uploadedFiles as $singleFile){
+				$data = file_get_contents($tmpUploads.''.$singleFile);
+				$filename = basename($tmpUploads.''.$singleFile); 
+				$filetype = mime_content_type($tmpUploads.''.$singleFile);
+				$base64 = stripslashes(base64_encode($data));	
+				$fileData[] = array('name'=>$filename,'type'=>$filename,'data'=>$base64);
+				unlink($tmpUploads.''.$singleFile);
+			}
+		}
 		// Get the conversation data.
 		$integration = new WC_Help_Scout_Integration();
-
+		//return if Authrorization has failed.
+		if(!$integration->check_authorization_still_valid()) { 
+			return false;
+		}
 		// Sets the conversation params.
 		$conversation_id      = isset( $_POST['conversation_id'] )       ? $_POST['conversation_id']      : '';
 		$conversation_message = isset( $_POST['conversation_message'] )  ? $_POST['conversation_message'] : '';
@@ -227,7 +309,7 @@ class WC_Help_Scout_Ajax {
 
 		$user_data   = get_userdata( $user_id );
 		$customer_id = $integration->get_customer_id( $user_data->ID, $user_data->user_email );
-		$thread      = $integration->create_thread( $conversation_id, $conversation_message, $customer_id, $user_data->user_email );
+		$thread      = $integration->create_thread( $conversation_id, $conversation_message, $customer_id, $user_data->user_email, $fileData );
 		
 		if ( $thread ) {
 			$response = array(

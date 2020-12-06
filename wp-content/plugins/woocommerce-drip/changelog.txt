@@ -1,5 +1,10 @@
 *** WooCommerce Drip Changelog ***
 
+2020-12-01 - version 1.2.24
+* Tweak - WordPress 5.6 compatibility.
+* Tweak - WC 4.7 compatibility.
+* Fix - Minor JavaScript changes to prepare for jQuery 3.
+
 2020-10-06 - version 1.2.23
 * Fix - Prevent warning in the debug log when requesting campaigns.
 * Fix - Prevent PHP 7.4 deprecation notice for unparenthesized usage with multiple inline if statements.

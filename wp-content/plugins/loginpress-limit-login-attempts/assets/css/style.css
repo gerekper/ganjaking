@@ -1,0 +1,163 @@
+.loginpress-limit-login-tab-wrapper:after{
+	content: '';
+	display: table;
+	clear: both;
+}
+
+.loginpress-limit-login-tab-wrapper{
+	border-bottom: 1px solid #ccc;
+}
+.loginpress-limit-login-tab{
+	    float: left;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    margin-left: .5em;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 24px;
+    background: #e5e5e5;
+    color: #555;
+		text-decoration: none;
+}
+.loginpress-limit-login-tab:focus{
+	outline: none;
+	box-shadow: none;
+}
+.loginpress-limit-login-tab.loginpress-limit-login-active,
+.loginpress-limit-login-tab:hover{
+	border-bottom: 1px solid #f1f1f1;
+	background: #f1f1f1;
+	color: #000;
+	text-decoration: none;
+}
+
+#loginpress_limit_login_log_wrapper, #loginpress_limit_login_whitelist_wrapper, #loginpress_limit_login_blacklist_wrapper{
+	display: none;
+}
+
+.attempts-sniper{
+	padding: 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background: rgba(255,255,255, .8);
+  display: none;
+}
+.attempts-sniper img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+.loginpress_limit_login_log_message{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	background: rgba(255,255,255, .7);
+	color: #000;
+	font-weight: normal;
+	font-size: 24px;
+	display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.disable_xml_rpc_request{
+  border-top:1px solid #ccc;
+}
+
+.loginpress-settings .message.success{
+  color: #177c34;
+}
+.loginpress-settings .message.error{
+  color: #f35959;
+}
+
+/******* Attempt Details tab style *******/
+
+#loginpress_limit_login_log tbody tr{
+	text-align: center;
+}
+#loginpress_limit_login_log tbody td{
+	border-right: 1px solid #000;
+}
+ .loginpress-attempts-blacklist{
+	background-color: #000 !important;
+  color: #fff !important;
+  border: 1px solid #000;
+  cursor: pointer;
+	border-color: #3c3c3c #3c3c3c #3a3a3a !important;
+  box-shadow: 0 1px 0 #2d2d2d;
+	border-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.loginpress-attempts-whitelist{
+	background-color: #fff !important;
+  color: #000 !important;
+  border: 1px solid #fff;
+  cursor: pointer;
+	border-color: #f5f6f7 #fbfbfb #ececec !important;
+  box-shadow: 0 1px 0 #e9edef;
+	border-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.disable_xml_rpc_request{
+  border-top:1px solid #ccc;
+}
+.ip_add_remove .description{
+  display: inline-block;
+  padding-left:10px;
+}
+.ip_add_remove .regular-text{
+width:170px;
+}
+.add_white_list{
+  margin-right:5px !important;
+  
+}
+#loginpress_limit_login_log tbody tr td:first-child {
+    border-left: 1px solid #000;
+}
+/******* ! Attempt Details tab style *******/
+
+/******* Whitelist tab style *******/
+.loginpress-whitelist-search{
+	text-align: center;
+}
+#loginpress_limit_login_whitelist tbody tr{
+	text-align: center;
+}
+#loginpress_limit_login_whitelist tbody td{
+	border-right: 1px solid #000;
+}
+#loginpress_limit_login_whitelist tbody tr td:first-child {
+    border-left: 1px solid #000;
+}
+/******* ! Whitelist tab style *******/
+
+
+/******* Blacklist tab style *******/
+
+#loginpress_limit_login_blacklist tbody tr td:first-child {
+    border-left: 1px solid #000;
+}
+
+#loginpress_limit_login_blacklist tbody tr{
+	text-align: center;
+}
+#loginpress_limit_login_blacklist tbody td{
+	border-right: 1px solid #000;
+}
+/******* ! Blacklist tab style *******/

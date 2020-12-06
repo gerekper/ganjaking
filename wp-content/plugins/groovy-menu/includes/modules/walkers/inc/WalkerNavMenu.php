@@ -1676,7 +1676,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 	 * Fill font array.
 	 */
 	protected function gmFillFontArray() {
-		$this->gm_google_fonts = include GROOVY_MENU_DIR . 'includes/fonts-google.php';
+		$this->gm_google_fonts = include GROOVY_MENU_DIR . 'includes' . DIRECTORY_SEPARATOR . 'fonts-google.php';
 
 		if ( empty( $this->gm_google_fonts ) || ! is_array( $this->gm_google_fonts ) || empty( $this->gm_google_fonts[0]['items'] ) ) {
 			$this->gm_google_fonts = array();

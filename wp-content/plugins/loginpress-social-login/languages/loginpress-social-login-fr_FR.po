@@ -1,0 +1,215 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LoginPress - Social Login\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-17 11:03+0000\n"
+"PO-Revision-Date: 2019-03-17 11:16+0000\n"
+"Last-Translator: Jean SCHEIDER <jean.scheider@expertum.fr>\n"
+"Language-Team: Français\n"
+"Language: fr-FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.1; wp-5.1.1"
+
+#: loginpress-social-login.php:225
+#, php-format
+msgid "%1$s%3$sSettings%4$s %5$sHelp%4$s%2$s"
+msgstr "%1$s%3$sSettings%4$s %5$sHelp%4$s%2$s"
+
+#: classes/loginpress-utilities.php:211
+#, php-format
+msgid "%1$sERROR%2$s: Invalid `Client ID` or `Client Secret` combination?"
+msgstr "%1$sERROR%2$s: Invalid `Client ID` or `Client Secret` combination?"
+
+#: loginpress-social-login.php:165
+msgid "?lpsl_login_id=gplus_login"
+msgstr "?lpsl_login_id=gplus_login"
+
+#: loginpress-social-login.php:189
+msgid "?lpsl_login_id=linkedin_login"
+msgstr "?lpsl_login_id=linkedin_login"
+
+#: loginpress-social-login.php:614
+msgid "Click here to activate LoginPress Pro"
+msgstr "Cliquez ici pour activer LoginPress Pro"
+
+#: loginpress-social-login.php:152 loginpress-social-login.php:176
+msgid "Client ID"
+msgstr "Client ID"
+
+#: loginpress-social-login.php:158 loginpress-social-login.php:182
+msgid "Client Secret"
+msgstr "Client Secret"
+
+#: loginpress-social-login.php:105
+msgid "Enable Facebook Login"
+msgstr "Activer la connexion à Facebook"
+
+#: loginpress-social-login.php:147
+msgid "Enable Google Plus Login"
+msgstr "Activer la connexion à Google Plus"
+
+#: loginpress-social-login.php:171
+msgid "Enable LinkedIn Login"
+msgstr "Activer la connexion à Linkedlin"
+
+#: loginpress-social-login.php:194
+msgid "Enable Social Login on"
+msgstr "Activer la connexion sociale sur"
+
+#: loginpress-social-login.php:195
+msgid "Enable Social Login on Login and Register form"
+msgstr ""
+"Activer la connexion sociale sur le formulaire de connexion et d'inscription"
+
+#: loginpress-social-login.php:123
+msgid "Enable Twitter Login"
+msgstr "Activer la connexion à Twitter"
+
+#: loginpress-social-login.php:153 loginpress-social-login.php:177
+msgid "Enter Your Client ID."
+msgstr ""
+"21/5000\n"
+"Entrez votre identifiant client."
+
+#: loginpress-social-login.php:159 loginpress-social-login.php:183
+msgid "Enter Your Client Secret."
+msgstr "Entrez le secret de votre client."
+
+#: loginpress-social-login.php:111
+msgid "Enter your facebook App ID."
+msgstr "Entrez votre identifiant d'application facebook."
+
+#: loginpress-social-login.php:117
+msgid "Enter your facebook App Secret."
+msgstr "Entrez votre secret Facebook App."
+
+#: loginpress-social-login.php:135
+msgid "Enter Your Twitter Access Token Secret."
+msgstr "Entrez votre secret de jeton d'accès Twitter."
+
+#: loginpress-social-login.php:129
+msgid "Enter Your Twitter Access Token."
+msgstr ""
+"\n"
+"32/5000\n"
+"Entrez votre jeton d'accès Twitter."
+
+#: loginpress-social-login.php:110
+msgid "Facebook App ID"
+msgstr "Facebook App ID"
+
+#: loginpress-social-login.php:116
+msgid "Facebook App Secret"
+msgstr "Facebook App Secret"
+
+#: loginpress-social-login.php:104
+msgid "Facebook Login"
+msgstr "Identifiant Facebook"
+
+#: loginpress-social-login.php:146
+msgid "Google Plus Login"
+msgstr "Identifiant Google Plus"
+
+#. Author URI of the plugin
+msgid "https://www.WPBrigade.com/"
+msgstr "https://www.WPBrigade.com/"
+
+#. URI of the plugin
+msgid "https://www.WPBrigade.com/wordpress/plugins/loginpress/"
+msgstr "https://www.WPBrigade.com/wordpress/plugins/loginpress/"
+
+#: loginpress-social-login.php:170
+msgid "LinkedIn Login"
+msgstr "Identifiant LinkedIn"
+
+#: loginpress-social-login.php:404 loginpress-social-login.php:408
+msgid "Login with Facebook"
+msgstr "Se connecter avec Facebook"
+
+#: loginpress-social-login.php:392
+msgid "Login with Google"
+msgstr "Connectez-vous avec Google"
+
+#: loginpress-social-login.php:388
+msgid "Login with Google Plus"
+msgstr "Se connecter avec Google Plus"
+
+#: loginpress-social-login.php:438 loginpress-social-login.php:442
+msgid "Login with LinkedIn"
+msgstr "Se connecter avec LinkedIn"
+
+#: loginpress-social-login.php:420 loginpress-social-login.php:424
+msgid "Login with Twitter"
+msgstr "Se connecter avec Twitter"
+
+#. Name of the plugin
+msgid "LoginPress - Social Login"
+msgstr "LoginPress - Connexion sociale"
+
+#: loginpress-social-login.php:380
+msgid "or"
+msgstr "ou"
+
+#: loginpress-social-login.php:597
+msgid ""
+"Please Install LoginPress Pro to use \"LoginPress Social Login\" add-on."
+msgstr ""
+"Veuillez installer LoginPress Pro pour utiliser le module complémentaire "
+"\"LoginPress Social Login\"."
+
+#: loginpress-social-login.php:164 loginpress-social-login.php:188
+msgid "Redirect URI"
+msgstr "URL de redirection"
+
+#: classes/loginpress-social-check.php:28
+msgid ""
+"The Facebook SDK requires PHP version 5.4 or higher. Please notify about "
+"this error to site admin."
+msgstr ""
+"\n"
+"98/5000\n"
+"Le SDK de Facebook nécessite PHP version 5.4 ou supérieure. Veuillez "
+"notifier cette erreur à l'administrateur du site."
+
+#: loginpress-social-login.php:614
+msgid "The following required plugin is currently inactive &mdash; "
+msgstr "Le plug-in requis suivant est actuellement inactif & mdash;"
+
+#. Description of the plugin
+msgid ""
+"This is a premium add-on of LoginPress WordPress plugin by <a href=\"https:"
+"//wpbrigade.com/\">WPBrigade</a> which allows you to login using social meda "
+"accounts like Facebook, Twitter and Google/G+ etc"
+msgstr ""
+"Il s'agit d'un add-on premium du plugin LoginPress WordPress de <a "
+"href=\"https://wpbrigade.com/\"> WPBrigade </a>, qui vous permet de vous "
+"connecter à l'aide de comptes sociaux comme Facebook, Twitter et Google / G "
+"+, etc."
+
+#: loginpress-social-login.php:128
+msgid "Twitter Access Token"
+msgstr "Jeton d'accès Twitter"
+
+#: loginpress-social-login.php:134
+msgid "Twitter Access Token Secret"
+msgstr "Secret de jeton d'accès Twitter"
+
+#: loginpress-social-login.php:140
+msgid "Twitter Callback URL"
+msgstr "URL de rappel Twitter"
+
+#: loginpress-social-login.php:122
+msgid "Twitter Login"
+msgstr "Connexion Twitter"
+
+#: loginpress-social-login.php:472
+msgid "Vote!"
+msgstr "Vote!"
+
+#. Author of the plugin
+msgid "WPBrigade"
+msgstr "WPBrigade"

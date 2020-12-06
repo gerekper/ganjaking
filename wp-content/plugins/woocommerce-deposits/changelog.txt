@@ -1,5 +1,9 @@
 *** WooCommerce Deposits Changelog ***
 
+2020-11-26 - version 1.5.6
+* Fix - Don't show the "(includes|excludes tax)" message next to the Future Payments price when there are no taxes applied to the cart. PR#365
+* Tweak - PHP 8.0 and WC 4.4 compatibility. PR#362
+
 2020-10-14 - version 1.5.5
 * Fix   - Uncaught error when viewing order with a payment gateway based fee.
 * Tweak - WC 4.5 compatibility.

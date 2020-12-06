@@ -39,7 +39,7 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 			if ( '' != $score_points ) {
 
 				// The label
-				echo '<span class="mb-score-label" style="color:' . $meta['color'] . '">'.WC_AF_Score_Helper::invert_score( $score_points ).' % '. $meta['label'] . '</span>' . PHP_EOL;
+				echo '<span class="mb-score-label" style="color:' . $meta['color'] . '">' . WC_AF_Score_Helper::invert_score( $score_points ) . ' % ' . $meta['label'] . '</span>' . PHP_EOL;
 
 				// Circle points
 				$circle_points = WC_AF_Score_Helper::invert_score( $score_points );

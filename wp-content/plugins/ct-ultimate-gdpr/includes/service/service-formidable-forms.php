@@ -218,7 +218,7 @@ class CT_Ultimate_GDPR_Service_Formidable_Forms extends CT_Ultimate_GDPR_Service
 	public function add_form_errors( $errors, $form ) {
 
 		$inject   = $this->get_admin_controller()->get_option_value( "services_{$this->get_id()}_consent_field", false, $this->front_controller->find_controller('services')->get_id() );
-		$field_id = FRMField::get_id_by_key( __CLASS__.get_locale() );
+		$field_id = FRMField::get_id_by_key( __CLASS__.get_locale().ct_ultimate_gdpr_get_plugin_version());
 		if ( ! $field_id || ! $inject ) {
 			return $errors;
 		}
@@ -241,7 +241,7 @@ class CT_Ultimate_GDPR_Service_Formidable_Forms extends CT_Ultimate_GDPR_Service
 	 */
 	public function add_form_fields( $original_fields, $form_id, $error ) {
 
-		$field_key      = __CLASS__ . get_locale();
+		$field_key      = __CLASS__ . get_locale().ct_ultimate_gdpr_get_plugin_version();
 		$fields         = $original_fields;
 		$field_id       = FRMField::get_id_by_key( $field_key );
 		$position_first = $this->get_admin_controller()->get_option_value( "services_{$this->get_id()}_consent_field_position_first", false, $this->front_controller->find_controller('services')->get_id() );

@@ -2973,7 +2973,7 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 	 * Migrates a Layer to version 6.0.0
 	 * @since: 6.0.0
 	 **/
-	public function migrate_layer_to_6_0($layer, $blank = false, $slide, $slider){
+	public function migrate_layer_to_6_0($layer, $blank, $slide, $slider){ //blank default should be false!
 		$color_picker		= new RSColorpicker();
 		
 		$video_data			= $this->get_val($layer, 'video_data', array());

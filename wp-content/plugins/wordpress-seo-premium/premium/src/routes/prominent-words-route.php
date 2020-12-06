@@ -6,13 +6,13 @@ use Exception;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
-use Yoast\WP\SEO\Actions\Indexation\Indexation_Action_Interface;
+use Yoast\WP\SEO\Actions\Indexing\Indexation_Action_Interface;
 use Yoast\WP\SEO\Actions\Prominent_Words\Complete_Action;
 use Yoast\WP\SEO\Actions\Prominent_Words\Content_Action;
 use Yoast\WP\SEO\Actions\Prominent_Words\Save_Action;
 use Yoast\WP\SEO\Conditionals\No_Conditionals;
-use Yoast\WP\SEO\Helpers\Options_Helper;
-use Yoast\WP\SEO\Integrations\Admin\Indexing_Notification_Integration;
+use Yoast\WP\SEO\Config\Indexing_Reasons;
+use Yoast\WP\SEO\Helpers\Indexing_Helper;
 use Yoast\WP\SEO\Main;
 
 /**
@@ -81,7 +81,7 @@ class Prominent_Words_Route extends Abstract_Indexation_Route {
 	protected $content_action;
 
 	/**
-	 * The action to complete the prominent words indexation.
+	 * The action to complete the prominent words indexing.
 	 *
 	 * @var Complete_Action
 	 */
@@ -95,11 +95,11 @@ class Prominent_Words_Route extends Abstract_Indexation_Route {
 	protected $save_action;
 
 	/**
-	 * The options helper.
+	 * The indexing helper.
 	 *
-	 * @var Options_Helper
+	 * @var Indexing_Helper
 	 */
-	protected $options_helper;
+	protected $indexing_helper;
 
 	/**
 	 * Prominent_Words_Route constructor.
@@ -107,18 +107,18 @@ class Prominent_Words_Route extends Abstract_Indexation_Route {
 	 * @param Content_Action  $content_action  The content action.
 	 * @param Save_Action     $save_action     The save action.
 	 * @param Complete_Action $complete_action The complete action.
-	 * @param Options_Helper  $options_helper  The options helper.
+	 * @param Indexing_Helper $indexing_helper The indexing helper.
 	 */
 	public function __construct(
 		Content_Action $content_action,
 		Save_Action $save_action,
 		Complete_Action $complete_action,
-		Options_Helper $options_helper
+		Indexing_Helper $indexing_helper
 	) {
 		$this->content_action  = $content_action;
 		$this->save_action     = $save_action;
 		$this->complete_action = $complete_action;
-		$this->options_helper  = $options_helper;
+		$this->indexing_helper = $indexing_helper;
 	}
 
 	/**
@@ -185,12 +185,13 @@ class Prominent_Words_Route extends Abstract_Indexation_Route {
 	}
 
 	/**
-	 * Marks the indexation of prominent words as completed.
+	 * Marks the indexing of prominent words as completed.
 	 *
 	 * @return WP_REST_Response Response with empty data.
 	 */
 	public function run_complete_action() {
 		$this->complete_action->complete();
+
 		return $this->respond_with( [], false );
 	}
 
@@ -226,10 +227,10 @@ class Prominent_Words_Route extends Abstract_Indexation_Route {
 	}
 
 	/**
-	 * Runs an indexation action and returns the response.
+	 * Runs an indexing action and returns the response.
 	 *
-	 * @param Indexation_Action_Interface $indexation_action The indexation action.
-	 * @param string                      $url               The url of the indexation route.
+	 * @param Indexation_Action_Interface $indexation_action The indexing action.
+	 * @param string                      $url               The url of the indexing route.
 	 *
 	 * @return WP_REST_Response|WP_Error The response, or an error when running the indexing action failed.
 	 */
@@ -237,7 +238,7 @@ class Prominent_Words_Route extends Abstract_Indexation_Route {
 		try {
 			return parent::run_indexation_action( $indexation_action, $url );
 		} catch ( Exception $exception ) {
-			$this->options_helper->set( 'indexing_reason', Indexing_Notification_Integration::REASON_INDEXING_FAILED );
+			$this->indexing_helper->set_reason( Indexing_Reasons::REASON_INDEXING_FAILED );
 
 			return new WP_Error( 'wpseo_error_indexing', $exception->getMessage() );
 		}

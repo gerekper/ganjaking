@@ -122,8 +122,12 @@ if ( !class_exists('Puc_v4p9_UpgraderStatus', false) ):
 		 */
 		private function identifyPluginByHeaders($searchHeaders) {
 			if ( !function_exists('get_plugins') ){
-				/** @noinspection PhpIncludeInspection */
-				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+				// DiS edit ---.
+				$file_path = str_replace( array(
+					'\\',
+					'/'
+				), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/plugin.php' );
+				require_once $file_path;
 			}
 
 			$installedPlugins = get_plugins();

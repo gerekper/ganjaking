@@ -1,5 +1,12 @@
 *** WooCommerce Cost of Goods Changelog ***
 
+2020.11.25 - version 2.9.10
+ * Misc - Add PHP 8 support
+
+2020.10.30 - version 2.9.9
+ * Fix - Format the variation product cost properly with the chosen decimal separator in the store settings
+ * Fix - Fix the item total cost calculation when measurement product has calculated inventory enabled
+
 2020.06.08 - version 2.9.8
  * Fix - Prevent the same job from running both as a batch and as a background job
  * Fix - Fix Apply Costs to Previous Orders job progress message

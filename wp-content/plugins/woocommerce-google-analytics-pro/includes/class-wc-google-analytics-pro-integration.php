@@ -3301,8 +3301,10 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 					$ga_properties = [];
 				}
 
-				// sort properties in the United Kingdom... just kidding, sort by keys, by comparing them naturally
-				uksort( $ga_properties, 'strnatcasecmp' );
+				if ( is_array( $ga_properties ) ) {
+					// sort properties in the United Kingdom... just kidding, sort by keys, by comparing them naturally
+					uksort( $ga_properties, 'strnatcasecmp' );
+				}
 
 				// set a 5 minute transient
 				set_transient( 'wc_google_analytics_pro_properties', $ga_properties, 5 * MINUTE_IN_SECONDS );

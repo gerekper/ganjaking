@@ -1,5 +1,12 @@
 *** WooCommerce Print Invoices/Packing Lists Changelog ***
 
+2020.11.12 - version 3.9.2
+ * Fix - Ensure that the weight of products handled by WooCommerce Measurement Price Calculator are correctly listed in packing lists
+ * Dev - Ensure that instances of `wc_pip_order_item_weight` filter have consistent arguments passed
+
+2020.09.30 - version 3.9.1
+ * Misc - Remove the SkyVerge help menu item as part of the plugin assets
+
 2020.08.24 - version 3.9.0
  * Misc - Add SkyVerge help menu for support on WooCommerce.com connected sites
 

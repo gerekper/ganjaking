@@ -1,6 +1,18 @@
 *** WooCommerce Order Delivery Changelog ***
 
-2020.10.07 - version 1.8.1
+2020.11.26 - version 1.8.4
+* Tweak - Improved PHP 8 support.
+* Tweak - Tested compatibility with WC 4.8.
+* Tweak - Tested compatibility with WP 5.6.
+* Fix - Fixed "What's new" link on the plugin list page.
+
+2020.11.05 - version 1.8.3
+* Fix - Wrong time frame assigned on checkout.
+
+2020.11.03 - version 1.8.2
+* Fix - Disabled delivery dates were enabled in the checkout calendar.
+
+2020.10.08 - version 1.8.1
 * Fix - Compatibility with WooCommerce Subscriptions.
 
 2020.10.07 - version 1.8.0

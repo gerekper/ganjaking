@@ -28,7 +28,8 @@ class WC_Help_Scout_Shortcodes {
 	 */
 	public function form( $atts ) {
 		wp_enqueue_script( 'help-scout-form' );
-
+		static $count = 0;
+		$count++;
 		$current_user_id = get_current_user_id();
 		$orders_list     = array();
 
@@ -53,12 +54,13 @@ class WC_Help_Scout_Shortcodes {
 				$order_date = version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
 				$date = sprintf( _x( '%1$s at %2$s', 'date and time', 'woocommerce-help-scout' ), date_i18n( wc_date_format(), strtotime( $order_date ) ), date_i18n( wc_time_format(), strtotime( $order_date ) ) );
 
-				$orders_list[ $order->id ] = sprintf( __( 'Order #%s - %s', 'woocommerce-help-scout' ), $order->get_order_number(), $date );
+				$orders_list[ $order->get_id() ] = sprintf( __( 'Order #%s - %s', 'woocommerce-help-scout' ), $order->get_order_number(), $date );
 			}
 		}
 
 		$vars = array(
 			'orders_list' => $orders_list,
+			'counter' => $count
 		);
 
 		$default_path = WC_Help_Scout::get_instance()->plugin_path() . '/templates/';

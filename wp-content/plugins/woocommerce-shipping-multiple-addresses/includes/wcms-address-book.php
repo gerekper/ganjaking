@@ -496,7 +496,7 @@ class WC_MS_Address_Book {
             <script type="text/javascript">
                 jQuery(document).ready(function() {
                     jQuery( '.address-use' ).click(function() {
-                        var address = jQuery.parseJSON(jQuery(this).parents( 'p' ).prev( 'textarea' ).val());
+                        var address = JSON.parse(jQuery(this).parents( 'p' ).prev( 'textarea' ).val());
                         jQuery(this).prop( 'disabled', true);
 
                         setAddress(address, '<?php echo $_GET['sig']; ?>' );

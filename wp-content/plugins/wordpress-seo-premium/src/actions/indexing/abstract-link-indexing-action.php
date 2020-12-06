@@ -1,6 +1,6 @@
 <?php
 
-namespace Yoast\WP\SEO\Actions\Indexation;
+namespace Yoast\WP\SEO\Actions\Indexing;
 
 use wpdb;
 use Yoast\WP\SEO\Builders\Indexable_Link_Builder;
@@ -8,7 +8,7 @@ use Yoast\WP\SEO\Models\SEO_Links;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
 /**
- * Reindexation action for link indexables.
+ * Reindexing action for link indexables.
  */
 abstract class Abstract_Link_Indexing_Action implements Indexation_Action_Interface {
 

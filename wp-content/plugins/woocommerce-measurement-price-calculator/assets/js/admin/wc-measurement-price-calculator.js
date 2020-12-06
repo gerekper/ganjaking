@@ -4,13 +4,48 @@ jQuery(document).ready(function($) {
 
 	/* global wc_price_calculator_admin_params */
 
-	// STOCK OPTIONS for our pricing inventory fields, hide/show based on the overall product inventory management
-	$('input#_manage_stock').change(function(){
-		if ($(this).is(':checked')) { $('p.stock_fields').show(); }
-		else { $('p.stock_fields').hide(); }
+	let variations_loaded = false;
 
-		$('._measurement_pricing_calculator_enabled').trigger('change');
-	}).change();
+	/**
+	 * Toggles Stock fields visibility based if at lease one variation has stock management enabled
+	 *
+	 * @since 3.18.2
+	 */
+	function maybeToggleVariableProductStockFieldsVisibility() {
+
+		if ( variations_loaded ) {
+
+			let number_of_sock_managed_variations = $product_options.find( '.woocommerce_variations .checkbox.variable_manage_stock:checked' ).length;
+
+			toggleStockFieldsVisibility( number_of_sock_managed_variations >= 1 );
+
+			return;
+		}
+
+		if ( wc_price_calculator_admin_params.is_variable_product_with_stock_managed ) {
+
+			toggleStockFieldsVisibility( true );
+		}
+	}
+
+
+	/**
+	 * Toggles Stock fields visibility based on the given state
+	 *
+	 * @since 3.18.2
+	 *
+	 * @param {Boolean} show
+	 */
+	function toggleStockFieldsVisibility( show ) {
+
+		let $stock_fields = $( 'p.stock_fields' );
+
+		if ( show ) {
+			$stock_fields.show();
+		} else {
+			$stock_fields.hide();
+		}
+	}
 
 
 	/**
@@ -232,6 +267,22 @@ jQuery(document).ready(function($) {
 	}
 
 
+	// STOCK OPTIONS for our pricing inventory fields, hide/show based on the overall product inventory management
+	$( 'input#_manage_stock' ).change( function () {
+
+		toggleStockFieldsVisibility( $( this ).is( ':checked' ) );
+
+		$( '._measurement_pricing_calculator_enabled' ).trigger( 'change' );
+	} ).change();
+
+	const $product_options = $( '#variable_product_options' );
+
+	// Enable STOCK OPTIONS if at least one variation has stock management enabled
+	$product_options.on( 'change', '.woocommerce_variations .checkbox.variable_manage_stock', maybeToggleVariableProductStockFieldsVisibility );
+
+	// Make sure to display stock fields on page load if at lease one variation has stock management enabled
+	maybeToggleVariableProductStockFieldsVisibility();
+
 	// "Show Product Price Per Unit" checkbox handler: Show/hide the dependant
 	// measurement pricing fields (label and unit), and "Set Product Pricing Per
 	// Unit" (pricing calculator)
@@ -260,6 +311,8 @@ jQuery(document).ready(function($) {
 	// unit dependent field: Inventory and Weight
 	$('._measurement_pricing_calculator_enabled').change(
 		function() {
+			maybeToggleVariableProductStockFieldsVisibility();
+
 			// if the current measurement pricing toggle is associated with the currently selected measurement pricing calculator type (Dimensions, Area, Area (LxW), etc)
 			//  and the parent field 'Show Product Price Per Unit' is also enabled
 			if ( '_measurement_' + $('#_measurement_price_calculator').val() + '_pricing_calculator_enabled' === $( this ).attr( 'id' ) ) {
@@ -270,13 +323,13 @@ jQuery(document).ready(function($) {
 
 					$(this).closest('div.measurement_fields').find('._measurement_pricing_calculator_fields').each(function(index, el) {
 
-						var price_calcualtor_field = $(el);
-						if ( price_calcualtor_field.hasClass( 'stock_fields' ) ) {
+						var price_calculator_field = $(el);
+						if ( price_calculator_field.hasClass( 'stock_fields' ) ) {
 							if ( $( 'input#_manage_stock' ).is( ':checked' ) ) {
-								price_calcualtor_field.show();
+								price_calculator_field.show();
 							}
 						} else {
-							price_calcualtor_field.show();
+							price_calculator_field.show();
 						}
 					});
 
@@ -362,6 +415,7 @@ jQuery(document).ready(function($) {
 	// this ensures the variation price per unit label is set when variations are loaded via AJAX
 	$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', function() {
 		$( '#_measurement_' + $('#_measurement_price_calculator').val() + '_pricing_calculator_enabled' ).change();
+		variations_loaded = true;
 	} );
 
 

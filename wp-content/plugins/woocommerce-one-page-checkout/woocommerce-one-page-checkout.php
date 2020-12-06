@@ -7,7 +7,7 @@
  * Text Domain: wcopc
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 1.7.9
+ * Version: 1.7.10
  * Tested up to: 5.5
  * WC requires at least: 2.5
  * WC tested up to: 4.5
@@ -56,7 +56,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.7.9' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.7.10' ); // WRCS: DEFINED_VERSION.
 
 add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 
@@ -120,7 +120,7 @@ function is_wcopc_checkout( $post_id = null ) {
 
 	}
 
-	return apply_filters( 'is_wcopc_checkout', $is_opc );
+	return apply_filters( 'is_wcopc_checkout', $is_opc, $post_id );
 }
 
 /**
@@ -257,7 +257,7 @@ class PP_One_Page_Checkout {
 		// Reset shortcode page id when in product loop. Restore when exiting product loop.
 		add_action( 'woocommerce_before_shop_loop', array( __CLASS__, 'clear_shortcode_page_id_for_product_loop' ), 10, 2 );
 		add_action( 'woocommerce_after_shop_loop', array( __CLASS__, 'restore_shortcode_page_id_after_product_loop' ), 10, 2 );
-		
+
 		// Allow empty cart when we're doing a request from a OPC page.
 		add_action( 'wp_ajax_woocommerce_update_order_review', array( __CLASS__, 'maybe_allow_expired_session' ), 9 );
 		add_action( 'wp_ajax_nopriv_woocommerce_update_order_review', array( __CLASS__, 'maybe_allow_expired_session' ), 9 );
@@ -864,7 +864,7 @@ class PP_One_Page_Checkout {
 			}
 		} else {
 			// If the original product attributes ($product_attributes) are provided we can do some extra work compare values with the delimted list of custom product attributes to get the original formatting of that attribute otherwise just use the default ucwords version
-			if ( ! $product_attributes ) {
+			if ( ! is_array( $product_attributes ) || empty( $product_attributes ) ) {
 				$attribute_value = ucwords( str_replace( '-', ' ', $attribute_value ) );
 			} else {
 

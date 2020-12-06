@@ -6,11 +6,11 @@ defined( 'ABSPATH' ) || exit;
 /**
  * WooCommerce API Manager Query Class
  *
- * @package     WooCommerce API Manager/query
- * @author      Todd Lahman LLC
- * @copyright   Copyright (c) Todd Lahman LLC
  * @since       1.4.4
  *
+ * @author      Todd Lahman LLC
+ * @copyright   Copyright (c) Todd Lahman LLC
+ * @package     WooCommerce API Manager/query
  */
 class WC_API_Manager_Query extends WC_Query {
 
@@ -109,10 +109,12 @@ class WC_API_Manager_Query extends WC_Query {
 	 * @since 1.4.4
 	 *
 	 * @param string $endpoint
+	 * @param string $action Since WC 4.6.0 Added $action parameter.
+	 *
 	 *
 	 * @return string
 	 */
-	public function get_endpoint_title( $endpoint ) {
+	public function get_endpoint_title( $endpoint, $action = '' ) {
 		switch ( $endpoint ) {
 			case $this->api_keys_endpoint :
 				$title = esc_html__( 'API Keys', 'woocommerce-api-manager' );

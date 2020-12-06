@@ -4,10 +4,10 @@
  * Frontend Ajax
  */
 
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly.
 }
-if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
+if ( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
 
     /**
      * FP_Rewardsystem_Frontend_Ajax Class
@@ -47,10 +47,10 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
 
         public static function insert_points_for_social_actions( $PostId , $UserID , $Action , $State , $Type ) {
             $new_obj = new RewardPointsOrder( 0 , 'no' ) ;
-            if( $Action == 'fblike' ) {
-                if( $Type == 'product' ) {
+            if ( $Action == 'fblike' ) {
+                if ( $Type == 'product' ) {
                     $AwardPoints = allow_points_for_social_action( $UserID , 'fb_like_count_per_day' , get_option( 'rs_enable_fblike_restriction' ) , get_option( 'rs_no_of_fblike_count' ) ) ;
-                    if( ! $AwardPoints )
+                    if ( ! $AwardPoints )
                         return ;
 
                     $args   = array(
@@ -67,10 +67,10 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 }
                 $RevisedSlug = 'RVPFRPFL' ;
                 update_product_count_for_social_action( $UserID , 'fb_like_count_per_day' , $PostId ) ;
-            } elseif( $Action == 'fbshare' ) {
-                if( $Type == 'product' ) {
+            } elseif ( $Action == 'fbshare' ) {
+                if ( $Type == 'product' ) {
                     $AwardPoints = allow_points_for_social_action( $UserID , 'fb_share_count_per_day' , get_option( 'rs_enable_fbshare_restriction' ) , get_option( 'rs_no_of_fbshare_count' ) ) ;
-                    if( ! $AwardPoints )
+                    if ( ! $AwardPoints )
                         return ;
 
                     $args   = array(
@@ -87,10 +87,10 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 }
                 $RevisedSlug = '' ;
                 update_product_count_for_social_action( $UserID , 'fb_share_count_per_day' , $PostId ) ;
-            } elseif( $Action == 'tweet' ) {
-                if( $Type == 'product' ) {
+            } elseif ( $Action == 'tweet' ) {
+                if ( $Type == 'product' ) {
                     $AwardPoints = allow_points_for_social_action( $UserID , 'twitter_tweet_count_per_day' , get_option( 'rs_enable_tweet_restriction' ) , get_option( 'rs_no_of_tweet_count' ) ) ;
-                    if( ! $AwardPoints )
+                    if ( ! $AwardPoints )
                         return ;
 
                     $args   = array(
@@ -107,10 +107,10 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 }
                 $RevisedSlug = '' ;
                 update_product_count_for_social_action( $UserID , 'twitter_tweet_count_per_day' , $PostId ) ;
-            } elseif( $Action == 'twitter_follow' ) {
-                if( $Type == 'product' ) {
+            } elseif ( $Action == 'twitter_follow' ) {
+                if ( $Type == 'product' ) {
                     $AwardPoints = allow_points_for_social_action( $UserID , 'twitter_follow_count_per_day' , get_option( 'rs_enable_twitter_follow_restriction' ) , get_option( 'rs_no_of_twitter_follow_count' ) ) ;
-                    if( ! $AwardPoints )
+                    if ( ! $AwardPoints )
                         return ;
 
                     $args   = array(
@@ -127,10 +127,10 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 }
                 $RevisedSlug = '' ;
                 update_product_count_for_social_action( $UserID , 'twitter_follow_count_per_day' , $PostId ) ;
-            } elseif( $Action == 'instagram_follow' ) {
-                if( $Type == 'product' ) {
+            } elseif ( $Action == 'instagram_follow' ) {
+                if ( $Type == 'product' ) {
                     $AwardPoints = allow_points_for_social_action( $UserID , 'instagram_count_per_day' , get_option( 'rs_enable_instagram_restriction' ) , get_option( 'rs_no_of_instagram_count' ) ) ;
-                    if( ! $AwardPoints )
+                    if ( ! $AwardPoints )
                         return ;
 
                     $args   = array(
@@ -147,10 +147,10 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 }
                 $RevisedSlug = '' ;
                 update_product_count_for_social_action( $UserID , 'instagram_count_per_day' , $PostId ) ;
-            } elseif( $Action == 'vk_like' ) {
-                if( $Type == 'product' ) {
+            } elseif ( $Action == 'vk_like' ) {
+                if ( $Type == 'product' ) {
                     $AwardPoints = allow_points_for_social_action( $UserID , 'vk_like_count_per_day' , get_option( 'rs_enable_vk_restriction' ) , get_option( 'rs_no_of_vk_count' ) ) ;
-                    if( ! $AwardPoints )
+                    if ( ! $AwardPoints )
                         return ;
 
                     $args   = array(
@@ -167,10 +167,10 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 }
                 $RevisedSlug = 'RVPFRPVL' ;
                 update_product_count_for_social_action( $UserID , 'vk_like_count_per_day' , $PostId ) ;
-            } elseif( $Action == 'gplus_share' ) {
-                if( $Type == 'product' ) {
+            } elseif ( $Action == 'gplus_share' ) {
+                if ( $Type == 'product' ) {
                     $AwardPoints = allow_points_for_social_action( $UserID , 'gplus_share_count_per_day' , get_option( 'rs_enable_gplus_restriction' ) , get_option( 'rs_no_of_gplus_count' ) ) ;
-                    if( ! $AwardPoints )
+                    if ( ! $AwardPoints )
                         return ;
 
                     $args   = array(
@@ -187,10 +187,10 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 }
                 $RevisedSlug = 'RVPFRPGPOS' ;
                 update_product_count_for_social_action( $UserID , 'gplus_share_count_per_day' , $PostId ) ;
-            } elseif( $Action == 'ok_share' ) {
-                if( $Type == 'product' ) {
+            } elseif ( $Action == 'ok_share' ) {
+                if ( $Type == 'product' ) {
                     $AwardPoints = allow_points_for_social_action( $UserID , 'ok_follow_count_per_day' , get_option( 'rs_enable_ok_restriction' ) , get_option( 'rs_no_of_ok_count' ) ) ;
-                    if( ! $AwardPoints )
+                    if ( ! $AwardPoints )
                         return ;
 
                     $args   = array(
@@ -209,8 +209,8 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 update_product_count_for_social_action( $UserID , 'ok_follow_count_per_day' , $PostId ) ;
             }
 
-            if( $State == 'on' ) {
-                if( get_option( 'rs_enable_disable_max_earning_points_for_user' ) == 'yes' ) {
+            if ( $State == 'on' ) {
+                if ( get_option( 'rs_enable_disable_max_earning_points_for_user' ) == 'yes' ) {
                     $new_obj->check_point_restriction( $Points , 0 , $Slug , $UserID , '' , '' , $PostId , 0 , '' ) ;
                 } else {
                     $valuestoinsert = array( 'pointstoinsert' => $Points , 'event_slug' => $Slug , 'user_id' => $UserID , 'product_id' => $PostId , 'totalearnedpoints' => $Points ) ;
@@ -227,27 +227,27 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function award_points_for_fblike() {
             check_ajax_referer( 'fb-like' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 $Content     = '' ;
                 $UserID      = get_current_user_id() ;
                 $BanningType = check_banning_type( $UserID ) ;
-                if( $BanningType != 'earningonly' && $BanningType != 'both' ) {
+                if ( $BanningType != 'earningonly' && $BanningType != 'both' ) {
                     $PostId         = $_POST[ 'postid' ] ;
                     $State          = $_POST[ 'state' ] ;
                     $LikedPostIds[] = $PostId ;
                     $Type           = $_POST[ 'type' ] ;
-                    if( $State == 'on' ) {
+                    if ( $State == 'on' ) {
                         $MetaKey = ($Type == 'postorpage') ? '_rsfacebooklikes_post' : '_rsfacebooklikes' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     } else {
                         $MetaKey = ($Type == 'postorpage') ? '_rsfacebookunlikes_post' : '_rsfacebookunlikes' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     }
-                    if( ! empty( $OldData ) ) {
-                        if( ! in_array( $PostId , $OldData ) ) {
+                    if ( ! empty( $OldData ) ) {
+                        if ( ! in_array( $PostId , $OldData ) ) {
                             $MergedData = array_merge( ( array ) $OldData , $LikedPostIds ) ;
                             update_user_meta( $UserID , $MetaKey , $MergedData ) ;
                             self::insert_points_for_social_actions( $PostId , $UserID , 'fblike' , $State , $Type ) ;
@@ -274,7 +274,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     'unsuccess_msg' => get_option( 'rs_unsucccess_message_for_facebook_unlike' ) ,
                     'restrictmsg'   => get_option( 'rs_restriction_message_for_fblike' ) ) ;
                 wp_send_json_success( $data ) ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -284,24 +284,24 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function award_points_for_fbshare() {
             check_ajax_referer( 'fb-share' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 $Content     = '' ;
                 $UserID      = get_current_user_id() ;
                 $BanningType = check_banning_type( $UserID ) ;
-                if( $BanningType != 'earningonly' && $BanningType != 'both' ) {
+                if ( $BanningType != 'earningonly' && $BanningType != 'both' ) {
                     $PostId         = $_POST[ 'postid' ] ;
                     $State          = $_POST[ 'state' ] ;
                     $LikedPostIds[] = $PostId ;
                     $Type           = $_POST[ 'type' ] ;
-                    if( $State == 'on' ) {
+                    if ( $State == 'on' ) {
                         $MetaKey = ($Type == 'postorpage') ? '_rsfacebookshare_post' : '_rsfacebookshare' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     }
-                    if( ! empty( $OldData ) ) {
-                        if( ! in_array( $PostId , $OldData ) ) {
+                    if ( ! empty( $OldData ) ) {
+                        if ( ! in_array( $PostId , $OldData ) ) {
                             $MergedData = array_merge( ( array ) $OldData , $LikedPostIds ) ;
                             update_user_meta( $UserID , $MetaKey , $MergedData ) ;
                             self::insert_points_for_social_actions( $PostId , $UserID , 'fbshare' , $State , $Type ) ;
@@ -328,7 +328,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     'unsuccess_msg' => get_option( 'rs_unsucccess_message_for_facebook_share' ) ,
                     'restrictmsg'   => get_option( 'rs_restriction_message_for_fbshare' ) ) ;
                 wp_send_json_success( $data ) ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -338,24 +338,24 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function award_points_for_tweet() {
             check_ajax_referer( 'twitter-tweet' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 $Content     = '' ;
                 $UserID      = get_current_user_id() ;
                 $BanningType = check_banning_type( $UserID ) ;
-                if( $BanningType != 'earningonly' && $BanningType != 'both' ) {
+                if ( $BanningType != 'earningonly' && $BanningType != 'both' ) {
                     $PostId         = $_POST[ 'postid' ] ;
                     $State          = $_POST[ 'state' ] ;
                     $LikedPostIds[] = $PostId ;
                     $Type           = $_POST[ 'type' ] ;
-                    if( $State == 'on' ) {
+                    if ( $State == 'on' ) {
                         $MetaKey = ($Type == 'postorpage') ? '_rstwittertweet_post' : '_rstwittertweet' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     }
-                    if( ! empty( $OldData ) ) {
-                        if( ! in_array( $PostId , $OldData ) ) {
+                    if ( ! empty( $OldData ) ) {
+                        if ( ! in_array( $PostId , $OldData ) ) {
                             $MergedData = array_merge( ( array ) $OldData , $LikedPostIds ) ;
                             update_user_meta( $UserID , $MetaKey , $MergedData ) ;
                             self::insert_points_for_social_actions( $PostId , $UserID , 'tweet' , $State , $Type ) ;
@@ -382,7 +382,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     'unsuccess_msg' => get_option( 'rs_unsucccess_message_for_twitter_unshare' ) ,
                     'restrictmsg'   => get_option( 'rs_restriction_message_for_tweet' ) ) ;
                 wp_send_json_success( $data ) ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -392,24 +392,24 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function award_points_for_twitter_follow() {
             check_ajax_referer( 'twitter-follow' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 $Content     = '' ;
                 $UserID      = get_current_user_id() ;
                 $BanningType = check_banning_type( $UserID ) ;
-                if( $BanningType != 'earningonly' && $BanningType != 'both' ) {
+                if ( $BanningType != 'earningonly' && $BanningType != 'both' ) {
                     $PostId         = $_POST[ 'postid' ] ;
                     $State          = $_POST[ 'state' ] ;
                     $LikedPostIds[] = $PostId ;
                     $Type           = $_POST[ 'type' ] ;
-                    if( $State == 'on' ) {
+                    if ( $State == 'on' ) {
                         $MetaKey = ($Type == 'postorpage') ? '_rstwitterfollow_post' : '_rstwitterfollow' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     }
-                    if( ! empty( $OldData ) ) {
-                        if( ! in_array( $PostId , $OldData ) ) {
+                    if ( ! empty( $OldData ) ) {
+                        if ( ! in_array( $PostId , $OldData ) ) {
                             $MergedData = array_merge( ( array ) $OldData , $LikedPostIds ) ;
                             update_user_meta( $UserID , $MetaKey , $MergedData ) ;
                             self::insert_points_for_social_actions( $PostId , $UserID , 'twitter_follow' , $State , $Type ) ;
@@ -436,7 +436,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     'unsuccess_msg' => get_option( 'rs_unsucccess_message_for_twitter_unfollow' ) ,
                     'restrictmsg'   => get_option( 'rs_restriction_message_for_twitter_follow' ) ) ;
                 wp_send_json_success( $data ) ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -446,24 +446,24 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function award_points_for_instagram_follow() {
             check_ajax_referer( 'instagram-follow' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 $Content     = '' ;
                 $UserID      = get_current_user_id() ;
                 $BanningType = check_banning_type( $UserID ) ;
-                if( $BanningType != 'earningonly' && $BanningType != 'both' ) {
+                if ( $BanningType != 'earningonly' && $BanningType != 'both' ) {
                     $PostId         = $_POST[ 'postid' ] ;
                     $State          = $_POST[ 'state' ] ;
                     $LikedPostIds[] = $PostId ;
                     $Type           = $_POST[ 'type' ] ;
-                    if( $State == 'on' ) {
+                    if ( $State == 'on' ) {
                         $MetaKey = ($Type == 'postorpage') ? '_rsinstagram_post' : '_rsinstagram' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     }
-                    if( ! empty( $OldData ) ) {
-                        if( ! in_array( $PostId , $OldData ) ) {
+                    if ( ! empty( $OldData ) ) {
+                        if ( ! in_array( $PostId , $OldData ) ) {
                             $MergedData = array_merge( ( array ) $OldData , $LikedPostIds ) ;
                             update_user_meta( $UserID , $MetaKey , $MergedData ) ;
                             self::insert_points_for_social_actions( $PostId , $UserID , 'instagram_follow' , $State , $Type ) ;
@@ -490,7 +490,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     'unsuccess_msg' => get_option( 'rs_unsucccess_message_for_instagram' ) ,
                     'restrictmsg'   => get_option( 'rs_restriction_message_for_instagram' ) ) ;
                 wp_send_json_success( $data ) ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -500,27 +500,27 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function award_points_for_vk_like() {
             check_ajax_referer( 'vk-like' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 $Content     = '' ;
                 $UserID      = get_current_user_id() ;
                 $BanningType = check_banning_type( $UserID ) ;
-                if( $BanningType != 'earningonly' && $BanningType != 'both' ) {
+                if ( $BanningType != 'earningonly' && $BanningType != 'both' ) {
                     $PostId         = $_POST[ 'postid' ] ;
                     $State          = $_POST[ 'state' ] ;
                     $LikedPostIds[] = $PostId ;
                     $Type           = $_POST[ 'type' ] ;
-                    if( $State == 'on' ) {
+                    if ( $State == 'on' ) {
                         $MetaKey = ($Type == 'postorpage') ? '_rsvklike_post' : '_rsvklike' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     } else {
                         $MetaKey = ($Type == 'postorpage') ? '_rsvkunlikes_post' : '_rsvkunlikes' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     }
-                    if( ! empty( $OldData ) ) {
-                        if( ! in_array( $PostId , $OldData ) ) {
+                    if ( ! empty( $OldData ) ) {
+                        if ( ! in_array( $PostId , $OldData ) ) {
                             $MergedData = array_merge( ( array ) $OldData , $LikedPostIds ) ;
                             update_user_meta( $UserID , $MetaKey , $MergedData ) ;
                             self::insert_points_for_social_actions( $PostId , $UserID , 'vk_like' , $State , $Type ) ;
@@ -547,7 +547,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     'unsuccess_msg' => get_option( 'rs_unsucccess_message_for_vk' ) ,
                     'restrictmsg'   => get_option( 'rs_restriction_message_for_vk' ) ) ;
                 wp_send_json_success( $data ) ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -557,27 +557,27 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function award_points_for_gplus_share() {
             check_ajax_referer( 'gplus-share' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 $Content     = '' ;
                 $UserID      = get_current_user_id() ;
                 $BanningType = check_banning_type( $UserID ) ;
-                if( $BanningType != 'earningonly' && $BanningType != 'both' ) {
+                if ( $BanningType != 'earningonly' && $BanningType != 'both' ) {
                     $PostId         = $_POST[ 'postid' ] ;
                     $State          = $_POST[ 'state' ] ;
                     $LikedPostIds[] = $PostId ;
                     $Type           = $_POST[ 'type' ] ;
-                    if( $State == 'on' ) {
+                    if ( $State == 'on' ) {
                         $MetaKey = ($Type == 'postorpage') ? '_rsgoogleshares_post' : '_rsgoogleshares' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     } else {
                         $MetaKey = ($Type == 'postorpage') ? '_rsgoogleplusunlikes_post' : '_rsgoogleplusunlikes' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     }
-                    if( ! empty( $OldData ) ) {
-                        if( ! in_array( $PostId , $OldData ) ) {
+                    if ( ! empty( $OldData ) ) {
+                        if ( ! in_array( $PostId , $OldData ) ) {
                             $MergedData = array_merge( ( array ) $OldData , $LikedPostIds ) ;
                             update_user_meta( $UserID , $MetaKey , $MergedData ) ;
                             self::insert_points_for_social_actions( $PostId , $UserID , 'gplus_share' , $State , $Type ) ;
@@ -604,7 +604,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     'unsuccess_msg' => get_option( 'rs_unsucccess_message_for_google_unshare' ) ,
                     'restrictmsg'   => get_option( 'rs_restriction_message_for_gplus' ) ) ;
                 wp_send_json_success( $data ) ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -614,24 +614,24 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function award_points_for_ok_share() {
             check_ajax_referer( 'okru-share' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'postid' ] ) || ! isset( $_POST[ 'state' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 $Content     = '' ;
                 $UserID      = get_current_user_id() ;
                 $BanningType = check_banning_type( $UserID ) ;
-                if( $BanningType != 'earningonly' && $BanningType != 'both' ) {
+                if ( $BanningType != 'earningonly' && $BanningType != 'both' ) {
                     $PostId         = $_POST[ 'postid' ] ;
                     $State          = $_POST[ 'state' ] ;
                     $LikedPostIds[] = $PostId ;
                     $Type           = $_POST[ 'type' ] ;
-                    if( $State == 'on' ) {
+                    if ( $State == 'on' ) {
                         $MetaKey = ($Type == 'postorpage') ? '_rsokfollow_post' : '_rsokfollow' ;
                         $OldData = get_user_meta( $UserID , $MetaKey , true ) ;
                     }
-                    if( ! empty( $OldData ) ) {
-                        if( ! in_array( $PostId , $OldData ) ) {
+                    if ( ! empty( $OldData ) ) {
+                        if ( ! in_array( $PostId , $OldData ) ) {
                             $MergedData = array_merge( ( array ) $OldData , $LikedPostIds ) ;
                             update_user_meta( $UserID , $MetaKey , $MergedData ) ;
                             self::insert_points_for_social_actions( $PostId , $UserID , 'ok_share' , $State , $Type ) ;
@@ -658,7 +658,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     'unsuccess_msg' => do_shortcode( get_option( 'rs_unsucccess_message_for_ok_unfollow' ) ) ,
                     'restrictmsg'   => get_option( 'rs_restriction_message_for_ok' ) ) ;
                 wp_send_json_success( $data ) ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -668,7 +668,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function unset_generated_referral_link() {
             check_ajax_referer( 'unset-referral' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'unsetarray' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'unsetarray' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
@@ -677,7 +677,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 unset( $ListofGeneratedLink[ $_POST[ 'unsetarray' ] ] ) ;
                 update_option( 'arrayref' . $UserId , $ListofGeneratedLink ) ;
                 wp_send_json_success() ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -687,7 +687,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function generate_referral_link() {
             check_ajax_referer( 'generate-referral' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'url' ] ) || $_POST[ 'url' ] == '' )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'url' ] ) || $_POST[ 'url' ] == '' )
                 throw new exception( __( 'Invalid URL' , SRP_LOCALE ) ) ;
 
             try {
@@ -699,12 +699,12 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 $OldData     = get_option( 'arrayref' . $UserId ) ;
                 $DateFormat  = get_option( 'date_format' ) ;
                 $arrayref[]  = $RefURL . ',' . date_i18n( $DateFormat ) ;
-                if( srp_check_is_array( $OldData ) )
+                if ( srp_check_is_array( $OldData ) )
                     $arrayref    = array_unique( array_merge( $OldData , $arrayref ) , SORT_REGULAR ) ;
 
                 update_option( 'arrayref' . $UserId , $arrayref ) ;
                 wp_send_json_success() ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -714,7 +714,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function mail_referral_link_to_friends() {
             check_ajax_referer( 'send-mail' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) )
+            if ( ! isset( $_POST ) )
                 throw new Exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
@@ -728,10 +728,10 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 $RefFirstname = $UserInfo->first_name ;
                 $RefLastname  = $UserInfo->last_name ;
                 $RefEmail     = $UserInfo->user_email ;
-                if( ! srp_check_is_array( $Email ) )
+                if ( ! srp_check_is_array( $Email ) )
                     throw new Exception( __( 'There is no Email-Id' , SRP_LOCALE ) ) ;
 
-                foreach( $Email as $key => $to ) {
+                foreach ( $Email as $key => $to ) {
                     $FrndMsg                               = $_POST[ 'friendmessage' ] ;
                     $ReplaceFrndName                       = str_replace( '[rs_your_friend_name]' , $Name[ $key ] , $FrndMsg ) ;
                     $ReplaceRefUsername                    = str_replace( '[rs_user_name]' , $RefUsername , $ReplaceFrndName ) ;
@@ -750,10 +750,10 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     FPRewardSystem::$rs_from_email_address = $RefEmail ;
                     add_filter( 'woocommerce_email_from_address' , 'rs_alter_from_email_of_woocommerce' , 10 , 2 ) ;
                     add_filter( 'woocommerce_email_from_name' , 'rs_alter_from_name_of_woocommerce' , 10 , 2 ) ;
-                    if( get_option( 'rs_select_mail_function' ) == '1' ) {
+                    if ( get_option( 'rs_select_mail_function' ) == '1' ) {
                         mail( $to , $Subject , $woo_rs_msg , $headers ) ;
                     } else {
-                        if( ( float ) WC_VERSION <= ( float ) ('2.2.0') ) {
+                        if ( ( float ) WC_VERSION <= ( float ) ('2.2.0') ) {
                             wp_mail( $to , $Subject , $woo_rs_msg , $headers ) ;
                         } else {
                             $mailer = WC()->mailer() ;
@@ -765,7 +765,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     remove_filter( 'woocommerce_email_footer_text' , 'srp_footer_link' ) ;
                 }
                 wp_send_json_success() ;
-            } catch( Exception $ex ) {
+            } catch ( Exception $ex ) {
                 wp_send_json_error( array( 'error' => $ex->getMessage() ) ) ;
             }
         }
@@ -775,18 +775,18 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function unset_removed_product_id() {
             check_ajax_referer( 'unset-product' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'key_to_remove' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'key_to_remove' ] ) )
                 throw new exception( __( 'Invalid URL' , SRP_LOCALE ) ) ;
 
             try {
                 $KeyToRemove = $_POST[ 'key_to_remove' ] ;
                 $ListofIds   = array_filter( array_unique( get_user_meta( get_current_user_id() , 'listsetofids' , true ) ) ) ;
-                if( ($Key         = array_search( $KeyToRemove , $ListofIds ) ) )
+                if ( ($Key         = array_search( $KeyToRemove , $ListofIds ) ) )
                     unset( $ListofIds[ $Key ] ) ;
 
                 update_user_meta( get_current_user_id() , 'listsetofids' , array_unique( $ListofIds ) ) ;
                 wp_send_json_success() ;
-            } catch( Exception $ex ) {
+            } catch ( Exception $ex ) {
                 wp_send_json_error( array( 'error' => $ex->getMessage() ) ) ;
             }
         }
@@ -794,7 +794,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function cancel_cashback_request() {
             check_ajax_referer( 'unset-product' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'status' ] ) || ! isset( $_POST[ 'id' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'status' ] ) || ! isset( $_POST[ 'id' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
@@ -802,7 +802,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 $CashbackTable = $wpdb->prefix . 'sumo_reward_encashing_submitted_data' ;
                 $wpdb->update( $CashbackTable , array( 'status' => 'Cancelled' ) , array( 'id' => $_POST[ 'id' ] ) ) ;
                 $UserData      = $wpdb->get_results( $wpdb->prepare( "SELECT userid,pointstoencash FROM $CashbackTable WHERE id = %d" , $_POST[ 'id' ] ) , ARRAY_A ) ;
-                foreach( $UserData as $Data ) {
+                foreach ( $UserData as $Data ) {
                     $UserId         = $Data[ 'userid' ] ;
                     $PointstoReturn = $Data[ 'pointstoencash' ] ;
                 }
@@ -815,7 +815,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 RSPointExpiry::insert_earning_points( $table_args ) ;
                 RSPointExpiry::record_the_points( $table_args ) ;
                 wp_send_json_success() ;
-            } catch( Exception $ex ) {
+            } catch ( Exception $ex ) {
                 wp_send_json_error( array( 'error' => $ex->getMessage() ) ) ;
             }
         }
@@ -826,9 +826,9 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
             try {
                 global $wpdb ;
                 $CashbackTable = $wpdb->prefix . "sumo_reward_encashing_submitted_data" ;
-                if( isset( $_POST[ 'wallet' ] ) ) {
+                if ( isset( $_POST[ 'wallet' ] ) ) {
                     $PaymentDetail = $_POST[ 'wallet' ] ;
-                } elseif( isset( $_POST[ 'custom_payment_details' ] ) ) {
+                } elseif ( isset( $_POST[ 'custom_payment_details' ] ) ) {
                     $PaymentDetail = $_POST[ 'custom_payment_details' ] ;
                 } else {
                     $PaymentDetail = $_POST[ 'payment_method' ] ;
@@ -847,7 +847,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 $PayPalEmail              = isset( $_POST[ 'paypal_email' ] ) ? $_POST[ 'paypal_email' ] : '' ;
                 update_user_meta( $UserId , 'rs_cashback_previous_payment_method' , $PaymentDetail ) ;
                 update_user_meta( $UserId , 'rs_paypal_payment_details' , $PayPalEmail ) ;
-                if( isset( $_POST[ 'custom_payment_details' ] ) )
+                if ( isset( $_POST[ 'custom_payment_details' ] ) )
                     update_user_meta( $UserId , 'rs_custom_payment_details' , $_POST[ 'custom_payment_details' ] ) ;
 
                 $wpdb->insert( $CashbackTable , array(
@@ -871,13 +871,13 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 RSPointExpiry::record_the_points( $table_args ) ;
 
                 /* Send mail for Admin - Start */
-                if( get_option( 'rs_email_notification_for_Admin_cashback' ) == 'yes' ) {
+                if ( get_option( 'rs_email_notification_for_Admin_cashback' ) == 'yes' ) {
                     $Message          = get_option( 'rs_email_message_for_cashback' ) ;
                     $CashbackReplaced = str_replace( '[username]' , $Username , str_replace( '[_rs_point_for_cashback]' , $Points , $Message ) ) ;
                     $PointsReplaced   = str_replace( '[rs_current_user_point]' , $AvailablePoints , $CashbackReplaced ) ;
-                    if( $PaymentDetail == "encash_through_paypal_method" ) {
+                    if ( $PaymentDetail == "encash_through_paypal_method" ) {
                         $EmailMsg = str_replace( '[payment_details]' , $PayPalEmail , str_replace( '[rs_payment_gateway]' , "Paypal Payment" , $PointsReplaced ) ) ;
-                    } else if( $PaymentMethod == "encash_through_custom_payment" ) {
+                    } else if ( $PaymentMethod == "encash_through_custom_payment" ) {
                         $EmailMsg = str_replace( '[payment_details]' , $PaymentDetail , str_replace( '[rs_payment_gateway]' , "Custom Payment" , $PointsReplaced ) ) ;
                     } else {
                         $EmailMsg = str_replace( '[rs_payment_gateway]' , "Wallet Payment" , $PointsReplaced ) ;
@@ -887,7 +887,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 /* Send mail for Admin - End */
 
                 wp_send_json_success() ;
-            } catch( Exception $ex ) {
+            } catch ( Exception $ex ) {
                 wp_send_json_error( array( 'error' => $ex->getMessage() ) ) ;
             }
         }
@@ -896,7 +896,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
             $EmailSub   = get_option( 'rs_email_subject_message_for_cashback' ) ;
             $AdminEmail = get_option( 'rs_mail_sender_for_admin_for_cashback' ) == 'woocommerce' ? get_option( 'admin_email' ) : get_option( 'rs_from_email_for_admin_cashback' ) ;
             $AdminName  = get_option( 'rs_mail_sender_for_admin_for_cashback' ) == 'woocommerce' ? get_bloginfo( 'name' , 'display' ) : get_option( 'rs_from_name_for_admin_cashback' ) ;
-            if( $AdminName != '' && $AdminEmail != '' ) {
+            if ( $AdminName != '' && $AdminEmail != '' ) {
                 $headers       .= "MIME-Version: 1.0\r\n" ;
                 $headers       .= "Content-Type: text/html; charset=UTF-8\r\n" ;
                 $headers       .= "Reply-To: " . $AdminName . " <" . $AdminEmail . ">\r\n" ;
@@ -906,8 +906,8 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 echo $AdminEmailMsg ;
                 wc_get_template( 'emails/email-footer.php' ) ;
                 $woo_temp_msg  = ob_get_clean() ;
-                if( ( float ) WC()->version <= ( float ) ('2.2.0') ) {
-                    if( wp_mail( $AdminEmail , $EmailSub , $AdminEmailMsg , $headers ) ) {
+                if ( ( float ) WC()->version <= ( float ) ('2.2.0') ) {
+                    if ( wp_mail( $AdminEmail , $EmailSub , $AdminEmailMsg , $headers ) ) {
                         
                     }
                 } else {
@@ -920,29 +920,29 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function redeem_gift_voucher() {
             check_ajax_referer( 'fp-redeem-voucher' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'vouchercode' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'vouchercode' ] ) )
                 throw new exception( __( 'Invalid Code' , SRP_LOCALE ) ) ;
 
             try {
                 $newone      = array() ;
                 $UserId      = get_current_user_id() ;
                 $BanningType = check_banning_type( $UserId ) ;
-                if( $BanningType != 'earningonly' && $BanningType != 'both' ) {
+                if ( $BanningType != 'earningonly' && $BanningType != 'both' ) {
                     global $wpdb ;
                     $GiftVocuherTable = $wpdb->prefix . 'rsgiftvoucher' ;
                     $VoucherCode      = trim( $_POST[ 'vouchercode' ] ) ;
                     $VoucherData      = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $GiftVocuherTable WHERE vouchercode = '%s'" , $VoucherCode ) , ARRAY_A ) ;
-                    if( ! srp_check_is_array( $VoucherData ) ) {
+                    if ( ! srp_check_is_array( $VoucherData ) ) {
                         throw new exception( addslashes( get_option( 'rs_invalid_voucher_code_error_message' ) ) ) ;
                     } else {
                         $Date          = date_i18n( get_option( 'date_format' ) ) ;
                         $Date          = strtotime( $Date ) ;
                         $ExpDate       = $VoucherData[ 0 ][ 'voucherexpiry' ] ;
                         $VoucherUsedBy = isset( $VoucherData[ 0 ][ 'memberused' ] ) && ($VoucherData[ 0 ][ 'memberused' ] != '') ? unserialize( $VoucherData[ 0 ][ 'memberused' ] ) : array() ;
-                        if( ! in_array( $UserId , $VoucherUsedBy ) ) {
-                            if( $ExpDate != '' && $ExpDate != 'Never' ) {
+                        if ( ! in_array( $UserId , $VoucherUsedBy ) ) {
+                            if ( $ExpDate != '' && $ExpDate != 'Never' ) {
                                 $ExpiryDate = strtotime( $ExpDate ) ;
-                                if( $ExpiryDate >= $Date ) {
+                                if ( $ExpiryDate >= $Date ) {
                                     $Content = self::voucher_code_usage( $UserId , $VoucherData , $VoucherCode , $ExpDate ) ;
                                 } else {
                                     throw new exception( addslashes( get_option( 'rs_voucher_code_expired_error_message' ) ) ) ;
@@ -960,14 +960,14 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     throw new exception( addslashes( get_option( 'rs_banned_user_redeem_voucher_error' ) ) ) ;
                 }
                 wp_send_json_success( array( 'content' => $Content ) ) ;
-            } catch( Exception $ex ) {
+            } catch ( Exception $ex ) {
                 wp_send_json_error( array( 'error' => $ex->getMessage() ) ) ;
             }
         }
 
         public static function insert_points_for_voucher( $UserId , $VoucherData , $VoucherCode , $VoucherPoints ) {
             $new_obj = new RewardPointsOrder( 0 , 'no' ) ;
-            if( get_option( 'rs_enable_disable_max_earning_points_for_user' ) == 'yes' ) {
+            if ( get_option( 'rs_enable_disable_max_earning_points_for_user' ) == 'yes' ) {
                 $new_obj->check_point_restriction( $VoucherPoints , $pointsredeemed = 0 , $event_slug     = 'RPGV' , $UserId , $nomineeid      = '' , $referrer_id    = '' , $product_id     = '' , $variationid    = '' , $VoucherCode ) ;
             } else {
                 $valuestoinsert = array( 'pointstoinsert' => $VoucherPoints , 'event_slug' => 'RPGV' , 'user_id' => $UserId , 'reasonindetail' => $VoucherCode , 'totalearnedpoints' => $VoucherPoints ) ;
@@ -984,9 +984,9 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
             $CreatedVoucher   = $VoucherData[ 0 ][ 'vouchercreated' ] ;
             $VoucherUsedBy    = isset( $VoucherData[ 0 ][ 'memberused' ] ) != '' ? unserialize( $VoucherData[ 0 ][ 'memberused' ] ) : array() ;
             $VoucherPoints    = $VoucherData[ 0 ][ 'points' ] ;
-            if( ! empty( $CodeUsage ) ) {
-                if( $CodeUsage == '1' ) {
-                    if( ! srp_check_is_array( $VoucherUsedBy ) ) {
+            if ( ! empty( $CodeUsage ) ) {
+                if ( $CodeUsage == '1' ) {
+                    if ( ! srp_check_is_array( $VoucherUsedBy ) ) {
                         $Content = self::insert_points_for_voucher( $UserId , $VoucherData , $VoucherCode , $VoucherPoints ) ;
                         $UsedBy  = serialize( array( $UserId ) ) ;
                         $wpdb->update( $GiftVocuherTable , array( 'points' => $VoucherPoints , 'vouchercode' => $VoucherCode , 'vouchercreated' => $CreatedVoucher , 'voucherexpiry' => $ExpDate , 'memberused' => $UsedBy ) , array( 'id' => $VoucherData[ 0 ][ 'id' ] ) ) ;
@@ -1000,8 +1000,8 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     $UsedBy          = array( $UserId ) ;
                     $OldData         = $VoucherData[ 0 ][ 'memberused' ] != '' ? unserialize( $VoucherData[ 0 ][ 'memberused' ] ) : array() ;
                     $UsageCount      = count( $OldData ) ;
-                    if( $UsageLimit == '1' && ! empty( $UsageLimitValue ) ) {
-                        if( $UsageCount < $UsageLimitValue ) {
+                    if ( $UsageLimit == '1' && ! empty( $UsageLimitValue ) ) {
+                        if ( $UsageCount < $UsageLimitValue ) {
                             $Content        = self::insert_points_for_voucher( $UserId , $VoucherData , $VoucherCode , $VoucherPoints ) ;
                             $MergedData     = array_merge( $UsedBy , $OldData ) ;
                             $SerializedData = serialize( $MergedData ) ;
@@ -1029,7 +1029,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function message_for_booking() {
             check_ajax_referer( 'booking-msg' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'form' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'form' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
@@ -1037,15 +1037,15 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 parse_str( $_POST[ 'form' ] , $PostValue ) ;
                 $BookingId  = $PostValue[ 'add-to-cart' ] ;
                 $ProductObj = srp_product_object( $BookingId ) ;
-                if( ! $ProductObj )
+                if ( ! $ProductObj )
                     die( wp_send_json_success( array( 'sumorewardpoints' => 0 ) ) ) ;
 
-                if( srp_product_type( $BookingId ) != 'booking' )
+                if ( srp_product_type( $BookingId ) != 'booking' )
                     die( wp_send_json_success( array( 'sumorewardpoints' => 0 ) ) ) ;
 
                 $BookingForm = new WC_Booking_Form( $ProductObj ) ;
                 $Cost        = $BookingForm->calculate_booking_cost( $PostValue ) ;
-                if( is_wp_error( $Cost ) )
+                if ( is_wp_error( $Cost ) )
                     die( wp_send_json_success( array( 'sumorewardpoints' => 0 ) ) ) ;
 
                 $args   = array(
@@ -1055,7 +1055,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                         ) ;
                 $Points = check_level_of_enable_reward_point( $args ) ;
                 die( wp_send_json_success( array( 'sumorewardpoints' => round_off_type( $Points ) ) ) ) ;
-            } catch( Exception $ex ) {
+            } catch ( Exception $ex ) {
                 wp_send_json_error( array( 'error' => $ex->getMessage() ) ) ;
             }
         }
@@ -1063,14 +1063,14 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function unsunscribe_or_subscribe_mail() {
             check_ajax_referer( 'fp-subscribe-mail' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'subscribe' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'subscribe' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 update_user_meta( get_current_user_id() , 'unsub_value' , $_POST[ 'subscribe' ] ) ;
                 $Content = $_POST[ 'subscribe' ] == 'yes' ? __( "Successfully Unsubscribed..." , SRP_LOCALE ) : __( "Successfully Subscribed..." , SRP_LOCALE ) ;
                 wp_send_json_success( array( 'content' => $Content ) ) ;
-            } catch( Exception $ex ) {
+            } catch ( Exception $ex ) {
                 wp_send_json_error( array( 'error' => $ex->getMessage() ) ) ;
             }
         }
@@ -1078,7 +1078,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function save_nominee() {
             check_ajax_referer( 'fp-save-nominee' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'selectedvalue' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'selectedvalue' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
@@ -1086,7 +1086,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 update_user_meta( get_current_user_id() , 'rs_enable_nominee' , 'yes' ) ;
                 $Content = __( "Nominee Saved" , SRP_LOCALE ) ;
                 wp_send_json_success( array( 'content' => $Content ) ) ;
-            } catch( Exception $ex ) {
+            } catch ( Exception $ex ) {
                 wp_send_json_error( array( 'error' => $ex->getMessage() ) ) ;
             }
         }
@@ -1094,7 +1094,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function reward_gateway_msg() {
             check_ajax_referer( 'fp-gateway-msg' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'gatewayid' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'gatewayid' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
@@ -1103,13 +1103,13 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
 
                 $MsgToDisplay  = '' ;
                 $default_value = ('yes' == get_option( 'rs_disable_point_if_reward_points_gateway' , 'no' )) ? array( 'reward_gateway' ) : array() ;
-                if( in_array( $_POST[ 'gatewayid' ] , get_option( 'rs_select_payment_gateway_for_restrict_reward' , $default_value ) ) ):
+                if ( in_array( $_POST[ 'gatewayid' ] , get_option( 'rs_select_payment_gateway_for_restrict_reward' , $default_value ) ) ):
                     $MsgToDisplay = str_replace( '[paymentgatewaytitle]' , '<b>' . $_POST[ 'gatewaytitle' ] . '</b>' , get_option( 'rs_restriction_msg_for_selected_gateway' , 'You cannot earn points if you use [paymentgatewaytitle] Gateway' ) ) ;
                 endif ;
 
                 $gateway_reward_message = '1' == get_option( 'rs_show_hide_message_payment_gateway_reward_points' ) ? str_replace( array( '[paymentgatewaytitle]' , '[paymentgatewaypoints]' ) , array( '<b>' . $_POST[ 'gatewaytitle' ] . '</b>' , '<b>' . $GatewayPoints . '</b>' ) , get_option( 'rs_message_payment_gateway_reward_points' ) ) : '' ;
                 wp_send_json_success( array( 'rewardpoints' => $GatewayPoints , 'title' => $_POST[ 'gatewaytitle' ] , 'restrictedmsg' => $MsgToDisplay , 'earn_gateway_message' => $gateway_reward_message ) ) ;
-            } catch( Exception $ex ) {
+            } catch ( Exception $ex ) {
                 wp_send_json_error( array( 'error' => $ex->getMessage() ) ) ;
             }
         }
@@ -1117,13 +1117,13 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         public static function points_for_variation_in_product_page() {
             check_ajax_referer( 'variation-msg' , 'sumo_security' ) ;
 
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'variationid' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'variationid' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 $VarObj   = new WC_Product_Variation( $_POST[ 'variationid' ] ) ;
                 $ParentId = get_parent_id( $VarObj ) ;
-                if( isset( $_COOKIE[ 'rsreferredusername' ] ) ) {
+                if ( isset( $_COOKIE[ 'rsreferredusername' ] ) ) {
                     $UserInfo         = get_user_by( 'login' , $_COOKIE[ 'rsreferredusername' ] ) ;
                     $RefUserid        = is_object( $UserInfo ) ? $UserInfo->ID : $_COOKIE[ 'rsreferredusername' ] ;
                     $args             = array(
@@ -1143,16 +1143,16 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 }
                 $Userid       = get_current_user_id() ;
                 $banning_type = check_banning_type( $Userid ) ;
-                if( $banning_type == 'earningonly' || $banning_type == 'both' )
+                if ( $banning_type == 'earningonly' || $banning_type == 'both' )
                     wp_send_json_success( array( 'showmsg' => false ) ) ;
 
                 $restrictpoints = block_points_for_salepriced_product( 0 , $_POST[ 'variationid' ] ) ;
-                if( $restrictpoints == 'yes' ) {
+                if ( $restrictpoints == 'yes' ) {
                     wp_send_json_success( array( 'showmsg' => false ) ) ;
                 }
 
-                if( get_option( 'rs_message_outofstockproducts_product_page' ) == '2' ) {
-                    if( ! $VarObj->is_in_stock() )
+                if ( get_option( 'rs_message_outofstockproducts_product_page' ) == '2' ) {
+                    if ( ! $VarObj->is_in_stock() )
                         wp_send_json_success( array( 'showmsg' => false ) ) ;
                 }
 
@@ -1166,7 +1166,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                 $VarPoints      = check_level_of_enable_reward_point( $args ) ;
                 $VarEarnMsg     = '' ;
                 $VarPurchaseMsg = '' ;
-                if( $VarPoints ) {
+                if ( $VarPoints ) {
                     $VarPoints      = empty( $Userid ) ? $VarPoints : RSMemberFunction::earn_points_percentage( $Userid , ( float ) $VarPoints ) ;
                     $VarPointsValue = redeem_point_conversion( $VarPoints , $Userid , 'price' ) ;
                     $VarPoints      = round_off_type( $VarPoints ) ;
@@ -1194,7 +1194,7 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
                     'buymsg'       => $BuyMsg ,
                     'buying_msg'   => $BuyingMsg ,
                 ) ) ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }
@@ -1202,18 +1202,18 @@ if( ! class_exists( 'FP_Rewardsystem_Frontend_Ajax' ) ) {
         // Remove Coupon from Checkout
 
         public static function remove_coupon() {
-            if( ! isset( $_POST ) || ! isset( $_POST[ 'coupon' ] ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'coupon' ] ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 $coupon      = wc_clean( $_POST[ 'coupon' ] ) ;
-                if( strpos( $coupon , 'sumo_' ) !== false || strpos( $coupon , 'auto_redeem_' ) !== false )
+                if ( strpos( $coupon , 'sumo_' ) !== false || strpos( $coupon , 'auto_redeem_' ) !== false )
                     $sumo_coupon = true ;
                 else
                     $sumo_coupon = false ;
 
                 wp_send_json_success( array( 'showredeemfield' => $sumo_coupon ) ) ;
-            } catch( Exception $e ) {
+            } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
             }
         }

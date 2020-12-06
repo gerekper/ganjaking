@@ -25,7 +25,7 @@ class WCS_ATT_Product_Prices {
 	 */
 	public static function init() {
 
-		require_once( 'class-wcs-att-product-price-filters.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/product/class-wcs-att-product-price-filters.php' );
 
 		self::add_hooks();
 	}

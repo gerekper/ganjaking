@@ -1,5 +1,19 @@
 *** WooCommerce Help Scout Changelog ***
 
+2020-10-30 - version 2.6
+* PLUGINS-754 - Fix "Allow Access" button position
+* PLUGINS-769 - Customers not getting created in Helpscout
+
+2020-09-17 - version 2.5
+* PLUGINS-500 Fixed error when submitting form on specific customers
+* PLUGINS-505 Fixed Code Error
+* PLUGINS-539 Fixed Support for Multiple Attachments
+* PLUGINS-498 Fixed Subject isn't being displayed on support conversation tab
+* PLUGINS-378 Syncing customers from woocommerce to helpscout
+
+2020-05-26 - version 2.4
+* PLUGINS-350 overriding conversations.php templates in theme file
+
 2020-02-10 - version 2.3
 * Refresh token api auth error fix.
 

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_PB_REST_API
- * @version  6.4.0
+ * @version  6.6.0
  */
 class WC_PB_REST_API {
 
@@ -25,9 +25,15 @@ class WC_PB_REST_API {
 	 * @var array
 	 */
 	private static $product_fields = array(
-		'bundle_layout' => array( 'get', 'update' ),
-		'bundled_by'    => array( 'get' ),
-		'bundled_items' => array( 'get', 'update' )
+		'bundle_layout'                    => array( 'get', 'update' ),
+		'bundle_add_to_cart_form_location' => array( 'get', 'update' ),
+		'bundle_editable_in_cart'          => array( 'get', 'update' ),
+		'bundle_sold_individually_context' => array( 'get', 'update' ),
+		'bundle_item_grouping'             => array( 'get', 'update' ),
+		'bundle_min_size'                  => array( 'get', 'update' ),
+		'bundle_max_size'                  => array( 'get', 'update' ),
+		'bundled_by'                       => array( 'get' ),
+		'bundled_items'                    => array( 'get', 'update' )
 	);
 
 	/**
@@ -136,13 +142,46 @@ class WC_PB_REST_API {
 	private static function get_extended_product_schema() {
 
 		return array(
-			'bundle_layout'              => array(
+			'bundle_layout'                    => array(
 				'description' => __( 'Single-product details page layout. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
 				'type'        => 'string',
 				'enum'        => array_keys( WC_Product_Bundle::get_layout_options() ),
 				'context'     => array( 'view', 'edit' )
 			),
-			'bundled_by'                 => array(
+			'bundle_add_to_cart_form_location' => array(
+				'description' => __( 'Controls the form location of the product in the single-product page. Applicable to bundle-type products.', 'woocommerce-product-bundles' ),
+				'type'        => 'string',
+				'enum'        => array_keys( WC_Product_Bundle::get_add_to_cart_form_location_options() ),
+				'context'     => array( 'view', 'edit' )
+			),
+			'bundle_editable_in_cart'          => array(
+				'description' => __( 'Controls whether the configuration of this product can be modified from the cart page. Applicable to bundle-type products.', 'woocommerce-product-bundles' ),
+				'type'        => 'boolean',
+				'context'     => array( 'view', 'edit' )
+			),
+			'bundle_sold_individually_context' => array(
+				'description' => __( 'Sold Individually option context. Applicable to bundle-type products.', 'woocommerce-product-bundles' ),
+				'type'        => 'string',
+				'context'     => array( 'view', 'edit' ),
+				'enum'        => array( 'product', 'configuration' )
+			),
+			'bundle_item_grouping'             => array(
+				'description' => __( 'Controls the display of bundle container/child items in cart/order templates. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
+				'type'        => 'string',
+				'enum'        => array_keys( WC_Product_Bundle::get_group_mode_options() ),
+				'context'     => array( 'view', 'edit' )
+			),
+			'bundle_min_size'                  => array(
+				'description' => __( 'Min bundle size. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
+				'type'        => WC_PB_Core_Compatibility::is_wp_version_gte( '5.5' ) ? array( 'integer', 'string' ) : '',
+				'context'     => array( 'view', 'edit' )
+			),
+			'bundle_max_size'                  => array(
+				'description' => __( 'Max bundle size. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
+				'type'        => WC_PB_Core_Compatibility::is_wp_version_gte( '5.5' ) ? array( 'integer', 'string' ) : '',
+				'context'     => array( 'view', 'edit' )
+			),
+			'bundled_by'                       => array(
 				'description' => __( 'List of product bundle IDs that contain this product.', 'woocommerce-product-bundles' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),
@@ -151,8 +190,8 @@ class WC_PB_REST_API {
 				),
 				'readonly'    => true
 			),
-			'bundled_items'              => array(
-				'description' => __( 'List of bundled items contained in this product.', 'woocommerce-product-bundles' ),
+			'bundled_items'                    => array(
+				'description' => __( 'List of bundled items contained in this product. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),
 				'items'       => array(
@@ -390,10 +429,46 @@ class WC_PB_REST_API {
 		// Only possible to set fields of 'bundle' type products.
 		if ( $product_id && 'bundle' === $product_type ) {
 
-			// Set bundle layout.
+			// Set layout.
 			if ( 'bundle_layout' === $field_name ) {
 
 				$product->set_layout( $field_value );
+				$product->save();
+
+			// Set form location.
+			} elseif ( 'bundle_add_to_cart_form_location' === $field_name ) {
+
+				$product->set_add_to_cart_form_location( wc_clean( $field_value ) );
+				$product->save();
+
+			// Set editable in cart prop.
+			} elseif ( 'bundle_editable_in_cart' === $field_name ) {
+
+				$product->set_editable_in_cart( wc_string_to_bool( $field_value ) );
+				$product->save();
+
+			// Set sold individually context.
+			} elseif ( 'bundle_sold_individually_context' === $field_name ) {
+
+				$product->set_sold_individually_context( wc_clean( $field_value ) );
+				$product->save();
+
+			// Set item grouping.
+			} elseif ( 'bundle_item_grouping' === $field_name ) {
+
+				$product->set_group_mode( wc_clean( $field_value ) );
+				$product->save();
+
+			// Set bundle min size.
+			} elseif ( 'bundle_min_size' === $field_name ) {
+
+				$product->set_min_bundle_size( wc_clean( $field_value ) );
+				$product->save();
+
+			// Set bundle max size.
+			} elseif ( 'bundle_max_size' === $field_name ) {
+
+				$product->set_max_bundle_size( wc_clean( $field_value ) );
 				$product->save();
 
 			// Set bundled items.
@@ -541,6 +616,60 @@ class WC_PB_REST_API {
 
 				if ( 'bundle' === $product_type ) {
 					$value = $product->get_layout( 'edit' );
+				}
+
+			break;
+			case 'bundle_add_to_cart_form_location' :
+
+				$value = '';
+
+				if ( 'bundle' === $product_type ) {
+					$value = $product->get_add_to_cart_form_location( 'edit' );
+				}
+
+			break;
+			case 'bundle_editable_in_cart' :
+
+				$value = false;
+
+				if ( 'bundle' === $product_type ) {
+					$value = $product->get_editable_in_cart( 'edit' );
+				}
+
+			break;
+			case 'bundle_sold_individually_context' :
+
+				$value = '';
+
+				if ( 'bundle' === $product_type ) {
+					$value = $product->get_sold_individually_context( 'edit' );
+				}
+
+			break;
+			case 'bundle_item_grouping' :
+
+				$value = '';
+
+				if ( 'bundle' === $product_type ) {
+					$value = $product->get_group_mode( 'edit' );
+				}
+
+			break;
+			case 'bundle_min_size' :
+
+				$value = '';
+
+				if ( 'bundle' === $product_type ) {
+					$value = $product->get_min_bundle_size( 'edit' );
+				}
+
+			break;
+			case 'bundle_max_size' :
+
+				$value = '';
+
+				if ( 'bundle' === $product_type ) {
+					$value = $product->get_max_bundle_size( 'edit' );
 				}
 
 			break;

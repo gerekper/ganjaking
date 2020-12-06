@@ -29,10 +29,13 @@ class BSF_Extension_Installer {
 	 * @return void
 	 */
 	public function load_scripts( $hook ) {
+		$bsf_ext_inst = apply_filters( 'bsf_extension_installer_screens', array( 'bsf-extensions' ), $hook );
 
-		if ( false !== strpos( $hook, 'bsf-extensions' ) ) {
-			wp_register_script( 'bsf-extension-installer', bsf_core_url( '/assets/js/extension-installer.js' ), array( 'jquery', 'wp-util', 'updates' ), BSF_UPDATER_VERSION, true );
-			wp_enqueue_script( 'bsf-extension-installer' );
+		foreach ( $bsf_ext_inst as $key => $value ) {
+			if ( false !== strpos( $hook, $value ) ) {
+				wp_register_script( 'bsf-extension-installer', bsf_core_url( '/assets/js/extension-installer.js' ), array( 'jquery', 'wp-util', 'updates' ), BSF_UPDATER_VERSION, true );
+				wp_enqueue_script( 'bsf-extension-installer' );
+			}
 		}
 	}
 

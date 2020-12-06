@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products display functions and filters.
  *
  * @class    WC_CP_Display
- * @version  7.0.5
+ * @version  7.1.2
  */
 class WC_CP_Display {
 
@@ -86,8 +86,8 @@ class WC_CP_Display {
 	public function __construct() {
 
 		// Single product template functions and hooks.
-		require_once( 'wc-cp-template-functions.php' );
-		require_once( 'wc-cp-template-hooks.php' );
+		require_once( WC_CP_ABSPATH . 'includes/wc-cp-template-functions.php' );
+		require_once( WC_CP_ABSPATH . 'includes/wc-cp-template-hooks.php' );
 
 		// Front end scripts and JS templates.
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
@@ -407,7 +407,17 @@ class WC_CP_Display {
 	public function structured_product_data( $data, $product ) {
 
 		if ( is_object( $product ) && $product->is_type( 'composite' ) ) {
-			$data[ 'price' ] = $product->get_composite_price();
+
+			$composite_price = $product->get_composite_price();
+
+			if ( isset( $data[ 'price' ] ) ) {
+				$data[ 'price' ] = $composite_price;
+			}
+
+			if ( isset( $data[ 'priceSpecification' ][ 'price' ] ) ) {
+				$data[ 'priceSpecification' ][ 'price' ] = $composite_price;
+			}
+
 		}
 
 		return $data;

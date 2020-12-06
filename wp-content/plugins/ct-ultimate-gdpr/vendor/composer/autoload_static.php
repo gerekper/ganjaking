@@ -87,6 +87,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Service_Ninja_Forms' => __DIR__ . '/../..' . '/includes/service/service-ninja-forms.php',
         'CT_Ultimate_GDPR_Service_Order_Delivery_Date_For_Woocommerce' => __DIR__ . '/../..' . '/includes/service/service-order-delivery-date-for-woocommerce.php',
         'CT_Ultimate_GDPR_Service_Polylang' => __DIR__ . '/../..' . '/includes/service/service-polylang.php',
+        'CT_Ultimate_GDPR_Service_Post_SMTP' => __DIR__ . '/../..' . '/includes/service/service-post-smtp.php',
         'CT_Ultimate_GDPR_Service_Quform' => __DIR__ . '/../..' . '/includes/service/service-quform.php',
         'CT_Ultimate_GDPR_Service_Sell_Personal_Data' => __DIR__ . '/../..' . '/includes/service/service-sell-personal-data.php',
         'CT_Ultimate_GDPR_Service_Ultimate_Member' => __DIR__ . '/../..' . '/includes/service/service-ultimate-member.php',

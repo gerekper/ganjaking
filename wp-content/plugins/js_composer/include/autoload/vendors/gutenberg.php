@@ -37,7 +37,7 @@ function vc_gutenberg_disable_render_callback() {
 	?>
 	<label>
 		<input type="checkbox"<?php echo esc_attr( $checked ) ? ' checked' : ''; ?> value="1"
-		       name="<?php echo 'wpb_js_gutenberg_disable' ?>">
+			   name="<?php echo 'wpb_js_gutenberg_disable' ?>">
 		<?php esc_html_e( 'Disable', 'js_composer' ) ?>
 	</label><br/>
 	<p
@@ -52,7 +52,7 @@ function vc_gutenberg_disable_render_callback() {
  */
 function vc_gutenberg_check_disabled( $result, $postType ) {
 	global $pagenow;
-	if ( $pagenow === 'post.php' || $pagenow === 'post-new.php' ) {
+	if ( 'post.php' === $pagenow || 'post-new.php' === $pagenow ) {
 		// we are in single post type editing
 		if ( isset( $_GET['classic-editor'] ) && ! isset( $_GET['classic-editor__forget'] ) ) {
 			return false;

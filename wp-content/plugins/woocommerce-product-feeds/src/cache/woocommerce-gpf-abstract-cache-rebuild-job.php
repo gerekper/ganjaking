@@ -135,7 +135,7 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 		 * Handle rebuild for non-product feed types.
 		 */
 		foreach ( $this->non_product_feed_formats as $feed_id ) {
-			$this->feed_handlers[ $feed_id ]->rebuild_item( $product_id, $woocommerce_product );
+			$this->feed_handlers[ $feed_id ]->rebuild_item( $woocommerce_product );
 		}
 
 		/**
@@ -158,13 +158,9 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 					return $this->process_simple_product( $woocommerce_product );
 				}
 				break;
-			case 'composite':
-				return $this->process_composite_product( $woocommerce_product );
-				break;
-			case 'bundle':
-				return $this->process_bundle_product( $woocommerce_product );
-				break;
 			default:
+				// Unknown product type. Try and process as a simple product.
+				return $this->process_simple_product( $woocommerce_product );
 				break;
 		}
 	}
@@ -174,6 +170,8 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 	 *
 	 * @todo This is mostly a rough copy of the code in the frontend class. The
 	 * logic could do with centralising.
+	 *
+	 * @return bool
 	 */
 	protected function process_simple_product( $woocommerce_product ) {
 
@@ -204,6 +202,7 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 			// Store it to the cache.
 			$this->cache->store( $feed_item->ID, $feed_format, $output );
 		}
+		return true;
 	}
 
 	/**
@@ -211,6 +210,8 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 	 *
 	 * @todo This is mostly a rough copy of the code in the frontend class. The
 	 * logic could do with centralising.
+	 *
+	 * @return bool
 	 */
 	protected function process_variable_product( $woocommerce_product ) {
 
@@ -231,19 +232,18 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 				$this->cache->store( $woocommerce_product->get_id(), $feed_format, '' );
 			}
 
-			return;
+			return true;
 		}
 
-		$variations = $woocommerce_product->get_available_variations();
+		$variation_ids = $woocommerce_product->get_children();
 		foreach ( $this->feed_formats as $feed_format ) {
 			// Do not rebuild for feeds that aren't enabled.
 			if ( ! $this->common->is_feed_enabled( $feed_format ) ) {
 				continue;
 			}
 			$output = '';
-			foreach ( $variations as $variation ) {
+			foreach ( $variation_ids as $variation_id ) {
 				// Get the variation product.
-				$variation_id      = $variation['variation_id'];
 				$variation_product = wc_get_product( $variation_id );
 				$feed_item         = new WoocommerceGpfFeedItem(
 					$variation_product,
@@ -265,23 +265,6 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 			}
 			$this->cache->store( $woocommerce_product->get_id(), $feed_format, $output );
 		}
-	}
-
-	/**
-	 * Process a composite product.
-	 *
-	 * @param object $woocommerce_product WooCommerce Product Object
-	 */
-	protected function process_composite_product( $woocommerce_product ) {
-		return $this->process_simple_product( $woocommerce_product );
-	}
-
-	/**
-	 * Process a bundle product.
-	 *
-	 * @param object $woocommerce_product WooCommerce Product Object
-	 */
-	protected function process_bundle_product( $woocommerce_product ) {
-		return $this->process_simple_product( $woocommerce_product );
+		return true;
 	}
 }

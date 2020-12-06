@@ -35,3 +35,6 @@ div.sc-manage-category {
 div.sc-manage-category a {
 	font-weight: 600;
 }
+div.smart_coupons_product_options_variable {
+	display: flow-root;
+}

@@ -1,0 +1,124 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: LoginPress - Redirect Login\n"
+"POT-Creation-Date: 2019-07-15 11:29+0500\n"
+"PO-Revision-Date: 2019-07-15 11:29+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress-login-redirects.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: classes/class-loginpress-login-redirects.php:115
+msgid "Login Redirects"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:116
+#, php-format
+msgid "%1$s%3$sSpecific User%4$s %5$sSpecific Roles%4$s%2$s "
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:133
+msgid "Search Username"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:134
+msgid "Search Username for apply redirects on that."
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:165
+msgid "User ID"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:166
+msgid "Username"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:167
+msgid "Email"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:168
+#: classes/class-loginpress-login-redirects.php:205
+msgid "Login URL"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:169
+#: classes/class-loginpress-login-redirects.php:206
+msgid "Logout URL"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:170
+#: classes/class-loginpress-login-redirects.php:207
+msgid "Action"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:193
+#: classes/class-loginpress-login-redirects.php:220
+#: classes/class-loginpress-login-redirects.php:265
+#: classes/class-loginpress-login-redirects.php:309
+msgid "Update"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:193
+#: classes/class-loginpress-login-redirects.php:220
+#: classes/class-loginpress-login-redirects.php:265
+#: classes/class-loginpress-login-redirects.php:309
+msgid "Delete"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:203
+msgid "No"
+msgstr ""
+
+#: classes/class-loginpress-login-redirects.php:204
+msgid "Role"
+msgstr ""
+
+#: loginpress-login-redirects.php:66
+msgid ""
+"Please Install LoginPress Pro to use \"LoginPress Redirect Login\" add-on."
+msgstr ""
+
+#: loginpress-login-redirects.php:83
+msgid "LoginPress Redirect Login required LoginPress Pro activation &mdash; "
+msgstr ""
+
+#: loginpress-login-redirects.php:83
+msgid "Click here to activate LoginPress Pro"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Redirect Login"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.WPBrigade.com/wordpress/plugins/login-redirects/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"LoginPress is the best <code>wp-login</code> Login Redirects plugin by <a "
+"href=\"https://wpbrigade.com/\">WPBrigade</a> which allows you to redirect "
+"user after login."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.WPBrigade.com/"
+msgstr ""

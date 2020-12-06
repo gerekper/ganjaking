@@ -153,20 +153,22 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 			if(empty($items)) {
 				$items = $class_name::get_items();
 
-				// Set stats (to display the progress)
-				$total = count($items);
+				if(!empty($items)) {
+					// Set stats (to display the progress)
+					$total = count($items);
 
-				// Split items array into chunks and save them to transient
-				$items = array_chunk($items, $chunk_size);
+					// Split items array into chunks and save them to transient
+					$items = array_chunk($items, $chunk_size);
 
-				set_transient("pm_{$uniq_id}_progress", 0, 300);
-				set_transient("pm_{$uniq_id}", $items, 300);
+					set_transient("pm_{$uniq_id}_progress", 0, 300);
+					set_transient("pm_{$uniq_id}", $items, 300);
 
-				// Check for MySQL errors
-				if(!empty($wpdb->last_error)) {
-					printf('%s (%sMB)', $wpdb->last_error, strlen(serialize($items)) / 1000000);
-					http_response_code(500);
-					die();
+					// Check for MySQL errors
+					if(!empty($wpdb->last_error)) {
+						printf('%s (%sMB)', $wpdb->last_error, strlen(serialize($items)) / 1000000);
+						http_response_code(500);
+						die();
+					}
 				}
 			}
 

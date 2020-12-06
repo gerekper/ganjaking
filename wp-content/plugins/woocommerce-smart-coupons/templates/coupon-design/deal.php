@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @package     WooCommerce Smart Coupons/Templates
  *
- * @version     1.0.0
+ * @version     1.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,10 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="flex items-center gap-1 text-sm font-bold leading-none uppercase" style="color: var(--sc-color3)">
 			<div
 				class="inline-flex <?php echo esc_attr( ( true === $is_percent ) ? '' : 'flex-row-reverse' ); ?> items-center">
-				<span><?php echo esc_html( $coupon_amount ); ?></span>
-				<span><?php echo esc_html( $amount_symbol ); ?></span>
+				<span><?php echo esc_html( ( ! empty( $coupon_amount ) ) ? $coupon_amount : '' ); ?></span>
+				<span><?php echo esc_html( ( ! empty( $coupon_amount ) ) ? $amount_symbol : '' ); ?></span>
 			</div>
-			<span class="discount-label"><?php echo esc_html( $discount_type ); ?></span>
+			<span class="discount-label"><?php echo wp_kses_post( ( ! empty( $coupon_amount ) ) ? $discount_type : __( 'Coupon', 'woocommerce-smart-coupons' ) ); ?></span>
 		</div>
 		<div class="flex items-center gap-2 text-xs leading-none"
 			style="filter: saturate(0.5); color: var(--sc-color3)">

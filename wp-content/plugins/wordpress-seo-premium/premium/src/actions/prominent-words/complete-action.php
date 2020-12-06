@@ -2,37 +2,35 @@
 
 namespace Yoast\WP\SEO\Actions\Prominent_Words;
 
-use Yoast\WP\SEO\Helpers\Options_Helper;
+use Yoast\WP\SEO\Helpers\Prominent_Words_Helper;
 
 /**
- * Action for completing prominent words indexation.
+ * Action for completing the prominent words indexing.
  *
  * @package Yoast\WP\SEO\Actions\Prominent_Words
  */
 class Complete_Action {
 
 	/**
-	 * Represents the options helper.
+	 * Represents the prominent words helper.
 	 *
-	 * @var Options_Helper
+	 * @var Prominent_Words_Helper
 	 */
-	protected $options_helper;
+	protected $prominent_words_helper;
 
 	/**
 	 * Complete_Action constructor.
 	 *
-	 * @param Options_Helper $options_helper Options helper.
+	 * @param Prominent_Words_Helper $prominent_words_helper The prominent words helper.
 	 */
-	public function __construct( Options_Helper $options_helper ) {
-		$this->options_helper = $options_helper;
+	public function __construct( Prominent_Words_Helper $prominent_words_helper ) {
+		$this->prominent_words_helper = $prominent_words_helper;
 	}
 
 	/**
-	 * Sets the indexation state to complete.
+	 * Sets the indexing state to complete.
 	 */
 	public function complete() {
-		$this->options_helper->set( 'prominent_words_indexation_completed', true );
-
-		\set_transient( 'total_unindexed_prominent_words', '0' );
+		$this->prominent_words_helper->complete_indexing();
 	}
 }

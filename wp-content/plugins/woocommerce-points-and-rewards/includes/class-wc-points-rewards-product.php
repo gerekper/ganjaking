@@ -89,7 +89,7 @@ class WC_Points_Rewards_Product {
 		global $product;
 
 		// make sure the product has variations (otherwise it's probably a simple product)
-		if ( method_exists( $product, 'get_available_variations' ) ) {
+		if ( $product && method_exists( $product, 'get_available_variations' ) ) {
 			// get variations
 			$variations = $product->get_available_variations();
 
@@ -254,6 +254,7 @@ class WC_Points_Rewards_Product {
 	 * @return string the message with variables replaced
 	 */
 	private function replace_message_variables( $message, $product ) {
+		$product_is_variable = $product && method_exists( $product, 'get_variation_price' );
 
 		global $wc_points_rewards;
 
@@ -262,12 +263,12 @@ class WC_Points_Rewards_Product {
 		// the min/max points earned for variable products can't be determined reliably, so the 'earn X points...' message
 		// is not shown until a variation is selected, unless the prices for the variations are all the same
 		// in which case, treat it like a simple product and show the message
-		if ( method_exists( $product, 'get_variation_price' ) && $product->get_variation_price( 'min' ) != $product->get_variation_price( 'max' ) ) {
+		if ( $product_is_variable && $product->get_variation_price( 'min' ) != $product->get_variation_price( 'max' ) ) {
 			return '';
 		}
 
 		// For BW compatibility, check to see if wc_min_points_earned exists, if not create it.
-		if ( method_exists( $product, 'get_variation_price' ) ) {
+		if ( $product_is_variable ) {
 
 			$wc_min_points_earned = get_post_meta( $product->get_id(), '_wc_min_points_earned', true );
 
@@ -295,12 +296,12 @@ class WC_Points_Rewards_Product {
 		$max_points_earned = get_post_meta( $product->get_id(), '_wc_points_max_discount', true );
 
 		// Check to see if the minimum points earned is different from the max points earned, if so, dont show the message
-		if ( method_exists( $product, 'get_variation_price' ) && isset( $wc_min_points_earned ) && $wc_min_points_earned != $max_points_earned ) {
+		if ( $product_is_variable && isset( $wc_min_points_earned ) && $wc_min_points_earned != $max_points_earned ) {
 			return '';
 		}
 
 		// Check to see if any max_points_earned is less than what the user would get with regular point applied for a variation
-		if ( method_exists( $product, 'get_variation_price' ) ) {
+		if ( $product_is_variable ) {
 			$variations = $product->get_available_variations();
 
 			if ( $this->get_highest_points_variation( $variations, $product->get_id() ) > $max_points_earned ) {
@@ -314,7 +315,7 @@ class WC_Points_Rewards_Product {
 		// points label
 		$message = str_replace( '{points_label}', $wc_points_rewards->get_points_label( $points_earned ), $message );
 
-		if ( method_exists( $product, 'get_variation_price' ) ) {
+		if ( $product_is_variable ) {
 			$message = '<span class="wc-points-rewards-product-variation-message">' . $message . '</span><br />';
 		} else {
 			$message = '<span class="wc-points-rewards-product-message">' . $message . '</span><br />';
@@ -677,7 +678,11 @@ class WC_Points_Rewards_Product {
 	 * @return bool
 	 */
 	protected static function is_order_renewal( $order ) {
-		if ( ! function_exists( 'wcs_order_contains_resubscribe' ) || ! function_exists( 'wcs_order_contains_renewal' ) ) {
+		if (
+			! $order instanceof WC_Order ||
+			! function_exists( 'wcs_order_contains_resubscribe' ) ||
+			! function_exists( 'wcs_order_contains_renewal' )
+		) {
 			return false;
 		}
 

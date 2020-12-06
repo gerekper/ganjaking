@@ -1,0 +1,80 @@
+# Copyright (C) 2018 MemberPress WooCommerce
+# This file is distributed under the same license as the MemberPress WooCommerce package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress WooCommerce 1.0.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-woocommerce\n"
+"POT-Creation-Date: 2018-10-24 16:40:55+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: MpWooCommerce.php:74
+msgid "MemberPress"
+msgstr ""
+
+#: MpWooCommerce.php:87
+msgid "None (Not Synced)"
+msgstr ""
+
+#: MpWooCommerce.php:104
+msgid "Select a Membership level to add the user to when they purchase this Product:"
+msgstr ""
+
+#: MpWooCommerce.php:109
+msgid "Membership"
+msgstr ""
+
+#: MpWooCommerce.php:119
+msgid "Access Before Payment"
+msgstr ""
+
+#: MpWooCommerce.php:120
+msgid "Allow user to access membership content before Order is completed"
+msgstr ""
+
+#: MpWooCommerce.php:346
+msgid "Memberships"
+msgstr ""
+
+#: main.php:35
+msgid "MemberPress WooCommerce"
+msgstr ""
+
+#: main.php:36
+msgid "WooCommerce Integration for MemberPress."
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "MemberPress WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "WooCommerce integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com/"
+msgstr ""

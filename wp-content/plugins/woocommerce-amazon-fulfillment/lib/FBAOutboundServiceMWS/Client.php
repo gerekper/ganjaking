@@ -167,13 +167,15 @@ class FBAOutboundServiceMWS_Client implements FBAOutboundServiceMWS_Interface
      *   e-mails are customer-facing e-mails sent by FBA on behalf of 
      *   the seller.
      *
+     * MODIFIED by Never Settle to optionally return the full array of parameters sent to Amazon for debugging.
+     *
      * @param mixed $request array of parameters for FBAOutboundServiceMWS_Model_CreateFulfillmentOrder request or FBAOutboundServiceMWS_Model_CreateFulfillmentOrder object itself
      * @see FBAOutboundServiceMWS_Model_CreateFulfillmentOrderRequest
      * @return FBAOutboundServiceMWS_Model_CreateFulfillmentOrderResponse
      *
      * @throws FBAOutboundServiceMWS_Exception
      */
-    public function createFulfillmentOrder($request)
+    public function createFulfillmentOrder($request, &$parameters = [])
     {
         if (!($request instanceof FBAOutboundServiceMWS_Model_CreateFulfillmentOrderRequest)) {
             require_once (dirname(__FILE__) . '/Model/CreateFulfillmentOrderRequest.php');
@@ -951,7 +953,7 @@ class FBAOutboundServiceMWS_Client implements FBAOutboundServiceMWS_Interface
     /**
      * Invoke request and return response
      */
-    private function _invoke(array $parameters)
+    private function _invoke(array &$parameters)
     {
         try {
             if (empty($this->_config['ServiceURL'])) {

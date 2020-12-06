@@ -1,0 +1,53 @@
+# Copyright (C) 2019 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress Math CAPTCHA plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Math CAPTCHA 1.1.7\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-math-captcha\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-11-18T13:08:17-07:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.2.0\n"
+"X-Domain: memberpress-math-captcha\n"
+
+#. Plugin Name of the plugin
+msgid "MemberPress Math CAPTCHA"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://memberpress.com"
+msgstr ""
+
+#. Description of the plugin
+msgid "Shows a Math question on the signup forms to prevent bots from signing up SPAM accounts."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com"
+msgstr ""
+
+#: MpMathCaptcha.php:136
+msgid "%s equals?"
+msgstr ""
+
+#: MpMathCaptcha.php:150
+#: MpMathCaptcha.php:155
+#: MpMathCaptcha.php:163
+msgid "You must fill out the Math Quiz correctly."
+msgstr ""
+
+#: main.php:36
+msgid "MemberPress Math Captcha"
+msgstr ""
+
+#: main.php:37
+msgid "Math Captcha add-on for MemberPress."
+msgstr ""

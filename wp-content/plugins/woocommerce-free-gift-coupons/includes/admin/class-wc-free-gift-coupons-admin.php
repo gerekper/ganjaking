@@ -20,7 +20,7 @@ class WC_Free_Gift_Coupons_Admin {
 	 * 
 	 * @var string
 	 */
-	public static $version = '3.0.0';
+	public static $version = '3.0.4';
 
 	/** 
 	 * Coupon Product ids list
@@ -58,12 +58,13 @@ class WC_Free_Gift_Coupons_Admin {
 	 */
 	public static function admin_scripts() {
 
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		// Coupon styles.
-		wp_register_style( 'woocommerce_free_gift_coupon_meta', plugins_url( '../assets/css/free-gift-coupons-meta-box.css' , __DIR__ ), array(), WC_Free_Gift_Coupons::$version );
+		wp_register_style( 'woocommerce_free_gift_coupon_meta', plugins_url( '../assets/css/admin/free-gift-coupons-meta-box' . $suffix . '.css' , __DIR__ ), array(), WC_Free_Gift_Coupons::$version );
 			
 		// Coupon script.
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		wp_register_script( 'woocommerce_free_gift_coupon_meta', plugins_url( '../assets/js/free-gift-coupons-meta-box' . $suffix . '.js' , __DIR__ ), array( 'jquery', 'backbone', 'underscore', 'wp-util', 'jquery-ui-sortable', 'wc-enhanced-select' ), WC_Free_Gift_Coupons::$version, true );
+		wp_register_script( 'woocommerce_free_gift_coupon_meta', plugins_url( '../assets/js/admin/free-gift-coupons-meta-box' . $suffix . '.js' , __DIR__ ), array( 'jquery', 'backbone', 'underscore', 'wp-util', 'jquery-ui-sortable', 'wc-enhanced-select' ), WC_Free_Gift_Coupons::$version, true );
 
 	}
 

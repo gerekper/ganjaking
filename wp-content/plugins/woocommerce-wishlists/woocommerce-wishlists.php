@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce WishLists
  * Plugin URI: https://woocommerce.com/products/woocommerce-wishlists/
  * Description:  WooCommerce Wishlists allows you to create public and personal wishlists.
- * Version: 2.2.2
+ * Version: 2.2.3
  * Author: Lucas Stark
  * Author URI: https://www.elementstark.com
  * Requires at least: 3.1
- * Tested up to: 5.5.1
+ * Tested up to: 5.5
 
  * Text Domain: wc_wishlist
  * Domain Path: /lang/
@@ -17,7 +17,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
  * WC requires at least: 3.8.0
- * WC tested up to: 4.4.1
+ * WC tested up to: 4.7
  * Woo: 171144:6bd20993ea96333eab6931ec2adc6d63
  */
 
@@ -729,6 +729,8 @@ if ( is_woocommerce_active() ) {
 
 						$is_users_list = $wishlist->get_wishlist_owner() == WC_Wishlists_User::get_wishlist_key();
 						$fb_message    = $is_users_list ? __( 'Check out my wishlist at ', 'wc_wishlist' ) . get_bloginfo( 'name' ) . ' ' : __( 'Found an interesting list of products at ', 'wc_wishlist' ) . get_bloginfo( 'name' ) . ' ';
+
+						$fb_message = apply_filters('woocommerce_wishlists_share_fb', $fb_message, $wishlist, $is_users_list);
 
 						if ( $maybe_image_url ) {
 							echo '<meta property="og:type" content="blog"/>';

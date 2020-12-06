@@ -64,6 +64,12 @@ class WC_MNM_Min_Max_Compatibility {
 
 		// Add child item and input cart quantity to the product.
 		add_filter( 'woocommerce_cart_item_product', array( __CLASS__, 'add_child_item_to_product' ), 10, 3 );
+
+		// Apply min/max/grouped restrictions to child variations.
+		add_filter( 'woocommerce_mnm_quantity_input_min', array( __CLASS__, 'variation_inputs' ), 10, 2 );
+		add_filter( 'woocommerce_mnm_quantity_input_max', array( __CLASS__, 'variation_inputs' ), 10, 2 );
+		add_filter( 'woocommerce_mnm_quantity_input_step', array( __CLASS__, 'variation_inputs' ), 10, 2 );
+
 	}
 
 	/**
@@ -296,6 +302,7 @@ class WC_MNM_Min_Max_Compatibility {
 		return $qty_meta;
 	}
 
+
 	/**
 	 * Add child item and input cart quantity to the product.
 	 *
@@ -321,6 +328,7 @@ class WC_MNM_Min_Max_Compatibility {
 		return $product;
 	}
 
+
 	/**
 	 * Validate child items with min/max quantities.
 	 * By default, Min/Max will catch the invalid item in the cart, but this will prevent the whole container from being added with an invalid configuration.
@@ -332,6 +340,43 @@ class WC_MNM_Min_Max_Compatibility {
 	public static function contents_ignores_rules( $container ) {
 		return $container->is_type( 'mix-and-match' ) && wc_string_to_bool( $container->get_meta( '_mnm_ignore_min_max_rules' ) );
 	}
+
+
+	/**
+	 * Apply min/max/step to variations.
+	 *
+	 * @since  1.11.0
+	 * @param  string  $qty
+	 * @param  WC_Product  $child_item
+	 * @return string
+	 */
+	public static function variation_inputs( $qty, $child_product ) {
+
+		if ( $child_product->get_parent_id() > 0 ) {
+
+			$current_filter = str_replace( 'woocommerce_mnm_quantity_input_', '', current_filter()  );
+
+			switch ( $current_filter ) {
+				case 'min':
+					$min = $child_product->get_meta( 'variation_minimum_allowed_quantity', true );
+					$qty = $min ? $min : $qty;
+					break;
+				case 'max':
+					$max = $child_product->get_meta( 'variation_maximum_allowed_quantity', true );
+					$qty = $max ? $max : $qty;
+					break;
+				case 'group':
+					$step = $child_product->get_meta( 'variation_group_of_quantity', true );
+					$qty = $step ? $step : $qty;
+					break;
+
+			}
+
+		}
+
+		return $qty;
+	}
+
 
 }
 WC_MNM_Min_Max_Compatibility::init();

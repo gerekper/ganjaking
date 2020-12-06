@@ -1,5 +1,16 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2020-12-01 - version 1.6.41
+* Tweak - WC 4.7 compatibility.
+* Tweak - WordPress 5.6 compatibility.
+* Fix - Compatibility with PHP 8.0.
+
+2020-11-17 - version 1.6.40
+* Fix - Points not redeemed on subscription renewal orders.
+
+2020-10-28 - version 1.6.39
+* Fix - Unable to apply points from the checkout page to an order with a subscription product.
+
 2020-09-29 - version 1.6.38
 * Fix - Prevent fatal error when viewing coupons in admin with Subscriptions.
 * Fix - Update reward messages when using a regular coupon.

@@ -1,5 +1,13 @@
 # Changelog
 ======
+1.9.9
+======
+- NEW:	New Cookie popup style: Full width buttons right
+		https://imgur.com/a/fZU439r
+- NEW:	When close icon empty in popup settings it will not display
+- NEW:	Added white space normal CSS for Uncode theme support
+
+======
 1.9.8
 ======
 - FIX:	First time allow all cookies did not allow declining single services afterwards

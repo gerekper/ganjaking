@@ -5,6 +5,7 @@
  * @package WPSEO\Premium
  */
 
+use Yoast\WP\SEO\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Integrations\Blocks\Siblings_Block;
 use Yoast\WP\SEO\Integrations\Blocks\Subpages_Block;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
@@ -39,7 +40,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '15.1.2';
+	const PLUGIN_VERSION_NAME = '15.4';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -82,7 +83,7 @@ class WPSEO_Premium {
 	 */
 	public function __construct() {
 		$this->integrations = [
-			'premium-metabox'                        => new WPSEO_Premium_Metabox(),
+			'premium-metabox'                        => new WPSEO_Premium_Metabox( YoastSEO()->classes->get( Prominent_Words_Helper::class ) ),
 			'premium-assets'                         => new WPSEO_Premium_Assets(),
 			'link-suggestions'                       => new WPSEO_Metabox_Link_Suggestions(),
 			'redirects-endpoint'                     => new WPSEO_Premium_Redirect_EndPoint( new WPSEO_Premium_Redirect_Service() ),

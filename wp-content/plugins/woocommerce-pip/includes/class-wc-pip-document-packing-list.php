@@ -582,7 +582,7 @@ class WC_PIP_Document_Packing_List extends WC_PIP_Document {
 				$items_weight = (float) ( max( $item_weight, 0 ) * $total_qty );
 
 				/** This filter is documented in includes/abstract-wc-pip-document.php */
-				$total_weight += apply_filters( 'wc_pip_order_item_weight', (float) $items_weight, $item, wc_get_product( (int) $item['product_id'] ), $this->order );
+				$total_weight += apply_filters( 'wc_pip_order_item_weight', (float) $items_weight, $item_id, $item, $product, $this->order );
 			}
 		}
 

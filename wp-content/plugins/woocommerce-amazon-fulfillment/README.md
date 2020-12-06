@@ -56,6 +56,18 @@ Available at https://neversettle.it/documentation/ns-fba-woocommerce/
 
 ## Changelog
 
+### 2020-09-15 - version 3.3.4
+* Added experimental retry failed orders setting
+* Added better request parameter logging for troubleshooting
+* Fixed WP 5.5 deprecated notice from PHPMailer
+* Fixed signature error for addresses with trailing whitespace
+
+### 2020-08-17 - version 3.3.3
+* Added ability to check tracking info from admin order page
+* Fixed bug with products not updating when syncing all inventory manually
+* Fixed inventory update failure for SKUs with special characters
+* Updated Kint library used for debug logs
+
 ### 2020-06-18 - version 3.3.2
 * Add misc. improvements to settings UI
 

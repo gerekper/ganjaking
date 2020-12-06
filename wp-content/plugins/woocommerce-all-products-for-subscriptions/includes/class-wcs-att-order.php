@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Order hooks for saving/restoring the subscription state of a product to/from order item data.
  *
  * @class    WCS_ATT_Order
- * @version  3.1.10
+ * @version  3.1.19
  */
 class WCS_ATT_Order {
 
@@ -174,7 +174,7 @@ class WCS_ATT_Order {
 		$product              = $order_item->get_product();
 		$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
 
-		if ( empty( $subscription_schemes ) && ! isset( $cart_item[ 'subscription_resubscribe' ] ) ) {
+		if ( empty( $subscription_schemes ) && ! isset( $cart_item[ 'subscription_resubscribe' ] ) && ! isset( $_GET[ 'order_again' ] ) ) {
 			return $cart_item;
 		}
 
@@ -230,7 +230,7 @@ class WCS_ATT_Order {
 	}
 
 	/**
-	 * Stores the scheme key against the order item when checking out.
+	 * Stores the scheme key on the order item when checking out.
 	 * Used for reconstructing the scheme when reordering, resubscribing, etc - @see 'WCS_ATT_Cart::add_cart_item_data'.
 	 *
 	 * @param  WC_Order_Item  $order_item
@@ -256,7 +256,7 @@ class WCS_ATT_Order {
 	}
 
 	/**
-	 * Stores the scheme key against the order item (WC < 3.0).
+	 * Stores the scheme key on the order item (WC < 3.0).
 	 * @see 'WCS_ATT_Order::save_subscription_scheme_meta'.
 	 *
 	 * @param  integer  $item_id

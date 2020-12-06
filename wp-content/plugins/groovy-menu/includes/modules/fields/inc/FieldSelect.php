@@ -10,11 +10,18 @@ defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
  */
 class FieldSelect extends \GroovyMenu\FieldField {
 	public function renderField() {
+
+		if ( 'search_form_from' === $this->name ) {
+			$this->field['options'] = array_merge(
+				$this->field['options'],
+				\GroovyMenuUtils::getPostTypesForSearch()
+			);
+		}
+
 		?>
 		<div class="gm-gui__module__ui gm-gui__module__select-wrapper">
 			<select data-value="<?php echo esc_attr( $this->getValue() ); ?>" data-name="<?php echo esc_attr( $this->name ); ?>"
-			        class="gm-select" name="<?php echo esc_attr( $this->getName() ); ?>"
-			        data-default="<?php echo esc_attr( $this->getDefault() ); ?>">
+				class="gm-select" name="<?php echo esc_attr( $this->getName() ); ?>" data-default="<?php echo esc_attr( $this->getDefault() ); ?>">
 				<?php foreach ( $this->field['options'] as $key => $option ) {
 					$optionName = $option;
 					if ( is_array( $option ) ) {

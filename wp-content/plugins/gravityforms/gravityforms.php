@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.4.21
+Version: 2.4.21.6
 Author: Gravity Forms
 Author URI: https://gravityforms.com
 License: GPL-2.0+
@@ -27,6 +27,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
 */
 
+update_option( 'rg_gforms_key', 'activated' );
+update_option( 'gform_pending_installation', false );
+delete_option( 'rg_gforms_message' );
+
 //------------------------------------------------------------------------------------------------------------------
 //---------- Gravity Forms License Key -----------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
@@ -46,13 +50,6 @@ $gf_license_key = '';
 // If you hardcode your reCAPTCHA Keys here, it will automatically populate on activation.
 $gf_recaptcha_private_key = '';
 $gf_recaptcha_public_key  = '';
-
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
-update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
-update_option( 'gf_site_secret' ,true);
-update_option( 'gform_upgrade_status', false );
-update_option( 'rg_gforms_message', '' );
 
 //-- OR ---//
 
@@ -217,7 +214,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.4.21';
+	public static $version = '2.4.21.6';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -2135,8 +2132,19 @@ class GFForms {
 			'Referer'        => get_bloginfo( 'url' )
 		);
 
-		$raw_response = 200;
-		$page_text = '';
+		$raw_response = GFCommon::post_to_manager( 'changelog.php', GFCommon::get_remote_request_params(), $options );
+
+		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
+			$page_text = sprintf( esc_html__( 'Oops!! Something went wrong. %sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
+		} else {
+			$page_text = $raw_response['body'];
+			if ( substr( $page_text, 0, 10 ) != '<!--GFM-->' ) {
+				$page_text = '';
+			} else {
+				$page_text = '<div style="background-color:white">' . $page_text . '<div>';
+			}
+		}
+
 		return stripslashes( $page_text );
 	}
 

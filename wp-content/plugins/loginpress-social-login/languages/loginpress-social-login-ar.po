@@ -1,0 +1,229 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Project-Id-Version: LoginPress - Social Login v1.0.6\n"
+"POT-Creation-Date: 2019-07-15 11:30+0500\n"
+"PO-Revision-Date: 2019-08-02 23:19+0300\n"
+"Language-Team: Moqbel BJ <moqbelbj@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress-social-login.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: ar\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: classes/loginpress-social-check.php:28
+msgid ""
+"The Facebook SDK requires PHP version 5.4 or higher. Please notify about "
+"this error to site admin."
+msgstr ""
+"عدة تطوير فيسبوك تتطلّب نسخة PHP 5.4 أو أعلى. الرجاء إخطاء مسئول الموقع عن "
+"هذا الخطأ."
+
+#: classes/loginpress-utilities.php:211
+#, php-format
+msgid "%1$sERROR%2$s: Invalid `Client ID` or `Client Secret` combination?"
+msgstr "%1$sخطأ%2$s: خلطة القيمتين `Client ID` أو `Client Secret` غير صحيحة؟"
+
+#: loginpress-social-login.php:103
+msgid "Facebook Login"
+msgstr "تسجيل دخول فيسبوك"
+
+#: loginpress-social-login.php:104
+msgid "Enable Facebook Login"
+msgstr "تمكين تسجيل الدخول بفيسبوك"
+
+#: loginpress-social-login.php:109
+msgid "Facebook App ID"
+msgstr "معرّف تطبيق فيسبوك"
+
+#: loginpress-social-login.php:110
+msgid "Enter your facebook App ID."
+msgstr "أدخل معرّف تطبيق فيسبوك الخاص بك."
+
+#: loginpress-social-login.php:115
+msgid "Facebook App Secret"
+msgstr "رمز تطبيق فيسبوك السري"
+
+#: loginpress-social-login.php:116
+msgid "Enter your facebook App Secret."
+msgstr "أدخل رمز تطبيق فيسبوك السري الخاص بك."
+
+#: loginpress-social-login.php:121
+msgid "Twitter Login"
+msgstr "تسجيل دخول تويتر"
+
+#: loginpress-social-login.php:122
+msgid "Enable Twitter Login"
+msgstr "تمكين تسجيل الدخول بتويتر"
+
+#: loginpress-social-login.php:127
+msgid "Twitter API key"
+msgstr "مفتاح API لتويتر"
+
+#: loginpress-social-login.php:128
+msgid "Enter Your Consumer API key."
+msgstr "أدخل مفتاح Consumer API الخاص بك."
+
+#: loginpress-social-login.php:133
+msgid "Twitter API secret key"
+msgstr "مفتاح API لتويتر السري"
+
+#: loginpress-social-login.php:134
+msgid "Enter Your Consumer API secret key."
+msgstr "أدخل مفتاح Consumer API السري الخاص بك."
+
+#: loginpress-social-login.php:139
+msgid "Twitter Callback URL"
+msgstr "رابط رد الاتصال Callback بتويتر"
+
+#: loginpress-social-login.php:140
+msgid "Enter Your Callback URL "
+msgstr "أدخل رابط رد الاتصال الخاص بك Callback URL "
+
+#: loginpress-social-login.php:145
+msgid "Google Login"
+msgstr "تسجيل دخول جوجل"
+
+#: loginpress-social-login.php:146
+msgid "Enable Google Login"
+msgstr "تمكين تسجيل الدخول بجوجل"
+
+#: loginpress-social-login.php:151 loginpress-social-login.php:175
+msgid "Client ID"
+msgstr "معرّف العميل Client ID"
+
+#: loginpress-social-login.php:152 loginpress-social-login.php:176
+msgid "Enter Your Client ID."
+msgstr "أدخل معرّف العميل (Client ID) الخاص بك."
+
+#: loginpress-social-login.php:157 loginpress-social-login.php:181
+msgid "Client Secret"
+msgstr "رمز سر العميل Client Secret"
+
+#: loginpress-social-login.php:158 loginpress-social-login.php:182
+msgid "Enter Your Client Secret."
+msgstr "أدخل رمز سر العميل (Client Secret) الخاص بك."
+
+#: loginpress-social-login.php:163 loginpress-social-login.php:187
+msgid "Redirect URI"
+msgstr "رابط إعادة التوجيه"
+
+#: loginpress-social-login.php:164
+msgid "Enter Your Redirect URI:"
+msgstr "أدخل رابط إعادة التوجيه الخاص بك:"
+
+#: loginpress-social-login.php:169
+msgid "LinkedIn Login"
+msgstr "تسجيل دخول لينكدإن"
+
+#: loginpress-social-login.php:170
+msgid "Enable LinkedIn Login"
+msgstr "تمكين تسجيل الدخول بالينكدإن"
+
+#: loginpress-social-login.php:188
+msgid "Enter Your Redirect URI: "
+msgstr "أدخل رابط إعادة التوجيه الخاص بك: "
+
+#: loginpress-social-login.php:193
+msgid "Enable Social Login on"
+msgstr "تمكين تسجيل دخول الوسائط الاجتماعية على"
+
+#: loginpress-social-login.php:194
+msgid "Enable Social Login on Login and Register form"
+msgstr "تمكين تسجيل الدخول بالوسائط الاجتماعية عند الدخول ونماذج التسجيل"
+
+#: loginpress-social-login.php:204
+msgid "Remove Record On Uninstall"
+msgstr "إزالة السجلات عند إلغاء التركيب"
+
+#: loginpress-social-login.php:205
+msgid ""
+"This tool will remove all LoginPress - Social Logins record upon uninstall."
+msgstr ""
+"ستقوم هذه الأداة بإزالة جميع سجلات لوجن بريس LoginPress - تسجيل دخول الوسائط "
+"الاجتماعية عند إلغاء التركيب."
+
+#: loginpress-social-login.php:229
+msgid "Social Login"
+msgstr "تسجيل دخول الوسائط الاجتماعية"
+
+#: loginpress-social-login.php:230
+#, php-format
+msgid "%1$s%3$sSettings%4$s %5$sHelp%4$s%2$s"
+msgstr "%1$s%3$sالإعدادات%4$s %5$sالمساعدة%4$s%2$s"
+
+#: loginpress-social-login.php:395
+msgid "or"
+msgstr "أو"
+
+#: loginpress-social-login.php:406 loginpress-social-login.php:411
+msgid "Login with Google"
+msgstr "تسجيل دخول مع جوجل"
+
+#: loginpress-social-login.php:426 loginpress-social-login.php:431
+msgid "Login with Facebook"
+msgstr "تسجيل دخول مع فيسبوك"
+
+#: loginpress-social-login.php:446 loginpress-social-login.php:451
+msgid "Login with Twitter"
+msgstr "تسجيل دخول مع تويتر"
+
+#: loginpress-social-login.php:466 loginpress-social-login.php:471
+msgid "Login with LinkedIn"
+msgstr "تسجيل دخول مع لينكدإن"
+
+#: loginpress-social-login.php:504
+msgid "Vote!"
+msgstr "صوّت!"
+
+#: loginpress-social-login.php:654
+msgid ""
+"Please Install LoginPress Pro to use \"LoginPress Social Login\" add-on."
+msgstr ""
+"الرجاء تركيب نسخة لوجن بريس المحترفة LoginPress Pro لتتمكن من استخدام الملحق "
+"\"لوجن بريس LoginPress تسجيل دخول الوسائط الاجتماعية Social Login\"."
+
+#: loginpress-social-login.php:682
+msgid "The following required plugin is currently inactive &mdash; "
+msgstr "الإضافة المطلوبة التالية هي حالياً غير مفعّلة &mdash; "
+
+#: loginpress-social-login.php:684
+msgid "Click here to activate LoginPress Pro"
+msgstr "اضغط هنا لتنشيط نسخة لوجن بريس المحترفة LoginPress Pro"
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Social Login"
+msgstr "لوجن بريس LoginPress - تسجيل دخول الوسائط الاجتماعية"
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.WPBrigade.com/wordpress/plugins/loginpress/"
+msgstr "https://www.WPBrigade.com/wordpress/plugins/loginpress/"
+
+#. Description of the plugin/theme
+msgid ""
+"This is a premium add-on of LoginPress WordPress plugin by <a href=\"https://"
+"wpbrigade.com/\">WPBrigade</a> which allows you to login using social media "
+"accounts like Facebook, Twitter and Google/G+ etc"
+msgstr ""
+"هذا ملحق مميز لإضافة ووردبريس لوجن بريس LoginPress بواسطة <a href=\"https://"
+"wpbrigade.com/\">WPBrigade</a> والذي يسمح لك بتسجيل الدخول مستخدماً حسابات "
+"مواقع التواصل الاجتماعي مثل فيسبوك، تويتر وجوجل/جوجل+ الخ"
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr "WPBrigade"
+
+#. Author URI of the plugin/theme
+msgid "https://www.WPBrigade.com/"
+msgstr "https://www.WPBrigade.com/"

@@ -1,5 +1,9 @@
 *** WooCommerce Product Reviews Pro Changelog ***
 
+2020.11.17 - version 1.17.0
+ * Misc - Add compatibility for WooCommerce 4.7
+ * Misc - Require PHP 7.0 or newer
+
 2020.09.30 - version 1.16.2
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets
 

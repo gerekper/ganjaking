@@ -1868,7 +1868,7 @@ msgid "Audio Wave Library is Loading..."
 msgstr ""
 
 #: admin/revslider-admin.class.php:2056
-msgid "Loading CodeMirror Library..."
+msgid "Loading RevMirror Library..."
 msgstr ""
 
 #: admin/revslider-admin.class.php:2057
@@ -7521,7 +7521,7 @@ msgid "Slider Revolution - Premium responsive slider"
 msgstr ""
 
 #. URI of the plugin
-msgid "https://revolution.themepunch.com/"
+msgid "https://www.sliderrevolution.com/"
 msgstr ""
 
 #. Author URI of the plugin

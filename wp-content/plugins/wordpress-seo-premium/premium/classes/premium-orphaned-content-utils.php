@@ -5,7 +5,7 @@
  * @package WPSEO\Premium
  */
 
-use Yoast\WP\SEO\Actions\Indexation\Post_Link_Indexing_Action;
+use Yoast\WP\SEO\Actions\Indexing\Post_Link_Indexing_Action;
 use Yoast\WP\SEO\Config\Migration_Status;
 
 /**

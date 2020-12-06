@@ -1,5 +1,10 @@
 *** Bulk Stock Management Changelog ***
 
+2020-11-25 - version 2.2.31
+* Fix - Fatal error when opening the Stock Management page in PHP 8.
+* Tweak - WC 4.7 compatibility.
+* Tweak - WP 5.5 compatibility.
+
 2020-10-07 - version 2.2.30
 * Tweak - WC 4.4 compatibility.
 

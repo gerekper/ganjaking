@@ -1,5 +1,18 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2020.11.17 - version 1.8.9
+* Fix - Custom checkout button not visible when PayPal Checkout is selected. Bug triggered when the checkout page is loaded with the PayPal Checkout gateway restricted.
+* Fix - Fixed some 'Settings > Restrictions' styling issues with certain RTL/translated flavors of the WordPress dashboard.
+
+2020.11.13 - version 1.8.8
+* Fix - Fixed saving of 'Exclude Rate IDs' field values with escaped delimiters (%|%).
+* Fix - JS error when attempting to set up 'Billing Country' restrictions due to an outdated file commit.
+
+2020.11.10 - version 1.8.7
+* Fix - Toggle button not working for product-level restrictions.
+* Fix - Fatal error in admin area when product-level restrictions are disabled.
+* Tweak - Optimized 'edit-product' page load speed on sites with slow shipping configurations.
+
 2020.10.13 - version 1.8.6
 * Feature - Add states/regions support in 'Billing Country' condition.
 * Fix - 'Shipping Postcode' condition did not work in 'Payment Gateway' restrictions when attempting to purchase a synchronized subscription product.

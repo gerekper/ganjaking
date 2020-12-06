@@ -1,0 +1,152 @@
+# Copyright (C) 2015 MemberPress Campaign Monitor
+# This file is distributed under the same license as the MemberPress Campaign Monitor package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Campaign Monitor 1.0.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-"
+"campaignmonitor\n"
+"POT-Creation-Date: 2015-11-11 03:52:20+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: MpCampaignMonitor.php:90
+msgid "Enable Campaign Monitor"
+msgstr ""
+
+#: MpCampaignMonitor.php:98 MpCampaignMonitor.php:100
+msgid "Campaign Monitor Client ID"
+msgstr ""
+
+#: MpCampaignMonitor.php:101
+msgid ""
+"In order for an application to access the Campaign Monitor API, it needs to "
+"have a valid Client ID."
+msgstr ""
+
+#: MpCampaignMonitor.php:107
+msgid ""
+"You can get your Campaign Monitor Client ID under Manage Account > API keys"
+msgstr ""
+
+#: MpCampaignMonitor.php:114
+msgid "Campaign Monitor API Key "
+msgstr ""
+
+#: MpCampaignMonitor.php:117
+msgid "Campaign Monitor API Key"
+msgstr ""
+
+#: MpCampaignMonitor.php:118
+msgid ""
+"In order to integrate Campaign Monitor with your application , you need to "
+"get a Campaign Monitor API key."
+msgstr ""
+
+#: MpCampaignMonitor.php:127
+msgid ""
+"You can get your Campaign Monitor API key under Manage Account > API keys"
+msgstr ""
+
+#: MpCampaignMonitor.php:135
+msgid "Campaign Monitor Email List:"
+msgstr ""
+
+#: MpCampaignMonitor.php:154
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: MpCampaignMonitor.php:158
+msgid ""
+"If checked, an opt-in checkbox will appear on all of your product "
+"registration pages."
+msgstr ""
+
+#: MpCampaignMonitor.php:163
+msgid "Signup Checkbox Label:"
+msgstr ""
+
+#: MpCampaignMonitor.php:166
+msgid ""
+"This is the text that will display on the signup page next to your mailing "
+"list opt-in checkbox."
+msgstr ""
+
+#: MpCampaignMonitor.php:215
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: MpCampaignMonitor.php:297
+msgid "Campaign Monitor Email list for this Product"
+msgstr ""
+
+#: MpCampaignMonitor.php:300
+msgid "Enable Product Campaign Monitor List"
+msgstr ""
+
+#: MpCampaignMonitor.php:301
+msgid ""
+"If this is set the member will be added to this email list when their "
+"payment is completed for this product. If the member cancels or you refund "
+"their subscription, they will be removed from the list automatically. In "
+"order to do that, please set Unsubscribe settings to \"Only remove them from "
+"this list\".  You must have your Campaign Monitor Client ID and API key set "
+"in the Options before this will work."
+msgstr ""
+
+#: MpCampaignMonitor.php:305
+msgid "Campaign Monitor Email List: "
+msgstr ""
+
+#: MpCampaignMonitor.php:331 MpCampaignMonitor.php:353
+msgid "Hey yo, why you creepin'?"
+msgstr ""
+
+#: MpCampaignMonitor.php:336 MpCampaignMonitor.php:358
+msgid "No apikey code was sent"
+msgstr ""
+
+#: MpCampaignMonitor.php:519
+msgid "Sign Up for the %s Newsletter"
+msgstr ""
+
+#. #-#-#-#-#  memberpress-campaignmonitor.pot (MemberPress Campaign Monitor 1.0.2)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: main.php:35
+msgid "MemberPress Campaign Monitor"
+msgstr ""
+
+#: main.php:36
+msgid "Campaign Monitor Autoresponder Integration for MemberPress."
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Campaign Monitor Autoresponder integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com/"
+msgstr ""

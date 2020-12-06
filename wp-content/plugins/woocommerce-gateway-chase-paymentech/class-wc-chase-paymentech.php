@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_8_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
 
 /**
  * Main plugin class.
@@ -36,7 +36,7 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string version number */
-	const VERSION = '1.15.1';
+	const VERSION = '1.15.2';
 
 	/** @var WC_Chase_Paymentech single instance of this plugin */
 	protected static $instance;

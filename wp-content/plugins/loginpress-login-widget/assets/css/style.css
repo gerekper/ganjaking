@@ -1,0 +1,11 @@
+input#widget-loginpress-login-widget-2-avatar_size {
+    width: 50px;
+}
+.loginpress-login-widget .loginpress_widget_error {
+	color: #ae121e;
+	background-color: #fbb1b7;
+	border: 1px solid;
+	margin: 1em 0;
+	padding: 1em;
+	font-size: 13px;
+}

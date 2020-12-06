@@ -1,12 +1,12 @@
 <?php
 
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 class Redsys_Card_Images extends WP_Widget {
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function __construct() {
 		$options = array(
@@ -20,7 +20,7 @@ class Redsys_Card_Images extends WP_Widget {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function widget( $args, $instance ) {
 		// Define the widget
@@ -32,13 +32,13 @@ class Redsys_Card_Images extends WP_Widget {
 		}
 		//output
 		echo '<!-- logos tarjetas crédito añadidos por el plugin de Redsys de WooCommerce.com -->';
-		echo '<img src="' . REDSYS_PLUGIN_URL . 'assets/images/Visa-MasterCard.png" alt="' . __( 'Accepted Credit Cards', 'woocommerce-redsys' ) . '" height="58 width="150">';
+		echo '<img src="' . REDSYS_PLUGIN_URL . 'assets/images/Visa-MasterCard.png" alt="' . __( 'Accepted Credit Cards', 'woocommerce-redsys' ) . '" height="58" width="150">';
 		echo '<!-- Fin logos tarjetas crédito añadidos por el plugin de Redsys de WooCommerce.com -->';
 		echo $args['after_widget'];
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function form( $instance ) {
 		
@@ -56,7 +56,7 @@ class Redsys_Card_Images extends WP_Widget {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function update( $new_instance, $old_instance ) {
 		
@@ -67,7 +67,7 @@ class Redsys_Card_Images extends WP_Widget {
 }
 // Register the widget
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function redsys_register_card_image_widget() {
 	register_widget( 'Redsys_Card_Images' );

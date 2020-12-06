@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Store Credit 3.2.2\n"
+"Project-Id-Version: WooCommerce Store Credit 3.4.1\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/woocommerce/woocommerce-store-credit/issues\n"
-"POT-Creation-Date: 2020-10-01 09:11:46+00:00\n"
+"POT-Creation-Date: 2020-11-26 11:53:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,19 +14,35 @@ msgstr ""
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: includes/abstracts/abstract-wc-store-credit-singleton.php:49
+#: includes/abstracts/abstract-wc-store-credit-singleton.php:48
 msgid "Cloning is forbidden."
 msgstr ""
 
-#: includes/abstracts/abstract-wc-store-credit-singleton.php:58
+#: includes/abstracts/abstract-wc-store-credit-singleton.php:57
 msgid "Unserializing instances of this class is forbidden."
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-meta-boxes.php:53
+msgid "Store credit usage"
 msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-send-credit-page.php:116
 msgid "Choose customer&hellip;"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:209
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:138
+msgid "Never expires"
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:139
+msgid "Specific date"
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:140
+msgid "Specific period"
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:254
 msgid "Store credit sent to the customer."
 msgstr ""
 
@@ -36,9 +52,25 @@ msgstr ""
 msgid "Available placeholders: %s"
 msgstr ""
 
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-coupon-usage.php:78
+msgid "Order Number"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-coupon-usage.php:79
+msgid "Date"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-coupon-usage.php:80
+msgid "Status"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-coupon-usage.php:81
+msgid "Credit used"
+msgstr ""
+
 #: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:52
 #: includes/class-wc-store-credit-privacy.php:22
-#: includes/class-wc-store-credit-products.php:43
+#: includes/class-wc-store-credit-products.php:46
 msgid "Store Credit"
 msgstr ""
 
@@ -65,6 +97,10 @@ msgstr ""
 #: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:93
 #: includes/emails/class-wc-store-credit-email-send-credit.php:222
 msgid "N/A"
+msgstr ""
+
+#: includes/admin/meta-boxes/views/html-coupon-store-credit-usage.php:15
+msgid "This coupon has not been used yet."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -168,7 +204,7 @@ msgid_plural "years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/myaccount/store-credit.php:19
+#: templates/myaccount/store-credit.php:20
 msgid "No store credit coupons found."
 msgstr ""
 
@@ -183,8 +219,7 @@ msgstr ""
 #. Description of the plugin/theme
 msgid ""
 "Create \"store credit\" coupons for customers which are redeemable at "
-"checkout. Also, generate and email store credit coupons to customers via "
-"the backend."
+"checkout."
 msgstr ""
 
 #. Author of the plugin/theme
@@ -198,6 +233,16 @@ msgstr ""
 #: includes/admin/class-wc-store-credit-admin-send-credit-page.php:95
 msgctxt "send credit: desc"
 msgid "Send a Store credit coupon to a customer."
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:133
+msgctxt "send credit: desc"
+msgid "Expiration"
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:135
+msgctxt "send credit: desc"
+msgid "Define when the coupon expires."
 msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-send-credit-page.php:99
@@ -235,27 +280,47 @@ msgctxt "send credit: field desc"
 msgid "A note for the customer who will receive the coupon."
 msgstr ""
 
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:145
+msgctxt "send credit: field desc"
+msgid "The coupon will expire on the specified date."
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:158
+msgctxt "send credit: field desc"
+msgid "The coupon will expire when the period passes."
+msgstr ""
+
 #: includes/admin/class-wc-store-credit-admin-send-credit-page.php:126
 msgctxt "send credit: field placeholder"
 msgid "Enter a note or the reason for this coupon."
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:186
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:217
 msgctxt "form validation error"
 msgid "You need to provide a credit amount for the coupon."
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:191
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:222
 msgctxt "form validation error"
 msgid "You need to choose a customer who to send the coupon."
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:198
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:229
 msgctxt "form validation error"
 msgid "Customer not found."
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:211
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:234
+msgctxt "form validation error"
+msgid "An expiration date is required."
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:239
+msgctxt "form validation error"
+msgid "An expiration period is required."
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-send-credit-page.php:256
 msgctxt "form validation error"
 msgid "An unexpected error happened."
 msgstr ""
@@ -342,33 +407,33 @@ msgctxt "setting desc"
 msgid "Shipping not enabled."
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:57
+#: includes/admin/class-wc-store-credit-admin.php:56
 msgctxt "page title"
 msgid "Send Store Credit"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:58
+#: includes/admin/class-wc-store-credit-admin.php:57
 msgctxt "menu title"
 msgid "Send Store Credit"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:181
+#: includes/admin/class-wc-store-credit-admin.php:180
 msgctxt "aria-label: settings link"
 msgid "View WooCommerce Store Credit settings"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:182
+#: includes/admin/class-wc-store-credit-admin.php:181
 msgctxt "plugin action link"
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:205
+#: includes/admin/class-wc-store-credit-admin.php:204
 #: includes/admin/notices/sell-credit.php:32
 msgctxt "aria-label: documentation link"
 msgid "View WooCommerce Store Credit documentation"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:206
+#: includes/admin/class-wc-store-credit-admin.php:205
 msgctxt "plugin row link"
 msgid "Docs"
 msgstr ""
@@ -724,6 +789,13 @@ msgctxt "email text"
 msgid "To redeem your store credit use the following code during checkout:"
 msgstr ""
 
+#: templates/emails/customer-store-credit.php:31
+#: templates/emails/plain/customer-store-credit.php:30
+#. translators: %s expiration date
+msgctxt "email text"
+msgid "This credit can be redeemed until %s."
+msgstr ""
+
 #: templates/myaccount/dashboard-store-credit.php:15
 msgctxt "my account: dashboard title"
 msgid "Store credit"
@@ -745,4 +817,9 @@ msgstr ""
 #: templates/myaccount/store-credit.php:14
 msgctxt "my account: column name"
 msgid "Credit"
+msgstr ""
+
+#: templates/myaccount/store-credit.php:15
+msgctxt "my account: column name"
+msgid "Expiry date"
 msgstr ""

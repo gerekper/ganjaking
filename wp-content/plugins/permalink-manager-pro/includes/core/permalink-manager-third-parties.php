@@ -281,7 +281,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 
 		if(!empty($custom_permalinks_uris) && count($custom_permalinks_uris) > 0) {
 			foreach($custom_permalinks_uris as $item) {
-				$permalink_manager_uris[$item['id']] = $item['uri'];
+				$permalink_manager_uris[$item['id']] = Permalink_Manager_Helper_Functions::sanitize_title($item['uri']);
 			}
 
 			$permalink_manager_before_sections_html .= Permalink_Manager_Admin_Functions::get_alert_message(__( '"Custom Permalinks" URIs were imported!', 'permalink-manager' ), 'updated');
@@ -303,7 +303,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		$shop_page_id = apply_filters('wpml_object_id', $shop_page_id, 'page', TRUE);
 
 		// Fix shop page
-		if(!empty($pm_query['id']) && is_numeric($pm_query['id']) && $shop_page_id == $pm_query['id']) {
+		if(get_theme_support('woocommerce') && !empty($pm_query['id']) && is_numeric($pm_query['id']) && $shop_page_id == $pm_query['id']) {
 			$query['post_type'] = 'product';
 			unset($query['pagename']);
 		}
@@ -330,7 +330,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		// Redirect from Shop archive to selected page
 		if(is_shop() && empty($pm_query['id'])) {
 			$redirect_mode = (!empty($permalink_manager_options['general']['redirect'])) ? $permalink_manager_options['general']['redirect'] : false;
-			$redirect_shop = apply_filters('permalink-manager-redirect-shop-archive', false);
+			$redirect_shop = apply_filters('permalink_manager_redirect_shop_archive', false);
 			$shop_page = get_option('woocommerce_shop_page_id');
 
 			if($redirect_mode && $redirect_shop && $shop_page && empty($wp_query->query_vars['s'])) {
@@ -463,7 +463,8 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 				$new_url = get_permalink($element->ID);
 
 				// Do not filter if custom canonical URL is set
-				if(!empty(get_post_meta($element->ID, '_yoast_wpseo_canonical', true))) { return $url; }
+				$yoast_canonical_url = get_post_meta($element->ID, '_yoast_wpseo_canonical', true);
+				if(!empty($yoast_canonical_url)) { return $url; }
 
 				$paged = (get_query_var('page')) ? get_query_var('page') : 1;
 				if($paged > 1) {
@@ -478,7 +479,8 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 				}
 			}
 
-			$url = (!empty($new_url)) ? Permalink_Manager_Core_Functions::control_trailing_slashes($new_url) : $url;
+			$url = (!empty($new_url)) ? $new_url : $url;
+			$url = Permalink_Manager_Core_Functions::control_trailing_slashes($url);
 		}
 
 		return $url;
@@ -816,7 +818,10 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	function duplicate_custom_uri($new_post_id, $old_post) {
 		global $permalink_manager_uris;
 
-		if(!empty($old_post->ID)) {
+		$duplicate_post_blacklist = get_option('duplicate_post_blacklist', false);
+		$duplicate_custom_uri_bool = (!empty($duplicate_post_blacklist) && strpos($duplicate_post_blacklist, 'custom_uri') !== false) ? false : true;
+
+		if(!empty($old_post->ID) && $duplicate_custom_uri_bool) {
 			$old_post_id = intval($old_post->ID);
 
 			// Clone custom permalink (if set for cloned post/page)
@@ -1008,8 +1013,8 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	public function geodir_custom_fields($default_uri, $native_slug, $element, $slug, $native_uri) {
 		global $permalink_manager_uris;
 
-		// Use only for "gd_place" post type & custom permalink
-		if(empty($element->post_type) || $element->post_type !== 'gd_place' || $native_uri || !function_exists('geodir_get_post_info')) { return $default_uri; }
+		// Use only for GeoDirectory post types & custom permalinks
+		if(empty($element->post_type) || (strpos($element->post_type, 'gd_') === false) || $native_uri || !function_exists('geodir_get_post_info')) { return $default_uri; }
 
 		// Get place info
 		$place_data = geodir_get_post_info($element->ID);

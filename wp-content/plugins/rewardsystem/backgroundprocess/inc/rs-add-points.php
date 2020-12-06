@@ -91,7 +91,8 @@ if ( ! class_exists( 'RS_Add_Points_For_User' ) ) {
                     if ( get_option( 'rs_enable_disable_max_earning_points_for_user' ) == 'yes' ) {
                         $new_obj->check_point_restriction( $selected_options[ 'points' ] , 0 , 'MAP' , $UserId , '' , '' , '' , '' , $selected_options[ 'reason' ] ) ;
                     } else {
-                        $valuestoinsert = array( 'expireddate' => strtotime( $selected_options[ 'expdate' ] ) , 'manualaddpoints' => 'yes' , 'pointstoinsert' => $selected_options[ 'points' ] , 'event_slug' => 'MAP' , 'user_id' => $UserId , 'reasonindetail' => $selected_options[ 'reason' ] , 'totalearnedpoints' => $selected_options[ 'points' ] ) ;
+                        $expired_date   = isset( $selected_options[ 'expdate' ] ) && '' != $selected_options[ 'expdate' ] ? $selected_options[ 'expdate' ] . ' ' . date( 'H:i:s' ) : $selected_options[ 'expdate' ] ;
+                        $valuestoinsert = array( 'expireddate' => strtotime( $expired_date ) , 'manualaddpoints' => 'yes' , 'pointstoinsert' => $selected_options[ 'points' ] , 'event_slug' => 'MAP' , 'user_id' => $UserId , 'reasonindetail' => $selected_options[ 'reason' ] , 'totalearnedpoints' => $selected_options[ 'points' ] ) ;
                         $new_obj->total_points_management( $valuestoinsert ) ;
                     }
 
@@ -124,7 +125,7 @@ if ( ! class_exists( 'RS_Add_Points_For_User' ) ) {
                             $mailer = WC()->mailer() ;
                             $mailer->send( $to , $selected_options[ 'subject' ] , $woo_temp_msg , $headers ) ;
                         }
-                        
+
                         remove_filter( 'woocommerce_email_footer_text' , 'srp_footer_link' ) ;
                     }
                 }

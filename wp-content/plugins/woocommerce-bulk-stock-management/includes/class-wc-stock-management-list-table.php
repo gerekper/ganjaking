@@ -534,7 +534,7 @@ class WC_Stock_Management_List_Table extends WP_List_Table {
 		$this->set_pagination_args( array(
 			'total_items' => $products->found_posts,
 			'per_page'    => $per_page,
-			'total_pages' => ceil( $this->items ) / $per_page,
+			'total_pages' => ceil( $products->found_posts / $per_page ),
 		) );
 	}
 }

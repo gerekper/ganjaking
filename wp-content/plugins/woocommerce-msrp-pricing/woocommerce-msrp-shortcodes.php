@@ -17,17 +17,20 @@ class woocommerce_msrp_shortcodes {
 	}
 
 	public function product_msrp_shortcode( $atts, $content ) {
+		global $product;
+
 		$product_id = isset( $atts['product_id'] ) ? $atts['product_id'] : null;
 		if ( ! $product_id ) {
-			return $content;
+			$shortcode_product = $product;
+		} else {
+			$shortcode_product = wc_get_product( $product_id );
 		}
-		$product = wc_get_product( $product_id );
-		if ( ! $product ) {
+		if ( ! $shortcode_product ) {
 			return $content;
 		}
 
 		ob_start();
-		$this->msrp_frontend->show_msrp( $product );
+		$this->msrp_frontend->show_msrp( $shortcode_product );
 		return ob_get_clean();
 	}
 }

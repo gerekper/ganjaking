@@ -14,7 +14,7 @@
  *                                          in order to be selectable by the user.
  * @type bool               $is_disable     If true - menu do not show
  *
- * @return string|null  if  $gm_echo is true then return void (by default)
+ * @return string  if $gm_echo is true then return empty string (by default)
  */
 function groovyMenu( $args = array() ) {
 
@@ -52,7 +52,7 @@ function groovyMenu( $args = array() ) {
 	}
 
 	if ( isset( $args['gm_preset_id'] ) && 'none' === $args['gm_preset_id'] ) {
-		return null;
+		return '';
 	}
 
 	$defaults_args = array(
@@ -131,7 +131,7 @@ function groovyMenu( $args = array() ) {
 			if ( $args['gm_echo'] ) {
 				echo ( ! empty( $stored_gm_data['gm_html'] ) ) ? $stored_gm_data['gm_html'] : '';
 
-				return null;
+				return '';
 
 			} else {
 
@@ -159,7 +159,7 @@ function groovyMenu( $args = array() ) {
 	}
 
 	if ( 'none' === $args['gm_preset_id'] ) {
-		return null;
+		return '';
 	}
 
 
@@ -174,7 +174,7 @@ function groovyMenu( $args = array() ) {
 
 		// Prevent output if self gm_menu_block post_type preview.
 		if ( $prevent_gm_output || 'gm_menu_block' === get_post_type() ) {
-			return null;
+			return '';
 		}
 	}
 
@@ -891,11 +891,19 @@ function groovyMenu( $args = array() ) {
 			if ( $woocommerce && isset( $woocommerce->cart ) ) {
 				ob_start();
 
-				$template_mini_cart_path = get_stylesheet_directory() . '/woocommerce/cart/mini-cart.php';
+				$template_mini_cart_path = str_replace( array(
+					'\\',
+					'/'
+				), DIRECTORY_SEPARATOR, get_stylesheet_directory() . '/woocommerce/cart/mini-cart.php' );
+
 				if ( file_exists( $template_mini_cart_path ) && is_file( $template_mini_cart_path ) ) {
 					include $template_mini_cart_path;
 				} elseif ( defined( 'WC_PLUGIN_FILE' ) ) {
-					$original_mini_cart_path = dirname( WC_PLUGIN_FILE ) . '/templates/cart/mini-cart.php';
+					$original_mini_cart_path = str_replace( array(
+						'\\',
+						'/'
+					), DIRECTORY_SEPARATOR, dirname( WC_PLUGIN_FILE ) . '/templates/cart/mini-cart.php' );
+
 					if ( file_exists( $original_mini_cart_path ) && is_file( $original_mini_cart_path ) ) {
 						$args['list_class'] = '';
 						include $original_mini_cart_path;
@@ -1128,7 +1136,7 @@ function groovyMenu( $args = array() ) {
 		return $output_html;
 	}
 
-	return null;
+	return '';
 
 }
 
@@ -1146,7 +1154,7 @@ function groovyMenu( $args = array() ) {
  * @type string             $theme_location Theme location to be used. Must be registered with register_nav_menu()
  *                                          in order to be selectable by the user.
  *
- * @return string|void  if  $echo is true then return void (by default)
+ * @return string  if  $echo is true then return empty string (by default)
  *
  */
 function gm_wp_nav_menu( $args = array() ) {
@@ -1168,9 +1176,12 @@ function gm_wp_nav_menu( $args = array() ) {
  * @type string             $theme_location Theme location to be used. Must be registered with register_nav_menu()
  *                                          in order to be selectable by the user.
  *
- * @return string|void  if  $echo is true then return void (by default)
+ * @return string  if  $echo is true then return empty string (by default)
  *
  */
 function groovy_menu( $args = array() ) {
 	return groovyMenu( $args );
 }
+
+
+add_shortcode( 'groovy_menu', 'groovyMenu' );

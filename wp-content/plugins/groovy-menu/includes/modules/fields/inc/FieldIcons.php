@@ -26,8 +26,18 @@ class FieldIcons extends \GroovyMenu\FieldField {
 			}
 		}
 
-
 		?>
+
+		<p class="gm-gui__module__info">
+			<?php echo sprintf(
+				esc_html__( 'Please upload .ZIP archive created with %1$s service only.', 'groovy-menu' ),
+					'<a href="https://icomoon.io/app/#/select" title="icomoon.io" target="_blank">icomoon.io</a>' ) . ' ' . sprintf( esc_html__( 'How to create font icon package read in %1$s this article %2$s', 'groovy-menu' ),
+					'<a href="https://grooni.com/docs/groovy-menu/global-settings/managing-icon-packs/" title="Grooni docs" target="_blank">',
+					'</a>'
+				);
+			?>
+		</p>
+
 		<div class="gm-gui__module__ui gm-gui__module__import">
 			<button class="gm-upload-icon-pack"
 				type="button"><?php esc_html_e( 'Upload icon pack', 'groovy-menu' ); ?></button>

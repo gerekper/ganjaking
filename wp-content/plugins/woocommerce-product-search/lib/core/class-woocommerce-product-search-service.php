@@ -674,7 +674,7 @@ class WooCommerce_Product_Search_Service {
 							$cached = wps_cache_set( $cache_key, $terms_post_ids, self::OBJECT_TERM_CACHE_GROUP, self::get_cache_lifetime() );
 						}
 
-						if ( count( $terms_post_ids ) > 0 ) {
+						if ( is_array( $terms_post_ids ) && count( $terms_post_ids ) > 0 ) {
 							if ( $post_ids !== null ) {
 								$post_ids = array_intersect( $post_ids, $terms_post_ids );
 								if ( count( $post_ids ) === 0 ) {
@@ -1616,30 +1616,33 @@ class WooCommerce_Product_Search_Service {
 						( $multi_currency->prices instanceof WCML_Multi_Currency_Prices )
 					) {
 						if ( method_exists( $multi_currency, 'get_client_currency' ) ) {
-						$currency = $multi_currency->get_client_currency();
-						if ( function_exists( 'wcml_get_woocommerce_currency_option' ) ) {
-								if ( $currency !== wcml_get_woocommerce_currency_option() ) {
-									if ( $min_price !== null && $max_price === null ) {
-										$price_union = sprintf( " UNION SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_price_%s' AND meta_value >= %s ", esc_sql( $currency ), floatval( $min_price ) );
-									} else if ( $min_price === null && $max_price !== null ) {
-										$price_union = sprintf( " UNION SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_price_%s' AND meta_value <= %s ", esc_sql( $currency ), floatval( $max_price ) );
-									} else {
-										$price_union = sprintf( " UNION SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_price_%s' AND meta_value BETWEEN %s AND %s ", esc_sql( $currency ), floatval( $min_price ), floatval( $max_price ) );
-									}
+
+							$currency = $multi_currency->get_client_currency();
+
+							$base_currency = get_option( 'woocommerce_currency' );
+
+							if ( $currency !== $base_currency ) {
+								if ( $min_price !== null ) {
+									$min_price = $multi_currency->prices->convert_price_amount_by_currencies( $min_price, $currency, $base_currency );
+								}
+								if ( $max_price !== null ) {
+									$max_price = $multi_currency->prices->convert_price_amount_by_currencies( $max_price, $currency, $base_currency );
 								}
 							}
+
 						}
 					}
 				}
 
 				if ( $min_price !== null && $max_price === null ) {
-					$conj[] = sprintf( " ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE min_price >= %s %s ) ", floatval( $min_price ), $price_union );
+
+					$conj[] = sprintf( " ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE max_price >= %s %s ) ", floatval( $min_price ), $price_union );
 				} else if ( $min_price === null && $max_price !== null ) {
 
 					$conj[] = sprintf( " ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE min_price <= %s %s ) ", floatval( $max_price ), $price_union );
 				} else {
 
-					$conj[] = sprintf( " ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE min_price >= %s AND min_price <= %s %s ) ", floatval( $min_price ), floatval( $max_price ), $price_union );
+					$conj[] = sprintf( " ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE max_price >= %s AND min_price <= %s %s ) ", floatval( $min_price ), floatval( $max_price ), $price_union );
 				}
 
 				$wps_wc_query_price_filter_post_clauses = has_filter( 'posts_clauses', array( WC()->query, 'price_filter_post_clauses' ) );

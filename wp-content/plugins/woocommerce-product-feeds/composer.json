@@ -53,11 +53,15 @@
             "./src/prf/woocommerce-prf-google-review-product-info.php",
 
             "./src/integrations/woocommerce-cost-of-goods.php",
+            "./src/integrations/woocommerce-gpf-currency-switcher-for-woocommerce.php",
             "./src/integrations/woocommerce-gpf-multicurrency.php",
             "./src/integrations/woocommerce-gpf-price-by-country.php",
             "./src/integrations/woocommerce-gpf-product-brands-for-woocommerce.php",
             "./src/integrations/woocommerce-gpf-the-content-protection.php",
+            "./src/integrations/woocommerce-gpf-woocommerce-composite-products.php",
+            "./src/integrations/woocommerce-gpf-woocommerce-min-max-quantity-step-control-single.php",
             "./src/integrations/woocommerce-gpf-woocommerce-mix-and-match-products.php",
+            "./src/integrations/woocommerce-gpf-woocommerce-product-bundles.php",
             "./src/integrations/woocommerce-min-max-quantities.php",
 
             "./src/integrations/woocommerce-product-vendors.php",

@@ -1,5 +1,11 @@
 *** WooCommerce Box Office Changelog ***
 
+2020-11-05 - version 1.1.30
+* Fix - Dev - Fix incompatibilities with PHP 8.
+* Fix - Limited the editable ticket check to the customer facing edit page post-purchase.
+* Tweak - WC 4.6 compatibility.
+* Tweak - WP 5.5 compatibility.
+
 2020-09-29 - version 1.1.29
 * Add   - Option to disable editing of tickets.
 * Fix   - Global options for Ticket Printing and Ticket Emails does not work.

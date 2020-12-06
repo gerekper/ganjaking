@@ -7,68 +7,68 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-10-05T13:29:41+00:00\n"
-"PO-Revision-Date: 2020-09-11 08:20:11+0000\n"
+"POT-Creation-Date: 2020-11-25T10:38:44+00:00\n"
+"PO-Revision-Date: 2020-11-19 13:54:10+0000\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1190
 msgid "Invalid request!"
-msgstr ""
+msgstr "Requisição inválida!"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:990
 msgid "To sync with Google Calendar using an app provided by WooCommerce.com, click the \"Connect with Google\" button below to authorize access to your Google calendar."
-msgstr ""
+msgstr "Clique no botão \"Conectar com o Google\" abaixo para sincronizar com o Google Agenda usando o app do WooCommerce.com e autorizar o acesso ao seu calendário do Google."
 
 #: includes/class-wc-bookings-google-calendar-connection.php:879
 msgid "Connect with custom Google app"
-msgstr ""
+msgstr "Conectar com o app personalizado do Google"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:877
 msgid "Please fill out all required fields from above and save changes."
-msgstr ""
+msgstr "Preencha todos os campos obrigatórios acima e salve as alterações."
 
 #: includes/class-wc-bookings-google-calendar-connection.php:783
 msgid "Select your Calendar."
-msgstr ""
+msgstr "Selecione seu calendário."
 
 #: includes/class-wc-bookings-google-calendar-connection.php:776
 msgid "Connected Calendar Settings"
-msgstr ""
+msgstr "Configurações do calendário conectado"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:766
 msgid "Enter the Google Client Secret associated with your Calendar API app."
-msgstr ""
+msgstr "Insira a chave secreta do cliente do Google associada ao seu app de Calendar API."
 
 #: includes/class-wc-bookings-google-calendar-connection.php:764
 msgid "Client Secret"
-msgstr ""
+msgstr "Chave secreta do cliente"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:758
 msgid "Enter the Google Client ID associated with your Calendar API app."
-msgstr ""
+msgstr "Insira a ID do cliente do Google associada ao seu app de Calendar API."
 
 #: includes/class-wc-bookings-google-calendar-connection.php:756
 msgid "Client ID"
-msgstr ""
+msgstr "ID do cliente"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:751
 msgid "Connect with a custom Google Calendar App"
-msgstr ""
+msgstr "Conectar com o app personalizado do Google Agenda"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:224
 msgid "Metadata:"
-msgstr ""
+msgstr "Metadados:"
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
 #: woocommerce-bookings.php:286
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
-msgstr ""
+msgstr "<a href=\"%1$s\">Adicione ou edite um produto</a> para gerenciar reservas na seção \"Dados do produto\" para produtos individuais e depois acesse a <a href=\"%2$s\" target=\"_blank\">página Reservas</a> para gerenciá-los individualmente."
 
 #: woocommerce-bookings.php:284
 msgid "Bookings has been activated!"
-msgstr ""
+msgstr "O Bookings foram ativadas!"
 
 #: woocommerce-bookings.php:181
 msgid "Unserializing instances of this class is forbidden."
@@ -84,7 +84,7 @@ msgstr "Suporte Premium"
 
 #: woocommerce-bookings.php:141
 msgid "Visit Premium Customer Support"
-msgstr ""
+msgstr "Visitar o suporte premium ao cliente"
 
 #: woocommerce-bookings.php:140
 msgid "Docs"
@@ -97,7 +97,7 @@ msgstr "Visualizar Documentação"
 #. translators: %s WC download URL link.
 #: woocommerce-bookings.php:35
 msgid "Bookings requires WooCommerce to be installed and active. You can download %s here."
-msgstr ""
+msgstr "O Bookings exige que o WooCommerce esteja instalado e ativado. Faça o download de %s aqui."
 
 #: templates/single-product/add-to-cart/booking.php:33
 msgid "Your browser must support JavaScript in order to make a booking."
@@ -106,7 +106,7 @@ msgstr "Por favor, use um browser com suporte a JavaScript."
 #. translators: 1: person count
 #: templates/order/booking-summary-list.php:75
 msgid "%d Persons"
-msgstr ""
+msgstr "%d pessoas"
 
 #. translators: 1: label 2: resource name
 #: templates/order/booking-summary-list.php:47
@@ -116,11 +116,11 @@ msgstr "%1$s: %2$s"
 #. translators: %s: timezone name
 #: templates/order/booking-summary-list.php:38
 msgid "in timezone: %s"
-msgstr ""
+msgstr "no fuso horário: %s"
 
 #: templates/order/booking-display.php:44
 msgid "View my bookings &rarr;"
-msgstr ""
+msgstr "Visualizar minhas reservas &rarr;"
 
 #: templates/order/admin/booking-display.php:46
 msgid "View booking &rarr;"
@@ -130,7 +130,7 @@ msgstr "Visualizar reserva \t"
 #: templates/order/admin/booking-display.php:33
 #: templates/order/booking-display.php:35
 msgid "Booking #%s"
-msgstr ""
+msgstr "Reserva #%s"
 
 #: templates/myaccount/my-bookings.php:25
 msgid "My Bookings"
@@ -157,7 +157,7 @@ msgstr "Reservado"
 #. translators: 1: booking start date
 #: templates/emails/plain/customer-booking-reminder.php:31
 msgid "This is a reminder that your booking will take place on %1$s. The details of your booking are shown below."
-msgstr ""
+msgstr "Este é um lembrete de que sua reserva está marcada para %1$s. Os detalhes de sua reserva são mostrados abaixo."
 
 #: templates/emails/plain/customer-booking-notification.php:27
 msgid "The details of your booking are shown below."
@@ -182,7 +182,7 @@ msgstr "Número da compra: %s"
 #: templates/emails/plain/customer-booking-pending-confirmation.php:53
 #: templates/emails/plain/customer-booking-reminder.php:54
 msgid "Time Zone: %s"
-msgstr ""
+msgstr "Fuso horário: %s"
 
 #. translators: 1: booking end date
 #: templates/emails/plain/admin-booking-cancelled.php:44
@@ -246,12 +246,12 @@ msgstr "As reservas a seguir foram canceladas pelo cliente. Os detalhes da reser
 #. translators: 1: booking start date
 #: templates/emails/customer-booking-reminder.php:38
 msgid "This is a reminder that your booking will take place on %1$s."
-msgstr ""
+msgstr "Este é um lembrete de que sua reserva está marcada para %1$s."
 
 #: templates/emails/customer-booking-pending-confirmation.php:35
 #: templates/emails/plain/customer-booking-pending-confirmation.php:30
 msgid "Your booking has been received and it's pending confirmation. The details of your booking are shown below."
-msgstr ""
+msgstr "Recebemos sua reserva e a confirmação está pendente. Os detalhes de sua reserva são mostrados abaixo."
 
 #: templates/emails/customer-booking-confirmed.php:129
 msgid "Price"
@@ -345,7 +345,7 @@ msgstr "Data de início da reserva"
 
 #: templates/emails/admin-booking-cancelled.php:26
 msgid "The following booking has been cancelled. The details of the cancelled booking can be found below."
-msgstr ""
+msgstr "A reserva a seguir foi cancelada. Os detalhes da reserva cancelada podem ser encontrados abaixo."
 
 #: templates/booking-form/datetime-picker.php:71
 #: templates/booking-form/datetime-picker.php:76
@@ -354,7 +354,7 @@ msgstr "Escolha uma data acima para ver os horários disponíveis."
 
 #: templates/booking-form/datetime-picker.php:30
 msgid "Times are in "
-msgstr ""
+msgstr "Horários estão em "
 
 #: templates/booking-form/date-picker.php:68
 msgid "End"
@@ -439,7 +439,7 @@ msgstr "Regras com um número menor de prioridade substituirão regras com prior
 
 #: includes/wc-bookings-functions.php:146
 msgid "In Cart"
-msgstr ""
+msgstr "No carrinho"
 
 #: includes/wc-bookings-functions.php:96
 #: includes/wc-bookings-functions.php:125
@@ -450,7 +450,7 @@ msgstr "Concluída"
 #: includes/wc-bookings-functions.php:95
 #: includes/wc-bookings-functions.php:124
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelada"
 
 #: includes/wc-bookings-functions.php:94
 #: includes/wc-bookings-functions.php:123
@@ -473,7 +473,7 @@ msgstr "Confirmado"
 #: includes/wc-bookings-functions.php:130
 #: includes/wc-bookings-functions.php:142
 msgid "Pending Confirmation"
-msgstr ""
+msgstr "Confirmação pendente"
 
 #: includes/wc-bookings-functions.php:91
 #: includes/wc-bookings-functions.php:120
@@ -503,24 +503,24 @@ msgstr "Data da reserva"
 
 #: includes/integrations/class-wc-bookings-deposits.php:149
 msgid "Partially Paid"
-msgstr ""
+msgstr "Paga parcialmente"
 
 #. translators: 1: count, 2: count
 #: includes/integrations/class-wc-bookings-deposits.php:136
 msgid "Partially Paid <span class=\"count\">(%s)</span>"
 msgid_plural "Partially Paid <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Paga parcialmente <span class=\"count\">(%s)</span>"
+msgstr[1] "Paga parcialmente <span class=\"count\">(%s)</span>"
 
 #: includes/integrations/class-wc-bookings-deposits.php:130
 msgctxt "woocommerce-bookings"
 msgid "Partially Paid"
-msgstr ""
+msgstr "Paga parcialmente"
 
 #: includes/integrations/class-wc-bookings-addons.php:69
 #: includes/integrations/class-wc-bookings-addons.php:76
 msgid "Only applies to options which use quantity based prices."
-msgstr ""
+msgstr "Aplicável apenas a opções que usam quantidade com base em preços."
 
 #: includes/integrations/class-wc-bookings-addons.php:58
 #: includes/integrations/class-wc-bookings-addons.php:75
@@ -614,16 +614,16 @@ msgstr "Lembrete de reserva"
 
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:22
 msgid "[{blogname}] Your booking of {product_title} has been received, and it's pending confirmation (Order {order_number}) - {order_date}"
-msgstr ""
+msgstr "[{blogname}] Sua reserva de \"{product_title}\" foi recebida e a confirmação está pendente (Pedido {order_number}) - {order_date}"
 
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:20
 msgid "Booking pending confirmation emails are sent when the status of a booking goes to pending confirmation."
-msgstr ""
+msgstr "E-mails de confirmação pendente de reserva são enviados quando o status de uma reserva passar para Confirmação pendente."
 
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:19
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:21
 msgid "Booking Pending Confirmation"
-msgstr ""
+msgstr "Confirmação de reserva pendente"
 
 #: includes/emails/class-wc-email-booking-notification.php:20
 msgid "Booking notification emails are sent manually from WooCommerce > Bookings > Send Notification."
@@ -781,7 +781,7 @@ msgstr "Admin de reservas canceladas"
 
 #: includes/data-stores/class-wc-product-booking-person-type-data-store-cpt.php:49
 msgid "Invalid booking person type."
-msgstr ""
+msgstr "Tipo de pessoa para reserva inválido."
 
 #. translators: 1: person type sort order
 #: includes/data-stores/class-wc-product-booking-person-type-data-store-cpt.php:16
@@ -791,13 +791,13 @@ msgstr "Tipo de Pessoa #%d"
 
 #: includes/data-stores/class-wc-global-availability-data-store.php:105
 msgid "Invalid event."
-msgstr ""
+msgstr "Evento inválido."
 
 #. translators: Booking date format parsed by strftime
 #: includes/data-stores/class-wc-booking-data-store.php:50
 msgctxt "Booking date format parsed by strftime"
 msgid "%b %d, %Y @ %I:%M %p"
-msgstr ""
+msgstr "%Y de %b %d às %I:%M %p"
 
 #. translators: %s: Booking date
 #: includes/data-stores/class-wc-booking-data-store.php:48
@@ -811,12 +811,12 @@ msgstr "O bloco selecionado não está disponível"
 #. translators: 1: person name 2: minimum persons
 #: includes/data-objects/class-wc-product-booking.php:2362
 msgid "The minimum %1$s per group is %2$d"
-msgstr ""
+msgstr "O mínimo de %1$s por grupo é %2$d"
 
 #. translators: 1: person name 2: maximum persons
 #: includes/data-objects/class-wc-product-booking.php:2356
 msgid "The maximum %1$s per group is %2$d"
-msgstr ""
+msgstr "O máximo de %1$s por grupo é %2$d"
 
 #. translators: 1: minimum persons
 #: includes/data-objects/class-wc-product-booking.php:2347
@@ -830,7 +830,7 @@ msgstr "O máximo de pessoas por grupo é %d"
 
 #: includes/data-objects/class-wc-product-booking.php:2333
 msgid "Sorry, bookings cannot start on this day."
-msgstr ""
+msgstr "Não é possível iniciar reservas neste dia."
 
 #. translators: 1: maximum date
 #: includes/data-objects/class-wc-product-booking.php:2324
@@ -867,7 +867,7 @@ msgstr "A duração máxima é %d"
 
 #: includes/data-objects/class-wc-product-booking.php:2274
 msgid "Duration is required - please enter a duration greater than zero"
-msgstr ""
+msgstr "A duração é obrigatória. Insira acima uma duração maior que zero"
 
 #: includes/data-objects/class-wc-product-booking.php:2263
 msgid "Please choose a resource type"
@@ -882,15 +882,15 @@ msgstr "Este bloco não pode ser reservado."
 #: includes/data-objects/class-wc-product-booking.php:1559
 msgid "There is a maximum of %1$d place remaining on %2$s"
 msgid_plural "There are a maximum of %1$d places remaining on %2$s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Existe, no máximo, %1$d local restante em %2$s"
+msgstr[1] "Existem, no máximo, %1$d locais restantes em %2$s"
 
 #. translators: 1: available quantity
 #: includes/data-objects/class-wc-product-booking.php:1546
 msgid "There is a maximum of %d place remaining"
 msgid_plural "There are a maximum of %d places remaining"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Existe, no máximo, %d local restante"
+msgstr[1] "Existem, no máximo, %d locais restantes"
 
 #: includes/data-objects/class-wc-product-booking.php:142
 msgid "Free"
@@ -913,17 +913,17 @@ msgstr "Verificar disponibilidade"
 #: includes/data-objects/class-wc-booking.php:880
 msgctxt "Guest string with name from booking order in brackets"
 msgid "%s (Guest)"
-msgstr ""
+msgstr "%s (Visitante)"
 
 #. translators: 1: booking id 2: old status 3: new status
 #: includes/data-objects/class-wc-booking.php:284
 msgid "Booking #%1$d status changed from \"%2$s\" to \"%3$s\""
-msgstr ""
+msgstr "O status da reserva nº %1$d foi alterado de \"%2$s\" para \"%3$s\""
 
 #: includes/data-objects/class-wc-booking.php:230
 #: includes/data-objects/class-wc-booking.php:1045
 msgid "Was In Cart"
-msgstr ""
+msgstr "Estava no carrinho"
 
 #: includes/compatibility/class-wc-product-data-store-cpt.php:116
 msgid "Invalid product."
@@ -942,51 +942,51 @@ msgstr "Armazenamento de dados inválido."
 
 #: includes/class-wc-product-booking-manager.php:55
 msgid "You cannot trash/delete a resource that has Bookings associated with it."
-msgstr ""
+msgstr "Não é possível excluir um recurso associado ao Bookings."
 
 #: includes/class-wc-product-booking-manager.php:44
 #: includes/class-wc-product-booking-manager.php:60
 msgid "Please visit our Bookings FAQs for more information"
-msgstr ""
+msgstr "Acesse nossa página de FAQs sobre o Bookings para saber mais"
 
 #: includes/class-wc-product-booking-manager.php:39
 msgid "You cannot trash/delete a bookable product that has Bookings associated with it."
-msgstr ""
+msgstr "Não é possível excluir um produto reservável associado ao Bookings."
 
 #. translators: 1: URL to Firstday settings 2: first day of week
 #: includes/class-wc-bookings-timezone-settings.php:132
 msgid "Set start day from <a href=\"%1$s\">WordPress settings</a> (%2$s)"
-msgstr ""
+msgstr "Defina a data de início nas <a href=\"%1$s\">configurações do WordPress</a> (%2$s)"
 
 #: includes/class-wc-bookings-timezone-settings.php:130
 msgid "Set start day from visitor's locale"
-msgstr ""
+msgstr "Defina a data de início a partir do local do visitante"
 
 #: includes/class-wc-bookings-timezone-settings.php:126
 msgid "Calendar start day"
-msgstr ""
+msgstr "Data de início do calendário"
 
 #: includes/class-wc-bookings-timezone-settings.php:121
 msgid "Whether to display the current timezone on the calendar frontend"
-msgstr ""
+msgstr "Se o fuso horário atual será exibido no front-end do calendário"
 
 #: includes/class-wc-bookings-timezone-settings.php:120
 msgid "Display a timezone"
-msgstr ""
+msgstr "Exibir um fuso horário"
 
 #. translators: 1: URL to Timezone String settings
 #: includes/class-wc-bookings-timezone-settings.php:116
 msgid "<div>Due to the sites current UTC offset selection the timezone above is displaying an estimation.</div><div>To ensure accurate timezone setups, select a location based timezone in the <a href=\"%1$s\">WordPress settings</a>.</div>"
-msgstr ""
+msgstr "<div>Devido à seleção atual da diferença de fuso horário UTC dos sites, o fuso horário exibido acima é uma estimativa.</div><div>Para garantir que as configurações de fuso horário sejam precisas, selecione um local baseado no fuso horário nas <a href=\"%1$s\">configurações do WordPress</a>.</div>"
 
 #. translators: 1: URL to Timezone String settings 2: server timezone
 #: includes/class-wc-bookings-timezone-settings.php:111
 msgid "Display your local time from <a href=\"%1$s\">WordPress settings</a> (%2$s)"
-msgstr ""
+msgstr "Exibir seu horário local nas <a href=\"%1$s\">configurações do WordPress</a> (%2$s)"
 
 #: includes/class-wc-bookings-timezone-settings.php:109
 msgid "Display visitor's local time"
-msgstr ""
+msgstr "Exibir o horário local do visitante"
 
 #: includes/class-wc-bookings-timezone-settings.php:105
 msgid "Timezone"
@@ -994,11 +994,11 @@ msgstr "Fuso horário"
 
 #: includes/class-wc-bookings-timezone-settings.php:100
 msgid "Schedule Bookings events, such as reminder emails and auto-completions of bookings, using your site’s configured timezone."
-msgstr ""
+msgstr "Agende eventos do Bookings, como e-mails de lembrete ou preenchimento automático de reservas, usando o fuso horário definido no seu site."
 
 #: includes/class-wc-bookings-timezone-settings.php:99
 msgid "Enable Bookings Timezone Calculation"
-msgstr ""
+msgstr "Ativar cálculo de fuso horário do Bookings"
 
 #. translators: 1: count, 2: count
 #: includes/class-wc-bookings-init.php:187
@@ -1207,7 +1207,7 @@ msgstr "Reserva"
 #. translators: %s URL to edit booking
 #: includes/class-wc-bookings-google-calendar-connection.php:1287
 msgid "NOTE: this event cannot be edited in Google Calendar. If you need to make changes, <a href=\"%s\" target=\"_blank\">please edit this booking in WooCommerce</a>."
-msgstr ""
+msgstr "OBSERVAÇÃO: este evento não pode ser editado no Google Agenda. Se precisar fazer alterações, <a href=\"%s\" target=\"_blank\"> edite a reserva no WooCommerce</a>."
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1271
 #: includes/wc-bookings-functions.php:67
@@ -1247,7 +1247,7 @@ msgstr "Permissão negada!"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1026
 msgid "Account not properly connected, reset successfully!"
-msgstr ""
+msgstr "Conta conectada inadequadamente. Redefinição de conexão bem-sucedida!"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:1023
 msgid "Failed to disconnect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
@@ -1273,7 +1273,7 @@ msgstr "Conecte-se com Google"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:897
 msgid "Select a calendar from the list"
-msgstr ""
+msgstr "Selecionar um calendário na lista"
 
 #. translators: 1: log file path
 #: includes/class-wc-bookings-google-calendar-connection.php:807
@@ -1290,19 +1290,19 @@ msgstr "Depurar Log"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:796
 msgid "Manage the sync flow between your Store calendar and Google calendar."
-msgstr ""
+msgstr "Gerencie o fluxo de sincronização entre o calendário da sua Loja e o calendário do Google."
 
 #: includes/class-wc-bookings-google-calendar-connection.php:794
 msgid "Sync one way - from Store to Google"
-msgstr ""
+msgstr "Sincronização direta: da Loja para o Google"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:793
 msgid "Sync both ways - between Store and Google"
-msgstr ""
+msgstr "Sincronização bidirecional: entre a Loja e o Google"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:791
 msgid "Sync Preference"
-msgstr ""
+msgstr "Preferência na sincronização"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:747
 #: includes/class-wc-bookings-google-calendar-connection.php:772
@@ -1328,33 +1328,33 @@ msgstr "A duração desta reserva deve ter pelo menos %s dias."
 
 #: includes/class-wc-booking-privacy.php:139
 msgid "WooCommerce Bookings Data Erased."
-msgstr ""
+msgstr "Os dados do WooCommerce Bookings foram apagados."
 
 #: includes/class-wc-booking-privacy.php:82
 msgid "Booked order ID"
-msgstr ""
+msgstr "ID do pedido reservado"
 
 #: includes/class-wc-booking-privacy.php:74
 msgid "Booking end"
-msgstr ""
+msgstr "Término da reserva"
 
 #: includes/class-wc-booking-privacy.php:70
 msgid "Booking start"
-msgstr ""
+msgstr "Início da reserva"
 
 #: includes/class-wc-booking-privacy.php:66
 msgid "Booking Number"
-msgstr ""
+msgstr "Número da reserva"
 
 #. translators: %s: documentation link
 #: includes/class-wc-booking-privacy.php:39
 msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
-msgstr ""
+msgstr "Ao usar esta extensão, pode ser que você esteja armazenando informações pessoais ou compartilhando dados com um serviço externo. <a href=\"%s\" target=\"_blank\">Saiba mais sobre essa funcionalidade e o que você pode incluir na sua política de privacidade.</a>"
 
 #: includes/class-wc-booking-privacy.php:11
 #: includes/class-wc-booking-privacy.php:12
 msgid "WooCommerce Bookings Data"
-msgstr ""
+msgstr "Dados do WooCommerce Bookings"
 
 #: includes/class-wc-booking-order-manager.php:287
 msgid "Past Bookings"
@@ -1366,11 +1366,11 @@ msgstr "Reservas Próximas"
 
 #: includes/class-wc-booking-order-manager.php:275
 msgid "Today's Bookings"
-msgstr ""
+msgstr "Reservas de hoje"
 
 #: includes/class-wc-booking-order-manager.php:202
 msgid "All bookings start and end times except where stated differently are displayed in the following timezone: "
-msgstr ""
+msgstr "Todos os horários de início e fim da reserva são exibidos no seguinte fuso horário, exceto quando especificado de outra forma: "
 
 #: includes/class-wc-booking-order-manager.php:156
 #: includes/class-wc-booking-order-manager.php:178
@@ -1405,7 +1405,7 @@ msgstr "Uma reserva que requer confirmação foi removida de seu carrinho. Não 
 #. removed from cart.
 #: includes/class-wc-booking-cart-manager.php:255
 msgid "Bookings for %s have been removed from your cart due to inactivity."
-msgstr ""
+msgstr "Reservas de %sforam removidas de seu carrinho devido a inatividade."
 
 #. translators: Admin notice with title and link to bookable product removed
 #. from cart.
@@ -1419,21 +1419,21 @@ msgstr "Hora de término"
 
 #: includes/booking-form/class-wc-booking-form.php:620
 msgid "Ends"
-msgstr ""
+msgstr "Fim"
 
 #. translators: %d: booking duration in hours
 #: includes/booking-form/class-wc-booking-form.php:591
 msgid "%d Hour"
 msgid_plural "%d Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d hora"
+msgstr[1] "%d horas"
 
 #. translators: %d: booking duration in minutes
 #: includes/booking-form/class-wc-booking-form.php:587
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minuto"
+msgstr[1] "%d minutos"
 
 #. translators: 1: quantity available
 #: includes/booking-form/class-wc-booking-form.php:506
@@ -1445,16 +1445,16 @@ msgstr[1] "%d restantes"
 
 #: includes/booking-form/class-wc-booking-form.php:478
 msgid "Start time"
-msgstr ""
+msgstr "Horário de início"
 
 #: includes/booking-form/class-wc-booking-form.php:476
 msgid "Starts"
-msgstr ""
+msgstr "Início"
 
 #. translators: 1: block cost 2: duration unit
 #: includes/booking-form/class-wc-booking-form.php:308
 msgid "+%1$1s per %2$2s"
-msgstr ""
+msgstr "%1$1s a mais por %2$2s"
 
 #: includes/booking-form/class-wc-booking-form.php:294
 #: includes/wc-bookings-functions.php:1125
@@ -1466,8 +1466,8 @@ msgstr[1] "dias"
 #: includes/booking-form/class-wc-booking-form.php:292
 msgid "block"
 msgid_plural "blocks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "bloco"
+msgstr[1] "blocos"
 
 #. translators: %s: product duration in minutes
 #: includes/booking-form/class-wc-booking-form.php:203
@@ -1481,7 +1481,7 @@ msgstr "× %s horas"
 
 #: includes/booking-form/class-wc-booking-form.php:189
 msgid "Night(s)"
-msgstr ""
+msgstr "Noite(s)"
 
 #. translators: %s: product duration in nights
 #: includes/booking-form/class-wc-booking-form.php:187
@@ -1506,15 +1506,15 @@ msgstr "× %s meses"
 
 #: includes/booking-form/class-wc-booking-form.php:101
 msgid "Store server time: "
-msgstr ""
+msgstr "Armazenar horário do servidor: "
 
 #: includes/booking-form/class-wc-booking-form.php:94
 msgid "To clear selection, pick a new start date"
-msgstr ""
+msgstr "Para excluir a seleção, basta selecionar uma nova data de início"
 
 #: includes/booking-form/class-wc-booking-form.php:93
 msgid "Please select the options for your booking and make sure duration rules apply."
-msgstr ""
+msgstr "Selecione as opções da sua reserva e certifique-se de que as regras de duração sejam aplicáveis."
 
 #: includes/booking-form/class-wc-booking-form.php:92
 msgid "Dates"
@@ -1565,67 +1565,67 @@ msgstr "Data"
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:165
 msgid "Sorting order."
-msgstr ""
+msgstr "Ordenação aleatória."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:159
 msgid "Quantity of resource."
-msgstr ""
+msgstr "Quantidade de recursos."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:153
 msgid "ID of parent bookable product."
-msgstr ""
+msgstr "ID do produto pai reservável."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:147
 msgid "Name of resource."
-msgstr ""
+msgstr "Nome do recurso."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:141
 msgid "Cost per block of resource."
-msgstr ""
+msgstr "Preço por bloco de recurso."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:135
 msgid "Base cost for resource."
-msgstr ""
+msgstr "Base de preço para recursos."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:128
 msgid "To date for availability range."
-msgstr ""
+msgstr "Data de término do intervalo de disponibilidade."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:122
 msgid "From date for availability range."
-msgstr ""
+msgstr "Data de início do intervalo de disponibilidade."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:116
 msgid "To time for availability range."
-msgstr ""
+msgstr "Horário de término do intervalo de disponibilidade."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:110
 msgid "From time for availability range."
-msgstr ""
+msgstr "Horário de início do intervalo de disponibilidade."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:104
 msgid "Priority for how availability rule is applied."
-msgstr ""
+msgstr "Prioridade para como a disponibilidade é aplicada."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:98
 msgid "Whether or not the resource is bookable during the time range."
-msgstr ""
+msgstr "Se o recurso é reservável ou não nesse intervalo de horário."
 
 #: includes/api/class-wc-bookings-rest-resources-controller.php:92
 msgid "Availability date/time range type string."
-msgstr ""
+msgstr "String do tipo de intervalo de data/horário da disponibilidade."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:496
 msgid "Booking can be cancelled by customer."
-msgstr ""
+msgstr "A reserva pode ser cancelada pelo cliente."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:487
 msgid "Days days of week bookings cannot start. Array of numeric day indexes with 0 being Sunday."
-msgstr ""
+msgstr "Dias da semana em que a reserva não pode ter início. Array de índices de dias numéricos, com 0 sendo domingo."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:482
 msgid "Booking require confirmation."
-msgstr ""
+msgstr "A reserva exige confirmação."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:477
 msgid "Max bookings per block."
@@ -1637,7 +1637,7 @@ msgstr "Custo base"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:458
 msgid "How the base cost should be modified."
-msgstr ""
+msgstr "A base de preço deve ser alterada desta forma."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:453
 msgid "Block cost."
@@ -1645,190 +1645,190 @@ msgstr "Preço do bloco"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:447
 msgid "How the block cost should be modified."
-msgstr ""
+msgstr "O preço dos blocos deve ser alterado desta forma."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:422
 msgid "Date range type."
-msgstr ""
+msgstr "Tipo de intervalo de datas."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:415
 msgid "Pricing rules."
-msgstr ""
+msgstr "Regras de precificação."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:410
 msgid "Min persons which can be booked per booking."
-msgstr ""
+msgstr "Mínimo de pessoas por reserva."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:405
 msgid "Max persons which can be booked per booking."
-msgstr ""
+msgstr "Máximo de pessoas por reserva."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:400
 msgid "Min duration of units a booking can be."
-msgstr ""
+msgstr "Mínimo de duração de unidades por reserva."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:395
 msgid "Max duration of units a booking can be."
-msgstr ""
+msgstr "Máximo de duração de unidades por reserva."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:389
 msgid "Units for min_date_value."
-msgstr ""
+msgstr "Unidades para min_date_value."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:384
 msgid "Min amount af min_date_units into the future a block is bookable."
-msgstr ""
+msgstr "Quantidade mínima futura de min_date_units em que um bloco é reservável."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:379
 msgid "Min date value combined with min date unit."
-msgstr ""
+msgstr "Valor de data mínimo combinado com unidade de data mínima."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:373
 msgid "Units for max_date_value."
-msgstr ""
+msgstr "Unidades para max_date_value."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:368
 msgid "Max amount af max_date_units into the future a block is bookable."
-msgstr ""
+msgstr "Quantidade máxima futura de max_date_units em que um bloco é reservável."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:363
 msgid "Max date value combined with max date unit."
-msgstr ""
+msgstr "Valor de data máximo combinado com unidade de data máxima."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:358
 msgid "Product has restricted days."
-msgstr ""
+msgstr "O produto tem dias restritos."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:353
 msgid "Product has resources defined."
-msgstr ""
+msgstr "O produto tem recursos definidos."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:348
 msgid "Product has persons defined."
-msgstr ""
+msgstr "O produto tem pessoas definidas."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:343
 msgid "Product has different types of persons."
-msgstr ""
+msgstr "O produto tem tipos diferentes de pessoas."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:338
 msgid "Each person counts as a booking."
-msgstr ""
+msgstr "Cada pessoa conta como uma reserva."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:333
 msgid "Will multiply cost by number of persons."
-msgstr ""
+msgstr "Multiplicará o preço pelo número de pessoas."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:328
 msgid "Time of day first block starts."
-msgstr ""
+msgstr "Horário do dia em que o bloco inicia."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:323
 msgid "Customer can pick a range of days on calendar."
-msgstr ""
+msgstr "O cliente tem a opção de escolher um intervalo de dias no calendário."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:318
 msgid "Size in duration units of each block."
-msgstr ""
+msgstr "Tamanho em unidades de duração de cada bloco."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:312
 msgid "Unit duration is defined in."
-msgstr ""
+msgstr "A duração de unidade é definida em"
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:306
 msgid "How duration is defined."
-msgstr ""
+msgstr "Como a duração é definida."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:301
 msgid "Product cost displayed."
-msgstr ""
+msgstr "O preço do produto é exibido."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:295
 msgid "If 'available' product is bookable unless made unbookable by availability rules."
-msgstr ""
+msgstr "Se o produto disponível poderá ser reservado, a menos que se torne não reservável pelas regras de disponibilidade."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:290
 msgid "Product cost."
-msgstr ""
+msgstr "Preço do produto."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:285
 msgid "If true only the first block in checked for availability."
-msgstr ""
+msgstr "Se for verdadeiro, apenas o primeiro bloco ficará disponível."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:280
 msgid "How many limit units in advance users are allowed to cancel bookings."
-msgstr ""
+msgstr "Quantas unidades de limite são permitidas para os usuários cancelarem reservas com antecedência."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:274
 msgid "The unit limit is defined in. Valid values are 'month', 'day', 'hour', and 'minute'."
-msgstr ""
+msgstr "O limite de reservas é definido em O valores válidos são \"month\", \"day\", \"hour\" e \"minute\"."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:268
 msgid "How the calendar will display on the product page. Valid values are 'always_visible' or ''."
-msgstr ""
+msgstr "Como o calendário será exibido na página do produto. Valores válidos são \"always_visible\" ou ''."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:263
 msgid "Required buffer Period between bookings."
-msgstr ""
+msgstr "Requer período de carência entre reservas."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:258
 msgid "Base cost of each block."
-msgstr ""
+msgstr "Base de preço de cada bloco."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:250
 #: includes/api/class-wc-bookings-rest-products-controller.php:469
 msgid "Priority of rule."
-msgstr ""
+msgstr "Prioridade de regra."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:245
 msgid "Rule marks things as bookable or not, 'yes' or 'no'."
-msgstr ""
+msgstr "As regras marcam os produtos como reserváveis ou não (\"yes\" ou \"no\")."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:240
 #: includes/api/class-wc-bookings-rest-products-controller.php:442
 msgid "Ending day if 'to' is a time."
-msgstr ""
+msgstr "Se \"to\" for um horário, isso será o dia de término."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:235
 #: includes/api/class-wc-bookings-rest-products-controller.php:437
 msgid "Starting day if 'from' is a time.,"
-msgstr ""
+msgstr "Se \"from\" for um horário, isso será o dia de início."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:230
 #: includes/api/class-wc-bookings-rest-products-controller.php:432
 msgid "Ending month/day/week inclusive."
-msgstr ""
+msgstr "Mês/dia/semana final incluídos."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:225
 #: includes/api/class-wc-bookings-rest-products-controller.php:427
 msgid "Starting month/day/week inclusive."
-msgstr ""
+msgstr "Mês/dia/semana inicial incluídos."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:220
 msgid "Availability type."
-msgstr ""
+msgstr "Tipo de disponibilidade."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:213
 msgid "Availability rules defined on product level."
-msgstr ""
+msgstr "Regras de disponibilidade definidas com base no nível do produto."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:208
 msgid "Apply adjacent buffers."
-msgstr ""
+msgstr "Aplique as carências adjacentes."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:160
 msgid "Limit result set to products assigned a specific resource ID."
-msgstr ""
+msgstr "Limite o resultado para produtos atribuídos a uma ID de recurso especifico."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:95
 #: includes/api/class-wc-bookings-rest-products-controller.php:188
 #: includes/api/class-wc-bookings-rest-products-slots-controller.php:133
 msgid "Not a bookable product"
-msgstr ""
+msgstr "Produto não reservável"
 
 #: includes/api/class-wc-bookings-rest-crud-controller.php:80
 msgid "Whether to bypass trash and force deletion."
-msgstr ""
+msgstr "Ignorar o envio para a lixeira e forçar a exclusão ou não."
 
 #: includes/api/class-wc-bookings-rest-crud-controller.php:51
 msgid "Unique identifier for the resource."
@@ -1836,12 +1836,12 @@ msgstr "Identificador exclusivo do recurso."
 
 #: includes/admin/views/html-settings-page.php:29
 msgid "Sorry, you are not allowed to access this tab."
-msgstr ""
+msgstr "Você não tem permissão para acessar essa página."
 
 #. translators: %s: file extension
 #: includes/admin/views/html-notifications-page.php:51
 msgid "Attach %s file"
-msgstr ""
+msgstr "Anexar arquivo em %s"
 
 #: includes/admin/views/html-notifications-page.php:46
 msgid "Attachment"
@@ -1885,7 +1885,7 @@ msgstr "Produto de reserva"
 #. tag 4: closing a href tag
 #: includes/admin/views/html-notifications-page.php:7
 msgid "You may send an email notification to all customers who have a %1$sfuture%2$s booking for a particular product. This will use the default template specified under %3$sWooCommerce > Settings > Emails%4$s."
-msgstr ""
+msgstr "Você pode enviar um e-mail para notificar todos os clientes que têm uma reserva %1$spróxima%2$s sobre um produto específico. Isso usará o modelo padrão especificado em %3$sWooCommerce > Configurações > E-mails%4$s."
 
 #: includes/admin/views/html-create-booking-page.php:76
 #: includes/booking-form/class-wc-booking-form.php:37
@@ -1933,7 +1933,7 @@ msgstr "Salvar alterações"
 
 #: includes/admin/views/html-classic-availability-settings.php:188
 msgid "Past availability are hidden from this list."
-msgstr ""
+msgstr "As disponibilidades antigas estão ocultadas da lista."
 
 #: includes/admin/views/html-classic-availability-settings.php:149
 msgid "Title"
@@ -1942,7 +1942,7 @@ msgstr "Título"
 #: includes/admin/views/html-classic-availability-settings.php:131
 #: includes/admin/views/html-store-availability-settings.php:70
 msgid "This section will set the availability of your store (ie Open and closed hours). All bookable products will adopt your store's availability."
-msgstr ""
+msgstr "Esta seção definirá a disponibilidade da sua loja (hora de abertura e fechamento, por exemplo). Todos os produtos reserváveis seguirão a disponibilidade da sua loja."
 
 #: includes/admin/views/html-classic-availability-settings.php:119
 #: includes/class-wc-bookings-timezone-settings.php:82
@@ -1952,11 +1952,11 @@ msgstr "Configurações salvas"
 #. translators: %s: Additional note added to a booking.
 #: includes/admin/views/html-calendar-schedule.php:65
 msgid "Note: %s"
-msgstr ""
+msgstr "Observação: %s"
 
 #: includes/admin/views/html-calendar-schedule.php:43
 msgid "Resources: "
-msgstr ""
+msgstr "Recursos: "
 
 #: includes/admin/views/html-calendar-nav.php:158
 #: templates/booking-form/date-picker.php:50
@@ -1992,21 +1992,21 @@ msgstr "Hoje"
 
 #: includes/admin/views/html-calendar-nav.php:32
 msgid "All Resources"
-msgstr ""
+msgstr "Todos os recursos"
 
 #: includes/admin/views/html-calendar-nav.php:14
 msgid "All Products"
-msgstr ""
+msgstr "Todos os produtos"
 
 #: includes/admin/views/html-calendar-nav.php:11
 msgid "Filter By"
-msgstr ""
+msgstr "Filtrar por"
 
 #: includes/admin/views/html-calendar-month.php:43
 #: includes/admin/views/html-store-availability-settings.php:105
 msgctxt "date format"
 msgid "D"
-msgstr ""
+msgstr "D"
 
 #: includes/admin/views/html-booking-resources.php:83
 msgid "Manage Resources"
@@ -2145,7 +2145,7 @@ msgstr "Ativar tipos de pessoas"
 
 #: includes/admin/views/html-booking-persons.php:56
 msgid "Enable this to count each person as a booking until the max bookings per block (in availability) is reached."
-msgstr ""
+msgstr "Ative isto para contar cada pessoa como uma reserva até atingir o máximo de reservas por bloco (na disponibilidade)."
 
 #: includes/admin/views/html-booking-persons.php:55
 msgid "Count persons as bookings"
@@ -2294,15 +2294,15 @@ msgstr "Duração da Reserva"
 
 #: includes/admin/views/html-booking-availability.php:105
 msgid "Restrict the days of the week that are able to be selected on the calendar; this will not affect your availability. For more information on restricting start and end days you can"
-msgstr ""
+msgstr "Restrinja os dias da semana que podem ser selecionados no calendário. Isso não afetará a disponibilidade. Para mais informações sobre os dias de início e término restritos,"
 
 #: includes/admin/views/html-booking-availability.php:104
 msgid "Restrict selectable days?"
-msgstr ""
+msgstr "Restringir dias selecionáveis?"
 
 #: includes/admin/views/html-booking-availability.php:99
 msgid "view our documentation here."
-msgstr ""
+msgstr "visualize nossa documentação aqui."
 
 #: includes/admin/views/html-booking-availability.php:94
 msgid "First block starts at..."
@@ -2342,11 +2342,11 @@ msgstr "Todas as datas estão..."
 
 #: includes/admin/views/html-booking-availability.php:61
 msgid "By default buffer period applies forward into the future of a booking. Enabling this option will apply adjacently (before and after Bookings)."
-msgstr ""
+msgstr "Por padrão, o período de carência se aplica futuramente a uma reserva. Se ativada, esta opção será aplicada antes e depois do Bookings, de forma adjacente."
 
 #: includes/admin/views/html-booking-availability.php:60
 msgid "Adjacent Buffering?"
-msgstr ""
+msgstr "Carência adjacente?"
 
 #: includes/admin/views/html-booking-availability.php:52
 msgid "between bookings"
@@ -2419,15 +2419,15 @@ msgstr "Não"
 
 #: includes/admin/views/html-booking-availability-fields.php:153
 msgid "Invalid recurring rule"
-msgstr ""
+msgstr "Regra de recorrência inválida"
 
 #: includes/admin/views/html-booking-availability-fields.php:138
 msgid ", except "
-msgstr ""
+msgstr ", exceto "
 
 #: includes/admin/views/html-booking-availability-fields.php:133
 msgid "Repeating "
-msgstr ""
+msgstr "Repetindo "
 
 #: includes/admin/views/html-booking-availability-fields.php:128
 #: includes/admin/views/html-booking-availability-fields.php:227
@@ -2439,7 +2439,7 @@ msgstr "para"
 
 #: includes/admin/views/html-booking-availability-fields.php:92
 msgid "Date Range with recurring time"
-msgstr ""
+msgstr "Intervalo de data com horário recorrente"
 
 #: includes/admin/views/html-booking-availability-fields.php:91
 #: includes/admin/views/html-booking-pricing-fields.php:68
@@ -2477,11 +2477,11 @@ msgstr "Faixa de data"
 
 #: includes/admin/views/html-booking-availability-fields.php:70
 msgid "Google Event"
-msgstr ""
+msgstr "Evento do Google"
 
 #: includes/admin/views/html-booking-availability-fields.php:68
 msgid "Google Recurring Event"
-msgstr ""
+msgstr "Evento recorrente do Google"
 
 #. translators: 1: week number
 #: includes/admin/views/html-booking-availability-fields.php:37
@@ -2593,16 +2593,16 @@ msgstr "janeiro"
 
 #: includes/admin/views/html-availability-views-nav.php:15
 msgid "Classic Mode"
-msgstr ""
+msgstr "Modo clássico"
 
 #: includes/admin/views/html-availability-views-nav.php:9
 msgid "Calendar Mode"
-msgstr ""
+msgstr "Modo calendário"
 
 #. translators: %s: Number of posts that have expired
 #: includes/admin/class-wc-bookings-tools.php:90
 msgid "Removed %s expired In Cart booking(s)."
-msgstr ""
+msgstr "%s reservas expiraram e foram removidas do carrinho."
 
 #: includes/admin/class-wc-bookings-save-meta-box.php:62
 msgid "Save/update the booking"
@@ -2618,62 +2618,62 @@ msgstr "Mover para a lixeira"
 
 #: includes/admin/class-wc-bookings-save-meta-box.php:47
 msgid "Booking actions"
-msgstr ""
+msgstr "Ações de reserva"
 
 #. translators: 0: number of bookings that require confirmation, 1: number of
 #. bookings that require confirmation
 #: includes/admin/class-wc-bookings-report-dashboard.php:55
 msgid "<strong>%s booking(s)</strong> require confirmation"
 msgid_plural "<strong>%s booking(s)</strong> require confirmation"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<strong>%s reservas</strong> exigem confirmação"
+msgstr[1] "<strong>%s reservas</strong> exigem confirmação"
 
 #. translators: 0: number of bookings, 1: number of bookings
 #: includes/admin/class-wc-bookings-report-dashboard.php:47
 msgid "<strong>%s booking(s)</strong> new bookings this month"
 msgid_plural "<strong>%s booking(s)</strong> new bookings this month"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<strong>%s reservas</strong> novas reservas neste mês"
+msgstr[1] "<strong>%s reservas</strong> novas reservas neste mês"
 
 #: includes/admin/class-wc-bookings-products-export.php:71
 #: includes/admin/class-wc-bookings-products-import.php:72
 msgid "User_can_cancel"
-msgstr ""
+msgstr "User_can_cancel"
 
 #: includes/admin/class-wc-bookings-products-export.php:70
 #: includes/admin/class-wc-bookings-products-import.php:71
 msgid "Restricted_days"
-msgstr ""
+msgstr "Restricted_days"
 
 #: includes/admin/class-wc-bookings-products-export.php:69
 #: includes/admin/class-wc-bookings-products-import.php:70
 msgid "Resources_assignment"
-msgstr ""
+msgstr "Resources_assignment"
 
 #: includes/admin/class-wc-bookings-products-export.php:68
 #: includes/admin/class-wc-bookings-products-import.php:69
 msgid "Resource_ids"
-msgstr ""
+msgstr "Resource_ids"
 
 #: includes/admin/class-wc-bookings-products-export.php:67
 #: includes/admin/class-wc-bookings-products-import.php:68
 msgid "Resource_block_costs"
-msgstr ""
+msgstr "Resource_block_costs"
 
 #: includes/admin/class-wc-bookings-products-export.php:66
 #: includes/admin/class-wc-bookings-products-import.php:67
 msgid "Resource_base_costs"
-msgstr ""
+msgstr "Resource_base_costs"
 
 #: includes/admin/class-wc-bookings-products-export.php:65
 #: includes/admin/class-wc-bookings-products-import.php:66
 msgid "Resource_label"
-msgstr ""
+msgstr "Resource_label"
 
 #: includes/admin/class-wc-bookings-products-export.php:64
 #: includes/admin/class-wc-bookings-products-import.php:65
 msgid "Requires_confirmation"
-msgstr ""
+msgstr "Requires_confirmation"
 
 #: includes/admin/class-wc-bookings-products-export.php:63
 #: includes/admin/class-wc-bookings-products-import.php:64
@@ -2688,87 +2688,87 @@ msgstr "Preço"
 #: includes/admin/class-wc-bookings-products-export.php:61
 #: includes/admin/class-wc-bookings-products-import.php:62
 msgid "Person_types"
-msgstr ""
+msgstr "Person_types"
 
 #: includes/admin/class-wc-bookings-products-export.php:60
 #: includes/admin/class-wc-bookings-products-import.php:61
 msgid "Min_persons"
-msgstr ""
+msgstr "Min_persons"
 
 #: includes/admin/class-wc-bookings-products-export.php:59
 #: includes/admin/class-wc-bookings-products-import.php:60
 msgid "Min_duration"
-msgstr ""
+msgstr "Min_duration"
 
 #: includes/admin/class-wc-bookings-products-export.php:58
 #: includes/admin/class-wc-bookings-products-import.php:59
 msgid "Min_date_value"
-msgstr ""
+msgstr "Min_date_value"
 
 #: includes/admin/class-wc-bookings-products-export.php:57
 #: includes/admin/class-wc-bookings-products-import.php:58
 msgid "Min_date_unit"
-msgstr ""
+msgstr "Min_date_unit"
 
 #: includes/admin/class-wc-bookings-products-export.php:56
 #: includes/admin/class-wc-bookings-products-import.php:57
 msgid "Max_persons"
-msgstr ""
+msgstr "Max_persons"
 
 #: includes/admin/class-wc-bookings-products-export.php:55
 #: includes/admin/class-wc-bookings-products-import.php:56
 msgid "Max_duration"
-msgstr ""
+msgstr "Max_duration"
 
 #: includes/admin/class-wc-bookings-products-export.php:54
 #: includes/admin/class-wc-bookings-products-import.php:55
 msgid "Max_date_value"
-msgstr ""
+msgstr "Max_date_value"
 
 #: includes/admin/class-wc-bookings-products-export.php:53
 #: includes/admin/class-wc-bookings-products-import.php:54
 msgid "Max_date_unit"
-msgstr ""
+msgstr "Max_date_unit"
 
 #: includes/admin/class-wc-bookings-products-export.php:52
 #: includes/admin/class-wc-bookings-products-import.php:53
 msgid "Has_restricted_days"
-msgstr ""
+msgstr "Has_restricted_days"
 
 #: includes/admin/class-wc-bookings-products-export.php:51
 #: includes/admin/class-wc-bookings-products-import.php:52
 msgid "Has_resources"
-msgstr ""
+msgstr "Has_resources"
 
 #: includes/admin/class-wc-bookings-products-export.php:50
 #: includes/admin/class-wc-bookings-products-import.php:51
 msgid "Has_persons"
-msgstr ""
+msgstr "Has_persons"
 
 #: includes/admin/class-wc-bookings-products-export.php:49
 #: includes/admin/class-wc-bookings-products-import.php:50
 msgid "Has_person_types"
-msgstr ""
+msgstr "Has_person_types"
 
 #: includes/admin/class-wc-bookings-products-export.php:48
 #: includes/admin/class-wc-bookings-products-import.php:49
 msgid "Has_person_qty_multiplier"
-msgstr ""
+msgstr "Has_person_qty_multiplier"
 
 #: includes/admin/class-wc-bookings-products-export.php:47
 #: includes/admin/class-wc-bookings-products-import.php:48
 msgid "Has_person_cost_multiplier"
-msgstr ""
+msgstr "Has_person_cost_multiplier"
 
 #: includes/admin/class-wc-bookings-products-export.php:46
 #: includes/admin/class-wc-bookings-products-import.php:47
 msgid "First_block_time"
-msgstr ""
+msgstr "First_block_time"
 
 #: includes/admin/class-wc-bookings-products-export.php:45
 #: includes/admin/class-wc-bookings-products-import.php:46
 msgid "Enable_range_picker"
-msgstr ""
+msgstr "Enable_range_picker"
 
 #: includes/admin/class-wc-bookings-products-export.php:44
 #: includes/admin/class-wc-bookings-products-import.php:45
@@ -2780,22 +2780,22 @@ msgstr "Duração"
 #: includes/admin/class-wc-bookings-products-export.php:43
 #: includes/admin/class-wc-bookings-products-import.php:44
 msgid "Duration_unit"
-msgstr ""
+msgstr "Duration_unit"
 
 #: includes/admin/class-wc-bookings-products-export.php:42
 #: includes/admin/class-wc-bookings-products-import.php:43
 msgid "Duration_type"
-msgstr ""
+msgstr "Duration_type"
 
 #: includes/admin/class-wc-bookings-products-export.php:41
 #: includes/admin/class-wc-bookings-products-import.php:42
 msgid "Display_cost"
-msgstr ""
+msgstr "Display_cost"
 
 #: includes/admin/class-wc-bookings-products-export.php:40
 #: includes/admin/class-wc-bookings-products-import.php:41
 msgid "Default_date_availability"
-msgstr ""
+msgstr "Default_date_availability"
 
 #: includes/admin/class-wc-bookings-products-export.php:39
 #: includes/admin/class-wc-bookings-products-import.php:40
@@ -2805,49 +2805,49 @@ msgstr "Custo"
 #: includes/admin/class-wc-bookings-products-export.php:38
 #: includes/admin/class-wc-bookings-products-import.php:39
 msgid "Check_start_block_only"
-msgstr ""
+msgstr "Check_start_block_only"
 
 #: includes/admin/class-wc-bookings-products-export.php:37
 #: includes/admin/class-wc-bookings-products-import.php:38
 msgid "Cancel_limit"
-msgstr ""
+msgstr "Cancel_limit"
 
 #: includes/admin/class-wc-bookings-products-export.php:36
 #: includes/admin/class-wc-bookings-products-import.php:37
 msgid "Cancel_limit_unit"
-msgstr ""
+msgstr "Cancel_limit_unit"
 
 #: includes/admin/class-wc-bookings-products-export.php:35
 #: includes/admin/class-wc-bookings-products-import.php:36
 msgid "Calendar_display_mode"
-msgstr ""
+msgstr "Calendar_display_mode"
 
 #: includes/admin/class-wc-bookings-products-export.php:34
 #: includes/admin/class-wc-bookings-products-import.php:35
 msgid "Buffer_period"
-msgstr ""
+msgstr "Buffer_period"
 
 #: includes/admin/class-wc-bookings-products-export.php:33
 #: includes/admin/class-wc-bookings-products-import.php:34
 msgid "Block_cost"
-msgstr ""
+msgstr "Block_cost"
 
 #: includes/admin/class-wc-bookings-products-export.php:31
 #: includes/admin/class-wc-bookings-products-import.php:32
 msgid "Apply_adjacent_buffer"
-msgstr ""
+msgstr "Apply_adjacent_buffer"
 
 #: includes/admin/class-wc-bookings-menus.php:231
 msgid "Calendar Connection"
-msgstr ""
+msgstr "Conexão do calendário"
 
 #: includes/admin/class-wc-bookings-menus.php:225
 msgid "Timezones"
-msgstr ""
+msgstr "Fusos horários"
 
 #: includes/admin/class-wc-bookings-menus.php:201
 msgid "Store Availability"
-msgstr ""
+msgstr "Disponibilidade da loja"
 
 #: includes/admin/class-wc-bookings-menus.php:167
 msgid "Notification sent successfully"
@@ -2893,35 +2893,35 @@ msgstr "Adicionar reserva"
 
 #: includes/admin/class-wc-bookings-inbox-notices.php:49
 msgid "Add a bookable product"
-msgstr ""
+msgstr "Adicionar um produto reservável"
 
 #: includes/admin/class-wc-bookings-inbox-notices.php:44
 msgid "Set my availability"
-msgstr ""
+msgstr "Definir minha disponibilidade"
 
 #: includes/admin/class-wc-bookings-inbox-notices.php:30
 msgid "To get set up, you'll need to set your availability or add a bookable product."
-msgstr ""
+msgstr "Para a configuração, você precisará definir sua disponibilidade ou adicionar um produto reservável."
 
 #: includes/admin/class-wc-bookings-inbox-notices.php:28
 msgid "You're almost ready to take bookings!"
-msgstr ""
+msgstr "Está quase tudo pronto para você receber reservas!"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:384
 msgid "End time (local timezone):"
-msgstr ""
+msgstr "Horário de término (fuso horário local):"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:375
 msgid "Start time (local timezone):"
-msgstr ""
+msgstr "Horário de início (fuso horário local):"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:366
 msgid "End time:"
-msgstr ""
+msgstr "Horário de término:"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:358
 msgid "Start time:"
-msgstr ""
+msgstr "Horário de início:"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:352
 msgid "Check this box if the booking is for all day."
@@ -2929,7 +2929,7 @@ msgstr "Selecione está caixa se a reserva for para o dia todo."
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:351
 msgid "All day booking:"
-msgstr ""
+msgstr "Reserva para o dia todo:"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:343
 msgid "End date:"
@@ -2941,15 +2941,15 @@ msgstr "Data inicial:"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:331
 msgid "Booking date &amp; time"
-msgstr ""
+msgstr "Horário e data da reserva"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:257
 msgid "Parent booking ID:"
-msgstr ""
+msgstr "ID da reserva pai:"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:250
 msgid "Booked product:"
-msgstr ""
+msgstr "Produto reservado:"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:243
 msgid "Booking specification"
@@ -2964,7 +2964,7 @@ msgstr "%1$s (#%2$s &ndash; %3$s)"
 #: includes/admin/class-wc-bookings-details-meta-box.php:196
 msgctxt "Admin booking guest placeholder"
 msgid "Guest (%s)"
-msgstr ""
+msgstr "Visitante (%s)"
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:193
 #: includes/admin/views/html-create-booking-page.php:22
@@ -3008,12 +3008,12 @@ msgstr "Tipo de reserva: %s"
 #. translators: 1: href to order id
 #: includes/admin/class-wc-bookings-details-meta-box.php:146
 msgid "Linked to order %s."
-msgstr ""
+msgstr "Link do pedido %s."
 
 #. translators: 1: booking id
 #: includes/admin/class-wc-bookings-details-meta-box.php:139
 msgid "Booking #%s details"
-msgstr ""
+msgstr "Detalhes da reserva n° %s"
 
 #. translators: 1: product type
 #: includes/admin/class-wc-bookings-details-meta-box.php:89
@@ -3022,7 +3022,7 @@ msgstr "Esta reserva não tem uma extensão obrigatória (tipo de produto: %s). 
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:83
 msgid "It appears the booking product associated with this booking has been removed."
-msgstr ""
+msgstr "Parece que o produto associado a esta reserva foi removido."
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:79
 msgid "This booking has an end date set before the start date."
@@ -3163,8 +3163,8 @@ msgstr "Título da reserva"
 #: includes/admin/class-wc-bookings-cpt.php:138
 msgid "%1$s booking status changed."
 msgid_plural "%1$s booking statuses changed."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$s status de reserva alterado."
+msgstr[1] "%1$s status de reserva alterados."
 
 #: includes/admin/class-wc-bookings-cpt.php:66
 msgid "Mark bookings as unpaid"
@@ -3189,7 +3189,7 @@ msgstr "Confirmar reservas"
 #. translators: 1: person id 2: person name 3: person count
 #: includes/admin/class-wc-bookings-calendar.php:722
 msgid "Person #%1$s - %2$s (%3$s)"
-msgstr ""
+msgstr "Pessoa %1$s - %2$s (%3$s)"
 
 #: includes/admin/class-wc-bookings-calendar.php:713
 #: includes/class-wc-bookings-ics-exporter.php:176
@@ -3211,7 +3211,7 @@ msgstr "Reservado por"
 #: templates/emails/plain/customer-booking-pending-confirmation.php:64
 #: templates/emails/plain/customer-booking-reminder.php:65
 msgid "%1$s: %2$d"
-msgstr ""
+msgstr "%1$s: %2$d"
 
 #: includes/admin/class-wc-bookings-calendar.php:584
 #: includes/admin/class-wc-bookings-details-meta-box.php:267
@@ -3237,20 +3237,20 @@ msgstr "Pessoa(s)"
 #. translators: 1: number of bookings that are not displayed on calendar day
 #: includes/admin/class-wc-bookings-calendar.php:318
 msgid "%d more"
-msgstr ""
+msgstr "%d mais"
 
 #: includes/admin/class-wc-bookings-calendar.php:206
 #: includes/admin/class-wc-bookings-calendar.php:279
 #: includes/admin/class-wc-bookings-calendar.php:624
 msgid "(From Google Calendar)"
-msgstr ""
+msgstr "(Do Google Agenda)"
 
 #. translators: 1: start time 2: end time
 #: includes/admin/class-wc-bookings-calendar.php:204
 #: includes/admin/class-wc-bookings-calendar.php:594
 #: includes/admin/class-wc-bookings-calendar.php:616
 msgid "%1$s — %2$s"
-msgstr ""
+msgstr "%1$s — %2$s"
 
 #: includes/admin/class-wc-bookings-calendar.php:204
 #: includes/admin/class-wc-bookings-calendar.php:594
@@ -3313,7 +3313,7 @@ msgstr "Tem pessoas"
 
 #: includes/admin/class-wc-bookings-admin.php:644
 msgid "Resource"
-msgstr ""
+msgstr "Recurso"
 
 #: includes/admin/class-wc-bookings-admin.php:643
 #: includes/admin/views/html-create-booking-page.php:18
@@ -3406,7 +3406,7 @@ msgstr "Funcionalidades"
 
 #: includes/admin/class-wc-bookings-admin.php:66
 msgid "This tool will clear all expired In Cart bookings."
-msgstr ""
+msgstr "Esta ferramenta removerá todas as reservas expiradas do carrinho."
 
 #: includes/admin/class-wc-bookings-admin.php:65
 msgid "Clear"
@@ -3414,27 +3414,27 @@ msgstr "Limpar"
 
 #: includes/admin/class-wc-bookings-admin.php:64
 msgid "Clear expired In Cart bookings"
-msgstr ""
+msgstr "Remover reservas expiradas do carrinho"
 
 #: includes/admin/class-wc-bookings-admin.php:60
 msgid "This tool will clean the person types that are not used by any booking or a product."
-msgstr ""
+msgstr "Esta ferramenta removerá os tipos de pessoa que não estão sendo usados em reservas ou produtos."
 
 #: includes/admin/class-wc-bookings-admin.php:59
 msgid "Clean Person Types"
-msgstr ""
+msgstr "Remover tipos de pessoa"
 
 #: includes/admin/class-wc-bookings-admin.php:58
 msgid "Clean unused Person Types from DB"
-msgstr ""
+msgstr "Remover tipos de pessoa não utilizados do banco de dados"
 
 #: includes/admin/class-wc-bookings-addons.php:21
 msgid "Bookings Addons"
-msgstr ""
+msgstr "Extensões de reservas"
 
 #: includes/admin/class-wc-bookings-addons.php:20
 msgid "bookings-extensions"
-msgstr ""
+msgstr "bookings-extensions"
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:115
 #: includes/admin/views/html-booking-availability.php:166

@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 	private $is_enabled  = false;
-    private $rule_weight = 0;
+	private $rule_weight = 0;
 	/**
 	 * The constructor
 	 */
@@ -179,7 +179,7 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 		$risk = false;
 
 		// Do the regex
-		$regex_result = preg_match( "`@([a-zA-z0-9\-\_]+(?:\.[a-zA-Z]{0,5}){0,2})$`", ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_billing_email : $order->get_billing_email() ), $email_domain );
+		$regex_result = preg_match( '`@([a-zA-z0-9\-\_]+(?:\.[a-zA-Z]{0,5}){0,2})$`', ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_billing_email : $order->get_billing_email() ), $email_domain );
  
 		// Check if we've got a result
 		if ( 1 === $regex_result ) {
@@ -198,9 +198,9 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 			 
 			if ( $contents !== false ) {
 
-			    $res = @json_decode($contents);
+				$res = @json_decode($contents);
 				
-			    if(json_last_error() === JSON_ERROR_NONE) {
+				if (json_last_error() === JSON_ERROR_NONE) {
 					
 					$data = @$res->result;
 
@@ -221,8 +221,8 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 	
 	
 	//Enable rule check
-	public function is_enabled(){
-		if('yes' == $this->is_enabled){
+	public function is_enabled() {
+		if ('yes' == $this->is_enabled) {
 			return true;
 		}
 		return false;

@@ -246,7 +246,7 @@ class WC_Deposits_Cart_Manager {
 				$discount /= $quantity;
 
 				if ( isset( $cart_item['full_amount'] ) ) {
-					if ( WC()->customer->is_vat_exempt() || ( ! $include_tax && 'excl' === WC()->cart->tax_display_cart ) ) {
+					if ( WC()->customer->is_vat_exempt() || ( ! $include_tax && 'excl' === WC()->cart->get_tax_price_display_mode() ) ) {
 						$credit_amount += $this->get_price_excluding_tax( $_product, array( 'qty' => $quantity, 'price' => ( $full_amount - $deposit_amount - $discount ) ) );
 					} else {
 						$credit_amount += $this->get_price_including_tax( $_product, array( 'qty' => $quantity, 'price' => ( $full_amount - $deposit_amount - $discount ) ) );
@@ -919,7 +919,7 @@ class WC_Deposits_Cart_Manager {
 		}
 		if ( ! empty( $cart_item['is_deposit'] ) ) {
 			$_product = $cart_item['data'];
-			if ( 'excl' === WC()->cart->tax_display_cart ) {
+			if ( 'excl' === WC()->cart->get_tax_price_display_mode() ) {
 				$amount = $this->get_price_excluding_tax( $_product, array( 'qty' => 1, 'price' => $cart_item['full_amount'] ) );
 			} else {
 				$amount = $this->get_price_including_tax( $_product, array( 'qty' => 1, 'price' => $cart_item['full_amount'] ) );
@@ -944,7 +944,7 @@ class WC_Deposits_Cart_Manager {
 			// We need to apply this filter to the deposit amount, as it may have been affected by Memberships
 			$deposit_amount = apply_filters( 'woocommerce_deposits_get_deposit_amount', $cart_item['deposit_amount'], $_product );
 
-			if ( 'excl' === WC()->cart->tax_display_cart ) {
+			if ( 'excl' === WC()->cart->get_tax_price_display_mode() ) {
 				$full_amount    = $this->get_price_excluding_tax( $_product, array( 'qty' => $quantity, 'price' => $full_amount ) );
 				$deposit_amount = $this->get_price_excluding_tax( $_product, array( 'qty' => $quantity, 'price' => $deposit_amount ) );
 			} else {
@@ -1126,9 +1126,9 @@ class WC_Deposits_Cart_Manager {
 			$future_payment_amount = self::get_future_payments_amount();
 		}
 
-		$is_tax_included = wc_tax_enabled() && 'excl' != WC()->cart->tax_display_cart;
+		$is_tax_included = wc_tax_enabled() && 'excl' != WC()->cart->get_tax_price_display_mode();
 		$tax_message     = $is_tax_included ? __( '(includes tax)', 'woocommerce-deposits' ) : __( '(excludes tax)', 'woocommerce-deposits' );
-		$tax_element     = wc_tax_enabled() ? ' <small class="tax_label">' . $tax_message . '</small>' : '';
+		$tax_element     = wc_tax_enabled() && ! empty( WC()->cart->get_tax_totals() ) ? ' <small class="tax_label">' . $tax_message . '</small>' : '';
 		$deferred_discount_tax = 0;
 		if ( $_WC32plus ) {
 			$tax = $this->calculate_deferred_and_present_discount_tax();

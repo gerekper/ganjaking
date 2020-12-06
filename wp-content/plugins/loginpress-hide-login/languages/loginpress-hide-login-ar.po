@@ -1,0 +1,170 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Project-Id-Version: LoginPress - Hide Login v1.1.1\n"
+"POT-Creation-Date: 2019-07-15 11:23+0500\n"
+"PO-Revision-Date: 2019-08-02 21:37+0300\n"
+"Language-Team: Moqbel BJ <moqbelbj@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress-hide-login.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: ar\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: classes/class-loginpress-hidelogin.php:120
+msgid "Hide Login"
+msgstr "إخفاء تسجيل الدخول Hide Login"
+
+#: classes/class-loginpress-hidelogin.php:138
+msgid "Rename Login Slug"
+msgstr "تغيير الرابط الثابت (slug) لتسجيل الدخول"
+
+#: classes/class-loginpress-hidelogin.php:139
+msgid "mylogin"
+msgstr "mylogin"
+
+#: classes/class-loginpress-hidelogin.php:146
+msgid "Send Email"
+msgstr "ارسال بريد الكتروني"
+
+#: classes/class-loginpress-hidelogin.php:152
+msgid "Email Address"
+msgstr "بريد الكتروني"
+
+#: classes/class-loginpress-hidelogin.php:277
+msgid ""
+"Hide login lets you change the login page URL to anything you want. It will "
+"give a hard time to spammers who keep hitting to your login page. This is "
+"helpful for Brute force attacks. One caution to use this add-on is you need "
+"to remember the custom login url after you change it. We have an option to "
+"email your custom login url so you remember it."
+msgstr ""
+"إخفاء تسجيل الدخول Hide login يسمح لك تغيير رابط صفحة تسجيل الدخول إلى أي "
+"شيء تريده. سوف يعمل ذلك على تصعيب للمزعجين اللذين يقومون بضرب رابط صفحة "
+"تسجيل الدخول. أيضاً هذا مفيداً جداً لهجمات ال Brute force. تنبيه وحيد عند "
+"استخدام هذا الملحق وهو أنك لابد عليك حفظ رابط تسجيل الدخول المخصص الجديد "
+"بعد تغييره. لدينا اختيار بإرسال رابط تسجيل الدخول الجديد بالبريد الكتروني "
+"كي تتمكن من تذكره."
+
+#: classes/class-loginpress-hidelogin.php:281
+#, php-format
+msgid ""
+"To set a networkwide default, go to <a href=\"%s\">Network Settings</a>."
+msgstr ""
+"لضبط قيمة افتراضية على نطاق الشبكة، الذهاب إلى <a href=\"%s\">إعدادات "
+"الشبكة</a>."
+
+#: classes/class-loginpress-hidelogin.php:311
+msgid "Generate Slug (Randomly)"
+msgstr "إنشاء رابط ثابت (slug) بشكل (عشوائي)"
+
+#: classes/class-loginpress-hidelogin.php:313
+msgid "Reset Login Slug"
+msgstr "إعادة تهيئة الرابط الثابت (slug) لتسجيل الدخول"
+
+#: classes/class-loginpress-hidelogin.php:334
+#: classes/class-loginpress-hidelogin.php:336
+#, php-format
+msgid "Your default login page: %1$s. Bookmark this page!"
+msgstr "صفحة تسجيل الدخول الافتراضية الخاص بك: %1$s. احفظ هذه الصفحة بمفضلتك!"
+
+#: classes/class-loginpress-hidelogin.php:339
+#, php-format
+msgid "Here is your login page now: %1$s. Bookmark this page!"
+msgstr "هاك صفحة تسجيل الدخول الخاصة بك الآن: %1$s. احفظ هذه الصفحة بمفضلتك!"
+
+#: classes/class-loginpress-hidelogin.php:345
+msgid "Rename your wp-login.php"
+msgstr "غيّر wp-login.php الخاص بك"
+
+#: classes/class-loginpress-hidelogin.php:397
+msgid "Email will be sent to the address defined below."
+msgstr "سيتم ارسال بريد الكتروني للعنوان المعرّف أدناه."
+
+#: classes/class-loginpress-hidelogin.php:400
+msgid "Please write down the correct email for sending the email."
+msgstr ""
+"الرجاء كتابة عنوان البريد الالكتروني الصحيح وذلك لإرسال البريد الالكتروني."
+
+#: classes/class-loginpress-hidelogin.php:403
+msgid "Send email after changing the wp-login.php slug?"
+msgstr ""
+"إرسال رسالة بريد الكتروني بعد تغيير الرابط الدائم (slug) لل wp-login.php؟"
+
+#: classes/class-loginpress-hidelogin.php:421
+msgid "Email sent."
+msgstr "تم ارسال البريد الالكتروني."
+
+#: classes/class-loginpress-hidelogin.php:424
+msgid "Write a Email\tAddress where send the New generated URL"
+msgstr "اكتب عنوان\tالبريد الكتروني حيث تريد أن يصلك الرابط الجديد إليه"
+
+#: classes/class-loginpress-hidelogin.php:442
+msgid "This feature is not enabled."
+msgstr "هذه الخاصية غير ممكنة."
+
+#: classes/class-loginpress-hidelogin.php:471
+msgid "Disabled Admin Access"
+msgstr "تعطيل وصول المسئول"
+
+#: loginpress-hide-login.php:86
+msgid ""
+"LoginPress Hide Login could not be activated because you already have "
+"active . Please uninstall Login Rename Plugin to use LoginPress Hide Login"
+msgstr ""
+"لم نستطع تنشيط إخفاء تسجيل دخول لوجن بريس LoginPress Hide Login لأنك قمت "
+"بالتنشيط مسبقاً. الرجاء إلغاء تركيب إضافة Login Rename لتتمكن من استخدام "
+"إخفاء تسجيل دخول لوجن بريس LoginPress Hide Login"
+
+#: loginpress-hide-login.php:97
+msgid "Please Install LoginPress Pro to use \"LoginPress Hide Login\" add-on."
+msgstr ""
+"الرجاء تركيب نسخة لوجن بريس المحترفة LoginPress Pro وذلك لاستخدام الملحق "
+"\"إخفاء تسجيل دخول لوجن بريس LoginPress Hide Login\"."
+
+#: loginpress-hide-login.php:114
+msgid "LoginPress Hide Login required LoginPress Pro activation &mdash; "
+msgstr ""
+"يتطلب إخفاء تسجيل دخول لوجن بريس LoginPress Hide Login أن يكون لديك نسخة "
+"لوجن بريس المحترفة LoginPress Pro منشطة &mdash; "
+
+#: loginpress-hide-login.php:114
+msgid "Click here to activate LoginPress Pro"
+msgstr "اضغط هنا لتنشيط نسخة لوجن بريس المحترفة LoginPress Pro"
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Hide Login"
+msgstr "لوجن بريس LoginPress - إخفاء تسجيل الدخول Hide Login"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.WPBrigade.com/wordpress/plugins/hidelogin/"
+msgstr "http://www.WPBrigade.com/wordpress/plugins/hidelogin/"
+
+#. Description of the plugin/theme
+msgid ""
+"LoginPress is the best <code>wp-login</code> Hide Login plugin by <a href="
+"\"https://wpbrigade.com/\">WPBrigade</a> which allows you to hide the wp-"
+"login.php."
+msgstr ""
+"لوجن بريس LoginPress هو أفضل <code>wp-login</code> إضافة لإخفاء تسجيل "
+"الدخول بواسطة <a href=\"https://wpbrigade.com/\">WPBrigade</a> والتي تسمح "
+"لك بإخفاء wp-login.php."
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr "WPBrigade"
+
+#. Author URI of the plugin/theme
+msgid "http://www.WPBrigade.com/"
+msgstr "http://www.WPBrigade.com/"

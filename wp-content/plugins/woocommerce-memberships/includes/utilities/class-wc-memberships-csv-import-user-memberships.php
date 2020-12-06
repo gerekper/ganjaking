@@ -1098,12 +1098,29 @@ class WC_Memberships_CSV_Import_User_Memberships extends \WC_Memberships_Job_Han
 
 		$user_data = [
 			'user_login' => wp_slash( $username ),
-			'user_pass'  => wp_generate_password(),
 			'user_email' => wp_slash( $email ),
 			'first_name' => ! empty( $import_data['member_first_name'] ) ? $import_data['member_first_name'] : '',
 			'last_name'  => ! empty( $import_data['member_last_name'] )  ? $import_data['member_last_name']  : '',
 			'role'       => 'customer',
 		];
+
+		/**
+		 * Filters how to handle imported user password generation.
+		 *
+		 * If true, WooCommerce will generate the password and display the password in the welcome email.
+		 * If false, WordPress will generate the password quietly and WooCommerce won't display it in the welcome email.
+		 *
+		 * @since 1.19.2
+		 *
+		 * @param bool $notify_new_users_password whether the password will be displayed in WooCommerce emails
+		 * @param array $import_data the user import data
+		 * @param \stdClass $job member import job
+		 */
+		if ( ! empty( $job->notify_new_users ) && (bool) apply_filters( 'wc_memberships_csv_import_woocommerce_generate_password', 'yes' === get_option( 'woocommerce_registration_generate_password' ), $import_data, $job ) ) {
+			$user_data['user_pass'] = ''; /** handled in {@see wc_create_new_customer()} */
+		} else {
+			$user_data['user_pass'] = wp_generate_password();
+		}
 
 		// we need to unhook our automatic handling to avoid race conditions or duplicated free memberships creation
 		remove_action( 'user_register', [ wc_memberships()->get_plans_instance(), 'grant_access_to_free_membership' ], 10 );

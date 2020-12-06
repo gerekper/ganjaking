@@ -129,6 +129,37 @@ class WC_Store_Credit_Admin_Send_Credit_Page {
 				),
 			),
 			array(
+				'id'       => 'expiration',
+				'title'    => _x( 'Expiration', 'send credit: desc', 'woocommerce-store-credit' ),
+				'type'     => 'select',
+				'desc_tip' => _x( 'Define when the coupon expires.', 'send credit: desc', 'woocommerce-store-credit' ),
+				'value'    => 'never',
+				'options'  => array(
+					'never'  => __( 'Never expires', 'woocommerce-store-credit' ),
+					'date'   => __( 'Specific date', 'woocommerce-store-credit' ),
+					'period' => __( 'Specific period', 'woocommerce-store-credit' ),
+				),
+			),
+			array(
+				'id'                => 'expiration_date',
+				'desc_tip'          => _x( 'The coupon will expire on the specified date.', 'send credit: field desc', 'woocommerce-store-credit' ),
+				'type'              => 'text',
+				'class'             => 'date-picker',
+				'css'               => 'width:150px;',
+				'placeholder'       => gmdate( 'Y-m-d' ),
+				'custom_attributes' => array(
+					'pattern'      => '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])',
+					'maxlength'    => 10,
+					'data-minDate' => gmdate( 'Y-m-d' ),
+				),
+			),
+			array(
+				'id'       => 'expiration_period',
+				'desc_tip' => _x( 'The coupon will expire when the period passes.', 'send credit: field desc', 'woocommerce-store-credit' ),
+				'type'     => 'relative_date_selector',
+				'options'  => array(),
+			),
+			array(
 				'id'   => 'send_store_credit_section',
 				'type' => 'sectionend',
 			),
@@ -199,10 +230,24 @@ class WC_Store_Credit_Admin_Send_Credit_Page {
 			return;
 		}
 
+		if ( 'date' === $data['expiration'] && ! $data['expiration_date'] ) {
+			self::add_error( _x( 'An expiration date is required.', 'form validation error', 'woocommerce-store-credit' ) );
+			return;
+		}
+
+		if ( 'period' === $data['expiration'] && ! $data['expiration_period']['number'] ) {
+			self::add_error( _x( 'An expiration period is required.', 'form validation error', 'woocommerce-store-credit' ) );
+			return;
+		}
+
 		$args = array();
 
 		if ( ! empty( $data['customer_note'] ) ) {
 			$args['description'] = $data['customer_note'];
+		}
+
+		if ( 'never' !== $data['expiration'] ) {
+			$args['expiration'] = $data[ "expiration_{$data['expiration']}" ];
 		}
 
 		if ( wc_store_credit_send_credit_to_customer( $customer, $amount, $args ) ) {
@@ -285,6 +330,12 @@ class WC_Store_Credit_Admin_Send_Credit_Page {
 					break;
 				case 'customer_note':
 					$value = sanitize_textarea_field( $value );
+					break;
+				case 'expiration_period':
+					$value = wc_parse_relative_date_option( $value );
+					break;
+				default:
+					$value = wc_clean( $value );
 					break;
 			}
 

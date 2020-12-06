@@ -63,15 +63,10 @@ class WC_Product_Reviews_Pro_Emails_Flagged_Contribution extends \WC_Email {
 
 		$site_title = $this->get_blogname();
 
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.2' ) ) {
-			$this->placeholders['{blogname}']          = $site_title;
-			$this->placeholders['{site_title}']        = $site_title;
-			$this->placeholders['{product_name}']      = '';
-			$this->placeholders['{contribution_type}'] = '';
-		} else {
-			$this->find    = array( '{blogname}', '{site_title}' );
-			$this->replace = array( $site_title, $site_title );
-		}
+		$this->placeholders['{blogname}']          = $site_title;
+		$this->placeholders['{site_title}']        = $site_title;
+		$this->placeholders['{product_name}']      = '';
+		$this->placeholders['{contribution_type}'] = '';
 
 		// triggers
 		add_action( "{$this->id}_notification", array( $this, 'trigger' ), 10, 2 );
@@ -259,15 +254,8 @@ class WC_Product_Reviews_Pro_Emails_Flagged_Contribution extends \WC_Email {
 			// check for enabled after main properties have been set for filtering purposes
 			if ( $this->is_enabled() ) {
 
-				if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.2' ) ) {
-					$this->placeholders['{product_name}']      = $this->product->get_title();
-					$this->placeholders['{contribution_type}'] = wc_product_reviews_pro_get_contribution_type( $contribution->get_type() )->get_title();
-				} else {
-					$this->find['product-name']         = '{product_name}';
-					$this->replace['product-name']      = $this->product->get_title();
-					$this->find['contribution_type']    = '{contribution_type}';
-					$this->replace['contribution_type'] = wc_product_reviews_pro_get_contribution_type( $contribution->get_type() )->get_title();
-				}
+				$this->placeholders['{product_name}']      = $this->product->get_title();
+				$this->placeholders['{contribution_type}'] = wc_product_reviews_pro_get_contribution_type( $contribution->get_type() )->get_title();
 
 				$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 

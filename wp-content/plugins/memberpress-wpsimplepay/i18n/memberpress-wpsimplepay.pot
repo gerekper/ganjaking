@@ -1,0 +1,84 @@
+# Copyright (C) 2018 MemberPress WP Simple Pay Pro
+# This file is distributed under the same license as the MemberPress WP Simple Pay Pro package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress WP Simple Pay Pro 1.0.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-wpsimplepay\n"
+"POT-Creation-Date: 2018-10-11 21:40:06+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: MpWPSimplePay.php:28
+msgid "MemberPress"
+msgstr ""
+
+#: MpWPSimplePay.php:47
+msgid "No Memberships Created Yet"
+msgstr ""
+
+#: MpWPSimplePay.php:59
+msgid "Auto-Create MemberPress Membership Level"
+msgstr ""
+
+#: MpWPSimplePay.php:65
+msgid "Membership"
+msgstr ""
+
+#: MpWPSimplePay.php:69
+msgid "None (Not Synced)"
+msgstr ""
+
+#: MpWPSimplePay.php:74
+msgid "Select a Membership level to add the user to when they purchase using this form. Note that when a membership is chosen WP Simple Pay will automatically display user registration form fields"
+msgstr ""
+
+#: MpWPSimplePay.php:103
+msgid "Choose Stripe Gateway"
+msgstr ""
+
+#: MpWPSimplePay.php:113
+msgid "Choose the Stripe Gateway these transactions should be associated with in MemberPress."
+msgstr ""
+
+#: main.php:36
+msgid "MemberPress WP Simple Pay Pro"
+msgstr ""
+
+#: main.php:37
+msgid "WP Simple Pay Pro Integration for MemberPress."
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "MemberPress WP Simple Pay Pro"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "WP Simple Pay Pro integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com/"
+msgstr ""

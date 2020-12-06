@@ -140,8 +140,12 @@ if ( !class_exists('Puc_v4p9_Plugin_Package', false) ):
 			}
 
 			if ( !function_exists('get_plugin_data') ) {
-				/** @noinspection PhpIncludeInspection */
-				require_once(ABSPATH . '/wp-admin/includes/plugin.php');
+				// DiS edit ---.
+				$file_path = str_replace( array(
+					'\\',
+					'/'
+				), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/plugin.php' );
+				require_once $file_path;
 			}
 			return get_plugin_data($this->pluginAbsolutePath, false, false);
 		}

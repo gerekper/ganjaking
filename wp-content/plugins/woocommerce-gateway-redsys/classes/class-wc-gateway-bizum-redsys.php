@@ -1,12 +1,12 @@
 <?php
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
@@ -18,7 +18,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function __construct() {
 		
@@ -75,7 +75,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function is_valid_for_use() {
 		if ( ! in_array( get_woocommerce_currency(), WCRed()->allowed_currencies(), true ) ) {
@@ -91,7 +91,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	 * @since 6.0.0
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function admin_options() {
 		?>
@@ -134,7 +134,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function init_form_fields() {
 		
@@ -287,7 +287,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function check_user_test_mode( $userid ) {
 
@@ -372,7 +372,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function get_redsys_url_gateway( $user_id, $type = 'rd' ) {
 
@@ -444,7 +444,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function get_redsys_sha256( $user_id ) {
 
@@ -493,7 +493,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function get_redsys_args( $order ) {
 		
@@ -575,7 +575,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function generate_redsys_form( $order_id ) {
 		global $woocommerce;
@@ -632,7 +632,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function process_payment( $order_id ) {
 		$order = WCRed()->get_order( $order_id );
@@ -649,7 +649,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function receipt_page( $order ) {
 		echo '<p>' . esc_html__( 'Thank you for your order, please click the button below to pay with Bizum.', 'woocommerce-redsys' ) . '</p>';
@@ -660,7 +660,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	 * Check redsys IPN validity
 	 **/
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function check_ipn_request_is_valid() {
 
@@ -761,7 +761,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function check_ipn_response() {
 		@ob_clean();
@@ -782,7 +782,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function successful_request( $posted ) {
 		
@@ -1081,7 +1081,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function ask_for_refund( $order_id, $transaction_id, $amount ) {
 
@@ -1222,7 +1222,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	function check_redsys_refund( $order_id ) {
 		// check postmeta
@@ -1244,7 +1244,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
 		// Do your refund here. Refund $amount for the order with ID $order_id _transaction_id
@@ -1327,7 +1327,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	* Copyright: (C) 2013 - 2020 José Conti
+	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 	public function warning_checkout_test_mode_bizum() {
 		if ( 'yes' === $this->testmode && WCRed()->is_gateway_enabled( $this->id ) ) {
@@ -1347,7 +1347,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	}
 }
 /**
-* Copyright: (C) 2013 - 2020 José Conti
+* Copyright: (C) 2013 - 2021 José Conti
 */
 function woocommerce_add_gateway_bizum_redsys( $methods ) {
 		$methods[] = 'WC_Gateway_Bizum_Redsys';

@@ -53,11 +53,8 @@ class WC_PB_MMI_Cart {
 
 			$bundle = $stock_data->product;
 
-			$min_meta = $bundle->get_meta( '_wcpb_min_qty_limit', true );
-			$max_meta = $bundle->get_meta( '_wcpb_max_qty_limit', true );
-
-			$items_min = $min_meta > 0 ? absint( $min_meta ) : '';
-			$items_max = $max_meta > 0 ? absint( $max_meta ) : '';
+			$items_min = $bundle->get_min_bundle_size();
+			$items_max = $bundle->get_max_bundle_size();
 
 			$items          = $stock_data->get_items();
 			$items_selected = 0;
@@ -121,11 +118,8 @@ class WC_PB_MMI_Cart {
 
 				$bundle = $cart_item[ 'data' ];
 
-				$min_meta = $bundle->get_meta( '_wcpb_min_qty_limit', true );
-				$max_meta = $bundle->get_meta( '_wcpb_max_qty_limit', true );
-
-				$items_min = $min_meta > 0 ? absint( $min_meta ) : '';
-				$items_max = $max_meta > 0 ? absint( $max_meta ) : '';
+				$items_min = $bundle->get_min_bundle_size();
+				$items_max = $bundle->get_max_bundle_size();
 
 				if ( $configuration ) {
 					foreach ( $configuration as $item_id => $item_configuration ) {

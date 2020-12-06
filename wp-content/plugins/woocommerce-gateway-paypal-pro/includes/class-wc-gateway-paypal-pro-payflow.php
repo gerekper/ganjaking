@@ -448,7 +448,7 @@ class WC_Gateway_PayPal_Pro_PayFlow extends WC_Payment_Gateway {
 		$post_data['TRXTYPE']      = $this->paymentaction; // Sale / Authorize
 
 		// Transaction Amount = Total Tax Amount + Total Freight Amount + Total Handling Amount + Total Line Item Amount.
-		$post_data['AMT']          = $order->get_total();
+		$post_data['AMT']          = wc_format_decimal( $order->get_total(), 2 );
 		$post_data['CURRENCY']     = ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_order_currency() : $order->get_currency() ); // Currency code
 		$post_data['CUSTIP']       = $this->get_user_ip(); // User IP Address
 		$post_data['EMAIL']        = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email();
@@ -462,8 +462,7 @@ class WC_Gateway_PayPal_Pro_PayFlow extends WC_Payment_Gateway {
 		/* Send Item details */
 		$item_loop = 0;
 
-		if ( sizeof( $order->get_items() ) > 0 ) {
-
+		if ( count( $order->get_items() ) > 0 ) {
 			$ITEMAMT = 0;
 
 			foreach ( $order->get_items() as $item ) {
@@ -745,7 +744,7 @@ class WC_Gateway_PayPal_Pro_PayFlow extends WC_Payment_Gateway {
 		$post_data['ORIGID']  = $order->get_transaction_id();
 
 		if ( ! is_null( $amount ) ) {
-			$post_data['AMT']          = number_format( $amount, 2, '.', '' );
+			$post_data['AMT']      = wc_format_decimal( $amount, 2 );
 			$post_data['CURRENCY'] = ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_order_currency() : $order->get_currency() );
 		}
 
@@ -782,7 +781,7 @@ class WC_Gateway_PayPal_Pro_PayFlow extends WC_Payment_Gateway {
 				$this->log( 'Parsed Response (refund) ' . print_r( $parsed_response, true ) );
 		} else {
 
-			$order->add_order_note( sprintf( __( 'Refunded %1$s - PNREF: %2$s', 'woocommerce-gateway-paypal-pro' ), wc_price( number_format( $amount, 2, '.', '' ) ), $parsed_response['PNREF'] ) );
+			$order->add_order_note( sprintf( __( 'Refunded %1$s - PNREF: %2$s', 'woocommerce-gateway-paypal-pro' ), wc_price( wc_format_decimal( $amount, 2 ) ), $parsed_response['PNREF'] ) );
 
 			return true;
 		}

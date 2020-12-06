@@ -7,6 +7,8 @@
 
 if(!defined('ABSPATH')) exit();
 
+$rs_do_init_action = true;
+
 class RevSliderSlider extends RevSliderFunctions {
 	
 	public $id;
@@ -320,7 +322,10 @@ class RevSliderSlider extends RevSliderFunctions {
 		$this->type		= $this->get_val($data, 'type');
 		$this->inited	= true;
 		
-		do_action('revslider_slider_init_by_data_post', $this);
+		global $rs_do_init_action;
+		if($rs_do_init_action === true){
+			do_action('revslider_slider_init_by_data_post', $this);
+		}
 	}
 	
 	
@@ -1106,6 +1111,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		$c_slider->update_css_and_javascript_ids($old_slider_id, $slider_last_id, $this->map);
 		$c_slider->update_color_ids($this->map);
 		
+		do_action('revslider_duplicate_slider', $slider_last_id, $old_slider_id, $slides, $this);
 		
 		return $slider_last_id;
 	}
@@ -1376,7 +1382,12 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * @before: getAllSliderForAdminMenu()
 	 */
 	public function get_slider_for_admin_menu(){
+		global $rs_do_init_action;
+		
+		$rs_do_init_action = false;
 		$sliders = $this->get_sliders();
+		$rs_do_init_action = true;
+		
 		$short = array();
 		if(!empty($sliders)){
 			foreach($sliders as $slider){
@@ -2072,7 +2083,7 @@ class RevSliderSlider extends RevSliderFunctions {
 			break;
 			case 'instagram':
 				$instagram	 = new RevSliderInstagram($this->get_param(array('source', 'instagram', 'transient'), '1200'));
-				$posts		 = ($this->get_param(array('source', 'instagram', 'type'), 'user') != 'hash') ? $instagram->get_public_photos($this->get_param(array('source', 'instagram', 'token')), $this->get_param(array('source', 'instagram', 'count'), '33')) : $instagram->get_tag_photos($this->get_param(array('source', 'instagram', 'hashTag')), $this->get_param(array('source', 'instagram', 'count'), '33'));
+				$posts = $instagram->get_public_photos($this->get_id(), $this->get_param(array('source', 'instagram', 'token')), $this->get_param(array('source', 'instagram', 'count'), '33'));
 				$max_posts	 = $this->get_param(array('source', 'instagram', 'count'), '33');
 				$profile = $instagram->get_user_profile($this->get_param(array('source', 'instagram', 'token')));
 				$additions['instagram_user'] = isset($profile['username']) ? $profile['username'] : '';

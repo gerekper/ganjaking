@@ -4,23 +4,23 @@
  * Plugin Name: SUMO Reward Points
  * Plugin URI:
  * Description: SUMO Reward Points is a WooCommerce Loyalty Reward System using which you can Reward your Customers using Reward Points for Purchasing Products, Writing Reviews, Sign up on your site etc
- * Version:25.6
+ * Version:25.8
  * Author: Fantastic Plugins
  * Author URI:http://fantasticplugins.com
- * WC tested up to: 4.5.2
+ * WC tested up to: 4.7
  */
 
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly.
 }
-if( ! class_exists( 'FPRewardSystem' ) ) {
+if ( ! class_exists( 'FPRewardSystem' ) ) {
 
     final class FPRewardSystem {
         /*
          * Version
          */
 
-        public $version = '25.6' ;
+        public $version = '25.8' ;
 
         /*
          * Single Instance of the class
@@ -47,7 +47,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
          */
 
         public static function instance() {
-            if( is_null( self::$_instance ) ) {
+            if ( is_null( self::$_instance ) ) {
                 self::$_instance = new self() ;
             }
             return self::$_instance ;
@@ -76,7 +76,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
             include_once( ABSPATH . 'wp-admin/includes/plugin.php' ) ;
 
             $this->header_already_sent_problem() ;
-            if( ! $this->check_if_woocommerce_is_active() )
+            if ( ! $this->check_if_woocommerce_is_active() )
                 return ;
 
             $this->list_of_constants() ;
@@ -127,13 +127,13 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
 
         public function check_if_woocommerce_is_active() {
 
-            if( is_multisite() && ! is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) && ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-                if( is_admin() ) {
+            if ( is_multisite() && ! is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) && ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+                if ( is_admin() ) {
                     add_action( 'init' , array( 'FPRewardSystem' , 'woocommerce_dependency_warning_message' ) ) ;
                 }
                 return false ;
-            } else if( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-                if( is_admin() ) {
+            } else if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+                if ( is_admin() ) {
                     add_action( 'init' , array( 'FPRewardSystem' , 'woocommerce_dependency_warning_message' ) ) ;
                 }
                 return false ;
@@ -157,7 +157,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
         public function list_of_constants() {
             $protocol = 'http://' ;
 
-            if( isset( $_SERVER[ 'HTTPS' ] ) && ($_SERVER[ 'HTTPS' ] == 'on' || $_SERVER[ 'HTTPS' ] == 1) || isset( $_SERVER[ 'HTTP_X_FORWARDED_PROTO' ] ) && $_SERVER[ 'HTTP_X_FORWARDED_PROTO' ] == 'https' ) {
+            if ( isset( $_SERVER[ 'HTTPS' ] ) && ($_SERVER[ 'HTTPS' ] == 'on' || $_SERVER[ 'HTTPS' ] == 1) || isset( $_SERVER[ 'HTTP_X_FORWARDED_PROTO' ] ) && $_SERVER[ 'HTTP_X_FORWARDED_PROTO' ] == 'https' ) {
                 $protocol = 'https://' ;
             }
             $list_of_constants = apply_filters( 'fprewardsystem_constants' , array(
@@ -173,8 +173,8 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
                 'SRP_PLUGIN_PATH'     => untrailingslashit( plugin_dir_path( __FILE__ ) ) ,
                 'SRP_PLUGIN_URL'      => untrailingslashit( plugins_url( '/' , __FILE__ ) ) ,
                     ) ) ;
-            if( is_array( $list_of_constants ) && ! empty( $list_of_constants ) ) {
-                foreach( $list_of_constants as $constantname => $value ) {
+            if ( is_array( $list_of_constants ) && ! empty( $list_of_constants ) ) {
+                foreach ( $list_of_constants as $constantname => $value ) {
                     $this->define_constant( $constantname , $value ) ;
                 }
             }
@@ -187,7 +187,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
          */
 
         protected function define_constant( $name , $value ) {
-            if( ! defined( $name ) ) {
+            if ( ! defined( $name ) ) {
                 define( $name , $value ) ;
             }
         }
@@ -216,7 +216,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
 
             include_once('includes/class-rs-points-data.php') ;
 
-            if( is_admin() )
+            if ( is_admin() )
                 $this->include_admin_files() ;
 
             include('includes/frontend/class-fp-referral-log.php') ;
@@ -226,7 +226,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
             include_once('includes/frontend/rs_jquery.php') ;
             include_once('includes/class-reward-points-orders.php') ;
             include_once('includes/class-fp-award-points-for-purchase-and-actions.php') ;
-            if( get_option( 'rs_enable_earned_level_based_reward_points' ) == 'yes' )
+            if ( get_option( 'rs_enable_earned_level_based_reward_points' ) == 'yes' )
                 include('includes/frontend/class-rs-fpfreeproduct-frontend.php') ;
         }
 
@@ -236,7 +236,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
 
         public function include_admin_files() {
             include_once('includes/admin/class-admin-enqueues.php') ;
-            if( isset( $_GET[ 'page' ] ) && ($_GET[ 'page' ] == 'rewardsystem_callback') )
+            if ( isset( $_GET[ 'page' ] ) && ($_GET[ 'page' ] == 'rewardsystem_callback') )
                 include_once('assets/css/rewardsystem-settings-styles.php') ;
 
             include_once('assets/js/rs_section_expand.php') ;
@@ -258,16 +258,16 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
          */
 
         public function include_frontend_files() {
-            if( ( ! is_admin() || defined( 'DOING_AJAX' )) && allow_reward_points_for_user( get_current_user_id() ) ) {
+            if ( ( ! is_admin() || defined( 'DOING_AJAX' )) && allow_reward_points_for_user( get_current_user_id() ) ) {
                 include_once('includes/frontend/class-fp-rewardsystem-frontend-ajax.php') ;
                 include_once('includes/frontend/class-rs-rewardsystem-shortcodes.php') ;
                 include_once('includes/frontend/class-fp-rewardsystem-frontend-assets.php') ;
 
                 $ModulesId   = modules_file_name() ;
                 $ModuleValue = get_list_of_modules() ;
-                foreach( $ModulesId as $filename ) {
+                foreach ( $ModulesId as $filename ) {
                     $ModuleToExclude = array( 'fpcoupon' , 'fpsendpoints' , 'fppointexpiry' , 'fpreset' , 'fpreportsincsv' , 'fpimportexport' , 'fpemailexpiredpoints' ) ;
-                    if( $ModuleValue[ $filename ] == 'yes' && ! in_array( $filename , $ModuleToExclude ) )
+                    if ( $ModuleValue[ $filename ] == 'yes' && ! in_array( $filename , $ModuleToExclude ) )
                         include SRP_PLUGIN_PATH . '/includes/frontend/tab/modules/class-rs-' . $filename . '-frontend.php' ;
                 }
 
@@ -276,9 +276,9 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
 
                 include('includes/frontend/class-simple-product.php') ;
                 include('includes/frontend/class-variable-product.php') ;
-                if( class_exists( 'BuddyPress' ) && (get_option( 'rs_reward_action_activated' ) == 'yes') )
+                if ( class_exists( 'BuddyPress' ) && (get_option( 'rs_reward_action_activated' ) == 'yes') )
                     include('includes/frontend/compatibility/class-rs-fpbuddypress-compatibility.php') ;
-                if( class_exists( 'BuddyPress' ) && (get_option( 'rs_reward_action_activated' ) == 'yes') )
+                if ( class_exists( 'BuddyPress' ) && (get_option( 'rs_reward_action_activated' ) == 'yes') )
                     include('includes/frontend/compatibility/class-rs-fpwcbooking-compatabilty.php') ;
             }
             RS_Main_Function_for_Background_Process::init() ;
@@ -286,11 +286,11 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
 
         public function set_up_rs_cron( $schedules ) {
             $interval = ( int ) get_option( 'rs_mail_cron_time' ) ;
-            if( get_option( 'rs_mail_cron_type' ) == 'minutes' ) {
+            if ( get_option( 'rs_mail_cron_type' ) == 'minutes' ) {
                 $interval = $interval * 60 ;
-            } else if( get_option( 'rs_mail_cron_type' ) == 'hours' ) {
+            } else if ( get_option( 'rs_mail_cron_type' ) == 'hours' ) {
                 $interval = $interval * 3600 ;
-            } else if( get_option( 'rs_mail_cron_type' ) == 'days' ) {
+            } else if ( get_option( 'rs_mail_cron_type' ) == 'days' ) {
                 $interval = $interval * 86400 ;
             }
             $schedules[ 'rshourly' ] = array(
@@ -302,7 +302,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
 
         public static function create_cron_job() {
             delete_option( 'rscheckcronsafter' ) ;
-            if( wp_next_scheduled( 'rscronjob' ) == false && get_option( 'rs_email_activated' , 'no' ) == 'yes' )
+            if ( wp_next_scheduled( 'rscronjob' ) == false && get_option( 'rs_email_activated' , 'no' ) == 'yes' )
                 wp_schedule_event( time() , 'rshourly' , 'rscronjob' ) ;
         }
 
@@ -326,11 +326,11 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
 
         public function create_point_expiry_cron() {
 
-            if( wp_next_scheduled( 'rs_send_mail_before_expiry' ) ) {
+            if ( wp_next_scheduled( 'rs_send_mail_before_expiry' ) ) {
                 return ;
             }
 
-            if( "yes" == get_option( 'rs_email_template_expire_activated' ) ) {
+            if ( "yes" == get_option( 'rs_email_template_expire_activated' ) ) {
                 wp_schedule_event( time() , 'rs_hourly' , 'rs_send_mail_before_expiry' ) ;
             } else {
                 wp_unschedule_event( time() , 'rs_hourly' , 'rs_send_mail_before_expiry' ) ;
@@ -338,7 +338,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
         }
 
         public function rewardgateway() {
-            if( get_option( 'rs_gateway_activated' ) == 'yes' ) {
+            if ( get_option( 'rs_gateway_activated' ) == 'yes' ) {
                 include('includes/admin/class_rewardgateway.php') ;
                 add_action( 'plugins_loaded' , 'init_reward_gateway_class' ) ;
             }
@@ -349,7 +349,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
             $redirect   = true ;
             $table_name = $wpdb->prefix . 'rspointexpiry' ;
 
-            if( (get_option( 'rs_upgrade_success' ) != 'yes' ) && ( ! RSInstall::rs_check_table_exists( $table_name )) && (get_option( 'rs_new_update_user' ) != true) && RS_Main_Function_for_Background_Process::fp_rs_upgrade_file_exists() ) {
+            if ( (get_option( 'rs_upgrade_success' ) != 'yes' ) && ( ! RSInstall::rs_check_table_exists( $table_name )) && (get_option( 'rs_new_update_user' ) != true) && RS_Main_Function_for_Background_Process::fp_rs_upgrade_file_exists() ) {
                 register_activation_hook( __FILE__ , array( 'RS_Main_Function_for_Background_Process' , 'set_transient_for_product_update' ) ) ;
                 $redirect = false ;
             }
@@ -358,13 +358,13 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
 
             register_activation_hook( __FILE__ , array( 'RSInstall' , 'install' ) ) ;
 
-            if( $redirect )
+            if ( $redirect )
                 register_activation_hook( __FILE__ , array( 'FPRewardSystem' , 'sumo_reward_points_welcome_screen_activate' ) ) ;
         }
 
         public function compatibility_for_woocommerce_pdf_invoices() {
             //Include show/hide earned redeemed message
-            if( is_admin() && class_exists( 'WooCommerce_PDF_Invoices' ) )
+            if ( is_admin() && class_exists( 'WooCommerce_PDF_Invoices' ) )
                 include('includes/woocommerce-pdf-invoices-packing-slips.php') ;
         }
 
@@ -380,7 +380,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
 
         public function rs_translate_file() {
 
-            if( function_exists( 'determine_locale' ) ) {
+            if ( function_exists( 'determine_locale' ) ) {
                 $locale = determine_locale() ;
             } else {
                 $locale = is_admin() ? get_user_locale() : get_locale() ;
@@ -402,7 +402,7 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
         public function reward_system_load_default_enqueues( $screen_ids ) {
 
             $newscreenids = get_current_screen() ;
-            if( isset( $_GET[ 'page' ] ) && ($_GET[ 'page' ] == 'rewardsystem_callback' ) ) {
+            if ( isset( $_GET[ 'page' ] ) && ($_GET[ 'page' ] == 'rewardsystem_callback' ) ) {
                 $array[] = $newscreenids->id ;
                 return $array ;
             }
@@ -412,17 +412,17 @@ if( ! class_exists( 'FPRewardSystem' ) ) {
         // welcome page register css file
         public function admin_enqueue_script() {
             global $post ;
-            if( isset( $_GET[ 'page' ] ) && $_GET[ 'page' ] == 'sumo-reward-points-welcome-page' ) {
+            if ( isset( $_GET[ 'page' ] ) && $_GET[ 'page' ] == 'sumo-reward-points-welcome-page' ) {
                 wp_register_style( 'wp_reward_welcome_page' , SRP_PLUGIN_URL . "/assets/css/rewardpoints_welcome_page_style.css" ) ;
                 wp_enqueue_style( 'wp_reward_welcome_page' ) ;
             }
-            if( isset( $_GET[ 'page' ] ) && ($_GET[ 'page' ] == 'rewardsystem_callback') ) {
+            if ( isset( $_GET[ 'page' ] ) && ($_GET[ 'page' ] == 'rewardsystem_callback') ) {
                 wp_register_script( 'admin_settings_js' , SRP_PLUGIN_URL . "/assets/js/sumo-admin-settings-design.js" ) ;
                 wp_enqueue_script( 'admin_settings_js' ) ;
             }
             $sumo_bookings_check = false ;
-            if( isset( $post->ID ) && isset( $post->post_type ) ) {
-                if( $post->post_type == 'product' ) {
+            if ( isset( $post->ID ) && isset( $post->post_type ) ) {
+                if ( $post->post_type == 'product' ) {
                     $sumo_bookings_check = is_sumo_booking_active( $post->ID ) ;
                 }
             }

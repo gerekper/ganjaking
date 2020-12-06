@@ -1,7 +1,7 @@
 <?php
 /**
  * @author    ThemePunch <info@themepunch.com>
- * @link      https://www.themepunch.com/
+ * @link      https://www.themepunch.com/ 
  * @copyright 2019 ThemePunch
  */
 
@@ -382,7 +382,7 @@ class RevSliderOutput extends RevSliderFunctions {
 	/**
 	 * get static_slide data and layers
 	 */
-	public function get_static_slide(){
+	public function get_static_slide(){		
 		return apply_filters('revslider_get_static_slide', $this->static_slide, $this);
 	}
 	
@@ -1773,6 +1773,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		$html_wrapper_ids	= $this->get_html_wrapper_ids();
 		$html_wrapper_classes = $this->get_html_wrapper_classes();
 		$html_static_data	= $this->get_html_static_layer();
+		$html_static_pos_data = $this->get_html_static_position_layer();
 		$html_trigger		= $this->get_html_trigger();
 		$html_clip			= $this->get_html_clip();
 		$frames				= $this->get_frames();
@@ -1832,6 +1833,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		echo ($html_transform != '') 		? $this->ld().RS_T8.$html_transform."\n" : '';
 		echo ($html_scrollbased_data != '')	? $this->ld().RS_T8.$html_scrollbased_data."\n" : '';
 		echo ($html_static_data != '')		? $this->ld().RS_T8.$html_static_data."\n" : '';
+		echo ($html_static_pos_data != '')	? $this->ld().RS_T8.$html_static_pos_data."\n" : '';
 		echo ($html_trigger != '')			? $this->ld().RS_T8.$html_trigger."\n" : '';
 		echo ($html_blendmode != '')		? $this->ld().RS_T8.$html_blendmode."\n" : '';
 		//echo ($html_togglehover != '')		? $this->ld().RS_T8.$html_togglehover."\n" : '';
@@ -1941,6 +1943,7 @@ class RevSliderOutput extends RevSliderFunctions {
 				
 				if(empty($ogv) && empty($webm) && empty($mp4)){
 					$vid = trim($this->get_val($layer, array('media', 'id')));
+					$vid = ($this->get_val($layer, array('media', 'videoFromStream'), false) === true) ? $this->slide->get_param(array('bg', 'mpeg'), '') : $vid;
 					return (empty($vid)) ?  false : true;
 				}
 				
@@ -3161,11 +3164,13 @@ rs-module .material-icons {
 							if(!isset($this->modal_sliders[$_modal])){
 								$this->modal_sliders[$_modal] = new RevSliderSlider();
 								$this->modal_sliders[$_modal]->init_by_mixed($_modal, false);
+								$_event['sp'] = $this->modal_sliders[$_modal]->get_param(array('modal', 'coverSpeed'), 1);
 							}
+							
 							if($this->modal_sliders[$_modal]->get_param(array('modal', 'cover'), true) === true){
 								$_event['bg'] = $this->modal_sliders[$_modal]->get_param(array('modal', 'coverColor'), 'rgba(0,0,0,0.5)');
 							}
-							if($this->modal_sliders[$_modal]->get_param(array('layout', 'spinner', 'type'), '0') !== 'off'){
+							if($this->modal_sliders[$_modal]->get_param(array('layout', 'spinner', 'type'), 'off') !== 'off'){
 								$_event['spin'] = $this->modal_sliders[$_modal]->get_param(array('layout', 'spinner', 'type'), '0');
 								$_event['spinc'] = $this->modal_sliders[$_modal]->get_param(array('layout', 'spinner', 'color'), '#FFFFFF');
 							}
@@ -3436,13 +3441,13 @@ rs-module .material-icons {
 			
 			foreach($push as $tag => $path){
 				$svg[$tag] = array();
-				
+				$oc = $this->get_val($layer, array($path, 'svg', 'originalColor'), 0);				
 				$c = $this->get_val($layer, array($path, 'svg', 'color'), '#ffffff');
 				$sc = $this->get_val($layer, array($path, 'svg', 'strokeColor'), 'transparent');
 				$sw = $this->get_val($layer, array($path, 'svg', 'strokeWidth'), 0);
 				$sa = $this->get_val($layer, array($path, 'svg', 'strokeDashArray'), '');
 				$so = $this->get_val($layer, array($path, 'svg', 'strokeDashOffset'), '');
-				
+					
 				/*
 					SVG Idle Color can have responsive values, but SVG Hover Color is not responsive
 					The ($path === 'idle') if-block below fixes an issue where the hover color 
@@ -3456,12 +3461,16 @@ rs-module .material-icons {
 					}
 				}
 				
-				if(!in_array(strtolower($c), array('#fff', '#ffffff')) && $c !== '') $svg[$tag]['c'] = $c;
+				if ($oc===true) {
+					$svg[$tag]['oc'] = 't';
+				} else {	
+					if(!in_array(strtolower($c), array('#fff', '#ffffff')) && $c !== '') $svg[$tag]['c'] = $c;
+					if($sc !== 'transparent') $svg[$tag]['sc'] = $sc;
+					if(!in_array($sw, array(0, '0', '0px'), true)) $svg[$tag]['sw'] = $sw;
+					if($sa !== '') $svg[$tag]['sa'] = $sa;
+					if($so !== '') $svg[$tag]['so'] = $so;				
+				}
 				
-				if($sc !== 'transparent') $svg[$tag]['sc'] = $sc;
-				if(!in_array($sw, array(0, '0', '0px'), true)) $svg[$tag]['sw'] = $sw;
-				if($sa !== '') $svg[$tag]['sa'] = $sa;
-				if($so !== '') $svg[$tag]['so'] = $so;
 				
 				if(empty($svg[$tag]) || $svg[$tag] === " ") unset($svg[$tag]);
 			}
@@ -3600,6 +3609,27 @@ rs-module .material-icons {
 	}
 	
 	/**
+	 * get the html static layer data
+	 * check if static layer and if yes, set values for it.
+	 **/
+	public function get_html_static_position_layer(){
+		if(!$this->is_static) return '';
+		
+		$layer	= $this->get_layer();
+		$static_slide = $this->get_static_slide();
+		$html	= 'data-staticz="';
+		
+		$slp	= $static_slide->get_param(array('static', 'position'), 'front');
+		$staticZ = $this->get_val($layer, array('position', 'staticZ'), $slp);
+		$html .= ($staticZ !== $slp) ? $staticZ : '';
+		
+		$html .= '"';
+		
+		return ($html !== 'data-staticz=""') ? $html : '';
+	}
+	
+	
+	/**
 	 * get the html layer trigger
 	 **/
 	public function get_html_trigger(){
@@ -3618,6 +3648,7 @@ rs-module .material-icons {
 		$type	 = $this->get_val($layer, 'type', 'text');
 		$frames	 = $this->get_val($layer, array('timeline', 'frames'), false);
 		$_frames = array();
+		
 		/**
 		 * frame_0
 		 * inherit || default -> ignore/dont write
@@ -3665,7 +3696,7 @@ rs-module .material-icons {
 		$_split = array(
 			'ease'		=> array('n' => 'e', 'd' => array('frame_0' => false, 'default' => 'inherit')),
 			'direction'	=> array('n' => 'dir', 'd' => array('frame_0' => false, 'default' => 'forward')), //'forward'
-			'delay'		=> array('n' => 'd', 'd' => array('frame_0' => false, 'default' => 5)), //5 
+			'delay'		=> array('n' => 'd', 'd' => array('default' => 5)), //5 //, 'default' => 5 // array('frame_0' => false, 'frame_1' => 5, 'frame_999' => 5)
 			'x'			=> array('n' => 'x', 'd' => array('frame_0' => array(0, '0', '0px', ''), 'frame_1' => array(0, '0', '0px', ''), 'default' => 'inherit')),
 			'y'			=> array('n' => 'y', 'd' => array('frame_0' => array(0, '0', '0px', ''), 'frame_1' => array(0, '0', '0px', ''), 'default' => 'inherit')),
 			'z'			=> array('n' => 'z', 'd' => array('frame_0' => array(0, '0', '0px', ''), 'frame_1' => array(0, '0', '0px', ''), 'default' => 'inherit')),
@@ -3911,7 +3942,6 @@ rs-module .material-icons {
 				if(!empty($push)){
 					foreach($push as $zone => $values){						
 						foreach($values as $key => $v){
-
 							if(is_string($v)){
 								$_frames[$fk][$zone][$key] = $v;
 							}else{
@@ -3923,6 +3953,7 @@ rs-module .material-icons {
 								}else{
 									$a = $v['d'];
 								}
+								
 								$nv = $this->get_val($frame, $_key, $a);
 								
 								if($_key === 'ease' || (is_array($_key) && in_array('ease', $_key, true))){
@@ -3943,19 +3974,22 @@ rs-module .material-icons {
 								//$tnv = (string)$nv;
 								//$ta = (string)$a;
 								//if(!in_array($tnv, array($ta, $ta.'px', $ta.'%'))){
-								if(is_array($a)){
-									if(!in_array($nv, $a, true)){
-										$_frames[$fk][$zone][$v['n']] = $this->transform_frame_vals($nv);
-									}
+								if(isset($_key[1]) && $_key[1] === 'delay'){
+									$_frames[$fk][$zone][$v['n']] = $this->transform_frame_vals($nv);
 								}else{
-									if((string)$nv !== (string)$a){
-										$_frames[$fk][$zone][$v['n']] = $this->transform_frame_vals($nv);
+									if(is_array($a)){
+										if(!in_array($nv, $a, true)){
+											$_frames[$fk][$zone][$v['n']] = $this->transform_frame_vals($nv);
+										}
+									}else{
+										if((string)$nv !== (string)$a){
+											$_frames[$fk][$zone][$v['n']] = $this->transform_frame_vals($nv);
+										}
 									}
 								}
-							}							
+							}
 						}
 					}
-
 				}
 			}
 		}
@@ -4170,6 +4204,7 @@ rs-module .material-icons {
 				$_frames['frame_999']['base'] = array(
 					'st'	=> $this->get_val($_frames, array('frame_999', 'base', 'st')),
 					'sp'	=> $this->get_val($_frames, array('frame_999', 'base', 'sp')),
+					'sR'	=> $this->get_val($_frames, array('frame_999', 'base', 'sR')),
 					'auto'	=> 'true'
 				);
 			}
@@ -4329,9 +4364,13 @@ rs-module .material-icons {
 		$html = 'data-tst="';
 		
 		if($this->get_val($layer, array('idle', 'textStroke', 'inuse'), false) === true){
-			$w = $this->get_val($layer, array('idle', 'textStroke', 'width'), '1px');
+			if($this->adv_resp_sizes == true){
+				$w = $this->normalize_device_settings($this->get_val($layer, array('idle', 'textStroke', 'width')), $this->enabled_sizes, 'html-array', array('1px'));
+			}else{
+				$w = $this->get_biggest_device_setting($this->get_val($layer, array('idle', 'textStroke', 'width')), $this->enabled_sizes, '1px');
+			}
 			$c = $this->get_val($layer, array('idle', 'textStroke', 'color'), 'rgba(0,0,0,0.25)');
-			if(!in_array($w, array(1, '1', '1px'), true)) $html .= 'w:'.$w.';';
+			if(!in_array(trim($w), array(1, '1', '1px', ''), true)) $html .= 'w:'.$w.';';
 			if($c !== 'rgba(0,0,0,0.25)') $html .= 'c:'.$c.';';
 		}
 		
@@ -4564,6 +4603,7 @@ rs-module .material-icons {
 				$ogv = $this->get_val($layer, array('media', 'ogvUrl'), '');
 				$webm = $this->get_val($layer, array('media', 'webmUrl'), '');
 				$mp4 = $this->remove_http($this->get_val($layer, array('media', 'mp4Url'), ''));
+				$mp4 = ($this->get_val($layer, array('media', 'videoFromStream'), false) === true) ? $this->slide->get_param(array('bg', 'mpeg'), '') : $mp4;
 				$vpr = $this->get_val($layer, array('media', 'preload'), 'auto');
 				$inl = $this->get_val($layer, array('media', 'playInline'), true);
 				
@@ -5668,6 +5708,14 @@ rs-module .material-icons {
 		$anim .= $this->get_html_rotation();
 		$anim .= $this->get_html_transitions();
 		$anim .= $this->get_html_slot_amount();
+		/* active_transiton_settings_CANVAS
+		
+		 $anim .= $this->get_html_slide_rows_amount();
+		$anim .= $this->get_html_slide_cols_amount();
+		$anim .= $this->get_html_slide_from();
+		$anim .= $this->get_html_slide_axis();
+		$anim .= $this->get_html_slide_effect();
+		$anim .= $this->get_html_slide_direction();*/
 		$anim .= '"';
 		
 		return ($anim !== ' data-anim=""') ? $anim : '';
@@ -5685,6 +5733,8 @@ rs-module .material-icons {
 		return (!empty($duration)) ? 's:'.$duration.';' : '';
 	}
 	
+	
+
 	/**
 	 * get slide rotation as html
 	 **/
@@ -5696,12 +5746,14 @@ rs-module .material-icons {
 		if(!empty($rotation)){
 			$rot_string = '';
 			foreach($rotation as $rkey => $rot){
-				$rot = (int)$rot;
-				if($rot != 0){
-					if($rot > 720 && $rot != 999)
-						$rot = 720;
-					if($rot < -720)
-						$rot = -720;
+				if (intval($rot) !== 0) {				
+					$rot = intval($rot);			
+					if($rot != 0){
+						if($rot > 720 && $rot != 999)
+							$rot = 720;
+						if($rot < -720)
+							$rot = -720;
+					} 
 				}
 				if($rkey > 0) $rot_string .= ',';
 				$rot_string .= $rot;
@@ -5857,6 +5909,11 @@ rs-module .material-icons {
 	public function get_html_extra_data(){
 		$slide	= $this->get_slide();
 		$data	= stripslashes($slide->get_param(array('attributes', 'data'), ''));
+		$deeplink = stripslashes($slide->get_param(array('attributes', 'deeplink'), ''));
+		if (!empty($deeplink)) {
+			$data = $data.' data-deeplink="'.$deeplink.'" ';
+		}
+
 		echo ($data != '') ? ' '.$data : '';
 	}
 	
@@ -5968,6 +6025,84 @@ rs-module .material-icons {
 		$slots = $this->shorten($slots, 'default', 'd');
 		
 		return ($slots !== '') ? 'sl:'. $slots.';' : '';
+	}
+
+	/**
+	 * get rows amount
+	 **/
+	public function get_html_slide_rows_amount(){
+		$slide = $this->get_slide();
+		
+		$rows = $slide->get_param(array('timeline', 'rows'), '1');
+		if(is_array($rows) || is_object($rows)) $rows = implode(',', (array)$rows);
+		$rows = $this->shorten($rows, 'default', 'd');
+		
+		return ($rows !== '') ? 'ro:'. $rows.';' : '';
+	}
+
+	/**
+	 * get cols amount
+	 **/
+	public function get_html_slide_cols_amount(){
+		$slide = $this->get_slide();
+		
+		$cols = $slide->get_param(array('timeline', 'cols'), '1');
+		if(is_array($cols) || is_object($cols)) $cols = implode(',', (array)$cols);
+		$cols = $this->shorten($cols, 'default', 'd');
+		
+		return ($cols !== '') ? 'co:'. $cols.';' : '';
+	}
+
+	/**
+	 * get Slide Animation From Direction 
+	 **/
+	public function get_html_slide_from(){
+		$slide = $this->get_slide();
+		
+		$from = $slide->get_param(array('timeline', 'from'), 'start');
+		if(is_array($from) || is_object($from)) $from = implode(',', (array)$from);
+		$from = $this->shorten($from, 'default', 'd');
+		
+		return ($from !== '') ? 'fr:'. $from.';' : '';
+	}
+
+	/**
+	 * get Slide Animation From Direction 
+	 **/
+	public function get_html_slide_direction(){
+		$slide = $this->get_slide();
+		
+		$direction = $slide->get_param(array('timeline', 'direction'), 'horizontal');
+		if(is_array($direction) || is_object($direction)) $direction = implode(',', (array)$direction);
+		$direction = $this->shorten($direction, 'default', 'd');
+		
+		return ($direction !== '') ? 'di:'. $direction.';' : '';
+	}
+
+	/**
+	 * get Slide Animation From Direction 
+	 **/
+	public function get_html_slide_effect(){
+		$slide = $this->get_slide();
+		
+		$effect = $slide->get_param(array('timeline', 'effect'), 'fade');
+		if(is_array($effect) || is_object($effect)) $effect = implode(',', (array)$effect);
+		$effect = $this->shorten($effect, 'default', 'd');
+		
+		return ($effect !== '') ? 'ef:'. $effect.';' : '';
+	}
+
+	/**
+	 * get Slide Animation Axis 
+	 **/
+	public function get_html_slide_axis(){
+		$slide = $this->get_slide();
+		
+		$axis = $slide->get_param(array('timeline', 'axis'), 'null');
+		if(is_array($axis) || is_object($axis)) $axis = implode(',', (array)$axis);
+		$axis = $this->shorten($axis, 'default', 'd');
+		
+		return ($axis !== '') ? 'ax:'. $axis.';' : '';
 	}
 	
 	/**
@@ -6871,6 +7006,7 @@ rs-module .material-icons {
 		$dpz = $s->get_param(array('general', 'disablePanZoomMobile'), false);
 		$sii = $s->get_param(array('troubleshooting', 'simplify_ie8_ios4'), true); //was false
 		$dfl = $s->get_param(array('general', 'disableFocusListener'), false);		
+		$urlhash = $s->get_param(array('general', 'enableurlhash'), false);		
 		$apvom = $s->get_param(array('general', 'autoPlayVideoOnMobile'), true);		
 		if($dpz !== false) $fb['panZoomDisableOnMobile'] = $dpz;
 		if($sii !== false) $fb['simplifyAll'] = $sii;
@@ -6879,6 +7015,9 @@ rs-module .material-icons {
 			if($nsof !== false) $fb['nextSlideOnWindowFocus'] = $nsof;
 		}
 		if($dfl !== false) $fb['disableFocusListener'] = $dfl;		
+		if($urlhash !== false) {
+			$html .= RS_T8.'enableDeeplinkHash : true,'."\n";;			
+		}
 		if($apvom !== false) $fb['allowHTML5AutoPlayOnAndroid'] = $apvom;
 		
 		if(!empty($fb)){
@@ -7245,6 +7384,7 @@ rs-module .material-icons {
 		
 		$cover = $s->get_param(array('modal', 'cover'), true);
 		$bodyclass = $s->get_param(array('modal', 'bodyclass'), '');
+		$speed = $s->get_param(array('modal', 'coverSpeed'), 1);
 		$color = $s->get_param(array('modal', 'coverColor'), 'rgba(0,0,0,0.5)');
 		$h = $s->get_param(array('modal', 'horizontal'), 'center');
 		$v = $s->get_param(array('modal', 'vertical'), 'middle');
@@ -7254,6 +7394,7 @@ rs-module .material-icons {
 		if($bodyclass !== '') $c['bodyclass'] = $bodyclass;
 		if($cover !== true) $c['cover'] = $cover;
 		if($color !== 'rgba(0,0,0,0.5)') $c['coverColor'] = $color;
+		if($speed !== 1) $c['coverSpeed'] = $speed;
 		if($h !== 'center') $c['horizontal'] = $h;	
 		if($v !== 'middle') $c['vertical'] = $v;	
 		if ($this->modal !== '') $c['trigger'] = $this->modal;		
@@ -7738,12 +7879,17 @@ rs-module .material-icons {
 			$kbd = $s->get_param(array('nav', 'keyboard', 'direction'), 'horizontal');
 			
 			$msr = $s->get_param(array('nav', 'mouse', 'reverse'), false);
+			$mswu = $s->get_param(array('nav', 'mouse', 'viewport'), 50);			
+			$mscd = $s->get_param(array('nav', 'mouse', 'calldelay'), '1000ms');			
 			$ohs = $s->get_param(array('general', 'slideshow', 'stopOnHover'), true);
 			
 			if($kbn === true)		 $h['keyboardNavigation'] = true;
 			if($kbd !== 'horizontal')$h['keyboard_direction'] = $kbd;
 			if($msn !== 'off')		 $h['mouseScrollNavigation'] = $msn;
 			if($msr !== 'default')	 $h['mouseScrollReverse'] = $msr;
+			if($mswu !== 50)		 $h['wheelViewPort'] = $mswu;
+			if($mscd !== '1000ms')		 $h['wheelCallDelay'] = $mscd;
+			
 			if($ohs === false)		 $h['onHoverStop'] = false;
 			
 			//TOUCH

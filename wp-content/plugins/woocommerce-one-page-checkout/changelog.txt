@@ -1,5 +1,9 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2020-11-14 - version 1.7.10
+* Tweak - Add $post_id as parameter for is_wcopc_checkout filter.
+* Fix   - Prevent guest checkout with subscription.
+
 2020-09-21 - version 1.7.9
 * Fix   - Errors when multiple items are included in shortcode.
 * Fix   - Don't use one page checkout product checkout link in product loop. 

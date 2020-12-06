@@ -1,5 +1,9 @@
 *** WooCommerce Sales Report Email ***
 
+2020-12-01 - version 1.1.18
+* Tweak - WC 4.7 compatibility.
+* Tweak - WordPress 5.6 compatibility.
+
 2020-10-06 - version 1.1.17
 * Tweak - WC 4.5 compatibility.
 

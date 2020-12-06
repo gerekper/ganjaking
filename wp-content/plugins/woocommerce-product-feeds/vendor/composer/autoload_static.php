@@ -31,6 +31,7 @@ class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Gamajo_Template_Loader' => __DIR__ . '/../..' . '/src/common/gamajo-template-loader.class.php',
         'MockWcProduct' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWcProduct.php',
         'MockWoocommerceGpfCommon' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWoocommerceGpfCommon.php',
@@ -49,6 +50,7 @@ class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
         'WoocommerceGpfClearAllJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-clear-all-job.php',
         'WoocommerceGpfClearProductJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-clear-product-job.php',
         'WoocommerceGpfCommon' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-common.php',
+        'WoocommerceGpfCurrencySwitcherForWooCommerce' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-currency-switcher-for-woocommerce.php',
         'WoocommerceGpfDebugService' => __DIR__ . '/../..' . '/src/common/woocommerce-gpf-debug-service.php',
         'WoocommerceGpfFeed' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-feed.php',
         'WoocommerceGpfFeedBing' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-feed-bing.php',
@@ -74,7 +76,10 @@ class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
         'WoocommerceGpfTestAbstract' => __DIR__ . '/../..' . '/tests/unit/WoocommerceGpfTestAbstract.php',
         'WoocommerceGpfTheContentProtection' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-the-content-protection.php',
         'WoocommerceGpfWcMocks' => __DIR__ . '/../..' . '/tests/unit/mocks/WoocommerceGpfWcMocks.php',
+        'WoocommerceGpfWoocommerceCompositeProducts' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-woocommerce-composite-products.php',
+        'WoocommerceGpfWoocommerceMinMaxQuantityStepControlSingle' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-woocommerce-min-max-quantity-step-control-single.php',
         'WoocommerceGpfWoocommerceMixAndMatchProducts' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-woocommerce-mix-and-match-products.php',
+        'WoocommerceGpfWoocommerceProductBundles' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-woocommerce-product-bundles.php',
         'WoocommerceGpfWpMocks' => __DIR__ . '/../..' . '/tests/unit/mocks/WoocommerceGpfWpMocks.php',
         'WoocommerceGpfYoastWoocommerceSeo' => __DIR__ . '/../..' . '/src/integrations/yoast-woocommerce-seo.php',
         'WoocommerceMinMaxQuantities' => __DIR__ . '/../..' . '/src/integrations/woocommerce-min-max-quantities.php',

@@ -164,16 +164,14 @@ if ( ! class_exists( 'RSGatewayModule' ) ) {
                     'desc_tip' => true ,
                 ) ,
                 array(
-                    'name'     => __( 'Error message to display on the product page when trying to add a restricted product to cart' , SRP_LOCALE ) ,
-                    'id'       => 'rs_restrict_errmsg_add_to_cart_selected_products' ,
-                    'std'      => 'You cannot add this product to cart because it can be purchased only using Reward Points Gateway.' ,
-                    'default'  => 'You cannot add this product to cart because it can be purchased only using Reward Points Gateway.' ,
-                    'type'     => 'textarea' ,
-                    'newids'   => 'rs_restrict_errmsg_add_to_cart_selected_products' ,
-                    'class'    => 'rs_restrict_errmsg_add_to_cart_selected_products' ,
+                    'name'    => __( 'Error message to display on the product page when trying to add a restricted product to cart' , SRP_LOCALE ) ,
+                    'id'      => 'rs_restrict_errmsg_add_to_cart_selected_products' ,
+                    'std'     => 'You cannot add this product to cart because it can be purchased only using Reward Points Gateway.' ,
+                    'default' => 'You cannot add this product to cart because it can be purchased only using Reward Points Gateway.' ,
+                    'type'    => 'textarea' ,
+                    'newids'  => 'rs_restrict_errmsg_add_to_cart_selected_products' ,
+                    'class'   => 'rs_restrict_errmsg_add_to_cart_selected_products' ,
                 ) ,
-                
-                
                 array( 'type' => 'sectionend' , 'id' => 'rs_reward_gateway_settings' ) ,
                 array(
                     'type' => 'rs_wrapper_end' ,

@@ -86,7 +86,7 @@ class WC_Booking extends WC_Bookings_Data {
 	 * See DEVELOPER.md for more information.
 	 *
 	 * @since  1.15.13
-	 * 
+	 *
 	 * @return integer Booking start timestamp.
 	 */
 	public function get_start_cached() {
@@ -98,9 +98,9 @@ class WC_Booking extends WC_Bookings_Data {
 	 * This data needs to be set manually before it can be accessed.
 	 * It also becomes available when the `is_within_block` function is used.
 	 * See DEVELOPER.md for more information.
-	 * 
+	 *
 	 * @since  1.15.13
-	 * 
+	 *
 	 * @return integer Booking end timestamp.
 	 */
 	public function get_end_cached() {
@@ -1125,5 +1125,33 @@ class WC_Booking extends WC_Bookings_Data {
 	public function get_booking_timezone( ) {
 		$timezone = $this->get_local_timezone();
 		return $timezone ? $timezone : wc_booking_get_timezone_string();
+	}
+
+	/**
+	 * Indicate whether the booking is active, i.e. not cancelled or refunded.
+	 *
+	 * @since 1.15.30
+	 *
+	 * @return bool
+	 */
+	public function is_active() {
+		$booking_status = $this->get_status();
+
+		$order_id = WC_Booking_Data_Store::get_booking_order_id( $this->get_id() );
+		$order    = wc_get_order( $order_id );
+
+		// Dangling booking, probably not a valid one.
+		if ( ! is_a( $order, 'WC_Order' ) ) {
+			return false;
+		}
+
+		$order_status = $order->get_status();
+
+		// Don't consider the booking active for cancelled booking, or if the order is cancelled or refunded.
+		if ( 'cancelled' === $booking_status || 'refunded' === $order_status || 'cancelled' === $order_status ) {
+			return false;
+		}
+
+		return true;
 	}
 }

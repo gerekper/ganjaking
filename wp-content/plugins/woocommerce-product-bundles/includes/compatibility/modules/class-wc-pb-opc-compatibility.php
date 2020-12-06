@@ -52,7 +52,7 @@ class WC_PB_OPC_Compatibility {
 				wc_get_template( 'single-product/add-to-cart/bundle.php', array(
 					'bundled_items'     => $bundled_items,
 					'product'           => $product,
-					'classes'           => implode( ' ', $form_classes ),
+					'classes'           => implode( ' ', apply_filters( 'woocommerce_bundle_form_classes', $form_classes, $product ) ),
 					// Back-compat.
 					'product_id'        => $product->get_id(),
 					'availability_html' => wc_get_stock_html( $product ),

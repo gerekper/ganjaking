@@ -909,11 +909,6 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			if ( this.passes_validation() ) {
 
-				// Add selected qty status message if there are no error messages and infinite container is used.
-				if ( container.api.get_max_container_size() === false ) {
-					this.add_message( this.selected_quantity_message( container.api.get_container_size() ) );
-				}
-
 				// Enable add to cart button.
 				this.$mnm_button.removeAttr( 'disabled' ).removeClass( 'disabled' );
 				this.$mnm_form.trigger( 'wc-mnm-display-add-to-cart-button', [ container ] );
@@ -982,16 +977,14 @@ jQuery.fn.wc_get_mnm_script = function() {
 		/**
 		 * Reset messages on update start.
 		 */
-
 		this.reset_messages = function() {
 			this.validation_messages = [];
 			this.status_messages     = [];
 		};
 
 		/**
-		 * Failed qty validation message builder.
+		 * Quantity total message builder.
 		 */
-
 		this.selected_quantity_message = function( qty ) {
 
 			var message = qty === 1 ? wc_mnm_params.i18n_qty_message_single : wc_mnm_params.i18n_qty_message;
@@ -1043,7 +1036,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			var validation_status  = container.is_initialized ? '' : container.api.get_validation_status();
 
 			// Validation.
-			if( min_container_size === max_container_size && total_qty !== min_container_size ){
+			if( min_container_size === max_container_size && total_qty !== min_container_size ) {
 				error_message = min_container_size === 1 ? wc_mnm_params.i18n_qty_error_single : wc_mnm_params.i18n_qty_error;
 				error_message = error_message.replace( '%s', min_container_size );
 			}
@@ -1052,11 +1045,11 @@ jQuery.fn.wc_get_mnm_script = function() {
 				error_message = wc_mnm_params.i18n_min_max_qty_error.replace( '%max', max_container_size ).replace( '%min', min_container_size );
 			}
 			// Validate that a container has minimum number of items.
-			else if( min_container_size > 0 && total_qty < min_container_size ){
+			else if( min_container_size > 0 && total_qty < min_container_size ) {
 				error_message = min_container_size > 1 ? wc_mnm_params.i18n_min_qty_error : wc_mnm_params.i18n_min_qty_error_singular;
 				error_message = error_message.replace( '%min', min_container_size );
 				// Validate that a container has fewer than the maximum number of items.
-			} else if ( max_container_size > 0 && total_qty > max_container_size ){
+			} else if ( max_container_size > 0 && total_qty > max_container_size ) {
 				error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
 				error_message = error_message.replace( '%max', max_container_size );
 			}
@@ -1068,6 +1061,10 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 				// Add error message, replacing placeholders with current values.
 				this.add_message( error_message.replace( '%v', selected_qty_message ), 'error' );
+
+			// Add selected qty status message if there are no error messages and infinite container is used.
+			} else if ( this.api.get_max_container_size() === false ) {
+				this.add_message( this.selected_quantity_message( total_qty ) );
 			}
 
 			// Let mini extensions add their own error/status messages.

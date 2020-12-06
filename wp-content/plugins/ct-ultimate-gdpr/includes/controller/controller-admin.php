@@ -525,7 +525,7 @@ class CT_Ultimate_GDPR_Controller_Admin {
 			wp_enqueue_style( 'wp-color-picker' );
 
             wp_enqueue_script('jquery-ui-datepicker');
-            wp_register_style('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
+            wp_register_style('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
             wp_enqueue_style('jquery-ui');
 
         }

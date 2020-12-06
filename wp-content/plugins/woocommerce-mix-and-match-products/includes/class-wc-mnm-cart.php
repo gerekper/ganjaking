@@ -448,7 +448,7 @@ class WC_Mix_and_Match_Cart {
 			if ( is_a( $container, 'WC_Product_Mix_and_Match' ) && false === $this->validate_container_add_to_cart( $container, $quantity, $cart_item_data ) ) {
 				$passed_validation = false;
 			}
-}
+		}
 
 		return $passed_validation;
 	}
@@ -484,7 +484,7 @@ class WC_Mix_and_Match_Cart {
 			if ( ! $this->validate_container_configuration( $container, $quantity, $configuration ) ) {
 				$is_valid = false;
 			}
-} else {
+		} else {
 			$is_valid = false;
 		}
 
@@ -558,7 +558,7 @@ class WC_Mix_and_Match_Cart {
 	 */
 	public function validate_container_configuration( $container, $container_quantity, $configuration, $context = '' ) {
 
-		$is_configuration_valid = true;
+		$is_valid = true;
 
 		// Count the total child items.
 		$total_items_in_container = 0;
@@ -656,66 +656,73 @@ class WC_Mix_and_Match_Cart {
 						 * @param int $container_quantity Quantity of parent container.
 						 */
 						if ( ! apply_filters( 'woocommerce_mnm_item_add_to_cart_validation', true, $container, $mnm_item, $item_quantity, $container_quantity ) ) {
-							$is_configuration_valid = false;
+							$is_valid = false;
 							break;
 						}
-} // End foreach.
+					} // End foreach.
 				}
 
-				if ( $is_configuration_valid ) {
+				
+				// The number of items allowed to be in the container.
+				$min_container_size = $container->get_min_container_size();
+				$max_container_size = $container->get_max_container_size();
 
-					// The number of items allowed to be in the container.
-					$min_container_size = $container->get_min_container_size();
-					$max_container_size = $container->get_max_container_size();
-
-					// Validate the max number of items in the container.
-					if ( $max_container_size > 0 && $total_items_in_container > $max_container_size ) {
-						// translators: %1$d is the maximum container quantity. %2$s is the container product title.
-						$notice = sprintf( _n( 'You have selected too many items. Please choose %1$d item for &quot;%2$s&quot;.', 'You have selected too many items. Please choose %1$d items for &quot;%2$s&quot;.', $max_container_size, 'woocommerce-mix-and-match-products' ), $max_container_size, $container->get_title() );
-						throw new Exception( $notice );
-					}
-
-					// Validate the min number of items in the container.
-					if ( $min_container_size > 0 && $total_items_in_container < $min_container_size ) {
-						// translators: %1$d is the minimum container quantity. %2$s is the container product title.
-						$notice = sprintf( _n( 'You have selected too few items. Please choose %1$d item for &quot;%2$s&quot;.', 'You have selected too few items. Please choose %1$d items for &quot;%2$s&quot;.', $min_container_size, 'woocommerce-mix-and-match-products' ), $min_container_size, $container->get_title() );
-						throw new Exception( $notice );
-					}
-
-					// Check stock for stock-managed bundled items when adding to cart. If out of stock, don't proceed.
-					if ( 'add-to-cart' === $context ) {
-						$is_configuration_valid = $mnm_stock->validate_stock(
-                            array(
-							'context'         => $context,
-							'throw_exception' => true
-                            )
-                        );
-					}
-
-					/**
-					 * Perform additional validation checks at container level.
-					 *
-					 * @param  boolean                  $result
-					 * @param  WC_Product_Mix_and_Match $container
-					 * @param  WC_MNM_Stock_Manager     $mnm_stock
-					 * @param  array                    $configuration
-					 * @since  1.9.0
-					 */
-					$is_configuration_valid = apply_filters( 'woocommerce_mnm_' . str_replace( '-', '_', $context ) . '_container_validation', $is_configuration_valid, $container, $mnm_stock, $configuration );
-
-					/**
-					 * Validate the container.
-					 *
-					 * @deprecated 1.9.0
-					 *
-					 * @param bool $is_valid
-					 * @param obj WC_Mix_and_Match_Stock_Manager $mnm_stock
-					 * @param obj WC_Product_Mix_and_Match $container
-					 */
-					$is_configuration_valid = apply_filters( 'woocommerce_mnm_add_to_cart_validation', $is_configuration_valid, $mnm_stock, $container );
+				// Validate the max number of items in the container.
+				if ( $is_valid && $max_container_size > 0 && $total_items_in_container > $max_container_size ) {
+					$is_valid = false;
+					// translators: %1$d is the maximum container quantity. %2$s is the container product title.
+					$notice = sprintf( _n( 'You have selected too many items. Please choose %1$d item for &quot;%2$s&quot;.', 'You have selected too many items. Please choose %1$d items for &quot;%2$s&quot;.', $max_container_size, 'woocommerce-mix-and-match-products' ), $max_container_size, $container->get_title() );
 
 				}
-} catch ( Exception $e ) {
+
+				// Validate the min number of items in the container.
+				if ( $is_valid && $min_container_size > 0 && $total_items_in_container < $min_container_size ) {
+					$is_valid = false;
+					// translators: %1$d is the minimum container quantity. %2$s is the container product title.
+					$notice = sprintf( _n( 'You have selected too few items. Please choose %1$d item for &quot;%2$s&quot;.', 'You have selected too few items. Please choose %1$d items for &quot;%2$s&quot;.', $min_container_size, 'woocommerce-mix-and-match-products' ), $min_container_size, $container->get_title() );
+				}
+
+				// Check stock for stock-managed bundled items when adding to cart. If out of stock, don't proceed.
+				if ( 'add-to-cart' === $context ) {
+					$is_valid = $mnm_stock->validate_stock(
+                        array(
+						'context'         => $context,
+						'throw_exception' => true
+                        )
+                    );
+				}
+
+				/**
+				 * Perform additional validation checks at container level.
+				 *
+				 * @param  boolean                  $result
+				 * @param  WC_Product_Mix_and_Match $container
+				 * @param  WC_MNM_Stock_Manager     $mnm_stock
+				 * @param  array                    $configuration
+				 * @since  1.9.0
+				 */
+				$is_valid = apply_filters( 'woocommerce_mnm_' . str_replace( '-', '_', $context ) . '_container_validation', $is_valid, $container, $mnm_stock, $configuration );
+
+				/**
+				 * Validate the container.
+				 *
+				 * @deprecated 1.9.0
+				 *
+				 * @param bool $is_valid
+				 * @param obj WC_Mix_and_Match_Stock_Manager $mnm_stock
+				 * @param obj WC_Product_Mix_and_Match $container
+				 */
+				$is_valid = apply_filters( 'woocommerce_mnm_add_to_cart_validation', $is_valid, $mnm_stock, $container );
+
+				/**
+				 * Late Exception for containers allows for alternative validations.
+				 * Example "by weight" or "by price" where the quantity validations shouldn't throw a notice.
+				 */
+				if ( ! $is_valid ) {
+					throw new Exception( $notice );
+				}
+
+			} catch ( Exception $e ) {
 
 				/**
 				 * Change the quantity error message.
@@ -730,11 +737,11 @@ class WC_Mix_and_Match_Cart {
 					wc_add_notice( $notice, 'error' );
 				}
 
-				$is_configuration_valid = false;
+				$is_valid = false;
 
 			}
 
-			return $is_configuration_valid;
+			return $is_valid;
 
 		}
 
@@ -830,7 +837,7 @@ class WC_Mix_and_Match_Cart {
 			if ( ! isset( $cart_item_data['mnm_contents'] ) ) {
 				$cart_item_data['mnm_contents'] = array();
 			}
-}
+		}
 
 		return $cart_item_data;
 
@@ -985,7 +992,7 @@ class WC_Mix_and_Match_Cart {
 					unset( $cart_item['mnm_contents'] );
 				}
 			}
-}
+		}
 
 		// Child items.
 		if ( wc_mnm_maybe_is_child_cart_item( $cart_session_item ) ) {
@@ -1002,8 +1009,8 @@ class WC_Mix_and_Match_Cart {
 				if ( $container->is_type( 'mix-and-match' ) ) {
 					$cart_item = $this->set_mnm_cart_item( $cart_item, $container );
 				}
-}
-}
+			}
+		}
 
 		return $cart_item;
 	}
@@ -1036,7 +1043,7 @@ class WC_Mix_and_Match_Cart {
 				} elseif ( $container_item['data']->is_type( 'mix-and-match' ) && ! array_key_exists( $child_id, $container_item['data']->get_children() ) ) {
 					unset( WC()->cart->cart_contents[ $cart_item_key ] );
 				}
-}
+			}
 		}
 	}
 
@@ -1274,12 +1281,12 @@ class WC_Mix_and_Match_Cart {
 				if ( ! wc_prices_include_tax() && $tax_subtotal > 0 ) {
 					$product_subtotal .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
 				}
-} else {
+		} else {
 				if ( wc_prices_include_tax() && $tax_subtotal > 0 ) {
 					$product_subtotal .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
 				}
 			}
-}
+		}
 
 		return $product_subtotal;
 	}

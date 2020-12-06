@@ -33,6 +33,8 @@ class WooCommerce_Product_Search_Compat {
 	 */
 	public static function init() {
 
+		require_once WOO_PS_COMPAT_LIB . '/class-woocommerce-product-search-compat-shortcodes.php';
+
 		if ( class_exists( 'Jetpack' ) ) {
 			if ( apply_filters( 'woocommerce_product_search_compat', true, 'plugin', 'jetpack' ) ) {
 				require_once WOO_PS_COMPAT_LIB . '/class-woocommerce-product-search-compat-jetpack.php';
@@ -56,6 +58,12 @@ class WooCommerce_Product_Search_Compat {
 			if ( $theme->exists() ) {
 				$name = $theme->name;
 				$parent_theme = $theme->parent_theme;
+
+				if ( $name === 'Divi' || $parent_theme === 'Divi' ) {
+					if ( apply_filters( 'woocommerce_product_search_compat', true, 'theme', 'storefront' ) ) {
+						require_once WOO_PS_COMPAT_LIB . '/class-woocommerce-product-search-compat-divi.php';
+					}
+				}
 
 				if ( $name === 'Storefront' || $parent_theme === 'Storefront' && $name !== 'StoreSearch' ) {
 					if ( apply_filters( 'woocommerce_product_search_compat', true, 'theme', 'storefront' ) ) {

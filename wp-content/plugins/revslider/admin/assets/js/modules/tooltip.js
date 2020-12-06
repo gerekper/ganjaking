@@ -234,7 +234,7 @@
 		
 		var btn = jQuery('#rs-tooltip-next');
 		if(!btn.is(':visible')) btn = jQuery('#rs-tooltip-gotit');
-		btn.click();
+		btn.trigger('click');
 		
 	}
 	
@@ -267,7 +267,7 @@
 				let trigger = jQuery(triggers[i]);
 				if(trigger.length) {
 					
-					jQuery(trigger).first().click();
+					jQuery(trigger).first().trigger('click');
 					
 				}
 				else {
@@ -335,7 +335,7 @@
 			for(let i = 0; i < len; i++) {
 				
 				let style = css[i].split(':');
-				cloned.css(jQuery.trim(style[0]), jQuery.trim(style[1]));
+				cloned.css(RVS.F.trim(style[0]), RVS.F.trim(style[1]));
 				
 			}
 			

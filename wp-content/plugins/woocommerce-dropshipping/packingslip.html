@@ -1,18 +1,8 @@
 <style>
-
-.ordernum_date{color:#96588a;}
-
-.cus_note {background-color:#96588a;color:#fff;}
-
-.payment_type{background-color:#96588a;color:#fff;border-top:1px solid #ccc;}
-
-.shipping_method{background-color:#96588a;color:#fff;border-top:1px solid #ccc;}
-
-.product_table {background-color: #ccc;}
-
-.email_store_logo{float:none;display:block;margin:0 auto;max-width:12vw;padding-bottom:30px;}
+	th{text-decoration:none!important;}
 
 </style>
+
 
 <?php
 
@@ -28,8 +18,6 @@
 
 	} */
 
-	//$color = get_option('woocommerce_email_base_color');
-
 	$base_color1 = ' background-color: '.( !empty(trim(get_option('woocommerce_email_base_color'))) ? get_option('woocommerce_email_base_color') : '#ccc' ).';';
 
 	$base_color2 = ' color: '.( !empty(trim(get_option('woocommerce_email_base_color'))) ? get_option('woocommerce_email_base_color') : '#ccc' ).';';
@@ -40,24 +28,50 @@
 
 	$body_text_color = ' color: '.( !empty(trim(get_option('woocommerce_email_text_color'))) ? get_option('woocommerce_email_text_color') : '#000' ).';';
 
+
+	$woo_base_color =  ' background-color: '.( !empty(trim(get_option('woocommerce_email_base_color'))) ? get_option('woocommerce_email_base_color') : '#ccc' ).';';
+	$woo_base_text_color =  ' color: '.( !empty(trim(get_option('woocommerce_email_base_color'))) ? get_option('woocommerce_email_base_color') : '#ccc' ).';';
+	$woo_bg_color = ' background-color: '.( !empty(trim(get_option('woocommerce_email_background_color'))) ? get_option('woocommerce_email_background_color') : '#fff' ).';';
+	$woo_body_bg_color = ' background-color: '.( !empty(trim(get_option('woocommerce_email_body_background_color'))) ? get_option('woocommerce_email_body_background_color') : '#fff' ).';';
+	$woo_body_text_color = ' color: '.( !empty(trim(get_option('woocommerce_email_text_color'))) ? get_option('woocommerce_email_text_color') : '#000' ).';';
+
+
+	$woo_base_color_only = ( !empty(trim(get_option('woocommerce_email_base_color'))) ? get_option('woocommerce_email_base_color') : '#ccc' );
+	$woo_base_text_color_only = ( !empty(trim(get_option('woocommerce_email_base_color'))) ? get_option('woocommerce_email_base_color') : '#ccc' );
+	$woo_bg_color_only = ( !empty(trim(get_option('woocommerce_email_background_color'))) ? get_option('woocommerce_email_background_color') : '#fff' );
+	$woo_body_bg_color_only = ( !empty(trim(get_option('woocommerce_email_body_background_color'))) ? get_option('woocommerce_email_body_background_color') : '#fff' );
+	$woo_body_text_color_only = ( !empty(trim(get_option('woocommerce_email_text_color'))) ? get_option('woocommerce_email_text_color') : '#000' );
+
+	$product_price_colspan = 5;
+
+	if ( $order_info['options']['product_price'] == '0' ) {
+		$product_price_colspan = $product_price_colspan - 1;
+	}
+
+	if ( $order_info['options']['type_of_package'] == '0' ) {
+		$product_price_colspan = $product_price_colspan - 1;
+	}
+
+	$misc_colspan = $product_price_colspan + 1;
+
 ?>
 
 
 <?php //$meta = get_term_meta( $term->term_id, 'meta',true ); ?>
 
-
+<div style="<?php echo $woo_base_color; ?>;">
 
 <!-- Table for mail top header -->
 
 
 
-<table class="ordernum_date" border="0" align="center" style="width:180mm; <?php echo $base_color1; ?>" cellpadding="5" cellspacing="0"  >
+<table class="ordernum_date" border="0" align="center" style="width:180mm; <?php echo $woo_body_bg_color; ?>" cellpadding="5" cellspacing="0"  >
 
-	<tr>
+	<tr style="padding:30px 0px; <?php echo $woo_base_color; ?>">
 
 		<td align="center">
 
-			<h2 style="color: #fff;">[<?php echo 'Order #'.$order_info['custom_order_number']; ?>]
+			<h2 style="color:#fff;">[<?php echo 'Order #'.$order_info['custom_order_number']; ?>]
 
 				<span>
 
@@ -84,17 +98,17 @@
 
 			<td align="center">
 
-				<h2 style="color: #fff;">
+				<h4 style="<?php echo $woo_body_bg_color; echo $woo_body_text_color; ?> ">
 
 				<?php if($supplier_info['account_number']) {
 
-					echo 'Supplier Account #'.$supplier_info['account_number'];}
+					echo '<strong>Supplier Account #</strong>'.$supplier_info['account_number'];}
 
 					else{
 
 					}?>
 
-				</h2>
+				</h4>
 
 		</td>
 
@@ -108,7 +122,7 @@
 
 
 
-<table align="center" style="width:180mm;" cellpadding="5" cellspacing="0" ><tr><td style="<?php echo $body_bkg_color; ?>">
+<table align="center" style="width:180mm;" cellpadding="5" cellspacing="0" ><tr><td style="<?php echo $woo_body_bg_color; ?>">
 
 	<table class="top_address" align="center" cellpadding="5" cellspacing="0" style="width:100%;" >
 
@@ -118,7 +132,7 @@
 
 							<tr>
 
-					<td class="cus_note" colspan="3" style="<?php echo $body_text_color; ?>">
+					<td class="cus_note" colspan="3" style="<?php echo $woo_body_text_color; ?>">
 
 						<?php echo @$order_info['ordernote']; ?>
 
@@ -134,7 +148,7 @@
 
 							<tr>
 
-					<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $body_text_color; ?>">
+					<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $woo_body_text_color; ?>; border-top:1px solid <?php echo $woo_base_color_only; ?>;">
 
 					<?php if($order_info['options']['dropship_chosen_shipping_method']) {
 
@@ -160,7 +174,7 @@
 				<?php if( (@$order_info['options']['show_pay_type'] == '1') || (@$order_info['options']['show_pay_type'] == '') ) { ?>
 					<tr>
 
-						<td class="payment_type" colspan="3" style="<?php echo $body_text_color; ?>">
+						<td class="payment_type" colspan="3" style="<?php echo $woo_body_text_color; echo $woo_body_bg_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
 
 							<?php if($order_info['options']['dropship_payment_type']) {
 
@@ -182,7 +196,7 @@
 					if( (@$order_info['options']['show_pay_type'] == '1') || (@$order_info['options']['show_pay_type'] == '') ) { ?>
 					<tr>
 
-						<td class="payment_type" colspan="3" style="<?php echo $body_text_color; ?>">
+						<td class="payment_type" colspan="3" style="<?php echo $woo_body_text_color; echo $woo_body_bg_color;  ?> border-top:1px solid <?php echo $woo_base_color_only; ?>">
 
 							<?php if($order_info['options']['dropship_payment_type']) {
 
@@ -202,7 +216,7 @@
 
 				<?php } }?>
 				<tr>
-					<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $body_text_color; ?>">
+					<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $woo_body_text_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
 
 						<?php if($order_info['options']['customer_note'] == '1') {
 
@@ -211,17 +225,17 @@
 
 					</td>
 				</tr>
-				
-				<tr>
-				<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $body_text_color; ?>">
 
-					<?php 
+				<tr>
+				<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $woo_body_text_color; ?>">
+
+					<?php
 					$delivery_date_field = get_option( 'orddd_lite_delivery_date_field_label' );
 
 					if(!empty($delivery_date_field)){
 
 						$Delivery = get_post_meta($order_info['id'], $delivery_date_field, true);
-							
+
 						if(!empty($Delivery)) {
 
 							echo $delivery_date_field .' : ' .$Delivery;
@@ -332,9 +346,9 @@
 
 		<table class="products-tab" style="border:1px solid #000;width:100%;" border="1" align="center" cellpadding="8" cellspacing="0" >
 
-				<thead class="product_table" border="0" style="<?php echo $body_bkg_color; ?>">
+				<thead class="product_table" border="0" style="<?php echo $woo_body_bg_color; ?>">
 
-						<tr class="product_table" border="0" style="<?php echo $body_text_color; ?>" >
+						<tr class="product_table" border="0" style="<?php echo $woo_body_text_color; ?>" >
 
 
 							<!-- For Image Title -->
@@ -348,11 +362,11 @@
 
 										<th border="0" align="left">
 
-											<b><u>
+											<b>
 
 												<?php echo @$order_info['options']['dropship_image']; ?>
 
-												</u></b>
+												</b>
 
 											</th>
 
@@ -360,11 +374,11 @@
 
 										<th border="0" align="left">
 
-											<b><u>
+											<b>
 
 												<?php echo 'Image'; ?>
 
-												</u></b>
+											</b>
 
 											</th>
 
@@ -381,11 +395,11 @@
 
 										<th border="0" align="left">
 
-											<b><u>
+											<b>
 
 												<?php echo @$order_info['options']['dropship_image']; ?>
 
-											</u></b>
+											</b>
 
 										</th>
 
@@ -394,11 +408,11 @@
 
 										<th border="0" align="left">
 
-											<b><u>
+											<b>
 
 												<?php echo 'Image'; ?>
 
-												</u></b>
+												</b>
 
 										</th>
 
@@ -412,21 +426,21 @@
 
 							<?php if($order_info['options']['dropship_sku']) { ?>
 
-									<th border="0" align="left"><b><u>
+									<th border="0" align="left"><b>
 
 										<?php echo @$order_info['options']['dropship_sku']; ?>
 
-										</u></b>
+										</b>
 
 									</th>
 
 									<?php } else { ?>
 
-										<th border="0" align="left"><b><u>
+										<th border="0" align="left"><b>
 
 											<?php echo 'SKU'; ?>
 
-											</u></b>
+											</b>
 
 										</th>
 
@@ -436,21 +450,21 @@
 
 					<?php if($order_info['options']['dropship_product']) { ?>
 
-						<th border="0" align="center"><b><u>
+						<th border="0" align="center"><b>
 
 							<?php echo @$order_info['options']['dropship_product']; ?>
 
-							</u></b>
+							</b>
 
 						</th>
 
 					<?php } else { ?>
 
-						<th border="0" align="center"><b><u>
+						<th border="0" align="center"><b>
 
 							<?php echo 'Product'; ?>
 
-							</u></b>
+							</b>
 
 						</th>
 
@@ -460,19 +474,19 @@
 
 					<?php if($order_info['options']['dropship_quantity']) { ?>
 
-										<th border="0" align="center"><b><u>
+										<th border="0" align="center"><b>
 
 											<?php echo @$order_info['options']['dropship_quantity']; ?>
 
-											</u></b>
+											</b>
 
 										</th>
 
 									<?php } else { ?>
 
-										<th border="0" align="center"><b><u>
+										<th border="0" align="center"><b>
 
-											<?php echo 'Quantity';?></u></b>
+											<?php echo 'Quantity';?></b>
 
 										</th>
 
@@ -489,11 +503,11 @@
 
 								<th border="0" align="center">
 
-									<b><u>
+									<b>
 
 										<?php echo @$order_info['options']['type_of_package_conversion']; ?>
 
-									</u></b>
+									</b>
 
 								</th>
 
@@ -501,11 +515,11 @@
 
 									<th border="0" align="center">
 
-										<b><u>
+										<b>
 
 											<?php echo 'Type Of Package'; ?>
 
-										</u></b>
+										</b>
 
 									</th>
 
@@ -521,11 +535,11 @@
 
 								<th border="0" align="center">
 
-									<b><u>
+									<b>
 
 										<?php echo @$order_info['options']['type_of_package_conversion']; ?>
 
-									</u></b>
+									</b>
 
 								</th>
 
@@ -533,11 +547,11 @@
 
 								<th border="0" align="center">
 
-									<b><u>
+									<b>
 
 										<?php echo 'Type Of Package'; ?>
 
-									</u></b>
+									</b>
 
 								</th>
 
@@ -558,11 +572,11 @@
 
 							<th border="0" align="center">
 
-								<b><u>
+								<b>
 
 									<?php echo @$order_info['options']['dropship_price']; ?>
 
-								</u></b>
+								</b>
 
 							</th>
 
@@ -572,11 +586,11 @@
 
 											<th border="0" align="center">
 
-												<b><u>
+												<b>
 
 													<?php echo 'Price'; ?>
 
-												</u></b>
+												</b>
 
 											</th>
 
@@ -592,11 +606,11 @@
 
 											<th border="0" align="center">
 
-												<b><u>
+												<b>
 
 													<?php echo @$order_info['options']['dropship_price']; ?>
 
-												</u></b>
+												</b>
 
 											</th>
 
@@ -604,11 +618,11 @@
 
 											<th border="0" align="center">
 
-												<b><u>
+												<b>
 
 													<?php echo 'Price'; ?>
 
-												</u></b>
+												</b>
 
 											</th>
 
@@ -624,7 +638,7 @@
 
 				</thead>
 
-				<tbody border="0" style="<?php echo $body_text_color; ?>  <?php echo $body_bkg_color; ?>">
+				<tbody border="0" style="<?php echo $woo_body_text_color; ?>  <?php echo $woo_body_bg_color; ?>">
 
 		<?php
 
@@ -654,7 +668,7 @@
 
 				$currency_sym = get_woocommerce_currency_symbol();
 
-				$rows .= '<tr border="0" style="'.$body_text_color.' '.$body_bkg_color.'">';
+				$rows .= '<tr border="0" style="'.$woo_body_text_color.' '.$woo_body_bg_color.'">';
 
 
 
@@ -789,14 +803,16 @@
 
 					if(($order_info['options']['hide_shipping_price'] == '0') || ($order_info['options']['hide_shipping_price'] == '')) {
 
-						$rows .= '<tr border="0" style="'.$body_text_color.' '.$body_bkg_color.'">';
+						$rows .= '<tr><td colspan="'.$misc_colspan.'" align="center"><b>Miscellaneous</b></td></tr>';
+
+						$rows .= '<tr border="0" style="'.$woo_body_text_color.' '.$woo_body_bg_color.'">';
 
 
 						if($order_info['options']['full_information'] == '1') {
 
 								if($order_info['options']['cost_of_goods'] == '0') {
 
-									$rows .= '<td align="right" colspan="5">Shipping Cost</td>';
+									$rows .= '<td align="right" colspan="'.$product_price_colspan.'">Shipping Cost</td>';
 
 									$rows .= '<td align="center">'.$currency_sym.$get_shipping_total.'</td>';
 
@@ -806,7 +822,7 @@
 
 								if($order_info['options']['cost_of_goods'] == '0') {
 
-									$rows .= '<td align="right" colspan="5">Shipping Cost</td>';
+									$rows .= '<td align="right" colspan="'.$product_price_colspan.'">Shipping Cost</td>';
 
 									$rows .= '<td align="center">'.$currency_sym.$get_shipping_total.'</td>';
 
@@ -821,7 +837,7 @@
 					}
 
 
-					$rows .= '<tr border="0" style="'.$body_text_color.' '.$body_bkg_color.'">';
+					$rows .= '<tr border="0" style="'.$woo_body_text_color.' '.$woo_body_bg_color.'">';
 
 					if(isset($order_info['tax_label'])){
 						$order_tax_label = $order_info['tax_label'];
@@ -833,7 +849,7 @@
 
 							if($order_info['options']['cost_of_goods'] == '0') {
 
-								$rows .= '<td align="right" colspan="5">'.$order_tax_label.'</td>';
+								$rows .= '<td align="right" colspan="'.$product_price_colspan.'">'.$order_tax_label.'</td>';
 
 								$rows .= '<td align="center">'.$currency_sym.$order_total_tax.'</td>';
 
@@ -844,7 +860,7 @@
 
 							if($order_info['options']['cost_of_goods'] == '0') {
 
-								$rows .= '<td align="right" colspan="5">'.$order_tax_label.'</td>';
+								$rows .= '<td align="right" colspan="'.$product_price_colspan.'">'.$order_tax_label.'</td>';
 
 								$rows .= '<td align="center">'.$currency_sym.$order_total_tax .'</td>';
 
@@ -857,7 +873,7 @@
 
 					$rows .='</tr>';
 
-					$rows .= '<tr border="0" style="'.$body_text_color.' '.$body_bkg_color.'">';
+
 
 					if(($order_info['options']['hide_shipping_price'] == '0') || ($order_info['options']['hide_shipping_price'] == '')) {
 
@@ -872,10 +888,15 @@
 					if($order_info['options']['full_information'] == '1') {
 
 							if($order_info['options']['total_price'] == '1') {
+								$rows .= '<tr border="0" style="'.$woo_body_text_color.' '.$woo_body_bg_color.'">';
 
-								$rows .= '<td align="right" colspan="5">Total</td>';
+								$rows .= '<td align="right" colspan="'.$product_price_colspan.'">Total</td>';
 
 								$rows .= '<td align="center">'.$currency_sym.$grandtotal.'</td>';
+
+								// total price End
+
+								$rows .='</tr>';
 
 							}
 
@@ -884,17 +905,20 @@
 
 							if($order_info['options']['total_price'] == '1') {
 
-								$rows .= '<td align="right" colspan="5">Total</td>';
+								$rows .= '<tr border="0" style="'.$woo_body_text_color.' '.$woo_body_bg_color.'">';
+
+								$rows .= '<td align="right" colspan="'.$product_price_colspan.'">Total</td>';
 
 								$rows .= '<td align="center">'.$currency_sym.$grandtotal .'</td>';
+
+								// total price End
+
+							$rows .='</tr>';
 
 							}
 
 						}
 
-						// total price End
-
-					$rows .='</tr>';
 				}
 
 			echo $rows;
@@ -924,11 +948,11 @@
 
 		<?php if(($order_info['options']['billing_address'] == '1') || ( $order_info['options']['shipping_address'] == '1')){ ?>
 
-		<table align="center" cellpadding="5" cellspacing="0" style=" border:1px solid #000; width:100%;" >
+		<table align="center" cellpadding="5" cellspacing="0" style="width:100%;" >
 
 				<tbody>
 
-			<tr style="<?php echo $body_text_color; ?> <?php echo $body_bkg_color; ?>">
+			<tr style="<?php echo $woo_body_text_color; ?> <?php echo $woo_body_bg_color; ?>">
 
 
 
@@ -938,7 +962,7 @@
 
 						<tr>
 
-							<td width="100%" align="left" style="<?php echo $base_color2; ?>">
+							<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
 
 								<b><?php if($order_info['options']['dropship_company_address']) { echo @$order_info['options']['dropship_company_address'];}
 
@@ -950,7 +974,7 @@
 
 						<tr>
 
-							<td width="100%" align="left">
+							<td width="100%" align="left" style="color: <?php echo $woo_body_text_color_only; ?>;">
 
 								<h4><?php echo @$order_info['options']['packing_slip_company_name']; ?></h4>
 
@@ -979,7 +1003,7 @@
 
 						<tr>
 
-							<td width="100%" align="left" style="<?php echo $base_color2; ?>">
+							<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
 
 								<b><?php if($order_info['options']['dropship_billing_address_email']) { echo @$order_info['options']['dropship_billing_address_email'];}
 
@@ -991,7 +1015,7 @@
 
 						<tr>
 
-							<td width="100%" align="left">
+							<td width="100%" align="left" style="color: <?php echo $woo_body_text_color_only; ?>;">
 
 								<?php echo @$billing_add ?><br/>
 
@@ -1022,7 +1046,7 @@
 
 							<tr>
 
-								<td width="100%" align="left" style="<?php echo $base_color2; ?>">
+								<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
 
 									<b><?php if($order_info['options']['dropship_shipping_address_email']) {
 
@@ -1036,7 +1060,7 @@
 
 							<tr>
 
-								<td width="100%" align="left">
+								<td width="100%" align="left" style="color: <?php echo $woo_body_text_color_only; ?>;">
 
 									<?php echo @$shipping_add .'<br />';  ?>
 
@@ -1059,7 +1083,7 @@
 			</tr>
 
 			<tr>
-					<td width="100%;" colspan="5" align="left">
+					<td width="100%;" colspan="<?php echo $misc_colspan; ?>" align="left" style="color: <?php echo $woo_body_text_color_only; ?>;">
 
 						<?php if($order_info['options']['dropship_additional_comment']) {
 
@@ -1078,11 +1102,11 @@
 		<?php } else { ?>
 
 
-		<table align="center" cellpadding="5" cellspacing="0" style=" border:1px solid #000; width:100%;" >
+		<table align="center" cellpadding="5" cellspacing="0" style="width:100%;" >
 
 			<tbody>
 
-				<tr style="<?php echo $body_text_color; ?> <?php echo $body_bkg_color; ?>">
+				<tr style="<?php echo $woo_body_text_color; ?> <?php echo $woo_body_bg_color; ?>">
 
 					<td width="30%">
 
@@ -1090,7 +1114,7 @@
 
 							<tr>
 
-								<td width="100%" align="left" style="<?php echo $base_color2; ?>">
+								<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
 
 									<b><?php if($order_info['options']['dropship_company_address']) {
 
@@ -1112,7 +1136,7 @@
 
 							<tr>
 
-								<td width="100%" align="left">
+								<td width="100%" align="left" style="color: <?php echo $woo_body_text_color_only; ?>;">
 
 									<h4><?php echo @$order_info['options']['packing_slip_company_name']; ?></h4>
 
@@ -1140,7 +1164,7 @@
 
 							<tr>
 
-								<td width="100%" align="left" style="<?php echo $base_color2; ?>">
+								<td width="100%" align="left" style="<?php echo $woo_base_text_color; ?>">
 
 									<b><?php if($order_info['options']['dropship_billing_address_email']) {
 
@@ -1162,7 +1186,7 @@
 
 							<tr>
 
-								<td width="100%" align="left">
+								<td width="100%" align="left" style="color: <?php echo $woo_body_text_color_only; ?>;">
 
 									<?php echo @$billing_add ?><br />
 
@@ -1214,7 +1238,7 @@
 
 								<tr>
 
-									<td width="100%" align="left">
+									<td width="100%" align="left" style="color: <?php echo $woo_body_text_color_only; ?>;">
 
 										<?php echo @$shipping_add; ?><br /><br />
 
@@ -1236,8 +1260,8 @@
 
 				</tr>
 
-				<tr>
-					<td width="100%;" colspan="5" align="left">
+				<tr border="0">
+					<td width="100%;" colspan="<?php echo $misc_colspan; ?>" align="left" style="color: <?php echo $woo_body_text_color_only; ?>;">
 
 						<?php if($order_info['options']['dropship_additional_comment']) {
 
@@ -1258,11 +1282,15 @@
 
 	 <!-- Order complete link -->
 
+	 <h4 align="center" style="color: <?php echo $woo_body_text_color; ?>;">
+
+			 <?php echo @$order_info['options']['packing_slip_thankyou']; ?>
+
+	 </h4>
+
 </td></tr></table>
 
 
-	<h4 align="center" style="<?php echo $body_text_color; ?>">
 
-			<?php echo @$order_info['options']['packing_slip_thankyou']; ?>
 
-	</h4>
+	</div>

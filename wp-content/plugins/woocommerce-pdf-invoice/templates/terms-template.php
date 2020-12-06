@@ -4,7 +4,7 @@
     <head> 
   <style> 
   body {
-      font-family: "DejaVu Sans", "DejaVu Sans Mono", "DejaVu", sans-serif, monospace;
+      font-family: [[PDFFONTFAMILY]];
   }
     @page { 
 		margin: 20px 50px 100px 50px; 
@@ -23,8 +23,12 @@
 	#content { 
 		font-size:11px; 
 	}
+
+  .terms-content {
+    vertical-align: top;
+  }
   </style> 
-  <body> 
+  <body[[PDFRTL]]> 
  
   <div id="footer"> 
 
@@ -33,8 +37,14 @@
 
   </div> 
   <div id="content">
-  	<h2>[[TERMSTITLE]]</h2>
-	[[TERMS]]
+    <table>
+      <tr>
+        <td class="terms-content">
+  	     <h2>[[TERMSTITLE]]</h2>
+	       [[TERMS]]
+        </td>
+      </tr>
+    </table>
   </div> 
 </body> 
 </html> 

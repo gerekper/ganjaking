@@ -51,6 +51,7 @@ class CT_Ultimate_GDPR_Shortcode_Privacy_Center {
 		$terms_url     = get_permalink( CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_value( 'terms_target_page', 0, CT_Ultimate_GDPR_Controller_Terms::ID, 'page' ) );
 		$age_enabled   = CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_value( 'age_enabled', false, CT_Ultimate_GDPR_Controller_Age::ID);
 		$icon_color    = ct_ultimate_gdpr_get_value( 'icon_color', $atts, '' );
+		$unsubscribe_hide_unsubscribe_tab = CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_value( 'unsubscribe_hide_unsubscribe_tab', false, CT_Ultimate_GDPR_Controller_Unsubscribe::ID);
 
 		foreach ( get_defined_vars() as $key => $val ) {
 			CT_Ultimate_GDPR_Model_Front_View::instance()->set( $key, $val );

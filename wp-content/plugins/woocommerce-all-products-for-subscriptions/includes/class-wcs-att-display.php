@@ -26,11 +26,11 @@ class WCS_ATT_Display {
 	public static function init() {
 
 		// Cart display hooks.
-		require_once( 'display/class-wcs-att-display-cart.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/display/class-wcs-att-display-cart.php' );
 		// Single-product display hooks.
-		require_once( 'display/class-wcs-att-display-product.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/display/class-wcs-att-display-product.php' );
 		// Front-end ajax hooks.
-		require_once( 'display/class-wcs-att-display-ajax.php' );
+		require_once( WCS_ATT_ABSPATH . 'includes/display/class-wcs-att-display-ajax.php' );
 
 		self::add_hooks();
 	}

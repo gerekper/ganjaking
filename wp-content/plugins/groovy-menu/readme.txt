@@ -1,8 +1,8 @@
 === Groovy Menu ===
 Contributors: Grooni
 Requires at least: 4.9.7
-Tested up to: 5.5.1
-Stable tag: 2.3.5.1
+Tested up to: 5.5.3
+Stable tag: 2.4.0
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -65,11 +65,60 @@ Source: https://select2.github.io/
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
 
+= 2.4.0 =
+* Add: Added "Forced centered logo" setting for menu types with center logo.
+* Fix: The bug that prevented the installation of Groovy Menu on a site running Microsoft-IIS has been fixed.
+* Fix: Added styles for WPML selector, which is embedded in the side area.
+* Fix: Added reset CSS styles to prevent style conflicts with some themes.
+
+= 2.3.10 =
+* Improve: Updated third-party JS libraries included in the frond-end part of Groovy Menu.
+* Fix: Adjusting the logo height might not be changed if a third-party plugin for changing images to webp format is installed.
+* Fix: In some cases, all taxonomies available for search were not displayed in the preset settings in the "General -> Search -> Filter search result by" section.
+
+= 2.3.9.1 =
+* Fix: Active color links for page ancestor. Includes child pages for parent menu items presented in the nav menu.
+* Fix: Colorpicker located in the settings window of the menu item in "Appearance > Menu".
+* Fix: Characters from the extended UNICODE table for text badges are allowed.
+
+= 2.3.9 =
+* Add: An added new feature that improves works of dropdowns on IPad. Now single tap can open a dropdown for an active main menu item that has a submenu, and itself is a link. And for double-tap will open assigned the link for this menu item.
+* Add: Added the ability to set negative values for "Dropdown gap", "Submenu gap" and "Mega menu gap".
+* Fix: Fixed URL for the search form to fix an issue that appears on multidomain multisites.
+* Fix: Fixed bug with colorpicker in the preset editor at the Safari browser.
+
+= 2.3.8 =
+* Improve: "Slider opening style"  for mobile menu has been optimized.
+Reduced the number of JavaScript calculations required for this type of menu to work.
+* Add: New setting "Mega menu links left / right padding" in section General > Mega menu
+* Add: New setting "Top level hover line thickness" for Hover style 2, 5 and 7.
+* Fix: Added an additional check for cases when the $ _SERVER global variable does not contain the "SERVER_NAME" parameter.
+* Fix: Fixed and improved "Animated Hamburger icon". Improved positioning of the Hamburger icon relative to the center of the menu block and sticky menu.
+* Fix: Setting "Icon size" for WooCommerce mini cart icon on the mobile menu.
+* Fix: "Animated Hamburger icon" for the mobile menu correct operating the font size, padding, and colors from the Side icon settings.
+* Fix: Some fixes in UI styles in the Groovy Menu Dashboard.
+* Fix: Fixed re-initialization of the Sticky menu on the mobile resolutions at changing the height of the browser window.
+* Fix: Increased time spacing for (debounce) to trigger the scroll handler and resize the browser window. This reduces the overall load on the browser during speed navigation with large graphic content inside the menu.
+* Fix: The setting  "Letter Spacing" for menu items inside the Mega menu has been fixed.
+
+= 2.3.7 =
+* Improve: Updated the pool of JavaScript libraries included in the Groovy Menu.
+* Fix: Fixed a bug with positioning dropdown menus during scrolling and switching to sticky menu and back.
+
+= 2.3.6 =
+* Add: Added a new setting in the Global setting: "Disable internal Font".
+* Add: Added a new setting in the Global settings: "Allow use preloader for internal fonts". Allows you to speed up the loading of the FontAwesome & Groovy Menu Internal font.
+* Add: Added the ability to display the Groovy Menu using the [groovy_menu] shortcode. This allows you to insert it into almost any widget or Custom HTML block in content editors.
+* Fix: In some rare cases, WP didn't add IDs for menu items. A fix has been made to add these IDs without fail.
+* Fix: Removed HTML inserts for title & description from the global config. In some rare cases on the server side, reading such a config led to bugs with caching the HTML output.
+* Fix: Fixed a compatibility issue when editing Menu Block with Cornerstone builder (X Theme, Pro theme).
+* Fix: Additional check after AJAX to update the number of products in the Woocommerce mini-cart mobile version.
+
 = 2.3.5.1 =
 * HotFix: Fix for auto-closing dropdown menus with an empty link.
 
 = 2.3.5 =
-* Fix:  Fixed the bug with saving menu items settings, when switching from Groovy Menu Free earlier versions to Pro.
+* Fix: Fixed the bug with saving menu items settings, when switching from Groovy Menu Free earlier versions to Pro.
 * Fix: Now are correct working custom empty links in the top level menu toghether with enabled setting opening the sub-menu on mouse click.
 * Fix: Fixed working with the Iconpack at loading and uninstalling the icon font pack in Global settings.
 * Fix: The initialization of the main Groovy Menu modules has been moved to the ‘init’ action. This avoids conflicts with some third-party plugins, and also allows you to dynamically add new integration capabilities with some themes. (include Zephyr 7.x).

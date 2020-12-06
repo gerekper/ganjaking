@@ -289,6 +289,10 @@ class WCS_ATT_Display_Cart {
 			 */
 			$options = apply_filters( 'wcsatt_cart_options', $options, $subscription_schemes );
 
+			if ( empty( $options ) ) {
+				return;
+			}
+
 			wc_get_template( 'cart/cart-subscription-options.php', array(
 				'options' => $options,
 			), false, WCS_ATT()->plugin_path() . '/templates/' );

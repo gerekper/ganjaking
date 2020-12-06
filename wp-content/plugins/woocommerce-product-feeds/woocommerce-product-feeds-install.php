@@ -42,6 +42,7 @@ function woocommerce_gpf_install() {
 	if ( false === $settings ) {
 		$settings                       = array(
 			'product_fields'      => array(
+				'title'                   => 'on',
 				'availability'            => 'on',
 				'brand'                   => 'on',
 				'mpn'                     => 'on',
@@ -53,6 +54,7 @@ function woocommerce_gpf_install() {
 				'availability' => 'in stock',
 			),
 			'product_prepopulate' => array(
+				'title'       => 'field:product_title',
 				'description' => 'description:fullvar',
 			),
 			'gpf_enabled_feeds'   => array( 'google' => 'on' ),

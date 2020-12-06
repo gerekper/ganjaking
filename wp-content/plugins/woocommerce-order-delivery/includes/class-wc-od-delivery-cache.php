@@ -37,11 +37,14 @@ class WC_OD_Delivery_Cache extends WC_OD_Singleton {
 	 * Also, it's called with the old and the new data, so it will remove both cache keys (day and time frame before and
 	 * after updateing).
 	 *
-	 * @param int      $order_id The order ID.
-	 * @param WC_Order $order The WC_Order object.
+	 * @param int $order_id The order ID.
 	 */
 	public function on_order_updated( $order_id ) {
 		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return;
+		}
 
 		/** @var WC_OD_Delivery_Cache $instance WC_Order_Delivery_Cache object. */
 		$instance = self::instance();
@@ -62,8 +65,7 @@ class WC_OD_Delivery_Cache extends WC_OD_Singleton {
 			return;
 		}
 
-		$order = wc_get_order( $id );
-		$this->on_order_updated( $id, $order );
+		$this->on_order_updated( $id );
 	}
 
 	/**

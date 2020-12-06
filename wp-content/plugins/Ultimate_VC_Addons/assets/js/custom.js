@@ -148,7 +148,7 @@
 		$('.vc-row-translate').vc_translate_row();
 	});
 
-  	jQuery(window).load(function(){
+  	jQuery(window).on('load',function () {
 
   		function is_touch_device() {
 		 return (('ontouchstart' in window)
@@ -676,7 +676,7 @@
 				{
 					var $icon = jQuery(this).find('.aio-icon-img');
 					info_box_adjust_icon($box, $icon, 'img');
-					$icon.find('.img-icon').load(function(){
+					$icon.find('.img-icon').on('load',function(){
 						info_box_adjust_icon($box, $icon, 'icon');
 					});
 				}
@@ -684,7 +684,7 @@
 				{
 					var $icon = jQuery(this).find('.aio-icon');
 					info_box_adjust_icon($box, $icon, 'icon');
-					jQuery(window).load(function(){
+					jQuery(window).on('load',function () {
 						info_box_adjust_icon($box, $icon, 'icon');
 					});
 				}
@@ -894,7 +894,7 @@
 /* Interactive Banner 2 */
 jQuery(document).ready(function(){
 	interactive_banner2();
-	jQuery(window).load(function(){
+	jQuery(window).on('load',function () {
 		interactive_banner2();
 	});
 	jQuery(window).resize(function(){
@@ -1009,7 +1009,7 @@ jQuery(document).ready(function(){
 		});
 	}
 	resize_uvc_map();
-	jQuery(window).load(function(){
+	jQuery(window).on('load',function () {
 		resize_uvc_map();
 	});
 	jQuery(window).resize(function(){

@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundles DB API for manipulating bundled item data in the database.
  *
  * @class    WC_PB_DB
- * @version  6.0.0
+ * @version  6.4.2
  */
 class WC_PB_DB {
 
@@ -392,12 +392,31 @@ class WC_PB_DB {
 
 		if ( ! empty( $bundled_item_ids ) ) {
 
-			$wpdb->query( "
+			$rows_updated = $wpdb->query( "
 				UPDATE {$wpdb->prefix}woocommerce_bundled_itemmeta
 				SET meta_value = '" . wc_clean( $meta_value ) . "'
 				WHERE meta_key = '" . $meta_key . "'
 				AND bundled_item_id IN ( " . implode( ',', $bundled_item_ids ) . " )
 			" );
+
+			if ( $rows_updated !== count( $bundled_item_ids ) ) {
+
+				$rows_affected = $wpdb->get_var( "
+					SELECT COUNT(meta_id) FROM {$wpdb->prefix}woocommerce_bundled_itemmeta
+					WHERE meta_key = '" . $meta_key . "'
+					AND bundled_item_id IN ( " . implode( ',', $bundled_item_ids ) . " )
+				" );
+
+				if ( $rows_affected !== count( $bundled_item_ids ) ) {
+
+					$wpdb->query( "
+						INSERT INTO {$wpdb->prefix}woocommerce_bundled_itemmeta (bundled_item_id, meta_key, meta_value)
+						SELECT bundled_items.bundled_item_id, '" . $meta_key . "', '" . $meta_value . "' FROM {$wpdb->prefix}woocommerce_bundled_items AS bundled_items
+						LEFT OUTER JOIN {$wpdb->prefix}woocommerce_bundled_itemmeta AS item_meta ON item_meta.bundled_item_id = bundled_items.bundled_item_id AND item_meta.meta_key = '" . $meta_key . "'
+						WHERE item_meta.meta_key IS NULL AND bundled_items.bundled_item_id IN ( " . implode( ',', $bundled_item_ids ) . " )
+					" );
+				}
+			}
 
 			foreach ( $bundled_item_ids as $bundled_item_id ) {
 				$cache_key = WC_Cache_Helper::get_cache_prefix( 'bundled_item_meta' ) . $bundled_item_id;
