@@ -35,6 +35,7 @@ class WoocommerceProductFeedsIntegrationManager {
 		$this->woocommerce_composite_products_integration();
 		$this->product_bundles_integration();
 		$this->woocommerce_min_max_quantity_step_control_single_integration();
+		$this->woocommerce_multilingual_integration();
 	}
 
 	private function product_brands_for_woocommerce_integration() {
@@ -145,5 +146,12 @@ class WoocommerceProductFeedsIntegrationManager {
 			return;
 		}
 		$this->container['WoocommerceGpfWoocommerceMinMaxQuantityStepControlSingle']->run();
+	}
+
+	private function woocommerce_multilingual_integration() {
+		if ( ! defined( 'WCML_VERSION' ) ) {
+			return;
+		}
+		$this->container['WoocommerceGpfWoocommerceMultilingual']->run();
 	}
 }

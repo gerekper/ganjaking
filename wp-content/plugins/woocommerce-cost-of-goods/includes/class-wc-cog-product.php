@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Cost of Goods Product Class
@@ -57,14 +57,14 @@ class WC_COG_Product {
 
 		// get the product cost
 		if ( $product->is_type( 'variable' ) ) {
-			$cost = Framework\SV_WC_Product_Compatibility::get_meta( $product, '_wc_cog_cost_variable', true );
+			$cost = $product->get_meta( '_wc_cog_cost_variable', true, 'edit' );
 		} else {
-			$cost = Framework\SV_WC_Product_Compatibility::get_meta( $product, '_wc_cog_cost', true );
+			$cost = $product->get_meta( '_wc_cog_cost', true, 'edit' );
 		}
 
 		// if no cost set for product variation, check if a default cost exists for the parent variable product
 		if ( '' === $cost && $product->is_type( 'variation' ) ) {
-			$cost = $cost = Framework\SV_WC_Product_Compatibility::get_meta( $product, '_wc_cog_cost_variable', true );
+			$cost = $cost = $product->get_meta( '_wc_cog_cost_variable', true, 'edit' );
 		}
 
 		/**
@@ -89,16 +89,16 @@ class WC_COG_Product {
 	public static function get_variable_product_min_max_costs( $product ) {
 
 		// get the product id
-		$product_id = is_object( $product ) ? Framework\SV_WC_Product_Compatibility::get_prop( $product, 'id' ) : $product;
+		$product_id = is_object( $product ) ? $product->get_id() : $product;
 
 		// get all child variations
-		$children = get_posts( array(
+		$children = get_posts( [
 			'post_parent'    => $product_id,
 			'posts_per_page' => -1,
 			'post_type'      => 'product_variation',
 			'fields'         => 'ids',
 			'post_status'    => 'publish',
-		) );
+		] );
 
 		// determine the minimum and maximum child costs
 		$min_variation_cost = '';
@@ -149,11 +149,7 @@ class WC_COG_Product {
 			} else {
 
 				if ( $min_variation_cost !== $max_variation_cost ) {
-					if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte_3_0() ) {
-						$cost .= wc_get_price_html_from_text();
-					} else {
-						$cost .= $product->get_price_html_from_text();
-					}
+					$cost .= wc_get_price_html_from_text();
 				}
 
 				$cost .= wc_price( $min_variation_cost );

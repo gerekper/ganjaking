@@ -20,7 +20,7 @@ class WC_Free_Gift_Coupons_Admin {
 	 * 
 	 * @var string
 	 */
-	public static $version = '3.0.4';
+	public static $version = '3.0.5';
 
 	/** 
 	 * Coupon Product ids list
@@ -144,10 +144,12 @@ class WC_Free_Gift_Coupons_Admin {
 				<?php
 				$product_ids = $coupon->get_meta( '_wc_fgc_product_sync_ids', true, 'edit' );
 
-				foreach ( $product_ids as $row => $product_id ) {
-					$product = wc_get_product( $product_id );
-					if ( is_object( $product ) ) {
-						echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) . '</option>';
+				if ( is_array( $product_ids ) ) {
+					foreach ( $product_ids as $row => $product_id ) {
+						$product = wc_get_product( $product_id );
+						if ( is_object( $product ) ) {
+							echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) . '</option>';
+						}
 					}
 				}
 				?>

@@ -1,33 +1,33 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '9.3.2',
-    'version' => '9.3.2.0',
+    'pretty_version' => '9.4.0',
+    'version' => '9.4.0.0',
     'aliases' => 
     array (
     ),
-    'reference' => 'abb5447c097583394bcd0dff52d0c3e4fde87044',
+    'reference' => 'b1174711d59ffc6c95c218177958eb143363faf0',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '9.3.2',
-      'version' => '9.3.2.0',
+      'pretty_version' => '9.4.0',
+      'version' => '9.4.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'abb5447c097583394bcd0dff52d0c3e4fde87044',
+      'reference' => 'b1174711d59ffc6c95c218177958eb143363faf0',
     ),
     'pimple/pimple' => 
     array (
-      'pretty_version' => 'v3.3.0',
-      'version' => '3.3.0.0',
+      'pretty_version' => 'v3.3.1',
+      'version' => '3.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e55d12f9d6a0e7f9c85992b73df1267f46279930',
+      'reference' => '21e45061c3429b1e06233475cc0e1f6fc774d5b0',
     ),
     'psr/container' => 
     array (

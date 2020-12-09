@@ -34,7 +34,7 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version */
-	const VERSION = '1.13.1';
+	const VERSION = '1.14.0';
 
 	/** @var \WC_Tab_Manager single instance of this plugin */
 	protected static $instance;
@@ -234,8 +234,7 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 
 			// adding an entire frontend js file feels sort of heavy for this, perhaps consider it if we add more js in the future {BR 2017-05-30}
 			wc_enqueue_js( "
-				jQuery( document ).ready( function( $ ) {
-
+				(function() {
 					var hash = window.location.hash;
 					var tabs = $( this ).find( '.wc-tabs, ul.tabs' ).first();
 					var ref  = $tabs;
@@ -252,7 +251,7 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 							tabs.find( 'li.' + tab.id + '_tab a' ).trigger( 'click' );
 						}
 					}
-				} );
+				})();
 			" );
 		}
 	}

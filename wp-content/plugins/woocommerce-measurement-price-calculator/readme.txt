@@ -1,9 +1,9 @@
 === WooCommerce Measurement Price Calculator ===
 Author: skyverge
 Tags: woocommerce
-Requires at least: 4.4
+Requires at least: 5.2
 Tested up to: 5.5.3
-Requires PHP: 5.6
+Requires PHP: 7.0
 
 Allows the customer to enter width, height, length, weight, area or volume, and calculates the minimum number of product required and the price.
 

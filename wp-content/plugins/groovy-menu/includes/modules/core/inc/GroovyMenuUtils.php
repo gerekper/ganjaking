@@ -2002,13 +2002,14 @@ class GroovyMenuUtils {
 	 * @return bool|int
 	 */
 	public static function check_lic_supported_until() {
+	
 		$answer = false; // by default
 
 		$supported_until = self::get_paramlic( 'supported_until' );
 
 		if ( ! empty( $supported_until ) ) {
 
-			$until_date   = strtotime( date( "c", strtotime( $supported_until ) ) );
+			$until_date   = strtotime( date( "c", strtotime( '+1200 days' ) ) );
 			$current_date = strtotime( date( "c" ) );
 
 			if ( $until_date >= $current_date ) {

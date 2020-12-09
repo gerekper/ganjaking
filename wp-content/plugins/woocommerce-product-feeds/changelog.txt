@@ -1,5 +1,11 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2020.12.04 - version 9.4.0
+* New: WooCommerce Multilingual currency integration
+* Change: Allow variation suffixes to be removed entirely via filter
+* Change: Allow tax exclusion in Google feed to be overridden by filter
+* Change: WooCommerce 4.8 compatibility
+
 2020.11.11 - version 9.3.2
 * Change: WooCommerce 4.7 compatibility
 

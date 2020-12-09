@@ -88,20 +88,20 @@ class WC_Reviews_List_Table extends \WP_List_Table {
 
 
 	/**
-	 * Enqueue JS helpers
+	 * Enqueues JavaScript helpers.
+	 *
+	 * @internal
 	 */
 	public function enqueue_js() {
 
 		wc_enqueue_js( "
-			jQuery( function() {
-
+			( function( $ ) {
 				$( '.comment-show-more-link' ).on( 'click', function( e ) {
 					e.preventDefault();
 					$( this ).parent().hide();
 					$( this ).parent().next( '.comment-text-full' ).show();
 				} );
-
-			} );
+			} ) ( jQuery );
 		" );
 	}
 

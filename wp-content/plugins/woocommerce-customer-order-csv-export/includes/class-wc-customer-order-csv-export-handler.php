@@ -23,10 +23,10 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation;
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation_Factory;
+use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Customer/Order CSV Export Handler
@@ -876,27 +876,6 @@ class WC_Customer_Order_CSV_Export_Handler {
 
 
 	/**
-	 * Gets an export by its ID.
-	 *
-	 * A simple wrapper around SV_WP_Background_Job_Handler::get_job(), for convenience
-	 *
-	 * @see SV_WP_Background_Job_Handler::get_job()
-	 *
-	 * @since 4.0.0
-	 * @deprecated since 4.5.0
-	 *
-	 * @param string $id
-	 * @return object|null
-	 */
-	public function get_export( $id ) {
-
-		_doing_it_wrong( 'WC_Customer_Order_CSV_Export_Handler::get_export()', __( 'This method has been deprecated. Use wc_customer_order_csv_export_get_export() instead.', 'woocommerce-customer-order-csv-export' ), '4.5.0' );
-
-		return $this->get_background_export_handler()->get_job( $id );
-	}
-
-
-	/**
 	 * Get an array of exports
 	 *
 	 * A simple wrapper around SV_WP_Background_Job_Handler::get_jobs(), for convenience
@@ -1002,38 +981,6 @@ class WC_Customer_Order_CSV_Export_Handler {
 
 
 	/**
-	 * Gets exports directory path in local filesystem.
-	 *
-	 * @since 4.0.0
-	 * @deprecated since 4.5.0
-	 *
-	 * @return string
-	 */
-	public function get_exports_dir() {
-
-		_doing_it_wrong( 'WC_Customer_Order_CSV_Export_Handler::get_exports_dir()', __( 'This method has been deprecated.' ), '4.5.0' );
-
-		return '';
-	}
-
-
-	/**
-	 * Get exports directory URL for downloads
-	 *
-	 * @since 4.0.0
-	 * @deprecated since 4.5.0
-	 *
-	 * @return string
-	 */
-	public function get_exports_url() {
-
-		_doing_it_wrong( 'WC_Customer_Order_CSV_Export_Handler::get_exports_dir()', __( 'This method has been deprecated.' ), '4.5.0' );
-
-		return '';
-	}
-
-
-	/**
 	 * Kick off an export
 	 *
 	 * @since 4.0.0
@@ -1103,6 +1050,9 @@ class WC_Customer_Order_CSV_Export_Handler {
 			return false;
 		}
 
+		$filename = $this->replace_filename_variables( $args['filename'], $ids, $args['type'], $output_type, $args['automation_id'] );
+		$filename = $this->maybe_append_filename_extension( $filename, $output_type );
+
 		$export_args = [
 			'automation_id'    => $args['automation_id'],
 			'object_ids'       => $ids,
@@ -1113,7 +1063,7 @@ class WC_Customer_Order_CSV_Export_Handler {
 			'method'           => $args['method'],
 			'transfer_status'  => null,
 			'storage_method'   => 'database',
-			'filename'         => $this->replace_filename_variables( $args['filename'], $ids, $args['type'], $output_type, $args['automation_id'] ),
+			'filename'         => $filename,
 			'mark_as_exported' => $args['mark_as_exported'],
 			'add_notes'        => $args['add_notes'],
 			'batch_enabled'    => $args['batch_enabled'],
@@ -1667,6 +1617,36 @@ class WC_Customer_Order_CSV_Export_Handler {
 		 * @param int $max_age the maximum age of stored exports, in seconds
 		 */
 		return (int) apply_filters( 'wc_customer_order_export_start_export_max_age', 14 * DAY_IN_SECONDS );
+	}
+
+
+	/**
+	 * Appends the filename extension if it's missing.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @param string $filename
+	 * @param string $output_type
+	 * @return string
+	 */
+	private function maybe_append_filename_extension( $filename, $output_type ) {
+
+		// determines whether the extension will be appended automatically to the filename
+		$will_append_extension = '' === pathinfo( $filename, PATHINFO_EXTENSION );
+
+		/**
+		 * Filters whether the extension may be automatically appended if missing or not.
+		 *
+		 * @since 5.2.0
+		 *
+		 * @param bool $will_append_extension whether the extension will be automatically appended
+		 * @param string $filename the output filename
+		 * @param string $output_type the filename type which will be appended as its extension
+		 * @param \WC_Customer_Order_CSV_Export_Handler $handler handler instance
+		 */
+		return apply_filters( 'wc_customer_order_export_append_extension_if_missing', $will_append_extension, $filename, $output_type, $this )
+			? sprintf( '%s.%s', $filename, $output_type )
+			: $filename;
 	}
 
 

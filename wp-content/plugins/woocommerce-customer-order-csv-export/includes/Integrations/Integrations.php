@@ -23,8 +23,6 @@
 
 namespace SkyVerge\WooCommerce\CSV_Export\Integrations;
 
-use SkyVerge\WooCommerce\CSV_Export\Integrations\Jilt_Promotions;
-
 defined( 'ABSPATH' ) or exit;
 
 /**
@@ -36,28 +34,20 @@ class Integrations {
 
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 5.1.0
-	 */
-	public function __construct() {
-
-		add_action( 'init', [ $this, 'load_jilt_promotions_handlers' ] );
-	}
-
-
-	/**
 	 * Initializes Jilt Promotions handlers.
 	 *
 	 * We need to instantiate Jilt Promotion handlers after plugins_loaded to ensure all necessary classes are loaded first.
 	 *
+	 * TODO: remove this method by version 6.0.0 or by 2021-11-16 {DM 2020-11-16}
+	 *
 	 * @internal
 	 *
 	 * @since 5.1.0
+	 * @deprecated 5.2.0
 	 */
 	public function load_jilt_promotions_handlers() {
 
-		wc_customer_order_csv_export()->load_class( '/includes/Integrations/Jilt_Promotions/Automations.php', Jilt_Promotions\Automations::class );
+		wc_deprecated_function( __METHOD__, '5.2.0' );
 	}
 
 

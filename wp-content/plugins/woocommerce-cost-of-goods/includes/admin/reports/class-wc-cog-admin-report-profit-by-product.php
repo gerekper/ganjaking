@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Cost of Goods Profit by Product Admin Report Class
@@ -196,29 +196,13 @@ class WC_COG_Admin_Report_Profit_by_Product extends \WC_COG_Admin_Report {
 		<div class="section">
 			<form method="GET">
 				<div>
-
-					<?php if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte_3_0() ) : ?>
-
-						<select
-							name="product_ids[]"
-							class="wc-product-search"
-							style="width:203px;"
-							data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-cost-of-goods' ); ?>"
-							data-action="woocommerce_json_search_products_and_variations">
-						</select>
-
-					<?php else : ?>
-
-						<input
-							type="hidden"
-							name="product_ids[]"
-							class="wc-product-search"
-							style="width:203px;"
-							data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-cost-of-goods' ); ?>"
-							data-action="woocommerce_json_search_products_and_variations" />
-
-					<?php endif; ?>
-
+					<select
+						name="product_ids[]"
+						class="wc-product-search"
+						style="width:203px;"
+						data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-cost-of-goods' ); ?>"
+						data-action="woocommerce_json_search_products_and_variations">
+					</select>
 					<input type="submit" class="submit button" value="<?php esc_attr_e( 'Show', 'woocommerce-cost-of-goods' ); ?>" />
 					<input type="hidden" name="range" value="<?php if ( ! empty( $_GET['range'] ) ) echo esc_attr( $_GET['range'] ); ?>" />
 					<input type="hidden" name="start_date" value="<?php if ( ! empty( $_GET['start_date'] ) ) echo esc_attr( $_GET['start_date'] ); ?>" />

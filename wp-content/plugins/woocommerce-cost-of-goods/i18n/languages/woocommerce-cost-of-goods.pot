@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Cost of Goods 2.9.10\n"
+"Project-Id-Version: WooCommerce Cost of Goods 2.10.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-11-25 07:54:42+00:00\n"
+"POT-Creation-Date: 2020-12-04 01:27:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,17 +17,17 @@ msgstr ""
 msgid "WooCommerce Cost of Goods"
 msgstr ""
 
-#: includes/Lifecycle.php:110 includes/Lifecycle.php:185
+#: includes/Lifecycle.php:110 includes/Lifecycle.php:186
 #. translators: Placeholders: %s - error messages
 msgid "Error upgrading <strong>WooCommerce Cost of Goods</strong>: %s"
 msgstr ""
 
-#: includes/Lifecycle.php:112 includes/Lifecycle.php:187
+#: includes/Lifecycle.php:112 includes/Lifecycle.php:188
 msgid "&laquo; Go Back"
 msgstr ""
 
 #: includes/admin/class-wc-cog-admin-orders.php:95
-#: includes/admin/class-wc-cog-admin-orders.php:401
+#: includes/admin/class-wc-cog-admin-orders.php:405
 msgid "Cost of Goods"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgstr ""
 #: includes/admin/class-wc-cog-admin-products.php:129
 #: includes/admin/class-wc-cog-admin-products.php:149
 #: includes/admin/class-wc-cog-admin-products.php:234
-#: includes/admin/class-wc-cog-admin-products.php:621
+#: includes/admin/class-wc-cog-admin-products.php:627
 #. translators: Placeholder: %s - currency symbol
 msgid "Cost of Good (%s)"
 msgstr ""
@@ -51,32 +51,32 @@ msgstr ""
 msgid "Set cost"
 msgstr ""
 
-#: includes/admin/class-wc-cog-admin-products.php:372
+#: includes/admin/class-wc-cog-admin-products.php:376
 msgid "Cost of Good"
 msgstr ""
 
-#: includes/admin/class-wc-cog-admin-products.php:377
+#: includes/admin/class-wc-cog-admin-products.php:381
 msgid "— No Change —"
 msgstr ""
 
-#: includes/admin/class-wc-cog-admin-products.php:378
+#: includes/admin/class-wc-cog-admin-products.php:382
 msgid "Change to:"
 msgstr ""
 
-#: includes/admin/class-wc-cog-admin-products.php:379
+#: includes/admin/class-wc-cog-admin-products.php:383
 msgid "Increase by (fixed amount or %):"
 msgstr ""
 
-#: includes/admin/class-wc-cog-admin-products.php:380
+#: includes/admin/class-wc-cog-admin-products.php:384
 msgid "Decrease by (fixed amount or %):"
 msgstr ""
 
-#: includes/admin/class-wc-cog-admin-products.php:390
+#: includes/admin/class-wc-cog-admin-products.php:394
 msgid "Enter Cost:"
 msgstr ""
 
-#: includes/admin/class-wc-cog-admin-products.php:551
-#: includes/admin/class-wc-cog-admin-products.php:665
+#: includes/admin/class-wc-cog-admin-products.php:556
+#: includes/admin/class-wc-cog-admin-products.php:671
 msgid "Cost"
 msgstr ""
 
@@ -269,7 +269,7 @@ msgid "All"
 msgstr ""
 
 #: includes/admin/reports/class-wc-cog-admin-report-profit-by-category.php:171
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:222
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:206
 msgid "Show"
 msgstr ""
 
@@ -334,12 +334,12 @@ msgid "Net Sales amount"
 msgstr ""
 
 #: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:196
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:411
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:395
 msgid "Cost of Goods Sold"
 msgstr ""
 
 #: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:206
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:421
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:405
 msgid "Profit amount"
 msgstr ""
 
@@ -379,49 +379,48 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:206
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:217
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:203
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:245
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:229
 msgid "Least Profitable Sellers"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:248
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:232
 msgid "Most Profitable Sellers"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:296
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:280
 #. translators: Placeholders: %1$s - profit margin as a percentage, e.g. 85.4%
 msgid "%1$s%% profit margin"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:297
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:281
 msgid "total profit"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:304
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:288
 msgid "No products found in range"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:308
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:292
 msgid "show most profitable"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:310
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:294
 msgid "show least profitable"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:357
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:341
 msgid "&larr; Choose a product to view stats"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:393
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:377
 msgid "Number of items sold"
 msgstr ""
 
-#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:401
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:385
 msgid "Sales amount"
 msgstr ""
 

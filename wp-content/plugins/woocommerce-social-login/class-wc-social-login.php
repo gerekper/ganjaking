@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * WooCommerce Social Login Main Plugin Class.
@@ -34,7 +34,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.10.3';
+	const VERSION = '2.11.0';
 
 	/** @var WC_Social_Login single instance of this plugin */
 	protected static $instance;
@@ -114,24 +114,6 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 				require_once( $path . $file );
 			}
 		}
-	}
-
-
-	/**
-	 * Initializes the plugin (legacy before FW 5.2.0 upgrade).
-	 *
-	 * TODO remove this deprecated method by version 2.8.0 or by September 2019 {FN 2018-07-19}
-	 *
-	 * @internal
-	 *
-	 * @since 1.0.0
-	 * @deprecated since 2.6.0
-	 */
-	public function init() {
-
-		_deprecated_function( 'WC_Social_Login::init()', '2.6.0', 'WC_Social_Login::init_plugin()' );
-
-		$this->init_plugin();
 	}
 
 

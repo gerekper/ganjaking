@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Cost of Goods Profit by Category Admin Report Class

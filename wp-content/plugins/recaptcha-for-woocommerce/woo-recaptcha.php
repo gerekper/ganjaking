@@ -3,7 +3,7 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.3
+ * Version: 2.4
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
@@ -3763,6 +3763,7 @@ class I13_Woo_Recpatcha {
 					
 				  $site_key = get_option('wc_settings_tab_recapcha_site_key_v3');
 				  $i13_recapcha_wp_login_action_v3 = get_option('i13_recapcha_wp_login_action_v3');
+				  $i13_recapcha_wp_disable_submit_token_generation_v3 = get_option('i13_recapcha_wp_disable_submit_token_generation_v3');
 				if (''==trim($i13_recapcha_wp_login_action_v3)) {
 								
 							$i13_recapcha_wp_login_action_v3='wp_login';
@@ -3792,7 +3793,38 @@ class I13_Woo_Recpatcha {
 													});
 												});
 												 
-												
+												<?php if ('yes'==$i13_recapcha_wp_disable_submit_token_generation_v3) : ?>
+																								
+																									setInterval(function() {
+																										
+																										grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_wp_login_action_v3); ?>' }).then(function (token) {
+													
+														var recaptchaResponse = document.getElementById('i13_recaptcha_token');
+														recaptchaResponse.value = token;
+													});
+																										
+																									}, 40 * 1000); // 60 * 1000 milsec
+																									
+																									 jQuery( document ).ajaxStart(function() {
+																	
+																										grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_wp_login_action_v3); ?>' }).then(function (token) {
+
+																												  var recaptchaResponse = document.getElementById('i13_recaptcha_token');
+																												  recaptchaResponse.value = token;
+																										  });
+																	
+																									 });
+																									 jQuery( document ).ajaxStop(function() {
+																	
+																										grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_wp_login_action_v3); ?>' }).then(function (token) {
+
+																												  var recaptchaResponse = document.getElementById('i13_recaptcha_token');
+																												  recaptchaResponse.value = token;
+																										  });
+																	
+																									 });
+
+																								<?php else : ?>
 												  jQuery('#loginform').on('submit', function (e) {
 												  
 														var frm = this;
@@ -3812,7 +3844,7 @@ class I13_Woo_Recpatcha {
 														});
 												   
 												});
-											   
+																							<?php endif; ?>
 												
 											  
 												

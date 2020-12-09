@@ -958,6 +958,7 @@ class WoocommerceGpfAdmin {
 			$variables
 		);
 	}
+
 	/**
 	 *  NULL render since we can't (yet) override description.
 	 *
@@ -1948,6 +1949,16 @@ class WoocommerceGpfAdmin {
 		$variables['send_item_group_id']          = $this->template_loader->get_template_with_variables(
 			'woo-gpf',
 			'admin-send-item-group-id',
+			$variables
+		);
+		$variables['expanded_schema_selected']    = checked(
+			'on',
+			isset( $this->settings['expanded_schema'] ) ? $this->settings['expanded_schema'] : '',
+			false
+		);
+		$variables['expanded_schema']             = $this->template_loader->get_template_with_variables(
+			'woo-gpf',
+			'admin-expanded-schema',
 			$variables
 		);
 		$variables['shop_code']                   = $this->template_loader->get_template_with_variables(

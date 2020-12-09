@@ -1,4 +1,5 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
+
 	'use strict';
 	/* global ajaxurl, wc_product_retailers_admin_params */
 

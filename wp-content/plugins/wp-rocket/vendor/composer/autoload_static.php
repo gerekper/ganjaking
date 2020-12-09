@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd2ba93026e5eeeaf50a3752ba0e2d846
+class ComposerStaticInit7736fb45ebc251f87b21258ff6039587
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -57,6 +57,7 @@ class ComposerStaticInitd2ba93026e5eeeaf50a3752ba0e2d846
     public static $classMap = array (
         'Imagify_Partner' => __DIR__ . '/../..' . '/inc/vendors/classes/class-imagify-partner.php',
         'Minify_CSS_UriRewriter' => __DIR__ . '/../..' . '/inc/vendors/classes/class-minify-css-urirewriter.php',
+        'Minify_HTML' => __DIR__ . '/../..' . '/inc/deprecated/vendors/classes/class-minify-html.php',
         'WP_Rocket\\Abstract_Render' => __DIR__ . '/../..' . '/inc/classes/class-abstract-render.php',
         'WP_Rocket\\Admin\\Abstract_Options' => __DIR__ . '/../..' . '/inc/classes/admin/class-abstract-options.php',
         'WP_Rocket\\Admin\\Database\\Optimization' => __DIR__ . '/../..' . '/inc/classes/admin/Database/class-optimization.php',
@@ -73,7 +74,8 @@ class ComposerStaticInitd2ba93026e5eeeaf50a3752ba0e2d846
         'WP_Rocket\\Busting\\Abstract_Busting' => __DIR__ . '/../..' . '/inc/classes/busting/class-abstract-busting.php',
         'WP_Rocket\\Busting\\Facebook_Pickles' => __DIR__ . '/../..' . '/inc/classes/busting/class-facebook-pickles.php',
         'WP_Rocket\\Busting\\Facebook_SDK' => __DIR__ . '/../..' . '/inc/classes/busting/class-facebook-sdk.php',
-        'WP_Rocket\\Cache\\Expired_Cache_Purge' => __DIR__ . '/../..' . '/inc/classes/Cache/class-expired-cache-purge.php',
+        'WP_Rocket\\Engine\\Optimization\\QueryString\\Remove' => __DIR__ . '/../..' . '/inc/deprecated/Engine/Optimization/QueryString/Remove.php',
+        'WP_Rocket\\Engine\\Optimization\\QueryString\\RemoveSubscriber' => __DIR__ . '/../..' . '/inc/deprecated/Engine/Optimization/QueryString/RemoveSubscriber.php',
         'WP_Rocket\\Event_Management\\Event_Manager' => __DIR__ . '/../..' . '/inc/classes/event-management/class-event-manager.php',
         'WP_Rocket\\Event_Management\\Event_Manager_Aware_Subscriber_Interface' => __DIR__ . '/../..' . '/inc/classes/event-management/event-manager-aware-subscriber-interface.php',
         'WP_Rocket\\Event_Management\\Subscriber_Interface' => __DIR__ . '/../..' . '/inc/classes/event-management/subscriber-interface.php',
@@ -86,10 +88,11 @@ class ComposerStaticInitd2ba93026e5eeeaf50a3752ba0e2d846
         'WP_Rocket\\ServiceProvider\\Options' => __DIR__ . '/../..' . '/inc/classes/ServiceProvider/class-options.php',
         'WP_Rocket\\ServiceProvider\\Updater_Subscribers' => __DIR__ . '/../..' . '/inc/classes/ServiceProvider/class-updater-subscribers.php',
         'WP_Rocket\\Subscriber\\Admin\\Database\\Optimization_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/admin/Database/class-optimization-subscriber.php',
-        'WP_Rocket\\Subscriber\\Cache\\Expired_Cache_Purge_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/Cache/class-expired-cache-purge-subscriber.php',
+        'WP_Rocket\\Subscriber\\Admin\\Settings\\Beacon_Subscriber' => __DIR__ . '/../..' . '/inc/deprecated/subscriber/admin/Settings/class-beacon-subscriber.php',
         'WP_Rocket\\Subscriber\\Media\\Webp_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/Media/class-webp-subscriber.php',
         'WP_Rocket\\Subscriber\\Optimization\\Buffer_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/Optimization/class-buffer-subscriber.php',
         'WP_Rocket\\Subscriber\\Optimization\\Dequeue_JQuery_Migrate_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/Optimization/class-dequeue-jquery-migrate-subscriber.php',
+        'WP_Rocket\\Subscriber\\Optimization\\Minify_HTML_Subscriber' => __DIR__ . '/../..' . '/inc/deprecated/subscriber/admin/Optimization/class-minify-html-subscriber.php',
         'WP_Rocket\\Subscriber\\Plugin\\Information_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/Plugin/class-information-subscriber.php',
         'WP_Rocket\\Subscriber\\Plugin\\Updater_Api_Common_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/Plugin/class-updater-api-common-subscriber.php',
         'WP_Rocket\\Subscriber\\Plugin\\Updater_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/Plugin/class-updater-subscriber.php',
@@ -109,6 +112,7 @@ class ComposerStaticInitd2ba93026e5eeeaf50a3752ba0e2d846
         'WP_Rocket\\Traits\\Config_Updater' => __DIR__ . '/../..' . '/inc/classes/traits/trait-config-updater.php',
         'WP_Rocket\\Traits\\Memoize' => __DIR__ . '/../..' . '/inc/classes/traits/trait-memoize.php',
         'WP_Rocket\\Traits\\Updater_Api_Tools' => __DIR__ . '/../..' . '/inc/classes/traits/trait-updater-api-tools.php',
+        'WP_Rocket\\deprecated\\DeprecatedClassTrait' => __DIR__ . '/../..' . '/inc/deprecated/DeprecatedClassTrait.php',
         'WP_Rocket_Mobile_Detect' => __DIR__ . '/../..' . '/inc/classes/dependencies/mobiledetect/mobiledetectlib/Mobile_Detect.php',
         'WP_Rocket_WP_Async_Request' => __DIR__ . '/../..' . '/inc/classes/dependencies/wp-media/background-processing/wp-async-request.php',
         'WP_Rocket_WP_Background_Process' => __DIR__ . '/../..' . '/inc/classes/dependencies/wp-media/background-processing/wp-background-process.php',
@@ -117,9 +121,9 @@ class ComposerStaticInitd2ba93026e5eeeaf50a3752ba0e2d846
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd2ba93026e5eeeaf50a3752ba0e2d846::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd2ba93026e5eeeaf50a3752ba0e2d846::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd2ba93026e5eeeaf50a3752ba0e2d846::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7736fb45ebc251f87b21258ff6039587::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7736fb45ebc251f87b21258ff6039587::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7736fb45ebc251f87b21258ff6039587::$classMap;
 
         }, null, ClassLoader::class);
     }

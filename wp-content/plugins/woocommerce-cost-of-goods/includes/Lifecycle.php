@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\COG;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Plugin lifecycle handler.
@@ -124,9 +124,10 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 						// get the minimum and maximum costs associated with the product
 						list( $min_variation_cost, $max_variation_cost ) = \WC_COG_Product::get_variable_product_min_max_costs( $product_id );
 
-						Framework\SV_WC_Product_Compatibility::update_meta_data( $product, '_wc_cog_cost',               wc_format_decimal( $min_variation_cost ) );
-						Framework\SV_WC_Product_Compatibility::update_meta_data( $product, '_wc_cog_min_variation_cost', wc_format_decimal( $min_variation_cost ) );
-						Framework\SV_WC_Product_Compatibility::update_meta_data( $product, '_wc_cog_max_variation_cost', wc_format_decimal( $max_variation_cost ) );
+						$product->update_meta_data( '_wc_cog_cost',               wc_format_decimal( $min_variation_cost ) );
+						$product->update_meta_data( '_wc_cog_min_variation_cost', wc_format_decimal( $min_variation_cost ) );
+						$product->update_meta_data( '_wc_cog_max_variation_cost', wc_format_decimal( $max_variation_cost ) );
+						$product->save_meta_data();
 					}
 				}
 			}
@@ -193,7 +194,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 					if ( $product = wc_get_product( $product_id ) ) {
 
-						$default_cost = Framework\SV_WC_Product_Compatibility::get_meta( $product, '_wc_cog_cost_variable', true );
+						$default_cost = $product->get_meta( '_wc_cog_cost_variable', true, 'edit' );
 
 						// get all child variations
 						$children = get_posts( [
@@ -211,16 +212,18 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 								if ( $child_product = wc_get_product( $child_product_id ) ) {
 
 									// cost set at the child level?
-									$cost = Framework\SV_WC_Product_Compatibility::get_meta( $child_product, '_wc_cog_cost', true );
+									$cost = $child_product->get_meta( '_wc_cog_cost', true, 'edit' );
 
 									if ( '' === $cost && '' !== $default_cost ) {
 										// using the default parent cost
-										Framework\SV_WC_Product_Compatibility::update_meta_data( $child_product, '_wc_cog_cost', wc_format_decimal( $default_cost ) );
-										Framework\SV_WC_Product_Compatibility::update_meta_data( $child_product, '_wc_cog_default_cost', 'yes' );
+										$child_product->update_meta_data( '_wc_cog_cost', wc_format_decimal( $default_cost ) );
+										$child_product->update_meta_data( '_wc_cog_default_cost', 'yes' );
 									} else {
 										// otherwise no default cost
-										Framework\SV_WC_Product_Compatibility::update_meta_data( $child_product, '_wc_cog_default_cost', 'no' );
+										$child_product->update_meta_data( '_wc_cog_default_cost', 'no' );
 									}
+
+									$child_product->save_meta_data();
 								}
 							}
 						}

@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats\Export_Format_Definition;
 use WC_Customer_Order_CSV_Export;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * CSV Export Format Definition abstract class

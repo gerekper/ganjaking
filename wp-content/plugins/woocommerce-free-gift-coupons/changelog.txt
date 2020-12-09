@@ -1,5 +1,8 @@
 === WooCommerce Free Gift Coupons ===
 
+2020.11.25 - version 3.0.5
+* Fix: Rebuild minified script.
+
 2020.11.17 - version 3.0.4
 * Update: Tested against WooCommerce 4.7.0.
 * Fix: Exclude "edit in cart" feature from gifts that are specific variations.

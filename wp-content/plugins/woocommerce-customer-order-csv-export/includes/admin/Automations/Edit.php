@@ -27,7 +27,7 @@ use SkyVerge\WooCommerce\CSV_Export\Admin\Automations;
 use SkyVerge\WooCommerce\CSV_Export\Admin\Export_Formats_Helper;
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation;
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation_Factory;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -147,6 +147,9 @@ class Edit {
 					'value'   => $matches_automation ? $automation->get_filename( 'edit' ) : null,
 					'css'     => 'min-width: 300px;',
 					'class'   => "js-output-type-field js-export-type-field show_if_{$output_type} show_if_{$export_type}",
+					'custom_attributes' => [
+						'required' => 'required',
+					],
 				];
 
 				$formats = Export_Formats_Helper::get_export_formats( $output_type, $export_type, $use_legacy_formats );
@@ -156,7 +159,7 @@ class Edit {
 					'type'    => 'select_with_optgroup',
 					'name'    => __( 'Format', 'woocommerce-customer-order-csv-export' ),
 					'options' => $formats,
-					'default' => $matches_automation && $automation->get_format() ? $automation->get_format()->get_key() : current( array_keys( $formats ) ),
+					'default' => $matches_automation && $automation->get_format() ? sanitize_title( $automation->get_format()->get_key() ) : current( array_keys( $formats ) ),
 					'class'   => "js-output-type-field js-export-type-field show_if_{$output_type} show_if_{$export_type}",
 				];
 			}
@@ -599,7 +602,7 @@ class Edit {
 		if ( ! empty( $_POST ) ) {
 
 			// perform a test if that's what the submit was
-			if ( $automation->get_id() && $method = Framework\SV_WC_Helper::get_post( 'wc_customer_order_export_test_method' ) ) {
+			if ( $automation->get_id() && $method = Framework\SV_WC_Helper::get_posted_value( 'wc_customer_order_export_test_method' ) ) {
 
 				// process test
 				$result = wc_customer_order_csv_export()->get_export_handler_instance()->test_export_via( $method, $automation->get_export_type( 'edit' ), $automation->get_output_type( 'edit' ), $automation->get_method_settings( 'edit' ) );
@@ -641,11 +644,11 @@ class Edit {
 		try {
 
 			// security check
-			if ( ! wp_verify_nonce( Framework\SV_WC_Helper::get_post( '_wpnonce' ), __FILE__ ) ) {
+			if ( ! wp_verify_nonce( Framework\SV_WC_Helper::get_posted_value( '_wpnonce' ), __FILE__ ) ) {
 				throw new Framework\SV_WC_Plugin_Exception( __( 'Please refresh the page and retry.', 'woocommerce-customer-order-csv-export' ) );
 			}
 
-			$name = stripslashes( sanitize_text_field( Framework\SV_WC_Helper::get_post( 'name' ) ) );
+			$name = stripslashes( sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'name' ) ) );
 
 			if ( ! $name || ! is_string( $name ) ) {
 				throw new Framework\SV_WC_Plugin_Exception( __( 'A name is required.', 'woocommerce-customer-order-csv-export' ) );
@@ -662,8 +665,8 @@ class Edit {
 			$automation->set_enabled( ! empty( $_POST['enabled'] ) );
 			$automation->set_name( $name );
 
-			$output_type = Framework\SV_WC_Helper::get_post( 'output_type' ) ?: $automation->get_output_type( 'edit' );
-			$export_type = Framework\SV_WC_Helper::get_post( 'export_type' ) ?: $automation->get_export_type( 'edit' );
+			$output_type = Framework\SV_WC_Helper::get_posted_value( 'output_type' ) ?: $automation->get_output_type( 'edit' );
+			$export_type = Framework\SV_WC_Helper::get_posted_value( 'export_type' ) ?: $automation->get_export_type( 'edit' );
 
 			// only set these for new automations
 			if ( ! $automation->get_id() ) {
@@ -671,11 +674,11 @@ class Edit {
 				$automation->set_export_type( sanitize_text_field( $export_type ) );
 			}
 
-			if ( $filename = Framework\SV_WC_Helper::get_post( "{$output_type}_{$export_type}_filename" ) ) {
+			if ( $filename = Framework\SV_WC_Helper::get_posted_value( "{$output_type}_{$export_type}_filename" ) ) {
 				$automation->set_filename( stripslashes( sanitize_text_field( $filename ) ) );
 			}
 
-			if ( $format = Framework\SV_WC_Helper::get_post( "{$output_type}_{$export_type}_format" ) ) {
+			if ( $format = Framework\SV_WC_Helper::get_posted_value( "{$output_type}_{$export_type}_format" ) ) {
 				$automation->set_format_key( sanitize_text_field( $format ) );
 			}
 
@@ -688,7 +691,7 @@ class Edit {
 			// orders-only props
 			if ( \WC_Customer_Order_CSV_Export::EXPORT_TYPE_ORDERS === $export_type ) {
 
-				$automation->set_action( Framework\SV_WC_Helper::get_post( 'automation_action' ) ? sanitize_text_field( Framework\SV_WC_Helper::get_post( 'automation_action' ) ): 'interval' );
+				$automation->set_action( Framework\SV_WC_Helper::get_posted_value( 'automation_action' ) ? sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'automation_action' ) ): 'interval' );
 
 				$statuses = isset( $_POST['statuses'] ) && is_array( $_POST['statuses'] ) ? wc_clean( $_POST['statuses'] ) : [];
 
@@ -704,6 +707,9 @@ class Edit {
 
 				$automation->set_add_notes( ! empty( $_POST['add_notes'] ) );
 			}
+
+			// sets orders format properly
+			$automation->set_format_key( stripslashes( Framework\SV_WC_Helper::get_posted_value( $output_type . '_' . $export_type . '_format' ) ) );
 
 			$automation->save();
 
@@ -744,7 +750,7 @@ class Edit {
 	 */
 	private function save_method_settings( Automation $automation ) {
 
-		$method_type = sanitize_text_field( Framework\SV_WC_Helper::get_post( 'method_type' ) );
+		$method_type = sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'method_type' ) );
 
 		$automation->set_method_type( $method_type );
 
@@ -775,13 +781,13 @@ class Edit {
 	private function save_ftp_settings( Automation $automation ) {
 
 		$settings = [
-			'ftp_server'       => sanitize_text_field( Framework\SV_WC_Helper::get_post( 'ftp_server' ) ),
-			'ftp_username'     => sanitize_text_field( Framework\SV_WC_Helper::get_post( 'ftp_username' ) ),
-			'ftp_password'     => sanitize_text_field( Framework\SV_WC_Helper::get_post( 'ftp_password' ) ),
-			'ftp_port'         => sanitize_text_field( Framework\SV_WC_Helper::get_post( 'ftp_port' ) ),
-			'ftp_path'         => sanitize_text_field( Framework\SV_WC_Helper::get_post( 'ftp_path' ) ),
-			'ftp_security'     => sanitize_text_field( Framework\SV_WC_Helper::get_post( 'ftp_security' ) ),
-			'ftp_passive_mode' => (bool) Framework\SV_WC_Helper::get_post( 'ftp_passive_mode' ),
+			'ftp_server'       => sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'ftp_server' ) ),
+			'ftp_username'     => sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'ftp_username' ) ),
+			'ftp_password'     => sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'ftp_password' ) ),
+			'ftp_port'         => sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'ftp_port' ) ),
+			'ftp_path'         => sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'ftp_path' ) ),
+			'ftp_security'     => sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'ftp_security' ) ),
+			'ftp_passive_mode' => (bool) Framework\SV_WC_Helper::get_posted_value( 'ftp_passive_mode' ),
 		];
 
 		$automation->set_method_settings( $settings );
@@ -798,7 +804,7 @@ class Edit {
 	private function save_http_post_settings( Automation $automation ) {
 
 		$settings = [
-			'http_post_url' => sanitize_text_field( Framework\SV_WC_Helper::get_post( 'http_post_url' ) ),
+			'http_post_url' => sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'http_post_url' ) ),
 		];
 
 		$automation->set_method_settings( $settings );
@@ -815,8 +821,8 @@ class Edit {
 	private function save_email_settings( Automation $automation ) {
 
 		$settings = [
-			'email_recipients' => sanitize_text_field( Framework\SV_WC_Helper::get_post( 'email_recipients' ) ),
-			'email_subject'    => sanitize_text_field( Framework\SV_WC_Helper::get_post( 'email_subject' ) ),
+			'email_recipients' => sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'email_recipients' ) ),
+			'email_subject'    => sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'email_subject' ) ),
 		];
 
 		$automation->set_method_settings( $settings );
@@ -835,13 +841,13 @@ class Edit {
 		$saved_interval   = $automation->get_interval( 'edit' );
 		$saved_start_time = $automation->get_start() ? $automation->get_start()->format( 'g:ia' ) : '';
 
-		if ( $interval = (int) Framework\SV_WC_Helper::get_post( 'interval' ) ) {
+		if ( $interval = (int) Framework\SV_WC_Helper::get_posted_value( 'interval' ) ) {
 			$automation->set_interval( $interval * MINUTE_IN_SECONDS );
 		} else {
 			$automation->set_interval( '' );
 		}
 
-		$start_time        = Framework\SV_WC_Helper::get_post( 'start_time' );
+		$start_time        = Framework\SV_WC_Helper::get_posted_value( 'start_time' );
 		$existing_schedule = $saved_start_time . $saved_interval;
 
 		// only set the automation's start (and schedule) if a time is set and it has changed

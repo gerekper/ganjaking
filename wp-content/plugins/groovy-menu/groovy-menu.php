@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 /*
 Plugin Name: Groovy Menu
-Version: 2.4.0
+Version: 2.4.0.1
 Description: Groovy menu is a modern adjustable and flexible menu designed for creating mobile-friendly menus with a lot of options.
 Plugin URI: https://groovymenu.grooni.com/
 Author: Grooni
@@ -11,7 +11,7 @@ Domain Path: /languages/
 */
 
 
-define( 'GROOVY_MENU_VERSION', '2.4.0' );
+define( 'GROOVY_MENU_VERSION', '2.4.0.1' );
 define( 'GROOVY_MENU_DB_VER_OPTION', 'groovy_menu_db_version' );
 define( 'GROOVY_MENU_PREFIX_WIM', 'groovy-menu-wim' );
 define( 'GROOVY_MENU_DIR', plugin_dir_path( __FILE__ ) );
@@ -21,14 +21,12 @@ define( 'GROOVY_MENU_BASENAME', plugin_basename( trailingslashit( dirname( dirna
 update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', [		  
 	'product' => 'groovy-menu',
 	'item_id' => '23049456',
-	'type' => 'regular',
+	'type' => 'extended',
 	'supported_until' => '2030-04-24T00:00:00+10:00',
-	'purchase_key' => '11111111-2222-3333-4444-55555555555555',
+	'purchase_key' => '0d9266ab-4233-42ee-b48b-5fc5bfb8ee5f',
 	'approve' => true,
-	'gm_version' => '2.4.0'
+	'gm_version' => '2.4.0.1'
 ] );
-
-
 if ( ! defined( 'AUTH_COOKIE' ) && function_exists( 'is_multisite' ) && is_multisite() ) {
 	if ( function_exists( 'wp_cookie_constants' ) ) {
 		wp_cookie_constants();
@@ -215,6 +213,7 @@ if ( empty( $lic_gm_version ) || GROOVY_MENU_VERSION !== $lic_gm_version ) {
 	GroovyMenuUtils::check_lic();
 }
 $lic_type = GroovyMenuUtils::get_paramlic( 'type' );
+$gm_supported_module['check_update'] = "";
 if ( 'extended' !== $lic_type || ! empty( $gm_supported_module['check_update'] ) ) {
 	if ( class_exists( '\Puc_v4_Factory' ) ) {
 		$update_checker = \Puc_v4_Factory::buildUpdateChecker(

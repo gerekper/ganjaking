@@ -427,7 +427,9 @@ class WoocommerceGpfFeedItem {
 		}
 		unset( $this->additional_elements['title'] );
 
-		if ( $this->is_variation ) {
+		if ( $this->is_variation &&
+			 apply_filters( 'woocommerce_gpf_include_variation_attributes_in_title', true )
+		) {
 			$include_labels = apply_filters( 'woocommerce_gpf_include_attribute_labels_in_title', true );
 			$suffix         = wc_get_formatted_variation( $this->specific_product, true, $include_labels );
 			if ( ! empty( $suffix ) ) {

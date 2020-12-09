@@ -1,5 +1,10 @@
 *** Changelog ***
 
+2020-12-08 - version 2.4
+
+* Fixed reCAPTCHA v3 not working with 2FA
+
+
 2020-11-27 - version 2.3
 
 * Fixed reCaptcha not working for IE 11.

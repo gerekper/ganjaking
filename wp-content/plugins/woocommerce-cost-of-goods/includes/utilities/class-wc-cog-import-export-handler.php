@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Cost of Goods Import/Export Handler
@@ -257,7 +257,7 @@ class WC_COG_Import_Export_Handler {
 	 */
 	public function add_cost_to_csv_export_column_data( $order_data, $order, $csv_generator ) {
 
-		$total_cost = Framework\SV_WC_Order_Compatibility::get_meta( $order, '_wc_cog_order_total_cost' );
+		$total_cost = $order->get_meta( '_wc_cog_order_total_cost', true, 'edit' );
 		$cost_data  = array( 'order_cost_total' => ! empty( $total_cost ) ? $total_cost : '' );
 
 		$new_order_data = array();
@@ -391,7 +391,7 @@ class WC_COG_Import_Export_Handler {
 			return $data;
 		}
 
-		$order_cost_total = Framework\SV_WC_Order_Compatibility::get_meta( $order, '_wc_cog_order_total_cost', true );
+		$order_cost_total = $order->get_meta( '_wc_cog_order_total_cost', true, 'edit' );
 
 		// only add order cost total data to custom formats if set in the format builder
 		if ( $generator && 'custom' === $generator->export_format ) {
@@ -434,7 +434,7 @@ class WC_COG_Import_Export_Handler {
 			return $data;
 		}
 
-		$order_cost_total = Framework\SV_WC_Order_Compatibility::get_meta( $order, '_wc_cog_order_total_cost', true );
+		$order_cost_total = $order->get_meta( '_wc_cog_order_total_cost', true, 'edit' );
 
 		// only add order cost total data to custom formats if set in the format builder
 		if ( 'custom' === get_option( 'wc_customer_order_xml_export_suite_orders_format', 'default' ) ) {

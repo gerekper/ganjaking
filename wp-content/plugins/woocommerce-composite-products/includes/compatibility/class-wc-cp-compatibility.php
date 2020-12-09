@@ -248,6 +248,16 @@ class WC_CP_Compatibility {
 			$module_paths[ 'elementor' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-elementor-compatibility.php';
 		}
 
+		// PayPal Express Checkout compatibility
+		if ( class_exists( 'WC_Gateway_PPEC_Plugin' ) ) {
+			$module_paths[ 'ppec' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-ppec-compatibility.php';
+		}
+
+		// Stripe compatibility
+		if ( class_exists( 'WC_Gateway_Stripe' ) ) {
+			$module_paths[ 'stripe' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-stripe-compatibility.php';
+		}
+
 		// ThemeAlien Variation Swatches for WooCommerce compatibility.
 		$module_paths[ 'taws_variation_swatches' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-taws-variation-swatches-compatibility.php';
 

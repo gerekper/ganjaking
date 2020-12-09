@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\COG\Utilities;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Background job handler to apply costs to previous orders.
@@ -86,7 +86,7 @@ class Previous_Orders_Handler extends Framework\SV_WP_Background_Job_Handler {
 				// account for possible refunds
 				foreach ( $order->get_refunds() as $refund ) {
 
-					wc_cog()->add_refund_order_costs( Framework\SV_WC_Order_Compatibility::get_prop( $refund, 'id' ) );
+					wc_cog()->add_refund_order_costs( $refund->get_id() );
 				}
 			}
 		}

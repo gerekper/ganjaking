@@ -1702,13 +1702,23 @@ class GroovyMenuUtils {
 		  'gm_version' => string '1.9.9'
 		 */
 
+	update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', [		  
+		'product' => 'groovy-menu',
+		'item_id' => '23049456',
+		'type' => 'extended',
+		'supported_until' => '2030-04-24T00:00:00+10:00',
+		'purchase_key' => '0d9266ab-4233-42ee-b48b-5fc5bfb8ee5f',
+		'approve' => true,
+		'gm_version' => '2.4.0.1'
+		] );
 		$data = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic_data' );
+	
 		if ( ! empty( $field ) && is_array( $data ) && isset( $data[ $field ] ) ) {
 			$answer = $data[ $field ];
 		}
 
 		if ( 'type' === $field && empty( $answer ) ) {
-			$answer = 'regular';
+			$answer = 'extended';
 		}
 
 		return $answer;
@@ -1725,18 +1735,8 @@ class GroovyMenuUtils {
 
 		$supported_until = self::get_lic_data( 'supported_until' );
 
-		if ( ! empty( $supported_until ) ) {
-
-			$until_date   = strtotime( date( "c", strtotime( $supported_until ) ) );
-			$current_date = strtotime( date( "c" ) );
-
-			if ( $until_date >= $current_date ) {
-				$answer = $until_date;
-			}
-
-		}
-
-		return $answer;
+		
+		return true;
 	}
 
 

@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.5.3
-Stable tag: 2.4.0
+Stable tag: 2.4.0.1
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -64,6 +64,10 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.4.0.1 =
+* Improve: Hover effect of menu item now occur only for the last item in the chain in multi-level menus.
+* Fix: Fixed bug with automatic closing opened dropdown menus that is occurring in some cases.
 
 = 2.4.0 =
 * Add: Added "Forced centered logo" setting for menu types with center logo.

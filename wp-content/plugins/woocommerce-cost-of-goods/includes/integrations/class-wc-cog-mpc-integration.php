@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * The Cost of Goods + Measurement Price Calculator integration class.
@@ -75,7 +75,7 @@ class WC_COG_MPC_Integration {
 	 */
 	public function adjust_order_line_item_cost( $item_cost, $item ) {
 
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.0' ) && $item instanceof \WC_Order_Item_Product ) {
+		if ( $item instanceof \WC_Order_Item_Product ) {
 
 			$product = $item->get_product();
 

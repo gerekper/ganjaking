@@ -1,5 +1,16 @@
 *** WooCommerce Composite Products ***
 
+2020.12.06 - version 7.1.6
+* Tweak - Make sure Stripe quick pay buttons are hidden in Composite Product pages.
+
+2020.12.05 - version 7.1.5
+* Fix - Fatal error in product pages when using the Stripe gateway.
+
+2020.12.04 - version 7.1.4
+* Fix - Added compatibility with PayPal Checkout Express: Conditionally disable quick-pay buttons based on the validity of the Composite form.
+* Fix - Added compatibility with Stripe: Hide quick-pay buttons for Composite Products.
+* Dev - Added 'woocommerce_composite_component_hash' filter.
+
 2020.11.25 - version 7.1.3
 * Fix - Select button alignment in 'Options Style > Thumbnail' grids.
 

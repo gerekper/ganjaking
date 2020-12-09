@@ -189,6 +189,17 @@ $woocommerce_gpf_di['WoocommerceGpfStructuredData'] = function ( $c ) {
 	return $woocommerce_gpf_structured_data;
 };
 
+$woocommerce_gpf_di['WoocommerceProductFeedsExpandedStructuredData'] = function ( $c ) {
+	return new WoocommerceProductFeedsExpandedStructuredData(
+		$c['WoocommerceGpfCommon'],
+		$c['WoocommerceGpfDebugService']
+	);
+};
+
+$woocommerce_gpf_di['WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator'] = function ( $c ) {
+	return new WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator();
+};
+
 $woocommerce_gpf_di['WoocommerceGpfTemplateLoader'] = function ( $c ) {
 	return new WoocommerceGpfTemplateLoader();
 };
@@ -298,4 +309,7 @@ $woocommerce_gpf_di['WoocommerceGpfWoocommerceProductBundles']                  
 };
 $woocommerce_gpf_di['WoocommerceGpfWoocommerceMinMaxQuantityStepControlSingle'] = function ( $c ) {
 	return new WoocommerceGpfWoocommerceMinMaxQuantityStepControlSingle();
+};
+$woocommerce_gpf_di['WoocommerceGpfWoocommerceMultilingual']                    = function ( $c ) {
+	return new WoocommerceGpfWoocommerceMultilingual();
 };

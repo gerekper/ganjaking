@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\CSV_Export\Admin;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1\SV_WC_Helper;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2\SV_WC_Helper;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -210,7 +210,7 @@ class Admin_Custom_Formats {
 			case self::ACTION_DELETE:
 
 				// verify this is a legitimate request
-				if ( $this->format_key && wp_verify_nonce( SV_WC_Helper::get_request( '_wpnonce' ), 'wc_customer_order_coupon_export_delete_custom_format' ) ) {
+				if ( $this->format_key && wp_verify_nonce( SV_WC_Helper::get_requested_value( '_wpnonce' ), 'wc_customer_order_coupon_export_delete_custom_format' ) ) {
 					wc_customer_order_csv_export()->get_formats_instance()->delete_custom_format( $this->export_type, $this->format_key );
 				}
 

@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\CSV_Export;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 use WC_Customer_Order_CSV_Export;
 
 /**
@@ -239,14 +239,14 @@ class CSV_Export_Generator extends Export_Generator {
 			'order_number'           => $order->get_meta( '_order_number', true, 'edit' ),
 			'order_date'             => $this->format_date( $order_date ),
 			'status'                 => $order->get_status(),
-			'shipping_total'         => $order->get_shipping_total(),
-			'shipping_tax_total'     => wc_format_decimal( $order->get_shipping_tax(), 2 ),
-			'fee_total'              => wc_format_decimal( $fee_total, 2 ),
-			'fee_tax_total'          => wc_format_decimal( $fee_tax_total, 2 ),
-			'tax_total'              => wc_format_decimal( $order->get_total_tax(), 2 ),
-			'discount_total'         => wc_format_decimal( $order->get_total_discount(), 2 ),
-			'order_total'            => wc_format_decimal( $order->get_total(), 2 ),
-			'refunded_total'         => wc_format_decimal( $order->get_total_refunded(), 2 ),
+			'shipping_total'         => $this->format_decimal( $order->get_shipping_total(), 2 ),
+			'shipping_tax_total'     => $this->format_decimal( $order->get_shipping_tax(), 2 ),
+			'fee_total'              => $this->format_decimal( $fee_total, 2 ),
+			'fee_tax_total'          => $this->format_decimal( $fee_tax_total, 2 ),
+			'tax_total'              => $this->format_decimal( $order->get_total_tax(), 2 ),
+			'discount_total'         => $this->format_decimal( $order->get_total_discount(), 2 ),
+			'order_total'            => $this->format_decimal( $order->get_total(), 2 ),
+			'refunded_total'         => $this->format_decimal( $order->get_total_refunded(), 2 ),
 			'order_currency'         => $order->get_currency( 'view' ),
 			'payment_method'         => $order->get_payment_method( 'edit' ),
 			'shipping_method'        => $order->get_shipping_method(),
@@ -297,7 +297,7 @@ class CSV_Export_Generator extends Export_Generator {
 
 			foreach ( $line_items as $item ) {
 
-				$item_price = wc_format_decimal( $item['quantity'] && is_numeric( $item['quantity'] ) ? floatval( $item['subtotal'] ) / floatval( $item['quantity'] ) : 0 );
+				$item_price = $this->format_decimal( $item['quantity'] && is_numeric( $item['quantity'] ) ? floatval( $item['subtotal'] ) / floatval( $item['quantity'] ) : 0 );
 
 				$order_data['item_id']           = $item['id'];
 				$order_data['item_name']         = $item['name'];
@@ -393,22 +393,14 @@ class CSV_Export_Generator extends Export_Generator {
 				add_filter( 'woocommerce_attribute_label',               [ $this, 'escape_reserved_meta_chars' ], 9999 );
 				add_filter( 'woocommerce_order_item_display_meta_value', [ $this, 'escape_reserved_meta_chars' ], 9999 );
 
-				if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte_3_1() ) {
+				$meta_data    = $item->get_formatted_meta_data( '_', true );
+				$display_meta = [];
 
-					$meta_data    = $item->get_formatted_meta_data( '_', true );
-					$display_meta = [];
-
-					foreach ( $meta_data as $meta ) {
-						$display_meta[] = "{$meta->display_key}: {$meta->display_value}";
-					}
-
-					$meta = implode( '', $display_meta );
-
-				} else {
-
-					$item_meta = new \WC_Order_Item_Meta( $item );
-					$meta      = $item_meta->display( true, true );
+				foreach ( $meta_data as $meta ) {
+					$display_meta[] = "{$meta->display_key}: {$meta->display_value}";
 				}
+
+				$meta = implode( '', $display_meta );
 
 				remove_filter( 'woocommerce_attribute_label',               [ $this, 'escape_reserved_meta_chars' ], 9999 );
 				remove_filter( 'woocommerce_order_item_display_meta_value', [ $this, 'escape_reserved_meta_chars' ], 9999 );
@@ -432,7 +424,7 @@ class CSV_Export_Generator extends Export_Generator {
 			// Give the product ID and SKU initial values in case they're not overwritten.
 			// this means the product doesn't exist, so it could have been deleted, BUT
 			// we should set the SKU to a value so CSV import could allow these orders to be imported
-			$product     = Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte_3_1() ? $item->get_product() : $order->get_product_from_item( $item );
+			$product     = $item->get_product();
 			$product_id  = 0;
 			$product_sku = 'unknown_product';
 
@@ -450,11 +442,11 @@ class CSV_Export_Generator extends Export_Generator {
 				'product_id'   => $product_id,
 				'sku'          => $product_sku,
 				'quantity'     => (int) $item['qty'],
-				'subtotal'     => wc_format_decimal( $order->get_line_subtotal( $item ), 2 ),
-				'subtotal_tax' => wc_format_decimal( $item['line_subtotal_tax'], 2 ),
-				'total'        => wc_format_decimal( $order->get_line_total( $item ), 2 ),
-				'total_tax'    => wc_format_decimal( $order->get_line_tax( $item ), 2 ),
-				'refunded'     => wc_format_decimal( $order->get_total_refunded_for_item( $item_id ), 2 ),
+				'subtotal'     => $this->format_decimal( $order->get_line_subtotal( $item ), 2 ),
+				'subtotal_tax' => $this->format_decimal( $item['line_subtotal_tax'], 2 ),
+				'total'        => $this->format_decimal( $order->get_line_total( $item ), 2 ),
+				'total_tax'    => $this->format_decimal( $order->get_line_tax( $item ), 2 ),
+				'refunded'     => $this->format_decimal( $order->get_total_refunded_for_item( $item_id ), 2 ),
 				'refunded_qty' => $order->get_qty_refunded_for_item( $item_id ),
 				'meta'         => $meta,
 			];
@@ -516,7 +508,7 @@ class CSV_Export_Generator extends Export_Generator {
 				'id'           => $shipping_item_id,
 				'method_id'    => $shipping['method_id'],
 				'method_title' => $shipping['name'],
-				'total'        => wc_format_decimal( $shipping['cost'], 2 ),
+				'total'        => $this->format_decimal( $shipping['cost'], 2 ),
 			];
 
 			// tax data is only supported in JSON-based formats, as encoding/escaping it reliably in
@@ -575,8 +567,8 @@ class CSV_Export_Generator extends Export_Generator {
 				'id'        => $fee_item_id,
 				'title'     => $fee['name'],
 				'tax_class' => ( ! empty( $fee['tax_class'] ) ) ? $fee['tax_class'] : null,
-				'total'     => wc_format_decimal( $order->get_line_total( $fee ), 2 ),
-				'total_tax' => wc_format_decimal( $order->get_line_tax( $fee ), 2 ),
+				'total'     => $this->format_decimal( $order->get_line_total( $fee ), 2 ),
+				'total_tax' => $this->format_decimal( $order->get_line_tax( $fee ), 2 ),
 			];
 
 			// tax data is only supported in JSON-based formats, as encoding/escaping it reliably in
@@ -638,7 +630,7 @@ class CSV_Export_Generator extends Export_Generator {
 				'rate_id'  => $tax->rate_id,
 				'code'     => $tax_code,
 				'title'    => $tax->label,
-				'total'    => wc_format_decimal( $tax->amount, 2 ),
+				'total'    => $this->format_decimal( $tax->amount, 2 ),
 				'compound' => (bool) $tax->is_compound,
 			];
 
@@ -691,7 +683,7 @@ class CSV_Export_Generator extends Export_Generator {
 			$coupon_item = [
 				'id'          => $coupon_item_id,
 				'code'        => $coupon['name'],
-				'amount'      => wc_format_decimal( $coupon['discount_amount'], 2 ),
+				'amount'      => $this->format_decimal( $coupon['discount_amount'], 2 ),
 				'description' => is_object( $coupon_post ) ? $coupon_post->post_excerpt : '',
 			];
 
@@ -742,7 +734,7 @@ class CSV_Export_Generator extends Export_Generator {
 			$refund_data = [
 				'id'         => $refund->get_id(),
 				'date'       => $refund->get_date_created() ? $this->format_date( $refund->get_date_created()->date( 'Y-m-d H:i:s' ) ) : '',
-				'amount'     => wc_format_decimal( $refund->get_amount(), 2 ),
+				'amount'     => $this->format_decimal( $refund->get_amount(), 2 ),
 				'reason'     => $refund->get_reason(),
 			];
 
@@ -1046,7 +1038,7 @@ class CSV_Export_Generator extends Export_Generator {
 			'shipping_state'      => $this->get_localized_state( $user->shipping_country, $user->shipping_state ),
 			'shipping_state_code' => $user->shipping_state_code,
 			'shipping_country'    => $user->shipping_country,
-			'total_spent'         => wc_format_decimal( wc_get_customer_total_spent( $user->ID ), 2 ),
+			'total_spent'         => $this->format_decimal( wc_get_customer_total_spent( $user->ID ), 2 ),
 			'order_count'         => wc_get_customer_order_count( $user->ID ),
 		];
 
@@ -1220,11 +1212,11 @@ class CSV_Export_Generator extends Export_Generator {
 			'code'                       => $coupon->get_code(),
 			'type'                       => $coupon->get_discount_type(),
 			'description'                => $coupon->get_description(),
-			'amount'                     => wc_format_decimal( $coupon->get_amount() ),
+			'amount'                     => $this->format_decimal( $coupon->get_amount() ),
 			'expiry_date'                => $formatted_expiry_date,
 			'enable_free_shipping'       => $coupon->get_free_shipping() ? 'yes' : 'no',
-			'minimum_amount'             => wc_format_decimal( $coupon->get_minimum_amount() ),
-			'maximum_amount'             => wc_format_decimal( $coupon->get_maximum_amount() ),
+			'minimum_amount'             => $this->format_decimal( $coupon->get_minimum_amount() ),
+			'maximum_amount'             => $this->format_decimal( $coupon->get_maximum_amount() ),
 			'individual_use'             => $coupon->get_individual_use() ? 'yes' : 'no',
 			'exclude_sale_items'         => $coupon->get_exclude_sale_items() ? 'yes' : 'no',
 			'products'                   => implode( ', ', $products ),

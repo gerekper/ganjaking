@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
 use SkyVerge\WooCommerce\CSV_Export\Admin\Meta_Boxes\Exported_By;
 use SkyVerge\WooCommerce\CSV_Export\Admin\Automations;
@@ -1773,47 +1773,6 @@ class WC_Customer_Order_CSV_Export_Admin {
 		}
 
 		return $this->manual_export;
-	}
-
-
-	/** Deprecated methods ********************************************************************************************/
-
-
-	/**
-	 * Get the column mapper class instance
-	 *
-	 * @since 4.0.0
-	 * @deprecated 4.1.0
-	 *
-	 * @return \WC_Customer_Order_CSV_Export_Admin_Custom_Format_Builder instance
-	 */
-	public function get_column_mapper_instance() {
-
-		wc_deprecated_function( __METHOD__,
-			'4.1.0',
-			'wc_customer_order_csv_export()->get_admin_instance()->get_custom_formats_admin_instance()->get_custom_format_builder_instance()'
-		);
-
-		return $this->get_custom_formats_admin_instance()->get_custom_format_builder_instance();
-	}
-
-
-	/**
-	 * Gets the custom format builder class instance.
-	 *
-	 * @since 4.1.0
-	 * @deprecated 4.7.0
-	 *
-	 * @return \WC_Customer_Order_CSV_Export_Admin_Custom_Format_Builder instance
-	 */
-	public function get_custom_format_builder_instance() {
-
-		wc_deprecated_function( __METHOD__,
-			'4.7.0',
-			'wc_customer_order_csv_export()->get_admin_instance()->get_custom_formats_admin_instance()->get_custom_format_builder_instance()'
-		);
-
-		return $this->get_custom_formats_admin_instance()->get_custom_format_builder_instance();
 	}
 
 

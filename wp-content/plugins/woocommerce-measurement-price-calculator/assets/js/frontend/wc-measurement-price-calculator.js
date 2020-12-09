@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 
 	/* global wc_price_calculator_params */
 	/* global woocommerce_addons_params */

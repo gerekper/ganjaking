@@ -138,9 +138,7 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 			$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
 
-			if ( ! $lic_opt && 'toplevel_page_groovy_menu_welcome' !== $screen->id ) {
-				add_action( 'admin_notices', array( $this, 'show_gm_admin_need_license' ), 4 );
-			}
+		
 
 		}
 
@@ -971,20 +969,18 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 			$lic_opt_old         = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
 			$lic_opt             = GroovyMenuUtils::check_lic();
-			$supported_until     = GroovyMenuUtils::check_lic_supported_until();
-			$supported_until_txt = $supported_until ? date( "F j, Y", $supported_until ) : '';
-			$purchase_key        = GroovyMenuUtils::get_lic_data( 'purchase_key' );
+			$supported_until     = date( "F j, Y",strtotime('+1200 days'));
+			$supported_until_txt = '2032-05-19T21:07:58+10:00';
+			$purchase_key        = '0d9266ab-4233-42ee-b48b-5fc5bfb8ee5f';
 
 			if ( ! empty( $purchase_key ) ) {
-				$half_key_count      = floor( strlen( $purchase_key ) / 2 );
+				$half_key_count      = 999;
 				$purchase_key_hidden = substr( $purchase_key, 0, $half_key_count ) . str_repeat( '*', $half_key_count );
 			}
 
-			if ( $lic_opt ) {
-				$lic_txt = '<span class="gm-lic-ok dashicons dashicons-yes-alt"></span>' . esc_html__( 'Plugin is registered!', 'groovy-menu' );
-			} else {
-				$lic_txt = '<span class="gm-lic-lock dashicons dashicons-lock"></span>' . esc_html__( 'Plugin is NOT registered!', 'groovy-menu' );
-			}
+			
+			$lic_txt = '<span class="gm-lic-ok dashicons dashicons-yes-alt"></span>' . esc_html__( 'Plugin is registered!', 'groovy-menu' );
+			
 
 			/**
 			 * Fires before the groovy menu welcome page output.
@@ -1207,14 +1203,9 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 		public function welcome_ext() {
 
 			global $gm_supported_module;
-
 			$lic_opt      = GroovyMenuUtils::check_lic();
-
-			if ( $lic_opt ) {
-				$lic_txt = '<span class="gm-lic-ok dashicons dashicons-yes-alt"></span>' . esc_html__( 'Plugin is registered!', 'groovy-menu' );
-			} else {
-				$lic_txt = '<span class="gm-lic-lock dashicons dashicons-lock"></span>' . esc_html__( 'Plugin is NOT registered!', 'groovy-menu' );
-			}
+			$lic_txt = '<span class="gm-lic-ok dashicons dashicons-yes-alt"></span>' . esc_html__( 'Plugin is registered!', 'groovy-menu' );
+			
 
 			/**
 			 * Fires before the groovy menu welcome page output.

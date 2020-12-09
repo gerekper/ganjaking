@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Export Email Class
@@ -104,8 +104,8 @@ class WC_Customer_Order_CSV_Export_Method_Email implements WC_Customer_Order_CSV
 		$subject = $this->email_subject;
 		$message = $this->email_message;
 
-		// Allow actors to change the email headers.
-		$headers     = apply_filters( 'woocommerce_email_headers', "Content-Type: text/plain\r\n", $this->email_id, $this->args );
+		/** WooCommerce core filter hook: {@see \WC_Email::get_headers()} */
+		$headers     = apply_filters( 'woocommerce_email_headers', "Content-Type: text/plain\r\n", $this->email_id, $this->args, $this );
 		$attachments = [ $file_path ];
 
 		// hook into `wp_mail_failed` and throw errors as exceptions

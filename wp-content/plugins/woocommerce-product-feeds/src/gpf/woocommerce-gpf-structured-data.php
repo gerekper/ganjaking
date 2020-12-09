@@ -180,7 +180,6 @@ class WoocommerceGpfStructuredData {
 	 * @return array                The modified array.
 	 */
 	private function structured_data_simple_product( $markup, $product ) {
-
 		// Get the feed information for this product.
 		// Note: We do not calculate pricing to avoid having to query all variations.
 		$feed_item = new WoocommerceGpfFeedItem(

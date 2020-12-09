@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  7.1.0
+ * @version  7.1.4
  */
 class WC_Product_Composite extends WC_Product {
 
@@ -1944,11 +1944,15 @@ class WC_Product_Composite extends WC_Product {
 
 		if ( $this->has_component( $component_id ) ) {
 
-			$component = WC_CP_Helpers::cache_get( 'wc_cp_component_' . $component_id . '_' . $this->get_id() );
+			$hash         = array( $component_id, $this->get_id() );
+			$cache_group  = 'wc_cp_component_' . $component_id . '_' . $this->get_id();
+			$cache_key    = md5( json_encode( apply_filters( 'woocommerce_composite_component_hash', $hash, $this ) ) );
+
+			$component = WC_CP_Helpers::cache_get( $cache_key, $cache_group );
 
 			if ( $this->composite_meta_save_pending || defined( 'WC_CP_DEBUG_RUNTIME_CACHE' ) || null === $component ) {
 				$component = new WC_CP_Component( $component_id, $this );
-				WC_CP_Helpers::cache_set( 'wc_cp_component_' . $component_id . '_' . $this->get_id(), $component );
+				WC_CP_Helpers::cache_set( $cache_key, $component, $cache_group );
 			}
 		}
 

@@ -24,7 +24,7 @@
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Customer/Order CSV Export Formats
@@ -166,6 +166,8 @@ class WC_Customer_Order_CSV_Export_Formats {
 	 */
 	public function get_custom_format_definition( $export_type, $key ) {
 
+		$key = sanitize_title( $key );
+
 		$formats = $this->get_custom_format_definitions( $export_type );
 
 		return ! empty( $formats[ $key ] ) ? $formats[ $key ] : null;
@@ -217,7 +219,7 @@ class WC_Customer_Order_CSV_Export_Formats {
 		$option_name        = 'wc_customer_order_export_' . $export_type . '_custom_formats';
 		$all_custom_formats = get_option( $option_name, [] );
 
-		$custom_format_key = $custom_format->get_key();
+		$custom_format_key = sanitize_title( $custom_format->get_key() );
 
 		$all_custom_formats[ $custom_format_key ] = $custom_format->to_array();
 
@@ -245,7 +247,7 @@ class WC_Customer_Order_CSV_Export_Formats {
 
 		$all_custom_formats = get_option( $option_name, [] );
 
-		unset( $all_custom_formats[ $custom_format_key ] );
+		unset( $all_custom_formats[ sanitize_title( $custom_format_key ) ] );
 
 		$updated = update_option( $option_name, $all_custom_formats );
 

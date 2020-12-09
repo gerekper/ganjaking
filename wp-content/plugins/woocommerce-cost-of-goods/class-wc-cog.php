@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * WooCommerce Cost of Goods main plugin class.
@@ -36,7 +36,7 @@ class WC_COG extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.9.10';
+	const VERSION = '2.10.0';
 
 	/** @var WC_COG single instance of this plugin */
 	protected static $instance;
@@ -385,7 +385,8 @@ class WC_COG extends Framework\SV_WC_Plugin {
 		$formatted_total_cost = wc_format_decimal( $total_cost, wc_get_price_decimals() );
 
 		// save the order total cost meta
-		Framework\SV_WC_Order_Compatibility::update_meta_data( $order, '_wc_cog_order_total_cost', $formatted_total_cost );
+		$order->update_meta_data( '_wc_cog_order_total_cost', $formatted_total_cost );
+		$order->save_meta_data();
 	}
 
 
@@ -499,7 +500,8 @@ class WC_COG extends Framework\SV_WC_Plugin {
 		$refund_total_cost = apply_filters( 'wc_cost_of_goods_update_refund_order_cost_meta', $refund_total_cost, $refund );
 
 		// update the refund total cost
-		Framework\SV_WC_Order_Compatibility::update_meta_data( $refund, '_wc_cog_order_total_cost', wc_format_decimal( $refund_total_cost, wc_get_price_decimals() ) );
+		$refund->update_meta_data( '_wc_cog_order_total_cost', wc_format_decimal( $refund_total_cost, wc_get_price_decimals() ) );
+		$refund->save_meta_data();
 	}
 
 

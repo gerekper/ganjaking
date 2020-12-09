@@ -327,12 +327,16 @@ class WC_Product_Reviews_Pro_Admin {
 		} elseif ( 'edit.php' === $hook_suffix && isset( $_GET['post_type'] ) && 'product' === $_GET['post_type'] ) {
 
 			wc_enqueue_js( "
-				$( '#wpbody' ).on( 'click', '#doaction, #doaction2', function() {
+				( function( $ ) {
 
-					var tax = 'product_review_qualifier';
+					$( '#wpbody' ).on( 'click', '#doaction, #doaction2', function() {
 
-					$( 'tr.inline-editor textarea[name=\"tax_input['+tax+']\"]' ).suggest( ajaxurl + '?action=ajax-tag-search&tax=' + tax, { delay: 500, minchars: 2, multiple: true, multipleSep: inlineEditL10n.comma } );
-				} );
+						var tax = 'product_review_qualifier';
+
+						$( 'tr.inline-editor textarea[name=\"tax_input['+tax+']\"]' ).suggest( ajaxurl + '?action=ajax-tag-search&tax=' + tax, { delay: 500, minchars: 2, multiple: true, multipleSep: inlineEditL10n.comma } );
+					} );
+
+				} ) ( jQuery );
 			" );
 
 		// settings
@@ -382,7 +386,7 @@ class WC_Product_Reviews_Pro_Admin {
 		<?php
 
 		// small CSS adjustment
-		wc_enqueue_js( 'jQuery( ".bulkactions select" ).css( "margin-left", 0 );' );
+		wc_enqueue_js( '$( ".bulkactions select" ).css( "margin-left", 0 );' );
 	}
 
 

@@ -6,7 +6,7 @@
  * Description: Extend WooCommerce product reviews to add video, photo, comment, and question contribution types, as well as review filtering, voting, and flagging.
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.17.0
+ * Version: 1.17.1
  * Text Domain: woocommerce-product-reviews-pro
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 570800:43662c2508f9242c6ba1da8c535510a0
  * WC requires at least: 3.5
- * WC tested up to: 4.7.0
+ * WC tested up to: 4.7.1
  */
 
 defined( 'ABSPATH' ) or exit;

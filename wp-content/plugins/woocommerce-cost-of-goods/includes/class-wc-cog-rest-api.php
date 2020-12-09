@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Cost of Goods REST API Class
@@ -78,7 +78,7 @@ class WC_COG_REST_API extends Framework\REST_API {
 			return $data;
 		}
 
-		$order_total_cost = Framework\SV_WC_Order_Compatibility::get_meta( $order, '_wc_cog_order_total_cost', true );
+		$order_total_cost = $order->get_meta( '_wc_cog_order_total_cost', true, 'edit' );
 
 		// order total cost
 		$data['cogs_total_cost'] = (float) $order_total_cost > 0.00 ? wc_format_decimal( $order_total_cost ) : null;

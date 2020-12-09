@@ -200,16 +200,6 @@
             "log",
             "logging",
             "psr-3"
-        ],
-        "funding": [
-            {
-                "url": "https://github.com/Seldaek",
-                "type": "github"
-            },
-            {
-                "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
-                "type": "tidelift"
-            }
         ]
     },
     {

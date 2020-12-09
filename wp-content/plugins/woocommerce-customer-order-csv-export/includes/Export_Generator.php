@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\CSV_Export;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 use WC_Customer_Order_CSV_Export;
 
 /**
@@ -280,6 +280,49 @@ abstract class Export_Generator {
 		 * @param Export_Generator $generator generator instance
 		 */
 		return apply_filters( 'wc_customer_order_export_format_date', $date, $this );
+	}
+
+
+	/**
+	 * Helper to run all decimals through formatting rules for easy format changes.
+	 *
+	 * @see wc_format_decimal
+	 *
+	 * @since 5.2.0
+	 *
+	 * @param float|string $number
+	 * @param mixed $decimal_points number of decimal points to use, false to avoid all rounding
+	 * @return string the formatted number output
+	 */
+	protected function format_decimal( $number, $decimal_points = false ) {
+
+		$decimal_points = false === $decimal_points ? wc_get_price_decimals() : $decimal_points;
+
+		/**
+		 * Filters the decimal separator of all output types.
+		 *
+		 * @since 5.2.0
+		 *
+		 * @param string $separator the default decimal separator
+		 * @param string $output_type the file output type (csv, xml)
+		 * @param float|string $number the number to be formatted
+		 * @param Export_Generator $generator generator instance
+		 */
+		$decimal_separator = apply_filters( "wc_customer_order_export_decimal_separator", '.', $this->output_type, $number, $this );
+
+		/**
+		 * Filters the thousands separator of all output types.
+		 *
+		 * @since 5.2.0
+		 *
+		 * @param string $separator the default thousands separator
+		 * @param string $output_type the file output type (csv, xml)
+		 * @param float|string $number the number to be formatted
+		 * @param Export_Generator $generator generator instance
+		 */
+		$thousands_separator = apply_filters( "wc_customer_order_export_thousands_separator", '', $this->output_type, $number, $this );
+
+		return number_format( $number, $decimal_points, $decimal_separator, $thousands_separator );
 	}
 
 

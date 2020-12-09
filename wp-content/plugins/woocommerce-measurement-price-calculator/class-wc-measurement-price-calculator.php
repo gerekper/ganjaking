@@ -34,7 +34,7 @@ class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version */
-	const VERSION = '3.18.3';
+	const VERSION = '3.19.0';
 
 	/** @var WC_Measurement_Price_Calculator single instance of this plugin */
 	protected static $instance;
@@ -322,27 +322,6 @@ class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 		}
 
 		return self::$instance;
-	}
-
-
-	/**
-	 * Pricing table shortcode: renders a table of product prices.
-	 *
-	 * @since 3.0
-	 * @deprecated since 3.14.0
-	 *
-	 * @internal
-	 *
-	 * TODO remove this method by version 4.0.0 or February 2020, whichever comes first {FN 2019-02-20}
-	 *
-	 * @param array $atts associative array of shortcode parameters
-	 * @return string shortcode content
-	 */
-	public function pricing_table_shortcode( $atts ) {
-
-		_deprecated_function( '\WC_Measurement_Price_Calculator::pricing_table_shortcode()', '3.14.0', '\\SkyVerge\\WooCommerce\\Measurement_Price_Calculator\\Shortcodes::pricing_table_shortcode()' );
-
-		return $this->get_shortcodes_instance()->pricing_table_shortcode( $atts );
 	}
 
 

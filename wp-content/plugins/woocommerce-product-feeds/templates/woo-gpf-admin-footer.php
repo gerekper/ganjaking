@@ -4,6 +4,8 @@
 
 	{send_item_group_id}
 
+    {expanded_schema}
+
     {shop_code}
 
 	<script type="text/javascript">

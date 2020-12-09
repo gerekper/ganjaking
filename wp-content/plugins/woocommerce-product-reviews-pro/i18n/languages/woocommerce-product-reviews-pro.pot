@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Reviews Pro 1.17.0\n"
+"Project-Id-Version: WooCommerce Product Reviews Pro 1.17.1\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-11-17 19:03:35+00:00\n"
+"POT-Creation-Date: 2020-12-07 09:05:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,7 +28,7 @@ msgid "WooCommerce Product Reviews Pro"
 msgstr ""
 
 #: includes/Lifecycle.php:100 includes/Lifecycle.php:177
-#: includes/admin/class-wc-product-reviews-pro-admin.php:711
+#: includes/admin/class-wc-product-reviews-pro-admin.php:715
 msgid "Admin"
 msgstr ""
 
@@ -58,7 +58,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: includes/admin/class-wc-product-reviews-pro-admin.php:213
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1013
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1017
 #: templates/myaccount/contribution-list.php:56
 #: templates/myaccount/contribution-list.php:132
 msgid "Type"
@@ -113,167 +113,167 @@ msgstr ""
 msgid "There was an error removing the attachment. Please try again later."
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:358
+#: includes/admin/class-wc-product-reviews-pro-admin.php:362
 msgid "All contribution types"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:401
+#: includes/admin/class-wc-product-reviews-pro-admin.php:405
 msgid "All media"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:402
+#: includes/admin/class-wc-product-reviews-pro-admin.php:406
 #: includes/class-wc-product-reviews-pro-contribution-type.php:73
 #: includes/class-wc-product-reviews-pro-contribution-type.php:732
 msgid "Photo"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:403
+#: includes/admin/class-wc-product-reviews-pro-admin.php:407
 #: includes/class-wc-product-reviews-pro-contribution-type.php:77
 #: includes/class-wc-product-reviews-pro-contribution-type.php:733
 msgid "Video"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:531
+#: includes/admin/class-wc-product-reviews-pro-admin.php:535
 msgid "Oops, no comment with this ID."
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:531
+#: includes/admin/class-wc-product-reviews-pro-admin.php:535
 msgid "Go back"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:611
+#: includes/admin/class-wc-product-reviews-pro-admin.php:615
 #. translators: Placeholders: %s count of contributions flagged
 msgid "%s contribution flagged"
 msgid_plural "%s contributions flagged"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:669
+#: includes/admin/class-wc-product-reviews-pro-admin.php:673
 msgid "Contributions types"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:670
+#: includes/admin/class-wc-product-reviews-pro-admin.php:674
 msgid "Select which contribution types to enable"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:678
+#: includes/admin/class-wc-product-reviews-pro-admin.php:682
 msgid "Enable all contribution types"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:679
+#: includes/admin/class-wc-product-reviews-pro-admin.php:683
 msgid "Enable specific contribution types only"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:683
+#: includes/admin/class-wc-product-reviews-pro-admin.php:687
 msgid "Specific contribution types"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:693
+#: includes/admin/class-wc-product-reviews-pro-admin.php:697
 msgid "Admins can always reply"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:694
+#: includes/admin/class-wc-product-reviews-pro-admin.php:698
 msgid "Allow administrators and shop managers to leave replies to contributions"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:699
+#: includes/admin/class-wc-product-reviews-pro-admin.php:703
 msgid "Allow Attachments"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:700
+#: includes/admin/class-wc-product-reviews-pro-admin.php:704
 msgid ""
 "Enable to allow customers to add photo and video attachments as part of a "
 "review or question"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:706
+#: includes/admin/class-wc-product-reviews-pro-admin.php:710
 msgid "Admin badges"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:708
+#: includes/admin/class-wc-product-reviews-pro-admin.php:712
 #: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:334
 msgid "Leave blank to disable badges."
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:709
+#: includes/admin/class-wc-product-reviews-pro-admin.php:713
 msgid ""
 "Enter the text to use on badges displayed on admin and shop manager "
 "contributions."
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:714
+#: includes/admin/class-wc-product-reviews-pro-admin.php:718
 msgid "Sorting order"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:715
+#: includes/admin/class-wc-product-reviews-pro-admin.php:719
 msgid "Choose how contributions are sorted on product pages"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:723
+#: includes/admin/class-wc-product-reviews-pro-admin.php:727
 msgid "Most helpful first"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:724
+#: includes/admin/class-wc-product-reviews-pro-admin.php:728
 msgid "Newest first"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:728
+#: includes/admin/class-wc-product-reviews-pro-admin.php:732
 msgid "Minimum word count"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:729
+#: includes/admin/class-wc-product-reviews-pro-admin.php:733
 msgid ""
 "Users need to enter at least this amount of words when posting a "
 "contribution"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:734
+#: includes/admin/class-wc-product-reviews-pro-admin.php:738
 msgid "Maximum word count"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:735
+#: includes/admin/class-wc-product-reviews-pro-admin.php:739
 msgid "Maximum number of words users can enter when posting a contribution"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:740
+#: includes/admin/class-wc-product-reviews-pro-admin.php:744
 msgid "Threshold for publication"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:741
+#: includes/admin/class-wc-product-reviews-pro-admin.php:745
 msgid ""
 "Show contributions to public only after a minimum amount of submission is "
 "met"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:751
+#: includes/admin/class-wc-product-reviews-pro-admin.php:755
 msgid "Flagged contributions"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:752
+#: includes/admin/class-wc-product-reviews-pro-admin.php:756
 msgid "Change publication status should a contribution be flagged as inappropriate"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:759
+#: includes/admin/class-wc-product-reviews-pro-admin.php:763
 msgid "Keep published"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:760
+#: includes/admin/class-wc-product-reviews-pro-admin.php:764
 msgid "Set to pending approval when flagged by a registered customer"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:761
+#: includes/admin/class-wc-product-reviews-pro-admin.php:765
 msgid "Set to pending approval when flagged by anyone"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:765
+#: includes/admin/class-wc-product-reviews-pro-admin.php:769
 msgid "Moderation"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:766
+#: includes/admin/class-wc-product-reviews-pro-admin.php:770
 msgid "Contributions must be manually approved"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:812
+#: includes/admin/class-wc-product-reviews-pro-admin.php:816
 #: includes/admin/class-wc-reviews-list-table.php:68
 #: includes/admin/class-wc-reviews.php:87
 #: includes/admin/views/html-report-product-reviews.php:13
@@ -281,21 +281,21 @@ msgstr ""
 msgid "Reviews"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:815
+#: includes/admin/class-wc-product-reviews-pro-admin.php:819
 msgid "Most Reviews"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:821
+#: includes/admin/class-wc-product-reviews-pro-admin.php:825
 #: includes/admin/views/html-report-product-reviews.php:14
 msgid "Highest Rating"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:827
+#: includes/admin/class-wc-product-reviews-pro-admin.php:831
 #: includes/admin/views/html-report-product-reviews.php:15
 msgid "Lowest Rating"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:899
+#: includes/admin/class-wc-product-reviews-pro-admin.php:903
 #: includes/class-wc-product-reviews-pro-contribution-type.php:713
 #: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:766
 #: includes/widgets/class-wc-product-reviews-pro-recent-photos-widget.php:51
@@ -307,108 +307,108 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:902
+#: includes/admin/class-wc-product-reviews-pro-admin.php:906
 #: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:812
 msgid "Stats"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:903
+#: includes/admin/class-wc-product-reviews-pro-admin.php:907
 #: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:819
 msgid "Flags"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:906
+#: includes/admin/class-wc-product-reviews-pro-admin.php:910
 #: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:803
 msgid "Attached media"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1017
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1021
 #: includes/admin/class-wc-reviews-list-table.php:553
 #: includes/admin/views/html-report-product-reviews.php:12
 msgid "Product"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1021
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1025
 msgid "Upvotes"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1025
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1029
 msgid "Downvotes"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1029
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1033
 msgid "Active Flags"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1052
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1056
 msgid "Qualifiers"
-msgstr ""
-
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1095
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1195
-msgid "Bulk Actions"
-msgstr ""
-
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1096
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1159
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1196
-msgid "Resolve"
-msgstr ""
-
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1097
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1166
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1197
-#: includes/admin/class-wc-reviews-list-table.php:841
-msgid "Delete"
 msgstr ""
 
 #: includes/admin/class-wc-product-reviews-pro-admin.php:1099
 #: includes/admin/class-wc-product-reviews-pro-admin.php:1199
+msgid "Bulk Actions"
+msgstr ""
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1100
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1163
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1200
+msgid "Resolve"
+msgstr ""
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1101
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1170
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1201
+#: includes/admin/class-wc-reviews-list-table.php:841
+msgid "Delete"
+msgstr ""
+
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1103
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1203
 msgid "Apply"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1106
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1185
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1110
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1189
 msgid "Flagged by"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1107
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1186
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1111
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1190
 msgid "Reason"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1108
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1187
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1112
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1191
 #: includes/admin/views/html-report-product-reviews.php:17
 #: templates/myaccount/contribution-list.php:186
 msgid "Actions"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1135
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1139
 msgid "Guest"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1147
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1151
 msgid "No flag reasons given"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1177
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1181
 msgid "No one has flagged this contribution for removal."
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1235
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1239
 msgid "View Source"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1239
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1243
 msgid "Edit attachment"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1241
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1245
 msgid "Remove attachment"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:1264
+#: includes/admin/class-wc-product-reviews-pro-admin.php:1268
 msgid "Attachment has been removed"
 msgstr ""
 
@@ -550,7 +550,7 @@ msgid "Edit this %s"
 msgstr ""
 
 #: includes/admin/class-wc-reviews-list-table.php:844
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1118
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1114
 msgid "Edit"
 msgstr ""
 
@@ -1010,7 +1010,7 @@ msgid "Edit Video"
 msgstr ""
 
 #: includes/class-wc-product-reviews-pro-contribution-type.php:458
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1117
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1113
 #. translators: Placeholder: %s - contribution type (e.g. review, photo,
 #. video...)
 msgid "Edit %s"
@@ -1401,16 +1401,16 @@ msgstr ""
 msgid "Copied URL - ready to share!"
 msgstr ""
 
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:235
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:238
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:237
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:240
 msgid "Click to share on %s"
 msgstr ""
 
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:239
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:241
 msgid " (Opens in new window)"
 msgstr ""
 
-#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:252
+#: includes/integrations/jetpack/class-wc-product-reviews-pro-integration-jetpack.php:254
 msgid "Click to copy link"
 msgstr ""
 
@@ -1498,15 +1498,15 @@ msgstr ""
 msgid "Rating"
 msgstr ""
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:895
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:892
 msgid "Search for a vendor&hellip;"
 msgstr ""
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1340
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1336
 msgid "Product Vendor"
 msgstr ""
 
-#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1343
+#: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:1339
 #. translators: Placeholder: %s - product vendor's profile edit screen URL in
 #. parenthesis
 msgid "Product Vendor %s"
@@ -1962,7 +1962,7 @@ msgctxt "number of times contribution has been flagged"
 msgid "Flags"
 msgstr ""
 
-#: includes/admin/class-wc-product-reviews-pro-admin.php:640
+#: includes/admin/class-wc-product-reviews-pro-admin.php:644
 msgctxt "[contribution type] by [author name]"
 msgid "%1$s by %2$s"
 msgstr ""

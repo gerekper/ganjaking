@@ -6,7 +6,7 @@
  * Description: Easily download customers, orders, and coupons in CSV and XML and schedule recurring, automated exports via FTP, HTTP POST, and more.
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 5.1.2
+ * Version: 5.2.0
  * Text Domain: woocommerce-customer-order-csv-export
  * Domain Path: /i18n/languages/
  *
@@ -22,8 +22,8 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 18652:914de15813a903c767b55445608bf290
- * WC requires at least: 3.0.9
- * WC tested up to: 4.5.2
+ * WC requires at least: 3.5
+ * WC tested up to: 4.7.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -42,7 +42,7 @@ if ( ! is_woocommerce_active() ) {
 }
 
 // required Action Scheduler library
-// TODO: we can stop bundling Action Scheduler when WooCommerce 3.5 is the minimum required version as it's now part of core WooCommerce {WV 2019-11-12}
+// TODO: we can stop bundling Action Scheduler when WooCommerce 4.0 is the minimum required version as it's now part of core WooCommerce {WV 2019-11-12}
 require_once( plugin_dir_path( __FILE__ ) . 'vendor/woocommerce/action-scheduler/action-scheduler.php' );
 
 /**
@@ -54,16 +54,16 @@ class WC_Customer_Order_CSV_Export_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '5.6.0';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '4.4';
+	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.0.9';
+	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.4.1';
+	const FRAMEWORK_VERSION = '5.10.2';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Customer/Order/Coupon Export';
@@ -94,8 +94,6 @@ class WC_Customer_Order_CSV_Export_Loader {
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
-
-			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
 
 			add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
 		}

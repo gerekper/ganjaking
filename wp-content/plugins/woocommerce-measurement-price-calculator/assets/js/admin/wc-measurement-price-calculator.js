@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery( function( $ ) {
 
 	'use strict';
 
@@ -565,7 +565,7 @@ jQuery(document).ready(function($) {
 	 */
 	function handlePricingRules( pricingCalculatorEnabled ) {
 
-		if ( pricingCalculatorEnabled && $( '.wc-calculator-pricing-table tbody tr' ).size() > 0 ) {
+		if ( pricingCalculatorEnabled && $( '.wc-calculator-pricing-table tbody tr' ).length > 0 ) {
 			hidePriceFields();
 		} else {
 			showPriceFields();

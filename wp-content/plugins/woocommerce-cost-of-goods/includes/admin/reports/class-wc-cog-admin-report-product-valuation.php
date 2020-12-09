@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 // WC lazy-loads the report stock class so we have to load it ourselves ¯\_(ツ)_/¯
 if ( ! class_exists( 'WC_Report_Stock' ) ) {
@@ -126,7 +126,7 @@ class WC_COG_Admin_Report_Product_Valuation extends \WC_Report_Stock {
 				$item->product = $product;
 
 				if ( $product->is_type( 'variation' ) ) {
-					$item->parent = Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte_3_0() ? $product->get_parent_id() : $product->parent->id;
+					$item->parent = $product->get_parent_id();
 				} else {
 					$item->parent = 0;
 				}

@@ -633,50 +633,6 @@ class WC_Price_Calculator_Cart {
 
 
 	/**
-	 * Adds pricing calculator product custom user-input fields to the order item meta.
-	 *
-	 * This is a callback valid only in WooCommerce versions earlier than 3.0 and
-	 * is called during the checkout process for each cart item added to the order.
-	 *
-	 * @internal
-	 * TODO remove this method by version 4.0.0 or August 2020, whichever comes first {DM 2019-08-07}
-	 *
-	 * @since 3.0
-	 * @deprecated since 3.11.0
-	 *
-	 * @param int $item_id item identifier
-	 * @param array $values array of data representing a cart item
-	 */
-	public function add_order_item_meta( $item_id, $values ) {
-
-		_deprecated_function( __METHOD__, '3.11.0' );
-
-		// pricing calculator item?
-		if ( isset( $values['pricing_item_meta_data'] ) ) {
-
-			$display_data = $this->humanize_cart_item_data( $values, $values['pricing_item_meta_data'] );
-
-			// set any user-input fields to the order item meta data (which can be displayed on the frontend)
-			foreach ( $display_data as $name => $value ) {
-				wc_add_order_item_meta( $item_id, $name, $value );
-			}
-
-			// persist the configured item measurement data such that the exact same item could be re-configured at a later date
-			$measurement_data = $this->get_measurement_cart_item_data( $values, $values['pricing_item_meta_data'] );
-
-			wc_add_order_item_meta( $item_id, '_measurement_data', $measurement_data );
-
-			$_product = $values['data'];
-
-			if ( isset( $values['pricing_item_meta_data']['_quantity'] ) && \WC_Price_Calculator_Product::pricing_calculator_inventory_enabled( $_product ) ) {
-				// set the actual unit quantity (ie *2* fabrics at 3 ft each, rather than '6')
-				wc_update_order_item_meta( $item_id, '_qty', $values['pricing_item_meta_data']['_quantity'] );
-			}
-		}
-	}
-
-
-	/**
 	 * If there are any pricing calculator products in the cart, set the product
 	 * prices, if pricing inventory management is not enabled.  This is because
 	 * if pricing inventory management is not enabled and we have the following

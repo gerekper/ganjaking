@@ -621,6 +621,24 @@ class Beacon extends Abstract_Render implements Subscriber_Interface {
 					'url' => 'https://fr.docs.wp-rocket.me/article/1314-optimiser-les-google-fonts/?utm_source=wp_plugin&utm_medium=wp_rocket',
 				],
 			],
+			'image_dimensions'           => [
+				'en' => [
+					'id'  => '5fc70216de1bfa158fb54737',
+					'url' => 'https://docs.wp-rocket.me/article/1366-add-missing-image-dimensions/?utm_source=wp_plugin&utm_medium=wp_rocket',
+				],
+			],
+			'exclude_defer_js'           => [
+				'en' => [
+					'id'  => '59236dfb0428634b4a3358f9',
+					'url' => 'https://docs.wp-rocket.me/article/976-exclude-files-from-defer-js/?utm_source=wp_plugin&utm_medium=wp_rocket',
+				],
+			],
+			'exclude_lazyload'           => [
+				'en' => [
+					'id' => '5418c792e4b0e7b8127bed99',
+					'url' => 'https://docs.wp-rocket.me/article/15-disabling-lazy-load-on-specific-images/?utm_source=wp_plugin&utm_medium=wp_rocket',
+				],
+			],
 		];
 
 		return isset( $suggest[ $doc_id ][ $this->get_user_locale() ] )

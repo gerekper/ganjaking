@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Admin class
@@ -132,7 +132,7 @@ class WC_Social_Login_Admin {
 			wp_enqueue_style( 'wc-social-login-admin', wc_social_login()->get_plugin_url() . '/assets/css/admin/wc-social-login-admin.min.css', array( 'woocommerce_admin_styles' ), \WC_Social_Login::VERSION );
 
 			// admin JS
-			wp_enqueue_script( 'wc-social-login-admin', wc_social_login()->get_plugin_url() . '/assets/js/admin/wc-social-login-admin.min.js', array( 'jquery', 'jquery-ui-sortable', 'woocommerce_admin' ), \WC_Social_Login::VERSION );
+			wp_enqueue_script( 'wc-social-login-admin', wc_social_login()->get_plugin_url() . '/assets/js/admin/wc-social-login-admin.min.js', array( 'jquery', 'jquery-ui-sortable', 'woocommerce_admin' ), \WC_Social_Login::VERSION, true );
 		}
 
 		// WC admin.css is not enqueued on the User screens so we want to enqueue

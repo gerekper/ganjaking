@@ -830,30 +830,27 @@ class WC_Product_Reviews_Pro_Integration_Product_Vendors {
 				<?php
 
 				wc_enqueue_js( "
-					jQuery( document ).ready( function( $ ) {
+					$( '#screen-meta' ).remove();
+					$( '#screen-meta-links' ).remove();
 
-						jQuery( '#screen-meta' ).remove();
-						jQuery( '#screen-meta-links' ).remove();
-
-						$( '#save' ).on( 'click', function( e ) {
-							e.preventDefault();
-							$.post(
-								window.wc_product_reviews_pro_admin_reviews.ajax_url,
-								{
-									'action'          : 'wc_product_reviews_pro_update_contribution_status',
-									'security'        : window.wc_product_reviews_pro_admin_reviews.update_contribution_status_nonce,
-									'contribution_id' : $( this ).data( 'contribution-id' ),
-									'update_status'   : $( '#comment-status-radio' ).find( 'input:checked' ).val(),
-								},
-								function ( response ) {
-									if ( response && response.success && response.data ) {
-										window.location.href = response.data;
-									} else {
-										location.reload();
-									}
+					$( '#save' ).on( 'click', function( e ) {
+						e.preventDefault();
+						$.post(
+							window.wc_product_reviews_pro_admin_reviews.ajax_url,
+							{
+								'action'          : 'wc_product_reviews_pro_update_contribution_status',
+								'security'        : window.wc_product_reviews_pro_admin_reviews.update_contribution_status_nonce,
+								'contribution_id' : $( this ).data( 'contribution-id' ),
+								'update_status'   : $( '#comment-status-radio' ).find( 'input:checked' ).val(),
+							},
+							function ( response ) {
+								if ( response && response.success && response.data ) {
+									window.location.href = response.data;
+								} else {
+									location.reload();
 								}
-							);
-						} );
+							}
+						);
 					} );
 				" );
 
@@ -910,8 +907,8 @@ class WC_Product_Reviews_Pro_Integration_Product_Vendors {
 
 			// bulk actions aren't available to vendors, so we remove some HTML appendage for UI conformity
 			wc_enqueue_js( '
-				jQuery( ".bulkactions" ).remove();
-				jQuery( "select[name=\'comment_type\']" ).css( "margin-left", 0 );
+				$( ".bulkactions" ).remove();
+				$( "select[name=\'comment_type\']" ).css( "margin-left", 0 );
 			' );
 
 			remove_filter( 'wc_product_reviews_pro_enabled_contribution_types', array( $this, 'enable_product_vendor_replies' ), 10 );
@@ -920,9 +917,8 @@ class WC_Product_Reviews_Pro_Integration_Product_Vendors {
 			if ( 'yes' === get_option( 'wc_product_reviews_pro_admins_can_always_reply', 'no' ) && ! in_array( 'contribution_comment', wc_product_reviews_pro_get_enabled_contribution_types(), true ) ) {
 
 				wc_enqueue_js( "
-					jQuery( document ).ready( function( $ ) {
-
-						initialComments = $( '#the-comment-list > tr[id!=replyrow]' ).length;
+					( function( $ ) {
+						var initialComments = $( '#the-comment-list > tr[id!=replyrow]' ).length;
 
 						$( 'table.reviews' ).bind( 'DOMNodeInserted', function() {
 
@@ -932,7 +928,7 @@ class WC_Product_Reviews_Pro_Integration_Product_Vendors {
 								location.reload();
 							}
 						} );
-					} );
+					} ) ( jQuery );
 				" );
 			}
 

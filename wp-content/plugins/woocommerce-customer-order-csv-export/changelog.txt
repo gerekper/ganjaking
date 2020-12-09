@@ -1,5 +1,15 @@
 *** WooCommerce Customer/Order/Coupon Export Changelog ***
 
+2020.12.07 - version 5.2.0
+ * Tweak - Append the file extension automatically if the exported filename is missing it
+ * Tweak - Prevent automated exports to be created with an empty filename
+ * Fix - Export meta columns with the same ordering they're set in the Custom Formats admin page
+ * Fix - Fix create/edit/delete operations on custom formats using multibyte (non-ASCII) characters in the format name
+ * Fix - Ensure that `woocommerce_email_headers` hook receives all arguments as expected by the core filter
+ * Dev - Add `wc_customer_order_export_decimal_separator` and `wc_customer_order_export_thousands_separator` filters to allow the use of custom separators in exports
+ * Misc - Add compatibility for WooCommerce 4.7
+ * Misc - Require PHP 7.0 or newer
+
 2020.09.30 - version 5.1.2
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets
 

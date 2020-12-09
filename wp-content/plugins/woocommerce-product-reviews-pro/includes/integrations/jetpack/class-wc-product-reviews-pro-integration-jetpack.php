@@ -151,15 +151,17 @@ class WC_Product_Reviews_Pro_Integration_Jetpack {
 			$copied_alert = __( 'Copied URL - ready to share!', 'woocommerce-product-reviews-pro' );
 
 			wc_enqueue_js( '
-				$( document.body ).on( "click", ".sharedaddy.woocommerce-product-reviews .share-direct-link a", function( evt ) {
-					evt.preventDefault();
-					var temp = $( "<input>" );
-					$( "body" ).append( temp );
-					temp.val( $( this ).attr( "href" ) ).select();
-					document.execCommand( "copy" );
-					temp.remove();
-					alert( "' . esc_js( $copied_alert ) . '\n" + $( this ).attr( "href" ) );
-				} );
+				( function( $ ) {
+					$( document.body ).on( "click", ".sharedaddy.woocommerce-product-reviews .share-direct-link a", function( evt ) {
+						evt.preventDefault();
+						var temp = $( "<input>" );
+						$( "body" ).append( temp );
+						temp.val( $( this ).attr( "href" ) ).select();
+						document.execCommand( "copy" );
+						temp.remove();
+						alert( "' . esc_js( $copied_alert ) . '\n" + $( this ).attr( "href" ) );
+					} );
+				} ) ( jQuery );
 			' );
 		}
 	}

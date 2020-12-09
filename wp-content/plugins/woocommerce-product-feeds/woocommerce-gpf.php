@@ -4,10 +4,10 @@
  * Plugin URI: https://woocommerce.com/products/google-product-feed/
  * Description: WooCommerce extension that allows you to more easily populate advanced attributes into the Google Merchant Centre feed
  * Author: Ademti Software Ltd.
- * Version: 9.3.2
+ * Version: 9.4.0
  * Woo: 18619:d55b4f852872025741312839f142447e
  * WC requires at least: 4.2
- * WC tested up to: 4.7
+ * WC tested up to: 4.8
  * Author URI: https://www.ademti-software.co.uk/
  * License: GPLv3
  *
@@ -28,7 +28,7 @@ woothemes_queue_update( plugin_basename( __FILE__ ), 'd55b4f852872025741312839f1
 define( 'WOOCOMMERCE_GPF_DB_VERSION', 9 );
 
 // The current version.
-define( 'WOOCOMMERCE_GPF_VERSION', '9.3.2' );
+define( 'WOOCOMMERCE_GPF_VERSION', '9.4.0' );
 
 $woocommerce_gpf_dirname = dirname( __FILE__ ) . '/';
 require_once $woocommerce_gpf_dirname . 'vendor/woocommerce/action-scheduler/action-scheduler.php';

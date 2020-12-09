@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\CSV_Export\Admin;
 
 use SkyVerge\WooCommerce\CSV_Export\Admin\Automations\Edit;
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation_Factory;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 use SkyVerge\WooCommerce\CSV_Export\Admin\Automations\List_Table;
 
 defined( 'ABSPATH' ) or exit;
@@ -147,7 +147,7 @@ class Automations {
 
 		try {
 
-			if ( ! wp_verify_nonce( Framework\SV_WC_Helper::get_request( 'nonce' ), 'wc_customer_order_export_admin_' . self::ACTION_DELETE . '_automation' ) ) {
+			if ( ! wp_verify_nonce( Framework\SV_WC_Helper::get_requested_value( 'nonce' ), 'wc_customer_order_export_admin_' . self::ACTION_DELETE . '_automation' ) ) {
 				throw new Framework\SV_WC_Plugin_Exception( __( 'Please try again.', 'woocommerce-customer-order-csv-export' ) );
 			}
 

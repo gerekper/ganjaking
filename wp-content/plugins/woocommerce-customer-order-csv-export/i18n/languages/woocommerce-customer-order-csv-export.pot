@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Customer/Order/Coupon Export 5.1.2\n"
+"Project-Id-Version: WooCommerce Customer/Order/Coupon Export 5.2.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-09-30 20:53:57+00:00\n"
+"POT-Creation-Date: 2020-12-07 07:25:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: class-wc-customer-order-csv-export.php:462
+#: class-wc-customer-order-csv-export.php:461
 #. translators: Placeholders: %1$s - plugin name, %2$s - opening <a> link tag,
 #. %3$s closing </a> link tag, %4$s - opening <a> link tag, %5$s closing </a>
 #. link tag, %6$s - opening <a> link tag, %7$s closing </a> link tag
@@ -23,7 +23,7 @@ msgid ""
 "%6$supdated documentation%7$s to learn more."
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:488
+#: class-wc-customer-order-csv-export.php:487
 #. translators: Placeholders: %1$s - <strong>; %2$s - </strong>; %3$s, %5$s -
 #. <a> tags; %4$s - </a> tag
 msgid ""
@@ -33,21 +33,21 @@ msgid ""
 "enabled, or switch to a %5$srecommended hosting provider%4$s."
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:498
+#: class-wc-customer-order-csv-export.php:497
 #. translators: Placeholders: %1$s - <strong>; %2$s - </strong>
 msgid ""
 "In the meantime, you can process manual exports by enabling the %1$sBatch "
 "processing%2$s setting."
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:515
+#: class-wc-customer-order-csv-export.php:514
 #. translators: Placeholders: %1$s - <a> tag; %2$s - </a> tag
 msgid ""
 "Heads up! Your exports may consume more memory and take longer than usual "
 "unless mysqli is installed and enabled on your site. %1$sLearn More%2$s"
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:533
+#: class-wc-customer-order-csv-export.php:532
 #. translators: Placeholders: %1$s - opening <a> link tag, %2$s closing </a>
 #. link tag
 msgid ""
@@ -55,7 +55,7 @@ msgid ""
 "here%2$s to view your automated exports and custom formats."
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:550
+#: class-wc-customer-order-csv-export.php:549
 #. translators: Placeholders: %1$s - plugin name, %2$s - opening <a> link tag,
 #. %3$s closing </a> link tag
 msgid ""
@@ -63,7 +63,7 @@ msgid ""
 "your settings and data from XML Export Suite%3$s."
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:570
+#: class-wc-customer-order-csv-export.php:569
 #. translators: Placeholders: %1$s - plugin name, %2$s - opening <a> link tag,
 #. %3$s - closing </a> link tag, %4$s - opening <a> link tag, %5$s - closing
 #. </a> link tag
@@ -400,24 +400,6 @@ msgstr ""
 msgid "Company"
 msgstr ""
 
-#: includes/Integrations/Jilt_Promotions/Automations.php:131
-msgid "Communicate with customers in minutes!"
-msgstr ""
-
-#: includes/Integrations/Jilt_Promotions/Automations.php:132
-msgid ""
-"Jilt automatically syncs your store and customer data, so you can send "
-"powerful, personalized messages to your customers with just a few clicks."
-msgstr ""
-
-#: includes/Integrations/Jilt_Promotions/Automations.php:136
-msgid "Learn more"
-msgstr ""
-
-#: includes/Integrations/Jilt_Promotions/Automations.php:142
-msgid "I want to try Jilt"
-msgstr ""
-
 #: includes/admin/Admin_Custom_Formats.php:253
 msgid "Comma"
 msgstr ""
@@ -491,307 +473,307 @@ msgstr ""
 msgid "Filename"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:157 includes/admin/Manual_Export.php:132
+#: includes/admin/Automations/Edit.php:160 includes/admin/Manual_Export.php:132
 #: includes/admin/views/html-export-modals.php:237
 msgid "Format"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:168
+#: includes/admin/Automations/Edit.php:171
 msgid "Schedule options"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:174
+#: includes/admin/Automations/Edit.php:177
 msgid "Trigger automated export"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:175
+#: includes/admin/Automations/Edit.php:178
 msgid ""
 "Choose whether to auto-export orders on a schedule or immediately when "
 "they're paid for."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:178
+#: includes/admin/Automations/Edit.php:181
 msgid "on scheduled intervals"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:179
+#: includes/admin/Automations/Edit.php:182
 msgid "immediately as orders are paid"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:196
+#: includes/admin/Automations/Edit.php:199
 #. translators: Placeholders: %s - date
 msgid "The next export is scheduled on %s"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:198
+#: includes/admin/Automations/Edit.php:201
 msgid "The export is not scheduled."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:204
+#: includes/admin/Automations/Edit.php:207
 msgid "Start time"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:207
+#: includes/admin/Automations/Edit.php:210
 #. translators: Placeholders: %s - export type, such as orders or customers
 msgid "Any new %s will start exporting at this time."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:208
-#: includes/admin/Automations/Edit.php:229
+#: includes/admin/Automations/Edit.php:211
+#: includes/admin/Automations/Edit.php:232
 msgid "items"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:212
+#: includes/admin/Automations/Edit.php:215
 #. translators: Placeholders: %s - time
 msgid "Local time is %s."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:225
+#: includes/admin/Automations/Edit.php:228
 msgid "Export interval (in minutes)*"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:228
+#: includes/admin/Automations/Edit.php:231
 #. translators: Placeholders: %s - export type, such as orders or customers
 msgid "Any new %s will be exported on this schedule."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:231
+#: includes/admin/Automations/Edit.php:234
 msgid "Required in order to schedule the automatic export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:241
+#: includes/admin/Automations/Edit.php:244
 #: includes/admin/Automations/List_Table.php:416
 msgid "Method"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:242
+#: includes/admin/Automations/Edit.php:245
 msgid "Automatically export orders via the method selected."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:249
+#: includes/admin/Automations/Edit.php:252
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Local exports are generated, then saved to the %1$sExport List%2$s for 14 "
 "days."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:277
+#: includes/admin/Automations/Edit.php:280
 msgid "Export options"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:283 includes/admin/Manual_Export.php:194
+#: includes/admin/Automations/Edit.php:286 includes/admin/Manual_Export.php:194
 msgid "Order statuses"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:284 includes/admin/Manual_Export.php:195
+#: includes/admin/Automations/Edit.php:287 includes/admin/Manual_Export.php:195
 msgid "Orders with these statuses will be included in the export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:292 includes/admin/Manual_Export.php:202
+#: includes/admin/Automations/Edit.php:295 includes/admin/Manual_Export.php:202
 msgid "Leave blank to export orders with any status."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:298 includes/admin/Manual_Export.php:208
+#: includes/admin/Automations/Edit.php:301 includes/admin/Manual_Export.php:208
 #: includes/admin/Manual_Export.php:238
 msgid "Product categories"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:299 includes/admin/Manual_Export.php:209
+#: includes/admin/Automations/Edit.php:302 includes/admin/Manual_Export.php:209
 msgid "Orders with products in these categories will be included in the export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:307 includes/admin/Manual_Export.php:216
+#: includes/admin/Automations/Edit.php:310 includes/admin/Manual_Export.php:216
 msgid "Leave blank to export orders with products in any category."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:313 includes/admin/Manual_Export.php:222
+#: includes/admin/Automations/Edit.php:316 includes/admin/Manual_Export.php:222
 #: includes/admin/Manual_Export.php:252
 msgid "Products"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:314 includes/admin/Manual_Export.php:223
+#: includes/admin/Automations/Edit.php:317 includes/admin/Manual_Export.php:223
 msgid "Orders with these products will be included in the export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:323 includes/admin/Manual_Export.php:232
+#: includes/admin/Automations/Edit.php:326 includes/admin/Manual_Export.php:232
 msgid "Leave blank to export orders with any products."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:331 includes/admin/Manual_Export.php:292
+#: includes/admin/Automations/Edit.php:334 includes/admin/Manual_Export.php:292
 #: includes/admin/views/html-export-modals.php:272
 msgid "Add order notes"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:332 includes/admin/Manual_Export.php:293
+#: includes/admin/Automations/Edit.php:335 includes/admin/Manual_Export.php:293
 #: includes/admin/views/html-export-modals.php:222
 msgid "Enable to add a note to exported orders."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:377
+#: includes/admin/Automations/Edit.php:380
 msgid "FTP settings"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:383
+#: includes/admin/Automations/Edit.php:386
 msgid "Server address"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:384
+#: includes/admin/Automations/Edit.php:387
 msgid "The address of the remote FTP server to upload to."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:393
+#: includes/admin/Automations/Edit.php:396
 msgid "Username"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:394
+#: includes/admin/Automations/Edit.php:397
 msgid "The username for the remote FTP server."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:403
+#: includes/admin/Automations/Edit.php:406
 msgid "Password"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:404
+#: includes/admin/Automations/Edit.php:407
 msgid "The password for the remote FTP server."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:413
+#: includes/admin/Automations/Edit.php:416
 msgid "Port"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:414
+#: includes/admin/Automations/Edit.php:417
 msgid "The port for the remote FTP server."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:425
+#: includes/admin/Automations/Edit.php:428
 msgid "Initial path"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:426
+#: includes/admin/Automations/Edit.php:429
 msgid ""
 "The initial path for the remote FTP server with trailing slash, but "
 "excluding leading slash."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:435
+#: includes/admin/Automations/Edit.php:438
 msgid "Security"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:436
+#: includes/admin/Automations/Edit.php:439
 msgid "Select the security type for the remote FTP server."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:440
+#: includes/admin/Automations/Edit.php:443
 msgid "None"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:441
+#: includes/admin/Automations/Edit.php:444
 msgid "FTP with Implicit SSL"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:442
+#: includes/admin/Automations/Edit.php:445
 msgid "FTP with Explicit TLS/SSL"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:443
+#: includes/admin/Automations/Edit.php:446
 msgid "SFTP (FTP over SSH)"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:451
+#: includes/admin/Automations/Edit.php:454
 msgid "Passive mode"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:452
+#: includes/admin/Automations/Edit.php:455
 msgid ""
 "Enable passive mode if you are having issues connecting to FTP, especially "
 "if you see \"PORT command successful\" in the error log."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:461
+#: includes/admin/Automations/Edit.php:464
 msgid "Test FTP"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:493
+#: includes/admin/Automations/Edit.php:496
 msgid "HTTP POST settings"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:499
+#: includes/admin/Automations/Edit.php:502
 msgid "HTTP POST URL"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:500
+#: includes/admin/Automations/Edit.php:503
 msgid "Enter the URL to POST the exported file to."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:509
+#: includes/admin/Automations/Edit.php:512
 msgid "Test HTTP POST"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:541
+#: includes/admin/Automations/Edit.php:544
 msgid "Email settings"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:547
+#: includes/admin/Automations/Edit.php:550
 msgid "Recipient(s)"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:549
+#: includes/admin/Automations/Edit.php:552
 #. translators: Placeholders: %s - email address
 msgid ""
 "Enter recipients (comma separated) the exported file should be emailed to. "
 "Defaults to %s."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:558
+#: includes/admin/Automations/Edit.php:561
 msgid "Email subject"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:559
+#: includes/admin/Automations/Edit.php:562
 msgid "Enter the email subject."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:562
+#: includes/admin/Automations/Edit.php:565
 #. translators: Placeholders: %1$s - blog name
 msgid "[%1$s] Export"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:572
+#: includes/admin/Automations/Edit.php:575
 msgid "Test Email"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:626
+#: includes/admin/Automations/Edit.php:629
 #: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:370
 msgid "Save"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:645
+#: includes/admin/Automations/Edit.php:648
 #: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:388
 msgid "Please refresh the page and retry."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:651
+#: includes/admin/Automations/Edit.php:654
 msgid "A name is required."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:655
+#: includes/admin/Automations/Edit.php:658
 msgid "The name must be 25 characters or fewer."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:659
+#: includes/admin/Automations/Edit.php:662
 #: includes/admin/class-wc-customer-order-csv-export-admin.php:311
 msgid "The name cannot be \"Manual\"."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:710
+#: includes/admin/Automations/Edit.php:716
 msgid "Automated export saved successfully."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:728
+#: includes/admin/Automations/Edit.php:734
 #. translators: Placeholders: %s - error message
 msgid "Automated export could not be saved. %s"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:886
+#: includes/admin/Automations/Edit.php:892
 msgid "Please save your settings before testing"
 msgstr ""
 
@@ -1808,23 +1790,12 @@ msgstr ""
 msgid "Order exported to %s."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:893
-msgid ""
-"This method has been deprecated. Use "
-"wc_customer_order_csv_export_get_export() instead."
-msgstr ""
-
-#: includes/class-wc-customer-order-csv-export-handler.php:931
+#: includes/class-wc-customer-order-csv-export-handler.php:910
 #. translators: Placeholders: %s - export ID
 msgid "Could not find export: %s"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:1014
-#: includes/class-wc-customer-order-csv-export-handler.php:1030
-msgid "This method has been deprecated."
-msgstr ""
-
-#: includes/class-wc-customer-order-csv-export-handler.php:1467
+#: includes/class-wc-customer-order-csv-export-handler.php:1417
 #. translators: Placeholders: %s - error message
 msgid "Failed to transfer exported file: %s"
 msgstr ""
@@ -2017,10 +1988,10 @@ msgctxt "export output type"
 msgid "XML"
 msgstr ""
 
-#: includes/CSV_Export_Generator.php:1026
-#: includes/CSV_Export_Generator.php:1040
-#: includes/XML_Export_Generator.php:1068
-#: includes/XML_Export_Generator.php:1082
+#: includes/CSV_Export_Generator.php:1018
+#: includes/CSV_Export_Generator.php:1032
+#: includes/XML_Export_Generator.php:1057
+#: includes/XML_Export_Generator.php:1071
 #. translators: Placeholders: %1$s - first name; %2$s - last name
 #. translators: Placeholders: %1$s - first name; %2$s - last name / surname
 #. translators: Placeholders: %1$s - first name; %2$s - last name / surname
@@ -2052,7 +2023,7 @@ msgid "Filter"
 msgstr ""
 
 #: includes/class-wc-customer-order-csv-export-compatibility.php:329
-#: includes/class-wc-customer-order-csv-export-compatibility.php:402
+#: includes/class-wc-customer-order-csv-export-compatibility.php:394
 msgctxt "hash before the order number"
 msgid "#"
 msgstr ""

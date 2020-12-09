@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Customer/Order CSV Export AJAX Handler
@@ -92,11 +92,11 @@ class WC_Customer_Order_CSV_Export_AJAX {
 				$export_type      = $_POST['export_type'];
 				$export_method    = $_POST['export_method'];
 				$output_type      = $_POST['output_type'];
-				$export_format    = Framework\SV_WC_Helper::get_post( 'export_format' );
-				$filename         = wc_clean( wp_unslash( Framework\SV_WC_Helper::get_post( 'filename' ) ) );
-				$mark_as_exported = (bool) Framework\SV_WC_Helper::get_post( 'mark_as_exported' );
-				$add_notes        = (bool) Framework\SV_WC_Helper::get_post( 'add_notes' );
-				$batch_enabled    = (bool) Framework\SV_WC_Helper::get_post( 'batch_enabled' );
+				$export_format    = Framework\SV_WC_Helper::get_posted_value( 'export_format' );
+				$filename         = wc_clean( wp_unslash( Framework\SV_WC_Helper::get_posted_value( 'filename' ) ) );
+				$mark_as_exported = (bool) Framework\SV_WC_Helper::get_posted_value( 'mark_as_exported' );
+				$add_notes        = (bool) Framework\SV_WC_Helper::get_posted_value( 'add_notes' );
+				$batch_enabled    = (bool) Framework\SV_WC_Helper::get_posted_value( 'batch_enabled' );
 
 				require_once( wc_customer_order_csv_export()->get_plugin_path() . '/includes/class-wc-customer-order-csv-export-query-parser.php' );
 
@@ -358,11 +358,11 @@ class WC_Customer_Order_CSV_Export_AJAX {
 
 		try {
 
-			if ( ! wp_verify_nonce( Framework\SV_WC_Helper::get_post( 'nonce' ), 'wc_customer_order_export_admin_toggle_automation' ) ) {
+			if ( ! wp_verify_nonce( Framework\SV_WC_Helper::get_posted_value( 'nonce' ), 'wc_customer_order_export_admin_toggle_automation' ) ) {
 				throw new Framework\SV_WC_Plugin_Exception( __( 'Please try again.', 'woocommerce-customer-order-csv-export' ) );
 			}
 
-			$automation = \SkyVerge\WooCommerce\CSV_Export\Automations\Automation_Factory::get_automation( Framework\SV_WC_Helper::get_post( 'automation_id' ) );
+			$automation = \SkyVerge\WooCommerce\CSV_Export\Automations\Automation_Factory::get_automation( Framework\SV_WC_Helper::get_posted_value( 'automation_id' ) );
 
 			if ( ! $automation || ! $automation->get_id() ) {
 				throw new Framework\SV_WC_Plugin_Exception( __( 'Not found.', 'woocommerce-customer-order-csv-export' ) );

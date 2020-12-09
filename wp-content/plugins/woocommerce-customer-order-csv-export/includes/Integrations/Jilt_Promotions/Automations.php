@@ -26,57 +26,27 @@ namespace SkyVerge\WooCommerce\CSV_Export\Integrations\Jilt_Promotions;
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation;
-use SkyVerge\WooCommerce\Jilt_Promotions\Handlers\Installation;
-use SkyVerge\WooCommerce\Jilt_Promotions\Handlers\Prompt;
-use SkyVerge\WooCommerce\Jilt_Promotions\Messages;
-use SkyVerge\WooCommerce\Jilt_Promotions\Notices\Notice;
 
 /**
  * Handler for Jilt Promotion prompts on the Automations screen.
  *
+ * TODO: remove this class by version 6.0.0 or by 2021-11-16 {DM 2020-11-16}
+ *
  * @since 5.1.0
+ * @deprecated 5.2.0
  */
-final class Automations extends Prompt {
-
-
-	/** @var string  */
-	private $automated_exports_message_id = 'coc-export-automated-exports';
+final class Automations {
 
 
 	/**
-	 * Adds the necessary action & filter hooks.
+	 * Automations constructor.
 	 *
-	 * @since 5.1.0
+	 * @since 5.2.0
+	 * @deprecated 5.2.0
 	 */
-	protected function add_prompt_hooks() {
+	public function __construct() {
 
-		if ( ! Messages::is_message_enabled( $this->automated_exports_message_id ) ) {
-			add_action( 'wc_customer_order_export_automated_export_saved', [ $this, 'maybe_enable_automated_exports_message' ] );
-		}
-
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
-		add_action( 'admin_notices', [ $this, 'add_admin_notices' ] );
-	}
-
-
-	/**
-	 * Gets the connection redirect args to attribute the plugin installation to this prompt.
-	 *
-	 * @see Prompt::add_connection_redirect_args()
-	 *
-	 * @since 5.1.0
-	 *
-	 * @return array
-	 */
-	protected function get_connection_redirect_args() {
-
-		$args = [];
-
-		if ( $this->automated_exports_message_id === Installation::get_jilt_installed_from() ) {
-			$args = [ 'utm_term' => $this->automated_exports_message_id ];
-		}
-
-		return $args;
+		wc_deprecated_function( __METHOD__, '5.2.0' );
 	}
 
 
@@ -86,14 +56,11 @@ final class Automations extends Prompt {
 	 * @internal
 	 *
 	 * @since 5.1.0
+	 * @deprecated 5.2.0
 	 */
 	public function enqueue_assets() {
 
-		if ( Messages::is_message_enabled( $this->automated_exports_message_id ) ) {
-
-			wp_enqueue_style( Installation::INSTALL_SCRIPT_HANDLE );
-			wp_enqueue_script( Installation::INSTALL_SCRIPT_HANDLE );
-		}
+		wc_deprecated_function( __METHOD__, '5.2.0' );
 	}
 
 
@@ -103,14 +70,13 @@ final class Automations extends Prompt {
 	 * @internal
 	 *
 	 * @since 5.1.0
+	 * @deprecated 5.2.0
 	 *
 	 * @param Automation $automation
 	 */
 	public function maybe_enable_automated_exports_message( Automation $automation ) {
 
-		if ( \WC_Customer_Order_CSV_Export::EXPORT_TYPE_CUSTOMERS === $automation->get_export_type() ) {
-			Messages::enable_message( $this->automated_exports_message_id );
-		}
+		wc_deprecated_function( __METHOD__, '5.2.0' );
 	}
 
 
@@ -120,33 +86,11 @@ final class Automations extends Prompt {
 	 * @internal
 	 *
 	 * @since 5.1.0
+	 * @deprecated 5.2.0
 	 */
 	public function add_admin_notices() {
 
-		if ( Messages::is_message_enabled( $this->automated_exports_message_id ) ) {
-
-			$notice = new Notice();
-
-			$notice->set_message_id( $this->automated_exports_message_id );
-			$notice->set_title( __( 'Communicate with customers in minutes!', 'woocommerce-customer-order-csv-export' ) );
-			$notice->set_content( __( 'Jilt automatically syncs your store and customer data, so you can send powerful, personalized messages to your customers with just a few clicks.', 'woocommerce-customer-order-csv-export' ) );
-			$notice->set_actions( [
-				[
-					'name'  => 'learn-more',
-					'label' => __( 'Learn more', 'woocommerce-customer-order-csv-export' ),
-					'url'   => 'https://www.skyverge.com/go/contact-customers',
-					'type'  => Notice::ACTION_TYPE_LINK,
-				],
-				[
-					'name'    => 'try-jilt',
-					'label'   => __( 'I want to try Jilt', 'woocommerce-customer-order-csv-export' ),
-					'primary' => true,
-					'type'    => Notice::ACTION_TYPE_BUTTON,
-				],
-			] );
-
-			$notice->render();
-		}
+		wc_deprecated_function( __METHOD__, '5.2.0' );
 	}
 
 

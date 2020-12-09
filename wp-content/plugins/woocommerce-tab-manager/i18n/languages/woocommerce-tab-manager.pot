@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Tab Manager 1.13.1\n"
+"Project-Id-Version: WooCommerce Tab Manager 1.14.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-09-30 06:37:38+00:00\n"
+"POT-Creation-Date: 2020-12-07 08:48:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -126,7 +126,7 @@ msgstr ""
 
 #: admin/post-types/writepanels/writepanel-product_data-tabs.php:42
 #: admin/woocommerce-tab-manager-admin-init.php:261
-#: class-wc-tab-manager.php:301
+#: class-wc-tab-manager.php:300
 msgid "Tabs"
 msgstr ""
 
@@ -262,7 +262,7 @@ msgid "Add Global Tab"
 msgstr ""
 
 #: admin/woocommerce-tab-manager-admin-init.php:252
-#: class-wc-tab-manager.php:307
+#: class-wc-tab-manager.php:306
 msgid "Edit Tab"
 msgstr ""
 
@@ -275,77 +275,77 @@ msgstr ""
 msgid "WooCommerce Tab Manager"
 msgstr ""
 
-#: class-wc-tab-manager.php:302
+#: class-wc-tab-manager.php:301
 msgid "Tab"
 msgstr ""
 
-#: class-wc-tab-manager.php:304
+#: class-wc-tab-manager.php:303
 msgid "Add Tab"
 msgstr ""
 
-#: class-wc-tab-manager.php:305
+#: class-wc-tab-manager.php:304
 msgid "Add New Tab"
 msgstr ""
 
-#: class-wc-tab-manager.php:306
+#: class-wc-tab-manager.php:305
 msgid "Edit"
 msgstr ""
 
-#: class-wc-tab-manager.php:308
+#: class-wc-tab-manager.php:307
 msgid "New Tab"
 msgstr ""
 
-#: class-wc-tab-manager.php:309
+#: class-wc-tab-manager.php:308
 msgid "View Tabs"
 msgstr ""
 
-#: class-wc-tab-manager.php:310
+#: class-wc-tab-manager.php:309
 msgid "View Tab"
 msgstr ""
 
-#: class-wc-tab-manager.php:311
+#: class-wc-tab-manager.php:310
 msgid "Search Tabs"
 msgstr ""
 
-#: class-wc-tab-manager.php:312
+#: class-wc-tab-manager.php:311
 msgid "No Tabs found"
 msgstr ""
 
-#: class-wc-tab-manager.php:313
+#: class-wc-tab-manager.php:312
 msgid "No Tabs found in trash"
 msgstr ""
 
-#: class-wc-tab-manager.php:315
+#: class-wc-tab-manager.php:314
 msgid "This is where you can add new tabs that you can add to products."
 msgstr ""
 
-#: class-wc-tab-manager.php:678
+#: class-wc-tab-manager.php:677
 msgid "Description"
 msgstr ""
 
-#: class-wc-tab-manager.php:679
+#: class-wc-tab-manager.php:678
 msgid "Displays the product content set in the main content editor."
 msgstr ""
 
-#: class-wc-tab-manager.php:680
+#: class-wc-tab-manager.php:679
 msgid "Product Description"
 msgstr ""
 
-#: class-wc-tab-manager.php:686 class-wc-tab-manager.php:688
+#: class-wc-tab-manager.php:685 class-wc-tab-manager.php:687
 msgid "Additional Information"
 msgstr ""
 
-#: class-wc-tab-manager.php:687
+#: class-wc-tab-manager.php:686
 msgid ""
 "Displays the product attributes and properties configured in the Product "
 "Data panel."
 msgstr ""
 
-#: class-wc-tab-manager.php:694
+#: class-wc-tab-manager.php:693
 msgid "Reviews (%d)"
 msgstr ""
 
-#: class-wc-tab-manager.php:695
+#: class-wc-tab-manager.php:694
 msgid ""
 "Displays the product review form and any reviews. Use %d in the Title to "
 "substitute the number of reviews for the product."
@@ -448,7 +448,7 @@ msgstr ""
 msgid "http://www.woocommerce.com"
 msgstr ""
 
-#: class-wc-tab-manager.php:303
+#: class-wc-tab-manager.php:302
 msgctxt "Admin menu name"
 msgid "Tab Manager"
 msgstr ""

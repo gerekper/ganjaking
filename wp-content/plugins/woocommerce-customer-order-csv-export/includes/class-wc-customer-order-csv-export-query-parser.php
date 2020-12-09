@@ -24,7 +24,7 @@
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Customer/Order CSV Export Query Parser
@@ -337,50 +337,39 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 
 		if ( ! empty( $order_ids ) ) {
 
-			if ( Framework\SV_WC_Plugin_Compatibility::is_wc_subscriptions_version_gte_2_0() ) {
+			$query_args = [
+				'nopaging'    => true,
+				'post_status' => 'any',
+			];
 
-				$query_args = [
-					'nopaging'    => true,
-					'post_status' => 'any',
-				];
+			if ( 'subscriptions' === $which ) {
 
-				if ( 'subscriptions' === $which ) {
+				$subscription_orders = get_posts( array_merge( $query_args, [
+					'fields'          => 'id=>parent',
+					'post_type'       => 'shop_subscription',
+					'post_parent__in' => $order_ids,
+				] ) );
 
-					$subscription_orders = get_posts( array_merge( $query_args, [
-						'fields'          => 'id=>parent',
-						'post_type'       => 'shop_subscription',
-						'post_parent__in' => $order_ids,
-					] ) );
+				if ( ! empty( $subscription_orders ) ) {
 
-					if ( ! empty( $subscription_orders ) ) {
+					foreach ( $subscription_orders as $subscription_order ) {
 
-						foreach ( $subscription_orders as $subscription_order ) {
+						$order_id = current( (array) $subscription_order );
 
-							$order_id = current( (array) $subscription_order );
-
-							if ( is_numeric( $order_id ) && in_array( $order_id, $order_ids, false ) ) {
-								$filtered_ids[] = (int) $order_id;
-							}
+						if ( is_numeric( $order_id ) && in_array( $order_id, $order_ids, false ) ) {
+							$filtered_ids[] = (int) $order_id;
 						}
 					}
-
-				} elseif( 'renewals' === $which ) {
-
-					$filtered_ids = get_posts( array_merge( $query_args, [
-						'fields'    => 'ids',
-						'post_type' => 'shop_order',
-						'meta_key'  => '_subscription_renewal',
-						'post__in'  => $order_ids,
-					] ) );
 				}
 
-			} else { // legacy handling for Subscriptions 1.5.x
+			} elseif( 'renewals' === $which ) {
 
-				if ( 'subscriptions' === $which ) {
-					$filtered_ids = array_filter( $order_ids, [ 'WC_Subscriptions_Order', 'order_contains_subscription' ] );
-				} elseif ( 'renewals' === $which ) {
-					$filtered_ids = array_filter( $order_ids, [ 'WC_Subscriptions_Renewal_Order', 'is_renewal' ] );
-				}
+				$filtered_ids = get_posts( array_merge( $query_args, [
+					'fields'    => 'ids',
+					'post_type' => 'shop_order',
+					'meta_key'  => '_subscription_renewal',
+					'post__in'  => $order_ids,
+				] ) );
 			}
 		}
 

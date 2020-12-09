@@ -1,5 +1,8 @@
 *** WooCommerce MSRP Pricing ***
 
+2020.12.07 - version 3.1.2
+* Change: WooCommerce 4.8 compatibility
+
 2020.11.11 - version 3.1.1
 * Change: WooCommerce 4.7 compatibility
 

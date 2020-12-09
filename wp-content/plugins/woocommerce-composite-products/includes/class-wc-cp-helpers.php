@@ -31,13 +31,23 @@ class WC_CP_Helpers {
 	 * Simple runtime cache getter.
 	 *
 	 * @param  string  $key
+	 * @param  string  $group_key
 	 * @return mixed
 	 */
-	public static function cache_get( $key ) {
+	public static function cache_get( $key, $group_key = '' ) {
+
 		$value = null;
-		if ( isset( self::$cache[ $key ] ) ) {
+
+		if ( $group_key ) {
+
+			if ( $group_id = self::cache_get( $group_key . '_id' ) ) {
+				$value = self::cache_get( $group_key . '_' . $group_id . '_' . $key );
+			}
+
+		} elseif ( isset( self::$cache[ $key ] ) ) {
 			$value = self::$cache[ $key ];
 		}
+
 		return $value;
 	}
 
@@ -46,10 +56,23 @@ class WC_CP_Helpers {
 	 *
 	 * @param  string  $key
 	 * @param  mixed   $value
+	 * @param  string  $group_key
 	 * @return void
 	 */
-	public static function cache_set( $key, $value ) {
-		self::$cache[ $key ] = $value;
+	public static function cache_set( $key, $value, $group_key = '' ) {
+
+		if ( $group_key ) {
+
+			if ( null === ( $group_id = self::cache_get( $group_key . '_id' ) ) ) {
+				$group_id = md5( $group_key );
+				self::cache_set( $group_key . '_id', $group_id );
+			}
+
+			self::$cache[ $group_key . '_' . $group_id . '_' . $key ] = $value;
+
+		} else {
+			self::$cache[ $key ] = $value;
+		}
 	}
 
 	/**
@@ -57,11 +80,39 @@ class WC_CP_Helpers {
 	 *
 	 * @param  string  $key
 	 * @param  mixed   $value
+	 * @param  string  $group_key
 	 * @return void
 	 */
-	public static function cache_delete( $key ) {
-		if ( isset( self::$cache[ $key ] ) ) {
+	public static function cache_delete( $key, $group_key = '' ) {
+
+		if ( $group_key ) {
+
+			if ( $group_id = self::cache_get( $group_key . '_id' ) ) {
+				self::cache_delete( $group_key . '_' . $group_id . '_' . $key );
+			}
+
+		} elseif ( isset( self::$cache[ $key ] ) ) {
 			unset( self::$cache[ $key ] );
+		}
+	}
+
+	/**
+	 * Simple runtime group cache invalidator.
+	 *
+	 * @since  7.1.4
+	 *
+	 * @param  string  $key
+	 * @param  string  $group_key
+	 * @param  mixed   $value
+	 * @return void
+	 */
+	public static function cache_invalidate( $group_key = '' ) {
+
+		if ( '' === $group_key ) {
+			self::$cache = array();
+		} elseif ( $group_id = self::cache_get( $group_key . '_id' ) ) {
+			$group_id = md5( $group_key . '_' . $group_id );
+			self::cache_set( $group_key . '_id', $group_id );
 		}
 	}
 

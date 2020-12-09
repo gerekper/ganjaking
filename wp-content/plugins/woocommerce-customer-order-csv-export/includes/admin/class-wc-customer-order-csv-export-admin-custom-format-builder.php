@@ -24,7 +24,7 @@
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Customer/Order CSV Export Admin Column Mapper Class
@@ -563,45 +563,6 @@ class WC_Customer_Order_CSV_Export_Admin_Custom_Format_Builder {
 		wc_customer_order_csv_export()->get_formats_instance()->save_custom_format( $format_definition->get_export_type(), $format_definition );
 
 		return $format_definition;
-	}
-
-
-	/** Deprecated methods ********************************************************************************************/
-
-
-	/**
-	 * Gets sections.
-	 *
-	 * @since 4.0.0
-	 * @deprecated 4.7.0
-	 *
-	 * @return array
-	 */
-	public function get_sections() {
-
-		wc_deprecated_function( __METHOD__,
-			'4.7.0',
-			'wc_customer_order_csv_export()->get_admin_instance()->get_custom_formats_admin_instance()->get_sections()'
-		);
-
-		return wc_customer_order_csv_export()->get_admin_instance()->get_custom_formats_admin_instance()->get_sections();
-	}
-
-
-	/**
-	 * Outputs sections for field mapper.
-	 *
-	 * @since 4.0.0
-	 * @deprecated 4.7.0
-	 */
-	public function output_sections() {
-
-		_deprecated_function( 'wc_customer_order_csv_export()->get_admin_instance()->get_custom_format_builder_instance()->output_sections()',
-			'4.7.0',
-			'wc_customer_order_csv_export()->get_admin_instance()->get_custom_formats_admin_instance()->output_sections()'
-		);
-
-		wc_customer_order_csv_export()->get_admin_instance()->get_custom_formats_admin_instance()->output_sections();
 	}
 
 

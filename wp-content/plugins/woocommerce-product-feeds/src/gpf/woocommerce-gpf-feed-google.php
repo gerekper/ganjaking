@@ -46,7 +46,9 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		WoocommerceGpfDebugService $debug
 	) {
 		parent::__construct( $woocommerce_gpf_common, $debug );
+
 		$this->store_info->feed_url = add_query_arg( 'woocommerce_gpf', 'google', $this->store_info->feed_url_base );
+
 		if ( ! empty( $this->store_info->base_country ) ) {
 			if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ||
 				 'CA' === substr( $this->store_info->base_country, 0, 2 ) ) {
@@ -56,6 +58,9 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 				}
 			}
 		}
+		$this->tax_excluded  = apply_filters( 'woocommerce_gpf_tax_excluded', $this->tax_excluded, $this->store_info );
+		$this->tax_attribute = apply_filters( 'woocommerce_gpf_tax_attribute', $this->tax_attribute, $this->store_info );
+
 		$this->hide_if_no_images          = apply_filters( 'woocommerce_gpf_hide_if_no_images_google', false );
 		$this->allowed_description_markup = array(
 			'strong'   => array(),

@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\CSV_Export\Admin\Meta_Boxes;
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation;
 use SkyVerge\WooCommerce\CSV_Export\Automations\Automation_Factory;
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

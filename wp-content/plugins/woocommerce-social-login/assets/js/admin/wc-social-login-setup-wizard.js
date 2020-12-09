@@ -1,6 +1,6 @@
 "use strict";
 
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 
 	let plugin = window.wc_social_login ? window.wc_social_login : {};
 

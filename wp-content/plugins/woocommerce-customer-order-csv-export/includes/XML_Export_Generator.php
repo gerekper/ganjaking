@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\CSV_Export;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 use WC_Customer_Order_CSV_Export;
 
 /**
@@ -235,12 +235,12 @@ class XML_Export_Generator extends Export_Generator {
 				'PaymentMethodId'            => $order->get_payment_method( 'edit' ),
 				'PaymentMethod'              => $order->get_payment_method_title( 'edit' ),
 				'DiscountTotal'              => $order->get_total_discount(),
-				'ShippingTotal'              => $order->get_shipping_total(),
-				'ShippingTaxTotal'           => wc_format_decimal( $order->get_shipping_tax(), 2 ),
-				'OrderTotal'                 => $order->get_total(),
+				'ShippingTotal'              => $this->format_decimal( $order->get_shipping_total() ),
+				'ShippingTaxTotal'           => $this->format_decimal( $order->get_shipping_tax(), 2 ),
+				'OrderTotal'                 => $this->format_decimal( $order->get_total() ),
 				'FeeTotal'                   => $fee_total,
-				'FeeTaxTotal'                => wc_format_decimal( $fee_tax_total, 2 ),
-				'TaxTotal'                   => wc_format_decimal( $order->get_total_tax(), 2 ),
+				'FeeTaxTotal'                => $this->format_decimal( $fee_tax_total, 2 ),
+				'TaxTotal'                   => $this->format_decimal( $order->get_total_tax(), 2 ),
 				'RefundedTotal'              => $order->get_total_refunded(),
 				'CompletedDate'              => $this->format_date( $completed_date ),
 				'CustomerNote'               => $order->get_customer_note( 'edit' ),
@@ -328,7 +328,7 @@ class XML_Export_Generator extends Export_Generator {
 				'Id'         => $shipping_item_id,
 				'MethodId'   => $shipping['method_id'],
 				'MethodName' => $shipping['name'],
-				'Total'      => wc_format_decimal( $shipping['cost'], 2 ),
+				'Total'      => $this->format_decimal( $shipping['cost'], 2 ),
 				'Taxes'      => $this->get_tax_details( $shipping ),
 			];
 
@@ -373,27 +373,19 @@ class XML_Export_Generator extends Export_Generator {
 		// loop through each item in order
 		foreach ( $line_items as $item_id => $item ) {
 
-			// get the product with compatibility
+			// get the product
 			/** @var \WC_Product $product */
-			$product = Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte_3_1() ? $item->get_product() : $order->get_product_from_item( $item );
+			$product = $item->get_product();
 
-			// instantiate line item meta with compatibility
-			if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte_3_1() ) {
+			// instantiate line item meta
+			$meta_data    = $item->get_formatted_meta_data( '_', true );
+			$display_meta = [];
 
-				$meta_data    = $item->get_formatted_meta_data( '_', true );
-				$display_meta = [];
-
-				foreach ( $meta_data as $meta ) {
-					$display_meta[] = "{$meta->display_key}: {$meta->display_value}";
-				}
-
-				$item_meta = implode( ', ', $display_meta );
-
-			} else {
-
-				$item_meta = new \WC_Order_Item_Meta( $item );
-				$item_meta = $item_meta->display( true, true );
+			foreach ( $meta_data as $meta ) {
+				$display_meta[] = "{$meta->display_key}: {$meta->display_value}";
 			}
+
+			$item_meta = implode( ', ', $display_meta );
 
 			// remove all HTML
 			$item_meta = wp_strip_all_tags( $item_meta );
@@ -416,17 +408,17 @@ class XML_Export_Generator extends Export_Generator {
 			$item_data['ProductId']        = $product ? $product->get_id() : '';  // handling for permanently deleted product
 			$item_data['SKU']              = $product ? $product->get_sku() : '';  // handling for permanently deleted product
 			$item_data['Quantity']         = $item['qty'];
-			$item_data['Price']            = wc_format_decimal( $order->get_item_total( $item ), 2 );
-			$item_data['Subtotal']         = wc_format_decimal( $order->get_line_subtotal( $item ), 2 );
-			$item_data['SubtotalTax']      = wc_format_decimal( $item['line_subtotal_tax'], 2 );
-			$item_data['Total']            = wc_format_decimal( $order->get_line_total( $item ), 2 );
-			$item_data['TotalTax']         = wc_format_decimal( $order->get_line_tax( $item ), 2 );
-			$item_data['Refunded']         = wc_format_decimal( $order->get_total_refunded_for_item( $item ), 2 );
+			$item_data['Price']            = $this->format_decimal( $order->get_item_total( $item ), 2 );
+			$item_data['Subtotal']         = $this->format_decimal( $order->get_line_subtotal( $item ), 2 );
+			$item_data['SubtotalTax']      = $this->format_decimal( $item['line_subtotal_tax'], 2 );
+			$item_data['Total']            = $this->format_decimal( $order->get_line_total( $item ), 2 );
+			$item_data['TotalTax']         = $this->format_decimal( $order->get_line_tax( $item ), 2 );
+			$item_data['Refunded']         = $this->format_decimal( $order->get_total_refunded_for_item( $item ), 2 );
 			$item_data['RefundedQuantity'] = $order->get_qty_refunded_for_item( $item_id );
 
 			if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) && 'yes' === get_option( 'woocommerce_prices_include_tax' ) ) {
-				$item_data['PriceInclTax'] = wc_format_decimal( $order->get_item_total( $item, true ), 2 );
-				$item_data['TotalInclTax'] = wc_format_decimal( $order->get_line_total( $item, true ), 2 );
+				$item_data['PriceInclTax'] = $this->format_decimal( $order->get_item_total( $item, true ), 2 );
+				$item_data['TotalInclTax'] = $this->format_decimal( $order->get_line_total( $item, true ), 2 );
 			}
 
 			$item_data['Meta'] = $item_meta;
@@ -488,8 +480,8 @@ class XML_Export_Generator extends Export_Generator {
 				'Id'       => $fee_item_id,
 				'Title'    => $fee['name'],
 				'TaxClass' => ( ! empty( $fee['tax_class'] ) ) ? $fee['tax_class'] : null,
-				'Total'    => wc_format_decimal( $order->get_line_total( $fee ), 2 ),
-				'TaxTotal' => wc_format_decimal( $order->get_line_tax( $fee ), 2 ),
+				'Total'    => $this->format_decimal( $order->get_line_total( $fee ), 2 ),
+				'TaxTotal' => $this->format_decimal( $order->get_line_tax( $fee ), 2 ),
 				'Taxes'    => $this->get_tax_details( $fee ),
 			];
 
@@ -540,7 +532,7 @@ class XML_Export_Generator extends Export_Generator {
 				'RateId'   => $tax->rate_id,
 				'Code'     => $tax_code,
 				'Title'    => $tax->label,
-				'Total'    => wc_format_decimal( $tax->amount, 2 ),
+				'Total'    => $this->format_decimal( $tax->amount, 2 ),
 				'Compound' => (bool) $tax->is_compound,
 			];
 
@@ -587,7 +579,7 @@ class XML_Export_Generator extends Export_Generator {
 			$coupon_item = [
 				'Id'          => $coupon_item_id,
 				'Code'        => $coupon['name'],
-				'Amount'      => wc_format_decimal( $coupon['discount_amount'], 2 ),
+				'Amount'      => $this->format_decimal( $coupon['discount_amount'], 2 ),
 				'Description' => is_object( $coupon_post ) ? $coupon_post->post_excerpt : '',
 			];
 
@@ -634,7 +626,7 @@ class XML_Export_Generator extends Export_Generator {
 			$refund_data = [
 				'Id'     => $refund->get_id(),
 				'Date'   => $this->format_date( $refund->get_date_created()->date( 'Y-m-d H:i:s' ) ),
-				'Amount' => wc_format_decimal( $refund->get_amount(), 2 ),
+				'Amount' => $this->format_decimal( $refund->get_amount(), 2 ),
 				'Reason' => $refund->get_reason(),
 			];
 
@@ -906,10 +898,9 @@ class XML_Export_Generator extends Export_Generator {
 
 			foreach ( $meta as $meta_key => $column_name ) {
 
-				// remove the old field so we can prefix it instead
-				unset( $order_data[ $column_name ] );
+				$order_data[ $column_name ] = maybe_serialize( get_post_meta( $order->get_id(), $meta_key, true ) );
 
-				$order_data[ "Meta-{$column_name}" ] = maybe_serialize( get_post_meta( $order->get_id(), $meta_key, true ) );
+				$this->add_meta_key_index_prefix( $order_data, $column_name );
 			}
 		}
 
@@ -937,10 +928,9 @@ class XML_Export_Generator extends Export_Generator {
 
 			foreach ( $meta as $meta_key => $column_name ) {
 
-				// remove the old field so we can prefix it instead
-				unset( $customer_data[ $column_name ] );
+				$customer_data[ $column_name ] = maybe_serialize( get_user_meta( $user->ID, $meta_key, true ) );
 
-				$customer_data[ "Meta-{$column_name}" ] = maybe_serialize( get_user_meta( $user->ID, $meta_key, true ) );
+				$this->add_meta_key_index_prefix( $customer_data, $column_name );
 			}
 		}
 
@@ -968,10 +958,9 @@ class XML_Export_Generator extends Export_Generator {
 
 			foreach ( $meta as $meta_key => $column_name ) {
 
-				// remove the old field so we can prefix it instead
-				unset( $coupon_data[ $column_name ] );
+				$coupon_data[ $column_name ] = maybe_serialize( get_post_meta( $coupon->get_id(), $meta_key, true ) );
 
-				$coupon_data[ "Meta-{$column_name}" ] = maybe_serialize( get_post_meta( $coupon->get_id(), $meta_key, true ) );
+				$this->add_meta_key_index_prefix( $coupon_data, $column_name );
 			}
 		}
 
@@ -1088,7 +1077,7 @@ class XML_Export_Generator extends Export_Generator {
 				'ShippingState'     => $this->get_localized_state( $user->shipping_country, $user->shipping_state ),
 				'ShippingStateCode' => $user->shipping_state,
 				'ShippingCountry'   => $user->shipping_country,
-				'TotalSpent'        => wc_format_decimal( wc_get_customer_total_spent( $user->ID ), 2 ),
+				'TotalSpent'        => $this->format_decimal( wc_get_customer_total_spent( $user->ID ), 2 ),
 				'OrderCount'        => wc_get_customer_order_count( $user->ID ),
 			];
 
@@ -1231,8 +1220,8 @@ class XML_Export_Generator extends Export_Generator {
 				'Amount'                   => $coupon->get_amount(),
 				'ExpiryDate'               => $formatted_expiry_date,
 				'EnableFreeShipping'       => $coupon->get_free_shipping() ? 'yes' : 'no',
-				'MinimumAmount'            => wc_format_decimal( $coupon->get_minimum_amount() ),
-				'MaximumAmount'            => wc_format_decimal( $coupon->get_maximum_amount() ),
+				'MinimumAmount'            => $this->format_decimal( $coupon->get_minimum_amount() ),
+				'MaximumAmount'            => $this->format_decimal( $coupon->get_maximum_amount() ),
 				'IndividualUse'            => $coupon->get_individual_use() ? 'yes' : 'no',
 				'ExcludeSaleItems'         => $coupon->get_exclude_sale_items() ? 'yes' : 'no',
 				'Products'                 => implode( ', ', $products ),
@@ -1365,6 +1354,29 @@ class XML_Export_Generator extends Export_Generator {
 		$footer = apply_filters( 'wc_customer_order_export_xml_' . $this->export_type . '_footer', $this->writer->outputMemory() );
 
 		return $footer;
+	}
+
+
+	/**
+	 * Adds a prefix to a meta column name.
+	 *
+	 * This method performs an array manipulation to simulate a key rename action.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @param array $order_data order data to be exported
+	 * @param $meta_column_name meta column name to be renamed
+	 */
+	private function add_meta_key_index_prefix( &$order_data, $meta_column_name ) {
+
+		// extracts all column names
+		$keys = array_keys( $order_data );
+
+		// replaces the meta column name
+		$keys[ array_search( $meta_column_name, $keys, false ) ] = "Meta-{$meta_column_name}";
+
+		// combines the keys and data to have an array with a renamed column
+		$order_data = array_combine( $keys, $order_data );
 	}
 
 

@@ -1,5 +1,9 @@
 *** WooCommerce Social Login Changelog ***
 
+2020.12.07 - version 2.11.0
+ * Misc - Add compatibility for WooCommerce 4.7
+ * Misc - Require PHP 7.0 or newer
+
 2020.11.26 - version 2.10.3
  * Misc - Add PHP 8 Support
 

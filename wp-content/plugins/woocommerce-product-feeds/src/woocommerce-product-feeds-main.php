@@ -77,6 +77,16 @@ class WoocommerceProductFeedsMain {
 	private $rest_api;
 
 	/**
+	 * @var WoocommerceProductFeedsExpandedStructuredData
+	 */
+	private $expanded_structured_data;
+
+	/**
+	 * @var WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator
+	 */
+	private $expanded_structured_data_cache_invalidator;
+
+	/**
 	 * WoocommerceProductFeedsMain constructor.
 	 *
 	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
@@ -98,6 +108,8 @@ class WoocommerceProductFeedsMain {
 
 	public function run() {
 
+		$settings            = get_option( 'woocommerce_gpf_config', [] );
+		$use_expanded_schema = isset( $settings['expanded_schema'] ) && 'on' === $settings['expanded_schema'];
 		if ( is_admin() ) {
 			$this->gpf_admin                 = $this->container['WoocommerceGpfAdmin'];
 			$this->gpf_db_manager            = $this->container['WoocommerceProductFeedsDbManager'];
@@ -110,9 +122,20 @@ class WoocommerceProductFeedsMain {
 			$this->prf_admin->initialise();
 			$this->import_export_integration->initialise();
 		} else {
-			$this->structured_data = $this->container['WoocommerceGpfStructuredData'];
-			$this->structured_data->initialise();
+			if ( $use_expanded_schema ) {
+				$this->expanded_structured_data = $this->container['WoocommerceProductFeedsExpandedStructuredData'];
+				$this->expanded_structured_data->initialise();
+			} else {
+				$this->structured_data = $this->container['WoocommerceGpfStructuredData'];
+				$this->structured_data->initialise();
+			}
 		}
+		if ( $use_expanded_schema ) {
+			$this->expanded_structured_data_cache_invalidator =
+				$this->container['WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator'];
+			$this->expanded_structured_data_cache_invalidator->initialise();
+		}
+
 		$this->rest_api = $this->container['WoocommerceGpfRestApi'];
 		$this->rest_api->initialise();
 
@@ -126,12 +149,6 @@ class WoocommerceProductFeedsMain {
 			[ $this, 'set_customer_default_location' ]
 		);
 		add_filter( 'http_request_args', [ $this, 'prevent_wporg_update_check' ], 10, 2 );
-		// Loads at priority 5 to ensure it runs before WooCommerce's hook.
-		add_action(
-			'woocommerce_single_product_summary',
-			[ $this->structured_data, 'initialise' ],
-			5
-		);
 	}
 
 	/**

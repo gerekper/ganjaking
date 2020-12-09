@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Cost of Goods Admin Orders Class
@@ -312,7 +312,11 @@ class WC_COG_Admin_Orders {
 		$order_cost_total = apply_filters( 'wc_cost_of_goods_update_order_cost_meta', $order_cost_total, wc_get_order( $order_id ) );
 
 		// update the total order cost
-		Framework\SV_WC_Order_Compatibility::update_meta_data( wc_get_order( $order_id ), '_wc_cog_order_total_cost', wc_format_decimal( $order_cost_total, wc_get_price_decimals() ) );
+		if ( $order = wc_get_order( $order_id ) ) {
+
+			$order->update_meta_data( '_wc_cog_order_total_cost', wc_format_decimal( $order_cost_total, wc_get_price_decimals() ) );
+			$order->save_meta_data();
+		}
 	}
 
 
@@ -418,24 +422,21 @@ class WC_COG_Admin_Orders {
 	protected function get_formatted_order_total_cost( $order_id ) {
 
 		$order            = wc_get_order( $order_id );
-		$order_total_cost = Framework\SV_WC_Order_Compatibility::get_meta( $order, '_wc_cog_order_total_cost', true );
+		$order_total_cost = (float) $order->get_meta( '_wc_cog_order_total_cost', true, 'edit' );
 		$formatted_total  = wc_price( $order_total_cost );
 
 		$refunded_order_total_cost = 0;
 
 		foreach ( $order->get_refunds() as $refund ) {
 
-			$refunded_order_total_cost += (float) Framework\SV_WC_Order_Compatibility::get_meta( $refund, '_wc_cog_order_total_cost', true );
+			$refunded_order_total_cost += (float) $refund->get_meta( '_wc_cog_order_total_cost', true, 'edit' );
 		}
 
 		if ( $refunded_order_total_cost < 0 ) {
-
 			return sprintf( '<del>%1$s</del> <ins>%2$s</ins>', strip_tags( $formatted_total ), wc_price( $refunded_order_total_cost + $order_total_cost ) );
-
-		} else {
-
-			return $formatted_total;
 		}
+
+		return $formatted_total;
 	}
 
 

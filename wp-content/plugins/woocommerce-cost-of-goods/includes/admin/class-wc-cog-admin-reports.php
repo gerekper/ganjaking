@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Cost of Goods Admin Reports Class
@@ -327,7 +327,7 @@ class WC_COG_Admin_Reports {
 				if ( $product->is_type( 'variation' ) ) {
 
 					$product_name  .= ' ' . wp_kses_post( wc_get_formatted_variation( $product, true ) );
-					$product_parent = get_the_title( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte_3_0() ? $product->get_parent_id() : $product->parent->id );
+					$product_parent = get_the_title( $product->get_parent_id() );
 
 				} else {
 

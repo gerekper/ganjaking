@@ -27,7 +27,7 @@ use SkyVerge\WooCommerce\CSV_Export\Automations\Scheduler;
 use SkyVerge\WooCommerce\CSV_Export\Background_Mark_Exported;
 use SkyVerge\WooCommerce\CSV_Export\Integrations\Integrations;
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * WooCommerce Customer/Order/Coupon Export plugin class.
@@ -38,7 +38,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '5.1.2';
+	const VERSION = '5.2.0';
 
 	/** @var WC_Customer_Order_CSV_Export single instance of this plugin */
 	protected static $instance;
@@ -111,16 +111,15 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 			[
 				'text_domain'        => 'woocommerce-customer-order-csv-export',
 				'dependencies'       => [
-					'php_extensions'     => [
-						'mbstring'
-					]
-				]
+					'php_extensions' => $this->get_extension_dependencies(),
+					'php_functions'  => $this->get_function_dependencies(),
+				],
 			]
 		);
 
 		add_action( 'admin_action_wc_customer_order_export_migrate_from_xml', function() {
 
-			if ( ! current_user_can( 'manage_options' ) || ! wp_verify_nonce( Framework\SV_WC_Helper::get_request( 'nonce' ), 'wc_customer_order_export_migrate_from_xml' ) ) {
+			if ( ! current_user_can( 'manage_options' ) || ! wp_verify_nonce( Framework\SV_WC_Helper::get_requested_value( 'nonce' ), 'wc_customer_order_export_migrate_from_xml' ) ) {
 				wp_die();
 			}
 
@@ -676,7 +675,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 	 */
 	public function is_plugin_settings() {
 
-		return is_admin() && 'wc_customer_order_csv_export' === Framework\SV_WC_Helper::get_request( 'page' );
+		return is_admin() && 'wc_customer_order_csv_export' === Framework\SV_WC_Helper::get_requested_value( 'page' );
 	}
 
 
@@ -689,7 +688,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 	 */
 	public function is_export_page() {
 
-		return is_admin() && 'wc_customer_order_csv_export' === Framework\SV_WC_Helper::get_request( 'page' ) && 'export_list' === Framework\SV_WC_Helper::get_request( 'tab' );
+		return is_admin() && 'wc_customer_order_csv_export' === Framework\SV_WC_Helper::get_requested_value( 'page' ) && 'export_list' === Framework\SV_WC_Helper::get_requested_value( 'tab' );
 	}
 
 
@@ -702,26 +701,27 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 	 */
 	public function is_export_list_page() {
 
-		return is_admin() && 'wc_customer_order_csv_export' === Framework\SV_WC_Helper::get_request( 'page' ) && 'export' === Framework\SV_WC_Helper::get_request( 'tab' );
+		return is_admin() && 'wc_customer_order_csv_export' === Framework\SV_WC_Helper::get_requested_value( 'page' ) && 'export' === Framework\SV_WC_Helper::get_requested_value( 'tab' );
 	}
 
 
 	/**
-	 * Returns conditional dependencies based on the FTP security selected
+	 * Gets conditional PHP extension dependencies based on the FTP security selected.
 	 *
-	 * @since 3.0.0
-	 * @see Framework\SV_WC_Plugin::get_dependencies()
-	 * @return array of dependencies
+	 * @since 5.2.0
+	 *
+	 * @return array of required PHP extensions
 	 */
-	protected function get_dependencies() {
+	protected function get_extension_dependencies() {
+
+		$dependencies = [ 'mbstring' ];
 
 		// check if FTP is one of the chosen export methods
 		if ( ! in_array( 'ftp', $this->get_auto_export_methods(), true ) ) {
-			return [];
+			return $dependencies;
 		}
 
 		$ftp_securities = $this->get_auto_export_ftp_securities();
-		$dependencies   = [];
 
 		if ( in_array( 'sftp', $ftp_securities, true ) ) {
 
@@ -744,11 +744,11 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 
 
 	/**
-	 * Returns conditional function dependencies based on the FTP security selected
+	 * Gets conditional function dependencies based on the FTP security selected.
 	 *
 	 * @since 3.1.0
-	 * @see Framework\SV_WC_Plugin::get_function_dependencies()
-	 * @return array of dependencies
+	 *
+	 * @return array of required php functions
 	 */
 	protected function get_function_dependencies() {
 
@@ -892,25 +892,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 	}
 
 
-	/**
-	 * Determines if the option to export coupons is enabled.
-	 *
-	 * TODO: Remove by 08-2020
-	 *
-	 * @since 4.6.0
-	 * @deprecated since 4.8.0
-	 *
-	 * @return bool
-	 */
-	public function is_coupon_export_enabled() {
-
-		wc_deprecated_function( __METHOD__, '4.8.0' );
-
-		return true;
-	}
-
-
-} // end \WC_Customer_Order_CSV_Export class
+}
 
 
 /**

@@ -24,7 +24,7 @@
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\CSV_Export\Export_Generator;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Customer/Order CSV Export Compatibility
@@ -162,7 +162,7 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 			foreach ( $meta_columns as $meta_key ) {
 
 				$data_key   = 'meta:' . $meta_key;
-				$meta_value = maybe_serialize( get_post_meta( Framework\SV_WC_Order_Compatibility::get_prop( $order, 'id' ), $meta_key, true ) );
+				$meta_value = maybe_serialize( get_post_meta( $order->get_id(), $meta_key, true ) );
 
 				if ( $one_row_per_item ) {
 
@@ -317,12 +317,12 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 			$order_data[ $line_item ]['line_item_price']     = $order_data[ $line_item ]['item_total'];
 
 			// convert country codes to full name
-			if ( isset( WC()->countries->countries[ Framework\SV_WC_Order_Compatibility::get_prop( $order, 'billing_country' ) ] ) ) {
-				$order_data[ $line_item ]['billing_country'] = WC()->countries->countries[ Framework\SV_WC_Order_Compatibility::get_prop( $order, 'billing_country' ) ];
+			if ( isset( WC()->countries->countries[ $order->get_billing_country() ] ) ) {
+				$order_data[ $line_item ]['billing_country'] = WC()->countries->countries[ $order->get_billing_country() ];
 			}
 
-			if ( isset( WC()->countries->countries[ Framework\SV_WC_Order_Compatibility::get_prop( $order, 'shipping_country' ) ] ) ) {
-				$order_data[ $line_item ]['shipping_country'] = WC()->countries->countries[ Framework\SV_WC_Order_Compatibility::get_prop( $order, 'shipping_country' ) ];
+			if ( isset( WC()->countries->countries[ $order->get_shipping_country() ] ) ) {
+				$order_data[ $line_item ]['shipping_country'] = WC()->countries->countries[ $order->get_shipping_country() ];
 			}
 
 			// set order ID to order number
@@ -364,20 +364,12 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 
 			$line_item .= ' x' . $item['qty'];
 
-			if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte_3_1() ) {
-
-				$variation = wp_strip_all_tags( wc_display_item_meta( $item, [
-					'before'    => '',
-					'after'     => '',
-					'separator' => "\n",
-					'echo'      => false,
-				] ) );
-
-			} else {
-
-				$item_meta = new WC_Order_Item_Meta( $item );
-				$variation = $item_meta->display( true, true );
-			}
+			$variation = wp_strip_all_tags( wc_display_item_meta( $item, [
+				'before'    => '',
+				'after'     => '',
+				'separator' => "\n",
+				'echo'      => false,
+			] ) );
 
 			if ( $variation ) {
 				$line_item .= ' - ' . str_replace( [ "\r", "\r\n", "\n" ], '', $variation );
@@ -390,12 +382,12 @@ class WC_Customer_Order_CSV_Export_Compatibility {
 		$order_data['order_items'] = implode( '; ', $line_items );
 
 		// convert country codes to full name
-		if ( isset( WC()->countries->countries[ Framework\SV_WC_Order_Compatibility::get_prop( $order, 'billing_country' ) ] ) ) {
-			$order_data['billing_country'] = WC()->countries->countries[ Framework\SV_WC_Order_Compatibility::get_prop( $order, 'billing_country' ) ];
+		if ( isset( WC()->countries->countries[ $order->get_billing_country() ] ) ) {
+			$order_data['billing_country'] = WC()->countries->countries[ $order->get_billing_country() ];
 		}
 
-		if ( isset( WC()->countries->countries[ Framework\SV_WC_Order_Compatibility::get_prop( $order, 'shipping_country' ) ] ) ) {
-			$order_data['shipping_country'] = WC()->countries->countries[ Framework\SV_WC_Order_Compatibility::get_prop( $order, 'shipping_country' ) ];
+		if ( isset( WC()->countries->countries[ $order->get_shipping_country() ] ) ) {
+			$order_data['shipping_country'] = WC()->countries->countries[ $order->get_shipping_country() ];
 		}
 
 		// set order ID to order number
