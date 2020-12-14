@@ -46,7 +46,7 @@ import Smush from '../smush/smush';
 				// TODO: refine what is disabled.
 				$(
 					'.wp-resmush.wp-smush-action, .wp-smush-scan, .wp-smush-all:not(.sui-progress-close), a.wp-smush-lossy-enable, button.wp-smush-resize-enable, button#wp-smush-save-settings'
-				).attr( 'disabled', 'disabled' );
+				).prop( 'disabled', true );
 
 				// Check for IDs, if there is none (unsmushed or lossless), don't call Smush function.
 				/** @param {Array} wp_smushit_data.unsmushed */
@@ -80,7 +80,7 @@ import Smush from '../smush/smush';
 
 				const self = $( this );
 
-				self.attr( 'disabled', true );
+				self.prop( 'disabled', true );
 				self.attr( 'data-tooltip' );
 				self.removeClass( 'sui-tooltip' );
 				$.post( ajaxurl, {

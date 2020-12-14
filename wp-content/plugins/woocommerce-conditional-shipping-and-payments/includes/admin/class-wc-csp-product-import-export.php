@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Importer/Exporter support.
  *
  * @class    WC_CSP_Product_Import_Export
- * @version  1.8.2
+ * @version  1.8.10
  */
 class WC_CSP_Product_Import_Export {
 
@@ -55,6 +55,10 @@ class WC_CSP_Product_Import_Export {
 	 * @return array  $parsed_data
 	 */
 	public static function import_product_level_restrictions( $parsed_data ) {
+
+		if ( empty( $parsed_data[ 'meta_data' ] ) ) {
+			return $parsed_data;
+		}
 
 		foreach ( $parsed_data[ 'meta_data' ] as $index => $meta_data ) {
 

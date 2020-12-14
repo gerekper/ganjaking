@@ -287,8 +287,6 @@ class Shop_Order {
 			return;
 		}
 
-		$javascript = '';
-
 		foreach ( Add_On_Factory::get_add_ons() as $add_on ) {
 
 			// if the add-on is filterable
@@ -359,9 +357,6 @@ class Shop_Order {
 				}
 			}
 		}
-
-		// filterable dropdown javascript
-		wc_enqueue_js( $javascript );
 	}
 
 

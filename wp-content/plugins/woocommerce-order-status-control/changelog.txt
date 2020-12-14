@@ -1,5 +1,9 @@
 *** WooCommerce Order Status Control Changelog ***
 
+2020.12.07 - version 1.14.0
+ * Misc - Add compatibility for WooCommerce 4.7
+ * Misc - Require PHP 7.0 or newer
+
 2020.09.29 - version 1.13.1
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets
 

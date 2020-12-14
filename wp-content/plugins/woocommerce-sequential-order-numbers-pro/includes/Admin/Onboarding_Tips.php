@@ -177,7 +177,7 @@ class Onboarding_Tips {
 	private function add_onboarding_notices_scripts() {
 
 		wc_enqueue_js( "
-			jQuery( function( $ ) {
+			( function( $ ) {
 
 				$( '#". esc_js( sprintf( 'woocommerce-%s-onboarding-notice-buttons', $this->get_plugin()->get_id_dasherized() ) ) ." > a' ).on( 'click', function( e ) {
 
@@ -213,7 +213,7 @@ class Onboarding_Tips {
 
 				} );
 
-			} );
+			} ) ( jQuery );
 		" );
 	}
 
@@ -464,7 +464,7 @@ class Onboarding_Tips {
 
 		// init our pointers
 		wc_enqueue_js( "
-			jQuery( function( $ ) {
+			( function( $ ) {
 
 				var data = JSON.parse( decodeURIComponent( '{$pointers}' ) );
 
@@ -561,7 +561,7 @@ class Onboarding_Tips {
 					$.post( ajaxurl, { action: completeOnboarding }, function() { return true; } );
 				} );
 
-			} );
+			} ) ( jQuery );
 		" );
 	}
 

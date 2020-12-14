@@ -6,7 +6,7 @@
 			ultimate_headings_init();
 		});
 	});
-	$(window).load(function(e) {
+	$(window).on("load",function(e) {
 		ultimate_headings_init();
 		//trigger on click of exp section
 		jQuery(".ult_exp_section").select(function(){

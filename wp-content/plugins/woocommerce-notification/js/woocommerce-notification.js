@@ -94,7 +94,7 @@ function viSwipeDetect(el, callback) {
     );
 }
 
-jQuery(window).load(function () {
+jQuery(window).on('load',function () {
     var notify = woo_notification;
     notify.loop = _woocommerce_notification_params.loop;
     notify.loop_session = _woocommerce_notification_params.loop_session;
@@ -145,7 +145,7 @@ jQuery(window).load(function () {
         notify.country = _woocommerce_notification_params.country;
         notify.init();
     }
-    // console.log(_woocommerce_notification_params)
+    // console.log(notify)
 });
 
 var woo_notification = {
@@ -261,8 +261,7 @@ var woo_notification = {
                 data: 'action=woonotification_get_product' + str_data,
                 url: this.ajax_url,
                 success: function (data) {
-                    var products = jQuery.parseJSON(data);
-
+                    var products = JSON.parse(data);
                     if (products && products != 'undefined' && products.length > 0) {
                         woo_notification.products = products;
                         woo_notification.message_show();

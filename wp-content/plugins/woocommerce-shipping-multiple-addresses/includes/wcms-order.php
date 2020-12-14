@@ -621,12 +621,12 @@ class WC_MS_Order {
 					$item_tax_data['subtotal'][ $rate_id ] += $item_tax_subtotal;
 				}
 
-				$items[ $item_id ]['line_tax'] = $item_tax_total;
-				$items[ $item_id ]['line_subtotal_tax'] = $item_tax_subtotal;
-				$items[ $item_id ]['line_tax_data'] = serialize( $item_tax_data );
-
 				if ( is_a( $item, 'WC_Order_Item_Product' ) ) {
 					$items[ $item_id ]->set_taxes( $item_tax_data );
+				} else {
+					$items[ $item_id ]['line_tax'] = $item_tax_total;
+					$items[ $item_id ]['line_subtotal_tax'] = $item_tax_subtotal;
+					$items[ $item_id ]['line_tax_data'] = serialize( $item_tax_data );
 				}
 			}
 

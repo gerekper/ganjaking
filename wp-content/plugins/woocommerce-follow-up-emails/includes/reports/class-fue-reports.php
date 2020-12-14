@@ -262,7 +262,7 @@ class FUE_Reports {
 			$scheduled = false;
 
 			foreach ( $items as $item ) {
-				$param      = array('email_order_id' => (int)$item->id);
+				$param      = array( (int) $item->id );
 				$actions    = as_get_scheduled_actions(array(
 					'hook'      => 'sfn_followup_emails',
 					'args'      => $param,

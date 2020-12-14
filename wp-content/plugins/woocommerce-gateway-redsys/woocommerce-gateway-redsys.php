@@ -4,12 +4,12 @@
 * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 * Description: Extends WooCommerce with RedSys gateway.
-* Version: 12.1.0
+* Version: 12.2.0
 * Author: José Conti
 * Author URI: https://www.joseconti.com/
 * Tested up to: 5.5
 * WC requires at least: 3.0
-* WC tested up to: 4.7
+* WC tested up to: 4.8
 * Woo: 187871:50392593e834002d8bee386333d1ed3c
 * Text Domain: woocommerce-redsys
 * Domain Path: /languages/
@@ -19,7 +19,7 @@
 **/
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '12.1.0' );
+	define( 'REDSYS_VERSION', '12.2.0' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_URL' ) ) {
@@ -31,7 +31,7 @@ if ( ! defined( 'REDSYS_PLUGIN_PATH' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/11/30/woocommerce-redsys-gateway-12-1-x/' );
+	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/12/06/woocommerce-redsys-gateway-12-2-x/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -453,9 +453,9 @@ function woocommerce_gateway_redsys_premium_init() {
 	}
 	add_action( 'admin_init', 'redsys_add_actions' );
 	add_filter( 'bulk_actions-edit-shop_order', array( 'WC_Gateway_Preauthorizations_Redsys', 'preauthorizationsredsys_add_bulk_actions' ) );
+	add_filter( 'bulk_actions-edit-shop_order', array( 'WC_Gateway_Redsys', 'redsys_add_bulk_actions' ) );
 	add_filter( 'handle_bulk_actions-edit-shop_order', array( 'WC_Gateway_Preauthorizations_Redsys', 'preauthorizationsredsys_bulk_actions_handler'), 10, 3 );
-	add_filter( 'bulk_actions-edit-shop_order',  array( 'WC_Gateway_Redsys', 'redsys_add_bulk_actions' ) );
-	//add_filter( 'handle_bulk_actions-edit-shop_order', array( 'WC_Gateway_Redsys', 'redsys_bulk_actions_handler'), 10, 3 );
+	add_filter( 'handle_bulk_actions-edit-shop_order', array( 'WC_Gateway_Redsys', 'redsys_bulk_actions_handler'), 10, 3 );
 	
 	/**
 	* Copyright: (C) 2013 - 2021 José Conti

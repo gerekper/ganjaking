@@ -28,6 +28,8 @@ class WC_Account_Funds_Order_Manager {
 
 		add_action( 'woocommerce_admin_order_totals_after_tax', array( $this, 'admin_order_account_funds' ) );
 		add_action( 'woocommerce_order_after_calculate_totals', array( $this, 'remove_funds_from_recalculation' ), 10, 2 );
+
+		add_filter( 'wcs_subscription_meta_query', array( $this, 'copy_order_meta_query' ), 10, 3 );
 	}
 
 	/**
@@ -106,11 +108,14 @@ class WC_Account_Funds_Order_Manager {
 		$customer_id = $order->get_user_id();
 
 		if ( $customer_id && ! get_post_meta( $order_id, '_funds_removed', true ) ) {
-			if ( $funds = get_post_meta( $order_id, '_funds_used', true ) ) {
+			$funds = get_post_meta( $order_id, '_funds_used', true );
+
+			if ( $funds ) {
 				WC_Account_Funds::remove_funds( $customer_id, $funds );
+				update_post_meta( $order_id, '_funds_removed', 1 );
+
 				$order->add_order_note( sprintf( __( 'Removed %s funds from user #%d', 'woocommerce-account-funds' ), wc_price( $funds ), $customer_id ) );
 			}
-			update_post_meta( $order_id, '_funds_removed', 1 );
 		}
 	}
 
@@ -423,6 +428,26 @@ class WC_Account_Funds_Order_Manager {
 			</td>
 		</tr>
 		<?php
+	}
+
+	/**
+	 * Filters the meta query used for copying the metadata from a subscription to an order and vice-versa.
+	 *
+	 * @since 2.3.5
+	 *
+	 * @param string   $meta_query The meta query string.
+	 * @param WC_Order $to_order   The order to copy the metadata.
+	 * @param WC_Order $from_order The order from which the metadata is copied.
+	 * @return string
+	 */
+	public function copy_order_meta_query( $meta_query, $to_order, $from_order ) {
+		// Copying the metadata from an order to a subscription.
+		if ( $to_order instanceof WC_Subscription ) {
+			// Exclude funds metadata.
+			$meta_query .= " AND `meta_key` NOT LIKE '_funds_%%'";
+		}
+
+		return $meta_query;
 	}
 }
 

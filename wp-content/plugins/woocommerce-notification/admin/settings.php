@@ -951,7 +951,7 @@ class VI_WNOTIFICATION_Admin_Settings {
                                 <p class="description"><?php esc_html_e( 'Image size will get form your WordPress site.', 'woocommerce-notification' ) ?></p>
                             </td>
                         </tr>
-                        <tr valign="top" class="get_from_billing vi_hidden">
+                        <tr valign="top">
                             <th scope="row">
                                 <label for="<?php echo self::set_field( 'non_ajax' ) ?>"><?php esc_html_e( 'Non Ajax', 'woocommerce-notification' ) ?></label>
                             </th>

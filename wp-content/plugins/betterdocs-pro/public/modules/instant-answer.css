@@ -695,7 +695,7 @@
     border-radius: 0;
     background-color: #19ca9e; } }
 
-@-webkit-keyframes rotation-lr {
+@-webkit-keyframes betterdocs-ia-rotation-lr {
   from {
     -webkit-transform: rotate(-90deg);
             transform: rotate(-90deg); }
@@ -703,7 +703,7 @@
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@keyframes rotation-lr {
+@keyframes betterdocs-ia-rotation-lr {
   from {
     -webkit-transform: rotate(-90deg);
             transform: rotate(-90deg); }
@@ -711,7 +711,7 @@
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@-webkit-keyframes rotation-rl {
+@-webkit-keyframes betterdocs-ia-rotation-rl {
   from {
     -webkit-transform: rotate(90deg);
             transform: rotate(90deg); }
@@ -719,7 +719,7 @@
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@keyframes rotation-rl {
+@keyframes betterdocs-ia-rotation-rl {
   from {
     -webkit-transform: rotate(90deg);
             transform: rotate(90deg); }
@@ -727,7 +727,7 @@
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@-webkit-keyframes slide-in {
+@-webkit-keyframes betterdocs-ia-slide-in {
   from {
     opacity: 0;
     -webkit-transform: translateY(10px);
@@ -737,7 +737,7 @@
     -webkit-transform: translateY(0);
             transform: translateY(0); } }
 
-@keyframes slide-in {
+@keyframes betterdocs-ia-slide-in {
   from {
     opacity: 0;
     -webkit-transform: translateY(10px);
@@ -747,7 +747,7 @@
     -webkit-transform: translateY(0);
             transform: translateY(0); } }
 
-@-webkit-keyframes slide-out {
+@-webkit-keyframes betterdocs-ia-slide-out {
   from {
     opacity: 1;
     -webkit-transform: translateY(0);
@@ -757,7 +757,7 @@
     -webkit-transform: translateY(10px);
             transform: translateY(10px); } }
 
-@keyframes slide-out {
+@keyframes betterdocs-ia-slide-out {
   from {
     opacity: 1;
     -webkit-transform: translateY(0);
@@ -804,17 +804,17 @@ textarea {
 .betterdocs-conversation-container {
   -webkit-animation-delay: 0;
   -webkit-animation-duration: 0.5s;
-  -webkit-animation-name: slide-in;
+  -webkit-animation-name: betterdocs-ia-slide-in;
   -webkit-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   -moz-animation-delay: 0;
   -moz-animation-duration: 0.5s;
-  -moz-animation-name: slide-in;
+  -moz-animation-name: betterdocs-ia-slide-in;
   -moz-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   animation-delay: 0;
   animation-duration: 0.5s;
-  animation-name: slide-in;
+  animation-name: betterdocs-ia-slide-in;
   animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   border-radius: 10px;
@@ -824,20 +824,20 @@ textarea {
   min-height: 250px;
   height: calc(100% - 95px); }
 
-.betterdocs-slide-out {
+.betterdocs-betterdocs-ia-slide-out {
   -webkit-animation-delay: 0;
   -webkit-animation-duration: 0.5s;
-  -webkit-animation-name: slide-out;
+  -webkit-animation-name: betterdocs-ia-slide-out;
   -webkit-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   -moz-animation-delay: 0;
   -moz-animation-duration: 0.5s;
-  -moz-animation-name: slide-out;
+  -moz-animation-name: betterdocs-ia-slide-out;
   -moz-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   animation-delay: 0;
   animation-duration: 0.5s;
-  animation-name: slide-out;
+  animation-name: betterdocs-ia-slide-out;
   animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */ }
 
@@ -923,7 +923,7 @@ textarea {
     width: 20px;
     height: 20px; } }
 
-@-webkit-keyframes rotation-lr {
+@-webkit-keyframes betterdocs-ia-rotation-lr {
   from {
     -webkit-transform: rotate(-90deg);
             transform: rotate(-90deg); }
@@ -931,7 +931,7 @@ textarea {
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@keyframes rotation-lr {
+@keyframes betterdocs-ia-rotation-lr {
   from {
     -webkit-transform: rotate(-90deg);
             transform: rotate(-90deg); }
@@ -939,7 +939,7 @@ textarea {
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@-webkit-keyframes rotation-rl {
+@-webkit-keyframes betterdocs-ia-rotation-rl {
   from {
     -webkit-transform: rotate(90deg);
             transform: rotate(90deg); }
@@ -947,7 +947,7 @@ textarea {
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@keyframes rotation-rl {
+@keyframes betterdocs-ia-rotation-rl {
   from {
     -webkit-transform: rotate(90deg);
             transform: rotate(90deg); }
@@ -955,7 +955,7 @@ textarea {
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@-webkit-keyframes slide-in {
+@-webkit-keyframes betterdocs-ia-slide-in {
   from {
     opacity: 0;
     -webkit-transform: translateY(10px);
@@ -965,7 +965,7 @@ textarea {
     -webkit-transform: translateY(0);
             transform: translateY(0); } }
 
-@keyframes slide-in {
+@keyframes betterdocs-ia-slide-in {
   from {
     opacity: 0;
     -webkit-transform: translateY(10px);
@@ -975,7 +975,7 @@ textarea {
     -webkit-transform: translateY(0);
             transform: translateY(0); } }
 
-@-webkit-keyframes slide-out {
+@-webkit-keyframes betterdocs-ia-slide-out {
   from {
     opacity: 1;
     -webkit-transform: translateY(0);
@@ -985,7 +985,7 @@ textarea {
     -webkit-transform: translateY(10px);
             transform: translateY(10px); } }
 
-@keyframes slide-out {
+@keyframes betterdocs-ia-slide-out {
   from {
     opacity: 1;
     -webkit-transform: translateY(0);
@@ -1002,17 +1002,17 @@ textarea {
 .betterdocs-launcher[type=button] {
   -webkit-animation-delay: 0;
   -webkit-animation-duration: 0.5s;
-  -webkit-animation-name: slide-in;
+  -webkit-animation-name: betterdocs-ia-slide-in;
   -webkit-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   -moz-animation-delay: 0;
   -moz-animation-duration: 0.5s;
-  -moz-animation-name: slide-in;
+  -moz-animation-name: betterdocs-ia-slide-in;
   -moz-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   animation-delay: 0;
   animation-duration: 0.5s;
-  animation-name: slide-in;
+  animation-name: betterdocs-ia-slide-in;
   animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   -ms-flex-item-align: end;
@@ -1040,17 +1040,17 @@ textarea {
 .betterdocs-open-launcher {
   -webkit-animation-delay: 0;
   -webkit-animation-duration: 0.5s;
-  -webkit-animation-name: rotation-rl;
+  -webkit-animation-name: betterdocs-ia-rotation-rl;
   -webkit-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   -moz-animation-delay: 0;
   -moz-animation-duration: 0.5s;
-  -moz-animation-name: rotation-rl;
+  -moz-animation-name: betterdocs-ia-rotation-rl;
   -moz-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   animation-delay: 0;
   animation-duration: 0.5s;
-  animation-name: rotation-rl;
+  animation-name: betterdocs-ia-rotation-rl;
   animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */ }
 
@@ -1058,17 +1058,17 @@ textarea {
   width: 20px;
   -webkit-animation-delay: 0;
   -webkit-animation-duration: 0.5s;
-  -webkit-animation-name: rotation-lr;
+  -webkit-animation-name: betterdocs-ia-rotation-lr;
   -webkit-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   -moz-animation-delay: 0;
   -moz-animation-duration: 0.5s;
-  -moz-animation-name: rotation-lr;
+  -moz-animation-name: betterdocs-ia-rotation-lr;
   -moz-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   animation-delay: 0;
   animation-duration: 0.5s;
-  animation-name: rotation-lr;
+  animation-name: betterdocs-ia-rotation-lr;
   animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */ }
 
@@ -1084,21 +1084,21 @@ textarea {
   fill: white;
   -webkit-animation-delay: 0;
   -webkit-animation-duration: 0.5s;
-  -webkit-animation-name: rotation-rl;
+  -webkit-animation-name: betterdocs-ia-rotation-rl;
   -webkit-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   -moz-animation-delay: 0;
   -moz-animation-duration: 0.5s;
-  -moz-animation-name: rotation-rl;
+  -moz-animation-name: betterdocs-ia-rotation-rl;
   -moz-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
   animation-delay: 0;
   animation-duration: 0.5s;
-  animation-name: rotation-rl;
+  animation-name: betterdocs-ia-rotation-rl;
   animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */ }
 
-@-webkit-keyframes rotation-lr {
+@-webkit-keyframes betterdocs-ia-rotation-lr {
   from {
     -webkit-transform: rotate(-90deg);
             transform: rotate(-90deg); }
@@ -1106,7 +1106,7 @@ textarea {
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@keyframes rotation-lr {
+@keyframes betterdocs-ia-rotation-lr {
   from {
     -webkit-transform: rotate(-90deg);
             transform: rotate(-90deg); }
@@ -1114,7 +1114,7 @@ textarea {
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@-webkit-keyframes rotation-rl {
+@-webkit-keyframes betterdocs-ia-rotation-rl {
   from {
     -webkit-transform: rotate(90deg);
             transform: rotate(90deg); }
@@ -1122,7 +1122,7 @@ textarea {
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@keyframes rotation-rl {
+@keyframes betterdocs-ia-rotation-rl {
   from {
     -webkit-transform: rotate(90deg);
             transform: rotate(90deg); }
@@ -1130,7 +1130,7 @@ textarea {
     -webkit-transform: rotate(0);
             transform: rotate(0); } }
 
-@-webkit-keyframes slide-in {
+@-webkit-keyframes betterdocs-ia-slide-in {
   from {
     opacity: 0;
     -webkit-transform: translateY(10px);
@@ -1140,7 +1140,7 @@ textarea {
     -webkit-transform: translateY(0);
             transform: translateY(0); } }
 
-@keyframes slide-in {
+@keyframes betterdocs-ia-slide-in {
   from {
     opacity: 0;
     -webkit-transform: translateY(10px);
@@ -1150,7 +1150,7 @@ textarea {
     -webkit-transform: translateY(0);
             transform: translateY(0); } }
 
-@-webkit-keyframes slide-out {
+@-webkit-keyframes betterdocs-ia-slide-out {
   from {
     opacity: 1;
     -webkit-transform: translateY(0);
@@ -1160,7 +1160,7 @@ textarea {
     -webkit-transform: translateY(10px);
             transform: translateY(10px); } }
 
-@keyframes slide-out {
+@keyframes betterdocs-ia-slide-out {
   from {
     opacity: 1;
     -webkit-transform: translateY(0);
@@ -1183,7 +1183,8 @@ textarea {
   bottom: 20px;
   max-width: 370px;
   position: fixed;
-  z-index: 9999; }
+  z-index: 9999999;
+  cursor: pointer; }
   .betterdocs-widget-container .betterdocs-launcher {
     width: 60px;
     height: 60px; }

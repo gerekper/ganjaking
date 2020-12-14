@@ -34,7 +34,7 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.7.1';
+	const VERSION = '2.8.0';
 
 	/** @var \WC_Address_Validation single instance of this plugin */
 	protected static $instance;
@@ -48,6 +48,8 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 	/** @var \WC_Address_Validation_Admin instance */
 	protected $admin;
 
+	/** @var bool debug mode status */
+	protected $is_debug_mode;
 
 	/**
 	 * Sets up the plugin main class.
@@ -344,6 +346,23 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 	public function get_settings_url( $_ = '' ) {
 
 		return admin_url( 'admin.php?page=wc-settings&tab=address_validation' );
+	}
+
+
+	/**
+	 * Checks if the plugin's debug mode is enabled.
+	 *
+	 * @since 2.7.2
+	 *
+	 * @return bool
+	 */
+	public function is_debug_mode_enabled() {
+
+		if ( null === $this->is_debug_mode ) {
+			$this->is_debug_mode = 'yes' === get_option( 'wc_address_validation_debug_mode' );
+		}
+
+		return $this->is_debug_mode;
 	}
 
 

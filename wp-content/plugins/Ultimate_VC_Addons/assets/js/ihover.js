@@ -1,6 +1,6 @@
 ;(function ( $, window, undefined ) {
     // Hide until page load
-    $( window ).load(function() {
+    $( window ).on('load',function() {
         $('.ult-ih-container').css({'visibility':'visible', 'opacity':1});
     });
     $(document).ready(function () {

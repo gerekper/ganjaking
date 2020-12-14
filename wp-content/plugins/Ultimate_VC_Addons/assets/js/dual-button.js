@@ -470,7 +470,7 @@
 //responsive media query for button
 jQuery(document).ready(function(p){
   recallme();
-    jQuery( window ).load(function() {
+    jQuery( window ).on('load',function() {
         recallme();
     });
 });

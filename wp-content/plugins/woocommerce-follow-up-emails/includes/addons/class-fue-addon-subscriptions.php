@@ -1410,7 +1410,7 @@ class FUE_Addon_Subscriptions extends FUE_Addon_Woocommerce_Scheduler {
 
 			if ( $email->trigger == 'subs_before_expire' || $email->trigger == 'subs_before_renewal' ) {
 				// unschedule the email first
-				$param = array('email_order_id' => $item->id);
+				$param = array( $item->id );
 				as_unschedule_action( 'sfn_followup_emails', $param, 'fue' );
 
 				// get the new sending schedule

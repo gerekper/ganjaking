@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.4.2';
+	const VERSION = '2.5.0';
 
 	/** plugin id */
 	const PLUGIN_ID = 'checkout_add_ons';
@@ -351,25 +351,6 @@ class Plugin extends Framework\SV_WC_Plugin {
 		}
 
 		return $order_add_ons;
-	}
-
-	/**
-	 * Returns any globally configured add-ons.
-	 *
-	 * @since 1.0.0
-	 * @deprecated since 2.0.0
-	 *
-	 * @return Add_On[] Array of add-ons objects
-	 */
-	public function get_add_ons() {
-
-		_deprecated_function(
-			'wc_checkout_add_ons()->get_add_ons()',
-			'2.0.0',
-			'Add_On_Factory::get_add_ons()'
-		);
-
-		return Add_On_Factory::get_add_ons();
 	}
 
 

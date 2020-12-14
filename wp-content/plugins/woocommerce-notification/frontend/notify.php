@@ -288,7 +288,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		if ( $enable_single_product && is_product() ) {
 			$product_id = get_the_ID();
 			if ( ! $product_id ) {
-				return;
+				return $products;
 			}
 			$products = get_transient( $prefix . 'wn_product_child' . $product_id );
 			if ( is_array( $products ) && count( $products ) ) {
@@ -1455,6 +1455,11 @@ class VI_WNOTIFICATION_Frontend_Notify {
                         color:{$highlight_color} !important;
                 }" . $custom_css_setting;
 
+		$custom_css = str_replace( "\n", '', $custom_css );
+		$custom_css = str_replace( "\r", '', $custom_css );
+		$custom_css = str_replace( "\t", '', $custom_css );
+		$custom_css = str_replace( "\l", '', $custom_css );
+		$custom_css = str_replace( "\0", '', $custom_css );
 		wp_add_inline_style( 'woocommerce-notification', $custom_css );
 	}
 

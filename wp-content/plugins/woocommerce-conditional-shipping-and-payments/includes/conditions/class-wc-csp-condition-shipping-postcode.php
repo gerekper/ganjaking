@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Zip Code Condition.
  *
  * @class    WC_CSP_Condition_Shipping_Postcode
- * @version  1.8.6
+ * @version  1.8.10
  */
 class WC_CSP_Condition_Shipping_Postcode extends WC_CSP_Package_Condition {
 
@@ -24,8 +24,8 @@ class WC_CSP_Condition_Shipping_Postcode extends WC_CSP_Package_Condition {
 	public function __construct() {
 		$this->id                             = 'zip_code';
 		$this->title                          = __( 'Shipping Postcode', 'woocommerce-conditional-shipping-and-payments' );
-		$this->supported_global_restrictions  = array( 'shipping_methods', 'payment_gateways' );
-		$this->supported_product_restrictions = array( 'shipping_methods', 'payment_gateways' );
+		$this->supported_global_restrictions  = array( 'shipping_methods', 'payment_gateways', 'shipping_countries' );
+		$this->supported_product_restrictions = array( 'shipping_methods', 'payment_gateways', 'shipping_countries' );
 	}
 
 	/**

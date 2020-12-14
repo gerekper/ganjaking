@@ -7,6 +7,8 @@ jQuery(
 				opacity: 0.8,
 				modal: false,
 				horizontal_padding: 50,
+				default_width: '90%',
+				default_height: '90%',
 				changepicturecallback: function() {
 					$( '.quick-view .woocommerce-product-gallery' ).wc_product_gallery();
 					$( '.quick-view .variations_form' ).wc_variation_form();
@@ -33,9 +35,11 @@ jQuery(
 							)
 						)
 					);
+
+					return false;
 				}
 
-				return false;
+				return true;
 			}
 		);
 	}

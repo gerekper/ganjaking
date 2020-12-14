@@ -98,7 +98,7 @@
         });
 
     });
-    $(window).load(function () {
+    $(window).on('load',function () {
         $(".ult-carousel-wrapper").each(function () {
             var $this = $(this);
             if ($this.hasClass("ult_full_width")) {

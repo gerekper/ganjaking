@@ -33,7 +33,7 @@
 			if (self.serverSelector) {
 				self.selectedServer = self.serverSelector.value;
 				// Server type changed.
-				jQuery(self.serverSelector).change(function (e) {
+				jQuery(self.serverSelector).on( 'change', function (e) {
 					const value = e.currentTarget.value;
 					self.hideCurrentInstructions();
 					self.showServerInstructions(value);

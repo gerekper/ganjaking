@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Account Funds 2.3.4\n"
+"Project-Id-Version: WooCommerce Account Funds 2.3.5\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/woocommerce/woocommerce-account-funds/issues\n"
-"POT-Creation-Date: 2020-11-16 10:46:00+00:00\n"
+"POT-Creation-Date: 2020-12-04 15:22:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,12 +21,12 @@ msgstr ""
 #: includes/admin/class-wc-account-funds-admin.php:107
 #: includes/admin/class-wc-account-funds-admin.php:137
 #: includes/admin/class-wc-account-funds-admin.php:265
-#: includes/class-wc-account-funds-cart-manager.php:234
+#: includes/class-wc-account-funds-cart-manager.php:239
 #: includes/class-wc-account-funds-my-account.php:76
 #: includes/class-wc-account-funds-my-account.php:90
 #: includes/class-wc-account-funds-privacy.php:12
 #: includes/class-wc-gateway-account-funds.php:18
-#: includes/class-wc-gateway-account-funds.php:130
+#: includes/class-wc-gateway-account-funds.php:116
 msgid "Account Funds"
 msgstr ""
 
@@ -118,46 +118,46 @@ msgid ""
 "payment gateway."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:180
+#: includes/class-wc-account-funds-cart-manager.php:185
 msgid "Use Account Funds"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:181
+#: includes/class-wc-account-funds-cart-manager.php:186
 msgid "You have <strong>%s</strong> worth of funds on your account."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:183
+#: includes/class-wc-account-funds-cart-manager.php:188
 #: includes/class-wc-gateway-account-funds.php:46
 msgid "Use your account funds and get a %s discount on your order."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:235
+#: includes/class-wc-account-funds-cart-manager.php:240
 msgid "[Remove]"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:247
+#: includes/class-wc-account-funds-cart-manager.php:252
 #. translators: 1: funds available 2: discount
 msgid "Use <strong>%1$s</strong> from your funds and get a %2$s discount."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:254
+#: includes/class-wc-account-funds-cart-manager.php:259
 #. translators: %s: funds available
 msgid "Use <strong>%s</strong> from your funds."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:260
+#: includes/class-wc-account-funds-cart-manager.php:265
 msgid "Account funds"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:382
+#: includes/class-wc-account-funds-cart-manager.php:389
 msgid "Discount applied for using account funds!"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:399
+#: includes/class-wc-account-funds-cart-manager.php:406
 msgid "Discount"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:493
+#: includes/class-wc-account-funds-cart-manager.php:525
 msgid "%s (with tax, discount, and account funds applied)"
 msgstr ""
 
@@ -236,29 +236,29 @@ msgstr ""
 msgid "The maximum amount that can be topped up is %s"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:91
-#: includes/class-wc-account-funds-order-manager.php:111
+#: includes/class-wc-account-funds-order-manager.php:93
+#: includes/class-wc-account-funds-order-manager.php:117
 msgid "Removed %s funds from user #%d"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:158
+#: includes/class-wc-account-funds-order-manager.php:163
 msgid "Restored %s funds to user #%d"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:212
+#: includes/class-wc-account-funds-order-manager.php:217
 msgid "Added %s funds to user #%d"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:238
+#: includes/class-wc-account-funds-order-manager.php:243
 msgid "Funds Used:"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:381
-#: includes/class-wc-account-funds-order-manager.php:408
+#: includes/class-wc-account-funds-order-manager.php:386
+#: includes/class-wc-account-funds-order-manager.php:413
 msgid "Funds Used"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:415
+#: includes/class-wc-account-funds-order-manager.php:420
 msgid "Order Total after Funds Used"
 msgstr ""
 
@@ -309,52 +309,52 @@ msgstr ""
 msgid "Remaining balance: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:121
+#: includes/class-wc-gateway-account-funds.php:107
 msgid "Enable/Disable"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:123
+#: includes/class-wc-gateway-account-funds.php:109
 msgid "Enable"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:127
+#: includes/class-wc-gateway-account-funds.php:113
 msgid "Title"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:129
+#: includes/class-wc-gateway-account-funds.php:115
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:143
-#: includes/class-wc-gateway-account-funds.php:152
+#: includes/class-wc-gateway-account-funds.php:129
+#: includes/class-wc-gateway-account-funds.php:147
 msgid "Payment error:"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:143
+#: includes/class-wc-gateway-account-funds.php:129
 msgid "You must be logged in to use this payment method"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:152
+#: includes/class-wc-gateway-account-funds.php:147
 msgid "Insufficient account balance"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:196
+#: includes/class-wc-gateway-account-funds.php:184
 msgid "Customer not found."
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:201
+#: includes/class-wc-gateway-account-funds.php:190
 msgid "Insufficient funds (amount to pay = %s; available funds = %s)."
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:208
+#: includes/class-wc-gateway-account-funds.php:202
 msgid "Account funds payment applied: %s"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:290
+#: includes/class-wc-gateway-account-funds.php:282
 msgid "Account Funds subscription payment completed"
 msgstr ""
 
-#: includes/class-wc-gateway-account-funds.php:302
+#: includes/class-wc-gateway-account-funds.php:294
 msgid "Via %s"
 msgstr ""
 

@@ -95,7 +95,7 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 
 			// Updating order review?
 			} elseif ( did_action( 'woocommerce_checkout_update_order_review' ) && ! empty( $_POST[ 'post_data' ] ) ) {
-				parse_str( $_POST[ 'post_data' ], $billing_data );
+				parse_str( wp_unslash( $_POST[ 'post_data' ] ), $billing_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				if ( is_array( $billing_data ) && isset( $billing_data[ 'billing_email' ] ) ) {
 					$check_emails[] = wc_clean( $billing_data[ 'billing_email' ] );
 				}

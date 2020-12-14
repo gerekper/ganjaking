@@ -201,10 +201,10 @@ class WC_CSP_Condition {
 	* @since  1.4.0
 	*
 	* @param  string  $modifier
-	* @param  array   $haystack
+	* @param  mixed   $haystack
 	* @return bool
 	*/
 	protected function modifier_is( $modifier, $haystack = array() ) {
-		return in_array( $modifier, $haystack );
+		return is_array( $haystack ) ? in_array( $modifier, $haystack ) : strval( $haystack ) === $modifier;
 	}
 }

@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.8.9\n"
+"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.8.10\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2020-11-17 11:22:29+00:00\n"
+"POT-Creation-Date: 2020-12-08 18:20:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -86,13 +86,18 @@ msgstr ""
 msgid "%1$s, or %2$s"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-ajax.php:85
+#: includes/admin/class-wc-csp-admin-ajax.php:50
+#: includes/admin/class-wc-csp-admin-ajax.php:162
+msgid "Action failed. Please refresh your browser and try again."
+msgstr ""
+
+#: includes/admin/class-wc-csp-admin-ajax.php:93
 msgid ""
 "Restriction data has been changed. Please refresh your browser and try "
 "again."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-ajax.php:170
+#: includes/admin/class-wc-csp-admin-ajax.php:186
 msgid ""
 "This restriction is already defined and cannot be added again. Only "
 "restrictions that support multiple rule definitions can be added more than "
@@ -200,24 +205,24 @@ msgstr ""
 msgid "No payment / shipping restrictions linked with this product."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:567
+#: includes/admin/class-wc-csp-admin.php:565
 msgid "re-enable product-level restrictions"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:569
+#: includes/admin/class-wc-csp-admin.php:567
 msgid ""
 "Product restrictions are currently disabled globally. You can still edit, "
 "create and delete rules under <strong>Product Data > Restrictions</strong> "
 "&ndash; however, they will have no effect until you %s."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:602
+#: includes/admin/class-wc-csp-admin.php:600
 msgid ""
 "Conditional Shipping and Payments does not collect, store or share any "
 "personal data."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:606
+#: includes/admin/class-wc-csp-admin.php:604
 msgid ""
 "However, WooCommerce collects personal data from customers which can be "
 "used by Conditional Shipping and Payments to conditionally disable specific "
@@ -226,11 +231,11 @@ msgid ""
 "violate laws in your jurisdiction."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:654
+#: includes/admin/class-wc-csp-admin.php:652
 msgid "Filter by restriction"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:771
+#: includes/admin/class-wc-csp-admin.php:769
 msgid "Any restriction"
 msgstr ""
 
@@ -295,7 +300,7 @@ msgid ""
 "delete rules &ndash; however, they will have no effect until you %s."
 msgstr ""
 
-#: includes/admin/settings/class-wc-csp-settings-restrictions.php:208
+#: includes/admin/settings/class-wc-csp-settings-restrictions.php:209
 msgid "Failed to delete restriction rule. Please refresh the page and try again."
 msgstr ""
 
@@ -729,26 +734,42 @@ msgstr ""
 msgid "Coupon Code"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:54
-msgid "remove coupons %s"
-msgstr ""
-
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:56
-msgid "remove coupon %s"
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:52
+msgid "remove all applied coupons"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-coupon-code.php:60
-msgid "use a qualifying coupon"
+msgid "remove coupons %s"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:204
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:62
+msgid "remove coupon %s"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:68
+msgid "apply a qualifying coupon"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:72
+msgid "remove all free shipping coupons from your cart"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:247
 #: includes/conditions/class-wc-csp-condition-gift-cards.php:122
 msgid "used"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:205
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:248
 #: includes/conditions/class-wc-csp-condition-gift-cards.php:123
 msgid "not used"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:249
+msgid "enables free shipping"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:254
+msgid "Enter specific coupon codes to check, separated by comma (optional)."
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-currency.php:28
@@ -1676,6 +1697,10 @@ msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1027
 msgid "Unfortunately, package #%3$s cannot be shipped via &quot;%1$s&quot;. %2$s"
+msgstr ""
+
+#: tests/framework/class-wc-csp-dummy-payment-gateway.php:21
+msgid "Proceed to PayPal"
 msgstr ""
 
 #: woocommerce-conditional-shipping-and-payments.php:244

@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * The plugin integration class.
@@ -36,7 +36,7 @@ class WC_Google_Analytics_Pro_Integration extends Framework\SV_WC_Tracking_Integ
 
 
 	/** @var string URL to Google Analytics Pro Authentication proxy */
-	const PROXY_URL = 'https://wc-google-analytics-pro-proxy.herokuapp.com';
+	const PROXY_URL = 'https://wc-ga-pro-proxy.com';
 
 	/** @var string MonsterInsights's GA tracking type, Universal or old 'ga.js'. Default is empty string, which means that MonsterInsights tracking is inactive. */
 	private $_monsterinsights_tracking_type = '';
@@ -253,8 +253,7 @@ class WC_Google_Analytics_Pro_Integration extends Framework\SV_WC_Tracking_Integ
 		ob_start();
 
 		?>
-
-		(function() {
+		( function() {
 
 			function trackEvents() {
 				<?php echo $javascript; ?>
@@ -266,7 +265,8 @@ class WC_Google_Analytics_Pro_Integration extends Framework\SV_WC_Tracking_Integ
 				// avoid using jQuery in case it's not available when this script is loaded
 				document.addEventListener( 'wc_google_analytics_pro_loaded', trackEvents );
 			}
-		})();
+
+		} ) ();
 		<?php
 
 		// enqueue the JavaScript
@@ -1952,7 +1952,11 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 			'eventLabel'    => htmlentities( $product->get_title(), ENT_QUOTES, 'UTF-8' ),
 		);
 
-		$product_id = ( $parent_id = Framework\SV_WC_Product_Compatibility::get_prop( $product, 'parent_id' ) ) ? $parent_id : Framework\SV_WC_Product_Compatibility::get_prop( $product, 'id' );
+		if ( $parent_id = $product->get_parent_id() ) {
+			$product_id = $parent_id;
+		} else {
+			$product_id = $product->get_id();
+		}
 
 		$js =
 			"$( '.products .post-" . esc_js( $product_id ) . " a' ).click( function() {
@@ -1960,7 +1964,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 					return;
 				}
 				" . $this->get_ec_add_product_js( $product_id ) . $this->get_ec_action_js( 'click', array( 'list' => $list ) ) . $this->get_event_tracking_js( $this->event_name['clicked_product'], $properties ) . "
-			});";
+			} );";
 
 		$this->enqueue_js( 'event', $js );
 	}
@@ -2406,7 +2410,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 		}
 
 		// bail if tracking is disabled but not if the status is being manually changed by the admin
-		if ( ! $this->is_tracking_enabled_for_user_role( Framework\SV_WC_Order_Compatibility::get_prop( $order, 'customer_id' ) ) ) {
+		if ( ! $this->is_tracking_enabled_for_user_role( $order->get_customer_id() ) ) {
 			return;
 		}
 
@@ -2450,7 +2454,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 		if ( $this->api_record_event( $this->event_name['completed_purchase'], $properties, $ec, $identities, true ) ) {
 
 			// mark order as tracked
-			update_post_meta( Framework\SV_WC_Order_Compatibility::get_prop( $order, 'id' ), '_wc_google_analytics_pro_tracked', 'yes' );
+			update_post_meta( $order->get_id(), '_wc_google_analytics_pro_tracked', 'yes' );
 		}
 	}
 
@@ -2774,19 +2778,14 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 			return;
 		}
 
-		$attributes = array();
+		$attributes = [];
 
 		if ( $product->is_type( 'variable' ) ) {
-
-			if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_lt_3_0() ) {
-				$attributes = $product->get_variation_default_attributes();
-			} else {
-				$attributes = $product->get_default_attributes();
-			}
+			$attributes = $product->get_default_attributes();
 		}
 
 		// set up impression data as associative array and merge attributes to be sent as custom dimensions
-		$impression_data = array_merge( array(
+		$impression_data = array_merge( [
 			'id'       => $this->get_product_identifier( $product ),
 			'name'     => $product->get_title(),
 			'list'     => $this->get_list_type(),
@@ -2795,7 +2794,7 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 			'variant'  => $this->get_product_variation_attributes( $product ),
 			'position' => isset( $woocommerce_loop['loop'] ) ? $woocommerce_loop['loop'] : 1,
 			'price'    => $product->get_price(),
-		), $attributes );
+		], $attributes );
 
 		/**
 		 * Filters the product impression data (impressionFieldObject).
@@ -3412,53 +3411,6 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 		}
 
 		return $pieces[ $key ];
-	}
-
-
-	/**
-	 * Gets the Google Client API Analytics Service instance.
-	 *
-	 * @since 1.0.0
-	 * @deprecated since 1.7.0
-	 * @see \WC_Google_Analytics_Pro_Account_Management_API
-	 * @see \WC_Google_Analytics_Pro_Integration::get_management_api()
-	 *
-	 * @return null
-	 */
-	public function get_analytics() {
-		_deprecated_function( 'WC_Google_Analytics_Pro_Integration::get_analytics()', '1.7.0' );
-		return null;
-	}
-
-
-	/**
-	 * Gets Google Client API instance.
-	 *
-	 * @since 1.0.0
-	 * @deprecated since 1.7.0
-	 * @see \WC_Google_Analytics_Pro_Account_Management_API
-	 * @see \WC_Google_Analytics_Pro_Integration::get_management_api()
-	 *
-	 * @return null
-	 */
-	public function get_ga_client() {
-		_deprecated_function( 'WC_Google_Analytics_Pro_Integration::get_ga_client()', '1.7.0' );
-		return null;
-	}
-
-
-	/**
-	 * Gets the Measurement Protocol API wrapper.
-	 *
-	 * @since 1.0.0
-	 * @deprecated since 1.7.0
-	 * @see \WC_Google_Analytics_Pro_Integration::get_measurement_protocol_api()
-	 *
-	 * @return \WC_Google_Analytics_Pro_Measurement_Protocol_API
-	 */
-	public function get_api() {
-		_deprecated_function( 'WC_Google_Analytics_Pro_Integration::get_api()', '1.7.0', 'WC_Google_Analytics_Pro_Integration::get_measurement_protocol_api()' );
-		return $this->get_measurement_protocol_api();
 	}
 
 

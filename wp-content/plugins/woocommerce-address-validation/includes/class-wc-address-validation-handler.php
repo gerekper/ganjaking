@@ -121,18 +121,18 @@ class WC_Address_Validation_Handler {
 			return;
 		}
 
-		$params = array(
+		$params = [
 			'nonce'                 => wp_create_nonce( 'wc_address_validation' ),
 			'locale'                => get_locale(),
 			'is_checkout'           => is_checkout(),
-			'debug_mode'            => 'yes' === get_option( 'wc_address_validation_debug_mode' ),
+			'debug_mode'            => wc_address_validation()->is_debug_mode_enabled(),
 			'force_postcode_lookup' => 'yes' === get_option( 'wc_address_validation_force_postcode_lookup' ),
 			'ajax_url'              => admin_url( 'admin-ajax.php', 'relative' ),
 			'countries'             => $active_provider->get_supported_countries(),
 			'billing_postcode'      => is_user_logged_in() ? get_user_meta( get_current_user_id(), 'billing_postcode', true ) : '',
 			'shipping_postcode'     => is_user_logged_in() ? get_user_meta( get_current_user_id(), 'shipping_postcode', true ) : '',
 			'ajax_loader_url'       => wc_address_validation()->get_framework_assets_url() . '/images/ajax-loader.gif',
-		);
+		];
 
 		// load postcode lookup JS
 		if ( $this->get_active_provider()->supports( 'postcode_lookup' ) ) {

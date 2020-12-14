@@ -746,7 +746,10 @@ class Media_Library extends Abstract_Module {
 		uasort(
 			$size_stats,
 			function( $a, $b ) {
-				return $a->bytes < $b->bytes;
+				if ( $a->bytes === $b->bytes ) {
+					return 0;
+				}
+				return $a->bytes < $b->bytes ? 1 : -1;
 			}
 		);
 

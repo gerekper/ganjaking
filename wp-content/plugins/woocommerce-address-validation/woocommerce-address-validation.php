@@ -6,7 +6,7 @@
  * Description: Adds Address Validation and Postcode Lookup to WooCommerce via Loqate, SmartyStreets, and more!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.7.1
+ * Version: 2.8.0
  * Text Domain: woocommerce-address-validation
  * Domain Path: /i18n/languages/
  *
@@ -22,8 +22,8 @@
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 182775:d65b52fcfbf887386516007aed10451d
- * WC requires at least: 3.0.9
- * WC tested up to: 4.5.2
+ * WC requires at least: 3.5
+ * WC tested up to: 4.7.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -50,13 +50,13 @@ class WC_Address_Validation_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '5.6.0';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '4.4';
+	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.0.9';
+	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version used by this plugin */
 	const FRAMEWORK_VERSION = '5.5.0';
@@ -88,8 +88,6 @@ class WC_Address_Validation_Loader {
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
-
-			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

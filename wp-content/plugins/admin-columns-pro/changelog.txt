@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.3.3 =
+Release Date: December 9th, 2020
+
+* [Fixed] WordPress 5.6 compatibility issues
+
 = 5.3.2 =
 Release Date: October 6th, 2020
 

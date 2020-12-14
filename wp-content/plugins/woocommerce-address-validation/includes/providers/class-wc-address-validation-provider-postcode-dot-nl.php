@@ -92,8 +92,8 @@ class WC_Address_Validation_Provider_Postcode_Dot_Nl extends \WC_Address_Validat
 		$house_number = trim( $house_number );
 
 		// check if house_number was provided
-		if ( '' == $house_number ) {
-			$locations = array( 'value' => 'none', 'name' => __( 'No addresses found, please enter your house number and try again.', 'woocommerce-address-validation' ) );
+		if ( '' === $house_number || empty( $house_number ) ) {
+			$locations = [ 'value' => 'none', 'name' => __( 'No addresses found, please enter your house number and try again.', 'woocommerce-address-validation' ) ];
 		}
 
 		// get the house number addition, if provided
@@ -109,17 +109,26 @@ class WC_Address_Validation_Provider_Postcode_Dot_Nl extends \WC_Address_Validat
 			)
 		);
 
+		$this->maybe_log_request( $url, $args );
+
 		// send GET request
-		$response = wp_safe_remote_get( $url, $args );
+		$api_response = wp_safe_remote_get( $url, $args );
 
 		// check for network timeout, etc
-		if ( is_wp_error( $response ) || ( ! isset( $response['body'] ) ) ) {
+		if ( is_wp_error( $api_response ) || empty( $api_response['body'] ) ) {
 
-			$locations = array( 'value' => 'none', 'name' => __( 'No addresses found, please check your postcode and house number and try again.', 'woocommerce-address-validation' ) );
+			// Assign API response to the response object for later debug log
+			$response = $api_response;
+
+			$locations = [
+				'value' => 'none',
+				'name'  => $this->get_lookup_provider_error_message( $api_response ),
+			];
+
 		} else {
 
 			// decode response body
-			$response = json_decode( $response['body'] );
+			$response = json_decode( $api_response['body'] );
 
 			// check for successful response
 			if ( ! isset( $response->exception ) ) {
@@ -159,11 +168,11 @@ class WC_Address_Validation_Provider_Postcode_Dot_Nl extends \WC_Address_Validat
 			}
 		}
 
-		if ( 'yes' == get_option( 'wc_address_validation_debug_mode' ) ) {
+		if ( wc_address_validation()->is_debug_mode_enabled() ) {
 			wc_address_validation()->log( print_r( $response, true ) );
 		}
 
-		return $locations;
+		return $this->prepare_lookup_data( $locations, $postcode, $args );
 	}
 
 

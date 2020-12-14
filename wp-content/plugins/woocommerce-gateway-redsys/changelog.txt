@@ -1,6 +1,15 @@
 *** Redsys Gateway Change Log ***
 
-2020.11.14 - version 12.1.0
+2020.12.06 - version 12.2.0
+
+* Added compatibility Bulk charge Invoices with PSD2.
+* Declared compatibility with WooCommerce 4.8
+
+2020.12.04 - version 12.1.1
+
+* Fixed a problem with subscription renewal under PDS2.
+
+2020.11.30 - version 12.1.0
 
 * NEW: Added official InSite plugin to Health Check.
 * NEW: Added a warning if WooCommerce is not connected to WooCommerce.com.

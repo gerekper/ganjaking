@@ -3,7 +3,7 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, credit, coupons
 Requires at least: 4.7
 Tested up to: 5.6
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.4
@@ -23,6 +23,10 @@ Create 'Store Credit' coupons for customers which are redeemable at checkout.
 Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-store-credit/) to read the documentation and get support.
 
 == Changelog ==
+
+= 3.4.2 December 10, 2020 =
+* Fix - Prevent fatal error when displaying the discounted amount of a Store Credit coupon on the cart page.
+* Fix - Enqueue the script 'send-credit.js' only when necessary.
 
 = 3.4.1 November 26, 2020 =
 * Tweak - Improved PHP 8 support.

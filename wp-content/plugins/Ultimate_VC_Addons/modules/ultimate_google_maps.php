@@ -625,7 +625,7 @@ if ( ! class_exists( 'Ultimate_Google_Maps' ) ) {
 						},200);
 					}
 				});
-				$(window).load(function(){
+				$(window).on('load',function(){
 					setTimeout(function(){
 						$(window).trigger('resize');
 					},200);

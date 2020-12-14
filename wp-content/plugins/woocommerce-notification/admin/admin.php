@@ -34,7 +34,7 @@ class VI_WNOTIFICATION_Admin_Admin {
 				'https://villatheme.com/wp-json/downloads/v3',  // update path
 				'woocommerce-notification/woocommerce-notification.php',                  // plugin file slug
 				'woocommerce-notification', '5846', $key );
-			$setting_url = admin_url( '?page=woocommerce-notification' );
+			$setting_url = admin_url( 'admin.php?page=woocommerce-notification' );
 			new VillaTheme_Plugin_Updater( 'woocommerce-notification/woocommerce-notification.php', 'woocommerce-notification', $setting_url );
 		}
 		if ( class_exists( 'VillaTheme_Support_Pro' ) ) {

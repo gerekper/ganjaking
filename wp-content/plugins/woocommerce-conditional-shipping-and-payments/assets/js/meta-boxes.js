@@ -265,7 +265,7 @@ jQuery( function($) {
 
 		.on( 'click', '.wccsp_select_none', function() {
 			var $select_field = $( this ).closest( '.select-field' );
-			$select_field.find( 'select option' ).removeAttr( 'selected' );
+			$select_field.find( 'select option' ).prop( 'selected', false );
 			$select_field.find( 'select' ).trigger( 'change' );
 			return false;
 		} )
@@ -390,6 +390,29 @@ jQuery( function($) {
 			e.preventDefault();
 			$( this ).closest( '.condition_row' ).remove();
 			return true;
+		} )
+
+		// Condition Modifier Change.
+		.on( 'change', '.condition_modifier select', function () {
+
+			var $modifier_select = $( this ),
+			    zero_config_mods = $( $modifier_select ).data( 'zero_config_mods' );
+
+			if ( zero_config_mods ) {
+
+				var value                 = $modifier_select.val(),
+					$condition_row_values = $modifier_select.closest( '.condition_row_inner' ).find( '.condition_value' ),
+					$no_input             = $condition_row_values.filter( '.condition--disabled' ),
+					$config_input         = $condition_row_values.not( '.condition--disabled' );
+
+				if ( zero_config_mods.indexOf( value ) > -1 ) {
+					$no_input.show();
+					$config_input.hide();
+				} else {
+					$no_input.hide();
+					$config_input.show();
+				}
+			}
 		} )
 
 		// Condition Add.

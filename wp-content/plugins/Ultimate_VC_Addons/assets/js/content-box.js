@@ -1,6 +1,6 @@
 ;(function ( $, window, undefined ) {
 
-	jQuery(window).load(function(a){
+	jQuery(window).on('load',function(a){
 		contentBoxInit();
 	});
 	jQuery(window).resize(function(a){

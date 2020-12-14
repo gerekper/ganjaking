@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * # WooCommerce Google Analytics Pro Main Plugin Class.
@@ -34,7 +34,7 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.9.3';
+	const VERSION = '1.10.0';
 
 	/** @var \WC_Google_Analytics_Pro the singleton instance of the plugin */
 	protected static $instance;
@@ -389,7 +389,7 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 
 		// hide the free integration's connection notice, if it hasn't already been dismissed
 		wc_enqueue_js( "
-			jQuery( document ).ready( function( $ ) {
+			jQuery( function( $ ) {
 				$( 'a[href$=\"page=wc-settings&tab=integration&section=google_analytics\"]' ).closest( 'div.updated' ).hide();
 			} );
 		" );

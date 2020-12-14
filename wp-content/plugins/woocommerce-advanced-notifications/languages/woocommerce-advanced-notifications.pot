@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Advanced Notifications 1.2.28\n"
+"Project-Id-Version: WooCommerce Advanced Notifications 1.2.29\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-advanced-notifications\n"
-"POT-Creation-Date: 2020-10-06 20:15:29+00:00\n"
+"POT-Creation-Date: 2020-12-10 16:52:13+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,32 +31,32 @@ msgid "Notifications"
 msgstr ""
 
 #: includes/class-wc-advanced-notifications-admin.php:79
-#: includes/class-wc-advanced-notifications-table.php:176
+#: includes/class-wc-advanced-notifications-table.php:175
 msgid "Notification Types"
 msgstr ""
 
 #: includes/class-wc-advanced-notifications-admin.php:80
-#: includes/class-wc-advanced-notifications-table.php:177
+#: includes/class-wc-advanced-notifications-table.php:176
 msgid "Triggers"
 msgstr ""
 
 #: includes/class-wc-advanced-notifications-admin.php:81
-#: includes/class-wc-advanced-notifications-table.php:178
+#: includes/class-wc-advanced-notifications-table.php:177
 msgid "Plain text?"
 msgstr ""
 
 #: includes/class-wc-advanced-notifications-admin.php:82
-#: includes/class-wc-advanced-notifications-table.php:179
+#: includes/class-wc-advanced-notifications-table.php:178
 msgid "Prices?"
 msgstr ""
 
 #: includes/class-wc-advanced-notifications-admin.php:83
-#: includes/class-wc-advanced-notifications-table.php:180
+#: includes/class-wc-advanced-notifications-table.php:179
 msgid "Totals?"
 msgstr ""
 
 #: includes/class-wc-advanced-notifications-admin.php:84
-#: includes/class-wc-advanced-notifications-table.php:181
+#: includes/class-wc-advanced-notifications-table.php:180
 msgid "Sent count"
 msgstr ""
 
@@ -124,68 +124,68 @@ msgstr ""
 msgid "Advanced Notifications Data Erased."
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:45
+#: includes/class-wc-advanced-notifications-table.php:48
 msgid "Edit"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:45
-#: includes/class-wc-advanced-notifications-table.php:191
+#: includes/class-wc-advanced-notifications-table.php:48
+#: includes/class-wc-advanced-notifications-table.php:190
 msgid "Delete"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:62
+#: includes/class-wc-advanced-notifications-table.php:65
 #: includes/views/admin-screen-edit.php:79
 msgid "Low stock"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:65
+#: includes/class-wc-advanced-notifications-table.php:68
 #: includes/views/admin-screen-edit.php:80
 msgid "Out of stock"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:68
+#: includes/class-wc-advanced-notifications-table.php:71
 #: includes/views/admin-screen-edit.php:81
 msgid "Backorders"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:71
+#: includes/class-wc-advanced-notifications-table.php:74
 #: includes/views/admin-screen-edit.php:78
 msgid "Purchases"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:74
+#: includes/class-wc-advanced-notifications-table.php:77
 #: includes/views/admin-screen-edit.php:82
 msgid "Refunds"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:89
+#: includes/class-wc-advanced-notifications-table.php:93
 msgid "1 sent"
 msgid_plural "%s sent"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-advanced-notifications-table.php:103
+#: includes/class-wc-advanced-notifications-table.php:106
 msgid "All Purchases"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:132
+#: includes/class-wc-advanced-notifications-table.php:131
 msgid "Categories:"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:136
+#: includes/class-wc-advanced-notifications-table.php:135
 msgid "Classes:"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:140
+#: includes/class-wc-advanced-notifications-table.php:139
 msgid "Products:"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:175
+#: includes/class-wc-advanced-notifications-table.php:174
 #: includes/views/admin-screen-edit.php:7
 msgid "Recipient"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-table.php:223
+#: includes/class-wc-advanced-notifications-table.php:221
 msgid "Notifications updated"
 msgstr ""
 

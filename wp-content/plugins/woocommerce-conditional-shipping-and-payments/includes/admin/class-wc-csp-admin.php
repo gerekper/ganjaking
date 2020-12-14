@@ -446,15 +446,13 @@ class WC_CSP_Admin {
 	 */
 	public function get_posted_product_restriction_data() {
 
-		if ( isset( $_POST[ 'restriction' ] ) ) {
-			$posted_restrictions_data = $_POST[ 'restriction' ];
-		}
-
 		$restriction_data = array();
 		$count            = 0;
 		$loop             = 0;
 
-		if ( isset( $posted_restrictions_data ) ) {
+		if ( isset( $_POST[ 'restriction' ] ) ) {
+
+			$posted_restrictions_data = $_POST[ 'restriction' ]; // @phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			uasort( $posted_restrictions_data, array( $this, 'cmp' ) );
 

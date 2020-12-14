@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * WooCommerce Order Status Control main plugin class.
@@ -34,7 +34,7 @@ class WC_Order_Status_Control extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.13.1';
+	const VERSION = '1.14.0';
 
 	/** @var WC_Order_Status_Control single instance of this plugin */
 	protected static $instance;

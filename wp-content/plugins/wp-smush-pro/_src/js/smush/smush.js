@@ -169,7 +169,7 @@ class Smush {
 	 * Show loader in button for single and bulk Smush.
 	 */
 	start() {
-		this.button.attr( 'disabled', 'disabled' );
+		this.button.prop( 'disabled', true );
 		this.button.addClass( 'wp-smush-started' );
 
 		this.bulkStart();
@@ -228,12 +228,12 @@ class Smush {
 	 * Enable button.
 	 */
 	enableButton() {
-		this.button.removeAttr( 'disabled' );
+		this.button.prop( 'disabled', false );
+		jQuery('.wp-smush-all').prop('disabled', false);
 		// For bulk process, enable other buttons.
-		jQuery( '.wp-smush-all' ).removeAttr( 'disabled' );
 		jQuery(
 			'button.wp-smush-scan, a.wp-smush-lossy-enable, button.wp-smush-resize-enable, button#wp-smush-save-settings'
-		).removeAttr( 'disabled' );
+		).prop('disabled', false);
 	}
 
 	/**
@@ -651,7 +651,7 @@ class Smush {
 		}
 
 		// Enable re-Smush and scan button.
-		jQuery( '.wp-resmush.wp-smush-action, .wp-smush-scan' ).removeAttr(
+		jQuery( '.wp-resmush.wp-smush-action, .wp-smush-scan' ).removeProp(
 			'disabled'
 		);
 	}
@@ -1165,7 +1165,7 @@ class Smush {
 		const self = this;
 
 		this.deferred.done( function() {
-			self.button.removeAttr( 'continue_smush' );
+			self.button.removeProp( 'continue_smush' );
 
 			if ( self.errors.length ) {
 				/** @param {string} wp_smush_msgs.error_in_bulk */
@@ -1186,7 +1186,7 @@ class Smush {
 			// Re-enable the buttons.
 			jQuery(
 				'.wp-smush-all:not(.wp-smush-finished), .wp-smush-scan'
-			).removeAttr( 'disabled' );
+			).prop('disabled', false);
 		} );
 	}
 

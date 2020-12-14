@@ -635,9 +635,7 @@ class FUE_AJAX {
 			$wpdb->update($wpdb->prefix .'followup_email_orders', array('status' => 1), array('id' => $id));
 
 			// re-create the task
-			$param = array(
-				'email_order_id'    => $id
-			);
+			$param = array( $id );
 			$send_time = $wpdb->get_var( $wpdb->prepare("SELECT send_on FROM {$wpdb->prefix}followup_email_orders WHERE id = %d", $id) );
 			as_schedule_single_action( $send_time, 'sfn_followup_emails', $param, 'fue' );
 
@@ -648,9 +646,7 @@ class FUE_AJAX {
 			$wpdb->update($wpdb->prefix .'followup_email_orders', array('status' => 0), array('id' => $id));
 
 			// if using action-scheduler, delete the task
-			$param = array(
-				'email_order_id'    => $id
-			);
+			$param = array( $id );
 			as_unschedule_action( 'sfn_followup_emails',  $param, 'fue' );
 
 			$resp['new_status'] = __('Suspended', 'follow_up_emails');

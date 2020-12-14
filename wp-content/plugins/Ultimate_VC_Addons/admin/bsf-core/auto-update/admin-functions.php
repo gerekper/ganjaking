@@ -299,7 +299,7 @@ if ( ! function_exists( 'bsf_notices' ) ) {
 					continue;
 				}
 
-				if ( 'registered' == $status ) :
+				if ( 'registered' !== $status ) :
 
 					$url = bsf_registration_page_url( '', $product['id'] );
 

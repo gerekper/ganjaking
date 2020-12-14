@@ -84,11 +84,13 @@ class WC_Store_Credit_Cart {
 	 */
 	public function coupon_discount_amount_html( $html, $coupon ) {
 		if ( wc_is_store_credit_coupon( $coupon ) ) {
-			$cart_discounts = $this->get_cart_discounts();
+			$coupon_discount = $this->get_cart_discounts()->coupon_discounts()->get( $coupon->get_code() );
 
-			$type      = ( WC()->cart->display_prices_including_tax() ? 'base_tax' : 'base' );
-			$discounts = $cart_discounts->coupon_discounts()->get( $coupon->get_code() )->get_discounts_by_type( $type );
-			$html      = '-' . wc_price( array_sum( $discounts ) );
+			if ( $coupon_discount ) {
+				$type      = ( WC()->cart->display_prices_including_tax() ? 'base_tax' : 'base' );
+				$discounts = $coupon_discount->get_discounts_by_type( $type );
+				$html      = '-' . wc_price( array_sum( $discounts ) );
+			}
 		}
 
 		return $html;

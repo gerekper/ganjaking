@@ -43,8 +43,16 @@ class WC_CSP_Admin_Ajax {
 
 		check_ajax_referer( 'wc_restrictions_toggle_restriction', 'security' );
 
+		if ( ! isset( $_POST[ 'restriction_id' ] ) || ! isset( $_POST[ 'value' ] ) || ! isset( $_POST[ 'index' ] ) || ! isset( $_POST[ 'post_id' ] ) || ! isset( $_POST[ 'hash' ] ) ) {
+
+			wp_send_json( array(
+				'hash'   => '',
+				'errors' => array( __( 'Action failed. Please refresh your browser and try again.', 'woocommerce-conditional-shipping-and-payments' ) )
+			) );
+		}
+
 		// Get POST data.
-		$restriction_id = stripslashes( $_POST[ 'restriction_id' ] );
+		$restriction_id = strval( stripslashes( $_POST[ 'restriction_id' ] ) ); // @phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$value          = intval( $_POST[ 'value' ] );
 		$index          = intval( $_POST[ 'index' ] );
 		$post_id        = intval( $_POST[ 'post_id' ] );
@@ -147,7 +155,15 @@ class WC_CSP_Admin_Ajax {
 
 		check_ajax_referer( 'wc_restrictions_add_restriction', 'security' );
 
-		$restriction_id = stripslashes( $_POST[ 'restriction_id' ] );
+		if ( ! isset( $_POST[ 'restriction_id' ] ) || ! isset( $_POST[ 'index' ] ) || ! isset( $_POST[ 'post_id' ] ) || ! isset( $_POST[ 'applied_count' ] ) || ! isset( $_POST[ 'count' ] ) ) {
+
+			wp_send_json( array(
+				'markup'   => '',
+				'errors' => array( __( 'Action failed. Please refresh your browser and try again.', 'woocommerce-conditional-shipping-and-payments' ) )
+			) );
+		}
+
+		$restriction_id = strval( stripslashes( $_POST[ 'restriction_id' ] ) ); // @phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$applied_count  = intval( $_POST[ 'applied_count' ] );
 		$count          = intval( $_POST[ 'count' ] );
 		$index          = intval( $_POST[ 'index' ] );

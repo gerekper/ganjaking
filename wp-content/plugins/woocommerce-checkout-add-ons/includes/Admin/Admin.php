@@ -87,21 +87,11 @@ class Admin {
 				// setup admin components
 				add_action( 'admin_menu', array( $this, 'add_menu_link' ) );
 				add_action( 'current_screen', array( $this, 'load_add_on_screen' ) );
-
-				// add the custom settings.
-				// TODO: Remove the compatibility check and method once WC 3.3+ can be required {JB 2018-11-28}
-				if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_lt( '3.3' ) ) {
-
-					add_filter( 'woocommerce_payment_gateways_settings', array( $this, 'add_settings' ) );
-				}
 			}
 		}
 
 		// must be called outside of `is_admin()` or else the control is hidden
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.3' ) ) {
-
-			add_action( 'customize_register', [ $this, 'add_customizer_settings' ], 15, 1 );
-		}
+		add_action( 'customize_register', [ $this, 'add_customizer_settings' ], 15, 1 );
 	}
 
 

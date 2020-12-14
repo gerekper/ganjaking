@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Quick View
  * Plugin URI: https://woocommerce.com/products/woocommerce-quick-view/
  * Description: Let customers quick view products and add them to their cart from a lightbox. Supports variations.
- * Version: 1.2.11
+ * Version: 1.3.1
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Text Domain: wc_quick_view
- * WC tested up to: 4.2
+ * WC tested up to: 4.8
  * WC requires at least: 2.6
- * Tested up to: 5.5
+ * Tested up to: 5.6
  *
  * Copyright: © 2020 WooCommerce
  * License: GNU General Public License v3.0
@@ -32,7 +32,7 @@ function woocommerce_quick_view_missing_wc_notice() {
  * WC_Quick_View class
  */
 if ( ! class_exists( 'WC_Quick_View' ) ) :
-	define( 'WC_QUICK_VIEW_VERSION', '1.2.11' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_QUICK_VIEW_VERSION', '1.3.1' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Quick_View {
 		private $quick_view_trigger;
@@ -57,6 +57,9 @@ if ( ! class_exists( 'WC_Quick_View' ) ) :
 
 			// Settings.
 			add_filter( 'woocommerce_general_settings', array( $this, 'settings' ) );
+
+			// Filter product blocks to add a quickview button.
+			add_filter( 'woocommerce_blocks_product_grid_item_html', array( $this, 'product_block' ), 10, 3 );
 		}
 
 		/**
@@ -106,40 +109,30 @@ if ( ! class_exists( 'WC_Quick_View' ) ) :
 		}
 
 		/**
-		 * Scripts function.
+		 * Register scripts and enqueue the styles.
 		 */
 		public function scripts() {
-			global $post;
-			if ( ! is_tax( 'product_cat' ) &&
-				! is_tax( 'product_tag' ) &&
-				! is_post_type_archive( 'product' ) &&
-				! is_page_template( 'template-homepage.php' ) &&
-				! ( ! empty( $post->post_content ) && strstr( $post->post_content, '[product' ) ) ) {
-				return;
-			}
-
 			do_action( 'wc_quick_view_enqueue_scripts' );
 
-			$plugin_url = untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) );
-			$suffix     = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			wp_register_script( 'woocommerce-quick-view', $plugin_url . '/assets/js/frontend' . $suffix . '.js', array( 'jquery', 'prettyPhoto', 'wc-add-to-cart-variation' ), WC_QUICK_VIEW_VERSION, true );
+			$script_dependencies = array( 'jquery', 'prettyPhoto', 'wc-single-product', 'wc-add-to-cart-variation' );
+			$style_dependencies  = array( 'woocommerce_prettyPhoto_css' );
 
 			// Load gallery scripts on product pages only if supported.
 			if ( current_theme_supports( 'wc-product-gallery-zoom' ) ) {
-				wp_enqueue_script( 'zoom' );
+				$script_dependencies[] = 'zoom';
 			}
 			if ( current_theme_supports( 'wc-product-gallery-slider' ) ) {
-				wp_enqueue_script( 'flexslider' );
+				$script_dependencies[] = 'flexslider';
 			}
 			if ( current_theme_supports( 'wc-product-gallery-lightbox' ) ) {
-				wp_enqueue_script( 'photoswipe-ui-default' );
-				wp_enqueue_style( 'photoswipe-default-skin' );
+				$script_dependencies[] = 'photoswipe-ui-default';
+				$style_dependencies[]  = 'photoswipe-default-skin';
 				add_action( 'wp_footer', 'woocommerce_photoswipe' );
 			}
-			wp_enqueue_script( 'wc-single-product' );
 
-			wp_enqueue_style( 'woocommerce_prettyPhoto_css' );
-			wp_enqueue_style( 'wc_quick_view', $plugin_url . '/assets/css/style.css', array(), WC_QUICK_VIEW_VERSION );
+			$plugin_url = untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) );
+			$suffix     = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			wp_register_script( 'woocommerce-quick-view', $plugin_url . '/assets/js/frontend' . $suffix . '.js', $script_dependencies, WC_QUICK_VIEW_VERSION, true );
 
 			switch ( $this->quick_view_trigger ) {
 				case 'non_ajax':
@@ -147,9 +140,9 @@ if ( ! class_exists( 'WC_Quick_View' ) ) :
 
 					if ( $ajax_cart_en ) {
 						// Read more buttons and add-to-cart buttons of products that do not declare ajax-add-to-cart support.
-						$selector = '.product a.button:not(.add_to_cart_button):not(.quick-view-detail-button), .product a.button:not(.ajax_add_to_cart):not(.quick-view-detail-button)';
+						$selector = '.product a.button:not(.add_to_cart_button):not(.quick-view-detail-button), .product a.button:not(.ajax_add_to_cart):not(.quick-view-detail-button), .wc-block-grid__product .wp-block-button > a:not(.add_to_cart_button):not(.quick-view-detail-button), .wc-block-grid__product .wp-block-button > a:not(.ajax_add_to_cart):not(.quick-view-detail-button)';
 					} else {
-						$selector = '.product a.button:not(.quick-view-detail-button)';
+						$selector = '.product a.button:not(.quick-view-detail-button), .wc-block-grid__product .wp-block-button > a:not(.quick-view-detail-button)';
 					}
 					break;
 				default:
@@ -170,8 +163,6 @@ if ( ! class_exists( 'WC_Quick_View' ) ) :
 							array(
 								'wc-api'  => 'WC_Quick_View',
 								'product' => 'product_id_placeholder',
-								'width'   => '90%',
-								'height'  => '90%',
 								'ajax'    => 'true',
 							)
 						)
@@ -188,6 +179,16 @@ if ( ! class_exists( 'WC_Quick_View' ) ) :
 					'link'     => $link,
 				)
 			);
+
+			add_action( 'woocommerce_before_shop_loop', array( $this, 'enqueue_scripts' ) );
+
+			wp_enqueue_style( 'wc_quick_view', $plugin_url . '/assets/css/style.css', $style_dependencies, WC_QUICK_VIEW_VERSION );
+		}
+
+		/**
+		 * Enqueue the quick view script and it's dependencies.
+		 */
+		public function enqueue_scripts() {
 			wp_enqueue_script( 'woocommerce-quick-view' );
 		}
 
@@ -219,16 +220,54 @@ if ( ! class_exists( 'WC_Quick_View' ) ) :
 		}
 
 		/**
-		 * quick_view_button function.
+		 * Output a quick view button.
+		 *
+		 * @param WC_Product $product Optional product object.
+		 * @param bool       $return  Return the output.
+		 *
+		 * @return string|void
 		 */
-		public function quick_view_button() {
+		public function quick_view_button( $product = null, $return = false ) {
+			if ( ! $product ) {
+				global $product;
+			}
+
+			if ( $return ) {
+				ob_start();
+			}
+
 			wc_get_template(
 				'loop/quick-view-button.php',
-				array(),
+				array( 'product' => $product ),
 				'woocommerce-quick-view',
 				untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/'
 			);
+
+			if ( $return ) {
+				return ob_get_clean();
+			}
 		}
+
+		/**
+		 * Filter output for a product block.
+		 *
+		 * @param string     $html    Product block HTML.
+		 * @param object     $data    Block data.
+		 * @param WC_Product $product Product object.
+		 * @return string
+		 */
+		public function product_block( $html, $data, $product ) {
+			$this->enqueue_scripts();
+
+			if ( 'non_ajax' !== $this->quick_view_trigger && ! empty( $data->button ) ) {
+				$data->quick_view_button = $this->quick_view_button( $product, true );
+
+				$html = str_replace( $data->button, $data->quick_view_button . $data->button, $html );
+			}
+
+			return $html;
+		}
+
 	}
 endif;
 

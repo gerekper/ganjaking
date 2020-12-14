@@ -94,16 +94,26 @@ class WC_Address_Validation_Provider_Postcode_Software_Dot_Net extends \WC_Addre
 			'postcode' => urlencode( $postcode )
 		);
 
+		$this->maybe_log_request( self::API_ENDPOINT, $args );
+
 		// send GET request
-		$response = wp_safe_remote_get( add_query_arg( $args, self::API_ENDPOINT ) );
+		$api_response = wp_safe_remote_get( add_query_arg( $args, self::API_ENDPOINT ) );
 
 		// check for network timeout, etc
-		if ( is_wp_error( $response ) || ( ! isset( $response['body'] ) ) ) {
-			$locations = array( 'value' => 'none', 'name' => __( 'No addresses found, please check your postcode and try again.', 'woocommerce-address-validation' ) );
+		if ( is_wp_error( $api_response ) || empty( $api_response['body'] ) ) {
+
+			// Assign API response to the response object for later debug log
+			$response = $api_response;
+
+			$locations = [
+				'value' => 'none',
+				'name'  => $this->get_lookup_provider_error_message( $api_response ),
+			];
+
 		} else {
 
 			// decode response body
-			$response = simplexml_load_string( $response['body'] );
+			$response = simplexml_load_string( $api_response['body'] );
 
 			// setup locations if more than 1 exists and there's no error
 			if ( isset( $response->ErrorNumber ) && '0' == (string) $response->ErrorNumber ) {
@@ -185,12 +195,11 @@ class WC_Address_Validation_Provider_Postcode_Software_Dot_Net extends \WC_Addre
 			}
 		}
 
-		if ( 'yes' == get_option( 'wc_address_validation_debug_mode' ) ) {
+		if ( wc_address_validation()->is_debug_mode_enabled() ) {
 			wc_address_validation()->log( $response->asXML() );
 		}
 
-		return $locations;
-
+		return $this->prepare_lookup_data( $locations, $postcode, $args );
 	}
 
 

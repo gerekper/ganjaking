@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
 "form/\n"
-"POT-Creation-Date: 2018-08-09 08:52:17+00:00\n"
+"POT-Creation-Date: 2020-10-08 02:05:55+00:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,28 +14,49 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1\n"
+"X-Generator: Poedit 2.4.1\n"
 
-#: includes/abstract-wc-address-validation-provider.php:131
-#: includes/admin/class-wc-settings-address-validation.php:43
+#. translators: Placeholders: %1$s, %3$s - opening <a> tag, %2$s, %4$s -
+#. closing </a> tag
+#: class-wc-address-validation.php:194
+msgid ""
+"Address Validation has been upgraded! We've added support for Loqate, which "
+"can perform address lookups for all countries you sell to. %1$sAdjust your "
+"settings%2$s or %3$ssign up for a free account%4$s."
+msgstr ""
+"Address Validation è stato aggiornato! Abbiamo aggiunto il supporto per "
+"Loqate, che può effettuare ricerche di indirizzi per tutti i paesi in cui "
+"vendi. %1$sAggiorna le tue impostazioni%2$s o %3$siscriviti per ottenere un "
+"account gratuito%4$s."
+
+#: class-wc-address-validation.php:243
+msgid "Select your address to populate the form."
+msgstr "Seleziona il tuo indirizzo per riempire i campi del modulo."
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Address Validation"
+msgstr "WooCommerce Address Validation"
+
+#: includes/abstract-wc-address-validation-provider.php:136
+#: includes/admin/class-wc-settings-address-validation.php:44
 msgid "Address Validation"
 msgstr "Verifica Indirizzi"
 
-#: includes/abstract-wc-address-validation-provider.php:132
+#: includes/abstract-wc-address-validation-provider.php:137
 msgid "Address Classification"
 msgstr "Classificazione Indirizzi"
 
-#: includes/abstract-wc-address-validation-provider.php:133
+#: includes/abstract-wc-address-validation-provider.php:138
 msgid "Geocoding"
 msgstr "Geolocalizzazione"
 
-#: includes/abstract-wc-address-validation-provider.php:134
+#: includes/abstract-wc-address-validation-provider.php:139
 msgid "Postcode Lookup"
 msgstr "Ricerca Codice Postale"
 
 #. translators: %1$s - provider name, %2$s - opening <a> tag, %3$s - closing
 #. </a> tag
-#: includes/abstract-wc-address-validation-provider.php:215
+#: includes/abstract-wc-address-validation-provider.php:249
 msgid ""
 "%1$s is not selected as your active provider. Please change your active "
 "provider under the %2$sGeneral Options%3$s and save your settings to enable "
@@ -45,57 +66,34 @@ msgstr ""
 "provider attivo in %2$sOpzioni Generali%3$s e salva le tue impostazioni per "
 "abilitare %1$s."
 
-#: includes/abstract-wc-address-validation-provider.php:231
-#: includes/abstract-wc-address-validation-provider.php:237
+#: includes/abstract-wc-address-validation-provider.php:265
+#: includes/abstract-wc-address-validation-provider.php:271
 msgid "Supported Features"
 msgstr "Funzionalità Supportate"
 
-#: includes/admin/class-wc-address-validation-admin.php:170
+#: includes/admin/class-wc-address-validation-admin.php:176
 msgid "Please save changes to configure provider settings"
 msgstr ""
 "Per favore salva i cambiamenti per configurare le impostazioni del provider."
 
-#: includes/admin/class-wc-address-validation-admin.php:197
-msgid "Address Validation Provider"
-msgstr "Provider Verifica Indirizzi"
-
-#: includes/admin/class-wc-address-validation-admin.php:197
-msgid ""
-"This sections shows information about the active Address Validation provider."
-msgstr ""
-"Questa sezione mostra informazioni sul provider corrente per la verifica di "
-"indirizzi."
-
-#: includes/admin/class-wc-address-validation-admin.php:210
-msgid "Not configured"
-msgstr "Non configurato"
-
-#: includes/admin/class-wc-address-validation-admin.php:264
-msgid "Active Provider"
-msgstr "Provider Attivo"
-
-#: includes/admin/class-wc-address-validation-admin.php:267
-msgid "No active provider available"
-msgstr "Nessun provider attivo disponibile"
-
-#: includes/admin/class-wc-settings-address-validation.php:58
-#: includes/admin/class-wc-settings-address-validation.php:89
+#: includes/admin/class-wc-settings-address-validation.php:59
+#: includes/admin/class-wc-settings-address-validation.php:90
 msgid "General Options"
 msgstr "Opzioni Generali"
 
-#: includes/admin/class-wc-settings-address-validation.php:94
+#: includes/admin/class-wc-settings-address-validation.php:95
 msgid "Provider"
 msgstr "Provider"
 
-#: includes/admin/class-wc-settings-address-validation.php:95
+#: includes/admin/class-wc-settings-address-validation.php:96
 msgid "Select the provider to use."
 msgstr "Seleziona il provider da utilizzare."
 
-#: includes/admin/class-wc-settings-address-validation.php:104
+#: includes/admin/class-wc-settings-address-validation.php:105
 msgid "Debug Mode"
 msgstr "Modalità Debug"
 
-#: includes/admin/class-wc-settings-address-validation.php:105
+#: includes/admin/class-wc-settings-address-validation.php:106
 msgid ""
 "Enable this to output debug messages on the checkout page to help with "
 "troubleshooting."
@@ -106,21 +104,21 @@ msgstr ""
 #
 #
 #
-#: includes/admin/class-wc-settings-address-validation.php:112
+#: includes/admin/class-wc-settings-address-validation.php:113
 msgid "Geocode Addresses?"
 msgstr "Geolocalizzare Indirizzi?"
 
-#: includes/admin/class-wc-settings-address-validation.php:113
+#: includes/admin/class-wc-settings-address-validation.php:114
 msgid "Enable this to save customer's latitude and longitude to their order."
 msgstr ""
 "Abilita questa opzione per salvare la latitudine e la longitudine del "
 "cliente nell'ordine."
 
-#: includes/admin/class-wc-settings-address-validation.php:121
+#: includes/admin/class-wc-settings-address-validation.php:122
 msgid "Classify Addresses?"
 msgstr "Classifica Indirizzi?"
 
-#: includes/admin/class-wc-settings-address-validation.php:122
+#: includes/admin/class-wc-settings-address-validation.php:123
 msgid ""
 "Enable this to save a customer's address classification (e.g. Residential or "
 "Commercial) to their order."
@@ -128,11 +126,11 @@ msgstr ""
 "Abilita questa opzione per salvare la classificazione dell'indirizzo del "
 "cliente (ad esempio Residenziale o Commerciale) nell'ordine."
 
-#: includes/admin/class-wc-settings-address-validation.php:130
+#: includes/admin/class-wc-settings-address-validation.php:131
 msgid "Force Customer to look-up address via Postcode?"
 msgstr "Costringi Ricerca Indirizzi via Codice Postale?"
 
-#: includes/admin/class-wc-settings-address-validation.php:131
+#: includes/admin/class-wc-settings-address-validation.php:132
 msgid ""
 "Enable this to force customers to look-up their address via Postcode before "
 "displaying the address fields. "
@@ -141,12 +139,39 @@ msgstr ""
 "attraverso il codice postale prima di mostrare i campi indirizzo "
 "individuali. "
 
-#: includes/providers/class-wc-address-validation-provider-addressy.php:57
+#: includes/admin/views/html-admin-status-report.php:44
+msgid "Address Validation Provider"
+msgstr "Provider Verifica Indirizzi"
+
+#: includes/admin/views/html-admin-status-report.php:44
+msgid ""
+"This sections shows information about the active Address Validation provider."
+msgstr ""
+"Questa sezione mostra informazioni sul provider corrente per la verifica di "
+"indirizzi."
+
+#: includes/admin/views/html-admin-status-report.php:52
+msgid "Active Provider"
+msgstr "Provider Attivo"
+
+#: includes/admin/views/html-admin-status-report.php:58
+msgid "No active provider available"
+msgstr "Nessun provider attivo disponibile"
+
+#: includes/admin/views/html-admin-status-report.php:66
+msgid "Configured"
+msgstr "Configurato"
+
+#: includes/admin/views/html-admin-status-report.php:72
+msgid "Not configured"
+msgstr "Non configurato"
+
+#: includes/providers/class-wc-address-validation-provider-addressy.php:58
 msgid "Loqate"
 msgstr "Loqate"
 
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
-#: includes/providers/class-wc-address-validation-provider-addressy.php:60
+#: includes/providers/class-wc-address-validation-provider-addressy.php:61
 msgid ""
 "Loqate offers 100 free US address verification per month for both "
 "residential and commercial US addresses, and paid accounts can perform "
@@ -158,12 +183,12 @@ msgstr ""
 "per indirizzi in qualunque paese.  %1$sRegistra un account gratuito%2$s "
 "adesso per iniziare."
 
-#: includes/providers/class-wc-address-validation-provider-addressy.php:103
+#: includes/providers/class-wc-address-validation-provider-addressy.php:107
 msgid "Service Key"
 msgstr "Service Key"
 
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
-#: includes/providers/class-wc-address-validation-provider-addressy.php:106
+#: includes/providers/class-wc-address-validation-provider-addressy.php:110
 msgid ""
 "Enter your service key, which can be obtained by following the %1$sLoqate "
 "Setup Guide%2$s."
@@ -171,73 +196,73 @@ msgstr ""
 "Inserisci la tua Service Key, che può essere ottenuta seguendo la %1$sguida "
 "alla configurazione di Loqate%2$s."
 
-#: includes/providers/class-wc-address-validation-provider-addressy.php:111
+#: includes/providers/class-wc-address-validation-provider-addressy.php:115
 msgid "Validate international addresses"
 msgstr "Convalida indirizzi internazionali"
 
-#: includes/providers/class-wc-address-validation-provider-addressy.php:113
+#: includes/providers/class-wc-address-validation-provider-addressy.php:117
 msgid ""
 "Enable lookup for customers outside the US (Requires a paid Loqate account)"
 msgstr ""
 "Abilita ricerche di indirizzi per clienti al di fuori degli Stati Uniti "
 "(richiede un account Loqate a pagamento)"
 
-#: includes/providers/class-wc-address-validation-provider-crafty-clicks.php:51
-msgid "Crafty Clicks"
-msgstr "Crafty Clicks"
+#: includes/providers/class-wc-address-validation-provider-crafty-clicks.php:52
+msgid "Fetchify"
+msgstr "Fetchify"
 
-#: includes/providers/class-wc-address-validation-provider-crafty-clicks.php:97
-#: includes/providers/class-wc-address-validation-provider-crafty-clicks.php:162
-#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:103
-#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:136
-#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:156
-#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:101
-#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:164
+#: includes/providers/class-wc-address-validation-provider-crafty-clicks.php:98
+#: includes/providers/class-wc-address-validation-provider-crafty-clicks.php:163
+#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:104
+#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:137
+#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:157
+#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:102
+#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:184
 msgid "No addresses found, please check your postcode and try again."
 msgstr ""
 "Nessun indirizzo trovato, per favore controlla il tuo codice postale e "
 "riprova."
 
-#: includes/providers/class-wc-address-validation-provider-crafty-clicks.php:196
+#: includes/providers/class-wc-address-validation-provider-crafty-clicks.php:200
 msgid "Access Token"
 msgstr "Access Token"
 
 #
 #
 #
-#: includes/providers/class-wc-address-validation-provider-crafty-clicks.php:198
-msgid "Enter your Access Token from the Crafty Clicks website."
-msgstr "Inserisci il tuo Access Token dal sito Crafty Clicks."
+#: includes/providers/class-wc-address-validation-provider-crafty-clicks.php:202
+msgid "Enter your Access Token from the Fetchify website."
+msgstr "Inserisci il tuo Access Token dal sito di Fetchify."
 
-#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:54
+#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:55
 msgid "Loqate (legacy - UK)"
 msgstr "Loqate (legacy - UK)"
 
 #
 #
 #
-#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:170
+#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:174
 msgid "API Key"
 msgstr "Chiave API"
 
 #
 #
 #
-#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:172
+#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:176
 msgid "Enter your API Key from the Loqate website."
 msgstr "Inserisci la tua Chiave API dal sito di Loqate."
 
 #
 #
 #
-#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:177
+#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:181
 msgid "API Username"
 msgstr "Nome Utente API"
 
 #
 #
 #
-#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:179
+#: includes/providers/class-wc-address-validation-provider-postcode-anywhere.php:183
 msgid ""
 "Enter your username associated with your Royal Mail account. This is not "
 "required, so leave blank if you do not have one."
@@ -248,17 +273,17 @@ msgstr ""
 #
 #
 #
-#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:51
+#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:52
 msgid "Postcode.nl"
 msgstr "Postcode.nl"
 
-#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:95
+#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:96
 msgid "No addresses found, please enter your house number and try again."
 msgstr ""
 "Nessun indirizzo trovato, per favore inserisci il tuo numero civico e "
 "riprova."
 
-#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:117
+#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:118
 msgid ""
 "No addresses found, please check your postcode and house number and try "
 "again."
@@ -266,11 +291,11 @@ msgstr ""
 "Nessun indirizzo trovato, per favore controlla il tuo codice postale e "
 "numero civico e riprova."
 
-#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:191
+#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:195
 msgid "Application Key"
 msgstr "Chiave Applicazione"
 
-#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:193
+#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:197
 msgid ""
 "Log into your account or look at your sign-up email to find your application "
 "key."
@@ -278,11 +303,11 @@ msgstr ""
 "Effettua il log in nel tuo account o cerca nella tua email di sign up per "
 "trovare la tua chiave applicazione."
 
-#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:198
+#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:202
 msgid "Application Secret"
 msgstr "Segreto Applicazione"
 
-#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:200
+#: includes/providers/class-wc-address-validation-provider-postcode-dot-nl.php:204
 msgid ""
 "Log into your account or look at your sign-up email to find your application "
 "secret."
@@ -290,15 +315,15 @@ msgstr ""
 "Effettua il log in nel tuo account o cerca nella tua email di sign up per "
 "trovare il tuo segreto applicazione."
 
-#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:51
+#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:52
 msgid "PostcodeSoftware.net"
 msgstr "PostcodeSoftware.net"
 
-#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:199
+#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:222
 msgid "Account Number"
 msgstr "Numero Account"
 
-#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:201
+#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:224
 msgid ""
 "Log into your account or look at your sign-up email to find your account "
 "number."
@@ -306,23 +331,23 @@ msgstr ""
 "Effettua il log in nel tuo account o cerca nella tua email di sign up per "
 "trovare il tuo numero account."
 
-#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:206
+#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:229
 msgid "Password"
 msgstr "Password"
 
-#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:208
+#: includes/providers/class-wc-address-validation-provider-postcode-software-dot-net.php:231
 msgid ""
 "Log into your account or look at your sign-up email to find your password."
 msgstr ""
 "Effettua il log in nel tuo account o cerca nella tua email di sign up per "
 "trovare la tua password."
 
-#: includes/providers/class-wc-address-validation-provider-smartystreets.php:51
+#: includes/providers/class-wc-address-validation-provider-smartystreets.php:52
 msgid "SmartyStreets"
 msgstr "SmartyStreets"
 
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
-#: includes/providers/class-wc-address-validation-provider-smartystreets.php:54
+#: includes/providers/class-wc-address-validation-provider-smartystreets.php:55
 msgid ""
 "SmartyStreets offers free (up to 250 lookups per month) address verification "
 "for both residential and commercial US addresses. %1$sSign up for a free "
@@ -332,12 +357,12 @@ msgstr ""
 "ricerce al mese), sia per indirizzi residenziali, sia commerciali. "
 "%1$sRegistra un account%2$s adesso per iniziare."
 
-#: includes/providers/class-wc-address-validation-provider-smartystreets.php:101
+#: includes/providers/class-wc-address-validation-provider-smartystreets.php:105
 msgid "HTML Key"
 msgstr "Chiave HTML"
 
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
-#: includes/providers/class-wc-address-validation-provider-smartystreets.php:104
+#: includes/providers/class-wc-address-validation-provider-smartystreets.php:108
 msgid ""
 "Enter your HTML Key. Login to your %1$sSmartyStreets%2$s account to find "
 "this."
@@ -345,11 +370,11 @@ msgstr ""
 "Inserisci la tua Chiave HTML. Fai log in nel tuo account %1$sSmartyStreets"
 "%2$s per trovarla."
 
-#: includes/providers/class-wc-address-validation-provider-smartystreets.php:109
+#: includes/providers/class-wc-address-validation-provider-smartystreets.php:113
 msgid "Include Plus-four code?"
 msgstr "Includi Codice Supplementare di 4 cifre?"
 
-#: includes/providers/class-wc-address-validation-provider-smartystreets.php:110
+#: includes/providers/class-wc-address-validation-provider-smartystreets.php:114
 msgid ""
 "Enable this to validate addresses including the ZIP+4 code. Disable to use "
 "standard 5 digit zip codes."
@@ -361,44 +386,20 @@ msgstr ""
 #
 #
 #
-#: templates/checkout/form-postcode-lookup.php:38
+#: templates/checkout/form-postcode-lookup.php:47
 msgid "Enter Postcode"
 msgstr "Inserisci codice postale"
 
-#: templates/checkout/form-postcode-lookup.php:43
+#: templates/checkout/form-postcode-lookup.php:60
 msgid "Enter House Number"
 msgstr "Inserisci Numero Civico"
 
 #
 #
 #
-#: templates/checkout/form-postcode-lookup.php:49
+#: templates/checkout/form-postcode-lookup.php:73
 msgid "Find Address"
 msgstr "Trova indirizzo"
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Address Validation"
-msgstr "WooCommerce Address Validation"
-
-#: woocommerce-address-validation.php:192
-msgid ""
-"Address Validation has been upgraded! We've added support for Loqate, which "
-"can perform address lookups for all countries you sell to."
-msgstr ""
-"Address Validation è stato aggiornato! Abbiamo aggiunto il supporto per "
-"Loqate, che può effettuare ricerche di indirizzi per tutti i paesi in cui "
-"vendi."
-
-#. translators: Placeholders: %1$s, %3$s - opening <a> tag, %2$s, %4$s -
-#. closing </a> tag
-#: woocommerce-address-validation.php:192
-msgid "%1$sAdjust your settings%2$s or %3$slearn more about Loqate%4$s."
-msgstr ""
-"%1$sModifica le impostazioni%2$s oppure %3$sscopri di più su Loqate%4$s."
-
-#: woocommerce-address-validation.php:222
-msgid "Select your address to populate the form."
-msgstr "Seleziona il tuo indirizzo per riempire i campi del modulo."
 
 #. Plugin URI of the plugin/theme
 msgid "http://www.woocommerce.com/products/postcodeaddress-validation/"
@@ -419,6 +420,13 @@ msgstr "SkyVerge"
 #. Author URI of the plugin/theme
 msgid "http://www.woocommerce.com"
 msgstr "http://www.woocommerce.com"
+
+#~ msgid "Crafty Clicks"
+#~ msgstr "Crafty Clicks"
+
+#~ msgid "%1$sAdjust your settings%2$s or %3$slearn more about Loqate%4$s."
+#~ msgstr ""
+#~ "%1$sModifica le impostazioni%2$s oppure %3$sscopri di più su Loqate%4$s."
 
 #
 #

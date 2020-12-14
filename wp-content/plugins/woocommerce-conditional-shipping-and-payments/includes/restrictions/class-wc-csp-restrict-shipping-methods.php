@@ -80,7 +80,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 		// Add billing email.
 		if ( isset( $_POST[ 'post_data' ] ) ) {
-			parse_str( $_POST[ 'post_data' ], $billing_data );
+			parse_str( wp_unslash( $_POST[ 'post_data' ] ), $billing_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			if ( is_array( $billing_data ) && isset( $billing_data[ 'billing_email' ] ) ) {
 				$variables[ 'billing_email' ] = wc_clean( $billing_data[ 'billing_email' ] );
 			}

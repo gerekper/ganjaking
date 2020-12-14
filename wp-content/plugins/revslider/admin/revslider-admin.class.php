@@ -308,12 +308,12 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 				<div class="clear"></div>				
 			</li>
 			<li id="slide_template_row">				
-					<label class="rs_wp_ppset" id="slide_template_text"><?php _e('Slide Template', 'revslider');?></label><select style="max-width:82px" name="slide_template" id="slide_template">
-							<?php
-							foreach($output as $handle => $name){
-								echo '<option ' . selected($handle, $meta) . ' value="' . $handle . '">' . $name . '</option>';
-							}
-							?></select>				
+				<label class="rs_wp_ppset" id="slide_template_text"><?php _e('Slide Template', 'revslider');?></label><select style="max-width:82px" name="slide_template" id="slide_template">
+				<?php
+				foreach($output as $handle => $name){
+					echo '<option ' . selected($handle, $meta) . ' value="' . $handle . '">' . $name . '</option>';
+				}
+				?></select>
 			</li>
 			<li id="slide_template_row" style="margin-top:40px">
 				<solidiconbox><i class="material-icons">flag</i></solidiconbox><div class="pli_twoline_wp"><div class="pli_subtitle"><?php _e('Installed Version', 'revslider');?></div><div class="dynamicval pli_subtitle"><?php echo RS_REVISION; ?></div></div>
@@ -345,18 +345,26 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		
 		// Slide Template
 		$slide_template = $f->get_post_var('slide_template');
-		update_post_meta($post_id, 'slide_template', $slide_template);
+		if(in_array($slide_template, array('', 'default'))){
+			delete_post_meta($post_id, 'slide_template');
+		}else{
+			update_post_meta($post_id, 'slide_template', $slide_template);
+		}
 
 		// Blank Page Template Background Color
 		$rs_page_bg_color = $f->get_post_var('rs_page_bg_color');
-		update_post_meta($post_id, 'rs_page_bg_color', $rs_page_bg_color);
+		if(strtolower($rs_page_bg_color) === '#ffffff'){
+			delete_post_meta($post_id, 'rs_page_bg_color');
+		}else{
+			update_post_meta($post_id, 'rs_page_bg_color', $rs_page_bg_color);
+		}
 
 		// Set/Unset Blank Template depending on Blank Template Switch
 		$rs_blank_template = $f->get_post_var('rs_blank_template');
-		if( empty( $rs_blank_template ) && !empty($rs_page_bg_color)  && get_post_meta($post_id, '_wp_page_template',true) == '../public/views/revslider-page-template.php' ){
+		if(empty($rs_blank_template) && !empty($rs_page_bg_color) && get_post_meta($post_id, '_wp_page_template', true) == '../public/views/revslider-page-template.php'){
 			update_post_meta($post_id, '_wp_page_template','');
 		}
-		if( !empty( $rs_blank_template ) &&  $rs_blank_template=="on" ) {
+		if(!empty($rs_blank_template) &&  $rs_blank_template == 'on'){
 			update_post_meta($post_id, '_wp_page_template','../public/views/revslider-page-template.php');
 		}
 	}
@@ -440,7 +448,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 **/
 	public function add_filters(){
 		add_filter('admin_body_class', array($this, 'modify_admin_body_class'));
-		
 		add_filter('plugin_locale', array($this, 'change_lang'), 10, 2);
 	}
 	

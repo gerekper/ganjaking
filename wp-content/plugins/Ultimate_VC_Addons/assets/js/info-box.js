@@ -1,4 +1,4 @@
-jQuery(window).load(function(a){
+jQuery(window).on('load',function(a){
 	info_box_set_auto_height();
 });
 jQuery(document).ready(function(a) {

@@ -3,10 +3,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Customer/Order/Coupon CSV Import Suite "
-"3.9.2\n"
+"3.10.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-11-25 07:57:58+00:00\n"
+"POT-Creation-Date: 2020-12-07 10:04:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1587,51 +1587,51 @@ msgstr ""
 msgid "Failed to update order %1$s: %2$s;"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:687
+#: includes/class-wc-csv-import-suite-order-processor.php:678
 msgid "> > Warning: cannot add order item \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:702
+#: includes/class-wc-csv-import-suite-order-processor.php:693
 msgid "> > Warning: cannot add shipping method \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:716
+#: includes/class-wc-csv-import-suite-order-processor.php:707
 msgid "> > Warning: cannot add tax \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:736
+#: includes/class-wc-csv-import-suite-order-processor.php:727
 msgid "> > Warning: cannot add coupon \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:781
+#: includes/class-wc-csv-import-suite-order-processor.php:772
 msgid "> > Warning: cannot add fee \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:824
+#: includes/class-wc-csv-import-suite-order-processor.php:815
 msgid "> > Warning: order item %d does not exist."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:847
+#: includes/class-wc-csv-import-suite-order-processor.php:838
 msgid "> > Warning: cannot update order item %d."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:857
+#: includes/class-wc-csv-import-suite-order-processor.php:848
 msgid "> > Warning: cannot update shipping method \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:866
+#: includes/class-wc-csv-import-suite-order-processor.php:857
 msgid "> > Warning: cannot update tax \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:886
+#: includes/class-wc-csv-import-suite-order-processor.php:877
 msgid "> > Warning: cannot merge coupon \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:911
+#: includes/class-wc-csv-import-suite-order-processor.php:902
 msgid "> > Warning: cannot merge fee \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:1036
+#: includes/class-wc-csv-import-suite-order-processor.php:1027
 msgid "Unknown product"
 msgstr ""
 

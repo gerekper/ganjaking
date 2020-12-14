@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.8.1\n"
+"Project-Id-Version: Smush Pro 3.8.2\n"
 "Report-Msgid-Bugs-To: https://wpmudev.org\n"
-"POT-Creation-Date: 2020-12-03 04:14:57+00:00\n"
+"POT-Creation-Date: 2020-12-09 09:31:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -479,23 +479,23 @@ msgstr ""
 msgid "Show in bulk Smush"
 msgstr ""
 
-#: app/class-media-library.php:874
+#: app/class-media-library.php:877
 msgid "Smush image including original file"
 msgstr ""
 
-#: app/class-media-library.php:878
+#: app/class-media-library.php:881
 msgid "Resmush"
 msgstr ""
 
-#: app/class-media-library.php:900
+#: app/class-media-library.php:903
 msgid "Restore original image"
 msgstr ""
 
-#: app/class-media-library.php:904
+#: app/class-media-library.php:907
 msgid "Restore"
 msgstr ""
 
-#: app/class-media-library.php:933 core/class-core.php:251
+#: app/class-media-library.php:936 core/class-core.php:251
 #: core/class-core.php:369 core/integrations/nextgen/class-admin.php:211
 #: core/integrations/nextgen/class-stats.php:353
 msgid "Super-Smush"
@@ -2647,7 +2647,7 @@ msgstr ""
 msgid ""
 "The rules have been applied, however, the images have still not been "
 "converted to WebP.  We recommend to contact your server provider to know "
-"more about the casue of this issue."
+"more about the cause of this issue."
 msgstr ""
 
 #: app/views/webp/webp-meta-box.php:68

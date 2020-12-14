@@ -6,7 +6,7 @@
  * Description: Automatically generates and emails daily CSV exports of your Authorize.Net transactions. You can also download an export by going to WooCommerce > Reports > Authorize.Net > Export
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com/
- * Version: 1.11.0
+ * Version: 1.12.0
  * Text Domain: woocommerce-authorize-net-reporting
  * Domain Path: /i18n/languages/
  *
@@ -22,8 +22,8 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 228317:6319791b3db6c23cb91d312bf2fcf2a4
- * WC requires at least: 3.0.9
- * WC tested up to: 4.3.3
+ * WC requires at least: 3.5
+ * WC tested up to: 4.7.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -50,13 +50,13 @@ class WC_Authorize_Net_Reporting_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '5.6.0';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '4.4';
+	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.0.9';
+	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version used by this plugin */
 	const FRAMEWORK_VERSION = '5.5.0';
@@ -89,9 +89,6 @@ class WC_Authorize_Net_Reporting_Loader {
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
-
-			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
-			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

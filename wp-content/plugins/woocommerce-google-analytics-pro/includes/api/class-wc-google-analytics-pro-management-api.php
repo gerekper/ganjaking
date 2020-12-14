@@ -29,7 +29,7 @@ use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Management_API\Account_Summari
 use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Management_API\Profiles_Response;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Management_API\Request;
 use SkyVerge\WooCommerce\Google_Analytics_Pro\API\Management_API\Response;
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Google Analytics Management API handler.

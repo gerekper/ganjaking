@@ -16,7 +16,6 @@ class WC_Account_Funds_Cart_Manager {
 	public function __construct() {
 		add_action( 'woocommerce_review_order_before_order_total', array( $this, 'display_used_funds' ) );
 		add_action( 'woocommerce_cart_totals_before_order_total', array( $this, 'display_used_funds' ) );
-		add_filter( 'woocommerce_cart_total', array( $this, 'display_total' ) );
 
 		$this->partial_payment = get_option( 'account_funds_partial_payment', 'no' );
 		$this->give_discount = get_option( 'account_funds_give_discount', 'no' );
@@ -24,9 +23,8 @@ class WC_Account_Funds_Cart_Manager {
 		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'update_order_review' ) );
 		add_action( 'wp', array( $this, 'maybe_use_funds' ) );
 
-		add_filter( 'woocommerce_calculated_total', array( $this, 'calculated_total' ) );
-		add_filter( 'woocommerce_subscriptions_calculated_total', array( $this, 'calculated_total' ) );
 		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'calculate_totals' ), 99 );
+		add_action( 'woocommerce_after_calculate_totals', array( $this, 'after_calculate_totals' ), 99 );
 
 		add_filter( 'woocommerce_get_shop_coupon_data', array( $this, 'get_discount_data' ), 10, 2 );
 		add_filter( 'woocommerce_coupon_message', array( $this, 'get_discount_applied_message' ), 10, 3 );
@@ -54,7 +52,14 @@ class WC_Account_Funds_Cart_Manager {
 			$funds = WC_Account_Funds::get_account_funds( get_current_user_id(), false );
 
 			if ( $funds > 0 ) {
-				$use_funds = ( WC()->cart->total <= $funds || 'yes' === get_option( 'account_funds_partial_payment' ) );
+				// Changing the payment method of a subscription.
+				if ( isset( $_GET['change_payment_method'] ) ) {
+					$subscription = wcs_get_subscription( (int) $_GET['change_payment_method'] );
+
+					$use_funds = ( $subscription && $subscription->get_total( 'edit' ) <= $funds );
+				} else {
+					$use_funds = ( WC()->cart->total <= $funds || 'yes' === get_option( 'account_funds_partial_payment' ) );
+				}
 			}
 		}
 
@@ -268,14 +273,16 @@ class WC_Account_Funds_Cart_Manager {
 	}
 
 	/**
-	 * Calculated total
-	 * @param  string $total
+	 * Calculated total.
+	 *
+	 * @deprecated 2.3.5
+	 *
+	 * @param string $total
 	 * @return string
 	 */
 	public function display_total( $total ) {
-		if ( self::using_funds() ) {
-			return wc_price( WC()->cart->total );
-		}
+		_deprecated_function( __FUNCTION__, '{ version}' );
+
 		return $total;
 	}
 
@@ -438,16 +445,36 @@ class WC_Account_Funds_Cart_Manager {
 	}
 
 	/**
-	 * Calculated total
-	 * @param  float $total
+	 * After calculate totals.
+	 *
+	 * @since 2.3.5
+	 *
+	 * @param WC_Cart $cart Cart object.
+	 */
+	public function after_calculate_totals( $cart ) {
+		if ( ! self::using_funds() || property_exists( $cart, 'recurring_cart_key' ) ) {
+			return;
+		}
+
+		$total = $cart->get_total( 'edit' );
+		$funds = min( $total, WC_Account_Funds::get_account_funds( get_current_user_id(), false ) );
+
+		$cart->set_total( max( 0, $total - $funds ) );
+
+		WC()->session->set( 'used-account-funds', $funds );
+	}
+
+	/**
+	 * Calculated total.
+	 *
+	 * @deprecated 2.3.5
+	 *
+	 * @param float $total
 	 * @return float
 	 */
 	public function calculated_total( $total ) {
-		if ( self::using_funds() ) {
-			$funds_amount = min( $total, WC_Account_Funds::get_account_funds( get_current_user_id(), false ) );
-			$total        = $total - $funds_amount;
-			WC()->session->set( 'used-account-funds', $funds_amount );
-		}
+		_deprecated_function( __FUNCTION__, '2.3.5' );
+
 		return $total;
 	}
 
@@ -455,6 +482,11 @@ class WC_Account_Funds_Cart_Manager {
 	 * Calculate totals
 	 */
 	public function calculate_totals() {
+		// Changing the payment method of a subscription.
+		if ( isset( $_GET['change_payment_method'] ) ) {
+			return;
+		}
+
 		if ( self::account_funds_gateway_chosen() ) {
 			$this->apply_discount();
 			WC()->cart->calculate_totals();
@@ -568,6 +600,15 @@ class WC_Account_Funds_Cart_Manager {
 	 * @return array
 	 */
 	public function available_payment_gateways( $gateways ) {
+		// Changing the payment method of a subscription.
+		if ( isset( $_GET['change_payment_method'] ) ) {
+			if ( ! self::can_use_funds() ) {
+				unset( $gateways['accountfunds'] );
+			}
+
+			return $gateways;
+		}
+
 		if ( isset( $gateways['accountfunds'] ) && self::using_funds() ) {
 			$account_funds_gateway = $gateways['accountfunds'];
 

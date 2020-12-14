@@ -3,6 +3,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( wc_stripe()->connect->is_connected() ) {
+	$reset_link = add_query_arg(
+		array(
+			'_wpnonce'                     => wp_create_nonce( 'reset_stripe_api_credentials' ),
+			'reset_stripe_api_credentials' => true,
+		),
+		admin_url( 'admin.php?page=wc-settings&tab=checkout&section=stripe' )
+	);
+
+	$api_credentials_text = sprintf(
+		__( '%1$sClear all Stripe account keys.%2$s %3$sThis will disable any connection to Stripe.%4$s', 'woocommerce-gateway-stripe' ),
+		'<a id="wc_stripe_connect_button" href="' . $reset_link . '" class="button button-secondary">',
+		'</a>',
+		'<span style="color:red;">',
+		'</span>'
+	);
+} else {
+	$oauth_url = wc_stripe()->connect->get_oauth_url();
+
+	if ( ! is_wp_error( $oauth_url ) ) {
+		$api_credentials_text = sprintf(
+			__( '%1$sSetup or link an existing Stripe account.%2$s By clicking this button you agree to the %3$sTerms of Service%2$s. Or, manually enter Stripe account keys below.', 'woocommerce-gateway-stripe' ),
+			'<a id="wc_stripe_connect_button" href="' . $oauth_url . '" class="button button-primary">',
+			'</a>',
+			'<a href="https://wordpress.com/tos">'
+
+		);
+	} else {
+		$api_credentials_text = __( 'Manually enter Stripe keys below.', 'woocommerce-gateway-stripe' );
+	}
+}
+
 return apply_filters(
 	'wc_stripe_settings',
 	array(
@@ -32,6 +64,11 @@ return apply_filters(
 			'type'        => 'title',
 			/* translators: webhook URL */
 			'description' => $this->display_admin_settings_webhook_description(),
+		),
+		'api_credentials'               => array(
+			'title'       => __( 'Stripe Account Keys', 'woocommerce-gateway-stripe' ),
+			'type'        => 'title',
+			'description' => $api_credentials_text
 		),
 		'testmode'                      => array(
 			'title'       => __( 'Test mode', 'woocommerce-gateway-stripe' ),
@@ -109,7 +146,7 @@ return apply_filters(
 			'title'       => __( 'Payment Request Buttons', 'woocommerce-gateway-stripe' ),
 			'label'       => sprintf(
 				/* translators: 1) br tag 2) Stripe anchor tag 3) Apple anchor tag 4) Stripe dashboard opening anchor tag 5) Stripe dashboard closing anchor tag */
-				__( 'Enable Payment Request Buttons. (Apple Pay/Google Pay) %1$sBy using Apple Pay, you agree to %2$s and %3$s\'s terms of service. %4$sLog into your Stripe dashboard%5$s to complete or update your Apple Pay setup.', 'woocommerce-gateway-stripe' ),
+				__( 'Enable Payment Request Buttons. (Apple Pay/Google Pay) %1$sBy using Apple Pay, you agree to %2$s and %3$s\'s terms of service. (Apple Pay domain verification is performed automatically; configuration can be found on the %4$sStripe dashboard%5$s.)', 'woocommerce-gateway-stripe' ),
 				'<br />',
 				'<a href="https://stripe.com/apple-pay/legal" target="_blank">Stripe</a>',
 				'<a href="https://developer.apple.com/apple-pay/acceptable-use-guidelines-for-websites/" target="_blank">Apple</a>',

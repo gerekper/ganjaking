@@ -322,7 +322,7 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 	 * Generate the request for the payment.
 	 *
 	 * @since 3.1.0
-	 * @version 4.0.0
+	 * @version 4.5.4
 	 * @param  WC_Order $order
 	 * @param  object $prepared_source
 	 * @return array()
@@ -359,18 +359,32 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 				break;
 		}
 
+		if ( method_exists( $order, 'get_shipping_postcode' ) && ! empty( $order->get_shipping_postcode() ) ) {
+			$post_data['shipping'] = array(
+				'name'    => trim( $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name() ),
+				'address' => array(
+					'line1'       => $order->get_shipping_address_1(),
+					'line2'       => $order->get_shipping_address_2(),
+					'city'        => $order->get_shipping_city(),
+					'country'     => $order->get_shipping_country(),
+					'postal_code' => $order->get_shipping_postcode(),
+					'state'       => $order->get_shipping_state(),
+				)
+			);
+		}
+
 		$post_data['expand[]'] = 'balance_transaction';
 
 		$metadata = array(
 			__( 'customer_name', 'woocommerce-gateway-stripe' ) => sanitize_text_field( $billing_first_name ) . ' ' . sanitize_text_field( $billing_last_name ),
 			__( 'customer_email', 'woocommerce-gateway-stripe' ) => sanitize_email( $billing_email ),
 			'order_id' => $order->get_order_number(),
+			'site_url' => esc_url( get_site_url() ),
 		);
 
 		if ( $this->has_subscription( $order->get_id() ) ) {
 			$metadata += array(
 				'payment_type' => 'recurring',
-				'site_url'     => esc_url( get_site_url() ),
 			);
 		}
 
@@ -1039,6 +1053,10 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 			$request['statement_descriptor'] = $full_request['statement_descriptor'];
 		}
 
+		if ( isset( $full_request['shipping'] ) ) {
+			$request['shipping'] = $full_request['shipping'];
+		}
+
 		/**
 		 * Filter the return value of the WC_Payment_Gateway_CC::generate_create_intent_request.
 		 *
@@ -1377,9 +1395,10 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		}
 
 		if ( isset( $full_request['source'] ) ) {
-			$request['source'] = $full_request['source'];
+			$is_source = 'src_' === substr( $full_request['source'], 0, 4 );
+			$request[ $is_source ? 'source' : 'payment_method' ] = $full_request['source'];
 		}
-	
+
 		/**
 		 * Filter the value of the request.
 		 *
@@ -1389,6 +1408,10 @@ abstract class WC_Stripe_Payment_Gateway extends WC_Payment_Gateway_CC {
 		 * @param object $source
 		 */
 		$request = apply_filters('wc_stripe_generate_create_intent_request', $request, $order, $prepared_source );
+
+		if ( isset( $full_request['shipping'] ) ) {
+			$request['shipping'] = $full_request['shipping'];
+		}
 
 		$level3_data = $this->get_level3_data_from_order( $order );
 		$intent = WC_Stripe_API::request_with_level3_data(

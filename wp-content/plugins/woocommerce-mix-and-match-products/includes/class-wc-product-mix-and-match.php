@@ -843,8 +843,6 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			// Store price and slots for the min/max price calculation.
 			if ( $this->is_priced_per_product() ) {
 
-				$this->maybe_apply_discount_to_child( $child );
-
 				$this->pricing_data[ $child_id ]['price_raw']         = (double) $child->get_price( 'edit' );
 				$this->pricing_data[ $child_id ]['price']             = (double) $child->get_price();
 				$this->pricing_data[ $child_id ]['regular_price_raw'] = (double) $child->get_regular_price( 'edit' );
@@ -1421,8 +1419,8 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		if ( ! $this->exists() ) {
 			$is_purchasable = false;
 
-			// When priced statically a price needs to be set
-		} elseif ( $this->is_priced_per_product() == false && $this->get_price() === '' ) {
+		// When priced statically a price needs to be set
+		} elseif ( false === $this->is_priced_per_product() && '' === $this->get_price() ) {
 
 			$is_purchasable = false;
 
@@ -1698,6 +1696,8 @@ class WC_Product_Mix_and_Match extends WC_Product {
 			$container_price_data['base_price_subtotals'] = $totals;
 			$container_price_data['base_price_totals']    = $totals;
 
+			$container_price_data['addons_totals']    = $totals;
+
 			$container_price_data['subtotals'] = $totals;
 			$container_price_data['totals']    = $totals;
 
@@ -1773,7 +1773,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	/**
 	 * Get the min/max/step quantity of a child.
 	 *
-	 * @param  string $value
+	 * @param  string $value options: 'min' | 'max' | 'step'
 	 * @param  string $child_id
 	 * @return int
 	 */

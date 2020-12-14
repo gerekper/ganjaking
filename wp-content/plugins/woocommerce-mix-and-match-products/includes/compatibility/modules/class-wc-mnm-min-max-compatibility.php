@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Min/Max Quantities Compatibility.
  *
- * @version  1.6.1
+ * @version  1.10.6
  */
 class WC_MNM_Min_Max_Compatibility {
 
@@ -66,9 +66,9 @@ class WC_MNM_Min_Max_Compatibility {
 		add_filter( 'woocommerce_cart_item_product', array( __CLASS__, 'add_child_item_to_product' ), 10, 3 );
 
 		// Apply min/max/grouped restrictions to child variations.
-		add_filter( 'woocommerce_mnm_quantity_input_min', array( __CLASS__, 'variation_inputs' ), 10, 2 );
-		add_filter( 'woocommerce_mnm_quantity_input_max', array( __CLASS__, 'variation_inputs' ), 10, 2 );
-		add_filter( 'woocommerce_mnm_quantity_input_step', array( __CLASS__, 'variation_inputs' ), 10, 2 );
+		add_filter( 'woocommerce_mnm_quantity_input_min', array( __CLASS__, 'variation_inputs' ), 10, 3 );
+		add_filter( 'woocommerce_mnm_quantity_input_max', array( __CLASS__, 'variation_inputs' ), 10, 3 );
+		add_filter( 'woocommerce_mnm_quantity_input_step', array( __CLASS__, 'variation_inputs' ), 10, 3 );
 
 	}
 
@@ -347,12 +347,13 @@ class WC_MNM_Min_Max_Compatibility {
 	 *
 	 * @since  1.11.0
 	 * @param  string  $qty
-	 * @param  WC_Product  $child_item
+	 * @param  WC_Product  $child_product
+	 * @param obj $container WC_Product_Mix_and_Match of parent container.
 	 * @return string
 	 */
-	public static function variation_inputs( $qty, $child_product ) {
+	public static function variation_inputs( $qty, $child_product, $container_product ) {
 
-		if ( $child_product->get_parent_id() > 0 ) {
+		if ( $child_product->get_parent_id() > 0 && ! self::contents_ignores_rules( $container_product ) ) {
 
 			$current_filter = str_replace( 'woocommerce_mnm_quantity_input_', '', current_filter()  );
 

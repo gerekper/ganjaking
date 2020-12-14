@@ -202,15 +202,15 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 	public function delete() {
 
 		// Security.
-		$delete_nonce = isset( $_GET[ 'delete_nonce' ] ) ? wc_clean( $_GET[ 'delete_nonce' ] ) : false;
+		$delete_nonce   = isset( $_GET[ 'delete_nonce' ] ) ? wc_clean( $_GET[ 'delete_nonce' ] ) : false;
+		$restriction_id = isset( $_GET[ 'restriction_id' ] ) ? wc_clean( $_GET[ 'restriction_id' ] ) : false;
 
-		if ( ! $delete_nonce || ! wp_verify_nonce( $delete_nonce, 'wc-csp-delete-rule-nonce' ) ) {
+		if ( false === $delete_nonce || ! wp_verify_nonce( $delete_nonce, 'wc-csp-delete-rule-nonce' ) || false === $restriction_id ) {
 			WC_CSP_Admin_Notices::add_notice( __( 'Failed to delete restriction rule. Please refresh the page and try again.', 'woocommerce-conditional-shipping-and-payments' ), 'error', true );
 			$this->reload_overview();
 		}
 
-		$delete_rule    = is_numeric( $_GET[ 'delete_rule' ] ) ? absint( $_GET[ 'delete_rule' ] ) : -1;
-		$restriction_id = wc_clean( $_GET[ 'restriction_id' ] );
+		$delete_rule = isset( $_GET[ 'delete_rule' ] ) && is_numeric( $_GET[ 'delete_rule' ] ) ? absint( $_GET[ 'delete_rule' ] ) : -1;
 
 		// Get the restriction object.
 		$restriction_obj = WC_CSP()->restrictions->get_restriction( $restriction_id );

@@ -1,9 +1,9 @@
 === WooCommerce Mix and Match Product ===
 Contributors: helgatheviking, SomewhereWarm
-Tags: woocommerce, product, container
+Tags: woocommerce, product, container, boxes, kits, configurable
 Requires at least: 4.0
 Tested up to: 5.5.0
-Stable tag: 1.10.5
+Stable tag: 1.10.6
 WC requires at least: 3.1.0
 WC tested up to: 4.6.0
 License: GPLv3

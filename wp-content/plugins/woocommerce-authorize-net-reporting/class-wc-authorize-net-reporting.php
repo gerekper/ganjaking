@@ -34,7 +34,7 @@ class WC_Authorize_Net_Reporting extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.11.0';
+	const VERSION = '1.12.0';
 
 	/** @var \WC_Authorize_Net_Reporting single instance of this plugin */
 	protected static $instance;

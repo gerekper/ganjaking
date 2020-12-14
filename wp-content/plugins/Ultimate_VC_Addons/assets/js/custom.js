@@ -378,7 +378,7 @@
 		}
 		ib_responsive();
 
-		jQuery(".ubtn").hover(
+		jQuery(".ubtn").on("mouseenter",
 			function(){
 				var $this = jQuery(this);
 				$this.find(".ubtn-text").css("color",$this.data('hover'));
@@ -414,8 +414,7 @@
 					else if($this.is('.shd-bottom') != '')
 						$this.css({ 'top':temp_adj });
 				}
-			},
-			function(){
+			}).on("mouseleave",function(){
 				var $this = jQuery(this);
 				$this.find(".ubtn-text").removeAttr('style');
 				$this.find(".ubtn-hover").removeClass('ubtn-hover-active');
@@ -585,7 +584,7 @@
 
 		} else {
 
-			jQuery( document ).on('mouseenter mouseleave hover', '.ifb-flip-box', function(event) {
+			jQuery( document ).on('mouseenter mouseleave', '.ifb-flip-box', function(event) {
 				var flipBox = jQuery(this);
 
 				if ( flipBox.hasClass('ifb-hover') ) {
@@ -598,10 +597,9 @@
 
 		jQuery('.ifb-flip-box').each(function(index, element) {
 			if(jQuery(this).parent().hasClass('style_9')) {
-				jQuery(this).hover(function(){
+				jQuery(this).on("mouseenter",function(){
 					jQuery(this).addClass('ifb-door-hover');
-				},
-				function(){
+				}).on("mouseleave",function(){
 					jQuery(this).removeClass('ifb-door-hover');
 				})
 				jQuery(this).on('click',function(){
@@ -932,11 +930,10 @@ jQuery(document).ready(function(){
 				//jQuery(this).find(".ult-new-ib-img").css('max-width', '100%');
 			//}
 
-			jQuery(this).hover(
+			jQuery(this).on("mouseenter",
 				function(){
 					jQuery(this).find(".ult-new-ib-img").css("opacity", jQuery(this).data('hover-opacity') );
-				},
-				function(){
+				}).on("mouseleave",function(){
 					jQuery(this).find(".ult-new-ib-img").css("opacity", jQuery(this).data('opacity') );
 				}
 			);

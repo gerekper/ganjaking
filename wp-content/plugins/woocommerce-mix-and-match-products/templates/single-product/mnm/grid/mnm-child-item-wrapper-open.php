@@ -13,11 +13,11 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
- * @version 1.4.2
+ * @version 1.10.6
  */
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<li class="<?php echo esc_attr( join( ' ', get_post_class( 'mnm_item', $mnm_id ) ) ); ?>" data-mnm_id="<?php echo esc_attr( $mnm_id ); ?>" data-regular_price="<?php echo esc_attr( $regular_price ); ?>" data-price="<?php echo esc_attr( $price ); ?>" >
+<li <?php wc_product_class( 'mnm_item', $mnm_item ); ?> data-mnm_id="<?php echo esc_attr( $mnm_id ); ?>" data-regular_price="<?php echo esc_attr( $regular_price ); ?>" data-price="<?php echo esc_attr( $price ); ?>" >

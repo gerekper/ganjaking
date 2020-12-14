@@ -3,7 +3,7 @@
 	$(document).ready(function(){
 		$(document).trigger('ultImageSeparator');
 	});
-	$(window).load(function(){
+	$(window).on('load',function(){
 		$(document).trigger('ultImageSeparator');
 	});
 	$(document).on('ultImageSeparator', function(event){

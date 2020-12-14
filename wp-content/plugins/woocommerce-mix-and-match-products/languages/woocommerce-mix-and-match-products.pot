@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Mix and Match Products 1.10.5\n"
+"Project-Id-Version: WooCommerce Mix and Match Products 1.10.6\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
-"POT-Creation-Date: 2020-11-18 18:39:42+00:00\n"
+"POT-Creation-Date: 2020-12-07 22:51:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -425,7 +425,7 @@ msgid "Grand total: "
 msgstr ""
 
 #: includes/class-wc-mnm-display.php:357
-#: includes/class-wc-product-mix-and-match.php:1317
+#: includes/class-wc-product-mix-and-match.php:1315
 msgid "Free!"
 msgstr ""
 
@@ -679,27 +679,27 @@ msgstr ""
 msgid "View Cart"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1523
+#: includes/class-wc-product-mix-and-match.php:1521
 msgid "Insufficient stock"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1528
+#: includes/class-wc-product-mix-and-match.php:1526
 msgid "Available on backorder"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1600
+#: includes/class-wc-product-mix-and-match.php:1598
 msgid "Read More"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1603
+#: includes/class-wc-product-mix-and-match.php:1601
 msgid "Select options"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1631
+#: includes/class-wc-product-mix-and-match.php:1629
 msgid "Add to cart"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1638
+#: includes/class-wc-product-mix-and-match.php:1636
 msgid "Update Cart"
 msgstr ""
 
@@ -734,7 +734,7 @@ msgstr ""
 msgid "Grid"
 msgstr ""
 
-#: includes/compatibility/class-wc-mnm-compatibility.php:157
+#: includes/compatibility/class-wc-mnm-compatibility.php:162
 msgid ""
 "The <strong>WooCommerce Mix and Match: Min/Max Quantities</strong> "
 "mini-extension is now part of <strong>WooCommerce Mix and Match</strong>. "
@@ -742,7 +742,7 @@ msgid ""
 "Quantities</strong> plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-mnm-compatibility.php:162
+#: includes/compatibility/class-wc-mnm-compatibility.php:167
 msgid ""
 "The <strong>WC Mix and Match Grid</strong> mini-extension is now part of "
 "<strong>WooCommerce Mix and Match</strong> and should be deactivated and "
@@ -750,14 +750,14 @@ msgid ""
 "options) for any product you'd like to use it with."
 msgstr ""
 
-#: includes/compatibility/class-wc-mnm-compatibility.php:167
+#: includes/compatibility/class-wc-mnm-compatibility.php:172
 msgid ""
 "The <strong>WC Mix and Match: Per-Item Discount</strong> mini-extension is "
 "now part of <strong>WooCommerce Mix and Match</strong>. Please deactivate "
 "and remove the<strong>WC Mix and Match: Per-Item Discount</strong> plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-mnm-compatibility.php:172
+#: includes/compatibility/class-wc-mnm-compatibility.php:177
 msgid ""
 "The <strong>Mix and Match: Lightbox</strong> mini-extension is now part of "
 "<strong>WooCommerce Mix and Match</strong>. Please deactivate and remove "
@@ -1092,8 +1092,8 @@ msgctxt "child order item SKU meta key"
 msgid "SKU"
 msgstr ""
 
-#: includes/class-wc-product-mix-and-match.php:1296
-#: includes/class-wc-product-mix-and-match.php:1331
+#: includes/class-wc-product-mix-and-match.php:1294
+#: includes/class-wc-product-mix-and-match.php:1329
 #. translators: %1$s "From string: %2$s min container price with price suffix.
 msgctxt "Price range: from"
 msgid "%1$s%2$s"

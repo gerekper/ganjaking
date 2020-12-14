@@ -279,4 +279,71 @@ abstract class WC_Address_Validation_Provider extends \WC_Settings_API {
 	}
 
 
+	/**
+	 * Log API Request data if plugin debug mode is enabled
+	 *
+	 * @param string $url Request URL
+	 * @param array  $args Request arguments
+	 */
+	public function maybe_log_request( $url, $args ) {
+
+		if ( wc_address_validation()->is_debug_mode_enabled() ) {
+			wc_address_validation()->log( print_r( compact( 'url', 'args' ), true ) );
+		}
+	}
+
+
+	/**
+	 * Prepares postcode lookup results.
+	 *
+	 * @since 2.7.2
+	 *
+	 * @param array $locations locations found
+	 * @param string $postcode the postcode the user entered
+	 * @param array $args the lookup API arguments
+	 * @return array
+	 */
+	protected function prepare_lookup_data( $locations, $postcode, $args ) {
+
+		/**
+		 * Filters the postcode lookup results.
+		 *
+		 * @since 2.7.2
+		 *
+		 * @param array $locations locations found
+		 * @param string $postcode the postcode the user entered
+		 * @param string $args the lookup API arguments
+		 * @param \WC_Address_Validation_Provider $provider the provider instance
+		 */
+		return (array) apply_filters_ref_array( 'wc_address_validation_postcode_lookup', [ $locations, $postcode, $args, $this ] );
+	}
+
+
+	/**
+	 * Gets the lookup error message filtered.
+	 *
+	 * @since 2.7.2
+	 *
+	 * @param array|WP_Error $api_response
+	 * @return string
+	 */
+	protected function get_lookup_provider_error_message( $api_response ) {
+
+		/**
+		 * Changes the message displayed when a postcode lookup API returns an error.
+		 *
+		 * @since 2.7.2
+		 *
+		 * @param string $message the message to display
+		 * @param array|WP_Error $api_response the API response object or error object
+		 * @param \WC_Address_Validation_Provider $provider the provider instance
+		 */
+		return (string) apply_filters_ref_array( 'wc_address_validation_postcode_lookup_provider_error_message', [
+			__( 'No addresses found, please check your postcode and try again.', 'woocommerce-address-validation' ),
+			$api_response,
+			$this,
+		] );
+	}
+
+
 }

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Coupon Code Condition.
  *
  * @class    WC_CSP_Condition_Coupon_Code
- * @version  1.8.3
+ * @version  1.8.10
  */
 class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 
@@ -24,9 +24,9 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->id                             = 'coupon_code_used';
-		$this->title                          = __( 'Coupon Code', 'woocommerce-conditional-shipping-and-payments' );
-		$this->supported_global_restrictions  = array( 'shipping_methods', 'payment_gateways' );
+		$this->id                            = 'coupon_code_used';
+		$this->title                         = __( 'Coupon Code', 'woocommerce-conditional-shipping-and-payments' );
+		$this->supported_global_restrictions = array( 'shipping_methods', 'payment_gateways' );
 	}
 
 	/**
@@ -39,25 +39,37 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 	public function get_condition_resolution( $data, $args ) {
 
 		// Empty conditions always apply (not evaluated).
-		if ( empty( $data[ 'value' ] ) ) {
+		if ( ! isset( $data[ 'value' ] ) ) {
 			return false;
 		}
 
 		$message = false;
 
-		if ( $this->modifier_is( $data[ 'modifier' ], array( 'used' ) ) ) {
+		if ( $this->modifier_is( $data[ 'modifier' ], 'used' ) ) {
 
-			$coupons        = $this->get_condition_violation_subjects( $data, $args );
-			$merged_coupons = WC_CSP_Condition::merge_titles( $coupons );
+			if ( empty( $data[ 'value' ] ) ) {
 
-			if ( sizeof( $coupons ) > 1 ) {
-				$message = sprintf( __( 'remove coupons %s', 'woocommerce-conditional-shipping-and-payments' ), $merged_coupons );
+				$message = __( 'remove all applied coupons', 'woocommerce-conditional-shipping-and-payments' );
+
 			} else {
-				$message = sprintf( __( 'remove coupon %s', 'woocommerce-conditional-shipping-and-payments' ), $merged_coupons );
+
+				$coupons        = $this->get_condition_violation_subjects( $data, $args );
+				$merged_coupons = WC_CSP_Condition::merge_titles( $coupons );
+
+				if ( sizeof( $coupons ) > 1 ) {
+					$message = sprintf( __( 'remove coupons %s', 'woocommerce-conditional-shipping-and-payments' ), $merged_coupons );
+				} else {
+					$message = sprintf( __( 'remove coupon %s', 'woocommerce-conditional-shipping-and-payments' ), $merged_coupons );
+				}
 			}
 
-		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-used' ) ) ) {
-			$message = __( 'use a qualifying coupon', 'woocommerce-conditional-shipping-and-payments' );
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], 'not-used' ) ) {
+
+			$message = __( 'apply a qualifying coupon', 'woocommerce-conditional-shipping-and-payments' );
+
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], 'free-shipping' ) ) {
+
+			$message = __( 'remove all free shipping coupons from your cart', 'woocommerce-conditional-shipping-and-payments' );
 		}
 
 		return $message;
@@ -94,7 +106,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 
 			$coupon_code = WC_CSP_Core_Compatibility::is_wc_version_gte( '3.0' ) ? $coupon->get_code() : $coupon->code;
 
-			if ( $this->modifier_is( $data[ 'modifier' ], array( 'used' ) ) && in_array( $coupon_code, $data[ 'value' ] ) ) {
+			if ( $this->modifier_is( $data[ 'modifier' ], 'used' ) && in_array( $coupon_code, $data[ 'value' ] ) ) {
 				$subjects[] = $coupon_code;
 			}
 		}
@@ -112,7 +124,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 	public function check_condition( $data, $args ) {
 
 		// Empty conditions always apply (not evaluated).
-		if ( empty( $data[ 'value' ] ) ) {
+		if ( ! isset( $data[ 'value' ] ) ) {
 			return true;
 		}
 
@@ -124,28 +136,58 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 			$active_coupons = WC_CSP_Core_Compatibility::is_wc_version_gte( '3.2' ) ? WC()->cart->get_coupons() : WC()->cart->coupons;
 		}
 
-		if ( empty( $active_coupons ) && $data[ 'modifier' ] === 'not-used' ) {
+		// No coupons applied, and 'not used' modifier selected?
+		if ( empty( $active_coupons ) && self::modifier_is( $data[ 'modifier' ], 'not-used' ) ) {
 			return true;
+		// Coupons applied, and 'used' modifier selected with empty value (=used any)?
+		} elseif ( ! empty( $active_coupons ) && self::modifier_is( $data[ 'modifier' ], 'used' ) && empty( $data[ 'value' ] ) ) {
+			return true;
+		// Coupons applied, and 'not-used' modifier selected with empty value (=used none)?
+		} elseif ( ! empty( $active_coupons ) && self::modifier_is( $data[ 'modifier' ], 'not-used' ) && empty( $data[ 'value' ] ) ) {
+			return false;
 		}
 
-		$found_coupon        = false;
-		$active_coupon_codes = array();
+		$found_coupon          = false;
+		$free_shipping_granted = false;
+		$active_coupon_codes   = array();
 
 		// Gather active coupon codes.
 		foreach ( $active_coupons as $coupon ) {
-			$active_coupon_codes[] = WC_CSP_Core_Compatibility::is_wc_version_gte( '3.0' ) ? $coupon->get_code() : $coupon->code;
-		}
 
-		foreach ( $data[ 'value' ] as $coupon_req ) {
-			if ( in_array( $coupon_req, $active_coupon_codes ) ) {
-				$found_coupon = true;
-				break;
+			$coupon_code = WC_CSP_Core_Compatibility::is_wc_version_gte( '3.0' ) ? $coupon->get_code() : $coupon->code;
+
+			$active_coupon_codes[] = $coupon_code;
+
+			if ( self::modifier_is( $data[ 'modifier' ], 'free-shipping' ) ) {
+
+				if ( ! ( $coupon instanceof WC_Coupon ) ) {
+					$coupon = new WC_Coupon( $coupon_code );
+				}
+
+				$enables_free_shipping = WC_CSP_Core_Compatibility::is_wc_version_gte( '3.0' ) ? $coupon->get_free_shipping() : $coupon->enable_free_shipping();
+
+				if ( $enables_free_shipping ) {
+					$free_shipping_granted = true;
+				}
 			}
 		}
 
-		if ( 'used' === $data[ 'modifier' ] && $found_coupon ) {
+		if ( ! empty( $data[ 'value' ] ) ) {
+			if ( self::modifier_is( $data[ 'modifier' ], array( 'used', 'not-used' ) ) ) {
+				foreach ( $data[ 'value' ] as $check_code ) {
+					if ( in_array( $check_code, $active_coupon_codes ) ) {
+						$found_coupon = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if ( self::modifier_is( $data[ 'modifier' ], 'used' ) && $found_coupon ) {
 			return true;
-		} elseif ( 'not-used' === $data[ 'modifier' ] && false === $found_coupon ) {
+		} elseif ( self::modifier_is( $data[ 'modifier' ], 'not-used' ) && false === $found_coupon ) {
+			return true;
+		} elseif ( self::modifier_is( $data[ 'modifier' ], 'free-shipping' ) && $free_shipping_granted ) {
 			return true;
 		}
 
@@ -184,8 +226,9 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 	 */
 	public function get_admin_fields_html( $index, $condition_index, $condition_data ) {
 
-		$modifier     = '';
-		$coupon_codes = '';
+		$modifier              = 'used';
+		$zero_config_modifiers = array( 'free-shipping' );
+		$coupon_codes          = '';
 
 		if ( ! empty( $condition_data[ 'value' ] ) && is_array( $condition_data[ 'value' ] ) ) {
 			$coupon_codes = implode( ",", $condition_data[ 'value' ] );
@@ -200,15 +243,17 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 		<div class="condition_row_inner">
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
-					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
+					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]" data-zero_config_mods="<?php echo esc_attr( json_encode( $zero_config_modifiers ) ); ?>">
 						<option value="used" <?php selected( $modifier, 'used', true ) ?>><?php echo __( 'used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 						<option value="not-used" <?php selected( $modifier, 'not-used', true ) ?>><?php echo __( 'not used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="free-shipping" <?php selected( $modifier, 'free-shipping', true ) ?>><?php echo __( 'enables free shipping', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>
-			<div class="condition_value">
-				<input type="text"  name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value]" value="<?php echo $coupon_codes; ?>" placeholder="" step="any" min="0"/>
+			<div class="condition_value" style="<?php echo in_array( $modifier, $zero_config_modifiers ) ? 'display:none;' : '' ; ?>">
+				<input type="text"  name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value]" value="<?php echo $coupon_codes; ?>" placeholder="<?php _e( 'Enter specific coupon codes to check, separated by comma (optional).', 'woocommerce-conditional-shipping-and-payments' ) ?>" step="any" min="0"/>
 			</div>
+			<div class="condition_value condition--disabled" style="<?php echo ! in_array( $modifier, $zero_config_modifiers ) ? 'display:none;' : '' ; ?>"></div>
 		</div>
 		<?php
 	}

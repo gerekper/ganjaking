@@ -16,7 +16,7 @@
  * versions in the future. If you wish to customize WooCommerce Address Validation for your
  * needs please refer to http://docs.woocommerce.com/document/address-validation/ for more information.
  *
- * @author      SkyVerge & Crafty Clicks
+ * @author      SkyVerge & Fetchify
  * @copyright   Copyright (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
@@ -26,11 +26,11 @@ defined( 'ABSPATH' ) or exit;
 use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
 
 /**
- * CraftyClicks.co.uk Provider Class
+ * Fetchify.com Provider Class
  *
- * Extends abstract provider class to provide postcode lookup via CraftyClicks.co.uk API
+ * Extends abstract provider class to provide postcode lookup via fetchify.com API
  *
- * @link http://www.craftyclicks.co.uk/
+ * @link http://www.fetchify.com/
  * @since 1.0.3
  */
 class WC_Address_Validation_Provider_Crafty_Clicks extends \WC_Address_Validation_Provider {
@@ -49,7 +49,7 @@ class WC_Address_Validation_Provider_Crafty_Clicks extends \WC_Address_Validatio
 
 		$this->id = 'crafty_clicks';
 
-		$this->title = __( 'Crafty Clicks', 'woocommerce-address-validation' );
+		$this->title = __( 'Fetchify', 'woocommerce-address-validation' );
 
 		$this->countries = array( 'GB' );
 
@@ -90,17 +90,23 @@ class WC_Address_Validation_Provider_Crafty_Clicks extends \WC_Address_Validatio
 			'lines'    => '2', // woocommerce checkout only contains 2 address lines by default
 		);
 
+		$this->maybe_log_request( self::API_ENDPOINT, $args );
+
 		// send GET request
-		$response = wp_safe_remote_get( add_query_arg( $args, self::API_ENDPOINT ) );
+		$api_response = wp_safe_remote_get( add_query_arg( $args, self::API_ENDPOINT ) );
 
 		// check for network timeout, etc
-		if ( is_wp_error( $response ) || ( ! isset( $response['body'] ) ) ) {
-			$locations = array( 'value' => 'none', 'name' => __( 'No addresses found, please check your postcode and try again.', 'woocommerce-address-validation' ) );
+		if ( is_wp_error( $api_response ) || empty( $api_response['body'] ) ) {
+
+			$locations = [
+				'value' => 'none',
+				'name'  => $this->get_lookup_provider_error_message( $api_response ),
+			];
 		}
 
 		// decode response body
-		$response = simplexml_load_string( $response['body'] );
-		$result = null;
+		$response = is_array( $api_response ) ? simplexml_load_string( $api_response['body'] ) : null;
+		$result   = null;
 
 		// setup locations if more than 1 exists (1 or less indicates an error was returned or no matching locations were found)
 		if ( isset( $response->address_data_formatted ) ) {
@@ -163,12 +169,12 @@ class WC_Address_Validation_Provider_Crafty_Clicks extends \WC_Address_Validatio
 			$locations = array( 'value' => 'none', 'name' => apply_filters( 'wc_address_validation_postcode_lookup_no_address_found_message', __( 'No addresses found, please check your postcode and try again.', 'woocommerce-address-validation' ), $postcode ) );
 		}
 
-		if ( 'yes' == get_option( 'wc_address_validation_debug_mode' ) ) {
+		if ( wc_address_validation()->is_debug_mode_enabled() ) {
 			wc_address_validation()->log( print_r( $response, true ) );
 			wc_address_validation()->log( print_r( $result, true ) );
 		}
 
-		return $locations;
+		return $this->prepare_lookup_data( $locations, $postcode, $args );
 	}
 
 
@@ -199,7 +205,7 @@ class WC_Address_Validation_Provider_Crafty_Clicks extends \WC_Address_Validatio
 			'api_key' => array(
 				'title'       => __( 'Access Token', 'woocommerce-address-validation' ),
 				'type'        => 'text',
-				'description' => __( 'Enter your Access Token from the Crafty Clicks website.', 'woocommerce-address-validation' ),
+				'description' => __( 'Enter your Access Token from the Fetchify website.', 'woocommerce-address-validation' ),
 				'default'     => '',
 			)
 		);

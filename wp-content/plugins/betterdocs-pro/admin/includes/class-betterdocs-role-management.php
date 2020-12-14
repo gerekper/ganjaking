@@ -60,7 +60,7 @@ class BetterDocs_Role_Management {
         if( empty( $current_user->roles ) ) {
             return;
         }
-        $role = $current_user->roles[0];
+        $role = isset($current_user->roles[0]) ? $current_user->roles[0] : null;
         $saved_settings = BetterDocs_DB::get_settings();
         $current_check_against = null;
         if( isset( $saved_settings[ $for ] ) ) {

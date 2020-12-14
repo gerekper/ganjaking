@@ -90,20 +90,6 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 				return false;
 			}
 
-			// We need to check if the cart contains a subscription because in that case the total
-			// will always be greater than 0. The recurring payment is always kept with the same value
-			// of the subscription.
-			// @todo Check if there's an option to set the total to 0 without breaking recurrent orders.
-			if ( WC_Account_Funds_Cart_Manager::cart_contains_subscription() ) {
-				$available_funds = WC_Account_Funds::get_account_funds( null, false );
-				$cart_total      = $this->get_order_total();
-
-				if ( $available_funds >= $cart_total ) {
-					return true;
-				}
-			}
-
-
 			if ( WC_Account_Funds_Cart_Manager::using_funds() && $this->get_order_total() > 0 ) {
 				return false;
 			}
@@ -141,16 +127,25 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	public function process_payment( $order_id ) {
 		if ( ! is_user_logged_in() ) {
 			wc_add_notice( __( 'Payment error:', 'woocommerce-account-funds' ) . ' ' . __( 'You must be logged in to use this payment method', 'woocommerce-account-funds' ), 'error' );
-			return array();
+			return array( 'result' => 'error' );
 		}
 
-		$order           = wc_get_order( $order_id );
+		$order = wc_get_order( $order_id );
+
+		// Changing the subscription's payment method.
+		if ( $order instanceof WC_Subscription ) {
+			return array(
+				'result'    => 'success',
+				'redirect'  => $this->get_return_url( $order )
+			);
+		}
+
 		$available_funds = WC_Account_Funds::get_account_funds( $order->get_user_id(), false, $order_id );
 		$funds_used      = WC()->session->get( 'used-account-funds', 0 );
 
 		if ( $order->get_total() > 0 || $available_funds < $funds_used ) {
 			wc_add_notice( __( 'Payment error:', 'woocommerce-account-funds' ) . ' ' . __( 'Insufficient account balance', 'woocommerce-account-funds' ), 'error' );
-			return array();
+			return array( 'result' => 'error' );
 		}
 
 		// Update account funds.
@@ -179,45 +174,40 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	 *
 	 * @param float    $amount Renewal order amount.
 	 * @param WC_Order $order  Renewal order.
-	 *
-	 * @return bool|WP_Error
+	 * @return bool|WP_Error True on success. WP_Error on failure.
 	 */
 	public function scheduled_subscription_payment( $amount, $order ) {
-		$ret = true;
-
-		// The WC_Subscriptions_Manager will generates order for the renewal.
-		// However, the total will not be cleared and replaced with amount of
-		// funds used. The set_renewal_order_meta will fix that.
-		add_action( 'woocommerce_subscriptions_renewal_order_created', array( $this, 'set_renewal_order_meta' ), 10, 2 );
-
 		try {
 			$user_id = $order->get_user_id();
+
 			if ( ! $user_id ) {
 				throw new Exception( __( 'Customer not found.', 'woocommerce-account-funds' ) );
 			}
 
 			$funds = WC_Account_Funds::get_account_funds( $user_id, false );
+
 			if ( $amount > $funds ) {
 				throw new Exception( sprintf( __( 'Insufficient funds (amount to pay = %s; available funds = %s).', 'woocommerce-account-funds' ), wc_price( $amount ), wc_price( $funds ) ) );
 			}
 
-			WC_Account_Funds::remove_funds( $order->get_user_id(), $amount );
+			$order_id = ( method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id );
+
+			WC_Account_Funds::remove_funds( $user_id, $amount );
+
+			update_post_meta( $order_id, '_funds_used', $amount );
+			update_post_meta( $order_id, '_funds_removed', 1 );
+			update_post_meta( $order_id, '_order_total', 0 );
 
 			$this->complete_payment_for_subscriptions_on_order( $order );
-
 			$order->add_order_note( sprintf( __( 'Account funds payment applied: %s', 'woocommerce-account-funds' ), $amount ) );
-
 		} catch ( Exception $e ) {
-
 			$order->add_order_note( $e->getMessage() );
 			$this->payment_failed_for_subscriptions_on_order( $order );
 
-			$ret = new WP_Error( 'accountfunds', $e->getMessage() );
+			return new WP_Error( 'accountfunds', $e->getMessage() );
 		}
 
-		remove_action( 'woocommerce_subscriptions_renewal_order_created', array( $this, 'set_renewal_order_meta' ), 10, 2 );
-
-		return $ret;
+		return true;
 	}
 
 	/**
@@ -274,11 +264,13 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	 *
 	 * Set the total to zero as it will be replaced by `_funds_used`.
 	 *
-	 * @param WC_Order $renewal_order Order from renewal payment
+	 * @deprecated 2.3.5
 	 *
-	 * @return void
+	 * @param WC_Order $renewal_order Order from renewal payment
 	 */
 	public function set_renewal_order_meta( $renewal_order ) {
+		_deprecated_function( __FUNCTION__, '2.3.5' );
+
 		// Use total from post meta directly to avoid filter in total amount.
 		// The _order_total meta is already calculated for total subscription
 		// to pay of given order.

@@ -63,7 +63,7 @@ $is_configured = $webp->is_configured();
 			<div class="sui-notice-message">
 				<i class="sui-notice-icon sui-icon-warning-alert sui-md" aria-hidden="true"></i>
 				<?php if ( 'apache' === $webp->get_server_type() && $webp->is_htaccess_written() ) : ?>
-					<p><?php esc_html_e( 'The rules have been applied, however, the images have still not been converted to WebP.  We recommend to contact your server provider to know more about the casue of this issue.', 'wp-smushit' ); ?></p>
+					<p><?php esc_html_e( 'The rules have been applied, however, the images have still not been converted to WebP.  We recommend to contact your server provider to know more about the cause of this issue.', 'wp-smushit' ); ?></p>
 				<?php else : ?>
 					<p><?php esc_html_e( "Server configurations haven't been applied yet. Make configurations below to start serving images in WebP format.", 'wp-smushit' ); ?></p>
 				<?php endif; ?>

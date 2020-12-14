@@ -131,7 +131,7 @@ class WC_Store_Credit_Admin {
 			wp_enqueue_script( 'wc-store-credit-admin-meta-boxes-product', WC_STORE_CREDIT_URL . "assets/js/admin/meta-boxes-product{$suffix}.js", array( 'wc-admin-product-meta-boxes' ), WC_STORE_CREDIT_VERSION, true );
 		}
 
-		if ( $send_credit_screen_id ) {
+		if ( $send_credit_screen_id === $screen_id ) {
 			wp_enqueue_script( 'wc-store-credit-admin-send-credit', WC_STORE_CREDIT_URL . "assets/js/admin/send-credit{$suffix}.js", array( 'wc-store-credit-admin-customer-search', 'jquery-ui-datepicker' ), WC_STORE_CREDIT_VERSION, true );
 		}
 	}

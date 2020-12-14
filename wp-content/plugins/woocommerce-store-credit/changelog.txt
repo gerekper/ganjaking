@@ -1,5 +1,9 @@
 *** Store Credit Changelog ***
 
+2020-12-10 - version 3.4.2
+* Fix - Prevent fatal error when displaying the discounted amount of a Store Credit coupon on the cart page.
+* Fix - Enqueue the script 'send-credit.js' only when necessary.
+
 2020-11-26 - version 3.4.1
 * Tweak - Improved PHP 8 support.
 * Tweak - Replaced deprecated jQuery functionality.

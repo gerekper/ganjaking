@@ -23,7 +23,7 @@ jQuery(document).ready(function(){
 		calculate_clipped_circle();
 		//make_info_circle('.info-c-semi-br',resizedd);
 	});
-	jQuery(window).load(function(){
+	jQuery(window).on('load',function(){
 		resizedd++;
 		make_info_circle('.info-c-full-br',resizedd);
 		calculate_clipped_circle();
@@ -508,7 +508,7 @@ function part_circle_icon(selector) {
 	}
 	})
 }*/
-jQuery(window).load(function(){
+jQuery(window).on('load',function(){
 	jQuery('.info-c-full-br').each(function(){
 		if(jQuery(this).attr('data-slide-true')=='on'){
 			jQuery(this).hover(function(){

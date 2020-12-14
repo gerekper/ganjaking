@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 		?>
 	</p>
 
-	<a href="<?php echo esc_url( $upgrade_url ); ?>" class="sui-button sui-button-green" target="_blank">
+	<a href="<?php echo esc_url( $upgrade_url ); ?>" class="sui-button sui-button-purple" target="_blank">
 		<?php esc_html_e( 'UPGRADE', 'wp-smushit' ); ?>
 	</a>
 </div>

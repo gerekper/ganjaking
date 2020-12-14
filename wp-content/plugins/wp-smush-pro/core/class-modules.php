@@ -74,9 +74,7 @@ class Modules {
 	 * Modules constructor.
 	 */
 	public function __construct() {
-		if ( \WP_Smush::is_pro() ) {
-			new Api\Hub(); // Init hub endpoints.
-		}
+		new Api\Hub(); // Init hub endpoints.
 
 		new Modules\Resize_Detection();
 		new Rest();

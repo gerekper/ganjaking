@@ -653,7 +653,7 @@ class FUE_Sending_Mailer {
 		}
 	}
 
-	public static function create_email_url( $email_order_id, $email_id, $user_id = 0, $user_email, $target_page, $tracking_codes = array() ) {
+	public static function create_email_url( $email_order_id, $email_id, $user_id, $user_email, $target_page, $tracking_codes = array() ) {
 		if ( empty( $tracking_codes ) ) {
 			$tracking_codes = self::get_tracking_codes( $email_order_id, $email_id );
 		}

@@ -35,7 +35,7 @@
 			vc_viewport_video();
 		});
 
-		jQuery(window).load(function(){
+		jQuery(window).on('load',function(){
 			vc_viewport_video();
 		});
 
@@ -930,7 +930,7 @@
 					}
 				}
 				resize();
-				jQuery(window).load(function(){
+				jQuery(window).on('load',function(){
 					resize();
 				});
 				jQuery(window).resize(function(){
@@ -1122,7 +1122,7 @@
 					}
 				}
 				resize();
-				jQuery(window).load(function(){
+				jQuery(window).on('load',function(){
 					resize();
 				});
 				jQuery(window).resize(function(){
@@ -1312,7 +1312,7 @@
 					}
 				}
 				resize();
-				jQuery(window).load(function(){
+				jQuery(window).on('load',function(){
 					resize();
 				});
 				jQuery(window).resize(function(){
@@ -1638,7 +1638,7 @@
 			};
 			resizees();
 			//jQuery('.upb_video-bg').parents('.upb_video_class').css('overflow','visible');
-			jQuery(window).load(function(){
+			jQuery(window).on('load',function(){
 				resizees();
 				resize_ult_seperators();
 			});

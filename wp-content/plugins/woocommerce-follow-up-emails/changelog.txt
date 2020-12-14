@@ -1,5 +1,10 @@
 *** WooCommerce Follow-Up Emails ***
 
+2020-12-09 - version 4.9.9
+* Tweak - PHP 8 compatibility.
+* Tweak - WC 4.7 compatibility.
+* Tweak - WordPress 5.6 compatibility.
+
 2020-09-14 - version 4.9.8
 * Fix - Prevent fatal error with trigger added to cart and shipping method used rule.
 * Fix - Set the correct time when sending manual emails in batches larger than 50.

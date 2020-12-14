@@ -21,7 +21,7 @@
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -525,15 +525,6 @@ class WC_CSV_Import_Suite_Order_Processor {
 						'line_items' => $refund_data['line_items'],
 						$date_key    => $refunded_date,
 					) );
-
-					if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_lt( '3.1' ) ) {
-
-						if ( ! is_wp_error( $refund ) ) {
-							$refund->set_date_created( $refund_data['date'] );
-							$refund->set_currency( $data['currency'] );
-							$refund->save();
-						}
-					}
 				}
 			}
 

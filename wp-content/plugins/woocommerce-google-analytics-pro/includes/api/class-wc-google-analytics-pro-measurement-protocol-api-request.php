@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * The Measurement Protocol API request class.
@@ -216,8 +216,11 @@ class WC_Google_Analytics_Pro_Measurement_Protocol_API_Request implements Framew
 		$category_hierarchy = wc_google_analytics_pro()->get_integration()->get_category_hierarchy( $product );
 		$product_variant    = wc_google_analytics_pro()->get_integration()->get_product_variation_attributes( $product );
 
-		$parent_id  = Framework\SV_WC_Product_Compatibility::get_prop( $product, 'parent_id' );
-		$product_id = $parent_id ?: Framework\SV_WC_Product_Compatibility::get_prop( $product, 'id' );
+		if ( $parent_id = $product->get_parent_id() ) {
+			$product_id = $parent_id;
+		} else {
+			$product_id = $product->get_id();
+		}
 
 		// if this is a single product page and the event is for the main product, we don't specify a list
 		if ( is_single() && $product_id === (int) get_the_ID() ) {
@@ -294,19 +297,19 @@ class WC_Google_Analytics_Pro_Measurement_Protocol_API_Request implements Framew
 	 */
 	public function track_ec_purchase( $order ) {
 
-		$order_currency = Framework\SV_WC_Order_Compatibility::get_prop( $order, 'currency', 'view' );
+		$order_currency = $order->get_currency();
 		$coupon_codes   = implode( ',', Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.7' ) ? $order->get_coupon_codes() : $order->get_used_coupons() );
 
 		// set general data about the purchase
-		$params = array(
+		$params = [
 			'pa'  => 'purchase',                   // product action
 			'ti'  => $order->get_order_number(),   // transaction ID, required
 			'tr'  => $order->get_total(),          // revenue
 			'tt'  => $order->get_total_tax(),      // tax
-			'ts'  => $order->get_total_shipping(), // shipping
+			'ts'  => $order->get_shipping_total(), // shipping
 			'tcc' => $coupon_codes,                // coupon code
 			'cu'  => $order_currency,              // order currency
-		);
+		];
 
 		$c = 0;
 

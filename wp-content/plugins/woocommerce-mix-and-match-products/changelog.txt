@@ -1,5 +1,12 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2020-12.07 - version 1.10.6
+* Fix - Grand total calculations for containers + Product Addons.
+* Fix - Prevent double discounts when discounting from sale price.
+* Fix - Harden calls to init gallery on child product images to prevent Uncaught TypeError: .wc_product_gallery is not a function.
+* Fix - Use wc_product_class() for opening child item divs/rows. Restores compat with filters mini-extension.
+* Fix - Min/Max Quantities compatibility - ignore rules on variations too.
+
 2020.11.18 - version 1.10.5
 * Update: Tested up to WooCommerce 4.7.0.
 * Fix: Support Min/Max Quantities Variation level min/max rules.

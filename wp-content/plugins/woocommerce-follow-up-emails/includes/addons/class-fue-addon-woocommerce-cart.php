@@ -477,7 +477,7 @@ class FUE_Addon_Woocommerce_Cart {
 	 * @param int   $user_id
 	 * @param array $cart_session
 	 */
-	public static function set_user_cart_session( $user_id = 0, $cart_session ) {
+	public static function set_user_cart_session( $user_id, $cart_session ) {
 		if ( $user_id ) {
 			update_user_meta( $user_id, '_wcfue_cart_emails', $cart_session );
 		} else {

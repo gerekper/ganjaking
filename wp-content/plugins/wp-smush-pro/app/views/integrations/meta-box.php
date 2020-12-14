@@ -41,7 +41,7 @@ if ( ! defined( 'WPINC' ) ) {
 		// Current setting value.
 		$setting_val = ( $upsell || empty( $settings[ $name ] ) || $disable ) ? 0 : $settings[ $name ];
 		// Current setting label.
-		$label = ! empty( $settings_data[ $name ]['short_label'] ) ? $settings_data[ $name ]['short_label'] : $settings_data[ $name ]['label'];		  						 		  		 			
+		$label = ! empty( $settings_data[ $name ]['short_label'] ) ? $settings_data[ $name ]['short_label'] : $settings_data[ $name ]['label'];
 
 		// Show settings option.
 		$this->settings_row( $setting_m_key, $label, $name, $setting_val, $disable, $upsell );

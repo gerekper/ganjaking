@@ -1,3 +1,30 @@
+3.19.8 - 12 Dec 2020
+- Improvement: Shortcode compatibility with PHP 8.0 – Deprecated: Function ultimate_wrap_shortcode_in_div().
+﻿- Fix: Deprecated jquery issue into Interactive Mouse Parallax row background after WordPress - 5.6
+﻿- Fix: Console warning jQuery.browser is deprecated after WordPress - 5.6
+﻿- Fix: Console warning indexOf is not a function after WordPress - 5.6
+﻿- Fix: Console warning jquery-fn-load is deprecated for below elements after WordPress - 5.6
+﻿	- Heading
+﻿	- Countdown
+﻿	- Creative-link
+﻿	- Dual-Button
+﻿	- Filp-Box
+﻿	- iHover
+﻿	- Info-banner
+﻿	- Info-Box
+﻿	- Info-circle
+﻿	- Modal popup
+﻿	- Team Module
+﻿	- Content Box
+﻿	- Image separator
+﻿	- Google Map
+﻿	- Advanced carousel
+﻿
+﻿- Fix: Console warning pseudo-event is deprecated for below modules after WordPress - 5.6
+﻿	- Advanced Button
+﻿	- Flip-Box
+﻿	- Interactive Banner
+
 3.19.7 - 09 Nov 2020
 - Improvement: Updated the jparallax.js library for the parallax effect.
 ﻿- Improvement: Updated the strings into the backend.

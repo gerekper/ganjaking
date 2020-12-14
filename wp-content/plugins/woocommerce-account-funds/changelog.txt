@@ -1,5 +1,13 @@
 *** WooCommerce Account Funds ***
 
+2020-12-09 - version 2.3.5
+* Tweak - Tested compatibility with WC 4.8.
+* Tweak - Tested compatibility with WP 5.6.
+* Tweak - Don't apply the funds' discount when changing the payment method of a subscription.
+* Tweak - Don't copy the account funds' metadata when creating a subscription from an order.
+* Fix - The Account funds gateway was not available when changing the payment method of a subscription.
+* Fix - Fixed the zero-order total displayed in recurrent orders when applying funds to new subscriptions.
+
 2020-11-16 - version 2.3.4
 * Tweak - Tested compatibility with WC 4.7.
 * Fix - Funds were not being deducted from the account on fully paid orders with funds in WC 4.7.

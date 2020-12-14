@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.0.0
- * @version  1.9.9
+ * @version  1.10.6
  */
 
 // Exit if accessed directly.
@@ -194,7 +194,8 @@ function wc_mnm_template_child_item_details_wrapper_open( $mnm_item, $product ) 
 		array(
 			'regular_price'  => $product->is_priced_per_product() ? wc_get_price_to_display( $mnm_item, array( 'price' => $mnm_item->get_regular_price() ) ) : 0,
 			'price'          => $product->is_priced_per_product() ? wc_get_price_to_display( $mnm_item, array( 'price' => $mnm_item->get_price() ) ) : 0,
-			'mnm_id'         => $mnm_item->get_id()
+			'mnm_id'         => $mnm_item->get_id(),
+			'mnm_item'       => $mnm_item,
 		),
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
@@ -212,7 +213,8 @@ function wc_mnm_template_child_item_thumbnail_open( $mnm_item, $product ) {
 	wc_get_template(
 		'single-product/mnm/' . $product->get_layout() . '/mnm-child-item-detail-wrapper-open.php',
 		array(
-			'classes' => 'product-thumbnail',
+			'classes'  => 'product-thumbnail',
+			'mnm_item' => $mnm_item,
 		),
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'

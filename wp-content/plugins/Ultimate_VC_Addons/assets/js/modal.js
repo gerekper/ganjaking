@@ -170,7 +170,7 @@
 			});
 		}
 	}
-	$(window).load(function(){
+	$(window).on('load',function(){
 		var onload_modal_array = new Array();
 		$('.ult-onload').each(function(index){
 			onload_modal_array.push($(this));

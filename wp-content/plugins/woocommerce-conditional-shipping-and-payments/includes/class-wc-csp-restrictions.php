@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Loads restriction classes via hooks and prepares them for use.
  *
  * @class    WC_CSP_Restrictions
- * @version  1.7.3
+ * @version  1.8.10
   */
 class WC_CSP_Restrictions {
 
@@ -456,6 +456,13 @@ class WC_CSP_Restrictions {
 						$restriction_data[ 'conditions' ][ $condition_key ][ 'condition_id' ] = 'shipping_class_in_package';
 					} elseif ( isset( $condition_data[ 'condition_id' ] ) && $condition_data[ 'condition_id' ] === 'category_in_cart' ) {
 						$restriction_data[ 'conditions' ][ $condition_key ][ 'condition_id' ] = 'category_in_package';
+					}
+				}
+
+				// Format coupon codes to match case.
+				if ( isset( $condition_data[ 'condition_id' ] ) && $condition_data[ 'condition_id' ] === 'coupon_code_used' ) {
+					if ( WC_CSP_Core_Compatibility::is_wc_version_gte( '3.0' ) ) {
+						$restriction_data[ 'conditions' ][ $condition_key ][ 'value' ] = ! empty( $condition_data[ 'value' ] ) && is_array( $condition_data[ 'value' ] ) ? array_map( 'wc_format_coupon_code', $condition_data[ 'value' ] ) : array();
 					}
 				}
 			}

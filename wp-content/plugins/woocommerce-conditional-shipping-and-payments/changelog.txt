@@ -1,5 +1,11 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2020.12.08 - version 1.8.10
+* Feature - Added 'Shipping Postcode' condition support in Shipping Country/State restrictions.
+* Feature - Introduced 'enables free shipping' modifier in 'Coupon Code' condition.
+* Tweak - Fixed 'Coupon Code' condition behavior to work correctly with empty values.
+* Fix - Warning while importing products without having exported meta data.
+
 2020.11.17 - version 1.8.9
 * Fix - Custom checkout button not visible when PayPal Checkout is selected. Bug triggered when the checkout page is loaded with the PayPal Checkout gateway restricted.
 * Fix - Fixed some 'Settings > Restrictions' styling issues with certain RTL/translated flavors of the WordPress dashboard.

@@ -24,7 +24,7 @@ jQuery( function( $ ) {
 		//reduce parent opacity
 		parent.css( { opacity: '0.5' } );
 		//Disable Links
-		parent.find( 'a' ).attr( 'disabled', 'disabled' );
+		parent.find( 'a' ).prop( 'disabled', true );
 	};
 
 	/**
@@ -38,7 +38,7 @@ jQuery( function( $ ) {
 		//reduce parent opacity
 		parent.css( { opacity: '1' } );
 		//Disable Links
-		parent.find( 'a' ).removeAttr( 'disabled' );
+		parent.find( 'a' ).prop('disabled', false);
 	};
 
 	/**
@@ -56,7 +56,7 @@ jQuery( function( $ ) {
 		action
 	) {
 		// If disabled.
-		if ( 'disabled' === currentButton.attr( 'disabled' ) ) {
+		if ( currentButton.prop( 'disabled' ) ) {
 			return;
 		}
 
@@ -284,7 +284,7 @@ jQuery( function( $ ) {
 		} );
 
 		// Disable Bulk smush button and itself.
-		$( '.wp-smush-all' ).attr( 'disabled', 'disabled' );
+		$( '.wp-smush-all' ).prop( 'disabled', true );
 
 		// Hide Settings changed Notice.
 		$( '.wp-smush-settings-changed' ).hide();
@@ -429,7 +429,7 @@ jQuery( function( $ ) {
 				$completedText.addClass('sui-hidden');
 			}, 2000);
 
-			$( '.wp-smush-all' ).removeAttr( 'disabled' );
+			$( '.wp-smush-all' ).prop('disabled', false);
 		} );
 	};
 
@@ -594,7 +594,7 @@ jQuery( function( $ ) {
 	 */
 	$( 'body' ).on( 'click', 'a.smush-stats-details', function( e ) {
 		//If disabled
-		if ( 'disabled' == $( this ).attr( 'disabled' ) ) {
+		if ( $( this ).prop( 'disabled' ) ) {
 			return false;
 		}
 
@@ -668,9 +668,9 @@ jQuery( function( $ ) {
 			return false;
 		}
 
-		jQuery( '.wp-smush-all, .wp-smush-scan' ).attr(
+		jQuery( '.wp-smush-all, .wp-smush-scan' ).prop(
 			'disabled',
-			'disabled'
+			true
 		);
 		$( '.wp-smush-notice.wp-smush-remaining' ).hide();
 		new Smush( $( this ), true, 'nextgen' );
@@ -801,14 +801,14 @@ jQuery( function( $ ) {
 
 			// Send ajax, Update Settings, And Check For resmush.
 			jQuery.post( ajaxurl, param ).done( function() {
-				jQuery( 'form#wp-smush-settings-form' ).submit();
+				jQuery( 'form#wp-smush-settings-form' ).trigger('submit');
 				return true;
 			} );
 		} else {
 			$( '.wp-smush-hex-notice' ).hide();
 
 			// Update text.
-			self.attr( 'disabled', 'disabled' ).addClass( 'button-grey' );
+			self.prop( 'disabled', true ).addClass( 'button-grey' );
 
 			// Update save button text.
 			if (
@@ -840,7 +840,7 @@ jQuery( function( $ ) {
 
 			// Send ajax, Update Settings, And Check For resmush.
 			jQuery.post( ajaxurl, param ).done( function() {
-				jQuery( 'form#wp-smush-settings-form' ).submit();
+				jQuery( 'form#wp-smush-settings-form' ).trigger('submit');
 				return true;
 			} );
 		}
@@ -1191,19 +1191,6 @@ jQuery( function( $ ) {
 			}
 		} );
 	}
-	//Close Directory smush modal, if pressed esc
-	$( document ).keyup( function( e ) {
-		if ( e.keyCode === 27 ) {
-			const modal = $(
-				'div.dev-overlay.wp-smush-list-dialog, div.dev-overlay.wp-smush-get-pro'
-			);
-			//If the Directory dialog is not visible
-			if ( ! modal.is( ':visible' ) ) {
-				return;
-			}
-			modal.find( 'div.close' ).click();
-		}
-	} );
 
 	//Dismiss Smush recommendation
 	$( 'span.dismiss-recommendation' ).on( 'click', function( e ) {
@@ -1220,71 +1207,6 @@ jQuery( function( $ ) {
 				action: 'hide_pagespeed_suggestion',
 			},
 		} );
-	} );
-
-	/**
-	 * Adds the slider functionality for the Tutorials under the Bulk Smush tab.
-	 *
-	 * @since 3.7.1
-	 */
-	$( '#smush-box-bulk-tutorials .wp-smush-tutorials-button' ).on( 'click', function( e ) {
-		const $button = $( e.currentTarget ),
-			$sliderContainer = $button.closest( '.wp-smush-tutorials-section' ),
-			amountOfSlides = $sliderContainer.find( '.wp-smush-slider-wrapper li' ).length;
-
-		// If there isn't more than 1 slide, we don't need the slider functionality.
-		if ( 1 >= amountOfSlides ) {
-			return;
-		}
-
-		const direction = $button.data( 'direction' ),
-			activeSlideNumber = parseInt( $sliderContainer.data( 'active' ) ),
-			newActiveNumber = 'next' === direction ? activeSlideNumber + 1 : activeSlideNumber - 1,
-			$newActiveSlide = $sliderContainer.find( `[data-slide="${ newActiveNumber }"]` );
-
-		// Return if the following slide doesn't exist for some reason.
-		if ( ! $newActiveSlide.length ) {
-			return;
-		}
-
-		const $activeSlide = $sliderContainer.find( `[data-slide="${ activeSlideNumber }"]` ),
-			$nextButton = $sliderContainer.find( '.wp-smush-slider-button-next' ),
-			$prevButton = $sliderContainer.find( '.wp-smush-slider-button-prev' );
-
-		// Hide the previous slide, show the new one.
-		$activeSlide.attr( 'tabindex', '-1' );
-		$activeSlide.addClass( 'sui-hidden' );
-		$activeSlide.attr( 'aria-hidden', 'true' );
-		$newActiveSlide.attr( 'tabindex', '0' );
-		$newActiveSlide.removeClass( 'sui-hidden' );
-		$newActiveSlide.attr( 'aria-hidden', 'false' );
-
-		// Update the "active slide" flag.
-		$sliderContainer.attr( 'data-active', newActiveNumber );
-		$sliderContainer.data( 'active', newActiveNumber );
-
-		// Focus on the new slide.
-		$newActiveSlide[0].focus();
-
-		if ( 'next' === direction ) {
-			$prevButton.removeAttr( 'disabled' );
-			$prevButton.removeAttr( 'aria-disabled' );
-
-			// Hide the 'next' button if we moved forward and we're now in the last slide.
-			if ( amountOfSlides === newActiveNumber ) {
-				$nextButton.attr( 'disabled', true );
-				$nextButton.attr( 'aria-disabled', 'true' );
-			}
-		} else {
-			$nextButton.removeAttr( 'disabled' );
-			$nextButton.removeAttr( 'aria-disabled' );
-
-			// Hide the 'prev' button if we moved backward and we're now in the first slide.
-			if ( 1 === newActiveNumber ) {
-				$prevButton.attr( 'disabled', true );
-				$prevButton.attr( 'aria-disabled', 'true' );
-			}
-		}
 	} );
 
 	// Display dialogs that show up with no user action.

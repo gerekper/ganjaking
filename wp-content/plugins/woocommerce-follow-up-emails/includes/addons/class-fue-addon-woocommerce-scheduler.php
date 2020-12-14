@@ -1366,7 +1366,7 @@ class FUE_Addon_Woocommerce_Scheduler {
 	 * @param WC_Order $order
 	 * @return array
 	 */
-	protected function queue_first_purchase_emails( $product_id = 0, $category_id = 0, $order ) {
+	protected function queue_first_purchase_emails( $product_id, $category_id, $order ) {
 		$queued = array();
 
 		$args = array(
@@ -1487,7 +1487,7 @@ class FUE_Addon_Woocommerce_Scheduler {
 	 * @param WC_Order $order
 	 * @return array
 	 */
-	protected function queue_purchase_above_one_emails( $product_id = 0, $category_id = 0, $order ) {
+	protected function queue_purchase_above_one_emails( $product_id, $category_id, $order ) {
 		$queued = array();
 
 		$args = array(
@@ -2157,7 +2157,7 @@ class FUE_Addon_Woocommerce_Scheduler {
 	 * @param FUE_Email $email
 	 * @return bool
 	 */
-	public function is_product_or_category_excluded( $product_id = 0, $category_ids = array(), $order = null, $email ) {
+	public function is_product_or_category_excluded( $product_id, $category_ids, $order, $email ) {
 		$excluded = false;
 
 		if ( $product_id ) {

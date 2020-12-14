@@ -39,7 +39,7 @@ final class Table extends Script {
 		Preference\EditState $edit_state,
 		Request $request
 	) {
-		parent::__construct( $handle, $location, [ 'jquery' ] );
+		parent::__construct( $handle, $location, [ 'jquery', 'ac-table' ] );
 
 		$this->list_screen = $list_screen;
 		$this->editable_data = $editable_data;

@@ -1,5 +1,18 @@
 *** WooCommerce Quick View Changelog ***
 
+2020-12-09 - version 1.3.1
+* Tweak - WC 4.8 compatibility.
+* Tweak - WP 5.6 compatibility.
+
+2020-12-09 - version 1.3.0
+* Tweak - WC 4.8 compatibility.
+* Tweak - WP 5.6 compatibility.
+
+2020-10-06 - version 1.2.12
+* Fix - Set the default size so we don't have to pass the size through the URL.
+* Fix - Support quick view buttons on pages built with WooCommerce Blocks (excluding the All Products block).
+* Tweak - WC 4.5 compatibility.
+
 2020-08-19 - version 1.2.11
 * Tweak - WordPress 5.5 compatibility.
 

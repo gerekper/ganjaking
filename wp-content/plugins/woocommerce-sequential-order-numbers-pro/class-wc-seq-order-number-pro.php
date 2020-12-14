@@ -34,7 +34,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.16.1';
+	const VERSION = '1.17.0';
 
 	/** @var WC_Seq_Order_Number_Pro single instance of this plugin */
 	protected static $instance;
@@ -698,58 +698,60 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 		ob_start();
 
 		?>
-		var free_order_number_start = <?php echo $this->get_free_order_number_start(); ?>;
+		( function( $ ) {
 
-		$( '#woocommerce_order_number_skip_free_orders' ).change( function() {
-			if ( ! $( this ).is( ':checked' ) ) {
-				$( '#woocommerce_free_order_number_prefix' ).closest( 'tr' ).hide();
-			} else {
-				$( '#woocommerce_free_order_number_prefix' ).closest( 'tr' ).show();
+			var free_order_number_start = <?php echo $this->get_free_order_number_start(); ?>;
+
+			$( '#woocommerce_order_number_skip_free_orders' ).change( function() {
+				if ( ! $( this ).is( ':checked' ) ) {
+					$( '#woocommerce_free_order_number_prefix' ).closest( 'tr' ).hide();
+				} else {
+					$( '#woocommerce_free_order_number_prefix' ).closest( 'tr' ).show();
+				}
+			} ).change();
+
+			$( '#woocommerce_free_order_number_prefix' ).on( 'keyup change input', function() {
+				$( '#sample_free_order_number' ).text( formatOrderNumber( free_order_number_start, $( this ).val() ) );
+			} ).change();
+
+			$('#woocommerce_order_number_start, #woocommerce_order_number_prefix, #woocommerce_order_number_suffix').on('keyup change input', function() {
+				$( '#sample_order_number' ).text( formatOrderNumber( $( '#woocommerce_order_number_start' ).val(), $( '#woocommerce_order_number_prefix' ).val(), $( '#woocommerce_order_number_suffix' ).val() ) );
+			} ).change();
+
+			function formatOrderNumber( orderNumber, orderNumberPrefix, orderNumberSuffix ) {
+
+				// Ensure the prefix and suffix are set to uppercase.
+				orderNumberPrefix = ( typeof orderNumberPrefix === "undefined" ) ? "" : orderNumberPrefix.toUpperCase();
+				orderNumberSuffix = ( typeof orderNumberSuffix === "undefined" ) ? "" : orderNumberSuffix.toUpperCase();
+
+				var formatted = orderNumberPrefix + orderNumber + orderNumberSuffix;
+
+				var d = new Date();
+				if ( formatted.indexOf( '{D}' )    > -1) formatted = formatted.replace( /{D}/g,    d.getDate() );
+				if ( formatted.indexOf( '{DD}' )   > -1) formatted = formatted.replace( /{DD}/g,   leftPad( d.getDate().toString(), 2, '0' ) );
+				if ( formatted.indexOf( '{M}' )    > -1) formatted = formatted.replace( /{M}/g,    d.getMonth() + 1 );
+				if ( formatted.indexOf( '{MM}' )   > -1) formatted = formatted.replace( /{MM}/g,   leftPad( ( d.getMonth() + 1 ).toString(), 2, '0' ) );
+				if ( formatted.indexOf( '{YY}' )   > -1) formatted = formatted.replace( /{YY}/g,   ( d.getFullYear() ).toString().substr( 2 ) );
+				if ( formatted.indexOf( '{YYYY}' ) > -1) formatted = formatted.replace( /{YYYY}/g, d.getFullYear() );
+				if ( formatted.indexOf( '{H}' )    > -1) formatted = formatted.replace( /{H}/g,    d.getHours() );
+				if ( formatted.indexOf( '{HH}' )   > -1) formatted = formatted.replace( /{HH}/g,   leftPad( d.getHours().toString(), 2, '0' ) );
+				if ( formatted.indexOf( '{N}' )    > -1) formatted = formatted.replace( /{N}/g,    leftPad( d.getMinutes().toString(), 2, '0' ) );
+				if ( formatted.indexOf( '{S}' )    > -1) formatted = formatted.replace( /{S}/g,    leftPad( d.getSeconds().toString(), 2, '0' ) );
+
+				return formatted;
 			}
-		} ).change();
 
-		$( '#woocommerce_free_order_number_prefix' ).on( 'keyup change input', function() {
-			$( '#sample_free_order_number' ).text( formatOrderNumber( free_order_number_start, $( this ).val() ) );
-		} ).change();
-
-		$('#woocommerce_order_number_start, #woocommerce_order_number_prefix, #woocommerce_order_number_suffix').on('keyup change input', function() {
-			$( '#sample_order_number' ).text( formatOrderNumber( $( '#woocommerce_order_number_start' ).val(), $( '#woocommerce_order_number_prefix' ).val(), $( '#woocommerce_order_number_suffix' ).val() ) );
-		} ).change();
-
-		function formatOrderNumber( orderNumber, orderNumberPrefix, orderNumberSuffix ) {
-
-			// Ensure the prefix and suffix are set to uppercase.
-			orderNumberPrefix = ( typeof orderNumberPrefix === "undefined" ) ? "" : orderNumberPrefix.toUpperCase();
-			orderNumberSuffix = ( typeof orderNumberSuffix === "undefined" ) ? "" : orderNumberSuffix.toUpperCase();
-
-			var formatted = orderNumberPrefix + orderNumber + orderNumberSuffix;
-
-			var d = new Date();
-			if ( formatted.indexOf( '{D}' )    > -1) formatted = formatted.replace( /{D}/g,    d.getDate() );
-			if ( formatted.indexOf( '{DD}' )   > -1) formatted = formatted.replace( /{DD}/g,   leftPad( d.getDate().toString(), 2, '0' ) );
-			if ( formatted.indexOf( '{M}' )    > -1) formatted = formatted.replace( /{M}/g,    d.getMonth() + 1 );
-			if ( formatted.indexOf( '{MM}' )   > -1) formatted = formatted.replace( /{MM}/g,   leftPad( ( d.getMonth() + 1 ).toString(), 2, '0' ) );
-			if ( formatted.indexOf( '{YY}' )   > -1) formatted = formatted.replace( /{YY}/g,   ( d.getFullYear() ).toString().substr( 2 ) );
-			if ( formatted.indexOf( '{YYYY}' ) > -1) formatted = formatted.replace( /{YYYY}/g, d.getFullYear() );
-			if ( formatted.indexOf( '{H}' )    > -1) formatted = formatted.replace( /{H}/g,    d.getHours() );
-			if ( formatted.indexOf( '{HH}' )   > -1) formatted = formatted.replace( /{HH}/g,   leftPad( d.getHours().toString(), 2, '0' ) );
-			if ( formatted.indexOf( '{N}' )    > -1) formatted = formatted.replace( /{N}/g,    leftPad( d.getMinutes().toString(), 2, '0' ) );
-			if ( formatted.indexOf( '{S}' )    > -1) formatted = formatted.replace( /{S}/g,    leftPad( d.getSeconds().toString(), 2, '0' ) );
-
-			return formatted;
-		}
-
-		function leftPad( value, count, char ) {
-			while ( value.length < count ) {
-				value = char + value;
+			function leftPad( value, count, char ) {
+				while ( value.length < count ) {
+					value = char + value;
+				}
+				return value;
 			}
-			return value;
-		}
+
+		} ) ( jQuery );
 		<?php
 
-		$javascript = ob_get_clean();
-
-		wc_enqueue_js( $javascript );
+		wc_enqueue_js( ob_get_clean() );
 	}
 
 

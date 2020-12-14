@@ -1,5 +1,16 @@
 *** WooCommerce Address Validation Changelog ***
 
+2020.12.08 - version 2.8.0
+ * Misc - Add compatibility for WooCommerce 4.7
+ * Misc - Require PHP 7.0 or newer
+ * Misc - Add support for PHP 8
+
+2020.10.15 - version 2.7.2
+ * Fix - Fix an issue that caused validation errors in the zip code field when using SmartyStreets as the provider
+ * Misc - Rebrand Crafty Clicks to Fetchify
+ * Dev - Add filters to dynamically alter the locations data before returning
+ * Dev - Add filters to dynamically alter providers lookup error messages
+
 2020.09.30 - version 2.7.1
  * Misc - Remove the SkyVerge help menu item as part of the plugin assets
 

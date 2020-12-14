@@ -106,7 +106,7 @@ jQuery(document).ready(function(){
 
     setTimeout(set_Top_Description, 500);
 
-    jQuery('.ult-team-member-wrap .ult-team-member-image img').load(function(){
+    jQuery('.ult-team-member-wrap .ult-team-member-image img').on('load',function(){
         set_Top_Description();
     });
 

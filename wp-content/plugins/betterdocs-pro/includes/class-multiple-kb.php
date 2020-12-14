@@ -19,11 +19,15 @@ class BetterDocs_Multiple_Kb
 	{
 		self::$enable = self::get_multiple_kb();
 		add_action('betterdocs_multi_kb_settings', array(__CLASS__, 'kb_settings'));
+		add_action('betterdocs_shortcode_fields', array(__CLASS__, 'pro_shortcodes'));
+		// we need to do add this filter outside so that user can see the tag when they enable the "Enable Multiple Knowledge Base" option without reloading the settlings page.
+		add_filter('betterdocs_doc_permalink_tags', array(__CLASS__, 'doc_permalink_tags'));
 		if (self::$enable == 1) {
 			add_action('init', array(__CLASS__, 'register_knowledge_base'));
 			add_filter('betterdocs_docs_rewrite', array(__CLASS__, 'docs_rewrite'));
 			add_filter('betterdocs_category_rewrite', array(__CLASS__, 'doc_category_rewrite'));
 			add_filter('post_type_link', array(__CLASS__, 'docs_show_permalinks'), 1, 3);
+			add_filter('betterdocs_doc_permalink_default', array(__CLASS__, 'doc_permalink_default'), 10, 3);
 			add_filter('nav_menu_link_attributes', array(__CLASS__, 'doc_category_nav_menu_permalink'), 10, 3);
 			add_action('betterdocs_cat_template_multikb', array(__CLASS__, 'get_multiple_kb'));
 			add_action('betterdocs_postcount', array(__CLASS__, 'postcount'), 10, 5);
@@ -37,7 +41,7 @@ class BetterDocs_Multiple_Kb
 			add_action('betterdocs_breadcrumb_archive_html', array(__CLASS__, 'breadcrumb_archive'), 10, 2);
 			add_action('betterdocs_breadcrumb_before_single_cat_html', array(__CLASS__, 'breadcrumb_single'), 10, 2);
 			add_action('betterdocs_breadcrumb_term_permalink', array(__CLASS__, 'breadcrumb_term_permalink'));
-			add_action('betterdocs_cat_term_permalink', array(__CLASS__, 'cat_term_permalink'));
+			add_action('betterdocs_cat_term_permalink', array(__CLASS__, 'cat_term_permalink'), 10 , 3);
 			add_action('betterdocs_doc_category_add_form_before', array(__CLASS__, 'doc_category_add_form'));
 			add_action('betterdocs_doc_category_update_form_before', array(__CLASS__, 'doc_category_update_form'));
 			add_filter('doc_category_row_actions', array(__CLASS__, 'disable_category_view'), 10, 2);
@@ -46,6 +50,9 @@ class BetterDocs_Multiple_Kb
 			add_action('knowledge_base_edit_form_fields', array(__CLASS__, 'update_knowledge_base_meta'), 10, 2);
 			add_action('edited_knowledge_base', array(__CLASS__, 'updated_knowledge_base_meta'), 10, 2);
 			add_action('admin_footer', array(__CLASS__, 'kb_script'));
+
+			add_action( 'parse_request', array(__CLASS__, 'docs_rewrite_parse_request') );
+
 			add_action('init', array(__CLASS__, 'front_end_order_terms'));
 			add_action('admin_head', array(__CLASS__, 'admin_order_terms'));
 			add_action('wp_ajax_update_knowledge_base_order', array(__CLASS__, 'update_knowledge_base_order'));
@@ -56,9 +63,46 @@ class BetterDocs_Multiple_Kb
 	{
 		$settings = array(
 			'type'        => 'checkbox',
-			'label'       => __('Enable Multiple Knowledge Base', 'betterdocs'),
+			'label'       => __('Enable Multiple Knowledge Base', 'betterdocs-pro'),
 			'default'     => '',
 			'priority'    => 10,
+		);
+		return $settings;
+	}
+	
+	public static function pro_shortcodes($settings)
+	{
+		$settings['category_box_l3_shortcode'] = array(
+			'type'      => 'text',
+			'label'     => __('Category Box- Layout 3' , 'betterdocs-pro'),
+			'default'   => '[betterdocs_category_box_2]',
+			'readonly'	=> true,
+			'priority'	=> 10,
+			'help'      => __('<strong>You can use:</strong> [betterdocs_category_box_2 column="3" terms="term_ID, term_ID"]' , 'betterdocs-pro'),
+		);
+		$settings['category_grid_2_shortcode'] = array(
+			'type'      => 'text',
+			'label'     => __('Category Grid- Layout 4' , 'betterdocs-pro'),
+			'default'   => '[betterdocs_category_grid_2]',
+			'readonly'	=> true,
+			'priority'	=> 10,
+			'help'        => __('<strong>You can use:</strong> [betterdocs_category_grid_2 post_counter="true" icon="true" masonry="true" column="3" posts_per_grid="5" nested_subcategory="true" terms="term_ID, term_ID"]' , 'betterdocs-pro'),
+		);
+		$settings['multiple_kb_shortcode'] = array(
+			'type'      => 'text',
+			'label'     => __('Multiple KB- Layout 1' , 'betterdocs-pro'),
+			'default'   => '[betterdocs_multiple_kb]',
+			'readonly'	=> true,
+			'priority'	=> 10,
+			'help'      => __('<strong>You can use:</strong> [betterdocs_multiple_kb column="3" terms="term_ID, term_ID"]' , 'betterdocs-pro'),
+		);
+		$settings['multiple_kb_2_shortcode'] = array(
+			'type'      => 'text',
+			'label'     => __('Multiple KB- Layout 2' , 'betterdocs-pro'),
+			'default'   => '[betterdocs_multiple_kb_2]',
+			'readonly'	=> true,
+			'priority'	=> 10,
+			'help'      => __('<strong>You can use:</strong> [betterdocs_multiple_kb_2 column="3" terms="term_ID, term_ID"]' , 'betterdocs-pro'),
 		);
 		return $settings;
 	}
@@ -74,9 +118,10 @@ class BetterDocs_Multiple_Kb
 		global $wp_query;
 		$kb_terms = get_terms('knowledge_base');
 		$doc_category_terms = get_terms('doc_category');
+		$knowledge_base = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
 
-		if ($multiple_kb == true && !empty($kb_terms) && !empty($doc_category_terms) && $wp_query->query['knowledge_base'] != 'non-knowledgebase') {
-			$term_count = self::count_category($wp_query->query['knowledge_base'], $term_slug);
+		if ($multiple_kb == true && !empty($kb_terms) && !empty($doc_category_terms) && $knowledge_base != 'non-knowledgebase') {
+			$term_count = self::count_category($knowledge_base, $term_slug);
 		} else {
 			$term_count = betterdocs_get_postcount($count, $term_id);
 		}
@@ -202,19 +247,19 @@ class BetterDocs_Multiple_Kb
 		 * Register knowledge base taxonomy
 		 */
 		$manage_labels = array(
-			'name'                       => esc_html__('Knowledge Base', 'betterdocs'),
-			'singular_name'              => esc_html__('Knowledge Base', 'betterdocs'),
-			'search_items'               => esc_html__('Search Knowledge Base', 'betterdocs'),
-			'all_items'                  => esc_html__('All Knowledge Base', 'betterdocs'),
+			'name'                       => esc_html__('Knowledge Base', 'betterdocs-pro'),
+			'singular_name'              => esc_html__('Knowledge Base', 'betterdocs-pro'),
+			'search_items'               => esc_html__('Search Knowledge Base', 'betterdocs-pro'),
+			'all_items'                  => esc_html__('All Knowledge Base', 'betterdocs-pro'),
 			'parent_item'                => null,
 			'parent_item_colon'          => null,
-			'edit_item'                  => esc_html__('Edit Knowledge Base', 'betterdocs'),
-			'update_item'                => esc_html__('Update Knowledge Base', 'betterdocs'),
-			'not_found'                  => esc_html__('No Knowledge Base found.', 'betterdocs'),
-			'add_new_item'               => esc_html__('Add New Knowledge Base', 'betterdocs'),
-			'new_item_name'              => esc_html__('New Knowledge Base Name', 'betterdocs'),
-			'add_or_remove_items'        => esc_html__('Add or reomve Knowledge Base', 'betterdocs'),
-			'menu_name'                  => esc_html__('Knowledge Base', 'betterdocs'),
+			'edit_item'                  => esc_html__('Edit Knowledge Base', 'betterdocs-pro'),
+			'update_item'                => esc_html__('Update Knowledge Base', 'betterdocs-pro'),
+			'not_found'                  => esc_html__('No Knowledge Base found.', 'betterdocs-pro'),
+			'add_new_item'               => esc_html__('Add New Knowledge Base', 'betterdocs-pro'),
+			'new_item_name'              => esc_html__('New Knowledge Base Name', 'betterdocs-pro'),
+			'add_or_remove_items'        => esc_html__('Add or reomve Knowledge Base', 'betterdocs-pro'),
+			'menu_name'                  => esc_html__('Knowledge Base', 'betterdocs-pro'),
 		);
 
 		$manage_args = array(
@@ -232,16 +277,82 @@ class BetterDocs_Multiple_Kb
 		register_taxonomy('knowledge_base', array(BetterDocs_Docs_Post_Type::$post_type), $manage_args);
 	}
 
+ 	/**
+     * Check if post exists by slug.
+     *
+     * @see    https://wpcodebook.com/snippets/check-if-post-exists-by-slug-in-wordpress/
+     * @return mixed boolean false if no posts exist; post ID otherwise.
+     */
+    public static function post_exists_by_slug( $post_slug, $post_type = 'docs' ) {
+		$loop_posts = new WP_Query( array( 'post_type' => 'any', 'post_status' => 'any', 'name' => $post_slug, 'posts_per_page' => 1, 'fields' => 'all' ) );
+		// print_r($loop_posts);
+        return ( $loop_posts->have_posts() ? $loop_posts->posts[0] : false );
+	}
+
+ 	/**
+     * Fix query vars, if they mismatched.
+     *
+     */
+    public static function fix_query_vars( $slug, $wp ) {
+		$return = false;
+		$post = self::post_exists_by_slug($slug);
+		if(!empty( $post->post_type )){
+			if($post->post_type == 'docs'){
+				$wp->query_vars['docs'] = $slug;
+				$wp->query_vars['name'] = $slug;
+				$wp->query_vars['post_type'] = 'docs';
+				$return = true;
+			}
+			elseif($post->post_type == 'page'){
+				$wp->query_vars['pagename'] = $slug;
+				$return = true;
+			}
+			elseif($post->post_type == 'post'){
+				$wp->query_vars['name'] = $slug;
+				$return = true;
+			}
+		}
+		return $return;
+	}
+
+	public static function docs_rewrite_parse_request($wp){
+		global $wp_rewrite;
+		if(!isset($wp->query_vars['docs']) && !isset($wp->query_vars['pagename']) && !isset($wp->query_vars['name'])){
+			$is_done = false;
+
+			if(isset($wp->query_vars['knowledge_base']) && $wp->query_vars['knowledge_base'] !== 'non-knowledgebase' && !term_exists($wp->query_vars['knowledge_base'])){
+				$is_done = self::fix_query_vars($wp->query_vars['knowledge_base'], $wp);
+				unset($wp->query_vars['knowledge_base']);
+			}
+			if(!$is_done && isset($wp->query_vars['doc_category']) && !term_exists($wp->query_vars['doc_category'])){
+				$is_done = self::fix_query_vars($wp->query_vars['doc_category'], $wp);
+				unset($wp->query_vars['doc_category']);
+			}
+			// checking whether the kb and cat is switched position.
+			if(!$is_done && isset($wp->query_vars['knowledge_base']) && isset($wp->query_vars['doc_category']) && term_exists($wp->query_vars['knowledge_base'], 'doc_category') && term_exists($wp->query_vars['doc_category'], 'knowledge_base') ){
+				$knowledge_base = $wp->query_vars['knowledge_base'];
+				$wp->query_vars['knowledge_base']	= $wp->query_vars['doc_category'];
+				$wp->query_vars['doc_category']	= $knowledge_base;
+			}
+
+		}
+	}
+
 	public static function docs_rewrite($rewrite)
 	{
-		$rewrite = array('slug' => BetterDocs_Docs_Post_Type::$docs_slug . '/%knowledge_base%/%doc_category%', 'with_front' => false);
+		$permalink =  BetterDocs_DB::get_settings( 'permalink_structure' );
+		if(empty($permalink)){
+			$permalink = trim(BetterDocs_Docs_Post_Type::$docs_slug, '/') . '/%knowledge_base%/%doc_category%';
+		}
+
+		$rewrite = array('slug' => trim($permalink, '/'), 'with_front' => false);
 
 		return $rewrite;
 	}
 
 	public static function doc_category_rewrite($rewrite)
 	{
-		$rewrite = array('slug' => BetterDocs_Docs_Post_Type::$docs_slug . '/%knowledge_base%', 'with_front' => false);
+		$rewrite = array('slug' => trim(BetterDocs_Docs_Post_Type::$docs_slug, '/') . '/%knowledge_base%', 'with_front' => false);
 
 		return $rewrite;
 	}
@@ -249,8 +360,8 @@ class BetterDocs_Multiple_Kb
 	public static function list_tax_query($tax_query, $multiple_kb, $tax_slug)
 	{
 		global $wp_query;
-
-		if ($multiple_kb == true && $wp_query->query['knowledge_base'] != 'non-knowledgebase') {
+		$knowledge_base = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
+		if ($multiple_kb == true && $knowledge_base != 'non-knowledgebase') {
 			$taxes = array('knowledge_base', 'doc_category');
 			$tax_map = array();
 
@@ -312,7 +423,7 @@ class BetterDocs_Multiple_Kb
 				array(
 					'key'       => 'doc_category_knowledge_base',
 					'value'     => self::kb_slug(),
-					'compare'   => '='
+					'compare'   => 'LIKE'
 				)
 			);
 			return $meta_query;
@@ -406,10 +517,6 @@ class BetterDocs_Multiple_Kb
 			return $url;
 		}
 
-		$doc_category = 'doc_category';
-		$cat_tag = '%' . $doc_category . '%';
-		$cat_terms = wp_get_object_terms($post->ID, $doc_category);
-
 		$knowledgebase = 'knowledge_base';
 		$knowledgebase_tag = '%' . $knowledgebase . '%';
 		$knowledgebase_terms = wp_get_object_terms($post->ID, $knowledgebase);
@@ -421,16 +528,13 @@ class BetterDocs_Multiple_Kb
 			$knowledgebase_terms = 'non-knowledgebase';
 		}
 		// replace taxonomy tag with the term slug: /docs/%knowledge_base%/category/articlename
-		$url = str_replace($knowledgebase_tag, $knowledgebase_terms, $url);
+		return str_replace($knowledgebase_tag, $knowledgebase_terms, $url);
+	}
 
-
-		if (is_array($cat_terms) && sizeof($cat_terms) > 0) {
-			$doccat_terms = $cat_terms[0]->slug;
-		} else {
-			$doccat_terms = 'uncategorized';
-		}
-
-		return str_replace($cat_tag, $doccat_terms, $url);
+	public static function doc_permalink_default($docs_slug)
+	{
+		$docs_slug = trim(BetterDocs_Docs_Post_Type::$docs_slug, '/') . '/%knowledge_base%/%doc_category%';
+		return $docs_slug;
 	}
 
 	public static function disable_category_view($actions, $tag)
@@ -456,7 +560,7 @@ class BetterDocs_Multiple_Kb
 		return $termlink;
 	}
 
-	public static function cat_term_permalink($term_permalink)
+	public static function cat_term_permalink($term_permalink, $term_slug, $texanomy)
 	{
 		$q_object = get_queried_object();
 		$kb_slug = '';
@@ -469,8 +573,18 @@ class BetterDocs_Multiple_Kb
 			$kb_slug = self::kb_slug();
 		}
 
-		$term_permalink = str_replace('%knowledge_base%', $kb_slug, $term_permalink);
+		if(empty($kb_slug) && $q_object->post_type){
+			$category = get_term_by('slug', $term_slug, $texanomy, ARRAY_A);
+			$kb_arr = get_term_meta($category['term_id'], 'doc_category_knowledge_base', true);
+				
+			if (empty($kb_arr[0])) {
+				$kb_slug = 'non-knowledgebase';
+			} else {
+				$kb_slug = $kb_arr[0];
+			}
+		}
 
+		$term_permalink = str_replace('%knowledge_base%', $kb_slug, $term_permalink);
 		return $term_permalink;
 	}
 
@@ -479,9 +593,9 @@ class BetterDocs_Multiple_Kb
 		$manage_docs_terms = get_terms('knowledge_base', array('hide_empty' => false));
 		if ($manage_docs_terms) {
 			$html = '<div class="form-field term-group">
-				<label>' . esc_html__('Knowledge Base', 'betterdocs') . '</label>
+				<label>' . esc_html__('Knowledge Base', 'betterdocs-pro') . '</label>
 				<select id="doc-category-kb" class="doc-category-kb" name="doc_category_kb[]" multiple="multiple">
-					<option value="" selected>' . esc_html__('No Knowledge Base', 'betterdocs') . '</option>';
+					<option value="" selected>' . esc_html__('No Knowledge Base', 'betterdocs-pro') . '</option>';
 			foreach ($manage_docs_terms as $term) {
 				$html .= '<option value="' . $term->slug . '">' . $term->name . '</option>';
 			}
@@ -500,11 +614,11 @@ class BetterDocs_Multiple_Kb
 		if ($manage_docs_terms) {
 			$html = '<tr class="form-field term-group-wrap">
 				<th scope="row">
-					<label>' . esc_html__('Knowledge Base', 'betterdocs') . '</label>
+					<label>' . esc_html__('Knowledge Base', 'betterdocs-pro') . '</label>
 				</th>
 				<td>
 					<select id="doc-category-kb" class="doc-category-kb" name="doc_category_kb[]" multiple="multiple">
-						<option value="">' . esc_html__('No Knowledge Base', 'betterdocs') . '</option>';
+						<option value="">' . esc_html__('No Knowledge Base', 'betterdocs-pro') . '</option>';
 			foreach ($manage_docs_terms as $term) {
 				$selected = (is_array($knowledge_base) && in_array($term->slug, $knowledge_base)) ? ' selected' : '';
 				$html .= '<option value="' . $term->slug . '"' . $selected . '>' . $term->name . '</option>';
@@ -525,14 +639,14 @@ class BetterDocs_Multiple_Kb
 	public static function add_knowledge_base_meta($taxonomy)
 	{
 		echo '<div class="form-field term-group">
-			<label for="knowledge-base-image-id">' . esc_html__('KB Icon', 'betterdocs') . '</label>
+			<label for="knowledge-base-image-id">' . esc_html__('KB Icon', 'betterdocs-pro') . '</label>
 			<input type="hidden" id="knowledge-base-image-id" name="term_meta[image-id]" class="custom_media_url" value="">
 			<div id="knowledge-base-image-wrapper">
 				<img src="' . BETTERDOCS_ADMIN_URL . 'assets/img/betterdocs-cat-icon.svg" alt="">
 			</div>
 			<p>
-				<input type="button" class="button button-secondary betterdocs_tax_media_button" id="betterdocs_tax_media_button" name="betterdocs_tax_media_button" value="' . esc_html__('Add Image', 'betterdocs') . '" />
-				<input type="button" class="button button-secondary doc_tax_media_remove" id="doc_tax_media_remove" name="doc_tax_media_remove" value="' . esc_html_e('Remove Image', 'betterdocs') . '" />
+				<input type="button" class="button button-secondary betterdocs_tax_media_button" id="betterdocs_tax_media_button" name="betterdocs_tax_media_button" value="' . esc_html__('Add Image', 'betterdocs-pro') . '" />
+				<input type="button" class="button button-secondary doc_tax_media_remove" id="doc_tax_media_remove" name="doc_tax_media_remove" value="' . esc_html_e('Remove Image', 'betterdocs-pro') . '" />
 			</p>
 		</div>';
 	}
@@ -569,7 +683,7 @@ class BetterDocs_Multiple_Kb
 
 		$html = '<tr class="form-field term-group-wrap batterdocs-cat-media-upload">
 			<th scope="row">
-				<label for="knowledge-base-image-id">' . esc_html__('KB Icon', 'betterdocs') . '</label>
+				<label for="knowledge-base-image-id">' . esc_html__('KB Icon', 'betterdocs-pro') . '</label>
 			</th>
 			<td>
 				<input type="hidden" id="knowledge-base-image-id" name="term_meta[image-id]" value="'.$kb_icon_id.'">
@@ -582,8 +696,8 @@ class BetterDocs_Multiple_Kb
 			}
 		$html .= '</div>
 				<p>
-					<input type="button" class="button button-secondary betterdocs_tax_media_button" id="betterdocs_tax_media_button" name="betterdocs_tax_media_button" value="' . esc_html__('Add Image', 'betterdocs') . '" />
-					<input type="button" class="button button-secondary doc_tax_media_remove" id="doc_tax_media_remove" name="doc_tax_media_remove" value="' . esc_html__('Remove Image', 'betterdocs') . '" />
+					<input type="button" class="button button-secondary betterdocs_tax_media_button" id="betterdocs_tax_media_button" name="betterdocs_tax_media_button" value="' . esc_html__('Add Image', 'betterdocs-pro') . '" />
+					<input type="button" class="button button-secondary doc_tax_media_remove" id="doc_tax_media_remove" name="doc_tax_media_remove" value="' . esc_html__('Remove Image', 'betterdocs-pro') . '" />
 				</p>
 			</td>
 		</tr>';
@@ -781,6 +895,24 @@ class BetterDocs_Multiple_Kb
 	protected static function does_substring_exist($string, $substring)
 	{
 		return strstr($string, $substring) !== false;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param [type] $tags
+	 * @return void
+	 */
+	public static function doc_permalink_tags($tags)
+	{
+		$knowledge_enabled = self::get_multiple_kb() == 1 ? '' : 'hidden';
+		$tags['%knowledge_base%'] = [
+			'class'      => "knowledge-base $knowledge_enabled",
+			'aria-label' => __( 'Knowledge Bas', 'betterdocs-pro' ),
+			'data-added' => __( 'knowledge_base added to permalink structure', 'betterdocs-pro' ),
+			'data-used'  => __( 'knowledge_base (already used in permalink structure)', 'betterdocs-pro' ),
+		];
+		return $tags;
 	}
 
 	/**

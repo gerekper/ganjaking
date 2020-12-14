@@ -312,10 +312,10 @@ class WC_Mix_and_Match_Display {
 	 */
 	public function frontend_scripts() {
 
-		wp_register_style( 'wc-mnm-frontend', WC_Mix_and_Match()->plugin_url() . '/assets/css/frontend/mnm-frontend.css', array(), WC_Mix_and_Match()->version );
-		wp_enqueue_style( 'wc-mnm-frontend' );
-
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		wp_enqueue_style( 'wc-mnm-frontend', WC_Mix_and_Match()->plugin_url() . '/assets/css/frontend/mnm-frontend' . $suffix . '.css', array(), WC_Mix_and_Match()->version );
+		wp_style_add_data( 'wc-mnm-frontend', 'rtl', 'replace' );
 
 		wp_register_script( 'wc-add-to-cart-mnm', WC_Mix_and_Match()->plugin_url() . '/assets/js/frontend/add-to-cart-mnm' . $suffix . '.js', array( 'jquery', 'jquery-blockui' ), WC_Mix_and_Match()->version, true );
 

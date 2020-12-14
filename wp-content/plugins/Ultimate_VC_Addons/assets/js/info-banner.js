@@ -25,7 +25,7 @@
 		});
 	});
 	
-	$(window).load(function(){
+	$(window).on('load',function(){
 		align_info();
 	});
 	

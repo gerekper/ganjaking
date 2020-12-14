@@ -73,7 +73,7 @@ jQuery(document).ready(function(){
 			jQuery(window).resize(function(){
 				resiz();
 			})
-			jQuery(window).load(function(){
+			jQuery(window).on('load',function(){
 				jQuery('.vcpb-fs-jquery').each(function(){
 					var layer_count = jQuery(this).find('.ultimate_h_parallax').length;
 					layer_count = 1/layer_count;

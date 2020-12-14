@@ -502,9 +502,7 @@ class FUE_Sending_Scheduler {
 
 			update_option( 'fue_next_summary', $next_send );
 
-			$param = array(
-				'email_order_id'    => $item->id
-			);
+			$param = array( $item->id );
 
 			as_unschedule_action( 'sfn_followup_emails', $param, 'fue' );
 
@@ -579,9 +577,7 @@ class FUE_Sending_Scheduler {
 	 */
 	public static function reschedule_queue_item( $queue_item ) {
 
-		$param = array(
-			'email_order_id'    => $queue_item->id
-		);
+		$param = array( $queue_item->id );
 
 		as_unschedule_action( 'sfn_followup_emails', $param, 'fue' );
 
@@ -1015,7 +1011,7 @@ class FUE_Sending_Scheduler {
 				$similar_item->save();
 
 				// remove the existing schedule and save the new one
-				$param = array('email_order_id' => $similar_email->id);
+				$param = array( $similar_email->id );
 
 				as_unschedule_action( 'sfn_followup_emails', $param, 'fue' );
 
@@ -1061,9 +1057,7 @@ class FUE_Sending_Scheduler {
 	 * @return array
 	 */
 	public function get_scheduler_parameters( $queue_id ) {
-		return apply_filters( 'fue_scheduler_params', array(
-			'email_order_id'    => absint( $queue_id )
-		), $queue_id, $this );
+		return apply_filters( 'fue_scheduler_params', array( absint( $queue_id ) ), $queue_id, $this );
 	}
 
 	/**
@@ -1141,9 +1135,7 @@ class FUE_Sending_Scheduler {
 		}
 
 		foreach ( $rows as $row ) {
-			$data = array(
-				'email_order_id' => $row->id
-			);
+			$data = array( $row->id );
 
 			$job_id = as_schedule_single_action( $row->send_on, 'sfn_followup_emails', $data, 'fue' );
 

@@ -107,9 +107,6 @@ class Installer {
 			}
 
 			if ( version_compare( $version, '3.8.0', '<' ) ) {
-				// Add the flag to display the release highlights modal.
-				add_site_option( WP_SMUSH_PREFIX . 'show_upgrade_modal', true );
-
 				// Delete the flag for hiding the BF modal because it was removed.
 				delete_site_option( WP_SMUSH_PREFIX . 'hide_blackfriday_modal' );
 			}

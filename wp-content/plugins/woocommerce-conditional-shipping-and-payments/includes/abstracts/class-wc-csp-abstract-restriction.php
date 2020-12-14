@@ -350,7 +350,7 @@ class WC_CSP_Restriction extends WC_Settings_API {
 	public function process_global_restriction_data() {
 
 		if ( isset( $_POST[ 'restriction' ] ) ) {
-			$posted_restrictions_data = $_POST[ 'restriction' ];
+			$posted_restrictions_data = wc_clean( $_POST[ 'restriction' ] );
 		}
 
 		$count            = 0;

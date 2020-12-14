@@ -132,7 +132,7 @@ class Settings implements Registrable {
 		wp_enqueue_style( 'ac-select2' );
 		wp_enqueue_script( 'ac-select2' );
 
-		$script = new Asset\Script( 'acp-layouts', $this->location->with_suffix( 'assets/core/js/layouts.js' ) );
+		$script = new Asset\Script( 'acp-layouts', $this->location->with_suffix( 'assets/core/js/layouts.js' ), ['ac-admin-page-columns'] );
 		$script->enqueue();
 
 		wp_localize_script( 'acp-layouts', 'acp_layouts', [

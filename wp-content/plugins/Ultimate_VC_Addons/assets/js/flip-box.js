@@ -1,6 +1,6 @@
 ;(function ($, window, undefined) {
 
-    $(window).load(function (a) {
+    $(window).on('load',function (a) {
         flip_box_set_auto_height();
     });
 

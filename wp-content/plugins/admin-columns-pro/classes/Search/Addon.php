@@ -72,7 +72,7 @@ final class Addon implements Registrable {
 
 		$table_screen_options = new TableScreenOptions(
 			[
-				new AC\Asset\Script( 'acp-search-table-screen-options', $this->location->with_suffix( 'assets/search/js/screen-options.bundle.js' ) ),
+				new AC\Asset\Script( 'acp-search-table-screen-options', $this->location->with_suffix( 'assets/search/js/screen-options.bundle.js' ),['ac-table'] ),
 			],
 			$this->table_preference,
 			$this->hide_filters,

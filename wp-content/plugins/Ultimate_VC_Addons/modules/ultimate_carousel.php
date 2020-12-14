@@ -921,7 +921,7 @@ if ( ! function_exists( 'ultimate_wrap_shortcode_in_div' ) ) {
 	 * @param mixed  $tag fuction call.
 	 * @access public
 	 */
-	function ultimate_wrap_shortcode_in_div( $attr, $content = null, $tag ) {
+	function ultimate_wrap_shortcode_in_div( $attr, $content, $tag ) {
 		global $_shortcode_tags;
 
 		return '<div class="ult-item-wrap" data-animation="animated ' . esc_attr( $_shortcode_tags['item_animation'] ) . '">' . call_user_func( $_shortcode_tags[ $tag ], $attr, $content, $tag ) . '</div>';

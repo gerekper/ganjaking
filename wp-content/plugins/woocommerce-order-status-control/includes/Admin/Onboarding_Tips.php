@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\Order_Status_Control\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Onboarding tips handler.
@@ -190,7 +190,7 @@ class Onboarding_Tips {
 	private function add_onboarding_notices_scripts() {
 
 		wc_enqueue_js( "
-			jQuery( function( $ ) {
+			( function( $ ) {
 
 				$( '#". esc_js( sprintf( 'woocommerce-%s-onboarding-notice-buttons', $this->get_plugin()->get_id_dasherized() ) ) ." > a' ).on( 'click', function( e ) {
 
@@ -202,8 +202,8 @@ class Onboarding_Tips {
 						$.post( ajaxurl, { action: completeOnboarding, subscribed: 'yes' }, function() {} );
 
 						var button      = $( this );
-						    requestURL  = 'https://api.jilt.com/v2/shops/0f017a8a-d26a-4572-81fd-c9364ae30f90/customer_sessions',
-						    requestData = {
+							requestURL  = 'https://api.jilt.com/v2/shops/0f017a8a-d26a-4572-81fd-c9364ae30f90/customer_sessions',
+							requestData = {
 								customer: {
 									email:             '" . esc_js( wp_get_current_user()->user_email ) . "',
 									accepts_marketing: true,
@@ -223,10 +223,9 @@ class Onboarding_Tips {
 
 						$( this ).closest( 'div' ).find( 'button.notice-dismiss' ).trigger( 'click' );
 					}
-
 				} );
 
-			} );
+			} ) ( jQuery );
 		" );
 	}
 
@@ -400,7 +399,7 @@ class Onboarding_Tips {
 
 		// init our pointers
 		wc_enqueue_js( "
-			jQuery( function( $ ) {
+			( function( $ ) {
 
 				var data = JSON.parse( decodeURIComponent( '{$pointers}' ) );
 
@@ -416,7 +415,7 @@ class Onboarding_Tips {
 				function showPointer( id ) {
 
 					var pointer = data.pointers[ id ],
-					    options = $.extend( pointer.options, {
+						options = $.extend( pointer.options, {
 
 						pointerClass: 'wp-pointer woocommerce-order-status-control-pointer',
 
@@ -429,8 +428,8 @@ class Onboarding_Tips {
 						buttons: function( event, t ) {
 
 							var next     = '',
-							    dataStep = '',
-							    close    = '" . esc_js( __( 'Dismiss', 'woocommerce-order-status-control' ) ) . "';
+								dataStep = '',
+								close    = '" . esc_js( __( 'Dismiss', 'woocommerce-order-status-control' ) ) . "';
 
 							if ( pointer.next ) {
 								dataStep = 'next';
@@ -441,8 +440,8 @@ class Onboarding_Tips {
 							}
 
 							var dismissButton  = $( '<a class=\"close\" href=\"#\" style=\"float: none; margin: 0 20px;\" data-step=\"dismiss\">' + close + '</a>' ),
-							    nextButton     = $( '<a class=\"button button-primary\" href=\"#\" data-step=\"' + dataStep + '\">' + next + '</a>' ),
-							    buttonsWrapper = $( '<div class=\"woocommerce-order-status-control-pointer-buttons\" />' );
+								nextButton     = $( '<a class=\"button button-primary\" href=\"#\" data-step=\"' + dataStep + '\">' + next + '</a>' ),
+								buttonsWrapper = $( '<div class=\"woocommerce-order-status-control-pointer-buttons\" />' );
 
 							dismissButton.bind( 'click.pointer', function( e ) {
 								e.preventDefault();
@@ -476,7 +475,7 @@ class Onboarding_Tips {
 					$( '.woocommerce-order-status-control-pointer-buttons a' ).on( 'click', function() {
 
 						var step   = $( this ).data( 'step' ),
-						    action = '';
+							action = '';
 
 						if ( 'dismiss' === step ) {
 							action ='" . $this->get_plugin()->get_id() . "_onboarding_dismiss';
@@ -495,7 +494,7 @@ class Onboarding_Tips {
 					$.post( ajaxurl, { action: completeOnboarding }, function() { return true; } );
 				} );
 
-			} );
+			} ) ( jQuery );
 		" );
 	}
 

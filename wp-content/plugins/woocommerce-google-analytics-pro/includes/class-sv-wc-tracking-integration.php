@@ -21,7 +21,7 @@
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_4_1;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_2;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -288,15 +288,16 @@ class SV_WC_Tracking_Integration extends \WC_Integration {
 	 * Gets the category hierarchy up to 5 levels deep for the passed product.
 	 *
 	 * @since 1.1.1
-	 * @param \WC_Product the product object
+	 *
+	 * @param \WC_Product $product the product object
 	 * @return string the category hierarchy or an empty string
 	 */
 	public function get_category_hierarchy( $product ) {
 
-		if ( $parent_id = SV_WC_Product_Compatibility::get_prop( $product, 'parent_id' ) ) {
+		if ( $parent_id = $product->get_parent_id() ) {
 			$product_id = $parent_id;
 		} else {
-			$product_id = SV_WC_Product_Compatibility::get_prop( $product, 'id' );
+			$product_id = $product->get_id();
 		}
 
 		$categories = wc_get_product_terms( $product_id, 'product_cat', array( 'orderby' => 'parent', 'order' => 'DESC' ) );
@@ -372,7 +373,11 @@ class SV_WC_Tracking_Integration extends \WC_Integration {
 
 		} else {
 
-			$product_id = ( $parent_id = SV_WC_Product_Compatibility::get_prop( $product, 'parent_id' ) ) ? $parent_id : SV_WC_Product_Compatibility::get_prop( $product, 'id' );
+			if ( $parent_id = $product->get_parent_id() ) {
+				$product_id = $parent_id;
+			} else {
+				$product_id = $product->get_id();
+			}
 
 			$identifier = '#' . $product_id;
 		}
@@ -408,14 +413,7 @@ class SV_WC_Tracking_Integration extends \WC_Integration {
 
 		} elseif ( $product->is_type( 'variable' ) ) {
 
-			if ( SV_WC_Plugin_Compatibility::is_wc_version_lt_3_0() ) {
-				$attributes = $product->get_variation_default_attributes();
-			} else {
-				$attributes = $product->get_default_attributes();
-			}
-
-			$variant = implode( ', ', array_values( $attributes ) );
-
+			$variant = implode( ', ', array_values( $product->get_default_attributes() ) );
 		}
 
 		return $variant;

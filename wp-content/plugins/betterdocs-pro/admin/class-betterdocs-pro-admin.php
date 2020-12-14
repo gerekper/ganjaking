@@ -187,7 +187,7 @@ class Betterdocs_Pro_Admin {
 						<a href="post-new.php?post_type=docs" class="betterdocs-button betterdocs-button-primary"><?php _e( 'Add New Doc', 'betterdocs-pro' ); ?></a>
 						<?php if ( BetterDocs_Multiple_Kb::$enable == 1 ) { ?>
 						<select name="dashboard-select-kb" id="dashboard-select-kb" onchange="javascript:location.href = 'admin.php?page=betterdocs-admin&knowledgebase=' + this.value;">
-							<option value="all"><?php esc_html_e( 'All Knowledge Base', 'betterdocs' ) ?></option>
+							<option value="all"><?php esc_html_e( 'All Knowledge Base', 'betterdocs-pro' ) ?></option>
 							<?php 
 							$terms_object = array(
 								'taxonomy' => 'knowledge_base',
@@ -474,28 +474,24 @@ class Betterdocs_Pro_Admin {
 	 */
 	
 	public function update_new_post_doc_order_by_category($post_id) {
-
-		$term_list = wp_get_post_terms( $post_id, 'doc_category', array( 'fields' => 'ids' ) );
-		
-		if($term_list) {
-
+		$term_list = wp_get_post_terms($post_id, 'doc_category', array('fields' => 'ids'));
+	
+		if(!empty($term_list)) {
 			foreach ($term_list as $term_id){
-
 				$term = get_term( $term_id, 'doc_category' );
 				$term_slug = $term->slug;
 				$term_meta = get_term_meta( $term_id, '_docs_order');
-				$term_meta_arr = explode(",", $term_meta[0]);
+				if(!empty($term_meta)) {
+					$term_meta_arr = explode(",", $term_meta[0]);
 
-				if( ! in_array( $post_id, $term_meta_arr ) ) {
-
-					array_unshift($term_meta_arr, $post_id);
-					$docs_ordering_data = filter_var_array( wp_unslash( $term_meta_arr ), FILTER_SANITIZE_NUMBER_INT );
-					$val = implode( ',', $docs_ordering_data );
-					update_term_meta( $term_id, '_docs_order', implode( ',', $docs_ordering_data ) );
-				
+					if (!in_array( $post_id, $term_meta_arr)) {
+						array_unshift($term_meta_arr, $post_id);
+						$docs_ordering_data = filter_var_array( wp_unslash( $term_meta_arr ), FILTER_SANITIZE_NUMBER_INT );
+						$val = implode( ',', $docs_ordering_data );
+						update_term_meta( $term_id, '_docs_order', implode( ',', $docs_ordering_data ) );
+					}
 				}
 			}
-
 		}
 	}
 

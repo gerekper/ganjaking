@@ -72,7 +72,7 @@ jQuery(document).ready(function(){
 
   });
 
-jQuery(window).load(function(){
+jQuery(window).on('load',function(){
   ult_creative_link_ht();
   });
 jQuery(document).ready(function($) {

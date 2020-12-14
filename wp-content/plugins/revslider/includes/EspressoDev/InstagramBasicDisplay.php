@@ -26,9 +26,9 @@ class InstagramBasicDisplay
 
     private $_userFields = 'account_type,id,media_count,username';
 
-    private $_mediaFields = 'caption,id,media_type,media_url,thumbnail_url,timestamp,username';
+    private $_mediaFields = 'caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username';
 
-    private $_mediaChildrenFields = 'id,media_type,media_url,thumbnail_url,timestamp,username';
+    private $_mediaChildrenFields = 'id,media_type,media_url,permalink,thumbnail_url,timestamp,username';
 
     private $_timeout = 90000;
 

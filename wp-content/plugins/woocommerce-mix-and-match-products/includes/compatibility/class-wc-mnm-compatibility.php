@@ -132,6 +132,11 @@ class WC_Mix_and_Match_Compatibility {
 			$module_paths['cocart'] = 'modules/class-wc-mnm-cocart-compatibility.php';
 		}
 
+		// Stripe fixes.
+		if ( class_exists( 'WC_Stripe' ) ) {
+			$module_paths['stripe'] = 'modules/class-wc-mnm-stripe-compatibility.php';
+		}
+
 		/**
 		 * 'wc_mnm_compatibility_modules' filter.
 		 *

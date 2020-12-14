@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Analytics Pro 1.9.3\n"
+"Project-Id-Version: WooCommerce Google Analytics Pro 1.10.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-11-24 19:02:15+00:00\n"
+"POT-Creation-Date: 2020-12-09 07:58:42+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -130,397 +130,397 @@ msgstr ""
 msgid "Error tracking event: %s"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:459
+#: includes/class-sv-wc-tracking-integration.php:457
 msgid "Additional Settings"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:464
+#: includes/class-sv-wc-tracking-integration.php:462
 msgid "Debug Mode"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:465
+#: includes/class-sv-wc-tracking-integration.php:463
 msgid ""
 "This logs API requests/responses to the WooCommerce log. Please only enable "
 "this if you are having issues."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:469
+#: includes/class-sv-wc-tracking-integration.php:467
 msgid "Off"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:470
+#: includes/class-sv-wc-tracking-integration.php:468
 msgid "On"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:475
+#: includes/class-sv-wc-tracking-integration.php:473
 msgid "Event Names"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:476
+#: includes/class-sv-wc-tracking-integration.php:474
 msgid ""
 "Customize the event names. Leave a field blank to disable tracking of that "
 "event."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:481
+#: includes/class-sv-wc-tracking-integration.php:479
 msgid "Signed In"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:482
+#: includes/class-sv-wc-tracking-integration.php:480
 msgid "Triggered when a customer signs in."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:488
+#: includes/class-sv-wc-tracking-integration.php:486
 msgid "Signed Out"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:489
+#: includes/class-sv-wc-tracking-integration.php:487
 msgid "Triggered when a customer signs out."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:495
+#: includes/class-sv-wc-tracking-integration.php:493
 msgid "Viewed Signup"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:496
+#: includes/class-sv-wc-tracking-integration.php:494
 msgid "Triggered when a customer views the registration form."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:502
+#: includes/class-sv-wc-tracking-integration.php:500
 msgid "Signed Up"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:503
+#: includes/class-sv-wc-tracking-integration.php:501
 msgid "Triggered when a customer registers a new account."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:509
+#: includes/class-sv-wc-tracking-integration.php:507
 msgid "Viewed Homepage"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:510
+#: includes/class-sv-wc-tracking-integration.php:508
 msgid "Triggered when a customer views the homepage."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:516
+#: includes/class-sv-wc-tracking-integration.php:514
 msgid "Viewed Product"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:517
+#: includes/class-sv-wc-tracking-integration.php:515
 msgid "Triggered when a customer views a single product"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:523
+#: includes/class-sv-wc-tracking-integration.php:521
 msgid "Clicked Product"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:524
+#: includes/class-sv-wc-tracking-integration.php:522
 msgid ""
 "Triggered when a customer clicks a product in listing, such as search "
 "results or related products."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:530
+#: includes/class-sv-wc-tracking-integration.php:528
 msgid "Added to Cart"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:531
+#: includes/class-sv-wc-tracking-integration.php:529
 msgid "Triggered when a customer adds an item to the cart."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:537
+#: includes/class-sv-wc-tracking-integration.php:535
 msgid "Removed from Cart"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:538
+#: includes/class-sv-wc-tracking-integration.php:536
 msgid "Triggered when a customer removes an item from the cart."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:544
+#: includes/class-sv-wc-tracking-integration.php:542
 msgid "Changed Cart Quantity"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:545
+#: includes/class-sv-wc-tracking-integration.php:543
 msgid "Triggered when a customer changes the quantity of an item in the cart."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:551
+#: includes/class-sv-wc-tracking-integration.php:549
 msgid "Viewed Cart"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:552
+#: includes/class-sv-wc-tracking-integration.php:550
 msgid "Triggered when a customer views the cart."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:558
+#: includes/class-sv-wc-tracking-integration.php:556
 msgid "Applied Coupon"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:559
+#: includes/class-sv-wc-tracking-integration.php:557
 msgid "Triggered when a customer applies a coupon"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:565
+#: includes/class-sv-wc-tracking-integration.php:563
 msgid "Removed Coupon"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:566
+#: includes/class-sv-wc-tracking-integration.php:564
 msgid "Triggered when a customer removes a coupon"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:572
+#: includes/class-sv-wc-tracking-integration.php:570
 msgid "Started Checkout"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:573
+#: includes/class-sv-wc-tracking-integration.php:571
 msgid "Triggered when a customer starts the checkout."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:579
+#: includes/class-sv-wc-tracking-integration.php:577
 msgid "Provided Billing Email"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:580
+#: includes/class-sv-wc-tracking-integration.php:578
 msgid "Triggered when a customer provides a billing email at checkout."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:586
+#: includes/class-sv-wc-tracking-integration.php:584
 msgid "Selected Payment Method"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:587
+#: includes/class-sv-wc-tracking-integration.php:585
 msgid "Triggered when a customer selects a payment method at checkout."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:593
+#: includes/class-sv-wc-tracking-integration.php:591
 msgid "Placed Order"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:594
+#: includes/class-sv-wc-tracking-integration.php:592
 msgid "Triggered when a customer places an order via checkout."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:600
+#: includes/class-sv-wc-tracking-integration.php:598
 msgid "Started Payment"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:601
+#: includes/class-sv-wc-tracking-integration.php:599
 msgid ""
 "Triggered when a customer views the payment page (used with direct post "
 "payment gateways)"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:607
+#: includes/class-sv-wc-tracking-integration.php:605
 msgid "Completed Purchase"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:608
+#: includes/class-sv-wc-tracking-integration.php:606
 msgid "Triggered when a customer completes a purchase."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:614
+#: includes/class-sv-wc-tracking-integration.php:612
 msgid "Wrote Review"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:615
+#: includes/class-sv-wc-tracking-integration.php:613
 msgid "Triggered when a customer writes a review."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:621
+#: includes/class-sv-wc-tracking-integration.php:619
 msgid "Commented"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:622
+#: includes/class-sv-wc-tracking-integration.php:620
 msgid "Triggered when a customer writes a comment."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:628
+#: includes/class-sv-wc-tracking-integration.php:626
 msgid "Viewed Account"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:629
+#: includes/class-sv-wc-tracking-integration.php:627
 msgid "Triggered when a customer views the My Account page."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:635
+#: includes/class-sv-wc-tracking-integration.php:633
 msgid "Viewed Order"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:636
+#: includes/class-sv-wc-tracking-integration.php:634
 msgid "Triggered when a customer views an order"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:642
+#: includes/class-sv-wc-tracking-integration.php:640
 msgid "Updated Address"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:643
+#: includes/class-sv-wc-tracking-integration.php:641
 msgid "Triggered when a customer updates their address."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:649
+#: includes/class-sv-wc-tracking-integration.php:647
 msgid "Changed Password"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:650
+#: includes/class-sv-wc-tracking-integration.php:648
 msgid "Triggered when a customer changes their password."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:656
+#: includes/class-sv-wc-tracking-integration.php:654
 msgid "Estimated Shipping"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:657
+#: includes/class-sv-wc-tracking-integration.php:655
 msgid "Triggered when a customer estimates shipping."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:663
+#: includes/class-sv-wc-tracking-integration.php:661
 msgid "Tracked Order"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:664
+#: includes/class-sv-wc-tracking-integration.php:662
 msgid "Triggered when a customer tracks an order."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:670
+#: includes/class-sv-wc-tracking-integration.php:668
 msgid "Cancelled Order"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:671
+#: includes/class-sv-wc-tracking-integration.php:669
 msgid "Triggered when a customer cancels an order."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:677
+#: includes/class-sv-wc-tracking-integration.php:675
 msgid "Order Refunded"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:678
+#: includes/class-sv-wc-tracking-integration.php:676
 msgid "Triggered when an order is refunded."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:684
+#: includes/class-sv-wc-tracking-integration.php:682
 msgid "Reordered"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:685
+#: includes/class-sv-wc-tracking-integration.php:683
 msgid "Triggered when a customer reorders a previous order."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:696
+#: includes/class-sv-wc-tracking-integration.php:694
 msgid "Property Names"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:697
+#: includes/class-sv-wc-tracking-integration.php:695
 msgid ""
 "Customize the property names. Leave a field blank to disable tracking of "
 "that property."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:703
+#: includes/class-sv-wc-tracking-integration.php:701
 msgid "Product Name"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:704
+#: includes/class-sv-wc-tracking-integration.php:702
 msgid ""
 "Tracked when a customer views a product, adds / removes / changes "
 "quantities in the cart, or writes a review."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:710
+#: includes/class-sv-wc-tracking-integration.php:708
 msgid "Product Quantity"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:711
+#: includes/class-sv-wc-tracking-integration.php:709
 msgid ""
 "Tracked when a customer adds a product to their cart or changes the "
 "quantity in their cart."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:717
+#: includes/class-sv-wc-tracking-integration.php:715
 msgid "Product Category"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:718
+#: includes/class-sv-wc-tracking-integration.php:716
 msgid "Tracked when a customer adds a product to their cart."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:724
+#: includes/class-sv-wc-tracking-integration.php:722
 msgid "Coupon Code"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:725
+#: includes/class-sv-wc-tracking-integration.php:723
 msgid "Tracked when a customer applies a coupon."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:731
+#: includes/class-sv-wc-tracking-integration.php:729
 msgid "Order ID"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:732
-#: includes/class-sv-wc-tracking-integration.php:739
-#: includes/class-sv-wc-tracking-integration.php:746
-#: includes/class-sv-wc-tracking-integration.php:753
-#: includes/class-sv-wc-tracking-integration.php:760
+#: includes/class-sv-wc-tracking-integration.php:730
+#: includes/class-sv-wc-tracking-integration.php:737
+#: includes/class-sv-wc-tracking-integration.php:744
+#: includes/class-sv-wc-tracking-integration.php:751
+#: includes/class-sv-wc-tracking-integration.php:758
 msgid "Tracked when a customer completes their purchase."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:738
+#: includes/class-sv-wc-tracking-integration.php:736
 msgid "Order Total"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:745
+#: includes/class-sv-wc-tracking-integration.php:743
 msgid "Shipping Total"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:752
+#: includes/class-sv-wc-tracking-integration.php:750
 msgid "Total Quantity"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:759
+#: includes/class-sv-wc-tracking-integration.php:757
 msgid "Payment Method"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:766
+#: includes/class-sv-wc-tracking-integration.php:764
 msgid "Post Title"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:767
+#: includes/class-sv-wc-tracking-integration.php:765
 msgid "Tracked when a customer leaves a comment on a post."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:773
+#: includes/class-sv-wc-tracking-integration.php:771
 msgid "Shipping Country"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:774
+#: includes/class-sv-wc-tracking-integration.php:772
 msgid "Tracked when a customer estimates shipping."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:780
+#: includes/class-sv-wc-tracking-integration.php:778
 msgid "Purchased SKU"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:781
-#: includes/class-sv-wc-tracking-integration.php:788
-#: includes/class-sv-wc-tracking-integration.php:795
-#: includes/class-sv-wc-tracking-integration.php:802
-#: includes/class-sv-wc-tracking-integration.php:809
+#: includes/class-sv-wc-tracking-integration.php:779
+#: includes/class-sv-wc-tracking-integration.php:786
+#: includes/class-sv-wc-tracking-integration.php:793
+#: includes/class-sv-wc-tracking-integration.php:800
+#: includes/class-sv-wc-tracking-integration.php:807
 msgid "Tracked when a customer purchases the product."
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:787
+#: includes/class-sv-wc-tracking-integration.php:785
 msgid "Purchased Product Name"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:794
+#: includes/class-sv-wc-tracking-integration.php:792
 msgid "Purchased Category"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:801
+#: includes/class-sv-wc-tracking-integration.php:799
 msgid "Purchased Price"
 msgstr ""
 
-#: includes/class-sv-wc-tracking-integration.php:808
+#: includes/class-sv-wc-tracking-integration.php:806
 msgid "Purchased Quantity"
 msgstr ""
 
@@ -777,15 +777,15 @@ msgid "or %1$srevoke authorization%2$s"
 msgstr ""
 
 #: includes/class-wc-google-analytics-pro-integration.php:1827
-#: includes/class-wc-google-analytics-pro-integration.php:2166
+#: includes/class-wc-google-analytics-pro-integration.php:2170
 msgid "Registered User"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-integration.php:2166
+#: includes/class-wc-google-analytics-pro-integration.php:2170
 msgid "Guest"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-integration.php:3283
+#: includes/class-wc-google-analytics-pro-integration.php:3282
 #. translators: Placeholder: %s - plugin name, in bold
 msgid ""
 "%s: The currently authenticated Google account does not have access to any "
@@ -793,7 +793,7 @@ msgid ""
 "to Google Analytics."
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-integration.php:3293
+#: includes/class-wc-google-analytics-pro-integration.php:3292
 #. translators: Placeholder: %s - plugin name, in bold
 msgid ""
 "%s: Something went wrong with the request to list the Google Analytics "
@@ -808,79 +808,79 @@ msgid ""
 "tracking Subscription events."
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:404
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:403
 msgid "Subscription Event Names"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:405
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:404
 msgid ""
 "Customize the event names for Subscription events. Leave a field blank to "
 "disable tracking of that event."
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:409
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:408
 msgid "Activated Subscription"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:410
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:409
 msgid "Triggered when a customer activates their subscription."
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:415
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:414
 msgid "Subscription Free Trial Ended"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:416
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:415
 msgid "Triggered when a the free trial ends for a subscription."
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:421
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:420
 msgid "Subscription End of Pre-Paid Term"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:422
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:421
 msgid ""
 "Triggered when the end of a pre-paid term for a previously cancelled "
 "subscription is reached."
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:427
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:426
 msgid "Subscription Expired"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:428
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:427
 msgid "Triggered when a subscription expires."
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:433
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:432
 msgid "Suspended Subscription"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:434
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:433
 msgid "Triggered when a customer suspends their subscription."
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:439
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:438
 msgid "Reactivated Subscription"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:440
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:439
 msgid "Triggered when a customer reactivates their subscription."
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:445
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:444
 msgid "Cancelled Subscription"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:446
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:445
 msgid "Triggered when a customer cancels their subscription."
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:451
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:450
 msgid "Renewed Subscription"
 msgstr ""
 
-#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:452
+#: includes/class-wc-google-analytics-pro-subscriptions-integration.php:451
 msgid ""
 "Triggered when a customer is automatically billed for a subscription "
 "renewal."

@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
 * Google Analytics Pro Subscriptions Integration
@@ -293,17 +293,17 @@ class WC_Google_Analytics_Pro_Subscriptions_Integration {
 
 			$this->enable_tracking();
 
-			$identity = $identity ? $identity : array(
+			$identity = $identity ?: [
 				'uid' => $subscription->get_user_id(),
 				'cid' => $this->get_integration()->get_order_ga_identity( $subscription->get_id() ),
-			);
+			];
 
-			$properties = array(
+			$properties = [
 				'eventCategory'  => 'Subscriptions',
-				'eventLabel'     => Framework\SV_WC_Order_Compatibility::get_prop( $subscription, 'id' ),
+				'eventLabel'     => $subscription->get_id(),
 				'eventValue'     => $value,
 				'nonInteraction' => $nonInteraction,
-			);
+			];
 
 			$this->get_integration()->api_record_event( $events[ $event_name ], $properties, array(), $identity );
 		}
@@ -325,14 +325,13 @@ class WC_Google_Analytics_Pro_Subscriptions_Integration {
 	 */
 	public function set_subscription_ga_identity( $track_completed_purchase, $order_id ) {
 
-		/* @type \WC_Subscription[] $subscriptions */
 		$subscriptions = wcs_get_subscriptions_for_renewal_order( $order_id );
 
 		if ( ! empty( $subscriptions ) ) {
 
 			foreach ( $subscriptions as $subscription ) {
 
-				$subscription_id  = Framework\SV_WC_Order_Compatibility::get_prop( $subscription, 'id' );
+				$subscription_id  = $subscription->get_id();
 				$subscription_cid = $this->get_integration()->get_order_ga_identity( $subscription_id );
 
 				if ( empty( $subscription_cid ) ) {

@@ -123,7 +123,7 @@ class BetterDocs_Pro_IA {
         }
 
         if( $this->setNempty( 'ia_heading_font_size', $settings ) ) {
-            $css .= '.betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ans-header > h3, .betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ask-header > h3{font-size:' . $settings['ia_heading_font_size'] . 'px}';
+            $css .= '.betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ans-header > h3.bd-ia-subtitle, .betterdocs-header-wrapper .betterdocs-sub-header.betterdocs-ask-header > h3.bd-ia-subtitle {font-size:' . $settings['ia_heading_font_size'] . 'px}';
         }
 
         if( $this->setNempty( 'ia_sub_heading_color', $settings ) ) {
@@ -1114,9 +1114,8 @@ class BetterDocs_Pro_IA {
     public function get_all_registered_texonomy() {
         $args = array(
             'public'   => true,
-            '_builtin' => false
-             
-          ); 
+            '_builtin' => false     
+        ); 
         $taxonomies = get_taxonomies( $args, 'objects' );
         $post_list = [];
         if($taxonomies ) {
@@ -1130,35 +1129,86 @@ class BetterDocs_Pro_IA {
         return $post_list;
     }
 
-    public function ia_conditions() {
+    public function ia_conditions()
+    {
         $display_ia_pages = BetterDocs_DB::get_settings('display_ia_pages');
         $display_ia_archives = BetterDocs_DB::get_settings('display_ia_archives');
         $display_ia_texonomy = BetterDocs_DB::get_settings('display_ia_texonomy');
         $display_ia_single = BetterDocs_DB::get_settings('display_ia_single');
         $query_object = get_queried_object();
-        if(is_page() && $display_ia_pages != 'off' && in_array("all", $display_ia_pages) || is_page($display_ia_pages)) {
+
+        if (
+            is_page()
+            && $display_ia_pages != 'off'
+            && (in_array("all", $display_ia_pages) || is_page($display_ia_pages))
+        ) {
             return true;
-        } elseif((is_tax() || is_category() || is_tag()) && $display_ia_texonomy != 'off' && in_array("all", $display_ia_texonomy)) {
+        } elseif (
+            (is_tax() || is_category() || is_tag())
+            && $display_ia_texonomy != 'off'
+            && in_array("all", $display_ia_texonomy)
+        ) {
             return true;
-        } elseif((is_tax() || is_category() || is_tag()) && $display_ia_texonomy != 'off' && in_array($query_object->taxonomy, $display_ia_texonomy)) {
+        } elseif (
+            (is_tax() || is_category() || is_tag())
+            && $display_ia_texonomy != 'off'
+            && in_array($query_object->taxonomy, $display_ia_texonomy)
+        ) {
             return true;
-        } elseif(is_archive() && !is_tax() && !is_category() && !is_tag() && $display_ia_archives != 'off' && in_array("all", $display_ia_archives)) {
+        } elseif (
+            is_archive()
+            && !is_tax()
+            && !is_category()
+            && !is_tag()
+            && $display_ia_archives != 'off'
+            && in_array("all", $display_ia_archives)
+        ) {
             return true;
-        } elseif(is_archive() && !is_tax() && !is_category() && !is_tag() && $display_ia_archives != 'off' && in_array("all", $display_ia_archives) || $display_ia_archives != 'off' && is_post_type_archive($display_ia_archives)) {
+        } elseif (
+            is_archive()
+            && !is_tax()
+            && !is_category()
+            && !is_tag()
+            && $display_ia_archives != 'off'
+            && in_array("all", $display_ia_archives)
+            || $display_ia_archives != 'off'
+            && is_post_type_archive($display_ia_archives)
+        ) {
             return true;
-        } elseif (is_home() && ($display_ia_archives != 'off' && in_array("all", $display_ia_archives) || $display_ia_archives != 'off' && in_array("post", $display_ia_archives))) {
+        } elseif (
+            is_home()
+            && ($display_ia_archives != 'off'
+                && in_array("all", $display_ia_archives)
+                || $display_ia_archives != 'off'
+                && in_array("post", $display_ia_archives))
+        ) {
             return true;
-        } elseif (is_archive() && ($display_ia_archives != 'off' && in_array("post", $display_ia_archives) && is_date() || is_author() || is_day())) {
+        } elseif (
+            is_archive()
+            && ($display_ia_archives != 'off'
+                && in_array("post", $display_ia_archives)
+                && is_date()
+                || is_author()
+                || is_day())
+        ) {
             return true;
-        } elseif((is_archive() && $display_ia_archives != 'off' && in_array("product", $display_ia_archives) && get_taxonomy( $query_object->taxonomy )->object_type[0] === 'product')) {
+        } elseif (
+            is_archive()
+            && $display_ia_archives != 'off'
+            && in_array("product", $display_ia_archives)
+            && get_taxonomy($query_object->taxonomy)->object_type[0] === 'product'
+        ) {
             return true;
-        } elseif (is_singular() && $display_ia_single != 'off' && in_array("all", $display_ia_single) || is_singular($display_ia_single)) {
+        } elseif (
+            !is_page()
+            && is_singular()
+            && $display_ia_single != 'off'
+            && (in_array("all", $display_ia_single) || is_singular($display_ia_single))
+        ) {
             return true;
         } else {
             return false;
         }
-
-        
     }
 
     public function add_ia_icon() {

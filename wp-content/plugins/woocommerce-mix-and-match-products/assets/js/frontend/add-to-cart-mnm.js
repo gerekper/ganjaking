@@ -338,6 +338,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 		};
 
+
 		/**
 		 * Calculates child item subtotals (container totals) and updates the corresponding 'price_data' fields.
 		 */
@@ -427,16 +428,14 @@ jQuery.fn.wc_get_mnm_script = function() {
 				price_incl_tax: price_data.base_price_subtotals.price_incl_tax,
 				price_excl_tax: price_data.base_price_subtotals.price_excl_tax
 			},
-				subtotals = {
+			subtotals = {
 					price:          price_data.base_price_totals.price,
 					regular_price:  price_data.base_price_totals.regular_price,
 					price_incl_tax: price_data.base_price_totals.price_incl_tax,
 					price_excl_tax: price_data.base_price_totals.price_excl_tax
 			};
 
-			$.each(
-                container.child_items,
-                function( index, child_item ) {
+			$.each( container.child_items, function( index, child_item ) {
 
 				var mnm_item_id = child_item.get_item_id(),
 					item_totals    = price_data.child_item_totals[ mnm_item_id ],
@@ -526,14 +525,20 @@ jQuery.fn.wc_get_mnm_script = function() {
 		/**
 		 * Build the non-recurring price html component.
 		 */
-		this.get_price_html = function( price_data_array ) {
+		this.get_price_html = function( price_data_array, config ) {
 
-			var price_data = typeof( price_data_array ) === 'undefined' ? container.price_data : price_data_array,
-				tag        = 'p';
+			var price_data           = 'undefined' === typeof( price_data_array ) ? container.price_data : price_data_array,
+				
+				container_price_html = '',
+				default_config =        {
+					'show_total_string': wc_mnm_number_round( price_data.totals.price ) !== wc_mnm_number_round( price_data.raw_container_price_min ) || price_data.raw_container_price_min !== price_data.raw_container_price_max,
+					'tag'              : 'p'
+				};
 
-			var	container_price_html = '',
-				show_total_string = ( wc_mnm_number_round( price_data.totals.price ) !== wc_mnm_number_round( price_data.raw_container_price_min ) || price_data.raw_container_price_min !== price_data.raw_container_price_max ),
-				total_string      = show_total_string ? '<span class="total">' + wc_mnm_params.i18n_total + '</span>' : '';
+			config = 'undefined' === typeof( config ) ? {} : config;
+			config = $.extend( default_config, config );
+
+			var total_string      = config.show_total_string ? '<span class="total">' + wc_mnm_params.i18n_total + '</span>' : '';	
 
 			// Non-recurring price html data.
 			var formatted_price         = price_data.totals.price === 0.0 && price_data.show_free_string === 'yes' ? wc_mnm_params.i18n_free : wc_mnm_price_format( price_data.totals.price ),
@@ -545,7 +550,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			}
 
 			container_price_html = wc_mnm_params.i18n_price_format.replace( '%t', total_string ).replace( '%p', formatted_price ).replace( '%s', formatted_suffix );
-			container_price_html = '<' + tag + ' class="price">' + price_data.price_string.replace( '%s', container_price_html ) + '</' + tag + '>';
+			container_price_html = '<' + config.tag + ' class="price">' + price_data.price_string.replace( '%s', container_price_html ) + '</' + config.tag + '>';
 
 			return container_price_html;
 		};
@@ -715,41 +720,55 @@ jQuery.fn.wc_get_mnm_script = function() {
 			// Triggered by addons.
 			if ( container.show_addons_totals ) {
 
-				var price_data            = $.extend( true, {}, container.price_data ),
+				var price_html         = '',
+					html = '',
+					price_data            = $.extend( true, {}, container.price_data ),
 					qty                   = container.get_quantity(),
 					tax_ratios            = price_data.base_price_tax,
 					addons 	  			  = container.$addons_totals.data( 'price_data' ),
-					addons_raw_price      = 0;
-
+					addons_total  = 0.0,
+					addons_prices = {
+						price:          0.0,
+						regular_price:  0.0,
+						price_incl_tax: 0.0,
+						price_excl_tax: 0.0
+					},
+					combined_totals = addons_prices;
+				
 				// Calculate Addons Totals.
 				if( typeof( addons ) !== 'undefined' && addons.length > 0 ) {
-
 					for( var i=0; i < addons.length; i++ ) {
-						addons_raw_price += Number( addons[i].cost_raw );
+						addons_total          += Number( addons[i].cost );
 					}
-
 				}
 
-				if ( addons_raw_price > 0 ) {
+				// Quantity is 1 as addons already calculates totals based on quantity.
+				addons_prices = container.get_taxed_totals( addons_total, addons_total, tax_ratios, 1 );
+					
+				// Update addons prices in container.
+				price_data.addons_prices = addons_prices;
 
-					var addons_prices      = container.get_taxed_totals( addons_raw_price, addons_raw_price, tax_ratios, qty ),
-						price_html         = '',
-						price_html_suffix  = '',
-						html = '';
+				if ( addons_prices.price > 0 ) {
 
-					// Recalculate price html with add-ons price embedded in base price.
-					price_data.base_price = Number( price_data.base_price ) + Number( addons_raw_price );
+					combined_totals.price          = qty * price_data.subtotals.price + addons_prices.price;
+					combined_totals.regular_price  = qty * price_data.subtotals.price + addons_prices.price;
+					combined_totals.price_incl_tax = qty * price_data.subtotals.price_incl_tax + addons_prices.price_incl_tax;
+					combined_totals.price_excl_tax = qty * price_data.subtotals.price_excl_tax + addons_prices.price_excl_tax;
 
-					price_data = container.calculate_subtotals( false, price_data, qty );
-					price_data = container.calculate_totals( price_data );
+					price_data.subtotals = combined_totals;
+					price_data.totals    = combined_totals;
 
 					// Done!
-					price_html        = wc_mnm_price_format( price_data.totals.price );
-					price_html_suffix = container.get_formatted_price_suffix( price_data );
+					var config = {
+						'tag' : 'span',
+						'show_total_string': false
+					};
+
+					price_html = container.get_price_html( price_data, config );
 
 					// Alternative Addons Markup.
 					html = '<dl class="product-addon-totals"><dt>' + wc_mnm_params.i18n_addon_total + '</dt><dd><strong><span class="amount">' + wc_mnm_price_format( addons_prices.price ) + '</span></strong></dd>';
-					html += '<dt>' + wc_mnm_params.i18n_addons_total + '</dt><dd><strong>' + price_html + price_html_suffix + '</strong></dd></dl>';
+					html += '<dt>' + wc_mnm_params.i18n_addons_total + '</dt><dd><strong>' + price_html + '</strong></dd></dl>';
 
 					container.$addons_totals.html( html );
 
@@ -1201,7 +1220,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.init_scripts = function() {
 
 			// Init PhotoSwipe if present.
-			if ( typeof PhotoSwipe !== 'undefined' && 'yes' === wc_mnm_params.photoswipe_enabled ) {
+			if ( 'undefined' !== typeof PhotoSwipe && 'yes' === wc_mnm_params.photoswipe_enabled ) {
 				this.init_photoswipe();
 			}
 
@@ -1211,11 +1230,13 @@ jQuery.fn.wc_get_mnm_script = function() {
 		 * Launch popups for child images.
 		 */
 		this.init_photoswipe = function() {
-			this.$mnm_item_images.each(
-                function() {
-                $( this ).wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
-                }
-            );
+
+			if ( 'undefined' !== typeof $.fn.wc_product_gallery ) {
+				this.$mnm_item_images.wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
+	        } else {
+				window.console.log( 'Failed to initialize PhotoSwipe for mix and match child item images. Your theme declares PhotoSwipe support, but function \'$.fn.wc_product_gallery\' is undefined.' );
+			}
+	          
 		};
 
 		this.initialize();

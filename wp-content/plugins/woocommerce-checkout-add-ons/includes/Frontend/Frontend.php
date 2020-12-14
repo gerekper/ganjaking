@@ -510,27 +510,11 @@ class Frontend {
 
 			$value = $post_data[ $key ];
 
-			switch ( $add_on->get_type() ) {
-
-				case 'checkbox':
-
-					// ensure required checkboxes are actually checked since pre-3.2 WC core fails to do so
-					if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_lt( '3.2' ) && ! $value && $add_on->is_required() ) {
-
-						wc_add_notice( sprintf(
-							/* translators: Placeholders: %s - the required field name */
-							__( '%s is a required field.', 'woocommerce-checkout-add-ons' ),
-							'<strong>' . esc_html( $add_on->get_name() ) . '</strong> '
-						), 'error' );
-					}
-
-				break;
-			}
-
 			/**
 			 * Fires when validating an add-on field at checkout.
 			 *
 			 * @since 1.8.3
+			 *
 			 * @param string $value the add-on field's posted value
 			 * @param Add_On $add_on the add-on object
 			 */

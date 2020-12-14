@@ -165,7 +165,7 @@ foreach ( $packages as $pkg_idx => $package ):
                     foreach( $package['contents'] as $item ) {
 
                         // get the product; if this variation or product has been deleted, this will return null...
-                        $_product = $order->get_product_from_item( $item );
+                        $_product = $item->get_product();
 
                         $sku = $variation = '';
 
@@ -213,7 +213,7 @@ foreach ( $packages as $pkg_idx => $package ):
                             $attributes = WC_MS_Compatibility::get_item_data( $item, true );
 
                             // get the product; if this variation or product has been deleted, this will return null...
-                            $_product = $order->get_product_from_item( $item );
+                            $_product = $item->get_product();
 
                             $sku = $variation = '';
 

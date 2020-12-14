@@ -268,15 +268,15 @@ jQuery(document).ready(function ($) {
         },
         hide: true,
         border: true
-    }).click(function () {
+    }).on('click',function () {
         jQuery('.iris-picker').hide();
         jQuery(this).closest('td').find('.iris-picker').show();
     });
 
-    jQuery('body').click(function () {
+    jQuery('body').on('click',function () {
         jQuery('.iris-picker').hide();
     });
-    jQuery('.color-picker').click(function (event) {
+    jQuery('.color-picker').on('click',function (event) {
         event.stopPropagation();
     });
     jQuery('input[name="wnotification_params[position]"]').on('change', function () {
@@ -694,16 +694,16 @@ jQuery(document).ready(function ($) {
         if (parseInt(data) == 0) {
             jQuery('#message-purchased').removeClass('wn-extended');
             jQuery('.message-purchase-main').css({'color': '#212121','background-color':'#ffffff'});
-            jQuery('input[name="wnotification_params[highlight_color]"]').val('#212121').change();
-            jQuery('input[name="wnotification_params[text_color]"]').val('#212121').change();
-            jQuery('input[name="wnotification_params[close_icon_color]"]').val('#212121').change();
-            jQuery('input[name="wnotification_params[backgroundcolor]"]').val('#ffffff').change();
+            jQuery('input[name="wnotification_params[highlight_color]"]').val('#212121').trigger('change');
+            jQuery('input[name="wnotification_params[text_color]"]').val('#212121').trigger('change');
+            jQuery('input[name="wnotification_params[close_icon_color]"]').val('#212121').trigger('change');
+            jQuery('input[name="wnotification_params[backgroundcolor]"]').val('#ffffff').trigger('change');
         } else {
             jQuery('#message-purchased').addClass('wn-extended');
             jQuery('#woocommerce-notification-background-image').html('#message-purchased .message-purchase-main::before {background-image: url(../wp-content/plugins/woocommerce-notification/images/background/bg_'+data+'.png);');
-            jQuery('input[name="wnotification_params[highlight_color]"]').val(init_data[data]['hightlight']).change();
-            jQuery('input[name="wnotification_params[text_color]"]').val(init_data[data]['text']).change();
-            jQuery('input[name="wnotification_params[close_icon_color]"]').val(init_data[data]['text']).change();
+            jQuery('input[name="wnotification_params[highlight_color]"]').val(init_data[data]['hightlight']).trigger('change');
+            jQuery('input[name="wnotification_params[text_color]"]').val(init_data[data]['text']).trigger('change');
+            jQuery('input[name="wnotification_params[close_icon_color]"]').val(init_data[data]['text']).trigger('change');
         }
 
     });

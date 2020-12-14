@@ -13,7 +13,7 @@ class FUE_Sending_Link_Replacement {
 	private $user_email;
 	private $target_page;
 
-	public function __construct( $email_order_id, $email_id, $user_id = 0, $user_email ) {
+	public function __construct( $email_order_id, $email_id, $user_id, $user_email ) {
 		$this->email_order_id   = $email_order_id;
 		$this->email_id         = $email_id;
 		$this->user_id          = $user_id;

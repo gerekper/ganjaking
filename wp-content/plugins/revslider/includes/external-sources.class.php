@@ -913,7 +913,8 @@ class RevSliderInstagram extends RevSliderFunctions {
 		foreach ($photos as $photo) {
 			if($count > 0){
 				$count--;
-                $shortcode = '';
+				$shortcode = '';
+				
                 preg_match('/.+\/p\/(.+)?\//m', $photo->permalink, $matches);
                 if (isset($matches[1])) {
                     $shortcode = $matches[1];

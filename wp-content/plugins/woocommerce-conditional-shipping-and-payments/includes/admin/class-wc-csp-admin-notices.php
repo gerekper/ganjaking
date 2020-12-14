@@ -409,7 +409,7 @@ class WC_CSP_Admin_Notices {
 	 */
 	public static function dismiss_notice_handler() {
 		if ( isset( $_GET[ 'dismiss_wc_csp_notice' ] ) && isset( $_GET[ '_wc_csp_admin_nonce' ] ) ) {
-			if ( ! wp_verify_nonce( $_GET[ '_wc_csp_admin_nonce' ], 'wc_csp_dismiss_notice_nonce' ) ) {
+			if ( ! wp_verify_nonce( wc_clean( $_GET[ '_wc_csp_admin_nonce' ] ), 'wc_csp_dismiss_notice_nonce' ) ) {
 				wp_die( __( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
 			}
 

@@ -61,21 +61,24 @@ import Scanner from '../smush/directory-scanner';
 			} );
 
 			/**
-			 * Stats section: Directory Link
+			 * Open the "Select Smush directory" modal.
 			 */
-			$( 'body' ).on( 'click', 'a.wp-smush-dir-link', function( e ) {
-				if ( $( 'div.sui-wrap button.wp-smush-browse' ).length > 0 ) {
+			$('button.wp-smush-browse, a.wp-smush-dir-link').on(
+				'click',
+				function (e) {
 					e.preventDefault();
 					window.SUI.openModal(
 						'wp-smush-list-dialog',
-						'dialog-close-div',
-						undefined,
-						false
+						e.currentTarget,
+						$(
+							'#wp-smush-list-dialog .sui-box-header [data-modal-close]'
+						)[0],
+						true
 					);
 					//Display File tree for Directory Smush
 					self.initFileTree();
 				}
-			} );
+			);
 
 			/**
 			 * Smush images: Smush in Choose Directory modal clicked
@@ -84,7 +87,7 @@ import Scanner from '../smush/directory-scanner';
 				e.preventDefault();
 
 				// If disabled, do not process
-				if ( $( this ).attr( 'disabled' ) ) {
+				if ( $( this ).prop( 'disabled' ) ) {
 					return;
 				}
 
@@ -93,12 +96,12 @@ import Scanner from '../smush/directory-scanner';
 				$( 'div.wp-smush-list-dialog div.sui-box-body' ).css( {
 					opacity: '0.8',
 				} );
-				$( 'div.wp-smush-list-dialog div.sui-box-body a' ).unbind(
+				$( 'div.wp-smush-list-dialog div.sui-box-body a' ).off(
 					'click'
 				);
 
 				// Disable button
-				button.attr( 'disabled', 'disabled' );
+				button.prop( 'disabled', true );
 
 				const spinner = button.parent().find( '.add-dir-loader' );
 				// Display the spinner
@@ -137,31 +140,6 @@ import Scanner from '../smush/directory-scanner';
 					}
 				} );
 			} );
-
-			/**
-			 * On dialog close make browse button active.
-			 */
-			$( '#wp-smush-list-dialog' ).on(
-				'click',
-				'.sui-dialog-close',
-				function() {
-					$( '.wp-smush-browse' ).removeAttr( 'disabled' );
-
-					// Close the dialog.
-					window.SUI.closeModal();
-
-					$(
-						'.wp-smush-select-dir, button.wp-smush-browse, a.wp-smush-dir-link'
-					).removeAttr( 'disabled' );
-
-					// Reset the opacity for content and scan button
-					$(
-						'.wp-smush-select-dir, .wp-smush-list-dialog .sui-box-body'
-					).css( {
-						opacity: '1',
-					} );
-				}
-			);
 
 			/**
 			 * Cancel scan.
@@ -246,11 +224,11 @@ import Scanner from '../smush/directory-scanner';
 				loadChildren: ( event, data ) =>
 					data.node.fixSelection3AfterClick(), // Apply parent's state to new child nodes:
 				select: () =>
-					smushButton.attr(
+					smushButton.prop(
 						'disabled',
 						! +self.tree.getSelectedNodes().length
 					),
-				init: () => smushButton.attr( 'disabled', true ),
+				init: () => smushButton.prop( 'disabled', true ),
 			} );
 		},
 
