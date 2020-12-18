@@ -13,7 +13,9 @@ use AC\ListScreenRepository\Storage;
 use AC\Registrable;
 use AC\Type\Url;
 use AC\View;
+use ACP\ListScreen\Comment;
 use ACP\ListScreen\Media;
+use ACP\ListScreen\User;
 use ACP\Settings\ListScreen\HideOnScreen;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
 use WP_User;
@@ -211,6 +213,11 @@ class Settings implements Registrable {
 		if ( $list_screen instanceof ListScreenPost ) {
 			$collection->add( new HideOnScreen\FilterPostDate(), 32 );
 
+			// Exclude Media, but make sure to include all other post types
+			if ( ! in_array( $list_screen->get_post_type(), [ 'attachment' ] ) ) {
+				$collection->add( new HideOnScreen\SubMenu\PostStatus(), 80 );
+			}
+
 			if ( is_object_in_taxonomy( $list_screen->get_post_type(), 'category' ) ) {
 				$collection->add( new HideOnScreen\FilterCategory(), 34 );
 			}
@@ -222,6 +229,14 @@ class Settings implements Registrable {
 			if ( $list_screen instanceof Media ) {
 				$collection->add( new HideOnScreen\FilterMediaItem(), 31 );
 			}
+		}
+
+		if ( $list_screen instanceof User ) {
+			$collection->add( new HideOnScreen\SubMenu\Roles(), 80 );
+		}
+
+		if ( $list_screen instanceof Comment ) {
+			$collection->add( new HideOnScreen\SubMenu\CommentStatus(), 80 );
 		}
 
 		do_action( 'acp/admin/settings/hide_on_screen', $collection, $list_screen );

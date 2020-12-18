@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * WooCommerce Print Invoices/Packing Lists main plugin class.
@@ -35,7 +35,7 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 
 
 	/** string version number */
-	const VERSION = '3.9.2';
+	const VERSION = '3.10.0';
 
 	/** @var WC_PIP single instance of this plugin */
 	protected static $instance;

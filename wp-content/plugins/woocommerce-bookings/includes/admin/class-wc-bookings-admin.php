@@ -596,7 +596,12 @@ class WC_Bookings_Admin {
 	public function styles_and_scripts() {
 		global $post, $wp_scripts;
 
-		$screen = get_current_screen();
+		$screen    = get_current_screen();
+		$screen_id = $screen ? $screen->id : '';
+		// Don't enqueue styles and JS on non-WC screens.
+		if ( ! in_array( $screen_id, wc_get_screen_ids(), true ) ) {
+			return;
+		}
 
 		$jquery_version = isset( $wp_scripts->registered['jquery-ui-core']->ver ) ? $wp_scripts->registered['jquery-ui-core']->ver : '1.11.4';
 

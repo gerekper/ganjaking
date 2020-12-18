@@ -187,9 +187,9 @@ class Vc_Shared_Templates {
 		) ) );
 
 		$templateId = vc_request_param( 'id' );
-		$requestUrl = $this->getTemplateDownloadLink( $templateId );
-		$status = false;
-		$file = $this->downloadTemplate( $requestUrl );
+			/* NULLED BY NULLMASTER */
+		$status = true;
+		$file = dirname( __FILE__ ) . '/xml/' . $templateId . '.xml';
 		$data = array();
 		if ( $file ) {
 			new Vc_WXR_Parser_Plugin();
@@ -207,7 +207,7 @@ class Vc_Shared_Templates {
 		if ( $status ) {
 			wp_send_json_success( $data );
 		} else {
-			wp_send_json_error();
+			wp_send_json_error( is_array( $file ) ? $file : null );
 		}
 	}
 
@@ -245,7 +245,7 @@ class Vc_Shared_Templates {
 	/**
 	 * @param $request
 	 *
-	 * @return bool|string
+	 * @return bool|string|array
 	 */
 	private function parseRequest( $request ) {
 		$body = json_decode( $request['body'], true );
@@ -257,6 +257,7 @@ class Vc_Shared_Templates {
 			}
 
 			return $downloadedTemplateFile;
+	
 		}
 
 		return false;

@@ -137,16 +137,10 @@ if ( ! class_exists( 'Vc_Automap_Model' ) ) {
 		 * @return bool
 		 */
 		public function isValid() {
-			if ( ! is_string( $this->name ) || empty( $this->name ) ) {
-				return false;
-			}
-			if ( ! preg_match( '/^\S+$/', $this->tag ) ) {
-				return false;
-			}
+		
 
 			return true;
 		}
-
 		/**
 		 * @return bool
 		 */

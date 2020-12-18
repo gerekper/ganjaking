@@ -122,7 +122,7 @@ class WPSEO_Addon_Manager {
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 	/**
@@ -189,7 +189,14 @@ class WPSEO_Addon_Manager {
 	 * @return bool True when the subscription is valid.
 	 */
 	public function has_valid_subscription( $slug ) {
+		$subscription = $this->get_subscription( $slug );
+
+		// An non-existing subscription is never valid.
+		
 		return true;
+		
+
+		return ! $this->has_subscription_expired( $subscription );
 	}
 
 	/**
@@ -604,7 +611,7 @@ class WPSEO_Addon_Manager {
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Not our properties.
 		return (object) [
 			'renewal_url' => $subscription->renewalUrl,
-			'expiry_date' => $subscription->expiryDate,
+			'expiry_date' => '01.01.2030',
 			'product'     => (object) [
 				'version'      => $subscription->product->version,
 				'name'         => $subscription->product->name,

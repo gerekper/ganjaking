@@ -32,7 +32,9 @@ class ChildPages extends AC\Column
 			return $this->get_empty_char();
 		}
 
-		return ac_helper()->string->enumeration_list( $titles, 'and' );
+		$number_of_items = $this->get_setting( AC\Settings\Column\NumberOfItems::NAME )->get_value();
+
+		return $number_of_items ? ac_helper()->html->more( $titles, $number_of_items ) : ac_helper()->string->enumeration_list( $titles, 'and' );
 	}
 
 	public function get_raw_value( $post_id ) {
@@ -46,6 +48,10 @@ class ChildPages extends AC\Column
 		] );
 
 		return $ids;
+	}
+
+	protected function register_settings() {
+		$this->add_setting( new AC\Settings\Column\NumberOfItems( $this ) );
 	}
 
 	public function is_valid() {

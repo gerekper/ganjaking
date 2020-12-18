@@ -371,7 +371,7 @@ class Vc_Frontend_Editor {
 	 *
 	 */
 	public function setPost() {
-		global $post;
+		global $post, $wp_query;
 		$this->post = get_post(); // fixes #1342 if no get/post params set
 		$this->post_id = vc_get_param( 'post_id' );
 		if ( vc_post_param( 'post_id' ) ) {
@@ -380,7 +380,7 @@ class Vc_Frontend_Editor {
 		if ( $this->post_id ) {
 			$this->post = get_post( $this->post_id );
 		}
-		do_action_ref_array( 'the_post', array( $this->post ) );
+		do_action_ref_array( 'the_post', array( $this->post, $wp_query ) );
 		$post = $this->post;
 		$this->post_id = $this->post->ID;
 	}

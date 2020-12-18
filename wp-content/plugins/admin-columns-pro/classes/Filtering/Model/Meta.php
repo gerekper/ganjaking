@@ -11,10 +11,22 @@ use ACP\Filtering\Model;
 class Meta extends Model {
 
 	/**
+	 * @var bool
+	 */
+	private $serialized;
+
+	/**
 	 * @param AC\Column\Meta $column
 	 */
-	public function __construct( AC\Column\Meta $column ) {
+	public function __construct( AC\Column\Meta $column, $serialized = null ) {
 		parent::__construct( $column );
+
+		$this->serialized = $serialized;
+
+		if ( null === $this->serialized ) {
+			$this->serialized = $column->is_serialized();
+		}
+
 	}
 
 	/**
@@ -153,7 +165,7 @@ class Meta extends Model {
 			return $this->get_filtering_vars_ranged( $vars, $this->get_filter_value() );
 		}
 
-		if ( $this->column->is_serialized() ) {
+		if ( $this->serialized ) {
 			// Serialized
 			$vars = $this->get_filtering_vars_serialized( $vars, $this->get_filter_value() );
 

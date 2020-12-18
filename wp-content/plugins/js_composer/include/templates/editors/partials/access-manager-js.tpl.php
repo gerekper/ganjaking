@@ -40,7 +40,12 @@ $custom_tag = 'script';
 					return this.partAccess( editor );
 				},
 				partAccess: function ( editor ) {
-					return ! _.isUndefined( _localCapabilities[ editor ] ) && false !== _localCapabilities[ editor ][ 'state' ];
+					return <?php
+					if ( is_multisite() && is_super_admin() ) {
+						echo 'true;';
+					} else {
+						?>!_.isUndefined( _localCapabilities[ editor ] ) && false !== _localCapabilities[ editor ][ 'state' ];
+					<?php } ?>
 				},
 				check: function ( part, rule, custom, not_check_state ) {
 					return _check( part, rule, custom, not_check_state );
@@ -75,6 +80,10 @@ $custom_tag = 'script';
 					return _check( 'shortcodes', shortcode + '_all' ) || _check( 'shortcodes', shortcode + '_edit' );
 				},
 				shortcodeValidateOldMethod: function ( shortcode ) {
+					<?php
+					if ( is_multisite() && is_super_admin() ) {
+						echo 'return true;';
+					} ?>
 					if ( 'vc_row' === shortcode ) {
 						return true;
 					}

@@ -131,7 +131,6 @@ class FUE_Addon_Woocommerce_Mailer {
 			$found_user_ids   = array();
 
 			if ( is_array( $post['product_ids'] ) ) {
-				$post['product_ids'] = array_filter( array_map( 'intval', explode(',', $post['product_ids'][0] ) ) );
 
 				if ( WC_FUE_Compatibility::is_wc_version_gt( '2.0' ) ) {
 					// if WC >= 2.0, do a direct query

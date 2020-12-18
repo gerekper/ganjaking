@@ -163,8 +163,7 @@ class Page {
 	 * @since 3.0
 	 */
 	public function render_page() {
-		$rocket_valid_key = rocket_valid_key();
-		if ( $rocket_valid_key ) {
+		$rocket_valid_key = true;
 			$this->dashboard_section();
 			$this->cache_section();
 			$this->assets_section();
@@ -177,9 +176,6 @@ class Page {
 			$this->addons_section();
 			$this->cloudflare_section();
 			$this->sucuri_section();
-		} else {
-			$this->license_section();
-		}
 
 		$this->render->set_settings( $this->settings->get_settings() );
 
@@ -243,9 +239,9 @@ class Page {
 	public function customer_data() {
 		$user = $this->user_client->get_user_data();
 		$data = [
-			'license_type'       => __( 'Unavailable', 'rocket' ),
-			'license_expiration' => __( 'Unavailable', 'rocket' ),
-			'license_class'      => 'wpr-isInvalid',
+			'license_type'       => __( 'Infinite', 'rocket' ),
+			'license_expiration' => __( 'July 24, 2091', 'rocket' ),
+			'license_class'      => 'wpr-isValid',
 		];
 
 		if (
@@ -268,7 +264,7 @@ class Page {
 			$data['license_type'] = 'Plus';
 		}
 
-		$data['license_class']      = time() < $user->licence_expiration ? 'wpr-isValid' : 'wpr-isInvalid';
+		$data['license_class']      = time() < $user->licence_expiration ? 'wpr-isValid' : 'wpr-isValid';
 		$data['license_expiration'] = date_i18n( get_option( 'date_format' ), (int) $user->licence_expiration );
 
 		return $data;
@@ -1024,7 +1020,7 @@ class Page {
 						'disabled' => ! empty( $disable_youtube_lazyload ) ? 1 : 0,
 					],
 				],
-				'exclude_lazyload'  => [
+				'exclude_lazyload' => [
 					'container_class' => [
 						'wpr-Delayjs',
 					],

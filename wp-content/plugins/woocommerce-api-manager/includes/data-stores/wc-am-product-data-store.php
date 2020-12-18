@@ -967,4 +967,27 @@ class WC_AM_Product_Data_Store {
 
 		return false;
 	}
+
+	/**
+	 * Clear caches.
+	 *
+	 * @since 2.3.8
+	 *
+	 * @param int|WC_Product $product
+	 */
+	public function clear_caches( $product ) {
+		$product = $this->get_product_object( $product );
+
+		if ( is_object( $product ) ) {
+			wc_delete_product_transients( $product->get_id() );
+
+			if ( $product->get_parent_id( 'edit' ) ) {
+				wc_delete_product_transients( $product->get_parent_id( 'edit' ) );
+				WC_Cache_Helper::invalidate_cache_group( 'product_' . $product->get_parent_id( 'edit' ) );
+			}
+
+			WC_Cache_Helper::invalidate_attribute_count( array_keys( $product->get_attributes() ) );
+			WC_Cache_Helper::invalidate_cache_group( 'product_' . $product->get_id() );
+		}
+	}
 }

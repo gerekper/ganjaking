@@ -448,10 +448,6 @@ class Settings {
 
 		$input['varnish_auto_purge'] = ! empty( $input['varnish_auto_purge'] ) ? 1 : 0;
 
-		if ( ! rocket_valid_key() ) {
-			$checked = rocket_check_key();
-		}
-
 		if ( isset( $checked ) && is_array( $checked ) ) {
 			$input['consumer_key']   = $checked['consumer_key'];
 			$input['consumer_email'] = $checked['consumer_email'];

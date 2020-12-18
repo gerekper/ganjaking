@@ -64,6 +64,7 @@ class WC_AM_Product_Admin {
 		add_filter( 'product_type_options', array( $this, 'product_type_options' ) );
 		add_action( 'woocommerce_product_write_panel_tabs', array( $this, 'product_write_panel_tab' ) );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'data_panel' ) );
+		add_action( 'woocommerce_update_product_variation', array( $this, 'save_product' ) );
 		add_action( 'woocommerce_process_product_meta_variable', array( $this, 'save_product' ) );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save_product' ) );
 		add_action( 'woocommerce_ajax_save_product_variations', array( $this, 'ajax_save_product' ) );
@@ -304,14 +305,6 @@ class WC_AM_Product_Admin {
 			// Fields
 			$this->product_fields = array(
 				'start_group',
-				array(
-					'id'          => '_api_resource_title',
-					'label'       => esc_html__( 'Software Title', 'woocommerce-api-manager' ),
-					'description' => esc_html__( 'DEPRECATED! USE Product ID GOING FORWARD! Do NOT delete.', 'woocommerce-api-manager' ),
-					'placeholder' => esc_html__( 'e.g. My Plugin', 'woocommerce-api-manager' ),
-					'class'       => 'readonly',
-					'type'        => 'text'
-				),
 				array(
 					'id'          => '_api_resource_product_id',
 					'label'       => esc_html__( 'Product ID', 'woocommerce-api-manager' ),
@@ -806,35 +799,7 @@ class WC_AM_Product_Admin {
                            placeholder="<?php esc_html_e( '1', 'woocommerce-api-manager' ); ?>"/>
                 </p>
 
-				<?php
-
-				$is_wc_sub = false;
-
-				if ( WCAM()->get_wc_subs_exist() ) {
-					$is_wc_sub = WCAM()->is_wc_subscriptions_active() && WC_AM_SUBSCRIPTION()->is_wc_subscription( $variation->ID );
-				}
-
-				if ( ! in_array( $product_type, array(
-						'subscription',
-						'simple-subscription',
-						'variable-subscription',
-						'subscription_variation'
-					) ) && ! $is_wc_sub ) :
-					$expires = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $variation->ID );
-					?>
-                    <p class="form-row form-row-last">
-                        <label><?php esc_html_e( 'API Access Expires:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                              data-tip="<?php esc_html_e( 'Enter the number of days before API access expires, or leave blank to never expire.', 'woocommerce-api-manager' ); ?>"
-                            </span></label>
-                        <input type="number" name="_access_expires_var[<?php echo $loop; ?>]" step="1" min="1"
-                               value="<?php ! empty( $expires ) ? esc_attr_e( $expires ) : esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"
-                               placeholder="<?php esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"/>
-                    </p>
-				<?php
-				endif;
-				?>
-
-                <p class="form-row form-row-first">
+                <p class="form-row form-row-last">
                     <label for="api_resources_product_id<?php echo $loop; ?>"><?php esc_html_e( 'Product ID:', 'woocommerce-api-manager' ); ?> <span
                                 class="woocommerce-help-tip"
                                 data-tip="<?php esc_html_e( 'Unique ID used to indentify this API resource. Do NOT delete this product.', 'woocommerce-api-manager' ); ?>"
@@ -845,17 +810,42 @@ class WC_AM_Product_Admin {
                            readonly/>
                 </p>
 
-				<?php if ( ! empty( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_resource_title' ) ) ) { ?>
-                    <p class="form-row form-row-last">
-                        <label><?php esc_html_e( 'Software Title - DEPRECATED:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                                       data-tip="<?php esc_html_e( 'DEPRECATED! USE Product ID GOING FORWARD! This unique ID is used by the API Manager to find the right product in legacy client software. Do NOT delete.', 'woocommerce-api-manager' ); ?>"
-                            </span></label>
-                        <input type="text" name="software_title[<?php echo $loop; ?>]"
-                               value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_resource_title' ) ); ?>"
-                               placeholder="<?php esc_html_e( 'e.g. My Plugin', 'woocommerce-api-manager' ); ?>" readonly/>
-                    </p>
+                <p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+                    <label><?php esc_html_e( 'Upgrade Notice:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                      data-tip="<?php esc_html_e( 'A notice displayed when an update is available.', 'woocommerce-api-manager' ); ?>"
+                        </span></label>
+                    <input type="text" name="_api_upgrade_notice_var[<?php echo $loop; ?>]"
+                           value="<?php echo esc_html( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_upgrade_notice' ) ); ?>"
+                           placeholder="<?php esc_html_e( 'Optional', 'woocommerce-api-manager' ); ?>"/>
+                </p>
 
-				<?php } ?>
+	            <?php
+
+	            $is_wc_sub = false;
+
+	            if ( WCAM()->get_wc_subs_exist() ) {
+		            $is_wc_sub = WCAM()->is_wc_subscriptions_active() && WC_AM_SUBSCRIPTION()->is_wc_subscription( $variation->ID );
+	            }
+
+	            if ( ! in_array( $product_type, array(
+			            'subscription',
+			            'simple-subscription',
+			            'variable-subscription',
+			            'subscription_variation'
+		            ) ) && ! $is_wc_sub ) :
+		            $expires = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $variation->ID );
+		            ?>
+                    <p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
+                        <label><?php esc_html_e( 'API Access Expires:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
+                                                                                                              data-tip="<?php esc_html_e( 'Enter the number of days before API access expires, or leave blank to never expire.', 'woocommerce-api-manager' ); ?>"
+                            </span></label>
+                        <input type="number" name="_access_expires_var[<?php echo $loop; ?>]" step="1" min="1"
+                               value="<?php ! empty( $expires ) ? esc_attr_e( $expires ) : esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"
+                               placeholder="<?php esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"/>
+                    </p>
+	            <?php
+	            endif;
+	            ?>
 
                 <p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
                     <label><?php esc_html_e( 'Version:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
@@ -1069,14 +1059,6 @@ class WC_AM_Product_Admin {
 				echo '</p>';
 				?>
 
-                <p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
-                    <label><?php esc_html_e( 'Upgrade Notice:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                      data-tip="<?php esc_html_e( 'A notice displayed when an update is available.', 'woocommerce-api-manager' ); ?>"
-                        </span></label>
-                    <input type="text" name="_api_upgrade_notice_var[<?php echo $loop; ?>]"
-                           value="<?php echo esc_html( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_upgrade_notice' ) ); ?>"
-                           placeholder="<?php esc_html_e( 'Optional', 'woocommerce-api-manager' ); ?>"/>
-                </p>
             </div>
         </div>
 
@@ -1144,6 +1126,8 @@ class WC_AM_Product_Admin {
 	 */
 	public function ajax_save_product( $post_id ) {
 		$this->save_common_variation_fields( $post_id, $_POST );
+
+		WC_AM_PRODUCT_DATA_STORE()->clear_caches( $post_id );
 	}
 
 	/**
@@ -1293,6 +1277,8 @@ class WC_AM_Product_Admin {
 		if ( in_array( $product_type, array( 'variable', 'variable-subscription', 'subscription_variation' ) ) ) {
 			$this->save_common_variation_fields( $post_id, $_POST );
 		}
+
+		WC_AM_PRODUCT_DATA_STORE()->clear_caches( $post_id );
 	}
 
 	/**

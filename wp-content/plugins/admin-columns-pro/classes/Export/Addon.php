@@ -20,7 +20,7 @@ class Addon implements Registrable {
 
 	public function register() {
 		$services = [
-			new Admin( new ExportDirectory() ),
+			new Admin(),
 			new Settings( $this->location ),
 			new TableScreen( $this->location ),
 			new TableScreenOptions( $this->location ),

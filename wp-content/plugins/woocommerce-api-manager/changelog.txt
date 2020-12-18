@@ -4,6 +4,16 @@ REQUIRED: WooCommerce 3.4.
 REQUIRED: PHP 7.0.
 REQUIRED: WooCommerce Subscriptions 2.3, if it is installed and active.
 
+2020.12.15 - version 2.3.8
+ * Tweak: Clear WC Product cache after Product meta data saved.
+
+2020.12.15 - version 2.3.7
+ * Tweak: Added new hook to save Product Variable variations meta data.
+
+2020.12.15 - version 2.3.6
+ * Tweak: Software Title (string) is no longer displayed on Product edit screen, but still works with old clients. A Product ID (integer) will be required in an upcoming version, so make sure all clients are using a Product ID (integer), not a Software Title (string).
+ * Tweak: In Variable product variations, moved "API Access Expires:" form field so it is only visible if the "Set API options for this variable product only" checkbox is selected.
+
 2020.11.18 - version 2.3.5
  * Fix: get_endpoint_title() warning.
 

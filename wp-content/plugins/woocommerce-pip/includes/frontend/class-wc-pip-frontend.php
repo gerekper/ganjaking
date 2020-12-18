@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * PIP Frontend class
@@ -169,7 +169,7 @@ class WC_PIP_Frontend {
 	public function enqueue_js() {
 		?>
 		<script type="text/javascript">
-			jQuery( document ).ready( function ( $ ) {
+			jQuery( function ( $ ) {
 				$( '.wc_pip_view_invoice' ).attr( 'target', '_blank' );
 			} );
 		</script>

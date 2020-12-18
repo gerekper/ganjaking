@@ -1596,8 +1596,15 @@ class FUE_AJAX {
 				$data['recipient_number'] = 0;
 			}
 
+			// set the send date for the batch
 			if ( empty( $data['batch_send_date'] ) ) {
-				$data['batch_send_date'] = current_time('timestamp');
+				if ( $data['schedule_email'] ) {
+					// set the scheduled date and time if this is a scheduled batch
+					$data['batch_send_date'] = strtotime( $data['schedule_date'] . ' ' . $data['schedule_hour'] . ':' . $data['schedule_minute'] . ' ' . $data['schedule_ampm'] );
+				} else {
+					// otherwise set the send date to now
+					$data['batch_send_date'] = current_time( 'timestamp' );
+				}
 			}
 
 			if ( empty( $data['batch_number'] ) ) {

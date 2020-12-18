@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-11-25T10:38:45+00:00\n"
+"POT-Creation-Date: 2020-12-14T21:11:50+00:00\n"
 "PO-Revision-Date: 2020-11-24 15:54:11+0000\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -399,27 +399,27 @@ msgstr "开始"
 msgid "F j, Y"
 msgstr "Y年n月j日"
 
-#: includes/wc-bookings-functions.php:1138
+#: includes/wc-bookings-functions.php:1141
 msgid "night"
 msgid_plural "nights"
 msgstr[0] "夜"
 
-#: includes/wc-bookings-functions.php:1135
+#: includes/wc-bookings-functions.php:1138
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "分钟"
 
-#: includes/wc-bookings-functions.php:1132
+#: includes/wc-bookings-functions.php:1135
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "小时"
 
-#: includes/wc-bookings-functions.php:1128
+#: includes/wc-bookings-functions.php:1131
 msgid "week"
 msgid_plural "weeks"
 msgstr[0] "周"
 
-#: includes/wc-bookings-functions.php:1121
+#: includes/wc-bookings-functions.php:1124
 msgid "month"
 msgid_plural "months"
 msgstr[0] "个月"
@@ -1439,7 +1439,7 @@ msgid "+%1$1s per %2$2s"
 msgstr "每 %2$2s 增加 %1$1s"
 
 #: includes/booking-form/class-wc-booking-form.php:294
-#: includes/wc-bookings-functions.php:1125
+#: includes/wc-bookings-functions.php:1128
 msgid "day"
 msgid_plural "days"
 msgstr[0] "天"
@@ -2030,7 +2030,7 @@ msgstr "标签"
 
 #: includes/admin/views/html-booking-resources.php:8
 #: includes/booking-form/class-wc-booking-form.php:320
-#: includes/wc-bookings-functions.php:847
+#: includes/wc-bookings-functions.php:850
 msgid "Type"
 msgstr "类型"
 
@@ -3164,21 +3164,21 @@ msgid "Confirm bookings"
 msgstr "确定预订"
 
 #. translators: 1: person id 2: person name 3: person count
-#: includes/admin/class-wc-bookings-calendar.php:722
+#: includes/admin/class-wc-bookings-calendar.php:721
 msgid "Person #%1$s - %2$s (%3$s)"
 msgstr "人数 #%1$s - %2$s (%3$s)"
 
-#: includes/admin/class-wc-bookings-calendar.php:713
+#: includes/admin/class-wc-bookings-calendar.php:712
 #: includes/class-wc-bookings-ics-exporter.php:176
 msgid "Resource #"
 msgstr "资源 #"
 
-#: includes/admin/class-wc-bookings-calendar.php:707
+#: includes/admin/class-wc-bookings-calendar.php:706
 msgid "Booked by"
 msgstr "预订者"
 
 #. translators: 1: person type 2: quantity
-#: includes/admin/class-wc-bookings-calendar.php:586
+#: includes/admin/class-wc-bookings-calendar.php:585
 #: includes/class-wc-bookings-ics-exporter.php:187
 #: templates/emails/plain/admin-booking-cancelled.php:59
 #: templates/emails/plain/admin-new-booking.php:82
@@ -3190,7 +3190,7 @@ msgstr "预订者"
 msgid "%1$s: %2$d"
 msgstr "%1$s： %2$d"
 
-#: includes/admin/class-wc-bookings-calendar.php:584
+#: includes/admin/class-wc-bookings-calendar.php:583
 #: includes/admin/class-wc-bookings-details-meta-box.php:267
 #: includes/class-wc-bookings-ics-exporter.php:185
 #: includes/wc-bookings-functions.php:72
@@ -3212,27 +3212,27 @@ msgid "Person(s)"
 msgstr "人员(数量)"
 
 #. translators: 1: number of bookings that are not displayed on calendar day
-#: includes/admin/class-wc-bookings-calendar.php:318
+#: includes/admin/class-wc-bookings-calendar.php:317
 msgid "%d more"
 msgstr "%d 更多"
 
-#: includes/admin/class-wc-bookings-calendar.php:206
-#: includes/admin/class-wc-bookings-calendar.php:279
-#: includes/admin/class-wc-bookings-calendar.php:624
+#: includes/admin/class-wc-bookings-calendar.php:205
+#: includes/admin/class-wc-bookings-calendar.php:278
+#: includes/admin/class-wc-bookings-calendar.php:623
 msgid "(From Google Calendar)"
 msgstr "（来自 Google 日历）"
 
 #. translators: 1: start time 2: end time
-#: includes/admin/class-wc-bookings-calendar.php:204
-#: includes/admin/class-wc-bookings-calendar.php:594
-#: includes/admin/class-wc-bookings-calendar.php:616
+#: includes/admin/class-wc-bookings-calendar.php:203
+#: includes/admin/class-wc-bookings-calendar.php:593
+#: includes/admin/class-wc-bookings-calendar.php:615
 msgid "%1$s — %2$s"
 msgstr "%1$s — %2$s"
 
-#: includes/admin/class-wc-bookings-calendar.php:204
-#: includes/admin/class-wc-bookings-calendar.php:594
-#: includes/admin/class-wc-bookings-calendar.php:602
-#: includes/admin/class-wc-bookings-calendar.php:620
+#: includes/admin/class-wc-bookings-calendar.php:203
+#: includes/admin/class-wc-bookings-calendar.php:593
+#: includes/admin/class-wc-bookings-calendar.php:601
+#: includes/admin/class-wc-bookings-calendar.php:619
 msgid "All Day"
 msgstr "全天"
 
@@ -3272,56 +3272,56 @@ msgstr "未能添加资源"
 msgid "The resource has already been linked to this product"
 msgstr "此资源已连接至此产品"
 
-#: includes/admin/class-wc-bookings-admin.php:681
+#: includes/admin/class-wc-bookings-admin.php:686
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr "启用此项如果可预订产品有多个预订资源，例如房间类型或者导师。"
 
-#: includes/admin/class-wc-bookings-admin.php:680
+#: includes/admin/class-wc-bookings-admin.php:685
 msgid "Has resources"
 msgstr "有资源"
 
-#: includes/admin/class-wc-bookings-admin.php:674
+#: includes/admin/class-wc-bookings-admin.php:679
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr "如果此可预订产品允许预订用户定义一个人员数量的话。"
 
-#: includes/admin/class-wc-bookings-admin.php:673
+#: includes/admin/class-wc-bookings-admin.php:678
 msgid "Has persons"
 msgstr "有人员"
 
-#: includes/admin/class-wc-bookings-admin.php:644
+#: includes/admin/class-wc-bookings-admin.php:649
 msgid "Resource"
 msgstr "资源"
 
-#: includes/admin/class-wc-bookings-admin.php:643
+#: includes/admin/class-wc-bookings-admin.php:648
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr "顾客"
 
-#: includes/admin/class-wc-bookings-admin.php:642
+#: includes/admin/class-wc-bookings-admin.php:647
 msgid "View details"
 msgstr "查看详情"
 
-#: includes/admin/class-wc-bookings-admin.php:637
+#: includes/admin/class-wc-bookings-admin.php:642
 msgid "Enter a name for the new resource"
 msgstr "为新资源输入一个名词"
 
-#: includes/admin/class-wc-bookings-admin.php:636
+#: includes/admin/class-wc-bookings-admin.php:641
 msgid "days"
 msgstr "天"
 
-#: includes/admin/class-wc-bookings-admin.php:635
+#: includes/admin/class-wc-bookings-admin.php:640
 msgid "hours"
 msgstr "小时"
 
-#: includes/admin/class-wc-bookings-admin.php:634
+#: includes/admin/class-wc-bookings-admin.php:639
 msgid "minutes"
 msgstr "分钟"
 
-#: includes/admin/class-wc-bookings-admin.php:631
+#: includes/admin/class-wc-bookings-admin.php:636
 msgid "Are you sure you want to remove this resource?"
 msgstr "确定要移除此资源？"
 
-#: includes/admin/class-wc-bookings-admin.php:628
+#: includes/admin/class-wc-bookings-admin.php:633
 msgid "Are you sure you want to remove this person type?"
 msgstr "确定要移除此人员类型？"
 
@@ -3353,11 +3353,11 @@ msgid "Booking updated."
 msgstr "预订已更新。"
 
 #: includes/admin/class-wc-bookings-admin.php:373
-#: includes/admin/class-wc-bookings-admin.php:645
+#: includes/admin/class-wc-bookings-admin.php:650
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:256
 #: includes/class-wc-bookings-google-calendar-connection.php:1272
-#: includes/wc-bookings-functions.php:1098
+#: includes/wc-bookings-functions.php:1101
 msgid "Persons"
 msgstr "人"
 

@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * PIP Document abstract class
@@ -1645,9 +1645,7 @@ abstract class WC_PIP_Document {
 
 
 	/**
-	 * Get meta data for an order item.
-	 *
-	 * This backwards compatible method ensures a similar output for the order item meta before and after WooCommerce 3.0.
+	 * Gets the meta data for an order item.
 	 *
 	 * @since 3.3.2
 	 *
@@ -1658,41 +1656,33 @@ abstract class WC_PIP_Document {
 	 */
 	protected function get_order_item_meta( $item_id, $item, $product ) {
 
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.1' ) ) {
+		$flat      = $this->get_order_item_meta_display( $item_id, $item, $product );
+		$meta_data = $item->get_formatted_meta_data( '_', true );
+		$meta_list = array();
+		$output    = '';
 
-			$flat      = $this->get_order_item_meta_display( $item_id, $item, $product );
-			$meta_data = $item->get_formatted_meta_data( '_', true );
-			$meta_list = array();
-			$output    = '';
+		foreach ( $meta_data as $meta ) {
 
-			foreach ( $meta_data as $meta ) {
-
-				if ( $flat ) {
-					$meta_list[] = wp_kses_post( $meta->display_key . ': ' . $meta->display_value );
-				} else {
-					$meta_list[] = '
-						<dt class="variation-' . sanitize_html_class( sanitize_text_field( $meta->key ) ) . '">' . wp_kses_post( $meta->display_key ) . ':</dt>
-						<dd class="variation-' . sanitize_html_class( sanitize_text_field( $meta->key ) ) . '">' . wp_kses_post( make_clickable( $meta->display_value ) ) . '</dd>
-					';
-				}
+			if ( $flat ) {
+				$meta_list[] = wp_kses_post( $meta->display_key . ': ' . $meta->display_value );
+			} else {
+				$meta_list[] = '
+					<dt class="variation-' . sanitize_html_class( sanitize_text_field( $meta->key ) ) . '">' . wp_kses_post( $meta->display_key ) . ':</dt>
+					<dd class="variation-' . sanitize_html_class( sanitize_text_field( $meta->key ) ) . '">' . wp_kses_post( make_clickable( $meta->display_value ) ) . '</dd>
+				';
 			}
-
-			if ( ! empty( $meta_list ) ) {
-
-				if ( $flat ) {
-					$output .= implode( ", \n", $meta_list );
-				} else {
-					$output .= '<dl class="variation">' . implode( '', $meta_list ) . '</dl>';
-				}
-			}
-
-			$item_meta = $output;
-
-		} else {
-
-			$meta_data = new \WC_Order_Item_Meta( $item );
-			$item_meta = $meta_data->display( $this->get_order_item_meta_display( $item_id, $item, $product ), true, '_', ', ' );
 		}
+
+		if ( ! empty( $meta_list ) ) {
+
+			if ( $flat ) {
+				$output .= implode( ", \n", $meta_list );
+			} else {
+				$output .= '<dl class="variation">' . implode( '', $meta_list ) . '</dl>';
+			}
+		}
+
+		$item_meta = $output;
 
 		/**
 		 * Filters an order item list of attached meta data.

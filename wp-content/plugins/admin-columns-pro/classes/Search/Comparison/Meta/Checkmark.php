@@ -11,6 +11,10 @@ use ACP\Search\Value;
 class Checkmark extends Meta
 	implements Values {
 
+	/**
+	 * @param string $meta_key
+	 * @param string $meta_type
+	 */
 	public function __construct( $meta_key, $meta_type ) {
 		$operators = new Operators( [
 			Operators::EQ,

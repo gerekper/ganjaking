@@ -192,18 +192,6 @@ class Vc_Manager {
 	}
 
 	/**
-	 * prevent the instance from being cloned (which would create a second instance of it)
-	 */
-	private function __clone() {
-	}
-
-	/**
-	 * prevent from being unserialized (which would create a second instance of it)
-	 */
-	private function __wakeup() {
-	}
-
-	/**
 	 * Callback function WP plugin_loaded action hook. Loads locale
 	 *
 	 * @since  4.2

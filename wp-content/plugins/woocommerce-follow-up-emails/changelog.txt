@@ -1,5 +1,9 @@
 *** WooCommerce Follow-Up Emails ***
 
+2020-12-15 - version 4.9.10
+* Fix - Allow sending manual emails for more than one product at a time.
+* Fix - Send scheduled emails on schedule when sent in batches instead of sending them immediately.
+
 2020-12-09 - version 4.9.9
 * Tweak - PHP 8 compatibility.
 * Tweak - WC 4.7 compatibility.

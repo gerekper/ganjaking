@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * AJAX class
@@ -360,24 +360,6 @@ class WC_PIP_Ajax {
 				'done'          => false,
 			] ] );
 		}
-	}
-
-
-	/**
-	 * Sends email for order.
-	 *
-	 * TODO remove this deprecated method by August 2020 or by version 4.0.0 whichever comes first {FN 2019-07-30}
-	 *
-	 * @internal
-	 *
-	 * @since 3.0.0
-	 * @deprecated since 3.7.1
-	 */
-	public function order_send_email() {
-
-		wc_deprecated_function( __METHOD__, '3.7.1', __CLASS__ . '::process_order_action()' );
-
-		wp_send_json_error( 'Deprecated AJAX action. Use "confirm_order_action".' );
 	}
 
 

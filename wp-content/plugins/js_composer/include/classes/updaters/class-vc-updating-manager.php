@@ -96,7 +96,7 @@ class Vc_Updating_Manager {
 			$obj->plugin = $this->plugin_slug;
 			$obj->url = '';
 			$obj->package = vc_license()->isActivated();
-			$obj->name = vc_updater()->title;
+			$obj->name = 'WPBakery Page Builder';
 			$transient->response[ $this->plugin_slug ] = $obj;
 		}
 
@@ -125,7 +125,7 @@ class Vc_Updating_Manager {
 				'</div><div>',
 				'</div><div>',
 			);
-			$information->name = vc_updater()->title;
+			$information->name = 'WPBakery Page Builder';
 			$information->sections = (array) $information->sections;
 			$information->sections['changelog'] = '<div>' . preg_replace( $array_pattern, $array_replace, $information->sections['changelog'] ) . '</div>';
 

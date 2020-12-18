@@ -15,6 +15,7 @@ use ACP\Plugin\NetworkUpdate;
 use ACP\Plugin\Updater;
 use ACP\Search;
 use ACP\Settings;
+use ACP\Settings\ListScreen\HideOnScreen;
 use ACP\Storage\ListScreen\DecoderFactory;
 use ACP\Storage\ListScreen\Encoder;
 use ACP\Storage\ListScreen\LegacyCollectionDecoder;
@@ -103,6 +104,9 @@ final class AdminColumnsPro extends AC\Plugin {
 			new Table\Switcher( $storage, $location ),
 			new Table\HorizontalScrolling( $storage, $location ),
 			new Table\HideSearch(),
+			new Table\HideSubMenu( new HideOnScreen\SubMenu\CommentStatus() ),
+			new Table\HideSubMenu( new HideOnScreen\SubMenu\PostStatus() ),
+			new Table\HideSubMenu( new HideOnScreen\SubMenu\Roles() ),
 			new Table\HideBulkActions(),
 			new Table\HideFilters(),
 			new ListScreens(),

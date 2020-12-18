@@ -23,11 +23,6 @@ abstract class Strategy {
 	protected $list_screen;
 
 	/**
-	 * @var ExportDirectory
-	 */
-	protected $export_dir;
-
-	/**
 	 * @var ListTableFactory
 	 */
 	protected $list_table_factory;
@@ -60,7 +55,6 @@ abstract class Strategy {
 	 */
 	public function __construct( AC\ListScreen $list_screen ) {
 		$this->list_screen = $list_screen;
-		$this->export_dir = new ExportDirectory();
 		$this->list_table_factory = new ListTableFactory();
 		$this->exportable_columns_factory = new ExportableColumnFactory( $list_screen );
 	}
@@ -93,33 +87,18 @@ abstract class Strategy {
 			wp_send_json_error( __( 'Invalid value supplied for export counter.', 'codepress-admin-columns' ) );
 		}
 
-		if ( $this->get_export_hash() === false ) {
-			wp_send_json_error( __( 'Invalid value supplied for export hash.', 'codepress-admin-columns' ) );
-		}
-
 		$this->ajax_export();
 	}
 
 	/**
 	 * Get the counter value passed for the AJAX export
-	 * @return int Counter value, or false if there is no valid counter value
+	 * @return int|false Counter value, or false if there is no valid counter value
 	 * @since 1.0
 	 */
 	protected function get_export_counter() {
 		$counter = (int) filter_input( INPUT_GET, 'acp_export_counter', FILTER_SANITIZE_NUMBER_INT );
 
 		return $counter >= 0 ? $counter : false;
-	}
-
-	/**
-	 * Get the hash value passed for the AJAX export
-	 * @return string|bool Hash value, or false if there is no valid hash value
-	 * @since 1.0
-	 */
-	protected function get_export_hash() {
-		$hash = filter_input( INPUT_GET, 'acp_export_hash' );
-
-		return $hash ?: false;
 	}
 
 	/**
@@ -142,7 +121,7 @@ abstract class Strategy {
 	 * Retrieve the rows to export based on a set of item IDs. The rows contain the column data to
 	 * export for each item
 	 *
-	 * @param array [int] $items IDs of the items to export
+	 * @param int[] $items IDs of the items to export
 	 *
 	 * @return array[mixed] Rows to export. One row is returned for each item ID
 	 * @since 1.0
@@ -252,12 +231,14 @@ abstract class Strategy {
 	 * Export a list of items, given the item IDs, and sends the output as JSON to the requesting
 	 * AJAX process
 	 *
-	 * @param array [int] $items Array of item IDs
+	 * @param int[] $ids
 	 *
 	 * @since 1.0
 	 */
 	public function export( $ids ) {
 		$ids = array_map( 'intval', $ids );
+
+		$csv = '';
 
 		// Retrieve list screen items and columns
 		$rows = $this->get_rows( $ids );
@@ -273,25 +254,16 @@ abstract class Strategy {
 				$exporter->load_column_labels( $this->get_headers( $exportable_columns ) );
 			}
 
-			// Base of file name path
-			$fname = md5( get_current_user_id() . $this->get_export_hash() ) . '.csv';
-			$fpath = $this->export_dir->get_path() . $fname;
-			$fpath .= '-' . $this->get_export_counter() . '.csv';
+			$fh = fopen( 'php://memory', 'wb' );
+			$exporter->export( $fh );
+			$csv = stream_get_contents( $fh, -1, 0 );
 
-			// Write CSV output to file
-			$fh = fopen( $fpath, 'wb' );
-			$exporter->export( $fh, true );
 			fclose( $fh );
 		}
 
-		$download_url = add_query_arg( [
-			'acp-export-download'        => $this->get_export_hash(),
-			'acp-export-filename-prefix' => $this->get_list_screen()->get_label(),
-		], admin_url( '/' ) );
-
 		wp_send_json_success( [
+			'rows'               => $csv,
 			'num_rows_processed' => count( $rows ),
-			'download_url'       => $download_url,
 		] );
 	}
 
@@ -300,18 +272,18 @@ abstract class Strategy {
 	 * @return int Number of items per export iteration
 	 * @since 1.0
 	 */
-	protected function get_num_items_per_iteration() {
+	public function get_num_items_per_iteration() {
 		/**
 		 * Filters the number of items to export per iteration of the exporting mechanism. It
 		 * controls the number of items per batch, i.e., the number of items to process at once:
 		 * the final number of items in the export file does not depend on this parameter
 		 *
-		 * @param int        $num_items              Number of items per export iteration
-		 * @param ListScreen $exportable_list_screen Exportable list screen instance
+		 * @param int      $num_items Number of items per export iteration
+		 * @param Strategy $this      Exportable list screen instance
 		 *
 		 * @since 1.0
 		 */
-		return apply_filters( 'ac/export/exportable_list_screen/num_items_per_iteration', 250, $this );
+		return (int) apply_filters( 'ac/export/exportable_list_screen/num_items_per_iteration', 250, $this );
 	}
 
 }

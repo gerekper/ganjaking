@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * PIP Admin Order class
@@ -566,7 +566,7 @@ class WC_PIP_Orders_Admin {
 
 			?>
 			<script type="text/javascript">
-				jQuery( document ).ready( function ( $ ) {
+				jQuery( function ( $ ) {
 					$( 'select[name^=action]' ).append(
 						<?php $index = count( $actions = $this->get_bulk_actions() ); ?>
 						<?php foreach ( $actions as $action => $name ) : ?>
@@ -731,39 +731,6 @@ class WC_PIP_Orders_Admin {
 	public function make_invoice_numbers_searchable( $search_fields ) {
 
 		return array_merge( $search_fields, array( '_pip_invoice_number' ) );
-	}
-
-
-	/**
-	 * Handle deprecated methods.
-	 *
-	 * TODO remove items from this method by July 2020 or by version 4.0.0 {FN 2019-07-30}
-	 *
-	 * @since 3.7.1
-	 * @deprecated since 3.7.1
-	 *
-	 * @param string $method method name
-	 * @param array $args optional args
-	 * @return null
-	 */
-	public function __call( $method, $args ) {
-
-		/** @deprecated since 3.7.1 */
-		if ( in_array( $method, [
-			'get_print_confirmation_message',
-			'process_order_actions',
-			'process_orders_bulk_actions',
-			'render_email_sent_message',
-			'send_email_order_action_nonce',
-			'send_email_order_action',
-		], true ) ) {
-			wc_deprecated_function( __CLASS__ . '::' . $method, '3.7.1' );
-		} else {
-			// you're probably doing it wrong...
-			trigger_error( 'Call to undefined method ' . __CLASS__ . '::' . $method, E_USER_ERROR );
-		}
-
-		return null;
 	}
 
 

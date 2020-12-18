@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * PIP Pick List for Shop Manager class
@@ -597,29 +597,20 @@ class WC_PIP_Document_Pick_List extends WC_PIP_Document_Packing_List {
 					}
 
 					$formatted_meta = [];
+					$object_meta    = $item->get_formatted_meta_data( '_', true );
 
-					if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.1' ) ) {
+					foreach ( $object_meta as $meta_id => $meta_object ) {
 
-						$object_meta = $item->get_formatted_meta_data( '_', true );
+						if ( ! empty( $meta_object->key ) ) {
 
-						foreach ( $object_meta as $meta_id => $meta_object ) {
-
-							if ( ! empty( $meta_object->key ) ) {
-
-								$formatted_meta[] = [
-									'key'           => $meta_object->key,
-									'value'         => $meta_object->value,
-									'label'         => $meta_object->display_key,
-									'display_key'   => $meta_object->display_key,
-									'display_value' => $meta_object->display_value,
-								];
-							}
+							$formatted_meta[] = [
+								'key'           => $meta_object->key,
+								'value'         => $meta_object->value,
+								'label'         => $meta_object->display_key,
+								'display_key'   => $meta_object->display_key,
+								'display_value' => $meta_object->display_value,
+							];
 						}
-
-					} else {
-
-						$item_meta      = new \WC_Order_Item_Meta( $item );
-						$formatted_meta = $item_meta->get_formatted();
 					}
 
 					// counter to store multiple orders in category array

@@ -21,6 +21,8 @@ function woocommerce_gravityforms_get_updated_price() {
 
 	$discount_price        = false;
 	$gforms_discount_price = false;
+	$gforms_options_discount_price = false;
+
 	$base_price            = wc_get_price_to_display( $product_data, array( 'price' => $product_data->get_price( 'edit' ) ) );
 
 	if ( class_exists( 'WC_Dynamic_Pricing' ) ) {
@@ -49,15 +51,31 @@ function woocommerce_gravityforms_get_updated_price() {
 				}
 			}
 		}
+
+
+
+		$gforms_options_working_price = $gform_total;
+		foreach ( $dynamic_pricing->modules as $module ) {
+			if ( $module->module_type == 'simple' ) {
+				//Make sure we are using the price that was just discounted.
+				$gforms_options_working_price = $gforms_options_discount_price ? $gforms_options_discount_price : $gform_total;
+				$gforms_options_working_price = $module->get_product_working_price( $gforms_options_working_price, $product_data );
+				if ( floatval( $gforms_working_price ) ) {
+					$gforms_options_discount_price = $module->get_discounted_price_for_shop( $product_data, $gforms_options_working_price, $gform_total );
+				}
+			}
+		}
+
 	}
 
 	$price             = $discount_price ? $discount_price : $base_price;
 	$gform_final_total = $gforms_discount_price ? $gforms_discount_price : $price + $gform_total;
+	$gforms_final_options_total = $gforms_options_discount_price ? $gforms_options_discount_price : $gform_total;
 
 	$result = array(
 		'formattedBasePrice'      => apply_filters( 'woocommerce_gform_base_price', wc_price( $price ), $product_data ),
 		'formattedTotalPrice'     => apply_filters( 'woocommerce_gform_total_price', wc_price( $gform_final_total ), $product_data ),
-		'formattedVariationTotal' => apply_filters( 'woocommerce_gform_variation_total_price', wc_price( $gform_total ), $product_data )
+		'formattedVariationTotal' => apply_filters( 'woocommerce_gform_variation_total_price', wc_price( $gforms_final_options_total ), $product_data )
 	);
 
 	echo json_encode( $result );

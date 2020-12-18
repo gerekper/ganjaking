@@ -8,11 +8,14 @@ use AC\Asset\Script;
 final class Table extends Script {
 
 	/**
-	 * @param string   $handle
-	 * @param Location $location
+	 * @var int
 	 */
-	public function __construct( $handle, Location $location ) {
+	private $num_iterations;
+
+	public function __construct( $handle, Location $location, $num_iterations ) {
 		parent::__construct( $handle, $location, [ 'jquery' ] );
+
+		$this->num_iterations = $num_iterations;
 	}
 
 	public function register() {
@@ -26,6 +29,7 @@ final class Table extends Script {
 
 		wp_localize_script( $this->get_handle(), 'ACP_Export', [
 			'total_num_items' => $wp_list_table->get_pagination_arg( 'total_items' ),
+			'num_iterations'  => $this->num_iterations,
 			'nonce'           => wp_create_nonce( 'acp_export_listscreen_export' ),
 			'i18n'            => [
 				'dismiss'          => __( 'Dismiss this notice.' ),

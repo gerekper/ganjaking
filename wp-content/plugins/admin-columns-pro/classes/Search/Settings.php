@@ -24,7 +24,7 @@ class Settings
 	}
 
 	public function column_settings( AC\Column $column ) {
-		if ( ! $column instanceof Searchable ) {
+		if ( ! $column instanceof Searchable || false === $column->search() ) {
 			return;
 		}
 

@@ -107,10 +107,10 @@ class WC_API_Manager_Query extends WC_Query {
 	 * Set the API Manager page title when viewing.
 	 *
 	 * @since 1.4.4
+	 * @since WC 4.6.0 Added $action parameter.
 	 *
 	 * @param string $endpoint
 	 * @param string $action Since WC 4.6.0 Added $action parameter.
-	 *
 	 *
 	 * @return string
 	 */

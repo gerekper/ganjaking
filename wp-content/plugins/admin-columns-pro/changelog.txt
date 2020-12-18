@@ -1,5 +1,19 @@
 == Changelog ==
 
+= 5.4 =
+Release Date: December 15th, 2020
+
+* [Added] Option to hide the Quick Links menu on top of the list tables
+* [Improved] Exporting to CSV is faster and will no longer store temporary files on the file system
+* [Improved] You can now limit the number of shown items for the child pages column
+* [Fixed] Don't show the clear button for empty values
+* [Fixed] Permalinks will be urldecoded when exporting
+* [Improved] Export is faster and does not store temporary files on the file system anymore
+* [Improved] Limit the number of items for Child Pages column
+* [Updated] Admin Columns Core changes ( 4.2.5 )
+* [Fixed] The updater could give a PHP warning when there were no updates
+* [Fixed] Display a correct message when an integration is not installed
+
 = 5.3.3 =
 Release Date: December 9th, 2020
 

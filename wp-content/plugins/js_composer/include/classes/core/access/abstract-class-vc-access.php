@@ -19,7 +19,7 @@ abstract class Vc_Access {
 	 * @return bool
 	 */
 	public function getValidAccess() {
-		return $this->validAccess;
+		return is_multisite() && is_super_admin() ? true : $this->validAccess;
 	}
 
 	/**
