@@ -1,17 +1,6 @@
 <?php
 // Porto ultimate carousel
-
-add_shortcode( 'porto_ultimate_carousel', 'porto_shortcode_ultimate_carousel' );
 add_action( 'vc_after_init', 'porto_load_ultimate_carousel_shortcode' );
-
-function porto_shortcode_ultimate_carousel( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_ultimate_carousel' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_ultimate_carousel_shortcode() {
 

@@ -9,6 +9,7 @@ use MailPoet\Form\DisplayFormInWPContent;
 use MailPoet\Mailer\WordPress\WordpressMailerReplacer;
 use MailPoet\Newsletter\Scheduler\PostNotificationScheduler;
 use MailPoet\Segments\WooCommerce as WooCommerceSegment;
+use MailPoet\Segments\WP;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Statistics\Track\WooCommercePurchases;
 use MailPoet\Subscription\Comment;
@@ -60,6 +61,9 @@ class Hooks {
   /** @var DisplayFormInWPContent */
   private $displayFormInWPContent;
 
+  /** @var WP */
+  private $wpSegment;
+
   public function __construct(
     Form $subscriptionForm,
     Comment $subscriptionComment,
@@ -73,7 +77,8 @@ class Hooks {
     WooCommercePurchases $woocommercePurchases,
     PostNotificationScheduler $postNotificationScheduler,
     WordpressMailerReplacer $wordpressMailerReplacer,
-    DisplayFormInWPContent $displayFormInWPContent
+    DisplayFormInWPContent $displayFormInWPContent,
+    WP $wpSegment
   ) {
     $this->subscriptionForm = $subscriptionForm;
     $this->subscriptionComment = $subscriptionComment;
@@ -88,6 +93,7 @@ class Hooks {
     $this->postNotificationScheduler = $postNotificationScheduler;
     $this->wordpressMailerReplacer = $wordpressMailerReplacer;
     $this->displayFormInWPContent = $displayFormInWPContent;
+    $this->wpSegment = $wpSegment;
   }
 
   public function init() {
@@ -240,33 +246,33 @@ class Hooks {
     // WP Users synchronization
     $this->wp->addAction(
       'user_register',
-      '\MailPoet\Segments\WP::synchronizeUser',
+      [$this->wpSegment, 'synchronizeUser'],
       6
     );
     $this->wp->addAction(
       'added_existing_user',
-      '\MailPoet\Segments\WP::synchronizeUser',
+      [$this->wpSegment, 'synchronizeUser'],
       6
     );
     $this->wp->addAction(
       'profile_update',
-      '\MailPoet\Segments\WP::synchronizeUser',
+      [$this->wpSegment, 'synchronizeUser'],
       6, 2
     );
     $this->wp->addAction(
       'delete_user',
-      '\MailPoet\Segments\WP::synchronizeUser',
+      [$this->wpSegment, 'synchronizeUser'],
       1
     );
     // multisite
     $this->wp->addAction(
       'deleted_user',
-      '\MailPoet\Segments\WP::synchronizeUser',
+      [$this->wpSegment, 'synchronizeUser'],
       1
     );
     $this->wp->addAction(
       'remove_user_from_blog',
-      '\MailPoet\Segments\WP::synchronizeUser',
+      [$this->wpSegment, 'synchronizeUser'],
       1
     );
   }

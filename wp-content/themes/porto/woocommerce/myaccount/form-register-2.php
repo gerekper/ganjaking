@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $porto_settings;
 ?>
 
-		<h2 class="heading-primary font-weight-normal">Create an Account</h2>
+		<h2 class="heading-primary font-weight-normal"><?php esc_html_e( 'Create an Account', 'porto' ); ?></h2>
 
 		<div class="featured-box align-left">
 			<div class="box-content">

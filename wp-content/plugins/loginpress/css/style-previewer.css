@@ -1,0 +1,124 @@
+/**
+ * Style Sceet for Customizer Previewer.
+ * @since 1.0.23
+ */
+.login form .input, .login input[type=text],.login form input[type=checkbox]{
+	border-radius: 0;
+}
+#loginform input[type="text"], #loginform input[type="password"]{
+	display: block !important;
+}
+.login h1,#login .submit, .login form,#nav{
+	position: relative;
+}
+body:hover .customize-partial-edit-shortcut button{
+	opacity: 1;
+}
+.login h1 .customize-partial-edit-shortcut{
+	position: absolute;
+  top: -8px;
+  left: 50%;
+  margin-left: 15px;
+  height: 30px;
+  width: 30px;
+}
+.customize-partial-edit-shortcut{
+	height: 34px;
+	width: 34px;
+	cursor: pointer;
+	z-index: 99;
+}
+.customize-partial-edit-shortcut button{
+	left: 0;
+}
+.loginpress-presets-partial{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	cursor: pointer;
+}
+.loginpress-background-partial{
+	position: absolute;
+	top: 55px;
+	left: 10px;
+	cursor: pointer;
+}
+.loginpress-footer-partial{
+	position: absolute;
+	bottom: 5px;
+	left: 10px;
+	cursor: pointer;
+	z-index: 12;
+}
+.loginpress-button-partial{
+	position: absolute;
+	right: 5px;
+	bottom: 15px;
+}
+.loginpress-nav-partial{
+    position: absolute;
+    top: -10px;
+    right: 10px;
+}
+.login form .loginpress-input-partial{
+	position: absolute;
+	top: 0;
+	right: 25px;
+}
+#login form p.submit:after{
+	content: '';
+	display: table;
+	clear: both;
+}
+.loginpress-partial:after {
+    content: attr(data-title);
+    background: rgba(51, 56, 61, 0.9);
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    width: 100px;
+    padding: 5px 10px;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 5px;
+    -webkit-transition:all 0.3s ease-in-out;
+    transition:all 0.3s ease-in-out;
+    opacity: 0;
+    text-align: center;
+    -webkit-box-shadow: 0 0 9px 0px rgba(0, 0, 0, 0.20);
+    box-shadow: 0 0 9px 0px rgba(0, 0, 0, 0.20);
+    margin-left: 5px;
+		font-weight: normal;
+		visibility: hidden;
+}
+.loginpress-partial:before{
+	content: '';
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 5px 5px 5px 0;
+	border-color: transparent rgba(51, 56, 61, 0.9) transparent transparent;
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	margin-left: 0;
+	margin-top: -5px;
+  -webkit-transition:all 0.3s ease-in-out;
+  transition:all 0.3s ease-in-out;
+  opacity: 0;
+  z-index: 1;
+  visibility: hidden;
+}
+.loginpress-partial:hover:before,
+.loginpress-partial:hover:after{
+	opacity: 1;
+	visibility: visible;
+}
+#loginform{
+	overflow: visible;
+}
+html[dir="rtl"] .customize-partial-edit-shortcut button,html[dir="rtl"]  .widget .customize-partial-edit-shortcut button{
+	right: 0;
+}

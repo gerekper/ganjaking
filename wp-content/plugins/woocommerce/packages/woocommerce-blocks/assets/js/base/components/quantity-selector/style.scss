@@ -6,16 +6,23 @@
 	box-shadow: none;
 
 	&:focus {
-		outline: 2px solid $core-grey-light-600;
+		outline: 2px solid $gray-300;
 	}
 }
 
 .wc-block-components-quantity-selector {
 	display: flex;
 	min-width: 100px;
-	border: 1px solid $core-grey-light-600;
+	border: 1px solid $gray-300;
 	background: #fff;
 	border-radius: 4px;
+	// needed so that buttons fill the container.
+	box-sizing: content-box;
+
+	.has-dark-controls & {
+		background-color: transparent;
+		border-color: $input-border-dark;
+	}
 
 	// Extra label for specificity needed in the editor.
 	input.wc-block-components-quantity-selector__input {
@@ -35,11 +42,23 @@
 		-moz-appearance: textfield;
 
 		&:focus {
-			background: $core-grey-light-200;
-			outline: 1px solid $core-grey-light-600;
+			background: $gray-100;
+			outline: 1px solid $gray-300;
 		}
 		&:disabled {
-			color: $core-grey-dark-100;
+			color: $gray-600;
+		}
+
+		.has-dark-controls & {
+			color: $input-text-dark;
+			background: transparent;
+
+			&:focus {
+				background: transparent;
+			}
+			&:disabled {
+				color: $input-disabled-dark;
+			}
 		}
 	}
 	input::-webkit-outer-spin-button,
@@ -52,19 +71,31 @@
 		@include font-size(regular);
 		min-width: 30px;
 		cursor: pointer;
-		color: $core-grey-dark-700;
+		color: $gray-900;
 		font-style: normal;
 		text-align: center;
 
 		&:hover,
 		&:focus {
 			@include reset-button;
-			color: $core-grey-dark-900;
+			color: $gray-900;
 		}
 		&:disabled {
-			color: $core-grey-dark-100;
+			color: $gray-600;
 			cursor: default;
 			@include reset-button;
+		}
+
+		.has-dark-controls & {
+			color: $input-text-dark;
+
+			&:hover,
+			&:focus {
+				color: $input-text-dark;
+			}
+			&:disabled {
+				color: $input-disabled-dark;
+			}
 		}
 	}
 	.wc-block-components-quantity-selector__button--minus {

@@ -56,7 +56,15 @@ class NewsletterEntity extends \MailPoet\Entities\NewsletterEntity implements \M
         $this->__cloner__      = $cloner;
     }
 
-
+    /**
+     * {@inheritDoc}
+     * @param string $name
+     */
+    public function __get($name)
+    {
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__get', [$name]);
+        return parent::__get($name);
+    }
 
 
 
@@ -98,11 +106,13 @@ class NewsletterEntity extends \MailPoet\Entities\NewsletterEntity implements \M
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     public function __clone()
     {
         $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
+
+        parent::__clone();
     }
 
     /**
@@ -518,6 +528,28 @@ class NewsletterEntity extends \MailPoet\Entities\NewsletterEntity implements \M
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOptions', []);
 
         return parent::getOptions();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOption(string $name): ?\MailPoet\Entities\NewsletterOptionEntity
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOption', [$name]);
+
+        return parent::getOption($name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOptionValue(string $name)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOptionValue', [$name]);
+
+        return parent::getOptionValue($name);
     }
 
     /**

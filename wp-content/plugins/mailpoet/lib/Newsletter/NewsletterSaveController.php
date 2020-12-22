@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Cron\Workers\SendingQueue\Tasks\Newsletter as NewsletterQueueTask;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\NewsletterOptionEntity;
+use MailPoet\Entities\NewsletterOptionFieldEntity;
 use MailPoet\Entities\NewsletterSegmentEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Entities\SegmentEntity;
@@ -24,7 +25,9 @@ use MailPoet\NotFoundException;
 use MailPoet\Services\AuthorizedEmailsController;
 use MailPoet\Settings\SettingsController;
 use MailPoet\UnexpectedValueException;
+use MailPoet\Util\Security;
 use MailPoet\WP\Emoji;
+use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
@@ -62,6 +65,12 @@ class NewsletterSaveController {
   /** @var SettingsController */
   private $settings;
 
+  /** @var Security */
+  private $security;
+
+  /** @var WPFunctions */
+  private $wp;
+
   public function __construct(
     AuthorizedEmailsController $authorizedEmailsController,
     Emoji $emoji,
@@ -73,7 +82,9 @@ class NewsletterSaveController {
     NewsletterTemplatesRepository $newsletterTemplatesRepository,
     PostNotificationScheduler $postNotificationScheduler,
     ScheduledTasksRepository $scheduledTasksRepository,
-    SettingsController $settings
+    SettingsController $settings,
+    Security $security,
+    WPFunctions $wp
   ) {
     $this->authorizedEmailsController = $authorizedEmailsController;
     $this->emoji = $emoji;
@@ -86,6 +97,8 @@ class NewsletterSaveController {
     $this->postNotificationScheduler = $postNotificationScheduler;
     $this->scheduledTasksRepository = $scheduledTasksRepository;
     $this->settings = $settings;
+    $this->security = $security;
+    $this->wp = $wp;
   }
 
   public function save(array $data = []): NewsletterEntity {
@@ -100,10 +113,11 @@ class NewsletterSaveController {
       $data['body'] = $this->emoji->encodeForUTF8Column(MP_NEWSLETTERS_TABLE, 'body', $data['body']);
     }
 
-    $newsletter = $this->getNewsletter($data);
+    $newsletter = isset($data['id']) ? $this->getNewsletter($data) : $this->createNewsletter($data);
     $oldSenderAddress = $newsletter->getSenderAddress();
 
     $this->updateNewsletter($newsletter, $data);
+    $this->newslettersRepository->flush();
     if (!empty($data['segments'])) {
       $this->updateSegments($newsletter, $data['segments']);
     }
@@ -131,6 +145,62 @@ class NewsletterSaveController {
     return $newsletter;
   }
 
+  public function duplicate(NewsletterEntity $newsletter): NewsletterEntity {
+    $duplicate = clone $newsletter;
+
+    // reset timestamps
+    $createdAt = Carbon::createFromTimestamp($this->wp->currentTime('timestamp'));
+    $duplicate->setCreatedAt($createdAt);
+    $duplicate->setUpdatedAt($createdAt);
+    $duplicate->setDeletedAt(null);
+
+    $duplicate->setSubject(sprintf(__('Copy of %s', 'mailpoet'), $newsletter->getSubject()));
+    // generate new unsubscribe token
+    $duplicate->setUnsubscribeToken($this->security->generateUnsubscribeTokenByEntity($duplicate));
+    // reset status
+    $duplicate->setStatus(NewsletterEntity::STATUS_DRAFT);
+    // reset hash
+    $duplicate->setHash(Security::generateHash());
+    // reset sent at date
+    $duplicate->setSentAt(null);
+
+    $this->newslettersRepository->persist($duplicate);
+    $this->newslettersRepository->flush();
+
+    // create relationships between duplicate and segments
+    foreach ($newsletter->getNewsletterSegments() as $newsletterSegment) {
+      $segment = $newsletterSegment->getSegment();
+      if (!$segment) {
+          continue;
+      }
+      $duplicateSegment = new NewsletterSegmentEntity($duplicate, $segment);
+      $duplicate->getNewsletterSegments()->add($duplicateSegment);
+      $this->newsletterSegmentRepository->persist($duplicateSegment);
+    }
+
+    // duplicate options
+    $ignoredOptions = [
+      NewsletterOptionFieldEntity::NAME_IS_SCHEDULED,
+      NewsletterOptionFieldEntity::NAME_SCHEDULED_AT,
+    ];
+    foreach ($newsletter->getOptions() as $newsletterOption) {
+      $optionField = $newsletterOption->getOptionField();
+      if (!$optionField) {
+        continue;
+      }
+      if (in_array($optionField->getName(), $ignoredOptions, true)) {
+        continue;
+      }
+      $duplicateOption = new NewsletterOptionEntity($duplicate, $optionField);
+      $duplicateOption->setValue($newsletterOption->getValue());
+      $duplicate->getOptions()->add($duplicateOption);
+      $this->newsletterOptionsRepository->persist($duplicateOption);
+    }
+    $this->newslettersRepository->flush();
+
+    return $duplicate;
+  }
+
   private function getNewsletter(array $data): NewsletterEntity {
     if (!isset($data['id'])) {
       throw new UnexpectedValueException();
@@ -140,6 +210,29 @@ class NewsletterSaveController {
     if (!$newsletter) {
       throw new NotFoundException();
     }
+    return $newsletter;
+  }
+
+  private function createNewsletter(array $data): NewsletterEntity {
+    $newsletter = new NewsletterEntity();
+    $newsletter->setUnsubscribeToken($this->security->generateUnsubscribeTokenByEntity($newsletter));
+    $newsletter->setHash(Security::generateHash());
+    // set default sender based on settings
+    if (empty($data['sender'])) {
+      $sender = $this->settings->get('sender', []);
+      $data['sender_name'] = $sender['name'] ?? '';
+      $data['sender_address'] = $sender['address'] ?? '';
+    }
+
+    // set default reply_to based on settings
+    if (empty($data['reply_to'])) {
+      $replyTo = $this->settings->get('reply_to', []);
+      $data['reply_to_name'] = $replyTo['name'] ?? '';
+      $data['reply_to_address'] = $replyTo['address'] ?? '';
+    }
+
+    $this->updateNewsletter($newsletter, $data);
+    $this->newslettersRepository->persist($newsletter);
     return $newsletter;
   }
 
@@ -179,8 +272,6 @@ class NewsletterSaveController {
     if (array_key_exists('reply_to_address', $data)) {
       $newsletter->setReplyToAddress($data['reply_to_address'] ?? '');
     }
-
-    $this->newslettersRepository->flush();
   }
 
   private function updateSegments(NewsletterEntity $newsletter, array $segments) {
@@ -254,9 +345,12 @@ class NewsletterSaveController {
     }
 
     // generate the new schedule from options and get the new "next run" date
-    $schedule = $this->postNotificationScheduler->processPostNotificationSchedule($newsletterModel);
+    $schedule = $this->postNotificationScheduler->processPostNotificationSchedule($newsletter);
     $nextRunDateString = Scheduler::getNextRunDate($schedule);
     $nextRunDate = $nextRunDateString ? Carbon::createFromFormat('Y-m-d H:i:s', $nextRunDateString) : null;
+    if ($nextRunDate === false) {
+      throw InvalidStateException::create()->withMessage('Invalid next run date generated');
+    }
 
     // find previously scheduled jobs and reschedule them
     $scheduledTasks = $this->scheduledTasksRepository->findByNewsletterAndStatus($newsletter, ScheduledTaskEntity::STATUS_SCHEDULED);

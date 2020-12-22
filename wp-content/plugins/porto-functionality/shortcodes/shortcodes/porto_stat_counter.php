@@ -1,25 +1,6 @@
 <?php
 // Porto Stat Counter
-if ( function_exists( 'register_block_type' ) ) {
-	register_block_type(
-		'porto/porto-stat-counter',
-		array(
-			'editor_script'   => 'porto_blocks',
-			'render_callback' => 'porto_shortcode_stat_counter',
-		)
-	);
-}
-add_shortcode( 'porto_stat_counter', 'porto_shortcode_stat_counter' );
 add_action( 'vc_after_init', 'porto_load_stat_counter_shortcode' );
-
-function porto_shortcode_stat_counter( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_stat_counter' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_stat_counter_shortcode() {
 

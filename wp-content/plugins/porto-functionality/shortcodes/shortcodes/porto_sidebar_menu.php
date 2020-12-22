@@ -1,17 +1,7 @@
 <?php
 // Porto Sidebar Menu
 
-add_shortcode( 'porto_sidebar_menu', 'porto_shortcode_sidebar_menu' );
 add_action( 'vc_after_init', 'porto_load_sidebar_menu_shortcode' );
-
-function porto_shortcode_sidebar_menu( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_sidebar_menu' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_sidebar_menu_shortcode() {
 

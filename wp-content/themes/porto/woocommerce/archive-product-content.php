@@ -191,7 +191,7 @@ if ( $porto_settings['category-ajax'] ) {
 		do_action( 'woocommerce_before_shop_loop' );
 	} else {
 		?>
-	<div class="shop-loop-before clearfix" style="display:none;"> </div>
+	<div class="shop-loop-before" style="display:none;"> </div>
 <?php } ?>
 
 	<div class="archive-products">

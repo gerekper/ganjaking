@@ -86,6 +86,9 @@ button {
     &:disabled {
         cursor: default;
     }
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 .btn-default {

@@ -1,16 +1,7 @@
 <?php
 
 // Porto Toggles
-add_shortcode( 'porto_toggles', 'porto_shortcode_toggles' );
 add_action( 'vc_after_init', 'porto_load_toggles_shortcode' );
-
-function porto_shortcode_toggles( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_toggles' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_toggles_shortcode() {
 	$animation_type     = porto_vc_animation_type();

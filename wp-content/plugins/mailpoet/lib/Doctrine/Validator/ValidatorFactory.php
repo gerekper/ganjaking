@@ -6,8 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Doctrine\Annotations\AnnotationReaderProvider;
-use MailPoet\Doctrine\MetadataCache;
-use MailPoetVendor\Symfony\Component\Validator\Mapping\Cache\DoctrineCache;
+use MailPoet\Doctrine\PSRMetadataCache;
 use MailPoetVendor\Symfony\Component\Validator\Validation;
 
 class ValidatorFactory {
@@ -22,6 +21,12 @@ class ValidatorFactory {
 
   public function createValidator() {
     $builder = Validation::createValidatorBuilder();
+    // we need to use our own translator here.
+    // If we let the default translator to be used in the builder it uses an anonymous class and that is a problem
+    // All integration tests would fail with: [Exception] Serialization of 'class@anonymous' is not allowed
+    $translator = new Translator();
+    $translator->setLocale('en');
+    $builder->setTranslator($translator);
 
     // annotation reader exists only in dev environment, on production cache is pre-generated
     $annotationReader = $this->annotationReaderProvider->getAnnotationReader();
@@ -31,8 +36,7 @@ class ValidatorFactory {
 
     // metadata cache (for production cache is pre-generated at build time)
     $isReadOnly = !$annotationReader;
-    $metadataCache = new MetadataCache(self::METADATA_DIR, $isReadOnly);
-    $builder->setMetadataCache(new DoctrineCache($metadataCache));
+    $builder->setMappingCache(new PSRMetadataCache(self::METADATA_DIR, $isReadOnly));
 
     return $builder->getValidator();
   }

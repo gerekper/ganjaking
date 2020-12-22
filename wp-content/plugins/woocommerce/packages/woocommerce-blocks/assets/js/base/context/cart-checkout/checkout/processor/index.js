@@ -62,6 +62,8 @@ const CheckoutProcessor = () => {
 		isProcessing: checkoutIsProcessing,
 		isBeforeProcessing: checkoutIsBeforeProcessing,
 		isComplete: checkoutIsComplete,
+		orderNotes,
+		shouldCreateAccount,
 	} = useCheckoutContext();
 	const { hasValidationErrors } = useValidationContext();
 	const { shippingAddress, shippingErrorStatus } = useShippingDataContext();
@@ -186,7 +188,8 @@ const CheckoutProcessor = () => {
 		let data = {
 			billing_address: currentBillingData.current,
 			shipping_address: currentShippingAddress.current,
-			customer_note: '',
+			customer_note: orderNotes,
+			should_create_account: shouldCreateAccount,
 		};
 		if ( cartNeedsPayment ) {
 			data = {
@@ -211,7 +214,7 @@ const CheckoutProcessor = () => {
 				triggerFetch.setNonce( fetchResponse.headers );
 
 				// Handle response.
-				fetchResponse.json().then( function( response ) {
+				fetchResponse.json().then( function ( response ) {
 					if ( ! fetchResponse.ok ) {
 						// We received an error response.
 						if ( response.body && response.body.message ) {
@@ -236,7 +239,7 @@ const CheckoutProcessor = () => {
 				} );
 			} )
 			.catch( ( error ) => {
-				error.json().then( function( response ) {
+				error.json().then( function ( response ) {
 					// If updated cart state was returned, also update that.
 					if ( response.data?.cart ) {
 						receiveCart( response.data.cart );
@@ -256,6 +259,8 @@ const CheckoutProcessor = () => {
 		cartNeedsPayment,
 		receiveCart,
 		dispatchActions,
+		orderNotes,
+		shouldCreateAccount,
 	] );
 	// redirect when checkout is complete and there is a redirect url.
 	useEffect( () => {

@@ -1,5 +1,5 @@
 /*!
- * Bootstrap generator - v1.0.1, 2018-02-26 
+ * Bootstrap generator - v1.0.1, 2020-11-08 
  * Webcraftic factory build 
  * 
  * Copyright 2018, Alex Kovalev <alex.kovalevv@gmail.com>, Webcraftic <wordpress.webraftic@gmail.com> 

@@ -14,63 +14,57 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 
 <article <?php post_class( $post_class ); ?>>
 
-	<div class="row">
+	<?php
+	// Post Slideshow
+	$slideshow_type = get_post_meta( $post->ID, 'slideshow_type', true );
+	$video_code     = get_post_meta( $post->ID, 'video_code', true );
+	if ( ! $slideshow_type ) {
+		$slideshow_type = 'images';
+	}
+
+	$featured_images = porto_get_featured_images();
+	$image_count     = count( $featured_images );
+
+	if ( ( 'video' == $slideshow_type && $video_code ) || $image_count ) :
+		?>
+	<div class="post-media">
 		<?php
-		// Post Slideshow
-		$slideshow_type = get_post_meta( $post->ID, 'slideshow_type', true );
-		$video_code     = get_post_meta( $post->ID, 'video_code', true );
-		if ( ! $slideshow_type ) {
-			$slideshow_type = 'images';
-		}
+			// Post Media
+			porto_get_template_part(
+				'views/posts/post-media/' . $slideshow_type,
+				null,
+				( 'images' == $slideshow_type ? array(
+					'image_size' => 'blog-medium',
+				) : false )
+			);
+		?>
+	</div>
+	<?php endif; ?>
 
-		$featured_images = porto_get_featured_images();
-		$image_count     = count( $featured_images );
-
-		if ( ( 'video' == $slideshow_type && $video_code ) || $image_count ) :
-			?>
-			<div class="col-lg-5">
-				<?php
-					// Post Media
-					porto_get_template_part(
-						'views/posts/post-media/' . $slideshow_type,
-						null,
-						( 'images' == $slideshow_type ? array(
-							'image_size' => 'blog-medium',
-						) : false )
-					);
-				?>
-			</div>
-			<div class="col-lg-7">
-		<?php else : ?>
-			<div class="col-lg-12">
+	<div class="post-content">
+		<?php if ( $porto_settings['post-title'] ) : ?>
+			<h2 class="entry-title"><?php the_title(); ?></h2>
 		<?php endif; ?>
-
-			<div class="post-content">
-				<?php if ( $porto_settings['post-title'] ) : ?>
-					<h2 class="entry-title"><?php the_title(); ?></h2>
-				<?php endif; ?>
-				<?php porto_render_rich_snippets( false ); ?>
-				<div class="entry-content">
-					<?php
-					the_content();
-					wp_link_pages(
-						array(
-							'before'      => '<div class="page-links"><span class="page-links-title">' . esc_html__( 'Pages:', 'porto' ) . '</span>',
-							'after'       => '</div>',
-							'link_before' => '<span>',
-							'link_after'  => '</span>',
-							'pagelink'    => '<span class="screen-reader-text">' . esc_html__( 'Page', 'porto' ) . ' </span>%',
-							'separator'   => '<span class="screen-reader-text">, </span>',
-						)
-					);
-					?>
-				</div>
-
-			</div>
+		<?php porto_render_rich_snippets( false ); ?>
+		<div class="entry-content">
+			<?php
+			the_content();
+			wp_link_pages(
+				array(
+					'before'      => '<div class="page-links"><span class="page-links-title">' . esc_html__( 'Pages:', 'porto' ) . '</span>',
+					'after'       => '</div>',
+					'link_before' => '<span>',
+					'link_after'  => '</span>',
+					'pagelink'    => '<span class="screen-reader-text">' . esc_html__( 'Page', 'porto' ) . ' </span>%',
+					'separator'   => '<span class="screen-reader-text">, </span>',
+				)
+			);
+			?>
 		</div>
+
 	</div>
 
-	<div class="post-gap-small"></div>
+	<div class="post-gap-small clearfix"></div>
 
 	<div class="post-meta">
 		<?php

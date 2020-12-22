@@ -5,6 +5,7 @@ namespace MailPoet\Newsletter\Links;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\DI\ContainerWrapper;
 use MailPoet\Models\NewsletterLink;
 use MailPoet\Models\Subscriber;
 use MailPoet\Newsletter\Shortcodes\Categories\Link;
@@ -32,7 +33,8 @@ class Links {
   public static function extract($content) {
     $extractedLinks = [];
     // extract link shortcodes
-    $shortcodes = new Shortcodes();
+    /** @var Shortcodes $shortcodes */
+    $shortcodes = ContainerWrapper::getInstance()->get(Shortcodes::class);
     $shortcodes = $shortcodes->extract(
       $content,
       $categories = [Link::CATEGORY_NAME]
@@ -100,7 +102,7 @@ class Links {
     foreach ($matches[1] as $index => $match) {
       $hash = null;
       if (preg_match('/-/', $match)) {
-        list(, $hash) = explode('-', $match);
+        [, $hash] = explode('-', $match);
       }
       $linkTokens = new LinkTokens;
       $data = self::createUrlDataObject(
@@ -216,7 +218,7 @@ class Links {
   }
 
   private static function hash($extractedLinks, $savedLinks) {
-    $processedLinks = array_map(function(&$link) {
+    $processedLinks = array_map(function($link) {
       $link['type'] = Links::LINK_TYPE_URL;
       $link['link'] = $link['url'];
       $link['processed_link'] = self::DATA_TAG_CLICK . '-' . $link['hash'];

@@ -242,6 +242,7 @@ class CustomizerControls
                         'description' => __('Only include posts that has either of the selected categories.', 'mailoptin'),
                         'section'     => $this->customizerClassInstance->campaign_settings_section_id,
                         'settings'    => $this->option_prefix . '[post_categories]',
+                        'search_type' => 'post_categories',
                         'choices'     => ControlsHelpers::get_categories(),
                         'priority'    => 45
                     ]
@@ -255,6 +256,7 @@ class CustomizerControls
                         'description' => __('Only include posts that has either of the selected tags.', 'mailoptin'),
                         'section'     => $this->customizerClassInstance->campaign_settings_section_id,
                         'settings'    => $this->option_prefix . '[post_tags]',
+                        'search_type' => 'post_tags',
                         'choices'     => ControlsHelpers::get_tags(),
                         'priority'    => 46
                     ]

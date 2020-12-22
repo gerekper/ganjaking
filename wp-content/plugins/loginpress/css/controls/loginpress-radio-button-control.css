@@ -1,0 +1,194 @@
+input[type=checkbox].loginpress-radio {
+  display: none;
+}
+input[type=checkbox].loginpress-radio, input[type=checkbox].loginpress-radio:after, input[type=checkbox].loginpress-radio:before, input[type=checkbox].loginpress-radio *, input[type=checkbox].loginpress-radio *:after, input[type=checkbox].loginpress-radio *:before, input[type=checkbox].loginpress-radio + .loginpress-radio-btn {
+  box-sizing: border-box;
+}
+input[type=checkbox].loginpress-radio::-moz-selection, input[type=checkbox].loginpress-radio:after::-moz-selection, input[type=checkbox].loginpress-radio:before::-moz-selection, input[type=checkbox].loginpress-radio *::-moz-selection, input[type=checkbox].loginpress-radio *:after::-moz-selection, input[type=checkbox].loginpress-radio *:before::-moz-selection, input[type=checkbox].loginpress-radio + .loginpress-radio-btn::-moz-selection {
+  background: none;
+}
+input[type=checkbox].loginpress-radio::selection, input[type=checkbox].loginpress-radio:after::selection, input[type=checkbox].loginpress-radio:before::selection, input[type=checkbox].loginpress-radio *::selection, input[type=checkbox].loginpress-radio *:after::selection, input[type=checkbox].loginpress-radio *:before::selection, input[type=checkbox].loginpress-radio + .loginpress-radio-btn::selection {
+  background: none;
+}
+input[type=checkbox].loginpress-radio + .loginpress-radio-btn {
+  outline: 0;
+  display: block;
+  width: 32px;
+  height: 18px;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+input[type=checkbox].loginpress-radio + .loginpress-radio-btn:after, input[type=checkbox].loginpress-radio + .loginpress-radio-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+input[type=checkbox].loginpress-radio + .loginpress-radio-btn:after {
+  left: 0;
+}
+input[type=checkbox].loginpress-radio + .loginpress-radio-btn:before {
+  display: none;
+}
+input[type=checkbox].loginpress-radio:checked + .loginpress-radio-btn:after {
+  left: 15px;
+  border-color: #fff;
+  background: #33b3db;
+}
+input[type=checkbox].loginpress-radio + .loginpress-radio-btn:hover{
+    background-color: #e2e4e7;
+}
+input[type=checkbox].loginpress-radio-ios + .loginpress-radio-btn:active:after{
+  border-width: 5px;
+}
+input[type=checkbox].loginpress-radio-ios + .loginpress-radio-btn:checked:active:after{
+  border-width: 5px;
+  border-color: #fff;
+  background: #fff;
+}
+input[type=checkbox].loginpress-radio-light + .loginpress-radio-btn {
+  background: #f0f0f0;
+  border-radius: 2em;
+  padding: 2px;
+  -webkit-transition: all .4s ease;
+  transition: all .4s ease;
+
+}
+input[type=checkbox].loginpress-radio-light + .loginpress-radio-btn:after {
+  border-radius: 50%;
+  background: #fff;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+input[type=checkbox].loginpress-radio-light:checked + .loginpress-radio-btn {
+  background: #9FD6AE;
+}
+
+input[type=checkbox].loginpress-radio-ios + .loginpress-radio-btn {
+  background: #fff;
+  border-radius: 2em;
+  padding: 2px;
+  -webkit-transition: all .4s ease;
+  transition: all .4s ease;
+  border: 2px solid #555d66;
+}
+input[type=checkbox].loginpress-radio-ios + .loginpress-radio-btn:after {
+  border-radius: 2em;
+  background: #fbfbfb;
+  -webkit-transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+  transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+  border:2px solid #555d66;
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+}
+input[type=checkbox].loginpress-radio-ios + .loginpress-radio-btn:hover:after {
+  will-change: padding;
+}
+input[type=checkbox].loginpress-radio-ios + .loginpress-radio-btn:active {
+  box-shadow: inset 0 0 0 2em #e8eae9;
+}
+input[type=checkbox].loginpress-radio-ios:checked + .loginpress-radio-btn {
+
+  background: #33b3db !important;
+  border-color: #33b3db !important;
+}
+input[type=checkbox].loginpress-radio-ios:checked + .loginpress-radio-btn:active {
+  box-shadow: none;
+}
+
+input[type=checkbox].loginpress-radio-flat + .loginpress-radio-btn {
+  padding: 2px;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  background: #fff;
+  border: 4px solid #f2f2f2;
+  border-radius: 2em;
+}
+input[type=checkbox].loginpress-radio-flat + .loginpress-radio-btn:after {
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  background: #f2f2f2;
+  content: "";
+  border-radius: 1em;
+}
+input[type=checkbox].loginpress-radio-flat:checked + .loginpress-radio-btn {
+  border: 4px solid #7FC6A6;
+}
+input[type=checkbox].loginpress-radio-flat:checked + .loginpress-radio-btn:after {
+  left: 50%;
+  background: #7FC6A6;
+  border-color: #7FC6A6;
+}
+
+/*LoginPress Multisites sub directories error message*/
+.loginpress-multisite-subdir{
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  flex-direction: column;
+  background: #333;
+  overflow: auto;
+  padding: 30px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.loginpress-multisite-subdir-inner{
+  width: 1200px;
+  max-width: 100%;
+  -webkit-box-sizing: border-box;
+  max-height: 100%;
+}
+.loginpress-multisite-subdir .loginpress-iframe{
+  width: 700px;
+  position: relative;
+  margin: 0 auto;
+  max-width: 100%;
+}
+.loginpress-multisite-subdir h3{
+  font-size: 32px;
+  line-height: 1.3;
+  text-align: center;
+  color: #fff;
+}
+.loginpress-multisite-subdir h3 strong{
+  font-weight: 700;
+}
+.loginpress-multisite-subdir .loginpress-iframe:before{
+  padding-bottom: 45.2%;
+  padding-top: 20px;
+  content: '';
+  display: block;
+}
+.loginpress-iframe iframe{
+  top: 0;
+  left: 0;
+}
+.customize-radio-control-loader{
+  display: none;
+  padding-right: 8px;
+  padding-top: 2px;
+}
+#sub-accordion-section-customize_menu_section .loginpress-radio.loginpress-radio-ios:disabled + .loginpress-radio-btn{
+  cursor: wait;
+}
+@media screen and (max-width: 992px) {
+    .loginpress-multisite-subdir h3{
+      font-size: 24px;
+    }
+}
+
+/*End LoginPress Multisites sub directories error message*/

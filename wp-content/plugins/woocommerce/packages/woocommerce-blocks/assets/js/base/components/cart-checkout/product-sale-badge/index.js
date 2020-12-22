@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { __experimentalCreateInterpolateElement } from 'wordpress-element';
+import { createInterpolateElement } from 'wordpress-element';
 import { __ } from '@wordpress/i18n';
 import FormattedMonetaryAmount from '@woocommerce/base-components/formatted-monetary-amount';
 import PropTypes from 'prop-types';
@@ -21,12 +21,12 @@ import ProductBadge from '../product-badge';
  * @return {*} The component.
  */
 const ProductSaleBadge = ( { currency, saleAmount } ) => {
-	if ( ! saleAmount ) {
+	if ( ! saleAmount || saleAmount <= 0 ) {
 		return null;
 	}
 	return (
 		<ProductBadge className="wc-block-components-sale-badge">
-			{ __experimentalCreateInterpolateElement(
+			{ createInterpolateElement(
 				/* translators: <price/> will be replaced by the discount amount */
 				__( 'Save <price/>', 'woocommerce' ),
 				{

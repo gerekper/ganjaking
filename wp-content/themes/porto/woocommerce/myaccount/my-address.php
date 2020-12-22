@@ -48,8 +48,8 @@ $col    = 1;
 	<div class="box-content">
 		<h2 class="page-title m-b"><?php echo esc_html( $page_title ); ?></h2>
 <?php endif; ?>
-
-<p class="myaccount_address m-b-none">
+<h3 class="account-sub-title mb-2 mt-2"><i class="Simple-Line-Icons-pointer align-middle m-r-sm"></i><?php esc_html_e( 'Addresses', 'woocommerce' ); ?></h3>
+<p class="myaccount_address font-weight-medium m-b-none">
 	<?php echo apply_filters( 'woocommerce_my_account_my_address_description', esc_html__( 'The following addresses will be used on the checkout page by default.', 'woocommerce' ) ); ?>
 </p>
 
@@ -67,8 +67,7 @@ if ( ! wc_ship_to_billing_address_only() && $shipping_enabled ) {
 
 	<div class="u-column<?php echo 0 > $col ? 1 : 2; ?> col-<?php echo 0 > $oldcol ? 1 : 2; ?> woocommerce-Address address">
 		<header class="woocommerce-Address-title title">
-			<h3><?php echo esc_html( $address_title ); ?></h3>
-			<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-address', $name ) ); ?>" class="edit"><?php echo ! $address ? esc_html__( 'Add', 'woocommerce' ) : esc_html__( 'Edit', 'woocommerce' ); ?></a>
+			<h3 class="account-sub-title font-size-xl mb-1"><?php echo esc_html( $address_title ); ?></h3>
 		</header>
 
 		<address>
@@ -76,6 +75,7 @@ if ( ! wc_ship_to_billing_address_only() && $shipping_enabled ) {
 			echo ! $address ? esc_html_e( 'You have not set up this type of address yet.', 'woocommerce' ) : wp_kses_post( $address );
 		?>
 		</address>
+		<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-address', $name ) ); ?>" class="edit button wc-action-btn mt-3 px-4"><?php echo ! $address ? esc_html__( 'Add Address', 'porto' ) : esc_html__( 'Edit Address', 'porto' ); ?></a>
 	</div>
 
 <?php endforeach; ?>

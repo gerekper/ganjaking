@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Loader\Configurator\Traits; if (!defined('ABSPATH')) exit; trait FileTrait { public final function file(string $file) : self { $this->definition->setFile($file); return $this; } } 

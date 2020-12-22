@@ -906,10 +906,16 @@ if ( class_exists( 'WP_Importer' ) ) {
 						$demo = ( isset( $_POST['demo'] ) && $_POST['demo'] ) ? $_POST['demo'] : 'landing';
 						if ( false !== strpos( $demo, 'elementor-' ) ) {
 							delete_post_meta( $post_id, '_elementor_css' );
+						} elseif ( false !== strpos( $demo, 'vc-' ) ) {
+							delete_post_meta( $post_id, 'vcvSourceCss' );
+							delete_post_meta( $post_id, 'vcvSettingsSourceCustomCss' );
+							delete_post_meta( $post_id, 'vcv-globalElementsCssData' );
+							delete_post_meta( $post_id, 'vcvSourceCssFileUrl' );
+							delete_post_meta( $post_id, 'vcvSourceAssetsFiles' );
 						}
 
 						// meta fields to refresh
-						$meta_fields = array( '_wpb_post_custom_css', '_wpb_shortcodes_custom_css', '_elementor_data', '_elementor_edit_mode' );
+						$meta_fields = array( '_wpb_post_custom_css', '_wpb_shortcodes_custom_css', '_elementor_data', '_elementor_edit_mode', 'vcv-pageContent', 'vcv-be-editor' );
 						foreach ( $meta_fields as $key ) {
 							delete_post_meta( $post_id, $key );
 						}

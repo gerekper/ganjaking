@@ -9,10 +9,8 @@
 .porto-setup-wizard h2 { font-size: 1.625rem }
 .porto-setup-wizard h4 { font-size: 1rem }
 .porto-setup-wizard h5 { font-size: .875rem; color: #32373c }
-.porto-setup-wizard .btn { display: inline-block; width: auto; min-width: 9.375rem; font-size: .8125rem; font-weight: 700; text-decoration: none; text-transform: uppercase; text-shadow: none; letter-spacing: -.05em; padding: 1em 2em; text-align: center; border-radius: .25rem; border: 1px solid transparent; margin-bottom: .375rem; line-height: 1.4; white-space: nowrap }
 .porto-setup-wizard .btn:not(:last-child) { margin-right: .375rem }
 .porto-setup-wizard .btn-borders { border: 1px solid #ccc; color: #23282d }
-.porto-setup-wizard .btn-primary { border-color: #08c }
 .porto-setup-wizard .btn-dark { background-color: #32373c; color: #fff }
 
 a { color: #08c }
@@ -79,7 +77,7 @@ p { margin: 0 0 1.25rem; line-height: 1.8 }
 
 /* Demo Installation */
 .porto-install-demos td { vertical-align: top }
-.demo-sort-filters li { margin-right: 2vw; }
+.demo-sort-filters li { margin-right: 1.8vw; }
 .demo-sort-filters a { display: block; font-size: .8125rem; text-decoration: none; color: #222529; text-transform: uppercase; font-weight: 700; box-shadow: none; letter-spacing: -.025em; border-bottom: 4px solid transparent; transition: .25s; line-height: 1.8 }
 .demo-sort-filters .active a, .demo-sort-filters a:hover { color: #08c; border-bottom-color: #08c }
 #theme-install-demos { max-height: 34rem; overflow: auto; overflow-x: hidden; margin: -10px -20px 0; padding: 20px 10px 0; -webkit-overflow-scrolling: touch; }

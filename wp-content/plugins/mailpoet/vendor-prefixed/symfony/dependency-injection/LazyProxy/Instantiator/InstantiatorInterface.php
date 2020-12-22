@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\LazyProxy\Instantiator; if (!defined('ABSPATH')) exit; use MailPoetVendor\Symfony\Component\DependencyInjection\ContainerInterface; use MailPoetVendor\Symfony\Component\DependencyInjection\Definition; interface InstantiatorInterface { public function instantiateProxy(\MailPoetVendor\Symfony\Component\DependencyInjection\ContainerInterface $container, \MailPoetVendor\Symfony\Component\DependencyInjection\Definition $definition, $id, $realInstantiator); } 

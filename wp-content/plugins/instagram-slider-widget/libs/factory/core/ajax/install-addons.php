@@ -15,7 +15,7 @@ if( !defined('ABSPATH') ) {
 /**
  * This action allows you to process Ajax requests to activate external components Clearfy
  */
-function wfactory_436_install_components($plugin_instance)
+function wfactory_439_install_components($plugin_instance)
 {
 	check_ajax_referer('updates');
 
@@ -24,11 +24,11 @@ function wfactory_436_install_components($plugin_instance)
 	$storage = $plugin_instance->request->post('storage', null, true);
 
 	if( !current_user_can('update_plugins') ) {
-		wp_die(__('You don\'t have enough capability to edit this information.', 'wbcr_factory_436'), __('Something went wrong.'), 403);
+		wp_die(__('You don\'t have enough capability to edit this information.', 'wbcr_factory_439'), __('Something went wrong.'), 403);
 	}
 
 	if( empty($slug) || empty($action) ) {
-		wp_send_json_error(['error_message' => __('Required attributes are not passed or empty.', 'wbcr_factory_436')]);
+		wp_send_json_error(['error_message' => __('Required attributes are not passed or empty.', 'wbcr_factory_439')]);
 	}
 	$success = false;
 	$send_data = [];
@@ -44,7 +44,7 @@ function wfactory_436_install_components($plugin_instance)
 				$success = true;
 			}
 		} else {
-			wp_send_json_error(['error_message' => __('You are trying to perform an invalid action.', 'wbcr_factory_436')]);
+			wp_send_json_error(['error_message' => __('You are trying to perform an invalid action.', 'wbcr_factory_439')]);
 		}
 	} else if( $storage == 'wordpress' || $storage == 'creativemotion' ) {
 		if( !empty($slug) ) {
@@ -80,7 +80,7 @@ function wfactory_436_install_components($plugin_instance)
 	/*if ( $action == 'deactivate' ) {
 		$is_need_rewrite_rules = $plugin_instance->getPopulateOption( 'need_rewrite_rules' );
 		if ( $is_need_rewrite_rules ) {
-			$send_data['need_rewrite_rules'] = sprintf( '<span class="wbcr-clr-need-rewrite-rules-message">' . __( 'When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'wbcr_factory_436' ), admin_url( 'options-permalink.php' ) . '</span>' );
+			$send_data['need_rewrite_rules'] = sprintf( '<span class="wbcr-clr-need-rewrite-rules-message">' . __( 'When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'wbcr_factory_439' ), admin_url( 'options-permalink.php' ) . '</span>' );
 		}
 	}*/
 
@@ -94,7 +94,7 @@ function wfactory_436_install_components($plugin_instance)
 		wp_send_json_success($send_data);
 	}
 
-	wp_send_json_error(['error_message' => __('An unknown error occurred during the activation of the component.', 'wbcr_factory_436')]);
+	wp_send_json_error(['error_message' => __('An unknown error occurred during the activation of the component.', 'wbcr_factory_439')]);
 }
 
 /**
@@ -102,18 +102,18 @@ function wfactory_436_install_components($plugin_instance)
  * to get the component to work. Usually this is a call to the installation functions,
  * but in some cases, overwriting permanent references or compatibility checks.
  */
-function wfactory_436_prepare_component($plugin_instance)
+function wfactory_439_prepare_component($plugin_instance)
 {
 	check_ajax_referer('updates');
 
 	$component_name = $plugin_instance->request->post('plugin', null, true);
 
 	if( !current_user_can('update_plugins') ) {
-		wp_send_json_error(['error_message' => __('You don\'t have enough capability to edit this information.', 'wbcr_factory_436')], 403);
+		wp_send_json_error(['error_message' => __('You don\'t have enough capability to edit this information.', 'wbcr_factory_439')], 403);
 	}
 
 	if( empty($component_name) ) {
-		wp_send_json_error(['error_message' => __('Required attribute [component_name] is empty.', 'wbcr_factory_436')]);
+		wp_send_json_error(['error_message' => __('Required attribute [component_name] is empty.', 'wbcr_factory_439')]);
 	}
 	// todo: для совместимости с плагином Clearfy
 	if( "wbcr_clearfy" === $plugin_instance->getPluginName() ) {
@@ -133,7 +133,7 @@ function wfactory_436_prepare_component($plugin_instance)
  *
  * @global WP_Filesystem_Base $wp_filesystem WordPress filesystem subclass.
  */
-function wfactory_436_creativemotion_install_plugin($plugin_instance)
+function wfactory_439_creativemotion_install_plugin($plugin_instance)
 {
 	check_ajax_referer('updates');
 

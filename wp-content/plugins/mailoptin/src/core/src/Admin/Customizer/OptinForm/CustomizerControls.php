@@ -878,8 +878,9 @@ class CustomizerControls
                         'settings'    => $this->option_prefix . '[inpost_form_optin_position]',
                         'description' => __('Select position within your post the optin form will be displayed.', 'mailoptin'),
                         'choices'     => [
-                            'before_content' => __('Before Content', 'mailoptin'),
-                            'after_content'  => __('After Content', 'mailoptin'),
+                            'before_content'  => __('Before Content', 'mailoptin'),
+                            'between_content' => __('Middle of Content', 'mailoptin'),
+                            'after_content'   => __('After Content', 'mailoptin')
                         ],
                         'priority'    => 15,
                     )
@@ -1266,6 +1267,7 @@ class CustomizerControls
                         'section'     => $this->customizerClassInstance->page_filter_display_rule_section_id,
                         'settings'    => $this->option_prefix . '[post_categories_load]',
                         'description' => __('Display the optin on posts that are in any of the selected categories.', 'mailoptin'),
+                        'search_type' => 'post_categories',
                         'choices'     => ControlsHelpers::get_categories(),
                         'priority'    => 40
                     )
@@ -1279,6 +1281,7 @@ class CustomizerControls
                         'section'     => $this->customizerClassInstance->page_filter_display_rule_section_id,
                         'settings'    => $this->option_prefix . '[post_tags_load]',
                         'description' => __('Display the optin on posts that are in any of the selected tags.', 'mailoptin'),
+                        'search_type' => 'post_tags',
                         'choices'     => ControlsHelpers::get_tags(),
                         'priority'    => 45
                     )
@@ -1319,6 +1322,7 @@ class CustomizerControls
                         'section'     => $this->customizerClassInstance->page_filter_display_rule_section_id,
                         'settings'    => $this->option_prefix . '[post_categories_hide]',
                         'description' => __('Hide the optin on posts that are in any of the selected categories.', 'mailoptin'),
+                        'search_type' => 'post_categories',
                         'choices'     => ControlsHelpers::get_categories(),
                         'priority'    => 65
                     )

@@ -19,27 +19,27 @@ if( !is_admin() ) {
 	return;
 }
 
-if( defined('FACTORY_BOOTSTRAP_436_LOADED') ) {
+if( defined('FACTORY_BOOTSTRAP_439_LOADED') ) {
 	return;
 }
 
-define('FACTORY_BOOTSTRAP_436_VERSION', '4.3.6');
-define('FACTORY_BOOTSTRAP_436_LOADED', true);
+define('FACTORY_BOOTSTRAP_439_VERSION', '4.3.9');
+define('FACTORY_BOOTSTRAP_439_LOADED', true);
 
 if( !defined('FACTORY_FLAT_ADMIN') ) {
 	define('FACTORY_FLAT_ADMIN', true);
 }
 
-define('FACTORY_BOOTSTRAP_436_DIR', dirname(__FILE__));
-define('FACTORY_BOOTSTRAP_436_URL', plugins_url(null, __FILE__));
+define('FACTORY_BOOTSTRAP_439_DIR', dirname(__FILE__));
+define('FACTORY_BOOTSTRAP_439_URL', plugins_url(null, __FILE__));
 
-require_once(FACTORY_BOOTSTRAP_436_DIR . '/includes/functions.php');
+require_once(FACTORY_BOOTSTRAP_439_DIR . '/includes/functions.php');
 
 /**
- * @param Wbcr_Factory436_Plugin $plugin
+ * @param Wbcr_Factory439_Plugin $plugin
  */
-add_action('wbcr_factory_bootstrap_436_plugin_created', function ($plugin) {
-	$manager = new Wbcr_FactoryBootstrap436_Manager($plugin);
+add_action('wbcr_factory_bootstrap_439_plugin_created', function ($plugin) {
+	$manager = new Wbcr_FactoryBootstrap439_Manager($plugin);
 	$plugin->setBootstap($manager);
 });
 

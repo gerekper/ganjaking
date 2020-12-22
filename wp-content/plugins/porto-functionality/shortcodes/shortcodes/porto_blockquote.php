@@ -1,16 +1,7 @@
 <?php
 
 // Porto Blockquote
-add_shortcode( 'porto_blockquote', 'porto_shortcode_blockquote' );
 add_action( 'vc_after_init', 'porto_load_blockquote_shortcode' );
-
-function porto_shortcode_blockquote( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_blockquote' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_blockquote_shortcode() {
 	$animation_type     = porto_vc_animation_type();

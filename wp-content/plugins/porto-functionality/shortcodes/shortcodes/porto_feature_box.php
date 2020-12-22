@@ -1,16 +1,7 @@
 <?php
 
 // Porto Feature Box
-add_shortcode( 'porto_feature_box', 'porto_shortcode_feature_box' );
 add_action( 'vc_after_init', 'porto_load_feature_box_shortcode' );
-
-function porto_shortcode_feature_box( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_feature_box' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_feature_box_shortcode() {
 	$animation_type     = porto_vc_animation_type();

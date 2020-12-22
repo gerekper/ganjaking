@@ -6,8 +6,10 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\AutomaticEmails\WooCommerce\WooCommerce;
+use MailPoet\DI\ContainerWrapper;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Models\Subscriber;
+use MailPoet\Newsletter\AutomaticEmailsRepository;
 use MailPoet\Newsletter\Scheduler\AutomaticEmailScheduler;
 use MailPoet\WooCommerce\Helper as WCHelper;
 use MailPoet\WP\Functions as WPFunctions;
@@ -24,6 +26,9 @@ class PurchasedInCategory {
   /** @var LoggerFactory */
   private $loggerFactory;
 
+  /** @var AutomaticEmailsRepository */
+  private $repository;
+
   public function __construct(WCHelper $woocommerceHelper = null) {
     if ($woocommerceHelper === null) {
       $woocommerceHelper = new WCHelper();
@@ -31,21 +36,20 @@ class PurchasedInCategory {
     $this->woocommerceHelper = $woocommerceHelper;
     $this->scheduler = new AutomaticEmailScheduler();
     $this->loggerFactory = LoggerFactory::getInstance();
+    $this->repository = ContainerWrapper::getInstance()->get(AutomaticEmailsRepository::class);
   }
 
   public function getEventDetails() {
     return [
       'slug' => self::SLUG,
       'title' => _x('Purchased In This Category', 'This is the name of a type for automatic email for ecommerce. Those emails are sent automatically every time a customer buys for the first time a product in a given category', 'mailpoet'),
-      'description' => __('Let MailPoet send an email to customers who purchase a product from a specific category.', 'mailpoet'),
+      'description' => __('Let MailPoet send an email to customers who purchase a product for the first time in a specific category.', 'mailpoet'),
       'listingScheduleDisplayText' => __('Email sent when a customer buys a product in category: %s', 'mailpoet'),
       'listingScheduleDisplayTextPlural' => __('Email sent when a customer buys a product in categories: %s', 'mailpoet'),
       'options' => [
         'multiple' => true,
-        'type' => 'remote',
-        'remoteQueryMinimumInputLength' => 3,
-        'remoteQueryFilter' => 'woocommerce_product_purchased_get_categories',
-        'placeholder' => _x('Start typing to search for categories…', 'Search input for product category (ecommerce)', 'mailpoet'),
+        'endpoint' => 'product_categories',
+        'placeholder' => _x('Search category', 'Search input for product category (ecommerce)', 'mailpoet'),
       ],
     ];
   }
@@ -119,7 +123,12 @@ class PurchasedInCategory {
 
     $schedulingCondition = function($automaticEmail) use ($orderedProductCategories, $subscriber) {
       $meta = $automaticEmail->getMeta();
-      if (empty($meta['option']) || $automaticEmail->wasScheduledForSubscriber($subscriber->id)) return false;
+
+      if (empty($meta['option'])) return false;
+      if ($this->repository->wasScheduledForSubscriber($automaticEmail->id, $subscriber->id)) {
+        $sentAllProducts = $this->repository->alreadySentAllProducts($automaticEmail->id, $subscriber->id, 'orderedProductCategories', $orderedProductCategories);
+        if ($sentAllProducts) return false;
+      }
 
       $metaCategories = array_column($meta['option'], 'id');
       $matchedCategories = array_intersect($metaCategories, $orderedProductCategories);
@@ -134,6 +143,12 @@ class PurchasedInCategory {
         'subscriber_id' => $subscriber->id,
       ]
     );
-    $this->scheduler->scheduleAutomaticEmail(WooCommerce::SLUG, self::SLUG, $schedulingCondition, $subscriber->id);
+    $this->scheduler->scheduleAutomaticEmail(
+      WooCommerce::SLUG,
+      self::SLUG,
+      $schedulingCondition,
+      $subscriber->id,
+      ['orderedProductCategories' => $orderedProductCategories]
+    );
   }
 }

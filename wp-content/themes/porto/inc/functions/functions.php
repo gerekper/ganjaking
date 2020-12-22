@@ -15,7 +15,7 @@ if ( class_exists( 'Woocommerce' ) ) {
 		add_action(
 			'init',
 			function() {
-			require_once( PORTO_FUNCTIONS . '/woocommerce.php' );
+				require_once( PORTO_FUNCTIONS . '/woocommerce.php' );
 			},
 			8
 		);

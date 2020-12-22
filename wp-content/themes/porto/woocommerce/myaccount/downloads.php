@@ -13,7 +13,7 @@ $downloads     = WC()->customer->get_downloadable_products();
 $has_downloads = (bool) $downloads;
 
 do_action( 'woocommerce_before_account_downloads', $has_downloads ); ?>
-
+<h3 class="account-sub-title mb-3 mt-2"><i class="Simple-Line-Icons-cloud-download align-middle m-r-sm"></i><?php esc_html_e( 'Downloads', 'woocommerce' ); ?></h3>
 <?php if ( $has_downloads ) : ?>
 
 	<?php do_action( 'woocommerce_before_available_downloads' ); ?>
@@ -50,7 +50,7 @@ do_action( 'woocommerce_before_account_downloads', $has_downloads ); ?>
 										break;
 									case 'download-file':
 										?>
-											<a href="<?php echo esc_url( $download['download_url'] ); ?>" class="woocommerce-MyAccount-downloads-file">
+											<a href="<?php echo esc_url( $download['download_url'] ); ?>" class="woocommerce-MyAccount-downloads-file button alt wc-action-btn px-4">
 												<?php echo esc_html( $download['file']['name'] ); ?>
 											</a>
 											<?php
@@ -76,9 +76,10 @@ do_action( 'woocommerce_before_account_downloads', $has_downloads ); ?>
 													'name' => __( 'Download', 'porto' ),
 												),
 											);
-											if ( $actions = apply_filters( 'woocommerce_account_download_actions', $actions, $download ) ) {
+											$actions = apply_filters( 'woocommerce_account_download_actions', $actions, $download );
+											if ( $actions ) {
 												foreach ( $actions as $key => $action ) {
-													echo '<a href="' . esc_url( $action['url'] ) . '" class="button woocommerce-Button ' . sanitize_html_class( $key ) . '">' . esc_html( $action['name'] ) . '</a>';
+													echo '<a href="' . esc_url( $action['url'] ) . '" class="button woocommerce-Button wc-action-btn px-4 ' . sanitize_html_class( $key ) . '">' . esc_html( $action['name'] ) . '</a>';
 												}
 											}
 											?>
@@ -100,7 +101,7 @@ do_action( 'woocommerce_before_account_downloads', $has_downloads ); ?>
 <?php else : ?>
 	<div class="woocommerce-Message woocommerce-Message--info">
 		<p><?php esc_html_e( 'No downloads available yet.', 'woocommerce' ); ?></p>
-		<a class="woocommerce-Button button btn-lg m-b" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
+		<a class="woocommerce-Button button wc-action-btn mt-3 px-4" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
 			<?php esc_html_e( 'Go shop', 'porto' ); ?>
 		</a>
 	</div>

@@ -1,17 +1,7 @@
 <?php
 // Porto 360 Degree Image Viewer
 
-add_shortcode( 'porto_360degree_image_viewer', 'porto_shortcode_360degree_image_viewer' );
 add_action( 'vc_after_init', 'porto_load_360degree_image_viewer_shortcode' );
-
-function porto_shortcode_360degree_image_viewer( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_360degree_image_viewer' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_360degree_image_viewer_shortcode() {
 

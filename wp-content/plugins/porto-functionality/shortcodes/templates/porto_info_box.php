@@ -1,4 +1,7 @@
 <?php
+if ( empty( $atts['icon_color_bg'] ) && ! isset( $atts['title_google_font_style_font_size_tablet'] ) ) {
+	$atts['icon_color_bg'] = 'transparent';
+}
 
 $icon_type  = $icon_img = $img_width = $icon = $icon_color = $icon_color_bg = $icon_size = $icon_style = $icon_border_style = $icon_border_radius = $icon_color_border = $icon_border_size = $icon_border_spacing = $el_class = $animation_type = $title = $link = $hover_effect = $pos = $read_more = $read_text = $pos = $css_class = $desc_font_line_height = $title_font_line_height = $heading_tag = '';
 $title_font = $title_font_style = $title_font_size = $title_font_color = $desc_font = $desc_font_style = $desc_font_size = $desc_font_color = $target = $link_title  = $rel = '';
@@ -55,6 +58,10 @@ extract(
 			'css_info_box'                 => '',
 			'animation_type'               => '',
 			'className'                    => '',
+			'icon_margin_bottom'           => '',
+			'icon_margin_right'            => '',
+			'title_margin_bottom'          => '',
+			'sub_title_margin_bottom'      => '',
 		),
 		$atts,
 		'porto_info_box'
@@ -89,7 +96,7 @@ if ( defined( 'VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG' ) ) {
 	$inf_design_style = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_info_box, ' ' ), 'porto_info_box', $atts );
 }
 
-$box_icon = do_shortcode( '[porto_icon icon_type="' . $icon_type . '" icon="' . trim( $icon ) . '" icon_img="' . $icon_img . '" img_width="' . $img_width . '" icon_size="' . $icon_size . '" icon_color="' . $icon_color . '" icon_style="' . $icon_style . '" icon_color_bg="' . $icon_color_bg . '" icon_color_border="' . $icon_color_border . '"  icon_border_style="' . $icon_border_style . '" icon_border_size="' . $icon_border_size . '" icon_border_radius="' . $icon_border_radius . '" icon_border_spacing="' . $icon_border_spacing . '" animation_type="' . $animation_type . '"]' );
+$box_icon = do_shortcode( '[porto_icon icon_type="' . $icon_type . '" icon="' . trim( $icon ) . '" icon_img="' . $icon_img . '" img_width="' . $img_width . '" icon_size="' . $icon_size . '" icon_color="' . $icon_color . '" icon_style="' . $icon_style . '" icon_color_bg="' . $icon_color_bg . '" icon_color_border="' . $icon_color_border . '"  icon_border_style="' . $icon_border_style . '" icon_border_size="' . $icon_border_size . '" icon_border_radius="' . $icon_border_radius . '" icon_border_spacing="' . $icon_border_spacing . '" animation_type="' . $animation_type . '" icon_margin_bottom="' . $icon_margin_bottom . '" icon_margin_right="' . $icon_margin_right . '"]' );
 $classes  = 'porto-sicon-box';
 if ( $inf_design_style ) {
 	$classes .= ' ' . $inf_design_style;
@@ -163,6 +170,13 @@ if ( $title_font_letter_spacing || '0' == $title_font_letter_spacing ) {
 }
 if ( $title_font_color ) {
 	$title_style .= 'color:' . esc_attr( $title_font_color ) . ';';
+}
+if ( $title_margin_bottom && is_string( $title_margin_bottom ) ) {
+	$unit = trim( preg_replace( '/[0-9.]/', '', $title_margin_bottom ) );
+	if ( ! $unit ) {
+		$title_margin_bottom .= 'px';
+	}
+	$title_style .= 'margin-bottom:' . esc_attr( $title_margin_bottom ) . ';';
 }
 
 /* sub title */
@@ -248,6 +262,15 @@ if ( ! isset( $desc_attrs_escaped ) ) {
 	$desc_attrs_escaped = '';
 }
 
+$header_style = '';
+if ( $sub_title_margin_bottom ) {
+	$unit = trim( preg_replace( '/[0-9.]/', '', $sub_title_margin_bottom ) );
+	if ( ! $unit ) {
+		$sub_title_margin_bottom .= 'px';
+	}
+	$header_style .= 'margin-bottom:' . esc_attr( $sub_title_margin_bottom ) . ';';
+}
+
 $html .= '<div class="' . esc_attr( $classes ) . '">';
 
 if ( 'heading-right' == $pos || 'right' == $pos ) {
@@ -255,7 +278,7 @@ if ( 'heading-right' == $pos || 'right' == $pos ) {
 		$html .= '<div class="porto-sicon-body" >';
 	}
 	if ( $title || $subtitle ) {
-		$html       .= '<div class="porto-sicon-header" >';
+		$html       .= '<div class="porto-sicon-header"' . ( $header_style ? ' style="' . esc_attr( $header_style ) . '"' : '' ) . '>';
 		$link_prefix = '';
 		$link_sufix  = '';
 		if ( $link ) {
@@ -305,7 +328,7 @@ if ( 'heading-right' == $pos || 'right' == $pos ) {
 		$html .= '<div class="porto-sicon-body">';
 	}
 	if ( $title || $subtitle ) {
-		$html       .= '<div class="porto-sicon-header" >';
+		$html       .= '<div class="porto-sicon-header"' . ( $header_style ? ' style="' . esc_attr( $header_style ) . '"' : '' ) . '>';
 		$link_prefix = '';
 		$link_sufix  = '';
 		if ( $link ) {

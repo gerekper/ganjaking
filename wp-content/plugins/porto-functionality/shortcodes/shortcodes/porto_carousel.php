@@ -1,31 +1,7 @@
 <?php
 
 // Porto Carousel
-if ( function_exists( 'register_block_type' ) ) {
-	register_block_type(
-		'porto/porto-carousel',
-		array(
-			'editor_script'   => 'porto_blocks',
-			'render_callback' => 'porto_shortcode_carousel',
-		)
-	);
-}
-add_shortcode( 'porto_carousel', 'porto_shortcode_carousel' );
 add_action( 'vc_after_init', 'porto_load_carousel_shortcode' );
-
-function porto_shortcode_carousel( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_carousel' ) ) {
-		if ( ! empty( $atts['align'] ) ) {
-			$atts['el_class'] = empty( $atts['el_class'] ) ? 'align' . $atts['align'] : ' align' . $atts['align'];
-		}
-		if ( ! empty( $atts['nav_pos2'] ) && empty( $atts['nav_pos'] ) ) {
-			$atts['nav_pos'] = $atts['nav_pos2'];
-		}
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_carousel_shortcode() {
 	$animation_type     = porto_vc_animation_type();

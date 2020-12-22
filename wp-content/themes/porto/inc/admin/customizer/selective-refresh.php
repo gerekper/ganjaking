@@ -22,7 +22,6 @@ function porto_customizer_refresh_partials( WP_Customize_Manager $wp_customize )
 	}
 
 	/* header */
-
 	$settings = array( 'porto_settings[logo]', 'porto_settings[logo-retina]', 'porto_settings[sticky-logo]', 'porto_settings[sticky-logo-retina]', 'porto_settings[logo-overlay]', 'porto_settings[show-header-top]', 'porto_settings[change-header-logo]', 'porto_settings[minicart-type]', 'porto_settings[welcome-msg]', 'porto_settings[header-contact-info]', 'porto_settings[header-copyright]', 'porto_settings[show-header-tooltip]', 'porto_settings[header-tooltip]', 'porto_settings[logo-retina-width]', 'porto_settings[logo-retina-height]', 'porto_settings[header-type-select]', 'porto_settings[header-type]', 'porto_settings[wpml-switcher]', 'porto_settings[wpml-switcher-pos]', 'porto_settings[wpml-switcher-html]', 'porto_settings[wcml-switcher]', 'porto_settings[wcml-switcher-pos]', 'porto_settings[wcml-switcher-html]', 'porto_settings[show-header-socials]', 'porto_settings[show-searchform]', 'porto_settings[menu-login-pos]', 'porto_settings[menu-enable-register]', 'porto_settings[menu-show-login-icon]', 'porto_settings[menu-block]', 'porto_settings[show-sticky-contact-info]' );
 	$wp_customize->selective_refresh->add_partial(
 		'header',
@@ -314,9 +313,20 @@ function porto_customizer_refresh_partials( WP_Customize_Manager $wp_customize )
 			array(
 				'selector'            => '#mini-cart',
 				'container_inclusive' => true,
-				'settings'            => array( 'porto_settings[minicart-icon]' ),
+				'settings'            => array( 'porto_settings[minicart-icon]', 'porto_settings[minicart-content]' ),
 				'render_callback'     => function() {
 					return porto_minicart();
+				},
+			)
+		);
+		$wp_customize->selective_refresh->add_partial(
+			'sticky-nav-bar',
+			array(
+				'selector'            => '.porto-sticky-navbar',
+				'container_inclusive' => true,
+				'settings'            => array( 'porto_settings[show-icon-menus-mobile]' ),
+				'render_callback'     => function() {
+					get_template_part( 'footer/sticky-bottom' );
 				},
 			)
 		);

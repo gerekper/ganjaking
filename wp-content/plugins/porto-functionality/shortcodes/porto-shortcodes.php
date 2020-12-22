@@ -87,6 +87,25 @@ class PortoShortcodesClass {
 
 	public static $woo_shortcodes = array( 'porto_recent_products', 'porto_featured_products', 'porto_sale_products', 'porto_best_selling_products', 'porto_top_rated_products', 'porto_products', 'porto_product_category', 'porto_product_attribute', 'porto_product', 'porto_product_categories', 'porto_one_page_category_products', 'porto_product_attribute_filter', 'porto_products_filter', 'porto_widget_woo_products', 'porto_widget_woo_top_rated_products', 'porto_widget_woo_recently_viewed', 'porto_widget_woo_recent_reviews', 'porto_widget_woo_product_tags' );
 
+	public static $gutenberg_blocks = array(
+		'porto_blog',
+		'porto_button',
+		'porto_carousel',
+		'porto_google_map',
+		'porto_grid_container',
+		'porto_grid_item',
+		'porto_heading',
+		'porto_icons',
+		'porto_info_box',
+		'porto_interactive_banner',
+		'porto_interactive_banner_layer',
+		'porto_recent_posts',
+		//'porto_section',
+		'porto_single_icon',
+		'porto_stat_counter',
+		'porto_ultimate_heading',
+	);
+
 	public function __construct() {
 
 		add_action( 'init', array( $this, 'init_shortcodes' ) );
@@ -105,7 +124,7 @@ class PortoShortcodesClass {
 		add_filter( 'the_content', array( $this, 'format_shortcodes' ) );
 		add_filter( 'widget_text', array( $this, 'format_shortcodes' ) );
 
-		add_action( 'init', array( $this, 'init_vc_editor_iframe' ) );
+		add_action( 'init', array( $this, 'init_vc_editor_iframe' ), 11 );
 		add_action( 'admin_init', array( $this, 'init_vc_editor' ) );
 	}
 
@@ -243,6 +262,13 @@ class PortoShortcodesClass {
 
 	// Add buttons to tinyMCE
 	public function init_shortcodes() {
+		if ( function_exists( 'get_plugin_data' ) ) {
+			$plugin = get_plugin_data( dirname( dirname( __FILE__ ) ) . '/porto-functionality.php' );
+			define( 'PORTO_SHORTCODES_VERSION', $plugin['Version'] );
+		} else {
+			define( 'PORTO_SHORTCODES_VERSION', '' );
+		}
+
 		global $porto_settings;
 		if ( class_exists( 'Woocommerce' ) && isset( $porto_settings['product-single-content-layout'] ) && 'builder' == $porto_settings['product-single-content-layout'] ) {
 			require_once PORTO_SHORTCODES_WOO_PATH . 'custom-product.php';
@@ -277,16 +303,31 @@ class PortoShortcodesClass {
 	// Add shortcodes
 	public function add_shortcodes() {
 
-		if ( function_exists( 'get_plugin_data' ) ) {
-			$plugin = get_plugin_data( dirname( dirname( __FILE__ ) ) . '/porto-functionality.php' );
-			define( 'PORTO_SHORTCODES_VERSION', $plugin['Version'] );
-		} else {
-			define( 'PORTO_SHORTCODES_VERSION', '' );
-		}
-
 		require_once( PORTO_SHORTCODES_LIB . 'functions.php' );
+		$is_wpb       = defined( 'WPB_VC_VERSION' );
+		$is_gutenberg = function_exists( 'register_block_type' );
 		foreach ( $this::$shortcodes as $shortcode ) {
-			require_once( PORTO_SHORTCODES_PATH . $shortcode . '.php' );
+			$callback = function( $atts, $content = null ) use ( $shortcode ) {
+				ob_start();
+				$template = porto_shortcode_template( $shortcode );
+				if ( $template ) {
+					include $template;
+				}
+				return ob_get_clean();
+			};
+			add_shortcode( $shortcode, $callback );
+			if ( ( $is_wpb && ! in_array( $shortcode, array( 'porto_button', 'porto_heading' ) ) ) || in_array( $shortcode, array( 'porto_google_map', 'porto_page_header' ) ) || ( $is_gutenberg && 'porto_section' == $shortcode ) ) {
+				include_once( PORTO_SHORTCODES_PATH . $shortcode . '.php' );
+			}
+			if ( in_array( $shortcode, $this::$gutenberg_blocks ) && $is_gutenberg ) {
+				register_block_type(
+					'porto/' . str_replace( '_', '-', $shortcode ),
+					array(
+						'editor_script'   => 'porto_blocks',
+						'render_callback' => $callback,
+					)
+				);
+			}
 		}
 		if ( class_exists( 'Woocommerce' ) ) {
 			foreach ( $this::$woo_shortcodes as $woo_shortcode ) {

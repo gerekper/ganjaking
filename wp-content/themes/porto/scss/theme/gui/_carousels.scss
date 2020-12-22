@@ -90,6 +90,16 @@
             #{$right}: -10px;
             transform: translate(10px, -50%);
         }
+        @media #{$screen-normal} {
+            .owl-prev {
+                #{$left}: 0;
+                transform: translate(10px, -50%);
+            }
+            .owl-next {
+                #{$right}: 0;
+                transform: translate(-10px, -50%);
+            }
+        }
         .owl-prev, .owl-next {
             transition: opacity .2s, transform .4s;
             opacity: 0;
@@ -275,10 +285,10 @@
             }
             @media #{$screen-normal} {
                 .owl-prev {
-                    #{$left}: -15px;
+                    #{$left}: -10px;
                 }
                 .owl-next {
-                    #{$right}: -15px;
+                    #{$right}: -10px;
                 }
             }
         }

@@ -6,10 +6,12 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\AutomaticEmails\WooCommerce\WooCommerce;
+use MailPoet\DI\ContainerWrapper;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Models\Newsletter;
 use MailPoet\Models\SendingQueue;
 use MailPoet\Models\Subscriber;
+use MailPoet\Newsletter\AutomaticEmailsRepository;
 use MailPoet\Newsletter\Scheduler\AutomaticEmailScheduler;
 use MailPoet\WooCommerce\Helper as WCHelper;
 use MailPoet\WP\Functions as WPFunctions;
@@ -29,6 +31,9 @@ class FirstPurchase {
   /** @var LoggerFactory */
   private $loggerFactory;
 
+  /** @var AutomaticEmailsRepository */
+  private $repository;
+
   public function __construct(WCHelper $helper = null) {
     if ($helper === null) {
       $helper = new WCHelper();
@@ -36,6 +41,7 @@ class FirstPurchase {
     $this->helper = $helper;
     $this->scheduler = new AutomaticEmailScheduler();
     $this->loggerFactory = LoggerFactory::getInstance();
+    $this->repository = ContainerWrapper::getInstance()->get(AutomaticEmailsRepository::class);
   }
 
   public function init() {
@@ -168,7 +174,7 @@ class FirstPurchase {
     }
 
     $checkEmailWasNotScheduled = function (Newsletter $newsletter) use ($subscriber) {
-      return !$newsletter->wasScheduledForSubscriber($subscriber->id);
+      return !$this->repository->wasScheduledForSubscriber($newsletter->id, $subscriber->id);
     };
 
     $this->loggerFactory->getLogger(self::SLUG)->addInfo(

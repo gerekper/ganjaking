@@ -2,12 +2,13 @@
 .woocommerce-account {
     .woocommerce {
         @include clearfix();
+        margin: 0 -10px;
     }
 
     .woocommerce-MyAccount-navigation {
         float: $left;
-        width: 23%;
-        padding: 0 0 30px;
+        width: 25%;
+        padding: 0 10px 30px;
         @media #{$screen-normal} {
             float: none;
             width: 100%;
@@ -23,10 +24,12 @@
                 position: relative;
                 a {
                     @include transition (background 0.1s);
-                    padding: side-values(8px 0 8px 20px);
+                    padding: side-values(8px 0 8px 0);
                     display: block;
-                    color: #666;
-                    font-size: 0.9em;
+                    color: #777;
+                    font-size: 1em;
+                    font-weight: 500;
+                    letter-spacing: -.025em;
                     text-decoration: none;
                     &:before {
                         content: "";
@@ -63,7 +66,7 @@
     .woocommerce-MyAccount-content {
         float: $right;
         width: 75%;
-        padding: 0;
+        padding: 0 10px;
         @media #{$screen-normal} {
             float: none;
             width: 100%;
@@ -99,6 +102,20 @@
             }
         }
     }
+    
+    .account-sub-title i,
+    .featured-box i {
+        color: #d3d3d4; 
+    }
+    .featured-box {
+        .icon-featured {
+            font-size: 60px; 
+        }
+        h4 { 
+            font-size: 1rem;
+            letter-spacing: -.01em;
+        }
+    } 
 }
 
 .address {
@@ -116,6 +133,7 @@
 .woocommerce-password-strength {
     text-align: center;
     font-weight: 600;
+    margin-top: 10px;
     padding: 3px 0px 3px 0px;
     color: #333;
     line-height: 1.2;
@@ -150,24 +168,5 @@
     mark {
         background: transparent;
         padding: 0;
-    }
-}
-
-.featured-box.porto-user-box {
-    border: 1px solid #ececec;
-    background: #fff;
-    border-top: 4px solid #08c;
-    box-shadow: 0 2px 3px rgba(0,0,0,.08);
-
-    .box-content {
-        border-top: none;
-        padding: 35px 25px;
-        a { line-height: 33px; }
-
-        @media (min-width: 768px) {
-            .content {
-                min-height: 260px;
-            }
-        }
     }
 }

@@ -1,16 +1,7 @@
 <?php
 
 // Porto Links Item
-add_shortcode( 'porto_links_item', 'porto_shortcode_links_item' );
 add_action( 'vc_after_init', 'porto_load_links_item_shortcode' );
-
-function porto_shortcode_links_item( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_links_item' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_links_item_shortcode() {
 	$custom_class = porto_vc_custom_class();

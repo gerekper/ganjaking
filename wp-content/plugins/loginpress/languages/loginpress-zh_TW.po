@@ -1,0 +1,1474 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Project-Id-Version: LoginPress - Customizing the WordPress Login\n"
+"POT-Creation-Date: 2019-04-25 12:53+0500\n"
+"PO-Revision-Date: 2019-12-28 16:54+0500\n"
+"Last-Translator: stormcorn <stormcorn@gmail.com>\n"
+"Language-Team: Chinese (Taiwan)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loginpress.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: zh_TW\n"
+"X-Loco-Version: 2.3.1; wp-5.3.2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: classes/class-loginpress-addons.php:120
+#: classes/class-loginpress-addons.php:205
+#: classes/class-loginpress-addons.php:244
+#, php-format
+msgid "%1$s Already Installed %2$s"
+msgstr "%1$s 已安裝 %2$s"
+
+#: classes/class-loginpress-addons.php:124
+#: classes/class-loginpress-addons.php:210
+#, php-format
+msgid "%1$s Activate Plugin %2$s"
+msgstr "%1$s 啟動外掛程式 %2$s"
+
+#: classes/class-loginpress-addons.php:140
+#: classes/class-loginpress-addons.php:225
+#: classes/class-loginpress-addons.php:319
+msgid "UPGRADE NOW"
+msgstr "現在更新"
+
+#: classes/class-loginpress-addons.php:215
+#: classes/class-loginpress-addons.php:255
+#, php-format
+msgid "%1$s Install %2$s"
+msgstr "%1$s 安裝 %2$s"
+
+#: classes/class-loginpress-addons.php:250
+#, php-format
+msgid "%3$s %1$s Activate Plugin %2$s"
+msgstr "%3$s %1$s 啟動外掛程式 %2$s"
+
+#: classes/class-loginpress-addons.php:337
+msgid "You have a lifetime license, it will never expire."
+msgstr "您有終身許可證，它永遠不會過期。"
+
+#: classes/class-loginpress-addons.php:341
+#, php-format
+msgid "Your (%2$s) license key is valid until %s."
+msgstr "你的 (%2$s) 許可證密鑰有效期至 %s。"
+
+#: classes/class-loginpress-addons.php:355
+msgid "You need to activate your license to download the following add-ons."
+msgstr "您需要啟動許可證才能下載以下載入項。"
+
+#: classes/class-loginpress-addons.php:368
+msgid "You need to upgrade to LoginPress Pro to access these add-ons."
+msgstr "您需要升級到 LoginPress Pro 才能訪問這些載入項。"
+
+#: classes/class-loginpress-addons.php:586
+msgid "Extend the functionality of LoginPress with these awesome Add-ons"
+msgstr "通過這些令人敬畏的附加元件擴展 LoginPress 的功能"
+
+#: classes/class-loginpress-custom-password.php:45
+#: include/customizer-strings.php:86 include/template-loginpress.php:518
+msgid "Password"
+msgstr "密碼"
+
+#: classes/class-loginpress-custom-password.php:49
+msgid "Confirm Password"
+msgstr "確認密碼"
+
+#: classes/class-loginpress-custom-password.php:70
+msgid "<strong>ERROR</strong>: Please enter your password twice."
+msgstr "<strong>錯誤</strong>：請輸入兩次密碼。"
+
+#: classes/class-loginpress-custom-password.php:74
+msgid ""
+"<strong>ERROR</strong>: Please enter the same password in the end password "
+"fields."
+msgstr "<strong>錯誤：</strong>請在最終密碼欄位中輸入相同的密碼。"
+
+#: classes/class-loginpress-filter-plugin.php:42
+#, php-format
+msgid "Buy %s now"
+msgstr ""
+
+#: classes/class-loginpress-filter-plugin.php:43
+msgid "Buy Now"
+msgstr "立即購買"
+
+#: classes/class-loginpress-filter-plugin.php:186
+msgid "Analytify"
+msgstr "Analytify"
+
+#: classes/class-loginpress-filter-plugin.php:195
+msgid ""
+"Analytify is reshaping Google Analytics in WordPress. See Social Media, "
+"Keywords, Realtime, Country, Mobile and Browsers Statistics under pages and "
+"posts."
+msgstr ""
+"分析正在重塑谷歌分析在WordPress。請參閱頁面和帖子下的社交媒體、關鍵字、即時、"
+"國家/地區、移動和瀏覽器統計資訊。"
+
+#: classes/class-loginpress-filter-plugin.php:198
+msgid "Related Posts"
+msgstr "相關文章"
+
+#: classes/class-loginpress-filter-plugin.php:207
+msgid ""
+"Related Post Thumbnails plugin is for those who want the showcase of their "
+"related posts after the post detail. The plugin allows customizing thumbnail "
+"sizes, display settings, and type of relations. The plugin is using original "
+"WordPress taxonomy. It returns generated HTML, that is essential for page "
+"load speed of blogs that use many Javascript widgets."
+msgstr ""
+"相關後縮略圖外掛程式是為那些誰想要展示他們的相關帖子後的帖子細節。該外掛程式"
+"允許自訂縮略圖大小、顯示設定和關聯類型。該外掛程式使用原始 WordPress 分類。它"
+"返回生成的 HTML，這對於使用許多 JAVAscript 小部件的博客的頁面載入速度至關重"
+"要。"
+
+#: classes/class-loginpress-filter-plugin.php:210
+msgid "LoginPress Pro"
+msgstr "LoginPress Pro"
+
+#: classes/class-loginpress-filter-plugin.php:220
+msgid ""
+"LoginPress Plugin by LoginPress holds a lot of customization fields to "
+"change the layout of the login page of WordPress. You can modify the look "
+"and feel of login page completely even the login error messages, forgot "
+"error messages, registration error messages, forget password hint message "
+"and many more."
+msgstr ""
+"LoginPress 外掛程式包含大量自訂欄位，用於更改 WordPress 登錄頁面的佈局。您可"
+"以完全修改登錄頁面的外觀，甚至登錄錯誤訊息、忘記錯誤訊息、註冊錯誤訊息、忘記"
+"密碼提示消息等。"
+
+#: classes/class-loginpress-login-order.php:69 custom.php:1643
+#: include/customizer-strings.php:141
+#, php-format
+msgid "%1$sError:%2$s The username field is empty."
+msgstr "%1$sError：%2$s 使用者名欄位為空。"
+
+#: classes/class-loginpress-login-order.php:71 custom.php:1645
+#: include/customizer-strings.php:142
+#, php-format
+msgid "%1$sError:%2$s The password field is empty."
+msgstr "%1$sError：%2$s 密碼欄位為空。"
+
+#: classes/class-loginpress-login-order.php:92
+#: include/customizer-strings.php:148
+#, php-format
+msgid "%1$sError:%2$s Invalid Email Address"
+msgstr "%1$sError：%2$s 無效電子郵件地址"
+
+#: classes/class-loginpress-login-order.php:114 custom.php:1639
+#: include/customizer-strings.php:140
+#, php-format
+msgid "%1$sError:%2$s Invalid Username."
+msgstr "%1$sError：%2$s 無效使用者名。"
+
+#: classes/class-loginpress-notifications.php:130
+msgid "Leave A Review?"
+msgstr "請留下一個評論"
+
+#: classes/class-loginpress-notifications.php:131
+msgid ""
+"We hope you've enjoyed using LoginPress! Would you consider leaving us a "
+"review on WordPress.org?"
+msgstr "希望您喜歡 LoginPress！ 考慮進行評論嗎？"
+
+#: classes/class-loginpress-notifications.php:133
+msgid "Sure! I'd love to!"
+msgstr "好的！我很樂意"
+
+#: classes/class-loginpress-notifications.php:134
+msgid "I've already left a review"
+msgstr "我已經離開了評論"
+
+#: classes/class-loginpress-notifications.php:135
+msgid "Maybe Later"
+msgstr "晚點再說"
+
+#: classes/class-loginpress-notifications.php:136
+msgid "Never show again"
+msgstr "不再顯示"
+
+#: classes/class-loginpress-notifications.php:161
+msgid "Introducing LoginPress Addons!"
+msgstr "介紹登錄新聞附加元件！"
+
+#: classes/class-loginpress-notifications.php:162
+msgid "Extend LoginPress with these add-ons and supercharge your login pages."
+msgstr "使用這些載入項擴展 LoginPress 並增強登錄頁面。"
+
+#: classes/class-loginpress-notifications.php:166
+msgid "Learn More"
+msgstr "學習更多"
+
+#: classes/class-loginpress-notifications.php:270
+msgid "FLAT 51% OFF"
+msgstr "平 51% 可減"
+
+#: classes/class-loginpress-notifications.php:295
+#, php-format
+msgid ""
+"<strong>Biggest Winter Deal</strong> in the WordPress Universe! Get "
+"<strong>LoginPress Pro and all Premium Add-ons</strong> with <strong>20%% "
+"OFF</strong> [Limited Availability].<a href=\"https://wpbrigade.com/"
+"wordpress/plugins/loginpress-pro/?utm_source=loginpress-"
+"lite&utm_medium=freepluginbanner-button&utm_campaign=early20\" target="
+"\"_blank\" style=\"text-decoration: none;\"><span class=\"dashicons "
+"dashicons-smiley\" style=\"margin-left: 10px;\"></span> Grab The Deal</a>\n"
+"  \t\t\t\t\t<a href=\"%1$s\" style=\"text-decoration: none; margin-left: "
+"10px;\"><span class=\"dashicons dashicons-dismiss\"></span> I'm good with "
+"free version</a>"
+msgstr ""
+
+#: classes/class-loginpress-promo.php:9
+msgid "Google Fonts"
+msgstr "Google字體"
+
+#: classes/class-loginpress-promo.php:26 classes/class-loginpress-promo.php:47
+#: classes/control-presets.php:74
+msgid "Unlock Premium Feature"
+msgstr "解鎖高級功能"
+
+#: classes/class-loginpress-promo.php:31
+msgid "reCAPTCHA"
+msgstr "驗證碼"
+
+#: classes/class-loginpress-settings-api.php:372 custom.php:647
+msgid "Choose File"
+msgstr "選擇檔案"
+
+#: classes/class-loginpress-settings-api.php:639
+msgid "Getting Started Video"
+msgstr "入門影片"
+
+#: classes/class-loginpress-settings-api.php:647
+msgid "Why Go Pro?"
+msgstr "為何選擇 PRO 版本？"
+
+#: classes/class-loginpress-settings-api.php:650
+msgid "Secure login with Google reCaptcha"
+msgstr "使用 Google reCaptcha"
+
+#: classes/class-loginpress-settings-api.php:651
+msgid "20+ Custom Login Themes"
+msgstr "20+ 自訂登入主題"
+
+#: classes/class-loginpress-settings-api.php:652
+msgid "Full customization with Custom CSS & JS"
+msgstr "完全自訂 CSS 和 JS"
+
+#: classes/class-loginpress-settings-api.php:657
+msgid "See What's In The Pro Version"
+msgstr "看看 PRO 版有何功能"
+
+#: classes/class-loginpress-settings-api.php:666
+msgid "Plugin Support"
+msgstr "外掛支持"
+
+#: classes/class-loginpress-settings-api.php:669
+msgid "Got a Question, Idea, Problem or Praise?"
+msgstr "有問題、 想法、 問題、讚美嗎？"
+
+#: classes/class-loginpress-settings-api.php:671
+msgid "Support Request"
+msgstr "支援請求"
+
+#: classes/class-loginpress-setup.php:53
+msgid "Default Settings Restored"
+msgstr "已還原預設設定值"
+
+#: classes/class-loginpress-setup.php:60 custom.php:250 loginpress.php:279
+msgid "LoginPress"
+msgstr "LoginPress"
+
+#: classes/class-loginpress-setup.php:62 classes/class-loginpress-setup.php:79
+msgid "Settings"
+msgstr "設定"
+
+#: classes/class-loginpress-setup.php:64
+msgid "Customizer"
+msgstr "自訂"
+
+#: classes/class-loginpress-setup.php:66
+msgid "Help"
+msgstr "說明"
+
+#: classes/class-loginpress-setup.php:68
+#: include/loginpress-import-export.php:13
+msgid "Import/Export LoginPress Settings"
+msgstr "匯入/匯出 LoginPress 設定"
+
+#: classes/class-loginpress-setup.php:68
+msgid "Import / Export"
+msgstr "導入/導出"
+
+#: classes/class-loginpress-setup.php:70
+msgid "Add-Ons"
+msgstr "附加元件"
+
+#: classes/class-loginpress-setup.php:80
+#, php-format
+msgid "Everything else is customizable through %1$sWordPress Customizer%2$s."
+msgstr "其他一切都可以透過 %1$sWordPress 自訂%2$s 進行自訂。"
+
+#: classes/class-loginpress-setup.php:102
+msgid "Upgrade to Pro for More Features"
+msgstr "升級到專業版以提供更多功能"
+
+#: classes/class-loginpress-setup.php:127
+msgid "Session Expire"
+msgstr "會話過期"
+
+#: classes/class-loginpress-setup.php:128
+msgid "Set the session expiration time in minutes. e.g: 10"
+msgstr "設置會話過期時間（以分鐘）。。例如： 10"
+
+#: classes/class-loginpress-setup.php:129
+msgid "10"
+msgstr "10"
+
+#: classes/class-loginpress-setup.php:152
+msgid "Custom Password Fields"
+msgstr "自訂密碼欄位"
+
+#: classes/class-loginpress-setup.php:153
+msgid "Enable custom password fields on registration form."
+msgstr "在註冊表單上啟用自訂密碼欄位。"
+
+#: classes/class-loginpress-setup.php:158
+msgid "Login Order"
+msgstr "登錄順序"
+
+#: classes/class-loginpress-setup.php:159
+msgid "Enable users to login using their username and/or email address."
+msgstr "允許使用者使用其使用者名和/或電子郵件地址登錄。"
+
+#: classes/class-loginpress-setup.php:176
+msgid "Reset Default Settings"
+msgstr "重置預設配置"
+
+#: classes/class-loginpress-setup.php:177
+msgid "Remove my custom settings."
+msgstr "移除自訂配置."
+
+#: classes/class-loginpress-setup.php:213
+msgid "LoginPress - Rebranding your boring WordPress Login pages"
+msgstr "LoginPress  - 重新設計打造 WordPress 無聊的登入頁面"
+
+#: classes/class-loginpress-setup.php:232
+#, php-format
+msgid "Free support is available on the %1$s plugin support forums%2$s."
+msgstr "%1$s 外掛程式支援論壇%2$s 上提供免費支援。"
+
+#: classes/class-loginpress-setup.php:234
+#, php-format
+msgid ""
+"For premium features, add-ons and priority email support, %1$s upgrade to pro"
+"%2$s."
+msgstr "對於高級功能、附加元件和優先電子郵件支援，%1$s 升級到 pro%2$s。"
+
+#: classes/class-loginpress-setup.php:240
+msgid "Download Log File"
+msgstr "下載日誌檔"
+
+#: classes/class-loginpress-setup.php:296
+msgid "Lost Password URL"
+msgstr "忘記密碼"
+
+#: classes/class-loginpress-setup.php:297
+msgid ""
+"Use WordPress default lost password URL instead of WooCommerce custom lost "
+"password URL."
+msgstr ""
+"使用 WordPress 預設丟失的密碼 URL，而不是 WooCommerce 自訂丟失的密碼 URL。"
+
+#: classes/class-loginpress-setup.php:314
+msgid "and LoginPress page"
+msgstr "和LoginPress頁面"
+
+#: classes/class-loginpress-setup.php:319
+msgid "Remove Settings on Uninstall"
+msgstr "卸載時刪除設置"
+
+#: classes/class-loginpress-setup.php:320
+#, php-format
+msgid "This tool will remove all LoginPress settings %1$s upon uninstall."
+msgstr "此工具將在卸載時刪除所有 LoginPress 設置 %1$s。"
+
+#: classes/control-presets.php:78
+msgid "Contact us for Custom Design"
+msgstr "連絡我們自訂設計"
+
+#: classes/controls/group.php:53
+msgid "Info:"
+msgstr "信息:"
+
+#: custom.php:251
+msgid "Customize Your WordPress Login Page with LoginPress :)"
+msgstr "自訂登入頁面與 LoginPress :)"
+
+#: custom.php:264
+msgid "Themes"
+msgstr "佈景主題"
+
+#: custom.php:265
+msgid "Choose Theme"
+msgstr "選取主題"
+
+#: custom.php:279 custom.php:286 custom.php:496 custom.php:503
+msgid "Company"
+msgstr "公司"
+
+#: custom.php:280 custom.php:291 custom.php:497
+msgid "Persona"
+msgstr "人物"
+
+#: custom.php:281 custom.php:282 custom.php:498 custom.php:499
+msgid "Corporate"
+msgstr "企業"
+
+#: custom.php:283 custom.php:500
+msgid "Startup"
+msgstr "啟動"
+
+#: custom.php:284 custom.php:501
+msgid "Wedding"
+msgstr "婚禮"
+
+#: custom.php:285 custom.php:502
+msgid "Wedding #2"
+msgstr "婚禮 #2"
+
+#: custom.php:287 custom.php:504
+msgid "Bikers"
+msgstr "騎自行車的人"
+
+#: custom.php:288
+msgid "Fitness"
+msgstr "健身"
+
+#: custom.php:289
+msgid "Shopping"
+msgstr "購物"
+
+#: custom.php:290
+msgid "Writers"
+msgstr "作家"
+
+#: custom.php:292
+msgid "Geek"
+msgstr "怪客"
+
+#: custom.php:293
+msgid "Innovation"
+msgstr "革新"
+
+#: custom.php:294
+msgid "Photographers"
+msgstr "攝影師"
+
+#: custom.php:323
+msgid "Custom Design"
+msgstr "自訂設計"
+
+#: custom.php:341
+msgid "Logo"
+msgstr "商標"
+
+#: custom.php:342
+msgid "Customize Your Logo Section"
+msgstr "自訂 LOGO 部分"
+
+#: custom.php:362
+msgid "Disable Logo:"
+msgstr "禁用Logo："
+
+#: custom.php:376
+msgid "Logo Image:"
+msgstr "LOGO 圖片："
+
+#: custom.php:394
+msgid "Logo URL:"
+msgstr "圖標網址:"
+
+#: custom.php:394
+msgid "Logo Hover Title:"
+msgstr "LOGO 懸停："
+
+#: custom.php:422
+msgid "Background"
+msgstr "背景"
+
+#: custom.php:437
+msgid "Background Color:"
+msgstr "背景顏色："
+
+#: custom.php:460
+msgid "Enable Background Image?"
+msgstr "啟用背景圖像？"
+
+#: custom.php:475
+msgid "Background Image:"
+msgstr "背景圖片:"
+
+#: custom.php:480
+msgid "Select Image"
+msgstr "選擇圖片"
+
+#: custom.php:524
+msgid "Background Gallery:"
+msgstr "背景圖庫："
+
+#: custom.php:538
+msgid "Background Repeat:"
+msgstr "背景重複："
+
+#: custom.php:563
+msgid "Select Position:"
+msgstr "選擇位置："
+
+#: custom.php:589
+msgid "Background Image Size: "
+msgstr "背景圖片大小： "
+
+#: custom.php:619
+msgid "Enable Background Video?"
+msgstr "啟用後臺視頻？"
+
+#: custom.php:637
+msgid "Background Video:"
+msgstr "背景視頻："
+
+#: custom.php:642
+msgid "Select Video"
+msgstr "選擇影片"
+
+#: custom.php:643
+msgid "Change Video"
+msgstr "更改影片"
+
+#: custom.php:644
+msgid "Default"
+msgstr "預設"
+
+#: custom.php:645
+msgid "Remove"
+msgstr "移除"
+
+#: custom.php:646
+msgid "Select File"
+msgstr "選取檔案"
+
+#: custom.php:660
+msgid "Video Size:"
+msgstr "視頻大小："
+
+#: custom.php:681
+msgid "Object Postion:"
+msgstr "物件發佈："
+
+#: custom.php:686
+msgid "50% 50%"
+msgstr "50% 50%"
+
+#: custom.php:704
+msgid "Muted Video?"
+msgstr "靜音視頻？"
+
+#: custom.php:714
+msgid "Customize Login Form"
+msgstr "自訂"
+
+#: custom.php:737
+msgid "Enable Form Transparency:"
+msgstr "啟用表單透明度："
+
+#: custom.php:751
+msgid "Form Background Image:"
+msgstr "表單背景圖像："
+
+#: custom.php:880
+msgid "Customize Forget Form"
+msgstr "自訂忽略表格"
+
+#: custom.php:894
+msgid "Forget Form Background Image:"
+msgstr "忘記表單背景圖像："
+
+#: custom.php:909
+msgid "Forget Form Background Color:"
+msgstr "忘記表單背景顏色："
+
+#: custom.php:919
+msgid "Button Beauty"
+msgstr "按鈕美容"
+
+#: custom.php:950
+msgid "Error Messages"
+msgstr "錯誤訊息"
+
+#: custom.php:981
+msgid "Welcome Messages"
+msgstr "歡迎信息"
+
+#: custom.php:1019
+msgid "Message Field Background Color:"
+msgstr "文字信息背景顏色："
+
+#: custom.php:1131
+msgid "Form Footer"
+msgstr "頁腳表格"
+
+#: custom.php:1154
+msgid "Enable Footer Text:"
+msgstr "啟用頁腳文本："
+
+#: custom.php:1161 include/template-loginpress.php:493
+#: include/template-loginpress.php:552
+msgid "Lost your password?"
+msgstr "忘記密碼?"
+
+#: custom.php:1169
+msgid "Lost Password Text:"
+msgstr "丟失的密碼文本："
+
+#: custom.php:1185
+msgid "Select Text Decoration:"
+msgstr "選擇文本裝飾："
+
+#: custom.php:1206
+msgid "Footer Text Color:"
+msgstr "頁腳文字顏色："
+
+#: custom.php:1221
+msgid "Footer Text Hover Color:"
+msgstr "頁腳文字懸停顏色："
+
+#: custom.php:1242
+msgid "Text Font Size:"
+msgstr "文字大小："
+
+#: custom.php:1259
+msgid "Footer Background Color:"
+msgstr "頁腳背景顏色："
+
+#: custom.php:1284
+msgid "Enable \"Back to\" Text:"
+msgstr "啟用\"返回\"文本："
+
+#: custom.php:1300
+msgid "\"Back to\" Text Decoration:"
+msgstr "\"返回\" 文字裝飾："
+
+#: custom.php:1321
+msgid "\"Back to\" Text Color:"
+msgstr "\" 返回 \" 文字顏色："
+
+#: custom.php:1336
+msgid "\"Back to\" Text Hover Color:"
+msgstr "\" 返回 \" 文字懸停顏色："
+
+#: custom.php:1357
+msgid "\"Back to\" Text Font Size:"
+msgstr "\" 返回 \" 文字大小："
+
+#: custom.php:1374
+msgid "\"Back to\" Background Color:"
+msgstr "\"返回\"背景顏色："
+
+#: custom.php:1400
+msgid "Enable Copyright Note:"
+msgstr "啟用版權說明："
+
+#: custom.php:1404 custom.php:1545
+#, php-format
+msgid "© %1$s %2$s, All Rights Reserved."
+msgstr "© %1$s %2$s，保留擁有權利。"
+
+#: custom.php:1412
+msgid "Copyright Note:"
+msgstr "Copyright 備註："
+
+#: custom.php:1437
+msgid ""
+"Show some Love. Please help others learn about this free plugin by placing "
+"small link in footer. Thank you very much!"
+msgstr "顯示一些愛。請説明他人瞭解這個免費外掛程式，把小連結放在頁腳。謝謝！"
+
+#: custom.php:1453
+msgid "Love Position:"
+msgstr "愛情姿勢："
+
+#: custom.php:1459
+msgid "Left"
+msgstr "左"
+
+#: custom.php:1460
+msgid "Right"
+msgstr "右"
+
+#: custom.php:1471
+msgid "Custom CSS/JS"
+msgstr "自定義CSS / JS"
+
+#: custom.php:1484
+msgid "Customize CSS:"
+msgstr "自訂 CSS："
+
+#: custom.php:1489
+#, php-format
+msgid ""
+"Custom CSS doen't make effect live. For preview please save the setting and "
+"visit %1$s login%2$s page or after save refresh the customizer."
+msgstr ""
+"自訂 CSS 不會使效果即時化。預覽時請保存設置並訪問 %1$s 登錄%2$s 頁面或保存後"
+"刷新自訂程式。"
+
+#: custom.php:1499
+msgid "Customize JS:"
+msgstr "自訂 JS："
+
+#: custom.php:1504
+#, php-format
+msgid ""
+"Custom JS doen't make effect live. For preview please save the setting and "
+"visit %1$s login%2$s page or after save refresh the customizer."
+msgstr ""
+"自訂 JS 不會使效果即時。預覽時請保存設置並訪問 %1$s 登錄%2$s 頁面或保存後刷新"
+"自訂程式。"
+
+#: custom.php:1528 custom.php:1530
+msgid "Powered by:"
+msgstr "提供者："
+
+#: custom.php:1641 include/customizer-strings.php:140
+#, php-format
+msgid "%1$sError:%2$s Invalid Password."
+msgstr "%1$sError：%2$s 無效密碼。"
+
+#: custom.php:1647 include/customizer-strings.php:143
+#, php-format
+msgid "%1$sError:%2$s The email address isn't correct.."
+msgstr "%1$sError：%2$s 電子郵件地址不正確。"
+
+#: custom.php:1649 include/customizer-strings.php:144
+#, php-format
+msgid "%1$sError:%2$s Please type your email address."
+msgstr "%1$sError：%2$s 請鍵入您的電子郵件地址。"
+
+#: custom.php:1651 include/customizer-strings.php:145
+#, php-format
+msgid ""
+"%1$sError:%2$s This username is already registered. Please choose another "
+"one."
+msgstr "%1$sError：%2$s 此使用者名已註冊。請選擇另一個。"
+
+#: custom.php:1653 include/customizer-strings.php:146
+#, php-format
+msgid ""
+"%1$sError:%2$s This email is already registered, please choose another one."
+msgstr "%1$sError：%2$s 此電子郵件已註冊，請選擇另一封。"
+
+#: custom.php:1655 include/customizer-strings.php:147
+#, php-format
+msgid "%1$sError:%2$s Invalid username or email."
+msgstr "%1$sError：%2$s 無效使用者名或電子郵件。"
+
+#: custom.php:1730 include/template-loginpress.php:469
+msgid "Username"
+msgstr "使用者名稱"
+
+#: custom.php:1732
+msgid "Email Address"
+msgstr "電子郵件地址"
+
+#: custom.php:1799 include/template-loginpress.php:370
+msgid ""
+"Please enter your username or email address. You will receive a link to "
+"create a new password via email."
+msgstr ""
+"請輸入你的使用者名稱或電子郵件地址。你將會收到一封內含建立新密碼連結的電子郵"
+"件。"
+
+#: custom.php:1807 include/template-loginpress.php:465
+msgid "Register For This Site"
+msgstr "註冊此網站！"
+
+#: custom.php:1825 custom.php:1829
+msgid "Your password has been reset."
+msgstr "您的密碼已重置。"
+
+#: custom.php:1829 include/template-loginpress.php:397
+#: include/template-loginpress.php:491
+msgid "Log in"
+msgstr "登入"
+
+#: include/class-remote-notification-client.php:126
+#: include/class-remote-notification-client.php:137
+msgid "Cheatin&#8217; huh?"
+msgstr "意圖不軌，嗯？"
+
+#: include/class-remote-notification-client.php:502
+msgid "Dismiss notification"
+msgstr "關閉通知"
+
+#: include/class-remote-notification-client.php:701
+#, php-format
+msgid "The server response was invalid (code %s)"
+msgstr "The server response was invalid (code %s)"
+
+#: include/class-remote-notification-client.php:707
+msgid "The server response is empty"
+msgstr "The server response is empty"
+
+#: include/class-remote-notification-client.php:713
+msgid "Cannot decode the response content"
+msgstr "無法解碼響應內容"
+
+#. translators: 1: Name of this plugin
+#: include/create-loginpress-page.php:58
+#, php-format
+msgid ""
+"<p>This page is used by %1$s to preview the login page in the Customizer.</p>"
+msgstr "<p>此頁由 %1$s 用於預覽\"自訂\"中的登錄頁。</p>"
+
+#: include/create-loginpress-page.php:63
+msgctxt "Page slug"
+msgid "loginpress"
+msgstr "loginpress"
+
+#: include/create-loginpress-page.php:64
+msgctxt "Page title"
+msgid "LoginPress"
+msgstr "LoginPress"
+
+#: include/customizer-strings.php:9
+msgid "Logo Width:"
+msgstr "LOGO 寬度："
+
+#: include/customizer-strings.php:9
+msgid "Logo Height:"
+msgstr "LOGO 高度："
+
+#: include/customizer-strings.php:9
+msgid "Space Bottom:"
+msgstr "底部空間："
+
+#: include/customizer-strings.php:23
+msgid "Input Fields:"
+msgstr "輸入欄位："
+
+#: include/customizer-strings.php:24
+msgid "Input Field Labels:"
+msgstr "輸入欄位標籤："
+
+#: include/customizer-strings.php:25
+msgid "Login Form:"
+msgstr "登錄界面"
+
+#: include/customizer-strings.php:26
+msgid "Lost Your Password Text"
+msgstr "丟失密碼"
+
+#: include/customizer-strings.php:27
+msgid "Back To Site Text"
+msgstr "返回網站"
+
+#: include/customizer-strings.php:28
+msgid "LoginPress Footer Text"
+msgstr "LoginPress頁腳"
+
+#: include/customizer-strings.php:29
+msgid "Background Image"
+msgstr "背景圖片"
+
+#: include/customizer-strings.php:30
+msgid "Background Video"
+msgstr "背景影片"
+
+#: include/customizer-strings.php:32
+msgid ""
+"This section helps you to easily Customize the login form input field "
+"elements."
+msgstr "本部分説明您輕鬆自訂登錄表單輸入欄位元素。"
+
+#: include/customizer-strings.php:33
+msgid ""
+"This section helps you to easily Customize the login form input field labels."
+msgstr "本部分説明您輕鬆自訂登錄表單輸入欄位標籤。"
+
+#: include/customizer-strings.php:34
+msgid ""
+"This section helps you to easily Customize the login form elements whether "
+"they are form lables, fields or backgrounds."
+msgstr "本部分可説明您輕鬆自訂登錄表單元素，無論它們是表單、欄位還是背景。"
+
+#: include/customizer-strings.php:35
+msgid ""
+" Customize the \"Lost your password\" and \"Register\" text section under "
+"the form."
+msgstr "自訂表格單下的\"丟失密碼\"和\"註冊\"部分。"
+
+#: include/customizer-strings.php:36
+msgid "Customize the \"Back to\" text section under the form."
+msgstr "自訂表單下的\"返回\"部分。"
+
+#: include/customizer-strings.php:37
+msgid ""
+"Customize the copyright note and branding sections at the footer of login "
+"page."
+msgstr "在登錄頁面的頁腳處自訂版權說明和品牌部分。"
+
+#: include/customizer-strings.php:38
+msgid "Customize the background Image."
+msgstr "自訂背景圖像。"
+
+#: include/customizer-strings.php:39
+msgid "Customize the background Video."
+msgstr "自訂背景視頻。"
+
+#: include/customizer-strings.php:49
+msgid "Form Width:"
+msgstr "表格寬度："
+
+#: include/customizer-strings.php:50
+msgid "Form Minimum Height:"
+msgstr "表格最低高度："
+
+#: include/customizer-strings.php:51
+msgid "Form Radius:"
+msgstr "形式半徑："
+
+#: include/customizer-strings.php:52
+msgid "Form Shadow:"
+msgstr "表單陰影："
+
+#: include/customizer-strings.php:53
+msgid "Form Shadow Opacity:"
+msgstr "表單陰影不遮陽："
+
+#: include/customizer-strings.php:54
+msgid "Input Text Field Width:"
+msgstr "文字輸入框寬度："
+
+#: include/customizer-strings.php:55
+msgid "Input Text Field Radius:"
+msgstr "輸入文字欄位半徑："
+
+#: include/customizer-strings.php:56
+msgid "Input Text Field Shadow:"
+msgstr "輸入文字欄位陰影："
+
+#: include/customizer-strings.php:57
+msgid "Input Text Field Shadow Opacity:"
+msgstr "輸入文字欄位陰影不遮陽："
+
+#: include/customizer-strings.php:58
+msgid "Input Field Label Font Size:"
+msgstr "輸入欄位標籤字體大小："
+
+#: include/customizer-strings.php:59
+msgid "Remember Me Font Size:"
+msgstr "記住我 字體大小："
+
+#: include/customizer-strings.php:78
+msgid "Form Background Color:"
+msgstr "表格背景顏色："
+
+#: include/customizer-strings.php:79
+msgid "Input Field Background Color:"
+msgstr "輸入框背景顏色："
+
+#: include/customizer-strings.php:80
+msgid "Input Field Text Color:"
+msgstr "輸入框文字顏色："
+
+#: include/customizer-strings.php:81
+msgid "Input Field Label Color:"
+msgstr "輸入欄位標籤顏色："
+
+#: include/customizer-strings.php:82
+msgid "Remember me Label Color:"
+msgstr "記住我 標籤顏色："
+
+#: include/customizer-strings.php:86 include/template-loginpress.php:382
+#: include/template-loginpress.php:514
+msgid "Username or Email Address"
+msgstr "用戶名稱 或 電子郵件"
+
+#: include/customizer-strings.php:88
+msgid "Form Padding:"
+msgstr "表格填充："
+
+#: include/customizer-strings.php:89
+msgid "Border (Example: 2px dotted black):"
+msgstr "邊框(例如：2px 黑色虛線)："
+
+#: include/customizer-strings.php:90
+msgid "Input Text Field Margin:"
+msgstr "文字輸入框邊距："
+
+#: include/customizer-strings.php:91
+msgid "Username Label:"
+msgstr "用戶名標籤："
+
+#: include/customizer-strings.php:92
+msgid "Password Label:"
+msgstr "密碼標籤："
+
+#: include/customizer-strings.php:104
+msgid "Button Color:"
+msgstr "按鈕顏色："
+
+#: include/customizer-strings.php:105
+msgid "Button Border Color:"
+msgstr "按鈕邊框顏色："
+
+#: include/customizer-strings.php:106
+msgid "Button Color (Hover):"
+msgstr "按鈕顏色(懸停)："
+
+#: include/customizer-strings.php:107
+msgid "Button Border (Hover):"
+msgstr "按鈕邊框(懸停)："
+
+#: include/customizer-strings.php:108
+msgid "Button Box Shadow:"
+msgstr "按鈕模塊陰影："
+
+#: include/customizer-strings.php:109
+msgid "Button Text Color:"
+msgstr "按鈕文字顏色"
+
+#: include/customizer-strings.php:114
+msgid "Button Size:"
+msgstr "按鈕大小："
+
+#: include/customizer-strings.php:114
+msgid "Button Top Padding:"
+msgstr "按鈕頂部填充："
+
+#: include/customizer-strings.php:114
+msgid "Button Bottom Padding:"
+msgstr "按鈕底部填充："
+
+#: include/customizer-strings.php:114
+msgid "Radius:"
+msgstr "半徑:"
+
+#: include/customizer-strings.php:114
+msgid "Shadow:"
+msgstr "陰影："
+
+#: include/customizer-strings.php:114
+msgid "Shadow Opacity:"
+msgstr "陰影不遮陽："
+
+#: include/customizer-strings.php:114
+msgid "Text Size:"
+msgstr "字體尺寸:"
+
+#: include/customizer-strings.php:150
+msgid "Incorrect Username Message:"
+msgstr "帳號不正確："
+
+#: include/customizer-strings.php:151
+msgid "Incorrect Password Message:"
+msgstr "密碼不正確："
+
+#: include/customizer-strings.php:152
+msgid "Empty Username Message:"
+msgstr "帳號未填："
+
+#: include/customizer-strings.php:153
+msgid "Empty Password Message:"
+msgstr "密碼未填："
+
+#: include/customizer-strings.php:154
+msgid "Invalid Email Message:"
+msgstr "Email 不正確："
+
+#: include/customizer-strings.php:155
+msgid "Empty Email Message:"
+msgstr "Email 未填："
+
+#: include/customizer-strings.php:156
+msgid "Username Already Exist Message:"
+msgstr "使用者名已存在消息："
+
+#: include/customizer-strings.php:157
+msgid "Email Already Exist Message:"
+msgstr "電子郵件已存在的消息："
+
+#: include/customizer-strings.php:158
+msgid "Forget Password Message:"
+msgstr "忘記密碼："
+
+#: include/customizer-strings.php:159
+msgid "Login with Email Message:"
+msgstr "使用電子郵件登錄："
+
+#: include/customizer-strings.php:170
+msgid "Welcome Message on Lost Password:"
+msgstr "忘記密碼歡迎信息："
+
+#: include/customizer-strings.php:171
+msgid "Welcome Message on Login Page:"
+msgstr "登錄頁面上的歡迎消息："
+
+#: include/customizer-strings.php:172
+msgid "Welcome Message on Registration:"
+msgstr "帳號註冊歡迎信息："
+
+#: include/customizer-strings.php:173
+msgid "Logout Message:"
+msgstr "登出信息："
+
+#: include/customizer-strings.php:174
+msgid "Message Field Border: ( Example: 1px solid #00a0d2; )"
+msgstr "文字信息邊框：(例如：1px #00a0d2 實線)"
+
+#: include/deactivate_modal.php:139
+msgid "Quick feedback about LoginPress"
+msgstr "有關 LoginPress 的快速回饋"
+
+#: include/deactivate_modal.php:142
+msgid "If you have a moment, please let us know why you are deactivating:"
+msgstr "If you have a moment, please let us know why you are deactivating:"
+
+#: include/deactivate_modal.php:150
+msgid " I upgraded to LoginPress Pro"
+msgstr "我升級到登錄新聞專業版"
+
+#: include/deactivate_modal.php:152
+msgid ""
+"No need to deactivate this LoginPress Core version. Pro version works as an "
+"add-on with Core version."
+msgstr "無需停用此 LoginPress 核心版本。專業版作為核心版的載入項工作。"
+
+#: include/deactivate_modal.php:159
+msgid "I only needed the plugin for a short period"
+msgstr "只是短期內需使用"
+
+#: include/deactivate_modal.php:168
+msgid "I found a better plugin"
+msgstr "我找到了一個更好的插件"
+
+#: include/deactivate_modal.php:171
+msgid "Kindly tell us the Plugin name."
+msgstr "請告知外掛名稱."
+
+#: include/deactivate_modal.php:178
+msgid "The plugin broke my site"
+msgstr "外掛破壞我的網站"
+
+#: include/deactivate_modal.php:187
+msgid "The plugin suddenly stopped working"
+msgstr "外掛突然停止工作"
+
+#: include/deactivate_modal.php:196
+msgid "I no longer need the plugin"
+msgstr "我不再使用這個外掛"
+
+#: include/deactivate_modal.php:205
+msgid "It's a temporary deactivation. I'm just debugging an issue."
+msgstr "暫時停用."
+
+#: include/deactivate_modal.php:214
+msgid "Other"
+msgstr "其他"
+
+#: include/deactivate_modal.php:217
+msgid "Kindly tell us the reason so we can improve."
+msgstr "請告知停用原因以利改進."
+
+#: include/deactivate_modal.php:222
+msgid "Anonymous feedback"
+msgstr "匿名反饋"
+
+#: include/deactivate_modal.php:223
+msgid "Skip & Deactivate"
+msgstr "跳過 & 停用"
+
+#: include/deactivate_modal.php:226
+msgid "Submit & Deactivate"
+msgstr "提交和停用"
+
+#: include/deactivate_modal.php:227
+msgid "Cancel"
+msgstr "取消"
+
+#: include/loginpress-import-export.php:14
+msgid ""
+"Import/Export your LoginPress Settings for/from other sites. This will "
+"export/import all the settings including Customizer settings as well."
+msgstr ""
+"從其他網站導入/匯出您的登錄新聞設置。這將匯出/導入所有設置，包括自訂器設置。"
+
+#: include/loginpress-import-export.php:19
+msgid "Import Settings:"
+msgstr "導入設置："
+
+#: include/loginpress-import-export.php:23
+msgid "Import"
+msgstr "匯入"
+
+#: include/loginpress-import-export.php:28
+msgid "LoginPress Settings Imported Successfully."
+msgstr "已成功導入登錄設置。"
+
+#: include/loginpress-import-export.php:30
+msgid "Select a file and click on Import to start processing."
+msgstr "選擇檔案，然後按一下\"導入\"以開始處理。"
+
+#: include/loginpress-import-export.php:35
+msgid "Export Settings:"
+msgstr "匯出設定："
+
+#: include/loginpress-import-export.php:38
+msgid "Export"
+msgstr "匯出"
+
+#: include/loginpress-import-export.php:43
+msgid "LoginPress Settings Exported Successfully!"
+msgstr "LoginPress設置已成功匯出！"
+
+#: include/loginpress-import-export.php:44
+msgid "Export LoginPress Settings."
+msgstr "匯出登錄壓設置。"
+
+#: include/loginpress-optin-form.php:301
+msgid "Welcome to LoginPress"
+msgstr "歡迎使用 LoginPress"
+
+#: include/loginpress-optin-form.php:307
+#, php-format
+msgid ""
+"%1$s Hey %2$s,  %4$s If you opt-in some data about your installation of "
+"LoginPress will be sent to WPBrigade.com (This doesn't include stats)%4$s "
+"and You will receive new feature updates, security notifications etc %5$sNo "
+"Spam, I promise.%6$s %4$s%4$s Help us %7$sImprove LoginPress%8$s %4$s %4$s "
+msgstr ""
+"%1$s 嗨！%2$s， %4$s 如果你選擇在你的 LoginPress 安裝一些數據將被發送到 "
+"WPBrigade.com（這不包括統計數據）%4$s ，你將收到新功能的更新、安全通知"
+"等，%5$s沒有垃圾郵件 - 我保證。%6$s %4$s%4$s幫助我們%7$s改進 LoginPress%8$s "
+"%4$s %4$s "
+
+#: include/loginpress-optin-form.php:308
+msgid "Allow and Continue  "
+msgstr "允許並繼續"
+
+#: include/loginpress-optin-form.php:309
+msgid "Skip This Step"
+msgstr "跳過此步驟"
+
+#: include/loginpress-optin-form.php:311
+msgid "What permissions are being granted?"
+msgstr "授予了哪些權限？"
+
+#: include/loginpress-optin-form.php:313
+msgid "Your Website Overview"
+msgstr "您的網站概述"
+
+#: include/loginpress-optin-form.php:314
+msgid ""
+"Your Site URL, WordPress & PHP version, plugins & themes. This data lets us "
+"make sure this plugin always stays compatible with the most popular plugins "
+"and themes."
+msgstr ""
+"您的網站網址，WordPress + PHP版本，外掛程式和主題。這些資料使我們能夠確保這個"
+"外掛程式始終保持與最流行的外掛程式和主題相容。"
+
+#: include/loginpress-optin-form.php:316
+msgid "Your Profile Overview"
+msgstr "您的個人資料概述"
+
+#: include/loginpress-optin-form.php:317
+msgid "Your name and email address."
+msgstr "您的姓名和電子郵件地址。"
+
+#: include/loginpress-optin-form.php:319
+msgid "Admin Notices"
+msgstr "管理員通知"
+
+#: include/loginpress-optin-form.php:320
+msgid "Updates, Announcement, Marketing. No Spam, I promise."
+msgstr "更新、公告、行銷。沒有垃圾郵件，我保證。"
+
+#: include/loginpress-optin-form.php:322
+msgid "Plugin Actions"
+msgstr "外掛程式操作"
+
+#: include/loginpress-optin-form.php:323
+msgid ""
+"Active, Deactive, Uninstallation and How you use this plugin's features and "
+"settings. This is limited to usage data. It does not include any of your "
+"sensitive LoginPress data, such as traffic. This data helps us learn which "
+"features are most popular, so we can improve the plugin further."
+msgstr ""
+"活動、停用、卸載以及如何使用此外掛程式的功能和設置。這僅限於使用資料。它不包"
+"括任何敏感的 LoginPress 資料，如流量。這些資料有助於我們瞭解哪些功能最受歡"
+"迎，因此我們可以進一步改進外掛程式。"
+
+#: include/loginpress-optout-form.php:103
+#: include/loginpress-optout-form.php:119
+msgid "Opt Out"
+msgstr "退出"
+
+#: include/loginpress-optout-form.php:108
+msgid ""
+"We appreciate your help in making the plugin better by letting us track some "
+"usage data."
+msgstr "我們感謝您的説明，使我們跟蹤一些使用資料，使外掛程式更好。"
+
+#: include/loginpress-optout-form.php:112
+#, php-format
+msgid ""
+"Usage tracking is done in the name of making %1$s LoginPress %2$s better. "
+"Making a better user experience, prioritizing new features, and more good "
+"things. We'd really appreciate if you'll reconsider letting us continue with "
+"the tracking."
+msgstr ""
+"使用跟蹤是在使 %1$s 登錄按 %2$s 更好的名義完成。提供更好的使用者體驗，確定新"
+"功能的優先順序，以及更多好東西。如果您重新考慮讓我們繼續跟蹤，我們將不勝感"
+"激。"
+
+#: include/loginpress-optout-form.php:113
+#, php-format
+msgid ""
+"By clicking \"Opt Out\", we will no longer be sending any data to %1$s "
+"LoginPress%2$s."
+msgstr "通過按一下\"退出\"，我們將不再將任何資料發送到 %1$s LoginPress%2$s。"
+
+#: include/loginpress-optout-form.php:120
+msgid "On second thought - I want to continue helping"
+msgstr "再三考慮 - 我想繼續説明"
+
+#: include/privacy-policy.php:13
+#, php-format
+msgid "%1$sPrivacy Policy%2$s."
+msgstr "%1$s 隱私政策%2$s。"
+
+#. translators: Login screen title. 1: Login screen name, 2: Network or site name
+#: include/template-loginpress.php:70
+#, php-format
+msgid "%1$s &lsaquo; %2$s &#8212; WordPress"
+msgstr "%1$s &lsaquo; %2$s &#8212; WordPress"
+
+#: include/template-loginpress.php:147
+msgid "https://wordpress.org/"
+msgstr "https://tw.wordpress.org/"
+
+#: include/template-loginpress.php:148
+msgid "Powered by WordPress"
+msgstr "Powered by WordPress"
+
+#. translators: %s: site title
+#: include/template-loginpress.php:250
+#, php-format
+msgctxt "site"
+msgid "&larr; Back to %s"
+msgstr "&larr; 返回 %s"
+
+#: include/template-loginpress.php:370
+msgid "Lost Password"
+msgstr "忘記密碼"
+
+#: include/template-loginpress.php:393
+msgid "Get New Password"
+msgstr "獲取新密碼"
+
+#: include/template-loginpress.php:400 include/template-loginpress.php:487
+#: include/template-loginpress.php:544
+msgid "Register"
+msgstr "註冊"
+
+#: include/template-loginpress.php:465
+msgid "Registration Form"
+msgstr "註冊表單"
+
+#: include/template-loginpress.php:473
+msgid "Email"
+msgstr "電子郵件"
+
+#: include/template-loginpress.php:484
+msgid "Registration confirmation will be emailed to you."
+msgstr "註冊確認通知會以電子郵件方式傳送至用於註冊帳號的電子郵件地址。"
+
+#: include/template-loginpress.php:508 include/template-loginpress.php:536
+msgid "Log In"
+msgstr "登入"
+
+#: include/template-loginpress.php:534
+msgid "Remember Me"
+msgstr "記住我"
+
+#: loginpress.php:277
+msgid "Activate"
+msgstr "啟用"
+
+#: loginpress.php:342
+msgid "Caps Lock is on"
+msgstr "已開啟大寫模式"
+
+#: loginpress.php:415
+msgid "Vote!"
+msgstr "投票日誌!"
+
+#: loginpress.php:418
+msgid "Rate"
+msgstr "評分"
+
+#: loginpress.php:523
+#, php-format
+msgid "%1$s Settings %2$s | %3$s Customize %4$s"
+msgstr "%1$s 設定 %2$s | %3$s 自訂 %4$s"
+
+#: loginpress.php:527
+#, php-format
+msgid " | %1$s Opt Out %2$s "
+msgstr " | %1$s 選擇退出 %2$s "
+
+#: loginpress.php:529
+#, php-format
+msgid " | %1$s Opt In %2$s "
+msgstr "|%1$s 加入宣告 %2$s"
+
+#: loginpress.php:535
+#, php-format
+msgid "%1$s %3$s Upgrade Pro %4$s %2$s"
+msgstr "%1$s %3$s 升級 PRO 版 %4$s %2$s"
+
+#. Plugin Name of the plugin/theme
+msgid "LoginPress - Customizing the WordPress Login"
+msgstr "LoginPress - 自訂登入"
+
+#. Plugin URI of the plugin/theme
+msgid "https://WPBrigade.com/wordpress/plugins/loginpress/"
+msgstr "HTTPs://WPBrigade.com/wordpress/plugins/loginpress/"
+
+#. Description of the plugin/theme
+msgid ""
+"LoginPress is the best <code>wp-login</code> Login Page Customizer plugin by "
+"<a href=\"https://wpbrigade.com/\">WPBrigade</a> which allows you to "
+"completely change the layout of login, register and forgot password forms."
+msgstr ""
+"LoginPress  <code>wp-login</code> 登入頁面外掛通過 <a href=\"https://"
+"wpbrigade.com/\">WPBrigade</a> 自訂登入、註冊、忘記密碼樣式佈局."
+
+#. Author of the plugin/theme
+msgid "WPBrigade"
+msgstr "WPBrigade"
+
+#. Author URI of the plugin/theme
+msgid "https://WPBrigade.com/"
+msgstr "https://WPBrigade.com/"

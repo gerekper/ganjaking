@@ -1,17 +1,7 @@
 <?php
 // Porto modal
 
-add_shortcode( 'porto_modal', 'porto_shortcode_modal' );
 add_action( 'vc_after_init', 'porto_load_modal_shortcode' );
-
-function porto_shortcode_modal( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_modal' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_modal_shortcode() {
 

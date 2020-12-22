@@ -1,4 +1,9 @@
 <?php
+$load_posts_only = function_exists( 'porto_is_ajax' ) && porto_is_ajax() && isset( $_GET['load_posts_only'] );
+if ( $load_posts_only ) {
+	return false;
+}
+
 $output = $id = $name = $animation_type = $animation_duration = $animation_delay = $el_class = '';
 extract(
 	shortcode_atts(
@@ -16,7 +21,7 @@ extract(
 	)
 );
 
-if ( 'product_layout' != $post_type ) {
+if ( 'product_layout' != $post_type && 'porto_builder' != $post_type ) {
 	$post_type = 'block';
 }
 
@@ -99,7 +104,8 @@ if ( $id || $name ) {
 			}
 			$post_content .= '</div>';
 		} else {
-			$post_content   = $the_post->post_content;
+			$post_content = $the_post->post_content;
+
 			$use_google_map = get_post_meta( $post_id, 'porto_page_use_google_map_api', true );
 
 			if ( '1' === $use_google_map || stripos( $post_content, '[porto_google_map' ) ) {
@@ -495,9 +501,13 @@ if ( $id || $name ) {
 				}
 			}
 
-			$post_content = porto_the_content( $post_content, false );
+			if ( function_exists( 'porto_the_content' ) ) {
+				$post_content = porto_the_content( $post_content, false );
+			} else {
+				$post_content = do_shortcode( $post_content );
+			}
 
-			$output .= '<div class="porto-block' . ( $el_class ? ' ' . esc_attr( $el_class ) : '' ) . '"';
+			$output .= '<div class="porto-block' . ( $el_class ? esc_attr( $el_class ) : '' ) . '"';
 			if ( $animation_type ) {
 				$output .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
 				if ( $animation_delay ) {

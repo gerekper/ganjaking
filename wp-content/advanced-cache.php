@@ -13,7 +13,7 @@ $rocket_config_path = '/home/ganja/web/ganjaking.asia/public_html/wp-content/wp-
 $rocket_cache_path  = '/home/ganja/web/ganjaking.asia/public_html/wp-content/cache/wp-rocket/';
 
 if (
-	version_compare( phpversion(), '5.6', '<' )
+	version_compare( phpversion(), '7.0', '<' )
 	|| ! file_exists( $rocket_path )
 	|| ! file_exists( $rocket_config_path )
 	|| ! file_exists( $rocket_cache_path )

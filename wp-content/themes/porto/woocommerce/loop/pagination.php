@@ -18,10 +18,12 @@ if ( $porto_settings['category-item'] ) {
 }
 
 $page_count = porto_loop_shop_per_page();
-?>
 
-<nav class="woocommerce-pagination<?php echo isset( $porto_settings['product-infinite'] ) && 'load_more' == $porto_settings['product-infinite'] ? ' pagination load-more' : ''; ?>">
+$total = isset( $total ) ? $total : $wp_query->max_num_pages;
 
+echo '<nav class="woocommerce-pagination' . ( isset( $porto_settings['product-infinite'] ) && 'load_more' == $porto_settings['product-infinite'] ? ' pagination load-more' : '' ) . '">';
+if ( $total > 1 ) : 
+	?>
 	<form class="woocommerce-viewing" method="get">
 
 		<label><?php esc_html_e( 'Show', 'porto' ); ?>: </label>
@@ -52,36 +54,35 @@ $page_count = porto_loop_shop_per_page();
 		}
 		?>
 	</form>
+<?php
+	endif;
+if ( $total <= 1 ) {
+	echo '</nav>';
+	return;
+}
 
-	<?php
-		$total = isset( $total ) ? $total : $wp_query->max_num_pages;
-	if ( $total <= 1 ) {
-		echo '</nav>';
-		return;
-	}
+	$size_count = 3;
 
-		$size_count = 3;
+if ( in_array( $porto_layout, porto_options_sidebars() ) ) {
+	$size_count = 2;
+}
 
-	if ( in_array( $porto_layout, porto_options_sidebars() ) ) {
-		$size_count = 2;
-	}
-
-		echo paginate_links(
-			apply_filters(
-				'woocommerce_pagination_args',
-				array(
-					'base'      => isset( $base ) ? $base : esc_url_raw( str_replace( 999999999, '%#%', remove_query_arg( 'add-to-cart', get_pagenum_link( 999999999, false ) ) ) ),
-					'format'    => isset( $format ) ? $format : '',
-					'add_args'  => false,
-					'current'   => max( 1, isset( $current ) ? $current : get_query_var( 'paged' ) ),
-					'total'     => $total,
-					'prev_text' => '',
-					'next_text' => isset( $porto_settings['product-infinite'] ) && 'load_more' == $porto_settings['product-infinite'] ? esc_html__( 'Load More...', 'porto' ) : '',
-					'type'      => 'list',
-					'end_size'  => $size_count,
-					'mid_size'  => floor( $size_count / 2 ),
-				)
+	echo paginate_links(
+		apply_filters(
+			'woocommerce_pagination_args',
+			array(
+				'base'      => isset( $base ) ? $base : esc_url_raw( str_replace( 999999999, '%#%', remove_query_arg( 'add-to-cart', get_pagenum_link( 999999999, false ) ) ) ),
+				'format'    => isset( $format ) ? $format : '',
+				'add_args'  => false,
+				'current'   => max( 1, isset( $current ) ? $current : get_query_var( 'paged' ) ),
+				'total'     => $total,
+				'prev_text' => '',
+				'next_text' => isset( $porto_settings['product-infinite'] ) && 'load_more' == $porto_settings['product-infinite'] ? esc_html__( 'Load More...', 'porto' ) : '',
+				'type'      => 'list',
+				'end_size'  => $size_count,
+				'mid_size'  => floor( $size_count / 2 ),
 			)
-		);
-		?>
+		)
+	);
+	?>
 </nav>

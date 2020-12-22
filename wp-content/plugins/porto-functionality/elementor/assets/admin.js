@@ -37,6 +37,11 @@ jQuery(document).ready(function($) {
 				elementorFrontend.hooks.doAction('refresh_dynamic_css', custom_css);
 			}, 1000);
 		}
+
+		var header_type = elementor.settings.page.model.get('porto_header_type');
+		if ('side' == header_type) {
+			$('#elementor-preview-responsive-wrapper').addClass('mobile-width');
+		}
 	});
 
 	var portoMasonryTimer = null;
@@ -72,5 +77,11 @@ jQuery(document).ready(function($) {
 				});
 			}
 		});
+	}).on('change', 'select[data-setting="porto_header_type"]', function(e) {
+		if ('side' == $(this).val()) {
+			$('#elementor-preview-responsive-wrapper').addClass('mobile-width');
+		} else {
+			$('#elementor-preview-responsive-wrapper').removeClass('mobile-width');
+		}
 	});
 });

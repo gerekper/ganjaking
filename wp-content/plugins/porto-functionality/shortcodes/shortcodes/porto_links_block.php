@@ -1,16 +1,7 @@
 <?php
 
 // Porto Links Block
-add_shortcode( 'porto_links_block', 'porto_shortcode_links_block' );
 add_action( 'vc_after_init', 'porto_load_links_block_shortcode' );
-
-function porto_shortcode_links_block( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_links_block' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_links_block_shortcode() {
 	$animation_type     = porto_vc_animation_type();

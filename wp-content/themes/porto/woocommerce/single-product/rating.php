@@ -25,7 +25,7 @@ $average      = $product->get_average_rating();
 	<div class="star-rating" title="<?php echo esc_attr( $average ); ?>">
 		<span style="width:<?php echo ( 100 * ( $average / 5 ) ); ?>%">
 			<?php /* translators: %s: Rating value */ ?>
-			<strong class="rating"><?php echo esc_html( $average ); ?></strong> <?php printf( esc_html__( 'out of %1$s5%2$s', 'woocommerce' ), '', '' ); ?>
+			<strong class="rating"><?php echo esc_html( $average ); ?></strong> <?php printf( esc_html__( 'out of %1$s5%2$s', 'porto' ), '', '' ); ?>
 		</span>
 	</div>
 	<?php if ( comments_open() ) : ?>

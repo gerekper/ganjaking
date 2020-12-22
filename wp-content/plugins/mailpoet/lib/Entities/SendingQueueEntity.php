@@ -10,6 +10,7 @@ use MailPoet\Doctrine\EntityTraits\CreatedAtTrait;
 use MailPoet\Doctrine\EntityTraits\DeletedAtTrait;
 use MailPoet\Doctrine\EntityTraits\SafeToOneAssociationLoadTrait;
 use MailPoet\Doctrine\EntityTraits\UpdatedAtTrait;
+use MailPoet\Util\Helpers;
 use MailPoetVendor\Doctrine\ORM\Mapping as ORM;
 use MailPoetVendor\Symfony\Component\Validator\Constraints as Assert;
 
@@ -75,7 +76,7 @@ class SendingQueueEntity {
   private $countToProcess = 0;
 
   /**
-   * @ORM\Column(type="json")
+   * @ORM\Column(type="json", nullable=true)
    * @var array|null
    */
   private $meta;
@@ -91,6 +92,18 @@ class SendingQueueEntity {
    * @var NewsletterEntity|null
    */
   private $newsletter;
+
+  /**
+   * @deprecated This is here only for backward compatibility with custom shortcodes https://kb.mailpoet.com/article/160-create-a-custom-shortcode
+   * This can be removed after 2021-08-01
+   */
+  public function __get($key) {
+    $getterName = 'get' . Helpers::underscoreToCamelCase($key, $capitaliseFirstChar = true);
+    $callable = [$this, $getterName];
+    if (is_callable($callable)) {
+      return call_user_func($callable);
+    }
+  }
 
   /**
    * @return array|null

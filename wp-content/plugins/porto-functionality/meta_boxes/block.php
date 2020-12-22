@@ -2,25 +2,45 @@
 
 // Meta Fields
 function porto_block_meta_fields() {
+	$fields = array();
+	global $post;
+	if ( $post && $post->ID && 'porto_builder' == $post->post_type ) {
+		$terms = wp_get_post_terms( $post->ID, 'porto_builder_type' );
+		if ( ! empty( $terms ) && 'header' == $terms[0]->name ) {
+			$fields['header_type'] = array(
+				'name'    => 'header_type',
+				'title'   => __( 'Header Type', 'porto-functionality' ),
+				'type'    => 'select',
+				'default' => '',
+				'options' => array(
+					''     => __( 'Default', 'porto-functionality' ),
+					'side' => __( 'Side Header', 'porto-functionality' ),
+				),
+			);
+		}
+	}
 
-	$fields = array(
-		// Layout
-		'container'  => array(
-			'name'    => 'container',
-			'title'   => __( 'Wrap as Container', 'porto-functionality' ),
-			'desc'    => '',
-			'type'    => 'select',
-			'default' => '',
-			'options' => array(
-				'yes' => __( 'Inner Container', 'porto-functionality' ),
-				'fluid'  => __( 'Fluid Container', 'porto-functionality' ),
+	$fields = array_merge(
+		$fields,
+		array(
+			// Layout
+			'container'  => array(
+				'name'    => 'container',
+				'title'   => __( 'Wrap as Container', 'porto-functionality' ),
+				'desc'    => '',
+				'type'    => 'select',
+				'default' => '',
+				'options' => array(
+					'yes'   => __( 'Inner Container', 'porto-functionality' ),
+					'fluid' => __( 'Fluid Container', 'porto-functionality' ),
+				),
 			),
-		),
-		'custom_css' => array(
-			'name'  => 'custom_css',
-			'title' => __( 'Custom CSS', 'porto-functionality' ),
-			'type'  => 'textarea',
-		),
+			'custom_css' => array(
+				'name'  => 'custom_css',
+				'title' => __( 'Custom CSS', 'porto-functionality' ),
+				'type'  => 'textarea',
+			),
+		)
 	);
 
 	if ( current_user_can( 'manage_options' ) ) {
@@ -58,7 +78,7 @@ function porto_save_block_meta_values( $post_id ) {
 		return;
 	}
 	$screen = get_current_screen();
-	if ( $screen && 'post' == $screen->base && ( 'block' == $screen->id || 'product_layout' == $screen->id ) ) {
+	if ( $screen && 'post' == $screen->base && ( 'block' == $screen->id || 'product_layout' == $screen->id || 'porto_builder' == $screen->id ) ) {
 		porto_save_meta_value( $post_id, porto_block_meta_fields() );
 	}
 }
@@ -70,7 +90,7 @@ function porto_block_protected_meta( $protected, $meta_key, $meta_type ) {
 		return $protected;
 	}
 	$screen = get_current_screen();
-	if ( ! $protected && $screen && 'post' == $screen->base && ( 'block' == $screen->id || 'product_layout' == $screen->id ) ) {
+	if ( ! $protected && $screen && 'post' == $screen->base && ( 'block' == $screen->id || 'product_layout' == $screen->id || 'porto_builder' == $screen->id ) ) {
 		if ( array_key_exists( $meta_key, porto_block_meta_fields() ) ) {
 			$protected = true;
 		}

@@ -1,17 +1,7 @@
 <?php
 // Porto Info List
 
-add_shortcode( 'porto_share', 'porto_shortcode_share' );
 add_action( 'vc_after_init', 'porto_load_share_shortcode' );
-
-function porto_shortcode_share( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_share' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_share_shortcode() {
 

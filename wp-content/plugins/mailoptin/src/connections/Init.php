@@ -33,6 +33,7 @@ class Init
         \MailOptin\ConvertKitConnect\Connect::get_instance();
         \MailOptin\ActiveCampaignConnect\Connect::get_instance();
         \MailOptin\CtctConnect\Connect::get_instance();
+        \MailOptin\Ctctv3Connect\Connect::get_instance();
         \MailOptin\HubspotConnect\Connect::get_instance();
         \MailOptin\InfusionsoftConnect\Connect::get_instance();
         \MailOptin\JiltConnect\Connect::get_instance();

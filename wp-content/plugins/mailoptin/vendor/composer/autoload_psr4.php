@@ -48,6 +48,7 @@ return array(
     'MailOptin\\EmailOctopusConnect\\' => array($baseDir . '/src/connections/EmailOctopusConnect'),
     'MailOptin\\ElementorConnect\\' => array($baseDir . '/src/connections/ElementorConnect'),
     'MailOptin\\DripConnect\\' => array($baseDir . '/src/connections/DripConnect'),
+    'MailOptin\\Ctctv3Connect\\' => array($baseDir . '/src/connections/Ctctv3Connect'),
     'MailOptin\\CtctConnect\\' => array($baseDir . '/src/connections/CtctConnect'),
     'MailOptin\\Core\\' => array($baseDir . '/src/core/src'),
     'MailOptin\\ConvertKitConnect\\' => array($baseDir . '/src/connections/ConvertKitConnect'),
@@ -61,7 +62,6 @@ return array(
     'Html2Text\\' => array($vendorDir . '/soundasleep/html2text/src'),
     'DrewM\\Drip\\' => array($vendorDir . '/drewm/drip/src'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
-    'Barryvdh\\Composer\\' => array($vendorDir . '/barryvdh/composer-cleanup-plugin/src'),
     'Authifly\\' => array($baseDir . '/src/authifly/src'),
     '' => array($vendorDir . '/nesbot/carbon/src'),
 );

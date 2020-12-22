@@ -213,7 +213,6 @@ class DBUpdates
         $wpdb->query($sql);
     }
 
-    /** Singleton poop */
     public static function get_instance()
     {
         if ( ! isset(self::$instance)) {

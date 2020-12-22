@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Doctrine\Repository;
 use MailPoet\Entities\SegmentEntity;
+use MailPoet\NotFoundException;
 
 /**
  * @extends Repository<SegmentEntity>
@@ -14,6 +15,10 @@ use MailPoet\Entities\SegmentEntity;
 class SegmentsRepository extends Repository {
   protected function getEntityClassName() {
     return SegmentEntity::class;
+  }
+
+  public function getWPUsersSegment() {
+    return $this->findOneBy(['type' => SegmentEntity::TYPE_WP_USERS]);
   }
 
   public function getCountsPerType(): array {
@@ -29,5 +34,25 @@ class SegmentsRepository extends Repository {
       $countMap[$result['type']] = (int)$result['cnt'];
     }
     return $countMap;
+  }
+
+  public function createOrUpdate(
+    string $name,
+    string $description = '',
+    ?int $id = null
+  ): SegmentEntity {
+    if ($id) {
+      $segment = $this->findOneById($id);
+      if (!$segment instanceof SegmentEntity) {
+        throw new NotFoundException("Segment with ID [{$id}] was not found.");
+      }
+      $segment->setName($name);
+      $segment->setDescription($description);
+    } else {
+      $segment = new SegmentEntity($name, SegmentEntity::TYPE_DEFAULT, $description);
+      $this->persist($segment);
+    }
+    $this->flush();
+    return $segment;
   }
 }

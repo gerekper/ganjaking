@@ -198,9 +198,15 @@
         -ms-flex-wrap: wrap; flex-wrap: wrap;
         -ms-flex-pack: between; justify-content: space-between;
         .button {
-            padding: 3px .7143em;
+            padding: .4em 1.25em;
             text-transform: uppercase;
+            font-weight: 600;
+            font-size: .75rem;
+            order: 2
         }
+    }
+    .clear {
+        display: none
     }
     .ui-slider {
         position: relative;
@@ -441,104 +447,105 @@ ul.product_list_widget {
                 }
             }
         }
+    }
+}
 
-        .product-details {
-            position: relative;
-            -ms-flex: 1; flex: 1;
-            max-width: calc(100% - 104px);
-            a {
-                display: block;
-                text-decoration: none;
-                font-size: 1.0769em;
-                letter-spacing: 0.005em;
-                line-height: 1.4;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                margin-bottom: .5rem;
+.product_list_widget {
+    .product-details {
+        position: relative;
+        -ms-flex: 1; flex: 1;
+        max-width: calc(100% - 104px);
+        a {
+            display: block;
+            text-decoration: none;
+            font-size: 1.0769em;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: .5rem;
+        }
+        .amount {
+            font-size: 1.1538em;
+            font-weight: $font-weight-semibold;
+            line-height: 1;
+            vertical-align: middle;
+            .currency,
+            .decimal {
+                font-size: .75em;
+                font-weight: $font-weight-normal;
             }
-            .amount {
-                font-size: 1.1538em;
-                font-weight: $font-weight-semibold;
-                line-height: 1;
-                vertical-align: middle;
-                .currency,
+            .currency {
                 .decimal {
-                    font-size: .75em;
-                    font-weight: $font-weight-normal;
-                }
-                .currency {
-                    .decimal {
-                        font-size: 1em;
-                    }
+                    font-size: 1em;
                 }
             }
-            ins {
-                text-decoration: none;
-                vertical-align: baseline;
-            }
-            del,
-            .from {
+        }
+        ins {
+            text-decoration: none;
+            vertical-align: baseline;
+        }
+        del,
+        .from {
+            color: $color-old-price;
+            font-size: .8em;
+            margin-#{$right}: 3px;
+            vertical-align: baseline;
+            .amount {
                 color: $color-old-price;
-                font-size: .8em;
-                margin-#{$right}: 3px;
-                vertical-align: baseline;
-                .amount {
-                    color: $color-old-price;
-                }
             }
         }
-        dl {
-            margin: 0;
-            padding-#{$left}: 1em;
-            border-#{$left}: 2px solid rgba(0, 0, 0, 0.1);
-            @include clearfix;
+    }
+    dl {
+        margin: 0;
+        padding-#{$left}: 1em;
+        border-#{$left}: 2px solid rgba(0, 0, 0, 0.1);
+        @include clearfix;
 
-            dt, dd {
-                display: inline-block;
-                float: $left;
-                margin-bottom: 1em;
-            }
-            dt {
-                font-weight: $font-weight-bold;
-                padding: 0 0 .25em 0;
-                margin: side-values(0 4px 0 0);
-                clear: $left;
-            }
-            dd {
-                padding: 0 0 .25em 0;
-                p:last-child {
-                    margin-bottom:0;
-                }
+        dt, dd {
+            display: inline-block;
+            float: $left;
+            margin-bottom: 1em;
+        }
+        dt {
+            font-weight: $font-weight-bold;
+            padding: 0 0 .25em 0;
+            margin: side-values(0 4px 0 0);
+            clear: $left;
+        }
+        dd {
+            padding: 0 0 .25em 0;
+            p:last-child {
+                margin-bottom:0;
             }
         }
-        .star-rating {
-            //font-size: 0.8571em;
-            margin: 3px 0 5px;
-        }
-        .ajax-loading {
+    }
+    .star-rating {
+        //font-size: 0.8571em;
+        margin: 3px 0 5px;
+    }
+    .ajax-loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: .6;
+        display: none;
+        &:before {
+            content: "\f110";
+            font-family: "porto";
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: .6;
-            display: none;
-            &:before {
-                content: "\f110";
-                font-family: "porto";
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                font-size: 20px;
-                font-weight: 400;
-                line-height: 1;
-                margin-top: -13px;
-                margin-left: -13px;
-                color: #999;
-                z-index: 0;
-                @include animate-spin;
-            }
+            left: 50%;
+            top: 50%;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1;
+            margin-top: -13px;
+            margin-left: -13px;
+            color: #999;
+            z-index: 0;
+            @include animate-spin;
         }
     }
 }
@@ -663,20 +670,23 @@ ul.cart_list{
         a {
             padding-#{$right}: 15px;
         }
-        .remove-product {
-            padding: 0;
-            position: absolute;
-            top: 3px;
-            #{$right}: 0;
-            text-align: $right;
-            width: 25px;
-            height: 25px;
-            text-decoration: none;
-            &:before {
-                content: $fa-var-times;
-                font-family: 'Font Awesome 5 Free'; font-weight: 900;
-            }
-        }
+    }
+}
+
+.widget_shopping_cart .product-details .remove-product,
+.wishlist_table .remove_from_wishlist,
+.shop_table.cart-table a.remove {
+    padding: 0;
+    position: absolute;
+    top: 3px;
+    #{$right}: 0;
+    text-align: $right;
+    width: 25px;
+    height: 25px;
+    text-decoration: none;
+    &:before {
+        content: $fa-var-times;
+        font-family: 'Font Awesome 5 Free'; font-weight: 900;
     }
 }
 

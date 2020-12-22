@@ -1,26 +1,7 @@
 <?php
 
 // Porto Masonry Item
-if ( function_exists( 'register_block_type' ) ) {
-	register_block_type(
-		'porto/porto-grid-item',
-		array(
-			'editor_script'   => 'porto_blocks',
-			'render_callback' => 'porto_shortcode_grid_item',
-		)
-	);
-}
-
-add_shortcode( 'porto_grid_item', 'porto_shortcode_grid_item' );
 add_action( 'vc_after_init', 'porto_load_grid_item_shortcode' );
-
-function porto_shortcode_grid_item( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_grid_item' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_grid_item_shortcode() {
 	$custom_class = porto_vc_custom_class();

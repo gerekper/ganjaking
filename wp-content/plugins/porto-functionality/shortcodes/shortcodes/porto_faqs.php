@@ -1,16 +1,7 @@
 <?php
 
 // Porto FAQs
-add_shortcode( 'porto_faqs', 'porto_shortcode_faqs' );
 add_action( 'vc_after_init', 'porto_load_faqs_shortcode' );
-
-function porto_shortcode_faqs( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_faqs' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_faqs_shortcode() {
 	$animation_type     = porto_vc_animation_type();

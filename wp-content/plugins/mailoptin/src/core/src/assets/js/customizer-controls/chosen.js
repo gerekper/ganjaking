@@ -1,13 +1,14 @@
 (function ($) {
     $(window).on('load', function () {
         var chosen_selector = $('.mailoptin-chosen'), data_link;
-        chosen_selector.on('change', function (evt, params) {
+
+        $(document).on('change', '.mailoptin-chosen', function () {
             // multi select return null when no option is return whereas, customizer requires
             // an empty array when a form field (such as select) that returns array of option inorder to
             // trigger a change state/event.
             if (!$(this).val()) {
                 data_link = $(this).attr('data-customize-setting-link');
-                if(typeof wp.customize.value(data_link) !== 'undefined') {
+                if (typeof wp.customize.value(data_link) !== 'undefined') {
                     wp.customize.value(data_link).set([])
                 }
             }
@@ -18,15 +19,9 @@
             width: "100%"
         });
 
-
-        function no_result_trigger(e) {
-            var val = $(this).val();
-            return chosen_search.call(this, e, val);
-        }
-
         function search_trigger(e) {
             var val = $(this).val();
-            if (val.length <= 3) return;
+            if (val.length < 3) return;
 
             return chosen_search.call(this, e, val);
         }
@@ -85,8 +80,7 @@
                                     });
                                     html += '</optgroup>';
                                     select.prepend(html);
-                                }
-                                else {
+                                } else {
 
                                     // Add any option that doesn't already exist
                                     if (!$('option[value="' + key + '"]', select).length) {
@@ -112,8 +106,6 @@
         $('.mailoptin-chosen .search-field input').each(function () {
             $(this).attr('placeholder', mailoptin_globals.chosen_search_placeholder);
         });
-
-        $(document.body).on('chosen:no_results', 'ul[id*="mo_wp_page_filter_display_rule_section"]', no_result_trigger);
 
         // Replace options with search results
         $(document.body).on('keyup', '.mailoptin-chosen.chosen-container .chosen-search input, .mailoptin-chosen.chosen-container .search-field input', search_trigger);

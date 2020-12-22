@@ -9,6 +9,8 @@
  * @version 2.1.0
  */
 
+use Automattic\WooCommerce\Utilities\NumberUtil;
+
 defined( 'ABSPATH' ) || exit;
 
 require_once WC_ABSPATH . 'includes/legacy/class-wc-legacy-cart.php';
@@ -660,10 +662,10 @@ class WC_Cart extends WC_Legacy_Cart {
 	 * Get weight of items in the cart.
 	 *
 	 * @since 2.5.0
-	 * @return int
+	 * @return float
 	 */
 	public function get_cart_contents_weight() {
-		$weight = 0;
+		$weight = 0.0;
 
 		foreach ( $this->get_cart() as $cart_item_key => $values ) {
 			if ( $values['data']->has_weight() ) {
@@ -776,7 +778,15 @@ class WC_Cart extends WC_Legacy_Cart {
 			$held_stock     = wc_get_held_stock_quantity( $product, $current_session_order_id );
 			$required_stock = $product_qty_in_cart[ $product->get_stock_managed_by_id() ];
 
-			if ( $product->get_stock_quantity() < ( $held_stock + $required_stock ) ) {
+			/**
+			 * Allows filter if product have enough stock to get added to the cart.
+			 *
+			 * @since 4.6.0
+			 * @param bool       $has_stock If have enough stock.
+			 * @param WC_Product $product   Product instance.
+			 * @param array      $values    Cart item values.
+			 */
+			if ( apply_filters( 'woocommerce_cart_item_required_stock_is_not_enough', $product->get_stock_quantity() < ( $held_stock + $required_stock ), $product, $values ) ) {
 				/* translators: 1: product name 2: quantity in stock */
 				$error->add( 'out-of-stock', sprintf( __( 'Sorry, we do not have enough "%1$s" in stock to fulfill your order (%2$s available). We apologize for any inconvenience caused.', 'woocommerce' ), $product->get_name(), wc_format_stock_quantity_for_display( $product->get_stock_quantity() - $held_stock, $product ) ) );
 				return $error;
@@ -850,8 +860,8 @@ class WC_Cart extends WC_Legacy_Cart {
 	 */
 	public function get_tax_totals() {
 		$shipping_taxes = $this->get_shipping_taxes(); // Shipping taxes are rounded differently, so we will subtract from all taxes, then round and then add them back.
-		$taxes = $this->get_taxes();
-		$tax_totals = array();
+		$taxes          = $this->get_taxes();
+		$tax_totals     = array();
 
 		foreach ( $taxes as $key => $tax ) {
 			$code = WC_Tax::get_rate_code( $key );
@@ -869,7 +879,7 @@ class WC_Cart extends WC_Legacy_Cart {
 				if ( isset( $shipping_taxes[ $key ] ) ) {
 					$tax -= $shipping_taxes[ $key ];
 					$tax  = wc_round_tax_total( $tax );
-					$tax += round( $shipping_taxes[ $key ], wc_get_price_decimals() );
+					$tax += NumberUtil::round( $shipping_taxes[ $key ], wc_get_price_decimals() );
 					unset( $shipping_taxes[ $key ] );
 				}
 				$tax_totals[ $code ]->amount          += wc_round_tax_total( $tax );

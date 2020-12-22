@@ -321,7 +321,7 @@
 					count = $el.find('> *').length,
 					w_xs = 576 - scrollWidth,
 					w_md = 768 - scrollWidth,
-					w_lg = 992 - scrollWidth,
+					w_lg = parseInt(js_porto_vars.screen_lg) - scrollWidth,
 					w_sl = 1400 - scrollWidth;
 
 				if ($el.find('.product-col').get(0)) {
@@ -335,7 +335,7 @@
 					if (this.options.xl) {
 						responsive[w_sl] = { items: this.options.xl, loop: (this.options.loop && count > this.options.xl) ? true : false };
 					}
-					if (lg) responsive[w_lg] = { items: lg, loop: (this.options.loop && count > lg) ? true : false };
+					responsive[w_lg] = { items: items, loop: (this.options.loop && count > items) ? true : false };
 					if (md) responsive[w_md] = { items: md, loop: (this.options.loop && count > md) ? true : false };
 					if (xs) responsive[w_xs] = { items: xs, loop: (this.options.loop && count > xs) ? true : false };
 					if (ls) responsive[0] = { items: ls, loop: (this.options.loop && count > ls) ? true : false };
@@ -1504,15 +1504,15 @@
 							}
 
 							self.selectVerticalThumb(null, $thumbs, 0);
-							$thumbs.on('click', '.img-thumbnail', function() {
+							$thumbs.off('click', '.img-thumbnail').on('click', '.img-thumbnail', function() {
 								self.selectVerticalThumb($this, $thumbs, $(this).index());
 							});
 
-							$thumbs_slider.on('click', '.thumb-prev', function(e) {
+							$thumbs_slider.off('click', '.thumb-prev').on('click', '.thumb-prev', function(e) {
 								var currentThumb = $thumbs_slider.data('currentThumb');
 								self.selectThumb($this, $thumbs_slider, --currentThumb);
 							});
-							$thumbs_slider.on('click', '.thumb-next', function(e) {
+							$thumbs_slider.off('click', '.thumb-next').on('click', '.thumb-next', function(e) {
 								var currentThumb = $thumbs_slider.data('currentThumb');
 								self.selectThumb($this, $thumbs_slider, ++currentThumb);
 							});
@@ -1589,9 +1589,9 @@
 									if (theme.product_zoom && (!('ontouchstart' in document) || (('ontouchstart' in document) && theme.product_zoom_mobile))) {
 										$this.find('img').each(function() {
 											var $this = $(this),
-												src = typeof $this.attr('href') != 'undefined' ? $this.attr('href') : $this.attr('src'),
+												src = typeof $this.attr('href') != 'undefined' ? $this.attr('href') : ($this.data('oi') ? $this.data('oi') : $this.attr('src')),
 												elevateZoom = $this.data('elevateZoom'),
-												smallImage = $this.data('src') ? $this.data('src') : $this.attr('src');
+												smallImage = $this.data('src') ? $this.data('src') : ($this.data('oi') ? $this.data('oi') : $this.attr('src'));
 											if (typeof elevateZoom != 'undefined') {
 												elevateZoom.startZoom();
 												elevateZoom.swaptheimage(smallImage, src);
@@ -1768,7 +1768,7 @@
 											porto_woocommerce_init();
 										}
 										theme.WooProductImageSlider.initialize($('.quickview-wrap-' + pid).find('.product-image-slider'));
-											// Variation Form
+										// Variation Form
 										var form_variation = $('.quickview-wrap-' + pid).find('form.variations_form');
 										if (form_variation.length > 0) {
 											form_variation.wc_variation_form();
@@ -1809,8 +1809,9 @@
 										nonce: js_porto_vars.porto_nonce
 									},
 									success: function(res) {
-										$(res).waitForImages(function() {
-											$('.skeleton-body.product').replaceWith($(res));
+										var $res = $(res);
+										$res.waitForImages(function() {
+											$('.skeleton-body.product').replaceWith($res);
 											theme.WooQtyField.initialize();
 											$(window).trigger('resize');
 											args['afterShow'].call(false);
@@ -2177,12 +2178,17 @@
 					});
 
 					// fix scrolling to top issue on fancybox quickview whenever updating variation
+					var porto_fb_timer = null;
 					$( document ).on( 'found_variation reset_image', '.variations_form', function(event, variation) {
 						if ($(this).closest('.fancybox-inner').length && $.fancybox) {
 							$(window).unbind('resize.fb', $.fancybox.update);
-							theme.requestTimeout(function() {
+							if (porto_fb_timer) {
+								theme.deleteTimeout(porto_fb_timer);
+							}
+							porto_fb_timer = theme.requestTimeout(function() {
 								$(window).bind('resize.fb', $.fancybox.update);
-							}, 60);
+								porto_fb_timer = null;
+							}, 160);
 						}
 					});
 
@@ -2436,8 +2442,9 @@
 			});
 
 			// Perform AJAX login on form submit
-			$('body').on('submit', '#login-form-popup form', function(e){
-				var $form = $(this), isLogin = $form.hasClass('login');
+			$('body').on('click', '#login-form-popup form .woocommerce-Button', function(e){
+				var $form = $(this).closest('form'), isLogin = $(this).hasClass('login-btn');
+				$form.find('#email').val($form.find('#username').val());
 				$form.find('p.status').show().text('Please wait...').addClass('loading');
 				$form.find('button[type=submit]').attr('disabled', 'disabled');
 				$.ajax({
@@ -2842,20 +2849,31 @@
 		if ($(document.body).hasClass('woocommerce-cart') && $('.wpcf7 .screen-reader-response').length) {
 			$('.wpcf7 .screen-reader-response').attr('role', '');
 		}
+
+		// fix dokan search vendor
+		$('#dokan-store-listing-filter-form-wrap .store-search-input').on('keydown', function(e) {
+			if (e.which && event.which == 13) {
+				$(this).closest('form').find('#apply-filter-btn').trigger('click');
+				e.preventDefault();
+			}
+		});
 	})( window.theme, jQuery );
 
 })();
 
-function porto_woocommerce_init() {
+function porto_woocommerce_init($wrap) {
 	'use strict';
 
+	if (!$wrap) {
+		$wrap = jQuery(document.body);
+	}
 	// Woo Widget Toggle
 	(function($) {
 
 		if ($.isFunction($.fn.themeWooWidgetToggle)) {
 
 			$(function() {
-				$('.widget_product_categories, .widget_price_filter, .widget_layered_nav, .widget_layered_nav_filters, .widget_rating_filter, .porto_widget_price_filter').find('.widget-title').each(function() {
+				$wrap.find('.widget_product_categories, .widget_price_filter, .widget_layered_nav, .widget_layered_nav_filters, .widget_rating_filter, .porto_widget_price_filter').find('.widget-title').each(function() {
 					var $this = $(this),
 						opts;
 
@@ -2873,7 +2891,7 @@ function porto_woocommerce_init() {
 		if ($.isFunction($.fn.themeWooWidgetAccordion)) {
 
 			$(function() {
-				$('.widget_product_categories, .widget_price_filter, .widget_layered_nav, .widget_layered_nav_filters, .widget_rating_filter').each(function() {
+				$wrap.find('.widget_product_categories, .widget_price_filter, .widget_layered_nav, .widget_layered_nav_filters, .widget_rating_filter').each(function() {
 					var $this = $(this),
 						opts;
 
@@ -2891,7 +2909,7 @@ function porto_woocommerce_init() {
 		if ($.isFunction($.fn.themeWooProductsSlider)) {
 
 			$(function() {
-				$('.products-slider:not(.manual)').each(function() {
+				$wrap.find('.products-slider:not(.manual)').each(function() {
 					var $this = $(this),
 						opts;
 
@@ -2906,18 +2924,6 @@ function porto_woocommerce_init() {
 		}
 
 	})(jQuery);
-
-	// Woocommerce Grid/List Toggle
-	(function($) {
-		if ($.cookie && $.cookie('gridcookie') == 'grid') {
-			$('.gridlist-toggle #grid').addClass('active');
-			$('.gridlist-toggle #list').removeClass('active');
-		} else if ($.cookie && $.cookie('gridcookie') == 'list') {
-			$('.gridlist-toggle #list').addClass('active');
-			$('.gridlist-toggle #grid').removeClass('active');
-		}
-
-	})(jQuery);
 }
 
 function porto_woocommerce_variations_init($parent_obj) {
@@ -2925,7 +2931,7 @@ function porto_woocommerce_variations_init($parent_obj) {
 
 	theme.requestTimeout(function() {
 		var form_variation = $parent_obj.find('form.variations_form:not(.vf_init)');
-		if (form_variation.length > 0) {
+		if (form_variation.length) {
 			form_variation.each(function() {
 				jQuery(this).wc_variation_form();
 			});

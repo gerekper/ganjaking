@@ -1,0 +1,15 @@
+2020-12-18T02:56:31+00:00 CRITICAL Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'gerekper_ganja.wp_mailpoet_subscribers' doesn't exist in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/vendor-prefixed/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOStatement.php:2
+Stack trace:
+#0 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/vendor-prefixed/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOStatement.php(2): PDOStatement->execute()
+#1 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/lib-3rd-party/Idiorm/idiorm.php(520): MailPoetVendor\Doctrine\DBAL\Driver\PDOStatement->execute()
+#2 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/lib-3rd-party/Idiorm/idiorm.php(1924): MailPoetVendor\Idiorm\ORM::_execute()
+#3 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/lib-3rd-party/Idiorm/idiorm.php(702): MailPoetVendor\Idiorm\ORM->_run()
+#4 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/lib-3rd-pa in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/vendor-prefixed/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOStatement.php on line 2
+
+2020-12-18T02:57:25+00:00 CRITICAL Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'gerekper_ganja.wp_mailpoet_forms' doesn't exist in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/vendor-prefixed/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:2
+Stack trace:
+#0 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/vendor-prefixed/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(2): PDO->query()
+#1 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/vendor-prefixed/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(2): MailPoetVendor\Doctrine\DBAL\Driver\PDOConnection->query()
+#2 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/vendor-prefixed/doctrine/orm/lib/Doctrine/ORM/Query/Exec/SingleSelectExecutor.php(2): MailPoetVendor\Doctrine\DBAL\Connection->executeQuery()
+#3 /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/vendor-prefixed/doctrine/orm/lib/Doctrine/ORM/Query.php(2): MailPoetVendor\Doc in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/mailpoet/vendor-prefixed/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 2
+

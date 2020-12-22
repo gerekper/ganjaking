@@ -328,7 +328,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			array(
 				'type'        => Controls_Manager::TEXTAREA,
 				'label'       => __( 'Counter Title', 'porto-functionality' ),
-				'description' => __( 'Enter title for stats counter block', 'porto-functionality' ),
+				'description' => __( 'Enter title for stats counter block.', 'porto-functionality' ),
 				'dynamic'     => array(
 					'active' => true,
 				),

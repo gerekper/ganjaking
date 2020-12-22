@@ -2,13 +2,13 @@
 <% extends 'layout.html' %>
 <% block content %>
 <div id="mailpoet_subscribers_import" class="wrap">
-  <h1 class="title">
-    <%= __('Import') %>
-    <a class="page-title-action" href="?page=mailpoet-subscribers#/"><%= __('Back to Subscribers') %></a>
+  <h1 class="mailpoet-h1 mailpoet-title">
+    <span><%= __('Import') %></span>
+    <a class="mailpoet-button mailpoet-button-small" href="?page=mailpoet-subscribers#/"><%= __('Back to Subscribers') %></a>
   </h1>
   <!-- STEP subscriber data manipulation -->
   <% include 'subscribers/importExport/import/step_data_manipulation.html' %>
-  <div id="import_container"></div>
+  <div id="import_container" class="mailpoet-tab-content"></div>
 </div>
 
 <script type="text/javascript">
@@ -98,6 +98,7 @@
 'validationStepLastSentNext': __('Next'),
 'previousStep': __('Previous step'),
 'nextStep': __('Next step'),
+'import': __('Import'),
 'seeVideo': __(' See video guide'),
 'importAgain': __('Import again'),
 'viewSubscribers': __('View subscribers'),

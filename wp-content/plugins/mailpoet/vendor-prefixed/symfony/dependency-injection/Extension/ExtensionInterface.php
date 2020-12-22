@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Extension; if (!defined('ABSPATH')) exit; use MailPoetVendor\Symfony\Component\DependencyInjection\ContainerBuilder; interface ExtensionInterface { public function load(array $configs, \MailPoetVendor\Symfony\Component\DependencyInjection\ContainerBuilder $container); public function getNamespace(); public function getXsdValidationBasePath(); public function getAlias(); } 

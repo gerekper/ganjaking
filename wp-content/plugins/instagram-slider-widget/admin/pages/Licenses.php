@@ -68,18 +68,6 @@ class Licenses extends WIS_Page
             ],
         ];
 
-        if(defined('SPFD_PLUGIN_DIR')){
-            array_push($licenses, [
-                'name' => 'shopifeed',
-                'title' => __('Shopifeed', 'instagram-slider-widget'),
-                'license_url' => 'shopifeed-license-isws',
-                'icon' => WIS_PLUGIN_URL . '/assets/img/icon.png',
-                'description' => __('CREATE YOUR ONLINE STORE FROM INSTAGRAM', 'instagram-slider-widget'),
-            ]);
-        }
-
-
-
         echo $this->render('licenses', ['licenses' => $licenses]);
     }
 

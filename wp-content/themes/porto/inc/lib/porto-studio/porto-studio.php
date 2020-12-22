@@ -33,7 +33,7 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 		/**
 		 * Page Builder Type
 		 *
-		 * This should be 'v' if using Visual Composer and 'e' if using Elementor Page Builder.
+		 * This should be 'v' if using WPBakery and 'e' if using Elementor Page Builder.
 		 */
 		private $page_type = 'v';
 
@@ -142,6 +142,17 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 					$block_content = $this->process_posts( $block_content, $block['posts'], false );
 				}
 				if ( 'e' == $this->page_type ) {
+					if ( defined( 'ELEMENTOR_VERSION' ) ) {
+						$try_count = 0;
+						while ( false !== strpos( $block_content, '"id":"PPPPPPP"' ) && $try_count < 100 ) {
+							$block_content = preg_replace( '/"id":"PPPPPPP"/', '"id":"' . Elementor\Utils::generate_random_string() . '"', $block_content, 1 );
+							$try_count++;
+						}
+					}
+					$block_content = json_decode( $block_content, true );
+				} elseif ( 'c' == $this->page_type ) {
+					$block_content = str_replace( 'PORTO_FUNC_PATH', str_replace( '/shortcodes/', '', PORTO_SHORTCODES_URL ), $block_content );
+					$block_content = str_replace( 'PORTO_PLUGINS_PATH', esc_url( plugins_url() ), $block_content );
 					$block_content = json_decode( $block_content, true );
 				}
 				$result = array( 'content' => $block_content );
@@ -163,6 +174,8 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 
 			if ( 'e' == $this->page_type ) {
 				$transient_key = 'porto_blocks_e';
+			} elseif ( 'c' == $this->page_type ) {
+				$transient_key = 'porto_blocks_c';
 			} else {
 				$transient_key = 'porto_blocks';
 			}
@@ -345,6 +358,8 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 			// get block categories
 			if ( 'e' == $this->page_type ) {
 				$transient_key = 'porto_block_categories_e';
+			} elseif ( 'c' == $this->page_type ) {
+				$transient_key = 'porto_block_categories_c';
 			} else {
 				$transient_key = 'porto_block_categories';
 			}
@@ -365,6 +380,8 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 			// get blocks
 			if ( 'e' == $this->page_type ) {
 				$transient_key = 'porto_blocks_e';
+			} elseif ( 'c' == $this->page_type ) {
+				$transient_key = 'porto_blocks_c';
 			} else {
 				$transient_key = 'porto_blocks';
 			}

@@ -4,7 +4,7 @@
  *
  * Handles requests to the /orders/<order_id>/refunds endpoint.
  *
- * @package Automattic/WooCommerce/RestApi
+ * @package WooCommerce\RestApi
  * @since   2.6.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Order Refunds controller class.
  *
- * @package Automattic/WooCommerce/RestApi
+ * @package WooCommerce\RestApi
  * @extends WC_REST_Orders_V2_Controller
  */
 class WC_REST_Order_Refunds_V2_Controller extends WC_REST_Orders_V2_Controller {
@@ -58,7 +58,9 @@ class WC_REST_Order_Refunds_V2_Controller extends WC_REST_Orders_V2_Controller {
 	 */
 	public function register_routes() {
 		register_rest_route(
-			$this->namespace, '/' . $this->rest_base, array(
+			$this->namespace,
+			'/' . $this->rest_base,
+			array(
 				'args'   => array(
 					'order_id' => array(
 						'description' => __( 'The order ID.', 'woocommerce' ),
@@ -82,7 +84,9 @@ class WC_REST_Order_Refunds_V2_Controller extends WC_REST_Orders_V2_Controller {
 		);
 
 		register_rest_route(
-			$this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
+			$this->namespace,
+			'/' . $this->rest_base . '/(?P<id>[\d]+)',
+			array(
 				'args'   => array(
 					'order_id' => array(
 						'description' => __( 'The order ID.', 'woocommerce' ),
@@ -140,7 +144,7 @@ class WC_REST_Order_Refunds_V2_Controller extends WC_REST_Orders_V2_Controller {
 		$data              = $object->get_data();
 		$format_decimal    = array( 'amount' );
 		$format_date       = array( 'date_created' );
-		$format_line_items = array( 'line_items' );
+		$format_line_items = array( 'line_items', 'shipping_lines', 'tax_lines', 'fee_lines' );
 
 		// Format decimal values.
 		foreach ( $format_decimal as $key ) {
@@ -169,6 +173,9 @@ class WC_REST_Order_Refunds_V2_Controller extends WC_REST_Orders_V2_Controller {
 			'refunded_payment' => $data['refunded_payment'],
 			'meta_data'        => $data['meta_data'],
 			'line_items'       => $data['line_items'],
+			'shipping_lines'   => $data['shipping_lines'],
+			'tax_lines'        => $data['tax_lines'],
+			'fee_lines'        => $data['fee_lines'],
 		);
 	}
 

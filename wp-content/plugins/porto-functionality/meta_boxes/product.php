@@ -235,6 +235,7 @@ function porto_product_cat_meta_fields() {
 				'default'     => __( 'Default', 'porto-functionality' ),
 				'horizontal'  => __( 'Horizontal filters 1', 'porto-functionality' ),
 				'horizontal2' => __( 'Horizontal filters 2', 'porto-functionality' ),
+				'offcanvas'   => __( 'Off Canvas', 'porto-functionality' ),
 			),
 		)
 	);

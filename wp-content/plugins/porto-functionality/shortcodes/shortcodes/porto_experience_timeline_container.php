@@ -1,16 +1,7 @@
 <?php
 
 // Porto Experience Timeline Container
-add_shortcode( 'porto_experience_timeline_container', 'porto_shortcode_experience_timeline_container' );
 add_action( 'vc_after_init', 'porto_load_experience_timeline_container_shortcode' );
-
-function porto_shortcode_experience_timeline_container( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_experience_timeline_container' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_experience_timeline_container_shortcode() {
 	$custom_class = porto_vc_custom_class();

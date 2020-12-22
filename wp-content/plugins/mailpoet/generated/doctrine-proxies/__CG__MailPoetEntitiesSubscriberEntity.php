@@ -56,7 +56,15 @@ class SubscriberEntity extends \MailPoet\Entities\SubscriberEntity implements \M
         $this->__cloner__      = $cloner;
     }
 
-
+    /**
+     * {@inheritDoc}
+     * @param string $name
+     */
+    public function __get($name)
+    {
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__get', [$name]);
+        return parent::__get($name);
+    }
 
 
 
@@ -199,6 +207,17 @@ class SubscriberEntity extends \MailPoet\Entities\SubscriberEntity implements \M
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setWpUserId', [$wpUserId]);
 
         return parent::setWpUserId($wpUserId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isWPUser(): bool
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'isWPUser', []);
+
+        return parent::isWPUser();
     }
 
     /**

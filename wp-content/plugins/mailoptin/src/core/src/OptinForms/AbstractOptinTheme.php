@@ -82,7 +82,7 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
 
         $style_arg = ['color' => $this->get_customizer_value('headline_font_color')];
 
-        if ($font_family != 'inherit') {
+        if ($font_family != 'inherit' && ! self::is_set_font_families_to_inherit()) {
             $style_arg['font-family'] = $this->_construct_font_family($font_family);
         }
 
@@ -118,7 +118,7 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
 
         $style_arg = ['color' => $this->get_customizer_value('description_font_color')];
 
-        if ($font != 'inherit') {
+        if ($font != 'inherit' && ! self::is_set_font_families_to_inherit()) {
             $style_arg['font-family'] = $this->_construct_font_family($font);
         }
 
@@ -153,7 +153,7 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
 
         $style = ['color' => $this->get_customizer_value('note_font_color')];
 
-        if ($font != 'inherit') {
+        if ($font != 'inherit' && ! self::is_set_font_families_to_inherit()) {
             $style['font-family'] = $this->_construct_font_family($font);
         }
 
@@ -196,7 +196,7 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
             'height'           => 'auto'
         ];
 
-        if ($font != 'inherit') {
+        if ($font != 'inherit' && ! self::is_set_font_families_to_inherit()) {
             $style_arg['font-family'] = $font;
         }
 
@@ -240,7 +240,7 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
         ];
 
 
-        if ($font != 'inherit') {
+        if ($font != 'inherit' && ! self::is_set_font_families_to_inherit()) {
             $style_arg['font-family'] = $font;
         }
 
@@ -283,7 +283,7 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
         }
 
 
-        if ($font != 'inherit') {
+        if ($font != 'inherit' && ! self::is_set_font_families_to_inherit()) {
             $style_arg['font-family'] = $font;
         }
 
@@ -321,7 +321,7 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
             'text-shadow' => 'none'
         ];
 
-        if ($font != 'inherit') {
+        if ($font != 'inherit' && ! self::is_set_font_families_to_inherit()) {
             $style_arg['font-family'] = $this->_construct_font_family($font);
         }
 
@@ -358,7 +358,7 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
             'text-shadow' => 'none'
         ];
 
-        if ($font != 'inherit') {
+        if ($font != 'inherit' && ! self::is_set_font_families_to_inherit()) {
             $style['font-family'] = $this->_construct_font_family($font);
         }
 
@@ -457,7 +457,7 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
             $html .= "<form method=\"post\" class='mo-optin-form' id='{$optin_css_id}_form' style='margin:0;'>";
         } else {
             // remove text alignment to center set in lightbox modal div container.
-            echo "<style type=\"text/css\">#{$optin_campaign_uuid}.moOptinForm.moModal{text-align:initial !important;}</style>";
+            $html .= "<style type=\"text/css\">#{$optin_campaign_uuid}.moOptinForm.moModal{text-align:initial !important;}</style>";
         }
 
         $html .= do_shortcode($content);

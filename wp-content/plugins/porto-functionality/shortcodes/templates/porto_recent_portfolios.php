@@ -28,6 +28,8 @@ extract(
 			'nav_type'           => '',
 			'show_dots'          => false,
 			'dots_style'         => '',
+			'autoplay'           => false,
+			'autoplay_timeout'   => 5000,
 			'ajax_load'          => false,
 			'ajax_modal'         => false,
 			'animation_type'     => '',
@@ -65,6 +67,12 @@ if ( $slider_config ) {
 	}
 	if ( $show_dots && $dots_style ) {
 		$carousel_class .= ' ' . $dots_style;
+	}
+	if ( $autoplay ) {
+		$options['autoplay'] = ( 'yes' == $autoplay ? true : false );
+		if ( 5000 !== (int) $autoplay_timeout ) {
+			$options['autoplayTimeout'] = (int) $autoplay_timeout;
+		}
 	}
 	$options['nav']  = $show_nav;
 	$options['dots'] = $show_dots;

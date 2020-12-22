@@ -12,7 +12,7 @@ $cart_ver          = porto_cart_version();
 
 do_action( 'woocommerce_before_shipping_calculator' ); ?>
 
-<form class="woocommerce-shipping-calculator shipping_calculator" action="<?php echo esc_url( version_compare( $porto_woo_version, '2.5', '<' ) ? WC()->cart->get_cart_url() : wc_get_cart_url() ); ?>" method="post">
+<form class="woocommerce-shipping-calculator shipping_calculator" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 
 	<?php if ( 'v1' == $cart_ver ) : ?>
 
@@ -50,7 +50,7 @@ do_action( 'woocommerce_before_shipping_calculator' ); ?>
 					?>
 						<span>
 							<select name="calc_shipping_state" id="calc_shipping_state" placeholder="<?php esc_attr_e( 'State / County', 'woocommerce' ); ?>">
-								<option value=""><?php esc_html_e( 'Select a state&hellip;', 'woocommerce' ); ?></option>
+								<option value=""><?php esc_html_e( 'Select a state&hellip;', 'porto' ); ?></option>
 							<?php
 							foreach ( $states as $ckey => $cvalue ) {
 								echo '<option value="' . esc_attr( $ckey ) . '" ' . selected( $current_r, $ckey, false ) . '>' . esc_html( $cvalue ) . '</option>';
@@ -80,7 +80,7 @@ do_action( 'woocommerce_before_shipping_calculator' ); ?>
 			</p>
 		<?php endif; ?>
 
-		<p><button type="submit" name="calc_shipping" value="1" class="btn btn-default"><?php esc_html_e( 'Update totals', 'porto' ); ?></button></p>
+		<p><button type="submit" name="calc_shipping" value="1" class="button wc-action-btn mb-3"><?php esc_html_e( 'Update totals', 'porto' ); ?></button></p>
 
 		<?php wp_nonce_field( 'woocommerce-shipping-calculator', 'woocommerce-shipping-calculator-nonce' ); ?>
 	</section>

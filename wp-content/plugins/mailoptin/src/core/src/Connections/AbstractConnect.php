@@ -181,6 +181,23 @@ abstract class AbstractConnect
         }
 
         error_log($message . "\r\n\r\n", 3, "{$error_log_folder}{$filename}.log");
+
+        $email_campaign_name = EmailCampaignRepository::get_email_campaign_name($email_campaign_id);
+
+        $main_message = apply_filters(
+            'mo_email_campaign_error_email_message',
+            sprintf(
+                __('The email campaign "%s" had the following error "%s".', 'mailoptin'),
+                $email_campaign_name,
+                $message
+            )
+        );
+
+        $email = get_option('admin_email');
+
+        $subject = apply_filters('mo_email_campaign_error_email_subject', sprintf(__('Warning! "%s" Email Campaign Is Not Working', 'mailoptin'), $email_campaign_name), $email_campaign_id);
+
+        @wp_mail($email, $subject, $main_message);
     }
 
     /**
@@ -304,7 +321,11 @@ $footer_content";
 
         $optin_campaign_name = OptinCampaignsRepository::get_optin_campaign_name($optin_campaign_id);
 
-        $subject = apply_filters('mo_optin_form_email_error_email_subject', sprintf(__('Warning! "%s" Optin Campaign Is Not Working', 'mailoptin'), $optin_campaign_name), $optin_campaign_id, $error_message);
+        $subject = apply_filters(
+            'mo_optin_form_email_error_email_subject',
+            sprintf(__('Warning! "%s" Optin Campaign Is Not Working', 'mailoptin'), $optin_campaign_name),
+            $optin_campaign_id
+        );
 
         if ( ! defined('MAILOPTIN_DETACH_LIBSODIUM')) {
 
@@ -448,7 +469,17 @@ $footer_content";
         );
     }
 
-    public function oauth_token_refresh($integration, $refresh_token, $args = [])
+    /**
+     * Created this method because a need arose where we needed to call statically a method to refresh token
+     *
+     * @param $integration
+     * @param $refresh_token
+     * @param array $args
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function static_oauth_token_refresh($integration, $refresh_token, $args = [])
     {
         $url = sprintf(MAILOPTIN_OAUTH_URL . '/%s/?refresh_token=%s', $integration, $refresh_token);
 
@@ -463,17 +494,28 @@ $footer_content";
         if ( ! isset($result['success']) || $result['success'] !== true) {
 
             // try refresh twice before failing.
-
             $response = wp_remote_get($url);
             $result   = json_decode(wp_remote_retrieve_body($response), true);
 
             if ( ! isset($result['success']) || $result['success'] !== true) {
-                self::save_optin_error_log('Error failed to refresh ' . json_encode($result), $integration);
-                throw new \Exception(__('Error failed to refresh', 'mailoptin'), 9990009909);
+                throw new \Exception('Error failed to refresh ' . json_encode($result), 9990009909);
             }
         }
 
         return $result;
+    }
+
+    /**
+     * @param $integration
+     * @param $refresh_token
+     * @param array $args
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function oauth_token_refresh($integration, $refresh_token, $args = [])
+    {
+        return self::static_oauth_token_refresh($integration, $refresh_token, $args);
     }
 
     /**

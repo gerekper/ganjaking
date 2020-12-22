@@ -1,16 +1,7 @@
 <?php
 
 // Porto Carousel Item
-add_shortcode( 'porto_carousel_item', 'porto_shortcode_carousel_item' );
 add_action( 'vc_after_init', 'porto_load_carousel_item_shortcode' );
-
-function porto_shortcode_carousel_item( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_carousel_item' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_carousel_item_shortcode() {
 	$custom_class = porto_vc_custom_class();

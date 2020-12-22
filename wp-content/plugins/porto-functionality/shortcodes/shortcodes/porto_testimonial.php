@@ -1,14 +1,7 @@
 <?php
 // Porto Testimonial
-add_shortcode( 'porto_testimonial', 'porto_shortcode_testimonial' );
 add_action( 'vc_after_init', 'porto_load_testimonial_shortcode' );
-function porto_shortcode_testimonial( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_testimonial' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
+
 function porto_load_testimonial_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();

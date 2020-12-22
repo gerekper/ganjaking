@@ -56,7 +56,15 @@ class SendingQueueEntity extends \MailPoet\Entities\SendingQueueEntity implement
         $this->__cloner__      = $cloner;
     }
 
-
+    /**
+     * {@inheritDoc}
+     * @param string $name
+     */
+    public function __get($name)
+    {
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__get', [$name]);
+        return parent::__get($name);
+    }
 
 
 

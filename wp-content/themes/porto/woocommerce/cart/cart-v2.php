@@ -8,26 +8,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 $porto_woo_version = porto_get_woo_version_number();
 ?>
 <div class="cart-v2">
-	<h2 class="heading-primary m-b-md font-weight-normal">
-		<span><?php esc_html_e( 'Shopping Cart', 'porto' ); ?></span>
-		<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="btn btn-primary proceed-to-checkout"><?php esc_html_e( 'Proceed to Checkout', 'porto' ); ?></a>
-	</h2>
-	<div class="row">
-		<div class="col-lg-8 col-xl-9">
-
-			<div class="featured-box featured-box-primary align-left">
+	<div class="row mb-5 pb-2">
+		<div class="col-lg-8">
+			<div class="align-left">
 				<div class="box-content">
-					<form class="woocommerce-cart-form" action="<?php echo esc_url( version_compare( $porto_woo_version, '2.5', '<' ) ? WC()->cart->get_cart_url() : wc_get_cart_url() ); ?>" method="post">
+					<form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 						<?php do_action( 'woocommerce_before_cart_table' ); ?>
-						<table class="shop_table responsive cart woocommerce-cart-form__contents" cellspacing="0">
+						<table class="shop_table responsive cart cart-table woocommerce-cart-form__contents" cellspacing="0">
 							<thead>
 								<tr>
-									<th class="product-remove">&nbsp;</th>
 									<th class="product-thumbnail">&nbsp;</th>
-									<th class="product-name"><?php esc_html_e( 'Product Name', 'porto' ); ?></th>
-									<th class="product-price"><?php esc_html_e( 'Unit Price', 'porto' ); ?></th>
-									<th class="product-quantity"><?php esc_html_e( 'Qty', 'porto' ); ?></th>
-									<th class="product-subtotal"><?php esc_html_e( 'Subtotal', 'porto' ); ?></th>
+									<th class="product-name"><span><?php esc_html_e( 'Product', 'porto' ); ?></span></th>
+									<th class="product-price"><span><?php esc_html_e( 'Price', 'porto' ); ?></span></th>
+									<th class="product-quantity"><span><?php esc_html_e( 'Quantity', 'porto' ); ?></span></th>
+									<th class="product-subtotal text-center text-md-right"><span><?php esc_html_e( 'Subtotal', 'porto' ); ?></span></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -40,12 +34,19 @@ $porto_woo_version = porto_get_woo_version_number();
 										$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
 										?>
 										<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
-											<td class="product-remove">
-												<?php
+											<td class="product-thumbnail">
+												<div class="position-relative">
+													<?php
+													$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+													if ( ! $product_permalink ) {
+														echo porto_filter_output( $thumbnail ); // PHPCS: XSS ok.
+													} else {
+														printf( '<a href="%s">%s</a>', esc_url( $_product->get_permalink( $cart_item ) ), $thumbnail ); // PHPCS: XSS ok.
+													}
 													echo apply_filters( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 														'woocommerce_cart_item_remove_link',
 														sprintf(
-															'<a href="%s" class="remove remove-product" aria-label="%s" data-product_id="%s" data-product_sku="%s" data-cart_id="%s">&times;</a>',
+															'<a href="%s" class="remove remove-product position-absolute" aria-label="%s" data-product_id="%s" data-product_sku="%s" data-cart_id="%s"></a>',
 															esc_url( function_exists( 'wc_get_cart_remove_url' ) ? wc_get_cart_remove_url( $cart_item_key ) : WC()->cart->get_remove_url( $cart_item_key ) ),
 															esc_attr__( 'Remove this item', 'porto' ),
 															esc_attr( $product_id ),
@@ -54,24 +55,15 @@ $porto_woo_version = porto_get_woo_version_number();
 														),
 														$cart_item_key
 													);
-												?>
-											</td>
-											<td class="product-thumbnail">
-												<?php
-												$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
-												if ( ! $product_permalink ) {
-													echo porto_filter_output( $thumbnail ); // PHPCS: XSS ok.
-												} else {
-													printf( '<a href="%s">%s</a>', esc_url( $_product->get_permalink( $cart_item ) ), $thumbnail ); // PHPCS: XSS ok.
-												}
-												?>
+													?>
+												</div>
 											</td>
 											<td class="product-name">
 												<?php
 												if ( ! $product_permalink ) {
 													echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', esc_html( $_product->get_name() ), $cart_item, $cart_item_key ) . '&nbsp;' );
 												} else {
-													echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', $_product->get_permalink( $cart_item ), esc_html( $_product->get_name() ) ), $cart_item, $cart_item_key ) );
+													echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s" class="text-v-dark font-weight-medium">%s</a>', $_product->get_permalink( $cart_item ), esc_html( $_product->get_name() ) ), $cart_item, $cart_item_key ) );
 												}
 
 												do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
@@ -109,7 +101,7 @@ $porto_woo_version = porto_get_woo_version_number();
 												echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
 												?>
 											</td>
-											<td class="product-subtotal" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>">
+											<td class="product-subtotal text-center text-md-right" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>">
 												<?php
 													echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
 												?>
@@ -121,23 +113,16 @@ $porto_woo_version = porto_get_woo_version_number();
 								do_action( 'woocommerce_cart_contents' );
 								?>
 								<tr>
-									<td colspan="6" class="actions">
+									<td colspan="6" class="actions px-md-2">
 										<?php if ( version_compare( $porto_woo_version, '2.5', '<' ) ? WC()->cart->coupons_enabled() : wc_coupons_enabled() ) { ?>
 											<div class="cart_totals_toggle">
-												<div class="card card-default">
-													<div class="card-header arrow">
-														<h2 class="card-title"><a class="accordion-toggle collapsed" data-toggle="collapse" href="#panel-cart-discount"><?php esc_html_e( 'DISCOUNT CODE', 'porto' ); ?></a></h2>
+												<div id="panel-cart-discount" class="d-sm-flex justify-content-between">
+													<div class="coupon">
+														<input type="text" name="coupon_code" class="input-text" id="coupon_code" placeholder="Coupon Code" value="" />
+														<button type="submit" class="button wc-action-btn wc-action-sm" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
+														<?php do_action( 'woocommerce_cart_coupon' ); ?>
 													</div>
-													<div id="panel-cart-discount" class="accordion-body collapse">
-														<div class="card-body">
-															<div class="coupon">
-																<label for="coupon_code"><?php esc_html_e( 'Enter your coupon code if you have one:', 'porto' ); ?></label>
-																<input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" />
-																<button type="submit" class="btn btn-primary" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
-																<?php do_action( 'woocommerce_cart_coupon' ); ?>
-															</div>
-														</div>
-													</div>
+													<button type="submit" class="button wc-action-btn wc-action-sm" name="update_cart" value="<?php esc_attr_e( 'Update Cart', 'porto' ); ?>"><?php esc_html_e( 'Update Cart', 'porto' ); ?></button>
 												</div>
 											</div>
 
@@ -151,8 +136,6 @@ $porto_woo_version = porto_get_woo_version_number();
 						</table>
 
 						<div class="cart-actions">
-							<a class="btn btn-default" href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>"><?php esc_html_e( 'Continue Shopping', 'porto' ); ?></a>
-							<button type="submit" class="btn btn-default pt-right" name="update_cart" value="<?php esc_attr_e( 'Update Cart', 'porto' ); ?>"><?php esc_html_e( 'Update Cart', 'porto' ); ?></button>
 							<?php do_action( 'woocommerce_cart_actions' ); ?>
 						</div>
 						<div class="clear"></div>
@@ -162,7 +145,7 @@ $porto_woo_version = porto_get_woo_version_number();
 			</div>
 		</div>
 
-		<div class="col-lg-4 col-xl-3">
+		<div class="col-lg-4">
 
 			<?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
 
@@ -179,4 +162,5 @@ $porto_woo_version = porto_get_woo_version_number();
 			</div>
 		</div>
 	</div>
+
 </div>

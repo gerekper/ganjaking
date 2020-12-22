@@ -46,7 +46,7 @@ class SettingEntity {
 
   /** @return mixed */
   public function getValue() {
-    return is_serialized($this->value) ? unserialize($this->value) : $this->value;
+    return $this->value !== null && is_serialized($this->value) ? unserialize($this->value) : $this->value;
   }
 
   /** @param mixed $value */

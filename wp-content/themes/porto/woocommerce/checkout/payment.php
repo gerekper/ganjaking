@@ -25,11 +25,13 @@ if ( ! is_ajax() ) {
 <div id="payment" class="woocommerce-checkout-payment">
 
 	<?php if ( porto_checkout_version() == 'v2' ) : ?>
-		<h3><?php esc_html_e( 'Payment Methods', 'porto' ); ?></h3>
+		<h3><?php esc_html_e( 'Payment methods', 'woocommerce' ); ?></h3>
 	<?php endif; ?>
 
 	<?php if ( WC()->cart->needs_payment() ) : ?>
-		<ul class="wc_payment_methods payment_methods methods">
+		<div class="porto-separator m-b-md"><hr class="separator-line  align_center"></div>
+		<h4 class="px-2"><?php esc_html_e( 'Payment methods', 'woocommerce' ); ?></h4>
+		<ul class="wc_payment_methods payment_methods methods px-2">
 			<?php
 			if ( ! empty( $available_gateways ) ) {
 				foreach ( $available_gateways as $gateway ) {
@@ -40,6 +42,7 @@ if ( ! is_ajax() ) {
 			}
 			?>
 		</ul>
+		<div class="porto-separator m-b-lg"><hr class="separator-line  align_center"></div>
 	<?php endif; ?>
 	<div class="form-row place-order">
 		<noscript>
@@ -64,7 +67,7 @@ if ( ! is_ajax() ) {
 		<?php $img = PORTO_URI . '/images/ajax-loader.gif'; ?>
 		<?php $img_2x = PORTO_URI . '/images/ajax-loader@2x.gif 2x'; ?>
 
-		<?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">'. esc_html( $order_button_text ) .'</button><img src="' . $img . '" srcset="' . $img_2x . '" alt="loader"/>' ); // @codingStandardsIgnoreLine ?>
+		<?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt btn-v-dark w-100 mt-3 py-3" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">'. esc_html( $order_button_text ) .'</button><img src="' . $img . '" srcset="' . $img_2x . '" alt="loader"/>' ); // @codingStandardsIgnoreLine ?>
 
 		<?php do_action( 'woocommerce_review_order_after_submit' ); ?>
 

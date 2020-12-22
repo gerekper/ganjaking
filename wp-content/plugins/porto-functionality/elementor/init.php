@@ -45,6 +45,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			'porto_layout',
 			'porto_sidebar',
 			'porto_sidebar2',
+			'porto_header_type',
 			'porto_container',
 			'porto_custom_css',
 			'porto_custom_js_body',
@@ -178,12 +179,20 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 							}
 						}
 
-						if ( ! $block_changed && ! $blog_block_changed && ! isset( $changed['product-content_bottom'] ) && ! isset( $changed['product-tab-block'] ) && ! isset( $changed['product-single-content-layout'] ) && ! isset( $changed['product-single-content-builder'] ) ) {
+						if ( ! $block_changed && ! $blog_block_changed && ! isset( $changed['product-content_bottom'] ) && ! isset( $changed['product-tab-block'] ) && ! isset( $changed['product-single-content-layout'] ) && ! isset( $changed['product-single-content-builder'] ) && ! isset( $changed['hb'] ) ) {
 							return;
 						}
 
+						$old_flag = get_theme_mod( 'elementor_edited', false );
+						if ( 'header_builder_p' == $options['header-type-select'] && ! empty( $options['hb'] ) ) {
+							global $wpdb;
+							if ( get_post_meta( (int) $options['hb'], '_elementor_edit_mode', true ) ) {
+								set_theme_mod( 'elementor_edited', true );
+								$block_changed = false;
+							}
+						}
+
 						if ( $block_changed ) {
-							$elementor_edited = false;
 							$block_slugs      = array();
 							foreach ( $html_blocks as $b ) {
 								if ( ! empty( $options[ 'html-' . $b ] ) && preg_match( '/\[porto_block\s[^]]*(id|name)="([^"]*)"/', $options[ 'html-' . $b ], $matches ) && isset( $matches[2] ) && $matches[2] ) {
@@ -197,13 +206,13 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 									$where   = is_numeric( $s ) ? 'ID' : 'post_name';
 									$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'block' AND $where = %s", sanitize_text_field( $s ) ) );
 									if ( $post_id && get_post_meta( $post_id, '_elementor_edit_mode', true ) && get_post_meta( $post_id, '_elementor_data', true ) ) {
-										$elementor_edited = true;
+										$old_flag = true;
 										break;
 									}
 								}
 							}
 
-							set_theme_mod( 'elementor_edited', $elementor_edited );
+							set_theme_mod( 'elementor_edited', $old_flag );
 						}
 
 						if ( $blog_block_changed ) {
@@ -356,7 +365,24 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 						)
 					);
 
-					if ( 'block' == $document->get_post()->post_type || 'product_layout' == $document->get_post()->post_type ) {
+					if ( 'porto_builder' == $document->get_post()->post_type && $document->get_post()->ID ) {
+						$terms = wp_get_post_terms( $document->get_post()->ID, 'porto_builder_type' );
+						if ( ! empty( $terms ) && 'header' == $terms[0]->name ) {
+							$document->add_control(
+								'porto_header_type',
+								array(
+									'type'    => Elementor\Controls_Manager::SELECT,
+									'label'   => __( 'Header Type', 'porto-functionality' ),
+									'options' => array(
+										''     => __( 'Default', 'porto-functionality' ),
+										'side' => __( 'Side Header', 'porto-functionality' ),
+									),
+								)
+							);
+						}
+					}
+
+					if ( 'block' == $document->get_post()->post_type || 'product_layout' == $document->get_post()->post_type || 'porto_builder' == $document->get_post()->post_type ) {
 						$document->add_control(
 							'porto_container',
 							array(

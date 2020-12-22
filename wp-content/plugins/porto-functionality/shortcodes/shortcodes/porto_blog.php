@@ -1,25 +1,7 @@
 <?php
 
 // Porto Blog
-if ( function_exists( 'register_block_type' ) ) {
-	register_block_type(
-		'porto/porto-blog',
-		array(
-			'editor_script'   => 'porto_blocks',
-			'render_callback' => 'porto_shortcode_blog',
-		)
-	);
-}
-add_shortcode( 'porto_blog', 'porto_shortcode_blog' );
 add_action( 'vc_after_init', 'porto_load_blog_shortcode' );
-
-function porto_shortcode_blog( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_blog' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_blog_shortcode() {
 	$animation_type     = porto_vc_animation_type();

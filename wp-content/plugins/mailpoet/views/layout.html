@@ -1,6 +1,6 @@
 <% if sub_menu %>
 <script type="text/javascript">
-jQuery('.toplevel_page_mailpoet-newsletters.menu-top-last')
+jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   .addClass('wp-has-current-submenu')
   .find('a[href$="<%= sub_menu %>"]')
   .addClass('current')
@@ -42,6 +42,7 @@ jQuery('.toplevel_page_mailpoet-newsletters.menu-top-last')
 
 <!-- stylesheets -->
 <%= stylesheet(
+  'mailpoet-font.css',
   'mailpoet-plugin.css'
 )%>
 
@@ -50,11 +51,13 @@ jQuery('.toplevel_page_mailpoet-newsletters.menu-top-last')
 <% block after_css %><% endblock %>
 
 <script type="text/javascript">
-  var mailpoet_date_format = "<%= wp_datetime_format()|escape('js') %>";
+  var mailpoet_datetime_format = "<%= wp_datetime_format()|escape('js') %>";
+  var mailpoet_date_format = "<%= wp_date_format()|escape('js') %>";
   var mailpoet_time_format = "<%= wp_time_format()|escape('js') %>";
   var mailpoet_version = "<%= mailpoet_version() %>";
   var mailpoet_locale = "<%= mailpoet_locale() %>";
   var mailpoet_premium_version = <%= json_encode(mailpoet_premium_version()) %>;
+  var mailpoet_3rd_party_libs_enabled = <%= is_loading_3rd_party_enabled() | json_encode %>;
   var mailpoet_analytics_enabled = <%= is_analytics_enabled() | json_encode %>;
   var mailpoet_analytics_data = <%= json_encode(get_analytics_data()) %>;
   var mailpoet_analytics_public_id = <%= json_encode(get_analytics_public_id()) %>;
@@ -65,6 +68,7 @@ jQuery('.toplevel_page_mailpoet-newsletters.menu-top-last')
   var mailpoet_email_regex = /(?=^[+a-zA-Z0-9_.!#$%&'*\/=?^`{|}~-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,63}$)(?=^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})))/;
   var mailpoet_feature_flags = <%= json_encode(feature_flags) %>;
   var mailpoet_referral_id = <%= json_encode(referral_id) %>;
+  var mailpoet_feature_announcement_has_news = <%= json_encode(feature_announcement_has_news) %>;
 </script>
 
 <!-- javascripts -->
@@ -102,6 +106,7 @@ jQuery('.toplevel_page_mailpoet-newsletters.menu-top-last')
   'reviewRequestRateUsNow': _x('Rate us now', 'Review our plugin on WordPress.org.'),
   'reviewRequestNotNow': __('Not now'),
 
+  'sent': __('Sent'),
   'notSentYet': __('Not sent yet!'),
 }) %>
 <% block translations %><% endblock %>
@@ -119,39 +124,41 @@ jQuery('.toplevel_page_mailpoet-newsletters.menu-top-last')
   'admin.js'
 )%>
 
-<%= javascript('lib/analytics.js') %>
+<%if is_loading_3rd_party_enabled() %>
+  <%= javascript('lib/analytics.js') %>
 
-<% set helpscout_form_id = '1c666cab-c0f6-4614-bc06-e5d0ad78db2b' %>
-<%if mailpoet_api_key_state.data.support_tier == 'premium' %>
-  <% set helpscout_form_id = 'e93d0423-1fa6-4bbc-9df9-c174f823c35f' %>
-<% endif %>
+  <% set helpscout_form_id = '1c666cab-c0f6-4614-bc06-e5d0ad78db2b' %>
+  <%if mailpoet_api_key_state.data.support_tier == 'premium' %>
+    <% set helpscout_form_id = 'e93d0423-1fa6-4bbc-9df9-c174f823c35f' %>
+  <% endif %>
 
-<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
+  <script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
 
-<script type="text/javascript"></script>
+  <script type="text/javascript"></script>
 
-<script type="text/javascript">
-  if(window['Beacon'] !== undefined && window.hide_mailpoet_beacon !== true) {
-    window.Beacon('init', '<%= helpscout_form_id %>');
+  <script type="text/javascript">
+    if(window['Beacon'] !== undefined && window.hide_mailpoet_beacon !== true) {
+      window.Beacon('init', '<%= helpscout_form_id %>');
 
-    // HelpScout Beacon: Configuration
-    window.Beacon("config", {
-      icon: 'message',
-      zIndex: 50000,
-      instructions: "<%= __('Want to give feedback to the MailPoet team? Contact us here. Please provide as much information as possible!') %>",
-      showContactFields: true
-    });
+      // HelpScout Beacon: Configuration
+      window.Beacon("config", {
+        icon: 'message',
+        zIndex: 50000,
+        instructions: "<%= __('Want to give feedback to the MailPoet team? Contact us here. Please provide as much information as possible!') %>",
+        showContactFields: true
+      });
 
-    // HelpScout Beacon: Custom information
-    window.Beacon("identify",
-      <%= json_encode(get_helpscout_data()) %>
-    );
+      // HelpScout Beacon: Custom information
+      window.Beacon("identify",
+        <%= json_encode(get_helpscout_data()) %>
+      );
 
-    if (window.mailpoet_beacon_articles) {
-      window.Beacon('suggest', window.mailpoet_beacon_articles)
+      if (window.mailpoet_beacon_articles) {
+        window.Beacon('suggest', window.mailpoet_beacon_articles)
+      }
     }
-  }
-</script>
+  </script>
+<% endif %>
 <script>
   Parsley.addMessages('mailpoet', {
     defaultMessage: '<%= __("This value seems to be invalid.") %>',

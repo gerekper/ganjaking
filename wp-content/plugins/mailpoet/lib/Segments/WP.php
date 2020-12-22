@@ -6,6 +6,8 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\DI\ContainerWrapper;
+use MailPoet\Entities\SegmentEntity;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Models\ModelValidator;
 use MailPoet\Models\Segment;
 use MailPoet\Models\StatisticsClicks;
@@ -16,25 +18,39 @@ use MailPoet\Newsletter\Scheduler\WelcomeScheduler;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
 use MailPoet\Subscribers\Source;
+use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Idiorm\ORM;
 
 class WP {
-  public static function synchronizeUser($wpUserId, $oldWpUserData = false) {
+
+  /** @var WPFunctions */
+  private $wp;
+
+  /** @var WelcomeScheduler */
+  private $welcomeScheduler;
+
+  public function __construct(WPFunctions $wp, WelcomeScheduler $welcomeScheduler) {
+    $this->wp = $wp;
+    $this->welcomeScheduler = $welcomeScheduler;
+  }
+
+  public function synchronizeUser($wpUserId, $oldWpUserData = false) {
     $wpUser = \get_userdata($wpUserId);
     if ($wpUser === false) return;
 
     $subscriber = Subscriber::where('wp_user_id', $wpUser->ID)
       ->findOne();
 
-    $currentFilter = current_filter();
+    $currentFilter = $this->wp->currentFilter();
+    // Delete
     if (in_array($currentFilter, ['delete_user', 'deleted_user', 'remove_user_from_blog'])) {
-      self::deleteSubscriber($subscriber);
-    } else {
-      self::updateSubscriber($currentFilter, $wpUser, $subscriber, $oldWpUserData);
+      return $this->deleteSubscriber($subscriber);
     }
+    return $this->createOrUpdateSubscriber($currentFilter, $wpUser, $subscriber, $oldWpUserData);
   }
 
-  private static function deleteSubscriber($subscriber) {
+  private function deleteSubscriber($subscriber) {
     if ($subscriber !== false) {
       // unlink subscriber from wp user and delete
       $subscriber->set('wp_user_id', null);
@@ -42,18 +58,14 @@ class WP {
     }
   }
 
-  private static function updateSubscriber($currentFilter, $wpUser, $subscriber = false, $oldWpUserData = false) {
+  private function createOrUpdateSubscriber($currentFilter, $wpUser, $subscriber = false, $oldWpUserData = false) {
+    // Add or update
     $wpSegment = Segment::getWPSegment();
     if (!$wpSegment) return;
 
     // find subscriber by email when is false
     if (!$subscriber) {
       $subscriber = Subscriber::where('email', $wpUser->user_email)->findOne(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-    }
-
-    $scheduleWelcomeNewsletter = false;
-    if (in_array($currentFilter, ['profile_update', 'user_register'])) {
-      $scheduleWelcomeNewsletter = true;
     }
 
     // get first name & last name
@@ -63,21 +75,36 @@ class WP {
       $firstName = $wpUser->display_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     }
     $signupConfirmationEnabled = SettingsController::getInstance()->get('signup_confirmation.enabled');
+    $status = $signupConfirmationEnabled ? Subscriber::STATUS_UNCONFIRMED : Subscriber::STATUS_SUBSCRIBED;
     // subscriber data
     $data = [
       'wp_user_id' => $wpUser->ID,
       'email' => $wpUser->user_email, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
       'first_name' => $firstName,
       'last_name' => $lastName,
-      'status' => $signupConfirmationEnabled ? Subscriber::STATUS_UNCONFIRMED : Subscriber::STATUS_SUBSCRIBED,
+      'status' => $status,
       'source' => Source::WORDPRESS_USER,
     ];
 
     if ($subscriber !== false) {
       $data['id'] = $subscriber->id();
-      $data['deleted_at'] = null; // remove the user from the trash
       unset($data['status']); // don't override status for existing users
       unset($data['source']); // don't override status for existing users
+    }
+
+    $addingNewUserToDisabledWPSegment = $wpSegment->deletedAt !== null && $currentFilter === 'user_register';
+
+    $otherActiveSegments = [];
+    if ($subscriber) {
+      $subscriber = $subscriber->withSegments();
+      $otherActiveSegments = array_filter($subscriber->segments ?? [], function ($segment) {
+        return $segment['type'] !== SegmentEntity::TYPE_WP_USERS && $segment['deleted_at'] === null;
+      });
+    }
+    // When WP Segment is disabled force trashed state and unconfirmed status for new WPUsers without active segment
+    if ($addingNewUserToDisabledWPSegment && !$otherActiveSegments) {
+      $data['deleted_at'] = Carbon::createFromTimestamp($this->wp->currentTime('timestamp'));
+      $data['status'] = SubscriberEntity::STATUS_UNCONFIRMED;
     }
 
     $subscriber = Subscriber::createOrUpdate($data);
@@ -89,7 +116,12 @@ class WP {
       );
 
       $subscribeOnRegisterEnabled = SettingsController::getInstance()->get('subscribe.on_register.enabled');
-      $sendConfirmationEmail = $signupConfirmationEnabled && $subscribeOnRegisterEnabled && $currentFilter !== 'profile_update';
+      $sendConfirmationEmail =
+        $signupConfirmationEnabled
+        && $subscribeOnRegisterEnabled
+        && $currentFilter !== 'profile_update'
+        && !$addingNewUserToDisabledWPSegment;
+
       if ($sendConfirmationEmail && ($subscriber->status === Subscriber::STATUS_UNCONFIRMED)) {
         /** @var ConfirmationEmailMailer $confirmationEmailMailer */
         $confirmationEmailMailer = ContainerWrapper::getInstance()->get(ConfirmationEmailMailer::class);
@@ -97,9 +129,12 @@ class WP {
       }
 
       // welcome email
+      $scheduleWelcomeNewsletter = false;
+      if (in_array($currentFilter, ['profile_update', 'user_register'])) {
+        $scheduleWelcomeNewsletter = true;
+      }
       if ($scheduleWelcomeNewsletter === true) {
-        $scheduler = new WelcomeScheduler();
-        $scheduler->scheduleWPUserWelcomeNotification(
+        $this->welcomeScheduler->scheduleWPUserWelcomeNotification(
           $subscriber->id,
           (array)$wpUser,
           (array)$oldWpUserData
@@ -108,23 +143,21 @@ class WP {
     }
   }
 
-  public static function synchronizeUsers() {
-
-    $updatedUsersEmails = self::updateSubscribersEmails();
-    $insertedUsersEmails = self::insertSubscribers();
-    self::removeUpdatedSubscribersWithInvalidEmail(array_merge($updatedUsersEmails, $insertedUsersEmails));
-    self::removeFromTrash();
-    self::updateFirstNames();
-    self::updateLastNames();
-    self::updateFirstNameIfMissing();
-    self::insertUsersToSegment();
-    self::removeOrphanedSubscribers();
-    self::markSpammyWordpressUsersAsUnconfirmed();
+  public function synchronizeUsers() {
+    $updatedUsersEmails = $this->updateSubscribersEmails();
+    $insertedUsersEmails = $this->insertSubscribers();
+    $this->removeUpdatedSubscribersWithInvalidEmail(array_merge($updatedUsersEmails, $insertedUsersEmails));
+    $this->updateFirstNames();
+    $this->updateLastNames();
+    $this->updateFirstNameIfMissing();
+    $this->insertUsersToSegment();
+    $this->removeOrphanedSubscribers();
+    $this->markSpammyWordpressUsersAsUnconfirmed();
 
     return true;
   }
 
-  private static function removeUpdatedSubscribersWithInvalidEmail($updatedEmails) {
+  private function removeUpdatedSubscribersWithInvalidEmail($updatedEmails) {
     $validator = new ModelValidator();
     $invalidWpUserIds = array_map(function($item) {
       return $item['id'];
@@ -138,7 +171,7 @@ class WP {
     ORM::for_table(Subscriber::$_table)->whereIn('wp_user_id', $invalidWpUserIds)->delete_many();
   }
 
-  private static function updateSubscribersEmails() {
+  private function updateSubscribersEmails() {
     global $wpdb;
     Subscriber::rawExecute('SELECT NOW();');
     $startTime = Subscriber::getLastStatement()->fetch(\PDO::FETCH_COLUMN);
@@ -156,11 +189,19 @@ class WP {
       ', $subscribersTable, $startTime))->findArray();
   }
 
-  private static function insertSubscribers() {
+  private function insertSubscribers() {
     global $wpdb;
+    $wpSegment = Segment::getWPSegment();
+    if (!$wpSegment) return;
+    if ($wpSegment->deletedAt !== null) {
+      $subscriberStatus = SubscriberEntity::STATUS_UNCONFIRMED;
+      $deletedAt = 'CURRENT_TIMESTAMP()';
+    } else {
+      $signupConfirmationEnabled = SettingsController::getInstance()->get('signup_confirmation.enabled');
+      $subscriberStatus = $signupConfirmationEnabled ? SubscriberEntity::STATUS_UNCONFIRMED : SubscriberEntity::STATUS_SUBSCRIBED;
+      $deletedAt = 'null';
+    }
     $subscribersTable = Subscriber::$_table;
-    $signupConfirmationEnabled = SettingsController::getInstance()->get('signup_confirmation.enabled');
-
     $inserterdUserIds = ORM::for_table($wpdb->users)->raw_query(sprintf(
       'SELECT %2$s.id, %2$s.user_email as email FROM %2$s
         LEFT JOIN %1$s AS mps ON mps.wp_user_id = %2$s.id
@@ -169,8 +210,8 @@ class WP {
 
     Subscriber::rawExecute(sprintf(
       '
-        INSERT IGNORE INTO %1$s(wp_user_id, email, status, created_at, source)
-        SELECT wu.id, wu.user_email, "%4$s", CURRENT_TIMESTAMP(), "%3$s" FROM %2$s wu
+        INSERT IGNORE INTO %1$s(wp_user_id, email, status, created_at, `source`, deleted_at)
+        SELECT wu.id, wu.user_email, "%4$s", CURRENT_TIMESTAMP(), "%3$s", %5$s FROM %2$s wu
           LEFT JOIN %1$s mps ON wu.id = mps.wp_user_id
           WHERE mps.wp_user_id IS NULL AND wu.user_email != ""
         ON DUPLICATE KEY UPDATE wp_user_id = wu.id
@@ -178,13 +219,14 @@ class WP {
       $subscribersTable,
       $wpdb->users,
       Source::WORDPRESS_USER,
-      $signupConfirmationEnabled ? Subscriber::STATUS_UNCONFIRMED : Subscriber::STATUS_SUBSCRIBED
+      $subscriberStatus,
+      $deletedAt
     ));
 
     return $inserterdUserIds;
   }
 
-  private static function updateFirstNames() {
+  private function updateFirstNames() {
     global $wpdb;
     $subscribersTable = Subscriber::$_table;
     Subscriber::rawExecute(sprintf('
@@ -197,7 +239,7 @@ class WP {
     ', $subscribersTable, $wpdb->usermeta));
   }
 
-  private static function updateLastNames() {
+  private function updateLastNames() {
     global $wpdb;
     $subscribersTable = Subscriber::$_table;
     Subscriber::rawExecute(sprintf('
@@ -210,7 +252,7 @@ class WP {
     ', $subscribersTable, $wpdb->usermeta));
   }
 
-  private static function updateFirstNameIfMissing() {
+  private function updateFirstNameIfMissing() {
     global $wpdb;
     $subscribersTable = Subscriber::$_table;
     Subscriber::rawExecute(sprintf('
@@ -222,7 +264,7 @@ class WP {
     ', $subscribersTable, $wpdb->users));
   }
 
-  private static function insertUsersToSegment() {
+  private function insertUsersToSegment() {
     $wpSegment = Segment::getWPSegment();
     $subscribersTable = Subscriber::$_table;
     $wpMailpoetSubscriberSegmentTable = SubscriberSegment::$_table;
@@ -233,16 +275,7 @@ class WP {
     ', $wpMailpoetSubscriberSegmentTable, $wpSegment->id, $subscribersTable));
   }
 
-  private static function removeFromTrash() {
-    $subscribersTable = Subscriber::$_table;
-    Subscriber::rawExecute(sprintf('
-      UPDATE %1$s
-      SET %1$s.deleted_at = NULL
-        WHERE %1$s.wp_user_id IS NOT NULL
-    ', $subscribersTable));
-  }
-
-  private static function removeOrphanedSubscribers() {
+  private function removeOrphanedSubscribers() {
     // remove orphaned wp segment subscribers (not having a matching wp user id),
     // e.g. if wp users were deleted directly from the database
     global $wpdb;
@@ -257,7 +290,7 @@ class WP {
       ->delete();
   }
 
-  private static function markSpammyWordpressUsersAsUnconfirmed() {
+  private function markSpammyWordpressUsersAsUnconfirmed() {
     global $wpdb;
     $query = '
       UPDATE %s as subscribers

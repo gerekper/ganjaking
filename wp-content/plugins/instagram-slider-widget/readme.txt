@@ -2,7 +2,7 @@
 Contributors: creativemotion
 Tags: instagram, instagram feed, instagram gallery, instagram photos, Instagram widget
 Requires at least: 4.8
-Tested up to: 5.5
+Tested up to: 5.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,7 +46,7 @@ In the Pro version, you can:
 * **authorize several accounts and display multiple feeds simultaneously (fully compatible with Instagram December 11, 2018, API changes);**
 * **display how many likes and comments each post has;**
 * **create carousels of posts;**
-* **use Masonry or Highlight for feeds;**
+* **use Masonry or Highlight for feeds;**
 * **display captions for images and videos;**
 * **View the photos and videos from your feed in a beautiful pop-up lightbox which allows users to experience your content without leaving your site;**
 Learn more about the [Pro version](https://cm-wp.com/instagram-slider-widget) or watch the [demo](https://cm-wp.com/instagram-slider-widget/#demos).
@@ -98,6 +98,21 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 10. Highlight
 
 == Changelog ==
+= 1.8.3 =
+* Fixed: script and styles loading on pages
+* Fixed: display in the mobile version
+
+= 1.8.2 =
+* Fixed: script and styles loading on pages where is no widget
+* Minor bug fixes
+
+= 1.8.1 =
+* Minor bug fixes
+
+= 1.8.0 =
+* Added: separate settings for Desktop and Mobile versions
+* Minor bug fixes
+
 = 1.7.13 =
 * Fixed: Unable to save widget settings
 
@@ -214,7 +229,7 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 * Added Limit for number of words to appear in caption
 * Fixed 500 server error that accured when loading 15+ images
 * Fixed css for some themes
- 
+
 = 1.2.3 =
 * Added Links for Instagram Hashtags
 * Updtated flexislider to 2.5.0
@@ -263,17 +278,17 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 * Fixed error caused by missing json_last_error() function ( php older than 5.3 only )
 
 = 1.0.3 =
-* Added Option to link images to User Profile or Image Url 
+* Added Option to link images to User Profile or Image Url
 * Code Cleanup
 
 = 1.0.2 =
-* Compatibility for php older than 5.3  
+* Compatibility for php older than 5.3
 * Stlying fix for thumbnail layout
-* Added Option to Randomise Images 
+* Added Option to Randomise Images
 
 = 1.0.1 =
-* Removed preg_match 
-* Using exact array index 
+* Removed preg_match
+* Using exact array index
 * Bug Fixes
 
 = 1.0 =

@@ -141,8 +141,7 @@
             if (val === 'post') {
                 $('li[id*="custom_post_type_settings"]').hide();
                 $('li[id*="post_categories"], li[id*="post_tags"]').show();
-            }
-            else {
+            } else {
                 $('li[id*="post_categories"], li[id*="post_tags"]').hide();
                 if (flag === false) {
                     $('li[id*="custom_post_type_settings"]').hide();
@@ -158,7 +157,12 @@
                                 var cache = $('li[id*="custom_post_type_settings"]');
                                 cache.find('.mo-ea-cpt-setting-container').html(response.data);
                                 cache.show();
-                                $('.mo-ea-cpt-setting-container .mailoptin-chosen').chosen();
+                                $('.mo-ea-cpt-setting-container .mailoptin-chosen').chosen({
+                                    inherit_select_classes: true,
+                                    width: "100%"
+                                });
+
+                                $('.mo-ea-cpt-setting-container .mailoptin-chosen .search-field input').attr('placeholder', mailoptin_globals.chosen_search_placeholder);
                             }
 
                             remove_spinner();

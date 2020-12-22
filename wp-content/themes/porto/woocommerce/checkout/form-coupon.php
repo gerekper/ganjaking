@@ -28,8 +28,8 @@ if ( !( version_compare($porto_woo_version, '2.5', '<') ? WC()->cart->coupons_en
 				</h2>
 			</div>
 		<?php } else { ?>
-			<div class="woocommerce-form-coupon-toggle">
-				<?php wc_print_notice( apply_filters( 'woocommerce_checkout_coupon_message', esc_html__( 'Have a coupon?', 'woocommerce' ) . ' <a href="#" class="showcoupon">' . esc_html__( 'Click here to enter your code', 'woocommerce' ) . '</a>' ), 'notice' ); ?>
+			<div class="woocommerce-form-coupon-toggle mb-4">
+				<?php echo esc_html__( 'Have a coupon?', 'woocommerce' ) . ' <a href="#" class="showcoupon text-v-dark text-uppercase font-weight-bold">' . esc_html__( 'Enter your code', 'porto' ) . '</a>'; ?>
 			</div>
 		<?php } ?>
 
@@ -37,21 +37,20 @@ if ( !( version_compare($porto_woo_version, '2.5', '<') ? WC()->cart->coupons_en
 			<div id="panel-cart-discount" class="accordion-body collapse">
 				<div class="card-body">
 		<?php endif; ?>
-
-					<form class="checkout_coupon" method="post" style="display:none">
-
+			<form class="checkout_coupon" method="post" style="display:none">
+				<div class="featured-box align-left">
+					<div class="box-content">
 						<p><?php esc_html_e( 'If you have a coupon code, please apply it below.', 'woocommerce' ); ?></p>
-
 						<p class="form-row form-row-first">
-							<input type="text" name="coupon_code" class="input-text" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" id="coupon_code" value="" />
+							<input type="text" name="coupon_code" class="input-text py-0" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" id="coupon_code" value="" />
 						</p>
-
 						<p class="form-row form-row-last">
-							<button type="submit" class="btn btn-default" name="apply_coupon" value="<?php esc_attr_e( 'Apply Coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply Coupon', 'woocommerce' ); ?></button>
+							<button type="submit" class="btn button wc-action-btn wc-action-sm" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
 						</p>
-
 						<div class="clear"></div>
-					</form>
+					</div>
+				</div>
+			</form>
 
 <?php if ( 'v2' == $checkout_ver ) : ?>
 				</div>

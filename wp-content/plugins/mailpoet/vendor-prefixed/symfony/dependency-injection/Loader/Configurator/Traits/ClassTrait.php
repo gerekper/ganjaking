@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Loader\Configurator\Traits; if (!defined('ABSPATH')) exit; trait ClassTrait { public final function class(?string $class) : self { $this->definition->setClass($class); return $this; } } 

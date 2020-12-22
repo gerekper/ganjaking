@@ -17,6 +17,8 @@ const {
 	INCREMENT_CALCULATING,
 	DECREMENT_CALCULATING,
 	SET_ORDER_ID,
+	SET_ORDER_NOTES,
+	SET_SHOULD_CREATE_ACCOUNT,
 } = TYPES;
 
 const {
@@ -63,12 +65,18 @@ export const prepareResponseData = ( data ) => {
  *
  * @param {Object} state  Current state.
  * @param {Object} action Incoming action object.
+ * @param {string} action.url URL passed in.
+ * @param {string} action.type Type of action.
+ * @param {string} action.orderId Order ID.
+ * @param {Array} action.orderNotes Order notes.
+ * @param {boolean} action.shouldCreateAccount True if shopper has requested a user account (signup checkbox).
+ * @param {Object} action.data Other action payload.
  */
 export const reducer = (
 	state = DEFAULT_STATE,
-	{ url, type, orderId, data }
+	{ url, type, orderId, orderNotes, shouldCreateAccount, data }
 ) => {
-	let newState;
+	let newState = state;
 	switch ( type ) {
 		case SET_PRISTINE:
 			newState = DEFAULT_STATE;
@@ -183,6 +191,22 @@ export const reducer = (
 				...state,
 				orderId,
 			};
+			break;
+		case SET_SHOULD_CREATE_ACCOUNT:
+			if ( shouldCreateAccount !== state.shouldCreateAccount ) {
+				newState = {
+					...state,
+					shouldCreateAccount,
+				};
+			}
+			break;
+		case SET_ORDER_NOTES:
+			if ( state.orderNotes !== orderNotes ) {
+				newState = {
+					...state,
+					orderNotes,
+				};
+			}
 			break;
 	}
 	// automatically update state to idle from pristine as soon as it

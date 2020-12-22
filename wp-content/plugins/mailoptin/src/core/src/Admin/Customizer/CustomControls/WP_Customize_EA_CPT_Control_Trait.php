@@ -4,15 +4,16 @@ namespace MailOptin\Core\Admin\Customizer\CustomControls;
 
 trait WP_Customize_EA_CPT_Control_Trait
 {
-    public function get_terms($taxonomy)
+    public function get_terms($taxonomy, $search = '', $limt = 200)
     {
-        $terms = get_terms(['taxonomy' => $taxonomy, 'hide_empty' => false]);
-
-        return array_reduce($terms, function ($carry, \WP_Term $item) {
-            $carry[$item->term_id] = $item->name;
-
-            return $carry;
-        });
+        return get_terms([
+                'taxonomy'   => $taxonomy,
+                'hide_empty' => false,
+                'fields'     => 'id=>name',
+                'number'     => $limt,
+                'search'     => $search
+            ]
+        );
     }
 
     public function render_fields($custom_post_type, $saved_value = [])
@@ -40,13 +41,22 @@ trait WP_Customize_EA_CPT_Control_Trait
 
     public function select_markup($saved_value, $name_attr, $choices, $label)
     {
+        // ensures saved terms are always available as choices so that they are preselected.
+        if (isset($saved_value[$name_attr])) {
+            $choices += array_reduce($saved_value[$name_attr], function ($carry, $term_id) {
+                $carry[$term_id] = get_term($term_id)->name;
+
+                return $carry;
+            }, []);
+        }
+
         ?>
         <div class="mo-ea-cpt-setting" style="margin-bottom: 10px">
             <label>
                 <?php if ( ! empty($label)) : ?>
                     <span class="customize-control-title"><?php echo esc_html($label); ?></span>
                 <?php endif; ?>
-                <select name="<?php echo $name_attr; ?>" class="mailoptin-chosen" multiple>
+                <select name="<?= $name_attr ?>" class="mailoptin-chosen" data-search-type="ch_get_terms|<?= $name_attr ?>" multiple>
                     <?php
                     if (is_array($choices)) {
                         foreach ($choices as $key => $value) {

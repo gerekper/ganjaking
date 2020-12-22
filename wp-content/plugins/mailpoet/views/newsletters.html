@@ -29,16 +29,19 @@
       var mailpoet_premium_active = <%= json_encode(premium_plugin_active) %>;
       var mailpoet_transactional_emails_opt_in_notice_dismissed = '<%= transactional_emails_opt_in_notice_dismissed %>';
       var mailpoet_mss_key_invalid = <%= mss_key_invalid ? 'true' : 'false' %>;
+      var mailpoet_product_categories = <%= json_encode(product_categories)  %>;
+      var mailpoet_products = <%= json_encode(products) %>;
 
       var has_mss_key_specified = <%= json_encode(has_mss_key_specified) %>;
       var mailpoet_account_url = '<%= add_referral_id("https://account.mailpoet.com/?s=" ~ subscriber_count ~ "&email=" ~ current_wp_user.user_email) | escape('js') %>';
       var mailpoet_feature_flags = <%= json_encode(mailpoet_feature_flags) %>;
 
+      var mailpoet_woocommerce_automatic_emails = <%= json_encode(automatic_emails) %>;
+      var mailpoet_woocommerce_optin_on_checkout = "<%= woocommerce_optin_on_checkout %>";
+
       var mailpoet_woocommerce_active = <%= json_encode(is_woocommerce_active) %>;
       var mailpoet_woocommerce_transactional_email_id = <%= json_encode(woocommerce_transactional_email_id) %>;
       var mailpoet_display_detailed_stats = <%= json_encode(display_detailed_stats) %>;
-      var mailpoet_automatic_emails = <%= json_encode(automatic_emails) %>;
-      var mailpoet_feature_announcement_has_news = <%= json_encode(feature_announcement_has_news) %>;
       var mailpoet_last_announcement_seen = <%= json_encode(last_announcement_seen) %>;
       var mailpoet_user_locale = '<%= get_locale() %>';
       var mailpoet_congratulations_success_images = [
@@ -154,13 +157,12 @@
     'scheduleIt': __('Schedule it'),
     'active': __('Active'),
     'inactive': __('Not Active'),
-    'newsletterQueueCompleted': __('Processed %$1d of %$2d'),
     'sentToXSubscribers': _x('%$1d sent', 'number of welcome emails sent'),
     'scheduledToXSubscribers': _x('%$1d scheduled', 'number of welcome emails scheduled to be sent'),
     'resume': __('Resume'),
     'pause': __('Pause'),
     'paused': __('Paused'),
-    'new': __('Add New'),
+    'new': __('New Email'),
 
     'excellentBadgeName': __('Excellent'),
     'excellentBadgeTooltip': __('Congrats!'),
@@ -339,20 +341,20 @@
     'welcomeEmailActivationFailed': __('Your Welcome Email could not be activated, please check the settings.'),
     'postNotificationActivated': __('Your post notification is now active!'),
     'postNotificationActivationFailed': __('Your Post Notification could not be activated, check the settings.'),
-    'welcomeEventSegment': __('This newsletter is sent when someone subscribes to the list: "%$1s".'),
-    'welcomeEventWPUserAnyRole': __('This newsletter is sent when a new WordPress user is added to your site.'),
-    'welcomeEventWPUserWithRole': __('This newsletter is sent when a new WordPress user with the role "%$1s" is added to your site.'),
+    'welcomeEventSegment': __('Sent when someone subscribes to the list: "%$1s".'),
+    'welcomeEventWPUserAnyRole': __('Sent when a new WordPress user is added to your site.'),
+    'welcomeEventWPUserWithRole': __('Sent when a new WordPress user with the role "%$1s" is added to your site.'),
     'sendingDelayMinutes': __('%$1d minute(s) later'),
     'sendingDelayHours': __('%$1d hour(s) later'),
     'sendingDelayDays': __('%$1d day(s) later'),
     'sendingDelayWeeks': __('%$1d week(s) later'),
     'sendingDelayInvalid': __('Invalid sending delay.'),
-    'sendDaily': __('Send daily at %$1s'),
-    'sendWeekly': __('Send weekly on %$1s at %$2s'),
-    'sendMonthly': __('Send monthly on the %$1s at %$2s'),
-    'sendNthWeekDay': __('Send every %$1s %$2s of the month at %$3s'),
-    'sendImmediately': __('Send immediately'),
-    'ifNewContentToSegments': __("if there's new content to %$1s."),
+    'sendDaily': __('Daily at %$1s'),
+    'sendWeekly': __('Weekly on %$1s at %$2s'),
+    'sendMonthly': __('Monthly on the %$1s at %$2s'),
+    'sendNthWeekDay': __('Every %$1s %$2s of the month at %$3s'),
+    'sendImmediately': __('Immediately'),
+    'sendTo': __("Send to %1$s"),
     'sendingToSegmentsNotSpecified': __('You need to select a list to send to.'),
 
     'backToPostNotifications': __('Back to Post notifications'),
@@ -385,7 +387,6 @@
     'soon': __('Soon'),
     'beta': __('Beta'),
     'errorWhileTakingScreenshot': __('An error occurred while saving the template in "Recently sent"'),
-    'selectAutomaticEmailsEventsHeading': __('Select %$1s events'),
     'cronNotAccessibleNotice': __('Oops! There seems to be an issue with the sending on your website. [link]See our guide[/link] to solve this yourself.'),
 
     'whatsNew': __("What’s new"),
@@ -416,10 +417,9 @@
     'failed': _x('Failed', 'status when the sending of a newsletter has failed'),
     'noSendingTaskFound': __('No sending task found.'),
 
-    'statsTitle': __('Stats'),
     'loadingStats': __('Loading...'),
     'backToList': __('Back'),
-    'statsPreviewNewsletter': __('Preview in browser'),
+    'statsPreviewNewsletter': __('Preview'),
     'statsDateSent': __('Date'),
     'statsFromAddress': __('From'),
     'statsToSegments': __('To'),
@@ -431,13 +431,24 @@
     'readMoreOnStats': __('Read more on stats.'),
     'clickedLinks': __('Clicked Links'),
     'subscriberEngagement': __('Subscriber Engagement'),
-    'googleAnalytics': __('Google Analytics campaign name'),
+    'googleAnalytics': __('GA campaign'),
 
     'premiumBannerCtaFree': __('Sign Up for Free', 'mailpoet'),
     'topBarLogoTitle': __('Back to section root'),
 
     'gaCampaignLine': __('Google Analytics Campaign'),
     'gaCampaignTip': __('For example, “Spring email”. [link]Read the guide.[/link]'),
+
+    'automaticEmail': __('Automatic Email'),
+    'tip': __('Tip:'),
+    'selectAutomaticEmailsEventsConditionsHeading': __("Select %1s events conditions"),
+    'sendAutomaticEmailWhenHeading': __('Send this %1s Automatic Email when...'),
+    'automaticEmailActivated': __('Your %1s Automatic Email is now activated!'),
+    'automaticEmailActivationFailed': __('Your %1s Automatic Email could not be activated, please check the settings.'),
+    'automaticEmailEventOptionsNotConfigured': __('You need to configure email options before this email can be sent.'),
+    'sentToXCustomers': __('Sent to %$1d customers'),
+    'wooCommerceEmailsWarning': __('WooCommerce emails won’t be sent to new customers because the opt-in on checkout is disabled. Enable it so they can immediately get your emails after their first purchase.'),
+    'wooCommerceEmailsWarningLink': __('Edit WooCommerce settings'),
   }) %>
   <% include('mss_pitch_translations.html') %>
 <% endblock %>

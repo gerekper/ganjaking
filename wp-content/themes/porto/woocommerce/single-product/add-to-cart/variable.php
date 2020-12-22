@@ -53,7 +53,7 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 						<td class="label"><label for="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>"><?php echo wc_attribute_label( $attribute_name ); // WPCS: XSS ok. ?></label></td>
 						<?php if ( version_compare( $porto_woo_version, '2.4', '<' ) ) : ?>
 							<td class="value"><select id="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>" name="attribute_<?php echo sanitize_title( $attribute_name ); ?>" data-attribute_name="attribute_<?php echo sanitize_title( $attribute_name ); ?>">
-								<option value=""><?php esc_html_e( 'Choose an option', 'woocommerce' ); ?>&hellip;</option>
+								<option value=""><?php esc_html_e( 'Choose an option', 'porto' ); ?>&hellip;</option>
 								<?php
 								if ( is_array( $options ) ) {
 									if ( isset( $_REQUEST[ 'attribute_' . sanitize_title( $attribute_name ) ] ) ) {
@@ -144,7 +144,7 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 				<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" />
 				<input type="hidden" name="product_id" value="<?php echo esc_attr( $post->ID ); ?>" />
 				<input type="hidden" name="variation_id" class="variation_id" value="" />
-
+				<?php do_action( 'porto_view_cart_after_add_to_cart' ); ?>
 			<?php else : ?>
 
 				<?php

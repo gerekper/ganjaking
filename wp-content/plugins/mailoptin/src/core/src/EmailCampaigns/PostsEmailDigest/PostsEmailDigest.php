@@ -26,12 +26,7 @@ class PostsEmailDigest extends AbstractTriggers
 
     public function timezone()
     {
-        $timezone = get_option('timezone_string');
-        if (empty($timezone)) {
-            $timezone = get_option('gmt_offset');
-        }
-
-        return $timezone;
+        return wp_timezone_string();
     }
 
     public function post_collect_query($email_campaign_id)
@@ -130,12 +125,14 @@ class PostsEmailDigest extends AbstractTriggers
     public function should_send($email_campaign_id, $schedule_hour, $digest_type)
     {
         $timezone   = $this->timezone();
-        $carbon_now = Carbon::now($timezone);
+        $carbon_now = $this->carbon_set_week_start_end(Carbon::now($timezone));
 
         $last_processed_at = EmailCampaignMeta::get_meta_data($email_campaign_id, 'last_processed_at');
 
         if ( ! empty($last_processed_at)) {
-            $last_processed_at_carbon_instance = Carbon::createFromFormat('Y-m-d H:i:s', $this->last_processed_at($email_campaign_id), $timezone);
+            $last_processed_at_carbon_instance = $this->carbon_set_week_start_end(
+                Carbon::createFromFormat('Y-m-d H:i:s', $this->last_processed_at($email_campaign_id), $timezone)
+            );
 
             if ($digest_type == 'every_day') {
                 if ($last_processed_at_carbon_instance->isToday()) {
@@ -164,6 +161,24 @@ class PostsEmailDigest extends AbstractTriggers
         return false;
     }
 
+    /**
+     * Set start and end day of a week.
+     *
+     * @param Carbon $carbon
+     *
+     * @return Carbon
+     */
+    public function carbon_set_week_start_end($carbon)
+    {
+        $start_of_week = absint(get_option('start_of_week', 1));
+        $end_of_week   = $start_of_week == 0 ? 6 : $start_of_week - 1;
+
+        $carbon->setWeekStartsAt($start_of_week);
+        $carbon->setWeekEndsAt($end_of_week);
+
+        return $carbon;
+    }
+
     public function run_job()
     {
         if ( ! defined('MAILOPTIN_DETACH_LIBSODIUM')) return;
@@ -171,6 +186,7 @@ class PostsEmailDigest extends AbstractTriggers
         $postDigests = EmailCampaignRepository::get_by_email_campaign_type(ER::POSTS_EMAIL_DIGEST);
 
         if (empty($postDigests)) return;
+
 
         foreach ($postDigests as $postDigest) {
 
@@ -185,8 +201,9 @@ class PostsEmailDigest extends AbstractTriggers
 
             $timezone = $this->timezone();
 
-            $carbon_now   = Carbon::now($timezone);
-            $carbon_today = Carbon::today($timezone);
+            $carbon_now = $this->carbon_set_week_start_end(Carbon::now($timezone));
+
+            $carbon_today = $this->carbon_set_week_start_end(Carbon::today($timezone));
 
             $schedule_hour = $carbon_today->hour($schedule_time);
 

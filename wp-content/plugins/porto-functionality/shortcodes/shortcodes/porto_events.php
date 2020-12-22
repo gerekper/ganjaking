@@ -1,14 +1,6 @@
 <?php
 // Porto Events
-add_shortcode( 'porto_events', 'porto_shortcode_events' );
 add_action( 'vc_after_init', 'porto_load_events_shortcode' );
-function porto_shortcode_events( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_events' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_events_shortcode() {
 	vc_map(

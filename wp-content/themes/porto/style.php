@@ -603,55 +603,30 @@ ul.products,
 	$minicart_type = porto_get_minicart_type();
 ?>
 <?php if ( 'minicart-arrow-alt' == $minicart_type ) : ?>
-	#mini-cart { line-height: 38px; }
-	#mini-cart .cart-head { min-height: 38px; }
-	#mini-cart .cart-head:after { font-family: 'porto'; font-size: 17px; margin-<?php echo porto_filter_output( $left ); ?>: 15px }
-	.sticky-header #mini-cart { font-size: 25px; }
-	#mini-cart .cart-head:after { content: "\e81c"; }
-	#mini-cart .cart-popup:before, #mini-cart .cart-popup:after { margin-right: calc(26px + .5em - 12px); }
+	<?php if ( $header_type ) : ?>
 	@media (max-width: 991px) {
 		#mini-cart {
-		font-size: 25px;
-		<?php if ( $header_type ) : ?>
-			margin-<?php echo porto_filter_output( $left ); ?>: .5rem;
-		<?php endif; ?>
+			margin-<?php echo porto_filter_output( $left ); ?>: .3125rem;
 		}
 	}
-	#mini-cart .cart-items-text { display: none; margin-<?php echo porto_filter_output( $left ); ?>: 4px; }
+	<?php endif; ?>
 <?php elseif ( 'simple' == $minicart_type ) : ?>
-	#mini-cart { font-size: 15px; }
-	#mini-cart .cart-items-text { display: none; }
-	#mini-cart .cart-items, .my-wishlist .wishlist-count { background: #ed5348; width: 15px; height: 15px; line-height: 15px; font-size: 9px; box-shadow: -1px 1px 2px 0 rgba(0, 0, 0, 0.3); top: -5px; <?php echo porto_filter_output( $right ); ?>: -9px }
+	#mini-cart { font-size: 15px }
 	<?php if ( empty( $b['minicart-icon'] ) ) : ?>
 		#mini-cart .minicart-icon { border: 2px solid; border-radius: 0 0 5px 5px; width: 14px; height: 11px; position: relative; margin: 5px 3px 1px }
 		#mini-cart .minicart-icon:before { content: ""; position: absolute; width: 8px; height: 9px; border: 2px solid; border-bottom: none; border-radius: 4px 4px 0 0; left: 1px; top: -7px; margin: 0 }
 	<?php endif; ?>
-	#mini-cart .cart-head { min-width: 32px; min-height: 30px; }
 	@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 		#mini-cart .cart-head { height: 30px }
 	}
 	<?php if ( empty( $header_type ) ) : ?>
 		#header .searchform-popup + #mini-cart { margin-<?php echo porto_filter_output( $left ); ?>: .75em; }
 	<?php endif; ?>
-	#mini-cart .cart-popup:before { <?php echo porto_filter_output( $right ); ?>: 7.7px; margin: 0; border-width: 8px; top: -16px; }
-	#mini-cart .cart-popup:after { <?php echo porto_filter_output( $right ); ?>: 7px; margin: 0; border-width: 9px; top: -18px; }
-<?php else : ?>
-	#mini-cart { margin: <?php echo porto_filter_output( $rtl ? '3px 7px 3px 0' : '3px 0 3px 7px' ); ?>; }
-	#mini-cart .cart-head { padding: 0 10px; line-height: 24px; height: 26px; white-space: nowrap; }
-	#mini-cart .cart-subtotal { font-size: 1em; font-weight: 600; text-transform: uppercase; vertical-align: middle; }
-	.main-menu-wrap #mini-cart { margin-top: 3px; margin-<?php echo porto_filter_output( $left ); ?>: 5px; }
-	#mini-cart .minicart-icon { font-size: 25px; }
-	@media (min-width: 992px) {
-		#mini-cart .minicart-icon,
-		#mini-cart .cart-items { display: none; }
-	}
-	@media (max-width: 991px) {
-		#mini-cart { margin-<?php echo porto_filter_output( $left ); ?>: 0; }
-		#mini-cart .cart-subtotal { display: none; }
-	}
 <?php endif; ?>
 #mini-cart .cart-items-text { font-size: <?php echo ! $b['body-font']['font-size'] ? '14px' : esc_html( $b['body-font']['font-size'] ); ?> }
-#mini-cart .cart_list::-webkit-scrollbar-thumb { border-radius: 3px; background: <?php echo porto_if_light( 'rgba(204, 204, 204, 0.5)', '#39404c' ); ?>;<?php echo porto_if_dark( 'border-color: transparent', '' ); ?> }
+.minicart-offcanvas .widget_shopping_cart_content { font-family: <?php echo sanitize_text_field( $b['h3-font']['font-family'] ); ?>, <?php echo sanitize_text_field( $b['body-font']['font-family'] ); ?>, sans-serif }
+#mini-cart .cart_list::-webkit-scrollbar-thumb,
+.minicart-offcanvas .widget_shopping_cart_content::-webkit-scrollbar-thumb { border-radius: 3px; background: <?php echo porto_if_light( 'rgba(204, 204, 204, 0.5)', '#39404c' ); ?>;<?php echo porto_if_dark( 'border-color: transparent', '' ); ?> }
 
 /* main menu style for shop header and classic headers */
 <?php if ( ( (int) $header_type >= 1 && (int) $header_type <= 9 ) || 18 == $header_type || 19 == $header_type || ( 'side' == $header_type && class_exists( 'Woocommerce' ) ) ) : ?>
@@ -684,7 +659,7 @@ ul.products,
 	.sidebar-menu .wide .popup { border-<?php echo porto_filter_output( $left ); ?>: none; }
 	.sidebar-menu .wide .popup >.inner { margin-<?php echo porto_filter_output( $left ); ?>: 0; }
 	.sidebar-menu > li.menu-item > .arrow { <?php echo porto_filter_output( $right ); ?>: 28px; font-size: 15px; }
-	.sidebar-menu > li.menu-item .popup:before { content: ''; position: absolute; border-<?php echo porto_filter_output( $right ); ?>: 12px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; <?php echo porto_filter_output( $left ); ?>: -12px; top: 13px; z-index: 112; }
+	.sidebar-menu > li.menu-item .popup:before { content: ''; position: absolute; border-<?php echo porto_filter_output( $right ); ?>: 12px solid <?php echo porto_if_dark( $color_dark, '#fff' ); ?>; border-top: 10px solid transparent; border-bottom: 10px solid transparent; <?php echo porto_filter_output( $left ); ?>: -12px; top: 13px; z-index: 112; }
 
 	<?php if ( ! porto_header_type_is_side() && porto_header_type_is_preset() ) : ?>
 		#header .header-contact { border-<?php echo porto_filter_output( $right ); ?>: 1px solid #dde0e2; padding-<?php echo porto_filter_output( $right ); ?>: 35px; margin-<?php echo porto_filter_output( $right ); ?>: 18px; line-height:22px; }
@@ -715,6 +690,17 @@ ul.products,
 		.mega-menu .menu-item .popup { box-shadow: 0 6px 25px rgba(0, 0, 0, .2); }
 	<?php elseif ( porto_header_type_is_side() && empty( $b['side-menu-type'] ) ) : ?>
 		.sidebar-menu .menu-item .popup { box-shadow: 0 6px 25px rgba(0, 0, 0, .2); }
+	<?php endif; ?>
+	<?php if ( ! empty( $porto_settings['woo-show-default-page-header'] ) && $porto_settings['woo-show-default-page-header'] ) : ?>
+		.page-header-8 { padding: 1.25rem 0; }
+		.woocommerce-cart .main-content, .woocommerce-checkout .main-content { padding-top: 5px; }
+		.page-header-8 .breadcrumb { margin-bottom: 0; justify-content: center; background: none; }
+		.page-header-8 li { line-height: 3.521875rem; }
+		.page-header-8 li a { color: <?php echo porto_if_light( '#222529', '#eee' ); ?>; font-family: 'Poppins', <?php echo sanitize_text_field( $b['h2-font']['font-family'] ); ?>, sans-serif; text-decoration: none; font-size: 1.25rem; font-weight: 700; letter-spacing: -.03em; transition: opacity .3s; vertical-align: middle; }
+		.page-header-8 li.disable a { pointer-events: none; }
+		.page-header-8 li .delimiter.delimiter-2 { color: <?php echo porto_if_light( '#222529', '#eee' ); ?>; font-size: 1.875rem; font-weight: 700; margin: 0 1.2rem; float: left; }
+		.page-header-8 li.current~li a, .page-header-8 li.current~li .delimiter { opacity: .5; }
+		.page-header-8 li.current a, .page-header-8 li:not(.disable) a:hover { color: var(--primary); opacity: 1; }
 	<?php endif; ?>
 <?php endif; ?>
 
@@ -870,6 +856,9 @@ ul.products,
 		#header .mobile-toggle { display: inline-block; }
 		#header .main-menu,
 		#header.logo-center .header-main .container .header-left { display: none; }
+	}
+	@media (min-width: 992px) {
+		#side-nav-panel .searchform { display: none; }
 	}
 	@media (max-width: 991px) {
 		#header .header-contact { display: none; }
@@ -1042,7 +1031,12 @@ ul.products,
 	}
 <?php elseif ( 12 == $header_type ) : ?>
 	#header .share-links a { box-shadow: none; }
-	#header .share-links a:not(:hover) { background: none; <?php if ( $b['header-link-color']['regular'] ) { echo 'color: ' . esc_html( $b['header-link-color']['regular'] ); } ?> }
+	#header .share-links a:not(:hover) { background: none; 
+	<?php
+	if ( $b['header-link-color']['regular'] ) {
+		echo 'color: ' . esc_html( $b['header-link-color']['regular'] ); }
+	?>
+	}
 	@media (max-width: 991px) {
 		#header .header-main .share-links { margin-<?php echo porto_filter_output( $left ); ?>: 0; }
 	}
@@ -1440,6 +1434,10 @@ elseif ( empty( $header_type ) && porto_header_type_is_side() ) :
 .post-carousel .post-item,
 .widget .row .post-item-small,
 .elementor-widget .row .post-item-small { margin: 0 <?php echo esc_html( $b['grid-gutter-width'] / 2 ); ?>px; }
+@media (min-width: 992px) {
+    .single-post .post-medium .post-media { margin-<?php echo porto_filter_output( $right ); ?>: <?php echo esc_html( $b['grid-gutter-width'] ); ?>px; }
+}
+article.post-medium .post-image.single { margin-bottom: <?php echo esc_html( $b['grid-gutter-width'] ); ?>px; }
 
 /* carousel */
 .owl-carousel.show-nav-title.post-carousel .owl-nav,
@@ -1629,6 +1627,13 @@ body.boxed .portfolio-ajax-modal .vc_row[data-vc-stretch-content],
 	.ccols-xl-10 > * {
 		flex: 0 0 10%;
 		max-width: 10%;
+	}
+	.shop_table.wishlist_table .add-links {
+		flex-direction: row;
+	}
+	.shop_table.wishlist_table .quickview {
+		margin-<?php echo porto_filter_output( $right ); ?>: 10px;
+		margin-bottom: 0;
 	}
 }
 @media (min-width: 1400px) {
@@ -1841,7 +1846,7 @@ body.boxed .portfolio-ajax-modal .vc_row[data-vc-stretch-content],
 	#header .porto-view-switcher > li.menu-item > a,
 	#header .top-links > li.menu-item > a,
 	#header .searchform .autocomplete-suggestion img,
-	#mini-cart .cart-popup .widget_shopping_cart_content,
+	#mini-cart .widget_shopping_cart_content,
 	#header .mobile-toggle,
 	.mega-menu li.menu-item > a > .thumb-info-preview .thumb-info-wrapper,
 	.mega-menu > li.menu-item.active > a,
@@ -2427,6 +2432,7 @@ body.boxed .portfolio-ajax-modal .vc_row[data-vc-stretch-content],
 	.porto-concept .cloud { background-image: url(<?php echo PORTO_URI; ?>/images/concept-icons-dark.png); }
 	.porto-map-section { background-image: url(<?php echo PORTO_URI; ?>/images/map-dark.png); }
 	.slider-title .line, .section-title .line { background-image:linear-gradient(to <?php echo porto_filter_output( $right ); ?>, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15) 70%, rgba(255, 255, 255, 0) 100%); }
+	.porto-radio .porto-control-label::after { border-width: 0; }
 	@media (max-width: 767px) {
 		.resp-tab-content:last-child,
 		.resp-vtabs .resp-tab-content:last-child { border-bottom: 1px solid <?php echo esc_html( $color_dark_4 ); ?> !important; }
@@ -2437,12 +2443,17 @@ body.boxed .portfolio-ajax-modal .vc_row[data-vc-stretch-content],
 	.card > .card-header { background-color: <?php echo esc_html( $color_dark_4 ); ?>; }
 	.btn-default { background-color: <?php echo esc_html( $color_dark_2 ); ?> !important; border-color: <?php echo esc_html( $color_dark_2 ); ?> !important; }
 	.porto-history .thumb { background: transparent url(<?php echo PORTO_URI; ?>/images/history-thumb-dark.png) no-repeat 0 <?php echo porto_filter_output( $rtl ? '-200px' : '0' ); ?>; }
-	.accordion.panel-modern .card { border-color: <?php echo esc_html( $color_dark_2 ); ?> }
+	.accordion.panel-modern .card,
+	.woocommerce-page.archive .sidebar-content,
+	.woocommerce-page.archive .sidebar-content aside.widget,
+	.woocommerce-pagination ul li a, .woocommerce-pagination ul li span { border-color: <?php echo esc_html( $color_dark_2 ); ?> }
 	.accordion.panel-modern .card-header,
-	.comment-form { background-color: <?php echo esc_html( $color_dark_2 ); ?> }
+	.comment-form,
+	.widget_sidebar_menu { background-color: <?php echo esc_html( $color_dark_2 ); ?> }
 	select { background-image: url("<?php echo PORTO_URI; ?>/images/select-bg-light.svg"); }
 	.comment-form label,
-	.share-links-block .share-links a:not(:hover) { color: <?php echo esc_html( $b['light-color'] ); ?>; }
+	.share-links-block .share-links a:not(:hover),
+	.owl-carousel.nav-style-4 .owl-nav [class*="owl-"] { color: <?php echo esc_html( $b['light-color'] ); ?>; }
 <?php else : ?>
 	.dir-arrow { background: transparent url(<?php echo PORTO_URI; ?>/images/arrows.png) no-repeat 0 0; }
 	.dir-arrow.arrow-light { background: transparent url(<?php echo PORTO_URI; ?>/images/arrows-dark.png) no-repeat 0 0; }
@@ -2498,34 +2509,36 @@ body.boxed .portfolio-ajax-modal .vc_row[data-vc-stretch-content],
 		.woocommerce-viewing select,
 		.shop-loop-after,
 		.woocommerce-widget-layered-nav-list a:not(.filter-color),
-		.filter-item-list .filter-item { border-color: <?php echo esc_html( $color_dark_3 ); ?>; }
+		.filter-item-list .filter-item,
+		.cart-v2 .card.card-default,
+		.woocommerce-account .featured-boxes, .woocommerce-thankyou .featured-boxes, .woocommerce-checkout .featured-boxes, #login-form-popup .featured-boxes { border-color: <?php echo esc_html( $color_dark_3 ); ?>; }
 		.single-product .entry-summary .add_to_wishlist:before,
 		.single-product .entry-summary .yith-wcwl-wishlistexistsbrowse a:before,
 		.single-product .entry-summary .yith-wcwl-wishlistaddedbrowse a:before,
 		.single_variation_wrap, .single-product .cart:not(.variations_form) { border-color: <?php echo esc_html( $color_dark_4 ); ?> !important; }
+		.single_variation_wrap, .single-product .cart:not(.variations_form),
+		.single-product .product-summary-wrap .quantity .minus, .single-product .product-summary-wrap .quantity .plus, .shop_table.cart-table .quantity .minus, .shop_table.cart-table .quantity .plus,
+		.single-product .product-summary-wrap .quantity .qty, .shop_table.cart-table .quantity .qty { border-color: <?php echo esc_html( $color_dark_4 ); ?> }
 		.quantity .qty,
-		.gridlist-toggle > a,
+		.gridlist-toggle > a:not(.active),
 		.gridlist-toggle > a:hover,
 		.single-product .product_title,
 		.single-product .entry-summary .quantity .minus, .single-product .entry-summary .quantity .plus,
+		.shop_table.cart-table .quantity .plus, .shop_table.cart-table .quantity .minus,
 		.woocommerce-tabs h2.resp-accordion,
 		.cart-v2 .card.card-default .card-body tbody tr td:last-child,
 		.cart_totals .order-total .amount, .review-order.shop_table .order-total .amount { color: <?php echo esc_html( $b['light-color'] ); ?>; }
 		.woocommerce-tabs .resp-tabs-list li.resp-tab-active { color: #fff !important }
-		.single-product .entry-summary .add_to_wishlist:hover:before,
-		.single-product .entry-summary .yith-wcwl-wishlistexistsbrowse a:hover:before,
-		.single-product .entry-summary .yith-wcwl-wishlistaddedbrowse a:hover:before { background: <?php echo esc_html( $color_dark_3 ); ?> !important; }
 		#mini-cart .total-count,
 		#mini-cart .cart-popup:after { border-bottom-color: <?php echo esc_html( $color_dark_4 ); ?>; }
 		#mini-cart li:not(.empty) { border-bottom-color: <?php echo esc_html( $color_dark_4 ); ?> !important; }
 		#mini-cart .total-count a,
-		#mini-cart .widget_shopping_cart .total,
 		.product-nav a,
 		.product-nav a:hover { color: <?php echo esc_html( $b['body-font']['color'] ); ?>; }
 		.cart-v2 .card.card-default .card-body, .card { background: <?php echo esc_html( $color_dark_5 ); ?> }
 		.cart-v2 .card.card-default { border-radius: 0 0 6.99px 6.99px }
 		.blockUI { background: <?php echo esc_html( $color_dark_2 ); ?> !important }
-
+		.woocommerce-message, .woocommerce-error { background-color: transparent; }
 		@media (max-width: 991px) {
 			.shop-loop-before { background: <?php echo esc_html( $color_dark_2 ); ?> }
 			a.porto-product-filters-toggle { background: <?php echo esc_html( $color_dark_3 ); ?>; border: none; }
@@ -2545,7 +2558,7 @@ body.boxed .portfolio-ajax-modal .vc_row[data-vc-stretch-content],
 #header.sticky-header .header-main.sticky,
 #header.sticky-header .main-menu-wrap,
 .fixed-header #header.sticky-header .main-menu-wrap { box-shadow: 0 1px 0 0 <?php echo porto_if_dark( 'rgba(255, 255, 255, 0.06)', 'rgba(0, 0, 0, 0.06)' ); ?>; }
-#mini-cart .cart-popup .widget_shopping_cart_content { background: <?php echo porto_if_dark( $color_dark_3, '#fff' ); ?>; }
+#mini-cart .widget_shopping_cart_content { background: <?php echo porto_if_dark( $color_dark_3, '#fff' ); ?>; }
 <?php if ( $dark ) : ?>
 	#mini-cart .cart-popup:before { border-bottom-color: <?php echo esc_html( $color_dark_3 ); ?> }
 <?php endif; ?>
@@ -2779,11 +2792,22 @@ body .menu-ads-container .vc_column_container { border-<?php echo porto_filter_o
 	}
 	.commentlist li .comment-text { background: <?php echo porto_if_light( '#f5f7f7', $color_dark_3 ); ?>; }
 	.product-image .stock { background: <?php echo porto_if_light( 'rgba(255, 255, 255, .9)', 'rgba(0, 0, 0, .9)' ); ?>; }
-	.shop_table { border: 1px solid <?php echo porto_if_light( '#dcdcdc', $color_dark_3 ); ?>; }
-	.shop_table td,
-	.shop_table tbody th,
-	.shop_table tfoot th { border-<?php echo porto_filter_output( $left ); ?>: 1px solid <?php echo porto_if_light( '#dcdcdc', $color_dark_3 ); ?>; border-top: 1px solid <?php echo porto_if_light( '#ddd', $color_dark_3 ); ?>; }
-	.shop_table th { background: <?php echo porto_if_light( '#f6f6f6', $color_dark_3 ); ?>; }
+	.login-more.heading-tag { color: #999; }
+	.woocommerce-privacy-policy-text p { font-size: 12px; line-height: 23px; color: #8a8b8e; }
+	.porto-social-login-section.false-modal a { padding: 17px 12px; margin-bottom: 20px; }
+	.porto-social-login-section.false-modal i { margin-right: 5px; }
+	.porto-social-login-section.false-modal span { letter-spacing: -.03em; }
+	.porto-social-login-section.false-modal i.fa-facebook-f { width: 25px; height: 25px; line-height: 35px; vertical-align: middle; color: #3a589d; background: #fff; border-radius: 50%; }
+	#login-form-popup .register-btn { margin: 20px 0 0; color: <?php echo porto_if_light( '#222529', '#fff' ); ?>; letter-spacing: -.025em; outline: none; }
+	#login-form-popup .register-btn:hover { color: var(--primary); }
+	.porto-social-login-section .social-button:hover i.fa-facebook-f { color: var(--primary); }
+	.wc-action-btn.button, .wc-action-btn.button:disabled, .wishlist_table .add-links .quickview, .order-again .button { background-color: <?php echo porto_if_light( '#f4f4f4', $b['skin-color'] ); ?>; color: <?php echo porto_if_light( '#222529', '#fff' ); ?>; border: none; }
+	.wc-action-btn.button:disabled { opacity: .8; }
+	.wc-action-btn.button:disabled:hover { color: #fff; }
+	.order_details .product-name a { color: <?php echo porto_if_light( '#222529', '#fff' ); ?>; }
+	.order_details tfoot tr:last-child .amount { color: <?php echo porto_if_light( '#222529', '#fff' ); ?>; }
+	.shop_table thead span { color: <?php echo porto_if_light( '#222529', '#fff' ); ?>; text-transform: uppercase; }
+	.shop_table thead tr, .shop_table tr:not(:last-child) { border-bottom: 1px solid <?php echo porto_if_light( '#e7e7e7', '#313438' ); ?>; }
 	@media (max-width: 767px) {
 		.shop_table.shop_table_responsive tr,
 		.shop_table.responsive tr,
@@ -2803,18 +2827,15 @@ body .menu-ads-container .vc_column_container { border-<?php echo porto_filter_o
 	.select2-drop .select2-results,
 	.select2-drop-active .select2-results,
 	.form-row input[type="email"], .form-row input[type="number"], .form-row input[type="password"], .form-row input[type="search"], .form-row input[type="tel"], .form-row input[type="text"], .form-row input[type="url"], .form-row input[type="color"], .form-row input[type="date"], .form-row input[type="datetime"], .form-row input[type="datetime-local"], .form-row input[type="month"], .form-row input[type="time"], .form-row input[type="week"], .form-row select, .form-row textarea { background-color: <?php echo porto_if_light( '#fff', $color_dark_3 ); ?>; }
-	.woocommerce-account .woocommerce-MyAccount-navigation ul li a { border-bottom: 1px solid <?php echo porto_if_light( '#ededde', $color_dark_3 ); ?>; }
-	.woocommerce-account .woocommerce-MyAccount-navigation ul li a:before { border-<?php echo porto_filter_output( $left ); ?>: 4px solid <?php echo porto_if_light( '#333', '#555' ); ?>; }
-	.woocommerce-account .woocommerce-MyAccount-navigation ul li.is-active > a { background-color: <?php echo porto_if_light( '#f5f5f5', $color_dark_4 ); ?>; }
-	.woocommerce-account .woocommerce-MyAccount-navigation ul li a:hover,
-	.woocommerce-account .woocommerce-MyAccount-navigation ul li.is-active > a:hover { background-color: <?php echo porto_if_light( '#eee', $color_dark_3 ); ?>; }
-	.order-info mark { color: <?php echo porto_if_light( '#000', '#fff' ); ?>; }
+	.woocommerce-account .woocommerce-MyAccount-navigation ul li:not(:last-child) a { border-bottom: 1px solid <?php echo porto_if_light( '#ededde', $color_dark_3 ); ?>; }
+	.woocommerce-account .woocommerce-MyAccount-navigation ul li.is-active>a, .account-text-user { color: <?php echo porto_if_light( '#222529', '#fff' ); ?>; }
+	.order-info mark { display: block; color: <?php echo porto_if_light( '#222529', '#fff' ); ?>; }
 	#yith-wcwl-popup-message { background: <?php echo porto_if_light( '#fff', $dark_bg ); ?>; }
 	.product_title,
 	.product_title a { color: <?php echo porto_if_light( '#555', '#fff' ); ?>; }
 	#reviews .commentlist li .comment-text:before { border-<?php echo porto_filter_output( $right ); ?>: 15px solid <?php echo porto_if_light( '#f5f7f7', $color_dark_3 ); ?>; }
 	div.quantity .minus,
-	div.quantity .plus { background: <?php echo porto_if_light( 'transparent', $color_dark_3 ); ?>; border-color: <?php echo porto_if_light( $input_border_color, $color_dark_3 ); ?>; }
+	div.quantity .plus { background: <?php echo porto_if_light( 'transparent', $color_dark_3 ); ?>; border-color: <?php echo porto_if_light( $input_border_color, $color_dark_3 ); ?>; color: <?php echo porto_if_light( $color_dark, $b['light-color'] ); ?>; }
 	.star-rating:before { color: <?php echo porto_if_light( 'rgba(0,0,0,0.16)', 'rgba(255,255,255,0.13)' ); ?>; }
 	.wcvashopswatchlabel { border: 1px solid <?php echo porto_if_light( '#fff', $color_dark_3 ); ?>; box-shadow: 0 0 0 1px <?php echo porto_if_light( '#ccc', '#444' ); ?>; }
 	.wcvaswatchinput.active .wcvashopswatchlabel { border: 1px solid <?php echo porto_if_light( '#000', '#ccc' ); ?>; }
@@ -2865,10 +2886,16 @@ article.post .read-more, article.post .read-more-block, .post-item .read-more, .
 body.boxed .page-wrapper { border-bottom-color: <?php echo esc_html( $color_dark ); ?>; }
 
 html.dark .text-muted { color: <?php echo esc_html( $porto_color_lib->darken( $dark_default_text, 20 ) ); ?> !important; }
-
+.text-v-dark { color: <?php echo porto_if_light( '#222529', '#eee' ); ?> !important; }
+.woocommerce-message, .cart-popup .total, .shop_table.cart-table .product-subtotal .amount, .cart_totals .order-total .amount, .review-order .order-total .amount { color: <?php echo porto_if_light( '#222529', '#fff' ); ?>; }
+html .btn-v-dark, .cart-popup .button.checkout, .wishlist_table .add_to_cart.button { color: #fff; background-color: <?php echo porto_if_light( '#222529', esc_html( $porto_color_lib->lighten( $color_dark, 8 ) ) ); ?>; border: none }
+html .btn-v-dark:focus, .cart-popup .button.checkout:focus, .wishlist_table .add_to_cart.button:focus { outline: none; box-shadow: none; color: #fff; }
+html .btn-v-dark:hover, .cart-popup .button.checkout:hover, .wishlist_table .add_to_cart.button:hover {
+	color: #ffffff;
+	background-color: <?php echo porto_if_light( '#31373d', esc_html( $porto_color_lib->lighten( $color_dark, 10 ) ) ); ?>
+}
 <?php if ( class_exists( 'Woocommerce' ) ) : ?>
 	.price,
-	td.product-price,
 	td.product-subtotal,
 	td.product-total,
 	td.order-total,
@@ -3124,7 +3151,6 @@ html.dark .text-muted { color: <?php echo esc_html( $porto_color_lib->darken( $d
 	$footer_opacity = ( (int) $b['footer-opacity'] ) ? (int) $b['footer-opacity'] : 80;
 	$footer_opacity = (float) $footer_opacity / 100;
 ?>
-#mini-cart .cart-popup { color: <?php echo esc_html( $body_color ); ?> }
 .fixed-header #header .header-main {
 <?php if ( 'transparent' == $header_bg_color ) : ?>
 	box-shadow: none;
@@ -3435,17 +3461,23 @@ if ( $b['mainmenu-wrap-bg-color-sticky'] && 'transparent' != $b['mainmenu-wrap-b
 	<?php echo porto_filter_output( $right ); ?>: <?php echo porto_config_value( $b['mainmenu-toplevel-padding1'][ 'padding-' . $right ] ); ?>px;
 	top: <?php echo (int) porto_config_value( $b['mainmenu-toplevel-padding1']['padding-top'] ) - 15; ?>px;
 }
-#header .main-menu-wrap .main-menu .menu-custom-block a,
-#header .main-menu-wrap .main-menu .menu-custom-block span {
+#header .main-menu-wrap .menu-custom-block a,
+#header .main-menu-wrap .menu-custom-block span {
 	padding: <?php echo porto_config_value( $b['mainmenu-toplevel-padding1']['padding-top'] ); ?>px <?php echo porto_config_value( $b['mainmenu-toplevel-padding1'][ 'padding-' . $right ] ); ?>px <?php echo porto_config_value( $b['mainmenu-toplevel-padding1']['padding-bottom'] ); ?>px <?php echo porto_config_value( $b['mainmenu-toplevel-padding1'][ 'padding-' . $left ] ); ?>px;
 }
+<?php if ( $b['mainmenu-toplevel-padding1']['padding-top'] ) : ?>
+	#header .main-menu-wrap .menu-custom-block {
+		padding-top: 0;
+		padding-bottom: 0
+	}
+<?php endif; ?>
 @media <?php echo porto_filter_output( $screen_large ); ?> {
 	.main-menu-wrap .main-menu > li.menu-item > a .tip {
 		<?php echo porto_filter_output( $right ); ?>: <?php echo porto_config_value( $b['mainmenu-toplevel-padding2'][ 'padding-' . $right ] ); ?>px;
 		top: <?php echo (int) porto_config_value( $b['mainmenu-toplevel-padding2']['padding-top'] ) - 15; ?>px;
 	}
-	#header .main-menu-wrap .main-menu .menu-custom-block a,
-	#header .main-menu-wrap .main-menu .menu-custom-block span {
+	#header .main-menu-wrap .menu-custom-block a,
+	#header .main-menu-wrap .menu-custom-block span {
 		padding: <?php echo porto_config_value( $b['mainmenu-toplevel-padding2']['padding-top'] ); ?>px <?php echo porto_config_value( $b['mainmenu-toplevel-padding2'][ 'padding-' . $right ] ); ?>px <?php echo porto_config_value( $b['mainmenu-toplevel-padding2']['padding-bottom'] ); ?>px <?php echo porto_config_value( $b['mainmenu-toplevel-padding2'][ 'padding-' . $left ] ); ?>px;
 	}
 }
@@ -3492,8 +3524,8 @@ if ( $b['mainmenu-wrap-bg-color-sticky'] && 'transparent' != $b['mainmenu-wrap-b
 	<?php endif; ?>
 <?php endif; ?>
 
-#header .main-menu-wrap .main-menu .menu-custom-block .tip {
-	<?php echo porto_filter_output( $right ); ?>: <?php echo porto_config_value( $b['mainmenu-toplevel-padding1'][ 'padding-' . $left ] ); ?>px;
+#header .main-menu-wrap .menu-custom-block .tip {
+	<?php echo porto_filter_output( $right ); ?>: <?php echo porto_config_value( $b['mainmenu-toplevel-padding1'][ 'padding-' . $right ] ) - 5; ?>px;
 	top: <?php echo porto_config_value( $b['mainmenu-toplevel-padding1']['padding-top'] ) - 15; ?>px;
 }
 
@@ -3522,7 +3554,7 @@ if ( $b['mainmenu-wrap-bg-color-sticky'] && 'transparent' != $b['mainmenu-wrap-b
 	$main_menu_level1_abg_color    = $b['mainmenu-toplevel-config-active'] ? $b['mainmenu-toplevel-abg-color'] : $b['mainmenu-toplevel-hbg-color'];
 	$main_menu_level1_active_color = $b['mainmenu-toplevel-config-active'] ? $b['mainmenu-toplevel-alink-color'] : $b['mainmenu-toplevel-link-color']['hover'];
 ?>
-#header .main-menu:not(:hover) > li.menu-item.active > a {
+#header .main-menu > li.menu-item.active > a {
 	<?php if ( $main_menu_level1_abg_color ) : ?>
 		background-color: <?php echo esc_html( $main_menu_level1_abg_color ); ?>;
 	<?php endif; ?>
@@ -3530,6 +3562,7 @@ if ( $b['mainmenu-wrap-bg-color-sticky'] && 'transparent' != $b['mainmenu-wrap-b
 		color: <?php echo esc_html( $main_menu_level1_active_color ); ?>;
 	<?php endif; ?>
 }
+#header .main-menu > li.menu-item.active:hover > a,
 #header .main-menu > li.menu-item:hover > a {
 	<?php if ( $b['mainmenu-toplevel-hbg-color'] ) : ?>
 		background-color: <?php echo esc_html( $b['mainmenu-toplevel-hbg-color'] ); ?>;
@@ -3784,8 +3817,8 @@ if ( isset( $b['mainmenu-popup-top-border'] ) && isset( $b['mainmenu-popup-top-b
 <?php endif; ?>
 
 @media <?php echo porto_filter_output( $screen_large ); ?> {
-	#header .main-menu-wrap .main-menu .menu-custom-block .tip {
-		<?php echo porto_filter_output( $right ); ?>: <?php echo porto_config_value( $b['mainmenu-toplevel-padding2'][ 'padding-' . $left ] ); ?>px;
+	#header .main-menu-wrap .menu-custom-block .tip {
+		<?php echo porto_filter_output( $right ); ?>: <?php echo porto_config_value( $b['mainmenu-toplevel-padding2'][ 'padding-' . $right ] ) - 5; ?>px;
 		top: <?php echo porto_config_value( $b['mainmenu-toplevel-padding2']['padding-top'] ) - 15; ?>px;
 	}
 	#header .main-menu > li.menu-item > a/*,
@@ -3915,6 +3948,7 @@ if ( isset( $b['mainmenu-popup-top-border'] ) && isset( $b['mainmenu-popup-top-b
 <?php endif; ?>
 
 /* mini cart */
+.cart-popup .quantity, .cart-popup .quantity .amount { color: #696969 !important; }
 <?php if ( isset( $b['minicart-icon-font-size'] ) && $b['minicart-icon-font-size'] ) : ?>
 	<?php
 		$unit = trim( preg_replace( '/[0-9.]/', '', $b['minicart-icon-font-size'] ) );
@@ -4140,26 +4174,19 @@ ul.list.icons li a,
 .testimonial.testimonial-style-5 blockquote,
 .testimonial.testimonial-style-6 blockquote,
 .testimonial.testimonial-with-quotes blockquote,
-.sort-source-style-3 > li > a {
+.sort-source-style-3 > li > a,
+.widget_shopping_cart {
 	color: <?php echo esc_html( $body_color ); ?>;
 }
 
-.widget_recent_entries > ul li,
-.widget_recent_comments > ul li,
-.widget_pages > ul li,
-.widget_meta > ul li,
-.widget_nav_menu > div > ul li,
-.widget_archive > ul li,
-.widget_categories > ul li,
-.widget_rss > ul li,
-.widget_recent_entries > ul li > a,
-.widget_recent_comments > ul li > a,
-.widget_pages > ul li > a,
-.widget_meta > ul li > a,
-.widget_nav_menu > div > ul li > a,
-.widget_archive > ul li > a,
-.widget_categories > ul li > a,
-.widget_rss > ul li > a {
+.widget_recent_entries li,
+.widget_recent_comments li,
+.widget_pages li,
+.widget_meta li,
+.widget_nav_menu li,
+.widget_archive li,
+.widget_categories li,
+.widget_rss li {
 	color: <?php echo esc_html( $porto_color_lib->darken( $body_color, 6.67 ) ); ?>;
 }
 
@@ -4357,7 +4384,6 @@ div.wpb_single_image .porto-vc-zoom .zoom-icon,
 .thumb-info .link,
 .pricing-table .most-popular h3,
 .pricing-table-flat .plan h3,
-.pricing-table-flat .plan-price,
 .pricing-table-classic .most-popular h3 strong,
 .timeline-balloon .balloon-time .time-dot:after,
 section.exp-timeline .timeline-box.right:after,
@@ -4520,8 +4546,6 @@ html:not(.touch) .product-thumbs-slider .owl-item:hover .img-thumbnail {
 	html .divider.divider-<?php echo porto_filter_output( $key ); ?>.divider-small hr,
 	html .divider.divider-style-2.divider-<?php echo porto_filter_output( $key ); ?> i,
 	.pricing-table .plan-<?php echo porto_filter_output( $key ); ?> h3,
-	.pricing-table-flat .plan-<?php echo porto_filter_output( $key ); ?> h3,
-	.pricing-table-flat .plan-<?php echo porto_filter_output( $key ); ?> .price,
 	.pricing-table-classic .plan-<?php echo porto_filter_output( $key ); ?> h3 strong,
 	html .home-intro-<?php echo porto_filter_output( $key ); ?>,
 	.feature-box .feature-box-icon-<?php echo porto_filter_output( $key ); ?>,
@@ -5181,6 +5205,7 @@ article.post .post-date .sticky,
 }
 
 /* shortcodes */
+.porto-vc-testimonial blockquote,
 .testimonial blockquote,
 .testimonial blockquote p {
 	font-family: <?php echo isset( $b['shortcode-testimonial-font']['font-family'] ) && $b['shortcode-testimonial-font']['font-family'] ? sanitize_text_field( $b['shortcode-testimonial-font']['font-family'] ) . ',' : ''; ?>Georgia, serif;
@@ -5435,11 +5460,12 @@ article.post .post-date .sticky,
 
 /*------------------ Theme Shop ---------------------- */
 <?php if ( class_exists( 'Woocommerce' ) ) : ?>
+	.woocommerce-account .woocommerce > .row { margin-left: <?php echo 10 - (int) $b['grid-gutter-width'] / 2; ?>px; margin-right: <?php echo 10 - (int) $b['grid-gutter-width'] / 2; ?>px }
 	.product-layout-grid .product-images .img-thumbnail,
 	ul.list li.product { margin-bottom: <?php echo (int) $b['grid-gutter-width']; ?>px; }
 	ul.products.grid-creative li.product-col { padding-bottom: <?php echo (int) $b['grid-gutter-width']; ?>px; }
 	.summary-before .labels { margin-<?php echo porto_filter_output( $left ); ?>: <?php echo (int) $b['grid-gutter-width'] / 2; ?>px; }
-	.shop-loop-before.sticky { padding-<?php echo porto_filter_output( $left ); ?>: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-<?php echo porto_filter_output( $right ); ?>: <?php echo (int) $b['grid-gutter-width'] - 10; ?>px; }
+	.shop-loop-before.sticky { padding-left: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 10; ?>px; }
 	<?php if ( (int) $b['grid-gutter-width'] > $max_spacing_mobile ) : ?>
 		@media (max-width: 480px) {
 			.shop-loop-before.sticky { padding-<?php echo porto_filter_output( $left ); ?>: <?php echo (int) $max_spacing_mobile; ?>px; padding-<?php echo porto_filter_output( $right ); ?>: <?php echo (int) $max_spacing_mobile - 10; ?>
@@ -5489,7 +5515,6 @@ article.post .post-date .sticky,
 	.widget_rating_filter ol li > a,
 	.woocommerce .widget_layered_nav ul.yith-wcan-label li a,
 	.woocommerce-page .widget_layered_nav ul.yith-wcan-label li a,
-	ul.product_list_widget li .product-details a,
 	.widget_recent_reviews .product_list_widget li a,
 	.shop_table dl.variation,
 	.select2-container .select2-choice,
@@ -5663,10 +5688,9 @@ article.post .post-date .sticky,
 	.widget_layered_nav_filters ul li a:hover:before { color: <?php echo esc_html( $porto_color_lib->lighten( $skin_color, 5 ) ); ?>; }
 	.woocommerce .widget_layered_nav ul.yith-wcan-label li.chosen a:hover,
 	.woocommerce-page .widget_layered_nav ul.yith-wcan-label li.chosen a:hover { background-color: <?php echo esc_html( $porto_color_lib->lighten( $skin_color, 5 ) ); ?>; border-color: <?php echo esc_html( $porto_color_lib->lighten( $skin_color, 5 ) ); ?>; }
-	.woocommerce #content table.shop_table.wishlist_table.cart a.remove { color: <?php echo esc_html( $skin_color ); ?>; }
-	.woocommerce #content table.shop_table.wishlist_table.cart a.remove:hover { color: <?php echo esc_html( $porto_color_lib->lighten( $skin_color, 5 ) ); ?>; }
-	.woocommerce #content table.shop_table.wishlist_table.cart a.remove:active { color: <?php echo esc_html( $porto_color_lib->darken( $skin_color, 5 ) ); ?>; }
-
+	.woocommerce #content table.shop_table.wishlist_table.cart a.remove:hover, .shop_table.cart a.remove:hover { color: <?php echo esc_html( $skin_color ); ?>; }
+	.woocommerce #content table.shop_table.wishlist_table.cart a.remove:active, .shop_table.cart a.remove:active { color: <?php echo esc_html( $porto_color_lib->darken( $skin_color, 5 ) ); ?>; }
+	.wishlist_table tr td { background-color: <?php echo porto_if_light( '#fff', $dark_bg ); ?>; }
 	.product-image .labels .onhot,
 	.summary-before .labels .onhot { background: <?php echo esc_html( $b['hot-color'] ); ?>; color: <?php echo esc_html( $b['hot-color-inverse'] ); ?>; }
 	.product-image .labels .onsale,
@@ -5679,7 +5703,6 @@ article.post .post-date .sticky,
 
 	.woocommerce-tabs h2.resp-tab-active { border-bottom-color: <?php echo esc_html( $skin_color ); ?> !important; }
 	.resp-vtabs.style-2 .resp-tabs-list li.resp-tab-active { border-bottom: 2px solid <?php echo esc_html( $skin_color ); ?> !important; }
-	.product-categories li:not(.current) > a:hover { color: #7b858a !important; text-decoration: underline; }
 	.featured-box.porto-user-box { border-top-color: <?php echo esc_html( $skin_color ); ?>; }
 	.woocommerce-widget-layered-nav-list .chosen a:not(.filter-color),
 	.filter-item-list .active .filter-item { background-color: <?php echo esc_html( $skin_color ); ?>; color: #fff; border-color: <?php echo esc_html( $skin_color ); ?>; }
@@ -6085,33 +6108,15 @@ article.post .post-date .sticky,
 
 	.elementor-element[data-plugin-parallax], .elementor-element > [data-plugin-parallax] { background-attachment: scroll !important }
 
+	/* header builder */
+	.header-builder .elementor-widget-wrap > .elementor-element { width: auto; margin-<?php echo porto_filter_output( $right ); ?>: .875rem; margin-bottom: 0 }
+	.header-builder .elementor-widget-wrap > .elementor-element:last-child { margin-<?php echo porto_filter_output( $right ); ?>: 0 }
+
 	<?php if ( defined( 'ELEMENTOR_PRO_VERSION' ) ) : ?>
 		.elementor-products-grid .products li.product-col { max-width: none; padding: 0; margin-bottom: 0 }
 		.elementor-products-grid .products li.product-col .woocommerce-loop-product__title,
 		.elementor-products-grid .products .category-list { white-space: normal }
 	<?php endif; ?>
-<?php endif; ?>
-
-/*---------------- Visual Composer Styles ---------------- */
-<?php if ( defined( 'VCV_VERSION' ) ) : ?>
-	.container-fluid .vce-row-container { margin-left: -<?php echo (int) $b['grid-gutter-width']; ?>px; margin-right: -<?php echo (int) $b['grid-gutter-width']; ?>px; width: calc(100% + <?php echo (int) $b['grid-gutter-width'] * 2; ?>px) }
-	.container-fluid .no-inner-container,
-	.vce-row[data-vce-stretch-content="true"] { padding-left: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width']; ?>px }
-	<?php if ( 30 !== (int) $b['grid-gutter-width'] ) : ?>
-		.vce-row.vce-element--has-background { padding-left: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width']; ?>px; padding-top: <?php echo (int) $b['grid-gutter-width']; ?>px }
-	<?php endif; ?>
-	<?php if ( (int) $b['grid-gutter-width'] > $max_spacing_mobile ) : ?>
-		@media (max-width: 480px) {
-			.container-fluid .vce-row-container { margin-left: -<?php echo (int) $max_spacing_mobile; ?>px; margin-right: -<?php echo (int) $max_spacing_mobile; ?>px; width: calc(100% + <?php echo (int) $max_spacing_mobile * 2; ?>px) }
-			.vce-row.vce-element--has-background,
-			.container-fluid .no-inner-container,
-			.vce-row[data-vce-stretch-content="true"] { padding-left: <?php echo (int) $max_spacing_mobile; ?>px; padding-right: <?php echo (int) $max_spacing_mobile; ?>px; padding-top: <?php echo (int) $max_spacing_mobile; ?>px }
-		}
-	<?php endif; ?>
-
-	.vce-row--col-gap-<?php echo (int) $b['grid-gutter-width']; ?> > .vce-row-content > .vce-col { margin-<?php echo porto_filter_output( $right ); ?>: <?php echo (int) $b['grid-gutter-width']; ?>px }
-	.vce-row--col-gap-<?php echo (int) $b['grid-gutter-width']; ?> > .vce-row-content > .vce-column-resizer .vce-column-resizer-handler { width: <?php echo (int) $b['grid-gutter-width']; ?>px }
-	.container-fluid .vce-row-container .vce-row-container { margin-left: 0; margin-right: 0; width: 100% }
 <?php endif; ?>
 
 /*---------------- Gutenberg Styles ---------------- */
@@ -6131,7 +6136,7 @@ article.post .post-date .sticky,
 .btn.btn-block { display: block; padding-left: 0; padding-right: 0 }
 
 /*---------------- Sticky Icon Bar ---------------- */
-<?php if ( ! empty( $porto_settings['show-icon-menus-mobile'] ) ) : ?>
+<?php if ( ! empty( $porto_settings['show-icon-menus-mobile'] ) || is_customize_preview() ) : ?>
 	.porto-sticky-navbar:not(.fixed) { display: none }
 	.porto-sticky-navbar > div { text-align: center; padding: 10px 0 5px;}
 	.porto-sticky-navbar .sticky-icon + .sticky-icon { border-<?php echo porto_filter_output( $left ); ?>: 1px solid <?php echo porto_if_dark( '#333', '#f1f1f1' ); ?>; }
@@ -6157,5 +6162,6 @@ article.post .post-date .sticky,
 		.sidebar-opened .porto-sticky-navbar.fixed, .panel-opened .porto-sticky-navbar.fixed {
 			<?php echo porto_filter_output( $left ); ?>: 260px;
 		}
+		#footer { margin-bottom: 3.75rem }
 	}
 <?php endif; ?>

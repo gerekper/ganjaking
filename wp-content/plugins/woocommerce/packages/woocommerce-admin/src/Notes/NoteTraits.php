@@ -49,7 +49,7 @@ trait NoteTraits {
 	public static function can_be_added() {
 		$note = self::get_note();
 
-		if ( ! $note instanceof WC_Admin_Note ) {
+		if ( ! $note instanceof Note && ! $note instanceof WC_Admin_Note ) {
 			return;
 		}
 
@@ -59,7 +59,7 @@ trait NoteTraits {
 
 		if (
 			'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) &&
-			WC_Admin_Note::E_WC_ADMIN_NOTE_MARKETING === $note->get_type()
+			Note::E_WC_ADMIN_NOTE_MARKETING === $note->get_type()
 		) {
 			return false;
 		}
@@ -97,11 +97,31 @@ trait NoteTraits {
 		$note_ids   = $data_store->get_notes_with_name( self::NOTE_NAME );
 
 		foreach ( $note_ids as $note_id ) {
-			$note = WC_Admin_Notes::get_note( $note_id );
+			$note = Notes::get_note( $note_id );
 
 			if ( $note ) {
 				$data_store->delete( $note );
 			}
 		}
+	}
+
+	/**
+	 * Get if the note has been actioned.
+	 *
+	 * @return bool
+	 */
+	public static function has_note_been_actioned() {
+		$data_store = \WC_Data_Store::load( 'admin-note' );
+		$note_ids   = $data_store->get_notes_with_name( self::NOTE_NAME );
+
+		if ( ! empty( $note_ids ) ) {
+			$note = Notes::get_note( $note_ids[0] );
+
+			if ( Note::E_WC_ADMIN_NOTE_ACTIONED === $note->get_status() ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

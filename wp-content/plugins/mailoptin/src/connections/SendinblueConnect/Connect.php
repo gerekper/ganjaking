@@ -17,6 +17,10 @@ class Connect extends AbstractSendinblueConnect implements ConnectionInterface
         ConnectSettingsPage::get_instance();
 
         add_filter('mailoptin_registered_connections', array($this, 'register_connection'));
+
+        add_filter('mo_optin_form_integrations_default', array($this, 'integration_customizer_settings'), 10, 3);
+        add_action('mo_optin_integrations_controls_after', array($this, 'integration_customizer_controls'));
+
         add_filter('mo_optin_integrations_advance_controls', array($this, 'customizer_advance_controls'));
         add_filter('mo_optin_form_integrations_default', [$this, 'customizer_advance_controls_defaults']);
 
@@ -80,6 +84,38 @@ class Connect extends AbstractSendinblueConnect implements ConnectionInterface
     }
 
     /**
+     * @param array $settings
+     *
+     * @return mixed
+     */
+    public function integration_customizer_settings($settings)
+    {
+        $settings['SendinblueConnect_enable_double_optin'] = apply_filters('mailoptin_customizer_optin_campaign_SendinblueConnect_enable_double_optin', false);
+
+        return $settings;
+    }
+
+    /**
+     * @param $controls
+     * @param $optin_campaign_id
+     * @param $index
+     * @param $saved_values
+     *
+     * @return array
+     */
+    public function integration_customizer_controls($controls)
+    {
+        $controls[] = [
+            'field'       => 'toggle',
+            'name'        => 'SendinblueConnect_enable_double_optin',
+            'label'       => __('Enable Double Optin', 'mailoptin'),
+            'description' => __("Double optin requires users to confirm their email address before they are added or subscribed (recommended).", 'mailoptin')
+        ];
+
+        return $controls;
+    }
+
+    /**
      * @param $controls
      *
      * @return array
@@ -107,6 +143,31 @@ class Connect extends AbstractSendinblueConnect implements ConnectionInterface
         ];
 
         return $controls;
+    }
+
+    public function get_double_optin_template()
+    {
+        try {
+            $args = ['templateStatus' => 'true', 'limit' => 1000];
+
+            $response = $this->sendinblue_instance()->make_request('smtp/templates', $args);
+
+            $double_optin_templates = [];
+
+            if (isset($response['body']->templates) && ! empty($response['body']->templates)) {
+
+                foreach ($response['body']->templates as $template) {
+                    $double_optin_templates[$template->id] = $template->name;
+                }
+            }
+
+            return $double_optin_templates;
+
+        } catch (\Exception $e) {
+            self::save_optin_error_log($e->getMessage(), 'sendinblue');
+
+            return [];
+        }
     }
 
     /**
@@ -137,8 +198,8 @@ class Connect extends AbstractSendinblueConnect implements ConnectionInterface
         ];
 
         $replace = [
-            '[MIRROR]',
-            '[UNSUBSCRIBE]'
+            '{{ mirror }}',
+            '{{ unsubscribe }}'
         ];
 
         $content = str_replace($search, $replace, $content);

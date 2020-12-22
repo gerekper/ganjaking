@@ -56,11 +56,29 @@ class WP_Customize_Fields_Repeater_Control extends WP_Customize_Control
 
         // toggle control assets
         wp_enqueue_script('mo-customizer-toggle-control', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/toggle-control/customizer-toggle-control.js', array('jquery'), false, true);
-        wp_enqueue_style('mo-pure-css-toggle-buttons', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/toggle-control/pure-css-togle-buttons.css', array(), false);
 
+        //mailoptin only css
+        $this->mailoptin_only_css();
 
         wp_enqueue_script('jquery-ui-sortable');
     }
+
+
+    /**
+     * Mailoptin only css to fix conflicts
+     * 
+     */
+    public function mailoptin_only_css()
+    {
+        $screen = get_current_screen();
+
+        $base_text = $screen->base;
+
+        if (strpos($base_text, 'mailoptin') !== false || is_customize_preview()) {
+            wp_enqueue_style('mo-pure-css-toggle-buttons', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/toggle-control/pure-css-togle-buttons.css', array(), false);
+        }
+    }
+
 
     public function font_select($settings_link, $field_value)
     {

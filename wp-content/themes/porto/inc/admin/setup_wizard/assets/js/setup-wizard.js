@@ -25,7 +25,6 @@ var PortoWizard = (function($){
                 callbacks[$(this).data('callback')](this);
                 return false;
             }else{
-                loading_content();
                 return true;
             }
         });
@@ -55,22 +54,19 @@ var PortoWizard = (function($){
                 return;
             }
             var $wrap = $(this).closest('.porto-setup-wizard-plugins'),
-                $notice = $(this).closest('form').find('.porto-notice');
-            if ((!$wrap.find('li[data-slug="js_composer"]').length || $wrap.find('li[data-slug="js_composer"] input[type="checkbox"]').is(':checked')) &&
-                (!$wrap.find('li[data-slug="elementor"]').length || $wrap.find('li[data-slug="elementor"] input[type="checkbox"]').is(':checked'))) {
+                $notice = $(this).closest('form').find('.porto-notice'),
+                installed_count = 0,
+                page_builders = ['js_composer', 'elementor'];
+            for (var index in page_builders) {
+                var p = page_builders[index];
+                if (!$wrap.find('li[data-slug="' + p + '"]').length || $wrap.find('li[data-slug="' + p + '"] input[type="checkbox"]').is(':checked')) {
+                    installed_count++;
+                }
+            }
+            if (installed_count > 1) {
                 $notice.removeClass('d-none');
             } else {
                 $notice.addClass('d-none');
-            }
-        });
-    }
-
-    function loading_content(){
-        $('.envato-setup-content').block({
-            message: null,
-            overlayCSS: {
-                background: '#fff',
-                opacity: 0.6
             }
         });
     }
@@ -84,15 +80,17 @@ var PortoWizard = (function($){
         var current_item_hash = '';
 
         function ajax_callback(response){
-            if(typeof response == 'object' && typeof response.message != 'undefined'){
+            if (typeof response == 'object' && typeof response.message != 'undefined') {
                 $current_node.find('span').text(response.message);
-                if(typeof response.url != 'undefined'){
+                if (typeof response.url != 'undefined') {
                     // we have an ajax url action to perform.
-
-                    if(response.hash == current_item_hash){
+                    if (response.hash == current_item_hash) {
                         $current_node.find('span').text("failed");
                         find_next();
-                    }else {
+                    } else {
+                        if (response.plugin && (-1 !== response.plugin.indexOf('woocommerce') || -1 !== response.plugin.indexOf('elementor'))) {
+                            response.url = response.url + '&activate-multi=1';
+                        }
                         current_item_hash = response.hash;
                         jQuery.post(response.url, response, function(response2) {
                             process_current();
@@ -100,19 +98,19 @@ var PortoWizard = (function($){
                         }).fail(ajax_callback);
                     }
 
-                }else if(typeof response.done != 'undefined'){
+                } else if (typeof response.done != 'undefined') {
                     find_next();
-                }else{
+                } else{
                     find_next();
                 }
-            }else{
+            } else {
                 $current_node.find('span').text("ajax error");
                 find_next();
             }
         }
         function process_current(){
-            if(current_item){
-                jQuery.post(ajaxurl, {
+            if (current_item) {
+                jQuery.post(ajaxurl + '?activate-multi=1', {
                     action: typeof porto_setup_wizard_params == 'undefined' ? 'porto_speed_optimize_wizard_plugins' : 'porto_setup_wizard_plugins',
                     wpnonce: typeof porto_setup_wizard_params == 'undefined' ? porto_speed_optimize_wizard_params.wpnonce : porto_setup_wizard_params.wpnonce,
                     slug: current_item
@@ -154,9 +152,8 @@ var PortoWizard = (function($){
                     }
                 });
                 complete = function(){
-                    loading_content();
                     if ($(btn).attr('href') && '#' != $(btn).attr('href')) {
-                        window.location.href=btn.href;
+                        window.location.href=btn.href + '&activate-multi=1';
                     } else {
                         window.location.reload();
                     }

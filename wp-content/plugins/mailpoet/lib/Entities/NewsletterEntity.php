@@ -11,6 +11,7 @@ use MailPoet\Doctrine\EntityTraits\CreatedAtTrait;
 use MailPoet\Doctrine\EntityTraits\DeletedAtTrait;
 use MailPoet\Doctrine\EntityTraits\SafeToOneAssociationLoadTrait;
 use MailPoet\Doctrine\EntityTraits\UpdatedAtTrait;
+use MailPoet\Util\Helpers;
 use MailPoetVendor\Doctrine\Common\Collections\ArrayCollection;
 use MailPoetVendor\Doctrine\Common\Collections\Criteria;
 use MailPoetVendor\Doctrine\ORM\Mapping as ORM;
@@ -100,7 +101,7 @@ class NewsletterEntity {
   private $preheader = '';
 
   /**
-   * @ORM\Column(type="json")
+   * @ORM\Column(type="json", nullable=true)
    * @var array|null
    */
   private $body;
@@ -158,6 +159,23 @@ class NewsletterEntity {
     $this->newsletterSegments = new ArrayCollection();
     $this->options = new ArrayCollection();
     $this->queues = new ArrayCollection();
+  }
+
+  /**
+   * @deprecated This is here only for backward compatibility with custom shortcodes https://kb.mailpoet.com/article/160-create-a-custom-shortcode
+   * This can be removed after 2021-08-01
+   */
+  public function __get($key) {
+    $getterName = 'get' . Helpers::underscoreToCamelCase($key, $capitaliseFirstChar = true);
+    $callable = [$this, $getterName];
+    if (is_callable($callable)) {
+      return call_user_func($callable);
+    }
+  }
+
+  public function __clone() {
+    // reset ID
+    $this->id = null;
   }
 
   /**
@@ -376,6 +394,18 @@ class NewsletterEntity {
    */
   public function getOptions() {
     return $this->options;
+  }
+
+  public function getOption(string $name): ?NewsletterOptionEntity {
+    $option = $this->options->filter(function (NewsletterOptionEntity $option) use ($name): bool {
+      return ($field = $option->getOptionField()) ? $field->getName() === $name : false;
+    })->first();
+    return $option ?: null;
+  }
+
+  public function getOptionValue(string $name) {
+    $option = $this->getOption($name);
+    return $option ? $option->getValue() : null;
   }
 
   /**

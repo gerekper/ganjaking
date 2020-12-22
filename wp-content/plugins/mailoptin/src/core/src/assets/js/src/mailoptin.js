@@ -1142,7 +1142,9 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
 
                     ga('create', trackingId, 'auto', 'moTracker');
 
-                    ga('moTracker.send', 'event', optin_js_config.optin_campaign_name, action, optin_js_config.optin_uuid);
+                    ga('moTracker.send', 'event', optin_js_config.optin_campaign_name, action, optin_js_config.optin_uuid, {
+                        nonInteraction: true
+                    });
                 });
             },
 
@@ -1330,9 +1332,9 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
                         maxDate: new Date(currentYr + range, 0),
                         yearRange: range + range,
                         toString: function (date, format) {
-                            const day = ('0' + date.getDate()).slice(-2);
-                            const month = ('0' + (date.getMonth() + 1)).slice(-2);
-                            const year = date.getFullYear();
+                            var day = ('0' + date.getDate()).slice(-2);
+                            var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                            var year = date.getFullYear();
                             return year + '-' + month + '-' + day;
                         }
                     });

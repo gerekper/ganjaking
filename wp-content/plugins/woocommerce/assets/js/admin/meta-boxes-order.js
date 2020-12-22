@@ -19,7 +19,7 @@ jQuery( function ( $ ) {
 				)
 			) {
 				/* State/Country select boxes */
-				this.states = $.parseJSON( woocommerce_admin_meta_boxes_order.countries.replace( /&quot;/g, '"' ) );
+				this.states = JSON.parse( woocommerce_admin_meta_boxes_order.countries.replace( /&quot;/g, '"' ) );
 			}
 
 			$( '.js_field-country' ).selectWoo().change( this.change_country );
@@ -1315,6 +1315,7 @@ jQuery( function ( $ ) {
 			};
 
 			$.post( woocommerce_admin_meta_boxes.ajax_url, data, function( response ) {
+				$( 'ul.order_notes .no-items' ).remove();
 				$( 'ul.order_notes' ).prepend( response );
 				$( '#woocommerce-order-notes' ).unblock();
 				$( '#add_order_note' ).val( '' );

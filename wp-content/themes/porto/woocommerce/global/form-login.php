@@ -40,15 +40,18 @@ if ( is_user_logged_in() ) {
 
 			<?php do_action( 'woocommerce_login_form' ); ?>
 
-			<p class="form-row clearfix">
+			<div class="form-row clearfix">
 				<?php wp_nonce_field( 'woocommerce-login', 'woocommerce-login-nonce' ); ?>
-				<button type="submit" class="button" name="login" value="<?php esc_attr_e( 'Login', 'porto' ); ?>"><?php esc_html_e( 'Login', 'porto' ); ?></button>
+				<button type="submit" class="button wc-action-btn wc-action-sm p-t-sm p-b-sm px-5 text-uppercase" name="login" value="<?php esc_attr_e( 'Login', 'porto' ); ?>"><?php esc_html_e( 'Login', 'porto' ); ?></button>
 				<input type="hidden" name="redirect" value="<?php echo esc_url( $redirect ); ?>" />
-				<label for="rememberme" class="woocommerce-form__label woocommerce-form__label-for-checkbox inline woocommerce-form-login__rememberme">
-					<input name="rememberme" type="checkbox" id="rememberme" value="forever" /> <?php esc_html_e( 'Remember me', 'porto' ); ?>
+			</div>
+			<div class="porto-checkbox d-inline-block">
+				<input name="rememberme" type="checkbox" id="rememberme" value="forever" class="porto-control-input" />
+				<label for="rememberme" class="woocommerce-form__label woocommerce-form__label-for-checkbox inline woocommerce-form-login__rememberme porto-control-label">	
+					<?php esc_html_e( 'Remember me', 'porto' ); ?>
 				</label>
-			</p>
-			<p class="lost_password">
+			</div>
+			<p class="lost_password d-inline-block ml-3">
 				<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Lost your password?', 'porto' ); ?></a>
 			</p>
 

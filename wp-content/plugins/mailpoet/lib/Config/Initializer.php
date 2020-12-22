@@ -347,17 +347,7 @@ class Initializer {
   public function setupAutomaticEmails() {
     $automaticEmails = new AutomaticEmails();
     $automaticEmails->init();
-    $this->automaticEmails = $automaticEmails->getAutomaticEmails();
-
-    WPFunctions::get()->addAction(
-      'mailpoet_newsletters_translations_after',
-      [$this, 'includeAutomaticEmailsData']
-    );
-
-    WPFunctions::get()->addAction(
-      'mailpoet_newsletter_editor_after_javascript',
-      [$this, 'includeAutomaticEmailsData']
-    );
+    $automaticEmails->getAutomaticEmails();
   }
 
   private function setupWoocommerceTransactionalEmails() {
@@ -369,14 +359,5 @@ class Initializer {
         $this->wcTransactionalEmails->useTemplateForWoocommerceEmails();
       }
     }
-  }
-
-  public function includeAutomaticEmailsData() {
-    $data = [
-      'automatic_emails' => $this->automaticEmails,
-      'woocommerce_optin_on_checkout' => $this->settings->get('woocommerce.optin_on_checkout.enabled', false),
-    ];
-
-    echo $this->renderer->render('automatic_emails.html', $data);
   }
 }

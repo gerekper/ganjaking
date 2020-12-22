@@ -1,17 +1,7 @@
 <?php
 // Porto countdown
 
-add_shortcode( 'porto_countdown', 'porto_shortcode_countdown' );
 add_action( 'vc_after_init', 'porto_load_countdown_shortcode' );
-
-function porto_shortcode_countdown( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_countdown' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_countdown_shortcode() {
 

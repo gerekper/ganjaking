@@ -1,16 +1,7 @@
 <?php
 
 // Porto Lightbox
-add_shortcode( 'porto_lightbox', 'porto_shortcode_lightbox' );
 add_action( 'vc_after_init', 'porto_load_lightbox_shortcode' );
-
-function porto_shortcode_lightbox( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_lightbox' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_lightbox_shortcode() {
 	$animation_type     = porto_vc_animation_type();

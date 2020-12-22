@@ -82,7 +82,7 @@ else :
 			<?php if ( $rating && get_option( 'woocommerce_enable_review_rating' ) === 'yes' ) : ?>
 
 				<div class="star-rating" title="<?php echo esc_attr( $rating ); ?>">
-					<span style="width:<?php echo 100 * ( $rating / 5 ); ?>%"><strong><?php echo esc_html( $rating ); ?></strong> <?php esc_html_e( 'out of 5', 'woocommerce' ); ?></span>
+					<span style="width:<?php echo 100 * ( $rating / 5 ); ?>%"><strong><?php echo esc_html( $rating ); ?></strong> <?php esc_html_e( 'out of 5', 'porto' ); ?></span>
 				</div>
 
 			<?php endif; ?>
@@ -91,7 +91,7 @@ else :
 
 			<?php if ( '0' == $comment->comment_approved ) : ?>
 
-				<p class="meta"><em><?php esc_html_e( 'Your comment is awaiting approval', 'woocommerce' ); ?></em></p>
+				<p class="meta"><em><?php esc_html_e( 'Your comment is awaiting approval', 'porto' ); ?></em></p>
 
 			<?php else : ?>
 

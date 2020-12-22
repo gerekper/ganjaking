@@ -917,7 +917,7 @@ window.theme = {};
 				zoom = $el.find('.zoom').get(0),
 				responsive = {},
 				items,
-				count = $el.find('> *').length,
+				count = $el.find('.owl-item').length > 0 ? $el.find('.owl-item:not(.cloned)').length : $el.find('> *').length,
 				fullscreen = typeof this.options.fullscreen == 'undefined' ? false : this.options.fullscreen,
 				// Add default responsive options
 				scrollWidth = theme.getScrollbarWidth();
@@ -2572,6 +2572,7 @@ window.theme = {};
 						if ( scrollY + data.pad.top - padTop <= data.parentTop ) {
 							$this.css({position: "", top: "", bottom: "", left: ""});
 							fixedSideTop[i] = fixedSideBottom[i] = false;
+							if (options.activeClass) { $this.removeClass(options.activeClass); }
 						} else if ( scrollY >= data.to ) {
 							$this.css({
 								left: "",
@@ -2645,6 +2646,7 @@ window.theme = {};
 							} );
 						} else {
 							$this.css({position: "", top: "", bottom: "", left: ""});
+							if (options.activeClass) { $this.removeClass(options.activeClass); }
 						}
 
 						fixedSideTop[i] = fixedSideBottom[i] = false;
@@ -3022,6 +3024,9 @@ var scrolltotop={
 			},
 
 			initialize: function(html, offsetx, offsety) {
+				if ($('#topcontrol').length) {
+					return this;
+				}
 				this.html = (html || this.defaults.html);
 				this.offsetx = (offsetx || this.defaults.offsetx);
 				this.offsety = (offsety || this.defaults.offsety);
@@ -3547,6 +3552,9 @@ var scrolltotop={
 
 				this.$menu_toggle.on('click', function() {
 					var $toggle_menu = $(this).parent();
+					if ($toggle_menu.hasClass('show-always')) {
+						return;
+					}
 					var $this = $(this);
 					if ($this.hasClass('closed')) {
 						$this.removeClass('closed');
@@ -4691,19 +4699,97 @@ function porto_init($wrap) {
 		if ($.isFunction($.fn.themeCarousel)) {
 
 			$(function() {
+				if (!window.parent.document.getElementById('vcv-layout')) {
+					$wrap.find('.vc-porto-carousel-wrapper .porto-carousel.manual').removeClass('manual');
+				}
 				// Carousel Lazyload images
-				$wrap.find('.owl-carousel:not(.manual)').on('initialized.owl.carousel refreshed.owl.carousel', function(e) {
-					var $this = $(this);
+				var portoCarouselInit = function(e) {
+					var $this = $(e.currentTarget);
 					if ($this.find('.owl-item.cloned').length) {
 						$this.find('.porto-lazyload:not(.lazy-load-loaded)').themePluginLazyLoad({effect: 'fadeIn', effect_speed: 400});
 						$this.find('.appear-animation').themeAnimate();
 					}
-				}).on('translated.owl.carousel', function() {
-					var $this = $(this);
-					if ($this.find('.owl-item.cloned').length && $this.find('.appear-animation').length) {
+
+					setTimeout(function() {
+						var $hiddenItems = $this.find('.owl-item:not(.active)');
+						$hiddenItems.find('.appear-animation').removeClass('appear-animation-visible');
+						if (window.innerWidth >= 1200) {
+							$hiddenItems.find('[data-vce-animate]').removeAttr('data-vcv-o-animated');
+						}
+					}, 300);
+				};
+				var portoCarouselTranslated = function(e) {
+					var $this = $(e.currentTarget);
+					if ($this.find('.owl-item.cloned').length && $this.find('.appear-animation:not(.appear-animation-visible)').length) {
 						$(document.body).trigger('appear_refresh');
 					}
-				});
+
+					var $active = $this.find('.owl-item.active');
+					if ($active.hasClass('translating')) {
+						$active.removeClass('translating');
+						return;
+					}
+					$this.find('.owl-item.translating').removeClass('translating');
+
+					// WPBakery
+					$this.find('.appear-animation').removeClass('appear-animation-visible');
+					$active.find('.appear-animation').each(function () {
+						var $animation_item = $(this),
+							anim_name = $animation_item.data('appear-animation');
+						$animation_item.addClass(anim_name + ' appear-animation-visible');
+					});
+
+					// Visual Composer
+					if (window.innerWidth >= 1200) {
+						$this.find('[data-vce-animate]').removeAttr('data-vcv-o-animated').removeAttr('data-vcv-o-animated-fully');
+						$active.find('[data-vce-animate]').each(function () {
+							var $animation_item = $(this);
+							if ($animation_item.data('porto-origin-anim')) {
+								var anim_name = $animation_item.data('porto-origin-anim');
+								$animation_item.attr('data-vce-animate', anim_name).attr('data-vcv-o-animated', true);
+								var duration = parseFloat(window.getComputedStyle(this)[ 'animationDuration' ]) * 1000,
+									delay = parseFloat(window.getComputedStyle(this)[ 'animationDelay' ]) * 1000;
+								window.setTimeout(function() {
+									$animation_item.attr('data-vcv-o-animated-fully', true);
+								}, delay + duration + 5);
+							}
+						});
+					}
+				};
+				var portoCarouselTranslateVC = function(e) {
+					var $this = $(e.currentTarget);
+					$this.find('.owl-item.active').addClass('translating');
+
+					if (window.innerWidth >= 1200) {
+						$this.find('[data-vce-animate]').each(function () {
+							var $animation_item = $(this);
+							$animation_item.data('porto-origin-anim', $animation_item.data('vce-animate')).attr('data-vce-animate', '');
+						});
+					}
+				};
+				var portoCarouselTranslateWPB = function(e) {
+					var $this = $(e.currentTarget);
+					$this.find('.owl-item.active').addClass('translating');
+					$this.find('.appear-animation').each(function () {
+						var $animation_item = $(this);
+						$animation_item.removeClass($animation_item.data('appear-animation'));
+					});
+				};
+
+				var carouselItems = $wrap.find('.owl-carousel:not(.manual)');
+				carouselItems.on('initialized.owl.carousel refreshed.owl.carousel', portoCarouselInit).on('translated.owl.carousel', portoCarouselTranslated);
+				carouselItems.filter(function() {
+					if ($(this).find('[data-vce-animate]').length) {
+						return true;
+					}
+					return false;
+				}).on('translate.owl.carousel', portoCarouselTranslateVC);
+				carouselItems.filter(function() {
+					if ($(this).find('.appear-animation').length) {
+						return true;
+					}
+					return false;
+				}).on('translate.owl.carousel', portoCarouselTranslateWPB);
 
 				$wrap.find('[data-plugin-carousel]:not(.manual), .porto-carousel:not(.manual)').each(function() {
 					var $this = $(this),
@@ -5265,6 +5351,13 @@ function porto_init($wrap) {
 					$('.mobile-sidebar').find('.porto-lazyload:not(.lazy-load-loaded)').trigger('appear');
 				}
 			}
+		});
+
+		$('.minicart-offcanvas .cart-head').on('click', function() {
+			$('html').toggleClass('minicart-opened');
+		});
+		$('.minicart-offcanvas .minicart-overlay').on('click', function() {
+			$('html').removeClass('minicart-opened');
 		});
 
 		$(document.body).on('click', '.sidebar-overlay', function() {

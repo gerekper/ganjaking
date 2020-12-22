@@ -35,8 +35,30 @@
 }
 
 #WBCR {
+  .premium-label(@position: relative, @positionTop:-8px, @positionLeft:-10px, @positionRight:auto) {
+    display: inline-block;
+    position: @position;
+    content: 'PRO';
+    background: #ff5722;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 10px;
+    line-height: 1;
+    font-style: normal;
+    padding: 4px 6px;
+    margin-left: 4px;
+    vertical-align: top;
+    top: @positionTop;
+    left: @positionLeft;
+    right: @positionRight;
+    z-index: 11;
+  }
 
   .wbcr-factory-pages-000-impressive-page-template {
+    .factory-checkbox.wbcr-factory-clearfy-icon-pro:after {
+      .premium-label();
+    }
+
     .wbcr-factory-clearfy-000-multisite-suggetion {
       padding: 30px 80px;
 
@@ -54,6 +76,7 @@
         display: inline-block;
         .button();
       }
+
       .wbcr-factory-purchase-premium {
         display: inline-block;
         .button(#fdd868, #755c0e, rgba(60, 45, 2, 0.31));
@@ -88,6 +111,7 @@
             font-size: 15px;
             padding: 7px;
             padding-left: 20px;
+
             &:before {
             }
 

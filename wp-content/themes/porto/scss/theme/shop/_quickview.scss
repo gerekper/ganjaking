@@ -44,6 +44,10 @@
     .woocommerce-product-rating:after {
         content: none;
     }
+
+    .variations_form:not(.vf_init) .reset_variations {
+        display: none
+    }
 }
 
 .quickview-wrap .summary {

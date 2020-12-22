@@ -1,16 +1,7 @@
 <?php
 
 // Porto Sticky Nav
-add_shortcode( 'porto_sticky_nav', 'porto_shortcode_sticky_nav' );
 add_action( 'vc_after_init', 'porto_load_sticky_nav_shortcode' );
-
-function porto_shortcode_sticky_nav( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_sticky_nav' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_sticky_nav_shortcode() {
 	$animation_type     = porto_vc_animation_type();

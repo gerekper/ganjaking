@@ -24,13 +24,16 @@ if ( $cross_sells && $porto_settings['product-crosssell'] ) : ?>
 
 			<?php
 			global $porto_woocommerce_loop, $porto_layout;
-			$porto_woocommerce_loop['view'] = 'products-slider';
-			if ( in_array( $porto_layout, porto_options_sidebars() ) ) {
-				$porto_woocommerce_loop['columns'] = 3;
-			} else {
+			$porto_woocommerce_loop['view']       = 'products-slider';
+			$porto_woocommerce_loop['navigation'] = false;
+			$porto_woocommerce_loop['pagination'] = true;
+			$porto_woocommerce_loop['el_class']   = 'show-dots-title-right';
+
+			$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-related-cols'] ) ? $porto_settings['product-related-cols'] : $porto_settings['product-cols'];
+			if ( ! $porto_woocommerce_loop['columns'] ) {
 				$porto_woocommerce_loop['columns'] = 4;
 			}
-			$porto_woocommerce_loop['widget'] = true;
+			//$porto_woocommerce_loop['widget'] = true;
 
 			woocommerce_product_loop_start();
 			?>

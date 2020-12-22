@@ -1,16 +1,7 @@
 <?php
 
 // Porto Concept
-add_shortcode( 'porto_concept', 'porto_shortcode_concept' );
 add_action( 'vc_after_init', 'porto_load_concept_shortcode' );
-
-function porto_shortcode_concept( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_concept' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_concept_shortcode() {
 	$animation_type     = porto_vc_animation_type();

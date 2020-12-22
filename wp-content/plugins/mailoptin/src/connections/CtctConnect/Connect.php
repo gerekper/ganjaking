@@ -34,7 +34,7 @@ class Connect extends AbstractCtctConnect implements ConnectionInterface
      */
     public function register_connection($connections)
     {
-        $connections[self::$connectionName] = __('Constant Contact', 'mailoptin');
+        $connections[self::$connectionName] = __('Constant Contact (Legacy)', 'mailoptin');
 
         return $connections;
     }

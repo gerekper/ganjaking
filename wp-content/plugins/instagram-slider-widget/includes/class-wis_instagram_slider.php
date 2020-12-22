@@ -80,7 +80,10 @@ class WIS_InstagramSlider extends WP_Widget {
 		add_action( 'jr_instagram', array( $this, 'instagram_images' ) );
 
 		// Enqueue Plugin Styles and scripts
-		add_action( 'wp_enqueue_scripts', array( $this, 'public_enqueue' ) );
+		add_action( 'wp_enqueue_scripts', function (){
+			wp_enqueue_script('jquery');
+		});
+		add_action( 'wp_enqueue_scripts', array($this, 'widget_scripts_enqueue'));
 
 		// Enqueue Plugin Styles and scripts for admin pages
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue' ) );
@@ -115,7 +118,15 @@ class WIS_InstagramSlider extends WP_Widget {
 	/**
 	 * Enqueue public-facing Scripts and style sheet.
 	 */
-	public function public_enqueue() {
+	public function widget_scripts_enqueue() {
+
+		global $post;
+		if( !has_shortcode( $post->post_content, 'jr_instagram') &&
+			!$this->has_widget('jr_insta_slider') ) {
+			return;
+		}
+
+		wp_enqueue_style( 'jr-insta-styles', WIS_PLUGIN_URL . '/assets/css/jr-insta.css', array(), WIS_PLUGIN_VERSION );
 
 		wp_enqueue_style( WIS_Plugin::app()->getPrefix() . 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
 
@@ -127,6 +138,27 @@ class WIS_InstagramSlider extends WP_Widget {
 			'url'   => admin_url( 'admin-ajax.php' ),
 			'nonce' => wp_create_nonce( "addAccountByToken" ),
 		) );
+	}
+
+	/**
+	 * @param $widget_name
+	 *
+	 * @return bool
+	 */
+	private function has_widget($widget_name){
+		$places = get_option('sidebars_widgets');
+		unset($places['wp_inactive_widgets']);
+		unset($places['jr-insta-shortcodes']);
+		unset($places['array_version']);
+
+		foreach ($places as $place){
+			foreach ($place as $key => $place_widget_name){
+				if(mb_stripos($place_widget_name, $widget_name) !== false){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -176,51 +208,76 @@ class WIS_InstagramSlider extends WP_Widget {
 	public function update( $new_instance, $instance ) {
 
 		$instance['title']                = strip_tags( isset( $new_instance['title'] ) ? $new_instance['title'] : null );
-		$instance['search_for']           = isset( $new_instance['search_for'] ) ? $new_instance['search_for'] : null;
-		$instance['username']             = isset( $new_instance['username'] ) ? $new_instance['username'] : null;
-		$instance['account']              = isset( $new_instance['account'] ) ? $new_instance['account'] : null;
-		$instance['account_business']     = isset( $new_instance['account_business'] ) ? $new_instance['account_business'] : null;
-		$instance['hashtag']              = isset( $new_instance['hashtag'] ) ? $new_instance['hashtag'] : null;
-		$instance['blocked_users']        = isset( $new_instance['blocked_users'] ) ? $new_instance['blocked_users'] : null;
-		$instance['blocked_words']        = isset( $new_instance['blocked_words'] ) ? $new_instance['blocked_words'] : null;
-		$instance['allowed_words']        = isset( $new_instance['allowed_words'] ) ? $new_instance['allowed_words'] : null;
-		$instance['attachment']           = isset( $new_instance['attachment'] ) ? $new_instance['attachment'] : null;
-		$instance['template']             = isset( $new_instance['template'] ) ? $new_instance['template'] : 'slider';
-		$instance['images_link']          = isset( $new_instance['images_link'] ) ? $new_instance['images_link'] : 'image_link';
-		$instance['custom_url']           = isset( $new_instance['custom_url'] ) ? $new_instance['custom_url'] : null;
-		$instance['orderby']              = isset( $new_instance['orderby'] ) ? $new_instance['orderby'] : 'rand';
-		$instance['images_number']        = isset( $new_instance['images_number'] ) ? $new_instance['images_number'] : 20;
-		$instance['columns']              = isset( $new_instance['columns'] ) ? $new_instance['columns'] : 4;
-		$instance['refresh_hour']         = isset( $new_instance['refresh_hour'] ) ? $new_instance['refresh_hour'] : 5;
-		$instance['slick_img_size']         = isset( $new_instance['slick_img_size'] ) ? $new_instance['slick_img_size'] : 300;
+		$instance['account']              = isset( $new_instance['account'] ) && ! empty( $new_instance['account'] ) ? $new_instance['account'] : false;
+		$instance['account_business']     = isset( $new_instance['account_business'] ) && ! empty( $new_instance['account_business'] ) ? $new_instance['account_business'] : false;
+		$instance['search_for']           = isset( $new_instance['search_for'] ) && ! empty( $new_instance['search_for'] ) ? $new_instance['search_for'] : 'username';
+		$instance['username']             = isset( $new_instance['username'] ) && ! empty( $new_instance['username'] ) ? str_replace( '@', '', $new_instance['username'] ) : false;
+		$instance['hashtag']              = isset( $new_instance['hashtag'] ) && ! empty( $new_instance['hashtag'] ) ? str_replace( '#', '', $new_instance['hashtag'] ) : false;
+		$instance['blocked_users']        = isset( $new_instance['blocked_users'] ) && ! empty( $new_instance['blocked_users'] ) ? $new_instance['blocked_users'] : false;
+		$instance['attachment']           = isset( $new_instance['attachment'] ) ? true : false;
+		$instance['custom_url']           = isset( $new_instance['custom_url'] ) ? $new_instance['custom_url'] : '';
+		$instance['refresh_hour']         = isset( $new_instance['refresh_hour'] ) ? absint( $new_instance['refresh_hour'] ) : 5;
 		$instance['image_size']           = isset( $new_instance['image_size'] ) ? $new_instance['image_size'] : 'standard';
-		$instance['image_link_rel']       = isset( $new_instance['image_link_rel'] ) ? $new_instance['image_link_rel'] : null;
-		$instance['image_link_class']     = isset( $new_instance['image_link_class'] ) ? $new_instance['image_link_class'] : null;
-		$instance['no_pin']               = isset( $new_instance['no_pin'] ) ? $new_instance['no_pin'] : null;
-		$instance['shopifeed_phone']      = isset( $new_instance['shopifeed_phone'] ) ? $new_instance['shopifeed_phone'] : '';
-		$instance['shopifeed_color']      = isset( $new_instance['shopifeed_color'] ) ? $new_instance['shopifeed_color'] : "#DA004A";
-		$instance['shopifeed_columns']    = isset( $new_instance['shopifeed_columns'] ) ? $new_instance['shopifeed_columns'] : 3;
-		$instance['controls']             = isset( $new_instance['controls'] ) ? $new_instance['controls'] : 'prev_next';
-		$instance['animation']            = isset( $new_instance['animation'] ) ? $new_instance['animation'] : 'slide';
-		$instance['caption_words']        = isset( $new_instance['caption_words'] ) ? $new_instance['caption_words'] : 20;
-		$instance['slidespeed']           = isset( $new_instance['slidespeed'] ) ? $new_instance['slidespeed'] : 7000;
-		$instance['description']          = isset( $new_instance['description'] ) ? $new_instance['description'] : array(
-			'username',
-			'time',
-			'caption'
-		);
-		$instance['support_author']       = isset( $new_instance['support_author'] ) ? $new_instance['support_author'] : null;
-		$instance['gutter']               = isset( $new_instance['gutter'] ) ? $new_instance['gutter'] : null;
-		$instance['masonry_image_width']  = isset( $new_instance['masonry_image_width'] ) ? $new_instance['masonry_image_width'] : 200;
-		$instance['slick_slides_to_show'] = isset( $new_instance['slick_slides_to_show'] ) ? $new_instance['slick_slides_to_show'] : 3;
-        $instance['enable_control_buttons'] = isset( $new_instance['enable_control_buttons'] ) ? $new_instance['enable_control_buttons'] : 0;
-        $instance['keep_ratio'] = isset( $new_instance['keep_ratio'] ) ? $new_instance['keep_ratio'] : 0;
-        $instance['keep_ratio'] = isset( $new_instance['keep_ratio'] ) ? $new_instance['keep_ratio'] : 0;
-        $instance['enable_ad'] = isset( $new_instance['enable_ad'] ) ? $new_instance['enable_ad'] : 0;
-		$instance['slick_slides_padding'] = isset( $new_instance['slick_slides_padding'] ) ? $new_instance['slick_slides_padding'] : 0;
-		$instance['show_feed_header']     = isset( $new_instance['show_feed_header'] ) ? $new_instance['show_feed_header'] : 0;
-		$instance['highlight_offset']     = isset( $new_instance['highlight_offset'] ) ? $new_instance['highlight_offset'] : 1;
-		$instance['highlight_pattern']    = isset( $new_instance['highlight_pattern'] ) ? $new_instance['highlight_pattern'] : 6;
+		$instance['image_link_rel']       = isset( $new_instance['image_link_rel'] ) ? $new_instance['image_link_rel'] : '';
+		$instance['no_pin']               = isset( $new_instance['no_pin'] ) ? $new_instance['no_pin'] : 0;
+		$instance['image_link_class']     = isset( $new_instance['image_link_class'] ) ? $new_instance['image_link_class'] : '';
+		$instance['widget_id']            = isset( $new_instance['widget_id'] ) ? $new_instance['widget_id'] : preg_replace( '/[^0-9]/', '', $this->id );
+
+		$instance['template']             	= isset( $new_instance['template'] ) ? $new_instance['template'] : 'slider';
+		$instance['images_number']        	= isset( $new_instance['images_number'] ) ? absint( $new_instance['images_number'] ) : 20;
+		$instance['columns']              	= isset( $new_instance['columns'] ) ? absint( $new_instance['columns'] ) : 4;
+		$instance['shopifeed_phone']      	= isset( $new_instance['shopifeed_phone'] ) ? $new_instance['shopifeed_phone'] : '';
+		$instance['shopifeed_color']      	= isset( $new_instance['shopifeed_color'] ) ? $new_instance['shopifeed_color'] : "#DA004A";
+		$instance['shopifeed_columns']    	= isset( $new_instance['shopifeed_columns'] ) ? $new_instance['shopifeed_columns'] : 3;
+		$instance['controls']             	= isset( $new_instance['controls'] ) ? $new_instance['controls'] : 'prev_next';
+		$instance['animation']            	= isset( $new_instance['animation'] ) ? $new_instance['animation'] : 'slide';
+		$instance['slidespeed']           	= isset( $new_instance['slidespeed'] ) ? $new_instance['slidespeed'] : 7000;
+		$instance['description']          	= isset( $new_instance['description'] ) ? $new_instance['description'] : array();
+		$instance['caption_words']        	= isset( $new_instance['caption_words'] ) ? $new_instance['caption_words'] : 20;
+		$instance['enable_control_buttons'] = isset( $new_instance['enable_control_buttons'] ) ? $new_instance['enable_control_buttons'] : 0;
+		$instance['show_feed_header']     	= isset( $new_instance['show_feed_header'] ) ? $new_instance['show_feed_header'] : 0;
+		$instance['keep_ratio'] 			= isset( $new_instance['keep_ratio'] ) ? $new_instance['keep_ratio'] : 0;
+		$instance['slick_img_size']       	= isset( $new_instance['slick_img_size'] ) ? absint( $new_instance['slick_img_size'] ) : 300;
+		$instance['slick_slides_to_show'] 	= isset( $new_instance['slick_slides_to_show'] ) ? $new_instance['slick_slides_to_show'] : 3;
+		$instance['slick_slides_padding'] 	= isset( $new_instance['slick_slides_padding'] ) ? $new_instance['slick_slides_padding'] : 0;
+		$instance['gutter']               	= isset( $new_instance['gutter'] ) ? $new_instance['gutter'] : 0;
+		$instance['masonry_image_width']  	= isset( $new_instance['masonry_image_width'] ) ? $new_instance['masonry_image_width'] : 200;
+		$instance['highlight_offset']     	= isset( $new_instance['highlight_offset'] ) ? $new_instance['highlight_offset'] : 1;
+		$instance['highlight_pattern']    	= isset( $new_instance['highlight_pattern'] ) ? $new_instance['highlight_pattern'] : 6;
+		$instance['enable_ad'] 			  	= isset( $new_instance['enable_ad'] ) ? $new_instance['enable_ad'] : 0;
+		$instance['orderby']                = isset( $new_instance['orderby'] ) ? $new_instance['orderby'] : 'rand';
+		$instance['images_link']          	= isset( $new_instance['images_link'] ) ? $new_instance['images_link'] : 'image_url';
+		$instance['blocked_words']        	= isset( $new_instance['blocked_words'] ) && ! empty( $new_instance['blocked_words'] ) ? $new_instance['blocked_words'] : false;
+		$instance['allowed_words']        	= isset( $new_instance['allowed_words'] ) && ! empty( $new_instance['allowed_words'] ) ? $new_instance['allowed_words'] : false;
+		$instance['powered_by_link']      	= isset( $new_instance['support_author'] );
+
+		$instance['m_template']             	= isset( $new_instance['m_template'] ) ? $new_instance['m_template'] : (isset( $new_instance['template'] ) ? $new_instance['template'] : 'slider') ;
+		$instance['m_images_number']        	= isset( $new_instance['m_images_number'] ) ? absint( $new_instance['m_images_number'] ) : (isset( $new_instance['images_number'] ) ? absint( $new_instance['images_number'] ) : 20) ;
+		$instance['m_columns']              	= isset( $new_instance['m_columns'] ) ? absint( $new_instance['m_columns'] ) : (isset( $new_instance['columns'] ) ? absint( $new_instance['columns'] ) : 4) ;
+		$instance['m_shopifeed_phone']      	= isset( $new_instance['m_shopifeed_phone'] ) ? $new_instance['m_shopifeed_phone'] : (isset( $new_instance['shopifeed_phone'] ) ? $new_instance['shopifeed_phone'] : '') ;
+		$instance['m_shopifeed_color']      	= isset( $new_instance['m_shopifeed_color'] ) ? $new_instance['m_shopifeed_color'] : (isset( $new_instance['shopifeed_color'] ) ? $new_instance['shopifeed_color'] : "#DA004A") ;
+		$instance['m_shopifeed_columns']    	= isset( $new_instance['m_shopifeed_columns'] ) ? $new_instance['m_shopifeed_columns'] : (isset( $new_instance['shopifeed_columns'] ) ? $new_instance['shopifeed_columns'] : 3) ;
+		$instance['m_controls']             	= isset( $new_instance['m_controls'] ) ? $new_instance['m_controls'] : (isset( $new_instance['controls'] ) ? $new_instance['controls'] : 'prev_next') ;
+		$instance['m_animation']            	= isset( $new_instance['m_animation'] ) ? $new_instance['m_animation'] : (isset( $new_instance['animation'] ) ? $new_instance['animation'] : 'slide') ;
+		$instance['m_slidespeed']           	= isset( $new_instance['m_slidespeed'] ) ? $new_instance['m_slidespeed'] : (isset( $new_instance['slidespeed'] ) ? $new_instance['slidespeed'] : 7000) ;
+		$instance['m_description']          	= isset( $new_instance['m_description'] ) ? $new_instance['m_description'] : (isset( $new_instance['description'] ) ? $new_instance['description'] : array()) ;
+		$instance['m_caption_words']        	= isset( $new_instance['m_caption_words'] ) ? $new_instance['m_caption_words'] : (isset( $new_instance['caption_words'] ) ? $new_instance['caption_words'] : 20) ;
+		$instance['m_enable_control_buttons'] 	= isset( $new_instance['m_enable_control_buttons'] ) ? $new_instance['m_enable_control_buttons'] : (isset( $new_instance['enable_control_buttons'] ) ? $new_instance['enable_control_buttons'] : 0) ;
+		$instance['m_show_feed_header']       	= isset( $new_instance['m_show_feed_header'] ) ? $new_instance['m_show_feed_header'] : (isset( $new_instance['show_feed_header'] ) ? $new_instance['show_feed_header'] : 0) ;
+		$instance['m_keep_ratio'] 				= isset( $new_instance['m_keep_ratio'] ) ? $new_instance['m_keep_ratio'] : (isset( $new_instance['keep_ratio'] ) ? $new_instance['keep_ratio'] : 0) ;
+		$instance['m_slick_img_size']       	= isset( $new_instance['m_slick_img_size'] ) ? absint( $new_instance['m_slick_img_size'] ) : (isset( $new_instance['slick_img_size'] ) ? absint( $new_instance['slick_img_size'] ) : 300) ;
+		$instance['m_slick_slides_to_show'] 	= isset( $new_instance['m_slick_slides_to_show'] ) ? $new_instance['m_slick_slides_to_show'] : (isset( $new_instance['slick_slides_to_show'] ) ? $new_instance['slick_slides_to_show'] : 3) ;
+		$instance['m_slick_slides_padding'] 	= isset( $new_instance['m_slick_slides_padding'] ) ? $new_instance['m_slick_slides_padding'] : (isset( $new_instance['slick_slides_padding'] ) ? $new_instance['slick_slides_padding'] : 0) ;
+		$instance['m_gutter']               	= isset( $new_instance['m_gutter'] ) ? $new_instance['m_gutter'] : (isset( $new_instance['gutter'] ) ? $new_instance['gutter'] : 0) ;
+		$instance['m_masonry_image_width']  	= isset( $new_instance['m_masonry_image_width'] ) ? $new_instance['m_masonry_image_width'] : (isset( $new_instance['masonry_image_width'] ) ? $new_instance['masonry_image_width'] : 200) ;
+		$instance['m_highlight_offset']     	= isset( $new_instance['m_highlight_offset'] ) ? $new_instance['m_highlight_offset'] : (isset( $new_instance['highlight_offset'] ) ? $new_instance['highlight_offset'] : 1) ;
+		$instance['m_highlight_pattern']    	= isset( $new_instance['m_highlight_pattern'] ) ? $new_instance['m_highlight_pattern'] : (isset( $new_instance['highlight_pattern'] ) ? $new_instance['highlight_pattern'] : 6) ;
+		$instance['m_enable_ad'] 				= isset( $new_instance['m_enable_ad'] ) ? $new_instance['m_enable_ad'] : (isset( $new_instance['enable_ad'] ) ? $new_instance['enable_ad'] : 0) ;
+		$instance['m_orderby']              	= isset( $new_instance['m_orderby'] ) ? $new_instance['m_orderby'] : (isset( $new_instance['orderby'] ) ? $new_instance['orderby'] : 'rand') ;
+		$instance['m_images_link']          	= isset( $new_instance['m_images_link'] ) ? $new_instance['m_images_link'] : (isset( $new_instance['images_link'] ) ? $new_instance['images_link'] : 'image_url') ; 'image_url';
+		$instance['m_blocked_words']        	= isset( $new_instance['m_blocked_words'] ) && ! empty( $new_instance['m_blocked_words'] ) ? $new_instance['m_blocked_words'] : (isset( $new_instance['blocked_words'] ) && ! empty( $new_instance['blocked_words'] ) ? $new_instance['blocked_words'] : false) ;
+		$instance['m_allowed_words']        	= isset( $new_instance['m_allowed_words'] ) && ! empty( $new_instance['m_allowed_words'] ) ? $new_instance['m_allowed_words'] : (isset( $new_instance['allowed_words'] ) && ! empty( $new_instance['allowed_words'] ) ? $new_instance['allowed_words'] : false) ;
+		$instance['m_powered_by_link']      	= isset( $new_instance['m_support_author'] ) ? true : isset( $new_instance['support_author'] );
 
 		return $instance;
 	}
@@ -292,477 +349,48 @@ class WIS_InstagramSlider extends WP_Widget {
 			'show_feed_header'     => 1,
 			'highlight_offset'     => 1,
 			'highlight_pattern'    => 6,
+
+			'm_template' => 'slider',
+			'm_images_number' => 20,
+			'm_columns' => 4,
+			'm_shopifeed_phone' => '',
+			'm_shopifeed_color' => "#DA004A",
+			'm_shopifeed_columns' => 3,
+			'm_controls' => 'prev_next',
+			'm_animation' => 'slide',
+			'm_slidespeed' => 7000,
+			'm_description' => array( 'username', 'time', 'caption' ),
+			'm_caption_words' => 20,
+			'm_enable_control_buttons' => 0,
+			'm_show_feed_header' => 1,
+			'm_keep_ratio' => 0,
+			'm_slick_img_size' => 300,
+			'm_slick_slides_to_show' => 3,
+			'm_slick_slides_padding' => 0,
+			'm_gutter' => 0,
+			'm_masonry_image_width' => 200,
+			'm_highlight_offset' => 1,
+			'm_highlight_pattern' => 6,
+			'm_enable_ad' => 0,
+			'm_orderby' => 'rand',
+			'm_images_link' => 'image_link',
+			'm_blocked_words' => '',
+			'm_allowed_words' => '',
+			'm_powered_by_link' => '',
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		?>
-        <div class="jr-container">
-            <p>
-                <label for="<?php echo $this->get_field_id( 'title' ); ?>"><strong><?php _e( 'Title:', 'instagram-slider-widget' ); ?></strong></label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>"
-                       name="<?php echo $this->get_field_name( 'title' ); ?>"
-                       value="<?php echo $instance['title']; ?>"/>
-            </p>
-            <p>
-                <strong><?php _e( 'Search Instagram for:', 'instagram-slider-widget' ); ?></strong>
-                <span class="jr-search-for-container">
-                    <label class="jr-seach-for">
-                        <input type="radio" id="<?php echo $this->get_field_id( 'search_for' ); ?>"
-                               name="<?php echo $this->get_field_name( 'search_for' ); ?>"
-                               value="account" <?php checked( 'account', $instance['search_for'] ); ?> />
-                        <?php _e( 'Account:', 'instagram-slider-widget' ); ?>
-                    </label>
-                    <?php
-                    if ( count( $accounts ) ) {
-	                    ?>
+		$args = array(
+		        'instance' => $instance,
+                'accounts' => $accounts,
+                'accounts_business' => $accounts_business,
+                'sliders' => $sliders,
+                'options_linkto' => $options_linkto,
 
-                        <select id="<?php echo $this->get_field_id( 'account' ); ?>" class=""
-                                name="<?php echo $this->get_field_name( 'account' ); ?>"><?php
-	                    foreach ( $accounts as $acc ) {
-		                    $selected = $instance['account'] == $acc['username'] ? "selected='selected'" : "";
-		                    echo "<option value='{$acc['username']}' {$selected}>{$acc['username']}</option>";
-	                    }
-	                    ?>
-                        </select><?php
-                    } else {
-	                    echo "<a href='" . admin_url( 'admin.php?page=settings-wisw' ) . "'>" . __( 'Add account in settings', 'instagram-slider-widget' ) . "</a>";
-                    }
-                    ?>
-                </span>
-                <span class="jr-search-for-container">
-                    <label class="jr-seach-for">
-                        <input type="radio" id="<?php echo $this->get_field_id( 'search_for' ); ?>"
-                               name="<?php echo $this->get_field_name( 'search_for' ); ?>"
-                               value="account_business" <?php checked( 'account_business', $instance['search_for'] ); ?> />
-                        <?php _e( 'Business account:', 'instagram-slider-widget' ); ?>
-                    </label>
-                    <?php
-                    if ( count( $accounts_business ) ) {
-	                    ?>
+        );
 
-                        <select id="<?php echo $this->get_field_id( 'account_business' ); ?>" class=""
-                                name="<?php echo $this->get_field_name( 'account_business' ); ?>"><?php
-	                    foreach ( $accounts_business as $acc ) {
-		                    $selected = $instance['account_business'] == $acc['username'] ? "selected='selected'" : "";
-		                    echo "<option value='{$acc['username']}' {$selected}>{$acc['username']}</option>";
-	                    }
-	                    ?>
-                        </select><?php
-                    } else {
-	                    echo "<a href='" . admin_url( 'admin.php?page=settings-wisw' ) . "'>" . __( 'Add account in settings', 'instagram-slider-widget' ) . "</a>";
-                    }
-                    ?>
-                </span>
-                <span class="jr-search-for-container"><label class="jr-seach-for"><input type="radio"
-                                                                                         id="<?php echo $this->get_field_id( 'search_for' ); ?>"
-                                                                                         name="<?php echo $this->get_field_name( 'search_for' ); ?>"
-                                                                                         value="username" <?php checked( 'username', $instance['search_for'] ); ?> /> <?php _e( 'Username:', 'instagram-slider-widget' ); ?></label> <input
-                            id="<?php echo $this->get_field_id( 'username' ); ?>" class="inline-field-text"
-                            name="<?php echo $this->get_field_name( 'username' ); ?>"
-                            value="<?php echo $instance['username']; ?>"/></span>
-                <span class="jr-search-for-container"><label class="jr-seach-for"><input type="radio"
-                                                                                         id="<?php echo $this->get_field_id( 'search_for' ); ?>"
-                                                                                         name="<?php echo $this->get_field_name( 'search_for' ); ?>"
-                                                                                         value="hashtag" <?php checked( 'hashtag', $instance['search_for'] ); ?> /> <?php _e( 'Hashtag:', 'instagram-slider-widget' ); ?></label> <input
-                            id="<?php echo $this->get_field_id( 'hashtag' ); ?>" class="inline-field-text"
-                            name="<?php echo $this->get_field_name( 'hashtag' ); ?>"
-                            value="<?php echo $instance['hashtag']; ?>"
-                            placeholder="<?php _e( 'without # sign', 'instagram-slider-widget' ) ?>"/></span>
-            </p>
-            <p class="<?php if ( 'hashtag' != $instance['search_for'] ) {
-				echo 'hidden';
-			} ?>">
-                <label for="<?php echo $this->get_field_id( 'blocked_users' ); ?>"><?php _e( 'Block Users', 'instagram-slider-widget' ); ?>
-                    :</label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'blocked_users' ); ?>"
-                       name="<?php echo $this->get_field_name( 'blocked_users' ); ?>"
-                       value="<?php echo $instance['blocked_users']; ?>"/>
-                <span class="jr-description"><?php _e( 'Enter words separated by commas whose images you don\'t want to show', 'instagram-slider-widget' ); ?></span>
-            </p>
-            <p class="<?php if ( 'hashtag' == $instance['search_for'] ) {
-				echo 'hidden';
-			} ?>">
-                <label for="<?php echo $this->get_field_id( 'blocked_words' ); ?>"><?php _e( 'Block words', 'instagram-slider-widget' ); ?>
-                    :</label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'blocked_words' ); ?>"
-                       name="<?php echo $this->get_field_name( 'blocked_words' ); ?>"
-                       value="<?php echo $instance['blocked_words']; ?>"/>
-                <span class="jr-description"><?php _e( 'Enter comma-separated words. If one of them occurs in the image description, the image will not be displayed', 'instagram-slider-widget' ); ?></span>
-            </p>
-            <p class="<?php if ( 'hashtag' == $instance['search_for'] ) {
-				echo 'hidden';
-			} ?>">
-                <label for="<?php echo $this->get_field_id( 'allowed_words' ); ?>"><?php _e( 'Allow words', 'instagram-slider-widget' ); ?>
-                    :</label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'allowed_words' ); ?>"
-                       name="<?php echo $this->get_field_name( 'allowed_words' ); ?>"
-                       value="<?php echo $instance['allowed_words']; ?>"/>
-                <span class="jr-description"><?php _e( 'Enter comma-separated words. If one of them occurs in the image description, the image will be displayed', 'instagram-slider-widget' ); ?></span>
-            </p>
-            <p class="<?php if ( 'username' != $instance['search_for'] ) {
-				echo 'hidden';
-			} ?>"><strong><?php _e( 'Save in Media Library: ', 'instagram-slider-widget' ); ?></strong>
-
-                <label class="switch" for="<?php echo $this->get_field_id( 'attachment' ); ?>">
-                    <input class="widefat" id="<?php echo $this->get_field_id( 'attachment' ); ?>"
-                           name="<?php echo $this->get_field_name( 'attachment' ); ?>" type="checkbox"
-                           value="1" <?php checked( '1', $instance['attachment'] ); ?> /><span
-                            class="slider round"></span></label>
-                <br><span
-                        class="jr-description"><?php _e( ' Turn on to save Instagram Images into WordPress media library.', 'instagram-slider-widget' ) ?></span>
-				<?php
-				if ( isset ( $instance['username'] ) && ! empty( $instance['username'] ) ) {
-					echo '<br><button class="button action jr-delete-instagram-dupes" type="button" data-username="' . $instance['username'] . '"><strong>Remove</strong> duplicate images for <strong>' . $instance['username'] . '</strong></button><span class="jr-spinner"></span>';
-					echo '<br><br><strong><span class="deleted-dupes-info"></span></strong>';
-					wp_nonce_field( 'jr_delete_instagram_dupes', 'delete_insta_dupes_nonce' );
-				}
-				?>
-            </p>
-            <p id="img_to_show">
-                <label for="<?php echo $this->get_field_id( 'images_number' ); ?>"><strong><?php _e( 'Count of images to show:', 'instagram-slider-widget' ); ?></strong>
-                    <input class="small-text" type="number" min="1" max=""
-                           id="<?php echo $this->get_field_id( 'images_number' ); ?>"
-                           name="<?php echo $this->get_field_name( 'images_number' ); ?>"
-                           value="<?php echo $instance['images_number']; ?>"/>
-                    <span class="jr-description">
-                        <?php if ( ! $this->WIS->is_premium() ) {
-	                        _e( 'Maximum 20 images in free version.', 'instagram-slider-widget' );
-	                        echo " " . sprintf( __( "More in <a href='%s'>PRO version</a>", 'instagram-slider-widget' ), $this->WIS->get_support()->get_pricing_url( true, "wis_widget_settings" ) );
-                        }
-                        ?>
-                    </span>
-                </label>
-            </p>
-            <p>
-                <label for="<?php echo $this->get_field_id( 'refresh_hour' ); ?>"><strong><?php _e( 'Check for new images every:', 'instagram-slider-widget' ); ?></strong>
-                    <input class="small-text" type="number" min="1" max="200"
-                           id="<?php echo $this->get_field_id( 'refresh_hour' ); ?>"
-                           name="<?php echo $this->get_field_name( 'refresh_hour' ); ?>"
-                           value="<?php echo $instance['refresh_hour']; ?>"/>
-                    <span><?php _e( 'hours', 'instagram-slider-widget' ); ?></span>
-                </label>
-            </p>
-            <p class="show_feed_header <?php if ( 'account_business' != $instance['search_for'] ) {
-				echo 'hidden';
-			} ?>">
-                <strong><?php _e( 'Show feed header:', 'instagram-slider-widget' ); ?></strong>
-                <label class="switch" for="<?php echo $this->get_field_id( 'show_feed_header' ); ?>">
-                    <input class="widefat" id="<?php echo $this->get_field_id( 'show_feed_header' ); ?>"
-                           name="<?php echo $this->get_field_name( 'show_feed_header' ); ?>" type="checkbox"
-                           value="1" <?php checked( '1', $instance['show_feed_header'] ); ?> />
-                    <span class="slider round"></span>
-                </label>
-            </p>
-            <p>
-                <label for="<?php echo $this->get_field_id( 'template' ); ?>"><strong><?php _e( 'Template', 'instagram-slider-widget' ); ?></strong>
-                    <select class="widefat" name="<?php echo $this->get_field_name( 'template' ); ?>"
-                            id="<?php echo $this->get_field_id( 'template' ); ?>">
-						<?php
-						if ( count( $sliders ) ) {
-							foreach ( $sliders as $key => $slider ) {
-								$selected = ( $instance['template'] == $key ) ? "selected='selected'" : '';
-								echo "<option value='{$key}' {$selected}>{$slider}</option>\n";
-							}
-						}
-						if ( ! $this->WIS->is_premium() ) {
-							?>
-                            <optgroup label="Available in PRO">
-                                <option value='slick_slider' disabled="disabled">Slick</option>
-                                <option value='masonry' disabled="disabled">Masonry</option>
-                                <option value='highlight' disabled="disabled">Highlight</option>
-                            </optgroup>
-							<?php
-						}
-                        if( !defined('SPFD_PLUGIN_ACTIVE') ){
-                        ?>
-                            <optgroup label="Available in Shopifeed Addon">
-                                <option value='showcase' disabled="disabled">Shopifeed - Thumbnails</option>
-                            </optgroup>
-                        <?php
-                        } elseif (!Shopifeed::app()->is_premium()){
-                        ?>
-                            <optgroup label="Available in Shopifeed Addon">
-                                <option value='showcase' disabled="disabled">Shopifeed - Thumbnails</option>
-                            </optgroup>
-                        <?php
-                        }
-						?>
-                    </select>
-                </label>
-            </p>
-            <span id="masonry_notice"
-                  class="masonry_notice jr-description <?php if ( 'masonry' != $instance['template'] ) {
-				      echo 'hidden';
-			      } ?>"><?php _e( "Not recommended for <strong>sidebar</strong>" ) ?></span>
-            <p class="<?php if ( 'thumbs' != $instance['template'] && 'thumbs-no-border' != $instance['template'] ) {
-				echo 'hidden';
-			} ?>">
-                <label for="<?php echo $this->get_field_id( 'columns' ); ?>"><strong><?php _e( 'Number of Columns:', 'instagram-slider-widget' ); ?></strong>
-                    <input class="small-text" id="<?php echo $this->get_field_id( 'columns' ); ?>"
-                           name="<?php echo $this->get_field_name( 'columns' ); ?>"
-                           value="<?php echo $instance['columns']; ?>"/>
-                    <span class='jr-description'><?php _e( 'max is 10 ( only for thumbnails template )', 'instagram-slider-widget' ); ?></span>
-                </label>
-            </p>
-            <p class="masonry_settings <?php if ( 'masonry' != $instance['template'] ) {
-				echo 'hidden';
-			} ?>">
-                <label for="<?php echo $this->get_field_id( 'gutter' ); ?>"><strong><?php _e( 'Vertical space between item elements:', 'instagram-slider-widget' ); ?></strong>
-                    <input class="small-text" id="<?php echo $this->get_field_id( 'gutter' ); ?>"
-                           name="<?php echo $this->get_field_name( 'gutter' ); ?>"
-                           value="<?php echo $instance['gutter']; ?>"/>
-                    <span><?php _e( 'px', 'instagram-slider-widget' ); ?></span>
-                </label>
-                <br>
-                <label for="<?php echo $this->get_field_id( 'masonry_image_width' ); ?>"><strong><?php _e( 'Image width:', 'instagram-slider-widget' ); ?></strong>
-                    <input class="small-text" id="<?php echo $this->get_field_id( 'masonry_image_width' ); ?>"
-                           name="<?php echo $this->get_field_name( 'masonry_image_width' ); ?>"
-                           value="<?php echo $instance['masonry_image_width']; ?>"/>
-                    <span><?php _e( 'px', 'instagram-slider-widget' ); ?></span>
-                </label>
-            </p>
-            <p class="slick_settings <?php if ( 'slick_slider' != $instance['template'] ) {
-				echo 'hidden';
-			} ?>">
-                <strong><?php _e( 'Enable control buttons:', 'instagram-slider-widget' ); ?></strong>
-                <label class="switch" for="<?php echo $this->get_field_id( 'enable_control_buttons' ); ?>">
-                    <input class="widefat" id="<?php echo $this->get_field_id( 'enable_control_buttons' ); ?>"
-                           name="<?php echo $this->get_field_name( 'enable_control_buttons' ); ?>" type="checkbox"
-                           value="1" <?php checked( '1', $instance['enable_control_buttons'] ); ?> />
-                    <span class="slider round"></span>
-                </label>
-                <br>
-                <strong><?php _e( 'Keep 1x1 Instagram ratio:', 'instagram-slider-widget' ); ?></strong>
-                <label class="switch" for="<?php echo $this->get_field_id( 'keep_ratio' ); ?>">
-                    <input class="widefat" id="<?php echo $this->get_field_id( 'keep_ratio' ); ?>"
-                           name="<?php echo $this->get_field_name( 'keep_ratio' ); ?>" type="checkbox"
-                           value="1" <?php checked( '1', $instance['keep_ratio'] ); ?> />
-                    <span class="slider round"></span>
-                </label>
-                <br>
-                <label class="slick_img_size" for="<?php echo $this->get_field_id( 'slick_img_size' ); ?>"><strong><?php _e( 'Images size: ', 'instagram-slider-widget' ); ?></strong>
-                    <input class="small-text" type="number" min="1" max="500" step="1"
-                           id="<?php echo $this->get_field_id( 'slick_img_size' ); ?>"
-                           name="<?php echo $this->get_field_name( 'slick_img_size' ); ?>"
-                           value="<?php echo $instance['slick_img_size']; ?>"/>
-                    <span><?php _e( 'px', 'instagram-slider-widget' ); ?></span>
-                </label>
-                <br>
-                <label for="<?php echo $this->get_field_id( 'slick_slides_to_show' ); ?>"><strong><?php _e( 'Pictures per slide:', 'instagram-slider-widget' ); ?></strong>
-                    <input class="small-text" id="<?php echo $this->get_field_id( 'slick_slides_to_show' ); ?>"
-                           name="<?php echo $this->get_field_name( 'slick_slides_to_show' ); ?>"
-                           value="<?php echo $instance['slick_slides_to_show']; ?>"/>
-                    <span><?php _e( 'pictures', 'instagram-slider-widget' ); ?></span>
-                </label>
-                <br>
-                <strong><?php _e( 'Space between pictures:', 'instagram-slider-widget' ); ?></strong>
-                <label class="switch" for="<?php echo $this->get_field_id( 'slick_slides_padding' ); ?>">
-                    <input class="widefat" id="<?php echo $this->get_field_id( 'slick_slides_padding' ); ?>"
-                           name="<?php echo $this->get_field_name( 'slick_slides_padding' ); ?>" type="checkbox"
-                           value="1" <?php checked( '1', $instance['slick_slides_padding'] ); ?> />
-                    <span class="slider round"></span>
-                </label>
-                <br>
-            </p>
-            <p class="highlight_settings <?php if ( 'highlight' != $instance['template'] ) {
-				echo 'hidden';
-			} ?>">
-                <label for="<?php echo $this->get_field_id( 'highlight_offset' ); ?>"><strong><?php _e( 'Offset', 'instagram-slider-widget' ); ?></strong>
-                    <input type="number" min="1" class="small-text"
-                           id="<?php echo $this->get_field_id( 'highlight_offset' ); ?>"
-                           name="<?php echo $this->get_field_name( 'highlight_offset' ); ?>"
-                           value="<?php echo $instance['highlight_offset']; ?>"/>
-                </label>
-                <br>
-                <label for="<?php echo $this->get_field_id( 'highlight_pattern' ); ?>"><strong><?php _e( 'Pattern', 'instagram-slider-widget' ); ?></strong>
-                    <input type="number" min="0" class="small-text"
-                           id="<?php echo $this->get_field_id( 'highlight_pattern' ); ?>"
-                           name="<?php echo $this->get_field_name( 'highlight_pattern' ); ?>"
-                           value="<?php echo $instance['highlight_pattern']; ?>"/>
-                </label>
-            </p>
-            <p class="shopifeed_settings <?php if ( 'showcase' != $instance['template'] ) {
-				echo 'hidden';
-			} ?>">
-                <label for="<?php echo $this->get_field_id( 'shopifeed_phone' ); ?>"><strong><?php _e( 'Phone', 'instagram-slider-widget' ); ?></strong>
-                    <input type="text" class="shopifeed_phone"
-                           id="<?php echo $this->get_field_id( 'shopifeed_phone' ); ?>"
-                           name="<?php echo $this->get_field_name( 'shopifeed_phone' ); ?>"
-                           value="<?php echo $instance['shopifeed_phone']; ?>"/>
-                    <span id="" class="jr-description"><?php _e( "Use for whatsapp messages" ) ?></span>
-                </label>
-                <label for="<?php echo $this->get_field_id( 'shopifeed_color' ); ?>"><strong><?php _e( 'Buttons Color', 'instagram-slider-widget' ); ?></strong>
-                    <input type="color" class="shopifeed_color"
-                           id="<?php echo $this->get_field_id( 'shopifeed_color' ); ?>"
-                           name="<?php echo $this->get_field_name( 'shopifeed_color' ); ?>"
-                           value="<?php echo $instance['shopifeed_color']; ?>"
-                           style="border: none !important;"/>
-                </label>
-
-                <br>
-                <label for="<?php echo $this->get_field_id( 'shopifeed_columns' ); ?>"><strong><?php _e( 'Columns count', 'instagram-slider-widget' ); ?></strong>
-                    <input type="number" class="shopifeed_columns" min="1" max="6" step="1"
-                           id="<?php echo $this->get_field_id( 'shopifeed_columns' ); ?>"
-                           name="<?php echo $this->get_field_name( 'shopifeed_columns' ); ?>"
-                           value="<?php echo $instance['shopifeed_columns']; ?>"/>
-                </label>
-            </p>
-            <p class="slider_normal_settings jr-slider-options <?php if ( 'slider' != $instance['template'] || 'slider-overlay' != $instance['template'] ) {
-				echo 'hidden';
-			} ?>">
-
-				<?php _e( 'Slider Navigation Controls:', 'instagram-slider-widget' ); ?><br>
-                <label class="jr-radio"><input type="radio" id="<?php echo $this->get_field_id( 'controls' ); ?>"
-                                               name="<?php echo $this->get_field_name( 'controls' ); ?>"
-                                               value="prev_next" <?php checked( 'prev_next', $instance['controls'] ); ?> /> <?php _e( 'Prev & Next', 'instagram-slider-widget' ); ?>
-                </label>
-                <label class="jr-radio"><input type="radio" id="<?php echo $this->get_field_id( 'controls' ); ?>"
-                                               name="<?php echo $this->get_field_name( 'controls' ); ?>"
-                                               value="numberless" <?php checked( 'numberless', $instance['controls'] ); ?> /> <?php _e( 'Dotted', 'instagram-slider-widget' ); ?>
-                </label>
-                <label class="jr-radio"><input type="radio" id="<?php echo $this->get_field_id( 'controls' ); ?>"
-                                               name="<?php echo $this->get_field_name( 'controls' ); ?>"
-                                               value="none" <?php checked( 'none', $instance['controls'] ); ?> /> <?php _e( 'No Navigation', 'instagram-slider-widget' ); ?>
-                </label>
-                <br>
-				<?php _e( 'Slider Animation:', 'instagram-slider-widget' ); ?><br>
-                <label class="jr-radio"><input type="radio" id="<?php echo $this->get_field_id( 'animation' ); ?>"
-                                               name="<?php echo $this->get_field_name( 'animation' ); ?>"
-                                               value="slide" <?php checked( 'slide', $instance['animation'] ); ?> /> <?php _e( 'Slide', 'instagram-slider-widget' ); ?>
-                </label>
-                <label class="jr-radio"><input type="radio" id="<?php echo $this->get_field_id( 'animation' ); ?>"
-                                               name="<?php echo $this->get_field_name( 'animation' ); ?>"
-                                               value="fade" <?php checked( 'fade', $instance['animation'] ); ?> /> <?php _e( 'Fade', 'instagram-slider-widget' ); ?>
-                </label>
-                <br>
-                <label for="<?php echo $this->get_field_id( 'slidespeed' ); ?>"><?php _e( 'Slide Speed:', 'instagram-slider-widget' ); ?>
-                    <input type="number" min="1000" max="10000" step="100" class="small-text"
-                           id="<?php echo $this->get_field_id( 'slidespeed' ); ?>"
-                           name="<?php echo $this->get_field_name( 'slidespeed' ); ?>"
-                           value="<?php echo $instance['slidespeed']; ?>"/>
-                    <span><?php _e( 'milliseconds', 'instagram-slider-widget' ); ?></span>
-                    <span class='jr-description'><?php _e( '1000 milliseconds = 1 second', 'instagram-slider-widget' ); ?></span>
-                </label>
-                <label for="<?php echo $this->get_field_id( 'description' ); ?>"><?php _e( 'Slider Text Description:', 'instagram-slider-widget' ); ?></label>
-                <select size=3 class='widefat' id="<?php echo $this->get_field_id( 'description' ); ?>"
-                        name="<?php echo $this->get_field_name( 'description' ); ?>[]" multiple="multiple">
-                    <option class="<?php if ( 'hashtag' == $instance['search_for'] ) {
-						echo 'hidden';
-					} ?>"
-                            value='username' <?php $this->selected( $instance['description'], 'username' ); ?>><?php _e( 'Username', 'instagram-slider-widget' ); ?></option>
-                    <option value='time'<?php $this->selected( $instance['description'], 'time' ); ?>><?php _e( 'Time', 'instagram-slider-widget' ); ?></option>
-                    <option value='caption'<?php $this->selected( $instance['description'], 'caption' ); ?>><?php _e( 'Caption', 'instagram-slider-widget' ); ?></option>
-                </select>
-                <span class="jr-description"><?php _e( 'Hold ctrl and click the fields you want to show/hide on your slider. Leave all unselected to hide them all. Default all selected.', 'instagram-slider-widget' ) ?></span>
-            </p>
-            <p class="words_in_caption <?php if ( 'thumbs' == $instance['template'] || 'thumbs-no-border' == $instance['template'] || 'highlight' == $instance['template'] || 'slick_slider' == $instance['template'] ) {
-				echo 'hidden';
-			} ?>">
-                <label for="<?php echo $this->get_field_id( 'caption_words' ); ?>"><strong><?php _e( 'Number of words in caption:', 'instagram-slider-widget' ); ?></strong>
-                    <input class="small-text" type="number" min="0" max="200"
-                           id="<?php echo $this->get_field_id( 'caption_words' ); ?>"
-                           name="<?php echo $this->get_field_name( 'caption_words' ); ?>"
-                           value="<?php echo $instance['caption_words']; ?>"/>
-                </label>
-            </p>
-            <br>
-            <strong><?php _e( 'Enable author\'s ad:', 'instagram-slider-widget' ); ?></strong>
-            <label class="switch" for="<?php echo $this->get_field_id( 'enable_ad' ); ?>">
-                <input class="widefat" id="<?php echo $this->get_field_id( 'enable_ad' ); ?>"
-                       name="<?php echo $this->get_field_name( 'enable_ad' ); ?>" type="checkbox"
-                       value="1" <?php checked( '1', $instance['enable_ad'] ); ?> />
-                <span class="slider round"></span>
-            </label>
-            <p>
-                <label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><strong><?php _e( 'Order by', 'instagram-slider-widget' ); ?></strong>
-                    <select class="widefat" name="<?php echo $this->get_field_name( 'orderby' ); ?>"
-                            id="<?php echo $this->get_field_id( 'orderby' ); ?>">
-                        <option value="date-ASC" <?php selected( $instance['orderby'], 'date-ASC', true ); ?>><?php _e( 'Date - Ascending', 'instagram-slider-widget' ); ?></option>
-                        <option value="date-DESC" <?php selected( $instance['orderby'], 'date-DESC', true ); ?>><?php _e( 'Date - Descending', 'instagram-slider-widget' ); ?></option>
-                        <option value="popular-ASC" <?php selected( $instance['orderby'], 'popular-ASC', true ); ?>><?php _e( 'Popularity - Ascending', 'instagram-slider-widget' ); ?></option>
-                        <option value="popular-DESC" <?php selected( $instance['orderby'], 'popular-DESC', true ); ?>><?php _e( 'Popularity - Descending', 'instagram-slider-widget' ); ?></option>
-                        <option value="rand" <?php selected( $instance['orderby'], 'rand', true ); ?>><?php _e( 'Random', 'instagram-slider-widget' ); ?></option>
-                    </select>
-                </label>
-            </p>
-            <p class="isw-linkto <?php if ( 'showcase' == $instance['template'] ) {
-                echo 'hidden';
-            } ?>">
-                <label for="<?php echo $this->get_field_id( 'images_link' ); ?>"><strong><?php _e( 'Link to', 'instagram-slider-widget' ); ?></strong>
-                    <select class="widefat" name="<?php echo $this->get_field_name( 'images_link' ); ?>"
-                            id="<?php echo $this->get_field_id( 'images_link' ); ?>">
-                        <?php
-						if ( count( $options_linkto ) ) {
-							foreach ( $options_linkto as $key => $option ) {
-								$selected = selected( $instance['images_link'], $key, false );
-								echo "<option value='{$key}' {$selected}>{$option}</option>\n";
-							}
-						}
-						if ( ! $this->WIS->is_premium() ) {
-							?>
-                            <optgroup label="Available in PRO">
-                                <option value='1' disabled="disabled">Pop Up</option>
-                            </optgroup>
-							<?php
-						}
-						?>
-                    </select>
-                </label>
-            </p>
-            <p class="<?php if ( 'custom_url' != $instance['images_link'] ) {
-				echo 'hidden';
-			} ?>">
-                <label for="<?php echo $this->get_field_id( 'custom_url' ); ?>"><?php _e( 'Custom link:', 'instagram-slider-widget' ); ?></label>
-                <input class="widefat" id="<?php echo $this->get_field_id( 'custom_url' ); ?>"
-                       name="<?php echo $this->get_field_name( 'custom_url' ); ?>"
-                       value="<?php echo $instance['custom_url']; ?>"/>
-                <span><?php _e( '* use this field only if the above option is set to <strong>Custom Link</strong>', 'instagram-slider-widget' ); ?></span>
-            </p>
-            <!--<p>
-                <strong>Advanced Options</strong>
-				<?php
-			/*				$advanced_class = '';
-							$advanced_text = '[ - Close ]';
-							if ( '' == trim( $instance['image_link_rel'] ) && '' == trim( $instance['image_link_class'] ) && '' == trim( $instance['image_size'] ) )  {
-								$advanced_class = 'hidden';
-								$advanced_text = '[ + Open ]';
-							}
-							*/ ?>
-                <a href="#" class="jr-advanced"><?php /*echo $advanced_text;  */ ?></a>
-            </p>-->
-            <!-- <div class="jr-advanced-input <?php /*echo $advanced_class;*/ ?>">
-               <div class="jr-image-options">
-                    <h4 class="jr-advanced-title"><?php /*_e( 'Advanced Image Options', 'instagram-slider-widget'); */ ?></h4>
-                    <p>
-                        <label for="<?php /*echo $this->get_field_id( 'image_link_rel' ); */ ?>"><?php /*_e( 'Image Link rel attribute', 'instagram-slider-widget' ); */ ?>:</label>
-                        <input class="widefat" id="<?php /*echo $this->get_field_id( 'image_link_rel' ); */ ?>" name="<?php /*echo $this->get_field_name( 'image_link_rel' ); */ ?>" value="<?php /*echo $instance['image_link_rel']; */ ?>" />
-                        <span class="jr-description"><?php /*_e( 'Specifies the relationship between the current page and the linked website', 'instagram-slider-widget' ); */ ?></span>
-                    </p>
-                    <p>
-                        <label for="<?php /*echo $this->get_field_id( 'image_link_class' ); */ ?>"><?php /*_e( 'Image Link class', 'instagram-slider-widget' ); */ ?>:</label>
-                        <input class="widefat" id="<?php /*echo $this->get_field_id( 'image_link_class' ); */ ?>" name="<?php /*echo $this->get_field_name( 'image_link_class' ); */ ?>" value="<?php /*echo $instance['image_link_class']; */ ?>" />
-                        <span class="jr-description"><?php /*_e( 'Usefull if you are using jQuery lightbox plugins to open links', 'instagram-slider-widget' ); */ ?></span>
-                    </p>
-                    <p><strong><?php /*_e( 'Disable Pinning:', 'instagram-slider-widget' ); */ ?></strong>
-                        <label class="switch" for="<?php /*echo $this->get_field_id( 'no_pin' ); */ ?>">
-                            <input class="widefat" id="<?php /*echo $this->get_field_id( 'no_pin' ); */ ?>" name="<?php /*echo $this->get_field_name( 'no_pin' ); */ ?>" type="checkbox" value="1" <?php /*checked( '1', $instance['no_pin'] ); */ ?> /><span class="slider round"></span></label>
-                        <br><span class="jr-description"><?php /*_e( 'Disable pinning for Pinterest on all images from this widget!', 'instagram-slider-widget') */ ?></span>
-                    </p>
-                </div>
-            </div>-->
-			<?php $widget_id = preg_replace( '/[^0-9]/', '', $this->id );
-			if ( $widget_id != '' ) : ?>
-                <p>
-                    <label for="jr_insta_shortcode"><?php _e( 'Shortcode of this Widget:', 'instagram-slider-widget' ); ?></label>
-                    <input id="jr_insta_shortcode" onclick="this.setSelectionRange(0, this.value.length)" type="text"
-                           class="widefat" value="[jr_instagram id=&quot;<?php echo $widget_id ?>&quot;]"
-                           readonly="readonly" style="border:none; color:black; font-family:monospace;">
-                    <span class="jr-description"><?php _e( 'Use this shortcode in any page or post to display images with this widget configuration!', 'instagram-slider-widget' ) ?></span>
-                </p>
-			<?php endif; ?>
-        </div>
-		<?php
+        echo $this->render_layout_template('widget_settings_template', $args);
 	}
 
 	/**
@@ -836,41 +464,72 @@ class WIS_InstagramSlider extends WP_Widget {
 		$username             = isset( $args['username'] ) && ! empty( $args['username'] ) ? str_replace( '@', '', $args['username'] ) : false;
 		$hashtag              = isset( $args['hashtag'] ) && ! empty( $args['hashtag'] ) ? str_replace( '#', '', $args['hashtag'] ) : false;
 		$blocked_users        = isset( $args['blocked_users'] ) && ! empty( $args['blocked_users'] ) ? $args['blocked_users'] : false;
-		$blocked_words        = isset( $args['blocked_words'] ) && ! empty( $args['blocked_words'] ) ? $args['blocked_words'] : false;
-		$allowed_words        = isset( $args['allowed_words'] ) && ! empty( $args['allowed_words'] ) ? $args['allowed_words'] : false;
 		$attachment           = isset( $args['attachment'] ) ? true : false;
-		$template             = isset( $args['template'] ) ? $args['template'] : 'slider';
-		$orderby              = isset( $args['orderby'] ) ? $args['orderby'] : 'rand';
-		$images_link          = isset( $args['images_link'] ) ? $args['images_link'] : 'image_url';
 		$custom_url           = isset( $args['custom_url'] ) ? $args['custom_url'] : '';
-		$images_number        = isset( $args['images_number'] ) ? absint( $args['images_number'] ) : 20;
-		$columns              = isset( $args['columns'] ) ? absint( $args['columns'] ) : 4;
 		$refresh_hour         = isset( $args['refresh_hour'] ) ? absint( $args['refresh_hour'] ) : 5;
-		$slick_img_size         = isset( $args['slick_img_size'] ) ? absint( $args['slick_img_size'] ) : 300;
 		$image_size           = isset( $args['image_size'] ) ? $args['image_size'] : 'standard';
 		$image_link_rel       = isset( $args['image_link_rel'] ) ? $args['image_link_rel'] : '';
 		$no_pin               = isset( $args['no_pin'] ) ? $args['no_pin'] : 0;
-		$shopifeed_phone      = isset( $args['shopifeed_phone'] ) ? $args['shopifeed_phone'] : '';
-		$shopifeed_color      = isset( $args['shopifeed_color'] ) ? $args['shopifeed_color'] : "#DA004A";
-		$shopifeed_columns    = isset( $args['shopifeed_columns'] ) ? $args['shopifeed_columns'] : 3;
 		$image_link_class     = isset( $args['image_link_class'] ) ? $args['image_link_class'] : '';
-		$controls             = isset( $args['controls'] ) ? $args['controls'] : 'prev_next';
-		$animation            = isset( $args['animation'] ) ? $args['animation'] : 'slide';
-		$caption_words        = isset( $args['caption_words'] ) ? $args['caption_words'] : 20;
-		$slidespeed           = isset( $args['slidespeed'] ) ? $args['slidespeed'] : 7000;
-		$description          = isset( $args['description'] ) ? $args['description'] : array();
 		$widget_id            = isset( $args['widget_id'] ) ? $args['widget_id'] : preg_replace( '/[^0-9]/', '', $this->id );
-		$powered_by_link      = isset( $args['support_author'] ) ? true : false;
-		$gutter               = isset( $args['gutter'] ) ? $args['gutter'] : 0;
-		$masonry_image_width  = isset( $args['masonry_image_width'] ) ? $args['masonry_image_width'] : 200;
-		$slick_slides_to_show = isset( $args['slick_slides_to_show'] ) ? $args['slick_slides_to_show'] : 3;
-        $enable_control_buttons = isset( $args['enable_control_buttons'] ) ? $args['enable_control_buttons'] : 0;
-        $keep_ratio = isset( $args['keep_ratio'] ) ? $args['keep_ratio'] : 0;
-        $enable_ad = isset( $args['enable_ad'] ) ? $args['enable_ad'] : 0;
-        $slick_slides_padding = isset( $args['slick_slides_padding'] ) ? $args['slick_slides_padding'] : 0;
-		$show_feed_header     = isset( $args['show_feed_header'] ) ? $args['show_feed_header'] : 0;
-		$highlight_offset     = isset( $args['highlight_offset'] ) ? $args['highlight_offset'] : 1;
-		$highlight_pattern    = isset( $args['highlight_pattern'] ) ? $args['highlight_pattern'] : 6;
+
+		if(!self::isMobile()){
+			$template             	= isset( $args['template'] ) ? $args['template'] : 'slider';
+			$images_number        	= isset( $args['images_number'] ) ? absint( $args['images_number'] ) : 20;
+			$columns              	= isset( $args['columns'] ) ? absint( $args['columns'] ) : 4;
+			$shopifeed_phone      	= isset( $args['shopifeed_phone'] ) ? $args['shopifeed_phone'] : '';
+			$shopifeed_color      	= isset( $args['shopifeed_color'] ) ? $args['shopifeed_color'] : "#DA004A";
+			$shopifeed_columns    	= isset( $args['shopifeed_columns'] ) ? $args['shopifeed_columns'] : 3;
+			$controls             	= isset( $args['controls'] ) ? $args['controls'] : 'prev_next';
+			$animation            	= isset( $args['animation'] ) ? $args['animation'] : 'slide';
+			$slidespeed           	= isset( $args['slidespeed'] ) ? $args['slidespeed'] : 7000;
+			$description          	= isset( $args['description'] ) ? $args['description'] : array();
+			$caption_words        	= isset( $args['caption_words'] ) ? $args['caption_words'] : 20;
+			$enable_control_buttons = isset( $args['enable_control_buttons'] ) ? $args['enable_control_buttons'] : 0;
+			$show_feed_header     	= isset( $args['show_feed_header'] ) ? $args['show_feed_header'] : 0;
+			$keep_ratio 			= isset( $args['keep_ratio'] ) ? $args['keep_ratio'] : 0;
+			$slick_img_size       	= isset( $args['slick_img_size'] ) ? absint( $args['slick_img_size'] ) : 300;
+			$slick_slides_to_show 	= isset( $args['slick_slides_to_show'] ) ? $args['slick_slides_to_show'] : 3;
+			$slick_slides_padding 	= isset( $args['slick_slides_padding'] ) ? $args['slick_slides_padding'] : 0;
+			$gutter               	= isset( $args['gutter'] ) ? $args['gutter'] : 0;
+			$masonry_image_width  	= isset( $args['masonry_image_width'] ) ? $args['masonry_image_width'] : 200;
+			$highlight_offset     	= isset( $args['highlight_offset'] ) ? $args['highlight_offset'] : 1;
+			$highlight_pattern    	= isset( $args['highlight_pattern'] ) ? $args['highlight_pattern'] : 6;
+			$enable_ad 			  	= isset( $args['enable_ad'] ) ? $args['enable_ad'] : 0;
+			$orderby                = isset( $args['orderby'] ) ? $args['orderby'] : 'rand';
+			$images_link          	= isset( $args['images_link'] ) ? $args['images_link'] : 'image_url';
+			$blocked_words        	= isset( $args['blocked_words'] ) && ! empty( $args['blocked_words'] ) ? $args['blocked_words'] : false;
+			$allowed_words        	= isset( $args['allowed_words'] ) && ! empty( $args['allowed_words'] ) ? $args['allowed_words'] : false;
+			$powered_by_link      	= isset( $args['support_author'] ) ? true : false;
+		} else {
+			$template             	= isset( $args['m_template'] ) ? $args['m_template'] : (isset( $args['template'] ) ? $args['template'] :  'slider');
+			$images_number        	= isset( $args['m_images_number'] ) ? absint( $args['m_images_number'] ) : (isset( $args['images_number'] ) ? $args['images_number'] :  20);
+			$columns              	= isset( $args['m_columns'] ) ? absint( $args['m_columns'] ) : (isset( $args['columns'] ) ? $args['columns'] :  4);
+			$shopifeed_phone      	= isset( $args['m_shopifeed_phone'] ) ? $args['m_shopifeed_phone'] : (isset( $args['shopifeed_phone'] ) ? $args['shopifeed_phone'] :  '');
+			$shopifeed_color      	= isset( $args['m_shopifeed_color'] ) ? $args['m_shopifeed_color'] : (isset( $args['shopifeed_color'] ) ? $args['shopifeed_color'] :  "#DA004A");
+			$shopifeed_columns    	= isset( $args['m_shopifeed_columns'] ) ? $args['m_shopifeed_columns'] : (isset( $args['shopifeed_columns'] ) ? $args['shopifeed_columns'] :  3);
+			$controls             	= isset( $args['m_controls'] ) ? $args['m_controls'] : (isset( $args['controls'] ) ? $args['controls'] :  'prev_next');
+			$animation            	= isset( $args['m_animation'] ) ? $args['m_animation'] : (isset( $args['animation'] ) ? $args['animation'] :  'slide');
+			$slidespeed           	= isset( $args['m_slidespeed'] ) ? $args['m_slidespeed'] : (isset( $args['slidespeed'] ) ? $args['slidespeed'] :  7000);
+			$description          	= isset( $args['m_description'] ) ? $args['m_description'] : (isset( $args['description'] ) ? $args['description'] :  array());
+			$caption_words        	= isset( $args['m_caption_words'] ) ? $args['m_caption_words'] : (isset( $args['caption_words'] ) ? $args['caption_words'] :  20);
+			$enable_control_buttons = isset( $args['m_enable_control_buttons'] ) ? $args['m_enable_control_buttons'] : (isset( $args['enable_control_buttons'] ) ? $args['enable_control_buttons'] :  0);
+			$show_feed_header       = isset( $args['m_show_feed_header'] ) ? $args['m_show_feed_header'] : (isset( $args['show_feed_header'] ) ? $args['show_feed_header'] :  0);
+			$keep_ratio 			= isset( $args['m_keep_ratio'] ) ? $args['m_keep_ratio'] : (isset( $args['keep_ratio'] ) ? $args['keep_ratio'] :  0);
+			$slick_img_size       	= isset( $args['m_slick_img_size'] ) ? absint( $args['m_slick_img_size'] ) : (isset( $args['slick_img_size'] ) ? $args['slick_img_size'] :  300);
+			$slick_slides_to_show 	= isset( $args['m_slick_slides_to_show'] ) ? $args['m_slick_slides_to_show'] : (isset( $args['slick_slides_to_show'] ) ? $args['slick_slides_to_show'] :  3);
+			$slick_slides_padding 	= isset( $args['m_slick_slides_padding'] ) ? $args['m_slick_slides_padding'] : (isset( $args['slick_slides_padding'] ) ? $args['slick_slides_padding'] :  0);
+			$gutter               	= isset( $args['m_gutter'] ) ? $args['m_gutter'] : (isset( $args['gutter'] ) ? $args['gutter'] : 0);
+			$masonry_image_width  	= isset( $args['m_masonry_image_width'] ) ? $args['m_masonry_image_width'] : (isset( $args['masonry_image_width'] ) ? $args['masonry_image_width'] :  200);
+			$highlight_offset     	= isset( $args['m_highlight_offset'] ) ? $args['m_highlight_offset'] : (isset( $args['highlight_offset'] ) ? $args['highlight_offset'] :  1);
+			$highlight_pattern    	= isset( $args['m_highlight_pattern'] ) ? $args['m_highlight_pattern'] : (isset( $args['highlight_pattern'] ) ? $args['highlight_pattern'] :  6);
+			$enable_ad 				= isset( $args['m_enable_ad'] ) ? $args['m_enable_ad'] : (isset( $args['enable_ad'] ) ? $args['enable_ad'] :  0);
+			$orderby              	= isset( $args['m_orderby'] ) ? $args['m_orderby'] : (isset( $args['orderby'] ) ? $args['orderby'] :  'rand');
+			$images_link          	= isset( $args['m_images_link'] ) ? $args['m_images_link'] : (isset( $args['images_link'] ) ? $args['images_link'] :  'image_url');
+			$blocked_words        	= isset( $args['m_blocked_words'] ) && ! empty( $args['m_blocked_words'] ) ? $args['m_blocked_words'] : (isset( $args['images_link'] ) ? $args['images_link'] :  false);
+			$allowed_words        	= isset( $args['m_allowed_words'] ) && ! empty( $args['m_allowed_words'] ) ? $args['m_allowed_words'] : (isset( $args['blocked_words'] ) ? $args['blocked_words'] :  false);
+			$powered_by_link      	= isset( $args['m_support_author'] ) ? true : (isset( $args['support_author'] ) ? $args['support_author'] : false);
+		}
 
 		if ( ! empty( $description ) && ! is_array( $description ) ) {
 			$description = explode( ',', $description );
@@ -903,7 +562,6 @@ class WIS_InstagramSlider extends WP_Widget {
 			$refresh_hour = 5;
 		}
 
-
 		$template_args = array(
 			'search_for'           => $search,
 			'attachment'           => $attachment,
@@ -927,6 +585,9 @@ class WIS_InstagramSlider extends WP_Widget {
 		$ul_class         = ( $template == 'thumbs-no-border' ) ? 'thumbnails no-border jr_col_' . $columns : 'thumbnails jr_col_' . $columns;
 		$slider_script    = '';
 
+		//enqueue widget scripts and styles
+		//$this->widget_scripts_enqueue();
+
 		if ( $template != 'thumbs' && $template != 'thumbs-no-border' ) {
 
 			$template_args['description'] = $description;
@@ -938,7 +599,7 @@ class WIS_InstagramSlider extends WP_Widget {
 				$images_div_class = 'pllexislider pllexislider-normal instaslider-nr-' . $widget_id;
 				$slider_script    = "<script type='text/javascript'>" . "\n" . "	jQuery(document).ready(function($) {" . "\n" . "		$('.instaslider-nr-{$widget_id}').pllexislider({" . "\n" . "			animation: '{$animation}'," . "\n" . "			slideshowSpeed: {$slidespeed}," . "\n" . "			directionNav: {$direction_nav}," . "\n" . "			controlNav: {$control_nav}," . "\n" . "			prevText: ''," . "\n" . "			nextText: ''," . "\n" . "		});" . "\n" . "	});" . "\n" . "</script>" . "\n";
 			}
-			if ( $template == 'slick_slider' || $template == 'masonry' || $template == 'highlight' ) {
+			if ( $template == 'slick_slider' || $template == 'masonry' || $template == 'highlight' ||  $template == 'showcase') {
 				//return $this->pro_display_images($args);
                 if(defined('WISP_PLUGIN_ACTIVE') && WISP_PLUGIN_ACTIVE == true){
                     return apply_filters( 'wis/pro/display_images', "", $args, $this );
@@ -947,19 +608,6 @@ class WIS_InstagramSlider extends WP_Widget {
                     $slider_script    = "<script type='text/javascript'>" . "\n" . "	jQuery(document).ready(function($) {" . "\n" . "		$('.instaslider-nr-{$widget_id}').pllexislider({" . "\n" . "			animation: '{$animation}'," . "\n" . "			slideshowSpeed: {$slidespeed}," . "\n" . "			directionNav: {$direction_nav}," . "\n" . "			controlNav: {$control_nav}," . "\n" . "			prevText: ''," . "\n" . "			nextText: ''," . "\n" . "		});" . "\n" . "	});" . "\n" . "</script>" . "\n";
                     $template = 'slider';
                 }
-			}
-			if( $template == 'showcase' ) {
-
-                if(defined('SPFD_PLUGIN_ACTIVE') && SPFD_PLUGIN_ACTIVE == true){
-                    return apply_filters( 'wis/shopifeed/display_images', "", $args, $this );
-                } else {
-                    $images_div_class = 'pllexislider pllexislider-normal instaslider-nr-' . $widget_id;
-                    $slider_script    = "<script type='text/javascript'>" . "\n" . "	jQuery(document).ready(function($) {" . "\n" . "		$('.instaslider-nr-{$widget_id}').pllexislider({" . "\n" . "			animation: '{$animation}'," . "\n" . "			slideshowSpeed: {$slidespeed}," . "\n" . "			directionNav: {$direction_nav}," . "\n" . "			controlNav: {$control_nav}," . "\n" . "			prevText: ''," . "\n" . "			nextText: ''," . "\n" . "		});" . "\n" . "	});" . "\n" . "</script>" . "\n";
-                    $template = 'slider';
-                }
-            } else {
-				$images_div_class = 'pllexislider pllexislider-overlay instaslider-nr-' . $widget_id;
-				$slider_script    = "<script type='text/javascript'>" . "\n" . "	jQuery(document).ready(function($) {" . "\n" . "		$('.instaslider-nr-{$widget_id}').pllexislider({" . "\n" . "			animation: '{$animation}'," . "\n" . "			slideshowSpeed: {$slidespeed}," . "\n" . "			directionNav: {$direction_nav}," . "\n" . "			controlNav: {$control_nav}," . "\n" . "			prevText: ''," . "\n" . "			nextText: ''," . "\n" . "			start: function(slider){" . "\n" . "				slider.hover(" . "\n" . "					function () {" . "\n" . "						slider.find('.pllex-control-nav, .pllex-direction-nav').stop(true,true).fadeIn();" . "\n" . "						slider.find('.jr-insta-datacontainer').fadeIn();" . "\n" . "					}," . "\n" . "					function () {" . "\n" . "						slider.find('.pllex-control-nav, .pllex-direction-nav').stop(true,true).fadeOut();" . "\n" . "						slider.find('.jr-insta-datacontainer').fadeOut();" . "\n" . "					}" . "\n" . "				);" . "\n" . "			}" . "\n" . "		});" . "\n" . "	});" . "\n" . "</script>" . "\n";
 			}
 		}
 
@@ -1235,7 +883,7 @@ class WIS_InstagramSlider extends WP_Widget {
 		if ( file_exists( $path ) ) {
 			ob_start();
 			include $path;
-
+            extract($args);
 			return ob_get_clean();
 		} else {
 			return 'This template does not exist!';
@@ -1282,7 +930,7 @@ class WIS_InstagramSlider extends WP_Widget {
 		$image_output    = $image_src;
 
 		if ( $link_to ) {
-			$image_output = "<a href='$link_to' target='_blank' rel='nofollow'";
+			$image_output = "<a href='$link_to' target='_blank' rel='nofollow noreferrer'";
 
 			if ( ! empty( $args['link_rel'] ) ) {
 				$image_output .= " rel={$args['link_rel']}";
@@ -1308,7 +956,7 @@ class WIS_InstagramSlider extends WP_Widget {
 
 				if ( in_array( 'username', $args['description'] ) && $username ) {
 
-					$output .= "<span class='jr-insta-username'>by <a rel='nofollow' href='https://www.instagram.com/{$username}/' style='color:black; font-weight: 600' target='_blank'>{$username}</a></span>\n";
+					$output .= "<span class='jr-insta-username'>by <a rel='nofollow noreferrer' href='https://www.instagram.com/{$username}/' style='color:black; font-weight: 600' target='_blank'>{$username}</a></span>\n";
 				}
 				if ( $time && in_array( 'time', $args['description'] ) ) {
 					$time   = human_time_diff( $time );
@@ -1318,8 +966,8 @@ class WIS_InstagramSlider extends WP_Widget {
 
 
 				if ( $caption != '' && in_array( 'caption', $args['description'] ) ) {
-					$caption = preg_replace( '/\@([a-z0-9А-Яа-я_-]+)/u', '&nbsp;<a href="https://www.instagram.com/$1/" rel="nofollow" style="color:black; font-weight: 600" target="_blank">@$1</a>&nbsp;', $caption );
-					$caption = preg_replace( '/\#([a-zA-Z0-9А-Яа-я_-]+)/u', '&nbsp;<a href="https://www.instagram.com/explore/tags/$1/" style="color:black; font-weight: 600" rel="nofollow" target="_blank">$0</a>&nbsp;', $caption );
+					$caption = preg_replace( '/\@([a-z0-9А-Яа-я_-]+)/u', '&nbsp;<a href="https://www.instagram.com/$1/" rel="nofollow noreferrer" style="color:black; font-weight: 600" target="_blank">@$1</a>&nbsp;', $caption );
+					$caption = preg_replace( '/\#([a-zA-Z0-9А-Яа-я_-]+)/u', '&nbsp;<a href="https://www.instagram.com/explore/tags/$1/" style="color:black; font-weight: 600" rel="nofollow noreferrer" target="_blank">$0</a>&nbsp;', $caption );
 					$output  .= "<span class='jr-insta-caption' style='text-align: left !important;'>{$caption}</span>\n";
 				}
 
@@ -1346,12 +994,12 @@ class WIS_InstagramSlider extends WP_Widget {
 				}
 
 				if ( in_array( 'username', $args['description'] ) && $username ) {
-					$output .= "<span class='jr-insta-username'>by <a rel='nofollow' target='_blank' href='https://www.instagram.com/{$username}/'>{$username}</a></span>\n";
+					$output .= "<span class='jr-insta-username'>by <a rel='nofollow noreferrer' target='_blank' href='https://www.instagram.com/{$username}/'>{$username}</a></span>\n";
 				}
 
 				if ( $caption != '' && in_array( 'caption', $args['description'] ) ) {
-					$caption = preg_replace( '/@([a-z0-9_]+)/i', '&nbsp;<a href="https://www.instagram.com/$1/" rel="nofollow" target="_blank">@$1</a>&nbsp;', $caption );
-					$caption = preg_replace( '/\#([a-zA-Z0-9_-]+)/i', '&nbsp;<a href="https://www.instagram.com/explore/tags/$1/" rel="nofollow" target="_blank">$0</a>&nbsp;', $caption );
+					$caption = preg_replace( '/@([a-z0-9_]+)/i', '&nbsp;<a href="https://www.instagram.com/$1/" rel="nofollow noreferrer" target="_blank">@$1</a>&nbsp;', $caption );
+					$caption = preg_replace( '/\#([a-zA-Z0-9_-]+)/i', '&nbsp;<a href="https://www.instagram.com/explore/tags/$1/" rel="nofollow noreferrer" target="_blank">$0</a>&nbsp;', $caption );
 					$output  .= "<span class='jr-insta-caption' style='text-align: left !important;'>{$caption}</span>\n";
 				}
 
@@ -2690,6 +2338,10 @@ class WIS_InstagramSlider extends WP_Widget {
 		$accont_b = WIS_Plugin::app()->getOption( 'account_profiles_new', array() );
 
 		return count( $account ) + count( $accont_b );
+	}
+
+	public static function isMobile() {
+		return preg_match("/(android|ios|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 	}
 
 } // end of class WIS_InstagramSlider

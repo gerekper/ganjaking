@@ -1,4 +1,7 @@
 <?php
+if ( ! empty( $atts['className'] ) ) {
+	$atts['el_class'] = $atts['className'];
+}
 
 extract(
 	shortcode_atts(
@@ -97,7 +100,7 @@ if ( $animation_type ) {
 $output .= do_shortcode( $content );
 
 if ( $animation_type ) {
-	echo '</div>';
+	$output .= '</div>';
 }
 
 $output .= '</div>';

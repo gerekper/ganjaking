@@ -620,7 +620,7 @@ if ( ! function_exists( 'porto_mce_text_sizes' ) ) {
 add_filter( 'tiny_mce_before_init', 'porto_mce_text_sizes' );
 
 if ( ! function_exists( 'porto_get_post_type_items' ) ) :
-	function porto_get_post_type_items( $post_type, $args_extended = array() ) {
+	function porto_get_post_type_items( $post_type, $args_extended = array(), $post_name_flield = true ) {
 
 		$result = array();
 
@@ -641,8 +641,12 @@ if ( ! function_exists( 'porto_get_post_type_items' ) ) :
 		if ( $query->have_posts() ) {
 
 			while ( $query->have_posts() ) {
-				$p                       = $query->next_post();
-				$result[ $p->post_name ] = $p->post_title;
+				$p = $query->next_post();
+				if ( $post_name_flield ) {
+					$result[ $p->post_name ] = $p->post_title;
+				} else {
+					$result[ $p->ID ] = $p->post_title;
+				}
 			}
 		}
 

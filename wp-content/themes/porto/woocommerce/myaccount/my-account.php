@@ -17,15 +17,16 @@ if ( version_compare( $porto_woo_version, '2.6', '>=' ) ) {
 	 *
 	 * @since 2.6.0
 	 */
-
 	do_action( 'woocommerce_account_navigation' );
 }
 ?>
 
-<?php if ( version_compare( $porto_woo_version, '2.6', '>=' ) ) : ?>
+<?php
+if ( version_compare( $porto_woo_version, '2.6', '>=' ) ) :
+	?>
 
 	<div class="woocommerce-MyAccount-content">
-		<div class="featured-box featured-box-primary align-left">
+		<div class="align-left">
 			<div class="box-content">
 				<?php
 				/**
@@ -34,7 +35,6 @@ if ( version_compare( $porto_woo_version, '2.6', '>=' ) ) {
 				 * @since 2.6.0
 				 */
 				do_action( 'woocommerce_account_content' );
-
 				?>
 			</div>
 		</div>

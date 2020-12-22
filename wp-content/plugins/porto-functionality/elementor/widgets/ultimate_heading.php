@@ -43,7 +43,7 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'main_heading',
 			array(
-				'label'       => __( 'Main  Heading', 'porto-functionality' ),
+				'label'       => __( 'Main Heading', 'porto-functionality' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
 				'dynamic'     => array(
@@ -99,11 +99,10 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 			'spacer',
 			array(
 				'type'        => Controls_Manager::SELECT,
-				'label'       => __( 'Seperator', 'porto-functionality' ),
+				'label'       => __( 'Separator', 'porto-functionality' ),
 				'options'     => array(
-					'no_spacer'  => __( 'No Seperator', 'porto-functionality' ),
+					'no_spacer'  => __( 'No Separator', 'porto-functionality' ),
 					'line_only'  => __( 'Line', 'porto-functionality' ),
-					'image_only' => __( 'Image', 'porto-functionality' ),
 				),
 				'default'     => 'no_spacer',
 				'description' => __( 'Horizontal line, icon or image to divide sections', 'porto-functionality' ),
@@ -114,7 +113,7 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 			'spacer_position',
 			array(
 				'type'      => Controls_Manager::SELECT,
-				'label'     => __( 'Seperator Position', 'porto-functionality' ),
+				'label'     => __( 'Separator Position', 'porto-functionality' ),
 				'options'   => array(
 					'top'    => __( 'Top', 'porto-functionality' ),
 					'middle' => __( 'Between Heading & Sub-Heading', 'porto-functionality' ),
@@ -244,7 +243,7 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 			'spacer_margin_bottom',
 			array(
 				'type'      => Controls_Manager::TEXT,
-				'label'     => __( 'Seperator Margin Bottom', 'porto-functionality' ),
+				'label'     => __( 'Separator Margin Bottom', 'porto-functionality' ),
 				'condition' => array(
 					'spacer' => 'line_only',
 				),

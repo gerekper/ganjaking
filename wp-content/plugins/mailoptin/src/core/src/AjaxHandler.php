@@ -1188,20 +1188,40 @@ class AjaxHandler
 
         switch ($search_type) {
             case 'posts_never_load' :
-                $response = ControlsHelpers::get_post_type_posts('post', 1000, 'publish', $q);
-                break;
-            case 'woocommerce_products' :
-                $response = ControlsHelpers::get_post_type_posts('product', 1000, 'publish', $q);
+                $response = ControlsHelpers::get_post_type_posts('post', 500, 'publish', $q);
                 break;
             case 'pages_never_load' :
-                $response = ControlsHelpers::get_post_type_posts('page', 1000, 'publish', $q);
+                $response = ControlsHelpers::get_post_type_posts('page', 500, 'publish', $q);
                 break;
             case 'cpt_never_load' :
-                $response = ControlsHelpers::get_all_post_types_posts(array('post', 'page'), 1000, $q);
+                $response = ControlsHelpers::get_all_post_types_posts(array('post', 'page'), 500, $q);
                 break;
             case 'exclusive_post_types_posts_load' :
-                $response = ControlsHelpers::get_all_post_types_posts([], 1000, $q);
+                $response = ControlsHelpers::get_all_post_types_posts([], 500, $q);
                 break;
+            case 'post_categories' :
+                $response = ControlsHelpers::get_categories($q);
+                break;
+            case 'post_tags' :
+                $response = ControlsHelpers::get_tags($q);
+                break;
+            case 'woocommerce_products' :
+                $response = ControlsHelpers::get_post_type_posts('product', 500, 'publish', $q);
+                break;
+            case 'woocommerce_product_cat' :
+                $response = ControlsHelpers::get_terms('product_cat', $q);
+                break;
+            case 'woocommerce_product_tags' :
+                $response = ControlsHelpers::get_terms('product_tag', $q);
+                break;
+            case 'RegisteredUsersConnect_users' :
+                $response = ControlsHelpers::get_users($q);
+                break;
+        }
+
+        if (strpos($search_type, 'ch_get_terms') !== false) {
+            $param    = explode('|', $search_type);
+            $response = ControlsHelpers::get_terms($param[1], $q);
         }
 
         wp_send_json($response);

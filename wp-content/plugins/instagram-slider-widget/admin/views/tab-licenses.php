@@ -1,10 +1,5 @@
 <?php
 
-/*use WBCR\Titan\Plugin;*/
-
-if( is_array($data) ) {
-    extract($data);
-}
 /**
  * @var array $licenses
  */

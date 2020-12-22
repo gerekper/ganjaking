@@ -5,17 +5,64 @@ namespace MailOptin\Core\EmailCampaigns\NewPublishPost;
 use MailOptin\Core\Connections\ConnectionFactory;
 use MailOptin\Core\EmailCampaigns\AbstractTriggers;
 use MailOptin\Core\EmailCampaigns\Misc;
+use MailOptin\Core\Repositories\AbstractCampaignLogMeta;
 use MailOptin\Core\Repositories\EmailCampaignRepository as ER;
 use pb_backupbuddy;
 use WP_Post;
+use function MailOptin\Core\moVarObj;
 
 class NewPublishPost extends AbstractTriggers
 {
     public function __construct()
     {
         parent::__construct();
+        
+        // new way post 5.6
+        if (function_exists('wp_after_insert_post')) {
+            // new hook added in 5.6 triggered after post is published and all post meta data saved.
+            add_action('wp_after_insert_post', function ($post_id, WP_Post $post, $update, $post_before) {
 
-        add_action('transition_post_status', array($this, 'new_publish_post'), 1, 3);
+                $old_status = moVarObj($post_before, 'post_status');
+
+                $this->new_publish_post($post->post_status, $old_status, $post);
+
+            }, 1, 4);
+        }
+
+        // get called first before save_post and wp_after_insert_post. perfect for saving the previous post status
+        add_action('transition_post_status', function ($new_status, $old_status, WP_Post $post) {
+
+            global $mo_old_post_status;
+
+            if (isset($post->ID)) {
+                $mo_old_post_status[$post->ID] = $old_status;
+            }
+
+            // fix incompatibility with backupbuddy making post content empty.
+            if (class_exists('pb_backupbuddy') && method_exists('pb_backupbuddy', 'remove_action')) {
+                pb_backupbuddy::remove_action(array('save_post', 'save_post_iterate_edits_since_last'));
+            }
+
+        }, 1, 3);
+
+        // old way pre 5.6
+        if ( ! function_exists('wp_after_insert_post')) {
+
+            add_action('save_post', function ($post_id, WP_Post $post) {
+
+                if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || wp_is_post_revision($post) || wp_is_post_autosave($post)) {
+                    return;
+                }
+
+                global $mo_old_post_status;
+
+                $this->new_publish_post($post->post_status, $mo_old_post_status[$post_id], $post);
+
+            }, 99999999999999999999, 2);
+        }
+
+        // deprecated because it is triggered before all meta data are saved.
+        // add_action('transition_post_status', array($this, 'new_publish_post'), 1, 3);
 
         add_action('mailoptin_send_scheduled_email_campaign', array($this, 'send_scheduled_email_campaign'), 10, 2);
     }
@@ -56,14 +103,6 @@ class NewPublishPost extends AbstractTriggers
     public function new_publish_post($new_status, $old_status, $post)
     {
         if ($new_status == 'publish' && $old_status != 'publish') {
-
-            // fix incompatibility with backupbuddy making post content empty.
-            if (class_exists('pb_backupbuddy') && method_exists('pb_backupbuddy', 'remove_action')) {
-                pb_backupbuddy::remove_action(array('save_post', 'save_post_iterate_edits_since_last'));
-            }
-
-            // hopefully this will cause all custom field to be updated before new post is triggered.
-            do_action('save_post', $post->ID, $post, true);
 
             if (get_post_meta($post->ID, '_mo_disable_npp', true) == 'yes') return;
 
@@ -143,6 +182,8 @@ class NewPublishPost extends AbstractTriggers
                     self::format_campaign_subject($email_subject, $post),
                     $content_html
                 );
+
+                AbstractCampaignLogMeta::add_campaignlog_meta($campaign_id, 'new_publish_post_id', $post->ID);
 
                 if ($send_immediately_active) {
                     $this->send_campaign($email_campaign_id, $campaign_id);

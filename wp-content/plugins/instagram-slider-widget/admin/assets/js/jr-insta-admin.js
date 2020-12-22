@@ -1,22 +1,20 @@
 (function ($) {
 
+    $('input[name="savewidget"]').on('click', function (){
+        setTimeout(function (){
+            $(".isw-tabs").lightTabs();
+        },1500);
+
+    })
+
     $(document).ready(function ($) {
+        $(".isw-tabs").lightTabs();
 
         var template = $('.jr-container select[id$="template"]')
-        if (template.val() == 'thumbs' || template.val() == 'thumbs-no-border' || template.val() == 'slider' || template.val() == 'slider-overlay') {
-            template.closest('.jr-container').find('select[id$="images_link"] option[value="popup"]').animate({
-                opacity: 'hide',
-                height: 'hide'
-            }, 200);
-
-            //window.image_link_val = template.closest('.jr-container').find('select[id$="images_link"]').val();
-            //template.closest('.jr-container').find('select[id$="images_link"]').val("image_link");
+        if (template.val() === 'thumbs' || template.val() === 'thumbs-no-border' || template.val() === 'slider' || template.val() === 'slider-overlay') {
+            hideClosestSetting(template, 'select[id$="images_link"] option[value="popup"]');
         } else {
-            template.closest('.jr-container').find('select[id$="images_link"] option[value="popup"]').animate({
-                opacity: 'show',
-                height: 'show'
-            }, 200);
-            //template.closest('.jr-container').find('select[id$="images_link"]').val(window.image_link_val);
+            showClosestSetting(template,'select[id$="images_link"] option[value="popup"]');
         }
 
         // Hide Custom Url if image link is not set to custom url
@@ -38,96 +36,75 @@
         $('body').on('change', '.jr-container input[id$="keep_ratio"]', function (e) {
             var keep_ratio = $(this);
             if (keep_ratio.is(":checked")){
-                keep_ratio.closest('.jr-container').find('.slick_img_size').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
+                showClosestSetting(keep_ratio, '.slick_img_size');
             } else {
-                keep_ratio.closest('.jr-container').find('.slick_img_size').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+                hideClosestSetting(keep_ratio, '.slick_img_size');
+            }
+        });
+
+        $('body').on('change', '.jr-container input[id$="m_keep_ratio"]', function (e) {
+            var keep_ratio = $(this);
+            if (keep_ratio.is(":checked")){
+                showClosestSetting(keep_ratio, '.m_slick_img_size');
+            } else {
+                hideClosestSetting(keep_ratio, '.m_slick_img_size');
             }
         });
 
         // Modify options based on template selections
-        $('body').on('change', '.jr-container select[id$="template"]', function (e) {
-            var template = $(this);
-            if (template.val() == 'thumbs' || template.val() == 'thumbs-no-border') {
-                template.closest('.jr-container').find('.jr-slider-options').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
-                template.closest('.jr-container').find('input[id$="columns"]').closest('p').animate({
+
+        $('body').on('change', '.jr-container .desk_settings select[id$="template"]', function (){
+            modifySettings(this, false);
+        });
+        $('body').on('change', '.jr-container .mob_settings select[id$="m_template"]', function (){
+            modifySettings(this, true);
+        });
+
+        function modifySettings(this_object, is_mob){
+            var template = $(this_object);
+            var prefix = "";
+            if (is_mob){
+                prefix = "m_";
+            }
+            if (template.val() === 'thumbs' || template.val() === 'thumbs-no-border') {
+                hideClosestSetting(template, '.' + prefix + 'jr-slider-options');
+                template.closest('.jr-container').find('input[id$="' + prefix +'columns"]').closest('p').animate({
                     opacity: 'show',
                     height: 'show'
                 }, 200);
             } else {
-                template.closest('.jr-container').find('.jr-slider-options').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
-                template.closest('.jr-container').find('input[id$="columns"]').closest('p').animate({
+                showClosestSetting(template, '.' + prefix + 'jr-slider-options');
+                template.closest('.jr-container').find('input[id$="' + prefix +'columns"]').closest('p').animate({
                     opacity: 'hide',
                     height: 'hide'
                 }, 200);
             }
             if (template.val() != 'masonry') {
-                template.closest('.jr-container').find('.masonry_settings').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
-                template.closest('.jr-container').find('.masonry_notice').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+                hideClosestSetting(template, '.' + prefix + 'masonry_settings');
+                hideClosestSetting(template, '.' + prefix + 'masonry_notice');
             } else {
-                template.closest('.jr-container').find('.masonry_settings').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
-                template.closest('.jr-container').find('.masonry_notice').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
+                showClosestSetting(template, '.' + prefix + 'masonry_settings');
+                showClosestSetting(template, '.' + prefix + 'masonry_notice');
             }
             if (template.val() != 'slick_slider') {
-                template.closest('.jr-container').find('.slick_settings').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+                hideClosestSetting(template, '.' + prefix + 'slick_settings');
             } else {
-                template.closest('.jr-container').find('.slick_settings').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
+                showClosestSetting(template, '.' + prefix + 'slick_settings');
             }
             if (template.val() != 'highlight') {
-                template.closest('.jr-container').find('.highlight_settings').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+                hideClosestSetting(template, '.' + prefix + 'highlight_settings');
             } else {
-                template.closest('.jr-container').find('.highlight_settings').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
+                showClosestSetting(template, '.' + prefix + 'highlight_settings');
             }
 
             if (template.val() != 'showcase'){
-                template.closest('.jr-container').find('.shopifeed_settings').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+                hideClosestSetting(template, '.' + prefix + 'shopifeed_settings');
                 $('.isw-linkto').animate({
                     opacity: 'show',
                     height: 'show'
                 }, 200);
             } else {
-                template.closest('.jr-container').find('.shopifeed_settings').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
+                showClosestSetting(template, '.' + prefix + 'shopifeed_settings');
                 $('.isw-linkto').animate({
                     opacity: 'hide',
                     height: 'hide'
@@ -135,44 +112,38 @@
             }
 
             if (template.val() != 'slider' && template.val() != 'slider-overlay') {
-                template.closest('.jr-container').find('.slider_normal_settings').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+                hideClosestSetting(template, '.' + prefix + 'slider_normal_settings');
             } else {
-                template.closest('.jr-container').find('.slider_normal_settings').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
+                showClosestSetting(template, '.' + prefix + 'slider_normal_settings');
             }
-            if (template.val() == 'highlight' || template.val() == 'slick_slider' || template.val() == 'thumbs' || template.val() == 'thumbs-no-border') {
-                template.closest('.jr-container').find('.words_in_caption').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+            if (template.val() === 'highlight' || template.val() === 'slick_slider' || template.val() === 'thumbs' || template.val() === 'thumbs-no-border') {
+                hideClosestSetting(template, '.' + prefix + 'words_in_caption');
             } else {
-                template.closest('.jr-container').find('.words_in_caption').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
+                showClosestSetting(template, '.' + prefix + 'words_in_caption');
             }
 
-            if (template.val() == 'thumbs' || template.val() == 'thumbs-no-border' || template.val() == 'slider' || template.val() == 'slider-overlay') {
-                template.closest('.jr-container').find('select[id$="images_link"] option[value="popup"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+            if (template.val() === 'thumbs' || template.val() === 'thumbs-no-border' || template.val() === 'slider' || template.val() === 'slider-overlay') {
+                hideClosestSetting(template, 'select[id$="' + prefix + 'images_link"] option[value="popup"]');
 
-                window.image_link_val = template.closest('.jr-container').find('select[id$="images_link"]').val();
-                //template.closest('.jr-container').find('select[id$="images_link"]').val("image_link");
+                window.image_link_val = template.closest('.jr-container').find('select[id$="' + prefix + 'images_link"]').val();
             } else {
-                template.closest('.jr-container').find('select[id$="images_link"] option[value="popup"]').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
-                //template.closest('.jr-container').find('select[id$="images_link"]').val(window.image_link_val);
+                showClosestSetting(template, 'select[id$="' + prefix + 'images_link"] option[value="popup"]');
             }
-        });
+        }
+
+        function showClosestSetting(closestFor, selector){
+            closestFor.closest('.jr-container').find(selector).animate({
+                opacity: 'show',
+                height: 'show'
+            }, 200);
+        }
+
+        function hideClosestSetting(closestFor, selector){
+            closestFor.closest('.jr-container').find(selector).animate({
+                opacity: 'hide',
+                height: 'hide'
+            }, 200);
+        }
 
         // Modfiy options when search for is changed
         $('body').on('change', '.jr-container input:radio[id$="search_for"]', function (e) {
@@ -182,19 +153,11 @@
                     opacity: 'hide',
                     height: 'hide'
                 }, 200);
-                search_for.closest('.jr-container').find('select[id$="images_link"] option[value="user_url"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
-                search_for.closest('.jr-container').find('select[id$="images_link"] option[value="attachment"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
-                //search_for.closest('.jr-container').find('select[id$="images_link"]').val('image_link');
-                search_for.closest('.jr-container').find('select[id$="description"] option[value="username"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+
+                hideClosestSetting(search_for, 'select[id$="images_link"] option[value="user_url"]');
+                hideClosestSetting(search_for, 'select[id$="images_link"] option[value="attachment"]');
+                hideClosestSetting(search_for, 'select[id$="description"] option[value="username"]');
+
                 search_for.closest('.jr-container').find('input[id$="blocked_users"]').closest('p').animate({
                     opacity: 'show',
                     height: 'show'
@@ -215,19 +178,11 @@
                     opacity: 'show',
                     height: 'show'
                 }, 200);
-                search_for.closest('.jr-container').find('select[id$="images_link"] option[value="user_url"]').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
-                search_for.closest('.jr-container').find('select[id$="images_link"] option[value="attachment"]').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
-                //search_for.closest('.jr-container').find('select[id$="images_link"]').val('image_link');
-                search_for.closest('.jr-container').find('select[id$="description"] option[value="username"]').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
+
+                showClosestSetting(search_for, 'select[id$="images_link"] option[value="user_url"]');
+                showClosestSetting(search_for, 'select[id$="images_link"] option[value="attachment"]');
+                showClosestSetting(search_for, 'select[id$="description"] option[value="username"]');
+
                 search_for.closest('.jr-container').find('input[id$="blocked_users"]').closest('p').animate({
                     opacity: 'hide',
                     height: 'hide'
@@ -247,19 +202,11 @@
                     opacity: 'hide',
                     height: 'hide'
                 }, 200);
-                search_for.closest('.jr-container').find('select[id$="images_link"] option[value="user_url"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
-                search_for.closest('.jr-container').find('select[id$="images_link"] option[value="attachment"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
-                //search_for.closest('.jr-container').find('select[id$="images_link"]').val('image_link');
-                search_for.closest('.jr-container').find('select[id$="description"] option[value="username"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+
+                hideClosestSetting(search_for, 'select[id$="images_link"] option[value="user_url"]');
+                hideClosestSetting(search_for, 'select[id$="images_link"] option[value="attachment"]');
+                hideClosestSetting(search_for, 'select[id$="description"] option[value="username"]');
+
                 search_for.closest('.jr-container').find('input[id$="blocked_users"]').closest('p').animate({
                     opacity: 'hide',
                     height: 'hide'
@@ -272,14 +219,10 @@
                     opacity: 'hide',
                     height: 'hide'
                 }, 200);
-                search_for.closest('.jr-container').find('select[id$="orderby"] option[value="popular-ASC"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
-                search_for.closest('.jr-container').find('select[id$="orderby"] option[value="popular-DESC"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+
+                hideClosestSetting(search_for, 'select[id$="orderby"] option[value="popular-ASC"]');
+                hideClosestSetting(search_for, 'select[id$="orderby"] option[value="popular-DESC"]');
+
                 $('#img_to_show').animate({opacity: 'show', height: 'show'}, 200);
 
             } else if (search_for.val() === 'account_business') {
@@ -287,19 +230,11 @@
                     opacity: 'hide',
                     height: 'hide'
                 }, 200);
-                search_for.closest('.jr-container').find('select[id$="images_link"] option[value="user_url"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
-                search_for.closest('.jr-container').find('select[id$="images_link"] option[value="attachment"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
-                //search_for.closest('.jr-container').find('select[id$="images_link"]').val('image_link');
-                search_for.closest('.jr-container').find('select[id$="description"] option[value="username"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
+
+                hideClosestSetting(search_for, 'select[id$="images_link"] option[value="user_url"]');
+                hideClosestSetting(search_for, 'select[id$="images_link"] option[value="attachment"]');
+                hideClosestSetting(search_for, 'select[id$="description"] option[value="username"]');
+
                 search_for.closest('.jr-container').find('input[id$="blocked_users"]').closest('p').animate({
                     opacity: 'hide',
                     height: 'hide'
@@ -312,14 +247,10 @@
                     opacity: 'show',
                     height: 'show'
                 }, 200);
-                search_for.closest('.jr-container').find('select[id$="orderby"] option[value="popular-ASC"]').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
-                search_for.closest('.jr-container').find('select[id$="orderby"] option[value="popular-DESC"]').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
+
+                showClosestSetting(search_for, 'select[id$="orderby"] option[value="popular-ASC"]');
+                showClosestSetting(search_for, 'select[id$="orderby"] option[value="popular-DESC"]');
+
                 $('#img_to_show').animate({opacity: 'show', height: 'show'}, 200);
 
             }
@@ -329,17 +260,9 @@
         $('body').on('change', '.jr-container [id$="attachment"]:checkbox', function (e) {
             var attachment = $(this);
             if (this.checked) {
-                attachment.closest('.jr-container').find('select[id$="images_link"] option[value="attachment"]').animate({
-                    opacity: 'show',
-                    height: 'show'
-                }, 200);
-                //attachment.closest('.jr-container').find('select[id$="images_link"]').val('image_link');
+                showClosestSetting(attachment, 'select[id$="images_link"] option[value="attachment"]')
             } else {
-                attachment.closest('.jr-container').find('select[id$="images_link"] option[value="attachment"]').animate({
-                    opacity: 'hide',
-                    height: 'hide'
-                }, 200);
-                //attachment.closest('.jr-container').find('select[id$="images_link"]').val('image_link');
+                hideClosestSetting(attachment, 'select[id$="images_link"] option[value="attachment"]')
             }
         });
 
@@ -389,7 +312,7 @@
                     });
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    //console.log(XMLHttpRequest.responseText);
+
                 }
             });
         });
@@ -422,7 +345,6 @@
                 success: function (response) {
                     if (response.success) {
                         $tr.fadeOut();
-                        //window.location.reload();
                     } else {
                         alert(response.data);
                     }
@@ -462,7 +384,6 @@
         jQuery('.wis_modal_content #wis-instagram-row').on('click', function (e) {
             modal.toggleClass("wis_closed");
             spinOverlay.addClass('is-active');
-            //modalOverlay.toggleClass("wis_closed");
             wis_account = $(this).attr('data-account');
             jQuery.post(ajaxurl, {
                 action: 'wis_add_account_by_token',
@@ -478,7 +399,6 @@
         jQuery('.wis_modal_content #wis-facebook-row').on('click', function (e) {
             modal.toggleClass("wis_closed");
             spinOverlay.addClass('is-active');
-            //modalOverlay.toggleClass("wis_closed");
             wis_account = $(this).attr('data-account');
             jQuery.post(ajaxurl, {
                 action: 'wis_add_facebook_page_by_token',
@@ -515,5 +435,47 @@
         });
 
     }); // Document Ready
+
+    jQuery.fn.lightTabs = function(options){
+
+        var createTabs = function(){
+            tabs = this;
+            data_widget_id = tabs.getAttribute("data-widget-id")
+            slider_id = data_widget_id.split('-')[1]
+            i = slider_id;
+
+            showPage = function(i, device){
+
+                if(device === 'desk'){
+                    $('#desk_tab_content_' + i).show();
+                    $('#desk_tab_' + i).addClass("active");
+
+                    $('#mob_tab_content_' + i).hide();
+                    $('#mob_tab_' + i).removeClass("active");
+                }
+
+                if(device === 'mob') {
+                    $('#mob_tab_content_' + i).show();
+                    $('#mob_tab_' + i).addClass("active");
+
+                    $('#desk_tab_content_' + i).hide();
+                    $('#desk_tab_' + i).removeClass("active");
+                }
+            }
+
+            showPage(i, 'desk');
+
+            $(".desk_tab").click(function (){
+               let desk_tab_id = this.getAttribute('data-tab-id');
+               showPage(desk_tab_id, 'desk')
+
+            });
+            $(".mob_tab").click(function (){
+                let mob_tab_id = this.getAttribute('data-tab-id');
+                showPage(mob_tab_id, 'mob')
+            });
+        };
+        return this.each(createTabs);
+    };
 
 })(jQuery);

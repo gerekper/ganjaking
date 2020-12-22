@@ -1,16 +1,7 @@
 <?php
 
 // Porto Recent Members
-add_shortcode( 'porto_recent_members', 'porto_shortcode_recent_members' );
 add_action( 'vc_after_init', 'porto_load_recent_members_shortcode' );
-
-function porto_shortcode_recent_members( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_recent_members' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_recent_members_shortcode() {
 	$animation_type     = porto_vc_animation_type();

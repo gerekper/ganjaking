@@ -1,0 +1,108 @@
+.loginpress-group-wrapper{
+
+}
+#customize-controls h3.loginpress-group-heading{
+  margin: 0 -12px;
+  border: 1px solid #ddd;
+  border-left: 0;
+  border-right: 0;
+  padding: 13px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #555;
+  background-color: #fff;
+  position: relative;
+}
+.loginpress-group-info{
+    margin: 0 -12px;
+    background: #fff;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+.loginpress-group-info p{
+  font-size: 12px;
+  line-height: 16px;
+  margin: 0 0 10px;
+}
+.loginpress-group-info p:last-child{
+    margin-bottom: 0;
+    font-size: 11px;
+    line-height: 1.6;
+    color: #444;
+}
+.loginpress-group-badge{
+  margin-right: 5px;
+  padding: 1px 5px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #2a93c2;
+  border-radius: 3px;
+  letter-spacing: 1px;
+}
+#customize-control-loginpress_customization-show_love_position .customize-control-title{
+  float: left;
+  padding-right: 10px;
+}
+#customize-control-loginpress_customization-loginpress_show_love .customize-control-title{
+  padding-right: 5px;
+}
+#customize-control-loginpress_customization-show_love_position.customize-control .customize-inside-control-row{
+  display: inline-block;
+  width: auto;
+  padding: 5px;
+  margin-top: -4px;
+  vertical-align: top;
+}
+#customize-controls .customize-section-title.is-in-view{
+	z-index: 9999;
+}
+#customize-controls h3.loginpress-group-heading .customize-help-toggle {
+  position: absolute;
+  top: 4px;
+  right: 1px;
+  padding: 20px 20px 10px 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  box-shadow: none;
+  -webkit-appearance: none;
+  background: 0 0;
+  color: #555d66;
+  border: none;
+  border-radius: 50%;
+}
+#customize-controls h3.loginpress-group-heading .customize-help-toggle:before {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  padding: 4px;
+}
+#customize-controls h3.loginpress-group-heading .customize-help-toggle:focus{
+  outline: none;
+}
+#customize-controls h3.loginpress-group-heading .customize-help-toggle:hover:before{
+  color: #5b9dd9;
+}
+#customize-controls h3.loginpress-group-heading .customize-help-toggle:focus:before{
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgba(30,140,190,.8);
+  color: #5b9dd9;
+}
+/* Code start for RTL */
+html[dir="rtl"] #customize-controls h3.loginpress-group-heading .customize-help-toggle{
+  left: 1px;
+  right: auto;
+}
+html[dir="rtl"] input[type=checkbox].loginpress-radio:checked + .loginpress-radio-btn:after{
+  right: 15px;
+  left: auto;
+}
+html[dir="rtl"] .customize-partial-edit-shortcut button,html[dir="rtl"]  .widget .customize-partial-edit-shortcut button{
+  right: 0;
+}
+/* Code End for RTL */

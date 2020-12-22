@@ -536,7 +536,6 @@
 	"category-addlinks-pos":"",
 
 	"add-to-cart-notification":"2",
-	"category-hover":true,
 	"product-categories":true,
 	"product-review":true,
 	"product-price":true,

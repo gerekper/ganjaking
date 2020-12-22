@@ -1,14 +1,7 @@
 <?php
 // Porto Portfolios
-add_shortcode( 'porto_portfolios', 'porto_shortcode_portfolios' );
 add_action( 'vc_after_init', 'porto_load_portfolios_shortcode' );
-function porto_shortcode_portfolios( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_portfolios' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
+
 function porto_load_portfolios_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();

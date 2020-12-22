@@ -83,16 +83,7 @@ if ( function_exists( 'register_block_type' ) ) {
 }
 
 // Porto Section
-add_shortcode( 'porto_section', 'porto_shortcode_section' );
 add_action( 'vc_after_init', 'porto_load_section_shortcode' );
-
-function porto_shortcode_section( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_section' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_section_shortcode() {
 	$animation_type     = porto_vc_animation_type();

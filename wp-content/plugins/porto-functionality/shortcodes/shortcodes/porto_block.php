@@ -1,21 +1,7 @@
 <?php
 
 // Porto Block
-add_shortcode( 'porto_block', 'porto_shortcode_block' );
 add_action( 'vc_after_init', 'porto_load_block_shortcode' );
-
-function porto_shortcode_block( $atts, $content = null ) {
-	$load_posts_only = function_exists( 'porto_is_ajax' ) && porto_is_ajax() && isset( $_GET['load_posts_only'] );
-	if ( $load_posts_only ) {
-		return false;
-	}
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_block' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_block_shortcode() {
 	$animation_type     = porto_vc_animation_type();

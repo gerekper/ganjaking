@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-add_action( 'wp_head', 'porto_action_head', 8 );
+add_action( 'wp_enqueue_scripts', 'porto_action_head', 8 );
 if ( ! function_exists( 'porto_action_head' ) ) :
 	function porto_action_head() {
 		global $porto_layout, $porto_sidebar;

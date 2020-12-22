@@ -76,21 +76,7 @@ class WIS_ComponentsPage extends WIS_Page {
                 'icon' => 'https://ps.w.org/cm-tiktok-feed/assets/icon-256x256.png',
                 'description' => __('DISPLAY TIKTOK IN WIDGETS, POSTS, PAGES, OR ANYWHERE ELSE USING SHORTCODES.', 'instagram-slider-widget'),
                 'settings_url' => admin_url('admin.php?page=widgets-wtiktok')
-            ],
-            [
-                'name' => 'shopifeed',
-                'title' => __('Shopifeed', 'instagram-slider-widget'),
-                'url' => 'https://cm-wp.com/instagram-slider-widget/shopifeed',
-                'type' => 'internal',
-                'build' => 'premium',
-                'component_const' => 'SPFD_PLUGIN_ACTIVE',
-                'base_path' => 'shopifeed/shopifeed.php',
-                'slug'  => '',
-                'icon' => WIS_PLUGIN_URL . '/assets/img/icon.png',
-                'description' => __('CREATE YOUR ONLINE STORE FROM INSTAGRAM', 'instagram-slider-widget'),
-                'settings_url' => admin_url('admin.php?page=widgets-wisw')
             ]
-
         ];
 
        echo $this->render('components', ['components' => $components]);

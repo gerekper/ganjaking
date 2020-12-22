@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Loader; if (!defined('ABSPATH')) exit; class GlobFileLoader extends \MailPoetVendor\Symfony\Component\DependencyInjection\Loader\FileLoader { public function load($resource, $type = null) { foreach ($this->glob($resource, \false, $globResource) as $path => $info) { $this->import($path); } $this->container->addResource($globResource); } public function supports($resource, $type = null) { return 'glob' === $type; } } 

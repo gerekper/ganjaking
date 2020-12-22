@@ -17,10 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since         2.0.7
  *
- * @param Wbcr_Factory436_Plugin $plugin_instance
+ * @param Wbcr_Factory437_Plugin $plugin_instance
  *
  */
-function wbcr_factory_clearfy_227_check_license( $plugin_instance ) {
+function wbcr_factory_clearfy_228_check_license( $plugin_instance ) {
 
 	$plugin_name = $plugin_instance->request->post( 'plugin_name', null, true );
 
@@ -34,7 +34,7 @@ function wbcr_factory_clearfy_227_check_license( $plugin_instance ) {
 	check_admin_referer( "clearfy_activate_license_for_{$plugin_name}" );
 
 	if ( empty( $action ) || ! in_array( $action, [ 'activate', 'deactivate', 'sync', 'unsubscribe' ] ) ) {
-		wp_send_json_error( [ 'error_message' => __( 'Licensing action not passed or this action is prohibited!', 'wbcr_factory_clearfy_227' ) ] );
+		wp_send_json_error( [ 'error_message' => __( 'Licensing action not passed or this action is prohibited!', 'wbcr_factory_clearfy_228' ) ] );
 		die();
 	}
 
@@ -45,23 +45,23 @@ function wbcr_factory_clearfy_227_check_license( $plugin_instance ) {
 		switch ( $action ) {
 			case 'activate':
 				if ( empty( $license_key ) || strlen( $license_key ) > 32 ) {
-					wp_send_json_error( [ 'error_message' => __( 'License key is empty or license key too long (license key is 32 characters long)', 'wbcr_factory_clearfy_227' ) ] );
+					wp_send_json_error( [ 'error_message' => __( 'License key is empty or license key too long (license key is 32 characters long)', 'wbcr_factory_clearfy_228' ) ] );
 				} else {
 					$plugin_instance->premium->activate( $license_key );
-					$success_message = __( 'Your license has been successfully activated', 'wbcr_factory_clearfy_227' );
+					$success_message = __( 'Your license has been successfully activated', 'wbcr_factory_clearfy_228' );
 				}
 				break;
 			case 'deactivate':
 				$plugin_instance->premium->deactivate();
-				$success_message = __( 'The license is deactivated', 'wbcr_factory_clearfy_227' );
+				$success_message = __( 'The license is deactivated', 'wbcr_factory_clearfy_228' );
 				break;
 			case 'sync':
 				$plugin_instance->premium->sync();
-				$success_message = __( 'The license has been updated', 'wbcr_factory_clearfy_227' );
+				$success_message = __( 'The license has been updated', 'wbcr_factory_clearfy_228' );
 				break;
 			case 'unsubscribe':
 				$plugin_instance->premium->cancel_paid_subscription();
-				$success_message = __( 'Subscription success cancelled', 'wbcr_factory_clearfy_227' );
+				$success_message = __( 'Subscription success cancelled', 'wbcr_factory_clearfy_228' );
 				break;
 		}
 	} catch( Exception $e ) {

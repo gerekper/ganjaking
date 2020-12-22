@@ -10,19 +10,19 @@ use function MailOptin\Core\strtotime_utc;
 class SendCampaign extends AbstractSendGridConnect
 {
     /** @var int ID of email campaign */
-    protected $email_campaign_id;
+    public $email_campaign_id;
 
     /** @var int ID of campaign log */
-    protected $campaign_log_id;
+    public $campaign_log_id;
 
     /** @var string campaign subject */
-    protected $campaign_subject;
+    public $campaign_subject;
 
     /** @var string campaign email in HTML */
-    protected $content_text;
+    public $content_text;
 
     /** @var string campaign email in plain text */
-    protected $content_html;
+    public $content_html;
 
     /**
      * Constructor poop.

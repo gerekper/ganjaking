@@ -342,7 +342,7 @@ jQuery(document).ready(function($) {
                 $required = $(filter + ' [name="' + id + '"]'),
                 type = $required.attr('type');
             if ($required.prop('type') == 'select-one') {
-                $required.change(function() {
+                $required.on('change', function() {
                     if ($.inArray($required.val(), value.split(',')) !== -1) {
                         $el.show();
                     } else {
@@ -352,7 +352,7 @@ jQuery(document).ready(function($) {
                 $required.change();
             } else {
                 if (type == 'checkbox') {
-                    $required.change(function() {
+                    $required.on('change', function() {
                         if ($(this).is(':checked')) {
                             if (value) {
                                 $el.show();
@@ -714,8 +714,10 @@ jQuery(function($) {
                 }
                 if ($(document.body).hasClass('elementor-editor-active') && $('#elementor-preview').length) {
                     loaddata.type = 'e'; // Elementor
+                } else if ($(document.body).hasClass('vcv-wb-editor') && $('#vcv-editor-iframe').length) {
+                    loaddata.type = 'c'; // Visual Composer
                 } else {
-                    loaddata.type = 'v'; // Visual Composer
+                    loaddata.type = 'v'; // WPBakery
                 }
                 $('.blocks-wrapper').addClass('loading');
                 $.ajax({
@@ -752,7 +754,7 @@ jQuery(function($) {
                     }
                 });
             });
-            $('.blocks-wrapper .blocks-list').on('click', '.import', function(e) {
+            $('body:not(.vcv-wb-editor) .blocks-wrapper .blocks-list').on('click', '.import', function(e) {
                 e.preventDefault();
                 var $this = $(this),
                     block_id = $this.data('id');
@@ -763,7 +765,7 @@ jQuery(function($) {
                 if ($(document.body).hasClass('elementor-editor-active')) {
                     importdata.type = 'e'; // Elementor
                 } else {
-                    importdata.type = 'v'; // Visual Composer
+                    importdata.type = 'v'; // WPBakery
                 }
                 $.ajax({
                     url: ajaxurl,
@@ -774,14 +776,14 @@ jQuery(function($) {
                         //$this.removeAttr('disabled');
                         //$this.closest('.block').removeClass('importing');
                         if (response && response.content) {
-                            if (typeof vc != 'undefined' && vc.storage) {
+                            if (typeof vc != 'undefined' && vc.storage) { // WPBakery backend editor
                                 vc.storage.append(response.content);
                                 vc.shortcodes.fetch({
                                     reset: !0
                                 }), _.delay(function() {
                                     window.vc.undoRedoApi.unlock();
                                 }, 50);
-                            } else if (window.vc_iframe_src) { // frontend editor
+                            } else if (window.vc_iframe_src) { // WPBakery frontend editor
                                 var render_data = { action: 'vc_frontend_load_template', block_id: block_id, content: response.content, wpnonce: porto_studio.wpnonce, template_unique_id: '1', template_type: 'my_templates', vc_inline: true, _vcnonce: window.vcAdminNonce };
                                 if (response.meta) {
                                     render_data.meta = response.meta;
@@ -811,8 +813,14 @@ jQuery(function($) {
                                     $this.removeAttr('disabled');
                                     $this.closest('.block').removeClass('importing');
                                 });
-                            } else if (typeof elementor != 'undefined') {
+                            } else if (typeof elementor != 'undefined') { // Elementor editor
                                 elementor.getPreviewView().addChildModel(response.content, {});
+                                // active save button or save elementor
+                                if ( elementor.saver && elementor.saver.footerSaver && elementor.saver.footerSaver.activateSaveButtons ) {
+                                    elementor.saver.footerSaver.activateSaveButtons(document, 'publish');
+                                } else {
+                                    $e.run('document/save/publish');
+                                }
                             }
                         }
                         if (response && response.meta) {
@@ -934,18 +942,20 @@ jQuery(function($) {
                 $('.blocks-wrapper .category-list li:first-child a').trigger('click', [cur_page, filter]);
             });
         }
-        $('#porto-studio-editor-button, #porto-elementor-panel-porto-studio').on('click', function(e) {
+
+        $(document.body).on('click', '#porto-studio-editor-button, #porto-elementor-panel-porto-studio, #vce-porto-studio-trigger', function(e) {
             e.preventDefault();
-            if ($(this).hasClass('disabled')) {
+            var $this = $(this);
+            if ($this.hasClass('disabled')) {
                 return false;
             }
-            $(this).addClass('disabled');
+            $this.addClass('disabled');
             $('.blocks-wrapper img[data-original]').each(function() {
                 $(this).attr('src', $(this).data('original'));
                 $(this).removeAttr('data-original');
             });
             $('.blocks-wrapper').waitForImages(function() {
-                $('#porto-studio-editor-button, #porto-elementor-panel-porto-studio').removeClass('disabled');
+                $this.removeClass('disabled');
                 $.magnificPopup.open({
                     items: {
                         src: '.blocks-wrapper'
@@ -1422,10 +1432,12 @@ jQuery(function($) {
                 $o = jQuery('#porto-install-options .pagebuilder-selector'),
                 active_p = $o.data('active-p');
 
-            if (jQuery(this).parent().hasClass('elementor') || jQuery(this).parent().hasClass('gutenberg')) {
+            if (jQuery(this).parent().hasClass('elementor') || jQuery(this).parent().hasClass('vc') || jQuery(this).parent().hasClass('gutenberg')) {
                 if ('gutenberg' == active_p && !jQuery(this).parent().hasClass('gutenberg')) {
                     active_p = 'js_composer';
                 } else if ('elementor' == active_p && !jQuery(this).parent().hasClass('elementor')) {
+                    active_p = 'js_composer';
+                } else if ('vc' == active_p && !jQuery(this).parent().hasClass('vc')) {
                     active_p = 'js_composer';
                 }
                 live_url = live_urls[active_p];
@@ -1436,6 +1448,9 @@ jQuery(function($) {
                 }
                 if (jQuery(this).parent().hasClass('gutenberg')) {
                     $o.find('.radio.gutenberg').show();
+                }
+                if (jQuery(this).parent().hasClass('vc')) {
+                    $o.find('.radio.vc').show();
                 }
                 $o.find('.radio.' + active_p + ' > input').prop('checked', true);
                 $o.find('.message-section').addClass('d-none').children('div').addClass('d-none');

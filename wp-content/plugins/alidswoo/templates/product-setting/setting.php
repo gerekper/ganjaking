@@ -9,24 +9,24 @@ $view->setPostId( intval($_GET['post_id'] ) );
     var alidAjax = {"ajaxurl":"<?php echo admin_url( 'admin-ajax.php' ); ?>"};
     /* ]]> */
 </script>
-<link href="<?php echo ADSW_URL; ?>/src/css/icons/fontawesome/style.css" rel="stylesheet">
-<link href="<?php echo ADSW_URL; ?>/src/css/bootstrap/bootstrap<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
-<link href="<?php echo ADSW_URL; ?>/src/css/bootstrap/bootstrap-select<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
-<link href="<?php echo ADSW_URL; ?>/src/css/datepicker/date<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
+<link href="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>css/icons/fontawesome/style.css" rel="stylesheet">
+<link href="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>css/bootstrap/bootstrap<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
+<link href="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>css/bootstrap/bootstrap-select<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
+<link href="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>css/datepicker/date<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
 
-<link href="<?php echo ADSW_URL; ?>/src/css/alids-global<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
-<link href="<?php echo ADSW_URL; ?>/src/css/alids-main<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
+<link href="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>css/alids-global<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
+<link href="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>css/alids-main<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
 
-<link href="<?php echo ADSW_URL; ?>/src/css/front/setting-product/setting<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
+<link href="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>css/front/setting-product/setting<?php echo ADSW_MIN; ?>.css" rel="stylesheet">
 
 <script type="text/javascript" src="<?php echo get_site_url();?>/wp-includes/js/jquery/jquery.js?ver=1.12.4"></script>
-<script type="text/javascript" src="<?php echo ADSW_URL; ?>/src/js/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo ADSW_URL; ?>/src/js/bootstrap/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="<?php echo ADSW_URL; ?>/src/js/bootstrap/bootstrap-multiselect.min.js"></script>
-<script type="text/javascript" src="<?php echo ADSW_URL; ?>/src/js/datepicker/moment.min.js"></script>
-<script type="text/javascript" src="<?php echo ADSW_URL; ?>/src/js/datepicker/daterangepicker<?php echo ADSW_MIN; ?>.js"></script>
-<script type="text/javascript" src="<?php echo ADSW_URL; ?>/src/js/global/uniform.min.js"></script>
-<script type="text/javascript" src="<?php echo ADSW_URL; ?>/src/js/front/setting-product/setting<?php echo ADSW_MIN; ?>.js"></script>
+<script type="text/javascript" src="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>js/bootstrap/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>js/bootstrap/bootstrap-multiselect.min.js"></script>
+<script type="text/javascript" src="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>js/datepicker/moment.min.js"></script>
+<script type="text/javascript" src="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>js/datepicker/daterangepicker<?php echo ADSW_MIN; ?>.js"></script>
+<script type="text/javascript" src="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>js/global/uniform.min.js"></script>
+<script type="text/javascript" src="<?php echo ADSW_URL . ADSW_ASSETS_PATH; ?>js/front/setting-product/setting<?php echo ADSW_MIN; ?>.js"></script>
 
 <div class="setting-product-body">
     <input type="hidden" name="adsw_post_id" value="<?php echo $view->post_id; ?>">

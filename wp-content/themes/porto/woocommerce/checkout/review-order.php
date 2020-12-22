@@ -8,11 +8,10 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<table class="shop_table review-order woocommerce-checkout-review-order-table">
+<table class="shop_table review-order woocommerce-checkout-review-order-table mb-0">
 	<thead>
 		<tr>
-			<th class="product-name"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-			<th class="product-total"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
+			<th colspan="2" class="product-name"><h4 class="mb-0"><?php esc_html_e( 'Product', 'woocommerce' ); ?></h4></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,10 +23,10 @@ defined( 'ABSPATH' ) || exit;
 
 			if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 				?>
-					<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
-						<td class="product-name">
+					<tr class="border-bottom-0 <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
+						<td class="product-name text-v-dark line-height-sm">
 						<?php echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ) . '&nbsp;'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-						<?php echo apply_filters( 'woocommerce_checkout_cart_item_quantity', ' <strong class="product-quantity">' . sprintf( '&times;&nbsp;%s', $cart_item['quantity'] ) . '</strong>', $cart_item, $cart_item_key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<?php echo apply_filters( 'woocommerce_checkout_cart_item_quantity', ' <strong class="product-quantity font-weight-medium">' . sprintf( '&times;&nbsp;%s', $cart_item['quantity'] ) . '</strong>', $cart_item, $cart_item_key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						<?php echo function_exists( 'wc_get_formatted_cart_item_data' ) ? wc_get_formatted_cart_item_data( $cart_item ) : WC()->cart->get_item_data( $cart_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</td>
 						<td class="product-total">
@@ -44,7 +43,7 @@ defined( 'ABSPATH' ) || exit;
 	<tfoot>
 
 		<tr class="cart-subtotal">
-			<th><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
+			<th><h4 class="mb-0"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></h4></th>
 			<td><?php echo apply_filters( 'porto_get_price_html', WC()->cart->get_cart_subtotal() ); ?></td>
 		</tr>
 
@@ -95,7 +94,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php do_action( 'woocommerce_review_order_before_order_total' ); ?>
 
 		<tr class="order-total">
-			<th><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
+			<th><h4 class="text-md my-3"><?php esc_html_e( 'Total', 'woocommerce' ); ?></h4></th>
 			<td><?php wc_cart_totals_order_total_html(); ?></td>
 		</tr>
 

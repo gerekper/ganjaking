@@ -262,7 +262,9 @@ endif;
 
 if ( ! function_exists( 'porto_comment' ) ) :
 	function porto_comment( $comment, $args, $depth ) {
-		$GLOBALS['comment'] = $comment; ?>
+		$GLOBALS['comment'] = $comment;
+		global $post_layout;
+		?>
 
 	<li <?php comment_class(); ?> id="comment-<?php comment_ID(); ?>">
 
@@ -274,15 +276,22 @@ if ( ! function_exists( 'porto_comment' ) ) :
 				<div class="comment-arrow"></div>
 				<span class="comment-by">
 					<strong><?php echo get_comment_author_link(); ?></strong>
+				<?php if ( 'modern' == $post_layout ) : ?>
+					<?php /* translators: %s: Comment date and time */ ?>
+					<span class="date"><?php printf( esc_html__( '%1$s', 'porto' ), get_comment_date() ); ?></span>
+				<?php else : ?>
 					<span class="pt-right">
-						<span> <?php edit_comment_link( '<i class="fas fa-pencil-alt"></i> ' . __( 'Edit', 'porto' ), '  ', '' ); ?></span>
+				<?php endif; ?>
+					<?php if ( current_user_can( 'edit_comment' ) ) : ?>
+						<span> <?php edit_comment_link( esc_html__( 'Edit', 'porto' ), '  ', '' ); ?></span>
+					<?php endif; ?>
 						<span> 
 						<?php
 						comment_reply_link(
 							array_merge(
 								$args,
 								array(
-									'reply_text' => '<i class="fas fa-reply"></i> ' . __( 'Reply', 'porto' ),
+									'reply_text' => esc_html__( 'Reply', 'porto' ),
 									'add_below'  => 'comment',
 									'depth'      => $depth,
 									'max_depth'  => $args['max_depth'],
@@ -291,7 +300,9 @@ if ( ! function_exists( 'porto_comment' ) ) :
 						);
 						?>
 						</span>
+				<?php if ( 'modern' != $post_layout ) : ?>
 					</span>
+				<?php endif; ?>
 				</span>
 				<div>
 					<?php if ( '0' == $comment->comment_approved ) : ?>
@@ -300,8 +311,10 @@ if ( ! function_exists( 'porto_comment' ) ) :
 					<?php endif; ?>
 					<?php comment_text(); ?>
 				</div>
+			<?php if ( 'modern' != $post_layout ) : ?>
 				<?php /* translators: %s: Comment date and time */ ?>
 				<span class="date pt-right"><?php printf( esc_html__( '%1$s at %2$s', 'porto' ), get_comment_date(), get_comment_time() ); ?></span>
+			<?php endif; ?>
 			</div>
 		</div>
 
@@ -472,8 +485,7 @@ function porto_comment_form_defaults( $defaults ) {
 	}
 
 	if ( is_singular( 'post' ) ) {
-		$post_layout = get_post_meta( get_the_ID(), 'post_layout', true );
-		$post_layout = ( 'default' == $post_layout || ! $post_layout ) ? $porto_settings['post-content-layout'] : $post_layout;
+		global $post_layout;
 		if ( 'woocommerce' === $post_layout ) {
 
 			$defaults['title_reply']          = esc_html__( 'LEAVE A COMMENT', 'porto' );

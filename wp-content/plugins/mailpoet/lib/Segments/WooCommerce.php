@@ -22,12 +22,20 @@ class WooCommerce {
   /** @var WPFunctions */
   private $wp;
 
+  /** @var WP */
+  private $wpSegment;
+
   private $mailpoetEmailCollation;
   private $wpPostmetaValueCollation;
 
-  public function __construct(SettingsController $settings, WPFunctions $wp) {
+  public function __construct(
+    SettingsController $settings,
+    WPFunctions $wp,
+    WP $wpSegment
+  ) {
     $this->settings = $settings;
     $this->wp = $wp;
+    $this->wpSegment = $wpSegment;
   }
 
   public function synchronizeRegisteredCustomer($wpUserId, $currentFilter = null) {
@@ -62,7 +70,6 @@ class WooCommerce {
           $data['source'] = Source::WOOCOMMERCE_USER;
         }
         $data['id'] = $subscriber->id();
-        $data['deleted_at'] = null; // remove the user from the trash
 
         $subscriber = Subscriber::createOrUpdate($data);
         if ($subscriber->getErrors() === false && $subscriber->id > 0) {
@@ -109,12 +116,11 @@ class WooCommerce {
   public function synchronizeCustomers() {
     $this->getColumnCollation();
 
-    WP::synchronizeUsers(); // synchronize registered users
+    $this->wpSegment->synchronizeUsers(); // synchronize registered users
 
     $this->markRegisteredCustomers();
     $insertedUsersEmails = $this->insertSubscribersFromOrders();
     $this->removeUpdatedSubscribersWithInvalidEmail($insertedUsersEmails);
-    $this->removeFromTrash();
     $this->updateFirstNames();
     $this->updateLastNames();
     $this->insertUsersToSegment();
@@ -296,15 +302,6 @@ class WooCommerce {
         )
     ', $subscribersTable, $subscriberSegmentTable, $wcSegment->id);
     Subscriber::rawExecute($sql);
-  }
-
-  private function removeFromTrash() {
-    $subscribersTable = Subscriber::$_table;
-    Subscriber::rawExecute(sprintf('
-      UPDATE %1$s
-      SET %1$s.deleted_at = NULL
-        WHERE %1$s.is_woocommerce_user = 1
-    ', $subscribersTable));
   }
 
   private function removeOrphanedSubscribers() {

@@ -40,9 +40,7 @@
                     function( e ) {
                         var id = $( this ).closest( 'label' ).attr( 'for' );
 
-                        $( this ).parents( "fieldset:first" ).find( '.redux-image-select-selected' ).removeClass( 'redux-image-select-selected' ).find( "input[type='radio']" ).attr(
-                            "checked", false
-                        );
+                        $( this ).parents( "fieldset:first" ).find( '.redux-image-select-selected' ).removeClass( 'redux-image-select-selected' ).find( "input[type='radio']" ).prop( 'checked', false );
                         $( this ).closest( 'label' ).find( 'input[type="radio"]' ).prop( 'checked' );
 
                         if ( $( this ).closest( 'label' ).hasClass( 'redux-image-select-preset-' + id ) ) { // If they clicked on a preset, import!
@@ -88,9 +86,7 @@
 
                             return false;
                         } else {
-                            el.find( 'label[for="' + id + '"]' ).addClass( 'redux-image-select-selected' ).find( "input[type='radio']" ).attr(
-                                "checked", true
-                            ).trigger('change');
+                            el.find( 'label[for="' + id + '"]' ).addClass( 'redux-image-select-selected' ).find( "input[type='radio']" ).prop( 'checked', true ).trigger( 'change' );
 
                             redux_change( $( this ).closest( 'label' ).find( 'input[type="radio"]' ) );
                         }

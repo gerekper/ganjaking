@@ -74,8 +74,7 @@
     }
 
     .rss-date,
-    .post-date,
-    .comment-author-link {
+    .post-date {
         display: inline;
         font-size: .9em;
     }
@@ -150,6 +149,22 @@
     }
     &:hover:before {
         @include animation(navItemArrow .6s linear infinite);
+    }
+}
+
+.widget_recent_entries,
+.widget_recent_comments,
+.widget_pages,
+.widget_meta,
+.widget_nav_menu,
+.widget_archive,
+.widget_categories,
+.widget_rss,
+.wp-block-categories-list,
+.wp-block-archives-list,
+.wp-block-latest-posts {
+    li > a {
+        color: inherit
     }
 }
 

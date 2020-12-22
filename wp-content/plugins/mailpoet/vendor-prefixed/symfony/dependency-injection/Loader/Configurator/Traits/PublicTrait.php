@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Loader\Configurator\Traits; if (!defined('ABSPATH')) exit; trait PublicTrait { public final function public() : self { $this->definition->setPublic(\true); return $this; } public final function private() : self { $this->definition->setPublic(\false); return $this; } } 

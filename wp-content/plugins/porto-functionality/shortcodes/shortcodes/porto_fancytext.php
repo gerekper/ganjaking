@@ -1,17 +1,7 @@
 <?php
 // Porto fancytext
 
-add_shortcode( 'porto_fancytext', 'porto_shortcode_fancytext' );
 add_action( 'vc_after_init', 'porto_load_fancytext_shortcode' );
-
-function porto_shortcode_fancytext( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_fancytext' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_fancytext_shortcode() {
 

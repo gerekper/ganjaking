@@ -1,16 +1,7 @@
 <?php
 
 // Porto Section Scroll
-add_shortcode( 'porto_section_scroll', 'porto_shortcode_section_scroll' );
 add_action( 'vc_after_init', 'porto_load_section_scroll_shortcode' );
-
-function porto_shortcode_section_scroll( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_section_scroll' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_section_scroll_shortcode() {
 	$custom_class = porto_vc_custom_class();

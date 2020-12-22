@@ -1,0 +1,100 @@
+.customize-control-loginpress-range:hover .loginpress-range-reset {
+	opacity: 1;
+}
+
+
+.customize-control-loginpress-range .loginpress-range-reset {
+	cursor: pointer;
+	height: 19px;
+	left: 0;
+	position: relative;
+	top: 5px;
+	-webkit-transition: opacity 150ms cubic-bezier(0.694, 0.0482, 0.335, 1);
+	transition: opacity 150ms cubic-bezier(0.694, 0.0482, 0.335, 1);
+	width: 19px;
+}
+
+.customize-control-loginpress-range .loginpress-range-reset::after {
+	content: "\f531";
+	cursor: pointer;
+	font: 100 20px/1 dashicons;
+	left: 0;
+	position: relative;
+	top: 2px;
+	z-index: 999;
+}
+
+.loginpress-range-slider {
+    width: 100%;
+}
+
+.loginpress-range-slider_range {
+    -webkit-appearance: none;
+    width: calc(100% - (100px));
+    height: 5px;
+    border-radius: 2.5px;
+    background: #d7dcdf;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+.loginpress-range-slider_range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #0085ba;
+    cursor: pointer;
+    -webkit-transition: background .15s ease-in-out;
+    transition: background .15s ease-in-out;
+}
+
+.loginpress-range-slider_range::-webkit-slider-thumb:hover {
+    background: #0085ba;
+}
+
+.loginpress-range-slider_range:active::-webkit-slider-thumb {
+    background: #0085ba;
+}
+
+.loginpress-range-slider_range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background: #0085ba;
+    cursor: pointer;
+    -webkit-transition: background .15s ease-in-out;
+    transition: background .15s ease-in-out;
+}
+
+.loginpress-range-slider_range::-moz-range-thumb:hover {
+    background: #0085ba;
+}
+
+.loginpress-range-slider_range:active::-moz-range-thumb {
+    background: #0085ba;
+}
+
+.customize-control input[type=text].loginpress-range-slider_val {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    color: #32373c;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-left: 3px;
+}
+
+::-moz-range-track {
+    background: #d7dcdf;
+    border: 0;
+}
+
+input::-moz-focus-inner, input::-moz-focus-outer {
+    border: 0;
+}

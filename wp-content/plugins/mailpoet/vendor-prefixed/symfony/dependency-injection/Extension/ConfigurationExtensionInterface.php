@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Extension; if (!defined('ABSPATH')) exit; use MailPoetVendor\Symfony\Component\Config\Definition\ConfigurationInterface; use MailPoetVendor\Symfony\Component\DependencyInjection\ContainerBuilder; interface ConfigurationExtensionInterface { public function getConfiguration(array $config, \MailPoetVendor\Symfony\Component\DependencyInjection\ContainerBuilder $container); } 

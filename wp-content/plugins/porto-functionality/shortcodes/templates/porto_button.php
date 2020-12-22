@@ -22,7 +22,7 @@
 			'animation_duration'  => 1000,
 			'animation_delay'     => 0,
 		),
-		$settings
+		$atts
 	);
 
 	if ( $settings['title'] ) {

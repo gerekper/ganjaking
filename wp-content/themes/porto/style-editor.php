@@ -28,6 +28,11 @@ if ( $dark ) {
 } else {
 	$color_dark = $b['dark-color'];
 }
+
+$skin_color = $b['skin-color'];
+
+require_once( PORTO_LIB . '/lib/color-lib.php' );
+$porto_color_lib = PortoColorLib::getInstance();
 ?>
 /* Generals */
 body .editor-styles-wrapper {
@@ -49,7 +54,7 @@ body .editor-styles-wrapper {
 	<?php endif; ?>
 }
 
-body .editor-styles-wrapper h1, body .editor-styles-wrapper h2, body .editor-styles-wrapper h3, body .editor-styles-wrapper h4, body .editor-styles-wrapper h5, body .editor-styles-wrapper h6 { color: <?php echo porto_if_dark( '#fff', $color_dark ); ?>; margin-top: 0; margin-bottom: 1rem }
+body .editor-styles-wrapper h1, body .editor-styles-wrapper h2, body .editor-styles-wrapper h3, body .editor-styles-wrapper h4, body .editor-styles-wrapper h5, body .editor-styles-wrapper h6 { color: <?php echo ! $dark ? $color_dark : '#fff'; ?>; margin-top: 0; margin-bottom: 1rem }
 
 body .editor-styles-wrapper h1 {
 	<?php if ( $b['h1-font']['font-family'] ) : ?>

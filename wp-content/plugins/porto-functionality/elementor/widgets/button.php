@@ -313,11 +313,11 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
+		$atts = $this->get_settings_for_display();
 		if ( $template = porto_shortcode_template( 'porto_button' ) ) {
 			$this->add_inline_editing_attributes( 'title' );
 			$title_attrs_escaped = ' ' . $this->get_render_attribute_string( 'title' );
-			unset( $settings['align'] );
+			unset( $atts['align'] );
 			include $template;
 		}
 	}

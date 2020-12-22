@@ -88,6 +88,11 @@ class Functions extends AbstractExtension {
         ['is_safe' => ['all']]
       ),
       new TwigFunction(
+        'wp_date_format',
+        [$this, 'getWPDateFormat'],
+        ['is_safe' => ['all']]
+      ),
+      new TwigFunction(
         'wp_time_format',
         [$this, 'getWPTimeFormat'],
         ['is_safe' => ['all']]
@@ -155,6 +160,11 @@ class Functions extends AbstractExtension {
       new TwigFunction(
         'add_referral_id',
         [$this, 'addReferralId'],
+        ['is_safe' => ['all']]
+      ),
+      new TwigFunction(
+        'is_loading_3rd_party_enabled',
+        [$this, 'libs3rdPartyEnabled'],
         ['is_safe' => ['all']]
       ),
     ];
@@ -231,6 +241,9 @@ class Functions extends AbstractExtension {
   public function installedInLastTwoWeeks() {
     $maxNumberOfWeeks = 2;
     $installedAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->settings->get('installed_at'));
+    if ($installedAt === false) {
+      return false;
+    }
     return $installedAt->diffInWeeks(Carbon::now()) < $maxNumberOfWeeks;
   }
 
@@ -292,5 +305,9 @@ class Functions extends AbstractExtension {
 
   public function addReferralId($url) {
     return $this->referralUrlDecorator->decorate($url);
+  }
+
+  public function libs3rdPartyEnabled(): bool {
+    return $this->settings->get('3rd_party_libs.enabled') === '1';
   }
 }

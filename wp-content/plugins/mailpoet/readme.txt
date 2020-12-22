@@ -3,7 +3,7 @@ Contributors: mailpoet, wysija
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
 Requires at least: 5.3
 Tested up to: 5.5
-Stable tag: 3.52.0
+Stable tag: 3.56.1
 Requires PHP: 7.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -183,6 +183,54 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 6. WooCommerce emails
 
 == Changelog ==
+
+= 3.56.1 - 2020-12-15 =
+* Fixed: api key verification issues.
+
+= 3.56.0 - 2020-12-07 =
+* Improved: search control when setting up Purchased this Product/Category emails.
+
+= 3.55.1 - 2020-11-30 =
+* Added: a video tutorial for form editor;
+* Improved: manual download of Premium plugin instead of automatic, as per repository guidelines.
+
+= 3.55.0 - 2020-11-23 =
+* Added: undo/redo in the form editor;
+* Fixed: some shortcodes in newsletter are not interpreted;
+* Fixed: sent email status sometimes shown as scheduled;
+* Fixed: displaying forms for specific posts/categories;
+* Fixed: blank screen of the newsletter preview.
+
+= 3.54.3 - 2020-11-17 =
+* Added: button to WooCommerce Email Customizer in WooCommerce Emails settings;
+* Improved: form's success message design;
+* Fixed: showing "Not sent yet" for sent emails in Safari;
+* Fixed: various UI issues;
+* Fixed: subscribers import issue;
+* Fixed: short email templates names.
+
+= 3.54.2 - 2020-11-10 =
+* Improved: fullscreen option added to the form editor;
+* Fixed: Form editor is now again usable on mobile devices.
+
+= 3.54.1 - 2020-11-02 =
+* Added: option to bulk unsubscribe subscribers;
+* Improved: removed default form, added button to create new form;
+* Improved: new font;
+* Improved: skip form templates, build form from scratch;
+* Improved: you can now disable all 3rd party libraries in settings;
+* Improved: added Abandoned Cart Content block to templates for new users;
+* Improved: redesigned import, export and settings pages.
+
+= 3.54.0 - 2020-10-27 =
+* Added: new form templates;
+* Improved: allow different "Purchased in this Category" emails to be sent to single user;
+* Improved: allow different "Purchased this Product" emails to be sent to a single user;
+* Improved: redesigned listings;
+* Fixed: missing custom color link for some of the form blocks.
+
+= 3.53.0 - 2020-10-20 =
+* Improved: minor changes and fixes.
 
 = 3.52.0 - 2020-10-12 =
 * Added: WooCommerce Abandoned Cart Content;

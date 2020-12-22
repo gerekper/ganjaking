@@ -1,11 +1,11 @@
-=== Popup, Forms, Optin & Email Newsletters for Mailchimp, AWeber, HubSpot - MailOptin ===
+﻿=== Popup, Forms, Optin & Email Newsletters for Mailchimp, AWeber, HubSpot - MailOptin ===
 Contributors: properfraction, Collizo4sky
 Donate link: https://mailoptin.io/pricing/
 Tags: popup, form, newsletter, zoho, mailchimp, aweber, constant contact, campaignmonitor, campaign monitor, convertkit, forms, infusionsoft, contact form, wpforms, wpform, cf7, contact form 7, ninja forms, formidable forms, gravity forms, activecampaign, drip, sendy, hubspot, mailerlite, sendinblue, klaviyo, mailjet, ontraport, constantcontact, jilt, vertical response, zoho, sendgrid, zoho crm, zoho campaigns, moosend, godaddy, getgist, sendlane, myemma, fluentcrm, mailster, getresponse, sendfox, wemail, autoresponder, wpml, woocommerce, lightbox, modal, emailoctopus, pop up, email, exit intent, user registration, ninja form
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 5.5
-Stable tag: 1.2.31.4
+Tested up to: 5.6
+Stable tag: 1.2.34.0
 License: GPL-2.0+
 
 Convert visitors into email subscribers, register new users & keep them engaged with newsletters. Mailchimp, AWeber, Infusionsoft, ActiveCampaign, ConvertKit, Campaign Monitor, Constant Contact, CRM etc.
@@ -167,15 +167,27 @@ Yes, MailOptin has full translation and localization support via the mailoptin t
 
 == Changelog ==
 
-= 1.2.31.4 =
-* Fixed fatal error that caused customizer not to work.
+= 1.2.34.0 =
+* Added more first/last name sendinblue contact attributes.
+* Added Selected Users to WordPress Registered Users Integration.
+* Switched to using wp_after_insert_post hook for new post notification automation.
+* Lazy-load chosenjs customizer options.
+* PHP 8 compatibility improvements.
+* Resolve CSS conflicts with other plugins eg shortpixel.
 
-= 1.2.31.3 =
-* Added missing tagging supports.
+= 1.2.33.1 =
+* Fixed bugs with double optin in Sendinblue integration.
+* Added filter "mo_optin_form_set_font_families_to_inherit" to make all optin font families a theme font.
 
-= 1.2.31.2 =
-* Added FluentCRM integration.
-* Switched from wp_redirect to wp_safe_redirect for 302 redirects.
-* Improve oauth integrations token refreshing.
+= 1.2.33.0 =
+* Added middle of content optin placement.
+* Added double-optin support to Sendinblue.
+
+= 1.2.32.0 =
+* Added Constant Contact API v3 which include support for custom fields.
+* Fixed issue where custom html forms caused customizer saving to fail.
+* Fixed issue where Sendinblue view in browser and unsubscribe links weren't working.
+* Added email notification when there is an email campaign error.
+* Flag GA events as nonInteractive.
 
 See the [changelog file](https://plugins.svn.wordpress.org/mailoptin/trunk/changelog.txt) for full change log information.

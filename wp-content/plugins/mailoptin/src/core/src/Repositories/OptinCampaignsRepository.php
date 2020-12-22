@@ -74,7 +74,7 @@ class OptinCampaignsRepository extends AbstractRepository
         // in single request return previous value.
         $cache_key = 'is_split_test_' . $optin_campaign_id;
 
-        $callback        = function () use ($optin_campaign_id) {
+        $callback = function () use ($optin_campaign_id) {
             return OptinCampaignMeta::get_campaign_meta(
                 $optin_campaign_id,
                 'split_test_parent',
@@ -715,7 +715,7 @@ class OptinCampaignsRepository extends AbstractRepository
         // update the "activate_optin" setting to true
         $all_settings = self::get_settings();
 
-        if ($all_settings[$optin_campaign_id]['activate_optin'] === true) return true;
+        if (isset($all_settings[$optin_campaign_id]['activate_optin']) && ($all_settings[$optin_campaign_id]['activate_optin'] === true)) return true;
 
         $all_settings[$optin_campaign_id]['activate_optin'] = true;
 

@@ -1,16 +1,7 @@
 <?php
 
 // Porto Sort Item
-add_shortcode( 'porto_sort_item', 'porto_shortcode_sort_item' );
 add_action( 'vc_after_init', 'porto_load_sort_item_shortcode' );
-
-function porto_shortcode_sort_item( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_sort_item' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_sort_item_shortcode() {
 	$custom_class = porto_vc_custom_class();

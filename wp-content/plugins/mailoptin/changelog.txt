@@ -1,4 +1,27 @@
-== Changelog ==
+﻿== Changelog ==
+
+= 1.2.34.0 =
+* Added more first/last name sendinblue contact attributes.
+* Added Selected Users to WordPress Registered Users Integration.
+* Switched to using wp_after_insert_post hook for new post notification automation.
+* Lazy-load chosenjs customizer options.
+* PHP 8 compatibility improvements.
+* Resolve CSS conflicts with other plugins eg shortpixel.
+
+= 1.2.33.1 =
+* Fixed bugs with double optin in Sendinblue integration.
+* Added filter "mo_optin_form_set_font_families_to_inherit" to make all optin font families a theme font.
+
+= 1.2.33.0 =
+* Added middle of content optin placement.
+* Added double-optin support to Sendinblue.
+
+= 1.2.32.0 =
+* Added Constant Contact API v3 which include support for custom fields.
+* Fixed issue where custom html forms caused customizer saving to fail.
+* Fixed issue where Sendinblue view in browser and unsubscribe links weren't working.
+* Added email notification when there is an email campaign error.
+* Flag GA events as nonInteractive.
 
 = 1.2.31.4 =
 * Fixed fatal error that caused customizer not to work.

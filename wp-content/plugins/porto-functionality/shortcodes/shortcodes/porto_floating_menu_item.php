@@ -1,16 +1,7 @@
 <?php
 
 // Porto Experience Timeline Item
-add_shortcode( 'porto_floating_menu_item', 'porto_shortcode_floating_menu_item' );
 add_action( 'vc_after_init', 'porto_load_floating_menu_item_shortcode' );
-
-function porto_shortcode_floating_menu_item( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_floating_menu_item' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_floating_menu_item_shortcode() {
 	$animation_type     = porto_vc_animation_type();

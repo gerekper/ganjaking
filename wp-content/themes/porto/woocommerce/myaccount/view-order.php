@@ -18,19 +18,29 @@ if ( version_compare( $porto_woo_version, '2.6', '<' ) ) {
 }
 
 ?>
-
+<h3 class="account-sub-title d-none d-md-block mb-3 mt-2"><i class="Simple-Line-Icons-social-dropbox align-middle m-r-sm"></i><?php esc_html_e( 'Order', 'woocommerce' ); ?> #<?php echo esc_html( $order->get_order_number() ); ?></h3>
 <?php if ( version_compare( $porto_woo_version, '2.6', '>=' ) ) : ?>
-	<p class="order-info m-b-lg">
-	<?php
-		printf(
-			/* translators: 1: order number 2: order date 3: order status */
-			esc_html__( 'Order #%1$s was placed on %2$s and is currently %3$s.', 'porto' ),
-			'<mark class="order-number">' . $order->get_order_number() . '</mark>', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			'<mark class="order-date">' . wc_format_datetime( $order->get_date_created() ) . '</mark>', // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			'<mark class="order-status">' . wc_get_order_status_name( $order->get_status() ) . '</mark>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		);
-	?>
-	</p>
+	<div class="d-flex flex-wrap order-info m-b-xl m-t-xs p-t-lg">
+		<div class="order-item">
+			<?php esc_html_e( 'Order Number', 'woocommerce' ); ?>
+			<mark class="font-weight-bold order-number"><?php echo esc_html( $order->get_order_number() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></mark>
+		</div>
+		<div class="order-item">
+			<?php esc_html_e( 'Status', 'woocommerce' ); ?>
+			<mark class="font-weight-bold order-status text-primary text-uppercase"><?php echo wc_get_order_status_name( $order->get_status() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></mark>
+		</div>
+		<div class="order-item">
+			<?php esc_html_e( 'Date', 'woocommerce' ); ?>
+			<mark class="font-weight-bold order-date"><?php echo wc_format_datetime( $order->get_date_created() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></mark>
+		</div>
+		<div class="order-item">
+			<?php esc_html_e( 'Total', 'woocommerce' ); ?>
+			<mark class="font-weight-bold order-total"><?php echo wp_kses_post( $order->get_formatted_order_total() );  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></mark></div>
+		<div class="order-item">
+			<?php esc_html_e( 'Payment method', 'woocommerce' ); ?>
+			<mark class="font-weight-bold order-status"><?php echo wp_kses_post( $order->get_order_item_totals()['payment_method']['value'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></mark>
+		</div>
+	</div>
 <?php else : ?>
 	<p class="order-info alert alert-info m-b-lg">
 	<?php
@@ -55,7 +65,7 @@ if ( version_compare( $porto_woo_version, '2.6', '<' ) ) {
 		<div class="box-content">
 	<?php endif; ?>
 
-	<h2><?php esc_html_e( 'Order Updates', 'woocommerce' ); ?></h2>
+	<h2><?php esc_html_e( 'Order updates', 'woocommerce' ); ?></h2>
 
 	<ol class="woocommerce-OrderUpdates commentlist notes">
 		<?php foreach ( $notes as $note ) : ?>

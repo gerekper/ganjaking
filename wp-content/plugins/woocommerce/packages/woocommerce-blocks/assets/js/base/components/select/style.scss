@@ -1,7 +1,6 @@
 .wc-block-components-select {
 	height: 3em;
 	position: relative;
-	margin-bottom: em($gap-large);
 
 	label {
 		@include reset-typography();
@@ -11,7 +10,7 @@
 		transform: translateY(0.75em);
 		transform-origin: top left;
 		transition: all 200ms ease;
-		color: $gray-50;
+		color: $gray-700;
 		z-index: 1;
 		margin: 0 0 0 #{$gap + 1px};
 		overflow: hidden;
@@ -19,6 +18,9 @@
 		max-width: calc(100% - #{2 * $gap});
 		white-space: nowrap;
 
+		.has-dark-controls & {
+			color: $input-placeholder-dark;
+		}
 		@media screen and (prefers-reduced-motion: reduce) {
 			transition: none;
 		}
@@ -30,12 +32,21 @@
 
 	&.has-error {
 		.components-custom-select-control__button {
-			border-color: $error-red;
+			&,
+			&:hover,
+			&:focus,
+			&:active {
+				border-color: $alert-red;
+			}
+			&:focus {
+				outline: 1px dotted $alert-red;
+				outline-offset: 2px;
+			}
 		}
 	}
 
 	&.has-error label {
-		color: $error-red;
+		color: $alert-red;
 	}
 
 	.components-custom-select-control__button {
@@ -59,15 +70,23 @@
 			text-transform: none;
 			white-space: nowrap;
 			width: 100%;
+			.has-dark-controls & {
+				background-color: $input-background-dark;
+				border-color: $input-border-dark;
+				color: $input-text-dark;
+			}
 		}
 	}
 
 	.components-custom-select-control__button-icon {
 		right: #{$gap - 4px};
+		.has-dark-controls & {
+			fill: $input-text-dark;
+		}
 	}
 
 	.components-custom-select-control__menu {
-		background-color: #fff;
+		background-color: $select-dropdown-light;
 		margin: 0;
 		max-height: 300px;
 		overflow: auto;
@@ -76,12 +95,23 @@
 		&:empty {
 			display: none;
 		}
+		.has-dark-controls & {
+			background-color: $select-dropdown-dark;
+			color: $input-text-dark;
+		}
 	}
 
 	.components-custom-select-control__item {
 		@include font-size(regular);
 		margin-left: 0;
 		padding-left: $gap;
+		&:hover,
+		&:focus,
+		&.is-highlighted {
+			.has-dark-controls & {
+				background-color: $select-item-dark;
+			}
+		}
 	}
 
 	.components-custom-select-control__item-icon {

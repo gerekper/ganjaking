@@ -5,8 +5,12 @@ namespace MailPoet\Statistics\Track;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Entities\NewsletterLinkEntity;
+use MailPoet\Entities\SendingQueueEntity;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Models\StatisticsClicks;
-use MailPoet\Newsletter\Shortcodes\Categories\Link;
+use MailPoet\Newsletter\Shortcodes\Categories\Link as LinkShortcodeCategory;
 use MailPoet\Newsletter\Shortcodes\Shortcodes;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Util\Cookies;
@@ -26,9 +30,22 @@ class Clicks {
   /** @var Cookies */
   private $cookies;
 
-  public function __construct(SettingsController $settingsController, Cookies $cookies) {
+  /** @var Shortcodes */
+  private $shortcodes;
+
+  /** @var LinkShortcodeCategory */
+  private $linkShortcodeCategory;
+
+  public function __construct(
+    SettingsController $settingsController,
+    Cookies $cookies,
+    Shortcodes $shortcodes,
+    LinkShortcodeCategory $linkShortcodeCategory
+  ) {
     $this->settingsController = $settingsController;
     $this->cookies = $cookies;
+    $this->shortcodes = $shortcodes;
+    $this->linkShortcodeCategory = $linkShortcodeCategory;
   }
 
   /**
@@ -38,19 +55,23 @@ class Clicks {
     if (!$data || empty($data->link)) {
       return $this->abort();
     }
+    /** @var SubscriberEntity $subscriber */
     $subscriber = $data->subscriber;
+    /** @var SendingQueueEntity $queue */
     $queue = $data->queue;
+    /** @var NewsletterEntity $newsletter */
     $newsletter = $data->newsletter;
+    /** @var NewsletterLinkEntity $link */
     $link = $data->link;
-    $wpUserPreview = ($data->preview && $subscriber->isWPUser());
+    $wpUserPreview = ($data->preview && ($subscriber->isWPUser()));
     // log statistics only if the action did not come from
     // a WP user previewing the newsletter
     if (!$wpUserPreview) {
       $statisticsClicks = StatisticsClicks::createOrUpdateClickCount(
-        $link->id,
-        $subscriber->id,
-        $newsletter->id,
-        $queue->id
+        $link->getId(),
+        $subscriber->getId(),
+        $newsletter->getId(),
+        $queue->getId()
       );
       $this->sendRevenueCookie($statisticsClicks);
       $this->sendAbandonedCartCookie($subscriber);
@@ -58,7 +79,7 @@ class Clicks {
       $openEvent = new Opens();
       $openEvent->track($data, $displayImage = false);
     }
-    $url = $this->processUrl($link->url, $newsletter, $subscriber, $queue, $wpUserPreview);
+    $url = $this->processUrl($link->getUrl(), $newsletter, $subscriber, $queue, $wpUserPreview);
     $this->redirectToUrl($url);
   }
 
@@ -83,7 +104,7 @@ class Clicks {
       $this->cookies->set(
         self::ABANDONED_CART_COOKIE_NAME,
         [
-          'subscriber_id' => $subscriber->id,
+          'subscriber_id' => $subscriber->getId(),
         ],
         [
           'expires' => time() + self::ABANDONED_CART_COOKIE_EXPIRY,
@@ -93,10 +114,16 @@ class Clicks {
     }
   }
 
-  public function processUrl($url, $newsletter, $subscriber, $queue, $wpUserPreview) {
+  public function processUrl(
+    string $url,
+    NewsletterEntity $newsletter,
+    SubscriberEntity $subscriber,
+    SendingQueueEntity $queue,
+    bool $wpUserPreview
+  ) {
     if (preg_match('/\[link:(?P<action>.*?)\]/', $url, $shortcode)) {
       if (!$shortcode['action']) $this->abort();
-      $url = Link::processShortcodeAction(
+      $url = $this->linkShortcodeCategory->processShortcodeAction(
         $shortcode['action'],
         $newsletter,
         $subscriber,
@@ -104,8 +131,11 @@ class Clicks {
         $wpUserPreview
       );
     } else {
-      $shortcodes = new Shortcodes($newsletter, $subscriber, $queue, $wpUserPreview);
-      $url = $shortcodes->replace($url);
+      $this->shortcodes->setQueue($queue);
+      $this->shortcodes->setNewsletter($newsletter);
+      $this->shortcodes->setSubscriber($subscriber);
+      $this->shortcodes->setWpUserPreview($wpUserPreview);
+      $url = $this->shortcodes->replace($url);
     }
     return $url;
   }

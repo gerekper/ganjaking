@@ -1,17 +1,7 @@
 <?php
 // Porto Call To Action Box
 
-add_shortcode( 'porto_carousel_logo', 'porto_shortcode_carousel_logo' );
 add_action( 'vc_after_init', 'porto_load_carousel_logo_shortcode' );
-
-function porto_shortcode_carousel_logo( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_carousel_logo' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_carousel_logo_shortcode() {
 

@@ -1539,6 +1539,16 @@ jQuery(document).ready(function($) {
             }
         });
     });
+    var arr = ['home', 'blog', 'shop', 'wishlist', 'account', 'cart'];
+    $.each(arr, function(index, key) {
+        wp.customize('porto_settings[sticky-icon-' + key + ']', function(e) {
+            e.bind(function(value) {
+                if (value) {
+                    $('.porto-sticky-navbar .sticky-icon.link-' + key + ' i').attr('class', value);
+                }
+            });
+        });
+    });
     wp.customize('porto_settings[menu-align]', function(e) {
         e.bind(function(value) {
             if ($('.main-menu-wrap > #main-menu').length) {
@@ -1638,15 +1648,6 @@ jQuery(document).ready(function($) {
                 } else {
                     $('.gridlist-toggle #grid:not(.active)').click();
                 }
-            }
-        });
-    });
-    wp.customize('porto_settings[category-hover]', function(e) {
-        e.bind(function(value) {
-            if ('1' == value) {
-                $('ul.products li.product-col').removeClass('hover');
-            } else {
-                $('ul.products li.product-col').addClass('hover');
             }
         });
     });

@@ -3,23 +3,24 @@
  *	Plugin Name: AliDropship Woo Plugin
  *	Plugin URI: https://alidropship.com/
  *	Description: AliDropship Woo is a WordPress plugin created for import AliExpress product to Woo Shop
- *	Version: 1.6.11
+ *	Version: 1.6.18
  *	Text Domain: adsw
  *	Requires at least: WP 5.3.2
  *	Author: Vitaly Kukin & Yaroslav Nevskiy & Pavel Shishkin & Denis Zharov
  *	Author URI: http://yellowduck.me/
  *	License: SHAREWARE
- *	WC requires at least: 4.0.1
- *	WC tested up to: 4.1.0
+ *	WC requires at least: 4.5.0
+ *	WC tested up to: 4.8.0
  */
 
-if ( ! defined( 'ADSW_VERSION' ) ) define( 'ADSW_VERSION', '1.6.11' );
+if ( ! defined( 'ADSW_VERSION' ) ) define( 'ADSW_VERSION', '1.6.18' );
 
 if ( ! defined( 'ADSW_PATH' ) ) define( 'ADSW_PATH', plugin_dir_path( __FILE__ ) );
 if ( ! defined( 'ADSW_URL' ) ) define( 'ADSW_URL', str_replace( [ 'https:', 'http:' ], '', plugins_url( 'alidswoo' ) ) );
 if ( ! defined( 'ADSW_CODE' ) ) define( 'ADSW_CODE', 'ion72' );
 if ( ! defined( 'ADSW_ERROR' ) ) define( 'ADSW_ERROR', adsw_check_server() );
 if ( ! defined( 'ADSW_MIN' ) ) define( 'ADSW_MIN', '.min' );
+if ( ! defined( 'ADSW_ASSETS_PATH' ) ) define( 'ADSW_ASSETS_PATH', '/assets/' ); // /src/ - develop, /assets/ - production
 
 function adsw_check_server() {
 
@@ -88,7 +89,7 @@ function adsw_admin_notice__error() {
                             </div>
                         </div>',
             $class,
-            ADSW_URL . '/src/images/main/logo.svg',
+            ADSW_URL . ADSW_ASSETS_PATH . 'images/main/logo.svg',
             $message );
 	}
 
@@ -110,7 +111,7 @@ function adsw_admin_notice__error() {
                             </div>
                         </div>',
             $class,
-            ADSW_URL . '/src/images/main/logo.svg',
+            ADSW_URL . ADSW_ASSETS_PATH . 'images/main/logo.svg',
             $message );
     }
 }
@@ -124,6 +125,8 @@ function adsw_lang_init() {
 	load_plugin_textdomain( 'adsw' );
 }
 add_action( 'init', 'adsw_lang_init' );
+
+require( ADSW_PATH . 'core/autoload.php');
 
 if( is_admin() ) {
 

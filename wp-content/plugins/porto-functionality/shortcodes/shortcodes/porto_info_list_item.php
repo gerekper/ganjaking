@@ -1,17 +1,7 @@
 <?php
 // Porto info_list_item
 
-add_shortcode( 'porto_info_list_item', 'porto_shortcode_info_list_item' );
 add_action( 'vc_after_init', 'porto_load_info_list_item_shortcode' );
-
-function porto_shortcode_info_list_item( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_info_list_item' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_info_list_item_shortcode() {
 

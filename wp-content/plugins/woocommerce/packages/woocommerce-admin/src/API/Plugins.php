@@ -9,7 +9,7 @@ namespace Automattic\WooCommerce\Admin\API;
 
 use Automattic\WooCommerce\Admin\Features\Onboarding;
 use Automattic\WooCommerce\Admin\PluginsHelper;
-use \Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes_Install_JP_And_WCS_Plugins;
+use \Automattic\WooCommerce\Admin\Notes\InstallJPAndWCSPlugins;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -189,12 +189,12 @@ class Plugins extends \WC_REST_Data_Controller {
 	 * @param string $slug The slug of the plugin being installed.
 	 */
 	private function create_install_plugin_error_inbox_notification_for_jetpack_installs( $slug ) {
-		// Exit early if we're not installing the Jetpack or the WooCommerce Services plugins.
+		// Exit early if we're not installing the Jetpack or the WooCommerce Shipping & Tax plugins.
 		if ( 'jetpack' !== $slug && 'woocommerce-services' !== $slug ) {
 			return;
 		}
 
-		WC_Admin_Notes_Install_JP_And_WCS_Plugins::possibly_add_note();
+		InstallJPAndWCSPlugins::possibly_add_note();
 	}
 
 	/**

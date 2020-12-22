@@ -38,11 +38,11 @@ class ConnectSettingsPage
             );
         }
 
-        $settingsArg[] = array(
-            'section_title_without_status' => __('Sendinblue', 'mailoptin'),
-            'section_title'                => __('Sendinblue Connection', 'mailoptin') . " $status",
-            'type'                         => AbstractConnect::EMAIL_MARKETING_TYPE,
-            'sendinblue_api_key'           => array(
+        $settingsArg = array(
+            'section_title_without_status'     => __('Sendinblue (Recommended)', 'mailoptin'),
+            'section_title'                    => __('Sendinblue Connection', 'mailoptin') . " $status",
+            'type'                             => AbstractConnect::EMAIL_MARKETING_TYPE,
+            'sendinblue_api_key'               => array(
                 'type'          => 'text',
                 'obfuscate_val' => true,
                 'label'         => __('API Key', 'mailoptin'),
@@ -52,23 +52,54 @@ class ConnectSettingsPage
                     '</a>'
                 ),
             ),
-            'sendinblue_support_id'        => array(
+            'sendinblue_support_id'            => array(
                 'type'        => 'text',
                 'label'       => __('Support ID', 'mailoptin'),
                 'description' => $support_id_description,
             ),
-            'sendinblue_create_acc_cta'    => array(
-                'type'  => 'custom_field_block',
-                'label' => '',
-                'data'  => sprintf(
-                    '<a href="%s" target="_blank" class="button">%s</a>',
-                    'https://bit.ly/33O2EQq',
-                    esc_html__("Don't have a SendinBlue account? Create one", 'mailoptin')
+            'sendinblue_double_optin_template' => array(
+                'type'        => 'select',
+                'label'       => __('Double Optin Template', 'mailoptin'),
+                'disabled'    => empty($double_optin_templates) ? true : false,
+                'options'     => empty($double_optin_templates) ? ['' => __("No double optin template found.", 'mailoptin')] : $double_optin_templates,
+                'description' => __('Select a double optin template to use if you have enabled double optin.', 'mailoptin')
+            ),
+        );
+
+        //if sendinblue is connected, show the double optin templates and the redirection url
+        if (true === $connected) {
+
+            $double_optin_templates = ['' => esc_html__('Select...', 'mailoptin')] + Connect::get_instance()->get_double_optin_template();
+
+            $settingsArg['sendinblue_double_optin_template'] = array(
+                'type'        => 'select',
+                'label'       => __('Double Optin Template', 'mailoptin'),
+                'disabled'    => empty($double_optin_templates) ? true : false,
+                'options'     => empty($double_optin_templates) ? ['' => __("No double optin templates found.", 'mailoptin')] : $double_optin_templates,
+                'description' => sprintf(
+                    __('Select a double optin template to use. %sLearn more%s', 'mailoptin'),
+                    '<a target="_blank" href="https://mailoptin.io/article/connect-mailoptin-with-sendinblue/">', '</a>'
                 )
+            );
+
+            $settingsArg['sendinblue_redirection_url'] = array(
+                'type'        => 'text',
+                'label'       => __('Redirection URL', 'mailoptin'),
+                'description' => __('The URL that user will be redirected to after clicking on the double optin confirmation link.', 'mailoptin')
+            );
+        }
+
+        $settingsArg['sendinblue_create_acc_cta'] = array(
+            'type'  => 'custom_field_block',
+            'label' => '',
+            'data'  => sprintf(
+                '<a href="%s" target="_blank" class="button">%s</a>',
+                'https://bit.ly/33O2EQq',
+                esc_html__("Don't have a Sendinblue account? Create one", 'mailoptin')
             )
         );
 
-        return array_merge($arg, $settingsArg);
+        return array_merge($arg, [$settingsArg]);
     }
 
     public function output_error_log_link($option, $args)
@@ -80,7 +111,6 @@ class ConnectSettingsPage
 
         //Output error log link if  there is one
         echo AbstractConnect::get_optin_error_log_link('sendinblue');
-
     }
 
     public static function get_instance()

@@ -236,3 +236,24 @@
 .items_to_show.porto_margin_top{
 	margin-top: 15px;
 }
+
+
+/* Porto VC Elements */
+.vcv-ui-icon-attribute.fas, .vcv-ui-icon-attribute.fa { font-family: 'Font Awesome 5 Free' !important }
+.porto-vc-btn-sm { padding: 10px 20px; font-size: .75rem; min-height: auto }i.vcv-ui-icon-attribute.cg-1::before { background-image: url(../images/cg/1.jpg); }
+i.vcv-ui-icon-attribute.cg-2::before { background-image: url(../images/cg/2.jpg); }
+i.vcv-ui-icon-attribute.cg-3::before { background-image: url(../images/cg/3.jpg); }
+i.vcv-ui-icon-attribute.cg-4::before { background-image: url(../images/cg/4.jpg); }
+i.vcv-ui-icon-attribute.cg-5::before { background-image: url(../images/cg/5.jpg); }
+i.vcv-ui-icon-attribute.cg-6::before { background-image: url(../images/cg/6.jpg); }
+i.vcv-ui-icon-attribute.cg-7::before { background-image: url(../images/cg/7.jpg); }
+i.vcv-ui-icon-attribute.cg-8::before { background-image: url(../images/cg/8.jpg); }
+i.vcv-ui-icon-attribute.cg-9::before { background-image: url(../images/cg/9.jpg); }
+i.vcv-ui-icon-attribute.cg-10::before { background-image: url(../images/cg/10.jpg); }
+i.vcv-ui-icon-attribute.cg-11::before { background-image: url(../images/cg/11.jpg); }
+i.vcv-ui-icon-attribute.cg-12::before { background-image: url(../images/cg/12.jpg); }
+i.vcv-ui-icon-attribute.cg-13::before { background-image: url(../images/cg/13.jpg); }
+i.vcv-ui-icon-attribute.cg-14::before { background-image: url(../images/cg/14.jpg); }
+i.vcv-ui-icon-attribute.creative-img::before { content: ''; width: 100px; height: 100px; display: block; background-position: center; background-repeat: no-repeat; background-size: contain; }
+.vcv-ui-form-button-group--attribute [title*="grid-layout-"].vcv-ui-form-button { height: 120px;outline: 2px solid transparent; margin: 4px; transition: outline-color .3s; border-width: 0; }
+.vcv-ui-form-button-group--attribute [title*="grid-layout-"].vcv-ui-form-button--active, .vcv-ui-form-button-group--attribute [title*="grid-layout-"].vcv-ui-form-button:hover { background-color: #fff; outline-color: #00a0d2; }

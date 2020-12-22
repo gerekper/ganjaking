@@ -7,14 +7,32 @@ $page_header_type = $page_header_type ? $page_header_type : ( $porto_settings['b
 
 $breadcrumbs = $porto_settings['show-breadcrumbs'] ? porto_get_meta_value( 'breadcrumbs', true ) : false;
 $page_title  = $porto_settings['show-pagetitle'] ? porto_get_meta_value( 'page_title', true ) : false;
-
+$woo_breadcrumb = empty( $porto_settings['woo-show-default-page-header'] ) ? false : $porto_settings['woo-show-default-page-header'];
 if ( ( is_front_page() && is_home() ) || is_front_page() ) {
 	$breadcrumbs = false;
 	$page_title  = false;
 }
 ?>
 <?php
-if ( $breadcrumbs || $page_title ) :
+if ( class_exists('Woocommerce') && ( is_cart() || is_checkout() ) && $woo_breadcrumb ) :
+	?>
+	<div class="woo-page-header page-header-8">
+		<ul class="breadcrumb text-center">
+			<li class="<?php echo is_cart() ? esc_attr( 'current' ) : ''; ?>">
+				<a href="<?php echo esc_url( wc_get_cart_url() ); ?>"><?php esc_html_e( 'Shopping Cart', 'porto' ); ?></a>
+			</li>
+			<li class="<?php echo is_checkout() && ! is_order_received_page() ? esc_attr( 'current' ) : ''; ?>">
+				<i class="delimiter delimiter-2"></i>
+				<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>"><?php esc_html_e( 'Checkout', 'porto' ); ?></a>
+			</li>
+			<li class="<?php echo is_order_received_page() ? esc_attr( 'current' ) : esc_attr( 'disable' ); ?>">
+				<i class="delimiter delimiter-2"></i>
+				<a href="#"><?php esc_html_e( 'Order Complete', 'porto' ); ?></a>
+			</li>
+		</ul>
+	</div>
+	<?php
+elseif ( $breadcrumbs || $page_title ) :
 	if ( $porto_settings['breadcrumbs-parallax'] ) {
 		wp_enqueue_script( 'skrollr' );
 	}

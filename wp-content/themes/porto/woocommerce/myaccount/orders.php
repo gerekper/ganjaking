@@ -10,9 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 do_action( 'woocommerce_before_account_orders', $has_orders ); ?>
-
-<?php if ( $has_orders ) : ?>
-
+<h3 class="account-sub-title d-none d-md-block mb-3 mt-2"><i class="Simple-Line-Icons-social-dropbox align-middle m-r-sm"></i><?php esc_html_e( 'Orders', 'porto' ); ?></h3>
 	<table class="woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
 		<thead>
 			<tr>
@@ -21,7 +19,7 @@ do_action( 'woocommerce_before_account_orders', $has_orders ); ?>
 				<?php endforeach; ?>
 			</tr>
 		</thead>
-
+<?php if ( $has_orders ) : ?>
 		<tbody>
 			<?php
 			foreach ( $customer_orders->orders as $customer_order ) :
@@ -58,7 +56,7 @@ do_action( 'woocommerce_before_account_orders', $has_orders ); ?>
 
 									if ( ! empty( $actions ) ) {
 										foreach ( $actions as $key => $action ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
-											echo '<a href="' . esc_url( $action['url'] ) . '" class="woocommerce-button button ' . sanitize_html_class( $key ) . '">' . esc_html( $action['name'] ) . '</a>';
+											echo '<a href="' . esc_url( $action['url'] ) . '" class="woocommerce-button button wc-action-btn px-4 ' . sanitize_html_class( $key ) . '">' . esc_html( $action['name'] ) . '</a>';
 										}
 									}
 								} else {
@@ -109,21 +107,26 @@ do_action( 'woocommerce_before_account_orders', $has_orders ); ?>
 			<?php if ( 1 !== $current_page ) : ?>
 				<a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button" href="<?php echo esc_url( wc_get_endpoint_url( 'orders', $current_page - 1 ) ); ?>"><?php esc_html_e( 'Previous', 'porto' ); ?></a>
 			<?php endif; ?>
-
 			<?php if ( intval( $customer_orders->max_num_pages ) !== $current_page ) : ?>
-
 				<a class="woocommerce-button woocommerce-button--next woocommerce-Button woocommerce-Button--next button" href="<?php echo esc_url( wc_get_endpoint_url( 'orders', $current_page + 1 ) ); ?>"><?php esc_html_e( 'Next', 'porto' ); ?></a>
-
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
-
-<?php else : ?>
-	<div class="woocommerce-message--info woocommerce-Message woocommerce-Message--info">
-		<p><?php esc_html_e( 'No order has been made yet.', 'porto' ); ?></p>
-		<a class="woocommerce-Button button btn-lg m-b" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
-			<?php esc_html_e( 'Go Shop', 'porto' ); ?>
+	<div class="push-top text-center">
+		<a class="woocommerce-Button button btn-v-dark btn-go-shop" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
+			<?php esc_html_e( 'GO SHOP', 'porto' ); ?>
 		</a>
+	</div>
+<?php else : ?>
+	</table>
+	<div class="woocommerce-message--info woocommerce-Message woocommerce-Message--info text-center">
+		<p class="my-5"><?php esc_html_e( 'No order has been made yet.', 'porto' ); ?></p>
+		<div class="porto-separator"><hr class="separator-line  align_center"></div>
+		<div class="push-top">
+			<a class="woocommerce-Button button btn-v-dark btn-go-shop" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
+				<?php esc_html_e( 'GO SHOP', 'porto' ); ?>
+		</a>
+	</div>
 	</div>
 <?php endif; ?>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace WBCR\FactoryClearfy227\Pages;
+namespace WBCR\FactoryClearfy228\Pages;
 
 /**
  * This file is the add-ons page.
@@ -16,7 +16,7 @@ if( !defined('ABSPATH') ) {
 	exit;
 }
 
-class Components extends \Wbcr_FactoryClearfy227_PageBase {
+class Components extends \Wbcr_FactoryClearfy228_PageBase {
 
 	/**
 	 * The id of the page in the admin menu.
@@ -24,7 +24,7 @@ class Components extends \Wbcr_FactoryClearfy227_PageBase {
 	 * Mainly used to navigate between pages.
 	 *
 	 * @since 1.0.0
-	 * @see   FactoryPages435_AdminPage
+	 * @see   FactoryPages436_AdminPage
 	 *
 	 * @var string
 	 */
@@ -41,12 +41,12 @@ class Components extends \Wbcr_FactoryClearfy227_PageBase {
 	public $available_for_multisite = true;
 
 	/**
-	 * @param \Wbcr_Factory436_Plugin $plugin
+	 * @param \Wbcr_Factory437_Plugin $plugin
 	 */
-	public function __construct(\Wbcr_Factory436_Plugin $plugin)
+	public function __construct(\Wbcr_Factory437_Plugin $plugin)
 	{
-		$this->menu_title = __('Components', 'wbcr_factory_clearfy_227');
-		$this->page_menu_short_description = __('More features for plugin', 'wbcr_factory_clearfy_227');
+		$this->menu_title = __('Components', 'wbcr_factory_clearfy_228');
+		$this->page_menu_short_description = __('More features for plugin', 'wbcr_factory_clearfy_228');
 
 		parent::__construct($plugin);
 
@@ -58,18 +58,18 @@ class Components extends \Wbcr_FactoryClearfy227_PageBase {
 	 *
 	 * @return void
 	 * @since 1.0.0
-	 * @see   FactoryPages435_AdminPage
+	 * @see   FactoryPages436_AdminPage
 	 *
 	 */
 	public function assets($scripts, $styles)
 	{
 		parent::assets($scripts, $styles);
 
-		$this->styles->add(FACTORY_CLEARFY_227_URL . '/assets/css/components.css');
+		$this->styles->add(FACTORY_CLEARFY_228_URL . '/assets/css/components.css');
 
 		/**
-		 * @param \Wbcr_Factory436_StyleList $styles
-		 * @param \Wbcr_Factory436_ScriptList $scripts
+		 * @param \Wbcr_Factory437_StyleList $styles
+		 * @param \Wbcr_Factory437_ScriptList $scripts
 		 * @since 1.4.0
 		 *
 		 */
@@ -80,10 +80,10 @@ class Components extends \Wbcr_FactoryClearfy227_PageBase {
 	 * We register notifications for some actions
 	 *
 	 * @param                        $notices
-	 * @param \Wbcr_Factory436_Plugin $plugin
+	 * @param \Wbcr_Factory437_Plugin $plugin
 	 *
 	 * @return array
-	 * @see libs\factory\pages\themplates\FactoryPages435_ImpressiveThemplate
+	 * @see libs\factory\pages\themplates\FactoryPages436_ImpressiveThemplate
 	 */
 	public function getActionNotices($notices)
 	{
@@ -92,7 +92,7 @@ class Components extends \Wbcr_FactoryClearfy227_PageBase {
 				'wbcr-force-update-components-success' => 1
 			],
 			'type' => 'success',
-			'message' => __('Components have been successfully updated to the latest version.', 'wbcr_factory_clearfy_227')
+			'message' => __('Components have been successfully updated to the latest version.', 'wbcr_factory_clearfy_228')
 		];
 
 		$notices[] = [
@@ -100,7 +100,7 @@ class Components extends \Wbcr_FactoryClearfy227_PageBase {
 				'wbcr-force-update-components-error' => 'inactive_licence'
 			],
 			'type' => 'danger',
-			'message' => __('To use premium components, you need activate a license!', 'wbcr_factory_clearfy_227') . '<a href="admin.php?page=license-wbcr_clearfy" class="btn btn-gold">' . __('Activate license', 'wbcr_factory_clearfy_227') . '</a>'
+			'message' => __('To use premium components, you need activate a license!', 'wbcr_factory_clearfy_228') . '<a href="admin.php?page=license-wbcr_clearfy" class="btn btn-gold">' . __('Activate license', 'wbcr_factory_clearfy_228') . '</a>'
 		];
 
 		$notices[] = [
@@ -173,12 +173,12 @@ class Components extends \Wbcr_FactoryClearfy227_PageBase {
 		$components = apply_filters('wbcr/clearfy/components/items_list', $components);
 
 		?>
-		<div class="wbcr-factory-page-group-header"><?php _e('<strong>Plugin Components</strong>.', 'wbcr_factory_clearfy_227') ?>
+		<div class="wbcr-factory-page-group-header"><?php _e('<strong>Plugin Components</strong>.', 'wbcr_factory_clearfy_228') ?>
 			<p>
-				<?php _e('These are components of the plugin bundle. When you activate the plugin, all the components turned on by default. If you don’t need some function, you can easily turn it off on this page.', 'wbcr_factory_clearfy_227') ?>
+				<?php _e('These are components of the plugin bundle. When you activate the plugin, all the components turned on by default. If you don’t need some function, you can easily turn it off on this page.', 'wbcr_factory_clearfy_228') ?>
 			</p>
 		</div>
-		<div class="wbc-factory-clearfy-227-components">
+		<div class="wbc-factory-clearfy-228-components">
 			<?php
 			/**
 			 * @since 1.4.0
@@ -228,7 +228,7 @@ class Components extends \Wbcr_FactoryClearfy227_PageBase {
 					</div>
 					<div class="plugin-card-bottom">
 						<?php if( 'premium' === $component['build'] && !($this->plugin->premium->is_activate() && $this->plugin->premium->is_install_package()) ): ?>
-							<a target="_blank" href="<?php echo esc_url($component['url']) ?>" class="button button-default install-now"><?php _e('Read more', 'wbcr_factory_clearfy_227'); ?></a>
+							<a target="_blank" href="<?php echo esc_url($component['url']) ?>" class="button button-default install-now"><?php _e('Read more', 'wbcr_factory_clearfy_228'); ?></a>
 						<?php else: ?>
 							<?php $delete_button->render_button(); ?><?php $install_button->render_button(); ?>
 						<?php endif; ?>

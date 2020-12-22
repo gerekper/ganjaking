@@ -51,16 +51,16 @@ if ( ! function_exists( 'porto_options_body_wrapper' ) ) :
 	function porto_options_body_wrapper() {
 		return array(
 			'wide'  => array(
-				'alt' => 'Wide',
-				'img' => PORTO_OPTIONS_URI . '/layouts/body_wide.jpg',
+				'title' => 'Wide',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/body_wide.svg',
 			),
 			'full'  => array(
-				'alt' => 'Full',
-				'img' => PORTO_OPTIONS_URI . '/layouts/body_full.jpg',
+				'title' => 'Full',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/body_full.svg',
 			),
 			'boxed' => array(
-				'alt' => 'Boxed',
-				'img' => PORTO_OPTIONS_URI . '/layouts/body_boxed.jpg',
+				'title' => 'Boxed',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/body_boxed.svg',
 			),
 		);
 	}
@@ -70,36 +70,36 @@ if ( ! function_exists( 'porto_options_layouts' ) ) :
 	function porto_options_layouts() {
 		return array(
 			'widewidth'          => array(
-				'alt' => 'Wide Width',
-				'img' => PORTO_OPTIONS_URI . '/layouts/page_wide.jpg',
+				'title' => 'Wide Width',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/page_wide.svg',
 			),
 			'wide-left-sidebar'  => array(
-				'alt' => 'Wide Left Sidebar',
-				'img' => PORTO_OPTIONS_URI . '/layouts/page_wide_left.jpg',
+				'title' => 'Wide Left Sidebar',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/page_wide_left.svg',
 			),
 			'wide-right-sidebar' => array(
-				'alt' => 'Wide Right Sidebar',
-				'img' => PORTO_OPTIONS_URI . '/layouts/page_wide_right.jpg',
+				'title' => 'Wide Right Sidebar',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/page_wide_right.svg',
 			),
 			'wide-both-sidebar'  => array(
-				'alt' => 'Wide Both Sidebars',
-				'img' => PORTO_OPTIONS_URI . '/layouts/page_wide_both.jpg',
+				'title' => 'Wide Both Sidebars',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/page_wide_both.svg',
 			),
 			'fullwidth'          => array(
-				'alt' => 'Without Sidebar',
-				'img' => PORTO_OPTIONS_URI . '/layouts/page_full.jpg',
+				'title' => 'Without Sidebar',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/page_full.svg',
 			),
 			'left-sidebar'       => array(
-				'alt' => 'Left Sidebar',
-				'img' => PORTO_OPTIONS_URI . '/layouts/page_full_left.jpg',
+				'title' => 'Left Sidebar',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/page_full_left.svg',
 			),
 			'right-sidebar'      => array(
-				'alt' => 'Right Sidebar',
-				'img' => PORTO_OPTIONS_URI . '/layouts/page_full_right.jpg',
+				'title' => 'Right Sidebar',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/page_full_right.svg',
 			),
 			'both-sidebar'       => array(
-				'alt' => 'Both Sidebars',
-				'img' => PORTO_OPTIONS_URI . '/layouts/page_full_both.jpg',
+				'title' => 'Both Sidebars',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/page_full_both.svg',
 			),
 		);
 	}
@@ -109,16 +109,16 @@ if ( ! function_exists( 'porto_options_wrapper' ) ) :
 	function porto_options_wrapper() {
 		return array(
 			'wide'  => array(
-				'alt' => 'Wide',
-				'img' => PORTO_OPTIONS_URI . '/layouts/content_wide.jpg',
+				'title' => 'Wide',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/content_wide.svg',
 			),
 			'full'  => array(
-				'alt' => 'Full',
-				'img' => PORTO_OPTIONS_URI . '/layouts/content_full.jpg',
+				'title' => 'Full',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/content_full.svg',
 			),
 			'boxed' => array(
-				'alt' => 'Boxed',
-				'img' => PORTO_OPTIONS_URI . '/layouts/content_boxed.jpg',
+				'title' => 'Boxed',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/content_boxed.svg',
 			),
 		);
 	}
@@ -128,12 +128,12 @@ if ( ! function_exists( 'porto_options_banner_wrapper' ) ) :
 	function porto_options_banner_wrapper() {
 		return array(
 			'wide'  => array(
-				'alt' => 'Wide',
-				'img' => PORTO_OPTIONS_URI . '/layouts/content_wide.jpg',
+				'title' => 'Wide',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/content_wide.svg',
 			),
 			'boxed' => array(
-				'alt' => 'Boxed',
-				'img' => PORTO_OPTIONS_URI . '/layouts/content_boxed.jpg',
+				'title' => 'Boxed',
+				'img'   => PORTO_OPTIONS_URI . '/layouts/content_boxed.svg',
 			),
 		);
 	}

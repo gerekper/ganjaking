@@ -1,17 +1,8 @@
 <?php
 
 // Porto Page Header
-add_shortcode( 'porto_page_header', 'porto_shortcode_page_header' );
 add_action( 'vc_after_init', 'porto_load_page_header_shortcode' );
 add_action( 'save_post', 'porto_check_page_header_shortcode', 10, 1 );
-
-function porto_shortcode_page_header( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_page_header' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_check_page_header_shortcode( $post_id ) {
 	if ( ! function_exists( 'get_current_screen' ) ) {

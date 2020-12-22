@@ -158,7 +158,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 			wp_enqueue_script( 'porto-speed-optimize' );
 
 			wp_enqueue_style( 'porto-speed-optimize-fonts', '//fonts.googleapis.com/css?family=Poppins%3A400%2C500%2C600%2C700&ver=5.3.2' );
-			wp_enqueue_style( 'porto-speed-optimize', PORTO_URI . '/inc/admin/setup_wizard/assets/css/style.css', null, $this->version );
+			wp_enqueue_style( 'porto-speed-optimize', PORTO_URI . '/inc/admin/setup_wizard/assets/css/style.css', array( 'porto_admin' ), $this->version );
 		}
 
 		public function get_step_link( $step ) {
@@ -624,7 +624,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 				if ( ! $this->check_wp_block() ) {
 					$porto_settings_optimize['dequeue_wc_block_css'] = true;
 					$porto_settings_optimize['dequeue_wp_block_css'] = true;
-				} else if ( ! $this->check_wc_block() ) {
+				} elseif ( ! $this->check_wc_block() ) {
 					$porto_settings_optimize['dequeue_wc_block_css'] = true;
 				}
 			} else {
@@ -1082,6 +1082,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 					}
 				}
 
+				// check Elementor widgets
 				if ( defined( 'ELEMENTOR_VERSION' ) ) {
 					$widgets = array(
 						'porto_blog',
@@ -1104,7 +1105,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 					);
 					$widgets = array_diff( $widgets, $used );
 					foreach ( $widgets as $widget ) {
-						$post_ids = $wpdb->get_col( 'SELECT post_id FROM ' . $wpdb->postmeta . ' as meta left join ' . $wpdb->posts . ' as posts on meta.post_id = posts.ID WHERE posts.post_type not in ("revision", "attachment") AND posts.post_status = "publish" and meta_key = "_elementor_data" and meta_value LIKE \'%"widgetType":"' . $widget . '"%\'' );
+						$post_ids = $wpdb->get_col( 'SELECT post_id FROM ' . $wpdb->postmeta . ' as meta left join ' . $wpdb->posts . ' as posts on meta.post_id = posts.ID WHERE posts.post_type not in ("revision", "attachment") AND posts.post_status = "publish" and meta_key = "_elementor_data" and meta_value LIKE \'%"widgetType":"' . $widget . '"%\' LIMIT 1' );
 						if ( ! empty( $post_ids ) ) {
 							$used[] = $widget;
 						}
@@ -1127,7 +1128,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 							}
 							$search_str .= ' meta_value LIKE \'%"' . $c . '":"' . $n . '"%\'';
 						}
-						$post_ids = $wpdb->get_col( 'SELECT post_id FROM ' . $wpdb->postmeta . ' as meta left join ' . $wpdb->posts . ' as posts on meta.post_id = posts.ID WHERE posts.post_type not in ("revision", "attachment") AND posts.post_status = "publish" and meta_key = "_elementor_data" and' . $search_str );
+						$post_ids = $wpdb->get_col( 'SELECT post_id FROM ' . $wpdb->postmeta . ' as meta left join ' . $wpdb->posts . ' as posts on meta.post_id = posts.ID WHERE posts.post_type not in ("revision", "attachment") AND posts.post_status = "publish" and meta_key = "_elementor_data" and' . $search_str . ' LIMIT 1' );
 						if ( ! empty( $post_ids ) ) {
 							$used[] = $key;
 						}

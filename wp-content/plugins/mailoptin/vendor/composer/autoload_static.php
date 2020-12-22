@@ -4,12 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
+class ComposerStaticInitb1deff555eb82f47e19f58d7bd498de8
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '784368192bb2be2d6178826e1a6f0ee9' => __DIR__ . '/../..' . '/src/authifly/OAuthCredentialStorage.php',
         '90058afbba53e4180c7aea859b5c23a3' => __DIR__ . '/../..' . '/src/authifly/ConstantContact.php',
+        '7c70296db031281e2c69499cedfa84d0' => __DIR__ . '/../..' . '/src/authifly/ConstantContactV3.php',
         '086bcb11854b84d4e577ad21028d8bd7' => __DIR__ . '/../..' . '/src/authifly/Aweber.php',
         'ac9cc8980660efd3e238c95c228b94b0' => __DIR__ . '/../..' . '/src/authifly/CampaignMonitor.php',
         'a78777ff836d159fe91b871975d4b0a3' => __DIR__ . '/../..' . '/src/authifly/VerticalResponse.php',
@@ -18,6 +19,7 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
         '945bc6c2039077c40509b034aa7ea74d' => __DIR__ . '/../..' . '/src/authifly/Zoho.php',
         'b9633de6476ae361f00d00fa732467f2' => __DIR__ . '/../..' . '/src/authifly/Infusionsoft.php',
         '7deba475c7811369965cbd792856349d' => __DIR__ . '/../..' . '/src/authifly/Jilt.php',
+        '01a622b173c6313c4db38d191511be8d' => __DIR__ . '/../..' . '/src/authifly/CleverReach.php',
         '1d70241e5fa15180bf0b547b18160633' => __DIR__ . '/../..' . '/src/core/src/Functions/custom-settings-api.php',
         '541054f7d83801e360f0f9cfeb6e7da9' => __DIR__ . '/../..' . '/src/core/src/Functions/functions.php',
         '1064428a5c96d5b26937d911d5bd0e95' => __DIR__ . '/../..' . '/src/core/src/Functions/php-html-css-js-minifier.php',
@@ -74,6 +76,7 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
             'MailOptin\\EmailOctopusConnect\\' => 30,
             'MailOptin\\ElementorConnect\\' => 27,
             'MailOptin\\DripConnect\\' => 22,
+            'MailOptin\\Ctctv3Connect\\' => 24,
             'MailOptin\\CtctConnect\\' => 22,
             'MailOptin\\Core\\' => 15,
             'MailOptin\\ConvertKitConnect\\' => 28,
@@ -99,10 +102,6 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
-        ),
-        'B' => 
-        array (
-            'Barryvdh\\Composer\\' => 18,
         ),
         'A' => 
         array (
@@ -279,6 +278,10 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
         array (
             0 => __DIR__ . '/../..' . '/src/connections/DripConnect',
         ),
+        'MailOptin\\Ctctv3Connect\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/connections/Ctctv3Connect',
+        ),
         'MailOptin\\CtctConnect\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/connections/CtctConnect',
@@ -330,10 +333,6 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
-        ),
-        'Barryvdh\\Composer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/barryvdh/composer-cleanup-plugin/src',
         ),
         'Authifly\\' => 
         array (
@@ -417,8 +416,6 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
         'Authifly\\Thirdparty\\OAuth\\OAuthSignatureMethod' => __DIR__ . '/../..' . '/src/authifly/src/Thirdparty/OAuth/OAuthSignatureMethod.php',
         'Authifly\\Thirdparty\\OAuth\\OAuthSignatureMethodHMACSHA1' => __DIR__ . '/../..' . '/src/authifly/src/Thirdparty/OAuth/OAuthSignatureMethodHMACSHA1.php',
         'Authifly\\Thirdparty\\OAuth\\OAuthUtil' => __DIR__ . '/../..' . '/src/authifly/src/Thirdparty/OAuth/OAuthUtil.php',
-        'Barryvdh\\Composer\\CleanupPlugin' => __DIR__ . '/..' . '/barryvdh/composer-cleanup-plugin/src/CleanupPlugin.php',
-        'Barryvdh\\Composer\\CleanupRules' => __DIR__ . '/..' . '/barryvdh/composer-cleanup-plugin/src/CleanupRules.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\CarbonPeriod' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonPeriod.php',
@@ -426,6 +423,7 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
         'Carbon\\Laravel\\ServiceProvider' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'Carbon\\Upgrade' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Upgrade.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
         'Composer\\Installers\\AnnotateCmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
@@ -729,6 +727,11 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
         'MailOptin\\CtctConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/CtctConnect/ConnectSettingsPage.php',
         'MailOptin\\CtctConnect\\SendCampaign' => __DIR__ . '/../..' . '/src/connections/CtctConnect/SendCampaign.php',
         'MailOptin\\CtctConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/CtctConnect/Subscription.php',
+        'MailOptin\\Ctctv3Connect\\AbstractCtctv3Connect' => __DIR__ . '/../..' . '/src/connections/Ctctv3Connect/AbstractCtctv3Connect.php',
+        'MailOptin\\Ctctv3Connect\\Connect' => __DIR__ . '/../..' . '/src/connections/Ctctv3Connect/Connect.php',
+        'MailOptin\\Ctctv3Connect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/Ctctv3Connect/ConnectSettingsPage.php',
+        'MailOptin\\Ctctv3Connect\\SendCampaign' => __DIR__ . '/../..' . '/src/connections/Ctctv3Connect/SendCampaign.php',
+        'MailOptin\\Ctctv3Connect\\Subscription' => __DIR__ . '/../..' . '/src/connections/Ctctv3Connect/Subscription.php',
         'MailOptin\\DripConnect\\AbstractDripConnect' => __DIR__ . '/../..' . '/src/connections/DripConnect/AbstractDripConnect.php',
         'MailOptin\\DripConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/DripConnect/Connect.php',
         'MailOptin\\DripConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/DripConnect/ConnectSettingsPage.php',
@@ -834,6 +837,7 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
         'MailOptin\\NinjaFormsConnect\\Integrations\\ConvertFoxConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\ConvertKitConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\CtctConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/CtctConnect.php',
+        'MailOptin\\NinjaFormsConnect\\Integrations\\Ctctv3Connect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\DripConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/DripConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\EmailOctopusConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\EmmaConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php',
@@ -847,7 +851,6 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
         'MailOptin\\NinjaFormsConnect\\Integrations\\MailPoetConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\MailerliteConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\MailjetConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php',
-        'MailOptin\\NinjaFormsConnect\\Integrations\\MoNinjaConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/MoNinjaConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\MoosendConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\OntraportConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\SendFoxConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php',
@@ -1010,11 +1013,11 @@ class ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit91f1e491d3003f8f7772b002fa6c1150::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb1deff555eb82f47e19f58d7bd498de8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb1deff555eb82f47e19f58d7bd498de8::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInitb1deff555eb82f47e19f58d7bd498de8::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitb1deff555eb82f47e19f58d7bd498de8::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitb1deff555eb82f47e19f58d7bd498de8::$classMap;
 
         }, null, ClassLoader::class);
     }

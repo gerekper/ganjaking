@@ -33,14 +33,20 @@ if ( 'yes' == $mobile_sidebar ) {
 } else {
 	$mobile_sidebar = $porto_settings['show-mobile-sidebar'];
 }
+
+$sticky_sidebar = porto_meta_sticky_sidebar();
+
+global $porto_shop_filter_layout;
+if ( 'offcanvas' === $porto_shop_filter_layout ) {
+	$mobile_sidebar = true;
+	$sticky_sidebar = false;
+}
 if ( $mobile_sidebar ) {
 	echo '<div class="sidebar-overlay"></div>';
 }
-$sticky_sidebar = porto_meta_sticky_sidebar();
 
 $skeleton_lazyload = apply_filters( 'porto_skeleton_lazyload', ! empty( $porto_settings['skeleton_lazyload'] ), 'sidebar' );
 if ( in_array( $porto_layout, porto_options_sidebars() ) ) :
-	global $porto_shop_filter_layout;
 	?>
 	<div class="col-lg-3 sidebar <?php echo 'porto-' . $porto_sidebar; ?> <?php echo str_replace( 'both-', 'left-', str_replace( 'wide-', '', $porto_layout ) ); ?><?php echo ! $mobile_sidebar ? '' : ' mobile-sidebar'; ?>"><!-- main sidebar -->
 		<?php if ( $sticky_sidebar ) : ?>

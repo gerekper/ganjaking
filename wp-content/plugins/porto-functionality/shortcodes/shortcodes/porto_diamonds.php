@@ -1,16 +1,7 @@
 <?php
 
 // Porto Diamonds
-add_shortcode( 'porto_diamonds', 'porto_shortcode_diamonds' );
 add_action( 'vc_after_init', 'porto_load_diamonds_shortcode' );
-
-function porto_shortcode_diamonds( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_diamonds' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_diamonds_shortcode() {
 	$animation_type     = porto_vc_animation_type();

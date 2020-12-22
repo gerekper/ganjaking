@@ -103,7 +103,8 @@ class SubscribersRepository extends Repository {
       return 0;
     }
 
-    $this->entityManager->transactional(function (EntityManager $entityManager) use ($ids) {
+    $count = 0;
+    $this->entityManager->transactional(function (EntityManager $entityManager) use ($ids, &$count) {
       // Delete subscriber segments
       $this->bulkRemoveFromAllSegments($ids);
 
@@ -115,13 +116,15 @@ class SubscribersRepository extends Repository {
       ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
 
       $queryBuilder = $entityManager->createQueryBuilder();
-      $queryBuilder->delete(SubscriberEntity::class, 's')
+      $count = $queryBuilder->delete(SubscriberEntity::class, 's')
         ->where('s.id IN (:ids)')
+        ->andWhere('s.wpUserId IS NULL')
+        ->andWhere('s.isWoocommerceUser = false')
         ->setParameter('ids', $ids)
         ->getQuery()->execute();
     });
 
-    return count($ids);
+    return $count;
   }
 
   /**
@@ -177,7 +180,7 @@ class SubscribersRepository extends Repository {
       ->setParameter('ids', $ids)
       ->setParameter('segment', $segment)
       ->getQuery()->execute();
-    
+
     $this->entityManager->transactional(function (EntityManager $entityManager) use ($subscribers, $segment) {
       foreach ($subscribers as $subscriber) {
         $subscriberSegment = new SubscriberSegmentEntity($segment, $subscriber, SubscriberEntity::STATUS_SUBSCRIBED);
@@ -199,5 +202,17 @@ class SubscribersRepository extends Repository {
 
     $this->bulkRemoveFromAllSegments($ids);
     return $this->bulkAddToSegment($segment, $ids);
-  } 
+  }
+
+  public function bulkUnsubscribe(array $ids): int {
+    $this->entityManager->createQueryBuilder()
+      ->update(SubscriberEntity::class, 's')
+      ->set('s.status', ':status')
+      ->where('s.id IN (:ids)')
+      ->setParameter('status', SubscriberEntity::STATUS_UNSUBSCRIBED)
+      ->setParameter('ids', $ids)
+      ->getQuery()->execute();
+
+    return count($ids);
+  }
 }

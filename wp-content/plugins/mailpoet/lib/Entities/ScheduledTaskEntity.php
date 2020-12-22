@@ -61,10 +61,15 @@ class ScheduledTaskEntity {
   private $processedAt;
 
   /**
-   * @ORM\Column(type="json")
+   * @ORM\Column(type="json", nullable=true)
    * @var array|null
    */
   private $meta;
+
+  /**
+   * @ORM\OneToMany(targetEntity="MailPoet\Entities\ScheduledTaskSubscriberEntity", mappedBy="task", fetch="EXTRA_LAZY")
+   */
+  public $subscribers;
 
   /**
    * @return string|null

@@ -91,6 +91,7 @@ $fa-font-path:                "../fonts/fontawesome_optimized";
 .#{$fa-css-prefix}-reply:before { content: fa-content($fa-var-reply); }
 .#{$fa-css-prefix}-tablet-alt:before { content: fa-content($fa-var-tablet-alt); }
 .#{$fa-css-prefix}-filter:before { content: fa-content($fa-var-filter); }
+.#{$fa-css-prefix}-list-ul:before { content: fa-content($fa-var-list-ul); }
 
 .#{$fa-css-prefix}-music:before { content: fa-content($fa-var-music); }
 .#{$fa-css-prefix}-quote-left:before { content: fa-content($fa-var-quote-left); }

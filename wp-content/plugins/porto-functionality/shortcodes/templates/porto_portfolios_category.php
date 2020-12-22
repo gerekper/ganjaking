@@ -236,7 +236,7 @@ switch ( $category_layout ) {
 
 		break;
 	default:
-		$output .= '<ul class="portfolio-cat-list list list-unstyled' . ( $el_class ? ' ' .esc_attr( trim( $el_class ) ) : '' ) . '">';
+		$output .= '<ul class="portfolio-cat-list list list-unstyled' . ( $el_class ? ' ' . esc_attr( trim( $el_class ) ) : '' ) . '">';
 
 		$term_id = false;
 		if ( is_archive() ) {

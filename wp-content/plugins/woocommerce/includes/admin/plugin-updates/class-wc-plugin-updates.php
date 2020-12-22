@@ -115,7 +115,7 @@ class WC_Plugin_Updates {
 		$message = sprintf( __( "<strong>Heads up!</strong> The versions of the following plugins you're running haven't been tested with WooCommerce %s. Please update them or confirm compatibility before updating WooCommerce, or you may experience issues:", 'woocommerce' ), $new_version );
 
 		ob_start();
-		include 'views/html-notice-untested-extensions-inline.php';
+		include __DIR__ . '/views/html-notice-untested-extensions-inline.php';
 		return ob_get_clean();
 	}
 
@@ -130,7 +130,7 @@ class WC_Plugin_Updates {
 		$plugins       = $this->major_untested_plugins;
 
 		ob_start();
-		include 'views/html-notice-untested-extensions-modal.php';
+		include __DIR__ . '/views/html-notice-untested-extensions-modal.php';
 		return ob_get_clean();
 	}
 
@@ -161,15 +161,6 @@ class WC_Plugin_Updates {
 
 		if ( 'minor' === $release ) {
 			$version .= '.' . $new_version_parts[1];
-		}
-
-		if ( 'major' === $release ) {
-			$current_version_parts = explode( '.', Constants::get_constant( 'WC_VERSION' ) );
-
-			// If user has already moved to the major version, we don't need to flag up anything.
-			if ( version_compare( $current_version_parts[0] . '.' . $current_version_parts[1], $new_version_parts[0] . '.0', '>=' ) ) {
-				return array();
-			}
 		}
 
 		foreach ( $extensions as $file => $plugin ) {

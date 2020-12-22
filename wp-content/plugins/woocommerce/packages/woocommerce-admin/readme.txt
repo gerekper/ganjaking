@@ -1,10 +1,10 @@
 === WooCommerce Admin ===
-Contributors: automattic
+Contributors: woocommerce, automattic
 Tags: ecommerce, e-commerce, store, sales, reports, analytics, dashboard, activity, notices, insights, stats, woo commerce, woocommerce
 Requires at least: 5.3.0
 Tested up to: 5.4.2
 Requires PHP: 5.6.20
-Stable tag: 1.5.0
+Stable tag: 1.7.3
 License: GPLv3
 License URI: https://github.com/woocommerce/woocommerce-admin/blob/main/license.txt
 
@@ -19,6 +19,7 @@ WooCommerce Admin has a host of new reports that are optimized for speed and hav
 - Revenue Report
 - Orders Report
 - Products Report
+- Variations Report
 - Categories Report
 - Coupons Report
 - Taxes Report
@@ -35,7 +36,7 @@ WooCommerce Admin also allows store owners to customize a new dashboard screen w
 = Minimum Requirements =
 
 * WordPress 5.3
-* WooCommerce 3.6.0 or greater
+* WooCommerce 4.5 or greater
 * PHP version 5.6.20 or greater. PHP 7.2 or greater is recommended
 * MySQL version 5.0 or greater. MySQL 5.6 or greater is recommended
 
@@ -71,26 +72,146 @@ Release and roadmap notes are available on the [WooCommerce Developers Blog](htt
 
 == Changelog ==
 
+= 1.7.3 12/03/2020 =
+
+- Fix: Don't show Store Setup link on home screen #5801
+- Fix: Don't show the Orders panel on the homescreen with the Task List (#5552)
+
+= 1.7.2 11/19/2020 =
+
+- Fix: Load wc-tracks in the homepage notice admin script. #5638
+- Fix: Link component prop caused a React warning. #5653
+- Fix: Flickering of order panel while loading. #5655
+- Fix: Tax code duplicated when clicking button to remove. #5661
+
+= 1.7.0 11/11/2020 =
+
+- Enhancement: Variations report.  #5167
+- Enhancement: Add ability to toggle homescreen layouts. #5429
+- Enhancement: Accordion component  #5474
+- Enhancement: Badge component #5520
+- Fix: Added support for custom actionable statuses. #5550
+- Fix: wrong casing used on the PayPal brand name  #5514 🎉 @rtpHarry
+- Fix: Import @wordpress/base-styles/default-custom-properties #5491
+- Fix: downloads report  #5441
+- Fix: missing custom autocompleter attribute in Search component of Advanced Filter #5448
+- Fix: empty no posts state on Marketing page. #5411
+- Fix: visual issues in the Search component.  #5199
+- Fix: Inconsistent line endings in readme.txt. #5281
+- Fix: popover menu to expand menu item width to 100%  #5519
+- Fix: Wrong class name for querying Categories Report #5522 🎉 @zzap
+- Fix: Remove label printing mention for non us countries #5527
+- Fix: First product script navigation dependency #5584
+- Fix: Added support for custom actionable statuses #5550
+- Fix: Display the store management links last on the homescreen #5579
+- Fix: Ensure the "Set up additional payment providers" inbox notification is shown when relevant after completing the OBW. #5547
+- Tweak: Remove customer analytics data upon order deletion  #5171
+- Tweak: Updating Stripe key field validation to support test keys  #5201
+- Tweak: Wrap search control selected items in list  #5231
+- Tweak: Update store setup link to redirect to setup wizard  #5200
+- Tweak: Removing breadcrumbs from wc-admin header #5232
+- Tweak: Use consistent markdown headers in navigation readme #5417
+- Tweak: Remove Store Setup Alert #5499
+- Tweak: Customers: Update column heading for date registered #5542
+- Tweak: alter homescreen layout. #5465
+- Dev: Home Screen - migrate orders panel. #5455
+- Dev: Store Profiler - include Creative Mail as a free extension #5543
+- Dev: Add undefined check in intervals data util #5546
+- Dev: Fix wakeup visibility for PHP 8 compatibility  #5211
+- Dev: Fix header height and positioning for wc nav  #5173
+- Dev: Add remote inbox notification rule processors for country and state  #5203
+- Dev: Rename admin notes classes and file names to fit conventions  #514
+- Dev: remove checks of store registration that are no longer needed.  #5170
+- Dev: Fix version update script for composer.json  #5165
+- Dev: Remove getAdminLink from data package  #5158
+- Dev: Bump @woocommerce/components dependencies.  #5153
+- Dev: Add note status remote inbox notifications rule processor #5207
+- Dev: Make code chunk filenames more stable.  #5229
+- Dev: Inbox Panel component moved #5252
+- Dev: Added animation to Inbox note deletion  #5263
+- Dev: Update starter pack dependencies #5254
+- Dev: Ensure test zips have latest packages from npm and composer. #5313
+- Dev: Add remote inbox notifications rule allowing access to any option #5206
+- Dev: Add manage orders on the go admin note #5159
+- Dev: Add WooCommerceDependencyExtractionWebpackPlugin package  #5198
+- Dev: Migrate devdocs examples to Storybook stories #5271
+- Dev: Remove Enzyme in favor of React Testing Library #5299
+- Dev: Add exclusion rule to PHPCS config for TODO comments  #5388
+- Dev: Remove no longer used isPanelEmpty logic. #5423
+- Dev: Use new @wordpress/components Card on Marketing page.  #5428
+- Dev: Add PSR-4 naming checks to PHP linting. #5512
+- Dev: Rearrange the store management links under categories add filter woocommerce_admin_homescreen_quicklinks. #5476
+- Dev: Restyle the setup task list header to display incomplete tasks #5520
+
+= 1.6.2 10/16/2020 =
+- Fix: Missing activity panels on ugraded sites #5400
+- Fix: Casting of onboarding profile data to array #5415
+- Fix: Gutenberg 9.1.1 compat for inbox on home screen not showing #5416
+- Fix: i18n of Performance Indicator strings #5405
+- Fix: Gutenberg 9.1.1 compat for empty data sets #5409
+
+= 1.6.1 10/13/2020 =
+- Fix: Hide setup checklist shortcut when setup checklist skipped #5360
+- Fix: use of undefined function on WC < 4.0.0.
+
+= 1.6.0 10/9/2020 =
+- Dev: Reviews wp.data store #4941
+- Dev: Notes wp.data store #4943
+- Dev: Add woocommerce_analytics_update_order_stats_data filter #4934
+- Dev: Remove unused lib/date #4987
+- Dev: Exports wp.data store #4958
+- Dev: Remove _experimentalResolveSelect usage #4949
+- Dev: Items wp.data store #5009
+- Dev: Import wp.data store #4982
+- Dev: Remove `fresh-data` wc-api dependency #5075
+- Dev: Add initial e2e test suite #5028
+- Dev: Combine translation chunks when languages updated #5094
+- Dev: Add filters for columns in reports #5134
+- Dev: Don't include "min" suffix in build JS files for core build #5130
+- Enhancement: Add free local shipping zone on profile complete #4857
+- Enhancement: Add woocommerce/tracks package #5107
+- Enhancement: Add filter to allow modification of report columns #4984
+- Enhancement: Add WooCommerce Mobile Banner #5037
+- Enhancement: Add Product Attribute advanced filter #5038
+- Enhancement: Add support for advanced filters with multiple instances #5050
+- Enhancement: Automated taxes smart default #5076
+- Enhancement: Add product attribute filter to Orders report #5068
+- Tweak: Remove payment task actions #4917
+- Tweak: Don't import from React, use @wordpress/element #4978
+- Tweak: Use filtered headers array in onColumnsChange callback #4964
+- Tweak: Orders panel get selectors form wc-api #4997
+- Tweak: Group tasks by completion in setup checklist #5001
+- Tweak: Replace useFilters with WP withFilters #4962
+- Tweak: Refactor header component to function #5023
+- Tweak: Refactor task list status to onboarding data store #4998
+- Tweak: Add monthly pricing toggle in OBW #5015
+- Tweak: OBW style updates #5059
+- Tweak: Remove chevron icons from Fish Setup task list #5114
+- Tweak: Add option to not charge sales tax in setup checklist #5111
+- Tweak: Enable homescreen for all sites #5108
+- Tweak: Enable remote inbox in all envs #5160
+- Tweak: Add opt-out for remote inbox #5162
+- Fix: Table component onQueryChange default prop #4959
+- Fix: Dependency declarations in woocommerce/components #4972
+- Fix: Text domains in stock report #4980
+- Fix: Typo in reports store action creators #4992
+- Fix: Note data actions and consolidate query constants #4990
+- Fix: Advanced filters screen reader text #5032
+- Fix: Show full variation name in products report #5056
+- Fix: Card to connect to woocommerce.com #5129
+- Fix: Search all variation attribute values #5141
+- Fix: Force float before addition in taxes #5149
+
 = 1.5.0 2020-08-07 =
 - Dev: New notification: Don't forget to test your checkout. #4805
 - Dev: Enable tax calculation before redirecting to standard tax rates page. #4878
 - Fix: Use clipRule and fillRule props. #4889, part of #4864
-- Fix: Admin order page shipping label prompt compatibility with WCS 1.24. #5025
-- Fix: Padding on finish, forward, and back buttons on the welcome modal. #5043
-- Fix: Show usage modal when skipping the OBW. #5061
-- Fix: Handle user deletion. #4977
-- Fix: Jetpack flow for automatic tax calculations. #5101
 - Dev: Added event recording to Orders, Stock, and Reviews panels. #4861
 - Dev: Added personalization to purchase extension task. #4849
 - Dev: Display modal with more info about the new homescreen. #4890
 - Dev: Task list - add a shortcut back to store setup. #4853
 - Dev: Update the colors of the illustrations in the welcome modal. #4945
 - Enhancement: Add eWAY to Payment Setup for AU/NZ Stores. #4947
-- Tweak: Remove the Composite products option from the onboarding wizard #4703
-- Tweak: Do not show bundled extensions in OBW when a CBD industry has been selected. #5040
-- Tweak: Remove industry option for travel. #5065
-- Tweak: New marketing copy for the Kliken Google Ads plugin. #5074
-- Tweak: Add ToS agreement copy to the WCPay setup task. #5085
 
 = 1.4.0 2020-07-22 =
 - Fix: Update returning customer total to include customers whose first order was within the report date range #4430

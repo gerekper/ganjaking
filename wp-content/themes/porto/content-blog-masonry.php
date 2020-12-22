@@ -13,6 +13,13 @@ $post_style   = $porto_post_style ? $porto_post_style : $porto_settings['post-st
 $post_class   = array();
 $post_class[] = 'post post-' . $post_layout;
 
+if ( 'hover_info' == $post_style || 'hover_info2' == $post_style ) {
+	$featured_images = porto_get_featured_images();
+	if ( empty( $featured_images ) ) {
+		return;
+	}
+}
+
 if ( ! isset( $image_size ) ) {
 	if ( 'widget' == $post_style ) {
 		$image_size = 'widget-thumb-medium';

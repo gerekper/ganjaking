@@ -157,7 +157,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 					'icon_type' => 'icon',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .porto-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .porto-icon'     => 'color: {{VALUE}};',
 					'{{WRAPPER}} .porto-icon svg' => 'fill: {{VALUE}};',
 				),
 			)
@@ -662,7 +662,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 		if ( isset( $atts['icon_cl'] ) && isset( $atts['icon_cl']['value'] ) ) {
 			if ( isset( $atts['icon_cl']['library'] ) && isset( $atts['icon_cl']['value']['id'] ) ) {
 				$atts['icon_type'] = $atts['icon_cl']['library'];
-				$atts['icon'] = $atts['icon_cl']['value']['id'];
+				$atts['icon']      = $atts['icon_cl']['value']['id'];
 			} else {
 				$atts['icon'] = $atts['icon_cl']['value'];
 			}
@@ -689,13 +689,17 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 			$this->add_render_attribute( 'title', 'class', 'porto-sicon-title' );
 			$this->add_inline_editing_attributes( 'subtitle' );
 			$this->add_inline_editing_attributes( 'content', 'advanced' );
-			$title_attrs_escaped       = ' ' . $this->get_render_attribute_string( 'title' );
-			$subtitle_attrs_escaped    = ' ' . $this->get_render_attribute_string( 'subtitle' );
-			$desc_attrs_escaped        = ' ' . $this->get_render_attribute_string( 'content' );
-			$atts['icon_color']        = '';
-			$atts['icon_color_bg']     = '';
-			$atts['icon_color_border'] = '';
-			$atts['icon_border_style'] = '';
+			$title_attrs_escaped             = ' ' . $this->get_render_attribute_string( 'title' );
+			$subtitle_attrs_escaped          = ' ' . $this->get_render_attribute_string( 'subtitle' );
+			$desc_attrs_escaped              = ' ' . $this->get_render_attribute_string( 'content' );
+			$atts['icon_color']              = '';
+			$atts['icon_color_bg']           = '';
+			$atts['icon_color_border']       = '';
+			$atts['icon_border_style']       = '';
+			$atts['icon_margin_bottom']      = '';
+			$atts['icon_margin_right']       = '';
+			$atts['title_margin_bottom']     = '';
+			$atts['sub_title_margin_bottom'] = '';
 			include $template;
 		}
 	}

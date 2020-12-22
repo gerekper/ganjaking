@@ -25,6 +25,7 @@
     "files": [
       "OAuthCredentialStorage.php",
       "ConstantContact.php",
+      "ConstantContactV3.php",
       "Aweber.php",
       "CampaignMonitor.php",
       "VerticalResponse.php",
@@ -32,7 +33,8 @@
       "Hubspot.php",
       "Zoho.php",
       "Infusionsoft.php",
-      "Jilt.php"
+      "Jilt.php",
+      "CleverReach.php"
     ]
   }
 }

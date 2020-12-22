@@ -26,6 +26,8 @@ extract(
 			'el_class'            => '',
 			'icon_align'          => 'center',
 			'css_porto_icon'      => '',
+			'icon_margin_bottom'  => '',
+			'icon_margin_right'   => '',
 		),
 		$atts
 	)
@@ -77,6 +79,14 @@ if ( 'right' == $icon_align ) {
 	$icon_align_style .= 'text-align:center;';
 } elseif ( 'left' == $icon_align ) {
 	$icon_align_style .= 'text-align:left;';
+}
+
+if ( $icon_margin_bottom ) {
+	$unit = trim( preg_replace( '/[0-9.]/', '', $icon_margin_bottom ) );
+	if ( ! $unit ) {
+		$icon_margin_bottom .= 'px';
+	}
+	$icon_align_style .= 'margin-bottom:' . esc_attr( $icon_margin_bottom ) . ';';
 }
 
 if ( 'custom' == $icon_type ) {
@@ -134,6 +144,14 @@ if ( 'custom' == $icon_type ) {
 		if ( $img_width ) {
 			$style .= 'font-size: ' . esc_attr( $img_width ) . 'px;';
 		}
+		if ( $icon_margin_right ) {
+			$unit = trim( preg_replace( '/[0-9.]/', '', $icon_margin_right ) );
+			if ( ! $unit ) {
+				$icon_margin_right .= 'px';
+			}
+			$style .= 'margin-' . ( is_rtl() ? 'left' : 'right' ) . ':' . esc_attr( $icon_margin_right ) . ';';
+		}
+
 		$output .= $link_prefix . '<div class="porto-sicon-img ' . esc_attr( $elx_class ) . '" style="' . esc_attr( $style ) . '"' . $css_trans . '>';
 		$output .= '<img class="img-icon" alt="' . esc_attr( $alt ) . '" src="' . esc_url( $img ) . '" width="' . esc_attr( $attachment[1] ) . '" height="' . esc_attr( $attachment[2] ) . '" />';
 		$output .= '</div>' . $link_sufix;
@@ -173,6 +191,14 @@ if ( 'custom' == $icon_type ) {
 		$style .= 'display:inline-block;';
 	}
 	if ( $icon ) {
+		if ( $icon_margin_right ) {
+			$unit = trim( preg_replace( '/[0-9.]/', '', $icon_margin_right ) );
+			if ( ! $unit ) {
+				$icon_margin_right .= 'px';
+			}
+			$style .= 'margin-' . ( is_rtl() ? 'left' : 'right' ) . ':' . esc_attr( $icon_margin_right ) . ';';
+		}
+
 		$output .= $link_prefix . '<div class="porto-icon ' . esc_attr( $icon_style ) . ( $elx_class ? ' ' . esc_attr( $elx_class ) : '' ) . '"' . $css_trans . ' style="' . esc_attr( $style ) . '">';
 		if ( defined( 'ELEMENTOR_VERSION' ) && 'svg' === $icon_type ) {
 			ob_start();

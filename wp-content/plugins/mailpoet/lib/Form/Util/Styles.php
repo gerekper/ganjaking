@@ -29,7 +29,7 @@ class Styles {
   }
 
   public function renderFormSettingsStyles(array $form, string $selector, string $displayType): string {
-    if (!isset($form['settings'])) return '';
+    if (!isset($form['settings']) || !is_array($form['settings'])) return '';
     $formSettings = $form['settings'];
     // Wrapper styles
     $styles = [];
@@ -177,7 +177,7 @@ class Styles {
   }
 
   private function renderMessagesStyles(array $formSettings, string $selector): string {
-    $styles = "$selector .mailpoet_message {margin: 0;}";
+    $styles = "$selector .mailpoet_message {margin: 0; padding: 0 20px;}";
     if (isset($formSettings['success_validation_color']) && $formSettings['success_validation_color']) {
       $success = $formSettings['success_validation_color'];
       $styles .= "

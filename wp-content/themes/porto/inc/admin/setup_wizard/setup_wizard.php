@@ -157,7 +157,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'law-firm'             => array(
 					'alt'       => 'Law Firm',
 					'img'       => PORTO_OPTIONS_URI . '/demos/demo_law_firm.jpg',
-					'filter'    => 'business all',
+					'filter'    => 'business all elementor',
 					'revslider' => array( 'demo-law-firm.zip' ),
 					'plugins'   => array( 'js_composer' ),
 				),
@@ -178,7 +178,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'wedding'              => array(
 					'alt'       => 'Wedding',
 					'img'       => PORTO_OPTIONS_URI . '/demos/demo_wedding.jpg',
-					'filter'    => 'business onepage all',
+					'filter'    => 'business onepage all elementor',
 					'revslider' => array( 'demo-wedding.zip' ),
 					'plugins'   => array( 'js_composer' ),
 				),
@@ -220,27 +220,27 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'event'                => array(
 					'alt'       => 'Event',
 					'img'       => PORTO_OPTIONS_URI . '/demos/demo_event.jpg',
-					'filter'    => 'business all',
+					'filter'    => 'business all elementor',
 					'revslider' => array( 'home-event.zip' ),
 					'plugins'   => array( 'js_composer' ),
 				),
 				'resume'               => array(
 					'alt'     => 'Resume',
 					'img'     => PORTO_OPTIONS_URI . '/demos/demo_resume.jpg',
-					'filter'  => 'business onepage portfolio all',
+					'filter'  => 'business onepage portfolio all elementor',
 					'plugins' => array( 'js_composer' ),
 				),
 				'church'               => array(
 					'alt'       => 'Church',
 					'img'       => PORTO_OPTIONS_URI . '/demos/demo_church.jpg',
-					'filter'    => 'business all',
+					'filter'    => 'business all elementor',
 					'revslider' => array( 'demo-church.zip' ),
 					'plugins'   => array( 'js_composer' ),
 				),
 				'finance'              => array(
 					'alt'       => 'Finance',
 					'img'       => PORTO_OPTIONS_URI . '/demos/demo_finance.jpg',
-					'filter'    => 'business all',
+					'filter'    => 'business all elementor',
 					'revslider' => array( 'home-finance.zip' ),
 					'plugins'   => array( 'js_composer' ),
 				),
@@ -254,13 +254,13 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'app-landing'          => array(
 					'alt'     => 'App Landing',
 					'img'     => PORTO_OPTIONS_URI . '/demos/demo_applanding.jpg',
-					'filter'  => 'business onepage all',
+					'filter'  => 'business onepage all elementor',
 					'plugins' => array( 'js_composer' ),
 				),
 				'real-estate'          => array(
 					'alt'       => 'Real Estate',
 					'img'       => PORTO_OPTIONS_URI . '/demos/demo_real_estate.jpg',
-					'filter'    => 'business all',
+					'filter'    => 'business all elementor',
 					'revslider' => array( 'real-estate-home.zip' ),
 					'plugins'   => array( 'js_composer' ),
 				),
@@ -321,14 +321,14 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'classic-one-page'     => array(
 					'alt'       => 'Classic One Page',
 					'img'       => PORTO_OPTIONS_URI . '/demos/classic_one_page.jpg',
-					'filter'    => 'classic onepage',
+					'filter'    => 'classic onepage elementor',
 					'revslider' => array( 'home-one-page.zip' ),
 					'plugins'   => array( 'js_composer' ),
 				),
 				'classic-color'        => array(
 					'alt'       => 'Classic Color',
 					'img'       => PORTO_OPTIONS_URI . '/demos/classic_color.jpg',
-					'filter'    => 'classic',
+					'filter'    => 'classic elementor',
 					'revslider' => array( 'full-width-video.zip', 'home-classic-color.zip', 'media-gallery.zip' ),
 					'plugins'   => array( 'js_composer' ),
 				),
@@ -716,6 +716,24 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 					'filter'  => 'shop elementor',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
+				'shop1-dark'           => array(
+					'alt'     => 'Shop 1 Dark',
+					'img'     => PORTO_OPTIONS_URI . '/demos/shop1-dark.jpg',
+					'filter'  => 'shop',
+					'plugins' => array( 'js_composer', 'woocommerce' ),
+				),
+				'shop2-dark'           => array(
+					'alt'     => 'Shop 2 Dark',
+					'img'     => PORTO_OPTIONS_URI . '/demos/shop2-dark.jpg',
+					'filter'  => 'shop',
+					'plugins' => array( 'js_composer', 'woocommerce' ),
+				),
+				'shop4-dark'           => array(
+					'alt'     => 'Shop 4 Dark',
+					'img'     => PORTO_OPTIONS_URI . '/demos/shop4-dark.jpg',
+					'filter'  => 'shop',
+					'plugins' => array( 'js_composer', 'woocommerce' ),
+				),
 				'dark'                 => array(
 					'alt'       => 'Dark Original',
 					'img'       => PORTO_OPTIONS_URI . '/demos/dark_original.jpg',
@@ -996,7 +1014,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 
 			wp_enqueue_style( 'porto-wizard-fonts', '//fonts.googleapis.com/css?family=Poppins%3A400%2C500%2C600%2C700&ver=5.3.2' );
 			wp_enqueue_style( 'jquery-magnific-popup', PORTO_CSS . '/magnific-popup.min.css', false, $this->version, 'all' );
-			wp_enqueue_style( 'porto-setup', PORTO_URI . '/inc/admin/setup_wizard/assets/css/style.css', array( 'jquery-magnific-popup' ), $this->version );
+			wp_enqueue_style( 'porto-setup', PORTO_URI . '/inc/admin/setup_wizard/assets/css/style.css', array( 'jquery-magnific-popup', 'porto_admin' ), $this->version );
 		}
 
 		public function get_step_link( $step ) {
@@ -1221,13 +1239,20 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				$plugins = $this->_get_plugins();
 				if ( count( $plugins['all'] ) ) {
 					$notice_hidden = false;
-					if ( is_plugin_inactive( 'elementor/elementor.php' ) || is_plugin_inactive( 'js_composer/js_composer.php' ) ) {
+					$active_p_count = 0;
+					if ( ! is_plugin_inactive( 'elementor/elementor.php' ) ) {
+						$active_p_count++;
+					}
+					if ( ! is_plugin_inactive( 'js_composer/js_composer.php' ) ) {
+						$active_p_count++;
+					}
+					if ( $active_p_count < 2 ) {
 						$notice_hidden = true;
 					}
 					?>
 					<p class="mb-1"><?php esc_html_e( 'This will install the default plugins which is used in Porto.', 'porto' ); ?></p>
 					<div class="porto-notice<?php echo ! $notice_hidden ? '' : ' d-none'; ?>" style="margin: 0 0 1em">
-						<p style="margin: .5em 0;"><?php esc_html_e( 'We do not recommend to activate two page builders(Elementor and WPBakery) together. It might occur unexpected issues on your site configuration and affect performance.', 'porto' ); ?></p>
+						<p style="margin: .5em 0;"><?php esc_html_e( 'We do not recommend to activate more than one page builders(Elementor and WPBakery) together. It might occur unexpected issues on your site configuration and affect performance.', 'porto' ); ?></p>
 					</div>
 					<p><?php esc_html_e( 'Please check the plugins to install:', 'porto' ); ?></p>
 					<ul class="porto-setup-wizard-plugins">
@@ -1535,10 +1560,10 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 										<input type="radio" name="page_builder" value="js_composer" <?php checked( $active_p, 'js_composer' ); ?>> <?php esc_html_e( 'WPBakery Page Builder', 'porto' ); ?>
 									</label>
 									<label class="radio elementor<?php echo is_plugin_inactive( 'elementor/elementor.php' ) ? ' notinstalled' : ''; ?>">
-										<input type="radio" name="page_builder" value="elementor" <?php checked( $active_p, 'js_composer' ); ?>> <?php esc_html_e( 'Elementor', 'porto' ); ?>
+										<input type="radio" name="page_builder" value="elementor" <?php checked( $active_p, 'elementor' ); ?>> <?php esc_html_e( 'Elementor', 'porto' ); ?>
 									</label>
 									<label class="radio gutenberg">
-										<input type="radio" name="page_builder" value="gutenberg" <?php checked( $active_p, 'js_composer' ); ?>> <?php esc_html_e( 'Gutenberg', 'porto' ); ?>
+										<input type="radio" name="page_builder" value="gutenberg" <?php checked( $active_p, 'gutenberg' ); ?>> <?php esc_html_e( 'Gutenberg', 'porto' ); ?>
 									</label>
 									<div class="message-section d-none">
 										<div class="js_composer d-flex">
@@ -2421,7 +2446,9 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 		private function import_before_functions( $demo ) {
 			if ( 'shortcodes' != $demo ) {
 				// update WPBakery content types
-				update_option( 'wpb_js_content_types', array( 'post', 'page', 'block', 'faq', 'member', 'portfolio', 'event' ) );
+				if ( defined( 'WPB_VC_VERSION' ) ) {
+					update_option( 'wpb_js_content_types', array( 'post', 'page', 'block', 'faq', 'member', 'portfolio', 'event' ) );
+				}
 
 				$is_shop_demo = ( strpos( '__' . $demo, 'shop' ) === false ) ? false : true;
 				// update woocommerce image sizes

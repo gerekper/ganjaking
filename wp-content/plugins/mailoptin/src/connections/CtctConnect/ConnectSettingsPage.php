@@ -49,8 +49,8 @@ class ConnectSettingsPage extends AbstractCtctConnect
         }
 
         $settingsArg[] = array(
-            'section_title_without_status' => __('Constant Contact', 'mailoptin'),
-            'section_title'                => __('ConstantContact Connection', 'mailoptin') . " $status",
+            'section_title_without_status' => __('Constant Contact (Legacy)', 'mailoptin'),
+            'section_title'                => __('Constant Contact (Legacy) Connection', 'mailoptin') . " $status",
             'type'                         => self::EMAIL_MARKETING_TYPE,
             'ctct_auth'                    => array(
                 'type'        => 'arbitrary',

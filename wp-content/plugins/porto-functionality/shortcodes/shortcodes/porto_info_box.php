@@ -1,28 +1,6 @@
 <?php
 // Porto Info Box
-if ( function_exists( 'register_block_type' ) ) {
-	register_block_type(
-		'porto/porto-info-box',
-		array(
-			'editor_script'   => 'porto_blocks',
-			'render_callback' => 'porto_shortcode_info_box',
-		)
-	);
-}
-add_shortcode( 'porto_info_box', 'porto_shortcode_info_box' );
 add_action( 'vc_after_init', 'porto_load_info_box_shortcode' );
-
-function porto_shortcode_info_box( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_info_box' ) ) {
-		if ( isset( $atts['icon_color_bg'] ) && empty( $atts['icon_color_bg'] ) ) {
-			$atts['icon_color_bg'] = 'transparent';
-		}
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_info_box_shortcode() {
 
@@ -336,7 +314,7 @@ function porto_load_info_box_shortcode() {
 					'type'       => 'porto_param_heading',
 					'param_name' => 'title_text_typography',
 					'text'       => __( 'Title settings', 'porto-functionality' ),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'        => 'dropdown',
@@ -351,7 +329,7 @@ function porto_load_info_box_shortcode() {
 						__( 'H6', 'porto-functionality' ) => 'h6',
 					),
 					'description' => __( 'Default is H3', 'porto-functionality' ),
-					'group'       => 'Typography',
+					'group'       => 'Style',
 				),
 				array(
 					'type'       => 'checkbox',
@@ -359,7 +337,7 @@ function porto_load_info_box_shortcode() {
 					'param_name' => 'title_use_theme_fonts',
 					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 					'std'        => 'yes',
-					'group'      => 'Typography',
+					'group'      => 'Style',
 					'class'      => '',
 				),
 				array(
@@ -375,14 +353,14 @@ function porto_load_info_box_shortcode() {
 						'element'            => 'title_use_theme_fonts',
 						'value_not_equal_to' => 'yes',
 					),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
-					'heading'    => __( 'Font Weight', 'porto-functionality' ),
+					'heading'    => __( 'Font weight', 'porto-functionality' ),
 					'param_name' => 'title_font_style',
 					'value'      => '',
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
@@ -397,7 +375,7 @@ function porto_load_info_box_shortcode() {
 						'Mobile Landscape' => '',
 						'Mobile'           => '',
 					),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
@@ -412,27 +390,27 @@ function porto_load_info_box_shortcode() {
 						'Mobile Landscape' => '',
 						'Mobile'           => '',
 					),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
 					'class'      => '',
 					'heading'    => __( 'Letter Spacing', 'porto-functionality' ),
 					'param_name' => 'title_font_letter_spacing',
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'colorpicker',
 					'param_name' => 'title_font_color',
 					'heading'    => __( 'Color', 'porto-functionality' ),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'             => 'porto_param_heading',
 					'param_name'       => 'subtitle_text_typography',
 					'heading'          => __( 'Sub title settings', 'porto-functionality' ),
 					'value'            => '',
-					'group'            => 'Typography',
+					'group'            => 'Style',
 					'edit_field_class' => 'no-top-margin vc_column vc_col-sm-12',
 				),
 				array(
@@ -440,7 +418,7 @@ function porto_load_info_box_shortcode() {
 					'heading'    => __( 'Font Weight', 'porto-functionality' ),
 					'param_name' => 'subtitle_font_style',
 					'value'      => '',
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
@@ -455,7 +433,7 @@ function porto_load_info_box_shortcode() {
 						'Mobile Landscape' => '',
 						'Mobile'           => '',
 					),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
@@ -470,26 +448,26 @@ function porto_load_info_box_shortcode() {
 						'Mobile Landscape' => '',
 						'Mobile'           => '',
 					),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
 					'class'      => '',
 					'heading'    => __( 'Letter Spacing', 'porto-functionality' ),
 					'param_name' => 'subtitle_font_letter_spacing',
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'colorpicker',
 					'param_name' => 'subtitle_font_color',
 					'heading'    => __( 'Color', 'porto-functionality' ),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'porto_param_heading',
 					'param_name' => 'desc_text_typography',
 					'text'       => __( 'Description settings', 'porto-functionality' ),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'checkbox',
@@ -497,7 +475,7 @@ function porto_load_info_box_shortcode() {
 					'param_name' => 'desc_use_theme_fonts',
 					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 					'std'        => 'yes',
-					'group'      => 'Typography',
+					'group'      => 'Style',
 					'class'      => '',
 				),
 				array(
@@ -513,14 +491,14 @@ function porto_load_info_box_shortcode() {
 						'element'            => 'desc_use_theme_fonts',
 						'value_not_equal_to' => 'yes',
 					),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
 					'heading'    => __( 'Font Weight', 'porto-functionality' ),
 					'param_name' => 'desc_font_style',
 					'value'      => '',
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
@@ -535,7 +513,7 @@ function porto_load_info_box_shortcode() {
 						'Mobile Landscape' => '',
 						'Mobile'           => '',
 					),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
@@ -550,20 +528,44 @@ function porto_load_info_box_shortcode() {
 						'Mobile Landscape' => '',
 						'Mobile'           => '',
 					),
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'textfield',
 					'class'      => '',
 					'heading'    => __( 'Letter Spacing', 'porto-functionality' ),
 					'param_name' => 'desc_font_letter_spacing',
-					'group'      => 'Typography',
+					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'colorpicker',
 					'param_name' => 'desc_font_color',
 					'heading'    => __( 'Color', 'porto-functionality' ),
-					'group'      => 'Typography',
+					'group'      => 'Style',
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Icon Margin Bottom', 'porto-functionality' ),
+					'param_name' => 'icon_margin_bottom',
+					'group'      => 'Style',
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Icon Margin Right', 'porto-functionality' ),
+					'param_name' => 'icon_margin_right',
+					'group'      => 'Style',
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Title Margin Bottom', 'porto-functionality' ),
+					'param_name' => 'title_margin_bottom',
+					'group'      => 'Style',
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Header Margin Bottom', 'porto-functionality' ),
+					'param_name' => 'sub_title_margin_bottom',
+					'group'      => 'Style',
 				),
 				array(
 					'type'             => 'css_editor',

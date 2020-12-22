@@ -116,6 +116,10 @@ class Forms extends APIEndpoint {
     $form->setStatus($status);
     $this->formsRepository->flush();
 
+    if ($status === FormEntity::STATUS_ENABLED) {
+      $this->wp->deleteTransient(DisplayFormInWPContent::NO_FORM_TRANSIENT_KEY);
+    }
+
     $form = $this->formsRepository->findOneById($id);
     if (!$form instanceof FormEntity) return $this->errorResponse();
     return $this->successResponse(
@@ -203,7 +207,8 @@ class Forms extends APIEndpoint {
       }
     }
 
-    WPFunctions::get()->deleteTransient(DisplayFormInWPContent::NO_FORM_TRANSIENT_KEY);
+    // Reset no form cache
+    $this->wp->deleteTransient(DisplayFormInWPContent::NO_FORM_TRANSIENT_KEY);
 
     // check if the user gets to pick his own lists
     // or if it's selected by the admin

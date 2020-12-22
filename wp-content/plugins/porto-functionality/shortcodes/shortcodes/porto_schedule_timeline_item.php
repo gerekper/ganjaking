@@ -1,16 +1,7 @@
 <?php
 
 // Porto Schedule Timeline Item
-add_shortcode( 'porto_schedule_timeline_item', 'porto_shortcode_schedule_timeline_item' );
 add_action( 'vc_after_init', 'porto_load_schedule_timeline_item_shortcode' );
-
-function porto_shortcode_schedule_timeline_item( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_schedule_timeline_item' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_schedule_timeline_item_shortcode() {
 	$animation_type     = porto_vc_animation_type();

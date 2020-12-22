@@ -90,6 +90,9 @@ class Subscribers extends APIEndpoint {
   /** @var SegmentsRepository */
   private $segmentsRepository;
 
+  /** @var WelcomeScheduler */
+  private $welcomeScheduler;
+
   public function __construct(
     SubscriberActions $subscriberActions,
     RequiredCustomFieldValidator $requiredCustomFieldValidator,
@@ -105,7 +108,8 @@ class Subscribers extends APIEndpoint {
     SubscribersResponseBuilder $subscribersResponseBuilder,
     SubscriberListingRepository $subscriberListingRepository,
     SegmentsRepository $segmentsRepository,
-    FieldNameObfuscator $fieldNameObfuscator
+    FieldNameObfuscator $fieldNameObfuscator,
+    WelcomeScheduler $welcomeScheduler
   ) {
     $this->subscriberActions = $subscriberActions;
     $this->requiredCustomFieldValidator = $requiredCustomFieldValidator;
@@ -122,6 +126,7 @@ class Subscribers extends APIEndpoint {
     $this->subscribersResponseBuilder = $subscribersResponseBuilder;
     $this->subscriberListingRepository = $subscriberListingRepository;
     $this->segmentsRepository = $segmentsRepository;
+    $this->welcomeScheduler = $welcomeScheduler;
   }
 
   public function get($data = []) {
@@ -383,8 +388,7 @@ class Subscribers extends APIEndpoint {
     }
 
     if (!empty($newSegments)) {
-      $scheduler = new WelcomeScheduler();
-      $scheduler->scheduleSubscriberWelcomeNotification($subscriber->id, $newSegments);
+      $this->welcomeScheduler->scheduleSubscriberWelcomeNotification($subscriber->id, $newSegments);
     }
 
     return $this->successResponse(
@@ -463,8 +467,8 @@ class Subscribers extends APIEndpoint {
   public function delete($data = []) {
     $subscriber = $this->getSubscriber($data);
     if ($subscriber instanceof SubscriberEntity) {
-      $this->subscribersRepository->bulkDelete([$subscriber->getId()]);
-      return $this->successResponse(null, ['count' => 1]);
+      $count = $this->subscribersRepository->bulkDelete([$subscriber->getId()]);
+      return $this->successResponse(null, ['count' => $count]);
     } else {
       return $this->errorResponse([
         APIError::NOT_FOUND => WPFunctions::get()->__('This subscriber does not exist.', 'mailpoet'),
@@ -516,6 +520,8 @@ class Subscribers extends APIEndpoint {
       $count = $this->subscribersRepository->bulkAddToSegment($segment, $ids);
     } elseif ($data['action'] === 'moveToList' && $segment instanceof SegmentEntity) {
       $count = $this->subscribersRepository->bulkMoveToSegment($segment, $ids);
+    } elseif ($data['action'] === 'unsubscribe') {
+      $count = $this->subscribersRepository->bulkUnsubscribe($ids);
     } else {
       throw UnexpectedValueException::create()
         ->withErrors([APIError::BAD_REQUEST => "Invalid bulk action '{$data['action']}' provided."]);

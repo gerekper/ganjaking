@@ -9,7 +9,7 @@ $porto_woo_version = porto_get_woo_version_number();
 ?>
 <div class="featured-box featured-box-primary align-left">
 	<div class="box-content">
-		<form class="woocommerce-cart-form" action="<?php echo esc_url( version_compare( $porto_woo_version, '2.5', '<' ) ? WC()->cart->get_cart_url() : wc_get_cart_url() ); ?>" method="post">
+		<form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 		<?php do_action( 'woocommerce_before_cart_table' ); ?>
 		<table class="shop_table responsive cart woocommerce-cart-form__contents" cellspacing="0">
 			<thead>
@@ -97,7 +97,7 @@ $porto_woo_version = porto_get_woo_version_number();
 										false
 									);
 								}
-								echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key );
+								echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item );
 								?>
 								</td>
 							<td class="product-subtotal" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>">
@@ -115,7 +115,7 @@ $porto_woo_version = porto_get_woo_version_number();
 					<td colspan="6" class="actions">
 						<?php if ( version_compare( $porto_woo_version, '2.5', '<' ) ? WC()->cart->coupons_enabled() : wc_coupons_enabled() ) { ?>
 							<div class="coupon pt-left">
-								<label for="coupon_code"><?php esc_html_e( 'Coupon:', 'porto' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'porto' ); ?>" /> <input type="submit" class="btn btn-default" name="apply_coupon" value="<?php esc_attr_e( 'Apply Coupon', 'porto' ); ?>" />
+								<label for="coupon_code"><?php esc_html_e( 'Coupon:', 'porto' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'porto' ); ?>" /> <input type="submit" class="btn btn-default" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>" />
 								<?php do_action( 'woocommerce_cart_coupon' ); ?>
 							</div>
 						<?php } ?>

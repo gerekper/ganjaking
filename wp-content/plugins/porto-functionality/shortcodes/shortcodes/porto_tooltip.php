@@ -1,16 +1,7 @@
 <?php
 
 // Porto Tooltip
-add_shortcode( 'porto_tooltip', 'porto_shortcode_tooltip' );
 add_action( 'vc_after_init', 'porto_load_tooltip_shortcode' );
-
-function porto_shortcode_tooltip( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_tooltip' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_tooltip_shortcode() {
 	$animation_type     = porto_vc_animation_type();

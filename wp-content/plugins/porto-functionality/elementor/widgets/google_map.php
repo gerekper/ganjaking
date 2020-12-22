@@ -238,7 +238,7 @@ class Porto_Elementor_Google_Map_Widget extends \Elementor\Widget_Base {
 			'zoomcontrolposition',
 			array(
 				'type'      => Controls_Manager::SELECT,
-				'label'     => __( 'Zoom Control Position', 'porto-functionality' ),
+				'label'     => __( 'Zoom Control position', 'porto-functionality' ),
 				'options'   => array(
 					'RIGHT_BOTTOM' => __( 'Right Bottom', 'porto-functionality' ),
 					'RIGHT_TOP'    => __( 'Right Top', 'porto-functionality' ),

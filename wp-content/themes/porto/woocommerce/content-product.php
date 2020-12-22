@@ -20,11 +20,6 @@ if ( ! $product || ! $product->is_visible() ) {
 // Extra post classes
 $classes = array( 'product-col' );
 
-if ( ! $porto_settings['category-hover'] ) {
-	$classes[] = 'hover';
-}
-
-
 if ( ( function_exists( 'wc_get_loop_prop' ) && ! wc_get_loop_prop( 'is_paginated' ) ) || isset( $porto_woocommerce_loop['view'] ) || ! isset( $_COOKIE['gridcookie'] ) || 'list' != $_COOKIE['gridcookie'] ) {
 	if ( ! isset( $porto_woocommerce_loop['view'] ) || 'list' != $porto_woocommerce_loop['view'] ) {
 		if ( isset( $woocommerce_loop['addlinks_pos'] ) && 'quantity' == $woocommerce_loop['addlinks_pos'] ) {

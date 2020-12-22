@@ -498,6 +498,10 @@ article {
     }
 }
 
+.tab-content .comment-form {
+    padding-bottom: 22px
+}
+
 /* Related Posts */
 .related-posts {
     margin-top: 35px;
@@ -756,4 +760,13 @@ article {
 
 .post-date > time {
     display: none;
+}
+
+@media (min-width: 992px) {
+    .single-post {
+        .post-medium .post-media {
+            float: $left;
+            width: 40%;
+        }
+    }
 }

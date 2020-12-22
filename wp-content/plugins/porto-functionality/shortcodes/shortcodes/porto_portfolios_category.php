@@ -1,14 +1,7 @@
 <?php
 // Porto Portfolios Categories
-add_shortcode( 'porto_portfolios_category', 'porto_shortcode_portfolios_category' );
 add_action( 'vc_after_init', 'porto_load_portfolios_category_shortcode' );
-function porto_shortcode_portfolios_category( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_portfolios_category' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
+
 function porto_load_portfolios_category_shortcode() {
 	//$animation_type = porto_vc_animation_type();
 	//$animation_duration = porto_vc_animation_duration();

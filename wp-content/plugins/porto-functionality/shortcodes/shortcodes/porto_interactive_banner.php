@@ -1,25 +1,6 @@
 <?php
 // Porto interactive_banner
-if ( function_exists( 'register_block_type' ) ) {
-	register_block_type(
-		'porto/porto-interactive-banner',
-		array(
-			'editor_script'   => 'porto_blocks',
-			'render_callback' => 'porto_shortcode_interactive_banner',
-		)
-	);
-}
-add_shortcode( 'porto_interactive_banner', 'porto_shortcode_interactive_banner' );
 add_action( 'vc_after_init', 'porto_load_interactive_banner_shortcode' );
-
-function porto_shortcode_interactive_banner( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_interactive_banner' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_interactive_banner_shortcode() {
 

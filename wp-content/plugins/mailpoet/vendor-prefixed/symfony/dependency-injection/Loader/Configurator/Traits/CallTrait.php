@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Loader\Configurator\Traits; if (!defined('ABSPATH')) exit; use MailPoetVendor\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException; trait CallTrait { public final function call(string $method, array $arguments = [], bool $returnsClone = \false) : self { $this->definition->addMethodCall($method, static::processValue($arguments, \true), $returnsClone); return $this; } } 

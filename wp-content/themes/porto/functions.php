@@ -808,6 +808,7 @@ function porto_scripts() {
 
 		$porto_vars = array(
 			'rtl'                       => esc_js( is_rtl() ? true : false ),
+			'theme_url'                 => esc_js( get_theme_file_uri() ),
 			'ajax_url'                  => esc_js( admin_url( 'admin-ajax.php' ) ),
 			'change_logo'               => esc_js( $porto_settings['change-header-logo'] ),
 			'container_width'           => esc_js( $porto_settings['container-width'] ),

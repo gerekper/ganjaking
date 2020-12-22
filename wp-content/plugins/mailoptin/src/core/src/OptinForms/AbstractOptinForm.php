@@ -90,6 +90,11 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
         return [];
     }
 
+    public static function is_set_font_families_to_inherit()
+    {
+        return apply_filters('mo_optin_form_set_font_families_to_inherit', false);
+    }
+
     /**
      * Ensure all optin class specific filters are run in the context of their instance and type.
      * @note that optin camaign type, ID etc properties are not set or are null in this method
@@ -172,6 +177,8 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
      */
     public static function _remove_web_safe_font($font)
     {
+        if (self::is_set_font_families_to_inherit()) return 'inherit';
+
         $web_safe_font = [
             'Helvetica',
             'Helvetica Neue',
@@ -962,6 +969,8 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
      */
     protected function _get_optin_form_fonts()
     {
+        if (self::is_set_font_families_to_inherit()) return '';
+
         $headline_font = apply_filters('mo_get_optin_form_headline_font',
             self::_remove_web_safe_font(
                 OCR::get_merged_customizer_value($this->optin_campaign_id, 'headline_font')

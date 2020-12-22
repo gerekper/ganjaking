@@ -10,6 +10,7 @@ use MailPoet\Doctrine\EntityTraits\AutoincrementedIdTrait;
 use MailPoet\Doctrine\EntityTraits\CreatedAtTrait;
 use MailPoet\Doctrine\EntityTraits\DeletedAtTrait;
 use MailPoet\Doctrine\EntityTraits\UpdatedAtTrait;
+use MailPoet\Util\Helpers;
 use MailPoetVendor\Doctrine\Common\Collections\ArrayCollection;
 use MailPoetVendor\Doctrine\Common\Collections\Collection;
 use MailPoetVendor\Doctrine\ORM\Mapping as ORM;
@@ -33,7 +34,7 @@ class SubscriberEntity {
 
   /**
    * @ORM\Column(type="bigint", nullable=true)
-   * @var int|null
+   * @var string|null
    */
   private $wpUserId;
 
@@ -133,17 +134,33 @@ class SubscriberEntity {
   }
 
   /**
+   * @deprecated This is here only for backward compatibility with custom shortcodes https://kb.mailpoet.com/article/160-create-a-custom-shortcode
+   * This can be removed after 2021-08-01
+   */
+  public function __get($key) {
+    $getterName = 'get' . Helpers::underscoreToCamelCase($key, $capitaliseFirstChar = true);
+    $callable = [$this, $getterName];
+    if (is_callable($callable)) {
+      return call_user_func($callable);
+    }
+  }
+
+  /**
    * @return int|null
    */
   public function getWpUserId() {
-    return $this->wpUserId;
+    return $this->wpUserId ? (int)$this->wpUserId : null;
   }
 
   /**
    * @param int|null $wpUserId
    */
   public function setWpUserId($wpUserId) {
-    $this->wpUserId = $wpUserId;
+    $this->wpUserId = $wpUserId ? (string)$wpUserId : null;
+  }
+
+  public function isWPUser(): bool {
+    return $this->getWpUserId() > 0;
   }
 
   /**

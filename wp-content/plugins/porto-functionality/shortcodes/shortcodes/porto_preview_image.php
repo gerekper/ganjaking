@@ -1,16 +1,7 @@
 <?php
 
 // Porto Preview Image
-add_shortcode( 'porto_preview_image', 'porto_shortcode_preview_image' );
 add_action( 'vc_after_init', 'porto_load_preview_image_shortcode' );
-
-function porto_shortcode_preview_image( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_preview_image' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_preview_image_shortcode() {
 	$custom_class = porto_vc_custom_class();

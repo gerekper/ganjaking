@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Dumper; if (!defined('ABSPATH')) exit; use MailPoetVendor\Symfony\Component\DependencyInjection\ContainerBuilder; abstract class Dumper implements \MailPoetVendor\Symfony\Component\DependencyInjection\Dumper\DumperInterface { protected $container; public function __construct(\MailPoetVendor\Symfony\Component\DependencyInjection\ContainerBuilder $container) { $this->container = $container; } } 

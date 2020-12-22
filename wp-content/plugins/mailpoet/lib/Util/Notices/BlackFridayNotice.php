@@ -16,8 +16,8 @@ class BlackFridayNotice {
 
   public function init($shouldDisplay) {
     $shouldDisplay = $shouldDisplay
-      && (time() <= strtotime('2019-11-30 23:59:59'))
-      && (time() >= strtotime('2019-11-08 00:00:00'))
+      && (time() <= strtotime('2020-12-06 12:00:00'))
+      && (time() >= strtotime('2020-11-23 12:00:00'))
       && !get_transient(self::OPTION_NAME);
     if ($shouldDisplay) {
       $this->display();
@@ -28,15 +28,15 @@ class BlackFridayNotice {
     $subscribers = Subscriber
       ::whereNull('deleted_at')
       ->count();
-    $header = '<h1>' . __('MailPoet Black Friday: 33% discount on all our plans!', 'mailpoet') . '</h1>';
-    $body = '<p>' . __('Signup to a yearly plan today and get 4 months for free.', 'mailpoet') . '</p>';
-    $link = "<a href='https://account.mailpoet.com/?s=$subscribers' class='button button-primary' target='_blank'>"
+    $header = '<h3 class="mailpoet-h3">' . __('MailPoet Black Friday: 33% discount on all our plans!', 'mailpoet') . '</h3>';
+    $body = '<h5 class="mailpoet-h5">' . __('Signup to a yearly plan today and get 4 months for free.', 'mailpoet') . '</h5>';
+    $link = "<p><a href='https://account.mailpoet.com/?s=$subscribers' class='mailpoet-button mailpoet-button-small' target='_blank'>"
       . __('Buy Now', 'mailpoet')
-      . '</a>';
+      . '</a></p>';
 
     $extraClasses = 'mailpoet-dismissible-notice is-dismissible';
 
-    WPNotice::displaySuccess($header . $body . $link, $extraClasses, self::OPTION_NAME);
+    WPNotice::displaySuccess($header . $body . $link, $extraClasses, self::OPTION_NAME, false);
   }
 
   public function disable() {

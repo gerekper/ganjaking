@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Carbon; if (!defined('ABSPATH')) exit; use Closure; class FactoryImmutable extends \MailPoetVendor\Carbon\Factory { protected $className = \MailPoetVendor\Carbon\CarbonImmutable::class; } 

@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Loader\Configurator\Traits; if (!defined('ABSPATH')) exit; use MailPoetVendor\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException; trait DeprecateTrait { public final function deprecate(string $template = null) : self { $this->definition->setDeprecated(\true, $template); return $this; } } 

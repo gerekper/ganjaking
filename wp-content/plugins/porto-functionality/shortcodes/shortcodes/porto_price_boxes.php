@@ -1,16 +1,7 @@
 <?php
 
 // Porto Price Boxes
-add_shortcode( 'porto_price_boxes', 'porto_shortcode_price_boxes' );
 add_action( 'vc_after_init', 'porto_load_price_boxes_shortcode' );
-
-function porto_shortcode_price_boxes( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_price_boxes' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_price_boxes_shortcode() {
 	$animation_type     = porto_vc_animation_type();

@@ -18,7 +18,7 @@
     }
 
     .breadcrumbs-wrap {
-        font-size: 0.8em;
+        font-size: 0.75rem;
     }
     .breadcrumbs-prefix {
         margin-#{$right}: 10px;
@@ -39,37 +39,6 @@
             }
             + li:before {
                 display: none;
-            }
-            .delimiter {
-                display: block;
-                float: $right;
-                margin: 0 4px;
-                width: 20px;
-                text-align: center;
-                font-style: normal;
-                font-size: 12px;
-                &:before {
-                    content: "/\00a0";
-                    position: relative;
-                    @if $rtl == 1 {
-                        right: 1px;
-                    } @else {
-                        right: -2px;
-                    }
-                }
-                &.delimiter-2 {
-                    font-family: "Porto";
-                    font-weight: 400;
-                    &:before {
-                        @if $rtl == 1 {
-                            content: "\e819";
-                            right: 0;
-                        } @else {
-                            content: "\e81a";
-                            right: -1px;
-                        }
-                    }
-                }
             }
         }
         li {
@@ -158,6 +127,41 @@
         border: none !important;
         & .product-nav .product-link{
             color: #000000;
+        }
+    }
+}
+
+.page-top ul.breadcrumb>li,
+.page-header-8 {
+    .delimiter {
+        display: block;
+        float: $right;
+        margin: 0 4px;
+        width: 20px;
+        text-align: center;
+        font-style: normal;
+        font-size: 12px;
+        &:before {
+            content: "/\00a0";
+            position: relative;
+            @if $rtl == 1 {
+                right: 1px;
+            } @else {
+                right: -2px;
+            }
+        }
+        &.delimiter-2 {
+            font-family: "Porto";
+            font-weight: 400;
+            &:before {
+                @if $rtl == 1 {
+                    content: "\e819";
+                    right: 0;
+                } @else {
+                    content: "\e81a";
+                    right: -1px;
+                }
+            }
         }
     }
 }

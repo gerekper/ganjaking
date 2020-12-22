@@ -1,4 +1,8 @@
 <?php
+if ( ! empty( $atts['className'] ) ) {
+	$atts['el_class'] = $atts['className'];
+}
+
 $output = $grid_size = $gutter_size = $max_width = $animation_type = $animation_duration = $animation_delay = $el_class = '';
 extract(
 	shortcode_atts(

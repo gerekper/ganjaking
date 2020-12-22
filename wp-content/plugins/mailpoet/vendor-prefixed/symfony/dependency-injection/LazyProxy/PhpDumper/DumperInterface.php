@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper; if (!defined('ABSPATH')) exit; use MailPoetVendor\Symfony\Component\DependencyInjection\Definition; interface DumperInterface { public function isProxyCandidate(\MailPoetVendor\Symfony\Component\DependencyInjection\Definition $definition); public function getProxyFactoryCode(\MailPoetVendor\Symfony\Component\DependencyInjection\Definition $definition, $id, $factoryCode); public function getProxyCode(\MailPoetVendor\Symfony\Component\DependencyInjection\Definition $definition); } 

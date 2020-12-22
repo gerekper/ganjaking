@@ -1,0 +1,95 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: factory_forms\n"
+"POT-Creation-Date: 2014-08-24 17:39+0400\n"
+"PO-Revision-Date: 2014-08-24 17:49+0400\n"
+"Last-Translator: \n"
+"Language-Team: Alex Kovalev <alex.kovalevv@gmail.com>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.8\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-SearchPath-0: E:\\cloud\\Dropbox\\OnePress\\Products\\Topic\\Plugin "
+"- Opt-In Panda for Wordpress\\wp-content\\plugins\\optinpanda-next\\libs"
+"\\factory\\forms\n"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/checkbox.php:55
+msgid "On"
+msgstr "Вкл"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/checkbox.php:56
+msgid "Off"
+msgstr "Выкл"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/font.php:33
+msgid "(use default website font)"
+msgstr "(шрифт сайта по умолчанию)"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/font.php:35
+msgid "Sans Serif:"
+msgstr "Группа Sans Serif:"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/font.php:58
+msgid "Serif:"
+msgstr "Группа Serif:"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/font.php:78
+msgid "Monospaced:"
+msgstr "Группа Monospaced:"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/gradient.php:54
+msgid "vertical"
+msgstr "вертикальный"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/gradient.php:55
+msgid "horizontal"
+msgstr "горизонтальный"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/holders/more-link.php:47
+msgid "hide extra options"
+msgstr "скрыть дополнительные настроки"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/paddings-editor.php:51
+msgid "Select a side and move the slider to set up:"
+msgstr "Выберите сторону и переместите ползунок:"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/pattern.php:78
+msgid "Change color"
+msgstr "Выбрать цвет"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/pattern.php:80
+msgid "re-color"
+msgstr "Перекрасить"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/pattern.php:89
+msgid "Select color:"
+msgstr "Выберите цвет:"
+
+#: E:\cloud\Dropbox\OnePress\Products\Topic\Plugin - Opt-In Panda for
+#: Wordpress\wp-content\plugins\optinpanda-next\libs\factory\forms/controls/pattern.php:91
+msgid "Changing the color may takes a minute or more. Please be patient."
+msgstr ""
+"В некоторых случаях изменение цвета может занять около минуты. Пожалуйста, "
+"будьте терпеливы."
+
+#~ msgid "Upload Pattern"
+#~ msgstr "Добавить шаблон"

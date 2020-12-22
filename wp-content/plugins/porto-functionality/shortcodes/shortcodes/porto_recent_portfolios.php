@@ -1,16 +1,7 @@
 <?php
 
 // Porto Recent Portfolios
-add_shortcode( 'porto_recent_portfolios', 'porto_shortcode_recent_portfolios' );
 add_action( 'vc_after_init', 'porto_load_recent_portfolios_shortcode' );
-
-function porto_shortcode_recent_portfolios( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_recent_portfolios' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_recent_portfolios_shortcode() {
 	$animation_type     = porto_vc_animation_type();

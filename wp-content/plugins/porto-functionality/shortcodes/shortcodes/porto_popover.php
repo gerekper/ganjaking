@@ -1,16 +1,7 @@
 <?php
 
 // Porto Popover
-add_shortcode( 'porto_popover', 'porto_shortcode_popover' );
 add_action( 'vc_after_init', 'porto_load_popover_shortcode' );
-
-function porto_shortcode_popover( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_popover' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_popover_shortcode() {
 	$animation_type     = porto_vc_animation_type();

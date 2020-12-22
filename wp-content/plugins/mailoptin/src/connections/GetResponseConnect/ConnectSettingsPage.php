@@ -11,7 +11,7 @@ class ConnectSettingsPage
         add_filter('mailoptin_connections_settings_page', array($this, 'connection_settings'));
         add_action('wp_cspa_settings_after_title', array($this, 'output_error_log_link'), 10, 2);
 
-        add_action('mailoptin_after_connections_settings_page', [$this, 'toggle_js_Script']);
+        add_action('mailoptin_aconnection_settingsfter_connections_settings_page', [$this, 'toggle_js_Script']);
     }
 
     public function toggle_js_Script()

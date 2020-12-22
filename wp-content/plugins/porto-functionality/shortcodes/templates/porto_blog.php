@@ -220,7 +220,7 @@ if ( $posts->have_posts() ) {
 			$options['lg']    = (int) $columns;
 			switch ( $columns ) {
 				case '1':
-					$no_spacing = true;
+					$no_spacing       = true;
 					$container_class .= ' ccols-1';
 					break;
 				case '2':
@@ -248,8 +248,8 @@ if ( $posts->have_posts() ) {
 					break;
 			}
 
-			$options['nav']      = $navigation ? true : false;
-			$options['dots']     = $pagination ? true : false;
+			$options['nav']   = $navigation ? true : false;
+			$options['dots']  = $pagination ? true : false;
 			$container_attrs .= ' data-plugin-options="' . esc_attr( json_encode( $options ) ) . '"';
 
 			$post_layout        = 'grid';
@@ -268,9 +268,9 @@ if ( $posts->have_posts() ) {
 	}
 
 	if ( $excerpt_length ) {
-		$global_excerpt_length                 = $porto_settings['blog-excerpt-length'];
+		$global_excerpt_length                         = $porto_settings['blog-excerpt-length'];
 		$global_post_excerpt_length                    = $porto_settings['post-related-excerpt-length'];
-		$porto_settings['blog-excerpt-length'] = $excerpt_length;
+		$porto_settings['blog-excerpt-length']         = $excerpt_length;
 		$porto_settings['post-related-excerpt-length'] = $excerpt_length;
 	}
 	while ( $posts->have_posts() ) {
@@ -286,7 +286,7 @@ if ( $posts->have_posts() ) {
 		}
 	}
 	if ( $excerpt_length ) {
-		$porto_settings['blog-excerpt-length'] = $global_excerpt_length;
+		$porto_settings['blog-excerpt-length']         = $global_excerpt_length;
 		$porto_settings['post-related-excerpt-length'] = $global_post_excerpt_length;
 	}
 	if ( $is_creative_layout ) {

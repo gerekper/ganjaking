@@ -1,0 +1,1612 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Login Page Brigade\n"
+"POT-Creation-Date: 2019-04-25 12:50+0500\n"
+"PO-Revision-Date: 2019-04-25 12:50+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: ../classes/class-loginpress-addons.php:120
+#: ../classes/class-loginpress-addons.php:205
+#: ../classes/class-loginpress-addons.php:244
+#, php-format
+msgid "%1$s Already Installed %2$s"
+msgstr ""
+
+#: ../classes/class-loginpress-addons.php:124
+#: ../classes/class-loginpress-addons.php:210
+#, php-format
+msgid "%1$s Activate Plugin %2$s"
+msgstr ""
+
+#: ../classes/class-loginpress-addons.php:140
+#: ../classes/class-loginpress-addons.php:225
+#: ../classes/class-loginpress-addons.php:319
+msgid "UPGRADE NOW"
+msgstr ""
+
+#: ../classes/class-loginpress-addons.php:215
+#: ../classes/class-loginpress-addons.php:255
+#, php-format
+msgid "%1$s Install %2$s"
+msgstr ""
+
+#: ../classes/class-loginpress-addons.php:250
+#, php-format
+msgid "%3$s %1$s Activate Plugin %2$s"
+msgstr ""
+
+#: ../classes/class-loginpress-addons.php:337
+msgid "You have a lifetime license, it will never expire."
+msgstr ""
+
+#: ../classes/class-loginpress-addons.php:341
+#, php-format
+msgid "Your (%2$s) license key is valid until %s."
+msgstr ""
+
+#: ../classes/class-loginpress-addons.php:355
+msgid "You need to activate your license to download the following add-ons."
+msgstr ""
+
+#: ../classes/class-loginpress-addons.php:368
+msgid "You need to upgrade to LoginPress Pro to access these add-ons."
+msgstr ""
+
+#: ../classes/class-loginpress-addons.php:586
+msgid "Extend the functionality of LoginPress with these awesome Add-ons"
+msgstr ""
+
+#: ../classes/class-loginpress-custom-password.php:45
+#: ../include/customizer-strings.php:86 ../include/template-loginpress.php:518
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: ../classes/class-loginpress-custom-password.php:49
+msgid "Confirm Password"
+msgstr "تأكيد كلمة المرور"
+
+#: ../classes/class-loginpress-custom-password.php:70
+msgid "<strong>ERROR</strong>: Please enter your password twice."
+msgstr ""
+
+#: ../classes/class-loginpress-custom-password.php:74
+msgid ""
+"<strong>ERROR</strong>: Please enter the same password in the end password "
+"fields."
+msgstr ""
+
+#: ../classes/class-loginpress-filter-plugin.php:42
+#, php-format
+msgid "Buy %s now"
+msgstr ""
+
+#: ../classes/class-loginpress-filter-plugin.php:43
+msgid "Buy Now"
+msgstr ""
+
+#: ../classes/class-loginpress-filter-plugin.php:186
+msgid "Analytify"
+msgstr ""
+
+#: ../classes/class-loginpress-filter-plugin.php:195
+msgid ""
+"Analytify is reshaping Google Analytics in WordPress. See Social Media, "
+"Keywords, Realtime, Country, Mobile and Browsers Statistics under pages and "
+"posts."
+msgstr ""
+
+#: ../classes/class-loginpress-filter-plugin.php:198
+msgid "Related Posts"
+msgstr ""
+
+#: ../classes/class-loginpress-filter-plugin.php:207
+msgid ""
+"Related Post Thumbnails plugin is for those who want the showcase of their "
+"related posts after the post detail. The plugin allows customizing thumbnail "
+"sizes, display settings, and type of relations. The plugin is using original "
+"WordPress taxonomy. It returns generated HTML, that is essential for page "
+"load speed of blogs that use many Javascript widgets."
+msgstr ""
+
+#: ../classes/class-loginpress-filter-plugin.php:210
+msgid "LoginPress Pro"
+msgstr ""
+
+#: ../classes/class-loginpress-filter-plugin.php:220
+msgid ""
+"LoginPress Plugin by LoginPress holds a lot of customization fields to "
+"change the layout of the login page of WordPress. You can modify the look "
+"and feel of login page completely even the login error messages, forgot "
+"error messages, registration error messages, forget password hint message "
+"and many more."
+msgstr ""
+
+#: ../classes/class-loginpress-login-order.php:69 ../custom.php:1643
+#: ../include/customizer-strings.php:141
+#, php-format
+msgid "%1$sError:%2$s The username field is empty."
+msgstr ""
+
+#: ../classes/class-loginpress-login-order.php:71 ../custom.php:1645
+#: ../include/customizer-strings.php:142
+#, php-format
+msgid "%1$sError:%2$s The password field is empty."
+msgstr ""
+
+#: ../classes/class-loginpress-login-order.php:92
+#: ../include/customizer-strings.php:148
+#, php-format
+msgid "%1$sError:%2$s Invalid Email Address"
+msgstr ""
+
+#: ../classes/class-loginpress-login-order.php:114 ../custom.php:1639
+#: ../include/customizer-strings.php:140
+#, php-format
+msgid "%1$sError:%2$s Invalid Username."
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:130
+msgid "Leave A Review?"
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:131
+msgid ""
+"We hope you've enjoyed using LoginPress! Would you consider leaving us a "
+"review on WordPress.org?"
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:133
+msgid "Sure! I'd love to!"
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:134
+msgid "I've already left a review"
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:135
+msgid "Maybe Later"
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:136
+msgid "Never show again"
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:161
+msgid "Introducing LoginPress Addons!"
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:162
+msgid "Extend LoginPress with these add-ons and supercharge your login pages."
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:166
+msgid "Learn More"
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:270
+msgid "FLAT 51% OFF"
+msgstr ""
+
+#: ../classes/class-loginpress-notifications.php:295
+#, php-format
+msgid ""
+"<strong>Biggest Winter Deal</strong> in the WordPress Universe! Get "
+"<strong>LoginPress Pro and all Premium Add-ons</strong> with <strong>20%% "
+"OFF</strong> [Limited Availability].<a href=\"https://wpbrigade.com/"
+"wordpress/plugins/loginpress-pro/?utm_source=loginpress-"
+"lite&utm_medium=freepluginbanner-button&utm_campaign=early20\" target="
+"\"_blank\" style=\"text-decoration: none;\"><span class=\"dashicons "
+"dashicons-smiley\" style=\"margin-left: 10px;\"></span> Grab The Deal</a>\n"
+"  \t\t\t\t\t<a href=\"%1$s\" style=\"text-decoration: none; margin-left: "
+"10px;\"><span class=\"dashicons dashicons-dismiss\"></span> I'm good with "
+"free version</a>"
+msgstr ""
+
+#: ../classes/class-loginpress-promo.php:9
+msgid "Google Fonts"
+msgstr ""
+
+#: ../classes/class-loginpress-promo.php:26
+#: ../classes/class-loginpress-promo.php:47 ../classes/control-presets.php:74
+msgid "Unlock Premium Feature"
+msgstr ""
+
+#: ../classes/class-loginpress-promo.php:31
+msgid "reCAPTCHA"
+msgstr ""
+
+#: ../classes/class-loginpress-settings-api.php:372 ../custom.php:647
+msgid "Choose File"
+msgstr ""
+
+#: ../classes/class-loginpress-settings-api.php:639
+msgid "Getting Started Video"
+msgstr ""
+
+#: ../classes/class-loginpress-settings-api.php:647
+msgid "Why Go Pro?"
+msgstr ""
+
+#: ../classes/class-loginpress-settings-api.php:650
+msgid "Secure login with Google reCaptcha"
+msgstr ""
+
+#: ../classes/class-loginpress-settings-api.php:651
+msgid "20+ Custom Login Themes"
+msgstr ""
+
+#: ../classes/class-loginpress-settings-api.php:652
+msgid "Full customization with Custom CSS & JS"
+msgstr ""
+
+#: ../classes/class-loginpress-settings-api.php:657
+msgid "See What's In The Pro Version"
+msgstr ""
+
+#: ../classes/class-loginpress-settings-api.php:666
+msgid "Plugin Support"
+msgstr ""
+
+#: ../classes/class-loginpress-settings-api.php:669
+msgid "Got a Question, Idea, Problem or Praise?"
+msgstr ""
+
+#: ../classes/class-loginpress-settings-api.php:671
+msgid "Support Request"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:53
+msgid "Default Settings Restored"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:60 ../custom.php:250
+#: ../loginpress.php:279
+msgid "LoginPress"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:62
+#: ../classes/class-loginpress-setup.php:79
+msgid "Settings"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:64
+msgid "Customizer"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:66
+msgid "Help"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:68
+#: ../include/loginpress-import-export.php:13
+msgid "Import/Export LoginPress Settings"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:68
+msgid "Import / Export"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:70
+msgid "Add-Ons"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:80
+#, php-format
+msgid "Everything else is customizable through %1$sWordPress Customizer%2$s."
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:102
+msgid "Upgrade to Pro for More Features"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:127
+msgid "Session Expire"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:128
+msgid "Set the session expiration time in minutes. e.g: 10"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:129
+msgid "10"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:152
+#, fuzzy
+#| msgid "Lost Password Text"
+msgid "Custom Password Fields"
+msgstr "فقدت كلمة المرور Text"
+
+#: ../classes/class-loginpress-setup.php:153
+msgid "Enable custom password fields on registration form."
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:158
+msgid "Login Order"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:159
+msgid "Enable users to login using their username and/or email address."
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:176
+msgid "Reset Default Settings"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:177
+msgid "Remove my custom settings."
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:213
+msgid "LoginPress - Rebranding your boring WordPress Login pages"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:232
+#, php-format
+msgid "Free support is available on the %1$s plugin support forums%2$s."
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:234
+#, php-format
+msgid ""
+"For premium features, add-ons and priority email support, %1$s upgrade to pro"
+"%2$s."
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:240
+msgid "Download Log File"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:296
+#, fuzzy
+#| msgid "Lost Password Text"
+msgid "Lost Password URL"
+msgstr "فقدت كلمة المرور Text"
+
+#: ../classes/class-loginpress-setup.php:297
+msgid ""
+"Use WordPress default lost password URL instead of WooCommerce custom lost "
+"password URL."
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:314
+msgid "and LoginPress page"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:319
+msgid "Remove Settings on Uninstall"
+msgstr ""
+
+#: ../classes/class-loginpress-setup.php:320
+#, php-format
+msgid "This tool will remove all LoginPress settings %1$s upon uninstall."
+msgstr ""
+
+#: ../classes/control-presets.php:78
+msgid "Contact us for Custom Design"
+msgstr ""
+
+#: ../classes/controls/group.php:53
+msgid "Info:"
+msgstr ""
+
+#: ../custom.php:251
+msgid "Customize Your WordPress Login Page with LoginPress :)"
+msgstr ""
+
+#: ../custom.php:264
+msgid "Themes"
+msgstr ""
+
+#: ../custom.php:265
+msgid "Choose Theme"
+msgstr ""
+
+#: ../custom.php:279 ../custom.php:286 ../custom.php:496 ../custom.php:503
+msgid "Company"
+msgstr ""
+
+#: ../custom.php:280 ../custom.php:291 ../custom.php:497
+msgid "Persona"
+msgstr ""
+
+#: ../custom.php:281 ../custom.php:282 ../custom.php:498 ../custom.php:499
+msgid "Corporate"
+msgstr ""
+
+#: ../custom.php:283 ../custom.php:500
+msgid "Startup"
+msgstr ""
+
+#: ../custom.php:284 ../custom.php:501
+msgid "Wedding"
+msgstr ""
+
+#: ../custom.php:285 ../custom.php:502
+msgid "Wedding #2"
+msgstr ""
+
+#: ../custom.php:287 ../custom.php:504
+msgid "Bikers"
+msgstr ""
+
+#: ../custom.php:288
+msgid "Fitness"
+msgstr ""
+
+#: ../custom.php:289
+msgid "Shopping"
+msgstr ""
+
+#: ../custom.php:290
+msgid "Writers"
+msgstr ""
+
+#: ../custom.php:292
+msgid "Geek"
+msgstr ""
+
+#: ../custom.php:293
+msgid "Innovation"
+msgstr ""
+
+#: ../custom.php:294
+msgid "Photographers"
+msgstr ""
+
+#: ../custom.php:323
+#, fuzzy
+#| msgid "Custom JS"
+msgid "Custom Design"
+msgstr "مخصص js"
+
+#: ../custom.php:341
+msgid "Logo"
+msgstr ""
+
+#: ../custom.php:342
+msgid "Customize Your Logo Section"
+msgstr ""
+
+#: ../custom.php:362
+msgid "Disable Logo:"
+msgstr ""
+
+#: ../custom.php:376
+msgid "Logo Image:"
+msgstr ""
+
+#: ../custom.php:394
+msgid "Logo URL:"
+msgstr ""
+
+#: ../custom.php:394
+msgid "Logo Hover Title:"
+msgstr ""
+
+#: ../custom.php:422
+msgid "Background"
+msgstr "الخلفية"
+
+#: ../custom.php:437
+msgid "Background Color:"
+msgstr ""
+
+#: ../custom.php:460
+#, fuzzy
+#| msgid "Form Background Image"
+msgid "Enable Background Image?"
+msgstr "صورة الخلفية"
+
+#: ../custom.php:475
+msgid "Background Image:"
+msgstr ""
+
+#: ../custom.php:480
+msgid "Select Image"
+msgstr ""
+
+#: ../custom.php:524
+#, fuzzy
+#| msgid "Background Color"
+msgid "Background Gallery:"
+msgstr "لون الخلفية"
+
+#: ../custom.php:538
+msgid "Background Repeat:"
+msgstr "تكرار صورة الخلفية:"
+
+#: ../custom.php:563
+msgid "Select Position:"
+msgstr ""
+
+#: ../custom.php:589
+msgid "Background Image Size: "
+msgstr ""
+
+#: ../custom.php:619
+#, fuzzy
+#| msgid "Form Background Image"
+msgid "Enable Background Video?"
+msgstr "صورة الخلفية"
+
+#: ../custom.php:637
+#, fuzzy
+#| msgid "Background Repeat:"
+msgid "Background Video:"
+msgstr "تكرار صورة الخلفية:"
+
+#: ../custom.php:642
+msgid "Select Video"
+msgstr ""
+
+#: ../custom.php:643
+msgid "Change Video"
+msgstr ""
+
+#: ../custom.php:644
+msgid "Default"
+msgstr ""
+
+#: ../custom.php:645
+msgid "Remove"
+msgstr ""
+
+#: ../custom.php:646
+msgid "Select File"
+msgstr ""
+
+#: ../custom.php:660
+#, fuzzy
+#| msgid "Text Font Size:"
+msgid "Video Size:"
+msgstr "نص حجم الخط:"
+
+#: ../custom.php:681
+msgid "Object Postion:"
+msgstr ""
+
+#: ../custom.php:686
+msgid "50% 50%"
+msgstr ""
+
+#: ../custom.php:704
+msgid "Muted Video?"
+msgstr ""
+
+#: ../custom.php:714
+msgid "Customize Login Form"
+msgstr ""
+
+#: ../custom.php:737
+msgid "Enable Form Transparency:"
+msgstr ""
+
+#: ../custom.php:751
+#, fuzzy
+#| msgid "Form Background Image"
+msgid "Form Background Image:"
+msgstr "صورة الخلفية"
+
+#: ../custom.php:880
+msgid "Customize Forget Form"
+msgstr "تخصيص نسيت نموذج"
+
+#: ../custom.php:894
+#, fuzzy
+#| msgid "Forget Form Background Image"
+msgid "Forget Form Background Image:"
+msgstr "ننسى من صورة الخلفية"
+
+#: ../custom.php:909
+#, fuzzy
+#| msgid "Forget Form Background Color"
+msgid "Forget Form Background Color:"
+msgstr "ننسى نموذج لون الخلفية"
+
+#: ../custom.php:919
+msgid "Button Beauty"
+msgstr "الجمال زر"
+
+#: ../custom.php:950
+msgid "Error Messages"
+msgstr "رسائل الخطأ"
+
+#: ../custom.php:981
+msgid "Welcome Messages"
+msgstr "أهلا وسهلا بك الرسائل"
+
+#: ../custom.php:1019
+msgid "Message Field Background Color:"
+msgstr "حقل رسالة لون الخلفية:"
+
+#: ../custom.php:1131
+msgid "Form Footer"
+msgstr ""
+
+#: ../custom.php:1154
+#, fuzzy
+#| msgid "Footer Text 1"
+msgid "Enable Footer Text:"
+msgstr "تذييل النص 1"
+
+#: ../custom.php:1161 ../include/template-loginpress.php:493
+#: ../include/template-loginpress.php:552
+#, fuzzy
+#| msgid "Lost Password Text"
+msgid "Lost your password?"
+msgstr "فقدت كلمة المرور Text"
+
+#: ../custom.php:1169
+#, fuzzy
+#| msgid "Lost Password Text"
+msgid "Lost Password Text:"
+msgstr "فقدت كلمة المرور Text"
+
+#: ../custom.php:1185
+msgid "Select Text Decoration:"
+msgstr ""
+
+#: ../custom.php:1206
+msgid "Footer Text Color:"
+msgstr "لون نص هامش الصفحة"
+
+#: ../custom.php:1221
+msgid "Footer Text Hover Color:"
+msgstr "تذييل النص تحوم اللون:"
+
+#: ../custom.php:1242
+msgid "Text Font Size:"
+msgstr "نص حجم الخط:"
+
+#: ../custom.php:1259
+msgid "Footer Background Color:"
+msgstr "لون خلفية تذييل  الصفحة"
+
+#: ../custom.php:1284
+msgid "Enable \"Back to\" Text:"
+msgstr ""
+
+#: ../custom.php:1300
+msgid "\"Back to\" Text Decoration:"
+msgstr ""
+
+#: ../custom.php:1321
+msgid "\"Back to\" Text Color:"
+msgstr ""
+
+#: ../custom.php:1336
+msgid "\"Back to\" Text Hover Color:"
+msgstr ""
+
+#: ../custom.php:1357
+msgid "\"Back to\" Text Font Size:"
+msgstr ""
+
+#: ../custom.php:1374
+#, fuzzy
+#| msgid "Form Background Color"
+msgid "\"Back to\" Background Color:"
+msgstr "لون الخلفية"
+
+#: ../custom.php:1400
+msgid "Enable Copyright Note:"
+msgstr ""
+
+#: ../custom.php:1404 ../custom.php:1545
+#, php-format
+msgid "© %1$s %2$s, All Rights Reserved."
+msgstr "© %1$s %2$s, جميع الحقوق محفوظة."
+
+#: ../custom.php:1412
+msgid "Copyright Note:"
+msgstr ""
+
+#: ../custom.php:1437
+msgid ""
+"Show some Love. Please help others learn about this free plugin by placing "
+"small link in footer. Thank you very much!"
+msgstr ""
+
+#: ../custom.php:1453
+msgid "Love Position:"
+msgstr ""
+
+#: ../custom.php:1459
+msgid "Left"
+msgstr ""
+
+#: ../custom.php:1460
+msgid "Right"
+msgstr ""
+
+#: ../custom.php:1471
+#, fuzzy
+#| msgid "Custom CSS"
+msgid "Custom CSS/JS"
+msgstr "CSS مخصصة"
+
+#: ../custom.php:1484
+#, fuzzy
+#| msgid "Customize CSS"
+msgid "Customize CSS:"
+msgstr "تخصيص CSS"
+
+#: ../custom.php:1489
+#, php-format
+msgid ""
+"Custom CSS doen't make effect live. For preview please save the setting and "
+"visit %1$s login%2$s page or after save refresh the customizer."
+msgstr ""
+
+#: ../custom.php:1499
+#, fuzzy
+#| msgid "Customize JS"
+msgid "Customize JS:"
+msgstr "تخصيص JS"
+
+#: ../custom.php:1504
+#, php-format
+msgid ""
+"Custom JS doen't make effect live. For preview please save the setting and "
+"visit %1$s login%2$s page or after save refresh the customizer."
+msgstr ""
+
+#: ../custom.php:1528 ../custom.php:1530
+msgid "Powered by:"
+msgstr "مشغل بواسطة:"
+
+#: ../custom.php:1641 ../include/customizer-strings.php:140
+#, php-format
+msgid "%1$sError:%2$s Invalid Password."
+msgstr ""
+
+#: ../custom.php:1647 ../include/customizer-strings.php:143
+#, php-format
+msgid "%1$sError:%2$s The email address isn't correct.."
+msgstr ""
+
+#: ../custom.php:1649 ../include/customizer-strings.php:144
+#, php-format
+msgid "%1$sError:%2$s Please type your email address."
+msgstr ""
+
+#: ../custom.php:1651 ../include/customizer-strings.php:145
+#, php-format
+msgid ""
+"%1$sError:%2$s This username is already registered. Please choose another "
+"one."
+msgstr ""
+
+#: ../custom.php:1653 ../include/customizer-strings.php:146
+#, php-format
+msgid ""
+"%1$sError:%2$s This email is already registered, please choose another one."
+msgstr ""
+
+#: ../custom.php:1655 ../include/customizer-strings.php:147
+#, php-format
+msgid "%1$sError:%2$s Invalid username or email."
+msgstr ""
+
+#: ../custom.php:1730 ../include/template-loginpress.php:469
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: ../custom.php:1732
+msgid "Email Address"
+msgstr "البريد الالكتروني"
+
+#: ../custom.php:1799 ../include/template-loginpress.php:370
+msgid ""
+"Please enter your username or email address. You will receive a link to "
+"create a new password via email."
+msgstr ""
+
+#: ../custom.php:1807 ../include/template-loginpress.php:465
+msgid "Register For This Site"
+msgstr ""
+
+#: ../custom.php:1825 ../custom.php:1829
+msgid "Your password has been reset."
+msgstr ""
+
+#: ../custom.php:1829 ../include/template-loginpress.php:397
+#: ../include/template-loginpress.php:491
+msgid "Log in"
+msgstr ""
+
+#: ../include/class-remote-notification-client.php:126
+#: ../include/class-remote-notification-client.php:137
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: ../include/class-remote-notification-client.php:502
+msgid "Dismiss notification"
+msgstr ""
+
+#: ../include/class-remote-notification-client.php:701
+#, php-format
+msgid "The server response was invalid (code %s)"
+msgstr ""
+
+#: ../include/class-remote-notification-client.php:707
+msgid "The server response is empty"
+msgstr ""
+
+#: ../include/class-remote-notification-client.php:713
+msgid "Cannot decode the response content"
+msgstr ""
+
+#: ../include/create-loginpress-page.php:58
+#, php-format
+msgid ""
+"<p>This page is used by %1$s to preview the login page in the Customizer.</p>"
+msgstr ""
+
+#: ../include/create-loginpress-page.php:63
+msgctxt "Page slug"
+msgid "loginpress"
+msgstr ""
+
+#: ../include/create-loginpress-page.php:64
+msgctxt "Page title"
+msgid "LoginPress"
+msgstr ""
+
+#: ../include/customizer-strings.php:9
+msgid "Logo Width:"
+msgstr ""
+
+#: ../include/customizer-strings.php:9
+msgid "Logo Height:"
+msgstr ""
+
+#: ../include/customizer-strings.php:9
+msgid "Space Bottom:"
+msgstr ""
+
+#: ../include/customizer-strings.php:23
+#, fuzzy
+#| msgid "Input Field Text Color"
+msgid "Input Fields:"
+msgstr "لون الخط حقل الإدخال"
+
+#: ../include/customizer-strings.php:24
+#, fuzzy
+#| msgid "Input Field Text Color"
+msgid "Input Field Labels:"
+msgstr "لون الخط حقل الإدخال"
+
+#: ../include/customizer-strings.php:25
+#, fuzzy
+#| msgid "Login Logo"
+msgid "Login Form:"
+msgstr "شعار تسجيل الدخول"
+
+#: ../include/customizer-strings.php:26
+#, fuzzy
+#| msgid "Lost Password Text"
+msgid "Lost Your Password Text"
+msgstr "فقدت كلمة المرور Text"
+
+#: ../include/customizer-strings.php:27
+msgid "Back To Site Text"
+msgstr ""
+
+#: ../include/customizer-strings.php:28
+#, fuzzy
+#| msgid "Login Footer Links"
+msgid "LoginPress Footer Text"
+msgstr "تسجيل الدخول تذييل سريعة"
+
+#: ../include/customizer-strings.php:29
+#, fuzzy
+#| msgid "Form Background Image"
+msgid "Background Image"
+msgstr "صورة الخلفية"
+
+#: ../include/customizer-strings.php:30
+#, fuzzy
+#| msgid "Background"
+msgid "Background Video"
+msgstr "الخلفية"
+
+#: ../include/customizer-strings.php:32
+msgid ""
+"This section helps you to easily Customize the login form input field "
+"elements."
+msgstr ""
+
+#: ../include/customizer-strings.php:33
+msgid ""
+"This section helps you to easily Customize the login form input field labels."
+msgstr ""
+
+#: ../include/customizer-strings.php:34
+msgid ""
+"This section helps you to easily Customize the login form elements whether "
+"they are form lables, fields or backgrounds."
+msgstr ""
+
+#: ../include/customizer-strings.php:35
+msgid ""
+" Customize the \"Lost your password\" and \"Register\" text section under "
+"the form."
+msgstr ""
+
+#: ../include/customizer-strings.php:36
+msgid "Customize the \"Back to\" text section under the form."
+msgstr ""
+
+#: ../include/customizer-strings.php:37
+msgid ""
+"Customize the copyright note and branding sections at the footer of login "
+"page."
+msgstr ""
+
+#: ../include/customizer-strings.php:38
+#, fuzzy
+#| msgid "Form Background Image"
+msgid "Customize the background Image."
+msgstr "صورة الخلفية"
+
+#: ../include/customizer-strings.php:39
+msgid "Customize the background Video."
+msgstr ""
+
+#: ../include/customizer-strings.php:49
+msgid "Form Width:"
+msgstr "تشكيل العرض:"
+
+#: ../include/customizer-strings.php:50
+msgid "Form Minimum Height:"
+msgstr ""
+
+#: ../include/customizer-strings.php:51
+#, fuzzy
+#| msgid "Form Padding:"
+msgid "Form Radius:"
+msgstr "الحشو شكل:"
+
+#: ../include/customizer-strings.php:52
+#, fuzzy
+#| msgid "Form Padding:"
+msgid "Form Shadow:"
+msgstr "الحشو شكل:"
+
+#: ../include/customizer-strings.php:53
+msgid "Form Shadow Opacity:"
+msgstr ""
+
+#: ../include/customizer-strings.php:54
+msgid "Input Text Field Width:"
+msgstr ""
+
+#: ../include/customizer-strings.php:55
+#, fuzzy
+#| msgid "Input Text Field Margin"
+msgid "Input Text Field Radius:"
+msgstr "إدخال النص الهامش الميدان"
+
+#: ../include/customizer-strings.php:56
+#, fuzzy
+#| msgid "Input Text Field Width"
+msgid "Input Text Field Shadow:"
+msgstr "إدخال النص عرض الحقل"
+
+#: ../include/customizer-strings.php:57
+#, fuzzy
+#| msgid "Input Text Field Width"
+msgid "Input Text Field Shadow Opacity:"
+msgstr "إدخال النص عرض الحقل"
+
+#: ../include/customizer-strings.php:58
+#, fuzzy
+#| msgid "Input Field Text Color"
+msgid "Input Field Label Font Size:"
+msgstr "لون الخط حقل الإدخال"
+
+#: ../include/customizer-strings.php:59
+#, fuzzy
+#| msgid "Text Font Size:"
+msgid "Remember Me Font Size:"
+msgstr "نص حجم الخط:"
+
+#: ../include/customizer-strings.php:78
+msgid "Form Background Color:"
+msgstr ""
+
+#: ../include/customizer-strings.php:79
+msgid "Input Field Background Color:"
+msgstr ""
+
+#: ../include/customizer-strings.php:80
+msgid "Input Field Text Color:"
+msgstr ""
+
+#: ../include/customizer-strings.php:81
+#, fuzzy
+#| msgid "Input Field Text Color"
+msgid "Input Field Label Color:"
+msgstr "لون الخط حقل الإدخال"
+
+#: ../include/customizer-strings.php:82
+#, fuzzy
+#| msgid "Label Color"
+msgid "Remember me Label Color:"
+msgstr "تسمية اللون"
+
+#: ../include/customizer-strings.php:86 ../include/template-loginpress.php:382
+#: ../include/template-loginpress.php:514
+msgid "Username or Email Address"
+msgstr ""
+
+#: ../include/customizer-strings.php:88
+msgid "Form Padding:"
+msgstr "الحشو شكل:"
+
+#: ../include/customizer-strings.php:89
+msgid "Border (Example: 2px dotted black):"
+msgstr ""
+
+#: ../include/customizer-strings.php:90
+msgid "Input Text Field Margin:"
+msgstr ""
+
+#: ../include/customizer-strings.php:91
+#, fuzzy
+#| msgid "Empty Username Message:"
+msgid "Username Label:"
+msgstr "فارغة اسم المستخدم نص الرسالة:"
+
+#: ../include/customizer-strings.php:92
+#, fuzzy
+#| msgid "Empty Password Message:"
+msgid "Password Label:"
+msgstr "فارغة كلمة رسالة:"
+
+#: ../include/customizer-strings.php:104
+msgid "Button Color:"
+msgstr ""
+
+#: ../include/customizer-strings.php:105
+msgid "Button Border Color:"
+msgstr ""
+
+#: ../include/customizer-strings.php:106
+msgid "Button Color (Hover):"
+msgstr ""
+
+#: ../include/customizer-strings.php:107
+msgid "Button Border (Hover):"
+msgstr ""
+
+#: ../include/customizer-strings.php:108
+msgid "Button Box Shadow:"
+msgstr ""
+
+#: ../include/customizer-strings.php:109
+msgid "Button Text Color:"
+msgstr ""
+
+#: ../include/customizer-strings.php:114
+#, fuzzy
+#| msgid "Text Font Size:"
+msgid "Button Size:"
+msgstr "نص حجم الخط:"
+
+#: ../include/customizer-strings.php:114
+#, fuzzy
+#| msgid "Form Padding:"
+msgid "Button Top Padding:"
+msgstr "الحشو شكل:"
+
+#: ../include/customizer-strings.php:114
+#, fuzzy
+#| msgid "Form Padding:"
+msgid "Button Bottom Padding:"
+msgstr "الحشو شكل:"
+
+#: ../include/customizer-strings.php:114
+msgid "Radius:"
+msgstr ""
+
+#: ../include/customizer-strings.php:114
+msgid "Shadow:"
+msgstr ""
+
+#: ../include/customizer-strings.php:114
+msgid "Shadow Opacity:"
+msgstr ""
+
+#: ../include/customizer-strings.php:114
+#, fuzzy
+#| msgid "Text Font Size:"
+msgid "Text Size:"
+msgstr "نص حجم الخط:"
+
+#: ../include/customizer-strings.php:150
+msgid "Incorrect Username Message:"
+msgstr "اسم المستخدم غير صحيح نص الرسالة:"
+
+#: ../include/customizer-strings.php:151
+msgid "Incorrect Password Message:"
+msgstr "كلمة المرور غير صحيحة رسالة:"
+
+#: ../include/customizer-strings.php:152
+msgid "Empty Username Message:"
+msgstr "فارغة اسم المستخدم نص الرسالة:"
+
+#: ../include/customizer-strings.php:153
+msgid "Empty Password Message:"
+msgstr "فارغة كلمة رسالة:"
+
+#: ../include/customizer-strings.php:154
+msgid "Invalid Email Message:"
+msgstr "التسويق المتوسطة: حزب الشيوعى الصينى، لافتة، والبريد الإلكتروني"
+
+#: ../include/customizer-strings.php:155
+msgid "Empty Email Message:"
+msgstr "أرسل رسالة فارغة:"
+
+#: ../include/customizer-strings.php:156
+#, fuzzy
+#| msgid "Empty Username Message:"
+msgid "Username Already Exist Message:"
+msgstr "فارغة اسم المستخدم نص الرسالة:"
+
+#: ../include/customizer-strings.php:157
+#, fuzzy
+#| msgid "Empty Email Message:"
+msgid "Email Already Exist Message:"
+msgstr "أرسل رسالة فارغة:"
+
+#: ../include/customizer-strings.php:158
+msgid "Forget Password Message:"
+msgstr "نسيت كلمة المرور الرسالة:"
+
+#: ../include/customizer-strings.php:159
+#, fuzzy
+#| msgid "Invalid Email Message:"
+msgid "Login with Email Message:"
+msgstr "التسويق المتوسطة: حزب الشيوعى الصينى، لافتة، والبريد الإلكتروني"
+
+#: ../include/customizer-strings.php:170
+msgid "Welcome Message on Lost Password:"
+msgstr "رسالة ترحيب على فقدت كلمة المرور:"
+
+#: ../include/customizer-strings.php:171
+#, fuzzy
+#| msgid "Welcome Message on Front Page:"
+msgid "Welcome Message on Login Page:"
+msgstr "أهلا وسهلا بك رسالة على صفحتها:"
+
+#: ../include/customizer-strings.php:172
+msgid "Welcome Message on Registration:"
+msgstr "رسالة ترحيب تسجيل:"
+
+#: ../include/customizer-strings.php:173
+msgid "Logout Message:"
+msgstr "رسالة تسجيل الخروج:"
+
+#: ../include/customizer-strings.php:174
+msgid "Message Field Border: ( Example: 1px solid #00a0d2; )"
+msgstr ""
+
+#: ../include/deactivate_modal.php:139
+msgid "Quick feedback about LoginPress"
+msgstr ""
+
+#: ../include/deactivate_modal.php:142
+msgid "If you have a moment, please let us know why you are deactivating:"
+msgstr ""
+
+#: ../include/deactivate_modal.php:150
+msgid " I upgraded to LoginPress Pro"
+msgstr ""
+
+#: ../include/deactivate_modal.php:152
+msgid ""
+"No need to deactivate this LoginPress Core version. Pro version works as an "
+"add-on with Core version."
+msgstr ""
+
+#: ../include/deactivate_modal.php:159
+msgid "I only needed the plugin for a short period"
+msgstr ""
+
+#: ../include/deactivate_modal.php:168
+msgid "I found a better plugin"
+msgstr ""
+
+#: ../include/deactivate_modal.php:171
+msgid "Kindly tell us the Plugin name."
+msgstr ""
+
+#: ../include/deactivate_modal.php:178
+msgid "The plugin broke my site"
+msgstr ""
+
+#: ../include/deactivate_modal.php:187
+msgid "The plugin suddenly stopped working"
+msgstr ""
+
+#: ../include/deactivate_modal.php:196
+msgid "I no longer need the plugin"
+msgstr ""
+
+#: ../include/deactivate_modal.php:205
+msgid "It's a temporary deactivation. I'm just debugging an issue."
+msgstr ""
+
+#: ../include/deactivate_modal.php:214
+msgid "Other"
+msgstr ""
+
+#: ../include/deactivate_modal.php:217
+msgid "Kindly tell us the reason so we can improve."
+msgstr ""
+
+#: ../include/deactivate_modal.php:222
+msgid "Anonymous feedback"
+msgstr ""
+
+#: ../include/deactivate_modal.php:223
+msgid "Skip & Deactivate"
+msgstr ""
+
+#: ../include/deactivate_modal.php:226
+msgid "Submit & Deactivate"
+msgstr ""
+
+#: ../include/deactivate_modal.php:227
+msgid "Cancel"
+msgstr ""
+
+#: ../include/loginpress-import-export.php:14
+msgid ""
+"Import/Export your LoginPress Settings for/from other sites. This will "
+"export/import all the settings including Customizer settings as well."
+msgstr ""
+
+#: ../include/loginpress-import-export.php:19
+msgid "Import Settings:"
+msgstr ""
+
+#: ../include/loginpress-import-export.php:23
+msgid "Import"
+msgstr ""
+
+#: ../include/loginpress-import-export.php:28
+msgid "LoginPress Settings Imported Successfully."
+msgstr ""
+
+#: ../include/loginpress-import-export.php:30
+msgid "Select a file and click on Import to start processing."
+msgstr ""
+
+#: ../include/loginpress-import-export.php:35
+msgid "Export Settings:"
+msgstr ""
+
+#: ../include/loginpress-import-export.php:38
+msgid "Export"
+msgstr ""
+
+#: ../include/loginpress-import-export.php:43
+msgid "LoginPress Settings Exported Successfully!"
+msgstr ""
+
+#: ../include/loginpress-import-export.php:44
+msgid "Export LoginPress Settings."
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:301
+msgid "Welcome to LoginPress"
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:307
+#, php-format
+msgid ""
+"%1$s Hey %2$s,  %4$s If you opt-in some data about your installation of "
+"LoginPress will be sent to WPBrigade.com (This doesn't include stats)%4$s "
+"and You will receive new feature updates, security notifications etc %5$sNo "
+"Spam, I promise.%6$s %4$s%4$s Help us %7$sImprove LoginPress%8$s %4$s %4$s "
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:308
+msgid "Allow and Continue  "
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:309
+msgid "Skip This Step"
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:311
+msgid "What permissions are being granted?"
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:313
+msgid "Your Website Overview"
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:314
+msgid ""
+"Your Site URL, WordPress & PHP version, plugins & themes. This data lets us "
+"make sure this plugin always stays compatible with the most popular plugins "
+"and themes."
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:316
+msgid "Your Profile Overview"
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:317
+msgid "Your name and email address."
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:319
+msgid "Admin Notices"
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:320
+msgid "Updates, Announcement, Marketing. No Spam, I promise."
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:322
+msgid "Plugin Actions"
+msgstr ""
+
+#: ../include/loginpress-optin-form.php:323
+msgid ""
+"Active, Deactive, Uninstallation and How you use this plugin's features and "
+"settings. This is limited to usage data. It does not include any of your "
+"sensitive LoginPress data, such as traffic. This data helps us learn which "
+"features are most popular, so we can improve the plugin further."
+msgstr ""
+
+#: ../include/loginpress-optout-form.php:103
+#: ../include/loginpress-optout-form.php:119
+msgid "Opt Out"
+msgstr ""
+
+#: ../include/loginpress-optout-form.php:108
+msgid ""
+"We appreciate your help in making the plugin better by letting us track some "
+"usage data."
+msgstr ""
+
+#: ../include/loginpress-optout-form.php:112
+#, php-format
+msgid ""
+"Usage tracking is done in the name of making %1$s LoginPress %2$s better. "
+"Making a better user experience, prioritizing new features, and more good "
+"things. We'd really appreciate if you'll reconsider letting us continue with "
+"the tracking."
+msgstr ""
+
+#: ../include/loginpress-optout-form.php:113
+#, php-format
+msgid ""
+"By clicking \"Opt Out\", we will no longer be sending any data to %1$s "
+"LoginPress%2$s."
+msgstr ""
+
+#: ../include/loginpress-optout-form.php:120
+msgid "On second thought - I want to continue helping"
+msgstr ""
+
+#: ../include/privacy-policy.php:13
+#, php-format
+msgid "%1$sPrivacy Policy%2$s."
+msgstr ""
+
+#: ../include/template-loginpress.php:70
+#, php-format
+msgid "%1$s &lsaquo; %2$s &#8212; WordPress"
+msgstr ""
+
+#: ../include/template-loginpress.php:147
+msgid "https://wordpress.org/"
+msgstr ""
+
+#: ../include/template-loginpress.php:148
+msgid "Powered by WordPress"
+msgstr ""
+
+#: ../include/template-loginpress.php:250
+#, php-format
+msgctxt "site"
+msgid "&larr; Back to %s"
+msgstr ""
+
+#: ../include/template-loginpress.php:370
+#, fuzzy
+#| msgid "Lost Password Text"
+msgid "Lost Password"
+msgstr "فقدت كلمة المرور Text"
+
+#: ../include/template-loginpress.php:393
+msgid "Get New Password"
+msgstr ""
+
+#: ../include/template-loginpress.php:400
+#: ../include/template-loginpress.php:487
+#: ../include/template-loginpress.php:544
+msgid "Register"
+msgstr ""
+
+#: ../include/template-loginpress.php:465
+msgid "Registration Form"
+msgstr ""
+
+#: ../include/template-loginpress.php:473
+msgid "Email"
+msgstr ""
+
+#: ../include/template-loginpress.php:484
+msgid "Registration confirmation will be emailed to you."
+msgstr ""
+
+#: ../include/template-loginpress.php:508
+#: ../include/template-loginpress.php:536
+msgid "Log In"
+msgstr ""
+
+#: ../include/template-loginpress.php:534
+msgid "Remember Me"
+msgstr ""
+
+#: ../loginpress.php:277
+msgid "Activate"
+msgstr ""
+
+#: ../loginpress.php:342
+msgid "Caps Lock is on"
+msgstr ""
+
+#: ../loginpress.php:415
+msgid "Vote!"
+msgstr ""
+
+#: ../loginpress.php:418
+msgid "Rate"
+msgstr ""
+
+#: ../loginpress.php:523
+#, php-format
+msgid "%1$s Settings %2$s | %3$s Customize %4$s"
+msgstr ""
+
+#: ../loginpress.php:527
+#, php-format
+msgid " | %1$s Opt Out %2$s "
+msgstr ""
+
+#: ../loginpress.php:529
+#, php-format
+msgid " | %1$s Opt In %2$s "
+msgstr ""
+
+#: ../loginpress.php:535
+#, php-format
+msgid "%1$s %3$s Upgrade Pro %4$s %2$s"
+msgstr ""
+
+#~ msgid "Footer Text Display:"
+#~ msgstr "تذييل نص العرض:"
+
+#~ msgid "Logo Width"
+#~ msgstr "مقاس عرض الشعار"
+
+#~ msgid "Logo Height"
+#~ msgstr "ارتفاع الشعار"
+
+#~ msgid "Padding Bottom"
+#~ msgstr "الازاحة السفلية"
+
+#~ msgid "Logo URL"
+#~ msgstr "الرابط"
+
+#~ msgid "Logo Hover Test"
+#~ msgstr "شعار تحوم اختبار"
+
+#~ msgid "Image Size: "
+#~ msgstr "حجم الصورة"
+
+#~ msgid "Customize Form"
+#~ msgstr "تخصيص نموذج"
+
+#~ msgid "Form Height:"
+#~ msgstr "شكل الطول:"
+
+#~ msgid " Border (Example: 2px dotted black) "
+#~ msgstr "الحدود (على سبيل المثال:2px dotted black"
+
+#~ msgid "Input Field Background Color"
+#~ msgstr "حقل إدخال لون الخلفية"
+
+#~ msgid "Button Color"
+#~ msgstr "لون الزر"
+
+#~ msgid "Button Border Color"
+#~ msgstr "لون الظل لحدود الزر"
+
+#~ msgid "Button Color (Hover)"
+#~ msgstr "زر اللون (تحوم)"
+
+#~ msgid "Button Border (Hover)"
+#~ msgstr "الحدود زر (تحوم)"
+
+#~ msgid "Button Box Shadow"
+#~ msgstr "الزر مربع الظل"
+
+#~ msgid "Button Text Color"
+#~ msgstr "لون النص على الزر"
+
+#~ msgid "Message Field Border: \\n Example: 1px solid #00a0d2;"
+#~ msgstr "رسالة الحدود الميدانية: \\ ن مثال:1px solid #00a0d2"
+
+#~ msgid "Header Message"
+#~ msgstr "رأس رسالة"
+
+#~ msgid "Header Message:"
+#~ msgstr "رأس الرسالة:"
+
+#~ msgid "Header Message Link:"
+#~ msgstr "رأس رسالة الرابط:"
+
+#~ msgid "Header Text Color:"
+#~ msgstr "لون النص في رأس الصفحه"
+
+#~ msgid "Header Text Hover Color:"
+#~ msgstr "رأس نص تحوم اللون:"
+
+#~ msgid "Header Background Color:"
+#~ msgstr "لون خلفية رأس الصفحة"
+
+#~ msgid "Footer"
+#~ msgstr "تذييل الصفحة"
+
+#~ msgid "Footer Links 1"
+#~ msgstr "روابط ذيل الصفحة"
+
+#~ msgid "Footer Text 2"
+#~ msgstr "تذييل النص 2"
+
+#~ msgid "Footer Links 2"
+#~ msgstr "روابط ذيل الصفحة"
+
+#~ msgid "Footer Text 3"
+#~ msgstr "تذييل النص 3"
+
+#~ msgid "Footer Links 3"
+#~ msgstr "روابط ذيل الصفحة"
+
+#~ msgid "Footer Text 4"
+#~ msgstr "تذييل النص 4"
+
+#~ msgid "Footer Links 4"
+#~ msgstr "روابط ذيل الصفحة"
+
+#~ msgid "Footer Links Background Color:"
+#~ msgstr "تذييل روابط لون الخلفية:"
+
+#~ msgid "Customize Login Page"
+#~ msgstr "تخصيص صفحة تسجيل الدخول"

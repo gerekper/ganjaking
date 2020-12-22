@@ -23,7 +23,7 @@ class WC_Query {
 	/**
 	 * Reference to the main product query on the page.
 	 *
-	 * @var array
+	 * @var WP_Query
 	 */
 	private static $product_query;
 
@@ -88,10 +88,14 @@ class WC_Query {
 	/**
 	 * Get page title for an endpoint.
 	 *
-	 * @param  string $endpoint Endpoint key.
-	 * @return string
+	 * @param string $endpoint Endpoint key.
+	 * @param string $action Optional action or variation within the endpoint.
+	 *
+	 * @since 2.3.0
+	 * @since 4.6.0 Added $action parameter.
+	 * @return string The page title.
 	 */
-	public function get_endpoint_title( $endpoint ) {
+	public function get_endpoint_title( $endpoint, $action = '' ) {
 		global $wp;
 
 		switch ( $endpoint ) {
@@ -130,14 +134,30 @@ class WC_Query {
 				$title = __( 'Add payment method', 'woocommerce' );
 				break;
 			case 'lost-password':
-				$title = __( 'Lost password', 'woocommerce' );
+				if ( in_array( $action, array( 'rp', 'resetpass', 'newaccount' ) ) ) {
+					$title = __( 'Set password', 'woocommerce' );
+				} else {
+					$title = __( 'Lost password', 'woocommerce' );
+				}
 				break;
 			default:
 				$title = '';
 				break;
 		}
 
-		return apply_filters( 'woocommerce_endpoint_' . $endpoint . '_title', $title, $endpoint );
+		/**
+		 * Filters the page title used for my-account endpoints.
+		 *
+		 * @since 2.6.0
+		 * @since 4.6.0 Added $action parameter.
+		 *
+		 * @see get_endpoint_title()
+		 *
+		 * @param string $title Default title.
+		 * @param string $endpoint Endpoint key.
+		 * @param string $action Optional action or variation within the endpoint.
+		 */
+		return apply_filters( 'woocommerce_endpoint_' . $endpoint . '_title', $title, $endpoint, $action );
 	}
 
 	/**
@@ -569,7 +589,7 @@ class WC_Query {
 	 * @since 3.6.0
 	 *
 	 * @param array    $args Query args.
-	 * @param WC_Query $wp_query WC_Query object.
+	 * @param WP_Query $wp_query WP_Query object.
 	 *
 	 * @return array
 	 */
@@ -761,7 +781,7 @@ class WC_Query {
 	/**
 	 * Get the main query which product queries ran against.
 	 *
-	 * @return array
+	 * @return WP_Query
 	 */
 	public static function get_main_query() {
 		return self::$product_query;

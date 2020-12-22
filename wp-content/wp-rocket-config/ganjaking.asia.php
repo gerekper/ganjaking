@@ -10,7 +10,7 @@ $rocket_cache_reject_uri = '/(.+/)?feed/?.+/?|/(?:.+/)?embed/|/checkout/(.*)|/ca
 $rocket_cache_reject_cookies = 'wp-postpass_|wptouch_switch_toggle|comment_author_|comment_author_email_';
 $rocket_cache_reject_ua = 'facebookexternalhit';
 $rocket_cache_query_strings = array();
-$rocket_secret_cache_key = '5f3e2d380b79e240384537';
+$rocket_secret_cache_key = '5fdc1f899cbe1563246648';
 $rocket_cache_ssl = 1;
 $rocket_cache_ignored_parameters = array(
   'utm_source' => 1,
@@ -47,6 +47,4 @@ $rocket_cache_ignored_parameters = array(
   'sscid' => 1,
 );
 $rocket_cache_mandatory_cookies = '';
-$rocket_cache_dynamic_cookies = array(
-  0 => 'woocommerce_current_currency',
-);
+$rocket_cache_dynamic_cookies = array();

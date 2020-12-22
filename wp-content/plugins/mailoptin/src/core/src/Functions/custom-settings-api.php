@@ -416,7 +416,7 @@ class Custom_Settings_Page_Api
                         <tr class="<?php echo $key; ?>_fields_row mo_repeatable_fields_row">
                             <?php foreach ($fields as $field)  : ?>
                                 <?php $field_name = $field['name']; ?>
-                                <?php $field_value = @$repeatable_field[$field_name]; ?>
+                                <?php $field_value = is_array($repeatable_field) ? @$repeatable_field[$field_name] : ''; ?>
                                 <?php $field_type = $field['type'] == 'text' ? '_text_field' : ''; ?>
                                 <?php $field_placeholder = isset($field['placeholder']) ? $field['placeholder'] : ''; ?>
                                 <?php $name_attr = $option_name . '[' . $key . ']' . '[' . $index . ']' . '[' . $field_name . ']'; ?>

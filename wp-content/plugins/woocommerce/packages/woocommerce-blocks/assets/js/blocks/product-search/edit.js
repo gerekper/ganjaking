@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { InspectorControls, PlainText } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl } from '@wordpress/components';
+import { PanelBody, ToggleControl, TextControl } from '@wordpress/components';
 import { withInstanceId } from '@wordpress/compose';
 
 /**
@@ -16,6 +16,17 @@ import './style.scss';
 
 /**
  * Component displaying a product search form.
+ *
+ * @param {Object} props Incoming props for the component.
+ * @param {Object} props.attributes Incoming block attributes.
+ * @param {string} props.attributes.label
+ * @param {string} props.attributes.placeholder
+ * @param {string} props.attributes.formId
+ * @param {string} props.attributes.className
+ * @param {boolean} props.attributes.hasLabel
+ * @param {string} props.attributes.align
+ * @param {string} props.instanceId
+ * @param {function(any):any} props.setAttributes Setter for block attributes.
  */
 const Edit = ( {
 	attributes: { label, placeholder, formId, className, hasLabel, align },
@@ -75,7 +86,7 @@ const Edit = ( {
 					/>
 				) }
 				<div className="wc-block-product-search__fields">
-					<PlainText
+					<TextControl
 						className="wc-block-product-search__field input-control"
 						value={ placeholder }
 						onChange={ ( value ) =>

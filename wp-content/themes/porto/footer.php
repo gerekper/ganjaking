@@ -95,17 +95,17 @@ $wrapper        = porto_get_wrapper_type();
 				<?php if ( isset( $porto_footer_escaped ) ) : ?>
 					<?php echo porto_filter_output( $porto_footer_escaped ); ?>
 				<?php else : ?>
-				<?php if ( is_active_sidebar( 'footer-top' ) && ! $footer_view ) : ?>
-					<div class="footer-top">
-						<div class="container">
-							<?php dynamic_sidebar( 'footer-top' ); ?>
+					<?php if ( is_active_sidebar( 'footer-top' ) && ! $footer_view ) : ?>
+						<div class="footer-top">
+							<div class="container">
+								<?php dynamic_sidebar( 'footer-top' ); ?>
+							</div>
 						</div>
-					</div>
-				<?php endif; ?>
+					<?php endif; ?>
 
-				<?php
-					get_template_part( 'footer/footer' );
-				?>
+					<?php
+						get_template_part( 'footer/footer' );
+					?>
 				<?php endif; ?>
 
 				<?php if ( porto_get_wrapper_type() != 'boxed' && 'boxed' == $porto_settings['footer-wrapper'] ) : ?>

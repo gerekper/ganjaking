@@ -75,6 +75,12 @@ class Connect extends AbstractConnect implements ConnectionInterface
             'transport' => 'postMessage',
         );
 
+        $settings['RegisteredUsersConnect_users'] = array(
+            'default'   => apply_filters('mailoptin_customizer_optin_campaign_RegisteredUsersConnect_users', ''),
+            'type'      => 'option',
+            'transport' => 'postMessage',
+        );
+
         return $settings;
     }
 
@@ -92,20 +98,34 @@ class Connect extends AbstractConnect implements ConnectionInterface
         $controls['RegisteredUsersConnect_user_role'] = new WP_Customize_Chosen_Select_Control(
             $wp_customize,
             $option_prefix . '[RegisteredUsersConnect_user_role]',
-            apply_filters('mo_optin_form_customizer_RegisteredUsersConnect_user_role_args', array(
-                    'label'       => __('Restrict to User Role'),
+            apply_filters('mo_email_campaign_customizer_RegisteredUsersConnect_user_role_args', array(
+                    'label'       => __('Restrict to User Role', 'mailoptin'),
                     'section'     => $customizerClassInstance->campaign_settings_section_id,
                     'settings'    => $option_prefix . '[RegisteredUsersConnect_user_role]',
-                    'description' => __('Select user role(s) that newsletter will only be delivered to. Leave empty to send to all roles.', 'mailoptin'),
+                    'description' => __('Select user role(s) that emails will only be delivered to. Leave empty to send to all roles.', 'mailoptin'),
                     'choices'     => ControlsHelpers::get_roles(),
                     'priority'    => 62
                 )
             )
         );
 
+        $controls['RegisteredUsersConnect_users'] = new WP_Customize_Chosen_Select_Control(
+            $wp_customize,
+            $option_prefix . '[RegisteredUsersConnect_users]',
+            apply_filters('mo_email_campaign_customizer_RegisteredUsersConnect_users_args', array(
+                    'label'       => __('Restrict to Selected Users', 'mailoptin'),
+                    'section'     => $customizerClassInstance->campaign_settings_section_id,
+                    'settings'    => $option_prefix . '[RegisteredUsersConnect_users]',
+                    'description' => __('Select user(s) that emails will only be delivered to. Leave empty to send to all users.', 'mailoptin'),
+                    'search_type' => 'RegisteredUsersConnect_users',
+                    'choices'     => ControlsHelpers::get_users(),
+                    'priority'    => 63
+                )
+            )
+        );
+
         return $controls;
     }
-
 
     /**
      * @param int $email_campaign_id
@@ -121,11 +141,17 @@ class Connect extends AbstractConnect implements ConnectionInterface
     public function send_newsletter($email_campaign_id, $campaign_log_id, $subject, $content_html, $content_text)
     {
         $user_roles_restriction = EmailCampaignRepository::get_customizer_value($email_campaign_id, 'RegisteredUsersConnect_user_role', []);
+        $users_restriction      = EmailCampaignRepository::get_customizer_value($email_campaign_id, 'RegisteredUsersConnect_users', []);
 
         $args = ['fields' => ['user_login', 'user_email']];
         if ( ! empty($user_roles_restriction)) {
             $args['role__in'] = $user_roles_restriction;
         }
+
+        if ( ! empty($users_restriction)) {
+            $args['include'] = $users_restriction;
+        }
+
         // array of username and email object.
         $users_data = get_users($args);
 
@@ -186,7 +212,6 @@ class Connect extends AbstractConnect implements ConnectionInterface
         wp_die($success_message, $success_message, ['response' => 200]);
     }
 
-
     /**
      * Fulfill interface contract.
      *
@@ -220,8 +245,6 @@ class Connect extends AbstractConnect implements ConnectionInterface
     }
 
     /**
-     * Singleton poop.
-     *
      * @return Connect|null
      */
     public static function get_instance()

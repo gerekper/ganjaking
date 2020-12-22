@@ -1850,14 +1850,14 @@
 				} ),
 
 				el( SelectControl, {
-					label: __('Seperator'),
+					label: __('Separator'),
 					value: attrs.spacer,
-					options: [{ label: __('No Seperator'), value: 'no_spacer' }, { label: __('Line'), value: 'line_only' }],
+					options: [{ label: __('No Separator'), value: 'no_spacer' }, { label: __('Line'), value: 'line_only' }],
 					onChange: ( value ) => { props.setAttributes( { spacer: value } ); },
 				} ),
 				el( 'p', { style: { fontStyle: 'italic' } }, __('Horizontal line, icon or image to divide sections') ),
 				attrs.spacer == 'line_only' && el( SelectControl, {
-					label: __('Seperator Position'),
+					label: __('Separator Position'),
 					value: attrs.spacer_position,
 					options: [{ label: __('Top'), value: 'top' }, { label: __('Between Heading & Sub-Heading'), value: 'middle' }, { label: __('Bottom'), value: 'bottom'}],
 					onChange: ( value ) => { props.setAttributes( { spacer_position: value } ); },
@@ -1888,7 +1888,7 @@
 					}]
 				}),
 				attrs.spacer == 'line_only' && el( RangeControl, {
-					label: __('Seperator Margin Bottom'),
+					label: __('Separator Margin Bottom'),
 					value: attrs.spacer_margin_bottom,
 					min: 0,
 					max: 50,
@@ -4875,8 +4875,8 @@ function _makeConsumableArray(arr) {
 			categories: { type: 'array', default: [] },
 			status: { type: 'string' },
 			count: { type: 'int' },
-			orderby: { type: 'string', default: 'date' },
-			order: { type: 'string', default: 'desc' },
+			orderby: { type: 'string', default: 'title' },
+			order: { type: 'string', default: 'asc' },
 			columns: { type: 'int', default: 4 },
 			columns_mobile: { type: 'string' },
 			column_width: { type: 'string' },

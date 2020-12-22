@@ -65,6 +65,10 @@ if ( 'list' == $view ) {
 if ( 'total_sales' == $orderby ) {
 	$orderby = 'popularity';
 }
+if ( 'price' == $orderby && 'desc' == strtolower( $order ) ) {
+	$orderby = 'price-desc';
+	$order   = '';
+}
 
 global $porto_settings;
 

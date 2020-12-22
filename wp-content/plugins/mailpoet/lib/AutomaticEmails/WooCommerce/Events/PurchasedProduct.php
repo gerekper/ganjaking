@@ -6,8 +6,11 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\AutomaticEmails\WooCommerce\WooCommerce;
+use MailPoet\DI\ContainerWrapper;
 use MailPoet\Logging\LoggerFactory;
+use MailPoet\Models\Newsletter;
 use MailPoet\Models\Subscriber;
+use MailPoet\Newsletter\AutomaticEmailsRepository;
 use MailPoet\Newsletter\Scheduler\AutomaticEmailScheduler;
 use MailPoet\WooCommerce\Helper as WCHelper;
 use MailPoet\WP\Functions as WPFunctions;
@@ -25,6 +28,9 @@ class PurchasedProduct {
   /** @var LoggerFactory */
   private $loggerFactory;
 
+  /** @var AutomaticEmailsRepository */
+  private $repository;
+
   public function __construct(WCHelper $helper = null) {
     if ($helper === null) {
       $helper = new WCHelper();
@@ -32,6 +38,7 @@ class PurchasedProduct {
     $this->helper = $helper;
     $this->scheduler = new AutomaticEmailScheduler();
     $this->loggerFactory = LoggerFactory::getInstance();
+    $this->repository = ContainerWrapper::getInstance()->get(AutomaticEmailsRepository::class);
   }
 
   public function init() {
@@ -58,15 +65,13 @@ class PurchasedProduct {
     return [
       'slug' => self::SLUG,
       'title' => WPFunctions::get()->__('Purchased This Product', 'mailpoet'),
-      'description' => WPFunctions::get()->__('Let MailPoet send an email to customers who purchase a specific product.', 'mailpoet'),
+      'description' => WPFunctions::get()->__('Let MailPoet send an email to customers who purchase a specific product for the first time.', 'mailpoet'),
       'listingScheduleDisplayText' => WPFunctions::get()->__('Email sent when a customer buys product: %s', 'mailpoet'),
       'listingScheduleDisplayTextPlural' => WPFunctions::get()->__('Email sent when a customer buys products: %s', 'mailpoet'),
       'options' => [
-        'type' => 'remote',
         'multiple' => true,
-        'remoteQueryMinimumInputLength' => 3,
-        'remoteQueryFilter' => 'woocommerce_product_purchased_get_products',
-        'placeholder' => WPFunctions::get()->__('Start typing to search for products...', 'mailpoet'),
+        'endpoint' => 'products',
+        'placeholder' => __('Search products', 'mailpoet'),
       ],
     ];
   }
@@ -123,10 +128,14 @@ class PurchasedProduct {
     }, $orderDetails->get_items());
     $orderedProducts = array_values(array_filter($orderedProducts));
 
-    $schedulingCondition = function($automaticEmail) use ($orderedProducts, $subscriber) {
+    $schedulingCondition = function(Newsletter $automaticEmail) use ($orderedProducts, $subscriber) {
       $meta = $automaticEmail->getMeta();
 
-      if (empty($meta['option']) || $automaticEmail->wasScheduledForSubscriber($subscriber->id)) return false;
+      if (empty($meta['option'])) return false;
+      if ($this->repository->wasScheduledForSubscriber($automaticEmail->id, $subscriber->id)) {
+        $sentAllProducts = $this->repository->alreadySentAllProducts($automaticEmail->id, $subscriber->id, 'orderedProducts', $orderedProducts);
+        if ($sentAllProducts) return false;
+      }
 
       $metaProducts = array_column($meta['option'], 'id');
       $matchedProducts = array_intersect($metaProducts, $orderedProducts);
@@ -141,6 +150,12 @@ class PurchasedProduct {
         'subscriber_id' => $subscriber->id,
       ]
     );
-    $this->scheduler->scheduleAutomaticEmail(WooCommerce::SLUG, self::SLUG, $schedulingCondition, $subscriber->id);
+    return $this->scheduler->scheduleAutomaticEmail(
+      WooCommerce::SLUG,
+      self::SLUG,
+      $schedulingCondition,
+      $subscriber->id,
+      ['orderedProducts' => $orderedProducts]
+    );
   }
 }

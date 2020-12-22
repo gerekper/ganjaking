@@ -1,17 +1,7 @@
 <?php
 // Porto Icon
 
-add_shortcode( 'porto_icon', 'porto_shortcode_icon' );
 add_action( 'vc_after_init', 'porto_load_icon_shortcode' );
-
-function porto_shortcode_icon( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_icon' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_icon_shortcode() {
 

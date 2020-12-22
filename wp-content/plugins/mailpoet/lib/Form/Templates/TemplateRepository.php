@@ -5,7 +5,6 @@ namespace MailPoet\Form\Templates;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Form\Templates\Templates\DefaultForm;
 use MailPoet\Form\Templates\Templates\InitialForm;
 use MailPoet\Form\Templates\Templates\Template10BelowPages;
 use MailPoet\Form\Templates\Templates\Template10FixedBar;
@@ -22,6 +21,26 @@ use MailPoet\Form\Templates\Templates\Template12FixedBar;
 use MailPoet\Form\Templates\Templates\Template12Popup;
 use MailPoet\Form\Templates\Templates\Template12SlideIn;
 use MailPoet\Form\Templates\Templates\Template12Widget;
+use MailPoet\Form\Templates\Templates\Template13BelowPages;
+use MailPoet\Form\Templates\Templates\Template13FixedBar;
+use MailPoet\Form\Templates\Templates\Template13Popup;
+use MailPoet\Form\Templates\Templates\Template13SlideIn;
+use MailPoet\Form\Templates\Templates\Template13Widget;
+use MailPoet\Form\Templates\Templates\Template14BelowPages;
+use MailPoet\Form\Templates\Templates\Template14FixedBar;
+use MailPoet\Form\Templates\Templates\Template14Popup;
+use MailPoet\Form\Templates\Templates\Template14SlideIn;
+use MailPoet\Form\Templates\Templates\Template14Widget;
+use MailPoet\Form\Templates\Templates\Template17BelowPages;
+use MailPoet\Form\Templates\Templates\Template17FixedBar;
+use MailPoet\Form\Templates\Templates\Template17Popup;
+use MailPoet\Form\Templates\Templates\Template17SlideIn;
+use MailPoet\Form\Templates\Templates\Template17Widget;
+use MailPoet\Form\Templates\Templates\Template18BelowPages;
+use MailPoet\Form\Templates\Templates\Template18FixedBar;
+use MailPoet\Form\Templates\Templates\Template18Popup;
+use MailPoet\Form\Templates\Templates\Template18SlideIn;
+use MailPoet\Form\Templates\Templates\Template18Widget;
 use MailPoet\Form\Templates\Templates\Template1BelowPages;
 use MailPoet\Form\Templates\Templates\Template1FixedBar;
 use MailPoet\Form\Templates\Templates\Template1Popup;
@@ -53,7 +72,6 @@ use MailPoet\WP\Functions as WPFunctions;
 
 class TemplateRepository {
   const INITIAL_FORM_TEMPLATE = InitialForm::ID;
-  const DEFAULT_FORM_TEMPLATE = DefaultForm::ID;
 
   /** @var CdnAssetUrl */
   private $cdnAssetUrl;
@@ -63,7 +81,6 @@ class TemplateRepository {
 
   private $templates = [
     InitialForm::ID => InitialForm::class,
-    DefaultForm::ID => DefaultForm::class,
     Template1BelowPages::ID => Template1BelowPages::class,
     Template1FixedBar::ID => Template1FixedBar::class,
     Template1Popup::ID => Template1Popup::class,
@@ -104,6 +121,26 @@ class TemplateRepository {
     Template12Popup::ID => Template12Popup::class,
     Template12SlideIn::ID => Template12SlideIn::class,
     Template12Widget::ID => Template12Widget::class,
+    Template13BelowPages::ID => Template13BelowPages::class,
+    Template13FixedBar::ID => Template13FixedBar::class,
+    Template13Popup::ID => Template13Popup::class,
+    Template13SlideIn::ID => Template13SlideIn::class,
+    Template13Widget::ID => Template13Widget::class,
+    Template14BelowPages::ID => Template14BelowPages::class,
+    Template14FixedBar::ID => Template14FixedBar::class,
+    Template14Popup::ID => Template14Popup::class,
+    Template14SlideIn::ID => Template14SlideIn::class,
+    Template14Widget::ID => Template14Widget::class,
+    Template17BelowPages::ID => Template17BelowPages::class,
+    Template17FixedBar::ID => Template17FixedBar::class,
+    Template17Popup::ID => Template17Popup::class,
+    Template17SlideIn::ID => Template17SlideIn::class,
+    Template17Widget::ID => Template17Widget::class,
+    Template18BelowPages::ID => Template18BelowPages::class,
+    Template18FixedBar::ID => Template18FixedBar::class,
+    Template18Popup::ID => Template18Popup::class,
+    Template18SlideIn::ID => Template18SlideIn::class,
+    Template18Widget::ID => Template18Widget::class,
   ];
 
   public function __construct(CdnAssetUrl $cdnAssetUrl, WPFunctions $wp) {

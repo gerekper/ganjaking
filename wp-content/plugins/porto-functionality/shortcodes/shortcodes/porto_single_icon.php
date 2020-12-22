@@ -1,25 +1,6 @@
 <?php
 // Porto Single Icon
-if ( function_exists( 'register_block_type' ) ) {
-	register_block_type(
-		'porto/porto-single-icon',
-		array(
-			'editor_script'   => 'porto_blocks',
-			'render_callback' => 'porto_shortcode_single_icon',
-		)
-	);
-}
-add_shortcode( 'porto_single_icon', 'porto_shortcode_single_icon' );
 add_action( 'vc_after_init', 'porto_load_single_icon_shortcode' );
-
-function porto_shortcode_single_icon( $atts, $content = null ) {
-
-	ob_start();
-	if ( $template = porto_shortcode_template( 'porto_single_icon' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_single_icon_shortcode() {
 

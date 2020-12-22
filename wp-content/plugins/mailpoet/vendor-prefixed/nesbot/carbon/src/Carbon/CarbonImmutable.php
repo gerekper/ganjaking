@@ -1,0 +1,2 @@
+<?php
+ namespace MailPoetVendor\Carbon; if (!defined('ABSPATH')) exit; use MailPoetVendor\Carbon\Traits\Date; use DateTimeImmutable; use DateTimeInterface; use DateTimeZone; class CarbonImmutable extends \DateTimeImmutable implements \MailPoetVendor\Carbon\CarbonInterface { use Date; } 

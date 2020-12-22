@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright (c) 2019 Webraftic Ltd
  * @version       1.0
  */
-class WIS_Plugin extends Wbcr_Factory436_Plugin {
+class WIS_Plugin extends Wbcr_Factory439_Plugin {
 
 	/**
 	 * @see self::app()
-	 * @var Wbcr_Factory436_Plugin
+	 * @var Wbcr_Factory439_Plugin
 	 */
 	private static $app;
 
@@ -34,7 +34,7 @@ class WIS_Plugin extends Wbcr_Factory436_Plugin {
 	 * Используется для получения настроек плагина, информации о плагине, для доступа к вспомогательным
 	 * классам.
 	 *
-	 * @return Wbcr_Factory436_Plugin
+	 * @return Wbcr_Factory439_Plugin
 	 */
 	public static function app() {
 		return self::$app;
@@ -156,7 +156,7 @@ class WIS_Plugin extends Wbcr_Factory436_Plugin {
 	}
 
 	public function enqueue_assets() {
-		wp_enqueue_style( 'jr-insta-styles', WIS_PLUGIN_URL . '/assets/css/jr-insta.css', array(), WIS_PLUGIN_VERSION );
+
 	}
 
 	/**

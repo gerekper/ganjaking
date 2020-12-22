@@ -38,7 +38,9 @@ class Controller extends \WC_REST_Reports_Controller implements ExportableInterf
 	 * @var array
 	 */
 	protected $param_mapping = array(
-		'products' => 'product_includes',
+		'categories' => 'category_includes',
+		'products'   => 'product_includes',
+		'variations' => 'variation_includes',
 	);
 
 	/**
@@ -397,7 +399,16 @@ class Controller extends \WC_REST_Reports_Controller implements ExportableInterf
 			$export_columns['stock']        = __( 'Stock', 'woocommerce' );
 		}
 
-		return $export_columns;
+		/**
+		 * Filter to add or remove column names from the products report for
+		 * export.
+		 *
+		 * @since 1.6.0
+		 */
+		return apply_filters(
+			'woocommerce_report_products_export_columns',
+			$export_columns
+		);
 	}
 
 	/**
@@ -427,6 +438,16 @@ class Controller extends \WC_REST_Reports_Controller implements ExportableInterf
 			}
 		}
 
-		return $export_item;
+		/**
+		 * Filter to prepare extra columns in the export item for the products
+		 * report.
+		 *
+		 * @since 1.6.0
+		 */
+		return apply_filters(
+			'woocommerce_report_products_prepare_export_item',
+			$export_item,
+			$item
+		);
 	}
 }

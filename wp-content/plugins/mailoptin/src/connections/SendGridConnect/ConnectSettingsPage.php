@@ -78,7 +78,9 @@ class ConnectSettingsPage extends AbstractSendGridConnect
                     return $carry;
                 }, $senders);
 
-                set_transient('mailoptin_sendgrid_sender_list', $senders, 5 * MINUTE_IN_SECONDS);
+                if (self::is_http_code_success($response['status_code'])) {
+                    set_transient('mailoptin_sendgrid_sender_list', $senders, 5 * MINUTE_IN_SECONDS);
+                }
 
             } catch (\Exception $e) {
             }

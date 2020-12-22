@@ -72,7 +72,7 @@ function porto_logo( $sticky_logo = false ) {
 			echo '<img class="img-responsive standard-logo' . ( ! $retina_logo || $retina_logo == $logo ? ' retina-logo' : '' ) . '"' . ( $logo_width ? ' width="' . $logo_width . '"' : '' ) . ( $logo_height ? ' height="' . $logo_height . '"' : '' ) . ' src="' . esc_url( str_replace( array( 'http:', 'https:' ), '', $logo ) ) . '" alt="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" />';
 
 			if ( $retina_logo && $retina_logo != $logo ) {
-				echo '<img class="img-responsive retina-logo"' . ( $logo_width ? ' width="' . $logo_width . '"' : '' ) . ( $logo_height ? ' height="' . $logo_height . '"' : '' ) . ' src="' . esc_url( str_replace( array( 'http:', 'https:' ), '', $retina_logo ) ) . '" alt="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" style="max-height:' . $logo_height . 'px;" />';
+				echo '<img class="img-responsive retina-logo"' . ( $logo_width ? ' width="' . $logo_width . '"' : '' ) . ( $logo_height ? ' height="' . $logo_height . '"' : '' ) . ' src="' . esc_url( str_replace( array( 'http:', 'https:' ), '', $retina_logo ) ) . '" alt="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '"' . ( $logo_height ? ' style="max-height:' . $logo_height . 'px;"' : '' ) . ' />';
 			}
 		} else {
 			?>
@@ -328,7 +328,7 @@ function porto_mobile_currency_switcher( $is_mobile_menu = false ) {
 			}
 		}
 		?>
-		<ul id="menu-currency-switcher" class="<?php echo esc_attr( $menu_class ); ?> currency-switcher accordion-menu show-arrow">
+		<ul id="menu-currency-switcher-mobile" class="<?php echo esc_attr( $menu_class ); ?> currency-switcher accordion-menu show-arrow">
 			<li class="menu-item<?php echo ! $other_c ? '' : ' has-sub'; ?> narrow">
 				<a class="nolink" href="#"><?php echo wp_kses_post( $active_c ); ?></a>
 
@@ -372,7 +372,7 @@ function porto_mobile_currency_switcher( $is_mobile_menu = false ) {
 			}
 		}
 		?>
-		<ul id="menu-currency-switcher" class="<?php echo esc_attr( $menu_class ); ?> currency-switcher accordion-menu show-arrow">
+		<ul id="menu-currency-switcher-mobile" class="<?php echo esc_attr( $menu_class ); ?> currency-switcher accordion-menu show-arrow">
 			<li class="menu-item<?php echo ! $other_c ? '' : ' has-sub'; ?> narrow">
 				<a class="nolink" href="#"><?php echo wp_kses_post( $active_c ); ?></a>
 				<?php if ( $other_c ) : ?>
@@ -388,7 +388,7 @@ function porto_mobile_currency_switcher( $is_mobile_menu = false ) {
 
 	$result = str_replace( '&nbsp;', '', ob_get_clean() );
 	if ( ! $result && $porto_settings['wcml-switcher-html'] ) {
-		$result = '<ul id="menu-currency-switcher" class="' . $menu_class . ' currency-switcher accordion-menu show-arrow">
+		$result = '<ul id="menu-currency-switcher-mobile" class="' . $menu_class . ' currency-switcher accordion-menu show-arrow">
 			<li class="menu-item has-sub narrow">
 				<a class="nolink" href="#">USD</a>
 				<span class="arrow"></span>
@@ -932,9 +932,6 @@ function porto_mobile_top_navigation( $is_mobile_menu = false ) {
 
 function porto_main_menu( $depth = 0 ) {
 	global $porto_settings, $porto_layout, $porto_settings_optimize;
-	if ( ! empty( $porto_settings_optimize['lazyload_menu'] ) ) {
-		$depth = 1;
-	}
 
 	$header_type = porto_get_header_type();
 
@@ -1155,6 +1152,10 @@ function porto_main_menu( $depth = 0 ) {
 		}
 	}
 
+	if ( ! empty( $porto_settings_optimize['lazyload_menu'] ) ) {
+		$depth = 1;
+	}
+
 	ob_start();
 	$main_menu = porto_get_meta_value( 'main_menu' );
 	if ( has_nav_menu( 'main_menu' ) || $main_menu ) :
@@ -1274,10 +1275,6 @@ function porto_main_toggle_menu( $depth = 0 ) {
 
 function porto_header_side_menu( $depth = 0 ) {
 	global $porto_settings, $porto_settings_optimize;
-
-	if ( ! empty( $porto_settings_optimize['lazyload_menu'] ) ) {
-		$depth = 1;
-	}
 
 	$output = '';
 
@@ -1461,6 +1458,10 @@ function porto_header_side_menu( $depth = 0 ) {
 	}
 	if ( $porto_settings['menu-block'] ) {
 		$html .= '<li class="menu-custom-item"><div class="menu-custom-block">' . wp_kses_post( $porto_settings['menu-block'] ) . '</div></li>';
+	}
+
+	if ( ! empty( $porto_settings_optimize['lazyload_menu'] ) ) {
+		$depth = 1;
 	}
 
 	ob_start();
@@ -1984,10 +1985,16 @@ function porto_search_form_content( $is_mobile = false ) {
 					if ( 'product' === $porto_settings['search-type'] && class_exists( 'WooCommerce' ) ) {
 						$args['taxonomy'] = 'product_cat';
 						$args['name']     = 'product_cat';
+						if ( $is_mobile ) {
+							$args['id'] = 'product_cat_mobile';
+						}
 					}
 					if ( 'portfolio' === $porto_settings['search-type'] ) {
 						$args['taxonomy'] = 'portfolio_cat';
 						$args['name']     = 'portfolio_cat';
+						if ( $is_mobile ) {
+							$args['id'] = 'portfolio_cat_mobile';
+						}
 					}
 
 					if ( isset( $porto_settings['search-sub-cats'] ) && ! $porto_settings['search-sub-cats'] ) {
@@ -2166,7 +2173,7 @@ function porto_minicart() {
 			$icon_class .= ' ' . trim( $porto_settings['minicart-icon'] );
 		}
 		?>
-		<div id="mini-cart" class="mini-cart <?php echo esc_attr( $minicart_type ); ?>">
+		<div id="mini-cart" class="mini-cart <?php echo esc_attr( $minicart_type ), isset( $porto_settings['minicart-content'] ) && $porto_settings['minicart-content'] ? ' minicart-offcanvas' : ''; ?>">
 			<div class="cart-head">
 			<?php
 			if ( 'minicart-inline' == $minicart_type ) {
@@ -2176,8 +2183,8 @@ function porto_minicart() {
 					$_cart_qty   = '<i class="fas fa-spinner fa-pulse"></i>';
 					$_cart_total = $_cart_qty;
 				} else {
-					$_cart_qty   = $woocommerce->cart->cart_contents_count;
-					$_cart_total = $woocommerce->cart->get_cart_subtotal();
+					$_cart_qty   = $woocommerce->cart ? $woocommerce->cart->cart_contents_count : 0;
+					$_cart_total = $woocommerce->cart ? $woocommerce->cart->get_cart_subtotal() : 0;
 				}
 				printf( $format, $_cart_qty, $_cart_total );
 			} else {
@@ -2189,7 +2196,7 @@ function porto_minicart() {
 					$_cart_qty  = '<i class="fas fa-spinner fa-pulse"></i>';
 					$_cart_qty1 = $_cart_qty;
 				} else {
-					$_cart_qty = $woocommerce->cart->cart_contents_count;
+					$_cart_qty = $woocommerce->cart ? $woocommerce->cart->cart_contents_count : 0;
 					/* translators: %s: Cart quantity */
 					$_cart_qty1 = sprintf( _n( '%d item', '%d items', $_cart_qty, 'porto' ), $_cart_qty );
 				}
@@ -2198,6 +2205,7 @@ function porto_minicart() {
 			}
 			?>
 			</div>
+		<?php if ( ! defined( 'PORTO_MINICART_INIT' ) ) : ?>
 			<div class="cart-popup widget_shopping_cart">
 				<div class="widget_shopping_cart_content">
 				<?php if ( class_exists( 'Woocommerce' ) ) : ?>
@@ -2207,6 +2215,13 @@ function porto_minicart() {
 				<?php endif; ?>
 				</div>
 			</div>
+		<?php endif; ?>
+		<?php
+		if ( isset( $porto_settings['minicart-content'] ) && $porto_settings['minicart-content'] && ! defined( 'PORTO_MINICART_INIT' ) ) {
+			define( 'PORTO_MINICART_INIT', true );
+			echo '<div class="minicart-overlay"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.minicart-svg{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="minicart-svg" x1="7" x2="25" y1="7" y2="25"/><line class="minicart-svg" x1="7" x2="25" y1="25" y2="7"/></g></svg></div>';
+		}
+		?>
 		</div>
 		<?php
 	endif;
@@ -2240,14 +2255,17 @@ function porto_header_type_is_side() {
 function porto_header_builder_layout() {
 	global $porto_header_builder_layout;
 	if ( ! isset( $porto_header_builder_layout ) ) {
-		$header_layouts  = get_option( 'porto_header_builder_layouts', array() );
-		$selected_layout = get_option( 'porto_header_builder', array() );
-		if ( is_customize_preview() && ! empty( $selected_layout ) ) {
-			$porto_header_builder_layout         = $selected_layout;
-			$porto_header_builder_layout['name'] = $selected_layout['selected_layout'];
-		} elseif ( ! empty( $selected_layout ) && isset( $selected_layout['selected_layout'] ) && $selected_layout['selected_layout'] && isset( $header_layouts[ $selected_layout['selected_layout'] ] ) ) {
-			$porto_header_builder_layout         = $header_layouts[ $selected_layout['selected_layout'] ];
-			$porto_header_builder_layout['name'] = $selected_layout['selected_layout'];
+		global $porto_settings;
+		if ( 'header_builder' == $porto_settings['header-type-select'] ) {
+			$header_layouts  = get_option( 'porto_header_builder_layouts', array() );
+			$selected_layout = get_option( 'porto_header_builder', array() );
+			if ( is_customize_preview() && ! empty( $selected_layout ) ) {
+				$porto_header_builder_layout         = $selected_layout;
+				$porto_header_builder_layout['name'] = $selected_layout['selected_layout'];
+			} elseif ( ! empty( $selected_layout ) && isset( $selected_layout['selected_layout'] ) && $selected_layout['selected_layout'] && isset( $header_layouts[ $selected_layout['selected_layout'] ] ) ) {
+				$porto_header_builder_layout         = $header_layouts[ $selected_layout['selected_layout'] ];
+				$porto_header_builder_layout['name'] = $selected_layout['selected_layout'];
+			}
 		}
 	}
 	return apply_filters( 'porto_header_builder_current_layout', $porto_header_builder_layout );

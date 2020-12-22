@@ -371,20 +371,6 @@ class Newsletter extends Model {
     return $this;
   }
 
-  public function wasScheduledForSubscriber($subscriberId) {
-    /** @var \stdClass */
-    $queue = SendingQueue::rawQuery(
-      "SELECT COUNT(*) as count
-      FROM `" . SendingQueue::$_table . "`
-      JOIN `" . ScheduledTask::$_table . "` ON " . SendingQueue::$_table . ".task_id = " . ScheduledTask::$_table . ".id
-      JOIN `" . ScheduledTaskSubscriber::$_table . "` ON " . ScheduledTask::$_table . ".id = " . ScheduledTaskSubscriber::$_table . ".task_id
-      WHERE " . ScheduledTaskSubscriber::$_table . ".subscriber_id = " . $subscriberId . "
-      AND " . SendingQueue::$_table . ".newsletter_id = " . $this->id
-    )->findOne();
-
-    return ((int)$queue->count) > 0;
-  }
-
   public static function filterWithOptions($orm, $type) {
     $orm = $orm->select(MP_NEWSLETTERS_TABLE . '.*');
     $optionFields = NewsletterOptionField::findArray();
