@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -37,13 +37,6 @@ defined( 'ABSPATH' ) or exit;
 class WC_Memberships_Checkout {
 
 
-	/** @var bool true when enable signup option has been changed */
-	public $enable_signup_changed;
-
-	/** @var bool true when enable guest checkout option has been changed */
-	public $enable_guest_checkout_changed;
-
-
 	/**
 	 * Checkout handler constructor.
 	 *
@@ -52,100 +45,88 @@ class WC_Memberships_Checkout {
 	public function __construct() {
 
 		// users must be able to register on checkout
-		// note: this runs at -1 priority to ensure this is set before any other hooks
-		add_action( 'woocommerce_before_checkout_form', array( $this, 'maybe_enable_registration' ), -1 );
+		add_filter( 'woocommerce_checkout_registration_enabled',  [ $this, 'maybe_enable_registration'  ], 9999 );
+		add_filter( 'woocommerce_checkout_registration_required', [ $this, 'maybe_require_registration' ], 9999 );
 
 		// mark checkout registration fields as required
-		add_action( 'woocommerce_checkout_fields', array( $this, 'maybe_require_registration_fields' ) );
+		add_filter( 'woocommerce_checkout_fields', [ $this, 'maybe_require_registration_fields' ], 9999 );
 
 		// remove guest checkout param from WC checkout JS
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.3' ) ) {
-			add_filter( 'woocommerce_get_script_data', array( $this, 'remove_guest_checkout_js_param' ) );
-		} else {
-			add_filter( 'wc_checkout_params',          array( $this, 'remove_guest_checkout_js_param' ) );
-		}
+		add_filter( 'woocommerce_get_script_data', [ $this, 'remove_guest_checkout_js_param' ] );
 
 		// force registration during checkout process
-		add_action( 'woocommerce_before_checkout_process', array( $this, 'maybe_force_registration_during_checkout' ) );
+		add_action( 'woocommerce_before_checkout_process', [ $this, 'maybe_force_registration_during_checkout' ], 9999 );
 	}
 
 
 	/**
-	 * If shopping cart contains subscriptions, makes sure a user can register on the checkout page
+	 * Enables user registration at checkout, if the shopping cart contains access granting products.
 	 *
-	 * TODO since WC 3.0 many of the properties in this method are soft deprecated, they may need an update to checkout methods in the near future {FN 2017-03-10}
+	 * @internal callback:
+	 * @see \WC_Checkout::is_registration_enabled()
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param null|\WC_Checkout $checkout instance
+	 * @param bool $enable_registration whether to enable registration at checkout
+	 * @return bool
 	 */
-	public function maybe_enable_registration( $checkout = null ) {
+	public function maybe_enable_registration( $enable_registration ) {
 
-		if ( $checkout && $this->force_registration() ) {
+		return $this->force_registration() ? true : $enable_registration;
+	}
 
-			// enable signups
-			if ( false === $checkout->enable_signup ) {
 
-				$checkout->enable_signup     = true;
+	/**
+	 * Requires user registration at checkout, if the shopping cart contains access granting products.
+	 *
+	 * @internal callback:
+	 * @see \WC_Checkout::is_registration_required()
+	 *
+	 * @since 1.20.0
+	 *
+	 * @param bool $require_registration whether to require registration at checkout
+	 * @return bool
+	 */
+	public function maybe_require_registration( $require_registration ) {
 
-				$this->enable_signup_changed = true;
-			}
-
-			// disable guest checkout
-			if ( true === $checkout->enable_guest_checkout ) {
-
-				$checkout->enable_guest_checkout     = false;
-				$checkout->must_create_account       = true;
-
-				$this->enable_guest_checkout_changed = true;
-			}
-
-			// restore previous settings after checkout has loaded
-			if ( $this->enable_signup_changed || $this->enable_guest_checkout_changed ) {
-				add_action( 'woocommerce_after_checkout_form', array( $this, 'restore_registration_settings' ), 9999 );
-			}
-		}
+		return $this->force_registration() ? true : $require_registration;
 	}
 
 
 	/**
 	 * Restores the original checkout registration settings after checkout has loaded
 	 *
-	 * TODO since WC 3.0 many of the properties in this method are soft deprecated, they may need an update to checkout methods in the near future {FN 2017-03-10}
+	 * TODO remove this method by version 2.0.0 or April 2022, whichever comes first {FN 2020-12-24}
+	 *
+	 * @internal
 	 *
 	 * @since 1.0.0
-	 *
-	 * @param null|\WC_Checkout $checkout instance
+	 * @deprecated 1.20.0
 	 */
-	public function restore_registration_settings( $checkout = null ) {
+	public function restore_registration_settings() {
 
-		// re-disable signups
-		if ( $this->enable_signup_changed ) {
-			$checkout->enable_signup = false;
-		}
-
-		// re-enable guest checkouts
-		if ( $this->enable_guest_checkout_changed ) {
-			$checkout->enable_guest_checkout = true;
-			$checkout->must_create_account   = false;
-		}
+		wc_deprecated_function( __METHOD__, '1.20.0' );
 	}
 
 
 	/**
 	 * Marks account fields as required.
 	 *
+	 * @internal
+	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $fields
+	 * @param array $fields associative array
 	 * @return array
 	 */
-	public function maybe_require_registration_fields( $fields ) {
+	public function maybe_require_registration_fields( $fields = [] ) {
 
-		if ( $this->force_registration() ) {
+		if ( is_array( $fields ) && $this->force_registration() ) {
 
-			foreach ( array( 'account_username', 'account_password', 'account_password-2' ) as $field ) {
+			foreach ( [ 'account_username', 'account_password', 'account_password-2' ] as $field ) {
+
 				if ( isset( $fields['account'][ $field ] ) ) {
+
 					$fields['account'][ $field ]['required'] = true;
 				}
 			}
@@ -158,12 +139,14 @@ class WC_Memberships_Checkout {
 	/**
 	 * Removes the guest checkout param from WC checkout JS so the registration form isn't hidden.
 	 *
+	 * @internal
+	 *
 	 * @since 1.0.0
 	 *
 	 * @param array $params checkout JS params
 	 * @return array
 	 */
-	public function remove_guest_checkout_js_param( $params ) {
+	public function remove_guest_checkout_js_param( $params = [] ) {
 
 		if (    isset( $params['option_guest_checkout'] )
 		     && 'yes' === $params['option_guest_checkout']
@@ -178,6 +161,8 @@ class WC_Memberships_Checkout {
 
 	/**
 	 * Forces registration during the checkout process.
+	 *
+	 * @internal
 	 *
 	 * @since 1.0.0
 	 */
@@ -203,7 +188,7 @@ class WC_Memberships_Checkout {
 	 */
 	public function force_registration() {
 
-		if ( is_user_logged_in() ) {
+		if ( is_user_logged_in() || ! WC()->cart || WC()->cart->is_empty() ) {
 			return false;
 		}
 

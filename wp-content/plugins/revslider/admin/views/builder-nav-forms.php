@@ -455,6 +455,7 @@ if(!defined('ABSPATH')) exit();
 				<li data-target="#form_nav_tabs_visi" class="selected form_menu_level_1_li" id="sr_na_tab_1"><?php _e('Visibility', 'revslider');?></li>
 				<li data-target="#form_nav_tabs_posi" class="selected form_menu_level_1_li" id="sr_na_tab_11"><?php _e('Position', 'revslider');?></li>
 				<li data-target="#form_nav_tabs_size" class="selected form_menu_level_1_li" id="sr_na_tab_12"><?php _e('Size', 'revslider');?></li>
+				<li data-target="#form_nav_tabs_offsets" class="selected form_menu_level_1_li" id="sr_na_tab_19"><?php _e('Mask', 'revslider');?></li>
 				<li data-target="#form_nav_tabs_wrap" class="selected form_menu_level_1_li" id="sr_na_tab_13"><?php _e('Wrapper', 'revslider');?></li>
 				<li data-target="#form_nav_tabs_style" class="form_menu_level_1_li" id="sr_na_tab_2"><?php _e('Style', 'revslider');?></li>
 				<li data-target="#form_slide_nav_tabs" class="form_menu_level_1_li" id="sr_na_tab_21"><?php _e('Style', 'revslider');?></li>
@@ -462,7 +463,7 @@ if(!defined('ABSPATH')) exit();
 
 			<div id="form_nav_tabs_mainstyle" class="form_inner form_menu_inside open">
 				<div class="form_inner_header"><i class="material-icons">opacity</i><?php _e('Tabs Type', 'revslider');?></div>
-				<div class="on_off_navig_wrap"><input type="checkbox"  id="sr_usenavtabs" class="sliderinput easyinit nav-enable" data-evt="sliderNavUpdate" data-evtparam="tabs" data-showhide="#tabs_style_collapsable, #form_nav_tabs_posi,#form_nav_tabs_size, #form_nav_tabs_wrap, #form_nav_tabs_visi, #form_nav_tabs_style, #form_slide_nav_tabs" data-showhidedep="true"  data-r="nav.tabs.set" /></div>
+				<div class="on_off_navig_wrap"><input type="checkbox"  id="sr_usenavtabs" class="sliderinput easyinit nav-enable" data-evt="sliderNavUpdate" data-evtparam="tabs" data-showhide="#tabs_style_collapsable, #form_nav_tabs_posi,#form_nav_tabs_size,#form_nav_tabs_offsets,  #form_nav_tabs_wrap, #form_nav_tabs_visi, #form_nav_tabs_style, #form_slide_nav_tabs" data-showhidedep="true"  data-r="nav.tabs.set" /></div>
 				<!--<div class="form_intoaccordion" data-trigger="#sr_na_tab_0"><i class="material-icons">arrow_drop_down</i></div>-->
 				<div id="tabs_style_collapsable" class="collapsable">
 					<label_a><?php _e('Tabs Style', 'revslider');?></label_a><select  id="sr_tabs_style"  data-evt="sliderNavUpdate" data-evtparam="tabs" data-r="nav.tabs.style" class="sliderinput tos2 nosearchbox easyinit sr_nav_style_tos">
@@ -546,7 +547,18 @@ if(!defined('ABSPATH')) exit();
 						<onelong><label_icon class="ui_width"></label_icon><input class="sliderinput valueduekeyboard  easyinit" data-evt="sliderNavPositionUpdate" data-evtparam="tabs" data-r="nav.tabs.width" data-min="0" data-max="5000" type="text" id="nav_tabs_width" ></onelong>
 						<oneshort><label_icon class="ui_height"></label_icon><input class="sliderinput valueduekeyboard  easyinit" data-evt="sliderNavPositionUpdate" data-evtparam="tabs" data-r="nav.tabs.height" data-min="0" data-max="5000" type="text" id="nav_tabs_height" ></oneshort>
 					</row>
+				</div>
+			</div>
 
+			<div id="form_nav_tabs_offsets" class="form_inner form_menu_inside open">
+				<div class="form_inner_header"><i class="material-icons">photo_size_select_large</i><?php _e('Mask Offset', 'revslider');?></div>
+				<!--<div class="form_intoaccordion" data-trigger="#sr_na_tab_19"><i class="material-icons">arrow_drop_down</i></div>-->
+				<div class="collapsable">
+					<!-- TABS MASK OFFSET -->
+					<row class="directrow">
+					<onelong><label_icon class="ui_margin_left"></label_icon><input class="sliderinput valueduekeyboard  easyinit" data-evt="sliderNavPositionUpdate" data-evtparam="tabs" data-r="nav.tabs.mhoffset" data-min="0" data-max="500" type="text" id="nav_tabs_mhoffset" ></onelong>
+					<oneshort><label_icon class="ui_margin_top"></label_icon><input class="sliderinput valueduekeyboard  easyinit" data-evt="sliderNavPositionUpdate" data-evtparam="tabs" data-r="nav.tabs.mvoffset" data-min="0" data-max="500" type="text" id="nav_tabs_mvoffset" ></oneshort>
+					</row>
 				</div>
 			</div>
 
@@ -638,6 +650,7 @@ if(!defined('ABSPATH')) exit();
 				<li data-target="#form_nav_thumbs_visi" class="selected form_menu_level_1_li" id="sr_na_thumb_1"><?php _e('Visibility', 'revslider');?></li>
 				<li data-target="#form_nav_thumbs_posi" class="selected form_menu_level_1_li" id="sr_na_thumb_11"><?php _e('Position', 'revslider');?></li>
 				<li data-target="#form_nav_thumbs_size" class="selected form_menu_level_1_li" id="sr_na_thumb_12"><?php _e('Size', 'revslider');?></li>
+				<li data-target="#form_nav_thumbs_offsets" class="selected form_menu_level_1_li" id="sr_na_thumb_19"><?php _e('Mask', 'revslider');?></li>
 				<li data-target="#form_nav_thumbs_wrap" class="selected form_menu_level_1_li" id="sr_na_thumb_13"><?php _e('Wrapper', 'revslider');?></li>
 				<li data-target="#form_nav_thumbs_style" class="form_menu_level_1_li" id="sr_na_thumb_2"><?php _e('Style', 'revslider');?></li>
 				<li data-target="#form_slide_nav_thumbs" class="form_menu_level_1_li" id="sr_na_thumb_21"><?php _e('Style', 'revslider');?></li>
@@ -645,7 +658,7 @@ if(!defined('ABSPATH')) exit();
 
 			<div id="form_nav_thumbs_mainstyle" class="form_inner form_menu_inside open">
 				<div class="form_inner_header"><i class="material-icons">opacity</i><?php _e('Thumb Type', 'revslider');?></div>
-				<div class="on_off_navig_wrap"><input type="checkbox"  id="sr_usenavthumbs" class="sliderinput easyinit nav-enable" data-evt="sliderNavUpdate" data-evtparam="thumbs" data-showhide="#thumbs_style_collapsable, #form_nav_thumbs_posi,#form_nav_thumbs_size,#form_nav_thumbs_wrap,#form_nav_thumbs_visi,#form_nav_thumbs_style,#form_slide_nav_thumbs" data-showhidedep="true"  data-r="nav.thumbs.set" /></div>
+				<div class="on_off_navig_wrap"><input type="checkbox"  id="sr_usenavthumbs" class="sliderinput easyinit nav-enable" data-evt="sliderNavUpdate" data-evtparam="thumbs" data-showhide="#thumbs_style_collapsable, #form_nav_thumbs_posi,#form_nav_thumbs_size,#form_nav_thumbs_offsets,#form_nav_thumbs_wrap,#form_nav_thumbs_visi,#form_nav_thumbs_style,#form_slide_nav_thumbs" data-showhidedep="true"  data-r="nav.thumbs.set" /></div>
 				<!--<div class="form_intoaccordion" data-trigger="#sr_na_thumb_0"><i class="material-icons">arrow_drop_down</i></div>-->
 				<div id="thumbs_style_collapsable" class="collapsable">
 					<label_a><?php _e('Thumbs Style', 'revslider');?></label_a><select  id="sr_thumbs_style"  data-evt="sliderNavUpdate" data-evtparam="thumbs" data-r="nav.thumbs.style" class="sliderinput tos2 nosearchbox easyinit sr_nav_style_tos">
@@ -731,6 +744,17 @@ if(!defined('ABSPATH')) exit();
 				</div>
 			</div>
 
+			<div id="form_nav_thumbs_offsets" class="form_inner form_menu_inside open">
+				<div class="form_inner_header"><i class="material-icons">photo_size_select_large</i><?php _e('Mask Offset', 'revslider');?></div>
+				<!--<div class="form_intoaccordion" data-trigger="#sr_na_tab_19"><i class="material-icons">arrow_drop_down</i></div>-->
+				<div class="collapsable">
+					<!-- TABS MASK OFFSET -->
+					<row class="directrow">
+					<onelong><label_icon class="ui_margin_left"></label_icon><input class="sliderinput valueduekeyboard  easyinit" data-evt="sliderNavPositionUpdate" data-evtparam="thumbs" data-r="nav.thumbs.mhoffset" data-min="0" data-max="500" type="text" id="nav_thumbs_mhoffset" ></onelong>
+					<oneshort><label_icon class="ui_margin_top"></label_icon><input class="sliderinput valueduekeyboard  easyinit" data-evt="sliderNavPositionUpdate" data-evtparam="thumbs" data-r="nav.thumbs.mvoffset" data-min="0" data-max="500" type="text" id="nav_thumbs_mvoffset" ></oneshort>
+					</row>
+				</div>
+			</div>
 
 			<div id="form_nav_thumbs_wrap" class="form_inner form_menu_inside open">
 				<div class="form_inner_header"><i class="material-icons">more</i><?php _e('Wrapper', 'revslider');?></div>

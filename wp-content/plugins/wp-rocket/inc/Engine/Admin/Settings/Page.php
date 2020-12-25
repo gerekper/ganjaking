@@ -163,7 +163,8 @@ class Page {
 	 * @since 3.0
 	 */
 	public function render_page() {
-		$rocket_valid_key = true;
+		$rocket_valid_key = rocket_valid_key();
+		if ( $rocket_valid_key ) {
 			$this->dashboard_section();
 			$this->cache_section();
 			$this->assets_section();
@@ -176,6 +177,9 @@ class Page {
 			$this->addons_section();
 			$this->cloudflare_section();
 			$this->sucuri_section();
+		} else {
+			$this->license_section();
+		}
 
 		$this->render->set_settings( $this->settings->get_settings() );
 
@@ -239,9 +243,9 @@ class Page {
 	public function customer_data() {
 		$user = $this->user_client->get_user_data();
 		$data = [
-			'license_type'       => __( 'Infinite', 'rocket' ),
-			'license_expiration' => __( 'July 24, 2091', 'rocket' ),
-			'license_class'      => 'wpr-isValid',
+			'license_type'       => __( 'Unavailable', 'rocket' ),
+			'license_expiration' => __( 'Unavailable', 'rocket' ),
+			'license_class'      => 'wpr-isInvalid',
 		];
 
 		if (
@@ -264,7 +268,7 @@ class Page {
 			$data['license_type'] = 'Plus';
 		}
 
-		$data['license_class']      = time() < $user->licence_expiration ? 'wpr-isValid' : 'wpr-isValid';
+		$data['license_class']      = time() < $user->licence_expiration ? 'wpr-isValid' : 'wpr-isInvalid';
 		$data['license_expiration'] = date_i18n( get_option( 'date_format' ), (int) $user->licence_expiration );
 
 		return $data;
@@ -547,15 +551,14 @@ class Page {
 	 * @since 3.0
 	 */
 	private function assets_section() {
-		$combine_beacon        = $this->beacon->get_suggest( 'combine' );
-		$defer_js_beacon       = $this->beacon->get_suggest( 'defer_js' );
-		$async_beacon          = $this->beacon->get_suggest( 'async' );
-		$files_beacon          = $this->beacon->get_suggest( 'file_optimization' );
-		$inline_js_beacon      = $this->beacon->get_suggest( 'exclude_inline_js' );
-		$exclude_js_beacon     = $this->beacon->get_suggest( 'exclude_js' );
-		$jquery_migrate_beacon = $this->beacon->get_suggest( 'jquery_migrate' );
-		$delay_js_beacon       = $this->beacon->get_suggest( 'delay_js' );
-		$exclude_defer_js      = $this->beacon->get_suggest( 'exclude_defer_js' );
+		$combine_beacon    = $this->beacon->get_suggest( 'combine' );
+		$defer_js_beacon   = $this->beacon->get_suggest( 'defer_js' );
+		$async_beacon      = $this->beacon->get_suggest( 'async' );
+		$files_beacon      = $this->beacon->get_suggest( 'file_optimization' );
+		$inline_js_beacon  = $this->beacon->get_suggest( 'exclude_inline_js' );
+		$exclude_js_beacon = $this->beacon->get_suggest( 'exclude_js' );
+		$delay_js_beacon   = $this->beacon->get_suggest( 'delay_js' );
+		$exclude_defer_js  = $this->beacon->get_suggest( 'exclude_defer_js' );
 
 		$this->settings->add_page_section(
 			'file_optimization',
@@ -685,16 +688,6 @@ class Page {
 					'page'              => 'file_optimization',
 					'default'           => [],
 					'sanitize_callback' => 'sanitize_textarea',
-				],
-				'dequeue_jquery_migrate' => [
-					'type'              => 'checkbox',
-					'label'             => __( 'Remove jQuery Migrate', 'rocket' ),
-					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
-					'description'       => sprintf( __( 'Remove jQuery Migrate eliminates a JS file and can improve load time. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $jquery_migrate_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $jquery_migrate_beacon['id'] ) . '" target="_blank">', '</a>' ),
-					'section'           => 'js',
-					'page'              => 'file_optimization',
-					'default'           => 0,
-					'sanitize_callback' => 'sanitize_checkbox',
 				],
 				'minify_js'              => [
 					'type'              => 'checkbox',
@@ -865,10 +858,6 @@ class Page {
 		$disable_images_lazyload  = [];
 		$disable_iframes_lazyload = [];
 		$disable_youtube_lazyload = [];
-
-		if ( rocket_avada_maybe_disable_lazyload() ) {
-			$disable_images_lazyload[] = __( 'Avada', 'rocket' );
-		}
 
 		if ( rocket_maybe_disable_lazyload() ) {
 			$disable_images_lazyload[] = __( 'Autoptimize', 'rocket' );

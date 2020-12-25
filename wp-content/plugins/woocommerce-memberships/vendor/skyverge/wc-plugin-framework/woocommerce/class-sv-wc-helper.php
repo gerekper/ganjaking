@@ -22,13 +22,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_7_1;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_2;
 
 use Automattic\WooCommerce\Admin\Loader;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_7_1\\SV_WC_Helper' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_2\\SV_WC_Helper' ) ) :
 
 
 /**
@@ -549,6 +549,25 @@ class SV_WC_Helper {
 
 
 	/**
+	 * Determines if a shop has any published virtual products.
+	 *
+	 * @since 5.10.0
+	 *
+	 * @return bool
+	 */
+	public static function shop_has_virtual_products() {
+
+		$virtual_products = wc_get_products( [
+			'virtual' => true,
+			'status'  => 'publish',
+			'limit'   => 1,
+		] );
+
+		return sizeof( $virtual_products ) > 0;
+	}
+
+
+	/**
 	 * Safely gets and trims data from $_POST.
 	 *
 	 * @since 3.0.0
@@ -957,6 +976,33 @@ class SV_WC_Helper {
 	public static function is_enhanced_admin_screen() {
 
 		return is_admin() && SV_WC_Plugin_Compatibility::is_enhanced_admin_available() && ( Loader::is_admin_page() || Loader::is_embed_page() );
+	}
+
+
+	/**
+	 * Determines if the current request is for a WC REST API endpoint.
+	 *
+	 * @see \WooCommerce::is_rest_api_request()
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool
+	 */
+	public static function is_rest_api_request() {
+
+		if ( is_callable( 'WC' ) && is_callable( [ WC(), 'is_rest_api_request' ] ) ) {
+			return (bool) WC()->is_rest_api_request();
+		}
+
+		if ( empty( $_SERVER['REQUEST_URI'] ) || ! function_exists( 'rest_get_url_prefix' ) ) {
+			return false;
+		}
+
+		$rest_prefix         = trailingslashit( rest_get_url_prefix() );
+		$is_rest_api_request = false !== strpos( $_SERVER['REQUEST_URI'], $rest_prefix );
+
+		/* applies WooCommerce core filter */
+		return (bool) apply_filters( 'woocommerce_is_rest_api_request', $is_rest_api_request );
 	}
 
 

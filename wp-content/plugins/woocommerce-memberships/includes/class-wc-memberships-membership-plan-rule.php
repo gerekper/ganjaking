@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -638,7 +638,7 @@ class WC_Memberships_Membership_Plan_Rule {
 			}
 		}
 
-		return array_unique( array_merge( $children, call_user_func_array( 'array_merge', $descendants ) ) );
+		return array_unique( array_merge( $children, array_merge( ...$descendants ) ) );
 	}
 
 

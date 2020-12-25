@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -45,12 +45,8 @@ class WC_Settings_Memberships extends \WC_Settings_Page {
 
 		parent::__construct();
 
-		// set the endpoint slug for Members Area in My Account (since WC 3.4 these have moved into the "Advanced" tab)
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.4.0' ) ) {
-			add_filter( 'woocommerce_settings_pages',   array( $this, 'add_my_account_endpoints_options' ) );
-		} else {
-			add_filter( 'woocommerce_account_settings', array( $this, 'add_my_account_endpoints_options' ) );
-		}
+		// set the endpoint slug for Members Area in My Account
+		add_filter( 'woocommerce_settings_pages', [ $this, 'add_my_account_endpoints_options' ] );
 
 		add_action( 'woocommerce_admin_field_redirect_members_upon_login', [ $this, 'output_redirect_members_upon_login_setting_field' ] );
 	}

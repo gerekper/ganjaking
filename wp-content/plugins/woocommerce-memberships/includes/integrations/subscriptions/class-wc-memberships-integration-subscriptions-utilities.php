@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -106,7 +106,7 @@ class WC_Memberships_Integration_Subscriptions_Utilities {
 	 * @param \WC_Memberships_User_Membership $user_membership the User Membership being exported
 	 * @return string
 	 */
-	public function export_user_membership_subscription_id( $value = '', $column, $user_membership ) {
+	public function export_user_membership_subscription_id( $value, $column, $user_membership ) {
 
 		$subscription_id = null;
 
@@ -132,7 +132,7 @@ class WC_Memberships_Integration_Subscriptions_Utilities {
 	 * @param \WC_Memberships_User_Membership $user_membership the User Membership being exported
 	 * @return string
 	 */
-	public function export_user_membership_installment_plan( $value = '', $column, $user_membership ) {
+	public function export_user_membership_installment_plan( $value, $column, $user_membership ) {
 
 		if ( 'installment_plan' === $column && $user_membership instanceof \WC_Memberships_User_Membership ) {
 

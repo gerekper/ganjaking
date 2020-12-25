@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Restriction class.
  *
  * @class    WC_CSP_Restriction
- * @version  1.8.6
+ * @version  1.8.11
  */
 class WC_CSP_Restriction extends WC_Settings_API {
 
@@ -350,7 +350,7 @@ class WC_CSP_Restriction extends WC_Settings_API {
 	public function process_global_restriction_data() {
 
 		if ( isset( $_POST[ 'restriction' ] ) ) {
-			$posted_restrictions_data = wc_clean( $_POST[ 'restriction' ] );
+			$posted_restrictions_data = wp_unslash( $_POST[ 'restriction' ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		}
 
 		$count            = 0;

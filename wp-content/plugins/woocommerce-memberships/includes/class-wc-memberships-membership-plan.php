@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -1477,7 +1477,7 @@ class WC_Memberships_Membership_Plan {
 			}
 		}
 
-		$post_ids = array_unique( array_map( 'absint', call_user_func_array( 'array_merge', $post_ids ) ) );
+		$post_ids = array_unique( array_map( 'absint', array_merge( ...$post_ids ) ) );
 
 		// remove from found results items that are forced public for everyone
 		if ( ! empty( $post_ids ) ) {

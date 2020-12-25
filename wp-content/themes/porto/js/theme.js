@@ -2,58 +2,6 @@
  * Porto theme's main JavaScript file
  */
 
-/* browser select */
-(function($) {
-	'use strict';
-	$.extend({
-
-		browserSelector: function() {
-
-			// jQuery.browser.mobile (http://detectmobilebrowser.com/)
-			(function(a){(jQuery.browser=jQuery.browser||{}).mobile=/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))})(navigator.userAgent||navigator.vendor||window.opera);
-
-			// Touch
-			var hasTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
-
-			var u = navigator.userAgent,
-				ua = u.toLowerCase(),
-				is = function (t) {
-					return ua.indexOf(t) > -1;
-				},
-				g = 'gecko',
-				w = 'webkit',
-				s = 'safari',
-				o = 'opera',
-				h = document.documentElement,
-				b = [(!(/opera|webtv/i.test(ua)) && /msie\s(\d)/.test(ua)) ? ('ie ie' + parseFloat(navigator.appVersion.split("MSIE")[1])) : is('firefox/2') ? g + ' ff2' : is('firefox/3.5') ? g + ' ff3 ff3_5' : is('firefox/3') ? g + ' ff3' : is('gecko/') ? g : is('opera') ? o + (/version\/(\d+)/.test(ua) ? ' ' + o + RegExp.jQuery1 : (/opera(\s|\/)(\d+)/.test(ua) ? ' ' + o + RegExp.jQuery2 : '')) : is('konqueror') ? 'konqueror' : is('chrome') ? w + ' chrome' : is('iron') ? w + ' iron' : is('applewebkit/') ? w + ' ' + s + (/version\/(\d+)/.test(ua) ? ' ' + s + RegExp.jQuery1 : '') : is('mozilla/') ? g : '', is('j2me') ? 'mobile' : is('iphone') ? 'iphone' : is('ipod') ? 'ipod' : is('mac') ? 'mac' : is('darwin') ? 'mac' : is('webtv') ? 'webtv' : is('win') ? 'win' : is('freebsd') ? 'freebsd' : (is('x11') || is('linux')) ? 'linux' : '', 'js'];
-
-			var c = b.join(' ');
-
-			if ($.browser.mobile) {
-				c += ' mobile';
-			}
-
-			if (hasTouch) {
-				c += ' touch';
-			}
-
-			h.className += ' ' + c;
-
-			// IE11 Detect
-			var isIE11 = !(window.ActiveXObject) && "ActiveXObject" in window;
-
-			if (isIE11) {
-				$('html').removeClass('gecko').addClass('ie ie11');
-				return;
-			}
-		}
-
-	});
-
-	$.browserSelector();
-
-})(jQuery);
-
 /* Alternatives for old browsers */
 if (!String.prototype.endsWith) {
 	String.prototype.endsWith = function(search, this_len) {
@@ -262,6 +210,8 @@ window.theme = {};
 
 		sticky_nav_height: 0,
 
+		is_device_mobile: /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent||navigator.vendor||window.opera)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test((navigator.userAgent||navigator.vendor||window.opera).substr(0,4)),
+
 		getScrollbarWidth: function() {
 			// thx David
 			if (this.scrollbarSize === undefined) {
@@ -378,6 +328,55 @@ window.theme = {};
 	});
 
 }).apply(this, [window.theme, jQuery]);
+
+/* browser select */
+(function($) {
+	'use strict';
+	$.extend({
+
+		browserSelector: function() {
+
+			// Touch
+			var hasTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
+			var u = navigator.userAgent,
+				ua = u.toLowerCase(),
+				is = function (t) {
+					return ua.indexOf(t) > -1;
+				},
+				g = 'gecko',
+				w = 'webkit',
+				s = 'safari',
+				o = 'opera',
+				h = document.documentElement,
+				b = [(!(/opera|webtv/i.test(ua)) && /msie\s(\d)/.test(ua)) ? ('ie ie' + parseFloat(navigator.appVersion.split("MSIE")[1])) : is('firefox/2') ? g + ' ff2' : is('firefox/3.5') ? g + ' ff3 ff3_5' : is('firefox/3') ? g + ' ff3' : is('gecko/') ? g : is('opera') ? o + (/version\/(\d+)/.test(ua) ? ' ' + o + RegExp.jQuery1 : (/opera(\s|\/)(\d+)/.test(ua) ? ' ' + o + RegExp.jQuery2 : '')) : is('konqueror') ? 'konqueror' : is('chrome') ? w + ' chrome' : is('iron') ? w + ' iron' : is('applewebkit/') ? w + ' ' + s + (/version\/(\d+)/.test(ua) ? ' ' + s + RegExp.jQuery1 : '') : is('mozilla/') ? g : '', is('j2me') ? 'mobile' : is('iphone') ? 'iphone' : is('ipod') ? 'ipod' : is('mac') ? 'mac' : is('darwin') ? 'mac' : is('webtv') ? 'webtv' : is('win') ? 'win' : is('freebsd') ? 'freebsd' : (is('x11') || is('linux')) ? 'linux' : '', 'js'];
+
+			var c = b.join(' ');
+
+			if (theme.is_device_mobile) {
+				c += ' mobile';
+			}
+
+			if (hasTouch) {
+				c += ' touch';
+			}
+
+			h.className += ' ' + c;
+
+			// IE11 Detect
+			var isIE11 = !(window.ActiveXObject) && "ActiveXObject" in window;
+
+			if (isIE11) {
+				$('html').removeClass('gecko').addClass('ie ie11');
+				return;
+			}
+		}
+
+	});
+
+	$.browserSelector();
+
+})(jQuery);
 
 // Appear
 (function(){
@@ -2317,7 +2316,7 @@ window.theme = {};
 				background.attr("data-bottom-top", "top: " + skrollr_start+"%;").attr("data-top-bottom", "top: 0%;");
 			}
 
-			if (!$.browser.mobile) {
+			if (!theme.is_device_mobile) {
 				parallaxEffectOnScrolResize();
 			} else {
 				if( self.options.enableOnMobile == true ) {
@@ -2353,8 +2352,8 @@ window.theme = {};
 		});
 		if (theme.portoSkrollr) {
 			theme.portoSkrollr.refresh();
-		} else if (!$.browser.mobile) {
-			theme.portoSkrollr = skrollr.init( {forceHeight: false, smoothScrolling: false, mobileCheck: function() { return $.browser.mobile }} );
+		} else if (!theme.is_device_mobile) {
+			theme.portoSkrollr = skrollr.init( {forceHeight: false, smoothScrolling: false, mobileCheck: function() { return theme.is_device_mobile }} );
 		}
 		return obj;
 	}
@@ -2411,9 +2410,6 @@ window.theme = {};
 				if (options.autoInit) {
 					if ($('#header').hasClass('header-side')) {
 						pad.top = theme.adminBarHeight();
-						/*if ($('.page-top.fixed-pos').length) {
-							pad.top += $('.page-top.fixed-pos').height();
-						}*/
 					} else {
 						pad.top = theme.adminBarHeight();
 						if ($('#header > .main-menu-wrap').length || !$('#header').hasClass('sticky-menu-header')) {
@@ -3578,7 +3574,13 @@ var scrolltotop={
 					self.$menu.on('click', '.go-back', function(e) {
 						e.preventDefault();
 						var prevMenu            = $(this).closest('.next-menu'),
+							prevMenuHeightDiff  = 0;
+						if (prevMenu.length && prevMenu.find('> li').length) {
 							prevMenuHeightDiff  = prevMenu.find('> li').length * prevMenu.find('> li').outerHeight() - prevMenu.outerHeight();
+						}
+
+
+							 
 
 						prevMenu.removeClass('next-menu');
 						$(this).closest('ul').removeClass('visible');
@@ -3658,6 +3660,10 @@ var scrolltotop={
 				// fix compatibility issue with Elementor pro header builder
 				if ( !self.$header_main.length && self.$header.children('.elementor-location-header').length ) {
 					self.$header_main = self.$header.children('.elementor-location-header').last().addClass('header-main');
+				}
+
+				if (!self.$header_main.length) {
+					return this;
 				}
 
 				self.reveal = self.$header.parents('.header-wrapper').hasClass('header-reveal');
@@ -3850,7 +3856,13 @@ var scrolltotop={
 					self.header_height = self.$header.height() + parseInt(self.$header.css('margin-top'));
 					self.menu_height = self.$menu_wrap.height() + parseInt(self.$menu_wrap.css('padding-top')) + parseInt(self.$menu_wrap.css('padding-bottom'));
 
-					self.sticky_pos = (self.header_height - self.sticky_height) + $('.banner-before-header').height() + $('.porto-block-html-top').height() + parseInt($('body').css('padding-top')) + parseInt(self.$header.css('border-top-width'));
+					self.sticky_pos = (self.header_height - self.sticky_height) + parseInt($('body').css('padding-top')) + parseInt(self.$header.css('border-top-width'));
+					if ($('.banner-before-header').length) {
+						self.sticky_pos += $('.banner-before-header').height();
+					}
+					if ($('.porto-block-html-top').length) {
+						self.sticky_pos += $('.porto-block-html-top').height();
+					}
 				} else {
 					// show header main
 					self.$header.addClass('sticky-header sticky-header-calc');
@@ -4016,7 +4028,7 @@ var scrolltotop={
 
 					self.$side_nav.css({
 						'min-height': w_h - theme.adminBarHeight(),
-						'padding-bottom': $side_bottom.height() + parseInt($side_bottom.css('margin-top')) + parseInt($side_bottom.css('margin-bottom'))
+						'padding-bottom': $side_bottom.length ? $side_bottom.height() + parseInt($side_bottom.css('margin-top')) + parseInt($side_bottom.css('margin-bottom')) : ''
 					});
 
 					var appVersion          = navigator.appVersion;
@@ -4449,7 +4461,10 @@ var scrolltotop={
 		build: function() {
 			var self = this,
 				footer_height = self.$wrapper.outerHeight(true),
-				window_height = ( window.innerHeight - $('#header .header-main').height() - theme.adminBarHeight() );
+				window_height = window.innerHeight - theme.adminBarHeight();
+			if ($('#header .header-main').length) {
+				window_height -= $('#header .header-main').height();
+			}
 
 			if( footer_height > window_height ) {
 				$('.footer-wrapper').removeClass('footer-reveal');
@@ -5803,7 +5818,13 @@ function porto_init($wrap) {
 			if( window.innerWidth < 576 ) {
 				var headerOffset = -1;
 				var scrollTop = $(window).scrollTop();
-				headerOffset = Math.max( $header_main.scrollTop() + $header_main.height(), $menu_wrap.scrollTop() + $menu_wrap.height() );
+
+				if ($header_main.length) {
+					headerOffset = Math.max( $header_main.scrollTop() + $header_main.height(), headerOffset );
+				}
+				if ($menu_wrap.length) {
+					headerOffset = Math.max( $menu_wrap.scrollTop() + $menu_wrap.height(), headerOffset );
+				}
 				if( headerOffset <= 0 ) {
 					if( $('#header').length > 0 && $('#header').height() > 10 ) headerOffset = $('#header').scrollTop() + $('#header').height();
 					else headerOffset = 100;

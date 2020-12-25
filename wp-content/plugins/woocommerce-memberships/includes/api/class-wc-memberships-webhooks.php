@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Memberships\API;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -140,32 +140,6 @@ class Webhooks {
 	 * @return array
 	 */
 	public function add_topics( array $topics ) {
-
-		// the webhooks page was moved from API to Advanced between WC 3.0+ versions
-		$is_api_webhook_page = isset( $_GET['page'], $_GET['tab'], $_GET['section'] ) && 'webhooks' === $_GET['section'] && ( 'advanced' === $_GET['tab'] || 'api' === $_GET['tab'] );
-
-		// before WC 3.4.3 the webhook topic dropdown had a bug that didn't persist the selection
-		if ( $is_api_webhook_page && Framework\SV_WC_Plugin_Compatibility::is_wc_version_lt( '3.4.3' ) ) {
-
-			$webhook_id = ! empty( $_GET['edit-webhook'] ) ? (int) $_GET['edit-webhook'] : 0;
-
-			try {
-				$webhook = $webhook_id > 0 ? new \WC_Webhook( $webhook_id ) : null;
-				$topic   = $webhook ? $webhook->get_topic() : null;
-			} catch ( \Exception $e ) {
-				$topic   = null;
-			}
-
-			if ( $topic && ( Framework\SV_WC_Helper::str_starts_with( $topic, 'membership_plan' ) || Framework\SV_WC_Helper::str_starts_with( $topic, 'user_membership' ) ) ) {
-
-				// ensures the right custom Memberships webhook chosen is persisted in the dropdown
-				wc_enqueue_js( '
-					jQuery( document ).ready( function( $ ) {
-						$( "#webhook_topic" ).val( "' . $topic . '" ).trigger( "change" );
-					} );
-			' );
-			}
-		}
 
 		$user_memberships_topics = [
 			'user_membership.created'     => __( 'User Membership Created',     'woocommerce-memberships' ),

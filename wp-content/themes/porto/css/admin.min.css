@@ -64,6 +64,7 @@ body.ebsp-mf-shown.wp-admin .mfp-wrap{z-index:20001!important}
 .control-panel-redux .ui-button,.control-section-redux .ui-button,.redux-container .ui-button,.redux-metabox .ui-button{font-family:inherit}
 .redux-sidebar .redux-group-tab-link-a .el-lines{font-size:1.1em;padding-top:3px}
 .wp-admin.rtl .redux-sidebar .redux-group-menu li.hasSubSections a .extraIconSubsections{float:left;margin-left:5px;margin-right:auto}
+.control-panel-redux .ui-buttonset .ui-button>span,.control-section-redux .ui-buttonset .ui-button>span,.redux-container .ui-buttonset .ui-button>span,.redux-metabox .ui-buttonset .ui-button>span{display:none}
 .rtl .msp-dialog button.ui-dialog-titlebar-close{float:right;right:auto;left:13px}
 .master-slider{direction:ltr}
 .edit-menu-item-popup_bg_image,.edit-menu-item-preview{margin-bottom:10px}

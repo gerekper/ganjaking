@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_3 as Framework;
 
 /**
  * Main plugin class.
@@ -36,7 +36,7 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string version number */
-	const VERSION = '1.15.2';
+	const VERSION = '1.16.0';
 
 	/** @var WC_Chase_Paymentech single instance of this plugin */
 	protected static $instance;
@@ -223,24 +223,6 @@ class WC_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 			$this->get_admin_notice_handler()->add_admin_notice( $message, 'register-with-chase', array( 'always_show_on_settings' => false ) );
 		}
-	}
-
-
-	/**
-	 * Returns true if the gateway supports the charge capture operation and it
-	 * can be invoked
-	 *
-	 * @since 1.2.0
-	 *
-	 * @see Framework\SV_WC_Payment_Gateway_Plugin::can_capture_charge()
-	 * @param Framework\SV_WC_Payment_Gateway $gateway the payment gateway
-	 * @return boolean true if the gateway supports the charge capture operation and it can be invoked
-	 */
-	public function can_capture_charge( $gateway ) {
-
-		wc_deprecated_function( __METHOD__, '1.12.0', '\SkyVerge\WooCommerce\Chase_Paymentech\Capture::is_order_ready_for_capture()' );
-
-		return $this->supports_capture_charge() && $gateway->supports_credit_card_capture() && $this->get_gateway()->is_direct_api_configured();
 	}
 
 

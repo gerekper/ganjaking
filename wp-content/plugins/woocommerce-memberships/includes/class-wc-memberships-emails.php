@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -55,33 +55,25 @@ class WC_Memberships_Emails {
 		foreach ( $this->get_email_class_names() as $email ) {
 			add_action( $email, array( 'WC_Emails', 'send_transactional_email' ), 10, 10 );
 		}
-
-		// add the Memberships emails to the list of emails that should display the Jilt prompt
-		add_filter( 'sv_wc_jilt_prompt_email_ids', [ $this, 'add_jilt_prompt_email_ids' ] );
-
-		// adjust the Jilt install prompt wording for Memberships emails
-		add_filter( 'sv_wc_jilt_prompt_description', [ $this, 'adjust_jilt_prompt_membership_email_description' ], 10, 2 );
-
-		// adjust the Jilt install prompt wording for the general Emails screen
-		add_filter( 'sv_wc_jilt_general_prompt_description', [ $this, 'adjust_jilt_prompt_general_description' ] );
 	}
 
 
 	/**
 	 * Adds the Memberships emails to the list of emails that should display the Jilt prompt.
 	 *
+	 * TODO remove this deprecated method by December 2021 or v2.0.0, whichever comes first {FN 2020-11-20}
+	 *
 	 * @internal
 	 *
 	 * @since 1.17.3
+	 * @deprecated since 1.20.0
 	 *
 	 * @param array $email_ids existing email IDs
 	 * @return array
 	 */
 	public function add_jilt_prompt_email_ids( $email_ids ) {
 
-		if ( is_array( $email_ids ) ) {
-			$email_ids = array_merge( $email_ids, $this->get_email_class_names() );
-		}
+		wc_deprecated_function( __METHOD__, '1.20.0' );
 
 		return $email_ids;
 	}
@@ -90,9 +82,12 @@ class WC_Memberships_Emails {
 	/**
 	 * Adjusts the Jilt install prompt wording for Memberships emails.
 	 *
+	 * TODO remove this deprecated method by December 2021 or v2.0.0, whichever comes first {FN 2020-11-20}
+	 *
 	 * @internal
 	 *
 	 * @since 1.17.3
+	 * @deprecated since 1.20.0
 	 *
 	 * @param string $description existing description
 	 * @param string $email_id targeted email ID
@@ -100,15 +95,7 @@ class WC_Memberships_Emails {
 	 */
 	public function adjust_jilt_prompt_membership_email_description( $description, $email_id ) {
 
-		if ( in_array( $email_id, $this->get_email_class_names(), true ) ) {
-
-			$description = sprintf(
-				/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag, %3$s - <a> tag, %4$s - </a> tag */
-				__( 'Supercharge member communication: create personalized, automated emails using a drag-and-drop editor with %1$sJilt%2$s. Send welcome or winback series, member newsletters, and more. Brought to you by %3$sSkyVerge%4$s.', 'woocommerce-memberships' ),
-				'<a href="https://jilt.com/go/wc-email-settings" target="_blank">', '</a>',
-				'<a href="https://skyverge.com/go/wc-email-settings" target="_blank">', '</a>'
-			);
-		}
+		wc_deprecated_function( __METHOD__, '1.20.0' );
 
 		return $description;
 	}
@@ -117,35 +104,19 @@ class WC_Memberships_Emails {
 	/**
 	 * Adjusts the Jilt install prompt wording for the general Emails screen.
 	 *
+	 * TODO remove this deprecated method by December 2021 or v2.0.0, whichever comes first {FN 2020-11-20}
+	 *
 	 * @internal
 	 *
 	 * @since 1.17.3
+	 * @deprecated since 1.20.0
 	 *
 	 * @param string $description existing description
 	 * @return string
 	 */
 	public function adjust_jilt_prompt_general_description( $description ) {
 
-		if ( wc_memberships()->is_plugin_active( 'woocommerce-subscriptions.php' ) ) {
-
-			$description = sprintf(
-			/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag, %3$s - <a> tag, %4$s - </a> tag, %5$s - <a> tag, %6$s - </a> tag */
-				__( 'Create beautiful automated, transactional, and marketing emails using a drag-and-drop editor with %1$sJilt%2$s. Even better, Jilt works seamlessly with Memberships and Subscriptions, making it easy for you to send welcome series, pre-renewal notices, and other automated emails to those customers. Learn more about free and paid plans in the %3$sdocumentation%4$s. Brought to you by %5$sSkyVerge%6$s.', 'woocommerce-memberships' ),
-				'<a href="https://jilt.com/go/wc-email-settings" target="_blank">', '</a>',
-				'<a href="https://jilt.com/go/wc-email-settings-docs" target="_blank">', '</a>',
-				'<a href="https://skyverge.com/go/wc-email-settings" target="_blank">', '</a>'
-			);
-
-		} else {
-
-			$description = sprintf(
-				/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag, %3$s - <a> tag, %4$s - </a> tag, %5$s - <a> tag, %6$s - </a> tag */
-				__( 'Create beautiful automated, transactional, and marketing emails using a drag-and-drop editor with %1$sJilt%2$s. You can even segment your emails using member details, or send membership automations like a welcome series. Learn more about free and paid plans in the %3$sdocumentation%4$s. Brought to you by %5$sSkyVerge%6$s.', 'woocommerce-memberships' ),
-				'<a href="https://jilt.com/go/wc-email-settings" target="_blank">', '</a>',
-				'<a href="https://jilt.com/go/wc-email-settings-docs" target="_blank">', '</a>',
-				'<a href="https://skyverge.com/go/wc-email-settings" target="_blank">', '</a>'
-			);
-		}
+		wc_deprecated_function( __METHOD__, '1.20.0' );
 
 		return $description;
 	}

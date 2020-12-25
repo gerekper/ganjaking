@@ -101,7 +101,7 @@ jQuery(document).ready(function($) {
     );
     if (hasSelectiveRefresh) {
 
-        $(window).load(function() {
+        $(window).on('load', function() {
             setTimeout(function() {
                 $('head > style#porto-style-inline-css').removeAttr('title');
             }, 1000);

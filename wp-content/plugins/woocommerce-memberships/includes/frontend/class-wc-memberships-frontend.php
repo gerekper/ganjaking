@@ -24,7 +24,7 @@
 use SkyVerge\WooCommerce\Memberships\Frontend\My_Account;
 use SkyVerge\WooCommerce\Memberships\Frontend\Profile_Fields;
 use \SkyVerge\WooCommerce\Memberships\Profile_Fields as Profile_Fields_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -221,15 +221,11 @@ class WC_Memberships_Frontend {
 
 		if ( \WC_Memberships_User_Messages::show_admin_message() ) {
 
-			$ajax_url = admin_url( 'admin-ajax.php' );
-
 			wc_enqueue_js( "
-				jQuery( document ).ready( function( $ ) {
-					$( 'div.wc-memberships.admin-restricted-content-notice a.dismiss-link' ).on( 'click', function ( e ) {
-						e.preventDefault();
-						$.post( '" . esc_js( $ajax_url ) . "', { action: 'wc_memberships_dismiss_admin_restricted_content_notice' } ).done( function() {
-							location.reload();
-						} );
+				$( 'div.wc-memberships.admin-restricted-content-notice a.dismiss-link' ).on( 'click', function ( e ) {
+					e.preventDefault();
+					$.post( '" . esc_js( admin_url( 'admin-ajax.php' ) ) . "', { action: 'wc_memberships_dismiss_admin_restricted_content_notice' } ).done( function() {
+						location.reload();
 					} );
 				} );
 			" );

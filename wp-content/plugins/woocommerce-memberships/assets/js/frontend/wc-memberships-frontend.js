@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 
 	var wc_memberships_frontend = window.wc_memberships_frontend !== null ? window.wc_memberships_frontend : {};
 
@@ -149,7 +149,7 @@ jQuery( document ).ready( function( $ ) {
 		// update preview once file has been uploaded
 		uploader.bind( 'FileUploaded', function( up, file, res ) {
 
-			var data = $.parseJSON( res.response );
+			var data = JSON.parse( res.response );
 
 			// check for upload errors
 			if ( ! data || data.errors ) {

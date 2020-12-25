@@ -6,7 +6,7 @@
  * Description: Sell memberships that provide access to restricted content, products, discounts, and more!
  * Author: SkyVerge
  * Author URI: https://www.woocommerce.com/
- * Version: 1.19.2
+ * Version: 1.20.0
  * Text Domain: woocommerce-memberships
  * Domain Path: /i18n/languages/
  *
@@ -20,8 +20,8 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 958589:9288e7609ad0b487b81ef6232efa5cfc
- * WC requires at least: 3.0.9
- * WC tested up to: 4.6.0
+ * WC requires at least: 3.5
+ * WC tested up to: 4.8.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -39,17 +39,21 @@ if ( ! is_woocommerce_active() ) {
 	return;
 }
 
-// Load required Action Scheduler library
-// TODO: when WooCommerce 3.5 is the minimum required version we can stop bundling Action Scheduler as it's now part of core WooCommerce {FN 2018-10-09}
 
+// Load required Action Scheduler library:
 // during deploy of 1.16.0 Action Scheduler we accidentally bundled AS 3.0.0-beta-1 and some customers may have migrated: these customers need to continue using version 3.0.0 as they can't roll back to 2.x
-// TODO remove the conditional handling when we can bundle AS 3.0.0 {FN 2019-11-06}
-$load_as_3_0_0 = $as_table_name = false;
+// TODO: when WooCommerce 4.0 is the minimum required version we can stop bundling Action Scheduler 3.0 for installations that are currently using a WooCommerce version between 3.5 and 4.0
+$load_bundled_as_3_0 = $as_table_name = false;
 
-// if this flag was set during 1.16.2 update, then keep loading Action Scheduler 3.0.0
+// if this flag was set during 1.16.2 update, then Action Scheduler 3.0 may have to be loaded for WooCommerce versions below 4.0
 if ( 'yes' === get_option( 'wc_memberships_use_as_3_0_0' ) ) {
 
-	$load_as_3_0_0 = true;
+	// load latest Action Scheduler if using a WooCommerce version < 4.0, otherwise let WooCommerce load the latest bundle
+	$load_bundled_as_3_0 = version_compare( get_option( 'woocommerce_version', '3.5' ), '4.0', '<' );
+
+	if ( ! $load_bundled_as_3_0 ) {
+		update_option( 'wc_memberships_use_as_3_0_0', 'no' );
+	}
 
 // check if updating from one of the affected memberships versions before 1.16.2
 } elseif ( in_array( get_option( 'wc_memberships_version' ), array( '1.16.0', '1.16.1' ), false ) ) {
@@ -62,10 +66,10 @@ if ( 'yes' === get_option( 'wc_memberships_use_as_3_0_0' ) ) {
 
 		update_option( 'wc_memberships_use_as_3_0_0', 'yes' );
 
-		$load_as_3_0_0 = true;
+		$load_bundled_as_3_0 = true;
 
 		// check if data was only partially migrated by looking if there is at least one scheduled action post
-		if ( $wpdb->get_row( "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'scheduled-action'" ) ) {
+		if ( $load_bundled_as_3_0 && $wpdb->get_row( "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'scheduled-action'" ) ) {
 			// deleting this option should trigger data migration again
 			delete_option( 'action_scheduler_migration_status' );
 		}
@@ -76,13 +80,14 @@ if ( 'yes' === get_option( 'wc_memberships_use_as_3_0_0' ) ) {
 	}
 }
 
-if ( $load_as_3_0_0 ) {
+if ( $load_bundled_as_3_0 ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'lib/prospress/action-scheduler/action-scheduler.php' );
 } else {
 	require_once( plugin_dir_path( __FILE__ ) . 'vendor/woocommerce/action-scheduler/action-scheduler.php' );
 }
 
-unset( $load_as_3_0_0, $as_table_name );
+unset( $load_bundled_as_3_0, $as_table_name );
+
 
 /**
  * WooCommerce Memberships plugin loader.
@@ -93,16 +98,16 @@ class WC_Memberships_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '5.6.0';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '4.4';
+	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.0.9';
+	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.7.1';
+	const FRAMEWORK_VERSION = '5.10.2';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Memberships';
@@ -132,8 +137,6 @@ class WC_Memberships_Loader {
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
-
-			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

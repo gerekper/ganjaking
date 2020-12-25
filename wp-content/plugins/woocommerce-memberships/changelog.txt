@@ -1,5 +1,15 @@
 *** WooCommerce Memberships Changelog ***
 
+2020.12.10 - version 1.20.0
+ * Feature - Add Elementor page builder widget visibility restrictions setting for memberships
+ * Tweak - Add support for the new WooCommerce navigation in WooCommerce Admin
+ * Fix - When account creation is not allowed at checkout, ensure account registration is forced enabled if a guest user has a membership access-granting product in cart
+ * Fix - Ensure eligible discounts are applied for subscription products already owned by a customer, keeping an exception during renewals only
+ * Fix - When displaying products that grant access in a restriction message, ensure that these are correctly listed for all products that display such messages
+ * Misc - Add compatibility for WooCommerce 4.7
+ * Misc - Require PHP 7.0 or newer
+ * Misc - Add PHP 8.0 support
+
 2020.10.21 - version 1.19.2
  * Tweak - Display the last login information in members admin screens
  * Tweak - When importing memberships and notifying users, have WooCommerce generate the new user's password, if the corresponding option is set in "Account creation"

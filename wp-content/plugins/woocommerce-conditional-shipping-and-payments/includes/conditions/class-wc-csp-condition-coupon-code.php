@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Coupon Code Condition.
  *
  * @class    WC_CSP_Condition_Coupon_Code
- * @version  1.8.10
+ * @version  1.8.11
  */
 class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 
@@ -70,6 +70,10 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], 'free-shipping' ) ) {
 
 			$message = __( 'remove all free shipping coupons from your cart', 'woocommerce-conditional-shipping-and-payments' );
+
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], 'not-free-shipping' ) ) {
+
+			$message = __( 'apply a free shipping coupon', 'woocommerce-conditional-shipping-and-payments' );
 		}
 
 		return $message;
@@ -158,7 +162,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 
 			$active_coupon_codes[] = $coupon_code;
 
-			if ( self::modifier_is( $data[ 'modifier' ], 'free-shipping' ) ) {
+			if ( self::modifier_is( $data[ 'modifier' ], array( 'free-shipping', 'not-free-shipping' ) ) ) {
 
 				if ( ! ( $coupon instanceof WC_Coupon ) ) {
 					$coupon = new WC_Coupon( $coupon_code );
@@ -188,6 +192,8 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 		} elseif ( self::modifier_is( $data[ 'modifier' ], 'not-used' ) && false === $found_coupon ) {
 			return true;
 		} elseif ( self::modifier_is( $data[ 'modifier' ], 'free-shipping' ) && $free_shipping_granted ) {
+			return true;
+		} elseif ( self::modifier_is( $data[ 'modifier' ], 'not-free-shipping' ) && false === $free_shipping_granted ) {
 			return true;
 		}
 
@@ -227,7 +233,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 	public function get_admin_fields_html( $index, $condition_index, $condition_data ) {
 
 		$modifier              = 'used';
-		$zero_config_modifiers = array( 'free-shipping' );
+		$zero_config_modifiers = array( 'free-shipping', 'not-free-shipping' );
 		$coupon_codes          = '';
 
 		if ( ! empty( $condition_data[ 'value' ] ) && is_array( $condition_data[ 'value' ] ) ) {
@@ -247,6 +253,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 						<option value="used" <?php selected( $modifier, 'used', true ) ?>><?php echo __( 'used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 						<option value="not-used" <?php selected( $modifier, 'not-used', true ) ?>><?php echo __( 'not used', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 						<option value="free-shipping" <?php selected( $modifier, 'free-shipping', true ) ?>><?php echo __( 'enables free shipping', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-free-shipping" <?php selected( $modifier, 'not-free-shipping', true ) ?>><?php echo __( 'does not enable free shipping', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>

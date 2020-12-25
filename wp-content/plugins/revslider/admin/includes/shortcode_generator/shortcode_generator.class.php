@@ -57,7 +57,7 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 			$current_screen = get_current_screen();
 
 			// checks for built-in gutenberg version
-			$is_gutenberg = method_exists($current_screen, 'is_block_editor') && $current_screen->is_block_editor();
+			$is_gutenberg = !empty($current_screen) && method_exists($current_screen, 'is_block_editor') && $current_screen->is_block_editor();
 
 			// checks for old plugin version
 			if(!$is_gutenberg) $is_gutenberg = function_exists('is_gutenberg_page') && is_gutenberg_page();

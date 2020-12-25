@@ -751,7 +751,7 @@ class RevSliderOutput extends RevSliderFunctions {
 	 **/
 	public function get_slider_wrapper_div(){
 		$type		= $this->slider->get_param('layouttype');
-		$position	= $this->slider->get_param(array('layout', 'position', 'align'), 'center');
+		$position	= 'center'; //$this->slider->get_param(array('layout', 'position', 'align'), 'center');
 		$bg_color	= esc_attr(trim($this->slider->get_param(array('layout', 'bg', 'color'))));
 		$max_width	= $this->slider->get_param(array('size', 'maxWidth'), '0');
 		$class		= $this->slider->get_param('wrapperclass','');		
@@ -8044,6 +8044,8 @@ rs-module .material-icons {
 							$va = $s->get_param(array('nav', $n, 'amount'), 5);
 							$span = $s->get_param(array('nav', $n, 'spanWrapper'), false);
 							$pos = $s->get_param(array('nav', $n, 'innerOuter'), 'inner');
+							$mhoff = $s->get_param(array('nav', $n, 'mhoffset'), 0);
+							$mvoff = $s->get_param(array('nav', $n, 'mvoffset'), 0);
 							
 							if(!in_array($width, array(100, '100', '100px'), true)) $h[$n]['width'] = $width;
 							if(!in_array($height, array(50, '50', '50px'), true)) $h[$n]['height'] = $height;
@@ -8054,6 +8056,8 @@ rs-module .material-icons {
 							if(!in_array($va, array(5, '5'), true)) $h[$n]['visibleAmount'] = $va;
 							if($span === true) $h[$n]['span'] = $span;
 							if($pos !== 'inner') $h[$n]['position'] = $pos;
+							if($mhoff!==0) $h[$n]['mhoff'] = $mhoff;
+							if($mvoff!==0) $h[$n]['mvoff'] = $mvoff;
 							if($pos === 'inner'){
 								$arc = (in_array($s->get_param(array('nav', $n, 'align'), 'slider'), array('layergrid', 'grid'), true)) ? 'layergrid' : 'slider';
 								if($arc !== 'slider') $h[$n]['container'] = $arc;

@@ -105,6 +105,12 @@
       font-size: 12px;
       margin: 0; }
 
+@media only screen and (max-height: 420px) {
+  .betterdocs-header-wrapper .betterdocs-header {
+    padding-top: 5px; }
+  .betterdocs-header-wrapper .betterdocs-sub-header {
+    padding: 5px 10px; } }
+
 .betterdocs-search-bar {
   background-color: #ffffff;
   z-index: 999;
@@ -685,13 +691,20 @@
 @media screen and (max-width: 800px) {
   .betterdocs-footer-wrapper {
     position: absolute !important;
+    display: block;
     bottom: 0;
     padding: 20px;
     width: 100%;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: space-evenly;
-        justify-content: space-evenly;
+    border-radius: 0;
+    background-color: #19ca9e; } }
+
+@media screen and (max-height: 420px) {
+  .betterdocs-footer-wrapper {
+    position: absolute !important;
+    display: block;
+    bottom: 0;
+    padding: 10px;
+    width: 100%;
     border-radius: 0;
     background-color: #19ca9e; } }
 
@@ -859,6 +872,16 @@ textarea {
   .betterdocs-tab-content-wrapper {
     height: calc(100% - 180px) !important; } }
 
+@media screen and (max-height: 420px) {
+  .betterdocs-conversation-container {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    height: 100%; }
+  .betterdocs-tab-content-wrapper {
+    height: calc(100% - 127px) !important; } }
+
 .betterdocs-conversation-container .betterdocs-header {
   border-radius: 10px 10px 0 0;
   color: #fff;
@@ -999,7 +1022,7 @@ textarea {
   -ms-flex-item-align: start;
       align-self: flex-start; }
 
-.betterdocs-launcher[type=button] {
+.betterdocs-launcher[type="button"] {
   -webkit-animation-delay: 0;
   -webkit-animation-duration: 0.5s;
   -webkit-animation-name: betterdocs-ia-slide-in;
@@ -1033,7 +1056,7 @@ textarea {
   -ms-flex-pack: center;
       justify-content: center;
   padding: 10px; }
-  .betterdocs-launcher[type=button]:focus, .betterdocs-launcher[type=button]:hover {
+  .betterdocs-launcher[type="button"]:focus, .betterdocs-launcher[type="button"]:hover {
     outline: none;
     background-color: #19ca9e; }
 
@@ -1073,13 +1096,33 @@ textarea {
   /* this prevents the animation from restarting! */ }
 
 @media screen and (max-width: 800px) {
-  .betterdocs-launcher[type=button].betterdocs-launcher {
+  .betterdocs-launcher[type="button"].betterdocs-launcher {
     position: fixed;
     right: 0;
     bottom: 0;
-    margin: 0 20px 10px; } }
+    margin: 0 20px 10px; }
+    .betterdocs-launcher[type="button"].betterdocs-launcher.device-iphone {
+      margin: 0 10px 10px;
+      width: 40px;
+      height: 40px; }
+    .betterdocs-launcher[type="button"].betterdocs-launcher .betterdocs-launch-icon,
+    .betterdocs-launcher[type="button"].betterdocs-launcher .betterdocs-close-launcher {
+      width: 15px; } }
 
-.betterdocs-launcher[type=button] .betterdocs-launch-icon {
+@media screen and (max-height: 420px) {
+  .betterdocs-launcher[type="button"].betterdocs-launcher {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 0 10px 10px; }
+    .betterdocs-launcher[type="button"].betterdocs-launcher.device-iphone {
+      width: 40px;
+      height: 40px; }
+    .betterdocs-launcher[type="button"].betterdocs-launcher .betterdocs-launch-icon,
+    .betterdocs-launcher[type="button"].betterdocs-launcher .betterdocs-close-launcher {
+      width: 15px; } }
+
+.betterdocs-launcher[type="button"] .betterdocs-launch-icon {
   width: 20px;
   fill: white;
   -webkit-animation-delay: 0;
@@ -1200,7 +1243,7 @@ textarea {
     width: 100%;
     height: 100%; }
 
-@media screen and (max-width: 800px) {
+@media only screen and (max-width: 800px) {
   .betterdocs-widget-container {
     margin: 0;
     max-width: none;
@@ -1210,6 +1253,41 @@ textarea {
     bottom: 80px; }
     .betterdocs-widget-container.betterdocs-opened {
       height: calc(100vh - 80px); }
+    .betterdocs-widget-container.device-iphone {
+      height: calc(100vh - 168px);
+      bottom: 55px; }
+      .betterdocs-widget-container.device-iphone.xmax-xr {
+        height: calc(100vh - 168px); }
+      .betterdocs-widget-container.device-iphone.x-xs {
+        height: calc(100vh - 168px); }
+      .betterdocs-widget-container.device-iphone.ifour {
+        height: calc(100vh - 130px); }
+      .betterdocs-widget-container.device-iphone.isix {
+        height: calc(100vh - 130px); }
+      .betterdocs-widget-container.device-iphone.isix-plus {
+        height: calc(100vh - 130px); }
+      .betterdocs-widget-container.device-iphone.ifive {
+        height: calc(100vh - 130px); }
+      .betterdocs-widget-container.device-iphone.ithree {
+        height: calc(100vh - 130px); }
+  .betterdocs-left .betterdocs-widget-container {
+    left: 0; }
+  .betterdocs-left .betterdocs-launcher {
+    left: 0;
+    right: auto; } }
+
+@media only screen and (max-height: 420px) {
+  .betterdocs-widget-container {
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    width: 90%;
+    right: 70px;
+    bottom: 0 !important; }
+    .betterdocs-widget-container.device-iphone {
+      right: 54px;
+      height: calc(100% - 45px) !important; }
   .betterdocs-left .betterdocs-widget-container {
     left: 0; }
   .betterdocs-left .betterdocs-launcher {

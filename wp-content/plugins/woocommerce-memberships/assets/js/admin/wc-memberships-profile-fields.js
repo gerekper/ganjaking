@@ -1,4 +1,9 @@
-jQuery( document ).ready( function( $ ) {
+/**
+ * WooCommerce Memberships Profile Fields script.
+ *
+ * @since 1.19.0
+ */
+jQuery( function( $ ) {
 
 	var wc_memberships_admin = window.wc_memberships_admin !== null ? window.wc_memberships_admin : {},
 	    pagenow              = window.pagenow !== null ? window.pagenow : '';

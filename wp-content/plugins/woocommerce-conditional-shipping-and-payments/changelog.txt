@@ -1,5 +1,8 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2020.12.14 - version 1.8.11
+* Feature - Introduced 'does not enable free shipping' modifier in 'Coupon Code' condition.
+
 2020.12.08 - version 1.8.10
 * Feature - Added 'Shipping Postcode' condition support in Shipping Country/State restrictions.
 * Feature - Introduced 'enables free shipping' modifier in 'Coupon Code' condition.

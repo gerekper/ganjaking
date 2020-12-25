@@ -110,11 +110,13 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		/*
 		//enqueue in all pages / posts in backend
 		$screen = get_current_screen();
-
-		$post_types = get_post_types('', 'names');
-		foreach($post_types as $post_type){
-			if($post_type == $screen->id){
-				wp_enqueue_script('revslider-tinymce-shortcode-script', RS_PLUGIN_URL . 'admin/assets/js/modules/tinymce-shortcode-script.js', array('jquery'), RS_REVISION, true);
+		
+		if(!empty($screen)){
+			$post_types = get_post_types('', 'names');
+			foreach($post_types as $post_type){
+				if($post_type == $screen->id){
+					wp_enqueue_script('revslider-tinymce-shortcode-script', RS_PLUGIN_URL . 'admin/assets/js/modules/tinymce-shortcode-script.js', array('jquery'), RS_REVISION, true);
+				}
 			}
 		}
 		*/

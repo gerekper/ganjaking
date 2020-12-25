@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 3.3
+ * Version: 3.4
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * License: GPL v3
- * WC tested up to: 4.7.0
+ * WC tested up to: 4.8.0
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -342,10 +342,10 @@ class WooCommerce_Anti_Fraud {
 			$order = new WC_Order($order_id);
 			echo "<script type='text/javascript'>
 			alert('Your Paypal Email verified Successfully')</script>";
-			if( 'completed' === $order->get_status() || 'processing' === $order->get_status() || 'cancelled' === $order->get_status() ) { 
-				return; 
+			if( 'completed' === $order->get_status() || 'processing' === $order->get_status() || 'cancelled' === $order->get_status() ) {
+				return;
 			} else {
-				$order->add_order_note( __( 'PayPal Verification Done.', 'woocommerce-anti-fraud' ) ); 
+				$order->add_order_note( __( 'PayPal Verification Done.', 'woocommerce-anti-fraud' ) );
 				$status = $order->update_status('processing');
 			}
 		}

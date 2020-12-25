@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.8.10\n"
+"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.8.11\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2020-12-08 18:20:19+00:00\n"
+"POT-Creation-Date: 2020-12-17 13:17:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -754,21 +754,29 @@ msgstr ""
 msgid "remove all free shipping coupons from your cart"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:247
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:76
+msgid "apply a free shipping coupon"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:253
 #: includes/conditions/class-wc-csp-condition-gift-cards.php:122
 msgid "used"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:248
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:254
 #: includes/conditions/class-wc-csp-condition-gift-cards.php:123
 msgid "not used"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:249
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:255
 msgid "enables free shipping"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:254
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:256
+msgid "does not enable free shipping"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:261
 msgid "Enter specific coupon codes to check, separated by comma (optional)."
 msgstr ""
 

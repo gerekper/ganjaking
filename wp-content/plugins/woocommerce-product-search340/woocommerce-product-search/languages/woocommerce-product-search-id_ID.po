@@ -1,0 +1,4148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-13 17:06+0200\n"
+"PO-Revision-Date: 2020-08-13 17:07+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/core/class-woocommerce-product-search-service.php:2526
+#: lib/core/class-woocommerce-product-search-service-v2.php:2016
+#, php-format
+msgid " | Min Price: %1$s - Max Price: %2$s"
+msgstr " | Harga Min: %1$s - Harga Maks: %2$s"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:69
+#, php-format
+msgid "%d Searches with results"
+msgstr "%d Pencarian dengan hasil"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:76
+#, php-format
+msgid "%d Searches without results"
+msgstr "%d Pencarian tanpa hasil"
+
+#: lib/views/class-woocommerce-product-search-filter-tag.php:971
+#, php-format
+msgid "%s product"
+msgid_plural "%s products"
+msgstr[0] "%s produk"
+
+#: lib/views/class-woocommerce-product-search-filter-rating.php:318
+msgid "& Up"
+msgstr "& naik"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1937
+#: lib/admin/class-woocommerce-product-search-admin.php:1939
+#: lib/admin/class-woocommerce-product-search-admin.php:1943
+msgid "&hellip; ready."
+msgstr "&hellip; siap."
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:276
+msgid "&mdash;"
+msgstr "&mdash;"
+
+#: lib/views/class-woocommerce-product-search-widget.php:380
+msgctxt ""
+"Product Search Field Order by ... option : indicator for no specific ordering"
+msgid "&mdash;"
+msgstr "&mdash;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2169
+msgid "1. Select the sidebar"
+msgstr "1. Pilih bilah sisi"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2204
+msgid "2. Choose the filters to add"
+msgstr "2. Pilih filter untuk ditambahkan"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:281
+#: lib/admin/class-woocommerce-product-search-admin.php:291
+#, php-format
+msgid ""
+"<a href=\"%1$s\">WooCommerce Product Search</a> is made available to you "
+"exclusively through <a href=\"%2$s\">WooCommerce</a>."
+msgstr ""
+"<a href=\"%1$s\">WooCommerce Product Search</a> tersedia untuk Anda secara "
+"eksklusif melalui <a href=\"%2$s\">WooCommerce</a>."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:276
+msgid "<code>[woocommerce_product_search]</code>"
+msgstr "<code>[woocommerce_product_search]</code>"
+
+#: lib-2/core/class-woocommerce-product-search.php:169
+msgid ""
+"<em>WooCommerce Product Search</em> is an extension for the <a href=\"http://"
+"www.woothemes.com/woocommerce/\" target=\"_blank\">WooCommerce</a> plugin. "
+"Please install and activate it."
+msgstr ""
+"<em>WooCommerce Product Search</em> adalah ekstensi untuk <a href=\"http://"
+"www.woothemes.com/woocommerce/\" target=\"_blank\">WooCommerce</a> plugin. "
+"Silakan instal dan aktifkan."
+
+#: lib/core/class-woocommerce-product-search.php:975
+msgid ""
+"<em>WooCommerce Product Search</em> is an extension for the <a href="
+"\"https://woocommerce.com\" target=\"_blank\">WooCommerce</a> plugin. Please "
+"install and activate it."
+msgstr ""
+"<em>WooCommerce Product Search</em> adalah ekstensi untuk <a href=\"http://"
+"www.woothemes.com/woocommerce/\" target=\"_blank\">WooCommerce</a> plugin. "
+"Silakan instal dan aktifkan."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:75
+msgid "A dynamic product search widget"
+msgstr "Widget pencarian produk yang dinamis"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:354
+#: lib-2/admin/class-woocommerce-product-search-admin.php:429
+#: lib/admin/class-woocommerce-product-search-admin.php:486
+#: lib/admin/class-woocommerce-product-search-admin.php:817
+msgid "Access denied."
+msgstr "Akses ditolak."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:333
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:868
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:332
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:671
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:563
+msgid "Activate live filtering."
+msgstr "Aktifkan penyaringan langsung."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2187
+msgid "Add filter widgets to the selected sidebar."
+msgstr "Tambahkan widget filter ke sidebar yang dipilih."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2367
+msgid "Add selected"
+msgstr "Tambahkan yang dipilih"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2336
+msgid "Add the selected filters to the chosen sidebar?"
+msgstr "Tambahkan filter yang dipilih ke sidebar yang dipilih?"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:346
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1007
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:345
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:433
+#: lib/views/class-woocommerce-product-search-filter-widget.php:645
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:773
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:613
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:292
+msgid "Advanced"
+msgstr "Maju"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:432
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:923
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:951
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:711
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:739
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:603
+msgid "All"
+msgstr "Semua"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:805
+msgid "All indexes are present. Full-Text Search can be used."
+msgstr "Semua indeks hadir. Pencarian Teks Lengkap dapat digunakan."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:898
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:686
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:578
+msgid "Allow multiple choices."
+msgstr "Izinkan beberapa pilihan."
+
+#: lib/views/class-woocommerce-product-search-widget.php:512
+msgid ""
+"Allows to add a product to the cart, select options or read more directly."
+msgstr ""
+"Memungkinkan untuk menambahkan produk ke troli, pilih opsi atau baca lebih "
+"lanjut secara langsung."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:379
+msgid "Among them, you will find:"
+msgstr "Di antara mereka, Anda akan menemukan:"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute.php:113
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:197
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:529
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:541
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:940
+msgid "Any"
+msgstr "Apa saja"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:198
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:581
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:593
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1183
+#: lib/views/class-woocommerce-product-search-filter-category.php:116
+msgid "Any Category"
+msgstr "Kategori apa pun"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1301
+msgid "Apply product filters in general"
+msgstr "Terapkan filter produk secara umum"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1997
+msgid "Are you sure that you wish to rebuild the index completely?"
+msgstr "Anda yakin ingin membangun kembali indeks sepenuhnya?"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:337
+#: lib/views/class-woocommerce-product-search-widget.php:394
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:818
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:654
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:546
+msgid "Ascending"
+msgstr "Naik"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:911
+#: lib/admin/class-woocommerce-product-search-admin.php:2085
+msgid "Assistant"
+msgstr "Asisten"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:273
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:286
+msgid "Attribute"
+msgstr "Atribut"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1470
+msgid "Attributes"
+msgstr "Atribut"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:564
+msgid "Auto-adjust results width"
+msgstr "Sesuaikan otomatis lebar hasil"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:248
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:363
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:382
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:357
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1024
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1043
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1082
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1101
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:247
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:362
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:381
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:252
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:450
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:469
+#: lib/views/class-woocommerce-product-search-filter-widget.php:635
+#: lib/views/class-woocommerce-product-search-filter-widget.php:664
+#: lib/views/class-woocommerce-product-search-filter-widget.php:683
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:331
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:790
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:809
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:848
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:867
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:303
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:392
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:630
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:649
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:688
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:707
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:238
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:309
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:328
+msgid "Automatic"
+msgstr "Otomatis"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:556
+msgid ""
+"Automatically adjust the width of the results to match that of the search "
+"field."
+msgstr ""
+"Secara otomatis menyesuaikan lebar hasil agar sesuai dengan bidang pencarian."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:710
+msgid ""
+"Automatically expand children when hovering over parent – on touch devices "
+"expansion occurs on tap."
+msgstr ""
+"Perluas anak-anak secara otomatis ketika melayang di atas orang tua - "
+"ekspansi perangkat sentuh terjadi pada ketukan."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:725
+msgid ""
+"Automatically retract children when leaving the filter container – with "
+"touch devices retraction requires a tap."
+msgstr ""
+"Secara otomatis menarik anak-anak ketika meninggalkan wadah filter - dengan "
+"penarikan perangkat sentuh memerlukan ketukan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:967
+msgid "Back end and JSON searches are disabled via WPS_EXT_PDS."
+msgstr "Pencarian back end dan JSON dinonaktifkan melalui WPS_EXT_PDS."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1380
+msgid ""
+"By default, a higher title and SKU weight will promote search results that "
+"have matches in the title and SKU."
+msgstr ""
+"Secara default, judul yang lebih tinggi dan bobot SKU akan mempromosikan "
+"hasil pencarian yang sesuai dengan judul dan SKU."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:578
+msgid ""
+"By default, the higher title weight will promote search results that have "
+"matches in the title."
+msgstr ""
+"Secara default, bobot judul yang lebih tinggi akan mempromosikan hasil "
+"pencarian yang sesuai dengan judul."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1350
+msgid ""
+"CAUTION: If this option is active while the plugin is deactivated, ALL "
+"plugin settings and data will be DELETED."
+msgstr ""
+"PERHATIAN: Jika opsi ini aktif saat plugin dinonaktifkan, SEMUA pengaturan "
+"dan data plugin akan DIHAPUS."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:527
+#: lib-2/admin/class-woocommerce-product-search-admin.php:698
+#: lib/admin/class-woocommerce-product-search-admin.php:898
+#: lib/admin/class-woocommerce-product-search-admin.php:1629
+msgid "CSS"
+msgstr "CSS"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1092
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:858
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:698
+msgid "CSS class added to the filter's main div container."
+msgstr "Kelas CSS ditambahkan ke wadah div utama filter."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:373
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1034
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:372
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:460
+#: lib/views/class-woocommerce-product-search-filter-widget.php:674
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:800
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:640
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:319
+msgid "CSS class of the heading element."
+msgstr "Kelas CSS dari elemen heading."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1454
+msgid "Categories"
+msgstr "Kategori"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:376
+#: lib/views/class-woocommerce-product-search-widget.php:453
+msgid "Category Limit"
+msgstr "Batas Kategori"
+
+#: lib-2/views/class-woocommerce-product-search-thumbnail.php:247
+#: lib/views/class-woocommerce-product-search-thumbnail.php:333
+msgid "Change"
+msgstr "Perubahan"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:443
+#: lib/views/class-woocommerce-product-search-widget.php:555
+#: lib/views/class-woocommerce-product-search-filter-widget.php:454
+msgid "Characters"
+msgstr "Karakter"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1160
+msgid "Characters in Descriptions"
+msgstr "Karakter dalam Deskripsi"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1143
+msgid "Characters in Titles"
+msgstr "Karakter dalam Judul"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:165
+msgid "Choose an image"
+msgstr "Pilih gambar"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:285
+msgid "Choose the product attribute."
+msgstr "Pilih atribut produk."
+
+#: lib/core/class-woocommerce-product-search-service.php:457
+#: lib/core/class-woocommerce-product-search-service-v2.php:448
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:478
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:174
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:210
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:238
+#: lib/views/class-woocommerce-product-search-filter-tag.php:428
+#: lib/views/class-woocommerce-product-search-filter.php:423
+#: lib/views/class-woocommerce-product-search-filter-attribute.php:641
+#: lib/views/class-woocommerce-product-search-filter-attribute.php:650
+#: lib/views/class-woocommerce-product-search-field.php:296
+#: lib/views/class-woocommerce-product-search-filter-price.php:445
+#: lib/views/class-woocommerce-product-search-filter-category.php:696
+#: lib/views/class-woocommerce-product-search-filter-category.php:704
+#: lib/views/class-woocommerce-product-search-filter-rating.php:292
+#: lib/views/class-woocommerce-product-search-filter-rating.php:295
+#: lib/views/class-woocommerce-product-search-filter-reset.php:109
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:168
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:262
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:360
+msgid "Clear"
+msgstr "Bersih"
+
+#: lib/views/class-woocommerce-product-search-widget.php:629
+msgid "Clear mark"
+msgstr "Hapus tanda"
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:383
+#: lib/views/class-woocommerce-product-search-filter-widget.php:491
+msgid "Clear shortcut"
+msgstr "Hapus pintasan"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:278
+msgid "Click <em>Publish</em> to save the page content and publish the page."
+msgstr ""
+"Klik <em>Publikasikan</em> untuk menyimpan konten halaman dan "
+"mempublikasikan halaman."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:285
+msgid ""
+"Click the widget, then click one of the sidebar options that appear below "
+"and then click <em>Add Widget</em>. You can also drag and drop the widget "
+"onto an available sidebar."
+msgstr ""
+"Klik widget, lalu klik salah satu opsi bilah sisi yang muncul di bawah dan "
+"kemudian klik <em>Tambahkan Widget</em>. Anda juga dapat menarik dan melepas "
+"widget ke bilah sisi yang tersedia."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:879
+msgid "Click to display index removal options."
+msgstr "Klik untuk menampilkan opsi penghapusan indeks."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1908
+msgid "Completely rebuild the index &hellip;"
+msgstr "Buat ulang sepenuhnya indeks &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:230
+msgid "Congrats on using the best <em>Search Experience</em> for WooCommerce!"
+msgstr ""
+"Selamat menggunakan <em>Pengalaman Pencarian</em> terbaik untuk WooCommerce!"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1094
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:860
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:700
+msgid "Container Class"
+msgstr "Kelas Penampung"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1075
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:841
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:681
+msgid "Container ID"
+msgstr "ID Kontainer"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:737
+msgid "Container Inline Style"
+msgstr "Container Inline Style"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:407
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:168
+msgid "Contains"
+msgstr "Mengandung"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:610
+#: lib/admin/class-woocommerce-product-search-admin.php:1422
+msgid "Content"
+msgstr "Konten"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:463
+msgid "Could you please take a moment and rate this extension?"
+msgstr "Bisakah Anda luangkan waktu dan nilai ekstensi ini?"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:803
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:639
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:531
+msgid "Count"
+msgstr "Menghitung"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:842
+msgid "Create Indexes"
+msgstr "Buat Indeks"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:829
+msgid ""
+"Creating indexes can take a while and may make your site inaccessible to "
+"your visitors during the process."
+msgstr ""
+"Membuat indeks dapat memakan waktu cukup lama dan mungkin membuat situs Anda "
+"tidak dapat diakses oleh pengunjung Anda selama proses berlangsung."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:675
+#: lib/admin/class-woocommerce-product-search-admin.php:1548
+#: lib/admin/class-woocommerce-product-search-admin.php:1611
+msgid "Crop thumbnails"
+msgstr "Pangkas gambar kecil"
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:368
+msgid "Currency Symbol"
+msgstr "Simbol Mata Uang"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:320
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:280
+#: lib/views/class-woocommerce-product-search-widget.php:374
+msgid "Date"
+msgstr "Tanggal"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:399
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1060
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:398
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:486
+#: lib/views/class-woocommerce-product-search-filter-widget.php:700
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:826
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:666
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:345
+msgid "Default"
+msgstr "Default"
+
+#: lib/views/class-woocommerce-product-search-filter.php:721
+msgid "Default sorting"
+msgstr "Penyortiran bawaan"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:431
+#: lib/views/class-woocommerce-product-search-widget.php:538
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:314
+#: lib/views/class-woocommerce-product-search-filter-widget.php:437
+msgid "Delay"
+msgstr "Menunda"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1332
+msgid "Delete Data"
+msgstr "Hapus Data"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1339
+msgid "Delete search settings and data on deactivation"
+msgstr "Hapus pengaturan pencarian dan data pada penonaktifan"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:316
+#: lib/admin/class-woocommerce-product-search-admin.php:317
+msgid ""
+"Depending on the amount of products in your store and the processing "
+"capabilities of your server, this process may take a few minutes or hours to "
+"complete."
+msgstr ""
+"Bergantung pada jumlah produk di toko Anda dan kemampuan pemrosesan server "
+"Anda, proses ini mungkin memakan waktu beberapa menit atau beberapa jam "
+"untuk menyelesaikannya."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:836
+msgid "Depth"
+msgstr "Kedalaman"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:343
+#: lib/views/class-woocommerce-product-search-widget.php:400
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:824
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:660
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:552
+msgid "Descending"
+msgstr "Turun"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:635
+msgid "Description"
+msgstr "Deskripsi"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:605
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:553
+msgid "Determines the height of the dropdown options."
+msgstr "Menentukan ketinggian opsi dropdown."
+
+#: lib/views/class-woocommerce-product-search-widget.php:713
+msgid "Determines the height of the results container."
+msgstr "Menentukan ketinggian wadah hasil."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:937
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:725
+msgid "Determines the set of terms to display."
+msgstr "Menentukan set istilah yang akan ditampilkan."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:564
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:512
+msgid "Determines the size of the dropdown."
+msgstr "Menentukan ukuran dropdown."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:415
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:254
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:380
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:253
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:258
+#: lib/views/class-woocommerce-product-search-filter-widget.php:411
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:354
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:326
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:244
+msgid "Display"
+msgstr "Tampilan"
+
+#: lib/views/class-woocommerce-product-search-widget.php:621
+msgid "Display a mark to clear the search."
+msgstr "Tampilkan tanda untuk menghapus pencarian."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:375
+msgid "Display a shortcut to clear the price fields when they contain text."
+msgstr "Tampilkan pintasan untuk menghapus bidang harga saat mengandung teks."
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:483
+msgid "Display a shortcut to clear the search field when it contains text."
+msgstr "Tampilkan pintasan untuk menghapus bidang pencarian saat berisi teks."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:883
+msgid "Display terms as a hierarchy."
+msgstr "Tampilkan istilah sebagai hierarki."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:400
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:374
+msgid "Display the categories as a list or inline."
+msgstr "Tampilkan kategori sebagai daftar atau sebaris."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:360
+msgid "Display the currency symbol with the price fields."
+msgstr "Tampilkan simbol mata uang dengan bidang harga."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:224
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:223
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:228
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:214
+msgid "Display the heading before the fields."
+msgstr "Tampilkan tajuk di depan bidang."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:333
+#: lib/views/class-woocommerce-product-search-filter-widget.php:611
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:307
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:279
+msgid "Display the heading before the terms."
+msgstr "Tampilkan tajuk sebelum persyaratan."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:292
+msgid "Display the minimum and maximum input fields."
+msgstr "Tampilkan bidang input minimum dan maksimum."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:472
+msgid "Display the names of the parent terms."
+msgstr "Tampilkan nama-nama istilah induknya."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:461
+msgid "Display the names of the terms."
+msgstr "Tampilkan nama-nama istilah."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:278
+msgid "Display the price slider."
+msgstr "Tampilkan penggeser harga."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:531
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:479
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:438
+msgid "Display the related number of products for each term."
+msgstr "Tampilkan jumlah produk terkait untuk setiap istilah."
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:346
+msgid "Display the tags as a list or inline."
+msgstr "Tampilkan tag sebagai daftar atau sebaris."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:260
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:386
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:259
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:264
+#: lib/views/class-woocommerce-product-search-filter-widget.php:417
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:360
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:332
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:250
+msgid ""
+"Display the widget on relevant shop pages only, including the shop, tag, "
+"category pages etc&hellip;"
+msgstr ""
+"Tampilkan widget hanya pada halaman toko yang relevan, termasuk toko, tag, "
+"halaman kategori dll &hellip;"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:274
+msgid "Display the widget only when there are any products on sale."
+msgstr "Tampilkan widget hanya ketika ada produk yang dijual."
+
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:273
+msgid "Display the widget only when there are any products with ratings."
+msgstr "Tampilkan widget hanya ketika ada produk dengan peringkat."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:443
+msgid "Display thumbnails for parent terms."
+msgstr "Tampilkan thumbnail untuk persyaratan induk."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:491
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:439
+msgid "Display thumbnails for the selected terms."
+msgstr "Tampilkan thumbnail untuk istilah yang dipilih."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:430
+msgid "Display thumbnails for the terms."
+msgstr "Tampilkan thumbnail untuk persyaratan."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:277
+#: lib/admin/class-woocommerce-product-search-admin.php:287
+msgid "Do not compromise on security!"
+msgstr "Jangan kompromi pada keamanan!"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:546
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:494
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:453
+msgid "Do not display terms that have no related products."
+msgstr "Jangan tampilkan istilah yang tidak memiliki produk terkait."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:228
+#: lib-2/admin/class-woocommerce-product-search-admin.php:247
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:238
+#: lib/admin/class-woocommerce-product-search-admin.php:239
+#: lib/admin/class-woocommerce-product-search-admin.php:2414
+msgid "Documentation"
+msgstr "Dokumentasi"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:430
+msgid ""
+"Don't worry, you can always get this back by clicking the Welcome link of "
+"the WooCommerce Product Search entry in the Plugins section."
+msgstr ""
+"Jangan khawatir, Anda selalu bisa mendapatkan ini kembali dengan mengklik "
+"tautan Selamat Datang dari entri WooCommerce Product Search di bagian Plugin."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:412
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:386
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:532
+msgid ""
+"During this process, product searches and filters may produce fewer or no "
+"results until the process is completed."
+msgstr ""
+"Selama proses ini, pencarian dan filter produk mungkin menghasilkan lebih "
+"sedikit atau tidak ada hasil sampai proses selesai."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:524
+#: lib/views/class-woocommerce-product-search-widget.php:674
+msgid "Dynamic focus"
+msgstr "Fokus dinamis"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:961
+msgid "Enable Full-Text Search"
+msgstr "Aktifkan Pencarian Teks Lengkap"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:349
+#, php-format
+msgid ""
+"Enable the use of <a href=\"%s\">Weights</a> to improve the relevance in "
+"product search results, based on matches in product titles, descriptions, "
+"contents, categories, tags, attributes and their SKU."
+msgstr ""
+"Aktifkan penggunaan <a href=\"%s\">Bobot</a> untuk meningkatkan relevansi "
+"dalam hasil pencarian produk, berdasarkan kecocokan dalam judul produk, "
+"deskripsi, konten, kategori, tag, atribut dan SKU mereka."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:364
+msgid ""
+"Enable the use of Weights to improve the relevance in product search "
+"results, based on matches in product titles, descriptions, contents, "
+"categories, tags, attributes and their SKU."
+msgstr ""
+"Aktifkan penggunaan Bobot untuk meningkatkan relevansi dalam hasil pencarian "
+"produk, berdasarkan kecocokan dalam judul produk, deskripsi, konten, "
+"kategori, tag, atribut, dan SKU mereka."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:254
+msgid ""
+"Enable the use of weights to improve the relevance in product search "
+"results, based on matches in product titles, excerpts, contents and tags."
+msgstr ""
+"Aktifkan penggunaan bobot untuk meningkatkan relevansi dalam hasil pencarian "
+"produk, berdasarkan kecocokan dalam judul produk, kutipan, konten, dan tag."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:831
+#: lib/admin/class-woocommerce-product-search-admin.php:2001
+msgid ""
+"Especially for sites with a large product base, it is highly recommended to "
+"run this process only during low traffic hours."
+msgstr ""
+"Khusus untuk situs dengan basis produk besar, sangat disarankan untuk "
+"menjalankan proses ini hanya selama jam lalu lintas rendah."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:399
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:160
+msgid "Exact"
+msgstr "Tepat"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1193
+msgid ""
+"Exact matches may result in fewer search results, as search terms with a "
+"length below the threshold will only produce matches if the exact term is "
+"found."
+msgstr ""
+"Pencocokan tepat dapat menghasilkan hasil pencarian lebih sedikit, karena "
+"istilah pencarian dengan panjang di bawah ambang batas hanya akan "
+"menghasilkan kecocokan jika istilah yang tepat ditemukan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:599
+#: lib/admin/class-woocommerce-product-search-admin.php:1406
+msgid "Excerpt"
+msgstr "Kutipan"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:679
+msgid "Expand Child Terms"
+msgstr "Perluas Ketentuan Anak"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:718
+msgid "Expand automatically"
+msgstr "Perluas secara otomatis"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:283
+msgid "Export CSV"
+msgstr "Ekspor CSV"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:544
+msgid "FAQ"
+msgstr "Faq"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:471
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:341
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:876
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:340
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:679
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:571
+msgid "Filter"
+msgstr "Filter"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1562
+msgid "Filter Thumbnails"
+msgstr "Filter Gambar Kecil"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:138
+msgid "Filter by query"
+msgstr "Saring berdasarkan kueri"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:571
+#: lib/views/class-woocommerce-product-search-widget.php:730
+#: lib/views/class-woocommerce-product-search-filter-widget.php:591
+msgid "Filter search results based on the current language."
+msgstr "Saring hasil pencarian berdasarkan bahasa saat ini."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1294
+msgid "Filters"
+msgstr "Filter"
+
+#: lib/views/class-woocommerce-product-search-filter-reset.php:123
+msgctxt "product filter reset heading"
+msgid "Filters"
+msgstr "Filter"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:140
+msgid "First"
+msgstr "Pertama"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:539
+#: lib/views/class-woocommerce-product-search-widget.php:689
+msgid "Floating results"
+msgstr "Hasil mengambang"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1307
+msgid ""
+"For example, if enabled, this can affect the product categories displayed "
+"with the standard Product Categories widget, reducing those displayed to the "
+"set of matching product categories only."
+msgstr ""
+"Misalnya, jika diaktifkan, ini dapat memengaruhi kategori produk yang "
+"ditampilkan dengan widget Kategori Produk standar, mengurangi yang "
+"ditampilkan hanya pada kelompok kategori produk yang cocok."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:260
+#: lib/admin/class-woocommerce-product-search-admin.php:260
+#, php-format
+msgid ""
+"For further assistance with <a href=\"%1$s\">WooCommerce Product Search</a>, "
+"please use the <a href=\"%2$s\">helpdesk</a>."
+msgstr ""
+"Untuk bantuan lebih lanjut dengan <a href=\"%1$s\">WooCommerce Product "
+"Search</a>, silakan gunakan <a href=\"%2$s\">helpdesk</a>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:363
+#, php-format
+msgid ""
+"For this purpose, several <a href=\"%s\">Widgets</a> can be added to "
+"sidebars."
+msgstr ""
+"Untuk tujuan ini, beberapa <a href=\"%s\">Widget</a> dapat ditambahkan ke "
+"bilah samping."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1016
+msgid "For unlimited results, use 0 (zero)."
+msgstr "Untuk hasil tanpa batas, gunakan 0 (nol)."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:313
+msgid ""
+"For your convenience and to minimize manual setup, the search engine will "
+"start to process data automatically in the background once activated."
+msgstr ""
+"Untuk kenyamanan Anda dan untuk meminimalkan pengaturan manual, mesin "
+"pencari akan mulai memproses data secara otomatis di latar belakang setelah "
+"diaktifkan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:275
+msgid ""
+"From your WordPress Dashboard go to <strong>Pages > Add New</strong>. Place "
+"the following shortcode on the page:"
+msgstr ""
+"Dari Dasbor WordPress Anda, pergi ke <strong>Halaman > Tambah Baru</strong>. "
+"Tempatkan kode pendek berikut di halaman:"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:327
+msgid ""
+"Front-end and back-end searches are now optimized to provide the best search "
+"experience by default."
+msgstr ""
+"Pencarian front-end dan back-end sekarang dioptimalkan untuk memberikan "
+"pengalaman pencarian terbaik secara default."
+
+#: lib/views/class-woocommerce-product-search-widget.php:722
+msgid "Full content height"
+msgstr "Tinggi konten penuh"
+
+#: lib-2/core/class-woocommerce-product-search-service.php:503
+#: lib-2/admin/class-woocommerce-product-search-admin.php:750
+msgid "Full-Text Search"
+msgstr "Pencarian Teks Lengkap"
+
+#: lib-2/core/class-woocommerce-product-search-service.php:501
+msgid "Full-Text Search & Wildcard Mode"
+msgstr "Mode Full-Text Search & Wildcard"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:880
+msgid "General"
+msgstr "Umum"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:948
+msgid "General Settings"
+msgstr "Pengaturan Umum"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:302
+msgid "Getting started &hellip;"
+msgstr "Mulai &hellip;"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:178
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:301
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:417
+#: lib/views/class-woocommerce-product-search-filter-price.php:149
+#: lib/views/class-woocommerce-product-search-filter-sale.php:109
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:178
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:403
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:507
+msgid "Go"
+msgstr "Pergi"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:267
+#, php-format
+msgid ""
+"Go to <a href=\"%s\"><strong>WooCommerce > Settings > Search</strong></a>, "
+"check the option <em>Use weights</em> and save the changes."
+msgstr ""
+"Buka <a href=\"%s\"> <strong>WooCommerce > Pengaturan > Pencarian</strong> </"
+"a>, centang opsi <em>Gunakan bobot</em> dan simpan perubahannya."
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:573
+msgid "Go to page one of results when filters are applied."
+msgstr "Buka halaman pertama hasil ketika filter diterapkan."
+
+#: lib/core/class-woocommerce-product-search-worker.php:324
+#, php-format
+msgid "HTTP Response Status: %d %s"
+msgstr "Status Respons HTTP: %d %s"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:410
+msgid "Have fun selling!"
+msgstr "Selamat berjualan!"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:218
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:242
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:327
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:351
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:217
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:241
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:222
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:246
+#: lib/views/class-woocommerce-product-search-filter-widget.php:605
+#: lib/views/class-woocommerce-product-search-filter-widget.php:629
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:301
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:325
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:273
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:297
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:208
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:232
+msgid "Heading"
+msgstr "Tajuk"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:375
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1036
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:374
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:462
+#: lib/views/class-woocommerce-product-search-filter-widget.php:676
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:802
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:642
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:321
+msgid "Heading Class"
+msgstr "Kelas Tajuk"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:391
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1052
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:390
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:478
+#: lib/views/class-woocommerce-product-search-filter-widget.php:692
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:818
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:658
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:337
+msgid "Heading Element"
+msgstr "Elemen Judul"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:356
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1017
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:355
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:443
+#: lib/views/class-woocommerce-product-search-filter-widget.php:657
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:783
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:623
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:302
+msgid "Heading ID"
+msgstr "ID pos"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:369
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:343
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:315
+msgid "Heading for no results"
+msgstr "Tajuk tanpa hasil"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:663
+#: lib/admin/class-woocommerce-product-search-admin.php:1536
+#: lib/admin/class-woocommerce-product-search-admin.php:1599
+#: lib/views/class-woocommerce-product-search-widget.php:715
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:607
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:555
+msgid "Height"
+msgstr "Tinggi"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:554
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:502
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:461
+msgid "Hide terms without products"
+msgstr "Sembunyikan persyaratan tanpa produk"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:642
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:590
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:487
+msgid "Hide the filter component when it has no options."
+msgstr "Sembunyikan komponen filter ketika tidak memiliki opsi."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:657
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:605
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:502
+msgid "Hide the widget when the component has no options."
+msgstr "Sembunyikan widget ketika komponen tidak memiliki opsi."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:891
+msgid "Hierarchical"
+msgstr "Hierarkis"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:138
+msgid "Hits"
+msgstr "Hits"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:468
+msgid "I have already rated it"
+msgstr "Saya sudah memberi nilai"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:426
+msgid "I've got it, let's hide this"
+msgstr "Saya mengerti, mari sembunyikan ini"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:322
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:139
+#: lib/views/class-woocommerce-product-search-widget.php:376
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:802
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:638
+msgid "ID"
+msgstr "ID"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1073
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:839
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:679
+msgid "ID of the filter's main div container."
+msgstr "ID wadah div utama filter."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:354
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1015
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:353
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:441
+#: lib/views/class-woocommerce-product-search-filter-widget.php:655
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:781
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:621
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:300
+msgid "ID of the heading element."
+msgstr "ID elemen tajuk."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1809
+msgid "Idle Cycle"
+msgstr "Siklus Idle"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:975
+msgid ""
+"If disabled, only full words matching a search term will produce results."
+msgstr ""
+"Jika dinonaktifkan, hanya kata-kata lengkap yang cocok dengan istilah "
+"pencarian yang akan menghasilkan hasil."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1183
+msgid ""
+"If enabled and where a product's short description is not empty, this is "
+"used to display the (shortened) description in the results of the Product "
+"Search Field."
+msgstr ""
+"Jika diaktifkan dan di mana deskripsi singkat suatu produk tidak kosong, ini "
+"digunakan untuk menampilkan deskripsi (diperpendek) di hasil dari Bidang "
+"Pencarian Produk."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:984
+msgid ""
+"If enabled and where possible, back end product searches will provide "
+"results powered by the search engine."
+msgstr ""
+"Jika diaktifkan dan jika memungkinkan, pencarian produk back end akan "
+"memberikan hasil yang didukung oleh mesin pencari."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:962
+msgid ""
+"If enabled and where possible, front end product searches will provide "
+"results powered by the search engine."
+msgstr ""
+"Jika diaktifkan dan jika memungkinkan, pencarian produk front end akan "
+"memberikan hasil yang didukung oleh mesin pencari."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1047
+msgid ""
+"If enabled and where possible, product searches via the REST API will "
+"provide results powered by the search engine."
+msgstr ""
+"Jika diaktifkan dan jika memungkinkan, pencarian produk melalui REST API "
+"akan memberikan hasil yang didukung oleh mesin pencari."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1058
+msgid ""
+"If enabled and where possible, the standard product search form is replaced "
+"automatically with the advanced Product Search Field."
+msgstr ""
+"Jika diaktifkan dan jika memungkinkan, formulir pencarian produk standar "
+"diganti secara otomatis dengan Bidang Pencarian Produk lanjutan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:999
+msgid ""
+"If enabled, JSON product searches are powered by the search engine when "
+"possible."
+msgstr ""
+"Jika diaktifkan, pencarian produk JSON diberdayakan oleh mesin pencari bila "
+"memungkinkan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:755
+msgid ""
+"If enabled, MySQL´s <a href=\"http://dev.mysql.com/doc/refman/5.6/en/"
+"fulltext-search.html\">Full-Text Search Functions</a> are used to find "
+"search results with performance improvements."
+msgstr ""
+"Jika diaktifkan, <a href=\"http://dev.mysql.com/doc/refman/5.6/id/fulltext-"
+"search.html#\"> Fungsi Pencarian Teks Lengkap MySQL MySQL digunakan untuk "
+"temukan hasil pencarian dengan peningkatan kinerja."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1290
+msgid ""
+"If enabled, a more accurate algorithm is used to process filter responses."
+msgstr ""
+"Jika diaktifkan, algoritma yang lebih akurat digunakan untuk memproses "
+"respons filter."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:690
+#: lib/admin/class-woocommerce-product-search-admin.php:1553
+msgid ""
+"If enabled, products without a featured product image will show a default "
+"placeholder thumbnail image."
+msgstr ""
+"Jika diaktifkan, produk tanpa gambar produk unggulan akan menampilkan gambar "
+"mini placeholder default."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1256
+msgid "If enabled, statistical data for product searches is recorded."
+msgstr "Jika diaktifkan, data statistik untuk pencarian produk dicatat."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1616
+msgid ""
+"If enabled, terms without a search filter image will show a default "
+"placeholder thumbnail image."
+msgstr ""
+"Jika diaktifkan, istilah tanpa gambar filter pencarian akan menampilkan "
+"gambar mini placeholder default."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1279
+msgid ""
+"If enabled, the HTML response for filter requests is optimized by removing "
+"unnecessary elements."
+msgstr ""
+"Jika diaktifkan, respons HTML untuk permintaan filter dioptimalkan dengan "
+"menghapus elemen yang tidak perlu."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1305
+msgid ""
+"If enabled, the current choice of product filters can affect the choices "
+"offered for products, product categories, product tags and product "
+"attributes presented more broadly, beyond the facilities provided by the "
+"extension."
+msgstr ""
+"Jika diaktifkan, pilihan filter produk saat ini dapat memengaruhi pilihan "
+"yang ditawarkan untuk produk, kategori produk, tag produk, dan atribut "
+"produk yang disajikan lebih luas, di luar fasilitas yang disediakan oleh "
+"ekstensi."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:1015
+#: lib/admin/class-woocommerce-product-search-admin.php:1325
+msgid ""
+"If enabled, the query times for search terms will be logged. <a href="
+"\"https://codex.wordpress.org/Debugging_in_WordPress\">Debugging</a> must be "
+"enabled for query times to be recorded in the log."
+msgstr ""
+"Jika diaktifkan, waktu permintaan untuk istilah pencarian akan dicatat. <a "
+"href=\"https://codex.wordpress.org/Debugging_in_WordPress\">Debugging</a> "
+"harus diaktifkan agar waktu kueri dicatat di log."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:570
+#: lib/admin/class-woocommerce-product-search-admin.php:1372
+msgid ""
+"If enabled, the relevance in product search results is enhanced by taking "
+"weights into account."
+msgstr ""
+"Jika diaktifkan, relevansi dalam hasil pencarian produk ditingkatkan dengan "
+"mempertimbangkan bobot."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:679
+#: lib/admin/class-woocommerce-product-search-admin.php:1545
+#: lib/admin/class-woocommerce-product-search-admin.php:1608
+msgid ""
+"If enabled, the thumbnail images are cropped to match the dimensions "
+"exactly. Otherwise the thumbnails will be adjusted in size while matching "
+"the aspect ratio of the original image."
+msgstr ""
+"Jika diaktifkan, gambar thumbnail dipotong untuk menyesuaikan dimensi dengan "
+"tepat. Jika tidak, thumbnail akan disesuaikan ukurannya sambil mencocokkan "
+"rasio aspek dari gambar asli."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:466
+#: lib/views/class-woocommerce-product-search-widget.php:591
+msgid ""
+"If enabled, the visitor can use the cursor keys to navigate through the "
+"search results and visit a search result link by pressing the Enter key."
+msgstr ""
+"Jika diaktifkan, pengunjung dapat menggunakan tombol kursor untuk menavigasi "
+"hasil pencarian dan mengunjungi tautan hasil pencarian dengan menekan tombol "
+"Enter."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2095
+msgid ""
+"If it makes sense within the context of your store, you can also add a "
+"filter for product tags."
+msgstr ""
+"Jika masuk akal dalam konteks toko Anda, Anda juga dapat menambahkan filter "
+"untuk tag produk."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1921
+msgid "If necessary, you can trigger the indexer manually here &hellip;"
+msgstr ""
+"Jika perlu, Anda dapat memicu pengindeks secara manual di sini &hellip;"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:969
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:757
+msgid ""
+"If terms to include are indicated, the selection indicated here is fully "
+"overridden."
+msgstr ""
+"Jika syarat untuk disertakan ditunjukkan, pemilihan yang ditunjukkan di sini "
+"sepenuhnya ditimpa."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:452
+#: lib/views/class-woocommerce-product-search-widget.php:574
+msgid ""
+"If the Enter key is not inhibited, a normal product search is requested when "
+"the visitor presses the Enter key in the search field."
+msgstr ""
+"Jika tombol Enter tidak terhambat, pencarian produk normal diminta ketika "
+"pengunjung menekan tombol Enter di bidang pencarian."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1757
+msgid ""
+"If the index is not completing automatically, click the \"Run\" button to "
+"run the indexer once."
+msgstr ""
+"Jika indeks tidak selesai secara otomatis, klik tombol \\ \"Jalankan \" "
+"untuk menjalankan pengindeks sekali."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1685
+msgid ""
+"If the indexer is stopped while there are remaining entries left "
+"unprocessed, search results will not include all products."
+msgstr ""
+"Jika pengindeks dihentikan sementara ada sisa entri yang belum diproses, "
+"hasil pencarian tidak akan mencakup semua produk."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1658
+msgid ""
+"If this option is enabled, the inline styles are used when the Product "
+"Search Field or Product Filters are displayed."
+msgstr ""
+"Jika opsi ini diaktifkan, gaya sebaris digunakan ketika Bidang Pencarian "
+"Produk atau Filter Produk ditampilkan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:730
+msgid ""
+"If this option is enabled, the inline styles are used when the product "
+"search is displayed."
+msgstr ""
+"Jika opsi ini diaktifkan, gaya inline digunakan ketika pencarian produk "
+"ditampilkan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1645
+msgid ""
+"If this option is enabled, the standard stylesheet is loaded when the "
+"Product Search Field or Product Filters are displayed."
+msgstr ""
+"Jika opsi ini diaktifkan, stylesheet standar dimuat ketika Bidang Pencarian "
+"Produk atau Filter Produk ditampilkan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:717
+msgid ""
+"If this option is enabled, the standard stylesheet is loaded when the "
+"product search is displayed."
+msgstr ""
+"Jika opsi ini diaktifkan, stylesheet standar dimuat ketika pencarian produk "
+"ditampilkan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1354
+msgid ""
+"If you are going to use this option, NOW would be a good time to make a "
+"backup of your site and its database."
+msgstr ""
+"Jika Anda akan menggunakan opsi ini, SEKARANG akan menjadi saat yang tepat "
+"untuk membuat cadangan situs Anda dan basis datanya."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:771
+msgid ""
+"If you modify this parameter, the indexes must be rebuilt by removing and "
+"creating them again here."
+msgstr ""
+"Jika Anda memodifikasi parameter ini, indeks harus dibangun kembali dengan "
+"menghapus dan membuatnya lagi di sini."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:887
+msgid "If you want to keep using Full-Text Search, do not remove the indexes."
+msgstr ""
+"Jika Anda ingin tetap menggunakan Pencarian Teks Lengkap, jangan hapus "
+"indeks."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:885
+msgid ""
+"If you wish to revert the changes made to your database, you can use the "
+"index removal process provided below."
+msgstr ""
+"Jika Anda ingin mengembalikan perubahan yang dibuat ke database Anda, Anda "
+"dapat menggunakan proses penghapusan indeks yang disediakan di bawah ini."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:488
+#, php-format
+msgid ""
+"If you would rate any aspect below 5 stars, please <a href=\"%s\">let us "
+"know before</a> you submit your rating so we can improve it."
+msgstr ""
+"Jika Anda akan menilai setiap aspek di bawah 5 bintang, harap <a href=\"%s"
+"\">beri tahu kami sebelum</a> Anda mengirimkan peringkat Anda sehingga kami "
+"dapat meningkatkannya."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:278
+msgid ""
+"If you would rate any aspect below 5 stars, please let us know before you "
+"submit your rating so we can improve it."
+msgstr ""
+"Jika Anda akan menilai setiap aspek di bawah 5 bintang, beri tahu kami "
+"sebelum Anda mengirimkan peringkat sehingga kami dapat meningkatkannya."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1211
+msgid ""
+"In this context, &ndash;similar&ndash; means words starting with the search "
+"term."
+msgstr ""
+"Dalam konteks ini, &ndash;mirip&ndash; berarti kata-kata yang dimulai dengan "
+"istilah pencarian."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:904
+msgid "Index"
+msgstr "Indeks"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1862
+msgid "Index entries in this order"
+msgstr "Entri indeks dalam urutan ini"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:880
+msgid "Index removal"
+msgstr "Penghapusan indeks"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1707
+msgid "Indexed"
+msgstr "Diindeks"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1767
+msgid "Indexer"
+msgstr "Pengindeks"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1681
+msgid ""
+"Indexing is an automated process which is usually free of manual "
+"intervention."
+msgstr ""
+"Pengindeksan adalah proses otomatis yang biasanya bebas dari intervensi "
+"manual."
+
+#: lib/core/class-woocommerce-product-search-indexer.php:635
+#: lib/core/class-woocommerce-product-search-indexer.php:657
+msgid "Info"
+msgstr "Info"
+
+#: lib/views/class-woocommerce-product-search-widget.php:584
+msgid "Inhibit form submission"
+msgstr "Menghambat pengiriman formulir"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:460
+msgid "Inhibit form submission via the <em>Enter</em> key"
+msgstr "Menghambat pengiriman formulir melalui tombol <em>Enter</em>"
+
+#: lib/views/class-woocommerce-product-search-widget.php:572
+msgid "Inhibit form submission via the Enter key"
+msgstr "Menghambat pengiriman formulir melalui tombol Enter"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:410
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:384
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:355
+msgid "Inline"
+msgstr "Di barisan"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:720
+#: lib/admin/class-woocommerce-product-search-admin.php:1648
+msgid "Inline Styles"
+msgstr "Gaya sebaris"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:736
+msgid "Inline style of the surrounding container."
+msgstr "Gaya sejajar dari wadah sekitarnya."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:735
+#: lib/admin/class-woocommerce-product-search-admin.php:1663
+msgid "Inline styles"
+msgstr "Gaya sebaris"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:991
+msgid ""
+"Input the ID, slug or name of the term or use {current} to show children of "
+"the current term."
+msgstr ""
+"Masukkan ID, siput atau nama istilah atau gunakan {sekarang} untuk "
+"menunjukkan kepada anak-anak dari istilah saat ini."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:939
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:965
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:727
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:753
+msgid "Input the ID, slug or name of the terms, separated by comma."
+msgstr "Masukkan ID, siput atau nama istilah, dipisahkan dengan koma."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:283
+msgid "Instant Search Widget"
+msgstr "Widget Pencarian Instan"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:273
+msgid "Instant Search on a Page"
+msgstr "Pencarian Instan pada Halaman"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:318
+#: lib/admin/class-woocommerce-product-search-admin.php:319
+msgid ""
+"It is designed to provide search results immediately, even while the "
+"indexing process continues in the background."
+msgstr ""
+"Ini dirancang untuk memberikan hasil pencarian segera, bahkan saat proses "
+"pengindeksan berlanjut di latar belakang."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:412
+msgid "It just got easier &hellip; :)"
+msgstr "Itu semakin mudah &hellip; :)"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2108
+msgid ""
+"It will contain the widgets that your customers use to filter the products "
+"in your store."
+msgstr ""
+"Ini akan berisi widget yang digunakan pelanggan Anda untuk menyaring produk "
+"di toko Anda."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:315
+msgid ""
+"It will start to index your products to optimize search results for your "
+"visitors."
+msgstr ""
+"Ini akan mulai mengindeks produk Anda untuk mengoptimalkan hasil pencarian "
+"untuk pengunjung Anda."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:141
+msgid "Last"
+msgstr "Terakhir"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:93
+msgid "Last 7 days"
+msgstr "7 hari terakhir"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:91
+msgid "Last month"
+msgstr "Bulan lalu"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1867
+msgid "Least recent first"
+msgstr "Paling tidak baru-baru ini"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1869
+msgid "Least recently modified first"
+msgstr "Paling tidak baru-baru ini dimodifikasi terlebih dahulu"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1018
+msgid "Leave empty to use internal limits."
+msgstr "Biarkan kosong untuk menggunakan batas internal."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:941
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:967
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:729
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:755
+msgid "Leave this empty to include all terms."
+msgstr "Biarkan ini kosong untuk memasukkan semua persyaratan."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:351
+#: lib/views/class-woocommerce-product-search-widget.php:408
+msgid "Limit"
+msgstr "Membatasi"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1002
+msgctxt "Limit JSON product search results"
+msgid "Limit"
+msgstr "Membatasi"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1001
+msgid "Limit JSON product search results"
+msgstr "Batasi hasil pencarian produk JSON"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:375
+#: lib/views/class-woocommerce-product-search-widget.php:452
+msgid "Limit the maximum number of category results shown."
+msgstr "Batasi jumlah maksimum hasil kategori yang ditampilkan."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:350
+#: lib/views/class-woocommerce-product-search-widget.php:407
+msgid "Limit the maximum number of results shown."
+msgstr "Batasi jumlah maksimum hasil yang ditampilkan."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:625
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:573
+msgid "Limits the number of terms shown, leave empty for unlimited entries."
+msgstr ""
+"Batasi jumlah istilah yang ditampilkan, biarkan kosong untuk entri tanpa "
+"batas."
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:470
+msgid "Limits the number of terms shown."
+msgstr "Batasi jumlah istilah yang ditampilkan."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:318
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:317
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:420
+#: lib/views/class-woocommerce-product-search-filter-widget.php:558
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:279
+msgid "Link to the shop page instead of the same page."
+msgstr "Tautkan ke halaman toko alih-alih ke halaman yang sama."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:409
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:383
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:356
+msgid "List"
+msgstr "Daftar"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:345
+#: lib/admin/class-woocommerce-product-search-admin.php:339
+#: lib/admin/class-woocommerce-product-search-admin.php:1260
+#, php-format
+msgid ""
+"Live search statistics are available in the <a href=\"%s\">Search</a> "
+"section of the reports."
+msgstr ""
+"Statistik pencarian langsung tersedia di bagian <a href=\"%s\">Cari</a> dari "
+"laporan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:1009
+#: lib/admin/class-woocommerce-product-search-admin.php:1319
+msgid "Log main query times"
+msgstr "Catat waktu permintaan utama"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:1002
+#: lib/admin/class-woocommerce-product-search-admin.php:1312
+msgid "Logs"
+msgstr "Log"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:835
+msgid "Make a FULL BACKUP of your site and database before creating indexes!"
+msgstr ""
+"Buat CADANGAN PENUH dari situs dan basis data Anda sebelum membuat indeks!"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:892
+msgid "Make a FULL BACKUP of your site and database before removing indexes!"
+msgstr ""
+"Lakukan CADANGAN PENUH dari situs dan basis data Anda sebelum menghapus "
+"indeks!"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:461
+msgid "Many thanks for using <strong>WooCommerce Product Search</strong>!"
+msgstr ""
+"Banyak terima kasih telah menggunakan <strong>WooCommerce Product Search</"
+"strong>!"
+
+#: lib/views/class-woocommerce-product-search-filter-price.php:142
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:180
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:343
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:503
+msgid "Max"
+msgstr "Maks"
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:346
+msgid "Maximum placeholder"
+msgstr "Penampung maksimum"
+
+#: lib/views/class-woocommerce-product-search-filter-price.php:143
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:179
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:328
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:502
+msgid "Min"
+msgstr "Min"
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:479
+msgid "Minimum one"
+msgstr "Minimal satu"
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:331
+msgid "Minimum placeholder"
+msgstr "Penampung minimum"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1221
+msgid "Minimum word length to search for similar occurrences."
+msgstr "Panjang kata minimum untuk mencari kejadian serupa."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1866
+msgid "Most recent first"
+msgstr "Yang terbaru dulu"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1868
+msgid "Most recently modified first"
+msgstr "Paling baru dimodifikasi dulu"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:906
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:694
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:586
+msgid "Multiple"
+msgstr "Berganda"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:799
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:633
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:530
+msgid "Name"
+msgstr "Nama"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:634
+msgid "Name (numeric)"
+msgstr "Nama (angka)"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:474
+#: lib/views/class-woocommerce-product-search-widget.php:599
+msgid "Navigable results"
+msgstr "Hasil navigasi"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:670
+msgid "Navigation"
+msgstr "Navigasi"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:320
+#: lib/admin/class-woocommerce-product-search-admin.php:321
+msgid "New and updated content is normally indexed within seconds."
+msgstr ""
+"Konten baru dan yang diperbarui biasanya diindeks dalam beberapa detik."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1732
+msgid "Next indexing cycle schedule"
+msgstr "Jadwal siklus pengindeksan berikutnya"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:259
+msgid "No Search Filter Thumbnail Image"
+msgstr "Tidak Ada Pencarian Filter Gambar Mini"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:205
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:233
+msgid "No queries found in range"
+msgstr "Tidak ditemukan kueri dalam rentang"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:547
+#: lib/views/class-woocommerce-product-search-filter.php:681
+#: lib/views/class-woocommerce-product-search-widget.php:697
+msgid "No results"
+msgstr "Tidak ada hasil"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:321
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:977
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1001
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:765
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:267
+msgid "None"
+msgstr "Tidak ada"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1683
+msgid ""
+"Normally, you would not need to modify the values here or stop the indexing "
+"process."
+msgstr ""
+"Biasanya, Anda tidak perlu mengubah nilai-nilai di sini atau menghentikan "
+"proses pengindeksan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:288
+msgid ""
+"Note that you can place more than one widget in one or more sidebars and "
+"that each widget can use its individual settings."
+msgstr ""
+"Perhatikan bahwa Anda dapat menempatkan lebih dari satu widget di satu atau "
+"lebih sidebar dan bahwa setiap widget dapat menggunakan pengaturan masing-"
+"masing."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:279
+msgid ""
+"Now click <em>View Page</em> which will show you the search field on your "
+"newly created page."
+msgstr ""
+"Sekarang klik <em>Lihat Halaman</em> yang akan menampilkan bidang pencarian "
+"pada halaman Anda yang baru dibuat."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:357
+#, php-format
+msgid ""
+"Now you can use <a href=\"%s\">Weights</a> to improve the relevance in "
+"product search results."
+msgstr ""
+"Sekarang Anda dapat menggunakan <a href=\"%s\">Bobot</a> untuk meningkatkan "
+"relevansi dalam hasil pencarian produk."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:414
+msgid "Number of items per page"
+msgstr "Jumlah item per halaman"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:589
+msgid "Number of searches with matching results"
+msgstr "Jumlah pencarian dengan hasil yang cocok"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:597
+msgid "Number of searches without matching results"
+msgstr "Jumlah pencarian tanpa hasil yang cocok"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:627
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:575
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:472
+msgid "Number of terms"
+msgstr "Jumlah istilah"
+
+#: lib/views/class-woocommerce-product-search-filter-sale.php:270
+msgctxt "product filter sale link"
+msgid "On Sale"
+msgstr "Dijual"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:573
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:521
+msgid "One entry"
+msgstr "Satu entri"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1268
+msgid "Optimization"
+msgstr "Optimasi"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:996
+msgid "Optimize JSON product searches"
+msgstr "Optimalkan pencarian produk JSON"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1043
+msgid "Optimize REST API product searches"
+msgstr "Optimalkan pencarian produk REST API"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:980
+msgid "Optimize back end product searches"
+msgstr "Optimalkan pencarian produk akhir"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:958
+msgid "Optimize front end product searches"
+msgstr "Optimalkan pencarian produk front end"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1275
+msgid "Optimize responses for filter requests"
+msgstr "Optimalkan tanggapan untuk permintaan filter"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1855
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:784
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:618
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:515
+msgid "Order"
+msgstr "Memesan"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:312
+#: lib/views/class-woocommerce-product-search-widget.php:366
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:791
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:625
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:522
+msgid "Order by ..."
+msgstr "Dipesan oleh ..."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:311
+#: lib/views/class-woocommerce-product-search-widget.php:365
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:790
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:624
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:521
+msgid "Order the results by the chosen property."
+msgstr "Pesan hasil dengan properti yang dipilih."
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:581
+msgid "Page One"
+msgstr "Halaman Satu"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:994
+msgid "Parent term"
+msgstr "Istilah induk"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:451
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:480
+msgid "Parents"
+msgstr "Orangtua"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:533
+#: lib-2/admin/class-woocommerce-product-search-admin.php:747
+msgid "Performance"
+msgstr "Performa"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:263
+msgid ""
+"Place the <code>[woocommerce_product_search]</code> shortcode on a page or "
+"use the <em>WooCommerce Instant Product Search</em> widget in a sidebar."
+msgstr ""
+"Tempatkan <code>[woocommerce_product_search]</code> shortcode pada halaman "
+"atau gunakan widget <em>Pencarian Produk Instan WooCommerce</em> di sidebar."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:482
+#: lib/views/class-woocommerce-product-search-widget.php:607
+#: lib/views/class-woocommerce-product-search-filter-widget.php:469
+msgid "Placeholder"
+msgstr "Placeholder"
+
+#: lib-2/core/class-woocommerce-product-search-service.php:692
+#: lib/core/class-woocommerce-product-search-service.php:3681
+#: lib/core/class-woocommerce-product-search-service-v2.php:3094
+#: lib/views/class-woocommerce-product-search-thumbnail.php:436
+msgid "Placeholder Image"
+msgstr "Gambar Placeholder"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:686
+#: lib/admin/class-woocommerce-product-search-admin.php:1556
+#: lib/admin/class-woocommerce-product-search-admin.php:1619
+msgid "Placeholder thumbnails"
+msgstr "Thumbnail tempat penampung"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:290
+#: lib/admin/class-woocommerce-product-search-admin.php:300
+#, php-format
+msgid ""
+"Please always make sure that you obtain or renew this official extension "
+"through the only trusted source at <a href=\"%s\">WooCommerce Product "
+"Search</a>."
+msgstr ""
+"Harap selalu pastikan bahwa Anda memperoleh atau memperbarui ekstensi resmi "
+"ini melalui satu-satunya sumber tepercaya di <a href=\"%s\">WooCommerce "
+"Product Search</a>."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:277
+msgid ""
+"Please make sure that the spelling is correct, all letters must be in lower "
+"case."
+msgstr "Pastikan ejaannya benar, semua huruf harus dalam huruf kecil."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1999
+msgid ""
+"Please note that this will remove all indexes and create them from scratch."
+msgstr ""
+"Harap dicatat bahwa ini akan menghapus semua indeks dan membuatnya dari awal."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:244
+#: lib/admin/class-woocommerce-product-search-admin.php:245
+#: lib/admin/class-woocommerce-product-search-admin.php:419
+#, php-format
+msgid ""
+"Please refer to the <a href=\"%s\">WooCommerce Product Search</a> "
+"documentation pages for detailed information."
+msgstr ""
+"Silakan merujuk ke halaman dokumentasi <a href=\"%s\">WooCommerce Product "
+"Search</a> untuk informasi terperinci."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:249
+msgid ""
+"Please refer to the <a href=\"http://docs.woothemes.com/document/woocommerce-"
+"product-search/\">WooCommerce Product Search</a> documentation page for more "
+"details."
+msgstr ""
+"Silakan merujuk ke halaman dokumentasi <a href=\"http://docs.woothemes.com/"
+"document/woocommerce-product-search/\">WooCommerce Product Search</a> untuk "
+"rincian lebih lanjut."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:272
+#, php-format
+msgid ""
+"Please take a moment to <a href=\"%s\">rate this extension</a> &mdash; this "
+"helps us to provide you with an excellent product and commit to continuous "
+"improvement."
+msgstr ""
+"Luangkan waktu sejenak untuk <a href=\"%s\">peringkat ekstensi ini</a> "
+"&mdash; ini membantu kami untuk menyediakan Anda dengan produk unggulan dan "
+"berkomitmen untuk melakukan perbaikan terus menerus."
+
+#: lib/views/class-woocommerce-product-search-widget.php:378
+msgid "Popularity"
+msgstr "Kepopuleran"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:260
+msgid ""
+"Positive weights inrease the relevance in product searches while negative "
+"weights decrease it."
+msgstr ""
+"Bobot positif meningkatkan relevansi dalam pencarian produk sedangkan bobot "
+"negatif menguranginya."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2251
+#: lib/admin/class-woocommerce-product-search-admin.php:2301
+msgid "Present in &hellip; "
+msgstr "Hadir di &hellip; "
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:645
+msgid "Presentation"
+msgstr "Presentasi"
+
+#: lib/views/class-woocommerce-product-search-filter-price.php:163
+msgctxt "product price filter heading"
+msgid "Price"
+msgstr "Harga"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1832
+msgid "Process"
+msgstr "Proses"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:383
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:59
+msgid "Product Filter &ndash; Attributes"
+msgstr "Filter Produk &ndash; Atribut"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:386
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:59
+msgid "Product Filter &ndash; Categories"
+msgstr "Filter Produk &ndash; Kategori"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:389
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:59
+msgid "Product Filter &ndash; Price"
+msgstr "Filter Produk &ndash; Harga"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:392
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:59
+msgid "Product Filter &ndash; Rating"
+msgstr "Filter Produk &ndash; Peringkat"
+
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:59
+msgid "Product Filter &ndash; Reset"
+msgstr "Filter Produk &ndash; Setel ulang"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:395
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:59
+msgid "Product Filter &ndash; Sale"
+msgstr "Filter Produk &ndash; Dijual"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:398
+#: lib/views/class-woocommerce-product-search-filter-widget.php:59
+msgid "Product Filter &ndash; Search"
+msgstr "Filter Produk &ndash; Pencarian"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:401
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:59
+msgid "Product Filter &ndash; Tags"
+msgstr "Filter Produk &ndash; Tag"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:410
+#: lib/views/class-woocommerce-product-search-widget.php:57
+msgid "Product Search Field"
+msgstr "Bidang Pencarian Produk"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1065
+msgid "Product Search Field settings &hellip;"
+msgstr "Pengaturan Bidang Pencarian Produk &hellip;"
+
+#: lib-2/views/class-woocommerce-product-search-thumbnail.php:197
+#: lib/views/class-woocommerce-product-search-thumbnail.php:283
+msgid "Product Search Thumbnail"
+msgstr "Thumbnail Pencarian Produk"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1512
+msgid "Product Thumbnails"
+msgstr "Thumbnail Produk"
+
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:136
+#: lib/admin/class-woocommerce-product-search-admin-product.php:211
+msgid "Product search relevance."
+msgstr "Relevansi pencarian produk."
+
+#: lib/admin/class-woocommerce-product-search-admin-reports.php:49
+msgid "Queries"
+msgstr "Kueri"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:402
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:163
+msgid "Queries that contain &hellip;"
+msgstr "Kueri yang berisi &hellip;"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:394
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:155
+msgid "Queries that exactly match &hellip;"
+msgstr "Kueri yang sama persis dengan &hellip;"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:386
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:147
+msgid "Queries that start with &hellip;"
+msgstr "Kueri yang dimulai dengan &hellip;"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:137
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:378
+msgid "Query"
+msgstr "Pertanyaan"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:323
+msgid "Random"
+msgstr "Acak"
+
+#: lib/views/class-woocommerce-product-search-filter-rating.php:305
+#, php-format
+msgctxt "product filter rating"
+msgid "Rated %d Stars"
+msgstr "Peringkat %d bintang"
+
+#: lib/views/class-woocommerce-product-search-filter-rating.php:304
+#, php-format
+msgctxt "product filter rating"
+msgid "Rated 1 Star &amp; Up"
+msgid_plural "Rated %d Stars &amp; Up"
+msgstr[0] "Peringkat %d Bintang & Atas"
+
+#: lib/views/class-woocommerce-product-search-widget.php:379
+msgid "Rating"
+msgstr "Peringkat"
+
+#: lib/views/class-woocommerce-product-search-filter-rating.php:149
+msgctxt "product filter rating heading"
+msgid "Rating"
+msgstr "Peringkat"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1907
+msgid "Rebuild"
+msgstr "Membangun kembali"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1252
+msgid "Record live search data"
+msgstr "Rekam data pencarian langsung"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:573
+#: lib/admin/class-woocommerce-product-search-admin.php:1375
+msgid "Relevance"
+msgstr "Relevansi"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1722
+msgid "Remaining"
+msgstr "Tersisa"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:420
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:481
+msgid "Remind me later"
+msgstr "Ingatkan aku nanti"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:897
+msgid "Remove Indexes"
+msgstr "Hapus Indeks"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:76
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:128
+msgid "Remove image"
+msgstr "Hapus gambar"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:889
+msgid ""
+"Removing indexes can take a while and may make your site inaccessible to "
+"your visitors during the process."
+msgstr ""
+"Menghapus indeks dapat memakan waktu cukup lama dan mungkin membuat situs "
+"Anda tidak dapat diakses oleh pengunjung Anda selama proses berlangsung."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1759
+msgid "Repeat if necessary until all products have been indexed."
+msgstr "Ulangi jika perlu sampai semua produk diindeks."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1054
+msgid "Replace the standard product search form"
+msgstr "Ganti formulir pencarian produk standar"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:919
+#: lib/admin/class-woocommerce-product-search-admin.php:2397
+msgid "Reports"
+msgstr "Laporan"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:733
+msgid "Retract automatically"
+msgstr "Tarik kembali secara otomatis"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:402
+msgid "Review the Settings"
+msgstr "Tinjau Pengaturan"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:846
+msgid "Root and direct children"
+msgstr "Rooting dan arahkan anak-anak"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:688
+msgid "Root children are expandable"
+msgstr "Root anak dapat diperluas"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:845
+msgid "Root terms"
+msgstr "Istilah root"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:687
+msgid "Root terms are expandable"
+msgstr "Istilah root dapat diperluas"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1925
+msgid "Run"
+msgstr "Menjalankan"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:381
+msgid "Run the Assistant"
+msgstr "Jalankan Asisten"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1926
+msgid "Run the indexer once &hellip;"
+msgstr "Jalankan pengindeks sekali &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1486
+#: lib/views/class-woocommerce-product-search-widget.php:377
+msgid "SKU"
+msgstr "SKU"
+
+#: lib/views/class-woocommerce-product-search-filter-sale.php:123
+msgctxt "product filter sale heading"
+msgid "Sale"
+msgstr "Dijual"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:1033
+#: lib/admin/class-woocommerce-product-search-admin.php:2370
+msgid "Save changes"
+msgstr "Simpan perubahan"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1748
+msgid "Scheduled tasks (cron) seem to be failing:"
+msgstr "Tugas yang dijadwalkan (cron) tampaknya gagal:"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1743
+msgid ""
+"Scheduled tasks (cron) seem to be working and the indexer should process "
+"products automatically."
+msgstr ""
+"Tugas yang dijadwalkan (cron) tampaknya berfungsi dan pengindeks harus "
+"memproses produk secara otomatis."
+
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:71
+#: lib-2/admin/class-woocommerce-product-search-admin.php:241
+#: lib-2/admin/class-woocommerce-product-search-admin.php:245
+#: lib-2/admin/class-woocommerce-product-search-admin.php:338
+#: lib-2/views/class-woocommerce-product-search-widget.php:479
+#: lib-2/views/class-woocommerce-product-search-widget.php:504
+#: lib-2/views/class-woocommerce-product-search-shortcodes.php:94
+#: lib-2/views/class-woocommerce-product-search-shortcodes.php:103
+#: lib/admin/class-woocommerce-product-search-admin-reports.php:40
+#: lib/admin/class-woocommerce-product-search-admin-product.php:145
+#: lib/admin/class-woocommerce-product-search-admin.php:229
+#: lib/admin/class-woocommerce-product-search-admin.php:234
+#: lib/admin/class-woocommerce-product-search-admin.php:470
+#: lib/views/class-woocommerce-product-search-filter.php:152
+#: lib/views/class-woocommerce-product-search-filter.php:157
+#: lib/views/class-woocommerce-product-search-widget.php:604
+#: lib/views/class-woocommerce-product-search-widget.php:649
+#: lib/views/class-woocommerce-product-search-widget.php:778
+#: lib/views/class-woocommerce-product-search-field.php:108
+#: lib/views/class-woocommerce-product-search-field.php:117
+#: lib/views/class-woocommerce-product-search-filter-widget.php:198
+#: lib/views/class-woocommerce-product-search-filter-widget.php:201
+#: lib/views/class-woocommerce-product-search-filter-widget.php:466
+#: lib/views/class-woocommerce-product-search-filter-widget.php:511
+#: lib/views/class-woocommerce-product-search-filter-widget.php:776
+#: lib/views/class-woocommerce-product-search-filter-widget.php:779
+msgid "Search"
+msgstr "Pencarian"
+
+#: lib/views/class-woocommerce-product-search-filter.php:189
+msgctxt "product search filter heading"
+msgid "Search"
+msgstr "Pencarian"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:71
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:122
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:233
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:255
+msgid "Search Filter Thumbnail Image"
+msgstr "Cari Filter Gambar Mini"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:424
+msgid "Search Form and UI Interaction"
+msgstr "Formulir Pencarian dan Interaksi UI"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1677
+msgid "Search Index"
+msgstr "Indeks Pencarian"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:237
+#: lib/views/class-woocommerce-product-search-widget.php:262
+#: lib/views/class-woocommerce-product-search-filter-widget.php:258
+msgid "Search Results"
+msgstr "Hasil Pencarian"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1187
+msgid "Search Term Threshold"
+msgstr "Ambang Istilah Pencarian"
+
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:100
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:137
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:176
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:194
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:238
+#: lib/admin/class-woocommerce-product-search-admin-product.php:174
+#: lib/admin/class-woocommerce-product-search-admin-product.php:212
+#: lib/admin/class-woocommerce-product-search-admin-product.php:251
+#: lib/admin/class-woocommerce-product-search-admin-product.php:269
+#: lib/admin/class-woocommerce-product-search-admin-product.php:412
+msgid "Search Weight"
+msgstr "Cari Berat"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:266
+#: lib-2/admin/class-woocommerce-product-search-admin.php:560
+#: lib/admin/class-woocommerce-product-search-admin.php:1362
+msgid "Search Weights"
+msgstr "Bobot Pencarian"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1029
+msgid "Search for a product&hellip;"
+msgstr "Telusuri produk &hellip;"
+
+#: lib/core/class-woocommerce-product-search-service.php:3754
+#: lib/core/class-woocommerce-product-search-service-v2.php:3167
+msgid "Search for more &hellip;"
+msgstr "Telusuri lebih lanjut &hellip;"
+
+#: lib-2/core/class-woocommerce-product-search-service.php:758
+#: lib/core/class-woocommerce-product-search-service.php:3793
+#: lib/core/class-woocommerce-product-search-service-v2.php:3206
+#, php-format
+msgid "Search in %s"
+msgstr "Cari di %s"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:305
+#: lib/views/class-woocommerce-product-search-widget.php:359
+#: lib/views/class-woocommerce-product-search-filter-widget.php:355
+msgid "Search in SKU"
+msgstr "Cari di SKU"
+
+#: lib/views/class-woocommerce-product-search-widget.php:345
+#: lib/views/class-woocommerce-product-search-filter-widget.php:341
+msgid "Search in attributes"
+msgstr "Cari di atribut"
+
+#: lib/views/class-woocommerce-product-search-widget.php:317
+#: lib/views/class-woocommerce-product-search-filter-widget.php:313
+msgid "Search in categories"
+msgstr "Cari dalam kategori"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:277
+#: lib/views/class-woocommerce-product-search-widget.php:303
+#: lib/views/class-woocommerce-product-search-filter-widget.php:299
+msgid "Search in contents"
+msgstr "Cari konten"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:263
+#: lib/views/class-woocommerce-product-search-widget.php:289
+#: lib/views/class-woocommerce-product-search-filter-widget.php:285
+msgid "Search in excerpts"
+msgstr "Cari di kutipan"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:291
+#: lib/views/class-woocommerce-product-search-widget.php:331
+#: lib/views/class-woocommerce-product-search-filter-widget.php:327
+msgid "Search in tags"
+msgstr "Cari di tag"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:249
+#: lib/views/class-woocommerce-product-search-widget.php:275
+#: lib/views/class-woocommerce-product-search-filter-widget.php:271
+msgid "Search in titles"
+msgstr "Cari dalam judul"
+
+#: lib/views/class-woocommerce-product-search-widget.php:773
+msgid "Search products &hellip;"
+msgstr "Cari produk &hellip;"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:531
+#: lib/views/class-woocommerce-product-search-widget.php:681
+msgid "Search results are shown floating below the search field."
+msgstr "Hasil pencarian ditampilkan mengambang di bawah bidang pencarian."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:360
+#: lib/views/class-woocommerce-product-search-widget.php:437
+msgid "Search results should include categories with matching results."
+msgstr "Hasil pencarian harus mencakup kategori dengan hasil yang cocok."
+
+#: lib/views/class-woocommerce-product-search-widget.php:309
+#: lib/views/class-woocommerce-product-search-filter-widget.php:305
+msgid "Search results should include entries with matching categories."
+msgstr "Hasil pencarian harus mencakup entri dengan kategori yang cocok."
+
+#: lib/views/class-woocommerce-product-search-widget.php:337
+#: lib/views/class-woocommerce-product-search-filter-widget.php:333
+msgid "Search results should include entries with matching product attributes."
+msgstr "Hasil pencarian harus mencakup entri dengan atribut produk yang cocok."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:283
+#: lib/views/class-woocommerce-product-search-widget.php:323
+#: lib/views/class-woocommerce-product-search-filter-widget.php:319
+msgid "Search results should include entries with matching tags."
+msgstr "Hasil pencarian harus mencakup entri dengan tag yang cocok."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:297
+#: lib/views/class-woocommerce-product-search-widget.php:351
+#: lib/views/class-woocommerce-product-search-filter-widget.php:347
+msgid "Search results should include matches in SKU."
+msgstr "Hasil pencarian harus menyertakan kecocokan dalam SKU."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:269
+#: lib/views/class-woocommerce-product-search-widget.php:295
+#: lib/views/class-woocommerce-product-search-filter-widget.php:291
+msgid "Search results should include matches in contents."
+msgstr "Hasil pencarian harus menyertakan kecocokan dalam konten."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:255
+#: lib/views/class-woocommerce-product-search-widget.php:281
+#: lib/views/class-woocommerce-product-search-filter-widget.php:277
+msgid "Search results should include matches in excerpts."
+msgstr "Hasil pencarian harus menyertakan kecocokan dalam kutipan."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:241
+#: lib/views/class-woocommerce-product-search-widget.php:267
+#: lib/views/class-woocommerce-product-search-filter-widget.php:263
+msgid "Search results should include matching titles."
+msgstr "Hasil pencarian harus mencakup judul yang cocok."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1207
+msgid ""
+"Search terms that are shorter will only produce matches if the exact term is "
+"found."
+msgstr ""
+"Istilah pencarian yang lebih pendek hanya akan menghasilkan kecocokan jika "
+"istilah yang tepat ditemukan."
+
+#: lib/admin/class-woocommerce-product-search-admin-reports.php:43
+msgid "Searches"
+msgstr "Pencarian"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1191
+msgid ""
+"Searches are quicker for exact matches and take a bit longer for similar "
+"words &ndash; those that start with the search term."
+msgstr ""
+"Pencarian lebih cepat untuk pencocokan tepat dan membutuhkan waktu sedikit "
+"lebih lama untuk kata-kata yang mirip &ndash; yang dimulai dengan istilah "
+"pencarian."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:273
+#: lib/admin/class-woocommerce-product-search-admin.php:283
+msgid "Security"
+msgstr "Keamanan"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:767
+msgid ""
+"See <a href=\"https://dev.mysql.com/doc/refman/5.6/en/server-system-"
+"variables.html#sysvar_ft_min_word_len\">ft_min_word_len</a> for details on "
+"how to adjust this value."
+msgstr ""
+"Lihat <a href=\"https://dev.mysql.com/doc/refman/5.6/en/server-system-"
+"variables.html#sysvar_ft_min_word_len\">ft_min_word_len</a> untuk detail "
+"tentang cara menyesuaikan nilai ini ."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:411
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:385
+msgid "Select"
+msgstr "Memilih"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2178
+msgid "Select the sidebar to which the assistant should add filter widgets."
+msgstr "Pilih bilah sisi tempat asisten harus menambahkan widget filter."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:922
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:710
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:602
+msgid "Set"
+msgstr "Set"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:75
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:127
+msgid "Set image"
+msgstr "Atur gambar"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:227
+#: lib/admin/class-woocommerce-product-search-admin.php:2396
+msgid "Settings"
+msgstr "Pengaturan"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:252
+#: lib/admin/class-woocommerce-product-search-admin.php:309
+msgid "Setup"
+msgstr "Mempersiapkan"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:359
+msgid ""
+"Several live filtering facilities help your visitors to find the desired "
+"products quickly."
+msgstr ""
+"Beberapa fasilitas penyaringan langsung membantu pengunjung Anda untuk "
+"menemukan produk yang diinginkan dengan cepat."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:374
+msgid ""
+"Shall we make it easy for your customers and add live filters to your shop "
+"pages right now?"
+msgstr ""
+"Haruskah kita membuatnya mudah bagi pelanggan Anda dan menambahkan filter "
+"langsung ke halaman toko Anda sekarang?"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1084
+msgid "Shorten Titles and Descriptions"
+msgstr "Persingkat Judul dan Deskripsi"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:173
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:914
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:702
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:594
+msgid "Show"
+msgstr "Menunjukkan"
+
+#: lib/views/class-woocommerce-product-search-widget.php:520
+msgid "Show Add to Cart"
+msgstr "Tampilkan Tambahkan ke Troli"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:428
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:431
+msgid "Show Names"
+msgstr "Tampilkan Nama"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:412
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:376
+msgid "Show Thumbnails"
+msgstr "Tampilkan Gambar Kecil"
+
+#: lib/views/class-woocommerce-product-search-widget.php:422
+msgid ""
+"Show a link that leads to search results when there are more results than "
+"the limit."
+msgstr ""
+"Tampilkan tautan yang mengarah ke hasil pencarian ketika ada hasil lebih "
+"dari batas."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:384
+#: lib/views/class-woocommerce-product-search-widget.php:467
+msgid "Show a product thumbnail for each result."
+msgstr "Tampilkan thumbnail produk untuk setiap hasil."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:491
+#: lib/views/class-woocommerce-product-search-widget.php:636
+#: lib/views/class-woocommerce-product-search-filter-widget.php:498
+msgid "Show a submit button along with the search field."
+msgstr "Tampilkan tombol kirim bersama dengan bidang pencarian."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:288
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:390
+msgid "Show a submit button."
+msgstr "Tampilkan tombol kirim."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:368
+#: lib/views/class-woocommerce-product-search-widget.php:445
+msgid "Show category matches"
+msgstr "Tampilkan kategori yang cocok"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:406
+#: lib/views/class-woocommerce-product-search-widget.php:490
+msgid "Show descriptions"
+msgstr "Perlihatkan deskripsi"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:748
+msgid "Show expanders"
+msgstr "Tampilkan ekspander"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:232
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:341
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:231
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:236
+#: lib/views/class-woocommerce-product-search-filter-widget.php:619
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:315
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:287
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:222
+msgid "Show heading"
+msgstr "Tampilkan tajuk"
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:300
+msgid "Show input fields"
+msgstr "Tampilkan kolom input"
+
+#: lib/views/class-woocommerce-product-search-widget.php:430
+msgid "Show more"
+msgstr "Menampilkan lebih banyak"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:469
+msgid "Show names"
+msgstr "Tampilkan nama"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:268
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:394
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:267
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:272
+#: lib/views/class-woocommerce-product-search-filter-widget.php:425
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:368
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:340
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:258
+msgid "Show on shop pages only"
+msgstr "Hanya tampilkan di halaman toko"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:282
+msgid "Show only if any products are on sale"
+msgstr "Tampilkan hanya jika ada produk yang dijual"
+
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:281
+msgid "Show only if any products have a rating"
+msgstr "Tampilkan hanya jika ada produk yang memiliki peringkat"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:420
+#: lib/views/class-woocommerce-product-search-widget.php:505
+msgid "Show prices"
+msgstr "Tampilkan harga"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:539
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:487
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:446
+msgid "Show product counts"
+msgstr "Tampilkan jumlah produk"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:412
+#: lib/views/class-woocommerce-product-search-widget.php:497
+msgid "Show product prices."
+msgstr "Tampilkan harga produk."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:392
+#: lib/views/class-woocommerce-product-search-widget.php:475
+msgid "Show product thumbnails"
+msgstr "Tampilkan thumbnail produk"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:445
+msgid "Show results for queries that matched no products"
+msgstr "Tampilkan hasil untuk kueri yang tidak cocok dengan produk"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:437
+msgid "Show results for queries that matched products"
+msgstr "Tampilkan hasil untuk kueri yang cocok dengan produk"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:429
+msgid "Show results for queries that matched products or not"
+msgstr "Tampilkan hasil untuk kueri yang cocok dengan produk atau tidak"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:398
+#: lib/views/class-woocommerce-product-search-widget.php:482
+msgid "Show short product descriptions."
+msgstr "Tampilkan deskripsi produk pendek."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:286
+msgid "Show slider"
+msgstr "Tampilkan slider"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:765
+msgid "Show the ancestor hierarchy"
+msgstr "Tunjukkan hierarki leluhur"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:420
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:423
+msgid "Show the names of attribute terms."
+msgstr "Tampilkan nama istilah atribut."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:780
+msgid "Show the parent navigation"
+msgstr "Tampilkan navigasi induk"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:403
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:368
+msgid "Show the thumbnails for attribute terms."
+msgstr "Tampilkan thumbnail untuk istilah atribut."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:439
+msgid "Show thumbnails"
+msgstr "Tampilkan thumbnail"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:500
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:448
+msgid "Show thumbnails for selected"
+msgstr "Tampilkan thumbnail untuk yang dipilih"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:516
+#: lib/views/class-woocommerce-product-search-widget.php:666
+msgid "Show/hide search results when the search input field gains/loses focus."
+msgstr ""
+"Tampilkan / sembunyikan hasil pencarian ketika bidang input pencarian "
+"mendapatkan / kehilangan fokus."
+
+#: lib/views/class-woocommerce-product-search-filter.php:685
+#, php-format
+msgid "Showing the single result"
+msgid_plural "Showing all %d results"
+msgstr[0] "Menampilkan hasil"
+
+#: lib/views/class-woocommerce-product-search-filter.php:690
+#, php-format
+msgctxt "with first and last result"
+msgid "Showing the single result"
+msgid_plural "Showing %1$d&ndash;%2$d of %3$d results"
+msgstr[0] "Menampilkan hasil"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:614
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:562
+msgid "Shown when active"
+msgstr "Tampil saat aktif"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2180
+msgid "Sidebar"
+msgstr "Bilah samping"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1195
+msgid ""
+"Similar matches produce more search results when the length of the search "
+"terms is at or above the treshold."
+msgstr ""
+"Pencocokan serupa menghasilkan lebih banyak hasil pencarian ketika panjang "
+"istilah pencarian berada di atau di atas treshold."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:566
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:514
+msgid "Size"
+msgstr "Ukuran"
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:384
+msgid "Sizing"
+msgstr "Perekat"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:800
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:636
+msgid "Slug"
+msgstr "Siput"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:814
+msgid ""
+"Some indexes are still missing and Full-Text Search can not yet be used. "
+"Please try to create the missing indexes using the button below."
+msgstr ""
+"Beberapa indeks masih hilang dan Pencarian Teks Lengkap belum dapat "
+"digunakan. Coba buat indeks yang hilang menggunakan tombol di bawah ini."
+
+#: lib/views/class-woocommerce-product-search-filter.php:723
+msgid "Sort by average rating"
+msgstr "Urutkan berdasarkan peringkat rata-rata"
+
+#: lib/views/class-woocommerce-product-search-filter.php:724
+msgid "Sort by newness"
+msgstr "Urutkan berdasarkan kebaruan"
+
+#: lib/views/class-woocommerce-product-search-filter.php:722
+msgid "Sort by popularity"
+msgstr "Urutkan berdasarkan popularitas"
+
+#: lib/views/class-woocommerce-product-search-filter.php:726
+msgid "Sort by price: high to low"
+msgstr "Urutkan berdasarkan harga: tinggi ke rendah"
+
+#: lib/views/class-woocommerce-product-search-filter.php:725
+msgid "Sort by price: low to high"
+msgstr "Urutkan berdasarkan harga: rendah ke tinggi"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:951
+msgid "Standard Product Search"
+msgstr "Pencarian Produk Standar"
+
+#: lib-2/core/class-woocommerce-product-search-service.php:506
+#: lib/core/class-woocommerce-product-search-service.php:2520
+#: lib/core/class-woocommerce-product-search-service-v2.php:2010
+msgid "Standard Search"
+msgstr "Pencarian Standar"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:707
+#: lib/admin/class-woocommerce-product-search-admin.php:1635
+msgid "Standard Stylesheet"
+msgstr "Lembar Gaya Standar"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1889
+msgid "Start"
+msgstr "Mulai"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1890
+msgid "Start indexing &hellip;"
+msgstr "Mulai pengindeksan &hellip;"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:391
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:152
+msgid "Starts"
+msgstr "Mulai"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1245
+msgid "Statistics"
+msgstr "Statistik"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1689
+msgid "Status"
+msgstr "Status"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1898
+msgid "Stop"
+msgstr "Berhenti"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1899
+msgid "Stop indexing &hellip;"
+msgstr "Hentikan pengindeksan &hellip;"
+
+#: lib/core/class-woocommerce-product-search-indexer.php:638
+#, php-format
+msgid "Stopped on iteration %d to avoid PHP memory issues."
+msgstr "Berhenti pada iterasi %d untuk menghindari masalah memori PHP."
+
+#: lib/core/class-woocommerce-product-search-indexer.php:660
+#, php-format
+msgid ""
+"Stopped on iteration %d to avoid reaching the maximum execution time for PHP."
+msgstr ""
+"Berhenti pada iterasi %d untuk menghindari mencapai waktu eksekusi maksimum "
+"untuk PHP."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:401
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:375
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:347
+msgid "Style"
+msgstr "Gaya"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:475
+msgid "Submit a rating"
+msgstr "Kirim peringkat"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:499
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:296
+#: lib/views/class-woocommerce-product-search-widget.php:644
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:398
+#: lib/views/class-woocommerce-product-search-filter-widget.php:506
+msgid "Submit button"
+msgstr "Tombol kirim"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:507
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:304
+#: lib/views/class-woocommerce-product-search-widget.php:652
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:406
+#: lib/views/class-woocommerce-product-search-filter-widget.php:514
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:265
+msgid "Submit button label"
+msgstr "Kirim label tombol"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:254
+#: lib/admin/class-woocommerce-product-search-admin.php:254
+#: lib/admin/class-woocommerce-product-search-admin.php:2415
+msgid "Support"
+msgstr "Mendukung"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:621
+#: lib/admin/class-woocommerce-product-search-admin.php:1438
+msgid "Tags"
+msgstr "Tag"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:801
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:637
+msgid "Term order"
+msgstr "Pesanan jangka"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:829
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:665
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:557
+msgid "Terms"
+msgstr "Ketentuan"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:697
+msgid "Terms from 10th level"
+msgstr "Ketentuan dari level 10"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:698
+msgid "Terms from 25th level"
+msgstr "Ketentuan mulai dari level 25"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:689
+msgid "Terms from 2nd level"
+msgstr "Ketentuan dari level 2"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:690
+msgid "Terms from 3rd level"
+msgstr "Ketentuan mulai level 3"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:691
+msgid "Terms from 4th level"
+msgstr "Ketentuan mulai tingkat 4"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:692
+msgid "Terms from 5th level"
+msgstr "Ketentuan mulai tingkat 5"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:693
+msgid "Terms from 6th level"
+msgstr "Ketentuan dari level 6"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:694
+msgid "Terms from 7th level"
+msgstr "Ketentuan dari level 7"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:695
+msgid "Terms from 8th level"
+msgstr "Ketentuan dari level 8"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:696
+msgid "Terms from 9th level"
+msgstr "Ketentuan dari level 9"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:971
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:759
+msgid "Terms to exclude"
+msgstr "Ketentuan untuk dikecualikan"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:945
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:733
+msgid "Terms to include"
+msgstr "Ketentuan untuk dimasukkan"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1025
+msgid "Test the current configuration with this field &hellip;"
+msgstr "Uji konfigurasi saat ini dengan bidang ini &hellip;"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:587
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:535
+msgid "Text for no selection"
+msgstr "Teks tanpa pilihan"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:542
+#: lib/admin/class-woocommerce-product-search-admin.php:926
+msgid ""
+"The <strong>Search</strong> section in the <strong>Help</strong> tab above "
+"provides a brief overview."
+msgstr ""
+"Bagian <strong>Pencarian</strong> di tab <strong>Bantuan</strong> di atas "
+"memberikan ikhtisar singkat."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:390
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1051
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:389
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:477
+#: lib/views/class-woocommerce-product-search-filter-widget.php:691
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:817
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:657
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:336
+msgid "The HTML element used to contain the heading text."
+msgstr "Elemen HTML yang digunakan untuk memuat teks judul."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2446
+msgid ""
+"The WooCommerce Product Search plugin is configured to delete its data on "
+"deactivation."
+msgstr ""
+"Plugin WooCommerce Product Search dikonfigurasikan untuk menghapus datanya "
+"pada penonaktifan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:325
+msgid ""
+"The advanced Product Search Field automatically replaces the standard field "
+"when possible."
+msgstr ""
+"Bidang Pencarian Produk lanjutan secara otomatis menggantikan bidang standar "
+"jika memungkinkan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:406
+msgid ""
+"The advanced Product Search Field that can replace the standard search is "
+"also available as a widget:"
+msgstr ""
+"Bidang Pencarian Produk lanjutan yang dapat menggantikan pencarian standar "
+"juga tersedia sebagai widget:"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:329
+msgid ""
+"The advanced Product Search Field will replace the standard product search "
+"field where possible."
+msgstr ""
+"Bidang Pencarian Produk lanjutan akan menggantikan bidang pencarian produk "
+"standar jika memungkinkan."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:367
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:341
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:313
+msgid ""
+"The alternative text displayed in the heading when there are no results."
+msgstr "Teks alternatif ditampilkan dalam tajuk saat tidak ada hasil."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2208
+msgid ""
+"The assistant will propose to add unused filters and select them for you by "
+"default."
+msgstr ""
+"Asisten akan mengusulkan untuk menambahkan filter yang tidak digunakan dan "
+"memilihnya untuk Anda secara default."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:530
+msgid "The database update will run in the background and may take a while."
+msgstr ""
+"Pembaruan basis data akan berjalan di latar belakang dan mungkin membutuhkan "
+"waktu beberapa saat."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:268
+msgid ""
+"The default values provide search results with an increased relevance for "
+"products with matching Titles, Product Short Descriptions and Tags in that "
+"order."
+msgstr ""
+"Nilai default memberikan hasil pencarian dengan relevansi yang meningkat "
+"untuk produk dengan Judul yang sesuai, Deskripsi dan Tag Pendek Produk dalam "
+"urutan itu."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:430
+#: lib/views/class-woocommerce-product-search-widget.php:537
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:310
+#: lib/views/class-woocommerce-product-search-filter-widget.php:436
+#, php-format
+msgid ""
+"The delay until the search starts after the user stops typing (in "
+"milliseconds, minimum %d)."
+msgstr ""
+"Penundaan hingga pencarian dimulai setelah pengguna berhenti mengetik (dalam "
+"milidetik, minimum %d )."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:774
+msgid ""
+"The desired minimum number of characters used with the "
+"<code>[woocommerce_product_search]</code> shortcode, the <em>WooCommerce "
+"Instant Product Search</em> widget or the API functions used in templates "
+"should be synchronized for consistent results."
+msgstr ""
+"Jumlah minimum karakter yang diinginkan yang digunakan dengan "
+"<code>[woocommerce_product_search]</code> shortcode, widget <em>WooCommerce "
+"Pencarian Produk Instan</em> atau fungsi API yang digunakan dalam template "
+"harus disinkronkan untuk hasil yang konsisten."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:274
+msgid ""
+"The following procedure provides describes how you can place an instant "
+"product search field on a page."
+msgstr ""
+"Prosedur berikut menyediakan menjelaskan bagaimana Anda dapat menempatkan "
+"bidang pencarian produk instan pada halaman."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:576
+msgid ""
+"The following weights determine the relevance of matches in the product "
+"title, excerpt, content and tags."
+msgstr ""
+"Bobot berikut menentukan relevansi kecocokan dalam judul produk, kutipan, "
+"konten, dan tag."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1378
+msgid ""
+"The following weights determine the relevance of matches in the product "
+"title, excerpt, content, tags, categories, attributes and SKU."
+msgstr ""
+"Bobot berikut menentukan relevansi kecocokan dalam judul produk, kutipan, "
+"konten, tag, kategori, atribut, dan SKU."
+
+#: lib/views/class-woocommerce-product-search-thumbnail.php:286
+msgid ""
+"The image size used to display thumbnails of the main product image within "
+"search results using the <code>&#91;woocommerce_product_search&#93;</code> "
+"shortcode or the <em>Product Search Field</em> widget."
+msgstr ""
+"Ukuran gambar yang digunakan untuk menampilkan thumbnail gambar produk utama "
+"dalam hasil pencarian menggunakan <code>&#91;woocommerce_product_search&#93;"
+"</code> kode pendek atau <em>Bidang Pencarian Produk</em>."
+
+#: lib-2/views/class-woocommerce-product-search-thumbnail.php:200
+msgid ""
+"The image size used to display thumbnails of the main product image within "
+"search results using the <code>&#91;woocommerce_product_search&#93;</code> "
+"shortcode or the <em>WooCommerce Instant Product Search</em> widget."
+msgstr ""
+"Ukuran gambar yang digunakan untuk menampilkan thumbnail gambar produk utama "
+"dalam hasil pencarian menggunakan <code>&#91;woocommerce_product_search&#93;"
+"</code> kode pendek atau widget <em>Pencarian Produk Instan WooCommerce</em>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1941
+msgid "The index has been cleared and is being rebuilt."
+msgstr "Indeks telah dihapus dan sedang dibangun kembali."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1940
+msgid "The index is being rebuilt &hellip;"
+msgstr "Indeks sedang dibangun kembali &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:182
+msgid "The index is building."
+msgstr "Indeks sedang membangun."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1942
+msgid "The indexer is running once &hellip;"
+msgstr "Pengindeks berjalan sekali &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:189
+msgid "The indexer is running once."
+msgstr "Pengindeks berjalan sekali."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:168
+msgid "The indexer is running."
+msgstr "Pengindeks sedang berjalan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1936
+msgid "The indexer is starting &hellip;"
+msgstr "Pengindeks mulai &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:175
+msgid "The indexer is stopped."
+msgstr "Pengindeks dihentikan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1938
+msgid "The indexer is stopping &hellip;"
+msgstr "Pengindeks berhenti &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1807
+msgid ""
+"The indexer will check for new entries periodically every indicated number "
+"of seconds, once all entries have been indexed."
+msgstr ""
+"Pengindeks akan memeriksa entri baru secara berkala setiap jumlah detik yang "
+"ditunjukkan, setelah semua entri telah diindeks."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1853
+msgid "The indexer will process entries first as indicated."
+msgstr "Pengindeks akan memproses entri pertama seperti yang ditunjukkan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1784
+msgid ""
+"The indexer will process unindexed entries periodically every indicated "
+"number of seconds, while there are unprocessed entries."
+msgstr ""
+"Pengindeks akan memproses entri yang tidak diindeks secara berkala setiap "
+"jumlah detik yang ditunjukkan, sementara ada entri yang tidak diproses."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1830
+msgid "The indexer will try to process as many entries on each work cycle."
+msgstr ""
+"Pengindeks akan mencoba memproses sebanyak mungkin entri pada setiap siklus "
+"kerja."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:835
+msgid ""
+"The levels included in the hierarchy of terms can be unlimited, include only "
+"those at the root or include root terms up to so many levels of child terms."
+msgstr ""
+"Level-level yang termasuk dalam hierarki istilah bisa tidak terbatas, "
+"termasuk hanya yang ada di root atau termasuk istilah root hingga begitu "
+"banyak level istilah anak."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1158
+msgid "The maximum number of characters shown in short descriptions."
+msgstr "Jumlah karakter maksimum yang ditampilkan dalam deskripsi singkat."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1141
+msgid "The maximum number of characters shown in titles."
+msgstr "Jumlah maksimum karakter yang ditampilkan dalam judul."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1120
+msgid "The maximum number of words shown in short descriptions."
+msgstr "Jumlah kata maksimum yang ditampilkan dalam deskripsi singkat."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1102
+msgid "The maximum number of words shown in titles."
+msgstr "Jumlah kata maksimum yang ditampilkan dalam judul."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:778
+msgid "The minimum does not apply if Wildcard Mode is enabled."
+msgstr "Minimum tidak berlaku jika Mode Wildcard diaktifkan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:762
+#, php-format
+msgid ""
+"The minimum length of a word to be included in a Full-Text Search on your "
+"setup is %d."
+msgstr ""
+"Panjang minimum kata yang akan dimasukkan dalam Pencarian Teks Lengkap pada "
+"pengaturan Anda adalah %d ."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:442
+#: lib/views/class-woocommerce-product-search-widget.php:554
+#: lib/views/class-woocommerce-product-search-filter-widget.php:453
+msgid "The minimum number of characters required to start a search."
+msgstr "Jumlah minimum karakter yang diperlukan untuk memulai pencarian."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1014
+msgid "The number of results is capped by the limit."
+msgstr "Jumlah hasil dibatasi oleh batas."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:345
+msgid "The placeholder text for the maximum amount field."
+msgstr "Teks placeholder untuk bidang jumlah maksimum."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:330
+msgid "The placeholder text for the minimum amount field."
+msgstr "Teks placeholder untuk bidang jumlah minimum."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:481
+#: lib/views/class-woocommerce-product-search-widget.php:606
+#: lib/views/class-woocommerce-product-search-filter-widget.php:468
+msgid "The placeholder text for the search field."
+msgstr "Teks placeholder untuk bidang pencarian."
+
+#: lib/admin/class-woocommerce-product-search-admin-reports.php:62
+msgid ""
+"The recording of live search data is currently deactivated and the search "
+"statistics presented here are not updated."
+msgstr ""
+"Rekaman data pencarian langsung saat ini dinonaktifkan dan statistik "
+"pencarian yang disajikan di sini tidak diperbarui."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:269
+msgid ""
+"The relevance of a product in search results is based on matches in its "
+"Title, the Product Short Description (Excerpt), its Content and related "
+"Tags. Its relevance increases with the search weight of the categories that "
+"the product belongs to and its specific search weight."
+msgstr ""
+"Relevansi suatu produk dalam hasil pencarian didasarkan pada kecocokan dalam "
+"Judulnya, Deskripsi Singkat Produk (Kutipan), Kontennya dan Tag terkait. "
+"Relevansinya meningkat dengan bobot pencarian dari kategori yang dimiliki "
+"produk dan bobot pencarian spesifiknya."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1088
+msgid ""
+"The results shown with the Product Search Field can have their titles and "
+"descriptions automatically shortened."
+msgstr ""
+"Hasil yang diperlihatkan dengan Bidang Pencarian Produk dapat memperpendek "
+"judul dan uraiannya."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:415
+msgid ""
+"The same features are also available through shortcodes and API functions."
+msgstr "Fitur yang sama juga tersedia melalui kode pendek dan fungsi API."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:313
+msgid ""
+"The search engine is already indexing your products to optimize search "
+"results for your visitors."
+msgstr ""
+"Mesin pencari sudah mengindeks produk Anda untuk mengoptimalkan hasil "
+"pencarian untuk pengunjung Anda."
+
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:102
+#: lib/admin/class-woocommerce-product-search-admin-product.php:176
+msgid ""
+"The search weight of this product represents its relevance in product search "
+"results. Products with higher search weights appear first in search results."
+msgstr ""
+"Berat pencarian produk ini mewakili relevansinya dalam hasil pencarian "
+"produk. Produk dengan bobot pencarian lebih tinggi muncul pertama kali dalam "
+"hasil pencarian."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:943
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:731
+msgid "The selection indicated here takes precedence over terms to exclude."
+msgstr ""
+"Pilihan yang ditunjukkan di sini diutamakan daripada persyaratan untuk "
+"dikecualikan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1516
+msgid ""
+"The size defined here applies to the product thumbnails shown in the results "
+"of the Product Search Field."
+msgstr ""
+"Ukuran yang ditentukan di sini berlaku untuk thumbnail produk yang "
+"ditunjukkan dalam hasil Bidang Pencarian Produk."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1568
+msgid ""
+"The sizes defined in this section determine the appearance of thumbnails "
+"used for product category, product tag and product attribute filters."
+msgstr ""
+"Ukuran yang ditentukan di bagian ini menentukan tampilan thumbnail yang "
+"digunakan untuk kategori produk, tag produk dan filter atribut produk."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:240
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:349
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:239
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:244
+#: lib/views/class-woocommerce-product-search-filter-widget.php:627
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:323
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:295
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:230
+msgid "The text displayed in the heading."
+msgstr "Teks ditampilkan di tajuk."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:585
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:533
+msgid "The text displayed when no particular entry is selected."
+msgstr "Teks ditampilkan ketika tidak ada entri tertentu yang dipilih."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:506
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:303
+#: lib/views/class-woocommerce-product-search-widget.php:651
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:405
+#: lib/views/class-woocommerce-product-search-filter-widget.php:513
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:264
+msgid "The text shown on the submit button."
+msgstr "Teks ditampilkan pada tombol kirim."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:546
+#: lib/views/class-woocommerce-product-search-widget.php:696
+msgid "The text shown when no search results are obtained."
+msgstr "Teks ditampilkan ketika tidak ada hasil pencarian yang diperoleh."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:580
+#: lib/admin/class-woocommerce-product-search-admin.php:1382
+msgid ""
+"The weight of products and product categories can be modified individually, "
+"the computed sum of weights determines the relevance of a product in search "
+"results."
+msgstr ""
+"Berat produk dan kategori produk dapat dimodifikasi secara individual, "
+"jumlah bobot yang dihitung menentukan relevansi suatu produk dalam hasil "
+"pencarian."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:231
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:211
+#: lib/views/class-woocommerce-product-search-widget.php:240
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:313
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:210
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:215
+#: lib/views/class-woocommerce-product-search-filter-widget.php:251
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:266
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:259
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:201
+msgid "The widget title."
+msgstr "Judul widget."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2112
+msgid "The widgets will only display on relevant shop pages by default."
+msgstr ""
+"Widget hanya akan ditampilkan pada halaman toko yang relevan secara default."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:464
+msgid "The wps_ft_content index is missing."
+msgstr "Indeks wps_ft_content tidak ada."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:466
+msgid "The wps_ft_content index is present."
+msgstr "Indeks wps_ft_content hadir."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:458
+msgid "The wps_ft_excerpt index is missing."
+msgstr "Indeks wps_ft_excerpt tidak ada."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:460
+msgid "The wps_ft_excerpt index is present."
+msgstr "Indeks wps_ft_excerpt hadir."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:470
+msgid "The wps_ft_name index is missing."
+msgstr "Indeks wps_ft_name tidak ada."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:472
+msgid "The wps_ft_name index is present."
+msgstr "Indeks wps_ft_name hadir."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:452
+msgid "The wps_ft_title index is missing."
+msgstr "Indeks wps_ft_title tidak ada."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:454
+msgid "The wps_ft_title index is present."
+msgstr "Indeks wps_ft_title hadir."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:69
+msgid "There are no queries to show."
+msgstr "Tidak ada permintaan untuk ditampilkan."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:388
+msgid ""
+"There are plenty of useful features and we highly recommend to have a look "
+"at the documentation for details."
+msgstr ""
+"Ada banyak fitur yang berguna dan kami sangat merekomendasikan untuk melihat "
+"dokumentasi untuk detailnya."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1023
+msgid "These are used to look up products in fields."
+msgstr "Ini digunakan untuk mencari produk di bidang."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:377
+msgid ""
+"These live filters update the products shown in your shop instantly, to "
+"include those that are related."
+msgstr ""
+"Filter langsung ini memperbarui produk yang ditampilkan di toko Anda secara "
+"instan, untuk memasukkan yang terkait."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:640
+#: lib-2/admin/class-woocommerce-product-search-admin.php:702
+msgid ""
+"These settings are related to the <code>[woocommerce_product_search]</code> "
+"shortcode, the <em>WooCommerce Instant Product Search</em> widget and the "
+"<em>WooCommerce Product Search</em> extension's API functions."
+msgstr ""
+"Pengaturan ini terkait dengan <code>[woocommerce_product_search]</code> "
+"shortcode, widget <em>Pencarian Produk Instan WooCommerce</em> dan "
+"<em>WooCommerce Product Search</em> fungsi API ekstensi."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1632
+msgid ""
+"These settings are related to the Product Search Field and Product Filters."
+msgstr ""
+"Pengaturan ini terkait dengan Bidang Pencarian Produk dan Filter Produk."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1346
+msgid "This action cannot be reversed."
+msgstr "Tindakan ini tidak dapat dibalik."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2089
+msgid "This assistant helps you to add suitable live filters to your store."
+msgstr ""
+"Asisten ini membantu Anda menambahkan filter langsung yang sesuai ke toko "
+"Anda."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2110
+msgid "This assistant suggests all that are not already present in a sidebar."
+msgstr "Asisten ini menyarankan semua yang belum ada di sidebar."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:678
+msgid ""
+"This determines from which level of nesting the terms are expandable or up "
+"to which level they are always already expanded, showing child terms."
+msgstr ""
+"Ini menentukan dari level mana dari nesting syarat dapat diperluas atau "
+"sampai tingkat mana mereka selalu diperluas, menunjukkan syarat anak."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1205
+msgid ""
+"This determines the minimum length of a search term for similar matches to "
+"be retrieved."
+msgstr ""
+"Ini menentukan panjang minimum dari suatu istilah pencarian untuk kecocokan "
+"serupa yang akan diambil."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1352
+msgid ""
+"This includes the removal of all search settings, search weights for "
+"products and terms and the associations of search thumbnail images with "
+"product categories, tags and attributes."
+msgstr ""
+"Ini termasuk penghapusan semua pengaturan pencarian, bobot pencarian untuk "
+"produk dan istilah dan asosiasi gambar thumbnail pencarian dengan kategori "
+"produk, tag dan atribut."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:92
+msgid "This month"
+msgstr "Bulan ini"
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:383
+msgid ""
+"This option determines whether the size of entries is adjusted automatically "
+"or a uniform size is used."
+msgstr ""
+"Opsi ini menentukan apakah ukuran entri disesuaikan secara otomatis atau "
+"ukuran seragam digunakan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:977
+msgid "This option is only effective when Full-Text Search is enabled."
+msgstr "Opsi ini hanya efektif ketika Pencarian Teks Lengkap diaktifkan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1343
+msgid ""
+"This option will delete ALL search settings and data when the WooCommerce "
+"Product Search extension is deactivated."
+msgstr ""
+"Opsi ini akan menghapus SEMUA pengaturan dan data pencarian ketika ekstensi "
+"WooCommerce Product Search dinonaktifkan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1060
+msgid ""
+"This provides the same functionality and options as the Product Search Field "
+"widget."
+msgstr ""
+"Ini memberikan fungsionalitas dan opsi yang sama dengan widget Bidang "
+"Pencarian Produk."
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:407
+msgid ""
+"This setting determines the relation between the size of thumbnails and the "
+"size of their terms."
+msgstr ""
+"Pengaturan ini menentukan hubungan antara ukuran thumbnail dan ukuran "
+"istilah mereka."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:900
+msgid "This will process removals immediately."
+msgstr "Ini akan segera memproses pemindahan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:845
+msgid "This will start the update process immediately."
+msgstr "Ini akan segera memulai proses pembaruan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1214
+msgid "Threshold"
+msgstr "Ambang"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:234
+msgid "Thumbnail"
+msgstr "Gambar kecil"
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:409
+msgid "Thumbnail sizing factor"
+msgstr "Faktor ukuran thumbnail"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:521
+#: lib-2/admin/class-woocommerce-product-search-admin.php:636
+#: lib/admin/class-woocommerce-product-search-admin.php:892
+#: lib/admin/class-woocommerce-product-search-admin.php:1508
+msgid "Thumbnails"
+msgstr "Gambar kecil"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:588
+#: lib-2/views/class-woocommerce-product-search-widget.php:232
+#: lib-2/views/class-woocommerce-product-search-widget.php:321
+#: lib/admin/class-woocommerce-product-search-admin.php:1390
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:212
+#: lib/views/class-woocommerce-product-search-widget.php:241
+#: lib/views/class-woocommerce-product-search-widget.php:375
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:315
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:211
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:216
+#: lib/views/class-woocommerce-product-search-filter-widget.php:252
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:267
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:261
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:202
+msgid "Title"
+msgstr "Judul"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:270
+msgid ""
+"To adjust the relevance of a product category, go to <strong>Products > "
+"Categories</strong>. Edit the desired category and indicate a <em>Search "
+"Weight</em> - the relevance of all products that belong to the category can "
+"be increased by indicating a positive value. If a product belongs to several "
+"categories, the maximum <em>Search Weight</em> is used."
+msgstr ""
+"Untuk menyesuaikan relevansi kategori produk, buka <strong> Produk> Kategori "
+"</strong>. Edit kategori yang diinginkan dan tunjukkan <em> Berat Pencarian "
+"</em> - relevansi semua produk yang termasuk dalam kategori dapat "
+"ditingkatkan dengan menunjukkan nilai positif. Jika suatu produk termasuk "
+"dalam beberapa kategori, <em>Berat Pencarian</em> maksimum digunakan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:271
+msgid ""
+"To adjust the relevance of a single product, go to <strong>Products</"
+"strong>. Edit the desired product and under <strong>Product Data > Search</"
+"strong> indicate the desired <em>Search Weight</em>."
+msgstr ""
+"Untuk menyesuaikan relevansi satu produk, buka <strong>Produk</strong>. Edit "
+"produk yang diinginkan dan di bawah <strong>Data Produk > Pencarian</strong> "
+"menunjukkan <em>Berat Pencarian</em> yang diinginkan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:810
+msgid ""
+"To enable Full-Text Search, the database needs to be updated and indexes "
+"created."
+msgstr ""
+"Untuk mengaktifkan Pencarian Teks Lengkap, basis data perlu diperbarui dan "
+"indeks dibuat."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:287
+msgid ""
+"To fine-tune the widget, click the widget after placing it in one of your "
+"sidebars and review the available options. Please refer to the documentation "
+"for details on the advanced options."
+msgstr ""
+"Untuk menyempurnakan widget, klik widget setelah menempatkannya di salah "
+"satu sidebar Anda dan tinjau opsi yang tersedia. Silakan merujuk ke "
+"dokumentasi untuk perincian tentang opsi lanjutan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2106
+msgid ""
+"To get started quickly, simply choose the sidebar that seems most suitable."
+msgstr ""
+"Untuk memulai dengan cepat, cukup pilih bilah sisi yang tampaknya paling "
+"cocok."
+
+#: lib/admin/class-woocommerce-product-search-admin-reports.php:66
+#, php-format
+msgid ""
+"To record and view live search stats here, please activate this in the <a "
+"href=\"%s\">General</a> settings."
+msgstr ""
+"Untuk merekam dan melihat statistik pencarian langsung di sini, harap "
+"aktifkan ini di pengaturan <a href=\"%s\">Umum</a>."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:281
+msgid ""
+"To refine the settings used, please refer to the advanced configuration "
+"options and the shortcode attributes described in the documentation."
+msgstr ""
+"Untuk memperbaiki pengaturan yang digunakan, silakan merujuk ke opsi "
+"konfigurasi lanjutan dan atribut kode pendek yang dijelaskan dalam "
+"dokumentasi."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:280
+msgid ""
+"To test the field, at least one product must be published in your store. "
+"Start typing a search keyword, search results will show up below the field "
+"after you stop typing for an instant."
+msgstr ""
+"Untuk menguji bidang ini, setidaknya satu produk harus dipublikasikan di "
+"toko Anda. Mulai mengetik kata kunci pencarian, hasil pencarian akan muncul "
+"di bawah bidang setelah Anda berhenti mengetik sesaat."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:284
+msgid ""
+"To use the widget, go to <strong>Appearance > Widgets</strong> and locate "
+"the <em>WooCommerce Instant Product Search</em> in the <em>Available "
+"Widgets</em> section."
+msgstr ""
+"Untuk menggunakan widget, buka <strong>Tampilan > Widget</strong> dan cari "
+"<em>Pencarian Produk Instan WooCommerce</em> di bagian <em>Widget Tersedia</"
+"em>."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:650
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:598
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:495
+msgid "Toggle the component"
+msgstr "Alihkan komponen"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:665
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:613
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:510
+msgid "Toggle the widget"
+msgstr "Matikan widget"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:187
+msgid "Top queries with results"
+msgstr "Kueri teratas dengan hasil"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:215
+msgid "Top queries without results"
+msgstr "Kueri teratas tanpa hasil"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1718
+msgid "Total"
+msgstr "Total"
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:393
+msgid "Uniform"
+msgstr "Seragam"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:634
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:844
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:582
+msgid "Unlimited"
+msgstr "Tak terbatas"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:855
+msgid "Up to 10th level children"
+msgstr "Hingga anak tingkat 10"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:856
+msgid "Up to 25th level children"
+msgstr "Hingga anak tingkat 25"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:847
+msgid "Up to 2nd level children"
+msgstr "Hingga anak-anak tingkat 2"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:848
+msgid "Up to 3rd level children"
+msgstr "Hingga anak-anak tingkat 3"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:849
+msgid "Up to 4th level children"
+msgstr "Hingga anak-anak tingkat 4"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:850
+msgid "Up to 5th level children"
+msgstr "Hingga anak-anak tingkat 5"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:851
+msgid "Up to 6th level children"
+msgstr "Hingga anak-anak tingkat 6"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:852
+msgid "Up to 7th level children"
+msgstr "Hingga anak-anak tingkat 7"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:853
+msgid "Up to 8th level children"
+msgstr "Hingga anak-anak tingkat 8"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:854
+msgid "Up to 9th level children"
+msgstr "Hingga anak tingkat 9"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:540
+msgid "Update"
+msgstr "Memperbarui"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:536
+msgid "Update the Address Bar"
+msgstr "Perbarui Bilah Alamat"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:551
+msgid "Update the Document Title"
+msgstr "Perbarui Judul Dokumen"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:528
+msgid "Update the address bar of the browser based on the active filters."
+msgstr "Perbarui bilah alamat browser berdasarkan filter aktif."
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:543
+msgid "Update the document title for the browser based on the active filters."
+msgstr "Perbarui judul dokumen untuk browser berdasarkan filter aktif."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1286
+msgid "Use accurate optimization"
+msgstr "Gunakan optimasi yang akurat"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1090
+msgid ""
+"Use any number higher than 0 to limit the number of words or characters "
+"shown."
+msgstr ""
+"Gunakan angka apa pun yang lebih tinggi dari 0 untuk membatasi jumlah kata "
+"atau karakter yang ditampilkan."
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:167
+msgid "Use image"
+msgstr "Gunakan gambar"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:726
+#: lib/admin/class-woocommerce-product-search-admin.php:1654
+msgid "Use inline styles"
+msgstr "Gunakan gaya sebaris"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1179
+msgid "Use product short descriptions"
+msgstr "Gunakan deskripsi singkat produk"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:326
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:325
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:428
+#: lib/views/class-woocommerce-product-search-filter-widget.php:566
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:287
+msgid "Use the Shop URL"
+msgstr "Gunakan URL Toko"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:713
+#: lib/admin/class-woocommerce-product-search-admin.php:1641
+msgid "Use the standard stylesheet"
+msgstr "Gunakan lembar gaya standar"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:566
+#: lib/admin/class-woocommerce-product-search-admin.php:1368
+msgid "Use weights"
+msgstr "Gunakan bobot"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:963
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:751
+msgid "Used to exclude particular terms."
+msgstr "Digunakan untuk mengecualikan istilah tertentu."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:989
+msgid "Used to show children of the indicated term only."
+msgstr ""
+"Digunakan untuk menunjukkan kepada anak-anak dari istilah yang ditunjukkan "
+"saja."
+
+#: lib/views/class-woocommerce-product-search-widget.php:530
+#: lib/views/class-woocommerce-product-search-filter-widget.php:429
+msgid "User Interface"
+msgstr "Antarmuka pengguna"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:286
+msgid ""
+"Visit a page on your site where the sidebar appears and type in a keyword "
+"related to one or more of your products."
+msgstr ""
+"Kunjungi halaman di situs Anda di mana sidebar muncul dan ketikkan kata "
+"kunci yang terkait dengan satu atau lebih produk Anda."
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:579
+#: lib/views/class-woocommerce-product-search-widget.php:738
+#: lib/views/class-woocommerce-product-search-filter-widget.php:599
+msgid "WMPL Language Filter"
+msgstr "Filter Bahasa WMPL"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:587
+msgid "WPML"
+msgstr "WPML"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2442
+msgid "Warning!"
+msgstr "Peringatan!"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:267
+#: lib/admin/class-woocommerce-product-search-admin.php:267
+msgid "We also welcome your suggestions through this channel."
+msgstr "Kami juga menyambut saran Anda melalui saluran ini."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:534
+msgid "We recommend to run the update during low traffic hours."
+msgstr ""
+"Kami menyarankan untuk menjalankan pembaruan selama jam lalu lintas rendah."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2093
+msgid ""
+"We recommend to use a live search filter, one category filter, one for "
+"prices and one for each product attribute that is used to offer product "
+"variations."
+msgstr ""
+"Kami menyarankan untuk menggunakan filter pencarian langsung, satu filter "
+"kategori, satu untuk harga dan satu untuk setiap atribut produk yang "
+"digunakan untuk menawarkan variasi produk."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:392
+#, php-format
+msgid ""
+"We're always here for you if you need help or have suggestions, just <a href="
+"\"%s\">ask</a>."
+msgstr ""
+"Kami selalu di sini untuk Anda jika Anda memerlukan bantuan atau memiliki "
+"saran, cukup <a href=\"%s\">tanyakan</a>."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:515
+#: lib/admin/class-woocommerce-product-search-admin.php:886
+msgid "Weights"
+msgstr "Bobot"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:257
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:366
+#: lib/admin/class-woocommerce-product-search-admin.php:355
+msgid "Weights can also be set for specific products and product categories."
+msgstr "Bobot juga dapat ditetapkan untuk produk dan kategori produk tertentu."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2395
+msgid "Welcome"
+msgstr "Selamat datang"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:227
+msgid "Welcome to WooCommerce Product Search"
+msgstr "Selamat datang di WooCommerce Product Search"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1209
+msgid ""
+"When set to 0, no minimum length is required for similar matches to be "
+"retrieved."
+msgstr ""
+"Ketika diatur ke 0, tidak ada panjang minimum yang diperlukan untuk "
+"pencocokan yang sama untuk diambil."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1092
+msgid "Where 0 is indicated, no limit applies."
+msgstr "Di mana 0 ditunjukkan, tidak ada batasan yang berlaku."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:772
+msgid ""
+"Whether to display the additional parent items based on the current context "
+"– this is displayed outside of the term hierarchy."
+msgstr ""
+"Apakah akan menampilkan item induk tambahan berdasarkan konteks saat ini - "
+"ini ditampilkan di luar hierarki istilah."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:757
+msgid ""
+"Whether to include the full ancestor hierarchy based on the current context "
+"or only parents within context."
+msgstr ""
+"Apakah akan memasukkan hierarki leluhur penuh berdasarkan konteks saat ini "
+"atau hanya orang tua dalam konteks."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:740
+msgid "Whether to show expanders and retractors."
+msgstr "Apakah akan menampilkan ekspander dan retraktor."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:653
+#: lib/admin/class-woocommerce-product-search-admin.php:1526
+#: lib/admin/class-woocommerce-product-search-admin.php:1589
+msgid "Width"
+msgstr "Lebar"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:648
+#: lib/admin/class-woocommerce-product-search-admin.php:1520
+msgid ""
+"Width and height in pixels used for thumbnails displayed in product search "
+"results."
+msgstr ""
+"Lebar dan tinggi piksel digunakan untuk gambar mini yang ditampilkan dalam "
+"hasil pencarian produk."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:969
+msgid "Wildcard Mode"
+msgstr "Mode wildcard"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:440
+msgid "With"
+msgstr "Dengan"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:913
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:701
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:593
+msgid ""
+"With 'Set', where a single term restricts the selection to itself or its "
+"children, related terms are not included."
+msgstr ""
+"Dengan 'Set', di mana satu istilah membatasi pilihan untuk dirinya sendiri "
+"atau anak-anaknya, istilah terkait tidak termasuk."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:973
+msgid ""
+"With Wildcard Mode enabled, words match if they begin with a search term."
+msgstr ""
+"Dengan Mode Wildcard diaktifkan, kata-kata cocok jika mereka mulai dengan "
+"istilah pencarian."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:448
+msgid "Without"
+msgstr "Tanpa"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:57
+msgid "WooCommerce Instant Product Search"
+msgstr "Pencarian Produk Instan WooCommerce"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; The live product category filter for your "
+"shop. It instantly updates the products displayed, according to the chosen "
+"categories."
+msgstr ""
+"WooCommerce Product Search &mdash; Filter kategori produk langsung untuk "
+"toko Anda. Ini secara instan memperbarui produk yang ditampilkan, sesuai "
+"dengan kategori yang dipilih."
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; The live product search filter for your "
+"shop. It updates the products displayed instantly, to show those that match "
+"the indicated search terms."
+msgstr ""
+"WooCommerce Product Search &mdash; Filter pencarian produk langsung untuk "
+"toko Anda. Ini memperbarui produk yang ditampilkan secara instan, untuk "
+"menunjukkan orang-orang yang cocok dengan istilah pencarian yang ditunjukkan."
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; The universal product attribute filter "
+"for your shop. Used with any product attribute, it instantly displays the "
+"products related to the chosen terms."
+msgstr ""
+"WooCommerce Product Search &mdash; Filter atribut produk universal untuk "
+"toko Anda. Digunakan dengan atribut produk apa pun, itu langsung menampilkan "
+"produk yang terkait dengan istilah yang dipilih."
+
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This conveniently clears all live filters "
+"in one go. It updates the products displayed instantly."
+msgstr ""
+"WooCommerce Product Search &mdash; Ini dengan mudah menghapus semua filter "
+"langsung dalam sekali jalan. Ini memperbarui produk yang ditampilkan secara "
+"instan."
+
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This is the live filter for products "
+"based on average ratings in your shop. It updates the products displayed "
+"instantly, showing products with an average rating as chosen or higher."
+msgstr ""
+"Pencarian Produk WooCommerce &mdash; Ini adalah filter langsung untuk produk "
+"berdasarkan peringkat rata-rata di toko Anda. Ini memperbarui produk yang "
+"ditampilkan secara instan, menunjukkan produk dengan peringkat rata-rata "
+"sebagai yang dipilih atau lebih tinggi."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This is the live filter for products on "
+"sale in your shop. It updates the products displayed instantly, showing "
+"products on sale when the option is chosen."
+msgstr ""
+"WooCommerce Product Search &mdash; Ini adalah filter langsung untuk produk "
+"yang dijual di toko Anda. Ini memperbarui produk yang ditampilkan secara "
+"instan, menunjukkan produk yang dijual ketika opsi tersebut dipilih."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This is the live price filter for your "
+"shop. It updates the products displayed instantly, according to the desired "
+"price range."
+msgstr ""
+"WooCommerce Product Search &mdash; Ini adalah filter harga langsung untuk "
+"toko Anda. Ini memperbarui produk yang ditampilkan secara instan, sesuai "
+"dengan kisaran harga yang diinginkan."
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This is the live product tag filter for "
+"your shop. It updates the products shown instantly, to include those that "
+"are related to the selected tags."
+msgstr ""
+"WooCommerce Product Search &mdash; Ini adalah filter tag produk langsung "
+"untuk toko Anda. Ini memperbarui produk yang ditampilkan secara instan, "
+"untuk memasukkan orang-orang yang terkait dengan tag yang dipilih."
+
+#: lib/views/class-woocommerce-product-search-widget.php:75
+msgid ""
+"WooCommerce Product Search &mdash; Your shop's instant product search field, "
+"it provides live results while you type."
+msgstr ""
+"WooCommerce Product Search &mdash; Bidang pencarian produk instan toko Anda, "
+"itu memberikan hasil langsung saat Anda mengetik."
+
+#: lib-2/core/class-woocommerce-product-search-service.php:498
+#: lib/core/class-woocommerce-product-search-service.php:2519
+#: lib/core/class-woocommerce-product-search-service-v2.php:2009
+#, php-format
+msgid ""
+"WooCommerce Product Search - %1$s - Main Query Time: %2$fs - Search Terms: "
+"%3$s"
+msgstr ""
+"WooCommerce Product Search - %1$s - Waktu Permintaan Utama: %2$f s - "
+"Ketentuan Pencarian: %3$s"
+
+#: lib/core/class-woocommerce-product-search.php:392
+#, php-format
+msgid ""
+"WooCommerce Product Search - Buffer %sK / %sK %s%% - Processing %ss / %ss %s"
+"%%"
+msgstr ""
+"WooCommerce Product Search - Buffer %s K / %s K %s %% - Memproses %s s / %s "
+"s %s %%"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:527
+msgid "WooCommerce Product Search requires a Database Update &hellip;"
+msgstr "WooCommerce Product Search membutuhkan Pembaruan Database &hellip;"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute.php:192
+#, php-format
+msgid ""
+"WooCommerce Product Search: Invalid taxonomy/attribute specified for "
+"attribute filter: %1$s / %2$s"
+msgstr ""
+"WooCommerce Product Search: Taksonomi / atribut yang tidak ditentukan untuk "
+"filter atribut: %1$s / %2$s"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1122
+msgid "Words in Descriptions"
+msgstr "Kata-kata dalam Deskripsi"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1104
+msgid "Words in Titles"
+msgstr "Kata dalam Judul"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1786
+msgid "Work Cycle"
+msgstr "Siklus Kerja"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:90
+msgid "Year"
+msgstr "Tahun"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2099
+#, php-format
+msgid ""
+"You can add all of them now or just some, you can always come back here or "
+"simply add them in the <a href=\"%s\">Widgets</a> section yourself."
+msgstr ""
+"Anda dapat menambahkan semuanya sekarang atau hanya beberapa, Anda selalu "
+"dapat kembali ke sini atau cukup menambahkannya di bagian <a href=\"%s"
+"\">Widget</a>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:329
+#, php-format
+msgid "You can adjust its settings in the <a href=\"%s\">General</a> section."
+msgstr ""
+"Anda dapat menyesuaikan pengaturannya di bagian <a href=\"%s\">Umum</a>."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:333
+#, php-format
+msgid ""
+"You can adjust these settings in the <a href=\"%s\">General</a> section."
+msgstr ""
+"Anda dapat menyesuaikan pengaturan ini di bagian <a href=\"%s\">Umum</a>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2116
+#, php-format
+msgid ""
+"You can customize and <a href=\"%s\">control</a> them further as you will "
+"find them in the <a href=\"%s\">Widgets</a> section."
+msgstr ""
+"Anda dapat menyesuaikan dan <a href=\"%s\">mengontrol</a> mereka lebih "
+"lanjut karena Anda akan menemukannya di bagian <a href=\"%s\">Widget</a>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:371
+#, php-format
+msgid ""
+"You can use the <a href=\"%s\">Assistant</a> to add filter widgets to your "
+"sidebars."
+msgstr ""
+"Anda dapat menggunakan <a href=\"%s\">Asisten</a> untuk menambahkan widget "
+"filter ke sidebar Anda."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:946
+#, php-format
+msgid ""
+"You do not have the required privileges to run the required database update. "
+"The <code>%s</code> capability is required."
+msgstr ""
+"Anda tidak memiliki hak yang diperlukan untuk menjalankan pembaruan basis "
+"data yang diperlukan. Kemampuan <code>%s</code> diperlukan."
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:990
+#, php-format
+msgid ""
+"Your current setup does not support InnoDB Full-Text Search. MySQL version "
+"%s or later is required. See <a href=\"http://dev.mysql.com/doc/refman/5.6/"
+"en/fulltext-restrictions.html\">Full-Text Restrictions</a> for details."
+msgstr ""
+"Pengaturan Anda saat ini tidak mendukung Pencarian Teks Lengkap InnoDB. "
+"Diperlukan versi MySQL %s atau lebih baru. Lihat <a href=\"http://dev.mysql."
+"com/doc/refman/5.6/en/fulltext-restrictions.html\">Batasan Teks Lengkap</a> "
+"untuk detail."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:306
+msgid ""
+"Your customers will love your store for this &mdash; it helps them to find "
+"the right products quickly."
+msgstr ""
+"Pelanggan Anda akan menyukai toko Anda untuk ini &mdash; ini membantu mereka "
+"menemukan produk yang tepat dengan cepat."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:485
+msgid ""
+"Your rating helps us to provide you with an excellent product and commit to "
+"continuous improvement."
+msgstr ""
+"Peringkat Anda membantu kami menyediakan produk unggulan bagi Anda dan "
+"berkomitmen untuk terus melakukan perbaikan."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1226
+msgid "always produce any similar matches"
+msgstr "selalu menghasilkan kecocokan serupa"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1229
+#, php-format
+msgid "at least %d for similar terms"
+msgstr "setidaknya %d untuk istilah yang serupa"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1239
+msgid "characters"
+msgstr "karakter"
+
+#: lib-2/views/class-woocommerce-product-search-thumbnail.php:245
+#: lib/views/class-woocommerce-product-search-thumbnail.php:331
+msgid "cropped"
+msgstr "dipotong"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1844
+msgid "entries"
+msgstr "entri"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1008
+msgid "inherit"
+msgstr "mewarisi"
+
+#: lib/core/class-woocommerce-product-search-service.php:3753
+#: lib/core/class-woocommerce-product-search-service-v2.php:3166
+msgid "more &hellip;"
+msgstr "lebih banyak &hellip;"
+
+#: lib-2/views/class-woocommerce-product-search-widget.php:435
+#: lib/views/class-woocommerce-product-search-widget.php:547
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:323
+#: lib/views/class-woocommerce-product-search-filter-widget.php:446
+msgid "ms"
+msgstr "nona"
+
+#: lib-2/admin/class-woocommerce-product-search-admin.php:657
+#: lib-2/admin/class-woocommerce-product-search-admin.php:667
+#: lib/admin/class-woocommerce-product-search-admin.php:1530
+#: lib/admin/class-woocommerce-product-search-admin.php:1540
+#: lib/admin/class-woocommerce-product-search-admin.php:1593
+#: lib/admin/class-woocommerce-product-search-admin.php:1603
+msgid "px"
+msgstr "px"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1798
+#: lib/admin/class-woocommerce-product-search-admin.php:1821
+msgid "seconds"
+msgstr "detik"
+
+#: lib-2/views/class-woocommerce-product-search-thumbnail.php:245
+#: lib/views/class-woocommerce-product-search-thumbnail.php:331
+msgid "uncropped"
+msgstr "tidak dipotong"
+
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:103
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:179
+#: lib-2/admin/class-woocommerce-product-search-admin-product.php:198
+#: lib/admin/class-woocommerce-product-search-admin-product.php:178
+#: lib/admin/class-woocommerce-product-search-admin-product.php:254
+#: lib/admin/class-woocommerce-product-search-admin-product.php:273
+msgid "unspecified"
+msgstr "tidak ditentukan"

@@ -1,10 +1,37 @@
 *** SkyVerge WooCommerce Plugin Framework Changelog ***
 
+2020.12.03 - version 5.10.2
+ * Misc - Update deprecated jQuery usages
+
+2020.11.24 - version 5.10.1
+ * Fix - Prevent a deprecated notice for SV_WC_Payment_Gateway_Hosted::do_invalid_transaction_response() in PHP 8
+ * Fix - Prevent PHP Notices and fatal errors on wizard steps
+
+2020.11.06 - version 5.10.0
+ * Feature - Add Google Pay support
+ * Tweak - Improve multiple gateway settings inheritance to allow for more than two gateways
+ * Tweak - Add admin notices for tax configurations that are incompatible with Apple Pay
+ * Fix - Ensure blank settings inputs aren't added when a base abstract gateway defines shared settings that a child gateway doesn't support
+
+2020.10.09 - version 5.9.0
+ * Feature - Add helper method to detect whether the current request is a REST API request
+ * Fix - Fix a Capture Charge button issue when adding items to an order
+ * Fix - Harden code to avoid a potential PHP warning at checkout if no card logos are configured for a gateway
+ * Fix - Update Pre-Orders and Subscriptions integrations to use 2 digits expiration years
+
+2020.07.31 - version 5.8.1
+ * Fix - Ensure that some payment gateway scripts used for handling tokens reference the current version of the Framework
+
+2020.07.29 - version 5.8.0
+ * Tweak - Migrate payment tokens to be compatible with WooCommerce core payment tokens
+ * Fix - Unblock the UI when removing a token from the admin token editor that was just added but not saved yet
+ * Dev - Deprecate some filter hooks in the payment methods table
+
 2020.05.15 - version 5.7.1
  * Fix - Prevent JavaScript error triggered when different versions of the framework are used at the same time
  * Fix - Fix URL for the Configure link in the admin notes shown for payment gateways that are not configured
 
-2020.nn.nn - version 5.7.0
+2020.05.07 - version 5.7.0
  * Feature - Add a Settings API for easily registering plugin settings for display and REST API handling
  * Feature - Introduce a base script handler for enqueueing and loading JavaScript objects
  * Tweak - Ensure payment gateway scripts can be used when certain script optimization plugins are delaying load

@@ -6,7 +6,7 @@ Description: Slider Revolution - Premium responsive slider
 Author: ThemePunch
 Text Domain: revslider
 Domain Path: /languages
-Version: 6.3.3
+Version: 6.3.4
 Author URI: https://themepunch.com/
 */
 
@@ -20,8 +20,7 @@ update_option( 'revslider-valid', 'true' );
 update_option( 'revslider-code', 'active' );
 update_option( 'revslider-temp-active-notice', 'false' );
 update_option('revslider-code', '073e077f-b600-41e4-8b74-767431910d31');
-
-define('RS_REVISION',			'6.3.3');
+define('RS_REVISION',			'6.3.4');
 define('RS_PLUGIN_PATH',		plugin_dir_path(__FILE__));
 define('RS_PLUGIN_SLUG_PATH',	plugin_basename(__FILE__));
 define('RS_PLUGIN_FILE_PATH',	__FILE__);
@@ -29,10 +28,7 @@ define('RS_PLUGIN_SLUG',		apply_filters('set_revslider_slug', 'revslider'));
 define('RS_PLUGIN_URL',			get_rs_plugin_url());
 define('RS_PLUGIN_URL_CLEAN',	str_replace(array('http://', 'https://'), '//', RS_PLUGIN_URL));
 define('RS_DEMO',				false);
-define('RS_TP_TOOLS',			'6.3.3'); //holds the version of the tp-tools script, load only the latest!
-
-
-
+define('RS_TP_TOOLS',			'6.3.4'); //holds the version of the tp-tools script, load only the latest!
 
 $revslider_fonts = array('queue' => array(), 'loaded' => array());
 $revslider_is_preview_mode = false;

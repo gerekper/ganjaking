@@ -100,7 +100,16 @@ function gf_get_field_action(formId, conditionalLogic){
 
 	var matches = 0;
 	for(var i = 0; i < conditionalLogic["rules"].length; i++){
-		var rule = conditionalLogic["rules"][i];
+		/**
+		 * Filter the conditional logic rule before it is evaluated on the frontend.
+		 *
+		 * @param {object}          rule             The conditional logic rule about to be evaluated.
+		 * @param {(string|number)} formId           The current form ID.
+		 * @param {object}          conditionalLogic All details required to evaluate an objects conditional logic.
+		 *
+		 * @since 2.4.22
+		 */
+		var rule = gform.applyFilters( 'gform_rule_pre_evaluation', jQuery.extend( {}, conditionalLogic["rules"][i] ), formId, conditionalLogic );
 		if(gf_is_match(formId, rule))
 			matches++;
 	}

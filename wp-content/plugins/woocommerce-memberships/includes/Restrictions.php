@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Memberships;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -966,7 +966,7 @@ class Restrictions {
 									$object_ids[] = array( $object_id );
 								}
 
-								$object_ids = call_user_func_array( 'array_merge', $object_ids );
+								$object_ids = array_merge( ...$object_ids );
 
 								$conditions[ $condition ]['terms'][ $taxonomy ] = array_unique( array_merge( $conditions[ $condition ]['terms'][ $taxonomy ], $object_ids ) );
 
@@ -1118,7 +1118,7 @@ class Restrictions {
 				}
 			}
 
-			$objects = call_user_func_array( 'array_merge', $objects );
+			$objects = array_merge( ...$objects );
 		}
 
 		return ! empty( $objects ) ? $objects : null;
@@ -1191,6 +1191,11 @@ class Restrictions {
 	public function get_products_that_grant_access( $restricted_content, $args = [] ) {
 
 		$access_products = [];
+
+		// ensures the correct type when passing a post object or ID for a product
+		if ( ( $restricted_content instanceof \WP_Post || is_numeric( $restricted_content ) ) && 'product' === get_post_type( $restricted_content ) ) {
+			$restricted_content = wc_get_product( $restricted_content );
+		}
 
 		if ( $restricted_content instanceof \WC_Product ) {
 			$object_id   = (int) $restricted_content->get_id();
@@ -1335,7 +1340,7 @@ class Restrictions {
 				$product_ids[] = $this->get_products_that_grant_discount( $post_id, $args );
 			}
 
-			$discount_access_products = call_user_func_array( 'array_merge', $product_ids );
+			$discount_access_products = array_merge( ...$product_ids );
 		}
 
 		return array_unique( $discount_access_products );

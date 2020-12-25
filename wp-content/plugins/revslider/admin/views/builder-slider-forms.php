@@ -318,13 +318,13 @@ $api = 'revapi'; // . $slider_id;
 				<div class="form_inner_header"><i class="material-icons">settings_overscan</i><?php _e('Module Position within Wrapper', 'revslider');?></div>
 				<div class="collapsable" style="display:block !important">
 					<!-- SLIDER POSITION SETTINGS -->
-					<label_a><?php _e('Align', 'revslider');?></label_a>
+					<!--<label_a><?php _e('Align', 'revslider');?></label_a>
 					<div class="radiooption">
 						<div><input value="left" class="sliderinput easyinit" name="slider_pos_in_wrapper" data-r="layout.position.align" type="radio"><label_sub><?php _e('Left', 'revslider');?></label_sub></div>
 						<div><input value="center" class="sliderinput easyinit" name="slider_pos_in_wrapper" data-r="layout.position.align" type="radio"><label_sub><?php _e('Center', 'revslider');?></label_sub></div>
 						<div><input value="right" class="sliderinput easyinit" name="slider_pos_in_wrapper" data-r="layout.position.align" type="radio"><label_sub><?php _e('Right', 'revslider');?></label_sub></div>
 					</div>
-					<div class="div15"></div>
+					<div class="div15"></div>-->
 					<row class="direktrow">
 						<onelong><label_a><?php _e('Clear After', 'revslider');?></label_a><input type="checkbox"  id="add_clear" class="sliderinput easyinit" data-r="layout.position.addClear"/></onelong>
 						<oneshort></oneshort>

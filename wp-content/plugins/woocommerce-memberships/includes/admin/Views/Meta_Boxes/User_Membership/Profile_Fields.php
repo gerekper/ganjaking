@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Memberships\Admin\Views\Meta_Boxes\User_Membershi
 use SkyVerge\WooCommerce\Memberships\Profile_Fields as Profile_Fields_Handler;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field_Definition;
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -421,26 +421,28 @@ class Profile_Fields extends \WC_Memberships_Meta_Box {
 		<?php
 
 		wc_enqueue_js( "
+			( function( $ ) {
 
-			$( '#wc-memberships-profile-field-input-file-upload-" . esc_js( $profile_field->get_slug() ) . "' ).on( 'click', function( e ){
-				e.preventDefault();
+				$( '#wc-memberships-profile-field-input-file-upload-" . esc_js( $profile_field->get_slug() ) . "' ).on( 'click', function( e ){
+					e.preventDefault();
 
-				var button   = $( this );
-				var uploader = wp.media( { multiple: false } ).on('select', function() {
-					var attachment = uploader.state().get( 'selection' ).first().toJSON();
-					button.parent( 'div' ).find( 'input[type=text]' ).val( attachment.url );
-					button.parent( 'div' ).find( 'input[type=hidden]' ).val( attachment.id );
-					button.next().show();
-				} ).open();
-			} );
+					var button   = $( this );
+					var uploader = wp.media( { multiple: false } ).on('select', function() {
+						var attachment = uploader.state().get( 'selection' ).first().toJSON();
+						button.parent( 'div' ).find( 'input[type=text]' ).val( attachment.url );
+						button.parent( 'div' ).find( 'input[type=hidden]' ).val( attachment.id );
+						button.next().show();
+					} ).open();
+				} );
 
-			$( '#wc-memberships-profile-field-input-file-remove-" . esc_js( $profile_field->get_slug() ) . "' ).on( 'click', function( e ) {
-				e.preventDefault();
-				$( this ).parent( 'div' ).find( 'input[type=text]' ).val( '' );
-				$( this ).parent( 'div' ).find( 'input[type=hidden]' ).val( '' );
-				$( this ).hide();
-			} );
+				$( '#wc-memberships-profile-field-input-file-remove-" . esc_js( $profile_field->get_slug() ) . "' ).on( 'click', function( e ) {
+					e.preventDefault();
+					$( this ).parent( 'div' ).find( 'input[type=text]' ).val( '' );
+					$( this ).parent( 'div' ).find( 'input[type=hidden]' ).val( '' );
+					$( this ).hide();
+				} );
 
+			} ) ( jQuery );
 		" );
 	}
 

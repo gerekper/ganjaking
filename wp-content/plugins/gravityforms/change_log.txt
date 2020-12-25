@@ -1,26 +1,16 @@
-### 2.4.21.6
-- API: Removed the truncated hashed key from the v2 API Keys list table and edit page.
-
-
-### 2.4.21.5
-- API: Updated an authentication error logging statement for REST API v2.
-
-
-### 2.4.21.4
-- API: Updated REST API v2 to support authentication using WordPress 5.6 application passwords.
-
-
-### 2.4.21.3
-- API: Fixed an issue where a database error can occur when using the GFAPI methods for managing feeds when a feed add-on has not been installed to create the required table.
-
-
-### 2.4.21.2
-- AF: Removed animation from input toggles on Feed Settings page.
-- AF: Hide Setup Fee fields when Trial is enabled for Payment Add-Ons.
-
-
-### 2.4.21.1
+### 2.4.22 | 2020-12-22
+- Added security enhancements.
+- Added the [gform_rule_pre_evaluation](https://docs.gravityforms.com/gform_rule_pre_evaluation/) JS and PHP filters enabling conditional logic rules to be overridden just before they are evaluated. Credit: Gravity Wiz.
+- Updated minimum WordPress version (for support) on the System Status page to 5.5.
+- Fixed an issue with the Email Field class names in the form editor.
 - Fixed an issue where a currency formatted number field can save the wrong calculation result to the entry if the rounding setting was previously configured.
+- API: Added the /forms/{$form_id}/field-filters endpoint to REST API v2. Credit: Gravity Flow.
+- API: Fixed an issue where a database error can occur when using the GFAPI methods for managing feeds when a feed add-on has not been installed to create the required table.
+- API: Removed the truncated hashed key from the v2 API Keys list table and edit page.
+- API: Updated an authentication error logging statement for REST API v2.
+- API: Updated REST API v2 to support authentication using WordPress 5.6 application passwords.
+- AF: Removed animation from input toggles on Feed Settings page.
+- AF: Removed Setup Fee setting when trial is enabled for Payment Add-Ons.
 
 
 ### 2.4.21 | 2020-10-14

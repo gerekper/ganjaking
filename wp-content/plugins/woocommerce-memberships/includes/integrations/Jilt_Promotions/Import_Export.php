@@ -23,126 +23,78 @@
 
 namespace SkyVerge\WooCommerce\Memberships\Integrations\Jilt_Promotions;
 
-use SkyVerge\WooCommerce\Jilt_Promotions\Handlers\Installation;
-use SkyVerge\WooCommerce\Jilt_Promotions\Messages;
-use SkyVerge\WooCommerce\Jilt_Promotions\Notices\Notice;
-use SkyVerge\WooCommerce\Jilt_Promotions\Handlers\Prompt;
-
 defined( 'ABSPATH' ) or exit;
 
 /**
  * Jilt Promotions prompt for the Memberships Import/Export pages.
  *
+ * TODO remove this class by December 2021 or by version 2.0.0, whichever comes first {FN 2020-11-11}
+ *
  * @since 1.17.6
+ * @deprecated since 1.20.0
  */
-class Import_Export extends Prompt {
-
-
-	/** @var string the message identifier that should be triggered */
-	private $import_export_message_id = 'memberships-import-export';
-
-	/** @var string the screen identifier where the prompt should appear */
-	private $import_export_screen_id = 'admin_page_wc_memberships_import_export';
+class Import_Export {
 
 
 	/**
-	 * Adds action & filter hooks.
+	 * Import_Export constructor.
 	 *
-	 * @since 1.17.6
+	 * TODO remove this method by December 2021 or by version 2.0.0, whichever comes first {FN 2020-11-11}
+	 *
+	 * @since 1.20.0
+	 * @deprecated since 1.20.0
 	 */
-	protected function add_prompt_hooks() {
+	public function __construct() {
 
-		if ( ! Messages::is_message_enabled( $this->import_export_message_id ) ) {
-			add_action( "load-{$this->import_export_screen_id}", [ $this, 'maybe_enable_import_export_message' ] );
-		}
-
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
-		add_action( 'admin_notices', [ $this, 'add_admin_notices' ] );
+		wc_deprecated_function( __CLASS__, '1.20.0' );
 	}
 
 
 	/**
 	 * Enqueues the assets.
 	 *
+	 * TODO remove this method by December 2021 or by version 2.0.0, whichever comes first {FN 2020-11-11}
+	 *
 	 * @internal
 	 *
-	 * @since 1.1.0-dev.1
+	 * @since 1.17.6
+	 * @deprecated since 1.20.0
 	 */
 	public function enqueue_assets() {
 
-		if ( Messages::is_message_enabled( $this->import_export_message_id ) ) {
-
-			wp_enqueue_style( Installation::INSTALL_SCRIPT_HANDLE );
-			wp_enqueue_script( Installation::INSTALL_SCRIPT_HANDLE );
-		}
+		wc_deprecated_function( __METHOD__, '1.20.0' );
 	}
 
 
 	/**
 	 * Adds admin notices to be shown.
 	 *
+	 * TODO remove this method by December 2021 or by version 2.0.0, whichever comes first {FN 2020-11-11}
+	 *
 	 * @internal
 	 *
 	 * @since 1.17.6
+	 * @deprecated since 1.20.0
 	 */
 	public function add_admin_notices() {
 
-		if ( Messages::is_message_enabled( $this->import_export_message_id ) ) {
-
-			$notice = new Notice();
-
-			$notice->set_message_id( $this->import_export_message_id );
-			$notice->set_title( __( 'Engaged members are happy members.', 'woocommerce-memberships' ) );
-			$notice->set_content( __( 'Keep in touch with your members using Jilt’s built-in Memberships integration to send welcome emails, renewal reminders, and newsletters.', 'woocommerce-memberships' ) );
-			$notice->set_actions( [
-				[
-					'label' => __( 'Learn more', 'woocommerce-product-reviews-pro' ),
-					'name'  => 'learn-more',
-					'url'   => 'https://www.skyverge.com/go/contact-members',
-					'type'  => Notice::ACTION_TYPE_LINK,
-				],
-				[
-					'label'   => __( 'Message my members', 'woocommerce-memberships' ),
-					'name'    => 'message-my-members',
-					'primary' => true,
-					'type'    => Notice::ACTION_TYPE_BUTTON,
-				],
-			] );
-
-			$notice->render();
-		}
+		wc_deprecated_function( __METHOD__, '1.20.0' );
 	}
 
 
 	/**
 	 * Maybe enables a message to be shown on the import/export screens.
 	 *
+	 * TODO remove this method by December 2021 or by version 2.0.0, whichever comes first {FN 2020-11-11}
+	 *
 	 * @internal
 	 *
 	 * @since 1.17.6
+	 * @deprecated since 1.20.0
 	 */
 	public function maybe_enable_import_export_message() {
 
-		Messages::enable_message( $this->import_export_message_id );
-	}
-
-
-	/**
-	 * Gets the connection redirect args to attribute the plugin installation to this prompt.
-	 *
-	 * @since 1.17.6
-	 *
-	 * @return array
-	 */
-	protected function get_connection_redirect_args() {
-
-		$args = [];
-
-		if ( $this->import_export_message_id === Installation::get_jilt_installed_from() ) {
-			$args = [ 'utm_term' => $this->import_export_message_id ];
-		}
-
-		return $args;
+		wc_deprecated_function( __METHOD__, '1.20.0' );
 	}
 
 

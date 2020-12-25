@@ -1,4 +1,4 @@
-jQuery( document ).ready( ( $ ) => {
+jQuery( function( $ ) {
 
 	"use strict"
 
@@ -7,9 +7,9 @@ jQuery( document ).ready( ( $ ) => {
 	 *
 	 * @since 5.10.0
 	 *
-	 * @type {SV_WC_Google_Pay_Handler_v5_10_1} object
+	 * @type {SV_WC_Google_Pay_Handler_v5_10_3} object
 	 */
-	window.SV_WC_Google_Pay_Handler_v5_10_1 = class SV_WC_Google_Pay_Handler_v5_10_1 {
+	window.SV_WC_Google_Pay_Handler_v5_10_3 = class SV_WC_Google_Pay_Handler_v5_10_3 {
 
 		/**
 		 * Handler constructor.
@@ -328,7 +328,7 @@ jQuery( document ).ready( ( $ ) => {
 			$.post( this.ajaxURL, data, ( response ) => {
 
 				if ( response.success ) {
-					resolve( $.parseJSON( response.data ) )
+					resolve( JSON.parse( response.data ) )
 				} else {
 					this.failPayment( 'Could not build transaction info. ' + response.data.message );
 				}
@@ -360,7 +360,7 @@ jQuery( document ).ready( ( $ ) => {
 			$.post( this.ajaxURL, data, ( response ) => {
 
 				if ( response.success ) {
-					resolve( $.parseJSON( response.data ) )
+					resolve( JSON.parse( response.data ) )
 				} else {
 					this.failPayment( 'Could not recalculate totals. ' + response.data.message );
 				}
@@ -605,6 +605,6 @@ jQuery( document ).ready( ( $ ) => {
 		}
 	}
 
-	$( document.body ).trigger( 'sv_wc_google_pay_handler_v5_10_1_loaded' );
+	$( document.body ).trigger( 'sv_wc_google_pay_handler_v5_10_3_loaded' );
 
 } );

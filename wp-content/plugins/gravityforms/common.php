@@ -6289,6 +6289,34 @@ Content-Type: text/html;
 		return $domain_matches;
   }
 
+	/**
+	 * Generate a random string, using a cryptographically secure
+	 * pseudorandom number generator (random_int) or a random number generator (rand())
+	 *
+	 * @since 2.4.21
+	 *
+	 * @param int $length How many characters do we want?
+	 *
+	 * @return string
+	 */
+	public static function random_str( $length = 64 ) {
+		$keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+		if ( $length < 1 ) {
+			throw new \RangeException( 'Length must be a positive integer' );
+		}
+
+		$pieces = array();
+		$max    = mb_strlen( $keyspace, '8bit' ) - 1;
+
+		for ( $i = 0; $i < $length; ++ $i ) {
+			$rand      = function_exists( 'random_int' ) ? random_int( 0, $max ) : rand( 0, $max );
+			$pieces [] = $keyspace[ $rand ];
+		}
+
+		return implode( '', $pieces );
+	}
+
 }
 
 class GFCategoryWalker extends Walker {

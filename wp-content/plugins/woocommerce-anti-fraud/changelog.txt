@@ -1,5 +1,8 @@
 *** WooCommerce Anti Fraud ***
 
+2020-12-17 version 3.4
+* PLUGINS-837 - Bug fixed: Filter on settings cause notice errors in Woocommerce Admin plugin
+
 2020-11-23 version 3.3
 * PLUGINS-809 - Bug fixed: Changes order status from completed to processing.
 

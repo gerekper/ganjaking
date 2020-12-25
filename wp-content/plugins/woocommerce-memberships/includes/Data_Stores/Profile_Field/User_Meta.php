@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Memberships\Data_Stores\Profile_Field;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field;
 
 defined( 'ABSPATH' ) or exit;

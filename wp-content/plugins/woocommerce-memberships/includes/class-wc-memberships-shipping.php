@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -42,20 +42,16 @@ class WC_Memberships_Shipping {
 	 */
 	public function __construct() {
 
-		// we can't effectively filter shipping method availability until WC 3.2+
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.2' ) ) {
+		// modify free shipping settings
+		add_filter( 'woocommerce_shipping_instance_form_fields_free_shipping', array( $this, 'modify_free_shipping_settings' ) );
 
-			// modify free shipping settings
-			add_filter( 'woocommerce_shipping_instance_form_fields_free_shipping', array( $this, 'modify_free_shipping_settings' ) );
+		// adjust free shipping setting availability
+		add_filter( 'woocommerce_shipping_free_shipping_is_available', array( $this, 'modify_free_shipping_availability' ), 10, 3 );
 
-			// adjust free shipping setting availability
-			add_filter( 'woocommerce_shipping_free_shipping_is_available', array( $this, 'modify_free_shipping_availability' ), 10, 3 );
-
-			// adjust free shipping settings styles / display
-			if ( is_admin() && ! is_ajax() ) {
-				add_action( 'admin_print_scripts', array( $this, 'add_admin_scripts' ) );
-				add_action( 'admin_print_styles', array( $this, 'add_admin_styles' ) );
-			}
+		// adjust free shipping settings styles / display
+		if ( is_admin() && ! is_ajax() ) {
+			add_action( 'admin_print_scripts', array( $this, 'add_admin_scripts' ) );
+			add_action( 'admin_print_styles', array( $this, 'add_admin_styles' ) );
 		}
 	}
 
@@ -185,9 +181,8 @@ class WC_Memberships_Shipping {
 	/**
 	 * Adjusts free shipping settings based on whether memberships is selected or not.
 	 *
-	 * This is pretty ugly, but we can't hide the entire minimum amount field because the
-	 *  WooCommerce js is forcing this to show, and we have no reasonable way to dequeue it
-	 *  since it's output with wc_enqueue_js, so we hide the td / th as a workaround.
+	 * This is pretty ugly, but we can't hide the entire minimum amount field because the WooCommerce JS is forcing this to show,
+	 * and we have no reasonable way to dequeue it since it's output with {@see wc_enqueue_js()}, so we hide the td / th as a workaround.
 	 *
 	 * @internal
 	 *
@@ -197,44 +192,42 @@ class WC_Memberships_Shipping {
 
 		if ( $this->is_shipping_settings() ) {
 
-			wc_enqueue_js( "jQuery( function( $ ) {
+			wc_enqueue_js( "
+				function wcMembershipsFreeShippingHideShowFields( el ) {
 
-					function wcMembershipsFreeShippingHideShowFields( el ) {
+					var form                 = $( el ).closest( 'form' ),
+					    minAmountField       = $( '#woocommerce_free_shipping_min_amount', form ).closest( 'td' ),
+					    allowedPlansField    = $( '#woocommerce_free_shipping_allowed_membership_plans', form ).closest( 'tr' ),
+					    disallowedPlansField = $( '#woocommerce_free_shipping_disallowed_membership_plans', form ).closest( 'tr' );
 
-						var form                 = $( el ).closest( 'form' ),
-						    minAmountField       = $( '#woocommerce_free_shipping_min_amount', form ).closest( 'td' ),
-						    allowedPlansField    = $( '#woocommerce_free_shipping_allowed_membership_plans', form ).closest( 'tr' ),
-						    disallowedPlansField = $( '#woocommerce_free_shipping_disallowed_membership_plans', form ).closest( 'tr' );
-
-						if ( 'membership' === $( el ).val() ) {
-							allowedPlansField.show();
-							disallowedPlansField.hide();
-							minAmountField.hide();
-							minAmountField.prev().hide();
-						} else {
-							allowedPlansField.hide();
-							disallowedPlansField.show();
-							minAmountField.show()
-							minAmountField.prev().show();
-						}
+					if ( 'membership' === $( el ).val() ) {
+						allowedPlansField.show();
+						disallowedPlansField.hide();
+						minAmountField.hide();
+						minAmountField.prev().hide();
+					} else {
+						allowedPlansField.hide();
+						disallowedPlansField.show();
+						minAmountField.show()
+						minAmountField.prev().show();
 					}
+				}
 
-					$( document.body ).on( 'change', '#woocommerce_free_shipping_requires', function() {
+				$( document.body ).on( 'change', '#woocommerce_free_shipping_requires', function() {
 
-						wcMembershipsFreeShippingHideShowFields( this );
-					} );
+					wcMembershipsFreeShippingHideShowFields( this );
+				} );
 
-					// Change while load.
-					$( '#woocommerce_free_shipping_requires' ).change();
+				// Change while load.
+				$( '#woocommerce_free_shipping_requires' ).change();
 
-					$( document.body ).on( 'wc_backbone_modal_loaded', function( evt, target ) {
+				$( document.body ).on( 'wc_backbone_modal_loaded', function( evt, target ) {
 
-						if ( 'wc-modal-shipping-method-settings' === target ) {
+					if ( 'wc-modal-shipping-method-settings' === target ) {
 
-							$( document.body ).trigger( 'wc-enhanced-select-init' );
-							wcMembershipsFreeShippingHideShowFields( $( '#wc-backbone-modal-dialog #woocommerce_free_shipping_requires', evt.currentTarget ) );
-						}
-					} );
+						$( document.body ).trigger( 'wc-enhanced-select-init' );
+						wcMembershipsFreeShippingHideShowFields( $( '#wc-backbone-modal-dialog #woocommerce_free_shipping_requires', evt.currentTarget ) );
+					}
 				} );
 			" );
 		}

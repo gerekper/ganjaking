@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -331,96 +331,99 @@ class WC_Memberships_Integration_Subscriptions_Admin {
 		// check if a membership plan has subscription(s):
 		// if the current membership plan has at least one subscription product that grants access, enable the subscription-specific controls
 		wc_enqueue_js( '
+			( function( $ ) {
 
-			var checkIfPlanHasPurchaseAccess = function() {
+				var checkIfPlanHasPurchaseAccess = function() {
 
-				var $access_method_options = $( ".plan-access-method-selectors" ).find( \'input[name="_access_method"]\' );
+					var $access_method_options = $( ".plan-access-method-selectors" ).find( \'input[name="_access_method"]\' );
 
-				$access_method_options.on( "change", function( e ) {
+					$access_method_options.on( "change", function( e ) {
 
-					if ( "purchase" !== $( this ).val() ) {
-						$( ".plan-access-length-field" ).show();
-						$( ".plan-subscription-access-length-field" ).hide();
-						checkIfPlanHasSubscription();
-					} else {
-						$( ".plan-subscription-access-length-field" ).show();
-						checkIfPlanHasSubscription();
-					}
-				} );
-			}
-
-			var checkIfPlanHasSubscription = function() {
-
-				var product_ids = $( "#_product_ids" ).val() || [];
-				    product_ids = $.isArray( product_ids ) ? product_ids : product_ids.split( "," );
-
-				$.get( wc_memberships_admin.ajax_url, {
-					action:      "wc_memberships_membership_plan_has_subscription_product",
-					security:    "' . wp_create_nonce( 'check-subscriptions' ) . '",
-					product_ids: product_ids,
-				}, function ( subscription_products ) {
-
-					var option = $( ".plan-access-method-selectors" ).find( \'input[name="_access_method"]:checked\' ).val(),
-						action = "purchase" == option && subscription_products && subscription_products.length ? "removeClass" : "addClass",
-						$field = $( ".plan-access-length-field" );
-
-					$( ".js-show-if-has-subscription" )[ action ]( "hide" );
-
-					if ( subscription_products && subscription_products.length === product_ids.length && "purchase" == option ) {
-						$field.hide();
-					} else {
-						$field.show();
-					}
-				} );
-			}
-
-			checkIfPlanHasSubscription();
-			checkIfPlanHasPurchaseAccess();
-
-			$( "#_product_ids" ).on( "change", function() {
-				checkIfPlanHasPurchaseAccess();
-				checkIfPlanHasSubscription();
-			} );
-
-			var $access_length_input     = $( ".plan-subscription-access-length-selectors" ),
-			    $access_length_options   = $access_length_input.find( \'input[name="_subscription_access_length"]\' ),
-			    $access_length_field     = $access_length_input.closest( "p.form-field" ),
-			    $unlimited_length_tip    = $access_length_field.find( ".js-show-if-subscription-access-length-unlimited" ),
-			    $subscription_length_tip = $access_length_field.find( ".js-show-if-subscription-access-length-subscription" ),
-			    $specific_length_input   = $access_length_field.find( ".plan-subscription-access-length-specific" ),
-			    $fixed_length_input      = $access_length_field.find( ".plan-subscription-access-length-fixed" );
-
-			$access_length_options.on( "change", function( e ) {
-
-				var access_length = $( this ).val();
-
-				$subscription_length_tip.hide();
-				$unlimited_length_tip.hide();
-
-				$fixed_length_input.addClass( "hide" );
-				$specific_length_input.addClass( "hide" );
-
-				switch ( access_length ) {
-
-					case "specific" :
-						$specific_length_input.removeClass( "hide" );
-					break;
-
-					case "fixed" :
-						$fixed_length_input.removeClass( "hide" );
-					break;
-
-					case "subscription" :
-					default :
-						$subscription_length_tip.show();
-					break;
-
-					case "unlimited" :
-						$unlimited_length_tip.show();
-					break;
-
+						if ( "purchase" !== $( this ).val() ) {
+							$( ".plan-access-length-field" ).show();
+							$( ".plan-subscription-access-length-field" ).hide();
+							checkIfPlanHasSubscription();
+						} else {
+							$( ".plan-subscription-access-length-field" ).show();
+							checkIfPlanHasSubscription();
+						}
+					} );
 				}
-			} );
+
+				var checkIfPlanHasSubscription = function() {
+
+					var product_ids = $( "#_product_ids" ).val() || [];
+						product_ids = $.isArray( product_ids ) ? product_ids : product_ids.split( "," );
+
+					$.get( wc_memberships_admin.ajax_url, {
+						action:      "wc_memberships_membership_plan_has_subscription_product",
+						security:    "' . wp_create_nonce( 'check-subscriptions' ) . '",
+						product_ids: product_ids,
+					}, function ( subscription_products ) {
+
+						var option = $( ".plan-access-method-selectors" ).find( \'input[name="_access_method"]:checked\' ).val(),
+							action = "purchase" == option && subscription_products && subscription_products.length ? "removeClass" : "addClass",
+							$field = $( ".plan-access-length-field" );
+
+						$( ".js-show-if-has-subscription" )[ action ]( "hide" );
+
+						if ( subscription_products && subscription_products.length === product_ids.length && "purchase" == option ) {
+							$field.hide();
+						} else {
+							$field.show();
+						}
+					} );
+				}
+
+				checkIfPlanHasSubscription();
+				checkIfPlanHasPurchaseAccess();
+
+				$( "#_product_ids" ).on( "change", function() {
+					checkIfPlanHasPurchaseAccess();
+					checkIfPlanHasSubscription();
+				} );
+
+				var $access_length_input     = $( ".plan-subscription-access-length-selectors" ),
+					$access_length_options   = $access_length_input.find( \'input[name="_subscription_access_length"]\' ),
+					$access_length_field     = $access_length_input.closest( "p.form-field" ),
+					$unlimited_length_tip    = $access_length_field.find( ".js-show-if-subscription-access-length-unlimited" ),
+					$subscription_length_tip = $access_length_field.find( ".js-show-if-subscription-access-length-subscription" ),
+					$specific_length_input   = $access_length_field.find( ".plan-subscription-access-length-specific" ),
+					$fixed_length_input      = $access_length_field.find( ".plan-subscription-access-length-fixed" );
+
+				$access_length_options.on( "change", function( e ) {
+
+					var access_length = $( this ).val();
+
+					$subscription_length_tip.hide();
+					$unlimited_length_tip.hide();
+
+					$fixed_length_input.addClass( "hide" );
+					$specific_length_input.addClass( "hide" );
+
+					switch ( access_length ) {
+
+						case "specific" :
+							$specific_length_input.removeClass( "hide" );
+						break;
+
+						case "fixed" :
+							$fixed_length_input.removeClass( "hide" );
+						break;
+
+						case "subscription" :
+						default :
+							$subscription_length_tip.show();
+						break;
+
+						case "unlimited" :
+							$unlimited_length_tip.show();
+						break;
+
+					}
+				} );
+
+			} ) ( jQuery );
 		' );
 
 		?>

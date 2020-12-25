@@ -1,5 +1,9 @@
 *** WooCommerce Chase Paymentech Gateway Changelog ***
 
+2020.12.16 - version 1.16.0
+ * Misc - Add compatibility for WooCommerce 4.7
+ * Misc - Require PHP 7.0 or newer
+
 2020.11.24 - version 1.15.2
  * Misc - Add PHP 8 support
 

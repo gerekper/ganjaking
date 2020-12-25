@@ -25,8 +25,7 @@ namespace SkyVerge\WooCommerce\Memberships\Admin;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\Jilt_Promotions\Admin\Emails;
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 /**
  * Onboarding Setup Wizard.
@@ -58,82 +57,6 @@ class Setup_Wizard extends Framework\Admin\Setup_Wizard {
 
 		$this->default_plan_name      = __( 'VIP Membership', 'woocommerce-memberships' );
 		$this->membership_plan_id_key = 'wc_memberships_setup_wizard_membership_plan_id';
-
-		/**
-		 * Adds UTM parameters when Jilt is installed from the Memberships onboarding wizard.
-		 *
-		 * @see \SkyVerge\WooCommerce\Memberships\Admin\Setup_Wizard::save_member_emails_preferences()
-		 *
-		 * @since 1.17.5
-		 *
-		 * @param array $args UTM params
-		 */
-		add_filter( 'wc_jilt_app_connection_redirect_args', static function( $args ) {
-
-			if ( 'yes' === get_option( 'wc_memberships_onboarding_wizard_install_jilt' ) ) {
-
-				$args['utm_source']   = Emails::UTM_SOURCE;
-				$args['utm_medium']   = Emails::UTM_MEDIUM;
-				$args['utm_campaign'] = 'memberships-onboarding-wizard';
-				$args['utm_content']  = Emails::UTM_CONTENT;
-			}
-
-			return $args;
-		} );
-	}
-
-
-	/**
-	 * Shows installation or upgrade notices.
-	 *
-	 * Extends parent method to display an additional notice on advanced emails.
-	 *
-	 * @internal
-	 *
-	 * @since 1.11.1
-	 */
-	public function add_admin_notices() {
-
-		parent::add_admin_notices();
-
-		// bail if Jilt is already installed
-		if ( $this->get_plugin()->is_plugin_installed( 'jilt-for-woocommerce.php' ) ) {
-
-			// also remove the WC Admin Note if Jilt has been installed
-			if ( Framework\SV_WC_Plugin_Compatibility::is_enhanced_admin_available() ) {
-				\Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes::delete_notes_with_name( 'wc-memberships-jilt-cross-sell-notice' );
-			}
-
-		// show a notice about advanced emails with Jilt after upgrading to 1.11.0 when the feature was launched
-		} elseif ( 'yes' === get_option( 'wc_memberships_show_advanced_emails_notice', 'no' ) ) {
-
-			$message = sprintf(
-				/* translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing </strong> HTML tag, %3$s - opening <a> HTML link tag, %4$s - closing </a> HTML link tag, %5$s - opening <a> HTML link tag, %6$s - closing </a> HTML link tag */
-				esc_html__( '%1$sAdvanced Member Emails%2$s: WooCommerce Memberships has been upgraded to version 1.11.0! With this version, you can connect to %3$sJilt%4$s to send advanced member emails like a welcome series, winbacks for cancelled memberships, and more. %5$sLearn more&rarr;%6$s', 'woocommerce-memberships' ),
-				'<strong>', '</strong>',
-				'<a href="https://jilt.com/go/memberships-notice">', '</a>',
-				'<a href="https://jilt.com/go/memberships-notice">', '</a>'
-			);
-
-			$this->get_plugin()->get_admin_notice_handler()->add_admin_notice( $message, 'memberships_upgrade_to_1_11_0', [
-				'always_show_on_settings' => false,
-				'notice_class'            => 'updated',
-			] );
-
-		// show a notice about Jilt emails when upgrading from version 1.12.0 or later (do not show if the WC Admin note can be seen instead)
-		} elseif ( 'yes' === get_option( 'wc_memberships_show_jilt_cross_sell_notice', 'no' ) && ! Framework\SV_WC_Helper::is_enhanced_admin_screen() ) {
-
-			$message = sprintf(
-				/* translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag */
-				esc_html__( 'Use an email platform that automatically syncs member details. Segment newsletters by membership plan, and create automated email series for members in minutes using Jilt. %1$sSign up for free%2$s — all new accounts get a bonus credit!', 'woocommerce-memberships' ),
-				'<a href="https://jilt.com/go/memberships-update">', '</a>'
-			);
-
-			$this->get_plugin()->get_admin_notice_handler()->add_admin_notice( $message, 'memberships_upgrade_to_1_17_5', [
-				'always_show_on_settings' => false,
-				'notice_class'            => 'notice-info',
-			] );
-		}
 	}
 
 
@@ -1070,48 +993,38 @@ class Setup_Wizard extends Framework\Admin\Setup_Wizard {
 		$ended            = $this->get_plugin()->get_emails_instance()->get_user_membership_ended_email_instance();
 		$renewal_reminder = $this->get_plugin()->get_emails_instance()->get_user_membership_renewal_reminder_email_instance();
 
-		$toggles = array(
-			'ending_soon'  => array(
+		$toggles = [
+			'ending_soon'      => [
 				'type'        => 'toggle',
 				'name'        => 'ending_soon',
 				'value'       => 'yes',
 				'allow_html'  => true,
-				'input_class' => array( 'toggle-preferences' ),
+				'input_class' => [ 'toggle-preferences' ],
 				'label'       => __( 'Ending Soon', 'woocommerce-memberships' ),
 				'description' => $this->get_ending_soon_email_preferences_field( $ending_soon && $ending_soon->is_enabled() ),
 				'checked'     => $ending_soon && $ending_soon->is_enabled()
-			),
-			'expired' => array(
+			],
+			'expired'          => [
 				'type'        => 'toggle',
 				'name'        => 'expired',
 				'value'       => 'yes',
 				'allow_html'  => true,
-				'input_class' => array( 'toggle-preferences' ),
+				'input_class' => [ 'toggle-preferences' ],
 				'label'       => __( 'Expired', 'woocommerce-memberships' ),
 				'description' => $this->get_expired_email_preferences_field( $ended && $ended->is_enabled() ),
 				'checked'     => $ended && $ended->is_enabled(),
-			),
-			'renewal_reminder' => array(
+			],
+			'renewal_reminder' => [
 				'type'        => 'toggle',
 				'name'        => 'renewal_reminder',
 				'value'       => 'yes',
 				'allow_html'  => true,
-				'input_class' => array( 'toggle-preferences' ),
+				'input_class' => [ 'toggle-preferences' ],
 				'label'       => __( 'Renewal Reminder', 'woocommerce-memberships' ),
 				'description' => $this->get_renewal_reminder_email_preferences_field( $renewal_reminder && $renewal_reminder->is_enabled() ),
 				'checked'     => $renewal_reminder && $renewal_reminder->is_enabled(),
-			),
-			'advanced_emails' => array(
-				'type'        => 'toggle',
-				'name'        => 'advanced_emails',
-				'value'       => 'yes',
-				'allow_html'  => true,
-				'input_class' => array( 'toggle-preferences' ),
-				'label'       => __( 'Advanced Emails', 'woocommerce-memberships' ),
-				'description' => $this->get_advanced_emails_preferences_field( true ),
-				'checked'     => false,
-			),
-		);
+			],
+		];
 
 		foreach ( $toggles as $field_id => $field_data ) {
 
@@ -1222,40 +1135,6 @@ class Setup_Wizard extends Framework\Admin\Setup_Wizard {
 
 
 	/**
-	 * Returns the form fields HTML for the advanced emails preferences.
-	 *
-	 * @since 1.11.0
-	 *
-	 * @param bool $show_preferences whether preferences should by shown by default (true) or hidden (false)	 *
-	 * @return string HTML
-	 */
-	private function get_advanced_emails_preferences_field( $show_preferences = true ) {
-
-		ob_start();
-
-		printf(
-			/* translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag */
-			esc_html__( 'Send advanced emails like welcome or win-back series %1$susing Jilt%2$s. Try it free for 14 days!', 'woocommerce-memberships' ),
-			'<a href="https://jilt.com/go/memberships-onboarding" target="__blank">', '</a>'
-		);
-
-		?>
-		<br /><br />
-		<span class="preferences" <?php if ( ! $show_preferences ) { echo 'style="display:none;"'; } ?>><em>
-			<?php printf(
-				/* translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag */
-				esc_html__( 'This plugin will be installed and activated for you: %1$sJilt for WooCommerce%2$s', 'woocommerce-memberships' ),
-				'<br /><strong><a href="https://wordpress.org/plugins/jilt-for-woocommerce/">',
-				'</a></strong>'
-			); ?>
-		</em></span>
-		<?php
-
-		return ob_get_clean();
-	}
-
-
-	/**
 	 * Saves preferences for member emails.
 	 *
 	 * @since 1.11.0
@@ -1290,26 +1169,6 @@ class Setup_Wizard extends Framework\Admin\Setup_Wizard {
 				$renewal_reminder->set_schedule( max( 1, isset( $_POST['renewal_reminder_email_send_days_after'] ) && is_numeric( $_POST['renewal_reminder_email_send_days_after'] ) ? absint( $_POST['renewal_reminder_email_send_days_after'] ) : $ending_soon_email->get_schedule() ) );
 			} else {
 				$renewal_reminder->disable();
-			}
-		}
-
-		// maybe install & activate Jilt for WooCommerce
-		if ( isset( $_POST['advanced_emails'] ) && 'yes' === $_POST['advanced_emails'] ) {
-
-			try {
-
-				\WC_Install::background_installer( 'jilt-for-woocommerce', [
-					'name'      => __( 'Jilt for WooCommerce', 'woocommerce-memberships' ),
-					'repo-slug' => 'jilt-for-woocommerce',
-				] );
-
-				update_option( 'wc_memberships_onboarding_wizard_install_jilt', 'yes' );
-
-				$this->get_plugin()->log( 'Jilt for WooCommerce installed from Setup Wizard.' );
-
-			} catch ( \Exception $e ) {
-
-				$this->get_plugin()->log( sprintf( 'An error occurred while trying to install Jilt for WooCommerce from Setup Wizard: %s', $e->getMessage() ) );
 			}
 		}
 	}
@@ -1373,20 +1232,16 @@ class Setup_Wizard extends Framework\Admin\Setup_Wizard {
 	 */
 	protected function render_after_next_steps() {
 
-		$email   = wp_get_current_user()->user_email;
-		$open_a  = '<a href="https://www.skyverge.com/newsletter/?email=' . $email . '&mc_ref=MEMBERSHIPS_ONBOARDING">';
-		$close_a = '</a>';
-
 		?>
 		<div class="newsletter-prompt">
-			<p>
-				<?php printf(
-					/* translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag, %3$s - opening <a> HTML link tag, %4$s - closing </a> HTML link tag */
-					esc_html__( 'Want to keep learning? Check out our %1$smonthly newsletter%2$s where we share updates, tutorials, and sneak peeks for new development. %3$sSign up &rarr;%4$s', 'woocommerce-memberships' ),
-					$open_a, $close_a,
-					$open_a, $close_a
-				); ?>
-			</p>
+			<h3><?php esc_html_e( 'Want to keep learning?', 'woocommerce-memberships' ); ?></h3>
+			<p><?php esc_html_e( 'Check out our monthly newsletter where we share updates, tutorials, and sneak peeks for new development!', 'woocommerce-memberships' ); ?></p>
+			<button
+				class="button button-primary newsletter-signup"
+				data-user-email="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>"
+				data-thank-you="<?php esc_attr_e( 'Thanks for signing up! Keep an eye on your inbox for product updates and helpful tips!', 'woocommerce-memberships' ); ?>"
+			><?php echo esc_html_x( 'Sign up', 'Newsletter sign up', 'woocommerce-memberships' ); ?></button>
+			<span class="spinner" style="display:inline-block; position: absolute;"></span>
 		</div>
 		<?php
 	}

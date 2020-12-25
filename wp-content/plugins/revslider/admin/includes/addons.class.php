@@ -160,8 +160,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 			$count++;
 		}while($done == false && $count < 5);
 		
-		if(!$get || wp_remote_retrieve_response_code($get) != 200){
-		}else{
+		if($get && $get['body'] != 'invalid' && wp_remote_retrieve_response_code($get) == 200){
 			$upload_dir	= wp_upload_dir();
 			$file		= $upload_dir['basedir']. '/revslider/templates/' . $plugin_slug . '.zip';
 			@mkdir(dirname($file), 0777, true);

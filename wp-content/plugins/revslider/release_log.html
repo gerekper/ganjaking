@@ -1,10 +1,31 @@
 <div class="slider-revolution-update-list">
+	<h3 class="version-number">Version 6.3.4 (23rd December 2020)</h3>
+	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
+	<ul>
+		<li>Added PHP 8.0 compatibility</li>
+		<li>Added vertical and horizontal mask offsets to the navigation thumbs and tabs to allows shadows and glows on objects</li>		
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Videos may have started on the 1st click on the module in case the video was already played and paused. This comes due to a fix for the new browser rules which would not allow to play any media without user interaction. Now further protection has been added</li>
+		<li>Added protection in the editor against corrupt layers which are not standard and have been added due to an earlier bug in very rare situations.</li>
+		<li>Depricated function align left, right, center of the module has been removed. Floating of full container must added on a higher container structure and not within the slider itself anymore.</li>
+		<li>Fixed integration of Essential Grid, which was not loading as an embeded layer in Slider Revolution on second or further slides</li>
+		<li>Slider with static group layers may got huge offsets next to the module on mobile devices. This overflow issue has been fixed now</li>
+		<li>Fixed Maintenance AddOn WP 5.6 compatibilty. Requried AddOn version: 2.1.3</li>
+		<li>Navigation default font-family was not editable/available in the navigation editor and in the slide/module navigation presets</li>
+		<li>Selected navigation type did not open up the right modal if the navigation has been edited</li>
+	</ul>
+
 	<h3 class="version-number">Version 6.3.3 (10th December 2020)</h3>
 	<div class="change"><strong style="font-weight:700">Changes</strong></div>
 	<ul>		
 		<li>Post meta data are not saved anymore when they are at the default value</li>
-		<li>Fixed image border in columns where the image was overlaying its own border in columns</li>
 		<li>First click of a slider module will double check now any existences of videos in the active slide before the call is triggered</li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Fixed image border in columns where the image was overlaying its own border in columns</li>
 		<li>Rows with 10 columns were not allowed due to a bug in the sanitize function. This bug is solved now</li>
 		<li>Fixed the optimizer where websafe fonts broke the font size output in some rare cases</li>
 	</ul>

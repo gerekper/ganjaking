@@ -153,7 +153,7 @@
             };
 
             // do not init if in ignorable browser
-            if ((browser.mobile && o.ignoreMobile)
+            if ((window.theme && theme.is_device_mobile && o.ignoreMobile)
                 || (browser.overlay && o.ignoreOverlay)
                 || (browser.macosx && !browser.webkit) // still required to ignore nonWebKit browsers on Mac
                 ) {
@@ -210,7 +210,7 @@
                     w.on('MozMousePixelScroll' + namespace, handleMouseScroll);
                     w.on('mousewheel' + namespace, handleMouseScroll);
 
-                    if (browser.mobile) {
+                    if (window.theme && theme.is_device_mobile) {
                         w.on('touchstart' + namespace, function (event) {
                             var touch = event.originalEvent.touches && event.originalEvent.touches[0] || event;
                             var originalTouch = {

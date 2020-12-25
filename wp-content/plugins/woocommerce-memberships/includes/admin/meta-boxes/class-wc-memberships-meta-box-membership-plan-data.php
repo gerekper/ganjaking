@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -560,7 +560,7 @@ class WC_Memberships_Meta_Box_Membership_Plan_Data extends \WC_Memberships_Meta_
 				$public_posts = get_posts( array(
 					'post_type'   => $post_types,
 					'post_status' => 'any',
-					'post__in'    => call_user_func_array( 'array_merge', $public_post_ids ),
+					'post__in'    => array_merge( ...$public_post_ids ),
 				) );
 			}
 
@@ -900,10 +900,9 @@ class WC_Memberships_Meta_Box_Membership_Plan_Data extends \WC_Memberships_Meta_
 	 */
 	public function render_admin_notice_js() {
 
-		// remove force-hide class (which prevents message flicker on page load)
-		// and simply hide the hidden notices
+		// remove force-hide class (which prevents message flicker on page load) and simply hide the hidden notices
 		wc_enqueue_js( "
-			$( '.js-wc-plugin-framework-admin-notice.force-hide' ).removeClass( 'force-hide' ).hide()
+			$( '.js-wc-plugin-framework-admin-notice.force-hide' ).removeClass( 'force-hide' ).hide();
 		" );
 	}
 

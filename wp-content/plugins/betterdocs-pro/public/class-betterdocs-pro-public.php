@@ -101,19 +101,15 @@ class Betterdocs_Pro_Public
 		 */
 
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/betterdocs-pro-public.js', array('jquery'), $this->version, true);
-
-		$enable_instant_answer = BetterDocs_DB::get_settings('enable_disable');
-		if ($enable_instant_answer == 'off') {
-			$single_reactions = array(
-				'FEEDBACK' => array(
-					'DISPLAY' => true,
-					'TEXT'    => esc_html__('How did you feel?', 'betterdocs-pro'),
-					'SUCCESS' => esc_html__('Thanks for your feedback', 'betterdocs-pro'),
-					'URL'     => home_url() . '?rest_route=/betterdocs/feedback',
-				),
-			);
-			wp_localize_script($this->plugin_name, 'betterdocs', $single_reactions);
-		}
+		$single_reactions = array(
+			'FEEDBACK' => array(
+				'DISPLAY' => true,
+				'TEXT'    => esc_html__('How did you feel?', 'betterdocs-pro'),
+				'SUCCESS' => esc_html__('Thanks for your feedback', 'betterdocs-pro'),
+				'URL'     => home_url() . '?rest_route=/betterdocs/feedback',
+			),
+		);
+		wp_localize_script($this->plugin_name, 'betterdocs', $single_reactions);
 	}
 
 	/**

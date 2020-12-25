@@ -30,7 +30,7 @@ function cancelCREPayment() {
 function whatCVV2() {
 
 	// message is already displayed
-	if ( jQuery( '.woocommerce-message-cvv' ).size() > 0 ) {
+	if ( jQuery( '.woocommerce-message-cvv' ).length > 0 ) {
 		return;
 	}
 
@@ -154,7 +154,7 @@ function completeCREPayment( transaction ) {
 }
 
 
-jQuery( document ).ready( function ( $ ) {
+jQuery( function ( $ ) {
 
 	'use strict';
 

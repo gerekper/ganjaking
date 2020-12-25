@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -30,6 +30,7 @@ defined( 'ABSPATH' ) or exit;
  *
  * - bbPress: https://bbpress.org/
  * - WooCommerce Bookings: https://woocommerce.com/products/woocommerce-bookings/
+ * - Elementor Builder: https://elementor.com/
  * - Groups: https://wordpress.org/plugins/groups/
  * - LearnDash: https://www.learndash.com/
  * - qTranslate X: https://wordpress.org/plugins/qtranslate-x/
@@ -48,6 +49,9 @@ class WC_Memberships_Integrations {
 
 	/** @var null|\WC_Memberships_Integration_Bookings instance */
 	private $bookings;
+
+	/** @var null|\SkyVerge\WooCommerce\Memberships\Integrations\Elementor_Builder instance */
+	private $elementor_builder;
 
 	/** @var null|\WC_Memberships_Integration_Groups instance */
 	private $groups;
@@ -83,6 +87,14 @@ class WC_Memberships_Integrations {
 		// Bookings
 		if ( $this->is_bookings_active() ) {
 			$this->bookings = wc_memberships()->load_class( '/includes/integrations/bookings/class-wc-memberships-integration-bookings.php', 'WC_Memberships_Integration_Bookings' );
+		}
+
+		// Elementor Builder
+		if ( $this->is_elementor_builder_active() ) {
+
+			require_once( wc_memberships()->get_plugin_path() . '/includes/integrations/Elementor_Builder.php' );
+
+			$this->elementor_builder = new \SkyVerge\WooCommerce\Memberships\Integrations\Elementor_Builder();
 		}
 
 		// Groups
@@ -124,12 +136,6 @@ class WC_Memberships_Integrations {
 			/** @deprecated remove legacy class aliases when the plugin has fully migrated to namespaces */
 			class_alias( \SkyVerge\WooCommerce\Memberships\Integrations\User_Switching::class, 'WC_Memberships_Integration_User_Switching', false );
 		}
-
-		// Jilt Promotions -- can't use admin_init because that's too late to be able to add connection redirect args
-		add_action( 'init', static function() {
-			require_once( wc_memberships()->get_plugin_path() . '/includes/integrations/Jilt_Promotions/Import_Export.php' );
-			new \SkyVerge\WooCommerce\Memberships\Integrations\Jilt_Promotions\Import_Export();
-		} );
 	}
 
 
@@ -232,6 +238,19 @@ class WC_Memberships_Integrations {
 
 
 	/**
+	 * Gets the Elementor Builder integration instance.
+	 *
+	 * @since 1.20.0
+	 *
+	 * @return null|\SkyVerge\WooCommerce\Memberships\Integrations\Elementor_Builder
+	 */
+	public function get_elementor_builder_instance() {
+
+		return $this->elementor_builder;
+	}
+
+
+	/**
 	 * Checks if bbPress is active.
 	 *
 	 * @since 1.8.5
@@ -257,6 +276,19 @@ class WC_Memberships_Integrations {
 
 
 	/**
+	 * Checks if Elementor Builder plugin is active.
+	 *
+	 * @since 1.20.0
+	 *
+	 * @return bool
+	 */
+	public function is_elementor_builder_active() {
+
+		return wc_memberships()->is_plugin_active( 'elementor.php' );
+	}
+
+
+	/**
 	 * Checks if Groups is active.
 	 *
 	 * @since 1.6.0
@@ -271,11 +303,16 @@ class WC_Memberships_Integrations {
 	/**
 	 * Checks if Jilt for WooCommerce is active.
 	 *
+	 * TODO remove this method by December 2021 or by version 2.0.0, whichever comes first {FN 2020-11-11}
+	 *
 	 * @since 1.14.0
+	 * @deprecated since 1.20.0
 	 *
 	 * @return bool
 	 */
 	public function is_jilt_active() {
+
+		wc_deprecated_function( __METHOD__, '1.20.0', 'wc_memberships()->is_plugin_active( \'jilt-for-woocommerce.php\' )' );
 
 		return wc_memberships()->is_plugin_active( 'jilt-for-woocommerce.php' );
 	}

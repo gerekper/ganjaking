@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Memberships\Restrictions;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -156,9 +156,9 @@ class Products {
 
 						// addresses a possible interaction with WC AJAX when the home page is restricted
 						if (    isset( $_GET['wc-ajax'] )
-						     && defined( 'DOING_AJAX' ) && DOING_AJAX
-						     && has_action( 'wp_ajax_nopriv_woocommerce_' . $_GET['wc-ajax'] )
-						     && Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.2' ) ) {
+						     && defined( 'DOING_AJAX' )
+						     && DOING_AJAX
+						     && has_action( 'wp_ajax_nopriv_woocommerce_' . $_GET['wc-ajax'] ) ) {
 
 							return;
 						}
@@ -655,14 +655,14 @@ class Products {
 
 				if ( $variations_restricted ) {
 					wc_enqueue_js( "
-						jQuery( '.variations_form' )
+						$( '.variations_form' )
 							.on( 'woocommerce_variation_select_change', function( event ) {
-								jQuery( '.wc-memberships-variation-message' ).hide();
+								$( '.wc-memberships-variation-message' ).hide();
 							} )
 							.on( 'found_variation', function( event, variation ) {
-								jQuery( '.wc-memberships-variation-message' ).hide();
+								$( '.wc-memberships-variation-message' ).hide();
 								if ( ! variation.is_purchasable ) {
-									jQuery( '.wc-memberships-variation-message.js-variation-' + variation.variation_id ).show();
+									$( '.wc-memberships-variation-message.js-variation-' + variation.variation_id ).show();
 								}
 							} )
 							.find( '.variations select' ).change();
@@ -720,13 +720,13 @@ class Products {
 
 				if ( $variations_discounted ) {
 					wc_enqueue_js( "
-						jQuery( '.variations_form' )
+						$( '.variations_form' )
 							.on( 'woocommerce_variation_select_change', function( event ) {
-								jQuery( '.wc-memberships-variation-message.wc-memberships-member-discount-message' ).hide();
+								$( '.wc-memberships-variation-message.wc-memberships-member-discount-message' ).hide();
 							} )
 							.on( 'found_variation', function( event, variation ) {
-								jQuery( '.wc-memberships-variation-message.wc-memberships-member-discount-message' ).hide();
-								jQuery( '.wc-memberships-variation-message.wc-memberships-member-discount-message.js-variation-' + variation.variation_id ).show();
+								$( '.wc-memberships-variation-message.wc-memberships-member-discount-message' ).hide();
+								$( '.wc-memberships-variation-message.wc-memberships-member-discount-message.js-variation-' + variation.variation_id ).show();
 							} )
 							.find( '.variations select' ).change();
 					" );

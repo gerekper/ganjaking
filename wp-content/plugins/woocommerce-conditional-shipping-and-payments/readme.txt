@@ -3,8 +3,8 @@
 Contributors: SomewhereWarm
 Tags: woocommerce, conditional, checkout, restrictions, countries, gateways, shipping, methods, exclude, access
 Requires at least: 4.1
-Tested up to: 5.5
-Stable tag: 1.8.10
+Tested up to: 5.6
+Stable tag: 1.8.11
 WC requires at least: 2.6
 WC tested up to: 4.8
 License: GNU General Public License v3.0

@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -43,15 +43,7 @@ class WC_Memberships_Integration_One_Page_Checkout {
 	public function __construct() {
 
 		// filters at priority 11 will run right after One Page Checkout ones (priority 10)
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_lt( '3.3' ) ) {
-
-			add_filter( 'woocommerce_params', array( $this, 'maybe_force_registration' ), 11, 1 );
-			add_filter( 'wc_checkout_params', array( $this, 'maybe_force_registration' ), 11, 1 );
-
-		} else {
-
-			add_filter( 'woocommerce_get_script_data', array( $this, 'maybe_force_registration' ), 11, 2 );
-		}
+		add_filter( 'woocommerce_get_script_data', [ $this, 'maybe_force_registration' ], 11, 2 );
 	}
 
 

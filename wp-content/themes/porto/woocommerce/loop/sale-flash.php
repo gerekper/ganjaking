@@ -22,8 +22,9 @@ if ( $porto_settings['product-hot'] ) {
 if ( $porto_settings['product-sale'] ) {
 	if ( $product->is_on_sale() ) {
 		$percentage = 0;
-		if ( $product->get_regular_price() ) {
-			$percentage = - round( ( ( $product->get_regular_price() - $product->get_sale_price() ) / $product->get_regular_price() ) * 100 );
+		$reg_p      = floatval( $product->get_regular_price() );
+		if ( $reg_p ) {
+			$percentage = - round( ( ( $reg_p - $product->get_sale_price() ) / $reg_p ) * 100 );
 		} elseif ( 'variable' == $product->get_type() && $product->get_variation_regular_price() ) {
 			$percentage = - round( ( ( $product->get_variation_regular_price() - $product->get_variation_sale_price() ) / $product->get_variation_regular_price() ) * 100 );
 		}

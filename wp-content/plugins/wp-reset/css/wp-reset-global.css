@@ -1,0 +1,63 @@
+/**
+ * WP Reset
+ * https://wpreset.com/
+ * (c) WebFactory Ltd, 2017-2020
+ */
+
+.wpr_rotating {
+  -webkit-animation: wpr_spin 1.5s linear infinite;
+  -moz-animation: wpr_spin 1.5s linear infinite;
+  animation: wpr_spin 1.5s linear infinite;
+}
+
+@-moz-keyframes wpr_spin {
+  100% {
+    -moz-transform: rotate(-360deg);
+  }
+}
+@-webkit-keyframes wpr_spin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+  }
+}
+@keyframes wpr_spin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+
+.wpr-adminbar-icon{
+    display: inline-block;
+}
+
+.wpr-autouploader-icon{
+  display: inline-block;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.wpr-autouploader-icon img{
+  -webkit-animation: wpr_lspin 1.5s linear infinite;
+  -moz-animation: wpr_lspin 1.5s linear infinite;
+  animation: wpr_lspin 1.5s linear infinite;
+}
+
+@-moz-keyframes wpr_lspin {
+  100% {
+    -moz-transform: rotate(-360deg);
+  }
+}
+@-webkit-keyframes wpr_lspin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+  }
+}
+@keyframes wpr_lspin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}

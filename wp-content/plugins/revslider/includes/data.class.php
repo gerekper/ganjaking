@@ -211,7 +211,7 @@ class RevSliderData {
 	/**
 	 * make sure that all false and true are really boolean
 	 **/
-	public static function force_to_boolean(&$a, &$b){
+	public static function force_to_boolean(&$a, $b){
 		$a = ($a === 'false') ? false : $a;
 		$a = ($a === 'true') ? true : $a;
 		$b = ($b === 'false') ? false : $b;

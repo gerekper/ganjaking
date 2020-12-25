@@ -22,11 +22,11 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_7_1;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_2;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_7_1\\SV_WC_Admin_Notice_Handler' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_2\\SV_WC_Admin_Notice_Handler' ) ) :
 
 
 /**
@@ -254,53 +254,56 @@ class SV_WC_Admin_Notice_Handler {
 		self::$admin_notice_js_rendered = true;
 
 		ob_start();
+
 		?>
+		( function( $ ) {
 
-		// Log dismissed notices
-		$( '.js-wc-plugin-framework-admin-notice' ).on( 'click.wp-dismiss-notice', '.notice-dismiss', function( e ) {
+			// log dismissed notices
+			$( '.js-wc-plugin-framework-admin-notice' ).on( 'click.wp-dismiss-notice', '.notice-dismiss', function( e ) {
 
-			var $notice = $( this ).closest( '.js-wc-plugin-framework-admin-notice' );
+				var $notice = $( this ).closest( '.js-wc-plugin-framework-admin-notice' );
 
-			log_dismissed_notice(
-				$( $notice ).data( 'plugin-id' ),
-				$( $notice ).data( 'message-id' )
-			);
+				log_dismissed_notice(
+					$( $notice ).data( 'plugin-id' ),
+					$( $notice ).data( 'message-id' )
+				);
 
-		} );
+			} );
 
-		// Log and hide legacy notices
-		$( 'a.js-wc-plugin-framework-notice-dismiss' ).click( function( e ) {
+			// Log and hide legacy notices
+			$( 'a.js-wc-plugin-framework-notice-dismiss' ).click( function( e ) {
 
-			e.preventDefault();
+				e.preventDefault();
 
-			var $notice = $( this ).closest( '.js-wc-plugin-framework-admin-notice' );
+				var $notice = $( this ).closest( '.js-wc-plugin-framework-admin-notice' );
 
-			log_dismissed_notice(
-				$( $notice ).data( 'plugin-id' ),
-				$( $notice ).data( 'message-id' )
-			);
+				log_dismissed_notice(
+					$( $notice ).data( 'plugin-id' ),
+					$( $notice ).data( 'message-id' )
+				);
 
-			$( $notice ).fadeOut();
+				$( $notice ).fadeOut();
 
-		} );
+			} );
 
-		function log_dismissed_notice( pluginID, messageID ) {
+			function log_dismissed_notice( pluginID, messageID ) {
 
-			$.get(
-				ajaxurl,
-				{
-					action:    'wc_plugin_framework_' + pluginID + '_dismiss_notice',
-					messageid: messageID
-				}
-			);
-		}
+				$.get(
+					ajaxurl,
+					{
+						action:    'wc_plugin_framework_' + pluginID + '_dismiss_notice',
+						messageid: messageID
+					}
+				);
+			}
 
-		// move any delayed notices up into position .show();
-		$( '.js-wc-plugin-framework-admin-notice:hidden' ).insertAfter( '.js-wc-<?php echo esc_js( $plugin_slug ); ?>-admin-notice-placeholder' ).show();
+			// move any delayed notices up into position .show();
+			$( '.js-wc-plugin-framework-admin-notice:hidden' ).insertAfter( '.js-wc-<?php echo esc_js( $plugin_slug ); ?>-admin-notice-placeholder' ).show();
+
+		} ) ( jQuery );
 		<?php
-		$javascript = ob_get_clean();
 
-		wc_enqueue_js( $javascript );
+		wc_enqueue_js( ob_get_clean() );
 	}
 
 

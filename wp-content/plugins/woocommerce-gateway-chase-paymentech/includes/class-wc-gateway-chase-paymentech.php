@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_3 as Framework;
 
 /**
  * Chase Paymentech Payment Gateway
@@ -478,7 +478,7 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 
 		$order = wc_get_order( $order_id );
 
-		if ( Framework\SV_WC_Helper::get_posted_value( 'woocommerce_pay_page' ) || ( $this->supports_subscriptions() && Framework\SV_WC_Plugin_Compatibility::is_wc_subscriptions_version_gte( '2.0' ) && wcs_order_contains_renewal( $order_id ) && $this->get_order_meta( $order, 'payment_token' ) ) ) {
+		if ( Framework\SV_WC_Helper::get_posted_value( 'woocommerce_pay_page' ) || ( $this->supports_subscriptions() && wcs_order_contains_renewal( $order_id ) && $this->get_order_meta( $order, 'payment_token' ) ) ) {
 			// direct (tokenized) checkout from Pay page or processing subscription renewal (2.0.x only)
 			return parent::process_payment( $order_id );
 		}
@@ -582,25 +582,6 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 				}
 			}
 		}
-
-		return $order;
-	}
-
-
-	/**
-	 * Gets an order with subscriptions data added.
-	 *
-	 * @since 1.13.0
-	 * @deprecated 1.13.1
-	 *
-	 * TODO remove this deprecated method by version 2.0.0 or by September 2020 {FN 2019-09-09}
-	 *
-	 * @param \WC_Order $order order object
-	 * @return \WC_Order
-	 */
-	protected function get_order_with_subscription_data( \WC_Order $order ) {
-
-		wc_deprecated_function( __METHOD__, '1.13.1', 'WC_Gateway_Chase_Paymentech::get_order()' );
 
 		return $order;
 	}
@@ -1037,11 +1018,6 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 
 		$order->payment_total = Framework\SV_WC_Helper::number_format( $order->get_total() );
 
-		// the total initial payment is only needed with Subscriptions 1.5.x
-		if ( $this->supports_subscriptions() && ! Framework\SV_WC_Plugin_Compatibility::is_wc_subscriptions_version_gte( '2.0' ) && WC_Subscriptions_Order::order_contains_subscription( $order_id ) ) {
-			$order->payment_total = Framework\SV_WC_Helper::number_format( WC_Subscriptions_Order::get_total_initial_payment( $order ) );
-		}
-
 		// if a pay upon release pre-order
 		if ( $this->supports_pre_orders() &&
 			WC_Pre_Orders_Order::order_contains_pre_order( $order_id ) &&
@@ -1235,10 +1211,11 @@ class WC_Gateway_Chase_Paymentech extends Framework\SV_WC_Payment_Gateway_Direct
 
 			// store the token if the user is logged in and this is not certification mode
 			if ( $order->get_user_id() ) {
+
 				$this->get_payment_tokens_handler()->add_token( $order->get_user_id(), $response->get_payment_token() );
 
 				// save token for Subscriptions 2.0+
-				if ( $this->supports_subscriptions() && Framework\SV_WC_Plugin_Compatibility::is_wc_subscriptions_version_gte( '2.0' ) ) {
+				if ( $this->supports_subscriptions() ) {
 
 					// a single order can contain multiple subscriptions
 					foreach ( wcs_get_subscriptions_for_order( $order->get_id() ) as $subscription ) {

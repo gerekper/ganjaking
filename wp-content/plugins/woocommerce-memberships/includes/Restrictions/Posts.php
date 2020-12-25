@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Memberships\Restrictions;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -248,20 +248,22 @@ class Posts {
 
 			if ( 'post_type' === $object_type ) {
 
-				// Bail out as the above conditions evaluate a possible interaction with WC AJAX when the home page is restricted from WC 3.2 onwards:
+				// bail out as the above conditions evaluate a possible interaction with WC AJAX when the home page is restricted:
 				if (    isset( $_GET['wc-ajax'] )
-				     && defined( 'DOING_AJAX' ) && DOING_AJAX
+				     && defined( 'DOING_AJAX' )
+				     && DOING_AJAX
 				     && (int) $object_id === (int) get_option( 'page_on_front' )
-				     && has_action( 'wp_ajax_nopriv_woocommerce_' . $_GET['wc-ajax'] )
-				     && Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.2' ) ) {
+				     && has_action( 'wp_ajax_nopriv_woocommerce_' . $_GET['wc-ajax'] ) ) {
+
 					return;
 				}
 
-				// Bail out if we are on a product category page but the post was not hidden from showing - otherwise this would redirect the whole category page!
+				// bail out if we are on a product category page but the post was not hidden from showing - otherwise this would redirect the whole category page!
 				if (      'product' === $object_type_name
 				     && ! is_singular( 'product' )
 				     &&   is_tax( 'product_cat' )
 				     && ! wc_memberships()->get_restrictions_instance()->hiding_restricted_products() ) {
+
 					return;
 				}
 			}
@@ -384,13 +386,10 @@ class Posts {
 				$message_code = 'product_category_viewing_delayed';
 			}
 
-		} else {
-
-			if ( ! current_user_can( 'wc_memberships_view_restricted_taxonomy_term', $taxonomy, $term_id ) ) {
-				$message_code = 'content_category_restricted';
-			} elseif( ! current_user_can( 'wc_memberships_view_delayed_taxonomy_term', $taxonomy, $term_id ) ) {
-				$message_code = 'content_category_delayed';
-			}
+		} elseif ( ! current_user_can( 'wc_memberships_view_restricted_taxonomy_term', $taxonomy, $term_id ) ) {
+			$message_code = 'content_category_restricted';
+		} elseif( ! current_user_can( 'wc_memberships_view_delayed_taxonomy_term', $taxonomy, $term_id ) ) {
+			$message_code = 'content_category_delayed';
 		}
 
 		return $message_code;
@@ -611,7 +610,7 @@ class Posts {
 			$term_ids[] = $terms;
 		}
 
-		$term_ids = array_unique( call_user_func_array( 'array_merge', $term_ids ) );
+		$term_ids = array_unique( array_merge( ...$term_ids ) );
 
 		if ( ! empty( $term_ids ) ) {
 
@@ -697,10 +696,34 @@ class Posts {
 		}
 
 		$response_data = is_callable( [ $response, 'get_data' ] ) ? $response->get_data() : [];
-		$post_type     = isset( $response_data['type'] ) && is_string( $response_data['type'] ) ? $response_data['type'] : '';
-		$taxonomy      = isset( $response_data['taxonomy'] ) && is_string( $response_data['taxonomy'] ) ? $response_data['taxonomy'] : '';
-		$content_id    = isset( $response_data['id'] ) && is_numeric( $response_data['id'] ) ? $response_data['id' ] : 0;
-		$content_type  = '' !== $post_type ? $post_type : $taxonomy;
+
+		// default content values
+		$post_type         = '';
+		$taxonomy          = '';
+		$content_id        = 0;
+		$parent_content_id = 0;
+
+		// make sure we are reading from an array
+		if ( is_array( $response_data ) ) {
+
+			if ( isset( $response_data['type'] ) && is_string( $response_data['type'] ) ) {
+				$post_type = $response_data['type'];
+			}
+
+			if ( isset( $response_data['taxonomy'] ) && is_string( $response_data['taxonomy'] ) ) {
+				$taxonomy = $response_data['taxonomy'];
+			}
+
+			if ( isset( $response_data['id'] ) && is_numeric( $response_data['id'] ) ) {
+				$content_id = (int) $response_data['id'];
+			}
+
+			if ( isset( $response_data['post'] ) && is_numeric( $response_data['post'] ) ) {
+				$parent_content_id = (int) $response_data['post'];
+			}
+		}
+
+		$content_type = '' !== $post_type ? $post_type : $taxonomy;
 
 		// we only need to handle content restricted completely as other callbacks in this class will handle partial restrictions already
 		if ( 'comment' !== $content_type && ! wc_memberships()->get_restrictions_instance()->is_restriction_mode( 'hide' ) ) {
@@ -713,9 +736,9 @@ class Posts {
 			// individual comments
 			if ( 'comment' === $content_type ) {
 
-				$parent_content_id = isset( $response_data['post'] ) && is_numeric( $response_data['post'] ) ? (int) $response_data['post'] : 0;
+				$restricted_posts = wc_memberships()->get_restrictions_instance()->get_user_restricted_posts();
 
-				if ( $parent_content_id > 0 && in_array( $parent_content_id, wc_memberships()->get_restrictions_instance()->get_user_restricted_posts(), false ) ) {
+				if ( $parent_content_id > 0 && is_array( $restricted_posts ) && in_array( $parent_content_id, $restricted_posts, false ) ) {
 
 					$response = new \WP_Error(
 						'rest_comment_invalid_id',
@@ -727,7 +750,9 @@ class Posts {
 			// posts or pages
 			} elseif ( array_key_exists( $content_type, get_post_types() ) ) {
 
-				if ( in_array( $content_id, wc_memberships()->get_restrictions_instance()->get_user_restricted_posts(), false ) ) {
+				$restricted_posts = wc_memberships()->get_restrictions_instance()->get_user_restricted_posts();
+
+				if ( is_array( $restricted_posts ) && in_array( $content_id, $restricted_posts, false ) ) {
 
 					$response = new \WP_Error(
 						'rest_post_invalid_id',
@@ -739,7 +764,9 @@ class Posts {
 			// terms
 			} elseif ( array_key_exists( $content_type, get_taxonomies() ) ) {
 
-				if ( in_array( $content_id, wc_memberships()->get_restrictions_instance()->get_user_restricted_terms( $content_type ), false ) ) {
+				$restricted_terms = wc_memberships()->get_restrictions_instance()->get_user_restricted_terms( $content_type );
+
+				if ( is_array( $restricted_terms ) && in_array( $content_id, $restricted_terms, false ) ) {
 
 					$response = new \WP_Error(
 						'rest_term_invalid',
@@ -1065,7 +1092,7 @@ class Posts {
 			$taxonomies[] = get_object_taxonomies( $post_type );
 		}
 
-		return array_unique( call_user_func_array( 'array_merge', $taxonomies ) );
+		return array_unique( array_merge( ...$taxonomies ) );
 	}
 
 
@@ -1226,10 +1253,10 @@ class Posts {
 	 */
 	public function exclude_restricted_adjacent_posts( $where_clause, $in_same_term, $excluded_terms, $taxonomy, $post ) {
 
-		if (      '' !== $where_clause
-		     &&   $post instanceof \WP_Post
+		if ( '' !== $where_clause
+		     && $post instanceof \WP_Post
 		     && ! current_user_can( 'wc_memberships_access_all_restricted_content' )
-		     &&   wc_memberships()->get_restrictions_instance()->is_restriction_mode( 'hide' ) ) {
+		     && wc_memberships()->get_restrictions_instance()->is_restriction_mode( 'hide' ) ) {
 
 			$restricted_post_ids = wc_memberships()->get_restrictions_instance()->get_user_restricted_posts( $post->post_type );
 			$restricted_post_ids = ! empty( $restricted_post_ids ) ? implode( ',', array_filter( array_map( 'absint', $restricted_post_ids ) ) ) : null;

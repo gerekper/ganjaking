@@ -21,11 +21,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu as Enhanced_Navigation_Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Screen as Enhanced_Navigation_Screen;
 use SkyVerge\WooCommerce\Memberships\Admin\Views\Modals\Profile_Field\Confirm_Deletion;
 use SkyVerge\WooCommerce\Memberships\Admin\Views\Modals\User_Membership\Confirm_Edit_Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Admin\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields as Profile_Fields_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -79,7 +81,7 @@ class WC_Memberships_Admin {
 		require_once( wc_memberships()->get_plugin_path() . '/includes/admin/class-wc-memberships-admin-membership-plan-rules.php' );
 
 		// display admin messages
-		add_action( 'admin_notices', array( $this, 'show_admin_messages' ) );
+		add_action( 'admin_notices', [ $this, 'show_admin_messages' ] );
 
 		// init settings page
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_settings_page' ) );
@@ -94,6 +96,8 @@ class WC_Memberships_Admin {
 		add_action( 'admin_menu', [ $this, 'add_import_export_admin_page' ] );
 		// init profile fields page
 		add_action( 'admin_menu', [ $this, 'add_profile_fields_admin_page' ] );
+		// add navigation menu items
+		add_action( 'admin_menu', [ $this, 'add_enhanced_navigation_items' ] );
 
 		// add additional bulk actions to memberships-restrictable post types
 		// TODO when WordPress 4.7 is the minimum required version, this may be updated to use new hooks {FN 2018-11-05}
@@ -445,6 +449,76 @@ class WC_Memberships_Admin {
 
 
 	/**
+	 * Adds menu items for the enhanced WooCommerce navigation feature.
+	 *
+	 * TODO in the future reorganize some of the strings passed in this method's calls to keep things DRY {FN 2020-11-13}
+	 *
+	 * @internal
+	 *
+	 * @since 1.20.0
+	 */
+	public function add_enhanced_navigation_items() {
+
+		if ( ! class_exists( Enhanced_Navigation_Menu::class ) || ! class_exists( Enhanced_Navigation_Screen::class ) ) {
+			return;
+		}
+
+		Enhanced_Navigation_Screen::register_post_type( 'wc_user_membership' );
+		Enhanced_Navigation_Screen::register_post_type( 'wc_membership_plan' );
+		Enhanced_Navigation_Menu::add_plugin_category( [
+			'id'    => 'woocommerce-memberships',
+			'title' => wc_memberships()->get_plugin_name(),
+		] );
+
+		$user_memberships = Enhanced_Navigation_Menu::get_post_type_items(
+			'wc_user_membership',
+			[
+				'parent' => 'woocommerce-memberships',
+				'title'  => __( 'Members', 'woocommerce-memberships' ),
+				'order'  => 1,
+			]
+		);
+
+		if ( isset( $user_memberships['all'] ) ) {
+			Enhanced_Navigation_Menu::add_plugin_item( $user_memberships['all'] );
+		}
+
+		$membership_plans = Enhanced_Navigation_Menu::get_post_type_items(
+			'wc_membership_plan',
+			[
+				'parent' => 'woocommerce-memberships',
+				'title'  => __( 'Membership Plans', 'woocommerce-memberships' ),
+				'order'  => 2,
+			]
+		);
+
+		if ( isset( $membership_plans['all'] ) ) {
+			Enhanced_Navigation_Menu::add_plugin_item( $membership_plans['all'] );
+		}
+
+		Enhanced_Navigation_Menu::add_plugin_item( [
+			'id'         => 'woocommerce-memberships-import-export',
+			'title'      => __( 'Import / Export', 'woocommerce-memberships' ),
+			/** @see \WC_Memberships_Admin::add_import_export_admin_page() */
+			'capability' => (string) apply_filters( 'woocommerce_memberships_can_import_export', 'manage_woocommerce' ),
+			'url'        => 'wc_memberships_import_export',
+			'parent'     => 'woocommerce-memberships',
+			'order'      => 3,
+		] );
+
+		Enhanced_Navigation_Menu::add_plugin_item( [
+			'id'         => 'woocommerce-memberships-profile-fields',
+			'title'      => __( 'Profile Fields', 'woocommerce-memberships' ),
+			/** @see \WC_Memberships_Admin::add_profile_fields_admin_page() */
+			'capability' => (string) apply_filters( 'woocommerce_memberships_can_manage_profile_fields', 'manage_woocommerce' ),
+			'url'        => 'wc_memberships_profile_fields',
+			'parent'     => 'woocommerce-memberships',
+			'order'      => 4,
+		] );
+	}
+
+
+	/**
 	 * Adds Import / Export page for Memberships admin page.
 	 *
 	 * @internal
@@ -575,12 +649,12 @@ class WC_Memberships_Admin {
 
 				?>
 				<script type="text/javascript">
-					jQuery( document ).ready( function( $ ) {
+					( function( $ ) {
 						<?php foreach ( $this->get_restrictable_post_types_bulk_actions( true ) as $id => $label ) : ?>
 							$( '<option>' ).val( '<?php echo esc_js( $id ); ?>' ).text( '<?php echo esc_js( $label ); ?>' ).appendTo( 'select[name="action"]' );
 							$( '<option>' ).val( '<?php echo esc_js( $id ); ?>' ).text( '<?php echo esc_js( $label ); ?>' ).appendTo( 'select[name="action2"]' );
 						<?php endforeach; ?>
-					} );
+					} ) ( jQuery );
 				</script>
 				<?php
 
@@ -1428,41 +1502,6 @@ class WC_Memberships_Admin {
 	 * @since 1.0.0
 	 */
 	public function show_admin_messages() {
-		global $current_screen;
-
-		// maybe add an informational notice about Jilt member emails
-		if (
-			     $current_screen
-			&&   isset( $_GET['tab'], $_GET['section'] )
-			&&   $_GET['tab'] === 'email'
-			&&   $current_screen->id === Framework\SV_WC_Plugin_Compatibility::normalize_wc_screen_id()
-			&& ! wc_memberships()->get_integrations_instance()->is_jilt_active()
-		) {
-
-			foreach ( wc_memberships()->get_emails_instance()->get_email_class_names() as $membership_email_cass ) {
-
-				$membership_email_id = strtolower( $membership_email_cass );
-
-				if ( $membership_email_id === $_GET['section'] ) {
-
-					wc_memberships()->get_admin_notice_handler()->add_admin_notice(
-						sprintf(
-							/* translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag */
-							__( 'Send more member emails, including welcome series, using the Jilt integration for Memberships. %1$sLearn more &raquo;%2$s.', 'woocommerce-memberships' ),
-							'<a href="https://jilt.com/go/memberships-email-notice">', '</a>'
-						),
-						'wc-memberships-emails-jilt-member-emails',
-						[
-							'notice_class'            => 'notice-info',
-							'dismissible'             => true,
-							'always_show_on_settings' => false,
-						]
-					);
-
-					break;
-				}
-			}
-		}
 
 		$this->message_handler->show_messages();
 	}

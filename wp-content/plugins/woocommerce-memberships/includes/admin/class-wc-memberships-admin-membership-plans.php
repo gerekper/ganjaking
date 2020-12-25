@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -375,14 +375,10 @@ class WC_Memberships_Admin_Membership_Plans {
 
 			$handler = wc_memberships()->get_utilities_instance()->get_grant_retroactive_access_instance();
 
-			// opens the modal if there's an ongoing job
 			if ( $handler->has_ongoing_job( $plan->get_id() ) ) {
 
-				wc_enqueue_js( '
-					jQuery( document ).ready( function( $ ) {
-						$( "#grant-access-modal-plan-' . $plan->get_id() . '" ).trigger( "click" );
-					} );
-				' );
+				// opens the modal if there's an ongoing job
+				wc_enqueue_js( ' $( "#grant-access-modal-plan-' . $plan->get_id() . '" ).trigger( "click" ); ' );
 
 			} elseif ( $job = $handler->get_job() ) {
 

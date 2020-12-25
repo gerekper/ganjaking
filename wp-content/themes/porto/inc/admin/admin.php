@@ -399,7 +399,7 @@ if ( is_admin() && ( ! function_exists( 'vc_is_inline' ) || ! vc_is_inline() ) &
 						?>
 				<script>
 					(function($){
-						$(window).load(function() {
+						$(window).on('load', function() {
 							$('.themes .theme.active .theme-screenshot').after('<div class="notice update-message notice-error notice-alt"><p>Please <a href="admin.php?page=porto" class="button-link">verify purchase</a> to get updates!</p></div>');
 						});
 					})(window.jQuery);

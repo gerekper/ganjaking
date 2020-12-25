@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.6
-Stable tag: 1.3.8
+Stable tag: 1.3.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,10 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.3.9 - 24/12/2020 =
+- Fixed: 'Instant Answer' Responsive issues on iPhone 
+- Few minor bug fix and improvements
 
 = 1.3.8 - 10/12/2020 =
 - Added: 'Custom Permalink' structure

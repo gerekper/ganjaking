@@ -6,7 +6,7 @@
  * Description: Accept credit cards in WooCommerce with the Chase Paymentech gateway
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com/
- * Version: 1.15.2
+ * Version: 1.16.0
  * Text Domain: woocommerce-gateway-chase-paymentech
  * Domain Path: /i18n/languages/
  *
@@ -21,8 +21,8 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 333964:167a54da3dfd72e35d61dc7bd810cb85
- * WC requires at least: 3.0.9
- * WC tested up to: 4.7.0
+ * WC requires at least: 3.5
+ * WC tested up to: 4.8.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -47,17 +47,18 @@ if ( ! is_woocommerce_active() ) {
  */
 class WC_Chase_Paymentech_Loader {
 
+
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '5.6.0';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '4.4';
+	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.0.9';
+	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.1';
+	const FRAMEWORK_VERSION = '5.10.3';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Chase Paymentech Gateway';
@@ -88,8 +89,6 @@ class WC_Chase_Paymentech_Loader {
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
-
-			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

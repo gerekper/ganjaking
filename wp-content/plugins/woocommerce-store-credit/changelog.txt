@@ -1,5 +1,8 @@
 *** Store Credit Changelog ***
 
+2020-12-17 - version 3.4.3
+* Fix - Enqueue the scripts for the 'Send Credit' page when using a non-ASCII language.
+
 2020-12-10 - version 3.4.2
 * Fix - Prevent fatal error when displaying the discounted amount of a Store Credit coupon on the cart page.
 * Fix - Enqueue the script 'send-credit.js' only when necessary.

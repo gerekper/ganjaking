@@ -23,7 +23,7 @@
 
 use SkyVerge\WooCommerce\Memberships\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field_Definition;
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -225,14 +225,14 @@ class WC_Memberships_Admin_User_Memberships {
 
 			?>
 			<script type="text/javascript">
-				jQuery( document ).ready( function( $ ) {
+				( function( $ ) {
 					var exportLabel = '<?php esc_html_e( 'Export to CSV', 'woocommerce-memberships' ); ?>',
 						deleteLabel = '<?php esc_html_e( 'Delete', 'woocommerce-memberships' ); ?>';
 					$( '<option>' ).val( 'export' ).text( exportLabel ).appendTo( 'select[name="action"]' );
 					$( '<option>' ).val( 'export' ).text( exportLabel ).appendTo( 'select[name="action2"]' );
 					$( '<option>' ).val( 'delete' ).text( deleteLabel ).appendTo( "select[name='action']" );
 					$( '<option>' ).val( 'delete' ).text( deleteLabel ).appendTo( "select[name='action2']" );
-				} );
+				} ) ( jQuery );
 			</script>
 			<?php
 

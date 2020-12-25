@@ -293,6 +293,12 @@ body.ebsp-mf-shown.wp-admin .mfp-wrap {
 	margin-left: 5px;
 	margin-right: auto;
 }
+.redux-container .ui-buttonset .ui-button > span,
+.control-section-redux .ui-buttonset .ui-button > span,
+.control-panel-redux .ui-buttonset .ui-button > span,
+.redux-metabox .ui-buttonset .ui-button > span {
+	display: none;
+}
 
 .rtl .msp-dialog button.ui-dialog-titlebar-close {
 	float: right;

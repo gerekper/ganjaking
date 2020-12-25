@@ -617,25 +617,22 @@
 				});
 			});
 
-			$(document).on("click", ".variations_form .variations .filter-item-list .filter-color, .variations_form .variations .filter-item-list .filter-item", function(e) {
+			$(document.body).on('click', '.variations_form .variations .filter-item-list .filter-color, .variations_form .variations .filter-item-list .filter-item', function(e) {
 				e.preventDefault();
-				if ($(this).closest("ul").next("select").length < 1 || $(this).hasClass('disabled')) {
+				if ($(this).closest('ul').siblings('select').length < 1 || $(this).hasClass('disabled')) {
 					return;
 				}
-				var value = unescape($(this).data("value")),
-					selector = $(this).closest("ul").next("select");
-				if ($(this).closest("li").hasClass("active")) {
-					$(this).closest("li").removeClass("active");
-					selector.children("option:selected").removeAttr("selected");
+				var value = $(this).data('value'),
+					selector = $(this).closest('ul').siblings('select');
+				if ($(this).closest('li').hasClass('active')) {
+					$(this).closest('li').removeClass('active');
 					selector.val('');
 				} else {
-					$(this).closest("ul").children("li").removeClass("active");
-					$(this).closest("li").addClass("active");
-					selector.children("option:selected").removeAttr("selected");
-					selector.children("option[value='" + value + "']").attr("selected", "selected");
-					selector.val(selector.children("option[value='" + value + "']").val());
+					$(this).closest('ul').children('li').removeClass('active');
+					$(this).closest('li').addClass('active');
+					selector.val(value);
 				}
-				selector.change();
+				selector.trigger('change');
 			});
 			$(document).on('wc_variation_form', '.variations_form', function() {
 				$(this).addClass('vf_init');
@@ -2601,7 +2598,7 @@
 				$this.closest('.category-section').find('.woocommerce > ul.products').trigger('porto_update_products', [data, '']);
 			}
 		});
-		$(window).load(function() {
+		$(window).on('load', function() {
 			if ($('.porto-onepage-category.show-products').length) {
 				$('body').css('position', 'relative');
 				$('body').scrollspy({ target: '.porto-onepage-category.show-products .category-list', offset: theme.StickyHeader.sticky_height + theme.adminBarHeight() + theme.sticky_nav_height + 20 });
@@ -2628,7 +2625,7 @@
 				window.addEventListener('scroll', function() {
 					var scrollTop = $(window).scrollTop(),
 						offset = theme.adminBarHeight() + theme.StickyHeader.sticky_height;
-					if ($('form.cart').offset().top + $('form.cart').height() / 2 <= scrollTop + offset) {
+					if ($('form.cart').length && $('form.cart').offset().top + $('form.cart').height() / 2 <= scrollTop + offset) {
 						$('.single-product .sticky-product').removeClass('hide');
 						if (!$('.single-product .sticky-product').hasClass('pos-bottom')) {
 							$('.single-product .sticky-product').css('top', offset);
@@ -2933,7 +2930,10 @@ function porto_woocommerce_variations_init($parent_obj) {
 		var form_variation = $parent_obj.find('form.variations_form:not(.vf_init)');
 		if (form_variation.length) {
 			form_variation.each(function() {
-				jQuery(this).wc_variation_form();
+				var data_a = jQuery._data(this, 'events');
+				if (!data_a || !data_a['show_variation']) {
+					jQuery(this).wc_variation_form();
+				}
 			});
 			//form_variation.find("select option:selected").removeAttr("selected");
 		}

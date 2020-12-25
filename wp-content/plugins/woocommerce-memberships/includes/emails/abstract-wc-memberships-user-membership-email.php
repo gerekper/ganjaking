@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -108,7 +108,7 @@ abstract class WC_Memberships_User_Membership_Email extends \WC_Email {
 		$expiration_date_timestamp = $user_membership->get_local_end_date( 'timestamp' );
 
 		// placeholders
-		$email_merge_tags = array(
+		$email_merge_tags = [
 			'member_name'                 => $member_name,
 			'member_first_name'           => $member_first_name,
 			'member_last_name'            => $member_last_name,
@@ -118,20 +118,10 @@ abstract class WC_Memberships_User_Membership_Email extends \WC_Email {
 			'membership_expiry_time_diff' => human_time_diff( current_time( 'timestamp', true ), $expiration_date_timestamp ),
 			'membership_view_url'         => esc_url( $user_membership->get_view_membership_url() ),
 			'membership_renewal_url'      => esc_url( $user_membership->get_renew_membership_url() ),
-		);
+		];
 
-		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.2' ) ) {
-
-			foreach ( $email_merge_tags as $find => $replace ) {
-				$this->placeholders[ '{' . $find . '}' ] = $replace;
-			}
-
-		} else {
-
-			foreach ( $email_merge_tags as $find => $replace ) {
-				$this->find[ $find ]    = '{' . $find . '}';
-				$this->replace[ $find ] = $replace;
-			}
+		foreach ( $email_merge_tags as $find => $replace ) {
+			$this->placeholders[ '{' . $find . '}' ] = $replace;
 		}
 	}
 

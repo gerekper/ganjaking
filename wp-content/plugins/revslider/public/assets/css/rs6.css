@@ -631,7 +631,7 @@ rs-layer.rs-nointeraction,
 	pointer-events: none !important
 }
 
-rs-static-layers	{position:absolute; z-index:101; top:0px;left:0px; display: block; width: 100%;height: 100%; pointer-events: none;}
+rs-static-layers	{position:absolute; z-index:101; top:0px;left:0px; display: block; width: 100%;height: 100%; pointer-events: none;overflow: hidden}
 
 /* new static layers position option */
 rs-static-layers.rs-stl-back {	

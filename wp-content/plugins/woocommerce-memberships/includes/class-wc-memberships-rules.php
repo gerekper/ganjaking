@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_7_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -1256,8 +1256,6 @@ class WC_Memberships_Rules {
 	 */
 	public function get_products_to_purchase_from_rules( $rules, $object = null, $rule_type = '', $args = array() ) {
 
-		$is_wc_version_lt_3_3 = Framework\SV_WC_Plugin_Compatibility::is_wc_version_lt( '3.3' );
-
 		$processed_plans = $filtered_products = $unfiltered_products = array();
 
 		// build an array of product IDs to check
@@ -1311,15 +1309,8 @@ class WC_Memberships_Rules {
 					continue;
 				}
 
-				// WC < 3.3 requires us to check a variation's parent's visibility
-				if ( $is_wc_version_lt_3_3 && $product->is_type( 'variation' ) && ( $parent = wc_get_product( $product->get_parent_id( 'edit' ) ) ) ) {
-					$is_visible = $parent->is_visible();
-				} else {
-					$is_visible = $product->is_visible();
-				}
-
 				// store the product as purchasable so it isn't re-checked
-				if ( $is_visible && $product->is_purchasable()  ) {
+				if ( $product->is_visible() && $product->is_purchasable()  ) {
 
 					$this->purchasable_product_ids[] = $product_id;
 

@@ -80,7 +80,8 @@ function wc_store_credit_get_send_credit_menu_slug() {
  * @return string
  */
 function wc_store_credit_get_send_credit_screen_id() {
-	$slug = wc_store_credit_get_send_credit_menu_slug();
+	$wc_screen_id = sanitize_title( __( 'WooCommerce', 'woocommerce' ) ); // phpcs:ignore WordPress.WP.I18n
+	$slug         = wc_store_credit_get_send_credit_menu_slug();
 
 	/**
 	 * Filters the screen ID for the 'Send Store Credit' page.
@@ -89,7 +90,7 @@ function wc_store_credit_get_send_credit_screen_id() {
 	 *
 	 * @param string $screen_id The screen ID.
 	 */
-	return apply_filters( 'wc_store_credit_send_credit_screen_id', "woocommerce_page_{$slug}" );
+	return apply_filters( 'wc_store_credit_send_credit_screen_id', "{$wc_screen_id}_page_{$slug}" );
 }
 
 /**

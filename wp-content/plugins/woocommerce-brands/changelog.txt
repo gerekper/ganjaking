@@ -1,5 +1,9 @@
 *** Brands Changelog ***
 
+2020-12-15 - version 1.6.23
+* New Minimum Requirements - WordPress 4.4, WooCommerce 3.2
+* Fix - Allow pagination and limit for the brand products shortcode.
+
 2020-12-01 - version 1.6.22
 * Tweak - WC 4.7 compatibility.
 * Tweak - WordPress 5.6 compatibility.

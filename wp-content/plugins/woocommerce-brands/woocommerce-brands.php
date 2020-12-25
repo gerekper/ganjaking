@@ -7,13 +7,13 @@
  * Author URI: https://woocommerce.com/
  * Developer: WooCommerce
  * Developer URI: http://woocommerce.com/
- * Requires at least: 3.3.0
+ * Requires at least: 4.4
  * Tested up to: 5.6
- * Version: 1.6.22
+ * Version: 1.6.23
  * Text Domain: wc_brands
  * Domain Path: /languages/
  * WC tested up to: 4.7
- * WC requires at least: 2.6
+ * WC requires at least: 3.2
  *
  * Copyright (c) 2020 WooCommerce
  *
@@ -55,7 +55,7 @@ function wc_brands_init() {
 		return;
 	}
 
-	define( 'WC_BRANDS_VERSION', '1.6.22' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BRANDS_VERSION', '1.6.23' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Localisation
