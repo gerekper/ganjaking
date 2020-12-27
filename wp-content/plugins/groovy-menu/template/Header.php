@@ -18,6 +18,10 @@
  */
 function groovyMenu( $args = array() ) {
 
+	if ( ! is_array( $args ) ) {
+		$args = array();
+	}
+
 	// Main var with GM block HTML.
 	$output_html = '';
 

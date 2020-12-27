@@ -1,0 +1,13 @@
+/*----------------------------------------------------------------------------*\
+	QR Code SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-qrcode {
+	display: inline-block;
+	vertical-align: middle;
+	max-width: 100%;
+	height: auto;
+}
+
+[data-tag="mpc_qrcode"] {
+	display: inline-block !important;
+}

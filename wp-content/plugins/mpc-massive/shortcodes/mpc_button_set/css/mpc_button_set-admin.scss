@@ -1,0 +1,110 @@
+/*----------------------------------------------------------------------------*\
+	BUTTON SET SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.mpc-button-set .vc_element.vc_element {
+	display: inline-block;
+}
+
+.mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element {
+	flex-grow: 1;
+
+	.mpc-tooltip-wrap,
+	.mpc-add_to_cart-wrap,
+	.mpc-button,
+	.mpc-lightbox,
+	.mpc-add_to_cart {
+		width: 100%;
+
+		.mpc-button {
+			width: 100%;
+		}
+	}
+}
+
+.mpc-button-set.mpc-style--vertical .vc_element.vc_element {
+	display: block;
+}
+
+.mpc-button-set .vc_element:last-child .mpc-button-separator-wrap {
+	display: none;
+}
+
+.mpc-button-set.mpc-style--horizontal .vc_element {
+	.mpc-tooltip-wrap,
+	.mpc-add_to_cart-wrap,
+	.mpc-button,
+	.mpc-lightbox,
+	.mpc-add_to_cart {
+		vertical-align: middle;
+	}
+
+	&:first-child .mpc-tooltip-wrap,
+	&:first-child .mpc-add_to_cart-wrap,
+	&:first-child .mpc-button,
+	&:first-child .mpc-lightbox,
+	&:first-child .mpc-add_to_cart {
+		border-bottom-right-radius: 0;
+		border-top-right-radius: 0;
+		padding-left: 0 !important;
+	}
+
+	&:last-child .mpc-tooltip-wrap,
+	&:last-child .mpc-add_to_cart-wrap,
+	&:last-child .mpc-button,
+	&:last-child .mpc-lightbox,
+	&:last-child .mpc-add_to_cart {
+		border-left-width: 0;
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+		padding-right: 0 !important;
+	}
+
+	&:not(:first-child):not(:last-child) .mpc-tooltip-wrap,
+	&:not(:first-child):not(:last-child) .mpc-add_to_cart-wrap,
+	&:not(:first-child):not(:last-child) .mpc-button,
+	&:not(:first-child):not(:last-child) .mpc-lightbox,
+	&:not(:first-child):not(:last-child) .mpc-add_to_cart {
+		border-left-width: 0;
+		border-radius: 0;
+	}
+}
+
+.mpc-button-set.mpc-style--vertical .vc_element {
+	.mpc-tooltip-wrap,
+	.mpc-add_to_cart-wrap,
+	.mpc-button,
+	.mpc-lightbox,
+	.mpc-add_to_cart {
+		display: block;
+	}
+
+	&:first-child .mpc-tooltip-wrap,
+	&:first-child .mpc-add_to_cart-wrap,
+	&:first-child .mpc-button,
+	&:first-child .mpc-lightbox,
+	&:first-child .mpc-add_to_cart {
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		padding-top: 0 !important;
+	}
+
+	&:last-child .mpc-tooltip-wrap,
+	&:last-child .mpc-add_to_cart-wrap,
+	&:last-child .mpc-button,
+	&:last-child .mpc-lightbox,
+	&:last-child .mpc-add_to_cart {
+		border-top-width: 0;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		padding-bottom: 0 !important;
+	}
+
+	&:not(:first-child):not(:last-child) .mpc-tooltip-wrap,
+	&:not(:first-child):not(:last-child) .mpc-add_to_cart-wrap,
+	&:not(:first-child):not(:last-child) .mpc-button,
+	&:not(:first-child):not(:last-child) .mpc-lightbox,
+	&:not(:first-child):not(:last-child) .mpc-add_to_cart {
+		border-top-width: 0;
+		border-radius: 0;
+	}
+}

@@ -1,0 +1,275 @@
+/*----------------------------------------------------------------------------*\
+	MPC_TYPOGRAPHY PARAM
+\*----------------------------------------------------------------------------*/
+
+.mpc-typography-form {
+	display: none;
+}
+
+.vc_wrapper-param-type-mpc_typography {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.vc_wrapper-param-type-mpc_typography *,
+.vc_wrapper-param-type-mpc_typography *:before,
+.vc_wrapper-param-type-mpc_typography *:after {
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-typography-select {
+	vertical-align: top;
+}
+.vc_media-xs .vc_wrapper-param-type-mpc_typography .mpc-typography-select {
+	width: 100%;
+}
+.vc_media-sm .vc_wrapper-param-type-mpc_typography .mpc-typography-select {
+	width: 75%;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-typography-form {
+	display: block;
+	margin: 0 -15px;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-form-element {
+	display: block;
+	padding: 0 15px;
+	margin: 5px 0 10px;
+}
+.vc_media-xs .vc_wrapper-param-type-mpc_typography .mpc-form-element {
+	width: 100%;
+}
+.vc_media-sm .vc_wrapper-param-type-mpc_typography .mpc-form-element.mpc-half {
+	width: 50%;
+	float: left;
+}
+.vc_media-sm .vc_wrapper-param-type-mpc_typography .mpc-form-element.mpc-one-third {
+	width: 33%;
+	float: left;
+}
+.vc_media-sm .vc_wrapper-param-type-mpc_typography .mpc-form-element.mpc-one-fourth {
+	width: 25%;
+	float: left;
+}
+.vc_media-sm .vc_wrapper-param-type-mpc_typography .mpc-form-element.mpc-one-fifth {
+	width: 20%;
+	float: left;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-form-element.mpc-clear {
+	clear: both;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-description {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-form-element input[type="text"] {
+	height: 35px;
+	line-height: 35px;
+	padding: 0 15px;
+	border-radius: 3px;
+	background: #e9e9e9;
+	border: 1px solid #e9e9e9;
+	text-align: center;
+	width: 60px;
+	vertical-align: middle;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-form-element input[type="text"]:focus,
+.vc_wrapper-param-type-mpc_typography .mpc-form-element input[type="text"]:hover {
+	border-color: #ffffff;
+	background: #ffffff;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-form-element input.mpc-typography-name {
+	width: 100%;
+	text-align: left;
+}
+
+.vc_wrapper-param-type-mpc_typography input.mpc-typography-name.mpc-empty,
+.vc_wrapper-param-type-mpc_typography .mpc-typography-select.mpc-empty {
+	border-color: #e0535f;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-unit {
+	padding: 8px 0 8px 4px;
+	vertical-align: middle;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-preview-wrap {
+	display: none;
+	clear: both;
+	padding: 15px;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-preview {
+	padding: 0;
+	background-color: #ffffff;
+	border-radius: 3px;
+}
+
+#vc_ui-panel-edit-element .mpc-preview > textarea {
+	padding: 15px;
+	background-color: #ffffff;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	text-transform: inherit;
+	text-align: inherit;
+	line-height: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-preview .mpc-line {
+	display: block;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-buttons {
+	clear: both;
+	padding: 0 15px;
+	text-align: right;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-dynamic-buttons {
+	vertical-align: top;
+	padding: 0;
+	text-align: left;
+}
+.vc_media-xs .vc_wrapper-param-type-mpc_typography .mpc-dynamic-buttons {
+	display: inline-block;
+	margin-top: 10px;
+	margin-left: 0;
+}
+.vc_media-sm .vc_wrapper-param-type-mpc_typography .mpc-dynamic-buttons {
+	display: block;
+}
+
+.vc_media-xs .vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-new {
+	width: auto;
+	margin-top: 10px;
+	margin-left: 0;
+}
+.vc_media-sm .vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-new {
+	width: 23%;
+	margin-top: 0;
+	margin-left: 2%;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button {
+	margin-left: 10px;
+	height: 38px;
+	line-height: 36px;
+	padding: 0 1.5em;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-accept { background: #75cdde; }
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-new { background: #88d482; }
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-edit { background: #f29760; }
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-cancel,
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-delete { background: #df5461; }
+
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-accept:hover { background: #65b9ca; }
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-new:hover { background: #75c06e; }
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-edit:hover { background: #de855e; }
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-cancel:hover,
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-delete:hover { background: #cb5562; }
+
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button .mpc-create,
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button .mpc-save {
+	display: none;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-state--edit .mpc-vc-button .mpc-save {
+	display: block;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-state--new .mpc-vc-button .mpc-create {
+	display: block;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button {
+	position: relative;
+	text-align: center;
+	overflow: hidden;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button.mpc-hidden {
+	display: none;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button .mpc-regular {
+	position: relative;
+	top: 0;
+	width: 100%;
+
+	transition: top .25s;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button .mpc-hover {
+	position: absolute;
+	left: 50%;
+	top: -35px;
+
+	transform: translateX(-50%);
+	transition: top .25s;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button:hover .mpc-regular {
+	top: 35px;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-vc-button:hover .mpc-hover {
+	top: 0;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-typography {
+	display: none;
+	margin: 15px -15px;
+	padding: 15px;
+	background-color: #f7f7f7;
+	border: 1px solid #dddddd;
+	border-width: 1px 0;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-error {
+	display: none;
+	position: relative;
+	padding: 10px 15px 10px 55px;
+	background-color: #f8dcde;
+	color: #df5461;
+	border-radius: 3px;
+	font-weight: bold;
+}
+.vc_wrapper-param-type-mpc_typography .mpc-error i {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 40px;
+	height: 100%;
+	padding: 10px;
+	background-color: #df5461;
+	color: #ffffff;
+	border-radius: 3px 0 0 3px;
+	text-align: center;
+}
+
+.vc_wrapper-param-type-mpc_typography .mpc-init-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #ffffff;
+	opacity: .6;
+	z-index: 100;
+}
+
+/* AJAX */
+
+.vc_ui-panel .wpb_el_type_mpc_typography .mpc-ajax {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -10px;
+	margin-top: -10px;
+	color: #000000;
+}

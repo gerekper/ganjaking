@@ -1,0 +1,38 @@
+{
+  "mpc_preset_0": {
+    "__name": "1 Classic - V1 Black And White Legend ",
+    "__image": "mpc_pricing_legend\/1_v1.jpg",
+    "properties": "storage|||backups|||email accounts|||mystery feature|||awesomness|||users",
+    "properties_font_transform": "uppercase",
+    "properties_font_align": "right",
+    "properties_font_color": "#ffffff",
+    "prop_even_background_color": "#515151"
+  },
+  "mpc_preset_1": {
+    "__name": "1 Classic - V2 White Grey Legend",
+    "__image": "mpc_pricing_legend\/1_v2.jpg",
+    "properties": "storage|||backups|||email accounts|||mystery feature|||awesomness|||users",
+    "properties_font_transform": "uppercase",
+    "properties_font_align": "right",
+    "properties_font_color": "#555555",
+    "prop_even_background_color": "#f3f3f3"
+  },
+  "mpc_preset_2": {
+    "__name": "1 Classic - V3 Dark Turquoise",
+    "__image": "mpc_pricing_legend\/1_v3.jpg",
+    "properties": "storage|||backups|||email accounts|||mystery feature|||awesomness|||users",
+    "properties_font_transform": "uppercase",
+    "properties_font_align": "right",
+    "properties_font_color": "#52cfb4",
+    "prop_even_background_color": "#4c4c4c"
+  },
+  "mpc_preset_4": {
+    "__name": "2 Orange And White Legend",
+    "__image": "mpc_pricing_legend\/2.jpg",
+    "properties": "storage|||backups|||email accounts|||mystery feature|||awesomness|||users",
+    "properties_font_transform": "uppercase",
+    "properties_font_align": "right",
+    "properties_font_color": "#f29760",
+    "prop_even_background_color": "#f7f7f7"
+  }
+}

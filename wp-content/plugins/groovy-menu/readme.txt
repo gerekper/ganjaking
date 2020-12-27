@@ -1,8 +1,9 @@
 === Groovy Menu ===
 Contributors: Grooni
 Requires at least: 4.9.7
-Tested up to: 5.5.3
-Stable tag: 2.4.0.1
+Tested up to: 5.6
+Stable tag: 2.4.1
+Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -64,6 +65,11 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.4.1 =
+* Fix: Fixed an issue with "Ensure text remains visible during webfont load" by Google PageSpeed Insights version for Groovy Menu icon fonts. You need to reinstall icon fonts in "Groovy Menu dashboard > Global settings > Icon Packs".
+* Fix: The bug with loading media files in "Global Settings" via the Integration page has been fixed.
+* Fix: Fixed integration with the Divi theme, fixed some style conflicts.
 
 = 2.4.0.1 =
 * Improve: Hover effect of menu item now occur only for the last item in the chain in multi-level menus.

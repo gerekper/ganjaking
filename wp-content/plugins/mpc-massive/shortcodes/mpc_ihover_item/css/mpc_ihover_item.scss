@@ -1,0 +1,28 @@
+/*----------------------------------------------------------------------------*\
+	IHOVER ITEM SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-ihover-item {
+	& > a {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+	}
+
+	.mpc-image-box {
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-position: center;
+	}
+}
+
+.mpc-ihover-divider-wrap {
+	line-height: 0;
+}
+
+.mpc-ihover-divider {
+	display: inline-block;
+	vertical-align: top;
+}

@@ -1,0 +1,209 @@
+/*----------------------------------------------------------------------------*\
+	FLIPBOX SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-flipbox {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.mpc-flipbox.mpc-flipbox--click {
+	cursor: pointer;
+}
+
+.mpc-flipbox__content {
+	position: relative;
+
+	width: 100%;
+	height: inherit;
+
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+.mpc-flipbox__front,
+.mpc-flipbox__back {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	text-align: center;
+
+	width: 100%;
+
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-ms-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+
+
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.mpc-flipbox__wrapper {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.mpc-flipbox--flip-left {
+	.mpc-flipbox__front {
+		-webkit-transform: perspective( 1000px ) rotateY( 0deg );
+		-moz-transform: perspective( 1000px ) rotateY( 0deg );
+		transform: perspective( 1000px ) rotateY( 0deg );
+	}
+	.mpc-flipbox__back {
+		-webkit-transform: perspective( 1000px ) rotateY( 180deg );
+		-moz-transform: perspective( 1000px ) rotateY( 180deg );
+		transform: perspective( 1000px ) rotateY( 180deg );
+	}
+
+	&:not(.mpc-flipbox--click):hover .mpc-flipbox__front,
+	&.mpc-flipbox--animate .mpc-flipbox__front {
+		-webkit-transform: perspective( 1000px ) rotateY( -179.9deg );
+		-moz-transform: perspective( 1000px ) rotateY( -179.9deg );
+		transform: perspective( 1000px ) rotateY( -179.9deg );
+	}
+	&:not(.mpc-flipbox--click):hover .mpc-flipbox__back,
+	&.mpc-flipbox--animate .mpc-flipbox__back {
+		-webkit-transform: perspective( 1000px ) rotateY( 0deg );
+		-moz-transform: perspective( 1000px ) rotateY( 0deg );
+		transform: perspective( 1000px ) rotateY( 0deg );
+	}
+}
+
+.mpc-flipbox--flip-right {
+	.mpc-flipbox__front {
+		-webkit-transform: perspective( 1000px ) rotateY( 0deg );
+		-moz-transform: perspective( 1000px ) rotateY( 0deg );
+		transform: perspective( 1000px ) rotateY( 0deg );
+	}
+	.mpc-flipbox__back {
+		-webkit-transform: perspective( 1000px ) rotateY( -180deg );
+		-moz-transform: perspective( 1000px ) rotateY( -180deg );
+		transform: perspective( 1000px ) rotateY( -180deg );
+	}
+
+	&:not(.mpc-flipbox--click):hover .mpc-flipbox__front,
+	&.mpc-flipbox--animate .mpc-flipbox__front {
+		-webkit-transform: perspective( 1000px ) rotateY( 179.9deg );
+		-moz-transform: perspective( 1000px ) rotateY( 179.9deg );
+		transform: perspective( 1000px ) rotateY( 179.9deg );
+	}
+	&:not(.mpc-flipbox--click):hover .mpc-flipbox__back,
+	&.mpc-flipbox--animate .mpc-flipbox__back {
+		-webkit-transform: perspective( 1000px ) rotateY( 0deg );
+		-moz-transform: perspective( 1000px ) rotateY( 0deg );
+		transform: perspective( 1000px ) rotateY( 0deg );
+	}
+}
+
+.mpc-flipbox--flip-top {
+	.mpc-flipbox__front {
+		-webkit-transform: perspective( 1000px ) rotateX( 0deg );
+		-moz-transform: perspective( 1000px ) rotateX( 0deg );
+		transform: perspective( 1000px ) rotateX( 0deg );
+	}
+	.mpc-flipbox__back {
+		-webkit-transform: perspective( 1000px ) rotateX( 180deg );
+		-moz-transform: perspective( 1000px ) rotateX( 180deg );
+		transform: perspective( 1000px ) rotateX( 180deg );
+	}
+
+	&:not(.mpc-flipbox--click):hover .mpc-flipbox__front,
+	&.mpc-flipbox--animate .mpc-flipbox__front {
+		-webkit-transform: perspective( 1000px ) rotateX( -179.9deg );
+		-moz-transform: perspective( 1000px ) rotateX( -179.9deg );
+		transform: perspective( 1000px ) rotateX( -179.9deg );
+	}
+	&:not(.mpc-flipbox--click):hover .mpc-flipbox__back,
+	&.mpc-flipbox--animate .mpc-flipbox__back {
+		-webkit-transform: perspective( 1000px ) rotateX( 0deg );
+		-moz-transform: perspective( 1000px ) rotateX( 0deg );
+		transform: perspective( 1000px ) rotateX( 0deg );
+	}
+}
+
+.mpc-flipbox--flip-bottom {
+	.mpc-flipbox__front {
+		-webkit-transform: perspective( 1000px ) rotateX( 0deg );
+		-moz-transform: perspective( 1000px ) rotateX( 0deg );
+		transform: perspective( 1000px ) rotateX( 0deg );
+	}
+	.mpc-flipbox__back {
+		-webkit-transform: perspective( 1000px ) rotateX( -180deg );
+		-moz-transform: perspective( 1000px ) rotateX( -180deg );
+		transform: perspective( 1000px ) rotateX( -180deg );
+	}
+
+	&:not(.mpc-flipbox--click):hover .mpc-flipbox__front,
+	&.mpc-flipbox--animate .mpc-flipbox__front {
+		-webkit-transform: perspective( 1000px ) rotateX( 179.9deg );
+		-moz-transform: perspective( 1000px ) rotateX( 179.9deg );
+		transform: perspective( 1000px ) rotateX( 179.9deg );
+	}
+	&:not(.mpc-flipbox--click):hover .mpc-flipbox__back,
+	&.mpc-flipbox--animate .mpc-flipbox__back {
+		-webkit-transform: perspective( 1000px ) rotateX( 0deg );
+		-moz-transform: perspective( 1000px ) rotateX( 0deg );
+		transform: perspective( 1000px ) rotateX( 0deg );
+	}
+}
+
+/*----------------------------------------------------------------------------*\
+	FLIPBOX SIDE SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-flipbox-side {
+	display: table;
+	width: 100%;
+	height: 100%;
+
+	.wpb_text_column {
+		p:first-child {
+			margin-top: 0;
+		}
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.mpc-flipbox-side__content {
+	display: table-cell;
+}
+
+[data-front-align^=top] .mpc-flipbox__front .mpc-flipbox-side__content,
+[data-back-align^=top] .mpc-flipbox__back .mpc-flipbox-side__content {
+	vertical-align: top;
+}
+[data-front-align^=middle] .mpc-flipbox__front .mpc-flipbox-side__content,
+[data-back-align^=middle] .mpc-flipbox__back .mpc-flipbox-side__content {
+	vertical-align: middle;
+}
+[data-front-align^=bottom] .mpc-flipbox__front .mpc-flipbox-side__content,
+[data-back-align^=bottom] .mpc-flipbox__back .mpc-flipbox-side__content{
+	vertical-align: bottom;
+}
+
+[data-front-align$=left] .mpc-flipbox__front .mpc-flipbox-side__content,
+[data-back-align$=left] .mpc-flipbox__back .mpc-flipbox-side__content {
+	text-align: left;
+}
+[data-front-align$=center] .mpc-flipbox__front .mpc-flipbox-side__content,
+[data-back-align$=center] .mpc-flipbox__back .mpc-flipbox-side__content {
+	text-align:  center;
+}
+[data-front-align$=right] .mpc-flipbox__front .mpc-flipbox-side__content,
+[data-back-align$=right] .mpc-flipbox__back .mpc-flipbox-side__content {
+	text-align: right;
+}
+
+.mpc-flipbox[data-max-height] .mpc-flipbox__wrapper,
+.mpc-flipbox[data-primary-side] .mpc-flipbox__wrapper {
+	overflow-x: hidden;
+	overflow-y: auto;
+}

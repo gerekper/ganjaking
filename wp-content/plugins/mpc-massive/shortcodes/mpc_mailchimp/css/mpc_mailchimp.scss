@@ -1,0 +1,68 @@
+/*----------------------------------------------------------------------------*\
+	MAILCHIMP SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-mailchimp {
+	.mc4wp-form-fields > p {
+		margin: 0;
+		padding: 5px 0;
+	}
+
+	form {
+		margin: 0;
+	}
+
+	input, select {
+		outline: none;
+		margin: 0;
+		width: 100%;
+		max-width: none;
+		box-shadow: none;
+
+		-webkit-transition: all .25s;
+		transition: all .25s;
+
+		&:focus {
+			box-shadow: none;
+		}
+	}
+
+	input[type="checkbox"],
+	input[type="radio"] {
+		width: auto;
+		margin: 0 .5em;
+		vertical-align: middle;
+	}
+
+	&.mpc-submit--small input[type="submit"] {
+		width: auto;
+	}
+
+	&[data-align="left"] .mpc-submit-wrap {
+		text-align: left;
+	}
+
+	&[data-align="center"] .mpc-submit-wrap {
+		text-align: center;
+	}
+
+	&[data-align="right"] .mpc-submit-wrap {
+		text-align: right;
+	}
+
+	label {
+		display: block;
+	}
+
+	label.mpc-input-wrap span {
+		color: inherit;
+		font-size: inherit;
+		line-height: inherit;
+		text-align: inherit;
+		text-transform: inherit;
+		vertical-align: middle;
+	}
+
+	.mc4wp-response p {
+		margin: 0;
+	}
+}

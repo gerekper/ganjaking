@@ -183,7 +183,7 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 			$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
 
-			
+			if ( $lic_opt ) {
 
 				add_submenu_page(
 					'groovy_menu_settings',
@@ -221,7 +221,19 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 					array( $this, 'license' )
 				);
 
-			
+			} else {
+
+				add_submenu_page(
+					'groovy_menu_settings',
+					__( 'License', 'groovy-menu' ),
+					__( 'License', 'groovy-menu' ),
+					'edit_theme_options',
+					'groovy_menu_settings',
+					array( $this, 'license' )
+				);
+
+			}
+
 		}
 
 		public function render() {

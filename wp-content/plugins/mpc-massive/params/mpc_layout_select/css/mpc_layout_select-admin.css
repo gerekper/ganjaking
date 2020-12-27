@@ -1,0 +1,97 @@
+/*----------------------------------------------------------------------------*\
+	MPC LAYOUT SELECT PARAM - PANEL
+\*----------------------------------------------------------------------------*/
+.vc_wrapper-param-type-mpc_layout_select {
+	max-width: 605px;
+}
+
+.mpc-layout {
+	width: auto;
+	margin: 0 -5px;
+}
+.mpc-layout:after {
+	display: block;
+	content: " ";
+	clear: both;
+	float: none;
+}
+
+.mpc-layout-column {
+	float: left;
+}
+[data-columns="3"] .mpc-layout-column {
+	width: 33%;
+}
+[data-columns="4"] .mpc-layout-column {
+	width: 25%;
+}
+[data-columns="5"] .mpc-layout-column {
+	width: 20%;
+}
+[data-columns="6"] .mpc-layout-column {
+	width: 16.66%;
+}
+
+.mpc-layout-item {
+	position: relative;
+	display: block;
+	margin: 0 5px 10px 5px;
+	cursor: pointer;
+}
+.mpc-layout-column .mpc-layout-item:last-child {
+   margin-bottom: 0;
+}
+
+.mpc-layout-item img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.mpc-layout-item:after {
+	position: absolute;
+	display: block;
+	top: -2px;
+	left: -2px;
+	width: 100%;
+	height: 100%;
+	content: "";
+	border: 2px solid #87d27c;
+	border-radius: 2px;
+	visibility: hidden;
+	opacity: 0;
+
+	-webkit-transition: all .25s ease-in-out;
+	-moz-transition: all .25s ease-in-out;
+	transition: all .25s ease-in-out;
+}
+.mpc-layout-item[data-checked="true"]:after,
+.mpc-layout-item:hover:after {
+	visibility: visible;
+	opacity: 1;
+}
+.mpc-layout-item span {
+	display: none;
+}
+.mpc-layout-item span {
+	position: absolute;
+	display: inline-block;
+	top: 5px;
+	right: 5px;
+	width: 1em;
+	height: 1em;
+	font-size: 20px;
+	color: #fff;
+	background: #87d27c;
+	border-radius: 50%;
+	visibility: hidden;
+	opacity: 0;
+
+	-webkit-transition: all .25s ease-in-out;
+	-moz-transition: all .25s ease-in-out;
+	transition: all .25s ease-in-out;
+}
+.mpc-layout-item[data-checked="true"] span {
+	visibility: visible;
+	opacity: 1;
+}

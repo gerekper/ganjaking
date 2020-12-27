@@ -1,0 +1,242 @@
+/*----------------------------------------------------------------------------*\
+	TIMELINE BASIC SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-timeline-basic {
+	position: relative;
+	display: block;
+
+	&,
+	.mpc-timeline-item__wrap {
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	// Track Line
+	.mpc-timeline__track {
+		position: absolute;
+		display: block;
+		content: "";
+		top: 0;
+		height: 100%;
+
+		&:before,
+		&:after {
+			position: absolute;
+			display: block;
+			left: 0;
+			width: 100%;
+			content: '';
+		}
+	}
+
+	// Ornament Icon
+	.mpc-track__icon {
+		position: absolute;
+		bottom: 100%;
+		display: inline-block;
+		vertical-align: middle;
+		max-width: 100%; // Firefox
+
+		&:not(.mpc-icon--image) i {
+			width: 1.35em;
+			height: 1.35em;
+			line-height: 1.35em;
+			font-style: normal;
+		}
+
+		i {
+			display: block;
+			text-align: center;
+		}
+
+		img {
+			vertical-align: middle;
+		}
+	}
+
+	&.mpc-layout--both {
+		.mpc-timeline-item__wrap {
+			float: left;
+			width: 50%;
+		}
+		.mpc-timeline__track,
+		.mpc-track__icon {
+			left: 50%;
+		}
+	}
+
+	&.mpc-layout--left .mpc-timeline__track,
+	&.mpc-layout--left .mpc-track__icon {
+		left: 0;
+	}
+	&.mpc-layout--right .mpc-timeline__track,
+	&.mpc-layout--right .mpc-track__icon {
+		left: 100%;
+	}
+
+	&.mpc-inited .mpc-timeline-item__wrap {
+		float: none !important;
+	}
+
+	&.mpc--item-fullwidth .mpc-timeline-item__wrap {
+		width: 100%;
+	}
+
+	// Pointer alignment
+	&.mpc-pointer--top .mpc-tl-before {
+		top: 0;
+	}
+	&.mpc-pointer--middle .mpc-tl-before {
+		top: 50%;
+	}
+	&.mpc-pointer--bottom .mpc-tl-before {
+		bottom: 0;
+	}
+
+	a, a:focus {
+		outline: none;
+	}
+}
+
+.mpc-timeline-item .mpc-tl-before {
+	display: block;
+	position: absolute !important;
+	content: "";
+	width: 0;
+	height: 0;
+	border-style: solid;
+}
+.mpc-pointer--line .mpc-tl-before {
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+}
+.mpc-pointer--triangle .mpc-tl-before {
+	border-top-color: transparent !important;
+	border-bottom-color: transparent !important;
+}
+.mpc-pointer--right-triangle .mpc-tl-before {
+	border-top: 0 !important;
+	border-bottom-color: transparent !important;
+}
+
+@media screen and ( min-width: 769px ) {
+	.mpc-tooltip--always .mpc-tooltip.mpc-inited {
+		visibility: visible;
+		opacity: 1 !important;
+
+		-webkit-transition: all .25s ease-in-out;
+		transition: all .25s ease-in-out;
+	}
+
+	[data-side="left"] {
+		.mpc-tl-before {
+			left: 100%;
+		}
+		.mpc-pointer--triangle & .mpc-tl-before {
+			//border-left-color: inherit;
+			border-right: 0 !important;
+		}
+		.mpc-pointer--right-triangle & .mpc-tl-before {
+			//border-left-color: inherit;
+			border-right: 0 !important;
+		}
+		.mpc-pointer--line & .mpc-tl-before {
+			//border-bottom-color: inherit;
+		}
+
+		&.mpc-timeline-item__wrap {
+			padding-left: 0 !important;
+		}
+	}
+	.mpc-timeline-basic {
+		&.mpc-pointer--triangle [data-side="left"]:hover .mpc-tl-before {
+			//border-left-color: inherit;
+		}
+		&.mpc-pointer--right-triangle [data-side="left"]:hover .mpc-tl-before {
+			//border-left-color: inherit;
+		}
+		&.mpc-pointer--line [data-side="left"]:hover .mpc-tl-before {
+			//border-bottom-color: inherit;
+		}
+	}
+
+	[data-side="right"] {
+		.mpc-tl-before {
+			right: 100%;
+		}
+		.mpc-pointer--triangle & .mpc-tl-before {
+			//border-right-color: inherit;
+			border-left: 0 !important;
+		}
+		.mpc-pointer--right-triangle & .mpc-tl-before {
+			//border-right-color: inherit;
+			border-left: 0 !important;
+		}
+
+		&.mpc-timeline-item__wrap {
+			padding-right: 0 !important;
+		}
+	}
+	.mpc-timeline-basic {
+		&.mpc-pointer--triangle [data-side="right"]:hover .mpc-tl-before {
+			//border-right-color: inherit;
+		}
+		&.mpc-pointer--right-triangle [data-side="right"]:hover .mpc-tl-before {
+			//border-right-color: inherit;
+		}
+		&.mpc-pointer--line [data-side="right"]:hover .mpc-tl-before {
+			//border-bottom-color: inherit;
+		}
+	}
+}
+
+/* Responsive */
+@media screen and ( max-width: 768px ) {
+	.mpc-timeline-basic.mpc-layout--both,
+	.mpc-timeline-basic.mpc-layout--left {
+		.mpc-timeline-item__wrap {
+			width: 100% !important;
+			padding-right: 0 !important;
+		}
+
+		.mpc-tl-before {
+			right: 100% !important;
+		}
+		&.mpc-pointer--triangle .mpc-tl-before,
+		&.mpc-pointer--right-triangle .mpc-tl-before {
+			//border-right-color: inherit !important;
+			border-left: 0 !important;
+		}
+		&.mpc-pointer--line .mpc-tl-before {
+			//border-bottom-color: inherit !important;
+		}
+
+		.mpc-timeline-item__wrap {
+			padding-right: 0 !important;
+
+			&:nth-last-child(1) {
+				margin-bottom: 0 !important;
+			}
+		}
+
+		.mpc-timeline__track,
+		.mpc-track__icon {
+			left: 0 !important;
+		}
+	}
+
+	.mpc-timeline-basic.mpc-layout--right {
+		.mpc-tl-before {
+			left: 100% !important;
+		}
+		&.mpc-pointer--triangle .mpc-tl-before,
+		&.mpc-pointer--right-triangle .mpc-tl-before {
+			//border-left-color: inherit !important;
+			border-right: 0 !important;
+		}
+		&.mpc-pointer--line .mpc-tl-before {
+			//border-bottom-color: inherit !important;
+		}
+	}
+}

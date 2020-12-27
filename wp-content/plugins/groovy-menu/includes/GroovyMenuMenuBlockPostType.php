@@ -25,7 +25,9 @@ class GroovyMenuMenuBlockPostType {
 		}
 
 		$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
-	
+		if ( ! $lic_opt ) {
+			$show_in_menu = false;
+		}
 
 		$capabilities = array(
 			'edit_post'           => 'groovy_menu_edit_block',

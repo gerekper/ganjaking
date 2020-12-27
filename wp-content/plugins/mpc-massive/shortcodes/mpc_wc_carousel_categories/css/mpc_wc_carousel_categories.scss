@@ -1,0 +1,42 @@
+/*----------------------------------------------------------------------------*\
+	CAROUSEL PRODUCTS CATEGORIES SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-wc-carousel-categories {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	&.mpc-carousel--stretched .slick-list {
+		overflow: visible;
+	}
+
+	.slick-slide > div:last-child > .mpc-wc-category,
+	.slick-slide.mpc-wc-category {
+		margin-bottom: 0 !important;
+	}
+
+	.mpc-wc-category {
+		display: inline-block;
+		vertical-align: bottom;
+		height: 100%;
+		width: 100%;
+	}
+
+	&:focus, & *:focus {
+		outline: none;
+		-webkit-outline: none;
+	}
+}
+
+.mpc-navigation--posts {
+	text-align: right;
+	width: 100%;
+	margin: 1em 0;
+
+	i {
+		cursor: pointer;
+		padding: .5em 1em;
+		margin-left: 1px;
+		background: #ccc;
+		border-radius: 3px;
+	}
+}

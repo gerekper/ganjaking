@@ -1,0 +1,73 @@
+/*----------------------------------------------------------------------------*\
+	GRID PRODUCTS SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-wc-grid-products {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	.mpc-wc-product {
+		display: block;
+		float: left;
+		min-width: 150px;
+	}
+
+	&[data-grid-cols="1"] .mpc-wc-product,
+	&[data-grid-cols="1"] .mpc-grid-sizer {
+		width: 100%;
+	}
+	&[data-grid-cols="2"] .mpc-wc-product,
+	&[data-grid-cols="2"] .mpc-grid-sizer  {
+		width: 50%;
+	}
+	&[data-grid-cols="3"] .mpc-wc-product,
+	&[data-grid-cols="3"] .mpc-grid-sizer  {
+		width: 33.33%;
+	}
+	&[data-grid-cols="4"] .mpc-wc-product,
+	&[data-grid-cols="4"] .mpc-grid-sizer  {
+		width: 25%;
+	}
+	&[data-grid-cols="5"] .mpc-wc-product,
+	&[data-grid-cols="5"] .mpc-grid-sizer  {
+		width: 20%;
+	}
+}
+
+.mpc-template[data-template="mpc-wc-product"] {
+	display: none;
+}
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+	-webkit-transition-duration: 0s !important;
+	transition-duration: 0s !important;
+}
+
+/* Responsive */
+@media screen and ( min-width: 993px ) and ( max-width: 1199px ) {
+	.mpc-wc-grid-products[data-grid-cols="4"],
+	.mpc-wc-grid-products[data-grid-cols="5"] {
+		.mpc-wc-product,
+		.mpc-grid-sizer {
+			width: 33.33%;
+		}
+	}
+}
+@media screen and ( min-width: 768px ) and ( max-width: 992px ) {
+	.mpc-wc-grid-products[data-grid-cols="3"],
+	.mpc-wc-grid-products[data-grid-cols="4"],
+	.mpc-wc-grid-products[data-grid-cols="5"] {
+		.mpc-wc-product,
+		.mpc-grid-sizer {
+			width: 50%;
+			min-width: 50%;
+		}
+	}
+}
+@media screen and ( max-width: 767px ) {
+	.mpc-wc-grid-products[data-grid-cols] .mpc-wc-product,
+	.mpc-wc-grid-products[data-grid-cols] .mpc-grid-sizer {
+		width: 100%;
+	}
+}

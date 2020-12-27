@@ -1,0 +1,86 @@
+/*----------------------------------------------------------------------------*\
+	TABS SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.wpb_mpc_tabs > .wpb_element_wrapper .ui-tabs .ui-tabs-nav {
+	position: relative;
+	top: 1px;
+	z-index: 2;
+	padding: .2em 0 0;
+	border-right: 1px dotted #e6e6e6;
+
+	li {
+		margin: 0 2px 0 0;
+		border: 0;
+		top: -1px;
+		background: #e6e6e6 !important;
+		border-top-right-radius: 3px;
+		border-top-left-radius: 3px;
+
+		a {
+			display: inline-block;
+			padding: 10px 16px;
+			text-align: center;
+			color: #848c91;
+			outline: 0;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+		}
+
+		&.add_tab_block {
+		    a {
+				height: 36px;
+				line-height: 35px;
+				padding: 0 10px;
+			}
+
+			& a:before {
+				content: "+";
+				display: block;
+				font-size: 30px;
+			}
+		}
+
+		&.ui-tabs-active {
+			background: #ffffff !important;
+		}
+	}
+}
+
+.wpb_mpc_tabs > {
+	.wpb_element_wrapper .wpb_tabs_holder,
+	.wpb_element_wrapper .tabs_controls {
+		padding: 0;
+	}
+
+	.vc_controls {
+		position: relative;
+		height: 23px;
+		margin: 18px 0 2px 0;
+		opacity: 1 !important;
+		filter: alpha(opacity=100) !important;
+		visibility: visible;
+		border: 1px dotted #e6e6e6;
+		border-bottom-width: 0;
+	}
+
+	.wpb_element_wrapper {
+		padding: 0 !important;
+		background: none !important;
+		border: none !important;
+		height: auto;
+	}
+}
+
+.wpb_content_element .ui-tabs .ui-tabs-panel.wpb_mpc_tab {
+	background-color: #ffffff;
+	margin-top: 0;
+}
+.wpb_mpc_tab > .vc_controls {
+	opacity: 1 !important;
+	filter: alpha(opacity=100) !important;
+	visibility: visible;
+	height: 35px;
+	background: transparent;
+	position: relative;
+}
+

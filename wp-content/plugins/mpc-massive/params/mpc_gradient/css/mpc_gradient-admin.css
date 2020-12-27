@@ -1,0 +1,135 @@
+/*----------------------------------------------------------------------------*\
+	MPC GRADIENT PARAM - PANEL
+\*----------------------------------------------------------------------------*/
+
+.vc_wrapper-param-type-mpc_gradient {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.vc_wrapper-param-type-mpc_gradient *,
+.vc_wrapper-param-type-mpc_gradient *:before,
+.vc_wrapper-param-type-mpc_gradient *:after {
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
+/* Sliders */
+.vc_wrapper-param-type-mpc_gradient .mpc-slider-wrap {
+	padding: 0 13px;
+	background: #F3F3F3;
+}
+
+.vc_ui-panel .mpc-gradient-slider {
+	clear: both;
+	margin-bottom: 10px;
+}
+
+.vc_ui-panel .mpc-gradient-slider .mpc-slider {
+	background: #f3f3f3;
+	border-radius: 3px;
+	position: relative;
+	height: 20px;
+}
+
+.vc_ui-panel .vc_wrapper-param-type-mpc_gradient .mpc-gradient-slider .mpc-slider .ui-slider-handle {
+	position: absolute;
+	left: 0;
+	display: block;
+	height: 24px;
+	width: 26px;
+	margin-left: -12px;
+	background: #666666 !important;
+	border-radius: 3px;
+	top: -2px;
+}
+.vc_ui-panel .vc_wrapper-param-type-mpc_gradient .mpc-gradient-slider .mpc-slider .ui-slider-handle:after {
+	font-family: 'Dashicons';
+	width: 26px;
+	height: 24px;
+	line-height: 24px;
+	font-size: 20px;
+	display: block;
+	color: #f9f9f9;
+	content: "\f333";
+	text-align: center;
+	cursor: pointer;
+}
+
+.vc_ui-panel .mpc-gradient-slider .ui-slider-range {
+	height: 100%;
+	position: relative;
+	background-color: #86d677;
+}
+
+.vc_ui-panel .mpc-gradient-slider.mpc-hide-input {
+	width: 100%;
+}
+/* End Sliders */
+
+.vc_wrapper-param-type-mpc_gradient label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.vc_ui-panel .mpc_gradient_field {
+	display: none;
+}
+
+.vc_ui-panel .mpc-gradient-preview {
+	width: 100%;
+	padding-bottom: 100%;
+	border: 1px solid #eeeeee;
+}
+.vc_ui-panel .mpc-gradient-preview:before {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAAHnlligAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHJJREFUeNpi+P///4EDBxiAGMgCCCAGFB5AADGCRBgYDh48CCRZIJS9vT2QBAggFBkmBiSAogxFBiCAoHogAKIKAlBUYTELAiAmEtABEECk20G6BOmuIl0CIMBQ/IEMkO0myiSSraaaBhZcbkUOs0HuBwDplz5uFJ3Z4gAAAABJRU5ErkJggg==);
+	width: 100%;
+	height: 100%;
+	display: block;
+	content: '';
+	position: relative;
+	z-index: -1;
+}
+
+.vc_media-xs .vc_wrapper-param-type-mpc_gradient .mpc-gradient-preview-wrap {
+	position: absolute;
+	top: 20px;
+	right: 0;
+	width: 150px;
+}
+.vc_media-sm .vc_wrapper-param-type-mpc_gradient .mpc-gradient-preview-wrap {
+	position: relative;
+	top: 0;
+	width: 25%;
+}
+.vc_inline-shortcode-edit-form .vc_wrapper-param-type-mpc_gradient .mpc-gradient-preview-wrap {
+	top: 0;
+}
+
+.vc_ui-panel .mpc-gradient-type-wrap {
+	margin-left: -4px;
+	margin-top: 15px;
+}
+
+.vc_ui-panel .mpc-gradient-type-wrap input {
+	margin-top: -3px;
+}
+
+.vc_wrapper-param-type-mpc_gradient .edit_form_line > .vc_row {
+	margin-left: -5px;
+}
+
+.vc_wrapper-param-type-mpc_gradient .vc_column {
+	padding-top: 0 !important;
+}
+
+.vc_ui-panel .vc_wrapper-param-type-mpc_gradient .mpc-gradient-color .vc_column {
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+.vc_wrapper-param-type-mpc_gradient .mpc-value {
+	display: none !important;
+}

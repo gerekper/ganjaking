@@ -1,0 +1,256 @@
+/*----------------------------------------------------------------------------*\
+	CAROUSEL SLIDER SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-carousel-slider {
+	overflow: hidden;
+
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	&.mpc-carousel--stretched {
+		&, .slick-list {
+			overflow: visible;
+		}
+	}
+
+	&:focus, & *:focus {
+		outline: none;
+		-webkit-outline: none;
+	}
+
+	.slick-list,
+	.slick-track,
+	.mpc-carousel__item-wrapper,
+	.mpc-item {
+		height: 100% !important;
+	}
+
+	.mpc-carousel__item-wrapper {
+		display: block !important;
+		overflow: hidden;
+	}
+
+	.mpc-item {
+		position: relative;
+		border-width: 0px;
+		border-style: solid;
+		border-radius: 0px;
+		cursor: pointer;
+
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover;
+
+		.mpc-border::before,
+		.mpc-border {
+			position: absolute;
+			z-index: 2;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			display: block;
+			content: '';
+
+			border-width: 0px;
+			border-style: solid;
+			border-radius: 0px;
+
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+
+			-webkit-transition: inherit;
+			transition: inherit;
+		}
+	}
+
+	img {
+		height: 100% !important;
+		width: auto !important;
+	}
+
+	/* Overlay & Lightbox */
+	.mpc-icon-anchor {
+		display: inline-block;
+		vertical-align: bottom;
+		text-align: center;
+
+		-webkit-transition: all .25s;
+		transition: all .25s;
+
+		i {
+			display: block;
+			vertical-align: bottom;
+			width: 1.35em;
+			height: 1.35em;
+			line-height: 1.35em;
+			font-style: normal;
+
+			-webkit-transition: inherit;
+			transition: inherit;
+
+            &.mpc-icon--image,
+            &.mpc-icon--character {
+                width: auto;
+            }
+		}
+	}
+
+	.mpc-item-overlay {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 5;
+		visibility: hidden;
+	}
+
+	.mpc-overlay--vertical-wrap {
+		display: table;
+		width: 100%;
+		height: 100%;
+	}
+	.mpc-overlay--vertical {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		width: 100%;
+		height: 100%;
+	}
+	/* Overlay Idle Settings */
+	&.mpc-overlay--fade,
+	&.mpc-overlay--none {
+		.mpc-item-overlay {
+			top: 0;
+			left: 0;
+			opacity: 0;
+		}
+	}
+	&.mpc-overlay--slide-up {
+		.mpc-item-overlay {
+			top: 100%;
+			left: 0;
+		}
+	}
+	&.mpc-overlay--slide-down {
+		.mpc-item-overlay {
+			top: -100%;
+			left: 0;
+		}
+	}
+	&.mpc-overlay--slide-left {
+		.mpc-item-overlay {
+			top: 0;
+			left: 100%;
+		}
+	}
+	&.mpc-overlay--slide-right {
+		.mpc-item-overlay {
+			top: 0;
+			left: -100%;
+		}
+	}
+}
+/* Overlay & Item Hover Settings */
+.mpc-carousel__item-wrapper:hover {
+	/* Overlay */
+	.mpc-item-overlay {
+		visibility: visible;
+	}
+
+	.mpc-overlay--fade &,
+	.mpc-overlay--none & {
+		.mpc-item-overlay {
+			opacity: 1;
+		}
+	}
+
+	.mpc-overlay--slide-up &,
+	.mpc-overlay--slide-down & {
+		.mpc-item-overlay {
+			top: 0;
+		}
+	}
+
+	.mpc-overlay--slide-left &,
+	.mpc-overlay--slide-right & {
+		.mpc-item-overlay {
+			left: 0;
+		}
+	}
+}
+[data-align^=top] .mpc-overlay--vertical {
+	vertical-align: top;
+}
+[data-align^=middle] .mpc-overlay--vertical {
+	vertical-align: middle;
+}
+[data-align^=bottom] .mpc-overlay--vertical {
+	vertical-align: bottom;
+}
+
+[data-align$=left] .mpc-overlay--vertical {
+	text-align: left;
+}
+[data-align$=center] .mpc-overlay--vertical {
+	text-align:  center;
+}
+[data-align$=right] .mpc-overlay--vertical {
+	text-align: right;
+}
+
+.mpc-carousel__count {
+	display: inline-block;
+	position: absolute;
+	z-index: 10;
+
+	&:after,
+	&:before {
+		display: inline-block;
+		position: relative;
+	}
+
+	&:before {
+		top: -.25em;
+		padding-right: .25em;
+		content: attr( data-current-slide );
+	}
+
+	&:after {
+		bottom: -.25em;
+		padding-left: .25em;
+		content: attr( data-slides-amount );
+	}
+
+	&.mpc-align--top-left {
+		top: 0;
+		left: 0;
+	}
+	&.mpc-align--top-right {
+		top: 0;
+		right: 0;
+	}
+	&.mpc-align--bottom-left {
+		bottom: 0;
+		left: 0;
+	}
+	&.mpc-align--bottom-right {
+		bottom: 0;
+		right: 0;
+	}
+}
+
+.mpc-navigation--image {
+	text-align: right;
+	width: 100%;
+	margin: 1em 0;
+
+	i {
+		cursor: pointer;
+		padding: .5em 1em;
+		margin-left: 1px;
+		background: #ccc;
+		border-radius: 3px;
+	}
+}

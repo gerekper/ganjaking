@@ -1,0 +1,249 @@
+
+
+
+/*----------------------------------------------------------------------------*\
+	BUTTON SET SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.mpc-button-set .vc_element.vc_element { display: inline-block; }
+
+.mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element { flex-grow: 1; }
+
+.mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element .mpc-tooltip-wrap, .mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element .mpc-add_to_cart-wrap, .mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element .mpc-button, .mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element .mpc-lightbox, .mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element .mpc-add_to_cart { width: 100%; }
+
+.mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element .mpc-tooltip-wrap .mpc-button, .mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element .mpc-add_to_cart-wrap .mpc-button, .mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element .mpc-button .mpc-button, .mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element .mpc-lightbox .mpc-button, .mpc-button-set.mpc-fullwidth.mpc-style--horizontal .vc_element .mpc-add_to_cart .mpc-button { width: 100%; }
+
+.mpc-button-set.mpc-style--vertical .vc_element.vc_element { display: block; }
+
+.mpc-button-set .vc_element:last-child .mpc-button-separator-wrap { display: none; }
+
+.mpc-button-set.mpc-style--horizontal .vc_element .mpc-tooltip-wrap, .mpc-button-set.mpc-style--horizontal .vc_element .mpc-add_to_cart-wrap, .mpc-button-set.mpc-style--horizontal .vc_element .mpc-button, .mpc-button-set.mpc-style--horizontal .vc_element .mpc-lightbox, .mpc-button-set.mpc-style--horizontal .vc_element .mpc-add_to_cart { vertical-align: middle; }
+
+.mpc-button-set.mpc-style--horizontal .vc_element:first-child .mpc-tooltip-wrap, .mpc-button-set.mpc-style--horizontal .vc_element:first-child .mpc-add_to_cart-wrap, .mpc-button-set.mpc-style--horizontal .vc_element:first-child .mpc-button, .mpc-button-set.mpc-style--horizontal .vc_element:first-child .mpc-lightbox, .mpc-button-set.mpc-style--horizontal .vc_element:first-child .mpc-add_to_cart { border-bottom-right-radius: 0; border-top-right-radius: 0; padding-left: 0 !important; }
+
+.mpc-button-set.mpc-style--horizontal .vc_element:last-child .mpc-tooltip-wrap, .mpc-button-set.mpc-style--horizontal .vc_element:last-child .mpc-add_to_cart-wrap, .mpc-button-set.mpc-style--horizontal .vc_element:last-child .mpc-button, .mpc-button-set.mpc-style--horizontal .vc_element:last-child .mpc-lightbox, .mpc-button-set.mpc-style--horizontal .vc_element:last-child .mpc-add_to_cart { border-left-width: 0; border-bottom-left-radius: 0; border-top-left-radius: 0; padding-right: 0 !important; }
+
+.mpc-button-set.mpc-style--horizontal .vc_element:not(:first-child):not(:last-child) .mpc-tooltip-wrap, .mpc-button-set.mpc-style--horizontal .vc_element:not(:first-child):not(:last-child) .mpc-add_to_cart-wrap, .mpc-button-set.mpc-style--horizontal .vc_element:not(:first-child):not(:last-child) .mpc-button, .mpc-button-set.mpc-style--horizontal .vc_element:not(:first-child):not(:last-child) .mpc-lightbox, .mpc-button-set.mpc-style--horizontal .vc_element:not(:first-child):not(:last-child) .mpc-add_to_cart { border-left-width: 0; border-radius: 0; }
+
+.mpc-button-set.mpc-style--vertical .vc_element .mpc-tooltip-wrap, .mpc-button-set.mpc-style--vertical .vc_element .mpc-add_to_cart-wrap, .mpc-button-set.mpc-style--vertical .vc_element .mpc-button, .mpc-button-set.mpc-style--vertical .vc_element .mpc-lightbox, .mpc-button-set.mpc-style--vertical .vc_element .mpc-add_to_cart { display: block; }
+
+.mpc-button-set.mpc-style--vertical .vc_element:first-child .mpc-tooltip-wrap, .mpc-button-set.mpc-style--vertical .vc_element:first-child .mpc-add_to_cart-wrap, .mpc-button-set.mpc-style--vertical .vc_element:first-child .mpc-button, .mpc-button-set.mpc-style--vertical .vc_element:first-child .mpc-lightbox, .mpc-button-set.mpc-style--vertical .vc_element:first-child .mpc-add_to_cart { border-bottom-left-radius: 0; border-bottom-right-radius: 0; padding-top: 0 !important; }
+
+.mpc-button-set.mpc-style--vertical .vc_element:last-child .mpc-tooltip-wrap, .mpc-button-set.mpc-style--vertical .vc_element:last-child .mpc-add_to_cart-wrap, .mpc-button-set.mpc-style--vertical .vc_element:last-child .mpc-button, .mpc-button-set.mpc-style--vertical .vc_element:last-child .mpc-lightbox, .mpc-button-set.mpc-style--vertical .vc_element:last-child .mpc-add_to_cart { border-top-width: 0; border-top-left-radius: 0; border-top-right-radius: 0; padding-bottom: 0 !important; }
+
+.mpc-button-set.mpc-style--vertical .vc_element:not(:first-child):not(:last-child) .mpc-tooltip-wrap, .mpc-button-set.mpc-style--vertical .vc_element:not(:first-child):not(:last-child) .mpc-add_to_cart-wrap, .mpc-button-set.mpc-style--vertical .vc_element:not(:first-child):not(:last-child) .mpc-button, .mpc-button-set.mpc-style--vertical .vc_element:not(:first-child):not(:last-child) .mpc-lightbox, .mpc-button-set.mpc-style--vertical .vc_element:not(:first-child):not(:last-child) .mpc-add_to_cart { border-top-width: 0; border-radius: 0; }
+
+
+
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+	 CIRCLE ICONS SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.mpc-circle-icons:hover .mpc-icon-column.mpc-active { z-index: 1; }
+
+
+/*----------------------------------------------------------------------------*\
+	COUNDOWN SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+[data-vc-shortcode="mpc_countdown"] input[name$="label"] { width: 90px !important; }
+
+
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+	HOTSPOT SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.mpc-coords { margin-top: 1em; position: relative; border: 1px dashed #cccccc; }
+
+.mpc-coords .mpc-coords__point { -webkit-box-sizing: content-box; box-sizing: content-box; }
+
+.mpc-coords__point { position: absolute; top: 0; left: 0; width: 6px; height: 6px; margin-top: -13px; margin-left: -13px; background: #333333; border: 10px solid rgba(255, 255, 255, 0.5); border-radius: 16px; z-index: 1; background-clip: padding-box; }
+
+.mpc-coords__overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: transparent; cursor: pointer; }
+
+.mpc-coords__image { max-width: 100%; height: auto; display: block; }
+
+.mpc-error { color: #c63a00; font-weight: bold; }
+
+.vc_ui-panel[data-vc-shortcode="mpc_hotspot"] .vc_shortcode-param[data-vc-shortcode-param-name="position"] .mpc-vc-button { margin-left: 15px; }
+
+.mpc-hotspot-images-cache { display: none; }
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+	IHOVER ITEM SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.vc_ui-panel .mpc-ihover-effect .effect option:disabled, .vc_ui-panel .mpc-ihover-style .style option:disabled { color: #cccccc; }
+
+
+/*----------------------------------------------------------------------------*\
+	INTERACTIVE IMAGE SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.mpc-coords__preview { display: inline-block; position: relative; margin-top: 1em; }
+
+.mpc-coords__preview.mpc-loaded { border: 1px dashed #cccccc; }
+
+.mpc-coords__preview .mpc-coords__point { -webkit-box-sizing: content-box; box-sizing: content-box; }
+
+.mpc-coords__preview img { display: block; }
+
+.mpc-coords__image { max-width: 100%; height: auto; display: block; }
+
+.vc_ui-panel[data-vc-shortcode="mpc_interactive_image"] .wpb_el_type_mpc_divider .mpc-vc-button.mpc-preview { margin-top: 1em; margin-left: 0; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+	SINGLE POST SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.vc_wrapper-param-type-sorted_list[data-param_name="meta_layout"] .ui-sortable-handle { display: inline-block; }
+
+
+/*----------------------------------------------------------------------------*\
+	FLIPBOX SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.wpb_mpc_flipbox > .wpb_element_wrapper .ui-tabs .ui-tabs-nav { position: relative; top: 1px; z-index: 2; padding: .2em 0 0; border-right: 1px dotted #e6e6e6; }
+
+.wpb_mpc_flipbox > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li { width: 50%; margin: 0; padding: 0; border: 0; top: -1px; background: #E6E6E6 !important; border-top-right-radius: 3px; border-top-left-radius: 3px; }
+
+.wpb_mpc_flipbox > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li a { display: inline-block; width: 100%; padding: 10px 0; text-align: center; color: #848c91; outline: 0; -webkit-box-shadow: none; box-shadow: none; }
+
+.wpb_mpc_flipbox > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li.add_tab_block { display: none; visibility: hidden; opacity: 0; }
+
+.wpb_mpc_flipbox > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li.ui-tabs-active { background: #ffffff !important; }
+
+.wpb_mpc_flipbox > .wpb_element_wrapper .wpb_tabs_holder, .wpb_mpc_flipbox > .wpb_element_wrapper .tabs_controls { padding: 0; }
+
+.wpb_mpc_flipbox > .vc_controls { position: relative; height: 23px; margin: 18px 0 2px 0; opacity: 1 !important; filter: alpha(opacity=100) !important; visibility: visible; border: 1px dotted #e6e6e6; border-bottom-width: 0; }
+
+.wpb_mpc_flipbox > .wpb_element_wrapper { padding: 0px !important; background: none !important; border: none !important; height: auto; }
+
+.wpb_content_element .ui-tabs .ui-tabs-panel.wpb_mpc_flipbox_side { background-color: #ffffff; margin-top: 0; }
+
+.wpb_mpc_flipbox_side > .vc_controls { opacity: 1 !important; filter: alpha(opacity=100) !important; visibility: visible; height: 35px; background: transparent; position: relative; }
+
+/*----------------------------------------------------------------------------*\
+	CUBEBOX SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.wpb_mpc_cubebox > .wpb_element_wrapper .ui-tabs .ui-tabs-nav { position: relative; top: 1px; z-index: 2; padding: .2em 0 0; border-right: 1px dotted #e6e6e6; }
+
+.wpb_mpc_cubebox > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li { width: 50%; margin: 0; padding: 0; border: 0; top: -1px; background: #E6E6E6 !important; border-top-right-radius: 3px; border-top-left-radius: 3px; }
+
+.wpb_mpc_cubebox > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li a { display: inline-block; width: 100%; padding: 10px 0; text-align: center; color: #848c91; outline: 0; -webkit-box-shadow: none; box-shadow: none; }
+
+.wpb_mpc_cubebox > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li.add_tab_block { display: none; visibility: hidden; opacity: 0; }
+
+.wpb_mpc_cubebox > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li.ui-tabs-active { background: #ffffff !important; }
+
+.wpb_mpc_cubebox > .wpb_element_wrapper .wpb_tabs_holder, .wpb_mpc_cubebox > .wpb_element_wrapper .tabs_controls { padding: 0; }
+
+.wpb_mpc_cubebox > .vc_controls { position: relative; height: 23px; margin: 18px 0 2px 0; opacity: 1 !important; filter: alpha(opacity=100) !important; visibility: visible; border: 1px dotted #e6e6e6; border-bottom-width: 0; }
+
+.wpb_mpc_cubebox > .wpb_element_wrapper { padding: 0px !important; background: none !important; border: none !important; height: auto; }
+
+.wpb_content_element .ui-tabs .ui-tabs-panel.wpb_mpc_cubebox_side { background-color: #ffffff; margin-top: 0; }
+
+.wpb_mpc_cubebox_side > .vc_controls { opacity: 1 !important; filter: alpha(opacity=100) !important; visibility: visible; height: 35px; background: transparent; position: relative; }
+
+/*----------------------------------------------------------------------------*\
+	TABS SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.wpb_mpc_tabs > .wpb_element_wrapper .ui-tabs .ui-tabs-nav { position: relative; top: 1px; z-index: 2; padding: .2em 0 0; border-right: 1px dotted #e6e6e6; }
+
+.wpb_mpc_tabs > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li { margin: 0 2px 0 0; border: 0; top: -1px; background: #e6e6e6 !important; border-top-right-radius: 3px; border-top-left-radius: 3px; }
+
+.wpb_mpc_tabs > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li a { display: inline-block; padding: 10px 16px; text-align: center; color: #848c91; outline: 0; -webkit-box-shadow: none; box-shadow: none; }
+
+.wpb_mpc_tabs > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li.add_tab_block a { height: 36px; line-height: 35px; padding: 0 10px; }
+
+.wpb_mpc_tabs > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li.add_tab_block a:before { content: "+"; display: block; font-size: 30px; }
+
+.wpb_mpc_tabs > .wpb_element_wrapper .ui-tabs .ui-tabs-nav li.ui-tabs-active { background: #ffffff !important; }
+
+.wpb_mpc_tabs > .wpb_element_wrapper .wpb_tabs_holder, .wpb_mpc_tabs > .wpb_element_wrapper .tabs_controls { padding: 0; }
+
+.wpb_mpc_tabs > .vc_controls { position: relative; height: 23px; margin: 18px 0 2px 0; opacity: 1 !important; filter: alpha(opacity=100) !important; visibility: visible; border: 1px dotted #e6e6e6; border-bottom-width: 0; }
+
+.wpb_mpc_tabs > .wpb_element_wrapper { padding: 0 !important; background: none !important; border: none !important; height: auto; }
+
+.wpb_content_element .ui-tabs .ui-tabs-panel.wpb_mpc_tab { background-color: #ffffff; margin-top: 0; }
+
+.wpb_mpc_tab > .vc_controls { opacity: 1 !important; filter: alpha(opacity=100) !important; visibility: visible; height: 35px; background: transparent; position: relative; }
+
+/*----------------------------------------------------------------------------*\
+	ACCORDION SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+#poststuff .wpb_mpc_accordion .tab-label { margin-left: 23px; color: #6f777d; font-size: 14px; }
+
+#poststuff .wpb_mpc_accordion .tab_controls { -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; background: #ffffff; }
+
+#poststuff .wpb_mpc_accordion .tab_controls .add_tab { opacity: 0.7; filter: alpha(opacity=70); cursor: pointer; color: #b0b4b8; padding: 16px; position: relative; width: 100%; height: 16px; display: block; }
+
+#poststuff .wpb_mpc_accordion .tab_controls .add_tab .vc_icon { background-image: none !important; position: absolute; left: 19px; top: 18px; text-indent: 0 !important; overflow: visible !important; line-height: 16px !important; }
+
+#poststuff .wpb_mpc_accordion .tab_controls .add_tab .vc-icon:before { content: '+'; display: inline-block; font-size: 26px; color: #6f777d; }
+
+#poststuff .wpb_mpc_accordion .ui-accordion-header { -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; padding: 16px; background: #ffffff !important; border: 1px solid transparent !important; margin-bottom: 3px; text-align: center; outline: 0; box-shadow: none; -webkit-box-shadow: none; }
+
+#poststuff .wpb_mpc_accordion .ui-accordion-header.ui-state-active { background: #FFFFFF !important; border: 1px solid transparent !important; border-bottom-right-radius: 0; border-bottom-left-radius: 0; margin-bottom: 0; }
+
+#poststuff .wpb_mpc_accordion .ui-accordion-header .ui-icon { background-image: none !important; text-indent: 0 !important; left: 1.5em !important; overflow: visible !important; line-height: 16px !important; }
+
+#poststuff .wpb_mpc_accordion .ui-accordion-header .ui-icon:before { content: '+'; display: inline-block; font-size: 26px; color: #6f777d; }
+
+#poststuff .wpb_mpc_accordion .ui-accordion-header.ui-accordion-header-active .ui-icon:before { content: '-'; line-height: 10px; font-family: 'Dashicons'; }
+
+#poststuff .wpb_mpc_accordion .wpb_mpc_accordion_tab { background-color: #ffffff; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; padding: 6px 14px 14px; }
+
+#poststuff .wpb_mpc_accordion .wpb_mpc_accordion_tab > .vc_controls { opacity: 1 !important; filter: alpha(opacity=100) !important; visibility: visible; height: 35px; background: transparent; }
+
+#poststuff .wpb_mpc_accordion .wpb_mpc_accordion_tab.ui-accordion-content { overflow: visible; margin-bottom: 3px; }
+
+#poststuff .wpb_mpc_accordion > .vc_controls { opacity: 1 !important; filter: alpha(opacity=100) !important; visibility: visible; position: relative; height: 23px; margin: 18px 0 2px 0; border: 1px dotted #e6e6e6; border-bottom-width: 0; }
+
+#poststuff .wpb_mpc_accordion > .wpb_element_wrapper { padding: 0; height: auto; background: none; }
+
+
+
+
+
+
+/*----------------------------------------------------------------------------*\
+	ADD TO CART SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*\
+	SINGLE PRODUCT SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*\
+	PRODUCTS CATEGORY SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*\
+	CAROUSEL POSTS SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+
+
+

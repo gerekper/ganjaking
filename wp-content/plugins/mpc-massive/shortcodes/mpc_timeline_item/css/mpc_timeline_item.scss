@@ -1,0 +1,134 @@
+/*----------------------------------------------------------------------------*\
+	TIMELINE ITEM SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-timeline-item {
+	position: relative;
+	display: block;
+
+	min-height: 80px;
+
+	border: 0 solid transparent;
+
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	&:before {
+		display: block;
+		position: absolute;
+		content: "";
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1;
+		border-radius: inherit;
+
+		-webkit-transition: all .25s ease-in-out;
+		transition: all .25s ease-in-out;
+	}
+
+	.mpc-timeline-item__description,
+	.mpc-timeline-item__heading,
+	.mpc-icon,
+	.mpc-divider,
+	.mpc-tl-before,
+	.mpc-tl-icon {
+		position: relative;
+		z-index: 2;
+	}
+
+	& > *:nth-child(2) {
+		margin-top: 0;
+	}
+	& > *:nth-last-child(1) {
+		margin-bottom: 0;
+	}
+}
+
+.mpc-timeline-item__content {
+	overflow: hidden;
+
+	.mpc-timeline-item__description {
+		padding: 0;
+		margin: 0;
+
+		p:first-child {
+			margin-top: 0 !important;
+		}
+
+		p:last-child {
+			margin-bottom: 0 !important;
+		}
+	}
+}
+
+.mpc-timeline-item__content .mpc-timeline-item__heading {
+	padding: 0;
+	margin: 0 0 .75em 0;
+	text-transform: uppercase;
+}
+
+.mpc-timeline-item .mpc-divider {
+	margin: 0 0 .75em 0;
+}
+
+.mpc-tl-icon {
+	position: absolute;
+	top: 0;
+	display: inline-block;
+	text-align: center;
+	line-height: 1em;
+	vertical-align: middle;
+	max-width: 100%;
+	z-index: 3;
+
+	&:hover {
+		z-index: 5;
+	}
+
+	img {
+		display: block;
+		max-width: 100%;
+	}
+
+	&:not(.mpc-icon--image) i {
+		width: 1.35em;
+		height: 1.35em;
+		line-height: 1.35em;
+	}
+}
+
+@media screen and ( min-width: 768px ) {
+	[data-side="left"] .mpc-tl-icon {
+		left: 100%;
+
+		-webkit-transform: translateX( -50% );
+		transform: translateX( -50% );
+	}
+	[data-side="right"] .mpc-tl-icon {
+		right: 100%;
+
+		-webkit-transform: translateX( 50% );
+		transform: translateX( 50% );
+	}
+}
+
+/* Responsive */
+@media screen and ( max-width: 768px ) {
+	.mpc-timeline-basic .mpc-tl-icon {
+		right: 100%;
+
+		-webkit-transform: translateX( 50% );
+		transform: translateX( 50% );
+	}
+
+	.mpc-layout--right {
+		.mpc-tl-icon {
+			left: 100%;
+			right: initial;
+
+			-webkit-transform: translateX( -50% );
+			transform: translateX( -50% );
+		}
+	}
+}

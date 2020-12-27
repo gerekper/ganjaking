@@ -1201,9 +1201,9 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 			$lic_opt_old         = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
 			$lic_opt             = GroovyMenuUtils::check_lic();
-			$supported_until     = date( "F j, Y",strtotime('+1200 days'));
-			$supported_until_txt = '2032-05-19T21:07:58+10:00';
-			$purchase_key        = '0d9266ab-4233-42ee-b48b-5fc5bfb8ee5f';
+			$supported_until     = GroovyMenuUtils::check_lic_supported_until();
+			$supported_until_txt = $supported_until ? date( "F j, Y", $supported_until ) : '';
+			$purchase_key        = GroovyMenuUtils::get_paramlic( 'purchase_key' );
 
 			if ( ! empty( $purchase_key ) ) {
 				$half_key_count      = floor( strlen( $purchase_key ) / 2 );

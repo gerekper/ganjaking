@@ -1,0 +1,63 @@
+/*----------------------------------------------------------------------------*\
+	ICON LIST SHORTCODE
+\*----------------------------------------------------------------------------*/ //
+.mpc-icon-list {
+	display: block;
+	overflow: hidden;
+
+	-webkit-transform: translate3d( 0, 0, 0 );
+	transform: translate3d( 0, 0, 0 );
+
+	&.mpc-icon--right {
+		.mpc-list__icon {
+			order: 1;
+		}
+	}
+
+	.mpc-icon .mpc-regular img,
+	.mpc-icon .mpc-hover img {
+		max-width: initial;
+	}
+}
+
+.mpc-list__ul,
+.mpc-list__ul .mpc-list__item {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font: inherit;
+}
+.mpc-list__ul .mpc-list__item {
+	display: -ms-flexbox;
+	display: flex;
+	align-items: center;
+
+	&:before,
+	&:after {
+		content: "" !important;
+		border: 0 !important;
+		position: static !important;
+	}
+}
+
+.mpc-list__title {
+	flex-grow: 1;
+	margin: 0;
+	font: inherit;
+	cursor: default;
+
+	a {
+		font: inherit;
+		color: inherit !important;
+
+		-webkit-transition: inherit;
+		        transition: inherit;
+	}
+}
+
+.mpc-list__icon {
+	display: inline-block;
+	font: inherit;
+	flex: 0 0 auto;
+}

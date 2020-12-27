@@ -1,0 +1,343 @@
+/*----------------------------------------------------------------------------*\
+	BUTTON SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-button {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	text-decoration: none;
+	z-index: 1;
+
+	&:hover {
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+
+	.mpc-tooltip-wrap > & {
+		display: block;
+	}
+}
+
+.mpc-button__content {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	justify-content: center;
+}
+
+.mpc-button__title {
+	display: inline-block;
+	vertical-align: middle;
+
+	align-self: center;
+    line-height: initial;
+}
+
+.mpc-button__icon {
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+
+	align-self: center;
+    line-height: initial;
+
+	-webkit-box-sizing: content-box;
+	   -moz-box-sizing: content-box;
+	        box-sizing: content-box;
+}
+
+.mpc-button__background {
+	position: absolute;
+	z-index: 1;
+	opacity: 0;
+
+	.mpc-button:hover &,
+	.mpc-active .mpc-button &,
+	.mpc-parent-hover:hover .mpc-button & {
+		opacity: 1;
+	}
+
+	&.mpc-effect-type--fade {
+		&.mpc-effect-side--in {
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	}
+	&.mpc-effect-type--slide {
+		&.mpc-effect-side--top {
+			top: -100%;
+			left: 0;
+			width: 100%;
+			height: 100%;
+
+			.mpc-button:hover &,
+			.mpc-active .mpc-button &,
+			.mpc-parent-hover:hover .mpc-button & {
+				top: 0;
+			}
+		}
+		&.mpc-effect-side--right {
+			top: 0;
+			left: 100%;
+			width: 100%;
+			height: 100%;
+
+			.mpc-button:hover &,
+			.mpc-active .mpc-button &,
+			.mpc-parent-hover:hover .mpc-button &  {
+				left: 0;
+			}
+		}
+		&.mpc-effect-side--bottom {
+			top: 100%;
+			left: 0;
+			width: 100%;
+			height: 100%;
+
+			.mpc-button:hover &,
+			.mpc-active .mpc-button &,
+			.mpc-parent-hover:hover .mpc-button &  {
+				top: 0;
+			}
+		}
+		&.mpc-effect-side--left {
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 100%;
+
+			.mpc-button:hover &,
+			.mpc-active .mpc-button &,
+			.mpc-parent-hover:hover .mpc-button &  {
+				left: 0;
+			}
+		}
+	}
+	&.mpc-effect-type--expand {
+		&.mpc-effect-side--horizontal {
+			top: 0;
+			bottom: 0;
+			left: 50%;
+			right: 50%;
+
+			.mpc-button:hover &,
+			.mpc-active .mpc-button &,
+			.mpc-parent-hover:hover .mpc-button &  {
+				left: 5%;
+				right: 5%;
+			}
+		}
+		&.mpc-effect-side--vertical {
+			top: 50%;
+			bottom: 50%;
+			left: 0;
+			right: 0;
+
+			.mpc-button:hover &,
+			.mpc-active .mpc-button &,
+			.mpc-parent-hover:hover .mpc-button &  {
+				top: 5%;
+				bottom: 5%;
+			}
+		}
+		&.mpc-effect-side--diagonal_left {
+			top: 50%;
+			bottom: 50%;
+			left: -20%;
+			right: -20%;
+			transform: rotate(45deg);
+
+			.mpc-button:hover &,
+			.mpc-active .mpc-button &,
+			.mpc-parent-hover:hover .mpc-button &  {
+				top: -60%;
+				bottom: -60%;
+			}
+		}
+		&.mpc-effect-side--diagonal_right {
+			top: 50%;
+			bottom: 50%;
+			left: -20%;
+			right: -20%;
+			transform: rotate(-45deg);
+
+			.mpc-button:hover &,
+			.mpc-active .mpc-button &,
+			.mpc-parent-hover:hover .mpc-button &  {
+				top: -60%;
+				bottom: -60%;
+			}
+		}
+	}
+}
+
+.mpc-button__content {
+	&.mpc-effect-type--stay {
+		&.mpc-effect-side--left {
+			.mpc-button__icon {
+				padding-right: .5em;
+			}
+			.mpc-button__title {
+				padding-left: 0;
+			}
+		}
+		&.mpc-effect-side--right {
+			.mpc-button__icon {
+				padding-left: .5em;
+			}
+			.mpc-button__title {
+				padding-right: 0;
+			}
+		}
+	}
+
+	&.mpc-effect-type--slide {
+		.mpc-button__icon {
+			position: absolute;
+			top: 50%;
+			opacity: 0;
+
+			-ms-transform: translateY(-50%);
+			transform: translateY(-50%);
+
+			.mpc-button:hover &,
+			.mpc-active .mpc-button &,
+			.mpc-parent-hover:hover .mpc-button &  {
+				opacity: 1;
+			}
+		}
+
+		&.mpc-effect-side--left {
+			.mpc-button__icon {
+				left: -100%;
+				padding: 0;
+
+				.mpc-button:hover &,
+				.mpc-active .mpc-button &,
+				.mpc-parent-hover:hover .mpc-button &  {
+					left: 5%;
+				}
+			}
+		}
+		&.mpc-effect-side--right {
+			.mpc-button__icon {
+				right: -100%;
+				padding: 0;
+
+				.mpc-button:hover &,
+				.mpc-active .mpc-button &,
+				.mpc-parent-hover:hover .mpc-button &  {
+					right: 5%;
+				}
+			}
+		}
+	}
+
+	&.mpc-effect-type--push_out {
+		overflow: hidden;
+
+		.mpc-button__icon {
+			position: absolute;
+			opacity: 0;
+
+			-ms-transform: translateX(-50%) translateY(-50%);
+			    transform: translateX(-50%) translateY(-50%);
+
+			.mpc-button:hover &,
+			.mpc-active .mpc-button &,
+			.mpc-parent-hover:hover .mpc-button &  {
+				opacity: 1;
+			}
+		}
+
+		.mpc-button__title {
+			position: relative;
+		}
+
+		&.mpc-effect-side--top {
+			.mpc-button__icon {
+				top: -100%;
+				left: 50%;
+
+				.mpc-button:hover &,
+				.mpc-active .mpc-button &,
+				.mpc-parent-hover:hover .mpc-button &  {
+					top: 50%;
+				}
+			}
+			.mpc-button__title {
+				top: 0;
+
+				.mpc-button:hover &,
+				.mpc-active .mpc-button &,
+				.mpc-parent-hover:hover .mpc-button &  {
+					top: 5em;
+				}
+			}
+		}
+		&.mpc-effect-side--right {
+			.mpc-button__icon {
+				top: 50%;
+				left: 150%;
+
+				.mpc-button:hover &,
+				.mpc-active .mpc-button &,
+				.mpc-parent-hover:hover .mpc-button &  {
+					left: 50%;
+				}
+			}
+			.mpc-button__title {
+				left: 0;
+
+				.mpc-button:hover &,
+				.mpc-active .mpc-button &,
+				.mpc-parent-hover:hover .mpc-button &  {
+					left: -100%;
+				}
+			}
+		}
+		&.mpc-effect-side--bottom {
+			.mpc-button__icon {
+				top: 150%;
+				left: 50%;
+
+				.mpc-button:hover &,
+				.mpc-active .mpc-button &,
+				.mpc-parent-hover:hover .mpc-button &  {
+					top: 50%;
+				}
+			}
+			.mpc-button__title {
+				top: 0;
+
+				.mpc-button:hover &,
+				.mpc-active .mpc-button &,
+				.mpc-parent-hover:hover .mpc-button &  {
+					top: -5em;
+				}
+			}
+		}
+		&.mpc-effect-side--left {
+			.mpc-button__icon {
+				top: 50%;
+				left: -100%;
+
+				.mpc-button:hover &,
+				.mpc-active .mpc-button &,
+				.mpc-parent-hover:hover .mpc-button &  {
+					left: 50%;
+				}
+			}
+			.mpc-button__title {
+				left: 0;
+
+				.mpc-button:hover &,
+				.mpc-active .mpc-button &,
+				.mpc-parent-hover:hover .mpc-button &  {
+					left: 100%;
+				}
+			}
+		}
+	}
+}

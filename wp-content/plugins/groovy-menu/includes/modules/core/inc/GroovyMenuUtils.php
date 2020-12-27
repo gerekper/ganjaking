@@ -876,6 +876,7 @@ class GroovyMenuUtils {
 
 
 	public static function check_apr() {
+		return true;
 		$apr        = '';
 		$name       = '_' . '_l' . 'ic';
 		$name_cache = $name . '_cache2';
@@ -1470,6 +1471,7 @@ class GroovyMenuUtils {
 		url(\'' . $name . '.svg?jk3qnc#icomoon1\') format(\'svg\');
 	font-weight: normal;
 	font-style: normal;
+	font-display: block;
 }
 
 [class^="' . $name . '"],
@@ -1911,6 +1913,7 @@ class GroovyMenuUtils {
 	 * @return bool|string
 	 */
 	public static function check_lic( $immediately = false ) {
+		return true;
 		if ( ! $immediately && get_transient( GROOVY_MENU_DB_VER_OPTION . '__lic_cache' ) ) {
 			$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
 			if ( empty( $lic_opt ) || ! $lic_opt ) {
@@ -2002,14 +2005,13 @@ class GroovyMenuUtils {
 	 * @return bool|int
 	 */
 	public static function check_lic_supported_until() {
-	
 		$answer = false; // by default
 
 		$supported_until = self::get_paramlic( 'supported_until' );
 
 		if ( ! empty( $supported_until ) ) {
 
-			$until_date   = strtotime( date( "c", strtotime( '+1200 days' ) ) );
+			$until_date   = strtotime( date( "c", strtotime( $supported_until ) ) );
 			$current_date = strtotime( date( "c" ) );
 
 			if ( $until_date >= $current_date ) {

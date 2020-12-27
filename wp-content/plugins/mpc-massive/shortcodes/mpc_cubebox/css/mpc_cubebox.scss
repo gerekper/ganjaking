@@ -1,0 +1,258 @@
+/*----------------------------------------------------------------------------*\
+	CUBEBOX SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-cubebox {
+	position: relative;
+	display: block;
+
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.mpc-cubebox.mpc-cubebox--click {
+	cursor: pointer;
+}
+
+.mpc-cubebox__content {
+	position: relative;
+
+	width: 100%;
+	height: inherit;
+
+	overflow: hidden;
+}
+
+.mpc-cubebox__front,
+.mpc-cubebox__side {
+	position: absolute;
+	top: 0;
+
+	text-align: center;
+
+	width: 100%;
+}
+
+// Flip: Top
+.mpc-cubebox--flip-top {
+	.mpc-cubebox__front {
+		transform: translateY(0);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateX(0deg) translateY(0.0001%);
+			transform-origin: top;
+		}
+	}
+
+	.mpc-cubebox__side {
+		transform: translateY(-100%);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateX(90deg) translateY(0.0001%);
+			transform-origin: bottom;
+		}
+	}
+
+	&:not(.mpc-cubebox--click):hover .mpc-cubebox__front,
+	&.mpc-cubebox--animate .mpc-cubebox__front {
+		transform: translateY(100%);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateX(-90deg) translateY(0.0001%);
+		}
+	}
+
+	&:not(.mpc-cubebox--click):hover .mpc-cubebox__side,
+	&.mpc-cubebox--animate .mpc-cubebox__side {
+		transform: translateY(0);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateX(0deg) translateY(0.0001%);
+		}
+	}
+}
+
+// Flip: Bottom
+.mpc-cubebox--flip-bottom {
+	.mpc-cubebox__front {
+		transform: translateY(0);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateX(0deg) translateY(0.0001%);
+			transform-origin: bottom;
+		}
+	}
+
+	.mpc-cubebox__side {
+		transform: translateY(100%);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateX(-90deg) translateY(0.0001%);
+			transform-origin: top;
+		}
+	}
+
+	&:not(.mpc-cubebox--click):hover .mpc-cubebox__front,
+	&.mpc-cubebox--animate .mpc-cubebox__front {
+		transform: translateY(-100%);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateX(90deg) translateY(0.0001%);
+		}
+	}
+
+	&:not(.mpc-cubebox--click):hover .mpc-cubebox__side,
+	&.mpc-cubebox--animate .mpc-cubebox__side {
+		transform: translateY(0);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateX(0deg) translateY(0.0001%);
+		}
+	}
+}
+
+// Flip: Left
+.mpc-cubebox--flip-left {
+	.mpc-cubebox__front {
+		transform: translateX(0);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateY(0deg) translateY(0.0001%);
+			transform-origin: left;
+		}
+	}
+
+	.mpc-cubebox__side {
+		transform: translateX(-100%);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateY(-90deg) translateY(0.0001%);
+			transform-origin: right;
+		}
+	}
+
+	&:not(.mpc-cubebox--click):hover .mpc-cubebox__front,
+	&.mpc-cubebox--animate .mpc-cubebox__front {
+		transform: translateX(100%);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateY(90deg) translateY(0.0001%);
+		}
+	}
+
+	&:not(.mpc-cubebox--click):hover .mpc-cubebox__side,
+	&.mpc-cubebox--animate .mpc-cubebox__side {
+		transform: translateX(0);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateY(0deg) translateY(0.0001%);
+		}
+	}
+}
+
+// Flip: Right
+.mpc-cubebox--flip-right {
+	.mpc-cubebox__front {
+		transform: translateX(0);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateY(0deg) translateY(0.0001%);
+			transform-origin: right;
+		}
+	}
+
+	.mpc-cubebox__side {
+		transform: translateX(100%);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateY(90deg) translateY(0.0001%);
+			transform-origin: left;
+		}
+	}
+
+	&:not(.mpc-cubebox--click):hover .mpc-cubebox__front,
+	&.mpc-cubebox--animate .mpc-cubebox__front {
+		transform: translateX(-100%);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateY(-90deg) translateY(0.0001%);
+		}
+	}
+
+	&:not(.mpc-cubebox--click):hover .mpc-cubebox__side,
+	&.mpc-cubebox--animate .mpc-cubebox__side {
+		transform: translateX(0);
+
+		.mpc-cubebox-side {
+			transform: perspective(550px) rotateY(0deg) translateY(0.0001%);
+		}
+	}
+}
+
+.mpc-cubebox-side,
+.mpc-cubebox__front,
+.mpc-cubebox__side {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	transition: all .5s;
+}
+
+/*----------------------------------------------------------------------------*\
+	CUBEBOX SIDE SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-cubebox-side {
+	display: table;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+
+	.wpb_text_column {
+		p:first-child {
+			margin-top: 0;
+		}
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.mpc-cubebox-side__content {
+	display: table-cell;
+}
+
+[data-front-align^=top] .mpc-cubebox__front .mpc-cubebox-side__content,
+[data-side-align^=top] .mpc-cubebox__side .mpc-cubebox-side__content {
+	vertical-align: top;
+}
+[data-front-align^=middle] .mpc-cubebox__front .mpc-cubebox-side__content,
+[data-side-align^=middle] .mpc-cubebox__side .mpc-cubebox-side__content {
+	vertical-align: middle;
+}
+[data-front-align^=bottom] .mpc-cubebox__front .mpc-cubebox-side__content,
+[data-side-align^=bottom] .mpc-cubebox__side .mpc-cubebox-side__content{
+	vertical-align: bottom;
+}
+
+[data-front-align$=left] .mpc-cubebox__front .mpc-cubebox-side__content,
+[data-side-align$=left] .mpc-cubebox__side .mpc-cubebox-side__content {
+	text-align: left;
+}
+[data-front-align$=center] .mpc-cubebox__front .mpc-cubebox-side__content,
+[data-side-align$=center] .mpc-cubebox__side .mpc-cubebox-side__content {
+	text-align:  center;
+}
+[data-front-align$=right] .mpc-cubebox__front .mpc-cubebox-side__content,
+[data-side-align$=right] .mpc-cubebox__side .mpc-cubebox-side__content {
+	text-align: right;
+}
+
+.mpc-cubebox[data-max-height] .mpc-cubebox__front,
+.mpc-cubebox[data-max-height] .mpc-cubebox__side,
+.mpc-cubebox[data-primary-side] .mpc-cubebox__front,
+.mpc-cubebox[data-primary-side] .mpc-cubebox__side {
+	overflow-x: hidden;
+    overflow-y: auto;
+}

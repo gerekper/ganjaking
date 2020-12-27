@@ -1,0 +1,63 @@
+/*----------------------------------------------------------------------------*\
+	CAROUSEL ANYTHING SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-carousel-anything {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	&.mpc-carousel--stretched .slick-list {
+		overflow: visible;
+	}
+
+	.slick-track {
+		display: table;
+		table-layout: fixed;
+	}
+
+	.mpc-carousel__item-wrapper {
+		position: relative;
+		display: table-cell !important;
+		height: 100%;
+		float: none !important;
+		text-align: center;
+		vertical-align: middle;
+		overflow: hidden;
+
+		-webkit-transition: all .25s;
+		transition: all .25s;
+	}
+
+	.slick-slide > div:last-child > .mpc-carousel__item-wrapper,
+	.slick-slide.mpc-carousel__item-wrapper {
+		margin-bottom: 0 !important;
+	}
+
+	&:focus, & *:focus {
+		outline: none;
+		-webkit-outline: none;
+	}
+
+	.slick-slide > div:not([class^="mpc"]) {
+		display: flex;
+	}
+}
+
+.mpc-navigation--carousel {
+	text-align: right;
+	width: 100%;
+	margin: 1em 0;
+
+	i {
+		cursor: pointer;
+		padding: .5em 1em;
+		margin-left: 1px;
+		background: #ccc;
+		border-radius: 3px;
+	}
+}
+
+/* FrontEnd Editor */
+.vc_mpc_carousel_anything.vc_element .vc_controls > .vc_controls-out-tl {
+	left: initial;
+	right: 0;
+}

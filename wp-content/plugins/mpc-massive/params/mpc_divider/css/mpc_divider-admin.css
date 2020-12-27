@@ -1,0 +1,14 @@
+/*----------------------------------------------------------------------------*\
+	MPC_DIVIDER PARAM
+\*----------------------------------------------------------------------------*/
+
+.mpc-vc-advanced-wrap {
+	position: absolute;
+	bottom: 10px;
+	right: 15px;
+}
+
+.mpc-vc-divider {
+	margin-top: 1em;
+	font-size: 1.2em;
+}

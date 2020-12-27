@@ -1,0 +1,34 @@
+/*----------------------------------------------------------------------------*\
+	TEXTBLOCK SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-textblock {
+	display: block;
+
+	&.mpc-inline {
+		display: inline-block;
+	}
+
+	h1, h2, h3, h4, h5, h6,
+	a, span {
+		font: inherit;
+		text-align: inherit;
+		color: inherit;
+	}
+
+	p:first-child {
+		margin-top: 0;
+	}
+	p:last-child {
+		margin-bottom: 0;
+	}
+
+	&:hover + .mpc-tooltip.mpc-trigger--hover.mpc-inited {
+		visibility: visible;
+		opacity: 1 !important;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+}

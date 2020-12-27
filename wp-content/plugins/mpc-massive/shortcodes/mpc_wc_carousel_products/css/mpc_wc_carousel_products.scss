@@ -1,0 +1,60 @@
+/*----------------------------------------------------------------------------*\
+	WC CAROUSEL PRODUCTS SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-wc-carousel-products {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	&.mpc-carousel--stretched .slick-list {
+		overflow: visible;
+	}
+
+	.slick-slide > div:last-child > .mpc-wc-product,
+	.slick-slide.mpc-wc-product {
+		margin-bottom: 0 !important;
+	}
+
+	.mpc-wc-product {
+		display: inline-block;
+		vertical-align: bottom;
+		height: auto !important;
+		max-width: 100% !important;
+		overflow: hidden;
+	}
+
+	&:focus, & *:focus {
+		outline: none;
+		-webkit-outline: none;
+	}
+
+	&[data-slick-cols="1"] .mpc-wc-product {
+		width: 100%;
+	}
+	&[data-slick-cols="2"] .mpc-wc-product {
+		width: 50%;
+	}
+	&[data-slick-cols="3"] .mpc-wc-product {
+		width: 33%;
+
+		&:last-child {
+			width: 34%;
+		}
+	}
+	&[data-slick-cols="4"] .mpc-wc-product {
+		width: 25%;
+	}
+}
+
+.mpc-navigation--posts {
+	text-align: right;
+	width: 100%;
+	margin: 1em 0;
+
+	i {
+		cursor: pointer;
+		padding: .5em 1em;
+		margin-left: 1px;
+		background: #ccc;
+		border-radius: 3px;
+	}
+}
