@@ -2076,7 +2076,13 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				if ( $old_post->post_type == $post['post_type'] && ( 'page' == $post['post_type'] || 'block' == $post['post_type'] || 'member' == $post['post_type'] || 'portfolio' == $post['post_type'] || 'event' == $post['post_type'] || 'post' == $post['post_type'] || 'product' == $post['post_type'] ) ) {
 					return $post['post_id'];
 				}
+				if ( defined( 'ELEMENTOR_VERSION' ) && 'kit' == get_post_meta( $post['post_id'], '_elementor_template_type', true ) ) {
+					$_GET['force_delete_kit'] = true;
+				}
 				wp_delete_post( $post['post_id'], true );
+				if ( isset( $_GET['force_delete_kit'] ) ) {
+					unset( $_GET['force_delete_kit'] );
+				}
 			}
 
 			// remove posts which have same title and slug
@@ -2100,7 +2106,13 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 					update_option( 'porto_import_processed_duplicates', $processed_duplicates );
 					return $old_post;
 				}
+				if ( defined( 'ELEMENTOR_VERSION' ) && 'kit' == get_post_meta( $old_post, '_elementor_template_type', true ) ) {
+					$_GET['force_delete_kit'] = true;
+				}
 				wp_delete_post( $old_post, true );
+				if ( isset( $_GET['force_delete_kit'] ) ) {
+					unset( $_GET['force_delete_kit'] );
+				}
 			}
 
 			return false;

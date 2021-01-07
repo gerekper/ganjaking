@@ -35,10 +35,10 @@ function seedprod_pro_upgrade_license()
     );
 
     // Verify pro version is not installed.
-    $active = activate_plugin('seedprod-pro/seedprod-pro.php', false, false, true);
+    $active = activate_plugin('seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php', false, false, true);
     if (! is_wp_error($active)) {
         // Deactivate plugin.
-        //deactivate_plugins(plugin_basename('seedprod-pro/seedprod-pro.php'));
+        //deactivate_plugins(plugin_basename('seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php'));
         wp_send_json_error(array(
             'message' => esc_html__('Pro version is already installed.', 'seedprod-pro'),
             'reload'  => true,
@@ -110,14 +110,14 @@ function seedprod_pro_run_one_click_upgrade()
         )
     );
     // Verify pro not activated.
-    if (is_plugin_active('seedprod-pro/seedprod-pro.php')) {
-        deactivate_plugins(plugin_basename('seedprod/seedprod.php'));
+    if (is_plugin_active('seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php')) {
+        deactivate_plugins(plugin_basename('coming-soon/coming-soon.php'));
         wp_send_json_success(esc_html__('Plugin installed & activated.', 'seedprod-pro'));
     }
     // Verify pro not installed.
-    $active = activate_plugin('seedprod-pro/seedprod-pro.php', $url, false, true);
+    $active = activate_plugin('seedprod-coming-soon-pro-5/seedprod-coming-soon-pro-5.php', $url, false, true);
     if (! is_wp_error($active)) {
-        deactivate_plugins(plugin_basename('seedprod/seedprod.php'));
+        deactivate_plugins(plugin_basename('coming-soon/coming-soon.php'));
         wp_send_json_success(esc_html__('Plugin installed & activated.', 'seedprod-pro'));
     }
     
@@ -164,7 +164,7 @@ function seedprod_pro_run_one_click_upgrade()
         $plugin_basename = $installer->plugin_info();
 
         // Deactivate the lite version first.
-        deactivate_plugins(plugin_basename('seedprod/seedprod.php'));
+        deactivate_plugins(plugin_basename('coming-soon/coming-soon.php'));
 
         // Activate the plugin silently.
         $activated = activate_plugin($plugin_basename, '', false, true);
@@ -172,7 +172,7 @@ function seedprod_pro_run_one_click_upgrade()
             wp_send_json_success(esc_html__('Plugin installed & activated.', 'seedprod-pro'));
         } else {
             // Reactivate the lite plugin if pro activation failed.
-            activate_plugin(plugin_basename('seedprod/seedprod.php'), '', false, true);
+            activate_plugin(plugin_basename('coming-soon/coming-soon.php'), '', false, true);
             wp_send_json_error(esc_html__('Pro version installed but needs to be activated from the Plugins page inside your WordPress admin.', 'seedprod-pro'));
         }
     }

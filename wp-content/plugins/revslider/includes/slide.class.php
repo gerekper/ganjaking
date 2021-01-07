@@ -1,5 +1,5 @@
 <?php
-/**
+/** 
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
  * @copyright 2019 ThemePunch
@@ -621,15 +621,23 @@ class RevSliderSlide extends RevSliderFunctions {
 		$post = apply_filters('revslider_slide_setLayersByPostData_pre', $post, $slider_id, $this);
 		
 		//check if we are woocommerce or not
-		$slider_source = $this->get_slider_param($slider_id, 'source', array());
-		$source_type = $this->get_slider_param($slider_id, 'sourcetype', 'gallery');
-		if($source_type == 'woocommerce' || $source_type == 'woo'){
-			$excerpt_limit = str_replace('char', '', $this->get_val($slider_source, array('woo', 'excerptLimit'), 55));
-		}else{
-			$excerpt_limit = str_replace('char', '', $this->get_val($slider_source, array('post', 'excerptLimit'), 55));
+		$post_id		= $this->get_val($post, 'ID');
+		$slider_source	= $this->get_slider_param($slider_id, 'source', array());
+		$source_type	= $this->get_slider_param($slider_id, 'sourcetype', 'gallery');
+		$excerpt_limit	= ($source_type == 'woocommerce' || $source_type == 'woo') ? $this->get_val($slider_source, array('woo', 'excerptLimit'), 55) : $this->get_val($slider_source, array('post', 'excerptLimit'), 55);
+		$type			= 'char';
+		if(strpos($excerpt_limit, 'chars') !== false){
+			$type			= 'chars';
+			$excerpt_limit	= str_replace('chars', '', $excerpt_limit);
+		}else{ //strpos($excerpt_limit, 'char') !== false || 
+			$type			= 'words';
+			$excerpt_limit	= str_replace('char', '', $excerpt_limit); //char is a fallback from before 6.3.4
+			$excerpt_limit	= str_replace('words', '', $excerpt_limit);
 		}
 		
 		$excerpt_limit	= (int)$excerpt_limit;
+		$excerpt_limit	= $this->get_excerpt_by_id($post_id, $excerpt_limit, $type);
+		
 		$date		= $this->get_val($post, 'post_date_gmt');
 		$date_mod	= $this->get_val($post, 'post_modified');
 		$author		= $this->get_val($post, 'post_author');
@@ -637,22 +645,22 @@ class RevSliderSlide extends RevSliderFunctions {
 		
 		$cats		= $this->get_val($post, array('source', 'post', 'category'));
 		$img_sizes	= $this->get_all_image_sizes();
-		$ptid		= get_post_thumbnail_id($post['ID']);
+		$ptid		= get_post_thumbnail_id($post_id);
 		$attr		= array(
 			'title'			=> $this->get_val($post, 'post_title'),
 			'alias'			=> $this->get_val($post, 'post_name'),
 			'content'		=> $this->get_val($post, 'post_content'),
-			'link'			=> get_permalink($post['ID']),
-			'excerpt'		=> $this->get_excerpt_by_id($post['ID'], $excerpt_limit),
+			'link'			=> get_permalink($post_id),
+			'excerpt'		=> $excerpt_limit,
 			'postDate'		=> $this->convert_post_date($date),
 			'dateModified'	=> $this->convert_post_date($date_mod),
 			'authorName'	=> get_the_author_meta('display_name', $author),
 			'authorID'		=> $author,
 			'authorPage'	=> $curauth->user_url,
 			'authorPostsPage' => get_author_posts_url($author),
-			'catlist'		=> $this->get_categories_html($cats,null,$post['ID']),
-			'catlist_raw'	=> strip_tags($this->get_categories_html($cats,null,$post['ID'])),
-			'taglist'		=> get_the_tag_list('', ',', '', $post['ID']),
+			'catlist'		=> $this->get_categories_html($cats,null,$post_id),
+			'catlist_raw'	=> strip_tags($this->get_categories_html($cats, null, $post_id)),
+			'taglist'		=> get_the_tag_list('', ',', '', $post_id),
 			'numComments'	=> $this->get_val($post, 'comment_count'),
 			'img_urls'		=> array()
 		);
@@ -723,12 +731,16 @@ class RevSliderSlide extends RevSliderFunctions {
 	 * get excerpt from post id
 	 * @before: RevSliderFunctionsWP::getExcerptById();
 	 */
-	public function get_excerpt_by_id($id, $limit = 55){
+	public function get_excerpt_by_id($id, $limit = 55, $type = 'words'){
 		$post	 = get_post($id);
 		$excerpt = trim($post->post_excerpt);
 		$excerpt = (empty($excerpt)) ? $post->post_content : $excerpt;
 		$excerpt = strip_tags($excerpt, '<b><br><br/><i><strong><small>');
-		$excerpt = $this->get_text_intro($excerpt, $limit);
+		if($type === 'words'){
+			$excerpt = $this->get_text_intro($excerpt, $limit);
+		}else{
+			$excerpt = $this->get_text_intro_chars($excerpt, $limit);
+		}
 
 		return apply_filters('revslider_getExcerptById', $excerpt, $post, $limit);
 	}
@@ -739,6 +751,7 @@ class RevSliderSlide extends RevSliderFunctions {
 	 * @before: RevSliderFunctionsWP::getTextIntro();
 	 */
 	public function get_text_intro($text, $limit){
+		$limit++;
 		$array = explode(' ', $text, $limit);
 		
 		if(count($array) >= $limit){
@@ -750,6 +763,16 @@ class RevSliderSlide extends RevSliderFunctions {
 			$intro = $text;
 		}
 		
+		return preg_replace('`\[[^\]]*\]`', '', $intro);
+	}
+	
+	
+	/**
+	 * get text intro, limit by number of words
+	 * @before: RevSliderFunctionsWP::getTextIntro();
+	 */
+	public function get_text_intro_chars($text, $limit){
+		$intro = substr($text, 0, $limit);
 		return preg_replace('`\[[^\]]*\]`', '', $intro);
 	}
 	

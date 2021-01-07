@@ -2632,7 +2632,8 @@ div.wp-link-input input::placeholder{color:rgba(255,255,255,0.5)}
 .sp-mobile-view .sp-countdown-group{flex-wrap:wrap}
 .sp-mobile-view .sp-socialsharing-wrapper,.sp-mobile-view .sp-nav,.sp-mobile-view .sp-button-wrapper,.sp-mobile-view .sp-image-wrapper,.sp-mobile-view .sp-text-wrapper{text-align:center !important;justify-content:center !important}
 .sp-mobile-view .sp-cd-group{margin-bottom:1vh !important}
-.sp-mobile-view .sp-el-section,.sp-mobile-view .sp-el-row,.sp-mobile-view .sp-el-col,.sp-mobile-view .sp-el-block{padding:5px !important}
+.sp-mobile-view .sp-el-section,.sp-mobile-view .sp-el-row,.sp-mobile-view .sp-el-col,.sp-mobile-view .sp-el-block,.sp-mobile-view .sp-optin-wrapper{padding:5px !important}
+.sp-mobile-view img{height:auto !important}
 .sp-mobile-view .sp-w-full{width:100% !important}
 .sp-mobile-view .sp-optinform-field,.sp-mobile-view .sp-optinform-btn{display:block !important;width:100% !important}
 .seedprod-builder .theme-browser .themes{clear:both}

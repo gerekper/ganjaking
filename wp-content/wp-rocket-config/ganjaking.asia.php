@@ -1,17 +1,17 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$rocket_cookie_hash = '7e6819ddde90a2b65fa18698fb0fd22f';
-$rocket_logged_in_cookie = 'wordpress_logged_in_7e6819ddde90a2b65fa18698fb0fd22f';
+$rocket_cookie_hash = 'b6a2ba32b6f7777b02af51e930bb9afe';
+$rocket_logged_in_cookie = 'wordpress_logged_in_b6a2ba32b6f7777b02af51e930bb9afe';
 $rocket_cache_mobile_files_tablet = 'desktop';
 $rocket_cache_mobile = 1;
-$rocket_do_caching_mobile_files = 1;
 $rocket_cache_reject_uri = '/(.+/)?feed/?.+/?|/(?:.+/)?embed/|/checkout/(.*)|/cart/|/my-account/(.*)|/wc-api/v(.*)|/(index\.php/)?wp\-json(/.*|$)';
 $rocket_cache_reject_cookies = 'wp-postpass_|wptouch_switch_toggle|comment_author_|comment_author_email_';
 $rocket_cache_reject_ua = 'facebookexternalhit';
 $rocket_cache_query_strings = array();
-$rocket_secret_cache_key = '5fdc1f899cbe1563246648';
+$rocket_secret_cache_key = '5fe9143b06197173664701';
 $rocket_cache_ssl = 1;
+$rocket_do_caching_mobile_files = 0;
 $rocket_cache_ignored_parameters = array(
   'utm_source' => 1,
   'utm_medium' => 1,

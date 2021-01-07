@@ -5,7 +5,7 @@ Tags: popup, form, newsletter, zoho, mailchimp, aweber, constant contact, campai
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 1.2.34.0
+Stable tag: 1.2.34.1
 License: GPL-2.0+
 
 Convert visitors into email subscribers, register new users & keep them engaged with newsletters. Mailchimp, AWeber, Infusionsoft, ActiveCampaign, ConvertKit, Campaign Monitor, Constant Contact, CRM etc.
@@ -166,6 +166,10 @@ Yes, MailOptin has full translation and localization support via the mailoptin t
 10. Elementor form integration with MailOptin
 
 == Changelog ==
+
+= 1.2.34.1 =
+* Fix layout breakage caused by unclosed p tag.
+* Fixed issue where elementorjs would result to undefined function error.
 
 = 1.2.34.0 =
 * Added more first/last name sendinblue contact attributes.

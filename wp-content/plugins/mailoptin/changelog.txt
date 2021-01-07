@@ -1,5 +1,9 @@
 ﻿== Changelog ==
 
+= 1.2.34.1 =
+* Fix layout breakage caused by unclosed p tag.
+* Fixed issue where elementorjs would result to undefined function error.
+
 = 1.2.34.0 =
 * Added more first/last name sendinblue contact attributes.
 * Added Selected Users to WordPress Registered Users Integration.

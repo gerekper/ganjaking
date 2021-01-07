@@ -1,5 +1,12 @@
 *** Redsys Gateway Change Log ***
 
+2020.12.28 - version 13.0.0
+
+* Full compatibility with PSD2.
+* Declared compatibility with WordPress 5.6
+* Full translation to Spanish. Thanks to Fernando Tellado https://twitter.com/fernandot
+
+
 2020.12.06 - version 12.2.0
 
 * Added compatibility Bulk charge Invoices with PSD2.

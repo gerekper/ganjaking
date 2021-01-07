@@ -12,6 +12,13 @@ try {
                                  . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
             $seedprod_url_parsed = parse_url($seedprod_page_mapped_url);
 
+            $seedprod_url_parsed_scheme = array_key_exists( 'scheme', $seedprod_url_parsed ) ?
+                                        $seedprod_url_parsed['scheme'] : '';
+            $seedprod_url_parsed_host = array_key_exists( 'host', $seedprod_url_parsed ) ?
+                                        $seedprod_url_parsed['host'] : '';
+            $seedprod_url_parsed_path = array_key_exists( 'path', $seedprod_url_parsed ) ?
+                                        $seedprod_url_parsed['path'] : '';
+
             // Database Query
             global $wpdb;
             $seedprod_tablename = $wpdb->prefix . 'sp_domain_mapping';
@@ -19,16 +26,16 @@ try {
             $seedprod_sql  = "SELECT * FROM $seedprod_tablename";
             $seedprod_sql .= ' WHERE domain = "%s"';
 
-            if ($seedprod_url_parsed['path'] == '/') {
+            if ($seedprod_url_parsed_path === '/' || empty($seedprod_url_parsed_path) ) {
                 $seedprod_sql .= ' AND (path = "" OR path IS NULL)';
-                $seedprod_safe_sql = $wpdb->prepare($seedprod_sql, $seedprod_url_parsed['host']);
+                $seedprod_safe_sql = $wpdb->prepare($seedprod_sql, $seedprod_url_parsed_host);
             } else {
                 $seedprod_sql .= ' AND path = "%s"';
                 $seedprod_safe_sql = $wpdb->prepare(
-                $seedprod_sql,
-                $seedprod_url_parsed['host'],
-                trim($seedprod_url_parsed['path'], '/')
-            );
+                    $seedprod_sql,
+                    $seedprod_url_parsed_host,
+                    trim($seedprod_url_parsed_path, '/')
+                );
             }
 
             $seedprod_results = $wpdb->get_results($seedprod_safe_sql);
@@ -37,12 +44,12 @@ try {
             // the site host !== the requested host
             $site_host = parse_url(site_url(), PHP_URL_HOST);
 
-            if (empty($seedprod_results) && $site_host !== $seedprod_url_parsed['host']) {
+            if (empty($seedprod_results) && $site_host !== $seedprod_url_parsed_host) {
                 // check if domain has any mappings before applying this rule.
                 $seedprod_tablename = $wpdb->prefix . 'sp_domain_mapping';
                 $seedprod_sql  = "SELECT * FROM $seedprod_tablename";
                 $seedprod_sql .= ' WHERE domain = "%s" LIMIT 1';
-                $seedprod_safe_sql = $wpdb->prepare($seedprod_sql, $seedprod_url_parsed['host']);
+                $seedprod_safe_sql = $wpdb->prepare($seedprod_sql, $seedprod_url_parsed_host);
                 $seedprod_results = $wpdb->get_results($seedprod_safe_sql);
                 if (!empty($seedprod_results)) {
                     wp_die('Page Not Found', 'Page Not Found', array('response'=> 404));
@@ -53,15 +60,15 @@ try {
     if (!empty($seedprod_results)) {
 
     // Prevent WordPress from automatically redirecting to main site when mapped domain does not have a path
-        if ($seedprod_url_parsed['path'] == '/') {
+        if ($seedprod_url_parsed_path === '/' || empty($seedprod_url_parsed_path) ) {
             remove_filter('template_redirect', 'redirect_canonical');
         }
 
         // Redirect if force_https is true and URL scheme is not https
         if ($seedprod_results[0]->force_https &&
-         $seedprod_url_parsed['scheme'] !== 'https') {
-            header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], true, 301);
-            exit;
+            $seedprod_url_parsed_scheme !== 'https') {
+                header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], true, 301);
+                exit;
         }
 
         // if we match show the mapped page
@@ -119,9 +126,9 @@ function seedprod_pro_modify_asset_url( $url, $handle ) {
 }
 
 function seedprod_pro_replace_url( $url ) {
-    global $seedprod_page_mapped_url;
-    $seedprod_url_parsed = parse_url($seedprod_page_mapped_url);
-    $new_domain = $seedprod_url_parsed['scheme'].'://'.$seedprod_url_parsed['host'];
+    global $seedprod_url_parsed_scheme, $seedprod_url_parsed_host;
+
+    $new_domain = $seedprod_url_parsed_scheme.'://'.$seedprod_url_parsed_host;
     if(strpos($url,'/wp-content/') != false){
         $domain = explode('/wp-content/',$url);
         $url = str_replace($domain[0],$new_domain,$url);
@@ -135,13 +142,7 @@ function seedprod_pro_replace_url( $url ) {
 }
 
 function seedprod_pro_replace_title($title){
-    global $seedprod_page_mapped_url;
-    $seedprod_url_parsed = parse_url($seedprod_page_mapped_url);
-    $new_domain = $seedprod_url_parsed['host'];
-    global $wp_query;
-    //if (is_404()) {
-        $title = $new_domain;
-    //}
+    global $seedprod_url_parsed_host;
 
-    return $title;
+    return $seedprod_url_parsed_host;
 }

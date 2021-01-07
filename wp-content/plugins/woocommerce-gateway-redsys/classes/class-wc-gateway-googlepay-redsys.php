@@ -7,23 +7,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
-* Gateway class
-*/
+ * Gateway class
+ */
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
 
 	/**
-	* Constructor for the gateway.
-	*
-	* @access public
-	* @return void
-	*/
+	 * Constructor for the gateway.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function __construct() {
 		global $woocommerce;
 
@@ -35,26 +35,26 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 		} else {
 			$this->icon = apply_filters( 'woocommerce_googlepay_icon', REDSYS_PLUGIN_URL . 'assets/images/googlepay.png' );
 		}
-		
+
 		$this->method_title       = __( 'Checkout.com', 'wc_checkout_com' );
 		$this->method_description = __( 'The Checkout.com extension allows shop owners to process online payments through the <a href=\"https://www.checkout.com\">Checkout.com Payment Gateway.</a>', 'wc_checkout_com');
 		$this->title              = __("Google Pay", 'wc_checkout_com');
 		$this->has_fields         = true;
 		$this->log                = new WC_Logger();
-		
+
 		// Load the settings.
 		$this->init_form_fields();
 		$this->init_settings();
-		
+
 		$this->supports = array(
 			'products',
 			'refunds',
 		);
 
-		// Actions
+		// Actions.
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		
-		// Generate token
+
+		// Generate token.
 		add_action( 'woocommerce_api_wc_checkoutcom_googlepay_token', array( $this, 'generate_token' ) );
 
 		if ( ! $this->is_valid_for_use() ) {
@@ -62,35 +62,35 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	* Check if this gateway is enabled and available in the user's country
-	*
-	* @access public
-	* @return bool
-	*/
+	 * Check if this gateway is enabled and available in the user's country
+	 *
+	 * @access public
+	 * @return bool
+	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function is_valid_for_use() {
-		
+
 		include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
-		
+
 		if ( ! in_array( get_woocommerce_currency(), WCRed()->allowed_currencies(), true ) ) {
 			return false;
 		} else {
 			return true;
 		}
 	}
-	
+
 	/**
-	* Admin Panel Options
-	*
-	* @since 1.0.0
-	*/
+	 * Admin Panel Options
+	 *
+	 * @since 1.0.0
+	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function admin_options() {
-			?>
+		?>
 			<h3><?php _e( 'GooglePay', 'woocommerce-redsys' ); ?></h3>
 			<p><?php _e( 'GooglePay works by sending the user to your bank TPV to enter their payment information.', 'woocommerce-redsys' ); ?></p>
 			<?php if ( class_exists( 'SitePress' ) ) { ?>
@@ -109,25 +109,26 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 				include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
 				$currencies = WCRed()->allowed_currencies();
 				$formated_currencies = '';
-			
+
 				foreach ( $currencies as $currency ) {
 					$formated_currencies .= $currency . ', ';
 				}
 				?>
 				<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: <?php esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
-		echo $formated_currencies; ?></p></div>
+					echo $formated_currencies; ?>
+				</p></div>
 				<?php
 			endif;
 		}
 	/**
-	* Initialise Gateway Settings Form Fields
-	*
-	* @access public
-	* @return void
-	*/
+	 * Initialise Gateway Settings Form Fields
+	 *
+	 * @access public
+	 * @return void
+	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'            => array(
@@ -609,12 +610,12 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 					}
 				}
 			}
-			
-			//Tarjeta caducada
+
+			// Tarjeta caducada.
 			if ( 'yes' == $this->debug ) {
 				$this->log->add( 'googlepay', 'Pedido cancelado por GooglePay' );
 			}
-			
+
 			if ( 'yes' === $this->debug ) {
 				if ( ! empty( $ds_responses ) ) {
 					$this->log->add( 'googlepay', 'Error: ' . $ds_response_value );
@@ -624,33 +625,33 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 				}
 			}
 
-			//Order cancelled
+			// Order cancelled.
 			$order->update_status( 'cancelled', __( 'Cancelled by GooglePay', 'woocommerce-redsys' ) );
 			$order->add_order_note( __('Order canceled by GooglePay', 'woocommerce-redsys') );
 			WC()->cart->empty_cart();
 		}
 	}
-	
+
 	/**
-	* get_googlepay_order function.
-	*
-	* @access public
-	* @param mixed $posted
-	* @return void
-	*/
+	 * get_googlepay_order function.
+	 *
+	 * @access public
+	 * @param mixed $posted
+	 * @return void
+	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function get_googlepay_order( $order_id ) {
 		$order = new WC_Order( $order_id );
 		return $order;
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function warning_checkout_test_mode_googlepay() {
-		if ( 'yes' === $this->testmode  && WCRed()->is_gateway_enabled( $this->id ) ) {
+		if ( 'yes' === $this->testmode && WCRed()->is_gateway_enabled( $this->id ) ) {
 			echo '<div class="checkout-message" style="
 			background-color: rgb(214, 69, 65);
 			padding: 1em 1.618em;
@@ -667,8 +668,8 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	}
 }
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function woocommerce_add_gateway_googlepay_gateway( $methods ) {
 	$methods[] = 'WC_Gateway_GooglePay_Redsys';
 	return $methods;

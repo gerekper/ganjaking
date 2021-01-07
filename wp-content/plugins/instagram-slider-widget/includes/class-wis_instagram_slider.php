@@ -120,12 +120,6 @@ class WIS_InstagramSlider extends WP_Widget {
 	 */
 	public function widget_scripts_enqueue() {
 
-		global $post;
-		if( !has_shortcode( $post->post_content, 'jr_instagram') &&
-			!$this->has_widget('jr_insta_slider') ) {
-			return;
-		}
-
 		wp_enqueue_style( 'jr-insta-styles', WIS_PLUGIN_URL . '/assets/css/jr-insta.css', array(), WIS_PLUGIN_VERSION );
 
 		wp_enqueue_style( WIS_Plugin::app()->getPrefix() . 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );

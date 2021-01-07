@@ -1515,7 +1515,7 @@ html .vc_col-has-fill .porto-btn.porto-adjust-bottom-margin {
 .porto-concept {
   width: 100%;
   overflow: hidden;
-  background: url(https://ganjaking.asia/wp-content/themes/porto/images/concept.png) no-repeat center 0;
+  background: url(http://ganjaking.asia/wp-content/themes/porto/images/concept.png) no-repeat center 0;
 }
 .porto-concept strong {
   display: block;
@@ -1537,7 +1537,7 @@ html .vc_col-has-fill .porto-btn.porto-adjust-bottom-margin {
   padding-bottom: 50px;
   position: relative;
   z-index: 1;
-  background: url(https://ganjaking.asia/wp-content/themes/porto/images/concept-item.png) no-repeat 0 0;
+  background: url(http://ganjaking.asia/wp-content/themes/porto/images/concept-item.png) no-repeat 0 0;
 }
 .porto-concept .process-image img {
   border-radius: 150px;
@@ -1555,7 +1555,7 @@ html .vc_col-has-fill .porto-btn.porto-adjust-bottom-margin {
   padding-bottom: 45px;
   position: relative;
   z-index: 1;
-  background: url(https://ganjaking.asia/wp-content/themes/porto/images/concept-item.png) no-repeat 100% 0;
+  background: url(http://ganjaking.asia/wp-content/themes/porto/images/concept-item.png) no-repeat 100% 0;
 }
 .porto-concept .project-image img {
   width: 338px;
@@ -1567,7 +1567,7 @@ html .vc_col-has-fill .porto-btn.porto-adjust-bottom-margin {
   position: absolute;
   left: 0;
   top: 65px;
-  background: url(https://ganjaking.asia/wp-content/themes/porto/images/concept-icons.png) no-repeat 0 0;
+  background: url(http://ganjaking.asia/wp-content/themes/porto/images/concept-icons.png) no-repeat 0 0;
 }
 .porto-concept .cloud {
   width: 116px;
@@ -1576,7 +1576,7 @@ html .vc_col-has-fill .porto-btn.porto-adjust-bottom-margin {
   position: absolute;
   left: 53%;
   top: 35px;
-  background: url(https://ganjaking.asia/wp-content/themes/porto/images/concept-icons.png) no-repeat 100% 0;
+  background: url(http://ganjaking.asia/wp-content/themes/porto/images/concept-icons.png) no-repeat 100% 0;
 }
 /* Responsive */
 @media (max-width: 991px) {
@@ -3293,7 +3293,7 @@ html .porto-sicon-read {
 .porto-map-section {
   padding-top: 164px;
   margin: 15px -20px 0;
-  background: url(https://ganjaking.asia/wp-content/themes/porto/images/map.png) center 0 no-repeat;
+  background: url(http://ganjaking.asia/wp-content/themes/porto/images/map.png) center 0 no-repeat;
 }
 .porto-map-section .map-content {
   padding: 90px 0 40px;
@@ -3996,7 +3996,7 @@ div.stats-desc > div.counter_suffix {
   outline: none;
 }
 .slick-loading .slick-list {
-  background: #fff url("https://ganjaking.asia/wp-content/themes/porto/images/AjaxLoader.gif") center center no-repeat;
+  background: #fff url("http://ganjaking.asia/wp-content/themes/porto/images/AjaxLoader.gif") center center no-repeat;
 }
 .slick-list.dragging {
   cursor: pointer;
@@ -4783,7 +4783,7 @@ body .slick-slide img {
   z-index: 3;
 }
 .section-video .video-overlay {
-  background: transparent url(https://ganjaking.asia/wp-content/themes/porto/images/video-overlay.png) repeat 0 0;
+  background: transparent url(http://ganjaking.asia/wp-content/themes/porto/images/video-overlay.png) repeat 0 0;
   position: absolute;
   top: 0;
   left: 0;
@@ -4793,7 +4793,7 @@ body .slick-slide img {
   height: 100%;
 }
 .section-video.video-overlay-dark .video-overlay {
-  background-image: url(https://ganjaking.asia/wp-content/themes/porto/images/video-overlay-dark.png);
+  background-image: url(http://ganjaking.asia/wp-content/themes/porto/images/video-overlay-dark.png);
 }
 html.boxed .section-video > div:first-child {
   z-index: 0 !important;
@@ -4878,7 +4878,7 @@ html.boxed .section-video > div:first-child video {
   position: relative;
 }
 .vc_separator .vc_sep_holder.vc_sep_holder_l .vc_sep_line.pattern:after, .vc_separator .vc_sep_holder.vc_sep_holder_r .vc_sep_line.pattern:after {
-  background: transparent url(https://ganjaking.asia/wp-content/themes/porto/images/patterns/worn_dots.png) repeat 0 0;
+  background: transparent url(http://ganjaking.asia/wp-content/themes/porto/images/patterns/worn_dots.png) repeat 0 0;
   content: "";
   display: block;
   height: 15px;
@@ -4888,7 +4888,7 @@ html.boxed .section-video > div:first-child video {
   width: 100%;
 }
 .vc_separator .vc_sep_holder.vc_sep_holder_l .vc_sep_line.pattern.pattern-2:after, .vc_separator .vc_sep_holder.vc_sep_holder_r .vc_sep_line.pattern.pattern-2:after {
-  background-image: url(https://ganjaking.asia/wp-content/themes/porto/images/patterns/az_subtle.png);
+  background-image: url(http://ganjaking.asia/wp-content/themes/porto/images/patterns/az_subtle.png);
 }
 /* Visual Composer Single Image */
 div.wpb_single_image .vc_single_image-wrapper.vc_box_border, div.wpb_single_image .vc_single_image-wrapper.vc_box_outline, div.wpb_single_image .vc_single_image-wrapper.vc_box_shadow_border {

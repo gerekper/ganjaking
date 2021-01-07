@@ -131,6 +131,9 @@
                         }
                     }
 
+                    if(response.declined == true) {
+                        return;
+                    }
                     that.checkPrivacySettings();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {

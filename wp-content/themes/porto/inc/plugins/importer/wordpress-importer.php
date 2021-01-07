@@ -1324,7 +1324,13 @@ if ( class_exists( 'WP_Importer' ) ) {
 			if ( $override_contents && isset( $post['import_id'] ) && ! empty( $post['import_id'] ) ) {
 				$post_exists = get_post( $post['import_id'] );
 				if ( $post_exists ) {
+					if ( defined( 'ELEMENTOR_VERSION' ) && 'kit' == get_post_meta( $post['import_id'], '_elementor_template_type', true ) ) {
+						$_GET['force_delete_kit'] = true;
+					}
 					wp_delete_post( $post['import_id'], true );
+					if ( isset( $_GET['force_delete_kit'] ) ) {
+						unset( $_GET['force_delete_kit'] );
+					}
 				}
 			}
 

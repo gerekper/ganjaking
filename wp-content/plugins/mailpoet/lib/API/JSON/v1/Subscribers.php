@@ -10,9 +10,11 @@ use MailPoet\API\JSON\Error as APIError;
 use MailPoet\API\JSON\Response as APIResponse;
 use MailPoet\API\JSON\ResponseBuilders\SubscribersResponseBuilder;
 use MailPoet\Config\AccessControl;
+use MailPoet\Entities\FormEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Form\FormsRepository;
 use MailPoet\Form\Util\FieldNameObfuscator;
 use MailPoet\Listing;
 use MailPoet\Models\Form;
@@ -93,6 +95,9 @@ class Subscribers extends APIEndpoint {
   /** @var WelcomeScheduler */
   private $welcomeScheduler;
 
+  /** @var FormsRepository */
+  private $formsRepository;
+
   public function __construct(
     SubscriberActions $subscriberActions,
     RequiredCustomFieldValidator $requiredCustomFieldValidator,
@@ -109,7 +114,8 @@ class Subscribers extends APIEndpoint {
     SubscriberListingRepository $subscriberListingRepository,
     SegmentsRepository $segmentsRepository,
     FieldNameObfuscator $fieldNameObfuscator,
-    WelcomeScheduler $welcomeScheduler
+    WelcomeScheduler $welcomeScheduler,
+    FormsRepository $formsRepository
   ) {
     $this->subscriberActions = $subscriberActions;
     $this->requiredCustomFieldValidator = $requiredCustomFieldValidator;
@@ -127,6 +133,7 @@ class Subscribers extends APIEndpoint {
     $this->subscriberListingRepository = $subscriberListingRepository;
     $this->segmentsRepository = $segmentsRepository;
     $this->welcomeScheduler = $welcomeScheduler;
+    $this->formsRepository = $formsRepository;
   }
 
   public function get($data = []) {
@@ -179,9 +186,10 @@ class Subscribers extends APIEndpoint {
   public function subscribe($data = []) {
     $formId = (isset($data['form_id']) ? (int)$data['form_id'] : false);
     $form = Form::findOne($formId);
+    $formEntity = $this->formsRepository->findOneById($formId);
     unset($data['form_id']);
 
-    if (!$form instanceof Form) {
+    if (!$form instanceof Form || !$formEntity instanceof FormEntity) {
       return $this->badRequest([
         APIError::BAD_REQUEST => WPFunctions::get()->__('Please specify a valid form ID.', 'mailpoet'),
       ]);
@@ -221,7 +229,7 @@ class Subscribers extends APIEndpoint {
       ? (array)$data['segments']
       : []
     );
-    $segmentIds = $form->filterSegments($segmentIds);
+    $segmentIds = $this->getSegmentsForSubscription($formEntity, $segmentIds);
     unset($data['segments']);
 
     if (empty($segmentIds)) {
@@ -550,5 +558,14 @@ class Subscribers extends APIEndpoint {
     return isset($data['segment_id'])
       ? $this->segmentsRepository->findOneById((int)$data['segment_id'])
       : null;
+  }
+
+  private function getSegmentsForSubscription(FormEntity $formEntity, array $submittedSegmentIds = []): array {
+    // If form contains segment selection blocks allow only segments ids configured in those blocks
+    $segmentBlocksSegmentIds = $formEntity->getSegmentBlocksSegmentIds();
+    if (!empty($segmentBlocksSegmentIds)) {
+      return array_intersect($submittedSegmentIds, $segmentBlocksSegmentIds);
+    }
+    return $formEntity->getSettingsSegmentIds();
   }
 }

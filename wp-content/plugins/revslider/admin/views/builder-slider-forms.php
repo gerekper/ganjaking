@@ -608,7 +608,7 @@ if (RevSliderEventsManager::isEventsExists()) {
 									<div class="div15"></div>
 								</div>
 								<div class="sorts_ dep_ cat_tag_ related_ popular_ recent_"><label_a><?php _e('Max Posts', 'revslider');?></label_a><input class="sliderinput valueduekeyboard smallinput easyinit" data-r="source.post.maxPosts" data-min="0" data-max="500" type="text" id="sr_source_post_maxposts"><span class="linebreak"></span></div>
-								<div class="sorts_ dep_ cat_tag_ related_ popular_ recent_"><label_a><?php _e('Limit Excerpt', 'revslider');?></label_a><input data-allowed="char" data-numeric="true" class="sliderinput valueduekeyboard smallinput easyinit" data-r="source.post.excerptLimit" data-min="0" data-max="500" type="text" id="sr_source_post_limitexc"><span class="linebreak"></span></div>
+								<div class="sorts_ dep_ cat_tag_ related_ popular_ recent_"><label_a><?php _e('Limit Excerpt', 'revslider');?></label_a><input data-allowed="words,chars" data-numeric="true" class="sliderinput valueduekeyboard smallinput easyinit" data-r="source.post.excerptLimit" data-min="0" data-max="500" type="text" id="sr_source_post_limitexc"><span class="linebreak"></span></div>
 							</div>
 						</div>		<!-- END OF POST SORTING AND SETTINGS -->
 					</div><!-- END OF FETCH CONTAINER -->

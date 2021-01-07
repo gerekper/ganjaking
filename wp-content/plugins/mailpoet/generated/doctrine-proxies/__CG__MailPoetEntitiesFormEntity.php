@@ -303,6 +303,39 @@ class FormEntity extends \MailPoet\Entities\FormEntity implements \MailPoetVendo
     /**
      * {@inheritDoc}
      */
+    public function getBlocksByType(string $type, array $blocks = NULL): array
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getBlocksByType', [$type, $blocks]);
+
+        return parent::getBlocksByType($type, $blocks);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSegmentBlocksSegmentIds(): array
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSegmentBlocksSegmentIds', []);
+
+        return parent::getSegmentBlocksSegmentIds();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSettingsSegmentIds(): array
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSettingsSegmentIds', []);
+
+        return parent::getSettingsSegmentIds();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {

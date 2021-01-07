@@ -1,14 +1,14 @@
 <?php
 
-namespace WBCR\Factory_Freemius_126\Premium;
+namespace WBCR\Factory_Freemius_128\Premium;
 
-use WBCR\Factory_Freemius_126\Entities\License;
-use WBCR\Factory_Freemius_126\Entities\Plugin;
-use WBCR\Factory_Freemius_126\Entities\Site;
-use WBCR\Factory_Freemius_126\Entities\User;
-use WBCR\Factory_439\Premium\Provider as License_Provider;
-use Wbcr_Factory439_Plugin;
-use WBCR\Factory_Freemius_126\Api;
+use WBCR\Factory_Freemius_128\Entities\License;
+use WBCR\Factory_Freemius_128\Entities\Plugin;
+use WBCR\Factory_Freemius_128\Entities\Site;
+use WBCR\Factory_Freemius_128\Entities\User;
+use WBCR\Factory_441\Premium\Provider as License_Provider;
+use Wbcr_Factory441_Plugin;
+use WBCR\Factory_Freemius_128\Api;
 use WP_Error;
 use Exception;
 
@@ -40,17 +40,17 @@ final class Provider extends License_Provider {
 	private $slug;
 
 	/**
-	 * @var \WBCR\Factory_Freemius_126\Api
+	 * @var \WBCR\Factory_Freemius_128\Api
 	 */
 	private $site_api;
 
 	/**
-	 * @var \WBCR\Factory_Freemius_126\Api
+	 * @var \WBCR\Factory_Freemius_128\Api
 	 */
 	private $plugin_api;
 
 	/**
-	 * @var \WBCR\Factory_Freemius_126\Api
+	 * @var \WBCR\Factory_Freemius_128\Api
 	 */
 	private $user_api;
 
@@ -82,11 +82,11 @@ final class Provider extends License_Provider {
 	/**
 	 * Manager constructor.
 	 *
-	 * @param Wbcr_Factory439_Plugin $plugin
+	 * @param Wbcr_Factory441_Plugin $plugin
 	 *
 	 * @throws Exception
 	 */
-	public function __construct(Wbcr_Factory439_Plugin $plugin, array $settings)
+	public function __construct(Wbcr_Factory441_Plugin $plugin, array $settings)
 	{
 		parent::__construct($plugin, $settings);
 
@@ -150,7 +150,7 @@ final class Provider extends License_Provider {
 	}
 
 	/**
-	 * @return \WBCR\Factory_Freemius_126\Entities\License|null
+	 * @return \WBCR\Factory_Freemius_128\Entities\License|null
 	 * @throws Exception
 	 */
 	public function get_license()
@@ -613,7 +613,7 @@ final class Provider extends License_Provider {
 	/**
 	 * @param bool $flush
 	 *
-	 * @return \WBCR\Factory_Freemius_126\Api
+	 * @return \WBCR\Factory_Freemius_128\Api
 	 * @throws Exception
 	 */
 	private function get_api_user_scope(User $user, $flush = false)
@@ -628,7 +628,7 @@ final class Provider extends License_Provider {
 	/**
 	 * @param bool $flush
 	 *
-	 * @return \WBCR\Factory_Freemius_126\Api
+	 * @return \WBCR\Factory_Freemius_128\Api
 	 * @throws Exception
 	 */
 	private function get_api_site_scope(Site $site, $flush = false)
@@ -643,7 +643,7 @@ final class Provider extends License_Provider {
 	/**
 	 * Get plugin public API scope.
 	 *
-	 * @return \WBCR\Factory_Freemius_126\Api
+	 * @return \WBCR\Factory_Freemius_128\Api
 	 * @throws Exception
 	 */
 	private function get_api_plugin_scope()

@@ -179,7 +179,10 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 	static function get_disabled_post_types($include_user_excluded = true) {
 		global $wp_post_types, $permalink_manager_options;
 
-		$disabled_post_types = array('revision', 'algolia_task', 'fl_builder', 'fl-builder', 'fl-builder-template', 'fl-theme-layout', 'fusion_tb_layout', 'fusion_tb_section', 'fusion_template', 'fusion_element', 'wc_product_tab', 'wc_voucher', 'wc_voucher_template', 'sliders', 'thirstylink', 'elementor_library', 'cms_block');
+		$disabled_post_types = array(
+			'revision', 'algolia_task', 'fl_builder', 'fl-builder', 'fl-builder-template', 'fl-theme-layout', 'fusion_tb_layout', 'fusion_tb_section', 'fusion_template', 'fusion_element', 'wc_product_tab', 'wc_voucher', 'wc_voucher_template',
+			'sliders', 'thirstylink', 'elementor_library', 'elementor_menu_item', 'cms_block', 'nooz_coverage'
+		);
 
 		// 1. Disable post types that are not publicly_queryable
 		foreach($wp_post_types as $post_type) {
@@ -201,7 +204,9 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 	static function get_disabled_taxonomies($include_user_excluded = true) {
 		global $wp_taxonomies, $permalink_manager_options;
 
-		$disabled_taxonomies = array('product_shipping_class', 'post_status', 'fl-builder-template-category', 'post_format', 'nav_menu', 'language');
+		$disabled_taxonomies = array(
+			'product_shipping_class', 'post_status', 'fl-builder-template-category', 'post_format', 'nav_menu', 'language'
+		);
 
 		// 1. Disable taxonomies that are not publicly_queryable
 		foreach($wp_taxonomies as $taxonomy) {

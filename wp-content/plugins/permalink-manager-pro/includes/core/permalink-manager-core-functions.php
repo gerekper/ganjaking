@@ -97,7 +97,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			$uri_parts['endpoint_value'] = (!empty($regex_parts[3])) ? $regex_parts[3] : "";
 
 			// Allow to filter the results by third-parties + store the URI parts with $pm_query global
-			$uri_parts = $pm_query = apply_filters('permalink_manager_detect_uri', $uri_parts, $request_url, $endpoints);
+			$uri_parts = apply_filters('permalink_manager_detect_uri', $uri_parts, $request_url, $endpoints);
 
 			// Support comment pages
 			preg_match("/(.*)\/{$wp_rewrite->comments_pagination_base}-([\d]+)/", $request_url, $regex_parts);
@@ -114,6 +114,9 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 			// Stop the function if $uri_parts is empty
 			if(empty($uri_parts)) return $query;
+
+			// Store the URI parts in a separate global variable
+			$pm_query = $uri_parts;
 
 			// Get the URI parts from REGEX parts
 			$lang = $uri_parts['lang'];
@@ -442,6 +445,9 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		// Ignore empty permalinks
 		if(empty($permalink)) { return $permalink; }
 
+		// Keep the original permalink in a separate variable
+		$original_permalink = $permalink;
+
 		$trailing_slash_setting = (!empty($permalink_manager_options['general']['trailing_slashes'])) ? $permalink_manager_options['general']['trailing_slashes'] : "";
 
 		// Remove trailing slashes from URLs that end with file extension (eg. .html)
@@ -468,7 +474,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		// Remove trailing slashes from URLs that end with query string or anchors
 		$permalink = preg_replace('/([\?\#]{1}[^\/]+)([\/]+)$/', '$1', $permalink);
 
-		return $permalink;
+		return apply_filters('permalink_manager_control_trailing_slashes', $permalink, $original_permalink);
 	}
 
 	/**
@@ -518,7 +524,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 	 * Redirects
 	 */
 	function new_uri_redirect_and_404() {
- 		global $wp_query, $wp, $wpdb, $permalink_manager_uris, $permalink_manager_redirects, $permalink_manager_external_redirects, $permalink_manager_options, $pm_query;
+ 		global $wp_query, $wp, $wp_rewrite, $wpdb, $permalink_manager_uris, $permalink_manager_redirects, $permalink_manager_external_redirects, $permalink_manager_options, $pm_query;
 
 		// Get the redirection mode & trailing slashes settings
 		$redirect_mode = (!empty($permalink_manager_options['general']['redirect'])) ? $permalink_manager_options['general']['redirect'] : false;
@@ -685,7 +691,11 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 				if(empty($pm_query['endpoint']) && is_numeric($endpoint_value)) {
 					$correct_permalink = sprintf("%s/%d", trim($correct_permalink, "/"), $endpoint_value);
 				} else if(isset($pm_query['endpoint']) && !empty($endpoint_value)) {
-					$correct_permalink = sprintf("%s/%s/%s", trim($correct_permalink, "/"), $pm_query['endpoint'], $endpoint_value);
+					if($pm_query['endpoint'] == 'cpage') {
+						$correct_permalink = sprintf("%s/%s-%s", trim($correct_permalink, "/"), $wp_rewrite->comments_pagination_base, $endpoint_value);
+					} else {
+						$correct_permalink = sprintf("%s/%s/%s", trim($correct_permalink, "/"), $pm_query['endpoint'], $endpoint_value);
+					}
 				} else {
 					$correct_permalink = sprintf("%s/%s", trim($correct_permalink, "/"), $pm_query['endpoint']);
 				}
@@ -704,16 +714,17 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 			// Ignore empty URIs
 			if($old_uri != "/") {
-				// Remove the trailing slashes (and add them again if needed below)
-				$old_uri = trim($old_uri, "/");
-
 				// 2A. Force trailing slashes
 				if($trailing_slashes_mode == 1 && $ends_with_slash == false) {
-					$correct_permalink = "{$home_url}/{$old_uri}/";
+					$correct_permalink = sprintf("%s/%s/", rtrim($home_url, '/'), trim($old_uri, '/'));
 				}
 				// 2B. Remove trailing slashes
 				else if($trailing_slashes_mode == 2 && $ends_with_slash == true) {
-					$correct_permalink = "{$home_url}/{$old_uri}";
+					$correct_permalink = sprintf("%s/%s", rtrim($home_url, '/'), trim($old_uri, '/'));
+				}
+				// 2C. Remove duplicated trailing slashes
+				else if($trailing_slashes_mode == 1 && preg_match('/[\/]{2,}$/', $old_uri)) {
+					$correct_permalink = sprintf("%s/%s/", rtrim($home_url, '/'), trim($old_uri, '/'));
 				}
 			}
 

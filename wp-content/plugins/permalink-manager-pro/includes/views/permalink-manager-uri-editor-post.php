@@ -76,7 +76,7 @@ class Permalink_Manager_URI_Editor_Post extends WP_List_Table {
 	/**
 	* Data inside the columns
 	*/
-	public function column_default( $item, $column_name ) {
+	public function column_default($item, $column_name) {
 		global $permalink_manager_options;
 
 		$uri = Permalink_Manager_URI_Functions_Post::get_post_uri($item['ID'], true);
@@ -93,6 +93,14 @@ class Permalink_Manager_URI_Editor_Post extends WP_List_Table {
 
 		switch( $column_name ) {
 			case 'item_uri':
+				// Get auto-update settings
+				$auto_update_val = get_post_meta($item['ID'], "auto_update_uri", true);
+				$auto_update_uri = (!empty($auto_update_val)) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
+				if($auto_update_uri) {
+					$field_args_base['readonly'] = true;
+					$field_args_base['append_content'] = sprintf('<p class="small uri_locked">%s %s</p>', '<span class="dashicons dashicons-lock"></span>', __('The above permalink will be automatically updated and is locked for editing.', 'permalink-manager'));
+				}
+
 				$output = '<div class="custom_uri_container">';
 				$output .= Permalink_Manager_Admin_Functions::generate_option_field("uri[{$item['ID']}]", $field_args_base);
 				$output .= "<span class=\"duplicated_uri_alert\"></span>";

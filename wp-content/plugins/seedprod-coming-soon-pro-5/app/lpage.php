@@ -433,7 +433,7 @@ function seedprod_pro_duplicate_lpage()
 function seedprod_pro_archive_selected_lpages()
 {
     if (check_ajax_referer('seedprod_pro_archive_selected_lpages')) {
-        if (current_user_can('list_users')) {
+        if (current_user_can(apply_filters('seedprod_trash_pages_capability', 'list_users'))) {
             if (!empty($_GET['ids'])) {
                 $ids = array_map('intval', explode(",", $_GET['ids']));
                 foreach ($ids as $v) {
@@ -452,7 +452,7 @@ function seedprod_pro_archive_selected_lpages()
 function seedprod_pro_unarchive_selected_lpages($ids)
 {
     if (check_ajax_referer('seedprod_pro_unarchive_selected_lpages')) {
-        if (current_user_can('list_users')) {
+        if (current_user_can(apply_filters('seedprod_unarchive_pages_capability', 'list_users'))) {
             if (!empty($_GET['ids'])) {
                 $ids = array_map('intval', explode(",", $_GET['ids']));
                 foreach ($ids as $v) {
@@ -471,7 +471,7 @@ function seedprod_pro_unarchive_selected_lpages($ids)
 function seedprod_pro_delete_archived_lpages()
 {
     if (check_ajax_referer('seedprod_pro_delete_archived_lpages')) {
-        if (current_user_can('list_users')) {
+        if (current_user_can(apply_filters('seedprod_archive_pages_capability', 'list_users'))) {
             if (!empty($_GET['ids'])) {
                 $ids = array_map('intval', explode(",", $_GET['ids']));
                 foreach ($ids as $v) {
@@ -892,15 +892,19 @@ function seedprod_pro_domain_mapping_db_update( $id, $status, $url, $force_https
 
         $url_parsed = parse_url( $url_add_scheme );
 
-        $data = array(
-            'domain'         => sanitize_text_field( $url_parsed['host'] ),
-            'path'           => sanitize_text_field( trim($url_parsed['path'], '/') ),
-            'mapped_page_id' => absint( $id ),
-            'force_https'    => rest_sanitize_boolean( ($force_https ? 1 : 0) ),
-        );
-        $data_format = array( '%s', '%s', '%d', '%d' );
+        if ( is_array( $url_parsed )  ) {
 
-        if ( $url_parsed !== false ) {
+            $host = array_key_exists( 'host', $url_parsed ) ? $url_parsed['host'] : '';
+            $path = array_key_exists( 'path', $url_parsed ) ? trim($url_parsed['path'], '/') : '';
+
+            $data = array(
+                'domain'         => sanitize_text_field( $host ),
+                'path'           => sanitize_text_field( $path ),
+                'mapped_page_id' => absint( $id ),
+                'force_https'    => rest_sanitize_boolean( ($force_https ? 1 : 0) ),
+            );
+            $data_format = array( '%s', '%s', '%d', '%d' );
+
             $updated = $wpdb->update( $tablename, $data, $where, $data_format, $where_format );
 
             if ( $updated > 0 ) {

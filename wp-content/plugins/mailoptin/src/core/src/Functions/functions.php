@@ -69,10 +69,16 @@ function limit_text($text, $limit = 150)
 {
     $limit = ! is_int($limit) || 0 === $limit ? 150 : $limit;
 
+    // <p> not included cos it sometimes break layout and besides wpautop adds it back
+    $tags = apply_filters('mo_limit_text_tags', '<a><em><strong><blockquote><ul><ol><li>');
+
+    $text = strip_shortcodes(strip_tags(stripslashes($text), $tags));
+
     if (str_word_count($text, 0) > $limit) {
+
         $words = str_word_count($text, 2);
         $pos   = array_keys($words);
-        $text  = substr($text, 0, $pos[$limit]) . apply_filters('maioptin_limit_text_ellipsis', '. . .');
+        $text  = substr($text, 0, $pos[$limit]) . apply_filters('mailoptin_limit_text_ellipsis', '. . .');
     }
 
     return $text;
@@ -420,4 +426,20 @@ function cache_transform($cache_key, $callback)
     }
 
     return $result;
+}
+
+/**
+ * Array of system fields for field mapping UI
+ *
+ * @return array
+ */
+function system_form_fields()
+{
+    return apply_filters('mailoptin_system_form_fields_array', array(
+            'mo_ip_address'    => __('IP Address', 'mailoptin'),
+            'mo_campaign_name' => __('Optin Campaign Name', 'mailoptin'),
+            'referrer'         => __('Referrer URL', 'mailoptin'),
+            'conversion_page'  => __('Conversion Page', 'mailoptin'),
+        )
+    );
 }

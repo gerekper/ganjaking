@@ -5,7 +5,10 @@
  * @copyright Webcraftic 06.10.2018
  * @sicne 2.0.5
  */
-#WBCR .wbcr-factory-pages-436-impressive-page-template .factory-checkbox.wbcr-factory-clearfy-icon-pro:after {
+#WBCR {
+  /* subscribe widget */
+}
+#WBCR .wbcr-factory-pages-440-impressive-page-template .factory-checkbox.wbcr-factory-clearfy-icon-pro:after {
   display: inline-block;
   position: relative;
   content: 'PRO';
@@ -23,18 +26,18 @@
   right: auto;
   z-index: 11;
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-clearfy-228-multisite-suggetion {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-clearfy-232-multisite-suggetion {
   padding: 30px 80px;
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-clearfy-228-multisite-suggetion h3 {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-clearfy-232-multisite-suggetion h3 {
   margin: 0 0 20px;
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-clearfy-228-multisite-suggetion .wbcr-factory-inner-contanier {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-clearfy-232-multisite-suggetion .wbcr-factory-inner-contanier {
   border: 2px dashed #8bc34a;
   background: #fff;
   padding: 20px;
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-clearfy-228-multisite-suggetion .wbcr-factory-activate-premium {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-clearfy-232-multisite-suggetion .wbcr-factory-activate-premium {
   display: inline-block;
   cursor: pointer;
   line-height: 16px;
@@ -53,16 +56,16 @@
   -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-clearfy-228-multisite-suggetion .wbcr-factory-activate-premium:active {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-clearfy-232-multisite-suggetion .wbcr-factory-activate-premium:active {
   box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);
   -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-clearfy-228-multisite-suggetion .wbcr-factory-activate-premium:focus {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-clearfy-232-multisite-suggetion .wbcr-factory-activate-premium:focus {
   outline: none;
   border: 0;
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-clearfy-228-multisite-suggetion .wbcr-factory-purchase-premium {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-clearfy-232-multisite-suggetion .wbcr-factory-purchase-premium {
   display: inline-block;
   cursor: pointer;
   line-height: 16px;
@@ -81,22 +84,22 @@
   -moz-box-shadow: 0 1px 0 rgba(60, 45, 2, 0.31);
   -webkit-box-shadow: 0 1px 0 rgba(60, 45, 2, 0.31);
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-clearfy-228-multisite-suggetion .wbcr-factory-purchase-premium:active {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-clearfy-232-multisite-suggetion .wbcr-factory-purchase-premium:active {
   box-shadow: inset 0 1px 0 rgba(60, 45, 2, 0.31);
   -moz-box-shadow: inset 0 1px 0 rgba(60, 45, 2, 0.31);
   -webkit-box-shadow: inset 0 1px 0 rgba(60, 45, 2, 0.31);
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-clearfy-228-multisite-suggetion .wbcr-factory-purchase-premium:focus {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-clearfy-232-multisite-suggetion .wbcr-factory-purchase-premium:focus {
   outline: none;
   border: 0;
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion {
   background: #fff;
   color: #353535;
   font-weight: 600;
   border: 2px dashed #8bc34a;
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion h3 {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion h3 {
   margin: 0 0 20px;
   padding: 10px 0;
   text-align: center;
@@ -107,16 +110,16 @@
   vertical-align: middle;
   text-transform: uppercase;
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion ul {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion ul {
   position: relative;
   margin-bottom: 20px;
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion ul li {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion ul li {
   font-size: 15px;
   padding: 7px;
   padding-left: 20px;
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion ul li:before {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion ul li:before {
   content: " ";
   display: inline-block;
   width: 0.4em;
@@ -130,7 +133,7 @@
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion .wbcr-factory-purchase-premium {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion .wbcr-factory-purchase-premium {
   display: block;
   cursor: pointer;
   line-height: 16px;
@@ -149,44 +152,102 @@
   -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion .wbcr-factory-purchase-premium:active {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion .wbcr-factory-purchase-premium:active {
   box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);
   -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);
 }
-#WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion .wbcr-factory-purchase-premium:focus {
+#WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion .wbcr-factory-purchase-premium:focus {
   outline: none;
   border: 0;
 }
+#WBCR .wbcr-factory-subscribe-widget {
+  margin-top: 0 !important;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+#WBCR .wbcr-factory-subscribe-widget__field {
+  margin: 10px auto;
+  display: block;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 0 transparent;
+  border-radius: 4px;
+  border: 1px solid #d6d4d4;
+  background-color: #fff;
+  color: #32373c;
+}
+#WBCR .wbcr-factory-subscribe-widget__button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 14px 0 0;
+  box-shadow: none;
+  min-width: 100px;
+  background-color: #ff5722;
+  border: 0;
+  color: #fff;
+}
+#WBCR .wbcr-factory-subscribe-widget__button:active,
+#WBCR .wbcr-factory-subscribe-widget__button:focus {
+  box-shadow: inset -1px 1px 1px #222;
+  outline: none;
+}
+#WBCR .wbcr-factory-subscribe-widget__msgbox {
+  font-weight: bold;
+}
+#WBCR .wbcr-factory-subscribe-widget__text {
+  display: none;
+  padding: 10px 14px;
+  margin: 0 0 10px;
+}
+#WBCR .wbcr-factory-subscribe-widget__text--success {
+  background: #d6efbe;
+  color: #61824b;
+}
+#WBCR .wbcr-factory-subscribe-widget__text--success2 {
+  background: #ffe0b3;
+}
+#WBCR .wbcr-factory-subscribe-widget__text--error {
+  background: #f1b1b6;
+}
+#WBCR .wbcr-factory-subscribe-widget__checkbox {
+  margin: 0 10px 0 0;
+}
+#WBCR .wbcr-factory-subscribe-widget__checkbox-label {
+  font-weight: normal;
+  color: #8c8888;
+  font-size: 12px;
+}
 @media screen and (max-width: 1550px) {
-  #WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-clearfy-228-multisite-pro-suggetion {
+  #WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-clearfy-232-multisite-pro-suggetion {
     padding: 10px 80px;
   }
-  #WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion {
+  #WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion {
     padding: 10px;
   }
-  #WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion h3 {
+  #WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion h3 {
     margin: 0 0 20px;
     padding: 10px 0;
     font-size: 13px;
     font-weight: 600;
   }
-  #WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion ul {
+  #WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion ul {
     margin-bottom: 20px;
   }
-  #WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion ul li {
+  #WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion ul li {
     font-size: 13px;
     padding: 2px;
     padding-left: 10px;
   }
-  #WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion ul li:before {
+  #WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion ul li:before {
     width: 0.4em;
     height: 0.7em;
     border-width: 0 0.2em 0.2em 0;
     left: 0;
     margin-right: 10px;
   }
-  #WBCR .wbcr-factory-pages-436-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-228-pro-suggettion .wbcr-factory-purchase-premium {
+  #WBCR .wbcr-factory-pages-440-impressive-page-template .wbcr-factory-right-sidebar-section .wbcr-factory-clearfy-232-pro-suggettion .wbcr-factory-purchase-premium {
     font-weight: 700;
     line-height: 16px;
     font-size: 12px;

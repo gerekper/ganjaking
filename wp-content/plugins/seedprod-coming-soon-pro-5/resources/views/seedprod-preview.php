@@ -15,9 +15,8 @@ if (empty($settings)) {
 // mapped domain settings
 $plugin_url = SEEDPROD_PRO_PLUGIN_URL;
 if(!empty($is_mapped)){
-    global $seedprod_page_mapped_url;
-    $url_parsed = parse_url($seedprod_page_mapped_url);
-    $new_domain = $url_parsed['scheme'].'://'.$url_parsed['host'];
+    global $seedprod_url_parsed_scheme, $seedprod_url_parsed_host;
+    $new_domain = $seedprod_url_parsed_scheme.'://'.$seedprod_url_parsed_host;
     $domain = explode('/wp-content/',$plugin_url);
     $plugin_url = str_replace($domain[0],$new_domain,$plugin_url);
 }

@@ -1,5 +1,13 @@
 # Changelog
 ======
+1.9.10
+======
+- NEW:	Performance (AJAX only performed once now / HTML not generated every time)
+- NEW:	Trigger is now disabled by default
+- FIX:	Alt tag missing in cookie settings
+- FIX:	New cookie popup style mobile bug
+
+======
 1.9.9
 ======
 - NEW:	New Cookie popup style: Full width buttons right

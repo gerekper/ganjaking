@@ -48,16 +48,14 @@ function redsys_add_notice_intalled_new() {
 				<div class="contenido-redsys-notice">
 					<a class="woocommerce-message-close notice-dismiss" style="top:0;" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'redsys-hide-install', 'hide-install-redsys' ), 'redsys_hide_install_nonce', '_redsys_hide_install_nonce' ) ); ?>"><?php esc_html_e( 'Before Dismiss it, read it plase', 'woocommerce-redsys' ); ?></a>
 					<p>
-					    <h3>
-						    <?php esc_html_e( 'Thank you for purchase WooCommerce Redsys Gateway', 'woocommerce-redsys' ); ?>
+						<h3>
+							<?php esc_html_e( 'Thank you for purchase WooCommerce Redsys Gateway', 'woocommerce-redsys' ); ?>
 						</h3>
 					</p>
 					<p>
 						<!--
 						¿Vas a tener los cojones de modificar esto?
-						
 						Si te da vergÜenza, dame una parte de tus benegicios para contribuir al desarrollo como dicta el el esítitu de la GPL en vez de eliminar y modificar estas líneas, ya que estás hundiendo el desarrollo
-						
 						-->
 						<?php printf( __( 'This plugin is developed by José Conti. It can only be purchased and downloaded from WooCommerce.com. If you have paid for it in another site, the owner of that site is earning money at my expense and at yours without valuing the effort I put in the development Doing so is against the GPL, as much as there are people who say it is legal and permissible. I invite you to <a href="%1$s" target="_blank">read this entry</a> so you know what the GPL is.', 'woocommerce-redsys' ), REDSYS_GPL ); ?>
 					</p>
@@ -101,8 +99,8 @@ function redsys_add_notice_new_version() {
 				<div class="contenido-redsys-notice">
 					<a class="woocommerce-message-close notice-dismiss" style="top:0;" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'redsys-hide-new-version', 'hide-new-version-redsys' ), 'redsys_hide_new_version_nonce', '_redsys_hide_new_version_nonce' ) ); ?>"><?php esc_html_e( 'Dismiss', 'woocommerce-redsys' ); ?></a>
 					<p>
-					    <h3>
-						    <?php echo esc_html__( 'WooCommerce Redsys Gateway has been updated to version', 'woocommerce-redsys' ) . ' ' . REDSYS_VERSION; ?>
+						<h3>
+							<?php echo esc_html__( 'WooCommerce Redsys Gateway has been updated to version', 'woocommerce-redsys' ) . ' ' . REDSYS_VERSION; ?>
 						</h3>
 					</p>
 					<p>
@@ -116,7 +114,8 @@ function redsys_add_notice_new_version() {
 					</p>
 				</div>
 			</div>
-		<?php }
+			<?php
+		}
 	}
 }
 add_action( 'admin_notices', 'redsys_add_notice_new_version' );
@@ -161,13 +160,13 @@ function redsys_installation_notice() {
 	}
 }
 
-//add_action( 'admin_notices', 'redsys_installation_notice' );
+// add_action( 'admin_notices', 'redsys_installation_notice' );.
 
-/*
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+/**
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_deprecated_authorization() {
-	
+
 	$is_enabled = WCRed()->get_redsys_option( 'preauthorization', 'redsys' );
 	if ( 'yes' === $is_enabled ) {
 		$class = 'notice notice-error';
@@ -178,9 +177,9 @@ function redsys_deprecated_authorization() {
 
 add_action( 'admin_notices', 'redsys_deprecated_authorization' );
 
-/*
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+/**
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_notice_style() {
 	wp_register_style( 'redsys_notice_css', REDSYS_PLUGIN_URL . 'assets/css/redsys-notice.css', false, REDSYS_VERSION );
 	wp_enqueue_style( 'redsys_notice_css' );
@@ -188,13 +187,16 @@ function redsys_notice_style() {
 add_action( 'admin_enqueue_scripts', 'redsys_notice_style' );
 
 function check_redsys_connected() {
-	
-	$auth = WC_Helper_Options::get( 'auth' );
-	if ( empty( $auth['access_token'] ) ) {
-		$class   = 'notice notice-error';
-		$link    =  admin_url( 'admin.php?page=wc-addons&section=helper' );
-		$message = __( '<a href="' . esc_html( $link ) . '">Connect WooCommerce with WooCommerce.com</a> to get WooCommerce Redsys Gateway updates. This connection will allow you to update the plugin automatically and be advised of new updates<br />If you don\'t connect it, you could be with an old plugin version and maybe with some bugs.', 'woocommerce-redsys' );
-		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+
+	if ( REDSYS_CHECK_WOO_CONNECTION ) {
+		$auth = WC_Helper_Options::get( 'auth' );
+		if ( empty( $auth['access_token'] ) ) {
+			$class    = 'notice notice-error';
+			$link     =  admin_url( 'admin.php?page=wc-addons&section=helper' );
+			$message  = '<a href="' . esc_html( $link ) . '">' . __( 'Connect WooCommerce with WooCommerce.com', 'woocommerce-redsys' ) . '</a>';
+			$message2 = __( 'to get WooCommerce Redsys Gateway updates. This connection will allow you to update the plugin automatically and be advised of new updates<br />If you don\'t connect it, you could be with an old plugin version and maybe with some bugs.', 'woocommerce-redsys' );
+			printf( '<div class="%1$s"><p>%2$s %3$s</p></div>', esc_attr( $class ), $message, $message2 );
+		}
 	}
 }
 

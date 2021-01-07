@@ -264,7 +264,24 @@ class Connect extends AbstractSendinblueConnect implements ConnectionInterface
                     $firstname_key = $this->get_first_name_attribute();
                     $lastname_key  = $this->get_last_name_attribute();
 
-                    if (in_array($attribute, ['BLACKLIST', 'CLICKERS', 'READERS', $firstname_key, $lastname_key])) continue;
+                    $exclude_list = [
+                        'BLACKLIST',
+                        'CLICKERS',
+                        'READERS',
+                        'NOMBRE',
+                        'PRENOM',
+                        'VORNAME',
+                        'NOME',
+                        'SURNAME',
+                        'NOM',
+                        'NACHNAME',
+                        'SOBRENOME',
+                        'COGNOME',
+                        $firstname_key,
+                        $lastname_key
+                    ];
+
+                    if (in_array($attribute, $exclude_list)) continue;
                     $custom_fields_array[$attribute] = $attribute;
                 }
 

@@ -49,7 +49,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		$this->init_form_fields();
 		$this->init_settings();
 
-		// Define user set variables
+		// Define user set variables!
 		$this->title              = $this->get_option( 'title' );
 		$this->description        = $this->get_option( 'description' );
 		$this->customer           = $this->get_option( 'customer' );
@@ -66,11 +66,11 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		$this->descripredsys      = $this->get_option( 'descripredsys' );
 		$this->log                = new WC_Logger();
 
-		// Actions
+		// Actions!
 		add_action( 'valid-' . $this->id . '-standard-ipn-request', array( $this, 'successful_request' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		// Payment listener/API hook
+		// Payment listener/API hook!
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode_masterpass' ) );
 		if ( ! $this->is_valid_for_use() ) {
@@ -78,35 +78,33 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	* Check if this gateway is enabled and available in the user's country
-	*
-	* @access public
-	* @return bool
-	*/
+	 * Check if this gateway is enabled and available in the user's country
+	 *
+	 * @access public
+	 * @return bool
+	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
-	function is_valid_for_use() {
-		
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
+	public function is_valid_for_use() {
 		include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
-		
 		if ( ! in_array( get_woocommerce_currency(), WCRed()->allowed_currencies(), true ) ) {
 			return false;
 		} else {
 			return true;
 		}
 	}
-	
+
 	/**
-	* Admin Panel Options
-	*
-	* @since 1.0.0
-	*/
+	 * Admin Panel Options.
+	 *
+	 * @since 1.0.0
+	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function admin_options() {
-			?>
+		?>
 			<h3><?php _e( 'MasterPass', 'woocommerce-redsys' ); ?></h3>
 			<p><?php _e( 'MasterPass works by sending the user to your bank TPV to enter their payment information.', 'woocommerce-redsys' ); ?></p>
 			<?php if ( class_exists( 'SitePress' ) ) { ?>
@@ -121,29 +119,32 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 					$this->generate_settings_html();
 					?>
 				</table><!--/.form-table-->
-			<?php else :
-				include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
-				$currencies = WCRed()->allowed_currencies();
-				$formated_currencies = '';
-			
-				foreach ( $currencies as $currency ) {
-					$formated_currencies .= $currency . ', ';
-				}
-				?>
-				<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: <?php esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
-		echo $formated_currencies; ?></p></div>
 				<?php
+				else :
+					include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
+					$currencies = WCRed()->allowed_currencies();
+					$formated_currencies = '';
+
+					foreach ( $currencies as $currency ) {
+						$formated_currencies .= $currency . ', ';
+					}
+					?>
+				<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: <?php esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
+				echo $formated_currencies;
+				?>
+				</p></div>
+					<?php
 			endif;
-		}
+	}
 	/**
-	* Initialise Gateway Settings Form Fields
-	*
-	* @access public
-	* @return void
-	*/
+	 * Initialise Gateway Settings Form Fields.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'            => array(

@@ -1,5 +1,8 @@
 *** WooCommerce Bookings Changelog ***
 
+2021-01-05 - version 1.15.33
+* Fix - Update the positioning of the Bookings calendar in WP-Admin to fix popovers that appear off screen.
+
 2020-12-09 - version 1.15.32
 * Fix - Add compatibility for Twenty Twenty-One theme on the "My Account - Bookings" page.
 * Fix - Dev - Set PHP version to 7.0.8 in composer.json for compatibility with PHP 8.

@@ -142,6 +142,16 @@ This is always a caching issue. Go to the caching plugin's setting page and clea
 
 
 == Changelog ==
+= 6.0.10.0 =
+* Added - Undo and Redo Functionality
+* Added = Permissions Filters
+* Fixed - Mobile Fonts Settings
+* Tweak - Animate Optin Button
+* Tweak - Moved Preview Button
+* Tweak - Made Sections Clickable In Free Verson
+* Tweak - Attribution Fix
+* Added - Easier Upgrade Path
+
 = 6.0.9.0 =
 * Added - Ability to link an image
 * Tweak - HTML 5 Email Validation

@@ -7,7 +7,7 @@ Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Social Slider Widget is a responsive slider widget that shows 20 latest images from a public instagram user or a hashtag.
+Social Slider Widget is a responsive "instagram slider widget" that shows latest images from a public instagram user or a hashtag.
 
 == Description ==
 = Display Instagram feeds in widgets, posts, pages, or anywhere else using shortcodes. =
@@ -98,6 +98,10 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 10. Highlight
 
 == Changelog ==
+= 1.8.4 =
+* Fixed: Errors on Components page
+
+
 = 1.8.3 =
 * Fixed: script and styles loading on pages
 * Fixed: display in the mobile version

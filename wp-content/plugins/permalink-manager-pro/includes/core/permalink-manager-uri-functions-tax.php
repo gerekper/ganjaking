@@ -131,6 +131,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 		$taxonomy_name = $term->taxonomy;
 		$taxonomy = get_taxonomy($taxonomy_name);
 		$term_slug = $term->slug;
+		$top_parent_slug = '';
 
 		// 1A. Check if taxonomy is allowed
 		if($check_if_disabled && Permalink_Manager_Helper_Functions::is_disabled($taxonomy, 'taxonomy')) { return ''; }
@@ -179,6 +180,11 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 					$full_native_slug = $ancestor_term->slug . '/' . $full_native_slug;
 					$full_custom_slug = Permalink_Manager_Helper_Functions::force_custom_slugs($ancestor_term->slug, $ancestor_term) . '/' . $full_custom_slug;
 				}
+
+				// Get top parent term
+				if(strpos($default_uri, "%{$taxonomy_name}_top%") === false || strpos($default_uri, "%term_top%") === false) {
+					$top_parent_slug = Permalink_Manager_Helper_Functions::get_term_full_slug($term, $ancestors, 3, $native_uri);
+				}
 			}
 
 			// Allow filter the default slug (only custom permalinks)
@@ -198,8 +204,8 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 			}
 			$taxonomy_name_slug = apply_filters('permalink_manager_filter_taxonomy_slug', $taxonomy_name_slug, $term, $taxonomy_name);
 
-			$slug_tags = array("%term_name%", "%term_flat%", "%{$taxonomy_name}%", "%{$taxonomy_name}_flat%", "%native_slug%", "%taxonomy%", "%term_id%");
-			$slug_tags_replacement = array($full_slug, $custom_slug, $full_slug, $custom_slug, $full_native_slug, $taxonomy_name_slug, $term->term_id);
+			$slug_tags = array("%term_name%", "%term_flat%", "%{$taxonomy_name}%", "%{$taxonomy_name}_flat%", "%term_top%", "%{$taxonomy_name}_top%", "%native_slug%", "%taxonomy%", "%term_id%");
+			$slug_tags_replacement = array($full_slug, $custom_slug, $full_slug, $custom_slug, $top_parent_slug, $top_parent_slug, $full_native_slug, $taxonomy_name_slug, $term->term_id);
 
 			// Check if any term tag is present in custom permastructure
 			$do_not_append_slug = (!empty($permalink_manager_options['permastructure-settings']['do_not_append_slug']['taxonomies'][$taxonomy_name])) ? true : false;
@@ -213,7 +219,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 				}
 			}
 
-			// Replace the term tags with slugs or rppend the slug if no term tag is defined
+			// Replace the term tags with slugs or append the slug if no term tag is defined
 			if(!empty($do_not_append_slug)) {
 				$default_uri = str_replace($slug_tags, $slug_tags_replacement, $default_uri);
 			} else {
@@ -568,7 +574,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 
 		// A little hack (if user removes whole URI from input) +
 		// The terms added via "Edit Post" page should have default URI
-		if(!empty($_POST['custom_uri']) && empty($force_default_uri) && empty($_POST['post_ID']) && $auto_update_uri !== 1) {
+		if(!empty($_POST['custom_uri']) && empty($force_default_uri) && empty($_POST['post_ID']) && $auto_update_uri != 1) {
 			$new_uri = Permalink_Manager_Helper_Functions::sanitize_title($_POST['custom_uri']);
 		} else {
 			$new_uri = $default_uri;

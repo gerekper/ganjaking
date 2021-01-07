@@ -8,9 +8,9 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'WP_ROCKET_ADVANCED_CACHE', true );
 
-$rocket_path        = '/home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/wp-rocket/';
-$rocket_config_path = '/home/ganja/web/ganjaking.asia/public_html/wp-content/wp-rocket-config/';
-$rocket_cache_path  = '/home/ganja/web/ganjaking.asia/public_html/wp-content/cache/wp-rocket/';
+$rocket_path        = '/home/ganjaking/web/ganjaking.asia/public_html/wp-content/plugins/wp-rocket/';
+$rocket_config_path = '/home/ganjaking/web/ganjaking.asia/public_html/wp-content/wp-rocket-config/';
+$rocket_cache_path  = '/home/ganjaking/web/ganjaking.asia/public_html/wp-content/cache/wp-rocket/';
 
 if (
 	version_compare( phpversion(), '7.0', '<' )
@@ -22,10 +22,6 @@ if (
 	return;
 }
 
-
-if ( file_exists( '/home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/wp-rocket/inc/classes/dependencies/mobiledetect/mobiledetectlib/Mobile_Detect.php' ) && ! class_exists( 'WP_Rocket_Mobile_Detect' ) ) {
-	include_once '/home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/wp-rocket/inc/classes/dependencies/mobiledetect/mobiledetectlib/Mobile_Detect.php';
-}
 
 
 spl_autoload_register(

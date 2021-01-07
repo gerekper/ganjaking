@@ -19,8 +19,6 @@ use MailPoet\WooCommerce\TransactionalEmailHooks as WCTransactionalEmails;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoet\WP\Notice as WPNotice;
 
-require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-
 class Initializer {
   public $automaticEmails;
 

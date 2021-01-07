@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright (c) 2018, Webcraftic Ltd
  *
  */
-class WbcrFactoryClearfy228_Helpers {
+class WbcrFactoryClearfy232_Helpers {
 
 	/**
 	 * Recursive sanitation for an array

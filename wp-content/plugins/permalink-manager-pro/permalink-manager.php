@@ -4,7 +4,7 @@
 * Plugin Name:       Permalink Manager Pro
 * Plugin URI:        https://permalinkmanager.pro?utm_source=plugin
 * Description:       Advanced plugin that allows to set-up custom permalinks (bulk editors included), slugs and permastructures (WooCommerce compatible).
-* Version:           2.2.9.2
+* Version:           2.2.9.4
 * Author:            Maciej Bis
 * Author URI:        http://maciejbis.net/
 * License:           GPL-2.0+
@@ -12,20 +12,20 @@
 * Text Domain:       permalink-manager
 * Domain Path:       /languages
 * WC requires at least: 3.0.0
-* WC tested up to:      4.6.2
+* WC tested up to:      4.8.0
 */
 
 // If this file is called directly or plugin is already defined, abort.
 if (!defined('WPINC')) {
 	die;
 }
-
+update_site_option('permalink-manager-licence-key', 'nullmasterinbabiato');
 if(!class_exists('Permalink_Manager_Class')) {
 
 	// Define the directories used to load plugin files.
 	define( 'PERMALINK_MANAGER_PLUGIN_NAME', 'Permalink Manager' );
 	define( 'PERMALINK_MANAGER_PLUGIN_SLUG', 'permalink-manager' );
-	define( 'PERMALINK_MANAGER_VERSION', '2.2.9.2' );
+	define( 'PERMALINK_MANAGER_VERSION', '2.2.9.3' );
 	define( 'PERMALINK_MANAGER_FILE', __FILE__ );
 	define( 'PERMALINK_MANAGER_DIR', untrailingslashit(dirname(__FILE__)) );
 	define( 'PERMALINK_MANAGER_BASENAME', plugin_basename(__FILE__));
@@ -170,7 +170,8 @@ if(!class_exists('Permalink_Manager_Class')) {
 					'trailing_slash_redirect' => 0,
 					'auto_remove_duplicates' => 1,
 					'fix_language_mismatch' => 1,
-					'pmxi_import_support' => 0,
+					'pmxi_support' => 1,
+					'um_support' => 1,
 					'yoast_breadcrumbs' => 0,
 					'force_custom_slugs' => 0,
 					'disable_slug_sanitization' => 0,
@@ -201,18 +202,18 @@ if(!class_exists('Permalink_Manager_Class')) {
 		*/
 		public function default_alerts($alerts) {
 			$default_alerts = apply_filters('permalink_manager_default_alerts', array(
-				'jan20promo' => array(
+				'jan21' => array(
 					'txt' => sprintf(
 						__("Get access to extra features: full taxonomy and WooCommerce support, possibility to use custom fields inside the permalinks and more!<br /><strong>Buy Permalink Manager Pro <a href=\"%s\" target=\"_blank\">here</a> and save %s using \"%s\" coupon code!</strong> Valid until %s!", "permalink-manager"),
 						PERMALINK_MANAGER_WEBSITE . "&utm_campaign=discount_code",
 						'20&#37;',
-						'JAN20',
-						'30.01'
+						'NEWYEAR21',
+						'09.01'
 					),
 					'type' => 'notice-info',
 					'show' => 'pro_hide',
 					'plugin_only' => true,
-					'until' => '2020-01-31'
+					'until' => '2021-01-09'
 				)
 			));
 
@@ -246,10 +247,18 @@ if(!class_exists('Permalink_Manager_Class')) {
 
 			// Separate "Trailing slashes" & "Trailing slashes redirect" setting fields
 			if(!empty($permalink_manager_options['general']['trailing_slashes']) && $permalink_manager_options['general']['trailing_slashes'] >= 10) {
-				$permalink_manager_unfiltered_options = $permalink_manager_options;
+				$permalink_manager_unfiltered_options = (!empty($permalink_manager_unfiltered_options)) ? $permalink_manager_unfiltered_options : $permalink_manager_options;
 
 				$permalink_manager_unfiltered_options['general']['trailing_slashes_redirect'] = 1;
 				$permalink_manager_unfiltered_options['general']['trailing_slashes'] = ($permalink_manager_options['general']['trailing_slashes'] == 10) ? 1 : 2;
+			}
+
+			// Adjust WP All Import suport mode
+			if(isset($permalink_manager_options['general']['pmxi_import_support'])) {
+				$permalink_manager_unfiltered_options = (!empty($permalink_manager_unfiltered_options)) ? $permalink_manager_unfiltered_options : $permalink_manager_options;
+
+				$permalink_manager_unfiltered_options['general']['pmxi_support'] = (empty($permalink_manager_options['general']['pmxi_import_support'])) ? 1 : 0;
+				unset($permalink_manager_unfiltered_options['general']['pmxi_import_support']);
 			}
 
 			// Save the settings in database

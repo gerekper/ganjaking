@@ -57,7 +57,7 @@ class WIS_LicensePage extends WIS_Page {
 
 	/**
 	 * @since 2.0.7
-	 * @var \WBCR\Factory_439\Premium\Provider
+	 * @var \WBCR\Factory_441\Premium\Provider
 	 */
 	protected $premium;
 
@@ -75,7 +75,7 @@ class WIS_LicensePage extends WIS_Page {
 
 	/**
 	 * @since 2.0.7
-	 * @var \WBCR\Factory_439\Premium\Interfaces\License
+	 * @var \WBCR\Factory_441\Premium\Interfaces\License
 	 */
 	protected $premium_license;
 

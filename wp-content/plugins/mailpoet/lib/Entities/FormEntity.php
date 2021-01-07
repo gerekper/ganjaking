@@ -30,6 +30,22 @@ class FormEntity {
   const STATUS_ENABLED = 'enabled';
   const STATUS_DISABLED = 'disabled';
 
+  const HTML_BLOCK_TYPE = 'html';
+  const HEADING_BLOCK_TYPE = 'heading';
+  const IMAGE_BLOCK_TYPE = 'image';
+  const PARAGRAPH_BLOCK_TYPE = 'paragraph';
+  const DIVIDER_BLOCK_TYPE = 'divider';
+  const CHECKBOX_BLOCK_TYPE = 'checkbox';
+  const RADIO_BLOCK_TYPE = 'radio';
+  const SEGMENT_SELECTION_BLOCK_TYPE = 'segment';
+  const DATE_BLOCK_TYPE = 'date';
+  const SELECT_BLOCK_TYPE = 'select';
+  const TEXT_BLOCK_TYPE = 'text';
+  const TEXTAREA_BLOCK_TYPE = 'textarea';
+  const SUBMIT_BLOCK_TYPE = 'submit';
+  const COLUMNS_BLOCK_TYPE = 'columns';
+  const COLUMN_BLOCK_TYPE = 'column';
+
   /**
    * @ORM\Column(type="string")
    * @var string
@@ -147,5 +163,38 @@ class FormEntity {
       'updated_at' => $this->getUpdatedAt(),
       'deleted_at' => $this->getDeletedAt(),
     ];
+  }
+
+  public function getBlocksByType(string $type, array $blocks = null): array {
+    $found = [];
+    if ($blocks === null) {
+      $blocks = $this->getBody() ?? [];
+    }
+    foreach ($blocks as $block) {
+      if ($block['type'] === $type) {
+        $found[] = $block;
+      }
+      if (isset($block['body']) && is_array($block['body']) && !empty($block['body'])) {
+        $found = array_merge($found, $this->getBlocksByType($type, $block['body']));
+      }
+    }
+    return $found;
+  }
+
+  public function getSegmentBlocksSegmentIds(): array {
+    $listSelectionBlocks = $this->getBlocksByType(FormEntity::SEGMENT_SELECTION_BLOCK_TYPE);
+    $listSelection = [];
+    foreach ($listSelectionBlocks as $listSelectionBlock) {
+      $listSelection = array_unique(
+        array_merge(
+          $listSelection, array_column($listSelectionBlock['params']['values'] ?? [], 'id')
+        )
+      );
+    }
+    return $listSelection;
+  }
+
+  public function getSettingsSegmentIds(): array {
+    return $this->settings['segments'] ?? [];
   }
 }

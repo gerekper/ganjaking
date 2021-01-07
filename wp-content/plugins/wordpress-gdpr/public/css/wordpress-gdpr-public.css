@@ -41,6 +41,10 @@
 	clear: both;
 }
 
+.wordpress-gdpr-hidden {
+	display: none !important;
+}
+
 /***********************
 // Privacy Center
 ***********************/
@@ -206,6 +210,7 @@ a.wordpress-gdpr-popup-agree:hover, a.wordpress-gdpr-popup-decline:hover, a.word
   width: 80%;
   text-align: left;
   float: left;
+  padding-right: 20px;
 }
 
 
@@ -217,6 +222,7 @@ a.wordpress-gdpr-popup-agree:hover, a.wordpress-gdpr-popup-decline:hover, a.word
 
 .wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-actions a {
 	width: 100%;
+	max-width: 200px;
 }
 
 .wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-agree {
@@ -651,4 +657,15 @@ a.wordpress-gdpr-popup-privacy-settings-service-category:hover, a.wordpress-gdpr
 	.wordpress-gdpr-privacy-settings-popup-header {
 		padding: 5px 0;
 	}
+
+  .wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-actions {
+      width: 30%;
+      text-align: center;
+  }
+
+  .wordpress-gdpr-popup-full-width-buttons-right .wordpress-gdpr-popup-text {
+      width: 70%;
+      text-align: left;
+  }
+
 }

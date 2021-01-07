@@ -83,8 +83,6 @@ abstract class ListingRepository {
     if ($parameters) {
       $this->applyParameters($queryBuilder, $parameters);
     }
-
-    $this->applyListingDefinition($queryBuilder, $definition);
   }
 
   abstract protected function applyGroup(QueryBuilder $queryBuilder, string $group);
@@ -94,9 +92,6 @@ abstract class ListingRepository {
   abstract protected function applyFilters(QueryBuilder $queryBuilder, array $filters);
 
   abstract protected function applyParameters(QueryBuilder $queryBuilder, array $parameters);
-
-  protected function applyListingDefinition(QueryBuilder $queryBuilder, ListingDefinition $definition) {
-  }
 
   protected function applySorting(QueryBuilder $queryBuilder, string $sortBy, string $sortOrder) {
     $alias = $this->queryBuilder->getRootAliases()[0];

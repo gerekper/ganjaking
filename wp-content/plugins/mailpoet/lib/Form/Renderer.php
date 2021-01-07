@@ -5,6 +5,7 @@ namespace MailPoet\Form;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\FormEntity;
 use MailPoet\Form\Templates\FormTemplate;
 use MailPoet\Form\Util\CustomFonts;
 use MailPoet\Form\Util\Styles;
@@ -67,10 +68,10 @@ class Renderer {
     // add honeypot for spambots
     $html = ($honeypotEnabled) ? $this->renderHoneypot() : '';
     foreach ($blocks as $key => $block) {
-      if ($block['type'] == 'submit' && $this->settings->get('captcha.type') === Captcha::TYPE_RECAPTCHA) {
+      if ($block['type'] === FormEntity::SUBMIT_BLOCK_TYPE && $this->settings->get('captcha.type') === Captcha::TYPE_RECAPTCHA) {
         $html .= $this->renderReCaptcha();
       }
-      if (in_array($block['type'], ['column', 'columns'])) {
+      if (in_array($block['type'], [FormEntity::COLUMN_BLOCK_TYPE, FormEntity::COLUMNS_BLOCK_TYPE])) {
         $blocks = $block['body'] ?? [];
         $html .= $this->blocksRenderer->renderContainerBlock($block, $this->renderBlocks($blocks, $formSettings, false)) . PHP_EOL;
       } else {

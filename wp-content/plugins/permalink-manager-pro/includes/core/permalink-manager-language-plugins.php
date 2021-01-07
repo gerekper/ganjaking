@@ -20,9 +20,9 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 				add_filter('permalink_manager_detected_term_id', array($this, 'fix_language_mismatch'), 9, 3);
 			}
 			// Fix posts page
-			else {
+			// else {
 				add_filter('permalink_manager_filter_query', array($this, 'fix_posts_page'), 5, 5);
-			}
+			// }
 
 			// URI Editor
 			add_filter('permalink_manager_uri_editor_extra_info', array($this, 'language_column_uri_editor'), 9, 3);
@@ -310,7 +310,7 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		$home_url = get_home_url();
 
 		// Hide language code if "Use directory for default language" option is enabled
-		$hide_prefix_for_default_lang = ((isset($sitepress_settings['urls']['directory_for_default_language']) && $sitepress_settings['urls']['directory_for_default_language'] != 1) || !empty($polylang->links_model->options['hide_default']) || !empty($translate_press_settings['add-subdirectory-to-default-language'])) ? true : false;
+		$hide_prefix_for_default_lang = ((isset($sitepress_settings['urls']['directory_for_default_language']) && $sitepress_settings['urls']['directory_for_default_language'] != 1) || !empty($polylang->links_model->options['hide_default']) || (!empty($translate_press_settings) && empty($translate_press_settings['add-subdirectory-to-default-language']))) ? true : false;
 
 		// Last instance - use language paramater from &_GET array
 		if(is_admin()) {

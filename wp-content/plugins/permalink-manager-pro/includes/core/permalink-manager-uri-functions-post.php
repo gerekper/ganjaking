@@ -29,6 +29,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		add_action( 'wp_insert_post', array($this, 'new_post_uri'), 99, 1 );
 		add_action( 'add_attachment', array($this, 'new_post_uri'), 99, 1 );
 		add_action( 'wp_trash_post', array($this, 'remove_post_uri'), 100, 1 );
+		add_action( 'delete_post', array($this, 'remove_post_uri'), 100, 1 );
 
 		add_action( 'quick_edit_custom_box', array($this, 'quick_edit_column_form'), 99, 3);
 	}
@@ -741,8 +742,8 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Ignore menu items
 		if($post_object->post_type == 'nav_menu_item') { return $post_id; }
 
-		// Ignore auto-drafts, removed posts and posts without title
-		if(in_array($post_object->post_status, array('auto-draft', 'trash')) || empty($post->post_title) || (!empty($post_object->post_name) && $post_object->post_name == 'auto-draft')) { return $post_id; }
+		// Ignore auto-drafts, revisions, removed posts and posts without title
+		if(in_array($post_object->post_status, array('auto-draft', 'trash')) || (strpos($post_object->post_name, 'revision-v1') !== false) || empty($post_object->post_title) || (!empty($post_object->post_name) && $post_object->post_name == 'auto-draft')) { return $post_id; }
 
 		$native_uri = self::get_default_post_uri($post_id, true);
 		$new_uri = self::get_default_post_uri($post_id);

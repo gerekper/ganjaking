@@ -252,9 +252,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'default' => 'no',
 			),
 			'psd2'              => array(
-				'title'   => __( 'Enable PSD2 (Beta)', 'woocommerce-redsys' ),
+				'title'   => __( 'Enable PSD2', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable PSD2 (Beta)', 'woocommerce-redsys' ),
+				'label'   => __( 'Enable PSD2', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
 			'usebrowserreceipt' => array(
@@ -3505,7 +3505,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$DATOS_ENTRADA .= '<DS_MERCHANT_TERMINAL>' . $DSMerchantTerminal . '</DS_MERCHANT_TERMINAL>';
 						$DATOS_ENTRADA .= '<DS_MERCHANT_TRANSACTIONTYPE>0</DS_MERCHANT_TRANSACTIONTYPE>';
 						$DATOS_ENTRADA .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
-						$DATOS_ENTRADA .= $ds_merchant_grou;
+						$DATOS_ENTRADA .= $ds_merchant_group;
 						$DATOS_ENTRADA .= '<DS_MERCHANT_IDENTIFIER>' . $customer_token_c . '</DS_MERCHANT_IDENTIFIER>';
 						$DATOS_ENTRADA .= '<DS_MERCHANT_COF_INI>' . $cof_ini . '</DS_MERCHANT_COF_INI>';
 						$DATOS_ENTRADA .= '<DS_MERCHANT_COF_TYPE>' . $cof_type . '</DS_MERCHANT_COF_TYPE>';
@@ -4652,7 +4652,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$DATOS_ENTRADA .= '<DS_MERCHANT_TERMINAL>' . $DSMerchantTerminal . '</DS_MERCHANT_TERMINAL>';
 			$DATOS_ENTRADA .= '<DS_MERCHANT_TRANSACTIONTYPE>0</DS_MERCHANT_TRANSACTIONTYPE>';
 			$DATOS_ENTRADA .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
-			$DATOS_ENTRADA .= $ds_merchant_grou;
+			$DATOS_ENTRADA .= $ds_merchant_group;
 			$DATOS_ENTRADA .= '<DS_MERCHANT_IDENTIFIER>' . $customer_token_c . '</DS_MERCHANT_IDENTIFIER>';
 			$DATOS_ENTRADA .= '<DS_MERCHANT_COF_INI>' . $cof_ini . '</DS_MERCHANT_COF_INI>';
 			$DATOS_ENTRADA .= '<DS_MERCHANT_COF_TYPE>' . $cof_type . '</DS_MERCHANT_COF_TYPE>';
@@ -5888,7 +5888,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $redsys_depo->debug ) {
 				$redsys_depo->log->add( 'redsys', __( 'Checking for collect remainder for for order #: ', 'woocommerce-redsys' ) . $order_id );
 			}
-			$confirm_collect_remainder = $this->ask_for_collect_remainder( $order_id, $order_total_sign );
+			$confirm_collect_remainder = $redsys_depo->ask_for_collect_remainder( $order_id, $order_total_sign );
 			if ( ! $confirm_collect_remainder ) {
 
 				if ( 'yes' === $redsys_depo->debug ) {
@@ -5899,7 +5899,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$x = 0;
 				do {
 					sleep( 5 );
-					$result = $this->check_collect_remainder( $order_id );
+					$result = $redsys_depo->check_collect_remainder( $order_id );
 					$x++;
 				} while ( $x <= 20 && false === $result );
 

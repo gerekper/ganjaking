@@ -39,7 +39,7 @@ class Template4Popup extends FormTemplate {
           'link_class' => '',
           'rel' => '',
           'link_target' => '',
-          'id' => '247',
+          'id' => '',
           'size_slug' => 'large',
           'width' => '95',
           'height' => '90',

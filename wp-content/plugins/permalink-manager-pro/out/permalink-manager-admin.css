@@ -32,10 +32,11 @@
 #permalink-manager .tablenav #months-filter{margin-left:10px}
 #permalink-manager .search-box{margin-left:1em}
 #permalink-manager th#count a{display:inline-block}
-#permalink-manager .post_permalink a,.post_permalink .dashicons{font-size:13px;color:#aaa;line-height:1.5em;height:auto;width:auto}
 #permalink-manager .post_permalink{margin-top:5px;display:block}
+#permalink-manager .post_permalink a,#permalink-manager .post_permalink .dashicons,#permalink-manager .uri_locked .dashicons{font-size:13px;color:#aaa;line-height:1.5em;height:auto;width:auto}
 #permalink-manager .column-count,#permalink-manager .column-post_lang{width:1%}
 #permalink-manager .column-count,#permalink-manager .column-post_lang,#permalink-manager th#count{text-align:right}
+#permalink-manager .column-item_uri .uri_locked{font-weight:bold}
 #permalink-manager .extra-info span{white-space:nowrap}
 
 #permalink-manager .info{box-shadow:0 1px 1px 0 rgba(0,0,0,.1);display:block;overflow:hidden;clear:both;font-weight:bold;border-left:4px solid #dc3232;}
@@ -112,6 +113,7 @@
 #permalink-manager.permalink-manager-edit-uri-box .close-button{float:right;width:36px;height:36px;padding:0;cursor:pointer;display:block}
 #permalink-manager.permalink-manager-edit-uri-box .close-icon{margin-top:4px;-webkit-border-radius:50%;border-radius:50%;text-indent:-1px;color:#72777c;line-height:36px;display:block;text-align:center}
 #permalink-manager.permalink-manager-edit-uri-box .close-icon:before{content:"\f158";display:inline-block;font:400 20px/1 dashicons;speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-decoration:none!important}
+#permalink-manager.permalink-manager-edit-uri-box .uri_locked{color:#aaa;font-size:13px}
 #permalink-manager .default-permalink-row,#permalink-manager .redirects-row{border-top:1px solid #eee;padding-top:15px}
 #permalink-manager .default-permalink-row,#permalink-manager .default-permastruct-row,#permalink-manager .redirects-row{color:#aaa;font-size:90%}
 #permalink-manager .restore-default,#permalink-manager .permastruct-toggle-button a{display:inline-block;width:100%;border-radius:0;color:#959595;text-decoration:none}

@@ -50,7 +50,7 @@ class Template13SlideIn extends FormTemplate {
                   'link_class' => '',
                   'rel' => '',
                   'link_target' => '',
-                  'id' => '304',
+                  'id' => '',
                   'size_slug' => 'large',
                   'width' => '',
                   'height' => '',

@@ -74,6 +74,14 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 							__('This feature will be also used to redirect (old) original permalinks to (new) custom permalinks set with Permalink Manager.', 'permalink-manager')
 						),
 					),
+					/*'endpoint_redirect' => array(
+						'type' => 'single_checkbox',
+						'label' => __('Redirect with endpoints', 'permalink-manager'),
+						'input_class' => '',
+						'description' => sprintf('%s',
+							__('<strong>Please enable this option if you would like to copy the endpoint from source URL to the target URL during the canonical redirect.</strong>', 'permalink-manager')
+						),
+					),*/
 					'old_slug_redirect' => array(
 						'type' => 'single_checkbox',
 						'label' => __('Old slug redirect', 'permalink-manager'),
@@ -140,19 +148,28 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'type' => 'single_checkbox',
 						'label' => __('WPML/Polylang language mismatch', 'permalink-manager'),
 						'input_class' => '',
+						'class_exists' => array('SitePress', 'Polylang'),
 						'description' => __('If enabled, the plugin will load the adjacent translation of post when the custom permalink is detected, but the language code in the URL does not match the language code assigned to the post/term.', 'permalink-manager')
 					),
-					'pmxi_import_support' => array(
+					'pmxi_support' => array(
 						'type' => 'single_checkbox',
 						'label' => __('WP All Import support', 'permalink-manager'),
 						'input_class' => '',
-						'description' => __('If checked, the custom permalinks will not be saved for the posts imported with Wp All Import plugin.', 'permalink-manager')
+						'class_exists' => 'PMXI_Plugin',
+						'description' => __('If disabled, the custom permalinks <strong>will not be saved</strong> for the posts imported with WP All Import plugin.', 'permalink-manager')
+					),
+					'um_support' => array(
+						'type' => 'single_checkbox',
+						'label' => __('Ultimate Member support', 'permalink-manager'),
+						'input_class' => '',
+						'class_exists' => 'UM',
+						'description' => __('If enabled, Permalink Manager will detect the additional Ultimate Member pages (eg. "account" sections).', 'permalink-manager')
 					),
 					'yoast_breadcrumbs' => array(
 						'type' => 'single_checkbox',
 						'label' => __('Breadcrumbs support', 'permalink-manager'),
 						'input_class' => '',
-						'description' => __('If checked, the HTML breadcrumbs will be filtered by Permalink Manager to mimic the current URL structure.<br />Works with: <strong>WooCommerce, Yoast SEO, RankMath and SEOPress</strong> breadcrumbs.', 'permalink-manager')
+						'description' => __('If enabled, the HTML breadcrumbs will be filtered by Permalink Manager to mimic the current URL structure.<br />Works with: <strong>WooCommerce, Yoast SEO, RankMath and SEOPress</strong> breadcrumbs.', 'permalink-manager')
 					),
 					'partial_disable' => array(
 						'type' => 'checkbox',

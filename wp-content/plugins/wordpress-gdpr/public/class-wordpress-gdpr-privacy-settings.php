@@ -78,14 +78,19 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
         <?php
     }
 
-    public function get_privacy_settings()
+    public function get_privacy_settings($shortCode = false)
     {
         $logo = "";
         $privacySettingsPopupLogo = $this->get_option('privacySettingsPopupLogo');
         $blogLogo = get_theme_mod( 'custom_logo' );
 
         if(isset($privacySettingsPopupLogo['url']) && !empty($privacySettingsPopupLogo['url'])) {
-            $logo = '<img src="' . $privacySettingsPopupLogo['url'] . '" alt="' . $privacySettingsPopupLogo['alt'] . '">';
+            $alt = "";
+            $altExists = get_post_meta($privacySettingsPopupLogo['id'], '_wp_attachment_image_alt', TRUE);
+            if($altExists) {
+                $alt = $altExists;
+            }
+            $logo = '<img src="' . $privacySettingsPopupLogo['url'] . '" alt="' . $alt . '">';
         } elseif(!empty($blogLogo)) {
             $image = wp_get_attachment_image_src( $blogLogo , 'full' );
             $logo = '<img src="' . $image[0] . '">';
@@ -302,6 +307,44 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
 
     public function get_privacy_settings_popup()
     {
+
+        global $post;
+
+        $triggerEnable = $this->get_option('privacySettingsTriggerEnable');
+        $privacyCenterPage = $this->get_option('privacyCenterPage');
+
+        if(!$triggerEnable && ( isset($post->ID) && !empty($privacyCenterPage) && $privacyCenterPage != $post->ID ) && isset($_COOKIE['wordpress_gdpr_cookies_allowed'])) {
+            
+            $args = array(
+                'post_type' => 'gdpr_service',
+                'orderby' => 'menu_order',
+                'order' => 'ASC',
+                'hierarchical' => false,
+                'posts_per_page' => -1,
+            );
+            $services = get_posts($args);
+
+            $service_html = '<div class="wordpress-gdpr-hidden">';
+                foreach ($services as $service) {
+
+                    $deactivatable = get_post_meta($service->ID, 'deactivatable' , true);
+                    $cookies = get_post_meta($service->ID, 'cookies' , true);
+
+                    $switch_disabled = '';
+                    $checked = '';
+                    if($deactivatable == "0") {
+                        $switch_disabled = ' disabled="disabled"';
+                        $checked = ' checked="checked"';
+                    }
+                    $service_html .= '<input name="' . $service->ID . '" data-id="' . $service->ID . '" ' . $switch_disabled . $checked .' class="gdpr-service-switch" type="checkbox">';
+                }
+                
+            $service_html .= '</div>';
+
+            echo $service_html;
+            return false;
+        }
+
         $privacySettingsPopupBackgroundColor = $this->get_option('privacySettingsPopupBackgroundColor');
         $privacySettingsPopupTextColor = $this->get_option('privacySettingsPopupTextColor');
         $privacySettingsPopupCloseIcon = $this->get_option('privacySettingsPopupCloseIcon');

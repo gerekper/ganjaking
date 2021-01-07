@@ -6,7 +6,7 @@
  * Description: Sync your member lists to MailChimp for improved email segmentation
  * Author: SkyVerge
  * Author URI: https://www.woocommerce.com/
- * Version: 1.3.0
+ * Version: 1.4.0
  * Text Domain: woocommerce-memberships-mailchimp
  * Domain Path: /i18n/languages/
  *
@@ -21,8 +21,8 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 3007049:6046684d2432e8520e56028a64de70be
- * WC requires at least: 3.0.9
- * WC tested up to: 4.4.1
+ * WC requires at least: 3.5
+ * WC tested up to: 4.7.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -49,13 +49,13 @@ class WC_Memberships_MailChimp_Sync_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '5.6.0';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '4.4';
+	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.0.9';
+	const MINIMUM_WC_VERSION = '3.5';
 
 	/** minimum Memberships version required by this plugin */
 	const MIN_MEMBERSHIPS_VERSION = '1.9.0';
@@ -94,9 +94,6 @@ class WC_Memberships_MailChimp_Sync_Loader {
 
 		// if the environment checks pass, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
-
-			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
-			require_once( 'vendor/skyverge/wordpress-plugin-admin/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

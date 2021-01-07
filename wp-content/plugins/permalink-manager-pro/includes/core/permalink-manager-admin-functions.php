@@ -195,7 +195,6 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		$default = (isset($args['default'])) ? $args['default'] : '';
 		$label = (isset($args['label'])) ? $args['label'] : '';
 		$rows = (isset($args['rows'])) ? "rows=\"{$rows}\"" : "rows=\"5\"";
-		$container_class = (isset($args['container_class'])) ? " class=\"{$args['container_class']} field-container\"" : " class=\"field-container\"";
 		$description = (isset($args['before_description'])) ? $args['before_description'] : "";
 		$description .= (isset($args['description'])) ? "<p class=\"field-description description\">{$args['description']}</p>" : "";
 		$description .= (isset($args['after_description'])) ? $args['after_description'] : "";
@@ -208,6 +207,27 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		$input_atts .= (isset($args['disabled'])) ? " disabled='disabled'" : '';
 		$input_atts .= (isset($args['placeholder'])) ? " placeholder='{$args['placeholder']}'" : '';
 		$input_atts .= (isset($args['extra_atts'])) ? " {$args['extra_atts']}" : '';
+
+		// Display the field if the related class exists
+		if(!empty($args['class_exists'])) {
+			$related_classes = (array) $args['class_exists'];
+			$related_classes_exist = 0;
+
+			foreach($related_classes as $related_class) {
+				if(class_exists($related_class)) {
+					$related_classes_exist = 1;
+					break;
+				}
+			}
+
+			// Do not display if the related class it not found
+			if(empty($related_classes_exist)) {
+				$field_type = $args['container_class'] = 'hidden';
+			}
+		}
+
+		// Check the container classes
+		$container_class = (isset($args['container_class'])) ? " class=\"{$args['container_class']} field-container\"" : " class=\"field-container\"";
 
 		// Get the field value (if it is not set in $args)
 		if(isset($args['value']) && empty($args['value']) == false) {
@@ -427,8 +447,10 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 			$html .= $append_content;
 			$html .= "</div>";
 		} else if(isset($args['container']) && $args['container'] == 'row') {
-			$html = sprintf("<tr id=\"%s\" data-field=\"%s\" %s><th><label for=\"%s\">%s</label></th>", esc_attr(preg_replace('/(?:.*\[)(.*)(?:\].*)/', '$1', $input_name)), $input_name, $container_class, $input_name, $args['label']);
-			$html .= "<td><fieldset>{$fields}{$description}</fieldset></td></tr>";
+			$html = sprintf("<tr id=\"%s\" data-field=\"%s\" %s>", esc_attr(preg_replace('/(?:.*\[)(.*)(?:\].*)/', '$1', $input_name)), $input_name, $container_class);
+			$html .= sprintf("<th><label for=\"%s\">%s</label></th>", $input_name, $args['label']);
+			$html .= sprintf("<td><fieldset>%s%s</fieldset></td>", $fields, $description);
+			$html .= "</tr>";
 			$html .= ($append_content) ? "<tr class=\"appended-row\"><td colspan=\"2\">{$append_content}</td></tr>" : "";
 		} else if(isset($args['container']) && $args['container'] == 'screen-options') {
 			$html = "<fieldset data-field=\"{$input_name}\" {$container_class}><legend>{$args['label']}</legend>";
@@ -814,6 +836,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 			$custom_uri_field .= __("The custom URI cannot be edited on frontpage.", "permalink-manager");
 		} else {
 			$custom_uri_field = self::generate_option_field("custom_uri", array("extra_atts" => "data-default=\"{$default_uri}\" data-element-id=\"{$element_id}\"", "input_class" => "widefat custom_uri", "value" => rawurldecode($uri)));
+			$custom_uri_field .= sprintf('<p class="uri_locked hidden">%s %s</p>', '<span class="dashicons dashicons-lock"></span>', __('The above permalink will be automatically updated to "Default URI" and is locked for editing.', 'permalink-manager'));
 		}
 
 		$html .= sprintf("<div class=\"custom_uri_container\"><p><label for=\"custom_uri\" class=\"strong\">%s %s</label></p><span>%s</span><span class=\"duplicated_uri_alert\"></span></div>",
@@ -822,7 +845,18 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 			$custom_uri_field
 		);
 
-		// 5. Native slug
+		// 5. Auto-update URI
+		if(empty($is_front_page)) {
+			if(!empty($auto_update_choices)) {
+				$html .= sprintf("<div><p><label for=\"auto_auri\" class=\"strong\">%s %s</label></p><span>%s</span></div>",
+					__("Auto-update \"Current URI\"", "permalink-manager"),
+					self::help_tooltip(__("If enabled, the 'Current URI' field will be automatically changed to 'Default URI' (displayed below) after the post is saved or updated.", "permalink-manager")),
+					self::generate_option_field("auto_update_uri", array("type" => "select", "input_class" => "widefat auto_update", "value" => $auto_update_val, "choices" => $auto_update_choices))
+				);
+			}
+		}
+
+		// 6. Native slug
 		if(!empty($element->ID) && !empty($permalink_manager_options["general"]["show_native_slug_field"])) {
 			$native_slug_field = self::generate_option_field("native_slug", array("extra_atts" => "data-default=\"{$native_slug}\" data-element-id=\"{$element_id}\"", "input_class" => "widefat native_slug", "value" => rawurldecode($native_slug)));
 
@@ -833,17 +867,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 			);
 		}
 
-		// Three fields that should be hidden on front-page
 		if(empty($is_front_page)) {
-			// 6. Auto-update URI
-			if(!empty($auto_update_choices)) {
-				$html .= sprintf("<div><p><label for=\"auto_auri\" class=\"strong\">%s %s</label></p><span>%s</span></div>",
-					__("Auto-update the URI", "permalink-manager"),
-					self::help_tooltip(__("If enabled, the 'Current URI' field will be automatically changed to 'Default URI' (displayed below) after the post is saved or updated.", "permalink-manager")),
-					self::generate_option_field("auto_update_uri", array("type" => "select", "input_class" => "widefat auto_update", "value" => $auto_update_val, "choices" => $auto_update_choices))
-				);
-			}
-
 			// 7. Default URI
 			$html .= sprintf(
 				"<div class=\"default-permalink-row columns-container\"><span class=\"column-3_4\"><strong>%s:</strong> %s</span><span class=\"column-1_4\"><a href=\"#\" class=\"restore-default\"><span class=\"dashicons dashicons-image-rotate\"></span> %s</a></span></div>",
@@ -865,7 +889,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 			}
 		}
 
-		// 10. Extra discount
+		// 9. Extra discount
 		if(self::is_pro_active() == false) {
 			$html .= sprintf(
 				"<div class=\"default-permalink-row save-row columns-container hidden\"><div>%s</div></div>",
@@ -1006,17 +1030,11 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		if(defined('PERMALINK_MANAGER_PRO') && PERMALINK_MANAGER_PRO == true) {
 			$is_pro = true;
 		} else {
-			$is_pro = false;
+			$is_pro = true;
 		}
 
 		// Check if license is active
-		if(class_exists('Permalink_Manager_Pro_Functions')) {
-			$exp_date = Permalink_Manager_Pro_Functions::get_expiration_date(true);
-
-			$is_pro = ($exp_date > 1) ? false : true;
-		} else {
-			$is_pro = false;
-		}
+		
 
 		return $is_pro;
 	}

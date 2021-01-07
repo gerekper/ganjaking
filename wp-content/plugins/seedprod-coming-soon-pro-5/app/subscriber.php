@@ -222,7 +222,7 @@ function seedprod_pro_update_subscriber_count()
 function seedprod_pro_delete_subscribers()
 {
     if (check_ajax_referer('seedprod_pro_delete_subscribers')) {
-        if (current_user_can('list_users')) {
+        if (current_user_can(apply_filters('seedprod_delete_subscriber_capability', 'list_users'))) {
             $dids = $_POST['items'];
             if (is_array($dids) && !empty($dids)) {
                 global $wpdb;

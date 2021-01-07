@@ -31,7 +31,7 @@ function seedprod_pro_create_menus()
     add_menu_page(
         'SeedProd',
         'SeedProd'.$notification,
-        'edit_others_posts',
+        apply_filters('seedprod_main_menu_capability', 'edit_others_posts'),
         'seedprod_pro',
         'seedprod_pro_dashboard_page',
         'data:image/svg+xml;base64,' . 'PHN2ZyB3aWR0aD0iMTI1IiBoZWlnaHQ9IjEzMiIgdmlld0JveD0iMCAwIDEyNSAxMzIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDBDMCAwIDIuOTE2NjQgMC4xOTc4OTQgNjIuODIxMiA4LjAyNjgzQzEyMi43MjYgMTUuODU1OCAxNDMuNDU5IDc2LjYwNjQgMTA2Ljc4MSAxMjkuNjI4QzExMi40NTQgODIuMjUyNyAxMDIuMDcgMzMuMTA2MiA2MC4zNjA1IDI3LjM2MDZDMTguNjUwNSAyMS42MTUxIDIyLjI4MzQgMjIuNDk1NCAyMi4yODM0IDIyLjQ5NTRDMjIuMjgzNCAyMi40OTU0IDIyLjk3NDUgMzIuOTI5OSAyNi44ODgzIDYwLjk3OTlDMzAuODAyMSA4OS4wMjk5IDUyLjcwMzUgMTAyLjc4NiA3MS44NzA0IDEwOS44NjhDNzEuODcwNCAxMDkuODY4IDcyLjk5NDUgNzcuMDQwMSA2Mi4zMDA3IDYyLjU5MDlDNTEuNjA2OSA0OC4xNDE4IDM4LjMwMjYgMzguNTQ2IDM4LjMwMjYgMzguNTQ2QzM4LjMwMjYgMzguNTQ2IDY5LjU2OCA0Mi4yOTYgODEuMzcyMiA2NC4xMDE5QzkzLjE3NjQgODUuOTA3OCA5Mi4wMjY1IDEzMiA5Mi4wMjY1IDEzMkw3OS4yOTI1IDEzMS4zNDFDNDUuMDI4NCAxMjcuMjI1IDEzLjAxNzIgMTA2LjU5MSA3LjU3NDIzIDYzLjNDMi4xMzEzIDIwLjAwODggMCAwIDAgMFoiIGZpbGw9ImJsYWNrIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDBDMCAwIDIuOTE2NjQgMC4xOTc4OTQgNjIuODIxMiA4LjAyNjgzQzEyMi43MjYgMTUuODU1OCAxNDMuNDU5IDc2LjYwNjQgMTA2Ljc4MSAxMjkuNjI4QzExMi40NTQgODIuMjUyNyAxMDIuMDcgMzMuMTA2MiA2MC4zNjA1IDI3LjM2MDZDMTguNjUwNSAyMS42MTUxIDIyLjI4MzQgMjIuNDk1NCAyMi4yODM0IDIyLjQ5NTRDMjIuMjgzNCAyMi40OTU0IDIyLjk3NDUgMzIuOTI5OSAyNi44ODgzIDYwLjk3OTlDMzAuODAyMSA4OS4wMjk5IDUyLjcwMzUgMTAyLjc4NiA3MS44NzA0IDEwOS44NjhDNzEuODcwNCAxMDkuODY4IDcyLjk5NDUgNzcuMDQwMSA2Mi4zMDA3IDYyLjU5MDlDNTEuNjA2OSA0OC4xNDE4IDM4LjMwMjYgMzguNTQ2IDM4LjMwMjYgMzguNTQ2QzM4LjMwMjYgMzguNTQ2IDY5LjU2OCA0Mi4yOTYgODEuMzcyMiA2NC4xMDE5QzkzLjE3NjQgODUuOTA3OCA5Mi4wMjY1IDEzMiA5Mi4wMjY1IDEzMkw3OS4yOTI1IDEzMS4zNDFDNDUuMDI4NCAxMjcuMjI1IDEzLjAxNzIgMTA2LjU5MSA3LjU3NDIzIDYzLjNDMi4xMzEzIDIwLjAwODggMCAwIDAgMFoiIGZpbGw9IndoaXRlIi8+PC9zdmc+',
@@ -42,7 +42,7 @@ function seedprod_pro_create_menus()
         'seedprod_pro',
         __("Pages", 'seedprod-pro'),
         __("Pages", 'seedprod-pro'),
-        'edit_others_posts',
+        apply_filters('seedprod_dashboard_menu_capability', 'edit_others_posts'),
         'seedprod_pro',
         'seedprod_pro_dashboard_page'
     );
@@ -52,7 +52,7 @@ function seedprod_pro_create_menus()
         'seedprod_pro',
         __("Subscribers", 'seedprod-pro'),
         __("Subscribers", 'seedprod-pro'),
-        'edit_others_posts',
+        apply_filters('seedprod_subscribers_menu_capability', 'edit_others_posts'),
         'seedprod_pro_subscribers',
         'seedprod_pro_subscribers_page'
     );
@@ -61,7 +61,7 @@ function seedprod_pro_create_menus()
         'seedprod_pro',
         __("Settings", 'seedprod-pro'),
         __("Settings", 'seedprod-pro'),
-        'edit_others_posts',
+        apply_filters('seedprod_settings_menu_capability', 'edit_others_posts'),
         'seedprod_pro_settings',
         'seedprod_pro_settings_page'
     );
@@ -70,7 +70,7 @@ function seedprod_pro_create_menus()
       'seedprod_pro',
       __("Growth Tools", 'seedprod-pro'),
       __("Growth Tools", 'seedprod-pro'),
-      'edit_others_posts',
+      apply_filters('seedprod_growthtools_menu_capability', 'edit_others_posts'),
       'seedprod_pro_growth_tools',
       'seedprod_pro_growth_tools_page'
   );
@@ -79,7 +79,7 @@ function seedprod_pro_create_menus()
         'seedprod_pro',
         __("About Us", 'seedprod-pro'),
         __("About Us", 'seedprod-pro'),
-        'manage_options',
+        apply_filters('seedprod_aboutus_menu_capability', 'edit_others_posts'),
         'seedprod_pro_about_us',
         'seedprod_pro_about_us_page'
     );
@@ -89,7 +89,7 @@ function seedprod_pro_create_menus()
             'seedprod_pro',
             __("Get Pro", 'seedprod-pro'),
             '<span id="sp-lite-admin-menu__upgrade" style="color:#ff845b">'.__("Get Pro", 'seedprod-pro').'</span>',
-            'manage_options',
+            apply_filters('seedprod_gopro_menu_capability', 'edit_others_posts'),
             'seedprod_pro_get_pro',
             'seedprod_pro_get_pro_page'
         );
@@ -99,7 +99,7 @@ function seedprod_pro_create_menus()
         'seedprod_pro',
         __("Templates", 'seedprod-pro'),
         __("Templates", 'seedprod-pro'),
-        'manage_options',
+        apply_filters('seedprod_templates_menu_capability', 'edit_others_posts'),
         'seedprod_pro_template',
         'seedprod_pro_template_page'
     );
@@ -108,7 +108,7 @@ function seedprod_pro_create_menus()
         'seedprod_pro',
         __("Builder", 'seedprod-pro'),
         __("Builder", 'seedprod-pro'),
-        'manage_options',
+        apply_filters('seedprod_builder_menu_capability', 'edit_others_posts'),
         'seedprod_pro_builder',
         'seedprod_pro_builder_page'
     );
@@ -118,7 +118,7 @@ function seedprod_pro_create_menus()
       'seedprod_pro',
       __("Import/Export", 'seedprod-pro'),
       __("Import/Export", 'seedprod-pro'),
-      'manage_options',
+      apply_filters('seedprod_exportimport_menu_capability', 'edit_others_posts'),
       'sp_pro_importexport',
       'seedprod_pro_importexport_page'
   );
@@ -127,7 +127,7 @@ function seedprod_pro_create_menus()
     'seedprod_pro',
     __("Debug", 'seedprod-pro'),
     __("Debug", 'seedprod-pro'),
-    'manage_options',
+    apply_filters('seedprod_debug_menu_capability', 'edit_others_posts'),
     'sp_pro_debug',
     'seedprod_pro_debug_page'
 );
@@ -293,6 +293,7 @@ if (defined('DOING_AJAX')) {
     
     add_action('wp_ajax_seedprod_pro_get_domain_mapping_domain', 'seedprod_pro_get_domain_mapping_domain');
     
+
 }
 
 

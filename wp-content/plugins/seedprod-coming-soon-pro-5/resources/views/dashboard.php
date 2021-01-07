@@ -138,6 +138,13 @@ var seedprod_remote_api = "<?php echo SEEDPROD_PRO_API_URL; ?>";
 <?php $seedprod_nonce = wp_create_nonce('seedprod_nonce'); ?>
 var seedprod_nonce = "<?php echo $seedprod_nonce; ?>";
 
+
+<?php $ajax_url = html_entity_decode(wp_nonce_url('admin-ajax.php?action=seedprod_pro_run_one_click_upgrade', 'seedprod_pro_run_one_click_upgrade')); ?>
+var seedprod_run_one_click_upgrade_url = "<?php echo $ajax_url; ?>";
+
+<?php $ajax_url = html_entity_decode(wp_nonce_url('admin-ajax.php?action=seedprod_pro_upgrade_license', 'seedprod_pro_upgrade_license')); ?>
+var seedprod_upgrade_license_url = "<?php echo $ajax_url; ?>";
+
 <?php $ajax_url = html_entity_decode(wp_nonce_url('admin-ajax.php?action=seedprod_pro_dismiss_upsell', 'seedprod_pro_dismiss_upsell')); ?>
 var seedprod_dismiss_upsell = "<?php echo $ajax_url; ?>";
 

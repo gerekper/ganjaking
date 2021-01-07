@@ -2669,8 +2669,11 @@
 					window.addEventListener('scroll', init_filter_sticky, {passive: true});
 					init_filter_sticky();
 				}
-				var request_timer = null;
+				var request_timer = null, porto_old_win_width = window.innerWidth;
 				$(window).on('resize', function() {
+					if (porto_old_win_width == window.innerWidth) {
+						return;
+					}
 					if (request_timer) {
 						theme.deleteTimeout(request_timer);
 						request_timer = false;
@@ -2685,6 +2688,7 @@
 						window.removeEventListener('scroll', init_filter_sticky);
 						$('.shop-loop-before').removeClass('sticky').css('top', '').prev('.filter-placeholder').css('height', '');
 					}
+					porto_old_win_width = window.innerWidth;
 				});
 			}
 		});

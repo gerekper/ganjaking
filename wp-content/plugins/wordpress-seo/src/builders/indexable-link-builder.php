@@ -93,6 +93,8 @@ class Indexable_Link_Builder {
 
 		if ( empty( $links ) && empty( $images ) ) {
 			$indexable->link_count = 0;
+			$this->update_related_indexables( $indexable, [] );
+
 			return [];
 		}
 
@@ -132,7 +134,7 @@ class Indexable_Link_Builder {
 	 * @return string[] An array of urls.
 	 */
 	protected function gather_links( $content ) {
-		if ( strpos( $content, 'href' ) === false ) {
+		if ( \strpos( $content, 'href' ) === false ) {
 			// Nothing to do.
 			return [];
 		}
@@ -140,9 +142,9 @@ class Indexable_Link_Builder {
 		$links  = [];
 		$regexp = '<a\s[^>]*href=("??)([^" >]*?)\1[^>]*>';
 		// Used modifiers iU to match case insensitive and make greedy quantifiers lazy.
-		if ( \preg_match_all( "/$regexp/iU", $content, $matches, PREG_SET_ORDER ) ) {
+		if ( \preg_match_all( "/$regexp/iU", $content, $matches, \PREG_SET_ORDER ) ) {
 			foreach ( $matches as $match ) {
-				$links[] = trim( $match[2], "'" );
+				$links[] = \trim( $match[2], "'" );
 			}
 		}
 
@@ -157,7 +159,7 @@ class Indexable_Link_Builder {
 	 * @return string[] An array of urls.
 	 */
 	protected function gather_images( $content ) {
-		if ( strpos( $content, 'src' ) === false ) {
+		if ( \strpos( $content, 'src' ) === false ) {
 			// Nothing to do.
 			return [];
 		}
@@ -165,9 +167,9 @@ class Indexable_Link_Builder {
 		$images = [];
 		$regexp = '<img\s[^>]*src=("??)([^" >]*?)\\1[^>]*>';
 		// Used modifiers iU to match case insensitive and make greedy quantifiers lazy.
-		if ( preg_match_all( "/$regexp/iU", $content, $matches, PREG_SET_ORDER ) ) {
+		if ( \preg_match_all( "/$regexp/iU", $content, $matches, \PREG_SET_ORDER ) ) {
 			foreach ( $matches as $match ) {
-				$images[] = trim( $match[2], "'" );
+				$images[] = \trim( $match[2], "'" );
 			}
 		}
 
@@ -210,6 +212,22 @@ class Indexable_Link_Builder {
 	}
 
 	/**
+	 * Get the post ID based on the link's type and its target's permalink.
+	 *
+	 * @param string $type      The type of link (either SEO_Links::TYPE_INTERNAL or SEO_Links::TYPE_INTERNAL_IMAGE).
+	 * @param string $permalink The permalink of the link's target.
+	 *
+	 * @return int The post ID.
+	 */
+	protected function get_post_id( $type, $permalink ) {
+		if ( $type === SEO_Links::TYPE_INTERNAL ) {
+			return \url_to_postid( $permalink );
+		}
+
+		return $this->image_helper->get_attachment_by_url( $permalink );
+	}
+
+	/**
 	 * Creates an internal link.
 	 *
 	 * @param string    $url       The url of the link.
@@ -224,7 +242,9 @@ class Indexable_Link_Builder {
 		$link_type  = $this->url_helper->get_link_type( $parsed_url, $home_url, $is_image );
 
 		/**
-		 * @var SEO_Links
+		 * ORM representing a link in the SEO Links table.
+		 *
+		 * @var SEO_Links $model
 		 */
 		$model = $this->seo_links_repository->query()->create(
 			[
@@ -240,6 +260,14 @@ class Indexable_Link_Builder {
 		if ( $model->type === SEO_Links::TYPE_INTERNAL || $model->type === SEO_Links::TYPE_INTERNAL_IMAGE ) {
 			$permalink = $this->get_permalink( $url, $home_url );
 			$target    = $this->indexable_repository->find_by_permalink( $permalink );
+
+			if ( ! $target ) {
+				// If target indexable cannot be found, create one based on the post's post ID.
+				$post_id = $this->get_post_id( $model->type, $permalink );
+				if ( $post_id && $post_id !== 0 ) {
+					$target = $this->indexable_repository->find_by_id_and_type( $post_id, 'post' );
+				}
+			}
 
 			if ( ! $target ) {
 				return $model;
@@ -369,7 +397,7 @@ class Indexable_Link_Builder {
 
 		// Strip 'www.' if it is present and shouldn't be.
 		if ( \strpos( $home_url['host'], 'www.' ) !== 0 ) {
-			$link = str_replace( '://www.', '://', $link );
+			$link = \str_replace( '://www.', '://', $link );
 		}
 
 		return $link;

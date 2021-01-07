@@ -108,8 +108,10 @@ class Subscription extends AbstractSendinblueConnect
             if ( ! empty($name_split[1])) {
                 $lead_data['attributes'][$lastname_key] = $name_split[1];
                 $lead_data['attributes']['SURNAME']     = $name_split[1];
+                $lead_data['attributes']['NOM']     = $name_split[1];
                 $lead_data['attributes']['NACHNAME']    = $name_split[1];
                 $lead_data['attributes']['SOBRENOME']   = $name_split[1];
+                $lead_data['attributes']['COGNOME']   = $name_split[1];
             }
 
             if (isset($this->extras['mo-acceptance']) && $this->extras['mo-acceptance'] == 'yes') {

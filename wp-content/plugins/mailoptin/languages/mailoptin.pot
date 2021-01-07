@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the MailOptin - Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailOptin - Lite 1.2.34.0\n"
+"Project-Id-Version: MailOptin - Lite 1.2.34.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
-"POT-Creation-Date: 2020-12-08 09:34:09+00:00\n"
+"POT-Creation-Date: 2020-12-22 09:57:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -98,7 +98,7 @@ msgstr ""
 #: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:914
 #: src/core/src/Admin/SettingsPage/AddEmailCampaign.php:78
 #: src/core/src/Admin/SettingsPage/Email_Campaign_List.php:396
-#: src/core/src/AjaxHandler.php:1159
+#: src/core/src/AjaxHandler.php:1168
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1110
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1134
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1147
@@ -223,7 +223,7 @@ msgstr ""
 #: src/connections/MailjetConnect/SendCampaign.php:52
 #: src/connections/MoosendConnect/SendCampaign.php:78
 #: src/connections/SendGridConnect/SendCampaign.php:128
-#: src/connections/SendinblueConnect/SendCampaign.php:113
+#: src/connections/SendinblueConnect/SendCampaign.php:112
 #: src/connections/SendyConnect/SendCampaign.php:92
 #: src/connections/SendyConnect/SendCampaign.php:95
 #: src/connections/VerticalResponseConnect/SendCampaign.php:81
@@ -282,8 +282,8 @@ msgstr ""
 #: src/connections/SendGridConnect/Subscription.php:83
 #: src/connections/SendGridConnect/Subscription.php:89
 #: src/connections/SendinblueConnect/Subscription.php:61
-#: src/connections/SendinblueConnect/Subscription.php:161
-#: src/connections/SendinblueConnect/Subscription.php:166
+#: src/connections/SendinblueConnect/Subscription.php:163
+#: src/connections/SendinblueConnect/Subscription.php:168
 #: src/connections/SendlaneConnect/Subscription.php:79
 #: src/connections/SendlaneConnect/Subscription.php:85
 #: src/connections/SendyConnect/Subscription.php:79
@@ -5718,6 +5718,7 @@ msgid "User Agent"
 msgstr ""
 
 #: src/core/src/Admin/SettingsPage/ConversionExport.php:48
+#: src/core/src/Functions/functions.php:442
 msgid "Conversion Page"
 msgstr ""
 
@@ -6213,34 +6214,37 @@ msgstr ""
 msgid "Email address is invalid. Try again."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1016
+#: src/core/src/AjaxHandler.php:1020
 msgid "Error log successfully deleted"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1021
+#: src/core/src/AjaxHandler.php:1025
 msgid "This will delete the error log forever. Press OK to confirm"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1022
+#: src/core/src/AjaxHandler.php:1026
 msgid "Delete Error Log"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1137
-msgid ""
-"Error: You have no custom field added to your optin. Consider adding one."
-msgstr ""
-
-#: src/core/src/AjaxHandler.php:1143
+#: src/core/src/AjaxHandler.php:1152
 msgid ""
 "Error: No integration field found. Select a list first if you haven't and "
 "try again."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1147
+#: src/core/src/AjaxHandler.php:1156
 msgid "Map integration fields to form custom fields"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1174
+#: src/core/src/AjaxHandler.php:1171
+msgid "Form Fields"
+msgstr ""
+
+#: src/core/src/AjaxHandler.php:1185
+msgid "System Fields"
+msgstr ""
+
+#: src/core/src/AjaxHandler.php:1202
 msgid "Save"
 msgstr ""
 
@@ -7542,6 +7546,18 @@ msgstr ""
 msgid "Activate"
 msgstr ""
 
+#: src/core/src/Functions/functions.php:439
+msgid "IP Address"
+msgstr ""
+
+#: src/core/src/Functions/functions.php:440
+msgid "Optin Campaign Name"
+msgstr ""
+
+#: src/core/src/Functions/functions.php:441
+msgid "Referrer URL"
+msgstr ""
+
 #: src/core/src/OptinForms/AbstractOptinForm.php:1262
 msgid "Please enter a valid email."
 msgstr ""
@@ -7781,9 +7797,9 @@ msgstr ""
 msgid "MailOptin - Lite"
 msgstr ""
 
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.0)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.0)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://mailoptin.io"
 msgstr ""

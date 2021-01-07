@@ -231,8 +231,10 @@ jQuery(document).ready(function() {
 
 		if(auto_update_status == 1) {
 			jQuery(container).find('input[name="custom_uri"]').attr("readonly", true);
+			jQuery(container).find('.uri_locked').removeClass("hidden");
 		} else {
 			jQuery(container).find('input[name="custom_uri"]').removeAttr("readonly", true);
+			jQuery(container).find('.uri_locked').addClass("hidden");
 		}
 	});
 	jQuery('select[name="auto_update_uri"]').trigger("change");
@@ -323,7 +325,7 @@ jQuery(document).ready(function() {
 	/**
 	 * Reload the URI Editor in Gutenberg after the post is published or the title/slug is changed
 	 */
-	if(typeof wp !== 'undefined' && typeof wp.data !== 'undefined' && typeof wp.data.select !== 'undefined' && typeof wp.blocks !== 'undefined' && typeof wp.data.subscribe !== 'undefined' && wp.data.select('core/editor') !== 'undefined' && wp.data.select('core/editor') !== null) {		
+	if(typeof wp !== 'undefined' && typeof wp.data !== 'undefined' && typeof wp.data.select !== 'undefined' && typeof wp.blocks !== 'undefined' && typeof wp.data.subscribe !== 'undefined' && wp.data.select('core/editor') !== 'undefined' && wp.data.select('core/editor') !== null) {
 		wp.data.subscribe(function() {
 			var isSavingPost = wp.data.select('core/editor').isSavingPost();
 			var isAutosavingPost = wp.data.select('core/editor').isAutosavingPost();
@@ -352,7 +354,7 @@ jQuery(document).ready(function() {
 	 */
 	function pm_help_tooltips() {
 		if(jQuery('#permalink-manager .help_tooltip').length > 0) {
-			new Tippy('#permalink-manager .help_tooltip', {
+			tippy('#permalink-manager .help_tooltip', {
 				position: 'top-start',
 				arrow: true,
 				theme: 'tippy-pm',

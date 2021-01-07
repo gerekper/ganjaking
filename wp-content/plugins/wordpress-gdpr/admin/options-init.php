@@ -26,7 +26,7 @@ if (! class_exists('Redux')) {
         'use_cdn' => true,
         'dev_mode' => false,
         'display_name' => __('WordPress GDPR', 'wordpress-gdpr'),
-        'display_version' => '1.9.9',
+        'display_version' => '1.9.10',
         'page_title' => __('WordPress GDPR', 'wordpress-gdpr'),
         'update_notice' => true,
         'intro_text' => '',
@@ -416,7 +416,7 @@ if (! class_exists('Redux')) {
                 'id'       => 'privacySettingsTriggerEnable',
                 'type'     => 'switch',
                 'title'    => __('Enable the Privacy Settings Trigger', 'wordpress-gdpr'),
-                'default'  => '1',
+                'default'  => '0',
             ),
             array(
                 'id'       => 'privacySettingsTriggerText',

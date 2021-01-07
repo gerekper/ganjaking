@@ -126,7 +126,9 @@ function sp_send_request(token, id) {
     dataType: "json",
     timeout: 5000,
     data: data
-  }); //var j2 = jQuery.ajax( "/" );
+  }); // add ajax class
+
+  jQuery("#sp-optin-form-" + id + ' .sp-optin-submit').addClass('sp-ajax-striped sp-ajax-animated'); //var j2 = jQuery.ajax( "/" );
 
   var j2 = jQuery.ajax({
     url: sp_subscriber_callback_url,
@@ -147,9 +149,12 @@ function sp_send_request(token, id) {
     if (action === "2") {
       var redirect = jQuery("#sp-optin-form-" + id + " input[name^='redirect_url']").val();
       window.location.href = redirect;
-    } // alert( "We got what we came for!" );
+    }
 
+    jQuery("#sp-optin-form-" + id + ' .sp-optin-submit').removeClass('sp-ajax-striped sp-ajax-animated'); // alert( "We got what we came for!" );
   }).fail(function (jqXHR, textStatus, errorThrown) {
+    jQuery("#sp-optin-form-" + id + ' .sp-optin-submit').removeClass('sp-ajax-striped sp-ajax-animated');
+
     if (seeprod_enable_recaptcha === 1) {
       grecaptcha.reset(sp_emplacementRecaptcha[id]);
     } // var response = JSON.parse(j1.responseText);

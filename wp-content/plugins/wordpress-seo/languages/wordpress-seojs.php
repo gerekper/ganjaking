@@ -1,59 +1,77 @@
 <?php
 /* THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY. */
 $generated_i18n_strings = array(
-	// Reference: js/src/components/AdvancedSettings.js:100
-	/* translators: %s translates to the Post Label in singular form */
-	__( 'Allow search engines to show this %s in search results?', 'wordpress-seo' ),
+	// Reference: js/src/analysis/getIndicatorForScore.js:17
+	__( 'Feedback', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:109
-	__( 'Learn more about the no-index setting on our help page.', 'wordpress-seo' ),
+	// Reference: js/src/analysis/getIndicatorForScore.js:24
+	__( 'Needs improvement', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:137
+	// Reference: js/src/analysis/getIndicatorForScore.js:29
+	__( 'OK SEO score', 'wordpress-seo' ),
+
+	// Reference: js/src/analysis/getIndicatorForScore.js:30
+	__( 'OK', 'wordpress-seo' ),
+
+	// Reference: js/src/analysis/getIndicatorForScore.js:35
+	__( 'Good SEO score', 'wordpress-seo' ),
+
+	// Reference: js/src/analysis/getIndicatorForScore.js:36
+	__( 'Good', 'wordpress-seo' ),
+
+	// Reference: js/src/components/AdvancedSettings.js:127
 	/* translators: %s translates to the Post Label in singular form */
 	__( 'Should search engines follow links on this %s', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:144
+	// Reference: js/src/components/AdvancedSettings.js:134
 	__( 'Learn more about the no-follow setting on our help page.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:165
+	// Reference: js/src/components/AdvancedSettings.js:160
 	__( 'Meta robots advanced', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:170
+	// Reference: js/src/components/AdvancedSettings.js:165
 	__( 'No Image Index', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:171
+	// Reference: js/src/components/AdvancedSettings.js:166
 	__( 'No Archive', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:172
+	// Reference: js/src/components/AdvancedSettings.js:167
 	__( 'No Snippet', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:176
+	// Reference: js/src/components/AdvancedSettings.js:171
 	__( 'Learn more about advanced meta robots settings on our help page.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:201
+	// Reference: js/src/components/AdvancedSettings.js:194
 	__( 'Breadcrumbs Title', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:207
+	// Reference: js/src/components/AdvancedSettings.js:199
 	__( 'Learn more about the breadcrumbs title setting on our help page.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:232
+	// Reference: js/src/components/AdvancedSettings.js:223
 	__( 'Canonical URL', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:238
+	// Reference: js/src/components/AdvancedSettings.js:228
 	__( 'Learn more about canonical URLs on our help page.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:41
+	// Reference: js/src/components/AdvancedSettings.js:24
 	__( 'No', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:42
+	// Reference: js/src/components/AdvancedSettings.js:25
 	__( 'Yes', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:64
+	// Reference: js/src/components/AdvancedSettings.js:47
 	/* translators: %s translates to the "yes" or "no" ,%s translates to the Post Label in plural form */
 	__( '%s (current default for %s)', 'wordpress-seo' ),
 
-	// Reference: js/src/components/AdvancedSettings.js:89
+	// Reference: js/src/components/AdvancedSettings.js:74
 	__( 'Even though you can set the meta robots setting here, the entire site is set to noindex in the sitewide privacy settings, so these settings won\'t have an effect.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/AdvancedSettings.js:86
+	/* translators: %s translates to the Post Label in singular form */
+	__( 'Allow search engines to show this %s in search results?', 'wordpress-seo' ),
+
+	// Reference: js/src/components/AdvancedSettings.js:94
+	__( 'Learn more about the no-index setting on our help page.', 'wordpress-seo' ),
 
 	// Reference: js/src/components/AnalysisUpsell.js:54
 	/* translators: %s expands to Yoast SEO Premium */
@@ -63,13 +81,16 @@ $generated_i18n_strings = array(
 	/* translators: %s expands to Premium */
 	__( 'Go %s!', 'wordpress-seo' ),
 
-	// Reference: js/src/components/CollapsibleCornerstone.js:25
+	// Reference: js/src/components/AreaChartTable.js:25
+	__( 'The number of headers and header labels don\'t match.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/CollapsibleCornerstone.js:22
 	__( 'Cornerstone content', 'wordpress-seo' ),
 
-	// Reference: js/src/components/CollapsibleCornerstone.js:27
+	// Reference: js/src/components/CollapsibleCornerstone.js:25
 	__( 'Cornerstone content should be the most important and extensive articles on your site.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/CollapsibleCornerstone.js:29
+	// Reference: js/src/components/CollapsibleCornerstone.js:27
 	__( 'Learn more about Cornerstone Content.', 'wordpress-seo' ),
 
 	// Reference: js/src/components/CornerstoneToggle.js:26
@@ -86,6 +107,27 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/DocumentSidebar.js:36
 	// Reference: js/src/components/PrePublish.js:48
 	__( 'Improve your post with Yoast SEO', 'wordpress-seo' ),
+
+	// Reference: js/src/components/Indexation.js:234
+	__( 'This feature includes and replaces the Text Link Counter and Internal Linking Analysis', 'wordpress-seo' ),
+
+	// Reference: js/src/components/Indexation.js:263
+	__( 'Stop SEO data optimization', 'wordpress-seo' ),
+
+	// Reference: js/src/components/Indexation.js:279
+	__( 'Start SEO data optimization', 'wordpress-seo' ),
+
+	// Reference: js/src/components/Indexation.js:283
+	__( 'SEO data optimization is disabled for non-production environments.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/Indexation.js:302
+	__( 'Optimizing SEO data... This may take a while.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/Indexation.js:314
+	__( 'Oops, something has gone wrong and we couldn\'t complete the optimization of your SEO data. Please click the button again to re-start the process.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/Indexation.js:349
+	__( 'SEO data optimization complete', 'wordpress-seo' ),
 
 	// Reference: js/src/components/LocalSEOUpsell.js:76
 	__( 'Serving local customers?', 'wordpress-seo' ),
@@ -121,48 +163,60 @@ $generated_i18n_strings = array(
 	/* translators: %s expands to the taxonomy name. */
 	__( 'Select the primary %s', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaSettings.js:111
+	// Reference: js/src/components/SEMrushRelatedKeyphrasesModal.js:189
+	__( 'Related keyphrases', 'wordpress-seo' ),
+
+	// Reference: js/src/components/SEMrushRelatedKeyphrasesModal.js:210
+	__( 'Get related keyphrases', 'wordpress-seo' ),
+
+	// Reference: js/src/components/SEMrushRelatedKeyphrasesModal.js:212
+	__( '(Opens in a new browser window)', 'wordpress-seo' ),
+
+	// Reference: js/src/components/SEMrushRelatedKeyphrasesModalContent.js:57
+	__( 'Sorry, there\'s no data available for that keyphrase/country combination.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/SchemaSettings.js:110
 	__( 'Default Page type', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaSettings.js:120
+	// Reference: js/src/components/SchemaSettings.js:119
 	__( 'Default Article type', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaSettings.js:81
+	// Reference: js/src/components/SchemaSettings.js:80
 	__( 'Schema settings', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaSettings.js:83
+	// Reference: js/src/components/SchemaSettings.js:82
 	__( 'Learn more about the schema settings', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaSettings.js:86
+	// Reference: js/src/components/SchemaSettings.js:85
 	/* translators: %1$s expands to an indexable object's name, e.g. Posts or Pages. */
 	__( 'Choose how your %1$s should be described by default in your site\'s schema.org markup. You can change these settings for individual %1$s.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaSettings.js:97
+	// Reference: js/src/components/SchemaSettings.js:96
 	/* translators: %1$s expands to an indexable object's name, e.g. Posts or Pages. */
 	_n_noop( 'Upon saving, this setting will apply to all of your %1$s. %1$s that are manually configured will be left untouched.', 'Upon saving, these settings will apply to all of your %1$s. %1$s that are manually configured will be left untouched.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaTab.js:101
+	// Reference: js/src/components/SchemaTab.js:103
 	// Reference: js/src/containers/SchemaTab.js:53
 	__( 'Article type', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaTab.js:28
+	// Reference: js/src/components/SchemaTab.js:29
 	/* translators: %1$s expands to the plural name of the current post type, %2$s expands to the current site wide default. */
 	__( 'Default for %1$s (%2$s)', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaTab.js:47
+	// Reference: js/src/components/SchemaTab.js:48
 	/* translators: %1$s expands to the plural name of the current post type, %2$s and %3$s expand to a link to the Search Appearance Settings page */
 	__( 'You can change the default type for %1$s in your %2$sSearch Appearance Settings%3$s.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaTab.js:83
+	// Reference: js/src/components/SchemaTab.js:85
 	__( 'Learn more about structured data with Schema.org', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaTab.js:87
+	// Reference: js/src/components/SchemaTab.js:89
 	__( 'What type of page or content is this?', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaTab.js:89
+	// Reference: js/src/components/SchemaTab.js:91
 	__( 'Learn more about page or content types', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SchemaTab.js:94
+	// Reference: js/src/components/SchemaTab.js:96
 	// Reference: js/src/containers/SchemaTab.js:54
 	__( 'Page type', 'wordpress-seo' ),
 
@@ -188,24 +242,30 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/WordPressUserSelectorSearchAppearance.js:85
 	__( 'You have selected the user %1$s as the person this site represents. Their user profile information will now be used in search results. %2$sUpdate their profile to make sure the information is correct.%3$s', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/KeywordInput.js:41
+	// Reference: js/src/components/contentAnalysis/KeywordInput.js:52
 	__( 'Help on choosing the perfect focus keyphrase', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/KeywordInput.js:61
+	// Reference: js/src/components/contentAnalysis/KeywordInput.js:67
+	__( 'Please enter a focus keyphrase first to get related keyphrases', 'wordpress-seo' ),
+
+	// Reference: js/src/components/contentAnalysis/KeywordInput.js:71
+	__( 'Are you trying to use multiple keyphrases? You should add them separately below.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/contentAnalysis/KeywordInput.js:75
+	__( 'Your keyphrase is too long. It can be a maximum of 191 characters.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/contentAnalysis/KeywordInput.js:97
 	// Reference: js/src/values/defaultReplaceVariables.js:50
 	__( 'Focus keyphrase', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/KeywordInput.js:69
-	__( 'Your keyphrase is too long. It can be a maximum of 191 characters.', 'wordpress-seo' ),
-
-	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:50
+	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:48
 	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:244
 	__( 'Analysis results', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:56
+	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:54
 	__( 'Learn more about the readability analysis', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:91
+	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:85
 	__( 'Readability analysis', 'wordpress-seo' ),
 
 	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:106
@@ -232,15 +292,18 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:77
 	__( 'Would you like to add keyphrase synonyms?', 'wordpress-seo' ),
 
-	// Reference: js/src/components/fills/MetaboxFill.js:100
-	// Reference: js/src/components/fills/SidebarFill.js:102
-	__( 'Advanced', 'wordpress-seo' ),
-
-	// Reference: js/src/components/fills/MetaboxFill.js:58
+	// Reference: js/src/components/fills/MetaboxFill.js:47
 	// Reference: js/src/components/modals/editorModals/GooglePreviewModal.js:16
+	// Reference: js/src/elementor/components/modals/editorModals/GooglePreviewModal.js:16
 	__( 'Google preview', 'wordpress-seo' ),
 
-	// Reference: js/src/components/fills/SidebarFill.js:89
+	// Reference: js/src/components/fills/MetaboxFill.js:65
+	// Reference: js/src/components/fills/SidebarFill.js:63
+	// Reference: js/src/elementor/components/fills/ElementorFill.js:76
+	__( 'Advanced', 'wordpress-seo' ),
+
+	// Reference: js/src/components/fills/SidebarFill.js:56
+	// Reference: js/src/elementor/components/fills/ElementorFill.js:69
 	// Reference: js/src/structured-data-blocks/faq/block.js:28
 	// Reference: js/src/structured-data-blocks/how-to/block.js:56
 	__( 'Schema', 'wordpress-seo' ),
@@ -287,21 +350,112 @@ $generated_i18n_strings = array(
 	/* translators: %s expands to a 'Yoast SEO Premium' text linked to the yoast.com website. */
 	__( 'Great news: you can, with %s!', 'wordpress-seo' ),
 
+	// Reference: js/src/components/modals/SEMrushCountrySelector.js:300
+	__( 'Show results for:', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushCountrySelector.js:312
+	__( 'Select country', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:100
+	__( 'Related keyphrase', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:106
+	__( 'Volume', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:112
+	__( 'Learn more about the related keyphrases volume', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:120
+	__( 'Trend', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:126
+	__( 'Learn more about the related keyphrases trend', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:154
+	__( 'Keyphrase volume in the last 12 months on a scale from 0 to 100.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:173
+	/* translators: %s expands to SEMrush */
+	__( 'Get more insights at %s', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:55
+	__( 'Twelve months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:56
+	__( 'Eleven months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:57
+	__( 'Ten months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:58
+	__( 'Nine months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:59
+	__( 'Eight months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:60
+	__( 'Seven months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:61
+	__( 'Six months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:62
+	__( 'Five months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:63
+	__( 'Four months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:64
+	__( 'Three months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:65
+	__( 'Two months ago', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushKeyphrasesTable.js:66
+	__( 'Last month', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushLimitReached.js:22
+	/* translators: %s : Expands to "SEMrush". */
+	__( 'You\'ve reached your request limit for today. Check back tomorrow or upgrade your plan over at %s.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushLimitReached.js:34
+	/* translators: %s : Expands to "SEMrush". */
+	__( 'Upgrade your %s plan', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushLoading.js:18
+	/* translators: %1$s expands to "Yoast SEO", %2$s expands to "SEMrush". */
+	__( 'Please wait while %1$s connects to %2$s to get related keyphrases...', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushMaxRelatedKeyphrases.js:18
+	/* translators: %s: Expands to "Yoast SEO". */
+	__( 'You\'ve reached the maximum amount of 4 related keyphrases. You can change or remove related keyphrases in the %s metabox or sidebar.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushRequestFailed.js:15
+	__( 'We\'ve encountered a problem trying to get related keyphrases. Please try again later.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushUpsellAlert.js:21
+	/* translators: %s: Expands to "Yoast SEO". */
+	__( 'Would you like to be able to add these related keyphrases to the %s analysis so you can optimize your content even further?', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/SEMrushUpsellAlert.js:34
+	/* translators: %s: Expands to "Yoast SEO Premium". */
+	__( 'Check out %s!', 'wordpress-seo' ),
+
 	// Reference: js/src/components/modals/SeoAnalysisModal.js:23
 	__( 'Open', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/SeoAnalysisModal.js:25
 	__( 'Close', 'wordpress-seo' ),
 
-	// Reference: js/src/components/modals/editorModals/EditorModal.js:66
+	// Reference: js/src/components/modals/editorModals/EditorModal.js:68
 	/* translators: %s translates to the Post Label in singular form */
 	__( 'Make sure to save your %s for changes to take effect', 'wordpress-seo' ),
 
-	// Reference: js/src/components/modals/editorModals/EditorModal.js:76
+	// Reference: js/src/components/modals/editorModals/EditorModal.js:78
 	/* translators: %s translates to the Post Label in singular form */
 	__( 'Return to your %s', 'wordpress-seo' ),
 
-	// Reference: js/src/components/modals/editorModals/FacebookPreviewModal.js:16
+	// Reference: js/src/components/modals/editorModals/FacebookPreviewModal.js:15
 	__( 'Facebook preview', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/editorModals/TwitterPreviewModal.js:16
@@ -319,13 +473,13 @@ $generated_i18n_strings = array(
 	/* translators: %s expands to the social medium name, which is either Twitter or Facebook. %s expands to Yoast SEO Premium */
 	__( 'Do you want to preview what it will look like if people share this post on %s? You can, with %s.', 'wordpress-seo' ),
 
-	// Reference: js/src/containers/FacebookEditor.js:16
-	// Reference: js/src/containers/TwitterEditor.js:16
+	// Reference: js/src/containers/FacebookEditor.js:17
+	// Reference: js/src/containers/TwitterEditor.js:17
 	/* translators: %s expands to the social medium name, i.e. Faceboook. */
 	__( 'Modify your %s title by editing it right here...', 'wordpress-seo' ),
 
-	// Reference: js/src/containers/FacebookEditor.js:23
-	// Reference: js/src/containers/TwitterEditor.js:23
+	// Reference: js/src/containers/FacebookEditor.js:24
+	// Reference: js/src/containers/TwitterEditor.js:24
 	/* translators: %s expands to the social medium name, i.e. Faceboook. */
 	__( 'Modify your %s description by editing it right here...', 'wordpress-seo' ),
 
@@ -338,20 +492,34 @@ $generated_i18n_strings = array(
 	// Reference: js/src/containers/SchemaTab.js:57
 	__( 'This helps search engines understand your website and your content. You can change some of your settings for this page below.', 'wordpress-seo' ),
 
-	// Reference: js/src/containers/SnippetEditor.js:63
+	// Reference: js/src/containers/SnippetEditor.js:64
+	// Reference: js/src/elementor/containers/SnippetEditor.js:90
 	__( 'Please provide a meta description by editing the snippet below.', 'wordpress-seo' ),
+
+	// Reference: js/src/elementor/initializers/introduction.js:19
+	__( 'New: Yoast SEO for Elementor', 'wordpress-seo' ),
+
+	// Reference: js/src/elementor/initializers/introduction.js:20
+	__( 'Get started with Yoast SEO\'s content analysis for Elementor!', 'wordpress-seo' ),
+
+	// Reference: js/src/elementor/initializers/introduction.js:40
+	__( 'Got it', 'wordpress-seo' ),
 
 	// Reference: js/src/help-scout-beacon.js:208
 	__( 'When you click OK we will open our HelpScout beacon where you can find answers to your questions. This beacon will load our support data and also potentially set cookies.', 'wordpress-seo' ),
 
-	// Reference: js/src/initializers/block-editor-integration.js:139
+	// Reference: js/src/initializers/block-editor-integration.js:151
 	__( 'Yoast SEO', 'wordpress-seo' ),
 
-	// Reference: js/src/initializers/block-editor-integration.js:52
+	// Reference: js/src/initializers/block-editor-integration.js:54
 	__( 'Marking links with nofollow/sponsored has been disabled for WordPress installs < 5.4.', 'wordpress-seo' ),
 
-	// Reference: js/src/initializers/block-editor-integration.js:55
+	// Reference: js/src/initializers/block-editor-integration.js:57
 	__( 'Please upgrade your WordPress version or install the Gutenberg plugin to get this %1$s feature.', 'wordpress-seo' ),
+
+	// Reference: js/src/initializers/elementor-editor-integration.js:55
+	/* translators: %1$s translates to the Post Label in singular form */
+	__( 'Unfortunately we cannot save changes to your SEO settings while you are working on a draft of an already-published %1$s. If you want to save your SEO changes, make sure to click \'Update\', or wait to make your SEO changes until you are ready to update the %1$s.', 'wordpress-seo' ),
 
 	// Reference: js/src/inline-links/edit-link.js:106
 	__( 'Link removed.', 'wordpress-seo' ),
@@ -403,32 +571,32 @@ $generated_i18n_strings = array(
 	// Reference: js/src/structured-data-blocks/how-to/block.js:58
 	__( 'Structured Data', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/FAQ.js:158
+	// Reference: js/src/structured-data-blocks/faq/components/FAQ.js:135
 	__( 'New question added', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/FAQ.js:285
+	// Reference: js/src/structured-data-blocks/faq/components/FAQ.js:237
 	__( 'Add question', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:215
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:193
 	__( 'Delete question', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:221
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:199
 	__( 'Insert question', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:238
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:216
 	__( 'Move question up', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:245
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:223
 	__( 'Move question down', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:370
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:347
 	__( 'Enter a question', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:383
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:359
 	__( 'Enter the answer to the question', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/faq/components/Question.js:55
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:178
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:154
 	__( 'Add image', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/how-to/block.js:49
@@ -443,74 +611,74 @@ $generated_i18n_strings = array(
 	// Reference: js/src/structured-data-blocks/how-to/block.js:55
 	__( 'How to', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:227
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:216
 	__( 'New step added', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:512
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:461
 	__( 'Add step', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:548
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:497
 	__( 'Showing step items as an unordered list', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:549
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:498
 	__( 'Showing step items as an ordered list.', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:672
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:610
 	__( 'Add total time', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:690
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:628
 	__( 'days', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:705
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:643
 	__( 'hours', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:720
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:658
 	__( 'minutes', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:733
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:671
 	__( 'Delete total time', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:757
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:695
 	__( 'Settings', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:759
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:697
 	__( 'CSS class(es) to apply to the steps', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:762
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:700
 	__( 'Optional. This can give you better control over the styling of the steps.', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:765
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:703
 	__( 'Describe the duration of the instruction:', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:768
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:706
 	__( 'Optional. Customize how you want to describe the duration of the instruction', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:772
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:710
 	__( 'Unordered list', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:803
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:740
 	__( 'Enter a description', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:84
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:80
 	// Reference: js/src/structured-data-blocks/how-to/legacy/8.2.js:85
 	__( 'Time needed:', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:205
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:181
 	__( 'Delete step', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:211
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:187
 	__( 'Insert step', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:228
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:204
 	__( 'Move step up', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:235
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:211
 	__( 'Move step down', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:360
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:335
 	__( 'Enter a step title', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:373
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:347
 	__( 'Enter a step description', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/how-to/legacy/utils/8.2.js:31

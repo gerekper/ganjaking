@@ -1,5 +1,17 @@
 *** WooCommerce Additional Variation Images Changelog ***
 
+2020-12-24 - version 1.8.0
+* Fix - Update Gallery Replacement Method to Reduce Complexity and Conflicts with Flexslider.
+* Fix - add docs & product page links to readme.
+* Tweak - WC 4.8 compatibility.
+* Tweak - WP 5.6 compatibility.
+
+2020-11-24 - version 1.7.27
+* Fix - Fix gallery init/Flexslider compatibility by changing how variation galleries are added to the page.
+* Tweak - Galleries will be appended, rather than replaced, resulting in less AJAX requests if selecting the same variation. Some jQuery event Triggers have been removed due to this change.
+* Tweak - Bumped min supported WC version to use latest functionality.
+* Tweak - Removed support for deprecated Cloud Zoom plugin.
+
 2020-09-29 - version 1.7.26
 * Fix - Add alt text for gallery thumbnails.
 * Fix - Apply transition when switching variation and replacing gallery images.

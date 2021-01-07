@@ -79,7 +79,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		}
 
 		// 10. WP All Import
-		if(class_exists('PMXI_Plugin') && (empty($permalink_manager_options['general']['pmxi_import_support']))) {
+		if(class_exists('PMXI_Plugin') && (!empty($permalink_manager_options['general']['pmxi_support']))) {
 			add_action('pmxi_extend_options_featured', array($this, 'wpaiextra_uri_display'), 9, 2);
 			add_filter('pmxi_options_options', array($this, 'wpai_api_options'));
 			add_filter('pmxi_addons', array($this, 'wpai_api_register'));
@@ -125,6 +125,16 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		// 16. BasePress
 		if(class_exists('Basepress')) {
 			add_filter('permalink_manager_filter_query', array($this, 'kb_adjust_query'), 5, 5);
+		}
+
+		// 17. Ultimate Member
+		if(class_exists('UM') && !(empty($permalink_manager_options['general']['um_support']))) {
+			add_filter('permalink_manager_detect_uri', array($this, 'um_detect_extra_pages'), 20);
+		}
+
+		// 18. WooCommerce Subscriptions
+		if(class_exists('WC_Subscriptions')) {
+			add_filter('permalink_manager_filter_final_post_permalink', array($this, 'fix_wcs_subscription_links'), 10, 3);
 		}
 	}
 
@@ -846,25 +856,33 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 
 		// A1. Listing type
 		if(strpos($default_uri, '%listing-type%') !== false || strpos($default_uri, '%listing_type%') !== false) {
-			$listing_type_slug = get_post_meta($element->ID, '_case27_listing_type', true);
-			$listing_type_post = get_page_by_path($listing_type_slug, OBJECT, 'case27_listing_type');
+			if(class_exists('MyListing\Src\Listing')) {
+				$listing_type_post = MyListing\Src\Listing::get($element);
+				$listing_type = (is_object($listing_type_post) && !empty($listing_type_post->type)) ? $listing_type_post->type->get_permalink_name() : '';
+			} else {
+				$listing_type_slug = get_post_meta($element->ID, '_case27_listing_type', true);
+				$listing_type_post = get_page_by_path($listing_type_slug, OBJECT, 'case27_listing_type');
 
-			if(!empty($listing_type_post)) {
-				$listing_type_post_settings = get_post_meta($listing_type_post->ID, 'case27_listing_type_settings_page', true);
-				$listing_type_post_settings = (is_serialized($listing_type_post_settings)) ? unserialize($listing_type_post_settings) : array();
+				if(!empty($listing_type_post)) {
+					$listing_type_post_settings = get_post_meta($listing_type_post->ID, 'case27_listing_type_settings_page', true);
+					$listing_type_post_settings = (is_serialized($listing_type_post_settings)) ? unserialize($listing_type_post_settings) : array();
 
-				$listing_type = (!empty($listing_type_post_settings['permalink'])) ? $listing_type_post_settings['permalink'] : $listing_type_post->post_name;
+					$listing_type = (!empty($listing_type_post_settings['permalink'])) ? $listing_type_post_settings['permalink'] : $listing_type_post->post_name;
+				}
+			}
+
+			if(!empty($listing_type)) {
 				$default_uri = str_replace(array('%listing-type%', '%listing_type%'), Permalink_Manager_Helper_Functions::sanitize_title($listing_type, true), $default_uri);
 			}
 		}
 
 		// A2. Listing type (slug)
-		if(strpos($default_uri, '%listing-type-slug%') !== false || strpos($default_uri, '%listing_type_slug%') !== false) {
+		if(strpos($default_uri, '%listing-type-slug%') !== false || strpos($default_uri, '%listing_type_slug%') !== false || strpos($default_uri, '%case27_listing_type%') !== false) {
 			$listing_type = get_post_meta($element->ID, '_case27_listing_type', true);
 
 			if(!empty($listing_type)) {
 				$listing_type = Permalink_Manager_Helper_Functions::sanitize_title($listing_type, true);
-				$default_uri = str_replace(array('%listing-type-slug%', '%listing_type_slug%'), $listing_type, $default_uri);
+				$default_uri = str_replace(array('%listing-type-slug%', '%listing_type_slug%', '%case27_listing_type%'), $listing_type, $default_uri);
 			}
 		}
 
@@ -1084,7 +1102,52 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 17. Store Locator - CSV Manager
+	 * 17. Ultimate Member
+	 */
+	public function um_detect_extra_pages($uri_parts) {
+		global $permalink_manager_uris;
+
+		$request_url = trim("{$uri_parts['uri']}/{$uri_parts['endpoint_value']}", "/");
+		$um_pages = array(
+			'user' => 'um_user',
+			'account' => 'um_tab',
+		);
+
+		// Detect UM permalinks
+		foreach($um_pages as $um_page => $query_var) {
+			$um_page_id = UM()->config()->permalinks[$um_page];
+			// Support for WPML/Polylang
+			$um_page_id = (!empty($uri_parts['lang'])) ? apply_filters('wpml_object_id', $um_page_id, 'page', true, $uri_parts['lang']) : $um_page_id;
+
+			if(!empty($um_page_id) && !empty($permalink_manager_uris[$um_page_id])) {
+				$user_page_uri = preg_quote($permalink_manager_uris[$um_page_id], '/');
+				preg_match("/^({$user_page_uri})\/([^\/]+)?$/", $request_url, $parts);
+
+				if(!empty($parts[2])) {
+					$uri_parts['uri'] = $parts[1];
+					$uri_parts['endpoint'] = $query_var;
+					$uri_parts['endpoint_value'] = sanitize_title($parts[2]);
+				}
+			}
+		}
+
+		return $uri_parts;
+	}
+
+	/**
+	 * 18. WooCommerce Subscriptions
+	 */
+	function fix_wcs_subscription_links($permalink, $post, $old_permalink) {
+		if(!empty($post->post_type) && $post->post_type == 'product' && strpos($old_permalink, 'switch-subscription=') !== false) {
+			$query_arg = parse_url($old_permalink, PHP_URL_QUERY);
+			$permalink = "{$permalink}?{$query_arg}";
+		}
+
+		return $permalink;
+	}
+
+	/**
+	 * 19. Store Locator - CSV Manager
 	 */
 	public function wpsl_regenerate_after_import($meta_id, $post_id, $meta_key, $meta_value) {
 		global $permalink_manager_uris;

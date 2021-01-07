@@ -77,7 +77,6 @@ class SendCampaign extends AbstractSendinblueConnect
                     ],
                     'name' => $campaign_title,
                     'htmlContent' => $this->content_html,
-                    'scheduledAt' => gmdate("Y-m-d H:i:s", strtotime('+1 hour', current_time('timestamp'))),
                     'subject' => $this->campaign_subject,
                     'replyTo' => Settings::instance()->reply_to(),
                     'recipients' => [

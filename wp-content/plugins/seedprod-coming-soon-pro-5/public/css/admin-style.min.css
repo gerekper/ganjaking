@@ -631,6 +631,8 @@ svg>g>g:last-child{pointer-events:none}
 #sp-bottom-nav-actions button{width:38px;height:38px;border-radius:6px}
 #sp-bottom-nav-actions button.active{background:#fff !important;color:#4f394d !important}
 #sp-bottom-nav-actions button:hover{color:#fff;background:#392037}
+#seedprod-builder-preview{margin-left:10px;font-size:14px;font-weight:600;border:1px solid #a79ca6;color:#a79ca6;height:40px}
+#seedprod-builder-preview:hover{border:1px solid #0b6142;background:#0b6142;color:#fff;opacity:1}
 #seedprod-builder-save{font-size:14px;font-weight:600;border-top-right-radius:0;border-bottom-right-radius:0;background:#0f8a5e;height:40px}
 #seedprod-builder-save:hover{background:#0b6142}
 #seedprod-builder-save-dropdown{background:#0f8a5e;display:-webkit-box;display:-ms-flexbox;display:flex;height:40px;font-size:15px;border-left:1px rgba(0,0,0,0.3) solid;border-top-left-radius:0;border-bottom-left-radius:0;padding-right:12px;padding-left:12px}

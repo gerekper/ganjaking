@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permalinks
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 5.5.3
-Stable tag: 2.2.9.2
+Tested up to: 5.6.0
+Stable tag: 2.2.9.4
 
 Permalink Manager allows to easily change full URL addresses of posts, pages, custom post types, terms and WooCommerce links. You can also set different permalink formats per language or bulk change the URLs.
 
@@ -103,13 +103,27 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 
 == Changelog ==
 
+= 2.2.9.4 =
+* Fix - The language prefix for default language is now added again when "Use directory for default language" mode is turned on in WPML settings ("Language URL format")
+
+= 2.2.9.3 =
+* Fix - The custom permalinks are now saved correctly for new posts with 'wp_insert_post' hook
+* Fix - The custom permalinks are deleted when 'delete_post' hook is called
+* Fix - WPML - language switcher on posts (blog) page works correctly now
+* Fix - WooCommerce Subscription - the switch subscription URL is no longer overwritten
+* Fix - The URLs with duplicated trailing slashes are now redirected to the canonical permalink
+* Enhancement - Basic support for Ultimate Member plugin added
+* Enhancement - UI improvements
+* Enhancement - Support for "comment-page" endpoint added
+* Enhancement - New filter added - 'permalink_manager_control_trailing_slashes'
+
 = 2.2.9.2 =
-* Dev | Improvements for Permalink_Manager_Core_Functions::control_trailing_slashes() function
-* Dev | Minor codebase improvements
-* Fix | Hotfix for "Automatically fix broken URIs" function
-* Fix | Underscores are now by default allowed in the custom permalinks
-* Enhancement | Better support for GeoDirectory plugin
-* Fix | 'permalink_manager_allow_new_post_uri' & 'permalink_manager_allow_update_post_uri' filter replaced 'permalink_manager_new_post_uri_{$post_object->post_type}' and 'permalink_manager_update_post_uri_{$post->post_type}'
+* Dev - Improvements for Permalink_Manager_Core_Functions::control_trailing_slashes() function
+* Dev - Minor codebase improvements
+* Fix - Hotfix for "Automatically fix broken URIs" function
+* Fix - Underscores are now by default allowed in the custom permalinks
+* Enhancement - Better support for GeoDirectory plugin
+* Fix - 'permalink_manager_allow_new_post_uri' & 'permalink_manager_allow_update_post_uri' filter replaced 'permalink_manager_new_post_uri_{$post_object->post_type}' and 'permalink_manager_update_post_uri_{$post->post_type}'
 
 = 2.2.9.0/2.2.9.1 =
 * Enhancement - Basic support for BasePress added

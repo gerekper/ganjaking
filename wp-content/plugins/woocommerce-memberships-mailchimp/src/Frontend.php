@@ -333,23 +333,22 @@ class Frontend {
 	private function add_opt_in_script() {
 
 		wc_enqueue_js( "
-			jQuery( document ).ready( function( $ ) {
-				$( '#wc-memberships-mailchimp-sync-opt-in' ).click( function ( e ) {
-					e.preventDefault();
-					$.post( 
-						'" . admin_url( 'admin-ajax.php' ) . "', 
-						{ 
-							action:   'wc_memberships_mailchimp_sync_member_opt_in',
-							user_id:  $( this ).data( 'user-id' ),
-							security: $( '#wc-memberships-mailchimp-sync-member-opt-in' ).val()
-						} 
-					).done( function( response ) {
-						if ( ! response || ! response.success ) {
-							console.log( response );
-						} else {
-							location.reload();
-						}
-					} );
+			$( '#wc-memberships-mailchimp-sync-opt-in' ).click( function ( e ) {
+				e.preventDefault();
+
+				$.post(
+					'" . admin_url( 'admin-ajax.php' ) . "',
+					{
+						action:   'wc_memberships_mailchimp_sync_member_opt_in',
+						user_id:  $( this ).data( 'user-id' ),
+						security: $( '#wc-memberships-mailchimp-sync-member-opt-in' ).val()
+					}
+				).done( function( response ) {
+					if ( ! response || ! response.success ) {
+						console.log( response );
+					} else {
+						location.reload();
+					}
 				} );
 			} );
 		" );

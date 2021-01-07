@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-class Wbcr_FactoryClearfy228_MoreFeaturesPage extends Wbcr_FactoryPages436_ImpressiveThemplate {
+class Wbcr_FactoryClearfy232_MoreFeaturesPage extends Wbcr_FactoryPages440_ImpressiveThemplate {
 
 	/**
 	 * {@inheritDoc}
@@ -60,8 +60,8 @@ class Wbcr_FactoryClearfy228_MoreFeaturesPage extends Wbcr_FactoryPages436_Impre
 	 */
 	public $internal = true;
 
-	public function __construct( Wbcr_Factory437_Plugin $plugin ) {
-		$this->menu_title = __( 'More features (<b>free</b>)', 'wbcr_factory_clearfy_228' );
+	public function __construct( Wbcr_Factory441_Plugin $plugin ) {
+		$this->menu_title = __( 'More features (<b>free</b>)', 'wbcr_factory_clearfy_232' );
 
 		parent::__construct( $plugin );
 
@@ -74,7 +74,7 @@ class Wbcr_FactoryClearfy228_MoreFeaturesPage extends Wbcr_FactoryPages436_Impre
 	 * @return string
 	 */
 	public function getPageTitle() {
-		return __( 'More features', 'wbcr_factory_clearfy_228' );
+		return __( 'More features', 'wbcr_factory_clearfy_232' );
 	}
 
 	/**
@@ -88,66 +88,66 @@ class Wbcr_FactoryClearfy228_MoreFeaturesPage extends Wbcr_FactoryPages436_Impre
             <div class="col-sm-4">
                 <div class="wbcr-factory-feature-box">
                     <span class="dashicons dashicons-yes"></span>
-                    <h3><?php _e( 'Code cleaning', 'wbcr_factory_clearfy_228' ) ?></h3>
-                    <p><?php _e( 'Clears the source code of the page from unused code.', 'wbcr_factory_clearfy_228' ) ?></p>
+                    <h3><?php _e( 'Code cleaning', 'wbcr_factory_clearfy_232' ) ?></h3>
+                    <p><?php _e( 'Clears the source code of the page from unused code.', 'wbcr_factory_clearfy_232' ) ?></p>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="wbcr-factory-feature-box">
                     <span class="dashicons dashicons-chart-bar"></span>
-                    <h3><?php _e( 'Improve SEO', 'wbcr_factory_clearfy_228' ) ?></h3>
-                    <p><?php _e( 'Removes duplicate pages, closes external links, changes the headers of the server.', 'wbcr_factory_clearfy_228' ) ?></p>
+                    <h3><?php _e( 'Improve SEO', 'wbcr_factory_clearfy_232' ) ?></h3>
+                    <p><?php _e( 'Removes duplicate pages, closes external links, changes the headers of the server.', 'wbcr_factory_clearfy_232' ) ?></p>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="wbcr-factory-feature-box">
                     <span class="dashicons dashicons-shield-alt"></span>
-                    <h3><?php _e( 'Site protection', 'wbcr_factory_clearfy_228' ) ?></h3>
-                    <p><?php _e( 'Enables and disables features that improve the protection of your site.', 'wbcr_factory_clearfy_228' ) ?></p>
+                    <h3><?php _e( 'Site protection', 'wbcr_factory_clearfy_232' ) ?></h3>
+                    <p><?php _e( 'Enables and disables features that improve the protection of your site.', 'wbcr_factory_clearfy_232' ) ?></p>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="wbcr-factory-feature-box">
                     <span class="dashicons dashicons-welcome-comments"></span>
-                    <h3><?php _e( 'Disable comments', 'wbcr_factory_clearfy_228' ) ?></h3>
-                    <p><?php _e( 'Disables comments on the entire site or on specific pages.', 'wbcr_factory_clearfy_228' ) ?></p>
+                    <h3><?php _e( 'Disable comments', 'wbcr_factory_clearfy_232' ) ?></h3>
+                    <p><?php _e( 'Disables comments on the entire site or on specific pages.', 'wbcr_factory_clearfy_232' ) ?></p>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="wbcr-factory-feature-box">
                     <span class="dashicons dashicons-update"></span>
-                    <h3><?php _e( 'Manage updates', 'wbcr_factory_clearfy_228' ) ?></h3>
+                    <h3><?php _e( 'Manage updates', 'wbcr_factory_clearfy_232' ) ?></h3>
                     <p><?php _e( 'Enables or disables automatically updates for plugins, themes and core. It is also possible
-							to disable all updates.', 'wbcr_factory_clearfy_228' ) ?></p>
+							to disable all updates.', 'wbcr_factory_clearfy_232' ) ?></p>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="wbcr-factory-feature-box">
                     <span class="dashicons dashicons-admin-plugins"></span>
-                    <h3><?php _e( 'Manage widgets', 'wbcr_factory_clearfy_228' ) ?></h3>
-                    <p><?php _e( 'Allows you to remove unused widgets.', 'wbcr_factory_clearfy_228' ) ?></p>
+                    <h3><?php _e( 'Manage widgets', 'wbcr_factory_clearfy_232' ) ?></h3>
+                    <p><?php _e( 'Allows you to remove unused widgets.', 'wbcr_factory_clearfy_232' ) ?></p>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="wbcr-factory-feature-box">
                     <span class="dashicons dashicons-dashboard"></span>
-                    <h3><?php _e( 'Speed Optimization', 'wbcr_factory_clearfy_228' ) ?></h3>
-                    <p><?php _e( 'Increases performance by disabling unused functions and reducing the number of requests.', 'wbcr_factory_clearfy_228' ) ?></p>
+                    <h3><?php _e( 'Speed Optimization', 'wbcr_factory_clearfy_232' ) ?></h3>
+                    <p><?php _e( 'Increases performance by disabling unused functions and reducing the number of requests.', 'wbcr_factory_clearfy_232' ) ?></p>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="wbcr-factory-feature-box">
                     <span class="dashicons dashicons-visibility"></span>
-                    <h3><?php _e( 'Site privacy', 'wbcr_factory_clearfy_228' ) ?></h3>
+                    <h3><?php _e( 'Site privacy', 'wbcr_factory_clearfy_232' ) ?></h3>
                     <p><?php _e( 'Allows you to hide the version of the site and plugins. Allows you to hide your
-							WordPress.', 'wbcr_factory_clearfy_228' ) ?></p>
+							WordPress.', 'wbcr_factory_clearfy_232' ) ?></p>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="wbcr-factory-feature-box">
                     <span class="dashicons dashicons-admin-settings"></span>
-                    <h3><?php _e( 'Easy setup', 'wbcr_factory_clearfy_228' ) ?></h3>
-                    <p><?php _e( 'In quick mode, you can easily configure the plugin according to your needs.', 'wbcr_factory_clearfy_228' ) ?></p>
+                    <h3><?php _e( 'Easy setup', 'wbcr_factory_clearfy_232' ) ?></h3>
+                    <p><?php _e( 'In quick mode, you can easily configure the plugin according to your needs.', 'wbcr_factory_clearfy_232' ) ?></p>
                 </div>
             </div>
         </div>
@@ -161,7 +161,7 @@ class Wbcr_FactoryClearfy228_MoreFeaturesPage extends Wbcr_FactoryPages436_Impre
 			$url .= '?utm_source=wordpress.org&utm_campaign=' . $this->plugin->getPluginName();
 			?>
             <a href="<?= $url ?>" class="wbcr-factory-premium-button" target="_blank">
-				<?php _e( 'Get the ultimate plugin 100% FREE', 'wbcr_factory_clearfy_228' ) ?>
+				<?php _e( 'Get the ultimate plugin 100% FREE', 'wbcr_factory_clearfy_232' ) ?>
             </a>
         </div>
 		<?php
