@@ -69,7 +69,22 @@ if ( in_array( $porto_layout, porto_options_sidebars() ) ) :
 					<?php if ( $porto_settings['menu-sidebar'] ) : ?>
 						<?php if ( $porto_settings['menu-sidebar-title'] ) : ?>
 							<div class="widget-title">
-								<?php echo do_shortcode( $porto_settings['menu-sidebar-title'] ); ?>
+								<?php
+									echo wp_kses(
+										$porto_settings['menu-sidebar-title'],
+										array(
+											'em'     => array(),
+											'i'      => array(
+												'class' => array(),
+											),
+											'strong' => array(),
+											'span'   => array(
+												'class' => array(),
+												'style' => array(),
+											),
+										)
+									);
+								?>
 								<?php if ( $porto_settings['menu-sidebar-toggle'] ) : ?>
 									<div class="toggle"></div>
 								<?php endif; ?>

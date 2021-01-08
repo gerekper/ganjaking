@@ -57,9 +57,9 @@
 						}
 						totalsHolderContainer.find( '.cpf-product-price' ).val( v );
 						totalsHolder.data( 'price', v );
+						totalsHolder.data( 'regular-price', v );
 						currentCart.trigger( {
-							type: 'tm-epo-update',
-							norules: 2
+							type: 'tm-epo-update'
 						} );
 					} );
 
@@ -82,9 +82,9 @@
 						}
 						totalsHolderContainer.find( '.cpf-product-price' ).val( v );
 						totalsHolder.data( 'price', v );
+						totalsHolder.data( 'regular-price', v );
 						currentCart.trigger( {
-							type: 'tm-epo-update',
-							norules: 2
+							type: 'tm-epo-update'
 						} );
 					} );
 

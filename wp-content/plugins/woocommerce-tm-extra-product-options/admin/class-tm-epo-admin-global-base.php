@@ -2493,13 +2493,9 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 			return FALSE;
 		}
 
-		$import = FALSE;
+		$import = get_transient( 'tc_import_csv' );
 
 		$tm_metas = array();
-
-		if ( isset( $_SESSION['import_csv'] ) ) {
-			$import = $_SESSION['import_csv'];
-		}
 
 		if ( ! empty( $import ) ) {
 
@@ -2515,14 +2511,15 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 				$tm_metas = array( 'tm_meta' => array( 'tmfbuilder' => array() ) );
 			}
 
-			if ( ! empty( $_SESSION['import_override'] ) ) {
+			if ( FALSE !== ( $import_override = get_transient( 'tc_import_override' ) ) ) {
 				unset( $tm_metas['tm_meta']['tmfbuilder'] );
 				$tm_metas = $this->import_array_merge( $tm_metas, $import );
-				unset( $_SESSION['import_override'] );
+				delete_transient( 'tc_import_override' );
 			} else {
 				$tm_metas = $this->import_array_merge( $tm_metas, $import );
 			}
-			unset( $_SESSION['import_csv'] );
+
+			delete_transient( 'tc_import_csv' );
 		}
 
 		if ( ! empty( $tm_metas ) && is_array( $tm_metas ) && isset( $tm_metas['tm_meta'] ) && is_array( $tm_metas['tm_meta'] ) ) {
@@ -2573,13 +2570,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 			return $post_id;
 		}
 
-		if ( ! isset( $_SESSION ) ) {
-			session_start();
-		}
-		$import = FALSE;
-		if ( isset( $_SESSION['import_csv'] ) ) {
-			$import = $_SESSION['import_csv'];
-		}
+		$import = get_transient( 'tc_import_csv' );
 
 		if ( isset( $_POST['tm_meta_serialized'] ) ) {
 			$tm_metas = $_POST['tm_meta_serialized'];
@@ -2590,14 +2581,14 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 
 			if ( $tm_metas ) {
 				if ( ! empty( $import ) ) {
-					if ( ! empty( $_SESSION['import_override'] ) ) {
+					if ( FALSE !== ( $import_override = get_transient( 'tc_import_override' ) ) ) {
 						unset( $tm_metas['tm_meta']['tmfbuilder'] );
 						$tm_metas = $this->import_array_merge( $tm_metas, $import );
-						unset( $_SESSION['import_override'] );
+						delete_transient( 'tc_import_override' );
 					} else {
 						$tm_metas = $this->import_array_merge( $tm_metas, $import );
 					}
-					unset( $_SESSION['import_csv'] );
+					delete_transient( 'tc_import_csv' );
 				}
 				if ( ! empty( $tm_metas ) && is_array( $tm_metas ) && isset( $tm_metas['tm_meta'] ) && is_array( $tm_metas['tm_meta'] ) ) {
 					$tm_meta  = $tm_metas['tm_meta'];
@@ -2688,7 +2679,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 	 *
 	 * @since 1.0
 	 */
-	public function tm_save_meta( $post_id, $new_data = FALSE, $old_data = FALSE, $meta_name ) {
+	public function tm_save_meta( $post_id = 0, $new_data = FALSE, $old_data = FALSE, $meta_name = '' ) {
 
 		if ( empty( $old_data ) && $old_data == '' ) {
 			$test = themecomplete_add_post_meta( $post_id, $meta_name, $new_data, TRUE );

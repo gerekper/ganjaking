@@ -174,16 +174,16 @@ class MeprAppHelper {
 
     if(!empty($obj->tax_rate) && $obj->tax_rate > 0.00) {
       // $tax_rate = $obj->tax_rate;
-      $tax_rate = preg_replace("#([{$regex_dp}]000?)([^0-9]*)$#", '$2', MeprUtils::format_tax_percent_for_display($obj->tax_rate));
+      $tax_amount = preg_replace("#([{$regex_dp}]000?)([^0-9]*)$#", '$2', $obj->tax_amount);
       $tax_desc = $obj->tax_desc;
       // $tax_str = ' +'.MeprUtils::format_float($tax_rate).'% '.$tax_desc;
-      $tax_str = ' +'.$tax_rate.'% '.$tax_desc;
+      $tax_str = _x(' (price includes taxes)', 'ui', 'memberpress');
+      $price = $price + $tax_amount;
     }
 
     // Just truncate the zeros if it's an even dollar amount
     $fprice = MeprAppHelper::format_currency($price, $show_symbol);
     $fprice = preg_replace("#([{$regex_dp}]000?)([^0-9]*)$#", '$2', (string)$fprice);
-    $fprice = $fprice . $tax_str;
 
     $period = (int)$obj->period;
     $period_type = $obj->period_type;
@@ -326,6 +326,10 @@ class MeprAppHelper {
           }
         }
       }
+    }
+
+    if(isset($tax_str) && !empty($tax_str) && $price > 0){
+      $price_str = $price_str . $tax_str;
     }
 
     if(!empty($coupon)) { $price_str .= sprintf(__(' with coupon %s','memberpress'), $coupon_code); }

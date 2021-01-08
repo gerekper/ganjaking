@@ -19,7 +19,7 @@
 				var handler = handle.handler;
 
 				// event modifying
-				$( this ).resize( function( e ) {
+				$( this ).on( 'resize', function( e ) {
 					var _proxy;
 					// every resize event clears handler's timer.
 					// and every handler must have a timer.

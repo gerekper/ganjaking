@@ -89,7 +89,8 @@ class MpElementor {
   public function should_render( $should_render, $element ) {
     $settings = $element->get_settings();
     $rule = $settings['memberpress_rule'];
-    return ! empty( $rule ) && 'none' !== $rule && ! current_user_can( 'mepr-active', "rule: {$rule}" ) ? false : $should_render;
+    $mepr_rule = ! empty( $rule ) ? new MeprRule( $rule ) : '';
+    return ! empty( $mepr_rule->ID ) && 'none' !== $rule && ! current_user_can( 'mepr-active', "rule: {$rule}" ) ? false : $should_render;
   }
 
   /**
@@ -107,9 +108,9 @@ class MpElementor {
       return;
     }
 
-    $rule = isset( $settings['memberpress_rule'] ) ? $settings['memberpress_rule'] : false;
+    $rule = new MeprRule( $settings['memberpress_rule'] );
 
-    if ( empty( $rule ) || current_user_can( 'mepr-active', "rule: {$rule}" ) ) {
+    if ( empty( $rule->ID ) || current_user_can( 'mepr-active', "rule: {$settings['memberpress_rule']}" ) ) {
       return;
     }
 

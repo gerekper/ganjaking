@@ -8,6 +8,8 @@ use memberpress\courses\lib as lib;
 use memberpress\courses\models as models;
 
 class CourseTags extends lib\BaseCtaxCtrl  {
+  public static $tax = 'mpcs-course-tags';
+
   public function load_hooks() {
     $this->cpts = models\Course::$cpt;
     add_action('admin_menu', array($this, 'add_sub_menu'));

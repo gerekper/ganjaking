@@ -2,20 +2,20 @@
 # This file is distributed under the same license as the MemberPress Courses plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MemberPress Courses 1.0.14\n"
+"Project-Id-Version: MemberPress Courses 1.0.16\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-courses\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-10-30T14:19:49-05:00\n"
+"POT-Creation-Date: 2020-12-11T18:55:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: memberpress-courses\n"
 
 #. Plugin Name of the plugin
-#: app/controllers/App.php:154
+#: app/controllers/App.php:184
 #: main.php:154
 msgid "MemberPress Courses"
 msgstr ""
@@ -37,161 +37,161 @@ msgid "https://caseproof.com/"
 msgstr ""
 
 #: app/controllers/Account.php:60
-#: app/controllers/admin/Courses.php:277
-#: app/controllers/App.php:75
-#: app/controllers/App.php:149
-#: app/controllers/App.php:244
+#: app/controllers/admin/Courses.php:284
+#: app/controllers/App.php:77
+#: app/controllers/App.php:179
+#: app/controllers/App.php:274
 msgid "Courses"
 msgstr ""
 
-#: app/controllers/admin/CourseCategories.php:25
 #: app/controllers/admin/CourseCategories.php:27
-#: app/controllers/admin/CourseCategories.php:28
-#: app/controllers/admin/CourseCategories.php:60
+#: app/controllers/admin/CourseCategories.php:29
+#: app/controllers/admin/CourseCategories.php:30
+#: app/controllers/admin/CourseCategories.php:62
 msgid "Course Categories"
 msgstr ""
 
-#: app/controllers/admin/CourseCategories.php:29
+#: app/controllers/admin/CourseCategories.php:31
 msgid "Add New Course Category"
 msgstr ""
 
-#: app/controllers/admin/CourseCategories.php:30
+#: app/controllers/admin/CourseCategories.php:32
 msgid "Search Categories"
 msgstr ""
 
-#: app/controllers/admin/CourseCategories.php:31
+#: app/controllers/admin/CourseCategories.php:33
 msgid "Edit Category"
 msgstr ""
 
-#: app/controllers/admin/CourseCategories.php:32
+#: app/controllers/admin/CourseCategories.php:34
 msgid "View Category"
 msgstr ""
 
-#: app/controllers/admin/CourseCategories.php:33
+#: app/controllers/admin/CourseCategories.php:35
 msgid "Update Category"
 msgstr ""
 
-#: app/controllers/admin/CourseCategories.php:34
+#: app/controllers/admin/CourseCategories.php:36
 msgid "Back to Categories"
 msgstr ""
 
-#: app/controllers/admin/CourseCategories.php:61
-#: app/controllers/admin/Courses.php:53
+#: app/controllers/admin/CourseCategories.php:63
+#: app/controllers/admin/Courses.php:54
 msgid "Categories"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:37
+#: app/controllers/admin/Courses.php:38
 msgid "&larr; Back to Courses"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:57
-#: app/controllers/admin/CourseTags.php:56
+#: app/controllers/admin/Courses.php:58
+#: app/controllers/admin/CourseTags.php:58
 msgid "Tags"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:81
+#: app/controllers/admin/Courses.php:82
 msgid "Participants"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:82
+#: app/controllers/admin/Courses.php:83
 #: app/views/courses/bookmark_link.php:4
 #: app/views/courses/bookmark_link.php:12
 msgid "Completed"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:83
+#: app/controllers/admin/Courses.php:84
 msgid "Completion Rate"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:278
+#: app/controllers/admin/Courses.php:285
 #: app/controllers/admin/Lessons.php:157
 msgid "Course"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:279
+#: app/controllers/admin/Courses.php:286
 msgid "Add New Course"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:280
+#: app/controllers/admin/Courses.php:287
 msgid "Edit Course"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:281
+#: app/controllers/admin/Courses.php:288
 msgid "New Course"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:282
+#: app/controllers/admin/Courses.php:289
 msgid "View Course"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:283
+#: app/controllers/admin/Courses.php:290
 msgid "Search Courses"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:284
+#: app/controllers/admin/Courses.php:291
 msgid "No Courses found"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:285
+#: app/controllers/admin/Courses.php:292
 msgid "No Courses found in Trash"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:286
+#: app/controllers/admin/Courses.php:293
 msgid "Parent Course:"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:312
+#: app/controllers/admin/Courses.php:319
 msgid "Curriculum Builder"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:313
+#: app/controllers/admin/Courses.php:320
 msgid "Course Setting"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:316
+#: app/controllers/admin/Courses.php:321
 msgid "Page Options"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:375
+#: app/controllers/admin/Courses.php:369
 msgid "Facebook URL"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:376
+#: app/controllers/admin/Courses.php:370
 msgid "Twitter URL"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:377
+#: app/controllers/admin/Courses.php:371
 msgid "Instagram URL"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:378
+#: app/controllers/admin/Courses.php:372
 msgid "Youtube URL"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:401
+#: app/controllers/admin/Courses.php:395
 msgid "You are not allowed to delete user's progress"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:410
+#: app/controllers/admin/Courses.php:404
 msgid "Progress was deleted for this User and Course"
 msgstr ""
 
-#: app/controllers/admin/CourseTags.php:25
 #: app/controllers/admin/CourseTags.php:27
-#: app/controllers/admin/CourseTags.php:55
+#: app/controllers/admin/CourseTags.php:29
+#: app/controllers/admin/CourseTags.php:57
 msgid "Course Tags"
 msgstr ""
 
-#: app/controllers/admin/CourseTags.php:28
+#: app/controllers/admin/CourseTags.php:30
 msgid "Course Tag"
 msgstr ""
 
-#: app/controllers/admin/CourseTags.php:29
+#: app/controllers/admin/CourseTags.php:31
 msgid "Add New Course Tag"
 msgstr ""
 
 #: app/controllers/admin/Lessons.php:28
-#: app/controllers/App.php:247
+#: app/controllers/App.php:277
 #: app/helpers/Courses.php:30
 #: app/helpers/Courses.php:83
 msgid "Lessons"
@@ -239,15 +239,15 @@ msgstr ""
 msgid "Duplicate"
 msgstr ""
 
-#: app/controllers/App.php:50
+#: app/controllers/App.php:52
 msgid "MemberPress Courses has been activated successfully!"
 msgstr ""
 
-#: app/controllers/App.php:58
+#: app/controllers/App.php:60
 msgid "MemberPress Courses requires WordPress 5.0 and above to run smoothly. Please upgrade!"
 msgstr ""
 
-#: app/controllers/App.php:306
+#: app/controllers/App.php:336
 msgid "Allowed Files"
 msgstr ""
 
@@ -298,7 +298,7 @@ msgstr ""
 msgid "All Courses"
 msgstr ""
 
-#: app/controllers/Courses.php:203
+#: app/controllers/Courses.php:216
 msgid "Enroll"
 msgstr ""
 
@@ -306,15 +306,15 @@ msgstr ""
 msgid "message"
 msgstr ""
 
-#: app/controllers/Lessons.php:182
+#: app/controllers/Lessons.php:183
 msgid "Forbidden"
 msgstr ""
 
-#: app/controllers/Lessons.php:205
+#: app/controllers/Lessons.php:206
 msgid "This lesson has already been completed"
 msgstr ""
 
-#: app/controllers/Lessons.php:237
+#: app/controllers/Lessons.php:238
 msgid "Progress was recorded for this User and Lesson"
 msgstr ""
 

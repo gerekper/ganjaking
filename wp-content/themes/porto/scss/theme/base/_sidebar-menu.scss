@@ -81,7 +81,8 @@
         &:first-child {
             margin-top: 0;
             > a {
-                border-top-color: transparent;
+                /*border-top-color: transparent;*/
+                border-top: none
             }
         }
 

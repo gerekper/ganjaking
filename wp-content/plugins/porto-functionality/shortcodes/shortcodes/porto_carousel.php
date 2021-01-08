@@ -69,7 +69,7 @@ function porto_load_carousel_shortcode() {
 				),
 				array(
 					'type'       => 'textfield',
-					'heading'    => __( 'Items', 'porto-functionality' ),
+					'heading'    => __( 'Items on Large Desktop', 'porto-functionality' ),
 					'param_name' => 'items',
 					'value'      => 6,
 				),

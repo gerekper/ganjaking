@@ -312,6 +312,7 @@
 	 */
 	VariationForm.prototype.onChange = function( event ) {
 		var form = event.data.variationForm;
+		var field = form.field;
 
 		form.variationId.val( '' ).change();
 		//form.$form.trigger( 'update_field', [] );
@@ -326,6 +327,10 @@
 
 		// Custom event for when variation selection has been changed
 		form.$form.trigger( 'woocommerce_variation_has_changed' );
+
+		setTimeout( function() {
+			field.closest( '.tcowl-carousel' ).trigger( 'refresh.owl.carousel' );
+		}, 50 );
 	};
 
 	/**

@@ -273,16 +273,31 @@ if ( $posts->have_posts() ) {
 		$porto_settings['blog-excerpt-length']         = $excerpt_length;
 		$porto_settings['post-related-excerpt-length'] = $excerpt_length;
 	}
+
+	$args = array( 'meta_type' => $meta_type );
+	if ( $image_size ) {
+		$args['image_size'] = $image_size;
+	}
+	$template_name = $post_layout;
+	if ( 'modern' == $post_style && 'grid' == $post_layout ) {
+		$template_name  = $post_style;
+		if ( empty( $options ) ) {
+			$column_classes = porto_grid_post_column_class( $columns );
+		}
+	}
+
 	while ( $posts->have_posts() ) {
 		$posts->the_post();
 		if ( function_exists( 'porto_get_template_part' ) ) {
-			$args = array( 'meta_type' => $meta_type );
-			if ( $image_size ) {
-				$args['image_size'] = $image_size;
+			if ( isset( $column_classes ) ) {
+				echo '<div class="' . esc_attr( $column_classes ) . '">';
 			}
-			porto_get_template_part( 'content', 'blog-' . $post_layout, $args );
+			porto_get_template_part( 'content', 'blog-' . $template_name, $args );
+			if ( isset( $column_classes ) ) {
+				echo '</div>';
+			}
 		} else {
-			get_template_part( 'content', 'blog-' . $post_layout );
+			get_template_part( 'content', 'blog-' . $template_name );
 		}
 	}
 	if ( $excerpt_length ) {

@@ -61,8 +61,14 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
     $mepr_options = MeprOptions::fetch();
 
     if(MeprUtils::is_logged_in_and_an_admin()) {
-
+      if(!empty($mepr_options->mothership_license)) {
         $li = get_site_transient('mepr_license_info');
+
+        if($li === false) {
+          MeprUpdateCtrl::manually_queue_update();
+          $li = get_site_transient('mepr_license_info');
+        }
+      }
 
       MeprView::render('/admin/options/form', get_defined_vars());
     }
@@ -85,6 +91,15 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
         MeprUtils::flush_rewrite_rules(); //Don't call this before running ->update() - it borks stuff
 
         $message = __('Options saved.', 'memberpress');
+      }
+
+      if(!empty($mepr_options->mothership_license)) {
+        $li = get_site_transient('mepr_license_info');
+
+        if($li === false) {
+          MeprUpdateCtrl::manually_queue_update();
+          $li = get_site_transient('mepr_license_info');
+        }
       }
 
       MeprView::render('/admin/options/form', get_defined_vars());
@@ -213,11 +228,17 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
   }
 
   public static function ajax_activate_license() {
-   
+    if(!MeprUtils::is_post_request() || !isset($_POST['key']) || !is_string($_POST['key'])) {
+      wp_send_json_error(sprintf(__('An error occurred during activation: %s', 'memberpress'), __('Bad request.', 'memberpress')));
+    }
+
     if(!MeprUtils::is_logged_in_and_an_admin()) {
       wp_send_json_error(__('Sorry, you don\'t have permission to do this.', 'memberpress'));
     }
 
+    if(!check_ajax_referer('mepr_activate_license', false, false)) {
+      wp_send_json_error(sprintf(__('An error occurred during activation: %s', 'memberpress'), __('Security check failed.', 'memberpress')));
+    }
 
     $mepr_options = MeprOptions::fetch();
     $mepr_options->mothership_license = sanitize_text_field(wp_unslash($_POST['key']));
@@ -268,7 +289,7 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
       $mepr_options->store(false);
 
       // Don't need to check the mothership for this one ... we just deactivated
-      update_option('mepr_activated', true);
+      update_option('mepr_activated', false);
 
       // Clear the cache of add-ons
       delete_site_transient('mepr_addons');

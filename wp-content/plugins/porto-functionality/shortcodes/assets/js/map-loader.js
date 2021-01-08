@@ -65,19 +65,19 @@ jQuery(document).ready(function(){
         });
     }
     resize_porto_map();
-    jQuery(window).load(function(){
+    jQuery(window).on('load', function(){
         resize_porto_map();
     });
     jQuery(window).resize(function(){
         resize_porto_map();
     });
-    jQuery('.ui-tabs').bind('tabsactivate', function(event, ui) {
+    jQuery('.ui-tabs').on('tabsactivate', function(event, ui) {
        if(jQuery(this).find('.porto-map-wrapper').length > 0)
         {
             resize_porto_map();
         }
     });
-    jQuery('.ui-accordion').bind('accordionactivate', function(event, ui) {
+    jQuery('.ui-accordion').on('accordionactivate', function(event, ui) {
        if(jQuery(this).find('.porto-map-wrapper').length > 0)
         {
             resize_porto_map();

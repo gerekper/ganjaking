@@ -50,13 +50,13 @@ var PortoWizard = (function($){
 
         $('.porto-setup-wizard-plugins input[type="checkbox"]').on('change', function() {
             var slug = $(this).closest('li').data('slug');
-            if ('js_composer' != slug && 'elementor' != slug) {
+            if ('js_composer' != slug && 'elementor' != slug && 'visualcomposer' != slug) {
                 return;
             }
             var $wrap = $(this).closest('.porto-setup-wizard-plugins'),
                 $notice = $(this).closest('form').find('.porto-notice'),
                 installed_count = 0,
-                page_builders = ['js_composer', 'elementor'];
+                page_builders = ['js_composer', 'elementor', 'visualcomposer'];
             for (var index in page_builders) {
                 var p = page_builders[index];
                 if (!$wrap.find('li[data-slug="' + p + '"]').length || $wrap.find('li[data-slug="' + p + '"] input[type="checkbox"]').is(':checked')) {
@@ -88,7 +88,9 @@ var PortoWizard = (function($){
                         $current_node.find('span').text("failed");
                         find_next();
                     } else {
-                        if (response.plugin && (-1 !== response.plugin.indexOf('woocommerce') || -1 !== response.plugin.indexOf('elementor'))) {
+                        if (response.plugin && -1 !== response.plugin.indexOf('visualcomposer')) {
+                            response['activate-multi'] = 1;
+                        } else if (response.plugin && (-1 !== response.plugin.indexOf('woocommerce') || -1 !== response.plugin.indexOf('elementor'))) {
                             response.url = response.url + '&activate-multi=1';
                         }
                         current_item_hash = response.hash;

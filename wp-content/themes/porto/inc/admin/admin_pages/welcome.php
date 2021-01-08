@@ -1,9 +1,8 @@
 <div class="wrap porto-wrap">
-	<h2 class="screen-reader-text"><?php esc_html_e( 'Theme License', 'porto' ); ?></h2>
+	<h2 class="screen-reader-text"><?php esc_html_e( 'Dashboard', 'porto' ); ?></h2>
 	<h2 class="porto-admin-nav">
 		<?php
-		printf( '<a href="#" class="active nolink">%s</a>', esc_html__( 'Theme License', 'porto' ) );
-		printf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=porto-changelog' ) ), esc_html__( 'Change Log', 'porto' ) );
+		printf( '<a href="#" class="active nolink">%s</a>', esc_html__( 'Dashboard', 'porto' ) );
 		if ( get_theme_mod( 'theme_options_use_new_style', false ) ) {
 			printf( '<a href="%s">%s</a>', esc_url( admin_url( 'customize.php' ) ), esc_html__( 'Theme Options', 'porto' ) );
 			printf( '<a href="%s">%s</a>', esc_url( admin_url( 'themes.php?page=porto_settings' ) ), esc_html__( 'Advanced', 'porto' ) );
@@ -96,7 +95,7 @@
 					<?php printf( esc_html__( 'If you are unable to find your answer in our documentation, we encourage you to contact us through %1$ssupport page%2$s with your site CPanel (or FTP) and WordPress admin details. We are very happy to help you and you will get reply from us more faster than you expected.', 'porto' ), '<a href="http://www.portotheme.com/support" target="_blank">', '</a>' ); ?>
 				</p>
 				<p class="about-description">
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto-changelog' ) ); ?>"><?php esc_html_e( 'Click here to view change logs.', 'porto' ); ?></a>
+					<a href="https://www.portotheme.com/wordpress/porto/documentation/changelog/" target="_blank"><?php esc_html_e( 'Click here to view change logs.', 'porto' ); ?></a>
 				</p>
 			</div>
 			<div class="porto-thanks">

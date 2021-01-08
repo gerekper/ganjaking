@@ -4,6 +4,12 @@
     transition: transform .2s ease-in-out;
     padding-bottom: 15px;
 
+    .header-builder-p & {
+        padding-top: 15px;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
     .mobile-nav-wrap {
         padding: 0 !important;
         &::-webkit-scrollbar {

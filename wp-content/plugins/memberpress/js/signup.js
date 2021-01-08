@@ -105,7 +105,7 @@
       $(obj).trigger('mepr-validate-input');
     };
 
-    var meprUpdatePriceTerms = function (form, submitting) {
+    var meprUpdatePriceTerms = function (form, disable_scrolling_animation) {
       var price_string = form.find('div.mepr_price_cell');
 
       let settings = {
@@ -135,7 +135,7 @@
           if(price_string.length) {
             var scroll_top = price_string.offset().top;
             price_string.html(response.price_string).parent().css({ opacity: 0 });
-            if (MeprSignup.spc_invoice == '1') {
+            if (MeprSignup.spc_invoice == '1' || disable_scrolling_animation) {
               price_string.parent().animate({ opacity: 1 }, 1000);
             } else { // Enable animation if SPC Invoice is disabled ... they don't look compatible
               $('html, body').animate({
@@ -249,13 +249,15 @@
     });
 
     // Update price string & invoice when certain inputs change value
-    $("body").on("change mepr-geolocated",
+    $("body").on("change",
       ".mepr-form .mepr-form-input, .mepr-form .mepr-form-radios-input, .mepr-form .mepr-select-field",
       function (e) {
 
         if($(this).attr('name') == 'mepr-address-zip' ||
           $(this).attr('name') == 'mepr-address-city' ||
           $(this).attr('name') == 'mepr-address-country' ||
+          $(this).attr('name') == 'mepr-address-one' ||
+          $(this).attr('name') == 'mepr-address-state' ||
           $(this).attr('name') == 'mepr_vat_customer_type' ||
           $(this).attr('name') == 'mepr_vat_number'
         ) {
@@ -264,6 +266,11 @@
         }
       }
     );
+
+    // Update price string & invoice when geolocation occurs
+    $('body').on('mepr-geolocated', '.mepr-form .mepr-countries-dropdown', function () {
+      meprUpdatePriceTerms($(this).closest('.mepr-signup-form'), true);
+    });
 
   });
 })(jQuery);

@@ -36,7 +36,8 @@ do_action( 'woocommerce_before_edit_account_address_form' ); ?>
 
 		<h3><?php echo apply_filters( 'woocommerce_my_account_edit_address_title', $page_title ); ?></h3><?php // @codingStandardsIgnoreLine ?>
 		<div class="woocommerce-address-fields">
-			<?php do_action( "woocommerce_before_edit_address_form_{$load_address}" ); ?>			<div class="woocommerce-address-fields__field-wrapper">
+			<?php do_action( "woocommerce_before_edit_address_form_{$load_address}" ); ?>
+			<div class="woocommerce-address-fields_field-wrapper">
 				<?php
 				foreach ( $address as $key => $field ) {
 					if ( version_compare( $porto_woo_version, '3.6', '<' ) && isset( $field['country_field'], $address[ $field['country_field'] ] ) ) {

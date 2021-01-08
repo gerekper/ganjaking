@@ -337,6 +337,19 @@
 						// handler: h.handler
 						if ( h.handler.toString().indexOf( "$( this ).prop( 'disabled', false );" ) !== -1 || h.handler.toString().indexOf( '(this).prop("disabled",!1)' ) !== -1 || h.handler.toString().indexOf( "(this).prop('disabled',!1)" ) !== -1 ) {
 							composite_add_to_cart_button.off( i, h.handler );
+							composite_add_to_cart_button.on( i, function() {
+								$( '.tm-epo-field' ).each( function() {
+									var $this = $( this );
+									$this.data( 'disabledstate', $this.prop( 'disabled' ) );
+								} );
+							} );
+							composite_add_to_cart_button.on( i, h.handler );
+							composite_add_to_cart_button.on( i, function() {
+								$( '.tm-epo-field' ).each( function() {
+									var $this = $( this );
+									$this.prop( 'disabled', $this.data( 'disabledstate' ) );
+								} );
+							} );
 						}
 					}
 				} );
@@ -434,10 +447,14 @@
 		var product_price_bto = [];
 
 		if ( alternativeCart && cpf_bto_price.length > 0 ) {
-			product_price = parseFloat( cpf_bto_price.val() );
+			product_price = parseFloat( $.epoAPI.math.toFloat( cpf_bto_price.val(), 0 ) );
 		} else if ( ! alternativeCart && cpf_bto_price_all.length > 0 ) {
 			cpf_bto_price_all.each( function() {
 				field = $( this );
+				// skip hidden fields from scenarios
+				if ( field.closest( '.composite_component' ).is( ':hidden' ) ) {
+					return;
+				}
 				fieldValue = field.val();
 				if ( Number.isFinite( parseFloat( fieldValue ) ) ) {
 					qty = field.closest( '.cart' ).find( tcAPI.qtySelector );

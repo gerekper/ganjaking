@@ -46,13 +46,13 @@ $porto_woo_version = porto_get_woo_version_number();
 					<?php else : ?>
 						<?php if ( 'lost_password' === $args['form'] ) : ?>
 
-							<p><?php echo apply_filters( 'woocommerce_lost_password_message', __( 'Lost your password? Please enter your username or email address. You will receive a link to create a new password via email.', 'porto' ) ); ?></p>
+							<p><?php echo apply_filters( 'woocommerce_lost_password_message', esc_html__( 'Lost your password? Please enter your username or email address. You will receive a link to create a new password via email.', 'porto' ) ); ?></p>
 
 							<p class="form-row form-row-wide"><label for="user_login"><?php esc_html_e( 'Username or email', 'porto' ); ?></label> <input class="input-text" type="text" name="user_login" id="user_login" /></p>
 
 						<?php else : ?>
 
-							<p><?php echo apply_filters( 'woocommerce_reset_password_message', __( 'Enter a new password below.', 'porto' ) ); ?></p>
+							<p><?php echo apply_filters( 'woocommerce_reset_password_message', esc_html__( 'Enter a new password below.', 'porto' ) ); ?></p>
 
 							<p class="form-row form-row-first">
 								<label for="password_1"><?php esc_html_e( 'New password', 'porto' ); ?> <span class="required">*</span></label>
@@ -78,7 +78,7 @@ $porto_woo_version = porto_get_woo_version_number();
 								<a class="pt-left back-login" href="<?php echo esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) ); ?>"><?php esc_html_e( 'Click here to login', 'porto' ); ?></a>
 							<?php endif; ?>
 							<input type="hidden" name="wc_reset_password" value="true" />
-							<input type="submit" class="button btn-lg pt-right" value="<?php echo 'lost_password' === $args['form'] ? __( 'Reset Password', 'porto' ) : __( 'Save', 'porto' ); ?>" />
+							<input type="submit" class="button btn-lg pt-right" value="<?php echo 'lost_password' === $args['form'] ? esc_html__( 'Reset Password', 'porto' ) : esc_html__( 'Save', 'porto' ); ?>" />
 						</p>
 
 						<?php wp_nonce_field( $args['form'] ); ?>

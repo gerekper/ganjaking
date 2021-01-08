@@ -33,7 +33,7 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 		/**
 		 * Page Builder Type
 		 *
-		 * This should be 'v' if using WPBakery and 'e' if using Elementor Page Builder.
+		 * This should be 'v' if using WPBakery, 'e' if using Elementor Page Builder and 'c' if using Visual Composer.
 		 */
 		private $page_type = 'v';
 
@@ -82,6 +82,9 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 						},
 						30
 					);
+				} elseif ( porto_is_vc_preview() ) {
+					add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ), 1001 );
+					add_action( 'admin_footer', array( $this, 'vc_get_page_content' ) );
 				}
 			}
 		}
@@ -98,11 +101,21 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 			wp_enqueue_script( 'jquery-waitforimages', PORTO_JS . '/libs/jquery.waitforimages.min.js', array( 'jquery' ), '2.0.2', true );
 			wp_enqueue_script( 'isotope', PORTO_JS . '/libs/isotope.pkgd.min.js', array( 'jquery' ), '3.0.1', true );
 
+			$post_id = false;
+			if ( is_singular() ) {
+				$post_id = get_the_ID();
+			} elseif ( isset( $_GET['post'] ) ) {
+				$post_id = (int) $_GET['post'];
+			} elseif ( isset( $_GET['post_id'] ) ) {
+				$post_id = (int) $_GET['post_id'];
+			}
+
 			wp_localize_script(
 				'porto-admin',
 				'porto_studio',
 				array(
 					'wpnonce' => wp_create_nonce( 'porto_studio_nonce' ),
+					'post_id' => (int) $post_id,
 				)
 			);
 		}
@@ -153,6 +166,7 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 				} elseif ( 'c' == $this->page_type ) {
 					$block_content = str_replace( 'PORTO_FUNC_PATH', str_replace( '/shortcodes/', '', PORTO_SHORTCODES_URL ), $block_content );
 					$block_content = str_replace( 'PORTO_PLUGINS_PATH', esc_url( plugins_url() ), $block_content );
+					$block_content = str_replace( 'PORTO_URI', esc_url( PORTO_URI . '/' ), $block_content );
 					$block_content = json_decode( $block_content, true );
 				}
 				$result = array( 'content' => $block_content );
@@ -202,9 +216,27 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 				}
 				$category_blocks = array_slice( $category_blocks, ( $page - 1 ) * $count_per_page, $count_per_page );
 			} elseif ( isset( $_POST['demo_filter'] ) && is_array( $_POST['demo_filter'] ) ) {
+				$blocked_builders = array(
+					'header'  => 1,
+					'footer'  => 25,
+					'shop'    => 26,
+					'product' => 27,
+				);
+
+				if ( ! empty( $_REQUEST['post_id'] ) ) {
+					$post_id      = (int) $_REQUEST['post_id'];
+					$builder_type = get_post_meta( $post_id, 'porto_builder_type', true );
+					if ( 'porto_builder' == get_post_type( $post_id ) && $builder_type && 'block' != $builder_type ) {
+						unset( $blocked_builders[ $builder_type ] );
+					}
+				}
+
 				foreach ( $blocks as $block ) {
 					if ( in_array( $block['d'], $_POST['demo_filter'] ) ) {
-						$category_blocks[] = $block;
+						$categories = explode( ',', $block['c'] );
+						if ( empty( array_intersect( $blocked_builders, $categories ) ) ) {
+							$category_blocks[] = $block;
+						}
 					}
 				}
 				$total_pages     = ceil( count( $category_blocks ) / $count_per_page );
@@ -286,7 +318,21 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 
 			if ( $query->have_posts() ) {
 				foreach ( $query->posts as $post ) {
-					$old_id        = str_replace( ( (int) $_POST['block_id'] ) . '-', '', get_post_meta( $post->ID, '_porto_studio_id', true ) );
+					$old_id = str_replace( ( (int) $_POST['block_id'] ) . '-', '', get_post_meta( $post->ID, '_porto_studio_id', true ) );
+
+					if ( 'c' == $this->page_type ) {
+						$GLOBALS['porto_studio_attachment'] = $post->ID;
+						$block_content                      = preg_replace_callback(
+							'|\{\{\{' . ( (int) $old_id ) . ':([^\}]*)\}\}\}|',
+							function( $match ) {
+								$attachment_id = $GLOBALS['porto_studio_attachment'];
+								return '"' . $match[1] . '":"' . esc_url( wp_get_attachment_image_url( $attachment_id, $match[1] ) ) . '"';
+							},
+							$block_content
+						);
+						unset( $GLOBALS['porto_studio_attachment'] );
+					}
+
 					$block_content = str_replace( '{{{' . ( (int) $old_id ) . '}}}', $post->ID, $block_content );
 					unset( $posts[ $old_id ] );
 				}
@@ -322,7 +368,23 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 							$import_id = $importer->process_attachment( $post_data, $image_url );
 							if ( ! is_wp_error( $import_id ) ) {
 								update_post_meta( $import_id, '_porto_studio_id', ( (int) $_POST['block_id'] ) . '-' . ( (int) $old_id ) );
+
+								if ( 'c' == $this->page_type ) {
+									$GLOBALS['porto_studio_attachment'] = $import_id;
+									$block_content                      = preg_replace_callback(
+										'|\{\{\{' . ( (int) $old_id ) . ':([^\}]*)\}\}\}|',
+										function( $match ) {
+											$attachment_id = $GLOBALS['porto_studio_attachment'];
+											return '"' . $match[1] . '":"' . esc_url( wp_get_attachment_image_url( $attachment_id, $match[1] ) ) . '"';
+										},
+										$block_content
+									);
+									unset( $GLOBALS['porto_studio_attachment'] );
+								}
+
 								$block_content = str_replace( '{{{' . ( (int) $old_id ) . '}}}', $import_id, $block_content );
+							} else {
+								$block_content = str_replace( '{{{' . ( (int) $old_id ) . '}}}', 0, $block_content );
 							}
 						}
 					} else {
@@ -399,6 +461,41 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 				}
 				set_site_transient( $transient_key, $blocks, $this->update_period );
 			}
+
+			if ( is_array( $block_categories ) ) {
+				$post_id = false;
+				if ( is_singular() ) {
+					$post_id = get_the_ID();
+				} elseif ( isset( $_GET['post'] ) ) {
+					$post_id = (int) $_GET['post'];
+				} elseif ( isset( $_GET['post_id'] ) ) {
+					$post_id = (int) $_GET['post_id'];
+				}
+				if ( $post_id ) {
+					$builder_type = get_post_meta( $post_id, 'porto_builder_type', true );
+					if ( 'porto_builder' == get_post_type( $post_id ) && $builder_type && 'block' != $builder_type ) {
+						$active_cat = false;
+						foreach ( $block_categories as $index => $c ) {
+							if ( $builder_type == strtolower( $c['title'] ) ) {
+								$active_cat = $c;
+								unset( $block_categories[ $index ] );
+							} elseif ( in_array( strtolower( $c['title'] ), array( 'header', 'footer', 'shop', 'product' ) ) ) {
+								unset( $block_categories[ $index ] );
+							}
+						}
+						if ( false !== $active_cat ) {
+							$block_categories          = array_merge( array( $active_cat ), $block_categories );
+							$this->default_category_id = (int) $active_cat['id'];
+						}
+					} else {
+						foreach ( $block_categories as $index => $c ) {
+							if ( in_array( strtolower( $c['title'] ), array( 'header', 'footer', 'shop', 'product' ) ) ) {
+								unset( $block_categories[ $index ] );
+							}
+						}
+					}
+				}
+			}
 			$latest_blocks = array();
 			foreach ( $blocks as $block ) {
 				$categories = explode( ',', $block['c'] );
@@ -424,6 +521,11 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 
 		public function elementor_get_page_content() {
 			$this->page_type = 'e';
+			$this->get_page_content();
+		}
+
+		public function vc_get_page_content() {
+			$this->page_type = 'c';
 			$this->get_page_content();
 		}
 

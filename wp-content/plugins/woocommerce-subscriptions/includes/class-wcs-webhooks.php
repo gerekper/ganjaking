@@ -107,10 +107,10 @@ class WCS_Webhooks {
 	public static function add_topics_admin_menu( $topics ) {
 
 		$front_end_topics = array(
-			'subscription.created'  => __( ' Subscription Created', 'woocommerce-subscriptions' ),
-			'subscription.updated'  => __( ' Subscription Updated', 'woocommerce-subscriptions' ),
-			'subscription.deleted'  => __( ' Subscription Deleted', 'woocommerce-subscriptions' ),
-			'subscription.switched' => __( ' Subscription Switched', 'woocommerce-subscriptions' ),
+			'subscription.created'  => __( ' Subscription created', 'woocommerce-subscriptions' ),
+			'subscription.updated'  => __( ' Subscription updated', 'woocommerce-subscriptions' ),
+			'subscription.deleted'  => __( ' Subscription deleted', 'woocommerce-subscriptions' ),
+			'subscription.switched' => __( ' Subscription switched', 'woocommerce-subscriptions' ),
 		);
 
 		return array_merge( $topics, $front_end_topics );
@@ -130,9 +130,7 @@ class WCS_Webhooks {
 
 			wp_set_current_user( $webhook->get_user_id() );
 
-			$webhook_api_version = ( method_exists( $webhook, 'get_api_version' ) ) ? $webhook->get_api_version() : 'legacy_v3';
-
-			switch ( $webhook_api_version ) {
+			switch ( $webhook->get_api_version() ) {
 				case 'legacy_v3':
 					WC()->api->WC_API_Subscriptions->register_routes( array() );
 					$payload = WC()->api->WC_API_Subscriptions->get_subscription( $resource_id );

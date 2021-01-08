@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoTestimonial": {
+      "settings": {
+        "name": "Porto Testimonial",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-testimonial.jpg",
+        "metaDescription": "Porto VC element to display testimonials"
+      }
+    }
+  },
+  "categories": {
+    "Testimonial": {
+      "elements": [
+        "portoTestimonial"
+      ]
+    }
+  }
+}

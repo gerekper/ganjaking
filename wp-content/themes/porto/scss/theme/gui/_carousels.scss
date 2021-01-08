@@ -2,6 +2,10 @@
 .fullscreen-carousel {
     height: 100vh;
     position: relative;
+    .owl-carousel:not(.owl-loaded) > *,
+    .owl-item > * {
+        height: 100vh;
+    }
 }
 
 .owl-carousel .owl-item .owl-lazy {
@@ -474,6 +478,11 @@
     .owl-stage-outer, .owl-nav {
         z-index: 1;
     }
+}
+
+.fullscreen-carousel > .owl-loaded:before,
+.fullscreen-carousel > .owl-loaded:after {
+    content: none
 }
 
 #fancybox-loading:after {

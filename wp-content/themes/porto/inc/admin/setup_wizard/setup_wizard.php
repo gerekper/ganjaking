@@ -52,6 +52,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'classic'   => 'Classic',
 				'blog'      => 'Blog',
 				'elementor' => 'Elementor',
+				'vc'        => 'Visual Composer',
 				'gutenberg' => 'Gutenberg',
 			);
 		}
@@ -66,7 +67,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 					'grouped'    => true,
 				),
 				'shop'                 => array(
-					'alt'        => 'Shop Demo <small>(34 VARIATIONS)</small>',
+					'alt'        => 'Shop Demo <small>(43 VARIATIONS)</small>',
 					'slider_cat' => 'shop',
 					'img'        => PORTO_OPTIONS_URI . '/demos/shop1.jpg',
 					'filter'     => 'all open-shop',
@@ -82,9 +83,45 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'classic-original'     => array(
 					'alt'       => 'Main Demo',
 					'img'       => PORTO_OPTIONS_URI . '/demos/classic_original.jpg',
-					'filter'    => 'classic elementor gutenberg',
+					'filter'    => 'classic elementor gutenberg vc',
 					'revslider' => array( 'full-width-slider.zip', 'full-width-video.zip', 'home-classic-original.zip', 'media-gallery.zip' ),
 					'plugins'   => array( 'js_composer' ),
+				),
+				'cleaning-services'    => array(
+					'alt'     => 'Cleaning Services',
+					'img'     => PORTO_OPTIONS_URI . '/demos/cleaning-services.jpg',
+					'filter'  => 'business all elementor',
+					'plugins' => array( 'js_composer' ),
+				),
+				'architecture2'        => array(
+					'alt'     => 'Architecture 2',
+					'img'     => PORTO_OPTIONS_URI . '/demos/architecture2.jpg',
+					'filter'  => 'business all elementor',
+					'plugins' => array( 'js_composer' ),
+				),
+				'law-firm2'            => array(
+					'alt'     => 'Law Firm 2',
+					'img'     => PORTO_OPTIONS_URI . '/demos/law-firm2.jpg',
+					'filter'  => 'business all',
+					'plugins' => array( 'js_composer' ),
+				),
+				'industry-factory'     => array(
+					'alt'     => 'Industry Factory',
+					'img'     => PORTO_OPTIONS_URI . '/demos/industry.jpg',
+					'filter'  => 'business all elementor vc',
+					'plugins' => array( 'js_composer' ),
+				),
+				'auto-services'        => array(
+					'alt'     => 'Auto Services',
+					'img'     => PORTO_OPTIONS_URI . '/demos/auto-services.jpg',
+					'filter'  => 'business all',
+					'plugins' => array( 'js_composer', 'woocommerce' ),
+				),
+				'startup-agency'       => array(
+					'alt'     => 'Startup Agency',
+					'img'     => PORTO_OPTIONS_URI . '/demos/startup-agency.jpg',
+					'filter'  => 'business all onepage',
+					'plugins' => array( 'js_composer' ),
 				),
 				'construction2'        => array(
 					'alt'       => 'Construction 2',
@@ -136,7 +173,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'construction'         => array(
 					'alt'       => 'Construction',
 					'img'       => PORTO_OPTIONS_URI . '/demos/demo_construction.jpg',
-					'filter'    => 'business elementor all',
+					'filter'    => 'business elementor all vc',
 					'revslider' => array( 'demo-construction.zip' ),
 					'plugins'   => array( 'js_composer' ),
 				),
@@ -503,67 +540,67 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'shop1'                => array(
 					'alt'     => 'Shop 1',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop1.jpg',
-					'filter'  => 'shop elementor gutenberg',
+					'filter'  => 'shop elementor gutenberg vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop2'                => array(
 					'alt'     => 'Shop 2',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop2.jpg',
-					'filter'  => 'shop elementor gutenberg',
+					'filter'  => 'shop elementor gutenberg vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop3'                => array(
 					'alt'     => 'Shop 3',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop3.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop4'                => array(
 					'alt'     => 'Shop 4',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop4.jpg',
-					'filter'  => 'shop elementor gutenberg',
+					'filter'  => 'shop elementor gutenberg vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop5'                => array(
 					'alt'     => 'Shop 5',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop5.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop6'                => array(
 					'alt'     => 'Shop 6',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop6.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop7'                => array(
 					'alt'     => 'Shop 7',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop7.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop8'                => array(
 					'alt'     => 'Shop 8',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop8.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop9'                => array(
 					'alt'     => 'Shop 9',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop9.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop10'               => array(
 					'alt'     => 'Shop 10',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop10.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop11'               => array(
 					'alt'     => 'Shop 11',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop11.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop12'               => array(
@@ -581,7 +618,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'shop14'               => array(
 					'alt'     => 'Shop 14',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop14.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop15'               => array(
@@ -629,7 +666,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'shop22'               => array(
 					'alt'     => 'Shop 22 (Multi-Vendor, Marketplace)',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop22.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce', 'dokan-lite' ),
 				),
 				'shop23'               => array(
@@ -647,13 +684,13 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'shop25'               => array(
 					'alt'     => 'Shop 25 (Book Store)',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop25.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop26'               => array(
 					'alt'     => 'Shop 26',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop26.jpg',
-					'filter'  => 'shop elementor gutenberg',
+					'filter'  => 'shop elementor gutenberg vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop27'               => array(
@@ -701,19 +738,55 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				'shop34'               => array(
 					'alt'     => 'Shop 34',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop34.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop35'               => array(
-					'alt'     => 'Shop 35',
+					'alt'     => 'Shop 35 (Grocery 1)',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop35.jpg',
-					'filter'  => 'shop elementor',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop36'               => array(
-					'alt'     => 'Shop 36',
+					'alt'     => 'Shop 36 (Marketplace 2)',
 					'img'     => PORTO_OPTIONS_URI . '/demos/shop36.jpg',
+					'filter'  => 'shop elementor vc',
+					'plugins' => array( 'js_composer', 'woocommerce' ),
+				),
+				'shop37'               => array(
+					'alt'     => 'Shop 37',
+					'img'     => PORTO_OPTIONS_URI . '/demos/shop37.jpg',
+					'filter'  => 'shop elementor vc',
+					'plugins' => array( 'js_composer', 'woocommerce' ),
+				),
+				'shop38'               => array(
+					'alt'     => 'Shop 38 (Medical Shop)',
+					'img'     => PORTO_OPTIONS_URI . '/demos/shop38.jpg',
+					'filter'  => 'shop elementor vc',
+					'plugins' => array( 'js_composer', 'woocommerce' ),
+				),
+				'shop39'               => array(
+					'alt'     => 'Shop 39 (Wine Shop)',
+					'img'     => PORTO_OPTIONS_URI . '/demos/shop39.jpg',
+					'filter'  => 'shop elementor vc',
+					'plugins' => array( 'js_composer', 'woocommerce' ),
+				),
+				'shop40'               => array(
+					'alt'     => 'Shop 40 (Grocery 2)',
+					'img'     => PORTO_OPTIONS_URI . '/demos/shop40.jpg',
+					'filter'  => 'shop elementor vc',
+					'plugins' => array( 'js_composer', 'woocommerce' ),
+				),
+				'shop41'               => array(
+					'alt'     => 'Shop 41 (Grocery 3)',
+					'img'     => PORTO_OPTIONS_URI . '/demos/shop41.jpg',
 					'filter'  => 'shop elementor',
+					'plugins' => array( 'js_composer', 'woocommerce' ),
+				),
+				'shop42'               => array(
+					'alt'     => 'Shop 42',
+					'img'     => PORTO_OPTIONS_URI . '/demos/shop42.jpg',
+					'filter'  => 'shop elementor vc',
 					'plugins' => array( 'js_composer', 'woocommerce' ),
 				),
 				'shop1-dark'           => array(
@@ -1081,9 +1154,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 			</div>
 			<div class="porto-setup-wizard wrap">
 				<h2 class="porto-admin-nav">
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto' ) ); ?>"><?php esc_html_e( 'Welcome', 'porto' ); ?></a>
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto' ) ); ?>"><?php esc_html_e( 'Theme License', 'porto' ); ?></a>
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto-changelog' ) ); ?>"><?php esc_html_e( 'Change Log', 'porto' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto' ) ); ?>"><?php esc_html_e( 'Dashboard', 'porto' ); ?></a>
 					<a href="<?php echo esc_url( admin_url( 'themes.php?page=porto_settings' ) ); ?>"><?php esc_html_e( 'Theme Options', 'porto' ); ?></a>
 					<a href="#" class="active nolink"><?php esc_html_e( 'Setup Wizard', 'porto' ); ?></a>
 					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto-speed-optimize-wizard' ) ); ?>"><?php esc_html_e( 'Speed Optimize Wizard', 'porto' ); ?></a>
@@ -1238,12 +1309,15 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				<?php
 				$plugins = $this->_get_plugins();
 				if ( count( $plugins['all'] ) ) {
-					$notice_hidden = false;
+					$notice_hidden  = false;
 					$active_p_count = 0;
 					if ( ! is_plugin_inactive( 'elementor/elementor.php' ) ) {
 						$active_p_count++;
 					}
 					if ( ! is_plugin_inactive( 'js_composer/js_composer.php' ) ) {
+						$active_p_count++;
+					}
+					if ( ! is_plugin_inactive( 'visualcomposer/plugin-wordpress.php' ) ) {
 						$active_p_count++;
 					}
 					if ( $active_p_count < 2 ) {
@@ -1252,7 +1326,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 					?>
 					<p class="mb-1"><?php esc_html_e( 'This will install the default plugins which is used in Porto.', 'porto' ); ?></p>
 					<div class="porto-notice<?php echo ! $notice_hidden ? '' : ' d-none'; ?>" style="margin: 0 0 1em">
-						<p style="margin: .5em 0;"><?php esc_html_e( 'We do not recommend to activate more than one page builders(Elementor and WPBakery) together. It might occur unexpected issues on your site configuration and affect performance.', 'porto' ); ?></p>
+						<p style="margin: .5em 0;"><?php esc_html_e( 'We do not recommend to activate more than one page builders(Elementor, WPBakery or Visual Composer) together. It might occur unexpected issues on your site configuration and affect performance.', 'porto' ); ?></p>
 					</div>
 					<p><?php esc_html_e( 'Please check the plugins to install:', 'porto' ); ?></p>
 					<ul class="porto-setup-wizard-plugins">
@@ -1522,10 +1596,12 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				}
 					$time_limit    = ini_get( 'max_execution_time' );
 					$server_status = $memory_limit >= 268435456 && ( $time_limit >= 600 || 0 == $time_limit );
-				if ( is_plugin_inactive( 'elementor/elementor.php' ) && is_plugin_inactive( 'js_composer/js_composer.php' ) ) {
+				if ( is_plugin_inactive( 'elementor/elementor.php' ) && is_plugin_inactive( 'js_composer/js_composer.php' ) && is_plugin_inactive( 'visualcomposer/plugin-wordpress.php' ) ) {
 					$active_p = 'gutenberg';
 				} elseif ( ! is_plugin_inactive( 'elementor/elementor.php' ) ) {
 					$active_p = 'elementor';
+				} elseif ( ! is_plugin_inactive( 'visualcomposer/plugin-wordpress.php' ) ) {
+					$active_p = 'vc';
 				} else {
 					$active_p = 'js_composer';
 				}
@@ -1562,6 +1638,9 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 									<label class="radio elementor<?php echo is_plugin_inactive( 'elementor/elementor.php' ) ? ' notinstalled' : ''; ?>">
 										<input type="radio" name="page_builder" value="elementor" <?php checked( $active_p, 'elementor' ); ?>> <?php esc_html_e( 'Elementor', 'porto' ); ?>
 									</label>
+									<label class="radio vc<?php echo is_plugin_inactive( 'visualcomposer/plugin-wordpress.php' ) ? ' notinstalled' : ''; ?>">
+										<input type="radio" name="page_builder" value="vc" <?php checked( $active_p, 'vc' ); ?>> <?php esc_html_e( 'Visual Composer', 'porto' ); ?>
+									</label>
 									<label class="radio gutenberg">
 										<input type="radio" name="page_builder" value="gutenberg" <?php checked( $active_p, 'gutenberg' ); ?>> <?php esc_html_e( 'Gutenberg', 'porto' ); ?>
 									</label>
@@ -1573,6 +1652,10 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 										<div class="elementor d-flex d-none">
 											<div style="width: 40px; padding-right: 8px; text-align: center;"><img src="<?php echo PORTO_PLUGINS_URI . '/images/elementor.png'; ?>" alt="<?php esc_html_e( 'Elementor', 'porto' ); ?>" /></div>
 											<h5><?php esc_html_e( 'Elementor is required.', 'porto' ); ?></h5>
+										</div>
+										<div class="vc d-flex d-none">
+											<div style="width: 40px; padding-right: 8px; text-align: center;"><img src="<?php echo PORTO_PLUGINS_URI . '/images/visualcomposer.png'; ?>" alt="<?php esc_html_e( 'Visual Composer', 'porto' ); ?>" /></div>
+											<h5><?php esc_html_e( 'Visual Composer is required.', 'porto' ); ?></h5>
 										</div>
 										<p><?php printf( esc_html__( 'Please go to %1$sPlugins step%2$s and install required plugins.', 'porto' ), '<a href="' . esc_url( $this->get_step_link( 'default_plugins' ) ) . '">', '</a>' ); ?></p>
 									</div>
@@ -1622,6 +1705,9 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 							$demo_sites = array( 'js_composer' => $this->porto_url . $demo );
 							if ( false !== strpos( $demo_details['filter'], 'elementor' ) ) {
 								$demo_sites['elementor'] = $this->porto_url . 'elementor-' . $demo;
+							}
+							if ( false !== strpos( $demo_details['filter'], 'vc' ) ) {
+								$demo_sites['vc'] = $this->porto_url . 'vc-' . $demo;
 							}
 							if ( false !== strpos( $demo_details['filter'], 'gutenberg' ) ) {
 								$demo_sites['gutenberg'] = $this->porto_url . 'gutenberg-' . $demo;
@@ -2073,16 +2159,14 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 			}
 			$old_post = get_post( $post['post_id'] );
 			if ( $old_post ) {
-				if ( $old_post->post_type == $post['post_type'] && ( 'page' == $post['post_type'] || 'block' == $post['post_type'] || 'member' == $post['post_type'] || 'portfolio' == $post['post_type'] || 'event' == $post['post_type'] || 'post' == $post['post_type'] || 'product' == $post['post_type'] ) ) {
+				if ( $old_post->post_type == $post['post_type'] && ( 'page' == $post['post_type'] || 'block' == $post['post_type'] || 'porto_builder' == $post['post_type'] || 'member' == $post['post_type'] || 'portfolio' == $post['post_type'] || 'event' == $post['post_type'] || 'post' == $post['post_type'] || 'product' == $post['post_type'] ) ) {
 					return $post['post_id'];
 				}
 				if ( defined( 'ELEMENTOR_VERSION' ) && 'kit' == get_post_meta( $post['post_id'], '_elementor_template_type', true ) ) {
 					$_GET['force_delete_kit'] = true;
 				}
 				wp_delete_post( $post['post_id'], true );
-				if ( isset( $_GET['force_delete_kit'] ) ) {
-					unset( $_GET['force_delete_kit'] );
-				}
+				unset( $_GET['force_delete_kit'] );
 			}
 
 			// remove posts which have same title and slug
@@ -2101,7 +2185,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 			$old_post = (int) $wpdb->get_var( $wpdb->prepare( $query, $args ) );
 
 			if ( $old_post && get_post_type( $old_post ) == $post['post_type'] ) {
-				if ( 'page' == $post['post_type'] || 'block' == $post['post_type'] || 'member' == $post['post_type'] || 'portfolio' == $post['post_type'] || 'event' == $post['post_type'] || 'post' == $post['post_type'] || 'product' == $post['post_type'] ) {
+				if ( 'page' == $post['post_type'] || 'block' == $post['post_type'] || 'porto_builder' == $post['post_type'] || 'member' == $post['post_type'] || 'portfolio' == $post['post_type'] || 'event' == $post['post_type'] || 'post' == $post['post_type'] || 'product' == $post['post_type'] ) {
 					$processed_duplicates[] = $old_post;
 					update_option( 'porto_import_processed_duplicates', $processed_duplicates );
 					return $old_post;
@@ -2110,9 +2194,7 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 					$_GET['force_delete_kit'] = true;
 				}
 				wp_delete_post( $old_post, true );
-				if ( isset( $_GET['force_delete_kit'] ) ) {
-					unset( $_GET['force_delete_kit'] );
-				}
+				unset( $_GET['force_delete_kit'] );
 			}
 
 			return false;
@@ -2459,7 +2541,10 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 			if ( 'shortcodes' != $demo ) {
 				// update WPBakery content types
 				if ( defined( 'WPB_VC_VERSION' ) ) {
-					update_option( 'wpb_js_content_types', array( 'post', 'page', 'block', 'faq', 'member', 'portfolio', 'event' ) );
+					update_option( 'wpb_js_content_types', array( 'post', 'page', 'porto_builder', 'faq', 'member', 'portfolio', 'event' ) );
+				}
+				if ( defined( 'VCV_VERSION' ) ) {
+					update_option( 'vcv-post-types', array( 'post', 'page', 'porto_builder' ) );
 				}
 
 				$is_shop_demo = ( strpos( '__' . $demo, 'shop' ) === false ) ? false : true;
@@ -2642,6 +2727,12 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 					}
 					update_option( '_elementor_settings_update_time', time() );
 					do_action( 'porto_admin_save_theme_settings' );
+				} elseif ( defined( 'VCV_VERSION' ) && 0 === strpos( $demo, 'vc-' ) ) {
+					$optionsHelper = vchelper( 'Options' );
+					$optionsHelper->deleteTransient( 'vcv:settings:factoryReset:allow' );
+					$optionsHelper->set( 'settingsResetInitiated', time() );
+					vcevent( 'vcv:system:factory:reset' );
+					wp_cache_flush();
 				}
 			} else {
 				// Import widgets

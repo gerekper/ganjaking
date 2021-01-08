@@ -81,7 +81,7 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 		$main_heading_style_inline .= 'color:' . esc_attr( $main_heading_color ) . ';';
 	}
 	if ( $main_heading_margin_bottom || '0' == $main_heading_margin_bottom ) {
-		$unit = trim( preg_replace( '/[0-9.]/', '', $main_heading_margin_bottom ) );
+		$unit = trim( preg_replace( '/[0-9.-]/', '', $main_heading_margin_bottom ) );
 		if ( ! $unit ) {
 			$main_heading_margin_bottom .= 'px';
 		}
@@ -115,7 +115,7 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 		$sub_heading_style_inline .= 'color: ' . esc_attr( $sub_heading_color ) . ';';
 	}
 	if ( $sub_heading_margin_bottom || '0' == $sub_heading_margin_bottom ) {
-		$unit = trim( preg_replace( '/[0-9.]/', '', $sub_heading_margin_bottom ) );
+		$unit = trim( preg_replace( '/[0-9.-]/', '', $sub_heading_margin_bottom ) );
 		if ( ! $unit ) {
 			$sub_heading_margin_bottom .= 'px';
 		}

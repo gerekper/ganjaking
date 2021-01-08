@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoInfoBox": {
+      "settings": {
+        "name": "Porto Info Box",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-infobox.jpg",
+        "metaDescription": "Porto VC element to display icon boxes"
+      }
+    }
+  },
+  "categories": {
+    "Icon": {
+      "elements": [
+        "portoInfoBox"
+      ]
+    }
+  }
+}

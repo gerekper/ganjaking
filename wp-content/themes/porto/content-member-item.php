@@ -240,6 +240,9 @@ if ( count( $featured_images ) ) :
 					?>
 					</span>
 				<?php endif; ?>
+				<?php if ( 4 == $view_type ) : ?>
+					<a href="<?php the_permalink(); ?>" class="text-color-dark font-weight-bold text-decoration-none font-size-sm view-more"><?php esc_html_e( 'VIEW MORE', 'porto' ); ?> <i class="fas fa-arrow-right ml-1"></i></a>
+				<?php endif; ?>
 				<?php
 				// Social Share
 				if ( isset( $social_links_adv_pos ) && ! $social_links_adv_pos ) {

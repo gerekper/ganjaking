@@ -1,4 +1,4 @@
-jQuery(document).ready(function($){
+jQuery( function( $ ) {
 
 	$.extend({
 		getParameterByName: function(name) {

@@ -75,9 +75,15 @@ if ( 'none' !== $icon_style ) {
 	}
 }
 if ( 'advanced' == $icon_style ) {
-	$style .= 'border-style:' . esc_attr( $icon_border_style ) . ';';
-	$style .= 'border-color:' . esc_attr( $icon_color_border ) . ';';
-	$style .= 'border-width:' . esc_attr( $icon_border_size ) . 'px;';
+	if ( $icon_border_style ) {
+		$style .= 'border-style:' . esc_attr( $icon_border_style ) . ';';
+	}
+	if ( $icon_color_border ) {
+		$style .= 'border-color:' . esc_attr( $icon_color_border ) . ';';
+	}
+	if ( $icon_border_size ) {
+		$style .= 'border-width:' . esc_attr( $icon_border_size ) . 'px;';
+	}
 	$style .= 'width:' . esc_attr( $icon_border_spacing ) . 'px;';
 	$style .= 'height:' . esc_attr( $icon_border_spacing ) . 'px;';
 	$style .= 'line-height:' . esc_attr( $icon_border_spacing ) . 'px;';

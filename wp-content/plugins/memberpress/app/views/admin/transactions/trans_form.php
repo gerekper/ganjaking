@@ -4,9 +4,11 @@
   <th scope="row"><label for="trans_num"><?php _e('Transaction Number*:', 'memberpress'); ?></label></th>
   <td>
     <input type="text" name="trans_num" id="trans_num" value="<?php echo (empty($txn->trans_num))?uniqid():$txn->trans_num; ?>" class="regular-text" />
-    <p class="description"><?php _e('A unique Invoice ID for this Transaction. Only edit this if you absolutely have to.', 'memberpress'); ?></p>
+    <p class="description"><?php _e('A unique ID for this Transaction. Only edit this if you absolutely have to.', 'memberpress'); ?></p>
   </td>
 </tr>
+
+<?php MeprHooks::do_action( 'mepr-admin-txn-form-before-user', $txn ); ?>
 
 <tr valign="top">
   <th scope="row"><label for="user_login"><?php _e('User*:', 'memberpress'); ?></label></th>

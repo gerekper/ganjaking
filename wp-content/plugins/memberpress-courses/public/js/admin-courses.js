@@ -32,8 +32,7 @@
           return;
         }
 
-        // CourseEditor.showPrompt(url);
-        e.preventDefault();
+        CourseEditor.showPrompt(url);
       });
 
     }

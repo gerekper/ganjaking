@@ -68,12 +68,14 @@ $featured_images = porto_get_featured_images();
 					?>
 				</div>
 			</article>
-
-			<div class="<?php echo 'wide-left-sidebar' == $porto_layout || 'wide-right-sidebar' == $porto_layout || 'wide-both-sidebar' == $porto_layout ? 'm-t-lg m-b-xl' : ''; ?>">
 			<?php
-			$share = porto_get_meta_value( 'page_share' );
-			if ( $porto_settings['share-enable'] && 'no' !== $share && ( 'yes' === $share || ( 'yes' !== $share && $porto_settings['page-share'] ) ) && ( isset( $porto_settings['page-share-pos'] ) && ! $porto_settings['page-share-pos'] ) ) :
+			$share           = porto_get_meta_value( 'page_share' );
+			$share_enabled   = $porto_settings['share-enable'] && 'no' !== $share && ( 'yes' === $share || ( 'yes' !== $share && $porto_settings['page-share'] ) ) && ( isset( $porto_settings['page-share-pos'] ) && ! $porto_settings['page-share-pos'] );
+			$comment_enabled = $porto_settings['page-comment'] || comments_open();
+			if ( $share_enabled || $comment_enabled ) :
 				?>
+			<div class="<?php echo 'wide-left-sidebar' == $porto_layout || 'wide-right-sidebar' == $porto_layout || 'wide-both-sidebar' == $porto_layout ? 'm-t-lg m-b-xl' : ''; ?>">
+				<?php if ( $share_enabled ) : ?>
 				<div class="page-share<?php echo 'widewidth' == $porto_layout ? ' container' : ''; ?>">
 					<?php if ( 'without-icon' == $porto_settings['post-title-style'] ) : ?>
 
@@ -82,16 +84,16 @@ $featured_images = porto_get_featured_images();
 					<?php endif; ?>
 					<?php get_template_part( 'share' ); ?>
 				</div>
-			<?php endif; ?>
+				<?php endif; ?>
 
-			<?php if ( $porto_settings['page-comment'] || comments_open() ) : ?>
 				<?php
-				wp_reset_postdata();
-				comments_template();
+				if ( $comment_enabled ) {
+					wp_reset_postdata();
+					comments_template();
+				}
 				?>
-			<?php endif; ?>
 			</div>
-
+			<?php endif; ?>
 		<?php endwhile; ?>
 
 	</div>

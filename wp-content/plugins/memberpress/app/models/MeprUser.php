@@ -820,6 +820,8 @@ class MeprUser extends MeprBaseModel {
     if(!MeprUtils::is_user_logged_in()) {
       // Don't validate username shiz if there's no username yo!
       if(!$mepr_options->username_is_email) {
+        $user_login = sanitize_user($user_login);
+
         if(empty($user_login)) {
           $errors['user_login'] = __('Username must not be blank','memberpress');
         }
@@ -1368,6 +1370,16 @@ class MeprUser extends MeprBaseModel {
     $country  = get_user_meta( $this->ID, 'mepr-address-country', true);
     $postcode = get_user_meta( $this->ID, 'mepr-address-zip', true);
 
+    // To update pricing terms string with AJAX, we need to send the POST address
+    // This only runs when running AJAX, that's the only place the two actions are set
+    if( isset($_POST['action']) && ($_POST['action'] == "mepr_update_price_string" || $_POST['action'] == "mepr_update_spc_invoice_table") ){
+      $one      = sanitize_text_field($_POST['mepr_address_one']);
+      $city     = sanitize_text_field($_POST['mepr_address_city']);
+      $state    = sanitize_text_field($_POST['mepr_address_state']);
+      $country  = sanitize_text_field($_POST['mepr_address_country']);
+      $postcode = sanitize_text_field($_POST['mepr_address_zip']);
+    }
+
     return (!empty($country) && !empty($postcode) && !empty($state) && !empty($city) && !empty($one));
   }
 
@@ -1402,22 +1414,21 @@ class MeprUser extends MeprBaseModel {
     if($this->address_is_set()) {
       if($mepr_options->attr('tax_calc_location')=='customer' ||
          MeprHooks::apply_filters('mepr-tax-rate-use-customer-address', false, $this)) {
-        $country  = isset($_POST['mepr_address_country']) && $_POST['mepr_address_country'] != $this->address('country') ? $_POST['mepr_address_country'] : $this->address('country');
-        $state    = $this->address('state');
-        $postcode = $this->address('zip');
-        $city     = $this->address('city');
-        $street   = sprintf('%s %s', $this->address('one'), $this->address('two'));
-      }
-    }
-    elseif( !$this->address_is_set() && isset( $_POST['mepr_address_country'] ) ) { // Enables VAT calc for SPC Invoice
-      if( $mepr_options->attr('tax_calc_location')=='customer' ||
-         MeprHooks::apply_filters('mepr-tax-rate-use-customer-address', false, $this) ){
 
-        $country  = sanitize_text_field($_POST['mepr_address_country']);
-        $state    = sanitize_text_field($_POST['mepr_address_state']);
-        $postcode = sanitize_text_field($_POST['mepr_address_zip']);
-        $city     = sanitize_text_field($_POST['mepr_address_city']);
-        $street   = sprintf('%s %s', sanitize_text_field($_POST['mepr_address_one']), sanitize_text_field($_POST['mepr_address_two']));
+        if( isset($_POST['action']) && ($_POST['action'] == "mepr_update_price_string" || $_POST['action'] == "mepr_update_spc_invoice_table") ){
+          $country  = sanitize_text_field($_POST['mepr_address_country']);
+          $state    = sanitize_text_field($_POST['mepr_address_state']);
+          $postcode = sanitize_text_field($_POST['mepr_address_zip']);
+          $city     = sanitize_text_field($_POST['mepr_address_city']);
+          $street   = sprintf('%s %s', sanitize_text_field($_POST['mepr_address_one']), sanitize_text_field($_POST['mepr_address_two']));
+        }
+        else{
+          $country  = $this->address('country');
+          $state    = $this->address('state');
+          $postcode = $this->address('zip');
+          $city     = $this->address('city');
+          $street   = sprintf('%s %s', $this->address('one'), $this->address('two'));
+        }
       }
     }
     elseif($mepr_options->attr('tax_default_address')=='none') {
@@ -1436,6 +1447,15 @@ class MeprUser extends MeprBaseModel {
     // We assume that we're dealing with the subtotal
     $tax_amount = MeprUtils::format_float(($subtotal*($rate->tax_rate/100.00)), $num_decimals);
     $total = MeprUtils::format_float(($subtotal + $tax_amount), $num_decimals);
+
+    if (
+      $rate->customer_type === 'business' &&
+      MeprTransactionsHelper::is_charging_business_net_price()
+    ) {
+      $total = $subtotal;
+      $subtotal = $subtotal - $tax_amount;
+      $tax_amount = 0;
+    }
 
     return array(MeprUtils::format_float($total - $tax_amount), $total, $rate->tax_rate, $tax_amount, $rate->tax_desc, $rate->tax_class);
   }

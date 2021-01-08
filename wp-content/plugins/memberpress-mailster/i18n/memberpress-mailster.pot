@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MemberPress Mailster plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MemberPress Mailster 1.1.1\n"
+"Project-Id-Version: MemberPress Mailster 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-mailster\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-03-24T12:48:15-05:00\n"
+"POT-Creation-Date: 2020-12-10T18:25:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: memberpress-mailster\n"
@@ -83,26 +83,26 @@ msgstr ""
 msgid "Mailster Plugin not found. You must install the %sMailster Plugin%s to use this integration."
 msgstr ""
 
-#: MpMailster.php:151
+#: MpMailster.php:159
 msgid "We Respect Your Privacy"
 msgstr ""
 
-#: MpMailster.php:216
+#: MpMailster.php:224
 msgid "Mailster list for this Membership"
 msgstr ""
 
-#: MpMailster.php:219
+#: MpMailster.php:227
 msgid "Enable Membership Mailster List"
 msgstr ""
 
-#: MpMailster.php:220
+#: MpMailster.php:228
 msgid "If this is set the member will be added to this list when their payment is completed for this membership. If the member cancels or you refund their subscription, they will be removed from the list automatically."
 msgstr ""
 
-#: MpMailster.php:224
+#: MpMailster.php:232
 msgid "Mailster List: "
 msgstr ""
 
-#: MpMailster.php:311
+#: MpMailster.php:319
 msgid "Sign Up for the %s Newsletter"
 msgstr ""

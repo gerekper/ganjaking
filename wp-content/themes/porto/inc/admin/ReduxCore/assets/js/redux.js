@@ -987,10 +987,10 @@
         switch ( operation ) {
             case '=':
             case 'equals':
-                if ( $.isArray( parentValue ) ) {
+                if ( Array.isArray( parentValue ) ) {
                     $( parentValue[0] ).each(
                         function( idx, val ) {
-                            if ( $.isArray( checkValue ) ) {
+                            if ( Array.isArray( checkValue ) ) {
                                 $( checkValue ).each(
                                     function( i, v ) {
                                         if ( val == v ) {
@@ -1008,7 +1008,7 @@
                         }
                     );
                 } else {
-                    if ( $.isArray( checkValue ) ) {
+                    if ( Array.isArray( checkValue ) ) {
                         $( checkValue ).each(
                             function( i, v ) {
                                 if ( parentValue == v ) {
@@ -1026,10 +1026,10 @@
 
             case '!=':
             case 'not':
-                if ( $.isArray( parentValue ) ) {
+                if ( Array.isArray( parentValue ) ) {
                     $( parentValue[0] ).each(
                         function( idx, val ) {
-                            if ( $.isArray( checkValue ) ) {
+                            if ( Array.isArray( checkValue ) ) {
                                 $( checkValue ).each(
                                     function( i, v ) {
                                         if ( val != v ) {
@@ -1047,7 +1047,7 @@
                         }
                     );
                 } else {
-                    if ( $.isArray( checkValue ) ) {
+                    if ( Array.isArray( checkValue ) ) {
                         $( checkValue ).each(
                             function( i, v ) {
                                 if ( parentValue != v ) {
@@ -1112,7 +1112,7 @@
                     );
                 }
 
-                if ( $.isArray( checkValue ) ) {
+                if ( Array.isArray( checkValue ) ) {
                     $( checkValue ).each(
                         function( idx, val ) {
                             var breakMe = false;
@@ -1167,7 +1167,7 @@
                     checkValue = arr;
                 }
 
-                if ( $.isArray( checkValue ) ) {
+                if ( Array.isArray( checkValue ) ) {
                     $( checkValue ).each(
                         function( idx, val ) {
                             if ( parentValue.toString().indexOf( val ) === -1 ) {

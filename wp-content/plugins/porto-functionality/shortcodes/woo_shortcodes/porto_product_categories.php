@@ -70,7 +70,17 @@ function porto_load_product_categories_shortcode() {
 							'value'   => array( 'products-slider', 'grid' ),
 						),
 						'std'        => '4',
-						'value'      => porto_sh_commons( 'products_columns' ),
+						'value'      => array(
+							'1' => 1,
+							'2' => 2,
+							'3' => 3,
+							'4' => 4,
+							'5' => 5,
+							'6' => 6,
+							'7' => 7,
+							'8' => 8,
+							'9' => 9,
+						),
 					),
 					array(
 						'type'       => 'dropdown',

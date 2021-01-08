@@ -48,6 +48,14 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 		$slider_options['nav_type']['condition']['navigation']       = 'yes';
 		$slider_options['autoplay_timeout']['condition']['autoplay'] = 'yes';
 
+		$attributes = array( '' => '' );
+		if ( class_exists( 'Woocommerce' ) ) {
+			$attributes_tax = wc_get_attribute_taxonomies();
+			foreach ( $attributes_tax as $attribute ) {
+				$attributes[ $attribute->attribute_name ] = $attribute->attribute_label;
+			}
+		}
+
 		$this->start_controls_section(
 			'section_products',
 			array(
@@ -133,6 +141,41 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
 			)
 		);
+
+		$this->add_control(
+			'attribute',
+			array(
+				'type'    => Controls_Manager::SELECT,
+				'label'   => __( 'Attribute', 'porto-functionality' ),
+				'options' => $attributes,
+				'default' => '',
+			)
+		);
+		foreach ( $attributes as $a_name => $a_label ) {
+			if ( empty( $a_name ) ) {
+				continue;
+			}
+			$terms = get_terms( wc_attribute_taxonomy_name( $a_name ), array( 'hide_empty' => false ) );
+			$attrs = array();
+			if ( ! empty( $terms ) ) {
+				foreach ( $terms as $term ) {
+					$attrs[ $term->slug ] = $term->name;
+				}
+			}
+			$this->add_control(
+				'filter_' . esc_html( $a_name ),
+				array(
+					'type'      => Controls_Manager::SELECT2,
+					'label'     => esc_html( $a_label ),
+					'options'   => $attrs,
+					'multiple'  => true,
+					'default'   => '',
+					'condition' => array(
+						'attribute' => esc_html( $a_name ),
+					),
+				)
+			);
+		}
 
 		$this->end_controls_section();
 
@@ -276,6 +319,7 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 					'popular' => __( 'Popular', 'porto-functionality' ),
 					'date'    => __( 'Date', 'porto-functionality' ),
 					'rating'  => __( 'Rating', 'porto-functionality' ),
+					'onsale'  => __( 'On Sale', 'porto-functionality' ),
 				),
 				'multiple' => true,
 			)
@@ -310,6 +354,17 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'label'     => __( 'Title for "Sort by Rating"', 'woocommerce' ),
 				'condition' => array(
 					'show_sort' => 'rating',
+				),
+			)
+		);
+
+		$this->add_control(
+			'show_onsale_title',
+			array(
+				'type'      => Controls_Manager::TEXT,
+				'label'     => __( 'Title for "On Sale"', 'woocommerce' ),
+				'condition' => array(
+					'show_sort' => 'onsale',
 				),
 			)
 		);

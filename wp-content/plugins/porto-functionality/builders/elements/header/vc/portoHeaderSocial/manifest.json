@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoHeaderSocial": {
+      "settings": {
+        "name": "Porto Header Social Icons",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-hb.jpg",
+        "metaDescription": "Porto VC element to display social icons in header"
+      }
+    }
+  },
+  "categories": {
+    "Header & Footer": {
+      "elements": [
+        "portoHeaderSocial"
+      ]
+    }
+  }
+}

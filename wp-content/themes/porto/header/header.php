@@ -7,6 +7,8 @@ if ( empty( $porto_layout ) ) {
 
 if ( 'header_builder' == $porto_settings['header-type-select'] ) {
 	get_template_part( 'header/header_builder' );
+} elseif ( 'header_builder_p' == $porto_settings['header-type-select'] ) {
+	get_template_part( 'header/header_builder_p' );
 } else {
 	get_template_part( 'header/header_' . porto_get_header_type() );
 }

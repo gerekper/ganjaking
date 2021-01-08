@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoCarousel": {
+      "settings": {
+        "name": "Porto Carousel",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-porto-carousel.jpg",
+        "metaDescription": "A multiple page slider that you can contain any type of content by using Porto Carousel"
+      }
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoCarousel"
+      ]
+    }
+  }
+}

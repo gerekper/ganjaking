@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
 			
 				if ( is_array( $options ) ):
 					foreach ( $options as $option ) :?>
-                        <?php
+                        <?php 
                         $checked = FALSE;
 						if ( isset( $option['selected'] ) && isset( $option['current'] ) ) {
 							if ( $option['selected'] === $option['current'] || $quantity_min > 0 ) {

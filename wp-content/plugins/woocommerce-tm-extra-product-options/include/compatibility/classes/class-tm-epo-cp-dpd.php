@@ -513,7 +513,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @since 1.0
 	 */
-	public function wc_epo_product_price_rules( $price = array(), $product ) {
+	public function wc_epo_product_price_rules( $price = array(), $product = null ) {
 		if ( class_exists( 'RP_WCDPD' ) ) {
 			$check_price = apply_filters( 'wc_epo_discounted_price', NULL, $product, NULL );
 			if ( $check_price ) {
@@ -966,7 +966,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	 *
 	 * @since 1.0
 	 */
-	public function get_RP_WCDPD( $field_price = NULL, $product, $cart_item_key = NULL, $force = FALSE ) {
+	public function get_RP_WCDPD( $field_price = NULL, $product = null, $cart_item_key = NULL, $force = FALSE ) {
 		$price = NULL;
 
 		if ( class_exists( 'RP_WCDPD' ) && class_exists( 'RP_WCDPD_Pricing' ) ) {

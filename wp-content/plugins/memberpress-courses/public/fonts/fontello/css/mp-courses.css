@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'mp-courses';
-  src: url('../font/mp-courses.eot?48583227');
-  src: url('../font/mp-courses.eot?48583227#iefix') format('embedded-opentype'),
-       url('../font/mp-courses.woff2?48583227') format('woff2'),
-       url('../font/mp-courses.woff?48583227') format('woff'),
-       url('../font/mp-courses.ttf?48583227') format('truetype'),
-       url('../font/mp-courses.svg?48583227#mp-courses') format('svg');
+  src: url('../font/mp-courses.eot?60113393');
+  src: url('../font/mp-courses.eot?60113393#iefix') format('embedded-opentype'),
+       url('../font/mp-courses.woff2?60113393') format('woff2'),
+       url('../font/mp-courses.woff?60113393') format('woff'),
+       url('../font/mp-courses.ttf?60113393') format('truetype'),
+       url('../font/mp-courses.svg?60113393#mp-courses') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'mp-courses';
-    src: url('../font/mp-courses.svg?48583227#mp-courses') format('svg');
+    src: url('../font/mp-courses.svg?60113393#mp-courses') format('svg');
   }
 }
 */
@@ -73,6 +73,7 @@
 .mpcs-ok-circled:before { content: '\e80f'; } /* '' */
 .mpcs-th-list:before { content: '\e810'; } /* '' */
 .mpcs-arrow-narrow-left-(1):before { content: '\e811'; } /* '' */
+.mpcs-lock:before { content: '\e812'; } /* '' */
 .mpcs-menu:before { content: '\f0c9'; } /* '' */
 .mpcs-angle-left:before { content: '\f104'; } /* '' */
 .mpcs-angle-right:before { content: '\f105'; } /* '' */

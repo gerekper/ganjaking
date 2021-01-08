@@ -90,7 +90,7 @@
         }
         .mobile-sidebar {
             z-index: 9000;
-            @include transition(transform .3s ease-in-out);
+            @include transition(transform .3s);
             transform: translateX(0);
             .sidebar-toggle {
                 i {

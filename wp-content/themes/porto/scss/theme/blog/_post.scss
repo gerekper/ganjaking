@@ -761,7 +761,6 @@ article {
 .post-date > time {
     display: none;
 }
-
 @media (min-width: 992px) {
     .single-post {
         .post-medium .post-media {
@@ -769,4 +768,40 @@ article {
             width: 40%;
         }
     }
+}
+
+.post-modern .entry-title a {
+    color: inherit;
+}
+.post-modern .btn-readmore {
+    font-size: .8125rem;
+    font-weight: 600;
+    letter-spacing: -.025em;
+    text-transform: uppercase
+}
+.post-modern .post-meta a:not(:hover) {
+    color: inherit
+}
+.post-modern .post-meta > span:after {
+    content: '|'; margin-#{$left}: 8px
+}
+.post-modern .post-meta > span:last-child:after {
+    content: none
+}
+.blog-posts .post-modern {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    .entry-title {
+        font-size: 1.875rem;
+        font-weight: 700;
+        letter-spacing: -.025em;
+        margin-bottom: .25rem
+    }
+}
+.blog-posts .post-modern .post-meta,
+.single-post .post-modern .post-meta {
+    margin-bottom: 1rem;
+    font-size: .6875rem;
+    text-transform: uppercase;
+    color: #999
 }

@@ -112,14 +112,14 @@
             $('.porto-drop-item').each(function() {
                 var itemId = $(this).data('id');
                 if (itemId && wp.customize.instance(itemId) && wp.customize.instance(itemId).get()) {
-                    var itemArr = $.parseJSON(wp.customize.instance(itemId).get());
+                    var itemArr = JSON.parse(wp.customize.instance(itemId).get());
                     generateElementsFromArray(itemArr, itemId, 'desktop', 'lg');
                 }
             });
             $('.porto-drop-item-mobile').each(function() {
                 var itemId = $(this).data('id');
                 if (itemId && wp.customize.instance(itemId) && wp.customize.instance(itemId).get()) {
-                    var itemArr = $.parseJSON(wp.customize.instance(itemId).get());
+                    var itemArr = JSON.parse(wp.customize.instance(itemId).get());
                     generateElementsFromArray(itemArr, itemId, 'mobile', 'sm');
                 }
             });
@@ -197,7 +197,8 @@
             if ($(this).val()) {
                 var $this = $(this);
                 $('.porto-header-builder').addClass('active');
-                $('.porto_delete_header_layout_link, #customize-control-porto_header_layouts_custom_css').show();
+                $('#customize-control-porto_header_layouts_custom_css').show();
+                $('.porto_delete_header_layout_link').removeClass('disabled');
                 $this.attr('disabled', 'disabled');
                 $.ajax({
                     url: customizer_admin_vars.ajax_url,
@@ -210,12 +211,15 @@
                         }
                         resetHeaderBuilderElements(response);
                         wp.customize.instance('porto_header_builder[preset]').set('');
+                    },
+                    complete: function() {
                         $this.removeAttr('disabled');
                     }
                 });
             } else {
                 $('.porto-header-builder').removeClass('active');
-                $('.porto_delete_header_layout_link, #customize-control-porto_header_layouts_custom_css').hide();
+                $('#customize-control-porto_header_layouts_custom_css').hide();
+                $('.porto_delete_header_layout_link').addClass('disabled');
             }
         });
         var activeSettingObject = null;
@@ -397,7 +401,7 @@
         $('.porto_header_presets > h3').on('click', function(e) {
             $(this).parent().toggleClass('opened');
         });
-        js_porto_hb_vars.header_builder_presets = $.parseJSON(js_porto_hb_vars.header_builder_presets);
+        js_porto_hb_vars.header_builder_presets = JSON.parse(js_porto_hb_vars.header_builder_presets);
         $('.porto_header_presets > img').on('click', function() {
             if ($(this).hasClass('active')) return;
             $(this).siblings('img').removeClass('active');

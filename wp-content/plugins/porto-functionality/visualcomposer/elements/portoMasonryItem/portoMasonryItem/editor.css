@@ -1,0 +1,21 @@
+.vce-porto-masonry-item {
+  position: relative;
+  min-height: 10em;
+}
+.vce-porto-masonry-item .vcv-ui-blank-row-element-control {
+  background: rgba(0,160,210,0.05);
+  border: 2px dotted rgba(0,160,210,0.5);
+}
+.vce-porto-masonry-item .vcv-ui-blank-row-element-control:hover .vcv-ui-blank-row-element-control-icon {
+  opacity: 1;
+}
+.vce-porto-masonry-item .vcv-ui-blank-row-element-control-icon {
+  opacity: 0.4;
+}
+.vce-porto-masonry-item rect {
+  stroke: #00a0d2;
+}
+.vce-porto-masonry-item polygon {  
+  fill: #00a0d2;
+}
+.vce-porto-masonry-item .vcv-row-control-container { opacity: 1; }

@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoSpHeading": {
+			"settings": {
+				"name": "Single Product Title",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display single product title"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoSpHeading"
+			]
+		}
+	}
+}

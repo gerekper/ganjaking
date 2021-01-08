@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	'use strict';
 
 	var renewals_field = document.querySelector( '.wcs_number_payments_field' ),

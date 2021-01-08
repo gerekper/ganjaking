@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle name="MemberPress Courses">
+  <domain name="memberpress-courses">
+    <project name="MemberPress Courses" slug="memberpress-courses">
+      <source>
+        <directory>.</directory>
+      </source>
+      <target>
+        <directory>i18n</directory>
+      </target>
+      <template locked="true">
+        <file>i18n/memberpress-courses.pot</file>
+      </template>
+    </project>
+  </domain>
+  <exclude>
+    <directory>vendor</directory>
+    <directory>tests</directory>
+    <directory>script</directory>
+    <directory>node_modules</directory>
+  </exclude>
+</bundle>

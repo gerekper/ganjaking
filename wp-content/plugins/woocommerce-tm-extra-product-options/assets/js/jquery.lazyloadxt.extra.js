@@ -47,7 +47,9 @@
 			visibleOnly: true
 		},
 		$window = $( window ),
-		$isFunction = $.isFunction,
+		$isFunction = function( f ) {
+			return typeof f === 'function';
+		},
 		$extend = $.extend,
 		$data =
 			$.data ||
@@ -328,7 +330,7 @@
 
 	$( document ).on( 'lazyshow', 'video', function( e, $el ) {
 		var srcAttr = $el.lazyLoadXT.srcAttr,
-			isFuncSrcAttr = $.isFunction( srcAttr ),
+			isFuncSrcAttr = typeof srcAttr === 'function',
 			changed = false;
 
 		$el.attr( 'poster', $el.attr( options.videoPoster ) );

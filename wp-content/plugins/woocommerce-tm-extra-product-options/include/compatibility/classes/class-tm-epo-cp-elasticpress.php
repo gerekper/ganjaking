@@ -54,7 +54,14 @@ final class THEMECOMPLETE_EPO_CP_elasticpress {
 		add_filter( 'ep_skip_query_integration', array( $this, 'ep_skip_query_integration' ), 10, 2 );
 
 	}
-
+	
+	/**
+	 * ep_skip_query_integration
+	 *
+	 * @param  mixed $ret
+	 * @param  mixed $query
+	 * @return void
+	 */
 	public function ep_skip_query_integration( $ret, $query ) {
 
 		$post_type = $query->get( 'post_type', FALSE );

@@ -1,0 +1,8 @@
+.vce-element-porto-carousel {
+  min-height: 5em;
+  margin-bottom: 1em;
+  border: 2px dotted rgba(0,160,210,.5);
+}
+.vc-porto-carousel-wrapper {
+  margin-bottom: 0
+}

@@ -154,7 +154,7 @@ class MeprAddonUpdates {
       return $mepr_options->mothership_license;
     }
     else if(!empty($this->options_key)) {
-      return '86007fe7c96b81e21230c92332cec962';
+      return get_option($this->options_key);
     }
 
     return false;

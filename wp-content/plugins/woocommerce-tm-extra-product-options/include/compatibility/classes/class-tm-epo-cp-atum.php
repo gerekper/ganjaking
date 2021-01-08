@@ -67,7 +67,7 @@ final class THEMECOMPLETE_EPO_CP_atum {
 	public function wc_epo_no_order_get_items($ret) {
 		global $post;
 
-		if ( isset($_POST['action']) && THEMECOMPLETE_EPO_HELPER()->str_startswith( $_POST['action'], 'atum_' ) ){
+		if ( isset($_REQUEST['action']) && THEMECOMPLETE_EPO_HELPER()->str_startswith( $_REQUEST['action'], 'atum_' ) ){
 			$ret = TRUE;
 		}
 

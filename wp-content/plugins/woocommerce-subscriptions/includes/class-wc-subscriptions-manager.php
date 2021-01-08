@@ -185,7 +185,9 @@ class WC_Subscriptions_Manager {
 			$subscription = wcs_get_subscription( $subscription_id );
 		}
 
-		$subscription->update_status( 'cancelled' );
+		if ( $subscription ) {
+			$subscription->update_status( 'cancelled' );
+		}
 	}
 
 	/**
@@ -406,7 +408,7 @@ class WC_Subscriptions_Manager {
 		if ( ! empty( $subscriptions ) ) {
 
 			if ( ! is_object( $order ) ) {
-				$order = new WC_Order( $order );
+				$order = wc_get_order( $order );
 			}
 
 			// Set subscription status to failed and log failure
@@ -897,12 +899,25 @@ class WC_Subscriptions_Manager {
 	 * @since 2.0
 	 */
 	public static function trash_users_subscriptions( $user_id ) {
-
 		$subscriptions = wcs_get_users_subscriptions( $user_id );
+		$current_user  = is_user_logged_in() ? wp_get_current_user() : null;
 
 		if ( ! empty( $subscriptions ) ) {
 
 			foreach ( $subscriptions as $subscription ) {
+				$subscription_number = $subscription->get_order_number();
+
+				// Before deleting the subscription, add an order note to the related orders.
+				foreach ( $subscription->get_related_orders( 'all', array( 'parent', 'renewal', 'switch' ) ) as $order ) {
+					if ( $current_user ) {
+						// Translators: 1: The subscription ID number. 2: The current user's username.
+						$order->add_order_note( sprintf( __( 'The related subscription #%1$s has been deleted after the customer was deleted by %2$s.', 'woocommerce-subscriptions' ), $subscription_number, $current_user->display_name ) );
+					} else {
+						// Translators: Placeholder is the subscription ID number.
+						$order->add_order_note( sprintf( __( 'The related subscription #%s has been deleted after the customer was deleted.', 'woocommerce-subscriptions' ), $subscription_number ) );
+					}
+				}
+
 				wp_delete_post( $subscription->get_id() );
 			}
 		}

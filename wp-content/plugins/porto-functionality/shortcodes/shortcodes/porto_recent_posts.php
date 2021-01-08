@@ -153,6 +153,12 @@ function porto_load_recent_posts_shortcode() {
 				),
 				array(
 					'type'       => 'textfield',
+					'heading'    => __( 'Items to show on Large Desktop', 'porto-functionality' ),
+					'param_name' => 'items',
+					'value'      => '',
+				),
+				array(
+					'type'       => 'textfield',
 					'heading'    => __( 'Items to show on Desktop', 'porto-functionality' ),
 					'param_name' => 'items_desktop',
 					'value'      => '4',

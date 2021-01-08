@@ -140,10 +140,10 @@ function porto_breadcrumbs() {
 				$output .= porto_breadcrumb_leaf();
 			}
 		} elseif ( class_exists( 'WeDevs_Dokan' ) ) {
-			$arr = apply_filters( 'woocommerce_get_breadcrumb', array() );
+			$arr   = apply_filters( 'woocommerce_get_breadcrumb', array() );
 			$index = 0;
-			foreach( $arr as $crumb ) {
-				if ( $index == count( $arr ) - 1) {
+			foreach ( $arr as $crumb ) {
+				if ( $index == count( $arr ) - 1 ) {
 					$output .= esc_html( $crumb[0] );
 				} else {
 					$output .= porto_breadcrumbs_link( $crumb[0], $crumb[1] );
@@ -504,3 +504,23 @@ function porto_breadcrumbs_taxonomies_link() {
 
 	return $output;
 }
+
+
+add_action(
+	'init',
+	function() {
+		global $porto_settings;
+		$action_name = 'porto_after_banner';
+		if ( isset( $porto_settings['breadcrumbs-pos'] ) && 'inner_top' == $porto_settings['breadcrumbs-pos'] ) {
+			$action_name = 'porto_before_content_inner_top';
+		}
+		add_action(
+			$action_name,
+			function() {
+				do_action( 'porto_before_breadcrumbs' );
+				get_template_part( 'breadcrumbs' );
+				do_action( 'porto_before_main' );
+			}
+		);
+	}
+);

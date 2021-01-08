@@ -21,7 +21,7 @@ $porto_woo_version = porto_get_woo_version_number();
 	<div class="add-links<?php echo ! $wishlist && ! $quickview ? ' no-effect' : ''; ?> clearfix">
 		<?php
 		global $porto_settings;
-		$viewcart_style = 'viewcart-style-' . ( $porto_settings['add-to-cart-notification'] ? '2' : '1' );
+		$viewcart_style = 'viewcart-style-' . ( $porto_settings['add-to-cart-notification'] ? (int) $porto_settings['add-to-cart-notification'] : '1' );
 		$catalog_mode   = false;
 		if ( $porto_settings['catalog-enable'] ) {
 			if ( $porto_settings['catalog-admin'] || ( ! $porto_settings['catalog-admin'] && ! ( current_user_can( 'administrator' ) && is_user_logged_in() ) ) ) {

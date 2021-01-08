@@ -18,7 +18,7 @@ if ( version_compare( $porto_woo_version, '2.6', '<' ) ) {
 }
 
 ?>
-<h3 class="account-sub-title d-none d-md-block mb-3 mt-2"><i class="Simple-Line-Icons-social-dropbox align-middle m-r-sm"></i><?php esc_html_e( 'Order', 'woocommerce' ); ?> #<?php echo esc_html( $order->get_order_number() ); ?></h3>
+<h3 class="account-sub-title d-none d-md-block mb-3 mt-2"><i class="Simple-Line-Icons-social-dropbox align-middle m-r-sm"></i><?php printf( esc_html__( 'Order #%s', 'porto' ), esc_html( $order->get_order_number() ) ); ?></h3>
 <?php if ( version_compare( $porto_woo_version, '2.6', '>=' ) ) : ?>
 	<div class="d-flex flex-wrap order-info m-b-xl m-t-xs p-t-lg">
 		<div class="order-item">
@@ -75,7 +75,7 @@ if ( version_compare( $porto_woo_version, '2.6', '<' ) ) {
 					<p class="woocommerce-OrderUpdate-meta meta"><?php echo date_i18n( esc_html__( 'l jS \o\f F Y, h:ia', 'porto' ), strtotime( $note->comment_date ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
 
 					<div class="woocommerce-OrderUpdate-description description">
-						<?php echo function_exists( 'porto_shortcode_format_content' ) ? porto_shortcode_format_content( $note->comment_content ) : wp_kses_post( $note->comment_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<?php echo function_exists( 'porto_shortcode_format_content' ) ? porto_shortcode_format_content( $note->comment_content ) : wpautop( wptexturize( $note->comment_content ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</div>
 
 					<div class="clear"></div>

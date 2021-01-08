@@ -11,6 +11,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
     add_action('wp_logout', array($this,'logout_redirect_override'), 99999);
     add_filter('init', array($this,'override_wp_login_url_init'));
     add_action('init', array($this, 'process_reset_password_form'));
+    add_action('init', array($this, 'load_shortcode_resources'));
   }
 
   public function logout_link($atts) {
@@ -45,6 +46,13 @@ class MeprLoginCtrl extends MeprBaseCtrl {
   public function render_login_form($atts=array(), $content='', $shortcode=true) {
     global $post;
     $mepr_options = MeprOptions::fetch();
+
+    //Enqueue styles and scripts for show/hide password
+    wp_enqueue_style( 'dashicons' );
+    wp_enqueue_style( 'mp-login-css' );
+
+    wp_enqueue_script('mepr-login-i18n');
+    wp_enqueue_script('mepr-login-js');
 
     if(isset($atts['redirect_to']) && !empty($atts['redirect_to'])) {
       // Security fix. Restrict redirect_to param to safe URLs PT#154812459
@@ -331,7 +339,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
         $errors = $_POST['errors'];
       }
       else {
-        $errors = $_POST['errors'] = MeprUser::validate_reset_password($_POST, array());
+        $errors = $_POST['errors'] = MeprHooks::apply_filters('mepr-validate-reset-password', MeprUser::validate_reset_password($_POST, array()));
       }
 
       if(empty($errors)) {
@@ -342,27 +350,29 @@ class MeprLoginCtrl extends MeprBaseCtrl {
         if($user->ID) {
           $user->set_password_and_send_notifications($mepr_key, $mepr_user_password);
 
-          if(!MeprUtils::is_user_logged_in()) {
-            $wp_user = wp_signon(
-              array(
-                'user_login' => $mepr_screenname,
-                'user_password' => $mepr_user_password,
-              ),
-              MeprUtils::is_ssl()
-            );
-
-            if(!is_wp_error($wp_user)) {
-              $redirect_to = $mepr_options->login_redirect_url;
-              $redirect_to = MeprHooks::apply_filters(
-                'mepr-process-login-redirect-url',
-                $redirect_to,
-                $wp_user
+          if(MeprHooks::apply_filters('mepr-auto-login', true, null, $user)) {
+            if(!MeprUtils::is_user_logged_in()) {
+              $wp_user = wp_signon(
+                array(
+                  'user_login' => $mepr_screenname,
+                  'user_password' => $mepr_user_password,
+                ),
+                MeprUtils::is_ssl()
               );
 
-              MeprUtils::wp_redirect($redirect_to);
-            }
-            else {
-              $_POST['errors'] = array($wp_user->get_error_message());
+              if(!is_wp_error($wp_user)) {
+                $redirect_to = $mepr_options->login_redirect_url;
+                $redirect_to = MeprHooks::apply_filters(
+                  'mepr-process-login-redirect-url',
+                  $redirect_to,
+                  $wp_user
+                );
+
+                MeprUtils::wp_redirect($redirect_to);
+              }
+              else {
+                $_POST['errors'] = array($wp_user->get_error_message());
+              }
             }
           }
         }
@@ -374,5 +384,12 @@ class MeprLoginCtrl extends MeprBaseCtrl {
         $_POST['errors'] = $errors;
       }
     }
+  }
+
+  public function load_shortcode_resources() {
+     wp_register_style( 'mp-login-css', MEPR_CSS_URL.'/ui/login.css', null, MEPR_VERSION);
+
+     wp_register_script('mepr-login-i18n', includes_url().'js/dist/i18n.min.js', null , MEPR_VERSION);
+     wp_register_script('mepr-login-js', MEPR_JS_URL.'/login.js', array('jquery', 'underscore'), MEPR_VERSION);
   }
 }

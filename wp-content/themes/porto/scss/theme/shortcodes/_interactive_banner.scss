@@ -39,6 +39,9 @@
             width: 66%;
         }
     }
+    video {
+        object-fit: cover
+    }
 }
 .porto-ibanner-layer {
     text-align: $left;

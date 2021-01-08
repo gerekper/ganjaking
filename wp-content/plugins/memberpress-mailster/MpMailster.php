@@ -115,12 +115,20 @@ class MpMailster  {
   }
 
   public function store_option_fields() {
+    update_option('meprmailster_enabled',      (isset($_POST['meprmailster_enabled'])));
+
     if(!$this->mailster_adding_subscribers()) { //if mailster is handling user_register - let's not worry about these
-      update_option('meprmailster_enabled',      (isset($_POST['meprmailster_enabled'])));
       update_option('meprmailster_list_id',      (isset($_POST['meprmailster_list_id']))?stripslashes($_POST['meprmailster_list_id']):false);
       update_option('meprmailster_double_optin', (isset($_POST['meprmailster_double_optin'])));
       update_option('meprmailster_optin',        (isset($_POST['meprmailster_optin'])));
       update_option('meprmailster_text',         (isset($_POST['meprmailster_text']))?stripslashes($_POST['meprmailster_text']):$this->optin_text());
+    }
+    else {
+      // disable the optin checkbox stuff as we cannot control it anyways
+      update_option('meprmailster_list_id',      false);
+      update_option('meprmailster_double_optin', false);
+      update_option('meprmailster_optin',        false);
+      update_option('meprmailster_text',         $this->optin_text());
     }
   }
 

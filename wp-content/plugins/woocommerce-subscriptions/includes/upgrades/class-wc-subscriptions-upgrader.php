@@ -245,6 +245,11 @@ class WC_Subscriptions_Upgrader {
 			self::$background_updaters['2.6']['has_trial_item_meta']->schedule_repair();
 		}
 
+		// Delete old subscription period string ranges transients.
+		if ( version_compare( self::$active_version, '3.0.10', '<' ) ) {
+			$deleted_rows = $wpdb->query( "DELETE FROM {$wpdb->options} WHERE `option_name` LIKE '_transient_timeout_wcs-sub-ranges-%' OR `option_name` LIKE '_transient_wcs-sub-ranges-%'" );
+		}
+
 		self::upgrade_complete();
 	}
 
@@ -521,7 +526,7 @@ class WC_Subscriptions_Upgrader {
 						if ( $renewal_order_id ) {
 
 							// Mark the order as paid
-							$renewal_order = new WC_Order( $renewal_order_id );
+							$renewal_order = wc_get_order( $renewal_order_id );
 
 							$renewal_order->payment_complete();
 

@@ -113,6 +113,7 @@ final class THEMECOMPLETE_EPO_CP_quickview {
 			'nectar_woo_get_product'      => array( 'container' => '.nectar-quick-view-box', 'is' => ( isset( $_POST['action'] ) && ( $_POST['action'] == 'nectar_woo_get_product' ) ) ),// Salient theme
 			'fusion_quick_view_load'      => array( 'container' => '.fusion-woocommerce-quick-view-container', 'is' => ( isset( $_POST['action'] ) && ( $_POST['action'] == 'fusion_quick_view_load' ) ) ),// Avada quick view
 			'ciyashop_quick_view'         => array( 'container' => '.product-quick-view', 'is' => ( isset( $_REQUEST['action'] ) && ( $_REQUEST['action'] == 'ciyashop_quick_view' ) ) ),// CiyaShop quick view
+			'wqv_popup_content'           => array( 'container' => '#wqv-quick-view-content', 'is' => ( isset( $_REQUEST['action'] ) && ( $_REQUEST['action'] == 'wqv_popup_content' ) ) ),// https://wordpress.org/plugins/woo-quickview/
 		);
 
 		return apply_filters( 'wc_epo_quickview_array', $quickview_array );

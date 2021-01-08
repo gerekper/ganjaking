@@ -120,7 +120,7 @@ function porto_load_single_icon_shortcode() {
 					'class'       => '',
 					'heading'     => __( 'Background Color', 'porto-functionality' ),
 					'param_name'  => 'icon_color_bg',
-					'value'       => '#ffffff',
+					'value'       => '',
 					'description' => __( 'Select background color for icon.', 'porto-functionality' ),
 					'dependency'  => array(
 						'element' => 'icon_style',

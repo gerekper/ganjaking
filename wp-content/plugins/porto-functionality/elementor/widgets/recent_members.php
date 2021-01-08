@@ -60,10 +60,10 @@ class Porto_Elementor_Recent_Members_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'view',
 			array(
-				'label'     => __( 'View Type', 'porto-functionality' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'classic',
-				'options'   => array_combine( array_values( porto_sh_commons( 'member_view' ) ), array_keys( porto_sh_commons( 'member_view' ) ) ),
+				'label'   => __( 'View Type', 'porto-functionality' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'classic',
+				'options' => array_combine( array_values( porto_sh_commons( 'member_view' ) ), array_keys( porto_sh_commons( 'member_view' ) ) ),
 			)
 		);
 
@@ -80,9 +80,9 @@ class Porto_Elementor_Recent_Members_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'overview',
 			array(
-				'type'      => Controls_Manager::SWITCHER,
-				'label'     => __( 'Show Overview', 'porto-functionality' ),
-				'default'   => 'yes',
+				'type'    => Controls_Manager::SWITCHER,
+				'label'   => __( 'Show Overview', 'porto-functionality' ),
+				'default' => 'yes',
 			)
 		);
 
@@ -113,6 +113,17 @@ class Porto_Elementor_Recent_Members_Widget extends \Elementor\Widget_Base {
 				'type'        => Controls_Manager::NUMBER,
 				'label'       => __( 'Column Spacing (px)', 'porto-functionality' ),
 				'description' => __( 'Default is 25px', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'items',
+			array(
+				'type'    => Controls_Manager::NUMBER,
+				'label'   => __( 'Items to show on Large Desktop', 'porto-functionality' ),
+				'default' => '',
+				'min'     => 1,
+				'max'     => 10,
 			)
 		);
 
@@ -206,6 +217,17 @@ class Porto_Elementor_Recent_Members_Widget extends \Elementor\Widget_Base {
 			array(
 				'label' => __( 'Slider Options', 'porto-functionality' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'stage_padding',
+			array(
+				'type'    => Controls_Manager::NUMBER,
+				'label'   => __( 'Stage Padding (px)', 'porto-functionality' ),
+				'default' => '',
+				'min'     => 0,
+				'max'     => 100,
 			)
 		);
 

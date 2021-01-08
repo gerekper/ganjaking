@@ -132,6 +132,8 @@ class MeprUsage {
 
     if(!empty($txn_stats)) {
       $snap['transactions'] = $txn_stats->complete;
+      $snap['lifetime_processed_total'] = $txn_stats->complete_sum_total + $txn_stats->refunded_sum_total;
+      $snap['lifetime_refunds_total'] = $txn_stats->refunded_sum_total;
     }
 
     return MeprHooks::apply_filters('mepr_usage_snapshot', $snap);

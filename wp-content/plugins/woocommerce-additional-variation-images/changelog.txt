@@ -1,5 +1,8 @@
 *** WooCommerce Additional Variation Images Changelog ***
 
+2021-01-05 - version 1.8.1
+* Fix - Replace deprecated jQuery methods `.ready` and `.isFunction`.
+
 2020-12-24 - version 1.8.0
 * Fix - Update Gallery Replacement Method to Reduce Complexity and Conflicts with Flexslider.
 * Fix - add docs & product page links to readme.

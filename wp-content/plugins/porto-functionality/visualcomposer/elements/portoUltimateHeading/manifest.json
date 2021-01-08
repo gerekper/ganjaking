@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoUltimateHeading": {
+      "settings": {
+        "name": "Porto Ultimate Heading",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-ultimate-heading.jpg",
+        "metaDescription": "Porto VC element to display ultimate heading with title and sub title"
+      }
+    }
+  },
+  "categories": {
+    "Text block": {
+      "elements": [
+        "portoUltimateHeading"
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "elements": {
+    "settings": {
+      "settings": {
+        "name": "Settings",
+        "metaDescription": "Settings Panel"
+      }
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "settings"
+      ]
+    }
+  }
+}

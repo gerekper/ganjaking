@@ -661,6 +661,16 @@ function porto_load_shortcodes() {
 			'vc_row_inner',
 			array(
 				'type'        => 'checkbox',
+				'heading'     => __( 'Wrap as Container', 'porto' ),
+				'param_name'  => 'wrap_container',
+				'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+				'admin_label' => true,
+			)
+		);
+		vc_add_param(
+			'vc_row_inner',
+			array(
+				'type'        => 'checkbox',
 				'heading'     => __( 'Enable Sticky Options?', 'porto' ),
 				'param_name'  => 'is_sticky',
 				'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),

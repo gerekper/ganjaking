@@ -1554,7 +1554,7 @@
 
 			if ( opts.palette ) {
 				palette = opts.palette.slice( 0 );
-				paletteArray = $.isArray( palette[ 0 ] ) ? palette : [ palette ];
+				paletteArray = Array.isArray( palette[ 0 ] ) ? palette : [ palette ];
 				paletteLookup = {};
 				for ( i = 0; i < paletteArray.length; i++ ) {
 					for ( j = 0; j < paletteArray[ i ].length; j++ ) {

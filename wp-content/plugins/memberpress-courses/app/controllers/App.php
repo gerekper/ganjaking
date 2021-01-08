@@ -14,21 +14,23 @@ class App extends lib\BaseCtrl {
     add_action( 'init', array( $this, 'maybe_flush_rewrite_rules' ), 99 );
     add_action( 'admin_notices', array( $this, 'courses_activated_admin_notice' ) );
     add_action( 'admin_notices', array( $this, 'required_wordpress_admin_notice' ) );
-    add_action('admin_init', array($this,'install')); // DB upgrade is handled automatically here now
+    add_action( 'admin_init', array($this,'install')); // DB upgrade is handled automatically here now
     add_action( 'mepr-process-options', array($this,'store_options'));
     add_action( 'mepr_display_options_tabs', array( $this, 'courses_tab' ), 99 );
     add_action( 'mepr_display_options', array( $this, 'courses_tab_content' ) );
     // add_action('custom_menu_order', array($this,'admin_menu_order'));
     // add_action('menu_order', array($this,'admin_menu_order'));
     // add_action('menu_order', array($this,'admin_submenu_order'));
-    add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
-    add_action('in_admin_header', array($this, 'mp_admin_header'), 0);
-    add_filter('mepr-extend-rules', array($this, 'protect_sections_lessons'), 10, 3);
-    add_action('template_redirect', array($this, 'redirect_to_sales_page'));
+    add_action( 'admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
+    add_action( 'in_admin_header', array($this, 'mp_admin_header'), 0);
+    add_filter( 'mepr-extend-rules', array($this, 'protect_sections_lessons'), 10, 3);
+    add_action( 'template_redirect', array($this, 'redirect_to_sales_page'));
     add_action( 'customize_register', array($this, 'register_customizer') );
     add_filter( 'post_type_link', array($this, 'lesson_permalink_replace'), 1, 2 );
     add_filter( 'rewrite_rules_array', array($this, 'lesson_permalink_rules') );
     add_filter( 'use_block_editor_for_post_type', array( $this, 'force_block_editor_for_courses' ), 999, 2 );
+    add_filter( 'mepr-pre-run-rule-content', array($this, 'show_more_content_on_archive_page'), 10, 3 );
+    add_filter( 'the_title', array($this, 'show_lock_icon'), 1000, 2);
   }
 
   /**
@@ -110,6 +112,34 @@ class App extends lib\BaseCtrl {
 
       if(!isset($_POST['mpcs-options']['classroom-mode'])) {
         $_POST['mpcs-options']['classroom-mode'] = 0;
+      }
+
+      // Maybe update courses slug in classroom menu
+      $options = \get_option('mpcs-options');
+
+      if($_POST['mpcs-options']['courses-slug'] !== $options['courses-slug']){
+        $menu = wp_get_nav_menu_items('MemberPress Classroom');
+        if($menu){
+          foreach ($menu as $item){
+            $old_slug = $options['courses-slug'];
+            $slug = $_POST['mpcs-options']['courses-slug'];
+            $data = array(
+                'menu-item-object-id'   => $item->object_id,
+                'menu-item-object'      => $item->object,
+                'menu-item-parent-id'   => $item->menu_item_parent,
+                'menu-item-position'    => $item->menu_order,
+                'menu-item-type'        => $item->type,
+                'menu-item-title'       => $item->title,
+                'menu-item-url'         => str_replace('/'.$old_slug, '/'.$slug, $item->url),
+                'menu-item-description' => $item->description,
+                'menu-item-attr-title'  => $item->attr_title,
+                'menu-item-target'      => $item->target,
+                'menu-item-classes'     => implode(' ',$item->classes),
+                'menu-item-xfn'        => $item->xfn,
+            );
+            wp_update_nav_menu_item('MemberPress Classroom', $item->db_id, $data);
+          }
+        }
       }
 
       \update_option('mpcs-options',$_POST['mpcs-options']);
@@ -343,16 +373,26 @@ class App extends lib\BaseCtrl {
               $post_rules[] = $rule;
           }
           break;
-        // TODO: Implement our own course / lesson tag rules here
-        //case 'all_tax_post_tag':
-        //case 'tax_post_tag||cpt_' . models\Course::$cpt:
-        //case 'tag':
-        //  $lesson = new models\Lesson($context->ID);
-        //  if($course = $lesson->course()) {
-        //    if(has_term($rule->mepr_content, 'post_tag', $course->ID))
-        //      $post_rules[] = $rule;
-        //  }
-        //  break;
+        case 'all_tax_post_tag':
+        case 'tax_'.ctrl\CourseTags::$tax.'||cpt_' . models\Course::$cpt:
+        case 'tag':
+          $lesson = new models\Lesson($context->ID);
+          if($course = $lesson->course()) {
+            if(has_term($rule->mepr_content, ctrl\CourseTags::$tax, $course->ID)){
+              $post_rules[] = $rule;
+            }
+          }
+          break;
+        case 'all_tax_post_category':
+        case 'tax_'.ctrl\CourseCategories::$tax.'||cpt_' . models\Course::$cpt:
+        case 'category':
+          $lesson = new models\Lesson($context->ID);
+          if($course = $lesson->course()) {
+            if(has_term($rule->mepr_content, ctrl\CourseCategories::$tax, $course->ID)){
+              $post_rules[] = $rule;
+            }
+          }
+          break;
       }
     }
 
@@ -541,4 +581,48 @@ class App extends lib\BaseCtrl {
     return $customRules + $rules;
   }
 
+  /**
+   * Show course "more content" even if post is protected.
+   *
+   * @param mixed $show_unauth_message
+   * @param mixed $current_post
+   * @param mixed $uri
+   *
+   * @return bool
+   */
+  public function show_more_content_on_archive_page($show_unauth_message, $current_post, $uri){
+    if(
+      $current_post->post_type == models\Course::$cpt &&
+      helpers\Courses::is_course_archive() &&
+      true == $show_unauth_message
+    ){
+      $show_unauth_message = false;
+    }
+    return $show_unauth_message;
+  }
+
+  /**
+   * SHow lock icon if course is locked
+   * @param mixed $title
+   * @param mixed $post_id
+   *
+   * @return [type]
+   */
+  public function show_lock_icon($title, $post_id) {
+    $post = get_post($post_id);
+
+    if(!class_exists('MeprRule')) { return $title; }
+
+    if(is_admin() || defined('REST_REQUEST')) { return $title; }
+
+    if(!isset($post->ID) || !$post->ID) { return $title; }
+
+    if(strpos($title, 'mpcs-lock') !== false) { return $title; } //Already been here?
+
+    if(\MeprRule::is_locked($post) && helpers\Courses::is_course_archive()) {
+      $title = '<i class="mpcs-icon mpcs-lock"></i>' . " {$title}";
+    }
+
+    return $title;
+  }
 }

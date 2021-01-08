@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoHeaderWishlist": {
+      "settings": {
+        "name": "Porto Header Wishlist",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-hb.jpg",
+        "metaDescription": "Porto VC element to display wishlist icon in header"
+      }
+    }
+  },
+  "categories": {
+    "Icon": {
+      "elements": [
+        "portoHeaderWishlist"
+      ]
+    }
+  }
+}

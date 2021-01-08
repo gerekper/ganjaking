@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoBannerLayer": {
+      "settings": {
+        "name": "Porto Banner Layer",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-porto-banner-layer.jpg",
+        "metaDescription": "Displays the interative banner image with information. It helps you to make simply interactive banner using Porto banner. If you give font style in content by em, you don't worry about responsive."
+      }
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoBannerLayer"
+      ]
+    }
+  }
+}

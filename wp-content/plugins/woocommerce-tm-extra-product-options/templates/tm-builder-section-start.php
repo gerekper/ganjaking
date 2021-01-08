@@ -41,10 +41,32 @@ if ( $sections_type == "slider" ) {
 		if ( ! empty ( $title ) ) {
 			$_popuplinkitle = $title;
 		}
-		// $_popuplinkitle may contain HTML code
-		echo '<a class="tc-cell tcwidth-100 tm-section-link" href="#" data-title="' . esc_attr( $_popuplinkitle ) . '" data-sectionid="' . esc_attr( $uniqid ) . '">'
-		     . apply_filters( 'wc_epo_kses', wp_kses_post( $_popuplinkitle ), $_popuplinkitle, FALSE ) . '</a>'
-		     . '<div class="tm-section-pop tc-cell tcwidth-100">';
+		switch ( $sections_popupbutton ){
+			case 'button' :
+				// $_popuplinkitle may contain HTML code
+				echo '<div class="tc-cell tc-col-auto">';
+				echo '<button type="button" class="button tm-section-link" data-title="' . esc_attr( $_popuplinkitle ) . '" data-sectionid="' . esc_attr( $uniqid ) . '">'
+				. apply_filters( 'wc_epo_kses', wp_kses_post( $_popuplinkitle ), $_popuplinkitle, FALSE ) . '</button>';
+				echo '</div>';
+			break;
+		
+			case 'buttonalt' :
+				// $_popuplinkitle may contain HTML code
+				echo '<div class="tc-cell tc-col-auto">';
+				echo '<button type="button" class="button alt tm-section-link" data-title="' . esc_attr( $_popuplinkitle ) . '" data-sectionid="' . esc_attr( $uniqid ) . '">'
+				. apply_filters( 'wc_epo_kses', wp_kses_post( $_popuplinkitle ), $_popuplinkitle, FALSE ) . '</button>';
+				echo '</div>';
+			break;
+		
+			case '' :
+			default:
+				// $_popuplinkitle may contain HTML code
+				echo '<a class="tc-cell tcwidth-100 tm-section-link" href="#" data-title="' . esc_attr( $_popuplinkitle ) . '" data-sectionid="' . esc_attr( $uniqid ) . '">'
+				. apply_filters( 'wc_epo_kses', wp_kses_post( $_popuplinkitle ), $_popuplinkitle, FALSE ) . '</a>';				
+			break;
+		}
+
+		echo '<div class="tm-section-pop tc-cell tcwidth-100">';
 
 	}
 

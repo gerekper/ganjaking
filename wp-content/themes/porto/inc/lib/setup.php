@@ -19,12 +19,13 @@ if ( class_exists( 'Woocommerce' ) ) {
 
 // Live Search
 if ( isset( $porto_settings['search-live'] ) && $porto_settings['search-live'] ) {
-	require PORTO_LIB . '/lib/live-search/live-search.php';
+	require_once PORTO_LIB . '/lib/live-search/live-search.php';
 }
 
 // Porto Studio
 if ( ( ( class_exists( 'Vc_Manager' ) && ( ( is_admin() && ( 'post.php' == $GLOBALS['pagenow'] || 'post-new.php' == $GLOBALS['pagenow'] || porto_is_ajax() ) ) || ( isset( $_REQUEST['vc_editable'] ) && $_REQUEST['vc_editable'] ) ) ) ||
-	( defined( 'ELEMENTOR_VERSION' ) && ( porto_is_elementor_preview() || wp_doing_ajax() ) ) ) &&
+	( defined( 'ELEMENTOR_VERSION' ) && ( porto_is_elementor_preview() || wp_doing_ajax() ) ) ||
+	( defined( 'VCV_VERSION' ) && ( porto_is_vc_preview() || wp_doing_ajax() ) ) ) &&
 	( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' ) ) ) {
 	require_once PORTO_LIB . '/lib/porto-studio/porto-studio.php';
 }

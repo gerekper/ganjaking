@@ -45,9 +45,14 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
       $vat_enabled = get_option('mepr_vat_enabled');
 
       if(($mepr_options->global_styles || $is_product_page) && $vat_enabled) {
-        $countries = $this->get_vat_countries();
+        $countries   = $this->get_vat_countries();
+        $vat_country = strtoupper( get_option( 'mepr_vat_country' ) );
         wp_enqueue_script('mpvat', MEPR_JS_URL.'/mpvat.js', array('jquery', 'mp-i18n'));
-        wp_localize_script('mpvat', 'MpVat', array('rates' => $countries, 'countries' => array_keys($countries)));
+        wp_localize_script('mpvat', 'MpVat', array(
+          'rates'       => $countries,
+          'countries'   => array_keys($countries),
+          'vat_country' => $vat_country,
+        ));
         $prereqs[] = 'mpvat';
       }
     }
@@ -60,6 +65,7 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
     $vat_country        = get_option('mepr_vat_country');
     $vat_tax_businesses = get_option('mepr_vat_tax_businesses');
     $vat_disable_vies_service = get_option('mepr_vat_disable_vies_service');
+    $charge_business_customer_net_price = get_option('mepr_charge_business_customer_net_price');
 
     $countries = $this->get_vat_countries();
 
@@ -89,11 +95,13 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
     $vat_country = isset($_POST['mepr_vat_country']) ? sanitize_text_field($_POST['mepr_vat_country']) : '';
     $vat_tax_businesses = isset($_POST['mepr_vat_tax_businesses']);
     $vat_disable_vies_service = isset($_POST['mepr_vat_disable_vies_service']);
+    $charge_business_customer_net_price = isset($_POST['mepr_charge_business_customer_net_price']);
 
     update_option('mepr_vat_enabled', $vat_enabled);
     update_option('mepr_vat_country', $vat_country);
     update_option('mepr_vat_tax_businesses', $vat_tax_businesses);
     update_option('mepr_vat_disable_vies_service', $vat_disable_vies_service);
+    update_option('mepr_charge_business_customer_net_price', $charge_business_customer_net_price);
   }
 
   public function signup($prd_id) {
@@ -131,9 +139,23 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
     $vat_number = $this->get_vat_number($usr);
     $vat_tax_businesses = get_option('mepr_vat_tax_businesses', false);
     $vat_country = get_option('mepr_vat_country');
+    $vies_country = $country;
+
+    if ( $customer_type === 'business' ) {
+      $tax_rate->customer_type = 'business';
+    }
 
     if(!empty($usr) && $usr instanceof MeprUser && $usr->address_is_set()) {
       $usr_country = $usr->address('country');
+
+      // When updating pricing terms string with AJAX,user country should be the POST country
+      if( isset($_POST['action']) && ($_POST['action'] == "mepr_update_price_string" || $_POST['action'] == "mepr_update_spc_invoice_table") ){
+        $usr_country = sanitize_text_field($_POST['mepr_address_country']);
+      }
+
+      if($customer_type == 'business'){
+        $vies_country = $usr_country;
+      }
 
       // If the user's address is set and their country is outside the UK or EU then bail
       if($vat_country != $usr_country && !array_key_exists($usr_country, $countries)) {
@@ -151,6 +173,14 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
           }
         }
       }
+
+      if($mepr_options->attr('tax_calc_location')=='customer'
+        && $vat_country === 'GB'
+        && $usr_country !== 'GB'
+        && strtotime('2020-12-31 23:59:59') < time()
+      ) {
+        return new MeprTaxRate();
+      }
     }
 
     // Make sure this is an EU country
@@ -161,7 +191,10 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
           ( $customer_type=='business' &&
             ( $vat_country==$country ||
               $vat_tax_businesses ||
-              !$this->vat_number_is_valid($vat_number, $country) ) ) ) {
+              !$this->vat_number_is_valid($vat_number, $vies_country) )
+          ) ||
+          ( MeprTransactionsHelper::is_charging_business_net_price() )
+      ) {
         $tax_rate = $this->get_rate($tax_rate, $country, $prd_id);
       }
     }
@@ -172,6 +205,7 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
   private function get_rate(MeprTaxRate $tax_rate, $country, $prd_id=null) {
     $countries = $this->get_vat_countries();
     $prd_id = ! empty( $_POST['mepr_product_id'] ) ? (int) $_POST['mepr_product_id'] : $prd_id;
+    $prd_id = ! empty( $_POST['prd_id'] ) ? (int) $_POST['prd_id'] : $prd_id;
 
     $prd = new MeprProduct( $prd_id );
 

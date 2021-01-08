@@ -16,6 +16,7 @@ extract(
 			'show_metas'         => true,
 			'show_image'         => true,
 			'excerpt_length'     => 20,
+			'items'              => '',
 			'items_desktop'      => 4,
 			'items_tablets'      => 3,
 			'items_mobile'       => 2,
@@ -70,12 +71,18 @@ if ( $slider_config ) {
 		}
 	}
 }
+if ( ! empty( $items ) ) {
+	$options['items'] = (int) $items;
+}
 $options['lg'] = (int) $items_desktop;
 $options['md'] = (int) $items_tablets;
 $options['sm'] = (int) $items_mobile;
 $options       = json_encode( $options );
 
 $items_row = (int) $items_row;
+if ( $items_row < 1 ) {
+	$items_row = 1;
+}
 
 $args = array(
 	'post_type'      => 'post',

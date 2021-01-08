@@ -14,6 +14,7 @@ class MeprGoogleCaptchaIntegration {
     add_filter('mepr-validate-signup', array($this, 'remove_authenticate_action'));
     add_filter('mepr-validate-login', array($this, 'remove_authenticate_action'));
     add_filter('mepr-validate-forgot-password', array($this, 'remove_allow_password_reset_action'));
+    add_filter('mepr-validate-reset-password', array($this, 'remove_authenticate_action'));
 
     if(gglcptch_is_recaptcha_required('memberpress_checkout')) {
       add_action('mepr-checkout-before-submit', array($this, 'add_recaptcha'));

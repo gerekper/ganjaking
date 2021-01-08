@@ -51,6 +51,7 @@ class THEMECOMPLETE_EPO_FIELDS {
 			$this->element             = $element;
 			$this->order_saved_element = array(
 				'type'       => $element['type'],
+				'rules'      => $element['rules'],
 				'rules_type' => $element['rules_type'],
 				'_'          => array( 'price_type' => isset( $element['_']['price_type'] ) ? $element['_']['price_type'] : FALSE ),
 			);
@@ -233,7 +234,7 @@ class THEMECOMPLETE_EPO_FIELDS {
 		if ( isset( $this->key ) && $this->key != '' ) {
 
 			$_price = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $this->element, $this->key, $this->attribute, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id );
-
+			
 			return apply_filters( 'wc_epo_add_cart_item_data_single', array(
 				'mode'                => 'builder',
 				'cssclass'            => $this->element['class'],
@@ -272,7 +273,7 @@ class THEMECOMPLETE_EPO_FIELDS {
 		// select placeholder check 
 		if ( isset( $this->element['options'][ esc_attr( $this->key ) ] ) ) {
 			$_price = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $this->element, $this->key, $this->attribute, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id );
-
+			
 			$use_images = ! empty( $this->element['use_images'] ) ? $this->element['use_images'] : "";
 			if ( $use_images ) {
 				$_image_key = array_search( $this->key, $this->element['option_values'] );

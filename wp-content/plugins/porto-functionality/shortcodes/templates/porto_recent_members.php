@@ -16,10 +16,12 @@ extract(
 			'cats'               => '',
 			'cat'                => '',
 			'spacing'            => '',
+			'items'              => '',
 			'items_desktop'      => 4,
 			'items_tablets'      => 3,
 			'items_mobile'       => 2,
 			'items_row'          => 1,
+			'stage_padding'      => '',
 			'slider_config'      => false,
 			'show_nav'           => false,
 			'show_nav_hover'     => false,
@@ -44,6 +46,10 @@ $carousel_class         = '';
 $options                = array();
 $options['themeConfig'] = true;
 
+if ( $stage_padding ) {
+	$el_class .= ' stage-margin';
+	$options['stagePadding'] = (int) $stage_padding;
+}
 if ( $slider_config ) {
 	if ( $show_nav ) {
 		if ( $nav_pos ) {
@@ -55,7 +61,7 @@ if ( $slider_config ) {
 		if ( $show_nav_hover ) {
 			$carousel_class .= ' show-nav-hover';
 		}
-		if ( 'nav-style-1' == $nav_type ) {
+		if ( 'nav-style-1' == $nav_type && ! $stage_padding ) {
 			$carousel_class         .= ' stage-margin';
 			$options['stagePadding'] = 40;
 		}
@@ -67,6 +73,9 @@ if ( $slider_config ) {
 	}
 }
 
+if ( ! empty( $items ) ) {
+	$options['items'] = (int) $items;
+}
 $options['lg']     = (int) $items_desktop;
 $options['md']     = (int) $items_tablets;
 $options['sm']     = (int) $items_mobile;
@@ -90,6 +99,9 @@ if ( $items_mobile ) {
 
 $options   = json_encode( $options );
 $items_row = (int) $items_row;
+if ( $items_row < 1 ) {
+	$items_row = 1;
+}
 
 $args = array(
 	'post_type'      => 'member',

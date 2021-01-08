@@ -26,7 +26,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
     add_action('wp_ajax_mepr_todays_date', 'MeprAppCtrl::todays_date');
     add_action('wp_ajax_mepr_close_about_notice', 'MeprAppCtrl::close_about_notice');
     add_action('admin_init', 'MeprAppCtrl::append_mp_privacy_policy');
-    add_filter('embed_oembed_html', 'MeprAppCtrl::wrap_oembed_html', 99, 4);
+    add_filter('embed_oembed_html', 'MeprAppCtrl::wrap_oembed_html', 99);
     add_action('in_admin_header', 'MeprAppCtrl::mp_admin_header', 0);
 
     // add_action('wp_ajax_mepr_load_css', 'MeprAppCtrl::load_css');
@@ -41,6 +41,9 @@ class MeprAppCtrl extends MeprBaseCtrl {
     // Integrate with WP Debugging plugin - https://github.com/afragen/wp-debugging/issues/6
     add_filter('wp_debugging_add_constants', 'MeprAppCtrl::integrate_wp_debugging');
 
+    //show MemberPress as active menu item when support admin page is selected
+    add_filter( 'mp_hidden_submenu', 'MeprAppCtrl::highlight_parent_menu');
+
     register_deactivation_hook(__FILE__, 'MeprAppCtrl::deactivate');
   }
 
@@ -49,7 +52,10 @@ class MeprAppCtrl extends MeprBaseCtrl {
 
     if(MeprUtils::is_memberpress_admin_page()) {
       ?>
-      <div id="mp-admin-header"><img class="mp-logo" src="<?php echo MEPR_IMAGES_URL . '/memberpress-logo-color.svg'; ?>" /></div>
+      <div id="mp-admin-header">
+        <img class="mp-logo" src="<?php echo MEPR_IMAGES_URL . '/memberpress-logo-color.svg'; ?>" />
+        <a class="mp-support-button button button-primary" href="<?php echo admin_url('admin.php?page=memberpress-support'); ?>"><?php _e('Support', 'memberpress')?></a>
+      </div>
       <?php
     }
   }
@@ -57,7 +63,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
   //Fix for Elementor page builder and our static the_content caching
   //Elementor runs the_content filter on each video embed, our the_content static caching
   //caused the same video to load for all instances of a video on a page as a result
-  public static function wrap_oembed_html($cached_html, $url, $attr, $post_id) {
+  public static function wrap_oembed_html($cached_html) {
     $length = rand(1, 100); //Random length, this is the key to all of this
     $class = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)))), 1, $length);
     return '<span class="' . $class . '">' . $cached_html . '</span>';
@@ -343,6 +349,15 @@ class MeprAppCtrl extends MeprBaseCtrl {
     update_post_meta( $post_ID, '_mepr_unauth_excerpt_size',       $_REQUEST['_mepr_unauth_excerpt_size'] );
   }
 
+  public static function highlight_parent_menu($submenu) {
+    $screen = get_current_screen();
+
+    if($screen->id === 'memberpress-support') {
+        $submenu = 'memberpress';
+    }
+    return $submenu;
+  }
+
   public static function setup_menus() {
     add_action('admin_menu', 'MeprAppCtrl::menu');
   }
@@ -405,6 +420,8 @@ class MeprAppCtrl extends MeprBaseCtrl {
         add_submenu_page('memberpress', __('Analytics', 'memberpress'), __('Analytics', 'memberpress'), $capability, 'memberpress-analytics', 'MeprAddonsCtrl::analytics');
       }
     }
+
+    add_submenu_page(null, __('Support', 'memberpress'), __('Support', 'memberpress'), $capability, 'memberpress-support', 'MeprAppCtrl::render_admin_support');
 
     MeprHooks::do_action('mepr_menu');
   }
@@ -657,6 +674,17 @@ class MeprAppCtrl extends MeprBaseCtrl {
       wp_enqueue_style('mp-account-css', MEPR_CSS_URL.'/ui/account.css', null, MEPR_VERSION);
     }
 
+    if($global_styles || $is_login_page) {
+      wp_enqueue_style( 'dashicons' );
+      wp_enqueue_style( 'mp-login-css', MEPR_CSS_URL.'/ui/login.css', null, MEPR_VERSION);
+
+      wp_register_script('mepr-login-i18n', includes_url().'js/dist/i18n.min.js', null , MEPR_VERSION);
+      wp_register_script('mepr-login-js', MEPR_JS_URL.'/login.js', array('jquery', 'underscore'), MEPR_VERSION);
+
+      wp_enqueue_script('mepr-login-i18n');
+      wp_enqueue_script('mepr-login-js');
+    }
+
     if($global_styles || $is_product_page || $is_account_page) {
       $wp_scripts = new WP_Scripts();
       $ui = $wp_scripts->query('jquery-ui-core');
@@ -670,7 +698,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
       wp_register_script('mepr-timepicker-js', MEPR_JS_URL.'/jquery-ui-timepicker-addon.js', array('jquery-ui-datepicker'));
       wp_register_script('mp-datepicker', MEPR_JS_URL.'/date_picker.js', array('mepr-timepicker-js'), MEPR_VERSION);
 
-      $date_picker_frontend = array('timeFormat' => (is_admin())?'HH:mm:ss':'', 'dateFormat' => MeprUtils::datepicker_format(get_option('date_format')), 'showTime' => (is_admin())?true:false);
+      $date_picker_frontend = array('translations' => self::get_datepicker_strings(), 'timeFormat' => (is_admin())?'HH:mm:ss':'', 'dateFormat' => MeprUtils::datepicker_format(get_option('date_format')), 'showTime' => (is_admin())?true:false);
       wp_localize_script('mp-datepicker', 'MeprDatePicker', $date_picker_frontend);
 
       wp_register_script('jquery.payment', MEPR_JS_URL.'/jquery.payment.js');
@@ -701,6 +729,16 @@ class MeprAppCtrl extends MeprBaseCtrl {
     if($global_styles || $is_group_page) {
       wp_enqueue_style('mp-plans-css', MEPR_CSS_URL . '/plans.min.css', array(), MEPR_VERSION);
     }
+  }
+
+  public static function get_datepicker_strings() {
+    return array(
+      'closeText' => _x( 'Done', 'ui', 'memberpress' ),
+      'currentText' => _x( 'Today', 'ui', 'memberpress' ),
+      'monthNamesShort' => [ _x( 'Jan', 'ui', 'memberpress' ), _x( 'Feb', 'ui', 'memberpress' ), _x( 'Mar', 'ui', 'memberpress' ), _x( 'Apr', 'ui', 'memberpress' ), _x( 'May', 'ui', 'memberpress' ), _x( 'Jun', 'ui', 'memberpress' ),
+      _x( 'Jul', 'ui', 'memberpress' ), _x( 'Aug', 'ui', 'memberpress' ), _x( 'Sep', 'ui', 'memberpress' ), _x( 'Oct', 'ui', 'memberpress' ), _x( 'Nov', 'ui', 'memberpress' ), _x( 'Dec', 'ui', 'memberpress' ) ],
+      'dayNamesMin' => [ _x( 'Su', 'ui', 'memberpress' ),_x( 'Mo', 'ui', 'memberpress' ),_x( 'Tu', 'ui', 'memberpress' ),_x( 'We', 'ui', 'memberpress' ),_x( 'Th', 'ui', 'memberpress' ),_x( 'Fr', 'ui', 'memberpress' ),_x( 'Sa', 'ui', 'memberpress' ) ]
+    );
   }
 
   public static function load_admin_scripts($hook)
@@ -1058,5 +1096,9 @@ class MeprAppCtrl extends MeprBaseCtrl {
     }
 
     return $user_defined_constants;
+  }
+
+  public static function render_admin_support() {
+    MeprView::render('admin/support/view');
   }
 } //End class

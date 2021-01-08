@@ -16,5 +16,15 @@
         <?php endif; ?>
       </div>
     <?php endforeach; ?>
+
+    <div class="navigation">
+      <div class="alignleft">
+        <?php previous_posts_link( sprintf('&laquo; %s', 'Previous') ); ?>
+      </div>
+      <div class="alignright">
+        <?php next_posts_link( sprintf('%s &raquo;', 'Next'), $course_query->max_num_pages); ?>
+      </div>
+    </div>
+
   </div>
 </div>

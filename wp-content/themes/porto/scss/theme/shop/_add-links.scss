@@ -110,14 +110,12 @@
         }
     }
 
-    .feedback {
-        display: none !important;
-    }
-
-    + .clear {
+    + .clear,
+    a i {
         display: none;
     }
 
+    .feedback,
     img.ajax-loading {
         display: none !important
     }
@@ -136,6 +134,7 @@ li.product-outimage_aq_onimage .add-links .quickview {
     font-size: 13px;
 
     &:before {
+        content: $fa-var-external-link-alt;
         position: absolute;
         left: 0;
         right: 0;
@@ -143,18 +142,17 @@ li.product-outimage_aq_onimage .add-links .quickview {
         text-indent: 0;
         font-family: 'Font Awesome 5 Free';
         font-size: 1.1em;
-        content: $fa-var-external-link-alt;
         font-weight: 900;
     }
 
     &.loading:after {
+        content: "";
         opacity: .5;
         position: absolute;
         left: 0;
         right: 0;
         top: 0;
         bottom: 0;
-        content: "";
     }
 }
 

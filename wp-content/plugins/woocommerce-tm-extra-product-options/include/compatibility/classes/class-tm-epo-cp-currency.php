@@ -69,12 +69,12 @@ final class THEMECOMPLETE_EPO_CP_currency {
 		add_filter( 'wc_epo_product_price', array( $this, 'wc_epo_product_price' ), 10, 3 );
 
 		add_filter( 'wc_epo_product_price_correction', array( $this, 'wc_epo_product_price_correction' ), 10, 2 );
-		add_filter( 'wc_epo_option_price_correction', array( $this, 'wc_epo_option_price_correction' ), 10, 3 );
+		add_filter( 'wc_epo_option_price_correction', array( $this, 'wc_epo_option_price_correction' ), 10, 2 );
 
 		add_filter( 'woocs_fixed_raw_woocommerce_price', array( $this, 'woocs_fixed_raw_woocommerce_price' ), 10, 3 );
 
 		add_filter( 'wc_epo_get_current_currency_price', array( $this, 'wc_epo_get_current_currency_price' ), 10, 7 );
-		add_filter( 'wc_epo_remove_current_currency_price', array( $this, 'wc_epo_remove_current_currency_price' ), 10, 8 );
+		add_filter( 'wc_epo_remove_current_currency_price', array( $this, 'wc_epo_remove_current_currency_price' ), 10, 9 );
 
 		add_filter( 'wc_epo_get_currency_price', array( $this, 'tm_wc_epo_get_currency_price' ), 10, 8 );
 		add_filter( 'woocommerce_tm_epo_price_add_on_cart', array( $this, 'tm_epo_price_add_on_cart' ), 10, 2 );
@@ -90,6 +90,40 @@ final class THEMECOMPLETE_EPO_CP_currency {
 		add_action( 'wc_epo_currency_actions', array( $this, 'wc_epo_currency_actions' ), 10, 3 );
 
 		add_filter( 'wc_epo_script_args', array( $this, 'wc_epo_script_args' ), 10, 1 );
+
+		add_filter( 'wc_epo_calculate_price', array( $this, 'wc_epo_calculate_price' ), 10, 13 );
+
+		add_filter( 'tc_get_default_currency', array( $this, 'tc_get_default_currency' ), 10, 1 );
+	}
+
+	/**
+	 * Get default currency
+	 *
+	 * @since 5.0.12.11
+	 */
+	public function tc_get_default_currency( $currency ) {
+		
+		if ( $this->is_woocs ) {
+			global $WOOCS;
+			$currency = $WOOCS->default_currency;
+		}	
+
+		return $currency;
+
+	}
+
+	/**
+	 * Price calculate filter
+	 *
+	 * @since 5.0.12.11
+	 */
+	public function wc_epo_calculate_price( $price, $post_data, $element, $key, $attribute, $per_product_pricing, $cpf_product_price, $variation_id, $price_default_value, $currency, $current_currency, $price_per_currencies, $price_type ) {
+		
+		if ( $this->is_wpml_multi_currency ){
+			$price = apply_filters( 'wcml_raw_price_amount', $price );	
+		}	
+
+		return $price;
 
 	}
 
@@ -107,6 +141,19 @@ final class THEMECOMPLETE_EPO_CP_currency {
 		$this->is_wpml                = THEMECOMPLETE_EPO_WPML()->is_active();
 		$this->is_wpml_multi_currency = THEMECOMPLETE_EPO_WPML()->is_multi_currency();
 
+		add_action( 'init', array( $this, 'init' ), 100 );		
+
+	}
+
+	/**
+	 * Setup initial variables
+	 *
+	 * @since 1.0
+	 */
+	public function init() {
+		if ( $this->is_woocs && function_exists('woocs_convert_fix_price') ) {
+			remove_filter('wcml_raw_price_amount', 'woocs_convert_fix_price');
+		}
 	}
 
 	/**
@@ -197,7 +244,6 @@ final class THEMECOMPLETE_EPO_CP_currency {
 		global $WOOCS;
 		$product_id = $product->get_id();
 
-
 		$flag = FALSE;
 		if ( THEMECOMPLETE_EPO()->tm_epo_global_override_product_price == "yes" ) {
 			$flag = TRUE;
@@ -217,28 +263,27 @@ final class THEMECOMPLETE_EPO_CP_currency {
 
 		$type = $WOOCS->fixed->get_price_type( $product, $main_price );
 
-		$get_value = get_post_meta( $product_id, '_' . $type . '_price', TRUE );
-		$get_value = floatval( $get_value );
+		$main_price = floatval( $main_price );	
 
-		if ( floatval( $main_price ) == $get_value ) {
+		$get_value = floatval( get_post_meta( $product_id, '_' . $type . '_price', TRUE ) );		
+
+		$get_sale_value = floatval( get_post_meta( $product_id, '_sale_price', TRUE ) );
+
+		if ( $main_price === $get_value ) {
 			return $fixed_price;
 		}
 
-		if ( THEMECOMPLETE_EPO()->wc_vars["is_cart"] || THEMECOMPLETE_EPO()->wc_vars["is_checkout"] ) {
+		$option_prices                      = $product->tc_price1;
+		$original_price_in_current_currency = floatval( $product->tm_epo_product_original_price );
+		$original_price_in_current_currency = $this->wc_epo_get_current_currency_price($original_price_in_current_currency);
+			
+		$new_price = $original_price_in_current_currency + $option_prices;
 
-			$option_prices                      = floatval( $WOOCS->woocs_exchange_value( $product->tc_price1 ) );
-			$original_price_in_current_currency = floatval( $product->tm_epo_product_original_price );
-
-			$new_price = $original_price_in_current_currency + $option_prices;
-
-			if ( $new_price < 0 ) {
-				return $fixed_price;
-			}
-
-			$fixed_price = $new_price;
-
+		if ( $new_price < 0 ) {
 			return $fixed_price;
 		}
+
+		$fixed_price = $fixed_price + $option_prices;
 
 		return $fixed_price;
 
@@ -364,6 +409,24 @@ final class THEMECOMPLETE_EPO_CP_currency {
 
 	}
 
+	private function _get_woos_version() {
+
+		$vi = FALSE;
+		if ( $this->is_woocs ) {
+			global $WOOCS;
+			if ( property_exists( $WOOCS, 'the_plugin_version' ) || defined( 'WOOCS_VERSION' ) ) {
+				$vi = property_exists( $WOOCS, 'the_plugin_version' ) ? $WOOCS->the_plugin_version : ( defined( 'WOOCS_VERSION' ) ? WOOCS_VERSION : FALSE );
+				$v  = intval( $vi );
+				if ( $vi !== FALSE ) {
+					return $vi;
+				}
+			}
+		}
+
+		return $vi;
+
+	}
+
 	/**
 	 * Get product price
 	 * This filter is currently only used for product prices.
@@ -464,16 +527,16 @@ final class THEMECOMPLETE_EPO_CP_currency {
 		}
 
 		return $price;
-	}
+	}	
 
 	/**
 	 * Alter option prices in cart
 	 *
 	 * @since 1.0
 	 */
-	public function wc_epo_option_price_correction( $price ) {
+	public function wc_epo_option_price_correction( $price, $cart_item ) {
 		if ( $this->is_woocs || $this->is_all_in_one_cc ) {
-			return apply_filters( 'wc_epo_remove_current_currency_price', $price );
+			return apply_filters( 'wc_epo_remove_current_currency_price', $price, "", NULL, NULL, NULL, NULL, NULL, $cart_item );
 		}
 
 		return $price;
@@ -564,10 +627,12 @@ final class THEMECOMPLETE_EPO_CP_currency {
 
 		if ( $this->is_wpml_multi_currency ) {
 			// todo:doesn't work at the moment
-			$price = apply_filters( 'wcml_raw_price_amount', $price, $currency );
+			$price = apply_filters( 'wcml_raw_price_amount', $price );
 
 		} elseif ( $this->is_woocs || $this->is_all_in_one_cc ) {
-
+			if ( $this->is_woocs && ! version_compare( $this->_get_woos_version(), '2.3', '<' ) ) {
+				return $price;
+			}
 			$price = $this->wc_epo_product_price( $price, $price_type, $is_meta_value, $currency );
 
 		} else {
@@ -585,15 +650,35 @@ final class THEMECOMPLETE_EPO_CP_currency {
 	 *
 	 * @since 1.0
 	 */
-	public function wc_epo_remove_current_currency_price( $price = "", $type = "", $to_currency = NULL, $from_currency = NULL, $currencies = NULL, $key = NULL, $attribute = NULL ) {
+	public function wc_epo_remove_current_currency_price( $price = "", $type = "", $to_currency = NULL, $from_currency = NULL, $currencies = NULL, $key = NULL, $attribute = NULL, $cart_item = array() ) {
 
 		if ( $this->is_woocs ) {
 			global $WOOCS;
-			$currencies       = is_callable( array( $WOOCS, 'get_currencies' ) ) ? $WOOCS->get_currencies() : array();
-			$current_currency = $WOOCS->current_currency;
-			if ( ! empty( $currencies[ $current_currency ]['rate'] ) ) {
-				$price = (double) $price / $currencies[ $current_currency ]['rate'];
+			if ( ! $WOOCS->is_multiple_allowed && version_compare( $this->_get_woos_version(), '2.3', '<' ) ){
+				$currencies       = is_callable( array( $WOOCS, 'get_currencies' ) ) ? $WOOCS->get_currencies() : array();
+				$current_currency = $WOOCS->current_currency;
+				if ( ! empty( $cart_item ) ){
+					$tc_added_in_currency = $cart_item['tmdata']['tc_added_in_currency'];
+
+					if ( $WOOCS->default_currency === $tc_added_in_currency && $WOOCS->default_currency !== $current_currency ){
+						$price = (double) $price / $currencies[ $current_currency ]['rate'];
+					}
+
+				} else {
+					if ( ! empty( $currencies[ $current_currency ]['rate'] ) ) {
+						$price = (double) $price / $currencies[ $current_currency ]['rate'];
+					}
+				}
+			} else {
+				if (version_compare( $this->_get_woos_version(), '2.3', '>' )){
+					$currencies       = is_callable( array( $WOOCS, 'get_currencies' ) ) ? $WOOCS->get_currencies() : array();
+					$current_currency = $WOOCS->current_currency;
+					if ( ! empty( $currencies[ $current_currency ]['rate'] ) ) {
+						$price = (double) $price / $currencies[ $current_currency ]['rate'];
+					}
+				}
 			}
+
 		} elseif ( $this->is_all_in_one_cc ) {
 			global $woocommerce_all_in_one_currency_converter;
 			$user_currency     = $woocommerce_all_in_one_currency_converter->settings->session_currency;
@@ -803,7 +888,7 @@ final class THEMECOMPLETE_EPO_CP_currency {
 	 */
 	public function tm_epo_price_add_on_cart( $price = "", $price_type = "" ) {
 
-		if ( ! $this->is_all_in_one_cc ) {
+		if ( ! $this->is_all_in_one_cc && ! $this->is_woocs ) {
 			$price = apply_filters( 'wc_epo_get_current_currency_price', $price, $price_type );
 		}
 

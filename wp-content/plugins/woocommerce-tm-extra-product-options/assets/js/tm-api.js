@@ -329,7 +329,7 @@ window.jQuery.jMaskGlobals = {
 	$.epoAPI.locale = {};
 	$.epoAPI.template = {};
 
-	$.epoAPI.math.toFloat = function( s ) {
+	$.epoAPI.math.toFloat = function( s, d ) {
 		var n;
 
 		if ( ! ( typeof s === 'string' || typeof s === 'number' ) || isNaN( s ) ) {
@@ -337,13 +337,16 @@ window.jQuery.jMaskGlobals = {
 		}
 		n = parseFloat( s );
 		if ( isNaN( n ) ) {
+			if ( d !== undefined ) {
+				return d;
+			}
 			return s;
 		}
 
 		return n;
 	};
 
-	$.epoAPI.math.toInt = function( s ) {
+	$.epoAPI.math.toInt = function( s, d ) {
 		var n;
 
 		if ( ! ( typeof s === 'string' || typeof s === 'number' ) || isNaN( s ) || s === '' ) {
@@ -351,6 +354,9 @@ window.jQuery.jMaskGlobals = {
 		}
 		n = parseInt( s, 10 );
 		if ( isNaN( n ) ) {
+			if ( d !== undefined ) {
+				return d;
+			}
 			return s;
 		}
 

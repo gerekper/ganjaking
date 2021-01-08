@@ -1,5 +1,11 @@
 *** WooCommerce Products Compare Changelog ***
 
+2021-01-05 - version 1.0.23
+* Fix - Remove call to deprecated `jQuery.trim` function.
+* Fix - link to product page and user docs.
+* Tweak - WC 4.8 compatibility.
+* Tweak - WP 5.6 compatibility.
+
 2020-10-07 - version 1.0.22
 * Tweak - WC 4.5 compatibility.
 

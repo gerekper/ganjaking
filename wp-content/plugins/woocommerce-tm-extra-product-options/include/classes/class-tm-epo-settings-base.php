@@ -234,6 +234,14 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'type'    => 'checkbox',
 			),
 			array(
+				'title'   => esc_html__( 'Preload lightbox images', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable this to preload the image when using the lightbox feature.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_preload_lightbox_image',
+				'default' => 'no',
+				'class'   => 'tcvarious',
+				'type'    => 'checkbox',
+			),
+			array(
 				'title'   => esc_html__( 'Enable plugin for WooCommerce shortcodes', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Enabling this will load the plugin files to all WordPress pages. Use with caution.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_enable_shortcodes',
@@ -243,7 +251,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 			array(
 				'title'   => esc_html__( 'Enable shortcodes in options strings', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enabling this will allow the use of shortcodes and HTML code in the options label and dscription text.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enabling this will allow the use of shortcodes and HTML code in the options label and description text.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_enable_data_shortcodes',
 				'default' => 'yes',
 				'class'   => 'tcvarious',
@@ -274,7 +282,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 			array(
 				'title'   => esc_html__( 'Display', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'This controls how your fields are displayed on the front-end. If you choose "Show using action hooks" you have to manually write the code to your theme or plugin to display the fields and the placement settings below will not work. If you use Composite Products extension you must leave this setting to "Normal" otherwise the extra options cannot be displayed on the composite product bundles. See more at the documentation.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'This controls how your fields are displayed on the front-end. If you choose "Show using action hooks" you have to manually write the code to your theme or plugin to display the fields and the placement settings below will not work. If you use the Composite Products extension you must leave this setting to "Normal" otherwise the extra options cannot be displayed on the composite product bundles. See more at the documentation.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_display',
 				'class'   => 'tcdisplay chosen_select',
 				'css'     => 'min-width:300px;',
@@ -387,7 +395,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 			array(
 				'title'   => esc_html__( 'Floating Totals box visibility', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'This determine the floating totals box visibility.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'This determines the floating totals box visibility.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_floating_totals_box_visibility',
 				'class'   => 'tcftbox chosen_select',
 				'css'     => 'min-width:300px;',
@@ -517,7 +525,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 			array(
 				'title'   => esc_html__( 'Show choice description inline.', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Check this to disable showing descirption as a tooltip and show it inline instead.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to disable showing description as a tooltip and show it inline instead.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_description_inline',
 				'class'   => 'tcdisplay',
 				'default' => 'no',
@@ -941,7 +949,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 			array(
 				'title'   => esc_html__( 'This field is required text', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enter a text indicate that a field is required.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enter a text to indicate that a field is required.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_this_field_is_required_text',
 				'default' => '',
 				'type'    => 'text',
@@ -976,14 +984,14 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 			array(
 				'title'   => esc_html__( 'No zero priced products text', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enter a text replace the message when trying to add a zero priced product to othe cart.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enter a text replace the message when trying to add a zero priced product to the cart.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_no_zero_priced_products_text',
 				'default' => '',
 				'type'    => 'text',
 			),
 			array(
 				'title'   => esc_html__( 'No negative priced products text', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enter a text replace the message when trying to add a negative priced product to othe cart.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enter a text replace the message when trying to add a negative priced product to the cart.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_no_negative_priced_products_text',
 				'default' => '',
 				'type'    => 'text',
@@ -1096,7 +1104,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 			array(
 				'title'   => esc_html__( 'Use options cache', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Use options caching for boosting perfromance. Disable if you have options that share the same unique ID.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Use options caching for boosting performance. Disable if you have options that share the same unique ID.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_options_cache',
 				'default' => 'no',
 				'class'   => 'tcglobal1',
@@ -1118,7 +1126,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 			array(
 				'title'   => esc_html__( 'Disable PNG convert security', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Check to disable the convertion to png for image uploads.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check to disable the conversion to png for image uploads.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_no_upload_to_png',
 				'default' => 'no',
 				'class'   => 'tcglobal8',
@@ -1374,6 +1382,14 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'default' => '-100',
 				'class'   => 'tcglobal4',
 				'type'    => 'number',
+			),
+			array(
+				'title'   => esc_html__( 'Sync associated product quantity with main product quantity', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable to have the quantities of the associated products to be a multiple of the main product quantity.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_product_element_quantity_sync',
+				'default' => 'yes',
+				'class'   => 'tcglobal4',
+				'type'    => 'checkbox',
 			),			
 			array(
 				'title'   => esc_html__( 'jQuery selector for main product image', 'woocommerce-tm-extra-product-options' ),
@@ -1398,7 +1414,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 			array(
 				'title'   => esc_html__( 'Move out of stock message', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'This is moves the out of stok message when styled variations are used just below them.', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'This is moves the out of stock message when styled variations are used just below them.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_move_out_of_stock',
 				'default' => 'no',
 				'class'   => 'tcglobal3',
@@ -1412,7 +1428,6 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'class'   => 'tcglobal3',
 				'type'    => 'checkbox',
 			),
-
 			array(
 				'title'   => esc_html__( 'Hide override settings on products', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Enable this to hide the settings tab on the product edit screen', 'woocommerce-tm-extra-product-options' ),

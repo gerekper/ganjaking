@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
     <div class="<?php if ($show_image) {echo "tc-epo-element-product-container-right";} else {echo "tc-epo-element-product-container-full";} ?>">
         <div class="tc-epo-element-product-container-cart" data-per_product_pricing="<?php echo $priced_individually; ?>">
             <?php if ($show_title) : ?>
-            <h4 class="product-title"><?php echo esc_html( $current_product->get_title() ); ?></h4>
+            <h4 class="product-title"><?php echo esc_html( $current_product->get_name() ); ?></h4>
             <?php endif; ?>
             <?php if ($show_price && $priced_individually) : ?>
             <div class="product-price">

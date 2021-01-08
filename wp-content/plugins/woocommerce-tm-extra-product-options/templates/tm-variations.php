@@ -84,6 +84,7 @@ if (
 				if ( isset( $variations_options[ $att_id ] ) && ! empty( $variations_options[ $att_id ]['variations_changes_product_image'] ) ) {
 					$changes_product_image = $variations_options[ $att_id ]['variations_changes_product_image'];
 				}
+
 				$variations_label = "";
 				if ( isset( $variations_options[ $att_id ] ) && ! empty( $variations_options[ $att_id ]['variations_label'] ) ) {
 					$variations_label = $variations_options[ $att_id ]['variations_label'];

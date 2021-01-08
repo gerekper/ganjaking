@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoModal": {
+      "settings": {
+        "name": "Porto Dialog Box",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-modal.jpg",
+        "metaDescription": "Porto VC element to display dialog box"
+      }
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoModal"
+      ]
+    }
+  }
+}

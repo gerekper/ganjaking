@@ -232,6 +232,12 @@ ul.products {
 }
 
 ul {
+    &.pcols-lg-9 {
+        li.product-col {
+            max-width: 11.1111%; flex: 0 0 11.1111%;
+            .add-links { display: none; }
+        }
+    }
     &.pcols-lg-8 {
         li.product-col {
             max-width: 12.5%; flex: 0 0 12.5%;
@@ -1147,7 +1153,7 @@ ul.products {
                     left: auto;
                     #{$right}: 15px;
                 }
-                a {
+                a, .blockUI {
                     border-radius: 18px;
                 }
             }
@@ -1570,4 +1576,3 @@ ul.products.yith-wcan-loading {
 .prdctfltr_filter_title a {
     text-decoration: none;
 }
-

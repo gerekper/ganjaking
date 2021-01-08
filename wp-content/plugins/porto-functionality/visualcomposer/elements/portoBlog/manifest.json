@@ -1,0 +1,22 @@
+{
+  "elements": {
+    "portoBlog": {
+      "settings": {
+        "name": "Porto Blog",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-porto-blog.jpg",
+        "metaDescription": "Show posts by beautiful layout using Porto Blog. f.e it consists of many layout masonry, grid, creative, slider and so on."
+      },
+      "phpFiles": [
+        "PortoBlogController.php"
+      ]
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoBlog"
+      ]
+    }
+  }
+}

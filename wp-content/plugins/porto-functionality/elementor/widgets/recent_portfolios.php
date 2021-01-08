@@ -101,9 +101,6 @@ class Porto_Elementor_Recent_Portfolios_Widget extends \Elementor\Widget_Base {
 				'label'     => __( 'Image Size', 'porto-functionality' ),
 				'options'   => array_combine( array_values( porto_sh_commons( 'image_sizes' ) ), array_keys( porto_sh_commons( 'image_sizes' ) ) ),
 				'default'   => '',
-				'condition' => array(
-					'show_image' => 'yes',
-				),
 			)
 		);
 
@@ -178,6 +175,15 @@ class Porto_Elementor_Recent_Portfolios_Widget extends \Elementor\Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'label'       => __( 'Portfolio IDs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of portfolio ids', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'items',
+			array(
+				'type'    => Controls_Manager::NUMBER,
+				'label'   => __( 'Items to show on Large Desktop', 'porto-functionality' ),
+				'default' => '',
 			)
 		);
 

@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoGoogleMap": {
+      "settings": {
+        "name": "Porto Google Map",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-google-map.jpg",
+        "metaDescription": "Porto VC element to display a google map"
+      }
+    }
+  },
+  "categories": {
+    "Maps": {
+      "elements": [
+        "portoGoogleMap"
+      ]
+    }
+  }
+}

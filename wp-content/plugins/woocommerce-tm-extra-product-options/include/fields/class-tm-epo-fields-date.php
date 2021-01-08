@@ -203,6 +203,20 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 		} else {
 			if ( $defaultdate !== '' ) {
 				$get_default_value = $defaultdate;
+				if ( is_numeric( $defaultdate ) ) {
+					$get_default_value = new DateTime('now');
+					if ( floatval($defaultdate) > 0 ){
+						$get_default_value->add(new DateInterval('P'.abs(floatval($defaultdate)).'D'));
+					} else {
+						$get_default_value->sub(new DateInterval('P'.abs(floatval($defaultdate)).'D'));
+					}
+					$get_default_value =  $get_default_value->format( str_ireplace( 'dd', 'd', str_ireplace( 'mm', 'm', str_ireplace( 'yy', 'Y', $date_format ) ) ) );
+					$date_errors = DateTime::getLastErrors();
+					if ( ! empty( $date_errors['error_count'] ) ) {
+						$get_default_value = $defaultdate;
+					}
+				}
+
 			}
 		}
 

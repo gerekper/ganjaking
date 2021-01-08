@@ -7,6 +7,7 @@ use memberpress\courses as base;
 use memberpress\courses\lib as lib;
 use memberpress\courses\models as models;
 use memberpress\courses\helpers as helpers;
+use memberpress\courses\controllers as controllers;
 
 class Courses extends lib\BaseCptCtrl {
   public function load_hooks() {
@@ -223,6 +224,7 @@ class Courses extends lib\BaseCptCtrl {
     global $current_screen;
     global $post;
     if($current_screen->post_type === models\Course::$cpt && isset($post->ID)) {
+      // dump('sdsd');
       \wp_enqueue_style('vex-css', base\CSS_URL . '/vendor/vex.css', array(), base\VERSION);
       \wp_dequeue_script('autosave'); //Disable auto-saving
       \wp_enqueue_script('vex-js', base\JS_URL . '/vendor/vex.combined.js', array(), base\VERSION);
@@ -233,7 +235,12 @@ class Courses extends lib\BaseCptCtrl {
         'coursesUrl' => admin_url('edit.php?post_type='.models\Course::$cpt),
         'posts_url' => admin_url('post.php'),
         'settings' => helpers\Courses::course_settings($post->ID),
-        'imagesUrl' => base\IMAGES_URL )
+        'imagesUrl' => base\IMAGES_URL,
+        'api'       => array(
+          'curriculum' => controllers\CoursesApi::$namespace_str.'/'.controllers\CoursesApi::$resource_name_str.'/curriculum/',
+          'lessons' => controllers\CoursesApi::$namespace_str.'/'.controllers\CoursesApi::$resource_name_str.'/lessons/'
+        )
+        )
       );
     }
   }
@@ -311,8 +318,6 @@ class Courses extends lib\BaseCptCtrl {
   public function add_meta_boxes() {
     add_meta_box(models\Course::$cpt . '-builder', __("Curriculum Builder", 'memberpress-courses'), array($this, 'curriculum_meta_box'), models\Course::$cpt, "normal", "high");
     add_meta_box(models\Course::$cpt . '-settings', __("Course Setting", 'memberpress-courses'), array($this, 'course_settings_meta_box'), models\Course::$cpt, "normal", "high");
-    // add_meta_box(models\Course::$cpt . '-meta', __("Course Options", 'memberpress-courses'), array($this, 'options_meta_box'), models\Course::$cpt, "normal", "high");
-    // add_meta_box(models\Lesson::$cpt . '-meta', __("Course Builder", 'memberpress-courses'), array($this, 'lessons_meta_box'), models\Course::$cpt, "normal", "high");
     add_meta_box(models\Course::$cpt . "-custom-template", __('Page Options', 'memberpress-courses'), array($this, 'page_options_meta_box'), models\Course::$cpt, "side", "default");
   }
 
@@ -324,17 +329,6 @@ class Courses extends lib\BaseCptCtrl {
   public function course_settings_meta_box($post) {
     $course = new models\Course($post->ID);
     require_once(base\VIEWS_PATH . '/admin/courses/course_settings_meta_box.php');
-  }
-
-
-  public function options_meta_box($post) {
-    $course = new models\Course($post->ID);
-    require_once(base\VIEWS_PATH . '/admin/courses/options_meta_box.php');
-  }
-
-  public function lessons_meta_box($post) {
-    $course = new models\Course($post->ID);
-    require_once(base\VIEWS_PATH . '/admin/courses/lessons_meta_box.php');
   }
 
   public function page_options_meta_box($post) {

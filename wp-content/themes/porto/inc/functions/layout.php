@@ -11,7 +11,7 @@ require_once( PORTO_FUNCTIONS . '/layout/footer.php' );
 
 add_action( 'wp_head', 'porto_nofollow_block', 0 );
 
-function porto_logo( $sticky_logo = false ) {
+function porto_logo( $sticky_logo = false, $el_class = '' ) {
 	global $porto_settings;
 
 	ob_start();
@@ -20,7 +20,7 @@ function porto_logo( $sticky_logo = false ) {
 		$logo       = $porto_settings['logo-overlay']['url'];
 		$logo_width = $porto_settings['logo-overlay-width'] ? $porto_settings['logo-overlay-width'] : 250;
 		?>
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?> - <?php bloginfo( 'description' ); ?>" class="overlay-logo">
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?> - <?php bloginfo( 'description' ); ?>" class="overlay-logo<?php echo ! $el_class ? '' : ' ' . esc_attr( $el_class ); ?>">
 			<?php
 			echo '<img class="img-responsive" src="' . esc_url( str_replace( array( 'http:', 'https:' ), '', $logo ) ) . '" alt="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" style="max-width:' . esc_attr( $logo_width ) . 'px;" />';
 			?>
@@ -30,9 +30,9 @@ function porto_logo( $sticky_logo = false ) {
 
 	if ( ( ( is_front_page() && is_home() ) || is_front_page() ) && ! $sticky_logo ) :
 		?>
-		<h1 class="logo">
+		<h1 class="logo<?php echo ! $el_class ? '' : ' ' . esc_attr( $el_class ); ?>">
 	<?php else : ?>
-		<div class="logo">
+		<div class="logo<?php echo ! $el_class ? '' : ' ' . esc_attr( $el_class ); ?>">
 	<?php endif; ?>
 	<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?> - <?php bloginfo( 'description' ); ?>" <?php echo ! $sticky_logo ? ' rel="home"' : ''; ?>>
 		<?php
@@ -166,16 +166,20 @@ function porto_banner( $banner_class = '' ) {
 
 }
 
-function porto_currency_switcher() {
+function porto_currency_switcher( $el_class = '' ) {
 	global $porto_settings;
 
+	$menu_class = 'currency-switcher porto-view-switcher mega-menu show-arrow';
+	if ( $el_class ) {
+		$menu_class .= ' ' . esc_attr( trim( $el_class ) );
+	}
 	ob_start();
 	if ( ! $porto_settings['wcml-switcher'] && has_nav_menu( 'currency_switcher' ) ) :
 		wp_nav_menu(
 			array(
 				'theme_location' => 'currency_switcher',
 				'container'      => '',
-				'menu_class'     => 'currency-switcher porto-view-switcher mega-menu show-arrow',
+				'menu_class'     => $menu_class,
 				'before'         => '',
 				'after'          => '',
 				'depth'          => 2,
@@ -205,7 +209,7 @@ function porto_currency_switcher() {
 				}
 			}
 			?>
-			<ul id="menu-currency-switcher" class="currency-switcher porto-view-switcher mega-menu show-arrow">
+			<ul id="menu-currency-switcher" class="<?php esc_attr( $menu_class ); ?>">
 				<li class="menu-item<?php echo ! $other_c ? '' : ' has-sub'; ?> narrow">
 					<a class="nolink" href="#"><?php echo wp_kses_post( $active_c ); ?></a>
 					<?php if ( $other_c ) : ?>
@@ -251,7 +255,7 @@ function porto_currency_switcher() {
 				}
 			}
 			?>
-			<ul id="menu-currency-switcher" class="currency-switcher porto-view-switcher mega-menu show-arrow">
+			<ul id="menu-currency-switcher" class="<?php echo esc_attr( $menu_class ); ?>">
 				<li class="menu-item<?php echo ! $other_c ? '' : ' has-sub'; ?> narrow">
 					<a class="nolink" href="#"><?php echo wp_kses_post( $active_c ); ?></a>
 					<?php if ( $other_c ) : ?>
@@ -271,7 +275,7 @@ function porto_currency_switcher() {
 
 	$result = str_replace( '&nbsp;', '', ob_get_clean() );
 	if ( ! $result && $porto_settings['wcml-switcher-html'] ) {
-		$result = '<ul id="menu-currency-switcher" class="currency-switcher porto-view-switcher mega-menu show-arrow">
+		$result = '<ul id="menu-currency-switcher" class="' . $menu_class . '">
 					<li class="menu-item has-sub narrow">
 						<a class="nolink" href="#">USD</a>
 						<div class="popup">
@@ -403,8 +407,12 @@ function porto_mobile_currency_switcher( $is_mobile_menu = false ) {
 	return apply_filters( 'porto_mobile_currency_switcher', $result );
 }
 
-function porto_view_switcher() {
+function porto_view_switcher( $el_class = '' ) {
 	global $porto_settings;
+	$menu_class = 'view-switcher porto-view-switcher mega-menu show-arrow';
+	if ( $el_class ) {
+		$menu_class .= ' ' . esc_attr( trim( $el_class ) );
+	}
 
 	ob_start();
 	if ( ! $porto_settings['wpml-switcher'] && has_nav_menu( 'view_switcher' ) ) :
@@ -412,7 +420,7 @@ function porto_view_switcher() {
 			array(
 				'theme_location' => 'view_switcher',
 				'container'      => '',
-				'menu_class'     => 'view-switcher porto-view-switcher mega-menu show-arrow',
+				'menu_class'     => $menu_class,
 				'before'         => '',
 				'after'          => '',
 				'depth'          => 2,
@@ -450,7 +458,7 @@ function porto_view_switcher() {
 				}
 			}
 			?>
-			<ul class="view-switcher porto-view-switcher mega-menu show-arrow">
+			<ul class="<?php echo esc_attr( $menu_class ); ?>">
 				<li class="menu-item<?php echo ! $other_langs ? '' : ' has-sub'; ?> narrow">
 					<a class="nolink" href="#"><?php echo wp_kses_post( $active_lang ); ?></a>
 					<?php if ( $other_langs ) : ?>
@@ -491,7 +499,7 @@ function porto_view_switcher() {
 					}
 				}
 				?>
-				<ul class="view-switcher porto-view-switcher mega-menu show-arrow">
+				<ul class="<?php echo esc_attr( $menu_class ); ?>">
 					<li class="menu-item<?php echo ! $other_langs ? '' : ' has-sub'; ?> narrow">
 						<a class="nolink" href="#"><?php echo wp_kses_post( $active_lang ); ?></a>
 						<?php if ( $other_langs ) : ?>
@@ -512,7 +520,7 @@ function porto_view_switcher() {
 
 	$result = str_replace( '&nbsp;', '', ob_get_clean() );
 	if ( ! $result && $porto_settings['wpml-switcher-html'] ) {
-		$result = '<ul class="view-switcher porto-view-switcher mega-menu show-arrow">
+		$result = '<ul class="' . $menu_class . '">
 					<li class="menu-item has-sub narrow">
 						<a class="nolink" href="#"><i class="flag-us"></i>Eng</a>
 						<div class="popup">
@@ -648,7 +656,7 @@ function porto_mobile_view_switcher( $is_mobile_menu = false ) {
 	return apply_filters( 'porto_mobile_view_switcher', $result );
 }
 
-function porto_top_navigation() {
+function porto_top_navigation( $el_class = '' ) {
 	global $porto_settings;
 
 	$html = '';
@@ -836,7 +844,7 @@ function porto_top_navigation() {
 			array(
 				'theme_location' => 'top_nav',
 				'container'      => '',
-				'menu_class'     => 'top-links mega-menu' . ( $porto_settings['menu-arrow'] ? ' show-arrow' : '' ),
+				'menu_class'     => 'top-links mega-menu' . ( $porto_settings['menu-arrow'] ? ' show-arrow' : '' ) . ( $el_class ? ' ' . esc_attr( trim( $el_class ) ) : '' ),
 				'before'         => '',
 				'after'          => '',
 				'depth'          => 2,
@@ -1228,6 +1236,10 @@ function porto_secondary_menu( $depth = 0 ) {
 
 	$output = str_replace( '&nbsp;', '', ob_get_clean() );
 
+	// secondary menu popup style
+	if ( 'overlay' == $porto_settings['menu-type'] ) {
+		$output = '<div class="porto-popup-menu"><button class="hamburguer-btn"><span class="hamburguer"><span></span><span></span><span></span></span><span class="close"><span></span><span></span></span></button>' . $output . '</div>';
+	}
 	return apply_filters( 'porto_secondary_menu', $output );
 }
 
@@ -2168,7 +2180,11 @@ function porto_minicart() {
 	if ( class_exists( 'Woocommerce' ) || ( defined( 'PORTO_DEMO' ) && PORTO_DEMO ) ) :
 		$icon_class = 'minicart-icon';
 		if ( empty( $porto_settings['minicart-icon'] ) ) {
-			$icon_class .= ' porto-icon-bag-2';
+			if ( 'simple' == $minicart_type ) {
+				$icon_class .= ' minicart-icon-default';
+			} else {
+				$icon_class .= ' porto-icon-bag-2';
+			}
 		} else {
 			$icon_class .= ' ' . trim( $porto_settings['minicart-icon'] );
 		}
@@ -2176,9 +2192,9 @@ function porto_minicart() {
 		<div id="mini-cart" class="mini-cart <?php echo esc_attr( $minicart_type ), isset( $porto_settings['minicart-content'] ) && $porto_settings['minicart-content'] ? ' minicart-offcanvas' : ''; ?>">
 			<div class="cart-head">
 			<?php
-			if ( 'minicart-inline' == $minicart_type ) {
-				/* translators: %s: Cart quantity */
-				$format = '<span class="cart-icon"><i class="' . esc_attr( $icon_class ) . '"></i><span class="cart-items">%s</span></span><span class="cart-subtotal">' . esc_html__( 'Cart %s', 'porto' ) . '</span>';
+			if ( 'minicart-inline' == $minicart_type || 'minicart-text' == $minicart_type ) {
+				$cart_text = empty( $porto_settings['minicart-text'] ) ? __( 'Cart', 'porto' ) : $porto_settings['minicart-text'];
+				$format    = '<span class="cart-icon"><i class="' . esc_attr( $icon_class ) . '"></i><span class="cart-items">%s</span></span><span class="cart-subtotal">' . esc_html( $cart_text ) . ' %s</span>';
 				if ( defined( 'WP_CACHE' ) && WP_CACHE ) {
 					$_cart_qty   = '<i class="fas fa-spinner fa-pulse"></i>';
 					$_cart_total = $_cart_qty;
@@ -2186,7 +2202,7 @@ function porto_minicart() {
 					$_cart_qty   = $woocommerce->cart ? $woocommerce->cart->cart_contents_count : 0;
 					$_cart_total = $woocommerce->cart ? $woocommerce->cart->get_cart_subtotal() : 0;
 				}
-				printf( $format, $_cart_qty, $_cart_total );
+				printf( $format, $_cart_qty, '<span class="cart-price">' . $_cart_total . '</span>' );
 			} else {
 				$format = '<span class="cart-icon"><i class="' . esc_attr( $icon_class ) . '"></i><span class="cart-items">%s</span></span><span class="cart-items-text">%s</span>';
 				if ( ! class_exists( 'Woocommerce' ) && defined( 'PORTO_DEMO' ) && PORTO_DEMO ) {
@@ -2265,6 +2281,14 @@ function porto_header_builder_layout() {
 			} elseif ( ! empty( $selected_layout ) && isset( $selected_layout['selected_layout'] ) && $selected_layout['selected_layout'] && isset( $header_layouts[ $selected_layout['selected_layout'] ] ) ) {
 				$porto_header_builder_layout         = $header_layouts[ $selected_layout['selected_layout'] ];
 				$porto_header_builder_layout['name'] = $selected_layout['selected_layout'];
+			}
+		} elseif ( 'header_builder_p' == $porto_settings['header-type-select'] ) {
+			$builder_id = porto_check_builder_condition( 'header' );
+			if ( $builder_id ) {
+				$porto_header_builder_layout = array(
+					'ID'   => $builder_id,
+					'type' => 'side' == get_post_meta( $builder_id, 'header_type', true ),
+				);
 			}
 		}
 	}
@@ -2845,7 +2869,7 @@ endif;
 
 function porto_nofollow_block() {
 	$post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : null;
-	if ( is_singular() && isset( $post->post_type ) && 'block' === $post->post_type ) {
+	if ( is_singular() && isset( $post->post_type ) && 'porto_builder' === $post->post_type ) {
 		echo '<meta name="robots" content="noindex,nofollow" />';
 	}
 }
@@ -2862,7 +2886,7 @@ if ( ! function_exists( 'porto_portfolio_category_image' ) ) :
 	}
 endif;
 
-function porto_header_elements( $elements ) {
+function porto_header_elements( $elements, $el_class = '' ) {
 	if ( ! $elements || empty( $elements ) ) {
 		return;
 	}
@@ -2895,11 +2919,11 @@ function porto_header_elements( $elements ) {
 						echo do_shortcode( $str );
 					echo '</div>';
 				} elseif ( 'logo' == $key ) {
-					echo porto_logo();
+					echo porto_logo( false, $el_class );
 				} elseif ( 'currency-switcher' == $key ) {
-					echo porto_currency_switcher();
+					echo porto_currency_switcher( $el_class );
 				} elseif ( 'language-switcher' == $key ) {
-					echo porto_view_switcher();
+					echo porto_view_switcher( $el_class );
 				} elseif ( 'mini-cart' == $key ) {
 					echo porto_minicart();
 				} elseif ( 'contact' == $key ) {
@@ -2914,7 +2938,7 @@ function porto_header_elements( $elements ) {
 				} elseif ( 'menu-icon' == $key ) {
 					echo '<a class="mobile-toggle"><i class="fas fa-bars"></i></a>';
 				} elseif ( 'nav-top' == $key ) {
-					echo porto_top_navigation();
+					echo porto_top_navigation( $el_class );
 				} elseif ( 'main-menu' == $key ) {
 					if ( porto_header_type_is_side() ) {
 						echo porto_header_side_menu();
@@ -2942,10 +2966,10 @@ function porto_header_elements( $elements ) {
 				} elseif ( 'divider' == $key ) {
 					echo '<span class="separator"></span>';
 				} elseif ( 'myaccount' == $key && class_exists( 'Woocommerce' ) ) {
-					echo '<a href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '"' . ' title="' . esc_attr__( 'My Account', 'porto' ) . '" class="my-account"><i class="porto-icon-user-2"></i></a>';
+					echo '<a href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '"' . ' title="' . esc_attr__( 'My Account', 'porto' ) . '" class="my-account' . ( $el_class ? ' ' . esc_attr( $el_class ) : '' ) . '"><i class="porto-icon-user-2"></i></a>';
 				} elseif ( 'wishlist' == $key && class_exists( 'Woocommerce' ) && defined( 'YITH_WCWL' ) ) {
 					$wc_count = yith_wcwl_count_products();
-					echo '<a href="' . esc_url( YITH_WCWL()->get_wishlist_url() ) . '"' . ' title="' . esc_attr__( 'Wishlist', 'porto' ) . '" class="my-wishlist"><i class="porto-icon-wishlist-2"></i><span class="wishlist-count">' . intval( $wc_count ) . '</span></a>';
+					echo '<a href="' . esc_url( YITH_WCWL()->get_wishlist_url() ) . '"' . ' title="' . esc_attr__( 'Wishlist', 'porto' ) . '" class="my-wishlist' . ( $el_class ? ' ' . esc_attr( $el_class ) : '' ) . '"><i class="porto-icon-wishlist-2"></i><span class="wishlist-count">' . intval( $wc_count ) . '</span></a>';
 				}
 				do_action( 'porto_header_elements', $key, $value );
 			}

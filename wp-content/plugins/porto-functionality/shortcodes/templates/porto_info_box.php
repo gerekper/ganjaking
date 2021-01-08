@@ -172,7 +172,7 @@ if ( $title_font_color ) {
 	$title_style .= 'color:' . esc_attr( $title_font_color ) . ';';
 }
 if ( $title_margin_bottom && is_string( $title_margin_bottom ) ) {
-	$unit = trim( preg_replace( '/[0-9.]/', '', $title_margin_bottom ) );
+	$unit = trim( preg_replace( '/[0-9.-]/', '', $title_margin_bottom ) );
 	if ( ! $unit ) {
 		$title_margin_bottom .= 'px';
 	}
@@ -264,7 +264,7 @@ if ( ! isset( $desc_attrs_escaped ) ) {
 
 $header_style = '';
 if ( $sub_title_margin_bottom ) {
-	$unit = trim( preg_replace( '/[0-9.]/', '', $sub_title_margin_bottom ) );
+	$unit = trim( preg_replace( '/[0-9.-]/', '', $sub_title_margin_bottom ) );
 	if ( ! $unit ) {
 		$sub_title_margin_bottom .= 'px';
 	}

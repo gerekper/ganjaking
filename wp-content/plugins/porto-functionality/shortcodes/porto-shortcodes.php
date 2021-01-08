@@ -83,6 +83,7 @@ class PortoShortcodesClass {
 		/* 5.0 shortcodes */
 		'porto_heading',
 		'porto_button',
+		'porto_hotspot',
 	);
 
 	public static $woo_shortcodes = array( 'porto_recent_products', 'porto_featured_products', 'porto_sale_products', 'porto_best_selling_products', 'porto_top_rated_products', 'porto_products', 'porto_product_category', 'porto_product_attribute', 'porto_product', 'porto_product_categories', 'porto_one_page_category_products', 'porto_product_attribute_filter', 'porto_products_filter', 'porto_widget_woo_products', 'porto_widget_woo_top_rated_products', 'porto_widget_woo_recently_viewed', 'porto_widget_woo_recent_reviews', 'porto_widget_woo_product_tags' );
@@ -267,11 +268,6 @@ class PortoShortcodesClass {
 			define( 'PORTO_SHORTCODES_VERSION', $plugin['Version'] );
 		} else {
 			define( 'PORTO_SHORTCODES_VERSION', '' );
-		}
-
-		global $porto_settings;
-		if ( class_exists( 'Woocommerce' ) && isset( $porto_settings['product-single-content-layout'] ) && 'builder' == $porto_settings['product-single-content-layout'] ) {
-			require_once PORTO_SHORTCODES_WOO_PATH . 'custom-product.php';
 		}
 
 		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {

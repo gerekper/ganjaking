@@ -6,13 +6,13 @@
  * Author: themeComplete
  * Author URI: https://themecomplete.com/
  *
- * Version: 5.0.12.10
+ * Version: 5.0.12.11
  *
  * Requires at least: 4.4
- * Tested up to: 5.6
+ * Tested up to: 6.0
  *
  * WC requires at least: 3.0
- * WC tested up to: 4.6
+ * WC tested up to: 5.0
  *
  * @package  WooCommerce TM Extra Product Options
  * @category Core

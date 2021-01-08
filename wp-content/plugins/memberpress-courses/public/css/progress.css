@@ -229,3 +229,17 @@ a.mpcs-bookmark-link:hover .mpcs-bookmark-link-title {
 .mpcs-course-information .progress{
   width: 1%;
 }
+
+.navigation .alignleft{
+  display: inline;
+  float: left;
+  margin-right: 1.5em;
+  margin-top: 1.5em;
+}
+
+.navigation .alignright{
+  display: inline;
+  float: right;
+  margin-left: 1.5em;
+  margin-top: 1.5em;
+}

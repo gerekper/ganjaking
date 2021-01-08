@@ -24,6 +24,7 @@ extract(
 			'show_new_title'     => '',
 			'show_sales_title'   => '',
 			'show_rating_title'  => '',
+			'show_onsale_title'  => '',
 			'category_filter'    => '',
 			'filter_style'       => '',
 
@@ -67,6 +68,11 @@ if ( 'total_sales' == $orderby ) {
 }
 if ( 'price' == $orderby && 'desc' == strtolower( $order ) ) {
 	$orderby = 'price-desc';
+	$order   = '';
+}
+if ( 'onsale' == $orderby ) {
+	$status  = 'on_sale';
+	$orderby = '';
 	$order   = '';
 }
 
@@ -175,6 +181,10 @@ if ( ! empty( $show_sort ) || $category_filter ) {
 			$filter_title = $show_rating_title ? $show_rating_title : __( 'Best Rating', 'porto-functionality' );
 			$category_html .= '<li><a href="javascript:void(0)" data-sort_id="rating"' . ( $category ? ' data-cat_id="' . esc_attr( $category ) . '"' : '' ) . '>' . esc_html( $filter_title ) . '</a></li>';
 		}
+		if ( in_array( 'onsale', $show_sort ) ) {
+			$filter_title = $show_onsale_title ? $show_onsale_title : __( 'On Sale', 'porto-functionality' );
+			$category_html .= '<li><a href="javascript:void(0)" data-sort_id="onsale"' . ( $category ? ' data-cat_id="' . esc_attr( $category ) . '"' : '' ) . '>' . esc_html( $filter_title ) . '</a></li>';
+		}
 	}
 
 	if ( $category_filter ) {
@@ -262,6 +272,12 @@ if ( $category ) {
 }
 if ( $attribute ) {
 	$extra_atts .= ' attribute="' . esc_attr( $attribute ) . '"';
+	if ( isset( $atts[ 'filter_' . $attribute ] ) ) {
+		$filter = $atts[ 'filter_' . $attribute ];
+		if ( is_array( $filter ) ) {
+			$filter = implode( ',', $filter );
+		}
+	}
 }
 if ( $filter ) {
 	$extra_atts .= ' filter="' . esc_attr( $filter ) . '"';

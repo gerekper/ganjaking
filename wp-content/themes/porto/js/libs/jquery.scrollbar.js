@@ -614,7 +614,7 @@
         if (typeof args === 'undefined') {
             args = [];
         }
-        if (!$.isArray(args)) {
+        if (!Array.isArray(args)) {
             args = [args];
         }
         this.not('body, .scroll-wrapper').each(function () {

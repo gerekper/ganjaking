@@ -1,0 +1,22 @@
+{
+  "elements": {
+    "portoHotspot": {
+      "settings": {
+        "name": "Porto Hot Spot",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-porto-hotspot.jpg",
+        "metaDescription": "Displays a spot which is to display HTML, Block or Product on hover"
+      },
+      "phpFiles": [
+        "PortoHotspotController.php"
+      ]
+    }
+  },
+  "categories": {
+    "Icon": {
+      "elements": [
+        "portoHotspot"
+      ]
+    }
+  }
+}

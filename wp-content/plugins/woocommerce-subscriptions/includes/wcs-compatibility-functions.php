@@ -18,27 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Display a tooltip in the WordPress administration area.
  *
- * Uses wc_help_tip() when WooCommerce 2.5+ is active, otherwise it manually prints the HTML for a tooltip.
+ * @since 2.1.0
  *
- * @param string $tip The content to display in the tooltip.
- * @since  2.1.0
- * @return string
+ * @param string $tip        The content to display in the tooltip.
+ * @param bool   $allow_html Allow sanitized HTML if true or escape. Optional. False by default.
+ * @param string $class      The help tip's class attribute. Optional. Default is 'woocommerce-help-tip'.
+ *
+ * @return string The helptip HTML.
  */
-function wcs_help_tip( $tip, $allow_html = false ) {
+function wcs_help_tip( $tip, $allow_html = false, $class = 'woocommerce-help-tip' ) {
+	$help_tip = wc_help_tip( $tip, $allow_html );
 
-	if ( function_exists( 'wc_help_tip' ) ) {
-
-		$help_tip = wc_help_tip( $tip, $allow_html );
-
-	} else {
-
-		if ( $allow_html ) {
-			$tip = wc_sanitize_tooltip( $tip );
-		} else {
-			$tip = esc_attr( $tip );
-		}
-
-		$help_tip = sprintf( '<img class="help_tip" data-tip="%s" src="%s/assets/images/help.png" height="16" width="16" />', $tip, esc_url( WC()->plugin_url() ) );
+	if ( 'woocommerce-help-tip' !== $class ) {
+		$help_tip = str_replace( 'woocommerce-help-tip', esc_attr( $class ), $help_tip );
 	}
 
 	return $help_tip;
@@ -243,9 +235,9 @@ function wcs_delete_objects_property( &$object, $key, $save = 'save', $meta_id =
 
 	$prefixed_key = wcs_maybe_prefix_key( $key );
 
-	if ( ! empty( $meta_id ) && method_exists( $object, 'delete_meta_data_by_mid' ) ) {
+	if ( ! empty( $meta_id ) && is_callable( array( $object, 'delete_meta_data_by_mid' ) ) ) {
 		$object->delete_meta_data_by_mid( $meta_id );
-	} elseif ( method_exists( $object, 'delete_meta_data' ) ) {
+	} elseif ( is_callable( array( $object, 'delete_meta_data' ) ) ) {
 		$object->delete_meta_data( $prefixed_key );
 	} elseif ( isset( $object->$key ) ) {
 		unset( $object->$key );
@@ -253,7 +245,7 @@ function wcs_delete_objects_property( &$object, $key, $save = 'save', $meta_id =
 
 	// Save the data
 	if ( 'save' === $save ) {
-		if ( method_exists( $object, 'save' ) ) { // WC 3.0+
+		if ( is_callable( array( $object, 'save' ) ) ) { // WC 3.0+
 			$object->save();
 		} elseif ( ! empty( $meta_id ) ) {
 			delete_metadata_by_mid( 'post', $meta_id );
@@ -275,7 +267,7 @@ function wcs_delete_objects_property( &$object, $key, $save = 'save', $meta_id =
  */
 function wcs_is_order( $order ) {
 
-	if ( method_exists( $order, 'get_type' ) ) {
+	if ( is_callable( array( $order, 'get_type' ) ) ) {
 		$is_order = ( 'shop_order' === $order->get_type() );
 	} else {
 		$is_order = ( isset( $order->order_type ) && 'simple' === $order->order_type );

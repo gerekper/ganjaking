@@ -34,6 +34,8 @@ if ( $porto_settings['category-ajax'] ) {
 <?php endif; ?>
 
 <?php
+	$builder_id = porto_check_builder_condition( 'shop' );
+if ( ! $builder_id ) {
 	/**
 	 * Hook: woocommerce_archive_description.
 	 *
@@ -41,11 +43,10 @@ if ( $porto_settings['category-ajax'] ) {
 	 * @hooked woocommerce_product_archive_description - 10
 	 */
 	do_action( 'woocommerce_archive_description' );
-?>
+}
 
-<?php if ( ( function_exists( 'woocommerce_product_loop' ) && woocommerce_product_loop() ) || ( ! function_exists( 'woocommerce_product_loop' ) && have_posts() ) ) { ?>
-
-	<?php
+if ( ( function_exists( 'woocommerce_product_loop' ) && woocommerce_product_loop() ) || ( ! function_exists( 'woocommerce_product_loop' ) && have_posts() ) ) {
+	if ( ! $builder_id ) {
 		/**
 		 * Hook: woocommerce_before_shop_loop.
 		 *
@@ -54,10 +55,9 @@ if ( $porto_settings['category-ajax'] ) {
 		 * @hooked woocommerce_catalog_ordering - 30
 		 */
 		do_action( 'woocommerce_before_shop_loop' );
-	?>
+	}
 
-	<?php
-		global $woocommerce_loop;
+	global $woocommerce_loop;
 
 	if ( ! ( isset( $woocommerce_loop['category-view'] ) && $woocommerce_loop['category-view'] ) ) {
 		$woocommerce_loop['category-view'] = isset( $porto_settings['category-view-mode'] ) ? $porto_settings['category-view-mode'] : '';
@@ -90,12 +90,10 @@ if ( $porto_settings['category-ajax'] ) {
 		$woocommerce_loop['columns']        = $porto_settings['shop-product-cols'];
 		$woocommerce_loop['columns_mobile'] = $porto_settings['shop-product-cols-mobile'];
 	}
-	?>
 
-	<div class="archive-products">
-
-		<?php
-			$skeleton_lazyload = apply_filters( 'porto_skeleton_lazyload', ! empty( $porto_settings['show-skeleton-screen'] ) && in_array( 'shop', $porto_settings['show-skeleton-screen'] ) && ! porto_is_ajax(), 'archive-product' );
+	if ( ! $builder_id ) {
+		echo '<div class="archive-products">';
+		$skeleton_lazyload = apply_filters( 'porto_skeleton_lazyload', ! empty( $porto_settings['show-skeleton-screen'] ) && in_array( 'shop', $porto_settings['show-skeleton-screen'] ) && ! porto_is_ajax(), 'archive-product' );
 		if ( $skeleton_lazyload ) {
 			global $porto_woocommerce_loop;
 			if ( ! $porto_woocommerce_loop ) {
@@ -170,20 +168,17 @@ if ( $porto_settings['category-ajax'] ) {
 
 			add_filter( 'woocommerce_product_loop_start', 'woocommerce_maybe_show_product_subcategories' );
 		}
-		?>
+		echo '</div>';
 
-	</div>
-
-	<?php
 		/**
 		 * Hook: woocommerce_after_shop_loop.
 		 *
 		 * @hooked woocommerce_pagination - 10
 		 */
 		do_action( 'woocommerce_after_shop_loop' );
-	?>
-
-	<?php
+	} else {
+		echo do_shortcode( '[porto_block id="' . esc_attr( $builder_id ) . '"]' );
+	}
 } else {
 
 	global $porto_shop_filter_layout;

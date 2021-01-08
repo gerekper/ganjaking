@@ -21,8 +21,8 @@ extract(
 	)
 );
 
-if ( 'product_layout' != $post_type && 'porto_builder' != $post_type ) {
-	$post_type = 'block';
+if ( empty( $post_type ) ) {
+	$post_type = 'porto_builder';
 }
 
 if ( ( $not_render_home && is_front_page() ) || ! post_type_exists( $post_type ) ) {
@@ -33,7 +33,12 @@ if ( $id || $name ) {
 	global $wpdb;
 	$el_class = porto_shortcode_extract_class( $el_class );
 
-	$where   = $id ? 'ID' : 'post_name';
+	if ( $id ) {
+		$where = is_numeric( $id ) ? 'ID' : 'post_name';
+	} else {
+		$where = is_numeric( $name ) ? 'ID' : 'post_name';
+	}
+
 	$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = %s AND $where = %s", $post_type, $id ? absint( $id ) : sanitize_text_field( $name ) ) );
 
 	if ( $post_id ) {
@@ -105,6 +110,23 @@ if ( $id || $name ) {
 			$post_content .= '</div>';
 		} else {
 			$post_content = $the_post->post_content;
+			if ( defined( 'VCV_VERSION' ) ) {
+				$post_content = vcfilter( 'vcv:frontend:content', $post_content );
+
+				$bundle_url = get_post_meta( $post_id, 'vcvSourceCssFileUrl', true );
+				if ( $bundle_url ) {
+					if ( 0 !== strpos( $bundle_url, 'http' ) ) {
+						if ( false === strpos( $bundle_url, 'assets-bundles' ) ) {
+							$bundle_url = '/assets-bundles/' . $bundle_url;
+						}
+					}
+					$handle = 'vcv:assets:source:main:styles:' . vchelper( 'Str' )->slugify( $bundle_url );
+					if ( ! wp_style_is( $handle, 'enqueued' ) ) {
+						$path                   = vchelper( 'Assets' )->getFilePath( str_replace( '/assets-bundles', '', $bundle_url ) );
+						$shortcodes_custom_css .= vchelper( 'File' )->getContents( $path );
+					}
+				}
+			}
 
 			$use_google_map = get_post_meta( $post_id, 'porto_page_use_google_map_api', true );
 

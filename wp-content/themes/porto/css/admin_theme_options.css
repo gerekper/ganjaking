@@ -4,9 +4,9 @@
 .redux-container input[type=text] { border-color: #ccc; padding: 6px 10px; }
 .select2-container .select2-choice,
 .redux-container textarea { border-color: #ccc }
-.redux-container input[type=text]:focus { box-shadow: 0 0 0 1px #08c }
+.redux-container input[type=text]:focus { box-shadow: 0 0 0 1px #08c; border-color: #08c }
 .redux-info-field.redux-normal { background-color: #f4f4f4; border-color: #e7e7e7 }
-#redux-header, .redux-container .redux-sidebar, #redux-footer, .redux-container #redux-sticky { font-family: 'Poppins', sans-serif }
+#redux-header, .redux-container .redux-sidebar, .redux-container .redux-main, #redux-footer, .redux-container #redux-sticky { font-family: 'Poppins', sans-serif }
 .redux-container #redux-header { background: #08c; border-bottom: none; padding: 0; text-align: inherit; }
 .redux-container #redux-header .display_header { float: none; margin: 0; }
 .redux-container #redux-header .display_header > h2 { display: block; padding: 0; margin: 0; }
@@ -43,7 +43,7 @@
 .redux-sidebar .active .redux-group-tab-link-a i { opacity: .6 }
 .redux-sidebar .redux-group-menu li { margin-top: 4px }
 .redux-main .redux-typography-container .input_wrapper input.mini,
-.redux-container .redux-main .input-prepend input { min-height: auto }
+.redux-container .redux-main .input-prepend input { min-height: auto; padding-top: 3px; padding-bottom: 4px }
 .redux-sidebar .redux-group-tab-link-a .porto-icon { display: block; width: 22px; height: 22px; background-size: contain; background-position: center; background-repeat: no-repeat; top: 50%; margin-top: -11px; opacity: .2 }
 .redux-sidebar .redux-group-menu li.active a,
 .redux-sidebar .redux-group-menu li.active a:hover,
@@ -55,7 +55,7 @@
 .redux-sidebar .icon-content { background-image: url(../inc/admin/theme_options/svg/option_content.svg) }
 .redux-sidebar .icon-plugins { background-image: url(../inc/admin/theme_options/svg/option_plugins.svg) }
 .redux-sidebar .icon-extra { background-image: url(../inc/admin/theme_options/svg/option_extra.svg) }
-.redux-group-tab h2 { font-family: Poppins; letter-spacing: -.05em; font-size: 1.5rem; font-weight: 700; color: #32373c; }
+.redux-group-tab h2 { letter-spacing: -.05em; line-height: 1; font-size: 1.5rem; font-weight: 700; color: #32373c; }
 .redux-container .redux-ajax-loading { margin-top: 14px }
 #redux-defaults-section-sticky { margin-left: auto }
 .redux-container .porto-theme-options-search { margin: 2px auto 0 4px; font-size: 14px }
@@ -77,6 +77,10 @@
 .wp-admin .redux-sidebar .redux-group-menu li.hasSubSections a .extraIconSubsections i { font-size: 1em; margin-top: 0 }
 .wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections .active a:after,
 .wp-admin .redux-sidebar .redux-group-menu li.active.hasSubSections a:after { border-width: 10px 8px; margin-top: -10px; z-index: 1 }
+
+.redux-group-tab[data-rel="18"] tr, .redux-group-tab[data-rel="18"] td { display: block; }
+.redux-group-tab[data-rel="18"] td { margin-top: -30px; }
+.form-table th { vertical-align: middle;  }
 
 .rtl .redux-container .button, .rtl .redux-container .button-primary, .rtl .redux-container .button-secondary { margin-right: 0; margin-left: .75rem }
 .rtl .redux-container .porto-theme-options-search,

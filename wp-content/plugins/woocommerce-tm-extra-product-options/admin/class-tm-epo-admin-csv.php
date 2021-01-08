@@ -400,9 +400,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 		check_ajax_referer( 'import-nonce', 'security' );
 
 		$this->check_if_active( "import" );
-		if ( ! isset( $_SESSION ) ) {
-			session_start();
-		}
+
 		$message = '';
 		$postMax = ini_get( 'post_max_size' );
 
@@ -428,10 +426,10 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				$import = THEMECOMPLETE_EPO_HELPER()->recreate_element_ids( $import );
 			}
 			if ( ! empty( $import ) ) {
-				$import                 = array( "tm_meta" => array( "tmfbuilder" => $import ) );
-				$_SESSION['import_csv'] = $import;
+				$import = array( "tm_meta" => array( "tmfbuilder" => $import ) );
+				set_transient( 'tc_import_csv', $import, DAY_IN_SECONDS );
 				if ( ! empty( $_REQUEST['import_override'] ) ) {
-					$_SESSION['import_override'] = $_REQUEST['import_override'];
+					set_transient( 'tc_import_override', $_REQUEST['import_override'], DAY_IN_SECONDS );
 				}
 
 				// save_imported_csv returns internal HTML code
@@ -489,10 +487,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				$sitename = ( ! empty( $sitename ) ) ? $sitename . '.' : $sitename;
 				$filename = $sitename . 'users.' . date( 'Y-m-d-H-i-s' ) . '.csv';
 
-				if ( ! isset( $_SESSION ) ) {
-					session_start();
-				}
-				$_SESSION[ $filename ] = $tm_meta;
+				set_transient( 'tc_export_' . $filename, $tm_meta, DAY_IN_SECONDS );
 
 				$sendback = esc_url_raw( add_query_arg( 'filename', $filename, admin_url( "edit.php?post_type=product&page=" . THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK . "&action=download" ) ) );
 
@@ -557,11 +552,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 			}
 			$filename = $sitename . 'form.' . $post_id . '.' . date( 'Y-m-d-H-i-s' ) . '.csv';
 
-			if ( ! isset( $_SESSION ) ) {
-				session_start();
-			}
-
-			$_SESSION[ $filename ] = $tm_meta;
+			set_transient( 'tc_export_' . $filename, $tm_meta, DAY_IN_SECONDS );
 			$this->download( $filename );
 
 		}
@@ -598,11 +589,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 			}
 			$filename = $sitename . 'form.' . $post_id . '.' . date( 'Y-m-d-H-i-s' ) . '.csv';
 
-			if ( ! isset( $_SESSION ) ) {
-				session_start();
-			}
-
-			$_SESSION[ $filename ] = $tm_meta;
+			set_transient( 'tc_export_' . $filename, $tm_meta, DAY_IN_SECONDS );
 			$this->download( $filename );
 
 		}
@@ -616,9 +603,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	 */
 	public function download( $filename = 0 ) {
 		$this->check_if_active( "download" );
-		if ( ! isset( $_SESSION ) ) {
-			session_start();
-		}
+
 		if ( isset( $_REQUEST['filename'] ) ) {
 			$filename = $_REQUEST['filename'];
 		}
@@ -634,9 +619,8 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 		header( 'Content-Disposition: attachment; filename=' . $filename );
 		header( 'Content-Type: text/csv; charset=UTF-8', TRUE );
 		if ( ! empty( $filename ) ) {
-			if ( isset( $_SESSION[ $filename ] ) ) {
-				$csv = $_SESSION[ $filename ];
-				unset( $_SESSION[ $filename ] );
+			if ( FALSE !== ( $csv = get_transient( 'tc_export_' . $filename ) ) ) {
+				delete_transient( 'tc_export_' . $filename );
 				// fix for Excel both on Windows and OS X  
 				$csv = mb_convert_encoding( $csv, 'UTF-8' );
 				$csv = pack( 'H*', 'EFBBBF' ) . $csv;

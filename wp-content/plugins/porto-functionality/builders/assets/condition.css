@@ -1,0 +1,91 @@
+.porto-builder-cond-wrap {
+	font-family: 'Poppins', 'Open Sans', sans-serif;
+	max-width: 800px;
+	margin: auto;
+	background: #fff;
+	padding: 2.5rem;
+	display: none;
+	position: relative;
+}
+
+.mfp-content .porto-builder-cond-wrap {
+	display: block;
+}
+
+.porto-builder-cond-wrap button {
+	font-family: inherit;
+}
+
+.porto-builder-condition {
+	display: flex;
+	align-items: center;
+	margin: 0 -5px 10px;
+}
+
+.porto-builder-condition .condition {
+	flex: 1;
+	position: relative;
+	max-width: 100%;
+}
+
+.porto-builder-condition .condition-cancel {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	font-size: .8em;
+	margin-top: -.4em;
+	line-height: 1;
+}
+
+.porto-builder-condition select {
+	font-family: inherit;
+}
+
+.porto-builder-condition > * {
+	margin: 0 5px;
+}
+
+.porto-builder-condition .condition-btn {
+	color: #222529
+}
+
+.porto-builder-cond-wrap .btn {
+	min-width: auto
+}
+
+.porto-builder-condition .condition-btn:hover {
+	color: #08c;
+}
+
+.live-search-list {
+	background: #fff;
+	font-size: 12px;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	width: 100%;
+	min-width: 200px;
+	z-index: 112;
+	box-shadow: 0 0 20px rgba(0, 0, 0, .08)
+}
+.live-search-list .autocomplete-suggestions {
+	max-height: 70vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	position: static !important;
+}
+.live-search-list .autocomplete-suggestion:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+.live-search-list .autocomplete-suggestion {
+	padding: .5em .8em;;
+	cursor: default;
+}
+.vc_icon-btn.porto-condition-button i {
+	color: #fff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}

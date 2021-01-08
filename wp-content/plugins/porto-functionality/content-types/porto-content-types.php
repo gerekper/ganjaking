@@ -13,23 +13,25 @@ class PortoContentTypesClass {
 		include_once( PORTO_CONTENT_TYPES_LIB . 'general.php' );
 
 		// Register content types
-		add_action( 'init', array( $this, 'addBlockContentType' ) );
 		add_action( 'init', array( $this, 'addFaqContentType' ) );
 		add_action( 'init', array( $this, 'addMemberContentType' ) );
 		add_action( 'init', array( $this, 'addPortfolioContentType' ) );
 		add_action( 'init', array( $this, 'addEventContentType' ) );
 
-		add_action( 'admin_init', function() {
-			if ( current_user_can( 'manage_options' ) && get_transient( 'porto_flush_rewrite_rules', false ) ) {
-				flush_rewrite_rules();
-				delete_transient( 'porto_flush_rewrite_rules' );
-			}
-		}, 99 );
+		add_action(
+			'admin_init',
+			function() {
+				if ( current_user_can( 'manage_options' ) && get_transient( 'porto_flush_rewrite_rules', false ) ) {
+					flush_rewrite_rules();
+					delete_transient( 'porto_flush_rewrite_rules' );
+				}
+			},
+			99
+		);
 
 		register_activation_hook(
 			PORTO_FUNC_FILE,
 			function() {
-				$this->addBlockContentType();
 				$this->addFaqContentType();
 				$this->addMemberContentType();
 				$this->addPortfolioContentType();
@@ -37,60 +39,6 @@ class PortoContentTypesClass {
 				flush_rewrite_rules();
 			}
 		);
-	}
-
-	// Register block content type
-	function addBlockContentType() {
-		register_post_type(
-			'block',
-			array(
-				'labels'              => $this->getLabels( __( 'Block', 'porto-functionality' ), __( 'Blocks', 'porto-functionality' ) ),
-				'exclude_from_search' => true,
-				'has_archive'         => false,
-				'public'              => true,
-				'rewrite'             => array( 'slug' => 'block' ),
-				'supports'            => array( 'title', 'editor' ),
-				'can_export'          => true,
-				'show_in_nav_menus'   => false,
-				'show_in_rest'        => true,
-			)
-		);
-
-		global $porto_settings;
-		if ( class_exists( 'Woocommerce' ) && isset( $porto_settings['product-single-content-layout'] ) && 'builder' == $porto_settings['product-single-content-layout'] ) {
-			register_post_type(
-				'product_layout',
-				array(
-					'labels'               => $this->getLabels( __( 'Product Layout', 'porto-functionality' ), __( 'Product Layouts', 'porto-functionality' ) ),
-					'exclude_from_search'  => true,
-					'has_archive'          => false,
-					'public'               => true,
-					'rewrite'              => array( 'slug' => 'product_layout' ),
-					'supports'             => array( 'title', 'editor' ),
-					'can_export'           => true,
-					'show_in_nav_menus'    => false,
-					'show_in_rest'         => true,
-					'register_meta_box_cb' => array( $this, 'addProductLayoutMetaBoxes' ),
-				)
-			);
-		}
-	}
-
-	public function addProductLayoutMetaBoxes() {
-		if ( ! function_exists( 'get_current_screen' ) ) {
-			return;
-		}
-		$screen = get_current_screen();
-		if ( function_exists( 'add_meta_box' ) && $screen && 'post' == $screen->base && 'product_layout' == $screen->id ) {
-			add_meta_box(
-				'product_layout-meta-box',
-				__( 'Product Layout Options', 'porto-functionality' ),
-				'porto_block_meta_box',
-				'product_layout',
-				'normal',
-				'high'
-			);
-		}
 	}
 
 	// Register portfolio content type

@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	const modals = $( '.wcs-modal' );
 
 	// Resize all open modals on window resize.

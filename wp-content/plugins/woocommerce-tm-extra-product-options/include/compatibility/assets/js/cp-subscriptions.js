@@ -14,11 +14,17 @@
 		var variation_id_selector;
 		var current_variation;
 		var $_cart;
-		var subscription_period_separator;
 		var this_epo_totals_container = epoObject.this_epo_totals_container;
 		var main_product = epoObject.main_product;
+		var subscription_sign_up_fee;
+		var formatted_final_total;
+		var nativeProductPriceSelector;
+		var tcAPI = $.tcAPI() || false;
+		var tc_totals_ob;
+		var args;
 
 		this_epo_totals_container.each( function() {
+			tc_totals_ob = $( this ).data( 'tc_totals_ob' );
 			cart_id = $( this ).attr( 'data-cart-id' );
 			$cart = main_product.find( '.tm-extra-product-options.tm-cart-' + cart_id );
 			subscription_period = $( this ).data( 'subscription-period' );
@@ -51,20 +57,64 @@
 						subscription_period = variations_subscription_period[ $.epoAPI.math.toFloat( current_variation ) ];
 					}
 				}
-				subscription_period_separator = ' / ';
-				if ( window.subscription_period_separator !== undefined ) {
-					subscription_period_separator = window.subscription_period_separator;
-				}
-				base.find( '.amount' ).after( '<span class="tmperiod' + is_hidden + '">' + subscription_period_separator + subscription_period + '</span>' );
+
+				base.find( '.amount' ).after( '<span class="tmperiod' + is_hidden + '">' + subscription_period + '</span>' );
 
 				$( this ).find( '.tmperiod' ).remove();
 				$( this )
 					.find( '.amount.options' )
-					.after( '<span class="tmperiod">' + subscription_period_separator + subscription_period + '</span>' );
+					.after( '<span class="tmperiod">' + subscription_period + '</span>' );
 				$( this )
 					.find( '.amount.final' )
-					.after( '<span class="tmperiod">' + subscription_period_separator + subscription_period + '</span>' );
+					.after( '<span class="tmperiod">' + subscription_period + '</span>' );
+
+					if ( tcAPI ) {
+						if ( tc_totals_ob ) {
+							subscription_sign_up_fee = tc_totals_ob.subscription_sign_up_fee;
+							args = {
+								symbol: '',
+								format: '',
+								decimal: tcAPI.localDecimalSeparator,
+								thousand: tcAPI.localThousandSeparator,
+								precision: TMEPOJS.currency_format_num_decimals
+							};
+							formatted_final_total = $.epoAPI.applyFilter( 'tc_formatPrice', $.epoAPI.math.format( tc_totals_ob.product_total_price, args ), args );
+						}
+						nativeProductPriceSelector = $( tcAPI.nativeProductPriceSelector );
+		
+						if ( subscription_sign_up_fee && formatted_final_total ) {
+							nativeProductPriceSelector
+								.html(
+									$.epoAPI.util.decodeHTML(
+										$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
+											price: formatted_final_total
+										} )
+									) + ' ' +
+									subscription_period +
+									TMEPOJS.i18n_and_a +
+									$.epoAPI.util.decodeHTML(
+										$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
+											price: subscription_sign_up_fee
+										} )
+									) +
+									TMEPOJS.i18n_sign_up_fee
+								)
+								.show();
+						} else {
+							nativeProductPriceSelector
+								.html(
+									$.epoAPI.util.decodeHTML(
+										$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
+											price: formatted_final_total
+										} )
+									) + ' ' +
+									subscription_period
+								)
+								.show();
+						}
+					}
 			}
+
 		} );
 	}
 
@@ -142,8 +192,9 @@
 		}
 
 		tc_totals_ob.formatted_subscription_fee_total = formatted_subscription_fee_total;
+		tc_totals_ob.subscription_sign_up_fee = subscription_total;
 		tc_totals_ob.show_sign_up_fee = show_sign_up_fee;
-		tc_totals_ob.sign_up_fee = TMEPOJS.i18n_sign_up_fee;
+		tc_totals_ob.sign_up_fee = TMEPOJS.i18n_subscription_sign_up_fee;
 		tc_totals_ob.showTotal = showTotal;
 
 		return tc_totals_ob;

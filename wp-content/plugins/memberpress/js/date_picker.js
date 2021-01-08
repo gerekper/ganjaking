@@ -7,6 +7,8 @@ jQuery(document).ready(function($) {
   var dateFormat = 'yy-mm-dd';
   var timeFormat = 'HH:mm:ss';
   var showTime   = true;
+  var translations = {};
+  var options = {};
 
   //Front End needs to display cleaner
   if(typeof MeprDatePicker != "undefined") {
@@ -15,24 +17,29 @@ jQuery(document).ready(function($) {
     }
     timeFormat = MeprDatePicker.timeFormat;
     showTime = Boolean(MeprDatePicker.showTime);
+    translations = MeprDatePicker.translations;
   }
 
-  $('.mepr-date-picker').datetimepicker( {
-    dateFormat : dateFormat,
-    timeFormat: timeFormat,
-    yearRange : pastYears + ":" + futureYears,
-    changeMonth : true,
-    changeYear : true,
-    showTime : showTime,
-    onSelect : function (date, inst) {
+  if(typeof translations !== 'undefined' && translations != null) {
+      options = translations;
+  }
+
+  options['dateFormat'] = dateFormat;
+  options['timeFormat'] = timeFormat;
+  options['yearRange'] = pastYears + ":" + futureYears;
+  options['changeMonth'] = true;
+  options['changeYear'] = true;
+  options['showTime'] = showTime;
+  options['onSelect'] = function (date, inst) {
       $(this).trigger('mepr-date-picker-selected', [date, inst]);
-    },
-    onChangeMonthYear : function (month, year, inst) {
+    };
+  options['onChangeMonthYear'] = function (month, year, inst) {
       $(this).trigger('mepr-date-picker-changed', [month, year, inst]);
-    },
-    onClose : function (date, inst) {
+    };
+  options['onClose'] = function (date, inst) {
       $(this).val(date.trim()); //Trim off white-space if any
       $(this).trigger('mepr-date-picker-closed', [date, inst]);
-    }
-  });
+    };
+
+  $('.mepr-date-picker').datetimepicker( options );
 });

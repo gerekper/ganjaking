@@ -8,6 +8,7 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
     add_filter('pre_set_site_transient_update_plugins', 'MeprUpdateCtrl::queue_update');
     add_filter('plugins_api', 'MeprUpdateCtrl::plugin_info', 11, 3);
     add_action('admin_enqueue_scripts', 'MeprUpdateCtrl::enqueue_scripts');
+    add_action('admin_notices', 'MeprUpdateCtrl::activation_warning');
     add_action('admin_notices', 'MeprUpdateCtrl::bf_upgrade_notices');
     //add_action('mepr_display_options', 'MeprUpdateCtrl::queue_button');
     add_action('admin_init', 'MeprUpdateCtrl::activate_from_define');
@@ -44,9 +45,14 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
 
     $mepr_options = MeprOptions::fetch();
 
-   
-    $li = get_site_transient('mepr_license_info');
+    if(!empty($mepr_options->mothership_license)) {
+      $li = get_site_transient('mepr_license_info');
 
+      if(false === $li) {
+        MeprUpdateCtrl::manually_queue_update();
+        $li = get_site_transient('mepr_license_info');
+      }
+    }
 
     $link = 'https://memberpress.com/plans/pricing/';
     $heading = '📢 Black Friday is here!';
@@ -256,9 +262,9 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
     // that way we ensure the license info transient is set
     self::manually_queue_update();
 
-   
-    $li = get_site_transient( 'mepr_license_info' );
-    
+    if(!empty($mepr_options->mothership_license) && empty($errors)) {
+      $li = get_site_transient( 'mepr_license_info' );
+    }
 
     MeprView::render('/admin/update/ui', get_defined_vars());
   }
@@ -292,10 +298,9 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
     self::display_form($message, $errors);
   }
 
-  public static function is_activated() { 
-  return 1;
+  public static function is_activated() {
     $mepr_options = MeprOptions::fetch();
-    $activated = true;
+    $activated = get_option('mepr_activated');
     return (!empty($mepr_options->mothership_license) && !empty($activated));
   }
 
@@ -321,7 +326,7 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
   public static function check_license_activation() {
     $aov = get_option('mepr_activation_override');
 
-    return update_option('mepr_activated', true);
+    if(!empty($aov)) { return update_option('mepr_activated', true); }
 
     $mepr_options = MeprOptions::fetch();
     $domain = urlencode(MeprUtils::site_domain());
@@ -331,9 +336,9 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
     try {
       $act = self::send_mothership_request("/license_keys/check/{$mepr_options->mothership_license}", $args, 'get');
 
-    
-        update_option('mepr_activated', true);
-    
+      if(!empty($act) && is_array($act) && isset($act['status'])) {
+        update_option('mepr_activated', ($act['status']=='enabled'));
+      }
     }
     catch(Exception $e) {
       // TODO: For now do nothing if the server can't be reached
@@ -341,9 +346,11 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
   }
 
   public static function maybe_activate() {
-    $activated = true;
+    $activated = get_option('mepr_activated');
 
-    
+    if(!$activated) {
+      self::check_license_activation();
+    }
   }
 
   public static function activate_from_define() {
@@ -405,7 +412,7 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
       $mepr_options->store(false);
 
       // Don't need to check the mothership for this one ... we just deactivated
-      update_option('mepr_activated', true);
+      update_option('mepr_activated', false);
 
       $message = $act['message'];
     }
@@ -645,7 +652,7 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
     return '';
   }
 
-  public static function send_mothership_request( $endpoint, $args=array(), $method='get', $blocking=true ) { return 1;
+  public static function send_mothership_request( $endpoint, $args=array(), $method='get', $blocking=true ) {
     $domain = defined('MEPR_MOTHERSHIP_DOMAIN') ? MEPR_MOTHERSHIP_DOMAIN : 'https://mothership.caseproof.com';
     $mepr_options = MeprOptions::fetch();
     $uri = "{$domain}{$endpoint}";
@@ -695,9 +702,14 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
   }
 
   public static function activation_warning() {
-    
+    $mepr_options = MeprOptions::fetch();
 
-   
+    if(empty($mepr_options->mothership_license) &&
+       (!isset($_REQUEST['page']) ||
+         !($_REQUEST['page']=='memberpress-options' ||
+           (!self::is_activated() && $_REQUEST['page']=='memberpress')))) {
+      MeprView::render('/admin/update/activation_warning', get_defined_vars());
+    }
   }
 
   public static function mepr_edge_updates() {

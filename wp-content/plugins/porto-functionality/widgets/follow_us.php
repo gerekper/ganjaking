@@ -21,12 +21,12 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 
 	function widget( $args, $instance ) {
 		extract( $args );
-		$title           = apply_filters( 'widget_title', $instance['title'] );
+		$title           = apply_filters( 'widget_title', isset( $instance['title'] ) ? $instance['title'] : '' );
 		$nofollow        = isset( $instance['nofollow'] ) ? $instance['nofollow'] : '';
 		$default_skin    = isset( $instance['default_skin'] ) ? $instance['default_skin'] : '';
 		$disable_br      = isset( $instance['disable_br'] ) ? $instance['disable_br'] : '';
 		$disable_tooltip = isset( $instance['disable_tooltip'] ) ? $instance['disable_tooltip'] : '';
-		$follow_before   = $instance['follow_before'];
+		$follow_before   = isset( $instance['follow_before'] ) ? $instance['follow_before'] : '';
 		$facebook        = isset( $instance['facebook'] ) ? $instance['facebook'] : '';
 		$twitter         = isset( $instance['twitter'] ) ? $instance['twitter'] : '';
 		$rss             = isset( $instance['rss'] ) ? $instance['rss'] : '';
@@ -45,7 +45,7 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 		$yelp            = isset( $instance['yelp'] ) ? $instance['yelp'] : '';
 		$flickr          = isset( $instance['flickr'] ) ? $instance['flickr'] : '';
 		$whatsapp        = isset( $instance['whatsapp'] ) ? $instance['whatsapp'] : '';
-		$follow_after    = $instance['follow_after'];
+		$follow_after    = isset( $instance['follow_after'] ) ? $instance['follow_after'] : '';
 
 		if ( $nofollow ) {
 			$nofollow_escaped = ' rel="nofollow"';
@@ -201,9 +201,15 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 
 		$instance['title']           = strip_tags( $new_instance['title'] );
 		$instance['nofollow']        = $new_instance['nofollow'];
-		$instance['default_skin']    = $new_instance['default_skin'];
-		$instance['disable_br']      = $new_instance['disable_br'];
-		$instance['disable_tooltip'] = $new_instance['disable_tooltip'];
+		if ( isset( $new_instance['default_skin'] ) ) {
+			$instance['default_skin']    = $new_instance['default_skin'];
+		}
+		if ( isset( $new_instance['disable_br'] ) ) {
+			$instance['disable_br']      = $new_instance['disable_br'];
+		}
+		if ( isset( $new_instance['disable_tooltip'] ) ) {
+			$instance['disable_tooltip'] = $new_instance['disable_tooltip'];
+		}
 		$instance['follow_before']   = $new_instance['follow_before'];
 		$instance['facebook']        = $new_instance['facebook'];
 		$instance['twitter']         = $new_instance['twitter'];

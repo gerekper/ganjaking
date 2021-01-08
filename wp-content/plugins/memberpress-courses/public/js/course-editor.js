@@ -126,7 +126,7 @@
                 .dispatch("core/editor")
                 .savePost()
                 .then((resolve) => {
-                  window.open(url, "_blank") || window.location.replace(url);
+                  window.location.assign(url);
                 });
             },
           })

@@ -18,7 +18,7 @@ $image     = wp_get_attachment_url( get_post_thumbnail_id() );
 $permalink = esc_url( apply_filters( 'the_permalink', get_permalink() ) );
 if ( class_exists( 'YITH_WCWL' ) && is_user_logged_in() ) {
 	if ( get_option( 'yith_wcwl_wishlist_page_id' ) == $post->ID ) {
-		$wishlist_id = ( YITH_WCWL()->last_operation_token ) ? YITH_WCWL()->last_operation_token : YITH_WCWL()->details['wishlist_id'];
+		$wishlist_id = ( YITH_WCWL()->last_operation_token ) ? YITH_WCWL()->last_operation_token : ( isset( YITH_WCWL()->details['wishlist_id'] ) ? YITH_WCWL()->details['wishlist_id'] : '' );
 		$permalink  .= '/view/' . $wishlist_id;
 		$permalink   = urlencode( $permalink );
 	}

@@ -1075,17 +1075,17 @@ final class THEMECOMPLETE_EPO_Admin_base {
 	 * @since 5.0.2
 	 */
 	public function in_shop_order() {
-
+		$in_shop_order = FALSE;
 		// required as this runs on ajax order as well
 		if ( function_exists('get_current_screen') ){
 			$screen = get_current_screen();
-			if ( $screen && in_array( $screen->id, apply_filters( 'wc_epo_admin_in_shop_order', array( 'edit-shop_order', 'shop_order' ) ) ) ) {
-				return TRUE;
+			if ( $screen && in_array( $screen->id, apply_filters( 'wc_epo_admin_in_shop_order_screen_ids', array( 'edit-shop_order', 'shop_order' ) ) ) ) {
+				$in_shop_order = TRUE;
 			}	
 		}
 		
 
-		return FALSE;
+		return apply_filters( 'wc_epo_admin_in_shop_order', $in_shop_order );
 
 	}	
 
@@ -1466,22 +1466,18 @@ final class THEMECOMPLETE_EPO_Admin_base {
 				$tm_metas = json_decode( $tm_metas, TRUE );
 
 				if ( $tm_metas || ( is_array( $tm_metas ) ) ) {
-					if ( ! isset( $_SESSION ) ) {
-						session_start();
-					}
 					$import = FALSE;
-					if ( isset( $_SESSION['import_csv'] ) ) {
-						$import = $_SESSION['import_csv'];
-					}
-					if ( ! empty( $import ) ) {
-						if ( ! empty( $_SESSION['import_override'] ) ) {
-							unset( $tm_metas['tm_meta']['tmfbuilder'] );
-							$tm_metas = THEMECOMPLETE_EPO_ADMIN_GLOBAL()->import_array_merge( $tm_metas, $import );
-							unset( $_SESSION['import_override'] );
-						} else {
-							$tm_metas = THEMECOMPLETE_EPO_ADMIN_GLOBAL()->import_array_merge( $tm_metas, $import );
+					if ( FALSE !== ( $import = get_transient( 'tc_import_csv' ) ) ) {
+						if ( ! empty( $import ) ) {
+							if ( FALSE !== ( $import_override = get_transient( 'tc_import_override' ) ) ) {
+								unset( $tm_metas['tm_meta']['tmfbuilder'] );
+								$tm_metas = THEMECOMPLETE_EPO_ADMIN_GLOBAL()->import_array_merge( $tm_metas, $import );
+								delete_transient( 'tc_import_override' );
+							} else {
+								$tm_metas = THEMECOMPLETE_EPO_ADMIN_GLOBAL()->import_array_merge( $tm_metas, $import );
+							}
+							delete_transient( 'tc_import_csv' );
 						}
-						unset( $_SESSION['import_csv'] );
 					}
 
 					$old_data = themecomplete_get_post_meta( $post_id, 'tm_meta', TRUE );

@@ -9,6 +9,8 @@ $grid-gutter-space: <?php echo (int) $porto_settings['grid-gutter-width']; ?> !d
 
 <?php if ( defined( 'WPB_VC_VERSION' ) ) : ?>
 	@import "theme/shortcodes/wpb_general";
+<?php endif; ?>
+<?php if ( defined( 'WPB_VC_VERSION' ) || defined( 'VCV_VERSION' ) ) : ?>
 	<?php if ( ! in_array( 'vc_tabs', $unused_shortcode_list ) || ! in_array( 'vc_tour', $unused_shortcode_list ) ) : ?>
 	@import "theme/shortcodes/tabs";
 	<?php endif; ?>
@@ -97,6 +99,12 @@ $grid-gutter-space: <?php echo (int) $porto_settings['grid-gutter-width']; ?> !d
 <?php if ( ! in_array( 'porto_ultimate_content_box', $unused_shortcode_list ) ) : ?>
 @import "theme/shortcodes/ultimate_content_box";
 <?php endif; ?>
+<?php if ( ! in_array( 'porto_hotspot', $unused_shortcode_list ) ) : ?>
+@import "theme/shortcodes/hotspot";
+<?php endif; ?>
+<?php if ( ! in_array( 'vc_progress_bar', $unused_shortcode_list ) ) : ?>
+	@import "theme/shortcodes/vc_progress_bar";
+<?php endif; ?>
 
 <?php if ( defined( 'WPB_VC_VERSION' ) ) : ?>
 	<?php if ( ! in_array( 'vc_btn', $unused_shortcode_list ) ) : ?>
@@ -110,9 +118,6 @@ $grid-gutter-space: <?php echo (int) $porto_settings['grid-gutter-width']; ?> !d
 	<?php endif; ?>
 	<?php if ( ! in_array( 'vc_pie', $unused_shortcode_list ) ) : ?>
 	@import "theme/shortcodes/vc_pie";
-	<?php endif; ?>
-	<?php if ( ! in_array( 'vc_progress_bar', $unused_shortcode_list ) ) : ?>
-	@import "theme/shortcodes/vc_progress_bar";
 	<?php endif; ?>
 	<?php if ( ! in_array( 'vc_row', $unused_shortcode_list ) ) : ?>
 	@import "theme/shortcodes/vc_row";

@@ -638,3 +638,15 @@ span.product-type.variable-subscription:before {
 	background: #bfbfbf;
 	color: #737373;
 }
+#wcs_order_price_lock {
+	display: inline-block;
+	padding-right: 4px;
+	margin-top: 3px;
+}
+#wcs_order_price_lock > label {
+	font-size: 12px;
+	vertical-align: initial;
+}
+#wcs_order_price_lock > .woocommerce-help-tip {
+	margin: 0 8px 0 2px;
+}

@@ -15,9 +15,9 @@ class Porto_Elementor_Section extends Elementor\Element_Section {
 	public function before_render() {
 		$settings = $this->get_settings_for_display();
 
-		$items        = 0 < intval( $settings['items']['size'] ) ? $settings['items']['size'] : 1;
-		$items_tablet = 0 < intval( $settings['items_tablet']['size'] ) ? $settings['items_tablet']['size'] : 1;
-		$items_mobile = 0 < intval( $settings['items_mobile']['size'] ) ? $settings['items_mobile']['size'] : 1;
+		$items        = isset( $settings['items']['size'] ) ? ( 0 < intval( $settings['items']['size'] ) ? $settings['items']['size'] : 1 ) : 1;
+		$items_tablet = isset( $settings['items_tablet']['size'] ) ? ( 0 < intval( $settings['items_tablet']['size'] ) ? $settings['items_tablet']['size'] : 1 ) : 1;
+		$items_mobile = isset( $settings['items_mobile']['size'] ) ? ( 0 < intval( $settings['items_mobile']['size'] ) ? $settings['items_mobile']['size'] : 1 ) : 1;
 
 		$extra_class    = '';
 		$extra_options  = '';
@@ -379,6 +379,29 @@ function porto_elementor_section_custom_control( $self, $args ) {
 			'tab'   => Controls_Manager::TAB_LAYOUT,
 		)
 	);
+
+	if ( is_singular( PortoBuilders::BUILDER_SLUG ) ) {
+		$builder_type = get_post_meta( get_the_ID(), PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
+		if ( 'header' == $builder_type ) {
+			$self->add_control(
+				'is_main_header',
+				array(
+					'type'        => Controls_Manager::SWITCHER,
+					'label'       => __( 'Is Main header?', 'porto-functionality' ),
+					'description' => __( 'This section will be displayed in sticky header.', 'porto-functionality' ),
+				)
+			);
+		} elseif ( 'shop' == $builder_type ) {
+			$self->add_control(
+				'is_toolbox',
+				array(
+					'type'        => Controls_Manager::SWITCHER,
+					'label'       => __( 'Is Toolbox?', 'porto-functionality' ),
+					'description' => __( 'Tools box is a container which contains "Sort By", "Display Count", "Grid/List Toggle", etc in Shop Builder.', 'porto-functionality' ),
+				)
+			);
+		}
+	}
 
 	$self->add_control(
 		'as_param',
@@ -880,7 +903,7 @@ function porto_elementor_column_custom_control( $self, $args ) {
 			'max'       => 100,
 			'step'      => 1,
 			'condition' => array(
-				'as_param' => 'carousel',
+				'as_banner_layer' => 'carousel',
 			),
 		)
 	);
@@ -1505,6 +1528,10 @@ function porto_elementor_print_section_template( $content, $self ) {
 		if (settings.porto_el_cls) {
 			extra_class += ' ' + settings.porto_el_cls;
 		}
+
+		if (settings.is_toolbox) {
+			extra_container_cls += ' shop-loop-before';
+		}
 	#>
 	<?php
 		$legacy_enabled = ! method_exists( \Elementor\Plugin::instance(), 'get_legacy_mode' ) || \Elementor\Plugin::instance()->get_legacy_mode( 'elementWrappers' );
@@ -1690,6 +1717,11 @@ function porto_elementor_section_add_custom_attrs( $self ) {
 	} elseif ( 'banner' == $settings['as_param'] && 'yes' == $settings['add_container'] ) {
 		global $porto_banner_add_container;
 		$porto_banner_add_container = true;
+	}
+	if ( ! empty( $settings['is_main_header'] ) ) {
+		$self->add_render_attribute( '_wrapper', 'class', 'header-main' );
+	} elseif ( ! empty( $settings['is_toolbox'] ) ) {
+		$self->add_render_attribute( '_wrapper', 'class', 'shop-loop-before' );
 	}
 	if ( ! empty( $settings['parallax_speed']['size'] ) ) {
 		$self->add_render_attribute( '_wrapper', 'data-plugin-parallax', '' );

@@ -1,0 +1,22 @@
+{
+	"elements": {
+		"portoSpRelated": {
+			"settings": {
+				"name": "Related Products",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display related products"
+			},
+			"phpFiles": [
+				"PortoSpRelatedController.php"
+			]
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoSpRelated"
+			]
+		}
+	}
+}

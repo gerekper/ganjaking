@@ -240,9 +240,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 			</div>
 			<div class="porto-setup-wizard porto-speed-optimize-wizard wrap">
 				<h2 class="porto-admin-nav">
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto' ) ); ?>"><?php esc_html_e( 'Welcome', 'porto' ); ?></a>
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto' ) ); ?>"><?php esc_html_e( 'Theme License', 'porto' ); ?></a>
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto-changelog' ) ); ?>"><?php esc_html_e( 'Change Log', 'porto' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto' ) ); ?>"><?php esc_html_e( 'Dashboard', 'porto' ); ?></a>
 					<a href="<?php echo esc_url( admin_url( 'themes.php?page=porto_settings' ) ); ?>"><?php esc_html_e( 'Theme Options', 'porto' ); ?></a>
 					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto-setup-wizard' ) ); ?>"><?php esc_html_e( 'Setup Wizard', 'porto' ); ?></a>
 					<a href="#" class="active nolink"><?php esc_html_e( 'Speed Optimize Wizard', 'porto' ); ?></a>
@@ -531,6 +529,25 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 						?>
 						<p class="mt-2"><?php esc_html_e( 'By disabling unused content types, you can reduce server response time and free up server space by deleting thumbnail files for these content types. We recommend to use Regenerate Thumbnails to remove image files for unregistered sizes after modifying these options.', 'porto' ); ?></p>
 					</li>
+					<li>
+						<h4><?php esc_html_e( 'Disable Unused Templates Builders', 'porto' ); ?></h4>
+						<?php
+							$builder_types = array(
+								'block'   => __( 'Block', 'porto' ),
+								'header'  => __( 'Header', 'porto' ),
+								'footer'  => __( 'Footer', 'porto' ),
+								'product' => __( 'Single Product', 'porto' ),
+								'shop'    => __( 'Product Archive', 'porto' ),
+							);
+						foreach ( $builder_types as $builder_type => $title ) {
+							?>
+							<label class="checkbox checkbox-inline">
+								<input type="checkbox" value="<?php echo esc_attr( $builder_type ); ?>" name="disabled_pbs[]" <?php echo isset( $porto_settings_optimize['disabled_pbs'] ) && is_array( $porto_settings_optimize['disabled_pbs'] ) ? checked( in_array( $builder_type, $porto_settings_optimize['disabled_pbs'] ), true, false ) : ''; ?>> <?php echo esc_html( $title ); ?>
+							</label>&nbsp;
+							<?php
+						}
+						?>
+					</li>
 				</ul>
 				<p class="porto-setup-actions step">
 					<a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="btn btn-dark button-next"><?php esc_html_e( 'Skip this step', 'porto' ); ?></a>
@@ -591,16 +608,32 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 				}
 			}
 
+			$need_rewrite_rules     = false;
 			$disabled_content_types = isset( $_POST['optimize_post_types'] ) && is_array( $_POST['optimize_post_types'] ) ? $_POST['optimize_post_types'] : array();
 			$post_types             = array( 'portfolio', 'member', 'event', 'faq' );
 			foreach ( $post_types as $post_type ) {
 				if ( in_array( $post_type, $disabled_content_types ) && ( ! isset( $porto_settings[ 'enable-' . $post_type ] ) || $porto_settings[ 'enable-' . $post_type ] ) ) {
 					$porto_settings[ 'enable-' . $post_type ] = false;
 					$need_save                                = true;
+					$need_rewrite_rules                       = true;
 				} elseif ( ! in_array( $post_type, $disabled_content_types ) && isset( $porto_settings[ 'enable-' . $post_type ] ) && ! $porto_settings[ 'enable-' . $post_type ] ) {
 					$porto_settings[ 'enable-' . $post_type ] = true;
 					$need_save                                = true;
+					$need_rewrite_rules                       = true;
 				}
+			}
+
+			$disabled_pbs = isset( $_POST['disabled_pbs'] ) && is_array( $_POST['disabled_pbs'] ) ? $_POST['disabled_pbs'] : array();
+			if ( ! isset( $porto_settings_optimize['disabled_pbs'] ) ) {
+				$porto_settings_optimize['disabled_pbs'] = array();
+			}
+			if ( ! empty( array_diff( $disabled_pbs, $porto_settings_optimize['disabled_pbs'] ) ) || ! empty( array_diff( $porto_settings_optimize['disabled_pbs'], $disabled_pbs ) ) ) {
+				$porto_settings_optimize['disabled_pbs'] = $disabled_pbs;
+				$need_rewrite_rules                      = true;
+			}
+
+			if ( $need_rewrite_rules ) {
+				set_transient( 'porto_flush_rewrite_rules', true, 60 );
 			}
 
 			if ( $need_save ) {
@@ -1102,6 +1135,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 						'porto_fancytext',
 						'porto_countdown',
 						'porto_google_map',
+						'porto_hotspot',
 					);
 					$widgets = array_diff( $widgets, $used );
 					foreach ( $widgets as $widget ) {
@@ -1131,6 +1165,28 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 						$post_ids = $wpdb->get_col( 'SELECT post_id FROM ' . $wpdb->postmeta . ' as meta left join ' . $wpdb->posts . ' as posts on meta.post_id = posts.ID WHERE posts.post_type not in ("revision", "attachment") AND posts.post_status = "publish" and meta_key = "_elementor_data" and' . $search_str . ' LIMIT 1' );
 						if ( ! empty( $post_ids ) ) {
 							$used[] = $key;
+						}
+					}
+				}
+
+				// check VC elements
+				if ( defined( 'VCV_VERSION' ) ) {
+					$widgets = array(
+						'porto_info_box'                 => 'porto-sicon-box',
+						'porto_interactive_banner'       => 'vce-element-porto-banner',
+						'porto_interactive_banner_layer' => 'vce-element-porto-banner-layer',
+						'porto_price_box'                => 'porto-price-box',
+						'porto_ultimate_heading'         => 'porto-u-heading',
+						'vc_progress_bar'                => 'porto-vc-progressbar',
+						'vc_tabs'                        => 'vce-tab tabs',
+					);
+					foreach ( $widgets as $widget => $cls ) {
+						if ( in_array( $widget, $used ) ) {
+							continue;
+						}
+						$post_id = $wpdb->get_col( 'SELECT ID FROM ' . esc_sql( $wpdb->posts ) . ' WHERE post_type not in ("revision", "attachment") AND post_status = "publish" and post_content LIKE \'%class="' . esc_sql( $cls ) . '%\' LIMIT 1' );
+						if ( ! empty( $post_id ) ) {
+							$used[] = $widget;
 						}
 					}
 				}

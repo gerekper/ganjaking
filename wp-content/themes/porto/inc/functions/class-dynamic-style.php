@@ -24,6 +24,19 @@ if ( ! class_exists( 'Porto_Dynamic_Style' ) ) :
 			add_action( 'porto_admin_save_theme_settings', array( $this, 'compile_dynamic_css' ) );
 			if ( is_admin() ) {
 				add_action( 'customize_save_after', array( $this, 'compile_dynamic_css' ), 99 );
+
+				add_action( 'activated_plugin', array( $this, 'activated_compile' ) );
+				add_action( 'deactivated_plugin', array( $this, 'activated_compile' ) );
+
+				add_action(
+					'admin_init',
+					function() {
+						if ( current_user_can( 'manage_options' ) && get_transient( 'porto_need_compile_dynamic_css', false ) ) {
+							$this->compile_dynamic_css();
+							delete_transient( 'porto_need_compile_dynamic_css' );
+						}
+					}
+				);
 			}
 		}
 
@@ -314,6 +327,21 @@ if ( ! class_exists( 'Porto_Dynamic_Style' ) ) :
 					porto_register_style( 'porto-dynamic-style', 'dynamic_style_rtl', false, false );
 				} else {
 					porto_register_style( 'porto-dynamic-style', 'dynamic_style', false, false );
+				}
+			}
+		}
+
+		public function activated_compile( $plugin_uri ) {
+			if ( class_exists( 'PortoTGMPlugins' ) ) {
+				$plugins_obj = new PortoTGMPlugins();
+				$plugins     = $plugins_obj->get_plugins_list();
+				if ( ! empty( $plugins ) && is_array( $plugins ) ) {
+					foreach ( $plugins as $plugin ) {
+						if ( $plugin['url'] == $plugin_uri ) {
+							set_transient( 'porto_need_compile_dynamic_css', true, 60 );
+							break;
+						}
+					}
 				}
 			}
 		}

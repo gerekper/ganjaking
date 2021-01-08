@@ -1,4 +1,4 @@
-jQuery(document).ready(function($){
+jQuery( function( $ ) {
 	var timezone = jstz.determine();
 
 	// Display the timezone for date changes
@@ -6,12 +6,12 @@ jQuery(document).ready(function($){
 
 	// Display times in client's timezone (based on UTC)
 	$( '.woocommerce-subscriptions.date-picker' ).each(function(){
-		var $date_input   = $(this),
+		var $date_input   = $( this ),
 			date_type     = $date_input.attr( 'id' ),
-			$hour_input   = $( '#'+date_type+'_hour' ),
-			$minute_input = $( '#'+date_type+'_minute' ),
-			time          = $('#'+date_type+'_timestamp_utc').val(),
-			date          = moment.unix(time);
+			$hour_input   = $( '#' + date_type + '_hour' ),
+			$minute_input = $( '#' + date_type + '_minute' ),
+			time          = $('#' + date_type + '_timestamp_utc' ).val(),
+			date          = moment.unix( time );
 
 		if ( time > 0 ) {
 			date.local();
@@ -22,61 +22,58 @@ jQuery(document).ready(function($){
 	});
 
 	// Make sure start date picker is in the past
-	$( '.woocommerce-subscriptions.date-picker#start' ).datepicker( 'option','maxDate',moment().toDate());
+	$( '.woocommerce-subscriptions.date-picker#start' ).datepicker( 'option', 'maxDate', moment().toDate() );
 
 	// Make sure other date pickers are in the future
-	$( '.woocommerce-subscriptions.date-picker:not(#start)' ).datepicker( 'option','minDate',moment().add(1,'hours').toDate());
+	$( '.woocommerce-subscriptions.date-picker:not(#start)' ).datepicker( 'option', 'minDate', moment().add( 1, 'hours' ).toDate() );
 
 	// Validate date when hour/minute inputs change
 	$( '[name$="_hour"], [name$="_minute"]' ).on( 'change', function() {
-		$( '#' + $(this).attr( 'name' ).replace( '_hour', '' ).replace( '_minute', '' ) ).change();
+		$( '#' + $( this ).attr( 'name' ).replace( '_hour', '' ).replace( '_minute', '' ) ).change();
 	});
 
 	// Validate entire date
-	$( '.woocommerce-subscriptions.date-picker' ).on( 'change',function(){
+	$( '.woocommerce-subscriptions.date-picker' ).on( 'change', function() {
 
 		// The date was deleted, clear hour/minute inputs values and set the UTC timestamp to 0
-		if( '' == $(this).val() ) {
-			$( '#' + $(this).attr( 'id' ) + '_hour' ).val('');
-			$( '#' + $(this).attr( 'id' ) + '_minute' ).val('');
-			$( '#' + $(this).attr( 'id' ) + '_timestamp_utc' ).val(0);
+		if( '' == $( this ).val() ) {
+			$( '#' + $( this ).attr( 'id' ) + '_hour' ).val( '' );
+			$( '#' + $( this ).attr( 'id' ) + '_minute' ).val( '' );
+			$( '#' + $( this ).attr( 'id' ) + '_timestamp_utc' ).val( 0 );
 			return;
 		}
 
 		var time_now          = moment(),
-			one_hour_from_now = moment().add(1,'hours' ),
-			$date_input   = $(this),
-			date_type     = $date_input.attr( 'id' ),
-			date_pieces   = $date_input.val().split( '-' ),
-			$hour_input   = $( '#'+date_type+'_hour' ),
-			$minute_input = $( '#'+date_type+'_minute' ),
-			chosen_hour   = (0 == $hour_input.val().length) ? one_hour_from_now.format( 'HH' ) : $hour_input.val(),
-			chosen_minute = (0 == $minute_input.val().length) ? one_hour_from_now.format( 'mm' ) : $minute_input.val(),
-			chosen_date   = moment({
+			one_hour_from_now = moment().add( 1, 'hours' ),
+			minimum_date      = wcs_admin_meta_boxes.is_duplicate_site ? moment().add( 2, 'minutes' ) : one_hour_from_now,
+			$date_input       = $( this ),
+			date_type         = $date_input.attr( 'id' ),
+			date_pieces       = $date_input.val().split( '-' ),
+			$hour_input       = $( '#' + date_type + '_hour' ),
+			$minute_input     = $( '#' + date_type + '_minute' ),
+			chosen_hour       = ( 0 == $hour_input.val().length ) ? one_hour_from_now.format( 'HH' ) : $hour_input.val(),
+			chosen_minute     = ( 0 == $minute_input.val().length ) ? one_hour_from_now.format( 'mm' ) : $minute_input.val(),
+			chosen_date       = moment({
 				years:   date_pieces[0],
-				months: (date_pieces[1] - 1),
-				date:   (date_pieces[2]),
+				months:  ( date_pieces[1] - 1 ),
+				date:    ( date_pieces[2] ),
 				hours:   chosen_hour,
 				minutes: chosen_minute,
 				seconds: one_hour_from_now.format( 'ss' )
 			});
 
 		// Make sure start date is before now.
-		if ( 'start' == date_type ) {
-
-			if ( false === chosen_date.isBefore( time_now ) ) {
-				alert( wcs_admin_meta_boxes.i18n_start_date_notice );
-				$date_input.val( time_now.year() + '-' + ( zeroise( time_now.months() + 1 ) ) + '-' + ( time_now.format( 'DD' ) ) );
-				$hour_input.val( time_now.format( 'HH' ) );
-				$minute_input.val( time_now.format( 'mm' ) );
-			}
-
+		if ( 'start' == date_type && false === chosen_date.isBefore( time_now )) {
+			alert( wcs_admin_meta_boxes.i18n_start_date_notice );
+			$date_input.val( time_now.year() + '-' + ( zeroise( time_now.months() + 1 ) ) + '-' + ( time_now.format( 'DD' ) ) );
+			$hour_input.val( time_now.format( 'HH' ) );
+			$minute_input.val( time_now.format( 'mm' ) );
 		}
 
 		// Make sure trial end and next payment are after start date
 		if ( ( 'trial_end' == date_type || 'next_payment' == date_type ) && '' != $( '#start_timestamp_utc' ).val() ) {
 			var change_date = false,
-				start       = moment.unix( $('#start_timestamp_utc').val() );
+				start       = moment.unix( $( '#start_timestamp_utc' ).val() );
 
 			// Make sure trial end is after start date
 			if ( 'trial_end' == date_type && chosen_date.isBefore( start, 'minute' ) ) {
@@ -109,7 +106,7 @@ jQuery(document).ready(function($){
 		// Make sure trial end is before next payment and expiration is after next payment date
 		else if ( ( 'trial_end' == date_type || 'end' == date_type ) && '' != $( '#next_payment' ).val() ) {
 			var change_date  = false,
-				next_payment = moment.unix( $('#next_payment_timestamp_utc').val() );
+				next_payment = moment.unix( $( '#next_payment_timestamp_utc' ).val() );
 
 			// Make sure trial end is before or equal to next payment
 			if ( 'trial_end' == date_type && next_payment.isBefore( chosen_date, 'minute' ) ) {
@@ -130,7 +127,7 @@ jQuery(document).ready(function($){
 		}
 
 		// Make sure the date is more than an hour in the future
-		if ( 'trial_end' != date_type && 'start' != date_type && chosen_date.unix() < one_hour_from_now.unix() ) {
+		if ( 'trial_end' != date_type && 'start' != date_type && chosen_date.unix() < minimum_date.unix() ) {
 
 			alert( wcs_admin_meta_boxes.i18n_past_date_notice );
 
@@ -144,34 +141,34 @@ jQuery(document).ready(function($){
 			}
 		}
 
-		if( 0 == $hour_input.val().length ){
-			$hour_input.val(one_hour_from_now.format( 'HH' ));
+		if ( 0 == $hour_input.val().length ){
+			$hour_input.val( one_hour_from_now.format( 'HH' ) );
 		}
 
-		if( 0 == $minute_input.val().length ){
-			$minute_input.val(one_hour_from_now.format( 'mm' ));
+		if ( 0 == $minute_input.val().length ){
+			$minute_input.val( one_hour_from_now.format( 'mm' ) );
 		}
 
 		// Update the UTC timestamp sent to the server
 		date_pieces = $date_input.val().split( '-' );
 
-		$('#'+date_type+'_timestamp_utc').val(moment({
+		$( '#' + date_type + '_timestamp_utc' ).val( moment({
 			years:   date_pieces[0],
-			months: (date_pieces[1] - 1),
-			date:   (date_pieces[2]),
+			months:  ( date_pieces[1] - 1 ),
+			date:    ( date_pieces[2] ),
 			hours:   $hour_input.val(),
 			minutes: $minute_input.val(),
 			seconds: one_hour_from_now.format( 'ss' )
 		}).utc().unix());
 
-		$( 'body' ).trigger( 'wcs-updated-date',date_type);
+		$( 'body' ).trigger( 'wcs-updated-date', date_type );
 	});
 
 	function zeroise( val ) {
-		return (val > 9 ) ? val : '0' + val;
+		return ( val > 9 ) ? val : '0' + val;
 	}
 
-	if( $( '#parent-order-id' ).is( 'select' ) ) {
+	if ( $( '#parent-order-id' ).is( 'select' ) ) {
 		wcs_update_parent_order_options();
 
 		$( '#customer_user' ).on( 'change', wcs_update_parent_order_options );
@@ -225,15 +222,15 @@ jQuery(document).ready(function($){
 		return false;
 	};
 
-	$('body.post-type-shop_subscription #post').submit(function(){
-		if('wcs_process_renewal' == $( "body.post-type-shop_subscription select[name='wc_order_action']" ).val()) {
-			return confirm(wcs_admin_meta_boxes.process_renewal_action_warning);
+	$( 'body.post-type-shop_subscription #post' ).submit( function() {
+		if( 'wcs_process_renewal' == $( "body.post-type-shop_subscription select[name='wc_order_action']" ).val() ) {
+			return confirm( wcs_admin_meta_boxes.process_renewal_action_warning );
 		}
-	});
+	} );
 
-	$('body.post-type-shop_subscription #post').submit(function(){
-		if ( typeof wcs_admin_meta_boxes.change_payment_method_warning != 'undefined' && wcs_admin_meta_boxes.payment_method != $('#_payment_method').val() ) {
-			return confirm(wcs_admin_meta_boxes.change_payment_method_warning);
+	$( 'body.post-type-shop_subscription #post' ).submit( function() {
+		if ( typeof wcs_admin_meta_boxes.change_payment_method_warning != 'undefined' && wcs_admin_meta_boxes.payment_method != $( '#_payment_method' ).val() ) {
+			return confirm( wcs_admin_meta_boxes.change_payment_method_warning );
 		}
-	});
+	} );
 });

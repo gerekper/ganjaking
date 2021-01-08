@@ -984,6 +984,7 @@ class THEMECOMPLETE_EPO_Display {
 					'haslogic'             => $section['sections_logic'],
 					'sections_class'       => $section['sections_class'],
 					'sections_type'        => $section['sections_type'],
+					'sections_popupbutton' => $section['sections_popupbutton'],
 					'title_size'           => $label_size,
 					'title'                => ! empty( $section['label'] ) ? $section['label'] : "",
 					'title_color'          => ! empty( $section['label_color'] ) ? $section['label_color'] : "",
@@ -1221,7 +1222,11 @@ class THEMECOMPLETE_EPO_Display {
 											$name_inc = $cart_fee_name . $base_name_inc;
 										}
 
-										$name_inc = apply_filters( 'wc_epo_name_inc', $name_inc, $base_name_inc, $element, FALSE, FALSE, FALSE );
+										if (!isset($element_type_counter[ $element['type'] ])){
+											$element_type_counter[ $element['type'] ] = 0;
+										}
+
+										$name_inc = apply_filters( 'wc_epo_name_inc', $name_inc, $base_name_inc, $element, FALSE, FALSE, $element_type_counter[ $element['type'] ] );
 
 										do_action( 'wc_epo_get_builder_display_single', $element, $name_inc, FALSE );
 
@@ -1249,7 +1254,7 @@ class THEMECOMPLETE_EPO_Display {
 											'fieldtype'       => $fieldtype,
 											'field_counter'   => $field_counter,
 											'product_id'      => isset( $product_id ) ? $product_id : 0,
-										) );
+										) );										
 
 										if ( is_array( $display ) ) {
 
@@ -1326,7 +1331,7 @@ class THEMECOMPLETE_EPO_Display {
 												) ) ),
 											);
 
-											$args         = apply_filters( 'wc_epo_display_template_args', array_merge( $args, $display ), $element, FALSE, FALSE, FALSE );
+											$args         = apply_filters( 'wc_epo_display_template_args', array_merge( $args, $display ), $element, FALSE, FALSE, $element_type_counter[ $element['type'] ] );
 											$args['args'] = $args;
 											if ( THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["_is_addon"] ) {
 												do_action( "tm_epo_display_addons", $element, $args, array(
@@ -1345,6 +1350,8 @@ class THEMECOMPLETE_EPO_Display {
 												);
 											}
 										}
+
+										$element_type_counter[ $element['type'] ] ++;
 
 									} elseif ( THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "multipleall" || THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "multiple" ) {
 
@@ -1495,11 +1502,11 @@ class THEMECOMPLETE_EPO_Display {
 
 											$choice_counter ++;
 
-											$element_type_counter[ $element['type'] ] ++;
-
 											$field_counter ++;
 
 										}
+
+										$element_type_counter[ $element['type'] ] ++;
 
 									}
 
@@ -1647,7 +1654,7 @@ class THEMECOMPLETE_EPO_Display {
 	 * @param string $form_prefix
 	 * @param bool   $is_from_shortcode
 	 */
-	public function get_normal_display( $local_price_array = array(), $args = array(), $form_prefix, $dummy_prefix ) {
+	public function get_normal_display( $local_price_array = array(), $args = array(), $form_prefix = null, $dummy_prefix = null ) {
 
 		$tabindex        = $args['tabindex'];
 		$unit_counter    = $args['unit_counter'];
@@ -2399,8 +2406,8 @@ class THEMECOMPLETE_EPO_Display {
 		}
 
 		$variations = array();
-
-		if ( themecomplete_get_product_type( $product ) === "variable" && THEMECOMPLETE_EPO()->tm_epo_no_variation_prices_array !== 'yes' ) {
+		
+		if ( in_array( themecomplete_get_product_type( $product ), apply_filters( 'wc_epo_variable_product_type', array( "variable" ), $product ) ) && THEMECOMPLETE_EPO()->tm_epo_no_variation_prices_array !== 'yes' ) {
 
 			foreach ( $product->get_available_variations() as $variation ) {
 

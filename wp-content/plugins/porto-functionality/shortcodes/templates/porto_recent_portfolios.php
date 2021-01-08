@@ -16,6 +16,7 @@ extract(
 			'post_in'            => '',
 			'cats'               => '',
 			'cat'                => '',
+			'items'              => '',
 			'items_desktop'      => 4,
 			'items_tablets'      => 3,
 			'items_mobile'       => 2,
@@ -77,6 +78,9 @@ if ( $slider_config ) {
 	$options['nav']  = $show_nav;
 	$options['dots'] = $show_dots;
 }
+if ( ! empty( $items ) ) {
+	$options['items'] = (int) $items;
+}
 $options['lg'] = (int) $items_desktop;
 $options['md'] = (int) $items_tablets;
 $options['sm'] = (int) $items_mobile;
@@ -87,6 +91,9 @@ if ( $ajax_load ) {
 $options = json_encode( $options );
 
 $items_row = (int) $items_row;
+if ( $items_row < 1 ) {
+	$items_row = 1;
+}
 
 $args = array(
 	'post_type'      => 'portfolio',

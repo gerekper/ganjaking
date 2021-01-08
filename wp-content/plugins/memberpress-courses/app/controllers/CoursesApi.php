@@ -8,12 +8,12 @@ use memberpress\courses\models as models;
 use memberpress\courses\helpers as helpers;
 
 class CoursesApi extends lib\BaseCtrl {
+  public static $namespace_str = 'mpcs';
+  public static $resource_name_str = 'courses';
 
   // Here initialize our namespace and resource name.
   public function __construct() {
     parent::__construct();
-    $this->namespace     = 'mp';
-    $this->resource_name = 'courses';
   }
 
   public function load_hooks() {
@@ -24,7 +24,7 @@ class CoursesApi extends lib\BaseCtrl {
    * Register the routes for the objects of the controller.
    */
   public function register_routes() {
-    register_rest_route( $this->namespace, '/' . $this->resource_name .'/lessons', array(
+    register_rest_route( self::$namespace_str, '/' . self::$resource_name_str .'/lessons', array(
       array(
         'methods'             => \WP_REST_Server::READABLE,
         'callback'            => array( $this, 'fetch_lessons' ),
@@ -32,7 +32,7 @@ class CoursesApi extends lib\BaseCtrl {
       ),
     ) );
 
-    register_rest_route( $this->namespace, '/' . $this->resource_name .'/lessons' . '/(?P<id>[\d]+)', array(
+    register_rest_route( self::$namespace_str, '/' . self::$resource_name_str .'/lessons' . '/(?P<id>[\d]+)', array(
       array(
         'methods'             => \WP_REST_Server::CREATABLE,
         'callback'            => array( $this, 'duplicate_lesson' ),
@@ -40,7 +40,7 @@ class CoursesApi extends lib\BaseCtrl {
       ),
     ) );
 
-    register_rest_route( $this->namespace, '/' . $this->resource_name .'/curriculum'. '/(?P<id>[\d]+)', array(
+    register_rest_route( self::$namespace_str, '/' . self::$resource_name_str .'/curriculum'. '/(?P<id>[\d]+)', array(
       array(
         'methods'             => \WP_REST_Server::READABLE,
         'callback'            => array( $this, 'get_curriculum' ),

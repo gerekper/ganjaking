@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoPricingTable": {
+      "settings": {
+        "name": "Porto Pricing Table",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-pricing-table.jpg",
+        "metaDescription": "Porto VC element to display pricing table"
+      }
+    }
+  },
+  "categories": {
+    "Testimonial": {
+      "elements": [
+        "portoPricingTable"
+      ]
+    }
+  }
+}

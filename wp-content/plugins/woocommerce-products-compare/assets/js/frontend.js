@@ -21,7 +21,7 @@ jQuery( document ).ready( function( $ ) {
 
 			// if nothing set, set it
 			if ( products === false ) {
-				products = [ String( $.trim( productID ) ) ];
+				products = [ String( productID ).trim() ];
 
 			// check if product is already listed
 			} else if ( products.indexOf( productID ) === -1 ) {

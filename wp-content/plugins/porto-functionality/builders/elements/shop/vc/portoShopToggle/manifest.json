@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoShopToggle": {
+			"settings": {
+				"name": "Shop Builder - Grid / List Toggle",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display Grid / List toggle in Shop page"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoShopToggle"
+			]
+		}
+	}
+}

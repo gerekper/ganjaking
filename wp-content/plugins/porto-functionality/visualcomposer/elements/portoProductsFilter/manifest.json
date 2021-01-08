@@ -1,0 +1,22 @@
+{
+  "elements": {
+    "portoProductsFilter": {
+      "settings": {
+        "name": "Porto Products Filter",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-products-filter.jpg",
+        "metaDescription": "Porto VC element to display a list of select boxes to filter products by category, price or attributes"
+      },
+      "phpFiles": [
+        "PortoProductsFilterController.php"
+      ]
+    }
+  },
+  "categories": {
+    "WooCommerce": {
+      "elements": [
+        "portoProductsFilter"
+      ]
+    }
+  }
+}

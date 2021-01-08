@@ -313,7 +313,7 @@ function porto_customizer_refresh_partials( WP_Customize_Manager $wp_customize )
 			array(
 				'selector'            => '#mini-cart',
 				'container_inclusive' => true,
-				'settings'            => array( 'porto_settings[minicart-icon]', 'porto_settings[minicart-content]' ),
+				'settings'            => array( 'porto_settings[minicart-icon]', 'porto_settings[minicart-text]', 'porto_settings[minicart-content]' ),
 				'render_callback'     => function() {
 					return porto_minicart();
 				},

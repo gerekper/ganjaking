@@ -124,7 +124,7 @@ if ( ! empty( $product_tabs ) || ! empty( $custom_tabs_title ) || $global_tab_ti
 
 				<?php if ( ! porto_is_ajax() ) : ?>
 				// go to reviews, write a review
-				$('.woocommerce-review-link, .woocommerce-write-review-link').click(function(e) {
+				$('.woocommerce-review-link, .woocommerce-write-review-link').on('click', function(e) {
 					var target = $(this.hash);
 					if (target.length) {
 						e.preventDefault();
@@ -143,7 +143,7 @@ if ( ! empty( $product_tabs ) || ! empty( $custom_tabs_title ) || $global_tab_ti
 				}
 				<?php endif; ?>
 
-				$tabs.find('h2.resp-accordion').click(function(e) {
+				$tabs.find('h2.resp-accordion').on('click', function(e) {
 					goAccordionTab($(this));
 				});
 			});

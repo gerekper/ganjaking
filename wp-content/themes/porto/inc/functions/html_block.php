@@ -76,6 +76,12 @@ if ( ! function_exists( 'porto_add_html_before_content_bottom' ) ) :
 			echo do_shortcode( $porto_settings['html-content-bottom'] );
 			echo '</div>';
 		}
+
+		if ( is_single() && ! empty( $porto_settings[ get_post_type() . '-content_bottom' ] ) ) {
+			foreach ( explode( ',', $porto_settings[ get_post_type() . '-content_bottom' ] ) as $block ) {
+				echo do_shortcode( '[porto_block name="' . esc_attr( trim( $block ) ) . '"]' );
+			}
+		}
 	}
 endif;
 

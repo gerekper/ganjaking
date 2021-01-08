@@ -12,9 +12,10 @@ class Courses extends lib\BaseCtrl {
   public function load_hooks() {
     add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'), 100);
     add_action('pre_get_posts', array($this, 'filter_courses_archive'));
-    add_action('transition_post_status', array($this, 'delete_transients'), 10, 3 );
+    add_action('save_post', array($this, 'delete_transients'), 10, 2 );
     add_filter('the_content', array($this, 'page_router'), 10);
     add_filter('template_include', array($this, 'override_template'));
+    add_filter('mepr-rule-do-redirection', array( $this, 'prevent_courses_view_redirect' ) );
     add_shortcode('mpcs-my-courses', array($this, 'my_courses_shortcode'));
     add_shortcode('mpcs-section-overview', array($this, 'section_overview_shortcode'));
     add_shortcode('mpcs-course-overview', array($this, 'course_overview_shortcode'));
@@ -58,6 +59,18 @@ class Courses extends lib\BaseCtrl {
     }
 
     return $template;
+  }
+
+  /**
+   * Prevent redirects from occurring on the Courses view
+   *
+   * @param  boolean  $should_redirect  Whether a redirect should perform.
+   *
+   * @return boolean
+   */
+  public function prevent_courses_view_redirect( $should_redirect ) {
+    global $post;
+    return models\Course::$cpt == $post->post_type && helpers\App::is_classroom() ? false : $should_redirect;
   }
 
   /**
@@ -286,28 +299,42 @@ class Courses extends lib\BaseCtrl {
     $user_id = \get_current_user_id();
     $transients = \get_option('mpcs-transients', array());
 
-    // Get all courses the user is allowed to view
-    if ( false === ( $enrolled_courses_id = get_transient( 'mpmc_enrolled_courses_'.$user_id ) ) ) {
-      $courses = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'orderby' => 'title', 'order' => 'ASC'));
-
-      $enrolled_courses_id = array_column( $courses, 'ID' );
-      set_transient( 'mpmc_enrolled_courses_'.$user_id, $enrolled_courses_id, 24 * HOUR_IN_SECONDS );
-      $transients[] = 'mpmc_enrolled_courses_'.$user_id;
-      \update_option('mpcs-transients', $transients);
-    }
-
     // If 'My Courses' is clicked, return enrolled courses first
-    if($type = self::get_param('type') && 'mycourses' === self::get_param('type')){
-      if ( false == ( get_transient( 'mpmc_enrolled_mycourses_'.$user_id ) ) ) {
+    if('mycourses' === self::get_param('type')){
+      if ( false == ( get_transient( 'mpcs_enrolled_mycourses_'.$user_id ) ) ) {
+
+        $courses = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'orderby' => 'title', 'order' => 'ASC'));
+
+        if(false == \MeprUtils::is_logged_in_and_an_admin()){
+          // Remove courses users are not allowed to view but
+          // get all courses if user is admin
+          $courses = array_filter($courses, function($course){
+            return false == \MeprRule::is_locked($course);
+          });
+        }
+
+        $enrolled_courses_id = array_column( $courses, 'ID' );
+
         $progress = models\UserProgress::find_all_by_user($user_id);
         $courses_started = array_unique( array_column($progress, 'course_id') );
         $enrolled_courses_id = \array_unique( \array_merge($courses_started, $enrolled_courses_id) );
-        set_transient( 'mpmc_enrolled_mycourses_'.$user_id, $enrolled_courses_id, 24 * HOUR_IN_SECONDS );
-        $transients[] = 'mpmc_enrolled_mycourses_'.$user_id;
+        set_transient( 'mpcs_enrolled_mycourses_'.$user_id, $enrolled_courses_id, 24 * HOUR_IN_SECONDS );
+        $transients[] = 'mpcs_enrolled_mycourses_'.$user_id;
         \update_option('mpcs-transients', $transients);
       }
       else{
-        $enrolled_courses_id = get_transient( 'mpmc_enrolled_mycourses_'.$user_id );
+        $enrolled_courses_id = get_transient( 'mpcs_enrolled_mycourses_'.$user_id );
+      }
+    }
+    else{
+      // Get all courses the user is allowed to view
+      if ( false === ( $enrolled_courses_id = get_transient( 'mpcs_enrolled_courses_'.$user_id ) ) ) {
+        $courses = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'orderby' => 'title', 'order' => 'ASC'));
+
+        $enrolled_courses_id = array_column( $courses, 'ID' );
+        set_transient( 'mpcs_enrolled_courses_'.$user_id, $enrolled_courses_id, 24 * HOUR_IN_SECONDS );
+        $transients[] = 'mpcs_enrolled_courses_'.$user_id;
+        \update_option('mpcs-transients', $transients);
       }
     }
 
@@ -315,15 +342,15 @@ class Courses extends lib\BaseCtrl {
     $query->set('post__in', $enrolled_courses_id);
     $query->set('orderby', 'post__in');
 
-    // Display enabled courses in "My Courses" list
-    // if('mycourses' !== self::get_param('type')){
-    //   $query->set('meta_query', array(
-    //     array(
-    //       'key' => '_mpcs_course_status',
-    //       'value' => 'enabled',
-    //     )
-    //   ));
-    // }
+    // Display only enabled courses in "All Courses" list
+    if('mycourses' !== self::get_param('type')){
+      $query->set('meta_query', array(
+        array(
+          'key' => '_mpcs_course_status',
+          'value' => 'enabled',
+        )
+      ));
+    }
 
     $query->set('order', 'ASC');
     $query->set('posts_per_page', 6);
@@ -359,10 +386,7 @@ class Courses extends lib\BaseCtrl {
    * @param  mixed $post
    * @return void
    */
-  function delete_transients( $new_status, $old_status, $post ){
-    if ( 'publish' == $new_status || 'publish' === $old_status )
-      return; // If user is updating post, exit
-
+  function delete_transients( $post_id, $post ){
     if ( models\Course::$cpt !== $post->post_type )
       return; // restrict the filter to a specific post type
 

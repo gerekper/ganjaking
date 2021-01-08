@@ -3,7 +3,7 @@ window.onload = wc360_init;
 var product1;
 function wc360_init() {
 	var all_images = wc360_vars.images,
-		image_array = jQuery.parseJSON( all_images );
+		image_array =  JSON.parse( all_images );
 
 	product1 = jQuery( '.threesixty' ).ThreeSixty({
 		totalFrames : image_array.length,

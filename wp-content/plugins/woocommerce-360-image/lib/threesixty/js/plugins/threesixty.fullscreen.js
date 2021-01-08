@@ -43,7 +43,7 @@
     }
 
     // Attach event to the plugin
-    $button.bind('click', function(event) {
+    $button.on('click', function(event) {
       plugin.onClickHandler.apply(this, event);
     });
 

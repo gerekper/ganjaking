@@ -844,7 +844,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 					echo '<br />';
 					$comment_post_ID = $post_id = $post_exists;
 					//$this->processed_posts[ intval( $post['post_id'] ) ] = intval( $post_exists );
-					if ( 'page' == $post['post_type'] || 'block' == $post['post_type'] || 'member' == $post['post_type'] || 'portfolio' == $post['post_type'] || 'event' == $post['post_type'] || 'post' == $post['post_type'] || 'product' == $post['post_type'] ) {
+					if ( 'page' == $post['post_type'] || 'block' == $post['post_type'] || 'porto_builder' == $post['post_type'] || 'member' == $post['post_type'] || 'portfolio' == $post['post_type'] || 'event' == $post['post_type'] || 'post' == $post['post_type'] || 'product' == $post['post_type'] ) {
 						$post_parent = (int) $post['post_parent'];
 						if ( $post_parent ) {
 							// if we already know the parent, map it to the new local ID
@@ -1131,6 +1131,8 @@ if ( class_exists( 'WP_Importer' ) ) {
 					add_post_meta( $post_id, 'porto_imported_date', current_time( 'mysql' ) );
 				}
 				if ( ! empty( $post['postmeta'] ) ) {
+					$is_vc_post     = false;
+					$has_vc_content = false;
 					foreach ( $post['postmeta'] as $meta ) {
 						$key   = apply_filters( 'import_post_meta_key', $meta['key'], $post_id, $post );
 						$value = false;
@@ -1160,7 +1162,57 @@ if ( class_exists( 'WP_Importer' ) ) {
 							if ( '_thumbnail_id' == $key ) {
 								$this->featured_images[ $post_id ] = (int) $value;
 							}
+
+							if ( 'vcv-be-editor' == $key && 'fe' == $value ) {
+								$is_vc_post = true;
+							} elseif ( ( 'vcvSourceCss' == $key || 'vcv-globalElementsCssData' == $key ) && $value ) {
+								$has_vc_content = true;
+							}
+
+							// save template display conditions
+							if ( '_porto_builder_conditions' == $key && $value && defined( 'PORTO_BUILDERS_PATH' ) ) {
+								require_once PORTO_BUILDERS_PATH . 'lib/class-condition.php';
+								$cls = new Porto_Builder_Condition();
+								if ( isset( $_POST['post_id'] ) ) {
+									$post_id_backup = $_POST['post_id'];
+								}
+								$_POST['post_id']     = $post_id;
+								$_POST['type']        = array();
+								$_POST['object_type'] = array();
+								$_POST['object_id']   = array();
+								$_POST['object_name'] = array();
+								foreach ( $value as $index => $condition ) {
+									if ( ! is_array( $condition ) ) {
+										continue;
+									}
+									$_POST['type'][]        = $condition[0];
+									$_POST['object_type'][] = $condition[1];
+									$_POST['object_id'][]   = $condition[2];
+									$_POST['object_name'][] = $condition[3];
+								}
+								$cls->save_condition( true );
+								if ( isset( $post_id_backup ) ) {
+									$_POST['post_id'] = $post_id_backup;
+								} else {
+									unset( $_POST['post_id'] );
+								}
+								unset( $_POST['type'], $_POST['object_type'], $_POST['object_id'], $_POST['object_name'] );
+							}
 						}
+					}
+
+					// regenerate Visual Composer css
+					if ( defined( 'VCV_VERSION' ) && $is_vc_post && $has_vc_content ) {
+						delete_post_meta( $post_id, '_vcv-sourceChecksum' );
+						vcevent(
+							'vcv:assets:file:generate',
+							array(
+								'response' => array(),
+								'payload'  => array(
+									'sourceId' => (int) $post_id,
+								),
+							)
+						);
 					}
 				}
 			}
@@ -1328,9 +1380,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 						$_GET['force_delete_kit'] = true;
 					}
 					wp_delete_post( $post['import_id'], true );
-					if ( isset( $_GET['force_delete_kit'] ) ) {
-						unset( $_GET['force_delete_kit'] );
-					}
+					unset( $_GET['force_delete_kit'] );
 				}
 			}
 

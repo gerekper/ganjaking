@@ -323,7 +323,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 				$swatch[]     = array( 'data-tm-tooltip-swatch-img-lbl-desc' => 'on' );
 			}
 
-			if ( empty( $use_colors ) && ! empty( $image ) ) {
+			if ( ! empty( $use_images ) ) {
 
 				if ( $tm_epo_no_lazy_load == 'no' ) {
 					if ( $checked && ! empty( $imagec ) ) {

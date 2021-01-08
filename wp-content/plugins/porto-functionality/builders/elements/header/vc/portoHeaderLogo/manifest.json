@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoHeaderLogo": {
+      "settings": {
+        "name": "Porto Header Logo",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-logo.jpg",
+        "metaDescription": "Porto VC element to display logo in header"
+      }
+    }
+  },
+  "categories": {
+    "Single image": {
+      "elements": [
+        "portoHeaderLogo"
+      ]
+    }
+  }
+}

@@ -234,7 +234,7 @@ class MeprCoupon extends MeprCptModel {
     if( ($this->discount_mode=='trial-override' || $this->discount_mode=='first-payment') &&
         $obj instanceof MeprSubscription &&
         $obj->trial_amount > 0 &&
-        $obj->limit_cycles == 1
+        $obj->limit_cycles >= 1
     ) {
       $product = $obj->product();
       if(false == $product->trial){

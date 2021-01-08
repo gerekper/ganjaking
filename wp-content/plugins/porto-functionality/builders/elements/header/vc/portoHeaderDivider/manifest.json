@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoHeaderDivider": {
+      "settings": {
+        "name": "Porto Header Divider",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-hb.jpg",
+        "metaDescription": "Porto VC element to display vertical separator in header"
+      }
+    }
+  },
+  "categories": {
+    "Separators": {
+      "elements": [
+        "portoHeaderDivider"
+      ]
+    }
+  }
+}

@@ -76,7 +76,7 @@ class THEMECOMPLETE_EPO_FIELDS_textarea extends THEMECOMPLETE_EPO_FIELDS {
 					$val = $this->epo_post_fields[ $attribute ];
 					$val = preg_replace( "/\r\n/", "\n", $val );
 				}
-				if ( $val !== '' && ( $val === FALSE || strlen( $val ) < intval( $this->element['min_chars'] ) ) ) {
+				if ( $val !== '' && ( $val !== FALSE && strlen( $val ) < intval( $this->element['min_chars'] ) ) ) {
 					$passed    = FALSE;
 					$message[] = sprintf( esc_html__( 'You must enter at least %s characters for "%s".', 'woocommerce-tm-extra-product-options' ), intval( $this->element['min_chars'] ), $this->element['label'] );
 					break;

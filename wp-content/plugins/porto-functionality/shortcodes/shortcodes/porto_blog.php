@@ -83,7 +83,7 @@ function porto_load_blog_shortcode() {
 					array(
 						'type'        => 'dropdown',
 						'heading'     => __( 'Post Style', 'porto-functionality' ),
-						'description' => __( 'Only "Hover Info" and "Hover Info 2" styles are available for "Grid - Creative" Blog Layout, and "Simple Grid", "Simple List" and "Widget Style" styles are available for only "Grid" and "Masonry" blog layouts.', 'porto-functionality' ),
+						'description' => __( 'Only "Hover Info" and "Hover Info 2" styles are available for "Grid - Creative" Blog Layout, "Simple Grid", "Simple List" and "Widget Style" styles are available for only "Grid" and "Masonry" blog layouts, and "Modern" style is available for only "Grid" and "Slider" layout.', 'porto-functionality' ),
 						'param_name'  => 'post_style',
 						'dependency'  => array(
 							'element' => 'post_layout',
@@ -101,6 +101,7 @@ function porto_load_blog_shortcode() {
 							__( 'Simple Grid', 'porto-functionality' ) => 'grid',
 							__( 'Simple List', 'porto-functionality' ) => 'list',
 							__( 'Widget Style', 'porto-functionality' ) => 'widget',
+							__( 'Modern', 'porto-functionality' ) => 'modern',
 						),
 						'admin_label' => true,
 					),

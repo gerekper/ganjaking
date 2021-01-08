@@ -122,7 +122,14 @@ if ( '' == $map_style ) {
 }
 			$output .= '};';
 if ( $map_style ) {
-	$output .= 'var styles = ' . rawurldecode( base64_decode( strip_tags( $map_style ) ) ) . ';
+	$map_style         = strip_tags( $map_style );
+	$map_style_escaped = base64_decode( $map_style, true );
+	if ( ! $map_style_escaped ) {
+		$map_style_escaped = $map_style;
+	} else {
+		$map_style_escaped = rawurldecode( $map_style_escaped );
+	}
+	$output   .= 'var styles = ' . $map_style_escaped . ';
 					var styledMap = new google.maps.StyledMapType(styles,
 						{name: "Styled Map"});';
 }
@@ -165,7 +172,7 @@ if ( $marker_lat && $marker_lng ) {
 				map_$id.setCenter(coordinate_$id);
 			}
 		});
-		$('.ui-tabs').bind('tabsactivate', function(event, ui) {
+		$('.ui-tabs').on('tabsactivate', function(event, ui) {
 		   if($(this).find('.porto-map-wrapper').length > 0)
 			{
 				setTimeout(function(){
@@ -173,17 +180,12 @@ if ( $marker_lat && $marker_lng ) {
 				},200);
 			}
 		});
-		$('.ui-accordion').bind('accordionactivate', function(event, ui) {
+		$('.ui-accordion').on('accordionactivate', function(event, ui) {
 			if($(this).find('.porto-map-wrapper').length > 0) {
 				setTimeout(function(){
 					$(window).trigger('resize');
 				},200);
 			}
-		});
-		$(window).load(function() {
-			setTimeout(function() {
-				$(window).trigger('resize');
-			},200);
 		});
 		$(document).on('onPortoModalPopupOpen', function(){
 			if($(map_$id).parents('.porto_modal-content')) {
@@ -199,6 +201,12 @@ if ( $marker_lat && $marker_lng ) {
 				marker_$id.setAnimation(google.maps.Animation.BOUNCE);
 			}
 		}
+	});
+
+	$(window).on('load', function() {
+		setTimeout(function() {
+			$(window).trigger('resize');
+		},200);
 	});
 })(jQuery);
 </script>";

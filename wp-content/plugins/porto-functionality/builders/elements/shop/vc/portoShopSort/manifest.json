@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoShopSort": {
+			"settings": {
+				"name": "Shop Builder - Sort By",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display Sort by in Shop page"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoShopSort"
+			]
+		}
+	}
+}

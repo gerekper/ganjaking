@@ -43,6 +43,17 @@
               <input type="checkbox" name="mepr_vat_tax_businesses" <?php checked($vat_tax_businesses); ?> />
             </td>
           </tr>
+          <tr valign="top" id="mepr_charge_business_customer_net_price_section">
+            <th scope="row">
+              <label for="mepr_charge_business_customer_net_price"><?php _e('Charge Business Customer Net Price without tax', 'memberpress'); ?></label>
+              <?php MeprAppHelper::info_tooltip('mepr-charge-business-customer-net-price',
+                      __('Charge Business Customer Net Price without tax', 'memberpress'),
+                      __('When this option is checked all EU Businesses will see the price without tax.', 'memberpress')); ?>
+            </th>
+            <td>
+              <input type="checkbox" name="mepr_charge_business_customer_net_price" <?php checked($charge_business_customer_net_price); ?> />
+            </td>
+          </tr>
           <tr valign="top">
             <th scope="row">
               <label for="mepr_vat_tax_businesses"><?php _e('Disable VAT VIES database lookup', 'memberpress'); ?></label>

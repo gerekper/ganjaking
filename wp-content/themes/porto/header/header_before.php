@@ -88,9 +88,7 @@ if ( is_front_page() ) {
 			porto_banner( ( 'fixed' == $porto_banner_pos && 'boxed' !== $wrapper ) ? 'banner-fixed' : '' );
 		}
 
-			do_action( 'porto_before_breadcrumbs' );
-			get_template_part( 'breadcrumbs' );
-			do_action( 'porto_before_main' );
+			do_action( 'porto_after_banner' );
 
 			$main_class         = array();
 			$main_content_class = array( 'main-content' );

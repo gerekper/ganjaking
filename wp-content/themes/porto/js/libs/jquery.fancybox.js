@@ -238,7 +238,7 @@
             }
 
             // Normalize group
-            if (!$.isArray(group)) {
+            if (!Array.isArray(group)) {
                 group = isQuery(group) ? $(group).get() : [group];
             }
 

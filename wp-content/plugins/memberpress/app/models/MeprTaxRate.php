@@ -2,6 +2,7 @@
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
 class MeprTaxRate extends MeprBaseModel {
+  public $customer_type = 'customer';
 
   public function __construct($obj = null) {
     $this->initialize(

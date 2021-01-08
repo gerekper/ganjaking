@@ -1345,7 +1345,7 @@
 
 			// Evaluate parameters
 			$.each( rules, function( rule, parameter ) {
-				rules[ rule ] = $.isFunction( parameter ) && rule !== 'normalizer' ? parameter( element ) : parameter;
+				rules[ rule ] = typeof parameter === 'function' && rule !== 'normalizer' ? parameter( element ) : parameter;
 			} );
 
 			// Clean number parameters

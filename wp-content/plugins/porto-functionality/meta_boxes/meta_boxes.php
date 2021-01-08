@@ -121,7 +121,26 @@ function porto_show_meta_field( $meta_field ) {
 				<div class="box-option">
 					<input type="text" id="<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo stripslashes( $meta_value ); ?>" size="50%" />
 				</div>
-				<div class="box-info"><label for="<?php echo esc_attr( $name ); ?>"><?php echo wp_kses_post( $desc ); ?></label></div>
+				<?php if ( $desc ) : ?>
+				<div class="box-info">
+					<label for="<?php echo esc_attr( $name ); ?>">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</label>
+				</div>
+			<?php endif; ?>
 			</div>
 		</div>
 		<?php
@@ -150,7 +169,26 @@ function porto_show_meta_field( $meta_field ) {
 						?>
 					</select>
 				</div>
-				<div class="box-info"><label for="<?php echo esc_attr( $name ); ?>"><?php echo wp_kses_post( $desc ); ?></label></div>
+				<?php if ( $desc ) : ?>
+				<div class="box-info">
+					<label for="<?php echo esc_attr( $name ); ?>">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</label>
+				</div>
+			<?php endif; ?>
 			</div>
 		</div>
 		<?php
@@ -162,14 +200,28 @@ function porto_show_meta_field( $meta_field ) {
 			<h3><?php echo esc_html( $title ); ?></h3>
 			<div class="metainner">
 				<div class="box-option">
-						<input value="<?php echo stripslashes( $meta_value ); ?>" type="text" name="<?php echo esc_attr( $name ); ?>"  id="<?php echo esc_attr( $name ); ?>" size="50%" />
-						<br/>
-						<input class="button_upload_image button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Upload Image', 'porto-functionality' ); ?>" />&nbsp;
-						<input class="button_remove_image button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Remove Image', 'porto-functionality' ); ?>" />
+					<input value="<?php echo stripslashes( $meta_value ); ?>" type="text" name="<?php echo esc_attr( $name ); ?>"  id="<?php echo esc_attr( $name ); ?>" size="50%" />
+					<br/>
+					<input class="button_upload_image button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Upload Image', 'porto-functionality' ); ?>" />&nbsp;
+					<input class="button_remove_image button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Remove Image', 'porto-functionality' ); ?>" />
+				<?php if ( $desc ) : ?>
+					<p class="description">
 					<?php
-					if ( $desc ) :
-						?>
-						<p class="description"><?php echo wp_kses_post( $desc ); ?></p><?php endif; ?>
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</p>
+				<?php endif; ?>
 				</div>
 			</div>
 		</div>
@@ -194,10 +246,25 @@ function porto_show_meta_field( $meta_field ) {
 					<input class="button_attach_image button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Attach Image', 'porto-functionality' ); ?>" />&nbsp;
 					<input class="button_remove_image button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Remove Image', 'porto-functionality' ); ?>" />
 					<label>
-					<?php
-					if ( $desc ) :
+					<?php if ( $desc ) : ?>
+						<p class="description">
+						<?php
+							echo wp_kses(
+								$desc,
+								array(
+									'em'     => array(),
+									'i'      => array(),
+									'strong' => array(),
+									'a'      => array(
+										'class' => array(),
+										'href'  => array(),
+									),
+								)
+							);
 						?>
-						<p class="description"><?php echo wp_kses_post( $desc ); ?></p><?php endif; ?></label>
+						</p>
+					<?php endif; ?>
+					</label>
 				</div>
 			</div>
 		</div>
@@ -212,7 +279,26 @@ function porto_show_meta_field( $meta_field ) {
 				<div class="box-option">
 					<?php wp_editor( $meta_value, $name ); ?>
 				</div>
-				<div class="box-info"><label for="<?php echo esc_attr( $name ); ?>"><?php echo wp_kses_post( $desc ); ?></label></div>
+				<?php if ( $desc ) : ?>
+					<div class="box-info">
+						<label for="<?php echo esc_attr( $name ); ?>">
+						<?php
+							echo wp_kses(
+								$desc,
+								array(
+									'em'     => array(),
+									'i'      => array(),
+									'strong' => array(),
+									'a'      => array(
+										'class' => array(),
+										'href'  => array(),
+									),
+								)
+							);
+						?>
+						</label>
+					</div>
+				<?php endif; ?>
 			</div>
 		</div>
 		<?php
@@ -226,7 +312,26 @@ function porto_show_meta_field( $meta_field ) {
 				<div class="box-option">
 					<textarea id="<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>"><?php echo $meta_value; ?></textarea>
 				</div>
-				<div class="box-info"><label for="<?php echo esc_attr( $name ); ?>"><?php echo wp_kses_post( $desc ); ?></label></div>
+				<?php if ( $desc ) : ?>
+					<div class="box-info">
+						<label for="<?php echo esc_attr( $name ); ?>">
+						<?php
+							echo wp_kses(
+								$desc,
+								array(
+									'em'     => array(),
+									'i'      => array(),
+									'strong' => array(),
+									'a'      => array(
+										'class' => array(),
+										'href'  => array(),
+									),
+								)
+							);
+						?>
+						</label>
+					</div>
+				<?php endif; ?>
 			</div>
 		</div>
 		<?php
@@ -245,7 +350,26 @@ function porto_show_meta_field( $meta_field ) {
 					<?php endforeach; ?>
 					<br>
 				</div>
-				<div class="box-info"><label for="<?php echo esc_attr( $name ); ?>"><?php echo wp_kses_post( $desc ); ?></label></div>
+				<?php if ( $desc ) : ?>
+					<div class="box-info">
+						<label for="<?php echo esc_attr( $name ); ?>">
+						<?php
+							echo wp_kses(
+								$desc,
+								array(
+									'em'     => array(),
+									'i'      => array(),
+									'strong' => array(),
+									'a'      => array(
+										'class' => array(),
+										'href'  => array(),
+									),
+								)
+							);
+						?>
+						</label>
+					</div>
+				<?php endif; ?>
 			</div>
 		</div>
 		<?php
@@ -279,7 +403,26 @@ function porto_show_meta_field( $meta_field ) {
 					<input type="checkbox" id="<?php echo esc_attr( $name ); ?>_<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $name ); ?>[]" value="<?php echo esc_attr( $key ); ?>" <?php echo ( isset( $meta_value ) && in_array( $key, explode( ',', $meta_value ) ) ) ? ' checked="checked"' : ''; ?>/><label for="<?php echo esc_attr( $name ); ?>_<?php echo esc_attr( $key ); ?>"> <?php echo esc_html( $value ); ?> </label>&nbsp;&nbsp;&nbsp;
 					<?php endforeach; ?>
 				</div>
-				<div class="box-info"><label for="<?php echo esc_attr( $name ); ?>"><?php echo wp_kses_post( $desc ); ?></label></div>
+				<?php if ( $desc ) : ?>
+					<div class="box-info">
+						<label for="<?php echo esc_attr( $name ); ?>">
+						<?php
+							echo wp_kses(
+								$desc,
+								array(
+									'em'     => array(),
+									'i'      => array(),
+									'strong' => array(),
+									'a'      => array(
+										'class' => array(),
+										'href'  => array(),
+									),
+								)
+							);
+						?>
+						</label>
+					</div>
+				<?php endif; ?>
 			</div>
 		</div>
 		<?php
@@ -294,7 +437,59 @@ function porto_show_meta_field( $meta_field ) {
 					<input type="text" id="<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo stripslashes( $meta_value ); ?>" size="50%" class="porto-color-field" />
 					<label class="porto-transparency-check" for="<?php echo esc_attr( $name ); ?>-transparency"><input type="checkbox" value="1" id="<?php echo esc_attr( $name ); ?>-transparency" class="checkbox porto-color-transparency"<?php echo 'transparent' == $meta_value ? ' checked="checked"' : ''; ?>> <?php esc_html_e( 'Transparent', 'porto-functionality' ); ?></label>
 				</div>
-				<div class="box-info"><label for="<?php echo esc_attr( $name ); ?>"><?php echo wp_kses_post( $desc ); ?></label></div>
+				<?php if ( $desc ) : ?>
+					<div class="box-info">
+						<label for="<?php echo esc_attr( $name ); ?>">
+						<?php
+							echo wp_kses(
+								$desc,
+								array(
+									'em'     => array(),
+									'i'      => array(),
+									'strong' => array(),
+									'a'      => array(
+										'class' => array(),
+										'href'  => array(),
+									),
+								)
+							);
+						?>
+						</label>
+					</div>
+				<?php endif; ?>
+			</div>
+		</div>
+		<?php
+	endif;
+
+	if ( 'button' == $type ) : // button
+		?>
+		<div class="metabox" <?php echo porto_filter_output( $required ); ?>>
+			<h3><?php echo esc_html( $title ); ?></h3>
+			<div class="metainner">
+				<div class="box-option">
+					<button id="<?php echo esc_attr( $name ); ?>" class="btn btn-primary" name="<?php echo esc_attr( $name ); ?>"><?php echo stripslashes( $meta_field['value'] ); ?></button>
+				</div>
+			<?php if ( $desc ) : ?>
+				<div class="box-info">
+					<label for="<?php echo esc_attr( $name ); ?>">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</label>
+				</div>
+			<?php endif; ?>
 			</div>
 		</div>
 		<?php
@@ -465,7 +660,22 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 				<?php
 				if ( $desc ) :
 					?>
-					<p class="description"><?php echo wp_kses_post( $desc ); ?></p>
+					<p class="description">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -494,7 +704,22 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 				<?php
 				if ( $desc ) :
 					?>
-					<p class="description"><?php echo wp_kses_post( $desc ); ?></p>
+					<p class="description">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -513,7 +738,22 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 				<?php
 				if ( $desc ) :
 					?>
-					<p class="description"><?php echo wp_kses_post( $desc ); ?></p>
+					<p class="description">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -539,7 +779,22 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 				<?php
 				if ( $desc ) :
 					?>
-					<p class="description"><?php echo wp_kses_post( $desc ); ?></p>
+					<p class="description">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -556,7 +811,22 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 				<?php
 				if ( $desc ) :
 					?>
-					<p class="description"><?php echo wp_kses_post( $desc ); ?></p>
+					<p class="description">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -568,11 +838,28 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?> <?php echo porto_filter_output( $required ); ?>>
 			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 			<td>
+			<?php if ( $meta_value ) : ?>
 				<textarea id="<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>"><?php echo wp_kses_post( $meta_value ); ?></textarea>
+			<?php endif; ?>
 				<?php
 				if ( $desc ) :
 					?>
-					<p class="description"><?php echo wp_kses_post( $desc ); ?></p>
+					<p class="description">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -592,7 +879,22 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 				<?php
 				if ( $desc ) :
 					?>
-					<p class="description"><?php echo wp_kses_post( $desc ); ?></p>
+					<p class="description">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -611,7 +913,22 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?> <?php echo porto_filter_output( $required ); ?>>
 			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 			<td>
-				<label><input style="display:inline-block; width:auto;" type="checkbox" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $name ); ?>" <?php echo porto_filter_output( $checked ); ?> /> <?php echo wp_kses_post( $desc ); ?></label>
+				<label><input style="display:inline-block; width:auto;" type="checkbox" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $name ); ?>" <?php echo porto_filter_output( $checked ); ?> /> 
+				<?php
+					echo wp_kses(
+						$desc,
+						array(
+							'em'     => array(),
+							'i'      => array(),
+							'strong' => array(),
+							'a'      => array(
+								'class' => array(),
+								'href'  => array(),
+							),
+						)
+					);
+				?>
+				</label>
 			</td>
 		</tr>
 		<?php
@@ -629,7 +946,22 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 				<?php
 				if ( $desc ) :
 					?>
-					<p class="description"><?php echo wp_kses_post( $desc ); ?></p>
+					<p class="description">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</p>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -646,7 +978,22 @@ function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocomme
 				<?php
 				if ( $desc ) :
 					?>
-					<p class="description"><?php echo wp_kses_post( $desc ); ?></p>
+					<p class="description">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</p>
 				<?php endif; ?>
 			</td>
 		</tr>

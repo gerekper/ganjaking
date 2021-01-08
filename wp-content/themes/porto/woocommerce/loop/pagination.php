@@ -22,7 +22,7 @@ $page_count = porto_loop_shop_per_page();
 $total = isset( $total ) ? $total : $wp_query->max_num_pages;
 
 echo '<nav class="woocommerce-pagination' . ( isset( $porto_settings['product-infinite'] ) && 'load_more' == $porto_settings['product-infinite'] ? ' pagination load-more' : '' ) . '">';
-if ( $total > 1 ) : 
+
 	?>
 	<form class="woocommerce-viewing" method="get">
 
@@ -55,7 +55,7 @@ if ( $total > 1 ) :
 		?>
 	</form>
 <?php
-	endif;
+
 if ( $total <= 1 ) {
 	echo '</nav>';
 	return;

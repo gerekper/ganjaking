@@ -1,4 +1,4 @@
-jQuery(document).ready(function($){
+jQuery( function( $ ) {
 
 	if(arePointersEnabled()){
 		setTimeout(showSubscriptionPointers, 800); // give TinyMCE a chance to finish loading

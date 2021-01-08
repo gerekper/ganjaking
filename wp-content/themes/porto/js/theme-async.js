@@ -1102,7 +1102,7 @@
 
 					if (!zoom) return;
 
-					$this.find('.zoom, .thumb-info-zoom').unbind('click');
+					$this.find('.zoom, .thumb-info-zoom').off('click');
 					var links = [];
 					var i = 0;
 					$this.find('article').each(function() {
@@ -1114,7 +1114,7 @@
 								title = $zoom.data('title');
 
 							$zoom.data('index', i);
-							if ($.isArray(src)) {
+							if (Array.isArray(src)) {
 								$.each(src, function(index, value) {
 									slide = {};
 									slide.src = value;
@@ -1311,11 +1311,9 @@ jQuery(document).ready(function($) {
 			if ($obj.data('timeout')) {
 				timeout = parseInt($obj.data('timeout'), 10);
 			}
-			$(window).on('load', function() {
-				setTimeout(function() {
-					porto_modal_open($obj);
-				}, timeout);
-			});
+			setTimeout(function() {
+				porto_modal_open($obj);
+			}, timeout);
 		}
 		$('.porto-modal-trigger').on('click', function(e) {
 			e.preventDefault();

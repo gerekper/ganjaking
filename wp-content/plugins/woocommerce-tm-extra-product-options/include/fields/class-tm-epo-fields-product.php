@@ -142,7 +142,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 		if ( $fetch_cache === FALSE ) {
 
 			$query = array(
-				'post_status'         => 'publish',
+				'post_status'         => array( 'publish', 'private' ),
 				'ignore_sticky_posts' => 1,
 				'nopaging'            => TRUE,
 				'order'               => 'asc',
@@ -284,7 +284,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 
 				$query = new WP_Query( array(
 					'post_type'           => 'product',
-					'post_status'         => 'publish',
+					'post_status'         => array( 'publish', 'private' ),
 					'ignore_sticky_posts' => 1,
 					'nopaging'            => FALSE,
 					'posts_per_page'      => $args['per_page'],

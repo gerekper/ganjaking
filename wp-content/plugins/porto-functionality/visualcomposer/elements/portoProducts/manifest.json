@@ -1,0 +1,22 @@
+{
+  "elements": {
+    "portoProducts": {
+      "settings": {
+        "name": "Porto Products",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-products.jpg",
+        "metaDescription": "Porto VC element to display products"
+      },
+      "phpFiles": [
+        "PortoProductsController.php"
+      ]
+    }
+  },
+  "categories": {
+    "WooCommerce": {
+      "elements": [
+        "portoProducts"
+      ]
+    }
+  }
+}

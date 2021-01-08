@@ -926,6 +926,39 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"label"       => esc_html__( "Section type", 'woocommerce-tm-extra-product-options' ),
 						"desc"        => esc_html__( "Select this section's display type.", 'woocommerce-tm-extra-product-options' ),
 					),
+					"sectionpopupbutton"      => array(
+						"id"          => "sections_popupbutton",
+						"wpmldisable" => 1,
+						"default"     => "",
+						"type"        => "select",
+						"tags"        => array(
+							"class" => "sections_popupbutton",
+							"id"    => "sections_popupbutton",
+							"name"  => "tm_meta[tmfbuilder][sections_popupbutton][]",
+						),
+						"options"     => array(
+							array(
+								"text"  => esc_html__( "Text link", 'woocommerce-tm-extra-product-options' ),
+								"value" => "",
+							),
+							array(
+								"text"  => esc_html__( "Button", 'woocommerce-tm-extra-product-options' ),
+								"value" => "button",
+							),
+							array(
+								"text"  => esc_html__( "Button Alt", 'woocommerce-tm-extra-product-options' ),
+								"value" => "buttonalt",
+							),
+						),
+						"label"       => esc_html__( "Section pop up button style", 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( "Select this section's pop up button style.", 'woocommerce-tm-extra-product-options' ),
+						"required"    => array(
+							".sections_type" => array(
+								"operator" => "is",
+								"value"    => "popup",
+							),
+						),
+					),
 
 					"sectionsclass" => array(
 						"id"      => "sections_class",

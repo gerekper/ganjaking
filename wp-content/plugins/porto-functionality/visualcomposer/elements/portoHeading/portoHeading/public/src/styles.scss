@@ -1,0 +1,35 @@
+.porto-heading {
+	&.border-middle-left, &.border-middle-center, &.border-middle-right {
+		display: flex;
+		align-items: center;
+	}
+	&.border-underline {
+		border-bottom-style: solid;
+	}
+
+	&.has-border {
+		&:before, &:after {
+			flex: 1;
+			border-bottom-style: solid;
+			border-color: inherit;
+		}
+		&:before {
+			margin-right: 1em;
+		}
+		&:after {
+			margin-left: 1em;
+		}
+	}
+
+	&.border-middle-left:after {
+		content: '';
+	}
+	&.border-middle-right:before {
+		content: '';
+	}
+	&.border-middle-center {
+		&:before, &:after {
+			content: '';
+		}
+	}
+}

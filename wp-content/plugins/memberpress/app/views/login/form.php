@@ -35,8 +35,13 @@
         <div class="mp-form-label">
           <label for="user_pass"><?php _ex('Password', 'ui', 'memberpress'); ?></label>
           <?php /* <span class="cc-error"><?php _ex('Password Required', 'ui', 'memberpress'); ?></span> */ ?>
+          <div class="mp-hide-pw">
+            <input type="password" name="pwd" id="user_pass" value="" />
+            <button type="button" class="button button-secondary mp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password', 'memberpress' ); ?>">
+              <span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
-        <input type="password" name="pwd" id="user_pass" value="" />
       </div>
       <?php MeprHooks::do_action('mepr-login-form-before-submit'); ?>
       <div>

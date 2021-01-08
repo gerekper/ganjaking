@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoCounter": {
+      "settings": {
+        "name": "Porto Counter",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-counter.jpg",
+        "metaDescription": "Porto VC element to display stat counter"
+      }
+    }
+  },
+  "categories": {
+    "Counter": {
+      "elements": [
+        "portoCounter"
+      ]
+    }
+  }
+}

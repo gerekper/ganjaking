@@ -42,7 +42,7 @@
             if (settings.skip_invisible && !$this.is(":visible")) {
                 return;
             }
-            if ($this.closest('.owl-carousel').length && !$.abovethetop(obj, settings) && !$.belowthefold(obj, settings)) {
+            if (($this.closest('.owl-carousel').length || $this.closest('.swiper-wrapper').length) && !$.abovethetop(obj, settings) && !$.belowthefold(obj, settings)) {
                 $this.trigger("appear");
                 counter = 0;
             } else if ($.abovethetop(obj, settings) || $.leftofbegin(obj, settings)) {

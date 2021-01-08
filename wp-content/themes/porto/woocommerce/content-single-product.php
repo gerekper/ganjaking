@@ -39,17 +39,24 @@ if ( $skeleton_lazyload ) {
 ?>
 
 <?php
-if ( 'builder' == $porto_product_layout ) :
-	if ( isset( $porto_settings['product-single-content-builder'] ) && $porto_settings['product-single-content-builder'] ) {
+$builder_id = porto_check_builder_condition( 'product' );
+if ( $builder_id || 'builder' == $porto_product_layout ) :
+	if ( $builder_id ) {
+		echo do_shortcode( '[porto_block id="' . intval( $builder_id ) . '"]' );
+		if ( function_exists( 'vc_is_inline' ) && vc_is_inline() ) {
+			the_content();
+		}
+	} elseif ( isset( $porto_settings['product-single-content-builder'] ) && $porto_settings['product-single-content-builder'] ) {
 		global $wpdb;
+		$atts = is_numeric( $porto_settings['product-single-content-builder'] ) ? ' id="' . intval( $porto_settings['product-single-content-builder'] ) . '"' : ' name="' . $porto_settings['product-single-content-builder'] . '"';
 
-		echo do_shortcode( '[porto_block name="' . $porto_settings['product-single-content-builder'] . '" post_type="product_layout"]' );
+		echo do_shortcode( '[porto_block' . $atts . ']' );
 
 		if ( function_exists( 'vc_is_inline' ) && vc_is_inline() ) {
 			the_content();
 		}
 	} else {
-		echo '<p class="lead">Please create a product layout in <strong>Product Layouts/Add New</strong>. You need to select product layout in Theme Options -> WooCommerce -> Single Product -> Custom Product Layout.</p>';
+		echo '<p class="lead">Please create a product layout in <strong>Porto / Templates Builder / Single Product</strong>. You need to select product layout in Theme Options / WooCommerce / Single Product / Custom Product Layout.</p>';
 	}
 else :
 	$summary_before_classes = array( 'summary-before' );

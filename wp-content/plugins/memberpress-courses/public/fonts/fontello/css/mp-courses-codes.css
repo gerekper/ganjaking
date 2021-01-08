@@ -17,6 +17,7 @@
 .mpcs-ok-circled:before { content: '\e80f'; } /* '' */
 .mpcs-th-list:before { content: '\e810'; } /* '' */
 .mpcs-arrow-narrow-left-(1):before { content: '\e811'; } /* '' */
+.mpcs-lock:before { content: '\e812'; } /* '' */
 .mpcs-menu:before { content: '\f0c9'; } /* '' */
 .mpcs-angle-left:before { content: '\f104'; } /* '' */
 .mpcs-angle-right:before { content: '\f105'; } /* '' */

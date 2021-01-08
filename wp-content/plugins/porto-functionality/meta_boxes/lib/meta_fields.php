@@ -255,7 +255,7 @@ function porto_ct_default_view_meta_fields() {
 		'banner_block'         => array(
 			'name'     => 'banner_block',
 			'title'    => __( 'Banner Block', 'porto-functionality' ),
-			'desc'     => __( 'Please select <strong>Banner Type</strong> to <strong>Banner Block</strong> and input a block slug name. You can create a block in <strong>Blocks/Add New</strong>.', 'porto-functionality' ),
+			'desc'     => __( 'Please select <strong>Banner Type</strong> to <strong>Banner Block</strong> and input a block slug name. You can create a block in <strong>Porto -> Templates Builder -> Add New</strong>.', 'porto-functionality' ),
 			'type'     => 'text',
 			'required' => array(
 				'name'  => 'banner_type',

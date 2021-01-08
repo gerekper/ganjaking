@@ -10,7 +10,7 @@ function hide_non_applicable_coupons() {
 
 hide_non_applicable_coupons();
 
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	$( document.body ).on( 'updated_cart_totals updated_checkout', function() {
 		hide_non_applicable_coupons();
 	} );

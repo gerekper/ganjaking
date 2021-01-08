@@ -68,7 +68,7 @@
                name="<?php echo MeprProduct::$allow_renewal_str; ?>"
                <?php checked($product->allow_renewal); ?> />
         <label for="<?php echo MeprProduct::$allow_renewal_str; ?>">
-          <?php _e('Allow Renewals', 'memberpress'); ?>
+          <?php _e('Allow Early Renewals', 'memberpress'); ?>
         </label>
       </p>
     </div>
@@ -90,7 +90,7 @@
                name="<?php echo MeprProduct::$allow_renewal_str; ?>-fixed"
                <?php checked($product->allow_renewal); ?> />
         <label for="<?php echo MeprProduct::$allow_renewal_str; ?>-fixed">
-          <?php _e('Allow Annual Renewals', 'memberpress'); ?>
+          <?php _e('Allow Early Annual Renewals', 'memberpress'); ?>
         </label>
       </p>
     </div>

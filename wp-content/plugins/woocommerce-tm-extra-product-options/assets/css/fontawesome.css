@@ -5882,11 +5882,11 @@ readers do not read off random characters that represent icons */
 
 .tcfa,
 .tcfas {
-	font-family: 'tc-fontawesome';
+	font-family: 'tc-fontawesome' !important;
 	font-weight: 900;
 }
 
 .tcfar {
-	font-family: 'tc-fontawesome';
+	font-family: 'tc-fontawesome' !important;
 	font-weight: 400;
 }

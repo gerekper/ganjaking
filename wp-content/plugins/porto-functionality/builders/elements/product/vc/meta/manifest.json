@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoSpMeta": {
+			"settings": {
+				"name": "Single Product Meta",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display single product meta"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoSpMeta"
+			]
+		}
+	}
+}

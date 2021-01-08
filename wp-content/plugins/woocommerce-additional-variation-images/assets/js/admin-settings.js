@@ -1,6 +1,13 @@
-jQuery( document ).ready( function( $ ) {
+document.addEventListener('DOMContentLoaded',  function() {
 	'use strict';
 
+	if ( typeof jQuery !== 'function' ) {
+		console.error( 'jQuery is required for WooCommerce Additional Variation Images' );
+		return;
+	}
+
+	var $ = jQuery;
+	
 	// create namespace to avoid any possible conflicts
 	$.wc_additional_variation_images_admin = {
 		getVariationIDs: function() {

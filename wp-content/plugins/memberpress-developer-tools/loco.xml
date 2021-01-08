@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle name="MemberPress Developer Tools">
+  <domain name="memberpress-developer-tools">
+    <project name="MemberPress Developer Tools" slug="memberpress-developer-tools">
+      <source>
+        <directory>.</directory>
+      </source>
+      <target>
+        <directory base="WP_PLUGIN_DIR">mepr-i18n</directory>
+        <directory>i18n</directory>
+      </target>
+      <template locked="true">
+        <file>i18n/memberpress-developer-tools.pot</file>
+      </template>
+    </project>
+  </domain>
+  <exclude>
+    <directory>bin</directory>
+    <directory>tests</directory>
+    <directory>script</directory>
+    <directory>public</directory>
+  </exclude>
+</bundle>

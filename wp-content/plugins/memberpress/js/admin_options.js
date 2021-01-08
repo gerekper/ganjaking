@@ -571,4 +571,18 @@ jQuery(document).ready(function($) {
     }, 'json');
   });
 
+  var show_charge_business_customer_option = function () {
+    var seleted_tax_type = $('select[name=mepr_tax_calc_type]').val();
+    var eu_tax = $('input[name=mepr_vat_tax_businesses]').prop('checked');
+    if (seleted_tax_type === 'inclusive' && eu_tax === false) {
+      $('#mepr_charge_business_customer_net_price_section').show();
+    } else {
+      $('#mepr_charge_business_customer_net_price_section').hide();
+    }
+  };
+
+  show_charge_business_customer_option();
+
+  $('select[name=mepr_tax_calc_type]').change(show_charge_business_customer_option);
+  $('input[name=mepr_vat_tax_businesses]').change(show_charge_business_customer_option);
 });

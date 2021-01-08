@@ -22,20 +22,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 do_action( 'woocommerce_before_account_navigation' );
 $woo         = defined( 'WOOCOMMERCE_VERSION' );
 $wishlist    = defined( 'YITH_WCWL' );
+if ( $wishlist & $woo ) {
+	$account_arr = array();
+	foreach ( wc_get_account_menu_items() as $endpoint => $label ) {
+		if ( 'customer-logout' == $endpoint ) {
+			$account_arr['wishlist'] = __( 'Wishlist', 'porto' );
+		}
+		$account_arr[ $endpoint ] = $label;
+	}
+} else {
+	$account_arr = wc_get_account_menu_items();
+}
 ?>
 
 <nav class="woocommerce-MyAccount-navigation">
 	<h5 class="font-weight-bold text-md text-uppercase pt-1 m-b-sm"><?php esc_html_e( 'My account', 'woocommerce' ); ?></h5>
 	<ul>
-		<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
+		<?php foreach ( $account_arr as $endpoint => $label ) : ?>
 			<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
 				<?php
 				if ( 'wishlist' == $endpoint ) {
-					if ( $wishlist & $woo ) {
-						$url = YITH_WCWL()->get_wishlist_url();
-					} else {
-						$url = get_home_url();
-					}
+					$url = YITH_WCWL()->get_wishlist_url();
 				} else {
 					$url = wc_get_account_endpoint_url( $endpoint );
 				}

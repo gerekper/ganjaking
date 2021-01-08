@@ -27,6 +27,10 @@
     #list:before { content: "\e80f"; }
 }
 
+.woocommerce-result-count {
+    margin-bottom: 0
+}
+
 .woocommerce-ordering,
 .woocommerce-viewing {
     select {
@@ -196,6 +200,7 @@
         #{$left}: 0;
         width: 100%;
         padding-top: 10px;
+        padding-bottom: 0;
         border-bottom: 1px solid #e7e7e7;
         transition: $left .3s;
     }
@@ -221,7 +226,7 @@
     @media #{$screen-normal} {
         background: #f4f4f4;
         padding: side-values(10px 2px 0 12px);
-         margin-#{$right}: 0;
+        margin-#{$right}: 0;
         .woocommerce-result-count {
             display: none
         }

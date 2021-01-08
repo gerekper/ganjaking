@@ -250,9 +250,9 @@
 
         base.$el.prepend(nav_bar);
 
-        next.bind('mousedown touchstart', base.next);
-        previous.bind('mousedown touchstart', base.previous);
-        play_stop.bind('mousedown touchstart', base.play_stop);
+        next.on('mousedown touchstart', base.next);
+        previous.on('mousedown touchstart', base.previous);
+        play_stop.on('mousedown touchstart', base.play_stop);
         AppConfig.navigation_init = true;
       }
     };
@@ -405,7 +405,7 @@
      *
      */
     base.initEvents = function () {
-      base.$el.bind('mousedown touchstart touchmove touchend mousemove click', function (event) {
+      base.$el.on('mousedown touchstart touchmove touchend mousemove click', function (event) {
 
         if ((event.type === 'mousedown' && event.which === 1) || event.type === 'touchstart') {
           AppConfig.pointerStartPosX = base.getPointerEvent(event).pageX;
@@ -417,17 +417,17 @@
         }
       });
 
-      $(document).bind('mouseup', function (event) {
+      $(document).on('mouseup', function (event) {
         //event.preventDefault();
         AppConfig.dragging = false;
         $(this).css('cursor', 'none');
       });
 
-      $(window).bind('resize', function (event) {
+      $(window).on('resize', function (event) {
         base.responsive();
       });
 
-      $(document).bind('mousemove', function (event) {
+      $(document).on('mousemove', function (event) {
         if (AppConfig.dragging) {
           event.preventDefault();
           if(!base.browser.isIE && AppConfig.showCursor) {

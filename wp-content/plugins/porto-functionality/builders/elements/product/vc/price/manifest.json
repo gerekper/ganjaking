@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoSpPrice": {
+			"settings": {
+				"name": "Single Product Price",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display single product price"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoSpPrice"
+			]
+		}
+	}
+}

@@ -37,7 +37,7 @@
       <?php endif; ?>
     </tbody>
     <tfoot>
-      <?php if( $invoice['tax']['amount'] > 0.00 ): ?>
+      <?php if( $invoice['tax']['amount'] > 0.00 || $invoice['tax']['percent'] > 0 ): ?>
         <tr>
           <?php if( $show_quantity ): ?>
             <th>&nbsp;</th>
@@ -49,7 +49,7 @@
           <?php if( $show_quantity ): ?>
             <th>&nbsp;</th>
           <?php endif; ?>
-          <th><?php echo MeprUtils::format_tax_percent_for_display($invoice['tax']['percent']) . '% ' . $invoice['tax']['type']; ?></th>
+          <th class="mepr-tax-invoice"><?php echo MeprUtils::format_tax_percent_for_display($invoice['tax']['percent']) . '% ' . $invoice['tax']['type']; ?></th>
           <th class="mp-currency-cell"><?php echo MeprAppHelper::format_currency( $invoice['tax']['amount'], true, false ); ?></th>
         </tr>
       <?php endif; ?>
@@ -63,4 +63,3 @@
     </tfoot>
   </table>
 </div>
-

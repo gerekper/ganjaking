@@ -47,7 +47,7 @@ if ( 'out-of-stock' == $availability['class'] ) {
 		echo apply_filters( 'woocommerce_stock_html', '<div class="stock ' . esc_attr( $availability['class'] ) . '">' . esc_html( $availability['availability'] ) . '</div>', $availability['availability'] );
 	}
 } else {
-	if ( '2' != $porto_settings['add-to-cart-notification'] ) {
+	if ( 1 === (int) $porto_settings['add-to-cart-notification'] ) {
 		echo '<div data-link="' . esc_url( get_permalink( wc_get_page_id( 'cart' ) ) ) . '" class="viewcart' . ' viewcart-' . $product->get_id() . '" title="' . esc_attr__( 'View Cart', 'porto' ) . '"></div>';
 	}
 }

@@ -6,6 +6,7 @@ class MpdtAdminCtrl extends MpdtBaseCtrl {
   public function load_hooks() {
     add_action('admin_enqueue_scripts', array($this,'admin_enqueue_scripts'));
     add_action('mepr_menu', array($this,'menu'));
+    add_action('plugins_loaded', array($this,'load_language'));
   }
 
   public function menu() {
@@ -17,6 +18,12 @@ class MpdtAdminCtrl extends MpdtBaseCtrl {
       MPDT_PLUGIN_NAME,
       array($this,'route')
     );
+  }
+
+  public function load_language() {
+    $path_from_plugins_folder = MPDT_PLUGIN_NAME . '/i18n';
+    load_plugin_textdomain( MPDT_PLUGIN_NAME, false, $path_from_plugins_folder );
+    load_plugin_textdomain( MPDT_PLUGIN_NAME, false, '/mepr-i18n' );
   }
 
   public function admin_enqueue_scripts($hook) {

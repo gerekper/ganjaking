@@ -41,15 +41,16 @@
             <key name="footer-copyright" />
             <key name="footer-payments-image-alt" />
             <key name="menu-block" />
-			<key name="event-slug-name" />
+            <key name="event-slug-name" />
             <key name="event-name" />
             <key name="event-singular-name" />
             <key name="event-title" />
             <key name="event-sub-title" />
-			<key name="search-placeholder" />
-			<key name="woo-pre-order-label" />
-			<key name="woo-pre-order-msg-date" />
-			<key name="woo-pre-order-msg-nodate" />
+            <key name="search-placeholder" />
+            <key name="woo-pre-order-label" />
+            <key name="woo-pre-order-msg-date" />
+            <key name="woo-pre-order-msg-nodate" />
+            <key name="minicart-text" />
         </key>
     </admin-texts>
     <custom-fields>

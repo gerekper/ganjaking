@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Courses
 Plugin URI: https://memberpress.com/
 Description: Create Courses that work seamlessly with MemberPress.
-Version: 1.0.14
+Version: 1.0.16
 Requires at least: 5.0
 Author: Caseproof LLC
 Author URI: https://caseproof.com/

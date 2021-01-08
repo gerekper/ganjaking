@@ -55,7 +55,7 @@ class Account extends lib\BaseCtrl {
     $account_url = lib\Utils::get_permalink($post->ID);
     $delim = preg_match('#\?#', $account_url) ? '&' : '?';
     ?>
-    <span class="mepr-nav-item">
+    <span class="mepr-nav-item mepr-courses">
       <a href="<?php echo \apply_filters('mepr-account-nav-courses-link', $account_url . $delim . 'action=courses'); ?>" id="mepr-account-courses">
         <?php echo \apply_filters('mepr-account-nav-courses-label', _e('Courses', 'memberpress-courses')); ?>
       </a>
@@ -74,7 +74,9 @@ class Account extends lib\BaseCtrl {
 
     if(is_user_logged_in() && $action === 'courses') {
       $my_courses = array();
-      $course_posts = \get_posts(array('post_type' => models\Course::$cpt, 'post_status' => 'publish'));
+      $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+      $course_query = new \WP_Query(array('post_type' => models\Course::$cpt, 'post_status' => 'publish', 'posts_per_page' => 6, 'paged' => $paged));
+      $course_posts = $course_query->get_posts();
       foreach ($course_posts as $course) {
         $current_user = lib\Utils::get_currentuserinfo();
         $mepr_user = new \MeprUser($current_user->ID);

@@ -282,7 +282,7 @@ if ( ! function_exists( 'porto_comment' ) ) :
 				<?php else : ?>
 					<span class="pt-right">
 				<?php endif; ?>
-					<?php if ( current_user_can( 'edit_comment' ) ) : ?>
+					<?php if ( current_user_can( 'edit_comment', $comment ) ) : ?>
 						<span> <?php edit_comment_link( esc_html__( 'Edit', 'porto' ), '  ', '' ); ?></span>
 					<?php endif; ?>
 						<span> 

@@ -82,9 +82,59 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 			$porto_footer_columns      = porto_options_footer_columns();
 
 			if ( current_user_can( 'manage_options' ) && is_admin() ) {
-				$product_layouts = porto_get_post_type_items( 'product_layout' );
+				$product_layouts = porto_get_post_type_items(
+					'porto_builder',
+					array(
+						'meta_query' => array(
+							array(
+								'key'   => 'porto_builder_type',
+								'value' => 'product',
+							),
+						),
+					),
+					true
+				);
+				$header_builders = porto_get_post_type_items(
+					'porto_builder',
+					array(
+						'meta_query' => array(
+							array(
+								'key'   => 'porto_builder_type',
+								'value' => 'header',
+							),
+						),
+					),
+					false
+				);
+				$footer_builders = porto_get_post_type_items(
+					'porto_builder',
+					array(
+						'meta_query' => array(
+							array(
+								'key'   => 'porto_builder_type',
+								'value' => 'footer',
+							),
+						),
+					),
+					false
+				);
+				$shop_builders   = porto_get_post_type_items(
+					'porto_builder',
+					array(
+						'meta_query' => array(
+							array(
+								'key'   => 'porto_builder_type',
+								'value' => 'shop',
+							),
+						),
+					),
+					false
+				);
 			} else {
 				$product_layouts = array();
+				$header_builders = array();
+				$footer_builders = array();
+				$shop_builders   = array();
 			}
 
 			$options_style = get_theme_mod( 'theme_options_use_new_style', false );
@@ -147,23 +197,26 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 				'customizer_only' => true,
 				'fields'          => array(
 					array(
-						'id'      => 'wrapper',
-						'type'    => 'image_select',
-						'title'   => __( 'Body Wrapper', 'porto' ),
-						'options' => $body_wrapper,
-						'default' => 'full',
+						'id'       => 'wrapper',
+						'type'     => 'image_select',
+						'title'    => __( 'Body Wrapper', 'porto' ),
+						'subtitle' => __( 'Controls the site layout.', 'porto' ),
+						'options'  => $body_wrapper,
+						'default'  => 'full',
 					),
 					array(
-						'id'      => 'layout',
-						'type'    => 'image_select',
-						'title'   => __( 'Page Layout', 'porto' ),
-						'options' => $page_layouts,
-						'default' => 'right-sidebar',
+						'id'       => 'layout',
+						'type'     => 'image_select',
+						'title'    => __( 'Page Layout', 'porto' ),
+						'subtitle' => __( 'Controls the global page layout with sidebars.', 'porto' ),
+						'options'  => $page_layouts,
+						'default'  => 'right-sidebar',
 					),
 					array(
 						'id'       => 'sidebar',
 						'type'     => 'select',
 						'title'    => __( 'Select Sidebar', 'porto' ),
+						'subtitle' => __( 'Select the global sidebar 1.', 'porto' ),
 						'required' => array( 'layout', 'equals', $sidebars ),
 						'data'     => 'sidebars',
 						'default'  => 'blog-sidebar',
@@ -172,6 +225,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'sidebar2',
 						'type'     => 'select',
 						'title'    => __( 'Select Sidebar 2', 'porto' ),
+						'subtitle' => __( 'Select the global sidebar 2.', 'porto' ),
 						'required' => array( 'layout', 'equals', $both_sidebars ),
 						'data'     => 'sidebars',
 						'default'  => 'secondary-sidebar',
@@ -180,6 +234,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'header-wrapper',
 						'type'     => 'image_select',
 						'title'    => __( 'Header Wrapper', 'porto' ),
+						'subtitle' => __( 'Controls the header layout.', 'porto' ),
 						'required' => array( 'wrapper', 'equals', array( 'full', 'wide' ) ),
 						'options'  => $wrapper,
 						'default'  => 'full',
@@ -188,6 +243,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'banner-wrapper',
 						'type'     => 'image_select',
 						'title'    => __( 'Banner Wrapper', 'porto' ),
+						'subtitle' => __( 'Controls the banner layout.', 'porto' ),
 						'required' => array( 'wrapper', 'equals', array( 'full', 'wide' ) ),
 						'options'  => $banner_wrapper,
 						'default'  => 'wide',
@@ -196,6 +252,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'breadcrumbs-wrapper',
 						'type'     => 'image_select',
 						'title'    => __( 'Breadcrumbs Wrapper', 'porto' ),
+						'subtitle' => __( 'Controls the page header layout.', 'porto' ),
 						'required' => array( 'wrapper', 'equals', array( 'full', 'wide' ) ),
 						'options'  => $wrapper,
 						'default'  => 'full',
@@ -204,6 +261,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'main-wrapper',
 						'type'     => 'image_select',
 						'title'    => __( 'Page Content Wrapper', 'porto' ),
+						'subtitle' => __( 'Controls the page content layout.', 'porto' ),
 						'required' => array( 'wrapper', 'equals', array( 'full', 'wide' ) ),
 						'options'  => $banner_wrapper,
 						'default'  => 'wide',
@@ -212,6 +270,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'footer-wrapper',
 						'type'     => 'image_select',
 						'title'    => __( 'Footer Wrapper', 'porto' ),
+						'subtitle' => __( 'Controls the footer layout.', 'porto' ),
 						'required' => array( 'wrapper', 'equals', array( 'full', 'wide' ) ),
 						'options'  => $wrapper,
 						'default'  => 'full',
@@ -293,21 +352,6 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 				);
 			}
 
-			$this->sections[] = $this->add_customizer_field(
-				array(
-					'icon_class' => 'icon',
-					'subsection' => true,
-					'title'      => __( 'Theme Layout', 'porto' ),
-					'fields'     => array(
-						array(
-							'id'      => 'general_theme_layout',
-							'type'    => 'raw',
-							'content' => '<img style="max-width: 100%;" src="' . PORTO_OPTIONS_URI . '/layouts/theme_layout.jpg" alt="Porto Theme Layout" />',
-						),
-					),
-				),
-				$options_style
-			);
 			$this->sections[] = $this->add_customizer_field(
 				array(
 					'id'         => 'html-blocks',
@@ -494,7 +538,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'readonly' => false,
 							'title'    => __( 'Favicon', 'porto' ),
 							'default'  => array(
-								'url' => PORTO_URI . '/images/logo/favicon.ico',
+								'url' => PORTO_URI . '/images/logo/favicon.png',
 							),
 						),
 						array(
@@ -606,6 +650,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'skin-color',
 						'type'     => 'color',
 						'title'    => __( 'Primary Color', 'porto' ),
+						'subtitle' => __( 'Controls the main color throughout the theme.', 'porto' ),
 						'default'  => '#0088cc',
 						'validate' => 'color',
 						'compiler' => true,
@@ -748,7 +793,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'container-width',
 						'type'     => 'text',
 						'title'    => __( 'Container Max Width (px)', 'porto' ),
-						'subtitle' => '960 - 1920',
+						'subtitle' => 'Controls the overall site width. 960 - 1920',
 						'default'  => '1140',
 						'compiler' => true,
 					),
@@ -756,6 +801,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'grid-gutter-width',
 						'type'     => 'button_set',
 						'title'    => __( 'Grid Gutter Width', 'porto' ),
+						'subtitle' => __( 'Controls the space between columns in a row.', 'porto' ),
 						'options'  => array(
 							'16' => '16px',
 							'20' => '20px',
@@ -769,14 +815,15 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'border-radius',
 						'type'     => 'switch',
 						'title'    => __( 'Border Radius', 'porto' ),
-						'default'  => true,
+						'subtitle' => __( 'Constrols if you\'re using rounded style throughout the site.', 'porto' ),
+						'default'  => false,
 						'compiler' => true,
 					),
 					array(
 						'id'       => 'thumb-padding',
 						'type'     => 'switch',
 						'title'    => __( 'Thumbnail Padding', 'porto' ),
-						'desc'     => __( 'This will display border and spacing for thumbnail images such as product images.', 'porto' ),
+						'subtitle' => __( 'This will display border and spacing for thumbnail images such as product images.', 'porto' ),
 						'default'  => false,
 						'compiler' => true,
 					),
@@ -827,6 +874,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'             => 'body-font',
 						'type'           => 'typography',
 						'title'          => __( 'Body Font', 'porto' ),
+						'subtitle'       => __( 'Controls the typography for all body text.', 'porto' ),
 						'google'         => true,
 						'subsets'        => false,
 						'font-style'     => false,
@@ -866,6 +914,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'          => 'alt-font',
 						'type'        => 'typography',
 						'title'       => __( 'Alternative Font', 'porto' ),
+						'subtitle'    => __( 'Used in some elements and footer ribbon text.', 'porto' ),
 						'google'      => true,
 						'subsets'     => false,
 						'font-style'  => false,
@@ -998,6 +1047,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'             => 'paragraph-font',
 						'type'           => 'typography',
 						'title'          => __( 'Paragraph Font', 'porto' ),
+						'subtitle'       => __( 'Controls the typography for all p tags.', 'porto' ),
 						'google'         => true,
 						'subsets'        => false,
 						'font-style'     => false,
@@ -1008,6 +1058,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'             => 'footer-font',
 						'type'           => 'typography',
 						'title'          => __( 'Footer Font', 'porto' ),
+						'subtitle'       => __( 'Controls the typography for all footer text.', 'porto' ),
 						'google'         => true,
 						'subsets'        => false,
 						'font-style'     => false,
@@ -1018,6 +1069,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'             => 'footer-heading-font',
 						'type'           => 'typography',
 						'title'          => __( 'Footer Heading Font', 'porto' ),
+						'subtitle'       => __( 'Controls the typography for all footer heading tags (h1 ~ h6).', 'porto' ),
 						'google'         => true,
 						'subsets'        => false,
 						'font-style'     => false,
@@ -1030,6 +1082,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'             => 'shortcode-testimonial-font',
 						'type'           => 'typography',
 						'title'          => __( 'Testimonial Shortcode Font', 'porto' ),
+						'subtitle'       => __( 'Controls the testimonial text for the testimonial element.', 'porto' ),
 						'google'         => true,
 						'subsets'        => false,
 						'color'          => false,
@@ -1255,17 +1308,18 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'notice' => false,
 					),
 					array(
-						'id'      => 'header-wrap-bg',
-						'type'    => 'background',
-						'title'   => __( 'Background', 'porto' ),
-						'default' => array(
+						'id'       => 'header-wrap-bg',
+						'type'     => 'background',
+						'title'    => __( 'Header Wrapper Background', 'porto' ),
+						'subtitle' => __( 'Controls the header wrapper background settings.', 'porto' ),
+						'default'  => array(
 							'background-color' => '',
 						),
 					),
 					array(
 						'id'      => 'header-wrap-bg-gradient',
 						'type'    => 'switch',
-						'title'   => __( 'Background Gradient', 'porto' ),
+						'title'   => __( 'Header Wrapper Background Gradient', 'porto' ),
 						'default' => false,
 						'on'      => __( 'Yes', 'porto' ),
 						'off'     => __( 'No', 'porto' ),
@@ -1287,17 +1341,18 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'notice' => false,
 					),
 					array(
-						'id'      => 'header-bg',
-						'type'    => 'background',
-						'title'   => __( 'Background', 'porto' ),
-						'default' => array(
+						'id'       => 'header-bg',
+						'type'     => 'background',
+						'title'    => __( 'Header Background', 'porto' ),
+						'subtitle' => __( 'Controls the header background settings', 'porto' ),
+						'default'  => array(
 							'background-color' => '#ffffff',
 						),
 					),
 					array(
 						'id'      => 'header-bg-gradient',
 						'type'    => 'switch',
-						'title'   => __( 'Background Gradient', 'porto' ),
+						'title'   => __( 'Header Background Gradient', 'porto' ),
 						'default' => false,
 						'on'      => __( 'Yes', 'porto' ),
 						'off'     => __( 'No', 'porto' ),
@@ -1305,7 +1360,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					array(
 						'id'       => 'header-bg-gcolor',
 						'type'     => 'color_gradient',
-						'title'    => __( 'Background Gradient Color', 'porto' ),
+						'title'    => __( 'Header Background Gradient Color', 'porto' ),
 						'required' => array( 'header-bg-gradient', 'equals', true ),
 						'default'  => array(
 							'from' => '#f6f6f6',
@@ -1315,16 +1370,18 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					array(
 						'id'       => 'header-text-color',
 						'type'     => 'color',
-						'title'    => __( 'Text Color', 'porto' ),
+						'title'    => __( 'Header Text Color', 'porto' ),
+						'subtitle' => __( 'Controls the text color in the header.', 'porto' ),
 						'default'  => '',
 						'validate' => 'color',
 					),
 					array(
-						'id'      => 'header-link-color',
-						'type'    => 'link_color',
-						'active'  => false,
-						'title'   => __( 'Link Color', 'porto' ),
-						'default' => array(
+						'id'       => 'header-link-color',
+						'type'     => 'link_color',
+						'active'   => false,
+						'title'    => __( 'Header Link Color', 'porto' ),
+						'subtitle' => __( 'Controls the color of A tag in the header.', 'porto' ),
+						'default'  => array(
 							'regular' => '#999999',
 							'hover'   => '#999999',
 						),
@@ -1334,18 +1391,19 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'type'    => 'border',
 						'all'     => true,
 						'style'   => false,
-						'title'   => __( 'Top Border', 'porto' ),
+						'title'   => __( 'Header Top Border', 'porto' ),
 						'default' => array(
 							'border-color' => '#ededed',
 							'border-top'   => '3px',
 						),
 					),
 					array(
-						'id'      => 'header-margin',
-						'type'    => 'spacing',
-						'mode'    => 'margin',
-						'title'   => __( 'Margin', 'porto' ),
-						'default' => array(
+						'id'       => 'header-margin',
+						'type'     => 'spacing',
+						'mode'     => 'margin',
+						'title'    => __( 'Header Margin', 'porto' ),
+						'subtitle' => __( 'Controls the margin of header.', 'porto' ),
+						'default'  => array(
 							'margin-top'    => 0,
 							'margin-bottom' => 0,
 							'margin-left'   => 0,
@@ -1353,26 +1411,28 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						),
 					),
 					array(
-						'id'      => 'header-main-padding',
-						'type'    => 'spacing',
-						'mode'    => 'padding',
-						'title'   => __( 'Header Main Padding', 'porto' ),
-						'left'    => false,
-						'right'   => false,
-						'units'   => 'px',
-						'default' => array(
+						'id'       => 'header-main-padding',
+						'type'     => 'spacing',
+						'mode'     => 'padding',
+						'title'    => __( 'Header Main Padding', 'porto' ),
+						'subtitle' => __( 'Controls padding top and bottom of the left, center and right parts in the header main.', 'porto' ),
+						'left'     => false,
+						'right'    => false,
+						'units'    => 'px',
+						'default'  => array(
 							'padding-top'    => '',
 							'padding-bottom' => '',
 						),
 					),
 					array(
-						'id'      => 'header-main-padding-mobile',
-						'type'    => 'spacing',
-						'mode'    => 'padding',
-						'title'   => __( 'Header Main Padding (window width < 992px)', 'porto' ),
-						'left'    => false,
-						'right'   => false,
-						'default' => array(
+						'id'       => 'header-main-padding-mobile',
+						'type'     => 'spacing',
+						'mode'     => 'padding',
+						'title'    => __( 'Header Main Padding (window width < 992px)', 'porto' ),
+						'subtitle' => __( 'Controls padding top and bottom of the left, center and right parts in the header main on mobile.', 'porto' ),
+						'left'     => false,
+						'right'    => false,
+						'default'  => array(
 							'padding-top'    => '',
 							'padding-bottom' => '',
 						),
@@ -1400,17 +1460,18 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'notice' => false,
 					),
 					array(
-						'id'      => 'sticky-header-bg',
-						'type'    => 'background',
-						'title'   => __( 'Background', 'porto' ),
-						'default' => array(
+						'id'       => 'sticky-header-bg',
+						'type'     => 'background',
+						'title'    => __( 'Background', 'porto' ),
+						'subtitle' => __( 'Controls the sticky header\'s background settings', 'porto' ),
+						'default'  => array(
 							'background-color' => '#ffffff',
 						),
 					),
 					array(
 						'id'      => 'sticky-header-bg-gradient',
 						'type'    => 'switch',
-						'title'   => __( 'Background Gradient', 'porto' ),
+						'title'   => __( 'Sticky Header Background Gradient', 'porto' ),
 						'default' => false,
 						'on'      => __( 'Yes', 'porto' ),
 						'off'     => __( 'No', 'porto' ),
@@ -1418,7 +1479,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					array(
 						'id'       => 'sticky-header-bg-gcolor',
 						'type'     => 'color_gradient',
-						'title'    => __( 'Background Gradient Color', 'porto' ),
+						'title'    => __( 'Sticky Header Background Gradient Color', 'porto' ),
 						'required' => array( 'sticky-header-bg-gradient', 'equals', true ),
 						'default'  => array(
 							'from' => '#f6f6f6',
@@ -1428,15 +1489,16 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					array(
 						'id'      => 'sticky-header-opacity',
 						'type'    => 'text',
-						'title'   => __( 'Background Opacity', 'porto' ),
+						'title'   => __( 'Sticky Header Background Opacity', 'porto' ),
 						'default' => '100%',
 					),
 					array(
-						'id'      => 'mainmenu-wrap-padding-sticky',
-						'type'    => 'spacing',
-						'mode'    => 'padding',
-						'title'   => __( 'Padding', 'porto' ),
-						'default' => array(
+						'id'       => 'mainmenu-wrap-padding-sticky',
+						'type'     => 'spacing',
+						'mode'     => 'padding',
+						'title'    => __( 'Sticky Header Padding', 'porto' ),
+						'subtitle' => __( 'Controls the padding of header left, center and right parts in the sticky header.', 'porto' ),
+						'default'  => array(
 							'padding-top'    => 8,
 							'padding-bottom' => 8,
 							'padding-left'   => 0,
@@ -1450,36 +1512,41 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'notice' => false,
 					),
 					array(
-						'id'      => 'header-opacity',
-						'type'    => 'text',
-						'title'   => __( 'Header Opacity', 'porto' ),
-						'default' => '80%',
+						'id'       => 'header-opacity',
+						'type'     => 'text',
+						'title'    => __( 'Header Opacity', 'porto' ),
+						'subtitle' => __( 'Controls the background opacity in the fixed header.', 'porto' ),
+						'default'  => '80%',
 					),
 					array(
-						'id'      => 'searchform-opacity',
-						'type'    => 'text',
-						'title'   => __( 'Search Form Opacity', 'porto' ),
-						'default' => '50%',
+						'id'       => 'searchform-opacity',
+						'type'     => 'text',
+						'title'    => __( 'Search Form Opacity', 'porto' ),
+						'subtitle' => __( 'Controls the search form\'s background opacity in the fixed header.', 'porto' ),
+						'default'  => '50%',
 					),
 					array(
-						'id'      => 'menuwrap-opacity',
-						'type'    => 'text',
-						'title'   => __( 'Menu Wrap Opacity', 'porto' ),
-						'default' => '30%',
+						'id'       => 'menuwrap-opacity',
+						'type'     => 'text',
+						'title'    => __( 'Menu Wrap Opacity', 'porto' ),
+						'subtitle' => __( 'Controls the main menu section\'s background opacity in the fixed header for some header types.', 'porto' ),
+						'default'  => '30%',
 					),
 					array(
-						'id'      => 'menu-opacity',
-						'type'    => 'text',
-						'title'   => __( 'Menu Opacity', 'porto' ),
-						'default' => '30%',
+						'id'       => 'menu-opacity',
+						'type'     => 'text',
+						'title'    => __( 'Menu Opacity', 'porto' ),
+						'subtitle' => __( 'Controls the main menu\'s background opacity in the fixed header.', 'porto' ),
+						'default'  => '30%',
 					),
 					array(
-						'id'      => 'header-fixed-show-bottom',
-						'type'    => 'switch',
-						'title'   => __( 'Show Bottom Border', 'porto' ),
-						'default' => false,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'header-fixed-show-bottom',
+						'type'     => 'switch',
+						'title'    => __( 'Show Bottom Border', 'porto' ),
+						'subtitle' => __( 'Controls if show bottom border with opacity in the fixed header.', 'porto' ),
+						'default'  => false,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'     => '1',
@@ -1490,17 +1557,18 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					array(
 						'id'       => 'header-top-bg-color',
 						'type'     => 'color',
-						'title'    => __( 'Background Color', 'porto' ),
+						'title'    => __( 'Header Top Background Color', 'porto' ),
 						'default'  => '#f4f4f4',
 						'validate' => 'color',
 					),
 					array(
-						'id'      => 'header-top-height',
-						'type'    => 'slider',
-						'title'   => __( 'Header Top Height', 'porto' ),
-						'default' => 30,
-						'min'     => 25,
-						'max'     => 500,
+						'id'       => 'header-top-height',
+						'type'     => 'slider',
+						'title'    => __( 'Header Top Height', 'porto' ),
+						'subtitle' => __( 'Controls the min height of header top.', 'porto' ),
+						'default'  => 30,
+						'min'      => 25,
+						'max'      => 500,
 					),
 					array(
 						'id'      => 'header-top-font-size',
@@ -1510,12 +1578,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default' => '',
 					),
 					array(
-						'id'      => 'header-top-bottom-border',
-						'type'    => 'border',
-						'all'     => true,
-						'style'   => false,
-						'title'   => __( 'Bottom Border', 'porto' ),
-						'default' => array(
+						'id'       => 'header-top-bottom-border',
+						'type'     => 'border',
+						'all'      => true,
+						'style'    => false,
+						'title'    => __( 'Bottom Border', 'porto' ),
+						'subtitle' => __( 'Controls the bottom border width and color for header top section.', 'porto' ),
+						'default'  => array(
 							'border-color' => '#ededed',
 							'border-top'   => '1px',
 						),
@@ -1524,25 +1593,28 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'header-top-text-color',
 						'type'     => 'color',
 						'title'    => __( 'Text Color', 'porto' ),
+						'subtitle' => __( 'Controls the text color in the header top section.', 'porto' ),
 						'default'  => '#777777',
 						'validate' => 'color',
 					),
 					array(
-						'id'      => 'header-top-link-color',
-						'type'    => 'link_color',
-						'active'  => false,
-						'title'   => __( 'Link Color', 'porto' ),
-						'default' => array(
+						'id'       => 'header-top-link-color',
+						'type'     => 'link_color',
+						'active'   => false,
+						'title'    => __( 'Link Color', 'porto' ),
+						'subtitle' => __( 'Controls the color of A tag in the header top section.', 'porto' ),
+						'default'  => array(
 							'regular' => '#0088cc',
 							'hover'   => '#0099e6',
 						),
 					),
 					array(
-						'id'      => 'header-top-menu-padding',
-						'type'    => 'spacing',
-						'mode'    => 'padding',
-						'title'   => __( 'Top Menu Padding', 'porto' ),
-						'default' => array(
+						'id'       => 'header-top-menu-padding',
+						'type'     => 'spacing',
+						'mode'     => 'padding',
+						'title'    => __( 'Top Menu Padding', 'porto' ),
+						'subtitle' => __( 'Controls the padding of top links.', 'porto' ),
+						'default'  => array(
 							'padding-top'    => 5,
 							'padding-bottom' => 5,
 							'padding-left'   => 5,
@@ -1550,12 +1622,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						),
 					),
 					array(
-						'id'      => 'header-top-menu-hide-sep',
-						'type'    => 'switch',
-						'title'   => __( 'Hide Top Menu Separator', 'porto' ),
-						'default' => true,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'header-top-menu-hide-sep',
+						'type'     => 'switch',
+						'title'    => __( 'Hide Top Menu Separator', 'porto' ),
+						'subtitle' => __( 'Controls if hide the separator between top links items.', 'porto' ),
+						'default'  => true,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'     => '1',
@@ -1589,14 +1662,14 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					array(
 						'id'       => 'header-bottom-bg-color',
 						'type'     => 'color',
-						'title'    => __( 'Background Color', 'porto' ),
+						'title'    => __( 'Header Bottom Background Color', 'porto' ),
 						'default'  => '',
 						'validate' => 'color',
 					),
 					array(
 						'id'       => 'header-bottom-container-bg-color',
 						'type'     => 'color',
-						'title'    => __( 'Container Background Color', 'porto' ),
+						'title'    => __( 'Header Bottom Container Background Color', 'porto' ),
 						'default'  => '',
 						'validate' => 'color',
 					),
@@ -1611,15 +1684,17 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'header-bottom-text-color',
 						'type'     => 'color',
 						'title'    => __( 'Text Color', 'porto' ),
+						'subtitle' => __( 'Controls the text color in the header bottom section.', 'porto' ),
 						'default'  => '',
 						'validate' => 'color',
 					),
 					array(
-						'id'      => 'header-bottom-link-color',
-						'type'    => 'link_color',
-						'active'  => false,
-						'title'   => __( 'Link Color', 'porto' ),
-						'default' => array(
+						'id'       => 'header-bottom-link-color',
+						'type'     => 'link_color',
+						'active'   => false,
+						'title'    => __( 'Link Color', 'porto' ),
+						'subtitle' => __( 'Controls the color of A tag in the header bottom section.', 'porto' ),
+						'default'  => array(
 							'regular' => '',
 							'hover'   => '',
 						),
@@ -1679,24 +1754,24 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					array(
 						'id'       => 'mainmenu-wrap-bg-color',
 						'type'     => 'color',
-						'title'    => __( 'Wrapper Background Color', 'porto' ),
-						'subtitle' => __( 'if header type is 1, 4, 9, 13, 14, 17 or header builder', 'porto' ),
+						'title'    => __( 'Main Menu Wrapper Background Color', 'porto' ),
+						'subtitle' => __( 'if header type is 1, 4, 9, 13, 14, 17 or header builder which contains main menu in header bottom section.', 'porto' ),
 						'default'  => 'transparent',
 						'validate' => 'color',
 					),
 					array(
 						'id'       => 'mainmenu-wrap-bg-color-sticky',
 						'type'     => 'color',
-						'title'    => __( 'Wrapper Background Color in Sticky Header', 'porto' ),
-						'subtitle' => __( 'if header type is 1, 4, 9, 13, 14, 17 or header builder', 'porto' ),
+						'title'    => __( 'Main Menu Wrapper Background Color in Sticky Header', 'porto' ),
+						'subtitle' => __( 'if header type is 1, 4, 9, 13, 14, 17 or header builder which contains main menu in header bottom section.', 'porto' ),
 						'validate' => 'color',
 					),
 					array(
 						'id'       => 'mainmenu-wrap-padding',
 						'type'     => 'spacing',
 						'mode'     => 'padding',
-						'title'    => __( 'Wrapper Padding', 'porto' ),
-						'subtitle' => __( 'if header type is 1, 4, 9, 13, 14, 17 or header builder', 'porto' ),
+						'title'    => __( 'Menu Menu Wrapper Padding', 'porto' ),
+						'subtitle' => __( 'if header type is 1, 4, 9, 13, 14, 17 or header builder which contains main menu in header bottom section.', 'porto' ),
 						'default'  => array(
 							'padding-top'    => 0,
 							'padding-bottom' => 0,
@@ -1707,7 +1782,8 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					array(
 						'id'       => 'mainmenu-bg-color',
 						'type'     => 'color',
-						'title'    => __( 'Background Color', 'porto' ),
+						'title'    => __( 'Main Menu Background Color', 'porto' ),
+						'subtitle' => __( 'Controls the background color for main menu.', 'porto' ),
 						'default'  => 'transparent',
 						'validate' => 'color',
 					),
@@ -1721,6 +1797,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'             => 'menu-font',
 						'type'           => 'typography',
 						'title'          => __( 'Menu Font', 'porto' ),
+						'subtitle'       => __( 'Controls the typography for main menu\'s first level items.', 'porto' ),
 						'google'         => true,
 						'subsets'        => false,
 						'font-style'     => false,
@@ -1738,28 +1815,10 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'transport'      => 'refresh',
 					),
 					array(
-						'id'             => 'menu-font-md',
-						'type'           => 'typography',
-						'title'          => __( 'Menu Font (window width < 992px)', 'porto' ),
-						'google'         => false,
-						'subsets'        => false,
-						'font-style'     => false,
-						'font-weight'    => false,
-						'font-family'    => false,
-						'text-align'     => false,
-						'color'          => false,
-						'letter-spacing' => true,
-						'default'        => array(
-							'font-size'      => '12px',
-							'line-height'    => '20px',
-							'letter-spacing' => '0',
-						),
-						'transport'      => 'refresh',
-					),
-					array(
 						'id'             => 'menu-side-font',
 						'type'           => 'typography',
 						'title'          => __( 'Side Menu Font', 'porto' ),
+						'subtitle'       => __( 'Controls the typography for main sidebar menu\'s first level items.', 'porto' ),
 						'google'         => true,
 						'subsets'        => false,
 						'font-style'     => false,
@@ -1777,48 +1836,53 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'transport'      => 'refresh',
 					),
 					array(
-						'id'      => 'menu-text-transform',
-						'type'    => 'button_set',
-						'title'   => __( 'Text Transform', 'porto' ),
-						'options' => array(
+						'id'       => 'menu-text-transform',
+						'type'     => 'button_set',
+						'title'    => __( 'Text Transform', 'porto' ),
+						'subtitle' => __( 'Controls the text transform for the first level items of main menu and main sidebar menu.', 'porto' ),
+						'options'  => array(
 							'none'       => __( 'None', 'porto' ),
 							'capitalize' => __( 'Capitalize', 'porto' ),
 							'uppercase'  => __( 'Uppercase', 'porto' ),
 							'lowercase'  => __( 'Lowercase', 'porto' ),
 							'initial'    => __( 'Initial', 'porto' ),
 						),
-						'default' => 'uppercase',
+						'default'  => 'uppercase',
 					),
 					array(
-						'id'      => 'mainmenu-toplevel-link-color',
-						'type'    => 'link_color',
-						'active'  => false,
-						'title'   => __( 'Link Color', 'porto' ),
-						'default' => array(
+						'id'       => 'mainmenu-toplevel-link-color',
+						'type'     => 'link_color',
+						'active'   => false,
+						'title'    => __( 'Link Color', 'porto' ),
+						'subtitle' => __( 'Controls the menu item color for the first level items of main menu and main sidebar menu.', 'porto' ),
+						'default'  => array(
 							'regular' => '#0088cc',
 							'hover'   => '#ffffff',
 						),
 					),
 					array(
-						'id'     => 'mainmenu-toplevel-link-color-sticky',
-						'type'   => 'link_color',
-						'active' => true,
-						'title'  => __( 'Link Color in Sticky Header', 'porto' ),
+						'id'       => 'mainmenu-toplevel-link-color-sticky',
+						'type'     => 'link_color',
+						'active'   => true,
+						'title'    => __( 'Link Color in Sticky Header', 'porto' ),
+						'subtitle' => __( 'Controls the menu item color for the first level items of main menu in sticky header.', 'porto' ),
 					),
 					array(
 						'id'       => 'mainmenu-toplevel-hbg-color',
 						'type'     => 'color',
 						'title'    => __( 'Hover Background Color', 'porto' ),
+						'subtitle' => __( 'Controls the background color for the first level items on hover and active.', 'porto' ),
 						'default'  => '#0088cc',
 						'validate' => 'color',
 					),
 					array(
-						'id'      => 'mainmenu-toplevel-config-active',
-						'type'    => 'switch',
-						'title'   => __( 'Configure Active Color', 'porto' ),
-						'default' => false,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'mainmenu-toplevel-config-active',
+						'type'     => 'switch',
+						'title'    => __( 'Configure Active Color', 'porto' ),
+						'subtitle' => __( 'Controls the background and color for the first level active menu items.', 'porto' ),
+						'default'  => false,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'       => 'mainmenu-toplevel-alink-color',
@@ -1837,12 +1901,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'validate' => 'color',
 					),
 					array(
-						'id'      => 'mainmenu-toplevel-padding1',
-						'type'    => 'spacing',
-						'mode'    => 'padding',
-						'title'   => __( 'Padding on Desktop', 'porto' ),
-						'desc'    => __( 'This is not working for sidebar menus.', 'porto' ),
-						'default' => array(
+						'id'       => 'mainmenu-toplevel-padding1',
+						'type'     => 'spacing',
+						'mode'     => 'padding',
+						'title'    => __( 'Padding on Desktop', 'porto' ),
+						'subtitle' => __( 'Controls the padding for the first level menu items on desktop.', 'porto' ),
+						'desc'     => __( 'This is not working for sidebar menus.', 'porto' ),
+						'default'  => array(
 							'padding-top'    => 10,
 							'padding-bottom' => 10,
 							'padding-left'   => 16,
@@ -1850,12 +1915,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						),
 					),
 					array(
-						'id'      => 'mainmenu-toplevel-padding2',
-						'type'    => 'spacing',
-						'mode'    => 'padding',
-						'title'   => __( 'Padding on Desktop (width > 991px)', 'porto' ),
-						'desc'    => __( 'This is not working for sidebar menus.', 'porto' ),
-						'default' => array(
+						'id'       => 'mainmenu-toplevel-padding2',
+						'type'     => 'spacing',
+						'mode'     => 'padding',
+						'title'    => __( 'Padding on Desktop (width > 991px)', 'porto' ),
+						'subtitle' => __( 'Controls the padding for the first level menu items on small desktop.', 'porto' ),
+						'desc'     => __( 'This is not working for sidebar menus.', 'porto' ),
+						'default'  => array(
 							'padding-top'    => 9,
 							'padding-bottom' => 9,
 							'padding-left'   => 14,
@@ -1863,11 +1929,12 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						),
 					),
 					array(
-						'id'    => 'mainmenu-toplevel-padding3',
-						'type'  => 'spacing',
-						'mode'  => 'padding',
-						'title' => __( 'Padding on Sticky Header (width > 991px)', 'porto' ),
-						'desc'  => __( 'This is not working for sidebar menus. Please leave blank if you use same values with the ones in default header.', 'porto' ),
+						'id'       => 'mainmenu-toplevel-padding3',
+						'type'     => 'spacing',
+						'mode'     => 'padding',
+						'title'    => __( 'Padding on Sticky Header (width > 991px)', 'porto' ),
+						'subtitle' => __( 'Controls the padding for the first level menu items in sticky header on large displays.', 'porto' ),
+						'desc'     => __( 'This is not working for sidebar menus. Please leave blank if you use same values with the ones in default header.', 'porto' ),
 					),
 					array(
 						'id'     => '1',
@@ -1930,6 +1997,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'mainmenu-popup-heading-color',
 						'type'     => 'color',
 						'title'    => __( 'Heading Color', 'porto' ),
+						'subtitle' => __( 'Controls the color of sub titles in the mega menu (wide menu).', 'porto' ),
 						'default'  => '#333333',
 						'validate' => 'color',
 					),
@@ -1951,15 +2019,16 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'validate' => 'color',
 					),
 					array(
-						'id'      => 'mainmenu-popup-narrow-type',
-						'type'    => 'button_set',
-						'title'   => __( 'Narrow Menu Style', 'porto' ),
-						'desc'    => __( 'if narrow menu style is "Style 2", please select "Top Level Menu Item / Hover Background Color".', 'porto' ),
-						'options' => array(
+						'id'       => 'mainmenu-popup-narrow-type',
+						'type'     => 'button_set',
+						'title'    => __( 'Narrow Menu Style', 'porto' ),
+						'subtitle' => __( 'Controls the background color style for the narrow sub menus (menu popup).', 'porto' ),
+						'desc'     => __( 'If you select "With Top Menu Hover Bg Color", please insert hover background color for the first level items in the "Top Level Menu Item / Hover Background Color".', 'porto' ),
+						'options'  => array(
 							''  => __( 'With Popup BG Color', 'porto' ),
 							'1' => __( 'With Top Menu Hover Bg Color', 'porto' ),
 						),
-						'default' => '',
+						'default'  => '',
 					),
 					array(
 						'id'     => '1',
@@ -1971,6 +2040,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'mainmenu-tip-bg-color',
 						'type'     => 'color',
 						'title'    => __( 'Tip Background Color', 'porto' ),
+						'subtitle' => __( 'Controls the background color for the tip labels in the main menu item.', 'porto' ),
 						'default'  => '#0cc485',
 						'validate' => 'color',
 					),
@@ -1984,15 +2054,25 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'menu-custom-text-color',
 						'type'     => 'color',
 						'title'    => __( 'Text Color', 'porto' ),
+						'subtitle' => __(
+							'Controls the text color for the menu custom content which is inserted in Header / 
+Menu Custom Content',
+							'porto'
+						),
 						'default'  => '#777777',
 						'validate' => 'color',
 					),
 					array(
-						'id'      => 'menu-custom-link',
-						'type'    => 'link_color',
-						'title'   => __( 'Link Color', 'porto' ),
-						'active'  => false,
-						'default' => array(
+						'id'       => 'menu-custom-link',
+						'type'     => 'link_color',
+						'title'    => __( 'Link Color', 'porto' ),
+						'subtitle' => __(
+							'Controls the color of A tag for the menu custom content which is inserted in Header / 
+Menu Custom Content',
+							'porto'
+						),
+						'active'   => false,
+						'default'  => array(
 							'regular' => '#0088cc',
 							'hover'   => '#006fa4',
 						),
@@ -2023,17 +2103,19 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'notice' => false,
 					),
 					array(
-						'id'    => 'breadcrumbs-bg',
-						'type'  => 'background',
-						'title' => __( 'Background', 'porto' ),
+						'id'       => 'breadcrumbs-bg',
+						'type'     => 'background',
+						'title'    => __( 'Background', 'porto' ),
+						'subtitle' => __( 'Controls the background settings for the breadcrumbs.', 'porto' ),
 					),
 					array(
-						'id'      => 'breadcrumbs-bg-gradient',
-						'type'    => 'switch',
-						'title'   => __( 'Background Gradient', 'porto' ),
-						'default' => false,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'breadcrumbs-bg-gradient',
+						'type'     => 'switch',
+						'title'    => __( 'Background Gradient', 'porto' ),
+						'subtitle' => __( 'Controls the background gradient settings for the breadcrumbs.', 'porto' ),
+						'default'  => false,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'       => 'breadcrumbs-bg-gcolor',
@@ -2161,20 +2243,22 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'notice' => false,
 					),
 					array(
-						'id'      => 'footer-bg',
-						'type'    => 'background',
-						'title'   => __( 'Background', 'porto' ),
-						'default' => array(
+						'id'       => 'footer-bg',
+						'type'     => 'background',
+						'title'    => __( 'Background', 'porto' ),
+						'subtitle' => __( 'Controls the footer background settings.', 'porto' ),
+						'default'  => array(
 							'background-color' => '#212529',
 						),
 					),
 					array(
-						'id'      => 'footer-bg-gradient',
-						'type'    => 'switch',
-						'title'   => __( 'Background Gradient', 'porto' ),
-						'default' => false,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'footer-bg-gradient',
+						'type'     => 'switch',
+						'title'    => __( 'Background Gradient', 'porto' ),
+						'subtitle' => __( 'Controls the footer background gradient settings.', 'porto' ),
+						'default'  => false,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'       => 'footer-bg-gcolor',
@@ -2204,13 +2288,14 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					array(
 						'id'     => '1',
 						'type'   => 'info',
-						'title'  => __( 'Footer Widgets Area', 'porto' ),
+						'title'  => __( 'Footer Main Section which contains Widgets Area', 'porto' ),
 						'notice' => false,
 					),
 					array(
-						'id'    => 'footer-main-bg',
-						'type'  => 'background',
-						'title' => __( 'Background', 'porto' ),
+						'id'       => 'footer-main-bg',
+						'type'     => 'background',
+						'title'    => __( 'Background', 'porto' ),
+						'subtitle' => __( 'Controls the background settings for the footer main section which contains widget areas.', 'porto' ),
 					),
 					array(
 						'id'      => 'footer-main-bg-gradient',
@@ -2234,6 +2319,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'footer-heading-color',
 						'type'     => 'color',
 						'title'    => __( 'Heading Color', 'porto' ),
+						'subtitle' => __( 'Controls the heading color in the footer main section.(h1 - h6)', 'porto' ),
 						'default'  => '#ffffff',
 						'validate' => 'color',
 					),
@@ -2241,6 +2327,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'footer-label-color',
 						'type'     => 'color',
 						'title'    => __( 'Label Color', 'porto' ),
+						'subtitle' => __( 'Controls the title color of contact info widget in the footer.', 'porto' ),
 						'validate' => 'color',
 					),
 					array(
@@ -2264,6 +2351,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'footer-ribbon-bg-color',
 						'type'     => 'color',
 						'title'    => __( 'Ribbon Background Color', 'porto' ),
+						'subtitle' => __( 'Controls the background color for the footer ribbon.', 'porto' ),
 						'default'  => '#0088cc',
 						'validate' => 'color',
 					),
@@ -2271,6 +2359,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'footer-ribbon-text-color',
 						'type'     => 'color',
 						'title'    => __( 'Ribbon Text Color', 'porto' ),
+						'subtitle' => __( 'Controls the text color for the footer ribbon.', 'porto' ),
 						'default'  => '#ffffff',
 						'validate' => 'color',
 					),
@@ -2382,6 +2471,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'footer-social-bg-color',
 						'type'     => 'color',
 						'title'    => __( 'Background Color', 'porto' ),
+						'subtitle' => __( 'Controls the background color for the social links in the footer.', 'porto' ),
 						'default'  => '#ffffff',
 						'validate' => 'color',
 					),
@@ -2389,6 +2479,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'footer-social-link-color',
 						'type'     => 'color',
 						'title'    => __( 'Link Color', 'porto' ),
+						'subtitle' => __( 'Controls the text color for the social links in the footer.', 'porto' ),
 						'default'  => '#333333',
 						'validate' => 'color',
 					),
@@ -2488,7 +2579,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 				'id'         => 'skin-view-currency-switcher',
 				'icon_class' => 'icon',
 				'subsection' => true,
-				'title'      => __( 'View, Currency Switcher', 'porto' ),
+				'title'      => __( 'Language, Currency Switcher', 'porto' ),
 				'transport'  => 'postMessage',
 				'fields'     => array(
 					array(
@@ -2511,6 +2602,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'switcher-bg-color',
 						'type'     => 'color',
 						'title'    => __( 'Background Color', 'porto' ),
+						'subtitle' => __( 'Controls the background color for language switcher and currency switcher.', 'porto' ),
 						'default'  => 'transparent',
 						'validate' => 'color',
 					),
@@ -2518,17 +2610,18 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'switcher-hbg-color',
 						'type'     => 'color',
 						'title'    => __( 'Hover Background Color', 'porto' ),
+						'subtitle' => __( 'Controls the background color for language switcher and currency switcher on hover.', 'porto' ),
 						'default'  => '#ffffff',
 						'validate' => 'color',
 					),
 					array(
-						'id'      => 'switcher-top-level-hover',
-						'type'    => 'switch',
-						'title'   => __( 'Change top level on hover', 'porto' ),
-						'desc'    => __( 'Checks to change top level text color and background color on hover.', 'porto' ),
-						'default' => false,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'switcher-top-level-hover',
+						'type'     => 'switch',
+						'title'    => __( 'Change top level on hover', 'porto' ),
+						'subtitle' => __( 'Controls if change the text color and background color for the first level item on hover.', 'porto' ),
+						'default'  => false,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'      => 'switcher-link-color',
@@ -2539,7 +2632,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'regular' => '#777777',
 							'hover'   => '#777777',
 						),
-						'desc'    => __( 'Regular is the color of top level link and hover is the color of sub menu item.', 'porto' ),
+						'desc'    => __( 'Regular is the color of top level link and hover is the color of sub menu items.', 'porto' ),
 					),
 				),
 			);
@@ -2654,10 +2747,11 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'notice' => false,
 					),
 					array(
-						'id'      => 'minicart-icon-font-size',
-						'type'    => 'text',
-						'title'   => __( 'Icon Font Size', 'porto' ),
-						'default' => '',
+						'id'       => 'minicart-icon-font-size',
+						'type'     => 'text',
+						'title'    => __( 'Icon Font Size', 'porto' ),
+						'subtitle' => __( 'Controls the font size for the mini cart icon. Enter value including any valid CSS unit, ex: 30px.', 'porto' ),
+						'default'  => '',
 					),
 					array(
 						'id'       => 'minicart-icon-color',
@@ -2670,6 +2764,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'minicart-item-color',
 						'type'     => 'color',
 						'title'    => __( 'Item Color', 'porto' ),
+						'subtitle' => __( 'Controls the text color for the mini cart item count.', 'porto' ),
 						'default'  => '',
 						'validate' => 'color',
 					),
@@ -2799,6 +2894,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'          => 'add-to-cart-font',
 						'type'        => 'typography',
 						'title'       => __( 'Add to Cart Font', 'porto' ),
+						'subtitle'    => __( 'Used in add to cart button, quickview, wishlist, price, etc', 'porto' ),
 						'google'      => true,
 						'subsets'     => false,
 						'font-style'  => false,
@@ -2838,6 +2934,11 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'mode'     => 'css',
 						'theme'    => 'monokai',
 						'default'  => '',
+						'options'  => array(
+							'height'   => 450,
+							'minLines' => 40,
+							'maxLines' => 50,
+						),
 					),
 				),
 			);
@@ -2855,6 +2956,11 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'mode'     => 'javascript',
 						'theme'    => 'chrome',
 						'default'  => '',
+						'options'  => array(
+							'height'   => 250,
+							'minLines' => 15,
+							'maxLines' => 25,
+						),
 					),
 					array(
 						'id'       => 'js-code',
@@ -2863,7 +2969,12 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'subtitle' => __( 'Paste your custom JavaScript code here.', 'porto' ),
 						'mode'     => 'javascript',
 						'theme'    => 'chrome',
-						'default'  => 'jQuery(document).ready(function(){});',
+						'default'  => '',
+						'options'  => array(
+							'height'   => 250,
+							'minLines' => 15,
+							'maxLines' => 25,
+						),
 					),
 				),
 			);
@@ -2896,6 +3007,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'id'        => 'header-view',
 							'type'      => 'button_set',
 							'title'     => __( 'Header View', 'porto' ),
+							'subtitle'  => __( 'Controls if using default header or fixed header, or hiding it.', 'porto' ),
 							'options'   => array_merge(
 								porto_ct_header_view(),
 								array(
@@ -2906,20 +3018,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'transport' => 'refresh',
 						),
 						array(
-							'id'      => 'show-header-top',
-							'type'    => 'switch',
-							'title'   => __( 'Show Header Top', 'porto' ),
-							'default' => false,
-							'on'      => __( 'Yes', 'porto' ),
-							'off'     => __( 'No', 'porto' ),
-						),
-						array(
-							'id'      => 'change-header-logo',
-							'type'    => 'switch',
-							'title'   => __( 'Change Logo Size in Sticky Header', 'porto' ),
-							'default' => true,
-							'on'      => __( 'Yes', 'porto' ),
-							'off'     => __( 'No', 'porto' ),
+							'id'       => 'show-header-top',
+							'type'     => 'switch',
+							'title'    => __( 'Show Header Top', 'porto' ),
+							'subtitle' => __( 'Controls if show header top. This settings doesn\'t work for header builders', 'porto' ),
+							'default'  => false,
+							'on'       => __( 'Yes', 'porto' ),
+							'off'      => __( 'No', 'porto' ),
 						),
 						array(
 							'id'      => 'minicart-type',
@@ -2930,14 +3035,22 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 								'simple'             => __( 'Simple', 'porto' ),
 								'minicart-arrow-alt' => __( 'Arrow Alt', 'porto' ),
 								'minicart-inline'    => __( 'Text', 'porto' ),
+								'minicart-text'      => __( 'Icon & Text', 'porto' ),
 							),
 							'default' => $minicart_type,
+						),
+						array(
+							'id'       => 'minicart-text',
+							'type'     => 'text',
+							'title'    => __( 'Mini Cart Text', 'porto' ),
+							'required' => array( 'minicart-type', 'equals', array( 'minicart-inline', 'minicart-text' ) ),
 						),
 						array(
 							'id'       => 'minicart-icon',
 							'type'     => 'text',
 							'title'    => __( 'Mini Cart Icon', 'porto' ),
-							'required' => array( 'minicart-type', 'equals', array( 'simple', 'minicart-arrow-alt', 'minicart-inline' ) ),
+							'subtitle' => __( 'Inputs the custom mini cart icon. ex: porto-icon-shopping-cart', 'porto' ),
+							'required' => array( 'minicart-type', 'equals', array( 'simple', 'minicart-arrow-alt', 'minicart-inline', 'minicart-text' ) ),
 						),
 						array(
 							'id'       => 'minicart-content',
@@ -2951,16 +3064,18 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'required' => array( 'minicart-type', 'equals', array( 'simple', 'minicart-arrow-alt', 'minicart-inline' ) ),
 						),
 						array(
-							'id'      => 'welcome-msg',
-							'type'    => 'textarea',
-							'title'   => __( 'Welcome Message', 'porto' ),
-							'default' => '',
+							'id'       => 'welcome-msg',
+							'type'     => 'textarea',
+							'title'    => __( 'Welcome Message', 'porto' ),
+							'subtitle' => __( 'Inputs the html to be displayed in the header top for preset header types', 'porto' ),
+							'default'  => '',
 						),
 						array(
-							'id'      => 'header-contact-info',
-							'type'    => 'textarea',
-							'title'   => __( 'Contact Info', 'porto' ),
-							'default' => "<ul class=\"nav nav-pills nav-top\">\r\n\t<li class=\"d-none d-sm-block\">\r\n\t\t<a href=\"#\" target=\"_blank\"><i class=\"fas fa-angle-right\"></i>About Us</a> \r\n\t</li>\r\n\t<li class=\"d-none d-sm-block\">\r\n\t\t<a href=\"#\" target=\"_blank\"><i class=\"fas fa-angle-right\"></i>Contact Us</a> \r\n\t</li>\r\n\t<li class=\"phone nav-item-left-border nav-item-right-border\">\r\n\t\t<span><i class=\"fas fa-phone\"></i>(123) 456-7890</span>\r\n\t</li>\r\n</ul>\r\n",
+							'id'       => 'header-contact-info',
+							'type'     => 'textarea',
+							'title'    => __( 'Contact Info', 'porto' ),
+							'subtitle' => __( 'Inputs the html content to be used as contact information in the header.', 'porto' ),
+							'default'  => "<ul class=\"nav nav-pills nav-top\">\r\n\t<li class=\"d-none d-sm-block\">\r\n\t\t<a href=\"#\" target=\"_blank\"><i class=\"fas fa-angle-right\"></i>About Us</a> \r\n\t</li>\r\n\t<li class=\"d-none d-sm-block\">\r\n\t\t<a href=\"#\" target=\"_blank\"><i class=\"fas fa-angle-right\"></i>Contact Us</a> \r\n\t</li>\r\n\t<li class=\"phone nav-item-left-border nav-item-right-border\">\r\n\t\t<span><i class=\"fas fa-phone\"></i>(123) 456-7890</span>\r\n\t</li>\r\n</ul>\r\n",
 						),
 						array(
 							'id'      => 'header-copyright',
@@ -2981,12 +3096,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'transport' => 'refresh',
 						),
 						array(
-							'id'      => 'show-header-tooltip',
-							'type'    => 'switch',
-							'title'   => __( 'Show Tooltip', 'porto' ),
-							'default' => false,
-							'on'      => __( 'Yes', 'porto' ),
-							'off'     => __( 'No', 'porto' ),
+							'id'       => 'show-header-tooltip',
+							'type'     => 'switch',
+							'title'    => __( 'Show Tooltip', 'porto' ),
+							'subtitle' => __( 'Turn on to display tooltip icon with flash effect and popup content', 'porto' ),
+							'default'  => false,
+							'on'       => __( 'Yes', 'porto' ),
+							'off'      => __( 'No', 'porto' ),
 						),
 						array(
 							'id'       => 'header-tooltip',
@@ -3016,7 +3132,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'desc'    => wp_kses(
 							sprintf(
 								/* translators: %s: Header builder url */
-								__( 'You can add new header layout using <a href="%s" class="goto-header-builder">Header Builder</a>.', 'porto' ),
+								__( 'You can add new header layout using <a href="%s" class="goto-header-builder">Header Builder in customizer panel</a>.', 'porto' ),
 								esc_url(
 									add_query_arg(
 										array(
@@ -3042,10 +3158,11 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'header-type-select',
 						'type'     => 'button_set',
 						'title'    => __( 'Select Header', 'porto' ),
-						'subtitle' => __( 'Preset or Header Builders', 'porto' ),
+						'subtitle' => __( 'Preset, Header Builder in Customizer or Header Builder in Porto Templates builder', 'porto' ),
 						'options'  => array(
 							''                 => __( 'Header Type', 'porto' ),
 							'header_builder'   => __( 'Header builder in Customizer', 'porto' ),
+							'header_builder_p' => __( 'Header builder in Porto Templates builder', 'porto' ),
 						),
 						'default'  => '',
 					),
@@ -3316,6 +3433,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'search-layout',
 						'type'     => 'button_set',
 						'title'    => __( 'Search Layout', 'porto' ),
+						'subtitle' => __( 'Controls the layout of the search forms.', 'porto' ),
 						'required' => array( 'show-searchform', 'equals', true ),
 						'options'  => array(
 							'simple'   => __( 'Popup 1', 'porto' ),
@@ -3339,6 +3457,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'search-type',
 						'type'     => 'button_set',
 						'title'    => __( 'Search Content Type', 'porto' ),
+						'subtitle' => __( 'Controls the post types that displays in search results.', 'porto' ),
 						'required' => array( 'show-searchform', 'equals', true ),
 						'options'  => array(
 							'all'       => __( 'All', 'porto' ),
@@ -3450,6 +3569,14 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'type'    => 'switch',
 						'title'   => __( 'Show Logo', 'porto' ),
 						//'required' => array( 'enable-sticky-header', 'equals', true ),
+						'default' => true,
+						'on'      => __( 'Yes', 'porto' ),
+						'off'     => __( 'No', 'porto' ),
+					),
+					array(
+						'id'      => 'change-header-logo',
+						'type'    => 'switch',
+						'title'   => __( 'Change Logo Size in Sticky Header', 'porto' ),
 						'default' => true,
 						'on'      => __( 'Yes', 'porto' ),
 						'off'     => __( 'No', 'porto' ),
@@ -3880,6 +4007,19 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'default' => true,
 							'on'      => __( 'Yes', 'porto' ),
 							'off'     => __( 'No', 'porto' ),
+						),
+						array(
+							'id'        => 'breadcrumbs-pos',
+							'type'      => 'button_set',
+							'title'     => __( 'Breadcrumbs Position', 'porto' ),
+							'desc'      => __( '"Default" is the below of header and "Inner Top" is the top position of main content.', 'porto' ),
+							'required'  => array( 'show-breadcrumbs', 'equals', '1' ),
+							'options'   => array(
+								''          => __( 'Default', 'porto' ),
+								'inner_top' => __( 'Inner Top', 'porto' ),
+							),
+							'default'   => '',
+							'transport' => 'refresh',
 						),
 						array(
 							'id'       => 'breadcrumbs-prefix',
@@ -4461,34 +4601,34 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'mode'     => 'html',
 						'required' => array( 'blog-banner_type', 'equals', 'banner_block' ),
 						'title'    => __( 'Banner Block', 'porto' ),
-						'desc'     => __( 'Please input block slug name. You can create a block in <strong>Blocks/Add New</strong>.', 'porto' ),
+						'desc'     => __( 'Please input block slug name. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
 					),
 					array(
 						'id'        => 'blog-content_top',
 						'type'      => 'text',
 						'title'     => __( 'Content Top', 'porto' ),
-						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Blocks/Add New</strong>.', 'porto' ),
+						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
 						'transport' => 'postMessage',
 					),
 					array(
 						'id'        => 'blog-content_inner_top',
 						'type'      => 'text',
 						'title'     => __( 'Content Inner Top', 'porto' ),
-						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Blocks/Add New</strong>.', 'porto' ),
+						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
 						'transport' => 'postMessage',
 					),
 					array(
 						'id'        => 'blog-content_inner_bottom',
 						'type'      => 'text',
 						'title'     => __( 'Content Inner Bottom', 'porto' ),
-						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Blocks/Add New</strong>.', 'porto' ),
+						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
 						'transport' => 'postMessage',
 					),
 					array(
 						'id'        => 'blog-content_bottom',
 						'type'      => 'text',
 						'title'     => __( 'Content Bottom', 'porto' ),
-						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Blocks/Add New</strong>.', 'porto' ),
+						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
 						'transport' => 'postMessage',
 					),
 				),
@@ -4509,7 +4649,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'    => 'post-banner-block',
 						'type'  => 'text',
 						'title' => __( 'Global Banner Block', 'porto' ),
-						'desc'  => __( 'Please input comma separated block slug names. You can create a block in <strong>Blocks/Add New</strong>.', 'porto' ),
+						'desc'  => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
 					),
 					array(
 						'id'      => 'post-content-layout',
@@ -4676,6 +4816,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default' => false,
 						'on'      => __( 'Yes', 'porto' ),
 						'off'     => __( 'No', 'porto' ),
+					),
+					array(
+						'id'        => 'post-content_bottom',
+						'type'      => 'text',
+						'title'     => __( 'Content Bottom Block', 'porto' ),
+						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
+						'transport' => 'refresh',
 					),
 				),
 			);
@@ -5318,7 +5465,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'    => 'portfolio-banner-block',
 						'type'  => 'text',
 						'title' => __( 'Global Banner Block', 'porto' ),
-						'desc'  => __( 'Please input comma separated block slug names. You can create a block in <strong>Blocks/Add New</strong>.', 'porto' ),
+						'desc'  => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
 					),
 					array(
 						'id'        => 'portfolio-page-nav',
@@ -5477,6 +5624,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'2' => '2',
 						),
 						'default'     => '4',
+					),
+					array(
+						'id'        => 'portfolio-content_bottom',
+						'type'      => 'text',
+						'title'     => __( 'Content Bottom Block', 'porto' ),
+						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
+						'transport' => 'refresh',
 					),
 				),
 			);
@@ -5706,7 +5860,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'id'    => 'event-banner-block',
 							'type'  => 'text',
 							'title' => __( 'Global Banner Block', 'porto' ),
-							'desc'  => __( 'Please input comma separated block slug names. You can create a block in <strong>Blocks/Add New</strong>.', 'porto' ),
+							'desc'  => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
 						),
 						array(
 							'id'      => 'event-single-countdown',
@@ -6061,7 +6215,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'id'    => 'member-banner-block',
 							'type'  => 'text',
 							'title' => __( 'Global Banner Block', 'porto' ),
-							'desc'  => __( 'Please input comma separated block slug names. You can create a block in <strong>Blocks/Add New</strong>.', 'porto' ),
+							'desc'  => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
 						),
 						array(
 							'id'      => 'member-related',
@@ -6138,6 +6292,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 								'below_thumb' => __( 'Below Member Image', 'porto' ),
 							),
 							'default'  => '',
+						),
+						array(
+							'id'        => 'member-content_bottom',
+							'type'      => 'text',
+							'title'     => __( 'Content Bottom Block', 'porto' ),
+							'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
+							'transport' => 'refresh',
 						),
 					),
 				),
@@ -6301,6 +6462,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'id'      => 'woo-account-login-style',
 							'type'    => 'button_set',
 							'title'   => __( 'Login Style', 'porto' ),
+							'desc'    => __( 'Please select lightbox if you want to use login popup instead of displaying login link.', 'porto' ),
 							'default' => '',
 							'options' => array(
 								''     => __( 'Lightbox', 'porto' ),
@@ -6311,6 +6473,8 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'id'        => 'woo-show-default-page-header',
 							'type'      => 'switch',
 							'title'     => __( 'Show Progressive Page header in Cart and Checkout page', 'porto' ),
+							'subtitle'  => __( 'Select "Yes" to use progressive page header which displays three steps: shopping cart
+checkout and order complete.', 'porto' ),
 							'default'   => true,
 							'on'        => __( 'Yes', 'porto' ),
 							'off'       => __( 'No', 'porto' ),
@@ -6326,18 +6490,19 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'transport' => 'refresh',
 						),
 						array(
-							'id'      => 'woo-show-product-border',
-							'type'    => 'switch',
-							'title'   => __( 'Show Border on product images', 'porto' ),
-							'default' => true,
-							'on'      => __( 'Yes', 'porto' ),
-							'off'     => __( 'No', 'porto' ),
+							'id'       => 'woo-show-product-border',
+							'type'     => 'switch',
+							'title'    => __( 'Show Border on product images', 'porto' ),
+							'subtitle' => __( 'Select "Yes" to display border on product image in shop pages.', 'porto' ),
+							'default'  => true,
+							'on'       => __( 'Yes', 'porto' ),
+							'off'      => __( 'No', 'porto' ),
 						),
 						array(
 							'id'      => 'product-hot',
 							'type'    => 'switch',
 							'title'   => __( 'Show "Hot" Label', 'porto' ),
-							'desc'    => __( 'It will displayed in the featured product.', 'porto' ),
+							'desc'    => __( 'This will be displayed in the featured product.', 'porto' ),
 							'default' => true,
 							'on'      => __( 'Yes', 'porto' ),
 							'off'     => __( 'No', 'porto' ),
@@ -6353,6 +6518,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'id'      => 'product-sale',
 							'type'    => 'switch',
 							'title'   => __( 'Show "Sale" Label', 'porto' ),
+							'desc'    => __( 'This will be displayed in the product on sale.', 'porto' ),
 							'default' => true,
 							'on'      => __( 'Yes', 'porto' ),
 							'off'     => __( 'No', 'porto' ),
@@ -6369,6 +6535,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'type'     => 'switch',
 							'required' => array( 'product-sale', 'equals', true ),
 							'title'    => __( 'Show Saved Sale Price Percentage', 'porto' ),
+							'subtitle' => __( 'Select "No" to display "Sale" text instead of sale percentage.', 'porto' ),
 							'default'  => true,
 							'on'       => __( 'Yes', 'porto' ),
 							'off'      => __( 'No', 'porto' ),
@@ -6386,12 +6553,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'id'        => 'woo-pre-order',
 							'type'      => 'switch',
 							'title'     => __( 'Enable Pre-Order', 'porto' ),
+							'subtitle'  => __( 'Pre-Order functionality offers customers the chance to purchase the unavailable products and provide them only after they are officially on sale.', 'porto' ),
 							'transport' => 'refresh',
 						),
 						array(
 							'id'          => 'woo-pre-order-label',
 							'type'        => 'text',
-							'title'       => __( 'Pre-order Label', 'porto' ),
+							'title'       => __( 'Pre-Order Label', 'porto' ),
 							'description' => __( 'This text will be used on \'Add to Cart\' button.', 'porto' ),
 							'required'    => array( 'woo-pre-order', 'equals', true ),
 							'transport'   => 'refresh',
@@ -6399,16 +6567,16 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						array(
 							'id'          => 'woo-pre-order-msg-date',
 							'type'        => 'text',
-							'title'       => __( 'Availability Date Text', 'porto' ),
+							'title'       => __( 'Pre-Order Availability Date Text', 'porto' ),
 							/* translators: available date */
-							'description' => __( 'ex: Available date: %s (%s will be replaced with available date.)', 'porto' ),
+							'description' => __( 'ex: Available date: %1$s (%1$s will be replaced with available date.)', 'porto' ),
 							'required'    => array( 'woo-pre-order', 'equals', true ),
 							'transport'   => 'refresh',
 						),
 						array(
 							'id'          => 'woo-pre-order-msg-nodate',
 							'type'        => 'text',
-							'title'       => __( 'No Date Message', 'porto' ),
+							'title'       => __( 'Pre-Order No Date Message', 'porto' ),
 							'placeholder' => __( 'Available soon', 'porto' ),
 							'required'    => array( 'woo-pre-order', 'equals', true ),
 							'transport'   => 'refresh',
@@ -6442,6 +6610,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'type'     => 'button_set',
 						'title'    => __( 'Filter Layout', 'porto' ),
 						'subtitle' => __( 'Products filtering layout in shop pages', 'porto' ),
+						'desc'     => __( 'Horizontal 1 and Off Canvas filters requires the page layout which has sidebar.', 'porto' ),
 						'default'  => '',
 						'options'  => array(
 							''            => __( 'Filters in Left & Right Sidebar', 'porto' ),
@@ -6462,12 +6631,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						),
 					),
 					array(
-						'id'      => 'category-ajax',
-						'type'    => 'switch',
-						'title'   => __( 'Enable Ajax Filter', 'porto' ),
-						'default' => false,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'category-ajax',
+						'type'     => 'switch',
+						'title'    => __( 'Enable Ajax Filter', 'porto' ),
+						'subtitle' => __( 'Select "Yes" to filter all products including pagination by Ajax in shop pages.', 'porto' ),
+						'default'  => false,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'        => 'category-item',
@@ -6548,6 +6718,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'        => 'product-stock',
 						'type'      => 'switch',
 						'title'     => __( 'Show "Out of stock" Status', 'porto' ),
+						'subtitle'  => __( 'Select "Yes" to display "Out of stock" text for the out-of-stock products.', 'porto' ),
 						'default'   => true,
 						'on'        => __( 'Yes', 'porto' ),
 						'off'       => __( 'No', 'porto' ),
@@ -6563,6 +6734,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'        => 'category-addlinks-convert',
 						'type'      => 'switch',
 						'title'     => __( 'Change "A" Tag to "SPAN" Tag', 'porto' ),
+						'subtitle'  => __( 'Select "Yes" to use span tag for the add to cart, quickview and add to wishlist buttons in shop pages.', 'porto' ),
 						'default'   => false,
 						'on'        => __( 'Yes', 'porto' ),
 						'off'       => __( 'No', 'porto' ),
@@ -6620,14 +6792,24 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					),
 					array(
 						'id'        => 'add-to-cart-notification',
-						'type'      => 'button_set',
+						'type'      => 'image_select',
 						'title'     => __( 'Add to Cart Notification Type', 'porto' ),
 						'desc'      => __( 'Select the notification type whenever product is added to cart.', 'porto' ),
 						'options'   => array(
-							''  => __( 'Style 1', 'porto' ),
-							'2' => __( 'Style 2', 'porto' ),
+							''  => array(
+								'title' => __( 'Style 1', 'porto' ),
+								'img'   => PORTO_OPTIONS_URI . '/products/addcart-1.jpg',
+							),
+							'2' => array(
+								'title' => __( 'Style 2', 'porto' ),
+								'img'   => PORTO_OPTIONS_URI . '/products/addcart-2.jpg',
+							),
+							'3' => array(
+								'title' => __( 'Style 3', 'porto' ),
+								'img'   => PORTO_OPTIONS_URI . '/products/addcart-3.jpg',
+							),
 						),
-						'default'   => '2',
+						'default'   => '3',
 						'transport' => 'postMessage',
 					),
 					array(
@@ -6780,7 +6962,8 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'       => 'product-single-content-builder',
 						'type'     => 'select',
 						'title'    => __( 'Custom Product Layout', 'porto' ),
-						'desc'     => __( 'Please select a product layout. You can create a product layout in <strong>Product Layouts/Add New</strong>.', 'porto' ),
+						'subtitle' => __( 'We recommend to use "Display Condition" when creating single product builder instead of this option.', 'porto' ),
+						'desc'     => __( 'Please select a product layout. You can create a product layout in <strong>Porto / Templates Builder / Single Product / Add New</strong>.', 'porto' ),
 						'options'  => $product_layouts,
 						'default'  => '',
 						'required' => array( 'product-single-content-layout', 'equals', 'builder' ),
@@ -6797,6 +6980,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'        => 'product-sticky-addcart',
 						'type'      => 'button_set',
 						'title'     => __( 'Sticky add to cart section', 'porto' ),
+						'subtitle'  => __( 'Select the position to display sticky add to cart section in single product page.', 'porto' ),
 						'options'   => array(
 							''       => __( 'None', 'porto' ),
 							'top'    => __( 'At the Top', 'porto' ),
@@ -6862,12 +7046,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						),
 					),
 					array(
-						'id'      => 'product-attr-desc',
-						'type'    => 'switch',
-						'title'   => __( 'Show Description of Selected Attribute', 'porto' ),
-						'default' => false,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'product-attr-desc',
+						'type'     => 'switch',
+						'title'    => __( 'Show Description of Selected Attribute', 'porto' ),
+						'subtitle' => __( 'Select "Yes" to display description if it exists when selecting product attribute in the variations.', 'porto' ),
+						'default'  => false,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'      => 'product-tab-title',
@@ -6947,7 +7132,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'id'        => 'product-content_bottom',
 						'type'      => 'text',
 						'title'     => __( 'Content Bottom Block', 'porto' ),
-						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Blocks/Add New</strong>.', 'porto' ),
+						'desc'      => __( 'Please input comma separated block slug names. You can create a block in <strong>Porto / Templates Builder / Block / Add New</strong>.', 'porto' ),
 						'transport' => 'refresh',
 					),
 				),
@@ -6959,12 +7144,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 				'transport'  => 'postMessage',
 				'fields'     => array(
 					array(
-						'id'      => 'product-thumbs',
-						'type'    => 'switch',
-						'title'   => __( 'Show Thumbnails', 'porto' ),
-						'default' => true,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'product-thumbs',
+						'type'     => 'switch',
+						'title'    => __( 'Show Thumbnails', 'porto' ),
+						'subtitle' => __( 'Select "Yes" to display product thumbnails gallery below the main products slider in single product page.', 'porto' ),
+						'default'  => true,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'       => 'product-thumbs-count',
@@ -6983,12 +7169,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					'off' => __('No', 'porto'),
 					),*/
 					array(
-						'id'      => 'product-zoom',
-						'type'    => 'switch',
-						'title'   => __( 'Enable Image Zoom', 'porto' ),
-						'default' => true,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'product-zoom',
+						'type'     => 'switch',
+						'title'    => __( 'Enable Image Zoom', 'porto' ),
+						'subtitle' => __( 'Select "Yes" to display zoom lens on product image hover in single product page.', 'porto' ),
+						'default'  => true,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'       => 'product-zoom-mobile',
@@ -7000,12 +7187,13 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'off'      => __( 'No', 'porto' ),
 					),
 					array(
-						'id'      => 'product-image-popup',
-						'type'    => 'switch',
-						'title'   => __( 'Enable Image Popup', 'porto' ),
-						'default' => true,
-						'on'      => __( 'Yes', 'porto' ),
-						'off'     => __( 'No', 'porto' ),
+						'id'       => 'product-image-popup',
+						'type'     => 'switch',
+						'title'    => __( 'Enable Image Popup', 'porto' ),
+						'subtitle' => __( 'Select "Yes" to display the image gallery popup on click in single product page.', 'porto' ),
+						'default'  => true,
+						'on'       => __( 'Yes', 'porto' ),
+						'off'      => __( 'No', 'porto' ),
 					),
 					array(
 						'id'      => 'zoom-type',
@@ -7634,6 +7822,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 			// Slider Config
 			$this->sections[] = array(
 				'title'      => __( 'Slider Config', 'porto' ),
+				'desc'       => __( 'Controls the global carousel options throughout the site.', 'porto' ),
 				'customizer' => false,
 				'subsection' => true,
 				'fields'     => array(
@@ -7725,7 +7914,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 		public function setArguments() {
 			$theme = wp_get_theme(); // For use with some settings. Not necessary.
 
-			$header_html = '<a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto' ) ) . '">Welcome</a><a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto' ) ) . '">Theme License</a><a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto-changelog' ) ) . '">Change Log</a>';
+			$header_html = '<a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto' ) ) . '">' . esc_html__( 'Dashboard', 'porto' ) . '</a>';
 			if ( get_theme_mod( 'theme_options_use_new_style', false ) ) {
 				$menu_title   = esc_html__( 'Advanced Options', 'porto' );
 				$header_html .= '<a class="porto-theme-link" href="' . esc_url( admin_url( 'customize.php' ) ) . '">' . __( 'Theme Options', 'porto' ) . '</a>';
@@ -7734,7 +7923,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 				$header_html .= '<a class="porto-theme-link active nolink" href="' . esc_url( admin_url( 'themes.php?page=porto_settings' ) ) . '">' . $menu_title . '</a>';
 			}
 
-			$header_html .= '<a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto-setup-wizard' ) ) . '">' . __( 'Setup Wizard', 'porto' ) . '</a><a class="porto-theme-link porto-theme-link-last" href="' . esc_url( admin_url( 'admin.php?page=porto-speed-optimize-wizard' ) ) . '">' . __( 'Speed Optimize Wizard', 'porto' ) . '</a>';
+			$header_html .= '<a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto-setup-wizard' ) ) . '">' . esc_html__( 'Setup Wizard', 'porto' ) . '</a><a class="porto-theme-link porto-theme-link-last" href="' . esc_url( admin_url( 'admin.php?page=porto-speed-optimize-wizard' ) ) . '">' . esc_html__( 'Speed Optimize Wizard', 'porto' ) . '</a>';
 
 			if ( ! get_theme_mod( 'theme_options_use_new_style', false ) ) {
 				$header_html .= '<a href="#" class="porto-theme-link switch-live-option-panel">' . esc_html__( 'Live Option Panel', 'porto' ) . '</a>';

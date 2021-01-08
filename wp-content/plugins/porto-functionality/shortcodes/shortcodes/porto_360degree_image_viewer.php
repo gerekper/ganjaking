@@ -16,7 +16,7 @@ function porto_load_360degree_image_viewer_shortcode() {
 			'base'        => 'porto_360degree_image_viewer',
 			'icon'        => 'fas fa-dice-d20',
 			'category'    => __( 'Porto', 'porto-functionality' ),
-			'description' => __( 'Add 360 degree image viewer.', 'porto-functionality' ),
+			'description' => __( 'Showcase your product as 3D model', 'porto-functionality' ),
 			'params'      => array(
 				array(
 					'type'        => 'attach_image',

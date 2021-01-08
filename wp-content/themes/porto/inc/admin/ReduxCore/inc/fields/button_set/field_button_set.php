@@ -76,18 +76,18 @@ if ( ! class_exists( 'ReduxFramework_button_set' ) ) {
 					$this->field['args'] = array();
 				}
 
-				$this->field['options'] = $this->parent->get_wordpress_data( $this->field['data'], $this->field['args'] );
+				$this->field['options'] = $this->parent->get_wordpress_data( $this->field['data'], $this->field['args'], $this->value );
 
 				if ( empty( $this->field['options'] ) ) {
 					return;
 				}
 			}
 
-			$is_multi = ( isset( $this->field['multi'] ) && $this->field['multi'] == true ) ? true : false;
+			$is_multi = ( isset( $this->field['multi'] ) && true === $this->field['multi'] ) ? true : false;
 
 			$name = $this->field['name'] . $this->field['name_suffix'];
 
-			// multi => true renders the field multi-selectable (checkbox vs radio)
+			// multi => true renders the field multi-selectable (checkbox vs radio).
 			echo '<div class="buttonset ui-buttonset">';
 
 			if ( $is_multi ) {
@@ -97,7 +97,7 @@ if ( ! class_exists( 'ReduxFramework_button_set' ) ) {
 					$s = $name;
 				}
 
-				echo '<input type="hidden" data-name="' . $name . '" class="buttonset-empty" name="' . $s . '" value=""/>';
+				echo '<input type="hidden" data-name="' . esc_attr( $name ) . '" class="buttonset-empty" name="' . esc_attr( $s ) . '" value=""/>';
 
 				$name = $name . '[]';
 			}
@@ -113,7 +113,7 @@ if ( ! class_exists( 'ReduxFramework_button_set' ) ) {
 						$this->value = array( $this->value );
 					}
 
-					if ( is_array( $this->value ) && in_array( $k, $this->value ) ) {
+					if ( is_array( $this->value ) && in_array( (string) $k, $this->value, true ) ) {
 						$selected   = 'checked="checked"';
 						$post_value = $k;
 					}
@@ -133,19 +133,19 @@ if ( ! class_exists( 'ReduxFramework_button_set' ) ) {
 				if ( $is_multi ) {
 					$the_val     = '';
 					$the_name    = '';
-					$data_val    = ' data-val="' . $k . '"';
+					$data_val    = ' data-val=' . $k;
 					$hidden_name = $name;
 					$multi_class = 'multi ';
 
-					if ( $post_value == '' ) {
+					if ( '' === $post_value ) {
 						$hidden_name = '';
 					}
 
-					echo '<input type="hidden" class="buttonset-check" id="' . $this->field['id'] . '-buttonset' . $k . '-hidden" name="' . $hidden_name . '" value="' . $post_value . '"/>';
+					echo '<input type="hidden" class="buttonset-check" id="' . esc_attr( $this->field['id'] ) . '-buttonset' . esc_attr( $k ) . '-hidden" name="' . esc_attr( $hidden_name ) . '" value="' . esc_attr( $post_value ) . '"/>';
 				}
 
-				echo '<input' . $data_val . ' data-id="' . $this->field['id'] . '" type="' . $type . '" id="' . $this->field['id'] . '-buttonset' . $k . '" name="' . $the_name . '" class="buttonset-item ' . $multi_class . $this->field['class'] . '" value="' . $the_val . '" ' . $selected . '/>';
-				echo '<label for="' . $this->field['id'] . '-buttonset' . $k . '">' . $v . '</label>';
+				echo '<input' . esc_attr( $data_val ) . ' data-id="' . esc_attr( $this->field['id'] ) . '" type="' . esc_attr( $type ) . '" id="' . esc_attr( $this->field['id'] ) . '-buttonset' . esc_attr( $k ) . '" name="' . esc_attr( $the_name ) . '" class="buttonset-item ' . esc_attr( $multi_class ) . esc_attr( $this->field['class'] ) . '" value="' . esc_attr( $the_val ) . '" ' . esc_html( $selected ) . '/>';
+				echo '<label for="' . esc_attr( $this->field['id'] ) . '-buttonset' . esc_attr( $k ) . '">' . esc_html( $v ) . '</label>';
 			}
 
 			echo '</div>';

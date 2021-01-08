@@ -5,7 +5,7 @@
 		const loadedGalleries = [];
 
 		const jqueryFunctionExists = function (name) {
-			return jQuery.isFunction( jQuery.fn[name] );
+			return typeof jQuery.fn[name] === 'function';
 		};
 
 		const jQueryTriggerEvent = function (name, params = []) {

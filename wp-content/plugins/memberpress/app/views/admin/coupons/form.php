@@ -130,7 +130,7 @@ if(!empty($products)):
       </tr>
       <tr valign="top">
         <th scope="row">
-          <label for="<?php echo MeprCoupon::$should_start_str; ?>"><?php _e('Start Coupon:', 'memberpress'); ?></label>
+          <label for="<?php echo MeprCoupon::$should_start_str; ?>"><?php _e('Schedule Coupon Start:', 'memberpress'); ?></label>
         </th>
         <td>
           <input type="checkbox" name="<?php echo MeprCoupon::$should_start_str; ?>" id="<?php echo MeprCoupon::$should_start_str; ?>" class="mepr-toggle-checkbox" data-box="mepr_start_coupon_box" <?php checked($c->should_start); ?> />
@@ -181,6 +181,7 @@ if(!empty($products)):
                     <input type="text" size="2" maxlength="2" name="<?php echo MeprCoupon::$expires_on_day_str; ?>" value="<?php echo MeprUtils::get_date_from_ts($c->expires_on, 'j'); ?>" />
                     <span class="description"><small><?php echo MeprUtils::period_type_name('years'); ?></small></span>
                     <input type="text" size="4" maxlength="4" name="<?php echo MeprCoupon::$expires_on_year_str; ?>" value="<?php echo MeprUtils::get_date_from_ts($c->expires_on, 'Y'); ?>" />
+                    Coupon Expires at <strong>Midnight UTC</strong>.
                   </td>
                 </tr>
               </tbody>
@@ -219,4 +220,3 @@ else:
   </div>
 <?php
 endif;
-

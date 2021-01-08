@@ -51,6 +51,17 @@
         else if (form.find('.mepr_vat_customer_type-business').is(':checked')) {
           form.find('.mepr_vat_number_row').slideDown();
         }
+
+        var tmpDate = new Date();
+
+        if (
+          form.find('select[name="mepr-address-country"]').val() !== 'GB'
+          && MpVat.vat_country === 'GB'
+          && tmpDate.getFullYear() > 2020
+        ) {
+          form.find('.mepr_vat_customer_type_row').slideUp();
+          form.find('.mepr_vat_number_row').slideUp();
+        }
       }
       else {
         form.find('.mepr_vat_customer_type_row').slideUp();

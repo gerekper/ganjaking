@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	// Auto Renewal Toggle
 	var $toggleContainer = $( '.wcs-auto-renew-toggle' );
 	var $toggle          = $( '.subscription-auto-renew-toggle', $toggleContainer );

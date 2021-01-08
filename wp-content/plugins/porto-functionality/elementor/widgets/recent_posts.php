@@ -221,6 +221,15 @@ class Porto_Elementor_Recent_Posts_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'items',
+			array(
+				'type'    => Controls_Manager::NUMBER,
+				'label'   => __( 'Items to show on Large Desktop', 'porto-functionality' ),
+				'default' => '',
+			)
+		);
+
+		$this->add_control(
 			'items_desktop',
 			array(
 				'type'    => Controls_Manager::NUMBER,

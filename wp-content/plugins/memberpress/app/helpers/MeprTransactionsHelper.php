@@ -274,10 +274,18 @@ class MeprTransactionsHelper {
       $cpn_amount = MeprUtils::format_float((float)$amount - (float)$txn->amount);
     }
     elseif($sub && ($coupon = $sub->coupon())) {
-      $amount = $sub->price;
-      $cpn_id = $coupon->ID;
-      $cpn_desc = sprintf(__("Coupon Code '%s'", 'memberpress'), $coupon->post_title);
-      $cpn_amount = MeprUtils::format_float((float)$amount - (float)$txn->amount);
+      if($coupon->discount_mode == 'trial-override' && $sub->trial){
+        $amount = $prd->trial_amount;
+        $cpn_id = $coupon->ID;
+        $cpn_desc = sprintf(__("Coupon Code '%s'", 'memberpress'), $coupon->post_title);
+        $cpn_amount = MeprUtils::format_float((float)$prd->trial_amount - (float)$txn->amount);
+      }
+      else{
+        $amount = $sub->price;
+        $cpn_id = $coupon->ID;
+        $cpn_desc = sprintf(__("Coupon Code '%s'", 'memberpress'), $coupon->post_title);
+        $cpn_amount = MeprUtils::format_float((float)$amount - (float)$txn->amount);
+      }
     }
     else {
       $amount = $txn->amount;
@@ -404,5 +412,21 @@ class MeprTransactionsHelper {
         <a href="" class="mepr-lifetime-expiration-button button"><?php _e('Lifetime', 'memberpress'); ?></a>
       </div>
     <?php
+  }
+
+  public static function is_charging_business_net_price() {
+    $charge_business_customer_net_price = (bool) get_option('mepr_charge_business_customer_net_price', false);
+    $tax_calc_type = get_option('mepr_tax_calc_type');
+    $vat_tax_businesses = (bool) get_option('mepr_vat_tax_businesses');
+
+    if(
+      $charge_business_customer_net_price === true &&
+      $tax_calc_type == 'inclusive' &&
+      $vat_tax_businesses === false
+    ) {
+      return true;
+    }
+
+    return false;
   }
 }

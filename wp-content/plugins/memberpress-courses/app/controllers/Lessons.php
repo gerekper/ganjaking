@@ -15,7 +15,8 @@ class Lessons extends lib\BaseCtrl {
     add_filter('template_include', array($this, 'override_template'));
     add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'), 99);
     add_action('wp_ajax_mpcs_record_lesson_progress', array($this, 'record_lesson_progress'));
-    add_filter( 'embed_oembed_html', array($this, 'wrap_oembed_html'), 99, 4 );
+    add_filter('embed_oembed_html', array($this, 'wrap_oembed_html'), 99, 2);
+    add_action('save_post', array($this, 'delete_transients'), 10, 2 );
   }
 
   /**
@@ -275,13 +276,11 @@ class Lessons extends lib\BaseCtrl {
   /**
    * Add html wrapper to oembed_html
    *
-   * @param  mixed $html
-   * @param  mixed $url
-   * @param  mixed $attr
-   * @param  mixed $post_id
-   * @return void
+   * @param  string $html
+   * @param  string $url
+   * @return string
    */
-  public function wrap_oembed_html($html, $url, $attr, $post_id){
+  public function wrap_oembed_html($html, $url) {
 
     if( !helpers\App::is_classroom() )
       return $html;
@@ -296,5 +295,26 @@ class Lessons extends lib\BaseCtrl {
     }
     return $html;
   }
+
+  /**
+   * Delete Transients
+   *
+   * @param  mixed $new_status
+   * @param  mixed $old_status
+   * @param  mixed $post
+   * @return void
+   */
+  function delete_transients( $post_id, $post ){
+    if ( models\Lesson::$cpt !== $post->post_type )
+      return; // restrict the filter to a specific post type
+
+    // let's get and delete transients
+    $transients = \get_option('mpcs-transients', array());
+    foreach ($transients as $transient) {
+      delete_transient( $transient );
+    }
+    \delete_option('mpcs-transients');
+  }
+
 
 }

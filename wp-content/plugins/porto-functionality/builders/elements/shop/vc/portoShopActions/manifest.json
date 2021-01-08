@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoShopActions": {
+			"settings": {
+				"name": "Shop Hooks",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display shop hooks"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoShopActions"
+			]
+		}
+	}
+}

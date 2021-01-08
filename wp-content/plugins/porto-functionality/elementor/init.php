@@ -31,6 +31,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			'faqs',
 			'google_map',
 			'portfolios_category',
+			'hotspot',
 		);
 
 		private $woo_widgets = array(
@@ -128,7 +129,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 								$blocks = new WP_Query(
 									array(
 										'name'      => sanitize_text_field( $slug ),
-										'post_type' => 'block',
+										'post_type' => 'porto_builder',
 									)
 								);
 								if ( $blocks->have_posts() ) {
@@ -179,18 +180,11 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 							}
 						}
 
-						if ( ! $block_changed && ! $blog_block_changed && ! isset( $changed['product-content_bottom'] ) && ! isset( $changed['product-tab-block'] ) && ! isset( $changed['product-single-content-layout'] ) && ! isset( $changed['product-single-content-builder'] ) && ! isset( $changed['hb'] ) ) {
+						if ( ! $block_changed && ! $blog_block_changed && ! isset( $changed['product-content_bottom'] ) && ! isset( $changed['product-tab-block'] ) && ! isset( $changed['product-single-content-layout'] ) && ! isset( $changed['product-single-content-builder'] ) ) {
 							return;
 						}
 
 						$old_flag = get_theme_mod( 'elementor_edited', false );
-						if ( 'header_builder_p' == $options['header-type-select'] && ! empty( $options['hb'] ) ) {
-							global $wpdb;
-							if ( get_post_meta( (int) $options['hb'], '_elementor_edit_mode', true ) ) {
-								set_theme_mod( 'elementor_edited', true );
-								$block_changed = false;
-							}
-						}
 
 						if ( $block_changed ) {
 							$block_slugs      = array();
@@ -204,7 +198,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 								global $wpdb;
 								foreach ( $block_slugs as $s ) {
 									$where   = is_numeric( $s ) ? 'ID' : 'post_name';
-									$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'block' AND $where = %s", sanitize_text_field( $s ) ) );
+									$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'porto_builder' AND $where = %s", sanitize_text_field( $s ) ) );
 									if ( $post_id && get_post_meta( $post_id, '_elementor_edit_mode', true ) && get_post_meta( $post_id, '_elementor_data', true ) ) {
 										$old_flag = true;
 										break;
@@ -234,7 +228,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 								global $wpdb;
 								foreach ( $block_slugs as $s ) {
 									$where   = is_numeric( $s ) ? 'ID' : 'post_name';
-									$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'block' AND $where = %s", sanitize_text_field( $s ) ) );
+									$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'porto_builder' AND $where = %s", sanitize_text_field( $s ) ) );
 									if ( $post_id && get_post_meta( $post_id, '_elementor_edit_mode', true ) && get_post_meta( $post_id, '_elementor_data', true ) ) {
 										$elementor_edited = true;
 										break;
@@ -253,7 +247,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 						}
 						if ( 'builder' == $options['product-single-content-layout'] && ! empty( $options['product-single-content-builder'] ) ) {
 							global $wpdb;
-							$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'product_layout' AND post_name = %s", $options['product-single-content-builder'] ) );
+							$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'porto_builder' AND post_name = %s", $options['product-single-content-builder'] ) );
 							if ( $post_id && get_post_meta( $post_id, '_elementor_edit_mode', true ) ) {
 								$types[] = 'product';
 							}
@@ -271,7 +265,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 								$blocks = new WP_Query(
 									array(
 										'name'      => sanitize_text_field( trim( $slug ) ),
-										'post_type' => 'block',
+										'post_type' => 'porto_builder',
 									)
 								);
 
@@ -365,24 +359,21 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 						)
 					);
 
-					if ( 'porto_builder' == $document->get_post()->post_type && $document->get_post()->ID ) {
-						$terms = wp_get_post_terms( $document->get_post()->ID, 'porto_builder_type' );
-						if ( ! empty( $terms ) && 'header' == $terms[0]->name ) {
-							$document->add_control(
-								'porto_header_type',
-								array(
-									'type'    => Elementor\Controls_Manager::SELECT,
-									'label'   => __( 'Header Type', 'porto-functionality' ),
-									'options' => array(
-										''     => __( 'Default', 'porto-functionality' ),
-										'side' => __( 'Side Header', 'porto-functionality' ),
-									),
-								)
-							);
-						}
+					if ( 'porto_builder' == $document->get_post()->post_type && $document->get_post()->ID && 'header' == get_post_meta( $document->get_post()->ID, 'porto_builder_type', true ) ) {
+						$document->add_control(
+							'porto_header_type',
+							array(
+								'type'    => Elementor\Controls_Manager::SELECT,
+								'label'   => __( 'Header Type', 'porto-functionality' ),
+								'options' => array(
+									''     => __( 'Default', 'porto-functionality' ),
+									'side' => __( 'Side Header', 'porto-functionality' ),
+								),
+							)
+						);
 					}
 
-					if ( 'block' == $document->get_post()->post_type || 'product_layout' == $document->get_post()->post_type || 'porto_builder' == $document->get_post()->post_type ) {
+					if ( 'porto_builder' == $document->get_post()->post_type ) {
 						$document->add_control(
 							'porto_container',
 							array(
@@ -544,15 +535,6 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 				return;
 			}
 
-			if ( false !== $post && defined( 'ELEMENTOR_VERSION' ) && 'product_layout' == $post->post_type ) {
-				$types = get_theme_mod( 'elementor_blocks_post_types', array() );
-				global $porto_settings;
-				if ( ! in_array( 'product', $types ) && get_post_meta( $post_id, '_elementor_edit_mode', true ) && 'builder' == $porto_settings['product-single-content-layout'] && isset( $porto_settings['product-single-content-builder'] ) && $post->post_name == $porto_settings['product-single-content-builder'] ) {
-					$types[] = 'product';
-					set_theme_mod( 'elementor_blocks_post_types', $types );
-				}
-			}
-
 			if ( ( isset( $_REQUEST['action'] ) && 'elementor' == $_REQUEST['action'] ) || isset( $_REQUEST['elementor-preview'] ) ) {
 				return;
 			}
@@ -581,7 +563,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 					$blocks = new WP_Query(
 						array(
 							'name'      => sanitize_text_field( $slug ),
-							'post_type' => 'block',
+							'post_type' => 'porto_builder',
 						)
 					);
 

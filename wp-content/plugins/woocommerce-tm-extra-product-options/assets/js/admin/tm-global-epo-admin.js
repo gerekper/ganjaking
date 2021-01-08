@@ -302,6 +302,8 @@
 			var tcuploader;
 			var popup;
 			var uploadmeta;
+			var mouseupEvent;
+			var keydownEvent;
 
 			if ( $.tmEPOAdmin.add_events_done === 1 ) {
 				return;
@@ -796,34 +798,17 @@
 				$( this ).removeAttr( 'checked' ).prop( 'checked', false );
 			} );
 
-			$( document ).on( 'click', '.tm-element-label,.tm-internal-label', function() {
-				var t = $( this );
-				var edit;
-				var input;
-				var value;
-				var sectionIndex;
-				var fieldIndex;
+			keydownEvent = function( event ) {
+				if ( event.keyCode == 13 ) {
+					event.preventDefault();
 
-				$.tmEPOAdmin.current_edit_label = t;
-				edit = t.addClass( 'tm-hidden' ).closest( '.tm-label-desc' ).addClass( 'tm-hidden' ).next( '.tm-label-desc-edit' ).removeClass( 'tm-hidden' );
-				sectionIndex = t.closest( '.builder_wrapper' ).index();
-				fieldIndex = $.tmEPOAdmin.find_index( TCBUILDER[ sectionIndex ].section.is_slider, t.closest( '.bitem' ) );
-				if ( edit.is( '.tm-for-bitem' ) ) {
-					input = edit.attr( 'data-element' );
-					value = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ fieldIndex ], 'internal_name', true );
-				} else if ( edit.is( '.tm-for-section' ) ) {
-					input = 'sections';
-					value = TCBUILDER[ sectionIndex ].section.sections_internal_name.default;
+					$.tmEPOAdmin.force_current_edit_label = true;
+					mouseupEvent();
+					return false;
 				}
+			};
 
-				input = input + '_internal_name';
-				input = $( "<input type='text' value='" + value + "' name='tm_meta[tmfbuilder][" + input + "][]' class='t tm-internal-name'>" );
-
-				edit.append( input );
-				input.focus();
-			} );
-
-			$( document ).mouseup( function( e ) {
+			mouseupEvent = function( e ) {
 				var container = $.tmEPOAdmin.current_edit_label;
 				var input;
 				var sectionIndex;
@@ -836,7 +821,7 @@
 
 				// if the target of the click isn't the container...
 				// ... nor a descendant of the container
-				if ( ! container.is( e.target ) && container.has( e.target ).length === 0 && ! $( e.target ).is( '.tm-internal-name' ) ) {
+				if ( $.tmEPOAdmin.force_current_edit_label === true || ( ! container.is( e.target ) && container.has( e.target ).length === 0 && ! $( e.target ).is( '.tm-internal-name' ) ) ) {
 					input = container.closest( '.tm-label-desc' ).next( '.tm-label-desc-edit' ).find( '.tm-internal-name' );
 					input.trigger( 'change' );
 
@@ -867,7 +852,40 @@
 
 					input.remove();
 					$.tmEPOAdmin.current_edit_label = false;
+					$.tmEPOAdmin.force_current_edit_label = false;
+
+					$( document ).off( 'mouseup', mouseupEvent );
+					$( document ).off( 'keydown', keydownEvent );
 				}
+			};
+
+			$( document ).on( 'click', '.tm-element-label,.tm-internal-label', function() {
+				var t = $( this );
+				var edit;
+				var input;
+				var value;
+				var sectionIndex;
+				var fieldIndex;
+
+				$.tmEPOAdmin.current_edit_label = t;
+				edit = t.addClass( 'tm-hidden' ).closest( '.tm-label-desc' ).addClass( 'tm-hidden' ).next( '.tm-label-desc-edit' ).removeClass( 'tm-hidden' );
+				sectionIndex = t.closest( '.builder_wrapper' ).index();
+				fieldIndex = $.tmEPOAdmin.find_index( TCBUILDER[ sectionIndex ].section.is_slider, t.closest( '.bitem' ) );
+				if ( edit.is( '.tm-for-bitem' ) ) {
+					input = edit.attr( 'data-element' );
+					value = $.tmEPOAdmin.getFieldValue( TCBUILDER[ sectionIndex ].fields[ fieldIndex ], 'internal_name', true );
+				} else if ( edit.is( '.tm-for-section' ) ) {
+					input = 'sections';
+					value = TCBUILDER[ sectionIndex ].section.sections_internal_name.default;
+				}
+
+				input = input + '_internal_name';
+				input = $( "<input type='text' value='" + value + "' name='tm_meta[tmfbuilder][" + input + "][]' class='t tm-internal-name'>" );
+
+				edit.append( input );
+				input.focus();
+				$( document ).on( 'mouseup', mouseupEvent );
+				$( document ).on( 'keydown', keydownEvent );
 			} );
 
 			$( document ).on( 'click.cpf', '.cpf-add-rule', $.tmEPOAdmin.cpf_add_rule );
@@ -1127,6 +1145,7 @@
 
 			$.tmEPOAdmin.is_original = TMEPOGLOBALADMINJS.is_original_post;
 			$.tmEPOAdmin.current_edit_label = false;
+			$.tmEPOAdmin.force_current_edit_label = false;
 
 			$.tmEPOAdmin.toggle_variation_button();
 
@@ -1174,6 +1193,7 @@
 
 			$.tmEPOAdmin.is_original = TMEPOGLOBALADMINJS.is_original_post;
 			$.tmEPOAdmin.current_edit_label = false;
+			$.tmEPOAdmin.force_current_edit_label = false;
 
 			$.tmEPOAdmin.var_remove( 'tm-style-variation-added' );
 			$.tmEPOAdmin.toggle_variation_button();
@@ -5867,7 +5887,7 @@
 			}
 			if ( $use_images_all.val() !== '' ) {
 				$use_lightbox.show();
-				if ( $( '#temp_for_floatbox_insert .tm-use-lightbox' ).val() === 'lightbox' ) {
+				if ( $( '#temp_for_floatbox_insert .tm-use-lightbox' ).is( ':checked' ) ) {
 					tm_uploadl.show();
 					tm_upload_imagel.show();
 				}

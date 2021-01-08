@@ -100,6 +100,12 @@ function porto_load_recent_members_shortcode() {
 				),
 				array(
 					'type'       => 'textfield',
+					'heading'    => __( 'Items to show on Large Desktop', 'porto-functionality' ),
+					'param_name' => 'items',
+					'value'      => '',
+				),
+				array(
+					'type'       => 'textfield',
 					'heading'    => __( 'Items to show on Desktop', 'porto-functionality' ),
 					'param_name' => 'items_desktop',
 					'value'      => '4',
@@ -121,6 +127,13 @@ function porto_load_recent_members_shortcode() {
 					'heading'    => __( 'Items Row', 'porto-functionality' ),
 					'param_name' => 'items_row',
 					'value'      => '1',
+				),
+				array(
+					'type'       => 'number',
+					'heading'    => __( 'Stage Padding (px)', 'porto-functionality' ),
+					'param_name' => 'stage_padding',
+					'value'      => '',
+					'group'      => __( 'Slider Options', 'porto-functionality' ),
 				),
 				array(
 					'type'       => 'checkbox',

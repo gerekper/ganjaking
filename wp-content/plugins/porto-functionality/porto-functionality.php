@@ -3,7 +3,7 @@
 Plugin Name: Porto Theme - Functionality
 Plugin URI: http://themeforest.net/user/p-themes
 Description: Adds functionality such as Shortcodes, Post Types and Widgets to Porto Theme
-Version: 1.8.1
+Version: 2.0.1
 Author: P-Themes
 Author URI: http://themeforest.net/user/p-themes
 License: GPL2
@@ -61,6 +61,9 @@ class Porto_Functionality {
 			$this->load_content_types();
 		}
 
+		// add porto builders
+		require_once PORTO_BUILDERS_PATH . 'init.php';
+
 		// add meta library
 		require_once( PORTO_META_BOXES_PATH . 'lib/meta_values.php' );
 		require_once( PORTO_META_BOXES_PATH . 'lib/meta_fields.php' );
@@ -84,6 +87,13 @@ class Porto_Functionality {
 			 * Register Elementor widgets and settings
 			 */
 			require_once( dirname( PORTO_META_BOXES_PATH ) . '/elementor/init.php' );
+		}
+
+		if ( defined( 'VCV_VERSION' ) ) {
+			/**
+			 * Register Visual Composer elements and settings
+			 */
+			require_once( dirname( PORTO_META_BOXES_PATH ) . '/visualcomposer/init.php' );
 		}
 	}
 
@@ -152,6 +162,7 @@ class Porto_Functionality {
 
 		define( 'PORTO_FUNC_FILE', __FILE__ );
 		define( 'PORTO_META_BOXES_PATH', dirname( __FILE__ ) . '/meta_boxes/' );
+		define( 'PORTO_BUILDERS_PATH', dirname( __FILE__ ) . '/builders/' );
 		if ( ! in_array( 'porto-shortcodes/porto-shortcodes.php', $active_plugins ) ) {
 			define( 'PORTO_SHORTCODES_URL', plugin_dir_url( __FILE__ ) . 'shortcodes/' );
 			define( 'PORTO_SHORTCODES_PATH', dirname( __FILE__ ) . '/shortcodes/shortcodes/' );

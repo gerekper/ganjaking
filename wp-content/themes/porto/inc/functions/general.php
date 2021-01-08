@@ -477,7 +477,7 @@ if ( class_exists( 'WC_Vendors' ) ) :
 			<?php } ?>
 		<?php } ?>
 		<?php
-		if ( is_product() ) {
+		if ( class_exists( 'Woocommerce' ) && is_product() ) {
 			$shop_name = get_user_meta( $post->post_author, 'pv_shop_name', true );
 			?>
 			<?php if ( $porto_settings['porto_single_wcvendors_product_description'] ) { ?>
@@ -820,6 +820,18 @@ if ( ! function_exists( 'porto_is_elementor_preview' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'porto_is_vc_preview' ) ) :
+	function porto_is_vc_preview() {
+		if ( ! defined( 'VCV_VERSION' ) || ! current_user_can( 'edit_posts' ) ) {
+			return false;
+		}
+		if ( isset( $_REQUEST['vcv-action'] ) && 'frontend' == $_REQUEST['vcv-action'] && isset( $_REQUEST['vcv-source-id'] ) ) {
+			return true;
+		}
+		return false;
+	}
+endif;
+
 if ( ! function_exists( 'porto_output_tagged_content' ) ) :
 	function porto_output_tagged_content( $content ) {
 		if ( ! $content ) {
@@ -862,7 +874,9 @@ if ( ! function_exists( 'porto_check_using_elementor_style' ) ) :
 			return false;
 		}
 
-		if ( get_theme_mod( 'elementor_edited', false ) ) {
+		$header_id = porto_check_builder_condition( 'header' );
+		$footer_id = porto_check_builder_condition( 'footer' );
+		if ( get_theme_mod( 'elementor_edited', false ) || $header_id || $footer_id ) {
 			return true;
 		}
 
@@ -887,6 +901,10 @@ if ( ! function_exists( 'porto_check_using_elementor_style' ) ) :
 			}
 		}
 
+		if ( class_exists( 'Woocommerce' ) && ( ( ( is_shop() || is_product_category() || is_product_tag() ) && porto_check_builder_condition( 'shop' ) ) || ( is_product() && porto_check_builder_condition( 'product' ) ) ) ) {
+			return true;
+		}
+
 		if ( is_singular() ) {
 			$elementor_blocks = get_theme_mod( 'elementor_blocks_post_types', array() );
 			if ( ! empty( $elementor_blocks ) ) {
@@ -901,6 +919,216 @@ if ( ! function_exists( 'porto_check_using_elementor_style' ) ) :
 		if ( porto_get_meta_value( '_porto_use_elementor_blocks' ) ) {
 			return true;
 		}
+		return false;
+	}
+endif;
+
+if ( ! function_exists( 'porto_check_using_vc_style' ) ) :
+	function porto_check_using_vc_style() {
+		if ( ! defined( 'VCV_VERSION' ) ) {
+			return false;
+		}
+
+		$result = get_theme_mod( '_vc_blocks_header', array() );
+		$result = array_merge( $result, get_theme_mod( '_vc_blocks', array() ) );
+
+		$header_id = porto_check_builder_condition( 'header' );
+		$footer_id = porto_check_builder_condition( 'footer' );
+		if ( $header_id ) {
+			$result[] = $header_id;
+		}
+		if ( $footer_id ) {
+			$result[] = $footer_id;
+		}
+
+		if ( is_home() ) {
+			$result = array_merge( $result, get_theme_mod( '_vc_blocks_blog', array() ) );
+		}
+
+		$vc_blocks_menus = get_theme_mod( '_vc_blocks_menu', array() );
+		if ( ! empty( $vc_blocks_menus ) ) {
+			foreach ( $vc_blocks_menus as $menu_id => $block_ids ) {
+				if ( ! empty( $block_ids ) ) {
+					$result = array_merge( $result, $block_ids );
+				}
+			}
+		}
+
+		$vc_sidebars = get_theme_mod( '_vc_blocks_sidebar', array() );
+		if ( ! empty( $vc_sidebars ) ) {
+			global $porto_layout, $porto_sidebar, $porto_sidebar2;
+			foreach ( $vc_sidebars as $sidebar_id => $block_ids ) {
+				if ( ! empty( $block_ids ) && ( 0 === strpos( $sidebar_id, 'footer-' ) || 0 === strpos( $sidebar_id, 'content-bottom-' ) ) ) {
+					$result = array_merge( $result, $block_ids );
+				}
+			}
+
+			if ( in_array( $porto_layout, porto_options_both_sidebars() ) && ( ! empty( $vc_sidebars[ $porto_sidebar ] ) || ! empty( $vc_sidebars[ $porto_sidebar2 ] ) ) ) {
+				$result = array_merge( $result, $vc_sidebars[ $porto_sidebar2 ] );
+			}
+			if ( in_array( $porto_layout, porto_options_sidebars() ) && ! empty( $vc_sidebars[ $porto_sidebar ] ) ) {
+				$result = array_merge( $result, $vc_sidebars[ $porto_sidebar ] );
+			}
+		}
+
+		if ( is_singular( 'product' ) ) {
+			$result     = array_merge( $result, get_theme_mod( '_vc_blocks_product', array() ) );
+			$product_id = porto_check_builder_condition( 'product' );
+			if ( $product_id ) {
+				$result[] = $product_id;
+			}
+		}
+		if ( class_exists( 'Woocommerce' ) && ( is_shop() || is_product_category() || is_product_tag() ) ) {
+			$shop_id = porto_check_builder_condition( 'shop' );
+			if ( $shop_id ) {
+				$result[] = $shop_id;
+			}
+		}
+
+		if ( is_singular() ) {
+			$vc_blocks = get_post_meta( get_the_ID(), '_porto_vc_blocks_c', true );
+			if ( ! empty( $vc_blocks ) && is_array( $vc_blocks ) ) {
+				$result = array_merge( $result, $vc_blocks );
+			}
+		}
+
+		$vc_blocks = porto_get_meta_value( '_porto_vc_blocks' );
+		if ( ! empty( $vc_blocks ) && is_array( $vc_blocks ) ) {
+			$result = array_merge( $result, $vc_blocks );
+		}
+		return array_unique( $result, SORT_NUMERIC );
+	}
+endif;
+
+if ( ! function_exists( 'porto_check_builder_condition' ) ) :
+
+	function porto_check_builder_condition( $location = 'header' ) {
+		global $porto_settings;
+		if ( 'header' == $location && 'header_builder_p' != $porto_settings['header-type-select'] ) {
+			return false;
+		}
+		if ( isset( $porto_settings['conditions'] ) && isset( $porto_settings['conditions'][ $location ] ) ) {
+			return $porto_settings['conditions'][ $location ];
+		}
+
+		global $porto_settings_optimize;
+		if ( ! empty( $porto_settings_optimize['disabled_pbs'] ) && is_array( $porto_settings_optimize['disabled_pbs'] ) && in_array( $location, $porto_settings_optimize['disabled_pbs'] ) ) {
+			$porto_settings['conditions'][ $location ] = false;
+			return false;
+		}
+
+		if ( ! isset( $porto_settings['conditions'] ) ) {
+			$porto_settings['conditions'] = array();
+		}
+		if ( is_singular() ) {
+			$builder_id = get_post_meta( get_the_ID(), '_porto_builder_' . $location, true );
+			if ( $builder_id && get_post( $builder_id ) ) {
+				$porto_settings['conditions'][ $location ] = (int) $builder_id;
+				return (int) $builder_id;
+			}
+			if ( ! is_page() ) {
+				$taxonomies = get_object_taxonomies( get_post_type(), 'objects' );
+				$taxonomies = wp_filter_object_list(
+					$taxonomies,
+					array(
+						'public'            => true,
+						'show_in_nav_menus' => true,
+					)
+				);
+				if ( ! empty( $taxonomies ) ) {
+					foreach ( $taxonomies as $tax ) {
+						$terms = wp_get_post_terms( get_the_ID(), $tax->name, array( 'fields' => 'ids' ) );
+						foreach ( $terms as $term_id ) {
+							$builder_id = get_term_meta( $term_id, '_porto_builder_single_' . $location, true );
+							if ( $builder_id && get_post( $builder_id ) ) {
+								$porto_settings['conditions'][ $location ] = (int) $builder_id;
+								return (int) $builder_id;
+							}
+						}
+					}
+				}
+			}
+		} elseif ( is_archive() && property_exists( get_queried_object(), 'term_id' ) ) {
+			$term_id    = get_queried_object()->term_id;
+			$builder_id = get_term_meta( $term_id, '_porto_builder_' . $location, true );
+			if ( $builder_id && get_post( $builder_id ) ) {
+				$porto_settings['conditions'][ $location ] = (int) $builder_id;
+				return (int) $builder_id;
+			}
+		}
+
+		$builder_conditions = get_theme_mod( 'builder_conditions', array() );
+		if ( ! empty( $builder_conditions[ $location ] ) ) {
+			if ( is_404() && ! empty( $builder_conditions[ $location ]['single/404'] ) && get_post( $builder_conditions[ $location ]['single/404'] ) ) {
+				$porto_settings['conditions'][ $location ] = (int) $builder_conditions[ $location ]['single/404'];
+				return (int) $builder_conditions[ $location ]['single/404'];
+			} elseif ( is_page() && ! empty( $builder_conditions[ $location ]['single/page'] ) && get_post( $builder_conditions[ $location ]['single/page'] ) ) {
+				$porto_settings['conditions'][ $location ] = (int) $builder_conditions[ $location ]['single/page'];
+				return (int) $builder_conditions[ $location ]['single/page'];
+			} elseif ( is_date() && ! empty( $builder_conditions[ $location ]['archive/date'] ) && get_post( $builder_conditions[ $location ]['archive/date'] ) ) {
+				$porto_settings['conditions'][ $location ] = (int) $builder_conditions[ $location ]['archive/date'];
+				return (int) $builder_conditions[ $location ]['archive/date'];
+			} elseif ( is_search() && ! empty( $builder_conditions[ $location ]['archive/search'] ) && get_post( $builder_conditions[ $location ]['archive/search'] ) ) {
+				$porto_settings['conditions'][ $location ] = (int) $builder_conditions[ $location ]['archive/search'];
+				return (int) $builder_conditions[ $location ]['archive/search'];
+			} elseif ( is_author() && ! empty( $builder_conditions[ $location ]['archive/author'] ) && get_post( $builder_conditions[ $location ]['archive/author'] ) ) {
+				$porto_settings['conditions'][ $location ] = (int) $builder_conditions[ $location ]['archive/author'];
+				return (int) $builder_conditions[ $location ]['archive/author'];
+			} elseif ( ! empty( $builder_conditions[ $location ] ) ) {
+				foreach ( $builder_conditions[ $location ] as $c => $object_id ) {
+					if ( ! $object_id || ( false === strpos( $c, 'single/' ) && false === strpos( $c, 'taxonomy/' ) && false === strpos( $c, 'archive/' ) ) || ! get_post( $object_id ) ) {
+						continue;
+					}
+					$c = str_replace( 'taxonomy/', '', $c );
+					if ( 0 === strpos( $c, 'single/' ) ) {
+						$c = str_replace( 'single/', '', $c );
+						if ( is_singular( $c ) ) {
+							$porto_settings['conditions'][ $location ] = (int) $object_id;
+							return (int) $object_id;
+						}
+					} elseif ( ( 'category' == $c && is_category() ) || ( 'post_tag' == $c && is_tag() ) || ( 'archive/post' == $c && is_home() ) ) {
+						$porto_settings['conditions'][ $location ] = (int) $object_id;
+						return (int) $object_id;
+					} elseif ( class_exists( 'Woocommerce' ) && ( ( 'product_cat' == $c && is_product_category() ) || ( 'product_tag' == $c && is_product_tag() ) || ( 'archive/product' == $c && ( is_shop() || is_product_category() || is_product_tag() || ( is_archive() && 'product' == get_post_type() ) ) ) ) ) {
+						$porto_settings['conditions'][ $location ] = (int) $object_id;
+						return (int) $object_id;
+					} elseif ( false === strpos( $c, 'archive/' ) && is_tax( $c ) ) {
+						$porto_settings['conditions'][ $location ] = (int) $object_id;
+						return (int) $object_id;
+					} elseif ( 0 === strpos( $c, 'archive/' ) ) {
+						$c = str_replace( 'archive/', '', $c );
+						$f = 'is_porto_' . $c . 's_page';
+						if ( ( function_exists( $f ) && $f() ) || is_post_type_archive( $c ) ) {
+							$porto_settings['conditions'][ $location ] = (int) $object_id;
+							return (int) $object_id;
+						}
+					} elseif ( is_singular() ) {
+						$terms = wp_get_post_terms( get_the_ID(), $c, array( 'fields' => 'names' ) );
+						if ( ! empty( $terms ) ) {
+							$porto_settings['conditions'][ $location ] = (int) $object_id;
+							return (int) $object_id;
+						}
+					}
+				}
+			}
+
+			if ( is_singular() ) {
+				if ( ! empty( $builder_conditions[ $location ]['single'] ) && get_post( $builder_conditions[ $location ]['single'] ) ) {
+					$porto_settings['conditions'][ $location ] = (int) $builder_conditions[ $location ]['single'];
+					return (int) $builder_conditions[ $location ]['single'];
+				}
+			} elseif ( is_archive() ) {
+				if ( ! empty( $builder_conditions[ $location ]['archive'] ) && get_post( $builder_conditions[ $location ]['archive'] ) ) {
+					$porto_settings['conditions'][ $location ] = (int) $builder_conditions[ $location ]['archive'];
+					return (int) $builder_conditions[ $location ]['archive'];
+				}
+			}
+			if ( ! empty( $builder_conditions[ $location ]['all'] ) && get_post( $builder_conditions[ $location ]['all'] ) ) {
+				$porto_settings['conditions'][ $location ] = (int) $builder_conditions[ $location ]['all'];
+				return (int) $builder_conditions[ $location ]['all'];
+			}
+		}
+		$porto_settings['conditions'][ $location ] = false;
 		return false;
 	}
 endif;

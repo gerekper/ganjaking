@@ -162,7 +162,7 @@
                 };
 
                 var select2_handle = el.find( '.select2_params' );
-                if ( select2_handle.size() > 0 ) {
+                if ( select2_handle.length ) {
                     var select2_params = select2_handle.val();
 
                     select2_params = JSON.parse( select2_params );

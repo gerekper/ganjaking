@@ -17,12 +17,26 @@ return array(
     'required' => false,
     'desc' => __('This is the coupon description. This field can be used to add notes to coupon so admin can have an idea of what this coupon offers', 'memberpress-developer-tools')
   ),
+  'should_start' => array(
+    'name' => __('Start Coupon', 'memberpress-developer-tools'),
+    'type' => 'bool',
+    'default' => 'false',
+    'required' => '',
+    'desc' => __('Set this to true if you want the coupon to start sometime in the future.', 'memberpress-developer-tools')
+  ),
   'should_expire' => array(
     'name' => __('Expire Coupon', 'memberpress-developer-tools'),
     'type' => 'bool',
     'default' => 'false',
-    'required' => __('Required', 'memberpress-developer-tools'),
+    'required' => '',
     'desc' => __('Set this to true if you want the coupon to expire sometime in the future.', 'memberpress-developer-tools')
+  ),
+  'starts_on' => array(
+    'name' => __('Start Coupon On Date', 'memberpress-developer-tools'),
+    'type' => 'timestamp',
+    'default' => 'null',
+    'required' => __('Required if \'should_start\' is true', 'memberpress-developer-tools'),
+    'desc' => __('Set this to the unix timestamp of when you\'d like the coupon to start.', 'memberpress-developer-tools')
   ),
   'expires_on' => array(
     'name' => __('Expire Coupon On Date', 'memberpress-developer-tools'),

@@ -1,0 +1,93 @@
+.porto-vc-testimonial {
+	overflow: hidden;
+	text-align: center;
+	blockquote {
+		border: 0;
+		margin: 0;
+		padding: 0;
+		position: relative;
+		font-size: 1.2em;
+		line-height: 1.8;
+		p {
+			margin-bottom: 0;
+		}
+	}
+	&.testimonial-show-quote {
+		blockquote {
+			padding: .75rem 0 .75rem 3rem;
+			&:before {
+				position: absolute;
+				left: 0;
+				top: 0;
+				content: "\201c";
+				font-size: 5rem;
+				font-style: normal;
+				line-height: 1;
+			}
+		}
+	}
+	.testimonial-name {
+		display: block;
+		color: inherit;
+		font-size: 1rem;
+		font-weight: 700;
+		line-height: 1.4;
+	}
+	.testimonial-role {
+		display: block;
+		color: inherit;
+		font-size: .85em;
+		font-weight: 600;
+		line-height: 1.4;
+	}
+	&.testimonial-left {
+		text-align: left;
+	}
+	&.testimonial-right {
+		text-align: right;
+	}
+
+	.testimonial-author {
+		display: inline-block;
+		img {
+			width: 60px;
+			border-radius: 50%;
+		}
+	}
+
+	.testimonial-meta {
+		text-align: left
+	}
+
+	.testimonial-author-thumbnail {
+		margin-bottom: .5rem
+	}
+
+	.testimonial-author-side {
+		display: inline-flex;
+		align-items: center;
+		blockquote {
+			text-align: left;
+		}
+		.testimonial-author-thumbnail {
+			margin: 0 1rem 0 0
+		}
+	}
+	.testimonial-author-top {
+		margin-bottom: 20px
+	}
+}
+.rtl .porto-vc-testimonial.testimonial-show-quote blockquote {
+	padding: .75rem 3rem .75rem 0;
+}
+.rtl .porto-vc-testimonial.testimonial-show-quote blockquote:before {
+	left: auto;
+	right: 0;
+}
+.rtl .porto-vc-testimonial .testimonial-meta,
+.rtl .porto-vc-testimonial .testimonial-author-side blockquote {
+	text-align: right
+}
+.rtl .porto-vc-testimonial .testimonial-author-side .testimonial-author-thumbnail {
+	margin: 0 0 0 1rem
+}

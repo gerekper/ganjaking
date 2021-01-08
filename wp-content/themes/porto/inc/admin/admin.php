@@ -41,17 +41,20 @@ class Porto_Admin {
 		if ( current_user_can( 'edit_theme_options' ) ) {
 			$porto_parent_menu_title = '<span class="ab-icon"></span><span class="ab-label">Porto</span>';
 			$this->add_wp_toolbar_menu_item( $porto_parent_menu_title, false, admin_url( 'admin.php?page=porto' ), array( 'class' => 'porto-menu' ), 'porto' );
+			$this->add_wp_toolbar_menu_item( __( 'Dashboard', 'porto' ), 'porto', admin_url( 'admin.php?page=porto' ), array(), 'porto-dashboard' );
 			if ( get_theme_mod( 'theme_options_use_new_style', false ) ) {
 				$this->add_wp_toolbar_menu_item( __( 'Theme Options', 'porto' ), 'porto', admin_url( 'customize.php' ) );
 				$this->add_wp_toolbar_menu_item( __( 'Advanced Options', 'porto' ), 'porto', admin_url( 'themes.php?page=porto_settings' ) );
 			} else {
 				$this->add_wp_toolbar_menu_item( __( 'Theme Options', 'porto' ), 'porto', admin_url( 'themes.php?page=porto_settings' ) );
 			}
-			$this->add_wp_toolbar_menu_item( __( 'Theme License', 'porto' ), 'porto', admin_url( 'admin.php?page=porto' ) );
-			$this->add_wp_toolbar_menu_item( __( 'Change Log', 'porto' ), 'porto', admin_url( 'admin.php?page=porto-changelog' ) );
 			// add wizard menus
 			$this->add_wp_toolbar_menu_item( __( 'Setup Wizard', 'porto' ), 'porto', admin_url( 'admin.php?page=porto-setup-wizard' ) );
 			$this->add_wp_toolbar_menu_item( __( 'Speed Optimize Wizard', 'porto' ), 'porto', admin_url( 'admin.php?page=porto-speed-optimize-wizard' ) );
+
+			if ( post_type_exists( 'porto_builder' ) ) {
+				$this->add_wp_toolbar_menu_item( __( 'Templates Builder', 'porto' ), 'porto', admin_url( 'edit.php?post_type=porto_builder' ) );
+			}
 		}
 	}
 
@@ -86,8 +89,7 @@ class Porto_Admin {
 	public function admin_menu() {
 		if ( is_admin() && current_user_can( 'edit_theme_options' ) ) {
 			$welcome_screen = add_menu_page( 'Porto', 'Porto', 'administrator', 'porto', array( $this, 'welcome_screen' ), 'dashicons-porto-logo', 59 );
-			$welcome        = add_submenu_page( 'porto', __( 'Theme license', 'porto' ), __( 'Theme License', 'porto' ), 'administrator', 'porto', array( $this, 'welcome_screen' ) );
-			$changelog      = add_submenu_page( 'porto', __( 'Change Log', 'porto' ), __( 'Change Log', 'porto' ), 'administrator', 'porto-changelog', array( $this, 'changelog' ) );
+			$welcome        = add_submenu_page( 'porto', __( 'Dashboard', 'porto' ), __( 'Dashboard', 'porto' ), 'administrator', 'porto', array( $this, 'welcome_screen' ) );
 			if ( get_theme_mod( 'theme_options_use_new_style', false ) ) {
 				$theme_options = add_submenu_page( 'porto', __( 'Theme Options', 'porto' ), __( 'Theme Options', 'porto' ), 'administrator', 'customize.php' );
 				$theme_options = add_submenu_page( 'porto', __( 'Advanced Options', 'porto' ), __( 'Advanced Options', 'porto' ), 'administrator', 'themes.php?page=porto_settings' );
@@ -99,10 +101,6 @@ class Porto_Admin {
 
 	public function welcome_screen() {
 		require_once PORTO_ADMIN . '/admin_pages/welcome.php';
-	}
-
-	public function changelog() {
-		require_once PORTO_ADMIN . '/admin_pages/changelog.php';
 	}
 
 	public function let_to_num( $size ) {

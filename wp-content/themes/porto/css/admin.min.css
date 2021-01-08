@@ -46,6 +46,8 @@ body.ebsp-mf-shown.wp-admin .mfp-wrap{z-index:20001!important}
 .redux-main #porto_settings-breadcrumbs-type img,.redux-main #porto_settings-footer-type img,.redux-main #porto_settings-header-type img{width:100%!important;box-sizing:border-box}
 #porto_settings-category-addlinks-pos ul.redux-image-select{display:flex;flex-wrap:wrap}
 #porto_settings-category-addlinks-pos ul.redux-image-select>li{flex:0 0 20%;box-sizing:border-box}
+#porto_settings-add-to-cart-notification img{max-width:160px}
+#customize-controls #porto_settings-category-addlinks-pos ul.redux-image-select>li{flex:0 0 50%}
 @media (max-width:1366px){
 #porto_settings-category-addlinks-pos ul.redux-image-select>li{flex:0 0 33.3333%}
 }
@@ -63,9 +65,13 @@ body.ebsp-mf-shown.wp-admin .mfp-wrap{z-index:20001!important}
 .redux-container .ui-widget{font-size:1em}
 .control-panel-redux .ui-button,.control-section-redux .ui-button,.redux-container .ui-button,.redux-metabox .ui-button{font-family:inherit}
 .redux-sidebar .redux-group-tab-link-a .el-lines{font-size:1.1em;padding-top:3px}
+.redux-main .wp-picker-container .wp-color-result{padding-right:3px}
 .wp-admin.rtl .redux-sidebar .redux-group-menu li.hasSubSections a .extraIconSubsections{float:left;margin-left:5px;margin-right:auto}
-.control-panel-redux .ui-buttonset .ui-button>span,.control-section-redux .ui-buttonset .ui-button>span,.redux-container .ui-buttonset .ui-button>span,.redux-metabox .ui-buttonset .ui-button>span{display:none}
+.control-panel-redux .ui-buttonset .ui-button>span:not(.ui-button-text),.control-section-redux .ui-buttonset .ui-button>span:not(.ui-button-text),.redux-container .ui-buttonset .ui-button>span:not(.ui-button-text),.redux-metabox .ui-buttonset .ui-button>span{display:none}
+.control-panel-redux .ui-button,.control-section-redux .ui-button,.redux-container .ui-button,.redux-metabox .ui-button{background-color:#f4f4f4}
+.redux-container .ui-button.ui-state-active:hover,.redux-container .ui-state-active,.redux-container .ui-widget-content .ui-state-active,.redux-container .ui-widget-header .ui-state-active{font-weight:500;color:#fff}
 .rtl .msp-dialog button.ui-dialog-titlebar-close{float:right;right:auto;left:13px}
+.rtl .redux-main .wp-picker-container .wp-color-result{padding-left:3px;padding-right:30px}
 .master-slider{direction:ltr}
 .edit-menu-item-popup_bg_image,.edit-menu-item-preview{margin-bottom:10px}
 .redux-main .select2-container{display:inline-block!important}
@@ -92,11 +98,11 @@ body.ebsp-mf-shown.wp-admin .mfp-wrap{z-index:20001!important}
 }
 #info-speed-optimize-shortcodes-compiler .redux-info-desc{margin-top:0}
 .wp-picker-container,.wp-picker-container.active{display:inline-block;outline:0}
-.admin-color-fresh .redux-container-image_select .redux-image-select-selected img,.wp-customizer .redux-container-image_select .redux-image-select-selected img{border-color:#08c}
-.admin-color-fresh .redux-container-image_select .redux-image-select-selected span,.wp-customizer .redux-container-image_select .redux-image-select-selected span{color:#08c}
+.redux-container-image_select .redux-image-select-selected img,.wp-customizer .redux-container-image_select .redux-image-select-selected img{border-color:#08c!important}
+.redux-container-image_select .redux-image-select-selected span,.wp-customizer .redux-container-image_select .redux-image-select-selected span{color:#08c}
 .control-section-redux .ui-button .ui-button-text,.redux-container .ui-button .ui-button-text{padding:0}
 .redux-container-image_select .redux-image-select .tiles,.redux-container-image_select .redux-image-select img,.redux-container-image_select .redux-image-select-selected .tiles,.redux-container-image_select .redux-image-select-selected img{border-width:2px;padding:2px;box-sizing:border-box}
-.redux-container-image_select img[src$=".svg"]{max-width:116px;width:100%!important}
+#customize-controls .redux-container-image_select img[src$=".svg"],.redux-container-image_select img[src$=".svg"]{max-width:116px;width:100%!important}
 label.redux-image-select{text-align:center}
 .redux-image-select br+span{font-family:Poppins,sans-serif;font-size:.75rem;font-weight:500;display:inline-block;max-width:116px;word-break:break-word}
 .redux-container-image_select ul.redux-image-select{margin:0 -6px!important}
@@ -251,6 +257,41 @@ h2.resp-accordion{display:block}
 .porto_swatches_section .form-field-header{border-bottom:1px solid #eee;padding:8px 20px;margin:0}
 .porto_swatches_section .form-field-body{background-color:#fdfdfd;padding:15px 10px}
 .porto_swatches_section .attribute_swatch_preview{width:144px}
+#customize-controls{font-family:Poppins,sans-serif}
+#customize-controls input[type=color],#customize-controls input[type=date],#customize-controls input[type=datetime-local],#customize-controls input[type=datetime],#customize-controls input[type=email],#customize-controls input[type=month],#customize-controls input[type=number],#customize-controls input[type=password],#customize-controls input[type=search],#customize-controls input[type=tel],#customize-controls input[type=text],#customize-controls input[type=time],#customize-controls input[type=url],#customize-controls input[type=week],#customize-controls select{border-color:#ccc;height:44px;padding:0 1rem}
+#customize-controls input.mini{height:32px;padding:0 .5rem}
+.input-append .add-on{margin-left:4px}
+#customize-controls textarea{border-color:#ccc}
+#customize-controls select{background-position:right 12px top 55%}
+#customize-controls .button{font-size:.75rem;letter-spacing:-.05em;font-weight:600!important;text-transform:uppercase;border-color:#ccc;color:#222529;background:0 0;line-height:2.4}
+#customize-controls .button-primary{background:#08c;border-color:#08c;color:#fff}
+.customize-panel-back:focus,.customize-panel-back:hover,.customize-section-back:focus,.customize-section-back:hover{color:#08c;border-left-color:#08c}
+#customize-controls .button-dark{background:#32373c;color:#fff;font-style:normal;border:none}
+#customize-controls .button-red{background:#ed1c24;color:#fff;border:none;box-shadow:none}
+#customize-controls .btn-block{font-size:.8125rem;font-weight:700;height:46px;width:100%;text-align:center;line-height:46px!important}
+@media (min-width:1900px){
+#customize-header-actions .button{padding-left:20px;padding-right:20px;height:40px;line-height:38px}
+#customize-controls #publish-settings{padding-left:10px;padding-right:10px;width:auto}
+#customize-controls #publish-settings:before{content:'\f013';font-family:'Font Awesome 5 Free';font-weight:900}
+#customize-controls #publish-settings:after{content:'\f0d7';font-family:'Font Awesome 5 Free';font-weight:900;margin-left:5px}
+}
+#customize-controls #publish-settings{background:#007cbb}
+#customize-theme-controls .control-panel-themes .accordion-section-title .change-theme{margin-top:-20px}
+.wp-full-overlay-sidebar .wp-full-overlay-header{background-color:#fafafa;height:58px}
+.section-open .wp-full-overlay-sidebar{background-color:#fff}
+.wp-full-overlay-sidebar .wp-full-overlay-sidebar-content{top:58px}
+.customize-controls-close:before{top:3px}
+.customize-controls-close{height:54px}
+.customize-panel-back{height:78px}
+#customize-controls .customize-info .accordion-section-title,#customize-outer-theme-controls .accordion-section-title,#customize-theme-controls .accordion-section-title,#customize-theme-controls .control-panel-themes>.accordion-section-title,#customize-theme-controls .control-panel-themes>.accordion-section-title:hover{color:#222529}
+#customize-controls h3{font-size:.8125rem;letter-spacing:-.05em;text-transform:uppercase;font-weight:700}
+#customize-controls .customize-pane-child .customize-section-title h3{text-transform:none}
+#customize-controls .customize-info .preview-notice,.control-panel-themes .accordion-section-title span.customize-action{font-size:.75rem;letter-spacing:-.025em;color:#777}
+#customize-controls .customize-info .panel-title,#customize-controls .customize-pane-child .customize-section-title h3,#customize-controls .customize-pane-child h3.customize-section-title,#customize-outer-theme-controls .customize-pane-child .customize-section-title h3,#customize-outer-theme-controls .customize-pane-child h3.customize-section-title,.customize-section-title h3,h3.customize-section-title{color:#222529;font-size:1.125rem;font-weight:600}
+#customize-outer-theme-controls .accordion-section-title:after,#customize-theme-controls .accordion-section-title:after{content:'\f054';font-family:'Font Awesome 5 Free';font-weight:900;font-size:14px;line-height:20px;color:#23282d;right:1rem}
+#customize-controls .wp-full-overlay-sidebar-content::-webkit-scrollbar{width:5px}
+#customize-controls .wp-full-overlay-sidebar-content::-webkit-scrollbar-thumb{border-radius:0;background:rgba(204,204,204,.5)}
+.wp-full-overlay .collapse-sidebar-label{font-size:.75rem;letter-spacing:-.05em;font-weight:700;text-transform:uppercase;color:#222529}
 #customize-controls .redux-image-select img{box-sizing:border-box}
 #sub-accordion-section-general_layout li.redux-image-select{box-sizing:border-box;max-width:33.3333%}
 #customize-control-porto_settings-css-code .CodeMirror{height:calc(100vh - 280px)}
@@ -260,23 +301,40 @@ h2.resp-accordion{display:block}
 #customize-controls .redux-info-field.field_move{background:0 0;color:inherit;margin:0 -12px -4px;border-bottom:1px solid #ddd;color:#08c;transition:opacity .2s ease;background:#fff}
 #customize-controls .redux-info-field.field_move p{font-size:13px}
 #customize-controls .redux-info-field.field_move a:hover{opacity:.8}
-#customize-theme-controls>ul>li>h3:before{font-family:Dashicons;opacity:.6;vertical-align:middle;display:inline-block;font-size:20px;width:24px;position:relative;top:-1.5px;line-height:0}
-#customize-theme-controls>ul>li:hover>h3:before{opacity:1}
-#accordion-panel-general>h3:before{content:"\f226"}
-#accordion-panel-skin>h3:before{content:"\f100"}
-#accordion-panel-header-settings>h3:before{content:"\f328"}
-#accordion-section-menu>h3:before{content:"\f333"}
-#accordion-section-header-breadcrumb>h3:before{content:"\f116"}
-#accordion-section-footer-settings>h3:before{content:"\f527"}
-#accordion-section-page>h3:before{content:"\f497"}
-#accordion-panel-post>h3:before{content:"\f491"}
-#accordion-panel-portfolio>h3:before{content:"\f322"}
-#accordion-panel-customizer-event-settings>h3:before{content:"\f510"}
-#accordion-panel-customizer-member-settings>h3:before{content:"\f110"}
-#accordion-section-faq>h3:before{content:"\f223"}
-#accordion-panel-woocommerce.control-panel-redux>h3:before{content:"\f174"}
-#accordion-section-redux_dynamic_font_control>h3:before{content:"\f200"}
-#accordion-section-porto_reset_all_options>h3:before{content:"\f111"}
+#customize-theme-controls>.customize-pane-parent h3:before{content:'';display:inline-block;vertical-align:middle;width:22px;height:22px;background-size:contain;background-position:center;background-repeat:no-repeat;opacity:.2;position:relative;top:-1px;margin-right:.5rem;font-size:20px;line-height:22px;font-family:Simple-Line-Icons;filter:grayscale(1);font-weight:400}
+.control-section .accordion-section-title,.customize-pane-child .accordion-section-title{padding-top:15px;padding-bottom:15px}
+@media (min-width:1200px){
+.control-section .accordion-section-title,.customize-pane-child .accordion-section-title{padding-left:20px}
+}
+#customize-outer-theme-controls .accordion-section-title,#customize-theme-controls .accordion-section-title{border-bottom-color:#e7e7e7!important}
+.expanded .wp-full-overlay-footer,.wp-full-overlay-footer .devices,.wp-full-overlay-sidebar{border-color:#e7e7e7;background-color:#fafafa}
+.wp-full-overlay-footer .devices{box-shadow:none}
+#customize-controls .control-section .accordion-section-title:focus,#customize-controls .control-section .accordion-section-title:hover,#customize-controls .control-section.open .accordion-section-title,#customize-controls .control-section:hover>.accordion-section-title{color:#08c;border-left-color:#08c}
+#customize-theme-controls>ul>li:hover>h3:before{opacity:.3}
+#accordion-section-themes>h3:before{content:none!important}
+#accordion-panel-general>h3:before{background-image:url(../inc/admin/theme_options/svg/option_general.svg)}
+#accordion-panel-skin>h3:before{background-image:url(../inc/admin/theme_options/svg/option_visual.svg)}
+#accordion-panel-header-settings>h3:before,#accordion-section-porto_header_layouts>h3:before{background-image:url(../inc/admin/theme_options/svg/cicon_header.svg)}
+#accordion-section-menu>h3:before{background-image:url(../inc/admin/theme_options/svg/cicon_menus.svg)}
+#accordion-section-header-breadcrumb>h3:before{content:"\e08d"!important}
+#accordion-section-footer-settings>h3:before{content:"\e07b"!important}
+#accordion-section-page>h3:before{background-image:url(../inc/admin/theme_options/svg/option_content.svg)}
+#accordion-panel-post>h3:before{content:"\e040"!important}
+#accordion-panel-portfolio>h3:before{content:"\e032"!important}
+#accordion-panel-customizer-event-settings>h3:before{content:"\e619"!important}
+#accordion-panel-customizer-member-settings>h3:before{content:"\e001"!important}
+#accordion-section-faq>h3:before{content:"\e05d"!important}
+#accordion-panel-woocommerce>h3:before{background-image:url(../inc/admin/theme_options/svg/option_plugins.svg)}
+#accordion-section-redux_dynamic_font_control>h3:before{content:"\e05f"!important}
+#accordion-section-porto_reset_all_options>h3:before{content:"\e098"!important}
+#accordion-section-title_tagline>h3:before{background-image:url(../inc/admin/theme_options/svg/cicon_site.svg);opacity:.25!important;background-size:30px 30px!important}
+#accordion-section-static_front_page>h3:before{background-image:url(../inc/admin/theme_options/svg/cicon_home.svg)}
+#accordion-section-custom_css>h3:before{background-image:url(../inc/admin/theme_options/svg/cicon_css.svg)}
+#accordion-panel-nav_menus>h3:before{background-image:url(../inc/admin/theme_options/svg/cicon_menus.svg)}
+#accordion-panel-widgets>h3:before{background-image:url(../inc/admin/theme_options/svg/cicon_widgets.svg)}
+#customize-control-porto_header_layouts_select{width:calc(100% - 58px)}
+#customize-control-porto_header_layouts_delete{width:48px;clear:none;margin-top:28px;padding-left:10px}
+#customize-control-porto_header_layouts_delete .button{font-size:1rem;height:44px;line-height:44px!important;width:46px;text-align:center}
 #customize-header-actions .switch-live-option-panel{margin-top:9px;margin-left:44px;position:relative;font-size:12px}
 .in-sub-panel .wp-full-overlay-sidebar #customize-header-actions.wp-full-overlay-header .switch-live-option-panel{margin-left:0}
 @keyframes porto-fade-in{
@@ -290,6 +348,24 @@ h2.resp-accordion{display:block}
 .switch-live-option-panel:before{content:'!';display:inline-block;font-weight:900;position:absolute;left:100%;top:0;margin-left:4px;width:16px;height:16px;border-radius:10px;box-sizing:border-box;text-align:center;line-height:14px;animation:porto-fade-in 1.6s infinite linear}
 .redux-info-field.field_move{display:none}
 .wp-customizer .redux-info-field.field_move{display:block}
+.control-panel-redux .ui-button,.control-section-redux .ui-button,.redux-container .ui-button,.redux-metabox .ui-button{text-shadow:none!important;font-size:13px!important;font-weight:500;background-image:none!important;box-shadow:none;padding-top:6px;padding-bottom:6px}
+.wp-admin .redux-container-switch .cb-enable.selected,.wp-admin .redux-field-container .ui-buttonset .ui-state-active,.wp-customizer .redux-container-switch .cb-enable.selected,.wp-customizer .redux-field-container .ui-buttonset .ui-state-active{background-color:#08c!important;background-image:none!important;box-shadow:none!important;border-color:#08c #0077b3 #08c #08c!important}
+.redux-container .redux-main .form-table tr td,.redux-container .redux-main .form-table tr th{color:#222529}
+.redux-container .redux_field_th span:first-child{color:#777}
+.redux-container-switch .cb-disable span,.redux-container-switch .cb-enable span{font-size:12.5px;font-weight:600;text-transform:uppercase}
+.wp-admin .redux-container-switch .cb-disable.selected,.wp-customizer .redux-container-switch .cb-disable.selected{background-color:#999!important;background-image:none!important;border-color:#888!important}
+.rtl .input-append .add-on{margin-right:4px;margin-left:0}
+.rtl #customize-controls select{background-position:left 12px top 55%}
+.rtl #customize-controls .control-section .accordion-section-title:focus,.rtl #customize-controls .control-section .accordion-section-title:hover,.rtl #customize-controls .control-section.open .accordion-section-title,.rtl #customize-controls .control-section:hover>.accordion-section-title,.rtl .customize-panel-back:focus,.rtl .customize-panel-back:hover,.rtl .customize-section-back:focus,.rtl .customize-section-back:hover{border-right-color:#08c;border-left-color:#e7e7e7}
+.rtl #customize-outer-theme-controls .accordion-section-title:after,.rtl #customize-theme-controls .accordion-section-title:after{right:auto;left:1rem}
+.rtl #customize-theme-controls>.customize-pane-parent h3:before{margin-left:.5rem;margin-right:0}
+@media (min-width:1200px){
+.rtl .control-section .accordion-section-title,.rtl .customize-pane-child .accordion-section-title{padding-right:20px}
+}
+.rtl #customize-outer-theme-controls .accordion-section-title:after,.rtl #customize-theme-controls .accordion-section-title:after{content:'\f053'}
+.rtl #customize-header-actions .switch-live-option-panel{margin-right:44px;margin-left:0}
+.rtl .switch-live-option-panel:before{left:auto;right:100%;margin-right:4px;margin-left:0}
+.rtl .in-sub-panel .wp-full-overlay-sidebar #customize-header-actions.wp-full-overlay-header .switch-live-option-panel{margin-right:0}
 .porto-header-builder{position:absolute;bottom:0;z-index:9;transition:transform .3s;-ms-transform:translateY(110%);transform:translateY(110%);right:0;left:0;background-color:#f4f4f4;box-shadow:0 -2px 4px 0 rgba(0,0,0,.1)}
 .porto-header-builder .header-builder-wrapper{padding:10px 12px;background:#333}
 .header-builder-header h3{margin:0;font-size:1.2em}
@@ -333,11 +409,12 @@ h2.resp-accordion{display:block}
 .porto-header-builder-tooltip:focus,.porto-header-builder-tooltip:hover{color:#fff;background:#19d}
 .porto-header-builder-tooltip:hover i{color:inherit!important;opacity:1}
 #accordion-section-porto_header_builder,#customize-control-porto_header_layouts_preset,#customize-control-porto_is_header_builder_section{display:none!important}
+.porto_header_presets.opened{border-left:5px solid #e7e7e7;padding-left:14px}
 .porto_header_presets h3{cursor:pointer;position:relative;font-style:normal}
 .porto_header_presets h3:hover{opacity:.8}
 .porto_header_presets h3:after{content:'\f347';font-family:dashicons;margin-left:7px;vertical-align:middle}
 .porto_header_presets.opened h3:after{content:'\f343'}
-.porto_header_presets img{border:2px solid #ccc;cursor:pointer;box-sizing:border-box;width:100%;display:none}
+.porto_header_presets img{border:1px solid #e7e7e7;cursor:pointer;box-sizing:border-box;width:100%;display:none;border-radius:4px;padding:4px;margin-bottom:2px}
 .porto_header_presets.opened img{display:inline-block}
 .porto_header_presets img.active,.porto_header_presets img:hover{opacity:.8;border-color:#08c}
 .porto_header_presets img.side{width:33.3333%}
@@ -427,8 +504,12 @@ h2.resp-accordion{display:block}
 .porto-setup-wizard .btn{display:inline-block;width:auto;min-width:9.375rem;font-size:.8125rem;font-weight:700;text-decoration:none;text-transform:uppercase;text-shadow:none;letter-spacing:-.05em;padding:1em 2em;text-align:center;border-radius:.25rem;border:1px solid transparent;margin-bottom:.375rem;line-height:1.4;white-space:nowrap}
 .porto-setup-wizard .btn-primary{border-color:#08c}
 #porto-builders-tabs{padding-top:2em;margin-bottom:2em}
-#porto-builders-input{background:#fff;max-width:500px;margin-left:auto;margin-right:auto;padding:30px;font-family:Poppins,sans-serif}
+#porto-builders-input{background:#fff;max-width:500px;margin-left:auto;margin-right:auto;padding:30px;font-family:Poppins,sans-serif;position:relative}
 #porto-builders-input h2{margin-top:0;color:#222529;font-size:1.125rem;font-weight:700;letter-spacing:-.05em}
 #porto-builders-input label{font-size:.875rem;font-weight:600;letter-spacing:-.025em;color:#222529}
 #porto-builders-input input,#porto-builders-input select{border-color:#ccc}
 #porto-builders-input .form-row{margin-bottom:.75rem}
+.porto-panel input[type=text],.porto-panel select{border-color:#e7e7e7;height:36px;padding:0 1rem;font-size:12px;color:#222529;font-weight:600}
+.porto-panel h1,.porto-panel h2,.porto-panel h3{color:#222529;margin-bottom:.5em}
+.porto-panel p{margin-bottom:.75rem}
+.porto-panel .btn-sm{font-size:.75rem;padding:.8em 1.6em}

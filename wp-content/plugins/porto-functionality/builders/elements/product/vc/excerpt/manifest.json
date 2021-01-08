@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoSpExcerpt": {
+			"settings": {
+				"name": "Single Product Excerpt",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display single product excerpt"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoSpExcerpt"
+			]
+		}
+	}
+}

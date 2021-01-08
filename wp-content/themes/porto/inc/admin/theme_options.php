@@ -48,6 +48,38 @@ if ( ! porto_is_ajax() ) {
 			}
 		}
 
-		update_option( 'porto_version', PORTO_VERSION );
+		add_action(
+			'init',
+			function() use ( $porto_cur_version ) {
+				/* Update product_layout to porto_builder for old version */
+				if ( version_compare( $porto_cur_version, '6.0.1', '<' ) ) {
+					$updated_types = array(
+						'block'          => 'block',
+						'product_layout' => 'product',
+					);
+
+					foreach ( $updated_types as $old => $type ) {
+						$post_query = new WP_Query(
+							array(
+								'post_type'   => $old,
+								'showposts'   => -1,
+							)
+						);
+						if ( $post_query->have_posts() ) {
+							$posts = $post_query->get_posts();
+							foreach ( $posts as $p ) {
+								$p->post_type = 'porto_builder';
+								wp_update_post( $p );
+								add_post_meta( $p->ID, 'porto_builder_type', $type );
+								wp_set_post_terms( $p->ID, $type, 'porto_builder_type' );
+							}
+						}
+					}
+				}
+
+				update_option( 'porto_version', PORTO_VERSION );
+			},
+			20
+		);
 	}
 }

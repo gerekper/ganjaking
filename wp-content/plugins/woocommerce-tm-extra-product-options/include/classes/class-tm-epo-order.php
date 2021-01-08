@@ -47,18 +47,20 @@ class THEMECOMPLETE_EPO_Order {
 		// Alter the product thumbnail in order
 		add_filter( 'woocommerce_admin_order_item_thumbnail', array( $this, 'woocommerce_admin_order_item_thumbnail' ), 50, 3 );
 
-		// Add meta to order
 		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.7.0', '<' ) ) {
+			// Add meta to order
 			add_action( 'woocommerce_add_order_item_meta', array( $this, 'woocommerce_add_order_item_meta' ), 50, 2 );
+			// Adds options to the array of items/products of an order 
+			add_filter( 'woocommerce_order_get_items', array( $this, 'woocommerce_order_get_items' ), 10, 2 );
 		} else {
+			// Add meta to order
 			add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'woocommerce_checkout_create_order_line_item' ), 50, 3 );
+			// Adds options to the array of items/products of an order 
+			add_filter( 'woocommerce_order_item_get_formatted_meta_data', array( $this, 'woocommerce_order_item_get_formatted_meta_data' ), 10, 2 );
+			add_action( 'woocommerce_order_item_meta_start', array( $this, 'woocommerce_order_item_meta_start' ), 10, 4 );
 		}
 
-		// Adds options to the array of items/products of an order 
-		add_filter( 'woocommerce_order_get_items', array( $this, 'woocommerce_order_get_items' ), 10, 2 );
-		add_filter( 'woocommerce_order_item_get_formatted_meta_data', array( $this, 'woocommerce_order_item_get_formatted_meta_data' ), 10, 2 );
-
-		// WC 2.7x only  Flag admin order page
+		// WC 2.7x only Flag admin order page
 		add_filter( 'woocommerce_admin_order_item_types', array( $this, 'woocommerce_admin_order_item_types' ), 10, 2 );
 		add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'woocommerce_admin_order_data_after_order_details' ), 2 );
 
@@ -309,7 +311,6 @@ class THEMECOMPLETE_EPO_Order {
 	 * @since 1.0
 	 */
 	public function woocommerce_is_attribute_in_product_name( $is_in_name, $attribute, $name ) {
-
 		return FALSE;
 	}
 
@@ -327,6 +328,15 @@ class THEMECOMPLETE_EPO_Order {
 	/**
 	 * Adds options to the array of items/products of an order
 	 *
+	 * @since 5.0.12.11
+	 */
+	public function woocommerce_order_item_meta_start($item_id = 0, $item = array(), $order = array(), $plain_text = false) {
+		add_filter('wc_epo_admin_in_shop_order', '__return_false');
+	}
+	
+	/**
+	 * Adds options to the array of items/products of an order
+	 *
 	 * @since 4.9.12
 	 */
 	public function woocommerce_order_item_get_formatted_meta_data( $formatted_meta = array(), $item = FALSE ) {
@@ -337,7 +347,9 @@ class THEMECOMPLETE_EPO_Order {
 		     ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_calc_line_taxes" ) ||
 		     ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_add_order_item" ) ||
 		     ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_add_coupon_discount" ) ||
-		     ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_save_order_items" ) ||
+			 ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_save_order_items" ) ||
+			 ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_add_order_fee" ) ||
+			 ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_remove_order_item" ) ||
 		     ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_remove_order_coupon" )
 		) {
 			return $formatted_meta;
@@ -587,18 +599,30 @@ class THEMECOMPLETE_EPO_Order {
 					$added = TRUE;
 
 					if ( is_array( $value ) ) {
-						foreach ( $value as $currentvalue ) {
+						if ( THEMECOMPLETE_EPO()->tm_epo_always_unique_values === 'yes' ) {
+							foreach ( $value as $currentvalue ) {
+								$current_meta_key ++;
+								if ( ! isset( $formatted_meta[ $current_meta_key ] ) ) {
+									$formatted_meta[ $current_meta_key ] = (object) array(
+										'key'           => $current_meta_key,
+										'value'         => $currentvalue,
+										'display_key'   => $key,
+										'display_value' => make_clickable( $currentvalue ),
+									);
+								}
+							}
+						} else {
 							$current_meta_key ++;
 							if ( ! isset( $formatted_meta[ $current_meta_key ] ) ) {
+								$value = implode( THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text, $value );
 								$formatted_meta[ $current_meta_key ] = (object) array(
-									'key'           => $current_meta_key,
-									'value'         => $currentvalue,
-									'display_key'   => $current_meta_key,
-									'display_value' => wpautop( make_clickable( $currentvalue ) ),
+									'key'           => $key,
+									'value'         => $value,
+									'display_key'   => $key,
+									'display_value' => make_clickable( $value ),
 								);
 							}
 						}
-
 					} else {
 						$current_meta_key ++;
 						if ( ! isset( $formatted_meta[ $current_meta_key ] ) ) {
@@ -606,7 +630,7 @@ class THEMECOMPLETE_EPO_Order {
 								'key'           => $key,
 								'value'         => $value,
 								'display_key'   => $key,
-								'display_value' => wpautop( make_clickable( $value ) ),
+								'display_value' => make_clickable( $value ),
 							);
 						}
 					}
@@ -633,7 +657,9 @@ class THEMECOMPLETE_EPO_Order {
 		     ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_calc_line_taxes" ) ||
 		     ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_add_order_item" ) ||
 		     ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_add_coupon_discount" ) ||
-		     ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_save_order_items" ) ||
+			 ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_save_order_items" ) ||
+			 ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_add_order_fee" ) ||
+			 ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_remove_order_item" ) ||
 		     ( isset( $_POST["action"] ) && $_POST["action"] == "woocommerce_remove_order_coupon" )
 		) {
 			return $items;
@@ -641,11 +667,7 @@ class THEMECOMPLETE_EPO_Order {
 
 		add_filter( 'woocommerce_is_attribute_in_product_name', array( $this, 'woocommerce_is_attribute_in_product_name' ), 10, 3 );
 
-		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.7.0', '<' ) ) {
-			add_action( 'woocommerce_order_items_table', array( $this, 'woocommerce_order_items_table' ), 10 );
-		} else {
-			add_action( 'woocommerce_order_details_after_order_table_items', array( $this, 'woocommerce_order_items_table' ), 10 );
-		}
+		add_action( 'woocommerce_order_items_table', array( $this, 'woocommerce_order_items_table' ), 10 );
 
 		$order_currency = is_callable( array( $order, 'get_currency' ) ) ? $order->get_currency() : $order->get_order_currency();
 		$currency_arg   = array( 'currency' => $order_currency );

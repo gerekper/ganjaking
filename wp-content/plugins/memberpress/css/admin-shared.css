@@ -493,6 +493,10 @@ table.mepr-addons-table tr th {
   height: 36px;
 }
 
+#wpcontent #mp-admin-header a.mp-support-button {
+  float: right;
+}
+
 .mepr-account-connected {
   padding: 20px;
   background-color: #CBFECF;
@@ -681,4 +685,38 @@ table.mepr-addons-table tr th {
 
 .mepr-replace-file{
   margin-right: 5px;
+}
+
+/* Help Manual Tab Styles */
+div.mepr-support-help-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.mepr-support-help-topic {
+  height: 115px;
+  width: 250px;
+  text-align: center;
+  border: 1px solid #00cee6;
+  padding: 10px;
+  margin: 10px;
+  flex-shrink: 0;
+  background-color: #F8F8F8;
+}
+
+.mepr-support-help-topic a {
+  text-decoration: none;
+}
+
+.mepr-support-help-topic h3 {
+  color: #184699;
+  line-height: 1.25em;
+}
+
+.mepr-support-help-topic p {
+  color: #444;
+}
+
+.mepr-support-help-topic:hover {
+  background-color: #E8E8E8;
 }

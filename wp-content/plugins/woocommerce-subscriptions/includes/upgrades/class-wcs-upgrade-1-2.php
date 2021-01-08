@@ -41,7 +41,7 @@ class WCS_Upgrade_1_2 {
 		// Upgrade all _sign_up_{field} order meta to new order data format
 		foreach ( $orders_to_upgrade as $order_id ) {
 
-			$order = new WC_Order( $order_id );
+			$order = wc_get_order( $order_id );
 
 			// Manually check if a product in an order is a subscription, we can't use wcs_order_contains_subscription( $order ) because it relies on the new data structure
 			$contains_subscription = false;
@@ -218,7 +218,7 @@ class WCS_Upgrade_1_2 {
 				}
 
 				// Upgrading with WC 1.x
-				if ( method_exists( $item_meta, 'add' ) ) {
+				if ( is_callable( array( $item_meta, 'add' ) ) ) {
 
 					$item_meta->add( '_subscription_period', $order_subscription_periods[ $product_id ] );
 					$item_meta->add( '_subscription_interval', $subscription_interval );

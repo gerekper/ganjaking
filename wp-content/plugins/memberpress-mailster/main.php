@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Mailster
 Plugin URI: http://www.memberpress.com/
 Description: Mailster Autoresponder integration for MemberPress.
-Version: 1.1.1
+Version: 1.1.2
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress-mailster

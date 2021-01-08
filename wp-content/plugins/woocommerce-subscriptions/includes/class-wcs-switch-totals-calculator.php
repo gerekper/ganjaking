@@ -97,7 +97,9 @@ class WCS_Switch_Totals_Calculator {
 			$this->set_switch_type_in_cart( $cart_item_key, $switch_type );
 
 			if ( $this->should_prorate_recurring_price( $switch_item ) ) {
-				if ( 'upgrade' === $switch_type ) {
+
+				// Switching to a product with only 1 payment means no next payment can be collected and so we calculate a gap payment in that scenario.
+				if ( 'upgrade' === $switch_type || $switch_item->is_switch_to_one_payment_subscription() ) {
 					if ( $this->should_reduce_prepaid_term( $switch_item ) ) {
 						$this->reduce_prepaid_term( $cart_item_key, $switch_item );
 					} else {
@@ -379,7 +381,10 @@ class WCS_Switch_Totals_Calculator {
 		// Find how many more days at the new lower price it takes to exceed the amount owed
 		$days_to_add = $this->calculate_pre_paid_days( $amount_still_owing, $switch_item->get_new_price_per_day() );
 
-		$days_to_add -= $switch_item->get_days_until_next_payment();
+		// Subtract days until next payments only if days to add is not zero
+		if ( 0 !== $days_to_add ) {
+			$days_to_add -= $switch_item->get_days_until_next_payment();
+		}
 
 		$this->cart->cart_contents[ $cart_item_key ]['subscription_switch']['first_payment_timestamp'] = $switch_item->next_payment_timestamp + ( $days_to_add * DAY_IN_SECONDS );
 	}
@@ -391,7 +396,17 @@ class WCS_Switch_Totals_Calculator {
 	 * @param WCS_Switch_Cart_Item $switch_item
 	 */
 	protected function apportion_length( $switch_item ) {
-		$base_length        = WC_Subscriptions_Product::get_length( $switch_item->canonical_product_id );
+
+		$base_length = wcs_get_objects_property( $switch_item->product, 'switch_totals_calc_base_length' );
+		// Already modified the subscription length of this instance previously?
+		if ( is_null( $base_length ) ) {
+			// Get the length from the unmodified product instance, and save it for later.
+			// A "lazier" way to do the same would have been to call 'WC_Subscriptions_Product::get_length( $switch_item->canonical_product_id )', but this breaks APFS, and is more expensive performance-wise.
+			// See https://github.com/woocommerce/woocommerce-subscriptions/issues/3928
+			$base_length = WC_Subscriptions_Product::get_length( $switch_item->product );
+			wcs_set_objects_property( $switch_item->product, 'switch_totals_calc_base_length', $base_length );
+		}
+
 		$completed_payments = $switch_item->subscription->get_payment_count();
 		$length_remaining   = $base_length - $completed_payments;
 

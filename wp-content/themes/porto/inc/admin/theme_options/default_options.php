@@ -28,7 +28,7 @@
 	"logo-width-mobile":"110",
 	"logo-width-sticky":"80",
 	"favicon":{
-		"url": "<?php echo PORTO_URI; ?>/images/logo/favicon.ico"
+		"url": "<?php echo PORTO_URI; ?>/images/logo/favicon.png"
 	},
 	"icon-iphone":{
 		"url": "<?php echo PORTO_URI; ?>/images/logo/apple-touch-icon.png"
@@ -62,7 +62,7 @@
 	"color-dark":"#1d2127",
 	"container-width":"1140",
 	"grid-gutter-width":"30",
-	"border-radius":true,
+	"border-radius":false,
 	"thumb-padding":false,
 	"google-webfont-loader": true,
 	"body-font":{
@@ -151,11 +151,6 @@
 		"google":true,
 		"font-weight":"700",
 		"font-family":"Open Sans",
-		"font-size":"12px",
-		"line-height":"20px",
-		"letter-spacing":"0"
-	},
-	"menu-font-md":{
 		"font-size":"12px",
 		"line-height":"20px",
 		"letter-spacing":"0"
@@ -535,7 +530,7 @@
 	"category-image-hover":true,
 	"category-addlinks-pos":"",
 
-	"add-to-cart-notification":"2",
+	"add-to-cart-notification":"3",
 	"product-categories":true,
 	"product-review":true,
 	"product-price":true,

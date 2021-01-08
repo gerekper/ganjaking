@@ -179,6 +179,7 @@ function porto_load_products_shortcode() {
 							__( 'Popular', 'porto-functionality' ) => 'popular',
 							__( 'Date', 'porto-functionality' ) => 'date',
 							__( 'Rating', 'porto-functionality' ) => 'rating',
+							__( 'On Sale', 'porto-functionality' ) => 'onsale',
 						),
 					),
 					array(
@@ -206,6 +207,15 @@ function porto_load_products_shortcode() {
 						'dependency' => array(
 							'element' => 'show_sort',
 							'value'   => 'rating',
+						),
+					),
+					array(
+						'type'       => 'textfield',
+						'heading'    => __( 'Title for "On Sale"', 'woocommerce' ),
+						'param_name' => 'show_onsale_title',
+						'dependency' => array(
+							'element' => 'show_sort',
+							'value'   => 'onsale',
 						),
 					),
 					array(

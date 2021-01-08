@@ -2086,15 +2086,12 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	margin-bottom: 0;
 }
 
-.tm-extra-product-options label.tm-epo-element-label,
-.tm-extra-product-options div.tm-epo-element-label,
-.tm-extra-product-options p.tm-epo-element-label,
-.tm-extra-product-options span.tm-epo-element-label {
-	font-weight: 700;
+.tm-extra-product-options .tm-epo-element-label.tm-section-label {
+	margin: 0.5em 0;
 }
 
-.tm-extra-product-options .tm-epo-element-label.tm-section-label {
-	margin-bottom: 1em;
+.float_editbox .section_popup .tm-section-label {
+    display: none;
 }
 
 /* Select box element */
@@ -2604,7 +2601,8 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 .flasho .header h3 {
 	color: #292421;
-	font: 20px/30px 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	line-height: 30px;
 	margin: 0;
 	letter-spacing: 1px;
 }
@@ -2664,6 +2662,10 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	opacity: 1 !important;
 	z-index: auto !important;
 	position: static !important;
+	-webkit-transform: none !important;
+    -moz-transform: none !important;
+    -ms-transform: none !important;
+    transform: none !important;
 }
 
 /* 5. Floating totals box */
@@ -3856,7 +3858,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 
 .tm-epo-style-wrapper.round2 .tm-epo-style:after,
 .tm-epo-style-wrapper.square2 .tm-epo-style:after {
-	font-size: 0.7em;
+	font-size: 0.7em !important;
 	margin-top: -0.4em;
 }
 

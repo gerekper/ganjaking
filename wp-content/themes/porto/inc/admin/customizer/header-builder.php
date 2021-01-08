@@ -152,17 +152,7 @@ class Porto_Header_Builder {
 				$header_layouts[ $key ] = $layout['name'];
 			}
 		}
-		$header_layouts = array_merge( array( '' => __( 'Select Header Layout...', 'porto' ) ), $header_layouts );
-		$wp_customize->add_control(
-			'porto_header_layouts_select',
-			array(
-				'settings' => 'porto_header_builder[selected_layout]',
-				'label'    => __( 'Select a header layout to edit:', 'porto' ),
-				'section'  => 'porto_header_layouts',
-				'type'     => 'select',
-				'choices'  => $header_layouts,
-			)
-		);
+
 		$wp_customize->add_setting(
 			'porto_header_layouts_create_text',
 			array(
@@ -177,7 +167,7 @@ class Porto_Header_Builder {
 				$wp_customize,
 				'porto_header_layouts_create_text',
 				array(
-					'description' => '<a href="#" class="porto_create_new_header_layout_link">' . esc_html__( 'Create a new header layout', 'porto' ) . '</a>',
+					'description' => '<a href="#" class="porto_create_new_header_layout_link button button-dark btn-block">' . esc_html__( 'New Header Layout', 'porto' ) . '</a>',
 					'section'     => 'porto_header_layouts',
 				)
 			)
@@ -207,6 +197,18 @@ class Porto_Header_Builder {
 			)
 		);
 
+		$header_layouts = array_merge( array( '' => __( 'Select Header Layout...', 'porto' ) ), $header_layouts );
+		$wp_customize->add_control(
+			'porto_header_layouts_select',
+			array(
+				'settings' => 'porto_header_builder[selected_layout]',
+				'label'    => __( 'Select a header layout to edit:', 'porto' ),
+				'section'  => 'porto_header_layouts',
+				'type'     => 'select',
+				'choices'  => $header_layouts,
+			)
+		);
+
 		$wp_customize->add_setting(
 			'porto_header_layouts_delete',
 			array(
@@ -220,7 +222,7 @@ class Porto_Header_Builder {
 				$wp_customize,
 				'porto_header_layouts_delete',
 				array(
-					'description' => '<a href="#" class="porto_delete_header_layout_link">' . esc_html__( 'Delete header layout', 'porto' ) . '</a>',
+					'description' => '<a href="#" class="porto_delete_header_layout_link button button-red"><i class="fas fa-trash-alt"></i></a>',
 					'section'     => 'porto_header_layouts',
 				)
 			)
@@ -407,7 +409,18 @@ class Porto_Header_Builder {
 		);
 
 		// html and porto block
-		$blocks = porto_get_post_type_items( 'block' );
+		$blocks = porto_get_post_type_items(
+			'porto_builder',
+			array(
+				'meta_query' => array(
+					array(
+						'key'     => 'porto_builder_type',
+						'value'   => 'block',
+					),
+				)
+			),
+			false
+		);
 		$wp_customize->add_control(
 			'porto_header_layouts_block_element',
 			array(

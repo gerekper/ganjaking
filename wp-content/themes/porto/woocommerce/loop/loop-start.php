@@ -82,6 +82,15 @@ switch ( $cols ) {
 		$cols_xs = 4;
 		$cols_ls = 2;
 		break;
+	case 9:
+		if ( porto_is_wide_layout( $porto_layout ) ) {
+			$cols    = 8;
+			$cols_xl = 9;
+		}
+		$cols_md = 7;
+		$cols_xs = 5;
+		$cols_ls = 3;
+		break;
 	default:
 		$cols    = 4;
 		$cols_md = 3;
@@ -305,7 +314,7 @@ if ( wc_get_loop_prop( 'is_shortcode' ) ) {
 	$classes[] = 'is-shortcode';
 }
 
-if ( '2' == $porto_settings['add-to-cart-notification'] && ! has_action( 'porto_after_wrapper', 'porto_woocommerce_add_to_cart_notification_html' ) ) {
+if ( $porto_settings['add-to-cart-notification'] && ! has_action( 'porto_after_wrapper', 'porto_woocommerce_add_to_cart_notification_html' ) ) {
 	add_action( 'porto_after_wrapper', 'porto_woocommerce_add_to_cart_notification_html' );
 }
 if ( 'list' == $view_mode || ( isset( $porto_settings['product-desc'] ) && $porto_settings['product-desc'] ) ) {

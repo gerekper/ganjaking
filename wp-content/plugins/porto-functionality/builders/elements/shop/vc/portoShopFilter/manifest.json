@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoShopFilter": {
+			"settings": {
+				"name": "Shop Builder - Filter Toggle",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display Filter toggle in Shop page"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoShopFilter"
+			]
+		}
+	}
+}

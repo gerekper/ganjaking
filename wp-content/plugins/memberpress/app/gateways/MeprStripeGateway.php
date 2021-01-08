@@ -1174,6 +1174,16 @@ class MeprStripeGateway extends MeprBaseRealGateway {
         $args = array_merge(['default_payment_method' => $customer->invoice_settings['default_payment_method']['id']], $args);
       }
 
+      $coupon = $sub->coupon();
+
+      if($coupon instanceof MeprCoupon) {
+        $discount_amount = $this->get_coupon_discount_amount($coupon, $prd, $sub->tax_rate);
+
+        if($discount_amount > 0) {
+          $args = array_merge(['coupon' => $this->get_coupon_id($coupon, $discount_amount)], $args);
+        }
+      }
+
       $endpoint = 'subscriptions';
     }
     else {
@@ -2775,24 +2785,10 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     $coupon = $sub->coupon();
 
     if($coupon instanceof MeprCoupon) {
-      $discount_amount = $coupon->get_discount_amount($prd);
+      $discount_amount = $this->get_coupon_discount_amount($coupon, $prd, $txn->tax_rate);
 
       if($discount_amount > 0) {
-        if($coupon->discount_type == 'percent') {
-          $discount_amount = MeprUtils::format_float($discount_amount);
-        }
-        else {
-          // When inclusive taxes are enabled we need to remove the tax from fixed discount coupons
-          if($txn->tax_rate > 0 && get_option('mepr_calculate_taxes', false) && $mepr_options->attr('tax_calc_type') == 'inclusive') {
-            $discount_amount = $discount_amount / (1 + ($txn->tax_rate / 100));
-          }
-
-          $discount_amount = MeprUtils::is_zero_decimal_currency() ? MeprUtils::format_float($discount_amount, 0) : MeprUtils::format_float($discount_amount * 100, 0);
-        }
-
-        if($discount_amount > 0) {
-          $args = array_merge(['coupon' => $this->get_coupon_id($coupon, $discount_amount)], $args);
-        }
+        $args = array_merge(['coupon' => $this->get_coupon_id($coupon, $discount_amount)], $args);
       }
     }
 
@@ -2804,6 +2800,39 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     $sub->store();
 
     return $subscription;
+  }
+
+  /**
+   * Get the discount amount for the given coupon
+   *
+   * @param  MeprCoupon  $coupon   The coupon being used
+   * @param  MeprProduct $product  The membership being purchased
+   * @param  string      $tax_rate The tax rate for the transaction
+   * @return string|int            The formatted discount amount or 0 if no discount
+   */
+  public function get_coupon_discount_amount(MeprCoupon $coupon, MeprProduct $product, $tax_rate) {
+    $mepr_options = MeprOptions::fetch();
+    $discount_amount = $coupon->get_discount_amount($product);
+
+    if($discount_amount > 0) {
+      if($coupon->discount_type == 'percent') {
+        $discount_amount = MeprUtils::format_float($discount_amount);
+      }
+      else {
+        // When inclusive taxes are enabled we need to remove the tax from fixed discount coupons
+        if($tax_rate > 0 && get_option('mepr_calculate_taxes', false) && $mepr_options->attr('tax_calc_type') == 'inclusive') {
+          $discount_amount = $discount_amount / (1 + ($tax_rate / 100));
+        }
+
+        $discount_amount = MeprUtils::is_zero_decimal_currency() ? MeprUtils::format_float($discount_amount, 0) : MeprUtils::format_float($discount_amount * 100, 0);
+      }
+
+      if($discount_amount > 0) {
+        return $discount_amount;
+      }
+    }
+
+    return 0;
   }
 
   /**

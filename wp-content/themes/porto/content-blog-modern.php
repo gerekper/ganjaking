@@ -16,6 +16,10 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 	$post_class[] = 'post-title-simple';
 }
 
+if ( isset( $el_class ) ) {
+	$post_class[] = esc_attr( $el_class );
+}
+
 $post_share = get_post_meta( get_the_ID(), 'post_share', true );
 
 $social_share = true;

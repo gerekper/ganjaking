@@ -337,7 +337,7 @@ class MeprTransactionsCtrl extends MeprBaseCtrl {
       $errors[] = __("The Transaction Number is required, and must contain only letters, numbers, underscores and hyphens.", 'memberpress');
     }
 
-    return $errors;
+    return MeprHooks::apply_filters('mepr-admin-transaction-validation-errors', $errors);
   }
 
   public function enqueue_scripts($hook) {

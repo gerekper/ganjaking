@@ -179,6 +179,22 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 		// Alter the array of data for a variation. Used in the add to cart form.
 		add_filter( 'woocommerce_available_variation', array( $this, 'woocommerce_available_variation' ), 10, 3 );
 
+		// Add the variable subscription product type to plugin checks
+		add_filter( 'wc_epo_variable_product_type', array( $this, 'wc_epo_variable_product_type' ), 10, 2 );
+
+	}
+
+	/**
+	 * Add the variable subscription product type to plugin checks
+	 *
+	 * @since 5.0.12.11
+	 */
+	public function wc_epo_variable_product_type( $type, $product ) {
+
+		$type[] = 'variable-subscription';
+
+		return $type;
+
 	}
 
 	/**
@@ -218,7 +234,9 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 	 */
 	public function wc_epo_script_args( $args ) {
 
-		$args["i18n_sign_up_fee"] = ( ! empty( THEMECOMPLETE_EPO()->tm_epo_subscription_fee_text ) ) ? THEMECOMPLETE_EPO()->tm_epo_subscription_fee_text : esc_html__( 'Sign up fee', 'woocommerce-tm-extra-product-options' );
+		$args["i18n_subscription_sign_up_fee"] = ( ! empty( THEMECOMPLETE_EPO()->tm_epo_subscription_fee_text ) ) ? THEMECOMPLETE_EPO()->tm_epo_subscription_fee_text : esc_html__( 'Sign up fee', 'woocommerce-tm-extra-product-options' );
+		$args["i18n_sign_up_fee"] = ( ! empty( THEMECOMPLETE_EPO()->tm_epo_signup_fee_text ) ) ? THEMECOMPLETE_EPO()->tm_epo_signup_fee_text : esc_html__( ' sign-up fee', 'woocommerce-tm-extra-product-options' );
+		$args["i18n_and_a"] = esc_html__( ' and a ', 'woocommerce-tm-extra-product-options' );
 
 		return $args;
 
@@ -233,6 +251,7 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 
 		if ( class_exists( 'WC_Subscriptions' ) ) {
 			$settings["tm_epo_subscription_fee_text"] = "";
+			$settings["tm_epo_signup_fee_text"] = "";
 		}
 
 		return $settings;
@@ -252,6 +271,8 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 		$data['data-variations-subscription-sign-up-fee'] = esc_html( wp_json_encode( (array) $args['variations_subscription_sign_up_fee'] ) );
 		$data['data-subscription-period']                 = esc_html( wp_json_encode( (array) $args['subscription_period'] ) );
 		$data['data-variations-subscription-period']      = esc_html( wp_json_encode( (array) $args['variations_subscription_period'] ) );
+		$data['data-ln-and-a']                            = __( ' and a ', 'woocommerce-tm-extra-product-options');
+		$data['data-ln-signup-fee']                       = __( ' sign-up fee', 'woocommerce-tm-extra-product-options');
 
 		THEMECOMPLETE_EPO_HTML()->create_attribute_list( $data );
 
@@ -271,15 +292,27 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 		if ( class_exists( 'WC_Subscriptions_Product' ) ) {
 			if ( WC_Subscriptions_Product::is_subscription( $product ) ) {
 				$is_subscription     = TRUE;
-				$subscription_period = WC_Subscriptions_Product::get_price_string(
-					$product,
-					array(
-						'subscription_price' => FALSE,
-						'sign_up_fee'        => FALSE,
-						'trial_length'       => FALSE,
-						'price'              => NULL,
-					)
-				);
+
+				if ( function_exists('wcs_get_subscription_period_strings')){
+					$billing_interval    = (int) WC_Subscriptions_Product::get_interval( $product );
+					$billing_period      = WC_Subscriptions_Product::get_period( $product );
+					$subscription_period = sprintf(
+						// translators: 1$: recurring amount, 2$: subscription period (e.g. "month" or "3 months") (e.g. "$15 / month" or "$15 every 2nd month").
+						_n( '%1$s / %2$s', '%1$s every %2$s', $billing_interval, 'woocommerce-tm-extra-product-options' ),
+						'',
+						wcs_get_subscription_period_strings( $billing_interval, $billing_period )
+					);
+				} else {
+					$subscription_period = WC_Subscriptions_Product::get_price_string(
+						$product,
+						array(
+							'subscription_price' => FALSE,
+							'sign_up_fee'        => FALSE,
+							'trial_length'       => FALSE,
+							'price'              => NULL,
+						)
+					);
+				}
 
 				$subscription_sign_up_fee = WC_Subscriptions_Product::get_sign_up_fee( $product );
 			}
@@ -337,7 +370,14 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 			                   'id'      => 'tm_epo_subscription_fee_text',
 			                   'default' => '',
 			                   'type'    => 'text',
-		                   )
+		),
+		array(
+			'title'   => esc_html__( 'Sign up fee text', 'woocommerce-tm-extra-product-options' ),
+			'desc'    => esc_html__( 'Enter the Sign up fee text or leave blank for default.', 'woocommerce-tm-extra-product-options' ),
+			'id'      => 'tm_epo_signup_fee_text',
+			'default' => '',
+			'type'    => 'text',
+		)
 		);
 		array_splice( $settings, count( $settings ) - 1, 0, $inserted );
 
@@ -526,7 +566,7 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 	 *
 	 * @since 5.0
 	 */
-	public final function wc_epo_builder_element_array_in_loop_before( $options = array(), $o, $ar, $name, $counter ) {
+	public final function wc_epo_builder_element_array_in_loop_before( $options = array(), $o = null, $ar = null, $name = null, $counter = null ) {
 
 		if ( isset( $options["price_type"][ $ar ] ) && $options["price_type"][ $ar ] === "subscriptionfee" ) {
 			$options["price_type"][ $ar ]      = '';
@@ -542,7 +582,7 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 	 *
 	 * @since 5.0
 	 */
-	public final function wc_epo_builder_element_array_in_loop_after( $o = array(), $options, $ar, $name, $counter ) {
+	public final function wc_epo_builder_element_array_in_loop_after( $o = array(), $options = null, $ar = null, $name = null, $counter = null ) {
 
 		if ( ! isset( $options["subscriptionfee"][ $ar ] ) ) {
 			$options["subscriptionfee"][ $ar ] = '';
@@ -575,7 +615,7 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 	 *
 	 * @since 5.0
 	 */
-	public final function wc_epo_builder_element_multiple_checkboxes_options_js_object( $js_object = array(), $d_counter, $o, $name, $counter ) {
+	public final function wc_epo_builder_element_multiple_checkboxes_options_js_object( $js_object = array(), $d_counter = null, $o = null, $name = null, $counter = null ) {
 
 		$js_object[ $d_counter ][] = array(
 			"id"      => $name . '_subscriptionfee',
@@ -597,7 +637,7 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 	 *
 	 * @since 5.0
 	 */
-	public final function wc_epo_obvalues( $obvalues = array(), $builder, $value, $current_builder, $_titles_base, $_option_key ) {
+	public final function wc_epo_obvalues( $obvalues = array(), $builder = null, $value = null, $current_builder = null, $_titles_base = null, $_option_key = null ) {
 
 		$_subscriptionfee_base = isset( $builder[ 'multiple_' . $value['id'] . '_subscriptionfee' ] )
 			? $builder[ 'multiple_' . $value['id'] . '_subscriptionfee' ]
@@ -637,7 +677,7 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 	 *
 	 * @since 5.0
 	 */
-	public final function wc_epo_cbvalues( $cbvalues = array(), $builder, $value, $current_builder, $_titles_base, $_option_key ) {
+	public final function wc_epo_cbvalues( $cbvalues = array(), $builder = null, $value = null, $current_builder = null, $_titles_base = null, $_option_key = null ) {
 
 		$_subscriptionfee_base = isset( $builder[ 'multiple_' . $value['id'] . '_subscriptionfee' ] )
 			? $builder[ 'multiple_' . $value['id'] . '_subscriptionfee' ]
@@ -779,12 +819,18 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 	 *
 	 * @since 4.8
 	 */
-	public function wc_epo_add_cart_item_data_loop( $cart_item_meta = array(), $field_obj, $tmcp_post_fields = array(), $element = array(), $field_loop = 0, $form_prefix = "", $product_id, $per_product_pricing, $cpf_product_price, $variation_id, $post_data ) {
+	public function wc_epo_add_cart_item_data_loop( $cart_item_meta = array(), $field_obj = null, $tmcp_post_fields = array(), $element = array(), $field_loop = 0, $form_prefix = "", $product_id = null, $per_product_pricing = null, $cpf_product_price = null, $variation_id = null, $post_data = array() ) {
 
 		$current_tmcp_post_fields = array_intersect_key(
 			$tmcp_post_fields,
 			array_flip(
-				THEMECOMPLETE_EPO()->get_post_names( $element['options'], $element['type'], $field_loop, $form_prefix, $this->subscription_fee_name )
+				THEMECOMPLETE_EPO()->get_post_names( 
+					$element['options'], 
+					$element['type'], 
+					$field_loop, 
+					$form_prefix, 
+					$this->subscription_fee_name 
+				)
 			)
 		);
 
@@ -1011,7 +1057,7 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 	 *
 	 * @since 4.8
 	 */
-	public function wc_epo_name_inc( $name_inc = "", $base_name_inc = "", $element = array(), $value, $choice_counter, $element_counter ) {
+	public function wc_epo_name_inc( $name_inc = "", $base_name_inc = "", $element = array(), $value = null, $choice_counter = null, $element_counter = null ) {
 
 		$is_subscription_fee = FALSE;
 
@@ -1034,8 +1080,8 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 						$key = 'selectbox_subscriptionfee';					
 					}
 					$builder_value = isset($element['builder'][ $key ])?$element['builder'][ $key ]:FALSE;
-					
-					$is_subscription_fee = ! empty( $builder_value ) && ! empty( $builder_value[0] );
+
+					$is_subscription_fee = ! empty( $builder_value ) && ! empty( $builder_value[ $element_counter ] );
 				}
 
 			} elseif ( THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "multipleall" || THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "multiple" ) {
@@ -1060,12 +1106,12 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 			}
 
 		}	
-
+		
 		if ( $is_subscription_fee ) {
 			$subscription_fee_name = $this->subscription_fee_name;
 			$name_inc              = $subscription_fee_name . $name_inc;
 		}
-
+		
 		return $name_inc;
 
 	}
@@ -1075,31 +1121,29 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 	 *
 	 * @since 4.8
 	 */
-	public function wc_epo_display_template_args( $args = array(), $element = array(), $value, $choice_counter, $element_counter ) {
+	public function wc_epo_display_template_args( $args = array(), $element = array(), $value = null, $choice_counter = null, $element_counter = null ) {
 
 		$is_subscription_fee = FALSE;
 
 		if ( THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["is_post"] == "post" ) {
 
-
 			if ( THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "single" || THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "multipleallsingle" || THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "multiplesingle" ) {
 
 				if ( THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "single" || THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "multipleallsingle" ) {
-					
+
 					$key = $element['type'] . '_subscriptionfee';
 					$builder_value = isset($element['builder'][ $key ])?$element['builder'][ $key ]:FALSE;
 
 					$is_subscription_fee = ! empty( $builder_value ) && ! empty( $builder_value[0] );
-				
+
 				} elseif ( THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "multiplesingle" ) {
-					
+
 					$key = $element['type'] . '_subscriptionfee';
 					if ( $element['type'] === "select" ){
 						$key = 'selectbox_subscriptionfee';					
 					}
 					$builder_value = isset($element['builder'][ $key ])?$element['builder'][ $key ]:FALSE;
-					
-					$is_subscription_fee = ! empty( $builder_value ) && ! empty( $builder_value[0] );
+					$is_subscription_fee = ! empty( $builder_value ) && ! empty( $builder_value[ $element_counter ] );
 				}
 
 			} elseif ( THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "multipleall" || THEMECOMPLETE_EPO()->tm_builder_elements[ $element['type'] ]["type"] == "multiple" ) {

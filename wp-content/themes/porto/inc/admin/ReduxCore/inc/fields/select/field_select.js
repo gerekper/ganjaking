@@ -40,7 +40,7 @@
                             default_params.width = "100%";
                         }
 
-                        if ( $( this ).siblings( '.select2_params' ).size() > 0 ) {
+                        if ( $( this ).siblings( '.select2_params' ).length ) {
                             var select2_params = $( this ).siblings( '.select2_params' ).val();
                             select2_params = JSON.parse( select2_params );
                             default_params = $.extend( {}, default_params, select2_params );

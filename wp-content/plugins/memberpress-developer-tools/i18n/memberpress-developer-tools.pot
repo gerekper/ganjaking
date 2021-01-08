@@ -2,19 +2,21 @@
 # This file is distributed under the same license as the MemberPress Developer Tools plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MemberPress Developer Tools 1.1.41\n"
+"Project-Id-Version: MemberPress Developer Tools 1.1.42\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-developer-tools\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-10-19T10:46:07-05:00\n"
+"POT-Creation-Date: 2020-12-15T18:43:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
-"X-Domain: memberpress-dev-tools\n"
+"X-Domain: memberpress-developer-tools\n"
 
 #. Plugin Name of the plugin
+#: app/views/admin.php:6
+#: main.php:61
 msgid "MemberPress Developer Tools"
 msgstr ""
 
@@ -32,4 +34,2013 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "http://caseproof.com/"
+msgstr ""
+
+#: app/api/MpdtSubscriptionsApi.php:45
+#: app/api/MpdtSubscriptionsApi.php:93
+msgid "There was a problem retrieving this subscription."
+msgstr ""
+
+#: app/api/MpdtSubscriptionsApi.php:49
+msgid "The subscription must have a status of 'active' before it can be cancelled."
+msgstr ""
+
+#: app/api/MpdtSubscriptionsApi.php:66
+#: app/docs/routes/subscriptions.php:18
+msgid "The subscription was successfully cancelled."
+msgstr ""
+
+#: app/api/MpdtSubscriptionsApi.php:111
+#: app/docs/routes/subscriptions.php:36
+msgid "This subscription is now expired."
+msgstr ""
+
+#: app/api/MpdtTransactionsApi.php:65
+#: app/api/MpdtTransactionsApi.php:115
+msgid "There was a problem retrieving this transaction."
+msgstr ""
+
+#: app/api/MpdtTransactionsApi.php:69
+#: app/api/MpdtTransactionsApi.php:119
+msgid "The transaction must have a status of 'complete' before it can be refunded."
+msgstr ""
+
+#: app/api/MpdtTransactionsApi.php:75
+#: app/api/MpdtTransactionsApi.php:130
+msgid "There was a problem refunding your transaction."
+msgstr ""
+
+#: app/api/MpdtTransactionsApi.php:89
+#: app/docs/routes/transactions.php:18
+msgid "The transaction was successfully refunded."
+msgstr ""
+
+#: app/api/MpdtTransactionsApi.php:144
+#: app/docs/routes/transactions.php:36
+msgid "The transaction was successfully refunded and it's associated subscription was cancelled."
+msgstr ""
+
+#: app/controllers/MpdtAdminCtrl.php:15
+#: app/controllers/MpdtAdminCtrl.php:16
+msgid "Developer"
+msgstr ""
+
+#: app/controllers/MpdtAdminCtrl.php:65
+msgid "default value:"
+msgstr ""
+
+#: app/controllers/MpdtAdminCtrl.php:90
+msgid "Your Webhooks have been saved."
+msgstr ""
+
+#: app/controllers/MpdtAdminCtrl.php:118
+msgid "Select which events should be pushed to this Webhook"
+msgstr ""
+
+#: app/controllers/MpdtApiCtrl.php:82
+#: app/controllers/MpdtWebhooksCtrl.php:122
+#: app/controllers/MpdtWebhooksCtrl.php:181
+msgid "Error: You are unauthorized."
+msgstr ""
+
+#: app/controllers/MpdtApiCtrl.php:87
+#: app/controllers/MpdtWebhooksCtrl.php:127
+#: app/controllers/MpdtWebhooksCtrl.php:186
+msgid "Error: No event was specified."
+msgstr ""
+
+#: app/controllers/MpdtApiCtrl.php:95
+#: app/controllers/MpdtWebhooksCtrl.php:135
+#: app/controllers/MpdtWebhooksCtrl.php:194
+msgid "Error: Invalid event."
+msgstr ""
+
+#: app/controllers/MpdtWebhooksCtrl.php:161
+msgid "Event %s was successfully sent to webhooks"
+msgstr ""
+
+#: app/controllers/MpdtWebhooksCtrl.php:174
+msgid "Unknown event type"
+msgstr ""
+
+#: app/docs/routes/base.php:5
+#: app/docs/routes/base.php:20
+msgid "Get %s"
+msgstr ""
+
+#: app/docs/routes/base.php:6
+msgid "Get all %s based on the search arguments provided."
+msgstr ""
+
+#: app/docs/routes/base.php:11
+#: app/docs/routes/base.php:25
+#: app/docs/routes/base.php:26
+#: app/docs/routes/base.php:40
+#: app/docs/routes/base.php:55
+#: app/docs/routes/base.php:70
+#: app/docs/routes/base.php:71
+#: app/docs/routes/general.php:11
+#: app/docs/routes/general.php:12
+#: app/docs/routes/general.php:22
+#: app/docs/routes/general.php:48
+#: app/docs/routes/general.php:49
+#: app/docs/routes/general.php:50
+#: app/docs/routes/subscriptions.php:10
+#: app/docs/routes/subscriptions.php:11
+#: app/docs/routes/subscriptions.php:28
+#: app/docs/routes/subscriptions.php:29
+#: app/docs/routes/transactions.php:10
+#: app/docs/routes/transactions.php:11
+#: app/docs/routes/transactions.php:28
+#: app/docs/routes/transactions.php:29
+msgid "None"
+msgstr ""
+
+#: app/docs/routes/base.php:12
+#: app/docs/routes/base.php:27
+#: app/docs/routes/base.php:42
+#: app/docs/routes/base.php:57
+#: app/docs/routes/base.php:72
+#: app/docs/routes/general.php:13
+#: app/docs/routes/general.php:39
+#: app/docs/routes/subscriptions.php:12
+#: app/docs/routes/subscriptions.php:30
+#: app/docs/routes/transactions.php:12
+#: app/docs/routes/transactions.php:30
+msgid "JSON"
+msgstr ""
+
+#: app/docs/routes/base.php:21
+msgid "Get one %s with a given id."
+msgstr ""
+
+#: app/docs/routes/base.php:35
+msgid "Create %s"
+msgstr ""
+
+#: app/docs/routes/base.php:36
+msgid "Create a %s with the given field values."
+msgstr ""
+
+#: app/docs/routes/base.php:50
+msgid "Update %s"
+msgstr ""
+
+#: app/docs/routes/base.php:51
+msgid "Update a %s with the given id and field values."
+msgstr ""
+
+#: app/docs/routes/base.php:65
+msgid "Delete %s"
+msgstr ""
+
+#: app/docs/routes/base.php:66
+msgid "Delete a %s with the given id."
+msgstr ""
+
+#: app/docs/routes/general.php:6
+msgid "Me"
+msgstr ""
+
+#: app/docs/routes/general.php:7
+msgid "Test MemberPress REST endpoint Authentication. Returns a status of 200 on success and 401 on failure."
+msgstr ""
+
+#: app/docs/routes/general.php:17
+msgid "Webhooks Subscribe"
+msgstr ""
+
+#: app/docs/routes/general.php:18
+msgid "Subscribe to any or all of MemberPress Developer Tools webhook(s). Returns a 409 Error on failure."
+msgstr ""
+
+#: app/docs/routes/general.php:25
+msgid "URL"
+msgstr ""
+
+#: app/docs/routes/general.php:27
+#: app/docs/routes/general.php:33
+#: app/docs/update_args/coupons.php:83
+#: app/docs/update_args/events.php:8
+#: app/docs/update_args/events.php:22
+#: app/docs/update_args/events.php:29
+#: app/docs/update_args/members.php:22
+#: app/docs/update_args/members.php:29
+#: app/docs/update_args/memberships.php:8
+#: app/docs/update_args/subscriptions.php:30
+#: app/docs/update_args/subscriptions.php:37
+#: app/docs/update_args/subscriptions.php:138
+#: app/docs/update_args/subscriptions.php:146
+#: app/docs/update_args/transactions.php:50
+#: app/docs/update_args/transactions.php:57
+msgid "Required"
+msgstr ""
+
+#: app/docs/routes/general.php:28
+msgid "The url where the webhook will send the request."
+msgstr ""
+
+#: app/docs/routes/general.php:31
+#: app/docs/update_args/events.php:5
+msgid "Event"
+msgstr ""
+
+#: app/docs/routes/general.php:35
+msgid "The Webhook will be triggered by and send data for this Event."
+msgstr ""
+
+#: app/docs/routes/general.php:43
+msgid "Webhooks Unsubscribe"
+msgstr ""
+
+#: app/docs/routes/general.php:44
+msgid "Unsubscribe from any webhook. Returns a 409 Error on failure."
+msgstr ""
+
+#: app/docs/routes/subscriptions.php:5
+msgid "Cancel Subscription"
+msgstr ""
+
+#: app/docs/routes/subscriptions.php:6
+msgid "Cancel a given subscription."
+msgstr ""
+
+#: app/docs/routes/subscriptions.php:23
+msgid "Expire Subscription"
+msgstr ""
+
+#: app/docs/routes/subscriptions.php:24
+msgid "Expire all unexpired transactions associated with the Subscription."
+msgstr ""
+
+#: app/docs/routes/transactions.php:5
+msgid "Refund Transaction"
+msgstr ""
+
+#: app/docs/routes/transactions.php:6
+msgid "Refund a given transaction."
+msgstr ""
+
+#: app/docs/routes/transactions.php:23
+msgid "Refund Transaction & Cancel Subscription"
+msgstr ""
+
+#: app/docs/routes/transactions.php:24
+msgid "Refund a given transaction and cancel its associated subscription."
+msgstr ""
+
+#: app/docs/search_args/base.php:6
+msgid "Current page of the collection."
+msgstr ""
+
+#: app/docs/search_args/base.php:12
+msgid "Maximum number of items to be returned in result set."
+msgstr ""
+
+#: app/docs/search_args/base.php:18
+msgid "Limit results to those matching a string."
+msgstr ""
+
+#: app/docs/search_args/coupons.php:6
+msgid "Grab the coupon with the given code."
+msgstr ""
+
+#: app/docs/search_args/events.php:6
+msgid "Limit results to those matching a specific named event."
+msgstr ""
+
+#: app/docs/search_args/members.php:6
+msgid "Limit results to those matching a string. Can only search by email or username."
+msgstr ""
+
+#: app/docs/search_args/memberships.php:6
+msgid "Limit results to those matching a specific group."
+msgstr ""
+
+#: app/docs/search_args/subscriptions.php:6
+msgid "Limit results to subscriptions of a specific member."
+msgstr ""
+
+#: app/docs/search_args/subscriptions.php:11
+msgid "Limit results to subscriptions for a specific membership."
+msgstr ""
+
+#: app/docs/search_args/subscriptions.php:16
+msgid "Limit results to subscriptions created with a specific coupon."
+msgstr ""
+
+#: app/docs/search_args/subscriptions.php:21
+msgid "Limit results to subscriptions with a given status."
+msgstr ""
+
+#: app/docs/search_args/subscriptions.php:26
+msgid "Limit results to subscriptions created with a specific payment gateway."
+msgstr ""
+
+#: app/docs/search_args/transactions.php:6
+msgid "Limit results to transactions of a specific member."
+msgstr ""
+
+#: app/docs/search_args/transactions.php:11
+msgid "Limit results to transactions for a specific membership."
+msgstr ""
+
+#: app/docs/search_args/transactions.php:16
+msgid "Limit results to transactions created with a specific coupon."
+msgstr ""
+
+#: app/docs/search_args/transactions.php:21
+msgid "Limit results to transactions with a given status."
+msgstr ""
+
+#: app/docs/search_args/transactions.php:26
+msgid "Limit results to transactions created with a specific payment gateway."
+msgstr ""
+
+#: app/docs/search_args/transactions.php:31
+msgid "Limit results to transactions associated with a specific subscription"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:7
+msgid "Coupon Code"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:11
+msgid "This is the coupon code to be associated with the coupon. This should be a unique code with no spaces or special characters other than '-'. If spaces are present the value will be accepted but MemberPress will replace them with dashes. Also, if this value is left blank, MemberPress will automatically generate a unique code for this coupon."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:14
+msgid "Coupon Description"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:18
+msgid "This is the coupon description. This field can be used to add notes to coupon so admin can have an idea of what this coupon offers"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:21
+msgid "Start Coupon"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:25
+msgid "Set this to true if you want the coupon to start sometime in the future."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:28
+msgid "Expire Coupon"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:32
+msgid "Set this to true if you want the coupon to expire sometime in the future."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:35
+msgid "Start Coupon On Date"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:38
+msgid "Required if 'should_start' is true"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:39
+msgid "Set this to the unix timestamp of when you'd like the coupon to start."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:42
+msgid "Expire Coupon On Date"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:45
+msgid "Required if 'should_expire' is true"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:46
+msgid "Set this to the unix timestamp of when you'd like the coupon to expire."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:49
+msgid "Allowed on Upgrades"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:53
+msgid "If this is enabled, this coupon may be used on Subscription Upgrades within an upgrade path Group."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:56
+msgid "Limit Coupon Usage"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:59
+#: app/docs/update_args/coupons.php:114
+msgid "0 or more"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:61
+msgid "Set this to a number greater than zero if you want to limit the number of times the coupon can be used."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:64
+msgid "Discount Type"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:68
+#: app/docs/update_args/coupons.php:99
+#: app/docs/update_args/groups.php:37
+msgid "' or '"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:69
+msgid "This will alter the way MemberPress interprets the 'discount_amount' to either be a percentage or fixed amount."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:72
+msgid "Discount Amount"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:76
+#: app/docs/update_args/coupons.php:107
+#: app/docs/update_args/coupons.php:122
+msgid "0.00 or more"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:77
+msgid "The amount of the discount. Depending on what 'discount_type' is set to, this can either be a fixed amount or a percentage."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:80
+msgid "Valid Memberships"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:84
+msgid "You can set an array of membership ids here that the coupon will apply to."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:87
+msgid "Discount Mode"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:92
+msgid "Set the discount type. Can be set to standard, trial-override, or first-payment. If set to standard, the discount will apply to all payments for the life of the subscription. If set to first-payment, the discount will apply only to the first payment in an automatically recurring subscription -- this is accomplished by overriding the trial period on the membership. If set to trial-override, it will also override the trial period on recurring membership subscriptions."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:95
+msgid "First Payment Discount Type"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:100
+msgid "This value is ignored if the discount_mode is anything other than \"first-payment\". This will alter the way MemberPress interprets the \"first_payment_discount_amount\" to either be a percentage or fixed amount. Only applies to recurring subscriptions."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:103
+msgid "First Payment Discount Amount"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:108
+msgid "This value is ignored if the discount_mode is anything other than \"first-payment\". The amount of the discount for the first payment of a recurring subscription. Depending on what 'discount_type' is set to, this can either be a fixed amount or a percentage."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:111
+msgid "Number of Days in Trial Period"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:116
+msgid "Set the number of trial days. Only used for recurring subscriptions and if discount_mode is set to trial-override."
+msgstr ""
+
+#: app/docs/update_args/coupons.php:119
+msgid "Amount Charged for Trial"
+msgstr ""
+
+#: app/docs/update_args/coupons.php:124
+msgid "Set the amount of the trial period. Only used for recurring subscriptions and if discount_mode is set to trial-override."
+msgstr ""
+
+#: app/docs/update_args/events.php:9
+msgid "This is a string \"slug\" for your event type. We recommend using a naming convention such as \"login\" or \"subscription-changed\" etc."
+msgstr ""
+
+#: app/docs/update_args/events.php:12
+msgid "Arguments"
+msgstr ""
+
+#: app/docs/update_args/events.php:16
+msgid "Any arguments that will be useful for you when recalling this event at some point in the future. For example, when a reminder is sent out in MemberPress we store the ID of the Reminder Custom Post Type as an argument."
+msgstr ""
+
+#: app/docs/update_args/events.php:19
+msgid "Event ID"
+msgstr ""
+
+#: app/docs/update_args/events.php:23
+msgid "An ID for the event. For example, if your evt_id_type was set to \"users\", then this would be the integer ID for the User account."
+msgstr ""
+
+#: app/docs/update_args/events.php:26
+msgid "Event ID Type"
+msgstr ""
+
+#: app/docs/update_args/events.php:30
+msgid "The type associated with the evt_id. So for example if your evt_id was the id of a Transaction, then the id type should be \"transactions\""
+msgstr ""
+
+#: app/docs/update_args/groups.php:5
+msgid "Group Title"
+msgstr ""
+
+#: app/docs/update_args/groups.php:9
+msgid "This is the title of the Group."
+msgstr ""
+
+#: app/docs/update_args/groups.php:12
+msgid "Group Content"
+msgstr ""
+
+#: app/docs/update_args/groups.php:16
+msgid "This content will appear above the Group pricing table. You can customize the position of the pricing table simply by including the shortcode: [mepr-group-price-boxes] in the content here wherever you want."
+msgstr ""
+
+#: app/docs/update_args/groups.php:19
+msgid "Disable Pricing Page"
+msgstr ""
+
+#: app/docs/update_args/groups.php:23
+msgid "This will disable the Group pricing page when set to true. When visitors try to go to the Group pricing page they'll get a 404 error if this is set to true."
+msgstr ""
+
+#: app/docs/update_args/groups.php:26
+msgid "Is this Group an Upgrade Path?"
+msgstr ""
+
+#: app/docs/update_args/groups.php:30
+#: app/docs/update_args/groups.php:38
+msgid "When set to true, MemberPress may apply a proration when users switch subscriptions within the group."
+msgstr ""
+
+#: app/docs/update_args/groups.php:33
+msgid "Group Theme"
+msgstr ""
+
+#: app/docs/update_args/groups.php:41
+msgid "Custom Button CSS Class"
+msgstr ""
+
+#: app/docs/update_args/groups.php:45
+msgid "This class will be added to the buttons of the pricing page."
+msgstr ""
+
+#: app/docs/update_args/groups.php:48
+msgid "Custom Higlighted Button CSS Class"
+msgstr ""
+
+#: app/docs/update_args/groups.php:52
+msgid "This class will be added to any highlighted buttons on the pricing page."
+msgstr ""
+
+#: app/docs/update_args/groups.php:55
+msgid "Custom Disabled Button CSS Class"
+msgstr ""
+
+#: app/docs/update_args/groups.php:59
+msgid "This class will be added to any disabled buttons on the pricing page."
+msgstr ""
+
+#: app/docs/update_args/groups.php:62
+msgid "Alternate Group URL"
+msgstr ""
+
+#: app/docs/update_args/groups.php:66
+msgid "Empty or a valid URL"
+msgstr ""
+
+#: app/docs/update_args/groups.php:67
+msgid "If not left blank then this url will override the current group pricing page URL."
+msgstr ""
+
+#: app/docs/update_args/groups.php:70
+msgid "Use custom page template"
+msgstr ""
+
+#: app/docs/update_args/groups.php:74
+msgid "If checked then MemberPress will attempt to load the page with a custom page template."
+msgstr ""
+
+#: app/docs/update_args/groups.php:77
+msgid "Custom page template"
+msgstr ""
+
+#: app/docs/update_args/groups.php:80
+msgid "Required if 'use_custom_template' is true"
+msgstr ""
+
+#: app/docs/update_args/groups.php:81
+msgid "Any valid page template"
+msgstr ""
+
+#: app/docs/update_args/groups.php:82
+msgid "If 'use_custom_template' is checked then this value will be used as the page template for the Group pricing page."
+msgstr ""
+
+#: app/docs/update_args/members.php:5
+msgid "First Name"
+msgstr ""
+
+#: app/docs/update_args/members.php:9
+msgid "The User's First Name."
+msgstr ""
+
+#: app/docs/update_args/members.php:12
+msgid "Last Name"
+msgstr ""
+
+#: app/docs/update_args/members.php:16
+msgid "The User's Last Name."
+msgstr ""
+
+#: app/docs/update_args/members.php:19
+msgid "Email Address"
+msgstr ""
+
+#: app/docs/update_args/members.php:23
+msgid "The User's Email Address."
+msgstr ""
+
+#: app/docs/update_args/members.php:26
+msgid "Username"
+msgstr ""
+
+#: app/docs/update_args/members.php:30
+msgid "The username for this User. If you're using email addresses as the Username, then both username and email should be set to the same string."
+msgstr ""
+
+#: app/docs/update_args/members.php:33
+msgid "Plaintext Password"
+msgstr ""
+
+#: app/docs/update_args/members.php:37
+msgid "A plaintext password which will be hashed and stored with this user. If creating and a password is not provided then a random password will be automatically generated for the member on create. If updating and a password is not provided then it will remain as is."
+msgstr ""
+
+#: app/docs/update_args/members.php:54
+msgid "Transaction"
+msgstr ""
+
+#: app/docs/update_args/members.php:58
+msgid "Works only when creating a new Member. This is an array conforming to the documentation for the \"Create Transaction\" API route (except the \"member\" parameter will be ignored in favor of the id of the newly created member). This will create an initial transaction for the member to add them to a specific membership."
+msgstr ""
+
+#: app/docs/update_args/members.php:61
+#: app/docs/update_args/transactions.php:112
+msgid "Send Welcome Email"
+msgstr ""
+
+#: app/docs/update_args/members.php:65
+msgid "Works only when creating a new Member and if a transaction has been specified. When set to true this will trigger a welcome email to send to the new member. If the user has already received a welcome email, and the membership this transaction is for does not have its own welcome email configured, then no email will be sent."
+msgstr ""
+
+#: app/docs/update_args/members.php:68
+msgid "Send Password Email"
+msgstr ""
+
+#: app/docs/update_args/members.php:72
+msgid "Works only when creating a new Member. When set to true this will trigger a standard WordPress password recovery email to be sent to the new member."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:5
+msgid "Membership Title"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:9
+msgid "The title of the Membership."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:12
+msgid "Membership Price"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:16
+msgid "The base price for the Membership."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:19
+msgid "Membership Period"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:23
+msgid "The Period for the Membership billing cycles. For one-time payments leave this set to 1. If you wanted to bill the customer once a quarter, you would set this to 3 and the period_type to months. There are some limitations depending on the period_type."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:26
+msgid "Membership Period Type"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:30
+msgid "The billing period type. For non-recurring payments this should always be set to \"lifetime\". Other possible values are \"weeks\", \"months\" and \"years\". There are some limitations depending on the period."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:33
+msgid "Signup Button Text"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:37
+msgid "The text shown on the submit button shown on this Membership's registration form."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:40
+#: app/docs/update_args/subscriptions.php:90
+msgid "Enable Limited Billing Cycles"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:44
+#: app/docs/update_args/subscriptions.php:94
+msgid "Whether or not to limit the billing cycles for recurring membership payments. If set to true, MemberPress will cancel the recurring payments after the limit_cycles_num amount has been reached."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:47
+#: app/docs/update_args/subscriptions.php:97
+msgid "Limited Billing Cycles Number"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:51
+#: app/docs/update_args/subscriptions.php:101
+msgid "If limit_cycles is true, then this number is used to determine how many recurring billings should happen before MemberPress automatically cancels the Subscription. If set to 1, the Subscription will be cancelled immediately after the first payment has come through, however the member will maintain access until their Transaction has expired."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:54
+#: app/docs/update_args/subscriptions.php:104
+msgid "Limited Billing Cycles Action"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:58
+#: app/docs/update_args/subscriptions.php:108
+msgid "expire or lifetime"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:59
+#: app/docs/update_args/subscriptions.php:109
+msgid "If limit_cycles is enabled, then this will determine the Member's access after their Subscription has reached its limit_cycles_num limit and has been cancelled. If set to \"expire\" then the Member will lose access after their last Transaction expires. If set to \"lifetime\", the Member will be granted lifetime access."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:62
+#: app/docs/update_args/subscriptions.php:114
+msgid "Enable Trial Period"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:66
+msgid "Whether or not there will be a trial period on this Membership. Trial periods ONLY work on auto-recurring payments."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:69
+#: app/docs/update_args/subscriptions.php:121
+msgid "Trial Period Days"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:73
+#: app/docs/update_args/subscriptions.php:125
+msgid "How many days the trial period should last before the regular billing cycles begin."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:76
+#: app/docs/update_args/subscriptions.php:128
+msgid "Trial Period Amount"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:80
+msgid "If a trial period is enabled, this specifies how much the user will pay for the trial period."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:83
+msgid "Group ID"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:87
+msgid "The ID of a MemberPress Group which this Membership should belong to. Defaults to no Group."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:90
+msgid "Group Order"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:94
+msgid "If the Membership belongs to a Group, this will determine its placement on the Group page and is also used to determine the Upgrade/Downgrade paths."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:97
+msgid "Group Pricing Box - Highlighted"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:101
+msgid "Whether or not to highlight this Membership in the Group. This adds extra CSS classes to make the Group pricing/features box stand out from the others."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:106
+msgid "Group Pricing Box - Title"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:110
+msgid "The title that shows at the top of the pricing box on a Group page."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:120
+msgid "Group Pricing Box - Price Display"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:124
+msgid "How to display the price on this Membership's pricing box on the Group page."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:127
+msgid "Group Pricing Box - Heading Text"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:131
+msgid "A heading to show on this pricing box. Shows below price, but above features/benefits list."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:134
+msgid "Group Pricing Box - Footer Text"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:138
+msgid "Show a message at the foot of the pricing box. Shows right above the purchase button."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:141
+msgid "Group Pricing Box - Button Text"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:145
+msgid "The text of the purchase button."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:148
+msgid "Group Pricing Box - Features/Benefits List"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:152
+msgid "An array of strings. Each string will show as a line-item on the pricing box on the Group page."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:155
+msgid "Register Price String"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:159
+msgid "A custom pricing string for this Membership. This is only used if register_price_action is set to \"custom\"."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:162
+msgid "Register Price Action"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:166
+msgid "default, custom, or hidden"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:167
+msgid "Whether to use the default pricing string generated by MemberPress, a custom pricing string, or to hide the pricing string completely."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:170
+msgid "Enable Custom Thank You Page Message"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:174
+msgid "If set to true, the content on the Thank You page will be overridden with the message contained in thank_you_message value."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:177
+msgid "Thank You Page Message"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:181
+msgid "A string containing the Custom Thank You Page Message which is shown on the Thank You page anytime this Membership is purchased. thank_you_page_enabled must be set to true before this will be shown."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:184
+msgid "Enable Custom Login URLs"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:188
+msgid "If set to true, you can modify the login redirection by using the custom_login_urls_default and/or the custom_login_urls to control where a member is taken to after logging in."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:191
+msgid "Default Login Redirection URL For This Membership"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:195
+msgid "The URL the member will be redirected to by deafult when logging in if they have purchased this Membership. This overrides the global Login Redirect URL set in MemberPress -> Options."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:198
+msgid "Custom Login Redirect URLs"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:202
+msgid "An array of standard objects. Each object should have \\$obj->url and \\$obj->count. url is the URL the user should be redirected to when logging in, and count is the number of times they've logged in. So for example, if you wanted to take your user to a specific landing page on their 4th login attempt, you would set the url to the landing page, and the count to 4."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:205
+msgid "Membership Expiration Type"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:209
+msgid "none, delay, or fixed"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:210
+msgid "If the Membership is a one-time payment (not auto-recurring), then you can set if/when it should expire. A value of none means it will be good for a lifetime. A value of delay means it expires at some delayed point in the future (example: 6 months). And a value of fixed means it will expire on a fixed date in the future (example December 31st 2019). Note: this does not work on recurring Memberships."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:213
+msgid "Expire Membership After"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:217
+msgid "If the expire_type is set to \"delay\", use this to determine how many expire_unit's before the Membership expires. This should be a number (example \"6\", for 6 days/months/weeks/years)."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:220
+msgid "Expire Membership Unit"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:224
+#: app/docs/update_args/rules.php:80
+#: app/docs/update_args/rules.php:117
+msgid "days, weeks, months, or years"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:225
+msgid "If the expire_type is set to \"delay\", use this to set the unit for the expire_after value. For example, if expire_after was set to \"6\" and this was set to \"months\", then the Membership would expire 6 months after the date the Member registered."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:228
+msgid "Expire Membership Fixed Date"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:232
+msgid "If the expire_type is set to \"fixed\", then set this to the string of the date on which this Membership should expire. You can use any date format which PHP's strtotime() function can understand."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:235
+msgid "Tax Exempt"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:239
+msgid "Should this Membership be exempt from taxes or not."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:242
+msgid "Allow Renewals"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:246
+msgid "Allow Members to renew one-time payments before they have expired. Note: this only works on one-time payment Memberships which have a \"delay\" expire_type value."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:249
+msgid "Membership Access URL"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:253
+msgid "Use this to add a URL which should be used as the page the member can access the content for this Membership subscription."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:258
+msgid "Allow Simultaneous Subscriptions"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:262
+msgid "Allow Members to have multiple active Subscriptions to this Product simultaneously. Note: Do not use this if allow_renewal is set to true."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:265
+msgid "Use Custom Template"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:269
+msgid "Whether or not to use a Custom Page Template for this Membership page."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:272
+msgid "Custom Page Template Path"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:276
+msgid "The relative path to your template file."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:279
+msgid "Customize Payment Methods"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:283
+msgid "Allow Payment Methods to be disabled on this Membership. A disabled payment method cannot be used by a Member at checkout."
+msgstr ""
+
+#: app/docs/update_args/memberships.php:286
+msgid "Custom Payment Methods"
+msgstr ""
+
+#: app/docs/update_args/memberships.php:290
+msgid "If customize_payment_methods is true, then this must be an array of the valid payment method ID's for this Membership. Note: If filtering valid payment methods, this MUST have at least one gateway ID."
+msgstr ""
+
+#: app/docs/update_args/reminders.php:5
+msgid "Reminder Trigger Length"
+msgstr ""
+
+#: app/docs/update_args/reminders.php:9
+msgid "The number of trigger_interval units for this reminder."
+msgstr ""
+
+#: app/docs/update_args/reminders.php:12
+msgid "Reminder Trigger Inverval Type"
+msgstr ""
+
+#: app/docs/update_args/reminders.php:16
+msgid "hours, days, weeks, months, years"
+msgstr ""
+
+#: app/docs/update_args/reminders.php:17
+msgid "The interval type for this Reminder's trigger. Used in conjunction with trigger_length. If you wanted to send a Reminder 1 week before a Subscription expires then you'd set trigger_length to 1, trigger_interval to \"weeks\", and trigger_timing to \"before\"."
+msgstr ""
+
+#: app/docs/update_args/reminders.php:20
+msgid "Reminder Trigger Timing"
+msgstr ""
+
+#: app/docs/update_args/reminders.php:24
+msgid "Whether this reminder should happen before or after the event has occurred."
+msgstr ""
+
+#: app/docs/update_args/reminders.php:27
+msgid "Reminder Trigger Event"
+msgstr ""
+
+#: app/docs/update_args/reminders.php:31
+msgid "sub-expires, cc-expires, member-signup, signup-abandoned, sub-renews"
+msgstr ""
+
+#: app/docs/update_args/reminders.php:32
+msgid "The event which should trigger this Reminder to be sent out."
+msgstr ""
+
+#: app/docs/update_args/rules.php:5
+msgid "Title"
+msgstr ""
+
+#: app/docs/update_args/rules.php:9
+msgid "The title of Rule you are creating."
+msgstr ""
+
+#: app/docs/update_args/rules.php:12
+msgid "Rule Type"
+msgstr ""
+
+#: app/docs/update_args/rules.php:16
+msgid "all, custom, all_tax_* (* = TAXONOMY), all_* (* = CPT), single_* (* = CPT), parent_* (* = CPT), category, tag, partial, or ?"
+msgstr ""
+
+#: app/docs/update_args/rules.php:17
+msgid "The type of Rule you are creating."
+msgstr ""
+
+#: app/docs/update_args/rules.php:20
+msgid "Rule Content"
+msgstr ""
+
+#: app/docs/update_args/rules.php:24
+msgid "The ID of the rule_type being protected. For example, if you protect a Single Page, then you would set this to the ID of that page. If you protect an entire category, then you would set this to the ID of that category."
+msgstr ""
+
+#: app/docs/update_args/rules.php:27
+msgid "Use Regular Expression"
+msgstr ""
+
+#: app/docs/update_args/rules.php:31
+msgid "Whether to use Regular Expression matching on \"custom\" (aka Custom URI) rule_type's."
+msgstr ""
+
+#: app/docs/update_args/rules.php:34
+msgid "Memberships With Access"
+msgstr ""
+
+#: app/docs/update_args/rules.php:38
+msgid "An array of Membership ID's which grant the Member(s) active on the Membership(s) access to the Content being protected by this Rule."
+msgstr ""
+
+#: app/docs/update_args/rules.php:41
+msgid "Members With Access"
+msgstr ""
+
+#: app/docs/update_args/rules.php:45
+msgid "An array of User ID's which grant the Member(s) access to the Content being protected by this Rule."
+msgstr ""
+
+#: app/docs/update_args/rules.php:48
+msgid "User Roles With Access"
+msgstr ""
+
+#: app/docs/update_args/rules.php:52
+msgid "An array of User Role slugs which grant the Member(s) with those Role(s) access to the Content being protected by this Rule."
+msgstr ""
+
+#: app/docs/update_args/rules.php:55
+msgid "User Capabilities With Access"
+msgstr ""
+
+#: app/docs/update_args/rules.php:59
+msgid "An array of User Capability slugs which grant the Member(s) with those Capability(s) access to the Content being protected by this Rule."
+msgstr ""
+
+#: app/docs/update_args/rules.php:62
+msgid "Enable Dripping"
+msgstr ""
+
+#: app/docs/update_args/rules.php:66
+msgid "Whether Dripping should be enabled on this Rule."
+msgstr ""
+
+#: app/docs/update_args/rules.php:69
+msgid "Dripping Amount"
+msgstr ""
+
+#: app/docs/update_args/rules.php:73
+msgid "The number of units to delay Dripping by."
+msgstr ""
+
+#: app/docs/update_args/rules.php:76
+msgid "Dripping Unit"
+msgstr ""
+
+#: app/docs/update_args/rules.php:81
+msgid "The unit to Drip the Content by."
+msgstr ""
+
+#: app/docs/update_args/rules.php:84
+msgid "Dripping Base Date"
+msgstr ""
+
+#: app/docs/update_args/rules.php:88
+#: app/docs/update_args/rules.php:125
+msgid "registers, fixed, rule-products (based on the date the Member purchased ANY of the Memberships defined in authorized_memberships), or any single Membership ID (based on the signup date the Member purchased the Membership with this ID)"
+msgstr ""
+
+#: app/docs/update_args/rules.php:89
+msgid "The date to base the Dripping off of."
+msgstr ""
+
+#: app/docs/update_args/rules.php:92
+msgid "Dripping Fixed Date"
+msgstr ""
+
+#: app/docs/update_args/rules.php:96
+msgid "If drip_after is set to \"fixed\", then this is required and must be a valid date in the future which PHP's strtotime() function can interpret."
+msgstr ""
+
+#: app/docs/update_args/rules.php:99
+msgid "Enable Content Expiration"
+msgstr ""
+
+#: app/docs/update_args/rules.php:103
+msgid "Whether Content Expiration should be enabled on this Rule."
+msgstr ""
+
+#: app/docs/update_args/rules.php:106
+msgid "Content Expiration Amount"
+msgstr ""
+
+#: app/docs/update_args/rules.php:110
+msgid "The number of units to delay Content Expiration by."
+msgstr ""
+
+#: app/docs/update_args/rules.php:113
+msgid "Content Expiration Unit"
+msgstr ""
+
+#: app/docs/update_args/rules.php:118
+msgid "The unit to Expire the Content by."
+msgstr ""
+
+#: app/docs/update_args/rules.php:121
+msgid "Content Expiration Base Date"
+msgstr ""
+
+#: app/docs/update_args/rules.php:126
+msgid "The date to base the Content Expiration off of."
+msgstr ""
+
+#: app/docs/update_args/rules.php:129
+msgid "Content Expiration Fixed Date"
+msgstr ""
+
+#: app/docs/update_args/rules.php:133
+msgid "If expires_after is set to \"fixed\", then this is required and must be a valid date in the future which PHP's strtotime() function can interpret."
+msgstr ""
+
+#: app/docs/update_args/rules.php:136
+msgid "Unauthorized Excerpt Type"
+msgstr ""
+
+#: app/docs/update_args/rules.php:140
+msgid "default, hide, more (aka everything before the &lt;!--more--&gt; tag), excerpt, or custom"
+msgstr ""
+
+#: app/docs/update_args/rules.php:141
+msgid "The type of excerpt from the protected Content to show to unauthorized visitors. If set to anything other than \"default\" this will override the global behavior set in the MemberPress Options for any Content protected by this Rule."
+msgstr ""
+
+#: app/docs/update_args/rules.php:144
+msgid "Unauthorized Excerpt Size"
+msgstr ""
+
+#: app/docs/update_args/rules.php:148
+msgid "This is only used if unauth_exceprt_type is set to \"custom\". It will show X characters of the actual protected Content as the excerpt to unauthorized visitors."
+msgstr ""
+
+#: app/docs/update_args/rules.php:151
+msgid "Unauthorized Message Type"
+msgstr ""
+
+#: app/docs/update_args/rules.php:155
+msgid "default, hide, or custom"
+msgstr ""
+
+#: app/docs/update_args/rules.php:156
+msgid "The type of message to show to unauthorized users trying to view Content protected by this Rule. If set to anything other than \"default\" this will override the global behavior set in the MemberPress Options for any Content protected by this Rule."
+msgstr ""
+
+#: app/docs/update_args/rules.php:159
+msgid "Unauthorized Message"
+msgstr ""
+
+#: app/docs/update_args/rules.php:163
+msgid "If the unauth_message_type is set to \"custom\", then this string will be shown as the message which unauthorized users will see when they try to view Content protected by this Rule."
+msgstr ""
+
+#: app/docs/update_args/rules.php:166
+msgid "Show/Hide Login Form"
+msgstr ""
+
+#: app/docs/update_args/rules.php:170
+msgid "default, show, or hide"
+msgstr ""
+
+#: app/docs/update_args/rules.php:171
+msgid "Whether or not to show/hide the Login Form, or leave at the default global settings in the MemberPress Options."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:5
+msgid "Recurring Subscription Number"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:9
+msgid "The Recurring Subscription Number. In order for recurring billings to be tracked, this should be the exact Subsription Number generated by the Payment Gateway for this Subscription."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:12
+msgid "Subscription Response"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:16
+#: app/docs/update_args/transactions.php:80
+msgid "A place where you can store Payment Gateway POST or GET responses for later reference."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:19
+#: app/docs/update_args/transactions.php:83
+msgid "Gateway ID"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:23
+#: app/docs/update_args/transactions.php:87
+msgid "manual, free, or the ID of any live Gateway setup in your MemberPress Options"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:24
+msgid "The Payment Gateway to use for this Subscription."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:27
+#: app/docs/update_args/transactions.php:47
+msgid "Member ID"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:31
+#: app/docs/update_args/transactions.php:51
+msgid "The Member's WordPress User ID."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:34
+#: app/docs/update_args/transactions.php:54
+msgid "Membership ID"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:38
+msgid "The ID of the Membership this Subscription is for."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:41
+#: app/docs/update_args/transactions.php:61
+msgid "Coupon ID"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:45
+msgid "The ID of the Coupon used on this Subscription."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:48
+msgid "Subscription Price"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:52
+msgid "The Subscription Sub-Total Amount."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:55
+#: app/docs/update_args/transactions.php:26
+#: app/docs/update_args/transactions.php:40
+msgid "Tax Amount"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:59
+msgid "The Subscription Tax Amount."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:62
+#: app/docs/update_args/transactions.php:33
+msgid "Tax Rate"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:66
+msgid "The Subscription Tax Rate. Up to 3 decimal points allowed."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:69
+msgid "Tax Description"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:73
+#: app/docs/update_args/transactions.php:44
+msgid "A brief description of the tax applied. Example: UK VAT (20%)"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:76
+msgid "Subscription Period"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:80
+msgid "The Period for the Subscription billing cycles. See Memberships documentation for more info."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:83
+msgid "Subscription Period Type"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:87
+msgid "The billing period type. See Memberships documentation for more info."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:118
+msgid "Whether or not there is a trial period on this Subscription. Trial periods ONLY work on auto-recurring payments."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:132
+msgid "If a trial period is enabled, this specifies how much the user paid for the trial period."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:135
+msgid "Subscription Billing Status"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:139
+msgid "pending, active, or cancelled"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:140
+msgid "The Subscription's current billing status. This can be set to \"active\", \"cancelled\", \"suspended\", or \"pending\""
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:143
+#: app/docs/update_args/transactions.php:98
+msgid "Created At Date"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:147
+msgid "The date the Subscription was created. This should be in a MySQL datetime format or PHP's date('c') format. All dates stored in the database should be in UTC timezone."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:150
+msgid "Subscription Total"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:154
+msgid "The Subscription's Total Amount (including taxes)."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:165
+msgid "Credit Card Last Four Digits"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:169
+msgid "The last four digits of the Member's Credit Card associated with this Recurring Subscription."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:172
+msgid "Credit Card Expiring Month"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:176
+msgid "The Month (0-12) which the Credit Card expires."
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:179
+msgid "Credit Card Expiring Year"
+msgstr ""
+
+#: app/docs/update_args/subscriptions.php:183
+msgid "The 4 digit Year which the Credit Card expires."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:5
+msgid "Transaction Number"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:9
+msgid "The unique Transaction Number."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:12
+msgid "Transaction Sub-Total"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:16
+msgid "The base price for the Transaction (not including tax)"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:19
+msgid "Transaction Total"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:23
+msgid "The total price for this Transaction (including tax)"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:30
+msgid "Use this to manually set the tax amount for this Transaction"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:37
+msgid "Use this to manually set the tax rate for this Transaction. Can use up to 3 decimal places."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:58
+msgid "The Membership ID associated with this Transaction."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:65
+msgid "The Coupon ID associated with this Transaction."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:68
+msgid "Transaction Status"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:72
+msgid "pending, complete, failed, or refunded"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:73
+msgid "The status of this Transaction. Can be \"pending\", \"complete\", \"failed\", or \"refunded\". Must be set to \"complete\" for the member to be considered active on the Membership."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:76
+msgid "Transaction Response"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:88
+msgid "The Payment Gateway to use for this Transaction."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:91
+msgid "Subscription ID"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:95
+msgid "The ID of the Recurring Subscription CPT associated with this Transaction."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:100
+msgid "Current Timestamp"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:102
+msgid "The date the Transaction was created. This should be in a MySQL datetime format. All dates stored in the database should be in UTC timezone."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:105
+msgid "Expires At Date"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:109
+msgid "The date the Transaction will expire on. This should be in a MySQL datetime format. All dates stored in the database should be in UTC timezone. Note: Leave at default to create a Transaction that last's a lifetime (aka never expires)."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:116
+msgid "When set to true this will trigger a welcome email to send to the new member. If the user has already received a welcome email, and the membership this transaction is for does not have its own welcome email configured, then no email will be sent."
+msgstr ""
+
+#: app/docs/update_args/transactions.php:119
+msgid "Send Receipt Email"
+msgstr ""
+
+#: app/docs/update_args/transactions.php:123
+msgid "When set to true this will trigger a transaction receipt email to be sent."
+msgstr ""
+
+#: app/docs/webhooks/events.php:4
+msgid "<b>All Events</b>"
+msgstr ""
+
+#: app/docs/webhooks/events.php:5
+msgid "Send a webhook for any of the events listed below."
+msgstr ""
+
+#: app/docs/webhooks/events.php:11
+msgid "Member Added"
+msgstr ""
+
+#: app/docs/webhooks/events.php:12
+msgid "Sent when a new member registers but before their payment details are accepted."
+msgstr ""
+
+#: app/docs/webhooks/events.php:16
+msgid "Member Signup Completed"
+msgstr ""
+
+#: app/docs/webhooks/events.php:17
+msgid "Sent when a new member completes the signup and their payment is accepted."
+msgstr ""
+
+#: app/docs/webhooks/events.php:21
+msgid "Member Account Info Updated"
+msgstr ""
+
+#: app/docs/webhooks/events.php:22
+msgid "Sent when a member updates his/her account information."
+msgstr ""
+
+#: app/docs/webhooks/events.php:26
+msgid "Member Deleted"
+msgstr ""
+
+#: app/docs/webhooks/events.php:27
+msgid "Sent when a member is deleted from the system."
+msgstr ""
+
+#: app/docs/webhooks/events.php:31
+msgid "Member Logged In"
+msgstr ""
+
+#: app/docs/webhooks/events.php:32
+msgid "Sent when any member logs in."
+msgstr ""
+
+#: app/docs/webhooks/events.php:38
+msgid "Subscription Created"
+msgstr ""
+
+#: app/docs/webhooks/events.php:39
+msgid "Sent when a subscription is created."
+msgstr ""
+
+#: app/docs/webhooks/events.php:43
+msgid "Subscription Paused"
+msgstr ""
+
+#: app/docs/webhooks/events.php:44
+msgid "Sent when a subscription is paused."
+msgstr ""
+
+#: app/docs/webhooks/events.php:48
+msgid "Subscription Resumed"
+msgstr ""
+
+#: app/docs/webhooks/events.php:49
+msgid "Sent when a subscription is resumed."
+msgstr ""
+
+#: app/docs/webhooks/events.php:53
+msgid "Subscription Stopped"
+msgstr ""
+
+#: app/docs/webhooks/events.php:54
+msgid "Sent when a subscription is cancelled."
+msgstr ""
+
+#: app/docs/webhooks/events.php:58
+msgid "Subscription Upgraded"
+msgstr ""
+
+#: app/docs/webhooks/events.php:59
+msgid "DEPRECATED - Please use Subscription Upgraded to (Recurring | Non-Recurring) instead."
+msgstr ""
+
+#: app/docs/webhooks/events.php:63
+msgid "Subscription Downgraded"
+msgstr ""
+
+#: app/docs/webhooks/events.php:64
+msgid "DEPRECATED - Please use Subscription Downgraded to (Recurring | Non-Recurring) instead."
+msgstr ""
+
+#: app/docs/webhooks/events.php:68
+msgid "Subscription Upgraded to Non-Recurring"
+msgstr ""
+
+#: app/docs/webhooks/events.php:69
+msgid "Sent when a user upgrades their Subscription and the new Subscription is non-recurring (one-time payment)."
+msgstr ""
+
+#: app/docs/webhooks/events.php:73
+msgid "Subscription Upgraded to Recurring"
+msgstr ""
+
+#: app/docs/webhooks/events.php:74
+msgid "Sent when a user upgrades their Subscription and the new Subscription is auto-recurring (payments happen automatically each payment cycle)."
+msgstr ""
+
+#: app/docs/webhooks/events.php:78
+msgid "Subscription Downgraded to Non-Recurring"
+msgstr ""
+
+#: app/docs/webhooks/events.php:79
+msgid "Sent when a user downgrades their Subscription and the new Subscription is non-recurring (one-time payment)."
+msgstr ""
+
+#: app/docs/webhooks/events.php:83
+msgid "Subscription Downgraded to Recurring"
+msgstr ""
+
+#: app/docs/webhooks/events.php:84
+msgid "Sent when a user downgrades their Subscription and the new Subscription is auto-recurring (payments happen automatically each payment cycle)."
+msgstr ""
+
+#: app/docs/webhooks/events.php:88
+msgid "Subscription Expired"
+msgstr ""
+
+#: app/docs/webhooks/events.php:89
+msgid "Sent when a subscription expires."
+msgstr ""
+
+#: app/docs/webhooks/events.php:95
+msgid "Transaction Completed"
+msgstr ""
+
+#: app/docs/webhooks/events.php:96
+msgid "Sent when a transaction has completed on MemberPress."
+msgstr ""
+
+#: app/docs/webhooks/events.php:100
+msgid "Transaction Refunded"
+msgstr ""
+
+#: app/docs/webhooks/events.php:101
+msgid "Sent when any transaction is refunded."
+msgstr ""
+
+#: app/docs/webhooks/events.php:105
+msgid "Transaction Failed"
+msgstr ""
+
+#: app/docs/webhooks/events.php:106
+msgid "Sent when any transaction fails."
+msgstr ""
+
+#: app/docs/webhooks/events.php:110
+msgid "Transaction Expired"
+msgstr ""
+
+#: app/docs/webhooks/events.php:111
+msgid "Sent when any transaction expires."
+msgstr ""
+
+#: app/docs/webhooks/events.php:115
+msgid "Offline Payment Pending"
+msgstr ""
+
+#: app/docs/webhooks/events.php:116
+msgid "Sent when \"Admin must manually complete transactions\" option is enabled on an Offline Payment gateway, and a user has just completed a signup with an offline payment method."
+msgstr ""
+
+#: app/docs/webhooks/events.php:120
+msgid "Offline Payment Complete"
+msgstr ""
+
+#: app/docs/webhooks/events.php:121
+msgid "Sent when \"Admin must manually complete transactions\" option is enabled on an Offline Payment gateway, and an admin has manually marked a transaction as completed."
+msgstr ""
+
+#: app/docs/webhooks/events.php:125
+msgid "Offline Payment Refunded"
+msgstr ""
+
+#: app/docs/webhooks/events.php:126
+msgid "Sent when an Admin manually marks an offline transaction as refunded."
+msgstr ""
+
+#: app/docs/webhooks/events.php:131
+msgid "Recurring Transaction Completed"
+msgstr ""
+
+#: app/docs/webhooks/events.php:132
+msgid "Sent when a transaction associated with a recurring subscription completes."
+msgstr ""
+
+#: app/docs/webhooks/events.php:136
+msgid "Renewal Transaction Completed"
+msgstr ""
+
+#: app/docs/webhooks/events.php:137
+msgid "Sent when the 2nd+ transaction associated with a recurring subscription completes. This does not fire for the first transaction in a recurring subscription, only the 2nd or later payments will trigger this event."
+msgstr ""
+
+#: app/docs/webhooks/events.php:141
+msgid "Recurring Transaction Failed"
+msgstr ""
+
+#: app/docs/webhooks/events.php:142
+msgid "Sent when a recurring transaction fails. Because recurring transactions typically involve a 3rd party gateway it's good to know when a payment has failed on the gateway's end."
+msgstr ""
+
+#: app/docs/webhooks/events.php:146
+msgid "Recurring Transaction Expired"
+msgstr ""
+
+#: app/docs/webhooks/events.php:147
+msgid "Sent when any transaction associated with a subscription expires. This event will not indicate that a recurring subscription is expiring, just that a transaction associated with it is expiring. If you're looking through a subscription expiration event, try 'subscription-expired'."
+msgstr ""
+
+#: app/docs/webhooks/events.php:152
+msgid "Non-Recurring Transaction Completed"
+msgstr ""
+
+#: app/docs/webhooks/events.php:153
+msgid "Sent when a non-recurring transaction has completed on MemberPress."
+msgstr ""
+
+#: app/docs/webhooks/events.php:157
+msgid "Non-Recurring Transaction Expired"
+msgstr ""
+
+#: app/docs/webhooks/events.php:158
+msgid "Sent when any transaction not associated with a subscription expires."
+msgstr ""
+
+#: app/docs/webhooks/events.php:164
+msgid "After Member Registers"
+msgstr ""
+
+#: app/docs/webhooks/events.php:165
+msgid "Sent when any After Member Signup reminder fires."
+msgstr ""
+
+#: app/docs/webhooks/events.php:169
+msgid "After Signup Abandoned"
+msgstr ""
+
+#: app/docs/webhooks/events.php:170
+msgid "Sent when any After Member Signup Abandoned reminder fires."
+msgstr ""
+
+#: app/docs/webhooks/events.php:174
+msgid "Before Subscription Expires"
+msgstr ""
+
+#: app/docs/webhooks/events.php:175
+msgid "Sent when any Before Subscription Expires reminder fires."
+msgstr ""
+
+#: app/docs/webhooks/events.php:179
+msgid "After Subscription Expires"
+msgstr ""
+
+#: app/docs/webhooks/events.php:180
+msgid "Sent when any After Subscription Expires reminder fires."
+msgstr ""
+
+#: app/docs/webhooks/events.php:184
+msgid "Before Subscription Renews"
+msgstr ""
+
+#: app/docs/webhooks/events.php:185
+msgid "Sent when any Before Subscription Renews reminder fires."
+msgstr ""
+
+#: app/docs/webhooks/events.php:189
+msgid "After Credit Card Expires"
+msgstr ""
+
+#: app/docs/webhooks/events.php:190
+msgid "Sent when any After Credit Card Expires reminder fires."
+msgstr ""
+
+#: app/docs/webhooks/events.php:194
+msgid "Before Credit Card Expires"
+msgstr ""
+
+#: app/docs/webhooks/events.php:195
+msgid "Sent when any Before Credit Card Expires reminder fires."
+msgstr ""
+
+#: app/docs/webhooks/events.php:201
+msgid "Sub Account Added"
+msgstr ""
+
+#: app/docs/webhooks/events.php:202
+msgid "Sent when a sub account is added by the corporate account."
+msgstr ""
+
+#: app/docs/webhooks/events.php:206
+msgid "Sub Account Removed"
+msgstr ""
+
+#: app/docs/webhooks/events.php:207
+msgid "Sent when a sub account is removed by the corporate account."
+msgstr ""
+
+#: app/lib/MpdtBaseApi.php:123
+msgid "There were no %s found with an id of %d"
+msgstr ""
+
+#: app/lib/MpdtBaseApi.php:212
+msgid "The %s with an id of %d wasn't found."
+msgstr ""
+
+#: app/lib/MpdtWebhookJob.php:9
+msgid "\"webhook\" cannot be blank"
+msgstr ""
+
+#: app/lib/MpdtWebhookJob.php:13
+msgid "\"event\" cannot be blank"
+msgstr ""
+
+#: app/lib/MpdtWebhookJob.php:17
+msgid "\"data_id\" cannot be blank"
+msgstr ""
+
+#: app/views/admin.php:19
+#: app/views/webhooks.php:4
+msgid "Webhooks"
+msgstr ""
+
+#: app/views/admin.php:20
+msgid "Events"
+msgstr ""
+
+#: app/views/admin.php:21
+#: app/views/api.php:7
+msgid "REST API"
+msgstr ""
+
+#: app/views/admin.php:22
+msgid "Other Resources"
+msgstr ""
+
+#: app/views/api.php:8
+msgid "API Key:"
+msgstr ""
+
+#: app/views/api.php:10
+msgid "The API Key can be used for authenticating with the REST API. <b>Please ensure your site is using SSL and that you do not share this key.</b> If you feel your key has been compromised, you can regenerate a new one."
+msgstr ""
+
+#: app/views/api.php:21
+msgid "Select an API Route:"
+msgstr ""
+
+#: app/views/api.php:22
+msgid "View dynamic API route documentation and examples."
+msgstr ""
+
+#: app/views/api.php:26
+msgid "Select a Route"
+msgstr ""
+
+#: app/views/api.php:44
+msgid "You're not running WordPress 4.7 and the WordPress REST API plugin isn't active"
+msgstr ""
+
+#: app/views/api.php:45
+msgid "The MemberPress REST API requires at least WordPress 4.7 or relies on WordPress's REST API plugin **Version 2** being installed and activated on this site."
+msgstr ""
+
+#: app/views/events.php:3
+msgid "Webhook Events"
+msgstr ""
+
+#: app/views/events.php:4
+msgid "Here are the Events sent to URLs configured with Webhooks. Select an Event for more information, to have the ability to send test POST requests, and see an example of the JSON response you can expect."
+msgstr ""
+
+#: app/views/events.php:6
+msgid "Select an Event:"
+msgstr ""
+
+#: app/views/events.php:11
+msgid "Select an Event"
+msgstr ""
+
+#: app/views/events.php:27
+#: app/views/route.php:4
+msgid "Description"
+msgstr ""
+
+#: app/views/events.php:32
+msgid "Test"
+msgstr ""
+
+#: app/views/events.php:33
+msgid "Click this button to send a POST request of this event to all webhooks you currently have setup."
+msgstr ""
+
+#: app/views/events.php:35
+msgid "Send Test"
+msgstr ""
+
+#: app/views/events.php:43
+msgid "JSON Response"
+msgstr ""
+
+#: app/views/events.php:44
+msgid "MemberPress will send JSON like this in the POST body to your Webhook when this event triggers."
+msgstr ""
+
+#: app/views/resources.php:3
+msgid "Resources"
+msgstr ""
+
+#: app/views/resources.php:4
+msgid "Additional MemberPress Development Resources"
+msgstr ""
+
+#: app/views/resources.php:6
+msgid "Shortcodes"
+msgstr ""
+
+#: app/views/route.php:8
+msgid "Definition"
+msgstr ""
+
+#: app/views/route.php:10
+msgid "(Requires Authentication)"
+msgstr ""
+
+#: app/views/route.php:13
+msgid "Example Request"
+msgstr ""
+
+#: app/views/route.php:17
+msgid "Search Arguments"
+msgstr ""
+
+#: app/views/route.php:21
+msgid "Update Arguments"
+msgstr ""
+
+#: app/views/route.php:25
+msgid "Example Response"
+msgstr ""
+
+#: app/views/webhook-row.php:8
+msgid "Webhook URL"
+msgstr ""
+
+#: app/views/webhook-row.php:12
+msgid "Remove Webhook URL"
+msgstr ""
+
+#: app/views/webhook-row.php:16
+msgid "Advanced"
+msgstr ""
+
+#: app/views/webhook-row.php:24
+msgid "Select Events to send to this Webhook"
+msgstr ""
+
+#: app/views/webhooks.php:5
+msgid "Webhooks can send JSON push notices to specific URLs via POST when specific events occur in MemberPress. You can configure your webhooks here:"
+msgstr ""
+
+#: app/views/webhooks.php:20
+msgid "Add Webhook URL"
+msgstr ""
+
+#: app/views/webhooks.php:25
+msgid "Save Webhooks"
+msgstr ""
+
+#: main.php:62
+msgid "Tools and API for MemberPress Developers."
 msgstr ""

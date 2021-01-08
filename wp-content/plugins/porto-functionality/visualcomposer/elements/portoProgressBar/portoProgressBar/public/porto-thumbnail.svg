@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+<rect x="-1.5" y="-1.5" fill="#0088CC" width="103.3" height="102.7"/>
+<circle fill="#FFFFFF" cx="50" cy="50" r="35"/>
+<circle fill="#FFFFFF" stroke="#0088CC" stroke-width="8" stroke-miterlimit="10" cx="50" cy="50" r="15"/>
+</svg>

@@ -121,7 +121,7 @@ class Porto_Elementor_Blog_Widget extends \Elementor\Widget_Base {
 			'post_style',
 			array(
 				'label'       => __( 'Post Style', 'porto-functionality' ),
-				'description' => __( 'Only "Hover Info" and "Hover Info 2" styles are available for "Grid - Creative" Blog Layout, and "Simple Grid", "Simple List" and "Widget Style" styles are available for only "Grid" and "Masonry" blog layouts.', 'porto-functionality' ),
+				'description' => __( 'Only "Hover Info" and "Hover Info 2" styles are available for "Grid - Creative" Blog Layout, "Simple Grid", "Simple List" and "Widget Style" styles are available for only "Grid" and "Masonry" blog layouts, and "Modern" style is available for only "Grid" and "Slider" layout.', 'porto-functionality' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '',
 				'options'     => array(
@@ -136,6 +136,7 @@ class Porto_Elementor_Blog_Widget extends \Elementor\Widget_Base {
 					'grid'        => __( 'Simple Grid', 'porto-functionality' ),
 					'list'        => __( 'Simple List', 'porto-functionality' ),
 					'widget'      => __( 'Widget Style', 'porto-functionality' ),
+					'modern'      => __( 'Modern', 'porto-functionality' ),
 				),
 				'condition'   => array(
 					'post_layout' => array( 'grid', 'masonry', 'timeline', 'creative', 'masonry-creative', 'slider' ),

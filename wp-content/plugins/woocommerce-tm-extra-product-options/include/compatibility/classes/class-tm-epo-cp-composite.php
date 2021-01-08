@@ -64,6 +64,37 @@ final class THEMECOMPLETE_EPO_CP_composite {
 		add_action( 'woocommerce_composite_products_remove_product_filters', array( $this, 'tm_woocommerce_composite_products_remove_product_filters' ), 99999 );
 		add_filter( 'woocommerce_composite_cart_permalink_args', array( $this, 'woocommerce_composite_cart_permalink_args' ), 99, 3 );
 		add_filter( 'wc_epo_tm_post_class_no_options', array( $this, 'wc_epo_tm_post_class_no_options' ), 10, 2 );
+		add_filter( 'wc_epo_options_min_price', array( $this, 'wc_epo_options_min_price' ), 10, 3 );
+		add_filter( 'wc_epo_options_max_price', array( $this, 'wc_epo_options_max_price' ), 10, 3 );
+	}
+
+	/**
+	 * Alter catalog price
+	 *
+	 * @since 5.0.12.11
+	 */
+	public function wc_epo_options_min_price( $price = '', $product = '' , $is_variable = '') {
+		if ( is_callable( array( $product, 'get_composite_regular_price' ) ) ) {
+			$regular_price_min = $product->get_composite_regular_price( 'min', true );
+
+			$price = floatval($price) + floatval($regular_price_min);
+		}
+
+		return $price;
+	}
+
+	/**
+	 * Alter catalog price
+	 *
+	 * @since 5.0.12.11
+	 */
+	public function wc_epo_options_max_price( $price = '', $product = '' , $is_variable = '') {
+		if ( is_callable( array( $product, 'get_composite_regular_price' ) ) ) {
+			$regular_price_max = $product->get_composite_regular_price( 'max', true );
+
+			$price = floatval($price) + floatval($regular_price_max);
+		}
+		return $price;
 	}
 
 	/**
@@ -71,11 +102,11 @@ final class THEMECOMPLETE_EPO_CP_composite {
 	 *
 	 * @since 5.0.12.9
 	 */
-	public function wc_epo_tm_post_class_no_options( $array = array(), $post_id ) {
+	public function wc_epo_tm_post_class_no_options( $array = array(), $post_id = null ) {
 		
 		$terms = get_the_terms( $post_id, 'product_type' );
 		$product_type = ! empty( $terms ) && isset( current( $terms )->name ) ? sanitize_title( current( $terms )->name ) : 'simple';
-
+		$has_epo = THEMECOMPLETE_EPO_API()->has_options( $post_id );
 		if ( ( $product_type == 'bto' || $product_type == 'composite' )
 		     && ! THEMECOMPLETE_EPO_API()->is_valid_options( $has_epo )
 		     && THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all != "yes"
@@ -186,7 +217,7 @@ final class THEMECOMPLETE_EPO_CP_composite {
 	 *
 	 * @since 1.0
 	 */
-	public function tm_composited_display_support( $product = FALSE, $component_id = "", $composite_product ) {
+	public function tm_composited_display_support( $product = FALSE, $component_id = "", $composite_product = null ) {
 		if ( ! $product ) {
 			// something went wrong. wrong product id??
 			// if you get here the plugin will not work :(

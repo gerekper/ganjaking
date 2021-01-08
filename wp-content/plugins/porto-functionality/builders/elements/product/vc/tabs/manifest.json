@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoSpTab": {
+			"settings": {
+				"name": "Single Product Data Tabs",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display single product data tab"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoSpTab"
+			]
+		}
+	}
+}
