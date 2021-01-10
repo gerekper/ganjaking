@@ -3,7 +3,7 @@
  *	Plugin Name: AliDropship Woo Plugin
  *	Plugin URI: https://alidropship.com/
  *	Description: AliDropship Woo is a WordPress plugin created for import AliExpress product to Woo Shop
- *	Version: 1.6.18
+ *	Version: 1.6.19
  *	Text Domain: adsw
  *	Requires at least: WP 5.3.2
  *	Author: Vitaly Kukin & Yaroslav Nevskiy & Pavel Shishkin & Denis Zharov
@@ -13,7 +13,7 @@
  *	WC tested up to: 4.8.0
  */
 
-if ( ! defined( 'ADSW_VERSION' ) ) define( 'ADSW_VERSION', '1.6.18' );
+if ( ! defined( 'ADSW_VERSION' ) ) define( 'ADSW_VERSION', '1.6.19' );
 
 if ( ! defined( 'ADSW_PATH' ) ) define( 'ADSW_PATH', plugin_dir_path( __FILE__ ) );
 if ( ! defined( 'ADSW_URL' ) ) define( 'ADSW_URL', str_replace( [ 'https:', 'http:' ], '', plugins_url( 'alidswoo' ) ) );

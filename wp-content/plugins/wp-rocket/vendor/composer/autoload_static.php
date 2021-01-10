@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9a5b2e55946566f9a20f6094e9ed1141
+class ComposerStaticInit9982373a01b19f81e07d25fa4f1da700
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -511,6 +511,7 @@ class ComposerStaticInit9a5b2e55946566f9a20f6094e9ed1141
         'WP_Rocket\\ThirdParty\\Hostings\\WordPressCom' => __DIR__ . '/../..' . '/inc/ThirdParty/Hostings/WordPressCom.php',
         'WP_Rocket\\ThirdParty\\NullSubscriber' => __DIR__ . '/../..' . '/inc/ThirdParty/NullSubscriber.php',
         'WP_Rocket\\ThirdParty\\Plugins\\Ecommerce\\WooCommerceSubscriber' => __DIR__ . '/../..' . '/inc/ThirdParty/Plugins/Ecommerce/WooCommerceSubscriber.php',
+        'WP_Rocket\\ThirdParty\\Plugins\\ModPagespeed' => __DIR__ . '/../..' . '/inc/ThirdParty/Plugins/ModPagespeed.php',
         'WP_Rocket\\ThirdParty\\Plugins\\Optimization\\AMP' => __DIR__ . '/../..' . '/inc/ThirdParty/Plugins/Optimization/AMP.php',
         'WP_Rocket\\ThirdParty\\Plugins\\Optimization\\Hummingbird' => __DIR__ . '/../..' . '/inc/ThirdParty/Plugins/Optimization/Hummingbird.php',
         'WP_Rocket\\ThirdParty\\Plugins\\PDFEmbedder' => __DIR__ . '/../..' . '/inc/ThirdParty/Plugins/PDFEmbedder.php',
@@ -536,9 +537,9 @@ class ComposerStaticInit9a5b2e55946566f9a20f6094e9ed1141
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9a5b2e55946566f9a20f6094e9ed1141::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9a5b2e55946566f9a20f6094e9ed1141::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9a5b2e55946566f9a20f6094e9ed1141::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9982373a01b19f81e07d25fa4f1da700::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9982373a01b19f81e07d25fa4f1da700::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9982373a01b19f81e07d25fa4f1da700::$classMap;
 
         }, null, ClassLoader::class);
     }

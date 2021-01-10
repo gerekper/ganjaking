@@ -1,0 +1,162 @@
+<?php
+
+namespace WPMailSMTP\Pro\Emails\Control\Admin;
+
+use WPMailSMTP\Options;
+use WPMailSMTP\WP;
+
+/**
+ * Class SettingsTab.
+ */
+class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
+
+	/**
+	 * @var string Slug of a tab.
+	 */
+	protected $slug = 'control';
+
+	/**
+	 * @inheritdoc
+	 */
+	public function get_label() {
+
+		return esc_html__( 'Email Controls', 'wp-mail-smtp-pro' );
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function get_title() {
+
+		return $this->get_label();
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function display() {
+
+		$options  = new Options();
+		$controls = wp_mail_smtp()->pro->get_control()->get_controls();
+		?>
+
+		<form method="POST" action="">
+			<?php $this->wp_nonce_field(); ?>
+
+			<p class="description">
+				<?php esc_html_e( 'WordPress, by default, will send out emails for many events on your site. Using the toggles below, you can decide exactly which emails you\'d like enabled.', 'wp-mail-smtp-pro' ); ?>
+			</p>
+
+			<?php
+			foreach ( $controls as $section_id => $section ) :
+				if ( empty( $section['emails'] ) ) {
+					continue;
+				}
+
+				if ( $this->is_it_for_multisite( sanitize_key( $section_id ) ) && ! WP::use_global_plugin_settings() ) {
+					continue;
+				}
+				?>
+
+				<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content wp-mail-smtp-clear section-heading no-desc" id="wp-mail-smtp-setting-row-email-heading-<?php echo esc_attr( $section_id ); ?>">
+					<div class="wp-mail-smtp-setting-field">
+						<h2><?php echo esc_html( $section['title'] ); ?></h2>
+					</div>
+				</div>
+
+				<?php
+				foreach ( $section['emails'] as $email_id => $email ) :
+					$email_id = sanitize_key( $email_id );
+
+					if ( empty( $email_id ) || empty( $email['label'] ) ) {
+						continue;
+					}
+
+					if ( $this->is_it_for_multisite( sanitize_key( $email_id ) ) && ! WP::use_global_plugin_settings() ) {
+						continue;
+					}
+					?>
+
+					<div id="wp-mail-smtp-setting-row-control_<?php echo esc_attr( $email_id ); ?>" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox-toggle wp-mail-smtp-clear">
+						<div class="wp-mail-smtp-setting-label">
+							<label for="wp-mail-smtp-setting-<?php echo esc_attr( $email_id ); ?>">
+								<?php echo esc_html( $email['label'] ); ?>
+							</label>
+						</div>
+						<div class="wp-mail-smtp-setting-field">
+							<label for="wp-mail-smtp-setting-<?php echo esc_attr( $email_id ); ?>">
+								<input type="checkbox" id="wp-mail-smtp-setting-<?php echo esc_attr( $email_id ); ?>" name="wp-mail-smtp[control][<?php echo esc_attr( $email_id ); ?>]" value="yes"
+									<?php checked( false, $options->get( 'control', $email_id ) ); ?>/>
+								<span class="wp-mail-smtp-setting-toggle-switch"></span>
+								<span class="wp-mail-smtp-setting-toggle-checked-label"><?php esc_html_e( 'On', 'wp-mail-smtp-pro' ); ?></span>
+								<span class="wp-mail-smtp-setting-toggle-unchecked-label"><?php esc_html_e( 'Off', 'wp-mail-smtp-pro' ); ?></span>
+							</label>
+							<?php if ( ! empty( $email['desc'] ) ) : ?>
+								<p class="desc">
+									<?php echo $email['desc']; ?>
+								</p>
+							<?php endif; ?>
+						</div>
+					</div>
+
+					<?php endforeach; ?>
+			<?php endforeach; ?>
+
+			<?php $this->display_save_btn(); ?>
+
+		</form>
+
+		<?php
+	}
+
+	/**
+	 * Whether this key dedicated to MultiSite environment.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $key Email unique key.
+	 *
+	 * @return bool
+	 */
+	protected function is_it_for_multisite( $key ) {
+
+		return strpos( $key, 'network' ) !== false;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function process_post( $data ) {
+
+		$this->check_admin_referer();
+
+		$options      = new Options();
+		$is_multisite = is_multisite();
+
+		$controls = wp_mail_smtp()->pro->get_control()->get_controls( true );
+
+		foreach ( $controls as $control ) {
+			// In MS we have all options listed - so just preserve everything and convert to boolean.
+			if ( $is_multisite ) {
+				// Those that are not in $data - user unchecked - which means disabled.
+				$data['control'][ $control ] = empty( $data['control'][ $control ] );
+			} else {
+				// Process MS specific separately with on by default (enabled).
+				if ( strpos( $control, 'network' ) !== false ) {
+					$data['control'][ $control ] = false;
+				} else {
+					// Those that are not in $data - user unchecked - which means disabled.
+					$data['control'][ $control ] = empty( $data['control'][ $control ] );
+				}
+			}
+		}
+
+		// All the sanitization is done there.
+		$options->set( $data, false, false );
+
+		WP::add_admin_notice(
+			esc_html__( 'Settings were successfully saved.', 'wp-mail-smtp-pro' ),
+			WP::ADMIN_NOTICE_SUCCESS
+		);
+	}
+}

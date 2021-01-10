@@ -462,6 +462,7 @@ return array(
     'WP_Rocket\\ThirdParty\\Hostings\\WordPressCom' => $baseDir . '/inc/ThirdParty/Hostings/WordPressCom.php',
     'WP_Rocket\\ThirdParty\\NullSubscriber' => $baseDir . '/inc/ThirdParty/NullSubscriber.php',
     'WP_Rocket\\ThirdParty\\Plugins\\Ecommerce\\WooCommerceSubscriber' => $baseDir . '/inc/ThirdParty/Plugins/Ecommerce/WooCommerceSubscriber.php',
+    'WP_Rocket\\ThirdParty\\Plugins\\ModPagespeed' => $baseDir . '/inc/ThirdParty/Plugins/ModPagespeed.php',
     'WP_Rocket\\ThirdParty\\Plugins\\Optimization\\AMP' => $baseDir . '/inc/ThirdParty/Plugins/Optimization/AMP.php',
     'WP_Rocket\\ThirdParty\\Plugins\\Optimization\\Hummingbird' => $baseDir . '/inc/ThirdParty/Plugins/Optimization/Hummingbird.php',
     'WP_Rocket\\ThirdParty\\Plugins\\PDFEmbedder' => $baseDir . '/inc/ThirdParty/Plugins/PDFEmbedder.php',

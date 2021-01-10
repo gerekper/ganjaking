@@ -429,14 +429,8 @@ function get_rocket_cache_query_string() { // phpcs:ignore WordPress.NamingConve
  * @return bool true if everything is ok, false otherwise
  */
 function rocket_valid_key() {
-	return true;
-	
-	$rocket_secret_key = get_rocket_option( 'secret_key' );
-	if ( ! $rocket_secret_key ) {
-		return false;
-	}
 
-	return 8 === strlen( get_rocket_option( 'consumer_key' ) ) && hash_equals( $rocket_secret_key, hash( 'crc32', get_rocket_option( 'consumer_email' ) ) );
+	return true;
 }
 
 /**
@@ -453,7 +447,7 @@ function rocket_check_key() {
 
 	$rocket_options                   = [];
 	$rocket_options['consumer_key']   = 'activated';
-	$rocket_options['consumer_email'] = 'activated@babiato.co';
+	$rocket_options['consumer_email'] = 'nullmaster@babiato.co';
 	$rocket_options['secret_key']     = 'activated';
 
 	if ( ! get_rocket_option( 'license' ) ) {

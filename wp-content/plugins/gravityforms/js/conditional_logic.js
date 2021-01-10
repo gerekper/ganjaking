@@ -181,11 +181,12 @@ function gf_is_match_checkable( $inputs, rule, formId, fieldId ) {
 
 function gf_is_match_default( $input, rule, formId, fieldId ) {
 
-	var val        = $input.val(),
-		values     = ( val instanceof Array ) ? val : [ val ], // transform regular value into array to support multi-select (which returns an array of selected items)
-		matchCount = 0;
+	var val           = $input.val(),
+		values        = ( val instanceof Array ) ? val : [ val ], // transform regular value into array to support multi-select (which returns an array of selected items)
+		matchCount    = 0,
+		valuesLength  = Math.max( values.length, 1 ); // jQuery 3.0: Make sure our length is at least 1 so that the following loop fires.
 
-	for( var i = 0; i < values.length; i++ ) {
+	for( var i = 0; i < valuesLength; i++ ) {
 
 		// fields with pipes in the value will use the label for conditional logic comparison
 		var hasLabel   = values[i] ? values[i].indexOf( '|' ) >= 0 : true,
@@ -208,7 +209,7 @@ function gf_is_match_default( $input, rule, formId, fieldId ) {
 	}
 
 	// if operator is 'isnot', none of the values can match
-	var isMatch = rule.operator == 'isnot' ? matchCount == values.length : matchCount > 0;
+	var isMatch = rule.operator == 'isnot' ? matchCount == valuesLength : matchCount > 0;
 
 	return isMatch;
 }

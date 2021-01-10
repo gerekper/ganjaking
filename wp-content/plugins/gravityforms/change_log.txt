@@ -1,3 +1,6 @@
+### 2.4.22.1
+- Fixed issue with jQuery 3.0 breaking multiselect conditional logic.
+
 ### 2.4.22 | 2020-12-22
 - Added security enhancements.
 - Added the [gform_rule_pre_evaluation](https://docs.gravityforms.com/gform_rule_pre_evaluation/) JS and PHP filters enabling conditional logic rules to be overridden just before they are evaluated. Credit: Gravity Wiz.
