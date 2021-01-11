@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -128,15 +128,28 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/plugin.php';
 			}
 
-			// MADE CHANGES IN THE CONDITION TO SHOW INPUT FIELDFOR PRICE ONLY FOR COUPON AS A PRODUCT.
+			// MADE CHANGES IN THE CONDITION TO SHOW INPUT FIELD FOR PRICE ONLY FOR COUPON AS A PRODUCT.
 			if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ( ! ( '' !== $product->get_price() || ( is_plugin_active( 'woocommerce-name-your-price/woocommerce-name-your-price.php' ) && ( get_post_meta( $product_id, '_nyp', true ) === 'yes' ) ) ) ) ) {
 
 				$js = "
 							var validateCreditCalled = function(){
 								var enteredCreditAmount = jQuery('input#credit_called').val();
-								enteredCreditAmount = parseFloat( enteredCreditAmount );
-								if ( isNaN(enteredCreditAmount) || enteredCreditAmount < 0.01 ) {
-									jQuery('#error_message').text('" . __( 'Invalid amount', 'woocommerce-smart-coupons' ) . "');
+								var minCreditAmount     = jQuery('input#credit_called').attr('min');
+								var maxCreditAmount     = jQuery('input#credit_called').attr('max');
+								    enteredCreditAmount = parseFloat( enteredCreditAmount );
+								    minCreditAmount     = parseFloat( minCreditAmount );
+								    maxCreditAmount     = parseFloat( maxCreditAmount );
+								if ( isNaN(enteredCreditAmount) || enteredCreditAmount < minCreditAmount || ( maxCreditAmount > 0 && enteredCreditAmount > maxCreditAmount ) ) {
+									var creditErrorMsg = '" . __( 'Invalid amount.', 'woocommerce-smart-coupons' ) . "';
+									if ( isNaN(enteredCreditAmount) ) {
+										creditErrorMsg += ' " . __( 'Enter a numeric value.', 'woocommerce-smart-coupons' ) . "';
+									}
+									if ( enteredCreditAmount < minCreditAmount ) {
+										creditErrorMsg += ' " . __( 'The value should not be less than', 'woocommerce-smart-coupons' ) . " ' + minCreditAmount;
+									} else if ( enteredCreditAmount > maxCreditAmount ) {
+										creditErrorMsg += ' " . __( 'The value should not be greater than', 'woocommerce-smart-coupons' ) . " ' + maxCreditAmount;
+									}
+									jQuery('#error_message').text(creditErrorMsg);
 									jQuery('input#credit_called').css('border-color', 'red');
 									return false;
 								} else {

@@ -1,5 +1,24 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.01.05 - version 4.14.0
+* Fix: 'Exclude attributes' restriction overriding 'Exclude categories' restriction
+* Fix: 'Max discount' is not getting calculated properly in case of WooCommerce setting for a decimal value other than 2
+* Fix: Setting 'Disable email restriction' not working in case of coupons scheduled to be sent at a later date
+* Fix: Purchased coupons that are scheduled to be sent later via email, are not getting emailed in some cases
+* Fix: Removed unnecessary 'console.log'
+* Fix: HTML & CSS of add & remove button of 'Taxonomy' restrictions for responsiveness
+* Update: Display details of scheduled coupons in order under 'Generated coupons' meta box
+* Update: POT file
+
+2020.12.10 - version 4.13.0
+* New: Tested upto WooCommerce 4.7.1, 4.8.0 & WordPress 5.6.0
+* New: Coupon usage restrictions for various product taxonomies
+* Update: Support for modifying the input field provided for those products which allows purchasing store credit of any amount
+* Update: Better handling of validation of the input field for those products which allows purchasing store credit of any amount
+* Update: Pass the expiry date through a common formatting function on the Smart Coupons admin setting page
+* Update: CSS for coupon location field
+* Update: POT file
+
 2020.11.09 - version 4.12.2
 * Fix: Uncaught ReferenceError: sc_coupon_message_ajax is not defined
 * Fix: Uncaught ReferenceError: sc_available_coupons_ajax is not defined

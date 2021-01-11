@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.2
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1642,6 +1642,47 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				$generated_coupon_data[ $from ] = array_merge( $generated_coupon_data[ $from ], $data );
 			}
 
+			$backtrace           = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS );  // phpcs:ignore
+			$backtrace_functions = wp_list_pluck( $backtrace, 'function' );
+			if ( in_array( 'sc_generated_coupon_data_metabox', $backtrace_functions, true ) ) {
+				reset( $order_ids );
+				$order_id   = current( $order_ids );
+				$from       = get_post_meta( $id, '_billing_email', true );
+				$coupon_ids = $wpdb->get_col( // phpcs:ignore
+					$wpdb->prepare(
+						"SELECT DISTINCT p.ID
+							FROM {$wpdb->posts} AS p
+								LEFT JOIN {$wpdb->postmeta} AS pm
+									ON (p.ID = pm.post_id)
+							WHERE p.post_type = %s
+								AND p.post_status = %s
+								AND pm.meta_key = %s
+								AND (pm.meta_value = %s
+										OR pm.meta_value = %d )",
+						'shop_coupon',
+						'future',
+						'generated_from_order_id',
+						$order_id,
+						$order_id
+					)
+				);
+				if ( ! empty( $coupon_ids ) && is_array( $coupon_ids ) ) {
+					foreach ( $coupon_ids as $coupon_id ) {
+						$coupon_receiver_details = get_post_meta( $coupon_id, 'wc_sc_coupon_receiver_details', true );
+						$from                    = ( ! empty( $coupon_receiver_details['gift_certificate_sender_email'] ) ) ? $coupon_receiver_details['gift_certificate_sender_email'] : $from;
+						if ( empty( $generated_coupon_data[ $from ] ) || ! is_array( $generated_coupon_data[ $from ] ) ) {
+							$generated_coupon_data[ $from ] = array();
+						}
+						$generated_coupon_data[ $from ][] = array(
+							'code'    => ( ! empty( $coupon_receiver_details['coupon_details']['code'] ) ) ? $coupon_receiver_details['coupon_details']['code'] : '',
+							'amount'  => ( ! empty( $coupon_receiver_details['coupon_details']['amount'] ) ) ? $coupon_receiver_details['coupon_details']['amount'] : 0,
+							'email'   => ( ! empty( $coupon_receiver_details['gift_certificate_receiver_email'] ) ) ? $coupon_receiver_details['gift_certificate_receiver_email'] : '',
+							'message' => ( ! empty( $coupon_receiver_details['message_from_sender'] ) ) ? $coupon_receiver_details['message_from_sender'] : '',
+						);
+					}
+				}
+			}
+
 			if ( empty( $generated_coupon_data ) ) {
 				return;
 			}
@@ -1836,6 +1877,12 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				<div id="sc-cc">
 					<div id="all_generated_coupon" class="sc-coupons-list">
 					<?php
+					$is_meta_box         = false;
+					$backtrace           = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS );  // phpcs:ignore
+					$backtrace_functions = wp_list_pluck( $backtrace, 'function' );
+					if ( in_array( 'sc_generated_coupon_data_metabox', $backtrace_functions, true ) ) {
+						$is_meta_box = true;
+					}
 					foreach ( $generated_coupon_data as $from => $data ) {
 						foreach ( $data as $coupon_data ) {
 
@@ -1851,7 +1898,17 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 								}
 								$coupon_id = $coupon->get_id();
 								if ( empty( $coupon_id ) ) {
-									continue;
+									if ( true === $is_meta_box ) {
+										$coupon_post = get_page_by_title( $coupon_data['code'], ARRAY_A, 'shop_coupon' );
+										if ( ! empty( $coupon_post['ID'] ) ) {
+											$coupon    = new WC_Coupon( $coupon_post['ID'] );
+											$coupon_id = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
+										} else {
+											continue;
+										}
+									} else {
+										continue;
+									}
 								}
 								$coupon_amount    = $coupon->get_amount();
 								$is_free_shipping = ( $coupon->get_free_shipping() ) ? 'yes' : 'no';
@@ -2055,7 +2112,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				return;
 			}
 
-			add_meta_box( 'sc-generated-coupon-data', __( 'Coupon Sent', 'woocommerce-smart-coupons' ), array( $this, 'sc_generated_coupon_data_metabox' ), 'shop_order', 'normal' );
+			add_meta_box( 'sc-generated-coupon-data', __( 'Generated coupons', 'woocommerce-smart-coupons' ), array( $this, 'sc_generated_coupon_data_metabox' ), 'shop_order', 'normal' );
 		}
 
 		/**

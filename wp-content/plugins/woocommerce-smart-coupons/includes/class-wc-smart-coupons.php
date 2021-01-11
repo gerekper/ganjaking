@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.6.1
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -230,6 +230,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			include_once 'class-wc-sc-coupons-by-shipping-method.php';
 			include_once 'class-wc-sc-coupons-by-user-role.php';
 			include_once 'class-wc-sc-coupons-by-product-attribute.php';
+			include_once 'class-wc-sc-coupons-by-taxonomy.php';
 			include_once 'class-wc-sc-coupon-message.php';
 			include_once 'class-wc-sc-coupon-categories.php';
 
@@ -447,7 +448,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				}
 
 				$amount      = $coupon['amount'];
-				$coupon_code = $coupon['code'];
+				$coupon_code = strtolower( $coupon['code'] );
 
 				if ( ! empty( $order_id ) ) {
 					$coupon_receiver_details = get_post_meta( $order_id, 'sc_coupon_receiver_details', true );
@@ -487,7 +488,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				if ( 'yes' === $schedule_gift_sending ) {
 					$coupon_id               = wc_get_coupon_id_by_code( $coupon_code );
 					$coupon_receiver_details = get_post_meta( $coupon_id, 'wc_sc_coupon_receiver_details', true );
-					$scheduled_coupon_code   = ( ! empty( $coupon_receiver_details['coupon_details']['code'] ) ) ? $coupon_receiver_details['coupon_details']['code'] : '';
+					$scheduled_coupon_code   = ( ! empty( $coupon_receiver_details['coupon_details']['code'] ) ) ? strtolower( $coupon_receiver_details['coupon_details']['code'] ) : '';
 					if ( $scheduled_coupon_code === $coupon_code ) {
 						$is_schedule_gift_sending = 'yes';
 					}
@@ -606,7 +607,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$coupon = new WC_Coupon( $coupon_id );
 				$order  = wc_get_order( $order_id );
 				if ( is_a( $coupon, 'WC_Coupon' ) && is_a( $order, 'WC_Order' ) ) {
-					$sc_disable_email_restriction = get_post_meta( $coupon_id, 'sc_disable_email_restriction', true );
+					$sc_disable_email_restriction = get_post_meta( $parent_id, 'sc_disable_email_restriction', true );
 					if ( $this->is_wc_gte_30() ) {
 						$coupon_amount = $coupon->get_amount();
 						$discount_type = $coupon->get_discount_type();
@@ -2084,7 +2085,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 								$discount_percent = ( wc_get_price_excluding_tax( $cart_item['data'] ) * $cart_item_qty ) / $cart_items_subtotal;
 							}
 
-							$discount_percent = round( $discount_percent, wc_get_price_decimals() );
+							$discount_percent = round( $discount_percent, 2 ); // A percentage value should always be rounded with 2 decimal point.
 
 							if ( $this->is_wc_gte_32() ) {
 								$max_discount_amount = ( $max_discount * $discount_percent );

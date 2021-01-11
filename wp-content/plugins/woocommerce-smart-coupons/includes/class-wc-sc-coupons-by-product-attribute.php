@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.0.4
+ * @version     1.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -254,6 +254,11 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 		 */
 		public function validate( $valid = false, $product = null, $coupon = null, $values = null ) {
 
+			// If coupon is already invalid, no need for further checks.
+			if ( true !== $valid ) {
+				return $valid;
+			}
+
 			if ( empty( $product ) || empty( $coupon ) ) {
 				return $valid;
 			}
@@ -367,6 +372,11 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 		 * @return boolean  $valid Coupon validity
 		 */
 		public function handle_non_product_type_coupons( $valid = true, $coupon = null, $discounts = null ) {
+
+			// If coupon is already invalid, no need for further checks.
+			if ( true !== $valid ) {
+				return $valid;
+			}
 
 			if ( ! is_a( $coupon, 'WC_Coupon' ) ) {
 				return $valid;

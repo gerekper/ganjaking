@@ -422,3 +422,6 @@ only screen and (min-resolution: 144dpi) {
 		background-repeat: no-repeat!important
 	}
 }
+#cc_list_chosen .search-field input {
+	width: 100% !important;
+}

@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.2.2
+ * @version     1.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -246,7 +246,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 
 			$js = "jQuery('select.sa_cbl_search_location').chosen({
 						disable_search_threshold: 10,
-						width: '300px'
+						width: '50%'
 					});";
 
 			$js .= "jQuery('#cc_list_chosen').on('click', function(){
