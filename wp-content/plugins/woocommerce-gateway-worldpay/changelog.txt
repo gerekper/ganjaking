@@ -1,4 +1,8 @@
 *** WorldPay Changelog ***
+2021.01.13 - version 4.1.7
+ * Make sure _transaction_id is available for refunds
+ * WC 4.9
+
 2020.11.05 - version 4.1.6
  * New option to set Signature Fields
 

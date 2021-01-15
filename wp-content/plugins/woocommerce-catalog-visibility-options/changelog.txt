@@ -1,4 +1,8 @@
 *** Catalog Visibility Options Changelog ***
+2021.01.04 - version 3.2.14
+    * Update:  WP and WC version compatibility tags.
+    * Fix:  Fix issue with compatibility for WooCommerce Bookings
+
 2020.10.15 - version 3.2.12
     * Update:  WP and WC version compatibility tags.
     * Update:  Added several checks inside of the filters so that page builders who call actions and filters incorrectly with missing variables will not break.

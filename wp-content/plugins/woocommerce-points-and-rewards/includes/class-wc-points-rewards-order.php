@@ -31,6 +31,10 @@ class WC_Points_Rewards_Order {
 		add_action( 'woocommerce_order_status_processing', array( $this, 'maybe_update_points' ) );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'maybe_update_points' ) );
 		add_action( 'woocommerce_order_status_on-hold', array( $this, 'maybe_update_points' ) );
+
+		// Compatibility with WooCommerce Pre-Orders.
+		add_action( 'woocommerce_order_status_pre-ordered', array( $this, 'maybe_update_points' ) );
+
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'log_redemption_points' ) );
 
 		// credit points back to the user if their order is cancelled or refunded

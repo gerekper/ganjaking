@@ -51,8 +51,9 @@ jQuery(document).ready(function($) {
 
     // RMA Update
     $("#the-list").on("click", ".rma-update", function() {
+        var      id = $(this).data('id');
         var request = $("#the-list")
-        var inputs  = request.find("input,select,textarea");
+        var inputs  = request.find("input,textarea,#status_" + id );
         var data    = $(inputs).serializeArray();
 
         data.push({
@@ -61,7 +62,7 @@ jQuery(document).ready(function($) {
         });
         data.push({
             name: "id",
-            value: $(this).data("id")
+            value: id
         });
         data.push({
             name: "_wpnonce",

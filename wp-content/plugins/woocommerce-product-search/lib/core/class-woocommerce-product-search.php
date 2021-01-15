@@ -78,8 +78,8 @@ class WooCommerce_Product_Search {
 	const AUTO_REPLACE_FORM          = 'auto-replace-form';
 	const AUTO_REPLACE_FORM_DEFAULT  = true;
 	const AUTO_INSTANCE              = 'auto-instance';
-	const AUTO_REPLACE_REST          = 'auto-replace-rest'; 
-	const AUTO_REPLACE_REST_DEFAULT  = true; 
+	const AUTO_REPLACE_REST          = 'auto-replace-rest';
+	const AUTO_REPLACE_REST_DEFAULT  = true;
 
 	const MAX_TITLE_WORDS              = 'max-title-words';
 	const MAX_TITLE_WORDS_DEFAULT      = 0;
@@ -175,7 +175,7 @@ class WooCommerce_Product_Search {
 				!empty( $_REQUEST['ixwpst'] ) ||
 				!empty( $_REQUEST['ixwpsf'] ) ||
 				!empty( $_REQUEST['ixwpsp'] ) ||
-				isset( $_REQUEST['ixwpse'] ) 
+				isset( $_REQUEST['ixwpse'] )
 			)
 		) {
 			add_action( 'template_redirect', array( __CLASS__, 'template_redirect' ) );
@@ -185,7 +185,6 @@ class WooCommerce_Product_Search {
 		}
 
 	}
-
 
 	/**
 	 * Fires the woocommerce_product_search_signal_filter_response action.
@@ -283,12 +282,12 @@ class WooCommerce_Product_Search {
 			$t = $wps_dom_processing['t'];
 			wps_log_info( sprintf(
 				__( 'WooCommerce Product Search - Buffer %sK / %sK %s%% - Processing %ss / %ss %s%%', 'woocommerce-product-search' ),
-				round( $r / 1024, 2 ), 
-				round( $l / 1024, 2 ), 
-				( $l > 0 ? round( 100 * $r / $l, 2 ) : '~' ), 
-				$t, 
-				$wp_loaded_to_shutdown, 
-				( $wp_loaded_to_shutdown > 0 ? round( 100 * $t / $wp_loaded_to_shutdown, 2 ) : '~' ) 
+				round( $r / 1024, 2 ),
+				round( $l / 1024, 2 ),
+				( $l > 0 ? round( 100 * $r / $l, 2 ) : '~' ),
+				$t,
+				$wp_loaded_to_shutdown,
+				( $wp_loaded_to_shutdown > 0 ? round( 100 * $t / $wp_loaded_to_shutdown, 2 ) : '~' )
 			) );
 		}
 
@@ -505,11 +504,11 @@ class WooCommerce_Product_Search {
 	public static function switch_to_blog( $blog_id ) {
 		switch_to_blog( $blog_id );
 		if ( function_exists( 'wp_cache_switch_to_blog' ) ) {
-			wp_cache_switch_to_blog( $blog_id ); 
-		} else if ( function_exists( 'wp_cache_init' ) ) { 
+			wp_cache_switch_to_blog( $blog_id );
+		} else if ( function_exists( 'wp_cache_init' ) ) {
 			wp_cache_init();
 
-		} else if ( function_exists( 'wp_cache_flush' ) ) { 
+		} else if ( function_exists( 'wp_cache_flush' ) ) {
 
 			wp_cache_flush();
 		}
@@ -596,7 +595,7 @@ class WooCommerce_Product_Search {
 		return
 			( version_compare( $db_version, WOO_PS_PLUGIN_VERSION ) < 0 )
 			&&
-			( version_compare( $db_version, '3.1.0' ) < 0 ); 
+			( version_compare( $db_version, '3.1.0' ) < 0 );
 	}
 
 	/**
@@ -605,7 +604,7 @@ class WooCommerce_Product_Search {
 	 * @since 3.0.0
 	 */
 	public static function schedule_db_update() {
-		if ( !self::is_db_update_scheduled() ) { 
+		if ( !self::is_db_update_scheduled() ) {
 			$scheduled = wp_schedule_single_event( time() + 20, 'woocommerce_product_search_update_db' );
 			if ( $scheduled ) {
 				wps_log_info( 'A database update has been scheduled.' );
@@ -706,7 +705,7 @@ class WooCommerce_Product_Search {
 		$wpdb->query(
 			"DELETE FROM $wpdb->postmeta WHERE meta_key = '_search_weight' AND post_id IN ( SELECT ID FROM $wpdb->posts WHERE post_type = 'product' )"
 		);
-		if ( function_exists( 'delete_term_meta' ) ) { 
+		if ( function_exists( 'delete_term_meta' ) ) {
 
 			$wpdb->query(
 				"DELETE FROM $wpdb->termmeta WHERE meta_key IN ( '_search_weight', '_search_weight_sum' ) AND term_id IN ( SELECT term_id FROM $wpdb->term_taxonomy WHERE taxonomy = 'product_cat' )"
@@ -714,7 +713,7 @@ class WooCommerce_Product_Search {
 		} else {
 			delete_metadata( 'woocommerce_term', null, '_search_weight', '', true );
 		}
-		if ( function_exists( 'delete_term_meta' ) ) { 
+		if ( function_exists( 'delete_term_meta' ) ) {
 			$product_taxonomies = array(
 				'product_cat',
 				'product_tag'

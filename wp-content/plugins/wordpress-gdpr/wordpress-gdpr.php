@@ -12,7 +12,7 @@
  * Plugin Name:       WordPress GDPR
  * Plugin URI:        https://welaunch.io/plugins/wordpress-gdpr/
  * Description:       EU-DSVGO, GDPR Compliance Plugin
- * Version:           1.9.10
+ * Version:           1.9.12
  * Author:            weLaunch
  * Author URI:        https://welaunch.io
  * License:           GPL-2.0+
@@ -77,9 +77,9 @@ function run_WordPress_GDPR() {
 
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
-run_WordPress_GDPR();
-
-if (!class_exists('Redux') ) {
+if ( is_plugin_active('welaunch-framework/welaunch-framework.php') || is_plugin_active('redux-framework/redux-framework.php') || is_plugin_active('redux-dev-master/redux-framework.php') ){
+	run_WordPress_GDPR();	
+} else {
 	add_action( 'admin_notices', 'run_WordPress_GDPR_Not_Installed' );
 }
 
@@ -87,7 +87,7 @@ function run_WordPress_GDPR_Not_Installed()
 {
 	?>
     <div class="error">
-      <p><?php _e( 'WordPress GDPR requires the Redux Framework Please install or activate it before!', 'wordpress-gdpr'); ?></p>
+      <p><?php _e( 'WordPress GDPR requires the weLaunch Framework Please install or activate it before: https://www.welaunch.io/updates/welaunch-framework.zip', 'wordpress-gdpr'); ?></p>
     </div>
     <?php
 }

@@ -105,12 +105,17 @@ class WoocommerceGpfStatusReport {
 		if ( isset( $this->settings['include_variations'] ) && 'on' === $this->settings['include_variations'] ) {
 			$include_variations = __( 'Enabled', 'woocommerce_gpf' );
 		} else {
-			$include_variations = __( 'No', 'woocommerce_gpf' );
+			$include_variations = __( '-', 'woocommerce_gpf' );
 		}
 		if ( isset( $this->settings['send_item_group_id'] ) && 'on' === $this->settings['send_item_group_id'] ) {
 			$send_item_group_id = __( 'Enabled', 'woocommerce_gpf' );
 		} else {
-			$send_item_group_id = __( 'No', 'woocommerce_gpf' );
+			$send_item_group_id = __( '-', 'woocommerce_gpf' );
+		}
+		if ( isset( $this->settings['expanded_schema'] ) && 'on' === $this->settings['expanded_schema'] ) {
+			$expanded_schema = __( 'Enabled', 'woocommerce_gpf' );
+		} else {
+			$expanded_schema = __( '-', 'woocommerce_gpf' );
 		}
 		$debug_key = get_option( 'woocommerce_gpf_debug_key', __( 'Not set', 'woocommerce_gpf' ) );
 
@@ -140,6 +145,15 @@ class WoocommerceGpfStatusReport {
 				'name'      => esc_html( __( 'Send &quot;item group ID&quot;', 'woocommerce_gpf' ) ),
 				'attr_name' => esc_attr( __( 'Send &quot;item group ID&quot;', 'woocommerce_gpf' ) ),
 				'status'    => esc_html( $send_item_group_id ),
+			)
+		);
+		$this->template_loader->output_template_with_variables(
+			'woo-gpf-status-report',
+			'item',
+			array(
+				'name'      => esc_html( __( 'Expanded schema markup', 'woocommerce_gpf' ) ),
+				'attr_name' => esc_attr( __( 'Expanded schema markup', 'woocommerce_gpf' ) ),
+				'status'    => esc_html( $expanded_schema ),
 			)
 		);
 

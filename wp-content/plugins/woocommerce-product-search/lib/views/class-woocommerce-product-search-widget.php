@@ -102,7 +102,6 @@ class WooCommerce_Product_Search_Widget extends WP_Widget {
 			$cache = array();
 		}
 
-
 		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
 		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
 		$before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
@@ -120,7 +119,7 @@ class WooCommerce_Product_Search_Widget extends WP_Widget {
 		$output .= WooCommerce_Product_Search_Field::woocommerce_product_search( $instance );
 		$output .= $after_widget;
 
-		echo $output; 
+		echo $output;
 
 		$cache[$args['widget_id']] = $output;
 		wps_cache_set( self::$cache_id, $cache, self::$cache_group );

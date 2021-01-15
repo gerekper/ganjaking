@@ -193,7 +193,7 @@ class WoocommerceGpfCache {
 	 *
 	 * @param int $post_id The product's post ID to be cleared down.
 	 *
-	 * @return
+	 * @return void
 	 */
 	public function flush_product( $post_id ) {
 		if ( ! $this->cache_enabled ) {

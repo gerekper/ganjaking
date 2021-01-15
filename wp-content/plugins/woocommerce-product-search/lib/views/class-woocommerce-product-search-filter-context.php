@@ -116,7 +116,6 @@ class WooCommerce_Product_Search_Filter_Context {
 	 */
 	public static function save_post( $post_id = null, $post = null, $update = false ) {
 
-
 		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE || wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) ) {
 		} else {
 			if ( $post = get_post( $post_id ) ) {
@@ -280,7 +279,6 @@ class WooCommerce_Product_Search_Filter_Context {
 			}
 		}
 		$context['taxonomy_op'] = $taxonomy_op;
-
 
 		return $context;
 	}

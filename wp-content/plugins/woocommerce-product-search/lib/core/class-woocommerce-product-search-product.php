@@ -87,7 +87,6 @@ class WooCommerce_Product_Search_Product {
 				$attributes  = ( $weight_attributes != 0 ) && ( isset( $_REQUEST[WooCommerce_Product_Search_Service::ATTRIBUTES] ) ? intval( $_REQUEST[WooCommerce_Product_Search_Service::ATTRIBUTES] ) > 0 : WooCommerce_Product_Search_Service::DEFAULT_ATTRIBUTES );
 				$sku         = ( $weight_sku != 0 ) && ( isset( $_REQUEST[WooCommerce_Product_Search_Service::SKU] ) ? intval( $_REQUEST[WooCommerce_Product_Search_Service::SKU] ) > 0 : WooCommerce_Product_Search_Service::DEFAULT_SKU );
 
-
 				if (
 					!$title && !$excerpt && !$content && !$tags && !$sku && !$categories && !$attributes
 				) {

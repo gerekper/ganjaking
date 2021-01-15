@@ -28,7 +28,6 @@ if ( !defined( 'ABSPATH' ) ) {
  */
 class WooCommerce_Product_Search_Compat_WooCommerce_Brands {
 
-
 	/**
 	 * Filter to add the product_brand taxonomy.
 	 */

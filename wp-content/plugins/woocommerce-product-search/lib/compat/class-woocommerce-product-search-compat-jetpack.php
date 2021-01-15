@@ -28,7 +28,6 @@ if ( !defined( 'ABSPATH' ) ) {
  */
 class WooCommerce_Product_Search_Compat_Jetpack {
 
-
 	/**
 	 * Add action when handling a filter response.
 	 */
@@ -82,8 +81,8 @@ class WooCommerce_Product_Search_Compat_Jetpack {
 			$post_type = $query->get( 'post_type' );
 			if (
 				(
-					$query->is_search() || 
-					$query->get( 'product_search', false ) 
+					$query->is_search() ||
+					$query->get( 'product_search', false )
 				) &&
 				(
 					is_string( $post_type ) && $post_type === 'product' ||

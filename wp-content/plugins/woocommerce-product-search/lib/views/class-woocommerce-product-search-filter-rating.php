@@ -244,13 +244,13 @@ class WooCommerce_Product_Search_Filter_Rating {
 		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
 
 			$href = get_permalink( wc_get_page_id( 'shop' ) );
-			if ( !$href ) { 
+			if ( !$href ) {
 				$query_post_type = self::get_query_arg( $current_url, 'post_type' );
 
 				if ( $query_post_type !== 'product' ) {
 
 					$href = add_query_arg( array( 'post_type' => 'product' ), trailingslashit( home_url() ) );
-					$add_post_type = true; 
+					$add_post_type = true;
 				}
 			}
 		}
@@ -264,7 +264,7 @@ class WooCommerce_Product_Search_Filter_Rating {
 			esc_url( $href )
 		);
 
-		$output .= '<input type="hidden" name="ixwpse" value="1"/>'; 
+		$output .= '<input type="hidden" name="ixwpse" value="1"/>';
 
 		$output .= sprintf( '<input type="hidden" name="rating" value="%d" />', esc_attr( intval( $rating ) ) );
 
@@ -305,8 +305,7 @@ class WooCommerce_Product_Search_Filter_Rating {
 			);
 			$output .= '</li>';
 		}
-		$output .= '</ul>'; 
-
+		$output .= '</ul>';
 
 		if ( $add_post_type ) {
 			$output .= '<input type="hidden" name="post_type" value="product"/>';
@@ -319,7 +318,6 @@ class WooCommerce_Product_Search_Filter_Rating {
 			'woocommerce_product_search_filter_rating_suffix',
 			'</div>'
 		);
-
 
 		WooCommerce_Product_Search_Filter::filter_added();
 

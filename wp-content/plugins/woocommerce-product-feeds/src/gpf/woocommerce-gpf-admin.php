@@ -571,10 +571,7 @@ class WoocommerceGpfAdmin {
 	 *
 	 * @access public
 	 */
-	public function product_meta_box() {
-
-		global $post;
-
+	public function product_meta_box( $post ) {
 		$current_data     = get_post_meta( $post->ID, '_woocommerce_gpf_data', true );
 		$product_defaults = $this->common->get_defaults_for_product( $post->ID, 'all' );
 

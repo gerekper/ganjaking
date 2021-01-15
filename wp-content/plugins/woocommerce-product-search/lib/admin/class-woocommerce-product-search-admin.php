@@ -42,7 +42,7 @@ class WooCommerce_Product_Search_Admin {
 	const HELP_POSITION         = 999;
 	const INDEXER_CONTROL_CAPABILITY = 'manage_woocommerce';
 	const ASSISTANT_CONTROL_CAPABILITY = 'edit_theme_options';
-	const WIDGET_NUMBER_START   = 2; 
+	const WIDGET_NUMBER_START   = 2;
 
 	/**
 	 * Register a hook on the init action.
@@ -419,7 +419,7 @@ class WooCommerce_Product_Search_Admin {
 			);
 			$content .= '</p>';
 
-			$content .= '</div>'; 
+			$content .= '</div>';
 
 			$screen->add_help_tab( array(
 				'id'      => $id,
@@ -537,7 +537,7 @@ class WooCommerce_Product_Search_Admin {
 						if ( WPS_EXT_PDS ) {
 							$options[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] = isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] );
 							$options[WooCommerce_Product_Search::AUTO_REPLACE_JSON]  = isset( $_POST[WooCommerce_Product_Search::AUTO_REPLACE_JSON] );
-							$json_limit = ''; 
+							$json_limit = '';
 							if ( isset( $_POST[WooCommerce_Product_Search::JSON_LIMIT] ) ) {
 								if ( trim( $_POST[WooCommerce_Product_Search::JSON_LIMIT] ) !== '' ) {
 									$json_limit = intval( $_POST[WooCommerce_Product_Search::JSON_LIMIT] );
@@ -928,7 +928,7 @@ class WooCommerce_Product_Search_Admin {
 		echo '</li>';
 
 		echo '</ul>';
-		echo '</div>'; 
+		echo '</div>';
 
 		echo '<div style="clear:both"></div>';
 
@@ -998,7 +998,7 @@ class WooCommerce_Product_Search_Admin {
 				echo esc_html( _x( 'Limit', 'Limit JSON product search results' , 'woocommerce-product-search' ) );
 				echo ' ';
 				printf(
-					'<input name="%s" style="width:5em;text-align:right;" type="number" value="%s" placeholder="%s" %s/>', 
+					'<input name="%s" style="width:5em;text-align:right;" type="number" value="%s" placeholder="%s" %s/>',
 					esc_attr( WooCommerce_Product_Search::JSON_LIMIT ),
 					esc_attr( $json_limit ),
 					esc_attr__( 'inherit', 'woocommerce-product-search' ),
@@ -1071,9 +1071,9 @@ class WooCommerce_Product_Search_Admin {
 				echo 'jQuery("#wps-auto-replace-instance-options").toggle(jQuery("#wps-auto-replace-form-checkbox").is(":checked"));';
 				echo 'jQuery(document).on( "click", "#wps-auto-replace-form-checkbox", function() {';
 				echo 'jQuery("#wps-auto-replace-instance-options").toggle(this.checked);';
-				echo '});'; 
+				echo '});';
 				echo '}';
-				echo '} );'; 
+				echo '} );';
 				echo '</script>';
 
 				echo '<h4>';
@@ -1350,7 +1350,7 @@ class WooCommerce_Product_Search_Admin {
 				esc_html_e( 'If you are going to use this option, NOW would be a good time to make a backup of your site and its database.', 'woocommerce-product-search' );
 				echo '</p>';
 
-				echo '</div>'; 
+				echo '</div>';
 				break;
 
 			case self::SECTION_WEIGHTS :
@@ -1494,7 +1494,7 @@ class WooCommerce_Product_Search_Admin {
 
 				echo '</table>';
 
-				echo '</div>'; 
+				echo '</div>';
 				break;
 
 			case self::SECTION_THUMBNAILS :
@@ -1617,7 +1617,7 @@ class WooCommerce_Product_Search_Admin {
 
 					echo '</p>';
 				}
-				echo '</div>'; 
+				echo '</div>';
 				break;
 
 			case self::SECTION_CSS :
@@ -1662,7 +1662,7 @@ class WooCommerce_Product_Search_Admin {
 				echo '</label>';
 				echo '</p>';
 
-				echo '</div>'; 
+				echo '</div>';
 				break;
 
 			case self::SECTION_INDEX :
@@ -1731,7 +1731,7 @@ class WooCommerce_Product_Search_Admin {
 				echo '&nbsp;&#93;';
 				echo '</div>';
 
-				echo '</div>'; 
+				echo '</div>';
 
 				$error = WooCommerce_Product_Search_Worker::cron_test();
 				if ( $error === null ) {
@@ -1958,7 +1958,7 @@ class WooCommerce_Product_Search_Admin {
 					self::get_admin_section_url( self::SECTION_INDEX )
 				);
 
-				echo '});'; 
+				echo '});';
 
 				echo 'jQuery("#wps_index_stop").click(function(e){';
 				echo 'e.stopPropagation();';
@@ -1979,7 +1979,7 @@ class WooCommerce_Product_Search_Admin {
 					self::get_admin_section_url( self::SECTION_INDEX )
 				);
 
-				echo '});'; 
+				echo '});';
 
 				echo 'jQuery("#wps_index_rebuild").click(function(e){';
 				echo 'e.stopPropagation();';
@@ -2007,11 +2007,11 @@ class WooCommerce_Product_Search_Admin {
 					),
 					self::get_admin_section_url( self::SECTION_INDEX )
 				);
-				echo '} else {'; 
-				echo 'e.preventDefault();'; 
+				echo '} else {';
+				echo 'e.preventDefault();';
 				echo '}';
 
-				echo '});'; 
+				echo '});';
 
 				echo 'jQuery("#wps_index_run").click(function(e){';
 				echo 'e.stopPropagation();';
@@ -2032,7 +2032,7 @@ class WooCommerce_Product_Search_Admin {
 					self::get_admin_section_url( self::SECTION_INDEX )
 					);
 
-				echo '});'; 
+				echo '});';
 
 				printf(
 					'wpsIndexerStatus.url = "%s";',
@@ -2056,11 +2056,11 @@ class WooCommerce_Product_Search_Admin {
 					)
 				);
 
-				echo '}'; 
-				echo '} );'; 
+				echo '}';
+				echo '} );';
 				echo '</script>';
 
-				break; 
+				break;
 
 			case self::SECTION_ASSISTANT :
 
@@ -2310,7 +2310,7 @@ class WooCommerce_Product_Search_Admin {
 					echo 'jQuery("#run-assistant-confirm").prop("disabled",jQuery("input.wps-assistant:checked").length === 0);';
 					echo 'jQuery("input.wps-assistant").change(function(){';
 					echo 'jQuery("#run-assistant-confirm").prop("disabled",jQuery("input.wps-assistant:checked").length === 0);';
-					echo '});'; 
+					echo '});';
 
 					echo 'jQuery("#run-assistant-confirm").click(function(e){';
 					echo 'e.stopPropagation();';
@@ -2319,23 +2319,23 @@ class WooCommerce_Product_Search_Admin {
 						'if ( confirm("%s") ) {',
 						esc_html__( 'Add the selected filters to the chosen sidebar?', 'woocommerce-product-search' )
 					);
-					echo '} else {'; 
-					echo 'e.preventDefault();'; 
+					echo '} else {';
+					echo 'e.preventDefault();';
 					echo '}';
-					echo '} else {'; 
-					echo 'e.preventDefault();'; 
+					echo '} else {';
+					echo 'e.preventDefault();';
 					echo '}';
-					echo '});'; 
-					echo '}'; 
-					echo '} );'; 
+					echo '});';
+					echo '}';
+					echo '} );';
 					echo '</script>';
 
-				} 
-			break; 
+				}
+			break;
 
 			case self::SECTION_WELCOME :
 				WooCommerce_Product_Search_Admin_Notice::admin_notices_welcome( array( 'class' => '', 'epilogue' => false ) );
-				break; 
+				break;
 		}
 
 		global $hide_save_button;
@@ -2343,7 +2343,7 @@ class WooCommerce_Product_Search_Admin {
 
 		wp_nonce_field( 'set', self::NONCE );
 		wp_nonce_field( 'woocommerce-settings' );
-		echo '<p class="submit">'; 
+		echo '<p class="submit">';
 		switch ( $current_section ) {
 			case self::SECTION_WELCOME :
 				break;

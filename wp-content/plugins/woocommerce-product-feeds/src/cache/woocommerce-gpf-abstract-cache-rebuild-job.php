@@ -245,7 +245,10 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 			foreach ( $variation_ids as $variation_id ) {
 				// Get the variation product.
 				$variation_product = wc_get_product( $variation_id );
-				$feed_item         = new WoocommerceGpfFeedItem(
+				if ( ! $variation_product ) {
+					continue;
+				}
+				$feed_item = new WoocommerceGpfFeedItem(
 					$variation_product,
 					$woocommerce_product,
 					$feed_format,

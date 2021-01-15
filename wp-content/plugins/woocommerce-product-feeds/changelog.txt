@@ -1,5 +1,12 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2021.01.11 - version 9.4.1
+* New: Add additional information in Status Report for easier debugging of potential issues
+* New: Add logging for review feed into debug log
+* Fix: Do not throw errors if WooCommerce passes invalid variation IDs
+* Fix: Resolve issue where 'composer' errors could be thrown when running on older PHP versions
+* Change: WooCommerce 4.9 compatibility
+
 2020.12.04 - version 9.4.0
 * New: WooCommerce Multilingual currency integration
 * Change: Allow variation suffixes to be removed entirely via filter

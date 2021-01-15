@@ -1,13 +1,13 @@
 # Copyright (C) 2017 Ademti Software Ltd.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Product Feed 9.4.0\n"
+"Project-Id-Version: WooCommerce Google Product Feed 9.4.1\n"
 "Report-Msgid-Bugs-To: https://plugins.leewillis.co.uk/support\n"
-"POT-Creation-Date: 2020-12-07 13:10:29+00:00\n"
+"POT-Creation-Date: 2021-01-11 10:19:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \"Ademti Software WooCommerce Support\" "
 "<wcsupport@ademti-software.co.uk>\n"
 "Language-Team: \"Ademti Software WooCommerce Support\" "
@@ -62,56 +62,58 @@ msgstr ""
 
 #: src/common/woocommerce-gpf-status-report.php:106
 #: src/common/woocommerce-gpf-status-report.php:111
-#: src/common/woocommerce-gpf-status-report.php:171
+#: src/common/woocommerce-gpf-status-report.php:116
+#: src/common/woocommerce-gpf-status-report.php:185
 msgid "Enabled"
 msgstr ""
 
 #: src/common/woocommerce-gpf-status-report.php:108
 #: src/common/woocommerce-gpf-status-report.php:113
-#: src/gpf/woocommerce-gpf-admin.php:1696
-#: templates/woo-gpf-field-row-default-adult.php:4
-msgid "No"
-msgstr ""
-
-#: src/common/woocommerce-gpf-status-report.php:115
-msgid "Not set"
-msgstr ""
-
-#: src/common/woocommerce-gpf-status-report.php:122
-#: src/common/woocommerce-gpf-status-report.php:123
-msgid "WooCommerce Google Product Feed options"
-msgstr ""
-
-#: src/common/woocommerce-gpf-status-report.php:131
-#: src/common/woocommerce-gpf-status-report.php:132
-msgid "Include variations in feed"
-msgstr ""
-
-#: src/common/woocommerce-gpf-status-report.php:140
-#: src/common/woocommerce-gpf-status-report.php:141
-msgid "Send &quot;item group ID&quot;"
-msgstr ""
-
-#: src/common/woocommerce-gpf-status-report.php:150
-#: src/common/woocommerce-gpf-status-report.php:151
-msgid "Debug key"
-msgstr ""
-
-#: src/common/woocommerce-gpf-status-report.php:168
+#: src/common/woocommerce-gpf-status-report.php:118
+#: src/common/woocommerce-gpf-status-report.php:182
 msgid "-"
 msgstr ""
 
-#: src/common/woocommerce-gpf-status-report.php:196
+#: src/common/woocommerce-gpf-status-report.php:120
+msgid "Not set"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:127
+#: src/common/woocommerce-gpf-status-report.php:128
+msgid "WooCommerce Google Product Feed options"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:136
+#: src/common/woocommerce-gpf-status-report.php:137
+msgid "Include variations in feed"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:145
+#: src/common/woocommerce-gpf-status-report.php:146
+msgid "Send &quot;item group ID&quot;"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:154
+#: src/common/woocommerce-gpf-status-report.php:155
+msgid "Expanded schema markup"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:164
+#: src/common/woocommerce-gpf-status-report.php:165
+msgid "Debug key"
+msgstr ""
+
+#: src/common/woocommerce-gpf-status-report.php:210
 #. Translators: Placeholder is the name of the taxonomy
 msgid "%s taxonomy"
 msgstr ""
 
-#: src/common/woocommerce-gpf-status-report.php:199
+#: src/common/woocommerce-gpf-status-report.php:213
 #. Translators: Placeholder is the name of the product field
 msgid "product %s"
 msgstr ""
 
-#: src/common/woocommerce-gpf-status-report.php:202
+#: src/common/woocommerce-gpf-status-report.php:216
 #. Translators: Placeholder is the key of the meta field
 msgid "%s meta field"
 msgstr ""
@@ -141,12 +143,12 @@ msgstr ""
 msgid "Product Feed Information"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:426 src/gpf/woocommerce-gpf-admin.php:623
+#: src/gpf/woocommerce-gpf-admin.php:426 src/gpf/woocommerce-gpf-admin.php:620
 msgid "Default: "
 msgstr ""
 
 #: src/gpf/woocommerce-gpf-admin.php:429 src/gpf/woocommerce-gpf-admin.php:533
-#: src/gpf/woocommerce-gpf-admin.php:626 src/gpf/woocommerce-gpf-admin.php:762
+#: src/gpf/woocommerce-gpf-admin.php:623 src/gpf/woocommerce-gpf-admin.php:759
 msgid "Use default"
 msgstr ""
 
@@ -157,47 +159,52 @@ msgid ""
 "against the main product."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:764
+#: src/gpf/woocommerce-gpf-admin.php:761
 msgid "No default"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:809
+#: src/gpf/woocommerce-gpf-admin.php:806
 msgid "Hide this product from the feed"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1641
+#: src/gpf/woocommerce-gpf-admin.php:1638
 msgid "Product Feeds"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1691
+#: src/gpf/woocommerce-gpf-admin.php:1688
 msgid "Use value from existing product field: "
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1767
+#: src/gpf/woocommerce-gpf-admin.php:1693
+#: templates/woo-gpf-field-row-default-adult.php:4
+msgid "No"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-admin.php:1764
 #. Translators: %s is the name of the taxonomy
 msgid "<em>%s</em> taxonomy"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1773
+#: src/gpf/woocommerce-gpf-admin.php:1770
 #. Translators: %s is the name of the field
 msgid "<em>%s</em> field"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1778
+#: src/gpf/woocommerce-gpf-admin.php:1775
 #. Translators: %1$s is the name of the meta field, %2$s is the raw meta key
 msgid "<em>%1$s</em> meta (%2$s)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1787
+#: src/gpf/woocommerce-gpf-admin.php:1784
 #. Translators: %s is the description of where the data will be pulled from.
 msgid "Uses value from %s if set."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1900
+#: src/gpf/woocommerce-gpf-admin.php:1897
 msgid "Store default: <br>"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:2033
+#: src/gpf/woocommerce-gpf-admin.php:2030
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 

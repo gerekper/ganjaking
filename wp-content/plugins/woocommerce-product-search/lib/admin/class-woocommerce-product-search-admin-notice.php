@@ -162,7 +162,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 
 			if ( !empty( $_GET[self::CONFIRM_UPDATE] ) && isset( $_GET['wps_notice'] ) && wp_verify_nonce( $_GET['wps_notice'], 'confirm' ) ) {
 				WooCommerce_Product_Search::schedule_db_update();
-			} else { 
+			} else {
 
 				if ( WooCommerce_Product_Search::needs_db_update() && !WooCommerce_Product_Search::is_db_update_scheduled() ) {
 					add_action( 'admin_notices', array( __CLASS__, 'update_notice' ), 0 );
@@ -429,7 +429,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 			$output .= '</p>';
 		}
 
-		$output .= '</div>'; 
+		$output .= '</div>';
 
 		echo $output;
 	}
@@ -537,7 +537,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 			__( 'Update', 'woocommerce-product-search' )
 		);
 		$output .= '</p>';
-		$output .= '</div>'; 
+		$output .= '</div>';
 
 		echo $output;
 	}

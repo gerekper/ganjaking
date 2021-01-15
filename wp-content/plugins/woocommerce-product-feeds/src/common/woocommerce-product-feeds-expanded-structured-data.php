@@ -65,10 +65,8 @@ class WoocommerceProductFeedsExpandedStructuredData {
 		global $product;
 		$wc_product = $product;
 
-		// Check we have a valid product, and try and load from the cache if possible
-		if ( ! is_a( $wc_product, 'WC_Product' ) ||
-			 $this->load_schema_cache( $wc_product )
-		) {
+		// If we don't have a valid product, or we can load from the cache then we're done.
+		if ( ! is_a( $wc_product, 'WC_Product' ) || $this->load_schema_cache( $wc_product ) ) {
 			return;
 		}
 
@@ -323,24 +321,22 @@ class WoocommerceProductFeedsExpandedStructuredData {
 	}
 
 	/**
-	 * Generate an agrregateRating data array for a product.
+	 * Generate an aggregateRating data array for a product.
 	 *
 	 * Taken from WC_Structured_Data
 	 *
 	 * @param \WC_Product $product
 	 */
 	private function generate_aggregate_rating( \WC_Product $product ) {
-		$aggregate_rating = [];
 		if ( ! $product->get_rating_count() || ! wc_review_ratings_enabled() ) {
-			return $aggregate_rating;
+			return [];
 		}
-		$aggregate_rating = [
+
+		return [
 			'@type'       => 'AggregateRating',
 			'ratingValue' => $product->get_average_rating(),
 			'reviewCount' => $product->get_review_count(),
 		];
-
-		return $aggregate_rating;
 	}
 
 	/**
@@ -350,10 +346,8 @@ class WoocommerceProductFeedsExpandedStructuredData {
 	 */
 	private function generate_review( WC_Product $product ) {
 
-		$review = [];
-
 		if ( ! $product->get_rating_count() || ! wc_review_ratings_enabled() ) {
-			return $review;
+			return [];
 		}
 
 		// Markup 5 most recent rating/review.
@@ -377,11 +371,12 @@ class WoocommerceProductFeedsExpandedStructuredData {
 		);
 
 		if ( ! $comments ) {
-			return $review;
+			return [];
 		}
 
+		$reviews = [];
 		foreach ( $comments as $comment ) {
-			$review[] = [
+			$reviews[] = [
 				'@type'         => 'Review',
 				'reviewRating'  => [
 					'@type'       => 'Rating',
@@ -398,7 +393,7 @@ class WoocommerceProductFeedsExpandedStructuredData {
 			];
 		}
 
-		return $review;
+		return $reviews;
 	}
 
 	/**

@@ -30,21 +30,20 @@ class WooCommerce_Product_Search_Worker {
 
 	const INDEX_WORKER_STATUS          = 'index-worker-status';
 	const INDEX_WORKER_STATUS_DEFAULT  = false;
-	const START_DELTA                  = 20; 
+	const START_DELTA                  = 20;
 	const WORK_CYCLE                   = 'work-cycle';
 	const WORK_CYCLE_DEFAULT           = 60;
 	const IDLE_CYCLE                   = 'idle-cycle';
 	const IDLE_CYCLE_DEFAULT           = 300;
 	const LIMIT_PER_WORK_CYCLE         = 'limit-per-work-cycle';
 	const LIMIT_PER_WORK_CYCLE_DEFAULT = 40;
-	const TEST_CRON_REQUEST_TIMEOUT    = 5; 
-	const TEST_CRON_MIN_FAIL_STATUS    = 300; 
+	const TEST_CRON_REQUEST_TIMEOUT    = 5;
+	const TEST_CRON_MIN_FAIL_STATUS    = 300;
 
 	/**
 	 * Initialize
 	 */
 	public static function init() {
-
 
 		add_action( 'woocommerce_product_search_work', array( __CLASS__, 'work' ), 10, 0 );
 		self::schedule();
@@ -55,7 +54,6 @@ class WooCommerce_Product_Search_Worker {
 	 * Worker start
 	 */
 	public static function start() {
-
 
 		wps_log_info( 'Worker is starting.' );
 		$options = get_option( 'woocommerce-product-search', array() );
@@ -69,7 +67,6 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	public static function stop() {
 
-
 		wps_log_info( 'Worker is stopping.' );
 		$options = get_option( 'woocommerce-product-search', array() );
 		$options[self::INDEX_WORKER_STATUS] = false;
@@ -81,7 +78,6 @@ class WooCommerce_Product_Search_Worker {
 	 * Worker schedule
 	 */
 	private static function schedule( $delta = null ) {
-
 
 		$options = get_option( 'woocommerce-product-search', array() );
 		$status = isset( $options[self::INDEX_WORKER_STATUS] ) ? $options[self::INDEX_WORKER_STATUS] : self::INDEX_WORKER_STATUS_DEFAULT;
@@ -129,7 +125,6 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	public static function deactivate() {
 
-
 		self::wp_unschedule_hook( 'woocommerce_product_search_work' );
 	}
 
@@ -155,7 +150,6 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	public static function get_status() {
 
-
 		$options = get_option( 'woocommerce-product-search', array() );
 		return isset( $options[self::INDEX_WORKER_STATUS] ) ? $options[self::INDEX_WORKER_STATUS] : self::INDEX_WORKER_STATUS_DEFAULT;
 	}
@@ -167,7 +161,6 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	public static function get_next_scheduled() {
 
-
 		return wp_next_scheduled( 'woocommerce_product_search_work' );
 	}
 
@@ -177,7 +170,6 @@ class WooCommerce_Product_Search_Worker {
 	 * @return int
 	 */
 	public static function get_work_cycle() {
-
 
 		$options = get_option( 'woocommerce-product-search', array() );
 		$max_execution_time = self::get_work_cycle_default();
@@ -199,13 +191,13 @@ class WooCommerce_Product_Search_Worker {
 			$max_execution_time = self::WORK_CYCLE_DEFAULT;
 		}
 
-		$max_input_time = ini_get( 'max_input_time' ); 
-		if ( $max_input_time !== false ) { 
+		$max_input_time = ini_get( 'max_input_time' );
+		if ( $max_input_time !== false ) {
 			$max_input_time = intval( $max_input_time );
 			switch ( $max_input_time ) {
-				case -1 : 
+				case -1 :
 					break;
-				case 0 : 
+				case 0 :
 					break;
 				default :
 
@@ -222,7 +214,6 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	public static function get_idle_cycle() {
 
-
 		$options = get_option( 'woocommerce-product-search', array() );
 		return intval( isset( $options[self::IDLE_CYCLE] ) ? $options[self::IDLE_CYCLE] : self::IDLE_CYCLE_DEFAULT );
 	}
@@ -233,7 +224,6 @@ class WooCommerce_Product_Search_Worker {
 	 * @return int limit per cycle
 	 */
 	public static function get_limit_per_work_cycle() {
-
 
 		$options = get_option( 'woocommerce-product-search', array() );
 		return intval( isset( $options[self::LIMIT_PER_WORK_CYCLE] ) ? $options[self::LIMIT_PER_WORK_CYCLE] : self::LIMIT_PER_WORK_CYCLE_DEFAULT );

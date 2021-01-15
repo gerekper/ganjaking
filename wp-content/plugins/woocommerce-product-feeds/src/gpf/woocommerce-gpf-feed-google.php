@@ -384,12 +384,12 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		$endmem       = round( $this->endmem / 1024 / 1024, 2 );
 		$memusage     = round( ( $this->endmem - $this->startmem ) / 1024 / 1024, 2 );
 		if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES ) {
-			$this->debug->log( 'Total queries:  %d', [ count( $wpdb->queries ) ] );
+			$this->debug->log( 'Total queries:  %s', [ str_pad( count( $wpdb->queries ), 7, ' ', STR_PAD_LEFT ) ] );
 		}
-		$this->debug->log( 'Duration:     %s', [ str_pad( round( $this->endts - $this->startts, 2 ), 7, ' ', STR_PAD_LEFT ) . 's' ] );
-		$this->debug->log( 'Start mem:    %s', [ str_pad( $startmem, 7, ' ', STR_PAD_LEFT ) . 'MB' ] );
-		$this->debug->log( 'End mem:      %s', [ str_pad( $endmem, 7, ' ', STR_PAD_LEFT ) . 'MB' ] );
-		$this->debug->log( 'Memory usage: %s', [ str_pad( $memusage, 7, ' ', STR_PAD_LEFT ) . 'MB' ] );
+		$this->debug->log( 'Duration:       %s', [ str_pad( round( $this->endts - $this->startts, 2 ), 7, ' ', STR_PAD_LEFT ) . ' s' ] );
+		$this->debug->log( 'Start mem:      %s', [ str_pad( $startmem, 7, ' ', STR_PAD_LEFT ) . ' MB' ] );
+		$this->debug->log( 'End mem:        %s', [ str_pad( $endmem, 7, ' ', STR_PAD_LEFT ) . ' MB' ] );
+		$this->debug->log( 'Memory usage:   %s', [ str_pad( $memusage, 7, ' ', STR_PAD_LEFT ) . ' MB' ] );
 
 		echo "  </channel>\n";
 		echo '</rss>';

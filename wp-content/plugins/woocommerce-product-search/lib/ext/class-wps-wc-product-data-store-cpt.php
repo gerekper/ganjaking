@@ -30,7 +30,6 @@ if ( class_exists( 'WC_Product_Data_Store_CPT' ) ) {
  */
 class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
-
 	private static $limit = 0;
 	private static $json_product_search = false;
 
@@ -68,7 +67,6 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 */
 	public static function woocommerce_data_stores( $stores ) {
 
-
 		if ( apply_filters( 'woocommerce_product_search_ext_product_data_store', WPS_EXT_PDS ) ) {
 			if ( isset( $stores['product'] ) && $stores['product'] !== __CLASS__ ) {
 				$stores['product'] = __CLASS__;
@@ -85,7 +83,6 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	public static function is_json_product_search() {
 		return self::$json_product_search;
 	}
-
 
 	/**
 	 * Search product data for a term and return ids.
@@ -112,7 +109,6 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		) {
 			return parent::search_products( $term, $type, $include_variations, $all_statuses, $limit );
 		}
-
 
 		$post_types    = $include_variations ? array( 'product', 'product_variation' ) : array( 'product' );
 		$type_join     = '';
@@ -231,7 +227,7 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 		return wp_parse_id_list( $product_ids );
 	}
-} 
+}
 
 WPS_WC_Product_Data_Store_CPT::init();
 

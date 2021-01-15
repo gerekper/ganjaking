@@ -35,7 +35,6 @@ class WooCommerce_Product_Search_Admin_Product {
 	 */
 	const THRESHOLD = 3;
 
-
 	/**
 	 * Hooks.
 	 */
@@ -68,11 +67,11 @@ class WooCommerce_Product_Search_Admin_Product {
 
 			add_action( 'edited_term', array( __CLASS__, 'edited_term' ), 10, 3 );
 
-			add_action( 'delete_term', array( __CLASS__, 'delete_term' ), 10000, 5 ); 
+			add_action( 'delete_term', array( __CLASS__, 'delete_term' ), 10000, 5 );
 
 			add_action( 'edited_term_taxonomies', array( __CLASS__, 'edited_term_taxonomies' ) );
 
-			add_action( 'deleted_term_relationships', array( __CLASS__, 'deleted_term_relationships' ), 10000, 3 ); 
+			add_action( 'deleted_term_relationships', array( __CLASS__, 'deleted_term_relationships' ), 10000, 3 );
 		}
 	}
 
@@ -188,7 +187,6 @@ class WooCommerce_Product_Search_Admin_Product {
 
 		$search_weight  = get_post_meta( $post->ID, '_search_weight', true );
 
-
 		echo '<style type="text/css">';
 		echo '#woocommerce-product-data ul.wc-tabs li.search_tab a:before {';
 		printf( 'content: url( %s );', esc_url( WOO_PS_PLUGIN_URL . '/images/woocommerce-product-search-12x12.png' ) );
@@ -209,7 +207,7 @@ class WooCommerce_Product_Search_Admin_Product {
 				'type'        => 'number'
 			)
 		);
-		echo '</div>'; 
+		echo '</div>';
 	}
 
 	/**

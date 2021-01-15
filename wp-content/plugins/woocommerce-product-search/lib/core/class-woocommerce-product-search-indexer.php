@@ -369,7 +369,7 @@ class WooCommerce_Product_Search_Indexer {
 		$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' );
 		$index_table       = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
 		$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
-		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' ); 
+		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
 
 		if (
 			WooCommerce_Product_Search_Controller::table_exists( 'key' ) &&
@@ -396,7 +396,7 @@ class WooCommerce_Product_Search_Indexer {
 					"AND post_status IN ( 'publish', 'pending', 'draft', 'private' ) " .
 					"AND ( " .
 					"ID NOT IN (SELECT object_id FROM $index_table WHERE object_type_id = %d) " .
-					$object_term_query . 
+					$object_term_query .
 					" ) ",
 					$object_type,
 					intval( $object_type_id )
@@ -417,7 +417,7 @@ class WooCommerce_Product_Search_Indexer {
 		$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' );
 		$index_table       = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
 		$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
-		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' ); 
+		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
 
 		$options = get_option( 'woocommerce-product-search', null );
 
@@ -467,7 +467,7 @@ class WooCommerce_Product_Search_Indexer {
 					"AND post_status IN ( 'publish', 'pending', 'draft', 'private' ) " .
 					"AND ( " .
 					"ID NOT IN (SELECT object_id FROM $index_table WHERE object_type_id = %d) " .
-					$object_term_query . 
+					$object_term_query .
 					" ) " .
 					"ORDER BY $index_order_by $index_order_dir " .
 					"LIMIT %d",
@@ -539,8 +539,8 @@ class WooCommerce_Product_Search_Indexer {
 			if ( $max_execution_time === 0 ) {
 				$max_execution_time = PHP_INT_MAX;
 			}
-			$max_input_time = ini_get( 'max_input_time' ); 
-			if ( $max_input_time !== false ) { 
+			$max_input_time = ini_get( 'max_input_time' );
+			if ( $max_input_time !== false ) {
 				$max_input_time = intval( $max_input_time );
 				switch ( $max_input_time ) {
 					case -1 :
@@ -559,7 +559,7 @@ class WooCommerce_Product_Search_Indexer {
 			if ( function_exists( 'getrusage' ) ) {
 				$resource_usage = getrusage();
 				if ( isset( $resource_usage['ru_utime.tv_sec'] ) ) {
-					$initial_execution_time = $resource_usage['ru_stime.tv_sec'] + $resource_usage['ru_utime.tv_sec'] + 2; 
+					$initial_execution_time = $resource_usage['ru_stime.tv_sec'] + $resource_usage['ru_utime.tv_sec'] + 2;
 				}
 			}
 		}
@@ -569,7 +569,7 @@ class WooCommerce_Product_Search_Indexer {
 		$post_ids = self::get_processable_ids();
 		$n = count( $post_ids );
 
-		$first = is_array( $post_ids ) && isset( $post_ids[0] ) ? $post_ids[0] : '-'; 
+		$first = is_array( $post_ids ) && isset( $post_ids[0] ) ? $post_ids[0] : '-';
 		$last  = is_array( $post_ids ) && ( $n > 0 ) ? $post_ids[$n - 1] : '-';
 		wps_log_info( sprintf( 'The indexer has found %d entries to process, %s - %s.', $n, $first, $last ) );
 
@@ -611,7 +611,7 @@ class WooCommerce_Product_Search_Indexer {
 				if ( function_exists( 'getrusage' ) ) {
 					$resource_usage = getrusage();
 					if ( isset( $resource_usage['ru_utime.tv_sec'] ) ) {
-						$execution_time = $resource_usage['ru_stime.tv_sec'] + $resource_usage['ru_utime.tv_sec'] + 2; 
+						$execution_time = $resource_usage['ru_stime.tv_sec'] + $resource_usage['ru_utime.tv_sec'] + 2;
 						$d = ceil( $execution_time - $initial_execution_time );
 						if ( intval( $d * self::DELTA_F ) > ( $max_execution_time - $d ) ) {
 							wps_log_info(
@@ -639,7 +639,6 @@ class WooCommerce_Product_Search_Indexer {
 	}
 
 	public function purge( $post_id ) {
-
 
 		global $wpdb;
 
@@ -689,7 +688,7 @@ class WooCommerce_Product_Search_Indexer {
 					"DELETE FROM $object_term_table WHERE " .
 					'term_id = 0 AND ' .
 					'object_id IN ( ' .
-					'SELECT object_id FROM ( ' . 
+					'SELECT object_id FROM ( ' .
 					"SELECT DISTINCT object_id FROM $object_term_table WHERE term_id IN ( " . implode( ',', $term_ids ) . ' ) ' .
 					' ) tmp ' .
 					' ) ';
@@ -704,7 +703,6 @@ class WooCommerce_Product_Search_Indexer {
 	}
 
 	public function index( $post_id ) {
-
 
 		wps_log_info( 'Indexing ' . $post_id );
 
@@ -725,10 +723,10 @@ class WooCommerce_Product_Search_Indexer {
 				$object_type = 'product_variation';
 			}
 
-			$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' ); 
+			$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' );
 			$index_table       = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
 			$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
-			$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' ); 
+			$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
 
 			$this->delete_indexes( $post_id, $object_type );
 
@@ -748,6 +746,7 @@ class WooCommerce_Product_Search_Indexer {
 			$ids = array();
 			$titles = array();
 			$descriptions = array();
+			$short_descriptions = array();
 			$skus = array();
 			if ( $product->is_type( 'variable' ) ) {
 				if ( method_exists( $product, 'get_children' ) ) {
@@ -757,6 +756,7 @@ class WooCommerce_Product_Search_Indexer {
 							$ids[] = $variation->get_id();
 							$titles[] = $variation->get_name();
 							$descriptions[] = wc_format_content( $variation->get_description() );
+							$short_descriptions[] = wc_format_content( $variation->get_short_description() );
 							$skus[] = $variation->get_sku();
 						}
 						unset( $variation );
@@ -772,6 +772,7 @@ class WooCommerce_Product_Search_Indexer {
 						$ids[]          = $parent->get_id();
 						$titles[]       = $parent->get_name();
 						$descriptions[] = wc_format_content( $parent->get_description() );
+						$short_descriptions[] = wc_format_content( $parent->get_short_description() );
 						$skus[]         = $parent->get_sku();
 					}
 				}
@@ -792,6 +793,11 @@ class WooCommerce_Product_Search_Indexer {
 			} else {
 				$descriptions = '';
 			}
+			if ( count( $short_descriptions ) > 0 ) {
+				$short_descriptions = ' ' . implode( ' ', $short_descriptions );
+			} else {
+				$short_descriptions = '';
+			}
 			if ( count( $skus ) > 0 ) {
 				$skus = ' ' . implode( ' ', $skus );
 			} else {
@@ -806,11 +812,11 @@ class WooCommerce_Product_Search_Indexer {
 					'post_content' => $this->filter( $product->post_content, 'post_content', $post_id )
 				);
 			} else {
-				if ( !$product->is_type( 'variation' ) ) { 
+				if ( !$product->is_type( 'variation' ) ) {
 					$context_columns = array(
 						'post_id'      => $this->filter( $product->get_id() . $ids, 'post_id', $post_id ),
 						'post_title'   => $this->filter( $product->get_title() . $titles, 'post_title', $post_id ),
-						'post_excerpt' => $this->filter( wc_format_content( $product->get_short_description() ), 'post_excerpt', $post_id ),
+						'post_excerpt' => $this->filter( wc_format_content( $product->get_short_description() ) . $short_descriptions, 'post_excerpt', $post_id ),
 						'post_content' => $this->filter( wc_format_content( $product->get_description() ) . $descriptions, 'post_content', $post_id ),
 						'sku'          => $this->filter( $product->get_sku() . $skus, 'sku', $post_id ),
 						'tag'          => $this->filter( wc_get_product_tag_list( $post_id, ' ' ), 'tag', $post_id ),
@@ -821,9 +827,9 @@ class WooCommerce_Product_Search_Indexer {
 					if ( !empty( $attribute_taxonomies ) ) {
 						foreach ( $attribute_taxonomies as $attribute ) {
 
-							$index_attribute = true; 
+							$index_attribute = true;
 
-							if ( $product->is_type( 'variable' ) ) { 
+							if ( $product->is_type( 'variable' ) ) {
 
 								/**
 								 * @var WC_Product_Attribute $attribute_object
@@ -850,20 +856,20 @@ class WooCommerce_Product_Search_Indexer {
 
 							if ( $index_attribute ) {
 								$term_list = get_the_term_list( $post_id, 'pa_' . $attribute->attribute_name, '', ' ', '' );
-								if ( !empty( $term_list ) && is_string( $term_list ) ) { 
+								if ( !empty( $term_list ) && is_string( $term_list ) ) {
 									$attribute_names[] = $attribute->attribute_name;
 									$context_columns[$attribute->attribute_name] = $this->filter( $term_list, $attribute->attribute_name, $post_id );
 								}
 							}
 						}
 					}
-				} else { 
+				} else {
 
 					if ( $parent_id ) {
 						$context_columns = array(
 							'post_id'      => $this->filter( $product->get_id() . $ids, 'post_id', $product->get_id() ),
 							'post_title'   => $this->filter( $product->get_title() . $titles, 'post_title', $product->get_id() ),
-							'post_excerpt' => $this->filter( wc_format_content( $product->get_short_description() ), 'post_excerpt', $product->get_id() ),
+							'post_excerpt' => $this->filter( wc_format_content( $product->get_short_description() ) . $short_descriptions, 'post_excerpt', $product->get_id() ),
 							'post_content' => $this->filter( wc_format_content( $product->get_description() ) . $descriptions, 'post_content', $product->get_id() ),
 							'sku'          => $this->filter( $product->get_sku() . $skus, 'sku', $product->get_id() ),
 							'tag'          => $this->filter( wc_get_product_tag_list( $parent_id, ' ' ), 'tag', $product->get_id() ),
@@ -1025,23 +1031,23 @@ class WooCommerce_Product_Search_Indexer {
 							$parent_term_id = null;
 						}
 						$placeholders = array(
-							'%d', 
-							$parent_product_id !== null ? '%d' : 'NULL', 
-							'%d', 
-							$parent_term_id !== null ? '%d' : 'NULL', 
-							'%s', 
-							'%s', 
-							'%d', 
-							'%s' 
+							'%d',
+							$parent_product_id !== null ? '%d' : 'NULL',
+							'%d',
+							$parent_term_id !== null ? '%d' : 'NULL',
+							'%s',
+							'%s',
+							'%d',
+							'%s'
 						);
 						$values = array();
-						$values[] = intval( $product_id ); 
+						$values[] = intval( $product_id );
 						if ( $parent_product_id !== null ) {
-							$values[] = intval( $parent_product_id ); 
+							$values[] = intval( $parent_product_id );
 						}
-						$values[] = intval( $term_id ); 
+						$values[] = intval( $term_id );
 						if ( $parent_term_id !== null ) {
-							$values[] = intval( $parent_term_id ); 
+							$values[] = intval( $parent_term_id );
 						}
 						$values[] = $type;
 						$values[] = $term->taxonomy;
@@ -1118,7 +1124,6 @@ class WooCommerce_Product_Search_Indexer {
 		}
 		return $object_type_id;
 	}
-
 
 	private function get_or_add_object_type( $object_type = null, $context = null, $context_table = null, $context_column = null, $context_key = null ) {
 
@@ -1413,8 +1418,8 @@ class WooCommerce_Product_Search_Indexer {
 	 */
 	public static function equalize( $s ) {
 
-		$s = preg_replace( '/[^\P{P}-]+/u', ' ', $s ); 
-		$s = preg_replace( '/[^\p{L}\p{N}-]++/u', ' ', $s ); 
+		$s = preg_replace( '/[^\P{P}-]+/u', ' ', $s );
+		$s = preg_replace( '/[^\p{L}\p{N}-]++/u', ' ', $s );
 		$s = trim( preg_replace( '/\s-+/', ' ', $s ) );
 		$s = trim( preg_replace( '/-+\s/', ' ', $s ) );
 		$s = trim( preg_replace( '/\s+/', ' ', $s ) );

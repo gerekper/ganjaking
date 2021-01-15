@@ -122,16 +122,17 @@ class WC_Points_Rewards_Admin {
 	 */
 	public function verify_coupons_enabled() {
 
-		$coupons_enabled = get_option( 'woocommerce_enable_coupons' ) == 'no' ? false : true;
+		$coupons_enabled = get_option( 'woocommerce_enable_coupons' ) === 'no' ? false : true;
 
 		if ( ! $coupons_enabled ) {
 			$message = sprintf(
-				__( 'WooCommerce Points and Rewards requires coupons to be %senabled%s in order to function properly and allow customers to redeem points during checkout.', 'woocommerce-points-and-rewards' ),
-				'<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">',
+				/* translators: %1$s link start, %2$s link end */
+				__( 'WooCommerce Points and Rewards requires coupons to be %1$senabled%2$s in order to function properly and allow customers to redeem points during checkout.', 'woocommerce-points-and-rewards' ),
+				'<a href="' . admin_url( 'admin.php?page=wc-settings' ) . '">',
 				'</a>'
 			);
 
-			echo '<div class="error"><p>' . $message . '</p></div>';
+			echo '<div class="error"><p>' . wp_kses_post( $message ) . '</p></div>';
 		}
 	}
 
@@ -837,7 +838,23 @@ class WC_Points_Rewards_Admin {
 			$monetary_value = wc_clean( $_POST[ $option['id'] . '_monetary_value' ] );
 			$monetary_value = str_replace( wc_get_price_decimal_separator(), '.', $monetary_value );
 
+			// Clear all points transients.
+			// Variable product points could be updated https://github.com/woocommerce/woocommerce-points-and-rewards/issues/401.
+			$this->clear_all_transients();
+
 			return $points . ':' . $monetary_value;
+	}
+
+	/**
+	 * Clears all transients that saves variation high/low points.
+	 *
+	 * @since 1.6.42
+	 */
+	public function clear_all_transients() {
+		global $wpdb;
+
+		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '%wc_points_rewards_lowest_point_variation_%'" );
+		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '%wc_points_rewards_highest_point_variation_%'" );
 	}
 
 	/**

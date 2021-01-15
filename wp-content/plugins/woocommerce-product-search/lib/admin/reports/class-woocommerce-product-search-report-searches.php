@@ -65,14 +65,14 @@ class WooCommerce_Product_Search_Report_Searches extends WC_Admin_Report {
 		$legend = array();
 
 		$legend[] = array(
-			
+			/* translators: %d: total number of searches with results */
 			'title' => sprintf( __( '%d Searches with results', 'woocommerce-product-search' ), $this->total_searches_with_results ),
 			'color' => $this->chart_colours['searches_results'],
 			'highlight_series' => 0,
 		);
 
 		$legend[] = array(
-			
+			/* translators: %d: total number of searches without results */
 			'title' => sprintf( __( '%d Searches without results', 'woocommerce-product-search' ), $this->total_searches_without_results ),
 			'color' => $this->chart_colours['searches_no_results'],
 			'highlight_series' => 1,
@@ -139,7 +139,7 @@ class WooCommerce_Product_Search_Report_Searches extends WC_Admin_Report {
 		<div class="section">
 			<form method="GET">
 				<div>
-					<?php 
+					<?php
 ?>
 					<div>
 					<input type="text" name="search_query" value="<?php echo esc_attr( isset( $_GET['search_query'] ) ? trim ( $_GET['search_query'] ) : '' ); ?>" />
@@ -181,7 +181,7 @@ class WooCommerce_Product_Search_Report_Searches extends WC_Admin_Report {
 					<input type="hidden" name="tab" value="search" />
 					<input type="hidden" name="report" value="searches" />
 					<?php wp_nonce_field( 'custom_range', 'wc_reports_nonce', false ); ?>
-					<?php 
+					<?php
 ?>
 				</div>
 			</form>
@@ -527,7 +527,7 @@ class WooCommerce_Product_Search_Report_Searches extends WC_Admin_Report {
 			var main_chart;
 
 			jQuery(function(){
-				var order_data = jQuery.parseJSON( '<?php echo $chart_data; ?>' );<?php 
+				var order_data = jQuery.parseJSON( '<?php echo $chart_data; ?>' );<?php
 ?>
 
 				var drawGraph = function( highlight ) {

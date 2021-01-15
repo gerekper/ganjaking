@@ -18,6 +18,7 @@ class WC_Catalog_Restrictions_Filters {
 	public $buffer_on = false;
 	public $action_removed = false;
 	public $did_after_cart_button = false;
+    public $is_booking_product = false;
 
 	public function __construct() {
 
@@ -88,7 +89,7 @@ class WC_Catalog_Restrictions_Filters {
 	}
 
 	public function bind_filters_late() {
-		add_action( 'woocommerce_before_booking_form', array( $this, 'on_before_booking_form' ), 1 );
+		 add_action( 'woocommerce_before_booking_form', array( $this, 'on_before_booking_form' ), 1 );
 
 		if ( WC_Catalog_Visibility_Compatibility::is_wc_version_gt( '3.4' ) ) {
 			add_action( 'woocommerce_before_single_variation', array( $this, 'on_before_single_variation' ), 0 );
@@ -122,6 +123,7 @@ class WC_Catalog_Restrictions_Filters {
 		global $product;
 		if ( $product && !WC_Catalog_Restrictions_Filters::instance()->user_can_purchase( $product ) ) {
 			$this->buffer_on = ob_start();
+			$this->is_booking_product = true;
 		}
 	}
 
@@ -338,6 +340,12 @@ class WC_Catalog_Restrictions_Filters {
 			if ( $this->buffer_on ) {
 				ob_end_clean();
 			}
+
+			if ($this->is_booking_product) {
+			    // close the <div id="wc-bookings-booking-form" class="wc-bookings-booking-form" style="display:none">
+			    echo '</div>';
+            }
+
 		} else {
 			return;
 		}

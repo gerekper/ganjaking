@@ -137,7 +137,7 @@ class WooCommerce_Product_Search_Compat_Shortcodes {
 		$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null;
 		$_REQUEST['post_type'] = 'product';
 
-		$post_ids = WooCommerce_Product_Search_Service::get_post_ids_for_request_filtered( array( 'variations' => true ) ); 
+		$post_ids = WooCommerce_Product_Search_Service::get_post_ids_for_request_filtered( array( 'variations' => true ) );
 
 		if ( $post_type !== null ) {
 			$_REQUEST['post_type'] = $post_type;

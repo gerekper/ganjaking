@@ -28,7 +28,6 @@ if ( !defined( 'ABSPATH' ) ) {
  */
 class WooCommerce_Product_Search_Compat_WooCommerce_Product_Vendors {
 
-
 	/**
 	 * The vendors taxonomy.
 	 *

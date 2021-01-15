@@ -1,5 +1,8 @@
 *** Warranty Requests Changelog ***
 
+2021-01-12 - version 1.9.21
+* Fix - Warranty status wrong value after update.
+
 2020-11-24 - version 1.9.20
 * Fix - Replace deprecated jQuery functions.
 

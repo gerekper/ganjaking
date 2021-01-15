@@ -1,6 +1,10 @@
 <?php
 
 class WoocommercePrfGoogle {
+	/**
+	 * @var WoocommerceGpfDebugService
+	 */
+	protected $debug;
 
 	/**
 	 * @var \WoocommerceGpfTemplateLoader
@@ -42,9 +46,14 @@ class WoocommercePrfGoogle {
 	 * Set the escaping callback in the template loader appropriately.
 	 *
 	 * @param WoocommerceGpfTemplateLoader $template_loader
+	 * @param WoocommerceGpfDebugService $debug
 	 */
-	public function __construct( WoocommerceGpfTemplateLoader $template_loader ) {
-		$this->tpl = $template_loader;
+	public function __construct(
+		WoocommerceGpfTemplateLoader $template_loader,
+		WoocommerceGpfDebugService $debug
+	) {
+		$this->tpl   = $template_loader;
+		$this->debug = $debug;
 	}
 
 	/**
@@ -98,23 +107,23 @@ class WoocommercePrfGoogle {
 	 */
 	public function render_footer() {
 		global $wpdb;
+
+		// Debug feed performance.
 		$this->end_ts  = microtime( true );
 		$this->end_mem = memory_get_peak_usage();
+		$start_mem     = round( $this->start_mem / 1024 / 1024, 2 );
+		$end_mem       = round( $this->end_mem / 1024 / 1024, 2 );
+		$mem_usage     = round( ( $this->end_mem - $this->start_mem ) / 1024 / 1024, 2 );
 		// Dump out queries before we exit
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES ) {
-				echo '<!-- Total queries:  ' . str_pad( count( $wpdb->queries ), 7, ' ', STR_PAD_LEFT ) . ' -->';
-				echo '<!--                         -->';
-			}
-			$start_mem = round( $this->start_mem / 1024 / 1024, 2 );
-			$end_mem   = round( $this->end_mem / 1024 / 1024, 2 );
-			$mem_usage = round( ( $this->end_mem - $this->start_mem ) / 1024 / 1024, 2 );
-			echo '<!-- Duration:      ' . str_pad( round( $this->end_ts - $this->start_ts, 2 ), 7, ' ', STR_PAD_LEFT ) . 's -->';
-			echo '<!--                         -->';
-			echo '<!-- Start mem:    ' . str_pad( $start_mem, 7, ' ', STR_PAD_LEFT ) . 'MB -->';
-			echo '<!-- End mem:      ' . str_pad( $end_mem, 7, ' ', STR_PAD_LEFT ) . 'MB -->';
-			echo '<!-- Memory usage: ' . str_pad( $mem_usage, 7, ' ', STR_PAD_LEFT ) . 'MB -->';
+		if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES ) {
+			$this->debug->log( 'Total queries:  %s', [ str_pad( count( $wpdb->queries ), 7, ' ', STR_PAD_LEFT ) ] );
 		}
+
+		$this->debug->log( 'Duration:       %s', [ str_pad( round( $this->end_ts - $this->start_ts, 2 ), 7, ' ', STR_PAD_LEFT ) . ' s' ] );
+		$this->debug->log( 'Start mem:      %s', [ str_pad( $start_mem, 7, ' ', STR_PAD_LEFT ) . ' MB' ] );
+		$this->debug->log( 'End mem:        %s', [ str_pad( $end_mem, 7, ' ', STR_PAD_LEFT ) . ' MB' ] );
+		$this->debug->log( 'Memory usage:   %s', [ str_pad( $mem_usage, 7, ' ', STR_PAD_LEFT ) . ' MB' ] );
+
 		$this->tpl->output_template_with_variables( 'woo-prf', 'google-xml-footer', array() );
 	}
 

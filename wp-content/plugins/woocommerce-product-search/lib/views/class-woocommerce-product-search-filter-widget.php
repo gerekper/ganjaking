@@ -110,7 +110,6 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 			$cache = array();
 		}
 
-
 		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
 		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
 		$before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
@@ -129,7 +128,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		$output .= WooCommerce_Product_Search_Filter::render( $instance );
 		$output .= $after_widget;
 
-		echo $output; 
+		echo $output;
 
 		$cache[$args['widget_id']] = $output;
 		wps_cache_set( self::$cache_id, $cache, self::$cache_group );
@@ -192,10 +191,6 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		$settings['show_clear']          = !empty( $new_instance['show_clear'] ) ? 'yes' : 'no';
 		$settings['submit_button']       = !empty( $new_instance['submit_button'] ) ? 'yes' : 'no';
 		$settings['submit_button_label'] = isset( $new_instance['submit_button_label'] ) ? strip_tags( $new_instance['submit_button_label'] ) : __( 'Search', 'woocommerce-product-search' );
-
-		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
-			$settings['wpml']   = !empty( $new_instance['wpml'] ) ? 'yes' : 'no';
-		}
 
 		$settings['update_address_bar']    = !empty( $new_instance['update_address_bar'] ) ? 'yes' : 'no';
 		$settings['update_document_title'] = !empty( $new_instance['update_document_title'] ) ? 'yes' : 'no';
@@ -347,7 +342,6 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		echo esc_html( __( 'Search in SKU', 'woocommerce-product-search' ) );
 		echo '</label>';
 		echo '</p>';
-
 
 		echo '<h4>';
 		esc_html_e( 'Display', 'woocommerce-product-search' );
@@ -513,25 +507,6 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		echo '</label>';
 		echo '</p>';
 
-		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
-			echo '<h4>';
-			esc_html_e( 'WPML', 'woocommerce-product-search' );
-			echo'</h4>';
-			$wpml = isset( $instance['wpml'] ) ? $instance['wpml'] : 'no';
-			echo '<p>';
-			echo sprintf( '<label title="%s">', esc_attr( __( 'Filter search results based on the current language.', 'woocommerce-product-search' ) ) );
-			printf(
-				'<input type="checkbox" id="%s" name="%s" %s />',
-				esc_attr( $this->get_field_id( 'wpml' ) ),
-				esc_attr( $this->get_field_name( 'wpml' ) ),
-				$wpml == 'yes' ? ' checked="checked" ' : ''
-			);
-			echo ' ';
-			echo esc_html( __( 'WMPL Language Filter', 'woocommerce-product-search' ) );
-			echo '</label>';
-			echo '</p>';
-		}
-
 		echo '<h4>';
 		esc_html_e( 'Heading', 'woocommerce-product-search' );
 		echo '</h4>';
@@ -672,7 +647,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		echo  '</textarea>';
 		echo '</label>';
 		echo '</p>';
-		echo '</div>'; 
+		echo '</div>';
 
 		echo '<script type="text/javascript">';
 		echo 'document.addEventListener( "DOMContentLoaded", function() {';
@@ -680,9 +655,9 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		printf( 'jQuery("#%s").css("display","none");', esc_attr( $target_id ) );
 		printf( 'jQuery(document).on( "click", "#%s", function() {', esc_attr( $trigger_id ) );
 		printf( 'jQuery("#%s").toggle();', esc_attr( $target_id ) );
-		echo '});'; 
-		echo '}'; 
-		echo '} );'; 
+		echo '});';
+		echo '}';
+		echo '} );';
 		echo '</script>';
 	}
 
@@ -707,7 +682,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 			'update_document_title' => false,
 			'use_shop_url' => false,
 			'unpage_url' => true,
-			'wpml' => false,
+
 			'show_heading' => false,
 			'heading' => '',
 			'heading_id' => '',

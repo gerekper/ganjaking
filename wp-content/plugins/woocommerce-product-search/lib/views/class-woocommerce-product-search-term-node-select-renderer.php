@@ -28,7 +28,7 @@ if ( !defined( 'ABSPATH' ) ) {
  */
 class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 
-	const PADDING_STEP = 8; 
+	const PADDING_STEP = 8;
 
 	private $args = null;
 
@@ -154,7 +154,7 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 					empty( $this->size ) ? '' : ' size="' . intval( $this->size ) . '" '
 				) . $nl;
 
-				$output .= sprintf( '<option value="" %s>%s</option>', empty( $this->current_term_ids ) ? ' selected="selected" ' : '', esc_html( $this->none_selected ) ); 
+				$output .= sprintf( '<option value="" %s>%s</option>', empty( $this->current_term_ids ) ? ' selected="selected" ' : '', esc_html( $this->none_selected ) );
 			}
 		} else {
 			if ( $term !== null ) {
@@ -170,19 +170,19 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 				}
 				switch ( $this->taxonomy ) {
 					case 'product_cat' :
-						$option_label .= _x( $term->name, 'product category name', 'woocommerce-product-search' ); 
+						$option_label .= _x( $term->name, 'product category name', 'woocommerce-product-search' );
 						break;
 					default :
 						if ( in_array( $this->taxonomy, wc_get_attribute_taxonomy_names() ) ) {
 
-							$option_label .= _x( $term->name, 'product attribute name', 'woocommerce-product-search' ); 
+							$option_label .= _x( $term->name, 'product attribute name', 'woocommerce-product-search' );
 						} else {
 
-							$option_label .= _x( $term->name, 'product term name', 'woocommerce-product-search' ); 
+							$option_label .= _x( $term->name, 'product term name', 'woocommerce-product-search' );
 						}
 				}
 				if ( $this->show_count ) {
-					$object_count = $term->count; 
+					$object_count = $term->count;
 					if ( apply_filters( 'woocommerce_product_search_term_walker_apply_get_term_count', true, $term ) ) {
 						if ( isset( $this->term_counts[$term->term_id] ) ) {
 							$object_count = $this->term_counts[$term->term_id];

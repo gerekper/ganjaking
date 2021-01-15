@@ -243,7 +243,6 @@ class WooCommerce_Product_Search_Controller {
 			$charset_collate .= " COLLATE $wpdb->collate";
 		}
 
-
 		$queries = array();
 
 		$key_table = self::get_tablename( 'key' );
@@ -556,7 +555,7 @@ class WooCommerce_Product_Search_Controller {
 			( $wpdb->get_var( "SHOW TABLES LIKE '$key_table'" ) === $key_table ) &&
 			( $wpdb->get_var( "SHOW TABLES LIKE '$index_table'" ) === $index_table ) &&
 			( $wpdb->get_var( "SHOW TABLES LIKE '$object_type_table'" ) === $object_type_table ) &&
-			( $wpdb->get_var( "SHOW TABLES LIKE '$object_term_table'" ) === $object_term_table ) 
+			( $wpdb->get_var( "SHOW TABLES LIKE '$object_term_table'" ) === $object_term_table )
 		) {
 			WooCommerce_Product_Search_Worker::start();
 
@@ -746,8 +745,8 @@ class WooCommerce_Product_Search_Controller {
 
 				$indexer = new WooCommerce_Product_Search_Indexer();
 				$indexer->process_term_weights();
-				$indexer->preprocess_terms(); 
-				$indexer->process_terms(); 
+				$indexer->preprocess_terms();
+				$indexer->process_terms();
 
 				WooCommerce_Product_Search_Worker::stop();
 				WooCommerce_Product_Search_Worker::start();
@@ -792,7 +791,7 @@ class WooCommerce_Product_Search_Controller {
 		$wpdb->query( 'DROP TABLE IF EXISTS ' . self::get_tablename( 'key' ) );
 		$wpdb->query( 'DROP TABLE IF EXISTS ' . self::get_tablename( 'index' ) );
 		$wpdb->query( 'DROP TABLE IF EXISTS ' . self::get_tablename( 'object_type' ) );
-		$wpdb->query( 'DROP TABLE IF EXISTS ' . self::get_tablename( 'object_term' ) ); 
+		$wpdb->query( 'DROP TABLE IF EXISTS ' . self::get_tablename( 'object_term' ) );
 	}
 
 	/**

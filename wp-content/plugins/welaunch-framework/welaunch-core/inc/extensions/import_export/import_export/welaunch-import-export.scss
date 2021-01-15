@@ -1,0 +1,20 @@
+.welaunch-container-import_export {
+    #welaunch-import-link-wrapper,
+    #welaunch-import-code-wrapper {
+        display: none;
+    }
+
+    #welaunch-export-code,
+    #welaunch-export-link-value,
+    #welaunch-import-upload-file {
+        display: none;
+    }
+
+    #welaunch-import-action span {
+        color: #b94a48;
+    }
+    #welaunch-import-upload span {
+        font-weight: bold;
+    }
+}
+

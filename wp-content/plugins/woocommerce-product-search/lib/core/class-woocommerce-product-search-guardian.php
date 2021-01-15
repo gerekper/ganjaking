@@ -151,8 +151,8 @@ class WooCommerce_Product_Search_Guardian {
 			if ( $this->max_execution_time === 0 ) {
 				$this->max_execution_time = PHP_INT_MAX;
 			}
-			$max_input_time = ini_get( 'max_input_time' ); 
-			if ( $max_input_time !== false ) { 
+			$max_input_time = ini_get( 'max_input_time' );
+			if ( $max_input_time !== false ) {
 				$max_input_time = intval( $max_input_time );
 				switch ( $max_input_time ) {
 					case -1 :
@@ -171,7 +171,7 @@ class WooCommerce_Product_Search_Guardian {
 			if ( function_exists( 'getrusage' ) ) {
 				$resource_usage = getrusage();
 				if ( isset( $resource_usage['ru_utime.tv_sec'] ) ) {
-					$this->initial_execution_time = $resource_usage['ru_stime.tv_sec'] + $resource_usage['ru_utime.tv_sec'] + 2; 
+					$this->initial_execution_time = $resource_usage['ru_stime.tv_sec'] + $resource_usage['ru_utime.tv_sec'] + 2;
 				}
 			}
 		}
@@ -204,7 +204,7 @@ class WooCommerce_Product_Search_Guardian {
 			if ( function_exists( 'getrusage' ) ) {
 				$resource_usage = getrusage();
 				if ( isset( $resource_usage['ru_utime.tv_sec'] ) ) {
-					$execution_time = $resource_usage['ru_stime.tv_sec'] + $resource_usage['ru_utime.tv_sec'] + 2; 
+					$execution_time = $resource_usage['ru_stime.tv_sec'] + $resource_usage['ru_utime.tv_sec'] + 2;
 					$d = ceil( $execution_time - $this->initial_execution_time );
 					if ( intval( $d * self::DELTA_F ) > ( $this->max_execution_time - $d ) ) {
 						$status = $status | self::TIME_LIMIT;

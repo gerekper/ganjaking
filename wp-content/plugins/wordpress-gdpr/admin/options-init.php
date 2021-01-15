@@ -6,9 +6,16 @@
      * https://github.com/reduxframework/redux-framework/blob/master/sample/sample-config.php
      */
 
-if (! class_exists('Redux')) {
-    return;
-}
+    if ( ! class_exists( 'weLaunch' ) && ! class_exists( 'Redux' ) ) {
+        return;
+    }
+
+    if( class_exists( 'Redux' ) ) {
+        $framework = new Redux();
+    } else {
+        $framework = new weLaunch();
+    }
+
 
     // This is your option name where all the Redux data is gdprd.
     $opt_name = "wordpress_gdpr_options";
@@ -26,7 +33,7 @@ if (! class_exists('Redux')) {
         'use_cdn' => true,
         'dev_mode' => false,
         'display_name' => __('WordPress GDPR', 'wordpress-gdpr'),
-        'display_version' => '1.9.10',
+        'display_version' => '1.9.12',
         'page_title' => __('WordPress GDPR', 'wordpress-gdpr'),
         'update_notice' => true,
         'intro_text' => '',
@@ -75,7 +82,14 @@ if (! class_exists('Redux')) {
         'network_sites' => false,
     );
 
-    Redux::setArgs($opt_name, $args);
+    global $weLaunchLicenses;
+    if( isset($weLaunchLicenses['wordpress-gdpr']) && !empty($weLaunchLicenses['wordpress-gdpr']) ) {
+        $args['display_name'] = '<span class="dashicons dashicons-yes-alt" style="color: #9CCC65 !important;"></span> ' . $args['display_name'];
+    } else {
+        $args['display_name'] = '<span class="dashicons dashicons-dismiss" style="color: #EF5350 !important;"></span> ' . $args['display_name'];
+    }
+
+    $framework::setArgs($opt_name, $args);
 
     /*
      * ---> END ARGUMENTS
@@ -92,38 +106,24 @@ if (! class_exists('Redux')) {
             'content' => __('<p>Need support? Please use the comment function on codecanyon.</p>', 'wordpress-gdpr')
         ),
     );
-    Redux::setHelpTab($opt_name, $tabs);
+    $framework::setHelpTab($opt_name, $tabs);
 
-    // Set the help sidebar
-    // $content = __( '<p>This is the sidebar content, HTML is allowed.</p>', 'wordpress-gdpr' );
-    // Redux::setHelpSidebar( $opt_name, $content );
-
-
-    /*
-     * <--- END HELP TABS
-     */
-
-
-    /*
-     *
-     * ---> START SECTIONS
-     *
-     */
 
     $default_email = get_option('admin_email');
     $site_name = get_option('blogname');
     $urlparts = parse_url(site_url());
     $default_domain = str_replace('www', '', $urlparts['host']);
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'  => __('Settings', 'wordpress-gdpr'),
         'id'     => 'general',
         'desc'   => __('Need support? Please use the comment function on codecanyon.', 'wordpress-gdpr'),
         'icon'   => 'el el-home',
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('General', 'wordpress-gdpr'),
+        'desc'       => __( 'To get auto updates please <a href="' . admin_url('tools.php?page=welaunch-framework') . '">register your License here</a>.', 'wordpress-gdpr' ),
         'id'         => 'general-settings',
         'subsection' => true,
         'fields'     => array(
@@ -225,7 +225,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Cookie Popup', 'wordpress-gdpr'),
         'id'         => 'popup-settings',
         'subsection' => true,
@@ -400,7 +400,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Privacy Settings', 'wordpress-gdpr'),
         'id'         => 'privacy-settings-popup-settings',
         'subsection' => true,
@@ -613,7 +613,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Privacy Center', 'wordpress-gdpr'),
         'id'         => 'privacyCenter',
         'subsection' => true,
@@ -638,7 +638,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Confirmation Email', 'wordpress-gdpr'),
         'id'         => 'confirmationEmail',
         'subsection' => true,
@@ -670,7 +670,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Contact DPO', 'wordpress-gdpr'),
         'id'         => 'contactDPO',
         'subsection' => true,
@@ -719,7 +719,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Cookie Policy', 'wordpress-gdpr'),
         'id'         => 'cookiePolicy',
         'subsection' => true,
@@ -744,7 +744,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Data Breach', 'wordpress-gdpr'),
         'id'         => 'data-breach',
         'subsection' => true,
@@ -797,7 +797,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Data Rectification', 'wordpress-gdpr'),
         'id'         => 'dataRectification',
         'subsection' => true,
@@ -846,7 +846,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Data Retention', 'wordpress-gdpr'),
         'id'         => 'data-retention',
         'subsection' => true,
@@ -880,7 +880,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-   Redux::setSection($opt_name, array(
+   $framework::setSection($opt_name, array(
         'title'      => __('Disclaimer', 'wordpress-gdpr'),
         'id'         => 'disclaimer',
         'subsection' => true,
@@ -905,7 +905,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-   Redux::setSection($opt_name, array(
+   $framework::setSection($opt_name, array(
         'title'      => __('DMCA', 'wordpress-gdpr'),
         'id'         => 'DMCA',
         'subsection' => true,
@@ -931,7 +931,7 @@ if (! class_exists('Redux')) {
     ));
 
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Forget Me', 'wordpress-gdpr'),
         'id'         => 'forgetMe',
         'subsection' => true,
@@ -1014,7 +1014,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Imprint', 'wordpress-gdpr'),
         'id'         => 'imprint',
         'subsection' => true,
@@ -1043,7 +1043,7 @@ if (! class_exists('Redux')) {
     // Contact Form 7
     // Mailchimp
     // BuddyPress
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Integrations', 'wordpress-gdpr'),
         'id'         => 'integrations',
         'subsection' => true,
@@ -1281,7 +1281,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Media Credits', 'wordpress-gdpr'),
         'id'         => 'mediaCredits',
         'subsection' => true,
@@ -1306,7 +1306,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Privacy Policy', 'wordpress-gdpr'),
         'id'         => 'privacyPolicy',
         'subsection' => true,
@@ -1348,7 +1348,7 @@ if (! class_exists('Redux')) {
     ));
 
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Privacy Policy Update', 'wordpress-gdpr'),
         'id'         => 'privacy-policy-update',
         'subsection' => true,
@@ -1397,7 +1397,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Pseudonymization', 'wordpress-gdpr'),
         'id'         => 'pseudonymization',
         'subsection' => true,
@@ -1412,7 +1412,7 @@ if (! class_exists('Redux')) {
     ));
 
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Request Data Archive', 'wordpress-gdpr'),
         'id'         => 'requestData',
         'subsection' => true,
@@ -1480,7 +1480,7 @@ if (! class_exists('Redux')) {
     ));
 
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Services', 'wordpress-gdpr'),
         'id'         => 'services',
         'desc'      => __('!! DEPRECATED !! The Services you find below are deprecated in our plugin settings and they should be moved into our new Services section (see menu GDPR > Services). However you can enable an old Service here and click on migrate Services to migrate them automatically.', 'wordpress-gdpr'),
@@ -1657,7 +1657,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Terms & Conditions', 'wordpress-gdpr'),
         'id'         => 'termsConditions',
         'subsection' => true,
@@ -1697,7 +1697,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Unsubscribe', 'wordpress-gdpr'),
         'id'         => 'unsubscribe',
         'subsection' => true,
@@ -1722,7 +1722,7 @@ if (! class_exists('Redux')) {
         )
     ));
 
-    Redux::setSection($opt_name, array(
+    $framework::setSection($opt_name, array(
         'title'      => __('Expert', 'wordpress-gdpr'),
         'desc'       => __('Expert Settings.', 'wordpress-gdpr'),
         'id'         => 'advanced',

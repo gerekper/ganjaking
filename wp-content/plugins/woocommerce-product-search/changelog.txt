@@ -1,5 +1,19 @@
 *** WooCommerce Product Search ***
 
+2021.01.08 - version 3.5.0
+* WordPress 5.6 compatible.
+* WooCommerce 4.9 compatible.
+* Requires at least WooCommerce 3.6.
+* Fixed an issue where ineligible products could be included in filtered results when products out of stock should be hidden and ineligible variations were in stock.
+* Dropped the unnecessary 'wpml' option of the [woocommerce_product_filter] shortcode and the Product Filter – Search widget. Appropriate WPML settings should be used to assure language-specific consistent filter results based on ICL_LANGUAGE_CODE context.
+* Updated index processing to evaluate short descriptions across variable products and variations so products can be found based on their content when variations should be identified based on their parent's short description.
+
+2020.12.17 - version 3.4.0
+* WordPress 5.6 compatible.
+* WooCommerce 4.8 compatible.
+* Requires at least WooCommerce 3.5.
+* Updated upgrade info.
+
 2020.11.13 - version 3.3.0
 * WordPress 5.5 compatible.
 * WooCommerce 4.7 compatible.

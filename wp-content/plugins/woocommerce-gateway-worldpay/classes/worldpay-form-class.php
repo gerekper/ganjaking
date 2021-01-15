@@ -47,7 +47,7 @@
 			$this->default_submission			= 'form';
 			$this->default_method 				= 'alltransactions';
 
-			$this->version						= '4.1.6';
+			$this->version						= '4.1.7';
 
 			// Load the settings.
 			$this->init_settings();
@@ -660,8 +660,8 @@
 			
 			$order->add_order_note( __('WorldPay payment completed.' . $orderNotes, 'woocommerce_worlday') );
 
-			// Add Transaction ID
-			update_post_meta( $order_id, '_transaction_id', $worldpay_return_values['transId'], true );
+			// Set Transaction ID
+			$order->set_transaction_id( $worldpay_return_values['transId'] );
 
 		} // END update_order_notes
 
@@ -1033,6 +1033,8 @@
 		 */
     	function process_refund( $order_id, $amount = NULL, $reason = '' ) {
 
+    		$order = new WC_Order( $order_id );
+
     		$api_request = array();
 
 			if ( self::status() == 'testing' ) :
@@ -1047,7 +1049,7 @@
 			$api_request['instId'] 				= $this->remoteid;
 			$api_request['authPW'] 				= $this->remotepw;
 			$api_request['cartId']   			= 'Refund';
-			$api_request['transId'] 			= get_post_meta( $order_id, '_transaction_id', true );
+			$api_request['transId'] 			= $order->get_transaction_id();
 			$api_request['amount']   			= $amount;
 			$api_request['currency'] 			= get_woocommerce_currency();
 			$api_request['op'] 					= 'refund-partial';
@@ -1091,18 +1093,8 @@
 
 				return new WP_Error( 'error', __('Refund failed ', 'woocommerce_worlday')  . "\r\n" . $res['body'] );
 
-			} elseif ( !$this->startsWith( $res['body'], 'A' ) ) {
+			} elseif ( $this->startsWith( $res['body'], 'A' ) ) {
 
-					$content = 'There was a problem Refunding this payment for order ' . $order_id . '. The Transaction ID is ' .$api_request['transId']. '.The API Request is <pre>' . 
-						print_r( $api_request,TRUE ) . '</pre>. WorldPay returned the error <pre>' . 
-						print_r( $res['body'],TRUE ) . '</pre> The full returned array is <pre>' . 
-						print_r( $res,TRUE ) . '</pre>. Please check your Remote Administration Installation ID and Remote Administration Installation Password in your settings.';
-					
-					wp_mail( $this->worldpaydebugemail ,'WorldPay Refund Failure 02 ' . time(), $content );
-
-					return new WP_Error( 'error', __('Refund failed ', 'woocommerce_worlday')  . "\r\n" . $res['body'] );
-
-			} else {
 				$transactionid = explode(",", $res['body'] );
 
 				$order 	     	= new WC_Order( (int) $order_id );
@@ -1111,7 +1103,21 @@
 				$order->add_order_note( sprintf( __( 'Order Refunded<br />Refund Amount - %1$s<br />Refund Reason - %2$s<br />Transaction Id - %3$s', 'woocommerce_worlday' ), wc_price( $amount, array( 'currency' => $order_currency ) ), $reason, $transactionid[1] ) );
 
 				return true;
+
+			} else {
+
+				$content = 'There was a problem Refunding this payment for order ' . $order_id . '. The Transaction ID is ' .$api_request['transId']. '.The API Request is <pre>' . 
+					print_r( $api_request,TRUE ) . '</pre>. WorldPay returned the error <pre>' . 
+					print_r( $res['body'],TRUE ) . '</pre> The full returned array is <pre>' . 
+					print_r( $res,TRUE ) . '</pre>. Please check your Remote Administration Installation ID and Remote Administration Installation Password in your settings.';
+				
+				wp_mail( $this->worldpaydebugemail ,'WorldPay Refund Failure 02 ' . time(), $content );
+
+				return new WP_Error( 'error', __('Refund failed ', 'woocommerce_worlday')  . "\r\n" . $res['body'] );
+
 			}
+
+			return new WP_Error( 'error', __('Refund failed ', 'woocommerce_worlday') );
 
     	}
 

@@ -74,7 +74,6 @@ class WooCommerce_Product_Search_Filter_Price {
 	 */
 	public static function wp_init() {
 
-
 		if ( isset( $_GET['min_price'] ) ) {
 			if ( strlen( trim( $_GET['min_price'] ) ) === 0 ) {
 				unset( $_GET['min_price'] );
@@ -129,7 +128,7 @@ class WooCommerce_Product_Search_Filter_Price {
 				'heading_class'       => null,
 				'heading_element'     => 'div',
 				'heading_id'          => null,
-				'heading_no_results'  => '', 
+				'heading_no_results'  => '',
 				'max_placeholder'     => __( 'Max', 'woocommerce-product-search' ),
 				'min_placeholder'     => __( 'Min', 'woocommerce-product-search' ),
 				'show_currency_symbol' => 'yes',
@@ -273,11 +272,11 @@ class WooCommerce_Product_Search_Filter_Price {
 		$add_post_type = false;
 		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
 			$href = get_permalink( wc_get_page_id( 'shop' ) );
-			if ( !$href ) { 
+			if ( !$href ) {
 				$query_post_type = WooCommerce_Product_Search_Filter::get_query_arg( $current_url, 'post_type' );
 				if ( $query_post_type !== 'product' ) {
 					$href = add_query_arg( array( 'post_type' => 'product' ), trailingslashit( home_url() ) );
-					$add_post_type = true; 
+					$add_post_type = true;
 				}
 			}
 		}
@@ -316,8 +315,8 @@ class WooCommerce_Product_Search_Filter_Price {
 				self::get_decimals()
 			);
 			$output .= '}';
-			$output .= '}'; 
-			$output .= '} );'; 
+			$output .= '}';
+			$output .= '} );';
 			$output .= '</script>';
 		}
 
@@ -467,18 +466,18 @@ class WooCommerce_Product_Search_Filter_Price {
 			'highlight: true,' .
 			'captureLength: %d' .
 			'} );',
-			$params['delay'], 
-			0 
+			$params['delay'],
+			0
 		);
-		$output .= '} else {'; 
+		$output .= '} else {';
 		$output .= 'if ( typeof console !== "undefined" && typeof console.log !== "undefined" ) {';
 		$output .= 'document.getElementById("' . $min_field_id . '").disabled = false;';
 		$output .= 'document.getElementById("' . $max_field_id . '").disabled = false;';
 		$output .= 'console.log("A conflict is preventing required resources to be loaded.");';
 		$output .= '}';
-		$output .= '}'; 
-		$output .= '}'; 
-		$output .= '} );'; 
+		$output .= '}';
+		$output .= '}';
+		$output .= '} );';
 		$output .= '</script>';
 
 		WooCommerce_Product_Search_Filter::filter_added();

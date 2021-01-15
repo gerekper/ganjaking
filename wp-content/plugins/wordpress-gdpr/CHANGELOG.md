@@ -1,5 +1,21 @@
 # Changelog
 ======
+1.9.12
+======
+- FIX:	License & update manager completly in weLaunch Framework
+
+======
+1.9.11
+======
+- NEW:	Dropped Redux Framework support and added our own framework 
+		Read more here: https://www.welaunch.io/en/2021/01/switching-from-redux-to-our-own-framework
+		This ensure auto updates & removes all gutenberg stuff
+		You can delete Redux (if not used somewhere else) afterwards
+		https://www.welaunch.io/updates/welaunch-framework.zip
+		https://imgur.com/a/BIBz6kz
+- FIX:	PHP 5.6 support
+
+======
 1.9.10
 ======
 - NEW:	Performance (AJAX only performed once now / HTML not generated every time)

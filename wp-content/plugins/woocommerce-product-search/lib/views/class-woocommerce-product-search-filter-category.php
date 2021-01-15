@@ -98,7 +98,7 @@ class WooCommerce_Product_Search_Filter_Category {
 				'container_id'       => null,
 				'depth'              => 0,
 				'exclude'            => null,
-				'expandable_from_depth' => 0, 
+				'expandable_from_depth' => 0,
 				'expander'           => 'yes',
 				'filter'             => 'yes',
 				'heading'            => null,
@@ -106,13 +106,13 @@ class WooCommerce_Product_Search_Filter_Category {
 				'heading_element'    => 'div',
 				'heading_id'         => null,
 				'heading_no_results' => '',
-				'height'             => '', 
+				'height'             => '',
 				'hide_empty'         => 'yes',
 				'hierarchical'       => 'yes',
 				'include'            => null,
 				'multiple'           => 'no',
-				'none_selected'      => __( 'Any Category', 'woocommerce-product-search' ), 
-				'number'             => null, 
+				'none_selected'      => __( 'Any Category', 'woocommerce-product-search' ),
+				'number'             => null,
 				'order'              => 'ASC',
 				'orderby'            => 'name',
 				'show'               => 'set',
@@ -125,7 +125,7 @@ class WooCommerce_Product_Search_Filter_Category {
 				'show_parent_thumbnails' => 'no',
 				'show_selected_thumbnails' => 'yes',
 				'show_thumbnails'    => 'no',
-				'size'               => '', 
+				'size'               => '',
 				'style'              => 'list',
 				'taxonomy'           => 'product_cat',
 				'toggle'             => 'yes',
@@ -188,7 +188,7 @@ class WooCommerce_Product_Search_Filter_Category {
 					}
 
 					if ( !empty( $atts['include'] ) ) {
-						$requested_include = $atts['include']; 
+						$requested_include = $atts['include'];
 						if ( is_string( $requested_include ) ) {
 							$requested_include = explode( ',', $requested_include );
 						}
@@ -277,7 +277,7 @@ class WooCommerce_Product_Search_Filter_Category {
 									'include' => $term_ids,
 									'hide_empty' => $hide_empty
 								) );
-								if ( is_array( $processed_term_ids ) ) { 
+								if ( is_array( $processed_term_ids ) ) {
 									$term_ids = array_intersect( $term_ids, $processed_term_ids );
 								} else {
 									$term_ids = array();
@@ -444,8 +444,8 @@ class WooCommerce_Product_Search_Filter_Category {
 		$list_class = implode( ' ', $list_classes );
 
 		$params['echo'] = false;
-		$params['title_li'] = ''; 
-		$params['show_option_none'] = ''; 
+		$params['title_li'] = '';
+		$params['show_option_none'] = '';
 
 		if ( !empty( $params['exclude'] ) ) {
 			$exclude_term_ids = $params['exclude'];
@@ -631,7 +631,7 @@ class WooCommerce_Product_Search_Filter_Category {
 				case 'dropdown' :
 					$clear_output .= sprintf(
 						'<div data-term="" class="cat-item-all nav-back product-search-%s-filter-item"><a href="%s">%s</a></div>',
-						esc_attr( $taxonomy ), 
+						esc_attr( $taxonomy ),
 						esc_url( $current_url ),
 						__( 'Clear', 'woocommerce-product-search' )
 					);
@@ -639,7 +639,7 @@ class WooCommerce_Product_Search_Filter_Category {
 				default :
 					$clear_output .= sprintf(
 						'<li data-term="" class="cat-item-all nav-back product-search-%s-filter-item"><a href="%s">%s</a></li>',
-						esc_attr( $taxonomy ), 
+						esc_attr( $taxonomy ),
 						esc_url( $current_url ),
 						__( 'Clear', 'woocommerce-product-search' )
 					);
@@ -655,8 +655,8 @@ class WooCommerce_Product_Search_Filter_Category {
 							( $params['style'] !== 'select' && $params['style'] !== 'dropdown' ) ?
 								'<li data-term="%s" class="cat-item-parent nav-back product-search-%s-filter-item"><a href="%s">%s</a></li>' :
 								'<div data-term="%s" class="cat-item-parent nav-back product-search-%s-filter-item"><a href="%s">%s</a></div>',
-							esc_attr( $parent_term->term_id ), 
-							esc_attr( $taxonomy ), 
+							esc_attr( $parent_term->term_id ),
+							esc_attr( $taxonomy ),
 							esc_url( $parent_term_url ),
 							( $params['show_parent_thumbnails'] ? WooCommerce_Product_Search_Thumbnail::term_thumbnail( $parent_term ) : '' ) .
 							( $params['show_parent_names'] ? '<span class="term-name">' . esc_html( _x( $parent_term->name, 'product category name', 'woocommerce-product-search' ) ) . '</span>' : '' )
@@ -680,13 +680,13 @@ class WooCommerce_Product_Search_Filter_Category {
 				$root_class .= ' product-search-filter-toggle-widget';
 			}
 			$params['fields'] = 'ids';
-			$term_ids = WooCommerce_Product_Search_Service::get_term_ids_for_request( $params, array( $taxonomy ) ); 
+			$term_ids = WooCommerce_Product_Search_Service::get_term_ids_for_request( $params, array( $taxonomy ) );
 			$node = new WooCommerce_Product_Search_Term_Node(
 				$term_ids,
 				$taxonomy,
 				array(
 					'hide_empty' => $params['hide_empty'],
-					'bubble_down' => false 
+					'bubble_down' => false
 				)
 			);
 			$node->sort( $params['orderby'], $params['order'] );
@@ -780,8 +780,8 @@ class WooCommerce_Product_Search_Filter_Category {
 		$output .= 'if ( typeof ixwpsf !== "undefined" && typeof ixwpsf.taxonomy !== "undefined" ) {';
 		$output .= 'ixwpsf.taxonomy.push(' . $js_object . ');';
 		$output .= '}';
-		$output .= '}'; 
-		$output .= '} );'; 
+		$output .= '}';
+		$output .= '} );';
 		$output .= '</script>';
 
 		if ( $params['style'] === 'dropdown' ) {
@@ -822,8 +822,8 @@ class WooCommerce_Product_Search_Filter_Category {
 
 			$selectize_options[] = sprintf(
 				'wrapperClass:"selectize-control %s %s %s"',
-				esc_attr( 'product-search-filter-select-' . $taxonomy . '-selectize' ), 
-				esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n . '-selectize' ), 
+				esc_attr( 'product-search-filter-select-' . $taxonomy . '-selectize' ),
+				esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n . '-selectize' ),
 				$class
 			);
 
@@ -841,7 +841,7 @@ class WooCommerce_Product_Search_Filter_Category {
 
 			$output .= sprintf( 'jQuery( document ).on( "apply-selectize", "#%s", function( e ) {', esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n ) );
 			$output .= 'if ( typeof jQuery().selectize !== "undefined" ) {';
-			$output .= 'jQuery( this ).prop( "disabled", false );'; 
+			$output .= 'jQuery( this ).prop( "disabled", false );';
 			$output .= sprintf( 'var selectized = jQuery( this ).selectize( %s );', $selectize_options_object );
 
 			if ( $adjust_size !== null ) {
@@ -852,16 +852,16 @@ class WooCommerce_Product_Search_Filter_Category {
 				);
 			}
 
-			$output .= '}'; 
-			$output .= '});'; 
+			$output .= '}';
+			$output .= '});';
 
 			$output .= sprintf(
 				'jQuery( "#%s" ).trigger( "apply-selectize" );',
 				esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n )
 			);
 
-			$output .= '}'; 
-			$output .= '} );'; 
+			$output .= '}';
+			$output .= '} );';
 			$output .= '</script>';
 
 			if ( $height !== null ) {

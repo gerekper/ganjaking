@@ -1,0 +1,20 @@
+.welaunch-container-multi_text ul.welaunch-multi-text { margin: 0; padding: 0; }
+
+.welaunch-container-multi_text .welaunch-multi-text-add { clear: both; margin: 5px 0; }
+
+.welaunch-container-multi_text a.welaunch-multi-text-remove.deletion { color: #f00; padding: 2px 4px; margin-left: 5px; }
+
+.welaunch-container-multi_text a.welaunch-multi-text-remove.deletion:hover { background: #ff0; color: #fff; text-decoration: none; }
+
+@media screen and (max-width: 782px) { .welaunch-container-multi_text input { clear: both; }
+	.welaunch-container-multi_text .welaunch-multi-text-remove { margin: 0; float: right; } }
+
+.wp-customizer .welaunch-container-multi_text .button { float: right; }
+
+.wp-customizer .welaunch-container-multi_text .welaunch-multi-text-remove { float: right; margin-bottom: 5px; }
+
+.wp-customizer .welaunch-container-multi_text ul.welaunch-multi-text input { width: 100% !important; }
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVkdXgtbXVsdGktdGV4dC5jc3MiLCJzb3VyY2VzIjpbInJlZHV4LW11bHRpLXRleHQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxBQUNJLDJCQUR1QixDQUN2QixFQUFFLEFBQUEsaUJBQWlCLENBQUMsRUFDaEIsTUFBTSxFQUFFLENBQUMsRUFDVCxPQUFPLEVBQUUsQ0FBQyxHQUNiOztBQUpMLEFBTUksMkJBTnVCLENBTXZCLHFCQUFxQixDQUFDLEVBQ2xCLEtBQUssRUFBRSxJQUFJLEVBQ1gsTUFBTSxFQUFFLEtBQUssR0FDaEI7O0FBVEwsQUFZUSwyQkFabUIsQ0FXdkIsQ0FBQyxBQUFBLHdCQUF3QixBQUNwQixTQUFTLENBQUMsRUFDUCxLQUFLLEVBQUUsSUFBSSxFQUNYLE9BQU8sRUFBRSxPQUFPLEVBQ2hCLFdBQVcsRUFBRSxHQUFHLEdBT25COztBQXRCVCxBQWlCWSwyQkFqQmUsQ0FXdkIsQ0FBQyxBQUFBLHdCQUF3QixBQUNwQixTQUFTLEFBS0wsTUFBTSxDQUFDLEVBQ0osVUFBVSxFQUFFLElBQUksRUFDaEIsS0FBSyxFQUFFLElBQUksRUFDWCxlQUFlLEVBQUUsSUFBSSxHQUN4Qjs7QUFLYixNQUFNLENBQUMsTUFBTSxNQUFNLFNBQVMsRUFBRSxLQUFLLElBQy9CLEFBQ0ksMkJBRHVCLENBQ3ZCLEtBQUssQ0FBQyxFQUNGLEtBQUssRUFBRSxJQUFJLEdBQ2Q7Q0FITCxBQUtJLDJCQUx1QixDQUt2Qix3QkFBd0IsQ0FBQyxFQUNyQixNQUFNLEVBQUUsQ0FBQyxFQUNULEtBQUssRUFBRSxLQUFLLEdBQ2Y7O0FBSVQsQUFFUSxjQUZNLENBQ1YsMkJBQTJCLENBQ3ZCLE9BQU8sQ0FBQyxFQUNKLEtBQUssRUFBRSxLQUFLLEdBQ2Y7O0FBSlQsQUFLUSxjQUxNLENBQ1YsMkJBQTJCLENBSXZCLHdCQUF3QixDQUFDLEVBQ3JCLEtBQUssRUFBRSxLQUFLLEVBQ1osYUFBYSxFQUFFLEdBQUcsR0FDckI7O0FBUlQsQUFTUSxjQVRNLENBQ1YsMkJBQTJCLENBUXZCLEVBQUUsQUFBQSxpQkFBaUIsQ0FBQyxLQUFLLENBQUMsRUFDdEIsS0FBSyxFQUFFLGVBQWUsR0FDekIifQ== */
+
+/*# sourceMappingURL=welaunch-multi-text.css.map */

@@ -93,7 +93,6 @@ class WooCommerce_Product_Search_Term_Node {
 	 */
 	private $terms = null;
 
-
 	public function __construct( $term_ids, $taxonomy, $options = null, &$index = null, &$terms = null ) {
 
 		if ( $index === null ) {
@@ -173,7 +172,7 @@ class WooCommerce_Product_Search_Term_Node {
 					}
 
 					$_options = $options;
-					$_options['bubble_down'] = false; 
+					$_options['bubble_down'] = false;
 					$bubble_up = !isset( $options['bubble_up'] ) || $options['bubble_up'];
 					$bubble_up_levels = isset( $options['bubble_up_levels'] ) ? $options['bubble_up_levels'] - 1 : null;
 					if ( $bubble_up_levels !== null ) {
@@ -202,7 +201,7 @@ class WooCommerce_Product_Search_Term_Node {
 					}
 
 					$_options = $options;
-					$_options['bubble_up'] = false; 
+					$_options['bubble_up'] = false;
 					$bubble_down = !isset( $options['bubble_down'] ) || $options['bubble_down'];
 					$bubble_down_levels = isset( $options['bubble_down_levels'] ) ? $options['bubble_down_levels'] - 1 : null;
 					if ( $bubble_down_levels !== null ) {
@@ -341,7 +340,6 @@ class WooCommerce_Product_Search_Term_Node {
 	 */
 	public function attach( $node ) {
 
-
 		if ( $node->term_id !== null ) {
 			if ( !key_exists( $node->term_id, $this->index ) ) {
 				$node->parent = $this;
@@ -357,7 +355,6 @@ class WooCommerce_Product_Search_Term_Node {
 	 * @param WooCommerce_Product_Search_Term_Node $node node to detach
 	 */
 	public function detach( $node ) {
-
 
 		if ( $node->term_id !== null ) {
 			if ( key_exists( $node->term_id, $this->index ) ) {

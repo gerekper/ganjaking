@@ -1,0 +1,53 @@
+.welaunch-container-multi_text {
+    ul.welaunch-multi-text {
+        margin: 0;
+        padding: 0;
+    }
+
+    .welaunch-multi-text-add {
+        clear: both;
+        margin: 5px 0;
+    }
+
+    a.welaunch-multi-text-remove {
+        &.deletion {
+            color: #f00;
+            padding: 2px 4px;
+            margin-left: 5px;
+
+            &:hover {
+                background: #ff0;
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 782px) {
+    .welaunch-container-multi_text {
+        input {
+            clear: both;
+        }
+
+        .welaunch-multi-text-remove {
+            margin: 0;
+            float: right;
+        }
+    }
+}
+
+.wp-customizer {
+    .welaunch-container-multi_text {
+        .button {
+            float: right;
+        }
+        .welaunch-multi-text-remove {
+            float: right;
+            margin-bottom: 5px;
+        }
+        ul.welaunch-multi-text input {
+            width: 100% !important;
+        }
+    }
+}

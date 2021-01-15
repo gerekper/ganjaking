@@ -105,10 +105,9 @@ class WooCommerce_Product_Search_Term_Walker extends Walker {
 	 */
 	public function start_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
 
-
 		switch ( $this->tree_type ) {
 			case 'product_cat' :
-				$anchor_content       = _x( $object->name, 'product category name', 'woocommerce-product-search' ); 
+				$anchor_content       = _x( $object->name, 'product category name', 'woocommerce-product-search' );
 				$item_class           = 'cat-item';
 				$current_class        = 'current-cat';
 				$parent_class         = 'cat-parent';
@@ -118,7 +117,7 @@ class WooCommerce_Product_Search_Term_Walker extends Walker {
 			default :
 				if ( in_array( $this->tree_type, wc_get_attribute_taxonomy_names() ) ) {
 
-					$anchor_content       = _x( $object->name, 'product attribute name', 'woocommerce-product-search' ); 
+					$anchor_content       = _x( $object->name, 'product attribute name', 'woocommerce-product-search' );
 					$item_class           = 'attribute-item ' . $this->tree_type . '-item';
 					$current_class        = 'current-attribute current-' . $this->tree_type;
 					$parent_class         = 'attribute-parent ' . $this->tree_type . '-parent';
@@ -126,7 +125,7 @@ class WooCommerce_Product_Search_Term_Walker extends Walker {
 					$current_ancestor_class = 'current-attribute-ancestor current-' . $this->tree_type . '-ancestor';
 				} else {
 
-					$anchor_content       = _x( $object->name, 'product term name', 'woocommerce-product-search' ); 
+					$anchor_content       = _x( $object->name, 'product term name', 'woocommerce-product-search' );
 					$item_class           = 'term-item ' . $this->tree_type . '-item';
 					$current_class        = 'current-term current-' . $this->tree_type;
 					$parent_class         = 'term-parent ' . $this->tree_type . '-parent';
@@ -207,19 +206,18 @@ class WooCommerce_Product_Search_Term_Walker extends Walker {
 		$output .= apply_filters( 'woocommerce_product_search_term_walker_anchor_content', $anchor_content, $object, $depth, $args, $current_object_id );
 		$output .= '</a>';
 
-
 		if ( $args['show_count'] ) {
 			$object_count = $object->count;
 			if ( apply_filters( 'woocommerce_product_search_term_walker_apply_get_term_count', true, $object ) ) {
 				$object_count = WooCommerce_Product_Search_Service::get_term_count( $object->term_id );
 			}
-			$output .= ' <span class="count">(' . $object_count . ')</span>'; 
+			$output .= ' <span class="count">(' . $object_count . ')</span>';
 		}
 
 		$expander = isset( $args['expander'] ) ? $args['expander'] : false;
 		if ( $expander && $is_expandable && strlen( $anchor_content ) > 0 ) {
-			$expand = apply_filters( 'woocommerce_product_search_term_walker_expand', '&#xf067;', $object ); 
-			$retract = apply_filters( 'woocommerce_product_search_term_walker_retract', '&#xf068;', $object ); 
+			$expand = apply_filters( 'woocommerce_product_search_term_walker_expand', '&#xf067;', $object );
+			$retract = apply_filters( 'woocommerce_product_search_term_walker_retract', '&#xf068;', $object );
 			$output .=
 				'<span class="term-expander">' .
 				sprintf( '<span class="expand">%s</span>', esc_html( $expand ) ) .

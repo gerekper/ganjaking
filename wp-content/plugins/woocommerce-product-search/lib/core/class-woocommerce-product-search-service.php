@@ -80,7 +80,7 @@ class WooCommerce_Product_Search_Service {
 	const CATEGORY_LIMIT           = 'category_limit';
 	const DEFAULT_CATEGORY_LIMIT   = 5;
 
-	const CACHE_LIFETIME              = 900; 
+	const CACHE_LIFETIME              = 900;
 	const POST_CACHE_GROUP            = 'ixwpsp';
 	const POST_FILTERED_CACHE_GROUP   = 'ixwpspf';
 	const TERM_CACHE_GROUP            = 'ixwpst';
@@ -88,10 +88,10 @@ class WooCommerce_Product_Search_Service {
 	const TERM_COUNTS_CACHE_GROUP     = 'ixwpstcs';
 	const GET_TERMS_WHERE_CACHE_GROUP = 'ixwpsgtw';
 	const GET_TERMS_POSTS_CACHE_GROUP = 'ixwpsgtp';
-	const OBJECT_TERM_CACHE_GROUP     = 'ixwpsot'; 
-	const POST_STAR_CACHE_GROUP       = 'ixwpspstar'; 
-	const CONSISTENT_POST_CACHE_GROUP = 'ixwpscp'; 
-	const MIN_MAX_PRICE_CACHE_GROUP   = 'ixwpsmmp'; 
+	const OBJECT_TERM_CACHE_GROUP     = 'ixwpsot';
+	const POST_STAR_CACHE_GROUP       = 'ixwpspstar';
+	const CONSISTENT_POST_CACHE_GROUP = 'ixwpscp';
+	const MIN_MAX_PRICE_CACHE_GROUP   = 'ixwpsmmp';
 
 	const TERMS_CLAUSES_PRIORITY = 99999;
 	const PARSE_REQUEST_PRIORITY = 99999;
@@ -125,7 +125,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function wp_ajax_product_search() {
 
-
 		global $wps_doing_ajax;
 		$wps_doing_ajax = true;
 
@@ -152,7 +151,7 @@ class WooCommerce_Product_Search_Service {
 			isset( $_REQUEST['ixwpss'] ) ||
 			isset( $_REQUEST['ixwpst'] ) ||
 			isset( $_REQUEST['ixwpsp'] ) ||
-			isset( $_REQUEST['ixwpse'] ) 
+			isset( $_REQUEST['ixwpse'] )
 		) {
 			add_filter( 'request', array( __CLASS__, 'request' ), 0 );
 			add_action( 'pre_get_posts', array( __CLASS__, 'wps_pre_get_posts' ) );
@@ -163,12 +162,12 @@ class WooCommerce_Product_Search_Service {
 			isset( $_REQUEST['ixwpss'] ) ||
 			isset( $_REQUEST['ixwpst'] ) ||
 			isset( $_REQUEST['ixwpsp'] ) ||
-			isset( $_REQUEST['ixwpse'] ) || 
-			self::get_s() !== null 
+			isset( $_REQUEST['ixwpse'] ) ||
+			self::get_s() !== null
 		) {
 
 			if ( isset( $_REQUEST['ixwpss'] ) || isset( $_REQUEST['ixwpst'] ) || isset( $_REQUEST['ixwpsp'] )
-				|| isset( $_REQUEST['ixwpse'] ) 
+				|| isset( $_REQUEST['ixwpse'] )
 			) {
 				add_filter( 'woocommerce_redirect_single_search_result', '__return_false' );
 			}
@@ -210,7 +209,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function parse_request( $wp ) {
 
-
 		if ( !has_action( 'get_terms_args', array( __CLASS__, 'get_terms_args' ) ) ) {
 			if ( self::is_product_taxonomy_request( $wp->query_vars ) ) {
 				add_filter( 'get_terms_args', array( __CLASS__, 'get_terms_args' ), 10, 2 );
@@ -249,7 +247,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function request( $query_vars ) {
 
-
 		global $woocommerce_product_search_s;
 		if ( isset( $_REQUEST['s'] ) ) {
 			$woocommerce_product_search_s = $_REQUEST['s'];
@@ -282,14 +279,13 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function get_s() {
 
-
 		global $woocommerce_product_search_s;
 		$s = null;
 		if ( isset( $_REQUEST['s'] ) ) {
 			$s = $_REQUEST['s'];
 		} else if ( isset( $woocommerce_product_search_s ) ) {
 			$s = $woocommerce_product_search_s;
-		} else if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) { 
+		} else if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
 			$options = get_option( 'woocommerce-product-search', array() );
 			$auto_replace_rest = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_REST] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_REST] : WooCommerce_Product_Search::AUTO_REPLACE_REST_DEFAULT;
 			if ( $auto_replace_rest ) {
@@ -386,7 +382,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function use_engine() {
 
-
 		$options = get_option( 'woocommerce-product-search', array() );
 		$auto_replace = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE] : WooCommerce_Product_Search::AUTO_REPLACE_DEFAULT;
 		$auto_replace_admin = isset( $options[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] ) ? $options[WooCommerce_Product_Search::AUTO_REPLACE_ADMIN] : WooCommerce_Product_Search::AUTO_REPLACE_ADMIN_DEFAULT;
@@ -453,11 +448,11 @@ class WooCommerce_Product_Search_Service {
 		$post_type     = $wp_query->get( 'post_type' );
 		if ( $post_type === 'product' ) {
 			$process_query = true;
-		} else if ( empty( $post_type ) ) { 
+		} else if ( empty( $post_type ) ) {
 			if ( $wp_query->is_tax ) {
 				$product_taxonomies = array( 'product_cat', 'product_tag' );
 				$product_taxonomies = array_merge( $product_taxonomies, wc_get_attribute_taxonomy_names() );
-				$product_taxonomies = apply_filters( 'woocommerce_product_search_process_query_product_taxonomies', $product_taxonomies, $wp_query ); 
+				$product_taxonomies = apply_filters( 'woocommerce_product_search_process_query_product_taxonomies', $product_taxonomies, $wp_query );
 				$product_taxonomies = array_unique( $product_taxonomies );
 				$queried_object     = $wp_query->get_queried_object();
 				if ( is_object( $queried_object ) ) {
@@ -474,11 +469,11 @@ class WooCommerce_Product_Search_Service {
 		$post_ids = null;
 
 		if (
-			$wp_query->is_search() || 
-			$wp_query->get( 'product_search', false ) || 
+			$wp_query->is_search() ||
+			$wp_query->get( 'product_search', false ) ||
 			isset( $_REQUEST['ixwpss'] ) ||
 			isset( $_REQUEST['ixwpsp'] ) ||
-			isset( $_REQUEST['ixwpse'] ) 
+			isset( $_REQUEST['ixwpse'] )
 		) {
 
 			$s = self::get_s();
@@ -487,14 +482,14 @@ class WooCommerce_Product_Search_Service {
 				$s !== null && $use_engine ||
 				isset( $_REQUEST['ixwpss'] ) ||
 				isset( $_REQUEST['ixwpsp'] ) ||
-				isset( $_REQUEST['ixwpse'] ) 
+				isset( $_REQUEST['ixwpse'] )
 			) {
 
 				if ( !isset( $_REQUEST[self::SEARCH_QUERY] ) ) {
 					if (
 						isset( $_REQUEST['ixwpss'] ) ||
 						isset( $_REQUEST['ixwpsp'] ) ||
-						isset( $_REQUEST['ixwpse'] ) 
+						isset( $_REQUEST['ixwpse'] )
 					) {
 
 						if ( isset( $_REQUEST['ixwpss'] ) ) {
@@ -521,25 +516,25 @@ class WooCommerce_Product_Search_Service {
 					$post_ids = null;
 				}
 
-				if ( is_array( $post_ids ) && ( count( $post_ids ) > 0 ) ) { 
+				if ( is_array( $post_ids ) && ( count( $post_ids ) > 0 ) ) {
 
 					self::make_consistent_post_ids( $post_ids, array( 'limit' => WooCommerce_Product_Search_Controller::get_object_limit() ) );
 					$wp_query->set( 'post__in', $post_ids );
-				} else if ( $post_ids !== null ) { 
+				} else if ( $post_ids !== null ) {
 
 					if (
 						$s !== null && $use_engine ||
 						isset( $_REQUEST['ixwpss'] ) ||
 						isset( $_REQUEST['ixwpsp'] ) ||
-						isset( $_REQUEST['ixwpse'] ) 
+						isset( $_REQUEST['ixwpse'] )
 					) {
 
 						if (
-							( $s !== null && strlen( trim( $s ) ) > 0 ) || 
-							( isset( $_REQUEST['ixwpss'] ) && strlen( trim( $_REQUEST['ixwpss'] ) ) > 0 ) || 
-							( isset( $_REQUEST['ixwpsp'] ) && ( !empty( $_REQUEST['min_price'] ) || !empty( $_REQUEST['max_price'] ) ) ) || 
-							( isset( $_REQUEST['ixwpse'] ) && !empty( $_REQUEST['on_sale'] ) ) || 
-							( isset( $_REQUEST['ixwpse'] ) && !empty( $_REQUEST['rating'] ) ) 
+							( $s !== null && strlen( trim( $s ) ) > 0 ) ||
+							( isset( $_REQUEST['ixwpss'] ) && strlen( trim( $_REQUEST['ixwpss'] ) ) > 0 ) ||
+							( isset( $_REQUEST['ixwpsp'] ) && ( !empty( $_REQUEST['min_price'] ) || !empty( $_REQUEST['max_price'] ) ) ) ||
+							( isset( $_REQUEST['ixwpse'] ) && !empty( $_REQUEST['on_sale'] ) ) ||
+							( isset( $_REQUEST['ixwpse'] ) && !empty( $_REQUEST['rating'] ) )
 						) {
 
 							$wp_query->set( 'post__in', self::NONE );
@@ -645,7 +640,6 @@ class WooCommerce_Product_Search_Service {
 							}
 							if ( count( $parts ) > 0 ) {
 
-
 								if ( count( $parts ) === 1 ) {
 
 									$query = $parts[0];
@@ -678,7 +672,7 @@ class WooCommerce_Product_Search_Service {
 							if ( $post_ids !== null ) {
 								$post_ids = array_intersect( $post_ids, $terms_post_ids );
 								if ( count( $post_ids ) === 0 ) {
-									$post_ids = self::NONE; 
+									$post_ids = self::NONE;
 								}
 							} else {
 								$post_ids = $terms_post_ids;
@@ -695,7 +689,7 @@ class WooCommerce_Product_Search_Service {
 						$wp_query->set( 'post__in', self::NONE );
 					}
 
-			} 
+			}
 		}
 
 		$wps_process_query_vars = $wp_query->query_vars;
@@ -710,8 +704,7 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function make_consistent_post_ids( &$post_ids, $params = null ) {
 
-
-		global $wpdb;
+		global $wpdb, $wps_doing_ajax;
 
 		$limit = null;
 		if ( isset( $params['limit'] ) ) {
@@ -729,13 +722,43 @@ class WooCommerce_Product_Search_Service {
 			if ( $cached_post_ids !== false ) {
 				$post_ids = $cached_post_ids;
 			} else {
+
+				$where_stock = '';
+
+				if ( is_admin() && !isset( $wps_doing_ajax ) ) {
+
+				} else if ( get_option( 'woocommerce_hide_out_of_stock_items' ) == 'yes' ) {
+					if ( property_exists( $wpdb, 'wc_product_meta_lookup' ) ) {
+						$counts = array( 'instock' => 0, 'outofstock' => 0 );
+						$stock_status_counts = $wpdb->get_results( "SELECT count(stock_status) AS count, stock_status FROM $wpdb->wc_product_meta_lookup GROUP BY stock_status" );
+						if ( is_array( $stock_status_counts ) ) {
+							foreach ( $stock_status_counts as $stock_status_count ) {
+								switch ( $stock_status_count->stock_status ) {
+									case 'instock':
+										$counts['instock'] = intval( $stock_status_count->count );
+										break;
+									case 'outofstock':
+										$counts['outofstock'] = intval( $stock_status_count->count );
+										break;
+								}
+							}
+						}
+
+						if ( $counts['instock'] > $counts['outofstock'] ) {
+							$where_stock = " AND object_id NOT IN ( SELECT product_id FROM $wpdb->wc_product_meta_lookup WHERE stock_status = 'outofstock' ) ";
+						} else {
+							$where_stock = " AND object_id IN ( SELECT product_id FROM $wpdb->wc_product_meta_lookup WHERE stock_status = 'instock' ) ";
+						}
+					}
+				}
+
 				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
 				$query =
 					"SELECT object_id FROM $object_term_table WHERE " .
-					"object_type NOT IN ('variable', 'variable-subscription') AND object_id IN ( " . implode( ',', $post_ids ) . " ) " . 
+					"object_type NOT IN ('variable', 'variable-subscription') AND object_id IN ( " . implode( ',', $post_ids ) . " ) $where_stock " .
 					"UNION " .
 					"SELECT DISTINCT parent_object_id FROM $object_term_table WHERE " .
-					"object_type IN ( 'variation', 'subscription_variation' ) AND object_id IN ( " . implode( ',', $post_ids ) . " ) AND parent_object_id IN ( " . implode( ',', $post_ids ) . " ) "; 
+					"object_type IN ( 'variation', 'subscription_variation' ) AND object_id IN ( " . implode( ',', $post_ids ) . " ) AND parent_object_id IN ( " . implode( ',', $post_ids ) . " ) $where_stock ";
 				if ( $limit !== null ) {
 					$query .= ' LIMIT ' . intval( $limit );
 				}
@@ -897,7 +920,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function posts_search( $search, $wp_query ) {
 
-
 		if ( ( self::get_s() !== null ) && self::use_engine() ) {
 
 			$post__in = $wp_query->get( 'post__in' );
@@ -914,7 +936,6 @@ class WooCommerce_Product_Search_Service {
 	 * @return string|array post status or statuses
 	 */
 	public static function get_post_status() {
-
 
 		global $wps_doing_ajax;
 
@@ -944,7 +965,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function get_term_ids_for_request( $args, $taxonomies ) {
 
-
 		global $wpdb, $wp_query, $wps_doing_ajax;
 
 		$result = array();
@@ -961,9 +981,9 @@ class WooCommerce_Product_Search_Service {
 		$product_taxonomies = array( 'product_cat', 'product_tag' );
 		$product_taxonomies = array_merge( $product_taxonomies, wc_get_attribute_taxonomy_names() );
 		$product_taxonomies = array_unique( $product_taxonomies );
-		$target_taxonomies  = $product_taxonomies; 
-		$product_taxonomies = array_intersect( $taxonomies, $product_taxonomies ); 
-		$process_terms      = count( $product_taxonomies ) !== 0 && count( $product_taxonomies ) === count( $taxonomies ); 
+		$target_taxonomies  = $product_taxonomies;
+		$product_taxonomies = array_intersect( $taxonomies, $product_taxonomies );
+		$process_terms      = count( $product_taxonomies ) !== 0 && count( $product_taxonomies ) === count( $taxonomies );
 
 		if ( $process_terms ) {
 			foreach ( $taxonomies as $taxonomy ) {
@@ -1000,8 +1020,8 @@ class WooCommerce_Product_Search_Service {
 		if (
 			isset( $_REQUEST['ixwpss'] ) ||
 			isset( $_REQUEST['ixwpsp'] ) ||
-			isset( $_REQUEST['ixwpse'] ) || 
-			self::get_s() !== null 
+			isset( $_REQUEST['ixwpse'] ) ||
+			self::get_s() !== null
 		) {
 
 			if ( !isset( $_REQUEST[self::SEARCH_QUERY] ) ) {
@@ -1048,9 +1068,9 @@ class WooCommerce_Product_Search_Service {
 		$ixwpst = self::get_ixwpst( $wp_query );
 
 		$taxonomy_term_ids = null;
-		if ( !empty( $ixwpst ) ) { 
+		if ( !empty( $ixwpst ) ) {
 			$taxonomy_term_ids = array();
-			foreach ( $ixwpst as $index => $term_ids ) { 
+			foreach ( $ixwpst as $index => $term_ids ) {
 
 				if ( !is_array( $term_ids ) ) {
 					$term_ids = array( $term_ids );
@@ -1059,7 +1079,7 @@ class WooCommerce_Product_Search_Service {
 					$term_id = intval( $term_id );
 					$term = get_term( $term_id );
 					if ( ( $term !== null ) && !( $term instanceof WP_Error) ) {
-						if ( in_array( $term->taxonomy, $target_taxonomies ) ) { 
+						if ( in_array( $term->taxonomy, $target_taxonomies ) ) {
 							$taxonomy_term_ids[$term->taxonomy][] = $term->term_id;
 
 							$term_children = get_term_children( $term->term_id, $term->taxonomy );
@@ -1075,7 +1095,6 @@ class WooCommerce_Product_Search_Service {
 			}
 		}
 
-
 		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
 
 		$where = array(
@@ -1083,16 +1102,16 @@ class WooCommerce_Product_Search_Service {
 		);
 		if ( isset( $args['include'] ) ) {
 			if ( is_array( $args['include'] ) && count( $args['include'] ) > 0 ) {
-				$where[] = 'ot.term_id IN (' . implode( ',', array_map( 'intval', $args['include'] ) ) . ') '; 
+				$where[] = 'ot.term_id IN (' . implode( ',', array_map( 'intval', $args['include'] ) ) . ') ';
 			}
 		}
 		if ( isset( $args['exclude'] ) ) {
 			if ( is_array( $args['exclude'] ) && count( $args['exclude'] ) > 0 ) {
-				$where[] = 'ot.term_id NOT IN (' . implode( ',', array_map( 'intval', $args['exclude'] ) ) . ') '; 
+				$where[] = 'ot.term_id NOT IN (' . implode( ',', array_map( 'intval', $args['exclude'] ) ) . ') ';
 			}
 		}
 
-		if ( $post_ids === null || is_array( $post_ids ) && count( $post_ids ) === 0 ) { 
+		if ( $post_ids === null || is_array( $post_ids ) && count( $post_ids ) === 0 ) {
 
 			$cache_key = self::get_cache_key( array( '*' ) );
 			$posts = wps_cache_get( $cache_key, self::GET_TERMS_POSTS_CACHE_GROUP );
@@ -1166,7 +1185,7 @@ class WooCommerce_Product_Search_Service {
 				}
 				if ( key_exists( $taxonomy, $taxonomy_term_ids ) ) {
 					if ( count( $taxonomy_term_ids[$taxonomy] ) > 0 ) {
-						$where[] = " ot.term_id IN (" . implode( ',', array_map( 'intval', $taxonomy_term_ids[$taxonomy] ) ) . ") "; 
+						$where[] = " ot.term_id IN (" . implode( ',', array_map( 'intval', $taxonomy_term_ids[$taxonomy] ) ) . ") ";
 					}
 				}
 			}
@@ -1175,7 +1194,6 @@ class WooCommerce_Product_Search_Service {
 		$cache_key = self::get_cache_key( $where );
 		$allowed_term_ids = wps_cache_get( $cache_key, self::GET_TERMS_WHERE_CACHE_GROUP );
 		if ( $allowed_term_ids === false ) {
-
 
 			$query =
 				"SELECT DISTINCT ot.term_id FROM $object_term_table ot ";
@@ -1204,7 +1222,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function get_terms_args( $args, $taxonomies ) {
 
-
 		global $wpdb, $wp_query;
 
 		$options = get_option( 'woocommerce-product-search', array() );
@@ -1223,7 +1240,7 @@ class WooCommerce_Product_Search_Service {
 				'object_ids',
 				'parent',
 				'search',
-				'slug', 
+				'slug',
 				'term_taxonomy_id'
 			)
 		);
@@ -1245,9 +1262,9 @@ class WooCommerce_Product_Search_Service {
 		$product_taxonomies = array( 'product_cat', 'product_tag' );
 		$product_taxonomies = array_merge( $product_taxonomies, wc_get_attribute_taxonomy_names() );
 		$product_taxonomies = array_unique( $product_taxonomies );
-		$target_taxonomies  = $product_taxonomies; 
-		$product_taxonomies = array_intersect( $taxonomies, $product_taxonomies ); 
-		$process_terms      = count( $product_taxonomies ) !== 0 && count( $product_taxonomies ) === count( $taxonomies ); 
+		$target_taxonomies  = $product_taxonomies;
+		$product_taxonomies = array_intersect( $taxonomies, $product_taxonomies );
+		$process_terms      = count( $product_taxonomies ) !== 0 && count( $product_taxonomies ) === count( $taxonomies );
 
 		if ( $process_terms ) {
 			foreach ( $taxonomies as $taxonomy ) {
@@ -1286,7 +1303,6 @@ class WooCommerce_Product_Search_Service {
 			$args['include'] = self::NONE;
 		}
 
-
 		return $args;
 
 	}
@@ -1301,7 +1317,6 @@ class WooCommerce_Product_Search_Service {
 	 * @return array
 	 */
 	public static function terms_clauses( $pieces, $taxonomies, $args ) {
-
 
 		global $woocommerce_product_search_get_terms_args_object_ids_hash;
 		if (
@@ -1331,7 +1346,6 @@ class WooCommerce_Product_Search_Service {
 	 * @return array
 	 */
 	public static function get_terms( $terms, $taxonomies, $args, $term_query = null ) {
-
 
 		if ( is_string( $taxonomies ) ) {
 			$taxonomies = array( $taxonomies );
@@ -1372,7 +1386,6 @@ class WooCommerce_Product_Search_Service {
 	 * @return string
 	 */
 	public static function term_link( $termlink, $term, $taxonomy ) {
-
 
 		if ( 'product_cat' == $taxonomy || 'product_tag' == $taxonomy ) {
 			if ( !empty( $_REQUEST['ixwpss'] ) ) {
@@ -1419,7 +1432,6 @@ class WooCommerce_Product_Search_Service {
 	 * @return array
 	 */
 	public static function get_post_ids_for_request( $params = null ) {
-
 
 		global $wpdb, $wps_doing_ajax, $wps_wc_query_price_filter_post_clauses;
 
@@ -1469,7 +1481,6 @@ class WooCommerce_Product_Search_Service {
 			}
 		}
 
-
 		$product_thumbnails = isset( $_REQUEST[self::PRODUCT_THUMBNAILS] ) ? intval( $_REQUEST[self::PRODUCT_THUMBNAILS] ) > 0 : self::DEFAULT_PRODUCT_THUMBNAILS;
 
 		$category_results   = isset( $_REQUEST[self::CATEGORY_RESULTS] ) ? intval( $_REQUEST[self::CATEGORY_RESULTS] ) > 0 : self::DEFAULT_CATEGORY_RESULTS;
@@ -1478,8 +1489,8 @@ class WooCommerce_Product_Search_Service {
 		if (
 			!$title && !$excerpt && !$content && !$tags && !$sku && !$categories && !$attributes &&
 			$min_price === null && $max_price === null &&
-			!$on_sale && 
-			$rating === null 
+			!$on_sale &&
+			$rating === null
 		) {
 			$title = true;
 		}
@@ -1508,8 +1519,8 @@ class WooCommerce_Product_Search_Service {
 			'search_query' => $search_query,
 			'min_price'    => $min_price,
 			'max_price'    => $max_price,
-			'on_sale'      => $on_sale, 
-			'rating'       => $rating 
+			'on_sale'      => $on_sale,
+			'rating'       => $rating
 		) );
 
 		$post_ids = wps_cache_get( $cache_key, self::POST_CACHE_GROUP );
@@ -1574,7 +1585,7 @@ class WooCommerce_Product_Search_Service {
 			$key_table   = WooCommerce_Product_Search_Controller::get_tablename( 'key' );
 			$index_table = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
 			foreach ( $search_terms as $search_term ) {
-	
+
 				$length = function_exists( 'mb_strlen' ) ? mb_strlen( $search_term ) : strlen( $search_term );
 
 				if ( $length === 0 ) {
@@ -1679,7 +1690,7 @@ class WooCommerce_Product_Search_Service {
 				$conj[] = sprintf(
 					" ID IN ( " .
 						"SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE wc_product_meta_lookup.average_rating >= %s " .
-						"UNION " . 
+						"UNION " .
 						"SELECT ID AS product_id FROM {$wpdb->posts} WHERE post_type = 'product_variation' AND post_parent IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE wc_product_meta_lookup.average_rating >= %s ) " .
 					") ",
 					esc_sql( floor( $rating ) - 0.5 ),
@@ -1693,7 +1704,6 @@ class WooCommerce_Product_Search_Service {
 			}
 		}
 
-
 		$include = array();
 
 		if ( !empty( $conj ) ) {
@@ -1702,8 +1712,8 @@ class WooCommerce_Product_Search_Service {
 			if (
 				$title || $excerpt || $content || $tags || $sku || $categories ||
 				$min_price !== null || $max_price !== null ||
-				$on_sale || 
-				$rating !== null 
+				$on_sale ||
+				$rating !== null
 			) {
 				$join = '';
 
@@ -1745,7 +1755,7 @@ class WooCommerce_Product_Search_Service {
 					$start = function_exists( 'microtime' ) ? microtime( true ) : time();
 				}
 
-				$results = $wpdb->get_col( $query ); 
+				$results = $wpdb->get_col( $query );
 
 				if ( $log_query_times ) {
 					$time = ( function_exists( 'microtime' ) ? microtime( true ) : time() ) - $start;
@@ -1770,7 +1780,7 @@ class WooCommerce_Product_Search_Service {
 				}
 				if ( !empty( $results ) && is_array( $results ) ) {
 					if ( count( $results ) > 0 ) {
-						$include = array_map( 'intval', $results ); 
+						$include = array_map( 'intval', $results );
 					} else {
 						$include = self::NONE;
 					}
@@ -1803,7 +1813,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function get_post_ids_for_request_filtered( $params = null ) {
 
-
 		global $wps_doing_ajax;
 
 		$all = true;
@@ -1814,8 +1823,8 @@ class WooCommerce_Product_Search_Service {
 		if (
 			isset( $_REQUEST['ixwpss'] ) ||
 			isset( $_REQUEST['ixwpsp'] ) ||
-			isset( $_REQUEST['ixwpse'] ) || 
-			self::get_s() !== null 
+			isset( $_REQUEST['ixwpse'] ) ||
+			self::get_s() !== null
 		) {
 			if ( !isset( $_REQUEST[self::SEARCH_QUERY] ) ) {
 				$_REQUEST[self::SEARCH_QUERY] = isset( $_REQUEST['ixwpss'] ) ? $_REQUEST['ixwpss'] : '';
@@ -2063,7 +2072,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function get_min_max_price() {
 
-
 		global $wpdb, $wps_process_query_vars;
 
 		$min_max = array(
@@ -2117,7 +2125,7 @@ class WooCommerce_Product_Search_Service {
 				$query_vars = $wps_process_query_vars;
 				$query_vars['posts_per_page'] = -1;
 				$query_vars['fields'] = 'ids';
-				$query_vars['orderby'] = 'none'; 
+				$query_vars['orderby'] = 'none';
 
 				$q = new WP_Query();
 				$products = $q->query( $query_vars );
@@ -2233,7 +2241,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function to_float( $x ) {
 
-
 		if ( $x !== null && !is_float( $x ) && is_string( $x ) ) {
 			$locale = localeconv();
 			$decimal_characters = array_unique( array( wc_get_price_decimal_separator(), $locale['decimal_point'], $locale['mon_decimal_point'], '.', ',' ) );
@@ -2272,7 +2279,6 @@ class WooCommerce_Product_Search_Service {
 	 * @return array of objects (rows from $wpdb->terms)
 	 */
 	public static function get_product_categories_for_request( &$post_ids ) {
-
 
 		global $wpdb;
 
@@ -2318,7 +2324,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function get_term_counts_for_request( &$post_ids ) {
 
-
 		global $wpdb;
 
 		$cache_key = self::get_cache_key( $post_ids );
@@ -2341,7 +2346,7 @@ class WooCommerce_Product_Search_Service {
 				"LEFT JOIN $wpdb->posts p ON p.ID = tr.object_id " .
 				"WHERE  tt.taxonomy IN ('" . implode( "','", array_map( 'esc_sql', $product_taxonomies ) ) . "') AND " .
 				'tr.object_id IN (' . implode( ',', array_map( 'intval', $post_ids ) ) . ') ' .
-				'GROUP BY t.term_id'; 
+				'GROUP BY t.term_id';
 			if ( $_terms = $wpdb->get_results( $t_query ) ) {
 				if ( is_array( $_terms ) ) {
 					foreach ( $_terms as $term ) {
@@ -2364,7 +2369,6 @@ class WooCommerce_Product_Search_Service {
 	 * @return int
 	 */
 	public static function get_term_count( $term_id ) {
-
 
 		$count = 0;
 		$term_id = intval( $term_id );
@@ -2389,10 +2393,9 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function get_term_counts( $taxonomy ) {
 
-
 		global $wpdb, $wp_query;
 
-		$ixwpst = self::get_ixwpst( $wp_query ); 
+		$ixwpst = self::get_ixwpst( $wp_query );
 
 		$cache_key = self::get_cache_key(
 			array(
@@ -2401,7 +2404,7 @@ class WooCommerce_Product_Search_Service {
 				isset( $_REQUEST['ixwpss'] ) ? json_encode( $_REQUEST['ixwpss'] ) : '',
 				isset( $_REQUEST['ixwpsp'] ) ? json_encode( $_REQUEST['ixwpsp'] ) : '',
 				isset( $_REQUEST['ixwpsf'] ) ? json_encode( $_REQUEST['ixwpsf'] ) : '',
-				isset( $_REQUEST['ixwpse'] ) ? json_encode( $_REQUEST['ixwpse'] ) : '', 
+				isset( $_REQUEST['ixwpse'] ) ? json_encode( $_REQUEST['ixwpse'] ) : '',
 				json_encode( self::get_base_request_cache_key_parameters() )
 			)
 		);
@@ -2422,7 +2425,6 @@ class WooCommerce_Product_Search_Service {
 		$where[] = "( object_type NOT IN ('variable', 'variable-subscription' ) )";
 
 		$post_ids = self::get_post_ids_for_request_filtered( array( 'variations' => true ) );
-
 
 		if ( $post_ids !== null && is_array( $post_ids ) && count( $post_ids ) > 0 ) {
 			$where[] = 'object_id IN (' . implode( ',', array_map( 'intval', $post_ids ) ) . ')';
@@ -2567,7 +2569,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function request_results() {
 
-
 		global $wpdb, $sitepress, $wps_doing_ajax;
 
 		$switch_lang = false;
@@ -2592,7 +2593,7 @@ class WooCommerce_Product_Search_Service {
 
 		$tags        = isset( $_REQUEST[self::TAGS] ) ? intval( $_REQUEST[self::TAGS] ) > 0 : self::DEFAULT_TAGS;
 		$limit       = isset( $_REQUEST[self::LIMIT] ) ? intval( $_REQUEST[self::LIMIT] ) : self::DEFAULT_LIMIT;
-		$numberposts = intval( apply_filters( 'product_search_limit', $limit ) ); 
+		$numberposts = intval( apply_filters( 'product_search_limit', $limit ) );
 
 		$order       = isset( $_REQUEST[self::ORDER] ) ? strtoupper( trim( $_REQUEST[self::ORDER] ) ) : self::DEFAULT_ORDER;
 		switch ( $order ) {
@@ -2611,7 +2612,7 @@ class WooCommerce_Product_Search_Service {
 			case 'sku' :
 			case '' :
 			case 'popularity' :
-			case 'rating' : 
+			case 'rating' :
 				break;
 			default :
 				$order_by = 'date';
@@ -2643,10 +2644,10 @@ class WooCommerce_Product_Search_Service {
 			$query_args = array(
 				'fields'      => 'ids',
 				'post_type'   => 'product',
-				'post_status' => self::get_post_status(), 
-				'numberposts' => $numberposts, 
+				'post_status' => self::get_post_status(),
+				'numberposts' => $numberposts,
 				'include'     => $include,
-				'suppress_filters' => 0 
+				'suppress_filters' => 0
 			);
 
 			if ( $order_by !== '' ) {
@@ -2699,7 +2700,7 @@ class WooCommerce_Product_Search_Service {
 				remove_filter( 'posts_join', array( __CLASS__, 'posts_join_rating' ) );
 			}
 
-			$i = 0; 
+			$i = 0;
 			foreach ( $posts as $post ) {
 
 				if ( $post = get_post( $post ) ) {
@@ -3182,7 +3183,7 @@ class WooCommerce_Product_Search_Service {
 			$max_price = null;
 		}
 		self::min_max_price_adjust( $min_price, $max_price );
-		$on_sale = isset( $_REQUEST[self::ON_SALE] ) ? intval( $_REQUEST[self::ON_SALE] ) > 0 : self::DEFAULT_ON_SALE; 
+		$on_sale = isset( $_REQUEST[self::ON_SALE] ) ? intval( $_REQUEST[self::ON_SALE] ) > 0 : self::DEFAULT_ON_SALE;
 		$rating  = isset( $_REQUEST[self::RATING] ) ? intval( $_REQUEST[self::RATING] ) : self::DEFAULT_RATING;
 		if ( $rating !== self::DEFAULT_RATING ) {
 			if ( $rating < WooCommerce_Product_Search_Filter_Rating::MIN_RATING ) {
@@ -3192,7 +3193,6 @@ class WooCommerce_Product_Search_Service {
 				$rating = WooCommerce_Product_Search_Filter_Rating::MAX_RATING;
 			}
 		}
-
 
 		if (
 			!$title && !$excerpt && !$content && !$tags && !$sku && !$categories && !$attributes &&
@@ -3204,7 +3204,6 @@ class WooCommerce_Product_Search_Service {
 		$search_query = apply_filters( 'woocommerce_product_search_request_search_query', $search_query );
 		$search_query = WooCommerce_Product_Search_Indexer::normalize( $search_query );
 		$search_query = trim( remove_accents( $search_query ) );
-
 
 		$parameters = array(
 			'title'        => $title,

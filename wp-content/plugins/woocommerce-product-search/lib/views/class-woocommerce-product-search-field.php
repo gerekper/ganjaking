@@ -143,8 +143,8 @@ class WooCommerce_Product_Search_Field {
 							case '' :
 							case 'date' :
 							case 'ID' :
-							case 'popularity' : 
-							case 'rating' : 
+							case 'popularity' :
+							case 'rating' :
 							case 'sku' :
 							case 'title' :
 								break;
@@ -303,7 +303,7 @@ class WooCommerce_Product_Search_Field {
 		}
 
 		$output .= '</form>';
-		$output .= '</div>'; 
+		$output .= '</div>';
 
 		$output .= sprintf( '<div id="%s" class="product-search-results">', $results_id );
 		$results_content_style = '';
@@ -311,10 +311,10 @@ class WooCommerce_Product_Search_Field {
 			$results_content_style = sprintf( 'max-height:%s;', $params['height'] );
 		}
 		$output .= sprintf( '<div id="%s" class="product-search-results-content" style="%s">', $results_content_id, esc_attr( $results_content_style ) );
-		$output .= '</div>'; 
-		$output .= '</div>'; 
+		$output .= '</div>';
+		$output .= '</div>';
 
-		$output .= '</div>'; 
+		$output .= '</div>';
 
 		$js_args = array();
 		$js_args[] = sprintf( 'no_results:"%s"', esc_js( $params['no_results'] ) );
@@ -357,10 +357,10 @@ class WooCommerce_Product_Search_Field {
 				highlight: true,
 				captureLength: %d
 			} );',
-			esc_attr( $field_id ), 
-			esc_attr( $field_id ), 
-			esc_attr( $search_id ), 
-			esc_attr( $search_id . ' div.product-search-results-content' ), 
+			esc_attr( $field_id ),
+			esc_attr( $field_id ),
+			esc_attr( $search_id ),
+			esc_attr( $search_id . ' div.product-search-results-content' ),
 			$post_target_url,
 			$js_args,
 			$params['delay'],
@@ -375,14 +375,14 @@ class WooCommerce_Product_Search_Field {
 		if ( $params['dynamic_focus'] ) {
 			$output .= sprintf( 'ixwps.dynamicFocus("%s","%s");', $search_id, $results_content_id );
 		}
-		$output .= '} else {'; 
+		$output .= '} else {';
 		$output .= 'if ( typeof console !== "undefined" && typeof console.log !== "undefined" ) { ';
 		$output .= 'document.getElementById("' . $field_id . '").disabled = false;';
 		$output .= 'console.log("A conflict is preventing required resources to be loaded."); ';
-		$output .= '}'; 
-		$output .= '}'; 
-		$output .= '}'; 
-		$output .= '} );'; 
+		$output .= '}';
+		$output .= '}';
+		$output .= '}';
+		$output .= '} );';
 		$output .= '</script>';
 
 		self::$instances++;

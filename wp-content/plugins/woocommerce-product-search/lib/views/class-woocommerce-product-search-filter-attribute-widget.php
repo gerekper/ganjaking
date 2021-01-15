@@ -110,7 +110,6 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 			$cache = array();
 		}
 
-
 		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
 		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
 		$before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
@@ -128,7 +127,7 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		$cache[$args['widget_id']] = $output;
 		wps_cache_set( self::$cache_id, $cache, self::$cache_group );
 
-		echo $output; 
+		echo $output;
 	}
 
 	/**
@@ -410,9 +409,9 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		echo esc_html( __( 'Show Names', 'woocommerce-product-search' ) );
 		echo '</label>';
 		echo '</p>';
-		echo '</div>'; 
+		echo '</div>';
 
-		echo '</div>'; 
+		echo '</div>';
 
 		echo '<div id="%s" class="woocommerce-product-search-filter-attribute-widget-style-dropdown-only show-selected-thumbnails-if-show-thumbnails">';
 		$show_selected_thumbnails = isset( $instance['show_selected_thumbnails'] ) ? $instance['show_selected_thumbnails'] : 'no';
@@ -429,7 +428,7 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		echo esc_html( __( 'Show thumbnails for selected', 'woocommerce-product-search' ) );
 		echo '</label>';
 		echo '</p>';
-		echo '</div>'; 
+		echo '</div>';
 
 		echo '<script type="text/javascript">';
 		echo 'document.addEventListener( "DOMContentLoaded", function() {';
@@ -449,8 +448,8 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 			'wps-show-selected-thumbnails-' . $wps_show_thumbnails_count,
 			'wps-show-thumbnails-' . $wps_show_thumbnails_count
 		);
-		echo '}'; 
-		echo '} );'; 
+		echo '}';
+		echo '} );';
 		echo '</script>';
 
 		$show_count= isset( $instance['show_count'] ) ? $instance['show_count'] : 'no';
@@ -499,7 +498,7 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		);
 		echo '</label>';
 		echo '</p>';
-		echo '</div>'; 
+		echo '</div>';
 
 		echo '<div class="woocommerce-product-search-filter-attribute-widget-style-select-dropdown-only">';
 		$none_selected = !empty( $instance['none_selected'] ) ? $instance['none_selected'] : __( 'Any', 'woocommerce-product-search' );
@@ -518,7 +517,7 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		);
 		echo '</label>';
 		echo '</p>';
-		echo '</div>'; 
+		echo '</div>';
 
 		echo '<div class="woocommerce-product-search-filter-attribute-widget-style-dropdown-only">';
 		$height = !empty( $instance['height'] ) ? WooCommerce_Product_Search_Utility::get_css_unit( $instance['height'] ) : '';
@@ -538,7 +537,7 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		);
 		echo '</label>';
 		echo '</p>';
-		echo '</div>'; 
+		echo '</div>';
 
 		$number = isset( $instance['number'] ) ? intval( $instance['number'] ) : '';
 		echo '<p>';
@@ -829,7 +828,7 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		echo '</label>';
 		echo '</p>';
 
-		echo '</div>'; 
+		echo '</div>';
 
 		global $woocommerce_product_search_filter_attribute_widget_settings;
 		if ( !isset( $woocommerce_product_search_filter_attribute_widget_settings ) ) {
@@ -868,8 +867,8 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 				'jQuery( "#%s" ).trigger( "change" );',
 				esc_attr( $this->get_field_id( 'style' ) )
 			);
-			echo '}'; 
-			echo '} );'; 
+			echo '}';
+			echo '} );';
 			echo '</script>';
 		}
 
@@ -877,8 +876,8 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		echo 'document.addEventListener( "DOMContentLoaded", function() {';
 		echo 'if ( typeof jQuery !== "undefined" ) {';
 		printf( 'jQuery( "#%s" ).trigger( "change" );', esc_attr( $this->get_field_id( 'style' ) ) );
-		echo '}'; 
-		echo '} );'; 
+		echo '}';
+		echo '} );';
 		echo '</script>';
 	}
 

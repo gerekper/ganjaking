@@ -58,7 +58,7 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 			$per_page = self::PER_PAGE_MIN;
 		}
 		if ( $user_per_page !== $per_page ) {
-			if ( !empty( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-queries' ) ) { 
+			if ( !empty( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-queries' ) ) {
 				update_user_option( get_current_user_id(), 'woocommerce-product-search-report-queries-per-page', $per_page );
 			}
 		}
@@ -78,7 +78,7 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 		echo '<form method="get" id="woocommerce-product-search-report-queries">';
 		$this->display();
 		echo '</form>';
-		echo '</div>'; 
+		echo '</div>';
 	}
 
 	/**
@@ -125,7 +125,7 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 
 	/**
 	 * Defines table columns.
-	 * 
+	 *
 	 * @see WP_List_Table::get_columns()
 	 */
 	function get_columns(){
@@ -177,7 +177,7 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 
 	/**
 	 * Defines bulk actions available.
-	 * 
+	 *
 	 * @see WP_List_Table::get_bulk_actions()
 	 */
 	function get_bulk_actions() {
@@ -310,8 +310,8 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 			$where = 'WHERE ' . implode( ' AND ', $conditions );
 		}
 
-		$values[] = intval( $per_page ); 
-		$values[] = intval( $per_page ) * ( $current_page - 1 ); 
+		$values[] = intval( $per_page );
+		$values[] = intval( $per_page ) * ( $current_page - 1 );
 
 		$query = $wpdb->prepare(
 			"SELECT SQL_CALC_FOUND_ROWS q.query, q.query_id, MIN(h.date) min_date, MAX(h.date) max_date, COUNT(DISTINCT h.ip) hits ".
@@ -470,7 +470,7 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 				esc_html__( 'Clear', 'woocommerce-product-search' )
 			);
 		}
-		echo '</div>'; 
+		echo '</div>';
 	}
 
 }

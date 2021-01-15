@@ -216,7 +216,10 @@ $woocommerce_gpf_di['WoocommercePrfAdmin'] = function ( $c ) {
 };
 
 $woocommerce_gpf_di['WoocommercePrfGoogle'] = function ( $c ) {
-	return new WoocommercePrfGoogle( $c['WoocommerceGpfTemplateLoader'] );
+	return new WoocommercePrfGoogle(
+		$c['WoocommerceGpfTemplateLoader'],
+		$c['WoocommerceGpfDebugService']
+	);
 };
 
 $woocommerce_gpf_di['WoocommercePrfGoogleReviewFeed'] = function ( $c ) {

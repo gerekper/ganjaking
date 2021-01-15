@@ -28,7 +28,6 @@ if ( !defined( 'ABSPATH' ) ) {
  */
 class WooCommerce_Product_Search_Thumbnail {
 
-
 	const THUMBNAIL        = 'product-search-thumbnail';
 	const THUMBNAIL_WIDTH  = 'product-search-thumbnail-width';
 	const THUMBNAIL_HEIGHT = 'product-search-thumbnail-height';
@@ -134,7 +133,6 @@ class WooCommerce_Product_Search_Thumbnail {
 	 * @return array|boolean image result
 	 */
 	public static function image_downsize( $foo, $id, $size ) {
-
 
 		$result = false;
 
@@ -251,7 +249,7 @@ class WooCommerce_Product_Search_Thumbnail {
 				$this_setting = array(
 					'title' => __( 'Product Search Thumbnail', 'woocommerce-product-search' ),
 					'id'    => self::THUMBNAIL,
-					'type'  => 'wps_thumbnail', 
+					'type'  => 'wps_thumbnail',
 					'desc'  => __( 'The image size used to display thumbnails of the main product image within search results using the <code>&#91;woocommerce_product_search&#93;</code> shortcode or the <em>Product Search Field</em> widget.', 'woocommerce-product-search' )
 				);
 				break;
@@ -288,7 +286,7 @@ class WooCommerce_Product_Search_Thumbnail {
 		echo '</th>';
 		printf( '<td class="forminp forminp-%s">', esc_attr( $value['type'] ) );
 
-		if ( ! defined( 'WC_VERSION' ) ) { 
+		if ( ! defined( 'WC_VERSION' ) ) {
 			$url = admin_url( 'admin.php?page=woocommerce_settings&tab=product-search' );
 		} else {
 			$url = admin_url( 'admin.php?page=wc-settings&tab=product-search' );
@@ -351,7 +349,6 @@ class WooCommerce_Product_Search_Thumbnail {
 	 */
 	public static function term_thumbnail( $term, $params = array() ) {
 
-
 		if ( !( $term instanceof WP_Term ) ) {
 			return '';
 		}
@@ -372,8 +369,8 @@ class WooCommerce_Product_Search_Thumbnail {
 		$taxonomy       = !empty( $term->taxonomy ) ? $term->taxonomy : '';
 		$thumbnail_size = self::thumbnail_size_name( $taxonomy . '-' );
 		$thumbnail_id   = get_term_meta( $term->term_id, 'product_search_image_id', true );
-		$image_srcset   = false; 
-		$image_sizes    = false; 
+		$image_srcset   = false;
+		$image_sizes    = false;
 		if ( $thumbnail_id ) {
 
 			$image            = wp_get_attachment_image_src( $thumbnail_id, $thumbnail_size, false );

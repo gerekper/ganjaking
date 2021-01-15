@@ -112,7 +112,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 				'container_class'    => '',
 				'container_id'       => null,
 				'filter'             => 'yes',
-				'format'             => 'flat', 
+				'format'             => 'flat',
 				'heading'            => null,
 				'heading_class'      => null,
 				'heading_element'    => 'div',
@@ -128,7 +128,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 				'show_heading'       => 'yes',
 				'show_names'         => 'yes',
 				'show_thumbnails'    => 'no',
-				'sizing'             => 'none', 
+				'sizing'             => 'none',
 				'style'              => 'inline',
 				'taxonomy'           => 'product_tag',
 				'terms'              => null,
@@ -408,14 +408,14 @@ class WooCommerce_Product_Search_Filter_Tag {
 			$params['toggle'] ? ' product-search-filter-toggle' : '',
 			$params['toggle_widget'] ? ' product-search-filter-toggle-widget' : ''
 		);
-		$close_inside_output = '</div>'; 
+		$close_inside_output = '</div>';
 
 		$clear_output = '';
 		if ( isset( $_GET['ixwpst'] ) && isset( $_GET['ixwpst'][$taxonomy] ) ) {
 
 			$clear_output .= sprintf(
 				'<a class="tag-item-all nav-back tag-cloud-link product-search-%s-filter-item" data-term="" href="%s">%s</a>' . "\n",
-				esc_attr( $taxonomy ), 
+				esc_attr( $taxonomy ),
 				esc_url( $current_url ),
 				__( 'Clear', 'woocommerce-product-search' )
 			);
@@ -425,16 +425,16 @@ class WooCommerce_Product_Search_Filter_Tag {
 		if ( count( $parent_term_urls ) > 0 ) {
 			$parent_terms_output .= sprintf(
 				'<ul class="%s-item-parents">',
-				esc_attr( $taxonomy ) 
+				esc_attr( $taxonomy )
 			);
 			foreach ( $parent_term_urls as $parent_term_id => $parent_term_url ) {
 				if ( $parent_term = get_term( $parent_term_id, $taxonomy ) ) {
 					if ( ( $parent !== null ) && !( $parent instanceof WP_Error) ) {
 						$parent_terms_output .= sprintf(
 							'<li data-term="%s" class="%s-item-parent nav-back product-search-%s-filter-item"><a href="%s">%s</a></li>',
-							esc_attr( $parent_term->term_id ), 
-							esc_attr( $taxonomy ), 
-							esc_attr( $taxonomy ), 
+							esc_attr( $parent_term->term_id ),
+							esc_attr( $taxonomy ),
+							esc_attr( $taxonomy ),
 							esc_url( $parent_term_url ),
 							esc_html( $parent_term->name )
 						);
@@ -479,7 +479,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 
 		$output .= apply_filters(
 			"woocommerce_product_search_filter_{$taxonomy}_suffix",
-			'</div>' 
+			'</div>'
 		);
 
 		$js_object = sprintf( '{taxonomy:"%s"', esc_attr( $taxonomy ) );
@@ -494,8 +494,8 @@ class WooCommerce_Product_Search_Filter_Tag {
 		$output .= 'if ( typeof ixwpsf !== "undefined" && typeof ixwpsf.taxonomy !== "undefined" ) {';
 		$output .= 'ixwpsf.taxonomy.push(' . $js_object . ');';
 		$output .= '}';
-		$output .= '}'; 
-		$output .= '} );'; 
+		$output .= '}';
+		$output .= '} );';
 		$output .= '</script>';
 
 		WooCommerce_Product_Search_Filter::filter_added();
@@ -515,7 +515,6 @@ class WooCommerce_Product_Search_Filter_Tag {
 	 * @return string rendered
 	 */
 	public static function tag_cloud( $args = '', &$results = array() ) {
-
 
 		$output = '';
 
@@ -617,7 +616,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 			$args['format'] = $args['style'] === 'inline' ? 'flat' : 'list';
 
 			$args['number'] = $number;
-			$output = self::generate_tag_cloud( $tags, $args ); 
+			$output = self::generate_tag_cloud( $tags, $args );
 
 			/**
 			 * Filters the tag cloud output.
@@ -632,7 +631,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 
 		if ( !empty( $args['echo'] ) && $args['echo'] ) {
 
-			echo $output; 
+			echo $output;
 		}
 
 		return $output;
@@ -647,7 +646,6 @@ class WooCommerce_Product_Search_Filter_Tag {
 	 * @return string HTML
 	 */
 	public static function generate_tag_cloud( $tags, $args = '' ) {
-
 
 		$defaults = array(
 			'smallest'        => 8,
@@ -748,7 +746,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 			$tags = array_slice( $tags, 0, $args['number'] );
 
 			$counts = array();
-			$real_counts = array(); 
+			$real_counts = array();
 			foreach ( (array) $tags as $key => $tag ) {
 				$real_counts[ $key ] = $tag->count;
 				$counts[ $key ] = call_user_func( $args['topic_count_scale_callback'], $tag->count );
@@ -847,7 +845,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 							$return =& $a;
 							break;
 						case 'list' :
-							
+
 							$return = sprintf( "<ul class='wp-tag-cloud %s' role='list'>\n\t<li>", esc_attr( $args['list_class'] ) );
 							$return .= join( "</li>\n\t<li>", $a );
 							$return .= "</li>\n</ul>\n";
@@ -890,7 +888,6 @@ class WooCommerce_Product_Search_Filter_Tag {
 	 */
 	public static function wp_generate_tag_cloud_data( $tags_data ) {
 
-
 		global $woocommerce_product_search_tag_cloud_data_taxonomy;
 		$current_tags = array();
 		if ( isset( $_GET['ixwpst'] ) && isset( $_GET['ixwpst'][$woocommerce_product_search_tag_cloud_data_taxonomy] ) ) {
@@ -918,7 +915,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 	 * @return string
 	 */
 	public static function topic_count_text_callback( $count ) {
-		
+		/* translators: %s: product count */
 		return sprintf( _n( '%s product', '%s products', $count, 'woocommerce-product-search' ), number_format_i18n( $count ) );
 	}
 

@@ -3614,20 +3614,35 @@ Content-Type: text/html;
 		return self::match_file_extension( $file_name, self::get_disallowed_file_extensions() ) || strpos( strtolower( $file_name ), '.php.' ) !== false;
 	}
 
+	/**
+	 * Check the file type/extension to ensure it's allowed, and that the extension matches the actual file type.
+	 *
+	 * @since unknown
+	 *
+	 * @param array  $file      The file array.
+	 * @param string $file_name The file name.
+	 *
+	 * @return bool|WP_Error
+	 */
 	public static function check_type_and_ext( $file, $file_name = '' ) {
 		if ( empty( $file_name ) ) {
 			$file_name = $file['name'];
 		}
-		$tmp_name = $file['tmp_name'];
-		// Whitelist the mime type and extension
-		$wp_filetype     = wp_check_filetype_and_ext( $tmp_name, $file_name );
-		$ext             = empty( $wp_filetype['ext'] ) ? '' : $wp_filetype['ext'];
-		$type            = empty( $wp_filetype['type'] ) ? '' : $wp_filetype['type'];
-		$proper_filename = empty( $wp_filetype['proper_filename'] ) ? '' : $wp_filetype['proper_filename'];
 
-		if ( $proper_filename ) {
+		$tmp_name = $file['tmp_name'];
+
+		// Use wp_check_filetype_and_ext() to verify the details of the file.
+		$wp_filetype     = wp_check_filetype_and_ext( $tmp_name, $file_name );
+		$ext             = $wp_filetype['ext'];
+		$type            = $wp_filetype['type'];
+		$proper_filename = $wp_filetype['proper_filename'];
+
+		// When a proper_filename value exists, it could be a security issue if it's different than the original file name.
+		if ( $proper_filename && strtolower( $proper_filename ) !== strtolower( $file_name ) ) {
 			return new WP_Error( 'invalid_file', esc_html__( 'There was an problem while verifying your file.' ) );
 		}
+
+		// If either $ext or $type are empty, WordPress doesn't like this file and we should bail.
 		if ( ! $ext ) {
 			return new WP_Error( 'illegal_extension', esc_html__( 'Sorry, this file extension is not permitted for security reasons.' ) );
 		}

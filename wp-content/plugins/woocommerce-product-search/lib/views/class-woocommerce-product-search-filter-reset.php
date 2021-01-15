@@ -204,7 +204,7 @@ class WooCommerce_Product_Search_Filter_Reset {
 		$reset_url = self::get_reset_url();
 		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
 			$reset_url = get_permalink( wc_get_page_id( 'shop' ) );
-			if ( !$reset_url ) { 
+			if ( !$reset_url ) {
 				$query_post_type = WooCommerce_Product_Search_Filter::get_query_arg( $reset_url, 'post_type' );
 				if ( $query_post_type !== 'product' ) {
 					$reset_url = add_query_arg( array( 'post_type' => 'product' ), trailingslashit( home_url() ) );

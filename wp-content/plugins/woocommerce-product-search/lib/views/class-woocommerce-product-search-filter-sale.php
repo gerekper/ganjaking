@@ -222,13 +222,13 @@ class WooCommerce_Product_Search_Filter_Sale {
 		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
 
 			$href = get_permalink( wc_get_page_id( 'shop' ) );
-			if ( !$href ) { 
+			if ( !$href ) {
 				$query_post_type = self::get_query_arg( $current_url, 'post_type' );
 
 				if ( $query_post_type !== 'product' ) {
 
 					$href = add_query_arg( array( 'post_type' => 'product' ), trailingslashit( home_url() ) );
-					$add_post_type = true; 
+					$add_post_type = true;
 				}
 			}
 		}
@@ -242,7 +242,7 @@ class WooCommerce_Product_Search_Filter_Sale {
 			esc_url( $href )
 		);
 
-		$output .= '<input type="hidden" name="ixwpse" value="1"/>'; 
+		$output .= '<input type="hidden" name="ixwpse" value="1"/>';
 
 		$filter_extra_class = $params['filter'] ? '' : ' filter-dead ';
 
@@ -281,7 +281,6 @@ class WooCommerce_Product_Search_Filter_Sale {
 			'woocommerce_product_search_filter_sale_suffix',
 			'</div>'
 		);
-
 
 		WooCommerce_Product_Search_Filter::filter_added();
 

@@ -1,0 +1,84 @@
+.welaunch-container-slider {
+    .welaunch-slider-container {
+        margin-left: 25px;
+        margin-right: 25px;
+        width: 200px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .welaunch-slider-input,
+    .welaunch-slider-select-one,
+    .welaunch-slider-select-two {
+        width: 100px !important;
+        text-align: center;
+    }
+
+    .welaunch-slider-label {
+        position: absolute;
+        margin-left: -5px;
+    }
+
+    .welaunch-slider-label-one {
+        position: absolute;
+        margin-left: -22px;
+    }
+
+    .welaunch-slider-label-two {
+        position: absolute;
+        margin-top: -21px;
+        margin-left: 245px;
+    }
+}
+
+@media screen and (max-width: 782px) {
+    .welaunch-container-slider {
+        input {
+            display: inline-block !important;
+        }
+    }
+}
+
+// Select Slider
+@media screen and (max-width: 570px) {
+    .welaunch-container-slider {
+        text-align: center;
+
+        input,
+        select,
+        .welaunch-slider-label,
+        .select2-container {
+            display: block !important;
+            position: inherit;
+            margin: 10px auto;
+        }
+
+        .welaunch-slider-container {
+            margin-top: 3px;
+            width: 80%;
+        }
+    }
+}
+
+.wp-customizer {
+    .welaunch-container-slider {
+        .welaunch-slider-label {
+            float: left;
+            position: inherit;
+            width: 25%;
+            text-align: center;
+            margin-left: 0;
+        }
+        .welaunch-slider-input,
+        .welaunch-slider-select-one,
+        .welaunch-slider-select-two {
+            width: 25% !important;
+        }
+        .welaunch-slider-container {
+            width: 70%;
+            margin-right: 0;
+            margin-left: 5%;
+        }
+    }
+}
+

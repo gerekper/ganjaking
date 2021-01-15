@@ -1,3 +1,8 @@
+### 2.4.22.2
+- Fixed checkbox and radio style issues for Twenty Twenty-One Theme.
+- Updated how file type checks work to avoid false positives.
+- Fixed issue with SQL statements containing "lead" in MySQL 8+
+
 ### 2.4.22.1
 - Fixed issue with jQuery 3.0 breaking multiselect conditional logic.
 

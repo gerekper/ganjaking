@@ -22,6 +22,7 @@ class WoocommerceGpfTheContentProtection {
 	 * @param $specific_id int
 	 */
 	public function before_processing( $specific_id ) {
+		// @TODO No need for $gpf_original_post to be a global. Should be a class property
 		global $post, $gpf_original_post;
 		$gpf_original_post = $post;
 		$post              = get_post( $specific_id );

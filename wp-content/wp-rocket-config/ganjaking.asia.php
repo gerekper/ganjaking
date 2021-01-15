@@ -47,4 +47,8 @@ $rocket_cache_ignored_parameters = array(
   'sscid' => 1,
 );
 $rocket_cache_mandatory_cookies = '';
-$rocket_cache_dynamic_cookies = array();
+$rocket_cache_dynamic_cookies = array(
+  0 => 'ct-ultimate-gdpr-cookie-level',
+  1 => 'ct-ultimate-gdpr-terms-level',
+  2 => 'ct-ultimate-gdpr-policy-level',
+);

@@ -145,7 +145,7 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 			'hierarchical'  => $this->hierarchical,
 
 			'show_count'    => $this->show_count,
-			'expandable'    => $depth >= $this->expandable_from_depth, 
+			'expandable'    => $depth >= $this->expandable_from_depth,
 			'expander'      => $this->expander,
 			'auto_expand'   => $this->auto_expand,
 			'auto_retract'  => $this->auto_retract
@@ -155,7 +155,7 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 			if ( $this->render_root_container ) {
 				$id_attribute = !empty( $this->root_id ) ? sprintf( 'id="%s"', esc_attr( $this->root_id ) ) : '';
 				$class_attribute = !empty( $this->root_class ) ? sprintf( 'class="%s"', esc_attr( $this->root_class ) ) : '';
-				$output .= $nl . $sp . sprintf( '<ul %s %s>', $id_attribute, $class_attribute ) . $nl; 
+				$output .= $nl . $sp . sprintf( '<ul %s %s>', $id_attribute, $class_attribute ) . $nl;
 			}
 		} else {
 			if ( $term !== null ) {

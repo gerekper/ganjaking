@@ -119,7 +119,7 @@ class WooCommerce_Product_Search_Hit {
 				$conditions = array( 'query_id = %d', 'date = %s', 'datetime = %s', 'count = %d' );
 				$columns = array( 'query_id', 'date', 'datetime', 'count' );
 				$formats = array( '%d', '%s', '%s', '%d' );
-				$values  = array( $query_id, $date, $datetime, $count ); 
+				$values  = array( $query_id, $date, $datetime, $count );
 				foreach(
 					array(
 						'ip' => $ip,
@@ -131,7 +131,7 @@ class WooCommerce_Product_Search_Hit {
 				) {
 					if ( $value !== null ) {
 						$columns[] = $key;
-						$format = $key !== 'ip' ? '%d' : '%s'; 
+						$format = $key !== 'ip' ? '%d' : '%s';
 						$formats[] = $format;
 						$values[] = $value;
 						$conditions[] = "$key = $format";
