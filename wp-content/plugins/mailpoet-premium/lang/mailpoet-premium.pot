@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2021-01-04 14:55:35+00:00\n"
+"POT-Creation-Date: 2021-01-19 11:40:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Missing subscriber id."
 msgstr ""
 
-#: lib/Config/Hooks.php:39 mp3/lib/Config/ServicesChecker.php:84
+#: lib/Config/Hooks.php:39 mp3/lib/Config/ServicesChecker.php:89
 msgid ""
 "[link1]Register[/link1] your copy of the MailPoet Premium plugin to receive "
 "access to automatic upgrades and support. Need a license key? "
@@ -148,50 +148,50 @@ msgstr ""
 msgid "This custom field does not exist."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:67
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:133
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:156
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:179
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:72
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:138
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:161
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:184
 msgid "Missing mandatory argument `id`."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:83
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:146
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:169
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:189
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:88
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:151
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:174
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:194
 #: mp3/lib/API/JSON/v1/Subscribers.php:509
 msgid "This segment does not exist."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:110
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:115
 msgid "Segment type is missing."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:112
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:117
 msgid "Segment type is unknown."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:114
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:119
 msgid "Please select user role."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:116
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:121
 msgid "Please select email action."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:118
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:123
 msgid "Please select an email."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:120
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:125
 msgid "Please select category."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:122
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:127
 msgid "Please select product."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/DynamicSegments.php:124
+#: mp3/lib/API/JSON/v1/DynamicSegments.php:129
 msgid "An error occurred while saving data."
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 msgid "New form"
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:309 mp3/lib/API/JSON/v1/Segments.php:169
+#: mp3/lib/API/JSON/v1/Forms.php:309 mp3/lib/API/JSON/v1/Segments.php:193
 #: mp3/lib/Newsletter/NewsletterSaveController.php:154
 msgid "Copy of %s"
 msgstr ""
@@ -271,21 +271,21 @@ msgstr ""
 msgid "Error when activating MailPoet Premium plugin."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Segments.php:71 mp3/lib/API/JSON/v1/Segments.php:127
-#: mp3/lib/API/JSON/v1/Segments.php:145 mp3/lib/API/JSON/v1/Segments.php:158
-#: mp3/lib/API/JSON/v1/Segments.php:186 mp3/lib/API/MP/v1/API.php:135
+#: mp3/lib/API/JSON/v1/Segments.php:84 mp3/lib/API/JSON/v1/Segments.php:142
+#: mp3/lib/API/JSON/v1/Segments.php:169 mp3/lib/API/JSON/v1/Segments.php:182
+#: mp3/lib/API/JSON/v1/Segments.php:210 mp3/lib/API/MP/v1/API.php:135
 #: mp3/lib/API/MP/v1/API.php:210
 msgid "This list does not exist."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Segments.php:103 mp3/lib/Models/CustomField.php:26
-#: mp3/lib/Models/NewsletterOptionField.php:18 mp3/lib/Models/Segment.php:29
+#: mp3/lib/API/JSON/v1/Segments.php:109 mp3/lib/Models/CustomField.php:26
+#: mp3/lib/Models/NewsletterOptionField.php:18 mp3/lib/Models/Segment.php:28
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:53
 #: mp3/views/subscribers/importExport/import/step_data_manipulation.html:14
 msgid "Please specify a name."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Segments.php:107
+#: mp3/lib/API/JSON/v1/Segments.php:113
 msgid "Another record already exists. Please specify a different \"name\"."
 msgstr ""
 
@@ -461,7 +461,7 @@ msgstr ""
 #: mp3/lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:40
 #: mp3/tests/integration/API/MP/APITest.php:40 mp3/views/form/editor.html:165
 #: mp3/views/help.html:68 mp3/views/newsletter/editor.html:1104
-#: mp3/views/newsletter/editor.html:1105 mp3/views/segments.html:118
+#: mp3/views/newsletter/editor.html:1105 mp3/views/segments.html:117
 #: mp3/views/subscription/manage_subscription.html:9
 msgid "Email"
 msgstr ""
@@ -470,7 +470,7 @@ msgstr ""
 #: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:51
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:138
 #: mp3/tests/integration/API/MP/APITest.php:48 mp3/views/form/editor.html:156
-#: mp3/views/subscribers/subscribers.html:79
+#: mp3/views/subscribers/subscribers.html:72
 msgid "First name"
 msgstr ""
 
@@ -478,7 +478,7 @@ msgstr ""
 #: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:52
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:147
 #: mp3/tests/integration/API/MP/APITest.php:56 mp3/views/form/editor.html:158
-#: mp3/views/subscribers/subscribers.html:80
+#: mp3/views/subscribers/subscribers.html:73
 msgid "Last name"
 msgstr ""
 
@@ -512,7 +512,7 @@ msgstr ""
 msgid "Failed to add list"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:134
+#: mp3/lib/AdminPages/Pages/Newsletters.php:133
 msgid "In any WordPress role"
 msgstr ""
 
@@ -610,7 +610,7 @@ msgid "Email sent when a customer buys products: %s"
 msgstr ""
 
 #: mp3/lib/AutomaticEmails/WooCommerce/Events/PurchasedProduct.php:71
-#: mp3/views/segments.html:156
+#: mp3/views/segments.html:155
 msgid "Search products"
 msgstr ""
 
@@ -761,7 +761,7 @@ msgid_plural "%d forms imported"
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/lib/Config/MP2Migrator.php:1098
+#: mp3/lib/Config/MP2Migrator.php:1099
 msgid "Settings imported"
 msgstr ""
 
@@ -795,28 +795,28 @@ msgid "Select Form Template"
 msgstr ""
 
 #: mp3/lib/Config/Menu.php:214 mp3/lib/Config/Menu.php:215
-#: mp3/views/subscribers/subscribers.html:37
+#: mp3/views/subscribers/subscribers.html:34
 msgid "Subscribers"
 msgstr ""
 
 #: mp3/lib/Config/Menu.php:239 mp3/lib/Config/Menu.php:240
 #: mp3/views/subscribers/importExport/import.html:6
 #: mp3/views/subscribers/importExport/import.html:101
-#: mp3/views/subscribers/subscribers.html:140
+#: mp3/views/subscribers/subscribers.html:133
 msgid "Import"
 msgstr ""
 
 #: mp3/lib/Config/Menu.php:252 mp3/lib/Config/Menu.php:253
 #: mp3/views/subscribers/importExport/export.html:6
 #: mp3/views/subscribers/importExport/export.html:80
-#: mp3/views/subscribers/subscribers.html:141
+#: mp3/views/subscribers/subscribers.html:134
 msgid "Export"
 msgstr ""
 
 #: mp3/lib/Config/Menu.php:265 mp3/lib/Config/Menu.php:266
 #: mp3/views/forms.html:81 mp3/views/newsletters.html:143
-#: mp3/views/newsletters.html:271 mp3/views/segments.html:39
-#: mp3/views/subscribers/subscribers.html:100
+#: mp3/views/newsletters.html:271 mp3/views/segments.html:36
+#: mp3/views/subscribers/subscribers.html:93
 msgid "Lists"
 msgstr ""
 
@@ -843,7 +843,7 @@ msgid "WooCommerce Setup"
 msgstr ""
 
 #: mp3/lib/Config/Menu.php:356 mp3/lib/Config/Menu.php:357
-#: mp3/views/segments.html:70
+#: mp3/views/segments.html:67
 msgid "Update"
 msgstr ""
 
@@ -2133,28 +2133,28 @@ msgid ""
 "fix this issue."
 msgstr ""
 
-#: mp3/lib/Config/ServicesChecker.php:36 mp3/views/newsletters.html:296
-#: mp3/views/segments.html:95 mp3/views/subscribers/subscribers.html:124
+#: mp3/lib/Config/ServicesChecker.php:41 mp3/views/newsletters.html:296
+#: mp3/views/segments.html:94 mp3/views/subscribers/subscribers.html:117
 msgid "All sending is currently paused!"
 msgstr ""
 
-#: mp3/lib/Config/ServicesChecker.php:37 mp3/views/newsletters.html:297
-#: mp3/views/segments.html:96 mp3/views/subscribers/subscribers.html:125
+#: mp3/lib/Config/ServicesChecker.php:42 mp3/views/newsletters.html:297
+#: mp3/views/segments.html:95 mp3/views/subscribers/subscribers.html:118
 msgid "Your key to send with MailPoet is invalid."
 msgstr ""
 
-#: mp3/lib/Config/ServicesChecker.php:42 mp3/views/newsletters.html:298
-#: mp3/views/segments.html:97 mp3/views/subscribers/subscribers.html:126
+#: mp3/lib/Config/ServicesChecker.php:47 mp3/views/newsletters.html:298
+#: mp3/views/segments.html:96 mp3/views/subscribers/subscribers.html:119
 msgid "Purchase a key"
 msgstr ""
 
-#: mp3/lib/Config/ServicesChecker.php:54
+#: mp3/lib/Config/ServicesChecker.php:59
 msgid ""
 "Your newsletters are awesome! Don't forget to [link]upgrade your MailPoet "
 "email plan[/link] by %s to keep sending them to your subscribers."
 msgstr ""
 
-#: mp3/lib/Config/ServicesChecker.php:107
+#: mp3/lib/Config/ServicesChecker.php:112
 msgid ""
 "Your License Key for MailPoet is expiring! Don't forget to [link]renew your "
 "license[/link] by %s to keep enjoying automatic updates and Premium support."
@@ -2184,6 +2184,10 @@ msgstr ""
 msgid "Daemon does not exist."
 msgstr ""
 
+#: mp3/lib/Cron/DaemonHttpRunner.php:73
+msgid "Daemon does not set correctly."
+msgstr ""
+
 #: mp3/lib/Cron/Workers/SendingQueue/Migration.php:59
 msgid ""
 "Your sending queue data is being migrated to allow better performance, "
@@ -2206,16 +2210,16 @@ msgstr ""
 msgid "Your monthly stats are in!"
 msgstr ""
 
-#: mp3/lib/Cron/Workers/StatsNotifications/Worker.php:174
+#: mp3/lib/Cron/Workers/StatsNotifications/Worker.php:179
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:88
 msgid "Unsubscribe link"
 msgstr ""
 
-#: mp3/lib/Cron/Workers/StatsNotifications/Worker.php:175
+#: mp3/lib/Cron/Workers/StatsNotifications/Worker.php:180
 msgid "Manage subscription link"
 msgstr ""
 
-#: mp3/lib/Cron/Workers/StatsNotifications/Worker.php:176
+#: mp3/lib/Cron/Workers/StatsNotifications/Worker.php:181
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:104
 msgid "View in browser link"
 msgstr ""
@@ -2264,7 +2268,7 @@ msgstr ""
 msgid "Value cannot be empty"
 msgstr ""
 
-#: mp3/lib/Form/AssetsController.php:86
+#: mp3/lib/Form/AssetsController.php:91
 msgid "An error has happened while performing a request, please try again later."
 msgstr ""
 
@@ -2296,7 +2300,7 @@ msgstr ""
 #: mp3/lib/Form/Block/Date.php:62 mp3/lib/Form/Block/Date.php:189
 #: mp3/views/form/editor.html:141
 #: mp3/views/form/templatesLegacy/blocks/date_days.hbs:3
-#: mp3/views/subscribers/subscribers.html:138
+#: mp3/views/subscribers/subscribers.html:131
 msgid "Day"
 msgstr ""
 
@@ -2307,7 +2311,7 @@ msgstr ""
 #: mp3/lib/Form/Block/Date.php:71 mp3/lib/Form/Block/Date.php:133
 #: mp3/views/form/editor.html:142
 #: mp3/views/form/templatesLegacy/blocks/date_months.hbs:3
-#: mp3/views/subscribers/subscribers.html:137
+#: mp3/views/subscribers/subscribers.html:130
 msgid "Month"
 msgstr ""
 
@@ -2320,7 +2324,7 @@ msgstr ""
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:82
 #: mp3/views/form/editor.html:143
 #: mp3/views/form/templatesLegacy/blocks/date_years.hbs:5
-#: mp3/views/subscribers/subscribers.html:136
+#: mp3/views/subscribers/subscribers.html:129
 msgid "Year"
 msgstr ""
 
@@ -2397,13 +2401,13 @@ msgstr ""
 msgid "December"
 msgstr ""
 
-#: mp3/lib/Form/FormFactory.php:49 mp3/lib/Models/Form.php:121
-#: mp3/lib/Models/Form.php:129 mp3/lib/Models/Form.php:131
+#: mp3/lib/Form/FormFactory.php:49 mp3/lib/Models/Form.php:122
+#: mp3/lib/Models/Form.php:130 mp3/lib/Models/Form.php:132
 msgid "Check your inbox or spam folder to confirm your subscription."
 msgstr ""
 
-#: mp3/lib/Form/FormFactory.php:51 mp3/lib/Models/Form.php:123
-#: mp3/lib/Models/Form.php:130
+#: mp3/lib/Form/FormFactory.php:51 mp3/lib/Models/Form.php:124
+#: mp3/lib/Models/Form.php:131
 msgid "You’ve been successfully subscribed to our newsletter!"
 msgstr ""
 
@@ -2458,15 +2462,15 @@ msgstr ""
 msgid "Create a new form"
 msgstr ""
 
-#: mp3/lib/Mailer/Mailer.php:111
+#: mp3/lib/Mailer/Mailer.php:120
 msgid "Mailing method does not exist."
 msgstr ""
 
-#: mp3/lib/Mailer/Mailer.php:119
+#: mp3/lib/Mailer/Mailer.php:128
 msgid "Mailer is not configured."
 msgstr ""
 
-#: mp3/lib/Mailer/Mailer.php:127
+#: mp3/lib/Mailer/Mailer.php:136
 msgid "Sender name and email are not configured."
 msgstr ""
 
@@ -2561,25 +2565,25 @@ msgid ""
 "support team[/link] to resolve the issue."
 msgstr ""
 
-#: mp3/lib/Models/CustomField.php:29 mp3/lib/Models/Newsletter.php:61
+#: mp3/lib/Models/CustomField.php:29 mp3/lib/Models/Newsletter.php:63
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:16
 msgid "Please specify a type."
 msgstr ""
 
-#: mp3/lib/Models/DynamicSegment.php:70 mp3/lib/Models/Form.php:100
+#: mp3/lib/Models/DynamicSegment.php:71 mp3/lib/Models/Form.php:101
 #: mp3/lib/Models/ScheduledTaskSubscriber.php:110
-#: mp3/lib/Models/Segment.php:228
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:106
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:191
+#: mp3/lib/Segments/SegmentListingRepository.php:94
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:195
 msgid "All"
 msgstr ""
 
-#: mp3/lib/Models/DynamicSegment.php:75 mp3/lib/Models/Form.php:105
-#: mp3/lib/Models/Segment.php:233
+#: mp3/lib/Models/DynamicSegment.php:76 mp3/lib/Models/Form.php:106
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:173
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:221
+#: mp3/lib/Segments/SegmentListingRepository.php:99
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:225
 #: mp3/views/forms.html:95 mp3/views/newsletters.html:156
-#: mp3/views/segments.html:78 mp3/views/subscribers/subscribers.html:56
+#: mp3/views/segments.html:75 mp3/views/subscribers/subscribers.html:53
 msgid "Trash"
 msgstr ""
 
@@ -2588,13 +2592,13 @@ msgstr ""
 msgid "Another record already exists. Please specify a different \"%1$s\"."
 msgstr ""
 
-#: mp3/lib/Models/Newsletter.php:157
+#: mp3/lib/Models/Newsletter.php:159
 msgid ""
 "This is an empty email without any content and it cannot be sent. Please "
 "update [link]the email[/link]."
 msgstr ""
 
-#: mp3/lib/Models/Newsletter.php:328
+#: mp3/lib/Models/Newsletter.php:330
 msgid "Deleted list"
 msgstr ""
 
@@ -2602,27 +2606,27 @@ msgstr ""
 msgid "Please specify a newsletter type."
 msgstr ""
 
-#: mp3/lib/Models/Segment.php:159 mp3/views/subscribers/subscribers.html:122
+#: mp3/lib/Models/Segment.php:139 mp3/views/subscribers/subscribers.html:115
 msgid "WordPress Users"
 msgstr ""
 
-#: mp3/lib/Models/Segment.php:161
+#: mp3/lib/Models/Segment.php:141
 msgid "This list contains all of your WordPress users."
 msgstr ""
 
-#: mp3/lib/Models/Segment.php:177
+#: mp3/lib/Models/Segment.php:157
 msgid "WooCommerce Customers"
 msgstr ""
 
-#: mp3/lib/Models/Segment.php:179
+#: mp3/lib/Models/Segment.php:159
 msgid "This list contains all of your WooCommerce customers."
 msgstr ""
 
-#: mp3/lib/Models/Segment.php:299
+#: mp3/lib/Models/Segment.php:256
 msgid "Not in a List"
 msgstr ""
 
-#: mp3/lib/Models/SendingQueue.php:38
+#: mp3/lib/Models/SendingQueue.php:39
 msgid "Rendered newsletter body is invalid!"
 msgstr ""
 
@@ -2636,12 +2640,12 @@ msgstr ""
 
 #: mp3/lib/Models/Subscriber.php:159
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:62
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:263
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:271
 msgid "All Lists"
 msgstr ""
 
 #: mp3/lib/Models/Subscriber.php:167
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:248
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:256
 msgid "Subscribers without a list (%s)"
 msgstr ""
 
@@ -2667,7 +2671,7 @@ msgstr ""
 
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:132
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:147
-#: mp3/views/layout.html:109
+#: mp3/views/layout.html:111
 msgid "Sent"
 msgstr ""
 
@@ -2683,7 +2687,7 @@ msgstr ""
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:18
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:115
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:116
-#: mp3/views/newsletters.html:417 mp3/views/subscribers/subscribers.html:98
+#: mp3/views/newsletters.html:417 mp3/views/subscribers/subscribers.html:91
 #: views/newsletters/campaign_stats.html:19
 msgid "Subscriber"
 msgstr ""
@@ -2839,7 +2843,7 @@ msgid "Failed opening file for export."
 msgstr ""
 
 #: mp3/lib/Subscribers/ImportExport/Export/Export.php:96
-#: mp3/views/segments.html:55
+#: mp3/views/segments.html:52
 msgid "List"
 msgstr ""
 
@@ -2946,7 +2950,7 @@ msgstr ""
 
 #: mp3/lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:54
 #: mp3/lib/Subscribers/ImportExport/PersonalDataExporters/NewslettersExporter.php:63
-#: mp3/views/subscribers/subscribers.html:130
+#: mp3/views/subscribers/subscribers.html:123
 msgid "Opened"
 msgstr ""
 
@@ -3008,8 +3012,8 @@ msgstr ""
 #: mp3/lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:44
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:157
 #: mp3/views/forms.html:65 mp3/views/help.html:48
-#: mp3/views/newsletters.html:140 mp3/views/subscribers/subscribers.html:81
-#: mp3/views/subscribers/subscribers.html:99
+#: mp3/views/newsletters.html:140 mp3/views/subscribers/subscribers.html:74
+#: mp3/views/subscribers/subscribers.html:92
 #: views/newsletters/campaign_stats.html:20
 msgid "Status"
 msgstr ""
@@ -3058,38 +3062,38 @@ msgstr ""
 msgid "New subscriber to %s"
 msgstr ""
 
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:196
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:200
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:161
-#: mp3/views/segments.html:56
+#: mp3/views/segments.html:53
 #: mp3/views/subscribers/importExport/import.html:137
-#: mp3/views/subscribers/subscribers.html:83
+#: mp3/views/subscribers/subscribers.html:76
 msgid "Subscribed"
 msgstr ""
 
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:201
-#: mp3/views/segments.html:57 mp3/views/subscribers/subscribers.html:82
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:205
+#: mp3/views/segments.html:54 mp3/views/subscribers/subscribers.html:75
 msgid "Unconfirmed"
 msgstr ""
 
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:206
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:210
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:169
-#: mp3/views/segments.html:58
+#: mp3/views/segments.html:55
 #: mp3/views/subscribers/importExport/import.html:138
-#: mp3/views/subscribers/subscribers.html:84
+#: mp3/views/subscribers/subscribers.html:77
 msgid "Unsubscribed"
 msgstr ""
 
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:211
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:215
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:189
-#: mp3/views/segments.html:59
+#: mp3/views/segments.html:56
 #: mp3/views/subscribers/importExport/import.html:139
-#: mp3/views/subscribers/subscribers.html:85
+#: mp3/views/subscribers/subscribers.html:78
 msgid "Inactive"
 msgstr ""
 
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:216
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:220
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:177
-#: mp3/views/segments.html:60 mp3/views/subscribers/subscribers.html:86
+#: mp3/views/segments.html:57 mp3/views/subscribers/subscribers.html:79
 msgid "Bounced"
 msgstr ""
 
@@ -3120,10 +3124,10 @@ msgid "Yes, please add me to your mailing list."
 msgstr ""
 
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:74
-#: mp3/views/layout.html:97
+#: mp3/views/layout.html:99
 #: mp3/views/newsletter/templates/components/save.hbs:4
 #: mp3/views/newsletter/templates/components/save.hbs:24
-#: mp3/views/segments.html:84 mp3/views/subscribers/subscribers.html:142
+#: mp3/views/segments.html:81 mp3/views/subscribers/subscribers.html:135
 msgid "Save"
 msgstr ""
 
@@ -3377,7 +3381,7 @@ msgstr ""
 msgid "Select Post"
 msgstr ""
 
-#: mp3/node_modules/@wordpress/block-library/src/archives/index.php:96
+#: mp3/node_modules/@wordpress/block-library/src/archives/index.php:97
 msgid "No archives to show."
 msgstr ""
 
@@ -3434,12 +3438,12 @@ msgstr ""
 #: mp3/node_modules/@wordpress/block-library/src/search/index.php:26
 #: mp3/node_modules/@wordpress/block-library/src/search/index.php:52
 #: mp3/views/forms.html:48 mp3/views/newsletters.html:104
-#: mp3/views/segments.html:40 mp3/views/segments.html:141
-#: mp3/views/subscribers/subscribers.html:38
+#: mp3/views/segments.html:37 mp3/views/segments.html:140
+#: mp3/views/subscribers/subscribers.html:35
 msgid "Search"
 msgstr ""
 
-#: mp3/node_modules/@wordpress/block-library/src/site-logo/index.php:97
+#: mp3/node_modules/@wordpress/block-library/src/site-logo/index.php:95
 msgid "Site logo."
 msgstr ""
 
@@ -3783,7 +3787,7 @@ msgstr ""
 msgid "Your stats are in!"
 msgstr ""
 
-#: mp3/views/emails/statsNotification.html:65 mp3/views/layout.html:88
+#: mp3/views/emails/statsNotification.html:65 mp3/views/layout.html:89
 msgid "Congratulations, you now have more than [subscribersLimit] subscribers!"
 msgstr ""
 
@@ -3845,7 +3849,7 @@ msgid "The changes you made may not be saved"
 msgstr ""
 
 #: mp3/views/form/editor.html:57 mp3/views/newsletters.html:427
-#: mp3/views/segments.html:100 mp3/views/subscribers/subscribers.html:143
+#: mp3/views/segments.html:99 mp3/views/subscribers/subscribers.html:136
 msgid "Back"
 msgstr ""
 
@@ -4326,7 +4330,7 @@ msgid "Select all forms on all pages"
 msgstr ""
 
 #: mp3/views/forms.html:54 mp3/views/newsletters.html:111
-#: mp3/views/segments.html:46 mp3/views/subscribers/subscribers.html:46
+#: mp3/views/segments.html:43 mp3/views/subscribers/subscribers.html:43
 msgid "Clear selection"
 msgstr ""
 
@@ -4335,42 +4339,42 @@ msgid "%d forms permanently deleted."
 msgstr ""
 
 #: mp3/views/forms.html:56 mp3/views/newsletters.html:113
-#: mp3/views/segments.html:48 mp3/views/subscribers/subscribers.html:48
+#: mp3/views/segments.html:45 mp3/views/subscribers/subscribers.html:45
 msgid "Select bulk action"
 msgstr ""
 
 #: mp3/views/forms.html:57 mp3/views/newsletters.html:114
-#: mp3/views/segments.html:49 mp3/views/subscribers/subscribers.html:49
+#: mp3/views/segments.html:46 mp3/views/subscribers/subscribers.html:46
 msgid "Bulk Actions"
 msgstr ""
 
 #: mp3/views/forms.html:58 mp3/views/newsletters.html:115
-#: mp3/views/segments.html:50 mp3/views/subscribers/subscribers.html:50
+#: mp3/views/segments.html:47 mp3/views/subscribers/subscribers.html:47
 msgid "Apply"
 msgstr ""
 
 #: mp3/views/forms.html:59 mp3/views/newsletters.html:116
-#: mp3/views/subscribers/subscribers.html:51
+#: mp3/views/subscribers/subscribers.html:48
 msgid "Filter"
 msgstr ""
 
 #: mp3/views/forms.html:60 mp3/views/newsletters.html:117
-#: mp3/views/segments.html:80 mp3/views/subscribers/subscribers.html:52
+#: mp3/views/segments.html:77 mp3/views/subscribers/subscribers.html:49
 msgid "Empty Trash"
 msgstr ""
 
 #: mp3/views/forms.html:61 mp3/views/newsletters.html:118
-#: mp3/views/segments.html:81 mp3/views/subscribers/subscribers.html:53
+#: mp3/views/segments.html:78 mp3/views/subscribers/subscribers.html:50
 msgid "Select All"
 msgstr ""
 
 #: mp3/views/forms.html:62 mp3/views/newsletters.html:119
-#: mp3/views/segments.html:82 mp3/views/subscribers/subscribers.html:55
+#: mp3/views/segments.html:79 mp3/views/subscribers/subscribers.html:52
 msgid "Restore"
 msgstr ""
 
 #: mp3/views/forms.html:63 mp3/views/newsletters.html:120
-#: mp3/views/subscribers/subscribers.html:58
+#: mp3/views/subscribers/subscribers.html:55
 msgid "Delete Permanently"
 msgstr ""
 
@@ -4383,57 +4387,57 @@ msgid "Your Form is now activated!"
 msgstr ""
 
 #: mp3/views/forms.html:70 mp3/views/newsletters.html:123
-#: mp3/views/segments.html:87 mp3/views/segments.html:126
-#: mp3/views/subscribers/subscribers.html:61
+#: mp3/views/segments.html:86 mp3/views/segments.html:125
+#: mp3/views/subscribers/subscribers.html:58
 msgid "Previous page"
 msgstr ""
 
 #: mp3/views/forms.html:71 mp3/views/newsletters.html:124
-#: mp3/views/segments.html:88 mp3/views/segments.html:127
-#: mp3/views/subscribers/subscribers.html:62
+#: mp3/views/segments.html:87 mp3/views/segments.html:126
+#: mp3/views/subscribers/subscribers.html:59
 msgid "First page"
 msgstr ""
 
 #: mp3/views/forms.html:72 mp3/views/newsletters.html:125
-#: mp3/views/segments.html:89 mp3/views/segments.html:128
-#: mp3/views/subscribers/subscribers.html:63
+#: mp3/views/segments.html:88 mp3/views/segments.html:127
+#: mp3/views/subscribers/subscribers.html:60
 msgid "Next page"
 msgstr ""
 
 #: mp3/views/forms.html:73 mp3/views/newsletters.html:126
-#: mp3/views/segments.html:90 mp3/views/segments.html:129
-#: mp3/views/subscribers/subscribers.html:64
+#: mp3/views/segments.html:89 mp3/views/segments.html:128
+#: mp3/views/subscribers/subscribers.html:61
 msgid "Last page"
 msgstr ""
 
-#: mp3/views/forms.html:74 mp3/views/subscribers/subscribers.html:65
+#: mp3/views/forms.html:74 mp3/views/subscribers/subscribers.html:62
 msgid "Current Page"
 msgstr ""
 
 #: mp3/views/forms.html:75 mp3/views/newsletters.html:128
-#: mp3/views/segments.html:92 mp3/views/subscribers/subscribers.html:66
+#: mp3/views/segments.html:91 mp3/views/subscribers/subscribers.html:63
 msgid "of"
 msgstr ""
 
 #: mp3/views/forms.html:76 mp3/views/newsletters.html:129
-#: mp3/views/segments.html:93 mp3/views/segments.html:124
-#: mp3/views/subscribers/subscribers.html:67
+#: mp3/views/segments.html:92 mp3/views/segments.html:123
+#: mp3/views/subscribers/subscribers.html:64
 msgid "1 item"
 msgstr ""
 
 #: mp3/views/forms.html:77 mp3/views/newsletters.html:130
-#: mp3/views/segments.html:94 mp3/views/segments.html:125
-#: mp3/views/subscribers/subscribers.html:68
+#: mp3/views/segments.html:93 mp3/views/segments.html:124
+#: mp3/views/subscribers/subscribers.html:65
 msgid "%$1d items"
 msgstr ""
 
-#: mp3/views/forms.html:79 mp3/views/segments.html:51
-#: mp3/views/segments.html:119
+#: mp3/views/forms.html:79 mp3/views/segments.html:48
+#: mp3/views/segments.html:118
 #: mp3/views/subscribers/importExport/import/step_data_manipulation.html:7
 msgid "Name"
 msgstr ""
 
-#: mp3/views/forms.html:82 mp3/views/segments.html:116
+#: mp3/views/forms.html:82 mp3/views/segments.html:115
 msgid "Type"
 msgstr ""
 
@@ -4474,13 +4478,13 @@ msgid "%$1d forms have been restored from the trash."
 msgstr ""
 
 #: mp3/views/forms.html:92 mp3/views/newsletters.html:158
-#: mp3/views/segments.html:77 mp3/views/subscribers/subscribers.html:54
+#: mp3/views/segments.html:74 mp3/views/subscribers/subscribers.html:51
 msgid "Edit"
 msgstr ""
 
 #: mp3/views/forms.html:93
 #: mp3/views/newsletter/templates/blocks/base/toolsGeneric.hbs:26
-#: mp3/views/newsletters.html:159 mp3/views/segments.html:68
+#: mp3/views/newsletters.html:159 mp3/views/segments.html:65
 msgid "Duplicate"
 msgstr ""
 
@@ -4489,7 +4493,7 @@ msgid "Form \"%$1s\" has been duplicated."
 msgstr ""
 
 #: mp3/views/forms.html:96 mp3/views/newsletters.html:157
-#: mp3/views/segments.html:79 mp3/views/subscribers/subscribers.html:57
+#: mp3/views/segments.html:76 mp3/views/subscribers/subscribers.html:54
 msgid "Move to trash"
 msgstr ""
 
@@ -4643,163 +4647,169 @@ msgstr ""
 msgid "%sSet up%s MailPoet and start sending."
 msgstr ""
 
-#: mp3/views/layout.html:81
+#: mp3/views/layout.html:82
 msgid ""
 "An error has happened while performing a request, the server has responded "
 "with response code %d"
 msgstr ""
 
-#: mp3/views/layout.html:85
+#: mp3/views/layout.html:86
 msgid "Sending has been resumed."
 msgstr ""
 
-#: mp3/views/layout.html:86 mp3/views/newsletters.html:96
+#: mp3/views/layout.html:87 mp3/views/newsletters.html:96
 msgid "Dismiss this notice."
 msgstr ""
 
-#: mp3/views/layout.html:89
+#: mp3/views/layout.html:90
 msgid "Our free version is limited to [subscribersLimit] subscribers."
 msgstr ""
 
-#: mp3/views/layout.html:90
+#: mp3/views/layout.html:91
 msgid "Your plan is limited to [subscribersLimit] subscribers."
 msgstr ""
 
-#: mp3/views/layout.html:91
+#: mp3/views/layout.html:92
 msgid "You need to upgrade now to be able to continue using MailPoet."
 msgstr ""
 
-#: mp3/views/layout.html:92 mp3/views/subscribers/subscribers.html:150
+#: mp3/views/layout.html:93
+msgid ""
+"If you do not send emails to your WordPress Users list, you can "
+"[link]disable it[/link] to lower your number of subscribers."
+msgstr ""
+
+#: mp3/views/layout.html:94 mp3/views/subscribers/subscribers.html:143
 msgid "Upgrade Now"
 msgstr ""
 
-#: mp3/views/layout.html:93
+#: mp3/views/layout.html:95
 msgid "I’ve upgraded my subscription, refresh subscriber limit"
 msgstr ""
 
-#: mp3/views/layout.html:95
+#: mp3/views/layout.html:97
 msgid "It’s time to set your default FROM address!"
 msgstr ""
 
-#: mp3/views/layout.html:96
+#: mp3/views/layout.html:98
 msgid ""
 "Set one of [link]your authorized email addresses[/link] as the default FROM "
 "email for your MailPoet emails."
 msgstr ""
 
-#: mp3/views/layout.html:98
+#: mp3/views/layout.html:100
 msgid ""
 "Excellent. Your authorized email was saved. You can change it in the "
 "[link]Basics tab of the MailPoet settings[/link]."
 msgstr ""
 
-#: mp3/views/layout.html:99
+#: mp3/views/layout.html:101
 msgid "Can’t use this email yet! [link]Please authorize it first[/link]."
 msgstr ""
 
-#: mp3/views/layout.html:100
+#: mp3/views/layout.html:102
 msgid "An error occured when saving FROM email address."
 msgstr ""
 
-#: mp3/views/layout.html:103
+#: mp3/views/layout.html:105
 msgid ""
 "[username], did you know that hundreds of WordPress users read the reviews "
 "on the plugin repository? They’re also a source of inspiration for our team."
 msgstr ""
 
-#: mp3/views/layout.html:107
+#: mp3/views/layout.html:109
 msgid "Not now"
 msgstr ""
 
-#: mp3/views/layout.html:110
+#: mp3/views/layout.html:112
 msgid "Not sent yet!"
 msgstr ""
 
-#: mp3/views/layout.html:147
+#: mp3/views/layout.html:149
 msgid ""
 "Want to give feedback to the MailPoet team? Contact us here. Please provide "
 "as much information as possible!"
 msgstr ""
 
-#: mp3/views/layout.html:164 mp3/views/layout.html:175
+#: mp3/views/layout.html:166 mp3/views/layout.html:177
 msgid "This value seems to be invalid."
 msgstr ""
 
-#: mp3/views/layout.html:166
+#: mp3/views/layout.html:168
 msgid "This value should be a valid email."
 msgstr ""
 
-#: mp3/views/layout.html:167
+#: mp3/views/layout.html:169
 msgid "This value should be a valid url."
 msgstr ""
 
-#: mp3/views/layout.html:168
+#: mp3/views/layout.html:170
 msgid "This value should be a valid number."
 msgstr ""
 
-#: mp3/views/layout.html:169
+#: mp3/views/layout.html:171
 msgid "This value should be a valid integer."
 msgstr ""
 
-#: mp3/views/layout.html:170
+#: mp3/views/layout.html:172
 msgid "This value should be digits."
 msgstr ""
 
-#: mp3/views/layout.html:171
+#: mp3/views/layout.html:173
 msgid "This value should be alphanumeric."
 msgstr ""
 
-#: mp3/views/layout.html:173
+#: mp3/views/layout.html:175
 msgid "This value should not be blank."
 msgstr ""
 
-#: mp3/views/layout.html:174
+#: mp3/views/layout.html:176
 msgid "This value is required."
 msgstr ""
 
-#: mp3/views/layout.html:176
+#: mp3/views/layout.html:178
 msgid "This value should be greater than or equal to %s."
 msgstr ""
 
-#: mp3/views/layout.html:177
+#: mp3/views/layout.html:179
 msgid "This value should be lower than or equal to %s."
 msgstr ""
 
-#: mp3/views/layout.html:178
+#: mp3/views/layout.html:180
 msgid "This value should be between %s and %s."
 msgstr ""
 
-#: mp3/views/layout.html:179
+#: mp3/views/layout.html:181
 msgid "This value is too short. It should have %s characters or more."
 msgstr ""
 
-#: mp3/views/layout.html:180
+#: mp3/views/layout.html:182
 msgid "This value is too long. It should have %s characters or fewer."
 msgstr ""
 
-#: mp3/views/layout.html:181
+#: mp3/views/layout.html:183
 msgid ""
 "This value length is invalid. It should be between %s and %s characters "
 "long."
 msgstr ""
 
-#: mp3/views/layout.html:182
+#: mp3/views/layout.html:184
 msgid "You must select at least %s choices."
 msgstr ""
 
-#: mp3/views/layout.html:183
+#: mp3/views/layout.html:185
 msgid "You must select %s choices or fewer."
 msgstr ""
 
-#: mp3/views/layout.html:184
+#: mp3/views/layout.html:186
 msgid "You must select between %s and %s choices."
 msgstr ""
 
-#: mp3/views/layout.html:185
+#: mp3/views/layout.html:187
 msgid "This value should be the same."
 msgstr ""
 
-#: mp3/views/layout.html:104
+#: mp3/views/layout.html:106
 msgid ""
 "You’ve been using MailPoet for [days] day now, and we would love to read "
 "your own review."
@@ -4809,7 +4819,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/views/layout.html:105
+#: mp3/views/layout.html:107
 msgid ""
 "You’ve been using MailPoet for [months] month now, and we would love to "
 "read your own review."
@@ -6058,12 +6068,12 @@ msgstr ""
 #: mp3/views/newsletters.html:121
 #: mp3/views/subscribers/importExport/import.html:51
 #: mp3/views/subscribers/importExport/import.html:128
-#: mp3/views/subscribers/subscribers.html:59
+#: mp3/views/subscribers/subscribers.html:56
 msgid "Show more details"
 msgstr ""
 
-#: mp3/views/newsletters.html:127 mp3/views/segments.html:91
-#: mp3/views/segments.html:130
+#: mp3/views/newsletters.html:127 mp3/views/segments.html:90
+#: mp3/views/segments.html:129
 msgid "Current page"
 msgstr ""
 
@@ -6072,7 +6082,7 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: mp3/views/newsletters.html:141 mp3/views/subscribers/subscribers.html:127
+#: mp3/views/newsletters.html:141 mp3/views/subscribers/subscribers.html:120
 msgid "Statistics"
 msgstr ""
 
@@ -6088,11 +6098,11 @@ msgstr ""
 msgid "View history"
 msgstr ""
 
-#: mp3/views/newsletters.html:147 mp3/views/segments.html:61
+#: mp3/views/newsletters.html:147 mp3/views/segments.html:58
 msgid "Created on"
 msgstr ""
 
-#: mp3/views/newsletters.html:148 mp3/views/subscribers/subscribers.html:102
+#: mp3/views/newsletters.html:148 mp3/views/subscribers/subscribers.html:95
 msgid "Last modified on"
 msgstr ""
 
@@ -6128,7 +6138,7 @@ msgstr ""
 msgid "Email \"%$1s\" has been duplicated."
 msgstr ""
 
-#: mp3/views/newsletters.html:161 mp3/views/segments.html:132
+#: mp3/views/newsletters.html:161 mp3/views/segments.html:131
 msgid "Not sent yet"
 msgstr ""
 
@@ -6267,7 +6277,7 @@ msgid "See video guide"
 msgstr ""
 
 #: mp3/views/newsletters.html:212 mp3/views/newsletters.html:222
-#: mp3/views/subscribers/subscribers.html:144
+#: mp3/views/subscribers/subscribers.html:137
 msgid "This is a Premium feature"
 msgstr ""
 
@@ -6343,18 +6353,18 @@ msgid ""
 "see the revenue earned per email."
 msgstr ""
 
-#: mp3/views/newsletters.html:231 mp3/views/subscribers/subscribers.html:145
+#: mp3/views/newsletters.html:231 mp3/views/subscribers/subscribers.html:138
 msgid "Upgrade required"
 msgstr ""
 
-#: mp3/views/newsletters.html:232 mp3/views/subscribers/subscribers.html:147
+#: mp3/views/newsletters.html:232 mp3/views/subscribers/subscribers.html:140
 msgid ""
 "Congratulations, you now have [subscribersCount] subscribers! Our free "
 "version is limited to [subscribersLimit] subscribers. You need to upgrade "
 "now to be able to continue using MailPoet."
 msgstr ""
 
-#: mp3/views/newsletters.html:233 mp3/views/subscribers/subscribers.html:148
+#: mp3/views/newsletters.html:233 mp3/views/subscribers/subscribers.html:141
 msgid ""
 "Congratulations, you now have [subscribersCount] subscribers! Your plan is "
 "limited to [subscribersLimit] subscribers. You need to upgrade now to be "
@@ -6475,7 +6485,7 @@ msgstr ""
 msgid "Subscribers in multiple lists will only receive one email."
 msgstr ""
 
-#: mp3/views/newsletters.html:273 mp3/views/subscribers/subscribers.html:87
+#: mp3/views/newsletters.html:273 mp3/views/subscribers/subscribers.html:80
 msgid "Select a list"
 msgstr ""
 
@@ -6902,7 +6912,7 @@ msgstr ""
 msgid "GA campaign"
 msgstr ""
 
-#: mp3/views/newsletters.html:442 mp3/views/subscribers/subscribers.html:149
+#: mp3/views/newsletters.html:442 mp3/views/subscribers/subscribers.html:142
 msgid "Sign Up for Free"
 msgstr ""
 
@@ -6922,7 +6932,7 @@ msgstr ""
 msgid "Automatic Email"
 msgstr ""
 
-#: mp3/views/newsletters.html:449 mp3/views/subscribers/subscribers.html:134
+#: mp3/views/newsletters.html:449 mp3/views/subscribers/subscribers.html:127
 msgid "Tip:"
 msgstr ""
 
@@ -6999,223 +7009,231 @@ msgstr ""
 msgid "Image rooster crowing"
 msgstr ""
 
-#: mp3/views/segments.html:41
+#: mp3/views/segments.html:38
 msgid "Loading lists..."
 msgstr ""
 
-#: mp3/views/segments.html:42
+#: mp3/views/segments.html:39
 msgid "No lists found"
 msgstr ""
 
-#: mp3/views/segments.html:43
+#: mp3/views/segments.html:40
 msgid "All lists on this page are selected."
 msgstr ""
 
-#: mp3/views/segments.html:44
+#: mp3/views/segments.html:41
 msgid "All %d lists are selected."
 msgstr ""
 
-#: mp3/views/segments.html:45
+#: mp3/views/segments.html:42
 msgid "Select all lists on all pages"
 msgstr ""
 
-#: mp3/views/segments.html:47
+#: mp3/views/segments.html:44
 msgid "%d lists were permanently deleted."
 msgstr ""
 
-#: mp3/views/segments.html:52
+#: mp3/views/segments.html:49
 #: mp3/views/subscribers/importExport/import/step_data_manipulation.html:20
 msgid "Description"
 msgstr ""
 
-#: mp3/views/segments.html:53
+#: mp3/views/segments.html:50
 msgid "List successfully updated!"
 msgstr ""
 
-#: mp3/views/segments.html:54
+#: mp3/views/segments.html:51
 msgid "List successfully added!"
 msgstr ""
 
-#: mp3/views/segments.html:62
+#: mp3/views/segments.html:59
 msgid ""
 "1 list was moved to the trash. Note that deleting a list does not delete "
 "its subscribers."
 msgstr ""
 
-#: mp3/views/segments.html:63
+#: mp3/views/segments.html:60
 msgid ""
 "%$1d lists were moved to the trash. Note that deleting a list does not "
 "delete its subscribers."
 msgstr ""
 
-#: mp3/views/segments.html:64
+#: mp3/views/segments.html:61
 msgid ""
 "1 list was permanently deleted. Note that deleting a list does not delete "
 "its subscribers."
 msgstr ""
 
-#: mp3/views/segments.html:65
+#: mp3/views/segments.html:62
 msgid ""
 "%$1d lists were permanently deleted. Note that deleting a list does not "
 "delete its subscribers."
 msgstr ""
 
-#: mp3/views/segments.html:66
+#: mp3/views/segments.html:63
 msgid "1 list has been restored from the Trash."
 msgstr ""
 
-#: mp3/views/segments.html:67
+#: mp3/views/segments.html:64
 msgid "%$1d lists have been restored from the Trash."
 msgstr ""
 
-#: mp3/views/segments.html:69
+#: mp3/views/segments.html:66
 msgid "List \"%$1s\" has been duplicated."
 msgstr ""
 
-#: mp3/views/segments.html:71
+#: mp3/views/segments.html:68
 msgid "Force Sync"
 msgstr ""
 
-#: mp3/views/segments.html:72
+#: mp3/views/segments.html:69
 msgid "Read More"
 msgstr ""
 
-#: mp3/views/segments.html:73
+#: mp3/views/segments.html:70
 msgid "List \"%$1s\" has been synchronized."
 msgstr ""
 
-#: mp3/views/segments.html:74
+#: mp3/views/segments.html:71
 msgid "View Subscribers"
 msgstr ""
 
-#: mp3/views/segments.html:75
+#: mp3/views/segments.html:72
 msgid "New List"
 msgstr ""
 
-#: mp3/views/segments.html:76
+#: mp3/views/segments.html:73
 msgid "New Segment"
 msgstr ""
 
-#: mp3/views/segments.html:83
+#: mp3/views/segments.html:80
 msgid "Delete permanently"
 msgstr ""
 
-#: mp3/views/segments.html:99 mp3/views/segments.html:113
+#: mp3/views/segments.html:83
+msgid "Trash and disable"
+msgstr ""
+
+#: mp3/views/segments.html:84
+msgid "Restore and enable"
+msgstr ""
+
+#: mp3/views/segments.html:98 mp3/views/segments.html:112
 msgid "This text box is for your own use and is never shown to your subscribers."
 msgstr ""
 
-#: mp3/views/segments.html:104 mp3/views/subscribers/subscribers.html:72
+#: mp3/views/segments.html:103 mp3/views/subscribers/subscribers.html:69
 msgid ""
 "This is the total of subscribed, unconfirmed and inactive subscribers we "
 "count when you are sending with MailPoet Sending Service. The count "
 "excludes unsubscribed and bounced (invalid) email addresses."
 msgstr ""
 
-#: mp3/views/segments.html:107 mp3/views/subscribers/subscribers.html:75
+#: mp3/views/segments.html:106
 msgid ""
 "This is the total of all subscribers including %$1d WordPress users. To "
 "exclude WordPress users, please purchase one of our premium plans."
 msgstr ""
 
-#: mp3/views/segments.html:108 mp3/views/subscribers/subscribers.html:76
+#: mp3/views/segments.html:107
 msgid "This is the total of all subscribers excluding all WordPress users."
 msgstr ""
 
-#: mp3/views/segments.html:110
+#: mp3/views/segments.html:109
 msgid "Segments"
 msgstr ""
 
-#: mp3/views/segments.html:111 mp3/views/segments.html:112
+#: mp3/views/segments.html:110 mp3/views/segments.html:111
 msgid "Segment"
 msgstr ""
 
-#: mp3/views/segments.html:114
+#: mp3/views/segments.html:113
 msgid "Segment successfully updated!"
 msgstr ""
 
-#: mp3/views/segments.html:115
+#: mp3/views/segments.html:114
 msgid "Segment successfully added!"
 msgstr ""
 
-#: mp3/views/segments.html:117
+#: mp3/views/segments.html:116
 msgid "WordPress user roles"
 msgstr ""
 
-#: mp3/views/segments.html:120
+#: mp3/views/segments.html:119
 msgid "Number of subscribers"
 msgstr ""
 
-#: mp3/views/segments.html:121
+#: mp3/views/segments.html:120
 msgid "Modified on"
 msgstr ""
 
-#: mp3/views/segments.html:122
+#: mp3/views/segments.html:121
 msgid "Loading data…"
 msgstr ""
 
-#: mp3/views/segments.html:123
+#: mp3/views/segments.html:122
 msgid "No segments found"
 msgstr ""
 
-#: mp3/views/segments.html:133
+#: mp3/views/segments.html:132
 msgid "Select link"
 msgstr ""
 
-#: mp3/views/segments.html:134
+#: mp3/views/segments.html:133
 msgid "Select email"
 msgstr ""
 
-#: mp3/views/segments.html:135
+#: mp3/views/segments.html:134
 msgid "Select action"
 msgstr ""
 
-#: mp3/views/segments.html:136
+#: mp3/views/segments.html:135
 msgid "Select user role"
 msgstr ""
 
-#: mp3/views/segments.html:143
+#: mp3/views/segments.html:142
 msgid ""
 "segments allow you to group your subscribers by other criteria, such as "
 "events and actions."
 msgstr ""
 
-#: mp3/views/segments.html:144
+#: mp3/views/segments.html:143
 msgid "Read more."
 msgstr ""
 
-#: mp3/views/segments.html:146
+#: mp3/views/segments.html:145
 msgid "1 segment was moved to the trash."
 msgstr ""
 
-#: mp3/views/segments.html:147
+#: mp3/views/segments.html:146
 msgid "%$1d segments were moved to the trash."
 msgstr ""
 
-#: mp3/views/segments.html:148
+#: mp3/views/segments.html:147
 msgid "1 segment has been restored from the Trash."
 msgstr ""
 
-#: mp3/views/segments.html:149
+#: mp3/views/segments.html:148
 msgid "%$1d segments have been restored from the Trash."
 msgstr ""
 
-#: mp3/views/segments.html:150
+#: mp3/views/segments.html:149
 msgid "%$1d segments were permanently deleted."
 msgstr ""
 
-#: mp3/views/segments.html:151
+#: mp3/views/segments.html:150
 msgid "1 segment was permanently deleted."
 msgstr ""
 
-#: mp3/views/segments.html:153
+#: mp3/views/segments.html:152
 msgid "Customers who have purchased in this category…"
 msgstr ""
 
-#: mp3/views/segments.html:154
+#: mp3/views/segments.html:153
 msgid "Customers who have purchased this product…"
 msgstr ""
 
-#: mp3/views/segments.html:155
+#: mp3/views/segments.html:154
 msgid "Search category"
 msgstr ""
 
@@ -8383,15 +8401,15 @@ msgstr ""
 msgid "Update existing subscribers’ status to"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:39
+#: mp3/views/subscribers/subscribers.html:36
 msgid "Loading subscribers..."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:40
+#: mp3/views/subscribers/subscribers.html:37
 msgid "No subscribers were found."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:41
+#: mp3/views/subscribers/subscribers.html:38
 msgid ""
 "Email addresses that are invalid or don't exist anymore are called "
 "\"bounced addresses\". It's a good practice not to send emails to bounced "
@@ -8400,175 +8418,175 @@ msgid ""
 "addresses without any setup."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:42
+#: mp3/views/subscribers/subscribers.html:39
 msgid "Get premium version!"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:43
+#: mp3/views/subscribers/subscribers.html:40
 msgid "All subscribers on this page are selected."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:44
+#: mp3/views/subscribers/subscribers.html:41
 msgid "All %d subscribers are selected."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:45
+#: mp3/views/subscribers/subscribers.html:42
 msgid "Select all subscribers on all pages"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:47
+#: mp3/views/subscribers/subscribers.html:44
 msgid "%d subscribers were permanently deleted."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:78
+#: mp3/views/subscribers/subscribers.html:71
 msgid "E-mail"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:88
+#: mp3/views/subscribers/subscribers.html:81
 msgid "Unsubscribed on %$1s"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:89
+#: mp3/views/subscribers/subscribers.html:82
 msgid "Subscriber was updated successfully!"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:90
+#: mp3/views/subscribers/subscribers.html:83
 msgid "Subscriber was added successfully!"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:91
+#: mp3/views/subscribers/subscribers.html:84
 msgid ""
 "This subscriber will receive Welcome Emails if any are active for your "
 "lists."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:93
+#: mp3/views/subscribers/subscribers.html:86
 msgid "Unsubscribed at %$1d, from newsletter [link]."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:94
+#: mp3/views/subscribers/subscribers.html:87
 msgid "Unsubscribed at %$1d, using the “Manage my Subscription” page."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:95
+#: mp3/views/subscribers/subscribers.html:88
 msgid "Unsubscribed at %$1d, by admin \"%$2d\"."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:96
+#: mp3/views/subscribers/subscribers.html:89
 msgid "Unsubscribed at %$1d, for an unknown reason."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:101
+#: mp3/views/subscribers/subscribers.html:94
 msgid "Subscribed on"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:103
+#: mp3/views/subscribers/subscribers.html:96
 msgid "1 subscriber was moved to the trash."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:104
+#: mp3/views/subscribers/subscribers.html:97
 msgid "%$1d subscribers were moved to the trash."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:105
+#: mp3/views/subscribers/subscribers.html:98
 msgid "1 subscriber was permanently deleted."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:106
+#: mp3/views/subscribers/subscribers.html:99
 msgid "%$1d subscribers were permanently deleted."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:107
+#: mp3/views/subscribers/subscribers.html:100
 msgid "1 subscriber has been restored from the trash."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:108
+#: mp3/views/subscribers/subscribers.html:101
 msgid "%$1d subscribers have been restored from the trash."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:109
+#: mp3/views/subscribers/subscribers.html:102
 msgid "Move to list..."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:110
+#: mp3/views/subscribers/subscribers.html:103
 msgid "%$1d subscribers were moved to list <strong>%$2s</strong>"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:111
+#: mp3/views/subscribers/subscribers.html:104
 msgid "Add to list..."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:112
+#: mp3/views/subscribers/subscribers.html:105
 msgid "%$1d subscribers were added to list <strong>%$2s</strong>."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:113
+#: mp3/views/subscribers/subscribers.html:106
 msgid "Remove from list..."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:114
+#: mp3/views/subscribers/subscribers.html:107
 msgid "%$1d subscribers were removed from list <strong>%$2s</strong>"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:115
+#: mp3/views/subscribers/subscribers.html:108
 msgid "Remove from all lists"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:117
+#: mp3/views/subscribers/subscribers.html:110
 msgid ""
 "This action will unsubscribe %s subscribers from all lists. This action "
 "cannot be undone. Are you sure, you want to continue?"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:118
+#: mp3/views/subscribers/subscribers.html:111
 msgid "%$1d subscribers were removed from all lists."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:119
+#: mp3/views/subscribers/subscribers.html:112
 msgid "Resend confirmation email"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:120
+#: mp3/views/subscribers/subscribers.html:113
 msgid "1 confirmation email has been sent."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:121
+#: mp3/views/subscribers/subscribers.html:114
 msgid "Lists to which the subscriber was subscribed."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:123
+#: mp3/views/subscribers/subscribers.html:116
 msgid ""
 "This subscriber is a registered WordPress user. [link]Edit his/her "
 "profile[/link] to change his/her email."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:129
+#: mp3/views/subscribers/subscribers.html:122
 msgid "Sent email"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:131
+#: mp3/views/subscribers/subscribers.html:124
 msgid "Clicked"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:132
+#: mp3/views/subscribers/subscribers.html:125
 msgid "Not opened"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:133
+#: mp3/views/subscribers/subscribers.html:126
 msgid "Opened emails"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:135
+#: mp3/views/subscribers/subscribers.html:128
 msgid ""
 "Need to add new fields, like a telephone number or street address? You can "
 "add custom fields by editing the subscription form on the Forms page."
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:139
+#: mp3/views/subscribers/subscribers.html:132
 msgid "Add New"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:146
+#: mp3/views/subscribers/subscribers.html:139
 msgid ""
 "Learn more about how each of your subscribers is engaging with your emails. "
 "See which emails they’ve opened, the links they clicked. If you’re a "
@@ -8922,14 +8940,14 @@ msgid ""
 "information"
 msgstr ""
 
-#: mp3/lib/Cron/Workers/StatsNotifications/Worker.php:123
+#: mp3/lib/Cron/Workers/StatsNotifications/Worker.php:128
 msgctxt ""
 "title of an automatic email containing statistics (newsletter open rate, "
 "click rate, etc)"
 msgid "Stats for email %s"
 msgstr ""
 
-#: mp3/lib/Cron/Workers/StatsNotifications/Worker.php:141
+#: mp3/lib/Cron/Workers/StatsNotifications/Worker.php:146
 msgctxt "newsletter open rate, click rate and unsubscribe rate"
 msgid "%1$s%% opens, %2$s%% clicks, %3$s%% unsubscribes in a nutshell."
 msgstr ""
@@ -10189,7 +10207,7 @@ msgctxt "Text of a link to email preview page."
 msgid "Preview"
 msgstr ""
 
-#: mp3/views/layout.html:82
+#: mp3/views/layout.html:83
 msgctxt ""
 "In the last step, before sending a newsletter. URL: "
 "?page=mailpoet-newsletters#/send/2"
@@ -10198,7 +10216,7 @@ msgid ""
 "address."
 msgstr ""
 
-#: mp3/views/layout.html:83
+#: mp3/views/layout.html:84
 msgctxt ""
 "In the last step, before sending a newsletter. URL: "
 "?page=mailpoet-newsletters#/send/2"
@@ -10207,14 +10225,14 @@ msgid ""
 "<em>Reply-to</em> field below."
 msgstr ""
 
-#: mp3/views/layout.html:102
+#: mp3/views/layout.html:104
 msgctxt ""
 "After a user gives us positive feedback via the NPS poll, we ask them to "
 "review our plugin on WordPress.org."
 msgid "Thank you! Time to tell the world?"
 msgstr ""
 
-#: mp3/views/layout.html:106
+#: mp3/views/layout.html:108
 msgctxt "Review our plugin on WordPress.org."
 msgid "Rate us now"
 msgstr ""
@@ -11274,59 +11292,59 @@ msgid ""
 "1 website, $249 for 4 sites, and $499 for an unlimited number of sites."
 msgstr ""
 
-#: mp3/views/segments.html:85
+#: mp3/views/segments.html:82
 msgctxt ""
 "Alert shown when trying to delete segment, which is assigned to any "
 "automatic emails."
 msgid "List cannot be deleted because it’s used for %$1s email"
 msgstr ""
 
-#: mp3/views/segments.html:102 mp3/views/subscribers/subscribers.html:70
+#: mp3/views/segments.html:101 mp3/views/subscribers/subscribers.html:67
 msgctxt "count / total subscribers"
 msgid "%$1d / %$2d"
 msgstr ""
 
-#: mp3/views/segments.html:103 mp3/views/subscribers/subscribers.html:71
+#: mp3/views/segments.html:102 mp3/views/subscribers/subscribers.html:68
 msgctxt "number of subscribers in a sending plan"
 msgid "%s subscribers in your plan"
 msgstr ""
 
-#: mp3/views/segments.html:106 mp3/views/subscribers/subscribers.html:74
+#: mp3/views/segments.html:105
 msgctxt "number of subscribers in the plugin"
 msgid "%s MailPoet subscribers"
 msgstr ""
 
-#: mp3/views/segments.html:131
+#: mp3/views/segments.html:130
 msgctxt "Page X of Y"
 msgid "of"
 msgstr ""
 
-#: mp3/views/segments.html:137
+#: mp3/views/segments.html:136
 msgctxt "Dynamic segment creation: when newsletter was opened"
 msgid "opened"
 msgstr ""
 
-#: mp3/views/segments.html:138
+#: mp3/views/segments.html:137
 msgctxt "Dynamic segment creation: when newsletter was not opened"
 msgid "not opened"
 msgstr ""
 
-#: mp3/views/segments.html:139
+#: mp3/views/segments.html:138
 msgctxt "Dynamic segment creation: when a newsletter link was clicked"
 msgid "clicked"
 msgstr ""
 
-#: mp3/views/segments.html:140
+#: mp3/views/segments.html:139
 msgctxt "Dynamic segment creation: when a newsletter link was not clicked"
 msgid "not clicked"
 msgstr ""
 
-#: mp3/views/segments.html:142
+#: mp3/views/segments.html:141
 msgctxt "A note about dynamic segments usage"
 msgid "Tip"
 msgstr ""
 
-#: mp3/views/segments.html:157
+#: mp3/views/segments.html:156
 msgctxt "Dynamic segment creation: User selects this to use any woocommerce filters"
 msgid "WooCommerce"
 msgstr ""
@@ -11514,29 +11532,29 @@ msgctxt "This is a value in a select box for \"Set new subscribers’ status to\
 msgid "Don’t update"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:116
+#: mp3/views/subscribers/subscribers.html:109
 msgctxt "This is an action on the subscribers page"
 msgid "Unsubscribe"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:128
+#: mp3/views/subscribers/subscribers.html:121
 msgctxt ""
 "This is a heading for the subscribers statistics page example: \"Stats: "
 "mailpoet@example.com\""
 msgid "Stats: %s"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:151
+#: mp3/views/subscribers/subscribers.html:144
 msgctxt "Table column label for subscriber actions e.g. email open, link clicked"
 msgid "Action"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:152
+#: mp3/views/subscribers/subscribers.html:145
 msgctxt "Table column label for date when subscriber action happened"
 msgid "Action on"
 msgstr ""
 
-#: mp3/views/subscribers/subscribers.html:153
+#: mp3/views/subscribers/subscribers.html:146
 msgctxt "Table column label for count of subscriber actions"
 msgid "Count"
 msgstr ""

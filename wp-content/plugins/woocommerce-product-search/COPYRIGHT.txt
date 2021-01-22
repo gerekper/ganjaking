@@ -5,7 +5,7 @@
  
  -----------------------------------------------------------------------------
  
- Copyright 2014-2020 "kento" (Karim Rahimpur) - www.itthinx.com
+ Copyright 2014-2021 "kento" (Karim Rahimpur) - www.itthinx.com
  
  The files COPYRIGHT.txt and LICENSE.txt as well as ALL NOTICES IN THE
  HEADERS OF ALL FILES MUST BE KEPT INTACT.

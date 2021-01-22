@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart support.
  *
  * @class    WCS_ATT_Cart
- * @version  3.1.16
+ * @version  3.1.20
  */
 class WCS_ATT_Cart {
 
@@ -547,15 +547,27 @@ class WCS_ATT_Cart {
 	 */
 	public static function update_cart_item_data( $updated ) {
 
+		$schemes_changed = false;
+
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			if ( ! empty( $cart_item[ 'wcsatt_data' ] ) ) {
 
 				$posted_subscription_scheme_key = self::get_posted_subscription_scheme( $cart_item_key );
 
 				if ( null !== $posted_subscription_scheme_key ) {
-					WC()->cart->cart_contents[ $cart_item_key ][ 'wcsatt_data' ][ 'active_subscription_scheme' ] = $posted_subscription_scheme_key;
+
+					$existing_subscription_scheme_key = isset( $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ] ) ? $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ] : null;
+
+					if ( $posted_subscription_scheme_key !== $existing_subscription_scheme_key ) {
+						WC()->cart->cart_contents[ $cart_item_key ][ 'wcsatt_data' ][ 'active_subscription_scheme' ] = $posted_subscription_scheme_key;
+						$schemes_changed = true;
+					}
 				}
 			}
+		}
+
+		if ( $schemes_changed ) {
+			self::apply_subscription_schemes( WC()->cart );
 		}
 
 		return true;

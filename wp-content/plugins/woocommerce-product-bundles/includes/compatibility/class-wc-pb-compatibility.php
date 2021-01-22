@@ -260,9 +260,19 @@ class WC_PB_Compatibility {
 			$module_paths[ 'divi' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-et-compatibility.php';
 		}
 
-		// Elementor Pro compatibility
+		// Elementor Pro compatibility.
 		if ( class_exists('\ElementorPro\Plugin') ) {
 			$module_paths[ 'elementor' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-elementor-compatibility.php';
+		}
+
+		// PayPal Express Checkout compatibility.
+		if ( class_exists( 'WC_Gateway_PPEC_Plugin' ) ) {
+			$module_paths[ 'ppec' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-ppec-compatibility.php';
+		}
+
+		// Stripe compatibility.
+		if ( class_exists( 'WC_Gateway_Stripe' ) ) {
+			$module_paths[ 'stripe' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-stripe-compatibility.php';
 		}
 
 		// ThemeAlien Variation Swatches for WooCommerce compatibility.

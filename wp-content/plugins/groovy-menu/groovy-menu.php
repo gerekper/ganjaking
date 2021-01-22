@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 /*
 Plugin Name: Groovy Menu
-Version: 2.4.1
+Version: 2.4.3
 Description: Groovy menu is a modern adjustable and flexible menu designed for creating mobile-friendly menus with a lot of options.
 Plugin URI: https://groovymenu.grooni.com/
 Author: Grooni
@@ -11,7 +11,7 @@ Domain Path: /languages/
 */
 
 
-define( 'GROOVY_MENU_VERSION', '2.4.1' );
+define( 'GROOVY_MENU_VERSION', '2.4.3' );
 define( 'GROOVY_MENU_DB_VER_OPTION', 'groovy_menu_db_version' );
 define( 'GROOVY_MENU_PREFIX_WIM', 'groovy-menu-wim' );
 define( 'GROOVY_MENU_DIR', plugin_dir_path( __FILE__ ) );
@@ -21,8 +21,6 @@ define( 'GROOVY_MENU_BASENAME', plugin_basename( trailingslashit( dirname( dirna
 update_option( 'groovy_menu_db_version__lic', GROOVY_MENU_VERSION );
 update_option( 'groovy_menu_db_version__lic_data', array( 'gm_version' => GROOVY_MENU_VERSION, 'supported_until' => '01.01.2030', 'type' => 'single', 'purchase_key' => 'activated' ) );
 set_transient( 'groovy_menu_db_version__lic_cache', true );
-
-
 if ( ! defined( 'AUTH_COOKIE' ) && function_exists( 'is_multisite' ) && is_multisite() ) {
 	if ( function_exists( 'wp_cookie_constants' ) ) {
 		wp_cookie_constants();
@@ -104,6 +102,11 @@ if ( method_exists( 'GroovyMenuUtils', 'install_default_icon_packs' ) ) {
 
 if ( method_exists( 'GroovyMenuUtils', 'update_config_text_domain' ) && is_admin() ) {
 	add_action( 'wp_loaded', array( 'GroovyMenuUtils', 'update_config_text_domain' ), 1000 );
+}
+
+if ( method_exists( 'GroovyMenuUtils', 'output_uniqid_gm_js' ) ) {
+	add_action( 'gm_enqueue_script_actions', array( 'GroovyMenuUtils', 'output_uniqid_gm_js' ), 999 );
+	add_action( 'gm_after_main_header', array( 'GroovyMenuUtils', 'output_uniqid_gm_js' ), 999 );
 }
 
 if ( method_exists( 'GroovyMenuUtils', 'load_font_internal' ) ) {
@@ -209,6 +212,7 @@ if ( empty( $lic_gm_version ) || GROOVY_MENU_VERSION !== $lic_gm_version ) {
 	GroovyMenuUtils::check_lic();
 }
 $lic_type = GroovyMenuUtils::get_paramlic( 'type' );
+$gm_supported_module['check_update'] = "";
 if ( 'extended' !== $lic_type || ! empty( $gm_supported_module['check_update'] ) ) {
 	if ( class_exists( '\Puc_v4_Factory' ) ) {
 		$update_checker = \Puc_v4_Factory::buildUpdateChecker(
@@ -421,6 +425,14 @@ function groovy_menu_js_request( $uniqid, $return_string = false ) {
 		unset( $groovyMenuSettings_json['nav_menu_data'] );
 	}
 
+	$preset_id = isset( $groovyMenuSettings['preset']['id'] ) ? $groovyMenuSettings['preset']['id'] : 'default';
+
+	if ( ! empty( $groovyMenuSettings['gm-uniqid'][ $preset_id ] ) && $groovyMenuSettings['gm-uniqid'][ $preset_id ] === $uniqid ) {
+		return '';
+	}
+
+	$groovyMenuSettings['gm-uniqid'][ $preset_id ] = $uniqid;
+
 	// TODO check 'var groovyMenuSettings = ...' for poly GM blocks
 	$additional_js = 'var groovyMenuSettings = ' . wp_json_encode( $groovyMenuSettings_json ) . '; document.addEventListener("DOMContentLoaded", function () {  var gm = new GroovyMenu(\'#' . $uniqid . '\' ,groovyMenuSettings); gm.init();});';
 
@@ -429,9 +441,10 @@ function groovy_menu_js_request( $uniqid, $return_string = false ) {
 
 		return "\n" . '<' . esc_attr( $tag_name ) . '>' . $additional_js . '</' . esc_attr( $tag_name ) . '>';
 	} else {
-		if ( function_exists( 'wp_add_inline_script' ) ) {
-			wp_add_inline_script( 'groovy-menu-js', $additional_js );
-		}
+
+		// Then work with GroovyMenuUtils::output_uniqid_gm_js .
+		$groovyMenuSettings['gm-uniqid-js'][ $preset_id ] = $additional_js;
+
 	}
 
 	return '';

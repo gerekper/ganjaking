@@ -322,6 +322,30 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			$today           = wc_od_get_local_date();
 			$start_timestamp = strtotime( $this->min_delivery_days() . ' days', $today );
 			$end_timestamp   = strtotime( ( $this->max_delivery_days() + 1 ) . ' days', $today ); // Non-inclusive.
+			$delivery_days   = WC_OD()->settings()->get_setting( 'delivery_days' );
+
+			$disabled_dates = wc_od_get_disabled_days(
+				array(
+					'type'    => 'delivery',
+					'start'   => date( 'Y-m-d', $start_timestamp ),
+					'end'     => date( 'Y-m-d', $end_timestamp ),
+					'country' => WC()->customer->get_shipping_country(),
+					'state'   => WC()->customer->get_shipping_state(),
+				)
+			);
+
+			$disabled_dates = array_merge(
+				$disabled_dates,
+				WC_OD_Delivery_Dates::get_disabled_dates(
+					array(
+						'start_date'    => $start_timestamp,
+						'end_date'      => $end_timestamp,
+						'delivery_days' => $delivery_days,
+						'disabled_days' => $disabled_dates,
+					),
+					'Y-m-d'
+				)
+			);
 
 			/**
 			 * Filter the arguments used to calculate the delivery date.
@@ -334,17 +358,11 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			return apply_filters(
 				'wc_od_delivery_date_args',
 				array(
-					'shipping_method'    => $this->get_shipping_method(),
-					'start_date'         => $start_timestamp,
-					'end_date'           => $end_timestamp,
-					'delivery_days'      => WC_OD()->settings()->get_setting( 'delivery_days' ),
-					'disabled_days_args' => array(
-						'type'    => 'delivery',
-						'start'   => date( 'Y-m-d', $start_timestamp ),
-						'end'     => date( 'Y-m-d', $end_timestamp ),
-						'country' => WC()->customer->get_shipping_country(),
-						'state'   => WC()->customer->get_shipping_state(),
-					),
+					'shipping_method' => $this->get_shipping_method(),
+					'start_date'      => $start_timestamp,
+					'end_date'        => $end_timestamp,
+					'delivery_days'   => $delivery_days,
+					'disabled_days'   => $disabled_dates,
 				)
 			);
 		}
@@ -368,19 +386,12 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 				'checkout'
 			);
 
-			$disabled_dates = WC_OD_Delivery_Dates::get_disabled_dates(
-				array_merge(
-					$args,
-					array( 'disabled_dates' => wc_od_get_disabled_days( $args['disabled_days_args'] ) )
-				)
-			);
-
 			return wc_od_get_calendar_settings(
 				array(
 					'startDate'          => wc_od_localize_date( $args['start_date'], $date_format ),
 					'endDate'            => wc_od_localize_date( ( wc_od_get_timestamp( $args['end_date'] ) - DAY_IN_SECONDS ), $date_format ), // Inclusive.
 					'daysOfWeekDisabled' => array_keys( $delivery_days_status, 'no', true ),
-					'datesDisabled'      => array_map( 'wc_od_localize_date', $disabled_dates ),
+					'datesDisabled'      => array_map( 'wc_od_localize_date', $args['disabled_days'] ),
 				),
 				'checkout'
 			);

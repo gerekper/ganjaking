@@ -1,6 +1,6 @@
 <?php
 
-namespace WBCR\Factory_Adverts_119;
+namespace WBCR\Factory_Adverts_120;
 
 // Exit if accessed directly
 if( !defined('ABSPATH') ) {
@@ -65,7 +65,7 @@ class Creative_Motion_API {
 	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 * @since  1.0.1
-	 * @var \Wbcr_Factory441_Plugin
+	 * @var \Wbcr_Factory442_Plugin
 	 */
 	private $plugin;
 
@@ -75,11 +75,11 @@ class Creative_Motion_API {
 	 *
 	 * Variable initialization.
 	 *
-	 * @param \Wbcr_Factory441_Plugin $plugin_name
+	 * @param \Wbcr_Factory442_Plugin $plugin_name
 	 * @since 1.0.0 Added
 	 *
 	 */
-	public function __construct(\Wbcr_Factory441_Plugin $plugin)
+	public function __construct(\Wbcr_Factory442_Plugin $plugin)
 	{
 		$this->plugin = $plugin;
 	}

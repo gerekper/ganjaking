@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce All Products For Subscriptions
 * Plugin URI: https://woocommerce.com/products/all-products-for-woocommerce-subscriptions/
 * Description: Make existing products available on subscription, and give customers the freedom to add products to their existing subscriptions. WooCommerce Subscriptions add-on formerly known as Subscribe All The Things.
-* Version: 3.1.19
+* Version: 3.1.23
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -15,10 +15,10 @@
 * Requires PHP: 5.6
 *
 * Requires at least: 4.4
-* Tested up to: 5.5
+* Tested up to: 5.6
 *
 * WC requires at least: 3.3
-* WC tested up to: 4.7
+* WC tested up to: 4.9
 *
 * Copyright: © 2017-2020 SomewhereWarm SMPC.
 * License: GNU General Public License v3.0
@@ -43,12 +43,12 @@ require_once( 'includes/modules/abstract/class-wcs-att-abstract-module.php' );
  * Main plugin class.
  *
  * @class    WCS_ATT
- * @version  3.1.19
+ * @version  3.1.23
  */
 class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 	/* Plugin version. */
-	const VERSION = '3.1.19';
+	const VERSION = '3.1.23';
 
 	/* Required WC version. */
 	const REQ_WC_VERSION = '3.3.0';
@@ -353,11 +353,18 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	 * @return void
 	 */
 	public function deactivate() {
-		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes' ) ) {
+
+		$notes_class = false;
+
+		if ( class_exists( 'Automattic\WooCommerce\Admin\Notes\Notes' ) ) {
+			$notes_class = 'Automattic\WooCommerce\Admin\Notes\Notes';
+		} elseif ( class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes' ) ) {
+			$notes_class = 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes';
+		} else {
 			return;
 		}
 
-		Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes::delete_notes_with_name( 'wcsatt_first_product_note' );
+		$notes_class::delete_notes_with_name( 'wcsatt_first_product_note' );
 	}
 
 	/**

@@ -18,7 +18,7 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -876,27 +876,40 @@ abstract class WC_PIP_Document {
 	 *
 	 * @return string[]
 	 */
-	protected function get_chosen_fields() {
+	protected function get_chosen_fields() : array {
 
 		$document_key  = str_replace( '-', '_', $this->type );
 		$chosen_fields = get_option( "wc_pip_{$document_key}_show_optional_fields", $this->optional_fields ?: [] );
 
-		if ( is_string( $chosen_fields )  ) {
+		return is_string( $chosen_fields ) || is_array( $chosen_fields ) ? (array) $chosen_fields : [];
+	}
 
-			// at the moment the invoice only has one optional field, the SKU, which is toggled by a checkbox
-			if ( 'invoice' === $this->type ) {
-				$this->chosen_fields = 'yes' === $chosen_fields ? [ 'sku' ] : [];
-				// in other documents, if only one field is stored, this may be a string, but we want to output an array of strings
-			} else {
-				$this->chosen_fields = (array) $chosen_fields;
-			}
 
-		} else {
+	/**
+	 * Gets extra column tax headers.
+	 *
+	 * @since 3.11.0
+	 *
+	 * @return array
+	 */
+	private function get_line_tax_headers() : array {
 
-			$this->chosen_fields = ! is_array( $chosen_fields ) ? [] : $chosen_fields;
+		$order = wc_get_order( $this->order_id );
+
+		if ( ! $order ) {
+			return [];
 		}
 
-		return $this->chosen_fields;
+		/** @var \WC_Order_Item_Tax[] $tax_items */
+		$tax_items = $order->get_items( 'tax' );
+		$tax_data  = [];
+
+		// get the order taxes by ID and label
+		foreach ( $tax_items as $tax_item ) {
+			$tax_data[ $tax_item->get_rate_id() ] = $tax_item->get_label();
+		}
+
+		return $tax_data;
 	}
 
 
@@ -907,20 +920,38 @@ abstract class WC_PIP_Document {
 	 *
 	 * @return array associative array of keys and column names
 	 */
-	public function get_table_headers() {
-
-		$chosen_fields = $this->get_chosen_fields();
+	public function get_table_headers() : array {
 
 		// filter out disabled fields
 		foreach ( array_keys( $this->table_headers ) as $column ) {
-
-			if ( in_array( $column, $this->optional_fields, true ) && ! in_array( $column, $chosen_fields, true ) ) {
-
+			if ( in_array( $column, $this->optional_fields, true ) && ! in_array( $column, $this->get_chosen_fields(), true ) ) {
 				unset( $this->table_headers[ $column ] );
 			}
 		}
 
-		// bail out if we are on customizer
+		// append additional variable tax headers
+		if ( isset( $this->table_headers['line_tax'] ) ) {
+
+			$insert_key = 'quantity';
+
+			foreach ( $this->get_line_tax_headers() as $tax_id => $tax_name ) {
+
+				if ( isset( $this->table_headers[ $insert_key ] ) ) {
+
+					$this->table_headers = Framework\SV_WC_Helper::array_insert_after( $this->table_headers, $insert_key, [ "tax_{$tax_id}" => $tax_name ] );
+
+					$insert_key = "tax_{$tax_id}";
+
+				} else {
+
+					$this->table_headers["tax_{$tax_id}"] = $tax_name;
+				}
+			}
+
+			unset( $this->table_headers['line_tax'] );
+		}
+
+		// return unfiltered if we are on customizer preview
 		if ( is_customize_preview() ) {
 			return $this->table_headers;
 		}
@@ -930,11 +961,11 @@ abstract class WC_PIP_Document {
 		 *
 		 * @since 3.0.0
 		 *
-		 * @param array $table_headers Table column headers
-		 * @param int $order_id WC_Order id
-		 * @param string $document_type WC_PIP_Document type
+		 * @param array $table_headers table column headers
+		 * @param int $order_id order ID
+		 * @param string $document_type document type
 		 */
-		return apply_filters( 'wc_pip_document_table_headers', $this->table_headers, $this->order_id, $this->type );
+		return (array) apply_filters( 'wc_pip_document_table_headers', $this->table_headers, $this->order_id, $this->type );
 	}
 
 
@@ -1331,6 +1362,56 @@ abstract class WC_PIP_Document {
 
 
 	/**
+	 * Gets the order item line taxes HTML.
+	 *
+	 * @since 3.11.0
+	 *
+	 * @param \WC_Order_Item_Product|array $item
+	 * @return array
+	 */
+	protected function get_order_item_line_taxes_html( $item ) : array {
+
+		$item_taxes = $item->get_taxes();
+		$item_taxes = $item_taxes['subtotal'] ?? [];
+
+		$item_taxes_html = [];
+
+		foreach ( array_keys( $this->get_line_tax_headers() ) as $tax_id ) {
+			$item_taxes_html[ $tax_id ] = isset( $item_taxes[ $tax_id ] ) ? '<span class="tax">' . wc_price( $item_taxes[ $tax_id ] ) . '</span>' : '';
+		}
+
+		return $item_taxes_html;
+	}
+
+
+	/**
+	 * Gets an order item product image HTML.
+	 *
+	 * @since 3.11.0
+	 *
+	 * @param \WC_Product $product the order item parent product object
+	 * @param \WC_Order_Item_Product|array $item the order item product
+	 * @return string HTML
+	 */
+	protected function get_order_item_product_image_html( $product, $item ) : string {
+
+		/**
+		 * Filters the order item product image.
+		 *
+		 * @since 3.11.0
+		 *
+		 * @param string $image the product image
+		 * @param \WC_Product $product the related product
+		 * @param array $item the related order item
+		 * @param \WC_PIP_Document $document the current PIP document
+		 */
+		$image = (string) apply_filters( 'wc_pip_order_item_product_image', $product instanceof \WC_Product ? $product->get_image() : '', $product, $item, $this );
+
+		return '<span class="thumbnail">' . $image . '</span>';
+	}
+
+
+	/**
 	 * Get order item SKU
 	 *
 	 * @since 3.0.0
@@ -1440,6 +1521,33 @@ abstract class WC_PIP_Document {
 		}
 
 		return $product_name_html;
+	}
+
+
+	/**
+	 * Gets an order item's unit price HTML.
+	 *
+	 * @since 3.11.0
+	 *
+	 * @param \WC_Product $product the related order item's product
+	 * @param \WC_Order_Item_Product|array $item the order item product line
+	 * @return string
+	 */
+	protected function get_order_item_unit_price_html( $product, $item ) : string {
+
+		/**
+		 * Filters the order item unit price.
+		 *
+		 * @since 3.11.0
+		 *
+		 * @param string $unit_price the product unit price
+		 * @param \WC_Product $product the related product
+		 * @param array $item the related order item
+		 * @param \WC_PIP_Document $document the current PIP document
+		 */
+		$unit_price = (string) apply_filters( 'wc_pip_order_item_unit_price', $product instanceof \WC_Product ? wc_price( $product->get_price() ) : '', $product, $item, $this );
+
+		return '<span class="unit-price">' . $unit_price . '</span>';
 	}
 
 

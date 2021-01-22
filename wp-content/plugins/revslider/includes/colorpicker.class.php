@@ -509,7 +509,8 @@ if(!class_exists('RSColorpicker')){
 		 * @since: 6.0
 		 */  
 		public static function normalizeColor($color) {
-
+			if(empty(trim($color))) return $color;
+			
 			$color = RSColorpicker::process($color, true);
 			$clr = $color[0];
 			$tpe = $color[1];

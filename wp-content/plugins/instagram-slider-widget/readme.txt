@@ -3,7 +3,7 @@ Contributors: creativemotion
 Tags: instagram, instagram feed, instagram gallery, instagram photos, Instagram widget
 Requires at least: 4.8
 Tested up to: 5.6
-Requires PHP: 5.6
+Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,6 +85,16 @@ Go to the plugin settings and add an instagram account (click "Add account"), th
 If you use your account in the widget, go to the plugin settings and reconnect your instagram account.
 If you don't use an account in the widget, go to the plugin settings and add an instagram account (click "Add account"), then go to the widget settings and select the added account.
 
+== Translations ==
+<ul>
+<li>English (default), always included</li>
+<li>Dutch — big thanks to @webepc, @psmits1567</li>
+<li>Swedish — big thanks to @elbogen, @webbmasterpianise</li>
+<li>Portuguese (Brazil) — big thanks to @eberton-moraes</li>
+</ul>
+<p>We are very need for your help with <a href="https://translate.wordpress.org/projects/wp-plugins/instagram-slider-widget/" rel="nofollow ugc">translating the Social Slider Widget plugin</a> into your native language. We want to make it international and understandable for everyone. Please contact us via email inside the plugin, or create a topic on our <a href="https://wordpress.org/support/plugin/instagram-slider-widget">support forum</a> if you can help with the translations. In exchange for your help, we will give you better support and our premium plugins absolutely free!</p>
+
+
 == Screenshots ==
 1. Authorize several accounts and display multiple feeds simultaneously
 2. Display Instagram feeds in widgets, posts, pages, or anywhere else using shortcodes
@@ -98,9 +108,15 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 10. Highlight
 
 == Changelog ==
+
+= 1.8.6 =
+* Fixed: Big images in widget
+
+= 1.8.5 =
+* Fixed: Security issue
+
 = 1.8.4 =
 * Fixed: Errors on Components page
-
 
 = 1.8.3 =
 * Fixed: script and styles loading on pages

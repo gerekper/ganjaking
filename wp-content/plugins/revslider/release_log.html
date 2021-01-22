@@ -1,7 +1,36 @@
 <div class="slider-revolution-update-list">
+	<h3 class="version-number">Version 6.3.6 (20th January 2021)</h3>
+	<div class="bugfix"><strong style="font-weight:700">New Features</strong></div>
+	<ul>
+		<li>Added a "wrapper observer" option to execute a module redraw in case the wrapper dimension has changed. This is useful for modules in tabs. Check the editor/general/browser behavior tab/li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Carousel layers sometimes animate again after changing slides</li>
+		<li>Carousel rows change in size after being focused, if column has an overdimensional image</li>
+		<li>PHP notices sometimes influence content and content dimensions</li>
+		<li>Bubble Morph dimension issues in carousel</li>
+		<li>Images are not fetched from WooCommerce posts, if "image from stream if exist" is selected</li>
+		<li>Steam preview shows wrong error information</li>
+		<li>Custom particle not using the correct color in particle effects</li>
+		<li>Issues with toggle media and mute in groups</li>
+		<li>FilmStrip scrolling issues on mobile</li>
+		<li>Wrong dimension calculations sometimes causes overlapped layers in the editor</li>
+		<li>Global color skin modal not showing automatically</li>
+		<li>Google fonts download for Material Icons to host Material Icons locally not working correctly</li>
+		<li>WhiteBoard addon issues</li>
+		<li>Updated and extended error messages if the stream is not available. The preview will be auto closed</li>
+		<li>Dragging a carousel when touching a link does not work in some cases</li>
+		<li>Translated slides are not removed if the parent slide has been deleted</li>
+		<li>"From left" and "from right" animations on rows have wrong offset values</li>		
+		<li>Vimeo "Auto Play: Off" and "Mute at Start: Off" is not playing music, neither does it show the mute/unmute button on mobile devices</li>
+		<li>Changing animation attributes on the "Anim From" keyframe, does not visually update changes</li>
+		<li>Dragging layers in animation view doesn't change the values of the selected (Set as Editor View) frame</li>
+	</ul>
+	
 	<h3 class="version-number">Version 6.3.5 (31st December 2020)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
-	<ul>		
+	<ul>
 		<li>Added a protection against loop animation on layers where curviness was allowed and no values were set on x,y which may have produced console errors</li>
 		<li>Changing metas in the navigation editor will now straight add changes to the global and slide based styles</li>
 		<li>Fixed: Post excerpt limitations will now really make a difference between words and chars</li>

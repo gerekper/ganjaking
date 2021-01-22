@@ -1,9 +1,0 @@
-#wpadminbar .seed-cspv5-mode-active > .ab-item{
-	color:#fff;
-	background-color: #f44;
-	font-size:10px !important;
-}
-
-#wpadminbar .seed-cspv5-mode-active:hover > .ab-item{
-	background-color: #a30 !important;
-}

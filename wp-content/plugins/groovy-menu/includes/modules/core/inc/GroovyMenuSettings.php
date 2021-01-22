@@ -2353,7 +2353,10 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 										{ groovy_menu(); } ?&gt;</code>
 								</p>
 								<p><?php esc_html_e( 'The place where the code should be inserted depends on the theme. The most common place is the', 'groovy-menu' ); ?>
-									<code>header.php</code>.
+									<code>header.php</code> <?php
+									echo sprintf( esc_html__( 'after %s tag', 'groovy-menu' ),
+										'<code>&lt;BODY&gt;</code>'
+									); ?>.
 								</p>
 							</div>
 						</div>

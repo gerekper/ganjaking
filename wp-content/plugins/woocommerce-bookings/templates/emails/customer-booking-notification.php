@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-do_action( 'woocommerce_email_header', $email_heading );
+do_action( 'woocommerce_email_header', $email_heading, $email );
 ?>
 
 <?php echo esc_html( wptexturize( $notification_message ) ); ?>
@@ -78,4 +78,4 @@ do_action( 'woocommerce_email_header', $email_heading );
 	</tbody>
 </table>
 
-<?php do_action( 'woocommerce_email_footer' ); ?>
+<?php do_action( 'woocommerce_email_footer', $email ); ?>

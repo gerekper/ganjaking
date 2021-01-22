@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-do_action( 'woocommerce_email_header', $email_heading );
+do_action( 'woocommerce_email_header', $email_heading, $email );
 ?>
 
 <?php if ( $booking->get_order() ) : ?>
@@ -47,7 +47,7 @@ do_action( 'woocommerce_email_header', $email_heading );
 		<?php
 		$resource = $booking->get_resource();
 		$resource_label = $booking->get_product()->get_resource_label();
-		
+
 		if ( $booking->has_resources() && $resource ) :
 			?>
 			<tr>
@@ -87,4 +87,4 @@ do_action( 'woocommerce_email_header', $email_heading );
 	</tbody>
 </table>
 
-<?php do_action( 'woocommerce_email_footer' ); ?>
+<?php do_action( 'woocommerce_email_footer', $email ); ?>

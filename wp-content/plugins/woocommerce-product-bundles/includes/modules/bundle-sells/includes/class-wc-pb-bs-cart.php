@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart-related functions and filters.
  *
  * @class    WC_PB_BS_Cart
- * @version  6.6.0
+ * @version  6.6.4
  */
 class WC_PB_BS_Cart {
 
@@ -343,7 +343,7 @@ class WC_PB_BS_Cart {
 					WC()->cart->cart_contents[ $cart_item_key ][ 'bundle_sell_discount' ] = $bundle_sells_by_id[ $cart_item[ 'product_id' ] ][ 'discount' ];
 				}
 
-				if ( ! isset( WC()->cart->cart_contents[ $cart_item_key ][ 'bundle_sells' ] ) ) {
+				if ( ! isset( WC()->cart->cart_contents[ $parent_cart_item_key ][ 'bundle_sells' ] ) ) {
 					WC()->cart->cart_contents[ $parent_cart_item_key ][ 'bundle_sells' ] = array( $cart_item_key );
 				} elseif ( ! in_array( $cart_item_key, WC()->cart->cart_contents[ $parent_cart_item_key ][ 'bundle_sells' ] ) ) {
 					WC()->cart->cart_contents[ $parent_cart_item_key ][ 'bundle_sells' ][] = $cart_item_key;

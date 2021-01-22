@@ -1,6 +1,6 @@
 /* global wc_bundles_admin_order_params */
 /* global woocommerce_admin_meta_boxes */
-jQuery( function($) {
+jQuery( function( $ ) {
 
 	var $order_items = $( '#woocommerce-order-items' ),
 		view         = false,

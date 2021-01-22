@@ -9,29 +9,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_API_REDSYS_PATH' ) ) {
-	define( 'REDSYS_PLUGIN_API_REDSYS_PATH', REDSYS_PLUGIN_PATH . 'includes/api-redsys/' );
+	define( 'REDSYS_PLUGIN_API_REDSYS_PATH', REDSYS_PLUGIN_PATH_P . 'includes/api-redsys/' );
 }
 
-if ( ! defined( 'REDSYS_PLUGIN_CLASS_PATH' ) ) {
-	define( 'REDSYS_PLUGIN_CLASS_PATH', REDSYS_PLUGIN_PATH . 'classes/'  );
+if ( ! defined( 'REDSYS_PLUGIN_CLASS_PATH_P' ) ) {
+	define( 'REDSYS_PLUGIN_CLASS_PATH_P', REDSYS_PLUGIN_PATH_P . 'classes/'  );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_METABOXES_PATH' ) ) {
-	define( 'REDSYS_PLUGIN_METABOXES_PATH', REDSYS_PLUGIN_PATH . 'includes/metabox/' );
+	define( 'REDSYS_PLUGIN_METABOXES_PATH', REDSYS_PLUGIN_PATH_P . 'includes/metabox/' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_STATUS_PATH' ) ) {
-	define( 'REDSYS_PLUGIN_STATUS_PATH', REDSYS_PLUGIN_PATH . 'includes/woo-status/' );
+	define( 'REDSYS_PLUGIN_STATUS_PATH', REDSYS_PLUGIN_PATH_P . 'includes/woo-status/' );
 }
 
-if ( ! defined( 'REDSYS_PLUGIN_NOTICE_PATH' ) ) {
-	define( 'REDSYS_PLUGIN_NOTICE_PATH', REDSYS_PLUGIN_PATH . 'includes/notices/' );
+if ( ! defined( 'REDSYS_PLUGIN_NOTICE_PATH_P' ) ) {
+	define( 'REDSYS_PLUGIN_NOTICE_PATH_P', REDSYS_PLUGIN_PATH_P . 'includes/notices/' );
 }
 
-if ( ! defined( 'REDSYS_PLUGIN_DATA_PATH' ) ) {
-	define( 'REDSYS_PLUGIN_DATA_PATH', REDSYS_PLUGIN_PATH . 'includes/data/' );
+if ( ! defined( 'REDSYS_PLUGIN_DATA_PATH_P' ) ) {
+	define( 'REDSYS_PLUGIN_DATA_PATH_P', REDSYS_PLUGIN_PATH_P . 'includes/data/' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_DATA_URL' ) ) {
-	define( 'REDSYS_PLUGIN_DATA_URL', REDSYS_PLUGIN_URL . 'includes/data/' );
+	define( 'REDSYS_PLUGIN_DATA_URL', REDSYS_PLUGIN_URL_P . 'includes/data/' );
 }

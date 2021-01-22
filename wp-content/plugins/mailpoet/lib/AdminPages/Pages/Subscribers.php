@@ -12,7 +12,6 @@ use MailPoet\Form\Block;
 use MailPoet\Listing\PageLimit;
 use MailPoet\Models\CustomField;
 use MailPoet\Models\Segment;
-use MailPoet\Models\Subscriber;
 use MailPoet\Services\Bridge;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
@@ -97,19 +96,9 @@ class Subscribers {
     $data['subscribers_limit'] = $this->subscribersFeature->getSubscribersLimit();
     $data['subscribers_limit_reached'] = $this->subscribersFeature->check();
     $data['has_valid_api_key'] = $this->subscribersFeature->hasValidApiKey();
-    $data['subscriber_count'] = Subscriber::getTotalSubscribers();
-    $data['premium_subscriber_count'] = $this->subscribersFeature->getSubscribersCount();
+    $data['subscriber_count'] = $this->subscribersFeature->getSubscribersCount();
     $data['has_premium_support'] = $this->subscribersFeature->hasPremiumSupport();
     $data['link_premium'] = $this->wp->getSiteUrl(null, '/wp-admin/admin.php?page=mailpoet-premium');
-
-    $data['wp_users_count'] = false;
-    if (!$data['has_premium_support']) {
-      $wpSegment = Segment::getWPSegment()->withSubscribersCount();
-      $subscribersCount = $wpSegment->subscribersCount;
-      $data['wp_users_count'] = $subscribersCount[Subscriber::STATUS_SUBSCRIBED]
-        + $subscribersCount[Subscriber::STATUS_UNCONFIRMED]
-        + $subscribersCount[Subscriber::STATUS_INACTIVE];
-    }
 
     $this->pageRenderer->displayPage('subscribers/subscribers.html', $data);
   }

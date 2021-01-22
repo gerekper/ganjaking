@@ -1,5 +1,27 @@
 *** Redsys Gateway Change Log ***
 
+2021.01.18 - version 14.0.2
+
+* FIXED: fixed a problem with refunds introduced in version 14.0.0.
+
+2021.01.18 - version 14.0.1
+
+* FIXED: Removed a debug line in Global Class which caused a fatal error. 
+
+2020.01.14 - version 14.0.0
+
+* NEW: Added compatibility with Yith WooCommerce Subscriptions Premium.
+* NEW: Added WooCommerce Add Payment Method feature.
+* NEW: Added the ability to see all user tokens from the User Edit administration page.
+* NEW: Added TRA SCA with a max price. WARNING: Your bank has to activate it in your terminal.
+* NEW: The receipt page has been removed from Redsys (by Jose Conti) so after press the Pay button, the customer directly arrives at Redsys. This functionality will be added to the other forms of payment throughout future versions.
+* NEW: Now the plugin deactivates other Redsys Plugins on activation. It causes too many problems that other Redsys plugins are active, and many people do not read the warnings or instructions.
+* NEW: Added more checks to mark renewal subscriptions as paid. For some reason, Redsys does not always respond via Webservice even if the renewal is done correctly.
+* FIXED: Fixed a problem with BIZUM where the orders have not been marked as paid in test mode.
+* FIXED: Problem with TXNID.
+* Declared compatibility with WooCommerce 4.9
+* Fixed a problem with Preauthorization Logs
+
 2020.12.28 - version 13.0.0
 
 * Full compatibility with PSD2.

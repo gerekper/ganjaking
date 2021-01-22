@@ -9,6 +9,7 @@ use MailPoet\DI\ContainerWrapper;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Models\Newsletter;
 use MailPoet\Models\SendingQueue;
 use MailPoet\Models\Subscriber;
 use MailPoet\Newsletter\NewslettersRepository;
@@ -16,8 +17,16 @@ use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Newsletter\Shortcodes\Shortcodes as NewsletterShortcodes;
 use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Tasks\Sending;
+use stdClass;
 
 class Shortcodes {
+  /**
+   * @param string $content
+   * @param string|null $contentSource
+   * @param stdClass|Newsletter|null $newsletter
+   * @param Subscriber|null $subscriber
+   * @param Sending|SendingQueue|null $queue
+   */
   public static function process($content, $contentSource = null, $newsletter = null, $subscriber = null, $queue = null) {
     /** @var NewsletterShortcodes $shortcodes */
     $shortcodes = ContainerWrapper::getInstance()->get(NewsletterShortcodes::class);
@@ -38,7 +47,7 @@ class Shortcodes {
     } else {
       $shortcodes->setQueue(null);
     }
-    if ($newsletter instanceof \MailPoet\Models\Newsletter && $newsletter->id) {
+    if (($newsletter instanceof Newsletter || $newsletter instanceof stdClass) && $newsletter->id) {
       $newsletter = $newsletterRepository->findOneById($newsletter->id);
     }
     if ($newsletter instanceof NewsletterEntity) {

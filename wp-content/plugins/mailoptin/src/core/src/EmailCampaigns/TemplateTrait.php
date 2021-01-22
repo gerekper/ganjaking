@@ -163,7 +163,8 @@ trait TemplateTrait
         }
 
         if (has_post_thumbnail($post)) {
-            $image_data = wp_get_attachment_image_src(get_post_thumbnail_id($post), 'full');
+            $featured_image_size = apply_filters('mailoptin_email_campaign_featured_image_size', 'full');
+            $image_data = wp_get_attachment_image_src(get_post_thumbnail_id($post), $featured_image_size);
             if ( ! empty($image_data[0])) {
                 return $image_data[0];
             }

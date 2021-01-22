@@ -560,7 +560,7 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 		'shipping_date'      => '', // Accept strings or timestamps.
 		'shipping_method'    => false,
 		'delivery_days'      => WC_OD()->settings()->get_setting( 'delivery_days' ),
-		'delivery_range'     => array(),
+		'delivery_range'     => array(), // Backward compatibility.
 		'end_date'           => strtotime( ( WC_OD()->settings()->get_setting( 'max_delivery_days' ) + 1 ) . ' days', wc_od_get_local_date() ), // The maximum date (Non-inclusive) to look for a valid date.
 		'disabled_days_args' => array( // Arguments used by the wc_od_disabled_days() function.
 			'type'    => 'delivery',
@@ -622,7 +622,7 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 	}
 
 	$deadline = wc_od_get_timestamp( $args['end_date'] );
-	$wday     = date( 'w', $shipping_timestamp );
+	$wday     = (int) date( 'w', $shipping_timestamp );
 
 	$days_for_delivery = 0;
 	$min_delivery_days = $delivery_range->get_from();
@@ -640,8 +640,11 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 		$delivery_days_status = wp_list_pluck( $args['delivery_days'], 'enabled' );
 	}
 
+	$delivery_days = wc_od_get_delivery_days();
+
 	do {
-		$timestamp = strtotime( "{$days_for_delivery} days", $shipping_timestamp );
+		$timestamp     = strtotime( "{$days_for_delivery} days", $shipping_timestamp );
+		$delivery_date = new WC_OD_Delivery_Date( $timestamp, $delivery_days->get( $wday ) );
 
 		/*
 		 * Special Case: The current date is the shipping date and the minimum delivery days is higher than zero.
@@ -649,7 +652,8 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 		 */
 		if (
 			( wc_string_to_bool( $delivery_days_status[ $wday ] ) || ( $shipping_timestamp === $timestamp && 0 < $min_delivery_days ) ) &&
-			! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) // The day isn't disabled for delivery.
+			! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) && // The day isn't disabled for delivery.
+			$delivery_date->is_valid() // The date is available for delivery.
 		) {
 			// Decrease the minimum delivery days.
 			$min_delivery_days--;

@@ -7,8 +7,6 @@
 	class WC_pdf_order_meta_box {
 
 	    public function __construct() {
-			
-			$woocommerce_pdf_invoice_settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 	    	// Stop everything if iconv or mbstring are not loaded, prevents fatal errors
 	    	if ( extension_loaded('iconv') && extension_loaded('mbstring') ) {					
@@ -57,20 +55,29 @@
 		function woocommerce_invoice_details_meta_box( $post ) {
 			global $woocommerce;
 
-			$data = get_post_custom( $post->id );
+			if( !class_exists('WC_send_pdf') ){
+				include( 'class-pdf-send-pdf-class.php' );
+			}
+
+			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
+			$order_id 		= $post->ID;
+			$data 			= get_post_custom( $order_id );
+
+			$invoice_meta 	= get_post_meta( $order_id, '_invoice_meta', TRUE );
 
 			$pdf_invoice_download_link = add_query_arg( array(
-							    'post' 			=> $post->ID,
+							    'post' 			=> $order_id,
 							    'action' 		=> 'edit',
 							    'pdf_method' 	=> 'download',
-							    'pdfid' 		=> $post->ID,
+							    'pdfid' 		=> $order_id,
 							), admin_url( 'post.php' ) ); 
 
 			$pdf_invoice_email_link = add_query_arg( array(
-							    'post' 			=> $post->ID,
+							    'post' 			=> $order_id,
 							    'action' 		=> 'edit',
 							    'pdf_method' 	=> 'email',
-							    'pdfid' 		=> $post->ID,
+							    'pdfid' 		=> $order_id,
 							), admin_url( 'post.php' ) ); 
 
 			?>
@@ -79,36 +86,18 @@
 		
 					<li class="left"><p>
 						<?php _e( 'Invoice Number:', 'woocommerce-pdf-invoice' ); ?>
-						<?php if ( get_post_meta( $post->ID, '_invoice_number_display', TRUE ) ) 
-								echo get_post_meta( $post->ID, '_invoice_number_display', TRUE ); ?>
+						<?php if ( isset( $invoice_meta['invoice_number_display'] ) ) {
+								echo $invoice_meta['invoice_number_display']; 
+							  }
+						?>
 					</p></li>
 		
 					<li class="left"><p>
 						<?php _e( 'Invoice Date:', 'woocommerce-pdf-invoice' ); ?>
 						<?php
-						if ( get_post_meta( $post->ID, '_invoice_date', TRUE ) ) :
-						
-							$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
-							$date_format = $woocommerce_pdf_invoice_options['pdf_date_format'];
-
-							if ( !isset( $date_format ) || $date_format == '' ) :
-								$date_format = "j F, Y";
-							endif;
-
-							$date = get_post_meta( $post->ID, '_invoice_date', TRUE );
-							// Make sure the date is formated correctly
-							$date_check = DateTime::createFromFormat( get_option( 'date_format' ), $date );
-							if( $date_check ) {
-								$date = $date_check->format( $date_format );
-							}
-
-							if( strtotime( $date ) ) {
-								$date = date_i18n( $date_format, strtotime( $date ) );
-							}
-
-							echo $date;
-							
-						endif;
+						if ( isset( $invoice_meta['invoice_date'] ) ) {
+							echo WC_send_pdf::get_invoice_display_date( $order_id,'completed', false, 'invoice', $settings['pdf_date_format'] );
+						}
 
 						?>
 					</p></li>

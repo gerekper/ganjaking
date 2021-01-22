@@ -1018,6 +1018,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 				<div class="form_inner_header"><i class="material-icons">web</i><?php _e('Browser behavior', 'revslider');?></div>
 				<div class="collapsable" style="display:block !important">
 					<!-- SLIDER MISC. SETTINGS -->
+					<longoption><label_a ><?php _e('Observe Wrapper Container', 'revslider');?></label_a><input type="checkbox"  id="sr_gen_observeWrapper" class="sliderinput easyinit" data-r="general.observeWrap" /></longoption>
 					<longoption><label_a ><?php _e('Next on Browser Focus', 'revslider');?></label_a><input type="checkbox"  id="sr_gen_nextSlideOnFocus" class="sliderinput easyinit" data-r="general.nextSlideOnFocus" /></longoption>
 					<longoption><label_a ><?php _e('Disable Blur/Focus behav.', 'revslider');?></label_a><input type="checkbox"  id="sr_gen_disableFocusListener" class="sliderinput easyinit" data-r="general.disableFocusListener" /></longoption>
 					<longoption><label_a ><?php _e('Set Deeplink Hash in URL', 'revslider');?></label_a><input type="checkbox"  id="sr_gen_enableurlhash" class="sliderinput easyinit" data-r="general.enableurlhash" /></longoption>
@@ -1029,7 +1030,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 if ($wpml->wpml_exists()) {
 	?>
 			<!-- USE WPML-->
-			<div id="form_slidergeneral_general_disable_mobile" class="form_inner">
+			<div id="form_slidergeneral_general_usewpml" class="form_inner">
 				<div class="form_inner_header"><i class="material-icons">language</i><?php _e('WPML', 'revslider');?></div>
 				<div class="collapsable" style="display:block !important">
 					<longoption><i class="material-icons">language</i><label_a><?php _e('Use WPML Settings', 'revslider');?></label_a><input type="checkbox"  data-setclasson="body" data-class="rs-multilanguage_on" data-inversclass="rs-multilanguage_off" data-id="sr_gen_wpml" class="sliderinput easyinit" data-r="general.useWPML"/></longoption>

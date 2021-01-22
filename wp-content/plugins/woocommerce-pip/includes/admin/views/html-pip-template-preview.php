@@ -14,6 +14,9 @@
 	/** This action is documented in templates/pip/head.php */
 	do_action( 'wc_pip_head', $type, $document, $order );
 
+	/** This filter is documented in templates/pip/styles.php */
+	$thumb_size = (int) apply_filters( 'wc_pip_product_image_thumbnail_size', 100, $document );
+
 	?>
 
 	<style type="text/css">
@@ -38,6 +41,10 @@
 		}
 		body > div.container:after {
 			display: none;
+		}
+		.woocommerce-placeholder {
+			height: <?php echo $thumb_size; ?>px;
+			width: <?php echo $thumb_size; ?>px;
 		}
 	</style>
 </head>
@@ -213,106 +220,101 @@
 				<thead class="order-table-head">
 					<tr>
 						<?php $column_widths = $document->get_column_widths(); ?>
+						<?php $table_headers = $document->get_table_headers(); ?>
+						<?php unset( $table_headers['line_tax'] ); ?>
 
-						<?php foreach( $document->get_table_headers() as $column_id => $title ): ?>
+						<?php foreach( $table_headers as $column_id => $title ): ?>
+
+							<?php if ( false !== strpos( $column_id, 'tax_' ) ) : continue; endif; ?>
 							<th class="<?php echo sanitize_html_class( $column_id ); ?>" style="width: <?php echo esc_attr( $column_widths[ $column_id ] ); ?>%;"><?php echo esc_html( $title ); ?></th>
+
 						<?php endforeach; ?>
 					</tr>
 				</thead>
 
 				<?php
 
-				$chosen_fields = get_option( 'wc_pip_invoice_show_optional_fields', [ 'sku' ] );
-				$show_sku      = 'yes' === $chosen_fields || ( is_array( $chosen_fields ) && in_array( 'sku', $chosen_fields, true ) );
-				$colspan       = $show_sku ? '3' : '2';
+				$chosen_fields   = get_option( 'wc_pip_invoice_show_optional_fields', [ 'sku' ] );
+				$show_thumbnail  = in_array( 'thumbnail', $chosen_fields, true );
+				$show_sku        = in_array( 'sku', $chosen_fields, true );
+				$show_unit_price = in_array( 'unit_price', $chosen_fields, true );
+
+				$colspan1 = max( 1, count( $table_headers ) - 2 );
+				$colspan2 = 1;
+
+				$thumbnail = wc_placeholder_img();
 
 				?>
 
-				<tfoot class="order-table-footer">
-					<tr>
-						<td class="cart_subtotal" colspan="<?php echo $colspan ?>">
-							<strong class="order-cart_subtotal"><?php esc_html_e( 'Subtotal:', 'woocommerce-pip' ); ?></strong>
-						</td>
-						<td class="value">
-							<span class="amount"><?php echo wc_price( 55.90 ); ?></span>
-						</td>
-					</tr>
-					<tr>
-						<td class="discount" colspan="<?php echo $colspan ?>">
-							<strong class="order-discount"><?php esc_html_e( 'Discount:', 'wooocommerce-pip' ) ?></strong>
-						</td>
-						<td class="value">
-							<span class="amount"><?php echo wc_price( -1.00 ); ?></span>
-						</td>
-					</tr>
-					<tr>
-						<td class="shipping_method" colspan="<?php echo $colspan ?>">
-							<strong class="order-shipping_method"><?php esc_html_e( 'Shipping:', 'woocommerce-pip' ) ?></strong>
-						</td>
-						<td class="value">
-							<span><?php esc_html_e( 'Free Shipping', 'woocommerce-pip' ); ?></span>
-						</td>
-					</tr>
-					<tr>
-						<td class="us-al-state-tax-1" colspan="<?php echo $colspan ?>">
-							<strong class="order-us-al-state-tax-1"><?php esc_html_e( 'State Tax:', 'woocommerce-pip' ); ?></strong>
-						</td>
-						<td class="value">
-							<span class="amount"><?php echo wc_price( 2.24 ); ?></span>
-						</td>
-					</tr>
-					<tr>
-						<td class="payment_method" colspan="<?php echo $colspan ?>">
-							<strong class="order-payment_method"><?php esc_html_e( 'Payment Method:', 'woocommerce-pip' ); ?></strong>
-						</td>
-						<td class="value">
-							<span>Paypal</span>
-						</td>
-					</tr>
-					<tr>
-						<td class="refund_0" colspan="<?php echo $colspan ?>">
-							<strong class="order-refund_0"><?php esc_html_e( 'Refund:', 'woocommerce-pip' ); ?></strong>
-						</td>
-						<td class="value">
-							<span class="amount"><?php echo wc_price( -18.72 ); ?></span>
-						</td>
-					</tr>
-					<tr>
-						<td class="order_total" colspan="<?php echo $colspan ?>">
-							<strong class="order-order_total"><?php esc_html_e( 'Total:', 'woocommerce-pip' ); ?></strong>
-						</td>
-						<td class="value">
-							<del><?php echo wc_price( 57.14 ); ?></del> <ins><span class="amount"><?php echo wc_price( 38.42 ); ?></span></ins>
-						</td>
-					</tr>
-				</tfoot>
-
 				<tbody class="order-table-body">
 					<tr class="row table-item odd">
+						<?php if ( $show_thumbnail ) : ?>
+							<td class="thumbnail">
+								<span class="thumbnail"><?php echo $thumbnail; ?></span>
+							</td>
+						<?php endif; ?>
 						<?php if ( $show_sku ) : ?>
-							<td class="sku">SV1000232</td>
+							<td class="sku">
+								<span class="sku">SV1000232</span>
+							</td>
 						<?php endif; ?>
 						<td class="product">
 							<span class="product product-simple"><a href="https://www.skyverge.com/shop/" target="_blank">Woo Album</a></span>
 						</td>
-						<td class="quantity">1</td>
-						<td class="price"><?php echo wc_price( 7.90 ); ?></td>
-						<td class="id"><span data-item-id="0"></span></td>
+						<?php if ( $show_unit_price ) : ?>
+							<td class="unit-price">
+								<span class="unit-price"><?php echo wc_price( 7.90 ); ?></span>
+							</td>
+						<?php endif; ?>
+						<td class="quantity">
+							<span class="quantity">1</span>
+						</td>
+						<td class="price">
+							<span class="price"><?php echo wc_price( 7.90 ); ?></span>
+						</td>
+						<td class="id">
+							<span data-item-id="0"></span>
+						</td>
 					</tr>
 					<tr class="row table-item even">
+						<?php if ( $show_thumbnail ) : ?>
+							<td>
+								<span class="thumbnail"><?php echo $thumbnail; ?></span>
+							</td>
+						<?php endif; ?>
 						<?php if ( $show_sku ) : ?>
-							<td class="sku">SV1001232</td>
+							<td class="sku">
+								<span class="sku">SV1001232</span>
+							</td>
 						<?php endif; ?>
 						<td class="product">
 							<span class="product product-simple"><a href="https://www.skyverge.com/shop/" target="_blank">Woo Belt</a></span>
 						</td>
-						<td class="quantity">1</td>
-						<td class="price"><?php echo wc_price( 15.00 ); ?></td>
-						<td class="id"><span data-item-id="0"></span></td>
+						<?php if ( $show_unit_price ) : ?>
+							<td class="unit-price">
+								<span class="unit-price"><?php echo wc_price( 15.00 ); ?></span>
+							</td>
+						<?php endif; ?>
+						<td class="quantity">
+							<span class="quantity">1</span>
+						</td>
+						<td class="price">
+							<span class="price"><?php echo wc_price( 15.00 ); ?></span>
+						</td>
+						<td class="id">
+							<span data-item-id="0"></span>
+						</td>
 					</tr>
 					<tr class="row table-item odd">
+						<?php if ( $show_thumbnail ) : ?>
+							<td>
+								<span class="thumbnail"><?php echo $thumbnail; ?></span>
+							</td>
+						<?php endif; ?>
 						<?php if ( $show_sku ) : ?>
-							<td class="sku">SV1001321</td>
+							<td class="sku">
+								<span class="sku">SV1001321</span>
+							</td>
 						<?php endif; ?>
 						<td class="product">
 							<span class="product product-variation"><a href="https://www.skyverge.com/shop/" target="_blank">Woo Tee Shirt</a></span>
@@ -323,6 +325,11 @@
 								<dd class="variation-size"><p><?php echo esc_html_x( 'M', 'Sample Variation Medium Size', 'woocommerce-pip' ); ?></p></dd>
 							</dl>
 						</td>
+						<?php if ( $show_unit_price ) : ?>
+							<td class="unit-price">
+								<span class="unit-price"><?php echo wc_price( 18.00 ); ?></span>
+							</td>
+						<?php endif; ?>
 						<td class="quantity">
 							<span class="quantity"><del>2</del></span>
 							<span class="refund-quantity">1</span>
@@ -332,6 +339,65 @@
 							<span class="refund-price"><span class="amount"><?php echo wc_price( 18.00 ); ?></span></span>
 						</td>
 						<td class="id"><span data-item-id="0"></span></td>
+					</tr>
+				</tbody>
+
+				<tbody class="order-table-footer">
+					<tr>
+						<td class="cart_subtotal" colspan="<?php echo $colspan1; ?>">
+							<strong class="order-cart_subtotal"><?php esc_html_e( 'Subtotal:', 'woocommerce-pip' ); ?></strong>
+						</td>
+						<td class="value" colspan="<?php echo $colspan2; ?>">
+							<span class="amount"><?php echo wc_price( 55.90 ); ?></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="discount" colspan="<?php echo $colspan1; ?>">
+							<strong class="order-discount"><?php esc_html_e( 'Discount:', 'wooocommerce-pip' ) ?></strong>
+						</td>
+						<td class="value" colspan="<?php echo $colspan2; ?>">
+							<span class="amount"><?php echo wc_price( -1.00 ); ?></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="shipping_method" colspan="<?php echo $colspan1; ?>">
+							<strong class="order-shipping_method"><?php esc_html_e( 'Shipping:', 'woocommerce-pip' ) ?></strong>
+						</td>
+						<td class="value" colspan="<?php echo $colspan2; ?>">
+							<span><?php esc_html_e( 'Free Shipping', 'woocommerce-pip' ); ?></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="us-al-state-tax-1" colspan="<?php echo $colspan1; ?>">
+							<strong class="order-us-al-state-tax-1"><?php esc_html_e( 'State Tax:', 'woocommerce-pip' ); ?></strong>
+						</td>
+						<td class="value" colspan="<?php echo $colspan2; ?>">
+							<span class="amount"><?php echo wc_price( 2.24 ); ?></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="payment_method" colspan="<?php echo $colspan1; ?>">
+							<strong class="order-payment_method"><?php esc_html_e( 'Payment Method:', 'woocommerce-pip' ); ?></strong>
+						</td>
+						<td class="value" colspan="<?php echo $colspan2; ?>">
+							<span>Paypal</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="refund_0" colspan="<?php echo $colspan1; ?>">
+							<strong class="order-refund_0"><?php esc_html_e( 'Refund:', 'woocommerce-pip' ); ?></strong>
+						</td>
+						<td class="value" colspan="<?php echo $colspan2; ?>">
+							<span class="amount"><?php echo wc_price( -18.72 ); ?></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="order_total" colspan="<?php echo $colspan1; ?>">
+							<strong class="order-order_total"><?php esc_html_e( 'Total:', 'woocommerce-pip' ); ?></strong>
+						</td>
+						<td class="value" colspan="<?php echo $colspan2; ?>">
+							<del><?php echo wc_price( 57.14 ); ?></del> <ins><span class="amount"><?php echo wc_price( 38.42 ); ?></span></ins>
+						</td>
 					</tr>
 				</tbody>
 
@@ -348,7 +414,7 @@
 
 				<?php $coupons = array( date_i18n( 'Y', time() ) . 'ONEDOLLAR' );
 				/* translators: Placeholder: %1$s - opening <strong> tag, %2$s - coupons count (used in order), %3$s - closing </strong> tag - %4$s - coupons list */
-				printf( '<br><div class="coupons-used">' . _n( '%1$sCoupon used:%3$s %4$s', '%1$sCoupons used (%2$s):%3$s %4$s', count( $coupons ), 'woocommerce-pip' ) . '</div><br>', '<strong>', count( $coupons ), '</strong>', '<span class="coupon">' . implode( '</span>, <span class="coupon">', $coupons ) . '</span>' ); ?>
+				printf( '<div class="coupons-used">' . _n( '%1$sCoupon used:%3$s %4$s', '%1$sCoupons used (%2$s):%3$s %4$s', count( $coupons ), 'woocommerce-pip' ) . '</div><br>', '<strong>', count( $coupons ), '</strong>', '<span class="coupon">' . implode( '</span>, <span class="coupon">', $coupons ) . '</span>' ); ?>
 
 			<?php endif; ?>
 

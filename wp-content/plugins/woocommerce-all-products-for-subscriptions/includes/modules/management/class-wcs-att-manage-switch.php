@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles scheme switching for SATT items.
  *
  * @class    WCS_ATT_Manage_Switch
- * @version  3.0.0
+ * @version  3.1.21
  */
 class WCS_ATT_Manage_Switch extends WCS_ATT_Abstract_Module {
 
@@ -161,20 +161,26 @@ class WCS_ATT_Manage_Switch extends WCS_ATT_Abstract_Module {
 
 		$product = $item->get_product();
 
-		if ( WCS_ATT_Product::supports_feature( $product, 'subscription_schemes' ) && WCS_ATT_Product::supports_feature( $product, 'subscription_content_switching' ) && ! WCS_ATT_Product::supports_feature( $product, 'subscription_scheme_switching' ) ) {
+		if ( WCS_ATT_Product::supports_feature( $product, 'subscription_schemes' ) && ! WCS_ATT_Product::supports_feature( $product, 'subscription_scheme_switching' ) ) {
 
-			$schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-			$found   = false;
+			if ( WCS_ATT_Product::supports_feature( $product, 'subscription_content_switching', array( 'subscription' => $subscription ) ) ) {
 
-			// Does a matching scheme exist?
-			foreach ( $schemes as $scheme ) {
-				if ( $scheme->matches_subscription( $subscription, array( 'upcoming_renewals' => false ) ) ) {
-					$found = true;
-					break;
+				$schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
+				$found   = false;
+
+				// Does a matching scheme exist?
+				foreach ( $schemes as $scheme ) {
+					if ( $scheme->matches_subscription( $subscription, array( 'upcoming_renewals' => false ) ) ) {
+						$found = true;
+						break;
+					}
 				}
-			}
 
-			if ( ! $found ) {
+				if ( ! $found ) {
+					$can = false;
+				}
+
+			} else {
 				$can = false;
 			}
 		}
@@ -401,7 +407,7 @@ class WCS_ATT_Manage_Switch extends WCS_ATT_Abstract_Module {
 		if ( WCS_ATT_Product::supports_feature( $product, 'subscription_scheme_switching' ) ) {
 
 			// If variation switching is not allowed, throw an error as at this point we know that an attribute changed.
-			if ( false === WCS_ATT_Product::supports_feature( $product, 'subscription_content_switching' ) ) {
+			if ( false === WCS_ATT_Product::supports_feature( $product, 'subscription_content_switching', array( 'subscription' => $subscription ) ) ) {
 				$is_valid = false;
 				wc_add_notice( __( 'Switching product options is not allowed. You may only switch to a different subscription plan.', 'woocommerce-subscriptions' ), 'error' );
 			}

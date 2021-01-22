@@ -92,15 +92,14 @@ function wc_od_is_save_request_for_order( $order_id ) {
 }
 
 /**
- * Retrieves the number of orders to be delivered in a certain date (timestamp).
+ * Retrieves the number of orders to be delivered in a certain date.
  *
- * @param string $timestamp Date to be checked.
+ * @since 1.8.0
  *
+ * @param int $timestamp The timestamp.
  * @return int
  */
 function wc_od_get_orders_to_deliver( $timestamp ) {
-	global $wpdb;
-
 	/** @var WC_OD_Delivery_Cache $delivery_cache */
 	$delivery_cache = WC_OD_Delivery_Cache::instance();
 	$cache_key      = $delivery_cache->build_cache_key( WC_OD_Delivery_Cache::ORDER_CACHE_PREFIX, array( date( 'Y-m-d', $timestamp ) ) );
@@ -110,48 +109,43 @@ function wc_od_get_orders_to_deliver( $timestamp ) {
 		return intval( $cache_data );
 	}
 
-	$result = $wpdb->get_var(
-		$wpdb->prepare(
-			"
-			SELECT COUNT(pm.meta_id) 
-			FROM {$wpdb->postmeta} pm
-			INNER JOIN {$wpdb->posts} p
-			ON p.ID = pm.post_id
-			INNER JOIN {$wpdb->prefix}wc_order_stats wcos
-		 	ON pm.post_id = wcos.order_id
-		 	WHERE p.post_type = 'shop_order'
-			AND p.post_status != 'trash' 
-			AND pm.meta_key = '_delivery_date' AND pm.meta_value = %s
-			AND wcos.status NOT IN ('wc-cancelled', 'wc-refunded', 'wc-failed')
-			",
-			date( 'Y-m-d', $timestamp )
+	$order_ids = get_posts(
+		array(
+			'post_type'      => 'shop_order',
+			'post_status'    => array( 'wc-processing', 'wc-on-hold', 'wc-completed' ),
+			'fields'         => 'ids',
+			'posts_per_page' => -1,
+			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+				array(
+					'key'   => '_delivery_date',
+					'value' => gmdate( 'Y-m-d', $timestamp ),
+				),
+				array(
+					'key'     => '_delivery_time_frame',
+					'compare' => 'NOT EXISTS',
+				),
+			),
 		)
 	);
 
-	$total = 0;
-	if ( null !== $result ) {
-		$total = intval( $result );
-	}
+	$count = count( $order_ids );
 
-	$delivery_cache->write( $cache_key, $total );
+	$delivery_cache->write( $cache_key, $count );
 
-	return $total;
+	return $count;
 }
 
 /**
  * Retrieves the number of orders to be delivered in a certain date and time frame.
  *
- * @todo Implement logic to filter the time frames (_delivery_time_frame).
+ * @since 1.8.0
  *
- * @param string $timestamp Timestamp of the date.
+ * @param int    $timestamp Timestamp.
  * @param string $from      Time from.
  * @param string $to        Time to.
- *
  * @return int
  */
 function wc_od_get_orders_to_deliver_in_time_frame( $timestamp, $from, $to ) {
-	global $wpdb;
-
 	/** @var WC_OD_Delivery_Cache $delivery_cache */
 	$delivery_cache = WC_OD_Delivery_Cache::instance();
 	$cache_key      = $delivery_cache->build_cache_key( WC_OD_Delivery_Cache::ORDER_CACHE_PREFIX, array( date( 'Y-m-d', $timestamp ), $from, $to ) );
@@ -161,47 +155,46 @@ function wc_od_get_orders_to_deliver_in_time_frame( $timestamp, $from, $to ) {
 		return intval( $cache_data );
 	}
 
-	$results = $wpdb->get_results(
-		$wpdb->prepare(
-			"
-			SELECT pm.post_id 
-			FROM {$wpdb->postmeta} pm
-			INNER JOIN {$wpdb->posts} p
-			ON p.ID = pm.post_id
-			INNER JOIN {$wpdb->prefix}wc_order_stats wcos
-		 	ON pm.post_id = wcos.order_id
-			WHERE p.post_type = 'shop_order' 
-			AND p.post_status != 'trash' 
-			AND pm.meta_key = '_delivery_date' AND pm.meta_value = %s
-			AND wcos.status NOT IN ('wc-cancelled', 'wc-refunded', 'wc-failed')
-			",
-			date( 'Y-m-d', $timestamp )
+	$order_ids = get_posts(
+		array(
+			'post_type'      => 'shop_order',
+			'post_status'    => array( 'wc-processing', 'wc-on-hold', 'wc-completed' ),
+			'fields'         => 'ids',
+			'posts_per_page' => -1,
+			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+				array(
+					'key'   => '_delivery_date',
+					'value' => gmdate( 'Y-m-d', $timestamp ),
+				),
+				array(
+					'key'     => '_delivery_time_frame',
+					'compare' => 'EXISTS',
+				),
+			),
 		)
 	);
 
 	$count = 0;
-	if ( ! empty( $results ) ) {
-		foreach ( $results as $result ) {
-			$order      = wc_od_get_order( $result->post_id );
-			$time_frame = $order->get_meta( '_delivery_time_frame' );
 
-			if ( '' === $time_frame ) {
+	if ( ! empty( $order_ids ) ) {
+		$time_from = strtotime( $from, $timestamp );
+		$time_to   = strtotime( $to, $timestamp );
+
+		foreach ( $order_ids as $order_id ) {
+			$time_frame = get_post_meta( $order_id, '_delivery_time_frame', true );
+
+			if ( ! is_array( $time_frame ) ) {
 				continue;
 			}
 
-			$order_time_from = date( 'H:i', strtotime( $time_frame['time_from'] ) );
-			$order_time_to   = date( 'H:i', strtotime( $time_frame['time_to'] ) );
+			$order_time_from = strtotime( $time_frame['time_from'], $timestamp );
+			$order_time_to   = strtotime( $time_frame['time_to'], $timestamp );
 
-			/*
-			 * @todo Check if _delivery_time_frame should be updated when admin changes time frames.
-			 * How do we know between which time frame the order is if the admin changes the configuration of
-			 * the time frames?
-			 * Ex: Monday -> 08:00 to 12:00. Then changed to 08:00 to 10:00.
-			 * Orders placed using 08:00 to 12:00 will not be counted because the $order_time_from (12:00) is greater
-			 * than the new $to (10:00).
-			 */
-			if ( $order_time_from >= $from && $order_time_to <= $to ) {
-				$count++;
+			if (
+				( $order_time_from === $time_from && $order_time_to === $time_to ) || // The same range.
+				( $order_time_from < $time_to && $order_time_to > $time_from ) // The two time ranges intersect.
+			) {
+				$count ++;
 			}
 		}
 	}

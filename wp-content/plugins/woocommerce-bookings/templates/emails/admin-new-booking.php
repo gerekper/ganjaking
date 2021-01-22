@@ -30,7 +30,7 @@ if ( wc_booking_order_requires_confirmation( $booking->get_order() ) && $booking
 ?>
 
 <?php
-do_action( 'woocommerce_email_header', $email_heading );
+do_action( 'woocommerce_email_header', $email_heading, $email );
 
 $order = $booking->get_order();
 
@@ -114,4 +114,4 @@ echo wp_kses_post( make_clickable( sprintf( __( 'You can view and edit this book
 ?>
 </p>
 
-<?php do_action( 'woocommerce_email_footer' ); ?>
+<?php do_action( 'woocommerce_email_footer', $email ); ?>

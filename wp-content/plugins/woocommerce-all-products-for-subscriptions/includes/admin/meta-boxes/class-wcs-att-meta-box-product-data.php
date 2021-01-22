@@ -86,7 +86,7 @@ class WCS_ATT_Meta_Box_Product_Data {
 
 		$subscription_schemes = $product_object->get_meta( '_wcsatt_schemes', true );
 
-		?><div id="wcsatt_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo empty( $subscription_schemes ) ? 'planless onboarding' : ''; ?>">
+		?><div id="wcsatt_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo empty( $subscription_schemes ) ? 'planless onboarding' : ''; ?>" style="display:none;">
 			<div class="options_group general_scheme_options"><?php
 
 				// Subscription Status.

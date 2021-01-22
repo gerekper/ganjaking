@@ -2,20 +2,23 @@
     "packages": [
         {
             "name": "collizo4sky/persist-admin-notices-dismissal",
-            "version": "1.4.3",
-            "version_normalized": "1.4.3.0",
+            "version": "1.4.4",
+            "version_normalized": "1.4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/w3guy/persist-admin-notices-dismissal.git",
-                "reference": "2d7d8bb3cba631ad227c92296a4b675d7cbc71d7"
+                "reference": "900739eb6b0ec0210465f5983a6d4e0e420289e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/w3guy/persist-admin-notices-dismissal/zipball/2d7d8bb3cba631ad227c92296a4b675d7cbc71d7",
-                "reference": "2d7d8bb3cba631ad227c92296a4b675d7cbc71d7",
+                "url": "https://api.github.com/repos/w3guy/persist-admin-notices-dismissal/zipball/900739eb6b0ec0210465f5983a6d4e0e420289e4",
+                "reference": "900739eb6b0ec0210465f5983a6d4e0e420289e4",
                 "shasum": ""
             },
-            "time": "2019-03-12T05:19:51+00:00",
+            "require": {
+                "php": ">=5.4"
+            },
+            "time": "2020-12-31T17:12:37+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -24,16 +27,20 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
             "authors": [
                 {
                     "name": "Collins Agbonghama",
-                    "email": "me@w3guy.com"
+                    "email": "me@w3guy.com",
+                    "role": "developer"
                 }
             ],
             "description": "Simple library to persist dismissal of admin notices across pages in WordPress dashboard.",
             "support": {
                 "issues": "https://github.com/w3guy/persist-admin-notices-dismissal/issues",
-                "source": "https://github.com/w3guy/persist-admin-notices-dismissal/tree/1.4.3"
+                "source": "https://github.com/w3guy/persist-admin-notices-dismissal"
             },
             "install-path": "../collizo4sky/persist-admin-notices-dismissal"
         },
@@ -409,11 +416,11 @@
         },
         {
             "name": "mailoptin/authifly",
-            "version": "0.2.1608623502",
-            "version_normalized": "0.2.1608623502.0",
+            "version": "0.2.1610358088",
+            "version_normalized": "0.2.1610358088.0",
             "dist": {
                 "type": "zip",
-                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1hBRSs/mailoptinauthifly-0-2-1608623502.zip"
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1lnrpM/mailoptinauthifly-0-2-1610358088.zip"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -459,11 +466,11 @@
         },
         {
             "name": "mailoptin/connections",
-            "version": "0.2.1608628430",
-            "version_normalized": "0.2.1608628430.0",
+            "version": "0.2.1610358132",
+            "version_normalized": "0.2.1610358132.0",
             "dist": {
                 "type": "zip",
-                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_Nw5Ou/mailoptinconnections-0-2-1608628430.zip"
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_ABCXh/mailoptinconnections-0-2-1610358132.zip"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -534,17 +541,17 @@
         },
         {
             "name": "mailoptin/core",
-            "version": "0.1.0-alpha.1608623662",
-            "version_normalized": "0.1.0.0-alpha1608623662",
+            "version": "0.1.0-alpha.1610358126",
+            "version_normalized": "0.1.0.0-alpha1610358126",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mailoptin/core.git",
-                "reference": "12338dc2018d3d44d793b320155a1f2e1ae7e0e4"
+                "reference": "5e6dc009da35edb9700a876b4570cd1ee8a2b3ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mailoptin/core/zipball/12338dc2018d3d44d793b320155a1f2e1ae7e0e4",
-                "reference": "12338dc2018d3d44d793b320155a1f2e1ae7e0e4",
+                "url": "https://api.github.com/repos/mailoptin/core/zipball/5e6dc009da35edb9700a876b4570cd1ee8a2b3ff",
+                "reference": "5e6dc009da35edb9700a876b4570cd1ee8a2b3ff",
                 "shasum": ""
             },
             "require": {
@@ -555,7 +562,7 @@
                 "pelago/emogrifier": "^1.0",
                 "soundasleep/html2text": "~0.5"
             },
-            "time": "2020-12-21T09:07:23+00:00",
+            "time": "2021-01-07T13:29:47+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "autoload": {
@@ -572,7 +579,7 @@
             "description": "Core lib for MailOptin",
             "support": {
                 "issues": "https://github.com/mailoptin/core/issues",
-                "source": "https://github.com/mailoptin/core/tree/0.1.0-alpha.1608623662"
+                "source": "https://github.com/mailoptin/core/tree/0.1.0-alpha.1610358126"
             },
             "install-path": "../../src/core"
         },

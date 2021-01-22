@@ -32,7 +32,7 @@ class Redsys_Card_Images extends WP_Widget {
 		}
 		//output
 		echo '<!-- logos tarjetas crédito añadidos por el plugin de Redsys de WooCommerce.com -->';
-		echo '<img src="' . REDSYS_PLUGIN_URL . 'assets/images/Visa-MasterCard.png" alt="' . __( 'Accepted Credit Cards', 'woocommerce-redsys' ) . '" height="58" width="150">';
+		echo '<img src="' . REDSYS_PLUGIN_URL_P . 'assets/images/Visa-MasterCard.png" alt="' . __( 'Accepted Credit Cards', 'woocommerce-redsys' ) . '" height="58" width="150">';
 		echo '<!-- Fin logos tarjetas crédito añadidos por el plugin de Redsys de WooCommerce.com -->';
 		echo $args['after_widget'];
 	}

@@ -327,7 +327,6 @@ class AjaxHandler
      */
     public function pause_optin_split_test()
     {
-
         if ( ! current_user_has_privilege()) {
             return;
         }

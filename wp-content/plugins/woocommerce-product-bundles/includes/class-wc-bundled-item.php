@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The bunded item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  6.5.0
+ * @version  6.7.0
  */
 class WC_Bundled_Item {
 
@@ -676,10 +676,11 @@ class WC_Bundled_Item {
 					$this->min_recurring_price         = $this->max_recurring_price         = $this->get_raw_price( $min_variation, 'sync' );
 					$this->min_regular_recurring_price = $this->max_regular_recurring_price = $this->get_raw_regular_price( $min_variation );
 
-					$min_signup_fee = WC_Subscriptions_Product::get_sign_up_fee( $min_variation );
+					$min_signup_fee   = WC_Subscriptions_Product::get_sign_up_fee( $min_variation );
+					$min_trial_length = WC_Subscriptions_Product::get_trial_length( $min_variation );
 
-					$min_regular_up_front_fee = $this->get_up_front_subscription_price( $this->min_regular_recurring_price, $min_signup_fee, $min_variation );
-					$min_up_front_fee         = $this->get_up_front_subscription_price( $this->min_recurring_price, $min_signup_fee, $min_variation );
+					$min_up_front_fee         = $min_trial_length > 0 ? $min_signup_fee : (double) $min_signup_fee + (double) $this->min_recurring_price;
+					$min_regular_up_front_fee = $min_trial_length > 0 ? $min_signup_fee : (double) $min_signup_fee + (double) $this->min_regular_recurring_price;
 
 					$this->min_regular_price = $this->max_regular_price = $min_regular_up_front_fee;
 					$this->min_price         = $this->max_price         = $min_up_front_fee;
@@ -1020,8 +1021,7 @@ class WC_Bundled_Item {
 		$price    = $product->$price_fn();
 
 		if ( ! $recurring && $this->is_subscription() ) {
-			$signup_fee = WC_Subscriptions_Product::get_sign_up_fee( $product );
-			$price      = $this->get_up_front_subscription_price( $price, $signup_fee, $product );
+			$price = WC_Subscriptions_Product::get_sign_up_fee( $product );
 		}
 
 		$this->remove_price_filters();
@@ -1650,8 +1650,8 @@ class WC_Bundled_Item {
 
 			$signup_fee = WC_Subscriptions_Product::get_sign_up_fee( $bundled_variation );
 
-			$variation_data[ 'regular_price' ] = $this->get_up_front_subscription_price( $variation_data[ 'regular_price' ], $signup_fee, $bundled_variation );
-			$variation_data[ 'price' ]         = $this->get_up_front_subscription_price( $variation_data[ 'price' ], $signup_fee, $bundled_variation );
+			$variation_data[ 'regular_price' ] = $signup_fee;
+			$variation_data[ 'price' ]         = $signup_fee;
 
 			$variation_data[ 'recurring_html' ] = WC_PB_Product_Prices::get_recurring_price_html_component( $bundled_variation );
 			$variation_data[ 'recurring_key' ]  = str_replace( '_synced', '', WC_Subscriptions_Cart::get_recurring_cart_key( array( 'data' => $bundled_variation ), ' ' ) );

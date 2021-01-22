@@ -2115,7 +2115,7 @@ class RevSliderSlide extends RevSliderFunctions {
 		$this->order	 = $this->get_val($slide, 'slide_order', '');
 		$this->params	 = $this->get_val($slide, 'params');
 		$this->params	 = (!is_array($this->params)) ? (array)json_decode($this->params, true) : $this->params;
-		$this->layers	 = ($this->init_layer) ? $this->layers = json_decode($slide['layers'], true) : $slide['layers'];
+		$this->layers	 = ($this->init_layer) ? $this->layers = json_decode($this->get_val($slide, 'layers'), true) : $this->get_val($slide, 'layers');
 		$this->layers	 = (empty($this->layers)) ? array() : $this->layers;
 		$this->settings	 = $this->get_val($slide, 'settings');
 		$this->settings	 = (!is_array($this->settings)) ? (array)json_decode($this->settings, true) : $this->settings;

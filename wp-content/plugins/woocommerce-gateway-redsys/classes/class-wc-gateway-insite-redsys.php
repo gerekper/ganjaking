@@ -34,7 +34,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$logo_url   = $this->get_option( 'logo' );
 			$this->icon = apply_filters( 'woocommerce_insite_icon', $logo_url );
 		} else {
-			$this->icon = apply_filters( 'woocommerce_insite_icon', REDSYS_PLUGIN_URL . 'assets/images/redsys.png' );
+			$this->icon = apply_filters( 'woocommerce_insite_icon', REDSYS_PLUGIN_URL_P . 'assets/images/redsys.png' );
 		}
 
 		$this->has_fields         = true;
@@ -103,7 +103,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	*/
 	function is_valid_for_use() {
 		
-		include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
+		include_once REDSYS_PLUGIN_DATA_PATH_P . 'allowed-currencies.php';
 		
 		if ( ! in_array( get_woocommerce_currency(), redsys_return_allowed_currencies(), true ) ) {
 			return false;
@@ -137,7 +137,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					?>
 				</table><!--/.form-table-->
 			<?php else :
-				include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
+				include_once REDSYS_PLUGIN_DATA_PATH_P . 'allowed-currencies.php';
 				$currencies = redsys_return_allowed_currencies();
 				$formated_currencies = '';
 			

@@ -1,5 +1,8 @@
 *** WooCommerce Product Search ***
 
+2021.01.14 - version 3.5.1
+* Fixed products on back-order would not be included in results when there are more products out of stock than in stock.
+
 2021.01.08 - version 3.5.0
 * WordPress 5.6 compatible.
 * WooCommerce 4.9 compatible.

@@ -27,7 +27,7 @@ class WIS_SettingsPage extends WIS_Page {
 	 * Mainly used to navigate between pages.
 	 *
 	 * @since 1.0.0
-	 * @see   FactoryPages440_AdminPage
+	 * @see   FactoryPages441_AdminPage
 	 *
 	 * @var string
 	 */
@@ -160,7 +160,8 @@ class WIS_SettingsPage extends WIS_Page {
 	public function instagram() {
 		if ( isset( $_GET['type'] ) && $_GET['type'] == 'business' ) {
 			if ( isset( $_GET['token_error'] ) ) {
-				echo '<div class="notice notice-error"><p>' . $_GET['token_error'] . '</p></div>';
+			    $token_error = wp_strip_all_tags($_GET['token_error']);
+				echo '<div class="notice notice-error"><p>' . $token_error . '</p></div>';
 				$_SERVER['REQUEST_URI'] = str_replace( '#_', '', remove_query_arg( 'token_error' ) );
 			} else {
 				if ( isset( $_GET['access_token'] ) ) {
@@ -183,7 +184,8 @@ class WIS_SettingsPage extends WIS_Page {
 			}
 		} else {
 			if ( isset( $_GET['token_error'] ) ) {
-				echo '<div class="notice notice-error"><p>' . $_GET['token_error'] . '</p></div>';
+                $token_error = wp_strip_all_tags($_GET['token_error']);
+				echo '<div class="notice notice-error"><p>' . $token_error . '</p></div>';
 				$_SERVER['REQUEST_URI'] = str_replace( '#_', '', remove_query_arg( 'token_error' ) );
 			} else {
 				if ( isset( $_GET['access_token'] ) ) {

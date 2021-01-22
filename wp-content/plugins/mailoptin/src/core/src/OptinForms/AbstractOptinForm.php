@@ -1154,9 +1154,10 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
 
             $data['split_test_variants'] = array_reduce($all_variants, function ($carry, $variant_id) use ($data) {
                 $carry[$variant_id] = [
-                    'global_success_cookie' => $data['global_success_cookie'],
-                    'global_cookie'         => $data['global_cookie'],
-                    'optin_uuid'            => OCR::get_optin_campaign_uuid($variant_id),
+                    'global_success_cookie'  => $data['global_success_cookie'],
+                    'global_cookie'          => $data['global_cookie'],
+                    'optin_uuid'             => OCR::get_optin_campaign_uuid($variant_id),
+                    'state_after_conversion' => $this->state_after_conversion()
                 ];
 
                 return $carry;

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.8.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2036,6 +2036,18 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 								'coupon_object'      => $coupon,
 							)
 						);
+						$max_discount_session_start   = false;
+						$max_discount_session         = WC()->session->get( 'wc_sc_max_discount_session' );
+						if ( empty( $max_discount_session ) || ! is_array( $max_discount_session ) ) {
+							$max_discount_session = array();
+						}
+						if ( empty( $max_discount_session[ $coupon_id ] ) || ! is_array( $max_discount_session[ $coupon_id ] ) ) {
+							$max_discount_session[ $coupon_id ]           = array();
+							$max_discount_session_start                   = true;
+							$max_discount_session[ $coupon_id ]['amount'] = $max_discount;
+							$max_discount_session[ $coupon_id ]['count']  = ( isset( WC()->cart ) && is_callable( array( WC()->cart, 'get_cart' ) ) ) ? count( WC()->cart->get_cart() ) : 0;
+						}
+
 						if ( true === $is_restricted ) {
 							if ( class_exists( 'WC_Discounts' ) && isset( WC()->cart ) ) {
 								$wc_cart           = WC()->cart;
@@ -2049,6 +2061,9 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 									$items_to_validate = $wc_discounts->items;
 								}
 								if ( ! empty( $items_to_validate ) && is_array( $items_to_validate ) ) {
+									if ( true === $max_discount_session_start ) {
+										$max_discount_session[ $coupon_id ]['count'] = count( $items_to_validate );
+									}
 									foreach ( $items_to_validate as $item ) {
 										$item_to_apply = clone $item; // Clone the item so changes to wc_discounts item do not affect the originals.
 
@@ -2085,7 +2100,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 								$discount_percent = ( wc_get_price_excluding_tax( $cart_item['data'] ) * $cart_item_qty ) / $cart_items_subtotal;
 							}
 
-							$discount_percent = round( $discount_percent, 2 ); // A percentage value should always be rounded with 2 decimal point.
+							$discount_percent = round( $discount_percent, 4 ); // A percentage value should always be rounded with 4 decimal point.
 
 							if ( $this->is_wc_gte_32() ) {
 								$max_discount_amount = ( $max_discount * $discount_percent );
@@ -2095,7 +2110,22 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 							$max_discount_amount = wc_round_discount( $max_discount_amount, wc_get_price_decimals() );
 
+							$is_round_max_discount = $max_discount_amount < $discount;
+
 							$discount = min( $max_discount_amount, $discount );
+
+							$max_discount_session[ $coupon_id ]['amount'] -= $discount;
+							$max_discount_session[ $coupon_id ]['count']--;
+
+							if ( 0 === $max_discount_session[ $coupon_id ]['count'] ) {
+								if ( ! empty( $max_discount_session[ $coupon_id ]['amount'] ) && true === $is_round_max_discount ) {
+									$discount += $max_discount_session[ $coupon_id ]['amount'];
+								}
+								unset( $max_discount_session[ $coupon_id ] );
+							}
+
+							WC()->session->set( 'wc_sc_max_discount_session', $max_discount_session );
+
 						}
 					}
 				}

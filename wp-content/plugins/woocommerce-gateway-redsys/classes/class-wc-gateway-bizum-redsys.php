@@ -23,7 +23,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	public function __construct() {
 		
 		$this->id                   = 'bizumredsys';
-		$this->icon                 = apply_filters( 'woocommerce_' . $this->id . '_icon', REDSYS_PLUGIN_URL . 'assets/images/bizum.png' );
+		$this->icon                 = apply_filters( 'woocommerce_' . $this->id . '_icon', REDSYS_PLUGIN_URL_P . 'assets/images/bizum.png' );
 		$this->has_fields           = false;
 		$this->liveurl              = 'https://sis.redsys.es/sis/realizarPago';
 		$this->testurl              = 'https://sis-t.redsys.es:25443/sis/realizarPago';
@@ -675,6 +675,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			$miObj             = new RedsysAPI();
 			$decodec           = $miObj->decodeMerchantParameters( $data );
 			$order_id          = $miObj->getParameter( 'Ds_Order' );
+			$ds_merchant_code  = $miObj->getParameter( 'Ds_MerchantCode' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
@@ -735,10 +736,21 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				return false;
 			}
 		} else {
+			$version           = $_POST['Ds_SignatureVersion'];
+			$data              = $_POST['Ds_MerchantParameters'];
+			$remote_sign       = $_POST['Ds_Signature'];
+			$miObj             = new RedsysAPI();
+			$decodec           = $miObj->decodeMerchantParameters( $data );
+			$order_id          = $miObj->getParameter( 'Ds_Order' );
+			$ds_merchant_code  = $miObj->getParameter( 'Ds_MerchantCode' );
+			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
+			$order1            = $order_id;
+			$order2            = WCRed()->clean_order_number( $order1 );
+			$secretsha256_meta = get_post_meta( $order2, '_redsys_secretsha256', true );
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'bizumredsys', 'HTTP Notification received: ' . print_r( $_POST, true ) );
 			}
-			if ( $_POST['Ds_MerchantCode'] === $this->customer ) {
+			if ( $ds_merchant_code === $this->customer ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', 'Received valid notification from Servired/RedSys' );
 				}

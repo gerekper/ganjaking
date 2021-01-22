@@ -5,10 +5,11 @@ namespace MailPoet\Services;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\DI\ContainerWrapper;
 use MailPoet\Mailer\Mailer;
-use MailPoet\Models\Subscriber;
 use MailPoet\Services\Bridge\API;
 use MailPoet\Settings\SettingsController;
+use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Bridge {
@@ -39,11 +40,18 @@ class Bridge {
   /** @var SettingsController */
   private $settings;
 
-  public function __construct(SettingsController $settingsController = null) {
+  /** @var SubscribersFeature */
+  private $subscribersFeature;
+
+  public function __construct(SettingsController $settingsController = null, SubscribersFeature $subscribersFeature = null) {
     if ($settingsController === null) {
       $settingsController = SettingsController::getInstance();
     }
+    if ($subscribersFeature === null) {
+      $subscribersFeature = ContainerWrapper::getInstance()->get(SubscribersFeature::class);
+    }
     $this->settings = $settingsController;
+    $this->subscribersFeature = $subscribersFeature;
   }
 
   /**
@@ -217,7 +225,7 @@ class Bridge {
       )
       && ($this->api instanceof API)
     ) {
-      return $this->api->updateSubscriberCount(Subscriber::getTotalSubscribers());
+      return $this->api->updateSubscriberCount($this->subscribersFeature->getSubscribersCount());
     }
     return null;
   }

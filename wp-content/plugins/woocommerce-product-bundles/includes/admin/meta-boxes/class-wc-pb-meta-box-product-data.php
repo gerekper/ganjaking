@@ -180,7 +180,7 @@ class WC_PB_Meta_Box_Product_Data {
 
 		global $product_bundle_object;
 
-		?><div id="bundled_product_data" class="panel woocommerce_options_panel wc_gte_30">
+		?><div id="bundled_product_data" class="panel woocommerce_options_panel wc_gte_30" style="display:none">
 			<div class="options_group_general">
 				<?php
 				/**

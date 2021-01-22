@@ -30,7 +30,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 			$logo_url   = $this->get_option( 'logo' );
 			$this->icon = apply_filters( 'woocommerce_bank_redsys_icon', $logo_url );
 		} else {
-			$this->icon = apply_filters( 'woocommerce_bank_redsys_icon', REDSYS_PLUGIN_URL . 'assets/images/redsys.png' );
+			$this->icon = apply_filters( 'woocommerce_bank_redsys_icon', REDSYS_PLUGIN_URL_P . 'assets/images/redsys.png' );
 		}
 		$this->has_fields           = false;
 		$this->liveurl              = 'https://sis.redsys.es/sis/realizarPago';

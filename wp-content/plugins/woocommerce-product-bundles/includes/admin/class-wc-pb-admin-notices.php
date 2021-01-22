@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin notices handling.
  *
  * @class    WC_PB_Admin_Notices
- * @version  6.5.0
+ * @version  6.7.2
  */
 class WC_PB_Admin_Notices {
 
@@ -553,7 +553,13 @@ class WC_PB_Admin_Notices {
 			return;
 		}
 
-		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes' ) ) {
+		$note_class = false;
+
+		if ( class_exists( 'Automattic\WooCommerce\Admin\Notes\Note' ) ) {
+			$note_class = 'Automattic\WooCommerce\Admin\Notes\Note';
+		} elseif ( class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Note' ) ) {
+			$note_class = 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Note';
+		} else {
 			return;
 		}
 
@@ -569,7 +575,7 @@ class WC_PB_Admin_Notices {
 			'name'         => '',
 			'title'        => '',
 			'content'      => '',
-			'type'         => Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_INFORMATIONAL,
+			'type'         => $note_class::E_WC_ADMIN_NOTE_INFORMATIONAL,
 			'source'       => '',
 			'icon'         => '',
 			'check_plugin' => '',
@@ -590,7 +596,7 @@ class WC_PB_Admin_Notices {
 		}
 
 		// Otherwise, add the note.
-		$note = new Automattic\WooCommerce\Admin\Notes\WC_Admin_Note();
+		$note = new $note_class();
 
 		$note->set_name( $args[ 'name' ] );
 		$note->set_title( $args[ 'title' ] );
@@ -610,14 +616,14 @@ class WC_PB_Admin_Notices {
 				if ( empty( $action[ 'name' ] ) || empty( $action[ 'label' ] ) ) {
 					continue;
 				}
-				$note->add_action( $action[ 'name' ], $action[ 'label' ], empty( $action[ 'url' ] ) ? false : $action[ 'url' ], empty( $action[ 'status' ] ) ? Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_UNACTIONED : $action[ 'status' ], empty( $action[ 'primary' ] ) ? false : $action[ 'primary' ] );
+				$note->add_action( $action[ 'name' ], $action[ 'label' ], empty( $action[ 'url' ] ) ? false : $action[ 'url' ], empty( $action[ 'status' ] ) ? $note_class::E_WC_ADMIN_NOTE_UNACTIONED : $action[ 'status' ], empty( $action[ 'primary' ] ) ? false : $action[ 'primary' ] );
 			}
 		}
 
 		// Check if plugin installed or activated.
 		if ( ! empty( $args[ 'check_plugin' ] ) ) {
 			if ( WC_PB_Notices::is_feature_plugin_installed( $args[ 'name' ] ) ) {
-				$note->set_status( Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_ACTIONED );
+				$note->set_status( $note_class::E_WC_ADMIN_NOTE_ACTIONED );
 			}
 		}
 
@@ -634,6 +640,16 @@ class WC_PB_Admin_Notices {
 	 */
 	public static function get_note_args( $name ) {
 
+		$note_class = false;
+
+		if ( class_exists( 'Automattic\WooCommerce\Admin\Notes\Note' ) ) {
+			$note_class = 'Automattic\WooCommerce\Admin\Notes\Note';
+		} elseif ( class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Note' ) ) {
+			$note_class = 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Note';
+		} else {
+			return;
+		}
+
 		if ( 'bulk-discounts' === $name ) {
 
 			ob_start();
@@ -649,7 +665,7 @@ class WC_PB_Admin_Notices {
 				'name'         => 'wc-pb-bulk-discounts',
 				'title'        => __( 'Ready to start offering bulk discounts?', 'woocommerce-product-bundles' ),
 				'content'      => $content,
-				'type'         => Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_INFORMATIONAL,
+				'type'         => $note_class::E_WC_ADMIN_NOTE_INFORMATIONAL,
 				'source'       => 'woocommerce-product-bundles',
 				'icon'         => 'plugins',
 				'check_plugin' => true,

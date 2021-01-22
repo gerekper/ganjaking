@@ -729,7 +729,8 @@ class WooCommerce_Product_Search_Service {
 
 				} else if ( get_option( 'woocommerce_hide_out_of_stock_items' ) == 'yes' ) {
 					if ( property_exists( $wpdb, 'wc_product_meta_lookup' ) ) {
-						$counts = array( 'instock' => 0, 'outofstock' => 0 );
+
+						$counts = array( 'instock' => 0, 'outofstock' => 0, 'onbackorder' => 0 );
 						$stock_status_counts = $wpdb->get_results( "SELECT count(stock_status) AS count, stock_status FROM $wpdb->wc_product_meta_lookup GROUP BY stock_status" );
 						if ( is_array( $stock_status_counts ) ) {
 							foreach ( $stock_status_counts as $stock_status_count ) {
@@ -740,14 +741,18 @@ class WooCommerce_Product_Search_Service {
 									case 'outofstock':
 										$counts['outofstock'] = intval( $stock_status_count->count );
 										break;
+									case 'onbackorder':
+										$counts['onbackorder'] = intval( $stock_status_count->count );
+										break;
+
 								}
 							}
 						}
 
-						if ( $counts['instock'] > $counts['outofstock'] ) {
+						if ( ( $counts['instock'] + $counts['onbackorder'] ) > $counts['outofstock'] ) {
 							$where_stock = " AND object_id NOT IN ( SELECT product_id FROM $wpdb->wc_product_meta_lookup WHERE stock_status = 'outofstock' ) ";
 						} else {
-							$where_stock = " AND object_id IN ( SELECT product_id FROM $wpdb->wc_product_meta_lookup WHERE stock_status = 'instock' ) ";
+							$where_stock = " AND object_id IN ( SELECT product_id FROM $wpdb->wc_product_meta_lookup WHERE stock_status != 'outofstock' ) ";
 						}
 					}
 				}

@@ -21,10 +21,7 @@
     var mailpoet_has_valid_api_key = <%= has_valid_api_key ? 'true' : 'false' %>;
     var mailpoet_mss_key_invalid = <%= mss_key_invalid ? 'true' : 'false' %>;
     var mailpoet_subscribers_count = <%= subscriber_count %>;
-    var mailpoet_subscribers_in_plan_count = <%= subscriber_count %>;
-    var mailpoet_premium_subscribers_count = <%= premium_subscriber_count %>;
     var mailpoet_has_premium_support = <%= has_premium_support ? 'true' : 'false' %>;
-    var mailpoet_wp_users_count = <%= wp_users_count ? wp_users_count : 'false' %>;
     var wordpress_editable_roles_list = <%= json_encode(wordpress_editable_roles_list)  %>;
     var mailpoet_newsletters_list = <%= json_encode(newsletters_list)  %>;
     var mailpoet_product_categories = <%= json_encode(product_categories)  %>;
@@ -83,6 +80,8 @@
     'deletePermanently': __('Delete permanently'),
     'save': __('Save'),
     'trashDisallowed': _x('List cannot be deleted because it’s used for %$1s email', 'Alert shown when trying to delete segment, which is assigned to any automatic emails.'),
+    'trashAndDisable': __('Trash and disable'),
+    'restoreAndEnable': __('Restore and enable'),
 
     'previousPage': __('Previous page'),
     'firstPage': __('First page'),

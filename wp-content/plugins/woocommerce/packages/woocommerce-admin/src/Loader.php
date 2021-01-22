@@ -61,8 +61,6 @@ class Loader {
 		add_action( 'init', array( __CLASS__, 'define_tables' ) );
 		// Load feature before WooCommerce update hooks.
 		add_action( 'init', array( __CLASS__, 'load_features' ), 4 );
-		add_filter( 'woocommerce_get_sections_advanced', array( __CLASS__, 'add_features_section' ) );
-		add_filter( 'woocommerce_get_settings_advanced', array( __CLASS__, 'add_features_settings' ), 10, 2 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'inject_wc_settings_dependencies' ), 14 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'load_scripts' ), 15 );
@@ -241,52 +239,6 @@ class Loader {
 	}
 
 	/**
-	 * Adds the Features section to the advanced tab of WooCommerce Settings
-	 *
-	 * @param array $sections Sections.
-	 * @return array
-	 */
-	public static function add_features_section( $sections ) {
-		$sections['features'] = __( 'Features', 'woocommerce' );
-		return $sections;
-	}
-
-	/**
-	 * Adds the Features settings.
-	 *
-	 * @param array  $settings Settings.
-	 * @param string $current_section Current section slug.
-	 * @return array
-	 */
-	public static function add_features_settings( $settings, $current_section ) {
-		if ( 'features' !== $current_section ) {
-			return $settings;
-		}
-
-		return apply_filters(
-			'woocommerce_settings_features',
-			array(
-				array(
-					'title' => __( 'Features', 'woocommerce' ),
-					'type'  => 'title',
-					'desc'  => __( 'Start using new features that are being progressively rolled out to improve the store management experience.', 'woocommerce' ),
-					'id'    => 'features_options',
-				),
-				array(
-					'title' => __( 'Navigation', 'woocommerce' ),
-					'desc'  => __( 'Adds the new WooCommerce navigation experience to the dashboard', 'woocommerce' ),
-					'id'    => 'woocommerce_navigation_enabled',
-					'type'  => 'checkbox',
-				),
-				array(
-					'type' => 'sectionend',
-					'id'   => 'features_options',
-				),
-			)
-		);
-	}
-
-	/**
 	 * Connects existing WooCommerce pages.
 	 *
 	 * @todo The entry point for the embed needs moved to this class as well.
@@ -367,7 +319,14 @@ class Loader {
 		wp_register_script(
 			'wc-customer-effort-score',
 			self::get_url( 'customer-effort-score/index', 'js' ),
-			array(),
+			array(
+				'wp-components',
+				'wp-compose',
+				'wp-data',
+				'wp-element',
+				'wp-i18n',
+				'wp-notices',
+			),
 			$js_file_version,
 			true
 		);
@@ -375,10 +334,20 @@ class Loader {
 		wp_register_script(
 			'wc-navigation',
 			self::get_url( 'navigation/index', 'js' ),
-			array( 'wp-url', 'wp-hooks' ),
+			array( 'wp-url', 'wp-hooks', 'wp-element', 'wp-data', 'moment' ),
 			$js_file_version,
 			true
 		);
+
+			// NOTE: This should be removed when Gutenberg is updated and
+			// the notices package is removed from WooCommerce Admin.
+			wp_register_script(
+				'wc-notices',
+				self::get_url( 'notices/index', 'js' ),
+				array(),
+				$js_file_version,
+				true
+			);
 
 		wp_register_script(
 			'wc-number',
@@ -407,7 +376,7 @@ class Loader {
 		wp_register_script(
 			'wc-store-data',
 			self::get_url( 'data/index', 'js' ),
-			array(),
+			array( 'wp-data' ),
 			$js_file_version,
 			true
 		);
@@ -432,6 +401,9 @@ class Loader {
 				'wc-customer-effort-score',
 				'wc-date',
 				'wc-navigation',
+				// NOTE: This should be removed when Gutenberg is updated and
+				// the notices package is removed from WooCommerce Admin.
+				'wc-notices',
 				'wc-number',
 				'wc-store-data',
 			),
@@ -1373,6 +1345,9 @@ class Loader {
 				'wc-currency',
 				'wc-customer-effort-score',
 				'wc-navigation',
+				// NOTE: This should be removed when Gutenberg is updated and
+				// the notices package is removed from WooCommerce Admin.
+				'wc-notices',
 				'wc-number',
 				'wc-date',
 				'wc-components',

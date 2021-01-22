@@ -1,4 +1,10 @@
-﻿== Changelog ==
+== Changelog ==
+
+= 1.2.34.2 =
+* Added featured image size filter to posts.
+* Change default optin success message to exclude "Please check your email for further instructions."
+* Use enqueue_block_editor_assets instead for block registration instead of init.
+* Implement filter to remove new and returning visitors cookies.
 
 = 1.2.34.1 =
 * Fix layout breakage caused by unclosed p tag.

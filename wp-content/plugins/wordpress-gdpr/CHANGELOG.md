@@ -1,5 +1,22 @@
 # Changelog
 ======
+1.9.15
+======
+- NEW:	Added WooCommerce Kadence Email customizer support
+
+======
+1.9.14
+======
+- FIX:	Caching issue
+
+======
+1.9.13
+======
+- NEW:	Manage my Preferences button in popup
+		https://imgur.com/a/VNUC1vO
+		This will be now the default behaviour
+
+======
 1.9.12
 ======
 - FIX:	License & update manager completly in weLaunch Framework

@@ -1,6 +1,6 @@
 <?php
 	
-	namespace WBCR\Factory_Freemius_128\Entities;
+	namespace WBCR\Factory_Freemius_130\Entities;
 	
 	use stdClass;
 	
@@ -14,7 +14,7 @@
 	 * @copyright (c) 2018 Webraftic Ltd, Freemius, Inc.
 	 * @version       1.0
 	 */
-	class License extends Entity implements \WBCR\Factory_441\Premium\Interfaces\License {
+	class License extends Entity implements \WBCR\Factory_442\Premium\Interfaces\License {
 		
 		/**
 		 * @var number

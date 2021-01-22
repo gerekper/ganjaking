@@ -1,5 +1,13 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2021.01.18 - version 1.8.5
+* Tweak - Exclude pending orders when checking the maximum number of orders per day/time frame.
+* Tweak - Check the maximum number of orders allowed when validating a delivery date in the checkout form.
+* Tweak - Tested compatibility with WC 4.9.
+* Fix - The setting "Number of orders" was not being saved when entering a zero value.
+* Fix - Deactivate a delivery date/time frame in the calendar when its maximum number of orders is reached.
+* Fix - Fixed `array_merge()` warning when adding a product to an active subscription with the "All products for WC Subscriptions" extension.
+
 2020.11.26 - version 1.8.4
 * Tweak - Improved PHP 8 support.
 * Tweak - Tested compatibility with WC 4.8.

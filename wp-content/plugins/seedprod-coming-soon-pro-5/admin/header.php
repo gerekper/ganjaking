@@ -1,1 +1,0 @@
- <h2><?php if (!defined('SEED_CSPV5_REMOVE_BRANDING')) { ?><img style="width:140px;margin-right:10px;vertical-align: text-bottom;" src="<?php echo SEED_CSPV5_PLUGIN_URL ?>admin/seedprod-logo-black.png"><?php } ?><?php echo $this->plugin_name; ?> <span class="seed_cspv5_version" style="font-size: 10px;"> Version <?php echo SEED_CSPV5_VERSION; ?></span></h2>

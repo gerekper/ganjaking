@@ -125,7 +125,7 @@
 
 					// If not, choose the first one.
 					if ( '0' === chosen_scheme_input.val() ) {
-						this.$el_option_inputs.filter( '[value!="0"]' ).first().prop( 'checked', true ).change();
+						this.$el_option_inputs.filter( '[value!="0"]' ).first().prop( 'checked', true ).trigger( 'change' );
 					// Otherwise just update the model.
 					} else {
 						model.set_active_scheme( chosen_scheme_input.val() );
@@ -153,7 +153,7 @@
 
 				var scheme_key = this.$el_dropdown.val();
 
-				this.$el_option_inputs.filter( '[value="' + scheme_key + '"]' ).prop( 'checked', true ).change();
+				this.$el_option_inputs.filter( '[value="' + scheme_key + '"]' ).prop( 'checked', true ).trigger( 'change' );
 			},
 
 			active_scheme_changed: function( e ) {
@@ -363,7 +363,7 @@
 					if ( $active_scheme_option.length > 0 ) {
 						$active_scheme_option.prop( 'checked', true );
 					} else {
-						this.$el_option_inputs.filter( ':checked' ).change();
+						this.$el_option_inputs.filter( ':checked' ).trigger( 'change' );
 					}
 
 					// Ensure container is hidden if there's nothing to choose.
@@ -422,9 +422,9 @@
 						setTimeout( function() {
 
 							if ( view.has_prompt( 'checkbox' ) ) {
-								view.$el_prompt.find( '.wcsatt-options-prompt-action-input' ).change();
+								view.$el_prompt.find( '.wcsatt-options-prompt-action-input' ).trigger( 'change' );
 							} else {
-								view.$el_prompt.find( '.wcsatt-options-prompt-action-input' ).filter( ':checked' ).change();
+								view.$el_prompt.find( '.wcsatt-options-prompt-action-input' ).filter( ':checked' ).trigger( 'change' );
 							}
 
 						}, 10 );
@@ -930,7 +930,7 @@
 			// In this case, simply grab the subscription details from the option and append them to the bundle price string.
 			if ( self.has_single_forced_susbcription() ) {
 
-				bundle.$bundle_price.find( '.price' ).html( bundle.satt_schemes[0].data.option_details_html.replace( '%p', bundle_price_inner_html ) );
+				bundle.$bundle_price.find( '.price' ).html( bundle.satt_schemes[0].data.option_details_html.replace( /%p/g, bundle_price_inner_html ) );
 
 			/*
 			 * If multiple options are present, then:
@@ -988,7 +988,7 @@
 						}
 
 						var $option_price       = scheme.$el.find( '.subscription-price' ),
-							option_scheme_price = scheme.data.option_details_html.replace( '%p', scheme_price_inner_html );
+							option_scheme_price = scheme.data.option_details_html.replace( /%p/g, scheme_price_inner_html );
 
 						// Update prompt.
 						if ( scheme.data.subscription_scheme.is_base && ( satt.schemes_view.has_prompt( 'radio' ) || satt.schemes_view.has_prompt( 'checkbox' ) ) ) {
@@ -998,7 +998,7 @@
 
 							// If the prompt doesn't contain anything to update, move on.
 							if ( $prompt.find( '.subscription-price' ).length > 0 ) {
-								$prompt.html( scheme.data.prompt_details_html.replace( '%p', scheme_price_inner_html ) ).find( 'span.total' ).remove();
+								$prompt.html( scheme.data.prompt_details_html.replace( /%p/g, scheme_price_inner_html ) ).find( 'span.total' ).remove();
 							}
 						}
 
@@ -1134,7 +1134,7 @@
 
 			var $price         = $( price ),
 				price_inner    = $price.html(),
-				scheme_details = composite.satt_schemes[0].data.option_details_html.replace( '%p', price_inner );
+				scheme_details = composite.satt_schemes[0].data.option_details_html.replace( /%p/g, price_inner );
 
 			price = '<p class="price">' + scheme_details + '</p>';
 
@@ -1208,7 +1208,7 @@
 					}
 
 					var $option_price       = scheme.$el.find( '.subscription-price' ),
-						option_scheme_price = scheme.data.option_details_html.replace( '%p', scheme_price_inner_html );
+						option_scheme_price = scheme.data.option_details_html.replace( /%p/g, scheme_price_inner_html );
 
 					// Update prompt.
 					if ( scheme.data.subscription_scheme.is_base && ( satt.schemes_view.has_prompt( 'radio' ) || satt.schemes_view.has_prompt( 'checkbox' ) ) ) {
@@ -1218,7 +1218,7 @@
 
 						// If the prompt doesn't contain anything to update, move on.
 						if ( $prompt.find( '.subscription-price' ).length > 0 ) {
-							$prompt.html( scheme.data.prompt_details_html.replace( '%p', scheme_price_inner_html ) ).find( 'span.total' ).remove();
+							$prompt.html( scheme.data.prompt_details_html.replace( /%p/g, scheme_price_inner_html ) ).find( 'span.total' ).remove();
 						}
 					}
 

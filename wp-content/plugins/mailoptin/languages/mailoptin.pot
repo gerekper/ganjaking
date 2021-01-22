@@ -1,14 +1,14 @@
-# Copyright (C) 2020 MailOptin - Lite
+# Copyright (C) 2021 MailOptin - Lite
 # This file is distributed under the same license as the MailOptin - Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailOptin - Lite 1.2.34.1\n"
+"Project-Id-Version: MailOptin - Lite 1.2.34.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
-"POT-Creation-Date: 2020-12-22 09:57:35+00:00\n"
+"POT-Creation-Date: 2021-01-11 10:05:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -98,7 +98,7 @@ msgstr ""
 #: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:914
 #: src/core/src/Admin/SettingsPage/AddEmailCampaign.php:78
 #: src/core/src/Admin/SettingsPage/Email_Campaign_List.php:396
-#: src/core/src/AjaxHandler.php:1168
+#: src/core/src/AjaxHandler.php:1167
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1110
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1134
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1147
@@ -1256,7 +1256,7 @@ msgstr ""
 
 #: src/connections/FacebookCustomAudienceConnect/create-audience-tmpl.php:20
 #: src/core/src/Admin/SettingsPage/OptinCampaigns.php:191
-#: src/core/src/AjaxHandler.php:457
+#: src/core/src/AjaxHandler.php:456
 msgid "An error occurred. Please try again."
 msgstr ""
 
@@ -3877,7 +3877,7 @@ msgid "reCAPTCHA v3"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:614
-#: src/core/src/RegisterScripts.php:263
+#: src/core/src/RegisterScripts.php:262
 msgid "Field %s"
 msgstr ""
 
@@ -4673,8 +4673,7 @@ msgid "Take Action Now!"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/OptinForm/AbstractCustomizer.php:123
-msgid ""
-"Thanks for subscribing! Please check your email for further instructions."
+msgid "Thanks for subscribing!"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/OptinForm/Customizer.php:151
@@ -5848,12 +5847,12 @@ msgid "Upgrade to %s for %s support"
 msgstr ""
 
 #: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:394
-#: src/core/src/RegisterScripts.php:259
+#: src/core/src/RegisterScripts.php:258
 msgid "Pause Test"
 msgstr ""
 
 #: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:397
-#: src/core/src/RegisterScripts.php:258
+#: src/core/src/RegisterScripts.php:257
 msgid "Start Test"
 msgstr ""
 
@@ -6159,9 +6158,9 @@ msgstr ""
 msgid "Zip / Postal code"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:278 src/core/src/AjaxHandler.php:479
-#: src/core/src/AjaxHandler.php:517
-#: src/core/src/OptinForms/AbstractOptinForm.php:1261
+#: src/core/src/AjaxHandler.php:278 src/core/src/AjaxHandler.php:478
+#: src/core/src/AjaxHandler.php:516
+#: src/core/src/OptinForms/AbstractOptinForm.php:1262
 msgid "Unexpected error. Please try again."
 msgstr ""
 
@@ -6169,82 +6168,82 @@ msgstr ""
 msgid "Optin campaign with similar variant name exist already."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:425
+#: src/core/src/AjaxHandler.php:424
 msgid "Select a Winner"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:428
+#: src/core/src/AjaxHandler.php:427
 msgid "Optin Name"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:431
+#: src/core/src/AjaxHandler.php:430
 msgid "Conversion Rate"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:445
+#: src/core/src/AjaxHandler.php:444
 msgid "Warning: selecting a winner will delete the other A/B test variants."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:450
+#: src/core/src/AjaxHandler.php:449
 msgid "Cancel"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:487
+#: src/core/src/AjaxHandler.php:486
 msgid "Optin campaign with similar name exist already."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:527
+#: src/core/src/AjaxHandler.php:526
 msgid "Upgrade to %s to create multiple email campaigns"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:534
+#: src/core/src/AjaxHandler.php:533
 msgid "Email campaign with similar name exist already."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:723
+#: src/core/src/AjaxHandler.php:722
 msgid "No email provider or list has been set for this optin. %sSee fix here%s"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:759 src/core/src/AjaxHandler.php:781
-#: src/core/src/OptinForms/AbstractOptinForm.php:1266
+#: src/core/src/AjaxHandler.php:758 src/core/src/AjaxHandler.php:780
+#: src/core/src/OptinForms/AbstractOptinForm.php:1267
 msgid "Your submission has been flagged as potential spam."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:769
+#: src/core/src/AjaxHandler.php:768
 msgid "Email address is invalid. Try again."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1020
+#: src/core/src/AjaxHandler.php:1019
 msgid "Error log successfully deleted"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1025
+#: src/core/src/AjaxHandler.php:1024
 msgid "This will delete the error log forever. Press OK to confirm"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1026
+#: src/core/src/AjaxHandler.php:1025
 msgid "Delete Error Log"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1152
+#: src/core/src/AjaxHandler.php:1151
 msgid ""
 "Error: No integration field found. Select a list first if you haven't and "
 "try again."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1156
+#: src/core/src/AjaxHandler.php:1155
 msgid "Map integration fields to form custom fields"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1171
+#: src/core/src/AjaxHandler.php:1170
 msgid "Form Fields"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1185
+#: src/core/src/AjaxHandler.php:1184
 msgid "System Fields"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1202
+#: src/core/src/AjaxHandler.php:1201
 msgid "Save"
 msgstr ""
 
@@ -7558,15 +7557,15 @@ msgstr ""
 msgid "Referrer URL"
 msgstr ""
 
-#: src/core/src/OptinForms/AbstractOptinForm.php:1262
+#: src/core/src/OptinForms/AbstractOptinForm.php:1263
 msgid "Please enter a valid email."
 msgstr ""
 
-#: src/core/src/OptinForms/AbstractOptinForm.php:1263
+#: src/core/src/OptinForms/AbstractOptinForm.php:1264
 msgid "Please enter a name."
 msgstr ""
 
-#: src/core/src/OptinForms/AbstractOptinForm.php:1264
+#: src/core/src/OptinForms/AbstractOptinForm.php:1265
 msgid "A required field is empty."
 msgstr ""
 
@@ -7755,21 +7754,21 @@ msgid ""
 "activated. Please create one first. %s "
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:260
+#: src/core/src/RegisterScripts.php:259
 msgid "Type to search"
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:261
+#: src/core/src/RegisterScripts.php:260
 msgid "Are you sure you?"
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:262
+#: src/core/src/RegisterScripts.php:261
 msgid ""
 "Are you sure you want to do this? Clicking OK will delete all your optin "
 "analytics records."
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:265
+#: src/core/src/RegisterScripts.php:264
 msgid "Title is required."
 msgstr ""
 
@@ -7797,9 +7796,9 @@ msgstr ""
 msgid "MailOptin - Lite"
 msgstr ""
 
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.1)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.2)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.1)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.2)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://mailoptin.io"
 msgstr ""

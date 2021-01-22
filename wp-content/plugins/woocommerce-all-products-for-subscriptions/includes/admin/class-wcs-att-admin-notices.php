@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin notices handling.
  *
  * @class    WCS_ATT_Admin_Notices
- * @version  3.1.5
+ * @version  3.1.23
  */
 class WCS_ATT_Admin_Notices {
 
@@ -369,11 +369,17 @@ class WCS_ATT_Admin_Notices {
 	 */
 	public static function add_cart_plans_onboarding_admin_note() {
 
-		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes' ) ) {
+		if ( ! WCS_ATT_Core_Compatibility::is_wc_version_gte( '4.0' ) ) {
 			return;
 		}
 
-		if ( ! WCS_ATT_Core_Compatibility::is_wc_version_gte( '4.0' ) ) {
+		$note_class = false;
+
+		if ( class_exists( 'Automattic\WooCommerce\Admin\Notes\Note' ) ) {
+			$note_class = 'Automattic\WooCommerce\Admin\Notes\Note';
+		} elseif ( class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Note' ) ) {
+			$note_class = 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Note';
+		} else {
 			return;
 		}
 
@@ -397,19 +403,23 @@ class WCS_ATT_Admin_Notices {
 		}
 
 		// Otherwise, add the note.
-		$note = new Automattic\WooCommerce\Admin\Notes\WC_Admin_Note();
+		$note = new $note_class();
 		$note->set_title( __( 'All Products for WooCommerce Subscriptions', 'woocommerce-all-products-for-subscriptions' ) );
 		$note->set_content( $notice_content );
 
-		$note->set_type( Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
-		$note->set_icon( 'scheduled' );
+		$note->set_type( $note_class::E_WC_ADMIN_NOTE_INFORMATIONAL );
+
+		if ( ! method_exists( $note, 'set_image' ) ) {
+			$note->set_icon( 'scheduled' );
+		}
+
 		$note->set_name( $note_name );
 
 		$note->add_action(
 			'settings',
 			__( 'Add Cart Plans', 'woocommerce-all-products-for-subscriptions' ),
 			$settings_link,
-			Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_ACTIONED,
+			$note_class::E_WC_ADMIN_NOTE_ACTIONED,
 			true
 		);
 

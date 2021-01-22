@@ -14,9 +14,9 @@ $current_user = wp_get_current_user();
 
 $server_configs = array(
   "PHP Version" => array(
-    "required" => "5.6",
+    "required" => "7.1",
     "value"    => phpversion(),
-    "result"   => version_compare(phpversion(), "5.6"),
+    "result"   => version_compare(phpversion(), "7.1"),
   ),
   "DOMDocument extension" => array(
     "required" => true,

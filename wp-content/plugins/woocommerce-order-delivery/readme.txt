@@ -3,11 +3,11 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, delivery, date
 Requires at least: 4.4
 Tested up to: 5.6
-Stable tag: 1.8.4
+Stable tag: 1.8.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.0
-WC tested up to: 4.8
+WC tested up to: 4.9
 Woo: 976514:beaa91b8098712860ec7335d3dca61c0
 
 Choose a delivery date during checkout for the order.
@@ -49,6 +49,14 @@ With the capture of the date delivery, you can process the orders more efficient
 Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-order-delivery/) to read the documentation and get support.
 
 == Changelog ==
+
+= 1.8.5 January 18, 2021 =
+* Tweak - Exclude pending orders when checking the maximum number of orders per day/time frame.
+* Tweak - Check the maximum number of orders allowed when validating a delivery date in the checkout form.
+* Tweak - Tested compatibility with WC 4.9.
+* Fix - The setting "Number of orders" was not being saved when entering a zero value.
+* Fix - Deactivate a delivery date/time frame in the calendar when its maximum number of orders is reached.
+* Fix - Fixed `array_merge()` warning when adding a product to an active subscription with the "All products for WC Subscriptions" extension.
 
 = 1.8.4 November 26, 2020 =
 * Tweak - Improved PHP 8 support.
@@ -303,5 +311,5 @@ Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-order-
 
 == Upgrade Notice ==
 
-= 1.7 =
-1.7 is a major update. It is important that you make backups and ensure you have installed WC 3.0+, and optionally, WooCommerce Subscriptions 2.2+ before upgrading.
+= 1.8 =
+1.8 is a major update. It is important that you make backups and ensure you have installed WC 3.0+, and optionally, WooCommerce Subscriptions 2.2+ before upgrading.

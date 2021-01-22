@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Display-related functions and filters.
  *
  * @class    WC_PB_BS_Display
- * @version  6.6.0
+ * @version  6.6.2
  */
 class WC_PB_BS_Display {
 
@@ -118,8 +118,11 @@ class WC_PB_BS_Display {
 
 			if ( $bundle_sells_title ) {
 
+				$bundle_sells_title_proc = do_shortcode( wp_kses( $bundle_sells_title, WC_PB_Helpers::get_allowed_html( 'inline' ) ) );
+
 				wc_get_template( 'single-product/bundle-sells-section-title.php', array(
-					'title' => wpautop( do_shortcode( wp_kses( $bundle_sells_title, WC_PB_Helpers::get_allowed_html( 'inline' ) ) ) )
+					'wrap'  => $bundle_sells_title_proc === $bundle_sells_title,
+					'title' => $bundle_sells_title_proc === $bundle_sells_title ? $bundle_sells_title_proc : wpautop( $bundle_sells_title_proc )
 				), false, WC_PB()->plugin_path() . '/includes/modules/bundle-sells/templates/' );
 			}
 

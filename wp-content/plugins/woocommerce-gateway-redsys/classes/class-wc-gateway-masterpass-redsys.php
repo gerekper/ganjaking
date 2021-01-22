@@ -34,7 +34,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 			$logo_url   = $this->get_option( 'logo' );
 			$this->icon = apply_filters( 'woocommerce_masterpass_icon', $logo_url );
 		} else {
-			$this->icon = apply_filters( 'woocommerce_masterpass_icon', REDSYS_PLUGIN_URL . 'assets/images/masterpass.png' );
+			$this->icon = apply_filters( 'woocommerce_masterpass_icon', REDSYS_PLUGIN_URL_P . 'assets/images/masterpass.png' );
 		}
 
 		$this->has_fields         = false;
@@ -87,7 +87,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function is_valid_for_use() {
-		include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
+		include_once REDSYS_PLUGIN_DATA_PATH_P . 'allowed-currencies.php';
 		if ( ! in_array( get_woocommerce_currency(), WCRed()->allowed_currencies(), true ) ) {
 			return false;
 		} else {
@@ -121,7 +121,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 				</table><!--/.form-table-->
 				<?php
 				else :
-					include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
+					include_once REDSYS_PLUGIN_DATA_PATH_P . 'allowed-currencies.php';
 					$currencies = WCRed()->allowed_currencies();
 					$formated_currencies = '';
 
@@ -308,7 +308,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'masterpass', ' ' );
 		}
 		
-		include_once REDSYS_PLUGIN_DATA_PATH . 'currencies.php';
+		include_once REDSYS_PLUGIN_DATA_PATH_P . 'currencies.php';
 		
 		if ( 'yes' === $this->debug ) {
 			if ( function_exists( 'redsys_return_currencies' ) ) {

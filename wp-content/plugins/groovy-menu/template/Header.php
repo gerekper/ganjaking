@@ -304,7 +304,7 @@ function groovyMenu( $args = array() ) {
 		$output_html .= groovy_menu_add_gfonts_fontface( $preset_id, 'logo_txt_font', $logo_font_family, ( ! $args['gm_echo'] ) );
 	}
 
-	$uniqid = 'gm-' . uniqid();
+	$uniqid = empty( $groovyMenuSettings['gm-uniqid'][ $args['gm_preset_id'] ] ) ? 'gm-' . uniqid() : $groovyMenuSettings['gm-uniqid'][ $args['gm_preset_id'] ];
 
 	if ( $args['gm_echo'] ) {
 		$output_html .= groovy_menu_js_request( $uniqid, true );

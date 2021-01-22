@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 13.0.0
+ * Version: 14.0.2
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
  * Tested up to: 5.6
  * WC requires at least: 3.0
- * WC tested up to: 4.8
+ * WC tested up to: 4.9
  * Woo: 187871:50392593e834002d8bee386333d1ed3c
  * Text Domain: woocommerce-redsys
  * Domain Path: /languages/
@@ -18,39 +18,39 @@
  */
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '13.0.0' );
+	define( 'REDSYS_VERSION', '14.0.2' );
 }
 
-if ( ! defined( 'REDSYS_PLUGIN_URL' ) ) {
-	define( 'REDSYS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+if ( ! defined( 'REDSYS_PLUGIN_URL_P' ) ) {
+	define( 'REDSYS_PLUGIN_URL_P', plugin_dir_url( __FILE__ ) );
 }
 
-if ( ! defined( 'REDSYS_PLUGIN_PATH' ) ) {
-	define( 'REDSYS_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'REDSYS_PLUGIN_PATH_P' ) ) {
+	define( 'REDSYS_PLUGIN_PATH_P', plugin_dir_path( __FILE__ ) );
 }
 
 if ( ! defined( 'REDSYS_CHECK_WOO_CONNECTION' ) ) {
 	define( 'REDSYS_CHECK_WOO_CONNECTION', true );
 }
 
-if ( ! defined( 'REDSYS_POST_UPDATE_URL' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/12/28/woocommerce-redsys-gateway-13-0-x/' );
+if ( ! defined( 'REDSYS_POST_UPDATE_URL_P' ) ) {
+	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2021/01/14/woocommerce-redsys-gateway-14-0-x/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
 	define( 'REDSYS_POST_PSD2_URL', 'https://redsys.joseconti.com/2019/09/05/redsys-y-psd2-o-sca/' );
 }
 
-if ( ! defined( 'REDSYS_INSTALL_URL' ) ) {
-	define( 'REDSYS_INSTALL_URL', 'https://redsys.joseconti.com/primeros-pasos-con-redsys-y-woocommerce/' );
+if ( ! defined( 'REDSYS_INSTALL_URL_P' ) ) {
+	define( 'REDSYS_INSTALL_URL_P', 'https://redsys.joseconti.com/primeros-pasos-con-redsys-y-woocommerce/' );
 }
 
-if ( ! defined( 'REDSYS_TELEGRAM_SIGNUP' ) ) {
-	define( 'REDSYS_TELEGRAM_SIGNUP', 'https://t.me/wooredsys' );
+if ( ! defined( 'REDSYS_TELEGRAM_SIGNUP_P' ) ) {
+	define( 'REDSYS_TELEGRAM_SIGNUP_P', 'https://t.me/wooredsys' );
 }
 
-if ( ! defined( 'REDSYS_REVIEW' ) ) {
-	define( 'REDSYS_REVIEW', 'https://woocommerce.com/sso?product=187871' );
+if ( ! defined( 'REDSYS_REVIEW_P' ) ) {
+	define( 'REDSYS_REVIEW_P', 'https://woocommerce.com/sso?product=187871' );
 }
 
 if ( ! defined( 'REDSYS_TICKET' ) ) {
@@ -61,21 +61,21 @@ if ( ! defined( 'REDSYS_GPL' ) ) {
 	define( 'REDSYS_GPL', 'https://redsys.joseconti.com/2020/06/21/vivir-gpl-o-explotar-gpl/' );
 }
 
-require_once REDSYS_PLUGIN_PATH . 'includes/defines.php';
+require_once REDSYS_PLUGIN_PATH_P . 'includes/defines.php';
 
 /**
  * Required functions
  * Copyright: (C) 2013 - 2021 José Conti
  */
 if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once REDSYS_PLUGIN_PATH . 'woo-includes/woo-functions.php';
+	require_once REDSYS_PLUGIN_PATH_P . 'woo-includes/woo-functions.php';
 }
 
 /**
  * Copyright: (C) 2013 - 2021 José Conti
  */
 function WCPSD2() {
-	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys-psd2.php'; // PSD2 class for Redsys
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-redsys-psd2.php'; // PSD2 class for Redsys
 	return new WC_Gateway_Redsys_PSD2();
 }
 
@@ -83,16 +83,25 @@ function WCPSD2() {
  * Copyright: (C) 2013 - 2021 José Conti
  */
 function WCRed() {
-	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys-global.php'; // Global class for global functions
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-redsys-global.php'; // Global class for global functions
 	return new WC_Gateway_Redsys_Global();
 }
 
-// Site Health
-require_once REDSYS_PLUGIN_CLASS_PATH . 'class-redsys-site-health.php';
+// Deactivate other Redsys Plugins.
 
-require_once REDSYS_PLUGIN_NOTICE_PATH . 'notices.php';
-require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-settings-tab-redsys-sort-invoices.php';
-require_once REDSYS_PLUGIN_CLASS_PATH . 'class-redsys-card-images.php';
+function redsys_deactivate_plugins() {
+	include_once REDSYS_PLUGIN_DATA_PATH_P . 'deactivate-plugins.php';
+	$plugins = array();
+	$plugins = plugins_to_deactivate();
+	deactivate_plugins( $plugins, true );
+}
+add_action( 'admin_init', 'redsys_deactivate_plugins' );
+
+// Site Health.
+require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-redsys-site-health.php';
+require_once REDSYS_PLUGIN_NOTICE_PATH_P . 'notices.php';
+require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-settings-tab-redsys-sort-invoices.php';
+require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-redsys-card-images.php';
 
 if ( ! class_exists( 'RedsysAPI' ) ) {
 	if ( version_compare( PHP_VERSION, '7.0.0', '<' ) ) {
@@ -120,8 +129,59 @@ if ( defined( 'REDSYS_WOOCOMMERCE_VERSION' ) ) {
 	return;
 }
 
-add_action( 'plugins_loaded', 'woocommerce_gateway_redsys_premium_init', 0 );
+add_action( 'plugins_loaded', 'woocommerce_gateway_redsys_premium_init' );
+/**
+ * Plugin updates
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
+function redsys_add_query_vars( $vars ) {
+	$vars[] = 'add-redsys-method';
+	return $vars;
+}
+add_filter( 'query_vars', 'redsys_add_query_vars' );
+/**
+ * Plugin updates
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
+function redsys_add_endpoint() {
+	global $wp_rewrite;
 
+	add_rewrite_endpoint( 'add-redsys-method', EP_ALL );
+	$wp_rewrite->flush_rules();
+}
+add_action( 'init', 'redsys_add_endpoint', 0 );
+add_action( 'parse_request', array( 'WC_Gateway_Redsys', 'redsys_handle_requests' ) );
+/**
+ * Plugin updates
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
+function redsys_add_query_vars_pay( $vars ) {
+	$vars[] = 'redirect-redsys-pay';
+	return $vars;
+}
+add_filter( 'query_vars', 'redsys_add_query_vars_pay' );
+/**
+ * Plugin updates
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
+function redsys_add_endpoint_pay() {
+	global $wp_rewrite;
+
+	add_rewrite_endpoint( 'redirect-redsys-pay', EP_ALL );
+	$wp_rewrite->flush_rules();
+}
+add_action( 'init', 'redsys_add_endpoint_pay', 0 );
+add_action( 'parse_request', array( 'WC_Gateway_Redsys', 'redsys_handle_requests_pay' ) );
+
+function redsys_custom_template_pay( $template ) {
+	global $wp_query;
+
+	if ( isset( $wp_query->query_vars['redirect-redsys-pay'] ) ) {
+		$template = REDSYS_PLUGIN_PATH_P . 'includes/redsys-redirect.php';
+	}
+	return $template;
+}
+add_filter( 'template_include', 'redsys_custom_template_pay' );
 /**
  * Plugin updates
  * Copyright: (C) 2013 - 2021 José Conti
@@ -173,7 +233,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	function redsys_add_select2_to_users_test() {
 		global $current_screen;
 
-		wp_register_script( 'redsys-select2', REDSYS_PLUGIN_URL . 'assets/js/test-users.js', array( 'jquery', 'select2' ) );
+		wp_register_script( 'redsys-select2', REDSYS_PLUGIN_URL_P . 'assets/js/test-users.js', array( 'jquery', 'select2' ) );
 		wp_enqueue_script( 'redsys-select2' );
 	}
 
@@ -188,7 +248,7 @@ function woocommerce_gateway_redsys_premium_init() {
 			'fields'         => 'all',
 			'search_columns' => array( 'user_login', 'user_email', 'user_nicename' ),
 		);
-		// The User Query
+		// The User Query.
 		$user_query = new WP_User_Query( $args );
 		$users      = $user_query->get_results();
 
@@ -212,7 +272,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	* Copyright: (C) 2013 - 2021 José Conti
 	*/
 
-	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys.php';
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-redsys.php';
 
 	add_action(
 		'admin_notices',
@@ -330,7 +390,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	function redsys_add_front_css() {
 
 		if ( is_wc_endpoint_url( 'add-payment-method' ) ) {
-			wp_enqueue_style( 'redsys-style-front', REDSYS_PLUGIN_URL . 'assets/css/redsys-add-payment-method.css' );
+			wp_enqueue_style( 'redsys-style-front', REDSYS_PLUGIN_URL_P . 'assets/css/redsys-add-payment-method.css' );
 		}
 	}
 	add_action( 'wp_enqueue_scripts', 'redsys_add_front_css' );
@@ -399,53 +459,56 @@ function woocommerce_gateway_redsys_premium_init() {
 
 	// Adding Private Products.
 	if ( 'yes' === $private_product ) {
-		require_once REDSYS_PLUGIN_PATH . 'includes/private-products.php';
+		require_once REDSYS_PLUGIN_PATH_P . 'includes/private-products.php';
 	}
 
 	// Adding emails Templates.
 	if ( 'yes' === $sent_email_template ) {
-		require_once REDSYS_PLUGIN_PATH . 'includes/emails/class-redsys-wc-email.php';
+		require_once REDSYS_PLUGIN_PATH_P . 'includes/emails/class-redsys-wc-email.php';
 	}
 
 	// Adding Thank you Check.
 	if ( 'yes' === $thankyoucheck ) {
-		require_once REDSYS_PLUGIN_PATH . 'includes/thank-you-checks.php';
+		require_once REDSYS_PLUGIN_PATH_P . 'includes/thank-you-checks.php';
 	}
 
 	// Adding Thank you Recipe.
 	if ( 'yes' === $thankyourecipe ) {
-		require_once REDSYS_PLUGIN_PATH . 'includes/thank-you-receipe.php';
+		require_once REDSYS_PLUGIN_PATH_P . 'includes/thank-you-receipe.php';
 	}
 
 	// Adding all Redsys Gateways.
 
 	// Adding Bizum.
-	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-bizum-redsys.php'; // Bizum Version 6.0.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-bizum-redsys.php'; // Bizum Version 6.0.
 
 	// Adding MasterPass.
-	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-masterpass-redsys.php'; // MasterPass Version 7.0.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-masterpass-redsys.php'; // MasterPass Version 7.0.
 
 	// Adding Preauthorizations.
-	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-preauthotizations-redsys.php'; // Specific Gateway for Preathorizations Version 8.0.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-preauthotizations-redsys.php'; // Specific Gateway for Preathorizations Version 8.0.
 
-	// Adding Redsys Bank Transfer
-	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys-bank-transfer.php'; // Bank Transfer Version 9.0.
+	// Adding Redsys Bank Transfer.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-redsys-bank-transfer.php'; // Bank Transfer Version 9.0.
 
-	// Adding InSIte
-	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-insite-redsys.php'; // Insite version 10.0.
+	// Adding InSIte.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-insite-redsys.php'; // Insite version 10.0.
 
 	// Adding Direct Debit stand alone.
-	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-direct-debit-redsys.php'; // Insite version 11.0.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-direct-debit-redsys.php'; // Insite version 11.0.
+
+	// Adding Toens in admin user profile.
+
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-redsys-profile.php'; // Version 14.0
 
 	// Adding Google Pay
-	// require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-googlepay-redsys.php'; // Google Pay version 12.0.
+	// require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-googlepay-redsys.php'; // Google Pay version 12.0.
 
 	/**
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function redsys_add_actions() {
 		if ( ! is_checkout() && ! is_wc_endpoint_url() ) {
-			// $redsys_class = new WC_Gateway_redsys();.
 
 			// Ajax Preautorizaciones.
 			add_action( 'wp_ajax_redsys_preauth_action', array( 'WC_Gateway_Preauthorizations_Redsys', 'redsys_preauthorized_js_callback' ) );
@@ -461,7 +524,6 @@ function woocommerce_gateway_redsys_premium_init() {
 	add_filter( 'bulk_actions-edit-shop_order', array( 'WC_Gateway_Redsys', 'redsys_add_bulk_actions' ) );
 	add_filter( 'handle_bulk_actions-edit-shop_order', array( 'WC_Gateway_Preauthorizations_Redsys', 'preauthorizationsredsys_bulk_actions_handler' ), 10, 3 );
 	add_filter( 'handle_bulk_actions-edit-shop_order', array( 'WC_Gateway_Redsys', 'redsys_bulk_actions_handler' ), 10, 3 );
-
 	/**
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */

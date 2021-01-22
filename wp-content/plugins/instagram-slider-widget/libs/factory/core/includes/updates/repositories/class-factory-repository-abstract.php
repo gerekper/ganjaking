@@ -1,11 +1,11 @@
 <?php
 
-namespace WBCR\Factory_441\Updates;
+namespace WBCR\Factory_442\Updates;
 
 // Exit if accessed directly
-use Wbcr_Factory441_Plugin;
+use Wbcr_Factory442_Plugin;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if( !defined('ABSPATH') ) {
 	exit;
 }
 
@@ -23,17 +23,17 @@ abstract class Repository {
 	protected $initialized = false;
 
 	/**
-	 * @var Wbcr_Factory441_Plugin
+	 * @var Wbcr_Factory442_Plugin
 	 */
 	protected $plugin;
 
 	/**
 	 * Repository constructor.
 	 *
-	 * @param Wbcr_Factory441_Plugin $plugin
-	 * @param bool                   $is_premium
+	 * @param Wbcr_Factory442_Plugin $plugin
+	 * @param array $settings
 	 */
-	abstract public function __construct( Wbcr_Factory441_Plugin $plugin );
+	abstract public function __construct(Wbcr_Factory442_Plugin $plugin, array $settings = []);
 
 	/**
 	 * @return void

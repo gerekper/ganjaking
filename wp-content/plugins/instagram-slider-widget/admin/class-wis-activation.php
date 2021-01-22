@@ -4,7 +4,7 @@
  *
  * @author        Webcraftic <wordpress.webraftic@gmail.com>
  * @copyright (c) 02.12.2018, Webcraftic
- * @see           Wbcr_Factory441_Activator
+ * @see           Wbcr_Factory442_Activator
  *
  * @version       1.0.1
  */
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WIS_Activation extends Wbcr_Factory441_Activator {
+class WIS_Activation extends Wbcr_Factory442_Activator {
 
 	/**
 	 * Method is executed during the activation of the plugin.

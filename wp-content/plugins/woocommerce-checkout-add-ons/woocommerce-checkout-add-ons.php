@@ -6,11 +6,11 @@
  * Description: Easily create paid add-ons for your WooCommerce checkout and display them in the Orders admin, the My Orders section, and even order emails!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.5.0
+ * Version: 2.5.1
  * Text Domain: woocommerce-checkout-add-ons
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,13 +18,12 @@
  * @package   WC-Checkout-Add-Ons
  * @author    SkyVerge
  * @category  Admin
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 466854:8fdca00b4000b7a8cc26371d0e470a8f
  * WC requires at least: 3.5
- * WC tested up to: 4.7.1
- * WC tested up to: 4.7.1
+ * WC tested up to: 4.9.0
  */
 
 defined( 'ABSPATH' ) or exit;

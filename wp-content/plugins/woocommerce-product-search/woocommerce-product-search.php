@@ -2,7 +2,7 @@
 /**
  * woocommerce-product-search.php
  *
- * Copyright (c) 2014-2020 "kento" Karim Rahimpur www.itthinx.com
+ * Copyright (c) 2014-2021 "kento" Karim Rahimpur www.itthinx.com
  *
  * This code is provided subject to the license granted.
  * Unauthorized use and distribution is prohibited.
@@ -22,7 +22,7 @@
  * Plugin Name: WooCommerce Product Search
  * Plugin URI: https://woocommerce.com/products/woocommerce-product-search/
  * Description: The best Search Engine and Search Experience for WooCommerce.
- * Version: 3.5.0
+ * Version: 3.5.1
  * Author: itthinx
  * Author URI: https://www.itthinx.com
  * WC requires at least: 3.6
@@ -47,7 +47,7 @@ if ( ! is_woocommerce_active() ) {
 	return;
 }
 
-define( 'WOO_PS_PLUGIN_VERSION', '3.5.0' );
+define( 'WOO_PS_PLUGIN_VERSION', '3.5.1' );
 define( 'WOO_PS_PLUGIN_DOMAIN', 'woocommerce-product-search' );
 define( 'WOO_PS_FILE', __FILE__ );
 if ( !defined( 'WOO_PS_LOG' ) ) {

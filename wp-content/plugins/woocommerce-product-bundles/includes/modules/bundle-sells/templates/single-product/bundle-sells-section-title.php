@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 5.8.0
+ * @version 6.6.2
  */
 
 // Exit if accessed directly.
@@ -19,9 +19,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="bundle_sells_title">
-	<h3>
-		<?php
-			echo $title;
-		?>
-	</h3>
+	<?php echo ( $wrap ? '<h3>' : '' ) . $title . ( $wrap ? '</h3>' : '' ); ?>
 </div>

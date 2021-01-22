@@ -1,5 +1,22 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2021.01.15 - version 3.1.23
+* Fix - PHP warning due to use of deprecated function 'WC_Admin_Note::set_note'.
+
+2021.01.13 - version 3.1.22
+* Fix - Synchronized plan prices are not correctly replaced in Product Bundle plan options when charging the full amount at sign-up.
+
+2020.12.17 - version 3.1.21
+* Fix - Toggle one-time shipping option when changing the 'Virtual' checkbox state.
+* Fix - Prevent plan options from appearing during switch operations when switching from a plan with a fixed length.
+* Fix - Prevent Bundles and Composites from being switched when the current plan has a fixed length and 'Length Proration' is disabled. Necesssary to ensure orphaned items will not remain in the original subscription after WCS creates a new one after the switch.
+* Dev - Could this be the last APFS release in this dumpster-fire year? Hey, good riddance, 2020.
+
+2020.12.04 - version 3.1.20
+* Fix - Resolved a script enqueuing issue affecting localized dashboards when the 'WooCommerce' string is translated.
+* Fix - Cart item plan changes not applied on the 'woocommerce_update_cart_action_cart_updated' hook.
+* Fix - Fixed 'no longer available subscription plan' error when adding the same Composite Product to the cart multiple times, with different plans.
+
 2020.11.10 - version 3.1.19
 * Feature - Let customers add carts to subscriptions without necessarily offering cart plans using `add_filter( 'wcsatt_add_cart_to_subscription_supported', '__return_true' );`.
 * Fix - Cart-level plan selector is unresponsive when ordering again.

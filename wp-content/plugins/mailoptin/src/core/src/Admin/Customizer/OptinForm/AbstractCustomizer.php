@@ -120,7 +120,7 @@ class AbstractCustomizer
         $defaults['hide_headline']        = apply_filters('mo_optin_form_hide_headline_default', false, $this->customizer_defaults, $this->optin_campaign_type, $this->optin_campaign_class);
         $defaults['hide_description']     = apply_filters('mo_optin_form_hide_description_default', false, $this->customizer_defaults, $this->optin_campaign_type, $this->optin_campaign_class);
         $defaults['hide_note']            = apply_filters('mo_optin_form_hide_note_default', false, $this->customizer_defaults, $this->optin_campaign_type, $this->optin_campaign_class);
-        $defaults['success_message']      = apply_filters('mo_optin_form_success_message_default', __('Thanks for subscribing! Please check your email for further instructions.', 'mailoptin'), $this->customizer_defaults, $this->optin_campaign_type, $this->optin_campaign_class);
+        $defaults['success_message']      = apply_filters('mo_optin_form_success_message_default', __('Thanks for subscribing!', 'mailoptin'), $this->customizer_defaults, $this->optin_campaign_type, $this->optin_campaign_class);
         $defaults['cookie']               = apply_filters('mo_optin_form_cookie_default', 30);
 
         $defaults['load_optin_globally'] = apply_filters('mo_optin_form_load_optin_globally_default', true, $this->customizer_defaults, $this->optin_campaign_type, $this->optin_campaign_class);

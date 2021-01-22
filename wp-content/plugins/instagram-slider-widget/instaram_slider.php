@@ -2,7 +2,7 @@
 /*
 Plugin Name: Social Slider Widget
 Plugin URI: https://cm-wp.com/instagram-slider-widget
-Version: 1.8.4
+Version: 1.8.6
 Description: Social Slider Widget is a responsive slider widget that shows 12 latest images from a public Instagram user and up to 18 images from a hashtag.
 Author: creativemotion
 Author URI: https://cm-wp.com/
@@ -78,18 +78,18 @@ $plugin_info = array(
 	'subscribe_settings'   => [ 'group_id' => '105407119' ],
 
 	'load_factory_modules' => array(
-		array( 'libs/factory/bootstrap', 'factory_bootstrap_441', 'admin' ),
-		array( 'libs/factory/forms', 'factory_forms_438', 'admin' ),
-		array( 'libs/factory/pages', 'factory_pages_440', 'admin' ),
-		array( 'libs/factory/freemius', 'factory_freemius_128', 'all' ),
-		array( 'libs/factory/adverts', 'factory_adverts_119', 'admin' ),
-		array( 'libs/factory/clearfy', 'factory_clearfy_232', 'admin' )
+		array( 'libs/factory/bootstrap', 'factory_bootstrap_442', 'admin' ),
+		array( 'libs/factory/forms', 'factory_forms_439', 'admin' ),
+		array( 'libs/factory/pages', 'factory_pages_441', 'admin' ),
+		array( 'libs/factory/freemius', 'factory_freemius_130', 'all' ),
+		array( 'libs/factory/adverts', 'factory_adverts_120', 'admin' ),
+		//array( 'libs/factory/clearfy', 'factory_clearfy_000', 'admin' )
 	)
 );
 
-$wis_compatibility = new Wbcr_Factory441_Requirements( __FILE__, array_merge( $plugin_info, array(
+$wis_compatibility = new Wbcr_Factory442_Requirements( __FILE__, array_merge( $plugin_info, array(
 	'plugin_already_activate'          => defined( 'WIS_PLUGIN_ACTIVE' ),
-	'required_php_version'             => '5.6',
+	'required_php_version'             => '7.0',
 	'required_wp_version'              => '4.8.0',
 	'required_clearfy_check_component' => false
 ) ) );

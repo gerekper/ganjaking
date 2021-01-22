@@ -1,13 +1,13 @@
 <?php
 
-namespace WBCR\Factory_Freemius_128\Updates;
+namespace WBCR\Factory_Freemius_130\Updates;
 
 // Exit if accessed directly
 use Exception;
-use Wbcr_Factory441_Plugin;
-use WBCR\Factory_441\Updates\Repository;
+use Wbcr_Factory442_Plugin;
+use WBCR\Factory_442\Updates\Repository;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if( !defined('ABSPATH') ) {
 	exit;
 }
 
@@ -18,89 +18,95 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @version 1.0
  */
 class Freemius_Repository extends Repository {
-	
+
 	/**
-	 * @var \WBCR\Factory_Freemius_128\Premium\Provider
+	 * @var \WBCR\Factory_Freemius_130\Premium\Provider
 	 */
 	private $premium;
-	
+
 	/**
 	 * Freemius constructor.
-	 * @since 4.0.0
-	 *
-	 * @param Wbcr_Factory441_Plugin $plugin
+	 * @param Wbcr_Factory442_Plugin $plugin
 	 *
 	 * @throws Exception
+	 * @since 4.0.0
+	 *
 	 */
-	public function __construct( Wbcr_Factory441_Plugin $plugin ) {
-		$this->plugin  = $plugin;
+	public function __construct(Wbcr_Factory442_Plugin $plugin, array $settings = [])
+	{
+		$this->plugin = $plugin;
 		$this->premium = $this->plugin->premium;
 	}
-	
+
 	/**
 	 * @throws Exception
 	 */
-	public function init() {
-		if ( ! $this->premium instanceof \WBCR\Factory_Freemius_128\Premium\Provider ) {
-			throw new Exception( "This repository type requires Freemius premium provider." );
+	public function init()
+	{
+		if( !$this->premium instanceof \WBCR\Factory_Freemius_130\Premium\Provider ) {
+			throw new Exception("This repository type requires Freemius premium provider.");
 		}
-		
-		if ( ! $this->premium->is_activate() ) {
-			throw new Exception( "Only premium plugins can check or receive updates via Freemius repository." );
+
+		if( !$this->premium->is_activate() ) {
+			throw new Exception("Only premium plugins can check or receive updates via Freemius repository.");
 		}
-		
+
 		$this->initialized = true;
-		
-		add_filter( 'http_request_host_is_external', array(
+
+		add_filter('http_request_host_is_external', array(
 			$this,
 			'http_request_host_is_external_filter'
-		), 10, 3 );
+		), 10, 3);
 	}
-	
+
 	/**
 	 * @return bool
 	 */
-	public function need_check_updates() {
+	public function need_check_updates()
+	{
 		return true;
 	}
-	
+
 	/**
 	 * @return bool|mixed
 	 */
-	public function is_support_premium() {
+	public function is_support_premium()
+	{
 		return true;
 	}
-	
+
 	/**
 	 * @return string|null
 	 * @throws Exception
 	 */
-	public function get_download_url() {
+	public function get_download_url()
+	{
 		return $this->premium->get_package_download_url();
 	}
-	
+
 	/**
 	 * @return string|null
 	 * @throws Exception
 	 */
-	public function get_last_version() {
+	public function get_last_version()
+	{
 		try {
 			$last_package = $this->premium->get_downloadable_package_info();
-			
-			if ( empty( $last_package->version ) ) {
+
+			if( empty($last_package->version) ) {
 				return null;
 			}
 		} catch( Exception $e ) {
-			if ( defined( 'FACTORY_UPDATES_DEBUG' ) && FACTORY_UPDATES_DEBUG ) {
-				throw new Exception( $e->getMessage(), $e->getCode() );
+			if( defined('FACTORY_UPDATES_DEBUG') && FACTORY_UPDATES_DEBUG ) {
+				throw new Exception($e->getMessage(), $e->getCode());
 			}
-			
+
 			return null;
 		}
-		
+
 		return $last_package->version;
 	}
-	
+
 	/**
 	 * Since WP version 3.6, a new security feature was added that denies access to repository with a local ip.
 	 * During development mode we want to be able updating plugin versions via our localhost repository. This
@@ -117,7 +123,8 @@ class Freemius_Repository extends Repository {
 	 *
 	 * @return bool
 	 */
-	function http_request_host_is_external_filter( $allow, $host, $url ) {
-		return ( false !== strpos( $host, 'freemius' ) ) ? true : $allow;
+	function http_request_host_is_external_filter($allow, $host, $url)
+	{
+		return (false !== strpos($host, 'freemius')) ? true : $allow;
 	}
 }

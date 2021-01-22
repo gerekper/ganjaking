@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WC Core compatibility functions.
  *
  * @class    WCS_ATT_Core_Compatibility
- * @version  3.1.5
+ * @version  3.1.20
  */
 class WCS_ATT_Core_Compatibility {
 
@@ -194,6 +194,24 @@ class WCS_ATT_Core_Compatibility {
 			$product_type = WC_Product_Factory::get_product_type( $product_id );
 		}
 		return $product_type;
+	}
+
+	/**
+	* Get formatted screen id.
+	*
+	* @since  3.1.20
+	*
+	* @param  string $key
+	* @return string
+	*/
+	public static function get_formatted_screen_id( $screen_id ) {
+
+		$prefix = sanitize_title( __( 'WooCommerce', 'woocommerce' ) );
+		if ( 0 === strpos( $screen_id, 'woocommerce_' ) ) {
+			$screen_id = str_replace( 'woocommerce_', $prefix . '_', $screen_id );
+		}
+
+		return $screen_id;
 	}
 
 	/*

@@ -759,7 +759,7 @@ class RevSliderFunctions extends RevSliderData {
 					'post_parent'	 => '',
 					'post_type'		 => 'attachment',
 					'guid'			 => $ul_dir['baseurl'].'/'.$s_dir,
-					'post_mime_type' => $file_info['mime'],
+					'post_mime_type' => $this->get_val($file_info, 'mime'),
 					'post_excerpt'	 => '',
 					'post_content'	 => ''
 				);

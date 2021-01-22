@@ -185,9 +185,9 @@ jQuery( function( $ ) {
 			$( '.show_if_external' ).hide();
 			$( '.show_if_bundle' ).show();
 
-			$( 'input#_manage_stock' ).change();
+			$( 'input#_manage_stock' ).trigger( 'change' );
 
-			$( '#_nyp' ).change();
+			$( '#_nyp' ).trigger( 'change' );
 		}
 
 	} );
@@ -207,7 +207,7 @@ jQuery( function( $ ) {
 	} );
 
 	// Show/hide 'Edit in cart' option.
-	$group_mode_select.change( function() {
+	$group_mode_select.on( 'change', function() {
 		if ( $.inArray( $group_mode_select.val(), wc_bundles_admin_params.group_modes_with_parent ) === -1 ) {
 			$edit_in_cart.hide();
 		} else {
@@ -216,15 +216,15 @@ jQuery( function( $ ) {
 	} );
 
 	// Downloadable support.
-	$( 'input#_downloadable' ).change( function() {
-		$product_type_select.change();
+	$( 'input#_downloadable' ).on( 'change', function() {
+		$product_type_select.trigger( 'change' );
 	} );
 
 	// Trigger product type change.
-	$product_type_select.change();
+	$product_type_select.trigger( 'change' );
 
 	// Trigger group mode change.
-	$group_mode_select.change();
+	$group_mode_select.trigger( 'change' );
 
 	init_event_handlers();
 
@@ -250,7 +250,7 @@ jQuery( function( $ ) {
 					return false;
 				}
 
-				$bundled_product_search.val( [] ).change();
+				$bundled_product_search.val( [] ).trigger( 'change' );
 
 				$bundled_products_panel.block( block_params );
 
@@ -517,7 +517,7 @@ jQuery( function( $ ) {
 	function init_nux() {
 
 		if ( 'yes' === wc_bundles_admin_params.is_first_bundle ) {
-			$product_type_select.val( 'bundle' ).change().focus();
+			$product_type_select.val( 'bundle' ).trigger( 'change' ).trigger( 'focus' );
 			setTimeout( function() {
 				$( '.bundled_products_tab a' ).trigger( 'click' );
 			}, 500 );
@@ -555,7 +555,7 @@ jQuery( function( $ ) {
 			$this.addClass( 'sw-expanding-button--open' );
 
 			focus_timer = setTimeout( function() {
-				$input.focus();
+				$input.trigger( 'focus' );
 			}, 700 );
 
 			$bundled_product_search.one( 'change', function() {
@@ -599,7 +599,7 @@ jQuery( function( $ ) {
 			if ( 'bundle' !== select_val ) {
 				// Restore virtual state.
 				if ( 'simple' === select_val ) {
-					$virtual_checkbox.prop( 'checked', virtual_state ).change();
+					$virtual_checkbox.prop( 'checked', virtual_state ).trigger( 'change' );
 				}
 			}
 

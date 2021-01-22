@@ -118,7 +118,7 @@ add_action( 'woocommerce_process_product_meta', 'redsys_save_private_product' );
 function redsys_load_scripts_product() {
 	global $current_screen;
 	if ( 'product' === $current_screen->post_type ) {
-		wp_enqueue_script( 'custom-js', REDSYS_PLUGIN_URL . 'assets/js/users-product.js' );
+		wp_enqueue_script( 'custom-js', REDSYS_PLUGIN_URL_P . 'assets/js/users-product.js' );
 	}
 }
 add_action('admin_enqueue_scripts', 'redsys_load_scripts_product');

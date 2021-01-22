@@ -11,9 +11,13 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class WC_OD_Delivery_Dates
  */
-abstract class WC_OD_Delivery_Dates {
+class WC_OD_Delivery_Dates {
+
 	/**
 	 * Gets the available dates for delivery.
+	 *
+	 * @since 1.8.0
+	 * @since 1.8.5 Added `$format` parameter.
 	 *
 	 * @param array $args {
 	 *      Associative array with arguments.
@@ -23,9 +27,10 @@ abstract class WC_OD_Delivery_Dates {
 	 *      @type array  $disabled_dates
 	 * }.
 	 *
+	 * @param string $format The date format. Default: empty (timestamp).
 	 * @return array
 	 */
-	public static function get_disabled_dates( $args ) {
+	public static function get_disabled_dates( $args, $format = '' ) {
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -49,7 +54,7 @@ abstract class WC_OD_Delivery_Dates {
 				in_array( date( 'Y-m-d', $timestamp ), $args['disabled_dates'], true ) ||
 				! $delivery_date->is_valid()
 			) {
-				$disabled_dates[] = $timestamp;
+				$disabled_dates[] = ( $format ? date( $format, $timestamp ) : $timestamp );
 			}
 
 			$index++;

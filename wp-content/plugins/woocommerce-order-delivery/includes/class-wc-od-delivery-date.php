@@ -67,13 +67,8 @@ class WC_OD_Delivery_Date {
 		} else {
 			$number_of_orders = $this->delivery_day->get_number_of_orders();
 
-			// 0 means no limit
-			if ( $number_of_orders < 1 ) {
-				return true;
-			}
-
-			// Disable days that had reached the max number of orders.
-			if ( ! $this->delivery_day || $number_of_orders <= wc_od_get_orders_to_deliver( $this->timestamp ) ) {
+			// The maximum number of orders has been reached.
+			if ( 0 < $number_of_orders && $number_of_orders <= wc_od_get_orders_to_deliver( $this->timestamp ) ) {
 				return false;
 			}
 		}
@@ -84,32 +79,33 @@ class WC_OD_Delivery_Date {
 	/**
 	 * Checks if a delivery day has reached all the available orders for all the timeframes.
 	 *
+	 * @since 1.8.0
+	 *
 	 * @return bool
 	 */
 	public function time_frames_are_full() {
-		if ( null === $this->delivery_day || ! $this->delivery_day->has_time_frames() ) {
+		if ( ! $this->delivery_day->has_time_frames() ) {
 			return false;
 		}
 
-		$full_time_frames = 0;
-		/* @var WC_OD_Time_Frame $time_frame The time frame object to work with. */
-		foreach ( $this->delivery_day->get_time_frames() as $time_frame ) {
+		$time_frames = $this->delivery_day->get_time_frames();
+
+		foreach ( $time_frames as $time_frame ) {
 			$number_of_orders = $time_frame->get_number_of_orders();
 
-			// 0 means no limit.
-			if ( $number_of_orders < 1 ) {
-				continue;
+			// It has no limit.
+			if ( 0 === $number_of_orders ) {
+				return false;
 			}
 
-			$from = $time_frame->get_time_from();
-			$to   = $time_frame->get_time_to();
+			$orders = wc_od_get_orders_to_deliver_in_time_frame( $this->timestamp, $time_frame->get_time_from(), $time_frame->get_time_to() );
 
-			$orders = wc_od_get_orders_to_deliver_in_time_frame( $this->timestamp, $from, $to );
-			if ( $orders >= $number_of_orders ) {
-				$full_time_frames++;
+			// There is a time frame whose limit has not been reached.
+			if ( $orders < $number_of_orders ) {
+				return false;
 			}
 		}
 
-		return $full_time_frames >= count( $this->delivery_day->get_time_frames() );
+		return true;
 	}
 }

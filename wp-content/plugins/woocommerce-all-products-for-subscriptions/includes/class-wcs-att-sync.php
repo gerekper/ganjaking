@@ -251,7 +251,7 @@ class WCS_ATT_Sync {
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
-		if ( $screen_id === 'woocommerce_page_wc-settings' && isset( $_GET[ 'tab' ] ) && $_GET[ 'tab' ] === 'subscriptions' ) {
+		if ( $screen_id === WCS_ATT_Core_Compatibility::get_formatted_screen_id( 'woocommerce_page_wc-settings' ) && isset( $_GET[ 'tab' ] ) && $_GET[ 'tab' ] === 'subscriptions' ) {
 
 			$billing_period_strings = self::rename_subscription_billing_period_range_data( WC_Subscriptions_Synchroniser::get_billing_period_ranges() );
 

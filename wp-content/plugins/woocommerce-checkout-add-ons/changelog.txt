@@ -1,5 +1,9 @@
 *** WooCommerce Checkout Add-Ons Changelog ***
 
+2021.01.18 - version 2.5.1
+ * Fix - Prevent field description duplicates when the checkout page is refreshed
+ * Fix - Prevent validation errors on field types with options using non-Latin characters
+
 2020.12.08 - version 2.5.0
  * Misc - Add compatibility for WooCommerce 4.7
  * Misc - Require PHP 7.0 or newer

@@ -18,7 +18,7 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -51,6 +51,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 		$this->upgrade_versions = [
 			'3.0.0',
+			'3.11.0',
 		];
 	}
 
@@ -252,6 +253,43 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 		// upgrade flag
 		update_option( 'woocommerce_pip_upgraded_to_3_0_0', 'yes' );
+	}
+
+
+	/**
+	 * Upgrades to version 3.11.0
+	 *
+	 * @since 3.110-dev.1
+	 */
+	protected function upgrade_to_3_11_0() {
+
+		// if the Extra Columns free add on is found, deactivate it and set a flag to display an admin notice
+		if ( $this->get_plugin()->is_plugin_active( 'woocommerce-pip-extra-columns.php' ) ) {
+
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+			deactivate_plugins( 'woocommerce-pip-extra-columns/woocommerce-pip-extra-columns.php' );
+
+			update_option( 'wc_pip_merged_extra_columns_free_add_on', 'yes' );
+		}
+
+		// merge the extra columns setting inside the optional fields setting
+		foreach ( [ 'invoice', 'packing-list', 'pick-list' ] as $document_type ) {
+
+			// for the invoice the only optional field was the SKU and this was originally kept as a checkbox setting
+			if ( 'invoice' === $document_type ) {
+				$optional_fields = wc_string_to_bool( get_option( 'wc_pip_invoice_show_optional_fields', 'yes' ) ) ? [ 'sku' ] : [];
+			} else {
+				$optional_fields = get_option( "wc_pip_{$document_type}_show_optional_fields", [] );
+			}
+
+			$extra_columns = get_option( "wc_pip_{$document_type}_extra_columns", [] );
+
+			update_option( "wc_pip_{$document_type}_show_optional_fields", array_unique( array_merge( $optional_fields, $extra_columns ) ) );
+			delete_option( "wc_pip_{$document_type}_extra_columns" );
+		}
+
+		delete_option( 'wc_pip_extra_columns_version' );
 	}
 
 

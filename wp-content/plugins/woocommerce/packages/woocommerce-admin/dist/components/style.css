@@ -1606,7 +1606,7 @@ The CSSTransition element creates a containing div without a class
       font-size: 11px; } }
 
 .woocommerce-product-image {
-  border-radius: 50%; }
+  border-radius: 2px; }
 
 .woocommerce-rating {
   position: relative;
@@ -1977,7 +1977,7 @@ The CSSTransition element creates a containing div without a class
     border: 1px solid #a7aaad;
     border-radius: 3px;
     background: #fff;
-    padding: 12px 16px;
+    padding: 12px;
     position: relative; }
     .woocommerce-select-control .components-base-control .woocommerce-select-control__tags {
       margin: 12px 4px 0 0; }
@@ -2063,7 +2063,7 @@ The CSSTransition element creates a containing div without a class
     .woocommerce-select-control .woocommerce-select-control__option.is-selected, .woocommerce-select-control .woocommerce-select-control__option:hover {
       background: #f6f7f7; }
   .woocommerce-select-control.is-searchable .components-base-control__label {
-    left: 52px; }
+    left: 48px; }
   .woocommerce-select-control.is-searchable .components-base-control.is-active .components-base-control__label {
     font-size: 12px;
     margin-top: -12px; }
@@ -2188,7 +2188,7 @@ The CSSTransition element creates a containing div without a class
   display: block; }
 
 .woocommerce-stepper.is-vertical .woocommerce-stepper_content {
-  margin-top: 8px;
+  margin-top: 16px;
   margin-left: 36px; }
 
 @keyframes rotate {

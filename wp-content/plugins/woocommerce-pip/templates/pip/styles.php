@@ -19,23 +19,21 @@
  *
  * @package   WC-Print-Invoices-Packing-Lists/Templates
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
 /**
- * PIP Documents Styles Template
+ * PIP Documents Styles Template.
  *
  * Use this template to override styles used in PIP documents.
- * However, you can also add more styles from PIP settings page
- * or hooking `wc_pip_styles` action without copying and editing
- * over this template.
+ * However, you can also add more styles from PIP settings page or hooking `wc_pip_styles` action without copying and editing over this template.
  *
- * @type \WC_PIP_Document $document Document object
+ * @var \WC_PIP_Document $document document object
  *
- * @version 3.6.2
+ * @version 3.11.0
  * @since 3.0.0
  */
 
@@ -388,6 +386,28 @@ defined( 'ABSPATH' ) or exit;
 		overflow: hidden;
 		padding: 0;
 		visibility: hidden;
+	}
+
+	<?php
+
+	/**
+	 * Filters the thumbnail size in documents.
+	 *
+	 * @since 3.11.0
+	 *
+	 * @param int thumbnail size, in pixels (defaults to 100)
+	 * @param \WC_PIP_Document $document the current document being output
+	 */
+	$thumb_size = (int) apply_filters( 'wc_pip_product_image_thumbnail_size', 100, $document );
+
+	?>
+	table td.thumbnail {
+		text-align: center;
+	}
+
+	table td.thumbnail img {
+		width: <?php echo absint( $thumb_size ); ?>px;
+		height: auto;
 	}
 
 	.quantity,

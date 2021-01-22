@@ -12,7 +12,7 @@
  * Plugin Name:       WordPress GDPR
  * Plugin URI:        https://welaunch.io/plugins/wordpress-gdpr/
  * Description:       EU-DSVGO, GDPR Compliance Plugin
- * Version:           1.9.12
+ * Version:           1.9.15
  * Author:            weLaunch
  * Author URI:        https://welaunch.io
  * License:           GPL-2.0+

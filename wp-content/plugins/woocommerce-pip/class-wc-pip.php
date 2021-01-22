@@ -18,7 +18,7 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -35,7 +35,7 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 
 
 	/** string version number */
-	const VERSION = '3.10.0';
+	const VERSION = '3.11.0';
 
 	/** @var WC_PIP single instance of this plugin */
 	protected static $instance;
@@ -199,22 +199,15 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 	 */
 	protected function get_deprecated_hooks() {
 
-		return array(
-			// TODO remove by January 2020 or by version 4.0.0, whichever comes first {FN 2018-12-11]
-			'wc_pip_sort_order_items' => array(
-				'version'     => '3.3.5',
-				'replacement' => 'wc_pip_sort_order_item_rows',
-				'removed'     => true,
-				'map'         => false,
-			),
-			// TODO remove by December 2019 or by version 4.0.0, whichever comes first {FN 2018-12-11]
-			'wc_pip_pick_list_document_table_row_cells' => array(
-				'version'     => '3.6.2',
-				'replacement' => 'wc_pip_pick_list_grouped_by_category_table_rows',
+		return [
+			// from Extra Columns free add on
+			'wc_pip_extra_columns_thumbnail_px' => [
+				'version'     => '3.11.0',
+				'replacement' => 'wc_pip_product_image_thumbnail_size',
 				'removed'     => true,
 				'map'         => true,
-			),
-		);
+			],
+		];
 	}
 
 
@@ -287,6 +280,23 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 				'always_show_on_settings' => false,
 				'notice_class'            => 'updated',
 			) );
+		}
+
+		if ( 'yes' === get_option( 'wc_pip_merged_extra_columns_free_add_on' ) ) {
+
+			$this->get_admin_notice_handler()->add_admin_notice(
+				sprintf(
+					/* translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing </strong> HTML tag */
+					__( '%1$sHeads up!%2$s We\'ve merged the Extra Columns add-on into Print Invoices/Packing Lists, so you no longer need this add-on to add extra columns to your documents. This add-on has been deactivated and can be safely removed from your plugin list.', 'woocommerce-pip' ),
+					'<strong>', '</strong>'
+				),
+				'wc_pip_merged_extra_columns_free_add_on',
+				[
+					'always_show_on_settings' => false,
+					'dismissible'             => true,
+					'notice_class'            => 'notice-warning',
+				]
+			);
 		}
 	}
 

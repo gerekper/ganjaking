@@ -18,7 +18,7 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -51,22 +51,29 @@ class WC_PIP_Document_Invoice extends WC_PIP_Document {
 		$this->name_plural = __( 'Invoices', 'woocommerce-pip' );
 
 		$this->optional_fields = [
-			'sku'
+			'thumbnail',
+			'sku',
+			'unit_price',
+			'line_tax',
 		];
 
 		$this->table_headers = [
-			'sku'      => __( 'SKU' , 'woocommerce-pip' ),
-			'product'  => __( 'Product' , 'woocommerce-pip' ),
-			'quantity' => __( 'Quantity' , 'woocommerce-pip' ),
-			'price'    => __( 'Price' , 'woocommerce-pip' ),
-			'id'       => '', // leave this blank
+			'thumbnail'  => __( 'Image', 'woocommerce-pip' ),
+			'sku'        => __( 'SKU' , 'woocommerce-pip' ),
+			'product'    => __( 'Product' , 'woocommerce-pip' ),
+			'unit_price' => __( 'Unit price', 'woocommerce-pip' ),
+			'quantity'   => __( 'Quantity' , 'woocommerce-pip' ),
+			'line_tax'   => __( 'Line taxes', 'woocommerce-pip' ),
+			'price'      => __( 'Price' , 'woocommerce-pip' ),
+			'id'         => '', // leave this blank
 		];
 
 		$this->column_widths = [
-			'sku'      => 20,
-			'product'  => 53,
-			'quantity' => 10,
-			'price'    => 17,
+			'sku'        => 30,
+			'product'    => 40,
+			'unit_price' => 10,
+			'quantity'   => 10,
+			'price'      => 10,
 		];
 
 		$this->show_billing_address      = true;
@@ -163,12 +170,18 @@ class WC_PIP_Document_Invoice extends WC_PIP_Document {
 
 		$item_meta = $this->get_order_item_meta_html( $item_id, $item, $product );
 		$item_data = [
-			'sku'      => $this->get_order_item_sku_html( $product, $item ),
-			'product'  => $this->get_order_item_name_html( $product, $item ) . ( $item_meta ? '<br>' . $item_meta : '' ),
-			'quantity' => $this->get_order_item_quantity_html( $item_id, $item ),
-			'price'    => $this->get_order_item_price_html( $item_id, $item ),
-			'id'       => $this->get_order_item_id_html( $item_id ),
+			'thumbnail'  => $this->get_order_item_product_image_html( $product, $item ),
+			'sku'        => $this->get_order_item_sku_html( $product, $item ),
+			'product'    => $this->get_order_item_name_html( $product, $item ) . ( $item_meta ? '<br>' . $item_meta : '' ),
+			'unit_price' => $this->get_order_item_unit_price_html( $product, $item ),
+			'quantity'   => $this->get_order_item_quantity_html( $item_id, $item ),
+			'price'      => $this->get_order_item_price_html( $item_id, $item ),
+			'id'         => $this->get_order_item_id_html( $item_id ),
 		];
+
+		foreach ( $this->get_order_item_line_taxes_html( $item ) as $tax_id => $line_tax_html ) {
+			$item_data["tax_{$tax_id}"] = $line_tax_html;
+		}
 
 		// remove any field that has no matching column
 		foreach ( $item_data as $item_key => $data ) {
@@ -176,6 +189,9 @@ class WC_PIP_Document_Invoice extends WC_PIP_Document {
 				unset( $item_data[ $item_key ] );
 			}
 		}
+
+		// sort cells by table headers
+		$item_data = array_merge( $this->get_table_headers(), $item_data );
 
 		/**
 		 * Filters the document table cells.

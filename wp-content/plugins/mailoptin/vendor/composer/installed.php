@@ -22,12 +22,12 @@
     ),
     'collizo4sky/persist-admin-notices-dismissal' => 
     array (
-      'pretty_version' => '1.4.3',
-      'version' => '1.4.3.0',
+      'pretty_version' => '1.4.4',
+      'version' => '1.4.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2d7d8bb3cba631ad227c92296a4b675d7cbc71d7',
+      'reference' => '900739eb6b0ec0210465f5983a6d4e0e420289e4',
     ),
     'composer/installers' => 
     array (
@@ -83,8 +83,8 @@
     ),
     'mailoptin/authifly' => 
     array (
-      'pretty_version' => '0.2.1608623502',
-      'version' => '0.2.1608623502.0',
+      'pretty_version' => '0.2.1610358088',
+      'version' => '0.2.1610358088.0',
       'aliases' => 
       array (
       ),
@@ -92,8 +92,8 @@
     ),
     'mailoptin/connections' => 
     array (
-      'pretty_version' => '0.2.1608628430',
-      'version' => '0.2.1608628430.0',
+      'pretty_version' => '0.2.1610358132',
+      'version' => '0.2.1610358132.0',
       'aliases' => 
       array (
       ),
@@ -101,12 +101,12 @@
     ),
     'mailoptin/core' => 
     array (
-      'pretty_version' => '0.1.0-alpha.1608623662',
-      'version' => '0.1.0.0-alpha1608623662',
+      'pretty_version' => '0.1.0-alpha.1610358126',
+      'version' => '0.1.0.0-alpha1610358126',
       'aliases' => 
       array (
       ),
-      'reference' => '12338dc2018d3d44d793b320155a1f2e1ae7e0e4',
+      'reference' => '5e6dc009da35edb9700a876b4570cd1ee8a2b3ff',
     ),
     'nesbot/carbon' => 
     array (

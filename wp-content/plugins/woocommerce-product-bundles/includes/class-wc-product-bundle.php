@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  6.6.0
+ * @version  6.7.0
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -641,7 +641,7 @@ class WC_Product_Bundle extends WC_Product {
 			$data[ 'raw_bundle_price_max' ] = '' === $raw_bundle_price_max ? '' : (double) $raw_bundle_price_max;
 
 			$data[ 'is_purchasable' ]    = $this->is_purchasable() ? 'yes' : 'no';
-			$data[ 'show_free_string' ]  = ( $this->contains( 'priced_individually' ) ? apply_filters( 'woocommerce_bundle_show_free_string', false, $this ) : true ) ? 'yes' : 'no';
+			$data[ 'show_free_string' ]  = 'no';
 			$data[ 'show_total_string' ] = 'no';
 
 			$data[ 'prices' ]         = array();
@@ -748,17 +748,8 @@ class WC_Product_Bundle extends WC_Product {
 			}
 
 			if ( $this->contains( 'subscriptions_priced_individually' ) ) {
-
-				$data[ 'price_string_recurring_uniform' ] = '<span class="bundled_subscriptions_price_html">%r</span>';
-
-				if ( $this->get_bundle_regular_price( 'min' ) != 0 ) {
-					$data[ 'price_string' ] = sprintf( _x( '%1$s<span class="bundled_subscriptions_price_html" style="display:none"> now,</br>then %2$s</span>', 'subscription price html suffix', 'woocommerce-product-bundles' ), '%s', '%r' );
-				} else {
-					$data[ 'price_string' ] = '<span class="bundled_subscriptions_price_html">%r</span>';
-				}
-
-			} else {
-				$data[ 'price_string' ] = '%s';
+				$data[ 'price_string_recurring' ]          = '<span class="bundled_subscriptions_price_html">%r</span>';
+				$data[ 'price_string_recurring_up_front' ] = sprintf( _x( '%1$s<span class="bundled_subscriptions_price_html"> one time%2$s</span>', 'subscription price html', 'woocommerce-product-bundles' ), '%s', '%r' );;
 			}
 
 			$group_mode              = $this->get_group_mode();
@@ -1064,7 +1055,9 @@ class WC_Product_Bundle extends WC_Product {
 			$subs_details            = array();
 			$subs_details_html       = array();
 			$non_optional_subs_exist = false;
-			$has_payment_up_front    = false;
+			$from_string             = wc_get_price_html_from_text();
+			$has_payment_up_front    = $this->get_bundle_regular_price( 'min' ) > 0;
+			$is_range                = false !== strpos( $price, $from_string );
 
 			foreach ( $bundled_items as $bundled_item_id => $bundled_item ) {
 
@@ -1110,20 +1103,16 @@ class WC_Product_Bundle extends WC_Product {
 					if ( ! isset( $subs_details[ $sub_string ][ 'price_html' ] ) ) {
 						$subs_details[ $sub_string ][ 'price_html' ] = WC_PB_Product_Prices::get_recurring_price_html_component( $product );
 					}
-
-					if ( ! $has_payment_up_front && method_exists( 'WC_Subscriptions_Synchroniser', 'is_payment_upfront' ) && WC_Subscriptions_Synchroniser::is_payment_upfront( $product ) ) {
-						$has_payment_up_front = true;
-					}
 				}
 			}
 
 			if ( ! empty( $subs_details ) ) {
 
-				$uppercase_from = _x( '<span class="from">From: </span>', 'min-price', 'woocommerce-product-bundles' );
-				$lowercase_from = _x( '<span class="from">from </span>', 'min-price', 'woocommerce-product-bundles' );
-				$from_string    = $this->get_bundle_regular_price( 'min' ) != 0 ? $lowercase_from : $uppercase_from;
-
 				foreach ( $subs_details as $sub_details ) {
+
+					if ( $sub_details[ 'is_range' ] ) {
+						$is_range = true;
+					}
 
 					if ( $sub_details[ 'regular_price' ] > 0 ) {
 
@@ -1132,22 +1121,7 @@ class WC_Product_Bundle extends WC_Product {
 						if ( $sub_details[ 'price' ] !== $sub_details[ 'regular_price' ] ) {
 
 							$sub_regular_price_html = wc_price( $sub_details[ 'regular_price' ] );
-
-							if ( $sub_details[ 'is_range' ] ) {
-								$sub_price_html = sprintf( _x( '%1$s%2$s', 'Price range: from', 'woocommerce-product-bundles' ), $from_string, wc_format_sale_price( $sub_regular_price_html, $sub_price_html ) );
-							} else {
-								$sub_price_html = wc_format_sale_price( $sub_regular_price_html, $sub_price_html );
-							}
-
-						} elseif ( $sub_details[ 'price' ] == 0 && ! $sub_details[ 'is_range' ] ) {
-
-							$sub_price_html = __( 'Free!', 'woocommerce' );
-
-						} else {
-
-							if ( $sub_details[ 'is_range' ] ) {
-								$sub_price_html = sprintf( _x( '%1$s%2$s', 'Price range: from', 'woocommerce-product-bundles' ), $from_string, $sub_price_html );
-							}
+							$sub_price_html         = wc_format_sale_price( $sub_regular_price_html, $sub_price_html );
 						}
 
 						$sub_price_details_html = sprintf( $sub_details[ 'price_html' ], $sub_price_html );
@@ -1155,15 +1129,32 @@ class WC_Product_Bundle extends WC_Product {
 					}
 				}
 
-				$price_html        = implode( '<span class="plus"> + </span>', $subs_details_html );
-				$has_multiple_subs = sizeof( $subs_details_html ) > 1;
-				$prices_equal      = 1 === sizeof( $subs_details_html ) && strpos( str_replace( $lowercase_from, $uppercase_from, $subs_details_html[ 0 ] ), $price ) !== false;
-				$show_now          = ( $has_multiple_subs || false === $prices_equal || $has_payment_up_front ) && $this->get_bundle_regular_price( 'min' ) != 0;
+				$subs_price_html       = '';
+				$subs_details_html_len = count( $subs_details_html );
 
-				if ( $show_now ) {
-					$price = sprintf( _x( '%1$s<span class="bundled_subscriptions_price_html" %2$s> now,</br>then %3$s</span>', 'subscription price html suffix', 'woocommerce-product-bundles' ), $price, ! empty( $subs_details_html ) ? '' : 'style="display:none"', $price_html );
-				} else {
-					$price = '<span class="bundled_subscriptions_price_html">' . str_replace( $lowercase_from, $uppercase_from, $price_html ) . '</span>';
+				foreach ( $subs_details_html as $i => $sub_details_html ) {
+					if ( $i === $subs_details_html_len - 1 || ( $i === 0 && ! $has_payment_up_front ) ) {
+						if ( $i > 0 || $has_payment_up_front ) {
+							$subs_price_html = sprintf( _x( '%1$s, and</br>%2$s', 'subscription price html', 'woocommerce-product-bundles' ), $subs_price_html, $sub_details_html );
+						} else {
+							$subs_price_html = $sub_details_html;
+						}
+					} else {
+						$subs_price_html = sprintf( _x( '%1$s,</br>%2$s', 'subscription price html', 'woocommerce-product-bundles' ), $subs_price_html, $sub_details_html );
+					}
+				}
+
+				if ( $subs_price_html ) {
+
+					if ( $has_payment_up_front ) {
+						$price = sprintf( _x( '%1$s<span class="bundled_subscriptions_price_html"> one time%2$s</span>', 'subscription price html', 'woocommerce-product-bundles' ), $price, $subs_price_html );
+					} else {
+						$price = '<span class="bundled_subscriptions_price_html">' . $subs_price_html . '</span>';
+					}
+
+					if ( $is_range && false === strpos( $price, $from_string ) ) {
+						$price = sprintf( _x( '%1$s%2$s', 'Price range: from', 'woocommerce-product-bundles' ), $from_string, $price );
+					}
 				}
 			}
 		}
@@ -2647,7 +2638,7 @@ class WC_Product_Bundle extends WC_Product {
 			$this->set_group_mode( 'parent' );
 		}
 
-		if ( $this->get_min_bundle_size( 'edit' ) > $this->get_max_bundle_size( 'edit' ) ) {
+		if ( $this->get_min_bundle_size( 'edit' ) > 0 && $this->get_max_bundle_size( 'edit' ) > 0 && $this->get_min_bundle_size( 'edit' ) > $this->get_max_bundle_size( 'edit' ) ) {
 			$this->set_max_bundle_size( $this->get_min_bundle_size( 'edit' ) );
 		}
 	}

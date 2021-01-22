@@ -197,6 +197,7 @@
                 
                 <h2 class="nav-tab-wrapper">
                     <a href="?page=woocommerce_pdf&tab=display_settings" class="nav-tab <?php echo $active_tab == 'display_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'PDF Settings' , 'woocommerce-pdf-invoice' ) ?></a>
+                    <a href="?page=woocommerce_pdf&tab=display_settings_layout" class="nav-tab <?php echo $active_tab == 'display_settings_layout' ? 'nav-tab-active' : ''; ?>"><?php _e( 'PDF Layout Settings' , 'woocommerce-pdf-invoice' ) ?></a>
                     <a href="?page=woocommerce_pdf&tab=display_debugging" class="nav-tab <?php echo $active_tab == 'display_debugging' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Debugging Information' , 'woocommerce-pdf-invoice' ) ?></a>
                     <a href="?page=woocommerce_pdf&tab=display_help" class="nav-tab <?php echo $active_tab == 'display_help' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Help and Customisation' , 'woocommerce-pdf-invoice' ) ?></a>
                 </h2>
@@ -205,9 +206,13 @@
                 
                    require_once ( PDFPLUGINPATH . "lib/pdf_debugging.php" );
                 
+                } elseif( $active_tab == 'display_settings_layout' ) {
+                
+                   require_once ( PDFPLUGINPATH . "html/pdf-layout.php" );
+
                 } elseif( $active_tab == 'display_help' ) {
                 
-                   require_once ( PDFPLUGINPATH . "classes/class-pdf-help.php" );
+                   require_once ( PDFPLUGINPATH . "html/pdf-help.php" );
                 
                 } else {
                 // Settings

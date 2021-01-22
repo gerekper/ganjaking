@@ -18,7 +18,7 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -51,23 +51,25 @@ class WC_PIP_Document_Packing_List extends WC_PIP_Document {
 		$this->name_plural = __( 'Packing Lists', 'woocommerce-pip' );
 
 		$this->optional_fields = [
+			'thumbnail',
 			'sku',
 			'weight',
 		];
 
 		$this->table_headers = [
-			'sku'      => __( 'SKU' , 'woocommerce-pip' ),
-			'product'  => __( 'Product' , 'woocommerce-pip' ),
-			'quantity' => __( 'Quantity' , 'woocommerce-pip' ),
-			'weight'   => __( 'Total Weight' , 'woocommerce-pip' ),
-			'id'       => '', // leave this blank
+			'thumbnail' => __( 'Image', 'woocommerce-pip' ),
+			'sku'       => __( 'SKU' , 'woocommerce-pip' ),
+			'product'   => __( 'Product' , 'woocommerce-pip' ),
+			'quantity'  => __( 'Quantity' , 'woocommerce-pip' ),
+			'weight'    => __( 'Total Weight' , 'woocommerce-pip' ),
+			'id'        => '', // leave this blank
 		];
 
 		$this->column_widths = [
-			'sku'      => 25,
-			'product'  => 50,
-			'quantity' => 10,
-			'weight'   => 15,
+			'sku'       => 35,
+			'product'   => 45,
+			'quantity'  => 10,
+			'weight'    => 10,
 		];
 
 		$this->show_billing_address      = false;
@@ -519,21 +521,26 @@ class WC_PIP_Document_Packing_List extends WC_PIP_Document {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string $item_id Item id
-	 * @param array $item Item data
-	 * @param \WC_Product $product Product object
+	 * @param string $item_id item ID
+	 * @param array|\WC_Order_Item_Product $item item data
+	 * @param \WC_Product $product product object
 	 * @return array
 	 */
 	protected function get_order_item_data( $item_id, $item, $product ) {
 
 		$item_meta = $this->get_order_item_meta_html( $item_id, $item, $product );
 		$item_data = [
-			'sku'      => $this->get_order_item_sku_html( $product, $item ),
-			'product'  => $this->get_order_item_name_html( $product, $item ) . ( $item_meta ? '<br>' . $item_meta : '' ),
-			'quantity' => $this->get_order_item_quantity_html( $item_id, $item ),
-			'weight'   => $this->get_order_item_weight_html( $item_id, $item, $product ),
-			'id'       => $this->get_order_item_id_html( $item_id ),
+			'thumbnail'  => $this->get_order_item_product_image_html( $product, $item ),
+			'sku'        => $this->get_order_item_sku_html( $product, $item ),
+			'product'    => $this->get_order_item_name_html( $product, $item ) . ( $item_meta ? '<br>' . $item_meta : '' ),
+			'quantity'   => $this->get_order_item_quantity_html( $item_id, $item ),
+			'weight'     => $this->get_order_item_weight_html( $item_id, $item, $product ),
+			'id'         => $this->get_order_item_id_html( $item_id ),
 		];
+
+		foreach ( $this->get_order_item_line_taxes_html( $item ) as $tax_id => $line_tax_html ) {
+			$item_data["tax_{$tax_id}"] = $line_tax_html;
+		}
 
 		// remove any field that has no matching column
 		foreach ( $item_data as $item_key => $data ) {
@@ -541,6 +548,9 @@ class WC_PIP_Document_Packing_List extends WC_PIP_Document {
 				unset( $item_data[ $item_key ] );
 			}
 		}
+
+		// sort cells by table headers
+		$item_data = array_merge( $this->get_table_headers(), $item_data );
 
 		/** This filter is documented in includes/class-wc-pip-document-invoice.php */
 		return apply_filters( 'wc_pip_document_table_row_cells', $item_data, $this->type, $item_id, $item, $product, $this->order );

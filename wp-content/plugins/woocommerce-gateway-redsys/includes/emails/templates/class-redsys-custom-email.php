@@ -39,7 +39,7 @@ class Redsys_Customer_Email_Order extends WC_Email {
 		// Template paths.
 		$this->template_html  = 'html/redsys-html-customer-problem.php';
 		$this->template_plain = 'plain/redsys-plain-customer-problem.php';
-		$this->template_base  = REDSYS_PLUGIN_PATH . 'includes/emails/templates/';
+		$this->template_base  = REDSYS_PLUGIN_PATH_P . 'includes/emails/templates/';
 
 		// Action to which we hook onto to send the email.
 		add_action( 'redsys_sent_email_payment_error_to_customers', array( $this, 'trigger' ) );

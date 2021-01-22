@@ -1818,6 +1818,26 @@ class GroovyMenuUtils {
 	}
 
 
+	public static function output_uniqid_gm_js() {
+		global $groovyMenuSettings;
+
+		if ( empty( $groovyMenuSettings['gm-uniqid-js'] ) || ! is_array( $groovyMenuSettings['gm-uniqid-js'] ) ) {
+			return null;
+		}
+
+		if ( function_exists( 'wp_add_inline_script' ) ) {
+
+			foreach ( $groovyMenuSettings['gm-uniqid-js'] as $preset_id => $gm_uniqid_js ) {
+				$added = wp_add_inline_script( 'groovy-menu-js', $gm_uniqid_js, 'after' );
+				if ( $added ) {
+					unset( $groovyMenuSettings['gm-uniqid-js'][ $preset_id ] );
+				}
+			}
+
+		}
+	}
+
+
 	public static function update_config_text_domain() {
 		$config_global   = include GROOVY_MENU_DIR . 'includes' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'ConfigGlobal.php';
 		$settings_global = \GroovyMenu\StyleStorage::getInstance()->get_global_settings();

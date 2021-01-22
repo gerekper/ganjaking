@@ -5,7 +5,6 @@ namespace MailPoet\Models;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\WooCommerce\Helper as WCHelper;
 use MailPoet\WP\Functions as WPFunctions;
@@ -86,6 +85,10 @@ class Segment extends Model {
       ->delete();
   }
 
+  /**
+   * @deprecated Use the version in \MailPoet\Segments\SegmentSubscribersRepository::getSubscribersStatisticsCount
+   * @return $this
+   */
   public function withSubscribersCount() {
     $query = SubscriberSegment::tableAlias('relation')
       ->where('relation.segment_id', $this->id)
@@ -129,29 +132,6 @@ class Segment extends Model {
     return $this;
   }
 
-  public function withAutomatedEmailsSubjects() {
-    $automatedEmails = NewsletterSegment::tableAlias('relation')
-      ->where('relation.segment_id', $this->id)
-      ->join(
-        MP_NEWSLETTERS_TABLE,
-        'newsletters.id = relation.newsletter_id',
-        'newsletters'
-      )
-      ->whereIn('newsletters.type', [
-        NewsletterEntity::TYPE_AUTOMATIC,
-        NewsletterEntity::TYPE_WELCOME,
-        NewsletterEntity::TYPE_NOTIFICATION,
-      ])
-      ->select('newsletters.subject')
-      ->findMany();
-
-    $this->automatedEmailsSubjects = array_map(function($email) {
-      return $email->subject;
-    }, $automatedEmails);
-
-    return $this;
-  }
-
   public static function getWPSegment() {
     $wpSegment = self::where('type', self::TYPE_WP_USERS)->findOne();
 
@@ -188,6 +168,9 @@ class Segment extends Model {
     return $wcSegment;
   }
 
+  /**
+   * @deprecated Use the non static implementation in \MailPoet\Segments\WooCommerce::shouldShowWooCommerceSegment instead
+   */
   public static function shouldShowWooCommerceSegment() {
     $woocommerceHelper = new WCHelper();
     $isWoocommerceActive = $woocommerceHelper->isWooCommerceActive();
@@ -213,32 +196,6 @@ class Segment extends Model {
       $types[] = Segment::TYPE_WC_USERS;
     }
     return $types;
-  }
-
-  public static function search($orm, $search = '') {
-    return $orm->whereLike('name', '%' . $search . '%');
-  }
-
-  public static function groups() {
-    $allQuery = Segment::getPublished();
-    $allQuery->whereNotEqual('type', DynamicSegment::TYPE_DYNAMIC);
-    if (!Segment::shouldShowWooCommerceSegment()) {
-      $allQuery->whereNotEqual('type', self::TYPE_WC_USERS);
-    }
-    return [
-      [
-        'name' => 'all',
-        'label' => WPFunctions::get()->__('All', 'mailpoet'),
-        'count' => $allQuery->count(),
-      ],
-      [
-        'name' => 'trash',
-        'label' => WPFunctions::get()->__('Trash', 'mailpoet'),
-        'count' => Segment::getTrashed()
-          ->whereNotEqual('type', DynamicSegment::TYPE_DYNAMIC)
-          ->count(),
-      ],
-    ];
   }
 
   public static function groupBy($orm, $group = null) {
@@ -309,15 +266,6 @@ class Segment extends Model {
     )->findArray();
   }
 
-  public static function listingQuery(array $data = []) {
-    $query = self::select('*');
-    $query->whereIn('type', Segment::getSegmentTypes());
-    if (isset($data['group'])) {
-      $query->filter('groupBy', $data['group']);
-    }
-    return $query;
-  }
-
   public static function getPublic() {
     return self::getPublished()->where('type', self::TYPE_DEFAULT)->orderByAsc('name');
   }
@@ -344,6 +292,9 @@ class Segment extends Model {
       $ids = array_map(function($segment) {
         return $segment->id;
       }, $segments);
+      if (!$ids) {
+        return;
+      }
       SubscriberSegment::whereIn('segment_id', $ids)
         ->deleteMany();
       Segment::whereIn('id', $ids)->deleteMany();

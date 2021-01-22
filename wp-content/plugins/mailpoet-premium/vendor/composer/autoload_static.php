@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInit2e6d6cf4f479186321f4303c6e7a5480
+class ComposerStaticInit2a3c9d1e1165470dd125629b8cee179b
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -29,6 +29,7 @@ class ComposerStaticInit2e6d6cf4f479186321f4303c6e7a5480
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'MailPoetGenerated\\PremiumCachedContainer' => __DIR__ . '/../..' . '/generated/PremiumCachedContainer.php',
         'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder' => __DIR__ . '/../..' . '/lib/API/JSON/v1/ResponseBuilders/StatsResponseBuilder.php',
         'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder' => __DIR__ . '/../..' . '/lib/API/JSON/v1/ResponseBuilders/SubscriberDetailedStatsResponseBuilder.php',
@@ -52,9 +53,9 @@ class ComposerStaticInit2e6d6cf4f479186321f4303c6e7a5480
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2e6d6cf4f479186321f4303c6e7a5480::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2e6d6cf4f479186321f4303c6e7a5480::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2e6d6cf4f479186321f4303c6e7a5480::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2a3c9d1e1165470dd125629b8cee179b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2a3c9d1e1165470dd125629b8cee179b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2a3c9d1e1165470dd125629b8cee179b::$classMap;
 
         }, null, ClassLoader::class);
     }

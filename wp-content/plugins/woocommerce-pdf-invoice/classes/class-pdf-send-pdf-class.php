@@ -607,6 +607,9 @@
 
 				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
+				// Get Invoice Meta
+				$invoice_meta = get_post_meta( $order_id, '_invoice_meta', TRUE );
+
 				// WPML
 				do_action( 'before_invoice_content', $order_id );
 				
@@ -614,7 +617,7 @@
 				$order 			   = new WC_Order( $order_id );
 
 				// Check if the order has an invoice
-				$invoice_number_display = get_post_meta( $order_id, '_invoice_number_display', true );
+				$invoice_number_display = $invoice_meta['invoice_number_display'];
 
 				// Get the Invoice template ID
 				$template_id = isset( $settings['pdf_invoice_template_id'] ) ? $settings['pdf_invoice_template_id'] : 0;
@@ -701,6 +704,7 @@
 
 				$content = str_replace(	'[[PDFORDERSUBTOTAL]]', 					self::get_pdf_order_subtotal( $order_id ), 	  								$content );
 				$content = str_replace(	'[[PDFORDERSHIPPING]]', 					self::get_pdf_order_shipping( $order_id ), 	  								$content );
+				$content = str_replace(	'[[PDFORDERFEES]]', 						self::get_pdf_order_fees( $order_id ), 	  									$content );
 				$content = str_replace(	'[[PDFORDERDISCOUNT]]', 					self::get_pdf_order_discount( $order_id ), 	  								$content );
 				$content = str_replace(	'[[PDFORDERTAX]]', 							self::get_pdf_order_tax( $order_id ), 	  									$content );
 				$content = str_replace(	'[[PDFORDERTOTAL]]', 						self::get_pdf_order_total( $order_id ), 	  								$content );
@@ -1905,10 +1909,10 @@
 				$order 	= new WC_Order( $order_id );
 				$output = '';
 
-				$output = 	'<tr>' .
-							'<td align="right">' .
+				$output = 	'<tr class="pdf_order_totals_subtotal_row pdfordertotals_row">' .
+							'<td align="right" class="pdf_order_totals_subtotal_label pdfordertotals_cell">' .
 							'<strong>' . __('Subtotal', 'woocommerce-pdf-invoice') . '</strong></td>' .
-							'<td align="right"><strong>' . $order->get_subtotal_to_display() . '</strong></td>' .
+							'<td align="right" class="pdf_order_totals_subtotal_value pdfordertotals_cell"><strong>' . $order->get_subtotal_to_display() . '</strong></td>' .
 							'</tr>' ;
 				$output = apply_filters( 'pdf_template_order_subtotal' , $output, $order_id );
 				return $output;
@@ -1924,14 +1928,48 @@
 				$order = new WC_Order( $order_id );
 				$output = '';
 				
-				$output = 	'<tr>' .
-							'<td align="right">' .
+				$output = 	'<tr class="pdf_order_totals_shipping_row pdfordertotals_row">' .
+							'<td align="right" class="pdf_order_totals_shipping_label pdfordertotals_cell">' .
 							'<strong>' . __('Shipping', 'woocommerce-pdf-invoice') . '</strong></td>' .
-							'<td align="right"><strong>' . $order->get_shipping_to_display() . '</strong></td>' .
+							'<td align="right" class="pdf_order_totals_shipping_value pdfordertotals_cell"><strong>' . $order->get_shipping_to_display() . '</strong></td>' .
 							'</tr>' ;
 				
 				$output = apply_filters( 'pdf_template_order_shipping' , $output, $order_id );
 				return $output;
+			}
+
+			/** 
+			 * Get Fees
+			 */
+			function get_pdf_order_fees( $order_id ) {
+
+				if (!$order_id) return;	
+
+				$order = new WC_Order( $order_id );
+				$output = '';
+
+				$fees = $order->get_fees();
+
+				if ( $fees ) {
+					foreach ( $fees as $id => $fee ) {
+
+						if ( apply_filters( 'woocommerce_get_order_item_totals_excl_free_fees', empty( $fee['line_total'] ) && empty( $fee['line_tax'] ), $id ) ) {
+							continue;
+						}
+
+						$output .= 	'<tr class="pdf_order_totals_fees_row pdfordertotals_row">' .
+									'<td align="right" class="pdf_order_totals_fees_label pdfordertotals_cell">' .
+									'<strong>' . $fee->get_name() . '</strong></td>' .
+									'<td align="right" class="pdf_order_totals_fees_value pdfordertotals_cell"><strong>' . wc_price( 'excl' === $tax_display ? $fee->get_total() : $fee->get_total() + $fee->get_total_tax(), array( 'currency' => $order->get_currency() ) ) . '</strong></td>' .
+									'</tr>' ;
+					}
+				}
+				
+				
+				
+				$output = apply_filters( 'pdf_template_order_fees' , $output, $order_id );
+				return $output;
+
 			}
 
 			/**
@@ -1978,10 +2016,10 @@
 				$coupons  	= apply_filters( 'get_pdf_order_discount_coupons_used', '<strong>' . esc_html__('Discount:', 'woocommerce-pdf-invoice') . '</strong>' . $this->pdf_coupons_used( $order_id ) . '</td>', $order );
 
 				if ( $order_discount > 0 ) {
-					$output .=  '<tr>' .
-								'<td align="right" valign="top">' .
+					$output .=  '<tr class="pdf_order_totals_discount_row pdfordertotals_row">' .
+								'<td align="right" valign="top" class="pdf_order_totals_discount_label pdfordertotals_cell">' .
 								$coupons .
-								'<td align="right" valign="top"><strong>' . $negative . wc_price( $order_discount ). '</strong></td>' .
+								'<td align="right" valign="top" class="pdf_order_totals_discount_value pdfordertotals_cell"><strong>' . $negative . wc_price( $order_discount ). '</strong></td>' .
 								'</tr>' ;
 				}
 				
@@ -2006,26 +2044,26 @@
 					if ( count( $tax_items ) > 1 ) {
 
 						foreach ( $tax_items as $tax_item ) {
-							$output .=  '<tr>' .
-										'<td align="right">' . esc_html( $tax_item->label ) . '</td>' .
-										'<td align="right">' . wc_price( $tax_item->amount ) . '</td>' .
+							$output .=  '<tr class="pdf_order_totals_tax_row pdfordertotals_row">' .
+										'<td align="right" class="pdf_order_totals_tax_label pdfordertotals_cell">' . esc_html( $tax_item->label ) . '</td>' .
+										'<td align="right" class="pdf_order_totals_tax_value pdfordertotals_cell">' . wc_price( $tax_item->amount ) . '</td>' .
 										'</tr>' ;
 						}
 
 						$total_tax = wc_price( $order->get_total_tax() );
 
-						$output .=  '<tr>' .
-									'<td align="right">' . __('Total Tax', 'woocommerce-pdf-invoice') . '</td>' .
-									'<td align="right">' . $total_tax . '</td>' .
+						$output .=  '<tr class="pdf_order_totals_tax_row pdfordertotals_row">' .
+									'<td align="right" class="pdf_order_totals_tax_label pdfordertotals_cell">' . __('Total Tax', 'woocommerce-pdf-invoice') . '</td>' .
+									'<td align="right" class="pdf_order_totals_tax_value pdfordertotals_cell">' . $total_tax . '</td>' .
 									'</tr>' ;
 
 					} else {
 
 						foreach ( $tax_items as $tax_item ) {
 
-							$output .=  '<tr>' .
-										'<td align="right">' . esc_html( $tax_item->label ) . '</td>' .
-										'<td align="right">' . wc_price( $tax_item->amount ) . '</td>' .
+							$output .=  '<tr class="pdf_order_totals_tax_row pdfordertotals_row">' .
+										'<td align="right" class="pdf_order_totals_tax_label pdfordertotals_cell">' . esc_html( $tax_item->label ) . '</td>' .
+										'<td align="right" class="pdf_order_totals_tax_value pdfordertotals_cell">' . wc_price( $tax_item->amount ) . '</td>' .
 										'</tr>' ;
 						}
 
@@ -2049,10 +2087,10 @@
 
 				$order = new WC_Order( $order_id );
 
-				$output =  	'<tr>' .
-							'<td align="right">' .
+				$output =  	'<tr class="pdf_order_totals_total_row pdfordertotals_row">' .
+							'<td align="right" class="pdf_order_totals_total_label pdfordertotals_cell">' .
 							'<strong>' . __('Grand Total', 'woocommerce-pdf-invoice') . '</strong></td>' .
-							'<td align="right"><strong>' . wc_price( $order->get_total() ) . '</strong></td>' .
+							'<td align="right" class="pdf_order_totals_total_value pdfordertotals_cell"><strong>' . wc_price( $order->get_total() ) . '</strong></td>' .
 							'</tr>' ;
 				$output = apply_filters( 'pdf_template_order_total' , $output, $order_id );
 

@@ -1,5 +1,5 @@
 /* global wcsatt_admin_params */
-jQuery( function($) {
+jQuery( function( $ ) {
 
 	var $wcsatt_data_tab        = $( '#wcsatt_data' ),
 		$wcsatt_options_wrapper = $wcsatt_data_tab.find( '.general_scheme_options' ),
@@ -155,7 +155,7 @@ jQuery( function($) {
 
 			$syncOptions.hide();
 			$syncWeekMonthSelect.val( 0 );
-			$syncMonthSelect.val( 0 ).change();
+			$syncMonthSelect.val( 0 ).trigger( 'change' );
 
 		} else {
 
@@ -170,7 +170,7 @@ jQuery( function($) {
 			} else {
 
 				$syncAnnualContainer.hide();
-				$syncMonthSelect.val( 0 ).change();
+				$syncMonthSelect.val( 0 ).trigger( 'change' );
 				$syncWeekMonthSelect.empty();
 
 				$.each( WCSubscriptions.syncOptions[ billingPeriod ], function( key, description ) {
@@ -195,7 +195,7 @@ jQuery( function($) {
 
 		} else {
 
-			$wcsatt_options_one_off.prop( 'checked', true ).change();
+			$wcsatt_options_one_off.prop( 'checked', true ).trigger( 'change' );
 			$wcsatt_options_one_off.prop( 'disabled', true );
 			$wcsatt_options_default.prop( 'disabled', true );
 			$wcsatt_options_prompt.prop( 'disabled', true );
@@ -303,14 +303,23 @@ jQuery( function($) {
 	// Trigger one-time shipping option toggle when switching product type.
 	$( 'select#product-type' )
 
-		.change( function() {
+		.on( 'change', function() {
 
 			initialize_type_dependent_scheme_inputs();
 			update_panel_classes();
 			update_general_options();
 			toggle_one_time_shipping();
 
-		} ).change();
+		} ).trigger( 'change' );
+
+	// Trigger one-time shipping option toggle when toggling the virtual checkbox.
+	$( 'input#_virtual' )
+
+		.on( 'change', function() {
+
+			toggle_one_time_shipping();
+
+		} ).trigger( 'change' );
 
 	// Added/removed schemes?
 	$wcsatt_data_tab
@@ -424,7 +433,7 @@ jQuery( function($) {
 				$added_scheme.wcsatt_init_help_tips();
 
 				// Trigger 'change' event to show/hide price override method options.
-				$added_scheme.find( 'select.subscription_pricing_method_input' ).change();
+				$added_scheme.find( 'select.subscription_pricing_method_input' ).trigger( 'change' );
 
 				$wcsatt_data_tab.unblock();
 
@@ -450,7 +459,7 @@ jQuery( function($) {
 
 			update_panel_classes();
 
-		} ).change();
+		} ).trigger( 'change' );
 
 
 	// NYP compatibility.
@@ -464,7 +473,7 @@ jQuery( function($) {
 				$wcsatt_schemes_wrapper.removeClass( 'is_nyp' );
 			}
 
-		} ).change();
+		} ).trigger( 'change' );
 
 	// Init metaboxes.
 	init_subscription_schemes_metaboxes();
@@ -479,8 +488,8 @@ jQuery( function($) {
 
 	function init_subscription_schemes_metaboxes() {
 
-		$wcsatt_schemes_wrapper.find( 'select.subscription_pricing_method_input' ).change();
-		$wcsatt_schemes_wrapper.find( 'select.wc_input_subscription_payment_sync_date_month[value!="0"]' ).change();
+		$wcsatt_schemes_wrapper.find( 'select.subscription_pricing_method_input' ).trigger( 'change' );
+		$wcsatt_schemes_wrapper.find( 'select.wc_input_subscription_payment_sync_date_month[value!="0"]' ).trigger( 'change' );
 
 		// Initial order.
 		var subscription_schemes = $wcsatt_schemes.get();

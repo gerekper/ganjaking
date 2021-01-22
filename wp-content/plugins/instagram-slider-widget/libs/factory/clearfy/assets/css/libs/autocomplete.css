@@ -5,39 +5,39 @@
  *
  * @since 2.2.0
  */
-#wbcr-factory-clearfy-232__search_options_form #wbcr-factory-clearfy-232__autocomplete {
+#wbcr-factory-clearfy-233__search_options_form #wbcr-factory-clearfy-233__autocomplete {
   width: 100%;
   box-sizing: border-box;
   border-color: #d6d4d4;
 }
-#wbcr-factory-clearfy-232__search_options_form.wbcr-factory-clearfy-232__autocomplete-wrap {
+#wbcr-factory-clearfy-233__search_options_form.wbcr-factory-clearfy-233__autocomplete-wrap {
   padding: 10px;
 }
-#wbcr-factory-clearfy-232__search_options_form .wbcr-factory-clearfy-232__autocomplete-label {
+#wbcr-factory-clearfy-233__search_options_form .wbcr-factory-clearfy-233__autocomplete-label {
   display: block !important;
 }
-.wbcr-factory-clearfy-232__autocomplete-suggestions {
+.wbcr-factory-clearfy-233__autocomplete-suggestions {
   border: 1px solid #999;
   background: #FFF;
   overflow: auto;
 }
-.wbcr-factory-clearfy-232__autocomplete-suggestion {
+.wbcr-factory-clearfy-233__autocomplete-suggestion {
   padding: 2px 5px;
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
 }
-.wbcr-factory-clearfy-232__autocomplete-selected {
+.wbcr-factory-clearfy-233__autocomplete-selected {
   background: #F0F0F0;
 }
-.wbcr-factory-clearfy-232__autocomplete-suggestions strong {
+.wbcr-factory-clearfy-233__autocomplete-suggestions strong {
   font-weight: normal;
   color: #3399FF;
 }
-.wbcr-factory-clearfy-232__autocomplete-group {
+.wbcr-factory-clearfy-233__autocomplete-group {
   padding: 2px 5px;
 }
-.wbcr-factory-clearfy-232__autocomplete-group strong {
+.wbcr-factory-clearfy-233__autocomplete-group strong {
   display: block;
   border-bottom: 1px solid #000;
 }

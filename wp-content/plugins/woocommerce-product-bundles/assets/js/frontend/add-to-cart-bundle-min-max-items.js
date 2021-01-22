@@ -108,10 +108,10 @@
 
 						qty_error_status = qty_error_status.replace( '%s', total_qty );
 
-						if ( bundle.validation_messages.length > 0 ) {
-							bundle.add_validation_message( qty_error_prompt.replace( '%s', '' ) );
+						if ( bundle.validation_messages.length > 0 || '' === qty_error_status ) {
+							bundle.add_validation_message( qty_error_prompt );
 						} else {
-							bundle.add_validation_message( qty_error_prompt.replace( '%s', wc_pb_min_max_items_params.i18n_qty_error_status_format.replace( '%s', qty_error_status ) ) );
+							bundle.add_validation_message( '<span class="status_msg">' + '<span class="bundled_items_selection_msg">' + qty_error_prompt + '</span>' + '<span class="bundled_items_selection_status">' + qty_error_status + '</span>' + '</span>' );
 						}
 					}
 

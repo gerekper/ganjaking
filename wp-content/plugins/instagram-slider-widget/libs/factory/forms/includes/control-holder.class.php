@@ -14,19 +14,19 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryForms438_ControlHolder') ) {
+	if( !class_exists('Wbcr_FactoryForms439_ControlHolder') ) {
 		/**
 		 * The base class for control holders.
 		 *
 		 * @since 1.0.0
 		 */
-		abstract class Wbcr_FactoryForms438_ControlHolder extends Wbcr_FactoryForms438_Control {
+		abstract class Wbcr_FactoryForms439_ControlHolder extends Wbcr_FactoryForms439_Control {
 
 			/**
 			 * Holder Elements.
 			 *
 			 * @since 1.0.0
-			 * @var Wbcr_FactoryForms438_Control[]
+			 * @var Wbcr_FactoryForms439_Control[]
 			 */
 			protected $elements = array();
 
@@ -43,7 +43,7 @@
 			 *
 			 * @since 1.0.0
 			 * @param mixed[] $options A holder options.
-			 * @param Wbcr_FactoryForms438_Form $form A parent form.
+			 * @param Wbcr_FactoryForms439_Form $form A parent form.
 			 */
 			public function __construct($options, $form)
 			{
@@ -60,7 +60,7 @@
 			 * Returns holder elements.
 			 *
 			 * @since 1.0.0
-			 * @return Wbcr_FactoryForms438_FormElement[].
+			 * @return Wbcr_FactoryForms439_FormElement[].
 			 */
 			public function getElements()
 			{

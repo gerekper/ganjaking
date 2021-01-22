@@ -6,11 +6,11 @@
  * Description: Customize and print invoices and packing lists for WooCommerce orders from the WordPress admin
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com/
- * Version: 3.10.0
+ * Version: 3.11.0
  * Text Domain: woocommerce-pip
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,12 +18,12 @@
  * @package   WC-Print-Invoices-Packing-Lists
  * @author    SkyVerge
  * @category  Plugin
- * @copyright Copyright (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 18666:465de1126817cdfb42d97ebca7eea717
  * WC requires at least: 3.5
- * WC tested up to: 4.7.1
+ * WC tested up to: 4.9.0
  */
 
 defined( 'ABSPATH' ) or exit;

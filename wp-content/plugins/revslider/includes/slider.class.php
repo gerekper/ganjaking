@@ -2149,7 +2149,13 @@ class RevSliderSlider extends RevSliderFunctions {
 				$max_allowed = 60;
 			break;
 			default:
-				$this->throw_error(__('Sorry, this Social Stream cannot be displayed.', 'revslider'));
+				global $rs_preview_mode;
+				if($rs_preview_mode){
+					$admin = new RevSliderAdmin();
+					$admin->ajax_response_error(__('Some Settings in Slider <strong>Source may not complete</strong>.<br>Please Complete All Settings in Slider Sources.', 'revslider'));
+				}else{
+					$this->throw_error(__('Sorry, this Social Stream cannot be displayed.', 'revslider'));
+				}
 			break;
 		}
 		
@@ -2164,7 +2170,15 @@ class RevSliderSlider extends RevSliderFunctions {
 		
 		$posts = apply_filters('revslider_post_mod_stream_data', $posts, $sourcetype, $this->id);
 		
-		if(empty($posts)) $this->throw_error(__('Sorry, this Social Stream cannot be displayed.', 'revslider'));
+		if(empty($posts)){
+			global $rs_preview_mode;
+			if($rs_preview_mode){
+				$admin = new RevSliderAdmin();
+				$admin->ajax_response_error(__('Some Settings in Slider <strong>Source may not complete</strong>.<br>Please Complete All Settings in Slider Sources.', 'revslider'));
+			}else{
+				$this->throw_error(__('Sorry, this Social Stream cannot be displayed.', 'revslider'));
+			}
+		}
 		
 		$i = 0;
 		$tk = 0;

@@ -31,11 +31,13 @@ class WC_OD_Delivery_Cache extends WC_OD_Singleton {
 	}
 
 	/**
-	 * Removes the cache key for the day and time frame when an order is updated, using the `woocommerce_update_order`
-	 * action.
+	 * Removes the cache for the day and time frame when an order is updated.
+	 *
 	 * This action is called always when an order is created or updated, so is the best place to remove the cache.
 	 * Also, it's called with the old and the new data, so it will remove both cache keys (day and time frame before and
-	 * after updateing).
+	 * after updating).
+	 *
+	 * @since 1.8.0
 	 *
 	 * @param int $order_id The order ID.
 	 */
@@ -46,11 +48,8 @@ class WC_OD_Delivery_Cache extends WC_OD_Singleton {
 			return;
 		}
 
-		/** @var WC_OD_Delivery_Cache $instance WC_Order_Delivery_Cache object. */
-		$instance = self::instance();
-
-		$cache_key = $instance->get_order_cache_key( $order );
-		$instance->delete( $cache_key );
+		$cache_key = $this->get_order_cache_key( $order );
+		$this->delete( $cache_key );
 	}
 
 	/**
@@ -81,7 +80,8 @@ class WC_OD_Delivery_Cache extends WC_OD_Singleton {
 		$delivery_time_frame = $order->get_meta( '_delivery_time_frame' );
 
 		$args = array( $delivery_date );
-		if ( ! empty( $delivery_time_frame ) ) {
+
+		if ( is_array( $delivery_time_frame ) ) {
 			$args = array_merge( $args, $delivery_time_frame );
 		}
 

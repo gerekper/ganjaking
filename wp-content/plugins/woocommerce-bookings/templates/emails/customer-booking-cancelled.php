@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-do_action( 'woocommerce_email_header', $email_heading );
+do_action( 'woocommerce_email_header', $email_heading, $email );
 ?>
 
 <?php if ( $booking->get_order() ) : ?>
@@ -89,4 +89,4 @@ do_action( 'woocommerce_email_header', $email_heading );
 
 <p><?php esc_html_e( 'Please contact us if you have any questions or concerns.', 'woocommerce-bookings' ); ?></p>
 
-<?php do_action( 'woocommerce_email_footer' ); ?>
+<?php do_action( 'woocommerce_email_footer', $email ); ?>

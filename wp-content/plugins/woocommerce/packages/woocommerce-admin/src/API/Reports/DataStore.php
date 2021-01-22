@@ -595,7 +595,7 @@ class DataStore extends SqlQuery {
 	/**
 	 * Normalizes order_by clause to match to SQL query.
 	 *
-	 * @param string $order_by Order by option requeste by user.
+	 * @param string $order_by Order by option requested by user.
 	 * @return string
 	 */
 	protected function normalize_order_by( $order_by ) {
@@ -1196,10 +1196,10 @@ class DataStore extends SqlQuery {
 		global $wpdb;
 
 		$customer_filter = '';
-		if ( isset( $query_args['customer'] ) ) {
-			if ( 'new' === strtolower( $query_args['customer'] ) ) {
+		if ( isset( $query_args['customer_type'] ) ) {
+			if ( 'new' === strtolower( $query_args['customer_type'] ) ) {
 				$customer_filter = " {$wpdb->prefix}wc_order_stats.returning_customer = 0";
-			} elseif ( 'returning' === strtolower( $query_args['customer'] ) ) {
+			} elseif ( 'returning' === strtolower( $query_args['customer_type'] ) ) {
 				$customer_filter = " {$wpdb->prefix}wc_order_stats.returning_customer = 1";
 			}
 		}

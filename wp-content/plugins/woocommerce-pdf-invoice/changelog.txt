@@ -1,4 +1,16 @@
 *** WooCommerce PDF Invoice Changelog ***
+2020.01.14 - version 4.10.1
+ * Make sure _wc_pdf_invoice_number is respected
+ * Get correct date for order meta box
+ * WC 4.9
+
+2020.12.07 - version 4.10.0
+ * Update PHP version requirements
+ * Show hidden order meta to make finding custom fields easier
+ * Add Sabberworm CSS Parser for SVG logos
+ * Add [[PDFORDERFEES]] so that any fees from the order can be added to the invoice when not using [[PDFORDERTOTALS]]
+ * Add _wc_pdf_invoice_number to order meta to avoid compatibility issues
+
 2020.11.11 - version 4.9.2
  * New filter for invoice date apply_filters( 'woocommerce_pdf_nvoices_set_invoice_date', $return, $order_id );
 

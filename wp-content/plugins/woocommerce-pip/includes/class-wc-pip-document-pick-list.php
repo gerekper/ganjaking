@@ -18,7 +18,7 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -55,27 +55,29 @@ class WC_PIP_Document_Pick_List extends WC_PIP_Document_Packing_List {
 		$this->name_plural = __( 'Pick Lists', 'woocommerce-pip' );
 
 		$this->optional_fields = [
+			'thumbnail',
 			'sku',
 			'details',
 			'weight',
 		];
 
 		$this->table_headers = [
-			'sku'      => __( 'SKU' , 'woocommerce-pip' ),
-			'product'  => __( 'Product' , 'woocommerce-pip' ),
-			'details'  => __( 'Details', 'woocommerce-pip' ),
-			'quantity' => __( 'Quantity' , 'woocommerce-pip' ),
+			'thumbnail' => __( 'Image', 'woocommerce-pip' ),
+			'sku'       => __( 'SKU' , 'woocommerce-pip' ),
+			'product'   => __( 'Product' , 'woocommerce-pip' ),
+			'details'   => __( 'Details', 'woocommerce-pip' ),
+			'quantity'  => __( 'Quantity' , 'woocommerce-pip' ),
 			/* translators: Placeholder: %s - weight measurement unit */
-			'weight'   => sprintf( __( 'Total Weight (%s)' , 'woocommerce-pip' ), get_option( 'woocommerce_weight_unit' ) ),
-			'id'       => '', // leave this blank
+			'weight'    => sprintf( __( 'Total Weight (%s)' , 'woocommerce-pip' ), get_option( 'woocommerce_weight_unit' ) ),
+			'id'        => '', // leave this blank
 		];
 
 		$this->column_widths = [
-			'sku'      => 18,
-			'product'  => 30,
-			'details'  => 25,
-			'quantity' => 10,
-			'weight'   => 17,
+			'sku'       => 20,
+			'product'   => 35,
+			'details'   => 25,
+			'quantity'  => 10,
+			'weight'    => 10,
 		];
 
 		$this->show_shipping_address     = false;
@@ -130,12 +132,13 @@ class WC_PIP_Document_Pick_List extends WC_PIP_Document_Packing_List {
 		if ( 'pick-list' === $type ) {
 
 			$row = [
-				'sku'      => $this->get_order_item_sku_html( $product, $item ),
-				'product'  => $this->get_order_item_name_html( $product, $item ),
-				'details'  => $this->get_order_item_meta_html( $item_id, $item, $product ),
-				'quantity' => $this->get_order_item_quantity_html( $item_id, $item ),
-				'weight'   => $this->get_order_item_weight_html( $item_id, $item, $product ),
-				'id'       => $this->get_order_item_id_html( $item_id ),
+				'thumbnail' => $this->get_order_item_product_image_html( $product, $item ),
+				'sku'       => $this->get_order_item_sku_html( $product, $item ),
+				'product'   => $this->get_order_item_name_html( $product, $item ),
+				'details'   => $this->get_order_item_meta_html( $item_id, $item, $product ),
+				'quantity'  => $this->get_order_item_quantity_html( $item_id, $item ),
+				'weight'    => $this->get_order_item_weight_html( $item_id, $item, $product ),
+				'id'        => $this->get_order_item_id_html( $item_id ),
 			];
 
 			// remove any field that has no matching column
@@ -263,6 +266,23 @@ class WC_PIP_Document_Pick_List extends WC_PIP_Document_Packing_List {
 	 */
 	public function group_items_by() {
 		return $this->list_output_type;
+	}
+
+
+	/**
+	 * Gets the pick list product image for an item when listing items by category.
+	 *
+	 * @since 3.11.0
+	 *
+	 * @param array $item_data the order item data
+	 * @return string HTML
+	 */
+	protected function get_category_items_product_image_html( array $item_data ) : string {
+
+		$product = $item_data['product'];
+		$image   = $product instanceof \WC_Product ? $product->get_image() : '';
+
+		return '<span class="thumbnail">' . $image . '</span>';
 	}
 
 
@@ -671,11 +691,12 @@ class WC_PIP_Document_Pick_List extends WC_PIP_Document_Packing_List {
 
 					if ( ! empty( $item_data['item'] ) ) {
 
-						$items[ $j ]['sku']      = $this->get_category_items_sku_html( $item_data );
-						$items[ $j ]['product']  = $this->get_category_items_names_html( $item_data );
-						$items[ $j ]['details']  = $this->get_category_items_meta_html( $item_data );
-						$items[ $j ]['quantity'] = $this->get_category_items_total_quantity_html( $item_data );
-						$items[ $j ]['weight']   = $this->get_category_items_total_weight_html( $item_data );
+						$items[ $j ]['thumbnail'] = $this->get_category_items_product_image_html( $item_data );
+						$items[ $j ]['sku']       = $this->get_category_items_sku_html( $item_data );
+						$items[ $j ]['product']   = $this->get_category_items_names_html( $item_data );
+						$items[ $j ]['details']   = $this->get_category_items_meta_html( $item_data );
+						$items[ $j ]['quantity']  = $this->get_category_items_total_quantity_html( $item_data );
+						$items[ $j ]['weight']    = $this->get_category_items_total_weight_html( $item_data );
 
 						/**
 						 * Filters the table row cells of a pick list document with items grouped by category.

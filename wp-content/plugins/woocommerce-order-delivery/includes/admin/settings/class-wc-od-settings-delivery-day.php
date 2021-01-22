@@ -175,32 +175,9 @@ class WC_OD_Settings_Delivery_Day extends WC_OD_Settings_API {
 		// Reset the delivery day.
 		$this->delivery_day = null;
 
-		/** @var WC_OD_Delivery_Cache $delivery_cache */
 		$delivery_cache = WC_OD_Delivery_Cache::instance();
 		$delivery_cache->remove_order_cache();
 
 		return $saved;
-	}
-
-	/**
-	 * Validates the settings.
-	 *
-	 * The non-returned settings won't be updated.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @param array $settings The settings to validate.
-	 * @return array
-	 */
-	public function validate_fields( $settings ) {
-		$settings = parent::validate_fields( $settings );
-
-		if ( isset( $settings['number_of_orders'] ) && $settings['number_of_orders'] < 0 ) {
-			$this->add_error( __( 'The field "Number of orders" cannot be a negative number.', 'woocommerce-order-delivery' ) );
-
-			unset( $settings['number_of_orders'] );
-		}
-
-		return $settings;
 	}
 }

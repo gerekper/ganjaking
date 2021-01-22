@@ -917,7 +917,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 							foreach($ztt as $old => $new){
 								$slider = new RevSliderSliderImport();
 								$slider->init_by_id($new);
-								
 								$slider->update_modal_ids($ztt, $slides_ids);
 							}
 						}
@@ -1061,15 +1060,50 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 							}
 
 							//get the Slides that are no longer needed and delete them
+							$existing_slide_ids = array();
 							foreach($slides as $key => $_slide){
 								$id = $_slide->get_id();
 								if(!in_array($id, $slide_ids)){
 									$delete_slides[] = $id;
-									unset($slides[$key]); //remove none existing slides for further ordering process
+								}else{
+									$existing_slide_ids[] = $id;
 								}
 							}
-
+							
+							foreach($slides as $key => $_slide){
+								//check if the parentID exists in the $slides, if not remove this child slide
+								$parentID = $_slide->get_param(array('child', 'parentId'), false);
+								if($parentID !== false){
+									if(!in_array($parentID, $existing_slide_ids)){
+										$slid = $_slide->get_id();
+										if(!in_array($slid, $delete_slides)){
+											$delete_slides[] = $slid;
+										}
+									}
+								}
+							}
+							
 							if(!empty($delete_slides)){
+								//check for parentID's and if they exist, if the parentID will be deleted
+								foreach($slides as $key => $_slide){
+									//params -> child -> parentID
+									$parentID = $_slide->get_param(array('child', 'parentId'), false);
+									$child = $_slide->get_param(array('child'), false);
+									//var_dump($parentID);
+									if($parentID !== false){
+										if(in_array($parentID, $delete_slides)){
+											$delete_slides[] = $_slide->get_id();
+										}
+									}
+								}
+								
+								foreach($slides as $key => $_slide){
+									$id = $_slide->get_id();
+									if(in_array($id, $delete_slides)){
+										unset($slides[$key]); //remove none existing slides for further ordering process
+									}
+								}
+
 								foreach($delete_slides as $delete_slide){
 									$slide->delete_slide_by_id($delete_slide);
 								}
@@ -1537,6 +1571,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 						}
 						
 						$output = new RevSliderOutput();
+						$output->set_preview_mode(true);
 						$slider->init_by_data($_slider);
 						if($slider->is_stream() || $slider->is_posts()){
 							$slides = $slider->get_slides_for_output();
@@ -1562,7 +1597,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 						$output->set_slider($slider);
 						$output->set_current_slides($slides);
 						$output->set_static_slide($static_slide);
-						$output->set_preview_mode(true);
 						
 						ob_start();
 						$slider = $output->add_slider_to_stage($slider_id);
@@ -2217,7 +2251,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * echo json ajax response as error
 	 * @before: RevSliderBaseAdmin::ajaxResponseError();
 	 */
-	protected function ajax_response_error($message, $data = null){
+	public function ajax_response_error($message, $data = null){
 		$this->ajax_response(false, $message, $data, true);
 	}
 
@@ -2225,7 +2259,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * echo ajax success response with redirect instructions
 	 * @before: RevSliderBaseAdmin::ajaxResponseSuccessRedirect();
 	 */
-	protected function ajax_response_redirect($message, $url){
+	public function ajax_response_redirect($message, $url){
 		$data = array('is_redirect' => true, 'redirect_url' => $url);
 
 		$this->ajax_response(true, $message, $data, true);
@@ -2235,7 +2269,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * echo json ajax response, without message, only data
 	 * @before: RevSliderBaseAdmin::ajaxResponseData()
 	 */
-	protected function ajax_response_data($data){
+	public function ajax_response_data($data){
 		$data = (gettype($data) == 'string') ? array('data' => $data) : $data;
 
 		$this->ajax_response(true, '', $data);
@@ -2245,7 +2279,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * echo ajax success response
 	 * @before: RevSliderBaseAdmin::ajaxResponseSuccess();
 	 */
-	protected function ajax_response_success($message, $data = null){
+	public function ajax_response_success($message, $data = null){
 
 		$this->ajax_response(true, $message, $data, true);
 	}

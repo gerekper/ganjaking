@@ -19,7 +19,7 @@
  *
  * @package   WC-Print-Invoices-Packing-Lists/Templates
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -28,11 +28,11 @@ defined( 'ABSPATH' ) or exit;
 /**
  * PIP Template Body content
  *
- * @type \WC_Order $order Order object
- * @type int $order_id Order ID
- * @type \WC_PIP_Document Document object
- * @type string $type Document type
- * @type string $action Current document action
+ * @var \WC_Order $order order object
+ * @var int $order_id order ID
+ * @var \WC_PIP_Document $document document object
+ * @var string $type document type
+ * @var string $action current document action
  *
  * @version 3.6.2
  * @since 3.0.0

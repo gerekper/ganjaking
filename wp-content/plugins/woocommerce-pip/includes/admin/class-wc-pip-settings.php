@@ -18,7 +18,7 @@
  * to http://docs.woocommerce.com/document/woocommerce-print-invoice-packing-list/
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2011-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2011-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -102,7 +102,7 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 		}
 
 		$method           = "get_{$section}_settings";
-		$settings         = is_callable( array( $this, $method ) ) ? $this->$method() : array();
+		$settings         = is_callable( [ $this, $method ] ) ? $this->$method() : [];
 		$hide_save_button = 'general' === $section;
 
 		/**
@@ -130,7 +130,7 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 		 * @param string $section current section
 		 * @param \WC_PIP_Settings $wc_pip_settings settings class instance
 		 */
-		return apply_filters( 'wc_pip_settings', $settings, $section, $this );
+		return (array) apply_filters( 'wc_pip_settings', $settings, $section, $this );
 	}
 
 
@@ -263,13 +263,22 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 				'type'    => 'checkbox',
 			],
 
-			// toggle optional fields in item rows (for the time being the invoice only optional field is the SKU, so we use a checkbox here)
+			// toggle optional fields in item rows
 			[
 				'id'      => 'wc_pip_invoice_show_optional_fields',
-				'name'    => __( 'Show SKU', 'woocommerce-pip' ),
-				'desc'    => __( 'Add or remove the SKU from your invoices.', 'woocommerce-pip' ),
-				'default' => 'yes',
-				'type'    => 'checkbox',
+				'name'    => __( 'Show optional fields', 'woocommerce-pip' ),
+				'desc'    => __( 'Add or remove optional fields from your invoices.', 'woocommerce-pip' ),
+				'type'    => 'multiselect',
+				'class'   => 'wc-enhanced-select',
+				'default' => [
+					'sku',
+				],
+				'options' => [
+					'thumbnail'  => __( 'Product thumbnail', 'woocommerce-pip' ),
+					'sku'        => __( 'SKU', 'woocommerce-pip' ),
+					'unit_price' => __( 'Unit price', 'woocommerce-pip' ),
+					'line_tax'   => __( 'Line taxes', 'woocommerce-pip' ),
+				],
 			],
 
 			// show item prices tax exclusive (EU compliance)
@@ -437,8 +446,9 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 					'weight',
 				],
 				'options' => [
-					'sku'    => __( 'SKU', 'woocommerce-pip' ),
-					'weight' => __( 'Total weight', 'woocommerce-pip' ),
+					'thumbnail' => __( 'Product thumbnail', 'woocommerce-pip' ),
+					'sku'       => __( 'SKU', 'woocommerce-pip' ),
+					'weight'    => __( 'Total weight', 'woocommerce-pip' ),
 				],
 			],
 
@@ -526,14 +536,15 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 				'type'    => 'multiselect',
 				'class'   => 'wc-enhanced-select',
 				'default' => [
+					'details',
 					'sku',
 					'weight',
-					'details',
 				],
 				'options' => [
-					'sku'     => __( 'SKU', 'woocommerce-pip' ),
-					'details' => __( 'Details', 'woocommerce-pip' ),
-					'weight'  => __( 'Total weight', 'woocommerce-pip' ),
+					'thumbnail' => __( 'Product thumbnail', 'woocommerce-pip' ),
+					'sku'       => __( 'SKU', 'woocommerce-pip' ),
+					'details'   => __( 'Details', 'woocommerce-pip' ),
+					'weight'    => __( 'Total weight', 'woocommerce-pip' ),
 				],
 			],
 

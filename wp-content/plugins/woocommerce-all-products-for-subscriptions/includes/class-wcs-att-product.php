@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API for working with subscription-enabled product objects.
  *
  * @class    WCS_ATT_Product
- * @version  3.1.8
+ * @version  3.1.22
  */
 class WCS_ATT_Product {
 
@@ -44,7 +44,8 @@ class WCS_ATT_Product {
 		'subscription_trial_period',
 		'subscription_trial_length',
 		'subscription_sign_up_fee',
-		'subscription_payment_sync_date'
+		'subscription_payment_sync_date',
+		'wcs_switch_totals_calc_base_length'
 	);
 
 	/**

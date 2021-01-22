@@ -136,7 +136,7 @@ if(!defined('ABSPATH')) exit();
 						<div class="div25"></div>						
 						<label_a><?php _e('Enable Google Fonts download', 'revslider');?></label_a><select id="fontdownload" name="fontdownload" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.fontdownload">
 										<option selected="selected" value="off"><?php _e('Load from Google','revslider');?></option>
-										<option value="preload"><?php _e('Preload from Google', 'revslider');?></option>
+										<option value="preload"><?php _e('Cache Fonts Local', 'revslider');?></option>
 										<option value="disable"><?php _e('Disable, Load on your own', 'revslider');?></option>
 									</select><span class="linebreak"></span>
 						<label_a><?php _e('Optional Google Fonts loading URL', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-r="globals.fonturl" placeholder="<?php _e('(ie. http://fonts.useso.com/css?family for chinese Environment)', 'revslider');?>"><span class="linebreak"></span>

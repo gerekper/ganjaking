@@ -9,6 +9,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'MailPoetGenerated\\PremiumCachedContainer' => $baseDir . '/generated/PremiumCachedContainer.php',
     'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder' => $baseDir . '/lib/API/JSON/v1/ResponseBuilders/StatsResponseBuilder.php',
     'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder' => $baseDir . '/lib/API/JSON/v1/ResponseBuilders/SubscriberDetailedStatsResponseBuilder.php',

@@ -5,10 +5,11 @@ namespace MailPoet\Config;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\Subscriber;
+use MailPoet\DI\ContainerWrapper;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Util\Helpers;
+use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\Util\License\License;
 use MailPoet\WP\DateTime;
 use MailPoet\WP\Functions as WPFunctions;
@@ -19,8 +20,12 @@ class ServicesChecker {
   /** @var SettingsController */
   private $settings;
 
+  /** @var SubscribersFeature */
+  private $subscribersFeature;
+
   public function __construct() {
     $this->settings = SettingsController::getInstance();
+    $this->subscribersFeature = ContainerWrapper::getInstance()->get(SubscribersFeature::class);
   }
 
   public function isMailPoetAPIKeyValid($displayErrorNotice = true, $forceCheck = false) {
@@ -39,7 +44,7 @@ class ServicesChecker {
         $error = '<h3>' . __('All sending is currently paused!', 'mailpoet') . '</h3>';
         $error .= '<p>' . __('Your key to send with MailPoet is invalid.', 'mailpoet') . '</p>';
         $error .= '<p><a '
-          . ' href="https://account.mailpoet.com?s=' . (Subscriber::getTotalSubscribers() + 1) . '"'
+          . ' href="https://account.mailpoet.com?s=' . ($this->subscribersFeature->getSubscribersCount() + 1) . '"'
           . ' class="button button-primary" '
           . ' target="_blank"'
           . '>' . __('Purchase a key', 'mailpoet') . '</a></p>';
@@ -55,7 +60,7 @@ class ServicesChecker {
         $date = $dateTime->formatDate(strtotime($mssKey['data']['expire_at']));
         $error = Helpers::replaceLinkTags(
           WPFunctions::get()->__("Your newsletters are awesome! Don't forget to [link]upgrade your MailPoet email plan[/link] by %s to keep sending them to your subscribers.", 'mailpoet'),
-          'https://account.mailpoet.com?s=' . Subscriber::getTotalSubscribers(),
+          'https://account.mailpoet.com?s=' . $this->subscribersFeature->getSubscribersCount(),
           ['target' => '_blank']
         );
         $error = sprintf($error, $date);

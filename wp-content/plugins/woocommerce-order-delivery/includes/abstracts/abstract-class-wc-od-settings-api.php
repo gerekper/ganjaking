@@ -387,7 +387,7 @@ abstract class WC_OD_Settings_API extends WC_Settings_API {
 		}
 
 		// Set up to the default value.
-		if ( ! $value && ! is_int( $value ) ) {
+		if ( ! $value && ! is_numeric( $value ) ) {
 			$default = $this->get_field_default( $field );
 
 			if ( '' !== $default ) {

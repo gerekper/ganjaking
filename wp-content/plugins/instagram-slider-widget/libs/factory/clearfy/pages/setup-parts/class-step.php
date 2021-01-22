@@ -1,6 +1,6 @@
 <?php
 
-namespace WBCR\FactoryClearfy232\Pages;
+namespace WBCR\FactoryClearfy233\Pages;
 
 /**
  * Step
@@ -16,16 +16,16 @@ abstract class Step {
 	protected $next_id = false;
 
 	/**
-	 * @var \WBCR\FactoryClearfy232\Pages\Setup
+	 * @var \WBCR\FactoryClearfy233\Pages\Setup
 	 */
 	protected $page;
 
 	/**
-	 * @var \Wbcr_Factory441_Plugin
+	 * @var \Wbcr_Factory442_Plugin
 	 */
 	protected $plugin;
 
-	public function __construct(\WBCR\FactoryClearfy232\Pages\Setup $page)
+	public function __construct(\WBCR\FactoryClearfy233\Pages\Setup $page)
 	{
 		$this->page = $page;
 		$this->plugin = $page->plugin;
@@ -51,7 +51,7 @@ abstract class Step {
 	 *
 	 * @return void
 	 * @since 1.0.0
-	 * @see   FactoryPages440_AdminPage
+	 * @see   FactoryPages441_AdminPage
 	 *
 	 */
 	public function assets($scripts, $styles)

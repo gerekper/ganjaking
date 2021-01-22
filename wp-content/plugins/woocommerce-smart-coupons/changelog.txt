@@ -1,5 +1,11 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.01.15 - version 4.15.0
+* New: Tested up to WooCommerce 4.9.0
+* Fix: Error 'Invalid payment method' when fully paid via store credit [WPML]
+* Fix: When the 'Max discount' is set, sometimes the discount calculated is not accurate
+* Update: POT file
+
 2021.01.05 - version 4.14.0
 * Fix: 'Exclude attributes' restriction overriding 'Exclude categories' restriction
 * Fix: 'Max discount' is not getting calculated properly in case of WooCommerce setting for a decimal value other than 2

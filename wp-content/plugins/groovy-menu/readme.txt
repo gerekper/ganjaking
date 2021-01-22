@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.6
-Stable tag: 2.4.1
+Stable tag: 2.4.3
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -65,6 +65,15 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.4.3 =
+* Add: Added new setting "Enable to handle anchor links for 'Menu blocks' content", placed in "General -> Scrollbar & One page" section. Is allow to enable anchor links in "Menu blocks" and smooth scroll.
+* Fix: Fixed work of JS scripts in case multiple integrations methods of Groovy menu at the same time
+
+= 2.4.2 =
+* Fix: Prevent double initialization for JavaScript from Groovy Menu. Such a case could have been with custom integration.
+* Fix: Fixed a bug with the appearance of a scrollbar in dropdowns where it should not be.
+* Fix: Fixed small CLS offset for dropdown content when the "Submenu appearance style - Animate from bottom" & "Enable internal submenus scrollbar" preset settings are enabled.
 
 = 2.4.1 =
 * Fix: Fixed an issue with "Ensure text remains visible during webfont load" by Google PageSpeed Insights version for Groovy Menu icon fonts. You need to reinstall icon fonts in "Groovy Menu dashboard > Global settings > Icon Packs".

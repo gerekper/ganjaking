@@ -1,5 +1,35 @@
 *** WooCommerce Product Bundles ***
 
+2021.01.15 - version 6.7.2
+* Fix - PHP warning on activation due to use of deprecated function 'WC_Admin_Note::set_note'.
+* Tweak - Append plugin version number to @font-face file names for improved compatibility with CDN plugins.
+* Tweak - Prevent 'Free!' string from appearing on page load when 'Name Your Price' is enabled on Product Bundle containers.
+
+2021.01.08 - version 6.7.1
+* Tweak - Improved Min/Max Bundle Size validation message styles.
+
+2021.01.06 - version 6.7.0
+* Tweak - Simplified the way prices are calculated and displayed for Bundles that contain subscription products.
+
+2021.01.04 - version 6.6.5
+* Fix - Fixed an issue that prevented 'Max Bundle Size' from being left empty when 'Min Bundle Size' is defined.
+* Fix - Kicked 2020 out the door.
+* Tweak - Prevented a handful of jQuery Migrate warnings under WordPress 5.6.
+
+2020.12.10 - version 6.6.4
+* Fix - PHP Warning triggered in 'WC_PB_BS_Cart::load_bundle_sells_into_session'.
+* Fix - Disable Stripe quick pay buttons for products with bundle-sells.
+
+2020.12.06 - version 6.6.3
+* Tweak - Make sure Stripe quick pay buttons are hidden for Bundles with configurable or priced-individually items.
+
+2020.12.05 - version 6.6.2
+* Fix - Fatal error in product pages when using the Stripe gateway.
+
+2020.12.04 - version 6.6.1
+* Fix - Added compatibility with PayPal Checkout Express: Conditionally disable quick-pay buttons based on the validity of the Bundle form.
+* Fix - Added compatibility with Stripe: Hide quick-pay buttons for non-static Bundles.
+
 2020.11.25 - version 6.6.0
 * Important - Min/Max bundle size post meta are no longer available via 'WC_Product::get_meta'! Please update your code to use 'WC_Product_Bundle::get_min_bundle_size' and 'WC_Product_Bundle::get_max_bundle_size'.
 * Feature - Introduced props for Min/Max Bundle Size fields and made them available in the core Importer/Exporter and REST API.

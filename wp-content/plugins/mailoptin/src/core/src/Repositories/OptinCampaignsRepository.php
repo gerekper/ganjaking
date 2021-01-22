@@ -180,7 +180,7 @@ class OptinCampaignsRepository extends AbstractRepository
             $optin_campaign_id = $variant_ids[0];
         }
 
-        if ( ! OptinCampaignsRepository::is_activated($optin_campaign_id)) {
+        if ( ! self::is_activated($optin_campaign_id)) {
             $optin_campaign_id = $parent_optin_campaign_id;
         }
 
@@ -488,11 +488,7 @@ class OptinCampaignsRepository extends AbstractRepository
      */
     public static function get_optin_saved_customizer_data()
     {
-        $callback = function () {
-            return get_option(MO_OPTIN_CAMPAIGN_WP_OPTION_NAME, []);
-        };
-
-        return cache_transform('get_optin_saved_customizer_data', $callback);
+        return get_option(MO_OPTIN_CAMPAIGN_WP_OPTION_NAME, []);
     }
 
     /**

@@ -1,11 +1,11 @@
 <?php
 
-namespace WBCR\Factory_441\Updates;
+namespace WBCR\Factory_442\Updates;
 
 // Exit if accessed directly
-use Wbcr_Factory441_Plugin;
+use Wbcr_Factory442_Plugin;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if( !defined('ABSPATH') ) {
 	exit;
 }
 
@@ -20,53 +20,61 @@ class Wordpress_Repository extends Repository {
 	/**
 	 * Wordpress constructor.
 	 *
-	 * @param Wbcr_Factory441_Plugin $plugin
-	 * @param bool                   $is_premium
+	 * @param Wbcr_Factory442_Plugin $plugin
+	 * @param array $settings
 	 */
-	public function __construct( Wbcr_Factory441_Plugin $plugin ) {
+	public function __construct(Wbcr_Factory442_Plugin $plugin, array $settings = [])
+	{
 		$this->plugin = $plugin;
 	}
 
-	public function init() {
+	public function init()
+	{
 		// TODO: Implement init() method.
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function need_check_updates() {
+	public function need_check_updates()
+	{
 		return false;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function is_support_premium() {
+	public function is_support_premium()
+	{
 		return false;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function get_download_url() {
+	public function get_download_url()
+	{
 		return '';
 	}
 
 	/**
 	 * @return string
 	 */
-	public function get_last_version() {
+	public function get_last_version()
+	{
 		return '0.0.0';
 	}
 
-	public function check_updates() {
+	public function check_updates()
+	{
 
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function need_update() {
+	public function need_update()
+	{
 		return false;
 	}
 }

@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-checkout-add-ons/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -60,6 +60,9 @@ class Frontend {
 
 		// Add add-on fields to checkout fields
 		add_filter( 'woocommerce_checkout_fields', array( $this, 'add_checkout_fields' ) );
+
+		// restores possible missing data from post
+		add_filter( 'woocommerce_checkout_posted_data', [ $this, 'restore_missing_posted_data' ] );
 
 		// validate the add-on fields at checkout
 		add_action( 'woocommerce_after_checkout_validation', array( $this, 'validate_checkout_fields' ) );
@@ -1612,4 +1615,33 @@ class Frontend {
 	}
 
 
+	/**
+	 * Restores missing post data for custom checkout fields that may be filtered out by WooCommerce.
+	 *
+	 * Data loss is observed when fields contain sanitized characters from other alphabets like Cyrillic.
+	 *
+	 * @internal
+	 *
+	 * @since 2.5.1
+	 *
+	 * @param array $post_data the posted field data
+	 * @return array
+	 */
+	public function restore_missing_posted_data( $post_data ) {
+
+		$add_ons = Add_On_Factory::get_add_ons();
+
+		foreach ( $add_ons as $add_on ) {
+
+			$key = $add_on->get_key();
+
+			if ( empty( $post_data[ $key ] ) && ! empty( $_POST[ $key ] ) ) {
+
+				// restores a custom checkout field set on $_POST but missing in $post_data
+				$post_data[ $key ] = $_POST[ $key ];
+			}
+		}
+
+		return $post_data;
+	}
 }

@@ -276,14 +276,23 @@
 		public static function set_invoice_number( $order_id ) {
 
 			// Invoice number exists, just get it and leave.
+			if( get_post_meta( $order_id, '_wc_pdf_invoice_number', TRUE ) ) {
+				return get_post_meta( $order_id, '_wc_pdf_invoice_number', TRUE );
+			}
+
 			if( get_post_meta( $order_id, '_invoice_number', TRUE ) ) {
-				return get_post_meta( $order_id, '_invoice_number', TRUE );
+
+				$compatibility_invoice_number = get_post_meta( $order_id, '_invoice_number', TRUE );
+				update_post_meta( $order_id, '_wc_pdf_invoice_number', $compatibility_invoice_number );
+
+				return $compatibility_invoice_number;
+				
 			}
 
 			// Get the invoice options
-			$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
+			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
-			if ( !isset( $woocommerce_pdf_invoice_options['sequential'] ) || $woocommerce_pdf_invoice_options['sequential'] != 'true' ) {
+			if ( !isset( $settings['sequential'] ) || $settings['sequential'] != 'true' ) {
 				// Sequential order numbering is not needed, just use the order_id.
 				$next_invoice = $order_id;
 			} else {
@@ -297,11 +306,12 @@
 			$next_invoice = apply_filters( 'woocommerce_pdf_invoices_set_invoice_number', $next_invoice, $order_id );
 
 			// set the invoice number for the order
+			update_post_meta( $order_id, '_wc_pdf_invoice_number', $next_invoice );
 			update_post_meta( $order_id, '_invoice_number', $next_invoice );
 
 			// Udate PDF Invoice options 'pdf_next_number'
-			$woocommerce_pdf_invoice_options['pdf_next_number'] = $next_invoice;
-			update_option( 'woocommerce_pdf_invoice_settings', $woocommerce_pdf_invoice_options );
+			$settings['pdf_next_number'] = $next_invoice;
+			update_option( 'woocommerce_pdf_invoice_settings', $settings );
 			
 			return $next_invoice;
 		
@@ -330,7 +340,9 @@
 					$invoice_date = wc_format_datetime( $invoice_date );
 				}
 
-				return WC_pdf_admin_functions::format_pdf_date( $invoice_date );
+				$return = WC_pdf_admin_functions::format_pdf_date( $invoice_date );
+
+				return apply_filters( 'woocommerce_pdf_nvoices_set_invoice_date', $return, $order_id );
 
 				// update_post_meta( $order_id, '_invoice_date', $invoice_date );
 
@@ -385,7 +397,7 @@
 			// Get the invoice options
 			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
-			$invoice_number = get_post_meta( $order_id, '_invoice_number', TRUE );
+			$invoice_number = get_post_meta( $order_id, '_wc_pdf_invoice_number', TRUE );
 
 			// pattern substitution
 			$replacements = array(
@@ -723,6 +735,7 @@
 					'_invoice_created',
 					'_invoice_date',
 					'_invoice_number',
+					'_wc_pdf_invoice_number',
 					'_invoice_number_display',
 					'_pdf_company_name',
 					'_pdf_company_details',
@@ -742,6 +755,7 @@
 					'invoice_created',
 					'invoice_date',
 					'invoice_number',
+					'wc_pdf_invoice_number',
 					'invoice_number_display',
 					'pdf_company_name',
 					'pdf_company_details',

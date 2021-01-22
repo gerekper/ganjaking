@@ -58,20 +58,20 @@
   </table>
   <table table width="100%">
 	<tr>
-	   	<td width="20%" valign="top"><?php echo apply_filters( 'pdf_template_invoice_number_text', __( 'Invoice No. :', 'woocommerce-pdf-invoice' ) ); ?></td>
+	   	<td width="20%" valign="top">[[PDFINVOICENUMHEADING]]</td>
 	    <td width="30%" valign="top">[[PDFINVOICENUM]]</td>
-	   	<td width="20%" valign="top"><?php echo apply_filters( 'pdf_template_order_number_text', __( 'Order No. :', 'woocommerce-pdf-invoice' ) ); ?></td>
+	   	<td width="20%" valign="top">[[PDFORDERENUMHEADING]]</td>
 	    <td width="30%" valign="top">[[PDFORDERENUM]]</td>
 	</tr>
 	<tr>
-	   	<td valign="top"><?php echo apply_filters( 'pdf_template_invoice_date_text', __( 'Invoice Date :', 'woocommerce-pdf-invoice' ) ); ?></td>
+	   	<td valign="top">[[PDFINVOICEDATEHEADING]]</td>
        	<td valign="top">[[PDFINVOICEDATE]]</td>
-    	<td valign="top"><?php echo apply_filters( 'pdf_template_order_date_text', __( 'Order Date :', 'woocommerce-pdf-invoice' ) ); ?></td>
+    	<td valign="top">[[PDFORDERDATEHEADING]]</td>
        	<td valign="top">[[PDFORDERDATE]]</td>
     </tr>
     
     <tr>
-	   	<td valign="top"><?php echo apply_filters( 'pdf_template_payment_method_text', __( 'Payment Method :', 'woocommerce-pdf-invoice' ) ); ?></td>
+	   	<td valign="top">[[PDFINVOICE_PAYMETHOD_HEADING]]</td>
        	<td valign="top">[[PDFINVOICEPAYMENTMETHOD]]</td>
     	<td valign="top">[[PDFINVOICE_SHIPMETHOD_HEADING]]</td>
         <td valign="top">[[PDFSHIPPINGMETHOD]]</td>

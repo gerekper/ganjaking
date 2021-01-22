@@ -49,8 +49,13 @@ class WordPress_GDPR_Cookie_Popup extends WordPress_GDPR
             return false;
         }
 
+        if(is_customize_preview()) {
+            return false;
+        }
+
         $popupText = $this->get_option('popupText');
         $popupTextAgree = $this->get_option('popupTextAgree');
+        $popupTextPreferences = $this->get_option('popupTextPreferences');
         $popupTextCookiePolicy = $this->get_option('popupTextCookiePolicy');
         $popupTextDecline = $this->get_option('popupTextDecline');
         $popupTextPrivacySettings = $this->get_option('popupTextPrivacySettings');
@@ -59,11 +64,17 @@ class WordPress_GDPR_Cookie_Popup extends WordPress_GDPR
         $popupStyle = $this->get_option('popupStyle');
         $popupPosition = $this->get_option('popupPosition');
         $popupBackgroundColor = $this->get_option('popupBackgroundColor');
+
         $popupTextColor = $this->get_option('popupTextColor');
         $popupAgreeColor = $this->get_option('popupAgreeColor');
+
         $popupAgreeBackgroundColor = $this->get_option('popupAgreeBackgroundColor');
         $popupDeclineColor = $this->get_option('popupDeclineColor');
         $popupDeclineBackgroundColor = $this->get_option('popupDeclineBackgroundColor');
+
+        $popupPreferencesColor = $this->get_option('popupPreferencesColor');
+        $popupPreferencesBackgroundColor = $this->get_option('popupPreferencesBackgroundColor');
+
         $popupLinkColor = $this->get_option('popupLinkColor');
 
         $privacyCenterPage = $this->get_option('privacyCenterPage');
@@ -119,8 +130,12 @@ class WordPress_GDPR_Cookie_Popup extends WordPress_GDPR
                             <a href="#" class="wordpress-gdpr-popup-agree" style="background-color: <?php echo $popupAgreeBackgroundColor ?>; color: <?php echo $popupAgreeColor ?>;"><?php echo $popupTextAgree ?></a>
                         <?php } ?>
                     
+                        <?php if(!empty($popupTextPreferences)) { ?>
+                            <a href="#" class="wordpress-gdpr-popup-preferences wordpress-gdpr-open-privacy-settings-modal" style="background-color: <?php echo $popupPreferencesBackgroundColor ?>; color: <?php echo $popupPreferencesColor ?>;"><?php echo $popupTextPreferences ?></a>
+                        <?php } ?>
+
                         <?php if(!empty($popupTextDecline)) { ?>
-                            <a href="#" class="wordpress-gdpr-popup-decline" style="background-color: <?php echo $popupDeclineBackgroundColor ?>; color: <?php echo $popupDeclineColor ?>;"><?php echo $popupTextDecline ?></a>
+                            <a href="#" class="wordpress-gdpr-popup-decline wordpress-gdpr-open-privacy-settings-modal" style="background-color: <?php echo $popupDeclineBackgroundColor ?>; color: <?php echo $popupDeclineColor ?>;"><?php echo $popupTextDecline ?></a>
                         <?php } ?>
                         <div class="gdpr-clear"></div>
                     </div>

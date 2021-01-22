@@ -12,6 +12,7 @@ $rs_material_icons_css = false;
 $rs_material_icons_css_parsed = false;
 $rs_slider_serial = 0;
 $rs_ids_collection = array();
+$rs_preview_mode = false;
 
 class RevSliderOutput extends RevSliderFunctions {
 	
@@ -486,7 +487,9 @@ class RevSliderOutput extends RevSliderFunctions {
 	 * set the preview_mode
 	 */
 	public function set_preview_mode($preview_mode){
+		global $rs_preview_mode;
 		$this->preview_mode = apply_filters('revslider_set_preview_mode', $preview_mode, $this);
+		$rs_preview_mode = $this->preview_mode;
 	}
 	
 	/**
@@ -2374,15 +2377,31 @@ class RevSliderOutput extends RevSliderFunctions {
 			$text = $this->get_val($layer, 'text', '');
 			$text_toggle = $this->get_val($layer, array('toggle', 'text'), '');
 			if(strpos($text, 'material-icons') !== false || strpos($text_toggle, 'material-icons') !== false){
-				$rs_material_icons_css = "/* 
-ICON SET
-*/
-@font-face {
+				$gs = $this->get_global_settings();
+				if($this->get_val($gs, 'fontdownload', 'off') === 'off'){
+					$font_face = "@font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;  
   src: url(//fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
-}
+}";
+				}else{
+					$font_face = "@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;  
+  
+  src: local('Material Icons'),
+    	local('MaterialIcons-Regular'),
+  		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
+  		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff) format('woff'),  
+		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
+}";
+				}
+				$rs_material_icons_css = "/* 
+ICON SET 
+*/
+".$font_face."
 
 rs-module .material-icons {
   font-family: 'Material Icons';
@@ -4856,7 +4875,7 @@ rs-module .material-icons {
 		$slide = $this->get_slide();
 		
 		if($this->slider->get_param('sourcetype') !== 'gallery'){
-			if($this->slider->get_param('sourcetype') === 'post'){
+			if(in_array($this->slider->get_param('sourcetype'), array('post', 'woo', 'woocommerce'), true)){
 				$bgi['id'] = get_post_thumbnail_id($slide->get_id());
 				if(!empty($bgi['id'])){
 					$bgi['size']	= $this->get_val($layer, array('behavior', 'streamSourceType'), 'full');
@@ -7004,11 +7023,13 @@ rs-module .material-icons {
 		$fb	= array();
 		
 		$dpz = $s->get_param(array('general', 'disablePanZoomMobile'), false);
+		$wro = $s->get_param(array('general', 'observeWrap'), false);
 		$sii = $s->get_param(array('troubleshooting', 'simplify_ie8_ios4'), true); //was false
 		$dfl = $s->get_param(array('general', 'disableFocusListener'), false);		
 		$urlhash = $s->get_param(array('general', 'enableurlhash'), false);		
 		$apvom = $s->get_param(array('general', 'autoPlayVideoOnMobile'), true);		
 		if($dpz !== false) $fb['panZoomDisableOnMobile'] = $dpz;
+		if($wro !== false) $fb['observeWrap'] = $wro;
 		if($sii !== false) $fb['simplifyAll'] = $sii;
 		if($s->get_param('type', 'standard') !== 'hero'){
 			$nsof = $s->get_param(array('general', 'nextSlideOnFocus'), false);

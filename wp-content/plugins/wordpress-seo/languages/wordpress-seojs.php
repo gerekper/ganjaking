@@ -465,21 +465,21 @@ $generated_i18n_strings = array(
 	/* translators: %s expands to Twitter. */
 	__( '%s preview', 'wordpress-seo' ),
 
-	// Reference: js/src/components/social/SocialUpsell.js:19
-	/* translators: %s expands to Yoast SEO Premium */
-	__( 'Find out why you should upgrade to %s', 'wordpress-seo' ),
-
-	// Reference: js/src/components/social/SocialUpsell.js:34
+	// Reference: js/src/components/social/SocialUpsell.js:27
 	/* translators: %s expands to the social medium name, which is either Twitter or Facebook. %s expands to Yoast SEO Premium */
 	__( 'Do you want to preview what it will look like if people share this post on %s? You can, with %s.', 'wordpress-seo' ),
 
-	// Reference: js/src/containers/FacebookEditor.js:17
-	// Reference: js/src/containers/TwitterEditor.js:17
+	// Reference: js/src/components/social/SocialUpsell.js:33
+	/* translators: %s expands to Yoast SEO Premium */
+	__( 'Find out why you should upgrade to %s', 'wordpress-seo' ),
+
+	// Reference: js/src/containers/FacebookEditor.js:76
+	// Reference: js/src/containers/TwitterEditor.js:81
 	/* translators: %s expands to the social medium name, i.e. Faceboook. */
 	__( 'Modify your %s title by editing it right here...', 'wordpress-seo' ),
 
-	// Reference: js/src/containers/FacebookEditor.js:24
-	// Reference: js/src/containers/TwitterEditor.js:24
+	// Reference: js/src/containers/FacebookEditor.js:83
+	// Reference: js/src/containers/TwitterEditor.js:88
 	/* translators: %s expands to the social medium name, i.e. Faceboook. */
 	__( 'Modify your %s description by editing it right here...', 'wordpress-seo' ),
 
