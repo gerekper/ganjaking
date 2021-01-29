@@ -3208,7 +3208,7 @@ msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
 msgstr "[Ultimate GDPR & CCPA] Молба за отписване от %s"
 
 #: includes/controller/controller-unsubscribe.php:788
-msgid "Your have been unsubscribed"
+msgid "You have been unsubscribed"
 msgstr "Отписан си"
 
 #: includes/controller/controller-services.php:99 

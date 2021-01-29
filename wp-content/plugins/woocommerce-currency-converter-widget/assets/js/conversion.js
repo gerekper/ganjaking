@@ -5,6 +5,7 @@ jQuery(document).ready(function($) {
 	var currency_position = wc_currency_converter_params.currency_pos;
 	var currency_decimals = wc_currency_converter_params.num_decimals;
 	var remove_zeros      = wc_currency_converter_params.trim_zeros;
+	var locale_info       = wc_currency_converter_params.locale_info;
 
 	money.rates           = wc_currency_converter_params.rates;
 	money.base            = wc_currency_converter_params.base;
@@ -35,8 +36,19 @@ jQuery(document).ready(function($) {
 		}
 		money = set_default_rate_on_missing_currency( money, to_currency );
 
+		var new_thousand_sep = wc_currency_converter_params.thousand_sep;
+		var new_decimal_sep = wc_currency_converter_params.decimal_sep;
+
+		for(const country_code in locale_info) {
+			if (current_currency === locale_info[country_code].currency_code) {
+				new_thousand_sep = locale_info[country_code].thousand_sep;
+				new_decimal_sep = locale_info[country_code].decimal_sep;
+				break;
+			}
+		}
+
 		// Span.amount
-		jQuery('span.amount').each(function(){
+		jQuery('span.amount, span.wc-block-formatted-money-amount').each(function(){
 
 			// Original markup
 			var original_code = jQuery(this).attr("data-original");
@@ -69,7 +81,7 @@ jQuery(document).ready(function($) {
 
 			price = money( original_price ).from( money.settings.from ).to( to_currency );
 			price = price.toFixed( currency_decimals );
-			price = accounting.formatNumber( price, currency_decimals, wc_currency_converter_params.thousand_sep, wc_currency_converter_params.decimal_sep );
+			price = accounting.formatNumber( price, currency_decimals, new_thousand_sep, new_decimal_sep );
 
 			if ( remove_zeros ) {
 				price = price.replace( wc_currency_converter_params.zero_replace, '' );
@@ -136,7 +148,7 @@ jQuery(document).ready(function($) {
 
 			price = money(price).to(to_currency);
 			price = price.toFixed( currency_decimals );
-			price = accounting.formatNumber( price, currency_decimals, wc_currency_converter_params.thousand_sep, wc_currency_converter_params.decimal_sep );
+			price = accounting.formatNumber( price, currency_decimals, new_thousand_sep, new_decimal_sep );
 
 			if ( remove_zeros ) {
 				price = price.replace( wc_currency_converter_params.zero_replace, '' );
@@ -192,7 +204,7 @@ jQuery(document).ready(function($) {
 	});
 
 	// Ajax events
-	jQuery('body').bind('wc_fragments_refreshed wc_fragments_loaded show_variation updated_checkout updated_shipping_method added_to_cart cart_page_refreshed cart_widget_refreshed updated_addons', function() {
+	jQuery('body').bind('wc_fragments_refreshed wc_fragments_loaded show_variation updated_checkout updated_shipping_method added_to_cart cart_page_refreshed cart_widget_refreshed updated_addons post-load', function() {
 		if ( current_currency ) {
 			switch_currency( current_currency );
 		}
@@ -212,9 +224,39 @@ jQuery(document).ready(function($) {
 		jQuery('select.currency_switcher').val( wc_currency_converter_params.currency );
 	}
 
+	// If products are displayed inside of 'all products block', we need to listen for reloads and change after loaded.
+	// The following block of code is using a MutationObserver to identify when the products have finished loading.
+	// This is a quick fix, we will want to rewrite it using React.
+	if ( jQuery( '.wp-block-woocommerce-all-products' ).length ) {
+		var isLoading = true;
+		var observer = new MutationObserver(function(mutations) {
+			if ( jQuery( '.is-loading' ).length ) {
+				isLoading = true;
+			}
+			// Once products are not loading, switch currency.
+			if ( current_currency && !jQuery( '.is-loading' ).length ) {
+				if ( isLoading ) {
+					switch_currency( current_currency );
+					isLoading = false;
+				}
+			}
+		});
+
+		observer.observe(
+			document.body, 
+			{	
+				attributes: true,
+				childList: true,
+				subtree: true,
+				characterData: true
+			}
+		);
+	}
+
+
 	jQuery( document.body )
 		.on( 'click', 'a.wc-currency-converter-reset', function() {
-			jQuery('span.amount, #shipping_method option').each(function(){
+			jQuery('span.amount, #shipping_method option, span.wc-block-formatted-money-amount').each(function(){
 				var original_code = jQuery(this).attr("data-original");
 
 				if (typeof original_code !== 'undefined' && original_code !== false) {

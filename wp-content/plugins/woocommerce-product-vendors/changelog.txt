@@ -1,11 +1,44 @@
 *** Product Vendors Changelog ***
 
+2021-01-26 - version 2.1.47
+* Fix - Fix: Restrict display of vendor profiles when a vendor is unverified.
+* Tweak - WC 4.9 compatibility.
+* Tweak - WP 5.6 compatibility.
+
+2021-01-20 - version 2.1.46
+* Fix - Fix: Resolves an issue where the virtual product option would be hidden for simple products for Vendor Admins when WooCommerce Bookings was also installed.
+* Tweak - WC 4.9 compatibility.
+* Tweak - WP 5.6 compatibility.
+
+2020-12-09 - version 2.1.45
+* Fix - Deprecated call to `WC_Abstract_Legacy_Order::get_product_from_item` function.
+* Tweak - WC 4.7 compatibility.
+* Tweak - WP 5.5 compatibility.
+
+2020-11-25 - version 2.1.44
+* Fix - Dev - Fix unit testin infrastructure.
+* Fix - Dev - Remove default value from optional parameters that are followed by required parameters in functions/methods, since those are de-facto required and trigger a deprectation notice in PHP 8.
+* Fix - Dev - Set PHP version to 7.2 in composer.json for compatibility with PHP 8.
+* Tweak - WC 4.7 compatibility.
+* Tweak - WP 5.5 compatibility.
+
+2020-10-05 - version 2.1.43
+* Fix   - Multiple tax rates not calculating proper commission with Per Product Shipping.
+* Tweak - Filters to allow multiple language versions of vendor data.
+* Fix   - Reporting stats for 'Last Month' are not accurate.
+* Fix   - Commas not properly escaped in CSV exports.
+* Fix   - Add wait time on Webhook creation failure before attempting to create new Webhook handler.
+
+2020-08-14 - version 2.1.42
+* Fix   - Replace deprecated jQuery methods.
+* Tweak - WordPress 5.5 compatibility.
+
 2020-08-06 - version 2.1.41
 * Fix   - Allow multiple vendor emails.
 
 2020-08-06 - version 2.1.40
 * Fix   - Added failed to paid order statuses for commission generation.
-* Tweak - Add logging for commission payouts with PayPal. 
+* Tweak - Add logging for commission payouts with PayPal.
 
 2020-07-22 - version 2.1.39
 * Tweak - Set Vendor Email field to required and add validation.

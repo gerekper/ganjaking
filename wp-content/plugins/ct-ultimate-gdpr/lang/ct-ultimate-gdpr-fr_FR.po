@@ -1843,7 +1843,7 @@ msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
 msgstr "[Ultimate GDPR & CCPA] Avis de désinscription de %s"
 
 #: includes/controller/controller-unsubscribe.php:788
-msgid "Your have been unsubscribed"
+msgid "You have been unsubscribed"
 msgstr "Vous avez été désabonné"
 
 #: includes/helpers.php:110

@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/ordercustomer-csv-exporter/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -204,6 +204,23 @@ class WC_Customer_Order_CSV_Export_Query_Parser {
 			];
 
 			$query_args['tax_query'] = $exclude_exported;
+		}
+
+		if ( 'orders' === $export_type && isset( $_POST['export_query']['refunds'] ) && 'only_refunds' === $_POST['export_query']['refunds'] ) {
+
+			// we don't need the refund's ID, just order IDs
+			$refund_order_ids = array_unique( get_posts( [
+				'fields'      => 'id=>parent',
+				'nopaging'    => true,
+				'post_type'   => 'shop_order_refund',
+				'post_status' => 'any',
+			] ) );
+
+			if ( ! empty( $refund_order_ids ) ) {
+				$query_args['post__in'] = isset( $query_args['post__in'] ) ? array_merge( (array) $query_args['post__in'], $refund_order_ids ) : $refund_order_ids;
+			} else {
+				$query_args['post__in'] = [0]; // will produce no results as no matching refunds were found
+			}
 		}
 
 		/**

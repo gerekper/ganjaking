@@ -95,7 +95,9 @@ $options_installed = array(
 		'i13_recapcha_error_msg_captcha_blank_v3',
 		'i13_recapcha_error_msg_captcha_no_response_v3',
 		'i13_recapcha_no_conflict_v3',
-		'i13_recapcha_wp_disable_submit_token_generation_v3'
+		'i13_recapcha_wp_disable_submit_token_generation_v3',
+		'i13_recapcha_custom_wp_login_form_login',
+		'i13_recapcha__v3_custom_wp_login_form_login'
 
 );
 

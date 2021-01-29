@@ -231,7 +231,7 @@ class WC_Product_Vendors_Utils {
 			$vendor_data['count']            = $vendor_term->count;
 		}
 
-		return $vendor_data;
+		return apply_filters( 'wcpv_get_vendor_data_by_id', $vendor_data, $vendor_id );
 	}
 
 	/**
@@ -508,6 +508,42 @@ class WC_Product_Vendors_Utils {
 	}
 
 	/**
+	 * Checks if any of the vendor admins are verified
+	 *
+	 * @access public
+	 * @since 2.1.46
+	 * @version 2.1.46
+	 * @return bool
+	 */
+	public static function is_vendor_approved( $term_id = '' ) {
+		if ( empty( $term_id ) ) {
+			$term_id = self::get_logged_in_vendor();
+		}
+
+		$vendor_data = self::get_vendor_data_by_id( $term_id );
+
+		$admins = $vendor_data['admins'];
+
+		if ( ! is_array( $admins ) ) {
+			$admins = array( $admins );
+		}
+
+		if ( empty ( $admins ) ) {
+			return false;
+		}
+
+		foreach( $admins as $admin ) {
+			if ( ! self::is_pending_vendor( $admin ) &&
+				( self::is_admin_vendor( $admin ) || self::is_manager_vendor( $admin ) )
+			) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Get all products that belong to a vendor
 	 *
 	 * @access public
@@ -623,7 +659,7 @@ class WC_Product_Vendors_Utils {
 	 * @param string $format The format string for the returned date (default is Y-m-d H:i:s)
 	 * @return string Formatted date relative to the timezone / GMT offset.
 	 */
-	public static function get_date_from_gmt( $string, $format = 'Y-m-d H:i:s', $timezone_string ) {
+	public static function get_date_from_gmt( $string, $format, $timezone_string ) {
 		$tz = $timezone_string;
 
 		if ( empty( $timezone_string ) ) {
@@ -824,7 +860,7 @@ class WC_Product_Vendors_Utils {
 
 		// if no commission is set in variation or parent product level
 		// check commission from vendor level
-		if ( is_numeric( $vendor_data['commission'] ) ) {
+		if ( isset( $vendor_data['commission'] ) && is_numeric( $vendor_data['commission'] ) ) {
 			return array( 'commission' => $vendor_data['commission'], 'type' => $vendor_data['commission_type'] );
 		}
 
@@ -880,7 +916,7 @@ class WC_Product_Vendors_Utils {
 			}
 		}
 
-		return $vendor_data;
+		return apply_filters( 'wcpv_get_vendors_from_order', $vendor_data, $order );
 	}
 
 	/**
@@ -893,6 +929,10 @@ class WC_Product_Vendors_Utils {
 	 * @return array $query
 	 */
 	public static function convert2string( $query ) {
+		$query = array_map( function( $entry ) {
+			return '"' . str_replace( '"', '""', $entry ) . '"';
+		}, $query );
+
 		return implode( ',', $query );
 	}
 

@@ -1,0 +1,86 @@
+How to Create a module in Project Manager Pro
+
+Module having a sub-menu under project manager
+
+1.Copy our exiting module menu  and rename as your module name.
+2. webpack configuration
+    → Open webpack.config.js file.
+    → change filename and jsonpFunction. JsonpFunction will be like
+
+    module.exports = {
+        output: {
+            filename: 'filename.js',
+            jsonpFunction: 'wedevsPmProModuleNameWebpack',
+        }
+    }
+    → include module webpack.config.js file in our main webpack.config.js  file like.
+
+    const moduleName1   = require('./modules/module_name/webpack.config.js');
+
+    module.exports = [  moduleName1, moduleName2, ...]
+
+3. Rename menu.php as your module directory name like module_name.php
+
+4. open module_name.php file and and put your php code here.
+
+    → write module name, description, and others details.
+/**
+ * Module Name: module name
+ * Description: Description
+ * Module URI: 
+ * Thumbnail URL: 
+ * Author: 
+ * Version: 
+ * Author URI:
+ */
+    → Add sub-menu name, permission and path. 
+
+add_action( 'pm_menu_before_load_scripts', function( $home ) {
+    global $submenu;
+    $submenu['pm_projects'][] = [ __( 'Woo Project', 'pm' ), 'read', 'admin.php?                page=pm_projects#/woo-project' ];
+    add_action( 'admin_print_styles-' . $home, 'pm_pro_menu_load_scripts' );
+
+} );
+
+
+
+
+
+
+
+
+
+    → enqueue script and style for modules.
+
+function pm_pro_menu_load_scripts() {
+    wp_enqueue_script( 'pm-pro-menu', plugins_url( 'views/assets/js/woo-project.js', __FILE__ ), array(), time(), true );
+    wp_enqueue_style( 'pm-pro-menu', plugins_url( 'views/assets/css/woo-project.css', __FILE__ ), array(), time() );
+}
+
+5. Register module and routers in vue.
+
+    → Open module_name/view/assests/src/router/router.js file
+
+    → Register module with function weDevsPmProAddonRegisterModule, it takes two argument with module name and module path name. Module path name must be same as your module folder name. 
+
+weDevsPmProAddonRegisterModule('moduleName', 'module_path');
+
+
+    → Register routers with function weDevsPMRegisterChildrenRoute,  it tasks two argument parentRouteName and routes Array.  ParentRouteName can have 'project_root' for root  page, routes array will be same as vue router array.  
+
+weDevsPMRegisterChildrenRoute('project_root', 
+    [
+        {
+            path: 'route-path', 
+            component: component,
+            name: 'route_name',
+        }
+    ]
+)
+
+6. how to get mixin, store, and set commit
+
+→ mixins: [PmProMixin.moduleName]
+
+→ this.$store.state.moduleName
+→ this.$store.commit(‘moduleName/function’)

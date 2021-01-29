@@ -219,7 +219,7 @@ class WC_Currency_Converter {
 				$html .= '<select id="currency_switcher" class="currency_switcher select" data-default="' . get_woocommerce_currency() . '">';
 
 				foreach ( $currencies as $currency ) {
-					$label = empty( $instance['show_symbols'] ) ? $currency : get_woocommerce_currency_symbol( $currency );
+					$label = empty( $instance['show_symbols'] ) ? $currency : $currency . ' (' . get_woocommerce_currency_symbol( $currency ) . ')';
 					$html .= '<option value="' . esc_attr( $currency ) . '">' . esc_html( $label ) . '</option>';
 				}
 
@@ -234,7 +234,7 @@ class WC_Currency_Converter {
 
 				foreach ( $currencies as $currency ) {
 					$class = get_woocommerce_currency() === $currency ? 'default currency-' . $currency : 'currency-' . $currency;
-					$label = empty( $instance['show_symbols'] ) ? $currency : get_woocommerce_currency_symbol( $currency );
+					$label = empty( $instance['show_symbols'] ) ? $currency : $currency . ' (' . get_woocommerce_currency_symbol( $currency ) . ')';
 
 					$html .= '<li><a href="#" class="' . esc_attr( $class ) . '" data-currencycode="' . esc_attr( $currency ) . '">' . esc_html( $label ) . '</a></li>';
 				}
@@ -260,18 +260,15 @@ class WC_Currency_Converter {
 		// Assume default currency from WooCommerce.
 		$current_currency = get_woocommerce_currency();
 
-		if ( ! $disable_location_based_currency ) {
-			if ( ! empty( $_COOKIE['woocommerce_current_currency'] ) ) {
-				// If a cookie is set then use that
-				$current_currency = $_COOKIE['woocommerce_current_currency'];
-			} else {
-				// Get the users local currency based on their location
-				$users_default_currency = WC_Currency_Converter::get_users_default_currency();
-
-				// If its an allowed currency, then use it
-				if ( isset( $users_default_currency ) && is_array( $currencies ) && in_array( $users_default_currency, $currencies ) ) {
-					$current_currency = $users_default_currency;
-				}
+		if ( ! empty( $_COOKIE['woocommerce_current_currency'] ) ) {
+			// If a cookie is set then use that.
+			$current_currency = $_COOKIE['woocommerce_current_currency'];
+		} elseif ( ! $disable_location_based_currency ) {
+			// If location detection is enabled, get the users local currency based on their location.
+			$users_default_currency = self::get_users_default_currency();
+			// If its an allowed currency, then use it.
+			if ( isset( $users_default_currency ) && is_array( $currencies ) && in_array( $users_default_currency, $currencies ) ) {
+				$current_currency = $users_default_currency;
 			}
 		}
 
@@ -366,6 +363,8 @@ class WC_Currency_Converter {
 
 		$should_we_trim_zeros = intval( get_option( 'woocommerce_price_num_decimals' ) ) === 0;
 
+		$locale_info = include WC()->plugin_path() . '/i18n/locale-info.php';
+
 		$wc_currency_converter_params = array(
 			'current_currency'       => isset( $_COOKIE['woocommerce_current_currency'] ) ? $_COOKIE['woocommerce_current_currency'] : '',
 			'currencies'             => wp_json_encode( $symbols ),
@@ -381,6 +380,7 @@ class WC_Currency_Converter {
 			'i18n_oprice'            => __( 'Original price:', 'woocommerce-currency-converter-widget' ),
 			'zero_replace'           => $zero_replace,
 			'currency_rate_default'  => apply_filters( 'wc_currency_converter_default_rate', 1 ),
+			'locale_info'            => $locale_info,
 		);
 
 		wp_localize_script( 'wc_currency_converter', 'wc_currency_converter_params', apply_filters( 'wc_currency_converter_params', $wc_currency_converter_params ) );

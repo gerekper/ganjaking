@@ -6,11 +6,11 @@
  * Description: Easily download customers, orders, and coupons in CSV and XML and schedule recurring, automated exports via FTP, HTTP POST, and more.
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 5.2.0
+ * Version: 5.3.0
  * Text Domain: woocommerce-customer-order-csv-export
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2012-2019, SkyVerge (info@skyverge.com)
+ * Copyright: (c) 2012-2021, SkyVerge (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,12 +18,12 @@
  * @package   WC-Customer-Order-CSV-Export
  * @author    SkyVerge
  * @category  Export
- * @copyright Copyright (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 18652:914de15813a903c767b55445608bf290
  * WC requires at least: 3.5
- * WC tested up to: 4.7.1
+ * WC tested up to: 4.9.1
  */
 
 defined( 'ABSPATH' ) or exit;

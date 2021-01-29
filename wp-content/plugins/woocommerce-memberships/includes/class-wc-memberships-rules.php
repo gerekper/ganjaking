@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -36,16 +36,22 @@ class WC_Memberships_Rules {
 
 
 	/** @var \WC_Memberships_Membership_Plan_Rule[] all rules (associative array of rule IDs and initialized rule objects) */
-	private $rules = array();
+	private $rules = [];
 
 	/** @var array|\WC_Memberships_Membership_Plan_Rule[] queried rules (associative array with cache keys according to rule query) */
-	private $applied_rules = array();
+	private $applied_rules = [];
 
 	/** @var array of product IDs that have been checked and are purchasable */
-	private $purchasable_product_ids = array();
+	private $purchasable_product_ids = [];
 
 	/** @var array of product IDs that have been checked and aren't purchasable */
-	private $non_purchasable_product_ids = array();
+	private $non_purchasable_product_ids = [];
+
+	/** @var array of plan IDs and their corresponding post status */
+	private $plan_statuses = [];
+
+	/** @var array associative array of memoized post data used when querying rules */
+	private $post_data = [];
 
 
 	/**
@@ -457,13 +463,13 @@ class WC_Memberships_Rules {
 	 */
 	private function query_rules( array $args ) {
 
-		$applicable_rules     = array();
+		$applicable_rules     = [];
 		$inherit_restrictions = wc_memberships()->get_restrictions_instance()->inherit_restriction_rules();
 
 		if ( ! empty( $this->rules ) ) {
 			foreach ( $this->rules as $key => $rule ) {
 
-				$rule_type   = $rule->get_rule_type();
+				$rule_type = $rule->get_rule_type();
 
 				// Sanity checks:
 				// - skip invalid rule types (shouldn't happen)
@@ -474,7 +480,7 @@ class WC_Memberships_Rules {
 				}
 
 				$apply_rule  = false;
-				$plan_status = get_post_status( $rule->get_membership_plan_id() );
+				$plan_status = $this->get_plan_status( $rule->get_membership_plan_id() );
 
 				// check if the membership plan of this rule matches the requested status
 				if ( is_array( $args['plan_status'] ) ) {
@@ -512,10 +518,15 @@ class WC_Memberships_Rules {
 							// object ID, content type & name all match
 							$apply_rule = true;
 
-						} elseif ( 'product_variation' === get_post_type( $args['object_id'] ) && in_array( 'purchasing_discount', (array) $args['rule_type'], true ) ) {
+						} elseif ( in_array( 'purchasing_discount', (array) $args['rule_type'], true ) ) {
 
-							// special handling for purchasing discounts that apply to variable products
-							$apply_rule = $rule->applies_to( 'object_id', wp_get_post_parent_id( $args['object_id'] ) );
+							$post_data = $this->get_post_data( (int) $args['object_id'] );
+
+							if ( isset( $post_data['post_type'], $post_data['post_parent'] ) && 'product_variation' === $post_data['post_type'] ) {
+
+								// special handling for purchasing discounts that apply to variable products
+								$apply_rule = $rule->applies_to( 'object_id', $post_data['post_parent'] );
+							}
 						}
 					}
 
@@ -642,6 +653,72 @@ class WC_Memberships_Rules {
 		}
 
 		return $applicable_rules;
+	}
+
+
+	/**
+	 * Gets post data information (helper method).
+	 *
+	 * @since 1.21.0
+	 *
+	 * @param int $object_id post ID
+	 * @return array associative data
+	 */
+	private function get_post_data( int $object_id ) : array {
+
+		if ( ! isset( $this->post_data[ $object_id ] ) ) {
+
+			$this->post_data[ $object_id ] = [
+				'post_type'   => '',
+				'post_parent' => 0,
+			];
+
+			if ( $post = get_post( $object_id ) ) {
+
+				$this->post_data[ $object_id ]['post_type']   = (string) $post->post_type;
+				$this->post_data[ $object_id ]['post_parent'] = (int) $post->post_parent;
+
+				if ( in_array( $post->post_type, [ 'product', 'product_variation' ], true ) ) {
+
+					if ( $post->post_parent > 0 ) {
+						$product = wc_get_product( (int) $post->post_parent );
+					} else {
+						$product = wc_get_product( (int) $post->ID );
+					}
+
+					if ( $product ) {
+
+						foreach ( (array) $product->get_children() as $child_object_id ) {
+
+							$this->post_data[ (int) $child_object_id ] = [
+								'post_type'   => 'product_variation',
+								'post_parent' => (int) $product->get_id(),
+							];
+						}
+					}
+				}
+			}
+		}
+
+		return $this->post_data[ $object_id ];
+	}
+
+
+	/**
+	 * Gets a membership plan's status (helper method).
+	 *
+	 * @since 1.21.0
+	 *
+	 * @param int $membership_plan_id
+	 * @return string
+	 */
+	private function get_plan_status( int $membership_plan_id ) : string {
+
+		if ( ! isset( $this->plan_statuses[ $membership_plan_id ] ) ) {
+			$this->plan_statuses[ $membership_plan_id ] = get_post_status( $membership_plan_id );
+		}
+
+		return $this->plan_statuses[ $membership_plan_id ];
 	}
 
 

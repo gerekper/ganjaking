@@ -573,7 +573,7 @@ class BetterDocs_Multiple_Kb
 			$kb_slug = self::kb_slug();
 		}
 
-		if(empty($kb_slug) && $q_object->post_type){
+		if(empty($kb_slug) && isset($q_object->post_type)) {
 			$category = get_term_by('slug', $term_slug, $texanomy, ARRAY_A);
 			$kb_arr = get_term_meta($category['term_id'], 'doc_category_knowledge_base', true);
 				

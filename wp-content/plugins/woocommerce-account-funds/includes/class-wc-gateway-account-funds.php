@@ -52,6 +52,8 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 		add_action( 'woocommerce_scheduled_subscription_payment_' . $this->id, array( $this, 'scheduled_subscription_payment' ), 10, 2 );
 		add_filter( 'woocommerce_my_subscriptions_recurring_payment_method', array( $this, 'subscription_payment_method_name' ), 10, 3 );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'woocommerce_subscriptions_paid_for_failed_renewal_order', array( $this, 'failed_renewal_order_paid' ), 5, 2 );
+		add_action( 'subscriptions_activated_for_order', array( $this, 'subscriptions_activated_for_order' ), 5 );
 
 		// Make sure this class is loaded before using any methods that depend on it.
 		include_once( __DIR__ . '/class-wc-account-funds-cart-manager.php' );
@@ -76,12 +78,42 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Gets the order total in checkout and pay_for_order.
+	 *
+	 * @since 2.3.6
+	 *
+	 * @return float
+	 */
+	protected function get_order_total() {
+		/*
+		 * Use the subscription total on the subscription details page.
+		 * This allows showing/hiding the action "Add payment/Change payment" when "Account Funds" is
+		 * the unique available payment gateway for subscriptions.
+		 */
+		if ( function_exists( 'wcs_get_subscription' ) ) {
+			$subscription_id = absint( get_query_var( 'view-subscription' ) );
+
+			if ( ! $subscription_id ) {
+				$subscription_id = absint( get_query_var( 'subscription-payment-method' ) );
+			}
+
+			if ( $subscription_id > 0 ) {
+				$subscription = wcs_get_subscription( $subscription_id );
+
+				return (float) $subscription->get_total();
+			}
+		}
+
+		return parent::get_order_total();
+	}
+
+	/**
 	 * Check if the gateway is available for use
 	 *
 	 * @return bool
 	 */
 	public function is_available() {
-		if ( ! parent::is_available() ) {
+		if ( ! parent::is_available() || ! is_user_logged_in() ) {
 			return false;
 		}
 
@@ -90,7 +122,15 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 				return false;
 			}
 
-			if ( WC_Account_Funds_Cart_Manager::using_funds() && $this->get_order_total() > 0 ) {
+			$order_total = $this->get_order_total();
+			$funds       = WC_Account_Funds::get_account_funds( get_current_user_id(), false );
+			$using_funds = WC_Account_Funds_Cart_Manager::using_funds();
+
+			// Not enough funds.
+			if (
+				( $using_funds && $order_total > 0 ) ||
+				( ! $using_funds && $funds < $order_total )
+			) {
 				return false;
 			}
 		}
@@ -198,8 +238,8 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			update_post_meta( $order_id, '_funds_removed', 1 );
 			update_post_meta( $order_id, '_order_total', 0 );
 
-			$this->complete_payment_for_subscriptions_on_order( $order );
 			$order->add_order_note( sprintf( __( 'Account funds payment applied: %s', 'woocommerce-account-funds' ), $amount ) );
+			$order->payment_complete();
 		} catch ( Exception $e ) {
 			$order->add_order_note( $e->getMessage() );
 			$this->payment_failed_for_subscriptions_on_order( $order );
@@ -214,7 +254,7 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	 * Complete subscriptions payments in a given order.
 	 *
 	 * @since 2.1.7
-	 * @version 2.1.7
+	 * @deprecated 2.3.9
 	 *
 	 * @param int|WC_Order $order Order ID or order object.
 	 */
@@ -235,6 +275,16 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	 */
 	protected function payment_failed_for_subscriptions_on_order( $order ) {
 		foreach ( $this->get_subscriptions_for_order( $order ) as $subscription ) {
+			/*
+			 * If Account Funds is the unique payment gateway that support subscriptions, no payment gateways will be
+			 * available during checkout. So, we set the subscription to manual renewal.
+			 */
+			if ( ! $subscription->is_manual() ) {
+				$subscription->set_requires_manual_renewal( true );
+				$subscription->add_meta_data( '_restore_auto_renewal', 'yes', true );
+				$subscription->save();
+			}
+
 			$subscription->payment_failed();
 		}
 		do_action( 'processed_subscription_payment_failure_for_order', $order );
@@ -292,5 +342,55 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			return $payment_method_to_display;
 		}
 		return sprintf( __( 'Via %s', 'woocommerce-account-funds' ), $this->method_title );
+	}
+
+	/**
+	 * Processes a subscription after its failed renewal order has been paid.
+	 *
+	 * @since 2.3.8
+	 *
+	 * @param WC_Order        $order        Renewal order successfully paid.
+	 * @param WC_Subscription $subscription Subscription related to the renewed order.
+	 */
+	public function failed_renewal_order_paid( $order, $subscription ) {
+		$this->restore_auto_renewal( $subscription );
+	}
+
+	/**
+	 * Processes subscriptions after being activated due to the payment of a renewal order.
+	 *
+	 * @since 2.3.8
+	 *
+	 * @param int $order_id Order ID.
+	 */
+	public function subscriptions_activated_for_order( $order_id ) {
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return;
+		}
+
+		$subscriptions = $this->get_subscriptions_for_order( $order );
+
+		foreach ( $subscriptions as $subscription ) {
+			$this->restore_auto_renewal( $subscription );
+		}
+	}
+
+	/**
+	 * Restores the subscription auto-renew previously deactivated when the payment with funds failed.
+	 *
+	 * @since 2.3.8
+	 *
+	 * @param WC_Subscription $subscription Subscription object.
+	 */
+	protected function restore_auto_renewal( $subscription ) {
+		if ( ! $subscription->get_meta( '_restore_auto_renewal' ) ) {
+			return;
+		}
+
+		$subscription->set_requires_manual_renewal( false );
+		$subscription->delete_meta_data( '_restore_auto_renewal' );
+		$subscription->save();
 	}
 }

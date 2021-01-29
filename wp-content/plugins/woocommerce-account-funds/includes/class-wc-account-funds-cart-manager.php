@@ -600,20 +600,15 @@ class WC_Account_Funds_Cart_Manager {
 	 * @return array
 	 */
 	public function available_payment_gateways( $gateways ) {
-		// Changing the payment method of a subscription.
-		if ( isset( $_GET['change_payment_method'] ) ) {
-			if ( ! self::can_use_funds() ) {
-				unset( $gateways['accountfunds'] );
-			}
-
+		if ( ! WC()->cart || ! isset( $gateways['accountfunds'] ) ) {
 			return $gateways;
 		}
 
-		if ( isset( $gateways['accountfunds'] ) && self::using_funds() ) {
+		if ( self::using_funds() ) {
 			$account_funds_gateway = $gateways['accountfunds'];
 
 			$gateways = array( 'accountfunds' => $account_funds_gateway );
-		} else {
+		} elseif ( is_checkout() && ! is_checkout_pay_page() ) { // Hide the "Account Funds" gateway in the checkout form until funds are applied.
 			unset( $gateways['accountfunds'] );
 		}
 

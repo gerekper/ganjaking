@@ -25,9 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 			$pass_shipping = false;
 
-			foreach( $order->get_items() as $item_id => $item ) {
-				$_product     = apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item );
-				$item_meta    = version_compare( WC_VERSION, '3.0', '<' ) ? new WC_Order_Item_Meta( $item, $_product ) : new WC_Order_Item_Product( $item_id );
+			foreach ( $order->get_items() as $item_id => $item ) {
+				$_product  = $item->get_product();
+				$item_meta = version_compare( WC_VERSION, '3.0', '<' ) ? new WC_Order_Item_Meta( $item, $_product ) : new WC_Order_Item_Product( $item_id );
 
 				if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
 					$product_id = $_product->id;

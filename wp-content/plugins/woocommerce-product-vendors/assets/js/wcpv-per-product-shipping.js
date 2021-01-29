@@ -47,7 +47,7 @@ jQuery( document ).ready( function( $ ) {
 				.on( 'click', '.wcpv-per-product-shipping-rules .remove', function() {
 					var $tbody = $( this ).closest( '.wcpv-per-product-shipping-rules' ).find( 'tbody' );
 
-					if ( $tbody.find( 'tr.current' ).size() > 0 ) {
+					if ( $tbody.find( 'tr.current' ).length ) {
 						$tbody.find( 'tr.current' ).find( 'input' ).val( '' );
 						$tbody.find( 'tr.current' ).hide();
 					} else {
@@ -68,7 +68,7 @@ jQuery( document ).ready( function( $ ) {
 							<td class="item_cost"><input type="text" value="" placeholder="0.00" name="per_product_item_cost[' + postid + '][new][]" /></td>\
 							</tr>';
 
-					if ( $tbody.find( 'tr.current' ).size() > 0 ) {
+					if ( $tbody.find( 'tr.current' ).length ) {
 						$tbody.find( 'tr.current' ).after( code );
 					} else {
 						$tbody.append( code );

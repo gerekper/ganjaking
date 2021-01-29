@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -36,6 +36,7 @@ defined( 'ABSPATH' ) or exit;
  * - qTranslate X: https://wordpress.org/plugins/qtranslate-x/
  * - WooCommerce Measurement Price Calculator https://woocommerce.com/products/measurement-price-calculator/
  * - WooCommerce One Page Checkout https://woocommerce.com/products/woocommerce-one-page-checkout
+ * - WooCommerce Sensei LMS https://woocommerce.com/products/sensei/
  * - WooCommerce Subscriptions: https://woocommerce.com/products/woocommerce-subscriptions/
  * - User Switching: https://wordpress.org/plugins/user-switching/
  *
@@ -64,6 +65,9 @@ class WC_Memberships_Integrations {
 
 	/** @var null|\WC_Memberships_Integration_One_Page_Checkout instance */
 	private $one_page_checkout;
+
+	/** @var null|\SkyVerge\WooCommerce\Memberships\Integrations\Sensei instance */
+	private $sensei;
 
 	/** @var null|\WC_Memberships_Integration_Subscriptions instance */
 	private $subscriptions;
@@ -119,6 +123,14 @@ class WC_Memberships_Integrations {
 		// One Page Checkout
 		if ( $this->is_one_page_checkout_active() ) {
 			$this->one_page_checkout = wc_memberships()->load_class( '/includes/integrations/one-page-checkout/class-wc-memberships-integration-one-page-checkout.php', 'WC_Memberships_Integration_One_Page_Checkout' );
+		}
+
+		// Sensei
+		if ( $this->is_sensei_active() ) {
+
+			require_once( wc_memberships()->get_plugin_path() . '/includes/integrations/Sensei.php' );
+
+			$this->sensei = new \SkyVerge\WooCommerce\Memberships\Integrations\Sensei();
 		}
 
 		// Subscriptions
@@ -209,6 +221,19 @@ class WC_Memberships_Integrations {
 	public function get_one_page_checkout_instance() {
 
 		return $this->one_page_checkout;
+	}
+
+
+	/**
+	 * Gets the Sensei integration instance.
+	 *
+	 * @since 1.21.0
+	 *
+	 * @return \SkyVerge\WooCommerce\Memberships\Integrations\Sensei|null
+	 */
+	public function get_sensei_instance() {
+
+		return $this->sensei;
 	}
 
 
@@ -331,7 +356,7 @@ class WC_Memberships_Integrations {
 
 
 	/**
-	 * Checks if One Page Checkout is active
+	 * Checks if One Page Checkout is active.
 	 *
 	 * @since 1.10.6
 	 *
@@ -340,6 +365,19 @@ class WC_Memberships_Integrations {
 	public function is_one_page_checkout_active() {
 
 		return wc_memberships()->is_plugin_active( 'woocommerce-one-page-checkout.php' );
+	}
+
+
+	/**
+	 * Checks if Sensei LMS is active.
+	 *
+	 * @since 1.21.0
+	 *
+	 * @return bool
+	 */
+	public function is_sensei_active() : bool {
+
+		return wc_memberships()->is_plugin_active( 'sensei-lms.php' );
 	}
 
 

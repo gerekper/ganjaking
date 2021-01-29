@@ -1,3 +1,7 @@
+### 2.4.22.3
+- Updated the [gform_file_upload_markup](https://docs.gravityforms.com/gform_file_upload_markup/) JS filter to include response as the sixth parameter.
+- Fixed an issue where dates/times on the system report and entries list page can output nothing but "at" when the date/time formats on the WordPress general settings page are empty.
+
 ### 2.4.22.2
 - Fixed checkbox and radio style issues for Twenty Twenty-One Theme.
 - Updated how file type checks work to avoid false positives.

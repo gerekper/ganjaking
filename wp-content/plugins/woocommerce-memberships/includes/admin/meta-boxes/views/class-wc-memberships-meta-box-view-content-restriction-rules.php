@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -46,7 +46,7 @@ class WC_Memberships_Meta_Box_View_Content_Restriction_Rules extends \WC_Members
 
 			<thead>
 				<tr>
-					<td class="check-column" style="width: 5%;">
+					<td class="check-column">
 						<label class="screen-reader-text" for="content-restriction-rules-select-all"> <?php esc_html_e( 'Select all', 'woocommerce-memberships' ); ?></label>
 						<input
 							type="checkbox"
@@ -56,18 +56,18 @@ class WC_Memberships_Meta_Box_View_Content_Restriction_Rules extends \WC_Members
 
 					<?php if ( 'wc_membership_plan' === $this->post->post_type ) : ?>
 
-						<th scope="col" class="content-restriction-content-type" style="width: 15%;">
+						<th scope="col" class="content-restriction-content-type">
 							<?php esc_html_e( 'Type', 'woocommerce-memberships' ); ?>
 						</th>
 
-						<th scope="col" class="content-restriction-objects" style="width: 60%;">
+						<th scope="col" class="content-restriction-objects">
 							<?php esc_html_e( 'Title', 'woocommerce-memberships' ); ?>
 							<?php echo wc_help_tip( __( 'Search&hellip; or leave blank to apply to all', 'woocommerce-memberships' ) ); ?>
 						</th>
 
 					<?php else : ?>
 
-						<th scope="col" class="content-restriction-membership-plan" style="width: 30%;">
+						<th scope="col" class="content-restriction-membership-plan membership-plan-column">
 							<?php esc_html_e( 'Plan', 'woocommerce-memberships' ); ?>
 						</th>
 

@@ -178,6 +178,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-blocks',
 					'wp-data',
 					'wp-dom-ready',
+					'wp-hooks',
 					'wp-server-side-render',
 				],
 			],

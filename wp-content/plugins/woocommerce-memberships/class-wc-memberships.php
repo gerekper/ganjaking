@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -37,7 +37,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 
 
 	/** plugin version number */
-	const VERSION = '1.20.0';
+	const VERSION = '1.21.2';
 
 	/** @var \WC_Memberships single instance of this plugin */
 	protected static $instance;
@@ -344,9 +344,12 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 	private function frontend_includes() {
 
 		// init shortcodes
-		require_once( $this->get_plugin_path() . '/includes/class-wc-memberships-shortcodes.php' );
+		require_once( $this->get_plugin_path() . '/includes/Shortcodes.php' );
 
-		\WC_Memberships_Shortcodes::initialize();
+		/** @deprecated remove legacy class aliases when the plugin has fully migrated to namespaces */
+		class_alias(\SkyVerge\WooCommerce\Memberships\Shortcodes::class, 'WC_Memberships_Shortcodes');
+
+		\SkyVerge\WooCommerce\Memberships\Shortcodes::initialize();
 
 		// load front end
 		$this->frontend = $this->load_class( '/includes/frontend/class-wc-memberships-frontend.php', 'WC_Memberships_Frontend' );
@@ -374,6 +377,101 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 		}
 
 		return self::$instance;
+	}
+
+
+	/**
+	 * Gets a list of deprecated hooks and their replacements.
+	 *
+	 * @since 1.21.0
+	 *
+	 * @return array
+	 */
+	protected function get_deprecated_hooks() {
+
+		return [
+
+			// from the former Directory Shortcode free add on
+
+			'wcm_directory_before_member_directory' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_before_member_directory',
+			],
+			'wcm_directory_after_member_directory' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_after_member_directory',
+			],
+			'wcm_directory_before_member_card' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_member_directory_before_member_card',
+			],
+			'wcm_directory_after_member_card' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_member_directory_after_member_card',
+			],
+			'wcm_directory_before_member_bio' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_member_directory_before_member_bio',
+			],
+			'wcm_directory_member_listing_plans' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_member_directory_listing_plans',
+			],
+			'wcm_directory_included_members' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_member_directory_included_members',
+			],
+
+			// from the former Role Handler free add on
+
+			'wc_memberships_role_handler_update_role' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_update_member_user_role',
+			],
+			'wc_memberships_role_handler_updated_role' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_member_user_role_updated',
+			],
+			'wc_memberships_role_handler_settings' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_roles_settings',
+			],
+
+			// from the former Sensei Members Area free add on
+
+			'wcm_sensei_member_area_content_title' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_sensei_members_area_content_title',
+			],
+			'wcm_sensei_member_area_column_names' => [
+				'version'     => '1.21.0',
+				'removed'     => true,
+				'map'         => true,
+				'replacement' => 'wc_memberships_sensei_members_area_column_names',
+			],
+		];
 	}
 
 
@@ -718,17 +816,47 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 
 		parent::add_admin_notices();
 
-		// TODO remove this after 2020-04-15 {FN 2020-03-10}
-		if ( time() <= strtotime( '2020-04-15 00:00:00' ) ) {
+		$migrated_free_add_ons_notices = [];
 
-			$message = sprintf(
-				/* translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag */
-				__( 'Heads up! Add your voice to the WooCommerce Memberships roadmap: please tell us how you use the plugin and how it can improve. %1$sLet us know in this short survey%2$s. Thanks in advance!', 'woocommerce-memberships' ),
-				'<a href="https://shopdata.typeform.com/to/kImkto" target="_blank">',
-				'</a>'
-			);
+		foreach ( (array) get_option( 'wc_memberships_installed_free_add_ons_migrated', [] ) as $free_add_on_installed ) {
 
-			$this->get_admin_notice_handler()->add_admin_notice( $message, 'wc-memberships-product-survey-q1-2020', [
+			switch ( $free_add_on_installed ) {
+
+				case 'directory-shortcode' :
+					$migrated_free_add_ons_notices[ $free_add_on_installed ] = sprintf(
+						/* translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing </strong> HTML tag */
+						__( '%1$sHeads up!%2$s We\'ve merged the Directory Shortcode add-on into Memberships, so you no longer need this add-on to display a member directory. This add-on has been deactivated and can be safely removed from your plugin list.', 'woocommerce-memberships' ),
+						'<strong>', '</strong>'
+					);
+				break;
+				case 'excerpt-length' :
+					$migrated_free_add_ons_notices[ $free_add_on_installed ] = sprintf(
+						/* translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing </strong> HTML tag */
+						__( '%1$sHeads up!%2$s We\'ve merged the Adjust Excerpt Length add-on into Memberships, so you no longer need this add-on to adjust the restricted content excerpt. This add-on has been deactivated and can be safely removed from your plugin list.', 'woocommerce-memberships' ),
+						'<strong>', '</strong>'
+					);
+				break;
+				case 'role-handler' :
+					$migrated_free_add_ons_notices[ $free_add_on_installed ] = sprintf(
+						/* translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing </strong> HTML tag */
+						__( '%1$sHeads up!%2$s We\'ve merged the Role Handler add-on into Memberships, so you no longer need this add-on to set default member roles. This add-on has been deactivated and can be safely removed from your plugin list.', 'woocommerce-memberships' ),
+						'<strong>', '</strong>'
+					);
+				break;
+				case 'sensei-member-area' :
+					$migrated_free_add_ons_notices[ $free_add_on_installed ] = sprintf(
+						/* translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing </strong> HTML tag */
+						__( '%1$sHeads up!%2$s We\'ve merged the Sensei Member Area add-on into Memberships, so you no longer need this add-on to add the "Courses & Lessons" section to your plan member areas. This add-on has been deactivated and can be safely removed from your plugin list.', 'woocommerce-memberships' ),
+						'<strong>', '</strong>'
+					);
+				break;
+			}
+		}
+
+		foreach ( $migrated_free_add_ons_notices as $add_on_id => $notice_message ) {
+
+			$this->get_admin_notice_handler()->add_admin_notice( $notice_message, sprintf( '%s-merged', $add_on_id ), [
+				'dismissible'             => true,
 				'notice_class'            => 'notice-info',
 				'always_show_on_settings' => false,
 			] );

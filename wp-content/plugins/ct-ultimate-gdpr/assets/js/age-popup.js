@@ -30,6 +30,8 @@ jQuery(document).ready(function ($) {
         const cookieValue = getCookie('ct-ultimate-gdpr-age');
         const cookieObject = cookieValue ? JSON.parse(atob(decodeURIComponent(cookieValue))) : {};
 
+        reloadPageIfFromBackButtonInBrowser(cookieObject)
+
         if (!cookieObject.date) {
             return false;
         }
@@ -149,3 +151,26 @@ jQuery(document).ready(function ($) {
     }
 
 });
+
+/**
+ * We implement both available api for checking back button in browser for compatibility,
+ * because one is deprecated and second is in state of recomendation and not yet fully implemented everywhere
+ * @param cookieObject
+ */
+function reloadPageIfFromBackButtonInBrowser (cookieObject) {
+    if (cookieObject && window.performance) {
+        let navigationEntries = window.performance.getEntriesByType(
+          'navigation')
+        if (navigationEntries[0].type === 'back_forward') {
+            window.location.reload(true)
+        }
+    }
+
+    if (cookieObject
+      && window.performance
+      && window.performance.navigation
+      && window.performance.navigation.type ===
+      window.performance.navigation.TYPE_BACK_FORWARD) {
+        window.location.reload(true)
+    }
+}

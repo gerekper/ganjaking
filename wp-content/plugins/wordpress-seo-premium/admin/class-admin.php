@@ -229,14 +229,12 @@ class WPSEO_Admin {
 
 		$addon_manager = new WPSEO_Addon_Manager();
 		return $links;
-			
 
 			// Add link to where premium can be activated.
 			$activation_link = '<a style="font-weight: bold;" href="' . esc_url( WPSEO_Shortlinker::get( 'https://yoa.st/activate-my-yoast' ) ) . '" target="_blank">' . __( 'Activate your subscription', 'wordpress-seo' ) . '</a>';
 			array_unshift( $links, $activation_link );
 
 			return $links;
-		
 
 		// Add link to premium landing page.
 		$premium_link = '<a style="font-weight: bold;" href="' . esc_url( WPSEO_Shortlinker::get( 'https://yoa.st/1yb' ) ) . '" target="_blank">' . __( 'Get Premium', 'wordpress-seo' ) . '</a>';

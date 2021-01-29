@@ -235,6 +235,13 @@ body.toplevel_page_betterdocs-admin {
     text-align: center;
     font-weight: 600;
 }
+.betterdocs-single-listing-sub-title {
+    color: #474e59;
+    font-size: 15px;
+    margin: 15px 0px 25px;
+    text-align: center;
+    font-weight: normal;
+}
 .betterdocs-single-listing li.betterdocs-no-docs {
     pointer-events: none;
 }

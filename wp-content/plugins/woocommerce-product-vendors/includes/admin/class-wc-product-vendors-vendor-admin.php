@@ -1762,10 +1762,9 @@ class WC_Product_Vendors_Vendor_Admin {
 	 */
 	public function unfulfilled_products_count_bubble( $menu ) {
 		if ( WC_Product_Vendors_Utils::auth_vendor_user() ) {
-			$count = $this->unfulfilled_products_count();
-
 			foreach ( $menu as $menu_key => $menu_data ) {
 				if ( 'wcpv-vendor-orders' === $menu_data[2] ) {
+					$count = $this->unfulfilled_products_count();
 					$menu[ $menu_key ][0] .= ' <span class="update-plugins count-' . esc_attr( absint( $count ) ) . '" title="' . esc_attr__( 'Products awaiting fulfillment', 'woocommerce-product-vendors' ) . '"><span class="plugin-count">' . number_format_i18n( $count ) . '</span></span>';
 				}
 			}

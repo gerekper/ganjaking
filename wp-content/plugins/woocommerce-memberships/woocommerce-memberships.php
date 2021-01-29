@@ -6,22 +6,22 @@
  * Description: Sell memberships that provide access to restricted content, products, discounts, and more!
  * Author: SkyVerge
  * Author URI: https://www.woocommerce.com/
- * Version: 1.20.0
+ * Version: 1.21.2
  * Text Domain: woocommerce-memberships
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2014-2020 SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2014-2021 SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 958589:9288e7609ad0b487b81ef6232efa5cfc
  * WC requires at least: 3.5
- * WC tested up to: 4.8.0
+ * WC tested up to: 4.9.2
  */
 
 defined( 'ABSPATH' ) or exit;

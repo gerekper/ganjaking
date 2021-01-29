@@ -174,7 +174,6 @@ class WPSEO_Addon_Manager {
 		}
 
 		$subscription = $this->get_subscription( $args->slug );
-		
 
 		return $this->convert_subscription_to_plugin( $subscription );
 	}
@@ -187,8 +186,7 @@ class WPSEO_Addon_Manager {
 	 * @return bool True when the subscription is valid.
 	 */
 	public function has_valid_subscription( $slug ) {
-		
-		return true;
+			return true;
 	}
 
 	/**

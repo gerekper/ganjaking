@@ -1,5 +1,14 @@
 *** Product Addons Changelog ***
 
+2021-01-27 - version 3.3.1
+* Fix - Scroll to required multiple choice add-ons of rabio button type when trying to add to cart a product without choosing the add-on.
+* Fix - Product total price will update instantly when writing a number in a quantity add-on.
+
+2020-12-07 - version 3.3.0
+* Fix - Fix Checkbox add-on not showing required styles when all are unselected.
+* Fix - Fix addon start template in WooCommerce versions prior to 3.0.
+* Fix - Remove usage of jQuery :last selector.
+
 2020-11-25 - version 3.2.0
 * Fix - Add plugin page to new WooCommerce Navigation.
 * Tweak - WC 4.7 compatibility.

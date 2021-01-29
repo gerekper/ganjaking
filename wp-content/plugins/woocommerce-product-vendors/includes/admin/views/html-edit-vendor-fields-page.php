@@ -102,6 +102,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</td>
 </tr>
 
+<tr>
+	<th>
+		<h2><?php esc_html_e( 'Commission', 'woocommerce-product-vendors' ); ?></h2>
+	</th>
+	<td>
+		<p><?php esc_html_e( 'Choose how commissions for this vendor are calculated. Product level commissions that have already been set will only be updated for commission (if no specific value was set on the product), commission type, and tax handling. Changing passing shipping on this page will only be applied to products created after updating.', 'woocommerce-product-vendors' ); ?></p>
+	</td>
+</tr>
+
 <tr class="form-field">
 	<th scope="row" valign="top"><label for="wcpv-vendor-commission"><?php esc_html_e( 'Commission', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( __( 'Enter a positive number.', 'woocommerce-product-vendors' ) ); ?></label></th>
 
@@ -178,6 +187,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<p><?php esc_html_e( 'Scheduled commission payouts will be using this PayPal email to receive payments.', 'woocommerce-product-vendors' ); ?></p>
 	</td>
+</tr>
+
+<tr>
+	<th colspan="2">
+		<h2><?php esc_html_e( 'Extra details', 'woocommerce-product-vendors' ); ?></h2>
+	</th>
 </tr>
 
 <tr class="form-field">

@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -177,6 +177,7 @@ class WC_Memberships_Meta_Box_View_Product_Restriction_Rule extends \WC_Membersh
 								name="_product_restriction_rules[<?php echo esc_attr( $index ); ?>][membership_plan_id]"
 								id="_product_restriction_rules_<?php echo esc_attr( $index ); ?>_membership_plan_id"
 								class="<?php echo '__INDEX__' !== $index ? 'wc-enhanced-select' : ''; ?> membership-plan wide"
+								style="width:90%;"
 								<?php if ( ! $this->rule->current_user_can_edit() || ! $this->rule->current_context_allows_editing() ) : ?>disabled<?php endif; ?>>
 								<?php foreach ( $this->meta_box->get_membership_plan_options() as $id => $label ) : ?>
 									<option value="<?php echo esc_attr( $id ); ?>" <?php selected( $id, $this->rule->get_membership_plan_id() ); ?>><?php echo esc_html( $label ); ?></option>
@@ -189,7 +190,7 @@ class WC_Memberships_Meta_Box_View_Product_Restriction_Rule extends \WC_Membersh
 
 				<td class="product-restriction-access-type access-type-column">
 					<p class="form-field">
-						<label for="_product_restriction_rules_<?php echo esc_attr( $index ); ?>_access_type"><?php esc_html_e( 'Only Members Can', 'woocommerce-memberships' ); ?>:</label>
+						<label for="_product_restriction_rules_<?php echo esc_attr( $index ); ?>_access_type"><?php esc_html_e( 'Only members can', 'woocommerce-memberships' ); ?>:</label>
 
 						<select
 							name="_product_restriction_rules[<?php echo esc_attr( $index ); ?>][access_type]"

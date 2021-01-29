@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -1138,6 +1138,32 @@ class WC_Memberships_User_Memberships {
 			 */
 			do_action( 'wc_memberships_user_membership_status_changed', $user_membership, $old_status, $new_status );
 
+			if ( $user = $user_membership->get_user() ) {
+
+				$active_role   = $from_role = $this->get_default_user_role( $user, 'active' );
+				$inactive_role = $to_role   = $this->get_default_user_role( $user, 'inactive' );
+
+				if ( in_array( $new_status, $this->get_active_access_membership_statuses(), true ) ) {
+
+					$from_role = $inactive_role;
+					$to_role   = $active_role;
+
+				} else {
+
+					foreach ( wc_memberships_get_user_memberships( $user ) as $other_membership ) {
+
+						if ( $user_membership->get_id() !== $other_membership->get_id() && in_array( $other_membership->get_status(), $this->get_active_access_membership_statuses(), true ) ) {
+
+							$from_role = $inactive_role;
+							$to_role   = $active_role;
+							break;
+						}
+					}
+				}
+
+				$this->update_member_user_role( $user->ID, $from_role, $to_role );
+			}
+
 			$this->prune_object_caches( $user_membership );
 		}
 	}
@@ -1176,6 +1202,152 @@ class WC_Memberships_User_Memberships {
 		$this->membership_status_transition_note = null;
 
 		return $note;
+	}
+
+
+	/**
+	 * Changes a member user role.
+	 *
+	 * When both roles to move to and from are omitted, it will fetch the default active/inactive member user roles.
+	 *
+	 * @since 1.21.0
+	 *
+	 * @param int $user_id the member user ID
+	 * @param string $from_role role to remove from the user
+	 * @param string $to_role role to add to the user
+	 * @param bool $force_update bypasses setting option to force a user role update (default false)
+	 * @return bool whether an update took place or not
+	 */
+	public function update_member_user_role( int $user_id, string $from_role = '', string $to_role = '', bool $force_update = false ) : bool {
+
+		// bail if setting excluded to update member user roles
+		if ( ! $force_update && 'yes' !== get_option( 'wc_memberships_assign_user_roles_to_members', 'no' ) ) {
+			return false;
+		}
+
+		$user = get_user_by( 'id', $user_id );
+
+		if ( ! $user instanceof \WP_User ) {
+			return false;
+		}
+
+		if ( '' === $from_role && '' === $to_role ) {
+
+			$this->prune_object_caches();
+
+			$active_role   = $this->get_default_user_role( $user, 'active' );
+			$inactive_role = $this->get_default_user_role( $user, 'inactive' );
+
+			// assume no active memberships: the member has inactive role
+			$from_role = $active_role;
+			$to_role   = $inactive_role;
+
+			// if there's at least one active membership, set the role to active
+			foreach ( wc_memberships_get_user_memberships( $user_id ) as $user_membership ) {
+
+				if ( in_array( $user_membership->get_status(), $this->get_active_access_membership_statuses(), true ) ) {
+
+					$from_role = $inactive_role;
+					$to_role   = $active_role;
+					break;
+				}
+			}
+		}
+
+		/**
+		 * Filters whether the member user role should be changed.
+		 *
+		 * @since 1.21.0
+		 *
+		 * @param bool $change_role whether role should change or not, by default this is false is user has no roles, or for admins and shop managers to prevent them to be locked out
+		 * @param \WP_User $user user being updated
+		 * @param string $to_role the role that the user will be moved to
+		 * @param string $from_role the role that the user will be remove from
+		 */
+		if ( ! (bool) apply_filters( 'wc_memberships_update_member_user_role', is_array( $user->roles ) && ! in_array( 'shop_manager', $user->roles, true ) && ! in_array( 'administrator', $user->roles, true ) && ! user_can( $user, 'manage_woocommerce' ), $user, $to_role, $from_role ) ) {
+			return false;
+		}
+
+		if ( '' !== $from_role && in_array( $from_role, $user->roles, true ) ) {
+			$user->remove_role( $from_role );
+			$changed = true;
+		}
+
+		if ( ! in_array( $to_role, $user->roles, true ) ) {
+			$user->add_role( $to_role );
+			$changed = true;
+		}
+
+		if ( empty( $changed ) ) {
+			return false;
+		}
+
+		/**
+		 * Fires when a member user has had a role changed.
+		 *
+		 * @since 1.21.0
+		 *
+		 * @param \WP_User $user updated member user object
+		 * @param string $to_role the role that has been added
+		 * @param string $from_role the role that has been removed
+		 */
+		do_action( 'wc_memberships_member_user_role_updated', $user, $to_role, $from_role );
+
+		return true;
+	}
+
+
+	/**
+	 * Gets the default role for the member user.
+	 *
+	 * @since 1.21.0
+	 *
+	 * @param \WP_User $user the member user object
+	 * @param string $which optional, to return the default role for active or inactive member
+	 * @return string user role
+	 */
+	private function get_default_user_role( \WP_User $user, string $which = '' ) : string {
+
+		$default_role = array_shift( $user->roles );
+
+		if ( 'active' === $which ) {
+
+			$active_role = get_option( 'wc_memberships_active_member_user_role', 'customer' );
+
+			if ( empty( $active_role ) ) {
+				$active_role = get_option( 'default_role', 'subscriber' );
+			}
+
+			/**
+			 * Filters the default active member user role.
+			 *
+			 * @since 1.21.0
+			 *
+			 * @param string $active_role user role
+			 * @param \WP_User $user the user the role is for
+			 */
+			$default_role = (string) apply_filters( 'wc_memberships_active_member_default_user_role', $active_role, $user );
+
+		} elseif ( 'inactive' === $which ) {
+
+			$inactive_role = get_option( 'wc_memberships_inactive_member_user_role', 'customer' );
+
+			if ( empty( $inactive_role ) ) {
+				$inactive_role = get_option( 'default_role', 'subscriber' );
+			}
+
+			/**
+			 * Filters the default inactive member user role.
+			 *
+			 * @since 1.21.0
+			 *
+			 * @param string $inactive_role user role
+			 * @param \WP_User $user the user the role is for
+			 */
+			$default_role = (string) apply_filters( 'wc_memberships_inactive_member_default_user_role', $inactive_role, $user );
+		}
+
+		return $default_role;
 	}
 
 
@@ -1405,6 +1577,10 @@ class WC_Memberships_User_Memberships {
 				'is_update'          => $update,
 			) );
 
+			if ( $user = get_user_by( 'id', $user_membership->get_user_id() ) ) {
+				$this->update_member_user_role( $user->ID );
+			}
+
 			$this->prune_object_caches( $user_membership );
 		}
 	}
@@ -1467,9 +1643,20 @@ class WC_Memberships_User_Memberships {
 		// delete profile fields (check if there are overlapping plans where the profile fields would still apply first)
 		$other_user_memberships = wc_memberships_get_user_memberships( $user_membership->get_user_id() );
 		$user_membership_plans  = [];
+		$has_active_memberships = false;
 
 		foreach ( $other_user_memberships as $other_user_membership ) {
+
 			$user_membership_plans[] = $other_user_membership->get_plan_id();
+
+			if ( $other_user_membership->is_active() ) {
+				$has_active_memberships = true;
+			}
+		}
+
+		// change role to inactive member if there are no other active memberships
+		if ( ! $has_active_memberships && ( $user = get_user_by( 'id', $user_membership->get_user_id() ) ) ) {
+			$this->update_member_user_role( $user->ID, $this->get_default_user_role( $user, 'active' ), $this->get_default_user_role( $user, 'inactive' ) );
 		}
 
 		foreach ( $user_membership->get_profile_fields() as $profile_field ) {

@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/ordercustomer-csv-exporter/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -160,6 +160,7 @@ class Orders_Export_Format_Definition extends CSV_Export_Format_Definition {
 			'billing_last_name',
 			'billing_full_name',
 			'billing_company',
+			'vat_number',
 			'billing_email',
 			'billing_phone',
 			'billing_address_1',

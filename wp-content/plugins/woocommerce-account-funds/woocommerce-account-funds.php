@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Account Funds
  * Plugin URI: https://woocommerce.com/products/account-funds/
  * Description: Allow customers to deposit funds into their accounts and pay with account funds during checkout.
- * Version: 2.3.5
+ * Version: 2.3.9
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires at least: 4.4
@@ -12,10 +12,10 @@
  * Domain Path: /languages/
  *
  * WC requires at least: 2.6
- * WC tested up to: 4.8
+ * WC tested up to: 4.9
  * Woo: 18728:a6fcf35d3297c328078dfe822e00bd06
  *
- * Copyright: 2009-2020 WooCommerce.
+ * Copyright: 2009-2021 WooCommerce.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -63,7 +63,7 @@ class WC_Account_Funds {
 	 *
 	 * @var string
 	 */
-	public $version = '2.3.5';
+	public $version = '2.3.9';
 
 	/**
 	 * Constructor.
@@ -109,6 +109,7 @@ class WC_Account_Funds {
 	 */
 	private function includes() {
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/wc-account-funds-functions.php';
+		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-installer.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-my-account.php';
 
 		if ( wc_account_funds_is_request( 'admin' ) ) {
@@ -127,7 +128,6 @@ class WC_Account_Funds {
 	 * @since 2.2.0
 	 */
 	private function init_hooks() {
-		add_action( 'plugins_loaded', array( $this, 'version_check' ), 0 );
 		add_action( 'plugins_loaded', array( $this, 'gateway_init' ), 0 );
 		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
 		add_action( 'init', array( $this, 'init' ) );
@@ -137,17 +137,6 @@ class WC_Account_Funds {
 		add_filter( 'woocommerce_data_stores', array( $this, 'add_data_stores' ) );
 
 		register_activation_hook( WC_ACCOUNT_FUNDS_FILE, array( $this, 'activate' ) );
-	}
-
-	/**
-	 * Perform version check. Update routine will be performed if current
-	 * plugin's version doesn't match with installed version.
-	 */
-	public function version_check() {
-		if ( ! class_exists( 'WC_Account_Funds_Installer' ) ) {
-			include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-installer.php';
-		}
-		WC_Account_Funds_Installer::update_check( $this->version );
 	}
 
 	/**
@@ -216,10 +205,7 @@ class WC_Account_Funds {
 	 * Activation
 	 */
 	public function activate() {
-		if ( ! class_exists( 'WC_Account_Funds_Installer' ) ) {
-			include_once( 'includes/class-wc-account-funds-installer.php' );
-		}
-		WC_Account_Funds_Installer::install( $this->version );
+		WC_Account_Funds_Installer::install();
 		WC_Account_Funds_Installer::flush_rewrite_rules();
 	}
 
@@ -365,6 +351,16 @@ class WC_Account_Funds {
 	 */
 	public function checkout_scripts() {
 		_deprecated_function( __FUNCTION__, '2.2', 'WC_Account_Funds_Checkout->enqueue_scripts()' );
+	}
+
+	/**
+	 * Perform version check. Update routine will be performed if current
+	 * plugin's version doesn't match with installed version.
+	 *
+	 * @deprecated 2.3.7
+	 */
+	public function version_check() {
+		_deprecated_function( __FUNCTION__, '2.3.7', 'WC_Account_Funds_Installer::check_version()' );
 	}
 }
 

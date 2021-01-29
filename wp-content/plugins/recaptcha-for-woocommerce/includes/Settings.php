@@ -320,6 +320,12 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 							'type' => 'checkbox',
 							'id' => 'i13_recapcha_disable_submitbtn_woo_login'
 							),      
+							 'i13_recapcha_custom_wp_login_form_login' => array(
+							'name' => __('Have custom wp login form', 'recaptcha-for-woocommerce'),
+							 'desc' => __('Using custom login form with using wp_login_form', 'recaptcha-for-woocommerce'),    
+							'type' => 'checkbox',
+							'id' => 'i13_recapcha_custom_wp_login_form_login'
+							),      
 							array(
 							'type' => 'sectionend',
 							'id' => 'wc_settings_tab_recapcha_login',
@@ -354,6 +360,12 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 								'default' => 'login',
 								 'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
 								),
+															 '  i13_recapcha__v3_custom_wp_login_form_login' => array(
+																'name' => __('Have custom wp login form', 'recaptcha-for-woocommerce'),
+																 'desc' => __('Using custom login form with using wp_login_form', 'recaptcha-for-woocommerce'),    
+																'type' => 'checkbox',
+																'id' => 'i13_recapcha__v3_custom_wp_login_form_login'
+																), 
 														 
 							array(
 							'type' => 'sectionend',

@@ -3192,7 +3192,7 @@ msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
 msgstr "[Ultimate GDPR & CCPA] Anular a notificação de %s"
 
 #: includes/controller/controller-unsubscribe.php:788
-msgid "Your have been unsubscribed"
+msgid "You have been unsubscribed"
 msgstr "Você foi descadastrado"
 
 #: includes/controller/controller-services.php:99 

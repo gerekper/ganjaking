@@ -136,7 +136,7 @@ if (($gm = extension_loaded("gmagick")) || ($im = extension_loaded("imagick"))) 
 
 <?php if( in_array('administrator', $current_user->roles) ) { ?>
 <h3 class="dompdf-config"><?php _e("Create Invoices For Past Orders" , 'woocommerce-pdf-invoice' ); ?></h3>
-<p><?php _e("This option will create invoices for any orders that are complete and don't have an invoice number.<br />The process runs in the background and should take no more than 60 seconds to complete" , 'woocommerce-pdf-invoice' ); ?></p>
+<p><?php _e("This option will create invoices for any orders that are complete and don't have an invoice number.<br />The process runs in the background in batches to avoid any server timeouts." , 'woocommerce-pdf-invoice' ); ?></p>
 <form method="post" action="" name="pdf_past_orders">
 <table class="dompgf-debugging-table">
   <tr>
@@ -156,7 +156,7 @@ if (($gm = extension_loaded("gmagick")) || ($im = extension_loaded("imagick"))) 
 
 <?php if( in_array('administrator', $current_user->roles) ) { ?>
 <h3 class="dompdf-config"><?php _e("Create And Email Invoices For Past Orders" , 'woocommerce-pdf-invoice' ); ?></h3>
-<p><?php _e("This option will create invoices for any orders that are complete and don't have an invoice number.<br />The invoice will be emailed to the customer. The process runs in the background.<br /><strong>Warning : sending large numbers of emails in short periods can cause deliverability issues.</strong>" , 'woocommerce-pdf-invoice' ); ?></p>
+<p><?php _e("This option will create invoices for any orders that are complete and don't have an invoice number.<br />The invoice will be emailed to the customer. The process runs in the background in batches to avoid any server timeouts.<br /><strong>Warning : sending large numbers of emails in short periods can cause deliverability issues.</strong>" , 'woocommerce-pdf-invoice' ); ?></p>
 <form method="post" action="" name="pdf_past_orders_email">
 <table class="dompgf-debugging-table">
   <tr>
@@ -177,7 +177,7 @@ if (($gm = extension_loaded("gmagick")) || ($im = extension_loaded("imagick"))) 
 <?php if( in_array('administrator', $current_user->roles) ) { ?>
 <h3 class="dompdf-config"><?php _e("Delete Invoice Information" , 'woocommerce-pdf-invoice' ); ?></h3>
 <p><?php _e("This is an unrecoverable option, use with caution." , 'woocommerce-pdf-invoice' ); ?></p>
-<p><?php _e('You can delete the invoice information store in each order.<br /><strong>The information can only be recovered using a backup of your database. USE WITH CAUTION!</strong>"' , 'woocommerce-pdf-invoice' ); ?></p>
+<p><?php _e('You can delete the invoice information store in each order.<br /><strong>The information can only be recovered using a backup of your database. USE WITH CAUTION!</strong>' , 'woocommerce-pdf-invoice' ); ?></p>
 <form method="post" action="" name="pdfdelete">
 <table class="dompgf-debugging-table">
   <tr>
@@ -189,6 +189,27 @@ if (($gm = extension_loaded("gmagick")) || ($im = extension_loaded("imagick"))) 
           <?php wp_nonce_field('pdf_delete_nonce_action','pdf_delete_nonce'); ?>
           <input type="hidden" name="pdfdelete" value="1" />
           <input type="submit" class="dompgf-debugging-submit" value="<?php _e("Delete invoice information from orders and reset invoice numbers" , 'woocommerce-pdf-invoice' ); ?>" />
+      </td>
+  </tr>
+</table>
+</form>
+<?php } ?>
+
+<?php if( in_array('administrator', $current_user->roles) ) { ?>
+<h3 class="dompdf-config"><?php _e("Fix Invoice dates" , 'woocommerce-pdf-invoice' ); ?></h3>
+<p><?php _e("<strong>This is an unrecoverable option, use with caution.</strong> The process runs in the background in batches to avoid any server timeouts." , 'woocommerce-pdf-invoice' ); ?></p>
+<p><?php _e('You can update the invoice date and date format using this option.<br /><strong>This change can only be undone using a backup of your database. USE WITH CAUTION!</strong>' , 'woocommerce-pdf-invoice' ); ?></p>
+<form method="post" action="" name="pdffixdates">
+<table class="dompgf-debugging-table">
+  <tr>
+      <th colspan="2"><?php _e("Type 'confirm' to confirm you understand that this will change correct the date and date format for ALL invoices, based on the current PDF Invoice date settings." , 'woocommerce-pdf-invoice' ); ?></th>
+  </tr>
+  <tr>
+      <td><input type="text" name="pdffix-dates-confirmation" placeholder="Type 'confirm'"/></td>
+      <td>
+          <?php wp_nonce_field('pdf_fix_dates_nonce_action','pdf_fix_dates_nonce'); ?>
+          <input type="hidden" name="pdffixdates" value="1" />
+          <input type="submit" class="dompgf-debugging-submit" value="<?php _e("Fix Invoice Dates" , 'woocommerce-pdf-invoice' ); ?>" />
       </td>
   </tr>
 </table>

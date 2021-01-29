@@ -1,0 +1,749 @@
+.pm .pm-wrap {
+    margin: 10px 0px 10px 0px;
+}
+.pm .pm-top-bar .pm-priject-search-bar {
+  padding-top: 20px;
+}
+.pm-new-project-btn.pm-col-2.pm-sm-col-12 {
+    min-width: 120px;
+}
+.pm .pm-top-bar .pm-priject-search-bar .pm-col-3.pm-sm-col-12.pm-no-padding.pm-no-margin {
+  width: 100%;
+}
+.pm .pm-top-bar .pm-priject-search-bar .pm-col-9.pm-no-padding.pm-no-margin.pm-sm-col-12 {
+  width: 100%;
+}
+.pm .pm-top-bar .pm-priject-search-bar .pm-col-9.pm-no-padding.pm-no-margin.pm-sm-col-12 .pm-col-5.pm-sm-col-12 {
+  width: 100%;
+}
+.pm .pm-top-bar .pm-priject-search-bar .pm-col-9.pm-no-padding.pm-no-margin.pm-sm-col-12 .pm-col-5.pm-sm-col-12 select#project_cat {
+  width: 70%;
+  padding: 0px;
+  margin: 0px;
+  height: 40px;
+}
+.pm .pm-top-bar .pm-priject-search-bar .pm-col-9.pm-no-padding.pm-no-margin.pm-sm-col-12 .pm-col-5.pm-sm-col-12 input[type='submit'] {
+  height: 40px;
+  width: 24%;
+}
+.pm .pm-top-bar .pm-priject-search-bar .pm-col-9.pm-no-padding.pm-no-margin.pm-sm-col-12 .pm-col-7.pm-sm-col-12.pm-project-search {
+  width: 100%;
+}
+.pm .pm-top-bar .pm-priject-search-bar .pm-col-9.pm-no-padding.pm-no-margin.pm-sm-col-12 .pm-col-7.pm-sm-col-12.pm-project-search input {
+  height: 40px;
+  width: 46%;
+  margin-right: 15px;
+}
+.pm:after,
+.pm:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.pm .pm-top-bar .pm-project-group {
+  width: 100%;
+}
+.pm .pm-top-bar .pm-project-group .pm-col-8.pm-project-group-ul {
+  width: 80%;
+}
+.pm .pm-top-bar .pm-project-group .pm-col-4.pm-last-col.pm-text-right.show_desktop_only {
+  display: block;
+  width: 20%;
+}
+.pm .pm-top-bar .pm-project-group ul.list-inline.pm-col-8.pm-project-group-ul li a {
+  box-shadow: none;
+}
+.pm .pm-top-bar .pm-project-group .pm-col-4.pm-last-col.pm-text-right.show_desktop_only .pm-project-view li a {
+  display: block;
+  box-shadow: none;
+}
+.pm .pm-projects.pm-project-grid .pm-project.pm-column-gap-left.pm-sm-col-12 {
+  min-width: 350px;
+  margin-bottom: 50px;
+}
+.pm .pm-projects.pm-project-grid.pm-frontend-project-list .pm-project.pm-column-gap-left.pm-sm-col-12 ul li {
+  display: inline-block;
+  width: 50%;
+}
+.pm .pm-projects.pm-project-grid.pm-frontend-project-list .pm-project.pm-column-gap-left.pm-sm-col-12 .pm-project-action-icon ul.pm-settings li {
+  width: 100%;
+  display: block;
+}
+.pm .pm-projects.pm-project-grid.pm-frontend-project-list .pm-project.pm-column-gap-left.pm-sm-col-12 .pm-project-action-icon ul.pm-settings li a {
+  box-shadow: none;
+}
+.pm .pm-projects.pm-project-grid.pm-frontend-project-list .pm-project.pm-column-gap-left.pm-sm-col-12 .pm-project-action-icon ul.pm-settings li span.pm-spinner {
+  display: none;
+}
+.pm .tablenav {
+  display: inline-block;
+  width: 100%;
+}
+.pm .tablenav .tablenav-pages {
+  float: none !important;
+  margin-left: 0 !important;
+}
+.pm .nav-tab {
+  padding: 4px 10px 6px;
+  border-color: #DFDFDF #DFDFDF #FFFFFF;
+  border-style: solid;
+  border-width: 1px 1px 0;
+  color: #aaa;
+  text-shadow: #fff 0 1px 0;
+  font-size: 12px;
+  line-height: 16px;
+  display: inline-block;
+  padding: 4px 14px 6px;
+  text-decoration: none;
+  margin: 0 6px -1px 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.pm .nav-tab.nav-tab-active {
+  border-width: 1px;
+  color: #464646;
+}
+.pm h2.nav-tab-wrapper,
+.pm h3.nav-tab-wrapper {
+  border-bottom: 1px solid #DFDFDF;
+  padding-bottom: 0;
+  margin: 10px 0 0 0;
+}
+.pm h2 .nav-tab {
+  padding: 4px 10px 6px;
+  font-weight: 200;
+  font-size: 20px;
+  line-height: 24px;
+}
+.pm .pm-frontend-project-list .pm-project {
+  height: auto;
+}
+.pm .pm-frontend-project-list .pm-project .pm-project-meta ul li {
+  float: none;
+  width: 100%;
+}
+.pm .pm-frontend-project-list .pm-project .pm-project-meta ul li a {
+  box-shadow: none;
+}
+.pm .pm-frontend-project-list .pm-project .pm-project-meta ul li :hover {
+  text-decoration: underline !important;
+}
+.pm .pm-frontend-project-list .pm-project .pm-project-people {
+  margin-top: 10px;
+  top: 85%;
+}
+.pm .pm-frontend-project-list .pm-project .pm-progress {
+  bottom: 15%;
+}
+.pm h3.pm-nav-title {
+  margin: 0 0 10px;
+}
+.pm ul,
+.pm li {
+  margin-left: 0;
+  list-style: none;
+}
+.pm .pm-activity {
+  margin-top: 15px;
+}
+.pm .pm-activity li {
+  margin-left: 0;
+}
+.pm .pm-comment-form textarea,
+.pm .pm-message-form textarea,
+.pm .pm-milestone-form textarea {
+  width: 95%;
+}
+.pm table.pm-messages-table {
+  border: none;
+}
+.pm table.pm-messages-table td {
+  border-top: none;
+}
+.pm table.pm-messages-table td.author {
+  vertical-align: middle;
+}
+.pm .pm-single {
+  margin-bottom: 15px;
+}
+.pm .pm-single .pm-entry-title {
+  line-height: 150%;
+}
+.pm .pm-single .pm-entry-meta {
+  margin: 5px 10px;
+}
+.pm .pm-single .pm-message-form-wrap {
+  margin: 15px 0 15px 10px;
+}
+.pm .pm-comment-form-wrap {
+  margin: 15px 0 15px 65px;
+}
+.pm .pm-comment-edit-form .pm-comment-form-wrap {
+  width: 95%;
+}
+.pm ul.pm-todolists {
+  padding: 0;
+}
+.pm ul.pm-todolists article.pm-todolist > ul {
+  padding: 0 15px;
+  margin: 0;
+}
+.pm ul.pm-todolists article.pm-todolist header h3 {
+  line-height: 150%;
+  margin: 0;
+}
+.pm ul.pm-todolists article.pm-todolist header .pm-list-actions {
+  left: -58px;
+  top: 6px;
+}
+.pm ul.pm-todolists article.pm-todolist .pm-todos li {
+  margin-left: 0;
+}
+.pm ul.pm-todolists article.pm-todolist .pm-todos li .pm-todo-action {
+  left: -40px;
+}
+.pm .pm-new-todolist-form,
+.pm .pm-list-edit-form {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px dashed #DFDFDF;
+  min-width: 420px
+}
+.pm .pm-new-todolist-form textarea,
+.pm .pm-list-edit-form textarea {
+  width: 100%;
+}
+.pm .pm-single-task .pm-todo-wrap .pm-task-edit-form {
+  width: 85%;
+}
+.pm .pm-milestones h3.title {
+  margin-bottom: 0;
+}
+.pm .pm-milestones .pm-milestone h3 {
+  line-height: 150%;
+}
+.pm .pm-milestones .pm-milestone .pm-milestone-edit-form .pm-milestone-form-wrap {
+  width: 95%;
+  margin-bottom: 15px;
+}
+.pm .pm-milestones ul.pm-links:after,
+.pm .pm-milestones ul.pm-links:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.pm .pm-milestones ul.pm-links li {
+  margin: 0;
+}
+.pm .pm-files {
+  margin-top: 15px;
+}
+.pm .submit {
+  padding: 10px 0;
+}
+.pm .pm-comment-wrap ul {
+  margin: 0 !important;
+  list-style: disc !important;
+}
+.pm .pm-comment-wrap ul li {
+  list-style: disc !important;
+}
+.pm .pm-comment-wrap ol {
+  list-style: decimal !important;
+  margin: 0 !important;
+}
+.pm .pm-comment-wrap ol li {
+  list-style: decimal !important;
+}
+.comment-count-approved {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 8px;
+    min-width: 24px;
+    height: 2em;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #72777c;
+    color: #fff;
+    font-size: 11px;
+    line-height: 21px;
+    text-align: center;
+    display: inline-block;
+}
+.pm .metabox-holder {
+    margin-top: 20px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+ .pm .metabox-holder h2.hndle {
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 0;
+    line-height: 1.4;
+    border-bottom: 1px solid #ddd;
+}
+.pm .postbox {
+    position: relative;
+    min-width: 255px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+    background: #fff;
+}
+.pm .postbox, .stuffbox {
+    margin-bottom: 20px;
+    padding: 0;
+    line-height: 1;
+}
+.pm .postbox .inside {
+    margin: 11px 0;
+    position: relative;
+}
+
+.pm .postbox .inside, .stuffbox .inside {
+    padding: 0 12px 12px;
+    line-height: 1.4em;
+    font-size: 13px;
+}
+.comment-count-approved:hover {
+  background-color: #0073aa;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head {
+  padding-top: 10px;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-project-detail {
+  margin: 0px;
+  width: 100%;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-project-detail h2 {
+  font-size: 20px;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-project-detail h2 .pm-project-title {
+  padding-top: 5px;
+  margin-top: 5px;
+  display: block;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-project-detail h2 a.pm-icon-edit.pm-project-edit-link.small-text {
+  display: inline-block;
+  padding-left: 0px;
+  margin-left: 0px;
+  background: #DDD;
+  color: #0073aa;
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-project-detail .detail {
+  width: 100%;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-col-6.pm-last-col.pm-top-right-btn.pm-text-right.show_desktop_only {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-col-6.pm-last-col.pm-top-right-btn.pm-text-right.show_desktop_only .pm-single-project-search-wrap {
+  position: absolute;
+  left: 10px;
+  display: inline-block;
+  width: 70%;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-col-6.pm-last-col.pm-top-right-btn.pm-text-right.show_desktop_only .pm-single-project-search-wrap #pm-single-project-search {
+  width: 100%;
+  padding: 5px;
+  margin: 0px;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-col-6.pm-last-col.pm-top-right-btn.pm-text-right.show_desktop_only .pm-project-action {
+  display: inline-block;
+  width: 29%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-col-6.pm-last-col.pm-top-right-btn.pm-text-right.show_desktop_only .pm-project-action .pm-settings-bind {
+  margin-top: -10px;
+  padding: 5px;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-col-6.pm-last-col.pm-top-right-btn.pm-text-right.show_desktop_only .pm-project-action ul.pm-settings li {
+  border-bottom: 1px solid #ddd;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-col-6.pm-last-col.pm-top-right-btn.pm-text-right.show_desktop_only .pm-project-action ul.pm-settings li .pm-spinner {
+  height: 16px;
+  display: none;
+  width: 16px;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-col-6.pm-last-col.pm-top-right-btn.pm-text-right.show_desktop_only .pm-project-action ul.pm-settings li a {
+  border-bottom: none;
+  box-shadow: none;
+  display: block;
+  width: 100%;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-project-group ul li {
+  border-bottom: none;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-project-group ul li a {
+  box-shadow: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 50px;
+  min-height: 50px;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-edit-project {
+  margin-top: 0px;
+  background-color: #ffffff;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-edit-project .pm-form-item {
+  margin-bottom: 15px;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-edit-project .pm-form-item .chosen-container-single a.chosen-single {
+  height: 30px;
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-edit-project .pm-form-item.pm-project-role a.pm-del-proj-role.pm-assign-del-user {
+  border: none;
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-project-header.pm-project-head .pm-edit-project .pm-form-item #project_cat_chosen {
+  width: 100% !important;
+}
+.pm .pm-front-end .project-overview {
+  width: 100%;
+}
+.pm .pm-front-end .project-overview .pm-col-10.pm-sm-col-12 {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+.pm .pm-front-end .project-overview .pm-col-10.pm-sm-col-12 .overview-menu {
+  margin: 0px;
+  width: 100%;
+}
+.pm .pm-front-end .project-overview .pm-col-10.pm-sm-col-12 .overview-menu ul li {
+  width: 33%;
+  display: block;
+}
+.pm .pm-front-end .project-overview .pm-col-10.pm-sm-col-12 .overview-menu ul li a {
+  text-align: center;
+}
+.pm .pm-front-end .project-overview .pm-col-10.pm-sm-col-12 .overview-menu ul li a .icon {
+  display: block;
+  float: none;
+}
+.pm .pm-front-end .project-overview .pm-col-10.pm-sm-col-12 .overview-menu ul li a .count {
+  display: block;
+  text-align: left;
+  float: none;
+}
+.pm .pm-front-end .project-overview .pm-col-10.pm-sm-col-12 .pm-chart {
+  width: 100%;
+}
+.pm .pm-front-end .project-overview .pm-right-part.pm-last-col {
+  width: 100%;
+  margin-top: 20px;
+}
+.pm .pm-front-end .pm-message-page .pm-message-list .dicussion-list .pm-col-12 {
+  cursor: default;
+}
+.pm .pm-front-end .pm-message-page .pm-message-list .dicussion-list .pm-col-12 .pm-col-9 {
+  cursor: pointer;
+}
+.pm .pm-front-end .pm-message-page .pm-message-list .dicussion-list .pm-col-12 .pm-col-1 {
+  cursor: default;
+}
+.pm .pm-front-end .pm-message-page .pm-message-list .dicussion-list .pm-col-12 .pm-col-1 .pm-message-action .delete-message {
+  box-shadow: none;
+  cursor: pointer;
+}
+.pm .pm-milestone-form-wrap{
+  min-width: 400px;
+}
+.pm .pm-milestone-form,
+.pm .pm-update-todolist-form{
+  /*min-width: 400px;*/
+}
+.pm-todolists .pm-todolist .pm-new-btn .pm-task-form, .pm-todolists .pm-todolist .pm-todo-form .pm-task-form {
+  min-width: 400px;
+}
+.pm .pm-front-end .pm-message-page .pm-message-list .dicussion-list .pm-col-12 .pm-col-1 .pm-message-action .delete-message :hover {
+  border-bottom: 1px solid #333;
+}
+.pm .pm-front-end .pm-message-page .pm-message-list .dicussion-list .pm-col-12 .pm-col-2.pm-last-col.pm-right.comment-count {
+  width: 87%;
+  margin-top: -15px;
+}
+.pm .pm-front-end .pm-new-message-form{
+  min-width: 400px;
+}
+.pm .pm-front-end .pm-new-message-form .pm-message-form .item {
+  margin-bottom: 15px;
+}
+.pm .pm-front-end .pm-new-message-form .pm-message-form .item input#message_title {
+  width: 100%;
+}
+.pm .pm-front-end .pm-new-message-form .pm-message-form .item select#milestone {
+  width: 50%;
+  height: 35px;
+}
+.pm .pm-front-end .pm-comment-area .pm-comment-form-wrap .pm-avatar a {
+  box-shadow: none;
+}
+.pm .pm-front-end #pm-signle-message .pm-single .pm-box-title .pm-right.pm-edit-link a.pm-msg-edit {
+  box-shadow: none;
+  cursor: pointer;
+}
+.pm .pm-front-end #pm-signle-message .pm-single .pm-box-title .pm-right.pm-edit-link a.pm-msg-edit:hover {
+  border-bottom: 1px solid #333 !important;
+  cursor: pointer;
+}
+.pm .pm-front-end #pm-signle-message .pm-single .pm-msg-edit-form {
+  width: 100%;
+}
+.pm .pm-front-end #pm-signle-message .pm-single .pm-msg-edit-form .pm-message-form-wrap .pm-message-form .item {
+  margin-bottom: 15px;
+}
+.pm .pm-front-end #pm-signle-message .pm-single .pm-msg-edit-form .pm-message-form-wrap .pm-message-form .item input {
+  width: 100%;
+  min-height: 40px;
+}
+.pm .pm-front-end #pm-signle-message .pm-single .pm-msg-edit-form .pm-message-form-wrap .pm-message-form .item select#milestone {
+  width: 60%;
+  max-height: 40px;
+  min-height: 40px;
+}
+.pm .pm-front-end #pm-signle-message .pm-single .pm-msg-edit-form .pm-message-form-wrap .pm-message-form .notify-users label.notify {
+  padding: 5px;
+}
+.pm .pm-front-end #pm-signle-message .pm-single .pm-msg-edit-form .pm-message-form-wrap .pm-message-form .notify-users h2.pm-box-title {
+  display: inline-block;
+}
+.pm .pm-front-end #pm-signle-message .pm-single .pm-msg-edit-form .pm-message-form-wrap .pm-message-form .notify-users h2.pm-box-title .pm-small-title {
+  padding-right: 0px;
+}
+.pm .pm-front-end .pm-task-container.wrap {
+  margin: 0px;
+  padding: 0px;
+}
+.pm .pm-front-end .pm-task-container.wrap .add-tasklist {
+  margin-bottom: 15px;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todolists {
+  margin: 0px;
+  padding: 0px;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todolists .pm-todolist .pm-list-header .pm-right a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todolists .pm-todolist .pm-list-header .pm-right a:hover {
+  border-bottom: 1px solid gray;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todolists .pm-todolist .pm-list-footer .pm-col-6 {
+  display: block;
+  width: 100%;
+  border-right: none;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todolists .pm-todolist .pm-list-footer .pm-col-6 a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todolists .pm-todolist .pm-list-footer .pm-col-6 a:hover {
+  border-bottom: 1px solid #333;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todolists .pm-todolist .pm-list-footer .pm-col-6 .pm-todo-comment a span {
+  font-weight: normal;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todolists .pm-todolist .pm-list-footer .pm-col-4.pm-todo-prgress-bar {
+  display: block;
+  width: 80%;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todolists .pm-todolist .pm-list-footer .pm-col-1.no-percent {
+  padding-top: 2%;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todo-content .pm-col-7 .pm-assigned-user {
+  display: inline-block;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todo-content .pm-col-7 .pm-assigned-user a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todo-content .pm-col-7 .pm-due-date {
+  display: block;
+  width: 66%;
+  margin-top: 8px;
+  padding: 5px;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todo-content .pm-col-7 a.task-title {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todo-content .pm-task-comment a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todo-content .pm-todo-action-right.pm-last-col {
+  width: 30%;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todo-content .pm-todo-action-right.pm-last-col a {
+  display: inline-block;
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todo-content .pm-todo-action-right.pm-last-col a:hover {
+  border-bottom: 1px solid #333;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todo-form .pm-task-edit-form {
+  width: 100%;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-todo-form .pm-task-edit-form .pm-task-form {
+  width: 100%;
+}
+.pm .pm-front-end .pm-task-container.wrap .tablenav .tablenav-pages a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-task-container.wrap .tablenav .tablenav-pages a:hover {
+  border-bottom: 1px solid #333;
+}
+.pm .pm-front-end .pm-task-container.wrap .tablenav .tablenav-pages a.current {
+  border-bottom: 1px solid #333;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-new-todolist-form {
+  width: 70%;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-new-todolist-form .pm-todo-list-form-wrap.pm-form.pm-slide-list {
+  width: 100%;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-new-todolist-form .pm-todo-list-form-wrap.pm-form.pm-slide-list .item {
+  margin-bottom: 10px;
+  width: 100%;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-new-todolist-form .pm-todo-list-form-wrap.pm-form.pm-slide-list .item textarea {
+  width: 100%;
+}
+.pm .pm-front-end .pm-task-container.wrap .pm-new-todolist-form .pm-todo-list-form-wrap.pm-form.pm-slide-list .item.milestone select {
+  height: 30px;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-uplaod-btn-list a {
+  box-shadow: none;
+  padding: 5px;
+  margin-left: 0px;
+  margin-right: 5px;
+
+}
+.pm .pm-front-end .button {
+    border-radius: 3px;
+    padding: 4px 8px;
+    font-size: 13px;
+    display: inline-block;
+    line-height: 2;
+    background: #ddd;
+    border: 1px solid #c1c1c1;
+    -webkit-box-shadow: 0 1px 0 #eee;
+    box-shadow: 0 1px 0 #eee;
+    color: #333;
+    text-shadow: 0 -1px 1px #eee, 1px 0 1px #eee, 0 1px 1px #eee, -1px 0 1px #eee;
+}
+.pm .pm-front-end .button.button-primary {
+    background: #0085ba;
+    border-color: #0073aa #006799 #006799;
+    -webkit-box-shadow: 0 1px 0 #006799;
+    box-shadow: 0 1px 0 #006799;
+    color: #fff;
+    text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-uplaod-btn-list.pm-right {
+  float: none;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-previous-back ul li {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-previous-back ul li.pm-right {
+  font-size: 14px;
+  margin-top: -1px;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-previous-back ul li a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-previous-back ul li a:hover {
+  border-bottom: 1px solid #333;
+}
+.pm .pm-front-end .pm-pro-file-container .modal-mask .modal-wrapper .modal-container .modal-header .close-vue-modal {
+  padding: 0px;
+}
+.pm .pm-front-end .pm-pro-file-container .modal-mask .modal-wrapper .modal-container .modal-header .close-vue-modal a {
+  box-shadow: none;
+  border: none;
+  padding: 15px;
+}
+.pm .pm-front-end .pm-pro-file-container .modal-mask .modal-wrapper .modal-container .modal-header h3 {
+    clear: none;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+.pm .pm-front-end .pm-pro-file-container .modal-mask .modal-wrapper .modal-container .modal-footer .submit {
+  padding: 10px;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-folders-list {
+  margin-top: 10px;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-folders-list .folder .ff-content .image-content {
+  margin-bottom: 10px;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-folders-list .folder .ff-content .footer-section a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-folders-list .file .ff-content .pm-rdoc-view .image-content {
+  margin-bottom: 10px;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-folders-list .file .ff-content .pm-rdoc-view .image-content .text a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-folders-list .file .ff-content .pm-rdoc-view .image-content .text a:hover {
+  border-bottom: 1px solid #333;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-folders-list .file .ff-content .pm-rdoc-view .footer-section a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-folders-list .file .ff-content .pm-doc-view .doc-content {
+  margin-bottom: 10px;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-folders-list .file .image-content {
+  margin-bottom: 10px;
+}
+.pm .pm-front-end .pm-pro-file-container .pm-folders-list .file .footer-section a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-pro-file-container .form-uploader .pm-form-title a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-pro-file-container .docform .pm-form-title a {
+  box-shadow: none;
+}
+.pm .pm-front-end .pm-pro-file-container .docform .pm-form-title a:hover {
+  border-bottom: 1px solid #333;
+}
+.pm .pm-front-end .pm-pro-file-container .docform form#pm-doc-form input {
+  margin-bottom: 15px;
+}
+.pm .pm-front-end .pm-pro-file-container .docform form#pm-googledoc-form .docs-icon {
+  margin-top: 35px;
+}
+.pm trix-editor ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+.pm trix-editor ul li {
+  list-style: disc;
+}
+.pm trix-editor ol {
+  list-style: decimal;
+  padding-left: 20px;
+}
+.pm trix-editor ol li {
+  list-style: decimal;
+}
+.pm-my-tasks #pm-mytask-page-content .pm-mytask-overview-page .pm-mytask-chart-overview {
+    min-width: 300px;
+}
+.pm-my-tasks #pm-mytask-page-content .pm-mytask-overview-page .pm-mytask-chart-statistics{
+    min-width: 500px;
+}
+.pm .pm-activity-list li.pm-row .pm-activity-date {
+    min-width: 60px;
+}

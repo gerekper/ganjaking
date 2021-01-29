@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -61,6 +61,7 @@ class WC_Memberships_Upgrade extends Framework\Plugin\Lifecycle {
 			'1.16.2',
 			'1.19.0',
 			'1.20.0',
+			'1.21.0',
 		];
 	}
 
@@ -625,6 +626,69 @@ class WC_Memberships_Upgrade extends Framework\Plugin\Lifecycle {
 		// Jilt Promotions flags
 		delete_option( 'wc_memberships_show_advanced_emails_notice' );
 		delete_option( 'wc_memberships_show_jilt_cross_sell_notice' );
+	}
+
+
+	/**
+	 * Updates to version 1.21.0
+	 *
+	 * @since 1.21.0
+	 */
+	protected function upgrade_to_1_21_0() {
+
+		$found_plugins = [];
+		$free_add_ons  = [
+			'directory-shortcode',
+			'excerpt-length',
+			'role-handler',
+			'sensei-member-area',
+		];
+
+		foreach ( $free_add_ons as $i => $free_add_on ) {
+
+			$prefix   = 'woocommerce-memberships';
+			$dirname  = "{$prefix}-{$free_add_on}";
+			$filename = $dirname . '.php';
+
+			if ( $this->get_plugin()->is_plugin_active( $filename ) ) {
+
+				// deactivate the plugin if found active
+				$found_plugins[] = $dirname . '/' . $filename;
+
+				// special handling for role handler: it will be enabled for users that migrated
+				if ( 'role-handler' === $free_add_on ) {
+					update_option( 'wc_memberships_assign_user_roles_to_members', 'yes' );
+				}
+
+			} elseif ( ! $this->get_plugin()->is_plugin_installed( $filename ) ) {
+
+				// do not track the plugin if not installed
+				unset( $free_add_ons[ $i ] );
+			}
+		}
+
+		if ( ! empty( $found_plugins ) ) {
+
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+			deactivate_plugins( $found_plugins );
+		}
+
+		if ( ! empty( $free_add_ons ) ) {
+			update_option( 'wc_memberships_installed_free_add_ons_migrated', $free_add_ons );
+		}
+
+		// migrates Memberships Role Handler settings
+		update_option( 'wc_memberships_active_member_user_role',   get_option( 'wc_memberships_role_handler_member_role', 'customer' ) );
+		update_option( 'wc_memberships_inactive_member_user_role', get_option( 'wc_memberships_role_handler_inactive_role', 'customer' ) );
+		delete_option( 'wc_memberships_role_handler_member_role' );
+		delete_option( 'wc_memberships_role_handler_inactive_role' );
+
+		// cleanup: remove version options
+		delete_option( 'wc_memberships_role_handler_version' );
+		delete_option( 'wc_memberships_directory_shortcode_version' );
+		delete_option( 'wc_memberships_sensei_member_area_version' );
+		delete_option( 'wc_memberships_excerpt_length_version' );
 	}
 
 

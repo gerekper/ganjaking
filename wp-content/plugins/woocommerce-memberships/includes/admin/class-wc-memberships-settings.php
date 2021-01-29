@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -453,29 +453,6 @@ class WC_Settings_Memberships extends \WC_Settings_Page {
 
 		} else { // general section
 
-			// add this only if GDPR handling is available in WordPress
-			$privacy_settings = version_compare( get_bloginfo( 'version' ), '4.9.5', '>' ) ? [
-
-				[
-					'name' => __( 'Privacy', 'woocommerce-memberships' ),
-					'type' => 'title',
-				],
-
-				[
-					'type'    => 'checkbox',
-					'id'      => 'wc_memberships_privacy_erasure_request_delete_user_memberships',
-					'name'    => __( 'Account erasure requests', 'woocommerce-memberships' ),
-					/* translators: Placeholders: %1$s - opening HTML <a> link tag , %2$s - closing HTML </a> link tag */
-					'desc'    => sprintf( __( 'Delete all matching memberships when %1$susers request to erase their personal data%2$s.', 'woocommerce-memberships' ), '<a href="' . admin_url( 'tools.php?page=remove_personal_data' ) . '">', '</a>' ),
-					'default' => 'no',
-				],
-
-				[
-					'type' => 'sectionend',
-				],
-
-			] : [];
-
 			$redirect_login_options =  [
 				'no_redirect'  => [
 					'label'    => __( 'No redirect', 'woocommerce-memberships' ),
@@ -552,8 +529,26 @@ class WC_Settings_Memberships extends \WC_Settings_Page {
 					'type'    => 'checkbox',
 					'id'      => 'wc_memberships_show_excerpts',
 					'name'    => __( 'Show excerpts', 'woocommerce-memberships' ),
-					'desc'    => __( 'If enabled, an excerpt of the protected content will be displayed to non-members & search engines.', 'woocommerce-memberships' ),
+					'desc'    =>
+						'<span class="show-if-hide-content-only-restriction-mode">' . __( 'If enabled, an excerpt of the protected content will be displayed to non-members & search engines.', 'woocommerce-memberships' ) . '</span>' .
+						'<span class="show-if-redirect-restriction-mode" style="display:none;">' . __( 'If enabled, an excerpt of the protected content will be displayed to search engines. Non-members can view excerpts on archive pages only.', 'woocommerce-memberships' ) . '</span>',
 					'default' => 'yes',
+				],
+
+				[
+					'name'              => __( 'Excerpt length (words)', 'woocommerce-memberships' ),
+					'desc'              => __( 'Number of words shown to non-members and search engines.', 'woocommerce-memberships' ),
+					'desc_tip'          => true,
+					'id'                => 'wc_memberships_excerpt_length',
+					'default'           => 55, // WP default
+					'placeholder'       => '55',
+					'type'              => 'number',
+					'css'               => 'width:100px;',
+					'class'             => 'wc_memberships_excerpt_length inline-description',
+					'custom_attributes' => [
+						'min'  => 0,
+						'step' => 1,
+					],
 				],
 
 				[
@@ -589,7 +584,7 @@ class WC_Settings_Memberships extends \WC_Settings_Page {
 					'type'     => 'sectionend',
 				],
 
-			], $privacy_settings ) );
+			], $this->get_roles_settings(), $this->get_privacy_settings() ) );
 		}
 
 		/**
@@ -601,6 +596,112 @@ class WC_Settings_Memberships extends \WC_Settings_Page {
 		 * @param string $current_section the current section being output
 		 */
 		return apply_filters( "woocommerce_get_settings_{$this->id}", $settings, $current_section );
+	}
+
+
+	/**
+	 * Gets settings for users role handling.
+	 *
+	 * @since 1.21.0
+	 *
+	 * @return array
+	 */
+	private function get_roles_settings() : array {
+
+		if ( ! function_exists( 'get_editable_roles' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/user.php' );
+		}
+
+		foreach ( get_editable_roles() as $role => $details ) {
+			$roles_options[ $role ] = translate_user_role( $details['name'] );
+		}
+
+		asort( $roles_options );
+
+		$roles_options = array_merge( [ '' => _x( 'WordPress default', 'Default member user role', 'woocommerce-memberships' ) ], $roles_options );
+
+		$roles_settings = [
+
+				[
+					'title' => __( 'Member Roles', 'woocommerce-memberships' ),
+					'type'  => 'title',
+				],
+
+				[
+					'title'    => __( 'Enable member roles', 'woocommerce-memberships' ),
+					'desc'     => __( 'Choose the roles to assign to active and inactive members.', 'woocommerce-memberships' ),
+					/* translators: Placeholders %1$s - opening <em> HTML tag, %2$s - closing </em> HTML tag, %3$s - opening <em> HTML tag, %4$s - closing </em> HTML tag */
+					'desc_tip' => sprintf( __( 'Users with the %1$sadministrator%2$s or %3$sshop manager%4$s role will never be allocated these roles to prevent locking out admin users.', 'woocommerce-memberships' ), '<em>', '</em>', '<em>', '</em>' ),
+					'id'       => 'wc_memberships_assign_user_roles_to_members',
+					'type'     => 'checkbox',
+					'default'  => 'no',
+				],
+
+				[
+					'name'     => __( 'Member default role', 'woocommerce-memberships' ),
+					'desc'     => __( 'When a membership is activated, new members will be assigned this role.', 'woocommerce-memberships' ),
+					'id'       => 'wc_memberships_active_member_user_role',
+					'css'      => 'min-width:150px;',
+					'default'  => 'customer',
+					'type'     => 'select',
+					'options'  => $roles_options,
+					'desc_tip' => true,
+				],
+
+				[
+					'name'     => __( 'Inactive member role', 'woocommerce-memberships' ),
+					'desc'     => __( 'If a member becomes inactive (e.g., the membership is cancelled or expired), the member will be assigned this role.', 'woocommerce-memberships' ),
+					'id'       => 'wc_memberships_inactive_member_user_role',
+					'css'      => 'min-width:150px;',
+					'default'  => 'customer',
+					'type'     => 'select',
+					'options'  => $roles_options,
+					'desc_tip' => true,
+				],
+
+				[
+					'type' => 'sectionend',
+				],
+		];
+
+		/**
+		 * Filters the roles settings.
+		 *
+		 * @since 1.21.0
+		 *
+		 * @param array $roles_settings associative array
+		 */
+		return (array) apply_filters( 'wc_memberships_roles_settings', $roles_settings );
+	}
+
+
+	/**
+	 * Gets privacy settings.
+	 *
+	 * @since 1.21.0
+	 *
+	 * @return array
+	 */
+	private function get_privacy_settings() : array {
+
+		// add this only if GDPR handling is available in WordPress
+		return version_compare( get_bloginfo( 'version' ), '4.9.5', '>' ) ? [
+			[
+				'name'    => __( 'Privacy', 'woocommerce-memberships' ),
+				'type'    => 'title',
+			],
+			[
+				'type'    => 'checkbox',
+				'id'      => 'wc_memberships_privacy_erasure_request_delete_user_memberships',
+				'name'    => __( 'Account erasure requests', 'woocommerce-memberships' ),
+				/* translators: Placeholders: %1$s - opening HTML <a> link tag , %2$s - closing HTML </a> link tag */
+				'desc'    => sprintf( __( 'Delete all matching memberships when %1$susers request to erase their personal data%2$s.', 'woocommerce-memberships' ), '<a href="' . admin_url( 'tools.php?page=remove_personal_data' ) . '">', '</a>' ),
+				'default' => 'no',
+			],
+			[
+				'type'    => 'sectionend',
+			],
+		] : [];
 	}
 
 

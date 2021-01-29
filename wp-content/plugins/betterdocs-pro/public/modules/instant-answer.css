@@ -1253,22 +1253,22 @@ textarea {
     bottom: 80px; }
     .betterdocs-widget-container.betterdocs-opened {
       height: calc(100vh - 80px); }
-    .betterdocs-widget-container.device-iphone {
+    .betterdocs-widget-container.betterdocs-opened.device-iphone {
       height: calc(100vh - 168px);
       bottom: 55px; }
-      .betterdocs-widget-container.device-iphone.xmax-xr {
+      .betterdocs-widget-container.betterdocs-opened.device-iphone.xmax-xr {
         height: calc(100vh - 168px); }
-      .betterdocs-widget-container.device-iphone.x-xs {
+      .betterdocs-widget-container.betterdocs-opened.device-iphone.x-xs {
         height: calc(100vh - 168px); }
-      .betterdocs-widget-container.device-iphone.ifour {
+      .betterdocs-widget-container.betterdocs-opened.device-iphone.ifour {
         height: calc(100vh - 130px); }
-      .betterdocs-widget-container.device-iphone.isix {
+      .betterdocs-widget-container.betterdocs-opened.device-iphone.isix {
         height: calc(100vh - 130px); }
-      .betterdocs-widget-container.device-iphone.isix-plus {
+      .betterdocs-widget-container.betterdocs-opened.device-iphone.isix-plus {
         height: calc(100vh - 130px); }
-      .betterdocs-widget-container.device-iphone.ifive {
+      .betterdocs-widget-container.betterdocs-opened.device-iphone.ifive {
         height: calc(100vh - 130px); }
-      .betterdocs-widget-container.device-iphone.ithree {
+      .betterdocs-widget-container.betterdocs-opened.device-iphone.ithree {
         height: calc(100vh - 130px); }
   .betterdocs-left .betterdocs-widget-container {
     left: 0; }
@@ -1285,7 +1285,7 @@ textarea {
     width: 90%;
     right: 70px;
     bottom: 0 !important; }
-    .betterdocs-widget-container.device-iphone {
+    .betterdocs-widget-container.betterdocs-opened.device-iphone {
       right: 54px;
       height: calc(100% - 45px) !important; }
   .betterdocs-left .betterdocs-widget-container {

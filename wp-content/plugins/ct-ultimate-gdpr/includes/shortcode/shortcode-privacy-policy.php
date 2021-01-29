@@ -18,14 +18,14 @@ class CT_Ultimate_GDPR_Shortcode_Privacy_Policy {
     }
 
     public function render() {
-        
+
 ?>
         <div class="ct-ultimate-gdpr-container">
-            <label for="ct-ultimate-gdpr-party-filter">First or Third Party Filter</label>
+            <label for="ct-ultimate-gdpr-party-filter"> <?php echo esc_html__( 'First or Third Party Filter', 'ct-ultimate-gdpr' ); ?></label>
             <select name="ct-ultimate-gdpr-party-filter" id="ct-ultimate-gdpr-party-filter">
                 <option value=""><?php echo esc_html__( 'Any', 'ct-ultimate-gdpr' ); ?></option>
-                <option value="First party"><?php echo esc_html__( 'First Party', 'ct-ultimate-gdpr' ); ?></option>
-                <option value="Third party"><?php echo esc_html__( 'Third Party', 'ct-ultimate-gdpr' ); ?></option>
+                <option value="<?php echo esc_html__( 'First party', 'ct-ultimate-gdpr' ); ?>"><?php echo esc_html__( 'First party', 'ct-ultimate-gdpr' ); ?></option>
+                <option value="<?php echo esc_html__( 'Third party', 'ct-ultimate-gdpr' ); ?>"><?php echo esc_html__( 'Third party', 'ct-ultimate-gdpr' ); ?></option>
             </select>
         </div>
         <div id="ct-ultimate-gdpr-cookies-table" class="ct-ultimate-gdpr-table-responsive table-responsive">
@@ -80,12 +80,12 @@ class CT_Ultimate_GDPR_Shortcode_Privacy_Policy {
 			$cookie_names_str = get_post_meta( $post->ID, 'cookie_name', true );
 			$cookie_type = get_post_meta( $post->ID, 'type_of_cookie', true );
 			$cookie_type_label = CT_Ultimate_GDPR_Model_Group::get_label($cookie_type);
-            $first_or_third_party = get_post_meta( $post->ID, 'first_or_third_party', true ) == 'first_party' ? 
-                                            esc_html__( 'First party', 'ct-ultimate-gdpr') : 
+            $first_or_third_party = get_post_meta( $post->ID, 'first_or_third_party', true ) == 'first_party' ?
+                                            esc_html__( 'First party', 'ct-ultimate-gdpr') :
                                             esc_html__( 'Third party', 'ct-ultimate-gdpr');
 			$can_be_blocked = get_post_meta( $post->ID, 'can_be_blocked', true );
-            $session_or_persistent = get_post_meta( $post->ID, 'session_or_persistent', true ) == 'session' ? 
-                                            esc_html__( 'Session', 'ct-ultimate-gdpr') : 
+            $session_or_persistent = get_post_meta( $post->ID, 'session_or_persistent', true ) == 'session' ?
+                                            esc_html__( 'Session', 'ct-ultimate-gdpr') :
                                             esc_html__( 'Persistent', 'ct-ultimate-gdpr');
 			$expiry_time_int = get_post_meta( $post->ID, 'expiry_time', true );
 
@@ -101,12 +101,12 @@ class CT_Ultimate_GDPR_Shortcode_Privacy_Policy {
 				foreach( $cookie_names as $cookie_name ) {
 
                     $cookies[] = array(
-                        'cookie_name'           => $cookie_name, 
-                        'cookie_type_label'     => $cookie_type_label, 
-                        'first_or_third_party'  => $first_or_third_party, 
-                        'can_be_blocked'        => $can_be_blocked, 
-                        'session_or_persistent' => $session_or_persistent, 
-                        'expiry_time'           => $expiry_time, 
+                        'cookie_name'           => $cookie_name,
+                        'cookie_type_label'     => $cookie_type_label,
+                        'first_or_third_party'  => $first_or_third_party,
+                        'can_be_blocked'        => $can_be_blocked,
+                        'session_or_persistent' => $session_or_persistent,
+                        'expiry_time'           => $expiry_time,
                         'purpose'               => $purpose
                     );
 
@@ -114,27 +114,27 @@ class CT_Ultimate_GDPR_Shortcode_Privacy_Policy {
 			} else {
 
                 $cookies[] = array(
-                    'cookie_name'           => $cookie_names_str, 
-                    'cookie_type_label'     => $cookie_type_label, 
-                    'first_or_third_party'  => $first_or_third_party, 
-                    'can_be_blocked'        => $can_be_blocked, 
-                    'session_or_persistent' => $session_or_persistent, 
-                    'expiry_time'           => $expiry_time, 
+                    'cookie_name'           => $cookie_names_str,
+                    'cookie_type_label'     => $cookie_type_label,
+                    'first_or_third_party'  => $first_or_third_party,
+                    'can_be_blocked'        => $can_be_blocked,
+                    'session_or_persistent' => $session_or_persistent,
+                    'expiry_time'           => $expiry_time,
                     'purpose'               => $purpose
                 );
             }
         }
-        
+
         return $cookies;
     }
-    
+
     public function assets()
     {
         wp_enqueue_script( 'ct-ultimate-gdpr-cookie-list', ct_ultimate_gdpr_url() . '/assets/js/cookie-list.js', array( 'jquery' ), ct_ultimate_gdpr_get_plugin_version() );
         wp_localize_script( 'ct-ultimate-gdpr-cookie-list', 'ct_ultimate_gdpr_cookie_list', array(
             'list'    => $this->get_cookies(),
         ) );
-    }    
+    }
 }
 
 function render_cookies_list( $atts ) {

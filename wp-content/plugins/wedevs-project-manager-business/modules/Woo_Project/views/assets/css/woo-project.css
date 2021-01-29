@@ -1,0 +1,44 @@
+.pm-wp-repeat {
+    background-color: #FFF;
+    clear: both;
+    min-height: 100px;
+    display: table;
+    margin-bottom: 10px;
+    position: relative;
+}
+.pm-wp-repeat span.wcp-remove {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    visibility: hidden;
+    cursor: pointer;
+}
+.pm-wp-repeat:hover span.wcp-remove {
+    visibility: visible;
+}
+.pm-wp-repeat strong {
+    display: block;
+    padding: 5px 2px;
+}
+.pm-wp-action select {
+    width: 250px;
+}
+.woo-footer {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.pm .woo-project .multiselect__tags {
+    border-radius: 0px !important;
+}
+.pm .woo-project .multiselect input {
+    border-width: 0px;
+    box-shadow: none;
+    padding: 5px;
+}
+.woo-project .pm-project-role, .woo-project .project-users {
+    margin-top: 10px;
+}
+.woo-project .pm-wp-project,
+.woo-project .pm-wp-assignees {
+
+}

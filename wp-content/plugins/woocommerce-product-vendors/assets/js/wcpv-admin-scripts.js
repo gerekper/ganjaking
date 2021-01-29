@@ -166,7 +166,7 @@ jQuery( document ).ready( function( $ ) {
 					if ( $( this ).data( 'multiple' ) === true ) {
 						select2_args.multiple = true;
 						select2_args.initSelection = function( element, callback ) {
-							var data     = $.parseJSON( element.attr( 'data-selected' ) );
+							var data     = JSON.parse( element.attr( 'data-selected' ) );
 							var selected = [];
 
 							$( element.val().split( ',' ) ).each( function( i, val ) {

@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -1161,9 +1161,6 @@ class WC_Memberships_User_Messages {
 
 		$excerpt = str_replace( ']]>', ']]&gt;', $excerpt );
 
-		/** This filter is documented in wp-includes/formatting.php */
-		$excerpt_length = apply_filters( 'excerpt_length', 55 );
-
 		/**
 		 * Filters the excerpt length (number of words).
 		 *
@@ -1172,7 +1169,7 @@ class WC_Memberships_User_Messages {
 		 * @param int $length the excerpt length (number of words)
 		 * @param \WP_Post $post the post object
 		 */
-		$excerpt_length = (int) apply_filters( 'wc_memberships_restricted_excerpt_length', $excerpt_length, $post );
+		$excerpt_length = absint( apply_filters( 'wc_memberships_restricted_excerpt_length', (int) get_option( 'wc_memberships_excerpt_length', 55 ), $post ) );
 
 		/** This filter is documented in wp-includes/formatting.php */
 		$excerpt_more = (string) apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );

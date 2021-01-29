@@ -4,10 +4,15 @@ jQuery( document ).ready( function( $ ) {
 	// create namespace to avoid any possible conflicts
 	$.wc_product_vendors_vendor_admin = {
 		showHideBookings: function() {
-			if ( 'booking' !== $( 'select#product-type' ).val() ) {
-				$( '.show_if_booking' ).hide();
-			} else if ( 'booking' === $( 'select#product-type' ).val() ) {
-				$( '.show_if_booking' ).show();
+			switch( $( 'select#product-type' ).val() ) {
+				case 'booking':
+					$( '.show_if_booking' ).show();
+					break;
+				case 'simple':
+					$( '.show_if_booking:not(.show_if_simple)' ).hide();
+					break;
+				default:
+					$( '.show_if_booking' ).hide();
 			}
 		},
 

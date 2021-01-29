@@ -211,6 +211,7 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 		ob_start();
 
 		wc_get_template( $this->template_html, array(
+			'email'         => $this,
 			'email_heading' => $this->get_heading(),
 			'rows'          => $this->get_rows(),
 			'interval'      => WC_SRE_Options::get_interval(),

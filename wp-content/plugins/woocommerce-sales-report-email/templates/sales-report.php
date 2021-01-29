@@ -11,7 +11,7 @@ if ( !defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 ?>
 
-<?php do_action( 'woocommerce_email_header', $email_heading ); ?>
+<?php do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 	<p><?php printf( __( "Hi there. Please find your %s sales report below.", 'woocommerce-sales-report-email' ), $interval ); ?></p>
 
@@ -31,4 +31,4 @@ if ( !defined( 'ABSPATH' ) ) {
 		</tbody>
 	</table>
 
-<?php do_action( 'woocommerce_email_footer' ); ?>
+<?php do_action( 'woocommerce_email_footer', $email ); ?>

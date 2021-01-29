@@ -62,7 +62,7 @@ class Lifecycle {
 	 *
 	 * @param SV_WC_Plugin $plugin plugin instance
 	 */
-	public function __construct( SV_WC_Plugin $plugin ) {
+	public function  __construct( SV_WC_Plugin $plugin ) {
 
 		$this->plugin = $plugin;
 

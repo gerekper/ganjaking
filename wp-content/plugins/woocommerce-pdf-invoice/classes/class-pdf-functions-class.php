@@ -58,6 +58,10 @@
 				add_action( 'admin_init' , array( $this,'pdf_invoice_past_orders_email') );
 				add_action( 'woocommerce_pdf_invoice_update_email_past_orders', array( __CLASS__, 'action_scheduler_update_email_past_orders' ), 10, 2 );
 
+				// Fix Invoice dates
+				add_action( 'admin_init' , array( $this,'pdf_invoice_fix_dates') );
+				add_action( 'woocommerce_pdf_invoice_fix_dates', array( __CLASS__, 'action_scheduler_fix_dates' ), 10, 2 );
+
 				// Delete invoices and zip files from temp folder
 				add_action( 'init' , array( $this,'pdf_invoice_delete_files') );
 				add_action( 'woocommerce_pdf_invoice_delete_files', array( __CLASS__, 'action_scheduler_delete_files' ), 10, 2 );
@@ -78,6 +82,10 @@
 
 		}
 
+		/**
+		 * [pdf_invoice_order_status_array description]
+		 * @return [type] [description]
+		 */
 		public static function pdf_invoice_order_status_array() {
 
 			// Get the invoice options
@@ -98,6 +106,13 @@
 			
 		}
 
+		/**
+		 * [create_pdf_invoice_for_manual_subscriptions description]
+		 * @param  [type] $renewal_order [description]
+		 * @param  [type] $subscription  [description]
+		 * @param  [type] $type          [description]
+		 * @return [type]                [description]
+		 */
 		public static function create_pdf_invoice_for_manual_subscriptions( $renewal_order, $subscription, $type = NULL ) {
 
 			// Get the invoice options
@@ -113,6 +128,11 @@
 
 		}
 
+		/**
+		 * [get_order_status_array description]
+		 * @param  [type] $create_invoice [description]
+		 * @return [type]                 [description]
+		 */
 		public static function get_order_status_array( $create_invoice ) {
 
 			$order_status_array = array();
@@ -317,6 +337,10 @@
 		
 		}
 
+		/**
+		 * [set_invoice_date description]
+		 * @param [type] $order_id [description]
+		 */
 		public static function set_invoice_date( $order_id ) {
 			global $woocommerce;
 			
@@ -334,11 +358,12 @@
 				$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
 
 				if ( $woocommerce_pdf_invoice_options['pdf_date'] == 'completed' ) {
-					$invoice_date = current_time('mysql');
+					$invoice_date = $order->get_date_completed();
 				} else {
 					$invoice_date = $order->get_date_created();
-					$invoice_date = wc_format_datetime( $invoice_date );
 				}
+
+				$invoice_date = wc_format_datetime( $invoice_date );
 
 				$return = WC_pdf_admin_functions::format_pdf_date( $invoice_date );
 
@@ -395,42 +420,44 @@
 		static function create_display_invoice_number( $order_id ) { 
 
 			// Get the invoice options
-			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
-
+			$settings 		= get_option( 'woocommerce_pdf_invoice_settings' );
+			// Get the Invoice Number
 			$invoice_number = get_post_meta( $order_id, '_wc_pdf_invoice_number', TRUE );
+			// Get the Invoice Date
+			$invoice_date = WC_send_pdf::get_woocommerce_pdf_date( $order_id,'completed', false, 'invoice', $settings['pdf_date_format'] );
 
 			// pattern substitution
 			$replacements = array(
-				'{{D}}'    			=> date_i18n( 'j' ),
-				'{{DD}}'   			=> date_i18n( 'd' ),
-				'{{M}}'    			=> date_i18n( 'n' ),
-				'{{MM}}'   			=> date_i18n( 'm' ),
-				'{{YY}}'   			=> date_i18n( 'y' ),
-				'{{yy}}'   			=> date_i18n( 'y' ),
-				'{{YYYY}}' 			=> date_i18n( 'Y' ),
-				'{{H}}'    			=> date_i18n( 'G' ),
-				'{{HH}}'   			=> date_i18n( 'H' ),
-				'{{N}}'    			=> date_i18n( 'i' ),
-				'{{S}}'    			=> date_i18n( 's' ),
-				'{{year}}' 			=> date_i18n( 'Y' ),
-				'{{YEAR}}' 			=> date_i18n( 'Y' ),
-				'{{invoicedate}}' 	=> WC_send_pdf::get_woocommerce_pdf_date( $order_id,'completed', false, 'invoice', $settings['pdf_date_format'] ),
-				'{{INVOICEDATE}}' 	=> WC_send_pdf::get_woocommerce_pdf_date( $order_id,'completed', false, 'invoice', $settings['pdf_date_format'] ),
-				'{D}'    			=> date_i18n( 'j' ),
-				'{DD}'   			=> date_i18n( 'd' ),
-				'{M}'    			=> date_i18n( 'n' ),
-				'{MM}'   			=> date_i18n( 'm' ),
-				'{YY}'   			=> date_i18n( 'y' ),
-				'{yy}'   			=> date_i18n( 'y' ),
-				'{YYYY}' 			=> date_i18n( 'Y' ),
-				'{H}'    			=> date_i18n( 'G' ),
-				'{HH}'   			=> date_i18n( 'H' ),
-				'{N}'    			=> date_i18n( 'i' ),
-				'{S}'    			=> date_i18n( 's' ),
-				'{year}' 			=> date_i18n( 'Y' ),
-				'{YEAR}' 			=> date_i18n( 'Y' ),
-				'{invoicedate}' 	=> WC_send_pdf::get_woocommerce_pdf_date( $order_id,'completed', false, 'invoice', $settings['pdf_date_format'] ),
-				'{INVOICEDATE}' 	=> WC_send_pdf::get_woocommerce_pdf_date( $order_id,'completed', false, 'invoice', $settings['pdf_date_format'] ),
+				'{{D}}'    			=> date_i18n( 'j', strtotime( $invoice_date ) ),
+				'{{DD}}'   			=> date_i18n( 'd', strtotime( $invoice_date ) ),
+				'{{M}}'    			=> date_i18n( 'n', strtotime( $invoice_date ) ),
+				'{{MM}}'   			=> date_i18n( 'm', strtotime( $invoice_date ) ),
+				'{{YY}}'   			=> date_i18n( 'y', strtotime( $invoice_date ) ),
+				'{{yy}}'   			=> date_i18n( 'y', strtotime( $invoice_date ) ),
+				'{{YYYY}}' 			=> date_i18n( 'Y', strtotime( $invoice_date ) ),
+				'{{H}}'    			=> date_i18n( 'G', strtotime( $invoice_date ) ),
+				'{{HH}}'   			=> date_i18n( 'H', strtotime( $invoice_date ) ),
+				'{{N}}'    			=> date_i18n( 'i', strtotime( $invoice_date ) ),
+				'{{S}}'    			=> date_i18n( 's', strtotime( $invoice_date ) ),
+				'{{year}}' 			=> date_i18n( 'Y', strtotime( $invoice_date ) ),
+				'{{YEAR}}' 			=> date_i18n( 'Y', strtotime( $invoice_date )),
+				'{{invoicedate}}' 	=> $invoice_date,
+				'{{INVOICEDATE}}' 	=> $invoice_date,
+				'{D}'    			=> date_i18n( 'j', strtotime( $invoice_date ) ),
+				'{DD}'   			=> date_i18n( 'd', strtotime( $invoice_date ) ),
+				'{M}'    			=> date_i18n( 'n', strtotime( $invoice_date ) ),
+				'{MM}'   			=> date_i18n( 'm', strtotime( $invoice_date ) ),
+				'{YY}'   			=> date_i18n( 'y', strtotime( $invoice_date ) ),
+				'{yy}'   			=> date_i18n( 'y', strtotime( $invoice_date ) ),
+				'{YYYY}' 			=> date_i18n( 'Y', strtotime( $invoice_date ) ),
+				'{H}'    			=> date_i18n( 'G', strtotime( $invoice_date ) ),
+				'{HH}'   			=> date_i18n( 'H', strtotime( $invoice_date ) ),
+				'{N}'    			=> date_i18n( 'i', strtotime( $invoice_date ) ),
+				'{S}'    			=> date_i18n( 's', strtotime( $invoice_date ) ),
+				'{year}' 			=> date_i18n( 'Y', strtotime( $invoice_date ) ),
+				'{YEAR}' 			=> date_i18n( 'Y', strtotime( $invoice_date ) ),
+				'{invoicedate}' 	=> $invoice_date,
+				'{INVOICEDATE}' 	=> $invoice_date,
 			);
 			
 			$invoice_prefix = esc_html( $settings['pdf_prefix'] );
@@ -660,6 +687,10 @@
 
 		 }
 
+		/**
+		 * [pdf_invoice_email_admin_init description]
+		 * @return [type] [description]
+		 */
 		function pdf_invoice_email_admin_init() {
 			// Add PDF Invoice Email for resending invoice
 			add_filter( 'woocommerce_email_classes', array( $this, 'add_email_class' ) );
@@ -675,12 +706,21 @@
 	    	return $emails;
 	    }
 
+	    /**
+	     * [add_email description]
+	     * @param [type] $emails [description]
+	     */
 	    function add_email( $emails ) {
 	    	$emails[] = 'woocommerce_customer_pdf_invoice';
 
 	    	return $emails;
 	    }
 
+	    /**
+	     * [trigger_email_action description]
+	     * @param  [type] $order_id [description]
+	     * @return [type]           [description]
+	     */
 	    function trigger_email_action( $order_id ) {
 
 	    	if ( isset( $order_id ) && !empty( $order_id ) ) {
@@ -769,11 +809,102 @@
 		}
 
 		/**
+		 * [pdf_invoice_fix_dates description]
+		 * @return [type] [description]
+		 */
+		function pdf_invoice_fix_dates() {
+
+	        $allowed_user_role 	= apply_filters( 'pdf_invoice_allowed_user_role_pdf_invoice_fix_dates', 'administrator' );
+			$current_user 		= wp_get_current_user();
+
+			if( in_array( $allowed_user_role, $current_user->roles ) ) {
+			
+				if ( isset( $_POST['pdffixdates'] ) && $_POST['pdffixdates'] == '1' && isset( $_POST['pdffix-dates-confirmation'] ) && $_POST['pdffix-dates-confirmation'] === "confirm" ) {
+					
+					if ( !isset($_POST['pdf_fix_dates_nonce']) || !wp_verify_nonce($_POST['pdf_fix_dates_nonce'],'pdf_fix_dates_nonce_action') ) {
+						die( 'Security check' );
+					}
+
+					update_option( 'woocommerce_pdf_invoice_fix_date_offset', 0 );
+
+					WC()->queue()->schedule_single( time()+1, 'woocommerce_pdf_invoice_fix_dates' );
+	            }
+
+			}
+			 
+		}
+
+		/**
+		 * [pdf_invoice_fix_dates description]
+		 * @return [type] [description]
+		 */
+		public static function action_scheduler_fix_dates() {
+			global $wpdb;
+
+			$offset 	= get_option( 'woocommerce_pdf_invoice_fix_date_offset' );
+			$settings 	= get_option( 'woocommerce_pdf_invoice_settings' );
+
+			$query =   "SELECT p.ID 
+						FROM {$wpdb->prefix}posts AS p 
+						INNER JOIN {$wpdb->prefix}postmeta pm on p.id = pm.post_id 
+						WHERE p.post_type = 'shop_order' AND pm.meta_key = '_invoice_number'
+                      	ORDER BY p.id ASC LIMIT 100 OFFSET " . $offset;
+
+            $results = $wpdb->get_results( $query );
+			
+			if( isset($results) && !empty( $results ) ) {
+
+				$offset = $offset+100;
+				update_option( 'woocommerce_pdf_invoice_fix_date_offset', $offset );
+
+				require_once( 'class-pdf-admin-functions.php' );
+
+				foreach ( $results as $result ) {
+
+					$tolog 		= '';
+					$order_id 	= $result->ID;
+                	$order 		= new WC_Order( $order_id );
+
+                	$tolog .= ' Order ID :' . $order_id;
+
+					$current_date = get_post_meta( $order_id, '_invoice_date', TRUE );
+
+					$tolog .= ' Current Date : ' . $current_date;
+
+					if ( $settings['pdf_date'] == 'completed' ) {
+						$invoice_date = $order->get_date_completed();
+					} else {
+						$invoice_date = $order->get_date_created();
+					}
+
+					$invoice_date = wc_format_datetime( $invoice_date );
+
+					$new_date = WC_pdf_admin_functions::format_pdf_date( $invoice_date );
+
+					// Update Invoice meta
+					update_post_meta( $order_id, '_invoice_date', $new_date );
+
+					$invoice_meta = get_post_meta( $order_id, '_invoice_meta', TRUE );
+					$invoice_meta['invoice_date'] = $new_date;
+					update_post_meta( $order_id, '_invoice_meta', $invoice_meta );
+
+                }
+
+                WC()->queue()->cancel_all( 'woocommerce_pdf_invoice_fix_dates' );
+				WC()->queue()->schedule_single( time()+5, 'woocommerce_pdf_invoice_fix_dates' );
+			} else {
+				// No orders left to update, cancel the task.
+				WC()->queue()->cancel_all( 'woocommerce_pdf_invoice_fix_dates' );
+			}
+			 
+		}
+
+		/**
 		 * [pdf_invoice_delete_invoices description]
 		 * Delete all PDF Invoice data from WordPress
 		 * @return NULL
 		 */
-		function pdf_invoice_delete_invoices() {
+		public static function pdf_invoice_delete_invoices() {
 	        $allowed_user_role 	= apply_filters( 'pdf_invoice_allowed_user_role_pdf_invoice_delete_invoices', 'administrator' );
 			$current_user 		= wp_get_current_user();
 
@@ -804,7 +935,7 @@
 		 * Create invoices for orders placed before PDF Invoices was installed.
 		 * @return NULL
 		 */
-		function pdf_invoice_past_orders() {
+		public static function pdf_invoice_past_orders() {
 
 	        $allowed_user_role 	= apply_filters( 'pdf_invoice_allowed_user_role_pdf_invoice_past_orders', 'administrator' );
 			$current_user 		= wp_get_current_user();
@@ -812,7 +943,7 @@
 			if( in_array( $allowed_user_role, $current_user->roles ) ) {
 			
 				if ( (isset( $_POST['pdf_past_orders'] ) && $_POST['pdf_past_orders'] == '1' && isset( $_POST['pdf_past_orders-confirmation'] ) && $_POST['pdf_past_orders-confirmation'] === "confirm") ) {
-					WC()->queue()->add( 'woocommerce_pdf_invoice_update_past_orders', array(), 'pdf_invoice' );
+					WC()->queue()->schedule_single( time()+1, 'woocommerce_pdf_invoice_update_past_orders' );
 	            }
 
 			}
@@ -837,22 +968,42 @@
                       ORDER BY p.id ASC";
 
             $results = $wpdb->get_results( $query );
-			
-			if( isset($results) ) {
-                foreach ( $results as $result ) {
 
-                    // Make the invoice if we need one.
-                    $order = new WC_Order( $result->ID );
+            if( isset($results) && !empty( $results ) ) {
 
-                    // WooCommerce 3.0 compatibility
-                    $order_status = $order->get_status();
-            
-                    if ( sanitize_title( $order_status ) == 'completed' && get_post_meta($result->ID, '_invoice_number', TRUE) == '' ) {
-                        WC_pdf_functions::woocommerce_completed_order_create_invoice( $result->ID );
-                    }
+	        	$query = "SELECT *
+	                      FROM {$wpdb->prefix}posts AS p
+	                      WHERE p.post_type = 'shop_order' AND p.post_status = 'wc-completed' AND p.id NOT IN (
+	                            SELECT p.ID FROM {$wpdb->prefix}posts AS p INNER JOIN {$wpdb->prefix}postmeta pm on p.id = pm.post_id WHERE p.post_type = 'shop_order' AND p.post_status = 'wc-completed' AND pm.meta_key = '_invoice_number'
+	                      )
+	                      ORDER BY p.id ASC
+	                      LIMIT 100";
 
-                }
+	            $res = $wpdb->get_results( $query );
 
+	            if( isset( $res ) ) {
+
+	                foreach ( $res as $result ) {
+
+	                    // Make the invoice if we need one.
+	                    $order = new WC_Order( $result->ID );
+
+	                    // WooCommerce 3.0 compatibility
+	                    $order_status = $order->get_status();
+	            
+	                    if ( sanitize_title( $order_status ) == 'completed' && get_post_meta($result->ID, '_invoice_number', TRUE) == '' ) {
+	                        WC_pdf_functions::woocommerce_completed_order_create_invoice( $result->ID );
+	                    }
+
+	                }
+
+	                WC()->queue()->cancel_all( 'woocommerce_pdf_invoice_update_past_orders' );
+					WC()->queue()->schedule_single( time()+5, 'woocommerce_pdf_invoice_update_past_orders' );
+
+				}
+
+            } else {
+            	WC()->queue()->cancel_all( 'woocommerce_pdf_invoice_update_past_orders' );
             }
 
 		}
@@ -870,7 +1021,7 @@
 			if( in_array( $allowed_user_role, $current_user->roles ) ) {
 			
 				if ( (isset( $_POST['pdf_past_orders_email'] ) && $_POST['pdf_past_orders_email'] == '1' && isset( $_POST['pdf_past_orders_email-confirmation'] ) && $_POST['pdf_past_orders_email-confirmation'] === "confirm") ) {
-					WC()->queue()->add( 'woocommerce_pdf_invoice_update_email_past_orders', array(), 'pdf_invoice' );
+					WC()->queue()->schedule_single( time()+5, 'woocommerce_pdf_invoice_update_email_past_orders' );
 	            }
 
 			}
@@ -892,11 +1043,13 @@
                       WHERE p.post_type = 'shop_order' AND p.post_status = 'wc-completed' AND p.id NOT IN (
                             SELECT p.ID FROM {$wpdb->prefix}posts AS p INNER JOIN {$wpdb->prefix}postmeta pm on p.id = pm.post_id WHERE p.post_type = 'shop_order' AND p.post_status = 'wc-completed' AND pm.meta_key = '_invoice_number'
                       )
-                      ORDER BY p.id ASC";
+                      ORDER BY p.id ASC
+                      LIMIT 50";
 
             $results = $wpdb->get_results( $query );
 			
-			if( isset($results) ) {
+			if( isset($results) && !empty( $results ) ) {
+
                 foreach ( $results as $result ) {
 
                     // Make the invoice if we need one.
@@ -916,6 +1069,11 @@
 
                 }
 
+                WC()->queue()->cancel_all( 'woocommerce_pdf_invoice_update_email_past_orders' );
+				WC()->queue()->schedule_single( time()+5, 'woocommerce_pdf_invoice_update_email_past_orders' );
+
+            } else {
+            	WC()->queue()->cancel_all( 'woocommerce_pdf_invoice_update_email_past_orders' );
             }
 
 		}
@@ -1191,6 +1349,30 @@
             }
 
 		}
+
+        /**
+         * [sagepay_debug description]
+         * @param  Array   $tolog   contents for log
+         * @param  String  $id      payment gateway ID
+         * @param  String  $message additional message for log
+         * @param  boolean $start   is this the first log entry for this transaction
+         */
+        public static function debuger( $tolog = NULL, $id, $message = NULL, $start = FALSE ) {
+
+        	if( !class_exists('WC_Logger') ) {
+        		return;
+        	}
+
+            if( !isset( $logger ) ) {
+                $logger      = new stdClass();
+                $logger->log = new WC_Logger();
+            }
+
+            $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
+            $logger->log->add( $id, print_r( $tolog, TRUE ) );
+            $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
+
+        }
 
 	} // EOF WC_pdf_functions
 

@@ -108,6 +108,14 @@ class CT_Ultimate_GDPR_Controller_Policy extends CT_Ultimate_GDPR_Controller_Abs
 			$this->get_id()
 		);
 
+        add_settings_field(
+            'policy_target_custom_new_tab', // ID
+            esc_html__( 'Open Privacy Policy in a new Tab', 'ct-ultimate-gdpr' ), // Title
+            array( $this, 'render_field_policy_new_tab' ), // Callback
+            $this->get_id(), // Page
+            $this->get_id() // Section
+        );
+
 		add_settings_field(
 			'policy_after_page', // ID
 			esc_html__( 'Page to redirect to after Privacy Policy accepted', 'ct-ultimate-gdpr' ), // Title
@@ -443,6 +451,20 @@ class CT_Ultimate_GDPR_Controller_Policy extends CT_Ultimate_GDPR_Controller_Abs
 
 		return $read_more_url;
 	}
+
+    /**
+     * @return bool|string
+     */
+    private function get_custom_target_page_new_tab() {
+
+        $new_tab = $this->get_option( 'policy_new_tab' );
+        $target  = '_self';
+
+        if ( $new_tab )
+            $target = '_blank';
+
+        return $target;
+    }
 
 	/**
 	 * @param string $variable_name
@@ -833,6 +855,23 @@ class CT_Ultimate_GDPR_Controller_Policy extends CT_Ultimate_GDPR_Controller_Abs
 
 	}
 
+    /**
+     *
+     */
+    public function render_field_policy_new_tab() {
+
+        $admin = CT_Ultimate_GDPR::instance()->get_admin_controller();
+
+        $field_name = $admin->get_field_name( __FUNCTION__ );
+        printf(
+            "<input class='ct-ultimate-gdpr-field' type='checkbox' id='%s' name='%s' %s />",
+            $admin->get_field_name( __FUNCTION__ ),
+            $admin->get_field_name_prefixed( $field_name ),
+            $admin->get_option_value( $field_name, '', $this->get_id() ) ? 'checked' : ''
+        );
+
+    }
+
 	/**
 	 *
 	 */
@@ -872,14 +911,16 @@ class CT_Ultimate_GDPR_Controller_Policy extends CT_Ultimate_GDPR_Controller_Abs
 
 		$url          = $this->get_custom_target_page() ? $this->get_custom_target_page() : get_permalink( $this->get_target_page_id() );
 		$placeholders = array_filter( array_map( 'trim', explode( ',', $this->get_option( 'policy_placeholder' ) ) ) );
+        $new_tab      = $this->get_custom_target_page_new_tab();
 
 		foreach ( $placeholders as $placeholder ) {
 
 			CT_Ultimate_GDPR_Model_Placeholders::instance()->add(
 				$placeholder,
 				sprintf(
-					'<a href="%s">%s</a>',
+					'<a href="%s" target="%s">%s</a>',
 					esc_url( $url ),
+                    $new_tab,
 					$placeholder
 				)
 			);

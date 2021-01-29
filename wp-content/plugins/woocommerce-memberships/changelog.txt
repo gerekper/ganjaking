@@ -1,5 +1,24 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.01.26 - version 1.21.2
+ * Fix - Make the "Redirect members upon login" setting effective also when users are logging in from the standard WordPress login form
+
+2021.01.26 - version 1.21.1
+ * Fix - Fix an upgrade script to avoid showing some notices to users who did not have free add ons installed
+ * Fix - Improve compatibility with Twenty Twenty and Twenty Twenty-One WordPress themes
+ * Fix - Ensure that the product price HTML of member discounted subscription products does not carry duplicated strings
+ * Fix - Restore the functionality of an alert when setting blanket rules to a plan on some browsers
+
+2021.01.25 - version 1.21.0
+ * Feature - Merge the Directory Shortcode free add on into Memberships core plugin
+ * Feature - Merge the Role Handler free add on into Memberships core plugin
+ * Feature - Merge the Sensei Member Area free add on into Memberships core plugin
+ * Feature - Merge the Excerpt Length free add on into Memberships core plugin
+ * Tweak - Improve Memberships performance and reduce the number of queries when querying product variation discount rules
+ * Tweak - Improve CSS rules for displaying membership plan rules in edit screens
+ * Fix - Omit a paragraph with a link to the members area in the Thank You page and email if the members area endpoint has been disabled
+ * Fix - Remove one unused deprecated function call from the Subscriptions integration
+
 2020.12.10 - version 1.20.0
  * Feature - Add Elementor page builder widget visibility restrictions setting for memberships
  * Tweak - Add support for the new WooCommerce navigation in WooCommerce Admin

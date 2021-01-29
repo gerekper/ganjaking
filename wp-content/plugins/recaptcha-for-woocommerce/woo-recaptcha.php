@@ -3,11 +3,11 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.4
+ * Version: 2.6
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
- * WC tested up to: 4.7
+ * WC tested up to: 4.9.1
  * Text Domain:recaptcha-for-woocommerce
  * Domain Path: languages/
  * Woo: 5347485:aeae74683dd892d43ed390cc28533524
@@ -55,15 +55,48 @@ class I13_Woo_Recpatcha {
 					// add the action 
 					add_action( 'woocommerce_init', array($this, 'i13_woo_verify_add_payment_method') );
 										
+										
 		if ($this->isIEBrowser()) {
 									
 			add_action( 'wp_head', array($this, 'i13_add_header_metadata_for_IE') );
 			add_action( 'login_head', array($this, 'i13_add_header_metadata_for_IE') );
 			add_filter( 'script_loader_tag', array($this,'i13_google_recaptcha_defer_parsing_of_js'), 10 );
 									
-		}        
+		}   
+				
+				$reCapcha_version = get_option('i13_recapcha_version'); 
+		if (''==$reCapcha_version) {
+			$reCapcha_version='v2';
+		}
+
+		if ('v2'== strtolower($reCapcha_version)) {
+					
+						$i13_recapcha_custom_wp_login_form_login=get_option('i13_recapcha_custom_wp_login_form_login');
+				
+			if ('yes'==$i13_recapcha_custom_wp_login_form_login) {
+					add_filter( 'login_form_middle', array($this, 'add_woo_recaptcha_to_custom_form'), 10, 2 );
+			}
+		} else {
+					
+				 $i13_recapcha__v3_custom_wp_login_form_login=get_option('i13_recapcha__v3_custom_wp_login_form_login');
+				
+			if ('yes'==$i13_recapcha__v3_custom_wp_login_form_login) {
+						add_filter( 'login_form_middle', array($this, 'add_woo_recaptcha_to_custom_form'), 10, 2 );
+			}
+					
+		}
+		
 	}
 	
+		
+		
+	public function add_woo_recaptcha_to_custom_form( $content, $args ) {
+			 ob_start();
+			 $this->i13woo_extra_login_fields();
+			 $output = ob_get_clean();
+			 return $output . $content;
+	}
+
 	public function i13_add_header_metadata_for_IE() {
 
 		echo '<meta http-equiv="X-UA-Compatible" content="IE=edge" />';
@@ -2862,7 +2895,7 @@ class I13_Woo_Recpatcha {
 										  
 												var checkout_form = jQuery('form.checkout');
 
-												checkout_form.on('checkout_place_order', function () {
+												/*checkout_form.on('checkout_place_order', function () {
 												   
 													grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_checkout_action_v3); ?>' }).then(function (token) {
 														
@@ -2872,8 +2905,9 @@ class I13_Woo_Recpatcha {
 													}, function (reason) {
 													  //console.log(reason);
 													});
-												});
+												});*/
 												
+											
 												jQuery(document).on('updated_checkout', function () {
 
 															grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_checkout_action_v3); ?>' }).then(function (token) {
@@ -3326,7 +3360,7 @@ class I13_Woo_Recpatcha {
 										  
 												var checkout_form = jQuery('form.checkout');
 
-												checkout_form.on('checkout_place_order', function () {
+												/*checkout_form.on('checkout_place_order', function () {
 												   
 													grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_checkout_action_v3); ?>' }).then(function (token) {
 														
@@ -3336,7 +3370,7 @@ class I13_Woo_Recpatcha {
 													}, function (reason) {
 													  //console.log(reason);
 													});
-												});
+												});*/
 												
 												jQuery(document).on('updated_checkout', function () {
 

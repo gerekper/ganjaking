@@ -1,15 +1,15 @@
-# Copyright (C) 2020 WooCommerce
+# Copyright (C) 2021 WooCommerce
 # This file is distributed under the same license as the WooCommerce Product Vendors package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Vendors 2.1.41\n"
+"Project-Id-Version: WooCommerce Product Vendors 2.1.47\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-vendors\n"
-"POT-Creation-Date: 2020-08-06 13:11:49+00:00\n"
+"POT-Creation-Date: 2021-01-26 20:14:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
@@ -95,7 +95,8 @@ msgstr ""
 #: includes/admin/class-wc-product-vendors-vendor-order-detail-list.php:124
 #: includes/admin/class-wc-product-vendors-vendor-orders-list.php:327
 #: includes/admin/views/html-create-vendor-fields-page.php:70
-#: includes/admin/views/html-edit-vendor-fields-page.php:106
+#: includes/admin/views/html-edit-vendor-fields-page.php:107
+#: includes/admin/views/html-edit-vendor-fields-page.php:115
 #: includes/admin/views/html-vendor-store-settings-page.php:76
 msgid "Commission"
 msgstr ""
@@ -238,13 +239,13 @@ msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:955
 #: includes/admin/views/html-create-vendor-fields-page.php:77
-#: includes/admin/views/html-edit-vendor-fields-page.php:116
+#: includes/admin/views/html-edit-vendor-fields-page.php:125
 msgid "Commission Type"
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:956
 #: includes/admin/views/html-create-vendor-fields-page.php:83
-#: includes/admin/views/html-edit-vendor-fields-page.php:124
+#: includes/admin/views/html-edit-vendor-fields-page.php:133
 msgid ""
 "Choose whether the commission amount will be a fixed amount or a percentage "
 "of the cost."
@@ -252,7 +253,7 @@ msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:961
 #: includes/admin/views/html-create-vendor-fields-page.php:79
-#: includes/admin/views/html-edit-vendor-fields-page.php:120
+#: includes/admin/views/html-edit-vendor-fields-page.php:129
 msgid "Percentage"
 msgstr ""
 
@@ -262,7 +263,7 @@ msgstr ""
 #: includes/admin/class-wc-product-vendors-vendor-admin.php:1314
 #: includes/admin/class-wc-product-vendors-vendor-admin.php:1351
 #: includes/admin/views/html-create-vendor-fields-page.php:80
-#: includes/admin/views/html-edit-vendor-fields-page.php:121
+#: includes/admin/views/html-edit-vendor-fields-page.php:130
 msgid "Fixed"
 msgstr ""
 
@@ -317,9 +318,9 @@ msgid "Enable this to show vendor's profile on vendor's page."
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:1072
-#: includes/class-wc-product-vendors-vendor-frontend.php:98
-#: includes/class-wc-product-vendors-vendor-frontend.php:121
-#: includes/class-wc-product-vendors-vendor-frontend.php:176
+#: includes/class-wc-product-vendors-vendor-frontend.php:100
+#: includes/class-wc-product-vendors-vendor-frontend.php:123
+#: includes/class-wc-product-vendors-vendor-frontend.php:178
 msgid "Sold By:"
 msgstr ""
 
@@ -345,37 +346,37 @@ msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:1268
 #: includes/admin/views/html-create-vendor-fields-page.php:99
-#: includes/admin/views/html-edit-vendor-fields-page.php:146
+#: includes/admin/views/html-edit-vendor-fields-page.php:155
 msgid "Keep Taxes"
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:1272
 #: includes/admin/views/html-create-vendor-fields-page.php:100
-#: includes/admin/views/html-edit-vendor-fields-page.php:147
+#: includes/admin/views/html-edit-vendor-fields-page.php:156
 msgid "Calculate commission based on product price only."
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:1277
 #: includes/admin/views/html-create-vendor-fields-page.php:104
-#: includes/admin/views/html-edit-vendor-fields-page.php:151
+#: includes/admin/views/html-edit-vendor-fields-page.php:160
 msgid "Pass Taxes"
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:1281
 #: includes/admin/views/html-create-vendor-fields-page.php:105
-#: includes/admin/views/html-edit-vendor-fields-page.php:152
+#: includes/admin/views/html-edit-vendor-fields-page.php:161
 msgid "All tax charges will be included in the vendor's commission."
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:1286
 #: includes/admin/views/html-create-vendor-fields-page.php:109
-#: includes/admin/views/html-edit-vendor-fields-page.php:156
+#: includes/admin/views/html-edit-vendor-fields-page.php:165
 msgid "Split Taxes"
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:1290
 #: includes/admin/views/html-create-vendor-fields-page.php:110
-#: includes/admin/views/html-edit-vendor-fields-page.php:157
+#: includes/admin/views/html-edit-vendor-fields-page.php:166
 msgid "The full price including taxes will be used to calculate commission."
 msgstr ""
 
@@ -887,7 +888,7 @@ msgstr ""
 msgid "Customer Shipping Address"
 msgstr ""
 
-#: includes/admin/class-wc-product-vendors-vendor-admin.php:1769
+#: includes/admin/class-wc-product-vendors-vendor-admin.php:1768
 msgid "Products awaiting fulfillment"
 msgstr ""
 
@@ -993,157 +994,157 @@ msgstr ""
 msgid "%1$s %2$s: %3$s"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:173
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:175
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:169
 msgid "%s average daily sales"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:177
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:179
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:173
 msgid "%s average monthly sales"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:182
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:184
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:178
 msgid "%s gross sales in this period"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:183
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:185
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:179
 msgid ""
 "This is the sum of the order totals after any refunds and including "
 "shipping and taxes."
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:189
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:191
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:185
 msgid "%s net sales in this period"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:190
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:192
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:186
 msgid ""
 "This is the sum of the order totals after any refunds and excluding "
 "shipping and taxes."
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:204
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:206
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:200
 msgid "%s orders placed"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:210
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:212
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:206
 msgid "%s items purchased"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:216
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:218
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:212
 msgid "%s charged for shipping"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:222
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:224
 msgid "%s total commission (vendors)"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:223
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:225
 msgid ""
 "This is the sum of the commission including shipping and taxes if "
 "applicable."
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:236
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:238
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:239
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:136
 msgid "Year"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:237
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:239
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:240
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:137
 msgid "Last Month"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:238
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:240
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:241
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:138
 msgid "This Month"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:239
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:241
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:242
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:139
 msgid "Last 7 Days"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:269
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:271
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:273
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:360
 msgid "Date"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:275
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:277
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:279
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:363
 #: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-admin.php:165
 msgid "Export CSV"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:406
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:410
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:406
 msgid "Number of orders"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:414
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:418
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:414
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:478
 msgid "Number of items sold"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:422
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:426
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:422
 msgid "Shipping amount"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:432
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:436
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:432
 msgid "Average sales amount"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:442
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:446
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:442
 msgid "Gross Sales amount"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:452
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:456
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-date.php:452
 msgid "Net Sales amount"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:462
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:466
 msgid "Total Commission Amount (vendors)"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:561
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:565
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:167
 msgid "Showing reports for:"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:583
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:587
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:198
 msgid "Reset"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:591
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:595
 msgid "Vendor Search"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:596
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:599
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:600
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:603
 msgid "Search for a vendor&hellip;"
 msgstr ""
 
-#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:602
+#: includes/admin/reports/store/class-wc-product-vendors-store-report-sales-by-date.php:606
 #: includes/admin/reports/vendor/class-wc-product-vendors-vendor-report-sales-by-product.php:218
 msgid "Show"
 msgstr ""
@@ -1360,71 +1361,71 @@ msgid ""
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:73
-#: includes/admin/views/html-edit-vendor-fields-page.php:106
+#: includes/admin/views/html-edit-vendor-fields-page.php:115
 msgid "Enter a positive number."
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:89
-#: includes/admin/views/html-edit-vendor-fields-page.php:129
+#: includes/admin/views/html-edit-vendor-fields-page.php:138
 msgid "Pass Shipping"
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:92
-#: includes/admin/views/html-edit-vendor-fields-page.php:134
+#: includes/admin/views/html-edit-vendor-fields-page.php:143
 msgid "Check box to pass the shipping charges to the vendor."
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:96
-#: includes/admin/views/html-edit-vendor-fields-page.php:140
+#: includes/admin/views/html-edit-vendor-fields-page.php:149
 msgid "Tax Handling"
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:115
-#: includes/admin/views/html-edit-vendor-fields-page.php:165
+#: includes/admin/views/html-edit-vendor-fields-page.php:174
 msgid "Instant Payout"
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:117
-#: includes/admin/views/html-edit-vendor-fields-page.php:169
+#: includes/admin/views/html-edit-vendor-fields-page.php:178
 msgid "Pay commission to vendor instantly when order is paid. (Uses PayPal Payouts)"
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:121
-#: includes/admin/views/html-edit-vendor-fields-page.php:174
+#: includes/admin/views/html-edit-vendor-fields-page.php:183
 #: includes/admin/views/html-vendor-store-settings-page.php:66
 msgid "PayPal Email"
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:124
-#: includes/admin/views/html-edit-vendor-fields-page.php:179
+#: includes/admin/views/html-edit-vendor-fields-page.php:188
 msgid ""
 "Scheduled commission payouts will be using this PayPal email to receive "
 "payments."
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:128
-#: includes/admin/views/html-edit-vendor-fields-page.php:184
+#: includes/admin/views/html-edit-vendor-fields-page.php:199
 #: includes/admin/views/html-vendor-store-settings-page.php:86
 msgid "Timezone"
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:133
-#: includes/admin/views/html-edit-vendor-fields-page.php:191
+#: includes/admin/views/html-edit-vendor-fields-page.php:206
 msgid "Set the local timezone."
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:138
-#: includes/admin/views/html-edit-vendor-fields-page.php:197
+#: includes/admin/views/html-edit-vendor-fields-page.php:212
 msgid "Show Per Product Shipping Rules"
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:140
-#: includes/admin/views/html-edit-vendor-fields-page.php:202
+#: includes/admin/views/html-edit-vendor-fields-page.php:217
 msgid "When enabled, vendor can edit per product shipping rules."
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:145
-#: includes/admin/views/html-edit-vendor-fields-page.php:209
+#: includes/admin/views/html-edit-vendor-fields-page.php:224
 msgid "Enable Bookings Feature"
 msgstr ""
 
@@ -1496,13 +1497,26 @@ msgstr ""
 msgid "Enter the public vendor profile your store's customers will see."
 msgstr ""
 
-#: includes/admin/views/html-edit-vendor-fields-page.php:111
+#: includes/admin/views/html-edit-vendor-fields-page.php:110
+msgid ""
+"Choose how commissions for this vendor are calculated. Product level "
+"commissions that have already been set will only be updated for commission "
+"(if no specific value was set on the product), commission type, and tax "
+"handling. Changing passing shipping on this page will only be applied to "
+"products created after updating."
+msgstr ""
+
+#: includes/admin/views/html-edit-vendor-fields-page.php:120
 msgid ""
 "This is the commission amount the vendor will receive. Product level "
 "commission can be set which will override this commission."
 msgstr ""
 
-#: includes/admin/views/html-edit-vendor-fields-page.php:214
+#: includes/admin/views/html-edit-vendor-fields-page.php:194
+msgid "Extra details"
+msgstr ""
+
+#: includes/admin/views/html-edit-vendor-fields-page.php:229
 msgid ""
 "Enable to allow vendors to create bookable products such as booking classes "
 "or lessons. ( WooCommerce Bookings sold separately )"
@@ -1851,63 +1865,63 @@ msgstr ""
 msgid "Please create vendors by going %1$sHere%2$s"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:601
+#: includes/class-wc-product-vendors-utils.php:637
 msgid "Average Vendor Rating"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:603
+#: includes/class-wc-product-vendors-utils.php:639
 msgid "Rated %s out of 5"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:605
+#: includes/class-wc-product-vendors-utils.php:641
 msgid "out of 5"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:1372
+#: includes/class-wc-product-vendors-utils.php:1412
 msgid "Pending"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:1375
+#: includes/class-wc-product-vendors-utils.php:1415
 msgid "Processing"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:1378
+#: includes/class-wc-product-vendors-utils.php:1418
 msgid "On-hold"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:1381
+#: includes/class-wc-product-vendors-utils.php:1421
 msgid "Completed"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:1384
+#: includes/class-wc-product-vendors-utils.php:1424
 msgid "Cancelled"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:1387
+#: includes/class-wc-product-vendors-utils.php:1427
 msgid "Refunded"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:1390
+#: includes/class-wc-product-vendors-utils.php:1430
 msgid "Failed"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:1393
+#: includes/class-wc-product-vendors-utils.php:1433
 msgid "Pre-ordered"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:1396
+#: includes/class-wc-product-vendors-utils.php:1436
 msgid "Trash"
 msgstr ""
 
-#: includes/class-wc-product-vendors-utils.php:1399
+#: includes/class-wc-product-vendors-utils.php:1439
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-wc-product-vendors-vendor-frontend.php:75
+#: includes/class-wc-product-vendors-vendor-frontend.php:77
 msgid "Vendor Dashboard"
 msgstr ""
 
-#: includes/class-wc-product-vendors-vendor-frontend.php:150
+#: includes/class-wc-product-vendors-vendor-frontend.php:152
 msgid "Sold By"
 msgstr ""
 

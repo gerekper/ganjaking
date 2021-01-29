@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -401,7 +401,7 @@ class Posts {
 	 *
 	 * @see \WC_Memberships_Posts_Restrictions::redirect_restricted_content()
 	 * This callback must have a higher priority than custom login redirects:
-	 * @see \WC_Memberships_Frontend::redirect_to_page_upon_login()
+	 * @see \WC_Memberships_Frontend::redirect_to_page_upon_woocommerce_login()
 	 *
 	 * @internal
 	 *

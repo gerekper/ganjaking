@@ -1,15 +1,15 @@
-# Copyright (C) 2020 reCaptcha for WooCommerce
+# Copyright (C) 2021 reCaptcha for WooCommerce
 # This file is distributed under the same license as the reCaptcha for WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: reCaptcha for WooCommerce 2.4\n"
+"Project-Id-Version: reCaptcha for WooCommerce 2.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/recaptcha-for-"
 "woocommerce\n"
-"POT-Creation-Date: 2020-12-08 16:31:44+00:00\n"
+"POT-Creation-Date: 2021-01-25 06:34:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -66,94 +66,94 @@ msgid "Enable Recaptcha on Signup"
 msgstr ""
 
 #: includes/Settings.php:195 includes/Settings.php:291
-#: includes/Settings.php:383 includes/Settings.php:485
-#: includes/Settings.php:637 includes/Settings.php:738
-#: includes/Settings.php:833 includes/Settings.php:928
+#: includes/Settings.php:395 includes/Settings.php:497
+#: includes/Settings.php:649 includes/Settings.php:750
+#: includes/Settings.php:845 includes/Settings.php:940
 msgid "Recaptcha Field Title"
 msgstr ""
 
 #: includes/Settings.php:201 includes/Settings.php:297
-#: includes/Settings.php:389 includes/Settings.php:491
-#: includes/Settings.php:643 includes/Settings.php:744
-#: includes/Settings.php:839 includes/Settings.php:934
+#: includes/Settings.php:401 includes/Settings.php:503
+#: includes/Settings.php:655 includes/Settings.php:756
+#: includes/Settings.php:851 includes/Settings.php:946
 msgid "Hide Label"
 msgstr ""
 
 #: includes/Settings.php:205 includes/Settings.php:301
-#: includes/Settings.php:393 includes/Settings.php:495
-#: includes/Settings.php:647 includes/Settings.php:748
-#: includes/Settings.php:843 includes/Settings.php:938
+#: includes/Settings.php:405 includes/Settings.php:507
+#: includes/Settings.php:659 includes/Settings.php:760
+#: includes/Settings.php:855 includes/Settings.php:950
 msgid "Hide label on form?"
 msgstr ""
 
 #: includes/Settings.php:208 includes/Settings.php:304
-#: includes/Settings.php:396 includes/Settings.php:504
-#: includes/Settings.php:650 includes/Settings.php:751
-#: includes/Settings.php:846 includes/Settings.php:941
+#: includes/Settings.php:408 includes/Settings.php:516
+#: includes/Settings.php:662 includes/Settings.php:763
+#: includes/Settings.php:858 includes/Settings.php:953
 msgid "Recaptcha Theme"
 msgstr ""
 
 #: includes/Settings.php:211 includes/Settings.php:307
-#: includes/Settings.php:399 includes/Settings.php:507
-#: includes/Settings.php:653 includes/Settings.php:754
-#: includes/Settings.php:849 includes/Settings.php:944
+#: includes/Settings.php:411 includes/Settings.php:519
+#: includes/Settings.php:665 includes/Settings.php:766
+#: includes/Settings.php:861 includes/Settings.php:956
 msgid "Light"
 msgstr ""
 
 #: includes/Settings.php:211 includes/Settings.php:307
-#: includes/Settings.php:399 includes/Settings.php:507
-#: includes/Settings.php:653 includes/Settings.php:754
-#: includes/Settings.php:849 includes/Settings.php:944
+#: includes/Settings.php:411 includes/Settings.php:519
+#: includes/Settings.php:665 includes/Settings.php:766
+#: includes/Settings.php:861 includes/Settings.php:956
 msgid "Dark"
 msgstr ""
 
 #: includes/Settings.php:215 includes/Settings.php:311
-#: includes/Settings.php:403 includes/Settings.php:511
-#: includes/Settings.php:657 includes/Settings.php:758
-#: includes/Settings.php:853 includes/Settings.php:948
+#: includes/Settings.php:415 includes/Settings.php:523
+#: includes/Settings.php:669 includes/Settings.php:770
+#: includes/Settings.php:865 includes/Settings.php:960
 msgid "Recaptcha Size"
 msgstr ""
 
 #: includes/Settings.php:218 includes/Settings.php:314
-#: includes/Settings.php:406 includes/Settings.php:514
-#: includes/Settings.php:660 includes/Settings.php:761
-#: includes/Settings.php:856 includes/Settings.php:951
+#: includes/Settings.php:418 includes/Settings.php:526
+#: includes/Settings.php:672 includes/Settings.php:773
+#: includes/Settings.php:868 includes/Settings.php:963
 msgid "Normal"
 msgstr ""
 
 #: includes/Settings.php:218 includes/Settings.php:314
-#: includes/Settings.php:406 includes/Settings.php:514
-#: includes/Settings.php:660 includes/Settings.php:761
-#: includes/Settings.php:856 includes/Settings.php:951
+#: includes/Settings.php:418 includes/Settings.php:526
+#: includes/Settings.php:672 includes/Settings.php:773
+#: includes/Settings.php:868 includes/Settings.php:963
 msgid "Compact"
 msgstr ""
 
 #: includes/Settings.php:222 includes/Settings.php:318
-#: includes/Settings.php:410 includes/Settings.php:524
-#: includes/Settings.php:530 includes/Settings.php:536
-#: includes/Settings.php:664 includes/Settings.php:765
-#: includes/Settings.php:860 includes/Settings.php:955
+#: includes/Settings.php:422 includes/Settings.php:536
+#: includes/Settings.php:542 includes/Settings.php:548
+#: includes/Settings.php:676 includes/Settings.php:777
+#: includes/Settings.php:872 includes/Settings.php:967
 msgid "Disable submit button"
 msgstr ""
 
 #: includes/Settings.php:223 includes/Settings.php:319
-#: includes/Settings.php:411 includes/Settings.php:665
-#: includes/Settings.php:766 includes/Settings.php:861
-#: includes/Settings.php:956
+#: includes/Settings.php:423 includes/Settings.php:677
+#: includes/Settings.php:778 includes/Settings.php:873
+#: includes/Settings.php:968
 msgid "Disable submit button until recaptcha validate."
 msgstr ""
 
-#: includes/Settings.php:249 includes/Settings.php:344
-#: includes/Settings.php:436 includes/Settings.php:596
-#: includes/Settings.php:692 includes/Settings.php:792
-#: includes/Settings.php:887 includes/Settings.php:982
+#: includes/Settings.php:249 includes/Settings.php:350
+#: includes/Settings.php:448 includes/Settings.php:608
+#: includes/Settings.php:704 includes/Settings.php:804
+#: includes/Settings.php:899 includes/Settings.php:994
 msgid "Recaptcha score threshold"
 msgstr ""
 
-#: includes/Settings.php:253 includes/Settings.php:348
-#: includes/Settings.php:440 includes/Settings.php:600
-#: includes/Settings.php:696 includes/Settings.php:796
-#: includes/Settings.php:892 includes/Settings.php:986
+#: includes/Settings.php:253 includes/Settings.php:354
+#: includes/Settings.php:452 includes/Settings.php:612
+#: includes/Settings.php:708 includes/Settings.php:808
+#: includes/Settings.php:904 includes/Settings.php:998
 msgid ""
 "Instead of showing a CAPTCHA challenge, reCAPTCHA v3 returns a score so you "
 "can choose the most appropriate action for your website. The score is based "
@@ -163,66 +163,74 @@ msgid ""
 "indicating a good likelihood that the traffic was generated by bots"
 msgstr ""
 
-#: includes/Settings.php:256 includes/Settings.php:351
-#: includes/Settings.php:443 includes/Settings.php:603
-#: includes/Settings.php:699 includes/Settings.php:799
-#: includes/Settings.php:895 includes/Settings.php:989
+#: includes/Settings.php:256 includes/Settings.php:357
+#: includes/Settings.php:455 includes/Settings.php:615
+#: includes/Settings.php:711 includes/Settings.php:811
+#: includes/Settings.php:907 includes/Settings.php:1001
 msgid "Recaptcha Action Name"
 msgstr ""
 
-#: includes/Settings.php:260 includes/Settings.php:355
-#: includes/Settings.php:447 includes/Settings.php:607
-#: includes/Settings.php:703 includes/Settings.php:803
-#: includes/Settings.php:899 includes/Settings.php:993
+#: includes/Settings.php:260 includes/Settings.php:361
+#: includes/Settings.php:459 includes/Settings.php:619
+#: includes/Settings.php:715 includes/Settings.php:815
+#: includes/Settings.php:911 includes/Settings.php:1005
 msgid ""
 "In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag "
 "that you can use to define the key steps of your user journey and enable "
 "reCAPTCHA to run its risk analysis in context."
 msgstr ""
 
-#: includes/Settings.php:280 includes/Settings.php:333
+#: includes/Settings.php:280 includes/Settings.php:339
 msgid "Recaptcha On Login Page"
 msgstr ""
 
-#: includes/Settings.php:286 includes/Settings.php:339
+#: includes/Settings.php:286 includes/Settings.php:345
 msgid "Enable Recaptcha on Login"
 msgstr ""
 
-#: includes/Settings.php:372 includes/Settings.php:425
+#: includes/Settings.php:324 includes/Settings.php:364
+msgid "Have custom wp login form"
+msgstr ""
+
+#: includes/Settings.php:325 includes/Settings.php:365
+msgid "Using custom login form with using wp_login_form"
+msgstr ""
+
+#: includes/Settings.php:384 includes/Settings.php:437
 msgid "Recaptcha On Lost Password Page"
 msgstr ""
 
-#: includes/Settings.php:378 includes/Settings.php:431
+#: includes/Settings.php:390 includes/Settings.php:443
 msgid "Enable Recaptcha on Lost Password"
 msgstr ""
 
-#: includes/Settings.php:463 includes/Settings.php:567
+#: includes/Settings.php:475 includes/Settings.php:579
 msgid "Recaptcha on Checkout"
 msgstr ""
 
-#: includes/Settings.php:469 includes/Settings.php:573
+#: includes/Settings.php:481 includes/Settings.php:585
 msgid "Enable Recaptcha on Guest Checkout"
 msgstr ""
 
-#: includes/Settings.php:474 includes/Settings.php:578
+#: includes/Settings.php:486 includes/Settings.php:590
 msgid "Enable Recaptcha on Login Checkout"
 msgstr ""
 
-#: includes/Settings.php:479 includes/Settings.php:583
+#: includes/Settings.php:491 includes/Settings.php:595
 msgid "Enable Recaptcha on Pay For Order"
 msgstr ""
 
-#: includes/Settings.php:482 includes/Settings.php:586
+#: includes/Settings.php:494 includes/Settings.php:598
 msgid ""
 "WooCommerce allow faild order to pay again. In this case captcha must be "
 "needed to prevent fraud"
 msgstr ""
 
-#: includes/Settings.php:497 includes/Settings.php:589
+#: includes/Settings.php:509 includes/Settings.php:601
 msgid "Recaptcha Validity"
 msgstr ""
 
-#: includes/Settings.php:501 includes/Settings.php:593
+#: includes/Settings.php:513 includes/Settings.php:605
 msgid ""
 "Some payment processor needs more time to process an order. So captcha will "
 "valid for a given number of minutes once reCaptcha is validate. 0 means "
@@ -230,76 +238,76 @@ msgid ""
 "you leave blank."
 msgstr ""
 
-#: includes/Settings.php:518
+#: includes/Settings.php:530
 msgid "Recaptcha Refresh Title"
 msgstr ""
 
-#: includes/Settings.php:525
+#: includes/Settings.php:537
 msgid "Disable submit button until recaptcha validate for guest checkout."
 msgstr ""
 
-#: includes/Settings.php:531
+#: includes/Settings.php:543
 msgid "Disable submit button until recaptcha validate for login checkout."
 msgstr ""
 
-#: includes/Settings.php:537
+#: includes/Settings.php:549
 msgid "Disable submit button until recaptcha validate for pay for order."
 msgstr ""
 
-#: includes/Settings.php:542 includes/Settings.php:543
+#: includes/Settings.php:554 includes/Settings.php:555
 msgid "Refresh captcha on guest checkout error"
 msgstr ""
 
-#: includes/Settings.php:548 includes/Settings.php:549
+#: includes/Settings.php:560 includes/Settings.php:561
 msgid "Refresh captcha on login checkout error"
 msgstr ""
 
-#: includes/Settings.php:626 includes/Settings.php:681
+#: includes/Settings.php:638 includes/Settings.php:693
 msgid "Recaptcha On WP Login"
 msgstr ""
 
-#: includes/Settings.php:632 includes/Settings.php:687
+#: includes/Settings.php:644 includes/Settings.php:699
 msgid "Enable Recaptcha on WP Login"
 msgstr ""
 
-#: includes/Settings.php:706
+#: includes/Settings.php:718
 msgid "Disable on the fly reCAPTCHA v3 token generation"
 msgstr ""
 
-#: includes/Settings.php:709
+#: includes/Settings.php:721
 msgid ""
 "Use only when there is problem with other plugin that use submit button."
 msgstr ""
 
-#: includes/Settings.php:727 includes/Settings.php:781
+#: includes/Settings.php:739 includes/Settings.php:793
 msgid "Recaptcha On Add Payment Method Login"
 msgstr ""
 
-#: includes/Settings.php:733 includes/Settings.php:787
+#: includes/Settings.php:745 includes/Settings.php:799
 msgid "Enable Recaptcha on Add Payment Method"
 msgstr ""
 
-#: includes/Settings.php:822 includes/Settings.php:876
+#: includes/Settings.php:834 includes/Settings.php:888
 msgid "Recaptcha On WP Registration"
 msgstr ""
 
-#: includes/Settings.php:828 includes/Settings.php:882
+#: includes/Settings.php:840 includes/Settings.php:894
 msgid "Enable Recaptcha on WP Registration"
 msgstr ""
 
-#: includes/Settings.php:917 includes/Settings.php:971
+#: includes/Settings.php:929 includes/Settings.php:983
 msgid "Recaptcha On WP Lost Password"
 msgstr ""
 
-#: includes/Settings.php:923 includes/Settings.php:977
+#: includes/Settings.php:935 includes/Settings.php:989
 msgid "Enable Recaptcha on WP Lost Password"
 msgstr ""
 
-#: includes/Settings.php:1016
+#: includes/Settings.php:1028
 msgid "Recaptcha Settings"
 msgstr ""
 
-#: includes/Settings.php:1018
+#: includes/Settings.php:1030
 msgid ""
 "Please use this guideline to get <a target=\"_blank\" href=\"http://blog."
 "i13websolution.com/how-to-get-google-recaptcha-v2-checkbox-keys/\"> "
@@ -308,19 +316,19 @@ msgid ""
 "\"> reCaptcha keys V3 </a></b>"
 msgstr ""
 
-#: includes/Settings.php:1023
+#: includes/Settings.php:1035
 msgid "Recaptcha Version"
 msgstr ""
 
-#: includes/Settings.php:1026
+#: includes/Settings.php:1038
 msgid "ReCaptcha V2 (checkbox)"
 msgstr ""
 
-#: includes/Settings.php:1026
+#: includes/Settings.php:1038
 msgid "ReCaptcha V3"
 msgstr ""
 
-#: includes/Settings.php:1033
+#: includes/Settings.php:1045
 msgid ""
 "ReCaptcha V3 Uses a behind-the-scenes scoring system to detect abusive "
 "traffic, and lets you decide the minimum passing score. Please note that "
@@ -328,65 +336,65 @@ msgid ""
 "recaptcha challenge is shown to solve."
 msgstr ""
 
-#: includes/Settings.php:1036 includes/Settings.php:1042
+#: includes/Settings.php:1048 includes/Settings.php:1054
 msgid "Site Key"
 msgstr ""
 
-#: includes/Settings.php:1038
+#: includes/Settings.php:1050
 msgid "Get site key from www.google.com/recaptcha"
 msgstr ""
 
-#: includes/Settings.php:1044
+#: includes/Settings.php:1056
 msgid "Get reCAPTCHA V3 site key from www.google.com/recaptcha"
 msgstr ""
 
-#: includes/Settings.php:1048 includes/Settings.php:1054
+#: includes/Settings.php:1060 includes/Settings.php:1066
 msgid "Secret Key"
 msgstr ""
 
-#: includes/Settings.php:1050
+#: includes/Settings.php:1062
 msgid "Get Secret key from www.google.com/recaptcha"
 msgstr ""
 
-#: includes/Settings.php:1056
+#: includes/Settings.php:1068
 msgid "Get reCAPTCHA V3 Secret key from www.google.com/recaptcha"
 msgstr ""
 
-#: includes/Settings.php:1060
+#: includes/Settings.php:1072
 msgid "Error message recaptcha verification failed"
 msgstr ""
 
-#: includes/Settings.php:1064
+#: includes/Settings.php:1076
 msgid ""
 "This message shown when google detect abusive, invalid, spam, bot etc traffic"
 msgstr ""
 
-#: includes/Settings.php:1067 includes/Settings.php:1081
+#: includes/Settings.php:1079 includes/Settings.php:1093
 msgid "Error message recaptcha blank"
 msgstr ""
 
-#: includes/Settings.php:1074
+#: includes/Settings.php:1086
 msgid "Error message for can not connect to server"
 msgstr ""
 
-#: includes/Settings.php:1085 includes/Settings.php:1093
-#: includes/Settings.php:1100
+#: includes/Settings.php:1097 includes/Settings.php:1105
+#: includes/Settings.php:1112
 msgid "[recaptcha] will replaced with captcha field title"
 msgstr ""
 
-#: includes/Settings.php:1089
+#: includes/Settings.php:1101
 msgid "Error message for can not connect to server "
 msgstr ""
 
-#: includes/Settings.php:1096
+#: includes/Settings.php:1108
 msgid "Error message for invalid captcha"
 msgstr ""
 
-#: includes/Settings.php:1103 includes/Settings.php:1109
+#: includes/Settings.php:1115 includes/Settings.php:1121
 msgid "No-Conflict Mode"
 msgstr ""
 
-#: includes/Settings.php:1106 includes/Settings.php:1112
+#: includes/Settings.php:1118 includes/Settings.php:1124
 msgid ""
 "When checked, other reCAPTCHA occurrences on this plugin sections like "
 "checkout, registration, login etc are forcefully removed, to prevent "
@@ -394,85 +402,85 @@ msgid ""
 "instructed to by support."
 msgstr ""
 
-#: woo-recaptcha.php:168 woo-recaptcha.php:362 woo-recaptcha.php:550
-#: woo-recaptcha.php:770 woo-recaptcha.php:846 woo-recaptcha.php:1083
-#: woo-recaptcha.php:1295 woo-recaptcha.php:1495 woo-recaptcha.php:1687
-#: woo-recaptcha.php:4351
+#: woo-recaptcha.php:201 woo-recaptcha.php:395 woo-recaptcha.php:583
+#: woo-recaptcha.php:803 woo-recaptcha.php:879 woo-recaptcha.php:1116
+#: woo-recaptcha.php:1328 woo-recaptcha.php:1528 woo-recaptcha.php:1720
+#: woo-recaptcha.php:4385
 msgid "Invalid recaptcha."
 msgstr ""
 
-#: woo-recaptcha.php:179 woo-recaptcha.php:371 woo-recaptcha.php:559
-#: woo-recaptcha.php:787 woo-recaptcha.php:863 woo-recaptcha.php:1092
-#: woo-recaptcha.php:1305 woo-recaptcha.php:1504 woo-recaptcha.php:1699
-#: woo-recaptcha.php:4373
+#: woo-recaptcha.php:212 woo-recaptcha.php:404 woo-recaptcha.php:592
+#: woo-recaptcha.php:820 woo-recaptcha.php:896 woo-recaptcha.php:1125
+#: woo-recaptcha.php:1338 woo-recaptcha.php:1537 woo-recaptcha.php:1732
+#: woo-recaptcha.php:4407
 msgid "Could not get response from recaptcha server."
 msgstr ""
 
-#: woo-recaptcha.php:188 woo-recaptcha.php:380 woo-recaptcha.php:568
-#: woo-recaptcha.php:797 woo-recaptcha.php:872 woo-recaptcha.php:1103
-#: woo-recaptcha.php:1314 woo-recaptcha.php:1514 woo-recaptcha.php:1712
-#: woo-recaptcha.php:1926 woo-recaptcha.php:1991 woo-recaptcha.php:2365
-#: woo-recaptcha.php:2556 woo-recaptcha.php:2632 woo-recaptcha.php:2648
-#: woo-recaptcha.php:2721 woo-recaptcha.php:2787 woo-recaptcha.php:2804
-#: woo-recaptcha.php:3019 woo-recaptcha.php:3208 woo-recaptcha.php:3499
-#: woo-recaptcha.php:3695 woo-recaptcha.php:3940 woo-recaptcha.php:4144
-#: woo-recaptcha.php:4388
+#: woo-recaptcha.php:221 woo-recaptcha.php:413 woo-recaptcha.php:601
+#: woo-recaptcha.php:830 woo-recaptcha.php:905 woo-recaptcha.php:1136
+#: woo-recaptcha.php:1347 woo-recaptcha.php:1547 woo-recaptcha.php:1745
+#: woo-recaptcha.php:1959 woo-recaptcha.php:2024 woo-recaptcha.php:2398
+#: woo-recaptcha.php:2589 woo-recaptcha.php:2665 woo-recaptcha.php:2681
+#: woo-recaptcha.php:2754 woo-recaptcha.php:2820 woo-recaptcha.php:2837
+#: woo-recaptcha.php:3053 woo-recaptcha.php:3242 woo-recaptcha.php:3533
+#: woo-recaptcha.php:3729 woo-recaptcha.php:3974 woo-recaptcha.php:4178
+#: woo-recaptcha.php:4422
 msgid "Recaptcha is a required field."
 msgstr ""
 
-#: woo-recaptcha.php:196 woo-recaptcha.php:387 woo-recaptcha.php:575
-#: woo-recaptcha.php:803 woo-recaptcha.php:879 woo-recaptcha.php:1110
-#: woo-recaptcha.php:1321 woo-recaptcha.php:1724 woo-recaptcha.php:4403
+#: woo-recaptcha.php:229 woo-recaptcha.php:420 woo-recaptcha.php:608
+#: woo-recaptcha.php:836 woo-recaptcha.php:912 woo-recaptcha.php:1143
+#: woo-recaptcha.php:1354 woo-recaptcha.php:1757 woo-recaptcha.php:4437
 msgid "Could not verify request."
 msgstr ""
 
-#: woo-recaptcha.php:254 woo-recaptcha.php:268 woo-recaptcha.php:444
-#: woo-recaptcha.php:458 woo-recaptcha.php:633 woo-recaptcha.php:647
-#: woo-recaptcha.php:960 woo-recaptcha.php:974 woo-recaptcha.php:1178
-#: woo-recaptcha.php:1190 woo-recaptcha.php:1390 woo-recaptcha.php:1404
-#: woo-recaptcha.php:1575 woo-recaptcha.php:1587 woo-recaptcha.php:1801
-#: woo-recaptcha.php:1818 woo-recaptcha.php:4486 woo-recaptcha.php:4504
+#: woo-recaptcha.php:287 woo-recaptcha.php:301 woo-recaptcha.php:477
+#: woo-recaptcha.php:491 woo-recaptcha.php:666 woo-recaptcha.php:680
+#: woo-recaptcha.php:993 woo-recaptcha.php:1007 woo-recaptcha.php:1211
+#: woo-recaptcha.php:1223 woo-recaptcha.php:1423 woo-recaptcha.php:1437
+#: woo-recaptcha.php:1608 woo-recaptcha.php:1620 woo-recaptcha.php:1834
+#: woo-recaptcha.php:1851 woo-recaptcha.php:4520 woo-recaptcha.php:4538
 msgid "Google reCAPTCHA verification failed, please try again later."
 msgstr ""
 
-#: woo-recaptcha.php:283 woo-recaptcha.php:473 woo-recaptcha.php:662
-#: woo-recaptcha.php:995 woo-recaptcha.php:1205 woo-recaptcha.php:1419
-#: woo-recaptcha.php:1599 woo-recaptcha.php:1840 woo-recaptcha.php:4531
+#: woo-recaptcha.php:316 woo-recaptcha.php:506 woo-recaptcha.php:695
+#: woo-recaptcha.php:1028 woo-recaptcha.php:1238 woo-recaptcha.php:1452
+#: woo-recaptcha.php:1632 woo-recaptcha.php:1873 woo-recaptcha.php:4565
 msgid "Could not get response from reCAPTCHA server."
 msgstr ""
 
-#: woo-recaptcha.php:296 woo-recaptcha.php:486 woo-recaptcha.php:675
-#: woo-recaptcha.php:1008 woo-recaptcha.php:1218 woo-recaptcha.php:1432
-#: woo-recaptcha.php:1609 woo-recaptcha.php:1859 woo-recaptcha.php:4550
+#: woo-recaptcha.php:329 woo-recaptcha.php:519 woo-recaptcha.php:708
+#: woo-recaptcha.php:1041 woo-recaptcha.php:1251 woo-recaptcha.php:1465
+#: woo-recaptcha.php:1642 woo-recaptcha.php:1892 woo-recaptcha.php:4584
 msgid "Google reCAPTCHA token is missing."
 msgstr ""
 
-#: woo-recaptcha.php:362 woo-recaptcha.php:364 woo-recaptcha.php:371
-#: woo-recaptcha.php:373 woo-recaptcha.php:380 woo-recaptcha.php:382
-#: woo-recaptcha.php:387 woo-recaptcha.php:444 woo-recaptcha.php:447
-#: woo-recaptcha.php:458 woo-recaptcha.php:462 woo-recaptcha.php:473
-#: woo-recaptcha.php:477 woo-recaptcha.php:486 woo-recaptcha.php:490
-#: woo-recaptcha.php:550 woo-recaptcha.php:552 woo-recaptcha.php:559
-#: woo-recaptcha.php:561 woo-recaptcha.php:568 woo-recaptcha.php:570
-#: woo-recaptcha.php:575 woo-recaptcha.php:633 woo-recaptcha.php:636
-#: woo-recaptcha.php:647 woo-recaptcha.php:651 woo-recaptcha.php:662
-#: woo-recaptcha.php:666 woo-recaptcha.php:675 woo-recaptcha.php:679
-#: woo-recaptcha.php:1495 woo-recaptcha.php:1497 woo-recaptcha.php:1504
-#: woo-recaptcha.php:1506 woo-recaptcha.php:1514 woo-recaptcha.php:1516
-#: woo-recaptcha.php:1575 woo-recaptcha.php:1577 woo-recaptcha.php:1587
-#: woo-recaptcha.php:1589 woo-recaptcha.php:1599 woo-recaptcha.php:1601
-#: woo-recaptcha.php:1609 woo-recaptcha.php:1611
+#: woo-recaptcha.php:395 woo-recaptcha.php:397 woo-recaptcha.php:404
+#: woo-recaptcha.php:406 woo-recaptcha.php:413 woo-recaptcha.php:415
+#: woo-recaptcha.php:420 woo-recaptcha.php:477 woo-recaptcha.php:480
+#: woo-recaptcha.php:491 woo-recaptcha.php:495 woo-recaptcha.php:506
+#: woo-recaptcha.php:510 woo-recaptcha.php:519 woo-recaptcha.php:523
+#: woo-recaptcha.php:583 woo-recaptcha.php:585 woo-recaptcha.php:592
+#: woo-recaptcha.php:594 woo-recaptcha.php:601 woo-recaptcha.php:603
+#: woo-recaptcha.php:608 woo-recaptcha.php:666 woo-recaptcha.php:669
+#: woo-recaptcha.php:680 woo-recaptcha.php:684 woo-recaptcha.php:695
+#: woo-recaptcha.php:699 woo-recaptcha.php:708 woo-recaptcha.php:712
+#: woo-recaptcha.php:1528 woo-recaptcha.php:1530 woo-recaptcha.php:1537
+#: woo-recaptcha.php:1539 woo-recaptcha.php:1547 woo-recaptcha.php:1549
+#: woo-recaptcha.php:1608 woo-recaptcha.php:1610 woo-recaptcha.php:1620
+#: woo-recaptcha.php:1622 woo-recaptcha.php:1632 woo-recaptcha.php:1634
+#: woo-recaptcha.php:1642 woo-recaptcha.php:1644
 msgid "ERROR:"
 msgstr ""
 
-#: woo-recaptcha.php:1977 woo-recaptcha.php:2346 woo-recaptcha.php:2535
-#: woo-recaptcha.php:2701 woo-recaptcha.php:2998 woo-recaptcha.php:3188
-#: woo-recaptcha.php:3478 woo-recaptcha.php:3673 woo-recaptcha.php:3921
-#: woo-recaptcha.php:4123
+#: woo-recaptcha.php:2010 woo-recaptcha.php:2379 woo-recaptcha.php:2568
+#: woo-recaptcha.php:2734 woo-recaptcha.php:3032 woo-recaptcha.php:3222
+#: woo-recaptcha.php:3512 woo-recaptcha.php:3707 woo-recaptcha.php:3955
+#: woo-recaptcha.php:4157
 msgid "Captcha"
 msgstr ""
 
-#: woo-recaptcha.php:2509 woo-recaptcha.php:3165
+#: woo-recaptcha.php:2542 woo-recaptcha.php:3199
 msgid "Refresh Captcha"
 msgstr ""
 

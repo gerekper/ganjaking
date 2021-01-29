@@ -1,15 +1,15 @@
-# Copyright (C) 2020 WooCommerce
+# Copyright (C) 2021 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Currency Converter 1.6.23\n"
+"Project-Id-Version: WooCommerce Currency Converter 1.6.24\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-currency-converter-widget\n"
-"POT-Creation-Date: 2020-08-14 19:15:06+00:00\n"
+"POT-Creation-Date: 2021-01-28 01:27:38+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:381
+#: includes/class-wc-currency-converter.php:380
 msgid "Original price:"
 msgstr ""
 
@@ -50,23 +50,23 @@ msgstr ""
 msgid "Allow users to choose a currency for prices to be displayed in."
 msgstr ""
 
-#: includes/currency-converter-widget.php:130
+#: includes/currency-converter-widget.php:127
 msgid "Title:"
 msgstr ""
 
-#: includes/currency-converter-widget.php:131
+#: includes/currency-converter-widget.php:128
 msgid "Currency converter"
 msgstr ""
 
-#: includes/currency-converter-widget.php:134
+#: includes/currency-converter-widget.php:131
 msgid "Currency codes:"
 msgstr ""
 
-#: includes/currency-converter-widget.php:134
+#: includes/currency-converter-widget.php:131
 msgid "1 per line"
 msgstr ""
 
-#: includes/currency-converter-widget.php:136
+#: includes/currency-converter-widget.php:133
 msgid ""
 "Use * to control how the amounts and currency symbols are displayed. "
 "Example: SEK* becomes 999kr. USD * becomes 999 $. If you omit * and just "
@@ -74,41 +74,41 @@ msgid ""
 "will be used."
 msgstr ""
 
-#: includes/currency-converter-widget.php:139
+#: includes/currency-converter-widget.php:136
 msgid "Currency Display Mode:"
 msgstr ""
 
-#: includes/currency-converter-widget.php:141
+#: includes/currency-converter-widget.php:138
 msgid "Buttons"
 msgstr ""
 
-#: includes/currency-converter-widget.php:142
+#: includes/currency-converter-widget.php:139
 msgid "Select Box"
 msgstr ""
 
-#: includes/currency-converter-widget.php:146
+#: includes/currency-converter-widget.php:143
 msgid "Widget message:"
 msgstr ""
 
-#: includes/currency-converter-widget.php:147
+#: includes/currency-converter-widget.php:144
 msgid ""
 "Currency conversions are estimated and should be used for informational "
 "purposes only."
 msgstr ""
 
-#: includes/currency-converter-widget.php:150
+#: includes/currency-converter-widget.php:147
 msgid "Show currency symbols in widget:"
 msgstr ""
 
-#: includes/currency-converter-widget.php:154
+#: includes/currency-converter-widget.php:151
 msgid "Show reset link:"
 msgstr ""
 
-#: includes/currency-converter-widget.php:158
+#: includes/currency-converter-widget.php:155
 msgid "Disable location detection:"
 msgstr ""
 
-#: includes/currency-converter-widget.php:160
+#: includes/currency-converter-widget.php:157
 msgid ""
 "The currency converter widget will default to the currency for a user's "
 "currenct location. Check this box to disable location detection and default "

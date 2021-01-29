@@ -86,11 +86,19 @@ class WPSEO_WooCommerce_Schema {
 	 * @return bool False when there's nothing to output, true when we did output something.
 	 */
 	public function output_schema_footer() {
-		if ( empty( $this->data ) || $this->data === [] ) {
+		if ( empty( $this->data ) || $this->data === [] || ! is_array( $this->data ) ) {
 			return false;
 		}
 
-		WPSEO_Utils::schema_output( [ $this->data ], 'yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer' );
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- We need to output HTML. If we escape this we break it.
+		echo new WPSEO_WooCommerce_Schema_Presenter(
+			[ $this->data ],
+			[
+				'yoast-schema-graph',
+				'yoast-schema-graph--woo',
+				'yoast-schema-graph--footer',
+			]
+		);
 
 		return true;
 	}

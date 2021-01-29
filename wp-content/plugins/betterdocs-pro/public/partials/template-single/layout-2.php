@@ -105,7 +105,17 @@ $htags = implode(',', $supported_tag);
 						</div>
 						<?php
 						}
-						
+
+						if ($enable_toc == 1) {
+							echo do_shortcode(
+								"[betterdocs_toc
+								htags='{$htags}'
+								hierarchy='{$toc_hierarchy}'
+								list_number='{$toc_list_number}'
+								collapsible_on_mobile='{$collapsible_toc_mobile}']"
+							);
+						}
+
 						/* post content */
 						$content = apply_filters('the_content', get_the_content());
 						echo BetterDocs_Public::betterdocs_the_content(
@@ -240,8 +250,7 @@ $htags = implode(',', $supported_tag);
 					"[betterdocs_toc
 					htags='{$htags}'
 					hierarchy='{$toc_hierarchy}'
-					list_number='{$toc_list_number}'
-					collapsible='{$collapsible_toc_mobile}']"
+					list_number='{$toc_list_number}']"
 				);
 				?>
 			</div><!-- #sticky toc -->

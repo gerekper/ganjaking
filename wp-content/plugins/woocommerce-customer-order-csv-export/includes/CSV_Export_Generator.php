@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/ordercustomer-csv-exporter/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -160,6 +160,17 @@ class CSV_Export_Generator extends Export_Generator {
 
 		$column_headers = $this->format_definition['columns'];
 
+		if ( 'custom' !== $this->export_format ) {
+
+			$vat_headers = [ 'vat_number' => 'vat_number' ];
+
+			if ( isset( $column_headers['billing_company'] ) ) {
+				$column_headers = Framework\SV_WC_Helper::array_insert_after( $column_headers, 'billing_company', $vat_headers );
+			} else {
+				$column_headers = array_merge( $column_headers, $vat_headers );
+			}
+		}
+
 		/**
 		 * CSV Order Export Column Headers.
 		 *
@@ -291,6 +302,8 @@ class CSV_Export_Generator extends Export_Generator {
 			$order_data['order_number_formatted'] = $order->get_order_number();
 		}
 
+		$vat_data = [ 'vat_number' => $this->get_vat_number( $order ) ];
+
 		if ( 'item' === $this->format_definition['row_type'] ) {
 
 			$new_order_data = [];
@@ -328,11 +341,14 @@ class CSV_Export_Generator extends Export_Generator {
 				 * @param \WC_Order $order WC Order object
 				 * @param CSV_Export_Generator $this, generator instance
 				 */
-				$new_order_data[] = apply_filters( 'wc_customer_order_export_csv_order_row_one_row_per_item', $order_data, $item, $order, $this );
+				$new_order_data[] = apply_filters( 'wc_customer_order_export_csv_order_row_one_row_per_item', array_merge( $order_data, $vat_data ), $item, $order, $this );
 			}
 
 			$order_data = $new_order_data;
+
 		} else {
+
+			$order_data = array_merge( $order_data, $vat_data );
 
 			$order_data['line_items'] = $is_json ? json_encode( $line_items ) : implode( ';', $line_items );
 		}

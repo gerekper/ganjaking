@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -53,7 +53,7 @@ class WC_Memberships_Meta_Box_View_Product_Restriction_Rules extends \WC_Members
 			<thead>
 				<tr>
 
-					<td class="check-column" style="width: 5%;">
+					<td class="check-column">
 						<label class="screen-reader-text" for="product-restriction-rules-select-all"> <?php esc_html_e( 'Select all', 'woocommerce-memberships' ); ?></label>
 						<input type="checkbox"
 						       id="product-restriction-rules-select-all"
@@ -62,11 +62,11 @@ class WC_Memberships_Meta_Box_View_Product_Restriction_Rules extends \WC_Members
 
 					<?php if ( 'membership_plan' === $context ) : ?>
 
-						<th scope="col" class="product-restriction-content-type content-type-column" style="width: 15%;">
+						<th scope="col" class="product-restriction-content-type content-type-column">
 							<?php esc_html_e( 'Type', 'woocommerce-memberships' ); ?>
 						</th>
 
-						<th scope="col" class="product-restriction-objects objects-column" style="width: 40%;">
+						<th scope="col" class="product-restriction-objects objects-column">
 							<?php esc_html_e( 'Title', 'woocommerce-memberships' ); ?>
 							<?php echo wc_help_tip( __( 'Search&hellip; or leave blank to apply to all', 'woocommerce-memberships' ) ); ?>
 						</th>
@@ -74,22 +74,22 @@ class WC_Memberships_Meta_Box_View_Product_Restriction_Rules extends \WC_Members
 					<?php else : ?>
 
 						<?php if ( $is_variable_product ) : ?>
-							<th scope="col" class="product-restriction-applies-to product-variation-column" style="width: 25%;">
+							<th scope="col" class="product-restriction-applies-to product-variation-column">
 								<?php esc_html_e( 'Applies to', 'woocommerce-memberships' ); ?>
 							</th>
 						<?php endif; ?>
 
-						<th scope="col" class="product-restriction-membership-plan membership-plan-column" style="width: 30%;">
+						<th scope="col" class="product-restriction-membership-plan membership-plan-column">
 							<?php esc_html_e( 'Plan', 'woocommerce-memberships' ); ?>
 						</th>
 
 					<?php endif; ?>
 
-					<th scope="col" class="product-restriction-access-type access-type-column" style="width: 15%;">
-						<?php esc_html_e( 'Only Members Can', 'woocommerce-memberships' ); ?>
+					<th scope="col" class="product-restriction-access-type access-type-column">
+						<?php esc_html_e( 'Only members can', 'woocommerce-memberships' ); ?>
 					</th>
 
-					<th scope="col" class="product-restriction-access-schedule access-schedule-column" style="<?php echo 'membership_plan' !== $context && ! $is_variable_product ? 'width: 40%;' : 'width: 25%;'; ?>">
+					<th scope="col" class="product-restriction-access-schedule access-schedule-column">
 						<?php esc_html_e( 'Accessible', 'woocommerce-memberships' ); ?>
 						<?php echo wc_help_tip( __( 'When will members gain access to products?', 'woocommerce-memberships' ) ); ?>
 					</th>
@@ -189,6 +189,7 @@ class WC_Memberships_Meta_Box_View_Product_Restriction_Rules extends \WC_Members
 															name="_variation_product_restriction_rules[<?php echo esc_attr( $object_id ); ?>][membership_plan_id]"
 															id="_variation_product_restriction_rules_<?php echo esc_attr( $object_id ); ?>_membership_plan_id"
 															class="wc-enhanced-select membership-plan wide"
+															style="width:90%;"
 															disabled>
 															<?php foreach ( $this->meta_box->get_membership_plan_options() as $id => $label ) : ?>
 																<option value="<?php echo esc_attr( $id ); ?>" <?php selected( $id, $variation_rule->get_membership_plan_id() ); ?>><?php echo esc_html( $label ); ?></option>
@@ -199,7 +200,7 @@ class WC_Memberships_Meta_Box_View_Product_Restriction_Rules extends \WC_Members
 
 												<td class="product-restriction-access-type access-type-column">
 													<p class="form-field">
-														<label for="_variation_product_restriction_rules_<?php echo esc_attr( $object_id ); ?>_access_type"><?php esc_html_e( 'Only Members Can', 'woocommerce-memberships' ); ?>:</label>
+														<label for="_variation_product_restriction_rules_<?php echo esc_attr( $object_id ); ?>_access_type"><?php esc_html_e( 'Only members can', 'woocommerce-memberships' ); ?>:</label>
 
 														<select
 															name="_variation_product_restriction_rules[<?php echo esc_attr( $object_id ); ?>][access_type]"

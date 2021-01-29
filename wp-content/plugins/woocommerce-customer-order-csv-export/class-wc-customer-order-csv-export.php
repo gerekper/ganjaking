@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/ordercustomer-csv-exporter/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -38,7 +38,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '5.2.0';
+	const VERSION = '5.3.0';
 
 	/** @var WC_Customer_Order_CSV_Export single instance of this plugin */
 	protected static $instance;
@@ -565,16 +565,55 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 			// add notice for selecting export format
 			$this->get_admin_notice_handler()->add_admin_notice(
 				sprintf(
-				/* translators: Placeholders: %1$s - plugin name, %2$s - opening <a> link tag, %3$s - closing </a> link tag, %4$s - opening <a> link tag, %5$s - closing </a> link tag */
+					/* translators: Placeholders: %1$s - plugin name, %2$s - opening <a> link tag, %3$s - closing </a> link tag, %4$s - opening <a> link tag, %5$s - closing </a> link tag */
 					__( 'Thanks for installing the %1$s plugin! To get started, please setup your first %2$sautomated%3$s or %4$smanual%5$s export. ', 'woocommerce-customer-order-csv-export' ),
 					$this->get_plugin_name(),
 					'<a href="' . $this->get_settings_url( null, WC_Customer_Order_CSV_Export_Admin::TAB_AUTOMATIONS ) . '">',
 					'</a>',
 					'<a href="' . $this->get_settings_url() . '">',
-					'</a>' ),
+					'</a>'
+				),
 				'export-format-notice',
-				[ 'always_show_on_settings' => false, 'notice_class' => 'updated' ]
+				[
+					'always_show_on_settings' => false,
+					'notice_class'            => 'updated'
+				]
 			);
+		}
+
+		$migrated_free_addons = get_option( 'wc_customer_order_export_free_add_ons_migrated' );
+
+		if ( ! empty( $migrated_free_addons ) && is_array( $migrated_free_addons ) ) {
+
+			$migrated_add_on_notice_args = [
+				'dismissible'             => true,
+				'always_show_on_settings' => false,
+				'notice_class'            => 'notice-info'
+			];
+
+			if ( in_array( 'woocommerce-order-export-refunds-only', $migrated_free_addons, true ) ) {
+				$this->get_admin_notice_handler()->add_admin_notice(
+					sprintf(
+						/* translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing <strong> HTML tag */
+						__( '%1$sHeads up!%2$s We\'ve merged the Export Refunds Only add-on into Customer/Order/Coupon Export, so you no longer need this add-on to export only refunded orders. This add-on has been deactivated and can be safely removed from your plugin list.', 'woocommerce-customer-order-csv-export' ),
+						'<strong>', '</strong>'
+					),
+					'woocommerce-order-export-refunds-only-migrated',
+					$migrated_add_on_notice_args
+				);
+			}
+
+			if ( in_array( 'woocommerce-order-export-vat', $migrated_free_addons, true ) ) {
+				$this->get_admin_notice_handler()->add_admin_notice(
+					sprintf(
+						/* translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing <strong> HTML tag */
+						__( '%1$sHeads up!%2$s We\'ve merged the Export VAT Number add-on into Customer/Order/Coupon Export, so you no longer need this add-on to include VAT numbers on order exports. This add-on has been deactivated and can be safely removed from your plugin list.', 'woocommerce-customer-order-csv-export' ),
+						'<strong>', '</strong>'
+					),
+					'woocommerce-order-export-vat-migrated',
+					$migrated_add_on_notice_args
+				);
+			}
 		}
 	}
 

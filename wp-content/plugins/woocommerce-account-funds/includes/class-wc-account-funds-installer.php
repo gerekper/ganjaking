@@ -22,15 +22,77 @@ class WC_Account_Funds_Installer {
 	protected static $_updates = array(
 		'2.0.9' => 'updates/class-wc-account-funds-updater-2.0.9.php',
 		'2.1.3' => 'updates/class-wc-account-funds-updater-2.1.3.php',
+		'2.3.7' => 'updates/class-wc-account-funds-updater-2.3.7.php',
 	);
+
+	/**
+	 * Init installation.
+	 *
+	 * @since 2.3.7
+	 */
+	public static function init() {
+		add_action( 'init', array( __CLASS__, 'check_version' ) );
+		add_action( 'admin_init', array( __CLASS__, 'install_actions' ) );
+		add_action( 'admin_init', array( __CLASS__, 'add_notices' ), 15 );
+	}
+
+	/**
+	 * Check the plugin version and run the updater if necessary.
+	 *
+	 * This check is done on all requests and runs if the versions do not match.
+	 *
+	 * @since 2.3.7
+	 */
+	public static function check_version() {
+		$installed_version = get_option( 'account_funds_version' );
+
+		if ( ! defined( 'IFRAME_REQUEST' ) && version_compare( $installed_version, WC_ACCOUNT_FUNDS_VERSION, '<' ) ) {
+			self::_update( $installed_version );
+			do_action( 'wc_account_funds_updated' );
+		}
+	}
+
+	/**
+	 * Install actions when an update button is clicked within the admin area.
+	 *
+	 * @since 2.3.7
+	 */
+	public static function install_actions() {
+		if ( ! empty( $_GET['wc_account_funds_2_3_7_update'] ) ) {
+			check_admin_referer( 'wc_account_funds_2_3_7_update', 'wc_account_funds_2_3_7_update_nonce' );
+
+			include_once WC_ACCOUNT_FUNDS_PATH . 'includes/updates/interface-wc-account-funds-updater.php';
+			include_once WC_ACCOUNT_FUNDS_PATH . 'includes/updates/class-wc-account-funds-updater-2.3.7.php';
+
+			$action  = ( isset( $_GET['action'] ) ? wc_clean( wp_unslash( $_GET['action'] ) ) : 'skip' );
+			$updater = new WC_Account_Funds_Updater_2_3_7();
+			$updater->process_update_action( $action );
+		}
+	}
+
+	/**
+	 * Add installer notices.
+	 *
+	 * @since 2.3.7
+	 */
+	public static function add_notices() {
+		if ( ! get_option( 'account_funds_update_2_3_7_action' ) && get_option( 'account_funds_update_2_3_7_fix_order_balances' ) ) {
+			include_once WC_ACCOUNT_FUNDS_PATH . 'includes/updates/interface-wc-account-funds-updater.php';
+			include_once WC_ACCOUNT_FUNDS_PATH . 'includes/updates/class-wc-account-funds-updater-2.3.7.php';
+
+			WC_Account_Funds_Admin_Notices::add_notice( 'wc_account_funds_update_2_3_7' );
+		}
+	}
 
 	/**
 	 * Install the plugin. Called by handler of register_activation_hook.
 	 *
-	 * @param string $version Plugin's version.
+	 * @since 2.3.7 Deprecated parameter `$version`.
+	 *
+	 * @param null $deprecated No longer used.
 	 */
-	public static function install( $version ) {
-		self::_set_options( $version );
+	public static function install( $deprecated = null ) {
+		self::_set_options();
 	}
 
 	/**
@@ -38,11 +100,11 @@ class WC_Account_Funds_Installer {
 	 *
 	 * @see self::install
 	 *
-	 * @param string $version Plugin's version.
+	 * @since 2.3.7 Deprecated parameter `$version`.
 	 *
-	 * @return void
+	 * @param null $deprecated No longer used.
 	 */
-	protected static function _set_options( $version ) {
+	protected static function _set_options( $deprecated = null ) {
 		$old_settings = get_option( 'wcaf_settings', array(
 			'give_discount'   => 0,
 			'discount_type'   => 'fixed',
@@ -56,8 +118,6 @@ class WC_Account_Funds_Installer {
 		add_option( 'account_funds_min_topup', '' );
 		add_option( 'account_funds_max_topup', '' );
 		add_option( 'account_funds_partial_payment', 'no' );
-
-		self::_update_version( $version );
 	}
 
 	/**
@@ -76,38 +136,23 @@ class WC_Account_Funds_Installer {
 	}
 
 	/**
-	 * Check for update based on current plugin's version versus installed
-	 * version. Perform update routine if version mismatches.
-	 *
-	 * @param string $current_version Plugin's version.
-	 *
-	 * @return void
-	 */
-	public static function update_check( $current_version ) {
-		$installed_version = get_option( 'account_funds_version' );
-		if ( $current_version !== $installed_version ) {
-			self::_update( $installed_version );
-		}
-	}
-
-	/**
 	 * Perform update.
 	 *
 	 * @param string $installed_version Installed version.
-	 *
-	 * @return void
 	 */
 	protected static function _update( $installed_version ) {
-		require_once( 'updates/interface-wc-account-funds-updater.php' );
+		require_once 'updates/interface-wc-account-funds-updater.php';
 
 		foreach ( self::$_updates as $version => $updater_file ) {
 			if ( version_compare( $installed_version, $version, '<' ) ) {
-				$updater = include( $updater_file );
+				$updater = include $updater_file;
 				$updater->update();
 
 				self::_update_version( $version );
 			}
 		}
+
+		self::_update_version( WC_ACCOUNT_FUNDS_VERSION );
 	}
 
 	/**
@@ -120,5 +165,20 @@ class WC_Account_Funds_Installer {
 		add_rewrite_endpoint( $endpoint, EP_ROOT | EP_PAGES );
 		flush_rewrite_rules();
 	}
+
+	/**
+	 * Check for update based on current plugin's version versus installed
+	 * version. Perform update routine if version mismatches.
+	 *
+	 * @param string $current_version Plugin's version.
+	 *
+	 * @deprecated 2.3.7
+	 */
+	public static function update_check( $current_version ) {
+		_deprecated_function( __FUNCTION__, '2.3.7', 'WC_Account_Funds_Installer::check_version()' );
+
+		self::check_version();
+	}
 }
 
+WC_Account_Funds_Installer::init();

@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recpatcha
 Requires at least:3.0
-Tested up to:5.5.3
-Version:2.4
-Stable tag:2.4
+Tested up to:5.6
+Version:2.6
+Stable tag:2.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -58,6 +58,15 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.6 =
+
+* Google reCAPTCHA token is missing Fixed
+
+
+= 2.5 =
+
+* Added support for custom login form that built using "wp_login_form" function
 
 = 2.4 =
 

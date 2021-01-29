@@ -204,4 +204,20 @@ class WC_Product_Addons_Helper {
 
 		return get_option( 'woocommerce_tax_display_shop' );
 	}
+
+	/**
+	 * Checks if addon should display description.
+	 *
+	 * @since 3.3.0
+	 * @param  array $addon  Current add-on.
+	 * @return bool          True if should display description.
+	 */
+	public static function should_display_description( $addon = array() ) {
+		if ( empty( $addon ) || empty( $addon['description_enable'] ) ) {
+			return false;
+		}
+
+		// True if description enabled and there is a description.
+		return ( ( ! empty( $addon['description'] ) && $addon['description_enable'] ) ? true : false );
+	}
 }

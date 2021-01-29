@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/ordercustomer-csv-exporter/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -520,6 +520,39 @@ abstract class Export_Generator {
 		}
 
 		return $excluded_product_categories;
+	}
+
+
+	/**
+	 * Gets VAT meta data from an order.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param \WC_Order $order
+	 * @return string
+	 */
+	protected function get_vat_number( \WC_Order $order ) : string {
+
+		$vat_meta = '';
+
+		// find VAT number if one exists for the order
+		$vat_number_meta_keys = [
+			'_vat_number',         // EU VAT number (legacy?)
+			'_billing_vat_number', // EU VAT number
+			'VAT Number',          // Legacy EU VAT number
+			'vat_number',          // Taxamo
+		];
+
+		foreach ( $vat_number_meta_keys as $meta_key ) {
+
+			if ( $order->meta_exists( $meta_key ) ) {
+
+				$vat_meta = $order->get_meta( $meta_key );
+				break;
+			}
+		}
+
+		return is_string( $vat_meta ) ? $vat_meta : '';
 	}
 
 

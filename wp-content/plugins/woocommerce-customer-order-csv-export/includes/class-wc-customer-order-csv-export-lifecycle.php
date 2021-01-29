@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/ordercustomer-csv-exporter/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -40,6 +40,32 @@ defined( 'ABSPATH' ) or exit;
  * @method \WC_Customer_Order_CSV_Export get_plugin()
  */
 class WC_Customer_Order_CSV_Export_Lifecycle extends Framework\Plugin\Lifecycle {
+
+
+	/**
+	 * Lifecycle constructor.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param \WC_Customer_Order_CSV_Export $plugin
+	 */
+	public function __construct( $plugin ) {
+
+		parent::__construct( $plugin );
+
+		$this->upgrade_versions = [
+			'3.0.4',
+			'3.4.0',
+			'3.12.0',
+			'4.0.0',
+			'4.5.0',
+			'4.6.4',
+			'4.7.0',
+			'4.8.0',
+			'5.0.0',
+			'5.3.0',
+		];
+	}
 
 
 	/**
@@ -114,42 +140,6 @@ class WC_Customer_Order_CSV_Export_Lifecycle extends Framework\Plugin\Lifecycle 
 		}
 
 		return $version;
-	}
-
-
-	/**
-	 * Performs upgrades from older versions.
-	 *
-	 * @since 4.5.0
-	 *
-	 * @param string $from_version current installed version
-	 */
-	public function upgrade( $from_version ) {
-
-		$plugin       = $this->get_plugin();
-		$upgrade_path = [
-			'3.0.4'  => 'upgrade_to_3_0_4',
-			'3.4.0'  => 'upgrade_to_3_4_0',
-			'3.12.0' => 'upgrade_to_3_12_0',
-			'4.0.0'  => 'upgrade_to_4_0_0',
-			'4.5.0'  => 'upgrade_to_4_5_0',
-			'4.6.4'  => 'upgrade_to_4_6_4',
-			'4.7.0'  => 'upgrade_to_4_7_0',
-			'4.8.0'  => 'upgrade_to_4_8_0',
-			'5.0.0'  => 'upgrade_to_5_0_0',
-		];
-
-		foreach ( $upgrade_path as $upgrade_to_version => $upgrade_script ) {
-
-			if ( version_compare ( $from_version, $upgrade_to_version, '<' ) && method_exists( __CLASS__, $upgrade_script ) ) {
-
-				$plugin->log( "Begin upgrading to version {$upgrade_to_version}..." );
-
-				$this->$upgrade_script();
-
-				$plugin->log( "Upgrade to version {$upgrade_to_version} complete" );
-			}
-		}
 	}
 
 
@@ -546,6 +536,41 @@ class WC_Customer_Order_CSV_Export_Lifecycle extends Framework\Plugin\Lifecycle 
 
 		// set option to display admin notice
 		update_option( 'wc_' . $this->get_plugin()->get_id() . '_upgraded', 'yes' );
+	}
+
+
+	/**
+	 * Updates to v5.3.0
+	 *
+	 * This release merges a couple of free add ons into the core plugin.
+	 *
+	 * @since 5.3.0
+	 */
+	protected function upgrade_to_5_3_0() {
+
+		$free_add_ons = [
+			'woocommerce-order-export-refunds-only' => 'woocommerce-order-export-refunds-only/woocommerce-order-export-refunds-only.php',
+			'woocommerce-order-export-vat'          => 'woocommerce-order-export-vat/woocommerce-order-export-vat.php',
+		];
+
+		foreach ( array_keys( $free_add_ons ) as $plugin_id ) {
+			if ( ! $this->get_plugin()->is_plugin_active( $plugin_id . '.php' ) ) {
+				unset( $free_add_ons[ $plugin_id ] );
+			}
+		}
+
+		// if the free add ons are found to be active, deactivate them
+		if ( ! empty( $free_add_ons ) ) {
+
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+			deactivate_plugins( array_values( $free_add_ons ) );
+
+			update_option( 'wc_customer_order_export_free_add_ons_migrated', array_keys( $free_add_ons ) );
+		}
+
+		delete_option( 'wc_order_export_refunds_only_version' );
+		delete_option( 'wc_order_export_VAT_version' );
 	}
 
 

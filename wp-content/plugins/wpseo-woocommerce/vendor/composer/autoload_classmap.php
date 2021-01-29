@@ -19,6 +19,7 @@ return array(
     'WPSEO_WooCommerce_Product_Price_Currency_Presenter' => $baseDir . '/classes/presenters/woocommerce-product-price-currency-presenter.php',
     'WPSEO_WooCommerce_Product_Retailer_Item_ID_Presenter' => $baseDir . '/classes/presenters/woocommerce-product-retailer-item-id-presenter.php',
     'WPSEO_WooCommerce_Schema' => $baseDir . '/classes/woocommerce-schema.php',
+    'WPSEO_WooCommerce_Schema_Presenter' => $baseDir . '/classes/presenters/woocommerce-schema-presenter.php',
     'WPSEO_WooCommerce_Slack' => $baseDir . '/classes/woocommerce-slack.php',
     'WPSEO_WooCommerce_Twitter' => $baseDir . '/classes/woocommerce-twitter.php',
     'WPSEO_WooCommerce_Utils' => $baseDir . '/classes/woocommerce-utils.php',

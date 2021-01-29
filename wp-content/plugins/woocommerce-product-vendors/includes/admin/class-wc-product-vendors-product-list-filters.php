@@ -60,10 +60,10 @@ class WC_Product_Vendors_Product_List_Filters {
 	 * @return array WP_Term
 	 */
 	protected function get_vendors() {
-		$vendors = get_terms( array(
+		$vendors = get_terms( apply_filters( 'wcpv_get_terms_get_vendors', array(
 			'taxonomy' => 'wcpv_product_vendors',
 			'hide_empty' => true,
-		) );
+		) ) );
 
 		return $vendors;
 	}

@@ -33,9 +33,8 @@ class CT_Ultimate_GDPR_Controller_Admin {
 		$this->register_option_fields();
 		$this->register_styles();
 
-		if ( is_admin() ) {
-			$this->admin_actions();
-		}
+        // Check if admin page and user is also administrator
+        $this->administrator_access_settings();
 
 		//Notice if PHP version is lower than 5.6
         add_action( 'admin_notices', array( $this, 'version_controller_check') );
@@ -51,6 +50,21 @@ class CT_Ultimate_GDPR_Controller_Admin {
 		add_filter( 'parent_file', array( $this, 'add_new_service_select_submenu' ) );
 
         add_action( 'current_screen', array( $this, 'add_option_fields_function' ), 3 );
+
+    }
+
+    /**
+     *
+     */
+    private function administrator_access_settings(){
+
+        if ( is_admin() && is_user_logged_in() ) {
+
+            if( current_user_can( 'manage_options' ) ){
+                $this->admin_actions();
+            }
+
+        }
 
     }
 

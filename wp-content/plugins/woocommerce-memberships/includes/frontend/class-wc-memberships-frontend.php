@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -76,7 +76,8 @@ class WC_Memberships_Frontend {
 		add_filter( 'post_class', array( $this, 'add_membership_content_post_class' ), 10, 3 );
 
 		// optionally redirect members upon login (setting)
-		add_action( 'woocommerce_login_redirect', [ $this, 'redirect_to_page_upon_login' ], 30, 2 );
+		add_filter( 'login_redirect', [ $this, 'redirect_to_page_upon_wordpress_login' ], 999, 3 );
+		add_action( 'woocommerce_login_redirect', [ $this, 'redirect_to_page_upon_woocommerce_login' ], 30, 2 );
 
 		// display a thank you message when a membership is granted upon order received
 		add_action( 'woocommerce_thankyou', array( $this, 'maybe_render_thank_you_content' ), 9 );
@@ -159,12 +160,18 @@ class WC_Memberships_Frontend {
 	 * @since 1.19.0
 	 */
 	private function enqueue_styles() {
+		global $post;
 
 		$dependencies = [];
 
 		wp_register_style( 'wc-memberships-profile-fields', wc_memberships()->get_plugin_url() . '/assets/css/frontend/wc-memberships-profile-fields.min.css', [ 'select2' ], \WC_Memberships::VERSION );
+		wp_register_style( 'wc-memberships-member-directory', wc_memberships()->get_plugin_url() . '/assets/css/frontend/wc-memberships-directory.min.css', [], WC_Memberships::VERSION );
 
-		// TODO improve conditional load of front end assets {FN 2020-09-03}
+		if ( $post && is_singular( $post ) && has_shortcode( $post->post_content, 'wcm_directory' ) ) {
+			$dependencies[] = 'wc-memberships-member-directory';
+		}
+
+		// TODO improve conditional load of front end assets for profile fields {FN 2020-09-03}
 		if ( Profile_Fields_Handler::is_using_profile_fields() && ! empty( Profile_Fields_Handler::get_profile_field_definitions( [ 'editable_by' => Profile_Fields_Handler\Profile_Field_Definition::EDITABLE_BY_CUSTOMER, 'type' => [ Profile_Fields_Handler::TYPE_FILE, Profile_Fields_Handler::TYPE_SELECT, Profile_Fields_Handler::TYPE_MULTISELECT ] ] ) ) ) {
 			$dependencies[] = 'wc-memberships-profile-fields';
 		}
@@ -654,7 +661,34 @@ class WC_Memberships_Frontend {
 
 
 	/**
-	 * Redirects a member who just logged in according to Memberships setting.
+	 * Redirects a user upon login when they used the standard WordPress login form.
+	 *
+	 * The redirection destination is determined based on Memberships settings.
+	 *
+	 * @internal
+	 *
+	 * @since 1.21.2
+	 *
+	 * @param string $redirect_to URL the user is being redirected to
+	 * @param string $requested_redirect_to URL (the presence of a non empty string here means that the user is being redirected already to a different page)
+	 * @param \WP_User|\WP_Error $user user being logged in
+	 * @return string modified URL
+	 */
+	public function redirect_to_page_upon_wordpress_login( $redirect_to, $requested_redirect_to, $user ) {
+
+		// bail if there's a URL already overriding the standard redirect
+		if ( ! $user instanceof \WP_User || ( ! empty( $requested_redirect_to ) && $redirect_to !== $requested_redirect_to ) ) {
+			return $redirect_to;
+		}
+
+		return $this->redirect_to_page_upon_woocommerce_login( $redirect_to, $user );
+	}
+
+
+	/**
+	 * Redirects a user upon login when they used the WooCommerce login form.
+	 *
+	 * The redirection destination is determined based on Memberships settings.
 	 *
 	 * This callback must have a lower priority to allow for restricted content access redirects:
 	 * @see \WC_Memberships_Posts_Restrictions::redirect_to_member_content_upon_login()
@@ -668,10 +702,10 @@ class WC_Memberships_Frontend {
 	 * @param \WP_User $user member user object
 	 * @return string
 	 */
-	public function redirect_to_page_upon_login( $original_redirect_url, $user ) {
+	public function redirect_to_page_upon_woocommerce_login( $original_redirect_url, $user ) {
 
 		// skip for admins & shop managers
-		if ( current_user_can( 'manage_woocommerce' ) ) {
+		if ( user_can( $user, 'manage_woocommerce' ) || user_can( $user, 'install_plugins' ) ) {
 			return $original_redirect_url;
 		}
 
@@ -747,6 +781,28 @@ class WC_Memberships_Frontend {
 		}
 
 		return $original_redirect_url;
+	}
+
+
+	/**
+	 * Redirects a member who just logged in according to Memberships setting.
+	 *
+	 * @internal
+	 *
+	 * @since 1.16.0
+	 * @deprecated 1.21.2
+	 *
+	 * @TODO remove this deprecated method by version 2.0.0 or by May 2022 {FN 2020-01-20}
+	 *
+	 * @param string $original_redirect_url URL which WooCommerce is redirecting to
+	 * @param \WP_User $user member user object
+	 * @return string
+	 */
+	public function redirect_to_page_upon_login( $original_redirect_url, $user ) {
+
+		wc_deprecated_function( __METHOD__, '1.21.2', __CLASS__ . '::redirect_to_page_upon_woocommerce_login()' );
+
+		return $this->redirect_to_page_upon_woocommerce_login( $original_redirect_url, $user );
 	}
 
 

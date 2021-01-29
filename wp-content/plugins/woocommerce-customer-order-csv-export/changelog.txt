@@ -1,5 +1,10 @@
 *** WooCommerce Customer/Order/Coupon Export Changelog ***
 
+2021.01.22 - version 5.3.0
+ * Feature - Merge the Export Refunds Only free add on into the core plugin
+ * Feature - Merge the Export Vat Number free add on into the core plugin
+ * Fix - Address a possible issue when exporting refunded orders in XML
+
 2020.12.07 - version 5.2.0
  * Tweak - Append the file extension automatically if the exported filename is missing it
  * Tweak - Prevent automated exports to be created with an empty filename

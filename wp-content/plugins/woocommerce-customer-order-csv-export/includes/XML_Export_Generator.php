@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/ordercustomer-csv-exporter/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -274,6 +274,7 @@ class XML_Export_Generator extends Export_Generator {
 				}
 
 			} else {
+
 				$order_data = $data;
 			}
 
@@ -287,6 +288,34 @@ class XML_Export_Generator extends Export_Generator {
 
 				// OrderLineItems were not wrapped in OrderLineItem pre 2.0.0
 				$order_data['OrderLineItems'] = $order_data['OrderLineItems']['OrderLineItem'];
+			}
+
+			if ( is_array( $order_data ) ) {
+
+				$vat_number = $this->get_vat_number( $order );
+
+				// only add tax data to custom formats if set in the format builder
+				if ( 'custom' === $this->export_format ) {
+
+					// the data here can use a renamed version of our VAT data, so we need to get format definition first to find out the new name
+					$format_definition = $this->format_definition;
+					$vat_key           = $format_definition['fields']['VATNumber'] ?? null;
+
+					if ( $vat_key && isset( $data[ $vat_key ] ) ) {
+						$order_data[ $vat_key ] = $vat_number;
+					}
+
+				// otherwise, automatically add order tax data to the export file
+				} else {
+
+					$vat_data = [ 'VATNumber' => $vat_number ];
+
+					if ( isset( $data['BillingPhone'] ) ) {
+						$order_data = Framework\SV_WC_Helper::array_insert_after( $order_data, 'BillingPhone', $vat_data );
+					} else {
+						$order_data = array_merge( $order_data, $vat_data );
+					}
+				}
 			}
 
 			/**
@@ -716,7 +745,7 @@ class XML_Export_Generator extends Export_Generator {
 		foreach ( $taxes as $rate_id => $amount ) {
 
 			// refunds have negative amounts, but we want them - absolutely, positively - we do
-			$tax_data = [ 'RateId' => $rate_id, 'Amount' => abs( $amount ) ];
+			$tax_data = [ 'RateId' => $rate_id, 'Amount' => is_numeric( $amount ) ? abs( $amount ) : 0 ];
 
 			/**
 			 * Allows actors to modify the tax details data/format

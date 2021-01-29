@@ -1,5 +1,8 @@
 *** WooCommerce Sales Report Email ***
 
+2021-01-26 - version 1.1.19
+* Fix - Prevent missing argument fatal error when rendering report email.
+
 2020-12-01 - version 1.1.18
 * Tweak - WC 4.7 compatibility.
 * Tweak - WordPress 5.6 compatibility.

@@ -20,6 +20,8 @@ class WC_Account_Funds_Admin {
 	 * Constructor
 	 */
 	public function __construct() {
+		add_action( 'init', array( $this, 'includes' ) );
+
 		// Plugin action links.
 		add_filter( 'plugin_action_links_' . WC_ACCOUNT_FUNDS_BASENAME, array( $this, 'action_links' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
@@ -36,6 +38,16 @@ class WC_Account_Funds_Admin {
 		add_action( 'woocommerce_settings_tabs_array', array( $this, 'add_woocommerce_settings_tab' ), 50 );
 		add_action( 'woocommerce_settings_tabs_' . $this->settings_tab_id, array( $this, 'woocommerce_settings_tab_action' ), 10 );
 		add_action( 'woocommerce_update_options_' . $this->settings_tab_id, array( $this, 'woocommerce_settings_save' ), 10 );
+	}
+
+	/**
+	 * Include any classes we need within admin.
+	 *
+	 * @since 2.3.7
+	 */
+	public function includes() {
+		include_once 'wc-account-funds-admin-functions.php';
+		include_once 'class-wc-account-funds-admin-notices.php';
 	}
 
 	/**

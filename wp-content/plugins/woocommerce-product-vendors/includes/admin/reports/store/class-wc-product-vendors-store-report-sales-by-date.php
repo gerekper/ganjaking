@@ -87,15 +87,17 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 
 		switch( $this->current_range ) {
 			case 'year' :
-				$sql .= " AND YEAR( commission.order_date ) = YEAR( CURDATE() )";
+				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
 				break;
 
 			case 'last_month' :
 				$sql .= " AND MONTH( commission.order_date ) = IF( MONTH( NOW() ) = 1, 12, MONTH( NOW() ) - 1 )";
+				$sql .= " AND YEAR( commission.order_date ) = IF( MONTH( NOW() ) = 1, YEAR( NOW() ) - 1, YEAR( NOW() ) )";
 				break;
 
 			case 'month' :
 				$sql .= " AND MONTH( commission.order_date ) = MONTH( NOW() )";
+				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
 				break;
 
 			case 'custom' :
@@ -319,15 +321,17 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 		
 		switch( $this->current_range ) {
 			case 'year' :
-				$sql .= " AND YEAR( commission.order_date ) = YEAR( CURDATE() )";
+				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
 				break;
 
 			case 'last_month' :
-				$sql .= " AND MONTH( commission.order_date ) = MONTH( NOW() ) - 1";
+				$sql .= " AND MONTH( commission.order_date ) = IF( MONTH( NOW() ) = 1, 12, MONTH( NOW() ) - 1 )";
+				$sql .= " AND YEAR( commission.order_date ) = IF( MONTH( NOW() ) = 1, YEAR( NOW() ) - 1, YEAR( NOW() ) )";
 				break;
 
 			case 'month' :
 				$sql .= " AND MONTH( commission.order_date ) = MONTH( NOW() )";
+				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
 				break;
 
 			case 'custom' :
@@ -399,7 +403,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 			var main_chart;
 
 			jQuery(function(){
-				var order_data = jQuery.parseJSON( decodeURIComponent( '<?php echo $chart_data; ?>' ) );
+				var order_data = JSON.parse( decodeURIComponent( '<?php echo $chart_data; ?>' ) );
 				var drawGraph = function( highlight ) {
 					var series = [
 						{

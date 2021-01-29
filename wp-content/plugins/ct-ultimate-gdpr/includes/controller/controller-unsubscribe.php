@@ -812,7 +812,7 @@ class CT_Ultimate_GDPR_Controller_Unsubscribe extends CT_Ultimate_GDPR_Controlle
 		return apply_filters( "ct_ultimate_gdpr_controller_{$this->get_id()}_default_options", array(
 			'unsubscribe_notify_email' => get_bloginfo( 'admin_email' ),
             'unsubscribe_mail_title'   => sprintf(esc_html__("[Ultimate GDPR & CCPA] Unsubscribe notice from %s", 'ct-ultimate-gdpr'), get_bloginfo('name')),
-            'unsubscribe_mail_content' => sprintf(esc_html__("Your have been unsubscribed", 'ct-ultimate-gdpr')),
+            'unsubscribe_mail_content' => sprintf(esc_html__("You have been unsubscribed", 'ct-ultimate-gdpr')),
             'unsubscribe_subheader'    => '',
         ));
 		

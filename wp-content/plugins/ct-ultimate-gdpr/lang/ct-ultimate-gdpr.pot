@@ -1,22 +1,22 @@
-# Copyright (C) 2020 CreateIT
+# Copyright (C) 2021 CreateIT
 # This file is distributed under the same license as the Ultimate GDPR & CCPA plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR & CCPA 2.4\n"
+"Project-Id-Version: Ultimate GDPR & CCPA 2.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-11-05T12:07:40+01:00\n"
-"PO-Revision-Date: 2020-11-05T12:07:40+01:00\n"
+"POT-Creation-Date: 2021-01-28T13:28:16+01:00\n"
+"PO-Revision-Date: 2021-01-28T13:28:16+01:00\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: ct-ultimate-gdpr\n"
 
 #. Plugin Name of the plugin
-#: includes/controller/controller-admin.php:541
-#: includes/controller/controller-admin.php:542
+#: includes/controller/controller-admin.php:555
+#: includes/controller/controller-admin.php:556
 #: includes/views/admin/admin-age.php:21
 #: includes/views/admin/admin-breach.php:21
 #: includes/views/admin/admin-cookie.php:21
@@ -45,69 +45,69 @@ msgstr ""
 msgid "https://www.createit.pl"
 msgstr ""
 
-#: includes/controller/controller-admin.php:160
+#: includes/controller/controller-admin.php:174
 msgid "Your server is running PHP version %s but Ultimate GDPR & CCPA %s requires at least %s"
 msgstr ""
 
-#: includes/controller/controller-admin.php:180
+#: includes/controller/controller-admin.php:194
 msgid "[Ultimate GDPR & CCPA] Your license key is missing, <a href=%s>add valid purchase code</a> to use the cookie scanner"
 msgstr ""
 
-#: includes/controller/controller-admin.php:259
-#: includes/controller/controller-admin.php:302
+#: includes/controller/controller-admin.php:273
+#: includes/controller/controller-admin.php:316
 msgid "Please upload a file to import"
 msgstr ""
 
-#: includes/controller/controller-admin.php:268
-#: includes/controller/controller-admin.php:311
+#: includes/controller/controller-admin.php:282
+#: includes/controller/controller-admin.php:325
 msgid "No options were imported"
 msgstr ""
 
-#: includes/controller/controller-admin.php:289
+#: includes/controller/controller-admin.php:303
 msgid "Settings imported successfully"
 msgstr ""
 
-#: includes/controller/controller-admin.php:290
+#: includes/controller/controller-admin.php:304
 msgid "Settings were not imported. Please check the import file."
 msgstr ""
 
-#: includes/controller/controller-admin.php:322
+#: includes/controller/controller-admin.php:336
 msgid "Wrong file format for services."
 msgstr ""
 
-#: includes/controller/controller-admin.php:352
+#: includes/controller/controller-admin.php:366
 msgid "Services imported successfully"
 msgstr ""
 
-#: includes/controller/controller-admin.php:353
+#: includes/controller/controller-admin.php:367
 msgid "No service was imported"
 msgstr ""
 
-#: includes/controller/controller-admin.php:516
+#: includes/controller/controller-admin.php:530
 #: includes/controller/controller-cookie.php:193
 msgid "Enabled"
 msgstr ""
 
-#: includes/controller/controller-admin.php:517
+#: includes/controller/controller-admin.php:531
 #: includes/controller/controller-cookie.php:194
 msgid "Enable"
 msgstr ""
 
-#: includes/controller/controller-admin.php:518
+#: includes/controller/controller-admin.php:532
 #: includes/controller/controller-cookie.php:195
 msgid "Disabled"
 msgstr ""
 
-#: includes/controller/controller-admin.php:519
+#: includes/controller/controller-admin.php:533
 #: includes/controller/controller-cookie.php:196
 msgid "Disable"
 msgstr ""
 
-#: includes/controller/controller-admin.php:601
+#: includes/controller/controller-admin.php:615
 msgid "License"
 msgstr ""
 
-#: includes/controller/controller-admin.php:609
+#: includes/controller/controller-admin.php:623
 msgid "Envato key"
 msgstr ""
 
@@ -733,7 +733,7 @@ msgid "Block selected/all cookies until user consents"
 msgstr ""
 
 #: includes/controller/controller-cookie.php:1541
-#: includes/controller/controller-policy.php:129
+#: includes/controller/controller-policy.php:137
 #: includes/controller/controller-terms.php:495
 msgid "Set consent expire time [s]"
 msgstr ""
@@ -1374,7 +1374,7 @@ msgstr ""
 #: includes/controller/controller-policy.php:20
 #: includes/controller/controller-policy.php:21
 #: includes/controller/controller-policy.php:45
-#: includes/controller/controller-policy.php:862
+#: includes/controller/controller-policy.php:901
 #: includes/views/admin/admin-policy.php:32
 #: includes/views/admin/admin-terms.php:33
 msgid "Privacy Policy"
@@ -1411,59 +1411,63 @@ msgid "Privacy Policy Custom URL"
 msgstr ""
 
 #: includes/controller/controller-policy.php:113
-msgid "Page to redirect to after Privacy Policy accepted"
+msgid "Open Privacy Policy in a new Tab"
 msgstr ""
 
 #: includes/controller/controller-policy.php:121
+msgid "Page to redirect to after Privacy Policy accepted"
+msgstr ""
+
+#: includes/controller/controller-policy.php:129
 #: includes/controller/controller-terms.php:487
 msgid "Shortcode Button Styling"
 msgstr ""
 
-#: includes/controller/controller-policy.php:137
+#: includes/controller/controller-policy.php:145
 msgid "Privacy Policy version, eg. 1.0 (if you change it, user has to give consent again)"
 msgstr ""
 
-#: includes/controller/controller-policy.php:145
+#: includes/controller/controller-policy.php:153
 msgid "Redirect to Privacy Policy first (if Terms and Conditions also redirect)"
 msgstr ""
 
-#: includes/controller/controller-policy.php:153
+#: includes/controller/controller-policy.php:161
 msgid "Convert the following text to Privacy Policy link in all services templates, eg. 'Privacy Policy'"
 msgstr ""
 
-#: includes/controller/controller-policy.php:161
+#: includes/controller/controller-policy.php:169
 #: includes/controller/controller-terms.php:519
 msgid "Do not block user agents (eg. bots) containing the following texts (comma separated)"
 msgstr ""
 
-#: includes/controller/controller-policy.php:198
+#: includes/controller/controller-policy.php:206
 msgid "Click here to create"
 msgstr ""
 
-#: includes/controller/controller-policy.php:209
+#: includes/controller/controller-policy.php:217
 msgid "1. Place %s shortcode on your existing Privacy Policy page to add an accept button.%s2. Select Privacy Policy page below, so users can be redirected there to give their consent."
 msgstr ""
 
-#: includes/controller/controller-policy.php:664
+#: includes/controller/controller-policy.php:686
 msgid "WordPress Privacy page"
 msgstr ""
 
-#: includes/controller/controller-policy.php:720
+#: includes/controller/controller-policy.php:742
 #: includes/controller/controller-terms.php:734
 msgid "Last visited page"
 msgstr ""
 
-#: includes/controller/controller-policy.php:721
+#: includes/controller/controller-policy.php:743
 #: includes/controller/controller-terms.php:735
 msgid "Don't redirect"
 msgstr ""
 
-#: includes/controller/controller-policy.php:747
+#: includes/controller/controller-policy.php:769
 #: includes/controller/controller-terms.php:657
 msgid "Theme Default"
 msgstr ""
 
-#: includes/controller/controller-policy.php:748
+#: includes/controller/controller-policy.php:770
 #: includes/controller/controller-terms.php:658
 msgid "Cookie box buttons"
 msgstr ""
@@ -1766,7 +1770,7 @@ msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
 msgstr ""
 
 #: includes/controller/controller-unsubscribe.php:815
-msgid "Your have been unsubscribed"
+msgid "You have been unsubscribed"
 msgstr ""
 
 #: includes/helpers.php:116
@@ -2327,16 +2331,22 @@ msgstr ""
 msgid "You need to be at least %s years old to make full use of the website."
 msgstr ""
 
+#: includes/shortcode/shortcode-privacy-policy.php:24
+msgid "First or Third Party Filter"
+msgstr ""
+
 #: includes/shortcode/shortcode-privacy-policy.php:26
 msgid "Any"
 msgstr ""
 
 #: includes/shortcode/shortcode-privacy-policy.php:27
-msgid "First Party"
+#: includes/shortcode/shortcode-privacy-policy.php:84
+msgid "First party"
 msgstr ""
 
 #: includes/shortcode/shortcode-privacy-policy.php:28
-msgid "Third Party"
+#: includes/shortcode/shortcode-privacy-policy.php:85
+msgid "Third party"
 msgstr ""
 
 #: includes/shortcode/shortcode-privacy-policy.php:36
@@ -2365,14 +2375,6 @@ msgstr ""
 
 #: includes/shortcode/shortcode-privacy-policy.php:54
 msgid "Purpose"
-msgstr ""
-
-#: includes/shortcode/shortcode-privacy-policy.php:84
-msgid "First party"
-msgstr ""
-
-#: includes/shortcode/shortcode-privacy-policy.php:85
-msgid "Third party"
 msgstr ""
 
 #: includes/shortcode/shortcode-privacy-policy.php:88

@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -377,13 +377,7 @@ class WC_Memberships_Integration_Subscriptions_Membership_Plans {
 
 								foreach ( $items as $item ) {
 
-									if ( $item instanceof \WC_Order_Item_Product && is_callable( array( $item, 'get_product' ) ) ) {
-										$product = $item->get_product();
-									} elseif ( is_callable( array( $subscription, 'get_product_from_item' ) ) ) {
-										$product = $subscription->get_product_from_item( $item );
-									} else {
-										$product = null;
-									}
+									$product = $item instanceof \WC_Order_Item_Product ? $item->get_product() : null;
 
 									// the product matches a subscription product that would grant access
 									if ( $product && in_array( $product->get_id(), $access_granting_sub_ids, false ) ) {

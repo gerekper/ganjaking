@@ -107,13 +107,12 @@ jQuery( document ).ready( function($) {
 			var $variation_form = $( this ),
 				$totals         = $variation_form.find( '#product-addons-total' );
 
-			if ( typeof( variation.display_price ) !== 'undefined' ) {
+			if ( typeof variation.display_price !== 'undefined' ) {
 
 				$totals.data( 'price', variation.display_price );
 
-			} else if ( $( variation.price_html ).find( '.amount:last' ).size() ) {
-
-				product_price = $( variation.price_html ).find( '.amount:last' ).text();
+			} else if ( $( variation.price_html ).find( '.amount' ).last().length ) {
+				product_price = $( variation.price_html ).find( '.amount' ).last().text();
 				product_price = product_price.replace( woocommerce_addons_params.currency_format_symbol, '' );
 				product_price = product_price.replace( woocommerce_addons_params.currency_format_thousand_sep, '' );
 				product_price = product_price.replace( woocommerce_addons_params.currency_format_decimal_sep, '.' );

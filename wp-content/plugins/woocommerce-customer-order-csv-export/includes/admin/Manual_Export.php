@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/ordercustomer-csv-exporter/
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2015-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2015-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -200,6 +200,19 @@ class Manual_Export {
 				'css'               => 'min-width: 250px',
 				'custom_attributes' => [
 					'data-placeholder' => __( 'Leave blank to export orders with any status.', 'woocommerce-customer-order-csv-export' ),
+				],
+			],
+
+			'refunds' => [
+				'id'       => 'refunds',
+				'name'     => __( 'Refunds', 'woocommerce-customer-order-csv-export' ),
+				'desc_tip' => __( 'Determine whether to export all orders or those with at least 1 refund.', 'woocommerce-customer-order-csv-export' ),
+				'type'     => 'select',
+				'class'    => 'wc-enhanced-select js-export-type-field show_if_orders',
+				'default'  => 'all',
+				'options'  => [
+					'all'          => __( 'Include all orders', 'woocommerce-customer-order-csv-export' ),
+					'only_refunds' => __( 'Only include orders with refunds', 'woocommerce-customer-order-csv-export' ),
 				],
 			],
 

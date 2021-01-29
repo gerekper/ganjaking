@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -254,7 +254,7 @@ function wc_memberships_get_order_thank_you_links( $order_id ) {
 
 	$message = '';
 
-	if ( $order_id instanceof WC_Order ) {
+	if ( $order_id instanceof \WC_Order ) {
 		$order_id = $order_id->get_id();
 	}
 
@@ -264,44 +264,48 @@ function wc_memberships_get_order_thank_you_links( $order_id ) {
 
 		if ( ! empty( $memberships ) ) {
 
-			$memberships_with_members_area = [];
+			$message .= '<p>' . __( 'Thanks for purchasing a membership!', 'woocommerce-memberships' );
 
-			foreach ( $memberships as $membership_id => $data ) {
+			// skip if the members area is disabled (no endpoint)
+			if ( ! empty( wc_memberships_get_members_area_endpoint() ) ) {
 
-				if ( 'yes' === $data['already_granted'] ) {
+				$memberships_with_members_area = [];
 
-					$user_membership       = wc_memberships_get_user_membership( (int) $membership_id );
-					$membership_plan       = $user_membership ? $user_membership->get_plan() : null;
-					$members_area_sections = $membership_plan ? $membership_plan->get_members_area_sections() : array();
+				foreach ( $memberships as $membership_id => $data ) {
 
-					if ( ! empty( $members_area_sections ) ) {
-						$memberships_with_members_area[ $user_membership->get_plan_id() ] = $user_membership->get_plan()->get_name();
+					if ( 'yes' === $data['already_granted'] ) {
+
+						$user_membership       = wc_memberships_get_user_membership( (int) $membership_id );
+						$membership_plan       = $user_membership ? $user_membership->get_plan() : null;
+						$members_area_sections = $membership_plan ? $membership_plan->get_members_area_sections() : array();
+
+						if ( ! empty( $members_area_sections ) ) {
+							$memberships_with_members_area[ $user_membership->get_plan_id() ] = $user_membership->get_plan()->get_name();
+						}
 					}
 				}
-			}
 
-			if ( ! empty( $memberships_with_members_area ) ) {
+				if ( ! empty( $memberships_with_members_area ) ) {
 
-				$message = '<p>' . __( 'Thanks for purchasing a membership!', 'woocommerce-memberships' );
+					if ( 1 === count( $memberships_with_members_area ) ) {
 
-				if ( 1 === count( $memberships_with_members_area ) ) {
+						/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag */
+						$message .= ' ' . sprintf( __( 'You can view more details about your membership from %1$syour account%2$s.', 'woocommerce-memberships' ), '<a href="' . esc_url( wc_memberships_get_members_area_url( key( $memberships_with_members_area ) ) ) . '">', '</a>' );
 
-					/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag */
-					$message .= ' ' . sprintf( __( 'You can view more details about your membership from %1$syour account%2$s.', 'woocommerce-memberships' ), '<a href="' . esc_url( wc_memberships_get_members_area_url( key( $memberships_with_members_area ) ) ) . '">', '</a>' );
+					} else {
 
-				} else {
+						$message .= ' ' . __( 'You can view details for each membership in your account:', 'woocommerce-memberships' );
+						$message .= '<ul>';
 
-					$message .= ' ' . __( 'You can view details for each membership in your account:', 'woocommerce-memberships' );
-					$message .= '<ul>';
+						foreach( $memberships_with_members_area as $plan_id => $plan_name ) {
+							$message .= '<li><a href="' . esc_url( wc_memberships_get_members_area_url( $plan_id ) ) . '">' . esc_html( $plan_name ) . '</a></li>';
+						}
 
-					foreach( $memberships_with_members_area as $plan_id => $plan_name ) {
-						$message .= '<li><a href="' . esc_url( wc_memberships_get_members_area_url( $plan_id ) ) . '">' . esc_html( $plan_name ) . '</a></li>';
+						$message .= '</ul>';
 					}
 
-					$message .= '</ul>';
+					$message .= '</p>';
 				}
-
-				$message .= '</p>';
 			}
 
 			/**

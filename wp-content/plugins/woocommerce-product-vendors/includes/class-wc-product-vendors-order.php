@@ -405,8 +405,8 @@ class WC_Product_Vendors_Order {
 				}
 
 				if ( $rule ) {
-					$item_shipping_cost += $rule->rule_item_cost * $item['qty'];
-					$item_shipping_cost += $rule->rule_cost;
+					$item_shipping_cost += (float) $rule->rule_item_cost * $item['qty'];
+					$item_shipping_cost += (float) $rule->rule_cost;
 				} elseif ( $settings['cost'] === '0' || $settings['cost'] > 0 ) {
 					// Use default
 					$item_shipping_cost += $settings['cost'] * $item['qty'];
@@ -426,8 +426,8 @@ class WC_Product_Vendors_Order {
 					$item_taxes = $_tax->calc_shipping_tax( $item_shipping_cost, $rates );
 
 					// Sum the item taxes
-					foreach ( array_keys( $taxes + $item_taxes ) as $key ) {
-						$taxes[ $key ] = $total_tax = ( isset( $item_taxes[ $key ] ) ? $item_taxes[ $key ] : 0 ) + ( isset( $taxes[ $key ] ) ? $taxes[ $key ] : 0 );
+					foreach ( $item_taxes as $value ) {
+						$total_tax = $total_tax + $value;
 					}
 				}
 			}

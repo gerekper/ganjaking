@@ -6,6 +6,43 @@
 
     class WC_pdf_admin_settings {
 
+        Private static $defaults = array(
+            'pdf_generator'     => 'DOMPDF', 
+            'attach_neworder'   => '',
+            'attach_multiple'   => array(),
+            'create_invoice'    => 'completed',
+            'link_thanks'       => 'true',
+            'paper_size'        => 'a4',
+            'paper_orientation' => 'portrait',
+            'logo_file'         => '',
+            'enable_remote'     => 'false',
+            'enable_subsetting' => 'true',
+            'pdf_company_name'  => '',
+            'pdf_registered_name' => '',
+            'pdf_company_number' => '',
+            'pdf_tax_number'    => '',
+            'sequential'        => 'true',
+            'annual_restart'    => 'false',
+            'start_number'      => '',
+            'padding'           => '',
+            'pdf_prefix'        => '',
+            'pdf_sufix'         => '',
+            'pdf_filename'      => '{{company}}-{{invoicenumber}}',
+            'pdf_date'          => 'completed',
+            'pdf_date_format'   => 'j F, Y',
+            'pdf_termsid'       => '',
+            'pdf_creation'      => 'file',
+            'pdf_cache'         => 'false',
+            'pdf_debug'         => 'false',
+            'pdf_font'          => 'Default',
+            'pdf_currency_font' => 'false',
+            'pdf_rtl'           => 'false'
+        );
+
+        Private static $layout_defaults = array(
+            'template_css'      => 'DOMPDF',
+        );
+
         public function __construct() {
 
             /**
@@ -64,6 +101,7 @@
          */
         function register_settings() {
             register_setting( 'woocommerce_pdf_invoice_settings_group', 'woocommerce_pdf_invoice_settings' );
+            register_setting( 'woocommerce_pdf_invoice_layout_group', 'woocommerce_pdf_invoice_layout_settings' );
         }
 
         /**
@@ -102,69 +140,7 @@
         public static function options_page() {
             global $wpdb;
 
-            $woocommerce_pdf_invoice_options = get_option('woocommerce_pdf_invoice_settings');
-            $defaults = array(
-                    'pdf_generator'     => 'DOMPDF', 
-                    'attach_neworder'   => '',
-                    'attach_multiple'   => array(),
-                    'create_invoice'    => 'completed',
-                    'link_thanks'       => 'true',
-                    'paper_size'        => 'a4',
-                    'paper_orientation' => 'portrait',
-                    'logo_file'         => '',
-                    'enable_remote'     => 'false',
-                    'enable_subsetting' => 'true',
-                    'pdf_company_name'  => '',
-                    'pdf_registered_name' => '',
-                    'pdf_company_number' => '',
-                    'pdf_tax_number'    => '',
-                    'sequential'        => 'true',
-                    'annual_restart'    => 'false',
-                    'start_number'      => '',
-                    'padding'           => '',
-                    'pdf_prefix'        => '',
-                    'pdf_sufix'         => '',
-                    'pdf_filename'      => '{{company}}-{{invoicenumber}}',
-                    'pdf_date'          => 'completed',
-                    'pdf_date_format'   => 'j F, Y',
-                    'pdf_termsid'       => '',
-                    'pdf_creation'      => 'file',
-                    'pdf_cache'         => 'false',
-                    'pdf_debug'         => 'false',
-                    'pdf_font'          => 'Default',
-                    'pdf_currency_font' => 'false',
-                    'pdf_rtl'           => 'false'
-                );
-            
-            $woocommerce_pdf_invoice_options['pdf_generator']       = isset($woocommerce_pdf_invoice_options['pdf_generator']) ? $woocommerce_pdf_invoice_options['pdf_generator'] : $defaults['pdf_generator'];
-            $woocommerce_pdf_invoice_options['attach_neworder']     = isset($woocommerce_pdf_invoice_options['attach_neworder']) ? $woocommerce_pdf_invoice_options['attach_neworder'] : $defaults['attach_neworder'];
-            $woocommerce_pdf_invoice_options['attach_multiple']     = isset($woocommerce_pdf_invoice_options['attach_multiple']) ? $woocommerce_pdf_invoice_options['attach_multiple'] : $defaults['attach_multiple'];
-            $woocommerce_pdf_invoice_options['create_invoice']      = isset($woocommerce_pdf_invoice_options['create_invoice']) ? $woocommerce_pdf_invoice_options['create_invoice'] : $defaults['create_invoice'];
-            $woocommerce_pdf_invoice_options['link_thanks']         = isset($woocommerce_pdf_invoice_options['link_thanks']) ? $woocommerce_pdf_invoice_options['link_thanks'] : $defaults['link_thanks'];
-            $woocommerce_pdf_invoice_options['paper_size']          = isset($woocommerce_pdf_invoice_options['paper_size']) ? $woocommerce_pdf_invoice_options['paper_size'] : $defaults['paper_size'];
-            $woocommerce_pdf_invoice_options['paper_orientation']   = isset($woocommerce_pdf_invoice_options['paper_orientation']) ? $woocommerce_pdf_invoice_options['paper_orientation'] : $defaults['paper_orientation'];
-            $woocommerce_pdf_invoice_options['logo_file']           = isset($woocommerce_pdf_invoice_options['logo_file']) ? $woocommerce_pdf_invoice_options['logo_file'] : $defaults['logo_file'];
-            $woocommerce_pdf_invoice_options['enable_remote']       = isset($woocommerce_pdf_invoice_options['enable_remote']) ? $woocommerce_pdf_invoice_options['enable_remote'] : $defaults['enable_remote'];
-            $woocommerce_pdf_invoice_options['enable_subsetting']   = isset($woocommerce_pdf_invoice_options['enable_subsetting']) ? $woocommerce_pdf_invoice_options['enable_subsetting'] : $defaults['enable_subsetting'];
-            $woocommerce_pdf_invoice_options['pdf_company_name']    = isset($woocommerce_pdf_invoice_options['pdf_company_name']) ? $woocommerce_pdf_invoice_options['pdf_company_name'] : $defaults['pdf_company_name'];
-            $woocommerce_pdf_invoice_options['pdf_registered_name'] = isset($woocommerce_pdf_invoice_options['pdf_registered_name']) ? $woocommerce_pdf_invoice_options['pdf_registered_name'] : $defaults['pdf_registered_name'];
-            $woocommerce_pdf_invoice_options['pdf_company_number']  = isset($woocommerce_pdf_invoice_options['pdf_company_number']) ? $woocommerce_pdf_invoice_options['pdf_company_number'] : $defaults['pdf_company_number'];
-            $woocommerce_pdf_invoice_options['pdf_tax_number']      = isset($woocommerce_pdf_invoice_options['pdf_tax_number']) ? $woocommerce_pdf_invoice_options['pdf_tax_number'] : $defaults['pdf_tax_number'];
-            $woocommerce_pdf_invoice_options['sequential']          = isset($woocommerce_pdf_invoice_options['sequential']) ? $woocommerce_pdf_invoice_options['sequential'] : $defaults['sequential'];
-            $woocommerce_pdf_invoice_options['annual_restart']      = isset($woocommerce_pdf_invoice_options['annual_restart']) ? $woocommerce_pdf_invoice_options['annual_restart'] : $defaults['annual_restart'];
-            $woocommerce_pdf_invoice_options['start_number']        = isset($woocommerce_pdf_invoice_options['start_number']) ? $woocommerce_pdf_invoice_options['start_number'] : $defaults['start_number'];
-            $woocommerce_pdf_invoice_options['padding']             = isset($woocommerce_pdf_invoice_options['padding']) ? $woocommerce_pdf_invoice_options['padding'] : $defaults['padding'];
-            $woocommerce_pdf_invoice_options['pdf_prefix']          = isset($woocommerce_pdf_invoice_options['pdf_prefix']) ? $woocommerce_pdf_invoice_options['pdf_prefix'] : $defaults['pdf_prefix'];
-            $woocommerce_pdf_invoice_options['pdf_sufix']           = isset($woocommerce_pdf_invoice_options['pdf_sufix']) ? $woocommerce_pdf_invoice_options['pdf_sufix'] : $defaults['pdf_sufix'];
-            $woocommerce_pdf_invoice_options['pdf_filename']        = isset($woocommerce_pdf_invoice_options['pdf_filename']) ? $woocommerce_pdf_invoice_options['pdf_filename'] : $defaults['pdf_filename'];
-            $woocommerce_pdf_invoice_options['pdf_date']            = isset($woocommerce_pdf_invoice_options['pdf_date']) ? $woocommerce_pdf_invoice_options['pdf_date'] : $defaults['pdf_date'];
-            $woocommerce_pdf_invoice_options['pdf_date_format']     = isset($woocommerce_pdf_invoice_options['pdf_date_format']) ? $woocommerce_pdf_invoice_options['pdf_date_format'] : $defaults['pdf_date_format'];
-            $woocommerce_pdf_invoice_options['pdf_termsid']         = isset($woocommerce_pdf_invoice_options['pdf_termsid']) ? $woocommerce_pdf_invoice_options['pdf_termsid'] : $defaults['pdf_termsid'];
-            $woocommerce_pdf_invoice_options['pdf_creation']        = isset($woocommerce_pdf_invoice_options['pdf_creation']) ? $woocommerce_pdf_invoice_options['pdf_creation'] : $defaults['pdf_creation'];
-            $woocommerce_pdf_invoice_options['pdf_cache']           = isset($woocommerce_pdf_invoice_options['pdf_cache']) ? $woocommerce_pdf_invoice_options['pdf_cache'] : $defaults['pdf_cache'];
-            $woocommerce_pdf_invoice_options['pdf_debug']           = isset($woocommerce_pdf_invoice_options['pdf_debug']) ? $woocommerce_pdf_invoice_options['pdf_debug'] : $defaults['pdf_debug'];
-            $woocommerce_pdf_invoice_options['pdf_currency_font']   = isset($woocommerce_pdf_invoice_options['pdf_currency_font']) ? $woocommerce_pdf_invoice_options['pdf_currency_font'] : $defaults['pdf_currency_font'];
-            $woocommerce_pdf_invoice_options['pdf_rtl']             = isset($woocommerce_pdf_invoice_options['pdf_rtl']) ? $woocommerce_pdf_invoice_options['pdf_rtl'] : $defaults['pdf_rtl'];
+            $woocommerce_pdf_invoice_options = WC_pdf_admin_settings::get_settings();
 
             do_action( 'woocommerce_pdf_invoice_settings_action' );
 
@@ -207,8 +183,9 @@
                    require_once ( PDFPLUGINPATH . "lib/pdf_debugging.php" );
                 
                 } elseif( $active_tab == 'display_settings_layout' ) {
-                
-                   require_once ( PDFPLUGINPATH . "html/pdf-layout.php" );
+                    // Get layout settings
+                    $woocommerce_pdf_invoice_layout_options = WC_pdf_admin_settings::get_layout_settings();
+                    require_once ( PDFPLUGINPATH . "html/pdf-layout.php" );
 
                 } elseif( $active_tab == 'display_help' ) {
                 
@@ -856,6 +833,59 @@
             } // End settings tab.
         }
 
+        /**
+         * [get_settings description]
+         * @return [type] [description]
+         */
+        public static function get_settings() {
+
+            $settings = get_option('woocommerce_pdf_invoice_settings');
+            $defaults = WC_pdf_admin_settings::$defaults;
+
+            $settings['pdf_generator']       = isset( $settings['pdf_generator'] )      ? $settings['pdf_generator']        : $defaults['pdf_generator'];
+            $settings['attach_neworder']     = isset( $settings['attach_neworder'] )    ? $settings['attach_neworder']      : $defaults['attach_neworder'];
+            $settings['attach_multiple']     = isset( $settings['attach_multiple'] )    ? $settings['attach_multiple']      : $defaults['attach_multiple'];
+            $settings['create_invoice']      = isset( $settings['create_invoice'] )     ? $settings['create_invoice']       : $defaults['create_invoice'];
+            $settings['link_thanks']         = isset( $settings['link_thanks'] )        ? $settings['link_thanks']          : $defaults['link_thanks'];
+            $settings['paper_size']          = isset( $settings['paper_size'] )         ? $settings['paper_size']           : $defaults['paper_size'];
+            $settings['paper_orientation']   = isset( $settings['paper_orientation'] )  ? $settings['paper_orientation']    : $defaults['paper_orientation'];
+            $settings['logo_file']           = isset( $settings['logo_file'] )          ? $settings['logo_file']            : $defaults['logo_file'];
+            $settings['enable_remote']       = isset( $settings['enable_remote'] )      ? $settings['enable_remote']        : $defaults['enable_remote'];
+            $settings['enable_subsetting']   = isset( $settings['enable_subsetting'] )  ? $settings['enable_subsetting']    : $defaults['enable_subsetting'];
+            $settings['pdf_company_name']    = isset( $settings['pdf_company_name'] )   ? $settings['pdf_company_name']     : $defaults['pdf_company_name'];
+            $settings['pdf_registered_name'] = isset( $settings['pdf_registered_name'] ) ? $settings['pdf_registered_name'] : $defaults['pdf_registered_name'];
+            $settings['pdf_company_number']  = isset( $settings['pdf_company_number'] ) ? $settings['pdf_company_number']   : $defaults['pdf_company_number'];
+            $settings['pdf_tax_number']      = isset( $settings['pdf_tax_number'] )     ? $settings['pdf_tax_number']       : $defaults['pdf_tax_number'];
+            $settings['sequential']          = isset( $settings['sequential'] )         ? $settings['sequential']           : $defaults['sequential'];
+            $settings['annual_restart']      = isset( $settings['annual_restart'] )     ? $settings['annual_restart']       : $defaults['annual_restart'];
+            $settings['start_number']        = isset( $settings['start_number'] )       ? $settings['start_number']         : $defaults['start_number'];
+            $settings['padding']             = isset( $settings['padding'] )            ? $settings['padding']              : $defaults['padding'];
+            $settings['pdf_prefix']          = isset( $settings['pdf_prefix'] )         ? $settings['pdf_prefix']           : $defaults['pdf_prefix'];
+            $settings['pdf_sufix']           = isset( $settings['pdf_sufix'] )          ? $settings['pdf_sufix']            : $defaults['pdf_sufix'];
+            $settings['pdf_filename']        = isset( $settings['pdf_filename'] )       ? $settings['pdf_filename']         : $defaults['pdf_filename'];
+            $settings['pdf_date']            = isset( $settings['pdf_date'] )           ? $settings['pdf_date']             : $defaults['pdf_date'];
+            $settings['pdf_date_format']     = isset( $settings['pdf_date_format'] )    ? $settings['pdf_date_format']      : $defaults['pdf_date_format'];
+            $settings['pdf_termsid']         = isset( $settings['pdf_termsid'] )        ? $settings['pdf_termsid']          : $defaults['pdf_termsid'];
+            $settings['pdf_creation']        = isset( $settings['pdf_creation'] )       ? $settings['pdf_creation']         : $defaults['pdf_creation'];
+            $settings['pdf_cache']           = isset( $settings['pdf_cache'] )          ? $settings['pdf_cache']            : $defaults['pdf_cache'];
+            $settings['pdf_debug']           = isset( $settings['pdf_debug'] )          ? $settings['pdf_debug']            : $defaults['pdf_debug'];
+            $settings['pdf_currency_font']   = isset( $settings['pdf_currency_font'] )  ? $settings['pdf_currency_font']    : $defaults['pdf_currency_font'];
+            $settings['pdf_rtl']             = isset( $settings['pdf_rtl'] )            ? $settings['pdf_rtl']              : $defaults['pdf_rtl'];
+
+            return $settings;
+
+        }
+
+        public static function get_layout_settings() {
+
+            $settings = get_option('woocommerce_pdf_invoice_layout_settings');
+            $defaults = WC_pdf_admin_settings::$layout_defaults;
+
+            $settings['template_css']       = isset( $settings['template_css'] )        ? $settings['template_css']         : $defaults['template_css']; 
+
+            return $settings;
+
+        }
     }
 
     $GLOBALS['WC_pdf_admin_settings'] = new WC_pdf_admin_settings();

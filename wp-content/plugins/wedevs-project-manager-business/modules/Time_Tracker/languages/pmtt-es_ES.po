@@ -1,0 +1,132 @@
+# Copyright (C) 2017 weDevs
+# This file is distributed under the same license as the WP Project Manager - Time Trakcer package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Project Manager - Time Trakcer 1.2\n"
+"Report-Msgid-Bugs-To: http://wedevs.com/support/forum/plugin-support/wp-"
+"project-manager/\n"
+"POT-Creation-Date: 2018-03-12 12:53+0600\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-03-25 16:04+0600\n"
+"Language-Team: EMAIL@ADDRESS\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
+
+#: class/ajax.php:81 class/ajax.php:136
+msgid "Time log added!"
+msgstr "adfa"
+
+#: class/ajax.php:127
+msgid "Somenthing wrong!"
+msgstr "dsfa"
+
+#: time-tracker.php:230 views/js-templates/admin-view-log.php:9
+#: views/js-templates/show-watch.php:10 views/js-templates/time-log.php:7
+#: views/log.php:32
+msgid "Start"
+msgstr "sdfas"
+
+#: time-tracker.php:231 views/js-templates/show-watch.php:11
+msgid "Stop"
+msgstr "sdfas"
+
+#: time-tracker.php:234
+msgid "Oops! Another watch is running."
+msgstr "sdfa"
+
+#: views/js-templates/admin-view-log.php:4
+msgid "Time log for "
+msgstr "sdfa"
+
+#: views/js-templates/admin-view-log.php:10 views/js-templates/time-log.php:8
+#: views/log.php:33
+msgid "End"
+msgstr "dsfa"
+
+#: views/js-templates/admin-view-log.php:11
+#: views/js-templates/admin-view-log.php:30 views/js-templates/time-log.php:9
+#: views/js-templates/time-log.php:36 views/log.php:34 views/log.php:71
+msgid "Total"
+msgstr "sdfa"
+
+#: views/js-templates/custom-time.php:5 views/stop-watch.php:9
+msgid "Add Time Log"
+msgstr "sdfas"
+
+#: views/js-templates/custom-time.php:12 views/stop-watch.php:20
+msgid "Start Time"
+msgstr "sdfa"
+
+#: views/js-templates/custom-time.php:17 views/stop-watch.php:25
+msgid "End Time"
+msgstr "sdfasd"
+
+#: views/js-templates/custom-time.php:21 views/stop-watch.php:29
+msgid "Add Entry"
+msgstr "asdfa"
+
+#: views/js-templates/custom-time.php:22 views/stop-watch.php:30
+msgid "Cancel"
+msgstr "sdfa"
+
+#: views/js-templates/time-log.php:10 views/js-templates/time-log.php:29
+#: views/log.php:36 views/log.php:60
+msgid "Delete"
+msgstr "sadfas"
+
+#: views/js-templates/time-log.php:16
+msgid "No log found"
+msgstr "sdfa"
+
+#: views/log.php:18
+msgid "Delete successful"
+msgstr "sdfa"
+
+#: views/log.php:21
+msgid "Fail to delete"
+msgstr "sdfa"
+
+#: views/time/time-tracker.php:9 views/time-log.php:10
+msgid "You do no have permission to access this page"
+msgstr "sdaf"
+
+#: views/time/time-tracker.php:301
+msgid "No Project found"
+msgstr "dfasd"
+
+#: views/time-log.php:20
+msgid "My Tasks"
+msgstr "sdfgas"
+
+#: views/time-log.php:168
+msgid "(Completed by %s on %s)"
+msgstr "dvs"
+
+#: views/time-log.php:190
+msgid "No task found"
+msgstr "dsfas"
+
+#. Plugin Name of the plugin/theme
+msgid "WP Project Manager - Time Trakcer"
+msgstr "sdfs"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://wedevs.com/products/plugins/wp-project-manager-pro/time-tracker/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Time tracker add-on for WP Project Manager"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "weDevs"
+msgstr "sdfas"
+
+#. Author URI of the plugin/theme
+msgid "https://wedevs.com"
+msgstr ""

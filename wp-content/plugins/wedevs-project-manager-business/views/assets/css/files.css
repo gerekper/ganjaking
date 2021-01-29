@@ -1,0 +1,86 @@
+/*
+.cpm-pro-file-container{
+
+    padding: 5px 15px 0px;
+
+}
+.cpm-uplaod-btn-list{
+    text-align: right;
+    padding-right: 0px;
+    min-height: 50px;
+}
+
+.cpm-doc-btn {
+    margin: 8px 10px ;
+    border-radius: 3px;
+    background-color: #019DD6;
+    font-weight: bold;
+    padding: 10px 10px;
+    color : #ededed;
+}
+
+.cpm-doc-btn:hover{
+    color : #ffffff;
+}
+
+.cpm-pro-file-container .cpm-pro-file-uploder{
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.cpm-pro-file-container #cpm-upload-container-nd .cpm-close-upload{
+    background-color: #019DD6 ;
+    border-radius: 15px;
+    padding: 2px 6px;
+    color: #fff;
+    clear: right;
+}
+
+.cpm-pro-file-container #cpm-upload-container-nd .cpm-uploaded-item {
+    float: left;
+    margin-right: 10px;
+    width: 175px;
+    height: 200px;
+}
+
+.cpm-pro-file-container #cpm-upload-container-nd .cpm-uploaded-item .cpm-delete-file.button {
+    margin-top: 5px;
+}
+
+.cpm-uploaded-content{
+
+}
+
+.cpm-uploaded-content .cpm-file-action li{
+    margin-right: 0px !important;
+}
+.cpm-pro-file-container .cpm-privacy{
+    margin: 15px 0px;
+}
+
+.cpm-pro-file-container .folder{
+    float: left;
+}
+
+ /* always present */
+/*
+.formshow-transition {
+    transition: all .3s ease;
+    padding: 10px;
+     background: #fff;
+      box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    overflow: hidden;
+}
+
+/* .expand-enter defines the starting state for entering */
+/* .expand-leave defines the ending state for leaving */
+/*
+.formshow-enter, .formshow-leave {
+    height: 0;
+    padding: 0 10px;
+    opacity: 0;
+}
+
+*/

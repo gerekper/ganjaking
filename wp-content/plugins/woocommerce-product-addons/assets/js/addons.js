@@ -121,11 +121,7 @@ jQuery( function( $ ) {
 					}
 				} )
 
-				.on( 'keyup', '.wc-pao-addon-custom-textarea, .wc-pao-addon-custom-text, .wc-pao-addon-custom-price', function() {
-					$( this ).trigger( 'woocommerce-product-addons-update' );
-				} )
-
-				.on( 'change', '.wc-pao-addon input, .wc-pao-addon textarea, .wc-pao-addon select, input.qty', function() {
+				.on( 'input change', '.wc-pao-addon input, .wc-pao-addon textarea, .wc-pao-addon select, input.qty, .wc-pao-addon-custom-text, .wc-pao-addon-custom-price', function() {
 					$( this ).trigger( 'woocommerce-product-addons-update' );
 				} )
 
@@ -133,13 +129,12 @@ jQuery( function( $ ) {
 					var $variation_form = $( this ),
 						$totals         = $variation_form.find( '#product-addons-total' );
 
-					if ( typeof( variation.display_price ) !== 'undefined' ) {
+					if ( typeof variation.display_price !== 'undefined' ) {
 
 						$totals.data( 'price', variation.display_price );
 
-					} else if ( $( variation.price_html ).find( '.amount:last' ).length ) {
-
-						var product_price = $( variation.price_html ).find( '.amount:last' ).text();
+					} else if ( $( variation.price_html ).find( '.amount' ).last().length ) {
+						var product_price = $( variation.price_html ).find( '.amount' ).last().text();
 							product_price = product_price.replace( woocommerce_addons_params.currency_format_symbol, '' );
 							product_price = product_price.replace( woocommerce_addons_params.currency_format_thousand_sep, '' );
 							product_price = product_price.replace( woocommerce_addons_params.currency_format_decimal_sep, '.' );
@@ -559,6 +554,19 @@ jQuery( function( $ ) {
 
 			$cart.find( '.wc-pao-addon-custom, .wc-pao-addon-custom-textarea, .wc-pao-addon input, .wc-pao-addon textarea, .wc-pao-addon select, input.qty, .variations select' ).change();
 
+			var submitButton = $cart.get( 0 ).querySelector( 'button[type="submit"]' );
+			if ( submitButton ) {
+				// Center into view and focus first invalid field when trying to submit.
+				submitButton.addEventListener( 'click', function() {
+					var invalidField = $cart.get( 0 ).querySelector( '*:invalid' );
+					invalidField.focus();
+					invalidField.scrollIntoView( {
+						block: 'center',
+						inline: 'center'
+					} );
+				});
+			}
+
 			$( '.wc-pao-addon-image-swatch' ).tipTip( { delay: 200 } );
 		},
 	};
@@ -589,14 +597,6 @@ jQuery( function( $ ) {
 	// Checkbox required logic.
 	$( 'body' ).find( '.wc-pao-addon-checkbox-group-required' ).each( function() {
 		var checkboxesGroup = this;
-		$( this ).find( '.wc-pao-addon-checkbox' ).each( function () {
-			// Stop displaying field required notice - it is confusing for multiple checkboxes in addon group.
-			$( this ).bind( 'invalid', function ( e ) {
-				// Style the checkboxes to indicate missing value.
-				$( checkboxesGroup ).addClass( "wc-pao-addon-checkbox-required-error" );
-				e.preventDefault();
-			} );
-		})
 
 		/*
 		 * Require at least one checkbox in a required group to be checked.
@@ -606,18 +606,18 @@ jQuery( function( $ ) {
 		 * This requires HTML5 to work.
 		 */
 		$( this ).find( '.wc-pao-addon-checkbox' ).change( function () {
-			// If user is making actions always remove error class.
-			$( checkboxesGroup ).removeClass( "wc-pao-addon-checkbox-required-error" );
 			if ( $( checkboxesGroup ).find( "input:checked" ).length > 0 ) {
+				$( checkboxesGroup ).removeClass( "wc-pao-addon-checkbox-required-error" );
 				$( checkboxesGroup ).find( "input" ).each( function () {
 					$( this ).attr( "required", false );
-				} )
+				} );
 			} else {
+				$( checkboxesGroup ).addClass( "wc-pao-addon-checkbox-required-error" );
 				$( checkboxesGroup ).find( "input" ).each( function () {
 					$( this ).attr( "required", true );
-				} )
+				} );
 			}
-		})
+		} );
 	} );
 
 } );

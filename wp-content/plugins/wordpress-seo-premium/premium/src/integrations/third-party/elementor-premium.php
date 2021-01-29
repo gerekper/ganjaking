@@ -304,7 +304,7 @@ class Elementor_Premium implements Integration_Interface {
 	protected function is_prominent_words_indexing_completed() {
 		$is_indexing_completed = $this->prominent_words_helper->is_indexing_completed();
 		if ( $is_indexing_completed === null ) {
-			$indexation_integration = YoastSEO()->classes->get( Indexing_Integration::class );
+			$indexation_integration = YoastSEOPremium()->classes->get( Indexing_Integration::class );
 			$is_indexing_completed  = $indexation_integration->get_unindexed_count( 0 ) === 0;
 
 			$this->prominent_words_helper->set_indexing_completed( $is_indexing_completed );

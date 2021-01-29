@@ -52,10 +52,10 @@ class Betterdocs_Pro_Public
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		add_filter('betterdocs_docs_layout_select_choices', array($this, 'customizer_docs_page_layout_choices'));
-		add_filter('archive_template', array($this, 'get_docs_archive_template'), 100);
+		add_filter('betterdocs_archive_template', array($this, 'get_docs_archive_template'));
 		add_filter('betterdocs_single_layout_select_choices', array($this, 'customizer_single_layout_choices'));
 		add_filter('single_template', array($this, 'get_docs_single_template'), 100);
-		add_filter('template_include', array($this, 'load_docs_taxonomy_template'), 100);
+		// add_filter('betterdocs_category_taxonomy_template', array($this, 'load_docs_taxonomy_template'));
 		add_action('betterdocs_docs_before_social', array($this, 'betterdocs_article_reactions'));
 	}
 
@@ -119,40 +119,45 @@ class Betterdocs_Pro_Public
 	 * 
 	 * @since    1.0.2
 	 */
-	public function get_docs_archive_template($archive_template)
+	public function get_docs_archive_template($template)
 	{
+		$docs_layout = get_theme_mod('betterdocs_docs_layout_select', 'layout-1');
+		$tax = BetterDocs_Helper::get_tax();
 		if (is_post_type_archive('docs')) {
-
 			$multikb_layout = get_theme_mod('betterdocs_multikb_layout_select', 'layout-1');
 			$layout_select = get_theme_mod('betterdocs_docs_layout_select', 'layout-1');
 
 			if (BetterDocs_Multiple_Kb::$enable == 1 && $multikb_layout === 'layout-2') {
-
-				$archive_template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/multiple-kb-2.php';
+				$template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/multiple-kb-2.php';
 			} elseif (BetterDocs_Multiple_Kb::$enable == 1) {
-
-				$archive_template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/multiple-kb.php';
+				$template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/multiple-kb.php';
 			} elseif ($layout_select === 'layout-2') {
-
-				$archive_template = BETTERDOCS_PUBLIC_PATH . 'partials/archive-template/category-box.php';
+				$template = BETTERDOCS_PUBLIC_PATH . 'partials/archive-template/category-box.php';
 			} elseif ($layout_select === 'layout-3') {
-
-				$archive_template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-box-3.php';
+				$template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-box-3.php';
 			} elseif ($layout_select === 'layout-4') {
-
-				$archive_template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-list-2.php';
+				$template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-list-2.php';
 			} else {
-
-				$archive_template = BETTERDOCS_PUBLIC_PATH . 'partials/archive-template/category-list.php';
+				$template = BETTERDOCS_PUBLIC_PATH . 'partials/archive-template/category-list.php';
 			}
+		} elseif ($tax === 'doc_category') {
+			$template = BETTERDOCS_PUBLIC_PATH . 'betterdocs-category-template.php';
+		} elseif (is_tax('doc_tag')) {
+			$template = BETTERDOCS_PUBLIC_PATH . 'betterdocs-tag-template.php';
+		} elseif ($tax === 'knowledge_base' && $docs_layout === 'layout-2') {
+			$template = BETTERDOCS_PUBLIC_PATH . 'partials/archive-template/category-box.php';
+		} elseif ($tax === 'knowledge_base' && $docs_layout === 'layout-3') {
+			$template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-box-3.php';
+		} elseif ($tax === 'knowledge_base' && $docs_layout === 'layout-4') {
+			$template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-list-2.php';
+		} elseif ($tax === 'knowledge_base') {
+			$template = BETTERDOCS_PUBLIC_PATH . 'partials/archive-template/category-list.php';
 		}
-
-		return $archive_template;
+		return $template;
 	}
 
 	public function customizer_docs_page_layout_choices($choices)
 	{
-
 		$choices['layout-3'] = array(
 			'image' => BETTERDOCS_ADMIN_URL . 'assets/img/docs-layout-3.png',
 		);

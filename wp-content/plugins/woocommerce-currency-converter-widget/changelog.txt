@@ -1,5 +1,12 @@
 *** Currency Converter Changelog ***
 
+2021-01-28 - version 1.6.24
+* Fix   - Compatibility with WC core blocks. PR#78
+* Fix   - Compatibility with Jetpack infinite scroll. PR#79
+* Fix   - Retain the chosen currency across page loads. PR#82
+* Fix   - Display prices in the correct format based on currency. PR#84
+* Tweak - Display both currency symbols & currency codes. PR#83
+
 2020-08-14 - version 1.6.23
 * Fix   - Replace deprecated jQuery methods.
 * Tweak - WordPress 5.5 compatibility.

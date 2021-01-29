@@ -3261,7 +3261,7 @@ msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
 msgstr "[Ultimate GDPR & CCPA] Aviso de cancelación de suscripción de %s"
 
 #: includes/controller/controller-unsubscribe.php:788
-msgid "Your have been unsubscribed"
+msgid "You have been unsubscribed"
 msgstr "Tu has sido desuscrito"
 
 #: includes/controller/controller-services.php:99 

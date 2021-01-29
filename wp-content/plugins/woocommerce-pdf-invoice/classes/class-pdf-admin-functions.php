@@ -414,19 +414,19 @@ class WC_pdf_admin_functions {
 		$order 	 = new WC_Order( $order_id );
 
 		if ( $usedate == 'completed' ) {
-			$order_status	= is_callable( array( $order, 'get_status' ) ) ? $order->get_status() : $order->order_status;
+			$order_status = $order->get_status();
 			if( $order_status == 'completed' ) {
 				$date = WC_send_pdf::get_completed_date( $order_id );
 			}
 
 		} elseif ( $usedate == 'order' ) {
-			$date = is_callable( array( $order, 'get_date_created' ) ) ? $order->get_date_created() : $order->order_date;
+			$date = $order->get_date_created();
 		}
 		
 		if ( $date ) {
 
 			// Return a date in the format that matches the PDF Ivoice settings.
-			return WC_pdf_admin_functions::format_pdf_date( $date) ;
+			return WC_pdf_admin_functions::format_pdf_date( $date );
 
 		} else {
 			// No changes to the date are being made or the order status is not completed but the settings say use the completed date
@@ -456,13 +456,9 @@ class WC_pdf_admin_functions {
 				$date = $date_check->format( $date_format );
 			}
 
-			if( strtotime( $date ) ) {
-				$date = date_i18n( $date_format, strtotime( $date ) );
-			}
-
 		}
 
-		// Return a date in the format that matches the PDF Ivoice settings.
+		// Return a date in the format that matches the PDF Invoice settings.
 		return $date;
 
 	}
@@ -663,6 +659,44 @@ class WC_pdf_admin_functions {
 		return $search_items;
 	}
 
+        /**
+         * [sagepay_debug description]
+         * @param  Array   $tolog   contents for log
+         * @param  String  $id      payment gateway ID
+         * @param  String  $message additional message for log
+         * @param  boolean $start   is this the first log entry for this transaction
+         */
+        public static function debuger( $tolog = NULL, $id, $message = NULL, $start = FALSE ) {
+
+        	if( !class_exists('WC_Logger') ) {
+        		return;
+        	}
+
+            if( !isset( $logger ) ) {
+                $logger      = new stdClass();
+                $logger->log = new WC_Logger();
+            }
+
+            /**
+             * If this is the start of the logging for this transaction add the header
+             */
+            if( $start ) {
+
+                $logger->log->add( $id, __('', 'woocommerce-pdf-invoice') );
+                $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
+                $logger->log->add( $id, __('', 'woocommerce-pdf-invoice') );
+                $logger->log->add( $id, __('PDF Invoice Log', 'woocommerce-pdf-invoice') );
+                $logger->log->add( $id, __('' .date('d M Y, H:i:s'), 'woocommerce-pdf-invoice') );
+                $logger->log->add( $id, __('', 'woocommerce-pdf-invoice') );
+
+            }
+
+            $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
+            $logger->log->add( $id, $message );
+            $logger->log->add( $id, print_r( $tolog, TRUE ) );
+            $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
+
+        }
 
 }
 

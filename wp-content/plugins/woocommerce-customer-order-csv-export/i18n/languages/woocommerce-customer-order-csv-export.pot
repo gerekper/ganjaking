@@ -1,15 +1,15 @@
-# Copyright (C) 2020 SkyVerge
+# Copyright (C) 2021 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Customer/Order/Coupon Export 5.2.0\n"
+"Project-Id-Version: WooCommerce Customer/Order/Coupon Export 5.3.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-12-07 07:25:56+00:00\n"
+"POT-Creation-Date: 2021-01-22 06:22:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -72,21 +72,41 @@ msgid ""
 "first %2$sautomated%3$s or %4$smanual%5$s export. "
 msgstr ""
 
+#: class-wc-customer-order-csv-export.php:598
+#. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
+#. <strong> HTML tag
+msgid ""
+"%1$sHeads up!%2$s We've merged the Export Refunds Only add-on into "
+"Customer/Order/Coupon Export, so you no longer need this add-on to export "
+"only refunded orders. This add-on has been deactivated and can be safely "
+"removed from your plugin list."
+msgstr ""
+
+#: class-wc-customer-order-csv-export.php:610
+#. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
+#. <strong> HTML tag
+msgid ""
+"%1$sHeads up!%2$s We've merged the Export VAT Number add-on into "
+"Customer/Order/Coupon Export, so you no longer need this add-on to include "
+"VAT numbers on order exports. This add-on has been deactivated and can be "
+"safely removed from your plugin list."
+msgstr ""
+
 #. Plugin Name of the plugin/theme
 msgid "WooCommerce Customer/Order/Coupon Export"
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:846
+#: class-wc-customer-order-csv-export.php:885
 #: includes/admin/class-wc-customer-order-csv-export-list-table.php:246
 msgid "Orders"
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:847
+#: class-wc-customer-order-csv-export.php:886
 #: includes/admin/class-wc-customer-order-csv-export-list-table.php:250
 msgid "Customers"
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:848
+#: class-wc-customer-order-csv-export.php:887
 #: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:496
 #: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:548
 #: includes/admin/class-wc-customer-order-csv-export-list-table.php:254
@@ -573,38 +593,38 @@ msgstr ""
 msgid "Leave blank to export orders with any status."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:301 includes/admin/Manual_Export.php:208
-#: includes/admin/Manual_Export.php:238
+#: includes/admin/Automations/Edit.php:301 includes/admin/Manual_Export.php:221
+#: includes/admin/Manual_Export.php:251
 msgid "Product categories"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:302 includes/admin/Manual_Export.php:209
+#: includes/admin/Automations/Edit.php:302 includes/admin/Manual_Export.php:222
 msgid "Orders with products in these categories will be included in the export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:310 includes/admin/Manual_Export.php:216
+#: includes/admin/Automations/Edit.php:310 includes/admin/Manual_Export.php:229
 msgid "Leave blank to export orders with products in any category."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:316 includes/admin/Manual_Export.php:222
-#: includes/admin/Manual_Export.php:252
+#: includes/admin/Automations/Edit.php:316 includes/admin/Manual_Export.php:235
+#: includes/admin/Manual_Export.php:265
 msgid "Products"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:317 includes/admin/Manual_Export.php:223
+#: includes/admin/Automations/Edit.php:317 includes/admin/Manual_Export.php:236
 msgid "Orders with these products will be included in the export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:326 includes/admin/Manual_Export.php:232
+#: includes/admin/Automations/Edit.php:326 includes/admin/Manual_Export.php:245
 msgid "Leave blank to export orders with any products."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:334 includes/admin/Manual_Export.php:292
+#: includes/admin/Automations/Edit.php:334 includes/admin/Manual_Export.php:305
 #: includes/admin/views/html-export-modals.php:272
 msgid "Add order notes"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:335 includes/admin/Manual_Export.php:293
+#: includes/admin/Automations/Edit.php:335 includes/admin/Manual_Export.php:306
 #: includes/admin/views/html-export-modals.php:222
 msgid "Enable to add a note to exported orders."
 msgstr ""
@@ -996,55 +1016,71 @@ msgstr ""
 msgid "Export Options"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:239
+#: includes/admin/Manual_Export.php:208
+msgid "Refunds"
+msgstr ""
+
+#: includes/admin/Manual_Export.php:209
+msgid "Determine whether to export all orders or those with at least 1 refund."
+msgstr ""
+
+#: includes/admin/Manual_Export.php:214
+msgid "Include all orders"
+msgstr ""
+
+#: includes/admin/Manual_Export.php:215
+msgid "Only include orders with refunds"
+msgstr ""
+
+#: includes/admin/Manual_Export.php:252
 msgid "Coupons that apply to these categories will be included in the export."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:246
+#: includes/admin/Manual_Export.php:259
 msgid "Leave blank to export coupons that apply to any category."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:253
+#: includes/admin/Manual_Export.php:266
 msgid "Coupons that apply to these products will be included in the export."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:262
+#: includes/admin/Manual_Export.php:275
 msgid "Leave blank to export coupons that apply to any products."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:268
+#: includes/admin/Manual_Export.php:281
 msgid "Start date"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:270
+#: includes/admin/Manual_Export.php:283
 msgid ""
 "Start date of customers or orders to include in the exported file, in the "
 "format <code>YYYY-MM-DD.</code>"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:276
+#: includes/admin/Manual_Export.php:289
 msgid "End date"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:278
+#: includes/admin/Manual_Export.php:291
 msgid ""
 "End date of customers or orders to include in the exported file, in the "
 "format <code>YYYY-MM-DD.</code>"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:307
+#: includes/admin/Manual_Export.php:320
 msgid "Subscriptions options"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:313
+#: includes/admin/Manual_Export.php:326
 msgid "Export subscriptions orders only"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:314
+#: includes/admin/Manual_Export.php:327
 msgid "Export subscription orders"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:322
+#: includes/admin/Manual_Export.php:335
 msgid "Export renewal orders"
 msgstr ""
 
@@ -1978,20 +2014,20 @@ msgstr ""
 msgid "http://www.woocommerce.com"
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:865
+#: class-wc-customer-order-csv-export.php:904
 msgctxt "export output type"
 msgid "CSV"
 msgstr ""
 
-#: class-wc-customer-order-csv-export.php:866
+#: class-wc-customer-order-csv-export.php:905
 msgctxt "export output type"
 msgid "XML"
 msgstr ""
 
-#: includes/CSV_Export_Generator.php:1018
-#: includes/CSV_Export_Generator.php:1032
-#: includes/XML_Export_Generator.php:1057
-#: includes/XML_Export_Generator.php:1071
+#: includes/CSV_Export_Generator.php:1034
+#: includes/CSV_Export_Generator.php:1048
+#: includes/XML_Export_Generator.php:1086
+#: includes/XML_Export_Generator.php:1100
 #. translators: Placeholders: %1$s - first name; %2$s - last name
 #. translators: Placeholders: %1$s - first name; %2$s - last name / surname
 #. translators: Placeholders: %1$s - first name; %2$s - last name / surname

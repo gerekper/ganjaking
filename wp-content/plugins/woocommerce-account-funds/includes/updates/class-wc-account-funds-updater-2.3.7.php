@@ -1,0 +1,227 @@
+<?php
+/**
+ * Class that updates DB in 2.3.7.
+ *
+ * @package WC_Account_Funds
+ * @since   2.3.7
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Updater for 2.3.7.
+ *
+ * This update fixes the non-stored '_funds_used' metadata on orders full-paid with funds and created with WC 4.7+ and
+ * Account Funds 2.3.x lower than 2.3.4.
+ */
+class WC_Account_Funds_Updater_2_3_7 implements WC_Account_Funds_Updater {
+
+	/**
+	 * Logger instance.
+	 *
+	 * @var WC_Logger
+	 */
+	protected $logger;
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function update() {
+		// Identify the Orders that need to be fixed.
+		$order_ids = get_posts(
+			array(
+				'post_type'      => 'shop_order',
+				'post_status'    => array( 'wc-processing', 'wc-completed' ),
+				'fields'         => 'ids',
+				'posts_per_page' => -1,
+				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					array(
+						'key'   => '_payment_method',
+						'value' => 'accountfunds',
+					),
+					array(
+						'key'   => '_order_total',
+						'value' => 0,
+						'type'  => 'NUMERIC',
+					),
+					array(
+						'key'   => '_funds_removed',
+						'value' => 1,
+					),
+					array(
+						'key'     => '_funds_used',
+						'compare' => 'NOT EXISTS',
+					),
+				),
+			)
+		);
+
+		if ( empty( $order_ids ) ) {
+			return;
+		}
+
+		$header_text = <<<EOT
+------------------------------------------------------------------------------
+The funds used on these orders were not deducted from the customers' accounts:
+------------------------------------------------------------------------------
+EOT;
+		$this->log( $header_text );
+
+		$order_balances = array();
+
+		foreach ( $order_ids as $order_id ) {
+			$order = wc_get_order( $order_id );
+
+			$order_total = round(
+				$order->get_subtotal() +
+				$order->get_cart_tax( 'edit' ) +
+				$order->get_total_fees() +
+				(float) $order->get_shipping_total( 'edit' ) +
+				(float) $order->get_shipping_tax( 'edit' ) -
+				(float) $order->get_discount_total(),
+				wc_get_price_decimals()
+			);
+
+			$order_balances[ $order_id ] = $order_total;
+
+			// Add the missing meta data.
+			update_post_meta( $order_id, '_funds_used', $order_total );
+
+			$this->log(
+				sprintf(
+					'Order ID: #%1$s, Funds Used: %2$s, Customer ID: #%3$s',
+					$order_id,
+					$order_total,
+					$order->get_customer_id( 'edit' )
+				)
+			);
+		}
+
+		update_option( 'account_funds_update_2_3_7_fix_order_balances', $order_balances );
+	}
+
+
+	/**
+	 * Processes the update action.
+	 *
+	 * @since 2.3.7
+	 *
+	 * @param string $action The action name.
+	 */
+	public function process_update_action( $action ) {
+		// Don't process the action twice.
+		if ( get_option( 'account_funds_update_2_3_7_action' ) ) {
+			wp_safe_redirect( self::get_log_file_url() );
+		}
+
+		if ( 'deduct' === $action ) {
+			$order_balances = get_option( 'account_funds_update_2_3_7_fix_order_balances', array() );
+
+			if ( ! empty( $order_balances ) ) {
+				$header_text = <<<EOT
+---------------------------------------------
+Deducted funds from the customers' accounts:
+---------------------------------------------
+EOT;
+				$this->log( "\n" . $header_text );
+			}
+
+			foreach ( $order_balances as $order_id => $funds_used ) {
+				$order = wc_get_order( $order_id );
+
+				if ( ! $order ) {
+					continue;
+				}
+
+				$customer_id = $order->get_customer_id( 'edit' );
+
+				WC_Account_Funds::remove_funds( $customer_id, $funds_used );
+
+				$this->log(
+					sprintf(
+						'Customer ID: #%1$s, Deducted funds: %2$s, Order ID: #%3$s',
+						$customer_id,
+						$funds_used,
+						$order_id
+					)
+				);
+			}
+		} else {
+			$this->log( "\nFunds' deduction skipped by the store owner." );
+		}
+
+		update_option( 'account_funds_update_2_3_7_action', $action );
+
+		WC_Account_Funds_Admin_Notices::add_dismiss_notice(
+			'wc_account_funds_update_2_3_7',
+			_x( 'WooCommerce Account Funds update completed.', 'admin notice', 'woocommerce-account-funds' )
+		);
+
+		wp_safe_redirect( self::get_log_file_url() );
+	}
+
+	/**
+	 * Logs a message.
+	 *
+	 * @since 2.3.7
+	 *
+	 * @param string $message The message to log.
+	 */
+	public function log( $message ) {
+		if ( ! $this->logger ) {
+			$this->logger = ( function_exists( 'wc_get_logger' ) ? wc_get_logger() : new WC_Logger() );
+		}
+
+		add_filter( 'woocommerce_format_log_entry', array( $this, 'format_log_entry' ), 10, 2 );
+
+		$this->logger->info( $message, array( 'source' => 'wc-account-funds-update-2-3-7' ) );
+
+		remove_filter( 'woocommerce_format_log_entry', array( $this, 'format_log_entry' ) );
+	}
+
+	/**
+	 * Filters the log entry format.
+	 *
+	 * @since 2.3.7
+	 *
+	 * @param string $entry The log entry.
+	 * @param array  $args  The entry arguments.
+	 * @return string
+	 */
+	public function format_log_entry( $entry, $args ) {
+		if ( 'wc-account-funds-update-2-3-7' === $args['context']['source'] ) {
+			$entry = $args['message'];
+		}
+
+		return $entry;
+	}
+
+	/**
+	 * Gets the admin URL to view the log file generated by this update.
+	 *
+	 * @since 2.3.7
+	 *
+	 * @return string
+	 */
+	public static function get_log_file_url() {
+		if ( ! class_exists( 'WC_Admin_Status', false ) ) {
+			include_once WC_ABSPATH . 'includes/admin/class-wc-admin-status.php';
+		}
+
+		$logs    = WC_Admin_Status::scan_log_files();
+		$log_url = '';
+
+		foreach ( $logs as $log ) {
+			if ( 0 === strpos( $log, 'wc-account-funds-update-2-3-7' ) ) {
+				$log_url = admin_url( 'admin.php?page=wc-status&tab=logs&log_file=' . $log );
+				break;
+			}
+		}
+
+		return $log_url;
+	}
+}
+
+return new WC_Account_Funds_Updater_2_3_7();

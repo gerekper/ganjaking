@@ -47,15 +47,16 @@ jQuery( document ).ready( function($) {
 		var matching_variations = wc_variation_form_matcher.find_matching_variations( $product_variations, data );
 		var variation = matching_variations.shift();
 
-		if ( typeof( variation.display_price ) !== 'undefined' ) {
+		if ( typeof variation.display_price !== 'undefined' ) {
 			$totals.data( 'price', variation.display_price );
-		} else if ( $( variation.price_html ).find('.amount:last').size() ) {
-			product_price = $( variation.price_html ).find('.amount:last').text();
+		} else if ( $( variation.price_html ).find('.amount').last().length ) {
+			product_price = $( variation.price_html ).find('.amount').last().text();
 			product_price = product_price.replace( woocommerce_addons_params.currency_format_symbol, '' );
 			product_price = product_price.replace( woocommerce_addons_params.currency_format_thousand_sep, '' );
 			product_price = product_price.replace( woocommerce_addons_params.currency_format_decimal_sep, '.' );
 			product_price = product_price.replace(/[^0-9\.]/g, '');
 			product_price = parseFloat( product_price );
+
 			$totals.data( 'price', product_price );
 		}
 

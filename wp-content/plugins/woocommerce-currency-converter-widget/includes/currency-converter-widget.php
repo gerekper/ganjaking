@@ -50,18 +50,15 @@ class WooCommerce_Widget_Currency_Converter extends WP_Widget {
 		// Assume default currency from WooCommerce.
 		$current_currency = get_woocommerce_currency();
 
-		if ( ! $disable_location_based_currency ) {
-			if ( ! empty( $_COOKIE['woocommerce_current_currency'] ) ) {
-				// If a cookie is set then use that
-				$current_currency = $_COOKIE['woocommerce_current_currency'];
-			} else {
-				// Get the users local currency based on their location
-				$users_default_currency = WC_Currency_Converter::get_users_default_currency();
-
-				// If its an allowed currency, then use it
-				if ( isset( $users_default_currency ) && is_array( $currencies ) && in_array( $users_default_currency, $currencies ) ) {
-					$current_currency = $users_default_currency;
-				}
+		if ( ! empty( $_COOKIE['woocommerce_current_currency'] ) ) {
+			// If a cookie is set then use that.
+			$current_currency = $_COOKIE['woocommerce_current_currency'];
+		} elseif ( ! $disable_location_based_currency ) {
+			// If location detection is enabled, get the users local currency based on their location.
+			$users_default_currency = WC_Currency_Converter::get_users_default_currency();
+			// If its an allowed currency, then use it.
+			if ( isset( $users_default_currency ) && is_array( $currencies ) && in_array( $users_default_currency, $currencies ) ) {
+				$current_currency = $users_default_currency;
 			}
 		}
 

@@ -17,7 +17,7 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-memberships/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -724,11 +724,11 @@ class Members_Area {
 						 */
 						do_action( 'wc_memberships_before_members_area', $section, $user_membership );
 
-						$this->get_template( $section, array(
+						$this->get_template( $section, [
 							'user_membership' => $user_membership,
 							'user_id'         => $user_id,
 							'paged'           => $paged,
-						) );
+						] );
 
 						/**
 						 * Fires after Members Area template output.
@@ -830,7 +830,7 @@ class Members_Area {
 	 *      @type int $paged optional pagination (optional)
 	 * }
 	 */
-	public function get_template( $section, $args ) {
+	public function get_template( string $section, array $args ) {
 
 		// bail out: no args, no party
 		if ( empty( $args['user_membership'] ) && empty( $args['user_id'] ) && ( ! $args['user_membership'] instanceof \WC_Memberships_User_Membership ) ) {
@@ -895,6 +895,22 @@ class Members_Area {
 				'customer_membership' => $args['user_membership'],
 				'membership_details'  => $this->get_members_area_user_membership_details( $args['user_membership'] ),
 			) );
+
+		} elseif ( 'my-membership-sensei' === $section && wc_memberships()->get_integrations_instance()->is_sensei_active() ) {
+
+			// keep default $args for legacy templates
+			wc_get_template( 'myaccount/my-membership-sensei.php', array_merge( $args, [
+				/* @see \WC_Memberships_User_Membership */
+				'customer_membership' => $args['user_membership'],
+				'user_id'             => $args['user_id'],
+				'paged'               => $paged,
+				'restricted_content'  => $args['user_membership']->get_plan()->get_restricted_content( $paged, [
+					'post_type' => [
+						'course',
+						'lesson'
+					],
+				] ),
+			] ) );
 
 		} else {
 
