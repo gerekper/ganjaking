@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2021-01-19 11:40:36+00:00\n"
+"POT-Creation-Date: 2021-01-26 08:35:45+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -457,7 +457,7 @@ msgstr ""
 
 #: mp3/lib/API/MP/v1/API.php:54
 #: mp3/lib/Form/Templates/Templates/InitialForm.php:22
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:50
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:48
 #: mp3/lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:40
 #: mp3/tests/integration/API/MP/APITest.php:40 mp3/views/form/editor.html:165
 #: mp3/views/help.html:68 mp3/views/newsletter/editor.html:1104
@@ -467,7 +467,7 @@ msgid "Email"
 msgstr ""
 
 #: mp3/lib/API/MP/v1/API.php:62
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:51
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:49
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:138
 #: mp3/tests/integration/API/MP/APITest.php:48 mp3/views/form/editor.html:156
 #: mp3/views/subscribers/subscribers.html:72
@@ -475,7 +475,7 @@ msgid "First name"
 msgstr ""
 
 #: mp3/lib/API/MP/v1/API.php:70
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:52
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:50
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:147
 #: mp3/tests/integration/API/MP/APITest.php:56 mp3/views/form/editor.html:158
 #: mp3/views/subscribers/subscribers.html:73
@@ -512,7 +512,7 @@ msgstr ""
 msgid "Failed to add list"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Newsletters.php:133
+#: mp3/lib/AdminPages/Pages/Newsletters.php:128
 msgid "In any WordPress role"
 msgstr ""
 
@@ -2606,27 +2606,28 @@ msgstr ""
 msgid "Please specify a newsletter type."
 msgstr ""
 
-#: mp3/lib/Models/Segment.php:139 mp3/views/subscribers/subscribers.html:115
+#: mp3/lib/Models/Segment.php:140 mp3/views/subscribers/subscribers.html:115
 msgid "WordPress Users"
 msgstr ""
 
-#: mp3/lib/Models/Segment.php:141
+#: mp3/lib/Models/Segment.php:142
 msgid "This list contains all of your WordPress users."
 msgstr ""
 
-#: mp3/lib/Models/Segment.php:157
+#: mp3/lib/Models/Segment.php:158
 msgid "WooCommerce Customers"
 msgstr ""
 
-#: mp3/lib/Models/Segment.php:159
+#: mp3/lib/Models/Segment.php:160
 msgid "This list contains all of your WooCommerce customers."
 msgstr ""
 
-#: mp3/lib/Models/Segment.php:256
+#: mp3/lib/Models/Segment.php:269
+#: mp3/lib/Segments/SegmentsSimpleListRepository.php:57
 msgid "Not in a List"
 msgstr ""
 
-#: mp3/lib/Models/SendingQueue.php:39
+#: mp3/lib/Models/SendingQueue.php:38
 msgid "Rendered newsletter body is invalid!"
 msgstr ""
 
@@ -2640,12 +2641,12 @@ msgstr ""
 
 #: mp3/lib/Models/Subscriber.php:159
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:62
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:271
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:260
 msgid "All Lists"
 msgstr ""
 
 #: mp3/lib/Models/Subscriber.php:167
-#: mp3/lib/Subscribers/SubscriberListingRepository.php:256
+#: mp3/lib/Subscribers/SubscriberListingRepository.php:245
 msgid "Subscribers without a list (%s)"
 msgstr ""
 
@@ -2889,39 +2890,35 @@ msgstr ""
 msgid "Did not find any valid lists."
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:38
-msgid "Not In List"
-msgstr ""
-
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:60
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:58
 msgid "IP address"
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:101
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:99
 msgid "Ignore field..."
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:105
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:103
 msgid "Create new field..."
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:111
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:109
 msgid "Select all..."
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:115
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:113
 msgid "Deselect all..."
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:120
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:118
 msgid "Actions"
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:124
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:122
 msgid "System fields"
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:130
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:128
 #: mp3/views/subscribers/importExport/import.html:56
 msgid "User fields"
 msgstr ""
@@ -8864,7 +8861,7 @@ msgctxt "Error code (inside parentheses)"
 msgid "code: %s"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Settings.php:93
+#: mp3/lib/AdminPages/Pages/Settings.php:99
 msgctxt "Notice in Settings when WooCommerce is not enabled"
 msgid ""
 "You need to have WooCommerce active to access the MailPoet email customizer "
@@ -9680,12 +9677,12 @@ msgctxt "Subject of an email confirming that MailPoet Sending Service works"
 msgid "Sending with MailPoet works!"
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:58
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:56
 msgctxt "Subscription status"
 msgid "List status"
 msgstr ""
 
-#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:59
+#: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:57
 msgctxt "Subscription status"
 msgid "Global status"
 msgstr ""

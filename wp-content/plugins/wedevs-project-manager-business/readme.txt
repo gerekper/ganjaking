@@ -121,6 +121,10 @@ A. Found any bugs? Please create an [issue](https://github.com/tareq1988/wp-proj
 
 == Changelog ==
 
+= v2.5.9 - Jan 29, 2021 =
+
+**Fix** Time tracker is not working real time.
+
 = v2.5.8 - Jan 26, 2020 =
 
 * **New** Added: Estimation hours for Completed task & subtask.

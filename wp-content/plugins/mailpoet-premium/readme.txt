@@ -4,7 +4,7 @@ Tags: newsletter, email, welcome email, post notification, autoresponder, mailch
 Requires at least: 5.3
 Tested up to: 5.5
 Requires PHP: 7.1
-Stable tag: 3.58.0
+Stable tag: 3.59.0
 Create and send beautiful emails and newsletters from WordPress.
 
 == Description ==
@@ -59,6 +59,9 @@ Our [support site](https://kb.mailpoet.com/) has plenty of articles. You can wri
 5. Importing subscribers with a CSV or from MailChimp.
 
 == Changelog ==
+
+= 3.59.0 - 2021-01-25 =
+* Improved: minor changes and fixes.
 
 = 3.58.0 - 2021-01-18 =
 * Improved: minor changes and fixes.

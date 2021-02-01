@@ -206,9 +206,7 @@ function pm_pro_create_time_tracker_table() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'pm_time_tracker';
 
-     // `run_status` tinyint(4) NOT NULL COMMENT '1: Running; 0: Stop;',
-
-
+    // `run_status` tinyint(4) NOT NULL COMMENT '1: Running; 0: Stop;',
     $sql = "CREATE TABLE IF NOT EXISTS {$table_name} (
           `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
           `user_id` int(11) UNSIGNED NOT NULL,
@@ -225,11 +223,11 @@ function pm_pro_create_time_tracker_table() {
           `updated_at` timestamp NULL DEFAULT NULL,
           PRIMARY KEY (`id`),
           KEY `task_id` (`task_id`),
-          KEY `project_id` (`project_id`),
-          FOREIGN KEY (`task_id`) REFERENCES `{$wpdb->prefix}pm_tasks` (`id`) ON DELETE CASCADE
+          KEY `project_id` (`project_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
     dbDelta( $sql );
 }
 

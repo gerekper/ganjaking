@@ -80,6 +80,9 @@ class Time_Tracker {
         $current_user_data = [];
 
         foreach ( $times as $key => $time_tracker ) {
+            if ( $time_tracker->total == '0' ) {
+                //continue;
+            }
 
             if ( $current_user_id == $time_tracker->user_id ) {
                 $time                = $this->fromat_time_tracker( $time_tracker );
@@ -192,8 +195,12 @@ class Time_Tracker {
         $current_user_id = get_current_user_id();
         $times = [];
 
-        foreach ( $this->times as $key => $time) {
+        foreach ( $this->times as $key => $time ) {
             if ( $time->user_id == $current_user_id ) {
+                if ( $time->stop == '0' ) {
+                    $time->total = strtotime( current_time( 'mysql' ) ) - $time->start;
+                }
+
                 $times[] = $time;
             }
         }
